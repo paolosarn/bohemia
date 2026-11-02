@@ -15996,6 +15996,82 @@
     "how": "image",
     "src": "vote/UI_THE_FIRST_MINUTE_HINTS_11_2.webp"
    }
+  },
+  {
+   "id": "animation-march-bandage-11-2",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "83ecc973",
+   "made": "11/2",
+   "title": "A HURT MAN BANDAGES HIS ARM AS THE CREW WALKS",
+   "said": "I like these animations, let's make this happen... it has to look good, that's the main thing... I'm not sure if it needs to be customizable to all the items, I prefer maybe not",
+   "why": "On the map, a hurt crew member wraps a dirty bandage round one forearm while walking, bites the end, pulls it tight and tries the arm. It plays in the VOTE tab on your own crew, and on the map by itself when someone is hurt.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_MARCH_BANDAGE.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "animation-march-pills-11-2",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "83ecc973",
+   "made": "11/2",
+   "title": "AN ACHING MAN DRY-SWALLOWS PILLS AS THE CREW WALKS",
+   "said": "I like these animations, let's make this happen... it has to look good, that's the main thing... I'm not sure if it needs to be customizable to all the items, I prefer maybe not",
+   "why": "On the map, a crew member who aches shakes pills out of an orange bottle into a palm twice and swallows them dry, head back, while walking. It plays in the VOTE tab on your own crew, and on the map by itself.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_MARCH_PILLS.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "animation-march-tape-11-2",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "83ecc973",
+   "made": "11/2",
+   "title": "A MAN DUCT-TAPES HIS TORN ARMOUR AS THE CREW WALKS",
+   "said": "I like these animations, let's make this happen... it has to look good, that's the main thing... I'm not sure if it needs to be customizable to all the items, I prefer maybe not",
+   "why": "On the map, a crew member with torn armour (and tape in the cart) pins duct tape on the chest, pulls a strip across, tears it with the teeth and presses it flat while walking, on the armour being worn so it fits every vest. It plays in the VOTE tab on your own crew, and on the map by itself.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_MARCH_TAPE.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "animation-march-helmet-11-2",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "83ecc973",
+   "made": "11/2",
+   "title": "A MAN KNOCKS THE DENT OUT OF HIS HELMET AS THE CREW WALKS",
+   "said": "I like these animations, let's make this happen... it has to look good, that's the main thing... I'm not sure if it needs to be customizable to all the items, I prefer maybe not",
+   "why": "On the map, a crew member with a dented helmet takes it off, knocks the dent out with the butt of a knife three times and puts it back on while walking, the real helmet being worn (a hood is never knocked). It plays in the VOTE tab on your own crew, and on the map by itself.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_MARCH_HELMET.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

@@ -31,6 +31,8 @@
                                                o.where the screen's name for the count; o.hw a head's width on that sheet (25)
      BohemiaWear.face(ctx, img, size, look, wear, redo, crop)   his headgear over his portrait (img the portrait drawn at size,
                                                crop [sx, sy, sw, sh] if it is a cell of a sheet); redo() once the face sheet lands
+                                               o.headAt [x, y]: his helmet drawn there, in the cell's pixels, not on his head
+                                               (ANIMATION [they mend on the march]: off and in his fist)
      BohemiaWear.anchor(img, x, y, w, h, hw)   where his head is on a cell: {cx, top, w} (or {lying}), null if none
      BohemiaWear.seen                          what each screen drew: seen[where]['head:riot_helmet'] = frames
      BohemiaWear.at[who]                       where his head was last drawn {x, y, s, where, d}, in the drawing context's units
@@ -177,7 +179,10 @@
     var ax = ox + (dx + a.cx) * s, ay = oy + (dy + a.top + Math.min(a.w, hw * 1.2) / 2) * s, d = DIRS[((f | 0) % 8 + 8) % 8];
     if (who) at[who] = { x: ax, y: ay, s: s * k, where: o.where || 'any', d: d };   /* where his head was drawn, in the context's own units */
     if (bp && put(bp.key, d, ax, ay, k)) { count(o.where, 'body', bp.cls); count(o.where, 'body', bp.cls + '@' + d); drew = true; }
-    if (hp && put(hp.key, d, ax, ay, k)) { count(o.where, 'head', hp.cls); count(o.where, 'head', hp.cls + '@' + d); drew = true; }
+    /* THEY MEND ON THE MARCH (ANIMATION, ask line 314): o.headAt [x, y], the cell's own pixels: his helmet is off his head and in his
+       fist (the middle of the bowl he holds), so it is drawn there and his head is bare */
+    var hx = o.headAt ? ox + o.headAt[0] * s : ax, hy = o.headAt ? oy + o.headAt[1] * s : ay;
+    if (hp && put(hp.key, d, hx, hy, k)) { count(o.where, 'head', hp.cls); count(o.where, 'head', hp.cls + '@' + d); if (o.headAt) count(o.where, 'head', 'held'); drew = true; }
     return drew;
   }
   /* his portrait: the widest row of his head (in its top two thirds) is his head across; its top, or its middle if the frame

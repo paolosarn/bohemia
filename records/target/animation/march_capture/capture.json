@@ -1,0 +1,268 @@
+{
+ "profile": "phone_portrait",
+ "natural": {
+  "most": 1,
+  "acts": {
+   "crew:person_town_0:pills": 1
+  },
+  "firstAt": 4321.199999999255,
+  "t0": 147755.40000000037,
+  "drew": {},
+  "face": "SE"
+ },
+ "shots": [
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_00.png",
+   "acting": {},
+   "face": "S"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_01.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_02.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_03.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_04.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_05.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_06.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_07.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_08.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_09.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_10.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_11.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_12.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_13.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_14.png",
+   "acting": {
+    "crew:person_town_0": "bind",
+    "crew:person_town_1": "tape"
+   },
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/bandage_and_tape_15.png",
+   "acting": {},
+   "face": "SW"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_00.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_01.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_02.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_03.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_04.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_05.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_06.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_07.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_08.png",
+   "acting": {
+    "you": "helmet",
+    "crew:person_town_1": "pills"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_09.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_10.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_11.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_12.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_13.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_14.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_15.png",
+   "acting": {
+    "you": "helmet"
+   },
+   "face": "SE"
+  },
+  {
+   "fn": "records/target/animation/march_capture/helmet_and_pills_16.png",
+   "acting": {},
+   "face": "SE"
+  }
+ ],
+ "errs": [],
+ "frames_kept_as": [
+  "records/target/animation/march_capture/march_on_the_phone.webp (every frame, a key each, 167 ms)",
+  "records/target/animation/march_capture/march_on_the_phone_sheet.webp"
+ ]
+}

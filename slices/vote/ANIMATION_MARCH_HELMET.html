@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Helmet On The March</title>
+<!-- ANIMATION [they mend on the march], ask line 314 (Paolo 11/2: 'I like these animations, let's make this happen... it has to
+     look good, that's the main thing'). His men from the map's own pictures (slices/rig_march on their own map walk sheets),
+     played by engine/bohemia_march_acts.js the way the map plays them, their worn gear laid on by engine/bohemia_wear.js. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  canvas{width:100%;display:block;image-rendering:pixelated;background:#0a0c11;border-radius:3px}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#1d1c24;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 10px;margin:0 6px 8px 0}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  .note{margin-top:10px;color:#6f6862;max-width:60ch}
+</style>
+<h1>THE HELMET ON THE MARCH</h1>
+<p>YOUR hard hat took a hit. As the crew walks, you lift it off, hold it at your chest and knock the dent out with the butt of your knife, three times, then put it back on. It is the hat you are wearing. Your legs never stop walking.</p>
+<div class="row"><div class="lab"><span>YOUR CREW ON THE MAP</span><span class="tag" id="state">LOADING</span></div>
+<button data-face="S">TOWARD YOU</button><button data-face="SE" class="on">DOWN RIGHT</button><button data-face="E">RIGHT</button><button data-face="SW">DOWN LEFT</button><button data-face="W">LEFT</button><button id="zoom">CLOSER</button>
+<canvas id="cv"></canvas></div>
+<p class="note">In the game it happens by itself: a hurt or banged-up crew member works on it now and then, one or two at a time, never the whole crew. Walking away from you, nobody does it (you would only see a back).</p>
+<script>window.MARCH_ACT = 'helmet'; window.BOHEMIA_MARCH_BASE = '../rig_march/'; window.BOHEMIA_MARCH_DATA = '../../records/target/bb/march_acts.json';
+window.BOHEMIA_WEAR_BASE = '../wear/'; window.BOHEMIA_WEAR_DATA = '../../records/target/bb/armour_looks.json'; window.BOHEMIA_WEAR_FACES = false;</script>
+<script src="../../engine/bohemia_wear.js"></script>
+<script src="../../engine/bohemia_march_acts.js"></script>
+<script src="animation_march.js"></script>

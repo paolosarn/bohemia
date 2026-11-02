@@ -48485,22 +48485,46 @@ function mapIdleFrame(set, face, beat, still){
    shoulders wear their helmets and body armour (engine/bohemia_wear.js: the head found on the picture drawn, the piece each has
    on), in depth with the painting like the body under it; the lead is his main man's own look (RUN's mapMainLook) or 'you'.
    CHARACTER's block, RUN's file. ==== */
-function mapWearOn(fr, ox, oy, s, face, look){
+function mapWearOn(fr, ox, oy, s, face, look, extra){
   var W = window.BohemiaWear; if (!W || !fr || !look) return false;
   /* the door's company when the crew screen has saved none: each man at his place in the crew's looks, as the fight dresses him */
   try { if (LOOP && LOOP.start && LOOP.start.company && CREW_DEFS) W.fallback(LOOP.start.company.map(function(m, i){ return { look: m.look || CREW_DEFS.looks[i], gear: m.gear }; })); } catch (_e) {}
   var c = (typeof RigFrame !== 'undefined' && fr instanceof RigFrame) ? { img: fr.__sheet, x: fr.sx, y: fr.sy, w: fr.sw, h: fr.sh, dx: fr.ox, dy: fr.oy }
     : { img: fr, x: 0, y: 0, w: fr.width, h: fr.height, dx: 0, dy: 0 };
   var f = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'].indexOf(face); if (f < 0) f = 0;
-  return W.on(g, c, ox, oy, s, f, W.wearOf(look), { who: 'map:' + look, where: 'map' });
+  return W.on(g, c, ox, oy, s, f, W.wearOf(look), { who: 'map:' + look, where: 'map', headAt: extra && extra.headAt || null });   /* __THEY_MEND_ON_THE_MARCH__: his helmet in his fist */
 }
 /* ==== /__THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
+/* ==== __THEY_MEND_ON_THE_MARCH__ (ANIMATION, ask line 314, Paolo 11/2: 'I like these animations, let's make this happen... it has to
+   look good, that's the main thing'; records/BOHEMIA_ANIMATION_HEALING_AND_MENDING_ON_THE_MARCH_11_2_26.md). While the party walks,
+   a man healing or mending on the march (the clock's BohemiaCondition.elapse) does one of his four as he walks: binds a bandage on
+   his forearm (the end in his teeth), shakes pills out and swallows them dry, tapes his cracked plate (the tape torn with his teeth),
+   knocks the dent out of his helmet with his knife's butt and puts it back on. engine/bohemia_march_acts.js picks who and when (the
+   numbers: records/target/bb/march_acts.json); the pictures are his own model on HIS OWN WALK's six keys (slices/rig_march), so the
+   legs never stop. Drawn: the act's cell in his walk frame's place, his worn plate and helmet over it found on his WALK frame (the
+   helmet in his fist while it is off), then his arms and what his hands hold again over the plate, so his hands tape it. ==== */
+var MAP_MARCH = { on: true, fr: {} };
+function mapMarchFrame(who, look, need, face, walkPh, walkFr){
+  var M = window.BohemiaMarch; if (!MAP_MARCH.on || !M || !look || walkPh == null || !(walkFr instanceof RigFrame)) return null;
+  var q = null; try { q = M.frame(who, look, need, face, walkPh, true); } catch (_e) { q = null; }
+  if (!q) return null;
+  var c = q.cell, key = look + ':' + q.act + ':' + face + ':' + q.pose + ':' + q.leg + ':' + walkFr.ox + ',' + walkFr.oy + ':' + walkFr.height, e = MAP_MARCH.fr[key];
+  if (!e) e = MAP_MARCH.fr[key] = {
+    body: rigFrame(q.img, c[0], c[1], c[2], c[3], walkFr.ox + c[4], walkFr.oy + c[5], walkFr.width, walkFr.height),
+    front: rigFrame(q.front, c[0], c[1], c[2], c[3], walkFr.ox + c[4], walkFr.oy + c[5], walkFr.width, walkFr.height),
+    headAt: q.helm ? [walkFr.ox + q.helm[0], walkFr.oy + q.helm[1]] : null, walk: walkFr };
+  try { MAP_DREW = MAP_DREW || {}; MAP_DREW.march = MAP_DREW.march || {}; MAP_DREW.march[q.act] = (MAP_DREW.march[q.act] | 0) + 1;
+        MAP_DREW.marchLast = { who: who, look: look, act: q.act, pose: q.pose, leg: q.leg, key: q.key, face: face }; } catch (_e) {}
+  return e;
+}
+/* ==== /__THEY_MEND_ON_THE_MARCH__ ==== */
 function mapPersonDraw(set, face, beat, sx, footY, walkPh, look){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
   if (walkPh == null) { var __idle = mapIdleFrame(set, face, beat, f.idle); if (__idle) fr = __idle; }   /* __EVERYBODY_IDLES__ */
   /* __THE_PARTIES_WALK__: on the move, the stride's own picture (one stride = two steps of the glide) */
   if (walkPh != null && f.walk && f.walk.length) { fr = f.walk[Math.floor((((walkPh % 1) + 1) % 1) * f.walk.length) % f.walk.length]; if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.walking = (MAP_DREW.art.walking | 0) + 1; }
+  var __mf = (walkPh != null && look) ? mapMarchFrame('crew:' + look, look, { look: look }, f === set[face] ? face : 'S', walkPh, fr) : null;   /* __THEY_MEND_ON_THE_MARCH__ */
   var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
   var kk = MAP_CREW_DRAWING ? MAP_CREW_K.body : MAP_PERSON_K * MAP_PEOPLE_K;   /* __THE_MARKER_IS_YOUR_CREW__: his men at his size */
   var w = fr.width * s56 * kk, h = fr.height * s56 * kk;
@@ -48511,8 +48535,9 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh, look){
       g.fillStyle = 'rgba(10,8,6,0.45)';
       g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
     g.imageSmoothingEnabled = false;
-    rigBlit(fr, __bx, __by, w, h);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ */
-    if (look) mapWearOn(fr, __bx, __by, w / fr.width, f === set[face] ? face : 'S', look);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
+    rigBlit(__mf ? __mf.body : fr, __bx, __by, w, h);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ */
+    if (look) mapWearOn(fr, __bx, __by, w / fr.width, f === set[face] ? face : 'S', look, __mf);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ (on his walk frame: the act's hands never move his plate) */
+    if (__mf) rigBlit(__mf.front, __bx, __by, w, h);   /* __THEY_MEND_ON_THE_MARCH__: his arms over his plate */
   }, Math.min(__bx, sx - w * 0.22), __by, Math.max(w, w * 0.44), h + w * 0.07 + 1);
   return { w: w, h: h * 0.93 };
 }
@@ -52487,7 +52512,7 @@ function renderCity(){
        ground and everything above it lifts, done as the same translate the pin used so
        THE MAP GLIDES keeps measuring it off the draw. */
     g.translate(0,-__lift);
-    let __body=null, __how='cook';
+    let __body=null, __how='cook', __march=null, __marchWalk=null;   /* __THEY_MEND_ON_THE_MARCH__ */
     try{
       const __face=mapFaceNow();
       /* __THE_MAP_IS_ALL_RIG__ (rule 121(e)): HIM as CHARACTER's 3D twin of his own body, the moment the sheets are in;
@@ -52503,6 +52528,8 @@ function renderCity(){
       if(__set&&__moving&&__set.walk&&__set.walk.length)
         __spr=__set.walk[Math.floor((__st==null?0:__st)*__set.walk.length)%__set.walk.length];
       if(__rigYou&&!__moving&&__spr){ const __q=mapIdleFrame(__rigYou,__src[__face]?__face:'S',mapArtBeat(),__spr); if(__q) __spr=__q; }   /* __EVERYBODY_IDLES__: he stands alive (ANIMATION) */
+      if(__rigYou&&__moving&&__spr&&__src[__face]){ __march=mapMarchFrame('you',(typeof mapMainLook==='function'&&mapMainLook())||'you',{main:true},__face,__st==null?0:__st,__spr);   /* __THEY_MEND_ON_THE_MARCH__ */
+        if(__march){ __marchWalk=spriteAt(__spr,32); __spr=__march.body; } }
       if(__spr){ __body=spriteAt(__spr,32); __how=__rigYou?'rig3d':'rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
     }catch(_e){ __body=null; }
     /* __THE_PARTIES_WALK__ (rule 65: the party marker is three real dressed people): TWO OF HIS COMPANY walk
@@ -52519,7 +52546,8 @@ function renderCity(){
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
       const __yx=mapSnap(__gx-__bw/2), __yy=mapSnap(__gy-__bh*0.93);
       MAP_DEPTH.you=mapDepthBlit(function(){ g.drawImage(__body, __yx, __yy, __bw, __bh);
-        if(__how==='rig3d') mapWearOn(__body, __yx, __yy, __bw/__body.width, mapFaceNow(), (typeof mapMainLook === 'function' && mapMainLook()) || 'you'); }, __yx, __yy, __bw, __bh);   /* __YOU_WALK_BEHIND_IT__: the share of him covered; __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and body armour on him */
+        if(__how==='rig3d') mapWearOn(__marchWalk||__body, __yx, __yy, __bw/__body.width, mapFaceNow(), (typeof mapMainLook === 'function' && mapMainLook()) || 'you', __march);
+        if(__march){ const __fb=spriteAt(__march.front,32); g.drawImage(__fb, __yx, __yy, __bw, __bh); } }, __yx, __yy, __bw, __bh);   /* __THEY_MEND_ON_THE_MARCH__: his plate found on his walk frame, his arms over it */   /* __YOU_WALK_BEHIND_IT__: the share of him covered; __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and body armour on him */
     } else {
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
@@ -92738,5 +92766,5 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_bosses.js"></script>  <!-- __THE_BOSSES__ BOSSES (rule 302): act one's first three bosses, their places, their fights and their verbs (records/target/bb/boss_act_one.json) -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>
-<script defer src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour on him on the map -->  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
+<script defer src="../engine/bohemia_wear.js"></script>  <script defer src="../engine/bohemia_march_acts.js"></script>  <!-- __THEY_MEND_ON_THE_MARCH__ (ANIMATION, ask line 314) -->  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour on him on the map -->  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>

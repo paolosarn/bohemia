@@ -1,0 +1,64 @@
+{
+ "_about": "THEY MEND ON THE MARCH (ANIMATION, ask line 314): who on the map's walking party works at his wounds or his gear as he walks, and when. engine/bohemia_march_acts.js reads every number here (a modder's file: change one, reload). The pictures are slices/rig_march (tools/bohemia_animation_they_mend_on_the_march.py); the acts' own lengths are their timelines there, whole bars at 120.",
+ "men_at_once": {
+  "value": 2,
+  "unit": "men of the walking party at work at the same moment",
+  "source": "records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md (ask line 314), Paolo 11/2: 'I like these animations, let's make this happen... it has to look good'; the brief: 'one or two men at a time across the party, never everyone at once'"
+ },
+ "start_chance": {
+  "value": 0.45,
+  "unit": "the chance, on each new bar, that a man who needs it and is free starts one (so it is not every bar on the dot)",
+  "source": "draft:true, ANIMATION's pick"
+ },
+ "rest_bars_min": {
+  "value": 6,
+  "unit": "bars a man rests before he works again (and after an act cut short by a stop or a turn away)",
+  "source": "the brief: 'a pause of several bars before the same man does it again'; draft:true"
+ },
+ "rest_bars_max": {
+  "value": 12,
+  "unit": "the longest rest, in bars (each rest is drawn between the two)",
+  "source": "draft:true"
+ },
+ "first_bars": {
+  "value": 2,
+  "unit": "bars of walking before anybody starts (nothing happens in the first second, the second votes)",
+  "source": "laws/BOHEMIA_ADDENDUM_THE_SECOND_VOTES_9_24_26.md: NOTHING IS FORCED AND NOTHING HAPPENS IN THE FIRST SECOND"
+ },
+ "heal_below": {
+  "value": 0.99,
+  "unit": "the share of his hitpoints under which a man is healing on the march (the map heals 1 an hour, engine/bohemia_condition.js)",
+  "source": "records/target/bb/condition.json camp_done_at (whole is 99)"
+ },
+ "bandage_below": {
+  "value": 0.6,
+  "unit": "under this share of his hitpoints he binds a wound (the bandage); over it, an ache, the pills",
+  "source": "the brief: 'a man low on HP bandages or takes pills'; draft:true, ANIMATION's split"
+ },
+ "mend_min_points": {
+  "value": 1,
+  "unit": "armour points a piece must be down before he works on it; and only while the company has TAPE (the march mends with tape: no tape, nothing mended, nobody tapes)",
+  "source": "engine/bohemia_condition.js elapse (3 points a piece an hour, one tape for 15)"
+ },
+ "keys_per_beat": {
+  "value": 3,
+  "unit": "drawn keys a beat (twelve a bar), the body's grid",
+  "source": "the 120 BPM law; CLAUDE.md AN ENVELOPE RAMPS SLOWER THAN THE GRID"
+ },
+ "beat_ms": {
+  "value": 500,
+  "unit": "milliseconds a beat at 120",
+  "source": "the 120 BPM law"
+ },
+ "helmet_hard_classes": {
+  "value": [
+   "riot_helmet",
+   "moto_helmet",
+   "hard_hat",
+   "brim_helmet",
+   "welder_mask"
+  ],
+  "unit": "the head pieces (CHARACTER's wear classes, records/target/bb/armour_looks.json) that have a dent to knock out; a rag hood, a bandana, a straw hat, a dust or gas mask or a chain hood is mended with no act",
+  "source": "the brief: 'a man with a dented helmet does 4'; draft:true"
+ }
+}

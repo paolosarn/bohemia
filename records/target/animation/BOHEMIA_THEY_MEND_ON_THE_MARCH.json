@@ -1,0 +1,1107 @@
+{
+ "what": "ANIMATION [they mend on the march] (ask line 314, Paolo 11/2: 'I like these animations, let's make this happen... it has to look good, that's the main thing... I'm not sure if it needs to be customizable to all the items, I prefer maybe not'). THE KEPT SOURCE OF THE FOUR (rule 128): what a man healing or mending on the march does as the party walks the map. Each act's poses are arms (the bind's own arms for the bandage) laid on EVERY KEY OF HIS OWN SIX-KEY WALK ('walk': 6: tools/bohemia_animation_the_towns_activities.py pose_list makes 'MB_over@0'..'@5' and its apply() lays the arms over the walk's key, no plant), so the legs are his map walk's legs and the walk never stops. The pose ops, axes, bones and the parts not named here are the town's and the idles'; tools/bohemia_animation_the_towns_activities.py source() reads this file beside the town's. The timeline: held keys, three a beat at 120, whole bars, every hold two keys or more, starting and ending on the act's own lift (the forearms up before the belt: the step between the walk's swing and the work). Generic props, not per item (his preference): one bandage (the bind's), one pill bottle, one tape roll, one knife; the plate and the helmet are the ones he WEARS (the map's wear layer), the bowl in his fist marks where his worn helmet is drawn while it is off.",
+ "keys": "three a beat at 120; a pose is HELD, never blended; an act is whole bars (12 keys a bar); AN ENVELOPE RAMPS SLOWER THAN THE GRID: no hold under two keys, no pose next to itself",
+ "parts": {
+  "mw_lift": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.24,
+     -0.28,
+     0.13
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.24,
+     -0.28,
+     -0.13
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mw_down": [
+   [
+    "H",
+    "L",
+    10
+   ]
+  ],
+  "mw_up": [
+   [
+    "H",
+    "L",
+    -4
+   ]
+  ],
+  "mb_try": [
+   [
+    "H",
+    "L",
+    4
+   ],
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.36,
+     -0.2,
+     0.06
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ]
+  ],
+  "mp_hold": [
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.31,
+     -0.08,
+     -0.04
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ],
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.29,
+     -0.18,
+     0.05
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ]
+  ],
+  "mp_shake": [
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.32,
+     0.0,
+     -0.02
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ],
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.29,
+     -0.18,
+     0.05
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ]
+  ],
+  "mp_palm": [
+   [
+    "H",
+    "L",
+    -4
+   ],
+   [
+    "REACH",
+    "L",
+    "H",
+    [
+     0.16,
+     -0.11,
+     -0.02
+    ],
+    [
+     0.1,
+     -0.6,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.2,
+     -0.38,
+     -0.13
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mp_swallow": [
+   [
+    "N",
+    "L",
+    -6
+   ],
+   [
+    "H",
+    "L",
+    -14
+   ],
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.24,
+     -0.26,
+     0.12
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.22,
+     -0.3,
+     -0.14
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mt_lay": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.19,
+     -0.13,
+     0.1
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.23,
+     -0.15,
+     0.0
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mt_pull": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.19,
+     -0.13,
+     0.1
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.25,
+     -0.17,
+     -0.2
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mt_teeth_h": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.19,
+     -0.13,
+     0.1
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.27,
+     -0.02,
+     -0.1
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mt_teeth": [
+   [
+    "H",
+    "L",
+    -6
+   ],
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.19,
+     -0.13,
+     0.1
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "H",
+    [
+     0.17,
+     -0.1,
+     -0.05
+    ],
+    [
+     -0.2,
+     -0.6,
+     -1
+    ]
+   ]
+  ],
+  "mt_press": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.17,
+     -0.14,
+     0.08
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.17,
+     -0.19,
+     -0.07
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mh_grab": [
+   [
+    "REACH",
+    "L",
+    "H",
+    [
+     0.02,
+     0.05,
+     0.12
+    ],
+    [
+     0.0,
+     -0.4,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "H",
+    [
+     0.02,
+     0.05,
+     -0.12
+    ],
+    [
+     0.0,
+     -0.4,
+     -1
+    ]
+   ]
+  ],
+  "mh_hold": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.32,
+     -0.1,
+     0.08
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.24,
+     -0.26,
+     -0.14
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mh_up": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.32,
+     -0.1,
+     0.08
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.29,
+     0.1,
+     -0.03
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mh_knock": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.32,
+     -0.1,
+     0.08
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ],
+   [
+    "REACH",
+    "R",
+    "C",
+    [
+     0.33,
+     0.0,
+     0.03
+    ],
+    [
+     -0.2,
+     -0.3,
+     -1
+    ]
+   ]
+  ],
+  "mb_arm": [
+   [
+    "REACH",
+    "L",
+    "C",
+    [
+     0.3,
+     -0.17,
+     -0.04
+    ],
+    [
+     0.1,
+     -0.3,
+     1
+    ]
+   ]
+  ]
+ },
+ "props": {
+  "pillbottle": {
+   "kind": "hand",
+   "bone": "RH",
+   "along": 0.05,
+   "what": "a pharmacy pill bottle, 8 cm, amber plastic gone cloudy, a white cap, its label half torn off: generic, every man the same one (Paolo 11/2: not per item)",
+   "parts": [
+    [
+     "cyl",
+     [
+      0,
+      -0.045,
+      0
+     ],
+     [
+      0,
+      0.05,
+      0
+     ],
+     0.027,
+     [
+      0.86,
+      0.46,
+      0.09
+     ]
+    ],
+    [
+     "cyl",
+     [
+      0,
+      0.05,
+      0
+     ],
+     [
+      0,
+      0.072,
+      0
+     ],
+     0.029,
+     [
+      0.93,
+      0.91,
+      0.86
+     ]
+    ],
+    [
+     "cyl",
+     [
+      0,
+      -0.02,
+      0
+     ],
+     [
+      0,
+      0.025,
+      0
+     ],
+     0.0275,
+     [
+      0.8,
+      0.76,
+      0.64
+     ]
+    ]
+   ]
+  },
+  "taperoll": {
+   "kind": "hand",
+   "bone": "RH",
+   "along": 0.05,
+   "what": "a roll of duct tape, 10 cm across, silver gone grey with dirt, the brown card core showing: the company's TAPE that mends armour (line 224)",
+   "parts": [
+    [
+     "cyl",
+     [
+      0,
+      0.03,
+      -0.028
+     ],
+     [
+      0,
+      0.03,
+      0.028
+     ],
+     0.056,
+     [
+      0.64,
+      0.65,
+      0.62
+     ]
+    ],
+    [
+     "cyl",
+     [
+      0,
+      0.03,
+      -0.03
+     ],
+     [
+      0,
+      0.03,
+      0.03
+     ],
+     0.033,
+     [
+      0.45,
+      0.32,
+      0.18
+     ]
+    ]
+   ]
+  },
+  "tapestrip": {
+   "kind": "hand",
+   "bone": "RH",
+   "along": 0.05,
+   "span": "LH",
+   "what": "the strip pulled off the roll toward the hand that pins its end on his plate",
+   "parts": [
+    [
+     "box",
+     [
+      0,
+      0.03,
+      0.14
+     ],
+     [
+      0.005,
+      0.05,
+      0.28
+     ],
+     [
+      0.68,
+      0.68,
+      0.65
+     ]
+    ]
+   ]
+  },
+  "knife": {
+   "kind": "hand",
+   "bone": "RH",
+   "along": 0.05,
+   "what": "a fixed-blade knife held blade up so its butt comes down: a black grip worn grey, a steel pommel, the blade dull",
+   "parts": [
+    [
+     "cyl",
+     [
+      0,
+      -0.06,
+      0
+     ],
+     [
+      0,
+      0.05,
+      0
+     ],
+     0.014,
+     [
+      0.16,
+      0.14,
+      0.12
+     ]
+    ],
+    [
+     "box",
+     [
+      0,
+      -0.07,
+      0
+     ],
+     [
+      0.032,
+      0.018,
+      0.032
+     ],
+     [
+      0.62,
+      0.62,
+      0.6
+     ]
+    ],
+    [
+     "box",
+     [
+      0,
+      0.06,
+      0
+     ],
+     [
+      0.032,
+      0.012,
+      0.045
+     ],
+     [
+      0.5,
+      0.5,
+      0.48
+     ]
+    ],
+    [
+     "box",
+     [
+      0,
+      0.125,
+      0
+     ],
+     [
+      0.007,
+      0.12,
+      0.03
+     ],
+     [
+      0.74,
+      0.76,
+      0.76
+     ]
+    ]
+   ]
+  },
+  "helmetheld": {
+   "kind": "hand",
+   "bone": "LH",
+   "along": 0.05,
+   "what": "a bowl in his left fist, flat magenta in the render: where the helmet he WEARS is drawn while it is off his head (the map lays his own worn piece over it, CHARACTER's wear layer); the pack finds its middle by its colour and repaints it dull steel, which shows only if his piece has no picture",
+   "parts": [
+    [
+     "cyl",
+     [
+      0,
+      0.0,
+      -0.02
+     ],
+     [
+      0,
+      0.0,
+      0.02
+     ],
+     0.115,
+     [
+      1.0,
+      0.0,
+      1.0
+     ]
+    ],
+    [
+     "cyl",
+     [
+      0,
+      0.0,
+      0.02
+     ],
+     [
+      0,
+      0.0,
+      0.09
+     ],
+     0.09,
+     [
+      1.0,
+      0.0,
+      1.0
+     ]
+    ]
+   ]
+  }
+ },
+ "activities": {
+  "march_bind": {
+   "set": "march",
+   "walk": 6,
+   "what": "WRAPPING A BANDAGE ON THE MARCH (ask line 314, Paolo 11/2, his pick 1): the bind's arms on the walk's legs: his left forearm across him, the strip wound over and under it with his right hand, the end bitten and pulled tight, the arm tried; the walk never stops",
+   "props": {
+    "bandage": "all"
+   },
+   "poses": {
+    "MB_lift": [
+     "mw_lift"
+    ],
+    "MB_over": [
+     "md_look",
+     "mb_arm",
+     "bi_over"
+    ],
+    "MB_under": [
+     "md_look",
+     "mb_arm",
+     "bi_under"
+    ],
+    "MB_teeth_h": [
+     "bi_teeth_h"
+    ],
+    "MB_teeth": [
+     "bi_teeth"
+    ],
+    "MB_try": [
+     "mb_try"
+    ]
+   },
+   "timeline": [
+    [
+     "MB_lift",
+     2
+    ],
+    [
+     "MB_over",
+     4
+    ],
+    [
+     "MB_under",
+     4
+    ],
+    [
+     "MB_over",
+     4
+    ],
+    [
+     "MB_under",
+     4
+    ],
+    [
+     "MB_over",
+     3
+    ],
+    [
+     "MB_teeth_h",
+     2
+    ],
+    [
+     "MB_teeth",
+     7
+    ],
+    [
+     "MB_teeth_h",
+     2
+    ],
+    [
+     "MB_try",
+     2
+    ],
+    [
+     "MB_lift",
+     2
+    ]
+   ]
+  },
+  "march_pills": {
+   "set": "march",
+   "walk": 6,
+   "what": "PILLS ON THE MARCH (his pick 2): the bottle shaken over his cupped palm twice, the palm to his mouth, the head back, swallowed dry",
+   "props": {
+    "pillbottle": "all"
+   },
+   "poses": {
+    "MP_lift": [
+     "mw_lift"
+    ],
+    "MP_hold": [
+     "mw_down",
+     "mp_hold"
+    ],
+    "MP_shake": [
+     "mw_down",
+     "mp_shake"
+    ],
+    "MP_palm": [
+     "mp_palm"
+    ],
+    "MP_swallow": [
+     "mp_swallow"
+    ]
+   },
+   "timeline": [
+    [
+     "MP_lift",
+     2
+    ],
+    [
+     "MP_hold",
+     2
+    ],
+    [
+     "MP_shake",
+     2
+    ],
+    [
+     "MP_hold",
+     2
+    ],
+    [
+     "MP_shake",
+     2
+    ],
+    [
+     "MP_hold",
+     2
+    ],
+    [
+     "MP_palm",
+     3
+    ],
+    [
+     "MP_swallow",
+     6
+    ],
+    [
+     "MP_lift",
+     3
+    ]
+   ]
+  },
+  "march_tape": {
+   "set": "march",
+   "walk": 6,
+   "what": "TAPING THE CRACKED PLATE ON THE MARCH (his pick 3): the end pinned on his chest, the strip pulled across, the roll to his teeth and torn, pressed flat, a second strip; the plate is the one he wears (the map's wear layer, drawn under his arms)",
+   "props": {
+    "taperoll": "all",
+    "tapestrip": [
+     "MT_lay",
+     "MT_pull"
+    ]
+   },
+   "poses": {
+    "MT_lift": [
+     "mw_lift"
+    ],
+    "MT_lay": [
+     "mw_down",
+     "mt_lay"
+    ],
+    "MT_pull": [
+     "mw_down",
+     "mt_pull"
+    ],
+    "MT_teeth_h": [
+     "mt_teeth_h"
+    ],
+    "MT_teeth": [
+     "mt_teeth"
+    ],
+    "MT_press": [
+     "mw_down",
+     "mt_press"
+    ]
+   },
+   "timeline": [
+    [
+     "MT_lift",
+     2
+    ],
+    [
+     "MT_lay",
+     4
+    ],
+    [
+     "MT_pull",
+     5
+    ],
+    [
+     "MT_teeth_h",
+     2
+    ],
+    [
+     "MT_teeth",
+     6
+    ],
+    [
+     "MT_press",
+     5
+    ],
+    [
+     "MT_lay",
+     3
+    ],
+    [
+     "MT_pull",
+     4
+    ],
+    [
+     "MT_press",
+     3
+    ],
+    [
+     "MT_lift",
+     2
+    ]
+   ]
+  },
+  "march_helmet": {
+   "set": "march",
+   "walk": 6,
+   "what": "KNOCKING THE DENT OUT OF HIS HELMET ON THE MARCH (his pick 4): both hands up, the helmet off and held before his chest, the knife's butt brought down on the dent three times, back on his head; the helmet is the one he wears (the map's wear layer moves from his head to his fist and back)",
+   "props": {
+    "knife": "all",
+    "helmetheld": [
+     "MH_hold",
+     "MH_up",
+     "MH_knock"
+    ]
+   },
+   "poses": {
+    "MH_lift": [
+     "mw_lift"
+    ],
+    "MH_grab": [
+     "mh_grab"
+    ],
+    "MH_hold": [
+     "mw_down",
+     "mh_hold"
+    ],
+    "MH_up": [
+     "mw_down",
+     "mh_up"
+    ],
+    "MH_knock": [
+     "mw_down",
+     "mh_knock"
+    ]
+   },
+   "timeline": [
+    [
+     "MH_lift",
+     2
+    ],
+    [
+     "MH_grab",
+     3
+    ],
+    [
+     "MH_hold",
+     3
+    ],
+    [
+     "MH_up",
+     3
+    ],
+    [
+     "MH_knock",
+     2
+    ],
+    [
+     "MH_up",
+     2
+    ],
+    [
+     "MH_knock",
+     2
+    ],
+    [
+     "MH_up",
+     2
+    ],
+    [
+     "MH_knock",
+     2
+    ],
+    [
+     "MH_up",
+     2
+    ],
+    [
+     "MH_knock",
+     3
+    ],
+    [
+     "MH_hold",
+     3
+    ],
+    [
+     "MH_grab",
+     4
+    ],
+    [
+     "MH_lift",
+     3
+    ]
+   ]
+  }
+ }
+}

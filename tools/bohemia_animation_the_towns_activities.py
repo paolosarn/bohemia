@@ -50,6 +50,7 @@ sys.path.insert(0, os.path.join(ROOT, 'tools'))
 import bohemia_animation_everybody_idles as EI   # the idles: their source, render_model, run and the people's keeping
 
 SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_THE_TOWNS_ACTIVITIES.json')
+MARCH_SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_THEY_MEND_ON_THE_MARCH.json')
 POSED = 'records/animation/towns'                # the posed models (regenerated, .gitignore)
 RENDERS = 'records/target/animation/towns'       # the master rig's renders and the joints (regenerated, .gitignore)
 OUT = 'slices/rig_town'
@@ -66,7 +67,13 @@ TOWN_MATCH = dict(alpha=0.95, rgb=5)
 
 
 def source():
-    return json.load(open(SRC))
+    T = json.load(open(SRC))
+    # THEY MEND ON THE MARCH (ask line 314): the four march acts keep their own source beside this one (their slots are whole bars
+    # on the walk, not the town's 24-key loops), read in here so one pose step makes them all
+    if os.path.exists(MARCH_SRC):
+        M = json.load(open(MARCH_SRC))
+        for k in ('parts', 'props', 'activities'): T[k].update(M.get(k, {}))
+    return T
 
 
 def clip(act):
@@ -95,12 +102,16 @@ def pose_list(T, D, act):
     the idles' parts"""
     P = dict(D['parts']); P.update(T['parts'])
     A = T['activities'][act]
-    return [(name, [op for part in parts for op in P[part]]) for name, parts in A['poses'].items()]
+    ps = [(name, [op for part in parts for op in P[part]]) for name, parts in A['poses'].items()]
+    # THEY MEND ON THE MARCH (ask line 314, 11/2): a march act's every arm pose on each of the walk's own keys, so the legs never
+    # stop: 'name@k' is the pose's arms on the model's six-key walk (Anim_0) at key k, the walk sampled where the master rig samples it
+    if A.get('walk'): ps = [(name + '@%d' % k, ops + [['WALK', k]]) for name, ops in ps for k in range(int(A['walk']))]
+    return ps
 
 
 def shown(T, act, prop, pose_name):
     s = T['activities'][act]['props'].get(prop)
-    return s == 'all' or (isinstance(s, list) and pose_name in s)
+    return s == 'all' or (isinstance(s, list) and pose_name.split('@')[0] in s)   # a march pose on any walk key is its pose
 
 
 # ------------------------------------------------------------------------------------------------ pose (bpy)
@@ -135,6 +146,17 @@ def pose(src, out, which=None):
     legs = [(B['LT'], B['LS'], B['LA']), (B['RT'], B['RS'], B['RA'])]
     LEG = {'L': legs[0], 'R': legs[1]}
     feet = {a: (PB[a].head.copy(), PB[a].matrix.to_3x3().copy()) for _, _, a in legs}
+    # THE WALK UNDER THE ARMS (ask line 314): the model's own six-key walk, each key read where the master rig renders it
+    # (f0 + (f1 - f0)(i + 0.5)/6), so a march pose's legs are the map's walk picture's legs to the pixel
+    WALKB = []
+    wk = [x for x in acts0 if x.name.startswith('Anim_0')]
+    if wk and any(T['activities'][a].get('walk') for a in acts):
+        ad.action = wk[0]; w0, w1 = wk[0].frame_range
+        for i in range(6):
+            fr = w0 + (w1 - w0) * (i + 0.5) / 6
+            sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr)); bpy.context.view_layer.update()
+            WALKB.append({pb.name: pb.matrix_basis.copy() for pb in PB})
+        ad.action = stand; sc.frame_set(int(still), subframe=still - int(still)); bpy.context.view_layer.update()
     V = lambda t: mathutils.Vector(t)
     Fv, Uv, Lv = V(F), V(U), V(L)
     gj = os.path.join(os.path.dirname(os.path.abspath(src)), os.path.basename(src)[:-4] + '.json')
@@ -201,11 +223,13 @@ def pose(src, out, which=None):
         return PB[B[frm]].head.copy()
 
     def apply(ops):
-        for pb in PB: pb.matrix_basis = base[pb.name].copy()
+        wk_ = [op for op in ops if op[0] == 'WALK']   # ['WALK', k]: the walk's key k under everything (no plant: his feet are the walk's)
+        B0 = WALKB[int(wk_[-1][1]) % len(WALKB)] if wk_ and WALKB else base
+        for pb in PB: pb.matrix_basis = (B0[pb.name] if pb.name in B0 else base[pb.name]).copy()
         bpy.context.view_layer.update()
         name = lambda op: op[1] if op[0] == 'MOVE' else op[0]
         kn = [op for op in ops if op[0] == 'KNEEL']; rc = [op for op in ops if op[0] == 'REACH']; lie = [op for op in ops if op[0] == 'LIE']
-        ops = [op for op in ops if op[0] not in ('KNEEL', 'REACH', 'LIE')]
+        ops = [op for op in ops if op[0] not in ('KNEEL', 'REACH', 'LIE', 'WALK')]
         for op in sorted(ops, key=lambda op: order.index(name(op)) if name(op) in order else -1):
             if op[0] == 'MOVE':
                 pb = PB[op[1]]; v = sum((V(AX[c]) * float(x) for c, x in zip('FUL', op[2])), V((0, 0, 0)))
@@ -220,6 +244,7 @@ def pose(src, out, which=None):
             drop = PB[B['P']].head.dot(Uv) - hgt
             pb.matrix = mathutils.Matrix.Translation(-Uv * drop) @ pb.matrix; bpy.context.view_layer.update()
         elif kn: kneel(kn[-1][1], *kn[-1][2:])
+        elif wk_: pass
         else: plant()
         for op in rc:   # ['REACH', side, from, [f, u, l], pole [f, u, l]]: names already the rig's
             u1, f1, h1 = op[1]; two_bone(u1, f1, h1, at_of(op[2]) + vec(op[3]), vec(op[4]))
@@ -227,7 +252,7 @@ def pose(src, out, which=None):
     def named(ops):
         def one(o):
             if o[0] == 'MOVE': return ['MOVE', B[o[1]], o[2]]
-            if o[0] in ('KNEEL', 'LIE'): return list(o)
+            if o[0] in ('KNEEL', 'LIE', 'WALK'): return list(o)
             if o[0] == 'REACH': return ['REACH', (B[o[1] + 'U'], B[o[1] + 'F'], B[o[1] + 'H']), o[2], o[3], o[4]]
             return [B[o[0]], o[1], o[2]]
         return [one(o) for o in ops]
@@ -386,11 +411,56 @@ def pose(src, out, which=None):
         out_made.append((name, n))
     ad.action = None
     for pb in PB: pb.matrix_basis = base[pb.name].copy()
+    # THE ARMS IN FRONT (ask line 314): on a march pass his arms are cut into meshes of their own (the faces whose every corner
+    # rides an arm bone hardest), the same skin, the same normals, so the master rig's object-ID pass hands the pack the pixels
+    # of his arms that the camera sees: what is drawn again over the worn plate the map lays on him, so his hands tape it
+    if any(T['activities'][a].get('walk') for a in acts): split_arms(bpy, arm, B)
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=os.path.abspath(out), export_format='GLB', export_skins=True, export_animations=True, export_apply=False,
                               use_selection=False, export_animation_mode='NLA_TRACKS', export_force_sampling=True)
     json.dump(J, open(os.path.abspath(out)[:-4] + '.joints.json', 'w'), indent=0)
     print('POSED TOWN', out, out_made)
+
+
+def split_arms(bpy, arm, B):
+    """every skinned mesh's arm faces (each corner's strongest bone an arm's, a hand's or a finger's) into a mesh of its own named
+    'arms_<side>_<mesh>'; the props are left whole (each already its own object)"""
+    sides = {}
+    for sd in 'LR':
+        names = set()
+        def down(b):
+            names.add(b.name)
+            for c in b.children: down(c)
+        down(arm.data.bones[B[sd + 'U']])
+        sides[sd] = names
+    meshes = [o for o in bpy.context.scene.objects if o.type == 'MESH' and any(m.type == 'ARMATURE' for m in o.modifiers)
+              and not any(vg.name.startswith('prop_') for vg in o.vertex_groups)]
+    cut = 0
+    for o in meshes:
+        gi = {vg.index: vg.name for vg in o.vertex_groups}
+        side = []
+        for v in o.data.vertices:
+            best = max(v.groups, key=lambda g: g.weight, default=None)
+            nm = gi.get(best.group) if best else None
+            side.append('L' if nm in sides['L'] else 'R' if nm in sides['R'] else None)
+        for sd in 'LR':
+            sel = [p.index for p in o.data.polygons if all(side[i] == sd for i in p.vertices)]
+            if not sel: continue
+            bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = o; o.select_set(True)
+            bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='DESELECT'); bpy.ops.object.mode_set(mode='OBJECT')
+            for i in sel: o.data.polygons[i].select = True
+            before = set(bpy.context.scene.objects)
+            bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.separate(type='SELECTED'); bpy.ops.object.mode_set(mode='OBJECT')
+            for n in set(bpy.context.scene.objects) - before: n.name = 'arms_%s_%s' % (sd, o.name); cut += 1
+            # the separated faces left o; its vertex list was rebuilt, so read the sides again for the next side
+            gi = {vg.index: vg.name for vg in o.vertex_groups}
+            side = []
+            for v in o.data.vertices:
+                best = max(v.groups, key=lambda g: g.weight, default=None)
+                nm = gi.get(best.group) if best else None
+                side.append('L' if nm in sides['L'] else 'R' if nm in sides['R'] else None)
+    print('ARMS cut into', cut, 'meshes', flush=True)
+    return cut
 
 
 # ------------------------------------------------------------------------------------------------ the people
@@ -429,7 +499,7 @@ def model(pid):
 def person_one(tag, which=None, sub=None):
     """sub: a pass of its own (redo's <look>.<set>.<act>), else the set's pass"""
     T = source(); D = EI.source()
-    set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp', 'pitch', 'march') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch', 'march') else which, set_)
     set_ = set_of(T, acts[0])
     if not sub and done(tag, set_) and os.environ.get('BOHEMIA_TOWN_AGAIN') != '1':   # a run killed by the two-hour cap, run again, skips who is made
         print('TOWN made already', tag, set_, flush=True); return
@@ -453,7 +523,7 @@ def fight_one(name, which=None, sub=None):
     `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
     way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
     T = source(); D = EI.source(); CF = EI.combat(); py = sys.executable
-    set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp', 'pitch', 'march') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch', 'march') else which, set_)
     set_ = set_of(T, acts[0]); sfx = sub[len(name):] if sub else '' if set_ == 'town' else '.' + set_
     src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
