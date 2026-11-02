@@ -163,9 +163,10 @@
     var w = at; try { w = roadWhere(); } catch (e) {}
     var pkg = 1; try { if (LOOP.start && LOOP.start.pkg != null) pkg = LOOP.start.pkg; } catch (e) {}
     S.fighting = { n: r.n, fb: root.__MEET_FELL_BACK | 0, t: Date.now() };
-    var ok = false;
-    try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: r.n, faction: null, draft: true, packageId: pkg, roster: roster, party: party,
-      street: true, why: 'boss:' + r.n, at: { gx: w[0] | 0, gy: w[1] | 0 } }); } catch (e) { ok = false; }
+    var ok = false, msg = { type: 'BOHEMIA_CITY_ENCOUNTER', label: r.n, faction: null, draft: true, packageId: pkg, roster: roster, party: party,
+      street: true, why: 'boss:' + r.n, at: { gx: w[0] | 0, gy: w[1] | 0 } };
+    try { if (root.BohemiaBosses && root.BohemiaBosses.dress) root.BohemiaBosses.dress(msg, r); } catch (e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): the man, his crew, his board (slices/bohemia_bosses.js) */
+    try { ok = cityHandOver(msg); } catch (e) { ok = false; }
     if (!ok) { S.fighting = null; return false; }
     try { CITY_CONTACT_POSTED = true; } catch (e) {}
     root.__BOSS_FIGHTS = (root.__BOSS_FIGHTS | 0) + 1;

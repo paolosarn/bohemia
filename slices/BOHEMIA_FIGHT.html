@@ -1299,6 +1299,16 @@ const FIGHT = (function () {
     const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
+    /* __THE_BOSS_IS_A_MAN__ (BOSSES 11/2, rule 302; Paolo: 'unique locations and bosses with themes'): the map's hand-over names the
+       boss (slices/bohemia_bosses.js, records/target/bb/boss_act_one.json): the first of his kind in the band IS him, his name on him,
+       his blood times hp_x, the weapon and shield in his hand from the file. His crew are the band's other rows; his lesson is the
+       fight's own rule for his kind (the captain rallies, the mechanic's machines drop with him). No new damage number. */
+    try { const B = opts.boss; if (B && B.kind) { const u = bandUnits.filter(function (x) { return x.kind === B.kind; })[0];
+      if (u) { u.name = String(B.name || u.name).toUpperCase(); u.boss = true; u.bossTitle = B.title || null;
+        const k = +B.hp_x || 1; if (k > 1) { u.hp = Math.round(u.hp * k); u.hpMax = u.hp; }
+        const bw = B.weapon ? weaponByName(B.weapon) : null; if (bw && strikeSkill(bw) && !isRanged(bw)) u.weapon = bw;
+        const bs = B.shield ? shieldByName(B.shield) : null; if (bs && u.weapon && u.weapon.hands === 1) u.shield = bs;
+        S.boss = { name: u.name, id: u.id, kind: B.kind, lesson: B.lesson || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
     /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
        for the endgame or three parties at once */

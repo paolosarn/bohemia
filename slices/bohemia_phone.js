@@ -611,6 +611,11 @@
       + '#bohphone .bpctx .lv{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:10px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#1f1710;' + kit('tin', 0.5) + '}'
       + '#bohphone .bpctx .lv img{width:22px;height:23.5px;pointer-events:none}'
       + '#bohphone .bpctx.town .lv{display:flex}#bohphone .bpctx.town .clk{display:none}'
+      /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 302): on the map, where a verb a boss gave him works, the band is that verb */
+      + '#bohphone .bpctx .vb{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.1px;color:#1f1710;' + kit('tin', 0.5) + ';box-shadow:inset 0 0 0 1px #f2c56a}'
+      + '#bohphone .bpctx .vb img{width:14px;height:14px;image-rendering:pixelated;pointer-events:none}'
+      + '#bohphone .bpctx .vb.off{opacity:.55;cursor:default}'
+      + '#bohphone .bpctx.verb .vb{display:flex}#bohphone .bpctx.verb .clk{display:none}'
       + '#bohphone .bpfd{position:absolute;left:3px;right:3px;top:67px;height:46px;margin:0;overflow:hidden;cursor:pointer;padding:2px 3px;background:rgba(6,5,4,.66);box-shadow:inset 0 0 0 1px rgba(240,226,196,.14)}'
       + '#bohphone .bpfd .fp{height:21px;overflow:hidden;font-size:6.5px;line-height:7.5px;color:#ecdfc2}'
       + '#bohphone .bpfd .fp + .fp{border-top:1px solid rgba(240,226,196,.14);padding-top:1px}'
@@ -877,8 +882,10 @@
     var two = el('div', 'bptwo'); two.appendChild(appButton('play', 'big')); two.appendChild(appButton('heal', 'big')); home.appendChild(two);
     var ctx = el('div', 'bpctx');
     ctx.innerHTML = '<div class="clk" aria-hidden="true"><b>--:--</b><i class="g"></i></div>'   /* the hour once, here (the bar keeps the day: THE DAYS ONCE, rules 121(g), 123) */
-      + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>';   /* draft:true */
+      + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>'   /* draft:true */
+      + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>';   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
     ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
+    ctx.querySelector('.vb').addEventListener('click', function () { appPress('verb'); });
     home.appendChild(ctx);
     var row = el('div', 'bprow'); row.setAttribute('role', 'toolbar'); row.setAttribute('aria-label', 'your apps');
     rowApps().forEach(function (a) { row.appendChild(appButton(a, 'sm')); });
@@ -896,6 +903,7 @@
        hidden under the phone's rule (no button twice, 286(b)); a fight's own bar answers in a fight */
     if (a === 'notes' || a === 'settings') { if (H.page) pageClose(); var B = barOf(scr); if (!(B && B.barPress(a === 'notes' ? 'notes' : 'gear')) && a === 'settings') settingsOpen(); return; }
     if (a === 'leave') { if (L && scr === 'town') L.leave(); setTimeout(tick, 60); return; }
+    if (a === 'verb') { var Bv = cw && cw.BohemiaBosses, v = H.verb; if (Bv && v && !v.off && scr === 'map') { Bv.use(v.id); H.homeSig = null; setTimeout(tick, 60); } return; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
     if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp' || scr === 'town')) { L.camp(); setTimeout(tick, 60); } return; }   /* CAMP [a town is safe] (rule 273(b)): HEAL in a town rests there */
     if (a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
   }
@@ -1069,8 +1077,14 @@
     jobsPaint(L, force);
     H.el.classList.toggle('tl', !!(L && L.timeline(false)));
     var cd = L ? L.condition() : null;
-    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join()].join('|');
+    var vh = null; try { vh = scr === 'map' && cw && cw.BohemiaBosses ? cw.BohemiaBosses.verbHere() : null; } catch (e) { vh = null; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
+    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join(), vh ? vh.id + vh.off : ''].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
+    H.verb = vh;
+    var cxv = H.el.querySelector('.home .bpctx'), vb = cxv && cxv.querySelector('.vb');
+    if (vb) { cxv.classList.toggle('verb', !!vh && scr === 'map'); vb.classList.toggle('off', !!(vh && vh.off)); vb.dataset.verb = vh ? vh.id : '';
+      if (vh) { vb.querySelector('span').textContent = vh.button; vb.setAttribute('aria-label', vh.button.toLowerCase() + (vh.off ? '' : ': what ' + vh.from.toLowerCase() + ' gave you'));
+        var vi = ''; try { vi = cw.BohemiaBosses.icon ? cw.BohemiaBosses.icon(vh.id) : ''; } catch (e) {} var im0 = vb.querySelector('img'); if (vi && im0.getAttribute('src') !== vi) im0.setAttribute('src', vi); } }
     var stW = H.el.querySelector('.stat .wh');
     if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : (s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
     var cx = H.el.querySelector('.home .bpctx'); if (cx) cx.classList.toggle('town', scr === 'town');   /* in a town the band is LEAVE */

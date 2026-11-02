@@ -9846,6 +9846,13 @@ GATES = [
      "sign in his first sight, the sign marks him, his fight through the one door, he falls and his district changes, every kind "
      "of change (lights, a place, a wall the walk goes through, the map opened, a base by boss), the next sign; the frame's cost "
      "against RUN's dark. green at registration, 21/0 a profile, about 8 min a profile", True),
+    ('THE FIRST THREE BOSSES', ['node', 'gates/bosses_act_one_gate.js'],
+     "BOSSES gate, 11/2, ask line 287 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that "
+     "too... each time you kill a boss you get something that helps you interact with the city'): the stranger's game on the demo at "
+     "phone size, THE POT, THE TAP, THE FILTER in the ladder's order: his sign and his rumour on the feed, his landmark on his block "
+     "named, his fight through the one door as the man himself with his crew and his board, won (AUTO, or the checker says it ended "
+     "it), he falls and his place changes, his verb on the phone's band where it works on the grid, a real tap uses it and it did what "
+     "it says (blood back, batteries, wound days). green at registration, 19/0, about 10 min", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "

@@ -51959,6 +51959,7 @@ function renderCity(){
     g.restore();
   }
   try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
+  try { if (window.BohemiaBosses && BohemiaBosses.draw) BohemiaBosses.draw(ox, oy); } catch (_e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): his place seen from afar, what fell with him, the blocks his verb was used on (slices/bohemia_bosses.js) */
   try { if (window.BohemiaHisMap && BohemiaHisMap.draw) BohemiaHisMap.draw(ox, oy); } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO, rule 243(b)2-4): his pins, the crosses, the boss's sign and mark, what a fallen boss changed; over the fog, under him */
   /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF. The pin that
      stood here (a white-headed marker carrying his face, [white rings] 9/11 and [see me]
@@ -92204,6 +92205,7 @@ window.BOHEMIA_SKIN = (function(){
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
+<script src="bohemia_bosses.js"></script>  <!-- __THE_BOSSES__ BOSSES (rule 302): act one's first three bosses, their places, their fights and their verbs (records/target/bb/boss_act_one.json) -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>
 <script defer src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour on him on the map -->  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->

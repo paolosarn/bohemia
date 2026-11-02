@@ -1,0 +1,106 @@
+{
+  "draft": true,
+  "about": "BOSSES lane, 11/2/26 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get something that helps you interact with the city'). Act one's first three bosses, in the ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md rows 1-3). WORLD TWO's boss_map.json still owns the sign, where he stands and what falls with him; this file owns his PLACE (the landmark you see from afar), his RUMOUR (the feed), his FIGHT (the man, his gear, his crew, his board, his one lesson) and his VERB (the phone's button and what it does on the grid). Read by slices/bohemia_bosses.js. Every word is a draft:true attempt; every number is a shape TUNING owns. A modder adds a boss by adding a row whose 'n' matches a boss_map.json row.",
+  "verbs_order": ["open", "purify", "cook"],
+  "bosses": [
+    {
+      "n": "THE POT",
+      "place": {
+        "name": "THE KITCHEN",
+        "art": "kitchen",
+        "seen": "a black smoke stack over the strip, a copper pot on the roof"
+      },
+      "rumour": { "who": "@tia_carmen", "txt": "Nobody eats on the strip unless THE POT says so. He has the last good pot, mijo. Ten men guard a saucepan." },
+      "boss": {
+        "kind": "militia_captain",
+        "name": "THE POT",
+        "title": "keeper of the last good pot",
+        "hp_x": 2.0,
+        "weapon": "Butcher's Cleaver",
+        "shield": "Wooden Shield",
+        "look": "a chef's whites gone grey, a pot lid strapped to his arm, a cleaver"
+      },
+      "crew": ["militia", "militia", "militia"],
+      "crew_word": "THE POT AND HIS LINE COOKS",
+      "board": "strip",
+      "lesson": "His cooks hold while he holds. He rallies them every turn he stands; drop the man with the lid and the line breaks.",
+      "verb": {
+        "id": "cook",
+        "word": "COOK",
+        "button": "COOK HERE",
+        "rule": "anywhere on the open map, never inside a town; once a day (the pot needs the day to cool)",
+        "heal_hours": 8,
+        "cooldown_days": 1,
+        "says": "Hot food on the block. The whole crew eats; they heal like a night's sleep.",
+        "feed": { "who": "@valleyradio", "txt": "Somebody is cooking on {where}. Real food. You can smell it from the freeway." }
+      },
+      "fallen_art": "kitchen_lit"
+    },
+    {
+      "n": "THE TAP",
+      "place": {
+        "name": "THE PUMP HOUSE",
+        "art": "tower",
+        "seen": "a water tower on stilts, its valve wheel painted red"
+      },
+      "rumour": { "who": "@el_chino_702", "txt": "THE TAP opens the pipe for who pays and shuts it on who don't. His boys sit up on the pipes with crossbows, bro. Don't run at them in the open." },
+      "boss": {
+        "kind": "brigand_leader",
+        "name": "THE TAP",
+        "title": "the man with the valve key",
+        "hp_x": 1.4,
+        "weapon": "Warhammer",
+        "shield": null,
+        "look": "a utility vest over mail, the valve wrench on a chain"
+      },
+      "crew": ["lower_brigand_marksman", "lower_brigand_marksman", "lower_brigand_raider", "brigand_thug"],
+      "crew_word": "THE TAP AND HIS PIPE WATCHERS",
+      "board": "landfill",
+      "lesson": "His shooters hold the pipes. Stand off and they pick you apart; close the distance and they are only two men with bows.",
+      "verb": {
+        "id": "open",
+        "word": "OPEN",
+        "button": "OPEN THE MAIN",
+        "rule": "on a water main: a street block beside the valley's water works (a pump station, a treatment plant, an intake, a reservoir) or a town's own gate; once per main",
+        "main_districts": ["pumpstation", "watertreat", "intake", "reservoir"],
+        "pay_batteries": 6,
+        "says": "The main runs. People bring jugs and pay what they can.",
+        "feed": { "who": "@la_vecina", "txt": "Water out of the main on {where}, free, nobody guarding it. Bring two jugs, hermana." }
+      },
+      "fallen_art": "tower_running"
+    },
+    {
+      "n": "THE FILTER",
+      "place": {
+        "name": "THE SETTLING TANKS",
+        "art": "tanks",
+        "seen": "two round tanks glowing a sick green by the water works, a little stack"
+      },
+      "rumour": { "who": "@doc_reyes", "txt": "The tanks by the water still make clean water. THE FILTER keeps the old plant robots walking. Mira: shoot the man, not the machines." },
+      "boss": {
+        "kind": "necromancer",
+        "name": "THE FILTER",
+        "title": "the last man who knows the plant",
+        "hp_x": 2.0,
+        "weapon": "Butcher's Cleaver",
+        "shield": null,
+        "look": "a plant worker's coveralls and a respirator, a remote on his belt"
+      },
+      "crew": ["wiederganger", "wiederganger", "wiederganger", "armored_wiederganger"],
+      "crew_word": "THE FILTER AND THE PLANT'S ROBOTS",
+      "board": "shore",
+      "lesson": "He keeps the plant's robots walking. Kill the keeper and every machine of his drops where it stands.",
+      "verb": {
+        "id": "purify",
+        "word": "PURIFY",
+        "button": "PURIFY THE WATER",
+        "rule": "beside open water (a wash, a basin, a lake, a reservoir, the springs) or on a main you opened; once per block",
+        "water_districts": ["water", "reservoir", "intake", "springs", "watertreat", "wash", "basin", "waterpark"],
+        "wound_days": 2,
+        "says": "Clean water. Every fresh wound in the crew closes two days sooner.",
+        "feed": { "who": "@doc_reyes", "txt": "Clean water on {where}. Tested it myself. Boil it anyway, mija." }
+      },
+      "fallen_art": "tanks_clean"
+    }
+  ]
+}
