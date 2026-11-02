@@ -1,6 +1,6 @@
 {
  "subs.2": {
-  "seconds": 1065,
+  "seconds": 795,
   "junk": {
    "bags": 23,
    "paper": 360,
@@ -70,14 +70,14 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_subs_2.webp",
   "future": {
-   "holes": 607,
-   "char": 448,
+   "holes": 5876,
+   "char": 1802,
    "rafters": 0,
-   "rubble": 100
+   "rubble": 112
   }
  },
  "subs.1": {
-  "seconds": 1154,
+  "seconds": 761,
   "junk": {
    "bags": 37,
    "paper": 449,
@@ -142,14 +142,14 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_subs_1.webp",
   "future": {
-   "holes": 1117,
-   "char": 550,
+   "holes": 2733,
+   "char": 934,
    "rafters": 0,
-   "rubble": 125
+   "rubble": 123
   }
  },
  "subs.0": {
-  "seconds": 1194,
+  "seconds": 870,
   "junk": {
    "bags": 52,
    "paper": 452,
@@ -219,14 +219,14 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_subs_0.webp",
   "future": {
-   "holes": 726,
-   "char": 605,
+   "holes": 7902,
+   "char": 2407,
    "rafters": 0,
-   "rubble": 115
+   "rubble": 131
   }
  },
  "subs.3": {
-  "seconds": 1060,
+  "seconds": 763,
   "junk": {
    "bags": 51,
    "paper": 488,
@@ -296,10 +296,10 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_subs_3.webp",
   "future": {
-   "holes": 1651,
-   "char": 1020,
+   "holes": 6782,
+   "char": 2152,
    "rafters": 0,
-   "rubble": 132
+   "rubble": 138
   }
  },
  "corner.0": {

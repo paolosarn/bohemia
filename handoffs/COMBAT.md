@@ -1,5 +1,23 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 2 11/2 (brief from the coordinator: ask line 251, a one-storey house south of a man covers his legs). SHIPPED (BUILD 11/3zo),
+NOT YET SEEN:
+1. A HOUSE COVERS HIS LEGS: the suburb ranches re-rendered through the same rig at a 2008 tract house's real height (2.97 m to
+   the plate) and running back to their lot's back line, fronts unchanged (a man on a roof still stands on it), ridge along the
+   front, one storey; their tops off a one-sample house-only mask into records/target/cook_floor_rig/blocks.json and
+   slices/fight_ground/fight_stands.json, listed only on pictures drawn with those houses (sha1 pinned, 'new_pictures').
+   A man behind one: 0% -> 16 to 17% (feet and shins), the same at both stagger spots. records/target/cook_floor_rig/house_lot.json.
+   Shipped 22 of 33 pictures: present + reclaimed of subs 0-3, corner 0-2, suburb_stem 0-1; raided of subs 0-3.
+   records/BOHEMIA_COMBAT_A_HOUSE_COVERS_HIS_LEGS_11_2_26.md; phone picture records/target/combat_layers_11_2/phone_houses_before_after.webp
+NEXT: the 11 left were still rendering at the ship (culdesac 0-1 all three times, with the top-row fix; raided corner 0-2 and
+suburb_stem 0-1): swap them in, run tools/bohemia_combat_the_fight_layers_11_2_26.py, ship (or re-render if the container is gone).
+The ask said 20-35% for one storey; honest is 16-17% (the man is ~15 m at a house's scale; a back wing under a cross gable was
+tried and read as a second storey). The town's one-storey motel covers 23% only because its picture stands ~3 m into the tile
+north of it (COOK's town measures). The suburb junk moved (the rig's floor plans are regenerated each run). Rendering needs bpy 4.2
+in a python3.11 venv, the base commit c12f1612 fetched (the clone is shallow) and its kit_street in records/target/cook_floor_not_final/orig/.
+[bb] a low hut hides a brother's legs, a tall house the brother: the height is the picture's.
+[analog horror] the subdivision the money stopped building, at its real size; behind one the man loses his boots to a roof's edge.
+
 COMBAT 5 11/2, SHIP 2 (brief from the coordinator: rule 305, ask line 297). SHIPPED (BUILD 11/3zn, THE CELL VEST), NOT YET SEEN:
 THE CELL VEST (never 'suicide bomber'; the man is A SPARK, drafts): gear.acc cell_vest_scrap/yard/late (4/8/12 cells) in the
 accessory slot; never on the main man. His SPARK square (4 AP): first tap lights the risk (9 tiles crimson, hurt over every man

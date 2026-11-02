@@ -1,17 +1,17 @@
 {
  "subs.3": {
   "file": "slices/fight_ground/block_subs_3.webp",
-  "sha1": "94b940354749ed274c3bec6ac042069c865bd062",
+  "sha1": "f3c33bc89017ed7975f822763423ef97f9e3cc79",
   "master": "records/target/cook_floor_not_final/block_subs_3.webp"
  },
  "subs.0": {
   "file": "slices/fight_ground/block_subs_0.webp",
-  "sha1": "db22310daaaa640369690e59d5564df5879d6a14",
+  "sha1": "2335e94f6febba4fed417417c062a78a9b7da820",
   "master": "records/target/cook_floor_not_final/block_subs_0.webp"
  },
  "corner.0": {
   "file": "slices/fight_ground/block_corner_0.webp",
-  "sha1": "574b2dbcc024df3895ab37027250f18a3769618c",
+  "sha1": "5b3573af169247baba9c61f8221c457e675efd08",
   "master": "records/target/cook_floor_not_final/block_corner_0.webp"
  },
  "lots.0": {
@@ -21,17 +21,17 @@
  },
  "corner.1": {
   "file": "slices/fight_ground/block_corner_1.webp",
-  "sha1": "db5d4be60179a45fd0e6769ee31a688a2ead7214",
+  "sha1": "6befe0d420d163a323eb5cf91f104693704afbdc",
   "master": "records/target/cook_floor_not_final/block_corner_1.webp"
  },
  "subs.2": {
   "file": "slices/fight_ground/block_subs_2.webp",
-  "sha1": "b31492efb736b100fac5cd55dffd6dc6de67ceca",
+  "sha1": "65a98b45aa9709ee80e0b8c2341708e088fcb7f6",
   "master": "records/target/cook_floor_not_final/block_subs_2.webp"
  },
  "subs.1": {
   "file": "slices/fight_ground/block_subs_1.webp",
-  "sha1": "a6dfdd6d0b46fa3a05ca4d01e724b8381a31fbb7",
+  "sha1": "3f84330e7aacbfef06ebaa57ea6d31f8c84bcd23",
   "master": "records/target/cook_floor_not_final/block_subs_1.webp"
  },
  "ruin.0": {
@@ -76,7 +76,7 @@
  },
  "corner.2": {
   "file": "slices/fight_ground/block_corner_2.webp",
-  "sha1": "28896a984a7cca298005b5d752eaeb8ba12c1559",
+  "sha1": "b0c425b40ec6c6ead5aef1e6653a5f6326da7649",
   "master": "records/target/cook_floor_not_final/block_corner_2.webp"
  },
  "scrub.1": {
@@ -111,22 +111,22 @@
  },
  "culdesac.0": {
   "file": "slices/fight_ground/block_culdesac_0.webp",
-  "sha1": "6a98167c15fbb0c5a2d3f87ccc1383ae8cac2e41",
+  "sha1": "d4cb853bb35c016841800dc334b3e10cf0efee13",
   "master": "records/target/cook_floor_not_final/block_culdesac_0.webp"
  },
  "culdesac.1": {
   "file": "slices/fight_ground/block_culdesac_1.webp",
-  "sha1": "4c0ba45dab861accb067c62b300125e4f72ac434",
+  "sha1": "c5e9bca7991cf632383e72a6697799bec1a5e84d",
   "master": "records/target/cook_floor_not_final/block_culdesac_1.webp"
  },
  "suburb_stem.0": {
   "file": "slices/fight_ground/block_suburb_stem_0.webp",
-  "sha1": "73cf3428e415df7ec7e776c6f076b580d45d9ff3",
+  "sha1": "f7e9cd467527eb112742b4b5f442a80357efd16c",
   "master": "records/target/cook_floor_not_final/block_suburb_stem_0.webp"
  },
  "suburb_stem.1": {
   "file": "slices/fight_ground/block_suburb_stem_1.webp",
-  "sha1": "0ee951791eae12fb3c683012c796e3667cdda04e",
+  "sha1": "800eefc10f1f6bf6ec297f217f083166495c8d96",
   "master": "records/target/cook_floor_not_final/block_suburb_stem_1.webp"
  },
  "scrubroad.0": {

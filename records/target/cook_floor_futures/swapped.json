@@ -1,37 +1,37 @@
 {
  "subs.1.reclaimed": {
   "file": "slices/fight_ground/block_subs_1_reclaimed.webp",
-  "sha1": "d9ff61aacd63901e16c1f4a474387c8b984f6a71",
+  "sha1": "f8aabcf132ae4a3d86b6173357d904e65d1799ef",
   "master": "records/target/cook_floor_futures/reclaimed/block_subs_1.webp"
  },
  "subs.2.reclaimed": {
   "file": "slices/fight_ground/block_subs_2_reclaimed.webp",
-  "sha1": "40490056f967d6d2e17baed36164119f8e91ffaf",
+  "sha1": "a8a94bc88981dea5b00174c4b01ab22e7c3aeb0d",
   "master": "records/target/cook_floor_futures/reclaimed/block_subs_2.webp"
  },
  "subs.0.reclaimed": {
   "file": "slices/fight_ground/block_subs_0_reclaimed.webp",
-  "sha1": "30fd8f4a44f932646283458b85c9aa9d5ef4bb81",
+  "sha1": "5c20985f7eca8f232151c1b2e6ef437361d8d3c4",
   "master": "records/target/cook_floor_futures/reclaimed/block_subs_0.webp"
  },
  "subs.3.reclaimed": {
   "file": "slices/fight_ground/block_subs_3_reclaimed.webp",
-  "sha1": "0093cddc2bacf3251ae06bf1138b1738879ba8ef",
+  "sha1": "bcd4beb83b238234ba3c4938366d6f38d3d43c72",
   "master": "records/target/cook_floor_futures/reclaimed/block_subs_3.webp"
  },
  "corner.0.reclaimed": {
   "file": "slices/fight_ground/block_corner_0_reclaimed.webp",
-  "sha1": "c9c5fd4b659de6387582bf7f342fd0f9f9497493",
+  "sha1": "487de5c0aba2b38235844f659166bbe95b00374f",
   "master": "records/target/cook_floor_futures/reclaimed/block_corner_0.webp"
  },
  "corner.1.reclaimed": {
   "file": "slices/fight_ground/block_corner_1_reclaimed.webp",
-  "sha1": "b6e77e778850e08f708d6dfb2a37f53a1683370a",
+  "sha1": "d2399b445e51728062167c6c449149dc01328f26",
   "master": "records/target/cook_floor_futures/reclaimed/block_corner_1.webp"
  },
  "corner.2.reclaimed": {
   "file": "slices/fight_ground/block_corner_2_reclaimed.webp",
-  "sha1": "cfad3a993b691961b414c369c74824d7d698b5e8",
+  "sha1": "63a7bcfc4710a83cd404d75169ed37fc429ba6ba",
   "master": "records/target/cook_floor_futures/reclaimed/block_corner_2.webp"
  },
  "lots.0.reclaimed": {
@@ -51,7 +51,7 @@
  },
  "subs.0.raided": {
   "file": "slices/fight_ground/block_subs_0_raided.webp",
-  "sha1": "276c6ecef09c8e1084ad53c401e97f207f27b95a",
+  "sha1": "3ca6d6d7b3e5ddaaca924faf633e1b797a3d13ca",
   "master": "records/target/cook_floor_futures/raided/block_subs_0.webp"
  },
  "strip.0.reclaimed": {
@@ -61,12 +61,12 @@
  },
  "subs.1.raided": {
   "file": "slices/fight_ground/block_subs_1_raided.webp",
-  "sha1": "c82c06abf8eea38c46755619e3977b4907fa22da",
+  "sha1": "3c2523d8665603c233154794f1954532cdc5bb4d",
   "master": "records/target/cook_floor_futures/raided/block_subs_1.webp"
  },
  "subs.2.raided": {
   "file": "slices/fight_ground/block_subs_2_raided.webp",
-  "sha1": "1f28878c3c8cae52031c83bb837b76166a50a6e6",
+  "sha1": "a4e76604b82209ad45a36786d900a3c85f73c154",
   "master": "records/target/cook_floor_futures/raided/block_subs_2.webp"
  },
  "works.0.reclaimed": {
@@ -101,7 +101,7 @@
  },
  "subs.3.raided": {
   "file": "slices/fight_ground/block_subs_3_raided.webp",
-  "sha1": "7d940dcb67757d575917493e83e6a82fe57ba2f5",
+  "sha1": "fe2700f60cbb139ffaef0ae46c0bf403ebae2dd1",
   "master": "records/target/cook_floor_futures/raided/block_subs_3.webp"
  },
  "corner.0.raided": {
@@ -191,12 +191,12 @@
  },
  "suburb_stem.0.reclaimed": {
   "file": "slices/fight_ground/block_suburb_stem_0_reclaimed.webp",
-  "sha1": "1b144cb98d05dd18fb5c24ab52616fb020b6d458",
+  "sha1": "1b69e43e0a25a11bf20fcd288ec2644b836eda2d",
   "master": "records/target/cook_floor_futures/reclaimed/block_suburb_stem_0.webp"
  },
  "suburb_stem.1.reclaimed": {
   "file": "slices/fight_ground/block_suburb_stem_1_reclaimed.webp",
-  "sha1": "5500128ae89d3331b8b602f304d09431b95a2998",
+  "sha1": "abfe37d4c00a0ea9e182b55d039937a815ba5bb7",
   "master": "records/target/cook_floor_futures/reclaimed/block_suburb_stem_1.webp"
  },
  "scrubroad.0.reclaimed": {

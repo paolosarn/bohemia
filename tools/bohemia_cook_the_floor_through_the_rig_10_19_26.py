@@ -514,13 +514,28 @@ def old_houses(gid):
     return out
 
 
+LOT = json.load(open(os.path.join(R, 'records/target/cook_floor_rig/house_lot.json')))
+RANCH_D, RANCH_H = 8.0, 2.7                                # ranch_body's own depth and wall (the builders' 1960s ranch)
+HOUSE_TILE = SIDE / 5                                      # a house tile is 12 m
+RANCH_BLOCKS = ('subs', 'corner', 'culdesac', 'suburb_stem')   # the suburb's own (the town tool adds its kinds to HOUSE_KINDS)
+
+
 def place_houses(bpy, houses, seed):
     """a ranch of COOK FOUR's family on each old house's footprint: centred on it, its front wall on the old facade's
     ground line, the kind the width allows (plain or porch, the L where it is wide), its fence left out (the block has its
-    own); depth x 0.82 so the roof stays inside its own house tile. Returns the meshes and their parents."""
+    own). COMBAT 11/2 [a house covers his legs] (ask line 251, records/BOHEMIA_COMBAT_A_HOUSE_COVERS_HIS_LEGS_11_2_26.md):
+    it USED to be squeezed (depth x 0.82, height x its width's fit) so its roof stayed inside its own tile, its back 3 to 4 m
+    short of the tile's back line, and a man standing behind it was never covered. Now (records/target/cook_floor_rig/
+    house_lot.json): its height is a 2000s Las Vegas tract house's (the half-built subdivision of the crash: a 9-ft
+    ceiling, plate_m to the plate, where the builders draw a 1960s 2.7 m), its width still fitted to the old lot, its front
+    where it was, and it runs back until its back wall stands on the tile's back line (back_wall_line_m inside it), its eave
+    over the line as a real eave is. The roof keeps its ridge along the front (no gable end at the camera) and reads lower
+    for the depth: ONE storey. Its back eave is then the top of it a man behind sees. Returns the meshes and their parents."""
     import mathutils
     import bohemia_cook_model_buildings as BLD
     rnd = np.random.RandomState(seed); meshes, roots, rects, kinds = [], [], [], []
+    real = bool(LOT.get('real_size'))
+    WINGS.clear()
     for i, (x0, y0, x1, y1) in enumerate(houses):
         w = (x1 - x0) / PPM
         fits = [k for k, kw in RANCH_W.items() if 0.80 <= w / kw <= 1.15]
@@ -529,17 +544,87 @@ def place_houses(bpy, houses, seed):
         s_ = w / RANCH_W[kind]
         before = set(bpy.context.scene.objects)
         BLD.TINT = dict(stucco=WALL_TINTS[rnd.randint(len(WALL_TINTS))], pale=WALL_TINTS[rnd.randint(len(WALL_TINTS))], roof=ROOF_TINTS[rnd.randint(len(ROOF_TINTS))])
-        BLD.M.clear(); BLD.BUILDERS[kind](bpy, mathutils); BLD.TINT = {}
+        BLD.M.clear(); BLD.BUILDERS[kind](bpy, mathutils)
+        xc = (x0 + x1) / 2 / PPM; yfront = SIDE * (1 - y1 / H)
+        front = 4.0 + RANCH_FRONT.get(kind, 0.0)                 # its front-most thing, ahead of its middle (m)
+        row = int(round(y1 / (H / 5))) - 1                       # its own tile row
+        # a house on the block's top row keeps its old stance: the tile north of it is another block's, nobody behind it is
+        # in this picture, and grown back and up its chimney stood past the picture's top edge (measured 11/2, culdesac)
+        stand = real and row > 0
+        if stand:
+            tall = float(LOT['plate_m']) / RANCH_H
+            y_back = SIDE - row * HOUSE_TILE - float(LOT['back_wall_line_m'])   # the tile's back (north) line, in metres
+            deep = (y_back - yfront) / (front + RANCH_D / 2)      # front-most thing to back wall, over the builders' own
+            WINGS.append(dict(kind=kind, deep_x=round(deep, 3), tall_x=round(tall, 3), depth_m=round(y_back - yfront, 2),
+                              pitch_deg=round(math.degrees(math.atan(math.tan(math.radians(18.4)) * tall / deep)), 1)))
+        else:
+            WINGS.append(dict(kind=kind, kept='its old stance (the block\'s top row)' if real else 'the old stance'))
+        BLD.TINT = {}
         new = [o for o in bpy.context.scene.objects if o not in before]
         for o in [o for o in new if '_fence' in o.name]: new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
-        xc = (x0 + x1) / 2 / PPM; yfront = SIDE * (1 - y1 / H)
         root = bpy.data.objects.new('house_%d' % i, None); bpy.context.scene.collection.objects.link(root)
         for o in new:
             if o.parent is None: o.parent = root
-        root.location = (xc, yfront + (4.0 + RANCH_FRONT.get(kind, 0.0)) * 0.82 * s_, 0.0); root.scale = (s_, 0.82 * s_, s_)   # its front-most thing on the old facade's line
+        if stand:
+            root.location = (xc, yfront + front * deep, 0.0); root.scale = (s_, deep, tall)   # its front-most thing on the old facade's line
+        else:
+            root.location = (xc, yfront + front * 0.82 * s_, 0.0); root.scale = (s_, 0.82 * s_, s_)
         meshes += [o for o in new if o.type == 'MESH']; roots.append(root); kinds.append(kind)
         rects.append((x0, y0, x1, y1))
     return meshes, roots, rects, kinds
+
+
+WINGS = []          # how place_houses stood each house (the ledger's)
+MASK = {}           # the houses alone, per block: the composite's and the fight's outline (COMBAT 11/2)
+
+
+def house_mask(bpy, sc, hroots, fn):
+    """COMBAT 11/2: the houses alone, rendered once more at one sample (every other mesh hidden, the film clear, each house
+    one flat colour of its own through the object's colour): where each house is, so the composite takes the new house
+    from the render exactly (it now stands up into the tile north of its own) and the fight's outline of it is read off the
+    very pixels (tools/bohemia_combat_the_fight_layers_11_2_26.py, from the ledger's 'top'). Returns H x W int: 0 nothing,
+    i + 1 the i-th root's"""
+    keep = {}
+    for i, r in enumerate(hroots):
+        for o in r.children_recursive: keep[o] = i
+    hid = [o for o in sc.objects if o.type == 'MESH' and o not in keep and not o.hide_render]
+    for o in hid: o.hide_render = True
+    for o, i in keep.items(): o.color = ((i + 1) * 8 / 255.0, 0.0, 0.0, 1.0)     # read back exactly through the Raw view
+    m = bpy.data.materials.new('house_id'); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
+    oi = nt.nodes.new('ShaderNodeObjectInfo'); em = nt.nodes.new('ShaderNodeEmission'); mo = nt.nodes.new('ShaderNodeOutputMaterial')
+    nt.links.new(oi.outputs['Color'], em.inputs['Color']); nt.links.new(em.outputs[0], mo.inputs['Surface'])
+    vl = bpy.context.view_layer; ov = vl.material_override; vl.material_override = m
+    vs = sc.view_settings
+    old = (sc.render.film_transparent, sc.cycles.samples, sc.cycles.use_adaptive_sampling, sc.render.image_settings.color_mode, sc.render.filepath,
+           vs.view_transform, vs.look, vs.exposure, vs.gamma)
+    sc.render.film_transparent = True; sc.cycles.samples = 1; sc.cycles.use_adaptive_sampling = False
+    sc.cycles.use_denoising = False; sc.render.image_settings.color_mode = 'RGBA'
+    vs.view_transform = 'Raw'; vs.look = 'None'; vs.exposure = 0.0; vs.gamma = 1.0
+    sc.render.filepath = fn; bpy.ops.render.render(write_still=True)
+    for o in hid: o.hide_render = False
+    vl.material_override = ov
+    (sc.render.film_transparent, sc.cycles.samples, sc.cycles.use_adaptive_sampling, sc.render.image_settings.color_mode, sc.render.filepath,
+     vs.view_transform, vs.look, vs.exposure, vs.gamma) = old
+    a = np.asarray(Image.open(fn).convert('RGBA')); on = a[..., 3] > 127
+    lab = np.where(on, np.rint(a[..., 0] / 8.0).astype(np.int32), 0)
+    print('  house mask: houses seen', sorted(set(np.unique(lab).tolist()) - {0}), flush=True)
+    return lab
+
+
+def house_tops(lab, rects, region=None):
+    """COMBAT 11/2: each house's top edge off its own colour in the mask, 33 columns across its lot (art px), left to
+    right: in each column its first pixel from the top"""
+    oy, ox = (region[1], region[0]) if region else (0, 0)
+    out = []
+    for i, (x0, y0, x1, y1) in enumerate(rects):
+        pts = []
+        for x in np.linspace(x0 - 30, x1 + 30, 33):
+            c = int(round(x)) - ox
+            if not (0 <= c < lab.shape[1]): continue
+            col = lab[:, c] == i + 1
+            if col.any(): pts.append([int(round(x)), int(oy + np.argmax(col))])
+        out.append(pts)
+    return out
 
 
 def render_block(bid, quick=False, region=None):
@@ -577,21 +662,37 @@ def render_block(bid, quick=False, region=None):
     sc.render.filepath = fn; bpy.ops.render.render(write_still=True)
     print('  rendered', bid, round(time.time() - t0), 's', flush=True)
     if quick: return fn
+    hmask = None
+    if hroots and bid.split('.')[0] in RANCH_BLOCKS:            # COMBAT 11/2: the houses alone, each its own colour
+        lab = house_mask(bpy, sc, hroots, fn.replace('.png', '_houses.png'))
+        hmask = np.zeros((H, W), np.int32)
+        if region: hmask[region[1]:region[1] + lab.shape[0], region[0]:region[0] + lab.shape[1]] = lab
+        else: hmask = lab
+        MASK[bid] = dict(lab=hmask, tops=house_tops(hmask, hrects))
+        print('  houses masked', bid, [len(t) for t in MASK[bid]['tops']], round(time.time() - t0), 's', flush=True)
     if region:
         x0, y0, x1, y1 = region; r = np.asarray(Image.open(fn).convert('RGB'))
         full = ship.copy(); full[y0:y0 + r.shape[0], x0:x0 + r.shape[1]] = r
-        o = compose(bid, full, gid, ground, lum, ship, kit, hrects)[y0:y1, x0:x1]
+        o = compose(bid, full, gid, ground, lum, ship, kit, hrects, hmask)[y0:y1, x0:x1]
         Image.fromarray(o).save(fn.replace('.png', '_composed.png')); return fn
-    out = compose(bid, np.asarray(Image.open(fn).convert('RGB')), gid, ground, lum, ship, kit, hrects)
+    out = compose(bid, np.asarray(Image.open(fn).convert('RGB')), gid, ground, lum, ship, kit, hrects, hmask)
     Image.fromarray(out).save(os.path.join(OUT, 'block_%s.webp' % bid.replace('.', '_')), lossless=True, quality=100, method=4)
     led = os.path.join(OUT, 'blocks.json'); L = json.load(open(led)) if os.path.exists(led) else {}
     L[bid] = dict(seconds=round(time.time() - t0), ground_share=round(float(ground.mean()), 4), wear=WEAR, samples=int(sc.cycles.samples),
                   meshes=len(objs), vertices=sum(len(o.data.vertices) for o in objs), houses=[dict(kind=k, old_px=list(map(int, r))) for k, r in zip(hkinds, hrects)])
     json.dump(L, open(led, 'w'), indent=1)
+    if hmask is not None and 'cook_floor_futures' not in OUT:     # the futures re-point OUT under cook_floor_futures/
+        # COMBAT 11/2: the present day's houses, where they stand and their tops, in the rig's own committed ledger (the
+        # floor tools re-point OUT; this one stays): the fight's layers read the tops (tools/bohemia_combat_the_fight_layers_11_2_26.py)
+        hl = os.path.join(R, 'records/target/cook_floor_rig/blocks.json'); HL = json.load(open(hl)) if os.path.exists(hl) else {}
+        e = HL.setdefault(bid, {})
+        e['houses'] = [dict(kind=k, old_px=list(map(int, r)), top=t, **({k_: v_ for k_, v_ in w_.items() if k_ != 'kind'})) for k, r, t, w_ in zip(hkinds, hrects, MASK[bid]['tops'], WINGS)]
+        e['houses_made'] = 'COMBAT 11/2 [a house covers his legs]: real size, its back wing to the tile\'s back line (house_lot.json)'
+        json.dump(HL, open(hl, 'w'), indent=1)
     return fn
 
 
-def compose(bid, rend, gid, ground, lum, ship, kit, hrects=()):
+def compose(bid, rend, gid, ground, lum, ship, kit, hrects=(), hmask=None):
     """the new ground where the plan says ground; the shipped pixels everywhere else (houses, walls, lamps: rows two and
     three); the maker's own house shadows laid on the new ground as darkness, the hue walking cool (COOK TWO's shadow())"""
     import bohemia_cook2_the_fight_floor_10_19_26 as C2
@@ -600,6 +701,10 @@ def compose(bid, rend, gid, ground, lum, ship, kit, hrects=()):
         keep_old = (gid == 255)
         for x0, y0, x1, y1 in hrects:                          # each new house over its old one, its roof up to 3 m higher
             keep_old[max(0, y0 - int(3.0 * PPM)):y1 + 6, max(0, x0 - 20):x1 + 20] = False
+        if hmask is not None:                                  # COMBAT 11/2: the new house wherever it stands, to the pixel
+            m_ = hmask > 0
+            for _ in range(3): m_ = m_ | np.roll(m_, 1, 0) | np.roll(m_, -1, 0) | np.roll(m_, 1, 1) | np.roll(m_, -1, 1)
+            keep_old[m_] = False
         out[~keep_old] = rend[~keep_old]
         return out
     mult = lum.astype(np.float32) / 255.0

@@ -17,8 +17,11 @@ and a depth is x0.7071, so the back eave stands at y1 - h*42.92 - D*0.7071*42.92
 the guess; the top is then the strongest edge in the picture within a few pixels of it, read on the row means of the building's
 middle columns (measured on main.0's shop: guessed 914.5, the picture's edge 916). Two shapes are not boxes and are traced by hand
 off the picture (TRACED below): the church's gable and its tower, and the gas station's canopy, kiosk and garage. The suburb's
-ranch houses (records/target/cook_floor_rig/blocks.json) all sit inside their own tile (their tops 0 to 0.21 of a tile below the
-tile's top edge): they stand up into nobody's tile, so none is listed (measured below, printed).
+ranch houses (records/target/cook_floor_rig/blocks.json) sat inside their own tile until COMBAT 11/2 [a house covers his legs]:
+now each stands at its real size with its back wing to the tile's back line (tools/bohemia_cook_the_floor_through_the_rig_10_19_26.py
+place_houses), and the rig renders the houses once more alone, one flat colour each, and writes each house's top edge off those
+pixels into the ledger ('top', 33 columns). Those tops are listed here as they are (how: 'mask'), for the present day and both
+futures (the same houses; the reclaimed panels lie on the slopes under the top edge).
 
   python3 tools/bohemia_combat_the_fight_layers_11_2_26.py            (writes the file and prints every top)
   python3 tools/bohemia_combat_the_fight_layers_11_2_26.py --sheet P  (and a contact sheet of every top read, to look at)
@@ -66,6 +69,52 @@ def edge_at(im, x0, x1, lo, hi):
     return by, float(best)
 
 
+SKIPPED = []
+MASTERS = {'': 'records/target/cook_floor_not_final', '_reclaimed': 'records/target/cook_floor_futures/reclaimed',
+           '_raided': 'records/target/cook_floor_futures/raided'}
+
+
+def sha1(path):
+    import hashlib
+    return hashlib.sha1(open(path, 'rb').read()).hexdigest()
+
+
+def drawn_with_new_houses(bid, d, srcs):
+    """COMBAT 11/2: which of a suburb block's pictures (present day, both futures) are drawn with the houses whose tops the
+    ledger holds: where the rig's lossless render of that picture is on this disk, the shipped file must match it (mean
+    difference under 4 of 255: it is that render, saved for the game) and its sha1 is written into the ledger
+    ('new_pictures'); anywhere else the ledger's sha1 must still be the file's. A picture not re-rendered yet keeps the old
+    house and gets no outline (a cover with nothing drawn there would lay ground over his legs)."""
+    have = dict(d.get('new_pictures', {}))
+    for src in srcs:
+        f = os.path.join(G, src); stem = src[len('block_'):-len('.webp')]
+        tail = '_reclaimed' if stem.endswith('_reclaimed') else '_raided' if stem.endswith('_raided') else ''
+        m = os.path.join(R, MASTERS[tail], 'block_%s.webp' % stem[:len(stem) - len(tail)])
+        if os.path.exists(m):
+            a_ = np.asarray(Image.open(f).convert('RGB'), np.int16); b_ = np.asarray(Image.open(m).convert('RGB'), np.int16)
+            if a_.shape == b_.shape and np.abs(a_ - b_).mean() < 4: have[src] = sha1(f)
+            else: have.pop(src, None)
+    d['new_pictures'] = have
+    return {src for src in srcs if have.get(src) == sha1(os.path.join(G, src))}
+
+
+MAN_TILES, FEET = 1.8, 0.9      # slices/BOHEMIA_FIGHT.html: MAN_ROWS, and layAt()'s feet at 0.9 of his tile
+TILE_W = 515
+
+
+def cover(poly, line):
+    """the share of a man in the tile right behind a building that it covers: at his middle, the mean across his legs (the
+    middle 0.14 of a tile), and at the outline's highest point over him; poly its top (art px), line its front"""
+    feet = (round(line / TILE_H) - 2 + FEET) * TILE_H; tall = MAN_TILES * TILE_H
+    xs = np.array([p[0] for p in poly], float); ys = np.array([p[1] for p in poly], float)
+    xc = (np.floor(((xs.min() + xs.max()) / 2) / TILE_W) + .5) * TILE_W
+    at = lambda x: float(np.interp(x, xs, ys))
+    legs = [at(x) for x in np.linspace(xc - .07 * TILE_W, xc + .07 * TILE_W, 15)]
+    over = [at(x) for x in np.linspace(xc - .2 * TILE_W, xc + .2 * TILE_W, 41)]
+    f = lambda y: max(0.0, (feet - y) / tall * 100)
+    return f(at(xc)), float(np.mean([f(y) for y in legs])), f(min(over))
+
+
 def main(sheet=None):
     town = json.load(open(TOWN))
     fg = json.load(open(os.path.join(G, 'fight_ground.json')))
@@ -102,13 +151,34 @@ def main(sheet=None):
                     crops.append((src, int(X0), int(X1), int(top), int(guess)))
             if stands: out[src] = stands
             print(src, [(s['poly'][0][1], s['line'], s['how']) for s in stands])
-    # the ranch houses: where their tops stand in their tiles (none stands up into the tile north)
+    # the ranch houses (COMBAT 11/2): their tops off the rig's own mask, where the ledger has them
     ranch = json.load(open(RANCH)); worst = 1.0
     for bid, d in ranch.items():
+        new = drawn_with_new_houses(bid, d, srcs.get(bid, [])) if any(h.get('top') for h in d.get('houses', [])) else set()
+        for src in srcs.get(bid, []):
+            if src not in new and any(h.get('top') for h in d.get('houses', [])): SKIPPED.append(src)
         for h in d.get('houses', []):
             x0, y0, x1, y1 = h['old_px']; r = round(y1 / TILE_H) - 1
-            worst = min(worst, (y0 - r * TILE_H) / TILE_H)
-    print('ranch houses: the highest top stands %.2f of a tile below its own tile\'s top edge' % worst)
+            top = min([p[1] for p in h.get('top', [])] or [y0])
+            worst = min(worst, (top - r * TILE_H) / TILE_H)
+            if len(h.get('top', [])) < 2: continue
+            for src in srcs.get(bid, []):
+                if src in new: out.setdefault(src, []).append({'line': int(y1), 'poly': h['top'], 'how': 'mask'})
+    import re                                                 # the pictures each block's houses are drawn in ('new_pictures')
+    txt = json.dumps(ranch, indent=1)
+    open(RANCH, 'w').write(re.sub(r'\[\s+(-?\d+),\s+(-?\d+)\s+\]', r'[\1, \2]', txt))   # a point on one line
+    if SKIPPED: print('ranch outlines NOT listed, that picture still shows the old houses:', sorted(SKIPPED))
+    print('ranch houses: the highest top stands %.2f of a tile %s its own tile\'s top edge' % (abs(worst), 'below' if worst >= 0 else 'above'))
+    for bid in sorted(ranch):
+        if any(h.get('top') for h in ranch[bid].get('houses', [])):
+            print(' ', bid, [(h['kind'], min(p[1] for p in h['top']), h['old_px'][3]) for h in ranch[bid]['houses'] if h.get('top')])
+    # how much of a man standing in the tile right behind each one it covers (the fight's own numbers: his feet at 0.9 of
+    # his tile, he is MAN_ROWS 1.8 tiles tall, he stands at his tile's middle; his legs are the middle 0.14 of a tile)
+    print('covered of a man in the tile behind (at his middle | across his legs | the highest point):')
+    for bid in sorted(ranch):
+        for h in ranch[bid].get('houses', []):
+            if len(h.get('top', [])) < 2: continue
+            print('  %-14s %-12s %s' % (bid, h['kind'], ' | '.join('%4.1f%%' % v for v in cover(h['top'], h['old_px'][3]))))
     doc = {'version': 'fight-stands-11-2', 'lane': 'combat', 'for_file': 'slices/BOHEMIA_FIGHT.html (THE LAYERS)',
            'made_by': 'tools/bohemia_combat_the_fight_layers_11_2_26.py',
            'key': {'line': "the building's front on the ground (art px, y): a man is behind it when his feet stand north of line - half a tile",

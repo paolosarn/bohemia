@@ -1,0 +1,7 @@
+{
+ "_about": "COMBAT 11/2 [a house covers his legs] (ask line 251): how a suburb ranch stands in its fight tile, read by tools/bohemia_cook_the_floor_through_the_rig_10_19_26.py place_houses. Edit and re-render the suburb blocks (and their two futures) to change it.",
+ "real_size": true,
+ "plate_m": 2.97,
+ "back_wall_line_m": 0.05,
+ "source": "records/BOHEMIA_COMBAT_A_HOUSE_COVERS_HIS_LEGS_11_2_26.md. plate_m: a 2000s Las Vegas tract house, the subdivision the crash left half-built: a slab about 0.2 m over the yard and a 9-ft (2.77 m) wall, 2.97 m to the plate (the builders draw a 1960s ranch at 2.7 m; the house is scaled up to it whole, doors and windows with it). back_wall_line_m: its back wall stands this far inside its tile's north line; the house runs back to it from its front, which stays where it was (so a man on its roof still stands on its roof), and its eave overhangs the line as a real eave does."
+}
