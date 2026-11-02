@@ -1,0 +1,1444 @@
+{
+ "_about": "CONTENT [five side quests played], 11/2/26. Baked by tools/bohemia_side_quests_bake.js from quests/bq (QUESTS' pages, read and never asked to build): every say and every choice VERBATIM from the .bq; the glue (who each role is, where the giver is met on the road, where the second person waits, what an ending pays) is this lane's attempt, draft:true. Played by slices/bohemia_road_events.js: the giver stops you on the road (a face, the .bq's own words); when the talk turns to somebody who is not here, that person's place goes on the map; walk there, they talk; an ending's stage closes it and pays. A modder edits this file, or a .bq and the tool.",
+ "version": "side-quests-11-2a",
+ "draft": true,
+ "quests": {
+  "bq_say_it_back": {
+   "id": "bq_say_it_back",
+   "file": "S07_SAY_IT_BACK",
+   "title": "Say It Back",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "dying": {
+     "name": "DOÑA REFUGIO",
+     "look": "faction_church",
+     "from": "in a chair at the side of the road, a blanket on her knees"
+    },
+    "wrongdoer": {
+     "name": "EL TUERTO",
+     "look": "cast_widebrim",
+     "from": "a one-eyed man at a shack"
+    }
+   },
+   "places": {
+    "wrongdoer": {
+     "name": "EL TUERTO'S SHACK",
+     "act": "CARRY HER WORDS",
+     "blocks": [
+      6,
+      13
+     ]
+    }
+   },
+   "go": 20,
+   "start": "bedside",
+   "nodes": {
+    "bedside": {
+     "who": "dying",
+     "entry": "stage>=10",
+     "says": [
+      "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.",
+      "There's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.",
+      "I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it."
+     ],
+     "opts": [
+      {
+       "t": "I forgive you. I'll carry it.",
+       "to": "why",
+       "learn": [
+        "holds_the_words"
+       ]
+      },
+      {
+       "t": "He doesn't deserve that.",
+       "to": "deserve"
+      },
+      {
+       "t": "I can't promise I will.",
+       "to": "refuse"
+      }
+     ]
+    },
+    "why": {
+     "who": "dying",
+     "entry": null,
+     "says": [
+      "Deserve. You sound like the part of me that stayed angry for nine years.",
+      "It isn't for him. It never was. It's so the last thing I set down is lighter than the thing I carried. Go on. Please."
+     ],
+     "opts": [
+      {
+       "t": "I'll find him.",
+       "to": "deliver_true",
+       "stage": 20
+      },
+      {
+       "t": "And if I change the words on the way?",
+       "to": "warn"
+      }
+     ]
+    },
+    "deserve": {
+     "who": "dying",
+     "entry": null,
+     "says": [
+      "No. He doesn't. That is the point of the word. Cheap forgiveness is just a debt paid on time.",
+      "Mine isn't cheap. It cost me nine years. Carry it anyway, or don't, but don't pretend it's small."
+     ],
+     "opts": [
+      {
+       "t": "I'll carry it.",
+       "to": "deliver_true",
+       "stage": 20,
+       "learn": [
+        "holds_the_words"
+       ]
+      },
+      {
+       "t": "I can't.",
+       "to": "refuse"
+      }
+     ]
+    },
+    "warn": {
+     "who": "dying",
+     "entry": null,
+     "says": [
+      "Then it isn't my message anymore, it's yours, and you'll answer for yours the way I answered for mine.",
+      "I'm trusting a stranger with the last true thing I own. That's what dying makes you do."
+     ],
+     "opts": [
+      {
+       "t": "I'll keep it true.",
+       "to": "deliver_true",
+       "stage": 20,
+       "learn": [
+        "holds_the_words"
+       ]
+      },
+      {
+       "t": "We'll see.",
+       "to": "deliver_curse",
+       "stage": 20,
+       "learn": [
+        "holds_the_words"
+       ]
+      }
+     ]
+    },
+    "refuse": {
+     "who": "dying",
+     "entry": null,
+     "says": [
+      "Then sit with me a while instead, and don't let me talk you into anything."
+     ],
+     "opts": [
+      {
+       "t": "I changed my mind. I'll go.",
+       "to": "deliver_true",
+       "stage": 20,
+       "learn": [
+        "holds_the_words"
+       ]
+      },
+      {
+       "t": "(stay until it's over)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      }
+     ]
+    },
+    "deliver_true": {
+     "who": "wrongdoer",
+     "entry": "stage>=20",
+     "says": [
+      "I know that name. I've waited years for someone to come about that name, and I always thought it would be a knife.",
+      "You're telling me she forgives me. Say it again. Say it the way she said it."
+     ],
+     "opts": [
+      {
+       "t": "In her words: she forgives you.",
+       "to": "true_end"
+      },
+      {
+       "t": "Bring people. Let them see this.",
+       "to": "public"
+      },
+      {
+       "t": "She curses you with her last breath.",
+       "to": "curse_end"
+      }
+     ]
+    },
+    "true_end": {
+     "who": "wrongdoer",
+     "entry": null,
+     "says": [
+      "(he doesn't speak for a long time. when he does it isn't words, it's the sound a man makes when a weight he's carried alone is suddenly shared.)",
+      "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway."
+     ],
+     "opts": [
+      {
+       "t": "She wanted it lighter. Now it is.",
+       "to": "END",
+       "stage": 30
+      },
+      {
+       "t": "(leave him to it)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    },
+    "public": {
+     "who": "wrongdoer",
+     "entry": null,
+     "says": [
+      "You brought a crowd. For this.",
+      "I'll say the right things because they're watching, and she'll see it land while she can still see. But you and I both know what you traded to make it a show."
+     ],
+     "opts": [
+      {
+       "t": "Let her see it land.",
+       "to": "END",
+       "stage": 31
+      }
+     ]
+    },
+    "deliver_curse": {
+     "who": "wrongdoer",
+     "entry": "stage>=20",
+     "says": [
+      "I know that name. I've waited years. Tell me what she wants me to hear."
+     ],
+     "opts": [
+      {
+       "t": "She curses you with her last breath.",
+       "to": "curse_end"
+      },
+      {
+       "t": "No. The truth. She forgives you.",
+       "to": "true_end"
+      }
+     ]
+    },
+    "curse_end": {
+     "who": "wrongdoer",
+     "entry": null,
+     "says": [
+      "(something in him that was trying to open slams shut, and hardens, and will stay hard now.)",
+      "Then I'll carry it the rest of my life exactly as heavy as it was. You did that. Not her. You."
+     ],
+     "opts": [
+      {
+       "t": "So be it.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "(walk away from what you made)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "An old woman of the church is dying and wants a message carried before she goes.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "The message is forgiveness. The one she wants to forgive is the one who took her son.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Carried her words, plain and true, to the man who earned none of them. He wept. Nobody else ever knew.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "mood": {
+       "act": "favor",
+       "place": "faction:church"
+      }
+     }
+    },
+    "31": {
+     "log": "Brought them together in front of the whole block. A reconciliation with an audience. She got to see it land.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:church"
+      }
+     }
+    },
+    "32": {
+     "log": "Delivered it as a curse instead of a blessing. Loud, in the open. He won't sleep, and neither, later, will I.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "faction:church"
+      }
+     }
+    },
+    "33": {
+     "log": "Couldn't carry it. She died with the words still in her mouth. I'll wonder about that for a long time.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_last_good_doctor": {
+   "id": "bq_last_good_doctor",
+   "file": "S12_THE_LAST_GOOD_DOCTOR",
+   "title": "The Last Good Doctor",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "any",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "medic": {
+     "name": "DOCTORA IBARRA",
+     "look": "faction_volunteers",
+     "from": "outside a clinic tent, smoking"
+    },
+    "runner": {
+     "name": "EL FLACO",
+     "look": "faction_cartel",
+     "from": "a runner with a cooler"
+    }
+   },
+   "places": {
+    "runner": {
+     "name": "EL FLACO'S COOLER",
+     "act": "FIND THE RUNNER",
+     "blocks": [
+      6,
+      12
+     ]
+    },
+    "medic": {
+     "name": "THE CLINIC TENT",
+     "act": "BACK TO THE DOCTOR"
+    }
+   },
+   "go": 20,
+   "start": "clinic",
+   "nodes": {
+    "clinic": {
+     "who": "medic",
+     "entry": "stage>=10,stage<20",
+     "says": [
+      "One course. Two people. I've run the numbers four times hoping they were three people ago.",
+      "I'm not asking your opinion. I'm asking you to be the one who says it, because if I say it again this month I'm going to stop being able to."
+     ],
+     "opts": [
+      {
+       "t": "Tell me about both of them.",
+       "to": "both"
+      },
+      {
+       "t": "Can it be stretched?",
+       "to": "split"
+      },
+      {
+       "t": "Is there anywhere else to get more?",
+       "to": "more"
+      },
+      {
+       "t": "(wait for her to keep going)",
+       "to": "both",
+       "silent": true
+      }
+     ]
+    },
+    "both": {
+     "who": "medic",
+     "entry": null,
+     "says": [
+      "One is forty, strong lungs, will be back on a roof in nine days with the full course. Nothing else wrong with him.",
+      "The other is sixty three, already thin, already tired, and has four people who sit in my doorway every night waiting. With the full course she has a chance. Not a good one. A chance.",
+      "The arithmetic says him. The doorway says her. I have both and I can't carry both."
+     ],
+     "opts": []
+    },
+    "split": {
+     "who": "medic",
+     "entry": null,
+     "says": [
+      "Half each. Everybody wants that one. It sounds like mercy and it's the worst thing in this room.",
+      "Half a course knocks a bug down and lets the survivors of it learn you. Both of them get one good week and then it comes back wearing armor, and so does the next one, and the next."
+     ],
+     "opts": [
+      {
+       "t": "Then no. Tell me about both.",
+       "to": "both"
+      },
+      {
+       "t": "Split it anyway. I won't choose.",
+       "to": "END",
+       "stage": 33
+      }
+     ]
+    },
+    "more": {
+     "who": "medic",
+     "entry": null,
+     "says": [
+      "There's one place. There's always one place. He's polite and he's punctual and he has never once raised his voice at me.",
+      "If you talk to him, understand you aren't buying medicine. You're selling something, and he gets to name it later."
+     ],
+     "opts": []
+    },
+    "crate": {
+     "who": "runner",
+     "entry": "stage>=20,role:runner",
+     "says": [
+      "She sent you. She always sends someone, she has never once come herself, and I have never held that against her.",
+      "Full crate. Twelve courses. Tonight, no charge, no interest, no paper.",
+      "One day, not soon, somebody knocks and asks the clinic for a small thing. You won't be there. She'll be. That's the price and I'm telling it to you straight, which is more than most people get."
+     ],
+     "opts": [
+      {
+       "t": "What's the small thing?",
+       "to": "smallthing"
+      },
+      {
+       "t": "Take the crate. Both of them live.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "No. We do it with what we have.",
+       "to": "both"
+      }
+     ]
+    },
+    "smallthing": {
+     "who": "runner",
+     "entry": null,
+     "says": [
+      "If I knew, it would be a contract, and contracts are for people who plan to argue.",
+      "It'll be small. It always is. That is the craft of it, and you already know that, or you wouldn't have asked."
+     ],
+     "opts": [
+      {
+       "t": "Take the crate anyway.",
+       "to": "END",
+       "stage": 32,
+       "learn": [
+        "the_price_is_later"
+       ]
+      },
+      {
+       "t": "(walk out without answering)",
+       "to": "both",
+       "learn": [
+        "the_price_is_later"
+       ],
+       "silent": true
+      }
+     ]
+    },
+    "sign": {
+     "who": "medic",
+     "entry": "stage>=20",
+     "says": [
+      "Say it, then. Out loud, to me, so it's a thing a person decided and not a thing that happened."
+     ],
+     "opts": [
+      {
+       "t": "Him. The one it saves.",
+       "to": "quiet_end"
+      },
+      {
+       "t": "Her. The doorway.",
+       "to": "quiet_end"
+      },
+      {
+       "t": "Not me. Ask the block, in the open.",
+       "to": "open_end"
+      }
+     ]
+    },
+    "quiet_end": {
+     "who": "medic",
+     "entry": null,
+     "says": [
+      "Then that's what we do. It goes in tonight.",
+      "Nobody else will ever know there was a second name. That part is mine to carry and I'd rather carry it than have it read aloud."
+     ],
+     "opts": [
+      {
+       "t": "Nobody hears about this.",
+       "to": "END",
+       "stage": 30
+      },
+      {
+       "t": "(help her set the line and say nothing)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    },
+    "open_end": {
+     "who": "medic",
+     "entry": null,
+     "says": [
+      "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.",
+      "It's the honest way and it's the cruelest room I'll ever stand in. Fine. Call them."
+     ],
+     "opts": [
+      {
+       "t": "Call them. All of them.",
+       "to": "END",
+       "stage": 31
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "The clinic has one full course left and two people who need it tonight.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "The arithmetic is ugly and simple. A whole course saves one. Half a course saves nobody and teaches the bug.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Gave the whole course to the one it could actually save. Never told anyone how I picked. I won't forget how I picked.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:volunteers"
+      }
+     }
+    },
+    "31": {
+     "log": "Put it to the block, out loud, and let them choose in front of both families. Nobody can say it was done in the dark. Both families heard every word.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 15,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:volunteers"
+      }
+     }
+    },
+    "32": {
+     "log": "Took the crate. Both of them live, the clinic runs another month, and somewhere a ledger has my name in it waiting for a use.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "bats": 30,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:cartel"
+      }
+     }
+    },
+    "33": {
+     "log": "Split the course down the middle so neither family could say I chose. They both got a good week. Then it came back, and it came back stronger than it started.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {
+      "mood": {
+       "act": "negotiation_fail",
+       "place": "faction:volunteers"
+      }
+     }
+    }
+   },
+   "draft": true
+  },
+  "bq_what_the_dog_knows": {
+   "id": "bq_what_the_dog_knows",
+   "file": "S14_WHAT_THE_DOG_KNOWS",
+   "title": "What The Dog Knows",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "scav": {
+     "name": "LA RATA",
+     "look": "faction_homeless",
+     "from": "a scavenger at a stairwell, with a dog"
+    },
+    "sergeant": {
+     "name": "SARGENTO VEGA",
+     "look": "faction_remnants",
+     "from": "an old soldier at the bottom of the stairs"
+    }
+   },
+   "places": {
+    "sergeant": {
+     "name": "THE STAIRWELL",
+     "act": "GO DOWN",
+     "blocks": [
+      5,
+      11
+     ]
+    }
+   },
+   "go": 20,
+   "start": "stairwell",
+   "nodes": {
+    "stairwell": {
+     "who": "scav",
+     "entry": "stage>=10,stage<20",
+     "says": [
+      "Second floor and up is spoken for. Something big is holding the landing and it has not eaten in a while.",
+      "It doesn't chase. It doesn't bark much. It holds. That's worse, because a thing that holds has a reason."
+     ],
+     "opts": [
+      {
+       "t": "I'll go up.",
+       "to": "landing"
+      },
+      {
+       "t": "Holding what?",
+       "to": "holding"
+      },
+      {
+       "t": "Leave it. It'll sort itself.",
+       "to": "END",
+       "stage": 33
+      },
+      {
+       "t": "(start up the stairs)",
+       "to": "landing",
+       "silent": true
+      }
+     ]
+    },
+    "holding": {
+     "who": "scav",
+     "entry": null,
+     "says": [
+      "There's a man up there who stopped moving four days ago, and there's a dog up there who has not accepted that.",
+      "I got close enough once to see the collar and the kit. Then it stood up, and I decided I'd seen plenty."
+     ],
+     "opts": [
+      {
+       "t": "I'm going up.",
+       "to": "landing"
+      },
+      {
+       "t": "(go up without answering)",
+       "to": "landing",
+       "silent": true
+      }
+     ]
+    },
+    "landing": {
+     "who": "scav",
+     "entry": null,
+     "says": [
+      "Slow, then. Don't look it in the face and don't put your hand out yet. It isn't angry. It's on duty."
+     ],
+     "opts": []
+    },
+    "bottom": {
+     "who": "sergeant",
+     "entry": "stage>=20",
+     "says": [
+      "I know whose dog that is. I knew before you told me, because I know who has not checked in.",
+      "So there are three ways this goes and I've done all three. I can bring the crew and do it properly, poles and a blanket, and the whole street watches us be competent.",
+      "Or somebody with more patience than sense sits on that step and waits it out, which takes hours and works better than anything I own.",
+      "Or you make a parade of it, and every person in this valley learns one of mine died alone in a stairwell and lay there four days. Pick."
+     ],
+     "opts": [
+      {
+       "t": "I'll sit with it.",
+       "to": "sit"
+      },
+      {
+       "t": "Bring the crew. Do it properly.",
+       "to": "crew"
+      },
+      {
+       "t": "The block should see this.",
+       "to": "parade"
+      },
+      {
+       "t": "How long was he up there alone?",
+       "to": "alone"
+      }
+     ]
+    },
+    "alone": {
+     "who": "sergeant",
+     "entry": null,
+     "says": [
+      "Four days. He was two streets from a post with eleven people in it and nobody walked two streets.",
+      "Ask me that again in front of my crew and you'll find out what we're actually like. Ask me here and I'll tell you it keeps me up."
+     ],
+     "opts": [
+      {
+       "t": "Then I'll sit with it.",
+       "to": "sit",
+       "learn": [
+        "nobody_walked_two_streets"
+       ]
+      },
+      {
+       "t": "Then the block should see it.",
+       "to": "parade",
+       "learn": [
+        "nobody_walked_two_streets"
+       ]
+      }
+     ]
+    },
+    "sit": {
+     "who": "sergeant",
+     "entry": null,
+     "says": [
+      "Two hours. Maybe three. No talking, no reaching, and don't take the kit, the kit is what it's guarding.",
+      "When it finally eats out of your hand it'll lie down, and that is what will get you, not the smell and not the stairs."
+     ],
+     "opts": [
+      {
+       "t": "I have the time.",
+       "to": "END",
+       "stage": 30
+      },
+      {
+       "t": "(sit down on the step and wait)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "No. Bring the crew instead.",
+       "to": "crew"
+      }
+     ]
+    },
+    "crew": {
+     "who": "sergeant",
+     "entry": null,
+     "says": [
+      "Poles, blanket, two men, ten minutes. It's clean, it's public, and it's the correct way to do a thing you don't want to feel.",
+      "The dog goes to the kennel, gets fed twice a day, and works for somebody else inside a month. That's a good outcome. I want you to notice that I said good and not kind."
+     ],
+     "opts": [
+      {
+       "t": "Do it by the book.",
+       "to": "END",
+       "stage": 31
+      }
+     ]
+    },
+    "parade": {
+     "who": "sergeant",
+     "entry": null,
+     "says": [
+      "Through the middle of the block. In the light. With his dog walking behind him.",
+      "Every person out here will look at my uniform differently by tomorrow, and some of them will be right to. Do it if you think it needs doing. Don't do it because it'll look good."
+     ],
+     "opts": [
+      {
+       "t": "It needs doing.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "(lift him and start walking)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "No. Quietly. I'll sit with it.",
+       "to": "sit"
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Something is snarling in a stairwell on the north side and nobody will go past the second floor.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "It's a working dog. Its handler is dead on the landing and it has not left him.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Sat on the step for two hours saying nothing until it took food out of my hand. Buried him behind the wall. The dog walks with me now.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 8
+     }
+    },
+    "31": {
+     "log": "Called the crew. Catchpole, blanket, the whole procedure, done properly with people watching. The dog eats every day now and works for somebody again.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 12,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:remnants"
+      }
+     }
+    },
+    "32": {
+     "log": "Carried him out through the middle of the block in daylight with the dog behind me, so the whole valley could see how one of theirs ended and how long it took anyone to notice.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "bats": 20,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "faction:remnants"
+      }
+     }
+    },
+    "33": {
+     "log": "Left it alone. Three days later the stairwell was quiet, the landing was empty, and nobody will tell me which part of that they did.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_deep_cry": {
+   "id": "bq_deep_cry",
+   "file": "S04_WHAT_CRIES_IN_THE_DEEP",
+   "title": "What Cries in the Deep",
+   "meet": {
+    "where": [
+     "rough",
+     "any"
+    ],
+    "when": "night",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "elder": {
+     "name": "ABUELO CHEMA",
+     "look": "faction_homeless",
+     "from": "at a storm tunnel mouth, holding a lamp"
+    },
+    "haunt": {
+     "name": "THE VOICE IN THE TUNNEL",
+     "look": "faction_network",
+     "from": "somewhere down in the dark"
+    }
+   },
+   "places": {
+    "haunt": {
+     "name": "THE STORM TUNNEL",
+     "act": "GO DOWN",
+     "blocks": [
+      4,
+      9
+     ]
+    }
+   },
+   "go": 20,
+   "start": "hire",
+   "nodes": {
+    "hire": {
+     "who": "elder",
+     "entry": "stage>=10",
+     "says": [
+      "Every night it comes up the deep. Crying. Sometimes words, and the words are worse than the crying.",
+      "The little ones can't sleep. We don't go down that far. You aren't one of us, so you can.",
+      "End it. I don't care how. I care that it stops. Don't tell me how."
+     ],
+     "opts": [
+      {
+       "t": "I'll go down and look.",
+       "to": "descend",
+       "learn": [
+        "going_deep"
+       ]
+      },
+      {
+       "t": "What's down the deep?",
+       "to": "what"
+      },
+      {
+       "t": "Find someone else.",
+       "to": "refuse"
+      }
+     ]
+    },
+    "what": {
+     "who": "elder",
+     "entry": null,
+     "says": [
+      "Water. Old pipe. And below that, further than anyone sane goes, more water and a hum you feel in your teeth.",
+      "We don't ask about the hum. We ask about the crying. Go find the crying."
+     ],
+     "opts": [
+      {
+       "t": "Going down.",
+       "to": "descend",
+       "learn": [
+        "going_deep"
+       ]
+      }
+     ]
+    },
+    "refuse": {
+     "who": "elder",
+     "entry": null,
+     "says": [
+      "Then you're no use to me and my back hurts from this conversation."
+     ],
+     "opts": [
+      {
+       "t": "Sorry.",
+       "to": "END",
+       "stage": 33
+      },
+      {
+       "t": "No, wait. I'll go.",
+       "to": "descend",
+       "learn": [
+        "going_deep"
+       ]
+      }
+     ]
+    },
+    "descend": {
+     "who": "haunt",
+     "entry": "stage>=10",
+     "says": [
+      "don't shine that at me. i know what i look like now. i know.",
+      "they took the half of me that could go home. the other half stayed down here where it's cool and it remembers her.",
+      "you have a stick or a wire or a bounty. i can hear it in how you breathe. so do it, or don't, but stop breathing at me."
+     ],
+     "opts": [
+      {
+       "t": "Nobody is doing anything. Talk to me.",
+       "to": "talk_up"
+      },
+      {
+       "t": "The elders paid me to end this.",
+       "to": "honest"
+      },
+      {
+       "t": "(lower the light, sit down)",
+       "to": "talk_up",
+       "silent": true
+      }
+     ]
+    },
+    "honest": {
+     "who": "haunt",
+     "entry": null,
+     "says": [
+      "of course they did. I'd pay too, if it cried under my children.",
+      "so here is the whole menu. lead me out, which is slow and i might not make it. end me, which is fast and loud and you shouldn't be loud down here. or wall me off and lie, which is the coward's mercy and it works."
+     ],
+     "opts": [
+      {
+       "t": "Come up. Slow. I've got you.",
+       "to": "lead_out"
+      },
+      {
+       "t": "I'm sorry. I'll make it quick.",
+       "to": "end_it"
+      },
+      {
+       "t": "I'll seal it and say it's gone.",
+       "to": "wall_it"
+      }
+     ]
+    },
+    "talk_up": {
+     "who": "haunt",
+     "entry": null,
+     "says": [
+      "you're still here. people aren't usually still here.",
+      "there's a way up if a person walks it with me and doesn't let go and doesn't get loud. loud is bad down here. loud is very bad. can you be quiet and stubborn at the same time."
+     ],
+     "opts": [
+      {
+       "t": "Come up. Slow. I've got you.",
+       "to": "lead_out"
+      },
+      {
+       "t": "I can't. I'm sorry.",
+       "to": "end_it"
+      },
+      {
+       "t": "(take their hand)",
+       "to": "lead_out",
+       "silent": true
+      }
+     ]
+    },
+    "lead_out": {
+     "who": "haunt",
+     "entry": null,
+     "says": [
+      "one word at a time. don't look down at the water. look at me. keep looking at me.",
+      "there. there's the air. i forgot the air moved. thank you for being quiet. thank you for being stubborn."
+     ],
+     "opts": [
+      {
+       "t": "You walked it yourself.",
+       "to": "END",
+       "stage": 30
+      }
+     ]
+    },
+    "end_it": {
+     "who": "haunt",
+     "entry": null,
+     "says": [
+      "okay. okay. do it up here where it isn't so dark, if you can, and be quick, and please don't be loud about it after."
+     ],
+     "opts": [
+      {
+       "t": "Look away. It's over.",
+       "to": "END",
+       "stage": 31
+      },
+      {
+       "t": "(do it without a word)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      }
+     ]
+    },
+    "wall_it": {
+     "who": "haunt",
+     "entry": null,
+     "says": [
+      "the wall. the coward's mercy. it works, you know. it actually works.",
+      "they'll sleep. I'll be quieter. everybody gets a little of what they wanted and nobody has to look at me. go on. build it."
+     ],
+     "opts": [
+      {
+       "t": "Sleep now. Nobody will look.",
+       "to": "END",
+       "stage": 32
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "The tunnel elders will pay to end the crying that comes up the deep every night.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "There is no haunt. It is a person, half-taken, sitting where the deep runs down toward the water.",
+     "end": null,
+     "tag": "namedbody"
+    },
+    "30": {
+     "log": "Talked them up out of the deep, slow, in the dark, one word at a time. They walked out on their own feet.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 12,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:homeless"
+      }
+     }
+    },
+    "31": {
+     "log": "Ended it loud in the deep, for the bounty. The crying stopped. Something far below noticed the noise.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "bats": 12,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:homeless"
+      }
+     }
+    },
+    "32": {
+     "log": "Sealed the deep tunnel and told the elders it's gone. It isn't gone. It's just quieter now, and walled in.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "bats": 12,
+      "mood": {
+       "act": "civilian_contract_poor",
+       "place": "faction:homeless"
+      }
+     }
+    },
+    "33": {
+     "log": "Couldn't do any of it. Left the crying where it was. The elders will find someone with a harder stomach.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_seed_no_return": {
+   "id": "bq_seed_no_return",
+   "file": "S17_THE_SEED_THAT_DOES_NOT_COME_BACK",
+   "title": "The Seed That Does Not Come Back",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "grower": {
+     "name": "DON ANSELMO",
+     "look": "faction_blues",
+     "from": "a seed yard behind a chain fence"
+    },
+    "trader": {
+     "name": "LA GÜERA",
+     "look": "faction_caravans",
+     "from": "a trader with a truck of sacks"
+    }
+   },
+   "places": {
+    "trader": {
+     "name": "THE SACK TRUCK",
+     "act": "FIND THE TRADER",
+     "blocks": [
+      7,
+      14
+     ]
+    },
+    "grower": {
+     "name": "THE SEED YARD",
+     "act": "BACK TO THE YARD"
+    }
+   },
+   "go": 20,
+   "start": "yard",
+   "nodes": {
+    "yard": {
+     "who": "grower",
+     "entry": "stage>=10,stage<20",
+     "says": [
+      "His sacks will feed this block through winter. I want to say that first because everything after it sounds like I'm pretending it isn't true.",
+      "What comes up from his seed doesn't breed. You save it, you plant its children, you get a field of nothing. So you buy again. Every year. Forever, and forever is a long word to sign.",
+      "Mine came off my mother's rows. It yields less. It has never once asked me for anything."
+     ],
+     "opts": [
+      {
+       "t": "Then keep yours and take the thin year.",
+       "to": "thin"
+      },
+      {
+       "t": "People have to eat this winter.",
+       "to": "eat"
+      },
+      {
+       "t": "Can you plant both?",
+       "to": "both"
+      },
+      {
+       "t": "(wait for her to say the rest)",
+       "to": "both",
+       "silent": true
+      }
+     ]
+    },
+    "thin": {
+     "who": "grower",
+     "entry": null,
+     "says": [
+      "A thin year on purpose. Smaller plates, every house, agreed out loud so nobody thinks they're the only one going short.",
+      "That only holds if it's public. A private sacrifice is a rumor by spring and a grudge by summer."
+     ],
+     "opts": []
+    },
+    "eat": {
+     "who": "grower",
+     "entry": null,
+     "says": [
+      "I know. I've counted the block twice this month and I get the same number both times and it isn't enough.",
+      "So don't let me be noble at other people's expense. Go talk to him. Just don't come back and tell me his seed is a gift."
+     ],
+     "opts": []
+    },
+    "both": {
+     "who": "grower",
+     "entry": null,
+     "says": [
+      "Pollen doesn't know about fences. Plant his field next to my line and by autumn my line is his line with a worse yield.",
+      "Far side of the ridge, wind off it, and it can be done. It's careful work and careful work is exactly what nobody has time for in a bad year."
+     ],
+     "opts": []
+    },
+    "sacks": {
+     "who": "trader",
+     "entry": "stage>=20",
+     "says": [
+      "Twice the yield. I have never once said otherwise and I have never once had to.",
+      "She'll tell you it doesn't breed true. She's right. I sell food, not heirlooms, and a family that starves this winter has no heirloom problem next winter.",
+      "Small sack, full load on credit, or nothing, and I'm parked here until dark either way."
+     ],
+     "opts": [
+      {
+       "t": "One small sack. Far side of the ridge.",
+       "to": "small"
+      },
+      {
+       "t": "The full load. On credit.",
+       "to": "credit"
+      },
+      {
+       "t": "What happens if the block can't pay?",
+       "to": "cannotpay"
+      },
+      {
+       "t": "Your buyers should hear about the second generation.",
+       "to": "tell"
+      }
+     ]
+    },
+    "cannotpay": {
+     "who": "trader",
+     "entry": null,
+     "says": [
+      "Then we come back in the spring and we're pleasant about it, and there's a conversation about the water rights or the yard or the road.",
+      "Nobody gets hurt. Things simply belong to different people afterward, and everybody agreed to it in a year when agreeing was easy."
+     ],
+     "opts": [
+      {
+       "t": "Small sack. That's all.",
+       "to": "small",
+       "learn": [
+        "credit_buys_the_yard"
+       ]
+      },
+      {
+       "t": "Full load anyway.",
+       "to": "credit",
+       "learn": [
+        "credit_buys_the_yard"
+       ]
+      },
+      {
+       "t": "(walk back to the farmhouse)",
+       "to": "thin",
+       "silent": true
+      }
+     ]
+    },
+    "small": {
+     "who": "trader",
+     "entry": null,
+     "says": [
+      "One sack. Barely worth unhitching for, and it'll get you to spring with a hungry face.",
+      "Plant it away from her rows if you're going to be sentimental about her rows. That's honest advice and it costs me a customer next year."
+     ],
+     "opts": [
+      {
+       "t": "One sack. Over the ridge.",
+       "to": "END",
+       "stage": 30
+      },
+      {
+       "t": "(load the one sack and go)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "No. The block goes thin instead.",
+       "to": "plan"
+      }
+     ]
+    },
+    "credit": {
+     "who": "trader",
+     "entry": null,
+     "says": [
+      "The full load. Nine years since anybody around here saw a harvest like the one you're about to have.",
+      "And next autumn you'll need me, and the autumn after that, and by then it won't feel like a decision anybody made. That isn't a threat. That's just how it goes and you can watch it happen from here."
+     ],
+     "opts": [
+      {
+       "t": "The full load.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "No. One sack, over the ridge.",
+       "to": "small"
+      }
+     ]
+    },
+    "tell": {
+     "who": "trader",
+     "entry": null,
+     "says": [
+      "In my own yard. In front of the people who were going to buy from me at the next stop.",
+      "Say it and it's true and it's finished for me here. Then think about who brings salt and medicine up this road next season, and whether they'll bother."
+     ],
+     "opts": [
+      {
+       "t": "Say it loud enough for all of them.",
+       "to": "END",
+       "stage": 33
+      },
+      {
+       "t": "(turn to his buyers and say it)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      },
+      {
+       "t": "No. One sack, over the ridge.",
+       "to": "small"
+      }
+     ]
+    },
+    "plan": {
+     "who": "grower",
+     "entry": "stage>=20,knows:pollen_crosses_fences",
+     "says": [
+      "A thin year, signed by every house, or a small sack over the ridge. Those are the only two that leave anything standing in ten years.",
+      "If it's the thin year, it happens in the open or not at all."
+     ],
+     "opts": [
+      {
+       "t": "The whole block signs it.",
+       "to": "END",
+       "stage": 31
+      },
+      {
+       "t": "Nothing is signed. Let it lie.",
+       "to": "END",
+       "stage": 34
+      },
+      {
+       "t": "(go back to the sacks)",
+       "to": "small",
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "The farm at the edge is short a winter of food and a caravan is parked in the yard with sacks.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "His seed makes twice the crop and its children make nothing. Hers makes less and makes more of itself forever.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "One small sack for this winter, planted on the far side of the ridge where the pollen can't reach her line. Nobody eats well and nobody loses anything permanent.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "food": 3,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:blues"
+      }
+     }
+    },
+    "31": {
+     "log": "Got the whole block to sign a thin year on purpose. All saved seed, smaller plates, and a line that still belongs to them in ten years. Everybody had to agree out loud, which is why it'll hold.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "food": 4,
+      "mood": {
+       "act": "favor",
+       "place": "faction:blues"
+      }
+     }
+    },
+    "32": {
+     "log": "Took the full load on credit. Best harvest anyone has seen in nine years, a debt to people who travel, and a saved line the pollen got into. Next year we buy again. So does everyone.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "bats": 25,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:caravans"
+      }
+     }
+    },
+    "33": {
+     "log": "Told his buyers, standing in his own yard, that the second generation of what he sells is worthless. True, loud, and it cost him the season and me a road.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "mood": {
+       "act": "offensive_action",
+       "place": "faction:caravans"
+      }
+     }
+    },
+    "34": {
+     "log": "Nothing settled, and the planting window closed while everyone was still being reasonable at each other.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {
+      "mood": {
+       "act": "negotiation_fail",
+       "place": "faction:blues"
+      }
+     }
+    }
+   },
+   "draft": true
+  }
+ }
+}

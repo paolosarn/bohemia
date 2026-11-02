@@ -41,7 +41,7 @@
     fetch(url || '../records/target/BOHEMIA_JOB_KINDS.json').then(function (r) { return r.json(); })
       .then(function (j) { set(j); }).catch(function () { LOADING = false; });
   }
-  function set(j) { DATA = (j && j.kinds) ? j : null; var w = WAIT; WAIT = []; w.forEach(function (f) { try { f(DATA); } catch (e) {} }); }
+  function set(j) { DATA = (j && j.kinds) ? j : null; try { legsWire(); } catch (e) {} var w = WAIT; WAIT = []; w.forEach(function (f) { try { f(DATA); } catch (e) {} }); }   /* CONTENT 11/2: a kind with legs is built */
   function K(id) { return (DATA && DATA.kinds && DATA.kinds[id]) || null; }
   function seedOf(s) { var h = 2166136261; s = String(s); for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   function rng(seed) { var x = seed >>> 0 || 1; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; }; }
@@ -215,6 +215,7 @@
     if (job.stage === 'wait') return null;
     var from = { name: String(job.from || '').toUpperCase(), act: 'GET PAID', x: job.fromAt ? job.fromAt.x : (job.target || {}).x, y: job.fromAt ? job.fromAt.y : (job.target || {}).y, town: true };
     var tg = job.target || {}, pn = job.placeName;
+    if (job.legs) { var Lg = legNow(job); if (!Lg) return null; if (Lg.go === 'client') return from; return { name: String(Lg.name || job.word || 'THE PLACE').toUpperCase(), act: String(Lg.act || job.word || 'GO').toUpperCase(), x: Lg.x, y: Lg.y, town: !!Lg.town }; }   /* CONTENT 11/2: LEGS */
     switch (job.plays) {
       case 'haul-caravan': return job.stage === 'haul' ? { name: String(job.dest.name).toUpperCase(), act: 'ESCORT TO', x: job.dest.made ? tg.x : job.dest.x, y: job.dest.made ? tg.y : job.dest.y, town: !job.dest.made } : null;
       case 'carry': if (job.stage === 'lair' && job.lair) return { name: 'THEIR LAIR', act: 'GET IT BACK', x: job.lair.x, y: job.lair.y };
@@ -878,6 +879,101 @@
     save('contract:band');
   };
 
+  /* ======================= LEGS: EVERY KIND A DATA ROW CAN WRITE (CONTENT [eight more job kinds], 11/2/26) =======================
+     PAOLO 11/2: 'I want more content for the game, more content.' Battle Brothers' contract list is longer than ours (Raid
+     Caravan, Escort Envoy, the named bounty, Discover Location, Raze, Big Game, Free the Prisoners: reference/library/battle_brothers/).
+     A kind with 'legs' in records/target/BOHEMIA_JOB_KINDS.json plays here with no code of its own: each leg is a place to go
+     ('spot' | 'road' | 'far' out from the last place, 'town' another town, 'client' back to the client to be paid) and what is
+     there when he arrives: 'wait' minutes on the clock first, 'dark' (he waits for dark), a 'talk' (a face and two or three
+     choices, slices/bohemia_road_events.js's mouth card; a choice may 'fight', settle for part of the pay, or end it), a 'fight'
+     (a band through the one door, the map's party math when n is 'party'), 'say' (the words when it is done), 'fx' (what the
+     leg gives: a man, food, gear, a town's opinion; the road events' own effects). A 'twist' slips an extra leg in at its rate.
+     A lost fight leaves the ones still standing; the job waits on them. A modder writes a kind as a row. */
+  function legsKind(kind) { var k = K(kind); return k && Array.isArray(k.legs) && k.legs.length ? k : null; }
+  function legNow(job) { return job && job.legs ? job.legs[job.li | 0] || null : null; }
+  function legSpot(L, town, prev, R) {
+    var b = L.blocks || [6, 12];
+    if (L.go === 'client') { var d = gate(town.x, town.y) || [town.x, town.y]; return { x: d[0], y: d[1], town: true, name: town.name }; }
+    if (L.go === 'town') {
+      var ts = towns().filter(function (t) { var dd = cheb(t.x, t.y, town.x, town.y); return t.name !== town.name && dd >= b[0] && dd <= b[1]; });
+      ts.sort(function () { return R() - 0.5; });
+      for (var i = 0; i < ts.length; i++) { var g = gate(ts[i].x, ts[i].y); if (g && route(city.x, city.y, g[0], g[1])) return { x: g[0], y: g[1], town: true, name: ts[i].name }; }
+      L.go = 'spot';   /* no town in range: a place out there, still named by the row */
+    }
+    for (var t = 0; t < (L.go === 'road' ? 14 : 1); t++) {
+      var s = spotOut(prev.x, prev.y, b[0], b[1], R, true); if (!s) continue;
+      if (L.go === 'road') { var c = null; try { c = om.at(s[0], s[1]); } catch (e) {} if (!(c && CITY_PAVED[c.district]) && t < 13) continue; }
+      return { x: s[0], y: s[1], town: false };
+    }
+    return null;
+  }
+  function makeLegs(job, k, row, town, R) {
+    var legs = k.legs.map(function (L) { return JSON.parse(JSON.stringify(L)); });
+    if (k.twist && k.twist.leg && R() < (+k.twist.rate || 0)) { legs.splice(clamp(k.twist.at | 0, 0, legs.length - 1), 0, JSON.parse(JSON.stringify(k.twist.leg))); job.twist = k.twist.id || 'twist'; }
+    var prev = { x: town.x, y: town.y };
+    for (var i = 0; i < legs.length; i++) { var L = legs[i], p = legSpot(L, town, prev, R); if (!p) return false;
+      L.x = p.x; L.y = p.y; L.town = !!p.town; L.townName = p.name || null; if (!L.name && p.name) L.name = p.name;
+      if (L.fight) { var n = L.fight.n; if (n === 'party' || !n) { try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) { n = 3; } } L.fight.left = Math.max(1, n | 0); }
+      if (!p.town) prev = { x: p.x, y: p.y }; }
+    job.legs = legs; job.li = 0; job.payMult = 1; job.stage = 'legs'; job.target = { x: legs[0].x, y: legs[0].y };
+    var outs = legs.filter(function (L) { return L.go !== 'client'; }), last = legs[legs.length - 1];
+    job.sayTake = 'Contract from ' + town.name + ': ' + job.title + '. ' + outs.map(function (L) { return cap(String(L.act || job.word).toLowerCase()) + ' at ' + (L.name || 'the place') + ', ' +
+      way(L.x - town.x, L.y - town.y) + ', ' + blocksWord(cheb(L.x, L.y, town.x, town.y)); }).join('; then ') + (last.go === 'client' ? '; then back to ' + town.name + ' to be paid.' : '.') +
+      ' Pays ' + job.pay + ' batteries.';   /* draft:true */
+    return true;
+  }
+  function legsFx(job, fx, name) { var RE = root.BohemiaRoadEvents; if (!fx || !RE) return null; try { return RE.apply(fx, { id: job.id, name: name || job.title, why: 'contract: ' + job.title }); } catch (e) { return null; } }
+  function legsPaid(job, line) { var n = Math.round(job.pay * (job.payMult == null ? 1 : job.payMult)); paid(job, n, (line ? line + ' ' : '') + 'Paid ' + n + ' batteries.'); }   /* draft:true */
+  function legDone(job, line) {
+    var L = legNow(job); if (L) { L.done = true; var r = legsFx(job, L.fx); if (r && r.got && r.got.length) line = (line ? line + ' ' : '') + '(' + r.got.join(', ') + ')'; }
+    job.li = (job.li | 0) + 1; root.__JOB_LEGS = (root.__JOB_LEGS || []).concat([{ id: job.id, leg: job.li, kind: job.plays }]).slice(-40);
+    var N = legNow(job);
+    if (!N) return legsPaid(job, line);
+    job.target = { x: N.x, y: N.y }; flash(String((L && L.act) || job.word) + ' DONE');
+    sayLine((line ? line + ' ' : '') + (N.go === 'client' ? 'Back to ' + job.from + ' to be paid.' : 'Next: ' + String(N.act || 'go').toLowerCase() + ' at ' + (N.name || 'the next place') + '.'));   /* draft:true */
+    save('contract:leg'); try { render(); } catch (e) {}
+  }
+  function legThere(L, x, y) { if (L.town) { var t = townNear(x, y, 1); return !!(t && t.name === L.townName); } return cheb(x, y, L.x, L.y) <= 1; }
+  function legFight(job, L) { return fight(job, 'leg' + (job.li | 0), L.fight.left, L.fight.foe || 'brigands', L.fight.label || 'trouble at ' + (L.name || 'the place')) || true; }
+  function legTalk(job, L) {
+    var RE = root.BohemiaRoadEvents, T = L.talk; if (!RE || !RE.card) { L.talked = true; return legsArrive(job, L.x, L.y); }
+    RE.card({ look: T.look, name: T.name, from: T.from, text: T.says, head: String(job.word || 'JOB') + ' · ' + String(job.title).toUpperCase(),
+      opts: (T.opts || []).slice(0, 3).map(function (o) { return { t: o.t, tag: o.tag || (o.go === 'fight' ? 'A FIGHT' : o.pay != null ? Math.round(o.pay * 100) + '% PAY' : RE.tagOf(o)), fn: function () {
+        L.talked = true; root.__JOB_TALKS = (root.__JOB_TALKS || []).concat([{ id: job.id, t: o.t }]).slice(-20);
+        var r = legsFx(job, o.fx, T.name); if (o.pay != null) job.payMult = +o.pay;
+        RE.close(false);
+        var said = (r && r.say) ? T.name + ': ' + r.say : '';
+        if (o.go === 'fight') { if (!(L.fight && L.fight.left > 0)) L.fight = { left: 2, foe: 'brigands', label: T.name }; if (said) sayLine(said); legFight(job, L); return; }
+        if (o.go === 'lost') { lost(job, said || null); return; }
+        if (L.fight) L.fight.left = 0;   /* talked past the fight */
+        legDone(job, said || o.say || null);
+      } }; }) });
+    return true;
+  }
+  function legsArrive(job, x, y) {
+    var L = legNow(job); if (!L || !legThere(L, x, y)) return false;
+    if (L.go === 'client') { legDone(job, L.say || null); return false; }
+    if (L.dark && !L.darked) { L.darked = true; var m = 0; try { if (!isNight()) m = Math.max(0, NIGHT_FROM - T.min); } catch (e) {} if (m > 0) { try { advance(m); } catch (e) {} now('You wait for dark: ' + timeWords(m) + '.'); } }   /* draft:true */
+    if (L.wait && !L.waited) { L.waited = true; try { advance(L.wait | 0); } catch (e) {} now(L.waitSay || ('You wait ' + timeWords(L.wait) + '.')); }   /* draft:true */
+    if (L.talk && !L.talked) return legTalk(job, L);
+    if (L.fight && L.fight.left > 0) return legFight(job, L);
+    legDone(job, L.say || null);
+    return false;
+  }
+  function legsEnd(job, f, won, ran, o) {
+    var L = legNow(job); if (!L || !L.fight) return;
+    if (won && !ran) { L.fight.left = 0; legDone(job, L.say || 'They are down.'); return; }   /* draft:true */
+    L.fight.left = Math.max(1, L.fight.left - (o.dead | 0));
+    sayLine((ran ? 'You pulled back. ' : 'They held. ') + L.fight.left + ' still at ' + (L.name || 'the place') + '. The job is still yours.');   /* draft:true */
+    save('contract:leg');
+  }
+  function legsWire() {
+    if (!DATA || !DATA.kinds) return;
+    Object.keys(DATA.kinds).forEach(function (kind) { var k = legsKind(kind); if (!k || MAKE[kind]) return;
+      BUILT[kind] = 1; MAKE[kind] = makeLegs; ARRIVE[kind] = legsArrive; END[kind] = legsEnd;
+      if (k.legs[k.legs.length - 1].go === 'client') BACK[kind] = 1; });
+  }
+
   /* ---------- THE FIVE MOMENTS THE MAP'S LOOP HANDS OVER ---------- */
   /* 1. TAKEN at the board: the kind decides where the job is and what it says; false = it plays as today's crew */
   function make(job, c, town, tg, dry) {
@@ -943,6 +1039,7 @@
   /* where a made job sends him first, as cells in order (a patrol is its posts), and what it is called */
   function whereTo(job) {
     var at = function (q, n) { return q && q.x != null ? [{ x: q.x | 0, y: q.y | 0, name: n || null }] : []; };
+    if (job.legs) return job.legs.filter(function (L) { return L.go !== 'client' && !L.done; }).map(function (L) { return { x: L.x | 0, y: L.y | 0, name: L.name || null }; });   /* CONTENT 11/2: LEGS */
     switch (job.plays) {
       case 'haul-caravan': case 'carry': return at(job.target, job.dest && !job.dest.made ? job.dest.name : (job.dest && job.dest.name));
       case 'find-place': case 'find-person': return at(job.ring, job.placeName);
@@ -1041,6 +1138,7 @@
   function arrived(x, y) {
     var H = held();
     for (var i = 0; i < H.length; i++) { var f = ARRIVE[H[i].plays]; if (f && f(H[i], x, y) === true) return true; }
+    try { if (root.BohemiaRoadEvents && BohemiaRoadEvents.arrived(x, y)) return true; } catch (e) {}   /* CONTENT 11/2: a side quest's person, met where they wait */
     return false;
   }
   /* 3. A STEP of his: the cargo follows, the packs and the raiders move; true = a fight started */
@@ -1056,6 +1154,7 @@
        made place, the second time after FALL BACK) is met on the step onto it, whatever started the walk; a tap on their plate was
        the only way, and RUN's town-first tap order (10/26) sends that tap to the ground below a made place's plate */
     if (j.holders && holdersAt(j, x, y)) return true;
+    if (j.legs) { var Lp = legNow(j); return !!(Lp && (Lp.go === 'client' ? atClient(j, x, y) : (Lp.town && legThere(Lp, x, y)))); }   /* CONTENT 11/2: LEGS: paid at the town's edge */
     if ((j.stage === 'back' || j.stage === 'home') && j.plays !== 'hold-defend' && j.plays !== 'clear-camp') return atClient(j, x, y);
     if ((j.plays === 'haul-caravan' && j.stage === 'haul') || (j.plays === 'carry' && j.stage === 'carry')) { if (!j.dest || j.dest.made) return false;
       if (j.holders) return holdersAt(j, x, y);   /* the crew at the gate is met at the gate, never all along the edge (198(g)) */
@@ -1095,7 +1194,9 @@
       if (j.plays === 'carry' && ((j.thief && cheb(x, y, j.thief.x, j.thief.y) <= 1) || (j.stage === 'lair' && cheb(x, y, j.lair.x, j.lair.y) <= 1))) return true;
       if (j.plays === 'hold-defend' && j.stage === 'hold' && cheb(x, y, j.target.x, j.target.y) <= 1) return true;
       if (j.plays === 'recover-return' && j.stage === 'get' && cheb(x, y, j.spot.x, j.spot.y) <= 1) return true;
-      if (j.plays === 'patrol' && j.band && cheb(x, y, j.band.x, j.band.y) <= 1) return true; }
+      if (j.plays === 'patrol' && j.band && cheb(x, y, j.band.x, j.band.y) <= 1) return true;
+      if (j.legs && j.stage === 'legs') { var Lh = legNow(j); if (Lh && Lh.go !== 'client' && !Lh.town && cheb(x, y, Lh.x, Lh.y) <= 1) return true; } }   /* CONTENT 11/2: LEGS */
+    try { if (root.BohemiaRoadEvents && BohemiaRoadEvents.here(x, y)) return true; } catch (e) {}   /* CONTENT 11/2: a side quest's place */
     return false;
   }
   /* the clock a block costs: the caravan's pace while cargo walks with him */
@@ -1124,6 +1225,7 @@
     for (var i = HITS.length - 1; i >= 0; i--) { var h = HITS[i];
       if (sx < h.x - 4 || sx > h.x + h.w + 4 || sy < h.y - 4 || sy > h.y + h.h + 4) continue;
       if (h.town) { try { return townTap({ name: h.town.name, x: h.town.x, y: h.town.y }) || true; } catch (e) { return false; } }   /* the lit card's town: the map's own town tap */
+      if (h.quest) { if (cheb(h.cell[0], h.cell[1], city.x, city.y) <= 1) { try { travelStop(); } catch (e) {} if (arrived(city.x, city.y)) return true; } try { travelStop(); return travelTo(0, 0, h.cell) || true; } catch (e) { return false; } }   /* CONTENT 11/2: a side quest's place walks there */
       var job = null; LOOP.held.forEach(function (j) { if (j.id === h.job) job = j; });
       if (!job) continue;
       if (cheb(h.cell[0], h.cell[1], city.x, city.y) <= 1) { try { travelStop(); } catch (e) {} if (arrived(city.x, city.y)) return true; }
@@ -1218,7 +1320,8 @@
     FLASH_O = [ox, oy]; flashDraw();
     /* every job he holds, today's crew job too: where it sends him next, named and marked (rule 164 item 3) */
     var marks = []; try { (LOOP.held || []).forEach(function (j) { try { var m = markNext(j, ox, oy, bt); if (m) marks.push(m); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); } }); } catch (e) {}
-    try { marks = marks.concat(markPhone(ox, oy, bt)); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); }   /* [eyes: the place in the dark]: the lit card's town and where it goes */
+    try { marks = marks.concat(markPhone(ox, oy, bt)); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); }
+    try { if (root.BohemiaRoadEvents) BohemiaRoadEvents.places().forEach(function (p) { var m = markPlace(p, ox, oy, bt, function (box, cell) { HITS.push(liveHit({ job: null, quest: p.id, cell: cell }, box)); }, p.id, false); if (m) marks.push(m); }); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); }   /* CONTENT 11/2: the side quests' places, marked like a job's */   /* [eyes: the place in the dark]: the lit card's town and where it goes */
     window.__JOB_MARKS = marks;
   }
   /* THE NEXT PLACE, MARKED: on the glass a ring on its ground that breathes on the beat, and a made place's name on the ground
@@ -1618,7 +1721,8 @@
     var k = K(job.plays) || {}, out = [], jm = function () { var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {} return n; };
     var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, n | 0), faction: faction || 'brigands', at: at || job.target || null }); };
     var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
-    switch (job.plays) {
+    if (k.legs) (job.legs || k.legs).forEach(function (L, i) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? jm() : L.fight.n); add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target); });   /* CONTENT 11/2: LEGS */
+    else switch (job.plays) {
       case 'haul-caravan': {
         var rn = Math.max(2, jm() + ((k.ambush_extra | 0) || 0));
         if (job.raid) add(1, 'raid', job.raid.n, k.ambush_foe, job.raid);
