@@ -66,7 +66,12 @@ remembered; a long contract list), then our swag.
 - Numbers (gap, chance, pay, food, fights' sizes) are shapes TUNING owns.
 
 ## 4. THE DRIVE: 3 IN-GAME DAYS ON THE REAL DEMO, PHONE SIZE (tools/bohemia_content_drive.js; the run: records/CONTENT_THE_THREE_DAY_DRIVE_11_2_26.json)
-Run 4 (the one that counts), BOHEMIA_DEMO.html at 390x844 touch, the real director's real gap and chance (nothing forced):
+**Run 5 (the last, after every fix; the file is this run):** 3 in-game days (day 1 to day 4), 680 blocks, **21 met: 17 road
+events + 4 side quests, all 4 finished** (SAY IT BACK, THE SEED, WHAT CRIES IN THE DEEP, THE LAST GOOD DOCTOR ending 32), **3
+chains paid off** (the tollkeeper remembers, the kid's brother comes back and joins, the sick man's wife brings the knife), the
+2 new jobs taken and paid (53 of 53, 60 of 60), crew 3 to 5, purse 290 to 384, **0 thrown**.
+
+Run 4, BOHEMIA_DEMO.html at 390x844 touch, the real director's real gap and chance (nothing forced):
 - **3 in-game days** (day 1 06:00 to day 4), 664 blocks walked on the map, **0 thrown** (page, map frame, driver).
 - **Road events met on their own: 11 distinct** (the tollkeeper, the water thief, the Blues patrol, the one-armed hunter's lion,
   the coyote boy, the radio on a pole, the Red deserters, the dead courier, the lost drone, the night nurse, and a CHAIN PAYING
@@ -84,7 +89,20 @@ Run 4 (the one that counts), BOHEMIA_DEMO.html at 390x844 touch, the real direct
 - Caught by the drive and fixed: the seed quest's .bq calls the grower 'her' and the trader 'his'; the glue had them the other
   way round. Now DOÑA ANSELMA and EL GÜERO.
 
-## 5. KNOWN, NOT DONE
+## 5. THE CHECKS THIS CHANGE TOUCHES (run once at the end)
+- every_job_kind_gate: 36 of 37 (the one red, P3 the patrol's pay, passed on the run before and is the dice; it was 32 of 37
+  before the switch below). the_boards_quests_are_people_gate 16/16, a_plain_way_to_drop_a_job_gate 6/6, attempt_gate 15/15,
+  long_injury_gate 56/56.
+- the_trip_before_the_yes_gate T6 red: RED ON MAIN TOO (measured with main's three files put back: the same 'null'); every one
+  of the 9 new kinds says its trip on the phone (all 27 kind-and-town pairs exact, e.g. '3 H TO ANARCHISTS, THEN 2 H TO DON
+  BETO, THERE AND BACK').
+- language_gate 1 red (the fight's dial and the veteran) and no_face_from_a_body_gate 8 red (the crew screen, the town's lot,
+  hall and board faces of person_town_* / person_volunteers_* / you): screens and looks this change does not touch.
+- **A SCRIPTED BROWSER MEETS THE ROAD ONLY WHEN IT ASKS**: the first run of every_job_kind_gate went 5 red because its walks
+  stalled under a road card it could not answer. A real phone never runs under automation (navigator.webdriver), so the road
+  always talks to a player; a scripted walk sets window.__ROADEV_ON = true to meet it (the drive does). EYES: set it on your walks.
+
+## 6. KNOWN, NOT DONE
 - The side quests are not on the phone's contract list (they are on the map and in the feed). UI's door if it wants them.
 - The 12 old road moments (ROAD_WORDS) stay where they are; this lane's events are new rows, not a rewrite of them.
 - A side quest's giver is met on the road only; meeting one inside a town's screen is the settlement's door (UI/RUN).
