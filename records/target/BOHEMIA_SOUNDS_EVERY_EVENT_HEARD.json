@@ -1,0 +1,322 @@
+{
+ "_readme": "SOUNDS 11/3 every event heard: the real measured on BOHEMIA_DEMO.html (the baked demo), phone portrait. asked = BOHEMIA_SFX messages the game sent; starts = audio sources that actually started while the shell answered that event (recording = a buffer, oscillator = a synth tone). silent: asked and nothing started.",
+ "phases": [
+  {
+   "n": "map",
+   "t": 157157.7000000002,
+   "ask": 0,
+   "aud": 1507
+  },
+  {
+   "n": "phone",
+   "t": 186755.60000000056,
+   "ask": 0,
+   "aud": 1826
+  },
+  {
+   "n": "pressed",
+   "what": [
+    "relations",
+    "relations",
+    "heal",
+    "heal"
+   ]
+  },
+  {
+   "n": "fight",
+   "t": 205569.10000000056,
+   "ask": 7,
+   "aud": 2012
+  },
+  {
+   "n": "end",
+   "t": 254714.10000000056,
+   "ask": 223,
+   "aud": 2338
+  }
+ ],
+ "fight": {
+  "opened": true,
+  "over": true,
+  "ms": 36102,
+  "machines": 0,
+  "heard": 55
+ },
+ "levels": {
+  "map music alone": {
+   "loudest": -19.1,
+   "peak": -7.2,
+   "n": 214
+  },
+  "phone music alone": {
+   "loudest": -17.1,
+   "peak": -4.2,
+   "n": 73
+  },
+  "phone with a sound": {
+   "loudest": -21.5,
+   "peak": -6.7,
+   "n": 3
+  },
+  "fight music alone": {
+   "loudest": -9,
+   "peak": -1.6,
+   "n": 146
+  },
+  "fight with a sound": {
+   "loudest": -9.1,
+   "peak": -1.3,
+   "n": 109
+  }
+ },
+ "rows": [
+  {
+   "ev": "shot",
+   "asked": 16,
+   "via": {
+    "DEATH": 16,
+    "PUNCH": 16,
+    "BULLET:done": 16
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 16,
+   "recording": 16,
+   "oscillator": 0
+  },
+  {
+   "ev": "miss",
+   "asked": 13,
+   "via": {
+    "DEATH": 13,
+    "PUNCH": 7,
+    "BULLET:done": 7,
+    "PUNCH:done": 6
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 36,
+   "recording": 36,
+   "oscillator": 0
+  },
+  {
+   "ev": "hit",
+   "asked": 6,
+   "via": {
+    "DEATH": 6,
+    "PUNCH": 6,
+    "BULLET:done": 6
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 13,
+   "recording": 13,
+   "oscillator": 0
+  },
+  {
+   "ev": "swing_air",
+   "asked": 6,
+   "via": {
+    "DEATH": 6,
+    "PUNCH:done": 6
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 6,
+   "recording": 6,
+   "oscillator": 0
+  },
+  {
+   "ev": "mag_home",
+   "asked": 5,
+   "via": {
+    "DEATH": 5,
+    "PUNCH": 5,
+    "BULLET:done": 5
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 5,
+   "recording": 5,
+   "oscillator": 0
+  },
+  {
+   "ev": "vital",
+   "asked": 3,
+   "via": {
+    "DEATH": 3,
+    "PUNCH": 3,
+    "BULLET:done": 3
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 19,
+   "recording": 19,
+   "oscillator": 0
+  },
+  {
+   "ev": "kill",
+   "asked": 3,
+   "via": {
+    "DEATH:done": 3
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 4,
+   "recording": 4,
+   "oscillator": 0
+  },
+  {
+   "ev": "high_ground",
+   "asked": 3,
+   "via": {
+    "DEATH": 3,
+    "PUNCH:done": 3
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 3,
+   "recording": 3,
+   "oscillator": 0
+  },
+  {
+   "ev": "body_land",
+   "asked": 3,
+   "via": {
+    "DEATH": 3,
+    "PUNCH:done": 3
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 3,
+   "recording": 3,
+   "oscillator": 0
+  },
+  {
+   "ev": "phone_close",
+   "asked": 1,
+   "via": {
+    "DEATH": 1,
+    "PUNCH:done": 1
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 21,
+   "recording": 7,
+   "oscillator": 14
+  },
+  {
+   "ev": "clear",
+   "asked": 1,
+   "via": {
+    "DEATH": 1,
+    "PUNCH": 1,
+    "BULLET": 1,
+    "playSFX:silent": 1
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 8,
+   "recording": 8,
+   "oscillator": 0
+  },
+  {
+   "ev": "phone_tap",
+   "asked": 1,
+   "via": {
+    "DEATH": 1,
+    "PUNCH:done": 1
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 1,
+   "recording": 1,
+   "oscillator": 0
+  },
+  {
+   "ev": "phone_open",
+   "asked": 1,
+   "via": {
+    "DEATH": 1,
+    "PUNCH:done": 1
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 1,
+   "recording": 1,
+   "oscillator": 0
+  },
+  {
+   "ev": "(shell unlabelled buffer)",
+   "asked": 0,
+   "via": {},
+   "rendered": 0,
+   "silent": 0,
+   "starts": 804,
+   "recording": 804,
+   "oscillator": 0
+  },
+  {
+   "ev": "(shell unlabelled osc sine)",
+   "asked": 0,
+   "via": {},
+   "rendered": 0,
+   "silent": 0,
+   "starts": 782,
+   "recording": 0,
+   "oscillator": 782
+  },
+  {
+   "ev": "(shell unlabelled osc triangle)",
+   "asked": 0,
+   "via": {},
+   "rendered": 0,
+   "silent": 0,
+   "starts": 537,
+   "recording": 0,
+   "oscillator": 537
+  },
+  {
+   "ev": "(shell unlabelled osc sawtooth)",
+   "asked": 0,
+   "via": {},
+   "rendered": 0,
+   "silent": 0,
+   "starts": 57,
+   "recording": 0,
+   "oscillator": 57
+  },
+  {
+   "ev": "(blank unlabelled buffer)",
+   "asked": 0,
+   "via": {},
+   "rendered": 0,
+   "silent": 0,
+   "starts": 12,
+   "recording": 12,
+   "oscillator": 0
+  },
+  {
+   "ev": "ui_tap",
+   "asked": 0,
+   "via": {
+    "playSFX": 1
+   },
+   "rendered": 0,
+   "silent": 0,
+   "starts": 8,
+   "recording": 2,
+   "oscillator": 6
+  },
+  {
+   "ev": "(shell unlabelled osc square)",
+   "asked": 0,
+   "via": {},
+   "rendered": 0,
+   "silent": 0,
+   "starts": 2,
+   "recording": 0,
+   "oscillator": 2
+  }
+ ]
+}

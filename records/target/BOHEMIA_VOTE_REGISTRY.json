@@ -15861,6 +15861,26 @@
      188
     ]
    }
+  },
+  {
+   "id": "sounds-the-punch-heard-11-3",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "a52f7da4",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE PUNCH HEARD: EVERY HIT, THE ROBOT, THE ROAD, CAMP AND THE PHONE FROM REAL RECORDINGS",
+   "said": "nothing feels punchy yet, satisfying punchy, not from the music to the combat to the walking around the city to the camp",
+   "why": "Every blow in a fight now lands with a real sound on the beat: a pipe, a blade, the swing's air, the miss, a man struck down, the body hitting the floor, and every reload is that gun's real reload. The robot has steel feet, a whining joint, a hit and a fall. The road stopping you, a boss marked, camp, enemies coming and the phone's buttons speak now too, all quieter than the music. It is already in the game, so tap each one here to hear it alone.",
+   "options": [
+    "A, punchy, keep them",
+    "B, not punchy enough, again",
+    "C, some are wrong (say which)"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_PUNCH_HEARD_11_3_26.html"
+   }
   }
  ],
  "verdicts": [

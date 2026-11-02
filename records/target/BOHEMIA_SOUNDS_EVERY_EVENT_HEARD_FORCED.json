@@ -1,0 +1,205 @@
+{
+ "_readme": "SOUNDS 11/3, --forced: each new hook's own message posted on the real measured on BOHEMIA_DEMO.html (the baked demo) over its music; the game's final output metered every 90 ms (loudest 100 ms in dB and the peak in dBFS, over 0 is a clip).",
+ "meteredNodes": 1,
+ "music": {
+  "tag": "music",
+  "loud": -23.01146441170667,
+  "peak": -12.611196100724573,
+  "n": 116
+ },
+ "sounds": [
+  {
+   "tag": "fight_step",
+   "loud": -24.1954315744119,
+   "peak": -10.801586043097398,
+   "n": 12,
+   "overMusic": -1.2
+  },
+  {
+   "tag": "swing_air",
+   "loud": -22.077767718721503,
+   "peak": -7.543809049544386,
+   "n": 17,
+   "overMusic": 0.9
+  },
+  {
+   "tag": "melee_hit",
+   "loud": -13.810126088216222,
+   "peak": -1.8741394360838202,
+   "n": 45,
+   "overMusic": 9.2
+  },
+  {
+   "tag": "went_down",
+   "loud": -16.26169899256787,
+   "peak": -3.257032111719636,
+   "n": 16,
+   "overMusic": 6.7
+  },
+  {
+   "tag": "body_land",
+   "loud": -16.44032453520894,
+   "peak": -7.6418456063090465,
+   "n": 15,
+   "overMusic": 6.6
+  },
+  {
+   "tag": "kill",
+   "loud": -16.17904713509665,
+   "peak": -7.69203440954038,
+   "n": 14,
+   "overMusic": 6.8
+  },
+  {
+   "tag": "camp_make",
+   "loud": -23.998456401045168,
+   "peak": -15.502534571482743,
+   "n": 16,
+   "overMusic": -1
+  },
+  {
+   "tag": "camp_break",
+   "loud": -23.964339339282294,
+   "peak": -14.537513324405351,
+   "n": 25,
+   "overMusic": -1
+  },
+  {
+   "tag": "they_come",
+   "loud": -23.391805132595607,
+   "peak": -12.593347431295427,
+   "n": 20,
+   "overMusic": -0.4
+  },
+  {
+   "tag": "road_stop",
+   "loud": -22.873196111552822,
+   "peak": -11.380888038996028,
+   "n": 40,
+   "overMusic": 0.1
+  },
+  {
+   "tag": "boss_found",
+   "loud": -22.3904545673318,
+   "peak": -11.83862477977029,
+   "n": 50,
+   "overMusic": 0.6
+  }
+ ],
+ "punch": {
+  "ready": true,
+  "err": null,
+  "count": 16,
+  "log": [
+   {
+    "voice": "metal_step",
+    "take": 0,
+    "db": -17.2,
+    "t": 184556.10000000056
+   },
+   {
+    "voice": "servo",
+    "take": 1,
+    "db": -15.8,
+    "t": 184556.2000000002
+   },
+   {
+    "voice": "servo",
+    "take": 0,
+    "db": -15.3,
+    "t": 186143.80000000075
+   },
+   {
+    "voice": "swing",
+    "take": 2,
+    "db": -10.8,
+    "t": 186143.90000000037
+   },
+   {
+    "voice": "machine_hit",
+    "take": 1,
+    "db": -10.4,
+    "t": 187821.2000000002
+   },
+   {
+    "voice": "blunt",
+    "take": 2,
+    "db": -3.9,
+    "t": 189381
+   },
+   {
+    "voice": "blade",
+    "take": 1,
+    "db": -2.4,
+    "t": 191005.5
+   },
+   {
+    "voice": "down",
+    "take": 1,
+    "db": -5.5,
+    "t": 192765.40000000037
+   },
+   {
+    "voice": "thud",
+    "take": 2,
+    "db": -10.3,
+    "t": 194337.30000000075
+   },
+   {
+    "voice": "metal_step",
+    "take": 2,
+    "db": -17.5,
+    "t": 194337.40000000037
+   },
+   {
+    "voice": "machine_fall",
+    "take": 1,
+    "db": -12.6,
+    "t": 195983.30000000075
+   },
+   {
+    "voice": "camp_make",
+    "take": 0,
+    "db": -20.6,
+    "t": 197834.60000000056
+   },
+   {
+    "voice": "camp_break",
+    "take": 0,
+    "db": -18.2,
+    "t": 200333.60000000056
+   },
+   {
+    "voice": "they_come",
+    "take": 0,
+    "db": -20.6,
+    "t": 202746.60000000056
+   },
+   {
+    "voice": "road_stop",
+    "take": 0,
+    "db": -18.1,
+    "t": 205187.10000000056
+   },
+   {
+    "voice": "boss_found",
+    "take": 0,
+    "db": -19.8,
+    "t": 210173.80000000075
+   }
+  ]
+ },
+ "starts": {
+  "fight_step": 2,
+  "swing_air": 3,
+  "melee_hit": 3,
+  "went_down": 1,
+  "body_land": 2,
+  "kill": 1,
+  "camp_make": 1,
+  "camp_break": 1,
+  "they_come": 1,
+  "road_stop": 1,
+  "boss_found": 1
+ }
+}
