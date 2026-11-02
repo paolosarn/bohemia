@@ -40,6 +40,7 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
       if (s.card) {
         const c = await fr.evaluate(() => { const el = document.getElementById('roadcard'); const b = [...el.querySelectorAll('button[data-road]')]; return { name: (el.querySelector('.rc div[style*="15px"]') || {}).textContent || '', text: (el.querySelector('.rctext') || {}).textContent || '', opts: b.map(x => ({ t: x.textContent, off: x.disabled })), face: (el.querySelector('.rcface') || {}).dataset || {} }; });
         const pickI = Math.max(0, c.opts.findIndex(o => !o.off));
+        console.log('    EVENT ' + c.name + ' :: ' + c.opts.map(o => o.t + (o.off ? '(x)' : '')).join(' / '));
         R.events.push({ day: s.day, min: s.min, who: c.name, said: c.text.slice(0, 90), opts: c.opts.map(o => o.t), tapped: (c.opts[pickI] || {}).t, mouth: c.face.mouth || null });
         await tapIn('#roadcard button[data-road]', pickI); await page.waitForTimeout(900); continue;
       }
@@ -68,16 +69,18 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
     }
     /* 2. three in-game days: the jobs' places, then wherever the valley is; whatever the road brings is met */
     const endDay = s0.day + DAYS, t0 = Date.now(); let wander = 0;
-    while (Date.now() - t0 < 16 * 60000) {
+    while (Date.now() - t0 < (+arg('--mins', 14)) * 60000) {
       await handle();
       const s = await st(); if (s.day >= endDay) { R.end = s; break; }
+      console.log('  t+' + Math.round((Date.now() - t0) / 1000) + 's day ' + s.day + ' ' + Math.floor(s.min / 60) + ':' + String(s.min % 60 | 0).padStart(2, '0') + ' at ' + s.at + ' bats ' + s.bats + ' food ' + s.food + ' men ' + s.men + ' events ' + R.events.length + ' held ' + s.held.map(j => j.id + ':' + (j.li | 0) + '/' + j.legs).join(',') + (s.err ? ' ERR ' + s.err : ''));
+      if (OUT) try { fs.writeFileSync(OUT, JSON.stringify(R, null, 1)); } catch (e) {}
       let tgt = null;
       for (const j of s.held) if (j.next && j.next.x != null) { tgt = [j.next.x, j.next.y, j.id]; break; }
       if (!tgt && s.rq.length) tgt = [s.rq[0].x, s.rq[0].y, s.rq[0].id];
       if (!tgt) { tgt = await fr.evaluate((w) => { const bs = ctBases() || {}, ks = Object.keys(bs).sort(); const k = ks[(w * 7 + 3) % ks.length]; const b = bs[k]; const g = townDoor(b.x, b.y) || [b.x, b.y]; return [g[0], g[1], 'wander:' + k]; }, wander++); }
       const ok = await go(tgt[0], tgt[1]);
       if (ok !== true) { R.errors.push('route ' + JSON.stringify(tgt) + ' ' + ok); wander++; await page.waitForTimeout(300); if (wander > 40) break; continue; }
-      await travelTill(120000);
+      await travelTill(60000);
       await fr.evaluate(() => { try { if (window.BohemiaJobKinds) BohemiaJobKinds.arrived(city.x, city.y); } catch (e) {} });   /* a touch where he stands is the arrival */
       await page.waitForTimeout(600);
     }
