@@ -1,5 +1,26 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT MAPS 2 11/2 (brief from the coordinator: rule 336, ask line 337; his NO on the six maps: 'still this yellow brown sand dirt
+as the main ground, not enough unique shit going on'). SHIPPED (BUILD 11/3zx - EVERY GROUND ITS OWN), NOT YET SEEN:
+1. THIRTY GROUNDS THROUGH THE RIG: 27 new ground materials in the floor tool's own material language with their own scatter
+   (dead lawn x2, marble, pool tile, oil slab, ballast, ties, rail, gravel, cobble, silt, cracked mud, bathtub ring, desert
+   pavement, caliche, scree, red sand, slickrock, cover soil, bunker, fairway x2, apron slab, tie-downs, brick rubble, epoxy,
+   hazard yellow), each built by the floor tool's build(), through the master rig, by the block camera, as a seamless 30 m
+   plate (tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py --plates; venv python3.11 + bpy 4.2.0; ~45 s a plate).
+2. EVERY BLOCK ITS PLACE'S PLAN, LAID ON THE OLD SAND UNDER THE OLD PICTURE'S LIGHT (--lay; 39 blocks x 3 futures, the casino
+   untouched): houses, shops and masses masked by the rig's ledgers (house_lot tops, fight_stands outlines, a few tiles); the old
+   pixel's shadows and grime kept. No camouflage: one main ground a place, the second only as a shape on the tiles that say so.
+   Plates and the pre-round originals live in $CM2_WORK (/tmp/claude-0/cm2): to re-lay, re-render the plates and copy the
+   pictures as they stood at 2cb32f46 into $CM2_WORK/orig first (the tool copies from slices/ only when orig is missing, so a
+   fresh session would lay on its own output).
+3. THE LAB YARD (lab.0, NEW): its own ground (epoxy, hazard hatching, decon pad, a beast's prints walking out) on works.0's sheds;
+   named board 'lab', futures, layers, roof storeys; medical deals lab first. The wash, basin and reservoir districts now deal
+   the wash and the shore first (ours.board_grounds).
+4. MEASURED: blocks 68.9% -> 23.2% of the picture the old sand colour family (raided 63.6 -> 21.7, reclaimed 63.1 -> 17.8); his
+   phone, 15 places, 49.6% -> 15.7%; 0 purple. VOTE: combat-maps-every-ground-11-2 (redo of the six) and 15 place cards.
+NEXT: the lab yard's own buildings; a second block of each new place; the tract roofs are still tan (the buildings, not the
+ground). Record: records/BOHEMIA_COMBAT_MAPS_EVERY_GROUND_ITS_OWN_11_2_26.md.
+
 COMBAT 6 11/2 (brief from the coordinator: rules 332 and 333, ask lines 331 and 332; the routine 'a turn's score counts the next
 turn', rule 332 amended, ask line 334). SHIPPED (BUILD 11/3zv, AUTO PLAYS THE BEST TURN), NOT YET SEEN:
 1. AUTO PLAYS THE BEST TURN (slices/BOHEMIA_FIGHT.html bestTurn; ai.json crew best_turn; ours.auto_best_turn): every action his man

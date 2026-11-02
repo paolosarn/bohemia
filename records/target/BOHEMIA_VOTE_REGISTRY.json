@@ -16301,6 +16301,407 @@
      "AFTER HE FALLS: last round the same grid recoloured; now the tanks hold clean blue water."
     ]
    }
+  },
+  {
+   "id": "combat-maps-every-ground-11-2",
+   "kind": "redo",
+   "redoOf": "combat-maps-every-district-11-2",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "EVERY PLACE ITS OWN GROUND: THE FIGHT FLOORS, ALL FIFTEEN PLACES",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "Every fight floor is now its own place's ground instead of the yellow-brown sand, and the share of his phone screen in that sand colour fell from 50% to 16% across the fifteen places. You see it here on the phone and in every fight you start on the map.",
+   "options": [
+    "A, yes: more like this, a second block of each place next",
+    "B, the grounds are right but some places still look alike",
+    "C, push it further: louder colours, more junk on the ground"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/COMBAT_MAPS_EVERY_GROUND_SHEET_11_2.webp"
+   },
+   "before_after": {
+    "before": "50% of the screen the old sand on average",
+    "after": "16%",
+    "scale": "his phone, 390 x 844, the fight's opening view, by day"
+   }
+  },
+  {
+   "id": "combat-ground-strip-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE STRIP: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The Strip's lots are taken up for cracked marble at the doors and the pool deck's tile to the south, the drive still asphalt. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_strip.webp"
+   },
+   "before_after": {
+    "before": "old sand 23% of the screen",
+    "after": "13%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-downtown-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "DOWNTOWN: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "Downtown is asphalt with its painted stalls and walks, and the canopy's lattice shadow lies over the street with no canopy above it. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_downtown.webp"
+   },
+   "before_after": {
+    "before": "old sand 50% of the screen",
+    "after": "28%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-industrial-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE WORKS: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The works' yard is a slab black with oil, gravel, and a rail spur on its ties and ballast, the rails polished like a train ran this week. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_industrial.webp"
+   },
+   "before_after": {
+    "before": "old sand 52% of the screen",
+    "after": "26%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-suburb-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE SUBURBS: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The suburb is dead lawn yard by yard, gravel lot lines, patio slabs and driveways, the dirt only where a lawn gave out, and one lawn still mown in fresh stripes. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_suburb.webp"
+   },
+   "before_after": {
+    "before": "old sand 52% of the screen",
+    "after": "22%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-wash-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE WASH: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The wash is cobble bars and pale silt in the bed with varnished desert pavement on its banks, and a line of bare footprints walks in and none walks out. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_wash.webp"
+   },
+   "before_after": {
+    "before": "old sand 65% of the screen",
+    "after": "20%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-reservoir-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE SHORE: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The shore is cracked mud up to the white bathtub ring, and a second ring sits far above it, higher than the lake ever stood. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_reservoir.webp"
+   },
+   "before_after": {
+    "before": "old sand 50% of the screen",
+    "after": "8%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-mountain-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE DESERT PASS: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The pass is grey limestone scree and caliche crust along the road's gravel shoulders. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_mountain.webp"
+   },
+   "before_after": {
+    "before": "old sand 50% of the screen",
+    "after": "8%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-desert-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE DESERT: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The desert is dark varnished pavement and white caliche crust, the sand kept only in the mound under each creosote, and one perfect bare circle. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_desert.webp"
+   },
+   "before_after": {
+    "before": "old sand 58% of the screen",
+    "after": "15%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-springs-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "RED ROCK: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "Red Rock is red sand and red slickrock between the sandstone fins. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_springs.webp"
+   },
+   "before_after": {
+    "before": "old sand 55% of the screen",
+    "after": "9%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-trailer-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE TRAILER PARK: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The trailer park sits on grey gravel lots and pads, the sand only around the weeds. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_trailer.webp"
+   },
+   "before_after": {
+    "before": "old sand 47% of the screen",
+    "after": "12%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-golf-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE GOLF COURSE: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The golf course is a dead fairway in its mowing stripes with a white bunker, the green still green. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_golf.webp"
+   },
+   "before_after": {
+    "before": "old sand 62% of the screen",
+    "after": "19%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-water-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE MARINA: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The marina's lake bed is cracked mud with the bathtub ring and a second ring above it. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_water.webp"
+   },
+   "before_after": {
+    "before": "old sand 45% of the screen",
+    "after": "6%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-medical-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE LAB YARD: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The lab yard is new: sealed epoxy, hazard hatching at the docks, a decon pad and its drains, and big paw prints walking out of the yard. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_medical.webp"
+   },
+   "before_after": {
+    "before": "old sand 53% of the screen",
+    "after": "29%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-airport-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE AIRPORT: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The apron is its slabs with a tie-down ring in each and oil where the aircraft stood. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_airport.webp"
+   },
+   "before_after": {
+    "before": "old sand 22% of the screen",
+    "after": "12%",
+    "scale": "his phone, 390 x 844, by day"
+   }
+  },
+  {
+   "id": "combat-ground-landfill-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "2cb32f46",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE LANDFILL: ITS OWN GROUND",
+   "said": "They all collectively need more love. It's still this yellow brown sand dirt as the main ground, not enough unique shit going on. Definitely a work in progress for all of them.",
+   "why": "The landfill is grey cover soil with the trash working up through it and a gravel haul road. You see it here before and after on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that reads as the place",
+    "B, close, but push it further",
+    "C, no, wrong ground for this place"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2c/ground_landfill.webp"
+   },
+   "before_after": {
+    "before": "old sand 60% of the screen",
+    "after": "10%",
+    "scale": "his phone, 390 x 844, by day"
+   }
   }
  ],
  "verdicts": [

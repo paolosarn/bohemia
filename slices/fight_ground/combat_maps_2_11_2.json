@@ -1,0 +1,473 @@
+{
+ "about": "COMBAT MAPS 2 11/2: every fight block's floor its own place's ground, and the lab yard (tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py)",
+ "pieces": {
+  "apron.0.present": {
+   "src": "block_apron_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "apron.0.raided": {
+   "src": "block_apron_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "apron.0.reclaimed": {
+   "src": "block_apron_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "canyon.0.present": {
+   "src": "block_canyon_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "canyon.0.raided": {
+   "src": "block_canyon_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "canyon.0.reclaimed": {
+   "src": "block_canyon_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.0.present": {
+   "src": "block_corner_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.0.raided": {
+   "src": "block_corner_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.0.reclaimed": {
+   "src": "block_corner_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.1.present": {
+   "src": "block_corner_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.1.raided": {
+   "src": "block_corner_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.1.reclaimed": {
+   "src": "block_corner_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.2.present": {
+   "src": "block_corner_2.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.2.raided": {
+   "src": "block_corner_2_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "corner.2.reclaimed": {
+   "src": "block_corner_2_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "culdesac.0.present": {
+   "src": "block_culdesac_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "culdesac.0.raided": {
+   "src": "block_culdesac_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "culdesac.0.reclaimed": {
+   "src": "block_culdesac_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "culdesac.1.present": {
+   "src": "block_culdesac_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "culdesac.1.raided": {
+   "src": "block_culdesac_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "culdesac.1.reclaimed": {
+   "src": "block_culdesac_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "freeway.0.present": {
+   "src": "block_freeway_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "freeway.0.raided": {
+   "src": "block_freeway_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "freeway.0.reclaimed": {
+   "src": "block_freeway_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "freewayo.0.present": {
+   "src": "block_freewayo_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "freewayo.0.raided": {
+   "src": "block_freewayo_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "freewayo.0.reclaimed": {
+   "src": "block_freewayo_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "golf.0.present": {
+   "src": "block_golf_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "golf.0.raided": {
+   "src": "block_golf_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "golf.0.reclaimed": {
+   "src": "block_golf_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "lab.0.present": {
+   "src": "block_lab_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "lab.0.raided": {
+   "src": "block_lab_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "lab.0.reclaimed": {
+   "src": "block_lab_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "landfill.0.present": {
+   "src": "block_landfill_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "landfill.0.raided": {
+   "src": "block_landfill_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "landfill.0.reclaimed": {
+   "src": "block_landfill_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "landfill.1.present": {
+   "src": "block_landfill_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "landfill.1.raided": {
+   "src": "block_landfill_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "landfill.1.reclaimed": {
+   "src": "block_landfill_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "lots.0.present": {
+   "src": "block_lots_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "lots.0.raided": {
+   "src": "block_lots_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "lots.0.reclaimed": {
+   "src": "block_lots_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "main.0.present": {
+   "src": "block_main_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "main.0.raided": {
+   "src": "block_main_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "main.0.reclaimed": {
+   "src": "block_main_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "main.1.present": {
+   "src": "block_main_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "main.1.raided": {
+   "src": "block_main_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "main.1.reclaimed": {
+   "src": "block_main_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "marina.0.present": {
+   "src": "block_marina_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "marina.0.raided": {
+   "src": "block_marina_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "marina.0.reclaimed": {
+   "src": "block_marina_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "pass.0.present": {
+   "src": "block_pass_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "pass.0.raided": {
+   "src": "block_pass_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "pass.0.reclaimed": {
+   "src": "block_pass_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "ruin.0.present": {
+   "src": "block_ruin_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "ruin.0.raided": {
+   "src": "block_ruin_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "ruin.0.reclaimed": {
+   "src": "block_ruin_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "ruin.1.present": {
+   "src": "block_ruin_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "ruin.1.raided": {
+   "src": "block_ruin_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "ruin.1.reclaimed": {
+   "src": "block_ruin_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.0.present": {
+   "src": "block_scrub_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.0.raided": {
+   "src": "block_scrub_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.0.reclaimed": {
+   "src": "block_scrub_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.1.present": {
+   "src": "block_scrub_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.1.raided": {
+   "src": "block_scrub_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.1.reclaimed": {
+   "src": "block_scrub_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.2.present": {
+   "src": "block_scrub_2.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.2.raided": {
+   "src": "block_scrub_2_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrub.2.reclaimed": {
+   "src": "block_scrub_2_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrubroad.0.present": {
+   "src": "block_scrubroad_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrubroad.0.raided": {
+   "src": "block_scrubroad_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrubroad.0.reclaimed": {
+   "src": "block_scrubroad_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrubroad.1.present": {
+   "src": "block_scrubroad_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrubroad.1.raided": {
+   "src": "block_scrubroad_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "scrubroad.1.reclaimed": {
+   "src": "block_scrubroad_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "shore.0.present": {
+   "src": "block_shore_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "shore.0.raided": {
+   "src": "block_shore_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "shore.0.reclaimed": {
+   "src": "block_shore_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "shore.1.present": {
+   "src": "block_shore_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "shore.1.raided": {
+   "src": "block_shore_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "shore.1.reclaimed": {
+   "src": "block_shore_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "strip.0.present": {
+   "src": "block_strip_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "strip.0.raided": {
+   "src": "block_strip_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "strip.0.reclaimed": {
+   "src": "block_strip_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "strip.1.present": {
+   "src": "block_strip_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "strip.1.raided": {
+   "src": "block_strip_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "strip.1.reclaimed": {
+   "src": "block_strip_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.0.present": {
+   "src": "block_subs_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.0.raided": {
+   "src": "block_subs_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.0.reclaimed": {
+   "src": "block_subs_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.1.present": {
+   "src": "block_subs_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.1.raided": {
+   "src": "block_subs_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.1.reclaimed": {
+   "src": "block_subs_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.2.present": {
+   "src": "block_subs_2.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.2.raided": {
+   "src": "block_subs_2_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.2.reclaimed": {
+   "src": "block_subs_2_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.3.present": {
+   "src": "block_subs_3.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.3.raided": {
+   "src": "block_subs_3_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "subs.3.reclaimed": {
+   "src": "block_subs_3_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "suburb_stem.0.present": {
+   "src": "block_suburb_stem_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "suburb_stem.0.raided": {
+   "src": "block_suburb_stem_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "suburb_stem.0.reclaimed": {
+   "src": "block_suburb_stem_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "suburb_stem.1.present": {
+   "src": "block_suburb_stem_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "suburb_stem.1.raided": {
+   "src": "block_suburb_stem_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "suburb_stem.1.reclaimed": {
+   "src": "block_suburb_stem_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "trailer.0.present": {
+   "src": "block_trailer_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "trailer.0.raided": {
+   "src": "block_trailer_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "trailer.0.reclaimed": {
+   "src": "block_trailer_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "wash.0.present": {
+   "src": "block_wash_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "wash.0.raided": {
+   "src": "block_wash_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "wash.0.reclaimed": {
+   "src": "block_wash_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "wash.1.present": {
+   "src": "block_wash_1.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "wash.1.raided": {
+   "src": "block_wash_1_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "wash.1.reclaimed": {
+   "src": "block_wash_1_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "works.0.present": {
+   "src": "block_works_0.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "works.0.raided": {
+   "src": "block_works_0_raided.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  },
+  "works.0.reclaimed": {
+   "src": "block_works_0_reclaimed.webp",
+   "exception": "the floor laid by tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py: each ground rendered through the master rig (the floor tool's build, the rig's source pass, sun and film, the block camera) and laid on the old picture's sand under its own light; no pack tile is cut into it"
+  }
+ }
+}

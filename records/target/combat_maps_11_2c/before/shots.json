@@ -1,0 +1,392 @@
+[
+ {
+  "district": "strip",
+  "name": "THE STRIP",
+  "file": "records/target/combat_maps_11_2c/before/shot_strip.png",
+  "bar": "casino + strip",
+  "blocks": [
+   [
+    "casino.1|h",
+    "strip.1",
+    "strip.0",
+    "casino.2"
+   ],
+   [
+    "strip.0",
+    "casino.1",
+    "strip.1",
+    "casino.0|h"
+   ],
+   [
+    "strip.1",
+    "strip.0",
+    "strip.1",
+    "strip.0"
+   ]
+  ]
+ },
+ {
+  "district": "downtown",
+  "name": "DOWNTOWN",
+  "file": "records/target/combat_maps_11_2c/before/shot_downtown.png",
+  "bar": "ruin + main + strip",
+  "blocks": [
+   [
+    "ruin.1",
+    "main.1",
+    "main.0",
+    "strip.0"
+   ],
+   [
+    "main.0",
+    "strip.1",
+    "main.1",
+    "strip.1"
+   ],
+   [
+    "main.1",
+    "main.0",
+    "main.1",
+    "main.0"
+   ]
+  ]
+ },
+ {
+  "district": "industrial",
+  "name": "THE WORKS",
+  "file": "records/target/combat_maps_11_2c/before/shot_industrial.png",
+  "bar": "ruin + works + landfill",
+  "blocks": [
+   [
+    "ruin.1",
+    "works.0",
+    "works.0",
+    "landfill.0"
+   ],
+   [
+    "works.0",
+    "landfill.1",
+    "works.0",
+    "landfill.1"
+   ],
+   [
+    "works.0",
+    "works.0",
+    "works.0",
+    "works.0"
+   ]
+  ]
+ },
+ {
+  "district": "suburb",
+  "name": "THE SUBURBS",
+  "file": "records/target/combat_maps_11_2c/before/shot_suburb.png",
+  "bar": "suburb + lots",
+  "blocks": [
+   [
+    "subs.0",
+    "lots.0",
+    "corner.2",
+    "subs.2"
+   ],
+   [
+    "corner.0",
+    "subs.3",
+    "lots.0",
+    "corner.0"
+   ],
+   [
+    "subs.2",
+    "lots.0",
+    "subs.3",
+    "suburb_stem.1"
+   ]
+  ]
+ },
+ {
+  "district": "wash",
+  "name": "THE WASH",
+  "file": "records/target/combat_maps_11_2c/before/shot_wash.png",
+  "bar": "scrub + wash",
+  "blocks": [
+   [
+    "scrub.0",
+    "wash.0",
+    "wash.1",
+    "scrub.1"
+   ],
+   [
+    "wash.1",
+    "scrub.2",
+    "wash.0",
+    "scrub.0"
+   ],
+   [
+    "wash.0",
+    "wash.1",
+    "wash.0",
+    "wash.1"
+   ]
+  ]
+ },
+ {
+  "district": "reservoir",
+  "name": "THE SHORE",
+  "file": "records/target/combat_maps_11_2c/before/shot_reservoir.png",
+  "bar": "shore + marina + wash",
+  "blocks": [
+   [
+    "shore.0",
+    "shore.0|h",
+    "shore.0",
+    "shore.0|h"
+   ],
+   [
+    "marina.0|h",
+    "marina.0",
+    "wash.1",
+    "marina.0"
+   ],
+   [
+    "marina.0",
+    "wash.0",
+    "marina.0",
+    "marina.0|h"
+   ]
+  ]
+ },
+ {
+  "district": "mountain",
+  "name": "THE DESERT PASS",
+  "file": "records/target/combat_maps_11_2c/before/shot_mountain.png",
+  "bar": "scrub + pass + canyon",
+  "blocks": [
+   [
+    "scrub.2",
+    "pass.0",
+    "pass.0|h",
+    "canyon.0|h"
+   ],
+   [
+    "pass.0|h",
+    "canyon.0",
+    "pass.0",
+    "scrub.2"
+   ],
+   [
+    "pass.0",
+    "pass.0|h",
+    "pass.0",
+    "pass.0|h"
+   ]
+  ]
+ },
+ {
+  "district": "desert",
+  "name": "THE DESERT",
+  "file": "records/target/combat_maps_11_2c/before/shot_desert.png",
+  "bar": "pass + scrub + wash",
+  "blocks": [
+   [
+    "pass.0|h",
+    "scrub.2",
+    "wash.0",
+    "scrub.2"
+   ],
+   [
+    "wash.0",
+    "scrub.1",
+    "scrub.0",
+    "scrub.1"
+   ],
+   [
+    "scrub.2",
+    "pass.0|h",
+    "scrub.2",
+    "scrub.0"
+   ]
+  ]
+ },
+ {
+  "district": "springs",
+  "name": "RED ROCK",
+  "file": "records/target/combat_maps_11_2c/before/shot_springs.png",
+  "bar": "scrub + canyon + wash",
+  "blocks": [
+   [
+    "scrub.2",
+    "canyon.0|h",
+    "canyon.0|h|h",
+    "wash.1"
+   ],
+   [
+    "canyon.0|h|h",
+    "wash.0",
+    "canyon.0",
+    "scrub.2"
+   ],
+   [
+    "canyon.0|h",
+    "canyon.0|h|h",
+    "canyon.0|h",
+    "canyon.0"
+   ]
+  ]
+ },
+ {
+  "district": "trailer",
+  "name": "THE TRAILER PARK",
+  "file": "records/target/combat_maps_11_2c/before/shot_trailer.png",
+  "bar": "scrub + trailer + lots",
+  "blocks": [
+   [
+    "scrub.1",
+    "trailer.0",
+    "trailer.0|h",
+    "scrub.2"
+   ],
+   [
+    "trailer.0|h",
+    "lots.0",
+    "trailer.0",
+    "lots.0"
+   ],
+   [
+    "trailer.0",
+    "trailer.0|h",
+    "trailer.0",
+    "trailer.0|h"
+   ]
+  ]
+ },
+ {
+  "district": "golf",
+  "name": "THE GOLF COURSE",
+  "file": "records/target/combat_maps_11_2c/before/shot_golf.png",
+  "bar": "scrub + golf",
+  "blocks": [
+   [
+    "scrub.0",
+    "golf.0",
+    "golf.0|h",
+    "scrub.1"
+   ],
+   [
+    "golf.0|h",
+    "scrub.2",
+    "golf.0",
+    "scrub.0"
+   ],
+   [
+    "golf.0",
+    "golf.0|h",
+    "golf.0",
+    "golf.0|h"
+   ]
+  ]
+ },
+ {
+  "district": "water",
+  "name": "THE MARINA",
+  "file": "records/target/combat_maps_11_2c/before/shot_water.png",
+  "bar": "shore + marina",
+  "blocks": [
+   [
+    "shore.0",
+    "shore.0|h",
+    "shore.0",
+    "shore.0|h"
+   ],
+   [
+    "marina.0|h|h",
+    "marina.0|h",
+    "marina.0",
+    "marina.0|h"
+   ],
+   [
+    "marina.0|h",
+    "marina.0|h|h",
+    "marina.0|h",
+    "marina.0"
+   ]
+  ]
+ },
+ {
+  "district": "medical",
+  "name": "THE LAB YARD",
+  "file": "records/target/combat_maps_11_2c/before/shot_medical.png",
+  "bar": "main + ruin",
+  "blocks": [
+   [
+    "main.0",
+    "main.1",
+    "ruin.1",
+    "main.0"
+   ],
+   [
+    "ruin.1",
+    "main.0",
+    "ruin.0",
+    "ruin.1"
+   ],
+   [
+    "ruin.0",
+    "main.1",
+    "main.0",
+    "ruin.0"
+   ]
+  ]
+ },
+ {
+  "district": "airport",
+  "name": "THE AIRPORT",
+  "file": "records/target/combat_maps_11_2c/before/shot_airport.png",
+  "bar": "scrubroad + apron + works",
+  "blocks": [
+   [
+    "scrubroad.0",
+    "apron.0",
+    "apron.0|h",
+    "works.0"
+   ],
+   [
+    "apron.0|h",
+    "works.0",
+    "apron.0",
+    "scrubroad.0"
+   ],
+   [
+    "apron.0",
+    "apron.0|h",
+    "apron.0",
+    "apron.0|h"
+   ]
+  ]
+ },
+ {
+  "district": "landfill",
+  "name": "THE LANDFILL",
+  "file": "records/target/combat_maps_11_2c/before/shot_landfill.png",
+  "bar": "scrub + landfill",
+  "blocks": [
+   [
+    "scrub.0",
+    "landfill.1",
+    "landfill.0",
+    "scrub.1"
+   ],
+   [
+    "landfill.0",
+    "scrub.2",
+    "landfill.1",
+    "scrub.2"
+   ],
+   [
+    "landfill.1",
+    "landfill.0",
+    "landfill.1",
+    "landfill.0"
+   ]
+  ]
+ }
+]

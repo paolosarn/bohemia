@@ -489,9 +489,9 @@
      "strip"
     ],
     "medical": [
+     "lab",
      "ruin",
-     "main",
-     "works"
+     "main"
     ],
     "campus": [
      "golf",
@@ -578,6 +578,21 @@
      "pass",
      "wash",
      "scrubroad"
+    ],
+    "wash": [
+     "wash",
+     "scrub",
+     "shore"
+    ],
+    "basin": [
+     "wash",
+     "shore",
+     "scrub"
+    ],
+    "reservoir": [
+     "shore",
+     "marina",
+     "wash"
     ],
     "trailer": [
      "trailer",
@@ -1805,6 +1820,18 @@
      ]
     ],
     "works.0": [
+     [
+      3,
+      1,
+      3
+     ],
+     [
+      4,
+      1,
+      3
+     ]
+    ],
+    "lab.0": [
      [
       3,
       1,

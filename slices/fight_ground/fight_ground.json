@@ -706,6 +706,20 @@
   },
   "apron.0": {
    "src": "block_apron_0.webp"
+  },
+  "lab.0": {
+   "src": "block_lab_0.webp",
+   "kit_street": [
+    "road_ew_arrow",
+    "road_ew_both"
+   ],
+   "kit_plan": {
+    "2,0": "road_ew_arrow",
+    "2,1": "road_ew_both",
+    "2,2": "road_ew_both",
+    "2,3": "road_ew_both",
+    "2,4": "road_ew_both"
+   }
   }
  },
  "lights_key": {
@@ -21900,6 +21914,783 @@
      ]
     }
    ]
+  },
+  "lab": {
+   "blocks": [
+    [
+     "lab.0",
+     "lab.0",
+     "lab.0",
+     "lab.0"
+    ],
+    [
+     "lab.0",
+     "lab.0",
+     "lab.0",
+     "lab.0"
+    ],
+    [
+     "lab.0",
+     "lab.0",
+     "lab.0",
+     "lab.0"
+    ]
+   ],
+   "terrain": [
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "car_lane",
+     "x_m": 40.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 40.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 50.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 4.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 14.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 26.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 10.0,
+     "y_m": 48.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 100.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 100.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 110.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 64.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 74.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 86.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 70.0,
+     "y_m": 48.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 160.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 160.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 170.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 124.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 134.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 146.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 130.0,
+     "y_m": 48.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 220.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 220.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 230.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 184.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 194.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 206.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 190.0,
+     "y_m": 48.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 40.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 40.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 50.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 4.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 14.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 26.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 10.0,
+     "y_m": 108.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 100.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 100.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 110.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 64.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 74.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 86.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 70.0,
+     "y_m": 108.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 160.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 160.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 170.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 124.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 134.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 146.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 130.0,
+     "y_m": 108.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 220.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 220.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 230.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 184.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 194.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 206.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 190.0,
+     "y_m": 108.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 40.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 40.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 50.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 4.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 14.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 26.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 10.0,
+     "y_m": 168.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 100.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 100.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 110.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 64.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 74.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 86.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 70.0,
+     "y_m": 168.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 160.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 160.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 170.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 124.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 134.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 146.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 130.0,
+     "y_m": 168.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 220.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 220.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 230.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 184.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 194.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 206.0,
+     "y_m": 144.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 190.0,
+     "y_m": 168.4
+    }
+   ],
+   "lights": []
   }
  },
  "format": "lossless webp (round thirteen): every visible pixel identical to the PNG it replaced",
@@ -44380,7 +45171,8 @@
     "trailer.0": "block_trailer_0_reclaimed.webp",
     "golf.0": "block_golf_0_reclaimed.webp",
     "marina.0": "block_marina_0_reclaimed.webp",
-    "apron.0": "block_apron_0_reclaimed.webp"
+    "apron.0": "block_apron_0_reclaimed.webp",
+    "lab.0": "block_lab_0_reclaimed.webp"
    },
    "boards": {
     "desert": {
@@ -58961,6 +59753,371 @@
        ]
       }
      ]
+    },
+    "lab": {
+     "cover": [
+      {
+       "piece": "wall",
+       "x_m": 40.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 50.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 4.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 14.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 26.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 10.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 100.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 110.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 64.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 74.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 86.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 70.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 160.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 170.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 124.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 134.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 146.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 130.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 220.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 230.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 184.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 194.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 206.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 190.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 40.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 50.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 4.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 14.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 26.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 10.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 100.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 110.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 64.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 74.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 86.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 70.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 160.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 170.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 124.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 134.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 146.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 130.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 220.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 230.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 184.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 194.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 206.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 190.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 40.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 50.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 4.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 14.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 26.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 10.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 100.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 110.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 64.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 74.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 86.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 70.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 160.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 170.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 124.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 134.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 146.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 130.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "wall",
+       "x_m": 220.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 230.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 184.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 194.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 206.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 190.0,
+       "y_m": 168.4
+      }
+     ],
+     "lights": []
     }
    },
    "what": "act two/three grown: solar on the roofs, gardens in the yards, the wrecks hauled off, every lamp lit"
@@ -59007,7 +60164,8 @@
     "trailer.0": "block_trailer_0_raided.webp",
     "golf.0": "block_golf_0_raided.webp",
     "marina.0": "block_marina_0_raided.webp",
-    "apron.0": "block_apron_0_raided.webp"
+    "apron.0": "block_apron_0_raided.webp",
+    "lab.0": "block_lab_0_raided.webp"
    },
    "boards": {
     "desert": {
@@ -76813,6 +77971,491 @@
        ]
       }
      ]
+    },
+    "lab": {
+     "cover": [
+      {
+       "piece": "car_lane",
+       "x_m": 40.0,
+       "y_m": 27.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 40.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 50.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 4.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 14.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 26.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 10.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 42.3,
+       "y_m": 31.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 100.0,
+       "y_m": 27.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 100.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 110.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 64.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 74.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 86.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 70.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 102.3,
+       "y_m": 31.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 160.0,
+       "y_m": 27.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 160.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 170.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 124.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 134.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 146.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 130.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 162.3,
+       "y_m": 31.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 220.0,
+       "y_m": 27.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 220.0,
+       "y_m": 50.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 230.0,
+       "y_m": 40.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 184.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 194.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 206.0,
+       "y_m": 24.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 190.0,
+       "y_m": 48.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 222.3,
+       "y_m": 31.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 40.0,
+       "y_m": 87.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 40.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 50.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 4.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 14.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 26.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 10.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 42.3,
+       "y_m": 91.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 100.0,
+       "y_m": 87.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 100.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 110.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 64.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 74.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 86.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 70.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 102.3,
+       "y_m": 91.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 160.0,
+       "y_m": 87.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 160.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 170.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 124.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 134.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 146.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 130.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 162.3,
+       "y_m": 91.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 220.0,
+       "y_m": 87.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 220.0,
+       "y_m": 110.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 230.0,
+       "y_m": 100.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 184.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 194.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 206.0,
+       "y_m": 84.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 190.0,
+       "y_m": 108.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 222.3,
+       "y_m": 91.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 40.0,
+       "y_m": 147.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 40.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 50.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 4.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 14.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 26.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 10.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 42.3,
+       "y_m": 151.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 100.0,
+       "y_m": 147.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 100.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 110.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 64.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 74.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 86.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 70.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 102.3,
+       "y_m": 151.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 160.0,
+       "y_m": 147.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 160.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 170.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 124.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 134.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 146.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 130.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 162.3,
+       "y_m": 151.3
+      },
+      {
+       "piece": "car_lane",
+       "x_m": 220.0,
+       "y_m": 147.0
+      },
+      {
+       "piece": "wall",
+       "x_m": 220.0,
+       "y_m": 170.0
+      },
+      {
+       "piece": "shed",
+       "x_m": 230.0,
+       "y_m": 160.0
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 184.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 194.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dumpster",
+       "x_m": 206.0,
+       "y_m": 144.4
+      },
+      {
+       "piece": "dock",
+       "x_m": 190.0,
+       "y_m": 168.4
+      },
+      {
+       "piece": "rubble_2",
+       "x_m": 222.3,
+       "y_m": 151.3
+      }
+     ],
+     "lights": []
     }
    },
    "what": "the raid fell on it: scorch, roofs burnt through, rubble, every grid lamp dead, only the fires"
@@ -78632,7 +80275,8 @@
     "trailer",
     "golf",
     "marina",
-    "apron"
+    "apron",
+    "lab"
    ],
    "tool": "tools/bohemia_combat_maps_new_blocks_through_the_rig_11_2_26.py",
    "names": {
@@ -78643,6 +80287,39 @@
     "marina.0": "THE DRY MARINA",
     "apron.0": "THE AIRPORT APRON"
    }
+  },
+  "every_ground": {
+   "tool": "tools/bohemia_combat_maps_every_ground_its_own_11_2_26.py",
+   "grounds": [
+    "apronslab",
+    "ballast",
+    "bunker",
+    "calcrete",
+    "cobble",
+    "coversoil",
+    "deadlawn",
+    "deadlawn_b",
+    "epoxy",
+    "fairway",
+    "fairway_b",
+    "gravel",
+    "hazard",
+    "marble",
+    "mud",
+    "oilcrete",
+    "pavement",
+    "pooltile",
+    "rail",
+    "redsand",
+    "ring",
+    "rubbleg",
+    "scree",
+    "silt",
+    "slickrock",
+    "tie",
+    "tiedown"
+   ],
+   "lab": "lab.0: the lab yard, its own ground on works.0's sheds"
   }
  }
 }

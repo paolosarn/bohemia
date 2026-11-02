@@ -1,0 +1,1146 @@
+{
+ "apron.0": {
+  "states": {
+   "present": {
+    "before": 0.0798,
+    "after": 0.0328,
+    "laid": 0.6821
+   },
+   "raided": {
+    "before": 0.069,
+    "after": 0.0241,
+    "laid": 0.6748
+   },
+   "reclaimed": {
+    "before": 0.0629,
+    "after": 0.0307,
+    "laid": 0.5992
+   }
+  },
+  "grounds": {
+   "apronslab": 0.998,
+   "tiedown": 0.002
+  },
+  "notes": [
+   "the apron's slabs and a tie-down ring in each, oil where the aircraft stood"
+  ]
+ },
+ "canyon.0": {
+  "states": {
+   "present": {
+    "before": 0.69,
+    "after": 0.0015,
+    "laid": 0.7583
+   },
+   "raided": {
+    "before": 0.6747,
+    "after": 0.0015,
+    "laid": 0.7537
+   },
+   "reclaimed": {
+    "before": 0.6153,
+    "after": 0.0027,
+    "laid": 0.6897
+   }
+  },
+  "grounds": {
+   "redsand": 0.787,
+   "slickrock": 0.213
+  },
+  "notes": [
+   "red sand and red slickrock"
+  ]
+ },
+ "casino.0": {
+  "states": {
+   "present": {
+    "before": 0.004,
+    "after": 0.004,
+    "laid": 0.0
+   },
+   "raided": {
+    "before": 0.0046,
+    "after": 0.0046,
+    "laid": 0.0
+   },
+   "reclaimed": {
+    "before": 0.0043,
+    "after": 0.0043,
+    "laid": 0.0
+   }
+  },
+  "grounds": {
+   "pavement": 1.0
+  },
+  "notes": []
+ },
+ "casino.1": {
+  "states": {
+   "present": {
+    "before": 0.0038,
+    "after": 0.0038,
+    "laid": 0.0
+   },
+   "raided": {
+    "before": 0.0045,
+    "after": 0.0045,
+    "laid": 0.0
+   },
+   "reclaimed": {
+    "before": 0.0038,
+    "after": 0.0038,
+    "laid": 0.0
+   }
+  },
+  "grounds": {
+   "pavement": 1.0
+  },
+  "notes": []
+ },
+ "casino.2": {
+  "states": {
+   "present": {
+    "before": 0.0049,
+    "after": 0.0049,
+    "laid": 0.0
+   },
+   "raided": {
+    "before": 0.005,
+    "after": 0.005,
+    "laid": 0.0
+   },
+   "reclaimed": {
+    "before": 0.0046,
+    "after": 0.0046,
+    "laid": 0.0
+   }
+  },
+  "grounds": {
+   "pavement": 1.0
+  },
+  "notes": []
+ },
+ "corner.0": {
+  "states": {
+   "present": {
+    "before": 0.6347,
+    "after": 0.3241,
+    "laid": 0.4127
+   },
+   "raided": {
+    "before": 0.5785,
+    "after": 0.2793,
+    "laid": 0.4073
+   },
+   "reclaimed": {
+    "before": 0.543,
+    "after": 0.2272,
+    "laid": 0.4098
+   }
+  },
+  "grounds": {
+   "caliche": 0.085,
+   "concrete": 0.04,
+   "deadlawn": 0.766,
+   "deadlawn_b": 0.099,
+   "gravel": 0.01
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "corner.1": {
+  "states": {
+   "present": {
+    "before": 0.6331,
+    "after": 0.2345,
+    "laid": 0.494
+   },
+   "raided": {
+    "before": 0.5749,
+    "after": 0.2038,
+    "laid": 0.4907
+   },
+   "reclaimed": {
+    "before": 0.573,
+    "after": 0.1706,
+    "laid": 0.4939
+   }
+  },
+  "grounds": {
+   "caliche": 0.075,
+   "concrete": 0.023,
+   "deadlawn": 0.798,
+   "deadlawn_b": 0.099,
+   "gravel": 0.005
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "corner.2": {
+  "states": {
+   "present": {
+    "before": 0.6505,
+    "after": 0.2753,
+    "laid": 0.4622
+   },
+   "raided": {
+    "before": 0.5836,
+    "after": 0.232,
+    "laid": 0.4639
+   },
+   "reclaimed": {
+    "before": 0.5695,
+    "after": 0.1919,
+    "laid": 0.4599
+   }
+  },
+  "grounds": {
+   "caliche": 0.071,
+   "concrete": 0.028,
+   "deadlawn": 0.809,
+   "deadlawn_b": 0.085,
+   "gravel": 0.007
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "culdesac.0": {
+  "states": {
+   "present": {
+    "before": 0.7106,
+    "after": 0.2972,
+    "laid": 0.508
+   },
+   "raided": {
+    "before": 0.6632,
+    "after": 0.2804,
+    "laid": 0.5054
+   },
+   "reclaimed": {
+    "before": 0.6585,
+    "after": 0.242,
+    "laid": 0.5022
+   }
+  },
+  "grounds": {
+   "caliche": 0.072,
+   "concrete": 0.027,
+   "deadlawn": 0.777,
+   "deadlawn_b": 0.117,
+   "gravel": 0.006
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "culdesac.1": {
+  "states": {
+   "present": {
+    "before": 0.7119,
+    "after": 0.2878,
+    "laid": 0.5049
+   },
+   "raided": {
+    "before": 0.648,
+    "after": 0.2655,
+    "laid": 0.493
+   },
+   "reclaimed": {
+    "before": 0.6585,
+    "after": 0.2331,
+    "laid": 0.4989
+   }
+  },
+  "grounds": {
+   "caliche": 0.07,
+   "concrete": 0.026,
+   "deadlawn": 0.825,
+   "deadlawn_b": 0.072,
+   "gravel": 0.006
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "freeway.0": {
+  "states": {
+   "present": {
+    "before": 0.5823,
+    "after": 0.1641,
+    "laid": 0.6171
+   },
+   "raided": {
+    "before": 0.5371,
+    "after": 0.1771,
+    "laid": 0.6171
+   },
+   "reclaimed": {
+    "before": 0.5844,
+    "after": 0.1568,
+    "laid": 0.6173
+   }
+  },
+  "grounds": {
+   "gravel": 0.284,
+   "pavement": 0.687,
+   "calcrete": 0.029
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "freewayo.0": {
+  "states": {
+   "present": {
+    "before": 0.5077,
+    "after": 0.1879,
+    "laid": 0.5615
+   },
+   "raided": {
+    "before": 0.4861,
+    "after": 0.1898,
+    "laid": 0.5626
+   },
+   "reclaimed": {
+    "before": 0.5079,
+    "after": 0.1798,
+    "laid": 0.5576
+   }
+  },
+  "grounds": {
+   "gravel": 0.377,
+   "pavement": 0.591,
+   "calcrete": 0.032
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "golf.0": {
+  "states": {
+   "present": {
+    "before": 0.8479,
+    "after": 0.2599,
+    "laid": 0.8313
+   },
+   "raided": {
+    "before": 0.8179,
+    "after": 0.257,
+    "laid": 0.8257
+   },
+   "reclaimed": {
+    "before": 0.712,
+    "after": 0.229,
+    "laid": 0.7061
+   }
+  },
+  "grounds": {
+   "bunker": 0.022,
+   "fairway": 0.524,
+   "fairway_b": 0.455
+  },
+  "notes": [
+   "the dead fairway in its mowing stripes, a white bunker"
+  ]
+ },
+ "lab.0": {
+  "states": {
+   "present": {
+    "before": 0.7283,
+    "after": 0.3696,
+    "laid": 0.3944
+   },
+   "raided": {
+    "before": 0.6801,
+    "after": 0.3403,
+    "laid": 0.392
+   },
+   "reclaimed": {
+    "before": 0.562,
+    "after": 0.2112,
+    "laid": 0.3852
+   }
+  },
+  "grounds": {
+   "paint": 0.004,
+   "mud": 0.0,
+   "tiedown": 0.023,
+   "epoxy": 0.946,
+   "hazard": 0.026
+  },
+  "notes": [
+   "sealed epoxy, hazard hatching at the docks, a decon pad and its drains, a beast's prints walking out"
+  ]
+ },
+ "landfill.0": {
+  "states": {
+   "present": {
+    "before": 0.8823,
+    "after": 0.0033,
+    "laid": 0.9533
+   },
+   "raided": {
+    "before": 0.8187,
+    "after": 0.004,
+    "laid": 0.9478
+   },
+   "reclaimed": {
+    "before": 0.8913,
+    "after": 0.0032,
+    "laid": 0.9588
+   }
+  },
+  "grounds": {
+   "gravel": 0.073,
+   "coversoil": 0.927
+  },
+  "notes": [
+   "the grey cover soil with the trash working up through it, a gravel haul road"
+  ]
+ },
+ "landfill.1": {
+  "states": {
+   "present": {
+    "before": 0.8748,
+    "after": 0.0033,
+    "laid": 0.9489
+   },
+   "raided": {
+    "before": 0.8108,
+    "after": 0.004,
+    "laid": 0.9482
+   },
+   "reclaimed": {
+    "before": 0.8846,
+    "after": 0.0031,
+    "laid": 0.9547
+   }
+  },
+  "grounds": {
+   "gravel": 0.073,
+   "coversoil": 0.927
+  },
+  "notes": [
+   "the grey cover soil with the trash working up through it, a gravel haul road"
+  ]
+ },
+ "lots.0": {
+  "states": {
+   "present": {
+    "before": 0.6263,
+    "after": 0.1017,
+    "laid": 0.5989
+   },
+   "raided": {
+    "before": 0.603,
+    "after": 0.0956,
+    "laid": 0.5977
+   },
+   "reclaimed": {
+    "before": 0.6243,
+    "after": 0.0994,
+    "laid": 0.5941
+   }
+  },
+  "grounds": {
+   "caliche": 0.087,
+   "concrete": 0.152,
+   "deadlawn": 0.705,
+   "deadlawn_b": 0.056
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "main.0": {
+  "states": {
+   "present": {
+    "before": 0.7536,
+    "after": 0.3156,
+    "laid": 0.4877
+   },
+   "raided": {
+    "before": 0.6988,
+    "after": 0.2979,
+    "laid": 0.4825
+   },
+   "reclaimed": {
+    "before": 0.6,
+    "after": 0.1573,
+    "laid": 0.485
+   }
+  },
+  "grounds": {
+   "concrete": 0.111,
+   "asphalt": 0.876,
+   "paint": 0.013
+  },
+  "notes": [
+   "asphalt lots, the painted stalls, walks at the shopfronts, the canopy's shadow"
+  ]
+ },
+ "main.1": {
+  "states": {
+   "present": {
+    "before": 0.753,
+    "after": 0.3145,
+    "laid": 0.4885
+   },
+   "raided": {
+    "before": 0.7267,
+    "after": 0.301,
+    "laid": 0.4858
+   },
+   "reclaimed": {
+    "before": 0.5951,
+    "after": 0.1519,
+    "laid": 0.4853
+   }
+  },
+  "grounds": {
+   "concrete": 0.111,
+   "asphalt": 0.876,
+   "paint": 0.013
+  },
+  "notes": [
+   "asphalt lots, the painted stalls, walks at the shopfronts, the canopy's shadow"
+  ]
+ },
+ "marina.0": {
+  "states": {
+   "present": {
+    "before": 0.6569,
+    "after": 0.0078,
+    "laid": 0.7158
+   },
+   "raided": {
+    "before": 0.6258,
+    "after": 0.0064,
+    "laid": 0.7197
+   },
+   "reclaimed": {
+    "before": 0.6289,
+    "after": 0.008,
+    "laid": 0.6904
+   }
+  },
+  "grounds": {
+   "silt": 0.058,
+   "mud": 0.9,
+   "ring": 0.042
+  },
+  "notes": [
+   "the lake bed cracked, the bathtub ring and a second ring above it"
+  ]
+ },
+ "pass.0": {
+  "states": {
+   "present": {
+    "before": 0.6906,
+    "after": 0.0116,
+    "laid": 0.8141
+   },
+   "raided": {
+    "before": 0.663,
+    "after": 0.002,
+    "laid": 0.8127
+   },
+   "reclaimed": {
+    "before": 0.6176,
+    "after": 0.0115,
+    "laid": 0.7443
+   }
+  },
+  "grounds": {
+   "gravel": 0.2,
+   "calcrete": 0.03,
+   "scree": 0.77
+  },
+  "notes": [
+   "limestone scree, the road's gravel shoulders"
+  ]
+ },
+ "ruin.0": {
+  "states": {
+   "present": {
+    "before": 0.721,
+    "after": 0.302,
+    "laid": 0.473
+   },
+   "raided": {
+    "before": 0.6706,
+    "after": 0.2814,
+    "laid": 0.4707
+   },
+   "reclaimed": {
+    "before": 0.6498,
+    "after": 0.2219,
+    "laid": 0.4726
+   }
+  },
+  "grounds": {
+   "concrete": 0.089,
+   "asphalt": 0.448,
+   "paint": 0.006,
+   "rubbleg": 0.457
+  },
+  "notes": [
+   "broken asphalt and brick dust, the old stalls under the rubble"
+  ]
+ },
+ "ruin.1": {
+  "states": {
+   "present": {
+    "before": 0.7262,
+    "after": 0.299,
+    "laid": 0.4719
+   },
+   "raided": {
+    "before": 0.6537,
+    "after": 0.2703,
+    "laid": 0.4707
+   },
+   "reclaimed": {
+    "before": 0.6533,
+    "after": 0.2235,
+    "laid": 0.4723
+   }
+  },
+  "grounds": {
+   "concrete": 0.091,
+   "asphalt": 0.492,
+   "paint": 0.006,
+   "rubbleg": 0.411
+  },
+  "notes": [
+   "broken asphalt and brick dust, the old stalls under the rubble"
+  ]
+ },
+ "scrub.0": {
+  "states": {
+   "present": {
+    "before": 0.8487,
+    "after": 0.3726,
+    "laid": 0.9204
+   },
+   "raided": {
+    "before": 0.7413,
+    "after": 0.3947,
+    "laid": 0.9232
+   },
+   "reclaimed": {
+    "before": 0.8542,
+    "after": 0.3693,
+    "laid": 0.9226
+   }
+  },
+  "grounds": {
+   "pavement": 0.96,
+   "calcrete": 0.04
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "scrub.1": {
+  "states": {
+   "present": {
+    "before": 0.8597,
+    "after": 0.3637,
+    "laid": 0.9264
+   },
+   "raided": {
+    "before": 0.7698,
+    "after": 0.3793,
+    "laid": 0.9295
+   },
+   "reclaimed": {
+    "before": 0.8649,
+    "after": 0.3589,
+    "laid": 0.9324
+   }
+  },
+  "grounds": {
+   "pavement": 0.957,
+   "calcrete": 0.043
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "scrub.2": {
+  "states": {
+   "present": {
+    "before": 0.8331,
+    "after": 0.3772,
+    "laid": 0.9133
+   },
+   "raided": {
+    "before": 0.7685,
+    "after": 0.3873,
+    "laid": 0.9014
+   },
+   "reclaimed": {
+    "before": 0.837,
+    "after": 0.3722,
+    "laid": 0.915
+   }
+  },
+  "grounds": {
+   "pavement": 0.956,
+   "calcrete": 0.044
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "scrubroad.0": {
+  "states": {
+   "present": {
+    "before": 0.7194,
+    "after": 0.3193,
+    "laid": 0.7956
+   },
+   "raided": {
+    "before": 0.6623,
+    "after": 0.3295,
+    "laid": 0.796
+   },
+   "reclaimed": {
+    "before": 0.72,
+    "after": 0.3104,
+    "laid": 0.7923
+   }
+  },
+  "grounds": {
+   "gravel": 0.14,
+   "pavement": 0.822,
+   "calcrete": 0.038
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "scrubroad.1": {
+  "states": {
+   "present": {
+    "before": 0.7252,
+    "after": 0.3269,
+    "laid": 0.7999
+   },
+   "raided": {
+    "before": 0.6796,
+    "after": 0.3387,
+    "laid": 0.7999
+   },
+   "reclaimed": {
+    "before": 0.7278,
+    "after": 0.3197,
+    "laid": 0.7979
+   }
+  },
+  "grounds": {
+   "gravel": 0.14,
+   "pavement": 0.824,
+   "calcrete": 0.036
+  },
+  "notes": [
+   "varnished desert pavement, caliche showing through, the sand only in each creosote's mound"
+  ]
+ },
+ "shore.0": {
+  "states": {
+   "present": {
+    "before": 0.6173,
+    "after": 0.0385,
+    "laid": 0.6229
+   },
+   "raided": {
+    "before": 0.5815,
+    "after": 0.0432,
+    "laid": 0.6231
+   },
+   "reclaimed": {
+    "before": 0.6196,
+    "after": 0.0383,
+    "laid": 0.6239
+   }
+  },
+  "grounds": {
+   "silt": 0.054,
+   "mud": 0.673,
+   "ring": 0.034,
+   "pavement": 0.239
+  },
+  "notes": [
+   "cracked mud to the bathtub ring, a second ring higher than the lake ever stood"
+  ]
+ },
+ "shore.1": {
+  "states": {
+   "present": {
+    "before": 0.6158,
+    "after": 0.0398,
+    "laid": 0.622
+   },
+   "raided": {
+    "before": 0.5852,
+    "after": 0.0455,
+    "laid": 0.6213
+   },
+   "reclaimed": {
+    "before": 0.6197,
+    "after": 0.0401,
+    "laid": 0.6239
+   }
+  },
+  "grounds": {
+   "silt": 0.048,
+   "mud": 0.663,
+   "ring": 0.037,
+   "pavement": 0.253
+  },
+  "notes": [
+   "cracked mud to the bathtub ring, a second ring higher than the lake ever stood"
+  ]
+ },
+ "strip.0": {
+  "states": {
+   "present": {
+    "before": 0.2836,
+    "after": 0.1454,
+    "laid": 0.6246
+   },
+   "raided": {
+    "before": 0.2781,
+    "after": 0.142,
+    "laid": 0.6243
+   },
+   "reclaimed": {
+    "before": 0.2214,
+    "after": 0.0825,
+    "laid": 0.6202
+   }
+  },
+  "grounds": {
+   "concrete": 0.02,
+   "marble": 0.597,
+   "pooltile": 0.383
+  },
+  "notes": [
+   "the lots taken up: cracked marble at the doors, the pool deck's tile to the south, one slab polished"
+  ]
+ },
+ "strip.1": {
+  "states": {
+   "present": {
+    "before": 0.2821,
+    "after": 0.1455,
+    "laid": 0.6221
+   },
+   "raided": {
+    "before": 0.2556,
+    "after": 0.1349,
+    "laid": 0.6254
+   },
+   "reclaimed": {
+    "before": 0.221,
+    "after": 0.0831,
+    "laid": 0.6186
+   }
+  },
+  "grounds": {
+   "concrete": 0.02,
+   "marble": 0.597,
+   "pooltile": 0.383
+  },
+  "notes": [
+   "the lots taken up: cracked marble at the doors, the pool deck's tile to the south, one slab polished"
+  ]
+ },
+ "subs.0": {
+  "states": {
+   "present": {
+    "before": 0.7642,
+    "after": 0.3832,
+    "laid": 0.4711
+   },
+   "raided": {
+    "before": 0.6459,
+    "after": 0.3145,
+    "laid": 0.4644
+   },
+   "reclaimed": {
+    "before": 0.6413,
+    "after": 0.2611,
+    "laid": 0.4695
+   }
+  },
+  "grounds": {
+   "caliche": 0.058,
+   "concrete": 0.047,
+   "deadlawn": 0.781,
+   "deadlawn_b": 0.1,
+   "gravel": 0.015
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "subs.1": {
+  "states": {
+   "present": {
+    "before": 0.7624,
+    "after": 0.358,
+    "laid": 0.4979
+   },
+   "raided": {
+    "before": 0.7134,
+    "after": 0.3323,
+    "laid": 0.4936
+   },
+   "reclaimed": {
+    "before": 0.6592,
+    "after": 0.2511,
+    "laid": 0.4945
+   }
+  },
+  "grounds": {
+   "caliche": 0.091,
+   "concrete": 0.033,
+   "deadlawn": 0.772,
+   "deadlawn_b": 0.092,
+   "gravel": 0.011
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "subs.2": {
+  "states": {
+   "present": {
+    "before": 0.7787,
+    "after": 0.35,
+    "laid": 0.5115
+   },
+   "raided": {
+    "before": 0.6877,
+    "after": 0.2923,
+    "laid": 0.5099
+   },
+   "reclaimed": {
+    "before": 0.6637,
+    "after": 0.2346,
+    "laid": 0.5083
+   }
+  },
+  "grounds": {
+   "caliche": 0.068,
+   "concrete": 0.045,
+   "deadlawn": 0.777,
+   "deadlawn_b": 0.099,
+   "gravel": 0.01
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "subs.3": {
+  "states": {
+   "present": {
+    "before": 0.7582,
+    "after": 0.4194,
+    "laid": 0.4336
+   },
+   "raided": {
+    "before": 0.6877,
+    "after": 0.3721,
+    "laid": 0.4292
+   },
+   "reclaimed": {
+    "before": 0.6226,
+    "after": 0.2816,
+    "laid": 0.4302
+   }
+  },
+  "grounds": {
+   "caliche": 0.078,
+   "concrete": 0.048,
+   "deadlawn": 0.75,
+   "deadlawn_b": 0.108,
+   "gravel": 0.016
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "suburb_stem.0": {
+  "states": {
+   "present": {
+    "before": 0.7008,
+    "after": 0.3698,
+    "laid": 0.4183
+   },
+   "raided": {
+    "before": 0.6172,
+    "after": 0.3055,
+    "laid": 0.4179
+   },
+   "reclaimed": {
+    "before": 0.5793,
+    "after": 0.2491,
+    "laid": 0.4149
+   }
+  },
+  "grounds": {
+   "caliche": 0.056,
+   "concrete": 0.047,
+   "deadlawn": 0.816,
+   "deadlawn_b": 0.066,
+   "gravel": 0.014
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "suburb_stem.1": {
+  "states": {
+   "present": {
+    "before": 0.7012,
+    "after": 0.38,
+    "laid": 0.4058
+   },
+   "raided": {
+    "before": 0.5893,
+    "after": 0.29,
+    "laid": 0.4035
+   },
+   "reclaimed": {
+    "before": 0.5756,
+    "after": 0.252,
+    "laid": 0.4023
+   }
+  },
+  "grounds": {
+   "caliche": 0.06,
+   "concrete": 0.053,
+   "deadlawn": 0.775,
+   "deadlawn_b": 0.101,
+   "gravel": 0.011
+  },
+  "notes": [
+   "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
+  ]
+ },
+ "trailer.0": {
+  "states": {
+   "present": {
+    "before": 0.6246,
+    "after": 0.1181,
+    "laid": 0.6997
+   },
+   "raided": {
+    "before": 0.6004,
+    "after": 0.1197,
+    "laid": 0.7111
+   },
+   "reclaimed": {
+    "before": 0.5945,
+    "after": 0.1221,
+    "laid": 0.6731
+   }
+  },
+  "grounds": {
+   "gravel": 1.0
+  },
+  "notes": [
+   "gravel lots and pads, one pad raked in lines"
+  ]
+ },
+ "wash.0": {
+  "states": {
+   "present": {
+    "before": 0.9093,
+    "after": 0.1849,
+    "laid": 0.9578
+   },
+   "raided": {
+    "before": 0.8075,
+    "after": 0.1855,
+    "laid": 0.9562
+   },
+   "reclaimed": {
+    "before": 0.9132,
+    "after": 0.1751,
+    "laid": 0.9594
+   }
+  },
+  "grounds": {
+   "cobble": 0.889,
+   "silt": 0.11,
+   "mud": 0.0
+  },
+  "notes": [
+   "the dry bed: cobbles end to end, pale silt in long bars along the flow, footprints in the silt"
+  ]
+ },
+ "wash.1": {
+  "states": {
+   "present": {
+    "before": 0.9087,
+    "after": 0.1876,
+    "laid": 0.9563
+   },
+   "raided": {
+    "before": 0.86,
+    "after": 0.187,
+    "laid": 0.956
+   },
+   "reclaimed": {
+    "before": 0.9136,
+    "after": 0.1776,
+    "laid": 0.9608
+   }
+  },
+  "grounds": {
+   "cobble": 0.891,
+   "silt": 0.109,
+   "mud": 0.0
+  },
+  "notes": [
+   "the dry bed: cobbles end to end, pale silt in long bars along the flow, footprints in the silt"
+  ]
+ },
+ "works.0": {
+  "states": {
+   "present": {
+    "before": 0.7283,
+    "after": 0.3698,
+    "laid": 0.3944
+   },
+   "raided": {
+    "before": 0.6801,
+    "after": 0.3403,
+    "laid": 0.392
+   },
+   "reclaimed": {
+    "before": 0.562,
+    "after": 0.2099,
+    "laid": 0.3852
+   }
+  },
+  "grounds": {
+   "oilcrete": 0.825,
+   "ballast": 0.035,
+   "tie": 0.016,
+   "rail": 0.003,
+   "gravel": 0.121
+  },
+  "notes": [
+   "the slab black with oil, gravel, a rail spur on ties and ballast (its rails polished)"
+  ]
+ }
+}

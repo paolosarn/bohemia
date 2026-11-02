@@ -1,0 +1,727 @@
+{
+ "about": "every place on his phone, the share of the screen in the old sand colour family, before and after",
+ "places": [
+  {
+   "district": "strip",
+   "name": "THE STRIP",
+   "before": 0.23,
+   "after": 0.1282,
+   "blocks_after": [
+    [
+     "casino.1|h",
+     "strip.1",
+     "strip.0",
+     "casino.2"
+    ],
+    [
+     "strip.0",
+     "casino.1",
+     "strip.1",
+     "casino.0|h"
+    ],
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "casino.1|h",
+     "strip.1",
+     "strip.0",
+     "casino.2"
+    ],
+    [
+     "strip.0",
+     "casino.1",
+     "strip.1",
+     "casino.0|h"
+    ],
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ]
+   ],
+   "bar": "casino + strip",
+   "card": "records/target/combat_maps_11_2c/ground_strip.webp"
+  },
+  {
+   "district": "downtown",
+   "name": "DOWNTOWN",
+   "before": 0.4958,
+   "after": 0.2799,
+   "blocks_after": [
+    [
+     "ruin.1",
+     "main.1",
+     "main.0",
+     "strip.0"
+    ],
+    [
+     "main.0",
+     "strip.1",
+     "main.1",
+     "strip.1"
+    ],
+    [
+     "main.1",
+     "main.0",
+     "main.1",
+     "main.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "ruin.1",
+     "main.1",
+     "main.0",
+     "strip.0"
+    ],
+    [
+     "main.0",
+     "strip.1",
+     "main.1",
+     "strip.1"
+    ],
+    [
+     "main.1",
+     "main.0",
+     "main.1",
+     "main.0"
+    ]
+   ],
+   "bar": "ruin + main + strip",
+   "card": "records/target/combat_maps_11_2c/ground_downtown.webp"
+  },
+  {
+   "district": "industrial",
+   "name": "THE WORKS",
+   "before": 0.5246,
+   "after": 0.2579,
+   "blocks_after": [
+    [
+     "ruin.1",
+     "works.0",
+     "works.0",
+     "landfill.0"
+    ],
+    [
+     "works.0",
+     "landfill.1",
+     "works.0",
+     "landfill.1"
+    ],
+    [
+     "works.0",
+     "works.0",
+     "works.0",
+     "works.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "ruin.1",
+     "works.0",
+     "works.0",
+     "landfill.0"
+    ],
+    [
+     "works.0",
+     "landfill.1",
+     "works.0",
+     "landfill.1"
+    ],
+    [
+     "works.0",
+     "works.0",
+     "works.0",
+     "works.0"
+    ]
+   ],
+   "bar": "ruin + works + landfill",
+   "card": "records/target/combat_maps_11_2c/ground_industrial.webp"
+  },
+  {
+   "district": "suburb",
+   "name": "THE SUBURBS",
+   "before": 0.5154,
+   "after": 0.2157,
+   "blocks_after": [
+    [
+     "subs.0",
+     "lots.0",
+     "corner.2",
+     "subs.2"
+    ],
+    [
+     "corner.0",
+     "subs.3",
+     "lots.0",
+     "corner.0"
+    ],
+    [
+     "subs.2",
+     "lots.0",
+     "subs.3",
+     "suburb_stem.1"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "subs.0",
+     "lots.0",
+     "corner.2",
+     "subs.2"
+    ],
+    [
+     "corner.0",
+     "subs.3",
+     "lots.0",
+     "corner.0"
+    ],
+    [
+     "subs.2",
+     "lots.0",
+     "subs.3",
+     "suburb_stem.1"
+    ]
+   ],
+   "bar": "suburb + lots",
+   "card": "records/target/combat_maps_11_2c/ground_suburb.webp"
+  },
+  {
+   "district": "wash",
+   "name": "THE WASH",
+   "before": 0.6529,
+   "after": 0.1985,
+   "blocks_after": [
+    [
+     "scrub.0",
+     "wash.0",
+     "wash.1",
+     "scrub.1"
+    ],
+    [
+     "wash.1",
+     "scrub.2",
+     "wash.0",
+     "scrub.0"
+    ],
+    [
+     "wash.0",
+     "wash.1",
+     "wash.0",
+     "wash.1"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrub.0",
+     "wash.0",
+     "wash.1",
+     "scrub.1"
+    ],
+    [
+     "wash.1",
+     "scrub.2",
+     "wash.0",
+     "scrub.0"
+    ],
+    [
+     "wash.0",
+     "wash.1",
+     "wash.0",
+     "wash.1"
+    ]
+   ],
+   "bar": "scrub + wash",
+   "card": "records/target/combat_maps_11_2c/ground_wash.webp"
+  },
+  {
+   "district": "reservoir",
+   "name": "THE SHORE",
+   "before": 0.4962,
+   "after": 0.0836,
+   "blocks_after": [
+    [
+     "shore.0",
+     "shore.0|h",
+     "shore.0",
+     "shore.0|h"
+    ],
+    [
+     "marina.0|h",
+     "marina.0",
+     "wash.1",
+     "marina.0"
+    ],
+    [
+     "marina.0",
+     "wash.0",
+     "marina.0",
+     "marina.0|h"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "shore.0",
+     "shore.0|h",
+     "shore.0",
+     "shore.0|h"
+    ],
+    [
+     "marina.0|h",
+     "marina.0",
+     "wash.1",
+     "marina.0"
+    ],
+    [
+     "marina.0",
+     "wash.0",
+     "marina.0",
+     "marina.0|h"
+    ]
+   ],
+   "bar": "shore + marina + wash",
+   "card": "records/target/combat_maps_11_2c/ground_reservoir.webp"
+  },
+  {
+   "district": "mountain",
+   "name": "THE DESERT PASS",
+   "before": 0.5049,
+   "after": 0.0791,
+   "blocks_after": [
+    [
+     "scrub.2",
+     "pass.0",
+     "pass.0|h",
+     "canyon.0|h"
+    ],
+    [
+     "pass.0|h",
+     "canyon.0",
+     "pass.0",
+     "scrub.2"
+    ],
+    [
+     "pass.0",
+     "pass.0|h",
+     "pass.0",
+     "pass.0|h"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrub.2",
+     "pass.0",
+     "pass.0|h",
+     "canyon.0|h"
+    ],
+    [
+     "pass.0|h",
+     "canyon.0",
+     "pass.0",
+     "scrub.2"
+    ],
+    [
+     "pass.0",
+     "pass.0|h",
+     "pass.0",
+     "pass.0|h"
+    ]
+   ],
+   "bar": "scrub + pass + canyon",
+   "card": "records/target/combat_maps_11_2c/ground_mountain.webp"
+  },
+  {
+   "district": "desert",
+   "name": "THE DESERT",
+   "before": 0.5824,
+   "after": 0.1527,
+   "blocks_after": [
+    [
+     "pass.0|h",
+     "scrub.2",
+     "wash.0",
+     "scrub.2"
+    ],
+    [
+     "wash.0",
+     "scrub.1",
+     "scrub.0",
+     "scrub.1"
+    ],
+    [
+     "scrub.2",
+     "pass.0|h",
+     "scrub.2",
+     "scrub.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "pass.0|h",
+     "scrub.2",
+     "wash.0",
+     "scrub.2"
+    ],
+    [
+     "wash.0",
+     "scrub.1",
+     "scrub.0",
+     "scrub.1"
+    ],
+    [
+     "scrub.2",
+     "pass.0|h",
+     "scrub.2",
+     "scrub.0"
+    ]
+   ],
+   "bar": "pass + scrub + wash",
+   "card": "records/target/combat_maps_11_2c/ground_desert.webp"
+  },
+  {
+   "district": "springs",
+   "name": "RED ROCK",
+   "before": 0.5452,
+   "after": 0.0892,
+   "blocks_after": [
+    [
+     "scrub.2",
+     "canyon.0|h",
+     "canyon.0|h|h",
+     "wash.1"
+    ],
+    [
+     "canyon.0|h|h",
+     "wash.0",
+     "canyon.0",
+     "scrub.2"
+    ],
+    [
+     "canyon.0|h",
+     "canyon.0|h|h",
+     "canyon.0|h",
+     "canyon.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrub.2",
+     "canyon.0|h",
+     "canyon.0|h|h",
+     "wash.1"
+    ],
+    [
+     "canyon.0|h|h",
+     "wash.0",
+     "canyon.0",
+     "scrub.2"
+    ],
+    [
+     "canyon.0|h",
+     "canyon.0|h|h",
+     "canyon.0|h",
+     "canyon.0"
+    ]
+   ],
+   "bar": "scrub + canyon + wash",
+   "card": "records/target/combat_maps_11_2c/ground_springs.webp"
+  },
+  {
+   "district": "trailer",
+   "name": "THE TRAILER PARK",
+   "before": 0.4658,
+   "after": 0.1165,
+   "blocks_after": [
+    [
+     "scrub.1",
+     "trailer.0",
+     "trailer.0|h",
+     "scrub.2"
+    ],
+    [
+     "trailer.0|h",
+     "lots.0",
+     "trailer.0",
+     "lots.0"
+    ],
+    [
+     "trailer.0",
+     "trailer.0|h",
+     "trailer.0",
+     "trailer.0|h"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrub.1",
+     "trailer.0",
+     "trailer.0|h",
+     "scrub.2"
+    ],
+    [
+     "trailer.0|h",
+     "lots.0",
+     "trailer.0",
+     "lots.0"
+    ],
+    [
+     "trailer.0",
+     "trailer.0|h",
+     "trailer.0",
+     "trailer.0|h"
+    ]
+   ],
+   "bar": "scrub + trailer + lots",
+   "card": "records/target/combat_maps_11_2c/ground_trailer.webp"
+  },
+  {
+   "district": "golf",
+   "name": "THE GOLF COURSE",
+   "before": 0.6205,
+   "after": 0.1925,
+   "blocks_after": [
+    [
+     "scrub.0",
+     "golf.0",
+     "golf.0|h",
+     "scrub.1"
+    ],
+    [
+     "golf.0|h",
+     "scrub.2",
+     "golf.0",
+     "scrub.0"
+    ],
+    [
+     "golf.0",
+     "golf.0|h",
+     "golf.0",
+     "golf.0|h"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrub.0",
+     "golf.0",
+     "golf.0|h",
+     "scrub.1"
+    ],
+    [
+     "golf.0|h",
+     "scrub.2",
+     "golf.0",
+     "scrub.0"
+    ],
+    [
+     "golf.0",
+     "golf.0|h",
+     "golf.0",
+     "golf.0|h"
+    ]
+   ],
+   "bar": "scrub + golf",
+   "card": "records/target/combat_maps_11_2c/ground_golf.webp"
+  },
+  {
+   "district": "water",
+   "name": "THE MARINA",
+   "before": 0.4519,
+   "after": 0.0588,
+   "blocks_after": [
+    [
+     "shore.0",
+     "shore.0|h",
+     "shore.0",
+     "shore.0|h"
+    ],
+    [
+     "marina.0|h|h",
+     "marina.0|h",
+     "marina.0",
+     "marina.0|h"
+    ],
+    [
+     "marina.0|h",
+     "marina.0|h|h",
+     "marina.0|h",
+     "marina.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "shore.0",
+     "shore.0|h",
+     "shore.0",
+     "shore.0|h"
+    ],
+    [
+     "marina.0|h|h",
+     "marina.0|h",
+     "marina.0",
+     "marina.0|h"
+    ],
+    [
+     "marina.0|h",
+     "marina.0|h|h",
+     "marina.0|h",
+     "marina.0"
+    ]
+   ],
+   "bar": "shore + marina",
+   "card": "records/target/combat_maps_11_2c/ground_water.webp"
+  },
+  {
+   "district": "medical",
+   "name": "THE LAB YARD",
+   "before": 0.5301,
+   "after": 0.2895,
+   "blocks_after": [
+    [
+     "main.1",
+     "lab.0",
+     "lab.0",
+     "ruin.0"
+    ],
+    [
+     "lab.0",
+     "ruin.1",
+     "lab.0",
+     "ruin.1"
+    ],
+    [
+     "lab.0",
+     "lab.0",
+     "lab.0",
+     "lab.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "main.0",
+     "main.1",
+     "ruin.1",
+     "main.0"
+    ],
+    [
+     "ruin.1",
+     "main.0",
+     "ruin.0",
+     "ruin.1"
+    ],
+    [
+     "ruin.0",
+     "main.1",
+     "main.0",
+     "ruin.0"
+    ]
+   ],
+   "bar": "main + lab + ruin",
+   "card": "records/target/combat_maps_11_2c/ground_medical.webp"
+  },
+  {
+   "district": "airport",
+   "name": "THE AIRPORT",
+   "before": 0.224,
+   "after": 0.1211,
+   "blocks_after": [
+    [
+     "scrubroad.0",
+     "apron.0",
+     "apron.0|h",
+     "works.0"
+    ],
+    [
+     "apron.0|h",
+     "works.0",
+     "apron.0",
+     "scrubroad.0"
+    ],
+    [
+     "apron.0",
+     "apron.0|h",
+     "apron.0",
+     "apron.0|h"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrubroad.0",
+     "apron.0",
+     "apron.0|h",
+     "works.0"
+    ],
+    [
+     "apron.0|h",
+     "works.0",
+     "apron.0",
+     "scrubroad.0"
+    ],
+    [
+     "apron.0",
+     "apron.0|h",
+     "apron.0",
+     "apron.0|h"
+    ]
+   ],
+   "bar": "scrubroad + apron + works",
+   "card": "records/target/combat_maps_11_2c/ground_airport.webp"
+  },
+  {
+   "district": "landfill",
+   "name": "THE LANDFILL",
+   "before": 0.6045,
+   "after": 0.0955,
+   "blocks_after": [
+    [
+     "scrub.0",
+     "landfill.1",
+     "landfill.0",
+     "scrub.1"
+    ],
+    [
+     "landfill.0",
+     "scrub.2",
+     "landfill.1",
+     "scrub.2"
+    ],
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ]
+   ],
+   "blocks_before": [
+    [
+     "scrub.0",
+     "landfill.1",
+     "landfill.0",
+     "scrub.1"
+    ],
+    [
+     "landfill.0",
+     "scrub.2",
+     "landfill.1",
+     "scrub.2"
+    ],
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ]
+   ],
+   "bar": "scrub + landfill",
+   "card": "records/target/combat_maps_11_2c/ground_landfill.webp"
+  }
+ ],
+ "mean_before": 0.4963,
+ "mean_after": 0.1572
+}
