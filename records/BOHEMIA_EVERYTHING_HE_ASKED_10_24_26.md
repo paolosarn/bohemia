@@ -315,4 +315,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 291 | The camp in every size, sideways and upright, voted NO 11/1: redo with the towns four layouts (rule 291) | 291 | COORDINATOR | RECORDED: records/BOHEMIA_THE_VOTES_11_1_26.txt |
 | 292 | The injury card UI voted NO 11/1 ("ugly cluttered, try again"): redo clean | 293 | UI (next round) | RECORDED: records/BOHEMIA_THE_VOTES_11_1_26.txt |
 | 293 | The struck-down and healing UI is ugly: redo it clean (with the injury card, 292) | 293 | UI (next round) | RECORDED |
-| 294 | What being struck down costs for good: his idea, 1 to 3 max HP lost each time; the coordinator recommends A (keep the permanent injury on a bad roll + 1 max HP per knockdown, a scar tally, capped, the main character spared) | 234 | CAMP, TUNING | WAITING ON HIS PICK (A/B/C) |
+| 294 | What a knockdown costs (his correction 11/2, rule 304): the fresh wound for its days; NO permanent stat debuff (the mark is a scar only); from the third knockdown 1 max HP for good each, a tally on the portrait, never past -5, the main character spared | 304 | INJURY lane | RUNNING (11/2) |
+| 295 | The game never makes you want to cheat: every punishment fair, nothing out of reach, the risk seen first | 303 | every lane | STANDING RULE |
+| 296 | A delivery service: order any item for batteries, it arrives at a town in days (his "mini Amazon"); designed first | 303 | ECONOMY | QUEUED: design first |
