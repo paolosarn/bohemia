@@ -69,14 +69,15 @@
   var MIXED = null;
   function mixedClasses() {
     if (MIXED) return MIXED; var seen = {}; MIXED = {};
-    ((D.weapons && D.weapons.rows) || []).forEach(function (r) { var c = r['class']; seen[c] = seen[c] || {}; seen[c][handsOfRow(r)] = 1; });
+    ((D.weapons && D.weapons.rows) || []).forEach(function (r) { if (r.armory) return; var c = r['class']; seen[c] = seen[c] || {}; seen[c][handsOfRow(r)] = 1; });
     Object.keys(seen).forEach(function (c) { if (seen[c][1] && seen[c][2]) MIXED[c] = true; });
     return MIXED;
   }
   function classWord(cls, hands) { return (hands === 2 && mixedClasses()[cls] ? 'two-hand ' : '') + (CLASSNAME[cls] || cls); }
   /* the shop's full name: the quality word by the row's rank by value among the rows of its class that take the same hands */
   function weaponName(r) {
-    var h = handsOfRow(r), same = ((D.weapons && D.weapons.rows) || []).filter(function (x) { return x['class'] === r['class'] && handsOfRow(x) === h; }).sort(function (a, b) { return a.value - b.value; });
+    if (r.armory) return r.armory.name;   /* __THE_ARMORY__ (rule 302): the valley's own piece wears its own name, never ranked in its class */
+    var h = handsOfRow(r), same = ((D.weapons && D.weapons.rows) || []).filter(function (x) { return !x.armory && x['class'] === r['class'] && handsOfRow(x) === h; }).sort(function (a, b) { return a.value - b.value; });
     var q = same.indexOf(r) / Math.max(1, same.length - 1);
     return (q < .34 ? 'beat-up' : q < .67 ? 'solid' : 'good') + ' ' + classWord(r['class'], h);
   }
@@ -117,7 +118,7 @@
       var rows = (D.weapons && D.weapons.rows) || [], r = null;
       for (var i = 0; i < rows.length; i++) if (rows[i].id === id) r = rows[i];
       if (!r) return null;
-      var c = classWord(r['class'], handsOfRow(r));   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ */
+      var c = r.armory ? r.armory.name : classWord(r['class'], handsOfRow(r));   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__; __THE_ARMORY__ its own name */
       return { id: r.id, kind: 'weapon', cls: r['class'], name: c, was: r.name, price: priceOf(r.value), hands: handsOfRow(r),
         nums: 'dmg ' + r.damage_min + '-' + r.damage_max + (r.range_max ? '  reach ' + r.range_max : '') };
     }

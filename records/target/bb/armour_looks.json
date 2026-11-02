@@ -417,6 +417,22 @@
   "decorated_full_helm": {
    "name": "a gold-trim full riot helm",
    "class": "moto_helmet"
+  },
+  "goalie_mask": {
+   "name": "a goalie-mask hard hat",
+   "class": "gas_mask"
+  },
+  "football_helmet": {
+   "name": "a football riot helmet",
+   "class": "moto_helmet"
+  },
+  "welding_mask": {
+   "name": "a welding-mask riot helmet",
+   "class": "welder_mask"
+  },
+  "riot_gas_helmet": {
+   "name": "a gas-visor full riot helm",
+   "class": "riot_helmet"
   }
  },
  "body": {
@@ -754,6 +770,26 @@
   },
   "coat_of_plates": {
    "name": "plate-coat full riot armour",
+   "class": "car_door"
+  },
+  "football_pads": {
+   "name": "a football-pad padded vest",
+   "class": "padded_vest"
+  },
+  "carpet_coat": {
+   "name": "a duct-taped carpet padded vest",
+   "class": "padded_vest"
+  },
+  "licence_plate_vest": {
+   "name": "a licence-plate padded vest",
+   "class": "plated_jacket"
+  },
+  "riot_gear_jacket": {
+   "name": "a riot-gear plate carrier",
+   "class": "riot_armour"
+  },
+  "road_sign_cuirass": {
+   "name": "road-sign full riot armour",
    "class": "car_door"
   }
  },

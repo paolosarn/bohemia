@@ -897,6 +897,10 @@ const FIGHT = (function () {
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && !pistolShot(x)) w = x; });
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x)) w = x; });
     if (!w) w = naturalOf(id);
+    /* __THE_ARMORY__ (ARMORY, rule 302, Paolo 11/2: 'more weapons'): every second man of a kind whose wiki gear holds a piece's row A
+       carries the valley's own piece made from A instead (records/target/bb/armory.json carried_by): the same family and hands, so
+       the fight's other rolls never move, and it drops as loot by tier like anything he holds */
+    if (w && (i & 1) === 1) { const own = DB.weapons.rows.filter(function (x) { return x.armory && x.armory.between[0] === w.id && (x.armory.carried_by || []).indexOf(id) >= 0; })[0]; if (own) w = own; }
     if (!w) throw new Error('the fight cannot arm ' + id + ': ' + (DB.beastAttacks.refused[id] || 'no weapon in its gear and no attack page'));
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && (Ak.shoves || rng() < rng())) sh = x; });   /* THE HEAVY: his crash-bar always */

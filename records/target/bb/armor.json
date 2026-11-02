@@ -836,6 +836,106 @@
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0413_Coat of Plates.txt",
    "notes": "Used by Hedge Knights, Knights",
    "missing": []
+  },
+  {
+   "id": "football_pads",
+   "name": "Football-Pad Padded Vest",
+   "durability": 55,
+   "fatigue": -5,
+   "value": 120,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of padded_surcoat and padded_vest | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1519_Padded Surcoat.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1520_Padded Vest.txt",
+   "armory": {
+    "name": "a football-pad padded vest",
+    "class": "padded_vest",
+    "line": "High school shoulder pads over a hoodie. Light.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "between": [
+     "padded_surcoat",
+     "padded_vest"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "carpet_coat",
+   "name": "Duct-Taped Carpet Padded Vest",
+   "durability": 70,
+   "fatigue": -7,
+   "value": 170,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of gambeson and linothorax | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0824_Gambeson.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1186_Linothorax.txt",
+   "armory": {
+    "name": "a duct-taped carpet padded vest",
+    "class": "padded_vest",
+    "line": "Motel carpet, folded thick and taped on. Soaks a hit.",
+    "tier": "camp",
+    "kind": "improvised",
+    "between": [
+     "gambeson",
+     "linothorax"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "licence_plate_vest",
+   "name": "Licence-Plate Padded Vest",
+   "durability": 85,
+   "fatigue": -9,
+   "value": 190,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of scrap_metal_armor and patched_mail_shirt | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1742_Scrap Metal Armor.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1527_Patched Mail Shirt.txt",
+   "armory": {
+    "name": "a licence-plate padded vest",
+    "class": "plated_jacket",
+    "line": "Nevada plates riveted over a denim jacket. Rattles when you walk.",
+    "tier": "town",
+    "kind": "improvised",
+    "between": [
+     "scrap_metal_armor",
+     "patched_mail_shirt"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "riot_gear_jacket",
+   "name": "Riot-Gear Plate Carrier",
+   "durability": 150,
+   "fatigue": -18,
+   "value": 980,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of mail_shirt and light_scale_armor | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1230_Mail Shirt.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1168_Light Scale Armor.txt",
+   "armory": {
+    "name": "a riot-gear plate carrier",
+    "class": "riot_armour",
+    "line": "Metro riot gear. Shoulder guards, a hard chest. Heavy.",
+    "tier": "town",
+    "kind": "pre-collapse",
+    "between": [
+     "mail_shirt",
+     "light_scale_armor"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "road_sign_cuirass",
+   "name": "Road-Sign Full Riot Armour",
+   "durability": 180,
+   "fatigue": -24,
+   "value": 1150,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of heavy_iron_armor and footman_s_armor | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0964_Heavy Iron Armor.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0802_Footman's Armor.txt",
+   "armory": {
+    "name": "road-sign full riot armour",
+    "class": "car_door",
+    "line": "Two freeway signs bolted front and back. Very heavy. Very safe.",
+    "tier": "fortress",
+    "kind": "improvised",
+    "between": [
+     "heavy_iron_armor",
+     "footman_s_armor"
+    ],
+    "draft": true
+   }
   }
  ],
  "head": [
@@ -1900,6 +2000,90 @@
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0536_Decorated Full Helm.txt",
    "notes": "Obtainable via Allied Nobles ambition and some War of the Noble Houses crisis events, used by Noble House Knights",
    "missing": []
+  },
+  {
+   "id": "goalie_mask",
+   "name": "Goalie-Mask Hard Hat",
+   "durability": 60,
+   "fatigue": -3,
+   "vision": null,
+   "value": 120,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of full_aketon_cap and nomad_light_helmet | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0819_Full Aketon Cap.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1447_Nomad Light Helmet.txt",
+   "armory": {
+    "name": "a goalie-mask hard hat",
+    "class": "gas_mask",
+    "line": "A hockey mask on a padded cap. You still see everything.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "between": [
+     "full_aketon_cap",
+     "nomad_light_helmet"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "football_helmet",
+   "name": "Football Riot Helmet",
+   "durability": 110,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 390,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of leather_helmet and kettle_hat | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1151_Leather Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1108_Kettle Hat.txt",
+   "armory": {
+    "name": "a football riot helmet",
+    "class": "moto_helmet",
+    "line": "A cracked school helmet with the face cage on.",
+    "tier": "town",
+    "kind": "scavenged",
+    "between": [
+     "leather_helmet",
+     "kettle_hat"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "welding_mask",
+   "name": "Welding-Mask Riot Helmet",
+   "durability": 140,
+   "fatigue": -11,
+   "vision": -2,
+   "value": 600,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of masked_kettle_helmet and crude_faceguard_helmet | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1245_Masked Kettle Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0463_Crude Faceguard Helmet.txt",
+   "armory": {
+    "name": "a welding-mask riot helmet",
+    "class": "welder_mask",
+    "line": "Steel face, dark glass. Hard to see out of. Hard to get through.",
+    "tier": "town",
+    "kind": "scavenged",
+    "between": [
+     "masked_kettle_helmet",
+     "crude_faceguard_helmet"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "riot_gas_helmet",
+   "name": "Gas-Visor Full Riot Helm",
+   "durability": 195,
+   "fatigue": -12,
+   "vision": -3,
+   "value": 1250,
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of closed_and_padded_flat_top and bascinet_with_mail | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0408_Closed and Padded Flat Top.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0198_Bascinet with Mail.txt",
+   "armory": {
+    "name": "a gas-visor full riot helm",
+    "class": "riot_helmet",
+    "line": "A riot helmet with the gas mask built in. The best head you can find.",
+    "tier": "fortress",
+    "kind": "pre-collapse",
+    "between": [
+     "closed_and_padded_flat_top",
+     "bascinet_with_mail"
+    ],
+    "draft": true
+   }
   }
  ],
  "shields": [
@@ -2653,5 +2837,11 @@
   "body": 78,
   "head": 87,
   "shields": 19
+ },
+ "_armory": {
+  "body": 5,
+  "head": 4,
+  "by": "tools/bohemia_armory.py from armory.json",
+  "record": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md"
  }
 }

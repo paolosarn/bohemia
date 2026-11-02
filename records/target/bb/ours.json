@@ -1022,7 +1022,9 @@
     "notched_blade": "bundle_of_javelins",
     "rondel_dagger": "bundle_of_heavy_javelins",
     "qatal_dagger": "bundle_of_heavy_javelins",
-    "estoc": "bundle_of_heavy_javelins"
+    "estoc": "bundle_of_heavy_javelins",
+    "zip_gun": "bundle_of_crude_javelins",
+    "snub_revolver": "bundle_of_javelins"
    },
    "reload": {
     "rides": "light_crossbow",

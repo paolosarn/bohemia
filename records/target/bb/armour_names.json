@@ -101,7 +101,12 @@
   "padded_mail_and_lamellar_hauberk": "padded chain-and-plate full riot armour",
   "adorned_heavy_mail_hauberk": "chromed heavy chain full riot armour",
   "coat_of_scales": "scale-coat full riot armour",
-  "coat_of_plates": "plate-coat full riot armour"
+  "coat_of_plates": "plate-coat full riot armour",
+  "football_pads": "a football-pad padded vest",
+  "carpet_coat": "a duct-taped carpet padded vest",
+  "licence_plate_vest": "a licence-plate padded vest",
+  "riot_gear_jacket": "a riot-gear plate carrier",
+  "road_sign_cuirass": "road-sign full riot armour"
  },
  "head": {
   "mouthpiece": "a dust-mask rag hood",
@@ -190,6 +195,10 @@
   "turban_helmet": "a wrapped-dome full riot helm",
   "adorned_full_helm": "a chromed full riot helm",
   "full_helm": "a plain full riot helm",
-  "decorated_full_helm": "a gold-trim full riot helm"
+  "decorated_full_helm": "a gold-trim full riot helm",
+  "goalie_mask": "a goalie-mask hard hat",
+  "football_helmet": "a football riot helmet",
+  "welding_mask": "a welding-mask riot helmet",
+  "riot_gas_helmet": "a gas-visor full riot helm"
  }
 }

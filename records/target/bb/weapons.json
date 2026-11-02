@@ -6660,6 +6660,950 @@
     "armor_ignore_pct (throwable item: the wiki lists an effect, not damage numbers)",
     "durability (not listed for this item on its class table or page)"
    ]
+  },
+  {
+   "id": "zip_gun",
+   "name": "Zip Gun",
+   "class": "dagger",
+   "hands": 1,
+   "damage_min": 15,
+   "damage_max": 30,
+   "armor_damage_pct": 55,
+   "armor_ignore_pct": 20,
+   "fatigue": null,
+   "durability": 36,
+   "value": 110,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Stab",
+     "ap": 4,
+     "fatigue": 7,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "20% Direct Damage",
+     "page": "Stab (7 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1864_Stab (7 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Puncture",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": -15,
+     "range": null,
+     "effect": "-15% chance to hit, completely ignores armor (100% Direct Damage), no critical hits (body hits only), no Double Grip damage bonus",
+     "page": "Puncture (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1610_Puncture (20 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of knife and dagger, fought with knife's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1125_Knife.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0501_Dagger.txt",
+   "class_page_section": "One-Handed Daggers",
+   "hands_basis": "Daggers page heading \"One-Handed Daggers\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "zip gun",
+    "object": "zip gun",
+    "line": "A pipe, a spring and a nail. One hand. It fires. Mostly.",
+    "tier": "camp",
+    "kind": "improvised",
+    "role": "Battle Brothers' knife: the cheapest thing that kills",
+    "between": [
+     "knife",
+     "dagger"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug",
+     "lower_brigand_marksman",
+     "brigand_poacher"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "snub_revolver",
+   "name": "Snub Revolver",
+   "class": "dagger",
+   "hands": 1,
+   "damage_min": 20,
+   "damage_max": 35,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 20,
+   "fatigue": -3,
+   "durability": 47,
+   "value": 380,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Slash",
+     "ap": 4,
+     "fatigue": 10,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, 20% Direct Damage",
+     "page": "Slash (10 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1807_Slash (10 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Puncture",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": -15,
+     "range": null,
+     "effect": "-15% chance to hit, completely ignores armor (100% Direct Damage), no critical hits (body hits only), no Double Grip damage bonus",
+     "page": "Puncture (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1610_Puncture (20 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of notched_blade and rondel_dagger, fought with notched_blade's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1461_Notched Blade.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1701_Rondel Dagger.txt",
+   "class_page_section": "One-Handed Daggers",
+   "hands_basis": "Daggers page heading \"One-Handed Daggers\"",
+   "skills_basis": "weapon page Skills section",
+   "also_listed_in": [
+    "Swords page / One-Handed Swords"
+   ],
+   "armory": {
+    "name": "snub revolver",
+    "object": "snub revolver",
+    "line": "Five rounds, a short barrel, one hand. Kicks like a mule.",
+    "tier": "town",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' rondel dagger: the sidearm that finds the gap in armour",
+    "between": [
+     "notched_blade",
+     "rondel_dagger"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_marksman"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "lever_rifle",
+   "name": "Lever Rifle",
+   "class": "crossbow",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 55,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 50,
+   "fatigue": -7,
+   "durability": 44,
+   "value": 530,
+   "range": 6,
+   "range_min": 6,
+   "range_max": 6,
+   "skills": [
+    {
+     "name": "Shoot Bolt",
+     "ap": 3,
+     "fatigue": 5,
+     "hit_bonus": 15,
+     "range": null,
+     "effect": "+15% chance to hit, -3% chance to hit per tile of distance, 50% Direct Damage",
+     "page": "Shoot Bolt (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1782_Shoot Bolt (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Reload",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the crossbow",
+     "page": "Reload (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1677_Reload (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of light_crossbow and crossbow, fought with light_crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1166_Light Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0458_Crossbow.txt",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "lever rifle",
+    "object": "lever rifle",
+    "line": "A ranch gun. Both hands. Work the lever between shots.",
+    "tier": "town",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' crossbow: the steady shot across the street",
+    "between": [
+     "light_crossbow",
+     "crossbow"
+    ],
+    "across": null,
+    "carried_by": [
+     "lower_brigand_marksman",
+     "brigand_marksman"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "scoped_deer_rifle",
+   "name": "Scoped Deer Rifle",
+   "class": "crossbow",
+   "hands": null,
+   "damage_min": 45,
+   "damage_max": 65,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 50,
+   "fatigue": -10,
+   "durability": 56,
+   "value": 1980,
+   "range": 6,
+   "range_min": 6,
+   "range_max": 6,
+   "skills": [
+    {
+     "name": "Shoot Bolt",
+     "ap": 3,
+     "fatigue": 5,
+     "hit_bonus": 15,
+     "range": null,
+     "effect": "+15% chance to hit, -3% chance to hit per tile of distance, 50% Direct Damage",
+     "page": "Shoot Bolt (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1782_Shoot Bolt (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Reload",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the crossbow",
+     "page": "Reload (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1677_Reload (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of crossbow and heavy_crossbow, fought with crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0458_Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0962_Heavy Crossbow.txt",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "scoped deer rifle",
+    "object": "deer rifle",
+    "line": "Glass on top, a hunter's gun. Both hands. Slow, far, and it hurts.",
+    "tier": "fortress",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' heavy crossbow: the one shot that drops a man in plate",
+    "between": [
+     "crossbow",
+     "heavy_crossbow"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_marksman"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "sawed_off",
+   "name": "Sawed-Off Shotgun",
+   "class": "firearm",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 65,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 40,
+   "fatigue": -10,
+   "durability": 50,
+   "value": 1650,
+   "range": 2,
+   "range_min": 2,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Fire Handgonne",
+     "ap": 3,
+     "fatigue": 5,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, -10% chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire, can hit 5 tiles behind the target, 25% Direct Damage",
+     "page": "Fire Handgonne (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Reload Handgonne",
+     "ap": 9,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the Handgonne",
+     "page": "Reload Handgonne (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1678_Reload Handgonne (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of handgonne and light_crossbow, fought with handgonne's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0771_Firearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0935_Handgonne.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1166_Light Crossbow.txt",
+   "range_basis": "class table Range 2; weapon page tilerange \"2 - 2\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "sawed-off shotgun",
+    "object": "sawed-off shotgun",
+    "line": "Both barrels cut short with a hacksaw. Both hands. A wide blast two houses out.",
+    "tier": "town",
+    "kind": "improvised",
+    "role": "Battle Brothers' handgonne: the cone up close",
+    "between": [
+     "handgonne",
+     "light_crossbow"
+    ],
+    "across": "Battle Brothers has one firearm, so B is the rifle family (our crossbow), the other long gun",
+    "carried_by": [],
+    "draft": true
+   }
+  },
+  {
+   "id": "pump_shotgun",
+   "name": "Pump Shotgun",
+   "class": "firearm",
+   "hands": null,
+   "damage_min": 45,
+   "damage_max": 75,
+   "armor_damage_pct": 85,
+   "armor_ignore_pct": 40,
+   "fatigue": -13,
+   "durability": 62,
+   "value": 3100,
+   "range": 2,
+   "range_min": 2,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Fire Handgonne",
+     "ap": 3,
+     "fatigue": 5,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, -10% chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire, can hit 5 tiles behind the target, 25% Direct Damage",
+     "page": "Fire Handgonne (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Reload Handgonne",
+     "ap": 9,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the Handgonne",
+     "page": "Reload Handgonne (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1678_Reload Handgonne (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of handgonne and heavy_crossbow, fought with handgonne's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0771_Firearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0935_Handgonne.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0962_Heavy Crossbow.txt",
+   "range_basis": "class table Range 2; weapon page tilerange \"2 - 2\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "pump shotgun",
+    "object": "pump shotgun",
+    "line": "A police pump gun. Both hands. The loudest thing on the street.",
+    "tier": "fortress",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' handgonne, the good one",
+    "between": [
+     "handgonne",
+     "heavy_crossbow"
+    ],
+    "across": "Battle Brothers has one firearm, so B is the rifle family (our crossbow), the other long gun",
+    "carried_by": [],
+    "draft": true
+   }
+  },
+  {
+   "id": "crowbar",
+   "name": "Crowbar",
+   "class": "mace",
+   "hands": 1,
+   "damage_min": 30,
+   "damage_max": 40,
+   "armor_damage_pct": 100,
+   "armor_ignore_pct": 40,
+   "fatigue": -9,
+   "durability": 68,
+   "value": 250,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Bash",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Bash (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0199_Bash (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Knock Out",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "75% chance to stun target, does -50%Damage, target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Knock Out (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1131_Knock Out (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of nomad_mace and light_southern_mace, fought with nomad_mace's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1448_Nomad Mace.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1169_Light Southern Mace.txt",
+   "class_page_section": "One-Handed Maces",
+   "hands_basis": "Maces page heading \"One-Handed Maces\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "crowbar",
+    "object": "crowbar",
+    "line": "Pries doors and skulls. One hand, the man next to you.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' mace: dents armour, rings the head",
+    "between": [
+     "nomad_mace",
+     "light_southern_mace"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true
+   }
+  },
+  {
+   "id": "bike_lock_chain",
+   "name": "Bike-Lock Chain",
+   "class": "flail",
+   "hands": 1,
+   "damage_min": 15,
+   "damage_max": 35,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 30,
+   "fatigue": -7,
+   "durability": 36,
+   "value": 170,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Flail",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Ignores the defense bonus of shields, 30% Direct Damage",
+     "page": "Flail (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0783_Flail (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Lash",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "100% chance to hit the head (if the attack hits), 30% Direct Damage",
+     "page": "Lash (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1143_Lash (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of wooden_flail and reinforced_wooden_flail, fought with wooden_flail's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0785_Flails.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2236_Wooden Flail.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0785_Flails.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1669_Reinforced Wooden Flail.txt",
+   "class_page_section": "One-Handed Flails",
+   "hands_basis": "Flails page heading \"One-Handed Flails\"",
+   "head_hit_chance": 10,
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "bike-lock chain",
+    "object": "bike-lock chain",
+    "line": "A chain with the padlock still on. It comes over a shield.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' flail: swings over a shield",
+    "between": [
+     "wooden_flail",
+     "reinforced_wooden_flail"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "box_cutter",
+   "name": "Box Cutter",
+   "class": "cleaver",
+   "hands": 1,
+   "damage_min": 25,
+   "damage_max": 35,
+   "armor_damage_pct": 80,
+   "armor_ignore_pct": 25,
+   "fatigue": -6,
+   "durability": 35,
+   "value": 230,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Cleave",
+     "ap": 4,
+     "fatigue": 12,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Inflicts 5 bleeding damage each turn for 2 turns (Caused by losing at least 6 Hitpoints), 25% Direct Damage (35% Direct Damage for Barbarian cleavers)",
+     "page": "Cleave (12 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0400_Cleave (12 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Decapitate",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets decapitated when killed with this skill (if possible), has a damage bonus that scales with lost health, 25% Direct Damage (35% Direct Damage for Barbarian cleavers)",
+     "page": "Decapitate (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0524_Decapitate (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of butcher_s_cleaver and falx, fought with butcher_s_cleaver's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0336_Butcher's Cleaver.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0735_Falx.txt",
+   "class_page_section": "One-Handed Cleavers",
+   "hands_basis": "Cleavers page heading \"One-Handed Cleavers\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "box cutter",
+    "object": "box cutter",
+    "line": "A warehouse blade. Small cuts that do not stop bleeding.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' cleaver: opens a wound that keeps bleeding",
+    "between": [
+     "butcher_s_cleaver",
+     "falx"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "framing_hammer",
+   "name": "Framing Hammer",
+   "class": "hammer",
+   "hands": 1,
+   "damage_min": 20,
+   "damage_max": 35,
+   "armor_damage_pct": 175,
+   "armor_ignore_pct": 50,
+   "fatigue": -9,
+   "durability": 68,
+   "value": 510,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Batter",
+     "ap": 4,
+     "fatigue": 14,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Inflicts at least 10 Hitpoints damage, 50% Direct Damage (60% Direct Damage for Barbarian hammer)",
+     "page": "Batter (14 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0204_Batter (14 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Destroy Armor",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Does 50% more Armor Damage, inflicts exactly 10 Hitpoints damage",
+     "page": "Destroy Armor (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0573_Destroy Armor (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of pickaxe and military_pick, fought with pickaxe's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1548_Pickaxe.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1283_Military Pick.txt",
+   "class_page_section": "One-Handed Hammers",
+   "hands_basis": "Hammers page heading \"One-Handed Hammers\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "framing hammer",
+    "object": "framing hammer",
+    "line": "A roofer's hammer. One hand. Armour folds under it.",
+    "tier": "town",
+    "kind": "scavenged",
+    "role": "Battle Brothers' one-hand hammer: breaks armour",
+    "between": [
+     "pickaxe",
+     "military_pick"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "broom_bayonet",
+   "name": "Broom Bayonet",
+   "class": "spear",
+   "hands": 1,
+   "damage_min": 30,
+   "damage_max": 35,
+   "armor_damage_pct": 95,
+   "armor_ignore_pct": 25,
+   "fatigue": -7,
+   "durability": 56,
+   "value": 470,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Thrust",
+     "ap": 4,
+     "fatigue": 10,
+     "hit_bonus": 20,
+     "range": null,
+     "effect": "+20% chance to hit, 25% Direct Damage",
+     "page": "Thrust (10 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2007_Thrust (10 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Spearwall",
+     "ap": 4,
+     "fatigue": 30,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Does -50%Damage; canceled if it misses to land a hit on opponent.",
+     "page": "Spearwall (30 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1840_Spearwall (30 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of militia_spear and boar_spear, fought with militia_spear's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1839_Spears.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1288_Militia Spear.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1839_Spears.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0263_Boar Spear.txt",
+   "class_page_section": "One-Handed Spears",
+   "hands_basis": "Spears page heading \"One-Handed Spears\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "broom bayonet",
+    "object": "broom bayonet",
+    "line": "A knife taped to a broom. Keeps them off you. Fine with a car door.",
+    "tier": "camp",
+    "kind": "improvised",
+    "role": "Battle Brothers' spear: holds the line, hits first",
+    "between": [
+     "militia_spear",
+     "boar_spear"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "pawn_katana",
+   "name": "Pawn-Shop Katana",
+   "class": "sword",
+   "hands": 1,
+   "damage_min": 45,
+   "damage_max": 50,
+   "armor_damage_pct": 80,
+   "armor_ignore_pct": 20,
+   "fatigue": -7,
+   "durability": 64,
+   "value": 2080,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Slash",
+     "ap": 4,
+     "fatigue": 10,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, 20% Direct Damage",
+     "page": "Slash (10 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1807_Slash (10 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Riposte",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": -10,
+     "range": null,
+     "effect": "-10% chance to hit, counterattack missed or blocked melee attacks until next turn",
+     "page": "Riposte (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1696_Riposte (25 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of arming_sword and shamshir, fought with arming_sword's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1920_Swords.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0137_Arming Sword.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1920_Swords.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1771_Shamshir.txt",
+   "class_page_section": "One-Handed Swords",
+   "hands_basis": "Swords page heading \"One-Handed Swords\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "pawn-shop katana",
+    "object": "katana",
+    "line": "Was behind glass at a pawn shop. Sharp for real. One hand.",
+    "tier": "fortress",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' sword: fast and sure, the riposte",
+    "between": [
+     "arming_sword",
+     "shamshir"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_raider",
+     "brigand_marauder"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "splitting_maul",
+   "name": "Splitting Maul",
+   "class": "axe",
+   "hands": 2,
+   "damage_min": 55,
+   "damage_max": 80,
+   "armor_damage_pct": 140,
+   "armor_ignore_pct": 45,
+   "fatigue": -15,
+   "durability": 72,
+   "value": 1200,
+   "range": "1/1 (Split Man) 1/6 (Round Swing)",
+   "range_min": null,
+   "range_max": null,
+   "skills": [
+    {
+     "name": "Split Man",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Hits both head and body for additional damage, 40% Direct Damage (50% Direct Damage for Barbarian axe)",
+     "page": "Split Man (15 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1850_Split Man (15 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Round Swing",
+     "ap": 6,
+     "fatigue": 35,
+     "hit_bonus": -15,
+     "range": null,
+     "effect": "Hits up to 6 targets, -15% chance to hit, -10% (30%) Direct Damage (40% Direct Damage for Barbarian axe)",
+     "page": "Round Swing (35 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1713_Round Swing (35 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Split Shield",
+     "ap": 6,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Direct damage to shield",
+     "page": "Split Shield (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1853_Split Shield (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of woodcutter_s_axe and heavy_rusty_axe, fought with woodcutter_s_axe's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0164_Axes.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2235_Woodcutter's Axe.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0164_Axes.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0969_Heavy Rusty Axe.txt",
+   "class_page_section": "Two-Handed Axes",
+   "hands_basis": "Axes page heading \"Two-Handed Axes\"",
+   "range_note": "weapon page tilerange is per-skill text, copied as written",
+   "shield_damage": 30,
+   "head_hit_chance": 0,
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "splitting maul",
+    "object": "splitting maul",
+    "line": "A log splitter. Both hands, no shield. It goes through doors.",
+    "tier": "town",
+    "kind": "scavenged",
+    "role": "Battle Brothers' two-hand axe: splits shields, sweeps a row",
+    "between": [
+     "woodcutter_s_axe",
+     "heavy_rusty_axe"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug",
+     "lower_brigand_raider",
+     "brigand_raider"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "sign_post_halberd",
+   "name": "Sign-Post Halberd",
+   "class": "polearm",
+   "hands": 2,
+   "damage_min": 50,
+   "damage_max": 80,
+   "armor_damage_pct": 125,
+   "armor_ignore_pct": 30,
+   "fatigue": -13,
+   "durability": 64,
+   "value": 1050,
+   "range": "1 - 2",
+   "range_min": 1,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Strike",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": 5,
+     "range": null,
+     "effect": "+5% chance to hit; -15% chance to hit targets directly adjacent, 30% Direct Damage",
+     "page": "Strike (15 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1888_Strike (15 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Hook",
+     "ap": 6,
+     "fatigue": 25,
+     "hit_bonus": 10,
+     "range": 2,
+     "effect": "+10% chance to hit, target is pulled closer to user, 100% chance to stagger, target accumulates 10Fatigue; required range of 2 tiles Removes Shieldwall, Spearwall, Riposte (doesn't work if target wasn't moved by the skill)",
+     "page": "Hook (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1021_Hook (25 fatigue).txt",
+     "missing": []
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of hooked_blade and billhook, fought with hooked_blade's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1581_Polearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1022_Hooked Blade.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1581_Polearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0237_Billhook.txt",
+   "hands_basis": "Polearms page: \"Polearms are two-handed weapons\"",
+   "head_hit_chance": 5,
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "sign-post halberd",
+    "object": "halberd",
+    "line": "A stop sign ground to an edge on its post. Both hands.",
+    "tier": "town",
+    "kind": "improvised",
+    "role": "Battle Brothers' polearm: the hook that pulls a man out of line",
+    "between": [
+     "hooked_blade",
+     "billhook"
+    ],
+    "across": null,
+    "carried_by": [
+     "lower_brigand_raider",
+     "brigand_raider"
+    ],
+    "draft": true
+   }
   }
- ]
+ ],
+ "_armory": {
+  "count": 14,
+  "by": "tools/bohemia_armory.py from armory.json",
+  "record": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md"
+ }
 }

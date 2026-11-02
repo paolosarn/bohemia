@@ -470,7 +470,8 @@
     if (kind === 'weapon') {
       /* RUN TWO __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194): mirrors the market's rule, a two-hander in a class that holds both is a
          'two-hand' one, ranked among its own kind (the object it draws is the same thing, so its icon is unchanged) */
-      var hd = function (x) { return x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class']) ? 2 : 1); }, h = hd(row), rows = all || [row];
+      if (row.armory) return { id: row.id, kind: 'weapon', name: row.armory.name };   /* __THE_ARMORY__ (rule 302): the valley's own piece, its own name and its own drawn object */
+      var hd = function (x) { return x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class']) ? 2 : 1); }, h = hd(row), rows = (all || [row]).filter(function (x) { return !x.armory; });
       var mixed = rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 1; }) && rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 2; });
       var c = OBJ_CLASS[row['class']] || 'pipe', same = rows.filter(function (x) { return x['class'] === row['class'] && hd(x) === h; }).sort(function (a, b) { return a.value - b.value; });
       var q = same.indexOf(row) / Math.max(1, same.length - 1);
@@ -483,7 +484,10 @@
     return { id: row.id, kind: k, name: (NM && NM[row.id]) || armourName(k, row.durability), dur: row.durability || 0 };
   }
   var OBJECTS = ['pistol', 'shotgun', 'rifle', 'pipe', 'sledge', 'bottles', 'machete', 'fire axe', 'rebar spear', 'cleaver', 'chain', 'pole hook', 'compound bow',
-    'work jacket', 'padded vest', 'plate carrier', 'full riot armour', 'rag hood', 'hard hat', 'riot helmet', 'full riot helm', 'car door', 'riot shield'];
+    'work jacket', 'padded vest', 'plate carrier', 'full riot armour', 'rag hood', 'hard hat', 'riot helmet', 'full riot helm', 'car door', 'riot shield',
+    /* __THE_ARMORY__ (ARMORY, rule 302, Paolo 11/2: 'more weapons'): the valley's own pieces (records/target/bb/armory.json 'object'), each cut by hand below */
+    'zip gun', 'snub revolver', 'lever rifle', 'deer rifle', 'sawed-off shotgun', 'pump shotgun', 'crowbar', 'bike-lock chain', 'box cutter', 'framing hammer',
+    'broom bayonet', 'katana', 'splitting maul', 'halberd'];
   function objOf(item) {
     var n = String(item.name || '').toLowerCase();
     for (var i = OBJECTS.length - 1; i >= 0; i--) if (n.indexOf(OBJECTS[i]) >= 0) {
@@ -539,6 +543,21 @@
       case 'riot helmet': ell(11, 11, 7, 7, 'black'); rect(6, 11, 10, 4, 'glass'); rect(6, 15, 10, 2, 'black'); break;
       case 'full riot helm': ell(11, 11, 7.5, 7.5, 'black'); rect(5, 9, 12, 7, 'glass'); rect(6, 17, 10, 2, 'dsteel'); rect(5, 8, 12, 1, 'dsteel'); break;
       case 'car door': rect(3, 4, 16, 15, R0() < .5 ? 'red' : 'olive'); rect(5, 5, 12, 6, 'glass'); rect(14, 13, 3, 1, 'dsteel'); rect(3, 18, 16, 1, 'black'); break;
+      /* __THE_ARMORY__: the valley's own, scavenged, improvised, pre-collapse; grip bottom-left, business end top-right like the rest */
+      case 'zip gun': rect(5, 7, 11 + L, 3, 'steel'); rect(4, 8, 2, 1, 'black'); line(8, 10, 7, 16, 'wood', 3); rect(6, 12, 4, 1, 'tape'); rect(6, 14, 4, 1, 'tape'); put(13, 6, 'dsteel'); put(14, 5, 'dsteel'); line(10, 10, 11, 12, 'dsteel', 1); break;
+      case 'snub revolver': rect(4, 7, 6, 2, 'dsteel'); ell(11.5, 8.5, 2.6, 2.1, 'dsteel'); rect(11, 8, 2, 1, 'black'); rect(13, 6, 3, 4, 'dsteel'); put(16, 5, 'dsteel'); line(14, 10, 16, 16, handle === 'red' ? 'wood' : handle, 3); put(11, 11, 'dsteel'); put(12, 12, 'dsteel'); put(13, 12, 'dsteel'); break;
+      case 'lever rifle': line(1, 19, 6, 15, 'wood', 3); line(6, 15, 20 + L, 5, 'dsteel', 2); rect(6, 13, 3, 2, 'brass'); line(11, 12, 15, 10, 'wood', 2); ell(8, 17, 1.8, 1.4, 'dsteel', true); break;
+      case 'deer rifle': line(1, 19, 6, 15, 'wood', 3); line(6, 15, 20 + L, 5, 'dsteel', 2); line(7, 11, 14, 7, 'black', 2); put(14, 6, 'glass'); put(7, 10, 'glass'); put(9, 12, 'dsteel'); put(12, 10, 'dsteel'); line(11, 13, 14, 11, 'wood', 2); break;
+      case 'sawed-off shotgun': line(3, 18, 7, 14, 'wood', 3); rect(7, 12, 3, 3, 'dsteel'); line(9, 11, 16, 7, 'steel', 1); line(10, 12, 17, 8, 'steel', 1); line(10, 13, 13, 11, 'wood', 2); put(16, 6, 'rust'); put(17, 7, 'rust'); break;
+      case 'pump shotgun': line(1, 19, 6, 15, 'black', 3); rect(6, 13, 3, 3, 'dsteel'); line(8, 13, 20 + L, 6, 'dsteel', 2); line(11, 13, 15, 11, 'black', 3); put(8, 16, 'dsteel'); break;
+      case 'crowbar': line(5, 19, 15, 5, 'red', 2); put(16, 4, 'red'); put(17, 4, 'red'); put(18, 5, 'red'); put(18, 6, 'red'); put(4, 19, 'red'); put(3, 18, 'red'); put(3, 20, 'dsteel'); break;
+      case 'bike-lock chain': line(3, 18, 13, 8, 'black', 3); for (i = 0; i < 3; i++) put(5 + i * 3, 16 - i * 3, 'olive'); rect(13, 8, 6, 5, 'steel'); ell(16, 6.5, 2.2, 2.2, 'dsteel', true); put(16, 10, 'black'); put(16, 11, 'black'); break;
+      case 'box cutter': line(4, 18, 12, 10, 'yellow', 3); for (i = 0; i < 3; i++) put(6 + i * 2, 16 - i * 2, 'black'); line(13, 9, 17, 5, 'steel', 1); put(14, 7, 'steel'); put(15, 6, 'steel'); put(12, 9, 'dsteel'); break;
+      case 'framing hammer': line(5, 19, 12, 9, 'wood', 2); line(5, 19, 7, 16, 'black', 2); rect(8, 5, 9, 3, 'dsteel'); rect(17, 4, 2, 5, 'steel'); put(7, 4, 'dsteel'); put(6, 3, 'dsteel'); put(7, 6, 'dsteel'); put(6, 7, 'dsteel'); line(12, 8, 12, 9, 'wood', 1); break;
+      case 'broom bayonet': line(2, 19, 14, 7, handle === 'red' ? 'red' : 'yellow', 2); line(14, 7, 19, 2, 'steel', 2); rect(13, 7, 2, 2, 'tape'); rect(12, 9, 2, 1, 'tape'); put(2, 20, 'black'); break;
+      case 'katana': line(3, 19, 7, 15, 'black', 2); put(4, 17, 'white'); put(6, 16, 'white'); ell(8, 14, 1.7, 1.7, 'brass'); line(9, 13, 18, 4, 'steel', 2); line(10, 13, 19, 3, 'white', 1); break;
+      case 'splitting maul': line(4, 20, 12, 8, 'wood', 2); rect(9, 3, 8, 5, 'dsteel'); put(8, 4, 'dsteel'); put(8, 5, 'dsteel'); put(7, 5, 'dsteel'); rect(17, 3, 2, 5, 'steel'); rect(10, 4, 5, 1, 'red'); break;
+      case 'halberd': line(2, 20, 12, 10, 'dsteel', 2); for (i = 0; i < 3; i++) put(4 + i * 3, 18 - i * 3, 'black'); ell(15, 6, 4.6, 4.6, 'red'); rect(11, 6, 9, 1, 'white'); rect(11, 6, 1, 1, 'red'); put(15, 6, 'white'); break;
       case 'riot shield': rect(5, 2, 12, 18, 'glass'); rect(5, 8, 12, 2, 'white'); rect(5, 2, 12, 1, 'black'); rect(5, 19, 12, 1, 'black'); rect(10, 12, 2, 4, 'black'); break;
     }
     /* THIS ITEM: tape where it wraps, rust where it took, a chip, a scratch; the quality decides how much */

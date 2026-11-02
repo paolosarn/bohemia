@@ -165,7 +165,9 @@
     "notched_blade",
     "rondel_dagger",
     "qatal_dagger",
-    "estoc"
+    "estoc",
+    "zip_gun",
+    "snub_revolver"
    ],
    "sha1": "6a0626d3d113d16f3d0299d36d2a10c2133c41c1",
    "hands": 1
@@ -177,7 +179,9 @@
    "say": "",
    "made": "COOK 10/18",
    "rows": [
-    "handgonne"
+    "handgonne",
+    "sawed_off",
+    "pump_shotgun"
    ],
    "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
    "hands": 2
@@ -192,7 +196,9 @@
     "light_crossbow",
     "crossbow",
     "heavy_crossbow",
-    "spiked_impaler"
+    "spiked_impaler",
+    "lever_rifle",
+    "scoped_deer_rifle"
    ],
    "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
    "hands": 2
@@ -218,7 +224,8 @@
     "two_handed_mace",
     "two_handed_flanged_mace",
     "polemace",
-    "goedendag"
+    "goedendag",
+    "crowbar"
    ],
    "sha1": "485ccd2268f5c4418146570a13525defe3139619",
    "hands": 1,
@@ -261,7 +268,8 @@
     "two_handed_mallet",
     "two_handed_skull_hammer",
     "two_handed_hammer",
-    "polehammer"
+    "polehammer",
+    "framing_hammer"
    ],
    "sha1": "910e29baf96950ef00260b5bebfb9c5fecd2e210",
    "hands": 2,
@@ -367,7 +375,8 @@
     "warbrand",
     "longsword",
     "greatsword",
-    "executioner_s_sword"
+    "executioner_s_sword",
+    "pawn_katana"
    ],
    "sha1": "8be37a7f02b4defde45d768d58af98510e2954bb",
    "hands": 1,
@@ -413,7 +422,8 @@
     "bardiche",
     "greataxe",
     "man_splitter",
-    "longaxe"
+    "longaxe",
+    "splitting_maul"
    ],
    "sha1": "3500fdddc8aa295a8befc1f7e0b21b4c8f30084f",
    "hands": 2,
@@ -459,7 +469,8 @@
     "fire_lance",
     "fighting_spear",
     "warfork",
-    "spetum"
+    "spetum",
+    "broom_bayonet"
    ],
    "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
    "hands": 2,
@@ -511,7 +522,8 @@
     "two_handed_saif",
     "rusty_warblade",
     "crypt_cleaver",
-    "two_handed_scimitar"
+    "two_handed_scimitar",
+    "box_cutter"
    ],
    "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
    "hands": 1,
@@ -555,7 +567,8 @@
     "three_headed_flail",
     "two_handed_wooden_flail",
     "two_handed_flail",
-    "berserk_chain"
+    "berserk_chain",
+    "bike_lock_chain"
    ],
    "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
    "hands": 1,
@@ -602,7 +615,8 @@
     "pike",
     "swordlance",
     "billhook",
-    "pollaxe"
+    "pollaxe",
+    "sign_post_halberd"
    ],
    "sha1": "f836590411cb433825fa7fd3b53c4b5afdf7cc60",
    "hands": 2,
@@ -884,7 +898,10 @@
     "cultist_leather_robe",
     "patched_mail_shirt",
     "leather_lamellar_armor",
-    "hide_and_bone_armor"
+    "hide_and_bone_armor",
+    "football_pads",
+    "carpet_coat",
+    "licence_plate_vest"
    ],
    "sha1": "e58011c9dacb802f44c441cbad311683f41fabb3",
    "measured": {
@@ -948,7 +965,8 @@
     "noble_mail",
     "light_scale_armor",
     "heavy_iron_armor",
-    "decayed_reinforced_mail_hauberk"
+    "decayed_reinforced_mail_hauberk",
+    "riot_gear_jacket"
    ],
    "sha1": "f4ec319026e8cdd04cea75236fe9b9234b2e9d17",
    "measured": {
@@ -1010,7 +1028,8 @@
     "padded_mail_and_lamellar_hauberk",
     "adorned_heavy_mail_hauberk",
     "coat_of_scales",
-    "coat_of_plates"
+    "coat_of_plates",
+    "road_sign_cuirass"
    ],
    "sha1": "7f05ae592578e22e6b7e887fd94ff378923c9aff",
    "measured": {
@@ -1134,7 +1153,8 @@
     "rusty_mail_coif",
     "mail_coif",
     "closed_mail_coif",
-    "ancient_household_helmet"
+    "ancient_household_helmet",
+    "goalie_mask"
    ],
    "sha1": "b9b0d03e974dabac29516fc01291b1f9ed2be917",
    "measured": {
@@ -1196,7 +1216,9 @@
     "padded_flat_top_helmet",
     "zweihander_s_helmet",
     "crude_faceguard_helmet",
-    "closed_flat_top_helmet"
+    "closed_flat_top_helmet",
+    "football_helmet",
+    "welding_mask"
    ],
    "sha1": "1290a258e1464734f879f053a09f09519fb1add9",
    "measured": {
@@ -1266,7 +1288,8 @@
     "turban_helmet",
     "adorned_full_helm",
     "full_helm",
-    "decorated_full_helm"
+    "decorated_full_helm",
+    "riot_gas_helmet"
    ],
    "sha1": "3fb8e51a85a22b3ef6b58727c30fe8f53f38895a",
    "measured": {

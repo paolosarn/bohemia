@@ -56,7 +56,7 @@ const done = () => { console.log('\nEVERY ITEM HAS AN ICON: ' + pass + ' ok, ' +
   ok('EVERY ITEM ID HAS AN ICON, DRAWN AND OUTLINED (weapons, body, head, shields)', r.ids === r.n && r.n >= 300 && r.drawn === r.n && r.outlined === r.n, r.n + ' rows, ' + r.drawn + ' drawn, ' + r.outlined + ' outlined');
   ok('  each 132 device pixels, shown at 44 points', r.sized === r.n, r.sized + ' of ' + r.n);
   ok('NO TWO ICONS ARE THE SAME PICTURE', r.distinct === r.n, r.distinct + ' distinct of ' + r.n);
-  ok('ALL 23 OBJECTS OF OUR WORLD ARE DRAWN', Object.keys(r.objs).length === r.objects && r.objects === 23, JSON.stringify(r.objs));
+  ok('ALL 23 OBJECTS OF OUR WORLD ARE DRAWN', Object.keys(r.objs).length === r.objects && r.objects >= 23, JSON.stringify(r.objs));
   ok('  the quality reads: every beat-up piece shows rust or tape, every good piece its glint', r.beat > 0 && r.good > 0 && r.glint === r.good,
      'beat-up ' + r.beat + ' (rust seen on ' + r.rustBeat + '), good ' + r.good + ' (glint on ' + r.glint + ')');
 

@@ -481,13 +481,18 @@ function rng(seed){ var x = seed>>>0 || 1; return function(){ x ^= x<<13; x ^= x
    shared across hands; the plain line says both hands first */
 function handsOfRow(x){ return x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class']) ? 2 : 1); }
 var MIXED_CLASSES = null;
-function mixedClass(cls){ if(!MIXED_CLASSES){ var seen = {}; MIXED_CLASSES = {}; BB.weapons.forEach(function(x){ var c = x['class']; seen[c] = seen[c] || {}; seen[c][handsOfRow(x)] = 1; });
+function mixedClass(cls){ if(!MIXED_CLASSES){ var seen = {}; MIXED_CLASSES = {}; BB.weapons.forEach(function(x){ if(x.armory) return; var c = x['class']; seen[c] = seen[c] || {}; seen[c][handsOfRow(x)] = 1; });
   Object.keys(seen).forEach(function(c){ if(seen[c][1] && seen[c][2]) MIXED_CLASSES[c] = true; }); } return !!MIXED_CLASSES[cls]; }
 function weaponItem(r){
   /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): the shop says a long gun takes both hands, the wiki's hands column (a bow,
      a crossbow, a firearm carry none and are two-handed); the crew screen holds the rule */
   var hands = handsOfRow(r);
-  var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class'] && handsOfRow(x) === hands; }).sort(function(a,b){ return a.value-b.value; });
+  /* __THE_ARMORY__ (ARMORY, rule 302, Paolo 11/2: 'more weapons'): a piece of the valley's own (records/target/bb/armory.json) wears
+     its own name and line (draft:true) and is never counted in a class's beat-up/solid/good ranking, so no old name moves */
+  if(r.armory) return {id:r.id, kind:'weapon', cls:r['class'], name:r.armory.name, was:r.name, price:priceOf(r.value), own:true, hands:hands,
+    line:(hands === 2 ? 'Takes both hands, no shield with it. ' : '') + r.armory.line,
+    nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')+(hands === 2 ? '  2 hands' : '')};
+  var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return !x.armory && x['class'] === r['class'] && handsOfRow(x) === hands; }).sort(function(a,b){ return a.value-b.value; });
   var nm = qualityWord(same.indexOf(r), same.length) + ' ' + (hands === 2 && mixedClass(r['class']) ? 'two-hand ' : '') + c;
   return {id:r.id, kind:'weapon', cls:r['class'], name:nm, was:r.name, price:priceOf(r.value), line:(hands === 2 && / two-hand /.test(nm) ? 'Takes both hands, no shield with it. ' : '') + (PLAIN[c]||''), hands:hands,
           nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')+(hands === 2 ? '  2 hands' : '')};
@@ -585,7 +590,7 @@ function packIcon(key){ var f = PACK_ICON[key]; if(!f) return null; var im = doc
 function iconTile(it, onTap, sub, money){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
-    var pk = it.kind === 'weapon' ? packIcon(it.cls) : null;
+    var pk = it.kind === 'weapon' && !it.own ? packIcon(it.cls) : null;   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
     if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
     /* EYES [eyes: three pistols] (rule 150): a tile says the name its card says ('good pistol', 'beat-up pistol'), two lines at most */
     var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);
