@@ -34,6 +34,10 @@ def in_pad(b):
     return b[3] > PADTOP and ((SIDE == 'left' and b[0] < PADX) or (SIDE == 'right' and b[2] > T.TW - PADX))
 
 
+def in_pad_any(b):
+    return b[3] > PADTOP and (b[0] < PADX or b[2] > T.TW - PADX)
+
+
 def thing_box(pl, root):
     objs = [o for o in root.children_recursive if o.type == 'MESH'] if hasattr(root, 'children_recursive') else []
     if not objs: return None
@@ -89,9 +93,12 @@ def clear_corners(bpy, pl, town=None):
         for sx, sy in tries:
             sxs = -sx if SIDE == 'right' else sx
             nb = [b[0] + sxs, b[1] - sy, b[2] + sxs, b[3] - sy]
-            if nb[0] < 0 or nb[2] > T.TW or nb[1] < 0 or in_pad(nb): continue
+            # never into EITHER corner (the screen's own check walks both: the posts slid 82 px left out of the right corner had put
+            # their keeper under the left one, 11/2); a small thing it lands on (a cart, a drum, a grave) goes instead, never a tap,
+            # a landmark or anything bigger than a cart
+            if nb[0] < 0 or nb[2] > T.TW or nb[1] < 0 or in_pad_any(nb): continue
             new = touching(nb, name) - was
-            if new and (name not in LANDMARKS or any(boxes[i][0] in keep_all for i in new)): continue
+            if any(boxes[i][0] in keep_all or (boxes[i][1][2] - boxes[i][1][0]) > 220 or (boxes[i][1][3] - boxes[i][1][1]) > 220 for i in new): continue
             for i in new: bumped.add(id(pl.things[i][1]))
             root.location.x += sxs / T.PPM
             root.location.y += sy / (T.PPM * T.C45)
