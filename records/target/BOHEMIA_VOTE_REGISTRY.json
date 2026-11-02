@@ -15834,6 +15834,33 @@
     "how": "image",
     "src": "vote/DIRECTION_EVERY_ICON_THROUGH_THE_RIG_11_2.webp"
    }
+  },
+  {
+   "id": "direction-the-wrongness-11-2",
+   "kind": "tile",
+   "lane": "direction",
+   "sha": "f8070a75",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE WRONGNESS: 15 CREEPY THINGS, ONE WRONG DETAIL EACH, NO GORE",
+   "said": "this AI slop amalgamation creepypasta horror Crashbox HBO series vibe... make some really good elements or direction for art for shit like that, for real",
+   "why": "Fifteen things from your own art packs, each normal except one detail that is off (a sign that says DO ИOT ENETR, a man with three arms, mannequins that turned to face you, a stranger in your feed photo), and every haunted face is the SAME face, the average of 15 faces from the valley, so at the end of act one you see it was one machine all along. You see it in the VOTE tab, tap the picture for the whole sheet; nothing is placed in the game until you pick.",
+   "options": [
+    "A, creepy, place them in the game",
+    "B, right idea, push it creepier",
+    "C, wrong direction, again"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_WRONGNESS_11_2.png",
+    "first": "../records/target/vote_first/direction-the-wrongness-11-2.webp",
+    "firstAt": [
+     756,
+     270,
+     240,
+     188
+    ]
+   }
   }
  ],
  "verdicts": [
