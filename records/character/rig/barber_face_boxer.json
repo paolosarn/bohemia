@@ -1,0 +1,46 @@
+{
+ "cut": "FACE BOXER",
+ "tag": "face_boxer",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_boxer.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5351,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7277,
+ "pieces": {
+  "barber_temple_taper_fade": 31961,
+  "barber_temple_taper": 160746
+ }
+}

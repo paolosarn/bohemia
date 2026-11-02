@@ -32,6 +32,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 import bohemia_character_hair_one as H1  # noqa: E402
 import bohemia_character_hair_two as H2  # noqa: E402
+import bohemia_character_hair_three as H3  # noqa: E402   (HAIR 3: twelve more, Battle Brothers' range, 11/3)
 import bohemia_character_faces_one as F1  # noqa: E402
 import bohemia_character_hats_one as HATS  # noqa: E402
 import bohemia_character_eyewear_one as EYE  # noqa: E402
@@ -52,6 +53,7 @@ CARD_OF = {}
 for n in FIRST3: CARD_OF[n] = 'character-the-barber-on-the-skull-10-18'
 for n in H1.ORDER: CARD_OF[n] = 'character-hair-one-clumps-not-links-10-19'
 for n in H2.ORDER: CARD_OF[n] = 'character-hair-two-the-whole-enchilada-10-19'
+for n in H3.ORDER: CARD_OF[n] = 'character-hair-three-battle-brothers-range-11-3'
 for n in F1.SHAPE_ORDER: CARD_OF[n] = 'character-faces-one-twelve-face-shapes-10-19'
 for n in F1.PIECE_ORDER: CARD_OF[n] = 'character-faces-one-beards-and-marks-10-19'
 for n in HATS.ORDER: CARD_OF[n] = 'character-hats-one-the-21-hats-10-19'
@@ -104,6 +106,10 @@ def cuts():
                          held=n in H2.HELD, held_why=H2.HELD.get(n), colour=list(H2.CUTS[n]['hair'])))
     for r in rows:
         r['short'] = r['name'] in SHORT; r['balding'] = r['name'] in BALDING
+    for n in H3.ORDER:   # HAIR 3 carries its own short and balding flags
+        c = H3.CUTS[n]
+        rows.append(dict(name=n, tag=c['tag'], worn_by=c['worn_by'], made_by='CHARACTER 11/3 (HAIR 3)', held=n in H3.HELD,
+                         held_why=H3.HELD.get(n), colour=list(c['hair']), short=c['short'], balding=c['balding']))
     return rows
 
 

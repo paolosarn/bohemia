@@ -96,6 +96,7 @@ ORDER = ['TEMPLE TAPER', 'COIL CROWN', 'LAYERED FALL']
 # their geometry lives in tools/bohemia_character_hair_one.py, the eight branches build() calls; the three above are untouched
 import bohemia_character_hair_one as HAIR_ONE  # noqa: E402
 import bohemia_character_hair_two as HAIR_TWO  # noqa: E402   (HAIR 2: twelve new cuts, the whole enchilada, 10/19)
+import bohemia_character_hair_three as HAIR_THREE  # noqa: E402   (HAIR 3: twelve more, Battle Brothers' range, 11/3)
 import bohemia_character_faces_one as FACES_ONE  # noqa: E402   (FACES 1: face shapes, facial hair and marks on the same head, 10/19)
 import bohemia_character_hats_one as HATS_ONE  # noqa: E402   (HATS 1: the 21 canon hats on the same head)
 import bohemia_character_eyewear_one as EYE_ONE  # noqa: E402   (EYEWEAR 1: the 14 face pieces on the same head)
@@ -107,6 +108,7 @@ import bohemia_character_the_first_look as FIRST  # noqa: E402   (THE FIRST LOOK
 import bohemia_character_the_outfit as OUTFIT  # noqa: E402   (THE OUTFIT: a person's layers that show, 10/23)
 CUTS.update(HAIR_ONE.CUTS)
 CUTS.update(HAIR_TWO.CUTS)
+CUTS.update(HAIR_THREE.CUTS)
 CUTS.update(FACES_ONE.CUTS)
 CUTS.update(HATS_ONE.CUTS)
 CUTS.update(EYE_ONE.CUTS)
@@ -115,7 +117,7 @@ CUTS.update(OUTER_ONE.CUTS)
 CUTS.update(LEGS_ONE.CUTS)
 CUTS.update(GEAR_ONE.CUTS)
 CUTS.update(FIRST.CUTS)
-ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER + OUTER_ONE.ORDER + LEGS_ONE.ORDER + GEAR_ONE.ORDER + FIRST.ORDER
+ALL = ORDER + HAIR_ONE.ORDER + HAIR_TWO.ORDER + HAIR_THREE.ORDER + FACES_ONE.ORDER + HATS_ONE.ORDER + EYE_ONE.ORDER + BASE_ONE.ORDER + OUTER_ONE.ORDER + LEGS_ONE.ORDER + GEAR_ONE.ORDER + FIRST.ORDER
 
 
 def sstep(a, b, t):
@@ -599,6 +601,8 @@ def build(cut):
         made += HAIR_ONE.build(hc or cut, locals())
     elif (hc or cut) in HAIR_TWO.CUTS:
         made += HAIR_TWO.build(hc or cut, locals())
+    elif (hc or cut) in HAIR_THREE.CUTS:
+        made += HAIR_THREE.build(hc or cut, locals())
     elif cut in HATS_ONE.CUTS:
         made += HATS_ONE.build(cut, locals())
     elif cut in EYE_ONE.CUTS:
@@ -729,6 +733,7 @@ if __name__ == '__main__':
         barber_body()
         names = (ORDER if sys.argv[2].upper() == 'ALL' else HAIR_ONE.ORDER if sys.argv[2].upper() == 'HAIR1'
                  else HAIR_TWO.ORDER if sys.argv[2].upper() == 'HAIR2'
+                 else HAIR_THREE.ORDER if sys.argv[2].upper() == 'HAIR3'
                  else FACES_ONE.ORDER if sys.argv[2].upper() == 'FACES1'
                  else people(sys.argv[2][7:]) if sys.argv[2].upper().startswith('PEOPLE:')
                  else HATS_ONE.ORDER if sys.argv[2].upper() == 'HATS1' else EYE_ONE.ORDER if sys.argv[2].upper() == 'EYE1'

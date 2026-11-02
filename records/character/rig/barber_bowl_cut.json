@@ -1,0 +1,38 @@
+{
+ "cut": "BOWL CUT",
+ "tag": "bowl_cut",
+ "bank": {
+  "ramp": "H_SND",
+  "vol": 1,
+  "side": 0.5,
+  "front": 0.4,
+  "shape": "a home bowl cut"
+ },
+ "worn_by": "Trades, Volunteers, Homeless; the young",
+ "model": "records/character/rig/barber_bowl_cut.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_masking",
+  1
+ ],
+ "hair_rgb": [
+  120,
+  99,
+  72
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5433,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7369,
+ "pieces": {
+  "barber_bowl_cut": 172946,
+  "h3_bowl_cut_under": 26009
+ }
+}

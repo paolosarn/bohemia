@@ -1,0 +1,45 @@
+{
+ "cut": "FACE WIDE MOUTH",
+ "tag": "face_wide_mouth",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "mouth.w": 15,
+   "face.mouthY": 2,
+   "face.jawW": 31,
+   "face.chinW": 14,
+   "face.len": 31,
+   "nose.w": 3,
+   "eyes.gap": 9,
+   "face.cheekW": 35
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_wide_mouth.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5409,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7342,
+ "pieces": {
+  "barber_temple_taper_fade": 32481,
+  "barber_temple_taper": 162538
+ }
+}

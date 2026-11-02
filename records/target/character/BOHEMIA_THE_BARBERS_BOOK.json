@@ -350,6 +350,210 @@
    "renders": "records/target/character/barber/scorch",
    "card": "character-hair-two-the-whole-enchilada-10-19",
    "his_vote": "up"
+  },
+  {
+   "name": "WIDOW'S PEAK",
+   "tag": "widows_peak",
+   "worn_by": "Mob, Network, Trades; men past forty",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    1
+   ],
+   "short": true,
+   "balding": true,
+   "renders": "records/target/character/barber/widows_peak",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "TONSURE",
+   "tag": "tonsure",
+   "worn_by": "Church; the ones who still pray",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    0
+   ],
+   "short": true,
+   "balding": true,
+   "renders": "records/target/character/barber/tonsure",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "HERMIT",
+   "tag": "hermit",
+   "worn_by": "Homeless, Church, Caravans; the old",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "tape_grey",
+    1
+   ],
+   "short": false,
+   "balding": true,
+   "renders": "records/target/character/barber/hermit",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "WILD MANE",
+   "tag": "wild_mane",
+   "worn_by": "Caravans, Anarchists, Colorful, Homeless",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/wild_mane",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "BOWL CUT",
+   "tag": "bowl_cut",
+   "worn_by": "Trades, Volunteers, Homeless; the young",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "tape_masking",
+    1
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/bowl_cut",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "CROPPED CURLS",
+   "tag": "cropped_curls",
+   "worn_by": "Reds, Blues, Cartel, Volunteers",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    0
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/cropped_curls",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "MANGE",
+   "tag": "mange",
+   "worn_by": "Homeless, Remnants, Anarchists; the hungry",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_mustard",
+    0
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/mange",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "SALT SKULL",
+   "tag": "salt_skull",
+   "worn_by": "Mob, Trades, Remnants, Church; the old",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "tape_grey",
+    1
+   ],
+   "short": true,
+   "balding": true,
+   "renders": "records/target/character/barber/salt_skull",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "TEMPLE BRAIDS",
+   "tag": "temple_braids",
+   "worn_by": "Caravans, Colorful, Volunteers, Reds",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "tape_masking",
+    1
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/temple_braids",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "SLICK DRAPE",
+   "tag": "slick_drape",
+   "worn_by": "Cartel, Network, Colorful, Mob; the runway",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    0
+   ],
+   "short": false,
+   "balding": false,
+   "renders": "records/target/character/barber/slick_drape",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "FRENCH CROP",
+   "tag": "french_crop",
+   "worn_by": "Colorful, Network, Anarchists; the runway",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "clay_bone",
+    2
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/french_crop",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
+  },
+  {
+   "name": "RAZOR LINES",
+   "tag": "razor_lines",
+   "worn_by": "Blues, Reds, Mob, Cartel; the young",
+   "made_by": "CHARACTER 11/3 (HAIR 3)",
+   "held": false,
+   "held_why": null,
+   "colour": [
+    "cloth_black",
+    0
+   ],
+   "short": true,
+   "balding": false,
+   "renders": "records/target/character/barber/razor_lines",
+   "card": "character-hair-three-battle-brothers-range-11-3",
+   "his_vote": null
   }
  ],
  "face_shapes": [
@@ -538,6 +742,145 @@
     "face.foreheadW": 26
    },
    "renders": "records/target/character/barber/face_flat_and_low",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "PEAR",
+   "build": "FACE PEAR",
+   "dials": {
+    "face.foreheadW": 19,
+    "face.cheekW": 32,
+    "face.jawW": 31,
+    "face.chinW": 18,
+    "face.craniumH": 8,
+    "face.len": 32,
+    "mouth.w": 11
+   },
+   "renders": "records/target/character/barber/face_pear",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "DIAMOND",
+   "build": "FACE DIAMOND",
+   "dials": {
+    "face.foreheadW": 20,
+    "face.cheekW": 38,
+    "face.jawW": 21,
+    "face.chinW": 8,
+    "face.len": 35,
+    "eyes.gap": 7
+   },
+   "renders": "records/target/character/barber/face_diamond",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "BULLDOG",
+   "build": "FACE BULLDOG",
+   "dials": {
+    "face.len": 29,
+    "face.craniumH": 7,
+    "face.cheekW": 37,
+    "face.jawW": 34,
+    "face.chinW": 20,
+    "mouth.w": 14,
+    "nose.w": 5,
+    "face.browY": 2
+   },
+   "renders": "records/target/character/barber/face_bulldog",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "BIRD",
+   "build": "FACE BIRD",
+   "dials": {
+    "face.len": 40,
+    "face.craniumH": 14,
+    "face.foreheadW": 22,
+    "face.cheekW": 25,
+    "face.jawW": 20,
+    "face.chinW": 7,
+    "nose.w": 2,
+    "eyes.gap": 4,
+    "face.noseY": -2
+   },
+   "renders": "records/target/character/barber/face_bird",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "SKULL",
+   "build": "FACE SKULL",
+   "dials": {
+    "face.len": 39,
+    "face.cheekW": 24,
+    "face.jawW": 22,
+    "face.chinW": 10,
+    "face.foreheadW": 22,
+    "face.eyeY": -2,
+    "face.browY": 1,
+    "mouth.w": 6,
+    "brows.len": 4
+   },
+   "renders": "records/target/character/barber/face_skull",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "BABY FACE",
+   "build": "FACE BABY FACE",
+   "dials": {
+    "face.len": 28,
+    "face.craniumH": 15,
+    "face.foreheadW": 29,
+    "face.cheekW": 33,
+    "face.jawW": 24,
+    "face.chinW": 7,
+    "eyes.gap": 8,
+    "face.eyeY": 2,
+    "nose.w": 2,
+    "mouth.w": 6,
+    "brows.len": 5
+   },
+   "renders": "records/target/character/barber/face_baby_face",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "BOXER",
+   "build": "FACE BOXER",
+   "dials": {
+    "nose.w": 5,
+    "face.noseY": 1,
+    "face.jawW": 32,
+    "face.chinW": 17,
+    "face.cheekW": 36,
+    "face.browY": 3,
+    "eyes.gap": 5,
+    "brows.len": 11,
+    "face.craniumH": 9
+   },
+   "renders": "records/target/character/barber/face_boxer",
+   "card": "character-faces-one-twelve-face-shapes-10-19",
+   "his_vote": "up"
+  },
+  {
+   "name": "WIDE MOUTH",
+   "build": "FACE WIDE MOUTH",
+   "dials": {
+    "mouth.w": 15,
+    "face.mouthY": 2,
+    "face.jawW": 31,
+    "face.chinW": 14,
+    "face.len": 31,
+    "nose.w": 3,
+    "eyes.gap": 9,
+    "face.cheekW": 35
+   },
+   "renders": "records/target/character/barber/face_wide_mouth",
    "card": "character-faces-one-twelve-face-shapes-10-19",
    "his_vote": "up"
   }
@@ -1832,7 +2175,7 @@
    "shape": "DUSTER",
    "renders": "records/target/character/barber/outer_wasteland_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1841,7 +2184,7 @@
    "shape": "TRENCH",
    "renders": "records/target/character/barber/outer_soot_trench",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1850,7 +2193,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_drifters_coat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1859,7 +2202,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_ranger_longcoat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1868,7 +2211,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_field_green_coat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1877,7 +2220,7 @@
    "shape": "TRENCH",
    "renders": "records/target/character/barber/outer_dust_brown_trench",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1886,7 +2229,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_storm_grey_longcoat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1895,7 +2238,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_leather_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1904,7 +2247,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_tactical_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1913,7 +2256,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_quilted_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1922,7 +2265,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_denim_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1931,7 +2274,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_sage_field_coat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1940,7 +2283,7 @@
    "shape": "TRENCH",
    "renders": "records/target/character/barber/outer_slate_trench",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1949,7 +2292,7 @@
    "shape": "DUSTER",
    "renders": "records/target/character/barber/outer_bone_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": true
   },
   {
@@ -1958,7 +2301,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_brick_longcoat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1967,7 +2310,7 @@
    "shape": "DUSTER",
    "renders": "records/target/character/barber/outer_khaki_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1976,7 +2319,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_storm_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1985,7 +2328,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_olive_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -1994,7 +2337,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_rust_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2003,7 +2346,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_denim_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2012,7 +2355,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_field_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2021,7 +2364,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_leather_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2030,7 +2373,7 @@
    "shape": "PONCHO",
    "renders": "records/target/character/barber/outer_dust_poncho",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2039,7 +2382,7 @@
    "shape": "PONCHO",
    "renders": "records/target/character/barber/outer_oxblood_poncho",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2048,7 +2391,7 @@
    "shape": "APRON",
    "renders": "records/target/character/barber/outer_smiths_apron",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2057,7 +2400,7 @@
    "shape": "APRON",
    "renders": "records/target/character/barber/outer_trades_apron",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2066,7 +2409,7 @@
    "shape": "SPLIT TAIL",
    "renders": "records/target/character/barber/outer_split-tail_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2075,7 +2418,7 @@
    "shape": "DUSTER",
    "renders": "records/target/character/barber/outer_cobalt_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": true
   },
   {
@@ -2084,7 +2427,7 @@
    "shape": "LONGCOAT",
    "renders": "records/target/character/barber/outer_cobalt_coat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2093,7 +2436,7 @@
    "shape": "DUSTER",
    "renders": "records/target/character/barber/outer_rose_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": true
   },
   {
@@ -2102,7 +2445,7 @@
    "shape": "DUSTER",
    "renders": "records/target/character/barber/outer_grass_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": true
   },
   {
@@ -2111,7 +2454,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_chore_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2120,7 +2463,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_barn_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2129,7 +2472,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_olive_chore_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2138,7 +2481,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_storm_chore_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2147,7 +2490,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_rust_work_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2156,7 +2499,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2165,7 +2508,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_sand_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2174,7 +2517,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_sage_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2183,7 +2526,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_slate_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2192,7 +2535,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_work_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2201,7 +2544,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_storm_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2210,7 +2553,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_khaki_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2219,7 +2562,7 @@
    "shape": "JACKET",
    "renders": "records/target/character/barber/outer_oxblood_jacket",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2228,7 +2571,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_sage_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2237,7 +2580,7 @@
    "shape": "VEST",
    "renders": "records/target/character/barber/outer_bone_vest",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2246,7 +2589,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_olive_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2255,7 +2598,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_brick_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2264,7 +2607,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_split-tail_work_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2273,7 +2616,7 @@
    "shape": "CHORE COAT",
    "renders": "records/target/character/barber/outer_cobalt_chore_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2282,7 +2625,7 @@
    "shape": "CAR COAT",
    "renders": "records/target/character/barber/outer_grass_car_coat",
    "card": "character-outer-one-the-short-ones-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2291,7 +2634,7 @@
    "shape": "HOODED PONCHO",
    "renders": "records/target/character/barber/outer_hooded_dust_poncho",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2300,7 +2643,7 @@
    "shape": "SPLIT TAIL",
    "renders": "records/target/character/barber/outer_brick_split-tail_duster",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2309,7 +2652,7 @@
    "shape": "COCOON COAT",
    "renders": "records/target/character/barber/outer_sand_cocoon_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2318,7 +2661,7 @@
    "shape": "WRAP COAT",
    "renders": "records/target/character/barber/outer_leather_wrap_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2327,7 +2670,7 @@
    "shape": "COCOON COAT",
    "renders": "records/target/character/barber/outer_teal_cocoon_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2336,7 +2679,7 @@
    "shape": "COCOON COAT",
    "renders": "records/target/character/barber/outer_bone_cocoon_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2345,7 +2688,7 @@
    "shape": "SPLIT TAIL",
    "renders": "records/target/character/barber/outer_split-tail_coat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2354,7 +2697,7 @@
    "shape": "SPLIT TAIL",
    "renders": "records/target/character/barber/outer_leather_split-tail_coat",
    "card": "character-outer-one-the-long-coats-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2363,7 +2706,7 @@
    "shape": "PONCHO",
    "renders": "records/target/character/barber/outer_storm_poncho",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2372,7 +2715,7 @@
    "shape": "HALF APRON",
    "renders": "records/target/character/barber/outer_leather_half_apron",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2381,7 +2724,7 @@
    "shape": "HALF APRON",
    "renders": "records/target/character/barber/outer_dust_half_apron",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2390,7 +2733,7 @@
    "shape": "WRAP COAT",
    "renders": "records/target/character/barber/outer_wrap_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2399,7 +2742,7 @@
    "shape": "WRAP COAT",
    "renders": "records/target/character/barber/outer_ash_wrap_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2408,7 +2751,7 @@
    "shape": "ASYMMETRIC COAT",
    "renders": "records/target/character/barber/outer_asymmetric_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2417,7 +2760,7 @@
    "shape": "ASYMMETRIC COAT",
    "renders": "records/target/character/barber/outer_ash_asym_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2426,7 +2769,7 @@
    "shape": "COCOON COAT",
    "renders": "records/target/character/barber/outer_cocoon_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2435,7 +2778,7 @@
    "shape": "COCOON COAT",
    "renders": "records/target/character/barber/outer_slate_cocoon_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2444,7 +2787,7 @@
    "shape": "COMMA COAT",
    "renders": "records/target/character/barber/outer_comma_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2453,7 +2796,7 @@
    "shape": "COMMA COAT",
    "renders": "records/target/character/barber/outer_slate_comma_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2462,7 +2805,7 @@
    "shape": "COCOON COAT",
    "renders": "records/target/character/barber/outer_cobalt_cocoon_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2471,7 +2814,7 @@
    "shape": "COMMA COAT",
    "renders": "records/target/character/barber/outer_brick_comma_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2480,7 +2823,7 @@
    "shape": "ASYMMETRIC COAT",
    "renders": "records/target/character/barber/outer_olive_asym_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   },
   {
@@ -2489,7 +2832,7 @@
    "shape": "WRAP COAT",
    "renders": "records/target/character/barber/outer_grass_wrap_coat",
    "card": "character-outer-one-the-runway-and-the-work-clothes-10-20",
-   "his_vote": null,
+   "his_vote": "up",
    "held": false
   }
  ],
@@ -3659,8 +4002,8 @@
   ]
  },
  "count": {
-  "cuts": 21,
-  "face_shapes": 13,
+  "cuts": 33,
+  "face_shapes": 21,
   "facial_hair": 12,
   "marks": 9,
   "hair_colours": 8,
@@ -3672,6 +4015,6 @@
   "trousers": 45,
   "shoes": 40,
   "kit": 68,
-  "heads": 2594592
+  "heads": 6586272
  }
 }

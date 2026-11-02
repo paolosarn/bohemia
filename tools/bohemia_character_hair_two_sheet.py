@@ -21,6 +21,7 @@ from PIL import Image, ImageDraw
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 import bohemia_character_hair_two as H2  # noqa: E402
+import bohemia_character_hair_three as H3  # noqa: E402   (HAIR 3 and FACES 2, CHARACTER 11/3)
 import bohemia_character_faces_one as F1  # noqa: E402
 
 BASE = os.path.join(ROOT, 'records/target/character/barber')
@@ -31,7 +32,17 @@ BG = (22, 21, 20); INK = (220, 214, 200); DIM = (150, 144, 130); HEAD = (200, 19
 NEAREST = {'RAZOR SKULL': 'deep_taper', 'HOME CLIPPERS': 'temple_taper', 'HORSESHOE': 'dry_taper', 'COMB OVER': 'dry_taper',
            'GREASE BACK': 'temple_taper', 'LONG DROP': 'layered_fall', 'SPRING CURLS': 'coil_crown', 'STATIC': 'shag',
            'HALF SHAVE': 'curtain_cut', 'BOX BRAIDS': 'rope_locks', 'FINGER WAVES': 'heavy_fringe', 'SCORCH': 'temple_taper'}
+# HAIR 3's nearest cut the game already had on the 3D head (the one it re-cuts in the crowd), beside each new one
+NEAREST3 = {"WIDOW'S PEAK": 'grease_back', 'TONSURE': 'horseshoe', 'HERMIT': 'horseshoe', 'WILD MANE': 'long_drop',
+            'BOWL CUT': 'curtain_cut', 'CROPPED CURLS': 'coil_crown', 'MANGE': 'home_clippers', 'SALT SKULL': 'razor_skull',
+            'TEMPLE BRAIDS': 'box_braids', 'SLICK DRAPE': 'grease_back', 'FRENCH CROP': 'temple_taper', 'RAZOR LINES': 'half_shave'}
 SHEETS = {
+    'hair3': dict(out='CHARACTER_HAIR_THREE', names=lambda: H3.CARD_ORDER, spec=lambda n: dict(H3.CUTS[n], made_by='NEW, CHARACTER 11/3'),
+                  title="CHARACTER: HAIR 3, TWELVE MORE CUTS ON THE 3D HEAD, BATTLE BROTHERS' RANGE (receding, bald and grey, long, curly, braids, home cuts). Eight turns and the portrait, the same head.",
+                  first='WILD MANE'),
+    'faces2': dict(out='CHARACTER_FACES_TWO_SHAPES', names=lambda: ['FACE ' + n for n in F1.NEW_SHAPES], spec=lambda n: dict(F1.CUTS[n], made_by='NEW, CHARACTER 11/3'),
+                   title="CHARACTER: FACES 2, EIGHT MORE HEAD SHAPES, the face maker's fourteen dials pushed to their ends in new combinations.",
+                   first='FACE BULLDOG'),
     'hair2': dict(out='CHARACTER_HAIR_TWO', names=lambda: H2.CARD_ORDER, spec=lambda n: H2.CUTS[n],
                   title="CHARACTER: HAIR 2, TWELVE NEW CUTS ON THE 3D HEAD, THE GRIMY CRASHBOX WAY. Clumps, locks, ropes and plaits (HAIR 1's method, his YES).",
                   first='SPRING CURLS'),
@@ -55,7 +66,9 @@ def load(p):
 
 def row(kind, name, spec):
     d = os.path.join(BASE, spec['tag'])
-    if kind == 'hair2':
+    if kind == 'hair3':
+        tw = load(os.path.join(BASE, NEAREST3[name], 'rig_SE.png')); twin_label = 'BEFORE (nearest: %s)' % NEAREST3[name].replace('_', ' ')
+    elif kind == 'hair2':
         tw = load(os.path.join(FLAT, '%s_SE_k01.png' % NEAREST[name])); twin_label = 'GAME (nearest: %s)' % NEAREST[name].replace('_', ' ')
     else:
         tw = load(os.path.join(BASE, 'temple_taper', 'rig_portrait_S.png')); twin_label = 'THE ONE FACE TODAY'
@@ -63,7 +76,7 @@ def row(kind, name, spec):
     st = [trim(s) for s in (load(os.path.join(d, 'rig_%s.png' % f)) for f in FAC) if s is not None]
     po = [p for p in (load(os.path.join(d, 'rig_portrait_%s.png' % f)) for f in ('S', 'SE')) if p is not None]
     po = [p.resize((128, int(128 * p.height / p.width)), Image.LANCZOS) if p.width != 128 else p for p in po]   # the portrait's 128 (HAIR 1's sheet)
-    if kind != 'hair2' and tw.width > 128: tw = tw.resize((128, int(128 * tw.height / tw.width)), Image.LANCZOS)
+    if kind not in ('hair2', 'hair3') and tw.width > 128: tw = tw.resize((128, int(128 * tw.height / tw.width)), Image.LANCZOS)
     h = max([tw.height] + [s.height for s in st] + [p.height for p in po]) + 26
     w = 190 + max(tw.width, 150) + 16 + sum(s.width + 4 for s in st) + 16 + sum(p.width + 6 for p in po) + 8
     im = Image.new('RGBA', (w, h), BG + (255,)); dr = ImageDraw.Draw(im)
@@ -71,7 +84,7 @@ def row(kind, name, spec):
     dr.text((6, 6), label, fill=INK)
     sub = spec.get('made_by') or 'NEW, 10/19'
     dr.text((6, 20), sub[:30], fill=HEAD if 'CHARACTER' in sub or 'NEW' in sub else DIM)
-    if kind == 'shapes':
+    if kind in ('shapes', 'faces2'):
         f = spec['face']; txt = ', '.join('%s %s' % (k.split('.')[-1], v) for k, v in f.items())
         for j in range(0, len(txt), 30): dr.text((6, 34 + 12 * (j // 30)), txt[j:j + 30], fill=DIM)
     else:

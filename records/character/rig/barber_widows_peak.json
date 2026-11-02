@@ -1,0 +1,38 @@
+{
+ "cut": "WIDOW'S PEAK",
+ "tag": "widows_peak",
+ "bank": {
+  "ramp": "H_BLK",
+  "vol": 0,
+  "side": 0.4,
+  "front": 0.1,
+  "shape": "receding, combed back"
+ },
+ "worn_by": "Mob, Network, Trades; men past forty",
+ "model": "records/character/rig/barber_widows_peak.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5383,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7313,
+ "pieces": {
+  "barber_widows_peak": 208882,
+  "h3_widows_peak_thin": 2406
+ }
+}

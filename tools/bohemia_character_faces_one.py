@@ -49,7 +49,19 @@ SHAPES = [
     ('SMALL FEATURES', {'mouth.w': 6, 'nose.w': 2, 'eyes.gap': 5, 'face.chinW': 9, 'face.len': 30, 'brows.len': 5}),
     ('LANTERN JAW', {'face.jawW': 33, 'face.chinW': 20, 'face.len': 38, 'face.cheekW': 34, 'face.mouthY': 1}),
     ('FLAT AND LOW', {'face.craniumH': 7, 'face.browY': 2, 'face.len': 34, 'nose.w': 5, 'face.noseY': 1, 'mouth.w': 13, 'face.foreheadW': 26}),
+    # FACES 2 (CHARACTER 11/3, 'way more hairstyles and head shapes, look how Battle Brothers does it'): eight more heads that take
+    # the fourteen dials to their ends in combinations the first twelve never reached (Battle Brothers' heads differ most in the
+    # jaw against the brow and the length against the width, so these push exactly those)
+    ('PEAR', {'face.foreheadW': 19, 'face.cheekW': 32, 'face.jawW': 31, 'face.chinW': 18, 'face.craniumH': 8, 'face.len': 32, 'mouth.w': 11}),
+    ('DIAMOND', {'face.foreheadW': 20, 'face.cheekW': 38, 'face.jawW': 21, 'face.chinW': 8, 'face.len': 35, 'eyes.gap': 7}),
+    ('BULLDOG', {'face.len': 29, 'face.craniumH': 7, 'face.cheekW': 37, 'face.jawW': 34, 'face.chinW': 20, 'mouth.w': 14, 'nose.w': 5, 'face.browY': 2}),
+    ('BIRD', {'face.len': 40, 'face.craniumH': 14, 'face.foreheadW': 22, 'face.cheekW': 25, 'face.jawW': 20, 'face.chinW': 7, 'nose.w': 2, 'eyes.gap': 4, 'face.noseY': -2}),
+    ('SKULL', {'face.len': 39, 'face.cheekW': 24, 'face.jawW': 22, 'face.chinW': 10, 'face.foreheadW': 22, 'face.eyeY': -2, 'face.browY': 1, 'mouth.w': 6, 'brows.len': 4}),
+    ('BABY FACE', {'face.len': 28, 'face.craniumH': 15, 'face.foreheadW': 29, 'face.cheekW': 33, 'face.jawW': 24, 'face.chinW': 7, 'eyes.gap': 8, 'face.eyeY': 2, 'nose.w': 2, 'mouth.w': 6, 'brows.len': 5}),
+    ('BOXER', {'nose.w': 5, 'face.noseY': 1, 'face.jawW': 32, 'face.chinW': 17, 'face.cheekW': 36, 'face.browY': 3, 'eyes.gap': 5, 'brows.len': 11, 'face.craniumH': 9}),
+    ('WIDE MOUTH', {'mouth.w': 15, 'face.mouthY': 2, 'face.jawW': 31, 'face.chinW': 14, 'face.len': 31, 'nose.w': 3, 'eyes.gap': 9, 'face.cheekW': 35}),
 ]
+NEW_SHAPES = ['PEAR', 'DIAMOND', 'BULLDOG', 'BIRD', 'SKULL', 'BABY FACE', 'BOXER', 'WIDE MOUTH']
 BEARDS = [   # (name, PORTRAIT's part or None, this module's kind or None, stubble, hair colour)
     ('STUBBLE', None, None, True, ('cloth_black', 0)),
     ('FULL BEARD', 'full', None, False, ('clay_mustard', 0)),

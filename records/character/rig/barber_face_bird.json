@@ -1,0 +1,46 @@
+{
+ "cut": "FACE BIRD",
+ "tag": "face_bird",
+ "bank": {
+  "ramp": "face",
+  "kind": "face shape",
+  "face": {
+   "face.len": 40,
+   "face.craniumH": 14,
+   "face.foreheadW": 22,
+   "face.cheekW": 25,
+   "face.jawW": 20,
+   "face.chinW": 7,
+   "nose.w": 2,
+   "eyes.gap": 4,
+   "face.noseY": -2
+  }
+ },
+ "worn_by": "anyone: a face is rolled per person",
+ "model": "records/character/rig/barber_face_bird.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_masking",
+  1
+ ],
+ "hair_rgb": [
+  120,
+  99,
+  72
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5642,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7604,
+ "pieces": {
+  "barber_temple_taper_fade": 25577,
+  "barber_temple_taper": 167170
+ }
+}
