@@ -485,7 +485,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"148d66fd4b9704dc",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"9074c027763ea4eb",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1589,7 +1589,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zq - ONE COMPANY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zr - THE WHIP AND THE POOL POLE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12754,6 +12754,11 @@ function nfOverIn(d, src){
   try{ if(window.BohemiaCondition && d && Array.isArray(d.crew)){ d.crew.forEach(function(r){ if(r && r.down && r.laidUpDays > 0) r.laidUpDays = BohemiaCondition.laidUpDays(r.laidUpDays); });
     BohemiaCondition.afterFight(d.crew, { day: NF.day }); } }catch(_e){}
   try{ nfAfterKeep(d); }catch(_e){}   /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO): who died, who fell, who climbed, kept for the crew screen */
+  /* ARMORY 2 (rule 320): THE LIVE WIRE burns a cell a lash; the fight counts them (cellsBurned) and they leave the purse here, once,
+     never more than it holds */
+  try{ var cfW = document.getElementById('cityFrame'), wW = cfW && cfW.contentWindow, nW = d ? (d.cellsBurned | 0) : 0;
+    if(nW > 0 && wW && wW.BohemiaPurse && typeof wW.purseGet === 'function'){ var pW = wW.purseGet(), hasW = typeof wW.BohemiaPurse.balance === 'function' ? Math.max(0, wW.BohemiaPurse.balance(pW, 'electricity') | 0) : nW;
+      if(Math.min(nW, hasW) > 0) wW.BohemiaPurse.debit(pW, 'electricity', Math.min(nW, hasW), 'the live wire: a cell a lash', null, typeof wW.loopDay === 'function' ? wW.loopDay() : (NF.day | 0)); } }catch(_e){}
   try{ if (window.STING) STING.play(won ? 'win' : 'loss'); }catch(_e){}
   try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
   G.combatLog.push({ t: Date.now(), outcome: won ? 'encounter-won' : 'encounter-lost', recorded: true, newFight: true });

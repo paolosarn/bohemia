@@ -1,6 +1,6 @@
 # ARMORY (the lane's own block; newest on top, written only by ARMORY)
 
-## ARMORY 2, 11/2: THE WHIP AND THE POOL POLE SPEAR (rule 320, ask lines 316 and 317; BUILD 11/3zn)
+## ARMORY 2, 11/2: THE WHIP AND THE POOL POLE SPEAR (rule 320, ask lines 316 and 317; BUILD 11/3zr)
 SHIPPED, NOT YET SEEN. records/BOHEMIA_ARMORY_THE_WHIP_AND_THE_POOL_POLE_SPEAR_11_2_26.md.
 - Five pieces in records/target/bb/armory.json (written by tools/bohemia_armory.py): the pool pole spear (a one-tile spear, the
   funny starter), the extension cord (the starter whip), the live wire (stun one in four, a cell a lash), the barbed wire (three

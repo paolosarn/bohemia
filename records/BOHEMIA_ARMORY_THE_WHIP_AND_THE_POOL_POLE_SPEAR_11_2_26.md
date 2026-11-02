@@ -1,4 +1,4 @@
-# ARMORY 2: THE WHIP AND THE POOL POLE SPEAR (Paolo 11/2, rule 320, ask lines 316 and 317; BUILD 11/3zn)
+# ARMORY 2: THE WHIP AND THE POOL POLE SPEAR (Paolo 11/2, rule 320, ask lines 316 and 317; BUILD 11/3zr)
 
 Paolo 11/2: "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile
 weapon... it would be a whip kind of vibe... in Battle Brothers I think the range is three... the whip would be a range of two
@@ -79,6 +79,10 @@ lash'.
 ## CHECKS RUN (the ones this change touches)
 Green: the whip reaches two tiles (13/0, new); melee is one tile, cover is what is on the tile (10/0, amended for rule 320: a whip
 reaches two and never three, a new leg); every item has a model (206/0); the melee in his hand (green).
+THE VOTE TAB (48 ok, 4 red): the five cards register (kind, lane, sha, two-sentence whys that say where you see it); a whip card in
+front shows the lash moving and a tap opens the whole phone screen on that spot (FULL SIZE, green; it went red until the whip cards
+carried their first picture). The 4 reds are the same 4 with ARMORY's cards taken out (measured on this tree): other lanes' long
+whys, and the alpha landing on RUN, not VOTE, after BEGIN (UI's first minute).
 RED BEFORE THIS ROUND, NOT ARMORY'S: the fight reads only sourced numbers, leg 1 (dealHash's hash constants, COMBAT; the two numbers
 this round typed into the rules were moved into ours.whip before ship) and its drawing leg ('.fat = ', six writes, the same six on
 clean main).

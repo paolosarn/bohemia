@@ -16072,6 +16072,129 @@
     "src": "vote/ANIMATION_MARCH_HELMET.html"
    },
    "draft": true
+  },
+  {
+   "id": "armory-pool-pole-spear-11-2",
+   "kind": "tile",
+   "lane": "armory",
+   "sha": "03b3e239",
+   "made": "11/2",
+   "title": "THE POOL POLE SPEAR: A POOL SKIMMER POLE WITH A KITCHEN KNIFE TAPED ON",
+   "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
+   "why": "A one-tile spear, the cheap funny starter (25 to 35 damage, 17 batteries), on every camp smith's shelf and in the hands of road militia, caravan hands and debtors. You see it in the fight, thrusting at the man beside him, and on any camp's smith shelf.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/armory/whip_pool_pole_spear_lash.webp"
+   },
+   "draft": true
+  },
+  {
+   "id": "armory-whip-extension-cord-11-2",
+   "kind": "animation",
+   "lane": "armory",
+   "sha": "03b3e239",
+   "made": "11/2",
+   "title": "THE EXTENSION CORD: THE STARTER WHIP, LASHING FROM TWO TILES",
+   "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
+   "why": "The orange cord with its plug on the end lashes a man two tiles away on the beat and leaves him bleeding (Battle Brothers' two stacks), and its DISARM takes his weapon for a turn; it is on every camp smith's shelf for 18 batteries. You see it in the fight, the cord flying out to the second tile.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/armory/whip_extension_cord_lash.webp",
+    "first": "../records/target/armory/whip_extension_cord_lash_keys.webp",
+    "firstAt": [
+     288,
+     780,
+     669,
+     381
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "armory-whip-live-wire-11-2",
+   "kind": "animation",
+   "lane": "armory",
+   "sha": "03b3e239",
+   "made": "11/2",
+   "title": "THE LIVE WIRE: A CORD ON A BATTERY PACK THAT CAN DROP A MAN",
+   "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
+   "why": "A landed lash stuns him one time in four so he loses his next turn, and every lash burns one battery from your purse, landed or not. You see it in the fight, the black wire sparking at the man two tiles off.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/armory/whip_live_wire_lash.webp",
+    "first": "../records/target/armory/whip_live_wire_lash_keys.webp",
+    "firstAt": [
+     288,
+     780,
+     669,
+     381
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "armory-whip-barbed-wire-11-2",
+   "kind": "animation",
+   "lane": "armory",
+   "sha": "03b3e239",
+   "made": "11/2",
+   "title": "THE BARBED WIRE: THE WHIP THAT BLEEDS THEM THE MOST",
+   "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
+   "why": "Three stacks of bleeding where the other whips lay two, but every lash cuts your own man's hands for 1 or 2 unless he wears heavy armour (the game has no gloves yet). You see it in the fight, the barbed wire flying out to the second tile.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/armory/whip_barbed_wire_lash.webp",
+    "first": "../records/target/armory/whip_barbed_wire_lash_keys.webp",
+    "firstAt": [
+     288,
+     780,
+     669,
+     381
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "armory-whip-rodeo-bullwhip-11-2",
+   "kind": "animation",
+   "lane": "armory",
+   "sha": "03b3e239",
+   "made": "11/2",
+   "title": "THE RODEO BULLWHIP: THE PROPER ONE, AND ITS CRACK SHAKES THEM",
+   "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
+   "why": "The most accurate whip (+10 to hit), and every lash cracks over the man so he checks his nerve and may drop a step, landed or not. You see it in the fight, the leather cracking at the man two tiles away.",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/armory/whip_rodeo_bullwhip_lash.webp",
+    "first": "../records/target/armory/whip_rodeo_bullwhip_lash_keys.webp",
+    "firstAt": [
+     288,
+     780,
+     669,
+     381
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [
