@@ -1040,6 +1040,14 @@ GATES = [
      'its landmark between the lines every fight, start as the two plain lines at most 60% of the time, and name its landmark, '
      'things and twist in ours.place_boards; the suburb and the golf course under 1% green-or-olive pixels; a place not yet '
      'built must be on the gate\'s OWED list, which only shrinks.', False),
+    ('NO BOARD BREAKS ITS OWN PICTURE', ['node', 'gates/every_place_no_seams_gate.js'],
+     'RULE 346 (Paolo 11/2 in the VOTE tab, on every ground: "watch out for straight lines at grid borders and colors that end '
+     'abruptly and roads that dont connect and things that dont visually and logically make sense"). Beside the plan gate: bakes '
+     'every built place\'s board three times in the LIVE fight and reads the picture the fight draws every tile from: a SEAM (a '
+     'line the eye sees where two cells of open ground meet, block seams and cell borders apart), a CUT-OFF (a colour that stops '
+     'dead at a border), ROADS (every road reaching a block seam met by a road across it), and a LOGIC list checked by eye per '
+     'place, tied to the sha1 of its pictures so a changed picture is an unchecked list. A fixed place must meet the floors; a '
+     'place on OWED_SEAMS has not been fixed yet, and that list only shrinks.', False),
     ('THREE BLOCKS', ['node', 'gates/three_blocks_gate.js'],
      'ROW [the apron, the compound and the civic interior], rule 46 and rule 59. The row (WORLD\'s '
      'own, written 10/10 under rule 74) said THREE BLOCKS ARE MISSING for the 24 districts that '

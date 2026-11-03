@@ -68,7 +68,7 @@ PLACES = {
         twist='A SHOOTER\'S GROUND: wide open slab, their line starts far off, and the wreck is the one big cover everybody wants; '
               'the hangar roof three storeys up',
         horror='one suitcase stands upright and packed on the bare slab, far from the wreck, its tag on',
-        landmark_block='apron.1', field=['apron.0', 'apron.2'], rows={0: ['apron.3']}, mirror=True, landmark_col=1, landmark_rows={'1': 3, '2': 1},
+        landmark_block='apron.1', field=['apron.2', 'apron.4'], rows={0: ['apron.3']}, mirror=True, landmark_col=1, landmark_rows={'1': 3, '2': 1},
         camp_tile=[4, 2], starts={'wide': 2, 'camp': 1, 'line': 1}),
     'golf': dict(name='THE GOLF COURSE', districts=['golf', 'park'], built=True,
         landmark='THE CLUBHOUSE AND THE 18TH: the stucco clubhouse, its torn awning over the patio, the carts in their row, the dead green and its flag',
@@ -76,7 +76,7 @@ PLACES = {
         twist='SAND AND ROOFS: the bunkers and the dry pond are slow ground in the open; the clubhouse roof is the one height, '
               'and they may come from both flanks (an ambush from the trees and the carts)',
         horror='the flag on the dead green stands straight out in a wind that moves nothing else',
-        landmark_block='golf.1', field=['golf.2', 'golf.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='golf.1', field=['golf.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'wide': 1}),
     'trailer': dict(name='THE TRAILER PARK', districts=['trailer'], built=True,
         landmark='THE ROWS: single-wides on their blocks end to end, one burnt to its frame, a carport roof between two of them',
@@ -84,7 +84,7 @@ PLACES = {
         twist='A MAZE: lanes one man wide between trailers you cannot see through, so it is close, melee ground and chokepoints; '
               'the carport roof is the one height, and they are often already in among the rows',
         horror='the washing on the line is spotless white, pegged out fresh, the only clean thing in the park (COOK PROPS\' wrong thing)',
-        landmark_block='trailer.1', field=['trailer.2', 'trailer.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='trailer.1', field=['trailer.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'camp': 2, 'pincer': 1, 'line': 1}),
     'desert': dict(name='THE DESERT', districts=['desert'], built=True,
         landmark='THE PYLON: a high-voltage lattice tower fallen across a dry wash, its lines on the ground, Joshua trees round it',
@@ -100,7 +100,7 @@ PLACES = {
         twist='REAL HEIGHT: ledges one, two and three storeys up (higher hits harder and sees farther, rule 321), a climb costs the '
               'turn\'s attack (rule 328), and the slot through the fin is one man wide',
         horror='on top of the highest ledge, where nobody could climb, a cairn of stones somebody stacked (COOK PROPS\' wrong thing)',
-        landmark_block='canyon.1', field=['canyon.2', 'canyon.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='canyon.1', field=['canyon.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'pincer': 1}),
     'pass': dict(name='THE PASS', districts=['mountain'], built=True,
         landmark='THE JACKKNIFE: a semi folded across the road under the cut, a rockfall heaped over the other lane (climb it for the shot)',
@@ -108,7 +108,7 @@ PLACES = {
         twist='A ROAD ON A SLOPE: the road is the only fast ground, the high side is slow scree and ledges, the low side the drop no '
               'man walks; the jackknife closes the road and the rockfall is a heap you climb to shoot down the grade',
         horror='the jackknifed trailer is empty and white inside, spotless, in a valley of dust (COOK PROPS\' wrong thing)',
-        landmark_block='pass.1', field=['pass.2', 'pass.0'], rows={0: ['pass.3']}, mirror=True, landmark_col=1, landmark_rows={'1': 2, '2': 1},
+        landmark_block='pass.1', field=['pass.2'], rows={0: ['pass.3']}, mirror=True, landmark_col=1, landmark_rows={'1': 2, '2': 1},
         camp_tile=[4, 2], starts={'pincer': 2, 'line': 1}),
     'shore': dict(name='THE SHORE', districts=['reservoir', 'dam'], built=True,
         landmark='THE INTAKE TOWER: the lake\'s concrete intake standing high and dry on the cracked bed, a dead dock beside it',
@@ -132,7 +132,7 @@ PLACES = {
         twist='HILLS AND FIRE: the trash mounds are height you climb for the shot, and the gas round the flare burns the ground '
               'from the first round (a man who ends his turn in it takes 15 to 30)',
         horror='the flare is still burning, years after anyone paid for the gas (COOK PROPS\' wrong thing)',
-        landmark_block='dump.1', field=['dump.2', 'landfill.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='dump.1', field=['dump.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'wide': 1}),
     'suburb': dict(name='THE SUBURBS', districts=['suburb', 'estate', 'gated', 'town', 'school', 'chapel', 'library'], built=True,
         landmark='THE BACKYARDS: the split-face block walls of a row of backyards, their kidney pools dug in and empty',
@@ -140,31 +140,34 @@ PLACES = {
         twist='WALLS AND PITS: the yard walls are cover you fight along and over, and an empty pool is a pit (slow to cross, '
               'nothing to hide behind in it); the houses are roofs',
         horror='two fingers of perfectly clear water in the deep end of one empty pool (COOK PROPS\' wrong thing)',
-        landmark_block='yards.1', field=['yards.2', 'subs.0', 'corner.0', 'culdesac.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='yards.1', field=['yards.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
     'strip': dict(name='THE STRIP', districts=['strip', 'sign', 'sphere', 'strat', 'convention'], built=True,
-        landmark='THE FOUNTAIN: a casino plaza fountain gone dry, a giant arrow sign down on the plaza beside it, a limo at the valet',
-        things='the dry fountain, the fallen sign, the pedestrian bridge over the Boulevard, a stretch limo, marble planters',
-        twist='THE BRIDGE AND THE RIM: the pedestrian bridge is height two storeys over the Boulevard, the fountain\'s rim is cover '
-              'in the middle of an open marble plaza, and the fallen sign is a wall',
-        horror='one bulb of the hundred on the fallen sign is still lit (COOK PROPS\' wrong thing)',
-        landmark_block='plaza.1', field=['plaza.2', 'strip.0', 'strip.1'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
-        camp_tile=[4, 2], starts={'line': 1, 'wide': 1, 'camp': 1}),
+        landmark='THE BOULEVARD: Las Vegas Boulevard running down between the two lines, its pedestrian bridge across it, the '
+                 'Welcome sign dead in its median, the casino frontages on both sides',
+        things='the Welcome sign, the pedestrian bridge, porte-cocheres with their dead marquees, the plaza fountain, the fallen '
+               'arrow sign, a dead LED tower, slot machines spilled out of a broken entrance, a stretch limo, cabs, a tour bus, dead palms',
+        twist='THE KILL ZONE: six lanes of open boulevard between the lines, its cover the dead cars, the median\'s planters and the '
+              'sign; the bridge is a perch two storeys up in the middle of it and the porte-cochere roofs are the perches on each side',
+        horror='one bulb of the hundred on the fallen arrow sign is still lit (COOK PROPS\' wrong thing)',
+        landmark_block='blvd.1', field=['blvd.2'], cols={0: ['stripw.1', 'stripw.2', 'stripw.3'], 1: ['blvd.2'], 2: ['stripe.1', 'stripe.2'], 3: ['stripw.2', 'stripw.3', 'stripw.1']},
+        mirror=False, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1}, camp_tile=[4, 2], starts={'line': 1, 'wide': 1, 'camp': 1}),
     'downtown': dict(name='DOWNTOWN', districts=['downtown'], built=True,
-        landmark='UNDER THE CANOPY: a bay of the Fremont canopy over the street, the double-decker Deuce burnt out under it',
-        things='the canopy, the burnt Deuce, alley dumpsters, the brick hotel backs and their fire escapes',
-        twist='THE ALLEYS: alleys one man wide between three-storey brick backs whose fire escapes climb to the roofs; the street '
-              'under the canopy is the one wide ground and the burnt bus closes half of it',
+        landmark='FREMONT STREET: the street under the canopy\'s ribs, the cowboy sign over it, the double-decker Deuce burnt out in it',
+        things='the canopy\'s ribs and columns, the cowboy sign, the burnt Deuce, kiosks, a zipline tower, the casino fronts and their '
+               'marquees, the alley behind the south side, its dumpsters and fire escapes',
+        twist='THE STREET AND THE FRONTS: one long street between casino fronts whose recessed entrances are the cover, the cowboy '
+              'sign\'s tower and the zipline tower the height, the alley behind one man wide',
         horror='one panel of the dead canopy screen is still showing a picture (COOK PROPS\' wrong thing)',
-        landmark_block='fremont.1', field=['fremont.2', 'main.0', 'ruin.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
-        camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
+        landmark_block='fremont.3', field=['fremont.4'], rows={0: ['fremont.5', 'fremont.6'], 1: ['fremont.4'], 2: ['fremont.7']},
+        mirror=True, landmark_col=1, landmark_rows={'1': 1}, camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
     'works': dict(name='THE WORKS', districts=['industrial', 'rail', 'railyard', 'warehouse', 'storage'], built=True,
         landmark='THE CARS AND THE GANTRY: a boxcar and a black tank car on the spur, a yard gantry crane with a car hanging from its hook',
         things='a boxcar, a tank car, the gantry crane, a shop\'s machines dragged out, stacked pipe, the spur\'s ties and ballast',
         twist='THE RAIL CARS: the cars on the spur are a wall across the yard with one crossing between them, and the stacked pipe '
               'and the gantry\'s legs are the cover either side of it',
         horror='a car hangs from the gantry\'s hook over your heads (COOK PROPS\' wrong thing)',
-        landmark_block='rail.1', field=['rail.2', 'works.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='rail.1', field=['rail.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'pincer': 1}),
     'marina': dict(name='THE MARINA', districts=['water', 'intake'], built=True,
         landmark='THE HOUSEBOAT: a Lake Mead houseboat sat down on the dry bed on its pontoons, its top deck to climb',
@@ -172,7 +175,7 @@ PLACES = {
         twist='BOATS ON OPEN MUD: the dry bed is open ground and the boats are the only cover on it; the houseboat\'s top deck is '
               'the one height',
         horror='a fresh towel lies at the foot of the houseboat\'s slide (COOK PROPS\' wrong thing)',
-        landmark_block='basin.1', field=['basin.2', 'marina.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        landmark_block='basin.1', field=['basin.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'wide': 1, 'line': 1, 'camp': 1}),
 }
 GATE_DISTRICT = {'lab': 'medical', 'airport': 'airport', 'golf': 'golf', 'trailer': 'trailer', 'desert': 'desert', 'redrock': 'springs',
@@ -236,6 +239,14 @@ PIECES = {
     'works_gantry': dict(kind='COVER', h=1.6, name='THE GANTRY\'S LEG', by_props='works.gantry'),
     'works_pipes':  dict(kind='COVER', h=2.5, name='STACKED PIPE', by_props='works.pipes'),
     'marina_bass':  dict(kind='COVER', h=2.0, name='A BASS BOAT ON ITS TRAILER', by_props='marina.bass_boat'),
+    'strip_welcome': dict(kind='COVER', h=1.2, name='THE WELCOME SIGN\'S BASE'),
+    'strip_car':    dict(kind='COVER', h=1.5, name='DEAD CARS'),
+    'strip_slots':  dict(kind='COVER', h=1.6, name='SLOT MACHINES, SPILLED'),
+    'strip_entrance': dict(kind='COVER', h=2.0, name='A CASINO DOOR, RECESSED'),
+    'downtown_kiosk': dict(kind='COVER', h=2.2, name='A KIOSK'),
+    'downtown_slots': dict(kind='LOW_COVER', h=1.2, name='SLOT MACHINES'),
+    'downtown_entrance': dict(kind='COVER', h=2.0, name='A CASINO DOOR, RECESSED'),
+    'strip_stairs': dict(kind='COVER', h=2.5, name='THE BRIDGE\'S STAIRS'),
 }
 MARK_PIECE = {}      # (bid, mark) -> piece, written per block below
 
@@ -257,6 +268,8 @@ BLOCKS = {
                     marks=['-----', '-CC--', '---c-', '-CC--', '-----'], pieces={'C': 'apron_wreck', 'c': 'apron_tail'}),
     'apron.2': dict(name='THE HANGAR', tiles=['HH...', 'HH...', '...#.', '.....', '.....'],
                     marks=['-----', '-----', '-----', '-ccc-', '-----'], pieces={'c': 'apron_carts'}, roofs=[(0, 0, 3), (1, 0, 3), (0, 1, 3), (1, 1, 3)]),
+    'apron.4': dict(name='THE STANDS', tiles=['.....', '.#...', '.....', '...##', '.....'],
+                    marks=['-----', '---c-', '----C', '-----', '-C---'], pieces={'c': 'apron_loader', 'C': 'apron_tug'}, props=True),
     'apron.3': dict(name='THE GATE', tiles=['#####', '..#..', '.....', '.....', '.....'],
                     marks=['-----', '-----', '---c-', '-C---', '-----'], pieces={'c': 'apron_loader', 'C': 'apron_tug'}),
     # THE GOLF COURSE ------------------------------------------------------------------------------------------------------
@@ -268,7 +281,7 @@ BLOCKS = {
     'trailer.1': dict(name='THE ROWS', tiles=['#.#.#', '#.#.#', '.....', '.#.#.', '.#.#.'],
                       marks=['-----', '-C---', 'C-C-C', '-----', 'c---c'], pieces={'C': 'trailer_propane', 'c': 'trailer_junk'},
                       piece_at={(2, 2): 'trailer_car'}, props=True),
-    'trailer.2': dict(name='THE OFFICE', tiles=['##...', '.....', '...#.', '.##..', '.....'],
+    'trailer.2': dict(name='THE OFFICE', tiles=['##...', '...#.', '.....', '.##..', '.....'],
                       marks=['-----', '--C-C', 'Cc---', '----c', '-c---'], pieces={'C': 'trailer_propane', 'c': 'trailer_junk'},
                       piece_at={(2, 0): 'trailer_bins', (2, 1): 'trailer_mail'}, props=True),
     # THE DESERT ----------------------------------------------------------------------------------------------------------
@@ -299,9 +312,9 @@ BLOCKS = {
                    marks=['-----', '-----', '-----', '----C', '-C---'], pieces={'C': 'pass_boulder'},
                    roofs=[(1, 0, 3), (3, 0, 2), (1, 1, 2), (4, 1, 2)]),
     # THE SHORE -----------------------------------------------------------------------------------------------------------
-    'lakebed.1': dict(name='THE INTAKE TOWER', tiles=['wwwww', 'w.#HH', '..#..', 'ww.ww', 'ww.ww'],
+    'lakebed.1': dict(name='THE INTAKE TOWER', tiles=['ww.ww', 'w.#HH', '..#..', 'ww.ww', 'ww.ww'],
                       marks=['-----', '-----', '-----', 'C----', '---C-'], pieces={'C': 'shore_boat'}, props=True),
-    'lakebed.2': dict(name='THE MUD', tiles=['wwwww', 'ww..w', 'w..HH', '..www', '.wwww'],
+    'lakebed.2': dict(name='THE MUD', tiles=['ww.ww', 'w...w', '...HH', 'ww..w', 'ww.ww'],
                       marks=['-----', '-C---', '-----', '-----', '----C'], pieces={'C': 'shore_boat'}, props=True),
     'lakebed.3': dict(name='THE RING', tiles=['ww.ww', 'HHHHH', '.....', '.HH..', '..#..'],
                       marks=['-----', '-----', 'c---c', '-----', 'C----'], pieces={'c': 'shore_junk', 'C': 'shore_car'}, props=True),
@@ -309,7 +322,7 @@ BLOCKS = {
     'wash.2': dict(name='THE CULVERT', tiles=['H.r.H', 'H.r.H', 'H#.#H', 'H.r.H', 'H.r.H'],
                    marks=['-----', '-----', '--C--', '---C-', '--C--'], pieces={'C': 'wash_jam'},
                    piece_at={(2, 2): 'wash_culvert', (4, 2): 'wash_sofa'}, props=True),
-    'wash.3': dict(name='THE CHANNEL', tiles=['H.rrH', 'H.r.H', 'H.r.H', 'Hrr.H', 'H.r.H'],
+    'wash.3': dict(name='THE CHANNEL', tiles=['H.r.H', 'H.r.H', 'H.r.H', 'Hrr.H', 'H.r.H'],
                    marks=['---C-', '--C--', '-----', '-C---', '-----'], pieces={'C': 'wash_jam'},
                    piece_at={(1, 2): 'wash_sofa'}, props=True),
     'wash.4': dict(name='THE BANK', tiles=['.....', '..#..', '.....', '.....', '.....'],
@@ -318,32 +331,58 @@ BLOCKS = {
     # THE LANDFILL -------------------------------------------------------------------------------------------------------
     'dump.1': dict(name='THE FLARE', tiles=['HH.HH', '.....', '.#..H', '..#..', 'H...H'],
                    marks=['-----', '-F---', 'F----', 'C---C', '-----'], pieces={'F': 'landfill_fire', 'C': 'landfill_wells'}, props=True),
-    'dump.2': dict(name='THE CELLS', tiles=['.H...', '...H.', 'H....', '..H.H', '.....'],
-                   marks=['---C-', '-----', '--C--', '-----', 'C----'], pieces={'C': 'landfill_wells'}, props=True),
+    'dump.2': dict(name='THE CELLS', tiles=['.H.H.', '.....', 'H....', '..H.H', '.....'],
+                   marks=['----C', '-----', '--C--', '-----', 'C----'], pieces={'C': 'landfill_wells'}, props=True),
     # THE SUBURBS -------------------------------------------------------------------------------------------------------
     'yards.1': dict(name='THE BACKYARDS', tiles=['.....', '.r..r', '.....', 'r..r.', '.....'],
                     marks=['C-C-C', '-----', 'CC-CC', '-----', '-C-C-'], pieces={'C': 'yards_wall'}, props=True),
     'yards.2': dict(name='THE YARDS', tiles=['r....', '...r.', '.....', '.r...', '....r'],
                     marks=['-C-C-', 'C---C', '--C--', 'C---C', '-C-C-'], pieces={'C': 'yards_wall'}, props=True),
-    # THE STRIP ---------------------------------------------------------------------------------------------------------
-    'plaza.1': dict(name='THE FOUNTAIN', tiles=['.....', '.##..', '.....', '...#.', '.....'],
-                    marks=['c---c', '-----', '--C--', '-----', 'c---c'], pieces={'C': 'strip_fountain', 'c': 'strip_planter'}, props=True),
-    'plaza.2': dict(name='THE BRIDGE', tiles=['.....', '..H..', '..H..', '.#...', '.....'],
-                    marks=['c---c', '-----', '-----', '-----', 'c---c'], pieces={'c': 'strip_planter'}, roofs=[(2, 1, 2), (2, 2, 2)], props=True),
-    # DOWNTOWN ----------------------------------------------------------------------------------------------------------
-    'fremont.1': dict(name='UNDER THE CANOPY', tiles=['#H.H#', '.....', '..##.', '.....', '#.H#.'],
-                      marks=['-----', '-CC--', '-----', '-C-C-', '-----'], pieces={'C': 'downtown_dumpsters'},
-                      piece_at={(1, 1): 'downtown_canopy', (1, 2): 'downtown_canopy'},
-                      roofs=[(1, 0, 3), (3, 0, 3), (2, 4, 3)], props=True),
-    'fremont.2': dict(name='THE ALLEYS', tiles=['#.H#.', 'H....', '#.#H#', '..#..', 'H.#.#'],
-                      marks=['-----', '-C---', '-----', '---C-', '-----'], pieces={'C': 'downtown_dumpsters'},
-                      roofs=[(2, 0, 3), (0, 1, 3), (3, 2, 3), (0, 4, 3)], props=True),
+    # THE STRIP (rule 346: the showcase; the Boulevard down the middle, the casino frontages either side). Every frontage reads
+    # from the Boulevard out (cb 0 its sidewalk, cb 1 the drop-off under the porte-cochere, cb 2 the forecourt, cb 3-4 the casino),
+    # its two drives at the same two rows as the Boulevard's aprons (DRIVES), so every road meets a road. No open tile has a mass
+    # south of it taller than a third of a tile (the camera looks north: a tall mass's roof would be drawn over the tile behind it).
+    'blvd.1': dict(name='THE BRIDGE AND THE WELCOME SIGN', tiles=['.....', '.....', '.HH..', '.#...', '.....'],
+                   marks=['c-c-c', '---C-', 'C----', '--cC-', 'c-C-c'], pieces={'c': 'strip_planter', 'C': 'strip_car'},
+                   piece_at={(2, 0): 'strip_stairs', (4, 2): 'strip_welcome'}, roofs=[(1, 2, 2), (2, 2, 2)], props=True),
+    'blvd.2': dict(name='THE BOULEVARD', tiles=['.....', '.....', '.....', '.#...', '.#...'],
+                   marks=['c-cC-', '-Cc-c', '--c--', '--cC-', 'c-c-c'], pieces={'c': 'strip_planter', 'C': 'strip_car'}, props=True),
+    'stripw.1': dict(name='THE PORTE-COCHERE', tiles=['##...', '##.H.', '##.H.', '##...', '##...'],
+                     marks=['--c--', '-----', '--C--', '--C-c', '--c--'], pieces={'c': 'strip_planter', 'C': 'strip_entrance'},
+                     piece_at={(3, 2): 'strip_fountain'}, roofs=[(3, 1, 2), (3, 2, 2)], props=True),
+    'stripw.2': dict(name='THE MARQUEES', tiles=['##...', '##.#.', '##...', '##.#.', '##...'],
+                     marks=['--c--', '--C--', '--C--', '--C--', '----c'], pieces={'c': 'strip_planter', 'C': 'strip_slots'},
+                     piece_at={(2, 2): 'strip_entrance'}, props=True),
+    'stripw.3': dict(name='THE VALET', tiles=['##...', '##...', '##.#.', '##...', '##...'],
+                     marks=['--C--', '----c', '-----', '--C-c', '--C--'], pieces={'c': 'strip_planter', 'C': 'strip_car'},
+                     piece_at={(0, 2): 'strip_entrance'}, props=True),
+    'stripe.1': dict(name='THE FALLEN SIGN', tiles=['...##', '.H.##', '.H.##', '.####', '...##'],
+                     marks=['c----', '-----', '--C--', '-----', 'c-c--'], pieces={'c': 'strip_planter', 'C': 'strip_entrance'},
+                     roofs=[(1, 1, 2), (1, 2, 2)], props=True),
+    'stripe.2': dict(name='THE PINK TOWER', tiles=['...##', '.#.##', '...##', '.#.##', '...##'],
+                     marks=['-----', '--C--', '--C--', '--C--', 'c----'], pieces={'c': 'strip_planter', 'C': 'strip_slots'},
+                     piece_at={(2, 2): 'strip_entrance'}, props=True),
+    # DOWNTOWN (rule 346: Fremont Street across the middle under the canopy's ribs, the casino fronts on its north facing the
+    # camera, the south side's roofs and the alley behind them at the bottom)
+    'fremont.3': dict(name='UNDER THE COWBOY', tiles=['.....', '....H', '.....', '.##..', '.....'],
+                      marks=['-----', '-C---', '-CCC-', '----c', '-----'], pieces={'C': 'downtown_canopy', 'c': 'downtown_slots'},
+                      piece_at={(1, 1): 'downtown_kiosk'}, roofs=[(4, 1, 3)], props=True),
+    'fremont.4': dict(name='THE MALL', tiles=['.....', 'H....', '.....', '.....', '.....'],
+                      marks=['-----', '---C-', '-CCC-', '-c---', '-----'], pieces={'C': 'downtown_canopy', 'c': 'downtown_slots'},
+                      piece_at={(1, 3): 'downtown_kiosk'}, roofs=[(0, 1, 2)], props=True),
+    'fremont.5': dict(name='THE FRONTS', tiles=['#####', '#####', '#####', '.#.#.', '.....'],
+                      marks=['-----', '-----', '-----', 'C-C-C', '-----'], pieces={'C': 'downtown_entrance'}, props=True),
+    'fremont.6': dict(name='THE ARCADE', tiles=['#####', '#####', '##.##', '.#.#.', '.....'],
+                      marks=['-----', '-----', '--c--', 'C---C', '-----'], pieces={'C': 'downtown_entrance', 'c': 'downtown_slots'}, props=True),
+    'fremont.7': dict(name='THE ALLEY', tiles=['.....', '#####', '#####', '##H##', '.....'],
+                      marks=['-----', '-----', '-----', '-----', '-C-C-'], pieces={'C': 'downtown_dumpsters'},
+                      roofs=[(2, 3, 3)], props=True),
     # THE WORKS ---------------------------------------------------------------------------------------------------------
     'rail.1': dict(name='THE CARS AND THE GANTRY', tiles=['....#', '.....', '##.##', '.....', '.....'],
                    marks=['-----', '-----', '-----', '-CC--', 'C--C-'], pieces={'C': 'works_pipes'},
                    piece_at={(3, 1): 'works_gantry', (3, 2): 'works_gantry'}, props=True),
-    'rail.2': dict(name='THE SLAB', tiles=['.....', '.#...', '.....', '...#.', '..##.'],
-                   marks=['--C--', '-----', 'C---C', '-----', '-----'], pieces={'C': 'works_pipes'}, props=True),
+    'rail.2': dict(name='THE SLAB', tiles=['.....', '.#...', '..##.', '.....', '...#.'],
+                   marks=['--C--', '----C', '-----', 'C---C', '-----'], pieces={'C': 'works_pipes'}, props=True),
     # THE MARINA --------------------------------------------------------------------------------------------------------
     'basin.1': dict(name='THE HOUSEBOAT', tiles=['.....', '....#', '.HH..', '#....', '.....'],
                     marks=['-C---', '-----', '-----', '---C-', '-----'], pieces={'C': 'marina_bass'}, props=True),
@@ -371,10 +410,28 @@ def centre(c, r):
 # ======================================================================================================================
 # THE RIG SIDE (only under Blender's python)
 # ======================================================================================================================
+# THE REAL COLOUR OF THE GREY PLACES (rule 346, ask line 355: 'airport, shore, pass read plain grey'). New grounds rendered through
+# the rig like every other (never a recolour of a picture), each the colour the real ground is: Harry Reid's apron is concrete
+# made of the valley's own caliche aggregate and filmed with its dust, warm, never a grey card; Lake Mead's exposed bed is tan
+# cracked mud (the white ring above it is the lime the water left); the pass's limestone scree is buff with iron-red in it.
+WARM = {
+    'dustslab': (dict(role=('clay_bone', 3), target=(184, 170, 146), h=0.1, alt=('tape_grey', 3), alt_amt=0.22, grit=0.1, speck=(70, 0.12),
+                      joints=dict(pitch=6.0, width=0.025), panel_var=0.035, oil=dict(scale=0.7, cut=0.68, mul=0.55),
+                      cracks=dict(cell=1.4, width=0.01, region=0.4, cut=0.6, depth=0.5), cal=0.9), [(0.4, 0.03, 0.08, 'gravel')]),
+    'lakemud': (dict(role=('clay_bone', 2), target=(158, 134, 104), h=-0.1, alt=('clay_rust', 2), alt_amt=0.22, grit=0.2, speck=(60, 0.2),
+                     mud=dict(cell=0.5, width=0.05, depth=1.2), cal=0.95), [(0.1, 0.05, 0.15, 'cobble')]),
+    'passtan': (dict(role=('clay_bone', 2), target=(166, 146, 116), h=0.05, alt=('clay_rust', 2), alt_amt=0.3, grit=0.6, speck=(36, 0.6),
+                     cal=0.88), [(9.0, 0.03, 0.09, 'lime'), (1.2, 0.08, 0.3, 'redrock')]),
+}
+
+
 def rig():
     import bohemia_combat_maps_new_blocks_through_the_rig_11_2_26 as NB
     import bohemia_combat_maps_every_ground_its_own_11_2_26 as EG
     NF, F = NB.rig()
+    if 'dustslab' not in EG.NEW:                                         # appended after every ground: no other ground's id moves
+        for n, (spec, st) in WARM.items(): EG.NEW[n] = spec; EG.NEW_STONES[n] = st
+        EG.ID, EG.NAMES = EG.ids()
     return NB, EG, NF, F
 
 
@@ -407,26 +464,28 @@ def plan(bid, F):
     if kind == 'lab':
         gid[:] = ID['epoxy']                                                # the vivarium yard: sealed epoxy
         gid[(n3 > 0.62)] = ID['oilcrete']                                   # where the sealer wore through
-        pen = (mark == 'X')
-        gid[pen] = ID['concrete']                                           # each pen's pad
+        pen = (mark == 'X') & (fx > 0.9) & (fx < 11.1) & (fy > 0.9) & (fy < 11.1)
+        gid[pen] = ID['concrete']                                           # each pen's pad, inside its fence (never on the grid line)
         gid[pen & (np.abs(fx - 6) < 3.2) & (np.abs(fy - 6.5) < 2.4) & (n2 > 0.1)] = ID['gravel']   # its straw-and-grit floor
         ln = (mark != 'X') & (code == '.')
-        gid[ln & (((fx < 0.35) | (fx > 11.65)) & (np.abs(fy - 6) < 6))] = ID['hazard']             # lane edge stripes
+        gid[ln & (((np.abs(fx - 1.4) < 0.16) | (np.abs(fx - 10.6) < 0.16)) & (np.abs(fy - 6) < 6))] = ID['hazard']   # lane edge stripes, inside the lane
         gid[code == 'd'] = ID['gravel']
         if bid == 'lab.2':
-            gid[band(48, 60)] = ID['concrete']; gid[band(37.0, 38.2) & (xm < 36)] = ID['hazard']    # the dock apron and its stop line
+            gid[band(49.5, 58.0) & (xm > 1.5) & (xm < 46)] = ID['concrete']; gid[band(38.4, 39.4) & (xm < 36) & (xm > 2)] = ID['hazard']   # the dock apron, its stop line
             gid[(np.abs(xm - 42) < 5.5) & (np.abs(ym - 42) < 5.5)] = ID['hazard']                  # the decon pad
             gid[(np.abs(xm - 42) < 4.6) & (np.abs(ym - 42) < 4.6)] = ID['epoxy']
-        if bid == 'lab.3':
-            gid[:] = ID['asphalt']; gid[(n3 > 0.55)] = ID['oilcrete']        # the intake lot
-            gid[((xm % 6.0) < 0.12) & band(36, 48)] = ID['paint']           # the bay lines
-            gid[mark == 'X'] = ID['gravel']
-            gid[band(26.0, 34.0)] = ID['concrete']                          # the drive through the gate
+        if bid == 'lab.3':                                                  # the intake lot: the yard's own sealed floor (rule 346: one ground a place)
+            gid[(n3 > 0.55) & (n2 > 0.0)] = ID['oilcrete']
+            gid[((np.abs(xm % 6.0 - 3.0)) < 0.08) & band(37.5, 46.5)] = ID['hazard']   # the bay lines, inside their row
+            gid[(mark == 'X') & (fx > 0.9) & (fx < 11.1) & (fy > 0.9) & (fy < 11.1)] = ID['gravel']
+            gid[band(26.0, 34.0) & (n1 > -0.3)] = ID['concrete']           # the drive through the gate
     elif kind == 'apron':
-        gid[:] = ID['apronslab']                                            # Harry Reid's slabs (6 m joints by the plate)
+        gid[:] = ID['dustslab']                                             # Harry Reid's slabs, the valley's dust on them (6 m joints)
         gid[(n3 > 0.7)] = ID['oilcrete']                                    # where aircraft stood and leaked
-        gid[band(29.85, 30.15) & (xm > 40)] = ID['hazard']                  # the taxi lane's yellow centre line
-        gid[(np.abs(xm % 12.0 - 6.0) < 0.12) & (ym < 12.0)] = ID['hazard']  # the stand lead-in lines
+        gid[(n3 > 0.62) & (n2 > 0.45)] = ID['tiedown']                      # the black of the tyres where they turned
+        gid[band(29.8, 30.2)] = ID['hazard']                                # the taxi lane's yellow centre line, edge to edge
+        gid[(np.abs(xm % 12.0 - 6.0) < 0.12) & (ym < 11.0) & (ym > 2.5)] = ID['hazard']   # the stand lead-in lines, ending at the stop bar
+        gid[(np.abs(ym - 2.5) < 0.12) & (np.abs(xm % 12.0 - 6.0) < 2.0)] = ID['hazard']    # the stop bars
         if bid == 'apron.1':                                                # the fuel spill under the wreck
             spill = ((xm - 24) / 11.0) ** 2 + ((ym - 29) / 7.0) ** 2 < 1.0 + 0.35 * n1
             gid[spill] = ID['oilcrete']
@@ -450,12 +509,12 @@ def plan(bid, F):
             if (c + 1, r) in dt:
                 sand |= ((xm - cx - 6) / 5.0) ** 2 + ((ym - cy + 1.2) / 3.4) ** 2 < 1.0 + 0.2 * n2
         gid[sand] = ID['bunker']
-        gid[band(28.4, 31.6) & (xm > 4)] = ID['concrete']                   # the cart path
+        gid[band(28.4, 31.6)] = ID['concrete']                              # the cart path, edge to edge in every block
         if bid == 'golf.1':
             green = ((xm - 33) / 9.0) ** 2 + ((ym - 7.0) / 5.6) ** 2 < 1.0 + 0.05 * n2
             gid[green] = ID['deadlawn_b']                                   # the 18th green: dead, smooth, still rolled
-            gid[band(24, 37) & (xm < 24)] = ID['pooltile']                   # the patio under the awning
-            gid[band(24, 37) & (xm < 24) & (n2 > 0.4)] = ID['concrete']
+            gid[band(24.6, 36.6) & (xm > 3.5) & (xm < 23.4)] = ID['pooltile']   # the patio under the awning (the path runs on past it)
+            gid[band(24.6, 36.6) & (xm > 3.5) & (xm < 23.4) & (n2 > 0.4)] = ID['concrete']
             gid[band(37, 48) & (xm < 24.5)] = ID['concrete']                # the clubhouse's footing
         if bid == 'golf.2':
             pond = ((xm - 36) / 11.0) ** 2 + ((ym - 18) / 5.4) ** 2 < 1.0 + 0.1 * n1
@@ -468,8 +527,10 @@ def plan(bid, F):
         gid[(code == '.') & (((fx > 3) & (fx < 9)) | ((fy > 3) & (fy < 9))) & (mark == '-') & (n2 > 0.3)] = ID['track']   # worn paths
         gid[(code == '#') | (code == 'H')] = ID['concrete']                 # the pads under the homes and the carport
         gid[code == 'd'] = ID['rubbleg']                                     # the burnt one's ash and rubble
-        if bid == 'trailer.1': gid[band(26.0, 34.0)] = ID['asphalt']; gid[band(26.0, 34.0) & (n1 > 0.4)] = ID['gravel']   # the lane, patched
-        if bid == 'trailer.2': gid[band(36, 60) & (xm < 25)] = ID['asphalt']; gid[band(36.4, 36.6) & (xm < 25)] = ID['paint']
+        gid[band(26.0, 34.0)] = ID['asphalt']; gid[band(26.0, 34.0) & (n1 > 0.4) & (np.minimum(xm, 60 - xm) > 4)] = ID['gravel']   # the lane, patched, edge to edge in every block
+        if bid == 'trailer.2':                                              # the office's lot, inside the block, and its drive down to the lane
+            gid[band(37.2, 47.4) & (xm > 1.6) & (xm < 23.4)] = ID['asphalt']; gid[band(33.5, 37.5) & (xm > 8) & (xm < 13)] = ID['asphalt']
+            gid[band(37.2, 47.4) & (np.abs(xm % 3.0 - 1.5) < 0.06) & (xm > 3) & (xm < 22)] = ID['paint']
     elif kind == 'desert':
         gid[:] = ID['pavement']                                             # varnished desert pavement, never the yellow sand
         gid[(n3 > 0.7)] = ID['calcrete']                                    # caliche crust showing through, broad
@@ -484,34 +545,37 @@ def plan(bid, F):
         gid[(code == 'H') | (code == '#')] = ID['slickrock']
         gid[(code == '.') & (n3 > 0.62)] = ID['slickrock']                  # bare slickrock sheets in the open, broad
     elif kind == 'pass':
-        gid[:] = ID['scree']                                                # limestone scree
-        gid[(code == '.') & (row >= 2) & (row <= 3)] = ID['gravel']
+        gid[:] = ID['passtan']                                              # buff limestone scree, iron-red in it
+        gid[(code == '.') & (roww >= 2) & (roww <= 3)] = ID['pavement']     # the road's verges, crushed rock gone brown (wandered: never a tile's edge)
         gid[band(25.0, 34.8)] = ID['asphalt'] if bid in ('pass.1', 'pass.2') else gid[band(25.0, 34.8)]
         if bid in ('pass.1', 'pass.2'):
-            gid[band(23.6, 25.0) | band(34.8, 36.2)] = ID['gravel']         # the shoulders
+            gid[band(24.7, 25.0) | band(34.8, 35.3)] = ID['pavement']       # the shoulders (their edges off the grid's lines)
             gid[band(25.25, 25.4) | band(34.4, 34.55)] = ID['paint']         # the fog lines
         gid[mark == 'V'] = ID['tie']                                         # the drop: falling away into its own shadow
     elif kind == 'lakebed':
-        gid[:] = ID['mud']                                                  # the cracked bed
-        gid[code == '.'] = ID['cobble']                                     # the old gravel bar: the firm way through the mud
-        if bid == 'lakebed.2': gid[(row == 0) & (fy > 2.0 + 2.0 * n1)] = ID['mud']
+        gid[:] = ID['lakemud']                                              # the cracked bed, Lake Mead's tan
+        gid[code == '.'] = ID['pavement']                                   # the old gravel bar, varnished brown: the firm way through the mud
+        if bid == 'lakebed.2': gid[(row == 0) & (fy > 2.0 + 2.0 * n1) & (np.abs(xm - 30) > 6)] = ID['lakemud']
         if bid == 'lakebed.3':
             gid[band(36, 48)] = ID['ring']                                  # the white bathtub ring
             gid[band(53.2, 54.0)] = ID['ring']                              # and the second, higher than the lake ever stood (horror)
-            gid[ym < 36] = ID['cobble']; gid[(ym < 24) & (np.abs(xm - 30) < 7)] = ID['concrete']   # the old shore, the launch ramp
-            gid[band(48, 60) & (code == 'w')] = ID['mud']
+            gid[ym < 36] = ID['pavement']; gid[(ym < 24) & (np.abs(xm - 30) < 7)] = ID['concrete']   # the old shore, the launch ramp
+            gid[band(48, 60) & (code == 'w')] = ID['lakemud']
     elif kind == 'wash':
         gid[:] = ID['pavement'] if bid == 'wash.4' else ID['concrete']
-        if bid == 'wash.4':
-            gid[(n3 > 0.62)] = ID['gravel']; gid[mark == 'X'] = ID['gravel']
-        else:
+        if bid == 'wash.4':                                                 # the bank: its gravel patches off every edge (rule 346)
+            far = (np.minimum.reduce([xm, 60.0 - xm, ym, 60.0 - ym]) + 0.8 * wx) > 3.5
+            gid[(n3 > 0.62) & far] = ID['gravel']; gid[mark == 'X'] = ID['gravel']
+        else:                                                               # the channel runs on north and south: its stains off those edges
+            far = (np.minimum(ym, 60.0 - ym) + 0.8 * wy) > 3.5
             gid[code == 'r'] = ID['silt']                                   # the channel's floor: silt over the concrete
-            gid[(code == 'r') & (n2 > 0.5)] = ID['cobble']
-            gid[(code == '.') & (n3 > 0.5)] = ID['oilcrete']                # the channel's sloped concrete, stained
+            gid[(code == 'r') & (n2 > 0.5) & far] = ID['cobble']
+            gid[(code == '.') & (n3 > 0.5) & far] = ID['oilcrete']          # the channel's sloped concrete, stained
     elif kind == 'dump':
         gid[:] = ID['coversoil']                                            # grey cover soil, the trash working up through it
         gid[(code == 'H')] = ID['coversoil']
-        if bid == 'dump.1': gid[band(36.0, 48.0)] = ID['gravel']; gid[(xm > 13) & (xm < 23) & band(25, 35)] = ID['concrete']   # the haul road, the flare's pad
+        gid[band(37.5, 46.5)] = ID['gravel']                                # the haul road, block to block at one row
+        if bid == 'dump.1': gid[(xm > 13) & (xm < 23) & band(25, 35)] = ID['concrete']   # the flare's pad
         gid[mark == 'F'] = ID['tie']                                        # scorched where the gas burns
         gid[(mark == 'C')] = ID['gravel']
     elif kind == 'yards':
@@ -521,27 +585,77 @@ def plan(bid, F):
             for c_ in range(5):
                 if T[r_][c_] == 'r':                                        # the pool's deck round the pit
                     cx_, cy_ = centre(c_, r_); gid[(np.abs(xm - cx_) < 5.6) & (np.abs(ym - cy_) < 4.6)] = ID['concrete']
-    elif kind == 'plaza':
-        gid[:] = ID['marble']                                               # the casino plaza's marble, cracked
-        gid[(n3 > 0.68)] = ID['pooltile']
-        if bid == 'plaza.2':
-            gid[band(12.0, 36.0)] = ID['asphalt']                           # the Boulevard under the bridge
-            gid[band(23.85, 24.15) & ((xm % 6.0) < 3.0)] = ID['paint']; gid[band(12.0, 12.3) | band(35.7, 36.0)] = ID['paint']
-    elif kind == 'fremont':
-        gid[:] = ID['asphalt']                                              # the street and the alleys
-        gid[(code == 'H')] = ID['concrete']
-        gid[(n3 > 0.6) & (code != 'H')] = ID['oilcrete']
-        if bid == 'fremont.1': gid[band(36.0, 37.0) | band(11.0, 12.0)] = ID['concrete']   # the kerbs under the canopy
     elif kind == 'rail':
         gid[:] = ID['oilcrete']                                             # the yard's slab, black with oil
-        trackrows = {'rail.1': [(24.0, 36.0)], 'rail.2': [(0.0, 12.0)]}[bid]
+        trackrows = [(24.0, 36.0)]                                          # every block's spur at the same row: the tracks run on
         for (a, b) in trackrows:
             gid[band(a + 1.5, b - 1.5)] = ID['ballast']; gid[band(a + 3.6, b - 3.6) & ((xm % 0.65) < 0.25)] = ID['tie']
         gid[(code == '#') & ~np.isin(row, [2])] = ID['concrete']
     elif kind == 'basin':
-        gid[:] = ID['mud']                                                  # the marina's dry bed, cracked
+        gid[:] = ID['lakemud']                                              # the marina's dry bed, cracked, Lake Mead's tan
         gid[(n3 > 0.7)] = ID['silt']
+    elif kind == 'blvd':                                                    # Las Vegas Boulevard, north to south down the block
+        wyf = wx * np.clip(np.minimum(ym, 60.0 - ym) / 6.0, 0, 1)            # a wander that dies at the block's north and south edges
+        inner = (np.minimum(ym, 60.0 - ym) + 0.8 * wy) > 4.0                 # off the block's north and south edges (the road runs on)
+        gid[:] = ID['pavement']                                             # the sidewalks' warm pavers, kerb off the grid's lines
+        road = (xm > 10.0) & (xm < 50.0)
+        gid[road] = ID['asphalt']
+        for lx in (15.7, 21.3, 38.7, 44.3): gid[(np.abs(xm - lx) < 0.09) & ((ym % 6.0) < 3.0)] = ID['paint']   # the lane dashes
+        gid[(np.abs(xm - 10.4) < 0.1) | (np.abs(xm - 49.6) < 0.1)] = ID['paint']                         # the edge lines
+        gid[(np.abs(xm - 26.6) < 0.1) | (np.abs(xm - 33.4) < 0.1)] = ID['hazard']                       # the median's yellow lines
+        med = (xm > 27.0) & (xm < 33.0)
+        gid[med] = ID['cobble']                                             # the raised median
+        gid[(n3 > 0.62) & road & ~med & inner] = ID['oilcrete']              # oil where the cars died
+        for ay in DRIVES: gid[(np.abs(ym - ay) < 2.4) & ~road] = ID['asphalt']   # the aprons across both sidewalks, to every drive
+        gid[(np.abs(xm - 30.0 + 0.3 * wyf) < 0.12) & med & inner & (n2 > 0.2)] = ID['gutter']   # the median's crack
+    elif kind in ('stripw', 'stripe'):                                      # a casino frontage: its sidewalk, its drop-off, its forecourt
+        xb = (60.0 - xm) if kind == 'stripw' else xm                       # metres in from the Boulevard's side
+        inner = (np.minimum(ym, 60.0 - ym) + 0.8 * wy) > 4.0
+        wyf = wx * np.clip(np.minimum(ym, 60.0 - ym) / 6.0, 0, 1)
+        gid[:] = ID['pavement']                                             # the Boulevard's warm pavers, carried in to the doors
+        gid[np.abs(xb - 6.3 - 0.2 * wyf) < 0.45] = ID['pooltile']           # the forecourt's teal border band, edge to edge
+        u = ((xb - 30.0) % 6.0) - 3.0; v = (ym % 6.0) - 3.0
+        fore = (xb > 25.6 + 0.5 * wyf) & (xb < 36.0)
+        gid[fore & (np.abs(u) + np.abs(v) < 2.1)] = ID['marble']            # the forecourt's inlaid marble diamonds
+        gid[fore & (np.abs(np.abs(u) + np.abs(v) - 2.35) < 0.2) & inner] = ID['pooltile']   # each one edged in teal
+        lane = (xb > 13.5) & (xb < 22.5) & (ym > 15.6) & (ym < 44.4)        # the drop-off lane between the two drives
+        gid[lane] = ID['asphalt']
+        for ay in DRIVES: gid[(np.abs(ym - ay) < 2.4) & (xb < 22.5)] = ID['asphalt']
+        gid[lane & (np.abs(xb - 18.0) < 0.08) & ((ym % 3.0) < 1.5) & (ym > 21) & (ym < 39)] = ID['paint']
+        gid[lane & (n3 > 0.66) & inner] = ID['oilcrete']
+    elif kind == 'fremont':
+        wyf = wy * np.clip(np.minimum(xm, 60.0 - xm) / 6.0, 0, 1)            # a wander that dies at the block's east and west edges
+        inner = (np.minimum(xm, 60.0 - xm) + 0.8 * wx) > 4.0                 # off its east and west edges (the street runs on)
+        gid[:] = ID['pavement']                                             # Fremont's warm pavers
+        if bid in ('fremont.3', 'fremont.4'):                               # the mall under the canopy: the wave inlaid in grey stone
+            wave = np.abs(((xm + 2.5 * np.sin(ym / 5.0)) % 12.0) - 6.0) < 1.0
+            gid[wave & (ym > 6.0 + wyf) & (ym < 54.0 + wyf)] = ID['cobble']
+            gid[(np.abs(ym - 30.0 - 0.3 * wyf) < 1.1)] = ID['cobble']       # the centre band down the street, edge to edge
+            gid[(n3 > 0.66) & inner & (ym > 8) & (ym < 52)] = ID['oilcrete']
+        if bid in ('fremont.5', 'fremont.6'):                               # the doors' terrazzo under the marquees
+            for c_ in range(5):
+                if T[3][c_] == '.': gid[(np.abs(xm - (c_ * 12 + 6)) < 4.6) & (ym > 15.0) & (ym < 24.0)] = ID['marble']
+            if bid == 'fremont.6': gid[(np.abs(xm - 30) < 5.5) & (ym > 24.0) & (ym < 36.0)] = ID['marble']   # the arcade's floor
+        if bid == 'fremont.7':                                              # the alley behind the south side, edge to edge
+            gid[ym < 11.2 + 0.4 * wyf] = ID['asphalt']; gid[(ym < 11) & (n2 > 0.35)] = ID['oilcrete']
+            gid[(ym < 1.0 + 0.3 * wyf)] = ID['concrete']                    # the alley's far kerb
+    # ONE GROUND AT EVERY EDGE (rule 346: no straight line where two of a place's pictures meet, no colour stopping dead): the
+    # place's base ground in a 3 m margin round the block, its edge wandering, except under a mass and where a road or a track
+    # runs through to the next block (every block of the place carries it at the same place)
+    base = MARGIN.get(kind)
+    if base:
+        dist = np.minimum.reduce([xm, 60.0 - xm, ym, 60.0 - ym]) + 0.8 * wx
+        keep = np.isin(code, ['#', 'H']) | np.isin(gid, [ID['asphalt'], ID['paint']] + [ID[k] for k in THROUGH.get(kind, [])])
+        gid[(dist < 3.0) & ~keep] = ID[base]
     return gid, np.ones((H, W), bool), np.full((H, W), 255, np.uint8), np.zeros((H, W, 3), np.uint8), np.zeros((H, W), bool)
+
+
+GONE = ('plaza.1', 'plaza.2', 'fremont.1', 'fremont.2')                 # rule 346 killed them: graveyard/the_strip_and_downtown_11_3_26/
+DRIVES = (18.0, 42.0)                                                  # the Strip's drives: every frontage and the Boulevard at these rows
+MARGIN = {'lab': 'epoxy', 'apron': 'dustslab', 'golf': 'fairway', 'trailer': 'gravel', 'desert': 'pavement', 'canyon': 'redsand',
+          'pass': 'passtan', 'lakebed': 'lakemud', 'dump': 'coversoil', 'yards': 'deadlawn', 'rail': 'oilcrete', 'basin': 'lakemud'}
+THROUGH = {'golf': ['concrete'], 'rail': ['ballast', 'tie'], 'lakebed': ['ring', 'pavement'], 'desert': ['silt', 'cobble', 'calcrete'],
+           'pass': ['pavement', 'tie'], 'trailer': [], 'apron': ['hazard'], 'dump': ['gravel']}
 
 
 # ---- templates (every face a quad, as the not-final tool's instancer wants) ------------------------------------------
@@ -569,7 +683,9 @@ class Kit:
     def __init__(self, bpy, NF, F, g, h, seed):
         self.bpy, self.NF, self.F, self.g, self.h = bpy, NF, F, g, h
         self.rng = np.random.RandomState(seed); self.M = {}; self.items = {}; self.rocks = {}; self.models = []
-        self.T = {'box': (NF.CUBE_V, NF.CUBE_F), 'cyl': prism(12), 'tube': prism(12, 'x'), 'gable': gable(), 'cyl6': prism(6)}
+        dv = np.array([[0, -0.5, 0], [0.5, -0.5, 0.5], [0, -0.5, 1], [-0.5, -0.5, 0.5], [0, 0.5, 0], [0.5, 0.5, 0.5], [0, 0.5, 1], [-0.5, 0.5, 0.5]], np.float32)
+        df = np.array([[0, 1, 2, 3], [4, 7, 6, 5], [0, 4, 5, 1], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0]], np.int32)
+        self.T = {'box': (NF.CUBE_V, NF.CUBE_F), 'cyl': prism(12), 'tube': prism(12, 'x'), 'gable': gable(), 'cyl6': prism(6), 'diamond': (dv, df)}
     def z(self, x, y):
         F = self.F; ny, nx = self.g.shape
         c = int(round((x + 1.0) / F.STEP)); r = int(round(((F.SIDE + 1.0) - y) / F.STEP))
@@ -877,6 +993,18 @@ def luggage(k, x, y, spread, n):
         k.box('bag%d' % i, bx_, by_, 0.0, k.rng.uniform(0.5, 0.8), k.rng.uniform(0.3, 0.5), k.rng.uniform(0.2, 0.35), k.rng.uniform(0, 3.1))
 
 
+def tug(k, x, y, rz):
+    """a dead baggage tug, its tow bar down"""
+    k.rgb('tugbody', (196, 160, 64), 'clay_mustard'); k.rgb('steel', (140, 142, 140), 'chrome'); k.rgb('tyre', (34, 32, 31), 'rubber')
+    k.box('tugbody', x, y, 0.2, 3.4, 2.0, 1.5, rz); k.line('steel', x + 1.5 * math.cos(rz), y + 1.5 * math.sin(rz), x + 4.5 * math.cos(rz), y + 4.5 * math.sin(rz), 0.12, 0.12, 0.4)
+
+
+def loader(k, x, y, rz):
+    """a belt loader, its belt up to a hold that is not there"""
+    k.rgb('belt', (52, 52, 52), 'rubber'); k.rgb('tugbody', (196, 160, 64), 'clay_mustard')
+    k.box('tugbody', x, y, 0.3, 4.0, 2.0, 1.0, rz); k.box('belt', x, y, 1.3, 7.5, 0.9, 0.12, rz, -0.25)
+
+
 def bag_cart(k, x, y, rz, n=4):
     k.rgb('cartframe', (120, 124, 122), 'tape_grey'); k.rgb('cartroof', (196, 166, 70), 'clay_mustard'); k.rgb('tyre', (34, 32, 31), 'rubber')
     k.rgb('tugbody', (196, 160, 64), 'clay_mustard')
@@ -932,6 +1060,17 @@ def things_apron(k, bid):
         bag_cart(k, 44.5, 18.0, 0.0, 3); bag_cart(k, 25.5, 18.5, 0.05, 4)   # two cart trains across row 3, c1 to c3
         k.rgb('chock', (196, 158, 62), 'clay_mustard')
         for (cx, cy) in ((50, 50), (52, 48), (6, 6)): k.box('chock', cx, cy, 0.0, 0.5, 0.3, 0.25)
+    elif bid == 'apron.4':                                         # rule 346: the stands, COOK PROPS' fuel truck and baggage train
+        k.model('airport.fuel_truck', *centre(1, 1), quarter=0)    # the fuel truck left at its stand (c1, row 1)
+        k.model('airport.baggage', 48.0, 18.0, 0)                  # the baggage train dead across c3-c4, row 3
+        k.rgb('cone', (190, 96, 50), 'clay_rust'); k.rgb('chock', (196, 158, 62), 'clay_mustard')
+        for (cx, cy) in ((4, 44), (20, 46), (33, 8), (40, 30)): k.put('cyl6', 'cone', cx, cy, 0.0, 0.4, 0.4, 0.7)
+        for (cx, cy) in ((12, 38), (14, 38)): k.box('chock', cx, cy, 0.0, 0.5, 0.3, 0.25)
+        for (c, r) in ((3, 1), (4, 2), (1, 4)):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if pc == 'apron_tug': tug(k, x, y, k.rng.uniform(0, 3.1))
+            elif pc == 'apron_loader': loader(k, x, y, 0.4)
+        luggage(k, 30.0, 26.0, 5.0, 14)
     elif bid == 'apron.3':
         k.rgb('mull', (92, 96, 98), 'tape_grey'); k.rgb('tglass', (66, 84, 92), 'glass_eye'); k.rgb('tconc', (176, 172, 162), 'clay_bone')
         k.box('tconc', 30.0, 55.0, 0.0, 60.2, 10.0, 8.4)            # the terminal (row 0): two storeys of glass and concrete
@@ -1095,15 +1234,15 @@ def things_trailer(k, bid):
         k.box('dark', 6.0, 48.7, 0.0, 1.2, 0.05, 2.1)
         for i in range(3): k.box('glass', 12 + i * 3.5, 48.7, 1.2, 2.0, 0.05, 1.2)
         k.cyl('steel', 2.0, 46.5, 0.0, 0.15, 4.5); k.box('sign', 2.0, 46.5, 4.0, 3.2, 0.2, 1.4)   # the park's sign
-        cx, cy = centre(3, 2); k.box('laundry', cx, cy, 0.0, 9.0, 7.0, 3.0); k.roof('troof', cx, cy, 3.0, 9.6, 7.6, 1.0)
+        cx, cy = centre(3, 1); k.box('laundry', cx, cy, 0.0, 9.0, 7.0, 3.0); k.roof('troof', cx, cy, 3.0, 9.6, 7.6, 1.0)
         k.box('dark', cx - 2.0, cy - 3.52, 0.0, 1.2, 0.05, 2.1)
         k.model('trailer.trailer', 24.0, 18.0, 0)                        # a single-wide east to west across row 3, c1-c2
         for (c, r) in ((2, 1), (4, 1)): k.model('trailer.propane', *centre(c, r), quarter=int(k.rng.randint(4)))
         k.model('trailer.clothesline', *centre(3, 4))
-        k.rgb('mailbox', (150, 152, 150), 'chrome'); x, y = centre(1, 2)
+        k.rgb('mailbox', (150, 152, 150), 'chrome'); x, y = centre(1, 2); y += 4.6           # the mailboxes on the lane's verge
         for i in range(3): k.box('mailbox', x - 2 + i * 2, y, 0.0, 1.8, 0.5, 1.4)
-        k.rgb('dumpster', (66, 86, 98), 'clay_teal'); x, y = centre(0, 2)
-        for i in range(2): k.box('dumpster', x - 1.5 + i * 3.4, y + 1, 0.0, 3.0, 1.8, 1.4, 0.1 * i)
+        k.rgb('dumpster', (66, 86, 98), 'clay_teal'); x, y = centre(0, 2); y -= 5.0            # the bins on the far verge
+        for i in range(2): k.box('dumpster', x - 1.5 + i * 3.4, y, 0.0, 3.0, 1.6, 1.4, 0.1 * i)
         k.scatter('board', x - 4, x + 4, y - 4, y + 4, 12, 0.2, 0.5, 0.3)
         junk(4, 3); junk(1, 4)
 
@@ -1356,44 +1495,9 @@ def things_yards(k, bid):
     else: k.model('suburbs.swing', *centre(2, 4), quarter=0); k.model('suburbs.trampoline', *centre(0, 2))
 
 
-def things_plaza(k, bid):
-    k.rgb('planter', (196, 190, 178), 'tape_grey'); k.rgb('trunk', (120, 104, 80), 'clay_bone'); k.rgb('frond_d', (92, 80, 58), 'clay_bone')
-    B = BLOCKS[bid]
-    for r in range(5):
-        for c in range(5):
-            x, y = centre(c, r); pc = piece_of(bid, c, r)
-            if pc == 'strip_planter':                                           # a marble planter, its palm dead in it
-                k.box('planter', x, y, 0.0, 3.0, 3.0, 0.9); k.cyl('trunk', x, y, 0.9, 0.5, 7.0)
-                for i in range(10): a = i * 0.63; k.rock('frond_d', x + 0.5 * math.cos(a), y + 0.5 * math.sin(a), 0.8, 2.0, z=5.4)
-            elif pc == 'strip_fountain': k.model('strip.fountain', x, y, 0)
-    if bid == 'plaza.1':
-        k.model('strip.sign', 24.0, 42.0, 0); k.model('strip.limo', *centre(3, 3), quarter=0)
-    else:
-        k.model('strip.bridge', 30.0, 36.0, 1); k.model('strip.limo', *centre(1, 3), quarter=0)
-
-
-def things_fremont(k, bid):
-    k.rgb('brick', (132, 84, 64), 'clay_rust'); k.rgb('brick_d', (100, 64, 50), 'clay_rust'); k.rgb('roofg', (120, 116, 108), 'tape_grey')
-    B = BLOCKS[bid]; T = B['tiles']
-    for r in range(5):
-        for c in range(5):
-            x, y = centre(c, r); pc = piece_of(bid, c, r)
-            if T[r][c] in 'H#':                                                # a three-storey brick back
-                k.box('brick' if (c + r) % 2 else 'brick_d', x, y + 0.6, 0.0, 11.8, 10.6, 9.0); k.box('roofg', x, y + 0.6, 9.0, 12.0, 10.8, 0.3)
-                if T[r][c] == 'H': k.model('downtown.fire_escape', x, y - 5.0, 0)   # only a back with a fire escape is climbed (honest grid)
-                else:
-                    k.rgb('win', (40, 44, 48), 'glass_eye'); k.rgb('door', (70, 64, 58), 'rubber')
-                    for i in range(3):
-                        for j in range(2): k.box('win', x - 3.5 + i * 3.5, y - 4.72, 2.5 + j * 3.0, 1.0, 0.05, 1.4)
-                    k.box('door', x + 3.5, y - 4.72, 0.0, 2.6, 0.06, 2.6)      # a roller door, shut
-            elif pc == 'downtown_dumpsters': k.model('downtown.dumpsters', x, y, int(k.rng.randint(4)))
-    if bid == 'fremont.1':
-        k.model('downtown.canopy', 24.0, 42.0, 0); k.model('downtown.deuce', 36.0, 30.0, 0)
-
-
 def things_rail(k, bid):
     k.rgb('rail', (170, 172, 174), 'chrome')
-    for (a, b) in {'rail.1': [(24.0, 36.0)], 'rail.2': [(0.0, 12.0)]}[bid]:
+    for (a, b) in [(24.0, 36.0)]:
         for v in (-0.72, 0.72): k.box('rail', 30.0, (a + b) / 2 + v, 0.1, 60.0, 0.08, 0.16)
     B = BLOCKS[bid]
     for r in range(5):
@@ -1404,7 +1508,7 @@ def things_rail(k, bid):
         k.model('works.boxcar', 12.0, 30.0, 0); k.model('works.tankcar', 48.0, 30.0, 0); k.model('works.gantry', 24.0, 18.0, 0)
         k.model('works.machines', *centre(4, 0))
     else:
-        k.model('works.machines', *centre(1, 1)); k.model('works.machines', *centre(3, 3), quarter=2); k.model('works.boxcar', 36.0, 6.0, 0)
+        k.model('works.machines', *centre(1, 1)); k.model('works.machines', *centre(3, 4), quarter=2); k.model('works.boxcar', 36.0, 30.0, 0)
 
 
 def things_basin(k, bid):
@@ -1418,9 +1522,261 @@ def things_basin(k, bid):
     k.rgb('mudrock', (140, 132, 118), 'tape_grey'); k.scatter('mudrock', 0, 60, 0, 60, 30, 0.2, 0.6, 0.5)
 
 
+def dead_palm(k, x, y, hgt):
+    k.rgb('ptrunk', (120, 104, 80), 'clay_bone'); k.rgb('pfrond', (112, 92, 64), 'clay_bone'); k.rgb('pfrond_d', (84, 70, 52), 'clay_bone')
+    k.cyl('ptrunk', x, y, 0.0, 0.55, hgt)
+    for i in range(12):                                                      # the dead fronds hang in a skirt under where the crown was
+        a = i * 0.52; k.rock('pfrond' if i % 2 else 'pfrond_d', x + 0.6 * math.cos(a), y + 0.6 * math.sin(a), 0.9, 2.2, z=hgt - 2.6)
+
+
+def car(k, x, y, rz, body=(150, 146, 140), cab=False, wreck=False):
+    """a sedan (or a cab: yellow, its roof sign): body, cabin glass, wheels"""
+    nm = 'car_%d_%d_%d' % body; k.rgb(nm, body, 'tape_grey'); k.rgb('glass', (40, 48, 52), 'glass_eye'); k.rgb('tyre', (34, 32, 31), 'rubber')
+    ca, sa = math.cos(rz), math.sin(rz); P = lambda u, v: (x + u * ca - v * sa, y + u * sa + v * ca)
+    k.box(nm, x, y, 0.3, 4.6, 1.85, 0.75, rz, 0.06 if wreck else 0.0)
+    cx, cy = P(-0.2, 0); k.box(nm, cx, cy, 1.05, 2.4, 1.7, 0.5, rz); k.box('glass', cx, cy, 1.06, 2.2, 1.72, 0.42, rz)
+    for (u, v) in ((-1.45, -0.92), (1.45, -0.92), (-1.45, 0.92), (1.45, 0.92)):
+        tx, ty = P(u, v); k.tube('tyre', tx, ty, 0.0, 0.25, 0.64, rz + math.pi / 2)
+    if cab: k.rgb('cabsign', (226, 220, 200), 'tape_grey'); k.box('cabsign', cx, cy, 1.55, 0.9, 0.3, 0.3, rz)
+
+
+def tower(k, x0, x1, y0, y1, hgt, wall, glass, band, roof, storey=3.2, letters=None, pool=False):
+    """a casino's mass on its own tiles, its south face to the camera: storeys of glass between bands of wall, a gold crown,
+    its roof plant; dead neon letters standing on the roof's south edge; a rooftop pool"""
+    cx, cy, w = (x0 + x1) / 2, (y0 + y1) / 2, x1 - x0
+    k.rgb('hvac', (160, 162, 160), 'chrome'); k.rgb('poolw', (88, 150, 150), 'clay_teal')
+    k.box(wall, cx, cy, 0.0, w, y1 - y0, hgt); k.box(roof, cx, cy, hgt, w + 0.3, y1 - y0 + 0.3, 0.3)
+    fy = y0 - 0.06
+    k.box(band, cx, fy, 0.0, w, 0.1, 5.0)                                  # the podium's gold fascia, the doors' storey
+    for i in range(int((hgt - 7.0) // storey)):                            # the glass storeys between the wall's bands
+        k.box(glass, cx, fy - 0.02, 6.0 + i * storey, w - 0.8, 0.08, storey - 0.9)
+    k.box(band, cx, fy - 0.04, hgt - 1.2, w + 0.2, 0.12, 1.2)                # the crown
+    rng = k.rng
+    for i in range(int(w // 9)):
+        k.box('hvac', x0 + 4 + i * 9 + rng.uniform(-1, 1), cy + rng.uniform(-8, 8), hgt + 0.3, 2.6, 2.0, 1.3)
+    if pool:                                                               # the rooftop pool, its water still standing, gone green
+        k.rgb('pooldeck', (214, 210, 196), 'tape_grey')
+        k.box('pooldeck', cx, y0 + 10.0, hgt + 0.3, min(w - 2, 18.0), 10.0, 0.2); k.box('poolw', cx, y0 + 10.0, hgt + 0.5, min(w - 6, 13.0), 5.5, 0.06)
+    if letters:                                                            # the name on its frame, every letter dead
+        k.rgb('ltr', letters, 'clay_rust'); k.rgb('lframe', (90, 90, 92), 'rubber')
+        n = max(4, int(w // 3.4)); k.box('lframe', cx, y0 + 1.5, hgt + 0.3, w - 2.0, 0.3, 0.5)
+        for i in range(n): k.box('ltr', x0 + 1.8 + i * (w - 3.6) / (n - 1), y0 + 1.4, hgt + 0.8, 2.2, 0.35, 3.4 if i % 3 else 2.8)
+
+
+def front(k, x0, x1, y0, y1, hgt, wall, sign, neon, bulbs=True):
+    """a Fremont casino front on its own tiles, its face to the street and the camera: the sign band with its dead letters,
+    the windows over it, the cornice"""
+    cx, cy, w = (x0 + x1) / 2, (y0 + y1) / 2, x1 - x0
+    k.rgb('roofg', (120, 116, 108), 'tape_grey'); k.rgb('win', (40, 44, 48), 'glass_eye'); k.rgb('fdark', (30, 28, 27), 'rubber')
+    k.rgb('signc', sign, 'clay_mustard'); k.rgb('neonc', neon, 'clay_rust')
+    k.box(wall, cx, cy, 0.0, w, y1 - y0, hgt); k.box('roofg', cx, cy, hgt, w + 0.2, y1 - y0 + 0.2, 0.3)
+    fy = y0 - 0.06
+    k.box('fdark', cx, fy, 0.0, w - 0.6, 0.08, 4.6)                        # the ground floor's dark glass, the doors behind it
+    k.box('signc', cx, fy - 0.1, 5.4, w, 0.2, 3.4)                          # the sign band
+    n = max(3, int(w // 2.2))
+    for i in range(n): k.box('neonc', x0 + 1.2 + i * (w - 2.4) / max(1, n - 1), fy - 0.25, 5.9, 1.3, 0.12, 2.4)   # its dead letters
+    if bulbs:
+        k.rgb('bulb', (210, 190, 130), 'clay_mustard')
+        for i in range(int(w // 0.9)): k.box('bulb', x0 + 0.45 + i * 0.9, fy - 0.3, 9.0, 0.22, 0.12, 0.22)
+    for j in range(int((hgt - 11.0) // 3.2)):                              # the windows over it
+        for i in range(int(w // 3.0)): k.box('win', x0 + 1.5 + i * 3.0, fy - 0.02, 10.8 + j * 3.2, 1.4, 0.06, 1.8)
+    k.box(wall, cx, fy - 0.3, hgt - 1.0, w + 0.4, 0.6, 1.0)                 # the cornice
+
+
+def slots(k, x, y, n=8):
+    k.rgb('slotcab', (120, 30, 34), 'clay_rust'); k.rgb('slotscr', (30, 34, 38), 'glass_eye'); k.rgb('slottop', (196, 170, 90), 'clay_mustard')
+    for i in range(n):
+        sx, sy, a = x + k.rng.uniform(-4, 4), y + k.rng.uniform(-4, 4), k.rng.uniform(0, 3.1)
+        tip = 1.45 if i % 3 == 0 else 0.0
+        k.box('slotcab', sx, sy, 0.0, 0.8, 0.7, 1.7, a, tip); k.box('slotscr', sx, sy, 0.9 if not tip else 0.36, 0.6, 0.72, 0.5, a, tip)
+        if not tip: k.box('slottop', sx, sy, 1.7, 0.82, 0.72, 0.15, a)
+
+
+def planter(k, x, y, palm=True):
+    k.rgb('planter', (196, 190, 178), 'tape_grey'); k.box('planter', x, y, 0.0, 2.6, 2.6, 0.8)
+    if palm: dead_palm(k, x, y, k.rng.uniform(8.0, 11.0))
+
+
+def streetlight(k, x, y, arms=(-1, 1)):
+    k.rgb('pole', (110, 112, 112), 'chrome'); k.cyl('pole', x, y, 0.0, 0.32, 11.0)
+    for a in arms: k.box('pole', x + a * 1.8, y, 10.6, 3.6, 0.22, 0.22); k.box('pole', x + a * 3.4, y, 10.2, 0.9, 0.5, 0.35)
+
+
+def things_blvd(k, bid):
+    k.rgb('dark', (26, 24, 23), 'rubber'); k.rgb('steel', (140, 142, 140), 'chrome')
+    T = BLOCKS[bid]['tiles']
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if pc == 'strip_planter': planter(k, x + (-1.0 if c == 0 else 1.0 if c == 4 else 0.0), y + k.rng.uniform(-2, 2), palm=(c != 2 or r % 2 == 0))
+            elif pc == 'strip_car':                                         # a cab and a wreck in the lane, nose to tail where they died
+                yel = (c + r) % 2 == 0
+                car(k, x - 1.6, y + 2.4, math.pi / 2 + k.rng.uniform(-0.25, 0.25), (226, 190, 60) if yel else (150, 40, 36), cab=yel)
+                car(k, x + 1.9, y - 2.6, math.pi / 2 + k.rng.uniform(-0.7, 0.7), (96, 104, 112), wreck=True)
+    for yy in (0.0, 12.0, 24.0, 36.0, 48.0):                                 # the median's lights, dead, every tile
+        if not (bid == 'blvd.1' and yy in (24.0, 0.0)): streetlight(k, 30.0, yy + 3.0)
+    if bid == 'blvd.1':
+        k.model('strip.bridge', 21.0, 30.0, 0)                               # COOK PROPS' bridge, kerb to median, two storeys up (c1-c2, row 2)
+        k.rgb('pier', (186, 180, 168), 'tape_grey')
+        k.box('pier', 31.0, 30.0, 0.0, 2.4, 2.4, 6.6)                       # its pier in the median
+        k.box('pier', 6.5, 30.0, 0.0, 6.0, 5.0, 7.2); k.rgb('stair', (70, 74, 78), 'rubber')   # its stair tower on the sidewalk
+        for i in range(8): k.box('stair', 6.5, 27.2 + i * 0.7, 0.4 + i * 0.85, 5.0, 0.6, 0.12)
+        k.model('strip.limo', *centre(1, 3), quarter=1)                     # their limo dead in the lane, under the bridge
+        # the Welcome sign in the median: its diamond on two posts, the white face, the red rim, its circles and dead bulbs
+        wx_, wy_ = centre(2, 4); k.rgb('wsign', (232, 228, 214), 'tape_grey'); k.rgb('wrim', (190, 70, 52), 'clay_rust'); k.rgb('wteal', (70, 110, 118), 'clay_teal')
+        k.rgb('wbulb', (210, 186, 120), 'clay_mustard'); k.rgb('wbase', (196, 190, 178), 'tape_grey')
+        k.box('wbase', wx_, wy_, 0.0, 5.2, 2.6, 1.0)
+        for v in (-1.6, 1.6): k.cyl('steel', wx_ + v, wy_, 1.0, 0.28, 2.6)
+        k.put('diamond', 'wrim', wx_, wy_, 3.0, 7.6, 0.3, 4.8); k.put('diamond', 'wsign', wx_, wy_ - 0.12, 3.25, 6.9, 0.3, 4.3)
+        for i in range(7): k.tube('wteal' if i % 2 else 'wrim', wx_ - 2.4 + i * 0.8, wy_ - 0.32, 5.3, 0.06, 0.62, math.pi / 2)
+        for i in range(16): a = i * 0.39; k.tube('wbulb', wx_ + 3.1 * math.cos(a), wy_ - 0.34, 5.35 + 1.8 * math.sin(a), 0.06, 0.2, math.pi / 2)
+        k.box('wrim', wx_, wy_ - 0.3, 3.8, 3.4, 0.08, 0.5); k.box('wteal', wx_, wy_ - 0.3, 6.8, 2.2, 0.08, 0.35)
+    else:                                                                    # the tour bus on its side across two lanes (c1, rows 3-4)
+        k.rgb('bus', (206, 204, 196), 'tape_grey'); k.rgb('busband', (150, 54, 50), 'clay_rust'); k.rgb('glass', (40, 48, 52), 'glass_eye')
+        k.box('bus', 18.0, 12.0, 0.0, 2.6, 12.4, 3.2, 0.05, 1.45); k.box('busband', 18.7, 12.0, 0.5, 0.4, 12.2, 2.4, 0.05, 1.45)
+        k.box('glass', 19.4, 12.0, 0.3, 0.2, 11.0, 1.2, 0.05, 1.45)
+
+
+def things_strip_front(k, bid):
+    """a casino frontage, from the Boulevard out: xb is metres in from the Boulevard's side (the west frontage mirrored)"""
+    k.rgb('dark', (26, 24, 23), 'rubber'); k.rgb('steel', (140, 142, 140), 'chrome'); k.rgb('brass', (196, 160, 80), 'clay_mustard')
+    west = bid.startswith('stripw'); X = (lambda xb: 60.0 - xb) if west else (lambda xb: xb)
+    T = BLOCKS[bid]['tiles']
+    if west:                                                                 # the west house: bone stone, amber glass, its gold
+        k.rgb('wallA', (186, 160, 126), 'clay_bone'); k.rgb('glassA', (200, 166, 92), 'chrome'); k.rgb('bandA', (214, 178, 96), 'clay_mustard')
+        k.rgb('roofA', (164, 146, 120), 'clay_bone'); ltr = (150, 54, 50); hgt = {'stripw.1': 24.0, 'stripw.2': 21.0, 'stripw.3': 27.0}[bid]
+    else:                                                                    # the east house: the pink tower, teal glass, white crown
+        k.rgb('wallA', (204, 140, 146), 'clay_rust'); k.rgb('glassA', (64, 108, 116), 'clay_teal'); k.rgb('bandA', (232, 226, 214), 'tape_grey')
+        k.rgb('roofA', (176, 150, 150), 'clay_rust'); ltr = (70, 110, 118); hgt = {'stripe.1': 30.0, 'stripe.2': 27.0}[bid]
+    masscols = [c for c in range(5) if all(T[r][c] == '#' for r in range(5))]
+    xa, xz = min(c * 12.0 for c in masscols), max((c + 1) * 12.0 for c in masscols)
+    tower(k, xa + 0.4, xz - 0.4, 0.4, 59.6, hgt, 'wallA', 'glassA', 'bandA', 'roofA', letters=ltr if not bid.endswith('.1') else None, pool=bid.endswith('.1'))
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if T[r][c] == '#' and c not in masscols and bid != 'stripe.1':  # an LED pylon by the sidewalk, its dead screen to the street
+                k.rgb('ledframe', (60, 60, 64), 'rubber'); k.rgb('ledface', (34, 38, 44), 'glass_eye'); k.rgb('ledpix', (90, 130, 140), 'clay_teal')
+                px_ = X(20.0); hg = 13.0 if r == 1 else 11.0
+                k.box('ledframe', px_, y, 0.0, 3.6, 3.6, 2.6); k.box('ledframe', px_, y, 2.6, 1.6, 1.6, hg - 7.6)
+                k.box('ledframe', px_, y, hg - 5.2, 9.6, 1.0, 5.6); k.box('ledface', px_, y - 0.56, hg - 4.8, 9.0, 0.05, 4.8)
+                for i in range(5): k.box('ledpix', px_ - 3.6 + i * 1.8, y - 0.6, hg - 2.6 - (i % 2) * 1.2, 0.5, 0.04, 0.4)
+            if pc == 'strip_planter': planter(k, x, y)
+            elif pc == 'strip_entrance':                                    # the vestibule out of the casino's face: dark glass, brass, a gold lid
+                ex = X(34.4); k.box('dark', ex, y, 0.0, 3.2, 8.0, 3.4)
+                for v in (-4.0, 4.0): k.box('brass', X(32.7), y + v, 0.0, 0.4, 0.4, 3.6)
+                k.box('bandA', X(34.0), y, 3.4, 4.4, 9.0, 0.4); slots(k, X(28.0), y, 3)
+            elif pc == 'strip_slots': slots(k, x, y, 9)
+            elif pc == 'strip_fountain': k.model('strip.fountain', x, y, 0)
+            elif pc == 'strip_car':                                         # the valet's last cars, nose in, keys still in the box
+                for i, col_ in enumerate(((150, 30, 34), (20, 20, 22), (226, 222, 214))):
+                    car(k, x - 3.4 + i * 3.4, y + k.rng.uniform(-0.4, 0.4), math.pi / 2 + k.rng.uniform(-0.08, 0.08), col_)
+    if bid.endswith('.1'):                                                   # the porte-cochere over the drop-off: posts, the canopy, its dead marquee
+        k.rgb('pcanopy', (232, 228, 216), 'tape_grey'); k.rgb('pled', (40, 40, 44), 'glass_eye')
+        for v in (26.0, 36.0, 46.0):
+            for u in (13.2, 22.8): k.cyl('steel', X(u), v, 0.0, 0.55, 6.0)
+        k.box('pcanopy', X(18.0), 36.0, 6.0, 11.0, 22.4, 0.6); k.box('bandA', X(18.0), 36.0, 6.6, 11.2, 22.6, 0.45)
+        k.box('pled', X(18.0), 24.7, 6.2, 9.0, 0.2, 1.4)
+        k.rgb('luggage', (150, 60, 44), 'clay_rust')
+        for i in range(3): k.box('steel', X(24.0), 27.0 + i * 3.0, 0.3, 1.0, 1.8, 0.1); k.box('luggage', X(24.0), 27.0 + i * 3.0, 0.4, 0.7, 0.5, 0.45)
+    if bid == 'stripe.1': k.model('strip.sign', 24.0, 18.0, 0)              # COOK PROPS' arrow sign fallen across the drive (c1-c2, row 3)
+    if bid == 'stripw.1': car(k, X(17.5), 40.0, math.pi / 2 + 0.1, (226, 190, 60), cab=True)   # a cab left at the drop-off
+    if bid == 'stripe.2': car(k, X(18.0), 20.0, math.pi / 2 - 0.15, (20, 20, 22))
+    if bid == 'stripw.3':                                                   # the valet stand on the drop-off and its key box, open
+        k.rgb('podium', (120, 30, 34), 'clay_rust'); k.box('podium', X(23.4), 30.0, 0.0, 1.0, 1.4, 1.2); k.box('brass', X(23.4), 31.2, 0.0, 0.4, 0.6, 1.6)
+        k.rgb('rope', (150, 30, 34), 'clay_rust')
+        for i in range(4): k.cyl('brass', X(23.6), 22.0 + i * 2.6, 0.0, 0.18, 1.0)
+        for i in range(3): k.line('rope', X(23.6), 22.0 + i * 2.6, X(23.6), 24.6 + i * 2.6, 0.06, 0.06, 0.8)
+
+
+def vegas_vic(k, x, y, hgt=14.0):
+    """the cowboy sign: a steel lattice tower, the flat cowboy on it, his arm up, his cigarette, the neon dead"""
+    k.rgb('vic', (226, 214, 186), 'tape_grey'); k.rgb('vicshirt', (180, 70, 50), 'clay_rust'); k.rgb('vichat', (230, 226, 214), 'tape_grey')
+    k.rgb('lattice', (120, 122, 120), 'tape_grey')
+    for (u, v) in ((-1.4, -1.0), (1.4, -1.0), (-1.4, 1.0), (1.4, 1.0)): k.cyl('lattice', x + u, y + v, 0.0, 0.25, hgt * 0.45)
+    for i in range(5): k.box('lattice', x, y, i * hgt * 0.09, 3.0, 2.2, 0.15)
+    z = hgt * 0.45
+    k.box('vicshirt', x, y, z + 3.0, 2.6, 0.4, 3.2); k.box('vic', x, y, z, 2.2, 0.4, 3.0)          # his jeans, his shirt
+    k.box('vic', x, y, z + 6.2, 1.4, 0.4, 1.6); k.box('vichat', x, y, z + 7.8, 3.4, 0.5, 0.5); k.box('vichat', x, y, z + 8.3, 1.6, 0.5, 1.0)
+    k.box('vicshirt', x + 1.8, y, z + 5.0, 0.6, 0.4, 3.2, 0.0, 0.0)                                  # the arm up, waving
+    k.box('vic', x - 1.8, y, z + 3.6, 0.6, 0.4, 2.2)
+
+
+def things_fremont(k, bid):
+    k.rgb('dark', (26, 24, 23), 'rubber'); k.rgb('steel', (140, 142, 140), 'chrome'); k.rgb('brass', (196, 160, 80), 'clay_mustard')
+    T = BLOCKS[bid]['tiles']
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if pc == 'downtown_kiosk':
+                k.rgb('kiosk', (150, 60, 44), 'clay_rust'); k.rgb('kioskt', (214, 178, 96), 'clay_mustard')
+                k.box('kiosk', x, y, 0.0, 3.4, 2.4, 2.4); k.roof('kioskt', x, y, 2.4, 3.8, 2.8, 0.7)
+            elif pc == 'downtown_slots': slots(k, x, y, 6)
+            elif pc == 'downtown_dumpsters':
+                k.model('downtown.dumpsters', x, y + 1.5, 0)
+                k.rgb('trash', (88, 82, 70), 'clay_bone'); k.scatter('trash', x - 5, x + 5, y - 4, y + 4, 10, 0.3, 0.8, 0.4)
+            elif pc == 'downtown_entrance':                                 # the doors under the marquee: dark glass, brass, a bulbed lid
+                k.box('dark', x, 22.9, 0.0, 8.4, 2.0, 3.6)
+                for u in (-4.4, 4.4): k.box('brass', x + u, 22.0, 0.0, 0.5, 0.5, 4.2)
+                k.rgb('marq', (44, 40, 42), 'rubber'); k.rgb('bulb', (210, 190, 130), 'clay_mustard')
+                k.box('marq', x, 21.6, 4.2, 10.4, 3.2, 1.2)
+                for i in range(15): k.box('bulb', x - 4.9 + i * 0.7, 19.95, 4.5, 0.2, 0.1, 0.2)
+    if bid in ('fremont.5', 'fremont.6'):                                   # the north side's fronts, to the street and the camera
+        pal = [((176, 150, 120), (206, 170, 90), (150, 54, 50)), ((120, 56, 48), (226, 214, 186), (196, 170, 90)),
+               ((70, 96, 104), (214, 178, 96), (190, 70, 52)), ((196, 186, 164), (150, 54, 50), (70, 110, 118))]
+        runs = [(0, 2), (2, 3), (3, 5)] if bid == 'fremont.5' else [(0, 2), (2, 3), (3, 5)]
+        for i, (c0, c1) in enumerate(runs):
+            w_, sg, ne = pal[(i + (1 if bid == 'fremont.6' else 0)) % 4]; nm = 'fw_%d' % i; k.rgb(nm, w_, 'clay_bone')
+            y0 = 36.4 if (bid == 'fremont.6' and c0 == 2) else 24.4
+            front(k, c0 * 12.0 + 0.2, c1 * 12.0 - 0.2, y0, 59.8, [20.0, 25.0, 18.0][i], nm, sg, ne)
+            if bid == 'fremont.6' and c0 == 2:                               # the arcade's mouth: the two sides of it, its gold lid
+                k.box(nm, 24.6, 30.0, 0.0, 1.2, 12.0, 6.0); k.box(nm, 35.4, 30.0, 0.0, 1.2, 12.0, 6.0)
+                k.box('brass', 30.0, 24.6, 5.0, 11.6, 1.2, 1.2)
+        for c in range(5):
+            if T[3][c] == '#':                                               # the pillars between the doors, their neon strips
+                x, y = centre(c, 3); k.rgb('pil', (90, 84, 80), 'clay_bone'); k.rgb('pneon', (150, 54, 50), 'clay_rust')
+                k.box('pil', x, 18.5, 0.0, 9.0, 9.0, 7.0); k.box('pneon', x, 13.9, 1.0, 0.4, 0.1, 5.6)
+    if bid == 'fremont.7':                                                  # the south side: the shops' roofs, the backs, the alley
+        rc = [(70, 68, 66), (150, 110, 80), (110, 70, 56), (176, 166, 146), (84, 92, 96), (132, 120, 104)]
+        cuts = [0.0, 8.5, 19.0, 30.5, 41.5, 52.0, 60.0]                       # the shops' party walls, never on the grid's lines
+        for i in range(6):
+            nm = 'shop_%d' % i; k.rgb(nm, rc[i], 'clay_bone')
+            k.box(nm, (cuts[i] + cuts[i + 1]) / 2, 42.0, 0.0, cuts[i + 1] - cuts[i] - 0.15, 11.6, 3.4)   # row 1: the shops, one storey
+        k.rgb('back', (132, 84, 64), 'clay_rust'); k.rgb('back_d', (104, 70, 56), 'clay_rust')
+        tars = [(214, 208, 196), (96, 92, 88), (156, 100, 70), (190, 176, 150), (120, 128, 126)]
+        k.rgb('win', (40, 44, 48), 'glass_eye'); k.rgb('rdoor', (150, 146, 136), 'chrome')
+        for c in range(5):                                                   # rows 2-3: the casinos' backs, three storeys
+            nm = 'back' if c % 2 else 'back_d'; x = c * 12.0 + 6.0
+            k.rgb('tar_%d' % c, tars[c], 'tape_grey')
+            k.box(nm, x, 24.0, 0.0, 11.9, 23.6, 9.0); k.box('tar_%d' % c, x, 24.0, 9.0, 12.0, 23.8, 0.25)
+            k.rgb('hvac', (160, 162, 160), 'chrome'); k.box('hvac', x + k.rng.uniform(-3, 3), 28.0 + k.rng.uniform(-4, 6), 9.25, 2.4, 1.8, 1.1)
+            if c != 2:
+                for i in range(3): k.box('win', x - 3.6 + i * 3.6, 12.13, 4.6, 1.4, 0.06, 1.6)
+                k.box('rdoor', x, 12.12, 0.0, 4.2, 0.06, 3.2)                # a roller door, shut
+        k.model('downtown.fire_escape', 30.0, 11.0, 0)                       # the only way up: the fire escape over the alley (c2)
+        k.rgb('tank', (120, 96, 72), 'clay_rust')
+        for (x, y) in ((8.0, 30.0), (46.0, 20.0)): k.cyl('tank', x, y, 9.2, 3.2, 3.2); k.roof('tank', x, y, 12.4, 3.4, 3.4, 1.0)
+        k.rgb('rsign', (214, 178, 96), 'clay_mustard'); k.rgb('rframe', (90, 90, 92), 'rubber')   # an old rooftop sign over the backs, dead
+        k.box('rframe', 24.0, 16.0, 9.2, 14.0, 0.4, 0.4)
+        for i in range(6): k.box('rsign', 18.0 + i * 2.4, 16.0, 9.6, 1.8, 0.3, 3.0)
+        k.rgb('spray', (190, 70, 52), 'clay_rust'); k.box('spray', 44.0, 12.15, 0.6, 5.0, 0.04, 1.4)   # the alley's paint
+    if bid in ('fremont.3', 'fremont.4'):                                   # COOK PROPS' canopy, bay after bay down the street's middle,
+        for bx in (7.5, 22.5, 37.5, 52.5): k.model('downtown.canopy', bx, 26.0, 0)   # its screens to the camera (columns pair at 0/15/30/45),
+        # set 4 m south of the street's middle so its beam is drawn inside a row, never along the grid's line (rule 346, measured)
+        k.rgb('litter', (196, 186, 160), 'tape_grey'); k.scatter('litter', 2, 58, 8, 52, 40, 0.15, 0.4, 0.2)
+        k.rgb('chips', (150, 54, 50), 'clay_rust'); k.scatter('chips', 10, 50, 14, 46, 18, 0.08, 0.14, 0.3)
+    if bid == 'fremont.3':
+        vegas_vic(k, *centre(4, 1), hgt=20.0); k.model('downtown.deuce', 24.0, 18.0, 0)
+    if bid == 'fremont.4':                                                   # the zipline's landing tower, its line running off east
+        x, y = centre(0, 1); k.rgb('zip', (60, 62, 66), 'rubber')
+        for (u, v) in ((-4, -4), (4, -4), (-4, 4), (4, 4)): k.cyl('zip', x + u, y + v, 0.0, 0.4, 6.0)
+        k.box('zip', x, y, 6.0, 9.0, 9.0, 0.5); k.line('steel', x, y, 60.0, y + 1.0, 0.06, 0.06, 6.5)
+        for i in range(6): k.box('zip', x - 4.5 + i * 0.6, y - 4.5, 0.3 + i * 0.95, 1.2, 1.2, 0.15)
+
+
 THINGS = {'lab': things_lab, 'apron': things_apron, 'golf': things_golf, 'trailer': things_trailer, 'desert': things_desert,
           'canyon': things_canyon, 'pass': things_pass, 'lakebed': things_lakebed, 'wash': things_wash, 'dump': things_dump,
-          'yards': things_yards, 'plaza': things_plaza, 'fremont': things_fremont, 'rail': things_rail, 'basin': things_basin}
+          'yards': things_yards, 'fremont': things_fremont, 'rail': things_rail, 'basin': things_basin,
+          'blvd': things_blvd, 'stripw': things_strip_front, 'stripe': things_strip_front}
 
 
 def install():
@@ -1464,7 +1820,7 @@ def built_blocks():
     return [b for b in BLOCKS if os.path.exists(os.path.join(SHIP, file_of(b)))]
 
 
-def data():
+def data(hold=()):
     """each place's blocks into fight_ground.json (one named board a place, its blocks in its default layout, so the fight's
     block library holds them), the pieces into cover_extra (baked: no sprite), the roofs into ours.roof_storeys, and the
     places themselves into ours.place_boards (the fight deals from it, the gate measures it)"""
@@ -1474,7 +1830,7 @@ def data():
         G['cover_extra'][k] = dict(d, baked=True, by='tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py')
     span = TM * BT
     for pid, P in PLACES.items():
-        if not P.get('built'): continue
+        if not P.get('built') or pid in hold: continue                  # a held place keeps its board as on main (its pictures not rendered yet)
         cols, rows = P.get('cols') or {}, P.get('rows') or {}
         blocks = [P['landmark_block']] + P['field'] + sum(cols.values(), []) + sum(rows.values(), [])
         new = sorted(set(b for b in blocks if b in BLOCKS))
@@ -1506,6 +1862,7 @@ def data():
                     cover += old_cover(G, bid, bx, by)
         G['boards']['place_' + pid] = dict(blocks=lay, terrain=terr, cover=cover, lights=[])
         for b in new: G['blocks'][b] = dict(src=file_of(b))
+    for b in GONE: G['blocks'].pop(b, None)                                  # rule 346: the old Strip and downtown, graveyarded
     G.setdefault('made_11_3', {})['combat_maps_3'] = dict(tool='tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py',
         names={b: v['name'] for b, v in BLOCKS.items()}, futures='the fight reads no futures picture; only the present is rendered')
     json.dump(G, open(p, 'w'), indent=1)
@@ -1513,12 +1870,14 @@ def data():
     rs = O['roof_storeys']['value']
     for bid, spec in BLOCKS.items():
         if spec.get('roofs'): rs['blocks'][bid] = [list(q) for q in spec['roofs']]
+    for b in GONE: rs['blocks'].pop(b, None)
     for k in ('apron', 'golf'):
         if k not in rs['roof_kinds']: rs['roof_kinds'].append(k)
     rs.setdefault('not_roofs', {})['apron.0'] = [[3, 3]]                     # the air-stairs truck's platform is no roof
     rs['not_roofs']['golf.0'] = [[4, 1]]                                     # the tee box is a rise of ground
-    places = {}
+    places, was = {}, ((O.get('place_boards') or {}).get('value') or {}).get('places') or {}
     for pid, P in PLACES.items():
+        if pid in hold and pid in was: places[pid] = was[pid]; continue
         q = {k: v for k, v in P.items()}
         q['gate_district'] = GATE_DISTRICT[pid]
         places[pid] = q
@@ -1601,19 +1960,25 @@ CARD_SAYS = {
 }
 
 
-def cards():
-    """one card a place: BEFORE (COMBAT MAPS 2's after shot, the board on main) | AFTER (the opening view) | IN PLAY"""
+def cards(ids=None):
+    """one card a place: BEFORE (the board on main: rule 341's own first picture once it has one, else COMBAT MAPS 2's after
+    shot) | AFTER (the opening view) | IN PLAY"""
     from PIL import ImageDraw, ImageFont
     L = json.load(open(os.path.join(BASE, 'shots', 'shots.json')))
     try: font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 15)
     except Exception: font = ImageFont.load_default()
     out = {}
     for pid, m in L.items():
-        old = Image.open(os.path.join(R, 'records/target/combat_maps_11_2c/ground_%s.webp' % m['district'])).convert('RGB')
-        before = old.crop((old.width - 390, old.height - 844, old.width, old.height))
+        if ids and pid not in ids: continue
+        b346 = os.path.join(BASE, 'before346_%s.webp' % pid)
+        if os.path.exists(b346): before = Image.open(b346).convert('RGB')
+        else:
+            old = Image.open(os.path.join(R, 'records/target/combat_maps_11_2c/ground_%s.webp' % m['district'])).convert('RGB')
+            before = old.crop((old.width - 390, old.height - 844, old.width, old.height))
         after = Image.open(os.path.join(R, m['after'])).convert('RGB'); play = Image.open(os.path.join(R, m['play'])).convert('RGB')
         C = Image.new('RGB', (390 * 3 + 16, 844 + 40), (14, 13, 12)); d = ImageDraw.Draw(C)
         for i, (im, t) in enumerate(((before, 'BEFORE (on main)'), (after, 'AFTER: ITS OWN BOARD'), (play, 'IN PLAY, ROUND %d' % m['round']))):
+            if i == 1 and os.path.exists(b346): t = 'AFTER: REBUILT' if pid in REBUILT_346 else 'AFTER: NO SEAMS'
             C.paste(im, (i * 398, 40)); d.text((i * 398 + 8, 11), t, fill=(236, 226, 196), font=font)
         fn = os.path.join(BASE, 'card_%s.webp' % pid); C.save(fn, quality=82, method=6); out[pid] = os.path.relpath(fn, R)
         print('  card', pid, os.path.getsize(fn) // 1024, 'KB')
@@ -1627,7 +1992,22 @@ def first_of(pid):
     return '../' + os.path.relpath(fn, R)
 
 
-def register(sha, ids):
+REBUILT_346 = ('strip', 'downtown')
+SAID_346 = {'strip': 'The worststtt this needs to be THE BESTTTT Work in progress keep going',
+            'downtown': 'Looks like shit Work in progress keep going'}
+EVERY_GROUND_346 = ('Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont '
+                    'connect and things that dont visually and logically make sense')
+CARD_SAYS_346 = {
+    'strip': ('The Strip is rebuilt as the showcase: the Boulevard down the middle with its cabs and wrecks, the bridge you can '
+              'climb, the Welcome sign in the median, a gold tower and a pink tower on either side with their drives and porte-cocheres.'),
+    'downtown': ('Downtown is rebuilt as Fremont Street: the casino fronts face you, the canopy\'s arches run down the middle as '
+                 'cover, the cowboy and the burnt Deuce in the street, the alley behind the south side at the bottom.'),
+    'lab': ('The lab yard keeps its pens but its lot is the yard\'s own floor now, and every edge where two pictures meet is the '
+            'same sealed floor, so no line runs where the grid is.'),
+}
+
+
+def register(sha, ids, tag=None):
     rp = os.path.join(R, 'records/target/BOHEMIA_VOTE_REGISTRY.json')
     L = json.load(open(os.path.join(BASE, 'shots', 'shots.json')))
     said = ('everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the '
@@ -1636,6 +2016,19 @@ def register(sha, ids):
     new = []
     for pid in ids:
         P = PLACES[pid]
+        if tag == '346':
+            new.append(dict(id='combat-place-%s-11-3b' % pid, kind='redo', redoOf='combat-place-%s-11-3' % pid, lane='combat', sha=sha,
+                            made='11/3', draft=True, title='%s: %s' % (P['name'], 'REBUILT' if pid in REBUILT_346 else 'NO SEAMS'),
+                            said=SAID_346.get(pid, EVERY_GROUND_346),
+                            why=CARD_SAYS_346[pid] + ' Before is the board on main now, then after and in play on the phone.',
+                            options=['A, yes, that is the place and nothing breaks the picture', 'B, better, push it further',
+                                     'C, no, still wrong'],
+                            show=dict(how='image', src='../records/target/combat_maps_11_3/card_%s.webp' % pid,
+                                      first=first_of(pid), firstAt=[398, 40, 390, 844]),
+                            before_after=dict(before='the board on main (rule 341, its own board)',
+                                              after='rule 346: ' + ('rebuilt' if pid in REBUILT_346 else 'no seam, no cut-off, every road met'),
+                                              scale='his phone, 390 x 844, by day, the fight\'s opening view and a few rounds in')))
+            continue
         new.append(dict(id='combat-place-%s-11-3' % pid, kind='redo', redoOf='combat-ground-%s-11-2' % L[pid]['district'], lane='combat', sha=sha,
                         made='11/3', draft=True, title='%s: ITS OWN BOARD' % P['name'], said=said,
                         why=CARD_SAYS[pid] + ' You see it here before, after and in play on the phone, and in every fight there on the map.',
@@ -1659,9 +2052,9 @@ def register(sha, ids):
 
 if __name__ == '__main__':
     a = sys.argv[1:]
-    if a[0] == '--data': data()
-    elif a[0] == '--cards': cards()
-    elif a[0] == '--register': register(a[1], a[2:])
+    if a[0] == '--data': data(tuple(a[a.index('--hold') + 1].split(',')) if '--hold' in a else ())
+    elif a[0] == '--cards': cards(a[1:] or None)
+    elif a[0] == '--register': register(a[1], [x for x in a[2:] if not x.startswith('--')], '346' if '--346' in a else None)
     elif a[0] == '--swap':
         for b in a[1:]: swap(b)
     elif a[0] == '--render':

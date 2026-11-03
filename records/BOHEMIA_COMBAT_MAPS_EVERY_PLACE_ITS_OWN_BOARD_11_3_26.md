@@ -120,3 +120,80 @@ a fire escape is climbed now and the rest are walls (its two blocks re-rendered,
 [bb] Battle Brothers builds a tactical map from the world tile it is fought on (its terrain kinds, height levels and obstacles),
 its camps and ruins have their own built plans, and its battles open in a line, in an ambush, or with the enemy in its camp.
 [analog horror] at the source, in the models and the grounds, never a filter: the lines above.
+
+---------------------------------------------------------------------------------------------------------------------------------
+# RULE 346 (ask line 355): THE STRIP IS THE BEST FIGHT MAP, AND NO BOARD BREAKS ITS OWN PICTURE
+
+Paolo 11/2 in the VOTE tab: on the Strip "The worststtt this needs to be THE BESTTTT Work in progress keep going"; on downtown
+"Looks like shit Work in progress keep going"; on every ground "Needs way more work watch out for atraight lines at grid borders
+and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense"; the other nine
+"Work in progress keep going".
+
+## THE LEGS FIRST: gates/every_place_no_seams_gate.js (suite row NO BOARD BREAKS ITS OWN PICTURE), reads in
+## tools/bohemia_combat_maps_seams_read_11_3_26.py
+Bakes every built place's board three times in the LIVE fight (its own bakeBoard, UI.board: the picture every tile is drawn
+from) and reads every border between two cells of OPEN ground (a wall on its house tile is the honest grid, not a seam):
+- SEAM: the colour step across the border (5 px either side, the fight's own 1 px grid line stepped over) against the step
+  across the middle of the two cells (the ground's own texture); seen when its median is 2.2x that and 9 or more. Block seams
+  (where two pictures meet) and cell borders inside a picture are counted apart.
+- CUT-OFF: the two sides are different colour families and three quarters of the change happens within 4 px of the border.
+- ROADS: every road (asphalt, road paint) that reaches a block seam is met within half a metre across it, read from each
+  block's own ground plan as dealt (mirrored or not).
+- LOGIC: a by-eye list per place (records/target/combat_maps_11_3/logic_list.json: a car in a wall, a dock on a road, a tree
+  through a roof), tied to the sha1 of the place's own pictures, so a changed picture is a list nobody has checked yet.
+Floors for a fixed place: block seams seen 12% or less, cell borders seen 4% or less, cut-offs 4% or less, roads not met 0,
+logic checked. OWED_SEAMS names the places not fixed yet; it only shrinks.
+
+## THE BEFORE (main, records/target/combat_maps_11_3/seams_before.json) -> AFTER PUSH 1 (seams_after_push1.json)
+place     block seams seen   cell borders seen   cut-offs        roads not met (of 51)
+strip     70%  -> 0%         25%  -> 1.9%        19%  -> 0%      49 -> 0     REBUILT
+downtown  74%  -> 0%         40%  -> 0%          23%  -> 0%      47 -> 0     REBUILT
+lab       88%  -> 0%         35%  -> 1.6%        23%  -> 0.7%    51 -> 0     re-rendered
+(owed, not judged yet, measured after the feathering below: airport 0%/0%/0%/22 roads; golf 0/1.7/0/0; trailer 0/2.3/0/0;
+desert 0/0/0/0; redrock 0/5.0/0/0; pass 0/1.5/0/0; shore 8.9/3.9/1.7/0; wash 0/6.9/0.5/0; landfill 0/6.1/0/0; suburb 78/36/26/49;
+works 48/5/2.6/36; marina 57/3.3/9.4/36: the last three still carry the old town blocks whose streets meet nothing.)
+
+## WHAT MADE THE LINES (measured, then fixed at the source)
+1. Two pictures of one place met with different ground at their shared edge (per-block noise patches cut at the seam).
+   ONE GROUND AT EVERY EDGE: each kind's base ground in a 3 m wandered margin round every block, except under a mass and where
+   a road, a track or a path runs on (MARGIN, THROUGH in the tool); and every place's own kinds now feather where two of their
+   pictures meet in the fight (FEATHER_KINDS, slices/BOHEMIA_FIGHT.html), as the valley's edge always did.
+2. Roads, drives, tracks and paths ended at a block's side. EVERY ROAD AT THE SAME ROWS: the Strip's drives at two fixed rows on
+   the Boulevard and on every frontage (DRIVES), Fremont's mall and alley edge to edge, the trailer park's lane, the yard's spur,
+   the landfill's haul road and the golf cart path through every block of their place; the old town blocks (with their own
+   streets) leave the places they were mixed into.
+3. Kerbs, verges and patches on the grid's own lines: every kerb and material edge set off the cell borders (the Boulevard's
+   kerbs at 10 and 50 m, the drop-off lanes at 13.5 and 22.5, the pass's shoulders, the forecourt's marble at 25.6).
+4. A thing drawn along a grid line: downtown's canopy beam sat on a row border, the south side's shops had their party walls on
+   the cell lines (both measured at 20% of downtown's cell borders; the arches moved 4 m, the walls set at uneven widths: 0%).
+
+## THE CAMERA RULE (why the old Strip and downtown failed; graveyard/the_strip_and_downtown_11_3_26/POSTMORTEM.txt)
+The fight's camera looks north at 45 degrees: a building's east and west faces are never seen, only its south face, and a
+mass's height is drawn as far north as it is tall. So: a casino faces the camera, never the street beside it; no open tile has a
+tall mass south of it (its roof would be drawn over the tile behind it and the men standing there would stand on a roof).
+
+## THE STRIP, REBUILT (the showcase): 7 blocks, dealt with the Boulevard always in column 1 between the lines
+blvd.1 THE BRIDGE AND THE WELCOME SIGN (landmark: COOK PROPS' bridge from the kerb to the median on its pier, its stair tower on
+the sidewalk, the limo dead under it, the Welcome sign's diamond in the median with its dead bulbs), blvd.2 THE BOULEVARD (six
+lanes, cabs and wrecks nose to tail, the tour bus on its side, the median's dead palms and lights), stripw.1 THE PORTE-COCHERE
+(the gold tower, its rooftop pool, the porte-cochere over the drop-off as height, the fountain), stripw.2 THE MARQUEES (LED
+pylons, slots spilled out of the door), stripw.3 THE VALET (the tallest gold tower, its dead name on the roof, the valet's last
+three cars), stripe.1 THE FALLEN SIGN (the pink tower, COOK PROPS' arrow sign fallen across its drive), stripe.2 THE PINK TOWER.
+Every frontage reads from the Boulevard out: sidewalk pavers, the teal border band, the drop-off lane, the forecourt's inlaid
+marble diamonds, the tower. The plan gate needed a third west frontage: 24 layouts dealt 9 different boards in 10 fights.
+
+## DOWNTOWN, REBUILT: Fremont Street across the middle
+fremont.3 UNDER THE COWBOY (landmark: the cowboy on his lattice tower, the burnt Deuce, kiosks), fremont.4 THE MALL (the zipline's
+landing tower), both with COOK PROPS' canopy bays in a row down the street, screens to the camera, one panel still lit (the
+horror); fremont.5 THE FRONTS and fremont.6 THE ARCADE (the north side's casino fronts facing the camera: sign bands, dead
+letters, bulb rows, marquees over the doors, terrazzo at the doors), fremont.7 THE ALLEY (the south side: one-storey shops,
+three-storey backs, the only fire escape climbed, the alley edge to edge with its dumpsters). Mirrored: yes.
+
+## THE GREY PLACES (pushes to come): three new grounds rendered through the rig, the real ground's colour, never a recolour:
+dustslab (Harry Reid's apron, the valley's caliche dust on it), lakemud (Lake Mead's tan cracked bed), passtan (buff limestone
+scree, iron-red in it). The airport gains a third field block (apron.4 THE STANDS, on COOK PROPS' fuel truck and baggage train)
+and loses apron.0; the shore's gravel bars cross every block side at its middle row and column.
+
+[bb] Battle Brothers paints its tactical maps from tiles whose edges blend (a ground's border is a soft brush, never the grid);
+its roads cross the map whole. [analog horror] the one lit canopy panel, the valet's key box open, the rooftop pool's water
+standing green: at the source, in the models.

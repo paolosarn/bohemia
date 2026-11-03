@@ -4913,7 +4913,11 @@ function blockBlit(g, im, n, x, y, w, h) {
    (flips and trims as drawn) into strips at the board's size (a half-size strip read as grey smudges close in on the computer,
    measured 10/25), kept for the close-in drawing (groundOn) and laid on the board the camera opens on (bakeBoard). City blocks
    keep their streets' straight lines. */
-const FEATHER_TILES = 0.35, FEATHER_K = 1, FEATHER_STEP = 3, FEATHER_KINDS = ['scrub', 'wash', 'shore', 'landfill'];
+/* NO BOARD BREAKS ITS OWN PICTURE (COMBAT MAPS 3, rule 346: 'watch out for straight lines at grid borders and colors that end
+   abruptly'): every place's own kinds feather where two of their pictures meet, as the valley's edge always did (the town's
+   street kinds still keep their straight lines) */
+const FEATHER_TILES = 0.35, FEATHER_K = 1, FEATHER_STEP = 3, FEATHER_KINDS = ['scrub', 'wash', 'shore', 'landfill', 'lab', 'apron', 'golf',
+  'trailer', 'desert', 'canyon', 'pass', 'lakebed', 'dump', 'yards', 'rail', 'basin', 'blvd', 'stripw', 'stripe', 'fremont'];
 function featherStrips(src, B) {
   const bt = DB.ground.block_tiles, ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0, k = FEATHER_K;
   const kind = function (n) { return blockBase(n).split('.')[0]; }, soft = function (n) { return FEATHER_KINDS.indexOf(kind(n)) >= 0; };

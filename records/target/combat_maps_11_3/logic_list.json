@@ -1,0 +1,104 @@
+{
+ "about": "COMBAT MAPS 3, rule 346(b): nothing stands where it could not. A by-eye list per place, checked on its board in the live fight (the card's AFTER and IN PLAY shots), tied to the sha1 of its block pictures (gates/every_place_no_seams_gate.js): a changed picture is a list nobody has checked yet.",
+ "strip": {
+  "sha": "8325a496ef51",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "every car, cab and wreck stands in a lane of the Boulevard (columns 1 and 3 of its blocks), none on the median, a sidewalk or a forecourt; the cab at the drop-off stands on the drop-off lane",
+    "ok": true,
+    "how": "block pictures blvd.1, blvd.2, stripw.1 and the AFTER shot"
+   },
+   {
+    "what": "the bridge spans kerb to median on its pier, its stair tower stands on the sidewalk, and the limo lies in the lane south of it, not under its deck",
+    "ok": true,
+    "how": "blvd.1 picture"
+   },
+   {
+    "what": "every drive off the Boulevard runs across both sidewalks into a frontage's drop-off lane at the same two rows; none runs into a wall or a tower",
+    "ok": true,
+    "how": "the road leg (0 of 51 seams) and the pictures"
+   },
+   {
+    "what": "the fallen arrow sign lies across the east frontage's drive on open ground, not through the tower or the porte-cochere's posts",
+    "ok": true,
+    "how": "stripe.1 picture"
+   },
+   {
+    "what": "palms stand in their planters on paving (sidewalks, median, forecourts), never on the asphalt",
+    "ok": true,
+    "how": "the pictures"
+   },
+   {
+    "what": "no open tile has a tall mass south of it (the camera looks north: a tower's roof would be drawn over the tile behind it); the towers fill their whole columns, the porte-cochere roofs are their own height tiles",
+    "ok": true,
+    "how": "the tiles of all six blocks"
+   },
+   {
+    "what": "the valet's last cars stand nose-in on the forecourt beside the door, not on the drop-off lane; the valet stand and its rope on the lane's kerb",
+    "ok": true,
+    "how": "stripw.3 picture"
+   }
+  ]
+ },
+ "downtown": {
+  "sha": "b85d5a6323ae",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the canopy's columns stand on the street's pavers in its middle row, their pairs on one line block to block; nothing stands under the beam but the street",
+    "ok": true,
+    "how": "fremont.3, fremont.4 pictures and the AFTER shot"
+   },
+   {
+    "what": "the north fronts face the street and the camera; every door opens onto an open entrance tile under its marquee; the pillars between the doors are blocked tiles",
+    "ok": true,
+    "how": "fremont.5, fremont.6 pictures"
+   },
+   {
+    "what": "on the south side only the fire escape's tile is climbed; the alley runs edge to edge at the board's bottom, its dumpsters against the back walls, not in the lane's middle",
+    "ok": true,
+    "how": "fremont.7 picture"
+   },
+   {
+    "what": "the burnt Deuce lies in the street on its own two blocked tiles; the cowboy's lattice tower stands on its own height tile; the kiosks stand on open pavers",
+    "ok": true,
+    "how": "fremont.3 picture"
+   },
+   {
+    "what": "no open tile has a tall mass south of it: the south side's shops are one storey (their roofs reach a quarter of the sidewalk tile), the tall backs stand behind them",
+    "ok": true,
+    "how": "the tiles of all five blocks"
+   }
+  ]
+ },
+ "lab": {
+  "sha": "4f3efc1c352c",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "every pen is closed by its chain-link on all four sides except the one burst open from inside; you shoot through the fences and walk only through the gates and the burst pen",
+    "ok": true,
+    "how": "lab.1-3 pictures and the AFTER shot"
+   },
+   {
+    "what": "the gurneys, cages and the cold-store truck stand in the lanes between the pens, never inside a fence or across one",
+    "ok": true,
+    "how": "the pictures"
+   },
+   {
+    "what": "the intake lot is the yard's own sealed floor, the same at every edge it shares; no asphalt lot ends at a block's side",
+    "ok": true,
+    "how": "lab.3 picture and the road leg (0 of 51)"
+   },
+   {
+    "what": "no open tile has a tall mass south of it: the vivarium's sheds stand on their own blocked tiles, their roofs over their own row",
+    "ok": true,
+    "how": "the tiles of all three blocks"
+   }
+  ]
+ }
+}

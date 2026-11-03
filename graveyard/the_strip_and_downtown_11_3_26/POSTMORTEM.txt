@@ -1,0 +1,25 @@
+POSTMORTEM: THE STRIP AND DOWNTOWN FIGHT BOARDS OF RULE 341 (COMBAT MAPS 3, killed 11/3 by rule 346)
+
+What died: plaza.1 (THE PLAZA AND THE SIGN), plaza.2 (THE BRIDGE), fremont.1 (UNDER THE CANOPY), fremont.2 (THE BACK
+ALLEY), the four block pictures the Strip and downtown boards were dealt from in rule 341.
+
+His words (VOTE tab, 11/2): on the Strip "The worststtt this needs to be THE BESTTTT"; on downtown "Looks like shit";
+on every ground "watch out for straight lines at grid borders and colors that end abruptly and roads that dont connect
+and things that dont visually and logically make sense".
+
+Why they failed:
+1. The Strip was a marble plaza with a fountain: one flat white field. Nothing on it said Las Vegas Boulevard. The
+   Boulevard itself was a strip of asphalt inside one block that ended dead at the block's edges (a road that does not
+   connect).
+2. Downtown was asphalt with brick boxes. The camera looks north at 45 degrees, so a casino's east and west faces are
+   never seen and a tall mass draws its roof over the tile behind it: the fronts were grey roofs and the street was the
+   back of a building.
+3. Both mixed old blocks (lots, strip, main) with the new ones, so their ground changed colour exactly on the block
+   seams.
+
+What replaced them (rule 346): the Boulevard runs down its own column of blocks (blvd.1, blvd.2), kerbs off the grid
+lines, its two drives at the same two rows as every casino frontage (stripw.*, stripe.*), the casino towers' faces to
+the camera; Fremont Street runs across the middle (fremont.3, fremont.4) with COOK PROPS' canopy bays in a row, the
+fronts face the camera from the north (fremont.5, fremont.6), the south side's roofs and the alley at the bottom
+(fremont.7). The lesson, for every board: design for the camera (only south faces are seen, height spills north), and
+for the seam (the same ground at every edge two pictures share).

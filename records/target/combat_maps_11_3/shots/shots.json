@@ -343,63 +343,63 @@
  "strip": {
   "place": "strip",
   "district": "strip",
-  "seed": 3,
+  "seed": 6,
   "round": 3,
   "after": "records/target/combat_maps_11_3/shots/strip_after.png",
   "play": "records/target/combat_maps_11_3/shots/strip_play.png",
-  "bar": "plaza + strip",
+  "bar": "stripw + blvd + stripe",
   "blocks": [
    [
-    "plaza.2",
-    "strip.1",
-    "plaza.2",
-    "strip.1|h"
+    "stripw.1",
+    "blvd.2",
+    "stripe.1",
+    "stripw.1"
    ],
    [
-    "strip.1",
-    "plaza.1",
-    "strip.1",
-    "plaza.2"
+    "stripw.2",
+    "blvd.1",
+    "stripe.2",
+    "stripw.2"
    ],
    [
-    "strip.0",
-    "plaza.2|h",
-    "strip.0",
-    "strip.1"
+    "stripw.1",
+    "blvd.2",
+    "stripe.1",
+    "stripw.1"
    ]
   ],
-  "start": "camp",
+  "start": "line",
   "own": "strip"
  },
  "downtown": {
   "place": "downtown",
   "district": "downtown",
-  "seed": 5,
+  "seed": 6,
   "round": 3,
   "after": "records/target/combat_maps_11_3/shots/downtown_after.png",
   "play": "records/target/combat_maps_11_3/shots/downtown_play.png",
-  "bar": "main + fremont + ruin",
+  "bar": "fremont",
   "blocks": [
    [
-    "main.0|h",
-    "fremont.2",
-    "main.0|h",
-    "fremont.2"
+    "fremont.5",
+    "fremont.6|h",
+    "fremont.5",
+    "fremont.6|h"
    ],
    [
-    "fremont.2|h",
-    "fremont.1",
-    "fremont.2|h",
-    "ruin.0"
+    "fremont.4",
+    "fremont.3",
+    "fremont.4",
+    "fremont.4|h"
    ],
    [
-    "ruin.0|h",
-    "fremont.2",
-    "ruin.0|h",
-    "fremont.2|h"
+    "fremont.7|h",
+    "fremont.7",
+    "fremont.7|h",
+    "fremont.7"
    ]
   ],
-  "start": "pincer",
+  "start": "line",
   "own": "downtown"
  },
  "works": {

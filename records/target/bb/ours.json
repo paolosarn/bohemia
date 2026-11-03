@@ -2009,10 +2009,10 @@
       2
      ]
     ],
-    "plaza.2": [
+    "blvd.1": [
      [
-      2,
       1,
+      2,
       2
      ],
      [
@@ -2021,42 +2021,48 @@
       2
      ]
     ],
-    "fremont.1": [
+    "stripw.1": [
      [
+      3,
       1,
-      0,
-      3
+      2
      ],
      [
       3,
-      0,
-      3
+      2,
+      2
+     ]
+    ],
+    "stripe.1": [
+     [
+      1,
+      1,
+      2
      ],
      [
+      1,
       2,
+      2
+     ]
+    ],
+    "fremont.3": [
+     [
       4,
+      1,
       3
      ]
     ],
-    "fremont.2": [
-     [
-      2,
-      0,
-      3
-     ],
+    "fremont.4": [
      [
       0,
       1,
-      3
-     ],
+      2
+     ]
+    ],
+    "fremont.7": [
      [
-      3,
       2,
-      3
-     ],
-     [
-      0,
-      4,
+      3,
       3
      ]
     ]
@@ -3183,17 +3189,34 @@
       "convention"
      ],
      "built": true,
-     "landmark": "THE FOUNTAIN: a casino plaza fountain gone dry, a giant arrow sign down on the plaza beside it, a limo at the valet",
-     "things": "the dry fountain, the fallen sign, the pedestrian bridge over the Boulevard, a stretch limo, marble planters",
-     "twist": "THE BRIDGE AND THE RIM: the pedestrian bridge is height two storeys over the Boulevard, the fountain's rim is cover in the middle of an open marble plaza, and the fallen sign is a wall",
-     "horror": "one bulb of the hundred on the fallen sign is still lit (COOK PROPS' wrong thing)",
-     "landmark_block": "plaza.1",
+     "landmark": "THE BOULEVARD: Las Vegas Boulevard running down between the two lines, its pedestrian bridge across it, the Welcome sign dead in its median, the casino frontages on both sides",
+     "things": "the Welcome sign, the pedestrian bridge, porte-cocheres with their dead marquees, the plaza fountain, the fallen arrow sign, a dead LED tower, slot machines spilled out of a broken entrance, a stretch limo, cabs, a tour bus, dead palms",
+     "twist": "THE KILL ZONE: six lanes of open boulevard between the lines, its cover the dead cars, the median's planters and the sign; the bridge is a perch two storeys up in the middle of it and the porte-cochere roofs are the perches on each side",
+     "horror": "one bulb of the hundred on the fallen arrow sign is still lit (COOK PROPS' wrong thing)",
+     "landmark_block": "blvd.1",
      "field": [
-      "plaza.2",
-      "strip.0",
-      "strip.1"
+      "blvd.2"
      ],
-     "mirror": true,
+     "cols": {
+      "0": [
+       "stripw.1",
+       "stripw.2",
+       "stripw.3"
+      ],
+      "1": [
+       "blvd.2"
+      ],
+      "2": [
+       "stripe.1",
+       "stripe.2"
+      ],
+      "3": [
+       "stripw.2",
+       "stripw.3",
+       "stripw.1"
+      ]
+     },
+     "mirror": false,
      "landmark_col": 1,
      "landmark_rows": {
       "0": 1,
@@ -3217,22 +3240,30 @@
       "downtown"
      ],
      "built": true,
-     "landmark": "UNDER THE CANOPY: a bay of the Fremont canopy over the street, the double-decker Deuce burnt out under it",
-     "things": "the canopy, the burnt Deuce, alley dumpsters, the brick hotel backs and their fire escapes",
-     "twist": "THE ALLEYS: alleys one man wide between three-storey brick backs whose fire escapes climb to the roofs; the street under the canopy is the one wide ground and the burnt bus closes half of it",
+     "landmark": "FREMONT STREET: the street under the canopy's ribs, the cowboy sign over it, the double-decker Deuce burnt out in it",
+     "things": "the canopy's ribs and columns, the cowboy sign, the burnt Deuce, kiosks, a zipline tower, the casino fronts and their marquees, the alley behind the south side, its dumpsters and fire escapes",
+     "twist": "THE STREET AND THE FRONTS: one long street between casino fronts whose recessed entrances are the cover, the cowboy sign's tower and the zipline tower the height, the alley behind one man wide",
      "horror": "one panel of the dead canopy screen is still showing a picture (COOK PROPS' wrong thing)",
-     "landmark_block": "fremont.1",
+     "landmark_block": "fremont.3",
      "field": [
-      "fremont.2",
-      "main.0",
-      "ruin.0"
+      "fremont.4"
      ],
+     "rows": {
+      "0": [
+       "fremont.5",
+       "fremont.6"
+      ],
+      "1": [
+       "fremont.4"
+      ],
+      "2": [
+       "fremont.7"
+      ]
+     },
      "mirror": true,
      "landmark_col": 1,
      "landmark_rows": {
-      "0": 1,
-      "1": 2,
-      "2": 1
+      "1": 1
      },
      "camp_tile": [
       4,
