@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Your Settlement</title>
+<!-- HOME (rules 343, 347, 354; ask lines 352, 356, 368, 369, 371, 373): YOUR settlement, and only yours, seen through its own security
+     cameras. A, THE BLOCK YOU TOOK: one lot template (twelve lots, three rows of four, stepping back and up), three fixed cameras that
+     each see all twelve, cycling on their own every 20 seconds (held while a card is open or a finger is down); you never pick a camera,
+     you tap a lot. Every picture is the pipeline's (tools/bohemia_home_settlement_pipeline_11_3_26.py -> ../records/target/home_settlement/
+     manifest.json): a plate per camera and each piece once per camera, drawn on any lot of its row by its anchor. What can stand where:
+     ../records/target/bb/home_lots.json. The bill per person: ../records/target/bb/nightly_bill.json. Canvas only: 60 a second on a phone. -->
+<style>
+:root{--ink:#14110e;--bone:#e8dec8;--dim:#8c8478;--gold:#e2b052;--panel:rgba(14,12,10,.95)}
+html,body{margin:0;height:100%;background:#0c0b0a;color:var(--bone);font:600 14px/1.25 "DejaVu Sans Mono",ui-monospace,monospace;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+#c{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+#sheet{position:absolute;left:12px;right:12px;display:none;background:var(--panel);border:1px solid #3a342c;border-radius:10px;padding:12px 14px;z-index:5;max-height:60%;overflow:auto}
+#sheet h2{margin:0 0 6px;font-size:16px;color:var(--gold);letter-spacing:.04em}
+#sheet .row{margin:4px 0} #sheet .dim{color:var(--dim)}
+#sheet button,#plant button{font:inherit;background:#2a241d;color:var(--bone);border:1px solid #5a4e3e;border-radius:8px;padding:10px 12px;margin:8px 8px 0 0;min-height:44px}
+#sheet button.go,#plant button.go{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+#plant{position:absolute;inset:0;display:none;background:rgba(6,5,4,.86);z-index:9;align-items:center;justify-content:center}
+#plant .box{max-width:320px;margin:0 16px;background:var(--panel);border:1px solid #5a4e3e;border-radius:12px;padding:18px}
+#plant h1{margin:0 0 8px;font-size:18px;color:var(--gold)}
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<div id="sheet"></div>
+<div id="plant"><div class="box"><h1>PLANT HERE?</h1>
+  <div>This block becomes yours: its gate, its twelve lots, its cameras. You pay its batteries every day.</div>
+  <div style="margin-top:8px;color:var(--gold)">Are you sure? This is permanent.</div>
+  <button class="go" id="plantYes">PLANT HERE</button><button id="plantNo">NOT YET</button></div></div>
+<script>
+(function(){
+'use strict';
+var BASE = '../records/target/home_settlement/', DATA = '../records/target/bb/';
+var CYCLE_MS = 20000, FPS_CCTV = 6, SAVE = 'bohemia_your_settlement_v2';
+var cv = document.getElementById('c'), cx = cv.getContext('2d'), sheet = document.getElementById('sheet'), plant = document.getElementById('plant');
+var src = document.createElement('canvas'), sx = src.getContext('2d');
+var M = null, LB = null, BILL = null, S = { cam: 1, lots: null, planted: false, people: 0 };
+try { var sv = JSON.parse(localStorage.getItem(SAVE) || 'null'); if (sv) S = Object.assign(S, sv); } catch (e) {}
+function save(){ try { localStorage.setItem(SAVE, JSON.stringify(S)); } catch (e) {} }
+var IM = {};
+function img(u){ if (!IM[u]) { var i = new Image(); i.onerror = function(){ i._bad = (i._bad || 0) + 1; if (i._bad < 3) setTimeout(function(){ i.src = u; }, 1000 * i._bad); }; i.src = u; IM[u] = i; } return IM[u]; }
+function ready(i){ return i && i.complete && i.naturalWidth > 0; }
+function shape(){ return innerWidth < innerHeight ? 'tall' : 'wide'; }
+
+/* THE FIT: the camera's crop as large as the glass allows on its long side, never smoothed; the rest of the glass is the console (the
+   bill) and the phone's own ground, where nothing answers a tap but the phone */
+var FIT = {};
+function fit(){
+  var dpr = Math.min(2, devicePixelRatio || 1), W = innerWidth, H = innerHeight, sh = shape();
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.imageSmoothingEnabled = false;
+  var cw = sh === 'tall' ? 180 : 320, ch = sh === 'tall' ? 320 : 180, k = sh === 'tall' ? W / cw : H / ch;
+  FIT = { sh: sh, k: k, x: 0, y: 0, w: cw * k, h: ch * k, cw: cw, ch: ch };
+  FIT.console = sh === 'tall' ? { x: 0, y: FIT.h, w: W, h: H - FIT.h } : { x: FIT.w, y: 0, w: W - FIT.w, h: H };
+  var c = FIT.console; FIT.phone = { x: c.x + c.w - 112, y: c.y + c.h - 150, w: 100, h: 140 };
+}
+function crop(){ return M.crop[FIT.sh]; }
+
+function lotDef(n){ for (var i = 0; i < M.lots.length; i++) if (M.lots[i].n === n) return M.lots[i]; }
+function pieceDef(id){ if (!LB) return null; for (var i = 0; i < LB.pieces.length; i++) if (LB.pieces[i].id === id) return LB.pieces[i]; return null; }
+function stands(n){ return S.lots[n] || null; }
+
+/* THE BILL: the people who live here eat and drink what the company's men do (nightly_bill.json, per man); what works pays some back */
+function bill(){
+  var per = BILL ? BILL.per_man_per_night.value : 2, back = 0;
+  for (var n in S.lots) { var s = S.lots[n]; if (s && s.piece === 'solar_panel' && s.state === 'working') back += 1; }
+  return { per: per, people: S.people || 0, cost: (S.people || 0) * per, back: back };
+}
+
+/* THE CYCLE: a cut every 20 seconds, a roll and a frame of static; held while a card is open or a finger is down */
+var CUT = null, lastCut = performance.now(), fingerDown = false;
+function cutNext(now){ CUT = { to: (S.cam % 3) + 1, t0: now }; }
+
+var t0 = performance.now();
+function frame(now){
+  var f = Math.floor((now - t0) / (1000 / FPS_CCTV)) % 3, W = innerWidth, H = innerHeight;
+  if (!CUT && S.planted && sheet.style.display !== 'block' && !fingerDown && now - lastCut > CYCLE_MS) cutNext(now);
+  if (sheet.style.display === 'block' || fingerDown) lastCut = Math.max(lastCut, now - CYCLE_MS + 1500);
+  cx.fillStyle = '#0c0b0a'; cx.fillRect(0, 0, W, H);
+  var roll = 0, noise = false;
+  if (CUT) { var dt = now - CUT.t0; if (dt < 140) roll = dt / 140; else if (dt < 260) noise = true; else { S.cam = CUT.to; CUT = null; lastCut = now; save(); } }
+  if (noise) drawStatic(); else if (drawCam(S.cam, f)) {
+    var c = crop(), oy = Math.round(roll * FIT.h * 0.55);
+    cx.save(); cx.beginPath(); cx.rect(FIT.x, FIT.y, FIT.w, FIT.h); cx.clip();
+    cx.drawImage(src, c[0], c[1], c[2] - c[0], c[3] - c[1], FIT.x, FIT.y + oy, FIT.w, FIT.h);
+    if (roll) cx.drawImage(src, c[0], c[1], c[2] - c[0], c[3] - c[1], FIT.x, FIT.y + oy - FIT.h, FIT.w, FIT.h);
+    cx.restore();
+  }
+  drawConsole();
+  requestAnimationFrame(frame);
+}
+/* the camera's own picture at its own size: the plate, each lot's piece back row first (anchor on anchor), the camera's own text */
+function drawCam(cn, f){
+  var plate = img(BASE + 'plates/block_cam' + cn + '_' + f + '.png'); if (!ready(plate)) return false;
+  if (src.width !== M.sq) { src.width = src.height = M.sq; }
+  sx.imageSmoothingEnabled = false; sx.drawImage(plate, 0, 0);
+  var order = Object.keys(S.lots).map(Number).sort(function(a, b){ return lotDef(b).box_m[1] - lotDef(a).box_m[1]; });
+  order.forEach(function(n){
+    var s = S.lots[n]; if (!s || s.state === 'bare') return;
+    var P = M.pieces[s.piece] && M.pieces[s.piece].states[s.state] && M.pieces[s.piece].states[s.state].cams[cn]; if (!P) return;
+    var im = img(BASE + 'pieces/' + P.pictures[f % P.pictures.length]); if (!ready(im)) return;
+    var a = M.plates.block.anchors[cn][n]; sx.drawImage(im, a[0] - P.anchor[0], a[1] - P.anchor[1]);
+  });
+  var c = crop(); sx.font = '8px monospace'; sx.textBaseline = 'top';
+  function t(x, y, s){ sx.fillStyle = '#0a0a0a'; sx.fillText(s, x + 1, y + 1); sx.fillStyle = '#e2e6de'; sx.fillText(s, x, y); }
+  t(c[0] + 4, c[1] + 3, M.cams[cn].name.replace('CAM ', 'CAM'));
+  t(c[2] - 24, c[1] + 3, 'REC'); if (f !== 1) { sx.fillStyle = '#c83c32'; sx.fillRect(c[2] - 32, c[1] + 5, 5, 5); }
+  t(c[0] + 4, c[3] - 12, '01-01-80  00:00:' + String(14 + f));
+  return true;
+}
+var NZ = null;
+function drawStatic(){
+  var cw = FIT.cw, ch = FIT.ch; if (!NZ || NZ.width !== cw) { NZ = document.createElement('canvas'); NZ.width = cw; NZ.height = ch; }
+  var g = NZ.getContext('2d'), d = g.createImageData(cw, ch);
+  for (var i = 0; i < d.data.length; i += 4) { var v = (Math.random() * 200) | 0; d.data[i] = v * .86; d.data[i + 1] = v; d.data[i + 2] = v * .84; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); cx.drawImage(NZ, FIT.x, FIT.y, FIT.w, FIT.h);
+}
+function drawConsole(){
+  var c = FIT.console; cx.fillStyle = '#171410'; cx.fillRect(c.x, c.y, c.w, c.h);
+  cx.font = '600 13px "DejaVu Sans Mono", monospace'; cx.textBaseline = 'middle';
+  var B = bill(), bx = c.x + 14, by = c.y + 24;
+  cx.fillStyle = '#e2b052'; cx.fillText('YOUR PLACE, A DAY', bx, by);
+  cx.fillStyle = '#e8dec8'; cx.fillText(B.people + ' PEOPLE x ' + B.per + ' = ' + (B.cost ? '-' + B.cost : '0') + ' BATTERIES', bx, by + 22);
+  cx.fillText('WHAT WORKS PAYS BACK +' + B.back, bx, by + 42);
+  cx.fillStyle = '#8c8478'; cx.fillText('TAP A LOT', bx, by + 70);
+  var p = FIT.phone; cx.strokeStyle = '#3a342c'; cx.lineWidth = 2; cx.strokeRect(p.x, p.y, p.w, p.h); cx.fillStyle = '#5a4e3e'; cx.fillText('PHONE', p.x + 26, p.y + p.h / 2);
+}
+
+/* THE TAP: what of each lot this camera sees (the gate's own measure), the smallest box under the finger */
+function lotAt(px, py){
+  if (px < FIT.x || py < FIT.y || px > FIT.x + FIT.w || py > FIT.y + FIT.h) return null;
+  var c = crop(), qx = c[0] + (px - FIT.x) / FIT.k, qy = c[1] + (py - FIT.y) / FIT.k, T = M.tap_px[S.cam], best = null, ba = 1e9;
+  for (var n in T) { var b = T[n]; if (qx >= b[0] && qx <= b[2] && qy >= b[1] && qy <= b[3]) { var a = (b[2] - b[0]) * (b[3] - b[1]); if (a < ba) { ba = a; best = +n; } } }
+  return best;
+}
+function openSheet(n){
+  var L = lotDef(n), s = stands(n), h = '<h2>LOT ' + n + '  &middot;  ' + L.row.toUpperCase() + ' ROW</h2>';
+  if (!s || s.state === 'bare') {
+    h += '<div class="row">Bare: staked dirt. What can stand here:</div>';
+    (LB ? LB.pieces : []).filter(function(p){ return M.pieces[p.id] && M.pieces[p.id].row === L.row; }).forEach(function(p){
+      var from = p.put_there_by.kind === 'boss' ? p.put_there_by.boss + "'s prize" : p.put_there_by.kind === 'found' ? 'found here' : 'you build it';
+      h += '<button data-put="' + p.id + '">' + p.name + '</button><span class="dim"> ' + from + '</span>';
+    });
+  } else {
+    var p = pieceDef(s.piece) || { name: s.piece, what_it_is: '' };
+    h += '<div class="row">' + p.name + ': ' + s.state.toUpperCase() + '.</div><div class="row dim">' + p.what_it_is + '.</div>';
+    h += '<div class="row">LEVEL 1 of 3  &middot;  LOOK: AS FOUND</div>';
+    var st = M.pieces[s.piece].states;
+    if (s.state === 'built' && st.working) h += '<button class="go" data-state="working">' + ({kitchen: 'LIGHT THE FIRE', main: 'OPEN THE VALVE', purifier: 'FILL THE BED', garden_bed: 'PLANT IT', water_tank: 'FILL IT', solar_panel: 'WIRE IT'}[s.piece] || 'START IT') + '</button>';
+    if (s.state === 'working') h += '<button data-state="built">STOP IT</button>';
+    h += '<button data-state="bare">CLEAR THE LOT</button>';
+  }
+  h += '<button data-close="1">CLOSE</button>';
+  sheet.innerHTML = h; sheet.style.display = 'block'; sheet.dataset.lot = n;
+  if (FIT.sh === 'tall') { sheet.style.top = ''; sheet.style.bottom = (innerHeight - FIT.console.y + 8) + 'px'; sheet.style.right = '12px'; }
+  else { sheet.style.top = ''; sheet.style.bottom = '12px'; sheet.style.right = (innerWidth - FIT.w + 12) + 'px'; }
+}
+function closeSheet(){ sheet.style.display = 'none'; }
+sheet.addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return; var n = +sheet.dataset.lot;
+  if (b.dataset.close) return closeSheet();
+  if (b.dataset.put) S.lots[n] = { piece: b.dataset.put, state: 'built' };
+  if (b.dataset.state) { if (b.dataset.state === 'bare') delete S.lots[n]; else S.lots[n].state = b.dataset.state; }
+  save(); openSheet(n);
+});
+cv.addEventListener('pointerdown', function(){ fingerDown = true; });
+addEventListener('pointerup', function(e){
+  fingerDown = false; if (!S.planted || e.target !== cv) return;
+  var p = FIT.phone; if (e.clientX >= p.x && e.clientX <= p.x + p.w && e.clientY >= p.y && e.clientY <= p.y + p.h) return;   /* the phone's ground */
+  var n = lotAt(e.clientX, e.clientY); if (n) openSheet(n); else closeSheet();
+});
+addEventListener('pointercancel', function(){ fingerDown = false; });
+document.getElementById('plantYes').onclick = function(){ S.planted = true; save(); plant.style.display = 'none'; lastCut = performance.now(); };
+document.getElementById('plantNo').onclick = function(){ var h = plant.querySelector('h1'); h.textContent = 'NOT YET'; setTimeout(function(){ h.textContent = 'PLANT HERE?'; }, 900); };
+addEventListener('resize', function(){ fit(); closeSheet(); });
+fit();
+Promise.all([BASE + 'manifest.json', DATA + 'home_lots.json', DATA + 'nightly_bill.json'].map(function(u){ return fetch(u).then(function(r){ return r.json(); }).catch(function(){ return null; }); }))
+  .then(function(a){ M = a[0]; LB = a[1]; BILL = a[2]; if (!M) return;
+    if (!S.lots) { S.lots = {}; for (var n in M.default) { var d = M.default[n]; if ((pieceDef(d[0]) || {}).put_there_by && pieceDef(d[0]).put_there_by.kind === 'found') S.lots[n] = { piece: d[0], state: d[1] }; } }
+    if (!S.planted) plant.style.display = 'flex';
+    requestAnimationFrame(frame); });
+window.__YOUR_SETTLEMENT__ = { state: function(){ return S; }, fit: function(){ return FIT; }, lotAt: lotAt, cut: function(){ cutNext(performance.now()); } };
+})();
+</script>
+</body></html>
