@@ -413,3 +413,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 389 | Retreat: the flee button should be auto running for the map's edge, not end the fight | 365 | COMBAT 7 | QUEUED 11/3 (first after its current items) |
 | 390 | Enemies a little smart like Battle Brothers': preserve their lives, climb as high as they can, have abilities | 366 | COMBAT 7 | QUEUED 11/3 |
 | 391 | A new perk, DECOY: 'Did you seriously just walk around with a cardboard cutout?'; enemies can use it too | 367 | COMBAT 7 | QUEUED 11/3 |
+| 392 | The top of the screen: only the resources; the time and the crew are on the phone; no sun, no day plate, no second crew button, no place name | 368 | UI 7 (new) | QUEUED 11/3 |
+| 393 | The crew screen: no brown backdrop, see the camp and your people in it, clean; tap a man and the camera centers on him | 369 | UI 7 (new) | QUEUED 11/3 |
+| 394 | The bodies lore-friendly: none in a busy civilized settlement; the gameplay of them simple | 360 (amended) | COOK DEAD, COMBAT MAPS 3, WORLD | QUEUED 11/3 |
