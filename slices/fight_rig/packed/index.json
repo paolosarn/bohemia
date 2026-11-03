@@ -1,6 +1,18 @@
 {
 "about": "RUN 10/25 __THE_SHEETS_ARE_PACKED__ (rule 173): every fight look and gun sheet cut to the box its pixels fill; the fight uses an atlas only when the sheet's bytes on the server equal \"bytes\" here. tools/bohemia_run_the_sheets_packed.py",
 "sheets": {
+"beast_american_lion.webp": {
+"bytes": 503348,
+"decodedMB": 29.05,
+"fill": 0.238,
+"packedMB": 8.29
+},
+"beast_ancient_bison.webp": {
+"bytes": 766018,
+"decodedMB": 33.1,
+"fill": 0.31,
+"packedMB": 11.76
+},
 "beast_camelops.webp": {
 "bytes": 585924,
 "decodedMB": 28.94,
@@ -49,11 +61,23 @@
 "fill": 0.308,
 "packedMB": 6.34
 },
+"beast_ice_age_horse.webp": {
+"bytes": 430124,
+"decodedMB": 18.56,
+"fill": 0.361,
+"packedMB": 7.55
+},
 "beast_mountain_lion.webp": {
 "bytes": 232768,
 "decodedMB": 11.79,
 "fill": 0.243,
 "packedMB": 3.43
+},
+"beast_sabre_tooth.webp": {
+"bytes": 318884,
+"decodedMB": 13.6,
+"fill": 0.27,
+"packedMB": 4.26
 },
 "beast_short_faced_bear.webp": {
 "bytes": 515944,
@@ -873,8 +897,8 @@
 }
 },
 "totals": {
-"decodedMB": 2955.0,
-"packedMB": 515.5,
-"sheets": 145
+"decodedMB": 3049.3,
+"packedMB": 547.3,
+"sheets": 149
 }
 }

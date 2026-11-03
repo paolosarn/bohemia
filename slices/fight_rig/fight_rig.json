@@ -2148,6 +2148,178 @@
    "rig": "records/target/combat/rig/boss_climb_0/rig.json",
    "own_kit": true,
    "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
+  },
+  "beast_sabre_tooth": {
+   "file": "beast_sabre_tooth.webp",
+   "w": 150,
+   "h": 165,
+   "foot": [
+    75,
+    119
+   ],
+   "height_m": 1.103,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_sabre_tooth/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "beast_american_lion": {
+   "file": "beast_american_lion.webp",
+   "w": 226,
+   "h": 234,
+   "foot": [
+    112,
+    163
+   ],
+   "height_m": 1.252,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_american_lion/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "beast_ancient_bison": {
+   "file": "beast_ancient_bison.webp",
+   "w": 250,
+   "h": 241,
+   "foot": [
+    125,
+    172
+   ],
+   "height_m": 2.044,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_ancient_bison/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "beast_ice_age_horse": {
+   "file": "beast_ice_age_horse.webp",
+   "w": 176,
+   "h": 192,
+   "foot": [
+    88,
+    142
+   ],
+   "height_m": 1.779,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_ice_age_horse/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   }
  },
  "faces": {

@@ -82,7 +82,7 @@ BEASTS = {
         head=(0.60, 0.11, 0.095, 18, 0.55, 0.075), ears=(0.10, 0.055, 0.02, 30, 60), eyes=0.025,
         tail=(0.48, (0.035, 0.024, 0.02), (70, 82, 88)), tuft=(0.14, 0.04),
         hump=((0, 0.0, 2.02), (0.22, 0.42, 0.30)),
-        griz=0.03, res=0.017, gait='pace', bob=1.0, attack='kick', real_note='2.1 m at the shoulder, the hump to 2.35 m, the head to 2.6 m'),
+        griz=0.03, res=0.017, gait='pace', bob=1.0, attack='kick', labmark=True, real_note='2.1 m at the shoulder, the hump to 2.35 m, the head to 2.6 m'),
     # MOUNTAIN LION (Puma concolor; a male 55 to 70 kg, 0.65 to 0.75 m at the shoulder, the head and body 1.5 m, the tail 0.75 m
     # and thick to the end; the hind legs the longer so the hips stand over the shoulders; a long low body, a small round head
     # with short round ears, big round paws; built at the stalk: the shoulders low, the blades up, the head below the back).
@@ -124,7 +124,7 @@ BEASTS = {
         neck=[(-0.44, 0.66, 0.14, 0.13), (-0.60, 0.74, 0.11, 0.105)],
         head=(0.30, 0.085, 0.095, 14, 0.42, 0.045), ears=(0.09, 0.05, 0.012, 22, 75), eyes=0.016,
         tail=(0.48, (0.05, 0.06, 0.05, 0.025), (66, 80, 86, 88)),
-        res=0.009, gait='walk', bob=1.0, attack='bite', real_note='0.80 m at the shoulder, about 1.75 m nose to tail tip'),
+        res=0.009, gait='walk', bob=1.0, attack='bite', labmark=True, real_note='0.80 m at the shoulder, about 1.75 m nose to tail tip'),
     # FERAL DOG (the shepherd's slot, a mixed breed: a shepherd crossed with a pit, 28 to 34 kg, 0.58 m at the shoulder; a blocky
     # broad head on a short muzzle, a thick neck, a deep chest, ONE ear up and one flopped (a mutt's tell), the tail carried UP in a
     # sickle the way a dog's is, black and tan with a white blaze, and the collar it wore when it had a home).
@@ -147,7 +147,7 @@ BEASTS = {
         head=(0.28, 0.11, 0.115, 15, 0.34, 0.066), ears=(0.075, 0.075, 0.012, 32, 62), eyes=0.016,
         tail=(0.30, (0.035, 0.03, 0.026), (55, 78, 88)), tuft=(0.12, 0.05),
         crest=((0, -0.30, 0.885), (0.065, 0.36, 0.04)), bigtag=True,
-        griz=0.03, res=0.0085, gait='walk', attack='bite', real_note='0.90 m at the shoulder, 0.70 m at the rump, about 1.5 m nose to tail tip'),
+        griz=0.03, res=0.0085, gait='walk', attack='bite', labmark=True, real_note='0.90 m at the shoulder, 0.70 m at the rump, about 1.5 m nose to tail tip'),
     # SHORT-FACED BEAR (Arctodus simus, the Ice Age's giant bear; its mitochondrial genome read from bone (Mitchell et al. 2016);
     # 1.5 to 1.8 m at the shoulder on all fours, 600 to 900 kg, LONG legs for a bear, a SHORT broad face, small round ears, the
     # shoulder hump, big plantigrade paws, no tail to speak of; rule 345 amended (a): 'the lab beasts look like lab beasts').
@@ -159,7 +159,7 @@ BEASTS = {
         head=(0.47, 0.19, 0.21, 12, 0.27, 0.115), ears=(0.10, 0.10, 0.025, 42, 66), eyes=0.025,
         tail=(0.14, (0.06, 0.05, 0.04), (70, 80, 86)),
         crest=((0, -0.48, 1.50), (0.24, 0.40, 0.10)), bigtag=True, collar=0.55,
-        griz=0.05, res=0.017, gait='pace', attack='maul', real_note='1.55 m at the shoulder on all fours, about 2.4 m nose to rump, 3.3 m standing up'),
+        griz=0.05, res=0.017, gait='pace', attack='maul', labmark=True, real_note='1.55 m at the shoulder on all fours, about 2.4 m nose to rump, 3.3 m standing up'),
     # SHASTA GROUND SLOTH (Nothrotheriops shastensis: Gypsum Cave, a few miles from the Strip, kept its dung, and its DNA was read
     # from it (Poinar et al. 1998); about 2.7 m with the tail and 250 to 350 kg; THE OUTLINE NOTHING ELSE HAS: the hips higher than
     # the shoulders, a wide pelvis, a thick tail to the ground, a small head on a longer neck carried low, long forelegs walking on
@@ -171,7 +171,50 @@ BEASTS = {
         neck=[(-0.58, 0.78, 0.18, 0.16), (-0.90, 0.72, 0.14, 0.13)],
         head=(0.37, 0.105, 0.095, 26, 0.45, 0.055), ears=(0.045, 0.045, 0.012, 40, 40), eyes=0.014,
         tail=(0.78, (0.17, 0.14, 0.10, 0.06), (52, 68, 80, 86)), bigtag=True,
-        griz=0.12, res=0.015, gait='walk', attack='maul', real_note='1.0 m at the shoulder, 1.16 m at the hip, about 2.7 m with the tail, 3 m reared'),
+        griz=0.12, res=0.015, gait='walk', attack='maul', labmark=True, real_note='1.0 m at the shoulder, 1.16 m at the hip, about 2.7 m with the tail, 3 m reared'),
+    # SABRE-TOOTH (Smilodon fatalis; its genome read from Ice Age bone (Paijmans et al. 2017); made on the largest living cats): about
+    # 1.0 m at the shoulder and 160 to 280 kg, built like nothing alive: massive forelegs and neck, the back falling to the hips, a BOB
+    # TAIL, a big short-faced head with the two SABRES hanging past the chin; tawny with faint spots. Rule 345 amended (a).
+    'sabre_tooth': dict(
+        wh=1.00, hh=0.86, bl=1.20, cd=0.52, sw=0.20, bw=0.22, hw=0.17, belly=0.0, carpus=0.12, hock=0.28, footh=0.07,
+        legf=(0.115, 0.09, 0.065, 0.085), legh=(0.10, 0.07, 0.05, 0.072), foot='paw', shoulder_mass=1.25, blades=True,
+        neck=[(-0.52, 0.86, 0.17, 0.16), (-0.70, 0.88, 0.15, 0.145)],
+        head=(0.34, 0.12, 0.13, 8, 0.30, 0.078), ears=(0.06, 0.06, 0.012, 40, 64), eyes=0.018,
+        tail=(0.24, (0.06, 0.05, 0.045), (40, 60, 78)), sabres=dict(len=0.21, r=0.024), bigtag=True,
+        griz=0.03, res=0.011, gait='walk', attack='pounce', labmark=True, real_note='1.0 m at the shoulder, about 1.9 m nose to bob tail'),
+    # AMERICAN LION (Panthera atrox; its DNA read from Ice Age bone (Barnett et al. 2009, 2016); a quarter bigger than an African lion:
+    # about 1.2 m at the shoulder, 2.5 m of body and a 1 m tail, 250 to 400 kg; long-legged, maneless (the cave paintings of its
+    # cousin show no mane), a long tail with a dark tuft; sand-tawny).
+    'american_lion': dict(
+        wh=1.18, hh=1.20, bl=1.70, cd=0.58, sw=0.22, bw=0.25, hw=0.21, belly=0.02, carpus=0.12, hock=0.30, footh=0.08,
+        legf=(0.12, 0.092, 0.066, 0.09), legh=(0.13, 0.085, 0.06, 0.085), foot='paw',
+        neck=[(-0.72, 0.98, 0.20, 0.18), (-0.96, 1.06, 0.17, 0.16)],
+        head=(0.42, 0.14, 0.14, 6, 0.34, 0.082), ears=(0.07, 0.07, 0.014, 40, 66), eyes=0.022,
+        tail=(1.05, (0.05, 0.045, 0.042, 0.04), (55, 76, 70, 40)), tuft=(0.17, 0.06), collar=0.40, bigtag=True,
+        griz=0.02, res=0.013, gait='walk', attack='pounce', labmark=True, real_note='1.2 m at the shoulder, about 3.5 m nose to tail tip'),
+    # ANCIENT BISON (Bison antiquus, the valley's Ice Age bison: Tule Springs bone; DNA from the bones of its line read many times;
+    # made on the plains bison): about 2.0 m at the hump, 1,000 to 1,600 kg, the HUGE shoulder hump, the head carried LOW and nearly
+    # upright, a shaggy front and beard, wide horns curving up, the hindquarters slim, a short tufted tail; dark brown, the front darker.
+    'ancient_bison': dict(
+        wh=1.85, hh=1.50, bl=2.20, cd=1.00, sw=0.40, bw=0.44, hw=0.31, belly=0.0, carpus=0.24, hock=0.30, footh=0.12,
+        legf=(0.16, 0.11, 0.075, 0.09), legh=(0.14, 0.10, 0.07, 0.09), foot='hoof', shoulder_mass=1.3, ruff=1.0,
+        neck=[(-0.96, 1.40, 0.42, 0.34), (-1.26, 1.02, 0.34, 0.28)],
+        head=(0.62, 0.22, 0.21, 72, 0.34, 0.13), ears=(0.12, 0.06, 0.02, 92, -10), eyes=0.03,
+        tail=(0.55, (0.05, 0.035, 0.025), (80, 88, 90)), tuft=(0.16, 0.05),
+        horns=dict(out=0.34, fwd=0.04, up=0.24, r=0.075, n=10),
+        crest=((0, -0.58, 1.80), (0.34, 0.68, 0.24)), dewlap=((0, -1.40, 0.66), (0.10, 0.20, 0.20)), bigtag=True,
+        griz=0.06, res=0.02, gait='walk', attack='gore', labmark=True, real_note='2.0 m at the hump, about 3.6 m nose to rump'),
+    # ICE AGE HORSE (Equus, the valley's own: Tule Springs and Gypsum Cave horse bone; Ice Age horse genomes read many times (the
+    # 700,000-year-old Yukon horse, Orlando et al. 2013); made on a horse): about 1.45 m at the withers, stocky like a Przewalski's
+    # horse: an UPRIGHT dark mane, a long head, a long dark tail, dun with dark legs and a dark stripe down the back. Its mark is the
+    # one real wild horses carry: a white freeze mark on the left of the neck.
+    'ice_age_horse': dict(
+        wh=1.42, hh=1.42, bl=1.45, cd=0.62, sw=0.22, bw=0.27, hw=0.24, belly=0.0, carpus=0.30, hock=0.38, footh=0.13,
+        legf=(0.10, 0.075, 0.045, 0.06), legh=(0.11, 0.075, 0.045, 0.06), foot='hoof',
+        neck=[(-0.62, 1.20, 0.28, 0.16), (-0.86, 1.42, 0.20, 0.12), (-0.99, 1.62, 0.15, 0.10)], mane=0.10,
+        head=(0.58, 0.12, 0.10, 55, 0.50, 0.075), ears=(0.12, 0.05, 0.015, 15, 75), eyes=0.025,
+        tail=(0.75, (0.06, 0.07, 0.06, 0.04), (70, 82, 86, 88)),
+        griz=0.03, res=0.014, gait='walk', attack='kick', labmark=True, real_note='1.45 m at the withers, about 2.4 m nose to rump'),
 }
 
 
@@ -312,6 +355,13 @@ def build_body(name):
             bones = {B['neck']: 1.0} if w_head < 0.75 else {B['neck']: 0.6, B['head']: 0.4}
             b.ell(p, (hw_, np.linalg.norm(seg) / 3 * 0.9 + min(hd, hw_) * 0.6, hd), 'neck', bones,
                   rot=frame_x(seg, up=(0, 0, 1)) @ np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1]]), s=4.5)
+    if a.get('mane'):
+        for i in range(len(nk) - 1):
+            seg = nk[i + 1] - nk[i]; up_ = np.array([0, seg[2], -seg[1]]); up_ = up_ if up_[2] > 0 else -up_; up_ /= np.linalg.norm(up_)
+            for j in range(2):
+                t = (j + 0.5) / 2; p = nk[i] + seg * t; hd = a['neck'][i][2] + (a['neck'][i + 1][2] - a['neck'][i][2]) * t
+                b.ell(p + up_ * (hd * 0.85 + a['mane'] * 0.4), (0.03, np.linalg.norm(seg) / 2 * 0.7, a['mane']), 'mane', {B['neck']: 1.0},
+                      rot=frame_x(seg, up=(0, 0, 1)) @ np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1]]), s=5.0)
     if a.get('ruff'):
         b.ell(nk[0] + (nk[-1] - nk[0]) * 0.45 - np.array([0, 0, 0.02]), (a['neck'][0][3] * 1.3, 0.12 * bl, a['neck'][0][2] * 1.15), 'neck', {B['neck']: 1.0}, s=3.5)
     poll = nk[-1]
@@ -376,10 +426,14 @@ def build_body(name):
         tusks(b, a, nose, dirv, upv)
     if a.get('claws'):
         claws(b, a)
+    if a.get('sabres'):
+        sabres(b, a, mstart, nose, dirv, upv)
     if a.get('collar'):
         tags(b, 'collar', poll, nk, a)
+    if a.get('labmark'):
+        labplate(b, a, nk)
     for side in (1,):
-        if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf', 'cave_hyena', 'short_faced_bear', 'ground_sloth'):
+        if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf', 'cave_hyena', 'short_faced_bear', 'ground_sloth', 'sabre_tooth', 'american_lion', 'ancient_bison'):
             et_ = b.marks[('ear', side)]
             tg = 0.04 if a.get('bigtag') else (0.022 if wh > 1 else 0.014)
             b.ell(et_ - upv * 0.01, (tg, tg, 0.014), 'tag', {B['head']: 1.0}, s=6.0)
@@ -406,6 +460,20 @@ def tags(b, kind, poll, nk, a):
     p = nk[0] + (nk[-1] - nk[0]) * a['collar']
     b.ell(p - np.array([0, 0.0, a['neck'][0][2] * 0.95]), (0.035, 0.03, 0.03), 'collarbox', {B['neck']: 1.0}, s=6.0)
     b.marks['collar'] = p
+
+
+def labplate(b, a, nk):
+    """THE LAB MARK THAT READS FROM THE FIGHT'S CAMERA (rule 345 amended (d), Paolo 11/3; measured 11/3: the ear tags rendered 0 to 3
+    dull pixels, a small thing on the side of an ear seen from 45 degrees above, and the sheet's 64 colours merged them into the coat):
+    a lab collar whose numbered plate sits on the NAPE, the top of the neck the camera looks down on, in hi-vis yellow-green (the colour
+    of a safety vest: no fur on any animal is it, so it reads on every coat), sized to the animal"""
+    import numpy as np
+    c = a.get('collar', 0.45); k = min(1.5, max(0.85, a['wh'] / 1.0))
+    p = nk[0] + (nk[-1] - nk[0]) * c
+    hd = a['neck'][0][2] + (a['neck'][-1][2] - a['neck'][0][2]) * c
+    top = p + np.array([0, 0, hd * 0.92])
+    b.ell(top, (0.075 * k, 0.065 * k, 0.03 * k), 'labplate', {B['neck']: 1.0}, s=6.0)
+    b.marks['labplate'] = top; b.marks.setdefault('collar', p); b.marks['labk'] = k
 
 
 def tube_mesh(curve, radii, R=8):
@@ -451,6 +519,17 @@ def tusks(b, a, nose, dirv, upv):
         curve = [c - dirv * (0.004 * i * i) for i, c in enumerate(curve)]
         v, f = tube_mesh(curve, [t['r'] * (1 - 0.8 * i / 5) for i in range(6)], R=6)
         b.extra.append((v, f, 'tusk', {B['head']: 1.0}))
+
+
+def sabres(b, a, mstart, nose, dirv, upv):
+    """the sabre-tooth's two canines: from the upper jaw behind the nose, down and a little back, past the chin"""
+    import numpy as np
+    c = a['sabres']; mr = a['head'][5]
+    for side in (-1, 1):
+        base = mstart + (nose - mstart) * 0.55 + np.array([side * mr * 0.55, 0, 0]) - upv * mr * 0.2
+        curve = [base - upv * c['len'] * (i / 5) + dirv * (-0.02 * (i / 5) ** 2) for i in range(6)]
+        v, f = tube_mesh(curve, [c['r'] * (1 - 0.75 * i / 5) for i in range(6)], R=6)
+        b.extra.append((v, f, 'sabre', {B['head']: 1.0}))
 
 
 def claws(b, a):
@@ -833,6 +912,59 @@ def paint(name, b, P, N, PART, pix):
         sp = np.array([0.30, bl / 2 - 0.30, hh - 0.25])
         patch = isp('rump', 'thigh', 'barrel') & (P[..., 0] > 0.10) & (np.abs(y - sp[1]) < 0.09) & (np.abs(z - sp[2]) < 0.08)
         put(patch, C(0.74, 0.62, 0.57)); put(patch & (np.abs((y - sp[1]) - (z - sp[2]) * 0.9) < 0.01), C(0.22, 0.12, 0.11))
+    elif name in ('sabre_tooth', 'american_lion'):
+        TAWNY, BACK, CREAM = (C(0.62, 0.45, 0.27), C(0.52, 0.37, 0.22), C(0.84, 0.77, 0.64)) if name == 'sabre_tooth' else (C(0.72, 0.56, 0.35), C(0.62, 0.47, 0.29), C(0.86, 0.80, 0.68))
+        put(covered, TAWNY)
+        out[:] = out * (1 - back[..., None] * 0.5) + BACK * back[..., None] * 0.5
+        put(belly > 0.35, CREAM); put(isp('muzzle') & (N[..., 2] < 0.2), CREAM); put(isp('neck', 'head') & (N[..., 2] < -0.5), CREAM)
+        if name == 'sabre_tooth':   # faint spots on the flanks (the reconstructions' leopard-like dapple, kept faint)
+            cell = 0.11; gi = np.floor(P / cell); h = (gi[..., 0] * 73856093 + gi[..., 1] * 19349663 + gi[..., 2] * 83492791) % 1000003
+            jit = np.stack([(h % 97) / 97.0, (h % 89) / 89.0, (h % 83) / 83.0], -1); d = np.linalg.norm(P - (gi + 0.25 + 0.5 * jit) * cell, axis=-1)
+            put(covered & (d < 0.03) & (up < 0.4) & (belly < 0.2) & ~isp('head', 'muzzle', 'ear', 'sabre'), BACK * 0.82)
+        put(isp('ear') & (N[..., 1] > 0.0), C(0.18, 0.14, 0.11))
+        put(isp('tuft'), C(0.20, 0.15, 0.11))
+        put(isp('sabre'), C(0.88, 0.84, 0.72))
+        put(isp('muzzle') & (nose_d < 0.03), C(0.32, 0.20, 0.17))
+        put(eye_d < a['eyes'], C(0.10, 0.09, 0.07))
+        put(isp('paw') & (z < 0.03), C(0.45, 0.34, 0.24))
+        tg = isp('tag'); put(tg, C(0.92, 0.74, 0.10))
+        et_ = b.marks[('ear', 1)]; put(tg & (np.abs(P[..., 0] - et_[0]) < 0.007) & (N[..., 0] > 0.3), C(0.10, 0.08, 0.06))
+        if 'collar' in b.marks:
+            put(isp('neck') & (np.abs(y - b.marks['collar'][1]) < 0.035), C(0.16, 0.18, 0.16))
+            put(isp('collarbox'), C(0.16, 0.18, 0.16)); put(isp('collarbox') & (N[..., 2] < -0.6), C(0.88, 0.40, 0.10))
+        if name == 'sabre_tooth':   # the shaved, stitched patch on the shoulder
+            sp = np.array([0.17, -0.38, 0.74]); patch = isp('shoulder', 'chest') & (P[..., 0] > 0.08) & (np.abs(y - sp[1]) < 0.08) & (np.abs(z - sp[2]) < 0.07)
+            put(patch, C(0.74, 0.62, 0.57)); put(patch & (np.abs((y - sp[1]) - (z - sp[2]) * 0.8) < 0.009), C(0.22, 0.12, 0.11))
+    elif name == 'ancient_bison':
+        BROWN, FRONT = C(0.34, 0.22, 0.13), C(0.19, 0.13, 0.08)
+        put(covered, BROWN)
+        put(isp('crest', 'neck', 'head', 'dewlap', 'shoulder', 'chest') | (legs & (y < 0) & (z > 0.5)), FRONT)
+        put(isp('muzzle'), C(0.14, 0.11, 0.09)); put(isp('tuft'), FRONT)
+        put(legs & (z < 0.45), C(0.22, 0.15, 0.10)); put(isp('hoof'), C(0.10, 0.09, 0.08))
+        hrn = isp('horn'); put(hrn, C(0.14, 0.12, 0.11))
+        put(eye_d < a['eyes'], C(0.05, 0.04, 0.04))
+        put(isp('tag'), C(0.92, 0.74, 0.10))
+        # the lab's freeze brand on the left hip: white numerals burned into the hide (the real ranch and lab mark)
+        bp = np.array([0.28, bl / 2 - 0.25, hh - 0.30]); fb = isp('rump', 'thigh', 'barrel') & (x > 0.15)
+        for k in range(3):
+            d0, _ = seg_dist(P, bp + np.array([0, -0.10 + 0.09 * k, 0.07]), bp + np.array([0, -0.10 + 0.09 * k, -0.07]))
+            put(fb & (d0 < 0.016), C(0.86, 0.84, 0.80))
+        d0, _ = seg_dist(P, bp + np.array([0, -0.10, 0.07]), bp + np.array([0, 0.08, 0.07])); put(fb & (d0 < 0.016), C(0.86, 0.84, 0.80))
+    elif name == 'ice_age_horse':
+        DUN, DARK = C(0.68, 0.53, 0.33), C(0.17, 0.13, 0.10)
+        put(covered, DUN)
+        put(belly > 0.4, C(0.80, 0.70, 0.52))
+        put(legs & (z < a['carpus'] * wh + 0.05), DARK)
+        put(isp('mane', 'tail'), DARK)
+        put(covered & (up > 0.8) & ~isp('head', 'muzzle', 'ear', 'neck'), C(0.24, 0.18, 0.12))   # the dark stripe down the back
+        put(isp('muzzle') & (nose_d < 0.12), C(0.82, 0.74, 0.60))
+        put(isp('ear') & (N[..., 1] > 0.2), DARK)
+        put(eye_d < a['eyes'], C(0.05, 0.04, 0.04)); put(isp('hoof'), C(0.10, 0.09, 0.08))
+        # the freeze mark on the left of the neck: white angular marks, the way real wild horses are marked (BLM)
+        nk = a['neck']; mp = np.array([0.0, (nk[0][0] + nk[1][0]) / 2, (nk[0][1] + nk[1][1]) / 2]); fm = isp('neck') & (x > 0.05)
+        for k in range(4):
+            d0, _ = seg_dist(P, mp + np.array([0, -0.10 + 0.06 * k, 0.06]), mp + np.array([0, -0.10 + 0.06 * k + 0.03, -0.06]))
+            put(fm & (d0 < 0.013), C(0.92, 0.90, 0.86))
     elif name == 'feral_dog_shepherd':
         BLACK, TAN, WHITE = C(0.15, 0.13, 0.12), C(0.62, 0.42, 0.24), C(0.86, 0.83, 0.77)
         put(covered, BLACK)
@@ -848,6 +980,12 @@ def paint(name, b, P, N, PART, pix):
                        a['neck'][0][1] + (a['neck'][1][1] - a['neck'][0][1]) * a['dogcollar']])
         put(isp('neck') & (np.abs((P - cp) @ np.array([0, 0.8, -0.6])) < 0.016), C(0.52, 0.14, 0.11))
         put(isp('tag'), C(0.70, 0.70, 0.66))
+    if a.get('labmark') and 'labplate' in pix:
+        k = b.marks['labk']; cy = b.marks['collar'][1]
+        put(isp('neck') & (np.abs(y - cy) < 0.035 * k), C(0.13, 0.14, 0.13))         # the collar's band
+        pl = isp('labplate'); put(pl, C(0.80, 0.98, 0.16))                              # the hi-vis plate
+        put(pl & (np.abs(x) < 0.008 * k), C(0.10, 0.10, 0.08))                          # its number, a dark bar down the middle
+        griz = np.where(pl, 1.0, griz); drift = np.where(pl, 1.0, drift)
     out = out * (griz * drift)[..., None]
     out = np.where(covered[..., None], np.clip(out, 0, 1), 0)
     # the seams: every empty texel takes its painted neighbours (eight rounds), so no island edge pulls in black
@@ -877,7 +1015,9 @@ STRIDE = {'feral_bull': (0.55, 15, 55, 38, 1.5, 4, 1.5, 6), 'camelops': (0.5, 20
           'mountain_lion': (0.62, 18, 50, 40, 0.5, 1, 0.0, 6), 'feral_hog': (0.5, 18, 50, 36, 1.0, 3, 0.0, 14),
           'coyote': (0.5, 20, 58, 44, 0.9, 2, 0.0, 6), 'dire_wolf': (0.6, 18, 52, 40, 0.8, 2, 0.0, 5),
           'feral_dog_shepherd': (0.6, 18, 52, 40, 0.8, 2, 0.0, 10), 'cave_hyena': (0.6, 16, 50, 36, 0.9, 4, 0.0, 6),
-          'short_faced_bear': (0.55, 16, 48, 34, 1.4, 3, 3.0, 2), 'ground_sloth': (0.68, 11, 36, 26, 0.8, 2, 2.5, 4)}
+          'short_faced_bear': (0.55, 16, 48, 34, 1.4, 3, 3.0, 2), 'ground_sloth': (0.68, 11, 36, 26, 0.8, 2, 2.5, 4),
+          'sabre_tooth': (0.62, 16, 48, 38, 0.6, 1, 0.0, 3), 'american_lion': (0.62, 18, 50, 40, 0.7, 1, 0.0, 6),
+          'ancient_bison': (0.58, 13, 44, 30, 1.6, 4, 1.5, 6), 'ice_age_horse': (0.6, 20, 60, 44, 1.2, 4, 0.0, 8)}
 
 
 def gait(arm, a, name):

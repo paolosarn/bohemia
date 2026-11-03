@@ -171,11 +171,13 @@
   var KIND_WORDS = { direwolf: ['DIRE WOLF', 'DIRE WOLVES'], frenzied_direwolf: ['DIRE WOLF', 'DIRE WOLVES'], hyena: ['HYENA', 'HYENAS'], frenzied_hyena: ['HYENA', 'HYENAS'],
     /* BEASTS 2 11/3 (rule 345 amended (b)): every beast the jobs now deal says what it is on the meet card */
     coyote: ['COYOTE', 'COYOTES'], mountain_lion: ['LION', 'LIONS'], feral_hog: ['HOG', 'HOGS'], camelops: ['CAMEL', 'CAMELS'], feral_bull: ['BULL', 'BULLS'],
-    wardog: ['DOG', 'DOGS'], warhound: ['DOG', 'DOGS'], armored_wardog: ['DOG', 'DOGS'], short_faced_bear: ['BEAR', 'BEARS'], ground_sloth: ['GROUND SLOTH', 'GROUND SLOTHS'] };   /* draft:true */
+    wardog: ['DOG', 'DOGS'], warhound: ['DOG', 'DOGS'], armored_wardog: ['DOG', 'DOGS'], short_faced_bear: ['BEAR', 'BEARS'], ground_sloth: ['GROUND SLOTH', 'GROUND SLOTHS'],
+    sabre_tooth: ['SABRE-TOOTH', 'SABRE-TOOTHS'], american_lion: ['GIANT LION', 'GIANT LIONS'], ancient_bison: ['BISON', 'BISON'], ice_age_horse: ['HORSE', 'HORSES'] };   /* draft:true */
   var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['ROBOT', 'ROBOTS'], kids: ['KID', 'KIDS'],
     house: ['HOUSE MAN', 'HOUSE MEN'], watch: ['NEIGHBOR', 'BLOCK WATCH'], keepers: ['KEEPER', 'KEEPERS'], water: ['WATER MAN', 'WATER PEOPLE'],
     wolves: ['DIRE WOLF', 'DIRE WOLVES'], hyenas: ['HYENA', 'HYENAS'], dogs: ['DOG', 'DOGS'], coyotes: ['COYOTE', 'COYOTES'], lions: ['LION', 'LIONS'],
-    hogs: ['HOG', 'HOGS'], camels: ['CAMEL', 'CAMELS'], bulls: ['BULL', 'BULLS'], bears: ['BEAR', 'BEARS'], sloths: ['GROUND SLOTH', 'GROUND SLOTHS'] };   /* draft:true; FACTIONS 11/3; BEASTS 2 11/3 */
+    hogs: ['HOG', 'HOGS'], camels: ['CAMEL', 'CAMELS'], bulls: ['BULL', 'BULLS'], bears: ['BEAR', 'BEARS'], sloths: ['GROUND SLOTH', 'GROUND SLOTHS'],
+    sabres: ['SABRE-TOOTH', 'SABRE-TOOTHS'], prides: ['GIANT LION', 'GIANT LIONS'], bison: ['BISON', 'BISON'], horses: ['HORSE', 'HORSES'] };   /* draft:true; FACTIONS 11/3; BEASTS 2 11/3 */
   function kindWord(band, faction) {
     var n = band && band.length || 0; if (!n) return 'MEN';
     var words = band.map(function (id) { return KIND_WORDS[id] || null; });

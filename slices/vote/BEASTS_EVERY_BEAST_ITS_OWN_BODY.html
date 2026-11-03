@@ -27,7 +27,7 @@
 <p>You said the bull looked too much like the coyote and the wolf. You were right: every beast was the same fox model, stretched. Now each one has its own body, built from the real animal's size, and its own walk and attack. Your man is 1.72 m. Everything is at the fight's size, from the fight's camera.</p>
 <div class="row"><div class="lab"><b>THE LINE-UP, NOW</b><span class="tag">YOUR MAN FOR SCALE</span></div>
   <div class="lineup"><canvas id="lineup"></canvas></div>
-  <div class="small" id="lineupwords">Left to right: your man, the coyote, the feral dog, the dire wolf, the cave hyena, the ground sloth, the feral hog, the mountain lion, the feral bull, the short-faced bear, Camelops.</div></div>
+  <div class="small" id="lineupwords">Left to right: your man, the coyote, the feral dog, the dire wolf, the cave hyena, the ground sloth, the sabre-tooth, the feral hog, the mountain lion, the Ice Age horse, the feral bull, the American lion, the short-faced bear, the ancient bison, Camelops.</div></div>
 <div id="list"></div>
 <script>
 const BEASTS = [
@@ -67,12 +67,28 @@ const BEASTS = [
     now: 'Gypsum Cave\'s sloth, brought back from its own dung: the hips higher than the shoulders, a thick tail on the ground, a small head on a long neck, long arms walking on the knuckles with the great claws turned in.',
     moves: 'Slow. It heals every turn, and it throws whoever stands beside it.',
     mark: 'A big numbered tag in its ear, and a shaved, stitched patch on its hip where the lab took its samples.' },
+  { id: 'sabre_tooth', was: 'dire_wolf', name: 'SABRE-TOOTH', tag: 'WAS: THE ROCKS GAVE YOU WOLVES',
+    now: 'The Ice Age sabre-tooth: 1 m at the shoulder, massive forelegs and neck, the back falling to a bob tail, and the two sabres hanging past its chin.',
+    moves: 'It waits unseen in the rocks, springs on the man alone and holds him down, and the sabres make him bleed.',
+    mark: 'A big numbered tag in its ear, and a shaved, stitched patch on its shoulder.' },
+  { id: 'american_lion', was: 'dire_wolf', name: 'AMERICAN LION', tag: 'WAS: THE DESERT GAVE YOU WOLVES',
+    now: 'The Ice Age lion: 1.2 m at the shoulder, a quarter bigger than any lion alive, long legs, no mane, a long tail with a dark tuft.',
+    moves: 'A pride of two or three. They go round you for the weak one, like Battle Brothers\' direwolves.',
+    mark: 'A lab collar with its box, and a numbered tag in its ear.' },
+  { id: 'ancient_bison', was: 'dire_wolf', name: 'ANCIENT BISON', tag: 'WAS: THE DESERT GAVE YOU WOLVES',
+    now: 'The valley\'s own Ice Age bison: 2 m at the hump, a ton and more, a shaggy dark front, its head carried low, wide horns curving up.',
+    moves: 'It walks heavy, and it charges in a straight line like the bull, head down.',
+    mark: 'The lab\'s freeze brand, white marks burned into its hip, and a tag in its ear.' },
+  { id: 'ice_age_horse', was: 'dire_wolf', name: 'ICE AGE HORSE', tag: 'WAS: THE DESERT GAVE YOU WOLVES',
+    now: 'The valley\'s own wild horse: 1.45 m at the withers, stocky, dun with dark legs, a dark upright mane and a dark stripe down its back.',
+    moves: 'In bands. It kicks every man beside it, and hurt it runs.',
+    mark: 'A white freeze mark on the left of its neck, the mark real wild horses carry.' },
   { id: 'feral_dog_shepherd', name: 'FERAL DOG', tag: 'A MUTT, NOT A WOLF',
     now: 'A mixed breed now: shepherd and pit, a blocky head, one ear up and one flopped, the tail up in a curl the way a dog carries it, black and tan with a white chest.',
     moves: 'It walks, and bites forward and holds.',
     mark: 'The red collar it wore when it had a home.' }
 ];
-const LINE_ALL = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'cave_hyena', 'ground_sloth', 'feral_hog', 'mountain_lion', 'feral_bull', 'short_faced_bear', 'camelops'];
+const LINE_ALL = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'cave_hyena', 'ground_sloth', 'sabre_tooth', 'feral_hog', 'mountain_lion', 'ice_age_horse', 'feral_bull', 'american_lion', 'short_faced_bear', 'ancient_bison', 'camelops'];
 const PLAY = [['stand', 3], ['walk', 12], ['bite', 6], ['walk', 6], ['hit', 2], ['fall', 3], ['fall_hold', 6]];
 const KPS = 6;   /* 120 BPM, three keys a beat */
 const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });

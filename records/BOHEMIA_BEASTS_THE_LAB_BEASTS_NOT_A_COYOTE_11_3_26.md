@@ -89,6 +89,21 @@ bear healed 21 times and threw 14 men, the sloth healed 37 times and threw 17; t
 VOTE beasts2-the-bear-and-the-sloth-11-3 (slices/vote/BEASTS_THE_BEAR_AND_THE_SLOTH.html): WAS the dire wolf (what the fossil beds
 dealt), the man, NOW, and the line-up.
 
+## PIECE 4: THE SABRE-TOOTH, THE AMERICAN LION, THE ANCIENT BISON, THE ICE AGE HORSE
+On the builder, each its own outline (rule 345 amended (a)), each on a Battle Brothers rule set (mechanic first; where Battle Brothers
+has no such beast, the closest rule and its lesson, named):
+| beast | built (shoulder / hip / long, m) | the real animal (DNA) | its outline | rule set |
+|---|---|---|---|---|
+| SABRE-TOOTH | 1.08 / 0.88 / 1.86 | Smilodon fatalis, genome from bone (Paijmans et al. 2017), on the largest cats | massive forelegs and neck, the back falling to a BOB TAIL, the two SABRES past the chin, faint spots | NO BB beast: the serpent's wait, spring and pin (the mountain lion's) WITH the hyena's bleeding bite: brain 'ambusher' |
+| AMERICAN LION | 1.19 / 1.20 / 2.92 | Panthera atrox, DNA from bone (Barnett et al. 2009, 2016), on the African lion | a quarter over any lion alive, long legs, NO mane, a long tail with a dark tuft | BB's direwolf PACK: a pride of two or three that goes round you for the weak one: brain 'pride' |
+| ANCIENT BISON | 2.0 at the hump / 1.57 / 2.76 | Bison antiquus, Tule Springs bone, on the plains bison | the huge hump, the head carried LOW, a shaggy dark front and beard, wide horns curving up, slim hindquarters | BB's Ijirok GORE, the bull's charge (brain 'charger') |
+| ICE AGE HORSE | 1.55 at the withers with the mane / 1.42 / 2.23 | Equus, Tule Springs and Gypsum Cave bone; Ice Age horse genomes (Orlando et al. 2013), on a horse | stocky, dun, dark legs, an UPRIGHT dark mane, a dark stripe down the back, a long head | NO BB beast: the unhold's Sweep as the camel's kick, and it runs hurt (brain 'kicker') |
+The lab marks: big numbered ear tags (all but the horse), the sabre-tooth's stitched shoulder patch, the American lion's lab collar,
+the bison's white freeze-brand numerals on the hip, the horse's white freeze mark on the left of the neck (the mark real wild horses
+carry). Places (BOHEMIA_JOB_KINDS.json and the road): the sabre-tooth and the lions in the rocks (the hills), the lions and the bison
+and the horses on the open desert, the bison on the golf courses' grass, the horses on the solar fields and the airport's flats; the
+road by act (more in act two and three) and the cats more at night. Pass by eye: the bison's hump read as a ball set on its back:
+blended longer and lower into the shoulders.
+
 ## NEXT (in order)
-4. The sabre-tooth, the American lion, the ancient bison, the Ice Age horse. 5. Every lab mark readable from the fight's camera.
-6. The gate in the suite.
+5. Every lab mark readable from the fight's camera. 6. The gate in the suite.
