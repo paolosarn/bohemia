@@ -1300,8 +1300,13 @@
   function questTrack() {
     var g = H.going; if (!g || g.wait) return;
     var cw = cityWin(), tv = null; try { tv = cw ? cw.TRAVEL : null; } catch (e) {}
-    var same = !!tv && (tv === g.trav || (g.to && tv.to && Math.max(Math.abs((tv.to[0] | 0) - g.to[0]), Math.abs((tv.to[1] | 0) - g.to[1])) <= 1));
-    if (same) { if (tv !== g.trav) g.trav = tv; return; }
+    var near = function (a, x, y) { return Math.max(Math.abs((a[0] | 0) - (x | 0)), Math.abs((a[1] | 0) - (y | 0))) <= 1; };
+    var same = !!tv && (tv === g.trav || (g.to && tv.to && near(tv.to, g.to[0], g.to[1])));
+    /* a hunt's pack moves and the map re-aims the walk at it: still this quest's road while it leads to one of its own places */
+    if (!same && tv && tv.to && cw.BohemiaQuestTravel && cw.BohemiaQuestTravel.places) { try {
+      var hj = ((cw.LOOP && cw.LOOP.held) || []).filter(function (j) { return j && String(j.id) === g.id; })[0];
+      if (hj) same = cw.BohemiaQuestTravel.places(hj).some(function (c) { return near(tv.to, c.x, c.y); }); } catch (e) {} }
+    if (same) { if (tv !== g.trav) { g.trav = tv; if (tv.to) g.to = [tv.to[0] | 0, tv.to[1] | 0]; } return; }
     H.going = null; window.__PHONE_QUEST_ENDED = (window.__PHONE_QUEST_ENDED | 0) + 1;
     var L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P; jobsPaint(L, true); questStrip(true); if (H.page === 'feed') pagePaint(true);
   }
