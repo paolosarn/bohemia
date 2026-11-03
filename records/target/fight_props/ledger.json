@@ -592,5 +592,500 @@
   "materials": 5,
   "glb_kb": 124,
   "seconds": 21
+ },
+ "trailer.trailer": {
+  "size_m": [
+   17.95,
+   5.53,
+   3.45
+  ],
+  "bounds_m": [
+   [
+    -8.1,
+    -3.28,
+    -0.0
+   ],
+   [
+    9.85,
+    2.25,
+    3.44
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/trailer_trailer.glb",
+  "picture": "records/target/fight_props/trailer/trailer_trailer.webp",
+  "picture_px": [
+   820,
+   312
+  ],
+  "anchor_px": [
+   365.4,
+   212.7
+  ],
+  "verts": 1046,
+  "materials": 13,
+  "glb_kb": 120,
+  "seconds": 23
+ },
+ "trailer.burnt": {
+  "size_m": [
+   17.89,
+   5.52,
+   3.27
+  ],
+  "bounds_m": [
+   [
+    -8.04,
+    -3.33,
+    -0.0
+   ],
+   [
+    9.85,
+    2.19,
+    3.26
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/trailer_burnt.glb",
+  "picture": "records/target/fight_props/trailer/trailer_burnt.webp",
+  "picture_px": [
+   895,
+   461
+  ],
+  "anchor_px": [
+   370.8,
+   217.0
+  ],
+  "verts": 948,
+  "materials": 11,
+  "glb_kb": 108,
+  "seconds": 24
+ },
+ "trailer.propane": {
+  "size_m": [
+   4.98,
+   1.34,
+   1.58
+  ],
+  "bounds_m": [
+   [
+    -1.51,
+    -0.54,
+    0.0
+   ],
+   [
+    3.47,
+    0.8,
+    1.58
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/trailer_propane.glb",
+  "picture": "records/target/fight_props/trailer/trailer_propane.webp",
+  "picture_px": [
+   260,
+   112
+  ],
+  "anchor_px": [
+   69.6,
+   89.1
+  ],
+  "verts": 3921,
+  "materials": 10,
+  "glb_kb": 188,
+  "seconds": 5
+ },
+ "trailer.carport": {
+  "size_m": [
+   6.41,
+   3.99,
+   2.87
+  ],
+  "bounds_m": [
+   [
+    -3.2,
+    -1.99,
+    -0.04
+   ],
+   [
+    3.2,
+    1.99,
+    2.83
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/trailer_carport.glb",
+  "picture": "records/target/fight_props/trailer/trailer_carport.webp",
+  "picture_px": [
+   398,
+   311
+  ],
+  "anchor_px": [
+   163.2,
+   168.2
+  ],
+  "verts": 7511,
+  "materials": 11,
+  "glb_kb": 315,
+  "seconds": 13
+ },
+ "trailer.clothesline": {
+  "size_m": [
+   6.08,
+   2.0,
+   2.1
+  ],
+  "bounds_m": [
+   [
+    -3.04,
+    -1.4,
+    0.0
+   ],
+   [
+    3.04,
+    0.6,
+    2.1
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/trailer_clothesline.glb",
+  "picture": "records/target/fight_props/trailer/trailer_clothesline.webp",
+  "picture_px": [
+   327,
+   151
+  ],
+  "anchor_px": [
+   131.2,
+   107.9
+  ],
+  "verts": 320,
+  "materials": 5,
+  "glb_kb": 38,
+  "seconds": 5
+ },
+ "desert.joshua": {
+  "size_m": [
+   2.34,
+   3.78,
+   4.12
+  ],
+  "bounds_m": [
+   [
+    -1.0,
+    -2.24,
+    -0.01
+   ],
+   [
+    1.34,
+    1.54,
+    4.1
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/desert_joshua.glb",
+  "picture": "records/target/fight_props/desert/desert_joshua.webp",
+  "picture_px": [
+   234,
+   237
+  ],
+  "anchor_px": [
+   59.5,
+   198.3
+  ],
+  "verts": 1580,
+  "materials": 4,
+  "glb_kb": 166,
+  "seconds": 9
+ },
+ "desert.joshua_small": {
+  "size_m": [
+   2.48,
+   1.93,
+   2.83
+  ],
+  "bounds_m": [
+   [
+    -1.26,
+    -1.35,
+    -0.01
+   ],
+   [
+    1.22,
+    0.59,
+    2.82
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/desert_joshua_small.glb",
+  "picture": "records/target/fight_props/desert/desert_joshua_small.webp",
+  "picture_px": [
+   182,
+   179
+  ],
+  "anchor_px": [
+   57.9,
+   125.2
+  ],
+  "verts": 1580,
+  "materials": 4,
+  "glb_kb": 166,
+  "seconds": 6
+ },
+ "desert.boulders": {
+  "size_m": [
+   5.19,
+   3.23,
+   2.14
+  ],
+  "bounds_m": [
+   [
+    -2.46,
+    -1.92,
+    -0.25
+   ],
+   [
+    2.73,
+    1.31,
+    1.89
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/desert_boulders.glb",
+  "picture": "records/target/fight_props/desert/desert_boulders.webp",
+  "picture_px": [
+   263,
+   162
+  ],
+  "anchor_px": [
+   120.2,
+   90.7
+  ],
+  "verts": 824,
+  "materials": 4,
+  "glb_kb": 121,
+  "seconds": 5
+ },
+ "desert.buried_car": {
+  "size_m": [
+   6.27,
+   4.43,
+   1.81
+  ],
+  "bounds_m": [
+   [
+    -2.51,
+    -1.6,
+    -0.3
+   ],
+   [
+    3.75,
+    2.83,
+    1.51
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/desert_buried_car.glb",
+  "picture": "records/target/fight_props/desert/desert_buried_car.webp",
+  "picture_px": [
+   291,
+   167
+  ],
+  "anchor_px": [
+   110.7,
+   119.7
+  ],
+  "verts": 3556,
+  "materials": 9,
+  "glb_kb": 201,
+  "seconds": 7
+ },
+ "desert.pylon": {
+  "size_m": [
+   32.69,
+   15.1,
+   6.42
+  ],
+  "bounds_m": [
+   [
+    -3.43,
+    -6.58,
+    0.0
+   ],
+   [
+    29.26,
+    8.52,
+    6.42
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/desert_pylon.glb",
+  "picture": "records/target/fight_props/desert/desert_pylon.webp",
+  "picture_px": [
+   1452,
+   588
+  ],
+  "anchor_px": [
+   147.9,
+   388.0
+  ],
+  "verts": 1168,
+  "materials": 4,
+  "glb_kb": 124,
+  "seconds": 57
+ },
+ "redrock.ledge_1": {
+  "size_m": [
+   12.38,
+   10.01,
+   3.1
+  ],
+  "bounds_m": [
+   [
+    -6.15,
+    -5.45,
+    -0.08
+   ],
+   [
+    6.23,
+    4.56,
+    3.01
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/redrock_ledge_1.glb",
+  "picture": "records/target/fight_props/redrock/redrock_ledge_1.webp",
+  "picture_px": [
+   660,
+   433
+  ],
+  "anchor_px": [
+   289.7,
+   259.4
+  ],
+  "verts": 502,
+  "materials": 5,
+  "glb_kb": 67,
+  "seconds": 20
+ },
+ "redrock.ledge_2": {
+  "size_m": [
+   12.67,
+   9.85,
+   6.11
+  ],
+  "bounds_m": [
+   [
+    -6.34,
+    -5.32,
+    -0.1
+   ],
+   [
+    6.33,
+    4.53,
+    6.01
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/redrock_ledge_2.glb",
+  "picture": "records/target/fight_props/redrock/redrock_ledge_2.webp",
+  "picture_px": [
+   734,
+   601
+  ],
+  "anchor_px": [
+   297.8,
+   370.4
+  ],
+  "verts": 572,
+  "materials": 5,
+  "glb_kb": 72,
+  "seconds": 30
+ },
+ "redrock.ledge_3": {
+  "size_m": [
+   12.21,
+   9.49,
+   10.24
+  ],
+  "bounds_m": [
+   [
+    -6.1,
+    -4.7,
+    0.0
+   ],
+   [
+    6.11,
+    4.79,
+    10.24
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/redrock_ledge_3.glb",
+  "picture": "records/target/fight_props/redrock/redrock_ledge_3.webp",
+  "picture_px": [
+   798,
+   821
+  ],
+  "anchor_px": [
+   287.6,
+   519.8
+  ],
+  "verts": 880,
+  "materials": 7,
+  "glb_kb": 112,
+  "seconds": 45
+ },
+ "redrock.fin": {
+  "size_m": [
+   15.76,
+   4.27,
+   10.1
+  ],
+  "bounds_m": [
+   [
+    -7.68,
+    -2.99,
+    -0.1
+   ],
+   [
+    8.08,
+    1.28,
+    10.0
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/redrock_fin.glb",
+  "picture": "records/target/fight_props/redrock/redrock_fin.webp",
+  "picture_px": [
+   885,
+   708
+  ],
+  "anchor_px": [
+   355.3,
+   458.2
+  ],
+  "verts": 1106,
+  "materials": 4,
+  "glb_kb": 132,
+  "seconds": 41
+ },
+ "redrock.slot": {
+  "size_m": [
+   13.34,
+   6.6,
+   7.0
+  ],
+  "bounds_m": [
+   [
+    -6.69,
+    -3.29,
+    0.0
+   ],
+   [
+    6.65,
+    3.31,
+    7.0
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/redrock_slot.glb",
+  "picture": "records/target/fight_props/redrock/redrock_slot.webp",
+  "picture_px": [
+   819,
+   668
+  ],
+  "anchor_px": [
+   312.8,
+   386.1
+  ],
+  "verts": 1680,
+  "materials": 4,
+  "glb_kb": 140,
+  "seconds": 35
  }
 }

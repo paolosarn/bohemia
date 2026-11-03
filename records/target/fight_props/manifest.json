@@ -56,6 +56,42 @@
     "golf.dead_palm",
     "golf.palm_down"
    ]
+  },
+  {
+   "id": "trailer",
+   "name": "THE TRAILER PARK",
+   "card": "records/target/fight_props/CARD_TRAILER.webp",
+   "props": [
+    "trailer.trailer",
+    "trailer.burnt",
+    "trailer.propane",
+    "trailer.carport",
+    "trailer.clothesline"
+   ]
+  },
+  {
+   "id": "desert",
+   "name": "THE DESERT",
+   "card": "records/target/fight_props/CARD_DESERT.webp",
+   "props": [
+    "desert.joshua",
+    "desert.joshua_small",
+    "desert.boulders",
+    "desert.buried_car",
+    "desert.pylon"
+   ]
+  },
+  {
+   "id": "redrock",
+   "name": "RED ROCK",
+   "card": "records/target/fight_props/CARD_REDROCK.webp",
+   "props": [
+    "redrock.ledge_1",
+    "redrock.ledge_2",
+    "redrock.ledge_3",
+    "redrock.fin",
+    "redrock.slot"
+   ]
   }
  ],
  "models": [
@@ -814,6 +850,636 @@
    "what": "the same palm fallen across the fairway, its crown smashed on the ground: a long low log a man lies behind, its dead fronds rough ground to cross",
    "wrong": null,
    "verts": 1136
+  },
+  {
+   "id": "trailer.trailer",
+   "place": "trailer",
+   "place_name": "THE TRAILER PARK",
+   "name": "A TRAILER ON BLOCKS",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/trailer_trailer.glb",
+   "picture": "records/target/fight_props/trailer/trailer_trailer.webp",
+   "picture_px": [
+    820,
+    312
+   ],
+   "anchor_px": [
+    365.4,
+    212.7
+   ],
+   "size_m": [
+    17.95,
+    5.53,
+    3.45
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.689,
+   "height_m": 3.44,
+   "height_storeys": 1.15,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a 16 m single-wide on cinder-block piers, its skirt half fallen so you see the blocks, aluminium siding, a crowned roof, a window unit, one window boarded, pallets for steps, its tongue still on",
+   "wrong": null,
+   "verts": 1046
+  },
+  {
+   "id": "trailer.burnt",
+   "place": "trailer",
+   "place_name": "THE TRAILER PARK",
+   "name": "A TRAILER BURNT OUT",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/trailer_burnt.glb",
+   "picture": "records/target/fight_props/trailer/trailer_burnt.webp",
+   "picture_px": [
+    895,
+    461
+   ],
+   "anchor_px": [
+    370.8,
+    217.0
+   ],
+   "size_m": [
+    17.89,
+    5.52,
+    3.27
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.686,
+   "height_m": 3.26,
+   "height_storeys": 1.09,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the next single-wide burnt to its shell: black walls, its roof fallen into the middle, ash on the floor, its rafters bare",
+   "wrong": null,
+   "verts": 948
+  },
+  {
+   "id": "trailer.propane",
+   "place": "trailer",
+   "place_name": "THE TRAILER PARK",
+   "name": "THE PROPANE TANKS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/trailer_propane.glb",
+   "picture": "records/target/fight_props/trailer/trailer_propane.webp",
+   "picture_px": [
+    260,
+    112
+   ],
+   "anchor_px": [
+    69.6,
+    89.1
+   ],
+   "size_m": [
+    4.98,
+    1.34,
+    1.58
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.046,
+   "height_m": 1.58,
+   "height_storeys": 0.53,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": true
+   },
+   "what": "the park's 500 gallon tank (the kit's own model, whole) and two 100 pound bottles chained to a post beside it; hit one and the ground burns",
+   "wrong": null,
+   "verts": 3921
+  },
+  {
+   "id": "trailer.carport",
+   "place": "trailer",
+   "place_name": "THE TRAILER PARK",
+   "name": "A CARPORT",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/trailer_carport.glb",
+   "picture": "records/target/fight_props/trailer/trailer_carport.webp",
+   "picture_px": [
+    398,
+    311
+   ],
+   "anchor_px": [
+    163.2,
+    168.2
+   ],
+   "size_m": [
+    6.41,
+    3.99,
+    2.87
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.178,
+   "height_m": 2.83,
+   "height_storeys": 0.94,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a steel carport, 6 m by 3.6 m on four posts, one post buckled so the roof sags to a corner; under it a couch and a stack of tyres (the kit's own)",
+   "wrong": null,
+   "verts": 7511
+  },
+  {
+   "id": "trailer.clothesline",
+   "place": "trailer",
+   "place_name": "THE TRAILER PARK",
+   "name": "THE CLOTHESLINE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/trailer_clothesline.glb",
+   "picture": "records/target/fight_props/trailer/trailer_clothesline.webp",
+   "picture_px": [
+    327,
+    151
+   ],
+   "anchor_px": [
+    131.2,
+    107.9
+   ],
+   "size_m": [
+    6.08,
+    2.0,
+    2.1
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.084,
+   "height_m": 2.1,
+   "height_storeys": 0.7,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "two T-posts 6 m apart and three lines between them, the washing pegged out on them, a basket on the gravel",
+   "wrong": "the washing is spotless white, the only clean thing in the park, pegged out fresh, and nobody lives here",
+   "verts": 320
+  },
+  {
+   "id": "desert.joshua",
+   "place": "desert",
+   "place_name": "THE DESERT",
+   "name": "A JOSHUA TREE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/desert_joshua.glb",
+   "picture": "records/target/fight_props/desert/desert_joshua.webp",
+   "picture_px": [
+    234,
+    237
+   ],
+   "anchor_px": [
+    59.5,
+    198.3
+   ],
+   "size_m": [
+    2.34,
+    3.78,
+    4.12
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.061,
+   "height_m": 4.1,
+   "height_storeys": 1.37,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a Joshua tree 4.6 m tall, branched twice, each arm ending in its fist of spikes, the dead leaves shagging its limbs",
+   "wrong": null,
+   "verts": 1580
+  },
+  {
+   "id": "desert.joshua_small",
+   "place": "desert",
+   "place_name": "THE DESERT",
+   "name": "A YOUNG JOSHUA TREE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/desert_joshua_small.glb",
+   "picture": "records/target/fight_props/desert/desert_joshua_small.webp",
+   "picture_px": [
+    182,
+    179
+   ],
+   "anchor_px": [
+    57.9,
+    125.2
+   ],
+   "size_m": [
+    2.48,
+    1.93,
+    2.83
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.033,
+   "height_m": 2.82,
+   "height_storeys": 0.94,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a younger Joshua tree, 3 m, branched once",
+   "wrong": null,
+   "verts": 1580
+  },
+  {
+   "id": "desert.boulders",
+   "place": "desert",
+   "place_name": "THE DESERT",
+   "name": "BOULDERS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/desert_boulders.glb",
+   "picture": "records/target/fight_props/desert/desert_boulders.webp",
+   "picture_px": [
+    263,
+    162
+   ],
+   "anchor_px": [
+    120.2,
+    90.7
+   ],
+   "size_m": [
+    5.19,
+    3.23,
+    2.14
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.116,
+   "height_m": 1.89,
+   "height_storeys": 0.63,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "four granite boulders, desert-varnished dark on top and pale where they split, the biggest 1.7 m: cover a man crouches behind",
+   "wrong": null,
+   "verts": 824
+  },
+  {
+   "id": "desert.buried_car",
+   "place": "desert",
+   "place_name": "THE DESERT",
+   "name": "A DEAD CAR HALF BURIED",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/desert_buried_car.glb",
+   "picture": "records/target/fight_props/desert/desert_buried_car.webp",
+   "picture_px": [
+    291,
+    167
+   ],
+   "anchor_px": [
+    110.7,
+    119.7
+   ],
+   "size_m": [
+    6.27,
+    4.43,
+    1.81
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.193,
+   "height_m": 1.51,
+   "height_storeys": 0.5,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a sedan (the kit's own wreck, whole) half under a sand drift, its nose down in the dune, sand piled over its bonnet and up its doors",
+   "wrong": "its headlights are on",
+   "verts": 3556
+  },
+  {
+   "id": "desert.pylon",
+   "place": "desert",
+   "place_name": "THE DESERT",
+   "name": "A POWER PYLON DOWN",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/desert_pylon.glb",
+   "picture": "records/target/fight_props/desert/desert_pylon.webp",
+   "picture_px": [
+    1452,
+    588
+   ],
+   "anchor_px": [
+    147.9,
+    388.0
+   ],
+   "size_m": [
+    32.69,
+    15.1,
+    6.42
+   ],
+   "footprint_cells": [
+    3,
+    2
+   ],
+   "fills_cell": 1.0,
+   "height_m": 6.42,
+   "height_storeys": 2.14,
+   "role": "blocking",
+   "sees_through": true,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "what": "a 24 m steel lattice transmission tower snapped at its footings and lying on its face across the desert, its arms and insulators in the dirt, its conductors trailing off; its legs still stand where it broke. You see through it, you go round it",
+   "wrong": null,
+   "verts": 1168
+  },
+  {
+   "id": "redrock.ledge_1",
+   "place": "redrock",
+   "place_name": "RED ROCK",
+   "name": "A SANDSTONE LEDGE, ONE STOREY",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/redrock_ledge_1.glb",
+   "picture": "records/target/fight_props/redrock/redrock_ledge_1.webp",
+   "picture_px": [
+    660,
+    433
+   ],
+   "anchor_px": [
+    289.7,
+    259.4
+   ],
+   "size_m": [
+    12.38,
+    10.01,
+    3.1
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.861,
+   "height_m": 3.01,
+   "height_storeys": 1.0,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a slickrock ledge 12 m by 9 m and 3 m high, its beds of rust and cream sandstone stepping in as they rise, potholes on its flat top: height you climb to",
+   "wrong": null,
+   "verts": 502
+  },
+  {
+   "id": "redrock.ledge_2",
+   "place": "redrock",
+   "place_name": "RED ROCK",
+   "name": "A SANDSTONE LEDGE, TWO STOREYS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/redrock_ledge_2.glb",
+   "picture": "records/target/fight_props/redrock/redrock_ledge_2.webp",
+   "picture_px": [
+    734,
+    601
+   ],
+   "anchor_px": [
+    297.8,
+    370.4
+   ],
+   "size_m": [
+    12.67,
+    9.85,
+    6.11
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.867,
+   "height_m": 6.01,
+   "height_storeys": 2.0,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the same rock, 6 m high: a step up from the one-storey ledge, its face too steep to climb but from the lower one",
+   "wrong": null,
+   "verts": 572
+  },
+  {
+   "id": "redrock.ledge_3",
+   "place": "redrock",
+   "place_name": "RED ROCK",
+   "name": "A SANDSTONE LEDGE, THREE STOREYS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/redrock_ledge_3.glb",
+   "picture": "records/target/fight_props/redrock/redrock_ledge_3.webp",
+   "picture_px": [
+    798,
+    821
+   ],
+   "anchor_px": [
+    287.6,
+    519.8
+   ],
+   "size_m": [
+    12.21,
+    9.49,
+    10.24
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.805,
+   "height_m": 10.24,
+   "height_storeys": 3.41,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the top step, 9 m high, the highest ground on any board",
+   "wrong": "on its top, where nobody could climb, a cairn of stones somebody stacked",
+   "verts": 880
+  },
+  {
+   "id": "redrock.fin",
+   "place": "redrock",
+   "place_name": "RED ROCK",
+   "name": "A SANDSTONE FIN",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/redrock_fin.glb",
+   "picture": "records/target/fight_props/redrock/redrock_fin.webp",
+   "picture_px": [
+    885,
+    708
+   ],
+   "anchor_px": [
+    355.3,
+    458.2
+   ],
+   "size_m": [
+    15.76,
+    4.27,
+    10.1
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.467,
+   "height_m": 10.0,
+   "height_storeys": 3.33,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "an Aztec sandstone fin 14 m long, 2.5 m thick and 10 m tall, weathered round on top, its cross-bedded bands running along it: a wall across the board you go round or hold",
+   "wrong": null,
+   "verts": 1106
+  },
+  {
+   "id": "redrock.slot",
+   "place": "redrock",
+   "place_name": "RED ROCK",
+   "name": "THE SLOT CANYON'S WALLS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/redrock_slot.glb",
+   "picture": "records/target/fight_props/redrock/redrock_slot.webp",
+   "picture_px": [
+    819,
+    668
+   ],
+   "anchor_px": [
+    312.8,
+    386.1
+   ],
+   "size_m": [
+    13.34,
+    6.6,
+    7.0
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.611,
+   "height_m": 7.0,
+   "height_storeys": 2.33,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "two sandstone walls 12 m long and 7 m high, curving together with a slot 1.1 m wide between them: one man at a time walks through it",
+   "wrong": null,
+   "verts": 1680
   }
  ]
 }
