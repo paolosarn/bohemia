@@ -1,6 +1,28 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
-UI (ui-7, the top and the crew's camp): 11/3 LATEST -- [the top is only resources] + [the crew sees the camp] BUILT, NOT YET SEEN (rules
+UI (ui-7, tap a quest on the phone): 11/3 LATEST -- [tap a quest, your people go: the phone's half] BUILT, NOT YET SEEN (rule 376, ask
+line 404; BUILD 11/3zzzzaz - TAP A QUEST ON THE PHONE, code 3b77e4afc + f5ac27e5a, on main 2a3511db0), IN THE DEMO, VOTE card
+ui7-tap-a-quest-on-the-phone-11-3 WAS beside NOW. Record records/BOHEMIA_UI7_TAP_A_QUEST_ON_THE_PHONE_11_3_26.md.
+- THE PHONE (slices/bohemia_phone.js __TAP_A_QUEST_YOUR_PEOPLE_GO__): questGo(id, from) is every quest's one handler: the job's card (.jc
+  click and Enter; its X keeps its own tap), the strip while it shows the post of a job he holds (questStrip sets .bpfd.quest and
+  data-quest off H.stripTop; stripPaint and fitStrip are untouched, the strip's click reads data-quest), the feed page's .po.qp
+  (questOf: a job_taken post whose words name a held job's town). It closes the page, leaves a town by P.leave (the town's #leave) or
+  breaks the camp (BohemiaMapCamp.break; a camp in a town then its LEAVE), waits out the map's leave-fit (MAP_FIT, about 1.4 s from a
+  tap in a town), then calls the city frame's BOH_TRAVEL_TO_QUEST (WORLD 8), else P.jobGo. H.going {id, to, trav} is the mark: .jc.going
+  (arrow or dot amber, bphGo on BEAT), .bpfd.quest.going, .po.qp.going; questTrack takes it off when TRAVEL ends or leads elsewhere (a
+  re-aim at a hunt's moving pack keeps it: BohemiaQuestTravel.places). A no (no road, a road's card up) shakes it (bphNo). Read-outs:
+  window.__PHONE_QUEST_GO, BohemiaPhone.going(), BohemiaPhone.questLog().
+- GATES: gates/tap_a_quest_on_the_phone_gate.js 21/0 (new; upright and on its side, a finger: in a town, on the map, the strip, the feed
+  page, the fallback, no NOTES; plants: no road, a plain mark). Re-aimed: the_phone_gate (268/0: the card's tap is stopped before PLAY is
+  seen to go), the_place_in_the_dark_gate (20/0; the journey stopped before the marks are read; its phone D6 is red on clean main, 19/1).
+NEXT: the old offers board (bohemia_phone_board.js, #cityfeed) is hidden on every screen, so its cards were left alone; if it ever comes
+back its post() is the place to call questGo's twin. A road's card often stops a trip inside two blocks (raiders, a pack coming to
+meet him): that is WORLD's road, the mark comes off with it.
+[bb Battle Brothers: the contract's scroll on the world map's corner is the button; click its target and the company walks with the
+clock running. Ours: the job's card on the phone in your hand, one tap.]
+[analog horror: the card you sent them to pulses amber on the beat like a tracker's dot on a handheld, and goes dark when the road ends.]
+
+UI (ui-7, the top and the crew's camp): 11/3 -- [the top is only resources] + [the crew sees the camp] BUILT, NOT YET SEEN (rules
 368 and 369, ask lines 392 and 393; BUILD 11/3zzzzaj - THE TOP IS ONLY RESOURCES, code f6836bd76, on main 9025ec9f8; BUILD 11/3zzzzau - THE
 CREW SEES THE CAMP, code 38ed041cc; LIVE: pages run 4258 SUCCESS for 1ee466f2e), IN THE DEMO, two VOTE cards WAS beside NOW (ui7-the-top-is-only-resources-11-3,
 ui7-the-crew-sees-the-camp-11-3). Records records/BOHEMIA_UI7_THE_TOP_IS_ONLY_RESOURCES_11_3_26.md and
