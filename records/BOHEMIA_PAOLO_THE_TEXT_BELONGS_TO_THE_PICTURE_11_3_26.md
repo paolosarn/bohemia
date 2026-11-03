@@ -30,3 +30,16 @@ saw what the characters would look like (the 3D rig). Made from our own creativi
    and beautiful. Text is placed by composition, not rescued by a box.
 4. THE GATE: no element behind the start screen's four words (no background, shadow, outline or blur on them or their parents), the words'
    contrast against the real pixels behind them measured on every feed tall and wide (it must read), and no NOTES button in any build.
+
+## AMENDED 11/3, THE SAME ROUND (Paolo, verbatim)
+"But remember the text is still obviously like a menu overlay like I don't want you to make graffiti of the shit you know text or
+whatever but yeah you know what I'm saying like the placement is gonna look like it was important and it makes sense with what's
+happening behind it and it makes it very visible but not everything has to be at night time too though keep that in mind but yeah Bohemia
+Washington DC modern warfare, two audio analog, horror, crash box vibes, bro"
+
+5. THE WORDS ARE A MENU OVERLAY, CLEAN: the game's own type, flat on top of the footage; never painted into the scene (no graffiti, no
+   sign, no words on a wall), never part of the picture. What is composed is WHERE they sit: a placement that looks important, makes
+   sense with what is happening behind it, and is very easy to read.
+6. NOT ALL NIGHT: the feeds run through the whole day (dawn, a white noon, the dust of afternoon, dusk, night), each composed for the words
+   at its own light.
+7. THE FEEL, IN HIS WORDS: Bohemia is the Washington DC radio of Modern Warfare 2 (rule 353), analog horror and Crashbox (rule 301).
