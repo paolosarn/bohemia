@@ -25,6 +25,9 @@
      B5  ...AND THEY LAND: in fights against them (the curve tool --factions, the three companies, every level, closeness_bands.big_beasts)
          the share of their landed blows that take half a man is at least big_share_at_least, armoured_big_share_at_least on the armoured line;
          the before bank fails it
+     D1  THE LEVELS ARE SMALL STEPS (rule 380): no level's crew is more than closeness_bands.steps.count_step from its neighbour and SEEN IT
+         is the math (1); no level's aim is more than steps.aim_step from its neighbour; no easier level is harder than the next on crews, aim,
+         how soon the late men come (job_bb.dress_ahead) or the tier's days (enemy_tiers.difficulty_days)
      B4  nothing threw
    node gates/the_fight_is_close_gate.js             FIGHT_CLOSE_N=<fights a cell> (20: the bank's own seeds, so the live fight must reproduce the committed after bank)
    ========================================================================== */
@@ -137,6 +140,21 @@ const say = p => 'won ' + p.won + ', struck ' + p.struck + ' a fight, nobody und
       return { k, a: a.name, bare, mail, bad: bare < 0.5 ? 'bare ' + Math.round(100 * bare) + '%' : needMail && mail < 0.5 ? 'mail ' + Math.round(100 * mail) + '%' : null }; });
     ok('O2 THE BIG BEASTS ARE DEADLY UP CLOSE: each one\'s best blow takes half an unarmoured man, and the bull, the bear, the sloth and the camel half a man in mail',
       o2.every(x => !x.bad), o2.map(x => x.k + ' ' + (x.a || '') + ' ' + Math.round(100 * (x.bare || 0)) + '%/' + Math.round(100 * (x.mail || 0)) + '%' + (x.bad ? ' FAILS ' + x.bad : '')).join('; '));
+
+    /* D1: the levels are small steps */
+    const ST = CB.steps, cm = PM.difficulty_count_mult.value, aim = OURS.hit_roll_shift.value.by_difficulty, pace = PM.job_bb.value.dress_ahead.mult, tdays = OURS.enemy_tiers.value.difficulty_days;
+    const d1 = [];
+    if (cm[1] !== 1) d1.push('SEEN IT crews ' + cm[1] + ', not the math (1)');
+    for (let i = 0; i + 1 < cm.length; i++) if (Math.abs(cm[i + 1] - cm[i]) > ST.count_step + 1e-9) d1.push('crews ' + cm[i] + ' -> ' + cm[i + 1]);
+    for (let i = 0; i + 1 < aim.length; i++) if (Math.abs(aim[i + 1] - aim[i]) > ST.aim_step) d1.push('aim ' + aim[i] + ' -> ' + aim[i + 1]);
+    for (let i = 0; i + 1 < 3; i++) {
+      if (cm[i] > cm[i + 1]) d1.push('level ' + i + ' sends more men than ' + (i + 1));
+      if (aim[i] < aim[i + 1]) d1.push('level ' + i + ' aims worse than ' + (i + 1));
+      if ((pace[i] || 1) > (pace[i + 1] || 1)) d1.push('level ' + i + ' dresses sooner than ' + (i + 1));
+      if ((tdays[i] || 0) > (tdays[i + 1] || 0)) d1.push('level ' + i + ' has more tier days than ' + (i + 1));
+    }
+    ok('D1 THE LEVELS ARE SMALL STEPS: crews within ' + ST.count_step + ' of each other (SEEN IT the math), aim within ' + ST.aim_step + ' points, no easier level harder on any lever',
+      d1.length === 0, d1.length ? d1.join('; ') : 'crews ' + cm.join(' / ') + ', aim ' + aim.join(' / ') + ', late men pace ' + pace.join(' / ') + ', tier days ' + tdays.join(' / '));
 
     /* B3 first (static): the before bank fails, the after bank holds */
     const before = J('banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_BEFORE_11_3_26.json'), after = J('banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_AFTER_11_3_26.json');

@@ -16,8 +16,8 @@ good." He plays NEW HERE (the easiest), as a Lone Wolf.
    blow took a tenth of a man. Rare men in the kit the post hands them (mail and a helmet) were untouchable early too (day 10: 99% of their
    health left). Rare men in the CHEAPEST kit (a stick, a padded coat, a cloth cap) were not a walk in the simulator: about two men down a
    fight at day 20. The causes, s3.
-3. THE RETUNE, DATA ONLY (s4): NEW HERE fields the crews Battle Brothers' own easiest level fields (it never shrank a crew; ours took 15% off
-   on top of its aim); the two harder levels dress a strong company sooner; the late orcs and kids bring their champions more often, and the
+3. THE RETUNE, DATA ONLY (s4): NEW HERE fields the full crew (ours took 15% off on top of Battle Brothers' easiest aim; a small step past
+   Battle Brothers' easiest, on purpose, rule 380 record s3); the two harder levels dress a strong company sooner; the late orcs and kids bring their champions more often, and the
    middle game's orcs and machines bring more of their heavy kind; the rare man is rolled in the top half of his range, not the top quarter; and on the
    armourer's shelf no worse piece costs more than a better one (30 pieces, nearly all costumes and the ancient sets).
 4. WHAT MOVED (s5), the gate's pool (the three companies at days 10 and 20), on today's fight: NEW HERE's hardest job can be lost now (91
@@ -69,11 +69,12 @@ THE LEVERS, named, biggest first.
    company's health left was 96 to 98% at every day from 10 on. In Battle Brothers the late company meets 20 to 30 men; ours meets 13 at
    most (party_math.json job.max, rule 75b 'never twelve against twelve') and the heavies and kids fewer (count_scale 0.45, 0.6). MEASURED:
    job.max 13 -> 16 changed only day 40 and the armoured company on NEW HERE still won 100 with 93 to 97% of its health; not shipped.
-2. THE EASIEST LEVEL WAS EASIER THAN BATTLE BROTHERS' EASIEST. NEW HERE carried Beginner's 5 points of aim (ours.json hit_roll_shift, 'On
+2. THE EASIEST LEVEL STACKED TWO GIFTS. NEW HERE carried Beginner's 5 points of aim (ours.json hit_roll_shift, 'On
    Beginner combat difficulty player gets 5 points lower (better) to hit rolls and enemies get 5 points worse ones', bb_all/0828_Game
-   Mechanics.txt) AND took 15% off every crew (party_math.json difficulty_count_mult 0.85), which Battle Brothers' Beginner never does: the
-   same page, 'Enemies will carry the same equipment with the same stats on all difficulty levels', and the groups move only with 'harder
-   enemy groups appear sooner'. SEEN IT carries Beginner's aim too (rule 117(a), 'easier than Battle Brothers'); Battle Brothers' Veteran
+   Mechanics.txt) AND took 15% off every crew (party_math.json difficulty_count_mult 0.85). CORRECTED 11/3 (rule 380 record s3): an earlier
+   line here said Battle Brothers' Beginner never shrinks a crew; the wiki says Beginner brings 'easier groups later' and Expert 'harder enemy
+   groups appear sooner' (count and tier, GROK_60), so its easiest may well field fewer. Ours now sends NEW HERE the full crew ON PURPOSE, a
+   small step harder than Battle Brothers' easiest, because his newest words are that even that one bit and ours did not (rule 370(1)). SEEN IT carries Beginner's aim too (rule 117(a), 'easier than Battle Brothers'); Battle Brothers' Veteran
    is 0.
 3. THE ENEMY DID NOT KEEP UP. The first week was thugs alone (ours.json enemy_tiers first: {thug 1}); the library says 'Thugs and sometimes
    Raiders' (bb_all/0299_Brigands.txt). The middle game held one marauder in eleven (the page: 'armored Marauders can spawn' as raiders
@@ -104,8 +105,8 @@ THE LEVERS, named, biggest first.
    to 0 to 39%, and with the blows spread an armoured company never met one: 0 to 2% of the landed blows took half a man.
 
 ## 4. THE RETUNE (TUNING's one table; every row carries its amended_11_3 note)
-1. party_math.json difficulty_count_mult [0.85, 1, 1.15, 1.3] -> [1, 1, 1.15, 1.3]: NEW HERE's crews as the math sends them, Battle
-   Brothers' Beginner (370(1), newest over rule 117's 'the party at 0.85'). NEW HERE keeps Beginner's aim.
+1. party_math.json difficulty_count_mult [0.85, 1, 1.15, 1.3] -> [1, 1, 1.15, 1.3]: NEW HERE's crews as the math sends them, a small step
+   harder than Battle Brothers' Beginner on purpose (370(1), newest over rule 117's 'the party at 0.85'). NEW HERE keeps Beginner's aim.
 2. party_math.json job_bb.dress_ahead.mult [2.5, 3, 4] -> [2.5, 3.5, 4.5]: a strong company meets the late men (dress day 60) about day 28
    on NEW HERE, 22 on SEEN IT, 18 on OUTLIVED IT (was 28, 25, 20), so the three levels stay apart now that NEW HERE fields the full crew;
    the difficulty_levels say lines say so (draft:true).
@@ -266,8 +267,8 @@ Every band is a row of records/target/bb/party_math.json closeness_bands (with i
 - COMBAT 7 (rule 366): enemy target choice; the armoured company's walk is the measurement it moves.
 - ECONOMY: the pistol's price (s3.6).
 - FACTIONS: a road shotgun man (s7).
-[bb the ramp: Battle Brothers' easiest level keeps its full crews and only gives you five points of aim; ours did both and more, and now
-does what Battle Brothers does, so the easiest level bites the way his did]
+[bb the step: Battle Brothers' easiest level gives five points of aim and easier groups later; ours gave the aim and 15% off every crew; now it
+gives the aim and the full crew, a small step past Battle Brothers' easiest, so the easiest level bites the way his did]
 [analog horror: the men on the road get better because you did; nobody says so, there are just more of the ones with a name on their blade]
 
 ## 8. THE OTHER GATES THESE FILES FEED (rule 13: the pre-push pass)
