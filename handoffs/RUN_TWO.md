@@ -1,5 +1,20 @@
-RUN TWO (run-two, the town screen, the shop, the stall, the crew's gear): 10/26 LATEST -- BUILD 10/26zzw - THE STALL BUYS IT BACK.
+RUN TWO (run-two, the town screen, the shop, the stall, the crew's gear): 11/3 LATEST -- BUILD 11/3zzu - THE TOWN JOB.
 All BUILT, NOT YET SEEN (rule 179) unless said.
+
+11/3 THE TOWN JOB (the coordinator's VAMILY from FINISHER 2's open asks page s2; record records/BOHEMIA_RUN_TWO_THE_TOWN_JOB_11_3_26.md):
+- FOUND: the game already drew the towns' own pictures (FINISHER's 'old pictures' line was EYES R6 at 10/26zzi, before the
+  10/27 four layouts); 55 of 56 views (14 towns x upright/sideways x phone left/right). Reds sideways drew town_1 (its smith's
+  door on the picture's bottom edge). A man you can tap stood under the phone in 9 of 28 upright views; Caravans' post off the
+  bottom edge sideways; the arrival card's bar under the phone; a failed picture never re-asked = his brown town (248).
+- SHIPPED 49e90eff (__NOTHING_TAPPABLE_UNDER_THE_PHONE__): FIT.padPic/phonePic/glassPic at the fit; offThePhone() (game only,
+  never S.standalone) moves any still man off the phone's ground or back onto the glass; crewGround skips the pad; the folk key
+  carries the pad; tapBox stops at the phone; frameTargets keeps the post's men on; the arrival card padded into the open area;
+  townIm retries twice then the tier's picture; picIn() guards every tap. Reds' wide smith door (1044, 1062).
+- GATE NOTHING TAPPABLE UNDER THE PHONE 17/0 (6 min; every town, both ways, both sides). VOTE run2-the-town-job-11-3.
+- Rows 226, 219, 241, 106, 142, 253, 244, 173, 174, 195, 248 marked BUILT, NOT YET SEEN on the ask list.
+- NEXT / LEFT: the camp's sizes under the phone (K14, line 291) are CAMP TWO's; Church's church roof runs under the phone's
+  edge upright (decor, no tap; the coordinator's landmark_in_pad); SETTLEMENT SIDEWAYS is red on main (it wants the whole
+  picture uncropped, the four layouts crop by design): its owner re-aims it.
 
 SHIPPED THIS SESSION (in order, each on the board with its sha):
 - [what you buy goes on the man] ddb0d6e0 (rule 210): BUY puts it on the card's man (best fit or the face he tapped), the old piece

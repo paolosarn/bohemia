@@ -17429,6 +17429,38 @@
     "after": "three mocks of your own one screen, the bosses' prizes on it, the daily bill on top",
     "scale": "his phone upright, 390 x 844 in shape, cut from the town pictures; MOCK on every picture, nothing new modelled"
    }
+  },
+  {
+   "id": "run2-the-town-job-11-3",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "49e90eff",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE TOWNS: NOTHING YOU TAP UNDER THE PHONE",
+   "said": "nothing I need to click cannot be behind the phone... only the ground tile with no equipment no building no people nothing behind it",
+   "why": "Every town shows its own picture now, upright and sideways with the phone on either side, and nobody you can talk to stands under the phone (before, your men or the recruits stood under it in 9 of 28 upright views, and Reds sideways showed an old shared picture). You see three towns here, before and now, and in the demo when you open any town.",
+   "options": [
+    "A, yes, every town reads clear around the phone",
+    "B, clear, but the people bunch up where they moved",
+    "C, no, something still sits under the phone"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/run2_town_job_11_3/sheet.webp",
+    "first": "../records/target/run2_town_job_11_3/first.webp",
+    "firstAt": [
+     625,
+     144,
+     585,
+     1266
+    ]
+   },
+   "before_after": {
+    "before": "a man you can tap under the phone in 9 of 28 upright views; Reds sideways the old shared picture; the post's men off the bottom edge sideways",
+    "after": "all 56 views (14 towns, upright and sideways, phone left and right): the town's own picture, nobody and no shop under the phone",
+    "scale": "his phone, 390 x 844 upright and 844 x 390 on its side, by day, the game's own camera"
+   }
   }
  ],
  "verdicts": [
