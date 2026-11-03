@@ -1,0 +1,30 @@
+{
+ "_what": "THE PIT (ARENA, rule 375): a transparent piece in the towns' own camera, drawn by the town screen over the Mob's picture at slices/arena/arena_town.json's place. anchor = where the pool's centre on the ground (0, 0, 0) lands in this picture's pixels; footprint = the ground it covers (nobody walks there); door = where the bookie stands.",
+ "px": [
+  408,
+  330
+ ],
+ "ppm": 42.9167,
+ "anchor": [
+  199.6,
+  231.8
+ ],
+ "footprint": [
+  15,
+  120,
+  399,
+  315
+ ],
+ "door": [
+  174,
+  336
+ ],
+ "pool": [
+  71,
+  180,
+  328,
+  283
+ ],
+ "source": "tools/bohemia_arena_the_pit.py",
+ "draft": true
+}

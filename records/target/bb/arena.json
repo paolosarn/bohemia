@@ -1,0 +1,438 @@
+{
+ "_about": "THE ARENA (ARENA lane, VAMILY rule 375, ask lines 402 and 403; Paolo 11/3: 'I forgot about the arena system in Battle Brothers holy shit yes I love that... definitely gonna be a part of the mob... they host an arena with exotic DNA lab shits... make it easier: your accessory thing is X'd out and won't apply as you enter... easier to choose the three people that go in... a tournament, you can bring five'; AMENDED: 'the mob, they're [held together] by fucking duct tape and a thread... barely able to'). ONE FILE A MODDER CAN EDIT: who the Mob puts in the pit and when (Battle Brothers' weighted pool unlocked by arena wins, bb_all/0131_Arena.txt), what it pays (only on a win), the ranks and their small traits, the fifth match and its pit gear, the tournament, the crowd, the power that fails. Every number has its source and its reason; Battle Brothers is the floor and ours is a little easier (his words). The research: records/BOHEMIA_ARENA_HOW_BATTLE_BROTHERS_DOES_IT_11_3_26.md. engine/bohemia_arena.js reads it; nothing else types an arena number. TUNING's table carries these rows as section X.",
+ "draft": true,
+ "tuned": false,
+ "where": {
+  "value": [
+   "Mob"
+  ],
+  "source": "VAMILY rule 359(g), rule 375: the Mob hosts it on the Strip",
+  "why": "the arena is a building only in the Mob's own town; a town named here shows the pit on its screen"
+ },
+ "men": {
+  "value": 3,
+  "source": "bb_all/0620_Dev Blog 142: The Arena.txt: 'limited to fight with just three men of your choice'; Paolo 11/3 'the three people that go into the arena'",
+  "why": "three men, chosen on one screen"
+ },
+ "men_tournament": {
+  "value": 5,
+  "source": "bb_all/0131_Arena.txt (Arena Tournament: 'You use five men instead of the regular three'); Paolo 11/3 'if it's a tournament then it'll be like you can bring five people'",
+  "why": "five in a tournament"
+ },
+ "fights_per_day": {
+  "value": 1,
+  "source": "bb_all/0131_Arena.txt: 'You may compete in the Arena once per day'",
+  "why": "one card a day; walk away and tomorrow's card is a different one"
+ },
+ "accessory_counts": {
+  "value": false,
+  "source": "bb_all/0620: the arena collar is worn in the accessory slot, so no dog comes in; Paolo 11/3: 'your accessory thing is X'd out and it won't apply as you enter the arena'",
+  "why": "no collar to equip: every picked man's accessory is crossed out on the pick screen and stripped from him for the fight"
+ },
+ "retreat": {
+  "value": false,
+  "source": "bb_all/0620: 'you can't retreat once a battle has started'",
+  "why": "the fight's retreat button is gone in the pit"
+ },
+ "loot": {
+  "value": false,
+  "source": "bb_all/0620: 'you won't be able to loot your victims after the battle has ended'; bb_all/0844, 0845: the gladiators' gear 'can't be looted'",
+  "why": "the spoils screen keeps its recap and drops nothing"
+ },
+ "count_scale": {
+  "value": {
+   "days_plus_wins_full": 60,
+   "easier": 0.85,
+   "fifth_mult": 1.3334
+  },
+  "source": "bb_all/0131_Arena.txt (Scaling): 'Number of days passed + Arena victories is a minor factor, but it caps at 50'; the main factor is roster strength, scaled 0.75 to 5; Beginner 0.85, Veteran 1.0, Expert 1.15; every fifth win 'a harder than normal fight (1/3 higher difficulty rating than normal)'",
+  "why": "ours reads the minor factor only (days + 2 x arena wins, full at 60) and Battle Brothers' Beginner factor 0.85 (his 'make it easier'): a card's count runs from its min at the start to min + 0.85 of its range late; a fifth match is a third more"
+ },
+ "power": {
+  "value": {
+   "out_chance": 0.22,
+   "beast_mult": 0.5,
+   "big_off": true
+  },
+  "source": "VAMILY rule 375 AMENDED (ask line 403) and records/BOHEMIA_PAOLO_THE_MOB_RUNS_THE_FARM_AND_THE_ARENA_11_3_26.md: 'when the power fails the farm fails (fewer beasts in the arena...)' (draft, his to change)",
+  "why": "about one day in five the Mob's generator is not fed: the cold rooms fail, the big clones are sick in their pens and off the card, the small ones come out at half the number, and the card says so"
+ },
+ "opponents": {
+  "value": [
+   {
+    "id": "hyenas",
+    "says": "the hyena pack",
+    "enemies": [
+     {
+      "id": "hyena",
+      "min": 2,
+      "max": 5
+     }
+    ],
+    "min_wins": 0,
+    "max_wins": 5,
+    "weight": 10,
+    "purse": 35,
+    "beast": true,
+    "big": false,
+    "bb": "Hyena: unlocked at 3 or fewer wins, weight 10, 2 to 11 (bb_all/0131 table)",
+    "why": "the cheapest clone line on the farm, a pack with one face; it leaves the pool as you climb, the way Battle Brothers' hyenas do"
+   },
+   {
+    "id": "raiders",
+    "says": "raiders caught on the Strip",
+    "enemies": [
+     {
+      "id": "brigand_raider",
+      "min": 2,
+      "max": 4
+     }
+    ],
+    "min_wins": 0,
+    "max_wins": 99,
+    "weight": 15,
+    "purse": 35,
+    "beast": false,
+    "big": false,
+    "bb": "Nomad Outlaw: 0 wins, weight 15, 2 to 6 (bb_all/0131 table); the dev blog's 'captured desert raiders'",
+    "why": "men who tried the Strip and got caught; they fight because the other way out is worse"
+   },
+   {
+    "id": "camel",
+    "says": "a Camelops off the farm",
+    "enemies": [
+     {
+      "id": "camelops",
+      "min": 1,
+      "max": 2
+     }
+    ],
+    "min_wins": 2,
+    "max_wins": 99,
+    "weight": 8,
+    "purse": 45,
+    "beast": true,
+    "big": true,
+    "bb": "Ifrit: 3 or more wins, weight 5 (bb_all/0131 table); unlocked one win earlier (easier)",
+    "why": "a big clone that kicks round it (rule 370(9): the big beasts are deadly up close)"
+   },
+   {
+    "id": "gladiators",
+    "says": "the Mob's pit fighters",
+    "enemies": [
+     {
+      "id": "gladiator",
+      "min": 2,
+      "max": 3
+     }
+    ],
+    "min_wins": 3,
+    "max_wins": 99,
+    "weight": 15,
+    "purse": 50,
+    "beast": false,
+    "big": false,
+    "bb": "Gladiator: 3 or more wins, weight 15, 2 to 4 (bb_all/0131 table); max 3 for our three men (easier)",
+    "why": "the Mob's own fighters, fed from the farm's meat: they wait on their turn and go for the weakest man (bb_all/0843)"
+   },
+   {
+    "id": "bull",
+    "says": "a feral bull off the farm",
+    "enemies": [
+     {
+      "id": "feral_bull",
+      "min": 1,
+      "max": 2
+     }
+    ],
+    "min_wins": 4,
+    "max_wins": 99,
+    "weight": 10,
+    "purse": 50,
+    "beast": true,
+    "big": true,
+    "bb": "Frenzied Hyena: 4 or more wins, weight 10 (bb_all/0131 table)",
+    "why": "the bull's charge: shoot it on the way in"
+   },
+   {
+    "id": "lion",
+    "says": "a giant lion from the farm's last litter",
+    "enemies": [
+     {
+      "id": "american_lion",
+      "min": 1,
+      "max": 2
+     }
+    ],
+    "min_wins": 5,
+    "max_wins": 99,
+    "weight": 5,
+    "purse": 55,
+    "beast": true,
+    "big": true,
+    "bb": "Mercenary / Swordmaster tier: 5 or more wins, weight 5 (bb_all/0131 table)",
+    "why": "a pride hunter that goes round you to the weak one"
+   },
+   {
+    "id": "bear",
+    "says": "a short-faced bear, thin, a year in a cage",
+    "enemies": [
+     {
+      "id": "short_faced_bear",
+      "min": 1,
+      "max": 2
+     }
+    ],
+    "min_wins": 6,
+    "max_wins": 99,
+    "weight": 5,
+    "purse": 60,
+    "beast": true,
+    "big": true,
+    "bb": "Unhold: 6 or more wins, weight 5, 1 to 3 (bb_all/0131 table)",
+    "why": "the farm's Unhold: it heals and it throws a man back"
+   },
+   {
+    "id": "sloth",
+    "says": "the Shasta ground sloth, the top of the card",
+    "enemies": [
+     {
+      "id": "ground_sloth",
+      "min": 1,
+      "max": 1
+     }
+    ],
+    "min_wins": 10,
+    "max_wins": 99,
+    "weight": 5,
+    "purse": 70,
+    "beast": true,
+    "big": true,
+    "bb": "Lindwurm: 10 or more wins, weight 5, 1 (bb_all/0131 table)",
+    "why": "the biggest thing the Mob still grows; Paolo's 'the sloth at the top'"
+   },
+   {
+    "id": "champion",
+    "says": "the Mob's champion and his two seconds",
+    "enemies": [
+     {
+      "id": "gladiator_champion",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "id": "gladiator",
+      "min": 2,
+      "max": 2
+     }
+    ],
+    "min_wins": 15,
+    "max_wins": 99,
+    "weight": 5,
+    "purse": 75,
+    "beast": false,
+    "big": false,
+    "bb": "Gladiator Champion: 15 or more wins, weight 5, 1 with 2 Gladiators (bb_all/0131 table)",
+    "why": "the Mob's own name in the pit; the pay is poor for the danger, as Battle Brothers' champions are (bb_all/0131)"
+   }
+  ],
+  "source": "bb_all/0131_Arena.txt, Potential Arena Enemies (the table, Expert counts) and the dev blog's beasts, slaves, captured raiders and professional gladiators; our clones from the Mob's farm (rule 359(g)): the bull, the camel, the bear, the lion, the hyena, the sloth at the top (the ARENA brief)",
+  "why": "a weighted pool unlocked by the company's arena wins, the cheap beasts leaving as it climbs; counts sized for three men"
+ },
+ "purse_per_extra": {
+  "value": 5,
+  "source": "bb_all/0131_Arena.txt: 'the rewards only scale up by a very modest amount for the harder opponents'",
+  "why": "each foe past the card's minimum adds 5 batteries: a bigger card pays a little more, never enough to make a bad card worth it"
+ },
+ "purse_floor_check": {
+  "value": "35 to 75 against a one-skull job's 30 and a three-skull job's 90",
+  "source": "records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md contract.pay_one_skull 30, contract.pay_three_skulls 90",
+  "why": "Battle Brothers pays the arena 'well for quick battles'; one fight with no road between a one- and a three-skull job"
+ },
+ "ranks": {
+  "value": [
+   {
+    "id": "pit_fighter",
+    "name": "PIT FIGHTER",
+    "wins": 1,
+    "resolve": 2,
+    "struck_down_survive": 0,
+    "says": "won once in the Mob's pit"
+   },
+   {
+    "id": "arena_fighter",
+    "name": "ARENA FIGHTER",
+    "wins": 5,
+    "resolve": 5,
+    "struck_down_survive": 0,
+    "says": "five wins in the pit; the crowd knows his name"
+   },
+   {
+    "id": "arena_veteran",
+    "name": "ARENA VETERAN",
+    "wins": 12,
+    "resolve": 10,
+    "struck_down_survive": 0.5,
+    "says": "twelve wins; he has gone down in the pit and got back up"
+   }
+  ],
+  "source": "bb_all/0132_Arena Fighter.txt (+5 Resolve, 5 wins), bb_all/0134_Arena Veteran.txt (+10 Resolve, 12 wins, +50% to survive struck down); Pit Fighter is named in bb_all/0131 but its page is not in the library: its +2 Resolve at the first win is ours (draft)",
+  "why": "a man who wins in the pit climbs; the rank is his, it shows on him and it helps in every fight, as Battle Brothers' do"
+ },
+ "fifth": {
+  "value": {
+   "every": 5,
+   "prizes": [
+    "pit_harness",
+    "pit_helmet",
+    "pit_harness_plated"
+   ],
+   "then": "random"
+  },
+  "source": "bb_all/0131_Arena.txt: 5 wins a Gladiator Harness with padded pieces, 10 a Gladiator Helmet, 15 a Harness with metal pieces, every 5 after a random one; 'the gear reward will wait for you until your next win'",
+  "why": "every fifth card is a third harder and offers a piece of pit gear found nowhere else; lose it and the prize waits"
+ },
+ "pit_gear": {
+  "value": {
+   "pit_harness": {
+    "name": "Pit Harness",
+    "slot": "body",
+    "armor": 100,
+    "fatigue": -8,
+    "says": "a leather harness off a dead pit fighter, the Mob's mark burned in, patched with a seat belt"
+   },
+   "pit_helmet": {
+    "name": "Pit Helmet",
+    "slot": "head",
+    "armor": 225,
+    "fatigue": -13,
+    "vision": -3,
+    "says": "a welded mask from the showroom's old stage props, the paint gone, a grille you look out through"
+   },
+   "pit_harness_plated": {
+    "name": "Plated Pit Harness",
+    "slot": "body",
+    "armor": 155,
+    "fatigue": -14,
+    "says": "the harness with slot-machine door panels riveted over the chest"
+   }
+  },
+  "source": "bb_all/0844_Gladiator Harness.txt (40 + padded 60 = 100, -8; + metal 115 = 155, -14), bb_all/0845_Gladiator Helmet.txt (225, -13, vision -3)",
+  "why": "Battle Brothers' gladiator gear in the Mob's skin; nothing else in the valley sells it"
+ },
+ "tournament": {
+  "value": {
+   "days": 5,
+   "rounds": 3,
+   "every_days": 18,
+   "first_day": 6,
+   "round_wins_bonus": 5,
+   "round_count_plus": 1,
+   "purse": [
+    60,
+    90,
+    150
+   ],
+   "prize": "pit_helmet"
+  },
+  "source": "bb_all/0133_Arena Tournament.txt ('the Tournament settlement situation for the next 5 days'), bb_all/2016_Tournament (Settlement Situation).txt; bb_all/0131: 'three rounds with no chance to rest or change brothers and gear, but with a possibility to quit after each round. The earlier you quit, the lower the prize. The further you progress, the tougher the opponents. If you win the tournament you will get a named item.'",
+  "why": "the Strip holds one for five days about every eighteen; a feed post says so; five men, three rounds; quit after a round and keep what you won; each round draws as if you had five more wins and one more foe; all three wins pay the big prize and a piece of pit gear"
+ },
+ "crowd": {
+  "value": {
+   "kill": "cheer",
+   "vital": "cheer",
+   "miss": "gasp",
+   "fled": "boo",
+   "went_down": "gasp",
+   "clear_won": "cheer_long",
+   "clear_lost": "boo"
+  },
+  "source": "bb_all/0620: 'missed that attack with a 95% chance to hit? People will gasp alongside you. Killed that beast with one swift stroke? People will cheer and applaud. Flee from your opponents? People will boo'",
+  "why": "the crowd answers what it sees, through the Mob's PA that cuts in and out"
+ },
+ "names": {
+  "value": {
+   "hyena": [
+    "cave hyena",
+    "cave hyenas"
+   ],
+   "brigand_raider": [
+    "caught raider",
+    "caught raiders"
+   ],
+   "camelops": [
+    "Camelops",
+    "Camelops"
+   ],
+   "gladiator": [
+    "pit fighter",
+    "pit fighters"
+   ],
+   "feral_bull": [
+    "feral bull",
+    "feral bulls"
+   ],
+   "american_lion": [
+    "giant lion",
+    "giant lions"
+   ],
+   "short_faced_bear": [
+    "short-faced bear",
+    "short-faced bears"
+   ],
+   "ground_sloth": [
+    "Shasta ground sloth",
+    "Shasta ground sloths"
+   ],
+   "gladiator_champion": [
+    "the Mob's champion",
+    "the Mob's champions"
+   ]
+  },
+  "source": "records/target/bb/bohemia_enemies.json names (the clones' board names) and the dev blog's 'captured desert raiders or professional gladiators' (bb_all/0620)",
+  "why": "what the card says for each foe, one and many"
+ },
+ "looks": {
+  "value": {
+   "hyena": [
+    "beast_cave_hyena",
+    18
+   ],
+   "brigand_raider": [
+    "cast_poncho",
+    25
+   ],
+   "camelops": [
+    "beast_camelops",
+    18
+   ],
+   "gladiator": [
+    "cast_barearms",
+    25
+   ],
+   "feral_bull": [
+    "beast_feral_bull",
+    18
+   ],
+   "american_lion": [
+    "beast_american_lion",
+    18
+   ],
+   "short_faced_bear": [
+    "beast_short_faced_bear",
+    18
+   ],
+   "ground_sloth": [
+    "beast_ground_sloth",
+    18
+   ],
+   "gladiator_champion": [
+    "faction_mob",
+    25
+   ]
+  },
+  "source": "slices/fight_rig/fight_rig.json (the rig's sheets: 8 facings a row, the stand clip first) and records/target/bb/bohemia_enemies.json beast.rig",
+  "why": "the card shows each foe in a body the fight's rig draws: the beasts in their own bodies; the caught raiders in road ponchos, the Mob's pit fighters bare-armed, the champion in the Mob's own stripes"
+ }
+}

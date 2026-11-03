@@ -10488,6 +10488,15 @@ GATES = [
      "follow-ups, the world feed and its replies, a falling town's 64 lines): no cryptic tell (a thing doing a person's thing, a formula nobody "
      "types, two fragments mirrored, a paradox for its own sake, the turn-around, radio jargon, a transcript in a post), every post a person "
      "writes has a verb (a question, a short reply and the bots exempt), no em dash, no old name. Plants for every tell. Node only, seconds", True),
+    ('THE ARENA', ['node', 'gates/the_arena_gate.js'],
+     "ARENA gate, 11/3, rule 375 and its duct-tape amendment (ask lines 402, 403; PAOLO 11/3: 'I forgot about the arena system in Battle Brothers "
+     "holy shit yes I love that... your accessory thing is X'd out... easier to choose the three people... a tournament, you can bring five'). "
+     "The rules on records/target/bb/arena.json through engine/bohemia_arena.js (every number sourced; three men, five in a tournament, one "
+     "fight a day, no retreat, no loot, the accessory does not count; the card the same all day and new when it turns; the pool climbs with wins; "
+     "paid only on a win; Pit Fighter 1, Arena Fighter 5, Arena Veteran 12; the fifth card heavier with pit gear that waits; a dead generator "
+     "takes the big clones off; the tournament five days in eighteen); then the Mob's real town screen on his phone: THE PIT last in the "
+     "order and nowhere else, drawn by day and night, the bookie under his face with tonight's card (every foe in his own body, the count, "
+     "the purse, the house rules), nobody walking into the pool", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

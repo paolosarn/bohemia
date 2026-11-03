@@ -303,7 +303,8 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every keeper line rolls; about 1 in 8 Spanglish, some lean more, never the player -->
 <script src="../engine/bohemia_voice.js"></script>  <!-- RUN TWO [the busy town talks] 10/24: a walker's voice is his face's voice (castVoice), the shell's own rule -->
 <script src="../engine/bohemia_voice_recorded.js"></script>  <!-- SOUNDS' recorded squiggle (rule 135): the walkers mutter in it; the bank is borrowed from the shell -->
-<script src="bohemia_busy_heard.js"></script>  <!-- RUN TWO [the busy town talks]: the jobs heard where they are done, the mutters as they pass, the night different -->  <!-- SOUNDS [the settlement's sounds] round four (10/18): the real recordings and the desert bed, his 10/17 UP -->  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
+<script src="bohemia_busy_heard.js"></script>
+<script src="../engine/bohemia_arena.js"></script>  <script src="bohemia_arena_town.js"></script>  <!-- __THE_ARENA__ (ARENA, rule 375): the Mob's pit on its own town screen, the card, the pick; records/target/bb/arena.json -->  <!-- RUN TWO [the busy town talks]: the jobs heard where they are done, the mutters as they pass, the night different -->  <!-- SOUNDS [the settlement's sounds] round four (10/18): the real recordings and the desert bed, his 10/17 UP -->  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
 <script>
 (function(){
 'use strict';
@@ -331,7 +332,8 @@ var B = {
   lot:    {spr:'boneyard',    gx:2, gy:2, name:'SCAVENGE',   short:'one thing or nothing'},
   tent:   {name:'THE TENT',     short:'rest, your company'},   /* __THE_CAMP__ (RUN TWO, rule 151(d)): your own camp's three, draft:true */
   retinue:{name:'THE RETINUE',  short:'who travels with you'},
-  cart:   {name:'THE CART',     short:'room in the stash'}
+  cart:   {name:'THE CART',     short:'room in the stash'},
+  arena:  {name:'THE PIT',      short:'the Mob\'s arena'}   /* __THE_ARENA__ (ARENA, rule 375): the Mob's arena, a drained hotel pool */
 };
 
 var TIERS = {
@@ -1039,7 +1041,8 @@ var KEEPERS = {
   arms:   {who:'settle-arms',   role:'GUNS AND PLATE',  draft:true},
   smith:  {who:'settle-smith',  role:'THE SMITH',       draft:true},
   armourer:{who:'settle-armour',role:'THE ARMOURER',    draft:true},
-  lot:    {who:'you',           name:'YOU',             draft:true}
+  lot:    {who:'you',           name:'YOU',             draft:true},
+  arena:  {who:'settle-arena',  role:'THE BOOKIE',      draft:true}   /* __THE_ARENA__: the Mob's man at the pit's gap in the rope */
 };
 
 /* CONTRACTS. Rule 51: one main quest and TWO contracts at a time; the phone only shows
@@ -1588,6 +1591,8 @@ function seedOf(str){ var h = 2166136261; for(var i=0;i<str.length;i++){ h ^= st
 var TOWNS = null, TWALK = null;
 try{ fetch('settlement_ground_towns/settlement_ground.json').then(function(r){ return r.json(); }).then(function(j){ TOWNS = j && j.towns || null; if(VAR && S.place && TOWNS && TOWNS[S.place.name] && !S.camp) pickVariant(); }).catch(function(){}); }catch(e){}
 try{ fetch('settlement_ground_towns/settlement_walk.json').then(function(r){ return r.json(); }).then(function(j){ TWALK = j && j.pictures || null; WALK.grid = null; if(VAR && S.place && TOWNS && TOWNS[S.place.name] && !S.camp) pickVariant(); }).catch(function(){}); }catch(e){}
+if(window.BohemiaArenaTown) BohemiaArenaTown.bind({openB: function(k, l){ return openB(k, l); }, S: function(){ return S; }, ready: function(){ return !!(VAR && VAR.boxes && VAR.boxes.arena); }});   /* __THE_ARENA__: the bookie says how the fight went */
+if(window.BohemiaArenaTown) BohemiaArenaTown.whenReady(function(){ if(VAR && VAR.comp && S.place && !S.camp && ORDER.indexOf('arena') < 0) try{ pickVariant(true); }catch(e){} });   /* __THE_ARENA__: the pit's numbers landed after the town */
 /* __THE_TOWNS_WIRED_TALL_AND_WIDE__ (RUN TWO, rules 220, 279, 286, 289; COOK's towns[name].tall and .wide): the glass upright draws
    the town's TALL composition (1024 x 1820, every building moved to fit a phone held up), on its side or a computer the WIDE one
    (2060 x 1092); each carries its own hotspots, boxes, doors and entrance, so every tap, keeper, sign and bench stands on ITS
@@ -1615,7 +1620,8 @@ function townOk(c){
    buildings (measured 10/26 on Church: all eight keepers' spots and 9 of 21 in the crowd stood inside the new picture's walls).
    A keeper stands at COOK's door for his place; anybody else on a block steps to the nearest open ground, nearer the street first */
 var DOOR_OF = {hall:'posts'};
-function townDoor(k){ var c = VAR && VAR.comp; var d = c && c.doors && c.doors[DOOR_OF[k] || k]; return d && d.length === 2 ? {x:d[0], y:d[1]} : null; }
+function townDoor(k){ if(k === 'arena' && window.BohemiaArenaTown){ var ad = BohemiaArenaTown.spot(VAR); if(ad) return ad.door; }   /* __THE_ARENA__ */
+  var c = VAR && VAR.comp; var d = c && c.doors && c.doors[DOOR_OF[k] || k]; return d && d.length === 2 ? {x:d[0], y:d[1]} : null; }
 function groundNear(x, y){
   if(!VAR || !VAR.pic || !walkBlocks() || !leadBlocked(x, y)) return {x:x, y:y};
   for(var r = 8; r <= 320; r += 8){ var best = null, bd = 1e9;
@@ -1697,6 +1703,7 @@ function pickVariant(onlyPic){   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: onlyPic, 
   var vb = BOXBYPIC[VAR.src] || {}; for(var vk in vb) VAR.boxes[vk] = vb[vk];   /* the second picture of a tier lays out differently */
   }
   ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
+  try{ var asp = window.BohemiaArenaTown && BohemiaArenaTown.spot(VAR); if(asp){ VAR.boxes.arena = asp.box; ORDER.push('arena'); if(VAR.pic && VAR.pic.blocks) VAR.pic.blocks = VAR.pic.blocks.concat([asp.block]); } }catch(e){}   /* __THE_ARENA__ (ARENA, rule 375): the Mob's pit, last in the order so every other door keeps its man; nobody walks into the pool */
   }
   if(!onlyPic){ placeTraits(); restock(); }
   if(own) townPreload();   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: both shapes in hand before he turns */
@@ -2071,7 +2078,7 @@ function flipPeople(s, sG, fn){
    PORTRAIT's 3D head made for his look (engine/bohemia_crew_faces.js). The only standing pose made is the still, so nobody
    fakes a clip: a man stands, and now and then turns his head and shoulders one eighth of a turn, on a beat. */
 var GANG_LOOKS = (window.BohemiaRigBodies ? BohemiaRigBodies.GANGS : []).map(function(g){ return 'faction_' + g; });
-var KEEPER_CLIP = {hall:'beckon', board:'look', stall:'trade', bar:'lean', arms:'trade', smith:'trade', armourer:'wait', barber:'smoke', clinic:'wait', lot:'scratch'};
+var KEEPER_CLIP = {hall:'beckon', board:'look', stall:'trade', bar:'lean', arms:'trade', smith:'trade', armourer:'wait', barber:'smoke', clinic:'wait', lot:'scratch', arena:'smoke'};
 /* A PERSON IS A DOOR TALL (RUN TWO [a person is a door tall], 10/10, his NO: 'look at the door and look at the
    person; someone should be the size of a door'): the doors in COOK FOUR's pack pictures, measured by eye at 1:1
    (town_0 224..362, town_1 952..1090, fortress_0 350..480); a bare-headed body (FIG_H sheet px) is drawn that tall,
@@ -3026,11 +3033,12 @@ function draw(){
   if(!going){ var gp0 = padGround(im); if(gp0){ cx.fillStyle = gp0; cx.fillRect(0,0,W,H); } }   /* __FOUR_LAYOUTS__: past the picture only its own plain ground, never the town mirrored and sunk (his 'no mirror extension') */   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town shows more of the valley round it, a little less sunk (.78 read as the page's own colour) */
   var sG = 0; try{ sG = flipDraw(im, s, W, H); }catch(e){ FLIP.on = false; sG = 0; }   /* __THE_FLIP_GLIDES__: the beat of a turn */
   if(sG){ var fa = FLIP.reduced ? 1 : flipEase(Math.min(1, FLIP.u || 0));
-    cx.save(); cx.globalAlpha = fa; try{ drawTraitLooks(s); drawBenches(s); drawSigns(s, true); }catch(e){} cx.restore();
+    cx.save(); cx.globalAlpha = fa; try{ if(window.BohemiaArenaTown) BohemiaArenaTown.draw(cx, view, s, view.night, VAR); drawTraitLooks(s); drawBenches(s); drawSigns(s, true); }catch(e){} cx.restore();
     try{ flipPeople(s, sG, function(z){ drawPeople(z); }); }catch(e){}
     cx.save(); cx.globalAlpha = fa; try{ drawSigns(s); drawBuilt(s); }catch(e){} cx.restore();
   } else {
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
+  try{ if(window.BohemiaArenaTown) BohemiaArenaTown.draw(cx, view, s, view.night, VAR); }catch(e){}   /* __THE_ARENA__: the pit over the Mob's drained plaza */
   if(VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.under(cx, {s:s, view:view, now:performance.now(), personH:personH(), k:rigScale(), B:window.BohemiaRigBodies}); }catch(e){}   /* __CAMP_TWO__: the fire's light on the ground, the hours' ghosts */
   drawTraitLooks(s);
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
@@ -3053,6 +3061,7 @@ function draw(){
      catch the light on the beat until he has opened each once in this place; no words on the picture, the building's own
      pixels brightened, softer than the one under his finger */
   if(!view.noGlow) try{ var seen = litSeen(), bt = (performance.now()-t0)/500; LIT_DOORS.forEach(function(k){ var b2 = VAR.boxes[k]; if(!b2 || seen[k] || k === (view.lit || S.open)) return;
+    if(k === 'arena' && window.BohemiaArenaTown){ BohemiaArenaTown.lit(cx, view, s, .09 + .07*Math.max(0, Math.sin(bt*Math.PI)), VAR, view.night); return; }   /* __THE_ARENA__ */
     cx.save(); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = .09 + .07*Math.max(0, Math.sin(bt*Math.PI));
     cx.drawImage(im, b2[0], b2[1], b2[2]-b2[0], b2[3]-b2[1], view.ox + b2[0]*s, view.oy + b2[1]*s, (b2[2]-b2[0])*s, (b2[3]-b2[1])*s); cx.restore(); }); }catch(e){}
   /* THE LIT ONE: the building under the finger (or open) catches light, from its own pixels */
@@ -3062,6 +3071,7 @@ function draw(){
     var beat = ((performance.now()-t0)/500)|0, a = .22 + .05*Math.sin((performance.now()-t0)/500*Math.PI);
     cx.save(); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = a;
     if(!(VAR.camp2 && window.BohemiaCampLook && BohemiaCampLook.lit(cx, k, {s:s, view:view, now:performance.now(), personH:personH()}, a)))   /* __CAMP_TWO__: the piece itself catches the light */
+    if(!(k === 'arena' && window.BohemiaArenaTown && BohemiaArenaTown.lit(cx, view, s, a, VAR, view.night)))   /* __THE_ARENA__: the pit catches the light from its own pixels */
     cx.drawImage(im, b[0], b[1], b[2]-b[0], b[3]-b[1], x, y, w, h); cx.restore();
     /* it names itself only under the finger (UI [the settlement's labels], rule 71a: gone when the finger
        lifts): UI's torn tag from bohemia_ui_materials.js; the plate below is the fallback if that file is missing */
@@ -3384,6 +3394,7 @@ function sub(k){
   if(k==='board') return S.held.length+' of '+SLOTS+' held';
   if(k==='build') return buildMine() ? '1 battery, 1 day' : 'not your ground';   /* __BUILD_ON_THE_SCREEN__ */
   if(k==='lot'){ var l = left(); return l.left===0 ? 'picked clean' : l.left+' left'; }
+  if(k==='arena' && window.BohemiaArenaTown) return BohemiaArenaTown.sub(S);   /* __THE_ARENA__: tonight's card under the finger */
   if(k==='hall'){ var o = window.BohemiaFollowers && BohemiaFollowers.offerFor(S.hired,{}); return o ? o+' for hire' : 'nobody'; }
   return B[k].short;
 }
@@ -4139,7 +4150,7 @@ function act(label, right, fn, off){
 }
 
 /* ---------- THE BUILDINGS ---------- */
-var LIT_DOORS = ['board', 'hall', 'bar'], LITKEY = 'bohemia.litdoors.v1';
+var LIT_DOORS = ['board', 'hall', 'bar', 'arena'], LITKEY = 'bohemia.litdoors.v1';
 function litAll(){ if(!S.litAll){ try{ S.litAll = JSON.parse(localStorage.getItem(LITKEY) || 'null'); }catch(e){} if(!S.litAll || typeof S.litAll !== 'object') S.litAll = {}; } return S.litAll; }
 function litSeen(){ var a = litAll(), id = String(S.place.id || S.place.name); return a[id] || (a[id] = {}); }
 function openB(k, line){
@@ -4153,7 +4164,8 @@ function openB(k, line){
   var free = (k==='bar' && !line) ? newsFree() : null;
   if(free) line = free.says;
   /* a trait is said once per building, first thing, by the one who lives with it */
-  if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
+  if(!line && k !== 'arena' && !(S.traitSaid||{})[k]){ var tl = traitLine(k);   /* __THE_ARENA__: the bookie talks about the card, never the market */
+  if(tl){ line = tl; S.traitSaid[k] = true; } }
   var body = document.getElementById('sbody'); body.textContent = '';
   var acts = document.createElement('div'); acts.className = 'acts';
   if(k==='hall'){
@@ -4212,6 +4224,7 @@ function openB(k, line){
     }, bats()<1));
   }
   else if(k==='arms' || k==='smith' || k==='armourer'){ shopSheet(k, body, acts, line); }
+  else if(k==='arena' && window.BohemiaArenaTown){ BohemiaArenaTown.sheet({S:S, speak:speak, act:act, moneyWord:moneyWord, post:post, bats:bats, openB:openB, hide:hide, face:face, show:show}, body, acts, line); }   /* __THE_ARENA__ (ARENA, rule 375): the bookie and tonight's card */
   else if(k==='bar'){
     /* BATTLE BROTHERS' TAVERN (GROK_20/21): a round for the company, priced by how many you are,
        up to four a visit; each lifts the company's morale a step and the town's opinion of you by a
@@ -4334,7 +4347,8 @@ function show(){
   try{ placeChrome(); }catch(e){}   /* __ONE_TAP_SELECTS__: a shop's sheet stands the whole open area tall */
 
 }
-function hide(){ S.sheetFor = null; if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
+function hide(){ S.sheetFor = null; try{ document.getElementById('sheet').classList.remove('ar-picking'); }catch(e){}   /* __THE_ARENA__: the pick's whole-glass sheet folds back */
+   if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
