@@ -1,6 +1,6 @@
 # BOSSES (written only by the BOSSES lane)
 
-## BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzl
+## BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzm
 Record: records/BOHEMIA_BOSSES_FOUR_TO_SIX_11_3_26.md. Gate: gates/bosses_act_one_gate.js now walks all six (BOSSES_EVERY_SECOND as before).
 - ASSETS FIRST: each man his own model through COOK ARMOUR's pipe (tools/bohemia_bosses_four_to_six_11_3_26.py: roll, look <id>, batch,
   pack, cards, purple), his weapon on his hand's bone (own_kit): THE BURN a soot-black turnout coat, leather fire helmet, jerrycan, lit

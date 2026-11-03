@@ -1,4 +1,4 @@
-# BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzl
+# BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzm
 
 PAOLO 11/3, angry and right: "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons,
 armor, the vibe, nothing" and "we still don't know what killing them does, and the map effects where his shit is." BOSSES 3 tried
@@ -142,8 +142,8 @@ THEN, after each fix, THREE MORE FULL RUNS (main kept moving under them):
   round's drawing code only ever draws a picture once it has loaded. The gate now prints where a page error threw.
 - RUN 4 (the same tree, the stack printed): **108 passed, 1 failed**, nothing threw (C1 green). The one: A6a THE BURN's held
   finger did not open his tip that once (it opened in runs 1, 2 and 3; UI 4's long press shares the gesture, the 11/3 note stands).
-- After the last rebase (main's 11/3zzzk: only the stamp, the demo, the VOTE list and the fight's sheet index met; main's taken,
-  re-packed, re-stamped 11/3zzzl, re-cut): the smoke on the cut demo, six bosses loaded, the three verbs' places counted (LIGHT A
+- After the last rebase (main's 11/3zzzk and then COMBAT MAPS 3's 11/3zzzl: only the stamp, the demo, the VOTE list and the fight's sheet index met; main's taken,
+  re-packed, re-stamped 11/3zzzm, re-cut): the smoke on the cut demo, six bosses loaded, the three verbs' places counted (LIGHT A
   FIRE 4,748 dark blocks at night and none by day, FILL IN THE MAP 3,473 road blocks, GO UP 133 blocks beside a tower), nothing
   threw. The 20-minute walk was not re-run after that last rebase.
 
