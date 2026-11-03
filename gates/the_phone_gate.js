@@ -334,6 +334,11 @@ async function side(profile) {
         const second = await p.evaluate(() => { const b = document.querySelectorAll('#bohphone .jc')[1]; const r = b.getBoundingClientRect(); return [r.x + r.width * 0.3, r.y + r.height / 2]; });
         await tap(second[0], second[1]); await p.waitForTimeout(300);
         const selOk = (await COL()).cards[1].sel;
+        /* RE-AIMED 11/3 BY UI 7 (rule 376, Paolo: 'I should be able to click the quest on my phone and my people auto move towards it'):
+           the tap on the card also sets the party off toward it (gates/tap_a_quest_on_the_phone_gate.js measures that walk); here it is
+           stopped where he stands, so PLAY alone is still seen to go to the job the tap picked */
+        for (let i = 0; i < 20; i++) { const qg = await p.evaluate(() => window.__PHONE_QUEST_GO || null); if (qg && qg.id === String(took[1]) && qg.by) break; await p.waitForTimeout(150); }
+        await fr.evaluate(() => { try { travelStop(); travelSpeedSet(0); } catch (e) {} }); await p.waitForTimeout(200);
         await tapApp('play'); await p.waitForTimeout(500);
         const go = await fr.evaluate(() => ({ go: window.__PHONE_JOB_GO || null, v: window.__TRAVEL_SPEED, route: !!TRAVEL }));
         ok('  a tap on a card makes it PLAY\'s job; PLAY alone sets off toward it by the map\'s own path finder', selOk && !!go.go && go.go.id === took[1] && go.go.ok && go.route && go.v > 0, JSON.stringify(go));

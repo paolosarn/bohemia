@@ -698,6 +698,14 @@
       + '#bohphone .jobs.asking .jc:not(.arm),#bohphone .jobs.asking .je{display:none}'   /* while one asks, it has the column */
       + '#bohphone .jobs .je{flex:0 0 24px;opacity:.5;' + kit('well', 0.25) + '}'   /* an empty slot, ready to go (232(a)) */
       + '#bohphone .jc .dr{flex:0 0 44px;width:44px;height:44px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.4) + '}'
+      /* __TAP_A_QUEST_YOUR_PEOPLE_GO__ (UI 7, rule 376): the quest he is going to wears the mark: its arrow (or its dot) turns the
+         sel bar's amber and beats while the party is on its road; a tap the map says no to shakes the card twice */
+      + '#bohphone .jc.going .dir path{fill:#e8a83a;stroke:#1c140c;stroke-width:.9}'
+      + '#bohphone .jc.going .dir svg,#bohphone .jc.going .dir.here::after{animation:bphGo ' + BEAT + 'ms steps(2,end) infinite}'
+      + '#bohphone .jc.going .dir.here::after{background:#e8a83a;box-shadow:0 0 0 1px #1c140c}'
+      + '#bohphone .jc.nogo,#bohphone .bpfd.nogo,#bohphone .po.nogo{animation:bphNo ' + Math.round(BEAT / 4) + 'ms steps(2,end) 4}'
+      + '@keyframes bphGo{0%{transform:scale(1)}50%{transform:scale(1.35)}}'
+      + '@keyframes bphNo{0%{translate:-2px 0}50%{translate:2px 0}}'
       + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 4px 0 3px;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
       + '#bohphone .clk{position:absolute;inset:0;display:flex;align-items:center;gap:6px;padding:0 3px;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
@@ -760,6 +768,11 @@
       + '#bohphone .po.re{padding-left:6px;border-left:1px solid rgba(240,196,126,.28)}'
       + '#bohphone .po .w i{font-style:normal;color:#9c8f70}'
       + '#bohphone .po .t{display:block;color:#ecdfc2}'
+      /* __TAP_A_QUEST_YOUR_PEOPLE_GO__: a post about a job he holds is a button, with the amber go-mark at its right */
+      + '#bohphone .po.qp{position:relative;padding-right:12px;cursor:pointer}'
+      + '#bohphone .po.qp::after,#bohphone .bpfd.quest::after{content:"";position:absolute;right:2px;top:3px;width:6px;height:8px;background:#e8a83a;clip-path:polygon(0 0,100% 50%,0 100%);pointer-events:none}'
+      + '#bohphone .po.qp.going::after,#bohphone .bpfd.quest.going::after{animation:bphGo ' + BEAT + 'ms steps(2,end) infinite}'
+      + '#bohphone .bpfd.quest .fp b{padding-right:8px}'
       + '#bohphone .rel{padding:3px 0 4px;border-top:1px solid rgba(240,226,196,.12)}'
       + '#bohphone .rel b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8.5px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .rel .bd{float:right;font-size:7px}'
@@ -1026,7 +1039,8 @@
     var jb = el('div', 'jobs'); jb.setAttribute('role', 'list'); jb.setAttribute('aria-label', 'the main quest and the jobs you are on');
     jb.innerHTML = '<div class="mq" role="listitem" aria-label="the main quest\'s place"></div>'; home.appendChild(jb);
     var fd = el('div', 'bpfd'); fd.setAttribute('role', 'button'); fd.setAttribute('tabindex', '0'); fd.setAttribute('aria-label', 'the city\'s feed: tap for all of it');
-    fd.addEventListener('click', function () { H.presses++; window.__PHONE_PRESSES = H.presses; pageOpen('feed'); }); home.appendChild(fd);
+    fd.addEventListener('click', function () { if (fd.dataset.quest) { questGo(fd.dataset.quest, 'strip', fd); return; }   /* rule 376: a post about his job goes there */
+      H.presses++; window.__PHONE_PRESSES = H.presses; pageOpen('feed'); }); home.appendChild(fd);
     var two = el('div', 'bptwo'); two.appendChild(appButton('play', 'big')); two.appendChild(appButton('heal', 'big')); home.appendChild(two);
     var ctx = el('div', 'bpctx');
     ctx.innerHTML = '<div class="clk" aria-hidden="true"><i class="g"></i></div>'   /* UI 7 (rule 368): the day and the hour are the phone's first line now (__THE_DAY_ON_THE_PHONE__), said once; the band keeps what the clock is doing */
@@ -1099,7 +1113,8 @@
     if (!H.page) return;
     var pb = H.el.querySelector('.page .pb'), cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     if (H.page === 'feed') {
-      var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }).reverse()), sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet() + '|' + (H.feedKind || '');
+      var heldIds = ''; try { heldIds = ((cw && cw.LOOP && cw.LOOP.held) || []).map(function (j) { return j && j.id; }).join(','); } catch (e) {}
+      var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }).reverse()), sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet() + '|' + (H.feedKind || '') + '|' + heldIds + '|' + (H.going ? H.going.id : '');
       if (!fresh && sig === H.feedSig) return; H.feedSig = sig;
       if (pb.querySelector('input')) return;   /* never under his thumbs while he types the name */
       var co = L ? L.company() : { men: 0 };
@@ -1108,13 +1123,16 @@
       var h = '<div class="kf" role="group" aria-label="which posts">' + KD.map(function (k) { return '<button type="button" data-kind="' + k[0] + '" aria-label="' + k[2] + '" aria-pressed="' + (H.feedKind === k[0]) + '"' + (H.feedKind === k[0] ? ' class="on"' : '') + '><img alt="" src="' + IMG(k[1]) + '"></button>'; }).join('') + '</div>'
         + '<div class="co"><span class="nm" role="textbox" tabindex="0" aria-label="your company\'s name: tap to type">' + esc(nameGet()) + '<u>TYPE</u></span>'
         + '<span class="sub">' + (co.men ? co.men + (co.men === 1 ? ' MAN' : ' MEN') : 'YOUR COMPANY') + (co.clout != null ? ' &middot; CLOUT ' + esc(co.clout) : '') + '</span></div>';
-      for (var i = posts.length - 1; i >= 0; i--) { var p = posts[i];
-        h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + (p.re ? ' re' : '') + '"><span class="w">' + esc(p.who) + (p.re ? ' <i>replying</i>' : '') + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }
+      for (var i = posts.length - 1; i >= 0; i--) { var p = posts[i], qd = questOf(p, cw);   /* rule 376: a post about a job he holds is a button */
+        h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + (p.re ? ' re' : '') + (qd ? ' qp' + (H.going && H.going.id === qd ? ' going' : '') : '') + '"'
+          + (qd ? ' role="button" tabindex="0" data-quest="' + esc(qd) + '" aria-label="' + esc(p.txt) + ': tap to go there"' : '') + '><span class="w">' + esc(p.who) + (p.re ? ' <i>replying</i>' : '') + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }
       if (!posts.length) h += '<div class="po"><span class="t">Nothing yet. The valley is quiet.</span></div>';   /* draft:true */
       pb.innerHTML = h;
       pb.querySelector('.nm').addEventListener('click', renameStart);
       pb.querySelector('.nm').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); renameStart(); } });
       [].forEach.call(pb.querySelectorAll('.kf button'), function (b) { b.addEventListener('click', function () { H.feedKind = H.feedKind === b.dataset.kind ? null : b.dataset.kind; H.feedSig = null; pagePaint(true); }); });
+      [].forEach.call(pb.querySelectorAll('.po.qp'), function (q) { var go = function () { questGo(q.dataset.quest, 'feed', q); };
+        q.addEventListener('click', go); q.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); });
     } else if (H.page === 'relations') {
       if (!fresh && H.relAt && performance.now() - H.relAt < 2000) return; H.relAt = performance.now();
       pb.innerHTML = relationsHtml(L);
@@ -1179,7 +1197,7 @@
     return w + (j.back && !(JKW() && JKW().payMarkHTML) ? ' THERE+BACK' : '');   /* draft:true; rule 222(b) in a phone's words; WORLD 4: the mark says it now (rule 308) */
   }
   function jobCard(j, L) {
-    var armed = H.arm && H.arm.id === j.id, d = el('div', 'jc' + (H.sel === j.id ? ' sel' : '') + (armed ? ' arm' : ''));
+    var armed = H.arm && H.arm.id === j.id, going = !!(H.going && H.going.id === j.id), d = el('div', 'jc' + (H.sel === j.id ? ' sel' : '') + (armed ? ' arm' : '') + (going && !armed ? ' going' : ''));
     d.setAttribute('role', 'listitem'); d.dataset.job = j.id;
     if (!armed) {
       d.innerHTML = '<span class="dir" aria-hidden="true"><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 0.6 L10.6 11 L6 8.4 L1.4 11 Z"/></svg></span>'
@@ -1193,9 +1211,12 @@
       /* WORLD 4 (rule 308, ask line 301): COME BACK or PAID THERE first on the line (the job file's one mark, by the held job's own kind) */
       try { var JK = JKW(), cw0 = cityWin(), hj = null; ((cw0 && cw0.LOOP && cw0.LOOP.held) || []).forEach(function (x) { if (x && x.id === j.id) hj = x; }); if (JK && JK.payMarkHTML) d.querySelector('.mt').insertAdjacentHTML('afterbegin', JK.payMarkHTML(hj || { id: j.id }, { short: true })); } catch (e) {}
       var dv = d.querySelector('.dir'); if (j.deg == null) dv.classList.add('here'); else { dv.style.transform = 'rotate(' + j.deg + 'deg)'; dv.dataset.deg = j.deg; }   /* which way (238(d)); a dot when he is on it */
-      d.setAttribute('aria-label', (j.full || j.what) + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : ''));
+      d.setAttribute('aria-label', (j.full || j.what) + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : '') + (going ? ', your people are going there' : ', tap to go there'));
+      d.setAttribute('tabindex', '0');
       d.querySelector('.x').addEventListener('click', function (e) { e.stopPropagation(); H.arm = { id: j.id, cost: L ? L.dropCost(j.id) : null, why: null }; jobsPaint(L, true); });
-      d.addEventListener('click', function () { H.sel = j.id; jobsPaint(L, true); });
+      /* rule 376: a tap on the card is PLAY's job AND the road to it, at once (the X keeps its own tap) */
+      d.addEventListener('click', function () { H.sel = j.id; questGo(j.id, 'card', d); });
+      d.addEventListener('keydown', function (e) { if (e.target === d && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); H.sel = j.id; questGo(j.id, 'card', d); } });
     } else {
       var c = H.arm.cost, pl = c && c.place ? String(c.place) : '', line = H.arm.why === 'fighting' ? 'Not in its own fight.'
         : pl ? 'Drop it: the ' + pl.charAt(0).toUpperCase() + pl.slice(1).toLowerCase() + ' like you less.' : 'Drop it: nobody pays.';   /* draft:true */
@@ -1210,13 +1231,101 @@
     }
     return d;
   }
+  /* ---- __TAP_A_QUEST_YOUR_PEOPLE_GO__ (UI 7, 11/3/26; rule 376, ask line 404). PAOLO 11/3: 'I should be able to click the quest
+     on my phone and my people auto move towards it.' EVERY QUEST THE PHONE SHOWS IS A BUTTON: a job's card in the column, and the
+     feed's post of a job he holds (a job taken, its town in the words), on the strip and on the feed's page. A tap closes the phone's
+     page to the map, leaves the town by its own LEAVE (P.leave: the town's #leave, one handler) or breaks the camp by the map's own
+     door (BohemiaMapCamp.break), and makes THE MAP'S ONE CALL, WORLD 8's window.BOH_TRAVEL_TO_QUEST(id)
+     (slices/bohemia_quest_travel.js: the road, the nearest marker by the road's minutes, the close camera, the settlement on
+     arrival); before that call is on the page, the map's own way to a job (P.jobGo: mapPlayToJob, else a tap's travelTo). Nothing
+     here moves the party or the camera. Out of a town the map first fits his jobs in view (__THE_MAP_FITS_YOUR_JOBS__, a 650 ms ease
+     350 ms after LEAVE): the call waits for it, so the two cameras never pull against each other. THE MARK: the quest he is going to
+     wears it (its arrow amber, on the beat; the post's go-mark beats) from the tap until that road ends (there, a road's event, a
+     tap of his elsewhere on the map); a tap the map says no to (no road) shakes it twice. Gate: gates/tap_a_quest_on_the_phone_gate.js ---- */
+  function questOf(p, cw) {
+    if (!p || p.type !== 'job_taken') return null;
+    var held = []; try { held = (cw && cw.LOOP && cw.LOOP.held) || []; } catch (e) {}
+    var tx = String(p.txt || '').toLowerCase();
+    for (var i = 0; i < held.length; i++) { var j = held[i]; if (!j || j.id == null || j.rescue) continue;
+      var f = String(j.from || '').toLowerCase(); if (f && tx.indexOf(f) >= 0) return String(j.id); }
+    return null;
+  }
+  function questNo(id, from) {
+    var q = from === 'strip' ? H.el.querySelector('.home .bpfd') : from === 'feed' ? H.el.querySelector('.page .po.qp[data-quest="' + String(id).replace(/"/g, '') + '"]')
+      : H.el.querySelector('.home .jc[data-job="' + String(id).replace(/"/g, '') + '"]');
+    if (!q) return; q.classList.remove('nogo'); void q.offsetWidth; q.classList.add('nogo'); clearTimeout(q.__nogo); q.__nogo = setTimeout(function () { q.classList.remove('nogo'); }, BEAT * 1.2);
+  }
+  var QG = { n: 0, log: [] };
+  function questGo(id, from) {
+    var cw = cityWin(), scr = null; try { scr = whichScreen(); } catch (e) {}
+    var L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
+    var rec = { n: ++QG.n, id: id == null ? null : String(id), from: from || null, screen: scr, ok: false, why: null, by: null, waited: 0, t: Date.now() };
+    window.__PHONE_QUEST_GO = rec; QG.log.push(rec); if (QG.log.length > 12) QG.log.shift();
+    H.presses++; window.__PHONE_PRESSES = H.presses;
+    if (!cw || !L || rec.id == null) { rec.why = 'no map'; return rec; }
+    if (scr === 'fight') { rec.why = 'a fight'; return rec; }
+    var s0 = null; try { s0 = L.state(); } catch (e) {}
+    if (s0 && s0.meet) { rec.why = 'a meeting'; questNo(rec.id, from); return rec; }   /* the road's card asks first: ENGAGE or FALL BACK */
+    if (H.page) pageClose();   /* the phone closes to the map */
+    H.going = { id: rec.id, n: rec.n, wait: true, to: null, trav: null };
+    jobsPaint(L, true); questStrip(true); if (H.page) pagePaint(true);
+    var t0 = performance.now(), F0 = cw.MAP_FIT, fit0 = F0 ? (F0.n | 0) : 0, jobs0 = 0; try { jobs0 = (cw.LOOP.held || []).length; } catch (e) {}
+    if (scr === 'town') { try { L.leave(); } catch (e) {} }
+    else if (scr === 'camp') { try { if (cw.BohemiaMapCamp && cw.BohemiaMapCamp.on()) cw.BohemiaMapCamp.break(); } catch (e) {} }
+    var go = function () {
+      if (!H.going || H.going.n !== rec.n) { rec.why = rec.why || 'another tap'; return; }
+      var waited = performance.now() - t0, inTown = false; try { inTown = !!(cw.LOOP.frame && cw.LOOP.frame.style.display === 'block'); } catch (e) {}
+      if ((scr === 'town' || scr === 'camp') && waited < 3000) {
+        /* the town's LEAVE is a message: its screen closes a moment later; a camp broken in a town stands in the town: its LEAVE too */
+        if (inTown) { if (scr === 'camp' && !rec.left) { var cOn = true; try { cOn = cw.BohemiaMapCamp.on(); } catch (e) {} if (!cOn) { rec.left = 1; try { L.leave(); } catch (e) {} } } setTimeout(go, 40); return; }
+        var F = cw.MAP_FIT;
+        if (scr === 'camp' && !rec.left) F = null;   /* only a town's LEAVE fits his jobs in view */
+        if (jobs0 && F && F.on && waited < 2600 && (((F.n | 0) === fit0 && waited < 1900) || (F.last && (F.n | 0) !== fit0 && !F.last.done && !F.last.stopped))) { setTimeout(go, 40); return; }
+      }
+      rec.waited = Math.round(waited);
+      var r = null;
+      try { if (typeof cw.BOH_TRAVEL_TO_QUEST === 'function') { r = cw.BOH_TRAVEL_TO_QUEST(rec.id); rec.by = 'world'; } } catch (e) { r = null; }
+      if (!r) { var ok = false; try { ok = !!L.jobGo(rec.id); } catch (e) {} r = { ok: ok, why: ok ? null : 'no road' }; rec.by = 'map'; }
+      rec.ok = !!r.ok; rec.why = r.ok ? null : (r.why || 'no road'); rec.name = r.name || null; rec.to = r.to || null; rec.mins = r.mins != null ? r.mins : null; rec.of = r.of || null;
+      var tv = null; try { tv = cw.TRAVEL || null; } catch (e) {}
+      rec.going = !!(rec.ok && tv);
+      if (rec.going) { H.going.wait = false; H.going.trav = tv; H.going.to = tv.to ? [tv.to[0] | 0, tv.to[1] | 0] : null; }
+      else { H.going = null; if (!rec.ok) questNo(rec.id, from); }   /* arrived at once (a town he stands at opens), or no */
+      jobsPaint(L, true); questStrip(true); if (H.page) pagePaint(true);
+    };
+    go();
+    return rec;
+  }
+  /* the mark comes off when that road ends: no journey, or a journey somewhere else (his own tap on the map, another quest) */
+  function questTrack() {
+    var g = H.going; if (!g || g.wait) return;
+    var cw = cityWin(), tv = null; try { tv = cw ? cw.TRAVEL : null; } catch (e) {}
+    var same = !!tv && (tv === g.trav || (g.to && tv.to && Math.max(Math.abs((tv.to[0] | 0) - g.to[0]), Math.abs((tv.to[1] | 0) - g.to[1])) <= 1));
+    if (same) { if (tv !== g.trav) g.trav = tv; return; }
+    H.going = null; window.__PHONE_QUEST_ENDED = (window.__PHONE_QUEST_ENDED | 0) + 1;
+    var L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P; jobsPaint(L, true); questStrip(true); if (H.page === 'feed') pagePaint(true);
+  }
+  /* the strip's post: about a job he holds, it is that job's button (its go-mark), else the feed's door (the strip's own paint untouched) */
+  function questStrip(force) {
+    var fd = H.el && H.el.querySelector('.home .bpfd'); if (!fd) return;
+    var cw = cityWin(), qd = null, hk = ''; try { hk = ((cw && cw.LOOP && cw.LOOP.held) || []).map(function (j) { return j && j.id; }).join(','); } catch (e) {}
+    var pk = (H.stripTop || '') + '#' + hk + '#' + (H.going ? H.going.id : '');
+    if (!force && pk === H.stripQuestAt) return; H.stripQuestAt = pk;   /* the feed is read only when the post, his jobs or the mark change */
+    if (H.stripTop && hk) { var L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P, ps = L ? L.posts() : [];
+      for (var i = ps.length - 1; i >= 0; i--) if (ps[i].who + '|' + ps[i].txt === H.stripTop) { qd = questOf(ps[i], cw); break; } }
+    var going = !!(qd && H.going && H.going.id === qd), k = (qd || '') + '|' + going;
+    if (!force && k === H.stripQuest) return; H.stripQuest = k;
+    fd.classList.toggle('quest', !!qd); fd.classList.toggle('going', going);
+    if (qd) { fd.dataset.quest = qd; fd.setAttribute('aria-label', 'a post about your job: tap to go there'); }
+    else { delete fd.dataset.quest; fd.setAttribute('aria-label', 'the city\'s feed: tap for all of it'); }
+  }
   function jobsPaint(L, force) {
     var jb = H.el.querySelector('.home .jobs'); if (!jb) return;
     var js = L ? L.jobs() : [];
     if (H.sel && !js.some(function (j) { return j.id === H.sel; })) H.sel = null;
     if (!H.sel && js.length) H.sel = js[0].id;
     if (H.arm && !js.some(function (j) { return j.id === H.arm.id; })) H.arm = null;
-    var sig = js.map(function (j) { return j.id + j.stars + j.mins + j.what + j.at + '@' + j.deg; }).join('|') + '|' + H.sel + '|' + (H.arm ? H.arm.id + H.arm.why : '');
+    var sig = js.map(function (j) { return j.id + j.stars + j.mins + j.what + j.at + '@' + j.deg; }).join('|') + '|' + H.sel + '|' + (H.arm ? H.arm.id + H.arm.why : '') + '|' + (H.going ? H.going.id : '');
     window.__PHONE_JOBS = js.map(function (j) { return j.id; });
     if (!force && sig === H.jobSig) return; H.jobSig = sig;
     [].slice.call(jb.querySelectorAll('.jc, .je')).forEach(function (n) { n.remove(); });
@@ -1686,6 +1795,7 @@
     if (face === 'fight') { beatStart(); if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
     if (face === 'crew') { crewPaint(false); return; }
     paintHome(false); paintWall(false); stripPaint(false);
+    questTrack(); questStrip(false);   /* __TAP_A_QUEST_YOUR_PEOPLE_GO__ */
     if (H.page) pagePaint(false);
   }
 
@@ -1697,6 +1807,8 @@
     setSide: function (s) { try { return HOST.BohemiaPhone && HOST.BohemiaPhone !== window.BohemiaPhone ? HOST.BohemiaPhone.setSide(s) : setSide(s); } catch (e) { return setSide(s); } },
     _paint: paintHere, P: P, APPS: APPS.slice(), name: window.BohemiaCompanyName,
     state: function () { return IS_HOST ? H.state : (LOCAL.state || null); },
+    going: function () { return IS_HOST && H.going ? { id: H.going.id, wait: !!H.going.wait, to: H.going.to } : null; },   /* rule 376: the quest he is going to (the gate reads it) */
+    questLog: function () { return IS_HOST ? QG.log.slice() : []; },
     open: function (a) { if (IS_HOST && H.el) { if (a === 'settings') return settingsOpen(); pageOpen(a); return true; } return false; },
     press: function (a) { if (IS_HOST && H.el) { appPress(a); return true; } return false; },
     settings: function () { return IS_HOST ? settingsRows() : false; },
