@@ -18673,7 +18673,8 @@
     "after": "more love: the dead where nobody moved them",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
-  }
+  },
+  {"id": "ui7-tap-a-quest-on-the-phone-11-3", "kind": "ui", "lane": "ui 7", "sha": "f5ac27e5a", "made": "11/3", "draft": true, "title": "TAP A QUEST ON YOUR PHONE AND YOUR PEOPLE GO", "said": "I should be able to click the quest on my phone and my people auto move towards it.", "why": "Every quest on the phone is a button now: the job's card, and the post about a job you took on the feed. You see it when you tap a job on the phone: the town closes, your party sets off on the map toward it, and its card's arrow pulses amber until you get there.", "before_after": {"before": "a tap on the job's card only picked it for PLAY; nothing moved; a post about your job only opened the feed", "after": "a tap on the job's card (or its post on the feed) closes the phone's page or the town and sends the party toward the nearest marker of that quest on the map (WORLD 8's road and close camera), and the card's arrow pulses amber on the beat until the trip ends", "scale": "his phone upright, 390 by 844"}, "options": ["A, better, keep it", "B, close, fix something (say what)", "C, wrong, again"], "show": {"how": "image", "src": "vote/UI7_TAP_A_QUEST_ON_THE_PHONE_11_3.webp"}}
  ],
  "verdicts": [
   {
