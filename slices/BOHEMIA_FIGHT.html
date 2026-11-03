@@ -3553,17 +3553,28 @@ const FIGHT = (function () {
        WALK THROUGH YOUR OWN MEN (rule 199): his feet can now, so a friend's tile is walked through like open ground, except one
        inside an enemy's zone of control, where the brains' walk ends and nobody may stand on a friend (reach's own rule) */
     const busy = {}; if (!open) S.units.forEach(function (o) { if (o !== u && o.side === u.side && onField(o) && zocOn(u, o.x, o.y).length) busy[key(o.x, o.y)] = true; });
-    foes(u).forEach(function (f) { d[key(f.x, f.y)] = 0; q.push(f); });
-    while (q.length) {
-      const n = q.shift(), nd = d[key(n.x, n.y)];
-      DIRS.forEach(function (o) {
-        const x = n.x + o[0], y = n.y + o[1];
-        if (!passable(x, y) || squeezes(n.x, n.y, x, y, u) || d[key(x, y)] !== undefined || noRoof(u, x, y)) return;
-        if (club && nd === 0 && Math.abs(level(x, y) - level(n.x, n.y)) > gap) return;
-        d[key(x, y)] = nd + 1; if (!busy[key(x, y)]) q.push({ x: x, y: y });
-      });
-    }
-    return function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
+    const fill = function (src) {
+      Object.keys(d).forEach(function (k) { delete d[k]; }); q.length = 0;
+      src.forEach(function (f) { d[key(f.x, f.y)] = 0; q.push(f); });
+      while (q.length) {
+        const n = q.shift(), nd = d[key(n.x, n.y)];
+        DIRS.forEach(function (o) {
+          const x = n.x + o[0], y = n.y + o[1];
+          if (!passable(x, y) || squeezes(n.x, n.y, x, y, u) || d[key(x, y)] !== undefined || noRoof(u, x, y)) return;
+          if (club && nd === 0 && Math.abs(level(x, y) - level(n.x, n.y)) > gap) return;
+          d[key(x, y)] = nd + 1; if (!busy[key(x, y)]) q.push({ x: x, y: y });
+        });
+      }
+    };
+    /* AUTO NEVER LEAVES A MAN (COMBAT 7, EYES 11/3 item 1, rows 96, 109, 319, 331): his men hunt the men of theirs who still STAND;
+       one who runs is hunted only when no man of theirs who stands can be reached (or every one of them runs: the rout, rule 198) */
+    const all = foes(u), stand = u.side === 'you' ? all.filter(function (f) { return f.morale !== 'Fleeing'; }) : all;
+    fill(stand.length ? stand : all);
+    const standing = stand.length > 0 && stand.length < all.length && d[key(u.x, u.y)] !== undefined;
+    if (stand.length < all.length && !standing) fill(all);
+    const h = function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
+    h.keepOffRunners = standing;   /* a man of theirs who stands is in his walk's reach: he walks after none who runs */
+    return h;
   }
   /* 70b: a shooter on the flat with a roof in reach, a target still in range from it and AP left to shoot, climbs first */
   /* a foe within his gun's reach from a roof tile (the reach each storey up adds, rules.json) and one step more */
@@ -3792,9 +3803,11 @@ const FIGHT = (function () {
     return h.v + B.kill_rounds * dw(t) * (share + killGain(a, t, h.p));
   }
   /* every blow and sweep of what is in his hands, from where he stands on the AP he has (the caller may have him stand elsewhere) */
-  function blowsHere(u, B, dw) {
+  /* next: the blows of NEXT turn (rule 332 amended), where a man of theirs who runs is not counted: he runs for the edge, he will
+     not stand there to be hit (COMBAT 7: AUTO climbed an empty roof for a runner's blow next turn, EYES 11/3 item 1) */
+  function blowsHere(u, B, dw, next) {
     const out = [], w = u.weapon, s0 = strikeSkill(w);
-    const can = foes(u).filter(function (t) { return canStrike(u, t) && sideSees(u.side, t); });
+    const can = foes(u).filter(function (t) { return canStrike(u, t) && sideSees(u.side, t) && !(next && t.morale === 'Fleeing'); });
     const tz = u.tauntedBy ? byId(u.tauntedBy) : null, forced = tz && can.indexOf(tz) >= 0 ? tz : null;   /* taunted: the man who called him */
     const top = isRanged(w) ? can.reduce(function (m, t) { return Math.max(m, hitChance(u, t).chance); }, 0) : 0;
     const f0 = S.focus || {}, topT = isRanged(w) ? can.filter(function (t) { return hitChance(u, t).chance === top; })[0] : null;
@@ -3820,7 +3833,7 @@ const FIGHT = (function () {
     if (forced) return out;
     sweepSkills(w).forEach(function (s) {
       foes(u).forEach(function (t) {
-        if (!canSweep(u, t, s.name) || !sideSees(u.side, t)) return;
+        if (!canSweep(u, t, s.name) || !sideSees(u.side, t) || (next && t.morale === 'Fleeing')) return;
         const gone = {}; let val = 0, pk = 0;
         if (!shapeOf(s)) { const p = hitChance(u, t, s).chance / 100; val = p * threatOf(t); gone[t.id] = p; }   /* a whip's DISARM: his next turn without his weapon */
         else shapeFoes(u, t, s).forEach(function (o) { const ho = hurtOn(u, o, s), po = ownKill(u, o, ho.p); val += blowDeal(u, o, ho, B, dw); gone[o.id] = po; pk = Math.max(pk, po); });
@@ -3898,6 +3911,10 @@ const FIGHT = (function () {
     /* a man in a ring of theirs does not walk out of it through the free swings (Battle Brothers' own; Footwork is how he leaves) */
     if (!u.netted && !ring.length && u.btMoves < B.moves_a_turn && !climbedNow(u)) {
       const fld = reach(u), w = u.weapon, far = isRanged(w) ? rangeMax(w.range) : reachOf(w);
+      /* AUTO NEVER LEAVES A MAN (COMBAT 7): while a man of theirs who stands is in his walk's reach, no walk after one who runs,
+         unless the blow there is a kill on offer (finishing a runner this turn; measured: the walk for a non-kill was EYES' three
+         lost turns, the walk for a kill won a wolf fight) */
+      const offRun = u.side === 'you' && huntField(u).keepOffRunners, runOnly = function (o) { return offRun && Object.keys(o.gone || {}).every(function (id) { const m = byId(id); return !m || m.morale === 'Fleeing'; }); };
       Object.keys(fld.best).forEach(function (k) {
         k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
         if (x === u.x && y === u.y) return;
@@ -3913,6 +3930,7 @@ const FIGHT = (function () {
         const left = u.ap - fld.best[k];
         standIn(u, x, y, left, function () { return blowsHere(u, B, dw); }).forEach(function (o) {
           if (chase && o.pk < B.kill_on_offer) return;   /* NO LONG CHASE (rule 332): a far walk into their clubs only for a kill on offer */
+          if (runOnly(o) && o.pk < B.kill_on_offer) return;   /* COMBAT 7: no walk for a blow on a runner while a man of theirs stands within reach, unless it drops him (a kill on offer, rule 332) */
           o.walk = true; add(o, { x: x, y: y }, pass, zone, function () { u.btMoves++; return moveTo(u, x, y); });
         });
       });
@@ -4003,7 +4021,8 @@ const FIGHT = (function () {
       if (NB[key] !== undefined) return NB[key];
       const rs = reloadSkill(w), can = loaded || !rs || u.apTurn >= skillAP(w, rs, u) + skillAP(w, strikeSkill(w), u);
       const up = u.upRound, dis = u.disarmed; u.upRound = null; u.disarmed = false;   /* next turn: a new round, his weapon back */
-      try { NB[key] = standIn(u, E.x, E.y, u.apTurn, function () { return blowsHere(u, B, dw).reduce(function (m, o) { return Math.max(m, o.deal); }, 0); },
+      /* COMBAT 7: from a tile he walks or climbs to, next turn counts no man of theirs who runs (he will be gone from there) */
+      try { NB[key] = standIn(u, E.x, E.y, u.apTurn, function () { return blowsHere(u, B, dw, E.x !== here.x || E.y !== here.y).reduce(function (m, o) { return Math.max(m, o.deal); }, 0); },
         { w: w, ammo: w === u.weapon ? u.ammo : w.mag || null, ammoMax: w === u.weapon ? u.ammoMax : w.mag || null, loaded: can, fat: Math.max(0, fat) }); }
       finally { u.upRound = up; u.disarmed = dis; }
       return NB[key];
@@ -4184,7 +4203,7 @@ const FIGHT = (function () {
       const ghost = { x: x, y: y, side: u.side, weapon: w };
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
       /* rule 328: a tile his way climbs onto is no tile to strike from this turn */
-      const tgts = attackAfter(u, f, k) ? foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); }) : [];
+      const tgts = attackAfter(u, f, k) ? foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)) && !(hunt.keepOffRunners && t2.morale === 'Fleeing'); }) : [];   /* COMBAT 7: no walk after a runner while one stands */
       /* rule 322: AUTO's club walks to the man he can drop (the share of him one blow takes, at most all of him) */
       const tv = u.side === 'you' && !ranged && tgts.length ? Math.min(1, Math.max.apply(null, tgts.map(function (t2) { return expected(u, t2); }))) : 0;
       u.x = ox; u.y = oy;
