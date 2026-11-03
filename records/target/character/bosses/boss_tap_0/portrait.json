@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3846,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.385 m",
- "ppm": 332.814,
+ "head_m": 0.8194,
+ "head_how": "measured from person_tap_0_tap_wrench_head, portrait_head, portrait_head_eyes, portrait_head_lids: 0.819 m",
+ "ppm": 156.218,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -32,12 +32,12 @@
   "M": "records/target/character/bosses/boss_tap_0/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  40,
-  37,
-  179,
+  38,
+  36,
+  163,
   218
  ],
  "model": "records/character/rig/barber_person_tap_0.glb",
  "body_rig": "rig.json",
- "colours": 18214
+ "colours": 14269
 }

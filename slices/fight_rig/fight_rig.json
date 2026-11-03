@@ -1751,12 +1751,14 @@
     67,
     115
    ],
-   "height_m": 1.721,
+   "height_m": 1.844,
    "kind": "boss",
    "ref": "faction_trades",
    "guns": "faction_trades_guns.webp",
    "boss": "THE POT",
-   "rig": "records/target/combat/rig/boss_pot_0/rig.json"
+   "rig": "records/target/combat/rig/boss_pot_0/rig.json",
+   "own_kit": true,
+   "dressed": "COOK [the bosses dressed] 11/3: his own pieces on his model (tools/bohemia_cook_the_bosses_dressed_11_3_26.py)"
   },
   "boss_tap_0": {
    "file": "boss_tap_0.webp",
@@ -1766,12 +1768,14 @@
     67,
     110
    ],
-   "height_m": 1.742,
+   "height_m": 1.743,
    "kind": "boss",
    "ref": "faction_mob",
    "guns": "faction_mob_guns.webp",
    "boss": "THE TAP",
-   "rig": "records/target/combat/rig/boss_tap_0/rig.json"
+   "rig": "records/target/combat/rig/boss_tap_0/rig.json",
+   "own_kit": true,
+   "dressed": "COOK [the bosses dressed] 11/3: his own pieces on his model (tools/bohemia_cook_the_bosses_dressed_11_3_26.py)"
   },
   "boss_filter_0": {
    "file": "boss_filter_0.webp",
@@ -1781,12 +1785,14 @@
     67,
     115
    ],
-   "height_m": 1.727,
+   "height_m": 1.728,
    "kind": "boss",
    "ref": "faction_trades",
    "guns": "faction_trades_guns.webp",
    "boss": "THE FILTER",
-   "rig": "records/target/combat/rig/boss_filter_0/rig.json"
+   "rig": "records/target/combat/rig/boss_filter_0/rig.json",
+   "own_kit": true,
+   "dressed": "COOK [the bosses dressed] 11/3: his own pieces on his model (tools/bohemia_cook_the_bosses_dressed_11_3_26.py)"
   },
   "beast_coyote": {
    "file": "beast_coyote.webp",

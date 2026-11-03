@@ -1,19 +1,13 @@
 {
  "look": "PERSON_TAP_0",
- "shape": "person_tap_0: THE TAP: a waterworks man who keeps the valve key; a utility vest over his work shirt, the work cap, shades, a tool belt, his own skin skin_deep 3, BONE BUTTON-UP under TACTICAL VEST",
+ "shape": "person_tap_0: THE TAP: the pump-house boss; oil-black coveralls, a red valve handwheel for a badge, a fire hose across him, the valve wrench, his own skin skin_deep 3, OIL COVERALLS",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "BONE BUTTON-UP",
-  "outer": "TACTICAL VEST",
-  "legs": "KHAKI CARGOS",
+  "base": "OIL COVERALLS",
   "feet": "RUST BOOTS",
   "waist": "SCAV TOOL BELT",
   "hands": "LEATHER GLOVES",
-  "outfit": [
-   "FIELD BUTTON-UP read as one with TACTICAL VEST (76 and 63 of 255): the same cut in BONE BUTTON-UP (154)",
-   "TACTICAL VEST worn open to the neck",
-   "the button shirt's hem below the vest"
-  ]
+  "outfit": []
  },
  "dials": {
   "height": 0.45,
@@ -22,18 +16,9 @@
   "hips": 0.1
  },
  "layers": {
-  "base": {
-   "under": "VEST",
-   "hem_drop": 0.04
-  },
+  "base": {},
   "mid": {},
-  "outer": {
-   "lift": 0.0039,
-   "open": true,
-   "ohw": 0.056,
-   "collar_z": 1.115,
-   "fo_add": 0.25
-  }
+  "outer": {}
  },
  "model": "records/character/rig/person_tap_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -43,21 +28,25 @@
  "real_height_for_rig": 1.7649,
  "meshes": {
   "Cesium_Man": 3273,
+  "person_tap_0_trouser": 2568,
   "person_tap_0_shoe": 3716,
   "person_tap_0_shirt": 71268,
   "person_tap_0_collar": 1536,
   "person_tap_0_collar_points": 180,
   "person_tap_0_placket": 162,
-  "person_tap_0_buttons": 204,
   "person_tap_0_cuffs": 2048,
-  "person_tap_0_tail": 2912,
-  "person_tap_0_coat": 21710,
-  "person_tap_0_lapels": 396,
-  "person_tap_0_pouches": 504,
-  "person_tap_0_trouser": 43706,
-  "person_tap_0_rolled_hem": 2048,
-  "person_tap_0_cargo_pockets": 252,
-  "person_tap_0_cargo_flaps": 108,
+  "person_tap_0_pocket": 180,
+  "person_tap_0_flap": 108,
+  "person_tap_0_belt": 1792,
+  "person_tap_0_tap_hose": 1792,
+  "person_tap_0_tap_hose_coupling": 268,
+  "person_tap_0_tap_wheel": 392,
+  "person_tap_0_tap_wheel_nut": 8,
+  "person_tap_0_tap_wheel_patch": 26,
+  "person_tap_0_tap_keys": 232,
+  "person_tap_0_tap_wrench_handle": 24,
+  "person_tap_0_tap_wrench_head": 48,
+  "person_tap_0_tap_wrench_teeth": 32,
   "person_tap_0_sole_1": 242,
   "person_tap_0_midsole_1": 242,
   "person_tap_0_sole_0": 242,
@@ -83,6 +72,11 @@
    0.8,
    0.8
   ],
+  "person_tap_0_belt": [
+   0.0091,
+   0.0086,
+   0.008
+  ],
   "person_tap_0_boot_collar": [
    0.3231,
    0.1248,
@@ -93,40 +87,20 @@
    0.0252,
    0.0091
   ],
-  "person_tap_0_buttons": [
-   0.2122,
-   0.1746,
-   0.1046
-  ],
-  "person_tap_0_cargo_flaps": [
-   0.1022,
-   0.0685,
-   0.0242
-  ],
-  "person_tap_0_cargo_pockets": [
-   0.2307,
-   0.1559,
-   0.0578
-  ],
-  "person_tap_0_coat": [
-   0.0437,
-   0.0561,
-   0.0232
-  ],
   "person_tap_0_collar": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0242,
+   0.0212,
+   0.0176
   ],
   "person_tap_0_collar_points": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0242,
+   0.0212,
+   0.0176
   ],
   "person_tap_0_cuffs": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0091,
+   0.0086,
+   0.008
   ],
   "person_tap_0_eyelets_0": [
    0.0865,
@@ -143,15 +117,15 @@
    0.0103,
    0.008
   ],
+  "person_tap_0_flap": [
+   0.0091,
+   0.0086,
+   0.008
+  ],
   "person_tap_0_hair": [
    0.0194,
    0.0116,
    0.008
-  ],
-  "person_tap_0_lapels": [
-   0.0185,
-   0.0242,
-   0.0123
   ],
   "person_tap_0_leather_gloves": [
    0.1301,
@@ -174,19 +148,14 @@
    0.0091
   ],
   "person_tap_0_placket": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0091,
+   0.0086,
+   0.008
   ],
-  "person_tap_0_pouches": [
-   0.0185,
-   0.0242,
-   0.0123
-  ],
-  "person_tap_0_rolled_hem": [
-   0.3864,
-   0.2664,
-   0.1119
+  "person_tap_0_pocket": [
+   0.0091,
+   0.0086,
+   0.008
   ],
   "person_tap_0_scav_tool_belt": [
    0.0545,
@@ -209,9 +178,9 @@
    0.016
   ],
   "person_tap_0_shirt": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.0242,
+   0.0212,
+   0.0176
   ],
   "person_tap_0_shoe": [
    0.2122,
@@ -238,20 +207,70 @@
    0.0273,
    0.0144
   ],
-  "person_tap_0_tail": [
-   0.3763,
-   0.3231,
-   0.2086
+  "person_tap_0_tap_hose": [
+   0.4125,
+   0.305,
+   0.1384
+  ],
+  "person_tap_0_tap_hose_coupling": [
+   0.3515,
+   0.2159,
+   0.0513
+  ],
+  "person_tap_0_tap_keys": [
+   0.3515,
+   0.2159,
+   0.0513
+  ],
+  "person_tap_0_tap_wheel": [
+   0.3325,
+   0.0212,
+   0.013
+  ],
+  "person_tap_0_tap_wheel_chip": [
+   0.0395,
+   0.0369,
+   0.0319
+  ],
+  "person_tap_0_tap_wheel_nut": [
+   0.0395,
+   0.0369,
+   0.0319
+  ],
+  "person_tap_0_tap_wheel_patch": [
+   0.117,
+   0.0482,
+   0.0194
+  ],
+  "person_tap_0_tap_wrench_chip": [
+   0.0545,
+   0.0513,
+   0.0452
+  ],
+  "person_tap_0_tap_wrench_handle": [
+   0.3325,
+   0.0212,
+   0.013
+  ],
+  "person_tap_0_tap_wrench_head": [
+   0.0395,
+   0.0369,
+   0.0319
+  ],
+  "person_tap_0_tap_wrench_teeth": [
+   0.2159,
+   0.2016,
+   0.1746
   ],
   "person_tap_0_trouser": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.0242,
+   0.0212,
+   0.0176
   ],
   "person_tap_0_trousers": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.0242,
+   0.0212,
+   0.0176
   ]
  }
 }

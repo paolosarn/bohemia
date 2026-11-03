@@ -1,6 +1,6 @@
 {
  "look": "PERSON_FILTER_0",
- "shape": "person_filter_0: THE FILTER: the last man who knows the water plant; work coveralls, a rubber respirator, a tool belt with his remote, his own skin skin_deep 4, WORK COVERALLS",
+ "shape": "person_filter_0: THE FILTER: the mechanic; a respirator on two hoses to a filter pack, his robots' parts strapped on him, a chopper cut from a robot's panel, his own skin skin_deep 4, WORK COVERALLS",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "WORK COVERALLS",
@@ -38,6 +38,36 @@
   "person_filter_0_pocket": 180,
   "person_filter_0_flap": 108,
   "person_filter_0_belt": 1792,
+  "person_filter_0_cable_0": 1792,
+  "person_filter_0_cable_tail_0": 82,
+  "person_filter_0_cable_plug_0": 26,
+  "person_filter_0_cable_prongs_0": 24,
+  "person_filter_0_cable_1": 1792,
+  "person_filter_0_cable_tail_1": 82,
+  "person_filter_0_cable_plug_1": 26,
+  "person_filter_0_cable_prongs_1": 24,
+  "person_filter_0_cable_coil": 576,
+  "person_filter_0_cable_arm_0": 768,
+  "person_filter_0_cable_arm_1": 768,
+  "person_filter_0_cable_arm_2": 768,
+  "person_filter_0_filter_frame": 8,
+  "person_filter_0_filter_can_1": 32,
+  "person_filter_0_filter_can_cap_1": 24,
+  "person_filter_0_filter_can_0": 32,
+  "person_filter_0_filter_can_cap_0": 24,
+  "person_filter_0_filter_chest_strap": 1792,
+  "person_filter_0_filter_hose_1": 3640,
+  "person_filter_0_filter_hose_0": 3640,
+  "person_filter_0_filter_robot_fore": 2930,
+  "person_filter_0_filter_robot_shoulder": 854,
+  "person_filter_0_filter_robot_bolts": 48,
+  "person_filter_0_filter_eye_housing": 26,
+  "person_filter_0_filter_eye_lens": 28,
+  "person_filter_0_filter_eye_tally": 20,
+  "person_filter_0_filter_cleaver_handle": 20,
+  "person_filter_0_filter_cleaver_tape": 300,
+  "person_filter_0_filter_cleaver_blade": 56,
+  "person_filter_0_filter_cleaver_rivets": 48,
   "person_filter_0_sole_1": 242,
   "person_filter_0_midsole_1": 242,
   "person_filter_0_sole_0": 242,
@@ -78,6 +108,66 @@
    0.0356,
    0.016
   ],
+  "person_filter_0_cable_0": [
+   0.305,
+   0.0931,
+   0.0232
+  ],
+  "person_filter_0_cable_1": [
+   0.013,
+   0.0123,
+   0.0116
+  ],
+  "person_filter_0_cable_arm_0": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_filter_0_cable_arm_1": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_filter_0_cable_arm_2": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_filter_0_cable_coil": [
+   0.305,
+   0.0931,
+   0.0232
+  ],
+  "person_filter_0_cable_plug_0": [
+   0.4342,
+   0.3916,
+   0.305
+  ],
+  "person_filter_0_cable_plug_1": [
+   0.107,
+   0.1022,
+   0.0931
+  ],
+  "person_filter_0_cable_prongs_0": [
+   0.305,
+   0.2623,
+   0.1559
+  ],
+  "person_filter_0_cable_prongs_1": [
+   0.305,
+   0.2623,
+   0.1559
+  ],
+  "person_filter_0_cable_tail_0": [
+   0.305,
+   0.0931,
+   0.0232
+  ],
+  "person_filter_0_cable_tail_1": [
+   0.013,
+   0.0123,
+   0.0116
+  ],
   "person_filter_0_collar": [
    0.0437,
    0.0561,
@@ -107,6 +197,126 @@
    0.0212,
    0.0103,
    0.008
+  ],
+  "person_filter_0_filter_can_0": [
+   0.4793,
+   0.314,
+   0.0452
+  ],
+  "person_filter_0_filter_can_1": [
+   0.4793,
+   0.314,
+   0.0452
+  ],
+  "person_filter_0_filter_can_band_0": [
+   0.0144,
+   0.0137,
+   0.013
+  ],
+  "person_filter_0_filter_can_band_1": [
+   0.0144,
+   0.0137,
+   0.013
+  ],
+  "person_filter_0_filter_can_cap_0": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_filter_0_filter_can_cap_1": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_filter_0_filter_chest_strap": [
+   0.0343,
+   0.0296,
+   0.0232
+  ],
+  "person_filter_0_filter_cleaver_blade": [
+   0.2086,
+   0.1946,
+   0.162
+  ],
+  "person_filter_0_filter_cleaver_edge": [
+   0.491,
+   0.4678,
+   0.402
+  ],
+  "person_filter_0_filter_cleaver_handle": [
+   0.0212,
+   0.0212,
+   0.0212
+  ],
+  "person_filter_0_filter_cleaver_paint": [
+   0.4342,
+   0.117,
+   0.0212
+  ],
+  "person_filter_0_filter_cleaver_rivets": [
+   0.402,
+   0.3515,
+   0.2232
+  ],
+  "person_filter_0_filter_cleaver_tape": [
+   0.0423,
+   0.0395,
+   0.0343
+  ],
+  "person_filter_0_filter_eye_housing": [
+   0.0612,
+   0.0578,
+   0.0513
+  ],
+  "person_filter_0_filter_eye_lens": [
+   0.7913,
+   0.3419,
+   0.0395
+  ],
+  "person_filter_0_filter_eye_tally": [
+   0.5776,
+   0.0319,
+   0.0212
+  ],
+  "person_filter_0_filter_frame": [
+   0.0545,
+   0.0513,
+   0.0452
+  ],
+  "person_filter_0_filter_hose_0": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_filter_0_filter_hose_1": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_filter_0_filter_robot_bolts": [
+   0.402,
+   0.3515,
+   0.2232
+  ],
+  "person_filter_0_filter_robot_fore": [
+   0.2086,
+   0.1946,
+   0.162
+  ],
+  "person_filter_0_filter_robot_shoulder": [
+   0.2086,
+   0.1946,
+   0.162
+  ],
+  "person_filter_0_filter_robot_shoulder_dk": [
+   0.0612,
+   0.0578,
+   0.0513
+  ],
+  "person_filter_0_filter_robot_stripe": [
+   0.4342,
+   0.117,
+   0.0212
   ],
   "person_filter_0_flap": [
    0.0185,

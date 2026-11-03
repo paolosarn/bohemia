@@ -25,13 +25,13 @@
   112,
   76
  ],
- "model_top_m": 1.5293,
+ "model_top_m": 1.6381,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7211,
+ "real_height_for_rig": 1.8436,
  "pieces": {
-  "barber_temple_taper_fade": 32389,
-  "barber_temple_taper": 157930,
-  "hat_bone_head_wrap_under": 43770,
-  "hat_bone_head_wrap_bands": 8042
+  "h2_razor_skull_shadow": 108761,
+  "h2_razor_skull_scabs": 78,
+  "toque_band": 216,
+  "toque_crown": 938
  }
 }

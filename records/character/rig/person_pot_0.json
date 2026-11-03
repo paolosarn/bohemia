@@ -1,10 +1,10 @@
 {
  "look": "PERSON_POT_0",
- "shape": "person_pot_0: THE POT: a casino line cook who took the last good kitchen; his chef's whites gone grey, a half apron, a head wrap, his own skin skin_mid 2, BONE BUTTON-UP under DUST HALF APRON",
+ "shape": "person_pot_0: THE POT: the kitchen's captain; stained chef's whites under a riot vest cut down to his chest, a toque, the copper pot's lid on his arm, the butcher's cleaver, his own skin skin_mid 2, CHEF WHITES under LEATHER HALF APRON",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "BONE BUTTON-UP",
-  "outer": "DUST HALF APRON",
+  "base": "CHEF WHITES",
+  "outer": "LEATHER HALF APRON",
   "legs": "CHARCOAL CROP TROUSER",
   "feet": "COAL MID BOOT",
   "waist": "LEATHER BELT",
@@ -43,6 +43,27 @@
   "person_pot_0_tail": 2016,
   "person_pot_0_apron": 1850,
   "person_pot_0_apron_ties": 1792,
+  "person_pot_0_pot_stain_old": 2714,
+  "person_pot_0_pot_stain_grease": 3621,
+  "person_pot_0_pot_vest": 6714,
+  "person_pot_0_pot_vest_plate": 1390,
+  "person_pot_0_pot_vest_tab_1_0": 50,
+  "person_pot_0_pot_vest_tab_1_1": 50,
+  "person_pot_0_pot_vest_buckle_1": 8,
+  "person_pot_0_pot_vest_tab_0_0": 50,
+  "person_pot_0_pot_vest_tab_0_1": 50,
+  "person_pot_0_pot_vest_buckle_0": 8,
+  "person_pot_0_pot_kerchief": 1280,
+  "person_pot_0_pot_kerchief_knot": 508,
+  "person_pot_0_pot_lid": 2242,
+  "person_pot_0_pot_lid_rim": 384,
+  "person_pot_0_pot_lid_handle": 156,
+  "person_pot_0_pot_lid_strap_25": 768,
+  "person_pot_0_pot_lid_strap_75": 768,
+  "person_pot_0_pot_cleaver_handle": 20,
+  "person_pot_0_pot_cleaver_rivets": 36,
+  "person_pot_0_pot_cleaver_blade": 26,
+  "person_pot_0_pot_cleaver_hole": 20,
   "person_pot_0_trouser": 35674,
   "person_pot_0_turn_up": 2048,
   "person_pot_0_turn_up_edge": 2048,
@@ -65,14 +86,14 @@
    0.8
   ],
   "person_pot_0_apron": [
-   0.2423,
-   0.1529,
-   0.0561
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_pot_0_apron_ties": [
-   0.1046,
-   0.063,
-   0.0222
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_pot_0_boot_collar": [
    0.0823,
@@ -85,24 +106,24 @@
    0.0152
   ],
   "person_pot_0_buttons": [
-   0.2122,
-   0.1746,
-   0.1046
+   0.402,
+   0.3613,
+   0.2623
   ],
   "person_pot_0_collar": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.6445,
+   0.6038,
+   0.4969
   ],
   "person_pot_0_collar_points": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.6445,
+   0.6038,
+   0.4969
   ],
   "person_pot_0_cuffs": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.6445,
+   0.6038,
+   0.4969
   ],
   "person_pot_0_eyes": [
    0.0212,
@@ -135,14 +156,139 @@
    0.0152
   ],
   "person_pot_0_placket": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.6445,
+   0.6038,
+   0.4969
+  ],
+  "person_pot_0_pot_cleaver_blade": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_pot_0_pot_cleaver_edge": [
+   0.6172,
+   0.5906,
+   0.5149
+  ],
+  "person_pot_0_pot_cleaver_handle": [
+   0.0931,
+   0.0423,
+   0.0194
+  ],
+  "person_pot_0_pot_cleaver_hole": [
+   0.007,
+   0.007,
+   0.007
+  ],
+  "person_pot_0_pot_cleaver_rivets": [
+   0.402,
+   0.3515,
+   0.2232
+  ],
+  "person_pot_0_pot_cleaver_spine": [
+   0.0369,
+   0.0343,
+   0.0319
+  ],
+  "person_pot_0_pot_kerchief": [
+   0.305,
+   0.0232,
+   0.016
+  ],
+  "person_pot_0_pot_kerchief_knot": [
+   0.305,
+   0.0232,
+   0.016
+  ],
+  "person_pot_0_pot_lid": [
+   0.4342,
+   0.1384,
+   0.0452
+  ],
+  "person_pot_0_pot_lid_handle": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_pot_0_pot_lid_rim": [
+   0.1878,
+   0.0612,
+   0.0232
+  ],
+  "person_pot_0_pot_lid_steam": [
+   0.107,
+   0.0844,
+   0.0423
+  ],
+  "person_pot_0_pot_lid_strap_25": [
+   0.117,
+   0.0482,
+   0.0194
+  ],
+  "person_pot_0_pot_lid_strap_75": [
+   0.117,
+   0.0482,
+   0.0194
+  ],
+  "person_pot_0_pot_lid_tarnish": [
+   0.1878,
+   0.0612,
+   0.0232
+  ],
+  "person_pot_0_pot_stain_grease": [
+   0.305,
+   0.2159,
+   0.0844
+  ],
+  "person_pot_0_pot_stain_old": [
+   0.1384,
+   0.0545,
+   0.0252
+  ],
+  "person_pot_0_pot_vest": [
+   0.013,
+   0.013,
+   0.0144
+  ],
+  "person_pot_0_pot_vest_buckle_0": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_pot_0_pot_vest_buckle_1": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_pot_0_pot_vest_plate": [
+   0.0212,
+   0.0212,
+   0.0242
+  ],
+  "person_pot_0_pot_vest_tab_0_0": [
+   0.0423,
+   0.0343,
+   0.0252
+  ],
+  "person_pot_0_pot_vest_tab_0_1": [
+   0.0423,
+   0.0343,
+   0.0252
+  ],
+  "person_pot_0_pot_vest_tab_1_0": [
+   0.0423,
+   0.0343,
+   0.0252
+  ],
+  "person_pot_0_pot_vest_tab_1_1": [
+   0.0423,
+   0.0343,
+   0.0252
   ],
   "person_pot_0_shirt": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.6445,
+   0.6038,
+   0.4969
   ],
   "person_pot_0_shoe": [
    0.0382,
@@ -170,9 +316,9 @@
    0.007
   ],
   "person_pot_0_tail": [
-   0.3763,
-   0.3231,
-   0.2086
+   0.6445,
+   0.6038,
+   0.4969
   ],
   "person_pot_0_trouser": [
    0.0382,

@@ -7300,6 +7300,7 @@ function meleeBody(src, f, L, e, d) {
 function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const kind = gs ? DB.rig.guns.order[gs.row] : null;
   if (kind && kind !== 'pistol') return null;   /* a long gun is held in both hands: the held clips' */
+  if (L.own_kit) return null;   /* COOK [the bosses dressed] 11/3: a boss's own model carries his weapon and his shield (THE POT's cleaver and lid, THE TAP's wrench): his own fight sheet, no second thing */
   /* his own keys, if they are in; a rolled man whose own keys are not in yet stands on his held sheets with his gang's things */
   const M = MELEE.meta, e = meleeLook(L._key) || (M && L.ref && M.looks[L.ref] ? (MELEE.bare[L._key] = MELEE.bare[L._key] || { clips: {}, sheets: {}, ref: L.ref }) : null);
   if (!e) return null;
