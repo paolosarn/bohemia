@@ -1,5 +1,27 @@
 # WORDS -- the handoff block (written only by WORDS; newest on top; older rounds in handoffs/WORDS_ARCHIVE.md)
 
+WORDS (THE WORLD FEED, session_01GKDyuwRofRh6Gz9p9rotEj): 11/3 LATEST -- [the world feed] (rule 352, ask line 366) SHIPPED
+(BUILD 11/3zzz - THE WORLD IN YOUR FEED, e86c1104), NOT YET SEEN.
+WHAT IS IN THE DEMO NOW:
+- records/target/bb/feed_world.json: 132 world posts (+7 valley replies) from 37 accounts in 35 places (13 the country, 5 Mexico,
+  14 the world, 5 the Network's own: four 'grateful' people saying one sentence in four cities, and the machine page, rare), 15 kinds,
+  every row far:true, act one only, all English (rule 355(4) landed mid-round: the 22 Spanish twins and the foreign words were cut).
+- THE WIRING: engine/bohemia_feedstream.js merge() + pace.far_share 0.42 over the last 20 posts (measured 0.41 to 0.43 on a played hour;
+  live 6 of 14); a deed never waits; the life rule goes first; a far post (and a valley reply under it) never gets the Spanglish dial.
+  The map's loader fetches both files (BOHEMIA_CITY_WORLD.html __THE_WORLD_FEED__); the inlined engine swapped by hand (the bulk resync
+  tool refuses on engine/bohemia_followers.js's banner, not mine: INLINED FRESH is red on main for that).
+- GATES: THE FEED TALKS ABOUT THE WHOLE WORLD (new, node only, 8/0, the share leg bites at 0.24 with the rule off); THE FEED IS ALIVE
+  C1/C5 re-aimed to count the world file. FEED STREAM 17/2 the same two reds on main without this change (B2, B3; not mine).
+- VOTE: words-the-world-feed-11-3 (the real demo upright for 75 s, then 20 of the best). Records: round 1
+  records/BOHEMIA_WORDS_THE_WORLD_FEED_WHAT_HIS_WORLD_SAYS_11_3_26.md (32 facts with sources, 5 real collapses, 9 gaps);
+  round 2 records/BOHEMIA_WORDS_THE_WORLD_FEED_THE_POSTS_AND_THEIR_SOURCES_11_3_26.md.
+OWED / NEXT:
+- FIVE QUESTIONS FOR HIM (round 1 record s4; the coordinator carries them one at a time): Mexico now; anything in Washington; the gulf
+  city's name; the Taiwan leg; did California take the walkers. Nothing about them is posted until he answers.
+- Act two and act three world rows (GDD v2: Texas struggling in act two, what happened to it in act three).
+- FIXES' rule 350 strip is not on main yet: the phone still cuts a long post in half; the VOTE page shows the full words beside it.
+- Re-read the world lines against RADIO's guide (rule 353(i)) on its next round; they already lean its way.
+
 WORDS (voices-session_01GKDyuvuNaCKi3knSrxnmUL): 11/2 (a) LATEST -- [the survivor's word] (rule 315, ask line 310) and [kills and the
 strongest foe] (rule 316, ask line 311) SHIPPED (BUILD 11/3za - THEY SAY HOW IT WENT), NOT YET SEEN.
 WHAT IS IN THE DEMO NOW:
