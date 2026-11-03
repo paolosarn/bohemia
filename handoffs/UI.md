@@ -1,5 +1,38 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
+UI (ui-7, the top and the crew's camp): 11/3 LATEST -- [the top is only resources] + [the crew sees the camp] BUILT, NOT YET SEEN (rules
+368 and 369, ask lines 392 and 393; BUILD 11/3zzzzaj - THE TOP IS ONLY RESOURCES, code f6836bd76, on main 9025ec9f8; BUILD 11/3zzzzau - THE
+CREW SEES THE CAMP, code 38ed041cc), IN THE DEMO, two VOTE cards WAS beside NOW (ui7-the-top-is-only-resources-11-3,
+ui7-the-crew-sees-the-camp-11-3). Records records/BOHEMIA_UI7_THE_TOP_IS_ONLY_RESOURCES_11_3_26.md and
+records/BOHEMIA_UI7_THE_CREW_SCREEN_SEES_THE_CAMP_11_3_26.md.
+- THE TOP (slices/bohemia_ui_materials.js __THE_TOP_IS_ONLY_RESOURCES__): the day plate, the crew plate and the place stay in the bar's DOM
+  off the glass (the phone's CREW presses the hidden crew tag; the phone reads the place from it); .r1 is gone for good, the gear (only
+  with no phone) at the end of .r2, the pane 44 tall: the band is ONE height from its first frame, 108 -> 63 upright. Do NOT add a
+  re-fit on band changes: a ResizeObserver that told the map 'resize' threw a drawImage page error on THE PHONE's computer walk.
+- THE PHONE (slices/bohemia_phone.js): __THE_DAY_ON_THE_PHONE__ .stat .dt 'DAY n  hh:mm' (never in the fight), the place steps down to
+  5.5 px before a letter is cut, the band under PLAY says GOING/STOPPED/RESTING/IN TOWN only, CREW in KEEP (ALWAYS). The crew face's .cman
+  names the man picked (P.roster().man, read off his card).
+- THE CREW SCREEN (slices/BOHEMIA_ROSTER_SCREEN.html __THE_CREW_SEES_THE_CAMP__, after __THEIR_CAMP_BEHIND__ whose campPaint/campMen/
+  campFloor it rewired): CAM {k, ox, oy}; campTarget puts the picked man's feet on his figure's feet (campSpot); the camp at the figure's
+  size, a town at cover x 1.5; campAim glides 450 ms from its first frame (log in CAM.log: ms, wait, gap, paint); choose()/draw() wrapped;
+  campManAtPoint/campTapOpen are the tap's (and the gate's) one rule. The light: campLampGeom (the pool round him; the top and foot bands
+  only where campWords sit), campFloor searches pool, top, foot in that order, campLamp drawn once a pick and cached. html.bm-camp-live
+  (+ :not(#bm-x) for specificity over the kit) takes board/tin/receipt off the sheet; upright the bag pockets join the side columns,
+  slots 54; on its side the line over the stash. On the map camp the picked man is the figure (his camp sprite skipped); in a town the
+  town draws him (figure hidden). Men round the back of the fire in rings 4/6/8/12.
+- THE UNSEEN TOWN (bohemia_ui_materials.js hudTownWin): a settle frame at opacity < 0.05 never takes the crew press.
+- GATES: gates/the_top_is_only_resources_gate.js 69/0, gates/the_crew_screen_sees_the_camp_gate.js 33/0 (both new, both ways, plants);
+  re-aimed to 368: the_days_once, one_hud_everywhere (merged with UI 6's NOTES re-aim), the_phone_gate (RELATIONS hides, CREW never), the_ui_
+  belongs_to_the_world (map leg); to 369: the_crew_screen_shows_their_camp (its plant takes all three shades off).
+NEXT (named, not mine to fix this round): THE COMPANY SCREEN, BATTLE BROTHERS SIMPLE reads 1.05 screens upright on main (COMBAT 7's
+armour-class line a19b52b3 on the screen opened without a camp; 1.04 with mine, which passes the stranger's-path leg main fails): COMBAT 7
+or UI. THE CREW SCREEN SHOWS THEIR CAMP's T legs are red on clean main too (they count the camp picture's download as work). In a town a man
+the town stands at the picture's very edge lands as near the middle as the picture allows (105 pt upright, 200 on its side at Church):
+RUN TWO could stand his men off the town's edge. The town's live copy costs 8 to 10 ms a glide frame on this GPU-less box (the camp 0.1).
+[bb Battle Brothers keeps the day on a small dial at the top of its world map and its company screen over a painting of the camp's fire;
+ours keeps only what you carry at the top, the clock on the phone in your hand, and the camp itself, live, under the company.]
+[analog horror: one work lamp on the man you picked, the camp falling into the dark at the frame's top and foot like a CCTV picture.]
+
 UI (ui-6, the camera feeds; the words belong to the picture; the menu frozen): 11/3 LATEST -- [the camera feeds] + [the start screen,
 two ways] + [the words in the picture] + [notes gone] + [the menu frozen] BUILT (asks 351, 358 SEEN YES; 377, 378, 379, 380 BUILT, NOT
 YET SEEN; rules 342, 348, 357, 358; BUILD 11/3zzzzab - THE WORDS BELONG TO THE PICTURE), IN THE DEMO, two VOTE cards (ui-the-camera-feeds-11-3, ui-the-words-belong-to-the-
