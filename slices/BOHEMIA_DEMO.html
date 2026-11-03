@@ -492,7 +492,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"3471dc599fed382d",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"49a7ab692930fc06",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1596,7 +1596,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zzzzad - THE MAP CAN TURN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zzzzae - PICK YOUR THREE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12550,6 +12550,20 @@ function nfOpts(d){
      armour the last fight took, less what the map's clock has healed and the tape has mended); the line is re-pointed past the dead */
   try{ if(window.BohemiaCondition && o.company){ var hc = BohemiaCondition.handOver(o.company, o.formation); o.company = hc.company; if(hc.formation) o.formation = hc.formation;
     if(window.__NF_HANDED) window.__NF_HANDED.men = o.company.map(function(m){ return m && m.name; }); window.__NF_COND = o.company.map(function(m){ return m ? { name: m.name, cond: m.cond || null } : null; }); } }catch(_e){}
+  /* ==== __THE_ARENA__ (ARENA, rule 375, Paolo 11/3: 'your accessory thing is X'd out and it won't apply as you enter the arena... easier
+     to choose the three people that go into the arena'): a pit fight takes ONLY the men he picked on the town's one screen, in his
+     order, each WITHOUT his accessory (no collar to equip, the slot simply does not count inside: bb_all/0620's collar sat in that
+     slot), on a small board cut to the two sides (o.cut), with the arena flag the fight reads (no retreat, no loot, the crowd) */
+  try{ if(d && d.arena && Array.isArray(d.arena.men) && d.arena.men.length){
+    var an = d.arena.men.map(function(n){ return String(n || '').toUpperCase(); }), byName = {};
+    (o.company || []).forEach(function(m, i){ var k = String((m && m.name) || (i === 0 ? 'YOU' : '')).toUpperCase(); if(k && !byName[k]) byName[k] = m; });
+    var picked = an.map(function(k){ return byName[k]; }).filter(Boolean).map(function(m){ var c = JSON.parse(JSON.stringify(m)); if(c.gear){ c.accOut = c.gear.acc || null; delete c.gear.acc; } return c; });
+    if(picked.length){ o.company = picked; delete o.formation; }
+    o.arena = { id: d.arena.id, fifth: !!d.arena.fifth, tournament: d.arena.tournament || null, men: picked.map(function(m, i){ return m.name || (an[i] === 'YOU' ? 'YOU' : null); }) };
+    o.cut = true;
+    window.__NF_ARENA = { men: o.arena.men, asked: d.arena.men.slice(), acc: picked.map(function(m){ return m.accOut || null; }) };
+  } }catch(_e){}
+  /* ==== end __THE_ARENA__ ==== */
   return o;
 }
 function nfOpen(d){
@@ -12757,6 +12771,7 @@ function nfOverIn(d, src){
   }
   var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
+  try{ if(NF.opts && NF.opts.arena && d && Array.isArray(d.crew)) outcome.arena = { id: NF.opts.arena.id, men: d.crew.map(function(r){ return { name: r.name, dead: !!r.dead, down: !!r.down }; }) }; }catch(_e){}   /* __THE_ARENA__: who stood in the pit, for the ranks */
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
   /* __DAMAGE_STAYS__ (CAMP, rule 226): what the fight left on every man is kept for the next one (the surgeon takes a day off a struck-down
      man's fresh wound, rule 226(e); rule 234: the days are the wound's, never a bench); the dead go on the dead list */
@@ -14287,7 +14302,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1', 'bohemia.soldto.v1', 'bohemia.stall.need.v1', 'bohemia.fight.start.v1', 'bohemia.roadevents.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__, __SELL_AT_THE_STALL__: what he sold and what a town has bought into its need are the old game's */   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1', 'bohemia.soldto.v1', 'bohemia.stall.need.v1', 'bohemia.fight.start.v1', 'bohemia.roadevents.v1', 'bohemia.arena.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__, __SELL_AT_THE_STALL__: what he sold and what a town has bought into its need are the old game's */   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
