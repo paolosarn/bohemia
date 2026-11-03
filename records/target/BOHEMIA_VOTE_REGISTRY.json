@@ -16702,6 +16702,82 @@
     "after": "10%",
     "scale": "his phone, 390 x 844, by day"
    }
+  },
+  {
+   "id": "cook-armour-helmets-and-pads-11-3",
+   "kind": "outfit",
+   "lane": "cook armour",
+   "sha": "719de686",
+   "made": "11/3",
+   "draft": true,
+   "title": "SIX ARMOURS NOW THEIR OWN MODELS ON HIM: A GOALIE MASK, A FOOTBALL HELMET, A WELDING HOOD ON A HARD HAT, A GAS-VISOR RIOT HELM, FOOTBALL PADS, A RIOT PLATE CARRIER",
+   "why": "Nine armours of the valley now have their own models on the man (goalie mask, football helmet with its cage, welding hood, gas-visor helm, football pads over a hoodie, riot plate carrier), each row before and after in all eight turns, real size, and his face. You see it on whoever wears it in the CREW tab, the fight, camp and the MAP, and here.",
+   "options": [
+    "A, yes",
+    "B, no, not like this"
+   ],
+   "said": "we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook_every_armour/COOK_EVERY_ARMOUR_HELMETS_AND_PADS.png",
+    "first": "../records/target/cook_every_armour/COOK_EVERY_ARMOUR_HELMETS_AND_PADS_FIRST.png",
+    "firstAt": [
+     0,
+     0,
+     1860,
+     292
+    ]
+   },
+   "twin": {
+    "src": "records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_SHOWS.png",
+    "diffs": [
+     "THE GOALIE MASK: last round drawn as a gas mask; now a bone-white hockey mask with eye holes, red stripes and a crack.",
+     "THE FOOTBALL HELMET: last round a motorcycle helmet; now a silver helmet with a black face cage and a chin cup.",
+     "THE FOOTBALL PADS: last round a quilted olive vest; now white shoulder pads with a maroon stripe over a grey hoodie."
+    ]
+   },
+   "before_after": {
+    "before": "the stand-in the row drew as last round (BEFORE column)",
+    "after": "its own model on him, eight turns"
+   }
+  },
+  {
+   "id": "cook-armour-body-armour-11-3",
+   "kind": "outfit",
+   "lane": "cook armour",
+   "sha": "719de686",
+   "made": "11/3",
+   "draft": true,
+   "title": "EIGHT BODY ARMOURS NOW THEIR OWN MODELS ON HIM: CASINO CARPET IN DUCT TAPE, LICENCE PLATES, A ROAD SIGN, A MOVING BLANKET, A CHORE JACKET, CAN SCALES",
+   "why": "The rest of the body armour on the man: casino carpet in duct tape, licence plates, a road sign with a stop sign on the shoulder, and three stand-ins every shop sells now real (a moving-blanket vest, a canvas chore jacket, a coat of crushed-can scales). You see it on whoever wears it in the CREW tab, the fight, camp and the MAP, and here.",
+   "options": [
+    "A, yes",
+    "B, no, not like this"
+   ],
+   "said": "we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook_every_armour/COOK_EVERY_ARMOUR_BODY_ARMOUR.png",
+    "first": "../records/target/cook_every_armour/COOK_EVERY_ARMOUR_BODY_ARMOUR_FIRST.png",
+    "firstAt": [
+     0,
+     0,
+     1860,
+     292
+    ]
+   },
+   "twin": {
+    "src": "records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_SHOWS.png",
+    "diffs": [
+     "THE CARPET VEST: last round a quilted olive vest; now burgundy casino carpet with gold swirls and silver duct tape.",
+     "THE ROAD SIGN: last round a car door; now a yellow curve-ahead sign bent round his chest, a stop sign on his shoulder.",
+     "THE SCALE COAT: last round grey scales; now scales cut from cans, some still red or gold."
+    ]
+   },
+   "before_after": {
+    "before": "the stand-in the row drew as last round (BEFORE column)",
+    "after": "its own model on him, eight turns"
+   }
   }
  ],
  "verdicts": [
