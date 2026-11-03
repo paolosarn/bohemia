@@ -17644,12 +17644,12 @@
    "kind": "redo",
    "redoOf": "combat-place-downtown-11-3",
    "lane": "combat",
-   "sha": "9ce4426d",
+   "sha": "2bafedd6",
    "made": "11/3",
    "draft": true,
    "title": "DOWNTOWN: REBUILT",
    "said": "Looks like shit Work in progress keep going",
-   "why": "Downtown is rebuilt as Fremont Street: the casino fronts face you, the canopy's arches run down the middle as cover, the cowboy and the burnt Deuce in the street, the alley behind the south side at the bottom. You see it in every fight there on the map.",
+   "why": "Downtown is rebuilt as Fremont Street: the casino fronts face you, the canopy's arches run down the middle, the cowboy and the burnt Deuce in the street, and your roof-to-roof is back along the south side, up the fire escape. You see it in every fight there on the map.",
    "options": [
     "A, yes, that is the place and nothing breaks the picture",
     "B, better, push it further",
@@ -17884,7 +17884,106 @@
   {"id": "beasts2-the-outlines-11-3", "kind": "animation", "lane": "factions", "made": "11/3", "draft": true, "title": "EVERY BEAST ITS OWN OUTLINE: THE OLD FOX CAST ABOVE THE NEW ONE", "said": "maybe the beasts can look better, the lab beasts that got out, everything's looking like a fucking coyote", "why": "A checker now measures every beast's shape on its own, and it fails the old cast, where the wolf and the dog were nearly one shape; the new fourteen all pass. You see it in the VOTE tab: every outline in black at one height, old above new.", "options": ["A, yes, they are different animals now", "B, closer, but some still look alike (say which)", "C, no, start over"], "show": {"how": "image", "src": "vote/BEASTS_THE_OUTLINES.png"}, "before_after": {"before": "the old fox cast: the dire wolf and the feral dog 0.16 apart in shape, nearly one outline", "after": "fourteen animals, every pair 0.24 or more apart in shape; the gate holds it", "scale": "every silhouette scaled to one height, the fight's E facing"}, "sha": "30e9d48e7"},
   {"id": "words2-the-radio-lives-in-the-feed-11-3", "kind": "sound", "lane": "words 2", "sha": "83d24273c", "made": "11/3", "draft": true, "title": "THE RADIO LIVES IN THE FEED: A TOWN FALLS AS POSTS, NOTHING ELSE SHOWS, THE RADIO UNDER THE BIG ONES", "why": "A town falling is now its own people posting on your phone's feed, one line at a time, and no other post shows until it ends; the radio's sounds also play under the feed's big posts (a man dead, a raid, a war). You see it in the demo on the phone's feed when a town you hold falls, and here as three pictures from the real demo, the fall played with its sound, and the four sounds.", "show": {"how": "page", "src": "vote/WORDS2_THE_RADIO_LIVES_IN_THE_FEED_11_3.html"}, "options": ["A, keep it", "B, right idea, other voices for the town", "C, fewer sounds under the feed"]},
   {"id": "run2-no-tape-round-the-phone-11-3", "kind": "redo", "redoOf": "run2-the-town-job-11-3", "lane": "run 2", "sha": "219d555c", "made": "11/3", "draft": true, "title": "THE TOWNS: NO TAPE ROUND THE PHONE, THE TOWN'S OWN GROUND UNDER IT", "said": "what's up with the duct tape... you're duct taping the phone to the town... get rid of the duct tape and make sure it looks like it's naturally a part of what the settlement would look like, no AI slop fade transition", "why": "The tape strip over the phone's corner is gone in every town, and the black parking lot with its smudged edge is gone too: all 14 towns were drawn again, day and night, with their own sand, slab or street running straight under the phone. You see three towns here, before and now, and in the demo when you open any town.", "options": ["A, yes, the phone sits in the town naturally", "B, better, but the ground under it still reads as a patch", "C, no, it still looks stuck on"], "show": {"how": "image", "src": "../records/target/run2_no_tape_11_3/sheet.webp", "first": "../records/target/run2_no_tape_11_3/first.webp", "firstAt": [625, 144, 585, 1266]}, "before_after": {"before": "a strip of tape and a scrap of cardboard over the phone's corner in every town; upright a black parking lot with a torn, smudged edge under the phone; its night blended in with a blur; sideways a soft fade where the town met the phone's strip", "after": "no tape; the town's own ground under the phone in all 28 upright drawings, day and night rendered, no blur; sideways one clean edge", "scale": "his phone, 390 x 844 upright and 844 x 390 on its side, by day, the game's own camera"}},
-  {"id": "words2-a-tweet-sounds-like-a-human-11-3", "kind": "line", "lane": "words 2", "sha": "b7481896d", "made": "11/3", "draft": true, "title": "EVERY POST SOUNDS LIKE A PERSON: THE RIDDLES IN THE FEED REWRITTEN PLAIN", "why": "145 of the feed's 716 posts that read like riddles or poems now read like a real person typing on a phone, plain and one clear thing, and a town falling posts like scared people, not a radio script. You see it in the demo in the phone's feed, and here as ten posts, the old line struck through over the new one.", "show": {"how": "page", "src": "vote/WORDS2_A_TWEET_SOUNDS_LIKE_A_HUMAN_11_3.html"}, "options": ["A, keep it", "B, better, keep going on the rest", "C, too plain, bring some of the weird back"]}
+  {"id": "words2-a-tweet-sounds-like-a-human-11-3", "kind": "line", "lane": "words 2", "sha": "b7481896d", "made": "11/3", "draft": true, "title": "EVERY POST SOUNDS LIKE A PERSON: THE RIDDLES IN THE FEED REWRITTEN PLAIN", "why": "145 of the feed's 716 posts that read like riddles or poems now read like a real person typing on a phone, plain and one clear thing, and a town falling posts like scared people, not a radio script. You see it in the demo in the phone's feed, and here as ten posts, the old line struck through over the new one.", "show": {"how": "page", "src": "vote/WORDS2_A_TWEET_SOUNDS_LIKE_A_HUMAN_11_3.html"}, "options": ["A, keep it", "B, better, keep going on the rest", "C, too plain, bring some of the weird back"]},
+  {
+   "id": "combat-place-airport-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-airport-11-3",
+   "lane": "combat",
+   "sha": "2bafedd6",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE AIRPORT: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The airport is warm desert-dusted slab now, not a grey card, with a third block of stands (a fuel truck, a baggage train), and its taxi line runs whole across the board. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_airport.webp",
+    "first": "../records/target/combat_maps_11_3/first_airport.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-shore-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-shore-11-3",
+   "lane": "combat",
+   "sha": "2bafedd6",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE SHORE: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The shore is Lake Mead's tan cracked bed now, not grey, and its gravel bars are soft shapes that meet bar to bar across every block, so the firm way through the mud never ends at a line. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_shore.webp",
+    "first": "../records/target/combat_maps_11_3/first_shore.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-pass-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-pass-11-3",
+   "lane": "combat",
+   "sha": "2bafedd6",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE PASS: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The pass is buff rock with iron red in it now, not grey, and each road runs whole across the board with its verges off the grid lines. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_pass.webp",
+    "first": "../records/target/combat_maps_11_3/first_pass.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  }
  ],
  "verdicts": [
   {
