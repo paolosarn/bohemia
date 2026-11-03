@@ -1,5 +1,5 @@
 # COOK ARMOUR (rule 337, ask line 345): THE BOSSES DRESSED, THE ARMOUR WORN
-# 11/3, BUILT, NOT YET SEEN (rule 179). First push the armour (BUILD 11/3zza, 719de686), second the bosses.
+# 11/3, BUILT, NOT YET SEEN (rule 179). First push the armour (BUILD 11/3zza, 719de686), second the bosses (BUILD 11/3zzc, c91de519).
 
 ## THE ASK
 Paolo 11/3, angry and right: "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons,
@@ -15,7 +15,7 @@ and on his card, each reading as THAT man in one look.
 - The armory's nine pieces of the valley's own were DATA: each drew on the man as one of CHARACTER's 17 placeholder classes (the
   football pads as a quilted olive vest, the road sign as a car door, the goalie mask as a gas mask).
 
-## THE BOSSES DRESSED (second push)
+## THE BOSSES DRESSED (second push, BUILD 11/3zzc)
 tools/bohemia_cook_the_bosses_dressed_11_3_26.py runs BOSSES' own pipe (tools/bohemia_bosses_the_three_men.py, CHARACTER's tool for
 a new kind of man, the barber, DIRECTION's master rig, COMBAT's fight poses, RUN TWO's render and faces, BOSSES' pack), each boss's
 own pieces modelled ON HIS BODY in CHARACTER's kit (the cloth lift, bands, rings, sections, the man's own measured hands), one hat
@@ -85,7 +85,16 @@ its extras, the mail and the horns, CHARACTER's own laid over it):
   under the welding hood and a yellow hard hat with dark scuff dots read as a brain and a cookie under the rig's grime (now a
   black dome with one orange stripe, and a clean yellow dome with its headlamp); the scale coat's shoulders two brown balls
   (now scaled, flatter).
-- Gates: THE ARMOUR THROUGH THE RIG 5/0 (27 class pieces file for file, made by the rig, the police pair's art, the glass, the
+- THE BOSSES (second push, BUILD 11/3zzc): each a full sheet in the fight's own shape (25 columns: stand, the walk, aim, swing,
+  hit, fall, carry, carrywalk; eight facings; 148 x 167 cells in his stand-in gang's cell so its gun sheet fits him): THE POT 321 kB,
+  THE TAP 294 kB, THE FILTER 317 kB; his face on the fight's strip and his rest and four mouths at 64 and 128 in PORTRAIT's manifest.
+  Rendered three side by side on four cores: street 185 / 280 / 351 s, fight 335 / 541 / 573 s.
+- Tried and fixed on the way (looking at the stills): THE POT's first toque puffed into a white afro (now a pleated column on a
+  dark band); his first cleaver 24 cm in light steel read as a spoon (now 30 x 15 cm, a dark body, a bright edge).
+- THE POT's swing (rig_Swing SE k00-k02): the cleaver goes up over his head and down through, the lid riding his left arm.
+- Gates: THE FIRST THREE BOSSES 43 passed, 0 failed (phone, the stranger's game: each boss met, his card his own face, his fight with the man himself in HIS OWN look on the board, A3b for all three); THE VOTE TAB GATE: the three moving cards two sentences each with where he sees it, a twin with three
+  differences (their 11/2 VOTE sheets).
+- Gates (the armour): THE ARMOUR THROUGH THE RIG 5/0 (27 class pieces file for file, made by the rig, the police pair's art, the glass, the
   anchors worst 2.5 px); CHARACTER's THE ARMOUR HE WEARS SHOWS 18 passed, 0 failed on the new sheets (the crew card, his portrait, the
   fight, the fight's face strip, camp, the map and its close end, phone and computer, nothing thrown). THE VOTE TAB GATE: my four
   rows two sentences each with where he sees it and a twin with three differences; its other four failures were there before

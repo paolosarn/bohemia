@@ -1,5 +1,13 @@
-COOK ARMOUR (rule 337, ask line 345, 11/3): THE ARMOUR WORN (first push, BUILD 11/3zza); THE BOSSES DRESSED next push. BUILT, NOT YET SEEN (rule 179):
-- [every armour its own] SHIPPED 719de686: the armory's nine (goalie mask, football helmet, welding-mask riot helmet, gas-visor riot
+COOK ARMOUR (rule 337, ask line 345, 11/3): BUILD 11/3zzc THE BOSSES DRESSED, THE ARMOUR WORN. BUILT, NOT YET SEEN (rule 179):
+- [the bosses dressed] SHIPPED c91de519: THE POT (stained chef's whites, a toque, a riot vest cut down to his chest, a red
+  neckerchief, a butcher's apron, the copper pot's lid on his left arm, the butcher's cleaver), THE TAP (oil-black coveralls, a fire
+  hose across him, a red valve handwheel for a badge, valve keys, the red pipe wrench), THE FILTER (his respirator on two ribbed hoses
+  to a filter-yellow pack on his back, a robot's arm plating, shoulder shell and camera eye on him, the Mechanic's cables, a chopper
+  cut from a robot's panel), each modelled ON HIS BODY through BOSSES' own pipe (barber, master rig, COMBAT's poses, BOSSES' pack),
+  his face and body kept. HIS WEAPON AND SHIELD ARE HIS MODEL'S (hand and forearm bones): fight_rig.json looks[boss_*].own_kit = true
+  and BOHEMIA_FIGHT.html meleeDraw draws no second thing over him (one marked line). VOTE: one moving card each.
+  tools/bohemia_cook_the_bosses_dressed_11_3_26.py (roll / look <pid> / make <pid> / pack), cards _cards_11_3_26.py.
+- [every armour its own] SHIPPED 719de686 (BUILD 11/3zza): the armory's nine (goalie mask, football helmet, welding-mask riot helmet, gas-visor riot
   helm; football pads, casino-carpet vest in duct tape, licence-plate vest, riot plate carrier, road-sign armour) each its own model
   (keys own_<row> in slices/wear, armour_looks.json rows 'own', engine/bohemia_wear.js piece() one marked line), and the five
   placeholder classes the shops sell most their own (moto helmet: darker oxblood, duct-taped crack, smoke visor; hard hat: headlamp,
@@ -7,13 +15,12 @@ COOK ARMOUR (rule 337, ask line 345, 11/3): THE ARMOUR WORN (first push, BUILD 1
   crushed cans). Gate THE ARMOUR THROUGH THE RIG 5/0; CHARACTER's THE ARMOUR HE WEARS SHOWS 18/0. VOTE: two sheets of seven,
   drawn by the game's own player, BEFORE = last round's sheets out of git. tools/bohemia_cook_every_armour_its_own_11_3_26.py
   (--only <rows> --proof; --classes; --classes --pack), cards _cards_11_3_26.js.
-- [the bosses dressed] RENDERED, ships next push: THE POT, THE TAP, THE FILTER each his own model with his weapon and shield on his
-  body (tools/bohemia_cook_the_bosses_dressed_11_3_26.py).
 - NOTE for COOK WEAPONS: the three boss looks (boss_pot_0, boss_tap_0, boss_filter_0) carry their weapon and shield in their own
   model and are own_kit: do NOT give them held sheets in rig_melee (that would draw a second cleaver over the first).
 - Record records/BOHEMIA_COOK_EVERY_ARMOUR_ON_THE_BODY_AND_THE_BOSSES_11_3_26.md.
 NEXT: the other placeholder classes their own models the same way (welder's mask, gas mask, brim helmet, chain hood, rag hood, straw
 hat, bandana, dust mask; car door, riot armour), then THE BURN, THE SURVEYOR, THE CLIMB dressed the same way when BOSSES 3 restarts.
+THE RENDERS: bpy 4.2 in a python3.11 venv (/tmp/v); the three bosses' passes ran side by side, about 15 minutes, four cores.
 [bb Battle Brothers draws every helmet and body armour as its own sprite on the man, and the man's silhouette changes with it; ours now does for the nine valley pieces and seven of the seventeen class looks.]
 [analog horror: everything on them is something the valley lost: a stop sign, a casino's carpet, a goalie's mask, a cook's toque.]
 
