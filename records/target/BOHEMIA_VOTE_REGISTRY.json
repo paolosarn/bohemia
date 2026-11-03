@@ -17824,7 +17824,57 @@
    "after": "they run for the edge, out one by one",
    "scale": "his phone upright, 390 x 844, the fight's own camera"
   }
- }
+ },
+  {
+   "id": "world-one-pinch-to-the-street-11-3",
+   "kind": "tile",
+   "lane": "world",
+   "sha": "4675d541",
+   "made": "11/3",
+   "draft": true,
+   "title": "ONE PINCH DOWN TO THE STREET, REAL HOUSES",
+   "said": "the buildings taller taller taller... zoom in a lot more, even on the main map... why does it have to enter a whole second map mode",
+   "why": "The map now pinches four and a half times closer on the same map and camera, down to a street where every house is the studio's real house model, about twice your men's height, and your crew walks behind them. You see it here pinching in from the whole valley on the phone, and on the MAP when you pinch in.",
+   "options": [
+    "A, yes, that is the zoom and those are the houses",
+    "B, closer, but the houses or the ground up close need work",
+    "C, no, go back to the old closest stop"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/world_8/ONE_PINCH_TO_THE_STREET.webp"
+   },
+   "before_after": {
+    "before": "the pinch stopped at a block 85 px; a house was a painted box about 25 px wide, smaller than your 56 px men, and nothing hid them",
+    "after": "the pinch goes on to a block 380 px; COOK's five ranch houses and the single-wide stand on every lot, about 100 px tall (the biggest 130) to your 56 px men, and they hide your crew behind them",
+    "scale": "his phone, 390 x 844, from the opening stop to the street stop"
+   }
+  },
+  {
+   "id": "world-what-he-sees-now-11-3",
+   "kind": "tile",
+   "lane": "world",
+   "sha": "4675d541",
+   "made": "11/3",
+   "draft": true,
+   "title": "WHAT YOUR CREW SEES, DOWN THE STREET",
+   "said": "you should only be able to see things straight down a street you're near",
+   "why": "The map now shows what your crew can see right now: the blocks around you and straight down your street stay at full light, the ground you have seen before but cannot see from here goes a little darker, and other parties only show where you can see. You see it here walking down a street on the phone, and on the MAP all the time.",
+   "options": [
+    "A, yes, I can tell what my crew sees",
+    "B, closer, make the difference stronger",
+    "C, no, keep the map one light"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/world_8/WHAT_HE_SEES_NOW.webp"
+   },
+   "before_after": {
+    "before": "all the ground you had ever cleared was one light, so a party popping up or vanishing had no reason you could see",
+    "after": "your ring and your street (4 blocks by day, 1 in the dark) at full light, the rest you remember at about 0.65 of it; a party down your street shows, round the corner it does not",
+    "scale": "his phone, 390 x 844, by day, walking down a street"
+   }
+  }
  ],
  "verdicts": [
   {
