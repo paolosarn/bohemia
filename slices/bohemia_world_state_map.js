@@ -229,7 +229,7 @@
     gx.restore();
     LAST.drew = dr; LAST.u = u;
   }
-  /* after the night wash: the camps' fires and the masts' lights cut the dark; then the start's sky over everything */
+  /* after the night wash: the camps' fires and the masts' lights cut the dark (the start's sky is under the fog, under()) */
   function after(ox, oy, night) {
     if (!WS) return;
     var gx = null; try { gx = g; } catch (e) { return; }
@@ -253,10 +253,19 @@
           lit++;
         });
       }
-      sky(gx, b);
     } catch (e) { LAST.err = String(e && e.message || e); }
     gx.restore();
     LAST.night = lit;
+  }
+  /* WORLD 8 (11/3): the start's sky washes the ground he SEES, under the fog's tape. Drawn over everything (after the fog) it
+     tinted the unseen ground, which is his map's grey tape and never the weather: HIS MAP F3 and F6 went red on every seed
+     with a sky (saturation 0.17 under the static at the default stop, 0.15 at the closest). */
+  function under(ox, oy) {
+    if (!WS) return;
+    var gx = null; try { gx = g; } catch (e) { return; }
+    gx.save();
+    try { sky(gx, beat()); } catch (e) { LAST.err = String(e && e.message || e); }
+    gx.restore();
   }
   /* THE START'S SKY: a wash in the weather's own colour over the first days, fading out; dust and smoke carry a slow grain */
   var GRAIN = null;
@@ -300,5 +309,5 @@
   }
   try { build(); } catch (e) { LAST.err = String(e && e.message || e); }
   try { if (WS && typeof MODE !== 'undefined' && MODE === 'city') setTimeout(function () { try { render(); } catch (e) {} }, 0); } catch (e) {}
-  root.BohemiaWorldStateMap = { draw: draw, after: after, handOver: handOver, info: info, state: function () { return WS; }, passes: function () { return PASSES; }, last: LAST };
+  root.BohemiaWorldStateMap = { draw: draw, after: after, under: under, handOver: handOver, info: info, state: function () { return WS; }, passes: function () { return PASSES; }, last: LAST };
 })(typeof window !== 'undefined' ? window : this);

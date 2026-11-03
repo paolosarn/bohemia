@@ -52922,6 +52922,7 @@ function renderCity(){
     }
     g.restore();
   }
+  try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.under) BohemiaWorldStateMap.under(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 8): the start's sky over the ground he sees, under the fog's tape */
   try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
   try { if (window.BohemiaBosses && BohemiaBosses.draw) BohemiaBosses.draw(ox, oy); } catch (_e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): his place seen from afar, what fell with him, the blocks his verb was used on (slices/bohemia_bosses.js) */
   try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.draw) BohemiaWorldStateMap.draw(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the camps' smoke, the lairs' birds, the ruins, the legendary masts, the shut roads */

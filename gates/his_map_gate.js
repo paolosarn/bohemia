@@ -86,19 +86,36 @@ const thin = (a, n) => a.length <= n ? a : a.filter((_, i) => i % Math.ceil(a.le
 
 async function run(prof) {
   console.log('\n-- ' + prof + ' --');
-  const d = await open({ profile: prof, fog: true, engage: true });
+  /* the title can come up after the page's load on a slow box, and the driver looks for it once (WORLD 8 11/3: a run sat on the
+     title for its whole length): the gate waits for it, then goes through it with the driver's own helper */
+  const d = await open({ profile: prof, fog: true, engage: true, beforeTap: async (p) => {
+    for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!(window.BOH_TITLE && BOH_TITLE.up && BOH_TITLE.up())).catch(() => false)) break; await p.waitForTimeout(500); }
+    await require(path.join(ROOT, 'tools', 'bohemia_through_the_title.js')).throughTheTitle(p, 60000); } });
   const fr = d.fr, page = d.page, errs = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 140)));
   for (let i = 0; i < 60; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!(window.__FRESH_START && window.__FRESH_START.at) && !!window.BohemiaHisMap && !!BohemiaHisMap.data()).catch(() => false)) break; }
   /* RUN THREE's start (rule 236): his squad up close, then the closest town's screen; he leaves it the way a player does, a real tap on LEAVE */
   for (let i = 0; i < 80; i++) { const t = await fr.evaluate(() => ({ on: !!(window.__START_IN_TOWN), opened: !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened) })).catch(() => ({})); if (t.opened || (i > 12 && !t.on)) break; await page.waitForTimeout(250); }
-  const sfr = page.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
-  if (sfr && await fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block')).catch(() => false)) {
+  /* a town's screen up (the start's, or a trip that ends in a town): he leaves it the way a player does, a real tap on LEAVE.
+     WORLD 8 11/3: the walk to the boss's sign can end inside a town (the new game's sign at 36,41 on the phone and the computer);
+     its screen then stands over the map and a held finger lands on the town, correctly, never on the map (P1 read an undefined
+     box and the gate threw, two rounds running). So the gate leaves the town before it holds a finger, as he would. */
+  const leaveTown = async () => {
+    const sfr = page.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
+    if (!(sfr && await fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block')).catch(() => false))) return false;
     await page.waitForTimeout(1500);
     const lv = await sfr.$('#leave'), bx = lv && await lv.boundingBox();
     if (bx) { if (prof === 'computer') await page.mouse.click(bx.x + bx.width / 2, bx.y + bx.height / 2); else await page.touchscreen.tap(bx.x + bx.width / 2, bx.y + bx.height / 2); }
-    await page.waitForTimeout(1500);
-  }
+    const up = () => fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block')).catch(() => false);
+    let how = 'a tap on LEAVE';
+    for (let i = 0; i < 8 && await up(); i++) await page.waitForTimeout(500);
+    /* a tap that did not take (the screen still arriving): the button's own click, then the game's own close */
+    if (await up()) { how = 'LEAVE\'s own click'; await sfr.evaluate(() => { const b = document.getElementById('leave'); if (b) b.click(); }).catch(() => {}); for (let i = 0; i < 8 && await up(); i++) await page.waitForTimeout(500); }
+    if (await up()) { how = 'the game\'s close'; await fr.evaluate(() => loopClose()).catch(() => {}); await page.waitForTimeout(800); }
+    await page.waitForTimeout(600);
+    return (await up()) ? 'STILL IN THE TOWN' : how;
+  };
+  await leaveTown();
   for (let i = 0; i < 20; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!BohemiaHisMap.state().boss.sign)) break; }
   await page.waitForTimeout(600);
   const st = () => fr.evaluate(() => { const S = BohemiaHisMap.state(); return JSON.parse(JSON.stringify({ at: [city.x, city.y], boss: S.boss, pins: S.pins, crosses: S.crosses, open: S.open, lit: S.lit, places: S.places, fighting: S.fighting, drew: BohemiaHisMap.last().drew })); });
@@ -201,6 +218,8 @@ async function run(prof) {
      f ? bn + ' at ' + f.x + ',' + f.y + ' (' + f.dk + (f.fallback ? ', the fall-back' : '') + '), the static cleared ' + fogCleared + ', drawn ' + JSON.stringify(s1.drew.boss || s1.drew.edge) : 'not found');
 
   /* ---------- (2) his pins: a held finger ---------- */
+  const leftTown = await leaveTown();
+  if (leftTown) await fr.evaluate(() => render());
   const spot = await fr.evaluate(() => { const L = BohemiaHisMap.last();
     for (let r = 2; r < 6; r++) for (let a = -r; a <= r; a++) { const x = city.x + a, y = city.y + r; const p = iso(x, y, L.ox, L.oy); const sy = p.sy + TH * 0.5;
       if (p.sx > 40 && p.sx < CVW - 40 && sy > CVH * 0.35 && sy < CVH - 120) return { x, y, sx: p.sx, sy }; } return null; });
@@ -213,14 +232,14 @@ async function run(prof) {
     held = await fr.evaluate(() => ({ menu: window.__HIS_MAP_MENU, moving: !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length), at: [city.x, city.y], hits: BohemiaHisMap.last().menuHits, obs: BohemiaHisMap.last().menuObs }));
   }
   ok('P1 ' + prof + ': a held ' + (prof === 'computer' ? 'button' : 'finger') + ' opens the pin box, never under the phone or the bar, and does not travel', !!held && held.menu && held.menu.open && !held.moving && held.hits === 0,
-     held ? 'box at ' + JSON.stringify(held.menu.at) + ', over ' + held.obs + ' corner things by ' + held.hits + ' px, travelling ' + held.moving : 'no spot on the glass');
+     held ? (held.menu ? 'box at ' + JSON.stringify(held.menu.at) : 'NO BOX') + ', over ' + held.obs + ' corner things by ' + held.hits + ' px, travelling ' + held.moving + (leftTown ? ', the walk ended in a town, left by ' + leftTown : '') : 'no spot on the glass');
   const tapIn = async (sel) => { const b = await fr.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, sel);
     if (!b) return false; if (prof === 'computer') await page.mouse.click(frameBox.x + b[0], frameBox.y + b[1]); else await page.touchscreen.tap(frameBox.x + b[0], frameBox.y + b[1]); await page.waitForTimeout(500); return true; };
   await shot('6_pin_box');
   await tapIn('#hismapmenu button[data-k="camp"]');
   const pinDraw = await fr.evaluate((stops) => { const out = []; for (const z of stops) { setZoomAt(z); panX = 0; panY = 0; render(); out.push(BohemiaHisMap.last().drew.pins | 0); } setZoomAt(1); render(); return out; }, [zb[1], 1, whole || zb[0]]);
   const s2 = await st(), camp = s2.pins.filter(p => p.k === 'camp')[0];
-  ok('P2 ' + prof + ': CAMP lands on the held block, drawn at the near stop, the default stop and the whole valley', !!camp && held && held.menu.at && camp.x === held.menu.at[0] && camp.y === held.menu.at[1] && pinDraw.every(n => n >= 1),
+  ok('P2 ' + prof + ': CAMP lands on the held block, drawn at the near stop, the default stop and the whole valley', !!camp && held && held.menu && held.menu.at && camp.x === held.menu.at[0] && camp.y === held.menu.at[1] && pinDraw.every(n => n >= 1),
      camp ? 'at ' + camp.x + ',' + camp.y + ', drawn ' + pinDraw.join('/') : 'no pin');
   /* P3: a word */
   let word = null;
@@ -306,7 +325,7 @@ async function run(prof) {
 
   /* ---------- reopened: the same phone, a new tab ---------- */
   const keep = { pins: s5.pins.length, crosses: s5.crosses.length, fallen: Object.keys(s5.boss.fallen).length, open: s5.open.slice(), lit: s5.lit.length };
-  const e = await open({ again: d, fog: true });
+  const e = await open({ again: d, fog: true, profile: prof });
   for (let i = 0; i < 60; i++) { await e.page.waitForTimeout(500); if (await e.fr.evaluate(() => !!window.BohemiaHisMap && !!BohemiaHisMap.data() && typeof city !== 'undefined').catch(() => false)) break; }
   await e.page.waitForTimeout(2500);
   const r1 = await e.fr.evaluate(() => { render(); const S = BohemiaHisMap.state(), n = om.n; return { pins: S.pins.length, word: S.pins.filter(p => p.k === 'word').map(p => p.w), crosses: S.crosses.length, fallen: Object.keys(S.boss.fallen).length,

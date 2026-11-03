@@ -97,7 +97,10 @@ HOOKS = [
     ("  try { if (window.BohemiaHisMap && BohemiaHisMap.draw) BohemiaHisMap.draw(ox, oy); } catch (_e) {}",
      "  try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.draw) BohemiaWorldStateMap.draw(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the camps' smoke, the lairs' birds, the ruins, the legendary masts, the shut roads */\n"
      "  try { if (window.BohemiaHisMap && BohemiaHisMap.draw) BohemiaHisMap.draw(ox, oy); } catch (_e) {}"),
-    # H7 after the night wash: the fires glow and the masts blink through the dark; the start's sky over all of it
+    # H6b the start's sky: over the ground he sees, under the fog's tape (WORLD 8, 11/3: over the fog it tinted his map's grey)
+    ('  try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__',
+     "  try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.under) BohemiaWorldStateMap.under(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 8): the start's sky over the ground he sees, under the fog's tape */\n  try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__"),
+    # H7 after the night wash: the fires glow and the masts blink through the dark
     ("g.globalAlpha=ga2; window.__LAMPQ=null; }\n}\n",
      "g.globalAlpha=ga2; window.__LAMPQ=null; }\n  try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.after) BohemiaWorldStateMap.after(ox, oy, night); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */\n}\n"),
     # H8 the fight's door
