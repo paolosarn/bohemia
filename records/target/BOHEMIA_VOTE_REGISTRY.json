@@ -17804,7 +17804,7 @@
   "id": "combat-7-retreat-is-a-run-11-3",
   "kind": "animation",
   "lane": "combat",
-  "sha": "PENDING",
+  "sha": "4a328638",
   "made": "11/3",
   "draft": true,
   "title": "RETREAT IS A RUN: YOUR MEN RUN FOR THE EDGE, THE FIGHT DOES NOT JUST END",
@@ -17984,7 +17984,32 @@
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
   },
-  {"id": "arena-the-pit-11-3", "kind": "ui", "lane": "arena", "sha": "05c1db1d4", "made": "11/3", "draft": true, "title": "THE PIT: THE MOB'S ARENA ON ITS TOWN SCREEN, A DRAINED HOTEL POOL, AND TONIGHT'S CARD", "said": "they host an arena with exotic DNA lab shits... the mob, they're [held together] by fucking duct tape and a thread", "why": "The Mob's arena is a drained hotel pool in its town's front plaza, patched with tape, a belt and three working bulbs, and tapping it shows the bookie and tonight's card: who you fight, how many, and the purse. You see it in the Mob's town on the RUN tab: tap THE PIT.", "options": ["A, yes, that's the Mob's pit", "B, closer, but change the pit (say what)", "C, no, a different place for it"], "show": {"how": "page", "src": "vote/ARENA_THE_PIT_11_3.html"}, "twin": {"src": "vote/arena/pit_before.webp", "diffs": ["the Mob's empty drained plaza now holds a drained hotel pool with its tiles, its old water line and a bent ladder", "the dead casino's velvet ropes, taped where they snapped, two poles with a string of bulbs where three still work at night", "a breaker box held shut with a belt, a generator, two patched cages and a row of mismatched casino chairs for the crowd"]}, "before_after": {"before": "the Mob's town had no arena; its front plaza was empty", "after": "THE PIT in the plaza by day and night; tap it for the bookie and tonight's card", "scale": "his phone, 390 x 844, the real town screen"}}
+  {"id": "arena-the-pit-11-3", "kind": "ui", "lane": "arena", "sha": "05c1db1d4", "made": "11/3", "draft": true, "title": "THE PIT: THE MOB'S ARENA ON ITS TOWN SCREEN, A DRAINED HOTEL POOL, AND TONIGHT'S CARD", "said": "they host an arena with exotic DNA lab shits... the mob, they're [held together] by fucking duct tape and a thread", "why": "The Mob's arena is a drained hotel pool in its town's front plaza, patched with tape, a belt and three working bulbs, and tapping it shows the bookie and tonight's card: who you fight, how many, and the purse. You see it in the Mob's town on the RUN tab: tap THE PIT.", "options": ["A, yes, that's the Mob's pit", "B, closer, but change the pit (say what)", "C, no, a different place for it"], "show": {"how": "page", "src": "vote/ARENA_THE_PIT_11_3.html"}, "twin": {"src": "vote/arena/pit_before.webp", "diffs": ["the Mob's empty drained plaza now holds a drained hotel pool with its tiles, its old water line and a bent ladder", "the dead casino's velvet ropes, taped where they snapped, two poles with a string of bulbs where three still work at night", "a breaker box held shut with a belt, a generator, two patched cages and a row of mismatched casino chairs for the crowd"]}, "before_after": {"before": "the Mob's town had no arena; its front plaza was empty", "after": "THE PIT in the plaza by day and night; tap it for the bookie and tonight's card", "scale": "his phone, 390 x 844, the real town screen"}},
+ {
+  "id": "combat-7-the-enemy-wants-to-live-11-3",
+  "kind": "animation",
+  "lane": "combat",
+  "sha": "PENDING",
+  "made": "11/3",
+  "draft": true,
+  "title": "THE ENEMY WANTS TO LIVE: NO WALKING ALONE INTO YOUR MEN, SHOOTERS TAKE THE HIGHEST ROOF",
+  "said": "Battle Brothers [enemies are] slightly intelligent, they try to preserve their [lives]... our enemies should be climbing on tops as high as they can, reasonable",
+  "why": "Their men walk alone into a crowd of yours a third less often (60 fights), and a shooter of theirs with no shot takes the highest roof he can reach; they already pick on your hurt man or your shooter 9 times in 10 and use their abilities. You see it in every fight, on their side of the board.",
+  "options": [
+   "A, yes, that is a smarter enemy",
+   "B, smarter, but push it further",
+   "C, no, they feel wrong"
+  ],
+  "show": {
+   "how": "page",
+   "src": "vote/COMBAT_7_THE_ENEMY_WANTS_TO_LIVE.html"
+  },
+  "before_after": {
+   "before": "a man of theirs walks alone up to four of yours",
+   "after": "he stops short and waits for his friends",
+   "scale": "his phone upright, 390 x 844, the fight's own camera, AUTO on"
+  }
+ }
  ],
  "verdicts": [
   {

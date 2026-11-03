@@ -3652,7 +3652,8 @@ const FIGHT = (function () {
       u.x = ox; u.y = oy;
       /* rule 322: AUTO's man takes the roof tile fewest of their clubs can stand beside next turn (a wolf cannot climb, so the
          middle of a roof is out of its reach), then the shortest climb */
-      const sc = -f.best[k] - (u.side === 'you' && A.finds_a_shot ? dangerAt(u, x, y) * R('ours.auto_finds_a_shot').danger_per_foe : 0);
+      const sc = -f.best[k] - (u.side === 'you' && A.finds_a_shot ? dangerAt(u, x, y) * R('ours.auto_finds_a_shot').danger_per_foe : 0)
+        + (u.side !== 'you' ? level(x, y) * R('ours.enemy_wants_to_live').storey_weight * R('ap.move_cost.flat') : 0);   /* rule 366: theirs take the highest roof they can reach, not the nearest */
       if (ok && sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     return !!(best && moveTo(u, best.x, best.y));
@@ -4276,6 +4277,17 @@ const FIGHT = (function () {
         }
       }
       if (A.high_ground && sc > -Infinity) sc += heightGain(x, y, u, ranged);
+      /* THE ENEMY WANTS TO LIVE (COMBAT 7, rule 366, Paolo 11/3: 'they try to preserve their [lives]'): a man of theirs with nothing
+         to hit from a tile does not end his walk alone where alone_into or more of ours can hit him next turn; that tile counts
+         alone_penalty_tiles steps farther from the fight, so he waits for his friends or comes round the side (Battle Brothers'
+         PotentialDanger: every tile weighed by who can reach it). Measured before: 124 of 930 of their walks did (60 fights) */
+      if (u.side !== 'you' && !canHit && sc > -Infinity && !friends(u).some(function (fr) { return fr !== u && dist(fr, ghost) === 1; })) {
+        const EW = R('ours.enemy_wants_to_live'), danger = function () { return foes(u).filter(function (fo) { return fo.morale !== 'Fleeing' && !!threatReach(fo, u); }).length; };   /* every man who can hit him there next turn, a gun too (Battle Brothers' PotentialDanger) */
+        const ox2 = u.x, oy2 = u.y; u.x = x; u.y = y;
+        const n = danger();
+        u.x = ox2; u.y = oy2;
+        if (n >= EW.alone_into) sc -= EW.alone_penalty_tiles * R('hit_chance.cap').max;
+      }
       if (sc > -Infinity) sc -= sparkDanger(u, x, y);   /* rule 305: a side that has seen one go off keeps off a live vest */
       /* the raider with a long weapon, nobody in reach: he waits rather than lead his one-tile men */
       if (A.long_weapon_waits && !canHit && (w.range_max || 1) > 1 && line && line.front !== null && hl(x, y) < line.front) sc = -Infinity;
@@ -4371,7 +4383,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { bestTurn: bestTurn, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { bestTurn: bestTurn, inRange: inRange, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();

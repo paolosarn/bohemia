@@ -95,3 +95,30 @@ E2 on AUTO sideways (2 out, 2 caught and down, LOST), E3 broken enemies. RETREAT
 six factions, 7 to 12 steps of his men, 4.7 to 5.7 s, WITHDREW, none of theirs moved; the demo with a job held through the phone's
 own retreat: back on the map, nothing changed, the job his, two blocks away.
 VOTE: combat-7-retreat-is-a-run-11-3 (the lineup press and a mid-fight press on AUTO, filmed from the fight's camera on his phone).
+
+## 5. RULE 366, THE ENEMY WANTS TO LIVE AND TAKES THE HIGH GROUND (ask line 390; piece 4)
+MEASURED FIRST (tools/bohemia_combat_the_enemy_wants_to_live_probe_11_3_26.js, 60 fights, the best-turn probe's kinds and seeds):
+- target choice: of their blows with a choice, 91% already on the most hurt man of ours or a shooter (Battle Brothers' AI picks).
+- abilities: they already carry Battle Brothers' perks (enemies.json, 144 of 160 rows) and use the active ones: 37 uses in 60 fights
+  (Rally, Rotation, Footwork, Recover, Round Swing, Shatter, raise); aiLast's Indomitable and Taunt. A losing side breaks by the
+  morale rules (Battle Brothers').
+- the gaps: 124 of 930 walks of theirs ended ALONE where 3 or more of ours could hit him next turn, having struck nobody; their
+  shooters (backline, kid, mechanic) had no climbing brain, so a roof came only from the turn's score.
+THE FIX: (a) the old walk (theirs, nothing to hit): a tile where alone_into (3) or more of ours can hit him next turn, with no man of
+his beside it, counts alone_penalty_tiles (1) step farther from the fight (ours.enemy_wants_to_live; Battle Brothers'
+PotentialDanger). Counting swords only was tried and measured: in these fights a lone man almost never stands in three swords'
+reach, it is the guns that catch him, so every man who can hit him counts. (b) ai.json backline, kid and mechanic take the high
+ground (the climb brain, rule 328 kept: never while a tile gives the shot this turn); climb() weighs each storey as storey_weight
+steps, so theirs take the highest roof with a man of ours in range.
+THE PRICE, MEASURED: two steps cut the alone walk-ins 124 -> 63 but cost his AUTO against them (the best-turn gate's B6: his brain 20
+wins, the one before 23); ONE step cuts them 124 -> 84 (of about 910) and his AUTO holds (B6 21 against 19). A hurt-only or a
+walk-in-only price was tried and left his men idler. SHIPPED: one step, every man of theirs.
+MEASURED AFTER (the same 60 fights): alone walk-ins 124 -> 84; their hits on the hurt or a shooter about 91%; a shooter with no shot
+anywhere this turn and a roof that gives one is rare (7 to 8 turns in 45 to 60 fights) and now takes the highest. His wins (the
+120-fight planner test) 79 -> 81 (wolves 8, raiders 30, robots 23, bosses 20).
+EVERY MAN HAS A JOB (COMBAT's gate): RED ON MAIN before this round's enemy (J3 his idle turns 2.24%, limit 1%); with it J3 1.19%;
+J4 his crew's wins 157 of 300 against the gate's fixed 158 (one fight, now against a smarter enemy; the fixed number was measured
+against their old brain). AUTO PLAYS THE BEST TURN 7/0.
+GATE: THE ENEMY WANTS TO LIVE (new) 4/0: W1 the rule is data; W2 a lone man of theirs, four of ours ahead: 0 of 10 walk into three
+(the brain before 10 of 10); W3 two roofs, he takes the higher (3 storeys over 2); W4 their Rally on two breaking men.
+VOTE: combat-7-the-enemy-wants-to-live-11-3 (the lone man before and now, their shooter's climb; the fight's camera on his phone).

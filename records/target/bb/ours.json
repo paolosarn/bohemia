@@ -2269,6 +2269,16 @@
   "quote": "a man who ends his turn without spending any AP recovers double at his next turn (30)",
   "why": "END TURN with no AP spent is a REST: at his next turn this comes back instead of fatigue.recovery_per_turn (Battle Brothers' 15), and the fatigue hits and blocks put on him while he rests is owed until his next turn that spends closes, so one rest always buys the swing the turn after. TUNING's to tune."
  },
+ "enemy_wants_to_live": {
+  "value": {
+   "storey_weight": 3,
+   "alone_into": 3,
+   "alone_penalty_tiles": 1
+  },
+  "source": "VAMILY.md rule 366 (Paolo 11/3, ask line 390); records/BOHEMIA_PAOLO_THE_DEAD_THE_NAME_THE_SOUND_AND_THE_FIGHT_NOTES_11_3_26.md; Battle Brothers' AI (ai_engage_ranged's best target tile with its height, the PotentialDanger list every tile is scored against); records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md section 5",
+  "quote": "Battle Brothers [enemies are] slightly intelligent, they try to preserve their [lives]... our enemies should be climbing on tops as high as they can, reasonable",
+  "why": "COMBAT 7's default, TUNING's to tune. storey_weight: a shooter of theirs choosing a roof weighs each storey up as this many steps of walking saved (rule 321: height is accuracy), so he takes the highest roof he can reach with a man of ours in his range, not the nearest; he climbs only when he has no shot now (rule 328). alone_into and alone_penalty_tiles: a man of theirs walking with nothing to hit this turn treats a tile where alone_into or more of ours can strike him next turn and no man of his stands beside him as alone_penalty_tiles steps farther from the fight, so he waits for his friends or comes at the side, never walks alone into five (measured before: 124 of 930 walks of theirs did, 60 fights). MEASURED, the price: 2 steps cut the walk-ins to 63 but cost his AUTO (best-turn B6 20 wins against 23); 1 step cuts them to 84 and his AUTO holds (B6 21 against 19, his 120-fight wins 81); a hurt-only or walk-in-only price was tried and left his men idler (1.57 to 1.73% of turns)."
+ },
  "chase_calc": {
   "value": {
    "runs": 4,

@@ -128,6 +128,7 @@
   },
   "backline": {
    "value": {
+    "high_ground": true,
     "advance": false,
     "stand_and_shoot": true,
     "step_out_of_melee": true,
@@ -260,6 +261,7 @@
   },
   "mechanic": {
    "value": {
+    "high_ground": true,
     "advance": true,
     "stays_back": true,
     "raises": true,
@@ -274,6 +276,7 @@
   },
   "kid": {
    "value": {
+    "high_ground": true,
     "advance": true,
     "throws": true,
     "kites": true,

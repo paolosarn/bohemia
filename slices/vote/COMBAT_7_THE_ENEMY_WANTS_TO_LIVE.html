@@ -1,0 +1,40 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Enemy Wants to Live</title>
+<!-- COMBAT 7 [the enemy wants to live], rule 366, ask line 390 (Paolo 11/3: 'Battle Brothers [enemies are] slightly intelligent, they
+     try to preserve their [lives]... our enemies should be climbing on tops as high as they can, reasonable'). Filmed from the fight's
+     own camera on his phone (390 x 844), AUTO on. Top: a man of theirs alone, four of yours ahead, the brain before and now. Bottom: a
+     shooter of theirs with no shot from the ground takes the highest roof he can reach. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:12px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:4px;color:var(--gold)}
+  img{width:100%;display:block;border-radius:3px}
+  .say{color:#cfc5ae;margin:6px 0 2px;font-size:12px}
+  .one{max-width:50%}
+</style>
+<h1>THE ENEMY WANTS TO LIVE</h1>
+<p>Their men stop walking alone into a crowd of yours, and their shooters climb to the highest roof they can reach.</p>
+<div class="row">
+  <div class="two">
+    <div><div class="lab">BEFORE</div><img id="b" alt="before"></div>
+    <div><div class="lab">NOW</div><img id="a" alt="now"></div>
+  </div>
+  <div class="say">Before: he walks right up to your four men by himself. Now: he stops short and waits for his friends.</div>
+</div>
+<div class="row"><div class="one"><div class="lab">THEIR SHOOTER CLIMBS</div><img id="c" alt="the climb"></div>
+  <div class="say">No shot from the ground, so he takes the highest roof he can reach. He shoots from it next turn.</div></div>
+<script>
+(function () {
+  var N = 18, i = 0, B = document.getElementById('b'), A = document.getElementById('a'), C = document.getElementById('c'), pre = [];
+  function src(k, n) { return '../../records/target/combat7_11_3/' + k + '_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  ['enemy_alone_before', 'enemy_alone_after', 'enemy_climb'].forEach(function (k) { for (var n = 0; n < N; n++) { var x = new Image(); x.src = src(k, n); pre.push(x); } });
+  function show() { B.src = src('enemy_alone_before', i); A.src = src('enemy_alone_after', i); C.src = src('enemy_climb', i); i = (i + 1) % N; }
+  show(); setInterval(show, 450);
+})();
+</script>
