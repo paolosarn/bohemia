@@ -1,5 +1,27 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 7 (11/3, rule 339, ask line 347): A DIFFERENT VALLEY EVERY GAME. BUILD 11/3zzi. SHIPPED, NOT YET SEEN.
+- What he asked (again): 'the map is not giving procedurally generated vibes.' WORLD 6 moved the bases; the map still looked the same.
+- What shipped, all off the same campaign code, all on real blocks of their kind, every list and number in
+  records/target/bb/world_state.json: BURNED, LOOTED and REBUILT blocks painted by the map's own painter (worker, every zoom); 35-70%
+  of the valley's neighbourhoods DARK through the grid's own POWER.douse (never round a base; re-made each boot, never written to the
+  bill's dark set); CAMPS (smoke by day, a fire at night), LAIRS (a wreck, bones, birds turning), RUINS (a burned shell), LEGENDARY
+  places (a mast, a red light) standing in the world and rising out of the fog; 3-5 freeway blocks and 1-2 of the nine pass roads
+  SHUT (the walk refuses them; only where the valley stays one piece); the START'S SKY (dust, heat haze, cold clear night, smoke) for
+  two days; a burned BUILT block deals the ruin board ('firestation'), every fight carries block_state and powered. The old valley
+  (no code; a save from before, no st stamp) is untouched.
+- Files: engine/bohemia_world_state.js (pure), slices/bohemia_world_state_map.js (the map's half), tools/bohemia_world_state_patch.py
+  (inlines data + module, adds 11 marked hooks __A_DIFFERENT_VALLEY_EVERY_GAME__; refuses a half-hooked page: check the page out of
+  git and re-run), gates/a_different_valley_every_game_gate.js 55/55. Record: records/BOHEMIA_WORLD_THE_MAP_FEELS_GENERATED_11_3_26.md.
+  VOTE: world-a-different-valley-11-3 (records/target/world_7/A_DIFFERENT_VALLEY_EVERY_GAME.jpg).
+- NOTES FOR OTHERS: BEASTS / CONTENT: the marks are seen, not entered: BohemiaWorldStateMap.state().marks ({kind, look, x, y, name}) is
+  the list to hang a lair fight or a camp meet on. BOSSES FIX: a fallen boss's 'lights come back' (his_map S.lit) draws over a seeded
+  dark block; if a boss relights circuits for real, POWER.relight is re-doused by this file's boot unless the relight is recorded.
+  COMBAT: msg.block_state ('burned' / 'looted' / 'reclaimed' / 'none') and msg.powered reach nfOpts' d if you want a dark-block fight
+  or a looted board. UI: the new-game screen could name the start's sky (BohemiaWorldStateMap.state().weather.name).
+- OWED: the marks entered (above); the town's screen saying its block burned or went dark; the day-by-day weather per code (it is still
+  the land seed's after the start); stronger at-a-glance contrast if he votes B.
+
 WORLD 5 (world-5-slide-the-speed): 11/2 LATEST -- [hold play, slide the speed] (rule 311, ask line 304) SHIPPED, NOT YET SEEN, BUILD
 11/3zp. Record: records/BOHEMIA_WORLD_HOLD_PLAY_SLIDE_THE_SPEED_11_2_26.md. Hold PLAY on the phone (350 ms): a slider comes up over
 PLAY's column under the thumb, 1x (REGULAR) 2x 4x; slide (relative, a notch per 42 points); let go keeps it, saved

@@ -1642,6 +1642,304 @@ function worldBases(){
 }
 </script>
 <!-- __A_NEW_VALLEY_EVERY_GAME__ END -->
+<!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ BEGIN (tools/bohemia_world_state_patch.py writes this block; edit the two sources, not here) -->
+<script>
+/* ==== __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, 11/3/26, rule 339, ask line 347): the campaign's state of the real valley. Sources: records/target/bb/world_state.json and engine/bohemia_world_state.js. ==== */
+var BOHEMIA_WORLD_STATE_DATA = {"_about":"A DIFFERENT VALLEY EVERY GAME (WORLD 7, rule 339, ask line 347; Paolo 11/3, again: 'the map is not giving procedurally generated vibes'). WORLD 6's campaign seed (records/target/bb/world_seed.json) moved WHO stands on the real valley; this file is WHAT STATE the valley is in and WHAT STANDS OUT THERE, from the same code: which blocks are dark, burned, looted or rebuilt; the camps, lairs, ruins and legendary places with a landmark you can see from far; the roads that are blocked and the passes that are closed; the sky he starts under. The land never moves (the Vegas geography law): every pick is a real block of the valley generator's own fixed land, of a kind that fits. Read by engine/bohemia_world_state.js (node and page); inlined into slices/BOHEMIA_CITY_WORLD.html as BOHEMIA_WORLD_STATE_DATA by tools/bohemia_world_state_patch.py; gates/a_different_valley_every_game_gate.js refuses a drift. Every number and every name here is ours, draft, for TUNING's table and WORDS' pass.","draft":true,"version":1,"school":{"raided":{"source":"reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1626_Raided (Settlement Situation).txt","quote":"This place has been recently raided! It's suffered damage, has lost valuable goods and supplies, and lives were lost."},"legendary":{"source":"reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1161_Legendary locations.txt","quote":"Legendary locations are unique locations scattered over the world. They can be interacted with to get quests, information or items. While less remote locations are usually safe, the ones further away from civilization are more dangerous"},"same_seed_same_world":{"source":"reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt (quoted in world_seed.json)","quote":"Starting a new campaign with a same map seed will always generate the same map including locations and their named items"}},"old_valley":"a game with no code (the checkers' bench without a code) and a game saved before this file (its bohemia.world.v1 has no st) keep the valley exactly as it was: no state, no marks, no blocked road","keep_clear":{"round_bases":3,"why":"a faction's own town and the street round it are never burned, looted or blocked: the town is the door, and a base you cannot walk into is a broken game"},"dark":{"what":"THE POWER. Only some of the valley's circuits were ever live (the land seed's); each campaign puts a share of them out at the start, in whole neighbourhoods, never round a faction's base (they keep their own lights). A doused circuit is the grid's own dark (POWER.douse): the painting, the street lamps, the town and every 'is it black in here' reader see it. It is re-derived from the code at every boot and never written to the bill's dark set, so an unpaid bill stays the bill's.","regions":22,"share":[0.35,0.7],"keep_lit_round_bases":4},"scars":{"burned":{"name":"BURNED","what":"a fire's scar: the roofs gone to char, the street black with soot, an ember or two at night","count":[3,6],"radius":[2,4],"apart":9,"on":["suburb","apartment","commercial","estate","gated","trailer","strip","downtown","town","industrial","storage","warehouse","school","campus","medical","mall","swapmeet","arterial","park","farm","desert","solar"],"seat_on":["suburb","apartment","commercial","estate","gated","trailer","strip","downtown","town","industrial","storage","warehouse"],"dark":true,"board":{"district":"firestation","on":["suburb","apartment","commercial","estate","gated","trailer","strip","downtown","town","industrial","storage","warehouse","school","campus","medical","mall","swapmeet","arterial"],"why":"a burned BUILT block deals the ruin board on the house ground (the firehouse is the one district that already fights there): the walls stand, the roofs are gone, the yard is rubble; burned open ground (desert, park, solar, farm) keeps its own board, scorched scrub is still scrub"}},"looted":{"name":"LOOTED","what":"a stripped strip: doors kicked in, glass out, the lot strewn with what was not worth carrying","count":[4,7],"radius":[1,3],"apart":7,"on":["commercial","strip","mall","swapmeet","truckstop","storage","warehouse","downtown","resort","casino","apartment","suburb","arterial","medical"],"seat_on":["commercial","strip","mall","swapmeet","truckstop","storage","warehouse","downtown","resort","apartment","medical"],"dark":true},"reclaimed":{"name":"REBUILT","what":"a block a faction took back: panels on the roofs, a garden where the lawn was, its own lights at night","count":[3,6],"radius":[1,2],"from_base":[3,6],"on":["suburb","apartment","commercial","estate","gated","trailer","town","farm","desert","solar","park","school","campus","arterial"],"lit":true}},"marks":{"camp":{"what":"a camp out on open ground: tarps, a cook fire; its smoke stands up over the valley by day and the fire glows at night","look":"smoke","count":[3,5],"on":["desert","wash","park","golf","landfill","quarry","gypsum","boneyard","solar","farm","basin"],"apart":10,"from_bases":7,"names":["BURN BARREL CAMP","TARP TOWN","THE GENERATOR CAMP","SHOPPING CART CAMP","THE COOK FIRE","CAMP NO BATTERIES","THE SMOKE WASH","LA CARPA"]},"lair":{"what":"where a lab beast sleeps: a wreck it dragged off the road, bones round it, the birds turning over it all day","look":"wreck","count":[2,4],"on":["desert","wash","gypsum","quarry","landfill","boneyard","cemetery","reservoir","basin","springs","mountain_foot"],"apart":12,"from_bases":8,"names":["THE NEST","BONE WASH","THE DRAGGED BUS","THE BIRDS","WHERE THE TRUCK WENT","THE DIG"]},"ruin":{"what":"a tall place that burned out: its shell still stands, black against the sky, nothing lit in it","look":"shell","count":[2,3],"on":["resort","casino","downtown","strip","convention","medical","apartment","commercial","luxor","strat","sphere","highroller"],"apart":10,"from_bases":5,"names":["THE BLACK TOWER","THE HALF HOTEL","THE GUTTED MALL","THE STOPPED ELEVATOR","THE SHELL"]},"legend":{"what":"one of the valley's legendary places: a mast you can see from anywhere, its red light still blinking at night; Battle Brothers' unique locations","look":"mast","count":[1,2],"apart":20,"from_bases":6,"pool":[{"name":"THE LAST ATM","on":["commercial","strip","downtown"]},{"name":"THE DRY FOUNTAIN","on":["resort","casino","strip"]},{"name":"THE RADIO THAT STILL PLAYS","on":["radio","substation","commercial","datafort"]},{"name":"THE GLASS GRAVEYARD","on":["solar","reclaim"]},{"name":"THE BONE CHAPEL","on":["chapel","cemetery","school"]},{"name":"THE STOPPED CLOCK","on":["downtown","courthouse","cityhall","library"]},{"name":"THE CRATER","on":["desert","airbase","airport"]},{"name":"THE DEAD BILLBOARD","on":["freeway_side","arterial_side","commercial"]}]}},"roads":{"what":"a few freeway blocks are shut: a truck jackknifed across the lanes, an overpass come down, a faction's barricade. The whole width of the road is shut, so the route goes round; a block is only shut where the valley stays one piece (every street still reaches every other).","count":[3,5],"apart":10,"from_bases":5,"from_bases_why":"the centre 5 blocks off, so no shut block (the centre and the lanes touching it) comes nearer a base than 4: the keep-clear ring is 3","kinds":{"truck":{"name":"A JACKKNIFED TRUCK","on":["freeway"],"w":3},"overpass":{"name":"THE OVERPASS CAME DOWN","on":["interchange","freeway"],"w":2},"barricade":{"name":"A BARRICADE","on":["freeway"],"w":2}},"passes":{"what":"the real roads out through the ranges (I-15, US-95, US-93, NV-160, NV-159, NV-147...): each campaign shuts one or two with a rockslide or a checkpoint; the land past it is still crossable over the rock, slowly","closed":[1,2],"kinds":{"slide":"A ROCKSLIDE","checkpoint":"A CHECKPOINT"},"reach":2}},"weather":{"what":"the sky he starts under, for the first days; the map already carries the valley's dust inversion and the night wash, so each start is a wash over that same land","days":2,"starts":[{"id":"dust","name":"A DUST DAY","w":3,"season":"spring","tint":[150,118,84],"alpha":0.22,"grain":0.55},{"id":"heat","name":"A HEAT HAZE","w":3,"season":"summer","tint":[238,214,170],"alpha":0.14,"shimmer":1},{"id":"cold","name":"A COLD CLEAR NIGHT","w":2,"season":"winter","tint":[70,96,140],"alpha":0.16,"stars":1},{"id":"smoke","name":"SMOKE OVER THE VALLEY","w":2,"season":"fall","tint":[96,90,84],"alpha":0.2,"grain":0.3}]}};
+/* ==========================================================================
+   A DIFFERENT VALLEY EVERY GAME (WORLD 7, 11/3/26, rule 339, ask line 347).
+
+   PAOLO, AGAIN: "the map is not giving procedurally generated vibes."
+   MEASURED BEFORE: WORLD 6's campaign seed moved the fourteen home bases among real places, and nothing else on the map
+   moved: the same blocks lit at night (the land seed's 160 live circuits, every game), no burned or looted or rebuilt
+   block anywhere, no camp, lair, ruin or legendary place on the valley at all, every road open, the same sky. Two codes
+   side by side read as one valley with the town labels shuffled.
+
+   THE CALL (Battle Brothers is the school: every campaign's world reads different at a glance): THE LAND STAYS REAL.
+   What state it is in and what stands out there come from the SAME campaign code, all on real blocks of the right kind
+   (records/target/bb/world_state.json): which neighbourhoods are dark, where a fire burned, which strip was looted,
+   which block a faction rebuilt; the camps, the lairs, the ruins and the legendary places, each with a landmark seen from
+   far (smoke, a fire's glow, a wreck under circling birds, a burned shell, a mast with a red light); the freeway blocks
+   that are shut and the passes that are closed (only where the valley stays one piece); the sky he starts under.
+
+   ONE MODULE, BOTH SURFACES: node requires the data file; the page inlines the same JSON as BOHEMIA_WORLD_STATE_DATA and
+   this file as-is (tools/bohemia_world_state_patch.py; the gate refuses a drift). PURE: no clock, no Math.random, no
+   storage, no page globals. The page hands it the real valley (a district at every block, the live circuits, the seeded
+   bases, the walk test); slices/bohemia_world_state_map.js draws it and makes it true.
+   ========================================================================== */
+(function (root) {
+  'use strict';
+  var HASREQ = typeof module !== 'undefined' && module.exports && typeof require === 'function';
+
+  function data() {
+    if (root && root.BOHEMIA_WORLD_STATE_DATA) return root.BOHEMIA_WORLD_STATE_DATA;
+    if (HASREQ) { try { return require('../records/target/bb/world_state.json'); } catch (_e) {} }
+    return null;
+  }
+  /* the same two small tools as the seed (FNV-1a, mulberry32), so a code means one thing everywhere */
+  function hash(text) {
+    var h = 2166136261, s = String(text == null ? '' : text);
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  }
+  function rng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function span(R, a) { if (!a || a.length < 2) return a ? +a[0] || 0 : 0; return (a[0] | 0) + Math.floor(R() * ((a[1] | 0) - (a[0] | 0) + 1)); }
+  function cheb(ax, ay, bx, by) { return Math.max(Math.abs(ax - bx), Math.abs(ay - by)); }
+  var CODES = { none: 0, burned: 1, looted: 2, reclaimed: 3 };
+  var NAMES = ['none', 'burned', 'looted', 'reclaimed'];
+
+  /* the valley as a flat list of districts, whatever the caller hands (a grid object with at(x,y), or rows of names) */
+  function flat(grid) {
+    var n = grid.n | 0, D = new Array(n * n), x, y;
+    for (y = 0; y < n; y++) for (x = 0; x < n; x++) {
+      var t = null;
+      if (typeof grid.at === 'function') { var c = grid.at(x, y); t = c ? (typeof c === 'string' ? c : c.district) : null; }
+      else if (grid.rows) t = grid.rows[y][x];
+      D[y * n + x] = t || null;
+    }
+    return { n: n, d: D };
+  }
+  /* a kind name in the data, with the two made-up ones: the mountain's foot and a road's side */
+  function kindOk(V, x, y, list) {
+    var n = V.n, d = V.d[y * n + x]; if (!d) return false;
+    for (var i = 0; i < list.length; i++) {
+      var k = list[i];
+      if (k === d) return true;
+      if (k === 'mountain_foot' && (d === 'desert' || d === 'wash')) {
+        for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var X = x + dx, Y = y + dy;
+          if (X >= 0 && Y >= 0 && X < n && Y < n && V.d[Y * n + X] === 'mountain') return true; }
+      }
+      if ((k === 'freeway_side' || k === 'arterial_side') && d !== 'freeway' && d !== 'arterial' && d !== 'mountain' && d !== 'water') {
+        var want = k === 'freeway_side' ? 'freeway' : 'arterial';
+        for (var q = 0; q < 4; q++) { var X2 = x + (q === 0 ? 1 : q === 1 ? -1 : 0), Y2 = y + (q === 2 ? 1 : q === 3 ? -1 : 0);
+          if (X2 >= 0 && Y2 >= 0 && X2 < n && Y2 < n && V.d[Y2 * n + X2] === want) return true; }
+      }
+    }
+    return false;
+  }
+  function listOf(V, on, ok) {
+    var out = [], n = V.n;
+    for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) if (kindOk(V, x, y, on) && (!ok || ok(x, y))) out.push([x, y]);
+    return out;
+  }
+  function farFrom(pts, x, y, m) { for (var i = 0; i < pts.length; i++) if (cheb(pts[i][0], pts[i][1], x, y) < m) return false; return true; }
+  function basesList(bases) { var out = []; for (var k in (bases || {})) { var b = bases[k]; if (b && b.x != null) out.push([b.x | 0, b.y | 0, k]); } out.sort(function (a, b) { return a[2] < b[2] ? -1 : a[2] > b[2] ? 1 : 0; }); return out; }
+
+  /* THE SCARS: burned, looted, rebuilt, as blobs on real blocks of their kinds */
+  function scars(V, code, D, B, cell) {
+    var S = D.scars || {}, out = [], n = V.n, keep = (D.keep_clear && D.keep_clear.round_bases) || 3, centres = [];
+    var nearBase = function (x, y, r) { for (var i = 0; i < B.length; i++) if (cheb(B[i][0], B[i][1], x, y) <= r) return true; return false; };
+    function blob(R, kind, cx, cy, r, on, guard) {
+      var cells = 0, code2 = CODES[kind];
+      for (var dy = -r - 1; dy <= r + 1; dy++) for (var dx = -r - 1; dx <= r + 1; dx++) {
+        var x = cx + dx, y = cy + dy; if (x < 0 || y < 0 || x >= n || y >= n) continue;
+        /* a ragged edge, never a square: the distance with a little of the code's noise in it */
+        var e = Math.sqrt(dx * dx + dy * dy) + (rng(hash(code + ':edge:' + kind + ':' + x + ',' + y))() - 0.5) * 1.1;
+        if (e > r + 0.35) continue;
+        if (cell[y * n + x]) continue;
+        if (!kindOk(V, x, y, on)) continue;
+        if (guard && !guard(x, y)) continue;
+        cell[y * n + x] = code2; cells++;
+      }
+      return cells;
+    }
+    ['burned', 'looted'].forEach(function (kind) {
+      var K = S[kind]; if (!K) return;
+      var R = rng(hash(code + ':scar:' + kind)), want = span(R, K.count), apart = K.apart || 8;
+      var cand = listOf(V, K.seat_on || K.on, function (x, y) { return !nearBase(x, y, keep + 2) && x >= 3 && y >= 3 && x < n - 3 && y < n - 3; });
+      for (var t = 0, got = 0; t < 400 && got < want && cand.length; t++) {
+        var c = cand[Math.floor(R() * cand.length) % cand.length];
+        if (!farFrom(centres, c[0], c[1], apart)) continue;
+        var r = span(R, K.radius);
+        var m = blob(R, kind, c[0], c[1], r, K.on, function (x, y) { return !nearBase(x, y, keep); });
+        if (m < 4) continue;
+        centres.push(c); got++; out.push({ kind: kind, x: c[0], y: c[1], r: r, cells: m, name: K.name || kind.toUpperCase() });
+      }
+    });
+    var K3 = S.reclaimed;
+    if (K3 && B.length) {
+      var R3 = rng(hash(code + ':scar:reclaimed')), want3 = Math.min(B.length, span(R3, K3.count)), order = B.slice();
+      for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(R3() * (i + 1)); var tmp = order[i]; order[i] = order[j]; order[j] = tmp; }
+      for (var bi = 0, got3 = 0; bi < order.length && got3 < want3; bi++) {
+        var b = order[bi], fb = K3.from_base || [3, 6], placed = false;
+        for (var tt = 0; tt < 30 && !placed; tt++) {
+          var ang = R3() * Math.PI * 2, dist = fb[0] + R3() * (fb[1] - fb[0]);
+          var cx = Math.round(b[0] + Math.cos(ang) * dist), cy = Math.round(b[1] + Math.sin(ang) * dist);
+          if (cx < 2 || cy < 2 || cx >= n - 2 || cy >= n - 2 || !kindOk(V, cx, cy, K3.on)) continue;
+          var r3 = span(R3, K3.radius), m3 = blob(R3, 'reclaimed', cx, cy, r3, K3.on, null);
+          if (m3 < 3) continue;
+          placed = true; got3++; out.push({ kind: 'reclaimed', x: cx, y: cy, r: r3, cells: m3, by: b[2], name: K3.name || 'REBUILT' });
+        }
+      }
+    }
+    return out;
+  }
+
+  /* THE DARK: whole neighbourhoods of the live circuits put out, never round a base or on a rebuilt block */
+  function dark(V, code, D, B, cell, circuits) {
+    var K = D.dark || {}, n = V.n, R = rng(hash(code + ':dark')), k = K.regions || 22;
+    var share = (K.share || [0.3, 0.6]); share = share[0] + R() * (share[1] - share[0]);
+    var pts = []; for (var i = 0; i < k; i++) pts.push([R() * n, R() * n, R() < share]);
+    var keep = K.keep_lit_round_bases == null ? 5 : K.keep_lit_round_bases, out = [], lit = 0;
+    (circuits || []).forEach(function (c) {
+      var x = c.x, y = c.y, best = 1e9, off = false;
+      for (var j = 0; j < pts.length; j++) { var dx = pts[j][0] - x, dy = pts[j][1] - y, dd = dx * dx + dy * dy; if (dd < best) { best = dd; off = pts[j][2]; } }
+      var xi = Math.round(x), yi = Math.round(y), st = (xi >= 0 && yi >= 0 && xi < n && yi < n) ? cell[yi * n + xi] : 0;
+      if (st === CODES.burned || st === CODES.looted) off = true;   /* nothing burned or stripped has power */
+      if (st === CODES.reclaimed) off = false;
+      for (var b = 0; b < B.length && off; b++) if (cheb(B[b][0], B[b][1], x, y) <= keep) off = false;
+      if (off) out.push(c.id); else lit++;
+    });
+    return { ids: out, lit: lit, share: Math.round(share * 100) / 100, regions: k };
+  }
+
+  /* WHAT STANDS OUT THERE */
+  function marks(V, code, D, B, cell) {
+    var M = D.marks || {}, out = [], all = [], n = V.n;
+    ['legend', 'ruin', 'lair', 'camp'].forEach(function (kind) {
+      var K = M[kind]; if (!K) return;
+      var R = rng(hash(code + ':mark:' + kind)), want = span(R, K.count), apart = K.apart || 10, fb = K.from_bases || 6;
+      var names = (K.names || []).slice();
+      var pool = K.pool ? K.pool.slice() : null;
+      for (var t = 0, got = 0; t < 60 && got < want; t++) {
+        var on = K.on, name = null, pi = -1;
+        if (pool) { if (!pool.length) break; pi = Math.floor(R() * pool.length) % pool.length; on = pool[pi].on; name = pool[pi].name; }
+        var cand = listOf(V, on, function (x, y) { return x >= 2 && y >= 2 && x < n - 2 && y < n - 2 && farFrom(B, x, y, fb) && farFrom(all, x, y, apart) && !cell[y * n + x]; });
+        if (pool) pool.splice(pi, 1);
+        if (!cand.length) continue;
+        var c = cand[Math.floor(R() * cand.length) % cand.length];
+        if (!name) { if (!names.length) names = (K.names || [kind.toUpperCase()]).slice(); name = names.splice(Math.floor(R() * names.length) % names.length, 1)[0]; }
+        all.push(c); got++;
+        out.push({ kind: kind, look: K.look || kind, x: c[0], y: c[1], name: name, on: V.d[c[1] * n + c[0]] });
+      }
+    });
+    return out;
+  }
+
+  /* THE ROADS: a freeway shut across its whole width, only where every street still reaches every other */
+  function comps(n, walk, block) {
+    var lab = new Int32Array(n * n).fill(-1), sizes = [], q = new Int32Array(n * n);
+    for (var s = 0; s < n * n; s++) {
+      if (lab[s] >= 0 || !walk[s] || block[s]) continue;
+      var id = sizes.length, h = 0, tl = 0; q[tl++] = s; lab[s] = id;
+      while (h < tl) { var c = q[h++], x = c % n, y = (c / n) | 0;
+        for (var d = 0; d < 4; d++) { var X = x + (d === 0 ? 1 : d === 1 ? -1 : 0), Y = y + (d === 2 ? 1 : d === 3 ? -1 : 0);
+          if (X < 0 || Y < 0 || X >= n || Y >= n) continue; var k = Y * n + X;
+          if (lab[k] >= 0 || !walk[k] || block[k]) continue; lab[k] = id; q[tl++] = k; } }
+      sizes.push(tl);
+    }
+    return { lab: lab, sizes: sizes };
+  }
+  function roads(V, code, D, B, walkFn) {
+    var K = D.roads || {}, n = V.n, out = [], block = new Uint8Array(n * n);
+    if (!walkFn) return { list: out, block: block };
+    var walk = new Uint8Array(n * n); for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) walk[y * n + x] = walkFn(x, y) ? 1 : 0;
+    var base0 = comps(n, walk, block), big = 0; for (var i = 1; i < base0.sizes.length; i++) if (base0.sizes[i] > base0.sizes[big]) big = i;
+    var R = rng(hash(code + ':roads')), want = span(R, K.count), kinds = Object.keys(K.kinds || {}).sort(), centres = [];
+    var cand = listOf(V, ['freeway', 'interchange'], function (x, y) { return x >= 3 && y >= 3 && x < n - 3 && y < n - 3 && walk[y * n + x] && farFrom(B, x, y, K.from_bases || 4); });
+    for (var t = 0; t < 80 && out.length < want && cand.length; t++) {
+      var c = cand[Math.floor(R() * cand.length) % cand.length];
+      if (!farFrom(centres, c[0], c[1], K.apart || 10)) continue;
+      var kind = null, d0 = V.d[c[1] * n + c[0]];
+      var fit = kinds.filter(function (k) { return (K.kinds[k].on || []).indexOf(d0) >= 0; });
+      if (!fit.length) continue;
+      kind = fit[Math.floor(R() * fit.length) % fit.length];
+      /* the whole width: every freeway block touching the centre */
+      var cells = [];
+      for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var X = c[0] + dx, Y = c[1] + dy, dd = V.d[Y * n + X];
+        if ((dd === 'freeway' || dd === 'interchange') && walk[Y * n + X] && !block[Y * n + X]) cells.push([X, Y]); }
+      if (!cells.length) continue;
+      cells.forEach(function (p) { block[p[1] * n + p[0]] = 1; });
+      /* ONE PIECE: every walkable block that was in the valley's big piece is still in one piece without these */
+      var after = comps(n, walk, block), ok = true, home = -1;
+      for (var s = 0; s < n * n && ok; s++) { if (!walk[s] || block[s] || base0.lab[s] !== big) continue;
+        if (home < 0) home = after.lab[s]; else if (after.lab[s] !== home) ok = false; }
+      if (!ok) { cells.forEach(function (p) { block[p[1] * n + p[0]] = 0; }); continue; }
+      centres.push(c);
+      out.push({ kind: kind, x: c[0], y: c[1], cells: cells, name: K.kinds[kind].name || kind, on: d0 });
+    }
+    return { list: out, block: block };
+  }
+  /* THE PASSES: which of the real roads out through the ranges are shut this campaign (the page hands the portals when the
+     region has joined them; out past the valley the rock is still crossable, slowly) */
+  function passes(code, list, D) {
+    D = D || data(); var K = (D && D.roads && D.roads.passes) || {}, out = [];
+    var R = rng(hash(code + ':passes')), names = (list || []).map(function (p) { return p.road; }).filter(function (r, i, a) { return r && a.indexOf(r) === i; }).sort();
+    var want = Math.min(names.length ? names.length - 1 : 0, span(R, K.closed || [1, 2])), shut = {};
+    for (var i = names.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)); var tmp = names[i]; names[i] = names[j]; names[j] = tmp; }
+    for (var k = 0; k < want; k++) shut[names[k]] = 1;
+    var kinds = Object.keys(K.kinds || { slide: 1 }).sort();
+    (list || []).forEach(function (p) {
+      var closed = !!shut[p.road] && !p.shared, kind = closed ? kinds[hash(code + ':pass:' + p.road) % kinds.length] : null;
+      out.push({ road: p.road, x: p.x, y: p.y, open: !closed, kind: kind, name: kind ? ((K.kinds || {})[kind] || kind) : null });
+    });
+    return out;
+  }
+  function weather(code, D) {
+    var W = D.weather || {}, L = W.starts || [], R = rng(hash(code + ':weather')), sum = 0, i;
+    for (i = 0; i < L.length; i++) sum += +L[i].w || 1;
+    var r = R() * sum;
+    for (i = 0; i < L.length; i++) { r -= +L[i].w || 1; if (r <= 0) break; }
+    var w = L[Math.min(i, L.length - 1)] || null;
+    return w ? { id: w.id, name: w.name, season: w.season, days: W.days || 2, tint: w.tint, alpha: w.alpha, grain: w.grain || 0, shimmer: w.shimmer || 0, stars: w.stars || 0 } : null;
+  }
+
+  /* THE ONE CALL. grid: { n, at(x,y) } (a district at every block); code: the campaign seed (no code, no state: the old
+     valley); opts.bases: the seeded bases; opts.circuits: [{ id, x, y }] the live circuits' middles; opts.walk(x, y): the
+     map's own walk test. The same valley and the same code give the same state, always. */
+  function make(grid, code, opts) {
+    opts = opts || {};
+    var D = opts.data || data(); if (!D || !code) return null;
+    var c = String(code), V = flat(grid), n = V.n, B = basesList(opts.bases), cell = new Uint8Array(n * n);
+    var sc = scars(V, c, D, B, cell);
+    var dk = dark(V, c, D, B, cell, opts.circuits || []);
+    var mk = marks(V, c, D, B, cell);
+    var rd = roads(V, c, D, B, opts.walk || null);
+    var wx = weather(c, D);
+    var count = { burned: 0, looted: 0, reclaimed: 0 };
+    for (var i = 0; i < cell.length; i++) if (cell[i]) count[NAMES[cell[i]]]++;
+    var key = hash(c + ':' + Array.prototype.join.call(cell, '') + ':' + dk.ids.join(',') + ':' + rd.list.map(function (r) { return r.x + ',' + r.y; }).join(';')).toString(36);
+    return { code: c, v: D.version || 1, n: n, cell: cell, scars: sc, dark: dk, marks: mk, roads: rd.list, block: rd.block, weather: wx, count: count, key: key };
+  }
+  function stateAt(S, x, y) { if (!S || x < 0 || y < 0 || x >= S.n || y >= S.n) return 'none'; return NAMES[S.cell[y * S.n + x]] || 'none'; }
+  /* what a stranger reads in it: the counts he could see, for the gate and the record */
+  function summary(S) {
+    if (!S) return null;
+    var m = {}; S.marks.forEach(function (k) { m[k.kind] = (m[k.kind] || 0) + 1; });
+    return { code: S.code, burned: S.count.burned, looted: S.count.looted, reclaimed: S.count.reclaimed, scars: S.scars.length, dark: S.dark.ids.length, lit: S.dark.lit,
+             marks: m, roads: S.roads.length, weather: S.weather && S.weather.id, key: S.key };
+  }
+
+  var API = { data: data, hash: hash, rng: rng, make: make, passes: passes, stateAt: stateAt, summary: summary, CODES: CODES, NAMES: NAMES };
+  if (HASREQ) module.exports = API;
+  if (root) root.BohemiaWorldState = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* DOES THIS GAME CARRY A STATE? A new game does (typed or rolled: it is stamped st:1 beside its code, so it keeps it when
+   it opens again); a game saved with a code before this file keeps the valley it had (no st); the checkers' bench walks a
+   state only when it walks a code. No code, no state: the old valley. */
+var WORLD_STATE_ON = false;
+(function(){
+  if (!WORLD_SEED) return;
+  var KEY = 'bohemia.world.v1', f = WORLD_SEED_FROM, st = null;
+  try { st = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (_e) { st = null; }
+  if (f === 'typed' || f === 'rolled') {
+    WORLD_STATE_ON = true;
+    try { if (st && st.code === WORLD_SEED && !st.st) { st.st = 1; localStorage.setItem(KEY, JSON.stringify(st)); } } catch (_e) {}
+  } else if (f === 'saved') WORLD_STATE_ON = !!(st && st.code === WORLD_SEED && (st.st | 0) >= 1);
+  else if (f === 'bench') WORLD_STATE_ON = true;
+  try { window.WORLD_STATE_ON = WORLD_STATE_ON; } catch (_e) {}
+})();
+</script>
+<!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ END -->
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
@@ -50342,6 +50640,32 @@ function vbCityCore(inp){
   var Q = Math.max(1, Math.round(S / 12));
   var C = {}; for (var k in VB_CCOL) C[k] = vbHex(VB_CCOL[k]);
   var cls = inp.cls, live = inp.live;
+  /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the campaign's state of each block, painted by this same painter on the
+     texels it already paints: 1 BURNED (the roofs to char, ash, soot on the street; an ember at night), 2 LOOTED (stripped grey,
+     glass and junk strewn, holes kicked in), 3 REBUILT (panels on the roofs, a garden where the lawn was; its own lights at night) */
+  var WST = inp.wst || null;
+  function wsMix(a, c, t){ return [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t, a[2] + (c[2] - a[2]) * t]; }
+  function wsTint(b0, st, top, c2, h, u, v){
+    var built = c2 === VB_CLASS.houses || c2 === VB_CLASS.roof || c2 === VB_CLASS.tower || c2 === VB_CLASS.casino || c2 === 16;
+    var road = c2 === VB_CLASS.road || c2 === VB_CLASS.freeway || c2 === VB_CLASS.blvd || c2 === VB_CLASS.rail;
+    if (st === 1) {
+      if (road) return h < 0.06 ? [70, 64, 58] : wsMix(b0, [38, 33, 30], 0.5);
+      if (top) return h < 0.11 ? [104, 98, 90] : h < 0.16 ? [58, 40, 30] : wsMix(b0, [30, 25, 22], built ? 0.84 : 0.66);
+      return wsMix(b0, [22, 18, 16], 0.74);
+    }
+    if (st === 2) {
+      var L = (b0[0] * 0.3 + b0[1] * 0.59 + b0[2] * 0.11), g0 = wsMix(b0, [L, L, L], 0.62), g1 = [g0[0] * 0.86, g0[1] * 0.86, g0[2] * 0.86];
+      if (road) return h < 0.16 ? [176, 166, 150] : g1;
+      if (top) return h < 0.22 ? [194, 184, 164] : h < 0.32 ? [40, 36, 34] : h < 0.36 ? [128, 74, 44] : [g0[0] * 1.08, g0[1] * 1.06, g0[2] * 1.02];
+      return h < 0.2 ? [36, 33, 32] : g1;
+    }
+    if (st === 3) {
+      if (!top || road) return b0;
+      if (built) { var pu = ((u >> 1) + (v >> 1)) % 3; return pu === 0 ? [132, 172, 200] : pu === 1 ? [64, 104, 146] : [46, 80, 122]; }
+      return h < 0.3 ? [118, 150, 74] : wsMix(b0, [88, 124, 60], 0.72);
+    }
+    return b0;
+  }
   function clsAt(x, y){ if (x < 0 || y < 0 || x >= N || y >= N) return -1; var c0 = cls[y * N + x]; return c0 === 255 ? -1 : c0; }   /* 255: past the valley's edge, in a tile (__ONE_MAP_AT_EVERY_ZOOM__) */
   /* __THE_STREETS_JOIN__: which sides of each street block join something (a tile brings the valley's own; the whole painting reads its own) */
   var JF = (typeof VB_JOIN !== 'undefined' && VB_JOIN.on && !inp.joinOld) ? (inp.jm ? { jm: inp.jm, xg: inp.xg, rp: inp.rp } : vbStreetFlags(clsAt, 0, 0, N)) : null, RW = JF ? VB_JOIN.RW : 0;
@@ -51104,6 +51428,8 @@ function vbCityCore(inp){
       if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
       if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && (ci >> 10) < VB_SUB.trailer && Hq > ST.houseMax) ST.houseMax = Hq;   /* a house, not a trailer or a slab */ if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
       if (top) { ST.top++; if (SHD[qo] > 0) ST.shade++; }
+      var wsv = 0; if (WST) { var wbx = Math.floor(qu / S) - PAD, wby = Math.floor(qv / S) - PAD; if (wbx >= 0 && wby >= 0 && wbx < N && wby < N) wsv = WST[wby * N + wbx];
+        if (wsv) b = wsTint(b, wsv, top, cl2, vbHash(qu + XS, qv + YS, sd + 29), qu + XS, qv + YS); }   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
       var o8 = (vv * P + uu) * 4;
       for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
       day[o8 + 3] = 255; night[o8 + 3] = 255;
@@ -51118,6 +51444,8 @@ function vbCityCore(inp){
         else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
         if (Lc) { for (var z2 = 0; z2 < 3; z2++) { night[o8 + z2] = Lc[z2]; lights[o8 + z2] = Lc[z2]; } lights[o8 + 3] = 255; }
       }
+      if (wsv === 3 && top && (part2 === PART.window || ((cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof) && vbHash(qu + XS, qv + YS, sd + 31) < 0.06))) { for (var z5 = 0; z5 < 3; z5++) { night[o8 + z5] = C.lit[z5]; lights[o8 + z5] = C.lit[z5]; } lights[o8 + 3] = 255; }   /* __A_DIFFERENT_VALLEY_EVERY_GAME__: rebuilt, its own panels light it */
+      else if (wsv === 1 && top && vbHash(qu + XS, qv + YS, sd + 37) < 0.035) { var em5 = vbHash(qu + XS, qv + YS, sd + 41) < 0.5 ? [214, 84, 30] : [150, 50, 24]; for (var z6 = 0; z6 < 3; z6++) { night[o8 + z6] = em5[z6]; lights[o8 + z6] = em5[z6]; } lights[o8 + 3] = 255; }   /* an ember in the char */
       if (cl2 === TW_K && part2 === PART.window && top) { var fire = (TWL && TWL[ci >> 10] && TWL[ci >> 10].pal && TWL[ci >> 10].pal[0]) || (TWP && TWP[0]); if (fire) { for (var z3 = 0; z3 < 3; z3++) { night[o8 + z3] = fire[z3]; lights[o8 + z3] = fire[z3]; } lights[o8 + 3] = 255; } }   /* __THE_TOWN_IS_PAINTED_IN__: a town's fires burn without the grid, firelight, never the grid's lamp colour */
     }
   }
@@ -51195,7 +51523,7 @@ function vbCityInput(){
   for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = om.at(x, y); cls[y * N + x] = vbClassOf(t && t.district); sub[y * N + x] = vbSubOf(t && t.district); thm[y * N + x] = vbCookThemeOf(t && t.district);
     var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
   var tws = vbTownsInput();   /* __THE_TOWN_IS_PAINTED_IN__: the home bases built into the painting, and in its key */
-  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : ''),
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, towns: tws, townPal: tws ? VB_TOWNS.pal : null };
 }
 function vbCityLand(r){
@@ -51281,15 +51609,16 @@ function vbTileKey(tx, ty, S){ return om.seed + ':' + (VBC.key || '') + ':' + S 
 function vbTileInput(tx, ty, S){
   var N = om.n, n = VB_TILE + 2 * VB_TILE_M, x0 = tx * VB_TILE - VB_TILE_M, y0 = ty * VB_TILE - VB_TILE_M;
   var cls = new Uint8Array(n * n), live = new Uint8Array(n * n), sub = new Uint8Array(n * n), thm = new Uint8Array(n * n);
+  var WSC = window.__WS_CELL || null, wst = WSC ? new Uint8Array(n * n) : null;   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
   for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) { var gx = x0 + x, gy = y0 + y, k = y * n + x;
     if (gx < 0 || gy < 0 || gx >= N || gy >= N) { cls[k] = 255; thm[k] = 255; continue; }
     var t = om.at(gx, gy); cls[k] = vbClassOf(t && t.district); sub[k] = vbSubOf(t && t.district); thm[k] = vbCookThemeOf(t && t.district);
-    var lv = 0; try { lv = POWER && POWER.at(gx, gy).live ? 1 : 0; } catch (_e) {} live[k] = lv; }
+    var lv = 0; try { lv = POWER && POWER.at(gx, gy).live ? 1 : 0; } catch (_e) {} live[k] = lv; if (WSC) wst[k] = WSC[gy * N + gx]; }   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
   var jm = null, xg = null, rp = null;   /* __THE_STREETS_JOIN__: the valley's own masks for these blocks */
   try { var F = vbStreetFlagsValley(), W = F.w; jm = new Uint8Array(n * n); xg = new Uint8Array(n * n); rp = new Uint8Array(n * n);
     for (var y2 = 0; y2 < n; y2++) for (var x2 = 0; x2 < n; x2++) { var gx2 = x0 + x2, gy2 = y0 + y2; if (gx2 < 0 || gy2 < 0 || gx2 >= W || gy2 >= W) continue;
       var k2 = y2 * n + x2, kw = gy2 * W + gx2; jm[k2] = F.f.jm[kw]; xg[k2] = F.f.xg[kw]; rp[k2] = F.f.rp[kw]; } } catch (_e) { jm = xg = rp = null; }
-  return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub,
+  return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub, wst: wst,
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, key: vbTileKey(tx, ty, S), tx: tx, ty: ty,
            jm: jm, xg: xg, rp: rp,
            towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */
@@ -52595,6 +52924,7 @@ function renderCity(){
   }
   try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
   try { if (window.BohemiaBosses && BohemiaBosses.draw) BohemiaBosses.draw(ox, oy); } catch (_e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): his place seen from afar, what fell with him, the blocks his verb was used on (slices/bohemia_bosses.js) */
+  try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.draw) BohemiaWorldStateMap.draw(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the camps' smoke, the lairs' birds, the ruins, the legendary masts, the shut roads */
   try { if (window.BohemiaHisMap && BohemiaHisMap.draw) BohemiaHisMap.draw(ox, oy); } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO, rule 243(b)2-4): his pins, the crosses, the boss's sign and mark, what a fallen boss changed; over the fog, under him */
   /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF. The pin that
      stood here (a white-headed marker carrying his face, [white rings] 9/11 and [see me]
@@ -52678,6 +53008,7 @@ function renderCity(){
   }
   try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking -- and over him, since the towns scale with the zoom and a name can land on him (rule 65) */
   if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); try{ vbCityLightsDraw(ox,oy); }catch(_e){} } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
+  try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.after) BohemiaWorldStateMap.after(ox, oy, night); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
 }
 
 /* *** THE CAMERA IS THE REST OF HIS RULING (Paolo 9/15 rule 16; coordinator ruling
@@ -67947,6 +68278,7 @@ function cityHandOver(msg, skin){
   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ (RUN 10/2): and the kind of block it starts on, which picks the
      rebuilt fight's board (COMBAT TWO cut its boards from the city's own block kinds) */
   try{ if(msg && !msg.district){ var _fa=(msg.at&&msg.at.length===2)?msg.at:[city.x,city.y], _ft=om.at(_fa[0]|0,_fa[1]|0); msg.district=_ft?_ft.district:null; } }catch(_e){}
+  try{ if(msg && window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7): a burned block deals a burned board; the block's state and its power go with the fight */
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23): which day it is and how many he has, on the one door, so the shell can
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
   try{ if(msg){ msg.firstDay = loopDay() <= 1; msg.crewCount = crewCount(); } }catch(_e){}
@@ -92865,7 +93197,7 @@ window.BOHEMIA_SKIN = (function(){
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_road_events.js"></script>  <!-- CONTENT [twenty-five things on the road] (11/2): the road's events with a face and two or three choices, and five side quests met on the road (records/target/BOHEMIA_ROAD_EVENTS.json, BOHEMIA_SIDE_QUESTS.json) -->
-<script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
+<script src="bohemia_his_map.js"></script>  <script src="bohemia_world_state_map.js"></script>  <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ WORLD 7 (rule 339): the campaign's state of the valley drawn and made true: dark, burned, looted, rebuilt; camps, lairs, ruins, legendary places; shut roads and passes; the start's sky -->  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_bosses.js"></script>  <!-- __THE_BOSSES__ BOSSES (rule 302): act one's first three bosses, their places, their fights and their verbs (records/target/bb/boss_act_one.json) -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>
