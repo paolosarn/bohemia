@@ -135,7 +135,7 @@
    "home": null,
    "faction": null,
    "lang": "en",
-   "voice": "Echo Park, waits for a brother who walked the 15 from Vegas; tired, never gives up",
+   "voice": "Echo Park, waits for a brother who walked the 15 from Bohemia; tired, never gives up",
    "face": {
     "id": "face-feed-echo",
     "portrait": null
@@ -301,7 +301,7 @@
    "home": null,
    "faction": null,
    "lang": "en",
-   "voice": "drives the 93 between Vegas and the river towns; sees everything first, believes half",
+   "voice": "drives the 93 between Bohemia and the river towns; sees everything first, believes half",
    "face": {
     "id": "face-feed-kingman",
     "portrait": null
@@ -417,7 +417,7 @@
    "home": null,
    "faction": null,
    "lang": "en",
-   "voice": "a grandmother whose grandson is in Las Vegas; sets his plate every night",
+   "voice": "a grandmother whose grandson is in Bohemia; sets his plate every night",
    "face": {
     "id": "face-feed-gdl",
     "portrait": null
@@ -440,7 +440,7 @@
    "home": null,
    "faction": null,
    "lang": "en",
-   "voice": "drives a jeepney; a daughter who nursed in Vegas; warm",
+   "voice": "drives a jeepney; a daughter who nursed in Bohemia; warm",
    "face": {
     "id": "face-feed-mnl",
     "portrait": null
@@ -950,7 +950,7 @@
      "draft": true
     },
     {
-     "en": "we cracked 900 gallons this week. salt lake runs the 15 now. tell vegas to say thank you.",
+     "en": "we cracked 900 gallons this week. salt lake runs the 15 now. tell bohemia to say thank you.",
      "by": [
       "slc"
      ],
@@ -1200,7 +1200,7 @@
      "draft": true
     },
     {
-     "en": "my daughter's last message from vegas: shift is long, will call sunday. i still keep sundays free.",
+     "en": "my daughter's last message from bohemia: shift is long, will call sunday. i still keep sundays free.",
      "by": [
       "mnl"
      ],
@@ -1235,35 +1235,35 @@
      "draft": true
     },
     {
-     "en": "my sister went north in 52 for work in vegas. now she wants to come home. the road south is the long one.",
+     "en": "my sister went north in 52 for work in bohemia. now she wants to come home. the road south is the long one.",
      "by": [
       "hmo"
      ],
      "draft": true
     },
     {
-     "en": "my dad drove a truck to vegas twice a week before. i still say the route in my sleep. kingman, the dam, home.",
+     "en": "my dad drove a truck to bohemia twice a week before. i still say the route in my sleep. kingman, the dam, home.",
      "by": [
       "tucson"
      ],
      "draft": true
     },
     {
-     "en": "my wife's people are in vegas. we hear nothing. no news is the only news we get, and we learned to like it.",
+     "en": "my wife's people are in bohemia. we hear nothing. no news is the only news we get, and we learned to like it.",
      "by": [
       "phx"
      ],
      "draft": true
     },
     {
-     "en": "my brother walked the 15 from vegas to find me. ten years. if anybody in henderson knew a rafa ibarra, tell me.",
+     "en": "my brother walked the 15 from bohemia to find me. ten years. if anybody in henderson knew a rafa ibarra, tell me.",
      "by": [
       "echo"
      ],
      "draft": true
     },
     {
-     "en": "my grandson is in las vegas. if you see a tall boy with my nose, tell him his grandmother still sets his plate.",
+     "en": "my grandson is in bohemia. if you see a tall boy with my nose, tell him his grandmother still sets his plate.",
      "by": [
       "gdl"
      ],
@@ -1277,7 +1277,7 @@
      "draft": true
     },
     {
-     "en": "my daughter was a nurse in las vegas before. no word since the dollar. thank you to anyone who checks there.",
+     "en": "my daughter was a nurse in bohemia before. no word since the dollar. thank you to anyone who checks there.",
      "by": [
       "mnl"
      ],
@@ -1291,7 +1291,7 @@
      "draft": true
     },
     {
-     "en": "a family from las vegas slept in our church lot last night, walking north. we gave them wheat. we have plenty.",
+     "en": "a family from bohemia slept in our church lot last night, walking north. we gave them wheat. we have plenty.",
      "by": [
       "dixie"
      ],
@@ -1312,7 +1312,7 @@
      "draft": true
     },
     {
-     "en": "my cousin in vegas says the lights stay on there. here we say that about places we have never been.",
+     "en": "my cousin in bohemia says the lights stay on there. here we say that about places we have never been.",
      "by": [
       "beirut"
      ],
@@ -1379,39 +1379,39 @@
      1
     ]
    },
-   "teaches": "what the world says about Las Vegas, and how wrong it gets from far away",
+   "teaches": "what the world says about Bohemia, and how wrong it gets from far away",
    "src": "F17, F23, F24, record s2 point 4 (the surer the wronger, his 9/24 YES)",
    "words": [
     {
-     "en": "they say vegas lets anybody in who brings a battery. my neighbor says that is how they get you.",
+     "en": "they say bohemia lets anybody in who brings a battery. my neighbor says that is how they get you.",
      "by": [
       "echo"
      ],
      "draft": true
     },
     {
-     "en": "a man says las vegas still has a casino open. a whole casino. i asked him who wins. he said the house.",
+     "en": "a man says bohemia still has a casino open. a whole casino. i asked him who wins. he said the house.",
      "by": [
       "osaka"
      ],
      "draft": true
     },
     {
-     "en": "heard vegas has power all night. heard the casinos never closed. heard a lot. reno never closed either. we are dark.",
+     "en": "heard bohemia has power all night. heard the casinos never closed. heard a lot. reno never closed either. we are dark.",
      "by": [
       "reno"
      ],
      "draft": true
     },
     {
-     "en": "guy from vegas says the strip runs its own law now. also says he saw a mammoth. turns out both are true.",
+     "en": "guy from bohemia says the strip runs its own law now. also says he saw a mammoth. turns out both are true.",
      "by": [
       "kingman"
      ],
      "draft": true
     },
     {
-     "en": "they say in vegas you pay with batteries. my cousin laughed. then he asked how many batteries a taco is.",
+     "en": "they say in bohemia you pay with batteries. my cousin laughed. then he asked how many batteries a taco is.",
      "by": [
       "tj"
      ],
@@ -1446,7 +1446,7 @@
      "draft": true
     },
     {
-     "en": "they say in vegas the machines still deal the cards. no, says my cousin, it is a man with machine hands.",
+     "en": "they say in bohemia the machines still deal the cards. no, says my cousin, it is a man with machine hands.",
      "by": [
       "sp"
      ],
@@ -1460,7 +1460,7 @@
      "draft": true
     },
     {
-     "en": "a man came south saying vegas has water for everybody. he went back north the next day. so maybe.",
+     "en": "a man came south saying bohemia has water for everybody. he went back north the next day. so maybe.",
      "by": [
       "mxli"
      ],
@@ -1963,21 +1963,21 @@
      "draft": true
     },
     {
-     "en": "picked up a hitchhiker at the junction. asked to go to his mother's house in vegas. gave me the address. i drove.",
+     "en": "picked up a hitchhiker at the junction. asked to go to his mother's house in bohemia. gave me the address. i drove.",
      "by": [
       "kingman"
      ],
      "draft": true
     },
     {
-     "en": "the vegas convoy came back with cells and a sick driver. we kept the cells. the driver is with the nurse at the church.",
+     "en": "the bohemia convoy came back with cells and a sick driver. we kept the cells. the driver is with the church nurse.",
      "by": [
       "slc"
      ],
      "draft": true
     },
     {
-     "en": "convoy for vegas leaves friday. fourteen trucks, forty guns. if your cousin is on it, say goodbye proper.",
+     "en": "convoy for bohemia leaves friday. fourteen trucks, forty guns. if your cousin is on it, say goodbye proper.",
      "by": [
       "slc"
      ],
@@ -1991,14 +1991,14 @@
      "draft": true
     },
     {
-     "en": "a truck from vegas broke down at the junction. the driver traded the whole engine for a ride home.",
+     "en": "a truck from bohemia broke down at the junction. the driver traded the whole engine for a ride home.",
      "by": [
       "kingman"
      ],
      "draft": true
     },
     {
-     "en": "nobody has driven the 15 south from vegas in a month. the 15 north, every week. the road tells you where the gas is.",
+     "en": "nobody has driven the 15 south from bohemia in a month. the 15 north, every week. the road tells you where the gas is.",
      "by": [
       "barstow"
      ],
@@ -2059,7 +2059,7 @@
      "draft": true
     },
     {
-     "en": "KD5 relay from salt lake: convoy left for vegas. it left three weeks ago. if you are in vegas, it is late or gone.",
+     "en": "KD5 relay from salt lake: convoy left for bohemia. it left three weeks ago. if you are in bohemia, it is late or gone.",
      "by": [
       "abq"
      ],
@@ -2248,14 +2248,14 @@
    "src": "F15, F21 (the caravans are the only road out; news rides them)",
    "words": [
     {
-     "en": "a convoy driver in from vegas says a crew called the {company} cleared a road. drivers exaggerate.",
+     "en": "a convoy driver in from bohemia says a crew called the {company} cleared a road. drivers exaggerate.",
      "by": [
       "slc"
      ],
      "draft": true
     },
     {
-     "en": "a trucker says the {company} out of vegas did right by a town down there. good. somebody should.",
+     "en": "a trucker says the {company} out of bohemia did right by a town down there. good. somebody should.",
      "by": [
       "dixie"
      ],
@@ -2269,7 +2269,7 @@
      "draft": true
     },
     {
-     "en": "KD5 relay from vegas, 4 days old: {company} took a job, finished it. first vegas crew on the relay. 73.",
+     "en": "KD5 relay from bohemia, 4 days old: {company} took a job, finished it. first bohemia crew on relay. 73.",
      "by": [
       "abq"
      ],

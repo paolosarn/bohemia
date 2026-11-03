@@ -136,7 +136,7 @@ section('F. the once-check under it', () => {
   const m = OM.buildOvermap(GAME); C.apply(m);
   const still = [], L = m.layout;
   const has = (k, kinds) => { const R = L[k]; for (let y = R.y; y < R.y + R.h; y++) for (let x = R.x; x < R.x + R.w; x++) { const t = m.at(x, y); if (t && kinds.indexOf(t.district) >= 0) return true; } return false; };
-  [['damR', ['dam'], 'HOOVER DAM'], ['boulder', ['town'], 'BOULDER CITY'], ['mead', ['water'], 'LAKE MEAD'], ['lakeLV', ['water'], 'LAKE LAS VEGAS'], ['intake', ['intake'], 'THE INTAKE'],
+  [['damR', ['dam'], 'HOOVER DAM'], ['boulder', ['town'], 'BOULDER CITY'], ['mead', ['water'], 'LAKE MEAD'], ['lakeLV', ['water'], 'LAKE BOHEMIA'], ['intake', ['intake'], 'THE INTAKE'],
    ['landfill', ['landfill'], 'APEX LANDFILL'], ['quarry', ['quarry'], 'SLOAN'], ['mtChar', ['mountain', 'estate'], 'MT CHARLESTON LODGE']]
     .forEach(r => { if (L[r[0]] && has(r[0], r[1])) still.push(r[2]); });
   ok('F1 only the three owed by other rows still stand twice', still.length === 3 && still.indexOf('HOOVER DAM') < 0, still.join(', '));

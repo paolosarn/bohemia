@@ -39,7 +39,7 @@ import heapq
 # lake (the water and its shore), beyond (past a state line or the region's own reach)
 # seeds are real points (lat, lon); the seat is a PLACES name that must land in its own district
 DISTRICTS = [
-    ('LAS VEGAS VALLEY', 'city', None, [
+    ('THE BOHEMIA VALLEY', 'city', None, [
         (36.17, -115.35), (36.27, -115.28), (36.28, -115.15), (36.26, -115.04), (36.16, -115.03),
         (36.08, -115.02), (36.04, -114.98), (35.98, -115.08), (35.96, -115.03), (36.03, -115.26),
         (35.99, -115.20), (36.08, -115.35), (35.94, -115.21), (36.10, -114.93)]),
@@ -94,23 +94,23 @@ def in_california(lat, lon):
 
 # the real local name of a road, district by district (the default is the road's own name)
 LOCAL_NAMES = {
-    'NV-160': {'LAS VEGAS VALLEY': 'BLUE DIAMOND RD (NV-160)', 'RED ROCK': 'BLUE DIAMOND RD (NV-160)',
+    'NV-160': {'THE BOHEMIA VALLEY': 'BLUE DIAMOND RD (NV-160)', 'RED ROCK': 'BLUE DIAMOND RD (NV-160)',
                'THE SPRING MOUNTAINS': 'BLUE DIAMOND RD (NV-160)', 'PAHRUMP VALLEY': 'PAHRUMP VALLEY HWY (NV-160)',
                'THE AMARGOSA': 'NV-160'},
-    'NV-159': {'LAS VEGAS VALLEY': 'W CHARLESTON BLVD (NV-159)', 'RED ROCK': 'RED ROCK CANYON RD (NV-159)'},
+    'NV-159': {'THE BOHEMIA VALLEY': 'W CHARLESTON BLVD (NV-159)', 'RED ROCK': 'RED ROCK CANYON RD (NV-159)'},
     'NV-157 KYLE': {'*': 'KYLE CANYON RD (NV-157)'},
     'NV-156 LEE': {'*': 'LEE CANYON RD (NV-156)'},
     'NV-158': {'*': 'DEER CREEK RD (NV-158)'},
-    'NV-147 LAKE MEAD BLVD': {'LAS VEGAS VALLEY': 'LAKE MEAD BLVD (NV-147)', 'THE MOAPA VALLEY': 'MOAPA VALLEY BLVD (NV-169)',
+    'NV-147 LAKE MEAD BLVD': {'THE BOHEMIA VALLEY': 'LAKE MEAD BLVD (NV-147)', 'THE MOAPA VALLEY': 'MOAPA VALLEY BLVD (NV-169)',
                               '*': 'NORTHSHORE RD (NV-167)'},
     'NV-169 VALLEY OF FIRE': {'*': 'VALLEY OF FIRE HWY (NV-169)'},
-    'NV-564 LAKE MEAD PKWY': {'LAS VEGAS VALLEY': 'LAKE MEAD PKWY (NV-564)', '*': 'LAKESHORE RD (NV-166)'},
+    'NV-564 LAKE MEAD PKWY': {'THE BOHEMIA VALLEY': 'LAKE MEAD PKWY (NV-564)', '*': 'LAKESHORE RD (NV-166)'},
     'LAKESHORE RD': {'*': 'LAKESHORE RD (NV-166)'},
     'NV-146 ST ROSE': {'*': 'ST ROSE PKWY (NV-146)'},
     'NV-161 GOODSPRINGS': {'THE IVANPAH VALLEY': 'GOODSPRINGS RD (NV-161)', 'GOODSPRINGS VALLEY': 'GOODSPRINGS RD (NV-161)',
                            '*': 'SANDY VALLEY RD'},
     'NV-165 NELSON': {'THE ELDORADO VALLEY': 'NELSON RD (NV-165)', '*': 'ELDORADO CANYON RD (NV-165)'},
-    'NV-604 LV BLVD N': {'*': 'LAS VEGAS BLVD N (NV-604)'},
+    'NV-604 LV BLVD N': {'*': 'BOHEMIA BLVD N (NV-604)'},
     'NV-168 MOAPA': {'*': 'GLENDALE BLVD (NV-168)'},
     'US-93 OLD': {'THE ELDORADO VALLEY': 'NEVADA WAY (US-93 BUSINESS)', '*': 'HOOVER DAM ACCESS RD (NV-172)'},
     'I-11 / US-93': {'ARIZONA': 'US-93', '*': 'I-11'},
@@ -148,7 +148,7 @@ def build_districts(G, grid, road, places, portals):
     letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     names = [d[0] for d in DISTRICTS]
     lake = set(i for i, d in enumerate(DISTRICTS) if d[1] == 'lake')
-    VAL = names.index('LAS VEGAS VALLEY')
+    VAL = names.index('THE BOHEMIA VALLEY')
     INF = float('inf')
     dist = [INF] * (D * D)
     own = bytearray([255]) * (D * D)
@@ -264,7 +264,7 @@ def islands(G, own, n):
 def roads_across(G, grid, road, own, names, places, portals):
     """every road walked block by block: where it crosses a district line, and what each end really is"""
     N, K, D, idx, in_grid, in_valley = G.N, G.K, G.D, G.idx, G.in_grid, G.in_valley
-    VAL = names.index('LAS VEGAS VALLEY')
+    VAL = names.index('THE BOHEMIA VALLEY')
 
     def local(rname, dname):
         t = LOCAL_NAMES.get(rname, {})

@@ -250,7 +250,7 @@ function fourSeated(d) {
   plant('NOT_ITS_OWN_GROUND', c => { const w = row(c, 'corn_creek_keepers'); w.east = -45; w.north = 89; w.ground = ['golf_and_park']; });
   plant('GROUND_IS_NOT_THE_ROWS', c => { row(c, 'corn_creek_keepers').ground = ['hills']; });
   plant('OFF_THE_PLACE', c => { row(c, 'valley_of_fire_runners').east = 140; });
-  plant('NOT_A_WORLD_PLACE', c => { row(c, 'lake_las_vegas_eye').world_place = 'THE MADE-UP RESORT'; });
+  plant('NOT_A_WORLD_PLACE', c => { row(c, 'lake_bohemia_eye').world_place = 'THE MADE-UP RESORT'; });
   plant('A_CITY_OR_A_HOUSE_IS_A_SETTLEMENT', c => { const w = c.settled_locations.shift(); w.wild = true; w.agenda = 'crew'; c.hostile_locations.push(w); });
   plant('NO_SEAT_MEANS_NO_ROW', c => { c.hostile_locations.push(Object.assign(JSON.parse(JSON.stringify(row(c, 'corn_creek_keepers'))), { id: 'a_trailer_chapel', faction: 'cultists' })); });
   plant('A_NO_SEAT_SAYS_WHY_WITH_ITS_WIKI_LINE', c => { c.no_seat.find(n => n.faction === 'cultists').wiki = 'school.a_line_nobody_wrote'; });
@@ -269,7 +269,7 @@ function fourSeated(d) {
     if (keep) keep.seat = 'somewhere_else'; const b = fourSeated(c); if (keep) keep.seat = was;
     ok('planted BASE_DOES_NOT_NAME_IT turns it red by name', b.some(x => x.indexOf('BASE_DOES_NOT_NAME_IT') === 0), b.join('; ')); }
   { const c = JSON.parse(JSON.stringify(D)); const w = row(c, 'valley_of_fire_runners'); w.east = 60; w.north = -20;
-    w.world_place = 'LAKE LAS VEGAS'; const lv = WPL.find(p => p.name === 'LAKE LAS VEGAS'); w.east = lv.x - 48; w.north = 48 - lv.y; w.ground = ['golf_and_park'];
+    w.world_place = 'LAKE BOHEMIA'; const lv = WPL.find(p => p.name === 'LAKE BOHEMIA'); w.east = lv.x - 48; w.north = 48 - lv.y; w.ground = ['golf_and_park'];
     const b = fourSeated(c); ok('planted: the runners moved beside the city break Goblin Land (11 blocks from a settlement) or their ground', b.some(x => /GOBLIN_LAND|NOT_ITS_OWN_GROUND/.test(x)), b.join('; ')); }
 
   /* through BohemiaWants.all: the parties at once moved with the seats */
@@ -406,7 +406,7 @@ function realCamps(d) {
   plant('OFF_ITS_REAL_THING', c => { row(c, 'railroad_pass_crew').east += 3; });
   plant('OFF_ITS_REAL_THING', c => { const w = row(c, 'apex_dead'); w.east = 80; w.north = 90; });
   plant('A_CAMP_ON_A_TOWN', c => { const w = row(c, 'railroad_pass_crew'); w.east = 105 - 48; w.north = 48 - 95; });
-  plant('A_SETTLEMENT_OFF_ITS_PLACE', c => { row(c, 'lake_las_vegas_eye').east += 1; });
+  plant('A_SETTLEMENT_OFF_ITS_PLACE', c => { row(c, 'lake_bohemia_eye').east += 1; });
   plant('NOT_ITS_OWN_GROUND_WHEN_IT_COULD_BE', c => { const w = row(c, 'sloan_quarry_crew'); w.east = 38 - 48; w.north = 48 - 104; w.ground = ['industrial']; w.ground_why = 'a planted reason that is long enough to pass the length test on its own words'; });
   plant('OFF_ITS_GROUND_SAYS_WHY', c => { delete row(c, 'nelson_dead').ground_why; });
   plant('A_WHY_WITH_NOTHING_TO_EXPLAIN', c => { row(c, 'apex_dead').ground_why = 'a planted reason on a row that already stands on its own ground'; });

@@ -309,7 +309,7 @@
    "mix_ours": true,
    "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix",
    "ground_ours": true,
-   "ground_note": "wilderness: the washes and the shore (ground_quote), where the lab's animals went for water and where the valley's own fossils lie (Tule Springs is the upper Las Vegas Wash); the open desert went to the keepers who walk a herd across it (FACTIONS [home bases] 10/18)",
+   "ground_note": "wilderness: the washes and the shore (ground_quote), where the lab's animals went for water and where the valley's own fossils lie (Tule Springs is the upper Wash); the open desert went to the keepers who walk a herd across it (FACTIONS [home bases] 10/18)",
    "ground_quote": {
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
     "quote": "Various wild beasts roam the lands."
@@ -769,8 +769,8 @@
    "base": {
     "kind": "casino",
     "tier": "fortress",
-    "note": "the gated resort and casino on the made lake at Lake Las Vegas (records/target/bb/region_bases.json settled_locations lake_las_vegas_eye, FACTIONS [four seated] 10/18): a casino that still has its doors, its cameras and its cage (ours); Battle Brothers' city states are its biggest walled cities, where the water is (bb_all/0607)",
-    "seat": "lake_las_vegas_eye"
+    "note": "the gated resort and casino on the made lake at Lake Bohemia (records/target/bb/region_bases.json settled_locations lake_bohemia_eye, FACTIONS [four seated] 10/18): a casino that still has its doors, its cameras and its cage (ours); Battle Brothers' city states are its biggest walled cities, where the water is (bb_all/0607)",
+    "seat": "lake_bohemia_eye"
    },
    "memory": {
     "driven_by": "beef",
@@ -981,7 +981,7 @@
   "every board ground is held since FACTIONS [more banners] (10/18): the_strip by the hired guns, trailer_park by the flock, airport by the head takers, solar_and_pumps by the water people; since FACTIONS [home bases] (10/18) casino_floor by the eye in the sky, open_desert by the keepers, suburb_block by the block watch, lot_and_bigbox by the runners; a made-up ground still answers NO_FACTION_HOLDS_THIS_GROUND",
   "the four new factions' grounds, wants and banner inks are ours and draft (FACTIONS [more banners] 10/18); their make-ups are ours except the flock's 25 (the wiki's); no portrait, no art, nothing drawn (the rule-88 hold)",
   "rule 42a's human floor (FACTIONS [home bases] 10/18): eight human factions with rosters (road crews, the house, the hired guns, the keepers, the eye in the sky, the flock, the block watch, the runners, plus the water people and the head takers); their grounds, wants, inks, skins and lines are ours and draft, their make-ups ours on the wiki's rosters; the greenskins' orcs (the heavy) have no row yet; no portrait, no art, nothing drawn (the rule-88 hold)",
-  "FACTIONS [four seated] 10/18: every faction's base names its seat (base.seat, a records/target/bb/region_bases.json row id) or carries seat:null with the Battle Brothers reason: the keepers at Corn Creek, the runners at Valley of Fire, the eye in the sky at Lake Las Vegas, the house at the Apex depot; the block watch none (it turns out where crews go), the flock none (met only in events), the hired guns and the head takers none (they roam, roaming_without_a_base); the road crews, the dead, the beasts and the water people are region_bases.json's rows by faction and their base.seat is not written yet (several rows each)"
+  "FACTIONS [four seated] 10/18: every faction's base names its seat (base.seat, a records/target/bb/region_bases.json row id) or carries seat:null with the Battle Brothers reason: the keepers at Corn Creek, the runners at Valley of Fire, the eye in the sky at Lake Bohemia, the house at the Apex depot; the block watch none (it turns out where crews go), the flock none (met only in events), the hired guns and the head takers none (they roam, roaming_without_a_base); the road crews, the dead, the beasts and the water people are region_bases.json's rows by faction and their base.seat is not written yet (several rows each)"
  ],
  "tones": {
   "value": {

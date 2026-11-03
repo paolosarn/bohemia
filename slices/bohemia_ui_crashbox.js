@@ -41,7 +41,7 @@
        twice (tall 9:16, wide 16:9) for the whole glass; after cycle_s on the screen the monitor cuts to the next camera */
     feed: { key: 'bohemia.title.feed', last_key: 'bohemia.title.feed.last', cycle_s: 40, preload_s: 8, roll_holds: 2, snow_holds: 1, fade_holds: 4,
       size: { tall: [432, 768], wide: [768, 432] }, mini_w: 40, mini_h: 30,
-      words: { rec: 'REC', charging: 'CHARGING', charged: 'CHARGED', no_signal: 'NO SIGNAL', signal_in: 'SIGNAL', vegas: 'LAS VEGAS', mi: 'MI' },
+      words: { rec: 'REC', charging: 'CHARGING', charged: 'CHARGED', no_signal: 'NO SIGNAL', signal_in: 'SIGNAL', vegas: 'BOHEMIA', mi: 'MI' },
       options: {
         a: { frames: 12, tall: 'crashbox/feed_a_tall.webp', wide: 'crashbox/feed_a_wide.webp', sound: 'crashbox/feed_a.mp3', top_left: 'rec', reading: 'battery', corner: 'counter' },
         b: { frames: 6, tall: 'crashbox/feed_b_tall.webp', wide: 'crashbox/feed_b_wide.webp', sound: 'crashbox/feed_b.mp3', top_left: 'cam', cam: 'CAM 03', place: 'PAWN \u00b7 LOT', reading: 'signal', corner: 'clock', tear: true },
@@ -246,7 +246,7 @@
       for (var j = 0; j < 4; j++) { var hh = 3 + j * 2; g.fillStyle = '#050403'; g.fillRect(sx + j * 6 - 1, y + 9 - hh - 1, 6, hh + 2);
         g.fillStyle = j < m ? '#efe6d2' : '#2a2620'; g.fillRect(sx + j * 6, y + 9 - hh, 4, hh); }
       osdText(g, P.ready ? w.signal_in : w.no_signal, align === 'right' ? sx - 6 : sx + 30, y, align === 'right' ? 'right' : 'left');
-    } else if (kind === 'miles') {   /* the miles left are the stages left: LAS VEGAS 6 MI ... 0 MI */
+    } else if (kind === 'miles') {   /* the miles left are the stages left: BOHEMIA 6 MI ... 0 MI */
       var left = P.ready ? 0 : Math.max(1, (P.of || 6) - P.n);
       osdText(g, w.vegas + '  ' + left + ' ' + w.mi, x, y, align);
     }

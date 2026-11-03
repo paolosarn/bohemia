@@ -192,7 +192,7 @@
    "before": 4,
    "before_how": "FACTIONS [home bases] 10/18: of factions.json's twelve, the road crews, the dead, the beasts and the water people held a region row; the hired guns roamed without a base; the other seven (the house, the head takers, the flock, the keepers, the eye in the sky, the block watch, the runners) held nothing and had no written reason, so their wants moved nobody (measured by FACTIONS [four seated] through BohemiaWants.all)",
    "ours": 8,
-   "ours_how": "plus the keepers (Corn Creek), the runners (Valley of Fire), the eye in the sky (Lake Las Vegas) and the house (the Apex depot); the hired guns and the head takers roam without a base (roaming_without_a_base); the block watch and the flock have no seat for a written Battle Brothers reason (no_seat); the gate recounts all of it off the rows",
+   "ours_how": "plus the keepers (Corn Creek), the runners (Valley of Fire), the eye in the sky (Lake Bohemia) and the house (the Apex depot); the hired guns and the head takers roam without a base (roaming_without_a_base); the block watch and the flock have no seat for a written Battle Brothers reason (no_seat); the gate recounts all of it off the rows",
    "with_a_reason": 12
   }
  },
@@ -607,7 +607,7 @@
     "golf_and_park",
     "open_desert"
    ],
-   "ground_why": "the beasts' own ground is wash and shore (factions.json); WORLD paints the fossil beds monument as park, and the upper Las Vegas Wash the bones came out of is two blocks north-east, past the map's one-block reach of a place, so the den keeps the monument's own block",
+   "ground_why": "the beasts' own ground is wash and shore (factions.json); WORLD paints the fossil beds monument as park, and the upper Wash the bones came out of is two blocks north-east, past the map's one-block reach of a place, so the den keeps the monument's own block",
    "real": "Tule Springs: the Ice Age fossil beds along the upper Las Vegas Wash at the valley's north edge, a national monument since 2014, dire wolf and mammoth bones in the washes",
    "why": "the beasts law s3: the lab was north of the city at the fossil beds; what broke out dens where it was dug up (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md)"
   },
@@ -642,7 +642,7 @@
    "ground": [
     "open_desert"
    ],
-   "ground_why": "the beasts' own ground is wash and shore (factions.json) and the nearest wash is fourteen blocks off the cave (the Las Vegas Bay arm); the cave is a dry hole in the hills, open desert on WORLD's land, so the lair stands at the cave",
+   "ground_why": "the beasts' own ground is wash and shore (factions.json) and the nearest wash is fourteen blocks off the cave (the Bohemia Bay arm); the cave is a dry hole in the hills, open desert on WORLD's land, so the lair stands at the cave",
    "real": "Gypsum Cave: the dry cave in the Frenchman Mountain foothills east of the city where the ground sloth's dung and bones were found in 1930",
    "why": "the beasts law s3 names the cave as the lab's second site; the sloth came back where its bones were"
   },
@@ -762,7 +762,7 @@
  ],
  "gaps": [
   "the greenskins' orcs (the heavy) have no Bohemia skin; the beasts law's gate owes the roster count",
-  "the City States (the Holy War's other side) are not in the canon graph; since FACTIONS [four seated] 10/18 their skin, the eye in the sky, holds one settled location (Lake Las Vegas) and the valley's casino floor; no southern city holds region ground (Laughlin, the river casino town, is past the region's south rim in WORLD's land, engine/BOHEMIA_REGION_LAND.json beyond)",
+  "the City States (the Holy War's other side) are not in the canon graph; since FACTIONS [four seated] 10/18 their skin, the eye in the sky, holds one settled location (Lake Bohemia) and the valley's casino floor; no southern city holds region ground (Laughlin, the river casino town, is past the region's south rim in WORLD's land, engine/BOHEMIA_REGION_LAND.json beyond)",
   "Colorful, Homeless and Custom hold no region place: their notes say community-based not territorial, the sewer HQ under the city, and the player",
   "the twelve places' east and north are RUN's round-one bearings, the fallback RUN draws only when WORLD's land does not load; RUN's placer pulls each onto its road or open ground, so the drawn marker can sit up to 24 blocks from the bearing. MEASURED 10/19 by FACTIONS [real camps]: the bearings sit 14 to 85 blocks from WORLD's place of the same name (Boulder City 85, Hoover Dam 79, Primm 64, Jean 48), so on the real land a holder follows its place BY NAME (world_place), never by bearing",
   "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'",
@@ -780,14 +780,14 @@
  },
  "settled_locations": [
   {
-   "id": "lake_las_vegas_eye",
-   "name": "THE EYE AT LAKE LAS VEGAS",
+   "id": "lake_bohemia_eye",
+   "name": "THE EYE AT LAKE BOHEMIA",
    "east": 55,
    "north": -9,
    "lat": 36.102,
    "lon": -114.93,
-   "latlon_from": "WORLD LAKE LAS VEGAS",
-   "world_place": "LAKE LAS VEGAS",
+   "latlon_from": "WORLD LAKE BOHEMIA",
+   "world_place": "LAKE BOHEMIA",
    "tier": "fortress",
    "kind": "casino",
    "faction": "city_states",

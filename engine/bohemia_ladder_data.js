@@ -434,7 +434,7 @@
   "n": "THE HOUSE",
   "holds": "the last floor that still takes a bet",
   "lock": "the valley has no economy anybody outside would join",
-  "grant": "deal again, and Vegas earns the way Vegas earned",
+  "grant": "deal again, and Bohemia earns the way Bohemia earned",
   "kind": "LOOK",
   "act": 3
  },

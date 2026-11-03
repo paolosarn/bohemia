@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>It Is Called Bohemia</title>
+<!-- WORDS 2, 11/3/26, VAMILY rule 362, ask line 386. The VOTE card: before and after, in the game's own type.
+     The readout at the top is drawn the way the loading screen's camera draws it (slices/bohemia_ui_crashbox.js osdText:
+     BohemiaROM at 10 px, a one-pixel black ring, cream on top), scaled up whole-pixel, counting the miles down on the beat. -->
+<style>
+@font-face{font-family:'BohemiaROM';src:url(../fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'BohemiaCasing';src:url(../fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:block}
+:root{--bg:#0b0a08;--panel:#16130f;--line:rgba(240,226,196,.14);--ink:#efe6d2;--dim:#8f8670;--gold:#e2bd6a;--red:#d8341f}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 'BohemiaROM',ui-monospace,monospace}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font:20px/1.2 'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:2px;margin:4px 0 4px;color:var(--gold)}
+p.lede{margin:0 0 14px;color:var(--ink)}
+.cam{position:relative;background:#000;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:0 0 16px}
+.cam canvas{display:block;width:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.row{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:0 0 10px}
+.where{font-size:11px;letter-spacing:1px;color:var(--dim);margin:0 0 6px}
+.was,.now{display:flex;gap:10px;align-items:baseline}
+.was b,.now b{flex:0 0 38px;font-weight:normal;font-size:10px;letter-spacing:1px}
+.was b{color:var(--red)} .now b{color:var(--gold)}
+.was span{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--red)}
+.now span{color:var(--ink)}
+.casing span{font-family:'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:1px}
+.note{font-size:12px;color:var(--dim);margin:14px 0 0}
+</style></head><body><main>
+<h1>IT IS CALLED BOHEMIA</h1>
+<p class="lede">Nothing a player can read says the old name any more: the loading screen, the start screen, the phone, the feed, the map's places, the towns. Below is the camera's own readout as the game draws it, then the lines that changed.</p>
+<div class="cam"><canvas id="osd" width="192" height="40" aria-label="the loading camera readout: BOHEMIA, the miles counting down"></canvas></div>
+
+<div class="row"><div class="where">THE LOADING SCREEN, THE CAMERA'S MILES</div>
+ <div class="was" data-was><b>WAS</b><span>LAS VEGAS  6 MI</span></div><div class="now"><b>NOW</b><span>BOHEMIA  6 MI</span></div></div>
+<div class="row casing"><div class="where">THE START SCREEN, UNDER THE NAME</div>
+ <div class="was" data-was><b>WAS</b><span>POST-ECONOMIC APOCALYPSE - LAS VEGAS</span></div><div class="now"><b>NOW</b><span>POST-ECONOMIC APOCALYPSE - BOHEMIA</span></div></div>
+<div class="row"><div class="where">THE PHONE, YOUR PAGE</div>
+ <div class="was" data-was><b>WAS</b><span>@founder_gen1 · post-collapse Las Vegas</span></div><div class="now"><b>NOW</b><span>@founder_gen1 · post-collapse Bohemia</span></div></div>
+<div class="row"><div class="where">THE FEED, A GRANDMOTHER IN GUADALAJARA</div>
+ <div class="was" data-was><b>WAS</b><span>my grandson is in las vegas. if you see a tall boy with my nose, tell him his grandmother still sets his plate.</span></div>
+ <div class="now"><b>NOW</b><span>my grandson is in bohemia. if you see a tall boy with my nose, tell him his grandmother still sets his plate.</span></div></div>
+<div class="row"><div class="where">THE FEED, THE WEATHER BOT</div>
+ <div class="was" data-was><b>WAS</b><span>@wx_vegas_auto: Today: no data. Tonight: no data. Have a great day, Vegas!</span></div>
+ <div class="now"><b>NOW</b><span>@wx_bohemia_auto: Today: no data. Tonight: no data. Have a great day, Bohemia!</span></div></div>
+<div class="row casing"><div class="where">THE MAP, PLACES AND THE VALLEY</div>
+ <div class="was" data-was><b>WAS</b><span>LAKE LAS VEGAS · LAS VEGAS BAY · LAS VEGAS VALLEY · LAS VEGAS BLVD N</span></div>
+ <div class="now"><b>NOW</b><span>LAKE BOHEMIA · BOHEMIA BAY · THE BOHEMIA VALLEY · BOHEMIA BLVD N</span></div></div>
+<div class="row casing"><div class="where">A TOWN'S NAME, AND THE EYE IN THE SKY'S SEAT</div>
+ <div class="was" data-was><b>WAS</b><span>THE WASH, NORTH LAS VEGAS · THE EYE AT LAKE LAS VEGAS</span></div>
+ <div class="now"><b>NOW</b><span>THE WASH, NORTH BOHEMIA · THE EYE AT LAKE BOHEMIA</span></div></div>
+<div class="row"><div class="where">THE FEED, A TRUCKER ON THE 15</div>
+ <div class="was" data-was><b>WAS</b><span>convoy for vegas leaves friday. fourteen trucks, forty guns. if your cousin is on it, say goodbye proper.</span></div>
+ <div class="now"><b>NOW</b><span>convoy for bohemia leaves friday. fourteen trucks, forty guns. if your cousin is on it, say goodbye proper.</span></div></div>
+<p class="note">Real places that are not the city's name keep theirs: Henderson, Boulder City, Pahrump, Red Rock, Lake Mead, the Strip. 119 spots in 17 files changed; a checker now fails the build if the old name comes back anywhere a player reads.</p>
+</main>
+<script>
+(function () {
+  var cv = document.getElementById('osd'), g = cv.getContext('2d'), FONT_OK = false;
+  /* the camera's own drawing (slices/bohemia_ui_crashbox.js osdText), unchanged */
+  function osdText(s, x, y, align, col) {
+    g.font = '10px ' + (FONT_OK ? 'BohemiaROM' : 'monospace'); g.textBaseline = 'top'; g.textAlign = align || 'left';
+    g.fillStyle = '#050403'; [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(function (d) { g.fillText(s, x + d[0], y + d[1]); });
+    g.fillStyle = col || '#efe6d2'; g.fillText(s, x, y); g.textAlign = 'left';
+  }
+  var t0 = performance.now(), BEAT = 500;   /* 120 BPM: a mile a beat */
+  function frame(now) {
+    var beat = Math.floor((now - t0) / BEAT), left = Math.max(0, 6 - (beat % 10));
+    g.fillStyle = '#0e0d0b'; g.fillRect(0, 0, cv.width, cv.height);
+    for (var y = 0; y < cv.height; y += 2) { g.fillStyle = 'rgba(255,255,255,0.025)'; g.fillRect(0, y, cv.width, 1); }   /* the tape's lines */
+    if (beat % 2 === 0) { g.fillStyle = '#d8341f'; g.fillRect(8, 8, 5, 5); }
+    osdText('REC', 16, 6);
+    osdText('BOHEMIA  ' + left + ' MI', cv.width - 8, 24, 'right');
+    requestAnimationFrame(frame);
+  }
+  (document.fonts && document.fonts.load ? document.fonts.load('10px BohemiaROM') : Promise.resolve())
+    .then(function () { FONT_OK = true; }, function () {}).then(function () { requestAnimationFrame(frame); });
+})();
+</script>
+</body></html>

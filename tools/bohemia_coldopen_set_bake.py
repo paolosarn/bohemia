@@ -63,9 +63,9 @@ PICKS = [
     ('wall',      'walls',     'Wall tiles (1)',                     0,
      'flat pale skim-coat plaster, hairline cracks, NO masonry showing through. '
      'The nearest thing this bank has to American drywall, and cracked stucco is '
-     'what Vegas actually looks like. Same both eras; the room is the constant.'),
+     'what the valley actually looks like. Same both eras; the room is the constant.'),
     ('floor',     'floors',    '1. Cracked contrete tiles',          1,
-     'a grid of square hard tiles. Vegas floors are tile, not carpet, because '
+     'a grid of square hard tiles. Valley floors are tile, not carpet, because '
      'the Mojave runs 40C+ -- the realistic answer and the one that killed the '
      'temple read in the same pick.'),
     ('table',     'furniture', 'Furniture and fixtures',             7,

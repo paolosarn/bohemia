@@ -166,7 +166,7 @@ chrome: a theatre that can operate on a body is what makes an implant thinkable 
 | 44 | **THE BOARD** | the last of the components | a circuit cannot be made, only cannibalised | fabricate electronics, so new machines are possible | GEAR |
 | 45 | **THE LIFT** | the last elevators with cable on them | a tall building is only as useful as its stairs | raise people and loads, so height becomes usable | WORLD |
 | 46 | **THE TOWER** | the cranes | you cannot change the skyline | build UP, and change what the valley looks like from anywhere in it | LOOK |
-| 47 | **THE HOUSE** | the last floor that still takes a bet | the valley has no economy anybody outside would join | deal again, and Vegas earns the way Vegas earned | LOOK |
+| 47 | **THE HOUSE** | the last floor that still takes a bet | the valley has no economy anybody outside would join | deal again, and Bohemia earns the way Bohemia earned | LOOK |
 | 48 | **THE MARQUEE** | the lights on the Strip | arrivals are a trickle you cannot influence | **turn the lights on and the trickle becomes a stream** | LOOK |
 | 49 | **THE WING** | the airfield and the one airframe | you cannot leave the valley, or see it whole | fly, and the valley stops being the world | WORLD |
 | 50 | **THE SCHOOL** | who gets taught | your heir cannot inherit anything you learned | teach, so an heir starts with what you knew | PEOPLE |

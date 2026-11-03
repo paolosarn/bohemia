@@ -106,7 +106,7 @@ section('A. every block has its district', () => {
   const ids = new Set(DS.map(d => d.id));
   let none = 0, unknown = 0, valleyOff = 0;
   for (const k in G) { if (!G[k]) none++; else if (!ids.has(G[k])) unknown++; }
-  for (let y = 0; y < L.N; y++) for (let x = 0; x < L.N; x++) if ((L.districtAt(x, y, C1) || {}).name !== 'LAS VEGAS VALLEY') valleyOff++;
+  for (let y = 0; y < L.N; y++) for (let x = 0; x < L.N; x++) if ((L.districtAt(x, y, C1) || {}).name !== 'THE BOHEMIA VALLEY') valleyOff++;
   ok('A1 every one of the ' + (L.D * L.D) + ' blocks is in a district', none === 0 && unknown === 0, none + ' none, ' + unknown + ' unknown');
   ok('A2 the valley\'s box is the Las Vegas Valley, whole', valleyOff === 0, valleyOff + ' off');
   ok('A3 the legend, the rows and the list agree (' + DS.length + ')', Object.keys(J.districtLegend).length === DS.length && DS.length >= 20 && DS.every(d => J.districtLegend[d.id] === d.name));
@@ -191,7 +191,7 @@ section('G. every road end is a real end', () => {
 
 section('H. the roads reach every seat', () => {
   const adj = {}; for (const c of J.lineCrossings) { (adj[c.from] = adj[c.from] || new Set()).add(c.to); (adj[c.to] = adj[c.to] || new Set()).add(c.from); }
-  const seen = new Set(['LAS VEGAS VALLEY']), st = ['LAS VEGAS VALLEY'];
+  const seen = new Set(['THE BOHEMIA VALLEY']), st = ['THE BOHEMIA VALLEY'];
   while (st.length) { const d = st.pop(); for (const n of (adj[d] || [])) if (!seen.has(n)) { seen.add(n); st.push(n); } }
   const off = DS.filter(d => d.seat && !seen.has(d.name)).map(d => d.name);
   ok('H1 every district with a seat is reached by road from the Las Vegas Valley', off.length === 0, off.length ? off.join(', ') : seen.size + ' reached');

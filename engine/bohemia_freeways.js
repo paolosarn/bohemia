@@ -362,7 +362,7 @@ function of(om, land, compass) {
     var inter = [], seenN = {};
     steps.forEach(function (s) { if (s.node && !seenN[s.node]) { seenN[s.node] = 1; inter.push({ node: s.node, x: s.x, y: s.y, name: bowlC && s.node === bowlC.id ? 'THE SPAGHETTI BOWL' : null }); } });
     var runs = [];
-    steps.forEach(function (s) { var d = s.where === 'valley' ? 'LAS VEGAS VALLEY' : (s.district || '?'); if (runs.length && runs[runs.length - 1][0] === d) runs[runs.length - 1][1]++; else runs.push([d, 1]); });
+    steps.forEach(function (s) { var d = s.where === 'valley' ? 'THE BOHEMIA VALLEY' : (s.district || '?'); if (runs.length && runs[runs.length - 1][0] === d) runs[runs.length - 1][1]++; else runs.push([d, 1]); });
     var made = steps.filter(function (s) { return s.made; }).length;
     return { name: name, lanes: { valley: ln[0], region: ln[1] }, steps: steps, holes: holes, ramps: ramps, interchanges: inter,
              districts: runs, squares: steps.map(function (s) { return [s.x, s.y, s.where === 'valley' ? (s.beside || []).filter(Boolean).join('|') || 'junction' : s.district]; }),

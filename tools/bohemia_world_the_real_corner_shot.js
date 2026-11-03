@@ -52,7 +52,7 @@ async function shoot(mode, file) {
     for (let y = R.y - 3; y < R.y + R.h + 6; y++) for (let x = Math.max(0, L.mead.x - 1); x < L.lakeLV.x + L.lakeLV.w + 2; x++) {
       const t = om.at(x, y); if (t) kinds[t.district] = (kinds[t.district] || 0) + 1; }
     return { at: [cx, cy], zoom: CZOOM, corner: om.realCorner ? om.realCorner.corner : null,
-             names: om.realCorner ? om.realCorner.pieces.map(p => p.name) : ['LAKE LAS VEGAS', 'BOULDER CITY', 'HOOVER DAM', 'LAKE MEAD'],
+             names: om.realCorner ? om.realCorner.pieces.map(p => p.name) : ['LAKE BOHEMIA', 'BOULDER CITY', 'HOOVER DAM', 'LAKE MEAD'],
              kinds: kinds };
   }, ZOOM);
   await d.page.waitForTimeout(900);

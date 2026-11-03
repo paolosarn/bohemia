@@ -38,7 +38,7 @@ const PIECES = [
   { key: 'damR',     name: 'HOOVER DAM',          says: /dam/i },
   { key: 'boulder',  name: 'BOULDER CITY',        says: /boulder city/i },
   { key: 'mead',     name: 'LAKE MEAD',           says: /lake mead|mead/i },
-  { key: 'lakeLV',   name: 'LAKE LAS VEGAS',      says: /LAKE LAS VEGAS/i },
+  { key: 'lakeLV',   name: 'LAKE BOHEMIA',        says: /LAKE (LAS VEGAS|BOHEMIA)/i },
   { key: 'intake',   name: 'THE INTAKE',          says: /INTAKE/i },
   { key: 'landfill', name: 'APEX LANDFILL',       says: /APEX LANDFILL/i },
   { key: 'quarry',   name: 'SLOAN',               says: /Sloan/ },
@@ -46,7 +46,7 @@ const PIECES = [
 ];
 /* OWED: the duplicates on main 10/18, pinned (their owner: the roll, WORLD's [the dam in one place] and [the roll];
    the move is a VOTE candidate first, rule: the corner rule is Paolo's 7/5 layout) */
-const OWED = ['HOOVER DAM', 'BOULDER CITY', 'LAKE MEAD', 'LAKE LAS VEGAS', 'THE INTAKE', 'APEX LANDFILL', 'SLOAN', 'MT CHARLESTON LODGE'];
+const OWED = ['HOOVER DAM', 'BOULDER CITY', 'LAKE MEAD', 'LAKE BOHEMIA', 'THE INTAKE', 'APEX LANDFILL', 'SLOAN', 'MT CHARLESTON LODGE'];
 
 const regionNames = J.places.map(p => p.name).concat((J.inValley || []).map(p => p.name));
 const regionAll = new Set(regionNames.concat((J.districts || []).map(d => d.name)));

@@ -48,7 +48,7 @@
     { key: 'damR',    was: ['dam'],    to: 'mountain', real: 'HOOVER DAM' },
     { key: 'intake',  was: ['intake'], to: 'mountain', real: 'THE INTAKE' },
     { key: 'boulder', was: ['town'],   to: 'gated',    real: 'BOULDER CITY' },
-    { key: 'lakeLV',  was: ['water'],  to: 'basin',    real: 'LAKE LAS VEGAS' }
+    { key: 'lakeLV',  was: ['water'],  to: 'basin',    real: 'LAKE BOHEMIA' }
   ];
 
   /* THE WORDS. The south-east is the game's seed and the real corner the 7/5 layout meant ('Charleston NW,

@@ -5571,7 +5571,7 @@
    "sha": "4d49fe0",
    "made": "10/9",
    "title": "EVERY BATTLE BROTHERS CONTRACT, AS A JOB IN OUR VALLEY",
-   "why": "All 49 Battle Brothers contract kinds are now jobs in Vegas, each with who gives it, what it pays and what can go wrong, so the job board can fill itself from this. You see it only as text in the VOTE tab for now, and in the game on the board in every place.",
+   "why": "All 49 Battle Brothers contract kinds are now jobs in Bohemia, each with who gives it, what it pays and what can go wrong, so the job board can fill itself from this. You see it only as text in the VOTE tab for now, and in the game on the board in every place.",
    "show": {
     "how": "text",
     "src": "Eight kinds of job: haul, carry, clear, hunt, patrol, hold, recover, find. Each one comes from a town's trouble, and finishing it fixes that trouble."
@@ -5734,7 +5734,7 @@
    "sha": "4d49fe0",
    "made": "10/9",
    "title": "TEN PEOPLE WHO STOP YOU ON THE ROAD",
-   "why": "Ten real Battle Brothers road events, each now a person in Vegas who stops you with two choices and the price on the button, and moving on is always free. You see it only as text in the VOTE tab, and in the game on the map's roads.",
+   "why": "Ten real Battle Brothers road events, each now a person in Bohemia who stops you with two choices and the price on the button, and moving on is always free. You see it only as text in the VOTE tab, and in the game on the map's roads.",
    "show": {
     "how": "text",
     "src": "A trader with a dead trike, a posse with a photo of one of your men, a blind man with a watch, kids who stoned a battery trader, a thief taped to a dead street light, and five more."
@@ -7765,7 +7765,7 @@
    "sha": "4d49fe0",
    "made": "10/10",
    "title": "WHAT A CRASH LEAVES STANDING",
-   "why": "Four real crashes, railway mania, the 2000 telecom bust, dot-com, and 2008 in Las Vegas itself, all do the same thing: the money dies and whoever still has cash buys the real buildings and cable for pennies. You see it in the records, not drawn yet, feeding WORLD and FACTIONS.",
+   "why": "Four real crashes, railway mania, the 2000 telecom bust, dot-com, and 2008 in the real valley itself, all do the same thing: the money dies and whoever still has cash buys the real buildings and cable for pennies. You see it in the records, not drawn yet, feeding WORLD and FACTIONS.",
    "show": {
     "how": "text",
     "src": "records/BOHEMIA_ECONOMY_DAY_66_WHAT_A_BUBBLE_LEAVES_STANDING_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 66.\n\nSeen in: not drawn yet, feeds WORLD and FACTIONS."
@@ -7924,7 +7924,7 @@
    "lane": "cook 4",
    "sha": "4d49fe0",
    "made": "10/10",
-   "title": "PLACEHOLDER: HOUSE TWO, A VEGAS RANCH WITH ITS GARAGE",
+   "title": "PLACEHOLDER: HOUSE TWO, A BOHEMIA RANCH WITH ITS GARAGE",
    "why": "You said good direction on the first house, so this is the next one the same way: the house with its clay roof and a garage added on later under a cheaper slate roof with your roll-up door, front gables only and every piece yours at its own pixels. You see it in the VOTE tab next to your pack's houses and the first house, the same size and then three times bigger.",
    "show": {
     "how": "image",
@@ -7933,7 +7933,7 @@
    "twin": {
     "src": "pack:5. Roof tiles#31",
     "diffs": [
-     "SHAPE: his houses are one gable; a Vegas ranch is two, the house and a lower garage set back beside it.",
+     "SHAPE: his houses are one gable; a Bohemia ranch is two, the house and a lower garage set back beside it.",
      "MATERIAL: his walls are timber; ours are his cracked tan plaster, and the garage door is his roll-up shutter.",
      "SIZE: his house is 82 by 96, ours 200 by 126, every piece at its own pixels, nothing scaled up."
     ]

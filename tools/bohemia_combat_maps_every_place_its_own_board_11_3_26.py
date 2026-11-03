@@ -143,7 +143,7 @@ PLACES = {
         landmark_block='yards.1', field=['yards.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
     'strip': dict(name='THE STRIP', districts=['strip', 'sign', 'sphere', 'strat', 'convention'], built=True,
-        landmark='THE BOULEVARD: Las Vegas Boulevard running down between the two lines, its pedestrian bridge across it, the '
+        landmark='THE BOULEVARD: Bohemia Boulevard running down between the two lines, its pedestrian bridge across it, the '
                  'Welcome sign dead in its median, the casino frontages on both sides',
         things='the Welcome sign, the pedestrian bridge, porte-cocheres with their dead marquees, the plaza fountain, the fallen '
                'arrow sign, a dead LED tower, slot machines spilled out of a broken entrance, a stretch limo, cabs, a tour bus, dead palms',

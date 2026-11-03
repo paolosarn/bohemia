@@ -297,7 +297,7 @@
   "known": true,
   "wetCellsOnAnyGround": 0,
   "ruling": "measured on what the district kits really DRAW: every live ground, every kit that can generate, five seeds each, 4.1 million cells (WORLD 10/9). NOT a legend count -- see the header.",
-  "because": "no district kit of any live ground draws a cell of kind `water`. The district named `water` draws dry ground, two drained basins and three blockers. The only wet water in the game is in the landmarks module (reservoir, tailrace, Las Vegas Creek), which is not a district kit and is marked void, so it is the CLIFFS row and never the SWAMP row.",
+  "because": "no district kit of any live ground draws a cell of kind `water`. The district named `water` draws dry ground, two drained basins and three blockers. The only wet water in the game is in the landmarks module (reservoir, tailrace, the creek), which is not a district kit and is marked void, so it is the CLIFFS row and never the SWAMP row.",
   "killsRow": "swamp",
   "tuned": false
  },

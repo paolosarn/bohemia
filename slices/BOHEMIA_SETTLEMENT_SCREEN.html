@@ -1136,7 +1136,7 @@ function supplyAdd(k, n){ if(k === 'water') k = 'food'; try{ var s = JSON.parse(
   if(typeof s.water === 'number'){ s.food = Math.ceil(((s.food | 0) + (s.water | 0)) / 2); delete s.water; }   /* __FOOD_AND_WATER_ARE_ONE__: an old save's two, folded */ s[k] = Math.max(0, (s[k] | 0) + (n | 0)); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(s)); return s[k]; }catch(e){ return null; } }
 
 var S = {
-  place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
+  place:{name:'THE WASH, NORTH BOHEMIA', tier:'town', district:'commercial'},
   purse:null, day:0, traits:[], traitSaid:{}, stock:{}, stash:[], rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
 };
 var P = window.BohemiaPurse;

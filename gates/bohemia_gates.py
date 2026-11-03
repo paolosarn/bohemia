@@ -10443,6 +10443,12 @@ GATES = [
      "between keys, weak posts hiss 8+ dB over strong ones, no voice, every object a CC0/PD/MIT recording in the bank. THE WIRING: the alpha and the demo carry "
      "engine/bohemia_radio_heard.js byte for byte, the map loads slices/bohemia_radio.js, raidSettle asks only on 'taken'. THE VOTE CARD plays a town's fall in order, "
      "0 errors. THE LIVE DEMO: the Church falls on the phone line by line, the shell books it on the next beat and tells the map, 0 errors. About 3 min", True),
+    ('IT IS CALLED BOHEMIA', ['node', 'gates/it_is_called_bohemia_gate.js'],
+     "WORDS 2 gate, 11/3, rule 362 (ask line 386; PAOLO 11/3: 'don't put any writing anywhere that's called Las Vegas. Bohemia is Las Vegas... "
+     "scour all the lines'). The surface is found by following the pages from the demo, the alpha and the VOTE tab (the map, the town, the crew, "
+     "the fight, the spoils, the phone; the dev tabs not followed) and every data file they load. Vegas in any case fails in a page's text and "
+     "attributes, in a script's strings, in a data file's values and keys, and in a VOTE card still waiting; only code comments, .bq comment lines, "
+     "code names and named machine-note fields pass (his own words quoted back in VOTE are never rewritten). Four plants bite. Node only, seconds", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

@@ -98,7 +98,7 @@
       "lesson": "Hogs come straight at the nearest man, low and fast, and the tusks open his legs: every hit that draws blood bleeds 5 a turn for 2 turns. Their shoulders are armoured. Step a bleeding man back.",
       "stats": {"hp": 100, "ap": 12, "initiative": 100, "armor_head": 20, "armor_body": 40, "resolve": 70, "xp": 150, "why": "a boar is 60 to 150 kg and carries a cartilage shield up to 5 cm thick over its shoulders (armour 40 on the body); it does not quit (resolve 70, the hyena's 50 plus)"},
       "beast": {"rig": "beast_feral_hog", "climbs": false, "why": "the hyena's own bite (20-35, all of it on the armour) as the tusk; a pig cannot climb"},
-      "habitat": ["wash_and_shore"], "roams": "only where there is water: the Las Vegas Wash, the wetlands, the lake shore, the dam",
+      "habitat": ["wash_and_shore"], "roams": "only where there is water: the Wash, the wetlands, the lake shore, the dam",
       "size_kg": "60-150",
       "real": "Sus scrofa: farm pigs go wild in two generations; a pig cannot sweat and dies in the open desert in summer without a wallow",
       "feed": "The pig farm north of town fed on the Strip's leftovers for fifty years. When the trucks stopped, the pigs walked to the Wash.",

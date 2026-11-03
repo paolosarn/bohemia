@@ -1363,8 +1363,8 @@
   },
   {
    "id": "bot_wx",
-   "handle": "wx_vegas_auto",
-   "name": "wx vegas auto",
+   "handle": "wx_bohemia_auto",
+   "name": "wx bohemia auto",
    "kind": "bot",
    "home": null,
    "trade": "weather",
@@ -1376,9 +1376,9 @@
     "portrait": null
    },
    "acts": {
-    "1": "wx_vegas_auto",
-    "2": "wx_vegas_auto",
-    "3": "wx_vegas_auto"
+    "1": "wx_bohemia_auto",
+    "2": "wx_bohemia_auto",
+    "3": "wx_bohemia_auto"
    },
    "draft": true,
    "machine": true,
@@ -5625,7 +5625,7 @@
    "teaches": "a forecast for a city that is gone, and then, sometimes, it is right",
    "words": [
     {
-     "en": "Today: sunny, high of {high}. Tonight: clear, low of {low}. Have a great day, Vegas!",
+     "en": "Today: sunny, high of {high}. Tonight: clear, low of {low}. Have a great day, Bohemia!",
      "draft": true
     },
     {
@@ -5637,14 +5637,14 @@
      "draft": true
     },
     {
-     "en": "Today: sunny, high of {high}. Tonight: clear, low of {low}. Have a great day, Vegas! Have a great day!",
+     "en": "Today: sunny, high of {high}. Tonight: clear, low of {low}. Have a great day, Bohemia! Have a great day!",
      "tags": [
       "ah"
      ],
      "draft": true
     },
     {
-     "en": "Today: no data. Tonight: no data. Have a great day, Vegas!",
+     "en": "Today: no data. Tonight: no data. Have a great day, Bohemia!",
      "tags": [
       "ah"
      ],
