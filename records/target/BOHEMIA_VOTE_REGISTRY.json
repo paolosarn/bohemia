@@ -18384,7 +18384,8 @@
     "after": "rule 346: no seam, no cut-off, every road met",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
-  }
+  },
+  {"id": "ui7-the-top-is-only-resources-11-3", "kind": "ui", "lane": "ui 7", "sha": "f6836bd76", "made": "11/3", "draft": true, "title": "THE TOP IS ONLY WHAT YOU CARRY: THE DAY AND THE TIME ARE ON THE PHONE", "said": "The sun in the top left corner. I hate the time... I don't like that we have two crew visuals... The only thing that really should be at the top of the screen, UI wise, is the resources. Do you wanna look at the time? Look at your phone. If you wanna look at the crew, look at your phone.", "why": "The sun, the day, the crew plate and the town's name are gone from the top, so only the five things you carry are left and the band is half as tall, and the day and the hour are on the phone's first line beside the place. You see it on every screen of the demo, the map, a town, the camp and after a fight, with CREW only on the phone.", "before_after": {"before": "the top 108 points tall: the DAY plate with the sun, the crew plate (his face, 3/20, the blood ticks), the place's name, then the supplies; two CREW buttons on one screen", "after": "the top 63 points: the supplies only; DAY 1  06:00 on the phone's first line beside the place; CREW only on the phone", "scale": "his phone upright, 390 by 844"}, "options": ["A, better, keep it", "B, close, fix something (say what)", "C, wrong, again"], "show": {"how": "image", "src": "vote/UI7_THE_TOP_IS_ONLY_RESOURCES_11_3.webp"}}
  ],
  "verdicts": [
   {
