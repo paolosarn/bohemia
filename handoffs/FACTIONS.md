@@ -8,7 +8,12 @@ but the 'beasts' party (ours.enemy_tiers.mix.beasts) and the hunt jobs (bohemia_
 hyenas, so the beast fights he plays are dogs.
 - PIECE 1 SHIPPED, BUILD 11/3zzzh: the cave hyena its own body on the builder (sloped back, heavy neck under a mane, round ears,
   spots, a big yellow numbered ear tag and a stitched shoulder patch). VOTE beasts2-the-cave-hyena-own-body-11-3 (slices/vote/BEASTS_THE_CAVE_HYENA.html, the card on the hyena).
-- NEXT, in order: (2) the bull, camel, lion and hog into the beast fights (the beasts mix by place, the hunt jobs' beast list), (3) the
+- PIECE 2 SHIPPED (de92f6fc, BUILD 11/3zzzi): no beast fight is always dogs. bohemia_enemies.json's one-animal parties (wolves, hyenas,
+  dogs); BOHEMIA_JOB_KINDS.json beasts_by_ground and beast_looks, the named offers deal their animal; bohemia_job_kinds.js picks a
+  'beasts' job's animal by the ground its fight is on and draws each beast from its own sheet with its cell read from the fight's
+  index (the typed sizes had gone stale). Probe tools/bohemia_beasts_every_party_its_own_animal_probe.js 8/8. VOTE
+  beasts2-the-beasts-into-the-fight-11-3. Record records/BOHEMIA_BEASTS_THE_LAB_BEASTS_NOT_A_COYOTE_11_3_26.md.
+- NEXT, in order: (3) the
   short-faced bear and the Shasta ground sloth as the unhold, (4) the sabre-tooth, the American lion, the ancient bison, the Ice Age
   horse, (5) every lab mark readable from the fight's camera, (6) the gate (own sheet each, outline differs past a floor, no place
   only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
