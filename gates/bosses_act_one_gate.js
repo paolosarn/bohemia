@@ -55,7 +55,7 @@ async function run(prof) {
   if (SHOTS) fs.mkdirSync(SHOTS, { recursive: true });
   const d = await open({ profile: prof, fog: true });
   const fr = d.fr, page = d.page, errs = [], wonBy = [];
-  page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
+  page.on('pageerror', e => errs.push(String(e).slice(0, 120) + ' AT ' + String(e.stack || '').split('\n').slice(1, 3).map(l => l.trim().replace(/^at /, '').replace(/https?:\/\/[^/]+\//, '')).join(' < ')));   /* BOSSES 4: where it threw, so a red says whose */
   const shot = async (name) => { if (SHOTS) { try { await d.shot(path.join(SHOTS, name + '.png')); } catch (e) {} } };
   /* BOSSES_EVERY_SECOND=<dir>: the stranger's seconds after the fight, one small picture a second (the measure, rule 338) */
   const EVERY = process.env.BOSSES_EVERY_SECOND || null; let secT = null, secI = 0;
