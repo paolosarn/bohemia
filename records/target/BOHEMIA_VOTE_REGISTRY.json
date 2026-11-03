@@ -18087,7 +18087,106 @@
    "after": "the cutout set down, struck, knocked over",
    "scale": "his phone upright, 390 x 844, the fight's own camera"
   }
- }
+ },
+  {
+   "id": "combat-place-suburb-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-suburb-11-3",
+   "lane": "combat",
+   "sha": "3462f27d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE SUBURBS: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The suburb is rows of houses now, their roofs walked, their walled yards and empty pools behind them and a street below each row that runs whole, in place of the old street blocks whose roads met nothing. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_suburb.webp",
+    "first": "../records/target/combat_maps_11_3/first_suburb.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-trailer-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-trailer-11-3",
+   "lane": "combat",
+   "sha": "3462f27d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE TRAILER PARK: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The trailer park's lane runs whole through every block now, the office lot sits inside its block with a drive to the lane, and the mailboxes stand on the verge, not in the road. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_trailer.webp",
+    "first": "../records/target/combat_maps_11_3/first_trailer.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-works-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-works-11-3",
+   "lane": "combat",
+   "sha": "3462f27d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE WORKS: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The works' rail spur runs at the same row in every block now, so the tracks run on across the yard, and the old town block whose streets met nothing is gone. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_works.webp",
+    "first": "../records/target/combat_maps_11_3/first_works.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  }
  ],
  "verdicts": [
   {
