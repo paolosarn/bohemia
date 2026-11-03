@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Your Settlement</title>
+<!-- HOME (rules 343, 347, 354; ask lines 352, 356, 368, 369): YOUR settlement, and only yours, seen through its own security cameras.
+     A, THE BLOCK YOU TOOK: twelve lots on a walled block, three cameras (the gate, the yards, the roofs) in act one's dying look.
+     It works like every place: tap a lot. Pictures: ../records/target/home_cameras/ (plates and per-camera layers, made by
+     tools/bohemia_home_cameras_11_3_26.py); what can stand where: ../records/target/bb/home_lots.json; the company's bill per man:
+     ../records/target/bb/nightly_bill.json. Pre-rendered layers on a canvas, nothing drawn in 3D here: 60 frames a second on a phone. -->
+<style>
+:root{--ink:#14110e;--bone:#e8dec8;--dim:#8c8478;--gold:#e2b052;--red:#c44838;--panel:rgba(14,12,10,.94)}
+html,body{margin:0;height:100%;background:#0c0b0a;color:var(--bone);font:600 14px/1.25 "DejaVu Sans Mono",ui-monospace,monospace;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+#c{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+#sheet{position:absolute;left:12px;right:12px;display:none;background:var(--panel);border:1px solid #3a342c;border-radius:10px;padding:12px 14px;z-index:5}
+#sheet h2{margin:0 0 6px;font-size:16px;color:var(--gold);letter-spacing:.04em}
+#sheet .row{margin:4px 0;color:var(--bone)} #sheet .dim{color:var(--dim)}
+#sheet button,#plant button{font:inherit;background:#2a241d;color:var(--bone);border:1px solid #5a4e3e;border-radius:8px;padding:10px 12px;margin:8px 8px 0 0;min-height:44px}
+#sheet button.go,#plant button.go{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+#plant{position:absolute;inset:0;display:none;background:rgba(6,5,4,.86);z-index:9;align-items:center;justify-content:center}
+#plant .box{max-width:320px;margin:0 16px;background:var(--panel);border:1px solid #5a4e3e;border-radius:12px;padding:18px}
+#plant h1{margin:0 0 8px;font-size:18px;color:var(--gold)}
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<div id="sheet"></div>
+<div id="plant"><div class="box"><h1>PLANT HERE?</h1>
+  <div>This block becomes yours: its gate, its twelve lots, its cameras. You pay its batteries every day.</div>
+  <div style="margin-top:8px;color:var(--gold)">Are you sure? This is permanent.</div>
+  <button class="go" id="plantYes">PLANT HERE</button><button id="plantNo">NOT YET</button></div></div>
+<script>
+(function(){
+'use strict';
+var BASE = '../records/target/home_cameras/', DATA = '../records/target/bb/';
+var FRAMES = 3, FPS_CCTV = 6, SAVE = 'bohemia_your_settlement_v1';
+var cv = document.getElementById('c'), cx = cv.getContext('2d');
+var sheet = document.getElementById('sheet'), plant = document.getElementById('plant');
+var S = { cam: 1, lots: {}, planted: false }, META = null, LAYERS = null, LOTS = null, BILL = null, LB = null;
+try { var sv = JSON.parse(localStorage.getItem(SAVE) || 'null'); if (sv) S = Object.assign(S, sv); } catch (e) {}
+function save(){ try { localStorage.setItem(SAVE, JSON.stringify(S)); } catch (e) {} }
+
+/* the pictures: a plate per camera, shape and frame; a layer per piece, state, camera, shape and frame (loaded as needed) */
+var IM = {};
+function img(src){ if (!IM[src]) { var i = new Image(); i.onerror = function(){ i._bad = (i._bad || 0) + 1; if (i._bad < 3) setTimeout(function(){ i.src = src + ''; }, 1000 * i._bad); };
+  i.src = src; IM[src] = i; } return IM[src]; }
+function ready(i){ return i && i.complete && i.naturalWidth > 0; }
+function shape(){ return innerWidth < innerHeight ? 'tall' : 'wide'; }
+
+/* THE FIT: the camera's picture as large as the glass allows on its own axis, whole and never smoothed; the rest of the glass is the
+   console (the cameras, the bill) and the phone's own ground, where nothing answers a tap but the phone */
+var FIT = {};
+function fit(){
+  var dpr = Math.min(2, devicePixelRatio || 1), W = innerWidth, H = innerHeight, sh = shape();
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.imageSmoothingEnabled = false;
+  var pw = sh === 'tall' ? 180 : 320, ph = sh === 'tall' ? 320 : 180, k;
+  if (sh === 'tall') { k = W / pw; FIT = { sh: sh, k: k, x: 0, y: 0, w: W, h: ph * k }; FIT.console = { x: 0, y: FIT.h, w: W, h: H - FIT.h }; }
+  else { k = H / ph; FIT = { sh: sh, k: k, x: 0, y: 0, w: pw * k, h: H }; FIT.console = { x: FIT.w, y: 0, w: W - FIT.w, h: H }; }
+  var c = FIT.console;   /* the phone's ground: the console's far corner, a phone's size with its padding */
+  FIT.phone = sh === 'tall' ? { x: c.x + c.w - 112, y: c.y + c.h - 150, w: 100, h: 140 } : { x: c.x + c.w - 112, y: c.y + c.h - 150, w: 100, h: 140 };
+  FIT.camBtns = []; var bw = sh === 'tall' ? Math.min(110, (c.w - 24) / 3) : Math.min(120, c.w - 24);
+  for (var n = 1; n <= 3; n++) FIT.camBtns.push(sh === 'tall' ? { n: n, x: c.x + 12 + (n - 1) * (bw + 6), y: c.y + 10, w: bw - 6, h: 44 }
+                                                            : { n: n, x: c.x + 12, y: c.y + 10 + (n - 1) * 52, w: bw, h: 44 });
+}
+
+/* what stands on each lot, and the piece that may stand there (home_lots.json) */
+function pieceFor(lot){ if (!LB) return null; for (var i = 0; i < LB.pieces.length; i++) if (LB.pieces[i].lot === lot) return LB.pieces[i]; return null; }
+function stateOf(lot){ return (S.lots[lot] && S.lots[lot].state) || 'bare'; }
+
+/* THE BILL: the people who live here eat and drink what the company's men do (nightly_bill.json per man); what works pays some back */
+function bill(){
+  var per = BILL ? BILL.per_man_per_night.value : 2, people = S.people || 0, back = 0;
+  if (stateOf(11) === 'working') back += 1;   /* the solar panel: 'a battery a day, off the sun' (bohemia_lotbuild.js CATALOG[solar]) */
+  return { per: per, people: people, cost: people * per, back: back };
+}
+
+/* the camera's cut: a roll and a frame of static, as a monitor does it */
+var CUT = null;
+function switchTo(n){ if (n === S.cam || CUT) return; CUT = { to: n, t0: performance.now() }; closeSheet(); }
+
+var t0 = performance.now();
+function frame(now){
+  var f = Math.floor((now - t0) / (1000 / FPS_CCTV)) % FRAMES, sh = FIT.sh, W = innerWidth, H = innerHeight;
+  cx.fillStyle = '#0c0b0a'; cx.fillRect(0, 0, W, H);
+  var cam = S.cam, roll = 0, staticOn = false;
+  if (CUT) { var dt = now - CUT.t0; if (dt < 120) roll = dt / 120; else if (dt < 220) staticOn = true; else { S.cam = CUT.to; cam = S.cam; CUT = null; save(); } }
+  var plate = img(BASE + 'cam' + cam + '_' + sh + '_' + f + '.png');
+  if (staticOn) drawStatic();
+  else if (ready(plate)) {
+    var oy = roll ? Math.round(roll * FIT.h * 0.6) : 0;
+    cx.save(); cx.beginPath(); cx.rect(FIT.x, FIT.y, FIT.w, FIT.h); cx.clip();
+    for (var r = 0; r < (roll ? 2 : 1); r++) {
+      var y = FIT.y + oy - r * FIT.h;
+      cx.drawImage(plate, FIT.x, y, FIT.w, FIT.h);
+      if (LAYERS) for (var pc in LAYERS.pieces) {
+        var P = LAYERS.pieces[pc], st = stateOf(P.lot); if (st === 'bare' || !P.states[st] || !P.states[st][cam + '_' + sh]) continue;
+        var L = img(BASE + 'layers/' + pc + '_' + st + '_cam' + cam + '_' + sh + '_' + f + '.png'); if (ready(L)) cx.drawImage(L, FIT.x, y, FIT.w, FIT.h);
+      }
+    }
+    cx.restore();
+  }
+  drawConsole(cam);
+  requestAnimationFrame(frame);
+}
+var NZ = null;
+function drawStatic(){
+  var pw = FIT.sh === 'tall' ? 180 : 320, ph = FIT.sh === 'tall' ? 320 : 180;
+  if (!NZ || NZ.width !== pw) { NZ = document.createElement('canvas'); NZ.width = pw; NZ.height = ph; }
+  var g = NZ.getContext('2d'), d = g.createImageData(pw, ph);
+  for (var i = 0; i < d.data.length; i += 4) { var v = (Math.random() * 200) | 0; d.data[i] = v * .86; d.data[i + 1] = v; d.data[i + 2] = v * .84; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); cx.drawImage(NZ, FIT.x, FIT.y, FIT.w, FIT.h);
+}
+function drawConsole(cam){
+  var c = FIT.console; cx.fillStyle = '#171410'; cx.fillRect(c.x, c.y, c.w, c.h);
+  cx.font = '600 13px "DejaVu Sans Mono", monospace'; cx.textBaseline = 'middle';
+  FIT.camBtns.forEach(function(b){
+    var on = b.n === cam; cx.fillStyle = on ? '#e2b052' : '#2a241d'; cx.fillRect(b.x, b.y, b.w, b.h);
+    cx.fillStyle = on ? '#14110e' : '#e8dec8'; cx.fillText('CAM ' + b.n + ' ' + ['GATE', 'YARDS', 'ROOFS'][b.n - 1], b.x + 8, b.y + b.h / 2);
+  });
+  var B = bill(), by = FIT.sh === 'tall' ? c.y + 66 : c.y + 172, bx = c.x + 12;
+  cx.fillStyle = '#e2b052'; cx.fillText('A DAY', bx, by);
+  cx.fillStyle = '#e8dec8';
+  cx.fillText(B.people + ' PEOPLE x ' + B.per + ' = -' + B.cost + ' BATTERIES', bx, by + 20);
+  cx.fillText('PAYS BACK +' + B.back + ' (WHAT WORKS)', bx, by + 40);
+  var p = FIT.phone; cx.strokeStyle = '#3a342c'; cx.lineWidth = 2; cx.strokeRect(p.x, p.y, p.w, p.h);
+  cx.fillStyle = '#5a4e3e'; cx.fillText('PHONE', p.x + 26, p.y + p.h / 2);
+}
+
+/* THE TAP: a lot is its box in the camera (its ground and its height, the house's roof), the smallest box under the finger wins */
+function lotAt(px, py){
+  if (!META || px < FIT.x || py < FIT.y || px > FIT.x + FIT.w || py > FIT.y + FIT.h) return null;
+  var key = S.cam + '_' + FIT.sh, H = META.hull_px && META.hull_px[key]; if (!H) return null;
+  var sx = (px - FIT.x) / FIT.k, sy = (py - FIT.y) / FIT.k, best = null, ba = 1e9;
+  for (var n in H) { var b = H[n]; if (sx >= b[0] && sx <= b[2] && sy >= b[1] && sy <= b[3]) { var a = (b[2] - b[0]) * (b[3] - b[1]); if (a < ba) { ba = a; best = +n; } } }
+  return best;
+}
+function lotName(n){ for (var i = 0; i < LOTS.length; i++) if (LOTS[i].n === n) return LOTS[i].name; return 'LOT ' + n; }
+function openSheet(n){
+  var P = pieceFor(n), st = stateOf(n), h = '<h2>' + n + '  ' + lotName(n) + '</h2>';
+  if (!P) h += '<div class="row">Nothing stands here yet.</div><div class="row dim">What this lot can take comes with the next pieces.</div>';
+  else {
+    var from = P.put_there_by.kind === 'boss' ? P.put_there_by.boss + "'s prize" : 'you build it';
+    h += '<div class="row">' + (st === 'bare' ? 'Bare. It can take ' + P.name + ' (' + from + ').' : P.name + ': ' + st.toUpperCase() + '.') + '</div>';
+    h += '<div class="row dim">' + P.what_it_is + '.</div>';
+    if (st !== 'bare') h += '<div class="row">LEVEL 1 of 3  &middot;  LOOK: AS FOUND</div>';
+    if (st === 'bare') h += '<button class="go" data-do="built">' + (P.put_there_by.kind === 'boss' ? 'PUT IT HERE' : 'BUILD IT') + '</button>';
+    if (st === 'built') h += '<button class="go" data-do="working">' + ({kitchen: 'LIGHT THE FIRE', main: 'OPEN THE VALVE', purifier: 'FILL THE BED', garden_bed: 'PLANT IT', water_tank: 'FILL IT', solar_panel: 'WIRE IT'}[P.id] || 'START IT') + '</button>';
+    if (st === 'working') h += '<button data-do="built">' + ({kitchen: 'PUT THE FIRE OUT', main: 'CLOSE THE VALVE'}[P.id] || 'STOP IT') + '</button>';
+  }
+  h += '<button data-do="close">CLOSE</button>';
+  sheet.innerHTML = h; sheet.style.display = 'block'; sheet.dataset.lot = n;
+  var c = FIT.console; if (FIT.sh === 'tall') { sheet.style.top = ''; sheet.style.bottom = (innerHeight - c.y + 8) + 'px'; sheet.style.right = '12px'; }
+  else { sheet.style.bottom = '12px'; sheet.style.top = ''; sheet.style.right = (innerWidth - FIT.w + 12) + 'px'; }
+}
+function closeSheet(){ sheet.style.display = 'none'; }
+sheet.addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return; var n = +sheet.dataset.lot, d = b.dataset.do;
+  if (d === 'close') return closeSheet();
+  S.lots[n] = { state: d }; save(); openSheet(n);
+});
+
+/* touch: a tap picks a lot or a camera; a swipe across the picture switches the camera */
+var down = null;
+cv.addEventListener('pointerdown', function(e){ down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+cv.addEventListener('pointerup', function(e){
+  if (!down || !S.planted) return; var dx = e.clientX - down.x, dy = e.clientY - down.y; var d0 = down; down = null;
+  var inPic = d0.x >= FIT.x && d0.x <= FIT.x + FIT.w && d0.y >= FIT.y && d0.y <= FIT.y + FIT.h;
+  if (inPic && Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) return switchTo(((S.cam - 1 + (dx < 0 ? 1 : 2)) % 3) + 1);
+  if (Math.abs(dx) > 10 || Math.abs(dy) > 10) return;
+  var p = FIT.phone; if (e.clientX >= p.x && e.clientX <= p.x + p.w && e.clientY >= p.y && e.clientY <= p.y + p.h) return;   /* the phone's ground: the phone's own */
+  for (var i = 0; i < FIT.camBtns.length; i++) { var b = FIT.camBtns[i]; if (e.clientX >= b.x && e.clientX <= b.x + b.w && e.clientY >= b.y && e.clientY <= b.y + b.h) return switchTo(b.n); }
+  if (inPic && d0.x - FIT.x < 90 * FIT.k / 2.2 && d0.y - FIT.y < 16 * FIT.k) return switchTo((S.cam % 3) + 1);   /* the camera's label */
+  var n = lotAt(e.clientX, e.clientY); if (n) openSheet(n); else closeSheet();
+});
+document.getElementById('plantYes').onclick = function(){ S.planted = true; save(); plant.style.display = 'none'; };
+document.getElementById('plantNo').onclick = function(){ plant.querySelector('h1').textContent = 'NOT YET'; setTimeout(function(){ plant.querySelector('h1').textContent = 'PLANT HERE?'; }, 900); };
+
+addEventListener('resize', function(){ fit(); closeSheet(); });
+fit();
+Promise.all([BASE + 'lots.json', BASE + 'layers.json', DATA + 'home_lots.json', DATA + 'nightly_bill.json'].map(function(u){ return fetch(u).then(function(r){ return r.json(); }).catch(function(){ return null; }); }))
+  .then(function(a){ META = a[0]; LAYERS = a[1]; LB = a[2]; LOTS = (a[2] && a[2].lots) || (a[0] && a[0].lots) || []; BILL = a[3];
+    if (!S.planted) plant.style.display = 'flex';
+    requestAnimationFrame(frame); });
+window.__YOUR_SETTLEMENT__ = { state: function(){ return S; }, fit: function(){ return FIT; }, lotAt: lotAt, switchTo: switchTo };
+})();
+</script>
+</body></html>

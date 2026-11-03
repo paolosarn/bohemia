@@ -43,6 +43,11 @@ LOTS = [
     (4, 'HOUSE SW', 9, 11, 23, 22, 4.5), (5, 'HOUSE SE', 37, 11, 51, 22, 4.5), (6, 'HOUSE W', 8, 26, 21, 38, 4.5),
     (7, 'HOUSE E', 39, 26, 52, 38, 4.5), (8, 'HOUSE N', 22, 44, 38, 56, 4.5), (9, 'THE CIRCLE', 21, 25, 39, 43, 1.0),
     (10, 'WEST YARDS', 3, 11, 9, 40, 1.8), (11, 'THE BURNED LOT', 40, 41, 57, 57, 1.5), (12, 'THE POOL YARD', 3, 41, 21, 57, 1.8)]
+# THE PIECES' OWN LOTS (step 2): which lot each stands on and where on it (centre x, front y, metres); the main at the road where the
+# city's line comes in under the gate, the purifier beside it (it wants the main next to it), the kitchen on the circle (the commons),
+# the beds down the west yards, the tank in the pool yard, the panels on the burned lot (open sky, nothing to shade them)
+PIECE_AT = {'main': (3, 27.6, 11.0), 'purifier': (2, 16.0, 3.6), 'kitchen': (9, 30.0, 26.2), 'garden_bed': (10, 6.0, 17.0),
+            'water_tank': (12, 18.5, 48.5), 'solar_panel': (11, 47.0, 50.5)}
 # THE CAMERAS: where it hangs, what it looks at, its lens per shape, and the lots it is FOR (four to six, a thumb wide each)
 CAMS = {
     1: dict(name='CAM 1 THE GATE', loc=(35.6, 1.2, 7.0), at={'tall': (30.0, 9.6, 0.0), 'wide': (29.4, 15.0, 0.0)}, lens={'tall': 18, 'wide': 14}, lots=[1, 2, 3, 4, 5, 9]),
@@ -131,8 +136,8 @@ def render(samples=8):
                               ('bld_ranch_wing.glb', 45.5, 26.5, -90), ('bld_ranch_carport.glb', 30.0, 45.0, 0)):
         pl.model(kind, x, yf, rot=math.radians(rz))
     # THE YARDS: the fences between them, the pool, the swing, the trampoline, the burned lot's rubble and a wreck
-    for (glb, x, y, rz, s) in (('fight_props/suburbs_pool.glb', 11.0, 47.0, 0, 1.0), ('fight_props/suburbs_swing.glb', 16.5, 53.5, 0, 1.0),
-                               ('fight_props/suburbs_trampoline.glb', 5.8, 30.5, 0, 1.0), ('wreck.glb', 47.0, 46.0, 30, 1.0), ('rubble.glb', 51.0, 51.5, 0, 1.0),
+    for (glb, x, y, rz, s) in (('fight_props/suburbs_pool.glb', 11.0, 47.0, 0, 1.0), ('fight_props/suburbs_swing.glb', 9.0, 54.0, 0, 1.0),
+                               ('fight_props/suburbs_trampoline.glb', 5.8, 30.5, 0, 1.0), ('wreck.glb', 47.0, 46.0, 30, 1.0), ('rubble.glb', 54.0, 44.0, 0, 1.0),
                                ('truck.glb', 31.5, 18.0, 90, 1.0), ('wreck.glb', 36.0, 31.0, -60, 1.0), ('trailer.glb', 9.0, 4.0, 0, 1.0),
                                ('shed.glb', 17.5, 43.0, 0, 1.0), ('drums.glb', 42.5, 5.2, 0, 1.0), ('tyres.glb', 45.0, 4.8, 0, 1.0),
                                ('propane.glb', 5.0, 15.0, 0, 1.0), ('streetlight.glb', 21.8, 33.5, 0, 1.0), ('stop_sign.glb', 25.0, 9.5, 0, 1.0)):
@@ -179,6 +184,42 @@ def render(samples=8):
                 bpy.ops.render.render(write_still=True)
             print('  shot', C['name'], asp, flush=True)
     sc.view_settings.exposure = ev0
+    # STEP 2, THE PIECES AS LAYERS: everything already standing holds out (it hides a piece behind it), the ground catches the piece's
+    # shadow, the film is clear; each piece and state is shot from every camera that sees its lot, same sun, so any mix of built lots is
+    # a stack of layers on the plate and no combination is ever rendered
+    import bohemia_cook_the_icons_through_the_rig_10_20_26 as IC
+    import bohemia_bosses_what_they_hand_you_11_3_26 as HAND
+    import bohemia_home_pieces_11_3_26 as PCS
+    ground = set(objs)
+    for o in [o for o in sc.objects if o.type == 'MESH']:
+        if o in ground: o.is_shadow_catcher = True
+        else: o.is_holdout = True
+    sc.render.film_transparent = True
+    for pc, (lot, x, yf) in PIECE_AT.items():
+        Lb = [l for l in LOTS if l[0] == lot][0]
+        for st, beats in (('built', (0,)), ('working', (0, 1))):
+            for bt in beats:
+                before = set(sc.objects)
+                pl.here('%s_%s' % (pc, st), PCS.make(bpy, P, IC, V, K, pl, HAND, rnd, bt)[pc], x, yf, st)
+                new = [o for o in sc.objects if o not in before]; ms = [o for o in new if o.type == 'MESH']
+                RIG.source_pass(ms, float(RIG.G['wear']), 1.0, 5); RIG.dent_pass(ms, 1.0)
+                for m in {sl.material for o in ms for sl in o.material_slots if sl.material}:
+                    if m.use_nodes:
+                        for nd in m.node_tree.nodes:
+                            if nd.type in ('AMBIENT_OCCLUSION', 'BEVEL'): nd.samples = 1
+                for cn, C in CAMS.items():
+                    cam.location = C['loc']
+                    for asp, (W, H) in SIZES.items():
+                        dv = mathutils.Vector(C['at'][asp]) - mathutils.Vector(C['loc']); cam.rotation_euler = dv.to_track_quat('-Z', 'Y').to_euler()
+                        sc.render.resolution_x, sc.render.resolution_y = W, H; cd.lens = C['lens'][asp]; bpy.context.view_layer.update()
+                        pts = [world_to_camera_view(sc, cam, mathutils.Vector((xx, yy, zz))) for xx in (Lb[2], Lb[4], (Lb[2] + Lb[4]) / 2)
+                               for yy in (Lb[3], Lb[5], (Lb[3] + Lb[5]) / 2) for zz in (0, 2.5)]
+                        if not any(0 <= q.x <= 1 and 0 <= q.y <= 1 and q.z > 0 for q in pts): continue
+                        sc.cycles.seed = 7
+                        sc.render.filepath = os.path.join(RAW, 'L_%s_%s_%d_cam%d_%s.png' % (pc, st, bt, cn, asp))
+                        bpy.ops.render.render(write_still=True)
+                for o in new: bpy.data.objects.remove(o, do_unlink=True)
+            print('  layer', pc, st, flush=True)
     json.dump(dict(lots=[dict(n=n, name=nm, box_m=[x0, y0, x1, y1], h=h) for (n, nm, x0, y0, x1, y1, h) in LOTS],
                    cams={cn: dict(name=C['name'], loc=C['loc'], at=C['at'], lens=C['lens'], lots=C['lots']) for cn, C in CAMS.items()},
                    boxes_px=boxes, sizes=SIZES), open(os.path.join(RAW, 'lots.json'), 'w'), indent=1)
@@ -199,16 +240,17 @@ def post():
     fnt = ImageFont.load_default()
     bay = (np.array(BAYER) + 0.5) / 16.0 - 0.5
     meta = json.load(open(os.path.join(RAW, 'lots.json')))
+    def medium(a, f, H, W):
+        b = np.clip((a // 8).astype(int), 0, 31)
+        a = a + (pop[b[..., 0], b[..., 1], b[..., 2]] - a) * 0.3
+        t = FEED.tape('B', a, f, None).astype(float)
+        d = np.tile(bay, (H // 4 + 1, W // 4 + 1))[:H, :W, None]
+        return np.clip(np.floor(t / 8.0 + d + 0.5) * 8.0, 0, 255).astype(np.uint8)   # 32 levels a channel: the PS1's 15-bit colour
     for cn, C in CAMS.items():
         for asp, (W, H) in SIZES.items():
             for f in range(FRAMES):
                 a = np.asarray(Image.open(os.path.join(RAW, 'cam%d_%s_%d.png' % (cn, asp, f))).convert('RGB')).astype(float)
-                b = np.clip((a // 8).astype(int), 0, 31)
-                a = a + (pop[b[..., 0], b[..., 1], b[..., 2]] - a) * 0.3
-                t = FEED.tape('B', a, f, None).astype(float)
-                d = np.tile(bay, (H // 4 + 1, W // 4 + 1))[:H, :W, None]
-                q = np.clip(np.floor(t / 8.0 + d + 0.5) * 8.0, 0, 255).astype(np.uint8)   # 32 levels a channel: the PS1's 15-bit colour
-                im = Image.fromarray(q); dr = ImageDraw.Draw(im)
+                im = Image.fromarray(medium(a, f, H, W)); dr = ImageDraw.Draw(im)
                 def txt(xy, s, c=(226, 230, 222)):
                     dr.text((xy[0] + 1, xy[1] + 1), s, font=fnt, fill=(10, 10, 10)); dr.text(xy, s, font=fnt, fill=c)
                 txt((4, 3), 'CAM%d %s' % (cn, C['name'].split(' ', 2)[2]))
@@ -216,7 +258,46 @@ def post():
                 txt((W - 26, 3), 'REC')
                 txt((4, H - 13), '01-01-80  00:00:%02d' % (14 + f))
                 im.save(os.path.join(OUT, 'cam%d_%s_%d.png' % (cn, asp, f)))
+    # THE TAP BOXES FOR THE SCREEN: every lot in every camera, its ground and its height (a house's roof) clipped to the picture, and its
+    # ground outline; the screen hit-tests the box, the smallest under the finger wins
+    meta['hull_px'], meta['poly_px'] = {}, {}
+    for cn in CAMS:
+        for asp, (W, H) in SIZES.items():
+            hh, pp = {}, {}
+            for (n, nm, x0, y0, x1, y1, h) in LOTS:
+                g = project(cn, asp, [(x0, y0, 0), (x1, y0, 0), (x1, y1, 0), (x0, y1, 0)]); t = project(cn, asp, [(x0, y0, h), (x1, y0, h), (x1, y1, h), (x0, y1, h)])
+                q = (g or []) + (t or [])
+                if not q: continue
+                xs = [min(max(x, 0), W) for x, y in q]; ys = [min(max(y, 14), H - 14) for x, y in q]
+                if max(xs) - min(xs) < 3 or max(ys) - min(ys) < 3: continue
+                hh[n] = [round(min(xs), 1), round(min(ys), 1), round(max(xs), 1), round(max(ys), 1)]
+                if g: pp[n] = [[round(x, 1), round(y, 1)] for x, y in g]
+            meta['hull_px']['%d_%s' % (cn, asp)] = hh; meta['poly_px']['%d_%s' % (cn, asp)] = pp
     json.dump(meta, open(os.path.join(OUT, 'lots.json'), 'w'), indent=1)
+    # THE LAYERS: each composited over its plate's own raw frame and put through the same medium, then cut back out where the piece is
+    # (one pixel wider for the tape's softness, never over the camera's own text rows), so on the screen a layer drawn on its plate is
+    # the same pixel the medium would have made of the whole picture
+    ld = os.path.join(OUT, 'layers'); os.makedirs(ld, exist_ok=True); man = {}
+    groups = {}
+    for fn in sorted(os.listdir(RAW)):
+        if not fn.startswith('L_'): continue
+        head, bt, camn, asp = fn[2:-4].rsplit('_', 3); pc, st = head.rsplit('_', 1)
+        groups.setdefault((pc, st, int(camn[3:]), asp), {})[int(bt)] = os.path.join(RAW, fn)
+    for (pc, st, cn, asp), beats in sorted(groups.items()):
+        W, H = SIZES[asp]; ent = man.setdefault(pc, dict(lot=PIECE_AT[pc][0], states={})).setdefault('states', {}).setdefault(st, {})
+        for f in range(FRAMES):
+            L = np.asarray(Image.open(beats.get(f % 2, beats[0])).convert('RGBA')).astype(float)
+            al = L[..., 3:4] / 255.0; rgb = L[..., :3]
+            if cn == 3 and f == 1: rgb = 255.0 * ((rgb / 255.0) ** 2.2 * 2 ** -1.6) ** (1 / 2.2)   # the dying camera's dropped stop, as the plate had it
+            plate = np.asarray(Image.open(os.path.join(RAW, 'cam%d_%s_%d.png' % (cn, asp, f))).convert('RGB')).astype(float)
+            q = medium(rgb * al + plate * (1 - al), f, H, W)
+            m = al[..., 0] > 0.03; m = m | np.roll(m, 1, 1) | np.roll(m, -1, 1); m[:14] = False; m[-14:] = False
+            out = np.zeros((H, W, 4), np.uint8); out[..., :3] = q; out[..., 3] = m * 255
+            Image.fromarray(out).save(os.path.join(ld, '%s_%s_cam%d_%s_%d.png' % (pc, st, cn, asp, f)), optimize=True)
+        ys, xs = np.nonzero(m)
+        ent['%d_%s' % (cn, asp)] = [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1] if len(xs) else None
+    json.dump(dict(about='each piece, state and camera: its layer frames layers/<piece>_<state>_cam<N>_<shape>_<frame>.png and its box on the picture',
+                   frames=FRAMES, pieces=man), open(os.path.join(OUT, 'layers.json'), 'w'), indent=1)
     print('  post', len(CAMS) * len(SIZES) * FRAMES, 'frames; snap toward', nb, 'colours')
 
 
@@ -302,6 +383,43 @@ def card():
     print('  card', dst, frames[0].size)
 
 
+def card_pieces():
+    """STEP 2's card: the three cameras, upright and sideways, the lots bare, then the six pieces built, then working, each phase held a
+    second and a half at the camera's six pictures a second; every piece is its own layer on the camera's own plate"""
+    from PIL import Image, ImageDraw, ImageFont
+    LJ = json.load(open(os.path.join(OUT, 'layers.json')))
+    F_ = lambda n: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', n)
+    S = 2; tw, th = 180 * S, 320 * S; ww, wh = 240, 135; gap = 12; head = 64
+    W = 3 * tw + 4 * gap; H = head + th + 34 + wh + 40
+    NAMES = {'kitchen': 'KITCHEN', 'main': 'MAIN', 'purifier': 'PURIFIER', 'garden_bed': 'BEDS', 'water_tank': 'TANK', 'solar_panel': 'PANELS'}
+    def shot(cn, asp, st, f):
+        im = Image.open(os.path.join(OUT, 'cam%d_%s_%d.png' % (cn, asp, f))).convert('RGBA'); names = []
+        if st != 'bare':
+            for pc, P in LJ['pieces'].items():
+                if '%d_%s' % (cn, asp) in P['states'].get(st, {}):
+                    im.alpha_composite(Image.open(os.path.join(OUT, 'layers', '%s_%s_cam%d_%s_%d.png' % (pc, st, cn, asp, f))).convert('RGBA')); names.append(NAMES[pc])
+        return im.convert('RGB'), names
+    frames = []
+    for st in ('bare', 'built', 'working'):
+        for rep in range(3):
+            for f in range(FRAMES):
+                im = Image.new('RGB', (W, H), (20, 18, 16)); d = ImageDraw.Draw(im)
+                d.text((gap, 10), 'YOUR LOTS, THROUGH ITS CAMERAS:', font=F_(20), fill=(232, 222, 200))
+                d.text((gap + 400, 8), {'bare': 'BARE', 'built': 'BUILT', 'working': 'WORKING'}[st], font=F_(26), fill=(226, 176, 82))
+                d.text((gap, 38), 'six pieces, each its own layer from every camera that sees its lot (same sun)', font=F_(14), fill=(140, 132, 120))
+                for i, cn in enumerate((1, 2, 3)):
+                    sh, names = shot(cn, 'tall', st, f); x = gap + i * (tw + gap)
+                    im.paste(sh.resize((tw, th), Image.NEAREST), (x, head))
+                    d.text((x, head + th + 6), CAMS[cn]['name'], font=F_(14), fill=(226, 176, 82))
+                    d.text((x, head + th + 22), ' '.join(names) if names else '', font=F_(11), fill=(232, 222, 200))
+                    sw, _ = shot(cn, 'wide', st, f); im.paste(sw.resize((ww, wh), Image.NEAREST), (x + (tw - ww) // 2, head + th + 40))
+                frames.append(im)
+    dst = os.path.join(OUT, 'vote_pieces.webp')
+    frames[0].save(dst, save_all=True, append_images=frames[1:], duration=167, loop=0, quality=80, method=6)
+    frames[len(frames) - 1].save('/tmp/claude-0/home_pieces_card.png')
+    print('  card', dst, frames[0].size, len(frames), 'frames', os.path.getsize(dst) // 1024, 'KB')
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == 'render':
@@ -309,3 +427,4 @@ if __name__ == '__main__':
         sys.stdout.flush(); os._exit(0)
     elif a and a[0] == 'post': post()
     elif a and a[0] == 'card': card()
+    elif a and a[0] == 'card_pieces': card_pieces()

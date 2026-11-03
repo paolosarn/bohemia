@@ -1,0 +1,49 @@
+{
+ "draft": true,
+ "about": "HOME (rules 343, 347, 354): YOUR settlement's twelve lots and what can stand on them, and what puts it there. A modder's file: a later boss adds a row to pieces (its prize) and nothing else changes. Every word is draft:true; every number is a shape TUNING owns and is READ from the file that already rules it (records/target/bb/boss_act_one.json for the prizes, engine/bohemia_lotbuild.js CATALOG for the builds), never typed new here. The pictures: records/target/home_cameras/ (the plates, one per camera, and each piece's layers per camera, tools/bohemia_home_cameras_11_3_26.py). The models: tools/bohemia_home_pieces_11_3_26.py.",
+ "states": {
+  "bare": "the lot as it is: nothing stands there (the camera's plate shows it)",
+  "built": "it stands, not yet doing its job",
+  "working": "it does its job: the fire lit, the water running, the crop up, the cells charging"
+ },
+ "lots": [
+  {"n": 1, "name": "THE GATE", "kind": "gate", "box_m": [22, 1, 38, 9]},
+  {"n": 2, "name": "WEST VERGE", "kind": "open", "box_m": [4, 3, 21, 10]},
+  {"n": 3, "name": "THE DRIVE", "kind": "road", "box_m": [25, 10, 35, 24]},
+  {"n": 4, "name": "HOUSE SW", "kind": "house", "box_m": [9, 11, 23, 22]},
+  {"n": 5, "name": "HOUSE SE", "kind": "house", "box_m": [37, 11, 51, 22]},
+  {"n": 6, "name": "HOUSE W", "kind": "house", "box_m": [8, 26, 21, 38]},
+  {"n": 7, "name": "HOUSE E", "kind": "house", "box_m": [39, 26, 52, 38]},
+  {"n": 8, "name": "HOUSE N", "kind": "house", "box_m": [22, 44, 38, 56]},
+  {"n": 9, "name": "THE CIRCLE", "kind": "commons", "box_m": [21, 25, 39, 43]},
+  {"n": 10, "name": "WEST YARDS", "kind": "yard", "box_m": [3, 11, 9, 40]},
+  {"n": 11, "name": "THE BURNED LOT", "kind": "open", "box_m": [40, 41, 57, 57]},
+  {"n": 12, "name": "THE POOL YARD", "kind": "yard", "box_m": [3, 41, 21, 57]}
+ ],
+ "pieces": [
+  {"id": "kitchen", "name": "YOUR KITCHEN", "lot": 9, "put_there_by": {"kind": "boss", "boss": "THE POT", "verb": "cook", "when": "his kill: his pot comes home with you"},
+   "what_it_is": "a cinder-block rocket hearth with his pot on its grate, the flue up through a tin lean-to, a prep table, a woodpile",
+   "working_when": "the fire is lit (the cook verb used)", "gives": {"from": "records/target/bb/boss_act_one.json bosses[THE POT].verb", "fields": ["heal_hours", "cooldown_days"]}},
+  {"id": "main", "name": "YOUR MAIN", "lot": 3, "put_there_by": {"kind": "boss", "boss": "THE TAP", "verb": "open", "when": "his kill: his wrench opens the city line under your gate"},
+   "what_it_is": "the curb-stop box over the city main, a riser out of a concrete pad, a gate valve with a red wheel, the spigot on a post, a wash trough",
+   "working_when": "the valve is open", "gives": {"from": "records/target/bb/boss_act_one.json bosses[THE TAP].verb", "fields": ["pay_batteries"]}},
+  {"id": "purifier", "name": "YOUR PURIFIER", "lot": 2, "put_there_by": {"kind": "boss", "boss": "THE FILTER", "verb": "purify", "when": "her kill: her filter becomes the pre-filter on a slow sand bed"},
+   "what_it_is": "the raw drum up on blocks, her filter housing as the pre-filter, a timber box of fine sand over gravel, the outlet low into a clean drum",
+   "needs": "main", "working_when": "water stands on the sand (it takes it from your main)", "gives": {"from": "records/target/bb/boss_act_one.json bosses[THE FILTER].verb", "fields": ["wound_days"]}},
+  {"id": "garden_bed", "name": "GARDEN BED", "lot": 10, "put_there_by": {"kind": "build", "build": "garden", "when": "you build it (his 10/1 pick)"},
+   "what_it_is": "three timber raised beds of soil, bean poles at the back",
+   "working_when": "the crop is up", "gives": {"from": "engine/bohemia_lotbuild.js CATALOG[garden]", "fields": ["makes", "six"]}},
+  {"id": "water_tank", "name": "WATER TANK", "lot": 12, "put_there_by": {"kind": "build", "build": "tank", "when": "you build it (his 10/1 pick)"},
+   "what_it_is": "a corrugated tank on a block stand with a sight tube and a tap, a tin roof and its downpipe",
+   "needs": "main or purifier", "working_when": "it is full", "realism": "STORAGE, not a source: Las Vegas rain (106 mm a year) gives a shed roof about 1.5 litres a day against one person's 15 (records/BOHEMIA_HOME_YOUR_OWN_SETTLEMENT_11_3_26.md s5.1); it holds what your main or purifier gives",
+   "gives": {"from": "engine/bohemia_lotbuild.js CATALOG[tank]", "fields": ["makes", "six", "guards"]}},
+  {"id": "solar_panel", "name": "SOLAR PANEL", "lot": 11, "put_there_by": {"kind": "build", "build": "solar", "when": "you build it (his 10/1 pick)"},
+   "what_it_is": "three panels on a ground rack at 36 degrees to the south, a battery cabinet, a lamp on a pole",
+   "working_when": "it is wired and the cells charge", "gives": {"from": "engine/bohemia_lotbuild.js CATALOG[solar]", "fields": ["makes", "six"]}}
+ ],
+ "later": [
+  {"boss": "THE BURN", "status": "waiting: BOSSES 4 writes its prize (records/BOHEMIA_BOSSES_FOUR_TO_SIX notes); its row goes in pieces with a lot and a model"},
+  {"boss": "THE SURVEYOR", "status": "waiting: BOSSES 4 writes its prize"},
+  {"boss": "THE CLIMB", "status": "waiting: BOSSES 4 writes its prize"}
+ ]
+}
