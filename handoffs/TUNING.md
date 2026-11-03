@@ -19,6 +19,7 @@ man of it; the walk costs; Battle Brothers' labels 4 in 5 one step up) and W2 (a
 makes a light man), four bites caught; 17/0 on main's newest (HIRES' fourteen rare men in it); COMBAT 7's HEAVY ARMOUR COSTS A TILE 8/0 on these
 numbers. ROUTED: COMBAT 7 (fatMax reads breath_floor; a champion drops a named item, the endgame light pieces the light ones), WORDS (the four
 names), ECONOMY (their prices off the shelf).
+LIVE: content 786d1f555, handoff e12603884; pages run 4262 (41649951230) SUCCESS. Round done: rules 370, 370(9), 380 and 377 all shipped.
 DIFFICULTY FINE-TUNED (rule 380, ask line 409, BUILD 11/3zzzzat): records/BOHEMIA_TUNING_DIFFICULTY_FINE_TUNED_11_3_26.md: Battle Brothers'
 steps (Beginner: aim 5 each way, +10% experience, crisis later, easier groups later; Expert: no aim, harder groups sooner; economy 90% pay and
 prices on the top level) beside ours; ours are small in crews (1 / 1 / 1.15) but SEEN IT -> OUTLIVED IT is a cliff (the same nine men, day 20,
