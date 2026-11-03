@@ -51,3 +51,30 @@ you know what would be next for that"
 3. THE SCREEN: RUN TWO's town job is on main (11/3zzu), so HOME builds the settlement screen on the cameras: tap a lot, switch a camera,
    the daily bill.
 4. THE ACTS: the act-two inside camera and the camera upgrades.
+
+## AMENDED 11/3, THE SAME ROUND (Paolo, verbatim)
+"Oh, and by the way, yeah each camera angle has to show all 12 lots so that is the creative challenge that you have to do moving forward
+because I kind of wanted to like like just cycle through it and you can't even choose what the next camera angle is gonna be you know, but
+the camera angles have to be set up in a way where you see 12 out of 12 lots even if things are three dimensional so this is the challenge
+for you to definitely definitely definitely I don't want people throwing through camp. That's a chore. People don't have time anymore to
+play an even more video games like I care about people's time a lot but yeah, so you have to think about whatever type of settlement. It is
+interior big ass warehouse whatever whatever you have to be able to see all 12 lots at all times absolutely even if things get 3-D and
+things are getting taller so yeah."
+("throwing through camp" is the transcription of "going through cameras".)
+
+1. EVERY CAMERA SHOWS ALL 12 LOTS, ALWAYS: 12 out of 12, at every camera, in every act, inside or out, even when every lot holds its
+   tallest piece. Nobody ever hunts through cameras for a lot: his care for people's time. This replaces the 'four to six lots a camera'
+   call above.
+2. THE CAMERAS CYCLE ON THEIR OWN: the player does not choose the next camera; the monitor cycles (coordinator's default: a cut every 20
+   seconds on the settlement screen, a monitor's roll and a frame of static; the cycle holds while a lot's card is open or a finger is
+   down). So the camera changes the mood, never what you can reach.
+3. THE CREATIVE CHALLENGE, SOLVED AT THE SOURCE (the coordinator's calls for HOME):
+   - All cameras look at the block from the same front half, high and steep (a gate post, a light pole, the roof of the building across
+     the street), so the 'back' of the block is the back for every camera and nothing tall ever stands between a camera and a lot.
+   - The twelve lots are laid out for the cameras, not the cameras for the lots: rows that step back and up, the tall pieces (the tank's
+     tower, a second storey, the panel racks) only on the back row, a height limit per row, so the tallest build of a front lot never
+     covers a back lot.
+   - Every lot keeps a thumb-wide tap box (44 points) visible in every camera on the upright phone and sideways.
+   - THE GATE (a machine check): render every camera with every lot at its tallest possible piece; every lot must show at least 60% of its
+     footprint and a 44-point tap box, tall and wide. A camera that fails is moved, not excused.
+   - INSIDE (act two's camera, a big warehouse or a drain) follows the same rule: a ceiling-corner camera that sees all twelve.
