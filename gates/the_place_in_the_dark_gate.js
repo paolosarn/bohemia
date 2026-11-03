@@ -159,7 +159,8 @@ async function play(profile) {
            it'): the touch on the card also sets the party off and WORLD 8's camera eases in (gates/tap_a_quest_on_the_phone_gate.js
            measures that); here the journey is stopped where it got to, so the marks are read on a camera that holds still and D6's
            touch lands on the name where it is drawn */
-        await page.waitForTimeout(300); await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+        for (let i = 0; i < 40; i++) { const qg = await page.evaluate(() => window.__PHONE_QUEST_GO || null); if (qg && (qg.by || qg.why)) break; await page.waitForTimeout(100); }   /* out of a town the call waits for the map's fit */
+        await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
         await page.waitForTimeout(600);
         const lit = await fr.evaluate((id) => { MAP_DREW = {}; MAP_TOWN_HIT = []; render(); const cv = document.getElementById('cv').getBoundingClientRect(), pr = BOH_PHONE_RECT();
           return { held: LOOP.held.some(j => j.id === id), marks: (window.__JOB_MARKS || []).filter(m => m.id === id).map(m => ({ label: m.label, name: m.name, on: m.on, box: m.box || null, x: m.x, y: m.y })),
