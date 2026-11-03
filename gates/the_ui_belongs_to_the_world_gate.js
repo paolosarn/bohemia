@@ -256,9 +256,12 @@ async function map() {
     /* RE-AIMED 10/26 BY UI TWO (rules 238(a), 286(b)): with the phone up the bar's NOTES is the phone's NOTES (its copy off the glass),
        so the words read on the bar's tin are the day's; the phone's icons carry no words (238(c): a button reads by its shape) */
     const ON = await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-on'));
-    await check('the map', fr, p, [['#menubar.bmtb', 'board_plain'], ['#bmtb .t.day', 'tin'], ['#bmtb .t.gear', 'tin'], ['#menubar #bmtb #notebtn', 'tin'], ['#bmtb .g', 'tray'],
-      ['#speedpad', 'board_plain'], ['#speedpad .sp:not(.now)', 'tin_dark'], ['#speedpad .sp.now', 'tin_amber']],
-      ON ? [['the day on tin', '#bmtb .t.day']] : [['the day on tin', '#bmtb .t.day'], ['NOTES on tin', '#menubar #bmtb #notebtn']]);
+    /* RE-AIMED 11/3 BY UI 7 (rule 368, Paolo: 'the only thing that really should be at the top of the screen is the resources'): with
+       the phone up the day plate is off the bar (the phone's first line says the day), so the bar's tin has no words; the words read on
+       the bar are the counts on its tray */
+    await check('the map', fr, p, [['#menubar.bmtb', 'board_plain']].concat(ON ? [] : [['#bmtb .t.day', 'tin']]).concat([['#bmtb .t.gear', 'tin'], ['#menubar #bmtb #notebtn', 'tin'], ['#bmtb .g', 'tray'],
+      ['#speedpad', 'board_plain'], ['#speedpad .sp:not(.now)', 'tin_dark'], ['#speedpad .sp.now', 'tin_amber']]),
+      ON ? [['a count on the tray', '#bmtb [data-f=batteries] b']] : [['the day on tin', '#bmtb .t.day'], ['NOTES on tin', '#menubar #bmtb #notebtn']]);
     /* THE NOTES (UI 10/26, rule 130(b)): the box he writes to the manager from, opened by NOTES (the phone's presses the bar's own),
        one note kept so a kept note is on the glass (one line long, so its ground is read beside it, never off the card): a sheet of board, what he writes on paper, the presses tin, SAVE amber */
     await p.evaluate(() => { try { localStorage.setItem('bohemia.notes.v1', JSON.stringify([{ text: 'the bar is gone in the fight', ctx: { build: 'B', mode: 'fight', secs: 4 }, at: new Date().toISOString() }])); } catch (e) {} });

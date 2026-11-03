@@ -141,15 +141,18 @@ async function side(profile) {
         ok('  every frame hears it at once: the map\'s rectangle, its variables and its \'bohemia-phone\' event', cityR.side === 'left' && Math.abs(cityR.left - now.R.left) <= 1 && ev1 > ev0
           && await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-left')), 'events ' + ev0 + ' -> ' + ev1);
         /* an app moved up goes first in the row; HIDE takes it off (SETTINGS never hides); then back as it was */
+        /* RE-AIMED 11/3 BY UI 7 (rule 368: the bar carries no crew any more, so the phone's CREW is the one door and, like SETTINGS, never
+           hides): RELATIONS moved up goes first; RELATIONS hidden leaves CREW and SETTINGS; neither CREW nor SETTINGS has a HIDE */
         await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=up]'); await p.waitForTimeout(200);
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=crew] [data-do=hide]'); await p.waitForTimeout(200);
+        const up1 = (await p.evaluate('(' + PHONE + ')()')).apps.filter(a => !a.big).map(a => a.app);
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=hide]'); await p.waitForTimeout(200);
         const re = await p.evaluate('(' + PHONE + ')()');
         const row = re.apps.filter(a => !a.big).map(a => a.app);
-        ok('  RELATIONS moved up goes first in the row; CREW hidden leaves two (NOTES is gone, rule 357(a)); PLAY and HEAL stay', row.join() === 'relations,settings' && re.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal'
-          && !(await p.evaluate(() => !!document.querySelector('#setphone .pa[data-a=settings] [data-do=hide]'))),
-          re.apps.map(a => a.app + (a.big ? '*' : '')).join(' '));
+        ok('  RELATIONS moved up goes first in the row; RELATIONS hidden leaves CREW and SETTINGS, neither can hide (NOTES is gone, rule 357(a); CREW the one door, rule 368); PLAY and HEAL stay', up1[0] === 'relations' && row.join() === 'crew,settings' && re.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal'
+          && !(await p.evaluate(() => !!document.querySelector('#setphone .pa[data-a=settings] [data-do=hide]:not([disabled])') || !!document.querySelector('#setphone .pa[data-a=crew] [data-do=hide]:not([disabled])'))),
+          up1.join(' ') + ' then ' + re.apps.map(a => a.app + (a.big ? '*' : '')).join(' '));
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=hide]'); await p.waitForTimeout(200);
         await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=down]'); await p.waitForTimeout(200);
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=crew] [data-do=hide]'); await p.waitForTimeout(200);
         const back = await p.evaluate('(' + PHONE + ')()');
         ok('  and back as it was by the same presses', back.apps.map(a => a.app).join() === 'play,heal,crew,relations,settings', back.apps.map(a => a.app).join(' '));
         await p.evaluate(() => { const c = document.getElementById('setclose'); if (c) c.click(); else document.getElementById('setwrap').classList.remove('on'); });

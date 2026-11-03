@@ -69,7 +69,7 @@
      phone, anything with the Notes button, remove it from the game'): NOTES is gone from the phone's row. */
   var APPS = ['crew', 'relations', 'settings'];
   var LABEL = { play: 'PLAY', heal: 'HEAL', crew: 'CREW', relations: 'RELATIONS', notes: 'NOTES', settings: 'SETTINGS', leave: 'LEAVE', feed: 'THE FEED' };   /* draft:true */
-  var KEEP = ['settings'];
+  var KEEP = ['settings', 'crew'];   /* UI 7 (rule 368): the bar carries no crew any more, so the phone's CREW is the one door and never hides */
   /* THE HEAL RING (rule 232(b), Paolo: 'a medical icon maybe in a circle'): where the rig struck the ring's track on app_heal.png,
      as fractions of the picture (tools/bohemia_ui2_phone_apps.py measures it into phone.json app_heal.ring; read at boot) */
   var RING = { cx: 0.5021, cy: 0.4845, ro: 0.4068, ri: 0.3065 };
@@ -610,6 +610,13 @@
       + '#bohphone .stat{position:absolute;left:0;right:0;top:0;height:12px;z-index:6;display:flex;align-items:center;justify-content:space-between;'
       +   'padding:1px 5px 0;font-size:7px;letter-spacing:.4px;color:#e9dcbc;background:rgba(6,5,4,.62);text-shadow:0 1px 0 #000}'
       + '#bohphone .stat .wh{max-width:110px;overflow:hidden;white-space:nowrap;text-overflow:clip}'
+      /* __THE_DAY_ON_THE_PHONE__ (UI 7, rule 368: 'Do you wanna look at the time? Look at your phone'): the day and the hour are the
+         phone's first line, on the right of the place, the way a phone's own status bar carries its clock; never in the fight (the
+         round and the beat's trace are its line there, and the fight's clock does not run) */
+      + '#bohphone .stat .wh{flex:0 1 auto;min-width:0}'
+      + '#bohphone .stat .dt{flex:0 0 auto;margin-left:auto;white-space:pre;letter-spacing:.3px;color:#f4e8cc}'
+      + '#bohphone .stat .dt:empty{display:none}#bohphone.fighting .stat .dt{display:none}'
+      + '#bohphone .stat .wh+.dt{padding-left:4px}#bohphone.tl .stat .tl{margin-left:3px}'
       + '#bohphone .stat .tl{display:none;height:11px;padding:0 3px;border:0;cursor:pointer;font:6.5px "BohemiaROM",ui-monospace,monospace;letter-spacing:.4px;color:#1f1710;background:#f2c96a}'
       + '#bohphone.tl .stat .tl{display:block}#bohphone.tl .stat .wh{max-width:64px}'
       + '#bohphone .home{position:absolute;left:0;right:0;top:12px;bottom:0;z-index:2}'
@@ -690,6 +697,7 @@
       + '#bohphone .clk{position:absolute;inset:0;display:flex;align-items:center;gap:6px;padding:0 3px;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .clk i{display:block;font-style:normal;font-size:7px;line-height:9px;color:#e0d2b0;letter-spacing:.4px}'
+      + '#bohphone .clk i.g{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:11px;line-height:14px;letter-spacing:1px;color:#f4e8cc}'   /* UI 7: the band says what the clock is doing, the hour is the first line's */
       + '#bohphone .clk i.go{color:#f6cf74}'
       /* THE PHONE'S FACES TRANSFORM (UI 11/2 round 2, Paolo 11/2 notes 3 and 8, asks 257, 279: 'not a big fan of things just disappearing
          and looking ugly'): a page, the fight's face and the company's face are always laid out and come up out of the phone's glass on
@@ -876,7 +884,7 @@
     var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS() + '#bohphone{transition:translate .5s cubic-bezier(.2,0,0,1),opacity .5s cubic-bezier(.2,0,0,1)}#bohphone.away{translate:0 calc(100% + 40px);opacity:0;pointer-events:none}'; document.head.appendChild(st);
     var ph = el('div'); ph.id = 'bohphone'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');
     ph.innerHTML = '<div class="scr"><canvas class="wall" aria-hidden="true"></canvas><div class="dim"></div>'
-      + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button><canvas class="ecg" width="108" height="27" aria-hidden="true"></canvas></div>'
+      + '<div class="stat"><span class="wh"></span><span class="dt" aria-label="the day and the hour"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button><canvas class="ecg" width="108" height="27" aria-hidden="true"></canvas></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
       + '<div class="fight" aria-label="your fight">'
@@ -1011,7 +1019,7 @@
     fd.addEventListener('click', function () { H.presses++; window.__PHONE_PRESSES = H.presses; pageOpen('feed'); }); home.appendChild(fd);
     var two = el('div', 'bptwo'); two.appendChild(appButton('play', 'big')); two.appendChild(appButton('heal', 'big')); home.appendChild(two);
     var ctx = el('div', 'bpctx');
-    ctx.innerHTML = '<div class="clk" aria-hidden="true"><b>--:--</b><i class="g"></i></div>'   /* the hour once, here (the bar keeps the day: THE DAYS ONCE, rules 121(g), 123) */
+    ctx.innerHTML = '<div class="clk" aria-hidden="true"><i class="g"></i></div>'   /* UI 7 (rule 368): the day and the hour are the phone's first line now (__THE_DAY_ON_THE_PHONE__), said once; the band keeps what the clock is doing */
       + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>'   /* draft:true */
       + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>';   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
     ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
@@ -1251,9 +1259,14 @@
         var vi = ''; try { vi = cw.BohemiaBosses.icon ? cw.BohemiaBosses.icon(vh.id) : ''; } catch (e) {} var im0 = vb.querySelector('img'); if (vi && im0.getAttribute('src') !== vi) im0.setAttribute('src', vi); } }
     var stW = H.el.querySelector('.stat .wh');
     if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : (s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
+    var stD = H.el.querySelector('.stat .dt');   /* __THE_DAY_ON_THE_PHONE__ (rule 368): the day and the hour, once, on the first line */
+    if (stD && s) { var dtx = (s.day ? 'DAY ' + s.day : '') + (s.clock ? (s.day ? '  ' : '') + s.clock : ''); if (stD.textContent !== dtx) stD.textContent = dtx; }
+    /* the place's whole name beside them: a long name steps down half a point at a time (to 5.5) before a letter is ever cut */
+    var fitK = stW.textContent + '|' + (stD ? stD.textContent : '') + '|' + H.el.className;
+    if (stW.__fit !== fitK) { stW.__fit = fitK; stW.style.fontSize = ''; for (var fs = 7; stW.scrollWidth > stW.clientWidth + 0.5 && fs > 5.5;) { fs -= 0.5; stW.style.fontSize = fs + 'px'; } }
     var cx = H.el.querySelector('.home .bpctx'); if (cx) cx.classList.toggle('town', scr === 'town');   /* in a town the band is LEAVE */
     var k = H.el.querySelector('.home .clk');
-    if (k && s) { k.querySelector('b').textContent = s.clock || '--:--';
+    if (k && s) {
       var g = k.querySelector('.g'); g.textContent = scr === 'map' ? (running ? 'GOING' : 'STOPPED') : scr === 'camp' ? 'RESTING' : scr === 'town' ? 'IN TOWN' : ''; g.classList.toggle('go', running && scr === 'map'); }   /* draft:true */
     [].forEach.call(H.el.querySelectorAll('.home .app'), function (b) {
       var a = b.dataset.app, off = false;

@@ -126,11 +126,16 @@ async function side(profile) {
     /* ---- THE MAP ---- */
     const M = await fr.evaluate('(' + READ + ')()'), MP = await fr.evaluate('(' + PHONE + ')()'), Ms = await shot();
     const ON = await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-on'));
-    PIECES = ON ? ['bar', 'day', 'crew', 'glass'] : ALL_PIECES.slice();
+    /* RE-AIMED 11/3 BY UI 7 (rule 368, Paolo: 'the only thing that really should be at the top of the screen, UI wise, is the resources...
+       look at your phone'): with the phone up the bar is the resources' pane alone; the day, the crew plate and the place are off its
+       glass (the phone's first line and its CREW carry them), so the pieces held to one rectangle and one picture are the bar and the glass */
+    PIECES = ON ? ['bar', 'glass'] : ALL_PIECES.slice();
+    if (ON) { const off = await fr.evaluate(() => ['#bmtb .t.day', '#bmtb .t.crew', '#bmtb [data-f=place]'].filter(q => [...document.querySelectorAll(q)].some(e => e.getBoundingClientRect().width > 0)));
+      ok('the map: the day plate, the crew plate and the place are off the bar (rule 368: the phone carries them)', off.length === 0, off.join(' ') || 'none on the glass'); }
     const PH3 = () => p.evaluate(() => ['crew', 'settings'].map(a => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=' + a + ']'); if (!e) return a + ' missing';
       const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && h && e.contains(h) ? null : a + ' covered'; }).filter(Boolean));
     if (ON) { const miss = await PH3(), copies = await fr.evaluate(() => ['#bmtb .t.gear', '#bmtb #notebtn'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0; }));
-      const ro = await fr.evaluate(() => { const e = document.querySelector('#bmtb .t.crew'); return !!e && getComputedStyle(e).pointerEvents === 'none'; });
+      const ro = await fr.evaluate(() => { const e = document.querySelector('#bmtb .t.crew'); return !!e && (getComputedStyle(e).pointerEvents === 'none' || getComputedStyle(e).display === 'none'); });   /* rule 368: off the glass altogether */
       ok('the map: CREW and SETTINGS are on the phone, on top (NOTES gone, rule 357); the bar has no gear or NOTES, its crew chip a readout (238(a), 286(b))', !miss.length && !copies.length && ro, (miss.join(' ') || 'all three on the phone') + '; on the bar ' + (copies.join(' ') || 'none') + ', crew chip readout ' + ro); }
     ok('the map: the bar and its pieces are on the glass', PIECES.every(k => M.rect[k] && M.rect[k][2] > 0), PIECES.filter(k => !M.rect[k]).join(' '));
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
@@ -139,7 +144,9 @@ async function side(profile) {
     { /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the speed pad's plates stepped off the map into the phone's PLAY, so the presses
          on the map are the map's own and the one phone's apps (the shell's page), every centre the press */
       const L = (await fr.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')')).concat(MP && MP.corner ? await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .app') + ')') : []);
-      ok('  nothing covers a press on the map (every press\'s centre is the press)', L.length >= 6 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
+      /* RE-AIMED 11/3 BY UI 7 (rule 368): the day plate was read here as a press (a .t on the bar); it is off the glass now, and with the
+         phone up the bar has no press at all, so the floor is the phone's own five (PLAY, HEAL, CREW, RELATIONS, SETTINGS; NOTES is gone, 357(a)) */
+      ok('  nothing covers a press on the map (every press\'s centre is the press)', L.length >= (ON ? 5 : 6) && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
     {
       await fr.evaluate(() => document.querySelector('#bmtb .t.crew').click()); await p.waitForTimeout(1800);
       const c = await fr.evaluate(() => { const w = document.getElementById('crewdoor'); if (!w) return null; const r = w.getBoundingClientRect(), f = w.querySelector('iframe');
@@ -164,13 +171,14 @@ async function side(profile) {
       return { T, TP, own, fb };
     };
     const t1 = await TOWNCHK(), Ts = await shot();
-    ok('the town (' + town + '): every piece of the bar in the map\'s rectangle, and the town\'s name said once', PIECES.every(k => near(M.rect[k], t1.T.rect[k])) && !!t1.T.rect.place && t1.T.placeOnce,
-      PIECES.filter(k => !near(M.rect[k], t1.T.rect[k])).map(k => k + ' ' + fmt(M.rect[k]) + ' vs ' + fmt(t1.T.rect[k])).join(' | ') + ' place ' + fmt(t1.T.rect.place));
+    const phPlace = ON ? await p.evaluate(() => { const e = document.querySelector('#bohphone.on .stat .wh'); return e && e.getBoundingClientRect().width > 0 ? e.textContent.trim() : null; }) : null;   /* rule 368: the phone's first line */
+    ok('the town (' + town + '): every piece of the bar in the map\'s rectangle, and the town\'s name said once', PIECES.every(k => near(M.rect[k], t1.T.rect[k])) && (ON ? !t1.T.rect.place && phPlace === String(t1.own.name).trim().toUpperCase() : !!t1.T.rect.place && t1.T.placeOnce),
+      PIECES.filter(k => !near(M.rect[k], t1.T.rect[k])).map(k => k + ' ' + fmt(M.rect[k]) + ' vs ' + fmt(t1.T.rect[k])).join(' | ') + ' place ' + (ON ? 'on the phone ' + phPlace : fmt(t1.T.rect.place)));
     ok('  nothing of the town lies over the bar', PIECES.every(k => t1.T.at[k]), PIECES.filter(k => !t1.T.at[k]).join(' '));
     ok('  the town\'s own top row is gone (its name, its batteries, its CREW)', !t1.own.bar && !t1.own.crew, 'bar ' + t1.own.bar + ', crew ' + t1.own.crew);
     ok('  the town is laid under the bar (its frame starts where the bar ends)', Math.abs(t1.fb[1] - (M.rect.bar[1] + M.rect.bar[3])) <= TOL && t1.fb[3] > 200, 'frame top ' + Math.round(t1.fb[1]) + ', bar bottom ' + Math.round(M.rect.bar[1] + M.rect.bar[3]));
     ok('  the place is the town\'s name, the batteries the town\'s purse, the day and the crew the map\'s',
-      t1.T.facts.place === String(t1.own.name).trim().toUpperCase() && t1.T.facts.batteries === String(t1.own.bats) && t1.T.facts.day === M.facts.day && t1.T.facts.crew === M.facts.crew,
+      (ON ? phPlace : t1.T.facts.place) === String(t1.own.name).trim().toUpperCase() && t1.T.facts.batteries === String(t1.own.bats) && t1.T.facts.day === M.facts.day && t1.T.facts.crew === M.facts.crew,
       JSON.stringify(t1.T.facts) + ' town ' + t1.own.name + ' ' + t1.own.bats);
     const oldPhone = () => fr.evaluate(() => { const e = document.getElementById('cityfeed'); if (!e || e.getAttribute('data-phone') === 'corner') return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; });
     ok('  no phone in the town (the old phone is off the town\'s glass; the jobs and DROP are on its board)', !(await oldPhone()), t1.TP && fmt(t1.TP.rect));

@@ -878,6 +878,24 @@
     +   '#bmtb .r{display:contents} #bmtb .r1 .day{order:1} #bmtb .g{order:2;min-height:44px} #bmtb .r1 .crew{order:3} #bmtb .r1 .sp{display:none} #bmtb .r1 .x{order:4}'
     +   '#bmtb .r1 .gear{order:5} html body #menubar #bmtb #notebtn,html body #bmtb #notebtn{order:6}}'
     /* the shell's own floating gear steps aside while the bar's gear is on the glass (set from the city frame) */
+    /* ==== __THE_TOP_IS_ONLY_RESOURCES__ (UI 7, rule 368, Paolo 11/3: 'The sun in the top left corner. I hate the time... I don't
+       like that we have two crew visuals... the only thing that really should be at the top of the screen, UI wise, is the
+       resources. Do you wanna look at the time? Look at your phone. If you wanna look at the crew, look at your phone').
+       MEASURED FIRST (the demo at a5e7eaa6, 390 x 844): the band was 108 points tall and carried four things: the DAY plate with
+       the sun's arc, the crew plate (his face, 3/20, the blood ticks), the place's name, and the resources' pane. The phone already
+       said the place on its first line and had CREW: two crew buttons on one glass.
+       NOW the band is the resources' pane and nothing else, on the map, in a town, at camp and on the fight's screens after it
+       (every one of them builds this same bar). The day plate, the crew plate and the place stay in the page, off the glass: the
+       phone's CREW presses that very crew tag (one handler, rule 286(b)) and the phone reads the place from it; the day and the
+       hour are the phone's first line (bohemia_phone.js, __THE_DAY_ON_THE_PHONE__). The presses' row is gone for good: the gear (the
+       one press left on the bar, and only while no phone is up to carry SETTINGS) stands at the end of the resources' row, so the band
+       is one height from its first frame (measured: a band that shrank when the phone came up left the map a 49-point strip at its
+       foot, and telling the map to re-fit mid-walk is a resize nobody asked for). Gate: gates/the_top_is_only_resources_gate.js. */
+    + '#bmtb .t.day,#bmtb .t.crew,#bmtb .r1 .wh,#bmtb .where{display:none!important}'
+    + '#bmtb .r1{display:none!important}'
+    + '#bmtb .r2 .t.gear{flex:0 0 44px;margin-left:2px} #bmtb .r2 .g{min-height:44px}'   /* the pane as tall as the gear: one height with the gear or without (measured: 4 points of strip when the phone took the gear) */
+    + '@media (orientation:landscape) and (max-height:500px),(min-width:700px){#bmtb .r2 .gear{order:5}}'
+    /* ==== end __THE_TOP_IS_ONLY_RESOURCES__ ==== */
     + '';
   var TB_SHELL_CSS = 'html.bm-gear-in-bar #gearbtn{display:none!important}';
   /* EYES [eyes: mode button] (E23's driven crawl, records/BOHEMIA_EYES_E23_ROUND_2_A_DRIVEN_CRAWL_FINDS_THE_MODE_BUTTON_AT_40_9_27_26.md):
@@ -1034,11 +1052,11 @@
   function hudBuild(host, notesEl) {
     var root = document.createElement('div'); root.id = 'bmtb';
     var r1 = document.createElement('div'); r1.className = 'r r1';
-    r1.innerHTML = '<span class="t day" data-tb="day" data-f="day"></span><span class="t crew" data-tb="crew" data-f="crew"></span><span class="wh" data-tb="wh" data-f="place"></span><span class="sp"></span>'
-      + '<span class="t gear" role="button" tabindex="0" aria-label="settings" data-f="gear"><img alt="" width="20" height="20" style="width:20px;height:20px" src="' + TB.gear + '"></span>';
+    r1.innerHTML = '<span class="t day" data-tb="day" data-f="day"></span><span class="t crew" data-tb="crew" data-f="crew"></span><span class="wh" data-tb="wh" data-f="place"></span><span class="sp"></span>';
     if (notesEl) r1.appendChild(notesEl);
     var r2 = document.createElement('div'); r2.className = 'r r2';
-    r2.innerHTML = '<div class="g" data-tb="g"></div>';
+    r2.innerHTML = '<div class="g" data-tb="g"></div>'   /* __THE_TOP_IS_ONLY_RESOURCES__ (rule 368): the gear at the resources' row's end, the presses' row gone */
+      + '<span class="t gear" role="button" tabindex="0" aria-label="settings" data-f="gear"><img alt="" width="20" height="20" style="width:20px;height:20px" src="' + TB.gear + '"></span>';
     root.appendChild(r1); root.appendChild(r2);
     host.classList.add('bmhost'); host.appendChild(root);
     /* the days on hold (rule 151(a)): a finger held on the batteries' pane shows the nights, let go and they go; a mouse
@@ -1053,7 +1071,7 @@
     var ct = r1.querySelector('.crew'); ct.setAttribute('role', 'button'); ct.setAttribute('tabindex', '0'); ct.setAttribute('aria-label', 'your company');
     ct.addEventListener('click', function (e) { e.stopPropagation(); if (!hudTownCrew()) crewDoor(); });
     /* the gear is the shell's own settings, from any frame */
-    r1.querySelector('.gear').addEventListener('click', function (e) { e.stopPropagation();
+    r2.querySelector('.gear').addEventListener('click', function (e) { e.stopPropagation();
       try { var sg = window.top.document.getElementById('gearbtn'); if (sg) sg.click(); } catch (_e) {} });
     return root;
   }

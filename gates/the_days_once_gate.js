@@ -32,6 +32,9 @@
        half whole: NOTHING across the fight's top, not even the one bar; TOPH is 0
      - four planted defects are caught by the same checks: '0 DAYS' back on the food, the hour back on the tag, a
        40-point gear, the strip back over the fight
+     RE-AIMED 11/3 BY UI 7 (rule 368, Paolo: 'The sun in the top left corner. I hate the time... Do you wanna look at the time?
+       Look at your phone'): the day plate is off the bar; the DAY and the hour are drawn once each, on the phone's first line
+       ('DAY n  hh:mm'), and never on the bar; the bar's words are read as drawn
    node gates/the_days_once_gate.js */
 const path = require('path');
 const ROOT = path.dirname(__dirname);
@@ -46,13 +49,19 @@ const CHECK = () => {
   const out = [], root = document.getElementById('bmtb'), W = innerWidth;
   if (!root) return [['the new bar is on the map', false, 'no #bmtb']];
   const text = root.textContent.replace(/\s+/g, ' ').trim();   /* textContent: the held nights count too, shown or not */
-  out.push(['the word DAY is on the bar once', (text.match(/\bDAY\b/g) || []).length === 1, text]);
+  /* RE-AIMED 11/3 BY UI 7 (rule 368, Paolo: 'the only thing that really should be at the top of the screen is the resources... Do
+     you wanna look at the time? Look at your phone'): the day plate is off the bar's glass; DAY is drawn once, on the phone's
+     first line. What the bar DRAWS is read (innerText: what is off the glass is not there); textContent still holds every count */
+  const drawnTxt = String(root.innerText || '').replace(/\s+/g, ' ').trim();
+  out.push(['the word DAY is never drawn on the bar (rule 368: the phone says the day)', !/\bDAY\b/.test(drawnTxt), drawnTxt]);
   out.push(['DAYS is never on the bar', !/\bDAYS?\b.*\bDAYS?\b/.test(text) && !/DAYS/.test(text), text]);
-  out.push(['no hour\'s digits on the bar (the phone keeps the hour)', !/\d{1,2}:\d{2}/.test(text), text]);
+  out.push(['no hour\'s digits on the bar (the phone keeps the hour)', !/\d{1,2}:\d{2}/.test(text) && !/\d{1,2}:\d{2}/.test(drawnTxt), drawnTxt]);
   const n = s => { const e = root.querySelector('[data-f=' + s + '] b'); return e ? e.textContent.replace(/\/.*/, '').trim() : null; };
   let f = null; try { f = BohemiaMaterials.topBarFacts(); } catch (_e) {}
   const pb = (() => { try { return purseBalances(); } catch (_e) { return {}; } })();
-  out.push(['the day is the game\'s day', f && n('day') === 'DAY ' + T.day, n('day') + ' vs ' + T.day]);
+  const TD0 = (() => { try { return window.top.document; } catch (_e) { return document; } })(), pdt = TD0.querySelector('#bohphone.on .stat .dt');
+  const pday = pdt ? (String(pdt.textContent).match(/DAY \d+/) || [''])[0] : n('day');
+  out.push(['the day is the game\'s day (the phone\'s first line, rule 368)', pday === 'DAY ' + T.day, pday + ' vs ' + T.day]);
   out.push(['the batteries are the purse\'s', String(pb.electricity) === n('batteries'), n('batteries') + ' vs ' + pb.electricity]);
   const B = window.__BILL || {};
   /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the night eats the wagon before the batteries, so the nights are the bill's own count
@@ -95,10 +104,15 @@ const CHECK = () => {
      page draws over every screen (#bohphone); its clock beside PLAY is the hour, and it is on the phone once, and the phone never
      says the day (the bar does). The old clock is read only while there is no new phone. */
   const PD = (() => { try { return window.top.document; } catch (_e) { return document; } })(), np = PD.getElementById('bohphone');
-  const pc = np ? np.querySelector('.home .clk b') : document.getElementById('cityfeedclock'), hr = String(clockStr()).split('·').pop().trim();
-  const phoneTxt = np ? [...np.querySelectorAll('.stat, .home')].map(e => e.textContent).join(' ').replace(/\s+/g, ' ') : '', hours = (phoneTxt.match(/\d{1,2}:\d{2}/g) || []).length;
-  out.push(['the hour is on the glass once, the phone\'s clock, the game\'s own hour', !!pc && pc.textContent.trim() === hr && pc.getBoundingClientRect().width > 0 && (!np || (hours === 1 && !/\bDAY\b/.test(phoneTxt))),
-    pc && pc.textContent + ' vs ' + hr + (np ? ', ' + hours + ' hour(s) on the phone' + (/\bDAY\b/.test(phoneTxt) ? ', DAY on the phone' : '') : '')]);
+  /* RE-AIMED 11/3 BY UI 7 (rule 368): the hour and the day are the phone's first line (.stat .dt, 'DAY n  hh:mm'), each said once on its
+     face; the band under PLAY says what the clock is doing, no second hour. The phone's drawn words are read (the feed's posts are
+     words people wrote, not the phone's clock, and are left out) */
+  const pc = np ? np.querySelector('.stat .dt') : document.getElementById('cityfeedclock'), hr = String(clockStr()).split('·').pop().trim();
+  const drawnIn = (e) => { const r = e.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; for (let q = e; q && q !== np; q = q.parentElement) { const cs = getComputedStyle(q); if (cs.display === 'none' || cs.visibility === 'hidden') return false; } return true; };
+  const phoneTxt = np ? [...np.querySelectorAll('.stat *, .home .bpctx *, .home .bptwo *, .home .bprow *')].filter(e => e.childElementCount === 0 && drawnIn(e)).map(e => e.textContent).join(' ').replace(/\s+/g, ' ') : '', hours = (phoneTxt.match(/\d{1,2}:\d{2}/g) || []).length, days = (phoneTxt.match(/\bDAY\b/g) || []).length;
+  const pcHr = pc ? (String(pc.textContent).match(/\d{1,2}:\d{2}/) || [''])[0] : '';
+  out.push(['the hour and the day are on the glass once, the phone\'s first line, the game\'s own hour', !!pc && pcHr === hr && pc.getBoundingClientRect().width > 0 && (!np || (hours === 1 && days === 1)),
+    pc && pc.textContent + ' vs ' + hr + (np ? ', ' + hours + ' hour(s) and ' + days + ' DAY on the phone' : '')]);
   return out;
 };
 const FIGHT = () => {
@@ -181,7 +195,9 @@ async function side(profile) {
         const t = w.col.match(/\d+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor(S.length * (tl > 0.3 ? 0.8 : 0.2))];
         return { k: w.k, plain: +CR(tl, LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2) }; });
     }, { png, words });
-    ok('every word passes 4.5 to 1 on its material, plain and in the sun', cr.length >= (words.some(w => w.k === 'NOTES on receipt') ? 4 : 3) && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
+    /* RE-AIMED 11/3 BY UI 7 (rule 368): with the phone up the bar draws the resources' counts only, so one word kind is read there */
+    const phoneUp = await p.evaluate(() => !!document.querySelector('#bohphone.on'));
+    ok('every word passes 4.5 to 1 on its material, plain and in the sun', cr.length >= (phoneUp ? 1 : words.some(w => w.k === 'NOTES on receipt') ? 4 : 3) && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
     if (profile === 'phone_portrait') {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
@@ -194,7 +210,7 @@ async function side(profile) {
       const caught = await fr.evaluate(chk => { const C = eval('(' + chk + ')'), red = () => C().some(x => !x[1]), R = document.getElementById('bmtb'), got = {};
         const fb = R.querySelector('[data-f=nights]'), em = document.createElement('em'); em.textContent = '0 DAYS'; fb.appendChild(em); got.days = red(); em.remove();
         fb.style.setProperty('display', 'inline-flex', 'important'); got.nights = red(); fb.style.removeProperty('display');
-        const db = R.querySelector('[data-f=day]'), hr = document.createElement('i'); hr.textContent = '06:00'; db.appendChild(hr); got.hour = red(); hr.remove();
+        const db = R.querySelector('[data-tb=g]'), hr = document.createElement('i'); hr.textContent = '06:00'; db.appendChild(hr); got.hour = red(); hr.remove();   /* RE-AIMED 11/3 (rule 368): the hour planted on the band's drawn pane */
         const TD = window.top.document, pg = document.documentElement.classList.contains('boh-phone-on') && TD.querySelector('#bohphone.on .bprow .app[data-app=settings]');
         const gb = pg || R.querySelector('.gear'); gb.style.width = pg ? '12px' : '40px'; got.gear = red(); gb.style.width = '';
         got.clean = !red(); return got; }, CHECK.toString());
