@@ -235,7 +235,7 @@
   function told(r){
     if(!r) return null;
     var who = (r.men || []).map(function(m){ return m.name; }), dead = (r.men || []).filter(function(m){ return m.dead; }).map(function(m){ return m.name; });
-    var up = (r.ranks || []).map(function(g){ return g.name + ' is ' + (/^[AEIOU]/.test(g.rank_name) ? 'an ' : 'a ') + g.rank_name.toLowerCase() + ' now'; });
+    var up = (r.ranks || []).map(function(g){ var you = String(g.name).toUpperCase() === 'YOU'; return (you ? 'You are ' : g.name + ' is ') + (/^[AEIOU]/.test(g.rank_name) ? 'an ' : 'a ') + g.rank_name.toLowerCase() + ' now'; });
     var pg = E() && E().V('pit_gear'), g = r.prize && pg && pg[r.prize];
     if(r.won) return 'You won. ' + r.paid + ' batteries, like I said, counted out of the cash box.' + (up.length ? ' ' + up.join('. ') + '.' : '') + (g ? ' And the ' + g.name + ' is in your stash. Nobody else has one.' : '') + (dead.length ? ' We buried ' + dead.join(' and ') + ' behind the cages.' : '');
     return 'They lost. Crowd got its money\'s worth. No purse when you lose, that is the deal.' + (dead.length ? ' ' + dead.join(' and ') + ' did not get up. We put them behind the cages.' : ' Your men got carried out breathing.');

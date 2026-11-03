@@ -1,0 +1,28 @@
+{
+ "cheer": {
+  "seconds": 3.7,
+  "peak_db": -1.2
+ },
+ "cheer_long": {
+  "seconds": 5.7,
+  "peak_db": -1.64
+ },
+ "gasp": {
+  "seconds": 3.1,
+  "peak_db": -2.54
+ },
+ "boo": {
+  "seconds": 3.9,
+  "peak_db": -1.26
+ },
+ "bed": {
+  "seconds": 8.5,
+  "peak_db": -7.71
+ },
+ "_what": "THE CROWD IN THE PIT (ARENA, rule 375): real voices and hands through SOUNDS' chain and the Mob's PA. bed loops under the fight; cheer on a kill or a clean hit, gasp on your miss or a man of yours going down, boo when a man runs, cheer_long on the win, boo on the loss (records/target/bb/arena.json crowd). tools/bohemia_arena_crowd.py",
+ "sources": {
+  "voices": "reference/library/sound_bank/audiomnist_mit (MIT)",
+  "claps_laughs_breaths": "reference/library/sound_bank/esc50_cc0 (CC0, LICENCES.md)",
+  "murmur": "slices/vote/settlement_heard/bed_bar_murmur.mp3 (SOUNDS, from CC0 recordings)"
+ }
+}

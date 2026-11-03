@@ -663,7 +663,7 @@ function open(o){
   S.rc = f.spoils && f.spoils.recap || null; S.nums = {};
   ((S.rc && S.rc.men) || []).forEach(function(n){ if(n && n.name) S.nums[n.name] = n; });
   /* ONE END SCREEN FOR EVERY FIGHT (rule 164 item 28): a won fight leaves its dead's gear; a loss, a retreat and a wipe leave nothing */
-  S.won = f.result === 'won' && !f.retreat && !f.wipe;
+  S.won = f.result === 'won' && !f.retreat && !f.wipe && !f.arena;   /* __THE_ARENA__ (ARENA, rule 375; bb_all/0620: 'you won't be able to loot your victims'): the pit pays its purse, nothing comes off the dead */
   var seed = o.seed != null ? o.seed : hash(JSON.stringify((f.spoils && f.spoils.bodies) || []) + ':' + (f.rounds | 0));
   S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
@@ -683,6 +683,7 @@ function open(o){
   draw();
   aftermath(f);
   if(S.won) say(S.ground.length ? (FINE ? 'Click a piece to see it. Double click to take it, or LOOT ALL.' : 'Tap a piece to see it. Tap it twice to take it, or LOOT ALL.') : hasCounts() ? 'Take what was in their pockets.' : '');
+  if(f.arena && f.result === 'won') say('The purse is paid at the rope. Nothing comes off the dead in the pit.');   /* __THE_ARENA__ */
   S.opened = (S.opened | 0) + 1;
 }
 var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,

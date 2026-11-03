@@ -10,6 +10,7 @@
 <script src="bohemia_settings.js"></script>
 <!-- __THE_DIFFICULTY_SWITCH__ (DIFFICULTY 11/3, rule 351(c), ask line 363): three levels on the settings card, changed any time, from the next fight -->
 <script src="bohemia_difficulty.js"></script>
+<script src="bohemia_arena_crowd.js"></script>  <!-- __THE_ARENA__ (ARENA, rule 375): the crowd in the pit answers the fight's own sounds -->
 <!-- __DAMAGE_STAYS__ (CAMP, rule 226): what each man of the company is missing between fights, for the fight's door (nfOpts) and its end (nfOverIn) -->
 <script src="../engine/bohemia_condition.js"></script>
 <script src="../engine/bohemia_names.js"></script>  <!-- FIXES item 10: the one names engine, so a renamed man gets a real surname -->
@@ -12562,6 +12563,7 @@ function nfOpen(d){
   try{ if(d && d.__deal == null) d.__deal = (Math.random() * 4294967296) >>> 0; }catch(_e){}   /* the die the ground is dealt from, kept with the start */
   try{ if(window.BohemiaFightStart){ if(!(d && d.__resumed)) NF.startAt = BohemiaFightStart.write(d); else NF.startAt = window.__FIGHT_START_AT || null; } }catch(_e){}
   NF.opts = nfOpts(d); NF.over = null; NF.homeAt = null; NF.opened = performance.now();
+  try{ if(window.BohemiaArenaCrowd){ if(NF.opts && NF.opts.arena) BohemiaArenaCrowd.start(); else if(BohemiaArenaCrowd.on()) BohemiaArenaCrowd.stop(); } }catch(_e){}   /* __THE_ARENA__: the crowd for a pit fight */
   try{ if(window.BohemiaFightStart && NF.opts){ NF.opts.keep = false; NF.opts.resume = false; if(d && d.__deal != null) NF.opts.deal = d.__deal >>> 0; } }catch(_e){}   /* __THE_FIGHT_SAVES_AT_ITS_START__: never a mid-fight keep in the game */
   var old = document.getElementById('combatFrame');
   if (old) { old.style.display = 'none';
@@ -12788,6 +12790,7 @@ function nfOverIn(d, src){
 function nfHome(){
   if (!NF.over || !CITYFIGHT) return false;
   if (SPOILS.d && !SPOILS.left) { spoilsOpen(); return false; }   /* __THE_SPOILS__: nothing goes home past the spoils */
+  try{ if(window.BohemiaArenaCrowd && BohemiaArenaCrowd.on()) BohemiaArenaCrowd.stop(); }catch(_e){}   /* __THE_ARENA__: the crowd goes quiet on the way home */
   SPOILS.d = null;
   if (NF.homeAt) { clearTimeout(NF.homeAt); NF.homeAt = null; }
   if (NF.cloudAt) { clearTimeout(NF.cloudAt); NF.cloudAt = null; }

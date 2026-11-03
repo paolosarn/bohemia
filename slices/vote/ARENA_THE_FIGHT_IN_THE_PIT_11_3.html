@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Fight In The Pit</title>
+<!-- ARENA, 11/3/26, VAMILY rule 375 (and its duct-tape amendment), ask lines 402 and 403. The VOTE card for piece (c): the fight in
+     the pit and its crowd. Every picture is the real screen on a 390 x 844 phone (tools/bohemia_arena_shots.js fight); the crowd is
+     made from real voices and hands by tools/bohemia_arena_crowd.py. -->
+<style>
+@font-face{font-family:'BohemiaROM';src:url(../fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'BohemiaCasing';src:url(../fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:block}
+:root{--bg:#0b0a08;--panel:#16130f;--line:rgba(240,226,196,.14);--ink:#efe6d2;--dim:#8f8670;--gold:#e2bd6a;--red:#d8341f}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 'BohemiaROM',ui-monospace,monospace}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font:20px/1.2 'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:2px;margin:4px 0 4px;color:var(--gold)}
+p.lede{margin:0 0 14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+figure{margin:0 0 12px;background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:11px;letter-spacing:.5px;color:var(--dim);padding:6px 8px}
+.note{font-size:12px;color:var(--dim);margin:14px 0 0}
+.snd{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:0 0 8px}
+.snd b{flex:0 0 96px;font-weight:normal;color:var(--gold);font-size:12px;letter-spacing:1px}.snd span{flex:1;font-size:12px;color:var(--ink)}
+.snd button{min-width:64px;min-height:44px;background:#2a2119;color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit}
+</style></head><body><main>
+<h1>THE FIGHT IN THE PIT</h1>
+<p class="lede">FIGHT takes your three in. The pit fight is the fight we have, on a small piece of the Strip: no retreat button anywhere, not even on the phone, and nothing in the pit leaves. A beast or a man who breaks runs for the wall and gets cornered there, and the crowd boos him. When it's over nothing comes off the dead: the purse is paid at the rope.</p>
+<div class="two">
+ <figure><img src="arena/fight_lineup.webp" alt="the lineup: three men against the card's bull, no retreat button" loading="eager"><figcaption>THE LINEUP: YOUR THREE AND THE CARD'S BULL. NO RETREAT</figcaption></figure>
+ <figure><img src="arena/fight_mid.webp" alt="mid fight, the bull at the men" loading="eager"><figcaption>THE BULL BROKE, GOT CORNERED, AND DIED</figcaption></figure>
+</div>
+<div class="two">
+ <figure><img src="arena/fight_spoils.webp" alt="the end screen: nothing comes off the dead" loading="lazy"><figcaption>THE END: NOTHING COMES OFF THE DEAD</figcaption></figure>
+ <figure><img src="arena/fight_home.webp" alt="back in the Mob's town, the bookie pays" loading="lazy"><figcaption>BACK IN TOWN: THE BOOKIE PAYS, YOUR MEN ARE PIT FIGHTERS</figcaption></figure>
+</div>
+<h1 style="font-size:16px">THE CROWD</h1>
+<p class="lede">Real voices and hands from the library, through the Mob's PA, which cuts in and out. In that fight it gasped at five misses, cheered three big hits, booed the bull twice for running and gave the long cheer at the end.</p>
+<div class="snd"><b>MURMUR</b><span>under the whole fight, a small crowd on a pool deck</span><button data-s="bed">PLAY</button></div>
+<div class="snd"><b>CHEER</b><span>one of theirs goes down, or yours lands a big one</span><button data-s="cheer">PLAY</button></div>
+<div class="snd"><b>GASP</b><span>yours misses, or one of yours goes down</span><button data-s="gasp">PLAY</button></div>
+<div class="snd"><b>BOO</b><span>anybody runs; and when you lose</span><button data-s="boo">PLAY</button></div>
+<div class="snd"><b>BIG CHEER</b><span>you won</span><button data-s="cheer_long">PLAY</button></div>
+<p class="note">Battle Brothers' arena is the floor: a smaller map, no retreat, no loot, a crowd that cheers, gasps and boos. The board is a piece of the Strip cut small (9 by 5), the fight engine everyone else's fights use.</p>
+<script>
+var A = {};
+document.querySelectorAll('.snd button').forEach(function(b){ b.addEventListener('click', function(){ var k = b.dataset.s; Object.keys(A).forEach(function(x){ try{ A[x].pause(); A[x].currentTime = 0; }catch(e){} });
+  var a = A[k] || (A[k] = new Audio('../arena/crowd/' + k + '.mp3')); a.currentTime = 0; a.play(); }); });
+</script>
+</main></body></html>

@@ -1557,6 +1557,7 @@ const FIGHT = (function () {
        on it, walking through is free); nobody set it */
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const d = S.cover[y][x] ? pieceDef(S.cover[y][x]) : null; if (d && d.burning) S.fire.push({ x: x, y: y, until: 1e9, by: null }); }
     S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
+    S.arena = (opts && opts.arena) || null;   /* __THE_ARENA__ (ARENA, rule 375; bb_all/0620: 'you can't retreat once a battle has started... you won't be able to loot'): the Mob's pit, the shell's o.arena */
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -3172,7 +3173,7 @@ const FIGHT = (function () {
   /* a fleeing man runs for the nearest edge and leaves the field from it */
   function flee(u) {
     if (u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1) {
-      if (u.side === 'you') {
+      if (u.side === 'you' || S.arena) {   /* __THE_ARENA__: in the pit nobody of either side leaves (bb_all/0620: 'to the death, or at the very least incapacitation'); a foe at the wall is cornered */
         /* a brother at the edge does not leave: his morale drops to Breaking and stays there (Morale page) */
         u.morale = R('morale.check_triggers.brother_at_map_edge').result; u.atEdge = true;
         emit({ t: 'morale', id: u.id, to: u.morale }); endTurn(u); return true;
@@ -3215,7 +3216,7 @@ const FIGHT = (function () {
   }
   function allFleeing() { const t = alive('them'); return !S.over && !S.deploy && t.length > 0 && t.every(function (e) { return e.morale === 'Fleeing'; }); }
   function endFight() {
-    if (!allFleeing()) return false;
+    if (!allFleeing() || S.arena) return false;   /* __THE_ARENA__: nobody is spared in the pit */
     const gone = alive('them');
     gone.forEach(function (e) { e.fled = true; e.ranOff = true; });
     S.over = true; S.allFlee = false; S.result = 'won';
@@ -4191,7 +4192,7 @@ const FIGHT = (function () {
   function aiStep(u) {
     if (S.over || current() !== u) return false;
     if (S.retreat && u.side === 'you') return retreatStep(u);
-    if (u.side === 'you' && allFleeing() && !S.byHand && !S.runDown && !chaseRun()) { endFight(); return false; }   /* rule 198(h): by hand the choice is his; on AUTO his RUN THEM DOWN holds (COMBAT 7, row 139) */
+    if (u.side === 'you' && allFleeing() && !S.byHand && !S.runDown && !chaseRun() && !S.arena) { endFight(); return false; }   /* __THE_ARENA__: in the pit AUTO hunts them down */   /* rule 198(h): by hand the choice is his; on AUTO his RUN THEM DOWN holds (COMBAT 7, row 139) */
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
     /* A WINDED MAN OF HIS RESTS (rules 283(d), 285(a)): on AUTO, a man of his too winded for his own blow ends his turn with nothing
        spent, a rest, so the next turn brings ours.rest_recovery and his swing (MEASURED BEFORE: in the heaviest kit AUTO kept him
@@ -6081,6 +6082,7 @@ function startAnim(a) {
     else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
+    if (FIGHT.S.arena && u && (e.t === 'fled' || (e.t === 'morale' && e.to === 'Fleeing'))) sfx('arena_ran', { side: u.side });   /* __THE_ARENA__: the crowd boos a man who runs */
     if (e.t === 'allflee' && !FIGHT.S.over) routUp();   /* rule 198(h): they are breaking: his lead says it, and the choice is his */
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
@@ -8621,6 +8623,7 @@ function hud() {
   else chaseAsk();
   if (bf.textContent !== bfT) bf.textContent = bfT; bf.classList.toggle('end', endIt);
   bf.disabled = !!S.over || (dep ? !!UI.auto : (!!S.retreat && !endIt) || !S.round);   /* rule 253: lit on the lineup, AUTO's colour on the tin or not */
+  if (S.arena) { bf.disabled = true; bf.style.display = 'none'; }   /* __THE_ARENA__: nobody runs once the gate shuts, nobody is spared */
   /* the order is the fight's, not a turn's: its ask stays through the turns passing (on AUTO they pass in a second) for
      ours.retreat_ask_beats, then leaves; another line in its place ends it too */
   const bfAsk = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
@@ -8995,7 +8998,7 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, arena: S.arena ? (S.arena.id || true) : null,   /* __THE_ARENA__ */ cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null, kills: v.kills | 0, best: v.best || null,   /* WORDS rule 316: his kills and his best foe, for his record */
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
@@ -9464,7 +9467,7 @@ function chaseHeard(d) {
 function routChoosing() { return UI.rout !== null && UI.rout !== undefined && !FIGHT.S.over && FIGHT.allFleeing(); }   /* on AUTO too (COMBAT 7, row 139) */
 document.getElementById('bflee').onclick = function () {
   audio(); const b = this, S = FIGHT.S, endIt = FIGHT.allFleeing(), ask = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
-  if (S.over) return;
+  if (S.over || S.arena) return;   /* __THE_ARENA__ */
   if (S.deploy) { UI.fleeArm = 0; b.classList.remove('arm'); UI.pend = null; UI.dsel = null; UI.drag = null;   /* rule 253: from the lineup, one press */
     /* rule 365 (COMBAT 7): never the fight ended by the button: his men run for the edge first, before any man of theirs moves */
     if (FIGHT.retreatFromLine()) { keepLine(); say(RETREAT_SAYS.go); sfx('ui_tap'); callSoon('retreat'); take(); hud(); } return; }

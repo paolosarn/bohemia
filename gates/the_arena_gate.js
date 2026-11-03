@@ -25,6 +25,13 @@
       C3 every man's accessory slot is crossed out in red, and a man who wears one shows it struck through
       C4 FIGHT hands the fight ONLY the picked men, in his order, and none of them wears his accessory inside
       C5 the foes are the card's, every one, on a small board cut to the two sides, the arena flag riding with it
+   D  THE FIGHT IN THE PIT (the same demo, the fight he walked into)
+      D1 no retreat: the button is gone and a press does nothing (bb_all/0620: 'you can't retreat once a battle has started')
+      D2 the crowd answers the fight's own sounds: the murmur under it, a cheer when theirs falls, a gasp when yours misses, a boo
+         when a man runs, nothing for the rest
+      D3 the end: nothing comes off the dead (the spoils screen keeps its recap and drops nothing), the long cheer on the win
+      D4 home: the card's purse paid on the win, the win counted, back in the Mob's town with the bookie saying so
+      D5 the crowd is real recordings through the PA (tools/bohemia_arena_crowd.py --check)
    ============================================================================ */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -134,7 +141,8 @@ async function legC() {
     for (let i = 0; i < 40; i++) { await page.waitForTimeout(400); if (await sf.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.order().indexOf('arena') >= 0).catch(() => false)) break; }
     await page.waitForTimeout(1200);
     const sb = await (await fr.$('#settleFrame')).boundingBox(), xy = await sf.evaluate(() => BohemiaSettlement.where('arena'));
-    await page.touchscreen.tap(sb.x + xy.x, sb.y + xy.y); await page.waitForTimeout(1800);
+    for (let k = 0; k < 5; k++) { const xy2 = await sf.evaluate(() => BohemiaSettlement.where('arena')); await page.touchscreen.tap(sb.x + xy2.x, sb.y + xy2.y); await page.waitForTimeout(1800);
+      if (await sf.evaluate(() => !!document.querySelector('#sheet.on .ar-card')).catch(() => false)) break; }   /* a tap while the town still stands its people up can land on nothing: a player taps again */
     const pickBtn = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     if (pickBtn) await page.touchscreen.tap(sb.x + pickBtn.x, sb.y + pickBtn.y); await page.waitForTimeout(1500);
     const pick = await sf.evaluate(() => { const w = document.getElementById('ar-pick'); if (!w) return null; const tiles = [...w.querySelectorAll('.ar-man')];
@@ -156,6 +164,44 @@ async function legC() {
     ok('C4 the fight has ONLY the picked men, in his order, none wearing his accessory', !!f && f.us.map(u => u.name).join() === chosen.join() && f.acc.every(a => !a) && f.us.every(u => !u.vest) && !!picked && picked.acc.some(a => a === 'cell_vest_scrap'), f ? f.us.map(u => u.name + (u.vest ? '+vest' : '')).join(' ') + ' | picked ' + chosen.join(' ') : 'no fight');
     const band = sent && sent.card ? sent.card.band.slice().sort().join() : '';
     ok('C5 the card\'s foes, every one, on a small board, the arena flag riding with it', !!f && f.them.slice().sort().join() === band && f.w * f.h < 20 * 15 / 2 && !!f.arena && f.arena.id === sent.card.id, f ? f.them.join(',') + ' on ' + f.w + 'x' + f.h + ' | card ' + band : '');
+    /* D: THE FIGHT IN THE PIT, then home */
+    if (ff) {
+      const bat0 = await fr.evaluate(() => loopBats()).catch(() => null);
+      await page.waitForTimeout(1500);   /* the fight's hud draws on its own beat after the board comes up */
+      const fl = await ff.evaluate(() => { const b = document.getElementById('bflee'); const r = b.getBoundingClientRect(); return { shown: b.style.display !== 'none' && r.width > 0, disabled: b.disabled }; });
+      await ff.evaluate(() => { const b = document.getElementById('bflee'); try { b.onclick.call(b); b.onclick.call(b); } catch (e) {} });
+      const ran = await ff.evaluate(() => ({ retreat: !!FIGHT.S.retreat, over: !!FIGHT.S.over }));
+      ok('D1 no retreat in the pit, and nobody spared: the button is gone and a press does nothing', !fl.shown && fl.disabled && !ran.retreat && !ran.over, JSON.stringify(fl) + ' ' + JSON.stringify(ran));
+      /* the fight's own sounds, through the real message path: a man of theirs falls, yours misses, somebody runs */
+      const on = await page.evaluate(() => !!(window.BohemiaArenaCrowd && BohemiaArenaCrowd.on()));
+      for (let i = 0; i < 20; i++) { if ((await page.evaluate(() => BohemiaArenaCrowd.loaded().length)) >= 5) break; await page.waitForTimeout(300); }
+      await ff.evaluate(() => { sfx('kill', { side: 'them' }); }); await page.waitForTimeout(400);
+      await ff.evaluate(() => { sfx('miss', { side: 'you' }); }); await page.waitForTimeout(400);
+      await ff.evaluate(() => { sfx('arena_ran', { side: 'them' }); }); await page.waitForTimeout(400);
+      await ff.evaluate(() => { sfx('miss', { side: 'them' }); sfx('hit', { side: 'you' }); }); await page.waitForTimeout(300);
+      const heard = await page.evaluate(() => ({ heard: BohemiaArenaCrowd.heard().map(h => h[2]), loaded: BohemiaArenaCrowd.loaded().sort() }));
+      ok('D2 the crowd: the murmur under it, a cheer when theirs falls, a gasp when yours misses, a boo when a man runs, nothing for the rest', on && heard.loaded.length === 5 && heard.heard.join() === 'cheer,gasp,boo', JSON.stringify(heard));
+      /* the fight plays itself on AUTO for a while (real kills and misses), then it is won */
+      await ff.evaluate(() => { try { if (!UI.auto) document.getElementById('bauto').click(); } catch (e) {} });
+      for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); if (await ff.evaluate(() => FIGHT.S.over).catch(() => true)) break; }
+      const ranTags = await ff.evaluate(() => (UI.heard || []).filter(e => e === 'arena_ran').length).catch(() => 0);
+      await ff.evaluate(() => { if (!FIGHT.S.over) { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); } }).catch(() => {});
+      let sp = null; for (let i = 0; i < 40 && !sp; i++) { await page.waitForTimeout(500); sp = await page.evaluate(() => window.SPOILS && SPOILS.frame && SPOILS.frame.contentWindow && SPOILS.frame.contentWindow.BohemiaSpoilsScreen ? 1 : null).catch(() => null); }
+      await page.waitForTimeout(1500);
+      const spoils = await page.evaluate(() => { const w = SPOILS.frame.contentWindow, S = w.BohemiaSpoilsScreen.state; return { arena: SPOILS.d && SPOILS.d.arena, won: S.won, items: (S.found && S.found.items || []).length, bats: S.found && S.found.counts ? S.found.counts.batteries : -1, said: (w.document.body.textContent || '').indexOf('Nothing comes off the dead') >= 0 }; }).catch(e => ({ err: String(e) }));
+      const cheerEnd = await page.evaluate(() => BohemiaArenaCrowd.heard().map(h => h[2]).indexOf('cheer_long') >= 0);
+      ok('D3 the end: nothing comes off the dead (the spoils screen keeps its recap, drops nothing, says so), the long cheer on the win', !!spoils.arena && spoils.won === false && spoils.items === 0 && spoils.bats === 0 && spoils.said && cheerEnd, JSON.stringify(spoils) + ' cheer_long ' + cheerEnd + ', ran tags in the auto fight ' + ranTags);
+      await page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+      let back = null; for (let i = 0; i < 40 && !back; i++) { await page.waitForTimeout(500); back = await fr.evaluate(() => window.__ARENA_LAST || null).catch(() => null); }
+      let line = null; for (let i = 0; i < 30 && !line; i++) { await page.waitForTimeout(500); const sf2 = page.frames().find(f => /SETTLEMENT/.test(f.url())); line = sf2 ? await sf2.evaluate(() => { const s = document.getElementById('sheet'); const p = s && s.classList.contains('on') && s.querySelector('.say p'); return p ? p.textContent : null; }).catch(() => null) : null; if (line && !/won|lost/i.test(line)) line = null; }
+      const bat1 = await fr.evaluate(() => loopBats()).catch(() => null);
+      const st = await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaArena.reload()))).catch(() => null);
+      const fed = await fr.evaluate(() => { try { return (window.BOHEMIA_FEED && BOHEMIA_FEED.all ? BOHEMIA_FEED.all() : []).filter(p => /thepit/.test(p.who || '')).length; } catch (e) { return -1; } });
+      ok('D4 home: paid the card\'s purse on the win, the wins counted, back in the Mob\'s town with the bookie saying so', !!back && back.won && bat1 - bat0 === sent.card.purse && st && st.wins === 1 && !!line && line.indexOf(String(sent.card.purse)) >= 0, 'paid ' + (bat1 - bat0) + ' of ' + sent.card.purse + '; wins ' + (st && st.wins) + '; ' + (line || 'no line').slice(0, 80) + '; feed posts ' + fed);
+    }
+    let crowd = ''; try { crowd = require('child_process').execFileSync('python3', [path.join(ROOT, 'tools/bohemia_arena_crowd.py'), '--check'], { encoding: 'utf8' }).trim(); } catch (e) { crowd = String(e.stdout || e.message).trim(); }
+    const cj = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/arena/crowd/crowd.json'), 'utf8'));
+    ok('D5 the crowd is real recordings (voices, hands, breaths, the bar\'s murmur), every file under its ceiling with no click', crowd === 'ok' && /audiomnist/.test(JSON.stringify(cj.sources)) && /esc50_cc0/.test(JSON.stringify(cj.sources)) && ['bed', 'cheer', 'cheer_long', 'gasp', 'boo'].every(k => cj[k] && cj[k].seconds > 0.5), crowd);
     ok('C6 nothing threw in the demo', errs.length === 0, errs.slice(0, 2).join(' | '));
   } finally { try { await d.browser.close(); } catch (e) {} try { d.server && d.server.close(); } catch (e) {} }
   console.log('THE ARENA GATE (with the demo): ' + pass + ' ok, ' + fail + ' failed');

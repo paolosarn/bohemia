@@ -2,7 +2,8 @@
 /* ARENA (rule 375): the VOTE cards' pictures, taken on his phone's glass (390 x 844, two pixels a point) from the real screens,
    never a mock-up. One mode per piece:
      node tools/bohemia_arena_shots.js pit      -> slices/vote/arena/pit_*.webp   (piece a: the pit on the Mob's town, day, night, the bookie's sheet)
-     node tools/bohemia_arena_shots.js pick     -> slices/vote/arena/pick_*.webp  (piece b: the card, the pick ready, one tap swaps a man in)
+     node tools/bohemia_arena_shots.js pick     -> slices/vote/arena/pick_*.webp
+     node tools/bohemia_arena_shots.js fight    -> slices/vote/arena/fight_*.webp (piece c: the demo driven like a player: the card, the lineup, mid-fight, the end, home)  (piece b: the card, the pick ready, one tap swaps a man in)
    The pictures are written as webp through the python PIL (python3 -I, nothing imported from the repo). */
 const fs = require('fs'), path = require('path'), http = require('http'), { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(ROOT, 'slices/vote/arena'), TMP = path.join(require('os').tmpdir(), 'arena_shots');
@@ -51,6 +52,41 @@ const MODE = process.argv[2] || 'pit';
     await p.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); b && b.click(); }); await p.waitForTimeout(1500); await shot(p, 'pick_ready');
     /* one tap on a fourth face swaps him in for the first pick */
     await p.evaluate(() => { const c = document.querySelectorAll('#ar-pick .ar-man')[3]; c && c.click(); }); await p.waitForTimeout(700); await shot(p, 'pick_swap');
+  }
+  if (MODE === 'fight') {
+    /* piece c: the real demo, driven like a player: the Mob's town, the pit, the pick, FIGHT, the fight, the end, home */
+    await b.close(); srv.close();
+    const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
+    const d = await open({ fog: true }); const fr = d.fr, pg = d.page;
+    const shotD = async (name) => { const f = path.join(TMP, name + '.png'); await pg.screenshot({ path: f }); webp(f, path.join(OUT, name + '.webp')); console.log('wrote slices/vote/arena/' + name + '.webp'); };
+    for (let i = 0; i < 80; i++) { await pg.waitForTimeout(500); if (await fr.evaluate(() => !!(window.__FRESH_START && window.__FRESH_START.at) && typeof loopOpenTown === 'function' && !!window.BohemiaArena && BohemiaArena.ready()).catch(() => false)) break; }
+    for (let i = 0; i < 40; i++) { const g = await pg.evaluate(() => { const w = document.getElementById('mainmaker'); if (!w) return 'gone'; if (w.dataset.armed !== '1') return null; const k = w.querySelector('.go'), r = k && k.getBoundingClientRect(); return r && r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }).catch(() => null); if (g === 'gone') break; if (g) await pg.touchscreen.tap(g.x, g.y); await pg.waitForTimeout(500); }
+    await pg.waitForTimeout(2500);
+    await fr.evaluate(() => { BohemiaArena.reset(); const s = BohemiaArena.state(); s.wins = 6; BohemiaArena.save(s); const b = ctBases().Mob; loopOpenTown({ name: 'Mob', x: b.x, y: b.y, tier: mapTierOf('Mob') }); });
+    let sf = null; for (let i = 0; i < 40 && !sf; i++) { await pg.waitForTimeout(500); sf = pg.frames().find(f => /SETTLEMENT/.test(f.url())); }
+    for (let i = 0; i < 40; i++) { await pg.waitForTimeout(400); if (await sf.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.order().indexOf('arena') >= 0).catch(() => false)) break; }
+    await pg.waitForTimeout(1200);
+    const sb = await (await fr.$('#settleFrame')).boundingBox(), xy = await sf.evaluate(() => BohemiaSettlement.where('arena'));
+    for (let k = 0; k < 5; k++) { const xy2 = await sf.evaluate(() => BohemiaSettlement.where('arena')); await pg.touchscreen.tap(sb.x + xy2.x, sb.y + xy2.y); await pg.waitForTimeout(1800);
+      if (await sf.evaluate(() => !!document.querySelector('#sheet.on .ar-card')).catch(() => false)) break; }
+    await shotD('fight_card');
+    await sf.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); b && b.click(); }); await pg.waitForTimeout(1200);
+    await sf.evaluate(() => { const b = document.querySelector('#ar-pick .ar-fight'); b && b.click(); });
+    let ff = null; for (let i = 0; i < 60 && !ff; i++) { await pg.waitForTimeout(500); const h = await pg.$('#fightFrame'); if (h) { const x = await h.contentFrame(); if (x && await x.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) ff = x; } }
+    await pg.waitForTimeout(3000); await shotD('fight_lineup');
+    await ff.evaluate(() => { try { if (!UI.auto) document.getElementById('bauto').click(); } catch (e) {} });
+    await pg.waitForTimeout(9000); await shotD('fight_mid');
+    let natural = false; for (let i = 0; i < 160; i++) { await pg.waitForTimeout(500); if (await ff.evaluate(() => FIGHT.S.over).catch(() => true)) { natural = true; break; } }
+    console.log('ended by itself', natural);
+    await ff.evaluate(() => { if (!FIGHT.S.over) { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); } }).catch(() => {});
+    for (let i = 0; i < 40; i++) { await pg.waitForTimeout(500); if (await pg.evaluate(() => !!(window.SPOILS && SPOILS.frame)).catch(() => false)) break; }
+    await pg.waitForTimeout(2500); await shotD('fight_spoils');
+    const res = await ff.evaluate(() => ({ result: FIGHT.S.result, rounds: FIGHT.S.round, them: FIGHT.S.units.filter(u => u.side === 'them').map(u => ({ k: u.kind || u.id, dead: !!u.dead, fled: !!u.fled, edge: !!u.atEdge, m: u.morale })) })).catch(() => null); console.log('result', JSON.stringify(res), JSON.stringify(await pg.evaluate(() => window.BohemiaArenaCrowd ? BohemiaArenaCrowd.heard() : null)));
+    await pg.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    for (let i = 0; i < 40; i++) { await pg.waitForTimeout(500); const s2 = pg.frames().find(f => /SETTLEMENT/.test(f.url())); const ln = s2 ? await s2.evaluate(() => { const s = document.getElementById('sheet'); const p = s && s.classList.contains('on') && s.querySelector('.say p'); return p ? p.textContent : null; }).catch(() => null) : null; if (ln && /won|lost/i.test(ln)) break; }
+    await pg.waitForTimeout(1200); await shotD('fight_home');
+    try { await d.browser.close(); } catch (e) {} try { d.server && d.server.close(); } catch (e) {}
+    return;
   }
   await b.close(); srv.close();
 })().catch(e => { console.error(e); process.exit(1); });

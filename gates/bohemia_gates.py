@@ -10487,7 +10487,7 @@ GATES = [
      "paid only on a win; Pit Fighter 1, Arena Fighter 5, Arena Veteran 12; the fifth card heavier with pit gear that waits; a dead generator "
      "takes the big clones off; the tournament five days in eighteen); then the Mob's real town screen on his phone: THE PIT last in the "
      "order and nowhere else, drawn by day and night, the bookie under his face with tonight's card (every foe in his own body, the count, "
-     "the purse, the house rules), nobody walking into the pool", True),
+     "the purse, the house rules), nobody walking into the pool; then the demo driven by a finger: the pick (the best three picked, every accessory crossed out), FIGHT takes only them in without their accessories against every foe on the card on a small board; in the pit no retreat and nobody spared, the crowd answering the fight's own sounds (cheer, gasp, boo, the long cheer), nothing off the dead, home paid the purse with the bookie saying so; the crowd made of real recordings", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
