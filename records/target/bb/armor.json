@@ -84,24 +84,28 @@
    "name": "Noble Tunic",
    "durability": 20,
    "fatigue": null,
-   "value": 100,
+   "value": 50,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1434_Noble Tunic.txt",
    "notes": "Worn by Pimps",
    "missing": [
     "fatigue (Max. Fatigue cell blank on the list table and item page)"
-   ]
+   ],
+   "wiki_value": 100,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "wizard_s_robe",
    "name": "Wizard's Robe",
    "durability": 20,
    "fatigue": null,
-   "value": 60,
+   "value": 50,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2229_Wizard's Robe.txt",
    "notes": "Can be found in events",
    "missing": [
     "fatigue (Max. Fatigue cell blank on the list table and item page)"
-   ]
+   ],
+   "wiki_value": 60,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "apron",
@@ -166,10 +170,12 @@
    "name": "Nomad Robe",
    "durability": 30,
    "fatigue": -2,
-   "value": 50,
+   "value": 35,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1451_Nomad Robe.txt",
    "dlc": "Blazing Deserts DLC Blazing Deserts",
-   "missing": []
+   "missing": [],
+   "wiki_value": 50,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "dark_thick_tunic",
@@ -195,11 +201,13 @@
    "name": "Gladiator Harness",
    "durability": 40,
    "fatigue": -4,
-   "value": 150,
+   "value": 75,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0844_Gladiator Harness.txt",
    "dlc": "Blazing Deserts DLC Blazing Deserts",
    "notes": "Usually paired with either Padded Armor Pieces (+60 Durability, -4 Maximum Fatigue) or Metal Armor Pieces (+115 Durability, -10 Maximum Fatigue) armor attachment, which are replaceable but not refundable. The total worth value is affected by the attachment.",
-   "missing": []
+   "missing": [],
+   "wiki_value": 150,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "animal_hide_armor",
@@ -236,9 +244,11 @@
    "name": "Rugged Surcoat",
    "durability": 55,
    "fatigue": -6,
-   "value": 100,
+   "value": 90,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1715_Rugged Surcoat.txt",
-   "missing": []
+   "missing": [],
+   "wiki_value": 100,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "dark_rugged_surcoat",
@@ -255,10 +265,12 @@
    "name": "Padded Vest",
    "durability": 60,
    "fatigue": -5,
-   "value": 140,
+   "value": 95,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1520_Padded Vest.txt",
    "dlc": "Blazing Deserts DLC Blazing Deserts",
-   "missing": []
+   "missing": [],
+   "wiki_value": 140,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "wanderer_s_coat",
@@ -307,10 +319,12 @@
    "name": "Blotched Gambeson",
    "durability": 70,
    "fatigue": -8,
-   "value": 160,
+   "value": 125,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0259_Blotched Gambeson.txt",
    "notes": "Used by Brigand Thugs, Brigand Marksmen",
-   "missing": []
+   "missing": [],
+   "wiki_value": 160,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "linothorax",
@@ -371,10 +385,12 @@
    "name": "Patched Mail Shirt",
    "durability": 90,
    "fatigue": -10,
-   "value": 250,
+   "value": 215,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1527_Patched Mail Shirt.txt",
    "notes": "Used by Brigand Raiders, Mercenaries, Armored Wiedergangers",
-   "missing": []
+   "missing": [],
+   "wiki_value": 250,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "leather_lamellar_armor",
@@ -497,10 +513,12 @@
    "name": "Ancient Scale Harness",
    "durability": 125,
    "fatigue": -20,
-   "value": 750,
+   "value": 545,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0106_Ancient Scale Harness.txt",
    "notes": "Ancient Legionary gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 750,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "mail_shirt",
@@ -528,10 +546,12 @@
    "name": "Ancient Breastplate",
    "durability": 135,
    "fatigue": -22,
-   "value": 900,
+   "value": 545,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0085_Ancient Breastplate.txt",
    "notes": "Ancient Legionary gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 900,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "direwolf_mail_armor",
@@ -625,20 +645,24 @@
    "name": "Decayed Reinforced Mail Hauberk",
    "durability": 170,
    "fatigue": -26,
-   "value": 1000,
+   "value": 695,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0533_Decayed Reinforced Mail Hauberk.txt",
    "notes": "Fallen Hero gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 1000,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "ancient_plated_mail_hauberk",
    "name": "Ancient Plated Mail Hauberk",
    "durability": 180,
    "fatigue": -22,
-   "value": 2000,
+   "value": 1595,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0102_Ancient Plated Mail Hauberk.txt",
    "notes": "Ancient Honor Guard gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 2000,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "footman_s_armor",
@@ -656,10 +680,12 @@
    "name": "Ancient Scale Coat",
    "durability": 190,
    "fatigue": -25,
-   "value": 2400,
+   "value": 1595,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0105_Ancient Scale Coat.txt",
    "notes": "Ancient Honor Guard gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 2400,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "adorned_warrior_s_armor",
@@ -677,21 +703,25 @@
    "name": "Southern Long Mail Shirt with Padding",
    "durability": 200,
    "fatigue": -25,
-   "value": 1800,
+   "value": 1595,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1832_Southern Long Mail Shirt with Padding.txt",
    "dlc": "Blazing Deserts DLC Blazing Deserts",
    "notes": "Used by Nomad Leaders, Officers",
-   "missing": []
+   "missing": [],
+   "wiki_value": 1800,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "ancient_plate_harness",
    "name": "Ancient Plate Harness",
    "durability": 200,
    "fatigue": -28,
-   "value": 2800,
+   "value": 1595,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0101_Ancient Plate Harness.txt",
    "notes": "Ancient Honor Guard gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 2800,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "reinforced_mail_hauberk",
@@ -708,10 +738,12 @@
    "name": "Ancient Plated Scale Hauberk",
    "durability": 210,
    "fatigue": -30,
-   "value": 3200,
+   "value": 1995,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0103_Ancient Plated Scale Hauberk.txt",
    "notes": "Ancient Honor Guard gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 3200,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "lamellar_harness",
@@ -842,7 +874,7 @@
    "name": "Football-Pad Padded Vest",
    "durability": 55,
    "fatigue": -5,
-   "value": 120,
+   "value": 95,
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of padded_surcoat and padded_vest | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1519_Padded Surcoat.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1520_Padded Vest.txt",
    "armory": {
     "name": "a football-pad padded vest",
@@ -855,7 +887,9 @@
      "padded_vest"
     ],
     "draft": true
-   }
+   },
+   "wiki_value": 120,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "carpet_coat",
@@ -959,12 +993,14 @@
    "durability": 20,
    "fatigue": null,
    "vision": null,
-   "value": 30,
+   "value": 15,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0959_Headscarf.txt",
    "missing": [
     "fatigue (Max. Fatigue cell blank on the list table and item page)",
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 30,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "hood",
@@ -1026,13 +1062,15 @@
    "durability": 30,
    "fatigue": null,
    "vision": null,
-   "value": 70,
+   "value": 55,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1039_Hunter's Hat.txt",
    "notes": "Worn by Hunters",
    "missing": [
     "fatigue (Max. Fatigue cell blank on the list table and item page)",
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 70,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "feathered_hat",
@@ -1040,12 +1078,14 @@
    "durability": 30,
    "fatigue": null,
    "vision": null,
-   "value": 80,
+   "value": 55,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0755_Feathered Hat.txt",
    "missing": [
     "fatigue (Max. Fatigue cell blank on the list table and item page)",
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 80,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "leather_headband",
@@ -1098,13 +1138,15 @@
    "durability": 30,
    "fatigue": null,
    "vision": null,
-   "value": 70,
+   "value": 55,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1103_Jester's Hat.txt",
    "notes": "Worn by Jugglers",
    "missing": [
     "fatigue (Max. Fatigue cell blank on the list table and item page)",
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 70,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "cultist_hood",
@@ -1183,11 +1225,13 @@
    "durability": 40,
    "fatigue": -1,
    "vision": null,
-   "value": 70,
+   "value": 55,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
    "missing": [
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 70,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "open_leather_cap",
@@ -1195,11 +1239,13 @@
    "durability": 40,
    "fatigue": -2,
    "vision": null,
-   "value": 60,
+   "value": 50,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1487_Open Leather Cap.txt",
    "missing": [
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 60,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "leather_head_wrap",
@@ -1207,12 +1253,14 @@
    "durability": 40,
    "fatigue": -2,
    "vision": null,
-   "value": 60,
+   "value": 50,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1149_Leather Head Wrap.txt",
    "dlc": "Blazing Deserts DLC Blazing Deserts",
    "missing": [
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 60,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "desert_stalker_s_head_wrap",
@@ -1350,12 +1398,14 @@
    "durability": 70,
    "fatigue": -4,
    "vision": null,
-   "value": 150,
+   "value": 135,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1723_Rusty Mail Coif.txt",
    "notes": "Used by Brigand Raiders",
    "missing": [
     "vision (not listed)"
-   ]
+   ],
+   "wiki_value": 150,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "mail_coif",
@@ -1541,10 +1591,12 @@
    "durability": 125,
    "fatigue": -8,
    "vision": -1,
-   "value": 450,
+   "value": 345,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1450_Nomad Reinforced Helmet.txt",
    "dlc": "Blazing Deserts DLC Blazing Deserts",
-   "missing": []
+   "missing": [],
+   "wiki_value": 450,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "padded_nasal_helmet",
@@ -1575,10 +1627,12 @@
    "durability": 130,
    "fatigue": -10,
    "vision": -2,
-   "value": 600,
+   "value": 345,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0097_Ancient Legionary Helmet.txt",
    "notes": "Ancient Legionary gear",
-   "missing": []
+   "missing": [],
+   "wiki_value": 600,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "assassin_s_face_mask",
@@ -1858,10 +1912,12 @@
    "durability": 250,
    "fatigue": -17,
    "vision": -2,
-   "value": 2200,
+   "value": 1995,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1109_Kettle Hat with Closed Mail.txt",
    "notes": "Used by Brigand Leaders",
-   "missing": []
+   "missing": [],
+   "wiki_value": 2200,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "heavy_horned_plate_helmet",
@@ -2028,7 +2084,7 @@
    "durability": 110,
    "fatigue": -6,
    "vision": -1,
-   "value": 390,
+   "value": 370,
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of leather_helmet and kettle_hat | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1151_Leather Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1108_Kettle Hat.txt",
    "armory": {
     "name": "a football riot helmet",
@@ -2041,7 +2097,9 @@
      "kettle_hat"
     ],
     "draft": true
-   }
+   },
+   "wiki_value": 390,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "welding_mask",
@@ -2049,7 +2107,7 @@
    "durability": 140,
    "fatigue": -11,
    "vision": -2,
-   "value": 600,
+   "value": 545,
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of masked_kettle_helmet and crude_faceguard_helmet | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1245_Masked Kettle Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0463_Crude Faceguard Helmet.txt",
    "armory": {
     "name": "a welding-mask riot helmet",
@@ -2062,7 +2120,9 @@
      "crude_faceguard_helmet"
     ],
     "draft": true
-   }
+   },
+   "wiki_value": 600,
+   "value_by": "TUNING 2 [price is power] 11/3 (rule 370(3)): lowered to five crowns under the cheapest piece of this slot that holds at least as much and weighs no more, so a worse piece never costs more than a better one; Battle Brothers' crowns kept in wiki_value (tools/bohemia_tuning_price_is_power.py, records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s2)"
   },
   {
    "id": "riot_gas_helmet",

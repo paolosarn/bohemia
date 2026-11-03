@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 147,
-  "types_in_the_fight": 38,
+  "types": 151,
+  "types_in_the_fight": 41,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -301,6 +301,8 @@
    "lesson": "Each beast its own lesson (below).",
    "types": [
     "alp",
+    "american_lion",
+    "ancient_bison",
     "armored_frost_unhold",
     "armored_unhold",
     "bog_unhold",
@@ -315,6 +317,7 @@
     "ground_sloth",
     "hexe",
     "hyena",
+    "ice_age_horse",
     "ifrit_large",
     "ifrit_medium",
     "ifrit_small",
@@ -327,6 +330,7 @@
     "nachzehrer_large",
     "nachzehrer_medium",
     "nachzehrer_small",
+    "sabre_tooth",
     "sapling",
     "schrat",
     "serpent",
@@ -341,13 +345,17 @@
    "in_the_fight": [
     "bears",
     "beasts",
+    "bison",
     "bulls",
     "camels",
     "coyotes",
     "dogs",
     "hogs",
+    "horses",
     "hyenas",
     "lions",
+    "prides",
+    "sabres",
     "sloths",
     "wolves"
    ],
@@ -432,9 +440,9 @@
     "unhold",
     "bog_unhold"
    ],
-   "skin": "the short-faced bear and the Shasta ground sloth (BEASTS 2 11/3: each its own body and row, bohemia_enemies.json short_faced_bear and ground_sloth, on the unhold's Regeneration and Fling Back)",
+   "skin": "the short-faced bear or the ground sloth",
    "lesson": "It regenerates and throws: finish it fast.",
-   "in_the_fight": true,
+   "in_the_fight": false,
    "draft": true
   },
   {
@@ -487,7 +495,6 @@
    "skin": "the mesquite or Joshua-tree walker (a maybe)",
    "lesson": "It spawns saplings: burn or break the trunk.",
    "in_the_fight": false,
-   "out_why": "BEASTS 2 11/3 (rule 345 amended (a): 'real DNA only, no mutants'): a walking tree is not an animal any DNA allows, and it never had a body (the fight drew it as the dire wolf); taken out of the late beasts mix (ours.enemy_tiers.mix.beasts.late). Its lesson (it heals; break it fast) lives on in the bear and the sloth.",
    "draft": true
   },
   {
@@ -577,6 +584,27 @@
    "page": "bb_all/0046_Alp.txt"
   },
   {
+   "type": "american_lion",
+   "bb_name": "American Lion",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "american_lion"
+   ],
+   "name": "GIANT LION",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "prides"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0629_Direwolf.txt"
+  },
+  {
    "type": "ancient_auxiliary",
    "bb_name": "Ancient Auxiliary",
    "bb_faction": "ancient_dead",
@@ -594,6 +622,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0082_Ancient Auxiliary.txt"
+  },
+  {
+   "type": "ancient_bison",
+   "bb_name": "Ancient Bison",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "ancient_bison"
+   ],
+   "name": "BISON",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "bison"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
   },
   {
    "type": "ancient_honor_guard",
@@ -2066,6 +2115,27 @@
    "page": "bb_all/1054_Hyena.txt"
   },
   {
+   "type": "ice_age_horse",
+   "bb_name": "Ice Age Horse",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "ice_age_horse"
+   ],
+   "name": "HORSE",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "horses"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
    "type": "ifrit_large",
    "bb_name": "Ifrit (Large)",
    "bb_faction": "beasts",
@@ -2946,6 +3016,27 @@
    "page": "bb_all/1619_Rachegeist.txt"
   },
   {
+   "type": "sabre_tooth",
+   "bb_name": "Sabre-Tooth",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "sabre_tooth"
+   ],
+   "name": "SABRE-TOOTH",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "sabres"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1757_Serpent.txt"
+  },
+  {
    "type": "sapling",
    "bb_name": "Sapling",
    "bb_faction": "beasts",
@@ -2978,9 +3069,7 @@
     1,
     1
    ],
-   "fielded": [
-    "beasts"
-   ],
+   "fielded": [],
    "champion": false,
    "boss": false,
    "page": "bb_all/1737_Schrat.txt"

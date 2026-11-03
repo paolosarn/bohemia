@@ -4,7 +4,8 @@
  "chance_per_slot": 0.03,
  "tiers": ["town", "fortress"],
  "levels": [2, 3],
- "stat_floor": 0.75,
+ "stat_floor": 0.5,
+ "stat_floor_amended_11_3": "TUNING 2 [the fight is close] 11/3 (VAMILY rule 370, ask line 396; records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md): RARE MEN ARE GOOD, NOT GODS (370(4)): rolled in the TOP HALF of his background's range (was the top quarter, 10/25 'god-tier'), his three talents and his levels as before, so he still beats a lowborn at every stat that matters and a road knight still outfights any farmhand; Battle Brothers rolls a hedge knight in his whole range (bb_all/0973). MEASURED with the rest of this round's numbers (tools/bohemia_difficulty_the_curve.js --close, HIS WAY).",
  "source": "banks/BOHEMIA_TUNING_LONE_WOLF_10_25_26.json (the god-tier hire); reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0370 (2.2 to 8.3%); records/target/bb/backgrounds.json missing note (base 30 to about 150, Swordmaster 400)",
  "men": [
   {

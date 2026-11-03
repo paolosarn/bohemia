@@ -1067,8 +1067,8 @@
       "wiederganger": 1
      },
      "middle": {
-      "wiederganger": 3,
-      "armored_wiederganger": 1
+      "wiederganger": 2,
+      "armored_wiederganger": 2
      },
      "late": {
       "wiederganger": 1,
@@ -1091,7 +1091,7 @@
      "late": {
       "goblin_skirmisher": 2,
       "goblin_wolfrider": 1,
-      "goblin_skirmisher_champion": 0.3
+      "goblin_skirmisher_champion": 0.6
      }
     },
     "heavies": {
@@ -1104,13 +1104,13 @@
       "orc_young": 2
      },
      "middle": {
-      "orc_warrior": 2,
+      "orc_warrior": 3,
       "orc_young": 2
      },
      "late": {
       "orc_warrior": 3,
       "orc_young": 1,
-      "orc_warrior_champion": 0.3
+      "orc_warrior_champion": 0.8
      }
     }
    },
@@ -1140,7 +1140,8 @@
    "quote": "Champions are stronger versions of enemies that always have a named item... 3 skulls contract +5% / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. / the hardest difficulty in the early game isn't gonna be hell... I reached the ceiling",
    "why": "THREE NUMBERS, MEASURED on the live fight (tools/bohemia_difficulty_the_curve.js, before and after in banks/BOHEMIA_DIFFICULTY_THE_CURVE_*_11_3_26.json). (1) difficulty_days for OUTLIVED IT 20 -> 8: +20 dressed a Lone Wolf's day 1 as day 21, the middle phase's marauders and marksmen, and he won a day-5 job 20 in 100 (Battle Brothers' brutal start); +8 is the early phase, a step tougher than the others, never the middle on day one. (2) THE LEADER IN THE MIDDLE GAME, the wiki's own words, at weight 0 (never an ordinary pick: measured at 0.5 a typical day-20 crew of five drew him one fight in five and its two-skull job fell from 65 to 40 in 100), and leader_from_count 4 -> 8: a party of EIGHT or more brings its one leader, so only a big company's crew has one (MEASURED: at four, every middle crew of four or more carried one and WORLD's typical day-20 company of six at level 3 won its two-skull job 30 in 100, most_jobs_fit_the_company_gate M1): the middle phase was nothing a geared company felt, SEEN IT won 92 to 100 from day 10 to 20. (3) THE CHAMPIONS (bb_all/0363: 1.35 health, 1.15 skill, 1.25 defence, a named item), the rows our enemies.json already holds, in the late mix at about one slot in twenty (Battle Brothers' +5% on a three-skull job): brigand_leader_champion 0.5, goblin_skirmisher_champion 0.3, orc_warrior_champion 0.3; the machines and the beasts have no champion row, said. A company meets the late phase as party_math.json job_bb.dress_ahead lets it, by level.",
    "tuned": false
-  }
+  },
+  "amended_11_3": "TUNING 2 [the fight is close] 11/3 (VAMILY rule 370, ask line 396; records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md): THE ENEMY KEEPS UP (370(5)), where it can without starving the typical company of rule 192. (1) The late heavies' champion 0.3 -> 0.8 and the late kids' champion 0.3 -> 0.6 (Battle Brothers' champions: 'stronger versions of enemies that always have a named item', bb_all/0363). (2) The middle game's orcs {warrior 2, young 2} -> {warrior 3, young 2} and machines {robot 3, plated robot 1} -> {2, 2}: the heavier kind of each grows as the game does (the whole of the middle and late mixes of the factions WORLD's typical company never meets; COMBAT 7's rule 366 enemy that breaks and runs took SEEN IT's tough job from 94 to 97 in 100 and 1.25 to 0.95 men down; measured, this moved it by nothing (97, 0.92), the bite it lost is in the brigand fights; kept as the middle game keeping up in the fights it does touch). MEASURED AND NOT SHIPPED: the first week's 'Thugs and sometimes Raiders' (bb_all/0299_Brigands.txt) as {thug 12, lower raider 1}, because COMBAT's rule 120(a) builds the first week's band to be shot at, thugs alone, the lesser raider from day 8 (guns_from_the_first_fight_gate leg 4); and twice the middle game's marauders, the late game's marauders 4 and its champion 1.5 (with SEEN IT at Battle Brothers' own aim) put cost on every armoured company, and dropped WORLD's typical day-20 company (most_jobs_fit_the_company_gate: six men at level 3 who fight with level-1 numbers) to 10 to 50 in 100 on its two-skull job against the brigands (it was 65; the gate asks 60): the brigand mix is pinned by that gate until its company climbs as the game climbs it (rule 162(e)); ROUTED to WORLD."
  },
  "captain_aura": {
   "value": {

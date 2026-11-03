@@ -2812,6 +2812,11 @@ GATES = [
     ('MOST JOBS FIT THE COMPANY', ['node', 'gates/most_jobs_fit_the_company_gate.js'],
      'WORLD [most jobs fit the company], rule 192: Battle Brothers\' contract math on his strength, the win rate per skull held '
      'on the live fight at day 1, 20, 50, 90.', True),
+    ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
+     'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
+     'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '
+     'cheapest kit; price is power on the armourer\'s shelf; one-shot fear in every phase; the hardest start not hell; and proof the '
+     'bands fail the numbers he played (records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md).', True),
     ('THE TRIP BEFORE THE YES', ['node', 'gates/the_trip_before_the_yes_gate.js'],
      'WORLD [a job says how far], rule 186(c): every job offered says the trip before he takes it, and the trip shown is the '
      'trip walked.', True),
