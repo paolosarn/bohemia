@@ -88,9 +88,31 @@ Futures: raided, half again (round up) and the tarps come off; reclaimed, every 
 the future gets better, his second votes). The map (WORLD): the pit at each stadium's lots and the landfill, the grave rows on the
 parks, golf courses and school fields, a bag row at the hospitals; single bodies on the blocks the counts name.
 
+## WHERE EACH LIES (the coordinator's note on rule 360 amended: the dead lie where nobody is left to move them)
+Every piece in the manifest carries `where`, one or more of seven kinds of ground: empty_block, road, desert, camp_ruin, fallen_town,
+clinic_overrun, never_lived_in. ZERO bodies where people live and keep order (a home base, a settlement screen's own block, a faction
+town, a busy civilized part of town, any board on its reclaimed future: `lived_in_places.bodies = 0`); only the graves (grave_cross,
+grave_row) may stand there, because that is the living burying their dead.
+| piece | where |
+|---|---|
+| tarp | empty_block, camp_ruin, fallen_town, road |
+| doorway | empty_block, camp_ruin, fallen_town |
+| bag_row | clinic_overrun |
+| car_driver | road, empty_block |
+| desert_skeleton | desert, road |
+| bones | desert, never_lived_in |
+| grave_cross | desert, fallen_town, never_lived_in (and where people live) |
+| grave_row | fallen_town, never_lived_in, clinic_overrun (and where people live) |
+| sidewalk | empty_block, fallen_town |
+| cart | camp_ruin, empty_block, road |
+| mass_grave | never_lived_in, fallen_town |
+| coat_fence | empty_block, fallen_town, road |
+| bench | empty_block, fallen_town |
+
 ## SIMPLE (rule 360 amended (b))
 Every piece is scenery that tells the story, at most what a board already does with a thing on a tile: cover (the car), low cover
-(the skeleton's sunk car), a blocker (the doorway's facade, the fence, the pit). No rough ground, no new rule, no loot, no event.
+(the skeleton's sunk car), a blocker (the doorway's facade, the fence, the pit). No rough ground, no new rule, no loot, no event;
+`interaction` is null on every piece.
 
 ## WHAT THIS DOES NOT DO
 It places nothing: no board, no fight code, no fight_ground.json, no map (COMBAT MAPS 3's and WORLD's). It changes nothing in the

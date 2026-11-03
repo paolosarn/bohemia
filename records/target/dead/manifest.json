@@ -316,7 +316,31 @@
   "dead.grave_row",
   "dead.mass_grave"
  ],
- "simple": "rule 360 amended (b): every piece is scenery, at most what the board already does with a thing on a tile (cover, a blocker); no new system",
+ "where_key": {
+  "empty_block": "a block nobody is left on",
+  "road": "the roads between",
+  "desert": "the open desert",
+  "camp_ruin": "an old camp",
+  "fallen_town": "a town that fell",
+  "clinic_overrun": "a clinic that could not keep up",
+  "never_lived_in": "ground nobody ever lived on (a lot, a field, the lake bed)"
+ },
+ "lived_in_places": {
+  "kinds": [
+   "a home base",
+   "a settlement screen's own block",
+   "a faction town",
+   "a busy, civilized part of town",
+   "any board on its reclaimed future"
+  ],
+  "bodies": 0,
+  "graves_where_people_live": [
+   "dead.grave_cross",
+   "dead.grave_row"
+  ],
+  "about": "ZERO bodies where people live and keep order: the living bury their dead"
+ },
+ "simple": "rule 360 amended (b): every piece is scenery, at most what the board already does with a thing on a tile (cover, a blocker); no new system, no interaction (interaction is null on every piece)",
  "futures": "raided: half again (round up), the bodies uncovered (a tarp becomes a sidewalk body); reclaimed: every body becomes a grave (grave_cross, or the grave_row where there are three or more), the mass grave stays and is fenced; the game starts in the ruin and the future gets better (his second votes)",
  "map": "WORLD on the map: at the near stop (14.25 px a metre) a body is about 26 px long, the bag row 130 px, the trench 400 px. The pit at each stadium (the big lots) and the landfill, the grave rows on the parks, the golf courses and the school fields, a clinic's bag row at the hospitals; the single bodies on the blocks the counts above name.",
  "models": [
@@ -357,6 +381,13 @@
     "burns": false
    },
    "who": "moved",
+   "where": [
+    "empty_block",
+    "camp_ruin",
+    "fallen_town",
+    "road"
+   ],
+   "interaction": null,
    "what": "a man on his back under a sun-rotted tarp held down at the corners with cinder blocks and a tyre; his boots stick out at one end, toes up, and one hand at the side, palm up",
    "tells": "the living covered him: somebody found the blocks and the tyre and weighed the corners down against the wind",
    "wrong": null,
@@ -402,6 +433,12 @@
     "burns": false
    },
    "who": "robbed",
+   "where": [
+    "empty_block",
+    "camp_ruin",
+    "fallen_town"
+   ],
+   "interaction": null,
    "what": "a shop's deep doorway, its steel door shut and its shutter box over it; a man zipped into a mummy bag on a flattened box across the step, the hood pulled shut, his feet out of the end in grey socks; his pack pulled open and emptied onto the sidewalk",
    "tells": "the living robbed him: his shoes are gone, his pack is turned out, and nobody closed the bag over his feet",
    "wrong": null,
@@ -447,6 +484,10 @@
     "burns": false
    },
    "who": "moved",
+   "where": [
+    "clinic_overrun"
+   ],
+   "interaction": null,
    "what": "a clinic's pop-up canopy with a faded cross on its roof, a folding table and a cooler under it; six body bags laid feet-first in a row beside it, a paper tag on every foot, and the seventh only a sheet tied at the neck and the ankles",
    "tells": "the living moved them: carried out one at a time and laid straight, tagged, the row longer than the bags",
    "wrong": null,
@@ -492,6 +533,11 @@
     "burns": false
    },
    "who": "robbed",
+   "where": [
+    "road",
+    "empty_block"
+   ],
+   "interaction": null,
    "what": "the kit's dead sedan, the driver's door hanging open; the driver slumped sideways out of his seat, his head and one arm hanging out of the door toward the road, one foot out on the ground; the bonnet up and the battery gone",
    "tells": "the living robbed him: they took the battery out of the car and left the man in it",
    "wrong": null,
@@ -537,6 +583,11 @@
     "burns": false
    },
    "who": "nobody",
+   "where": [
+    "desert",
+    "road"
+   ],
+   "interaction": null,
    "what": "the kit's dead sedan sunk to its sills in the drift, its bonnet up where the radiator boiled; in its shade a man's bones sit against the driver's door, his skull tipped to one shoulder, his boots still on, an empty water jug on its side",
    "tells": "nobody moved him: the car died on the way out, he sat down in its shade, and he never got up",
    "wrong": null,
@@ -582,6 +633,11 @@
     "burns": false
    },
    "who": "moved",
+   "where": [
+    "desert",
+    "never_lived_in"
+   ],
+   "interaction": null,
    "what": "a low drift of sand with a man's bones coming out of it: the skull half sunk, the ribs' arc, a femur dragged clear, one boot on its side with the shin still in it, a rag of his coat caught on a dead creosote",
    "tells": "the beasts moved him: the bones are dragged apart over four metres, the way coyotes leave them",
    "wrong": null,
@@ -627,6 +683,12 @@
     "burns": false
    },
    "who": "buried",
+   "where": [
+    "desert",
+    "fallen_town",
+    "never_lived_in"
+   ],
+   "interaction": null,
    "what": "a long mound of turned desert soil ringed with stones laid one by one, a cross of two rebar bars wired together, his cap hung on it, a faded plastic flower, a water bottle left full",
    "tells": "the living buried him and took their time: every stone of the ring was carried, and the bottle is full",
    "wrong": null,
@@ -672,6 +734,12 @@
     "burns": false
    },
    "who": "buried",
+   "where": [
+    "fallen_town",
+    "never_lived_in",
+    "clinic_overrun"
+   ],
+   "interaction": null,
    "what": "six graves in a row on a field: four plain mounds of dark turned soil with survey stakes and their tape, two with a photo and a jar (the graveyard's own fresh graves), and the last one open: dug, empty, its spoil beside it and the shovel standing in it",
    "tells": "the living buried them, one a day by the soil's colour, the newest darkest",
    "wrong": "there is always one more grave dug than there are dead",
@@ -726,6 +794,11 @@
     "burns": false
    },
    "who": "robbed",
+   "where": [
+    "empty_block",
+    "fallen_town"
+   ],
+   "interaction": null,
    "what": "a man face down where he fell, one arm out past his head, his long black coat gone grey in the sun; one shoe off a metre away, his sock to the sky, his hat rolled into the gutter, his coat pockets pulled inside out",
    "tells": "the living robbed him: the pockets are out and the lining shows; nobody moved him after that",
    "wrong": null,
@@ -771,6 +844,12 @@
     "burns": false
    },
    "who": "moved",
+   "where": [
+    "camp_ruin",
+    "empty_block",
+    "road"
+   ],
+   "interaction": null,
    "what": "the kit's shopping cart with a body folded into the basket, wrapped in a striped blanket tied with rope, the legs over the front in work trousers and boots; pushed this far and left",
    "tells": "the living moved him: somebody was wheeling him to the pit and stopped here",
    "wrong": null,
@@ -816,6 +895,11 @@
     "burns": false
    },
    "who": "moved",
+   "where": [
+    "never_lived_in",
+    "fallen_town"
+   ],
+   "interaction": null,
    "what": "a trench cut by a dozer's blade, eighteen metres by three and a half, a metre and a half deep: the dead laid crosswise in it in bags and sheets, the west end under a tarp, the middle under a white crust of lime with the shapes showing through, the east end the newest, not yet limed; the spoil heaped along the north lip, the lime in sacks, three more in sheets waiting on the south lip, the dozer parked at the end and a light tower for the night shift",
    "tells": "the living moved them: by the truckload, at night, under the light tower; nobody wrote the names down",
    "wrong": null,
@@ -870,6 +954,12 @@
     "burns": false
    },
    "who": "nobody",
+   "where": [
+    "empty_block",
+    "fallen_town",
+    "road"
+   ],
+   "interaction": null,
    "what": "the kit's chain-link run, and on it a long black coat hung by its collar at a man's shoulder height, its sleeves pinned out along the wire, a wide hat on a stick pushed through the mesh where the head would be, and a pair of boots standing on the ground under the hem, toes out",
    "tells": "nobody explains it: somebody hung it there, and nobody has taken it down",
    "wrong": "it is almost a man: the boots are laced, and there is nobody in them",
@@ -915,6 +1005,11 @@
     "burns": false
    },
    "who": "nobody",
+   "where": [
+    "empty_block",
+    "fallen_town"
+   ],
+   "interaction": null,
    "what": "a bus stop on a street nobody is left on: its bench, its shelter's roof and its dead ad panel; a man sitting on the bench as if waiting for a bus that stopped running, chin on his chest, his hat tipped over his face, his hands in his lap",
    "tells": "nobody moved him: nobody is left on this street to",
    "wrong": null,

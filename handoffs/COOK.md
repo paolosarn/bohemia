@@ -17,6 +17,9 @@ SEEN (rule 179); nothing in the alpha or the demo changed, so no build stamp (th
   passes both tools; REFERENCE CHECK passes both (the card tool's block added after the push; that gate's 2 reds are older tools).
   tools/bohemia_cook_dead_the_dead_are_everywhere_11_3_26.py (models, bpy 4.2 venv, the set in two minutes) and
   tools/bohemia_cook_dead_card_11_3_26.py (manifest, card). Record records/BOHEMIA_COOK_DEAD_THE_DEAD_ARE_EVERYWHERE_11_3_26.md.
+- THE COORDINATOR'S NOTE (rule 360 amended): every piece names `where` it lies (empty_block, road, desert, camp_ruin, fallen_town,
+  clinic_overrun, never_lived_in); ZERO bodies where people live (lived_in_places.bodies 0, graves only there); interaction null on
+  every piece. Gate 22/0.
 - THE SCALE, MEASURED: the board is the world's size and the fight draws its men 1.8 rows tall, so a body is about 6 points on his phone
   at the fight's open (18 pinched in); the clusters (the bag row, the graves, the pit) carry a place. If he wants single bodies seen at
   the open zoom, the lever is the fight's man scale (COMBAT's, his), not the dead.

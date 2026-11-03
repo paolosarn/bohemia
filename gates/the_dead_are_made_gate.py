@@ -99,6 +99,13 @@ def main():
     lived = [(p, k) for p in LIVED for k in P.get(p, {}).get('count', {}) if k in bodies]
     ok('LORE-FRIENDLY (rule 360 amended a): where people live and bury, graves only, no body', bool(bodies) and not lived and all(p in P for p in LIVED), str(lived))
     ok('  the lived-in rule is written in the contract', 'NO BODIES' in (M.get('lived_in') or ''))
+    LP = M.get('lived_in_places') or {}
+    ok('  ZERO bodies where people live (lived_in_places.bodies is 0, only graves allowed there)',
+       LP.get('bodies') == 0 and len(LP.get('kinds') or []) >= 3 and not set(LP.get('graves_where_people_live') or []) & set(M.get('bodies', [])))
+    KINDS = {'empty_block', 'road', 'desert', 'camp_ruin', 'fallen_town', 'clinic_overrun', 'never_lived_in'}
+    badw = [m['id'] for m in mods if not m.get('where') or not set(m['where']) <= KINDS]
+    ok('WHERE: every piece names where it lies, from the seven kinds of ground nobody is left on', not badw, ', '.join(badw))
+    ok('  no piece interacts (interaction is null on every one)', all(m.get('interaction', 'x') is None for m in mods))
     reg = json.load(open(REG))
     cards = [i for i in reg['items'] if (i.get('show') or {}).get('src', '').endswith('records/target/dead/CARD_THE_DEAD.webp')]
     ok('THE VOTE CARD: one card shows the set on a real board', len(cards) >= 1, str(len(cards)))

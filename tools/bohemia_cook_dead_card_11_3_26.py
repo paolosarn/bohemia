@@ -71,6 +71,18 @@ LIVED_IN = ('RULE 360 AMENDED (Paolo 11/3, lore-friendly): where people live and
             'screen\'s own block, a faction town, any board whose future is reclaimed. There the dead are graves only (grave_cross, '
             'grave_row; the pit stays, fenced). The counts above are for the boards nobody holds: the empty blocks, the old camps, '
             'the roads between, the desert, the fallen towns.')
+# WHERE A PIECE LIES (the coordinator's note on rule 360 amended, 11/3): the dead lie where nobody is left to move them; one or
+# more of the seven kinds of ground per piece. Graves are the living burying their dead, so they alone may also stand where
+# people live (graves_where_people_live below); a body never does.
+WHERE_KINDS = ('empty_block', 'road', 'desert', 'camp_ruin', 'fallen_town', 'clinic_overrun', 'never_lived_in')
+WHERE = {
+    'dead.tarp': ['empty_block', 'camp_ruin', 'fallen_town', 'road'], 'dead.doorway': ['empty_block', 'camp_ruin', 'fallen_town'],
+    'dead.bag_row': ['clinic_overrun'], 'dead.car_driver': ['road', 'empty_block'], 'dead.desert_skeleton': ['desert', 'road'],
+    'dead.bones': ['desert', 'never_lived_in'], 'dead.grave_cross': ['desert', 'fallen_town', 'never_lived_in'],
+    'dead.grave_row': ['fallen_town', 'never_lived_in', 'clinic_overrun'], 'dead.sidewalk': ['empty_block', 'fallen_town'],
+    'dead.cart': ['camp_ruin', 'empty_block', 'road'], 'dead.mass_grave': ['never_lived_in', 'fallen_town'],
+    'dead.coat_fence': ['empty_block', 'fallen_town', 'road'], 'dead.bench': ['empty_block', 'fallen_town']}
+LIVED_IN_KINDS = ['a home base', 'a settlement screen\'s own block', 'a faction town', 'a busy, civilized part of town', 'any board on its reclaimed future']
 BODIES = ('dead.tarp', 'dead.doorway', 'dead.bag_row', 'dead.car_driver', 'dead.desert_skeleton', 'dead.bones', 'dead.sidewalk', 'dead.cart', 'dead.bench')
 FUTURES = ('raided: half again (round up), the bodies uncovered (a tarp becomes a sidewalk body); reclaimed: every body becomes '
            'a grave (grave_cross, or the grave_row where there are three or more), the mass grave stays and is fenced; the game '
@@ -102,7 +114,12 @@ def manifest():
                places=[dict(id=p, why=v['why'], count=v['count'], pieces=sum(v['count'].values()),
                             floor=max(2, int(round(0.7 * sum(v['count'].values()))))) for p, v in PLACES.items()],
                lived_in=LIVED_IN, bodies=list(BODIES), graves=['dead.grave_cross', 'dead.grave_row', 'dead.mass_grave'],
-               simple='rule 360 amended (b): every piece is scenery, at most what the board already does with a thing on a tile (cover, a blocker); no new system',
+               where_key=dict(empty_block='a block nobody is left on', road='the roads between', desert='the open desert',
+                              camp_ruin='an old camp', fallen_town='a town that fell', clinic_overrun='a clinic that could not keep up',
+                              never_lived_in='ground nobody ever lived on (a lot, a field, the lake bed)'),
+               lived_in_places=dict(kinds=LIVED_IN_KINDS, bodies=0, graves_where_people_live=['dead.grave_cross', 'dead.grave_row'],
+                                    about='ZERO bodies where people live and keep order: the living bury their dead'),
+               simple='rule 360 amended (b): every piece is scenery, at most what the board already does with a thing on a tile (cover, a blocker); no new system, no interaction (interaction is null on every piece)',
                futures=FUTURES, map=MAP,
                models=[])
     for pid in D.ORDER:
@@ -115,7 +132,7 @@ def manifest():
             role=P['role'], sees_through=bool(P['see']),
             fight=dict(kind=P['kind'], tile=P['tile'], blocks_move=P['role'] == 'blocking' or P['tile'] == '#', blocks_sight=bool(P['sight']),
                        see_through=bool(P['see']), burns=False),
-            who=P['who'], what=P['what'], tells=P['tells'], wrong=P['wrong'] or None, flies=bool(P['flies']),
+            who=P['who'], where=WHERE[pid], interaction=None, what=P['what'], tells=P['tells'], wrong=P['wrong'] or None, flies=bool(P['flies']),
             against=P['against'], verts=l['verts'], glb_kb=l['glb_kb'],
             **({'holes_m': [list(h) for h in P['holes']], 'depth_m': l.get('depth_m', 0.0)} if P['holes'] else {})))
     fn = os.path.join(OUT, 'manifest.json'); json.dump(out, open(fn, 'w'), indent=1)
