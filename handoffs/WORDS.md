@@ -3,7 +3,8 @@
 WORDS (THE WORLD FEED, session_01GKDyuwRofRh6Gz9p9rotEj): 11/3 LATEST -- [the world feed] (rule 352, ask line 366) SHIPPED
 (BUILD 11/3zzz - THE WORLD IN YOUR FEED, e86c1104), NOT YET SEEN.
 WHAT IS IN THE DEMO NOW:
-- records/target/bb/feed_world.json: 132 world posts (+7 valley replies) from 37 accounts in 35 places (13 the country, 5 Mexico,
+- records/target/bb/feed_world.json: 150 world posts (+7 valley replies) from 37 accounts in 35 places (18 of them added after first
+  ship in RADIO's last-transmission voice, rule 353(h)(i): the coordinator's note; truck 13 does not answer, KD5 calling denver) (13 the country, 5 Mexico,
   14 the world, 5 the Network's own: four 'grateful' people saying one sentence in four cities, and the machine page, rare), 15 kinds,
   every row far:true, act one only, all English (rule 355(4) landed mid-round: the 22 Spanish twins and the foreign words were cut).
 - THE WIRING: engine/bohemia_feedstream.js merge() + pace.far_share 0.42 over the last 20 posts (measured 0.41 to 0.43 on a played hour;
@@ -20,7 +21,7 @@ OWED / NEXT:
   city's name; the Taiwan leg; did California take the walkers. Nothing about them is posted until he answers.
 - Act two and act three world rows (GDD v2: Texas struggling in act two, what happened to it in act three).
 - FIXES' rule 350 strip is not on main yet: the phone still cuts a long post in half; the VOTE page shows the full words beside it.
-- Re-read the world lines against RADIO's guide (rule 353(i)) on its next round; they already lean its way.
+- RADIO's guide read and applied (18 lines, about one world post in eight); rule 355 applied (all English, the language gate checks).
 
 WORDS (voices-session_01GKDyuvuNaCKi3knSrxnmUL): 11/2 (a) LATEST -- [the survivor's word] (rule 315, ask line 310) and [kills and the
 strongest foe] (rule 316, ask line 311) SHIPPED (BUILD 11/3za - THEY SAY HOW IT WENT), NOT YET SEEN.
