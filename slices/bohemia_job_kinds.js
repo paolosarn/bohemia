@@ -48,6 +48,34 @@
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function pickOf(a, R) { return a && a.length ? a[Math.floor(R() * a.length) % a.length] : null; }
   function cheb(ax, ay, bx, by) { return Math.max(Math.abs(ax - bx), Math.abs(ay - by)); }
+  /* BEASTS 2 11/3 (rule 345 amended (b), Paolo 11/3: 'everything's looking like a fucking coyote'; ask line 381). MEASURED: every
+     job whose foe was 'beasts' dealt the one mix of dire wolves and hyenas wherever it was, and the offers that name their animal
+     ('the dogs', 'the hyenas', 'the show's cats', the big game's lion) dealt it too. NOW: a job that names its animal meets it
+     (BOHEMIA_JOB_KINDS.json offers' foe), and a job whose foe is 'beasts' meets the beasts of the GROUND its fight is on, by weight
+     (beasts_by_ground; the ground is WORLD's district table, read through the danger engine the map already runs): the bull at the
+     parks and the desert, the hog at the water, the camel in the open desert, the lion in the hills, the dogs and coyotes on the
+     streets. A canid is one choice among many, never the default. One answer per job (foeOf keeps it), so the map, the meet card
+     and the fight agree. */
+  var JD_DB = null;
+  function jdb() { if (JD_DB) return JD_DB; try { var JD = root.BohemiaJobDanger; if (JD && JD.engine) JD.engine().then(function (E) { JD_DB = E && E.DB; }); } catch (e) {} return null; }
+  function groundAt(x, y) {
+    var D = jdb(); if (!D || !D.boardKinds || !D.boardKinds.districts) return null;
+    var c = null; try { c = om.at(x | 0, y | 0); } catch (e) {} if (!c) return null;
+    var r = D.boardKinds.districts.filter(function (d) { return d.district === c.district; })[0]; return r ? r.ground : null;
+  }
+  function beastFor(x, y, R) {
+    var T = DATA && DATA.beasts_by_ground; if (!T) return 'beasts';
+    var w = T[groundAt(x, y)] || T['default'], ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_'; });
+    var r = (R || Math.random)() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
+    return ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
+  }
+  function foeOf(job, foe, at) {
+    if (foe !== 'beasts' || !(DATA && DATA.beasts_by_ground)) return foe;
+    if (!job.beastFoe) { var x = at ? (at.x != null ? at.x : at[0]) : (job.target ? job.target.x : 0), y = at ? (at.y != null ? at.y : at[1]) : (job.target ? job.target.y : 0);
+      job.beastFoe = beastFor(x, y, rng(seedOf(job.id + ':beast'))); }
+    return job.beastFoe;
+  }
+  function isBeastFoe(f) { return f === 'beasts' || !!(DATA && DATA.beast_looks && DATA.beast_looks[f]) || /^(coyotes|lions|hogs|camels|bulls)$/.test(String(f)); }
   /* WORLD [eyes: the normie hour, world] F21 (EYES round four: '4 MANS', '4/4 MANS'): English's own plurals first */
   var PLURAL = { man: 'men', woman: 'women', person: 'people', child: 'children', kid: 'kids', wolf: 'wolves', knife: 'knives', life: 'lives', foot: 'feet', tooth: 'teeth', sheep: 'sheep', fish: 'fish' };
   function plural(w, n) { w = String(w || 'crate'); if (n === 1) return w; var lw = w.toLowerCase(), last = lw.split(' ').pop();
@@ -133,8 +161,8 @@
     var w = [city.x, city.y]; try { w = roadWhere(); } catch (e) {}
     var party = null; try { party = partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: count, days: 1, difficulty: 1 }; }
     party.count = Math.max(1, count | 0); try { party.word = partyWord(party.count); } catch (e) {}
-    party.faction = faction || 'brigands';
-    var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: party.faction === 'beasts' ? 'beast' : 'human' });
+    party.faction = foeOf(job, faction || 'brigands', w);
+    var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: isBeastFoe(party.faction) ? 'beast' : 'human' });
     job.fight = { what: what, n: party.count, pack: extra && extra.pack != null ? extra.pack : null };
     LOOP.fighting = job.id;
     var ok = false;
@@ -576,12 +604,14 @@
        crew job's count, a fifth of the time one more): measured, packs of 3 to 5 dire wolves beat a new crew of three twice */
     var base = 3; try { base = partyMath('job', { skulls: sk }).count; } catch (e) {}
     var n = clamp(Math.round(base * 0.8) + (R() < 0.2 ? 1 : 0), ps[0], ps[1] + sk);
-    var p = { id: ++job.packN, x: s[0], y: s[1], n: n, look: R() < 0.6 ? 'wolf' : 'hyena', home: [town.x, town.y] };
+    var fac = job.foe && job.foe !== 'beasts' ? job.foe : beastFor(s[0], s[1], R);
+    var p = { id: ++job.packN, x: s[0], y: s[1], n: n, faction: fac, look: fac, home: [town.x, town.y] };
     job.packs.push(p); return p;
   }
   function packNear(job, x, y, r) { for (var i = 0; i < (job.packs || []).length; i++) { var p = job.packs[i]; if (cheb(p.x, p.y, x, y) <= (r == null ? 1 : r)) return p; } return null; }
   function packFight(job, p) {
-    return fight(job, 'pack', p.n, job.foe, (p.look === 'hyena' ? 'hyenas' : 'a pack') + ', hunting ' + job.what, { pack: p.id });
+    var fac = p.faction || job.foe, BL = DATA && DATA.beast_looks && DATA.beast_looks[fac];
+    return fight(job, 'pack', p.n, fac, (BL ? BL.label : (p.look === 'hyena' ? 'hyenas' : 'a pack')) + ', hunting ' + job.what, { pack: p.id });
   }
   STEP['hunt-kind'] = function (job, k) {
     if (job.stage !== 'hunt') return false;
@@ -795,7 +825,7 @@
     job.stage = 'get';
     job.sayTake = 'Contract from ' + town.name + ': get ' + job.item + ' back' + (job.placeName ? ' from ' + job.placeName : job.where ? ' from ' + job.where : '') + ', ' +
       way(s[0] - town.x, s[1] - town.y) + ', ' + blocksWord(cheb(s[0], s[1], town.x, town.y)) + '. ' +
-      (job.guards ? 'About ' + job.guards + (job.foe === 'beasts' ? ' animals are' : ' are') + ' on it.' : 'Nobody guards it, they say.');
+      (job.guards ? 'About ' + job.guards + (isBeastFoe(job.foe) ? ' animals are' : ' are') + ' on it.' : 'Nobody guards it, they say.');
     return true;
   };
   /* 'they moved it' (the R1 twist): the new spot, from the job's own dice and the glass as it stands round the old one (WORLD 4: the
@@ -1478,17 +1508,22 @@
   }
 
   /* ---------- DRAWN ON THE MAP (the map's own pen: its people, its flag, its plates, its truck) ---------- */
-  var BEAST = {}, BEAST_META = { wolf: { file: 'fight_rig/beast_dire_wolf.webp', w: 107, h: 116, foot: [51, 83] },
-                                hyena: { file: 'fight_rig/beast_cave_hyena.webp', w: 106, h: 125, foot: [53, 91] } };
+  /* BEASTS 2 11/3: every beast is drawn from its OWN fight sheet, its cell read from the index the fight reads (fight_rig.json, the
+     danger engine's DB.rig), never a size typed here: MEASURED, the sizes typed here went stale the round the sheets were rebuilt
+     (107x116 against 118x124) and the map cut the wolf across two cells. A look is a sheet (beast_coyote), a beast faction
+     (coyotes, through BOHEMIA_JOB_KINDS.json beast_looks) or the old words (wolf, hyena). */
+  var BEAST = {}, BEAST_ALIAS = { wolf: 'beast_dire_wolf', hyena: 'beast_cave_hyena', beasts: 'beast_dire_wolf' };
+  function beastSheet(look) { var L = (DATA && DATA.beast_looks) || {}; return BEAST_ALIAS[look] || (L[look] && L[look].look) || (/^beast_/.test(String(look)) ? look : 'beast_dire_wolf'); }
+  function beastMeta(look) { var D = jdb(), m = D && D.rig && D.rig.looks && D.rig.looks[beastSheet(look)]; return m ? { file: 'fight_rig/' + m.file, w: m.w, h: m.h, foot: m.foot } : null; }
   var SHEET_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   function beastImg(look) {
-    var m = BEAST_META[look] || BEAST_META.wolf, im = BEAST[look];
-    if (!im) { im = BEAST[look] = new Image(); im.onload = function () { try { render(); } catch (e) {} }; im.src = m.file; }
+    var m = beastMeta(look); if (!m) return null; var im = BEAST[m.file];
+    if (!im) { im = BEAST[m.file] = new Image(); im.onload = function () { try { render(); } catch (e) {} }; im.src = m.file; }
     return im.complete && im.naturalWidth ? im : null;
   }
   /* one beast with its feet on the point: the fight's own sheet (fight_rig.json: a row a facing, a column a frame) at a person's ruler */
   function beastDraw(look, face, frame, sx, footY) {
-    var im = beastImg(look), m = BEAST_META[look] || BEAST_META.wolf; if (!im) return false;
+    var im = beastImg(look), m = beastMeta(look); if (!im || !m) return false;
     var s = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K, row = Math.max(0, SHEET_DIRS.indexOf(face));
     var w = m.w * s, h = m.h * s;
     g.fillStyle = 'rgba(10,8,6,0.4)'; g.beginPath(); g.ellipse(sx, footY, w * 0.26, w * 0.07, 0, 0, 7); g.fill();
@@ -1724,7 +1759,7 @@
   };
   DRAWS['clear-camp'] = function (j, ox, oy, bt, kp) {
     if (j.stage !== 'camp') return;
-    campDraw(j, j.camp, 'CAMP · ' + j.camp.men, ox, oy, bt, kp, j.foe === 'beasts');
+    campDraw(j, j.camp, 'CAMP · ' + j.camp.men, ox, oy, bt, kp, isBeastFoe(j.foe) ? foeOf(j, j.foe, j.camp) : false);
   };
   function campDraw(j, c, label, ox, oy, bt, kp, beasts) {
     var q = iso(c.x, c.y, ox, oy); if (!vis(q)) return;
@@ -1736,7 +1771,7 @@
     g.fillStyle = 'rgba(255,190,90,' + fl + ')'; g.beginPath(); g.moveTo(q.sx - 3 * kp, fy - 1); g.lineTo(q.sx, fy - 7 * kp * fl); g.lineTo(q.sx + 3 * kp, fy - 1); g.fill();
     g.restore();
     var hh = 30 * kp;
-    if (beasts) { beastDraw('wolf', 'SW', 0, q.sx - 12 * kp, fy - 3 * kp); beastDraw('hyena', 'SE', 0, q.sx + 12 * kp, fy - 1); }
+    if (beasts) { beastDraw(beasts, 'SW', 0, q.sx - 12 * kp, fy - 3 * kp); beastDraw(beasts, 'SE', 0, q.sx + 12 * kp, fy - 1); }
     else { hh = peopleDraw(q.sx - 10 * kp, fy - 3 * kp, bt, kp, '#c4553f', 30); peopleDraw(q.sx + 12 * kp, fy, bt + 2, kp, null, 33); }
     hit(j, plate(label, q.sx, fy, '#e8806a', hh + 16), [c.x, c.y]);
     HITS.push({ job: j.id, x: q.sx - 26 * kp, y: fy - hh - 4, w: 52 * kp, h: hh + 10, cell: [c.x, c.y], pack: null });
@@ -1762,7 +1797,7 @@
     if (j.stage === 'back') { var b = iso(j.target.x, j.target.y, ox, oy); if (vis(b)) hit(j, plate('GET PAID', b.sx, b.sy + TH / 2 + 2, '#9fe08a', 30), [j.target.x, j.target.y]); return; }
     var q = iso(j.spot.x, j.spot.y, ox, oy); if (!vis(q)) return;
     var fy = q.sy + TH / 2 + 2, hh = 22 * kp;
-    if (j.guards > 0) { if (j.foe === 'beasts') { beastDraw('wolf', 'SW', 0, q.sx - 8 * kp, fy - 2 * kp); beastDraw('hyena', 'SE', 0, q.sx + 9 * kp, fy); hh = 30 * kp; }
+    if (j.guards > 0) { if (isBeastFoe(j.foe)) { var bf = foeOf(j, j.foe, j.spot); beastDraw(bf, 'SW', 0, q.sx - 8 * kp, fy - 2 * kp); beastDraw(bf, 'SE', 0, q.sx + 9 * kp, fy); hh = 30 * kp; }
       else hh = peopleDraw(q.sx, fy, bt, kp, '#c4553f', 6); }
     hit(j, plate('GET ' + String(j.item).toUpperCase(), q.sx, fy, '#f0b44c', hh + 14), [j.spot.x, j.spot.y]);
     HITS.push({ job: j.id, x: q.sx - 20 * kp, y: fy - hh - 4, w: 40 * kp, h: hh + 10, cell: [j.spot.x, j.spot.y], pack: null });
@@ -1961,7 +1996,7 @@
     opt = opt || {};
     if (!job) return null;
     var k = K(job.plays) || {}, out = [], jm = function () { var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {} return n; };
-    var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, n | 0), faction: faction || 'brigands', at: at || job.target || null }); };
+    var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, n | 0), faction: foeOf(job, faction || 'brigands', at || job.target), at: at || job.target || null }); };
     var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
     if (k.legs) (job.legs || k.legs).forEach(function (L, i) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? jm() : L.fight.n); add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target); });   /* CONTENT 11/2: LEGS */
     else switch (job.plays) {
@@ -1979,7 +2014,7 @@
         break;
       case 'hunt-kind': {
         var left = Math.max(0, (job.need | 0) - (job.got | 0)), packs = (job.packs || []).slice(), i = 0, last = packs[packs.length - 1];
-        while (left > 0 && i < 12) { var pk = packs[i] || last; if (!pk) break; add(1, 'pack', pk.n, job.foe || k.foe || 'beasts', pk); left -= Math.max(1, pk.n | 0); i++; }
+        while (left > 0 && i < 12) { var pk = packs[i] || last; if (!pk) break; add(1, 'pack', pk.n, pk.faction || job.foe || k.foe || 'beasts', pk); left -= Math.max(1, pk.n | 0); i++; }
         break; }
       case 'clear-camp':
         if (job.stage === 'camp' && job.camp) add(1, 'camp', job.camp.men, job.foe, job.camp);
@@ -2026,4 +2061,7 @@
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
+  /* BEASTS 2 11/3: the ground under a job is read through the danger engine; ask for it as soon as the map is up, so the first
+     job made already knows its ground (measured: asked only at the first job, every job made in that tick fell to the default) */
+  (function kick(n) { if (!jdb() && n < 40) setTimeout(function () { kick(n + 1); }, 1500); })(0);
 })(typeof window !== 'undefined' ? window : this);

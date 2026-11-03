@@ -12,7 +12,10 @@
     "lions": {"name": "A Mountain Lion", "holds_from": "beasts", "beast": true, "lesson": "You do not see it until it is on the man walking alone. Then he is pinned. Walk together.", "draft": true},
     "hogs": {"name": "Hogs", "holds_from": "beasts", "beast": true, "lesson": "They come straight in and open your legs. A man who bleeds, step him back.", "draft": true},
     "camels": {"name": "Camels", "holds_from": "beasts", "beast": true, "lesson": "Never stand next to one. It kicks every way at once. Shoot it from two tiles and it runs.", "draft": true},
-    "bulls": {"name": "A Bull", "holds_from": "beasts", "beast": true, "lesson": "It runs in a straight line and cannot turn. Step off the line, or stand behind something.", "draft": true}
+    "bulls": {"name": "A Bull", "holds_from": "beasts", "beast": true, "lesson": "It runs in a straight line and cannot turn. Step off the line, or stand behind something.", "draft": true},
+    "wolves": {"name": "Dire Wolves", "holds_from": "beasts", "beast": true, "lesson": "A pack goes round you. Keep your backs together, or they take the man on the end.", "why": "BEASTS 2 11/3 (rule 345 amended (b)): the dire wolves as their own party; Battle Brothers' direwolf pack (the lean flanker, the rusher's brain the wiki row carries).", "draft": true},
+    "hyenas": {"name": "Cave Hyenas", "holds_from": "beasts", "beast": true, "lesson": "They take the weak at the edge. The hurt man and the man alone go first.", "why": "BEASTS 2 11/3: the cave hyenas as their own clan; Battle Brothers' hyena (the bite that bleeds, the frenzied late).", "draft": true},
+    "dogs": {"name": "Feral Dogs", "holds_from": "beasts", "beast": true, "lesson": "They were pets. They come in a crowd and they bite low. Kill one and the rest still come.", "why": "BEASTS 2 11/3: the street's dogs as their own pack, on Battle Brothers' war dogs (wardog, warhound; the armoured one late).", "draft": true}
   },
   "rows": [
     { "id": "house_shield", "from": "footman", "faction": "house", "name": "House Shield", "board_name": "SHIELD", "brain": "shieldwall",
@@ -159,7 +162,10 @@
     "lions": {"first": {"mountain_lion": 1}, "early": {"mountain_lion": 1}, "middle": {"mountain_lion": 1}, "late": {"mountain_lion": 1}},
     "hogs": {"first": {"feral_hog": 1}, "early": {"feral_hog": 1}, "middle": {"feral_hog": 1}, "late": {"feral_hog": 1}},
     "camels": {"first": {"camelops": 1}, "early": {"camelops": 1}, "middle": {"camelops": 1}, "late": {"camelops": 1}},
-    "bulls": {"first": {"feral_bull": 1}, "early": {"feral_bull": 1}, "middle": {"feral_bull": 1}, "late": {"feral_bull": 1}}
+    "bulls": {"first": {"feral_bull": 1}, "early": {"feral_bull": 1}, "middle": {"feral_bull": 1}, "late": {"feral_bull": 1}},
+    "wolves": {"first": {"direwolf": 1}, "early": {"direwolf": 1}, "middle": {"direwolf": 1}, "late": {"direwolf": 3, "frenzied_direwolf": 1}},
+    "hyenas": {"first": {"hyena": 1}, "early": {"hyena": 1}, "middle": {"hyena": 1}, "late": {"hyena": 3, "frenzied_hyena": 1}},
+    "dogs": {"first": {"wardog": 3, "warhound": 1}, "early": {"wardog": 3, "warhound": 1}, "middle": {"wardog": 2, "warhound": 1, "armored_wardog": 1}, "late": {"wardog": 2, "warhound": 2, "armored_wardog": 1}}
   },
   "heads": { "watch": "watch_captain", "keepers": "keeper_feral" },
   "count_scale": { "house": 0.55, "watch": 1.3, "keepers": 0.6, "water": 0.6, "coyotes": 1.0, "lions": 0.15, "hogs": 0.5, "camels": 0.35, "bulls": 0.2 },

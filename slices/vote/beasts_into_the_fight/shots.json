@@ -1,0 +1,51 @@
+[
+ {
+  "name": "was_beasts",
+  "faction": "beasts",
+  "kind": "suburb",
+  "them": [
+   "direwolf",
+   "hyena",
+   "direwolf",
+   "hyena"
+  ],
+  "errors": 0
+ },
+ {
+  "name": "now_bulls",
+  "faction": "bulls",
+  "kind": "scrub",
+  "them": [
+   "feral_bull"
+  ],
+  "errors": 0
+ },
+ {
+  "name": "now_camels",
+  "faction": "camels",
+  "kind": "shore",
+  "them": [
+   "camelops"
+  ],
+  "errors": 0
+ },
+ {
+  "name": "now_lions",
+  "faction": "lions",
+  "kind": "scrub",
+  "them": [
+   "mountain_lion"
+  ],
+  "errors": 0
+ },
+ {
+  "name": "now_hogs",
+  "faction": "hogs",
+  "kind": "wash",
+  "them": [
+   "feral_hog",
+   "feral_hog"
+  ],
+  "errors": 0
+ }
+]
