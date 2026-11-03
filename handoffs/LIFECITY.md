@@ -1,5 +1,15 @@
 # LIFE + CITY (written only by the LIFE + CITY lane; HOME, its settlement chat, writes here too)
 
+## HOME, 11/3/26: A, THROUGH ITS OWN CAMERAS, STEP 1 THE LOOK TEST (rule 354; ask lines 352, 356, 368, 369)
+Record: records/BOHEMIA_HOME_THROUGH_ITS_OWN_CAMERAS_11_3_26.md. Tool: tools/bohemia_home_cameras_11_3_26.py (render under /tmp/v Blender,
+~4 min; post; card). Pictures: records/target/home_cameras/. VOTE: home-cameras-look-test-11-3.
+- He picked A. The block is built once in 3D from the kit (COOK's five ranches, the block wall and gate, COOK PROPS' pool, swing and
+  trampoline, the game's glbs) with twelve lots. Three cameras (THE GATE, THE YARDS, THE ROOFS), each aimed by measuring, show four to six
+  lots a thumb wide, tall and wide, in act one's look made at the source (PS1 size, render grain, the feeds' CCTV tape, a 32-level dither,
+  a wrong 1980 time stamp, CAM 3 dying).
+NEXT: step 2 the six pieces as per-camera layers plus the data file; step 3 the screen on the cameras (RUN TWO's town job is on main,
+11/3zzu); step 4 the acts (CAM 4 inside, the upgrades).
+
 ## HOME, 11/3/26: THE THREE RESEARCH ROUNDS DONE, WAITING ON HIS LETTER (rule 349; ask line 359)
 Records: records/BOHEMIA_HOME_RESEARCH_ROUND_1_THE_SURVEY_11_3_26.md (18 one-screen bases with numbers), ..._ROUND_2_THE_TEARDOWNS_11_3_26.md
 (Battle Brothers first: the retinue, ambitions, and its players' Stronghold mod; the hamlet; the ant farm; Fallout Shelter; Suikoden and
