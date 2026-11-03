@@ -1,0 +1,36 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Heavy Armour Costs a Tile</title>
+<!-- COMBAT 7 [heavy armour costs a tile], rule 377, ask line 406 (Paolo 11/3: 'if you're wearing the heaviest... maybe it's gonna be
+     like -2... you can only walk one time less... please make sure that this does not make it impossible to do any sort of attack or
+     abilities'). Filmed from the fight's own camera on his phone (390 x 844), one camera held for every frame: the same man in light
+     armour, then in a coat of plates and a full helm; the lit ground is where he can walk. The shop's card on the same phone.
+     Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;max-width:420px;margin-bottom:10px}
+  img{width:100%;display:block;border-radius:3px}
+  .cap{margin:6px 0 0;color:#e8d8b0;font-weight:bold;letter-spacing:1px;min-height:2.6em}
+  .q{color:#e8d8b0;font-style:italic;margin:0 0 10px}
+</style>
+<h1>HEAVY ARMOUR COSTS A TILE, NEVER A SWING</h1>
+<p class="q">"You can only walk one time less... make sure that this does not make it impossible to do any sort of attack or abilities."</p>
+<p>The heaviest armour (a coat of plates and a full helm) takes one house off his walk: 3 instead of 4. It never takes anything off his attacks or abilities. Standing still he has all 9 points for anything he owns, and he can walk one house and still strike. The lit ground is where he can walk.</p>
+<div class="row"><img id="a" alt="the same man in light armour, then the heaviest"><div class="cap" id="c"></div></div>
+<div class="row"><img src="../../records/target/combat7_11_3/armour_shop.webp" alt="the shop's card"><div class="cap">THE SHOP SAYS IT BEFORE YOU BUY</div></div>
+<script>
+(function () {
+  var F = [
+    ['armour_00', 'LIGHT ARMOUR: HE CAN WALK 4 HOUSES'],
+    ['armour_01', 'THE HEAVIEST: 3 HOUSES, ONE LESS'],
+    ['armour_02', 'THE HEAVIEST WALKS ONE HOUSE...'],
+    ['armour_03', '...AND STILL STRIKES. NO SWING LOST']
+  ], i = 0, A = document.getElementById('a'), C = document.getElementById('c'), pre = [];
+  function src(n) { return '../../records/target/combat7_11_3/' + n + '.webp'; }
+  F.forEach(function (f) { var x = new Image(); x.src = src(f[0]); pre.push(x); });
+  function show() { A.src = src(F[i][0]); C.textContent = F[i][1]; i = (i + 1) % F.length; } show(); setInterval(show, 1400); })();
+</script>

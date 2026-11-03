@@ -147,6 +147,8 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .onman .ln .k{min-width:92px;color:var(--dim);font-size:11px;letter-spacing:1px}
 .onman .ln .d{margin-left:auto;font-weight:bold}
 .onman .up{color:#8fd16a} .onman .dn{color:#e07a5f} .onman .eq{color:var(--dim)}
+.onman .wcls{display:flex;align-items:center;gap:6px;font-size:12px;padding:3px 0 1px;border-top:1px dashed var(--line);margin-top:3px}   /* rule 377: the armour's class and its walk */
+.onman .wcls .k{min-width:92px;color:var(--dim);font-size:11px;letter-spacing:1px} .onman .wcls.eq b{color:var(--ink)}
 .onman .stop{font-size:12px;color:#e07a5f;padding:2px 0}
 .fstrip{display:flex;gap:6px;overflow-x:auto;padding:6px 0 2px}
 .fstrip button{flex:0 0 auto;width:52px;padding:2px;border:1px solid var(--line);border-radius:6px;background:var(--plate);color:var(--dim);font:inherit;font-size:9px;letter-spacing:.5px;display:flex;flex-direction:column;align-items:center;gap:2px}
@@ -898,6 +900,15 @@ function onMan(it, again){
     if(!dv) return;   /* __ONLY_WHAT_CHANGES__ (rule 251(a)): nothing for what does not change */
     ln.dataset.before = a; ln.dataset.after = b; ln.dataset.delta = dv; box.appendChild(ln); });
   if(!w.stops && !box.querySelector('.ln')){ var nc = document.createElement('div'); nc.className = 'stop'; nc.style.color = 'var(--dim)'; nc.textContent = 'Nothing on him changes.'; box.appendChild(nc); }   /* draft:true */
+  /* __HEAVY_ARMOUR_COSTS_A_TILE__ (COMBAT 7, rule 377(5), ask line 406; labels only, the stock untouched): a body piece or a helmet
+     names the class he would wear (the body and the helmet added, engine/bohemia_roster.js weightClass, the fight's own row) and
+     what it does to his walk; its own class name, not .ln, so the stat arrows' pass leaves its words alone */
+  if(!w.stops && (it.kind === 'body' || it.kind === 'head') && w.before && w.before.weight && w.after && w.after.weight){
+    var A0 = w.before.weight, A1 = w.after.weight, dt = A0.tiles - A1.tiles, wl = document.createElement('div');
+    wl.className = 'wcls ' + (dt > 0 ? 'dn' : dt < 0 ? 'up' : 'eq'); wl.dataset.cls = A1.id; wl.dataset.was = A0.id; wl.dataset.tiles = A1.tiles; wl.dataset.less = A1.less;
+    var wk = document.createElement('span'); wk.className = 'k'; wk.textContent = 'ARMOUR CLASS'; wl.appendChild(wk);
+    var wv = document.createElement('b'); wv.textContent = (A0.id === A1.id ? '' : A0.name + ' to ') + A1.say; wl.appendChild(wv);
+    box.appendChild(wl); }
   if(w.drops){ var dr = document.createElement('div'); dr.className = 'stop'; dr.textContent = 'It takes both hands: his ' + w.drops.name.replace(/^(a|an) /, '') + ' goes to the stash.'; box.appendChild(dr); }
   /* the strip: every man's face, one tap shows it on him */
   var strip = document.createElement('div'); strip.className = 'fstrip'; strip.id = 'shopfaces';

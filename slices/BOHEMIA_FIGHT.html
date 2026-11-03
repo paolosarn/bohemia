@@ -729,6 +729,38 @@ const FIGHT = (function () {
     return m;
   }
   function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u) + bagFat(u)) * injMult(u, 'max_fatigue_pct'))); }
+  /* ==== __HEAVY_ARMOUR_COSTS_A_TILE__ (COMBAT 7, rule 377, ask line 406; Paolo 11/3: 'if you're wearing the heaviest... maybe
+     it's gonna be like -2... you can only walk one time less... please make sure that this does not make it impossible to do any
+     sort of attack or abilities. If you didn't move that turn... there's weights... categories'). ours.armour_weight (TUNING's):
+     his armour's weight is Battle Brothers' own (the body piece and the helmet, added, Brawny's share off, as gearFat); an enemy
+     wears the pieces of his wiki gear nearest his rolled armour. His class's walk_ap comes off what he may spend WALKING this turn
+     (walkCap), never off a strike, a shot or an ability: a man who has not moved has every AP for anything he owns. u.walked is the
+     AP his steps spent this turn (moveTo), back to 0 at the round's start. ==== */
+  function wornWeight(u) {
+    let w = 0;
+    if (u.bodyRow || u.headRow) [u.bodyRow, u.headRow].forEach(function (g) { if (g && typeof g.fatigue === 'number') w -= g.fatigue; });
+    else if (u.gearNames) {
+      const key = u.armBMax + '|' + u.armHMax;
+      if (!u._worn || u._worn.key !== key) {
+        const pick = function (rows, dur) { let b = null; if (!(dur > 0)) return null;
+          u.gearNames.forEach(function (n) { const r = rows.filter(function (x) { return x.name.toLowerCase() === String(n).toLowerCase(); })[0];
+            if (r && (!b || Math.abs(r.durability - dur) < Math.abs(b.durability - dur))) b = r; }); return b; };
+        const b = pick(DB.armor.body, u.armBMax), h = pick(DB.armor.head, u.armHMax);
+        u._worn = { key: key, w: -((b && b.fatigue) || 0) - ((h && h.fatigue) || 0) };
+      }
+      w = u._worn.w;
+    }
+    const br = PK(u, 'brawny');
+    return Math.max(0, br ? w * (1 - br.armor_fatigue_initiative_penalty_reduction_pct / 100) : w);
+  }
+  function weightClass(u) {
+    const C = R('ours.armour_weight').classes, w = wornWeight(u);
+    for (let i = 0; i < C.length; i++) if (typeof C[i].below !== 'number' || w < C[i].below) return C[i];
+    return C[C.length - 1];
+  }
+  function walkCap(u) { return Math.max(0, (u.apTurn || 0) - (u.decoy ? 0 : (weightClass(u).walk_ap || 0))); }
+  function walkLeft(u) { return Math.max(0, Math.min(u.ap, walkCap(u) - (u.walked || 0))); }
+  /* ==== end __HEAVY_ARMOUR_COSTS_A_TILE__ ==== */
   /* THE BAG (COMBAT [the PC playtest: the fight's part] (4), rule 164 item 15, Paolo 10/24: 'you can't switch weapon... Battle
      Brothers has two slots to bring shit into combat... it takes up stamina'): what rides in his bag weighs on his wind at half
      its weight (fatigue.bag_items_penalty_multiplier); with Bags and Belts only a two-hander still weighs */
@@ -1032,7 +1064,7 @@ const FIGHT = (function () {
       racial: (DB.racial && DB.racial.by_enemy[id]) || [], traits: (r.traits || []).slice(), ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: (R('ours.decoy').enemy_archetypes.indexOf(kind) >= 0 ? ['decoy'] : []).concat(perksByName(r.perks, S.days)),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
-      apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
+      apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, gearNames: gear, immune: r.immune || [],   /* gearNames: his armour's weight (rule 377) */
       captain: (r.perks || []).concat(r.skills || []).some(function (x) { return /^captain$/i.test(String(x)); }),
       sideArm: side, nets: netRow && rng() * 100 < netRow.carry_chance_pct ? 1 : 0,
       armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind, lurking: !!Ak.lurks });
@@ -1793,7 +1825,7 @@ const FIGHT = (function () {
       if (!onField(u)) return;
       /* the breath comes back at the start of HIS turn now (beginTurn, rule 313), Battle Brothers' own words: 'Every character
          recovers 15 fatigue at the start of his turn' */
-      u.ap = u.apTurn;
+      u.ap = u.apTurn; u.walked = 0;   /* rule 377: the walk his armour allows starts again */
       u.waitedLast = u.waited; u.waited = false;
       if (u.morale === 'Fleeing') u.roundsFleeing++;
     });
@@ -1919,7 +1951,8 @@ const FIGHT = (function () {
      zone of control. through=true (your finger): a path may walk on past a lone man, and each tile it
      leaves inside his reach costs his free swing, which moveTo rolls (the wiki's zone of control). */
   function reach(u, budget, through) {
-    budget = budget === undefined || budget === null ? u.ap : budget;
+    budget = budget === undefined || budget === null ? walkLeft(u) : budget;
+    if (budget !== Infinity) budget = Math.min(budget, walkCap(u));   /* rule 377: his armour's walking cap, a turn's or what is left of this one */
     const key = function (x, y) { return y * S.w + x; };
     /* fr: how many of his own men the cheapest way wades through; of two ways at the same AP he takes the one round them, so
        he goes through his men only where it saves AP, and a long walk keeps tiles he can stop on (rule 206) */
@@ -1979,7 +2012,7 @@ const FIGHT = (function () {
     let at = { x: u.x, y: u.y }, spent = 0, stop = -1, cost = 0;
     for (let i = 0; i < path.length; i++) {
       spent += stepCost(u, at.x, at.y, path[i].x, path[i].y); at = path[i];
-      if (spent > u.ap) break;
+      if (spent > walkLeft(u)) break;   /* rule 377: the walk he has left under his armour */
       const o = unitAt(at.x, at.y); if (!o || o === u) { stop = i; cost = spent; }
     }
     if (stop >= 0) return { path: path, n: stop + 1, cost: cost, stop: path[stop], far: stop < path.length - 1 };
@@ -2031,9 +2064,9 @@ const FIGHT = (function () {
     let back = { x: u.x, y: u.y };
     for (let i = 0; i < p.length; i++) {
       const s = p[i], cost = stepCost(u, u.x, u.y, s.x, s.y);
-      if (cost > u.ap) break;
+      if (cost > walkLeft(u)) break;   /* rule 377: the AP, and the walk his armour leaves him */
       const zoc = zocOn(u, u.x, u.y);
-      u.ap -= cost;
+      u.ap -= cost; u.walked = (u.walked || 0) + cost;
       let held = false;
       zoc.forEach(function (f) {
         if (held || !onField(u) || !onField(f)) return;
@@ -2986,7 +3019,8 @@ const FIGHT = (function () {
       if (!inBoard(x, y) || !passable(x, y) || unitAt(x, y)) return;
       const c = stepCost(a, a.x, a.y, x, y); if (step === null || c < step) step = c;
     });
-    return { ap: a.ap, apTurn: a.apTurn, fat: Math.round(a.fat), fatMax: fatMax(a), step: step };
+    const wc = weightClass(a);   /* rule 377: the walk his armour leaves him */
+    return { ap: a.ap, apTurn: a.apTurn, fat: Math.round(a.fat), fatMax: fatMax(a), step: step, walk: walkLeft(a), cls: wc.walk_ap ? wc.name : null };
   }
   /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
      Each costs what its wiki row says in AP and fatigue, and does what its row says. */
@@ -3319,7 +3353,7 @@ const FIGHT = (function () {
      reader here fails it. 'blows' is his own blows, which every man has. */
   function lessonsOf(t) { return (R('ours.lessons').kinds[t.kind] || []); }
   function weakestOf(t, reach) { return foes(t).filter(function (m) { return dist(t, m) <= reach; }).sort(function (p, q) { return (p.hp + p.armB) - (q.hp + q.armB); })[0] || null; }
-  function stepsOf(t) { return Math.floor(t.apTurn / R('ap.move_cost.flat')); }
+  function stepsOf(t) { return Math.floor(walkCap(t) / R('ap.move_cost.flat')); }   /* rule 377: his armour's walk */
   const LESSON = {
     blows: function () { return 0; },
     /* THE MECHANIC (ours.bestiary.mechanic): the last of his kind down, every machine of his drops with him */
@@ -3389,7 +3423,7 @@ const FIGHT = (function () {
     let v = threatOf(t);
     lessonsOf(t).forEach(function (k) { if (LESSON[k]) v += LESSON[k](t); });
     if (onField(t) && t.morale !== 'Fleeing') foes(t).forEach(function (m) {
-      const steps = Math.floor(t.apTurn / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : reachOf(t.weapon);
+      const steps = Math.floor(walkCap(t) / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : reachOf(t.weapon);
       if (dist(t, m) > steps + far) return;
       const b = blowsOn(t, m, t.apTurn), w = t.weapon, hp = hitDamage(t, m, (w.damage_min + w.damage_max) / (1 + 1), false, m.armB).hp;
       if (b.n * b.p * hp >= m.hp) v += threatOf(m);
@@ -3690,7 +3724,8 @@ const FIGHT = (function () {
      shotFrom: his best shot (the hit chance times the band's damage share) on a man his side sees from x,y with ap (next: a turn later, a full turn's AP, the breath that
      comes back, the gun loaded); -1 for none. Nothing on the board is left moved. */
   function shotFrom(u, x, y, ap, next, up) {
-    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, loaded: u.loaded, upRound: u.upRound }, lurk = S.units.map(function (v) { return v.lurking; });
+    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, loaded: u.loaded, upRound: u.upRound, walked: u.walked }, lurk = S.units.map(function (v) { return v.lurking; });
+    u.walked = next || ap >= u.apTurn ? 0 : (u.walked || 0) + Math.max(0, u.ap - ap);   /* rule 377 */
     u.x = x; u.y = y; u.ap = ap;
     if (next) u.upRound = undefined; else if (up) u.upRound = S.round;   /* rule 328: a way that climbs gives no shot this turn; the mark is gone next turn */
     if (next) { u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn')); if (reloadSkill(u.weapon) && !u.weapon.mag) u.loaded = true; }
@@ -3698,7 +3733,7 @@ const FIGHT = (function () {
     /* the shot's worth: his chance times the share of the damage the gun's band gives at that distance (rule 187: the shotgun's
        blow falls off with the distance, so its best tile is the next one; a rifle's band is already in its chance) */
     try { foes(u).forEach(function (t) { if (canStrike(u, t) && sideSees(u.side, t)) { const bd = band(u, t); best = Math.max(best, hitChance(u, t, strikeSkill(u.weapon)).chance * (bd ? bd.dmg : 1)); } }); }
-    finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.loaded = keep.loaded; u.upRound = keep.upRound; S.units.forEach(function (v, i) { v.lurking = lurk[i]; }); }
+    finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.loaded = keep.loaded; u.upRound = keep.upRound; u.walked = keep.walked; S.units.forEach(function (v, i) { v.lurking = lurk[i]; }); }
     return best;
   }
   /* Battle Brothers' PotentialDanger: the clubs of theirs that could stand beside x,y next turn (their walk on the flat); a beast
@@ -3708,7 +3743,7 @@ const FIGHT = (function () {
     const ground = !isRoof(x, y) || DIRS.some(function (d) { return inBoard(x + d[0], y + d[1]) && !isRoof(x + d[0], y + d[1]) && passable(x + d[0], y + d[1]); });
     return foes(u).filter(function (fo) {
       if (isRanged(fo.weapon) || fo.morale === 'Fleeing' || fo.stunned || (cannotClimb(fo) && !ground)) return false;
-      return dist(fo, there) - 1 <= Math.floor(fo.apTurn / flat);
+      return dist(fo, there) - 1 <= Math.floor(walkCap(fo) / flat);   /* rule 377 */
     }).length;
   }
   /* the worth of a vantage inside its kind: his best shot from it, the clubs that could stand beside it next turn, the storeys, the
@@ -3802,13 +3837,13 @@ const FIGHT = (function () {
     if (isRanged(f.weapon)) {
       const far = rangeMax(f.weapon.range);
       if (d <= far) return { walk: 0 };
-      return !f.netted && d <= far + 1 && f.apTurn - flat >= sAP ? { walk: flat } : null;
+      return !f.netted && d <= far + 1 && f.apTurn - flat >= sAP && flat <= walkCap(f) ? { walk: flat } : null;
     }
     const rch = reachOf(f.weapon);
     if (d <= rch) return { walk: 0 };
     if (f.netted || foes(f).some(function (o) { return o !== m && dist(o, f) === 1; })) return null;
     const walk = (d - rch) * flat;
-    return f.apTurn - walk >= sAP ? { walk: walk } : null;
+    return f.apTurn - walk >= sAP && walk <= walkCap(f) ? { walk: walk } : null;   /* rule 377: the walk his armour allows */
   }
   /* what each man of theirs puts on m standing on x,y before m's next turn (cached a plan): [{id, v}] */
   function dangerParts(m, x, y, P) {
@@ -3906,10 +3941,11 @@ const FIGHT = (function () {
   }
   /* u stands on x,y with ap and (when given) w in his hands while f runs; everything put back */
   function standIn(u, x, y, ap, f, kit) {
-    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, w: u.weapon, ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded };
+    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, w: u.weapon, ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded, walked: u.walked };
+    u.walked = ap >= u.apTurn ? 0 : (u.walked || 0) + Math.max(0, u.ap - ap);   /* rule 377: a full turn walks fresh; the rest of this one spent walking there */
     u.x = x; u.y = y; u.ap = ap;
     if (kit) { u.weapon = kit.w; u.ammo = kit.ammo; u.ammoMax = kit.ammoMax; u.loaded = kit.loaded; if (kit.fat !== undefined) u.fat = kit.fat; }
-    try { return f(); } finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.weapon = keep.w; u.ammo = keep.ammo; u.ammoMax = keep.ammoMax; u.loaded = keep.loaded; }
+    try { return f(); } finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.weapon = keep.w; u.ammo = keep.ammo; u.ammoMax = keep.ammoMax; u.loaded = keep.loaded; u.walked = keep.walked; }
   }
   /* the man of ours on AUTO with nothing to hit this turn: would a walk to x,y be a long chase (rule 332: chase_tiles or more this
      turn, ending where chase_reach or more of their clubs can swing at him next turn) */
@@ -4413,7 +4449,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { bestTurn: bestTurn, inRange: inRange, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();
@@ -6213,12 +6249,13 @@ const SPENT_BEATS = 1.5;
 /* a step costs AP only (the walk spends no fatigue), so with the AP for a step and no tile, every way out is shut */
 function spentLine(w) {
   if (w.step !== null && w.ap < w.step) return w.ap + ' AP left, a step costs ' + w.step + '. Turn over.';
+  if (w.step !== null && w.cls && w.walk < w.step) return 'His ' + w.cls + ' armour: no walking left this turn. Turn over.';   /* rule 377 */
   return 'Boxed in: nowhere to step, nothing to hit. Turn over.';
 }
 function hideSpent() { UI.spent = null; document.getElementById('outap').style.display = 'none'; }
 function showSpent(w) {
   const el = document.getElementById('outap'), st = document.getElementById('stats').getBoundingClientRect();
-  el.innerHTML = (w.step === null || w.ap >= w.step ? 'NOWHERE TO GO' : 'OUT OF ACTION POINTS') + '<small>' + w.ap + '/' + w.apTurn + ' AP' + (w.step !== null ? ' · A STEP ' + w.step : '') + '</small>';
+  el.innerHTML = (w.step !== null && w.ap >= w.step && w.cls && w.walk < w.step ? 'THE ARMOUR WEIGHS' : w.step === null || w.ap >= w.step ? 'NOWHERE TO GO' : 'OUT OF ACTION POINTS') + '<small>' + w.ap + '/' + w.apTurn + ' AP' + (w.step !== null ? ' · A STEP ' + w.step : '') + '</small>';
   el.style.left = Math.round(st.left - 4) + 'px'; el.style.top = Math.round(st.top - 3) + 'px';
   el.style.width = Math.round(st.width + 8) + 'px'; el.style.height = Math.round(st.height + 6) + 'px';
   el.style.setProperty('--beat', beatMs() + 'ms'); el.style.display = 'flex';

@@ -16,7 +16,7 @@ fixed; downtown's roof-to-roof back per rule 356(e); the gate's fifth leg EDGE p
    keeps a place as on main until its pictures are rendered and swapped. VOTE: combat-place-<place>-11-3b.
 
 COMBAT 7 11/3 (brief from the coordinator, check-in 10, then its carry-on list: EYES 11/3 items 1 and 2; rows 139, 152, 229; rules
-365, 366, 351(f), 367). DONE, EVERY PIECE SHIPPED AND DEPLOYED, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md.
+365, 366, 351(f), 367; then rule 377). DONE, EVERY PIECE SHIPPED, NOT YET SEEN (1-6 deployed; 7 this push). Record: records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md.
 1. AUTO NEVER LEAVES A MAN (0de54ccb, BUILD 11/3zzzc; rows 96, 109, 319, 331): a man of theirs running was a full target to AUTO (the
    hunt, the empty roof's next-turn blow); now his men hunt the men who stand, a runner only when none can be reached or for a kill
    on offer. Repro 0 of 25 (was 23); planner test 79 of 120 before and after.
@@ -30,9 +30,19 @@ COMBAT 7 11/3 (brief from the coordinator, check-in 10, then its carry-on list: 
 5. THE KILL CAMS (5d1d0766, BUILD 11/3zzzzac; rule 351(f)): SHARP, HAMMER, CINE-FOLLOW, ORBIT, X-RAY shuffled, HELD BREATH for a stake,
    CHAIN, LAST STAND; on the beat, AUTO half, a tap skips; the camcorder zoom on the compositor (kill frames 16.7 ms with, 18.9 without).
    Gate THE KILL CAMS 7/0.
-6. THE DECOY (this push; rule 367): perk 'decoy' (his line), ours.decoy; a cardboard cutout of the man, struck, never fights, never
-   his man; the enemy's kids and riders carry it. Gate THE DECOY 6/0.
-VOTE cards: combat-7-auto-never-leaves-a-man, -retreat-is-a-run, -the-enemy-wants-to-live, -the-kill-cams (with sound), -the-decoy (11-3).
+6. THE DECOY (59b309a4, BUILD 11/3zzzzaf; rule 367): perk 'decoy' (his line), ours.decoy; a cardboard cutout of the man, struck, never
+   fights, never his man; the enemy's kids and riders carry it. Gate THE DECOY 6/0.
+7. HEAVY ARMOUR COSTS A TILE (this push; rule 377, ask line 406): TUNING's keys were not on main, so ours.armour_weight is COMBAT 7's
+   default (tuned:false, TUNING 2's to set): classes by Battle Brothers' own armour weight (body + helmet, Brawny off), LIGHT <15,
+   MEDIUM <30, HEAVY <45 (1 AP of walking), HEAVIEST (2: 3 flat tiles, not 4). walkCap/walkLeft cap only the WALK (reach, moveTo,
+   farWalk; u.walked, reset each round); every strike, shot and ability spends AP as before. engine/bohemia_roster.js weightClass gives
+   the shop card ('ARMOUR CLASS MEDIUM to HEAVIEST, ONE LESS TILE', labels only) and the crew card ('ARMOUR: ...'). Gate HEAVY ARMOUR
+   COSTS A TILE 8/0. FOR TUNING: the armour's older breath cost (its weight off max fatigue, gearFat) still blocks 5 of 23 heavy
+   two-handers for a sellsword in full plate; that is the part of 'never impossible to attack' that is a number, theirs.
+THE SUITE: COMBAT 7's six gates are now rows in gates/bohemia_gates.py (they were run by hand before; COMBAT 6's AUTO PLAYS THE BEST
+TURN and CLIMB OR ATTACK still are not rows: both green on this tree, add them when you next touch them).
+VOTE cards: combat-7-auto-never-leaves-a-man, -retreat-is-a-run, -the-enemy-wants-to-live, -the-kill-cams (with sound), -the-decoy,
+-heavy-armour-costs-a-tile (11-3).
 Probes: tools/bohemia_combat_auto_never_leaves_a_man_probe_11_3_26.js, tools/bohemia_combat_the_enemy_wants_to_live_probe_11_3_26.js.
 RED AND NOT THIS LANE'S TO SETTLE: EVERY MAN HAS A JOB (J3 his idle turns 2.24% on main before rule 366, 1.19% after; J4 157 of 300
 against a fixed 158 measured against their old brain: re-base it); THE FIGHT AS CLOSE AS IT CAN BE on the computer (6-point centring);

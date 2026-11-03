@@ -3475,5 +3475,40 @@
   "quote": "everything just looked exactly the same as the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do... no variety, like true variety",
   "why": "COMBAT MAPS 3: a place with built: true deals only its own blocks (its landmark between the lines in a row the deal picks, its field blocks round it, mirrored or not, never beside its twin) and starts the two sides by its own weights (line; wide: their line wide_extra tiles farther off; camp: round the landmark; pincer: both flanks). Every place names its landmark, its things and its twist (gates/every_place_its_own_board_gate.js reads them). An unbuilt place deals as before. TUNING may move the weights.",
   "draft": true
+ },
+ "armour_weight": {
+  "value": {
+   "by": "the weight Battle Brothers gives the body piece and the helmet (armor.json fatigue, its Max. Fatigue penalty), added, after Brawny",
+   "classes": [
+    {
+     "id": "light",
+     "name": "LIGHT",
+     "below": 15,
+     "walk_ap": 0
+    },
+    {
+     "id": "medium",
+     "name": "MEDIUM",
+     "below": 30,
+     "walk_ap": 0
+    },
+    {
+     "id": "heavy",
+     "name": "HEAVY",
+     "below": 45,
+     "walk_ap": 1
+    },
+    {
+     "id": "heaviest",
+     "name": "HEAVIEST",
+     "walk_ap": 2
+    }
+   ]
+  },
+  "tuned": false,
+  "owner": "TUNING (TUNING 2 puts the classes, the walking cost per class and the endgame light pieces here, rule 377(7)); COMBAT 7 reads them in the fight",
+  "source": "VAMILY.md rule 377 (Paolo 11/3, ask line 406); records/BOHEMIA_PAOLO_TAP_A_QUEST_TO_GO_THE_KILL_CAMS_AND_HEAVY_ARMOUR_11_3_26.md; Battle Brothers' armour weight (armor.json fatigue, bb_all/0264_Body Armor.txt, 0958_Headgear.txt)",
+  "quote": "if you're wearing the heaviest... maybe it's gonna be like -2... you can only walk one time less please check the code in the Numbers... please make sure that this does not make it impossible to do any sort of attack or abilities. If you didn't move that turn... there's weights... categories",
+  "why": "COMBAT 7's default (TUNING's keys were not on main when the fight was built; TUNING 2 owns every number here; the fight, the shop and the crew card read ours.armour_weight). A man's armour weight is Battle Brothers' own (the body piece's and the helmet's Max. Fatigue, added; Brawny takes its share off, the fight's gearFat); an enemy's is the pieces of his wiki gear nearest his rolled armour. His class is the first whose 'below' his weight is under (the last has none). walk_ap comes off what he may spend on WALKING this turn (9 a turn: the heaviest walks 7, three flat tiles not four; heavy 8, the same four flat tiles and one rough tile less), NEVER off what attacks, shots and abilities may spend: a man who has not moved still has all 9 for anything he owns (the recover perk at 9), and walk then strike still fits (a strike costs 4 or more, over any walk_ap). The lit walking reach on the board, AUTO and the enemy all read the same cap. Light and medium walk free. Weight is not quality (rule 377(4)): the class is weight only, the armour's durability is its protection."
  }
 }

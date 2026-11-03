@@ -373,9 +373,22 @@
     g.bag.forEach(function (id) { var x = fightWeapon(id) || rowOf('shield', id); if (!x || typeof x.fatigue !== 'number') return;
       bagFat += x.fatigue * (bb && handsOfRow(x.of || x) !== 2 ? 0 : hv); });   /* half its weight; Bags and Belts: only a two-hander weighs */
     var md = (st.melee_defense || 0) + (sh ? sh.melee_defense * sx : 0), rd = (st.ranged_defense || 0) + (sh ? sh.ranged_defense * sx : 0);
-    return { melee_defense: Math.round(md), ranged_defense: Math.round(rd), fatigue: Math.max(0, Math.round((st.fatigue || 0) + gearFat + bagFat)),
+    var wc = weightClass(-(br ? worn0 * (1 - br.armor_fatigue_initiative_penalty_reduction_pct / 100) : worn0));   /* rule 377 */
+    return { weight: wc, melee_defense: Math.round(md), ranged_defense: Math.round(rd), fatigue: Math.max(0, Math.round((st.fatigue || 0) + gearFat + bagFat)),
       initiative: Math.round((st.initiative || 0) + gearFat), armour_body: body ? body.durability : 0, armour_head: head ? head.durability : 0,
       from: { shield: sh ? { melee_defense: Math.round(sh.melee_defense * sx), ranged_defense: Math.round(sh.ranged_defense * sx) } : null, gearFat: Math.round(gearFat), bagFat: Math.round(bagFat) } };
+  }
+  /* __HEAVY_ARMOUR_COSTS_A_TILE__ (COMBAT 7, rule 377, ask line 406; Paolo 11/3: 'you can only walk one time less... there's weights...
+     categories'): his armour's class from its weight (the body piece and the helmet, added, Brawny's share off: the fight's
+     wornWeight), ours.armour_weight (TUNING's); what it costs is AP of WALKING only, so the tiles he walks on flat this turn
+     (rules.json ap.per_turn less walk_ap, over ap.move_cost.flat) and how many fewer than walking free. The fight reads the same row. */
+  function weightClass(w) {
+    var A = D.ours && D.ours.armour_weight, C = (A && (A.value || A).classes) || [{ id: 'light', name: 'LIGHT', walk_ap: 0 }], c = C[C.length - 1];
+    for (var i = 0; i < C.length; i++) if (typeof C[i].below !== 'number' || w < C[i].below) { c = C[i]; break; }
+    var ap = D.rules && D.rules.ap ? D.rules.ap.per_turn.value : 9, flat = D.rules && D.rules.ap ? D.rules.ap.move_cost.flat.value : 2;
+    var tiles = Math.floor(Math.max(0, ap - (c.walk_ap || 0)) / flat), free = Math.floor(ap / flat);
+    return { id: c.id, name: c.name, walk_ap: c.walk_ap || 0, weight: Math.round(w), tiles: tiles, less: free - tiles,
+      say: c.name + (free - tiles > 0 ? ', ' + (free - tiles === 1 ? 'ONE LESS TILE' : (free - tiles) + ' LESS TILES') : (c.walk_ap ? ', SLOWER ON ROUGH GROUND' : ', WALKS FREE')) };
   }
   /* the item in its slot on him: what his numbers become, and the one thing that stops it (a two-hander and a shield) */
   function wearing(man, it) {
@@ -388,7 +401,7 @@
     return out;
   }
   /* ==== end __THE_SHOP_SAYS_WHAT_IT_DOES__ ==== */
-  var API = { load: load, ceiling: ceiling, worthOf: worthOf, planFor: planFor, ceilWeight: ceilWeight, rankIn: rankIn, levelUp: levelUp, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  var API = { load: load, ceiling: ceiling, worthOf: worthOf, planFor: planFor, ceilWeight: ceilWeight, rankIn: rankIn, levelUp: levelUp, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, weightClass: weightClass, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     PAIN_POOL: PAIN_POOL, bgName: bgName, classWord: classWord, weaponName: weaponName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

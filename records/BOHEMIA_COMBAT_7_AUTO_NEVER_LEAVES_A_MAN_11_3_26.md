@@ -162,3 +162,39 @@ GATE: THE DECOY (new) 6/0: D1 the perk is data; D2 his cutout between him and th
 zone, cardboard, never his man; D3 a kid of theirs sets his own (8 of 8); D4 by his finger on the upright phone (the square, a tile, the
 cutout there); never among his men at the end; nothing threw.
 VOTE: combat-7-the-decoy-11-3 (set down, struck four times, knocked over; the fight's camera on his phone).
+
+## 8. RULE 377, HEAVY ARMOUR COSTS A TILE OF WALKING, NEVER A SWING (ask line 406; the coordinator's item after the decoy)
+TUNING'S KEYS WERE NOT ON MAIN when this was built (826053be), so the fight reads a DEFAULT behind the key ours.armour_weight, marked
+tuned:false and TUNING's (TUNING 2 owns every number in it, rule 377(7)): the classes LIGHT under 15, MEDIUM under 30, HEAVY under 45,
+HEAVIEST above; walk_ap 0, 0, 1, 2.
+MEASURED FIRST (the coordinator's record said no armour weighs anything in the fight; it does): armor.json carries Battle Brothers' own
+weight on 71 of 83 body rows and 73 of 91 head rows (Max. Fatigue; the cloth rows are the wiki's blanks), and the fight already takes it
+off his breath and initiative (gearFat). That weight is the class's measure: the body piece and the helmet added, Brawny's share off.
+A coat of plates (42) and a full helm (20) is 62, HEAVIEST; the middle crew's mail hauberk and padded flat top (27) MEDIUM. An enemy wears
+the pieces of his wiki gear nearest his rolled armour (a fallen hero 45, HEAVIEST; a brigand leader 24 less Brawny, MEDIUM; a thug 0).
+THE CAP (slices/BOHEMIA_FIGHT.html wornWeight, weightClass, walkCap, walkLeft): walk_ap comes off what he may spend WALKING this turn,
+never off AP: reach() never lights or plans past it (a turn's cap, or what is left of this one), moveTo() stops a step that would pass it
+and counts u.walked, farWalk() stops there too, newRound() starts it again. Strikes, shots, reloads and every ability spend u.ap as
+before. A man who has not moved has all 9 for anything he owns (recover at 9); walk one tile (2) then strike (4, or 6 two-handed) still
+fits under 9 and under the cap. The brains read the same cap: their next-turn walks (stepsOf, deathWorth, dangerAt, threatReach) and
+the stand-ins AUTO plans with (standIn, shotFrom: a full turn walks fresh, the rest of this one counts what the walk there spent).
+THE WORDS: the out-of-AP card says THE ARMOUR WEIGHS ('His HEAVIEST armour: no walking left this turn. Turn over.') when the cap, not the
+AP, stopped him. engine/bohemia_roster.js weightClass (the same row, the same weight) gives the shop and the crew card their words:
+the shop's card for a body piece or a helmet (ARMOUR CLASS MEDIUM to HEAVIEST, ONE LESS TILE; labels only, FIXES' stock code untouched),
+the crew screen's card under his stats (ARMOUR: HEAVIEST, ONE LESS TILE).
+NOT THIS RULE'S, MEASURED FOR TUNING: the armour's older Battle Brothers cost, its weight off his BREATH, already blocks some swings: on
+a sellsword's own breath (93) in a coat of plates and a full helm, 5 of 23 kinds of weapon swing in light and not in the heaviest
+(two_handed_spiked_mace, woodcutter_s_axe, two_handed_wooden_flail, two_handed_mallet, pitchfork: their swing costs more breath than he
+has with the bag's weight on top). Paolo's 'never impossible to do any sort of attack' may want that looked at; it is TUNING's number.
+GATE: HEAVY ARMOUR COSTS A TILE (new) 8/0: A1 the rule is data; A2 standing still in the heaviest he strikes with all 23 kinds of weapon
+he can in light, every ability (adrenaline, recover, rotation, rally, taunt, footwork, indomitable, decoy) used as in light, walk one
+then strike (one- and two-handed); A3 walking reach 4 light, 4 heavy, 3 heaviest; A4 8 AUTO fights, heaviest men on both sides, no turn
+walks past its class (the fight before: 35 did); A5 the lit reach on the upright phone's own canvas: 4 off lit in light, dark in the
+heaviest, 3 off lit in both; A6 at a fortress armourer by his finger every armour piece names its class and walk, the crew card its class.
+Re-run on this tree: AUTO PLAYS THE BEST TURN 7/0, AUTO NEVER LEAVES A MAN 8/0, THE ENEMY WANTS TO LIVE 4/0, RETREAT IS A RUN FOR THE
+EDGE 5/0, THE DECOY 6/0.
+VOTE: combat-7-heavy-armour-costs-a-tile-11-3 (the same man on his phone in light armour, then the heaviest: the lit ground 4 houses,
+then 3; he walks one and still strikes; the shop's card).
+[bb] Battle Brothers puts armour's weight on maximum fatigue and initiative only; a plate man walks as far as anyone and tires sooner.
+Ours keeps that and adds one clear tile, the cost a phone player sees on the ground before he buys.
+[analog horror] the lit ground is the lamp's lift on the tiles, never a new colour; the shorter walk is read off the same chalk line.

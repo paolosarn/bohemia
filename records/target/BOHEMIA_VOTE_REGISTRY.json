@@ -18067,7 +18067,7 @@
   "id": "combat-7-the-decoy-11-3",
   "kind": "animation",
   "lane": "combat",
-  "sha": "PENDING",
+  "sha": "59b309a4",
   "made": "11/3",
   "draft": true,
   "title": "DECOY: A CARDBOARD CUTOUT THEY GO FOR",
@@ -18085,6 +18085,31 @@
   "before_after": {
    "before": "no decoy",
    "after": "the cutout set down, struck, knocked over",
+   "scale": "his phone upright, 390 x 844, the fight's own camera"
+  }
+ },
+ {
+  "id": "combat-7-heavy-armour-costs-a-tile-11-3",
+  "kind": "animation",
+  "lane": "combat",
+  "sha": "PENDING",
+  "made": "11/3",
+  "draft": true,
+  "title": "HEAVY ARMOUR COSTS A TILE, NEVER A SWING",
+  "said": "if you're wearing the heaviest... maybe it's gonna be like -2... you can only walk one time less... please make sure that this does not make it impossible to do any sort of attack or abilities",
+  "why": "The heaviest armour takes one house off his walk (3, not 4) and never anything off his attacks or abilities; standing still he has all 9 points, and he can walk one house and still strike. You see it in the fight on the lit ground of a man in a coat of plates, and the shop and the crew card say it.",
+  "options": [
+   "A, yes, one tile less is right",
+   "B, good, but tune it (heavier cost, or medium costs too)",
+   "C, no, armour should not slow him"
+  ],
+  "show": {
+   "how": "page",
+   "src": "vote/COMBAT_7_HEAVY_ARMOUR_COSTS_A_TILE.html"
+  },
+  "before_after": {
+   "before": "every armour walked 4 houses",
+   "after": "the heaviest walks 3, strikes the same; the shop says ONE LESS TILE",
    "scale": "his phone upright, 390 x 844, the fight's own camera"
   }
  },

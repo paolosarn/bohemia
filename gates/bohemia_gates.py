@@ -10269,6 +10269,32 @@ GATES = [
      "FIXES, rule 364, ask line 388 (Paolo 11/3: 'when I buy helmets or armor it makes other armor unavailable to purchase or disappears'): "
      "on his phone, a fortress armourer, real taps: each armour piece bought in turn takes only itself, every other piece drawn and its Buy lit; "
      "and with the shelf rolled again between his pick and his Buy (the measured cause: the last piece vanished), only his piece goes. About 1 minute", False),
+    ("AUTO NEVER LEAVES A MAN", ['node', 'gates/auto_never_leaves_a_man_gate.js'],
+     "COMBAT 7 gate, 11/3, EYES item 1 and rows 96, 109, 319, 331 (Paolo: AUTO walked away from the only man of theirs still fighting): "
+     "headless, a man of ours on AUTO with a fighting man of theirs and runners on the board hunts the fighter, never the runners unless a "
+     "kill is on offer; the rout asks him on AUTO too; the round swing's words say the arc. About 3 minutes", True),
+    ("RETREAT IS A RUN FOR THE EDGE", ['node', 'gates/retreat_is_a_run_for_the_edge_gate.js'],
+     "COMBAT 7 gate, 11/3, rule 365 (Paolo 11/3: 'if you press the flee button... you have to reach the edge of the map... it just auto ends "
+     "the fight'): the real button pressed on his upright phone and sideways on AUTO: the fight goes on, his men run for the edges and get "
+     "out one by one, it ends only when all are out or down, never won; broken enemies run for the edge too. About 2 minutes", False),
+    ("THE ENEMY WANTS TO LIVE", ['node', 'gates/the_enemy_wants_to_live_gate.js'],
+     "COMBAT 7 gate, 11/3, rule 366 (Paolo 11/3: 'they try to preserve their [lives]... climbing on tops as high as they can... the enemy can "
+     "have abilities'): headless, a lone man of theirs never walks into three of ours (the brain before did), a shooter with no shot takes "
+     "the highest roof that gives him one, a captain rallies his breaking men. About 1 minute", False),
+    ("THE KILL CAMS", ['node', 'gates/the_kill_cams_gate.js'],
+     "COMBAT 7 gate, 11/3, rule 351(f), ask lines 364 and 365 (Paolo 11/3: 'we had kill cams, bro why don't we have kill cams here... I always "
+     "just care about the frames per second'): on his upright phone on AUTO, every cut whole beats, short on a plain kill, long only for a "
+     "stake, AUTO halves, never two within the gap; every style on a real kill; the camera never moves; a tap skips; a kill's frames within "
+     "3 ms of the same kills with the cams off. About 8 minutes", True),
+    ("THE DECOY", ['node', 'gates/the_decoy_gate.js'],
+     "COMBAT 7 gate, 11/3, rule 367, ask line 391 (Paolo 11/3: 'did you seriously just walk around with a cardboard cutout... you can set it "
+     "down, enemy can as well'): the perk is data; headless his cutout is struck, takes no turn, never swings, holds no zone, never counts as "
+     "his man; a kid of theirs sets his own; on his upright phone the DECOY square then a tile; never among his men at the end. About 2 minutes", False),
+    ("HEAVY ARMOUR COSTS A TILE", ['node', 'gates/heavy_armour_costs_a_tile_gate.js'],
+     "COMBAT 7 gate, 11/3, rule 377, ask line 406 (Paolo 11/3: 'you can only walk one time less... make sure that this does not make it "
+     "impossible to do any sort of attack or abilities'): ours.armour_weight is data; standing still in the heaviest every weapon kind and "
+     "every ability works as in light, walk one then strike fits; walking reach 3 heaviest, 4 light and heavy; AUTO and the enemy never walk "
+     "past their class (the fight before did); the lit reach on the phone's own canvas; the shop and the crew card name the class. About 30 s", False),
     ("NO TWO MEN SHARE A NAME", ['node', 'gates/no_two_men_share_a_name_gate.js'],
      "FIXES item 10, rule 351(b), ask line 362 (Paolo 11/3: 'I think three of them are named the same thing in my company'): 200 hires into one "
      "company, no two names alike (a number is no new name: TOMAS REYES II is TOMAS REYES); never YOUR name or a living man's; a save with twins "
