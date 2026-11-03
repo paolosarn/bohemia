@@ -658,7 +658,7 @@ def card(was_dir='/tmp/claude-0/was'):
     F_ = lambda n: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', n)
     lay = {int(k): tuple(v) for k, v in M['default'].items()}
     S = 1.25; tw, th = int(180 * S), int(320 * S); ww, wh = int(320 * 1.05), int(180 * 1.05); gap = 10; head = 64
-    W = 6 * tw + 7 * gap; H = head + 22 + th + 30 + 22 + wh + 30
+    W = 6 * tw + 7 * gap; H = head + 22 + th + 30 + 22 + wh + 30 + 150
     frames = []
     for f in range(3):
         im = Image.new('RGB', (W, H), (20, 18, 16)); d = ImageDraw.Draw(im)
@@ -677,6 +677,12 @@ def card(was_dir='/tmp/claude-0/was'):
             noww = osd(compose(lay, cn, f, 'wide'), cn, f).resize((ww, wh), Image.NEAREST)
             im.paste(was, (x, y2 + 22)); im.paste(noww, (x + ww // 2 + gap, y2 + 22 - 0))
             d.text((x, y2 + 4), 'sideways: WAS (small) / NOW', font=F_(12), fill=(140, 132, 120))
+        yf = H - 140
+        for k, line in enumerate(('WHY THE CAMERAS ARE NOT LOWER: measured on about 1,300 camera spots and three smaller blocks. With all 12 lots big enough',
+                                  'for your thumb on an upright phone, no camera can sit lower than 11 to 13 m: closer and the far lots get too small to tap,',
+                                  'lower and the front pieces hide the rows behind them. So the closeness is what hangs right at each lens: the street light\'s',
+                                  'arm, two wires with a pair of sneakers on one, the billboard\'s lamps, a web, palms, a pickup, the dead street behind the wall.')):
+            d.text((gap, yf + k * 26), line, font=F_(15), fill=(200, 192, 176) if k else (226, 176, 82))
         frames.append(im)
     dst = os.path.join(OUT, 'vote_intimate.webp')
     frames[0].save(dst, save_all=True, append_images=frames[1:], duration=167, loop=0, quality=84, method=6)
