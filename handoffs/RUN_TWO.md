@@ -1,5 +1,14 @@
-RUN TWO (run-two, the town screen, the shop, the stall, the crew's gear): 11/3 LATEST -- BUILD 11/3zzu - THE TOWN JOB.
+RUN TWO (run-two, the town screen, the shop, the stall, the crew's gear): 11/3 LATEST -- NO TAPE ROUND THE PHONE (rule 356(g)), BUILD 11/3zzzx.
 All BUILT, NOT YET SEEN (rule 179) unless said.
+
+11/3 NO TAPE ROUND THE PHONE (his YES on the town job, one fix, ask line 376; record records/BOHEMIA_RUN_TWO_NO_TAPE_ROUND_THE_PHONE_11_3_26.md):
+- The tape was UI's empty LEAVE holder #bmcorner over the phone's corner: hidden in the town screen while the phone carries LEAVE.
+- The upright phone ground: tools/bohemia_four_layouts_tall_render_10_27_26.py draws NO lot by default now (--lot for the old one);
+  all 28 upright drawings re-rendered day and night (venv: python3.11 -m venv v && v/bin/pip install bpy==4.2.0 numpy pillow scipy;
+  ~4 min a side, the full run is over the 2 h background limit: run it in chunks by town, then --ship-only).
+- padDraw one hard edge; the picture's edge fades only where its edge is on the glass.
+- Gate NOTHING TAPPABLE UNDER THE PHONE 22/0 with N6 (no tape) and N7 (the town's own ground, nights rendered). VOTE
+  run2-no-tape-round-the-phone-11-3 (redo of run2-the-town-job-11-3, his YES).
 
 11/3 THE TOWN JOB (the coordinator's VAMILY from FINISHER 2's open asks page s2; record records/BOHEMIA_RUN_TWO_THE_TOWN_JOB_11_3_26.md):
 - FOUND: the game already drew the towns' own pictures (FINISHER's 'old pictures' line was EYES R6 at 10/26zzi, before the
