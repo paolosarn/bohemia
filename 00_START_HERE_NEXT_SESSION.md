@@ -1,3 +1,11 @@
+ARENA (arena-01gkdyuu): 11/3 LATEST -- BUILD 11/3zzzzar - THE MOB'S ARENA, ALL FIVE PIECES BUILT, NOT YET SEEN (rule 375 and its duct-tape amendment,
+ask lines 402, 403): THE PIT on the Mob's town (a drained hotel pool, taped ropes, three working bulbs, a belted breaker box), the bookie and
+tonight's card; PICK YOUR THREE (one screen of faces, the best three picked, every accessory crossed out); the pit fight (no retreat, nobody
+spared, nothing off the dead, a crowd from real voices); paid on a win, Battle Brothers' ranks in every fight, the fifth night's harness and
+helm; the Strip's tournament (five men, three rounds). Gate THE ARENA 34/0. The whole block: handoffs/ARENA.md.
+[bb Battle Brothers' arena is the floor: the card before you sign, one a day, paid on a win, no retreat, no loot, the crowd, the ranks, the tournament.]
+[analog horror: the pit is a pool nobody filled again, and the crowd comes through a PA that cuts out.]
+
 TUNING TWO (tuning-2-the-fight-is-close): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE, BUILT, NOT YET SEEN (rule 370, ask line 396): the
 fight measured by closeness (won, men down, health left, near-deaths, big hits); the walk was armour, and NEW HERE was easier than Battle
 Brothers' easiest; NEW HERE now sends Battle Brothers' own crews, more late champions, rare men in the top half, price is power on the shelf;
