@@ -1,6 +1,8 @@
 # TUNING (the numbers; and DIFFICULTY, the lane the coordinator started 11/3 for rule 351(c)(d)) -- written only by these lanes, newest first
 
 TUNING 2 (session_01GKDyuv8sejYGSXYyFMacNf): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE (rule 370, ask line 396). BUILT, NOT YET SEEN.
+LIVE: content e412573a5, card/stamp/demo f5fbfa205; pages run 4247 (41636866685) SUCCESS for f5fbfa205. Round done; nothing owed on rule 370's row
+but what s7 of the record routes (WORLD, COMBAT 7, ECONOMY, FACTIONS) and the two rules that landed mid-round (377, 380).
 THE MEASURE (tools/bohemia_difficulty_the_curve.js --close): every simulated fight reads won, men struck down, health left per man, the worst
 man, near-deaths (a quarter of his health or less and lived), big hits (the share of the enemy's landed blows that took half a man), fights
 with nobody under half; three companies (the Lone Wolf; A New Crew growing to twelve; HIS WAY: the Lone Wolf and the post's rare men in the
