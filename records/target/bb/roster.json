@@ -432,9 +432,9 @@
     "unhold",
     "bog_unhold"
    ],
-   "skin": "the short-faced bear or the ground sloth",
+   "skin": "the short-faced bear and the Shasta ground sloth (BEASTS 2 11/3: each its own body and row, bohemia_enemies.json short_faced_bear and ground_sloth, on the unhold's Regeneration and Fling Back)",
    "lesson": "It regenerates and throws: finish it fast.",
-   "in_the_fight": false,
+   "in_the_fight": true,
    "draft": true
   },
   {
@@ -486,7 +486,8 @@
    ],
    "skin": "the mesquite or Joshua-tree walker (a maybe)",
    "lesson": "It spawns saplings: burn or break the trunk.",
-   "in_the_fight": true,
+   "in_the_fight": false,
+   "out_why": "BEASTS 2 11/3 (rule 345 amended (a): 'real DNA only, no mutants'): a walking tree is not an animal any DNA allows, and it never had a body (the fight drew it as the dire wolf); taken out of the late beasts mix (ours.enemy_tiers.mix.beasts.late). Its lesson (it heals; break it fast) lives on in the bear and the sloth.",
    "draft": true
   },
   {

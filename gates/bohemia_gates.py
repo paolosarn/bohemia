@@ -10456,6 +10456,15 @@ GATES = [
      "ground pixel; the fight's own words only (cover or a blocker at most); who touched them last (moved, robbed, buried, nobody) told for each; no blood "
      "in any model; every pit inside its piece; COMBAT MAPS 3's fifteen places each with a count and a floor; graves only where people live; the one VOTE "
      "card with a real sha. Files only, seconds", False),
+    ('EVERY BEAST ITS OWN OUTLINE', ['python3', 'gates/every_beast_its_own_outline_gate.py'],
+     "BEASTS 2 gate, 11/3, rule 345 AMENDED (f) and rule 359 (ask line 381; PAOLO 11/3: 'maybe the beasts can look better, the lab beasts that got out, "
+     "everything's looking like a fucking coyote'). Measured before it: every rig beast was the Khronos Fox stretched, the fight drew three dog pictures and fell "
+     "back to the dire wolf, every beast job dealt wolves and hyenas anywhere, the map's typed picture sizes went stale, and the lab's ear tags rendered 0 to 3 "
+     "dull pixels. B1 every beast kind a beast party can deal has its own picture (no fallback); B2 no two animals share a sheet; B3 every pair of animals "
+     "differs by OUTLINE (each silhouette at one height, E and SE) by 0.20 or more, the old fox cast the control that fails it (0.16); B4 no ground's beast "
+     "table is only canids; B5 the map types no beast cell size; B6 every lab beast's hi-vis collar plate and the bull's and the hog's lime farm tag show 6+ "
+     "pixels in 4+ of 8 facings of the fight's own sheet, the unmarked rows the plant; B7 every beast party names the water it lives at. Plants for every leg. "
+     "Seconds, no browser", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
