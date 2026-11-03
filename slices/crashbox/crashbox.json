@@ -155,7 +155,7 @@
    },
    "e": {
     "name": "THE PENS",
-    "what": "a trail camera's infrared in the lab yard: cage three burst from inside, the cold-store truck still running, a dire wolf in the yard",
+    "what": "a trail camera's infrared in the lab yard: cage three burst from inside, the cold-store truck's panel still lit, a dire wolf standing in the yard",
     "tall": "crashbox/feed_e_tall.webp",
     "wide": "crashbox/feed_e_wide.webp",
     "sound": "crashbox/feed_e.mp3",
@@ -182,15 +182,14 @@
    },
    "g": {
     "name": "THE FLARE",
-    "what": "a camcorder left on its tripod at the landfill: the methane flare still burning over the mound and the dead dozer, two feral dogs",
+    "what": "a camcorder left on its tripod at the landfill: the methane flare still burning over the trash mounds and the fence, the dead dozer; the dogs only heard",
     "tall": "crashbox/feed_g_tall.webp",
     "wide": "crashbox/feed_g_wide.webp",
     "sound": "crashbox/feed_g.mp3",
     "frames": 12,
     "top_left": "rec",
     "reading": "battery",
-    "corner": "counter",
-    "on": false
+    "corner": "counter"
    },
    "h": {
     "name": "THE MARKET",
@@ -204,20 +203,18 @@
     "place": "MARKET",
     "reading": "signal",
     "corner": "clock",
-    "tear": true,
-    "on": false
+    "tear": true
    },
    "i": {
     "name": "THE PYLON",
-    "what": "a camcorder dropped in the sand, still recording, tilted: a power pylon down, Joshua trees, a buried car with its headlights on",
+    "what": "a camcorder dropped in the sand, still recording, tilted: a power pylon down across the desert, Joshua trees, a buried car with its headlights on",
     "tall": "crashbox/feed_i_tall.webp",
     "wide": "crashbox/feed_i_wide.webp",
     "sound": "crashbox/feed_i.mp3",
     "frames": 12,
     "top_left": "rec",
     "reading": "battery",
-    "corner": "counter",
-    "on": false
+    "corner": "counter"
    },
    "j": {
     "name": "THE FOUNTAIN",
@@ -231,8 +228,7 @@
     "place": "FOUNTAIN",
     "reading": "signal",
     "corner": "clock",
-    "tear": true,
-    "on": false
+    "tear": true
    }
   }
  }

@@ -20,11 +20,11 @@ infrared, a cheap colour camera's bloom): no noise layer, no filter on the page.
   d  THE INTAKE            the dam's camera over Lake Mead: the intake towers standing in low water, the white
                            bathtub ring on the canyon walls, one red light still blinking on a tower. CCTV.        6 pictures
   e  THE PENS              the lab yard on a trail camera's infrared: cage three burst from inside, the cold-store
-                           truck still running, a dire wolf standing in the yard, its eyes lit by the flash.        6 pictures
+                           truck still running (its panel lit), a dire wolf standing in the yard.                 6 pictures
   f  THE APRON             the airport's dead apron from the tower: the plane on its belly, the jet bridge to
                            nothing, the fuel truck, a mountain lion crossing the painted lines. Colour CCTV.        6 pictures
-  g  THE FLARE             the landfill's methane flare, still burning, over the mound and the dead dozer; two
-                           feral dogs in its light. A camcorder left on a tripod.                                  12 keys
+  g  THE FLARE             the landfill's methane flare, still burning, over the mounds, the fence and the dead
+                           dozer; the dogs heard, not seen. A camcorder left on a tripod.                          12 keys
   h  THE MARKET            a town's market after closing: the stalls under tarps, the carts, one bulb on the wire
                            still lit, a dog asleep under a table. Colour CCTV over the stall.                      6 pictures
   i  THE PYLON             the open desert: a power pylon down across the sand, Joshua trees, a car half buried
@@ -423,19 +423,19 @@ def render(scene, orient, out):
             sc.frame_set(int(round(fd[0] + (fd[1] - fd[0]) * i / KEYS)))
 
     elif scene == 'i':   # THE PYLON: a camcorder dropped in the sand, still recording, tilted
-        bg.inputs[0].default_value = (0.012, 0.015, 0.028, 1); moon_d.energy = 0.11; moon.rotation_euler = (math.radians(66), 0, math.radians(230))
+        bg.inputs[0].default_value = (0.012, 0.015, 0.028, 1); moon_d.energy = 0.16; moon.rotation_euler = (math.radians(70), 0, math.radians(200))
         meshes.append(plane('sand', (0, 100, 0), 600, 600, mat('sand', (0.25, 0.20, 0.15))))
-        add(P + 'desert_pylon.glb', (-3, 19, 0), 60); add(P + 'desert_buried_car.glb', (5, 13, 0), -35); add(P + 'desert_joshua.glb', (-8, 11, 0), 30)
+        add(P + 'desert_pylon.glb', (-1.5, 11, 0), 75); add(P + 'desert_buried_car.glb', (3.6, 8.5, 0), -35); add(P + 'desert_joshua.glb', (-8, 11, 0), 30)
         add(P + 'desert_joshua_small.glb', (11, 22, 0), 0); add(P + 'desert_joshua.glb', (16, 44, 0), 80, 1.2); add(P + 'desert_boulders.glb', (-9, 7, 0), 10)
         add(M + 'cover_rock_5.glb', (6, 4, 0), 40)
         for k in range(5): add(M + 'cover_rock_%d.glb' % (k + 7), (R.uniform(-40, 40), R.uniform(30, 90), 0), R.uniform(0, 360), R.uniform(1.5, 3.5))
-        cm = add(M + 'camelops.glb', (5, 27, 0), 100, length=3.0); fc = clip(cm, 'Survey')
+        cm = add(M + 'camelops.glb', (6.5, 14, 0), 110, length=3.0); fc = clip(cm, 'Survey')
         # THE WRONG THING: the buried car's headlights, on, across the sand
         ca, sa = math.cos(math.radians(-35)), math.sin(math.radians(-35))
         for sx in (-0.6, 0.6):   # the car's front is its -Y: each lamp 2.2 m forward of its middle, turned with the car
-            light('head', 'SPOT', (5 + sx * ca + 2.2 * sa, 13 + sx * sa - 2.2 * ca, 0.55), 1600, (1.0, 0.92, 0.75), 0.06, rot=(88, 0, 145), spot=40, blend=0.35)
-        sc.view_settings.exposure = -0.2
-        shoot(((0.4, -1.0, 0.25), (1.0, 14, 3.4), 64, -9), ((0.4, -1.0, 0.25), (0.6, 14, 2.4), 42, -9))
+            light('head', 'SPOT', (3.6 + sx * ca + 2.2 * sa, 8.5 + sx * sa - 2.2 * ca, 0.55), 4200, (1.0, 0.92, 0.75), 0.06, rot=(88, 0, 145), spot=40, blend=0.35)
+        sc.view_settings.exposure = 0.4
+        shoot(((0.4, -1.0, 0.45), (1.2, 12, 2.4), 52, -9), ((0.4, -1.0, 0.45), (1.0, 12, 1.9), 36, -9))
         def key(i):
             sc.frame_set(int(round(fc[0] + (fc[1] - fc[0]) * i / KEYS)))
 
@@ -481,7 +481,7 @@ def render(scene, orient, out):
 SKY = {   # top, horizon, stars, and the horizon's own thing
     'a': ((6, 8, 14), (24, 24, 30), 70, 'ridge'), 'b': ((8, 8, 9), (16, 16, 17), 0, None), 'c': ((5, 8, 16), (34, 28, 34), 90, 'glow'),
     'd': ((6, 8, 15), (20, 22, 30), 120, None), 'e': ((0, 0, 0), (0, 0, 0), 0, None), 'f': ((7, 7, 12), (24, 20, 22), 40, 'glow_far'),
-    'g': ((8, 6, 8), (28, 20, 18), 30, 'smoke'), 'h': ((6, 7, 11), (14, 14, 18), 20, None), 'i': ((4, 7, 18), (22, 24, 36), 220, 'ridge'),
+    'g': ((8, 6, 8), (28, 20, 18), 30, 'smoke'), 'h': ((6, 7, 11), (14, 14, 18), 20, None), 'i': ((4, 7, 18), (30, 30, 42), 220, 'glow_low'),
     'j': ((7, 7, 10), (18, 16, 18), 10, None)}
 
 
@@ -506,8 +506,8 @@ def post(scene, orient, out, dst):
         hz = int(H * (0.40 if orient == 'tall' else 0.46))
         ridge = hz - (6 + 6 * np.sin(np.arange(W) / (31.0 * W / 390)) + 3 * np.sin(np.arange(W) / 9.0)).astype(int)
         for x in range(W): sky[ridge[x]:, x] = (13, 13, 17)
-    if thing in ('glow', 'glow_far', 'smoke'):   # the city's dead sodium, or the flare's, on the cloud floor
-        cx, cy, a = {'glow': (0.42, 0.40, 64), 'glow_far': (0.75, 0.42, 14), 'smoke': (0.55, 0.30, 22)}[thing]
+    if thing in ('glow', 'glow_far', 'smoke', 'glow_low'):   # the city's dead sodium, or the flare's, on the cloud floor
+        cx, cy, a = {'glow': (0.42, 0.40, 64), 'glow_far': (0.75, 0.42, 14), 'smoke': (0.55, 0.30, 22), 'glow_low': (0.30, 0.55, 26)}[thing]
         d = np.sqrt(((X - W * cx) / (W * 0.55)) ** 2 + ((np.arange(H)[:, None] - H * cy) / (H * 0.12)) ** 2)
         glow = np.clip(1 - d, 0, 1) ** 2 * a
         sky[..., 0] += glow; sky[..., 1] += glow * 0.6; sky[..., 2] += glow * 0.3
