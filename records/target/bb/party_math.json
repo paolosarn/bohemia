@@ -298,6 +298,34 @@
       "big_at_least": 5
      }
     }
+   },
+   "big_beasts": {
+    "factions": [
+     "bulls",
+     "bears",
+     "sloths",
+     "camels",
+     "lions"
+    ],
+    "kinds": [
+     "feral_bull",
+     "short_faced_bear",
+     "ground_sloth",
+     "camelops",
+     "mountain_lion"
+    ],
+    "through_mail": [
+     "feral_bull",
+     "short_faced_bear",
+     "ground_sloth",
+     "camelops"
+    ],
+    "days": [
+     10,
+     20
+    ],
+    "big_share_at_least": 35,
+    "armoured_big_share_at_least": 10
    }
   },
   "ours": true,
@@ -305,6 +333,7 @@
   "source": "VAMILY.md rule 370 (Paolo 11/3) and 351(c); records/BOHEMIA_PAOLO_THE_FIGHT_IS_CLOSE_AND_STILL_FEELS_GOOD_11_3_26.md; measured by tools/bohemia_difficulty_the_curve.js --close (banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_BEFORE_11_3_26.json, _AFTER_); Battle Brothers' floor: banks/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.json setting 'bb' (Battle Brothers' Veteran on our fight: twelve men against the map's thirteen won 95 to 99 in 100 with 1.2 to 2.8 men struck down a fight and nobody down in only 12 to 33 fights of 100)",
   "quote": "for all difficulties the tuning is so important, the numbers, how close things can get, but you still feel good",
   "why": "TUNING 2 [the fight is close] 11/3: THE BANDS gates/the_fight_is_close_gate.js holds, per level, on the routine job and the tough job (one skull and two to day 3, then two and three), pooled over the Lone Wolf, a fresh company and his way (rare men in the cheapest kit) at sample_days: won in 100, men struck down a fight, fights in 100 where nobody of his went under half health (clean_at_most), the company's health left at the end (hp_at_most), and the share of the enemy's landed hits that took half a man or more (big_at_least). Battle Brothers' Veteran on our own fight (10/18) is the floor the two harder levels sit on; NEW HERE is Battle Brothers' Beginner (rule 370(1): even the easiest bites). not_hell: OUTLIVED IT's routine job on not_hell_days is won at least this often by every company, the Lone Wolf alone included (351(c)). price_ladder: the dearest body and helmet cost at least this many times the cheapest piece holding a third as much (Battle Brothers' curve is about 30 to 50; kept). one_shot: an unarmoured man's health and a mail shirt's armour for the one-shot leg (a 60-health recruit, Battle Brothers' mail hauberk 150).",
-  "seen_tough_why": "Set where the live fight stands after COMBAT 7's rule 366 (the enemy that wants to live breaks and runs) landed in the same hour: SEEN IT's tough job at days 10 and 20 went from 94 to 97 in 100 won and 1.25 to 0.95 men down a fight on main's own numbers; the band was 96 and 1.0. Tightening it back needs the brigand levers WORLD's gate pins (records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s7): TUNING's next round."
+  "seen_tough_why": "Set where the live fight stands after COMBAT 7's rule 366 (the enemy that wants to live breaks and runs) landed in the same hour: SEEN IT's tough job at days 10 and 20 went from 94 to 97 in 100 won and 1.25 to 0.95 men down a fight on main's own numbers; the band was 96 and 1.0. Tightening it back needs the brigand levers WORLD's gate pins (records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s7): TUNING's next round.",
+  "big_beasts_why": "TUNING 2 11/3, rule 370(9) (Paolo: 'these big ass animals better fuck you up if they get close to you for real'): the big beasts are deadly up close. O2: each kind's blow at its best takes half an unarmoured man (one_shot.health) and the four heavy ones (through_mail) half a man in mail (one_shot.mail_body) too; the cat's bite stays a cat's (a cougar's teeth do not go through mail; its danger is the ambush and the pin). B5: in fights against them (the curve tool --factions, the three companies at days, every level), at least big_share_at_least in 100 of their landed blows take half a man, and armoured_big_share_at_least in 100 even on the Lone Wolf's company in the shop's armour. MEASURED: 17 and 1 before (the unhold's Sweep, 40-80, held to a tenth of a man by mail), 48 and 15 after (banks/BOHEMIA_TUNING_THE_BIG_BEASTS_BEFORE/AFTER_11_3_26.json); the fights are still won 97 to 100 in 100, because they are shot on the way in."
  }
 }

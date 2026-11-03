@@ -20,6 +20,11 @@
          closeness_bands.not_hell in 100 by every company, the Lone Wolf alone included
      B3  THE GATE BITES: the numbers as they stood before this round (banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_BEFORE_11_3_26.json, the
          same tool and seeds) fail B1 on the easiest level (the walk he played) and the committed AFTER bank meets it
+     O2  THE BIG BEASTS ARE DEADLY UP CLOSE (370(9)): each big beast's blow at its best (its attack row in records/target/bb/beast_attacks.json,
+         as records/target/bb/bohemia_enemies.json points it) takes half an unarmoured man, and the heavy ones half a man in mail too
+     B5  ...AND THEY LAND: in fights against them (the curve tool --factions, the three companies, every level, closeness_bands.big_beasts)
+         the share of their landed blows that take half a man is at least big_share_at_least, armoured_big_share_at_least on the armoured line;
+         the before bank fails it
      B4  nothing threw
    node gates/the_fight_is_close_gate.js             FIGHT_CLOSE_N=<fights a cell> (20: the bank's own seeds, so the live fight must reproduce the committed after bank)
    ========================================================================== */
@@ -124,6 +129,15 @@ const say = p => 'won ' + p.won + ', struck ' + p.struck + ' a fight, nobody und
     }));
     ok('O1 ONE-SHOT FEAR: every phase of ' + CB.one_shot_factions.join(', ') + ' has a blow that takes half an unarmoured man, and mail holds it under half', bad.length === 0, bad.length ? bad.slice(0, 4).join('; ') : seen.slice(0, 6).join('; ') + '...');
 
+    /* O2: the big beasts' blows on paper */
+    const BB_ = CB.big_beasts, BA = J('records/target/bb/beast_attacks.json');
+    const atkOf = id => { const o = NEWE.rows.filter(r => r.id === id)[0]; const a = (o && o.beast && o.beast.attack) || ((BA.by_enemy[o ? o.from : id] || {}).attack); return BA.rows.filter(r => r.id === a)[0]; };
+    const o2 = BB_.kinds.map(k => { const a = atkOf(k); if (!a) return { k, bad: 'no attack' };
+      const bare = blow(a, 0) / CB.one_shot.health, mail = blow(a, CB.one_shot.mail_body) / CB.one_shot.health, needMail = BB_.through_mail.indexOf(k) >= 0;
+      return { k, a: a.name, bare, mail, bad: bare < 0.5 ? 'bare ' + Math.round(100 * bare) + '%' : needMail && mail < 0.5 ? 'mail ' + Math.round(100 * mail) + '%' : null }; });
+    ok('O2 THE BIG BEASTS ARE DEADLY UP CLOSE: each one\'s best blow takes half an unarmoured man, and the bull, the bear, the sloth and the camel half a man in mail',
+      o2.every(x => !x.bad), o2.map(x => x.k + ' ' + (x.a || '') + ' ' + Math.round(100 * (x.bare || 0)) + '%/' + Math.round(100 * (x.mail || 0)) + '%' + (x.bad ? ' FAILS ' + x.bad : '')).join('; '));
+
     /* B3 first (static): the before bank fails, the after bank holds */
     const before = J('banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_BEFORE_11_3_26.json'), after = J('banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_AFTER_11_3_26.json');
     const bandsFail = (bank, days) => { const out = []; Object.keys(CB.levels).forEach(lv => ['routine', 'tough'].forEach(jb => {
@@ -143,6 +157,15 @@ const say = p => 'won ' + p.won + ', struck ' + p.struck + ' a fight, nobody und
     const hell = early.cells.filter(c => c.level === 'out' && c.job === 'routine' && c.won < CB.not_hell);
     ok('B2 THE HARDEST START IS NOT HELL: OUTLIVED IT\'s routine job, days ' + CB.not_hell_days.join(' and ') + ', won ' + CB.not_hell + ' in 100 or more by every company',
       hell.length === 0, early.cells.filter(c => c.level === 'out' && c.job === 'routine').map(c => c.key + ' d' + c.day + ' ' + c.won).join(', '));
+    /* B5: the big beasts land their blows in the fight */
+    const share = (cells, key) => { const cs = cells.filter(c => !key || c.key === key), hits = cs.reduce((t, c) => t + c.theirHitsPerFight * c.n, 0);
+      return Math.round(100 * cs.reduce((t, c) => t + c.bigHitShare / 100 * c.theirHitsPerFight * c.n, 0) / Math.max(1, hits)); };
+    const beasts = measure(['--days', BB_.days.join(','), '--companies', 'wolf,fresh,mine', '--factions', BB_.factions.join(',')], 'beasts');
+    const bAll = share(beasts.cells), bWolf = share(beasts.cells, 'wolf');
+    const bb0 = J('banks/BOHEMIA_TUNING_THE_BIG_BEASTS_BEFORE_11_3_26.json'), b0All = share(bb0.cells), b0Wolf = share(bb0.cells, 'wolf');
+    ok('B5 ...AND THEY LAND: against the big beasts ' + BB_.big_share_at_least + ' in 100 or more of their landed blows take half a man (' + BB_.armoured_big_share_at_least + ' on the company in the shop\'s armour); the numbers before this round did not',
+      bAll >= BB_.big_share_at_least && bWolf >= BB_.armoured_big_share_at_least && !(b0All >= BB_.big_share_at_least && b0Wolf >= BB_.armoured_big_share_at_least),
+      'now ' + bAll + ' in 100, armoured ' + bWolf + '; before ' + b0All + ', armoured ' + b0Wolf + '; won ' + Math.round(beasts.cells.reduce((t, c) => t + c.won * c.n, 0) / beasts.cells.reduce((t, c) => t + c.n, 0)) + ' in 100');
     ok('B4 nothing threw', true);
   } catch (e) { ok('B4 nothing threw', false, String(e && e.stack || e).slice(0, 400)); }
   done();

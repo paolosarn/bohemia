@@ -281,3 +281,23 @@ APPARITIONS (act weights for FACTIONS' new kinds), AUTO KILLS ONE AT A TIME F5 (
 PART N2 (27/4 on main, 30/1 here), THE NEW ENEMIES 8/4, THE RARE MAN AT THE POST R5 (the demo's tap), THE SHOP SAYS WHAT IT DOES W1, THE
 REBUILT FIGHT PLAYS (4 legs here, 6 on main), THE FIGHT READS ONLY SOURCED NUMBERS (dealHash). UNMEASURED, SAID: THE JOB TELLS THE TRUTH, IN
 BLOOD drives the demo and did not finish inside 20 minutes on this box twice (its browser closed by the timeout).
+
+## 9. THE BIG BEASTS ARE DEADLY UP CLOSE (rule 370 amended (9), the coordinator's note 11/3 09:30; Paolo on BEASTS 2's card: 'these big ass
+## animals better fuck you up if they get close to you for real')
+- MEASURED BEFORE (tools/bohemia_difficulty_the_curve.js --close --factions bulls,bears,sloths,camels,lions, the three companies, days 10 and
+  20, every level, 20 fights a cell; banks/BOHEMIA_TUNING_THE_BIG_BEASTS_BEFORE_11_3_26.json): the bull, the bear, the sloth and the camel all
+  struck with the unhold's Sweep (40 to 80, 40% through armour): 133% of an unarmoured man at its best, but a mail shirt held it to a tenth
+  of a man, so 17 in 100 of their landed blows took half a man (1 in 100 on the company in the shop's armour). Won 99 in 100.
+- THE NUMBERS (records/target/bb/bohemia_enemies.json, each beast's attack pointed at a wiki row already in beast_attacks.json; BEASTS 2
+  keeps the bodies, brains and rule rows): the bull's horns the Ijirok's Gore (100 to 130), the bear's maul the Bite (70 to 110), the
+  sloth's claws the schrat's Uproot (70 to 100), the camel's kick the Size 2 Headbutt (70 to 90), each half through armour: at its best a dead
+  man in rags and half a man in mail (62 / 67 / 58 / 50%). One heavy blow a turn instead of two Sweeps. The mountain lion keeps the cat's bite
+  (50 to 70, 117% of an unarmoured man; a cougar's teeth do not go through mail; its danger is the ambush and the pin). The ancient bison is
+  not in his five and kept the Sweep: with the Gore, six new men beat its sized party 5 in 10 instead of 8 (the new enemies' gate).
+- MEASURED AFTER (banks/BOHEMIA_TUNING_THE_BIG_BEASTS_AFTER_11_3_26.json): 48 in 100 of their landed blows take half a man (15 on the armoured
+  company); still won 98 in 100, because they are shot on the way in, and the man they reach goes down (struck 0.23 -> 0.34 a fight).
+- THE GATE: THE FIGHT IS CLOSE O2 (each blow on paper: half an unarmoured man; the four heavy ones half a man in mail) and B5 (in the fight:
+  35 in 100 or more, 10 on the armoured line; the before bank fails it), 14/0. closeness_bands.big_beasts and big_beasts_why hold the numbers.
+- THE OTHER GATES: THE BEAST IN EIGHT 26/0, EVERY BEAST ITS OWN OUTLINE 11/0, the roster fresh; THE NEW ENEMIES 8/4 with the same four legs
+  red as main (its SIZED leg: bulls 9/10 and 10/10, bears 2/10 and 10/10, sloths 2/10 and 10/10, camels 10/10, as main within a fight);
+  THE FIGHT HOLDS THE WHOLE GRID 16/1 on main too (the dire wolves in one early cell, from the newest fight, not these numbers).

@@ -1,6 +1,9 @@
 # TUNING (the numbers; and DIFFICULTY, the lane the coordinator started 11/3 for rule 351(c)(d)) -- written only by these lanes, newest first
 
 TUNING 2 (session_01GKDyuv8sejYGSXYyFMacNf): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE (rule 370, ask line 396). BUILT, NOT YET SEEN.
+THE BIG BEASTS (rule 370(9), the coordinator's 09:30 note): the bull, the bear, the sloth and the camel now strike with wiki rows that go half
+through armour (Gore, Bite, Uproot, Size 2 Headbutt; bohemia_enemies.json beast.attack): 17 -> 48 in 100 of their landed blows take half a man
+(1 -> 15 on the armoured company), still won 98 in 100; gate legs O2 and B5 (THE FIGHT IS CLOSE 14/0); record s9. The lion keeps the cat's bite.
 LIVE: content e412573a5, card/stamp/demo f5fbfa205; pages run 4247 (41636866685) SUCCESS for f5fbfa205. Round done; nothing owed on rule 370's row
 but what s7 of the record routes (WORLD, COMBAT 7, ECONOMY, FACTIONS) and the two rules that landed mid-round (377, 380).
 THE MEASURE (tools/bohemia_difficulty_the_curve.js --close): every simulated fight reads won, men struck down, health left per man, the worst
