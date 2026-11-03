@@ -78,3 +78,20 @@ things are getting taller so yeah."
    - THE GATE (a machine check): render every camera with every lot at its tallest possible piece; every lot must show at least 60% of its
      footprint and a 44-point tap box, tall and wide. A camera that fails is moved, not excused.
    - INSIDE (act two's camera, a big warehouse or a drain) follows the same rule: a ceiling-corner camera that sees all twelve.
+
+## AMENDED 11/3 AGAIN (Paolo, verbatim)
+"But yeah, and to probably save tokens I imagine that like this has to be modular and work no matter what like we can't be cooking up 30
+angles of a building type you know like so I know you don't have to. Do you know think about shit like that and be token efficient please"
+
+MODULAR, OR IT IS NOT BUILT (the coordinator's design):
+1. ONE LOT TEMPLATE for every settlement type (the walled block, a strip mall, a school, the act-two warehouse inside): twelve lots in
+   three rows of four, stepping back. A settlement type changes only its BASE PLATE (the ground, the walls, the gate), never the lots or
+   the cameras.
+2. THREE FIXED CAMERAS, THE SAME FOR EVERY SETTLEMENT (plus the act-two inside one): long lens, high and far, so the view is close to
+   flat: a piece looks the same on any lot of its row, so it is rendered ONCE per camera and placed on any lot, not once per lot.
+3. A PIECE COSTS ONE MODEL: modelled once through the master rig, then ONE SCRIPT renders it from the three cameras in its states (bare,
+   built, working) with no hand step: about nine pictures a piece, made by the machine. Never a hand-made angle, never thirty.
+4. A BASE PLATE COSTS ONE SET: each settlement type's plate rendered once per camera by the same script.
+5. THE ACTS' CAMERA LOOK is a setting of that same render (the camera's own sensor, at the source), not new art per act.
+6. THE GATE: the render script takes a model and a camera set and makes every picture; a piece that needed a hand step, or a camera
+   that is not one of the fixed set, fails.
