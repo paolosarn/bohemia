@@ -1,4 +1,4 @@
-COOK GUNS (rule 337, ask line 344, 11/3): BUILD 11/3zzt THE SIX GUNS, EACH ITS OWN. BUILT, NOT YET SEEN (rule 179):
+COOK GUNS (rule 337, ask line 344, 11/3): BUILD 11/3zzx THE SIX GUNS, EACH ITS OWN. BUILT, NOT YET SEEN (rule 179):
 - [the six guns] SHIPPED: the zip gun, the snub revolver, the lever rifle, the scoped deer rifle, the sawed-off and the pump shotgun
   each its own model in every man's hands (reference/models/bohemia/gun_zip, gun_snub, gun_rifle_scoped, gun_shotgun_sawn NEW with
   COOK's gun kit; gun_rifle_b, gun_shotgun_b COOK 10/19), in ALL FOUR of a gun's pictures: the grid, the held clips, the idles, the
