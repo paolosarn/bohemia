@@ -18640,6 +18640,39 @@
     "after": "more love: the dead where nobody moved them",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
+  },
+  {
+   "id": "combat-place-lab-11-3c",
+   "kind": "redo",
+   "redoOf": "combat-place-lab-11-3b",
+   "lane": "combat",
+   "sha": "246e6d2d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE LAB YARD: MORE LOVE",
+   "said": "More work more love",
+   "why": "The lab yard has more love: a biohazard placard on every pen, quarantine tape torn across the lanes, and the staff who stayed with the animals, bagged on the dock for a truck that never came and under tarps in the aisles. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_lab.webp",
+    "first": "../records/target/combat_maps_11_3/first_lab.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board as his last card had it (rule 346 push 1)",
+    "after": "more love: the dead where nobody moved them",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
   }
  ],
  "verdicts": [
