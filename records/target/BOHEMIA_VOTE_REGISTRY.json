@@ -18494,14 +18494,14 @@
    "kind": "redo",
    "redoOf": "combat-place-downtown-11-3b",
    "lane": "combat",
-   "sha": "516e5751",
+   "sha": "ff97d877",
    "made": "11/3",
    "draft": true,
    "title": "DOWNTOWN: RETHOUGHT",
    "said": "Hell nah that shit does not look right",
-   "why": "Downtown is rethought from the real one: Fremont East with its motel, pawn shop, garage and chapel on top, the old casino fronts with the canopy fallen into the mall in the middle, and the south side walked roof to roof over the alley. You see it in every fight there on the map.",
+   "why": "Downtown is rethought from the real one: Fremont East with its motel, garage and chapel, the old casino fronts with the canopy fallen into the mall, the south side walked roof to roof, and its dead in the doorways nobody cleared. You see it in every fight there on the map.",
    "options": [
-    "A, yes, that is downtown and it plays different",
+    "A, yes, that is the place and it plays different",
     "B, better, push it further",
     "C, no, still wrong"
    ],
@@ -18517,8 +18517,8 @@
     ]
    },
    "before_after": {
-    "before": "downtown as his last card had it (rule 346 push 1)",
-    "after": "rethought from real downtown, roads first (rule 356)",
+    "before": "the board as his last card had it (rule 346 push 1)",
+    "after": "downtown rethought from the real one, roads first",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
   },
@@ -18581,6 +18581,39 @@
     "before": "RARE, his level, his kit and a line; the PISTOL line for every man; a gold glow round the card",
     "after": "and the perk he starts with and why you want him; his own weapon; a spotlight, no glow",
     "scale": "his phone upright, 390 by 844"
+   }
+  },
+  {
+   "id": "combat-place-strip-11-3c",
+   "kind": "redo",
+   "redoOf": "combat-place-strip-11-3b",
+   "lane": "combat",
+   "sha": "ff97d877",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE STRIP: MORE LOVE",
+   "said": "More work more love",
+   "why": "The Strip has more love: the Boulevard, its bridge and Welcome sign, gold and pink towers, and its tourists who never left, body bags in rows on the forecourts that became morgues, a body on a bench, luggage dropped along the sidewalks. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_strip.webp",
+    "first": "../records/target/combat_maps_11_3/first_strip.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board as his last card had it (rule 346 push 1)",
+    "after": "more love: the dead where nobody moved them",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
   }
  ],
