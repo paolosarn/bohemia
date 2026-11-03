@@ -234,3 +234,13 @@ standing green: at the source, in the models.
 - THE MARINA: Lake Mead's tan bed (lakemud), the same at every edge; the houseboat moored to its dock on the dry bed (the
   landmark group of four between the lines the plan gate asks for, which marina.0's leaving had taken); marina.0 out. 45% -> 0%,
   8.3% -> 0%, 10% -> 0%, 51 -> 0.
+
+## PUSH 5: RED ROCK, THE WASH, THE DESERT (OWED_SEAMS is empty: all fifteen fixed and holding)
+- RED ROCK: the slickrock sheets soft shapes inside the open tiles (they had ended along the grid's lines), the ledges whole inside
+  their blocks; canyon.0 out. Seams 89% -> 0%, cell lines 12% -> 0%, cut-offs 9.9% -> 0%, roads not met 26 -> 0.
+- THE WASH: the channel's silt floor a metre in from the slopes' feet (it had lain exactly on the cell lines), its stains and the
+  bank's gravel off the block edges, the fence lines' gravel a soft strip. 11% -> 0%, 14% -> 1.1%, 1.8% -> 0%, 27 -> 0.
+- THE DESERT: it held already (4.7%, 1.5%, 0.4%, 0); its one boulder cut at a picture's edge moved inside.
+- THE WHOLE ROUND (rule 346), before -> after, all fifteen: seams seen at the block seams 0% on every place but the suburb (5%,
+  under the 12% floor); cell lines at most 1.6%; cut-offs at most 0.7%; roads not met 0 of 51 on every place; nothing cut at a
+  picture's edge (0 of 46 blocks); a logic list checked by eye for every place, tied to its pictures.
