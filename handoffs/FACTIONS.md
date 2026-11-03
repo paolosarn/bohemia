@@ -1,6 +1,6 @@
 # FACTIONS (written only by the FACTIONS lane)
 
-## FACTIONS (BEASTS 2), 11/3/26: THE LAB BEASTS ALL LOOK LIKE A COYOTE (rule 345 AMENDED, ask line 381), RUNNING
+## FACTIONS (BEASTS 2), 11/3/26: THE LAB BEASTS ALL LOOK LIKE A COYOTE (rule 345 AMENDED, rule 359, ask line 381), ALL SIX PIECES SHIPPED
 His words: 'maybe the beasts can look better, the lab beasts that got out, everything's looking like a fucking coyote'. Record of the
 job: records/BOHEMIA_PAOLO_THE_LAB_BEASTS_ALL_LOOK_LIKE_A_COYOTE_11_3_26.md. MEASURED (rule 12): the road can roll the five
 (coyotes, lions, hogs, camels, bulls; by act, ground and night through the fight's roadOpts, which the map's job_danger roll runs),
@@ -25,8 +25,9 @@ hyenas, so the beast fights he plays are dogs.
   schrat out of the late beasts mix (real DNA only). VOTE beasts2-the-outlines-11-3.
 - THE LIST IS DONE. WHAT IS LEFT (no Paolo needed): his verdicts on the six cards; COMBAT's turn strip draws one red wolf-head glyph
   for every beast (rule 115(h), named to COMBAT); WORLD places the beasts at their waters (bohemia_enemies.json 'water').
-- WAS: (6) the gate (own sheet each, outline differs past a floor, no place
-  only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
+- COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets (piece 3's two hooks are the only fight edits).
+  The builder: tools/bohemia_beasts_every_beast_its_own_body.py (bpy 4.2 in a python3.11 venv); a VOTE card per piece through
+  slices/vote/BEASTS_EVERY_BEAST_ITS_OWN_BODY.html#a,b or #marks:a,b.
 
 ## FACTIONS (BEASTS 2), 11/3/26: EVERY BEAST ITS OWN BODY (rule 345, ask line 354), BUILD 11/3zzy (the bull) and 11/3zzza (the six)
 Record: records/BOHEMIA_BEASTS_EVERY_BEAST_ITS_OWN_BODY_11_3_26.md. His words on THE FERAL BULL: 'They look wayyy to similar to the
