@@ -13,8 +13,10 @@ hyenas, so the beast fights he plays are dogs.
   'beasts' job's animal by the ground its fight is on and draws each beast from its own sheet with its cell read from the fight's
   index (the typed sizes had gone stale). Probe tools/bohemia_beasts_every_party_its_own_animal_probe.js 8/8. VOTE
   beasts2-the-beasts-into-the-fight-11-3. Record records/BOHEMIA_BEASTS_THE_LAB_BEASTS_NOT_A_COYOTE_11_3_26.md.
-- NEXT, in order: (3) the
-  short-faced bear and the Shasta ground sloth as the unhold, (4) the sabre-tooth, the American lion, the ancient bison, the Ice Age
+- PIECE 3 SHIPPED (40bcd8b2, BUILD 11/3zzzk): the short-faced bear and the Shasta ground sloth on the builder, on Battle Brothers'
+  unhold (bohemia_enemies.json brain 'unhold', numbers regenerate and fling; two small hooks in BOHEMIA_FIGHT.html read them).
+  VOTE beasts2-the-bear-and-the-sloth-11-3.
+- NEXT, in order: (4) the sabre-tooth, the American lion, the ancient bison, the Ice Age
   horse, (5) every lab mark readable from the fight's camera, (6) the gate (own sheet each, outline differs past a floor, no place
   only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
 
