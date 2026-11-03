@@ -49,6 +49,14 @@ WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (t
   stops it for good; a town opens its screen on arrival, a pack in the open is the meeting. Code slices/bohemia_quest_travel.js
   (hook H16). OWED: the phone's own painter speed at close zoom (this box needs 29 to 47 s to paint down to 240; PLUMBER). Gate gates/tap_a_quest_your_people_go_gate.js 10/0 upright and sideways. VOTE world-tap-a-quest-11-3. I never touched
   slices/bohemia_phone.js.
+- 378 NO CAP ON A ROAD FIGHT (BUILD 11/3zzzzax; ask line 407): the road event's roster and the street crew's two rosters were
+  Math.min(8, ...); the party's real size goes in now (hooks H18 to H20). Left standing, said in the record: the party math's top
+  13 is TUNING's number in party_math.json; the first day's company plus one is ruled. Gate gates/no_cap_on_a_road_fight_gate.js 7/0.
+- 381 A TOWN IS ALWAYS A DOOR (BUILD 11/3zzzzax; ask line 411, rule 273): reproduced first (the card back at the gate past the old
+  ten-block get-away). A walk that ends in a town is never aimed and its get-away holds; what comes TO him waits off a town's
+  ground (its painted ground and 2 blocks round, townGround); the hunters stop at its edge and give up after 8 of his blocks; a
+  fight he chooses still comes (__A_TOWN_IS_ALWAYS_A_DOOR__, hooks H21 to H27; TOWN_DOOR.on false is the before). Gate
+  gates/a_town_is_always_a_door_gate.js 7/0 from three sides. VOTE world-a-town-is-always-a-door-11-3.
 [bb Battle Brothers draws a party only inside your sight radius, and its map reads by its towns standing tall over the ground.]
 [analog horror: the remembered ground goes a shade darker the moment he turns the corner; nothing says so.]
 

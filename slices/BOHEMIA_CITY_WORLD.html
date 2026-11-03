@@ -43465,7 +43465,7 @@ function roadPartySize(P, ev){
   if(P.lo!=null) return P.lo + (((ev&&ev.seq)|0) % ((P.hi-P.lo)+1));
   return P.n; }
 function roadFightRoster(P, ev){
-  var n=Math.max(1,Math.min(8,roadPartySize(P,ev))), r=[], i;
+  var n=Math.max(1,roadPartySize(P,ev)), r=[], i;   /* __NO_CAP_ON_A_ROAD_FIGHT__ (WORLD 8, rule 378): the party's real size goes in, never eight at most (the first day's company-plus-one stays, in partyMath and the shell's door) */
   for(i=0;i<n;i++) r.push({ arch:P.arch });
   return r; }
 /* ONE STEP MAKES AT MOST ONE FIGHT. streetFightOnStep (V201) and roadInterrupt
@@ -45752,9 +45752,11 @@ function mapStepWorld(){
       var dx = Math.sign(city.x - HUNT.at[0]), dy = Math.sign(city.y - HUNT.at[1]);
       var tries = [[dx, dy], [dx, 0], [0, dy]];
       for(var i = 0; i < tries.length; i++){ var nx = HUNT.at[0] + tries[i][0], ny = HUNT.at[1] + tries[i][1];
-        if((tries[i][0] || tries[i][1]) && cityWalkable(nx, ny)){ HUNT.at = [nx, ny]; break; } }
+        if((tries[i][0] || tries[i][1]) && cityWalkable(nx, ny) && !townGround(nx, ny)){ HUNT.at = [nx, ny]; break; } }   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (c): they stop at its edge */
     }
-    if(huntDist() > HUNT_GIVE_UP || HUNT.steps > HUNT_MAX_STEPS){
+    if(townGround(city.x, city.y)) HUNT.edge = (HUNT.edge | 0) + 1;   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (c): his blocks (or rest ticks) on a town's ground */
+    if(huntDist() > HUNT_GIVE_UP || HUNT.steps > HUNT_MAX_STEPS || (HUNT.edge | 0) > TOWN_DOOR.wait){
+      if((HUNT.edge | 0) > TOWN_DOOR.wait) TOWN_DOOR.gave++;
       try{ travelSay(HUNT.name + ': they gave up on you.'); }catch(_e){}   /* draft:true */
       if(PARTY_SEL === HUNT.id) PARTY_SEL = null; if(PARTY_CHASE === HUNT.id) PARTY_CHASE = null;
       HUNT = null; HUNT_FLEE = null; window.__HUNT_GAVE_UP = (window.__HUNT_GAVE_UP | 0) + 1; return;
@@ -45789,7 +45791,7 @@ function mapStepWorld(){
   mapContact();
 }
 function mapContact(){
-  var __safe = (HUNT && huntDist() <= 1) ? townSafeNow() : null;   /* CAMP __A_TOWN_IS_SAFE__: a hunter at a town's edge waits off it */
+  var __safe = (HUNT && huntDist() <= 1) ? (townSafeNow() || townGround(city.x, city.y)) : null;   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (b) */   /* CAMP __A_TOWN_IS_SAFE__: a hunter at a town's edge waits off it */
   if(__safe){ window.__TOWN_KEPT = { n: ((window.__TOWN_KEPT && window.__TOWN_KEPT.n) | 0) + 1, town: __safe.name, who: HUNT.name, at: [city.x, city.y] }; }
   else if(HUNT && huntDist() <= 1){
     var H = HUNT; HUNT = null; HUNT_FLEE = null; PARTY_SEL = null; PARTY_CHASE = null;
@@ -68263,7 +68265,7 @@ function meetKey(msg){
   if (msg && msg.__hunt && msg.__hunt.id != null) k = 'hunt:' + msg.__hunt.id;
   return k;
 }
-function meetBackStep(){ MEET_BACK.list = MEET_BACK.list.filter(function (b) { return --b.left > 0; }); }
+function meetBackStep(){ var keep = false; try { keep = !!(TOWN_DOOR.on && TRAVEL && TRAVEL.town); } catch (_e) {} MEET_BACK.list = MEET_BACK.list.filter(function (b) { if (keep) { b.left = Math.max(1, b.left - 1); return true; } return --b.left > 0; }); }   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (a): the get-away does not run out on a walk into a town: he gets in */
 function meetThem(msg){   /* where they stand now: the job's pack, the crew hunting him, the party */
   var why = String(msg && msg.why || ''), mc = /^contract:([^:]+)/.exec(why), at = null;
   if (mc) try { LOOP.held.forEach(function (j) { if (String(j.id) !== mc[1] || !j.fight || j.fight.pack == null) return; (j.packs || []).forEach(function (p) { if (p.id === j.fight.pack) at = [p.x | 0, p.y | 0]; }); }); } catch (_e) {}
@@ -68275,13 +68277,45 @@ function meetBackHolds(msg){
   for (var i = 0; i < MEET_BACK.list.length; i++) { var b = MEET_BACK.list[i]; if (b.key !== k) continue;
     var th = meetThem(msg) || b.from, aimed = false;
     try { if (/^party:/.test(String(msg.why || ''))) aimed = true; } catch (_e) {}   /* a roaming party is only ever met by his chase */
-    try { if (TRAVEL && TRAVEL.to && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}
+    try { if (TRAVEL && TRAVEL.to && !(TRAVEL.town && TOWN_DOOR.on) && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (a): a walk that ends in a town is never aimed at anybody */
     try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && b.left >= MEET_BACK.steps) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
     if (!aimed) return b; }
   return null;
 }
 try { window.MEET_BACK = MEET_BACK; } catch (_e) {}
 /* ==== /__FALL_BACK_HOLDS__ ==== */
+/* ==== __A_TOWN_IS_ALWAYS_A_DOOR__ (WORLD 8, 11/3, rule 381, ask line 411; rule 273). PAOLO 11/3: 'I'm trying to enter a city but an
+   enemy I fell back from is trying to crawl up my ass. I should still be able to do that.' The second time (EYES 10/25z; RUN's
+   __FALL_BACK_HOLDS__ 10/26 did not close it). MEASURED (gates/a_town_is_always_a_door_gate.js, this switch off): with the crew he
+   fell back from one block behind him, his walk to the town's door read as AIMED at them in its last blocks (the walk's end within
+   one block of them), so the card came back and the walk stopped at the gate; and a town was safe only on the one block his LEAVE
+   puts him on. NOW, Battle Brothers' town: (a) a walk that ends in a town is never aimed at anybody; (b) a fight that comes TO him
+   (the hunters, a pack that smelt him, raiders, a crew on the patrol road, thieves, a road's ambush, a street crew) does not reach
+   him on a town's ground, in it or right outside (a town's base within TOWN_DOOR.ground blocks), so he walks in and the town's
+   screen opens (the walk's own door, rule 376's too); (c) the hunters stop at its edge and give up after TOWN_DOOR.wait of his
+   blocks or rest ticks there. A fight he walks into (a job's camp, lair, guards, a town's own waves, a pack he tapped, ENGAGE on a
+   card) is his choice and still comes. TOWN_DOOR.on false is the mutation the gate reads (the before). ==== */
+var TOWN_DOOR = { on: true, ground: 2, wait: 8, held: 0, gave: 0 };
+function townGround(x, y){   /* the town (or the region's place) whose painted ground (x, y) is on, or within TOWN_DOOR.ground blocks of: in it or right outside */
+  if(!TOWN_DOOR.on) return null; var R = TOWN_DOOR.ground, best = null, bd = 1e9; x = x | 0; y = y | 0;
+  try{ var bs = ctBases() || {}; for(var nm in bs){ var b = bs[nm]; if(!b) continue; var t = { name: nm, x: b.x | 0, y: b.y | 0, tier: mapTierOf(nm) };
+    if(townFootDist(townFoot(t), x, y) > R) continue; var d = Math.max(Math.abs(t.x - x), Math.abs(t.y - y)); if(d < bd){ bd = d; best = t; } } }catch(_e){}
+  try{ var RG = window.BOH_REGION; if(RG && RG.ready && RG.places) RG.places.forEach(function(p){ var t2 = { name: p.name, x: p.x | 0, y: p.y | 0, tier: p.tier };
+    if(townFootDist(townFoot(t2), x, y) > R) return; var d2 = Math.max(Math.abs(t2.x - x), Math.abs(t2.y - y)); if(d2 < bd){ bd = d2; best = t2; } }); }catch(_e){}
+  return best;
+}
+function townComesToHim(msg){
+  var why = String((msg && msg.why) || ''), mc = /^contract:([^:]+):(pack|raid|band|thief)$/.exec(why);
+  if(mc){ var chased = false; try{ LOOP.held.forEach(function(j){ if(String(j.id) === mc[1] && j.chase != null) chased = true; }); }catch(_e){} return !chased; }   /* a pack he tapped is his chase */
+  return !!(msg && msg.__hunt) || /^road:/.test(why) || why === 'crew';
+}
+function townDoorHolds(msg){
+  if(!TOWN_DOOR.on || !msg || msg.__met || !townComesToHim(msg)) return null;
+  var T = townGround(city.x, city.y); if(T){ TOWN_DOOR.held++; window.__TOWN_DOOR_HELD = { n: TOWN_DOOR.held, town: T.name, why: String(msg.why || ''), at: [city.x, city.y] }; }
+  return T;
+}
+try{ window.TOWN_DOOR = TOWN_DOOR; }catch(_e){}
+/* ==== /__A_TOWN_IS_ALWAYS_A_DOOR__ ==== */
 /* ==== __MAKE_CAMP_NEARBY__ (RUN 10/26, [make camp nearby], rule 269(a); Paolo 10/26: 'if an enemy or a quest is stationary, before
    you enter combat: fall back, engage, and a third option, heal and set up camp nearby; if they're roaming you don't have this
    option'). A STILL ENEMY is one that waits where it is: a job's camp, its lair, the guards on the thing to get back, a contract's
@@ -68334,6 +68368,7 @@ function cityHandOver(msg, skin){
      own math (slices/bohemia_job_danger.js), so the meet card says what stands on the board and the fight deals that band */
   try{ if(window.BohemiaJobDanger) BohemiaJobDanger.rollInto(msg); }catch(_e){}
   try{ if(msg && msg.party && msg.party.faction && /^party:/.test(String(msg.why || ''))) MAP_PARTY_CREW[String(msg.why).slice(6)] = msg.party.faction; }catch(_e){}   /* __THE_ROBOTS_ON_THE_MAP__ */
+  try { if (msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && typeof MODE !== 'undefined' && MODE === 'city' && townDoorHolds(msg)) { if (msg.__hunt) { try { HUNT = msg.__hunt; } catch (_e) {} } return false; } } catch (_e) {}   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (b): on a town's ground what came for him waits off it */
   /* __MEET_BEFORE_YOU_FIGHT__: on the map, the card first; ENGAGE comes back through here with __met */
   try {
     if (MEET.on && MEET.walk > 0 && msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.__met && typeof MODE !== 'undefined' && MODE === 'city') {
@@ -77671,7 +77706,7 @@ function streetFightOnStep(){
     var ck='crew:'+crew.at[0]+','+crew.at[1];
     if(!SF_DONE[ck]){
       SF_DONE[ck]=1; SF_LAST=SF_STEPS;
-      var cn=Math.max(1,Math.min(8,crew.count|0)), croster=[];
+      var cn=Math.max(1,crew.count|0), croster=[];   /* __NO_CAP_ON_A_ROAD_FIGHT__ (WORLD 8, rule 378): the party's real size goes in, never eight at most (the first day's company-plus-one stays, in partyMath and the shell's door) */
       for(var ci=0;ci<cn;ci++) croster.push({arch:(ci%4===3)?'bot':'human'});
       var cfac=null; try{ cfac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
       if(!cityHandOver({type:'BOHEMIA_CITY_ENCOUNTER',   /* V205 __ENTER_ZOOM__ */
@@ -77752,7 +77787,7 @@ function streetTapFight(sx, sy){
   var ck='crew:'+crew.at[0]+','+crew.at[1];
   try{ if(SF_DONE[ck]) return false; }catch(_e){}
   try{ if(SF_STEPS - SF_LAST < SF_COOLDOWN) return false; }catch(_e){}
-  var cn=Math.max(1,Math.min(8,crew.count|0)), roster=[];
+  var cn=Math.max(1,crew.count|0), roster=[];   /* __NO_CAP_ON_A_ROAD_FIGHT__ (WORLD 8, rule 378): the party's real size goes in, never eight at most (the first day's company-plus-one stays, in partyMath and the shell's door) */
   for(var i=0;i<cn;i++) roster.push({arch:(i%4===3)?'bot':'human'});
   var fac=null; try{ fac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
   if(!cityHandOver({type:'BOHEMIA_CITY_ENCOUNTER',

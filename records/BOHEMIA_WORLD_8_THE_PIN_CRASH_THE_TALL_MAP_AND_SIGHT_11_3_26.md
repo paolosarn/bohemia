@@ -146,6 +146,49 @@ paints faster, NOT MEASURED HERE (PLUMBER). My own gate mistakes on the way, nev
 fight was on, a trip too short to watch the zoom finish, a trip that left a town it had just entered.
 VOTE: world-tap-a-quest-11-3 (records/target/world_8/TAP_A_QUEST_YOUR_PEOPLE_GO.webp, moving, from the game's camera).
 
+## 7. NO CAP ON A ROAD FIGHT (rule 378, ask line 407; BUILD 11/3zzzzax)
+His words (11/3): 'make sure there's no coded cap of how many enemies can be on the screen.'
+MEASURED, every place the map hands a fight its enemy count (slices/BOHEMIA_CITY_WORLD.html):
+- roadFightRoster: Math.min(8, the road party's size): REMOVED (hook H18). A road event's roster is now its real size.
+- the street crew's bump (streetFightOnStep) and tap (streetTapFight): Math.min(8, crew.count): REMOVED (H19, H20).
+- roadContactFight, the hunters caught (mapContact), a party he chases (mapContact, partySizeOf), a job's fight (loopArrived and
+  bohemia_job_kinds.js fight()): no clamp of their own; they pass the party math's count.
+- the party math (partyMath): its own top is a NUMBER IN TUNING'S TABLE, not code: records/target/bb/party_math.json roaming.max 13 and
+  job.max 13 (with job.max_by_difficulty where set); a lone man (a road event of one) is one or two (a written rule); a caravan one
+  fewer, a crew one more. NOT CHANGED HERE: the table is TUNING's (one numbers table); the count words already run past it to
+  A PLETHORA (14 to 99), so the top reads as a draft to raise.
+- the first game day: no party bigger than the company plus one (partyMath, partySizeOf and the shell's door): a ruled rule, STAYS.
+- the shell's door (BOHEMIA_ALPHA_0_9.html) and the one door (cityHandOver): no count clamp but the first day's. The fight board's
+  own room is COMBAT 7's (its NO CAP ON HOW MANY FIGHT), not touched.
+Gate gates/no_cap_on_a_road_fight_gate.js 7/0 on his phone: N1 a road event's 14 is 14; N2 an ambush the math makes 14 hands 14;
+N3 the hunters' 14 caught is 14; N4 a roaming party of 14 chased is 14; N5 no Math.min(8 on an enemy count on the page; N6 day
+one still the company plus one; C1.
+
+## 8. A TOWN IS ALWAYS A DOOR (rule 381, ask line 411, with rule 273; BUILD 11/3zzzzax)
+His words (11/3): 'I'm trying to enter a city but an enemy I fell back from is trying to crawl up my ass. I should still be able
+to do that. Right now I'm not able to get into a city.' The second time (EYES 10/25z, the hyenas toward Colorful; RUN's
+__FALL_BACK_HOLDS__ 10/26 did not close it).
+REPRODUCED FIRST on his phone (the gate's K4, the fix switched off at runtime): a crew catches him 14 to 20 blocks out, he taps
+FALL BACK, walks to the town with them one block behind him every step: past the ten-block get-away the card came back on every
+step and the walk stopped short of the gate. THREE CAUSES, measured: (1) the get-away ran out after ten of his blocks however far
+the town was; (2) a walk whose end is within one block of them read as aimed at them (the coordinator's read: it bites when
+they stand beside the door); (3) the town opens a beat after the last step only if no card is up, and a town was safe only on the
+one block his LEAVE puts him on (TOWN_EXIT), so a crew at the edge caught him on the doorstep.
+NOW (__A_TOWN_IS_ALWAYS_A_DOOR__, hooks H21 to H27, tools/bohemia_world_8_map_houses_patch.py), Battle Brothers' town:
+(a) a walk that ends in a town is never aimed at anybody, and the get-away does not run out on it (it holds at one block left);
+(b) a fight that comes TO him (the hunters, a pack that smelt him, raiders, a crew on the patrol road, thieves, a road's ambush, a
+street crew) waits off a town's ground: the town's painted ground (the painter's 2, 3 or 4 blocks square) and two blocks round
+it; the hunters at its edge make no hand-over at all; so the walk goes in and the town's screen opens (the walk's own door, the
+one rule 376's quest call lands on); (c) the hunters never step onto that ground and give up after 8 of his blocks or rest ticks
+there. A fight he chooses still comes on a town's ground: ENGAGE on a card, a job's camp, lair, guards, a town's own waves, a pack
+he tapped, a party he chases. TOWN_DOOR.on false is the switch the gate's before reads.
+Gate gates/a_town_is_always_a_door_gate.js 7/0 on his phone: K1 to K3 from the west and east of VOLUNTEERS and the south of
+ANARCHISTS (13 to 21 blocks), the crew one block behind at the gate every time, the card never back, the town opened; K4 the
+before: the card back at the gate; K5 at a town's edge the crew never steps on and gives up after 9 world steps, no fight; K6
+what he chooses still comes, what came for him does not; C1. On the way, my gate's own mistakes, never the game's: the driver's
+auto-ENGAGE took the card before FALL BACK; the heel set between polls, not inside his step; a check a beat before the town opens.
+VOTE: world-a-town-is-always-a-door-11-3 (records/target/world_8/A_TOWN_IS_ALWAYS_A_DOOR.webp: before, then after, his phone).
+
 ## THE GATES (this round, this box: software drawing in a headless browser, never a phone's numbers)
 - THE HOUSES STAND UP CLOSE (new): 12/0 upright phone, 12/0 sideways, 12/0 computer; with the one hand-over and the roads legs
   (BUILD 11/3zzzu) 14/0 on the upright phone. Z1 one real pinch to a block 380 on the
