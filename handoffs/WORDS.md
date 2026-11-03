@@ -1,5 +1,39 @@
 # WORDS -- the handoff block (written only by WORDS; newest on top; older rounds in handoffs/WORDS_ARCHIVE.md)
 
+WORDS 2 (IT IS CALLED BOHEMIA, session_01GKDyustRw6zQJryWDopg81): 11/3 LATEST -- [it is called bohemia] (rule 362, ask line 386)
+BUILT, NOT YET SEEN (BUILD 11/3zzzr, 7f8612641 the work, f22e44021 the stamp and cut; pages run 4217 for f22e44021 SUCCESS).
+WHAT IS IN THE DEMO NOW:
+- MEASURED FIRST: 119 player-readable "Vegas" in 17 files (the gate run on a clean copy of 5c915d7a). The three a player meets
+  first: the loading camera's miles 'LAS VEGAS 6 MI' (slices/bohemia_ui_crashbox.js + slices/crashbox/crashbox.json), the start
+  screen's 'POST-ECONOMIC APOCALYPSE - LAS VEGAS' (the alpha, so the demo), the phone's 'post-collapse Las Vegas' (built from
+  slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html into BOHEMIA_CURRENT_SLICE). All now say BOHEMIA.
+- BY MEANING, AT THE SOURCE: 22 world posts (feed_world.json, two tightened to stay at 120); the weather bot @wx_bohemia_auto and
+  'Have a great day, Bohemia!' (tools/words_feed sources, bank and feed_kinds rebuilt); the map's LAKE BOHEMIA, BOHEMIA BAY,
+  THE BOHEMIA VALLEY, BOHEMIA BLVD N (NV-604) (tools/bohemia_world_region*.py, land regenerated, identical but the names);
+  THE EYE AT LAKE BOHEMIA (id lake_bohemia_eye); THE WASH, NORTH BOHEMIA; the map key's THE STRIP (Bohemia Blvd) and WELCOME TO
+  FABULOUS BOHEMIA; boss 47's verb 'deal again, and Bohemia earns the way Bohemia earned' (his ladder's row 47, ladder data re-run);
+  Bohemia Boulevard on the Strip board; the Wash; the creek; four waiting VOTE cards, one word each. Real places keep theirs.
+- WORLD's name lookups moved with the region: engine/bohemia_freeways.js, engine/bohemia_the_real_corner.js and the gates
+  region districts 29/0, region bases 365/0, the real corner 16/0, a place is named once 7/0 (its regex reads either name).
+- THE GATE: IT IS CALLED BOHEMIA (gates/it_is_called_bohemia_gate.js, in the suite, node only, seconds) 6/0: the surface found
+  by following the demo, the alpha and VOTE (9 game pages, 86 data files, plus the pages of the 41 waiting VOTE cards; dev tabs not
+  followed); fails Vegas in page text, script strings, data values and keys, waiting VOTE cards; allows only comments, .bq comment
+  lines, code names, named machine-note fields (each read against its pages), his quoted words, a struck-through 'was' on a card.
+- VOTE: words2-it-is-called-bohemia-11-3 (the camera's readout counting BOHEMIA 6 MI down on the beat in BohemiaROM, then eight
+  before-and-after rows). Record: records/BOHEMIA_WORDS_IT_IS_CALLED_BOHEMIA_11_3_26.md.
+GATES (rule 13, pre-push pass): IT IS CALLED BOHEMIA 6/0, DEMO BUILD 25/0, LANGUAGE 107/0, THE FEED HAS A MAX LENGTH 7/0, THE FEED
+TALKS ABOUT THE WHOLE WORLD 8/0, LADDER WALK 43/0, REGION LAND 61/0, REGION BASES 365/0, DISTRICTS JOIN 29/0, REAL CORNER 16/0,
+A PLACE IS NAMED ONCE 7/0. RED, NOT MINE: VOTE TAB's four old reds (two DYNASTY cards with no 'where', the alpha's landing on
+VOTE), my card fits; INLINED FRESH (the resync tool refuses on engine/bohemia_followers.js's banner; my two inlined copies, the
+ladder data and the cold-open set, checked byte for byte); DERIVED FRESHNESS (the BLUES dossier's kit colour and the stale city
+makers that would delete FINAL_ONLY; the phone's source fixed so its build keeps 'Bohemia'; RUN slice rebuilt per rule 8);
+GATE REGISTRY's 23 orphans (mine is registered).
+WEAK, SAID: pixels not read (a painted word in an image, the welcome sign's art); the road code 'NV-604 LV BLVD N' keeps 'LV'; an old
+save keeps posts already made under the old weather handle; the alpha's dev tabs (WORDS, MAP, RUN) still say it in their own pages.
+[bb]: Battle Brothers never names a real place, so its words never choose; ours is a real valley under its own name, and a checker
+now chooses with us. ANALOG HORROR: the loading camera counts BOHEMIA 6 MI down to 0 on the beat, a name the old maps never had.
+NEXT: the coordinator's routine queued rule 371 (the radio lives in the feed) then rule 372 (a tweet sounds like a human), one push each.
+
 WORDS (THE WORLD FEED, session_01GKDyuwRofRh6Gz9p9rotEj): 11/3 LATEST -- [the world feed] (rule 352, ask line 366) SHIPPED
 (BUILD 11/3zzz - THE WORLD IN YOUR FEED, e86c1104), NOT YET SEEN.
 WHAT IS IN THE DEMO NOW:
