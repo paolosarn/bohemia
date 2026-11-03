@@ -1,3 +1,11 @@
+HIRES (hires-01gkdyuv): 11/3 LATEST -- BUILD 11/3zzzzav - FOURTEEN RARE MEN, EACH HIS OWN LOOK, BUILT, NOT YET
+SEEN (rule 351(a) and amended, ask lines 361 and 410; b340bc144): Battle Brothers' rare backgrounds in the valley's skins, each one person
+built on the rig (his face, his clothes, the same man and name at every post), eleven melee with their own weapon on the card, his
+trade's perk and why you want him in gold, a lit spot not a glow; TUNING's chance 6 in 100 a slot. The whole block: handoffs/HIRES.md.
+[bb the rare post: Battle Brothers deals each rare background 2.2 to 8.3 in 100 a slot; ours keeps the whole rare share at 6, the
+village kinds at the camps, and each rare man is one man you can hire once.]
+[analog horror: fourteen people the collapse made, each in the one lit spot at the post.]
+
 ARENA (arena-01gkdyuu): 11/3 LATEST -- BUILD 11/3zzzzar - THE MOB'S ARENA, ALL FIVE PIECES BUILT, NOT YET SEEN (rule 375 and its duct-tape amendment,
 ask lines 402, 403): THE PIT on the Mob's town (a drained hotel pool, taped ropes, three working bulbs, a belted breaker box), the bookie and
 tonight's card; PICK YOUR THREE (one screen of faces, the best three picked, every accessory crossed out); the pit fight (no retreat, nobody

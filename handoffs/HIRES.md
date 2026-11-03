@@ -1,6 +1,6 @@
-HIRES (session_01GKDyuvFuZosW51V4g2K5wr; opened 11/3 by the coordinator for rule 351(a), ask line 361, and 351(a) amended, ask line
-410; written only by this lane): 11/3 LATEST -- FOURTEEN RARE MEN, EACH WORTH WANTING, EACH HIS OWN LOOK, HALF OR MORE MELEE.
-BUILT, NOT YET SEEN. Record: records/BOHEMIA_HIRES_FOURTEEN_RARE_MEN_11_3_26.md.
+HIRES (hires-01gkdyuv): session_01GKDyuvFuZosW51V4g2K5wr, opened 11/3 by the coordinator for rule 351(a), ask line 361, and 351(a) amended, ask line
+410; written only by this lane. 11/3 LATEST -- BUILD 11/3zzzzav - FOURTEEN RARE MEN, EACH WORTH WANTING, EACH HIS OWN LOOK, HALF
+OR MORE MELEE (b340bc144). BUILT, NOT YET SEEN. Ask lines 361 and 410 marked. Record: records/BOHEMIA_HIRES_FOURTEEN_RARE_MEN_11_3_26.md.
 
 WHAT IS LIVE AT EVERY TOWN'S, FORTRESS'S AND CAMP'S POST (the hall), the demo and the alpha:
 - FOURTEEN rare men (records/target/bb/rare_recruits.json): road knight, gun for hire, blade master (RUN TWO's three), contract man,
@@ -18,11 +18,14 @@ WHAT IS LIVE AT EVERY TOWN'S, FORTRESS'S AND CAMP'S POST (the hall), the demo an
   of his level points, so it is the right perk, not an extra one; the crew screen and the fight's hand-over carry it); RARE, his
   level and his kit; his own words. NEVER A GLOWING BORDER: the gold glow is gone; he stands in a lit spot on his card.
 - HOW OFTEN: TUNING's row records/target/bb/ours.json rare_at_the_post (0.06 a slot, levels 2 to 3), read first by the screen: a
-  town's week holds one about one visit in 4.5, a fortress's one in 3.2, a camp's one in 8.6 (the five village kinds only).
+  town's week holds one about one visit in 4.5 to 5 (measured 19% over 400 weeks), a fortress's one in 3 (36%), a camp's one in 8.6
+  (the five village kinds only). He is rolled in the TOP HALF of his range (TUNING 2's 'good, not gods', kept).
 - THE SEEDED TEST: BohemiaSettlement.showRare(kind) puts that man in the post's first slot (the gate's and the VOTE shots' hook).
 
-GATES: MORE RARE HIRES (new, gates/more_rare_hires_gate.js); THE RARE MAN AT THE POST (RUN TWO's) and THE BEST RECRUIT AT THE TOP
-(RUN THREE's) re-aimed to the fourteen, TUNING's rate and the spotlight.
+GATES: MORE RARE HIRES (new) 14/0 on the merged tree; re-aimed to the fourteen: THE RARE MAN AT THE POST 10/0, THE HIRE SHOWS THE
+WHOLE MAN 10/0, THE FACE IS HIS OWN FACE 18/0, NO TWO PEOPLE ALIKE 22/1 and THE BEST RECRUIT AT THE TOP 11/1 (each red measured red
+without this change: the crew screen has no canvas.face any more; the computer's hall opens scrolled past its sort button, main's own
+screen too). Owed to their lanes: those two legs (RUN TWO, RUN THREE).
 VOTE: hires-the-fourteen-rare-men-11-3 (the lineup: faces, bodies, trades, perks) and hires-the-rare-card-on-the-phone-11-3 (four of
 their hire cards on his phone).
 

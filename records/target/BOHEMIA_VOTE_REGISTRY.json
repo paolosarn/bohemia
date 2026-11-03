@@ -18524,7 +18524,65 @@
   },
   {"id": "arena-the-tournament-11-3", "kind": "ui", "lane": "arena", "sha": "e5aff31ea", "made": "11/3", "draft": true, "title": "THE STRIP'S TOURNAMENT: FIVE DAYS, FIVE MEN, THREE ROUNDS PAID AS YOU WIN THEM, QUIT AND KEEP IT, THE HELM FOR ALL THREE", "said": "if it's a tournament then it'll be like you can bring five people or something", "why": "Every few weeks the Mob runs a five-day tournament that its account posts on your feed: five of your men, three rounds that get tougher and pay as you win them, quit any time and keep it, and 300 batteries and the pit-fighter helm for winning all three. You see it in the Mob's town on the RUN tab that week: tap THE PIT and the tournament sits under tonight's card.", "options": ["A, yes, that's the tournament", "B, closer, but change it (say what)", "C, no, a different tournament"], "show": {"how": "page", "src": "vote/ARENA_THE_TOURNAMENT_11_3.html"}, "before_after": {"before": "the pit had one card a night and no tournament", "after": "a five-day tournament every few weeks, posted on the feed, five men, three rounds, quit and keep it", "scale": "his phone, 390 x 844, the real demo"}},
   {"id": "tuning-the-same-fight-three-levels-11-3", "kind": "tile", "lane": "tuning", "sha": "4e6b7e87c", "made": "11/3", "draft": true, "title": "THE SAME FIGHT, THREE LEVELS", "said": "Battle Brothers from easy to hard just tweaked the numbers tiny, so slightly, to make it harder, and it was awesome... Not final, more research, more tuning", "why": "The same nine men on day 20 on the three levels: NEW HERE and SEEN IT are one small step apart, and the big step is SEEN IT to OUTLIVED IT, where your aim and the harder men come at once (Battle Brothers spreads those over two steps). You see it here as the same two jobs on each level, and in the game behind the gear in SETTINGS, FIGHTS.", "options": ["A, the steps feel right", "B, spread the big step out", "C, the easy level is too close to the middle"], "show": {"how": "image", "src": "../records/target/three_levels_11_3/card.webp"}, "before_after": {"before": "three levels picked once at the door: NEW HERE took 15% off every crew on top of Battle Brothers' easiest aim", "after": "the hardest job, nine men on day 20: NEW HERE won 19 of 20 with about a man down, SEEN IT 18, OUTLIVED IT 13 with about 4 men down; crews 1 / 1 / 1.15, aim +5 / +5 / 0", "scale": "the live fight headless, AUTO both sides, 20 fights a cell; the card drawn at his phone's width, 390"}},
-  {"id": "ui7-the-crew-sees-the-camp-11-3", "kind": "ui", "lane": "ui 7", "sha": "38ed041cc", "made": "11/3", "draft": true, "title": "YOUR CREW IN THE CAMP: NO BROWN PANELS, TAP A MAN AND THE CAMERA GLIDES TO HIM", "said": "I'm tired of all that brown backdrop shit. I wanna see more of the camp, of the settlement, when you're in the crew screen... It's your people in the camp... right now it's hard to see them... you click on a character, it centers the camera on that character, to make it that much more like walking around.", "why": "The brown panels are gone: the camp or the town you are in fills the screen, lit, with your men standing in it, his slots and numbers a thin layer round him and his name on the phone. You see it when you press CREW on the phone: tap a face in the line or a man in the camp and the camera glides to him.", "before_after": {"before": "four brown textured panels over the glass (the line, his card, the stats on paper, the stash), the camp dimmed behind them and his men a dark smudge at the foot; a tap changed only the card", "after": "the camp or the town in full view and lit, his men in it, the slots small dark glass round the man picked, the numbers bars on the camp, his name on the phone; a tap in the line or on a man in the camp glides the camera to him in under a beat", "scale": "his phone upright, 390 by 844"}, "options": ["A, better, keep it", "B, close, fix something (say what)", "C, wrong, again"], "show": {"how": "image", "src": "vote/UI7_THE_CREW_SEES_THE_CAMP_11_3.webp"}}
+  {"id": "ui7-the-crew-sees-the-camp-11-3", "kind": "ui", "lane": "ui 7", "sha": "38ed041cc", "made": "11/3", "draft": true, "title": "YOUR CREW IN THE CAMP: NO BROWN PANELS, TAP A MAN AND THE CAMERA GLIDES TO HIM", "said": "I'm tired of all that brown backdrop shit. I wanna see more of the camp, of the settlement, when you're in the crew screen... It's your people in the camp... right now it's hard to see them... you click on a character, it centers the camera on that character, to make it that much more like walking around.", "why": "The brown panels are gone: the camp or the town you are in fills the screen, lit, with your men standing in it, his slots and numbers a thin layer round him and his name on the phone. You see it when you press CREW on the phone: tap a face in the line or a man in the camp and the camera glides to him.", "before_after": {"before": "four brown textured panels over the glass (the line, his card, the stats on paper, the stash), the camp dimmed behind them and his men a dark smudge at the foot; a tap changed only the card", "after": "the camp or the town in full view and lit, his men in it, the slots small dark glass round the man picked, the numbers bars on the camp, his name on the phone; a tap in the line or on a man in the camp glides the camera to him in under a beat", "scale": "his phone upright, 390 by 844"}, "options": ["A, better, keep it", "B, close, fix something (say what)", "C, wrong, again"], "show": {"how": "image", "src": "vote/UI7_THE_CREW_SEES_THE_CAMP_11_3.webp"}},
+  {
+   "id": "hires-the-fourteen-rare-men-11-3",
+   "kind": "outfit",
+   "lane": "hires",
+   "sha": "b340bc144",
+   "made": "11/3",
+   "draft": true,
+   "title": "FOURTEEN RARE MEN, EACH HIS OWN LOOK",
+   "said": "We need more more rare characters, bro... and yeah more rare melee guys all the rare guys i saw were ranged only",
+   "why": "Fourteen rare men can stand at a post now, each one person in his own face, hair and clothes, eleven of them fighting with a melee weapon. You see it at a town's or a fortress's post in the demo, on the hall's cards.",
+   "options": [
+    "A, yes, these are men worth hiring",
+    "B, close, change some of them (say which)",
+    "C, no, again"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/HIRES_THE_FOURTEEN_RARE_MEN_11_3.webp"
+   },
+   "twin": {
+    "src": "records/target/character/barber/person_town_9/rig_SE.png",
+    "diffs": [
+     "every piece picked for him from the barber's book, never a townsman's rolled clothes",
+     "a face of his own: shades, scars, a clouded eye, a long beard, a burn",
+     "his trade's gear on him: pauldrons, chest rigs, bandoliers, bracers, a gorget"
+    ]
+   },
+   "before_after": {
+    "before": "three rare men, each in whatever townsman's body his slot dealt, in a gold glow",
+    "after": "fourteen, each his own body and face, the same man at every post; a lit spot under him, no glow",
+    "scale": "his face 128 px and his whole body as the rig renders him"
+   }
+  },
+  {
+   "id": "hires-the-rare-card-on-the-phone-11-3",
+   "kind": "ui",
+   "lane": "hires",
+   "sha": "b340bc144",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE RARE MAN'S CARD SAYS WHY YOU WANT HIM",
+   "said": "I only hired like when I saw it was rare first off",
+   "why": "His card says the perk he walks in with and what it does in one gold line, shows his own melee weapon instead of the pistol in his bag, and stands him in a lit spot. You see it at the hall in any town of the demo, on his card.",
+   "options": [
+    "A, better, keep it",
+    "B, close, fix something (say what)",
+    "C, wrong, again"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/HIRES_THE_RARE_CARD_ON_THE_PHONE_11_3.webp"
+   },
+   "before_after": {
+    "before": "RARE, his level, his kit and a line; the PISTOL line for every man; a gold glow round the card",
+    "after": "and the perk he starts with and why you want him; his own weapon; a spotlight, no glow",
+    "scale": "his phone upright, 390 by 844"
+   }
+  }
  ],
  "verdicts": [
   {
