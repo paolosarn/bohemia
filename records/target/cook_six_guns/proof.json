@@ -1,0 +1,626 @@
+{
+ "zip_gun": {
+  "at": "2026-11-03T05:43:58.269Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "zip_gun",
+    "them": "another look"
+   },
+   "frames": [
+    "zip_gun_before_turn0.png",
+    "zip_gun_before_turn1.png",
+    "zip_gun_before_turn2.png",
+    "zip_gun_before_turn3.png",
+    "zip_gun_before_turn4.png",
+    "zip_gun_before_turn5.png",
+    "zip_gun_before_turn6.png",
+    "zip_gun_before_turn7.png",
+    "zip_gun_before_shot0.png",
+    "zip_gun_before_shot1.png",
+    "zip_gun_before_shot2.png",
+    "zip_gun_before_shot3.png",
+    "zip_gun_before_shot4.png",
+    "zip_gun_before_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 593,
+    "hold:CoverPistol": 284,
+    "idle:breatheR4": 5,
+    "hold:PIdle": 308,
+    "aim": 113,
+    "hold:CoverPistolAim": 113,
+    "hold:PHit": 83
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "zip_gun",
+    "them": "another look"
+   },
+   "frames": [
+    "zip_gun_after_turn0.png",
+    "zip_gun_after_turn1.png",
+    "zip_gun_after_turn2.png",
+    "zip_gun_after_turn3.png",
+    "zip_gun_after_turn4.png",
+    "zip_gun_after_turn5.png",
+    "zip_gun_after_turn6.png",
+    "zip_gun_after_turn7.png",
+    "zip_gun_after_shot0.png",
+    "zip_gun_after_shot1.png",
+    "zip_gun_after_shot2.png",
+    "zip_gun_after_shot3.png",
+    "zip_gun_after_shot4.png",
+    "zip_gun_after_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 579,
+    "gun:zip_gun": 764,
+    "hold:CoverPistol": 277,
+    "idle:breatheR4": 6,
+    "hold:PIdle": 300,
+    "aim": 108,
+    "hold:CoverPistolAim": 108,
+    "hold:PHit": 77
+   },
+   "errs": []
+  }
+ },
+ "snub_revolver": {
+  "at": "2026-11-03T05:44:22.102Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "snub_revolver",
+    "them": "another look"
+   },
+   "frames": [
+    "snub_revolver_before_turn0.png",
+    "snub_revolver_before_turn1.png",
+    "snub_revolver_before_turn2.png",
+    "snub_revolver_before_turn3.png",
+    "snub_revolver_before_turn4.png",
+    "snub_revolver_before_turn5.png",
+    "snub_revolver_before_turn6.png",
+    "snub_revolver_before_turn7.png",
+    "snub_revolver_before_shot0.png",
+    "snub_revolver_before_shot1.png",
+    "snub_revolver_before_shot2.png",
+    "snub_revolver_before_shot3.png",
+    "snub_revolver_before_shot4.png",
+    "snub_revolver_before_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 581,
+    "hold:CoverPistol": 280,
+    "idle:breatheR4": 5,
+    "hold:PIdle": 299,
+    "aim": 99,
+    "hold:CoverPistolAim": 99,
+    "hold:PHit": 73
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "snub_revolver",
+    "them": "another look"
+   },
+   "frames": [
+    "snub_revolver_after_turn0.png",
+    "snub_revolver_after_turn1.png",
+    "snub_revolver_after_turn2.png",
+    "snub_revolver_after_turn3.png",
+    "snub_revolver_after_turn4.png",
+    "snub_revolver_after_turn5.png",
+    "snub_revolver_after_turn6.png",
+    "snub_revolver_after_turn7.png",
+    "snub_revolver_after_shot0.png",
+    "snub_revolver_after_shot1.png",
+    "snub_revolver_after_shot2.png",
+    "snub_revolver_after_shot3.png",
+    "snub_revolver_after_shot4.png",
+    "snub_revolver_after_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 594,
+    "gun:snub_revolver": 774,
+    "hold:CoverPistol": 285,
+    "idle:breatheR4": 4,
+    "hold:PIdle": 307,
+    "aim": 104,
+    "hold:CoverPistolAim": 104,
+    "hold:PHit": 76
+   },
+   "errs": []
+  }
+ },
+ "lever_rifle": {
+  "at": "2026-11-03T05:44:45.570Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "lever_rifle",
+    "them": "another look"
+   },
+   "frames": [
+    "lever_rifle_before_turn0.png",
+    "lever_rifle_before_turn1.png",
+    "lever_rifle_before_turn2.png",
+    "lever_rifle_before_turn3.png",
+    "lever_rifle_before_turn4.png",
+    "lever_rifle_before_turn5.png",
+    "lever_rifle_before_turn6.png",
+    "lever_rifle_before_turn7.png",
+    "lever_rifle_before_shot0.png",
+    "lever_rifle_before_shot1.png",
+    "lever_rifle_before_shot2.png",
+    "lever_rifle_before_shot3.png",
+    "lever_rifle_before_shot4.png",
+    "lever_rifle_before_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 580,
+    "hold:CoverLong": 279,
+    "idle:breatheR4": 69,
+    "idle:look": 218,
+    "aim": 108,
+    "hold:CoverLongAim": 108,
+    "idle:breatheR2": 18
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "lever_rifle",
+    "them": "another look"
+   },
+   "frames": [
+    "lever_rifle_after_turn0.png",
+    "lever_rifle_after_turn1.png",
+    "lever_rifle_after_turn2.png",
+    "lever_rifle_after_turn3.png",
+    "lever_rifle_after_turn4.png",
+    "lever_rifle_after_turn5.png",
+    "lever_rifle_after_turn6.png",
+    "lever_rifle_after_turn7.png",
+    "lever_rifle_after_shot0.png",
+    "lever_rifle_after_shot1.png",
+    "lever_rifle_after_shot2.png",
+    "lever_rifle_after_shot3.png",
+    "lever_rifle_after_shot4.png",
+    "lever_rifle_after_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 575,
+    "gun:lever_rifle": 760,
+    "hold:CoverLong": 279,
+    "idle:breatheR4": 73,
+    "idle:look": 215,
+    "aim": 104,
+    "hold:CoverLongAim": 104,
+    "idle:breatheR2": 12
+   },
+   "errs": []
+  }
+ },
+ "scoped_deer_rifle": {
+  "at": "2026-11-03T05:45:08.869Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "scoped_deer_rifle",
+    "them": "another look"
+   },
+   "frames": [
+    "scoped_deer_rifle_before_turn0.png",
+    "scoped_deer_rifle_before_turn1.png",
+    "scoped_deer_rifle_before_turn2.png",
+    "scoped_deer_rifle_before_turn3.png",
+    "scoped_deer_rifle_before_turn4.png",
+    "scoped_deer_rifle_before_turn5.png",
+    "scoped_deer_rifle_before_turn6.png",
+    "scoped_deer_rifle_before_turn7.png",
+    "scoped_deer_rifle_before_shot0.png",
+    "scoped_deer_rifle_before_shot1.png",
+    "scoped_deer_rifle_before_shot2.png",
+    "scoped_deer_rifle_before_shot3.png",
+    "scoped_deer_rifle_before_shot4.png",
+    "scoped_deer_rifle_before_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 591,
+    "hold:CoverLong": 285,
+    "idle:breatheR4": 106,
+    "idle:look": 186,
+    "aim": 107,
+    "hold:CoverLongAim": 107,
+    "idle:breatheR2": 16
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "scoped_deer_rifle",
+    "them": "another look"
+   },
+   "frames": [
+    "scoped_deer_rifle_after_turn0.png",
+    "scoped_deer_rifle_after_turn1.png",
+    "scoped_deer_rifle_after_turn2.png",
+    "scoped_deer_rifle_after_turn3.png",
+    "scoped_deer_rifle_after_turn4.png",
+    "scoped_deer_rifle_after_turn5.png",
+    "scoped_deer_rifle_after_turn6.png",
+    "scoped_deer_rifle_after_turn7.png",
+    "scoped_deer_rifle_after_shot0.png",
+    "scoped_deer_rifle_after_shot1.png",
+    "scoped_deer_rifle_after_shot2.png",
+    "scoped_deer_rifle_after_shot3.png",
+    "scoped_deer_rifle_after_shot4.png",
+    "scoped_deer_rifle_after_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 582,
+    "gun:scoped_deer_rifle": 776,
+    "hold:CoverLong": 275,
+    "idle:breatheR4": 59,
+    "idle:look": 220,
+    "aim": 116,
+    "hold:CoverLongAim": 116,
+    "idle:breatheR2": 31
+   },
+   "errs": []
+  }
+ },
+ "sawed_off": {
+  "at": "2026-11-03T05:45:32.109Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "sawed_off",
+    "them": "another look"
+   },
+   "frames": [
+    "sawed_off_before_turn0.png",
+    "sawed_off_before_turn1.png",
+    "sawed_off_before_turn2.png",
+    "sawed_off_before_turn3.png",
+    "sawed_off_before_turn4.png",
+    "sawed_off_before_turn5.png",
+    "sawed_off_before_turn6.png",
+    "sawed_off_before_turn7.png",
+    "sawed_off_before_shot0.png",
+    "sawed_off_before_shot1.png",
+    "sawed_off_before_shot2.png",
+    "sawed_off_before_shot3.png",
+    "sawed_off_before_shot4.png",
+    "sawed_off_before_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 583,
+    "hold:CoverLong": 278,
+    "idle:breatheR4": 69,
+    "idle:look": 215,
+    "aim": 109,
+    "hold:CoverLongAim": 109,
+    "idle:breatheR2": 23
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "sawed_off",
+    "them": "another look"
+   },
+   "frames": [
+    "sawed_off_after_turn0.png",
+    "sawed_off_after_turn1.png",
+    "sawed_off_after_turn2.png",
+    "sawed_off_after_turn3.png",
+    "sawed_off_after_turn4.png",
+    "sawed_off_after_turn5.png",
+    "sawed_off_after_turn6.png",
+    "sawed_off_after_turn7.png",
+    "sawed_off_after_shot0.png",
+    "sawed_off_after_shot1.png",
+    "sawed_off_after_shot2.png",
+    "sawed_off_after_shot3.png",
+    "sawed_off_after_shot4.png",
+    "sawed_off_after_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 580,
+    "gun:sawed_off": 759,
+    "hold:CoverLong": 276,
+    "idle:breatheR4": 57,
+    "idle:look": 222,
+    "aim": 106,
+    "hold:CoverLongAim": 106,
+    "idle:breatheR2": 28
+   },
+   "errs": []
+  }
+ },
+ "pump_shotgun": {
+  "at": "2026-11-03T05:45:55.961Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "pump_shotgun",
+    "them": "another look"
+   },
+   "frames": [
+    "pump_shotgun_before_turn0.png",
+    "pump_shotgun_before_turn1.png",
+    "pump_shotgun_before_turn2.png",
+    "pump_shotgun_before_turn3.png",
+    "pump_shotgun_before_turn4.png",
+    "pump_shotgun_before_turn5.png",
+    "pump_shotgun_before_turn6.png",
+    "pump_shotgun_before_turn7.png",
+    "pump_shotgun_before_shot0.png",
+    "pump_shotgun_before_shot1.png",
+    "pump_shotgun_before_shot2.png",
+    "pump_shotgun_before_shot3.png",
+    "pump_shotgun_before_shot4.png",
+    "pump_shotgun_before_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 566,
+    "hold:CoverLong": 275,
+    "idle:breatheR4": 60,
+    "idle:look": 215,
+    "aim": 97,
+    "hold:CoverLongAim": 97,
+    "idle:breatheR2": 17
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "row": "pump_shotgun",
+    "them": "another look"
+   },
+   "frames": [
+    "pump_shotgun_after_turn0.png",
+    "pump_shotgun_after_turn1.png",
+    "pump_shotgun_after_turn2.png",
+    "pump_shotgun_after_turn3.png",
+    "pump_shotgun_after_turn4.png",
+    "pump_shotgun_after_turn5.png",
+    "pump_shotgun_after_turn6.png",
+    "pump_shotgun_after_turn7.png",
+    "pump_shotgun_after_shot0.png",
+    "pump_shotgun_after_shot1.png",
+    "pump_shotgun_after_shot2.png",
+    "pump_shotgun_after_shot3.png",
+    "pump_shotgun_after_shot4.png",
+    "pump_shotgun_after_shot5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "carry": 574,
+    "gun:pump_shotgun": 776,
+    "hold:CoverLong": 271,
+    "idle:breatheR4": 76,
+    "idle:look": 203,
+    "aim": 120,
+    "hold:CoverLongAim": 120,
+    "idle:breatheR2": 25
+   },
+   "errs": []
+  }
+ }
+}

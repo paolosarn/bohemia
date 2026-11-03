@@ -7160,7 +7160,7 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
   wearOver(v, c, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER): his helmet and his body armour, under his gun */
-  if (g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);
+  if (!(gs && ownGunDraw(ownGun(v, L), 'idle', c.pose, 0, f, ox, oy, s, im)) && g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);   /* __THE_SIX_GUNS__ */
   UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
   return true;
 }
@@ -7265,7 +7265,7 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
   wearOver(v, { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
-  if (gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
+  if (!(kind && ownGunDraw(ownGun(v, L), 'hold', hc[0], hc[1], f, ox, oy, s, im)) && gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }   /* __THE_SIX_GUNS__: his row's own gun first */
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
   punchTint(v, now, img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s);   /* THE PUNCH, on the held picture */
   UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
@@ -7399,6 +7399,11 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
     if (!q || (q === prop && e.held)) return;
     const tg = thing(q, src[0]), pk = tg && tg[1], ix = pk && pk.k && pk.k[src[1]] && pk.k[src[1]][f], ps = pk && tg[0].props.sheets && tg[0].props.sheets[pk.l];
     if (!pk || !ps || !pk.k || !pk.k[src[1]]) { lay.push(false); return; }
+    /* __THE_SIX_GUNS__: the shield arm's pistol is his row's own (the zip gun, the snub) where his pistol is YOU's picture */
+    if (q === 'pistol' && keyOf(tg[0]) === 'you') { const og = ownGun(v, L), m = og && og.e.shield && og.e.shield[src[0]], row = m && m[src[1]];
+      if (row) { UI.clipSeen['gun:' + og.g] = (UI.clipSeen['gun:' + og.g] || 0) + 1; const oi = row[f], fy = DB.rig.looks.you;
+        if (oi !== null && oi !== undefined) lay.push([og.img, og.e.cells[oi], L.foot[0] - fy.foot[0], L.foot[1] - fy.foot[1]]);
+        return; } }
     if (ix === null || ix === undefined) return;   /* behind him on this facing */
     const im_ = holdImg(ps.file, 'rig_melee/'); if (!im_) { lay.push(false); return; }
     /* a thing off another man's sheet sits from that man's fight cell: moved by the difference of their feet, so it is in this fist */
@@ -7421,6 +7426,52 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   return true;
 }
 /* ==== end __WHAT_A_MAN_HOLDS__ ==== */
+/* ==== __THE_SIX_GUNS__ (COOK GUNS, rule 337, ask line 344, Paolo 11/3: 'we don't have enough assets... weapons'). The zip gun,
+   the snub revolver, the lever rifle, the scoped deer rifle, the sawed-off and the pump shotgun each drawn as its own model in
+   his hands, never as the class's pistol, rifle and shotgun, in all four of a gun's pictures: the grid (stand, walk, aim, the
+   blow, the club), the held clips (the pistol's low ready, the knee in cover, the reload), the idles and the shield arm's
+   pistol. The pictures are YOU's (slices/fight_rig/own_guns, tools/bohemia_cook_the_six_guns_11_3_26.py); another man holds
+   them moved by his shift (his feet against YOU's, and where his own class gun sits against YOU's). Until a gun's sheet is
+   in, or where it has no picture, the class gun exactly as before. ==== */
+const OWNG = { meta: null, state: 0 };
+function ownGunMeta() {
+  if (!OWNG.state) {
+    OWNG.state = 1;
+    try { fetch('fight_rig/own_guns.json', FRESH).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) { OWNG.meta = m; OWNG.state = m && m.guns ? 2 : 3; }, function () { OWNG.state = 3; }); } catch (e) { OWNG.state = 3; }
+  }
+  return OWNG.state === 2 ? OWNG.meta : null;
+}
+/* his gun's own pictures, if his row has its own model and its sheet is in: { g, e, img, T (his shift table), ft (his feet) } */
+function ownGun(v, L) {
+  const w = v.weapon, M = w && FIGHT.isGun(w) ? ownGunMeta() : null; if (!M) return null;
+  const b = w.of || w, g = M.by_row[b.id]; if (!g || !M.guns[g]) return null;
+  if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
+  const ti = M.shift[L._key] && M.shift[L._key][M.kind[g]], T = ti === undefined ? null : M.shift_tables[ti]; if (!T) return null;
+  const img = holdImg(M.guns[g].file, 'fight_rig/'); if (!img) return null;
+  const Y = DB.rig.looks.you;
+  return { g: g, e: M.guns[g], img: img, T: T, ft: [L.foot[0] - Y.foot[0], L.foot[1] - Y.foot[1]] };
+}
+/* his own gun's cell for this system, clip, key and facing laid over him: true when it is drawn (or behind him on this
+   facing), false when it has no picture there (the class gun then, as before). Moved by his feet and by where his own class
+   gun sits against YOU's in the same system, clip and facing (his table; his whole median where it has none) */
+function ownGunDraw(og, sys, clip, key, f, ox, oy, s, im) {
+  const m = og && og.e[sys] && og.e[sys][clip], row = m && (sys === 'idle' ? m : m[key]); if (!row) return false;
+  const ix = row[f]; UI.clipSeen['gun:' + og.g] = (UI.clipSeen['gun:' + og.g] || 0) + 1;
+  if (ix === null || ix === undefined) return true;
+  const T = og.T, q = sys === 'grid' ? T.g[clip] : sys === 'hold' ? T.h[clip] : T.i, t = (q && q[f]) || T.a;
+  const c = og.e.cells[ix], d = [og.ft[0] + t[0], og.ft[1] + t[1]];
+  cx.drawImage(im ? im(og.img) : og.img, c[0], c[1], c[2], c[3], ox + (c[4] + d[0]) * s, oy + (c[5] + d[1]) * s, c[2] * s, c[3] * s);
+  return true;
+}
+/* the grid's own gun (blitMan, chipBlit): the fight's clip and key */
+function ownGunGrid(v, L, p, ox, oy, s) {
+  const og = ownGun(v, L); if (!og) return false;
+  const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  const k = Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col));
+  return ownGunDraw(og, 'grid', p.clip, k, v._face || 0, ox, oy, s, dark ? function (i) { return nightSheet(i, moonOf(x, y)); } : null);
+}
+/* ==== end __THE_SIX_GUNS__ ==== */
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
@@ -7447,12 +7498,13 @@ function blitMan(v, X, feet, now, alpha) {
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
      him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him; only in the fall
      is it gone (a gun is never swung, rule 195) */
+  let own_ = false;   /* __THE_SIX_GUNS__: his row's own gun in place of the class gun, once its pictures are in */
   if (gs && !idled) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
-    if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
+    if (gc !== undefined) { own_ = ownGunGrid(v, L, p, ox, oy, s); if (!own_) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); } }
   /* rule 145(a): a man hit flashes a faint red, his own picture tinted by opacity */
   const fl = hitFlash(v, now); if (fl > 0 && !idled) tintOver(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, fl, '#d42a1a');
   if (!idled) { const gk = gs && DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
-    punchTint(v, now, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, gc !== undefined && gc !== null && gs ? [gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h] : null); }   /* THE PUNCH */
+    punchTint(v, now, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, gc !== undefined && gc !== null && gs && !own_ ? [gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h] : null); }   /* THE PUNCH */
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
      map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
@@ -7528,7 +7580,7 @@ function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
     cx.globalAlpha = alpha;
   } else cx.drawImage(sh, sx0, sy0, L.w, L.h, ox + tic, oy, L.w * s, L.h * s);
   if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
-    if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox + tic, oy, L.w * s, L.h * s); }
+    if (gc !== undefined && !ownGunGrid(v, L, p, ox + tic, oy, s)) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox + tic, oy, L.w * s, L.h * s); }   /* __THE_SIX_GUNS__ */
   /* the diode at the nape: lit on the beat's first half while the chip runs, dark for good when it is gone */
   const lit = !v.headGone && !v.unplugged && v._fallAt === undefined && beatPh(now) < .5;
   const nx = ox + tic + (L.foot[0] + (v._face === 2 ? -3 : v._face === 6 ? 3 : 0)) * s, ny = oy + (L.foot[1] - DB.rig.ruler.px * .84) * s;

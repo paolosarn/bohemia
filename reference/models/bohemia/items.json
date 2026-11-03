@@ -165,9 +165,7 @@
     "notched_blade",
     "rondel_dagger",
     "qatal_dagger",
-    "estoc",
-    "zip_gun",
-    "snub_revolver"
+    "estoc"
    ],
    "sha1": "6a0626d3d113d16f3d0299d36d2a10c2133c41c1",
    "hands": 1
@@ -179,9 +177,7 @@
    "say": "",
    "made": "COOK 10/18",
    "rows": [
-    "handgonne",
-    "sawed_off",
-    "pump_shotgun"
+    "handgonne"
    ],
    "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
    "hands": 2
@@ -196,9 +192,7 @@
     "light_crossbow",
     "crossbow",
     "heavy_crossbow",
-    "spiked_impaler",
-    "lever_rifle",
-    "scoped_deer_rifle"
+    "spiked_impaler"
    ],
    "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
    "hands": 2
@@ -1823,6 +1817,84 @@
    },
    "was": "pole_hook",
    "left_x": 0.57
+  },
+  "zip_gun": {
+   "glb": "gun_zip.glb",
+   "kind": "held",
+   "name": "zip gun",
+   "say": "a half-inch pipe on a pine 2x4 grip, two hose clamps, a nail for a striker pulled back on a rubber band",
+   "made": "COOK GUNS 11/3 (tools/bohemia_cook_the_six_guns_11_3_26.py)",
+   "rows": [
+    "zip_gun"
+   ],
+   "sha1": "f5c127e71efc611fe6e4b5eec42ae3294ebd1fe0",
+   "hands": 1,
+   "was": "pistol"
+  },
+  "snub_revolver": {
+   "glb": "gun_snub.glb",
+   "kind": "held",
+   "name": "snub revolver",
+   "say": "a blued two-inch revolver, five chambers, a bobbed hammer, a black rubber grip, white paint on the front sight",
+   "made": "COOK GUNS 11/3 (tools/bohemia_cook_the_six_guns_11_3_26.py)",
+   "rows": [
+    "snub_revolver"
+   ],
+   "sha1": "27fb1b91213fad39090f231ec217fb9e56b7f7bd",
+   "hands": 1,
+   "was": "pistol"
+  },
+  "lever_rifle": {
+   "glb": "gun_rifle_b.glb",
+   "kind": "held",
+   "name": "lever rifle",
+   "say": "COOK's lever carbine: the receiver bare steel, the forend wired to the barrel",
+   "made": "COOK 10/19 (tools/bohemia_cook_model_guns.py), its own row 11/3",
+   "rows": [
+    "lever_rifle"
+   ],
+   "sha1": "4382ae65526680466d0d41e1dd14a18f20940f3c",
+   "hands": 2,
+   "was": "rifle"
+  },
+  "scoped_deer_rifle": {
+   "glb": "gun_rifle_scoped.glb",
+   "kind": "held",
+   "name": "scoped deer rifle",
+   "say": "the bolt deer rifle with a 3-9x40 scope on two rings, the slipped front ring taped, the seatbelt sling",
+   "made": "COOK GUNS 11/3 (tools/bohemia_cook_the_six_guns_11_3_26.py)",
+   "rows": [
+    "scoped_deer_rifle"
+   ],
+   "sha1": "f1e9897c80cb908e949edc4bfdeba5bdeeaee214",
+   "hands": 2,
+   "was": "rifle"
+  },
+  "sawed_off": {
+   "glb": "gun_shotgun_sawn.glb",
+   "kind": "held",
+   "name": "sawed-off",
+   "say": "a side-by-side cut to the forend, the stock sawn to a pistol grip wound in tape, the cut ends filed bright",
+   "made": "COOK GUNS 11/3 (tools/bohemia_cook_the_six_guns_11_3_26.py)",
+   "rows": [
+    "sawed_off"
+   ],
+   "sha1": "073b98099af27b29f3bf4fc371c8d6cbdf15df82",
+   "hands": 2,
+   "was": "shotgun"
+  },
+  "pump_shotgun": {
+   "glb": "gun_shotgun_b.glb",
+   "kind": "held",
+   "name": "pump shotgun",
+   "say": "COOK's pump gun: the ribbed wood slide, the cracked wrist held with two hose clamps",
+   "made": "COOK 10/19 (tools/bohemia_cook_model_guns.py), its own row 11/3",
+   "rows": [
+    "pump_shotgun"
+   ],
+   "sha1": "bfbe8bc47d24fab48e041387cbf3e2a3eccc6b32",
+   "hands": 2,
+   "was": "shotgun"
   }
  }
 }

@@ -1,3 +1,22 @@
+COOK GUNS (rule 337, ask line 344, 11/3): BUILD 11/3zzt THE SIX GUNS, EACH ITS OWN. BUILT, NOT YET SEEN (rule 179):
+- [the six guns] SHIPPED: the zip gun, the snub revolver, the lever rifle, the scoped deer rifle, the sawed-off and the pump shotgun
+  each its own model in every man's hands (reference/models/bohemia/gun_zip, gun_snub, gun_rifle_scoped, gun_shotgun_sawn NEW with
+  COOK's gun kit; gun_rifle_b, gun_shotgun_b COOK 10/19), in ALL FOUR of a gun's pictures: the grid, the held clips, the idles, the
+  shield arm's pistol. Rendered once, in YOU's hands, by each system's own render patched in memory (COMBAT's guns tool, the hold
+  tool's PLACE, the melee render_props), never edited; YOU's frame checked first (the class pistol re-rendered: 1 px of 4,504).
+  Every other man holds YOU's picture moved by his feet plus his own shift table (where his class gun sits against YOU's per system,
+  clip and facing: 0.45 px median fit, 1.56 at p90). slices/fight_rig/own_guns.json + own_guns/<row>.webp; the fight's block
+  __THE_SIX_GUNS__ in slices/BOHEMIA_FIGHT.html (one marked line at blitMan, chipBlit, holdDraw, idleDraw, meleeDraw's shield arm;
+  the class gun as before until the sheet is in). Shop shelf: slices/market_icons/own_<row>.png. items.json: each its own entry.
+  VOTE: one moving sheet, WAS beside NOW, both men holding it. Proof: BEFORE 0 own draws, AFTER 759 to 776 a run, 0 errors.
+  tools/bohemia_cook_the_six_guns_11_3_26.py (model, alone, icon, render, pack, manifest, shelf, sheet, vote), proof
+  tools/bohemia_cook_the_six_guns_proof_11_3_26.js. Record records/BOHEMIA_COOK_THE_SIX_GUNS_11_3_26.md.
+- TO REBUILD THE RENDERS in a fresh container: bpy 4.2 venv; COMBAT `bodies you`, the melee and idles tools' `pose`, a Stand render
+  into each system's folder (93 s), then the tool's `render` (8 minutes, four workers) and `pack`.
+NEXT: the 107 Battle Brothers rows by most carried: the bludgeon, the two-handed mallet, the woodcutter's axe (COOK WEAPONS' tool).
+[bb Battle Brothers draws every weapon its own sprite in the man's hand on every pose; ours now does for the six guns too.]
+[analog horror: a pipe with a nail in it, a hunting scope taped where it slipped, a shotgun sawed down to a grip.]
+
 COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzp EVERY PLACE ITS OWN THINGS. ALL FIFTEEN PLACES BUILT, NOT YET SEEN (rule 179):
 - [every place its own things] SHIPPED in threes, worst first: the lab yard, the airport, the golf course (cc33b0fd); the trailer
   park, the desert, Red Rock (8aa791af); the pass, the shore, the wash (5bbf99a0); the suburbs, the landfill, the Strip (ab2cc24e);
