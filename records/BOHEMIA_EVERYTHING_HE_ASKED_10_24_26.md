@@ -418,3 +418,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 394 | The bodies lore-friendly: none in a busy civilized settlement; the gameplay of them simple | 360 (amended) | COOK DEAD, COMBAT MAPS 3, WORLD | QUEUED 11/3 |
 | 395 | The tweet box must work with the phone set to its largest text; OK if it scrolls a little | 363 (amended) | COORDINATOR | SHIPPED 11/3: fitted 9 to 6 px with the line height following the letters; past 6 px the words step up a whole line every 1.5 s and the post stays until its last line; measured on the demo with the letters at 2.5x (every word reached, no half lines) and at 1x (no scroll); THE PHONE 91/0 |
 | 396 | The tuning: I'm unstoppable with rare men in cheap gear; even BB's easiest felt hard; nothing one-shots me; close fights that still feel good, every difficulty; more content | 370 | TUNING 2 (new) | QUEUED 11/3 (DIFFICULTY's curve measured wins only) |
+| 397 | (VOTE, NO on the radio) No separate radio system: the town falling and important moments are feed posts with priority (no other tweets while one plays); keep and use more of the radio sounds | 371 | WORDS 2 (after the sweep) | QUEUED 11/3 |
+| 398 | (VOTE) The feed does not sound like a human tweeting; a lot of it does not make sense | 372 | WORDS 2 (after the sweep) | QUEUED 11/3 |
+| 399 | (VOTE) The settlement's camera angles are not intimate; it looks like shit | 373 (amends 354) | HOME | QUEUED 11/3 |
+| 400 | (VOTE) The big beasts must hurt you badly if they get close | 370(9) | TUNING 2, BEASTS 2 | QUEUED 11/3 |
