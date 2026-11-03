@@ -2,7 +2,7 @@
 
 UI (ui-5, the first minute and the phone's fixes): 11/3 LATEST -- [the loading screen] + [the start screen] BUILT, NOT YET SEEN; [the third
 job], [the left phone], [the blood on the words], [the reload leg] BUILT, NOT YET SEEN; [the end screen on the phone] WALKED, NOT DONE
-(asks 338, 340, 154, 133(a), 129, 282; 161 handed back; BUILD 11/3zzn - THE CAMERA'S OWN FEED), IN THE DEMO, two VOTE cards.
+(asks 338, 340, 154, 133(a), 129, 282; 161 handed back; BUILD 11/3zzo - THE CAMERA'S OWN FEED), IN THE DEMO, two VOTE cards.
 Record records/BOHEMIA_UI_THE_FIRST_MINUTE_AND_THE_PHONE_FIXES_11_3_26.md; proof records/target/ui_the_first_minute_feeds/ (6 sheets).
 - THE FEED (slices/bohemia_ui_crashbox.js, UI's): the machine is gone (his 11/2 NO); the loading screen is a camera's own feed under
   his letters (rule 66a), the load read by the camera (A battery, B signal + the tear, C miles to Vegas), REC on the beat. Three
