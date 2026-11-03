@@ -1,13 +1,16 @@
-COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzn EVERY PLACE ITS OWN THINGS. BUILT, NOT YET SEEN (rule 179):
+COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzo EVERY PLACE ITS OWN THINGS. ALL FIFTEEN PLACES BUILT, NOT YET SEEN (rule 179):
 - [every place its own things] SHIPPED in threes, worst first: the lab yard, the airport, the golf course (cc33b0fd); the trailer
-  park, the desert, Red Rock (8aa791af); the pass, the shore, the wash (5bbf99a0); the suburbs, the landfill, the Strip (ab2cc24e). Each thing a real model through the master rig: reference/models/bohemia/fight_props/<id>.glb
-  + its picture from the fight camera with its ground pixel; THE CONTRACT records/target/fight_props/manifest.json (footprint in
-  12 m cells, storeys, cover/blocking/none, sees-through, the fight's own kind/tile/flags, hole_m for a pit) for COMBAT MAPS 3 to
-  place. VOTE: one card a place, its things on its own ground. tools/bohemia_cook_props_every_place_its_own_11_3_26.py
-  (models <place|id> / card <place> / manifest). Record records/BOHEMIA_COOK_PROPS_EVERY_PLACE_ITS_OWN_THINGS_11_3_26.md.
-NEXT: downtown, the works, the marina (built, rendering).
-[bb Battle Brothers' blockers read at a glance as what they are; every place's things here do.]
-[analog horror: one wrong thing a place: the reefer still running, the same suitcase, the flag in no wind, the white washing, the car's lights, the cairn.]
+  park, the desert, Red Rock (8aa791af); the pass, the shore, the wash (5bbf99a0); the suburbs, the landfill, the Strip (ab2cc24e);
+  downtown, the works, the marina (21099f00). 69 real models through the master rig: reference/models/bohemia/fight_props/<id>.glb
+  + each one's picture from the fight camera with its ground pixel. THE CONTRACT records/target/fight_props/manifest.json (footprint
+  in 12 m cells, storeys, cover/blocking/none, sees-through, the fight's own kind/tile/flags, hole_m for the pool's pit) is
+  COMBAT MAPS 3's to place; nothing here lays a board. VOTE: fifteen cards, one a place, its things on its own ground.
+  tools/bohemia_cook_props_every_place_its_own_11_3_26.py (models <place|id> / card <place> / manifest).
+  Record records/BOHEMIA_COOK_PROPS_EVERY_PLACE_ITS_OWN_THINGS_11_3_26.md (the table: every thing, every wrong thing).
+NEXT: his VOTE verdicts per place (a NO redoes that place's things); more variants per place on COMBAT MAPS 3's ask (the manifest
+grows, never changes shape). Renders: bpy 4.2 in a python3.11 venv, a place's models 1 to 3 minutes, a card about 1.5.
+[bb Battle Brothers' blockers read at a glance as what they are (a wagon, a tent, a palisade); every place's things here do.]
+[analog horror: one wrong thing a place, nothing remarks on it; the table in the record names all fifteen.]
 
 COOK WEAPONS (rule 337, ask line 344, 11/3): EVERY WEAPON ITS OWN (BUILD 11/3zzd, then 11/3zzj). BUILT, NOT YET SEEN (rule 179):
 - [every weapon its own] SHIPPED (this push): the pool pole spear, the extension cord, the live wire, the barbed wire and the rodeo
