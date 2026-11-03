@@ -2999,8 +2999,7 @@
      "horror": "the flag on the dead green stands straight out in a wind that moves nothing else",
      "landmark_block": "golf.1",
      "field": [
-      "golf.2",
-      "golf.0"
+      "golf.2"
      ],
      "mirror": true,
      "landmark_col": 1,
@@ -3246,8 +3245,7 @@
      "horror": "the flare is still burning, years after anyone paid for the gas (COOK PROPS' wrong thing)",
      "landmark_block": "dump.1",
      "field": [
-      "dump.2",
-      "landfill.0"
+      "dump.2"
      ],
      "mirror": true,
      "landmark_col": 1,
@@ -3451,8 +3449,7 @@
      "horror": "a fresh towel lies at the foot of the houseboat's slide (COOK PROPS' wrong thing)",
      "landmark_block": "basin.1",
      "field": [
-      "basin.2",
-      "marina.0"
+      "basin.2"
      ],
      "mirror": true,
      "landmark_col": 1,

@@ -224,3 +224,13 @@ standing green: at the source, in the models.
   first: against the old suburb its plan came within 0.548 of it, under the plan gate's 0.6; with the rebuilt suburb, 1.6.)
 - THE WORKS: rail.2's spur moved to the yard's one row, so the tracks run on block to block; works.0 out. 39% -> 0%, 13% -> 0%,
   4.6% -> 0%, 38 -> 0.
+
+## PUSH 4: THE LANDFILL, THE GOLF COURSE, THE MARINA
+- THE LANDFILL: the haul road in both cells' blocks at one row; the scorch and the wells' gravel soft shapes inside their tiles;
+  the mounds whole inside their blocks (four were cut at a picture's edge); landfill.0 out. Seams 59% -> 0%, cell lines 4.5% -> 0%,
+  cut-offs 5.1% -> 0%, roads not met 51 -> 0.
+- THE GOLF COURSE: the cart path edge to edge through every block, the clubhouse patio set off it; the dead pines inside their
+  blocks; golf.0 out. 73% -> 0%, 8.6% -> 1.1%, 12% -> 0%, 29 -> 0.
+- THE MARINA: Lake Mead's tan bed (lakemud), the same at every edge; the houseboat moored to its dock on the dry bed (the
+  landmark group of four between the lines the plan gate asks for, which marina.0's leaving had taken); marina.0 out. 45% -> 0%,
+  8.3% -> 0%, 10% -> 0%, 51 -> 0.
