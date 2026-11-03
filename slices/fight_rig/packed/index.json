@@ -26,10 +26,10 @@
 "packedMB": 2.84
 },
 "beast_feral_bull.webp": {
-"bytes": 562288,
-"decodedMB": 24.77,
-"fill": 0.327,
-"packedMB": 9.14
+"bytes": 579140,
+"decodedMB": 25.75,
+"fill": 0.322,
+"packedMB": 9.77
 },
 "beast_feral_dog_shepherd.webp": {
 "bytes": 127166,
@@ -843,8 +843,8 @@
 }
 },
 "totals": {
-"decodedMB": 2864.2,
-"packedMB": 488.1,
+"decodedMB": 2865.2,
+"packedMB": 488.8,
 "sheets": 140
 }
 }
