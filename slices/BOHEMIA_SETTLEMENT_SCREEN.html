@@ -591,10 +591,14 @@ var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole',
   food:'s_food', water:'s_water', meds:'s_meds', rounds:'s_rounds'};
 function packIcon(key){ var f = PACK_ICON[key]; if(!f) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
+/* __EVERY_WEAPON_ITS_OWN__ (COOK, rule 337, ask line 344): a piece of the valley's own on the shelf as its own 3D model, rendered through the master rig (slices/market_icons/own_<row>.png); a piece with none yet keeps the kit's drawn icon */
+var OWN_MODEL = {"barbed_wire":1,"extension_cord":1,"live_wire":1,"pool_pole_spear":1,"rodeo_bullwhip":1};
+function ownIcon(id){ if(!OWN_MODEL[id]) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/own_' + id + '.png'; return im; }
+/* ==== end __EVERY_WEAPON_ITS_OWN__ ==== */
 function iconTile(it, onTap, sub, money){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
-    var pk = it.kind === 'weapon' && !it.own ? packIcon(it.cls) : null;   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
+    var pk = it.kind === 'weapon' && !it.own ? packIcon(it.cls) : it.kind === 'weapon' ? ownIcon(it.id) : null;   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
     if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
     /* EYES [eyes: three pistols] (rule 150): a tile says the name its card says ('good pistol', 'beat-up pistol'), two lines at most */
     var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);

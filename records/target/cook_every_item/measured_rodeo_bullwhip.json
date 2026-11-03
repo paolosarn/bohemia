@@ -1,0 +1,25 @@
+{
+ "size_m": [
+  1.254,
+  0.044,
+  0.158
+ ],
+ "lo": [
+  -0.184,
+  -0.022,
+  -0.091
+ ],
+ "hi": [
+  1.07,
+  0.022,
+  0.068
+ ],
+ "materials": [
+  "clay_bone 3",
+  "clay_mustard 1",
+  "clay_mustard 3",
+  "clay_rust 1"
+ ],
+ "verts": 836,
+ "parts": 40
+}

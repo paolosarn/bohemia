@@ -116,7 +116,7 @@ def build_prop(bpy, name):
         root = bpy.data.objects.new('prop_' + name, None); sc.collection.objects.link(root)
         for o in top: o.parent = root
         parts = [o for o in sc.objects if o.name not in before and o.type == 'MESH']
-        hang = [o for o in parts if o.name.split('.')[0].startswith(('hang_', 'link_', 'lock', 'keyhole', 'shackle'))] if name == 'chain' else []
+        hang = [o for o in parts if o.name.split('.')[0].startswith(('hang_', 'link_', 'lock', 'keyhole', 'shackle'))] if name in source().get('hanging', ['chain']) else []   # COOK 11/3: a whip's thong, a cord, a bike chain hang as the chain does (the source's 'hanging')
         if hang:   # COOK's chain is one stiff piece: its links and its padlock hung from the handle's eye, as the stand-in's chain hangs
             bpy.context.view_layer.update()
             def box(os_):
@@ -286,7 +286,7 @@ def model_sig(name):
     """what this thing is rendered from: COOK's model by its bytes, or this tool's stand-in"""
     import hashlib
     fn = cook_model(name)
-    return ('cook:' + hashlib.sha1(open(fn, 'rb').read()).hexdigest()[:12] + ('+hung' if name == 'chain' else '')) if fn else 'stand-in'   # the chain: its links hung (build_prop)
+    return ('cook:' + hashlib.sha1(open(fn, 'rb').read()).hexdigest()[:12] + ('+hung' if name in source().get('hanging', ['chain']) else '')) if fn else 'stand-in'   # the chain: its links hung (build_prop)
 
 
 def shield_dims(name):

@@ -21,3 +21,8 @@ b_armourer <- pack_15_workbenches_and_tools_012.png
 
 s_food (10/26, UI [the bottle next to the can], rule 240): the can with the water bottle standing next to it, the same picture as
 supply_icons/food.png (its SOURCES.txt says how); the old can alone is s_food_can.png.
+own_pool_pole_spear (11/3, COOK [every weapon its own], rule 337): not a pack tile; reference/models/bohemia/item_pool_pole_spear.glb through the master rig on the bag's diagonal (tools/bohemia_cook_every_weapon_its_own_11_3_26.py shelf)
+own_extension_cord (11/3, COOK [every weapon its own], rule 337): not a pack tile; reference/models/bohemia/item_extension_cord.glb through the master rig on the bag's diagonal (tools/bohemia_cook_every_weapon_its_own_11_3_26.py shelf)
+own_live_wire (11/3, COOK [every weapon its own], rule 337): not a pack tile; reference/models/bohemia/item_live_wire.glb through the master rig on the bag's diagonal (tools/bohemia_cook_every_weapon_its_own_11_3_26.py shelf)
+own_barbed_wire (11/3, COOK [every weapon its own], rule 337): not a pack tile; reference/models/bohemia/item_barbed_wire.glb through the master rig on the bag's diagonal (tools/bohemia_cook_every_weapon_its_own_11_3_26.py shelf)
+own_rodeo_bullwhip (11/3, COOK [every weapon its own], rule 337): not a pack tile; reference/models/bohemia/item_rodeo_bullwhip.glb through the master rig on the bag's diagonal (tools/bohemia_cook_every_weapon_its_own_11_3_26.py shelf)

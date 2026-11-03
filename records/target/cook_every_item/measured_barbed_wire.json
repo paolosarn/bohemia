@@ -1,0 +1,26 @@
+{
+ "size_m": [
+  1.076,
+  0.068,
+  0.168
+ ],
+ "lo": [
+  -0.06,
+  -0.034,
+  -0.101
+ ],
+ "hi": [
+  1.016,
+  0.034,
+  0.067
+ ],
+ "materials": [
+  "clay_mustard 1",
+  "clay_rust 1",
+  "metal_painted 1",
+  "rubber 1",
+  "tape_masking 2"
+ ],
+ "verts": 570,
+ "parts": 49
+}

@@ -1,0 +1,522 @@
+{
+ "extension_cord": {
+  "at": "2026-11-03T00:41:54.091Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "chain",
+    "row": "extension_cord"
+   },
+   "frames": [
+    "extension_cord_before_turn0.png",
+    "extension_cord_before_turn1.png",
+    "extension_cord_before_turn2.png",
+    "extension_cord_before_turn3.png",
+    "extension_cord_before_turn4.png",
+    "extension_cord_before_turn5.png",
+    "extension_cord_before_turn6.png",
+    "extension_cord_before_turn7.png",
+    "extension_cord_before_blow0.png",
+    "extension_cord_before_blow1.png",
+    "extension_cord_before_blow2.png",
+    "extension_cord_before_blow3.png",
+    "extension_cord_before_blow4.png",
+    "extension_cord_before_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 654,
+    "held:chain": 417,
+    "prop:extension_cord": 53,
+    "prop:chain": 359,
+    "melee:T2Cover": 352,
+    "prop:fire_axe": 352,
+    "melee:MSwing": 102,
+    "melee:MHit": 73
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "extension_cord",
+    "row": "extension_cord"
+   },
+   "frames": [
+    "extension_cord_after_turn0.png",
+    "extension_cord_after_turn1.png",
+    "extension_cord_after_turn2.png",
+    "extension_cord_after_turn3.png",
+    "extension_cord_after_turn4.png",
+    "extension_cord_after_turn5.png",
+    "extension_cord_after_turn6.png",
+    "extension_cord_after_turn7.png",
+    "extension_cord_after_blow0.png",
+    "extension_cord_after_blow1.png",
+    "extension_cord_after_blow2.png",
+    "extension_cord_after_blow3.png",
+    "extension_cord_after_blow4.png",
+    "extension_cord_after_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 658,
+    "held:chain": 425,
+    "prop:extension_cord": 422,
+    "melee:T2Cover": 354,
+    "prop:fire_axe": 354,
+    "melee:MSwing": 112,
+    "melee:MHit": 77
+   },
+   "errs": []
+  }
+ },
+ "pool_pole_spear": {
+  "at": "2026-11-03T00:42:35.070Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "rebar_spear",
+    "row": "pool_pole_spear"
+   },
+   "frames": [
+    "pool_pole_spear_before_turn0.png",
+    "pool_pole_spear_before_turn1.png",
+    "pool_pole_spear_before_turn2.png",
+    "pool_pole_spear_before_turn3.png",
+    "pool_pole_spear_before_turn4.png",
+    "pool_pole_spear_before_turn5.png",
+    "pool_pole_spear_before_turn6.png",
+    "pool_pole_spear_before_turn7.png",
+    "pool_pole_spear_before_blow0.png",
+    "pool_pole_spear_before_blow1.png",
+    "pool_pole_spear_before_blow2.png",
+    "pool_pole_spear_before_blow3.png",
+    "pool_pole_spear_before_blow4.png",
+    "pool_pole_spear_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 648,
+    "held:chain": 424,
+    "prop:pool_pole_spear": 73,
+    "prop:rebar_spear": 346,
+    "melee:T2Cover": 341,
+    "prop:fire_axe": 341,
+    "melee:MThrust": 114,
+    "melee:MHit": 81
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "pool_pole_spear",
+    "row": "pool_pole_spear"
+   },
+   "frames": [
+    "pool_pole_spear_after_turn0.png",
+    "pool_pole_spear_after_turn1.png",
+    "pool_pole_spear_after_turn2.png",
+    "pool_pole_spear_after_turn3.png",
+    "pool_pole_spear_after_turn4.png",
+    "pool_pole_spear_after_turn5.png",
+    "pool_pole_spear_after_turn6.png",
+    "pool_pole_spear_after_turn7.png",
+    "pool_pole_spear_after_blow0.png",
+    "pool_pole_spear_after_blow1.png",
+    "pool_pole_spear_after_blow2.png",
+    "pool_pole_spear_after_blow3.png",
+    "pool_pole_spear_after_blow4.png",
+    "pool_pole_spear_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 645,
+    "held:chain": 408,
+    "prop:pool_pole_spear": 405,
+    "melee:T2Cover": 343,
+    "prop:fire_axe": 343,
+    "melee:MThrust": 98,
+    "melee:MHit": 70
+   },
+   "errs": []
+  }
+ },
+ "live_wire": {
+  "at": "2026-11-03T00:42:57.468Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "chain",
+    "row": "live_wire"
+   },
+   "frames": [
+    "live_wire_before_turn0.png",
+    "live_wire_before_turn1.png",
+    "live_wire_before_turn2.png",
+    "live_wire_before_turn3.png",
+    "live_wire_before_turn4.png",
+    "live_wire_before_turn5.png",
+    "live_wire_before_turn6.png",
+    "live_wire_before_turn7.png",
+    "live_wire_before_blow0.png",
+    "live_wire_before_blow1.png",
+    "live_wire_before_blow2.png",
+    "live_wire_before_blow3.png",
+    "live_wire_before_blow4.png",
+    "live_wire_before_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 647,
+    "held:chain": 420,
+    "prop:live_wire": 59,
+    "prop:chain": 356,
+    "melee:T2Cover": 351,
+    "prop:fire_axe": 351,
+    "melee:MSwing": 110,
+    "melee:MHit": 78
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "live_wire",
+    "row": "live_wire"
+   },
+   "frames": [
+    "live_wire_after_turn0.png",
+    "live_wire_after_turn1.png",
+    "live_wire_after_turn2.png",
+    "live_wire_after_turn3.png",
+    "live_wire_after_turn4.png",
+    "live_wire_after_turn5.png",
+    "live_wire_after_turn6.png",
+    "live_wire_after_turn7.png",
+    "live_wire_after_blow0.png",
+    "live_wire_after_blow1.png",
+    "live_wire_after_blow2.png",
+    "live_wire_after_blow3.png",
+    "live_wire_after_blow4.png",
+    "live_wire_after_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 646,
+    "held:chain": 412,
+    "prop:live_wire": 410,
+    "melee:T2Cover": 340,
+    "prop:fire_axe": 340,
+    "melee:MSwing": 100,
+    "melee:MHit": 76
+   },
+   "errs": []
+  }
+ },
+ "barbed_wire": {
+  "at": "2026-11-03T00:43:20.615Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "chain",
+    "row": "barbed_wire"
+   },
+   "frames": [
+    "barbed_wire_before_turn0.png",
+    "barbed_wire_before_turn1.png",
+    "barbed_wire_before_turn2.png",
+    "barbed_wire_before_turn3.png",
+    "barbed_wire_before_turn4.png",
+    "barbed_wire_before_turn5.png",
+    "barbed_wire_before_turn6.png",
+    "barbed_wire_before_turn7.png",
+    "barbed_wire_before_blow0.png",
+    "barbed_wire_before_blow1.png",
+    "barbed_wire_before_blow2.png",
+    "barbed_wire_before_blow3.png",
+    "barbed_wire_before_blow4.png",
+    "barbed_wire_before_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 670,
+    "held:chain": 426,
+    "prop:barbed_wire": 68,
+    "prop:chain": 353,
+    "melee:T2Cover": 348,
+    "prop:fire_axe": 348,
+    "melee:MSwing": 101,
+    "melee:MHit": 76
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "barbed_wire",
+    "row": "barbed_wire"
+   },
+   "frames": [
+    "barbed_wire_after_turn0.png",
+    "barbed_wire_after_turn1.png",
+    "barbed_wire_after_turn2.png",
+    "barbed_wire_after_turn3.png",
+    "barbed_wire_after_turn4.png",
+    "barbed_wire_after_turn5.png",
+    "barbed_wire_after_turn6.png",
+    "barbed_wire_after_turn7.png",
+    "barbed_wire_after_blow0.png",
+    "barbed_wire_after_blow1.png",
+    "barbed_wire_after_blow2.png",
+    "barbed_wire_after_blow3.png",
+    "barbed_wire_after_blow4.png",
+    "barbed_wire_after_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 632,
+    "held:chain": 409,
+    "prop:barbed_wire": 406,
+    "melee:T2Cover": 335,
+    "prop:fire_axe": 335,
+    "melee:MSwing": 114,
+    "melee:MHit": 69
+   },
+   "errs": []
+  }
+ },
+ "rodeo_bullwhip": {
+  "at": "2026-11-03T00:43:44.254Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "chain",
+    "row": "rodeo_bullwhip"
+   },
+   "frames": [
+    "rodeo_bullwhip_before_turn0.png",
+    "rodeo_bullwhip_before_turn1.png",
+    "rodeo_bullwhip_before_turn2.png",
+    "rodeo_bullwhip_before_turn3.png",
+    "rodeo_bullwhip_before_turn4.png",
+    "rodeo_bullwhip_before_turn5.png",
+    "rodeo_bullwhip_before_turn6.png",
+    "rodeo_bullwhip_before_turn7.png",
+    "rodeo_bullwhip_before_blow0.png",
+    "rodeo_bullwhip_before_blow1.png",
+    "rodeo_bullwhip_before_blow2.png",
+    "rodeo_bullwhip_before_blow3.png",
+    "rodeo_bullwhip_before_blow4.png",
+    "rodeo_bullwhip_before_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 658,
+    "held:chain": 432,
+    "prop:rodeo_bullwhip": 62,
+    "prop:chain": 364,
+    "melee:T2Cover": 360,
+    "prop:fire_axe": 360,
+    "melee:MSwing": 117,
+    "melee:MHit": 83
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 2,
+    "prop": "rodeo_bullwhip",
+    "row": "rodeo_bullwhip"
+   },
+   "frames": [
+    "rodeo_bullwhip_after_turn0.png",
+    "rodeo_bullwhip_after_turn1.png",
+    "rodeo_bullwhip_after_turn2.png",
+    "rodeo_bullwhip_after_turn3.png",
+    "rodeo_bullwhip_after_turn4.png",
+    "rodeo_bullwhip_after_turn5.png",
+    "rodeo_bullwhip_after_turn6.png",
+    "rodeo_bullwhip_after_turn7.png",
+    "rodeo_bullwhip_after_blow0.png",
+    "rodeo_bullwhip_after_blow1.png",
+    "rodeo_bullwhip_after_blow2.png",
+    "rodeo_bullwhip_after_blow3.png",
+    "rodeo_bullwhip_after_blow4.png",
+    "rodeo_bullwhip_after_blow5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254
+   },
+   "me": {
+    "x": 14,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 663,
+    "held:chain": 427,
+    "prop:rodeo_bullwhip": 425,
+    "melee:T2Cover": 356,
+    "prop:fire_axe": 356,
+    "melee:MSwing": 110,
+    "melee:MHit": 79
+   },
+   "errs": []
+  }
+ }
+}

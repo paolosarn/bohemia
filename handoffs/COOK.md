@@ -1,3 +1,21 @@
+COOK WEAPONS (rule 337, ask line 344, 11/3): EVERY WEAPON ITS OWN (first push BUILD 11/3zzd). BUILT, NOT YET SEEN (rule 179):
+- [every weapon its own] SHIPPED (this push): the pool pole spear, the extension cord, the live wire, the barbed wire and the rodeo
+  bullwhip each its own glb (reference/models/bohemia/item_<name>.glb, COOK's every-item kit) rendered in YOU's hands by ANIMATION's
+  own render_props on new layers m4/s4/t4 (records/target/animation/BOHEMIA_MELEE_AND_SHIELD.json; 'hanging' = cords and thongs hang
+  like the chain); every other man borrows YOU's pictures (props_ref; the four looks with held-back layers keep them held back:
+  'withhold' in their json, the fight's thing()/has() skip them). Shop shelf: slices/market_icons/own_<row>.png. VOTE: one moving
+  sheet, WAS beside NOW. Gates: every item has a model 226/0 (amended for own models), the thing in his hand 29/0, the whip 13/0,
+  the market's pack art 8/0. tools/bohemia_cook_every_weapon_its_own_11_3_26.py (model, wire, render, pack, shelf, manifest, vote),
+  proof tools/bohemia_cook_every_weapon_its_own_proof_11_3_26.js.
+- [the last armory round's melee] RENDERED, ships next push: crowbar, bike-lock chain, box cutter, framing hammer, broom bayonet,
+  pawn-shop katana (row pawn_katana), splitting maul, sign-post halberd.
+- TO REBUILD THE RENDERS in a fresh container: bpy 4.2 venv; `bohemia_combat_the_fight_wears_the_rig.py bodies you`, the melee tool's
+  `pose`, the Stand frame (CF.render you Stand into records/target/animation/melee), then the tool's `render`.
+- Record records/BOHEMIA_COOK_EVERY_WEAPON_ITS_OWN_MODEL_11_3_26.md.
+NEXT: the six guns (the guns' grid sheet falls through to YOU's like the melee, then render them), then the 107 BB rows by most carried.
+[bb Battle Brothers draws every weapon its own sprite in the man's hand on every pose; ours now does for the armory's pieces.]
+[analog horror: every weapon is something the valley lost its use for: a pool with no water, a garage with no power.]
+
 COOK ARMOUR (rule 337, ask line 345, 11/3): BUILD 11/3zzc THE BOSSES DRESSED, THE ARMOUR WORN. BUILT, NOT YET SEEN (rule 179):
 - [the bosses dressed] SHIPPED c91de519: THE POT (stained chef's whites, a toque, a riot vest cut down to his chest, a red
   neckerchief, a butcher's apron, the copper pot's lid on his left arm, the butcher's cleaver), THE TAP (oil-black coveralls, a fire

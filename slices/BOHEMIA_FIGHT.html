@@ -7308,8 +7308,11 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const r1 = meleeLook(e.ref || e.props_ref), r2 = r1 && r1.props_ref ? meleeLook(r1.props_ref) : null;   /* a rolled man: his gang, then whose things his gang holds */
   const srcs = [e.props ? e : null, r1, r2].filter(function (q) { return q && q.props; }); if (!srcs.length) return null;
   const keyOf = function (x) { return x === r1 ? (e.ref || e.props_ref) : x === r2 ? r1.props_ref : L._key; };
-  const thing = function (q, clip) { for (let i = 0; i < srcs.length; i++) { const by = srcs[i].props.by[q]; if (by && by[clip]) return [srcs[i], by[clip]]; } return null; };
-  const has = function (q) { return srcs.some(function (x) { return x.props.by[q]; }); };
+  /* COOK [every weapon its own] 11/3: a layer this look's pictures are held back on (the source's 'withhold', his json's) stays held back
+     when his things fall through to another man's sheet (props_ref), so a shield arm that sinks is never borrowed back in */
+  const wh = e.withhold || [], ok = function (c) { return c && wh.indexOf(c.l) < 0; };
+  const thing = function (q, clip) { for (let i = 0; i < srcs.length; i++) { const by = srcs[i].props.by[q]; if (by && ok(by[clip])) return [srcs[i], by[clip]]; } return null; };
+  const has = function (q) { return srcs.some(function (x) { const by = x.props.by[q]; return by && Object.keys(by).some(function (c) { return ok(by[c]); }); }); };
   const mp = kind ? null : meleeProp(v), two = mp && mp[1], bow = mp && mp[2];
   const shield = two || bow ? null : shieldProp(v), sh = shield && e.clips.SIdle && has(shield) ? shield : null;   /* a bow takes both hands */
   const prop = kind === 'pistol' ? (sh ? 'pistol' : null) : mp && mp[0]; if (!prop && !sh) return null;

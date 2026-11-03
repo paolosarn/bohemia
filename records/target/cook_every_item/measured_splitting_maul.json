@@ -1,0 +1,27 @@
+{
+ "size_m": [
+  0.922,
+  0.061,
+  0.253
+ ],
+ "lo": [
+  -0.06,
+  -0.031,
+  -0.088
+ ],
+ "hi": [
+  0.862,
+  0.031,
+  0.165
+ ],
+ "materials": [
+  "chrome 1",
+  "clay_mustard 1",
+  "clay_rust 2",
+  "metal_painted 1",
+  "rubber 1"
+ ],
+ "verts": 350,
+ "parts": 12,
+ "left_x": 0.42
+}

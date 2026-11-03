@@ -470,8 +470,7 @@
     "fighting_spear",
     "warfork",
     "spetum",
-    "broom_bayonet",
-    "pool_pole_spear"
+    "broom_bayonet"
    ],
    "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
    "hands": 2,
@@ -524,11 +523,7 @@
     "rusty_warblade",
     "crypt_cleaver",
     "two_handed_scimitar",
-    "box_cutter",
-    "extension_cord",
-    "live_wire",
-    "barbed_wire",
-    "rodeo_bullwhip"
+    "box_cutter"
    ],
    "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
    "hands": 1,
@@ -1328,6 +1323,200 @@
      "Skeleton_neck_joint_2"
     ]
    }
+  },
+  "pool_pole_spear": {
+   "glb": "item_pool_pole_spear.glb",
+   "kind": "held",
+   "name": "pool pole spear",
+   "say": "a pool skimmer pole, its teal cam-lock collar, a kitchen knife taped into the clip end",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "pool_pole_spear"
+   ],
+   "sha1": "01bc7207567140322d07aa8463bb5dbfb2f69fd0",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     2.235,
+     0.065,
+     0.074
+    ],
+    "lo": [
+     -0.655,
+     -0.032,
+     -0.032
+    ],
+    "hi": [
+     1.58,
+     0.032,
+     0.041
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_teal 3",
+     "rubber 1",
+     "tape_grey 1",
+     "tape_grey 3"
+    ],
+    "verts": 558,
+    "parts": 21
+   },
+   "was": "rebar_spear"
+  },
+  "extension_cord": {
+   "glb": "item_extension_cord.glb",
+   "kind": "held",
+   "name": "extension cord",
+   "say": "an orange garage cord wound round his fist, the rest hanging to its three-prong plug",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "extension_cord"
+   ],
+   "sha1": "2135d65cc6e3102fec396f46cf9049dcf3addbf7",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     1.06,
+     0.068,
+     0.18
+    ],
+    "lo": [
+     -0.115,
+     -0.034,
+     -0.117
+    ],
+    "hi": [
+     0.945,
+     0.034,
+     0.063
+    ],
+    "materials": [
+     "clay_mustard 3",
+     "rubber 0",
+     "sodium 1",
+     "sodium 2",
+     "tape_grey 2"
+    ],
+    "verts": 740,
+    "parts": 32
+   },
+   "was": "chain"
+  },
+  "live_wire": {
+   "glb": "item_live_wire.glb",
+   "kind": "held",
+   "name": "live wire",
+   "say": "a drill battery taped on a pipe stub for a handle, a switch, black cable to its stripped copper end",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "live_wire"
+   ],
+   "sha1": "e6794aed8a6e7c0ddb104d86e16a229d55e23675",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     1.182,
+     0.07,
+     0.136
+    ],
+    "lo": [
+     -0.21,
+     -0.037,
+     -0.089
+    ],
+    "hi": [
+     0.972,
+     0.033,
+     0.047
+    ],
+    "materials": [
+     "clay_mustard 3",
+     "clay_rust 2",
+     "clay_rust 3",
+     "metal_painted 1",
+     "rubber 1"
+    ],
+    "verts": 906,
+    "parts": 38
+   },
+   "was": "chain"
+  },
+  "barbed_wire": {
+   "glb": "item_barbed_wire.glb",
+   "kind": "held",
+   "name": "barbed wire",
+   "say": "a taped broom stub, a rope tied on, two strands of rusted barbed wire twisted onto the rope",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "barbed_wire"
+   ],
+   "sha1": "1c014fd8fe75b2b6bd598cff2ac2b78c1333ede4",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     1.076,
+     0.068,
+     0.168
+    ],
+    "lo": [
+     -0.06,
+     -0.034,
+     -0.101
+    ],
+    "hi": [
+     1.016,
+     0.034,
+     0.067
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "clay_rust 1",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_masking 2"
+    ],
+    "verts": 570,
+    "parts": 49
+   },
+   "was": "chain"
+  },
+  "rodeo_bullwhip": {
+   "glb": "item_rodeo_bullwhip.glb",
+   "kind": "held",
+   "name": "rodeo bullwhip",
+   "say": "a plaited leather bullwhip, its wrist loop and brass ring, the thong down to the fall and the cracker",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "rodeo_bullwhip"
+   ],
+   "sha1": "5dbae4dcdc9e05d687db768cbc2fce453305b9aa",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     1.254,
+     0.044,
+     0.158
+    ],
+    "lo": [
+     -0.184,
+     -0.022,
+     -0.091
+    ],
+    "hi": [
+     1.07,
+     0.022,
+     0.068
+    ],
+    "materials": [
+     "clay_bone 3",
+     "clay_mustard 1",
+     "clay_mustard 3",
+     "clay_rust 1"
+    ],
+    "verts": 836,
+    "parts": 40
+   },
+   "was": "chain"
   }
  }
 }

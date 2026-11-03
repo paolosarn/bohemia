@@ -124,7 +124,7 @@ def check(M, W, A, cls, th, quiet=False):
     global FAILS, PASSES
     FAILS, PASSES = [], []
     items = M['items']
-    by_row = {r: n for n, e in items.items() for r in e.get('rows', []) if n in ('club', 'bat', 'hatchet')}
+    by_row = {r: n for n, e in items.items() for r in e.get('rows', []) if n in ('club', 'bat', 'hatchet') or e.get('was')}   # COOK 11/3 (rule 337): a weapon modelled as its own ('was': the family it was drawn as) owns its row
     shield_by_row = {r: n for n, e in items.items() for r in e.get('rows', []) if n == 'crash_bar'}
     mapped, bad = rows_to_objects(W, A, cls, th, by_row, shield_by_row)
     ok('M1 every weapon class has a market name', not bad, bad[:6])

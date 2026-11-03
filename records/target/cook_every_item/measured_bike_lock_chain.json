@@ -1,0 +1,26 @@
+{
+ "size_m": [
+  0.938,
+  0.076,
+  0.157
+ ],
+ "lo": [
+  -0.06,
+  -0.038,
+  -0.094
+ ],
+ "hi": [
+  0.878,
+  0.038,
+  0.063
+ ],
+ "materials": [
+  "clay_mustard 3",
+  "cloth_black 2",
+  "metal_painted 1",
+  "rubber 1",
+  "tape_grey 2"
+ ],
+ "verts": 1528,
+ "parts": 30
+}
