@@ -13,7 +13,7 @@
    ONE FILE, UI's, so the door's logic stays RUN's (BOH_START, the title's act(), the load): this file only dresses,
    reads and times. What it does:
    1. THE FEED (the loading screen; UI 5, 11/3, asks 338 and 340; his NO on the machine 11/2): a camera's own feed fills the
-      glass under his letters, made through the master rig (three were made; the pick is D.feed.pick, all three on the VOTE
+      glass under his letters, made through the master rig (UI 6: ten feeds, a different one each time, tall and wide; VOTE
       tab), twelve keys a bar on the beat, and the camera's readout printed on it in his letters: the load's own count read as
       the camera reads (a battery charging, a signal coming in, the miles to Vegas), never a bar of ours (rule 66a). Its own
       sound from real recordings plays through the title's own player. THE WRONGNESS on the tube is gone with the machine
@@ -37,12 +37,22 @@
   if (window.BohemiaCrashbox) return;
   var D = {
     beat_ms: 500, beats_per_bar: 4, keys_per_bar: 12,
-    feed: { pick: 'b', key: 'bohemia.title.feed', w: 390, h: 520, gap: 14, mini_w: 40, mini_h: 30,
+    /* UI 6 (rules 342 and 348): every feed in the game, a different one each time it opens (never the last one), each made
+       twice (tall 9:16, wide 16:9) for the whole glass; after cycle_s on the screen the monitor cuts to the next camera */
+    feed: { key: 'bohemia.title.feed', last_key: 'bohemia.title.feed.last', cycle_s: 40, preload_s: 8, roll_holds: 2, snow_holds: 1, fade_holds: 4,
+      size: { tall: [432, 768], wide: [768, 432] }, mini_w: 40, mini_h: 30,
       words: { rec: 'REC', charging: 'CHARGING', charged: 'CHARGED', no_signal: 'NO SIGNAL', signal_in: 'SIGNAL', vegas: 'LAS VEGAS', mi: 'MI' },
       options: {
-        a: { sheet: 'crashbox/feed_a.webp', sound: 'crashbox/feed_a.mp3', top_left: 'rec', reading: 'battery', corner: 'counter', focus: [0.5, 0.62] },
-        b: { sheet: 'crashbox/feed_b.webp', sound: 'crashbox/feed_b.mp3', top_left: 'cam', cam: 'CAM 03', place: 'PAWN \u00b7 LOT', reading: 'signal', corner: 'clock', tear: true, focus: [0.45, 0.5] },
-        c: { sheet: 'crashbox/feed_c.webp', sound: 'crashbox/feed_c.mp3', top_left: 'rec', reading: 'miles', corner: 'counter', focus: [0.5, 0.55] } } },
+        a: { frames: 12, tall: 'crashbox/feed_a_tall.webp', wide: 'crashbox/feed_a_wide.webp', sound: 'crashbox/feed_a.mp3', top_left: 'rec', reading: 'battery', corner: 'counter' },
+        b: { frames: 6, tall: 'crashbox/feed_b_tall.webp', wide: 'crashbox/feed_b_wide.webp', sound: 'crashbox/feed_b.mp3', top_left: 'cam', cam: 'CAM 03', place: 'PAWN \u00b7 LOT', reading: 'signal', corner: 'clock', tear: true },
+        c: { frames: 12, tall: 'crashbox/feed_c_tall.webp', wide: 'crashbox/feed_c_wide.webp', sound: 'crashbox/feed_c.mp3', top_left: 'rec', reading: 'miles', corner: 'counter' },
+        d: { on: false, frames: 6, tall: 'crashbox/feed_d_tall.webp', wide: 'crashbox/feed_d_wide.webp', sound: 'crashbox/feed_d.mp3', top_left: 'cam', cam: 'CAM 07', place: 'INTAKE \u00b7 LAKE', reading: 'signal', corner: 'clock', tear: true },
+        e: { on: false, frames: 6, tall: 'crashbox/feed_e_tall.webp', wide: 'crashbox/feed_e_wide.webp', sound: 'crashbox/feed_e.mp3', top_left: 'cam', cam: 'TRAIL 2', place: 'LAB \u00b7 PENS', reading: 'battery', corner: 'clock' },
+        f: { on: false, frames: 6, tall: 'crashbox/feed_f_tall.webp', wide: 'crashbox/feed_f_wide.webp', sound: 'crashbox/feed_f.mp3', top_left: 'cam', cam: 'CAM 22', place: 'APRON \u00b7 GATE C', reading: 'signal', corner: 'clock', tear: true },
+        g: { on: false, frames: 12, tall: 'crashbox/feed_g_tall.webp', wide: 'crashbox/feed_g_wide.webp', sound: 'crashbox/feed_g.mp3', top_left: 'rec', reading: 'battery', corner: 'counter' },
+        h: { on: false, frames: 6, tall: 'crashbox/feed_h_tall.webp', wide: 'crashbox/feed_h_wide.webp', sound: 'crashbox/feed_h.mp3', top_left: 'cam', cam: 'CAM 01', place: 'MARKET', reading: 'signal', corner: 'clock', tear: true },
+        i: { on: false, frames: 12, tall: 'crashbox/feed_i_tall.webp', wide: 'crashbox/feed_i_wide.webp', sound: 'crashbox/feed_i.mp3', top_left: 'rec', reading: 'battery', corner: 'counter' },
+        j: { on: false, frames: 6, tall: 'crashbox/feed_j_tall.webp', wide: 'crashbox/feed_j_wide.webp', sound: 'crashbox/feed_j.mp3', top_left: 'cam', cam: 'CAM 12', place: 'FOUNTAIN', reading: 'signal', corner: 'clock', tear: true } } },
     moves: { hold_ms: 125, door_hold_ms: 83, title_out_holds: 3, door_out_holds: 4, say_in_holds: 3, say_out_holds: 3 },
     hints: { key: 'bohemia.hints', said_key: 'bohemia.hints.said', default_on: true, quiet_ms: { map: 8000, town: 3000, camp: 3000 }, hold_beats: 8, type_per_beat: 24,
       lines: { map: 'Tap anywhere on the map and we walk there. The clock runs while we walk.', town: 'Tap a building to go in. LEAVE on the phone takes us back out.', camp: 'We heal quicker at camp. The ring on the phone breaks camp.' },
@@ -118,24 +128,71 @@
      bohemia_ui_the_first_minute_feeds.py: the game's own models lit at night, the rig's source pass, its population snap, the
      tape baked into every frame), twelve keys a bar on the beat, and the camera's own readout printed on it in his letters,
      where a camera prints it: what the load has done is the camera's own reading (the battery charging, the signal coming in,
-     the miles to Vegas), never a bar of ours. Three feeds were made; D.feed.pick is the one in the game, all three are on the
+     the miles to Vegas), never a bar of ours. UI 5 made three; UI 6 (rules 342, 348) put every one in the game, on the
      VOTE tab. Each has its own sound, cut from real recordings (tools/bohemia_ui_the_first_minute_sounds.py): the title's own
      player (__THE_TITLE_IS_THE_DESERT__) plays it in place of the bare wind, on his first touch, as it always did. */
-  var FEED = { el: null, img: null, src: '', lastSig: '', t0: now(), band: null, mini: null };
+  /* UI 6 (rule 342, his second star; rule 348, 11/3): ALL OF THEM, AND MANY. Every feed is in the game and a different one
+     opens the game each time, never the one he saw last (D.feed.last_key keeps the last one on the phone); each is made twice,
+     TALL (9:16) and WIDE (16:9), its own composition with bleed, so the picture fills the whole glass on any screen, and a
+     turn of the phone cross-fades to the other one; if he sits on the screen, after D.feed.cycle_s the monitor cuts to the
+     next camera the way a real security monitor cycles (the picture rolls, one picture of snow, the next place). */
+  var FEED = { el: null, lastSig: '', t0: now(), cur: null, since: now(), next: null, imgs: {}, orient: null, fade: null, cut: null, snow: null };
+  function orient() { return innerWidth / Math.max(1, innerHeight) >= 1 ? 'wide' : 'tall'; }
+  function pool() { return Object.keys(D.feed.options).filter(function (k) { return D.feed.options[k] && D.feed.options[k].on !== false; }); }
+  function choose(not) { var p = pool().filter(function (k) { return k !== not; }); if (!p.length) p = pool(); return p[Math.floor(Math.random() * p.length)]; }
+  function remember(k) { try { localStorage.setItem(D.feed.last_key, k); } catch (e) {} }
   function feedKey() {
     var k = null; try { k = localStorage.getItem(D.feed.key); } catch (e) {}   /* a probe's switch for the proof shots; the game never sets it */
-    return (k && D.feed.options[k]) ? k : D.feed.pick;
+    if (k && D.feed.options[k]) return k;
+    if (!FEED.cur) { var last = null; try { last = localStorage.getItem(D.feed.last_key); } catch (e) {}
+      FEED.cur = choose(last); FEED.since = now(); remember(FEED.cur); LOG.push({ k: 'feed', pick: FEED.cur, last: last }); }
+    return FEED.cur;
   }
-  function feedOpt() { return D.feed.options[feedKey()] || D.feed.options[D.feed.pick]; }
-  function feedImg() {
-    var o = feedOpt(); if (!o) return null;
-    if (FEED.src !== o.sheet) { FEED.src = o.sheet; FEED.img = img(o.sheet); FEED.img.onload = function () { FEED.lastSig = ''; }; }
-    return FEED.img && FEED.img.complete && FEED.img.naturalWidth ? FEED.img : null;
+  function feedOpt(k) { return D.feed.options[k || feedKey()]; }
+  /* a feed's picture for one orientation: asked for the first time it is wanted, never before (the load is not slowed) */
+  function sheet(k, o) {
+    var op = D.feed.options[k], src = op && (op[o] || op[o === 'tall' ? 'wide' : 'tall']); if (!src) return null;
+    var im = FEED.imgs[src]; if (!im) { im = FEED.imgs[src] = img(src); im.onload = function () { FEED.lastSig = ''; }; }
+    return im.complete && im.naturalWidth ? im : null;
   }
+  function feedImg() { return sheet(feedKey(), orient()); }
   /* the title's own player plays this feed's sound, not the bare wind, from his first touch, as before */
   function feedSound() {
     var T = window.__TITLEWIND, o = feedOpt(); if (!T || !o || !o.sound) return;
     if (T.SRC !== o.sound && !T.buf && !T.loading) { T.SRC = o.sound; LOG.push({ k: 'feed sound', src: o.sound }); }
+  }
+  /* the cut to the next camera takes the next camera's own sound: the old one fades (the player's own 0.6 s), the new one comes
+     up over the player's own 1.5 s on its next tick */
+  function soundTo(src) {
+    var T = window.__TITLEWIND; if (!T || !src || T.SRC === src) return;
+    try { T.stop(); } catch (e) {}
+    T.SRC = src; T.buf = null; T.loading = null; LOG.push({ k: 'feed sound', src: src, cut: true });
+  }
+  /* THE MONITOR CYCLES: the next camera is chosen and its picture asked for preload_s before the cut, so the cut never waits */
+  function cycle() {
+    var k = null; try { k = localStorage.getItem(D.feed.key); } catch (e) {} if (k) return;   /* a probe holding one feed */
+    if (FEED.cut) return;
+    var t = (now() - FEED.since) / 1000, cs = D.feed.cycle_s; if (!cs) return;
+    if (t > cs - D.feed.preload_s && !FEED.next) FEED.next = choose(FEED.cur);
+    if (FEED.next) sheet(FEED.next, orient());
+    if (t >= cs && FEED.next && sheet(FEED.next, orient())) { FEED.cut = { t0: now(), from: FEED.cur, to: FEED.next }; LOG.push({ k: 'feed cut', from: FEED.cur, to: FEED.next, at: Math.round(t) }); }
+  }
+  function cutStep() {
+    var c = FEED.cut; if (!c) return null;
+    var hold = Math.floor((now() - c.t0) / D.moves.hold_ms), roll = still() ? 0 : D.feed.roll_holds, snow = D.feed.snow_holds;
+    if (hold >= roll + snow) {
+      FEED.cur = c.to; FEED.next = null; FEED.since = now(); FEED.cut = null; remember(FEED.cur);
+      var o = feedOpt(); if (o) soundTo(o.sound); FEED.lastSig = ''; return null;
+    }
+    return hold < roll ? { roll: (hold + 1) / (roll + 1) } : { snow: hold - roll };
+  }
+  /* one picture of snow: the switcher between two cameras, no sync, a few hundred dots of the tube's own grey (drawn once) */
+  function snowPic(n) {
+    if (!FEED.snow) FEED.snow = [];
+    if (!FEED.snow[n]) { var c = cv(96, 170), g = c.getContext('2d'), d = g.createImageData(96, 170), r = rng(977 + n * 31);
+      for (var i = 0; i < d.data.length; i += 4) { var v = Math.floor(r() * 4) * 52 + 12; d.data[i] = v; d.data[i + 1] = v; d.data[i + 2] = v + 4; d.data[i + 3] = 255; }
+      g.putImageData(d, 0, 0); FEED.snow[n] = c; }
+    return FEED.snow[n];
   }
   /* the load's own reading: the same stages the bar counts (never a number of ours) */
   function progress() {
@@ -160,15 +217,16 @@
     g.fillStyle = on ? '#d8341f' : '#3a1a14'; g.fillRect(x, y + 1, 7, 7); g.fillRect(x + 1, y, 5, 9); g.fillRect(x - 1, y + 2, 9, 5);
     osdText(g, D.feed.words.rec, x + 13, y);
   }
-  /* the frame: cover-fit into the box, the picture's middle kept (o.focus: where the story is, in the frame's own 0..1) */
-  function frameTo(g, im, key, bx, by, bw, bh, focus, tear) {
-    var fw = D.feed.w, fh = D.feed.h, s = Math.max(bw / fw, bh / fh), sw = bw / s, sh = bh / s;
-    var sx = Math.max(0, Math.min(fw - sw, fw * (focus ? focus[0] : 0.5) - sw / 2)), sy = Math.max(0, Math.min(fh - sh, fh * (focus ? focus[1] : 0.5) - sh / 2));
-    g.imageSmoothingEnabled = s !== 1; g.drawImage(im, sx, key * fh + sy, sw, sh, bx, by, bw, bh);
+  /* the frame: cover-fit into the box from the sheet's own size (a sheet is its frames one under the next), the middle kept: the
+     feeds are composed with their subject inside the middle of the frame, so any edge may be cut on any screen (the bleed) */
+  function frameTo(g, im, frames, key, bx, by, bw, bh, tear) {
+    var n = frames || 12, fw = im.naturalWidth, fh = im.naturalHeight / n, f = Math.min(n - 1, Math.floor(key * n / D.keys_per_bar));
+    var s = Math.max(bw / fw, bh / fh), sw = bw / s, sh = bh / s, sx = (fw - sw) / 2, sy = (fh - sh) / 2;
+    g.imageSmoothingEnabled = Math.abs(s - 1) > 0.01; g.drawImage(im, sx, f * fh + sy, sw, sh, bx, by, bw, bh);
     if (tear > 0) {   /* the signal not yet in: a band of the picture slips sideways, and rolls down the glass on the beat */
       var bandH = Math.max(6, Math.round(bh * 0.07)), y0 = Math.round(((beatF() * 0.37) % 1) * (bh - bandH));
       for (var r = 0; r < bandH; r += 2) { var off = Math.round(tear * Math.sin((r / bandH) * Math.PI) * (6 + 4 * Math.sin(beatF() * 3.1))), yy = by + y0 + r;
-        g.drawImage(im, sx, key * fh + sy + (y0 + r) / s, sw, 2 / s, bx + off, yy, bw, 2); }
+        g.drawImage(im, sx, f * fh + sy + (y0 + r) / s, sw, 2 / s, bx + off, yy, bw, 2); }
     }
     g.imageSmoothingEnabled = false;
   }
@@ -197,34 +255,43 @@
   function clock() { var d = new Date(); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2); }
   function paintFeed(force) {
     var c = FEED.el; if (!c || !c.isConnected) return;
-    var im = feedImg(), o = feedOpt(), P = progress(), key = still() ? 0 : keyOf(D.keys_per_bar), beat = Math.floor(beatF()), line = newestLine();
+    cycle(); var cut = cutStep();
+    var k = feedKey(), o = feedOpt(k), ori = orient();
+    if (FEED.orient && FEED.orient !== ori) FEED.fade = { from: FEED.orient, t0: now() }; FEED.orient = ori;
+    var im = sheet(k, ori), P = progress(), key = still() ? 0 : keyOf(D.keys_per_bar), beat = Math.floor(beatF());
+    /* THE PHONE TURNS (rule 348 (a)): the picture made for the new shape comes up through the old one over fade_holds holds on
+       the music's grid (rule 324, never a jump); until the new one has arrived the old one stays, cover-fit, whole */
+    var fade = 0, old = null;
+    if (FEED.fade) { old = sheet(k, FEED.fade.from);
+      if (!im) { FEED.fade.t0 = now(); fade = 1; }
+      else { var hh = Math.floor((now() - FEED.fade.t0) / D.moves.hold_ms); fade = 1 - (hh + 1) / (D.feed.fade_holds + 1); if (fade <= 0 || still() || !old) { FEED.fade = null; fade = 0; } } }
+    if (!im && old) { im = old; fade = 0; }
     var tear = (!P.ready && o.tear && !still()) ? (1 - P.f) : 0;
-    var sig = [c.width, c.height, key, beat, P.f, P.ready, line, FONT_OK, !!im, feedKey(), Math.floor((now() - FEED.t0) / 1000), tear > 0 ? Math.floor(beatF() * 6) : 0].join('|');
+    var sig = [c.width, c.height, key, beat, P.f, P.ready, FONT_OK, !!im, k, Math.floor((now() - FEED.t0) / 1000), tear > 0 ? Math.floor(beatF() * 6) : 0, fade, cut ? (cut.roll || 's' + cut.snow) : ''].join('|');
     if (!force && sig === FEED.lastSig) return; FEED.lastSig = sig;
     var g = c.getContext('2d'), W = c.width, H = c.height; g.imageSmoothingEnabled = false;
     g.fillStyle = '#050403'; g.fillRect(0, 0, W, H);
-    if (im) frameTo(g, im, key, 0, 0, W, H, o.focus, tear);
-    /* the readout: under his letters when they sit over the picture, in the camera's own corners */
-    var top = FEED.osdTop || 10, pad = 12, bot = H - 22, on = still() || beat % 4 < 2;
-    if (o.top_left === 'rec') rec(g, pad, top, on); else { osdText(g, o.cam, pad, top); osdText(g, o.place, pad, top + 14); }
-    if (o.top_right === 'rec+reading') { reading(g, o.reading, W - pad, top, P, 'right'); rec(g, W - pad - 34, top + 16, on); }
-    else reading(g, o.reading, W - pad, top, P, 'right');
-    if (o.top_left !== 'rec' && o.top_right !== 'rec+reading') rec(g, W - pad - 34, top + 16, on);
+    /* THE CUT (rule 348 (e)): the picture loses its sync and rolls up over a black bar, then one picture of the switcher's snow */
+    if (cut && cut.snow != null) { g.drawImage(snowPic(cut.snow), 0, 0, W, H); return; }
+    var yoff = cut && cut.roll ? Math.round(H * cut.roll) : 0;
+    if (im) frameTo(g, im, o.frames, key, 0, -yoff, W, H, yoff ? 0 : tear);
+    if (yoff) { if (im) frameTo(g, im, o.frames, key, 0, H - yoff + 10, W, H, 0); g.fillStyle = '#050403'; g.fillRect(0, H - yoff, W, 10); }
+    if (fade > 0 && old) { g.globalAlpha = fade; frameTo(g, old, o.frames, key, 0, 0, W, H, 0); g.globalAlpha = 1; }
+    /* the camera's own readout, in its corners, small: the camera and the place top left with REC on two beats of four (the
+       top right is his NOTES), the clock or the tape counter bottom left, the camera's reading of the load bottom right */
+    var pad = 12, top = 12, bot = H - 24, on = still() || beat % 4 < 2;
+    if (o.top_left === 'rec') rec(g, pad, top, on);
+    else { var w1 = osdText(g, o.cam, pad, top); rec(g, pad + Math.ceil(w1) + 14, top, on); osdText(g, o.place, pad, top + 14); }
     osdText(g, o.corner === 'clock' ? clock() : counter(), pad, bot);
-    if (line) { var t = line; g.font = '10px ' + (FONT_OK ? 'BohemiaROM' : 'monospace'); while (t.length > 3 && g.measureText(t).width > W - pad * 2 - 90) t = t.slice(0, -1); osdText(g, t, W - pad, bot, 'right'); }
+    reading(g, o.reading, W - pad, bot, P, 'right');
   }
-  /* where the feed stands: under his letters and their line (they stay alone on the cold ground, his 10/18 JUST THE FONT, J1),
-     the whole width down to the choices (upright); the left column under them to the foot of the glass (sideways) */
+  /* where the feed stands: THE WHOLE GLASS (rule 348: full screen, first person through the camera), his letters and the two
+     choices over it on their own ground */
   function placeFeed(root) {
-    var t = root.querySelector('.t'), m = root.querySelector('.m'); if (!t || !m) return false;
-    var rt = t.getBoundingClientRect(), rm = m.getBoundingClientRect(), wide = innerWidth / Math.max(1, innerHeight) >= 4 / 3;
-    var left, width, top, bottom;
-    if (!wide) { left = 0; width = innerWidth; top = Math.round(rt.bottom + D.feed.gap); bottom = rm.top - D.feed.gap; }
-    else { left = 0; width = Math.max(200, Math.round(rm.left - 24)); top = Math.round(rt.bottom + D.feed.gap); bottom = innerHeight - 30; }
-    var h = Math.round(bottom - top); if (h < 120) { FEED.el.style.display = 'none'; return false; }
-    var c = FEED.el; c.style.display = ''; FEED.osdTop = 10;
-    if (c.width !== width || c.height !== h) { c.width = width; c.height = h; FEED.lastSig = ''; }
-    c.style.left = left + 'px'; c.style.top = top + 'px'; c.style.width = width + 'px'; c.style.height = h + 'px';
+    var W = Math.round(innerWidth), H = Math.round(innerHeight); if (W < 50 || H < 50) return false;
+    var c = FEED.el; c.style.display = '';
+    if (c.width !== W || c.height !== H) { c.width = W; c.height = H; FEED.lastSig = ''; }
+    c.style.left = '0px'; c.style.top = '0px'; c.style.width = W + 'px'; c.style.height = H + 'px';
     return true;
   }
 
@@ -236,7 +303,7 @@
     var im = feedImg(), o = feedOpt(), P = progress(), key = still() ? 0 : keyOf(D.keys_per_bar), beat = Math.floor(beatF());
     var sig = [c.width, c.height, key, beat, P.ready, !!im, feedKey()].join('|'); if (sig === S.lastSig) return; S.lastSig = sig;
     var g = c.getContext('2d'), W = c.width, H = c.height; g.fillStyle = '#050403'; g.fillRect(0, 0, W, H);
-    if (im) frameTo(g, im, key, 0, 0, W, H, o.focus, 0);
+    if (im) frameTo(g, im, o.frames, key, 0, 0, W, H, 0);
     var on = still() || beat % 4 < 2;
     g.fillStyle = '#050403'; g.fillRect(0, 0, W, 1); g.fillRect(0, H - 1, W, 1); g.fillRect(0, 0, 1, H); g.fillRect(W - 1, 0, 1, H);
     g.fillStyle = on ? '#d8341f' : '#3a1a14'; g.fillRect(4, 4, 5, 5);
@@ -455,6 +522,10 @@
     '#cbxfeed{position:absolute;display:block;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none}',
     /* his line under the letters and the authority's line over the picks stand on their own ground, never on the picture (J5) */
     'html body #title .bm-start .t>div{background:#0b0a09;padding:3px 6px}',
+    /* rule 348: the picture fills the glass, so the choice that is not lit stands on the camera's own black, and nothing of the
+       title's own fallback (its stamp, its loading line) shows: four things only */
+    'html body #title .bm-start.jtf:not(.saved) .b.rec,html body #title .bm-start.jtf.saved .b.card{background:#0b0a09;outline:1px solid #2a2620}',
+    'html body #title .stamp,html body #title .bm-start .stamp{display:none!important}',
     JD + ' #loadtag i{background:#0b0a09;padding:3px 6px}',
     'html body #title.gone.cbx-leaving{display:block!important;pointer-events:none!important;background:transparent!important}',
     'html body #title.cbx-leaving>*:not(.bm-start){visibility:hidden!important}',
@@ -662,7 +733,10 @@
     hintsOn: hintsOn, setHints: setHints, doorOut: doorOut, say: say, log: LOG,
     data: function () { return D; },
     state: function () { var P = progress(); return { feed: !!(FEED.el && FEED.el.isConnected && FEED.el.style.display !== 'none'), pick: feedKey(), loaded: !!feedImg(), sound: window.__TITLEWIND ? __TITLEWIND.SRC : null,
-      mini: !!(MINI.el && MINI.el.isConnected), key: keyOf(D.keys_per_bar), beat: Math.floor(beatF()), progress: P, line: newestLine(), hints: hintsOn(), said: said() }; },
-    feedKey: feedKey
+      mini: !!(MINI.el && MINI.el.isConnected), key: keyOf(D.keys_per_bar), beat: Math.floor(beatF()), progress: P, line: newestLine(), hints: hintsOn(), said: said(),
+      orient: orient(), shown: FEED.orient, fading: !!FEED.fade, cutting: !!FEED.cut, next: FEED.next, on_s: Math.round((now() - FEED.since) / 100) / 10, pool: pool().length }; },
+    feedKey: feedKey,
+    /* a probe's hand on the monitor (the gate, the VOTE film): the cycle's clock wound to the cut; the game never calls it */
+    cutSoon: function () { FEED.since = now() - (D.feed.cycle_s - 0.2) * 1000; FEED.next = null; FEED.lastSig = ''; }
   };
 })();

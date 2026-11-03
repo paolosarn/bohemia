@@ -101,20 +101,20 @@ async function look(page) {
   const kinds = s.bs.map(b => b.bg);
   const GOLD = 'rgb(200, 171, 99)';
   if (s.bare) {
-    ok('THE START SCREEN\'S LOOK [just the font]: ONE GOLD THING (NEW GAME with no run) AND TWO PRINTED LINES, no material, no gradient', s.bs.length === 3 && s.bs.filter(b => b.col === GOLD).map(b => b.k).join() === 'new' && s.bs.every(b => !/url\(|gradient/.test(b.bg)), s.bs.map(b => b.k + ' ' + b.col).join(' / '));
+    ok('THE START SCREEN\'S LOOK [just the font]: ONE GOLD THING (NEW GAME with no run) AND ONE PRINTED LINE (rule 348: two choices), no material, no gradient', s.bs.length === 2 && s.bs.filter(b => b.col === GOLD).map(b => b.k).join() === 'new' && s.bs.every(b => !/url\(|gradient/.test(b.bg)), s.bs.map(b => b.k + ' ' + b.col).join(' / '));
     ok('  each read from the left, in CASING, the gold one 60 points or more, the printed lines 48', s.bs.every(b => b.align !== 'center' && b.tx < 60 && b.fam === 'BohemiaCasing' && b.h >= (b.col === GOLD ? 60 : 48)), s.bs.map(b => b.k + ' ' + Math.round(b.h) + ' +' + Math.round(b.tx) + ' ' + b.fam).join(', '));
   } else {
-    ok('THE START SCREEN\'S LOOK: THREE THINGS OF THREE MATERIALS', s.bs.length === 3 && s.bs.every(b => /url\(/.test(b.bg)) && new Set(kinds).size === 3, s.bs.map(b => b.k).join(' / '));
+    ok('THE START SCREEN\'S LOOK: TWO THINGS OF TWO MATERIALS (rule 348: NEW GAME and CONTINUE)', s.bs.length === 2 && s.bs.every(b => /url\(/.test(b.bg)) && new Set(kinds).size === 2, s.bs.map(b => b.k).join(' / '));
     ok('  each read from the left, 60 points or more, in CASING', s.bs.every(b => b.align !== 'center' && b.tx < 60 && b.h >= 60 && b.fam === 'BohemiaCasing'), s.bs.map(b => b.k + ' ' + Math.round(b.h) + ' +' + Math.round(b.tx) + ' ' + b.fam).join(', '));
   }
-  ok('  NOTHING SAVED: CONTINUE IS DARK AND SAYS SO (a game, never a run: WORDS [eyes: no run saved])', s.bs[1].dis && s.bs[1].sub === 'NO GAME SAVED', s.bs[1].dis + ' "' + s.bs[1].sub + '"');
+  ok('  NOTHING SAVED: CONTINUE IS DARK AND SAYS NOTHING ELSE (rule 348 (b): four things on the screen)', s.bs[1].dis && s.bs[1].sub === '', s.bs[1].dis + ' "' + s.bs[1].sub + '"');
   await page.evaluate(() => __ss.paint({ day: 3, min: 600 }));
   const tapK = async (k) => { const b = await page.evaluate((k) => { const r = __ss.root.querySelector('[data-k="' + k + '"]').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, k);
     await page.touchscreen.tap(b[0], b[1]); await page.waitForTimeout(200); };
-  for (const k of ['new', 'continue', 'settings']) await tapK(k);
+  for (const k of ['new', 'continue']) await tapK(k);
   const g = await page.evaluate(() => ({ got: __got.slice(), sub: __ss.root.querySelector('[data-k="continue"] i').textContent, front: getComputedStyle(document.getElementById('front')).display }));
-  ok('  EACH TAP REACHES RUN\'S CALLBACK (and nothing behind it)', g.got.join(',') === 'new,continue,settings' && g.front !== 'none', g.got.join(','));
-  ok('  with a run, CONTINUE prints its day and hour', g.sub === 'DAY 3 · 10:00', g.sub);
+  ok('  EACH TAP REACHES RUN\'S CALLBACK (and nothing behind it)', g.got.join(',') === 'new,continue' && g.front !== 'none', g.got.join(','));
+  ok('  with a run, CONTINUE says CONTINUE and nothing under it (rule 348 (b))', g.sub === '', g.sub);
   if (s.bare) { const lead = await page.evaluate(() => Array.from(__ss.root.querySelectorAll('.b')).filter(b => getComputedStyle(b).backgroundColor === 'rgb(200, 171, 99)').map(b => b.getAttribute('data-k')).join());
     ok('  [just the font] with a run the one gold thing is CONTINUE', lead === 'continue', lead); }
   await page.evaluate(() => __ss.arm('DAY 3 IS KEPT ASIDE, NOT DELETED'));
@@ -122,16 +122,16 @@ async function look(page) {
   ok('  the arm line reads (TAP AGAIN, what happens to the run)', /TAP AGAIN/.test(ar) && /KEPT ASIDE/.test(ar), ar);
   await page.evaluate(() => __ss.disarm());
   const items = await page.evaluate(() => Array.from(__ss.root.querySelectorAll('.b')).filter(b => !b.disabled).flatMap(b => { const r = b.getBoundingClientRect(), box = [r.x + r.width - 30, r.y + 8, 22, r.height - 16];
-    return [{ k: b.getAttribute('data-k') + ' word', box, col: getComputedStyle(b.querySelector('b')).color }, { k: b.getAttribute('data-k') + ' line', box, col: getComputedStyle(b.querySelector('i')).color }]; }));
+    return [{ k: b.getAttribute('data-k') + ' word', box, col: getComputedStyle(b.querySelector('b')).color }].concat(b.querySelector('i').textContent ? [{ k: b.getAttribute('data-k') + ' line', box, col: getComputedStyle(b.querySelector('i')).color }] : []); }));
   const c2 = await contrast(page, items);
-  ok('  EVERY WORD PASSES 4.5 TO 1, AND IN THE SUN', c2.length === 6 && c2.every(c => c.plain >= 4.5 && c.sun >= 4.5), c2.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
+  ok('  EVERY WORD PASSES 4.5 TO 1, AND IN THE SUN', c2.length === 2 && c2.every(c => c.plain >= 4.5 && c.sun >= 4.5), c2.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
   await page.evaluate(() => __ss.destroy());
   await page.setViewportSize({ width: 844, height: 390 }); await page.waitForTimeout(400);
   const L = await page.evaluate(() => { const api = BohemiaMaterials.startScreen(document.body, {}); const t = api.root.querySelector('.t').getBoundingClientRect(), m = api.root.querySelector('.m').getBoundingClientRect();
     const over = !(t.right <= m.left || m.right <= t.left || t.bottom <= m.top || m.bottom <= t.top);
     const r = { over, inside: m.top >= 0 && m.bottom <= innerHeight && m.right <= innerWidth && t.top >= 0 && t.bottom <= innerHeight, t: [t.left, t.top, t.right, t.bottom].map(Math.round), m: [m.left, m.top, m.right, m.bottom].map(Math.round) };
     api.destroy(); r.left = document.querySelectorAll('.bm-start').length; return r; });
-  ok('  LANDSCAPE: the title and the three things do not overlap, and stay on the glass', !L.over && L.inside, JSON.stringify(L));
+  ok('  LANDSCAPE: the title and the two things do not overlap, and stay on the glass', !L.over && L.inside, JSON.stringify(L));
   ok('  destroy() leaves nothing behind', L.left === 0, L.left + ' left');
   await page.setViewportSize({ width: 390, height: 844 }); await page.waitForTimeout(300);
 }

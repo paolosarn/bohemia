@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ten Camera Feeds</title>
+<!-- UI 6, 11/3/26 (rules 342 and 348; ask lines 351 and 358): EVERY CAMERA FEED, for the VOTE tab (the 9/21 votes: the tab shows the
+     thing, the pictures move and the sounds play). His star on UI 5's three (11/2): 'Why not all 3?... as much of these as possible to
+     really build that lore ambience'. His 11/3: two versions, tall and wide, full screen, first person, quiet, a random roll each time.
+     Every feed is the game's own sheet (slices/crashbox/feed_<x>_<tall|wide>.webp, tools/bohemia_ui_the_camera_feeds.py), read from the
+     game's own crashbox.json and played the way the start screen plays it: twelve keys a bar at 120 BPM (a security or trail camera
+     six pictures a second), the camera's readout of a load that runs over eight seconds and holds three. THE MONITOR at the top cycles
+     the ten the way the start screen does after 40 seconds, here every 8 so you see the cut (the feeds still being made are left out until they are in the game). A tap on any feed plays its own sound
+     (slices/crashbox/feed_<x>.mp3, CC0 recordings) and stops the others. Words are draft:true. -->
+<style>
+@font-face{font-family:'BohemiaROM';src:url(fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'BohemiaCasing';src:url(fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:block}
+:root{--ground:#0b0a09;--ink:#e7dcc6;--gold:#e2bd6a;--plastic:#1d1e20}
+html,body{margin:0;background:var(--ground);color:var(--ink);font-family:'BohemiaROM',ui-monospace,monospace;-webkit-text-size-adjust:100%}
+main{max-width:1240px;margin:0 auto;padding:16px 16px 40px}
+h1{font-family:'BohemiaCasing',ui-sans-serif,sans-serif;font-weight:400;font-size:20px;letter-spacing:2px;margin:4px 0 6px}
+p.lead{font-size:10px;line-height:16px;margin:0 0 12px;max-width:72ch}
+.bar{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
+button{min-height:44px;padding:0 14px;border:1px solid #050505;background:var(--plastic);color:var(--ink);font:10px 'BohemiaROM',monospace;letter-spacing:1px;
+  box-shadow:inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c;cursor:pointer}
+button.on{background:var(--gold);color:#140e05;box-shadow:inset 0 1px 0 #f6dc9a,inset 0 -2px 0 #8d6a26}
+.mon{display:flex;justify-content:center;margin:0 0 18px}
+.mon canvas{display:block;image-rendering:pixelated;background:#050403;max-width:100%;cursor:pointer;outline:1px solid #2a2620}
+.row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+body.wide .row{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.opt{display:flex;flex-direction:column;gap:6px}
+.opt canvas{width:100%;display:block;image-rendering:pixelated;background:#050403;cursor:pointer}
+.opt h2{font-family:'BohemiaCasing',ui-sans-serif,sans-serif;font-weight:400;font-size:13.333px;letter-spacing:1.5px;margin:0}
+.opt h2 b{color:var(--gold);font-weight:400;margin-right:8px}
+.opt p{font-size:10px;line-height:15px;margin:0}
+.opt button{min-height:44px}
+</style></head>
+<body><main>
+<h1>THE CAMERA FEEDS: <span id="n">ALL OF THEM</span></h1>
+<p class="lead">Every time the game opens you land on one of these, never the one you saw last. Sit on the start screen and the monitor cuts to the next camera. Each one is made twice, tall for the phone upright and wide for sideways or a computer. Tap any picture to hear it. The big one is the start screen's monitor, cutting every 8 seconds here so you can see the cut.</p>
+<div class="bar"><button type="button" id="bt" class="on">TALL</button><button type="button" id="bw">WIDE</button></div>
+<div class="mon"><canvas id="mon" role="img" aria-label="the monitor, cycling the cameras"></canvas></div>
+<div class="row" id="row"></div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var KEYS = 12, BEAT = 500, ORI = 'tall', SIZE = { tall: [432, 768], wide: [768, 432] }, F = null, OPTS = [], FONT = false, audio = null, playing = null;
+  try { document.fonts.load('10px BohemiaROM').then(function () { FONT = true; }); } catch (e) {}
+  var T0 = performance.now(), row = document.getElementById('row'), mon = document.getElementById('mon');
+  fetch('crashbox/crashbox.json').then(function (r) { return r.json(); }).then(function (j) { F = j.feed; build(); requestAnimationFrame(frame); });
+  function build() {
+    Object.keys(F.options).forEach(function (k) {
+      var o = F.options[k]; if (o.on === false) return; o.k = k; OPTS.push(o);
+      var d = document.createElement('div'); d.className = 'opt';
+      d.innerHTML = '<h2><b>' + k.toUpperCase() + '</b></h2><canvas role="img"></canvas><p></p><button type="button">HEAR IT</button>';
+      d.querySelector('h2').appendChild(document.createTextNode(o.name)); d.querySelector('p').textContent = o.what.charAt(0).toUpperCase() + o.what.slice(1) + '.';
+      o.cv = d.querySelector('canvas'); o.cv.setAttribute('aria-label', o.name + ', moving'); o.btn = d.querySelector('button'); o.img = {};
+      var hear = function () { toggle(o); }; o.cv.addEventListener('click', hear); o.btn.addEventListener('click', hear);
+      row.appendChild(d);
+    });
+    document.getElementById('n').textContent = OPTS.length + ' CAMERAS';
+    mon.addEventListener('click', function () { toggle(OPTS[monIx()]); });
+    setOri('tall');
+  }
+  function sheet(o) { var src = o[ORI]; if (!o.img[ORI]) { o.img[ORI] = new Image(); o.img[ORI].src = src; } var im = o.img[ORI]; return im.complete && im.naturalWidth ? im : null; }
+  function setOri(w) {
+    ORI = w; document.body.classList.toggle('wide', w === 'wide');
+    document.getElementById('bt').classList.toggle('on', w === 'tall'); document.getElementById('bw').classList.toggle('on', w === 'wide');
+    var s = SIZE[w]; OPTS.forEach(function (o) { o.cv.width = s[0]; o.cv.height = s[1]; });
+    mon.width = s[0]; mon.height = s[1]; mon.style.width = (w === 'tall' ? Math.min(360, innerWidth - 32) : Math.min(768, innerWidth - 32)) + 'px';
+  }
+  document.getElementById('bt').addEventListener('click', function () { setOri('tall'); });
+  document.getElementById('bw').addEventListener('click', function () { setOri('wide'); });
+  function toggle(o) {
+    if (playing === o) { audio.pause(); playing = null; paintBtns(); return; }
+    if (audio) audio.pause();
+    audio = new Audio(o.sound); audio.loop = true; audio.play().catch(function () {}); playing = o; paintBtns();
+  }
+  function paintBtns() { OPTS.forEach(function (o) { o.btn.classList.toggle('on', playing === o); o.btn.textContent = playing === o ? 'STOP' : 'HEAR IT'; }); }
+  function txt(g, s, x, y, al) {
+    g.font = '10px ' + (FONT ? 'BohemiaROM' : 'monospace'); g.textBaseline = 'top'; g.textAlign = al || 'left';
+    g.fillStyle = '#050403'; [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(function (q) { g.fillText(s, x + q[0], y + q[1]); });
+    g.fillStyle = '#efe6d2'; g.fillText(s, x, y); var w = g.measureText(s).width; g.textAlign = 'left'; return w;
+  }
+  function rec(g, x, y, on) { g.fillStyle = on ? '#d8341f' : '#3a1a14'; g.fillRect(x, y + 1, 7, 7); txt(g, 'REC', x + 13, y); }
+  function reading(g, kind, x, y, f, ready, n, on) {
+    var w = F.words;
+    if (kind === 'battery') { var c = ready ? 4 : Math.min(3, Math.floor(f * 4)), bx = x - 26;
+      g.fillStyle = '#efe6d2'; g.fillRect(bx, y, 23, 9); g.fillRect(bx + 23, y + 3, 2, 3); g.fillStyle = '#050403'; g.fillRect(bx + 1, y + 1, 21, 7);
+      for (var i = 0; i < 4; i++) { g.fillStyle = i < c || (!ready && on && i === c) ? (ready ? '#efe6d2' : '#e2bd6a') : '#2a2620'; g.fillRect(bx + 2 + i * 5, y + 2, 4, 5); }
+      txt(g, ready ? w.charged : w.charging, bx - 6, y, 'right'); }
+    else if (kind === 'signal') { var m = ready ? 4 : Math.min(3, Math.floor(f * 4)), sx = x - 22;
+      for (var j = 0; j < 4; j++) { var hh = 3 + j * 2; g.fillStyle = j < m ? '#efe6d2' : '#2a2620'; g.fillRect(sx + j * 6, y + 9 - hh, 4, hh); }
+      txt(g, ready ? w.signal_in : w.no_signal, sx - 6, y, 'right'); }
+    else txt(g, w.vegas + '  ' + (ready ? 0 : Math.max(1, 6 - n)) + ' ' + w.mi, x, y, 'right');
+  }
+  function snow(g, W, H, seed) { var s = seed * 9301 + 49297, d = g.createImageData(W >> 2, H >> 2);
+    for (var i = 0; i < d.data.length; i += 4) { s = (s * 16807) % 2147483647; var v = (s % 4) * 52 + 12; d.data[i] = d.data[i + 1] = v; d.data[i + 2] = v + 4; d.data[i + 3] = 255; }
+    var c = document.createElement('canvas'); c.width = W >> 2; c.height = H >> 2; c.getContext('2d').putImageData(d, 0, 0); g.imageSmoothingEnabled = false; g.drawImage(c, 0, 0, W, H); }
+  function paint(o, cv, t, roll) {
+    var g = cv.getContext('2d'), W = cv.width, H = cv.height, beat = t / BEAT, key = Math.floor(beat * KEYS / 4) % KEYS;
+    var cyc = (t / 1000) % 11, n = Math.min(6, Math.floor(cyc / (8 / 6))), ready = cyc >= 8, f = ready ? 1 : n / 6, on = Math.floor(beat) % 4 < 2;
+    g.imageSmoothingEnabled = false; g.fillStyle = '#050403'; g.fillRect(0, 0, W, H);
+    var im = sheet(o); if (!im) return;
+    var fh = im.naturalHeight / o.frames, fr = Math.min(o.frames - 1, Math.floor(key * o.frames / KEYS)), yoff = Math.round(H * (roll || 0));
+    g.drawImage(im, 0, fr * fh, im.naturalWidth, fh, 0, -yoff, W, H);
+    if (yoff) { g.drawImage(im, 0, fr * fh, im.naturalWidth, fh, 0, H - yoff + 10, W, H); g.fillStyle = '#050403'; g.fillRect(0, H - yoff, W, 10); }
+    if (o.tear && !ready && !yoff) { var bh = 36, y0 = Math.round(((beat * 0.37) % 1) * (H - bh)), amp = 1 - f, s = W / im.naturalWidth;
+      for (var r = 0; r < bh; r += 2) { var off = Math.round(amp * Math.sin(r / bh * Math.PI) * (6 + 4 * Math.sin(beat * 3.1))); g.drawImage(im, 0, fr * fh + (y0 + r) / s, im.naturalWidth, 2 / s, off, y0 + r, W, 2); } }
+    var pad = 12, top = 12, bot = H - 24;
+    if (o.top_left === 'rec') rec(g, pad, top, on); else { var w1 = txt(g, o.cam, pad, top); rec(g, pad + Math.ceil(w1) + 14, top, on); txt(g, o.place, pad, top + 14); }
+    var s2 = Math.floor(t / 1000); txt(g, o.corner === 'clock' ? new Date().toTimeString().slice(0, 8) : '0:' + ('0' + Math.floor(s2 / 60) % 60).slice(-2) + ':' + ('0' + s2 % 60).slice(-2), pad, bot);
+    reading(g, o.reading, W - pad, bot, f, ready, n, on);
+  }
+  var MON = { ix: 0, t0: performance.now() };
+  function monIx() { return MON.ix; }
+  function frame() {
+    var t = performance.now() - T0;
+    OPTS.forEach(function (o) { paint(o, o.cv, t, 0); });
+    /* THE MONITOR: a camera for 8 s, then the cut: two holds of the roll, one picture of snow, the next camera */
+    var m = performance.now() - MON.t0, hold = 125, cyc = 8000;
+    if (m >= cyc + 3 * hold) { MON.ix = (MON.ix + 1 + Math.floor(Math.random() * (OPTS.length - 1))) % OPTS.length; MON.t0 = performance.now(); m = 0; }
+    if (m < cyc) paint(OPTS[MON.ix], mon, t, 0);
+    else if (m < cyc + 2 * hold) paint(OPTS[MON.ix], mon, t, (Math.floor((m - cyc) / hold) + 1) / 3);
+    else snow(mon.getContext('2d'), mon.width, mon.height, Math.floor(m));
+    requestAnimationFrame(frame);
+  }
+})();
+</script>
+</body></html>

@@ -198,9 +198,9 @@ async function walk(profile, legs) {
     res.plants = {};
     await plant('html body .bm-start.jtf .t .jtf-mark{background:#2d2b27!important}'); res.plants.card = await cardOnGlass(page, res.tMark.box); await unplant();
     await plant('html body .bm-start.jtf .sub{font-family:Arial,sans-serif!important}'); res.plants.face = await page.evaluate(READ_DEFAULTS); await unplant();
-    await plant('html body .bm-start.jtf .b i{font-size:11px!important}'); res.plants.size = await page.evaluate(READ_DEFAULTS); await unplant();
+    await plant('html body .bm-start.jtf .b b{font-size:11px!important}');   /* the choice's own word: since rule 348 a choice has no line under it */ res.plants.size = await page.evaluate(READ_DEFAULTS); await unplant();
     await plant('html body .bm-start.jtf .sub{color:#3a362f!important}'); res.plants.dim = await words(page); await unplant();
-    await plant('html body .bm-start.jtf .b.pane{background:#c8ab63!important}'); res.plants.lead = await page.evaluate(READ_LEAD); await unplant();
+    await plant('html body .bm-start.jtf .b.rec{background:#c8ab63!important}');   /* CONTINUE with no game: since rule 348 there is no SETTINGS to gild */ res.plants.lead = await page.evaluate(READ_LEAD); await unplant();
     /* NEW GAME, the way a person goes in */
     const nb = await page.evaluate(() => { const r = document.querySelector('#title .bm-start [data-k=new]').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     await page.touchscreen.tap(nb.x, nb.y); await page.waitForTimeout(900);
@@ -260,14 +260,14 @@ async function walk(profile, legs) {
   ok('J4 PLANTED: a glow on BEGIN is caught', up.plants.glow.some(s => /fronttap.*glow/.test(s)));
   ok('J4 PLANTED: a round corner on a pick is caught', up.plants.corner.some(s => /corner/.test(s)));
   const wordsOk = (list, where) => { const bad = (list || []).filter(w => w.plain < 4.5 || w.sun < 4.5);
-    ok('J5 every enabled word reads on ' + where + ': 4.5 to 1 and in the sun (' + (list || []).length + ' words)', list && list.length > 5 && !bad.length, bad.slice(0, 4).map(w => w.k + ' ' + w.plain + '/' + w.sun + ' on ' + w.bg + ' in ' + w.col).join(' | ')); };
+    ok('J5 every enabled word reads on ' + where + ': 4.5 to 1 and in the sun (' + (list || []).length + ' words; three since rule 348: the line, NEW GAME, CONTINUE)', list && list.length >= 3 && !bad.length, bad.slice(0, 4).map(w => w.k + ' ' + w.plain + '/' + w.sun + ' on ' + w.bg + ' in ' + w.col).join(' | ')); };
   wordsOk(up.tWords, 'the title, upright'); wordsOk(up.lWords, 'the picks and the terminal, upright'); wordsOk(side.tWords, 'the title, sideways'); wordsOk(side.lWords, 'the picks and the terminal, sideways');
   ok('J5 PLANTED: a dim subtitle is caught', (up.plants.dim || []).some(w => /POST-ECONOMIC/.test(w.k) && (w.plain < 4.5 || w.sun < 4.5)));
   ok('J6 ONE NEXT THING: with no run the one gold choice is NEW GAME', JSON.stringify(up.lead0.gold) === '["new"]', up.lead0.gold.join(','));
   ok('J6 and with a run saved the one gold choice is CONTINUE', JSON.stringify(up.lead1.gold) === '["continue"]', up.lead1.gold.join(','));
   ok('J6 PLANTED: the gold on a second title choice is caught', up.plants.lead.gold.length > 1, up.plants.lead.gold.join(','));
   ok('J6 BEGIN is gold once the game is in, and says BEGIN', up.begin.ready && up.begin.bg === 'rgb(200, 171, 99)' && up.begin.txt === 'BEGIN', up.begin.txt + ' ' + up.begin.bg);
-  ok('J7 THUMBS: every title choice 48 css px or taller, NOTES 40', up.lead0.hs.length === 3 && up.lead0.hs.every(h => h >= 48) && up.notesH >= 40, up.lead0.hs.join(',') + ' notes ' + up.notesH);
+  ok('J7 THUMBS: every title choice 48 css px or taller, NOTES 40 (two choices since rule 348: NEW GAME and CONTINUE)', up.lead0.hs.length === 2 && up.lead0.hs.every(h => h >= 48) && up.notesH >= 40, up.lead0.hs.join(',') + ' notes ' + up.notesH);
   ok('J7 every pick 44 css px or taller and BEGIN 48, upright and sideways', !up.fit.thin.length && !side.fit.thin.length && up.fit.tapH >= 48 && side.fit.tapH >= 48, up.fit.thin.concat(side.fit.thin).join(' | '));
   ok('J7 PLANTED: a pick squeezed under a thumb is caught', up.plants.thumb.thin.length > 0);
   const fitOk = (f, where) => ok('J8 NOTHING OFF THE GLASS ' + where + ': the picks fit their column (' + f.scroll + ' of ' + f.client + '), none below the glass, BEGIN clear of the picks and the stamp, the stamp on the glass',

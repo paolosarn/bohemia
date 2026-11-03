@@ -1,134 +1,242 @@
 {
-  "version": 1,
-  "lane": "UI",
-  "what": "THE FIRST MINUTE. UI round 3 (11/2/26) made the machine, the start screen's picks and the hints toggle; UI 5 (11/3/26, asks 338 and 340, his 11/2 NO on the machine) made THE FEED: the loading screen is a camera's own feed, three made through the master rig, the pick in the game, all three on the VOTE tab; the picks restyled as the camera's own buttons. Every number the first minute reads is here. Words are draft:true attempts for WORDS.",
-  "ask_lines": [
-    280,
-    261,
-    262,
-    338,
-    340
-  ],
-  "rule": 301,
+ "version": 1,
+ "lane": "UI",
+ "what": "THE FIRST MINUTE. UI round 3 (11/2/26) made the machine, the start screen's picks and the hints toggle; UI 5 (11/3/26, asks 338 and 340, his 11/2 NO on the machine) made THE FEED: the loading screen is a camera's own feed, three made through the master rig, the pick in the game, all three on the VOTE tab; the picks restyled as the camera's own buttons. Every number the first minute reads is here. Words are draft:true attempts for WORDS.",
+ "ask_lines": [
+  280,
+  261,
+  262,
+  338,
+  340
+ ],
+ "rule": 301,
+ "draft": true,
+ "beat_ms": 500,
+ "beats_per_bar": 4,
+ "keys_per_bar": 12,
+ "robot": {
+  "big": {
+   "src": "crashbox/robot_idle_s_120.png",
+   "w": 81,
+   "h": 120,
+   "keys": 12
+  },
+  "small": {
+   "src": "crashbox/robot_idle_s_52.png",
+   "w": 35,
+   "h": 52,
+   "keys": 12
+  },
+  "from": "records/target/master_rig/robot/raw_Idle_S_k00..k11.png (DIRECTION's master-rig robot, the one he loved, 10/17 and 11/2), cropped to its own ink, 64 colours, hard alpha",
+  "retired": "11/3 UI 5: the machine is out of the first minute (his 11/2 NO); the sheets stay on disk, nothing loads them"
+ },
+ "machine": {
+  "retired": "11/3 UI 5: replaced by THE FEED (his 11/2 NO)"
+ },
+ "moves": {
+  "hold_ms": 125,
+  "door_hold_ms": 83,
+  "title_out_holds": 3,
+  "door_out_holds": 4,
+  "say_in_holds": 3,
+  "say_out_holds": 3
+ },
+ "wrongness": {
+  "retired": "11/3 UI 5: his 11/2 vote 'Bro wtf is this horseshit'; the sheet to the graveyard, nothing on the first minute shows it"
+ },
+ "hints": {
+  "key": "bohemia.hints",
+  "said_key": "bohemia.hints.said",
+  "default_on": true,
+  "quiet_ms": {
+   "map": 8000,
+   "town": 3000,
+   "camp": 3000
+  },
+  "hold_beats": 8,
+  "type_per_beat": 24,
   "draft": true,
-  "beat_ms": 500,
-  "beats_per_bar": 4,
-  "keys_per_bar": 12,
-  "robot": {
-    "big": {
-      "src": "crashbox/robot_idle_s_120.png",
-      "w": 81,
-      "h": 120,
-      "keys": 12
-    },
-    "small": {
-      "src": "crashbox/robot_idle_s_52.png",
-      "w": 35,
-      "h": 52,
-      "keys": 12
-    },
-    "from": "records/target/master_rig/robot/raw_Idle_S_k00..k11.png (DIRECTION's master-rig robot, the one he loved, 10/17 and 11/2), cropped to its own ink, 64 colours, hard alpha",
-    "retired": "11/3 UI 5: the machine is out of the first minute (his 11/2 NO); the sheets stay on disk, nothing loads them"
+  "lines": {
+   "map": "Tap anywhere on the map and we walk there. The clock runs while we walk.",
+   "town": "Tap a building to go in. LEAVE on the phone takes us back out.",
+   "camp": "We heal quicker at camp. The ring on the phone breaks camp."
   },
-  "machine": {
-    "retired": "11/3 UI 5: replaced by THE FEED (his 11/2 NO)"
-  },
-  "moves": {
-    "hold_ms": 125,
-    "door_hold_ms": 83,
-    "title_out_holds": 3,
-    "door_out_holds": 4,
-    "say_in_holds": 3,
-    "say_out_holds": 3
-  },
-  "wrongness": {
-    "retired": "11/3 UI 5: his 11/2 vote 'Bro wtf is this horseshit'; the sheet to the graveyard, nothing on the first minute shows it"
-  },
-  "hints": {
-    "key": "bohemia.hints",
-    "said_key": "bohemia.hints.said",
-    "default_on": true,
-    "quiet_ms": {
-      "map": 8000,
-      "town": 3000,
-      "camp": 3000
-    },
-    "hold_beats": 8,
-    "type_per_beat": 24,
-    "draft": true,
-    "lines": {
-      "map": "Tap anywhere on the map and we walk there. The clock runs while we walk.",
-      "town": "Tap a building to go in. LEAVE on the phone takes us back out.",
-      "camp": "We heal quicker at camp. The ring on the phone breaks camp."
-    },
-    "toggle": {
-      "title": "HINTS",
-      "on": "ON",
-      "on_sub": "a face tells you, once",
-      "off": "OFF",
-      "off_sub": "no hints"
-    }
-  },
-  "feed": {
-    "_why": "his 11/2 vote NO on the machine (the box with the tin robot), no words; rule 66a (Paolo 10/5): 'the loading shown as the camera's own feed, never a bar'. Made by tools/bohemia_ui_the_first_minute_feeds.py (render + tape) and tools/bohemia_ui_the_first_minute_sounds.py (each its own sound, CC0 recordings via ESC-50).",
-    "pick": "b",
-    "pick_why": "B, THE NIGHT CAMERA: the one that reads as analog horror at the source with nothing added (a security camera's grey, its six pictures a second, a dying sodium lamp), and the only one whose reading of the load is the picture itself coming in (the tear settles as the stages land).",
-    "key": "bohemia.title.feed",
-    "w": 390,
-    "h": 520,
-    "gap": 14,
-    "mini_w": 40,
-    "mini_h": 30,
-    "words": {
-      "draft": true,
-      "rec": "REC",
-      "charging": "CHARGING",
-      "charged": "CHARGED",
-      "no_signal": "NO SIGNAL",
-      "signal_in": "SIGNAL",
-      "vegas": "LAS VEGAS",
-      "mi": "MI"
-    },
-    "options": {
-      "a": {
-        "name": "THE CAMP ON TAPE",
-        "sheet": "crashbox/feed_a.webp",
-        "sound": "crashbox/feed_a.mp3",
-        "top_left": "rec",
-        "reading": "battery",
-        "corner": "counter",
-        "focus": [
-          0.5,
-          0.62
-        ]
-      },
-      "b": {
-        "name": "THE NIGHT CAMERA",
-        "sheet": "crashbox/feed_b.webp",
-        "sound": "crashbox/feed_b.mp3",
-        "top_left": "cam",
-        "cam": "CAM 03",
-        "place": "PAWN · LOT",
-        "reading": "signal",
-        "corner": "clock",
-        "tear": true,
-        "focus": [
-          0.45,
-          0.5
-        ]
-      },
-      "c": {
-        "name": "THE ROAD IN",
-        "sheet": "crashbox/feed_c.webp",
-        "sound": "crashbox/feed_c.mp3",
-        "top_left": "rec",
-        "reading": "miles",
-        "corner": "counter",
-        "focus": [
-          0.5,
-          0.55
-        ]
-      }
-    }
+  "toggle": {
+   "title": "HINTS",
+   "on": "ON",
+   "on_sub": "a face tells you, once",
+   "off": "OFF",
+   "off_sub": "no hints"
   }
+ },
+ "feed": {
+  "_why": "rules 342 (his second star, 11/2: 'Why not all 3?... as much of these as possible to really build that lore ambience') and 348 (11/3: two versions, tall 9:16 and wide 16:9, full screen, first person, quiet; a random feed each open, never twice running; the monitor cuts to the next camera after about 40 s). Made by tools/bohemia_ui_the_camera_feeds.py (render + medium) and tools/bohemia_ui_the_camera_feeds_sounds.py (each its own sound, CC0 recordings, -33 dB rms). UI 5 made the first three (tools/bohemia_ui_the_first_minute_feeds.py); UI 6 re-shot them for the whole glass and made seven more.",
+  "key": "bohemia.title.feed",
+  "key_why": "a probe's switch (a proof shot holding one feed); the game never sets it",
+  "last_key": "bohemia.title.feed.last",
+  "cycle_s": 40,
+  "cycle_why": "rule 348 (e), the coordinator's default, his to change",
+  "preload_s": 8,
+  "roll_holds": 2,
+  "snow_holds": 1,
+  "fade_holds": 4,
+  "size": {
+   "tall": [
+    432,
+    768
+   ],
+   "wide": [
+    768,
+    432
+   ]
+  },
+  "mini_w": 40,
+  "mini_h": 30,
+  "words": {
+   "draft": true,
+   "rec": "REC",
+   "charging": "CHARGING",
+   "charged": "CHARGED",
+   "no_signal": "NO SIGNAL",
+   "signal_in": "SIGNAL",
+   "vegas": "LAS VEGAS",
+   "mi": "MI"
+  },
+  "options": {
+   "a": {
+    "name": "THE CAMP ON TAPE",
+    "what": "the crew's camp: the fire in a barrel, the truck, the tyres; a camcorder held by one of the crew",
+    "tall": "crashbox/feed_a_tall.webp",
+    "wide": "crashbox/feed_a_wide.webp",
+    "sound": "crashbox/feed_a.mp3",
+    "frames": 12,
+    "top_left": "rec",
+    "reading": "battery",
+    "corner": "counter"
+   },
+   "b": {
+    "name": "THE NIGHT CAMERA",
+    "what": "a security camera over the pawn shop's lot: the sodium lamp dying twice a bar, a coyote in the light",
+    "tall": "crashbox/feed_b_tall.webp",
+    "wide": "crashbox/feed_b_wide.webp",
+    "sound": "crashbox/feed_b.mp3",
+    "frames": 6,
+    "top_left": "cam",
+    "cam": "CAM 03",
+    "place": "PAWN · LOT",
+    "reading": "signal",
+    "corner": "clock",
+    "tear": true
+   },
+   "c": {
+    "name": "THE ROAD IN",
+    "what": "the dash camera on the dead I-15 into the Strip: every tower dark but one lit block, the needle and the black pyramid on the sky, the freeway's lights dead",
+    "tall": "crashbox/feed_c_tall.webp",
+    "wide": "crashbox/feed_c_wide.webp",
+    "sound": "crashbox/feed_c.mp3",
+    "frames": 12,
+    "top_left": "rec",
+    "reading": "miles",
+    "corner": "counter"
+   },
+   "d": {
+    "name": "THE INTAKE",
+    "what": "the dam's camera over Lake Mead: the intake towers in low water, the white bathtub ring on the walls, one red light still blinking",
+    "tall": "crashbox/feed_d_tall.webp",
+    "wide": "crashbox/feed_d_wide.webp",
+    "sound": "crashbox/feed_d.mp3",
+    "frames": 6,
+    "top_left": "cam",
+    "cam": "CAM 07",
+    "place": "INTAKE · LAKE",
+    "reading": "signal",
+    "corner": "clock",
+    "tear": true,
+    "on": false
+   },
+   "e": {
+    "name": "THE PENS",
+    "what": "a trail camera's infrared in the lab yard: cage three burst from inside, the cold-store truck still running, a dire wolf in the yard",
+    "tall": "crashbox/feed_e_tall.webp",
+    "wide": "crashbox/feed_e_wide.webp",
+    "sound": "crashbox/feed_e.mp3",
+    "frames": 6,
+    "top_left": "cam",
+    "cam": "TRAIL 2",
+    "place": "LAB · PENS",
+    "reading": "battery",
+    "corner": "clock",
+    "on": false
+   },
+   "f": {
+    "name": "THE APRON",
+    "what": "the tower's camera over the dead apron: the plane on its belly, the jet bridge to nothing, the one mast light failing, a mountain lion",
+    "tall": "crashbox/feed_f_tall.webp",
+    "wide": "crashbox/feed_f_wide.webp",
+    "sound": "crashbox/feed_f.mp3",
+    "frames": 6,
+    "top_left": "cam",
+    "cam": "CAM 22",
+    "place": "APRON · GATE C",
+    "reading": "signal",
+    "corner": "clock",
+    "tear": true,
+    "on": false
+   },
+   "g": {
+    "name": "THE FLARE",
+    "what": "a camcorder left on its tripod at the landfill: the methane flare still burning over the mound and the dead dozer, two feral dogs",
+    "tall": "crashbox/feed_g_tall.webp",
+    "wide": "crashbox/feed_g_wide.webp",
+    "sound": "crashbox/feed_g.mp3",
+    "frames": 12,
+    "top_left": "rec",
+    "reading": "battery",
+    "corner": "counter",
+    "on": false
+   },
+   "h": {
+    "name": "THE MARKET",
+    "what": "a town's market after closing: the stalls under their tarps, one bulb on the wire still lit, a dog asleep by a table",
+    "tall": "crashbox/feed_h_tall.webp",
+    "wide": "crashbox/feed_h_wide.webp",
+    "sound": "crashbox/feed_h.mp3",
+    "frames": 6,
+    "top_left": "cam",
+    "cam": "CAM 01",
+    "place": "MARKET",
+    "reading": "signal",
+    "corner": "clock",
+    "tear": true,
+    "on": false
+   },
+   "i": {
+    "name": "THE PYLON",
+    "what": "a camcorder dropped in the sand, still recording, tilted: a power pylon down, Joshua trees, a buried car with its headlights on",
+    "tall": "crashbox/feed_i_tall.webp",
+    "wide": "crashbox/feed_i_wide.webp",
+    "sound": "crashbox/feed_i.mp3",
+    "frames": 12,
+    "top_left": "rec",
+    "reading": "battery",
+    "corner": "counter",
+    "on": false
+   },
+   "j": {
+    "name": "THE FOUNTAIN",
+    "what": "a casino's porte-cochere camera: the dry fountain, the fallen sign with one bulb of its hundred lit, the limo, the bridge",
+    "tall": "crashbox/feed_j_tall.webp",
+    "wide": "crashbox/feed_j_wide.webp",
+    "sound": "crashbox/feed_j.mp3",
+    "frames": 6,
+    "top_left": "cam",
+    "cam": "CAM 12",
+    "place": "FOUNTAIN",
+    "reading": "signal",
+    "corner": "clock",
+    "tear": true,
+    "on": false
+   }
+  }
+ }
 }

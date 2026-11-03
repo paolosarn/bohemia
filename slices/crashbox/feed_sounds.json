@@ -1,41 +1,120 @@
 {
- "_readme": "THE LOADING SCREENS HEARD (UI 5, 11/3/26, asks 338 and 340): each option of the loading screen has its own sound, cut from CC0 recordings (Freesound via ESC-50); tools/bohemia_ui_the_first_minute_sounds.py.",
+ "_readme": "THE CAMERA FEEDS HEARD (UI 5 11/3 made a, b, c; UI 6 11/3 made d to j and brought all ten to -33 dB rms, rule 348 (d) quiet): each feed its own sound, cut from CC0 recordings; tools/bohemia_ui_the_first_minute_sounds.py and tools/bohemia_ui_the_camera_feeds_sounds.py.",
  "draft": true,
  "feeds": {
   "a": {
    "file": "feed_a.mp3",
    "seconds": 10.0,
-   "rms_db": -27.0,
-   "peak_db": -2.1,
+   "rms_db": -33.0,
+   "peak_db": -8.2,
    "bytes": 80501,
    "sources": [
-    "| 4-181563-A-12 | Crackling fire | Fire Crackling 01.wav | kingsrow | http://www.freesound.org/people/kingsrow/sounds/181563/ | CC0 |",
-    "| 4-182369-A-12 | Crackling fire | Fire Crackling 01.mp3 | kingsrow | http://www.freesound.org/people/kingsrow/sounds/182369/ | CC0 |",
-    "| 5-179496-A-16 | Wind | 111224_04 wind.WAV | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179496/ | CC0 |"
+    "UI 5: tools/bohemia_ui_the_first_minute_sounds.py"
    ]
   },
   "b": {
    "file": "feed_b.mp3",
    "seconds": 10.0,
-   "rms_db": -28.9,
-   "peak_db": -1.0,
+   "rms_db": -33.0,
+   "peak_db": -5.2,
    "bytes": 80501,
    "sources": [
-    "| 4-202749-A-13 | Crickets | Soft, Chilled Crickets Field Recording | rayjensen | http://www.freesound.org/people/rayjensen/sounds/202749/ | CC0 |",
-    "| 2-152895-A-31 | Mouse click | Sound of a mouse being clicked  | davidkyoku | http://www.freesound.org/people/davidkyoku/sounds/152895/ | CC0 |",
-    "| 1-54084-A-42 | Siren | civildefense.wav | guitarguy1985 | http://www.freesound.org/people/guitarguy1985/sounds/54084/ | CC0 |"
+    "UI 5: tools/bohemia_ui_the_first_minute_sounds.py"
    ]
   },
   "c": {
    "file": "feed_c.mp3",
    "seconds": 10.0,
-   "rms_db": -27.0,
-   "peak_db": -12.4,
+   "rms_db": -33.0,
+   "peak_db": -18.3,
    "bytes": 80501,
    "sources": [
-    "| 5-243783-A-44 | Engine | Diesel-drive.wav | fastson | http://www.freesound.org/people/fastson/sounds/243783/ | CC0 |",
-    "| 5-243773-A-44 | Engine | Diesel-drive2.wav | fastson | http://www.freesound.org/people/fastson/sounds/243773/ | CC0 |",
+    "UI 5: tools/bohemia_ui_the_first_minute_sounds.py"
+   ]
+  },
+  "d": {
+   "file": "feed_d.mp3",
+   "seconds": 10.0,
+   "rms_db": -37.8,
+   "peak_db": -3.0,
+   "bytes": 80501,
+   "sources": [
+    "| 3-164593-A-15 | Water drops | Water splash 2.wav | Adam_N | http://www.freesound.org/people/Adam_N/sounds/164593/ | CC0 |",
+    "| 3-164594-A-15 | Water drops | Water splash 1.wav | Adam_N | http://www.freesound.org/people/Adam_N/sounds/164594/ | CC0 |",
+    "| 5-179496-A-16 | Wind | 111224_04 wind.WAV | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179496/ | CC0 |",
+    "ffsl X_31_0_far (Free Firearm Sound Library, Still North Media, CC0 1.0)"
+   ]
+  },
+  "e": {
+   "file": "feed_e.mp3",
+   "seconds": 10.0,
+   "rms_db": -33.0,
+   "peak_db": -16.6,
+   "bytes": 80501,
+   "sources": [
+    "| 5-261464-A-23 | Breathing | Werewolf breathing and sniffing  | kd_jack | http://www.freesound.org/people/kd_jack/sounds/261464/ | CC0 |",
+    "| 5-231551-A-36 | Vacuum cleaner | Vacuum cleaner | MrAuralization | http://www.freesound.org/people/MrAuralization/sounds/231551/ | CC0 |",
+    "| 5-195518-A-7 | Insects (flying) | Foley Bluebottle Fly.WAV | jamesrodavidson | http://www.freesound.org/people/jamesrodavidson/sounds/195518/ | CC0 |"
+   ]
+  },
+  "f": {
+   "file": "feed_f.mp3",
+   "seconds": 10.0,
+   "rms_db": -33.0,
+   "peak_db": -19.1,
+   "bytes": 80501,
+   "sources": [
+    "| 5-179496-A-16 | Wind | 111224_04 wind.WAV | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179496/ | CC0 |",
+    "| 3-154926-A-40 | Helicopter | London Exterior  helicopter passes overhead.mp3 | kerouac21 | http://www.freesound.org/people/kerouac21/sounds/154926/ | CC0 |"
+   ]
+  },
+  "g": {
+   "file": "feed_g.mp3",
+   "seconds": 10.0,
+   "rms_db": -33.0,
+   "peak_db": -11.9,
+   "bytes": 80501,
+   "sources": [
+    "| 4-181563-A-12 | Crackling fire | Fire Crackling 01.wav | kingsrow | http://www.freesound.org/people/kingsrow/sounds/181563/ | CC0 |",
+    "| 4-182369-A-12 | Crackling fire | Fire Crackling 01.mp3 | kingsrow | http://www.freesound.org/people/kingsrow/sounds/182369/ | CC0 |",
+    "| 2-117271-A-0 | Dog | angry_dogs.wav | polipa | http://www.freesound.org/people/polipa/sounds/117271/ | CC0 |",
     "| 3-117504-A-16 | Wind | winter wind 01a.aiff | klangfabrik | http://www.freesound.org/people/klangfabrik/sounds/117504/ | CC0 |"
+   ]
+  },
+  "h": {
+   "file": "feed_h.mp3",
+   "seconds": 10.0,
+   "rms_db": -33.0,
+   "peak_db": -10.4,
+   "bytes": 80501,
+   "sources": [
+    "| 5-195518-A-7 | Insects (flying) | Foley Bluebottle Fly.WAV | jamesrodavidson | http://www.freesound.org/people/jamesrodavidson/sounds/195518/ | CC0 |",
+    "| 3-94355-A-33 | Door - wood creaks | Knakande d\\xf6rr.wav | Ryding | http://www.freesound.org/people/Ryding/sounds/94355/ | CC0 |",
+    "| 3-146964-A-5 | Cat | catHowling1.wav | Zabuhailo | http://www.freesound.org/people/Zabuhailo/sounds/146964/ | CC0 |",
+    "| 5-179496-A-16 | Wind | 111224_04 wind.WAV | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179496/ | CC0 |"
+   ]
+  },
+  "i": {
+   "file": "feed_i.mp3",
+   "seconds": 10.0,
+   "rms_db": -33.0,
+   "peak_db": -13.5,
+   "bytes": 80501,
+   "sources": [
+    "| 3-117504-A-16 | Wind | winter wind 01a.aiff | klangfabrik | http://www.freesound.org/people/klangfabrik/sounds/117504/ | CC0 |",
+    "| 5-179860-A-43 | Car horn | car horn 1 - 9.4.11.wav | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179860/ | CC0 |"
+   ]
+  },
+  "j": {
+   "file": "feed_j.mp3",
+   "seconds": 10.0,
+   "rms_db": -33.0,
+   "peak_db": -16.0,
+   "bytes": 80501,
+   "sources": [
+    "| 4-165845-A-45 | Train | On a train in Argentina, between two wagons. Metal pieces are squeaking | felix.blume | http://www.freesound.org/people/felix.blume/sounds/165845/ | CC0 |",
+    "| 4-165845-B-45 | Train | On a train in Argentina, between two wagons. Metal pieces are squeaking | felix.blume | http://www.freesound.org/people/felix.blume/sounds/165845/ | CC0 |",
+    "| 5-179496-A-16 | Wind | 111224_04 wind.WAV | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179496/ | CC0 |"
    ]
   }
  }

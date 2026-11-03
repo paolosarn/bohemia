@@ -282,7 +282,7 @@
     + '.bm-start .b.pane{color:#f1e7d2;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.22),inset 0 -2px 0 rgba(0,0,0,.65)}'
     + '.bm-start .b.pane i{color:#e2d8c2}'
     + '.bm-start .b.armed{color:#fff2e6;background:#5a1c10;transform:rotate(-.6deg)}.bm-start .b.armed i{color:#ffd9c8}'
-    + '.bm-start .stamp{position:absolute;left:16px;right:16px;bottom:max(18px,calc(env(safe-area-inset-bottom,0px) + 10px));font-size:10px;letter-spacing:1.4px;color:#a89c86}'
+    + '.bm-start .b i:empty{display:none}.bm-start .stamp{display:none!important}.bm-start .stamp{position:absolute;left:16px;right:16px;bottom:max(18px,calc(env(safe-area-inset-bottom,0px) + 10px));font-size:10px;letter-spacing:1.4px;color:#a89c86}'
     /* landscape, tablet, monitor (rule 62): the title left, the three things right, both centred on the height */
     + '@media (min-aspect-ratio: 4/3){.bm-start .t{right:52%;top:50%;transform:translateY(-50%)}'
     +   '.bm-start .m{left:auto;right:max(24px,6vw);width:min(380px,40vw);bottom:auto;top:50%;transform:translateY(-50%)}}';
@@ -337,20 +337,23 @@
     if (bare) t.appendChild(markCanvas(function () { return innerWidth > innerHeight ? innerWidth * 0.48 - 40 : innerWidth - 40; }));
     else if (src) { mark = document.createElement('canvas'); mark.width = src.width; mark.height = src.height; t.appendChild(mark); }
     else { var wd = document.createElement('div'); wd.className = 'word'; wd.textContent = 'BOHEMIA'; t.appendChild(wd); }
-    var sub = document.createElement('div'); sub.className = 'sub'; sub.textContent = opts.sub || 'POST-ECONOMIC APOCALYPSE - LAS VEGAS'; t.appendChild(sub);
+    var sub = document.createElement('div'); sub.className = 'sub'; sub.textContent = opts.sub || 'POST-ECONOMIC APOCALYPSE';   /* rule 348 (b): his four things, nothing else */ t.appendChild(sub);
     root.appendChild(t);
     var m = document.createElement('div'); m.className = 'm';
-    m.innerHTML = '<button class="b card" data-k="new"><span class="tp2"></span><span class="tx"><b>NEW GAME</b><i>PICK YOUR CREW</i></span></button>'
-      + '<button class="b rec" data-k="continue"><span class="tx"><b>CONTINUE</b><i>NO GAME SAVED</i></span></button>'
-      + '<button class="b pane" data-k="settings"><span class="tx"><b>SETTINGS</b><i>SOUND &middot; TEXT &middot; BRIGHTNESS</i></span></button>';
+    /* THE START SCREEN: TWO WAYS, AND NOTHING ELSE ON IT (rule 348 (b), Paolo 11/3: 'the word Bohemia, underneath that just only
+       post economic apocalypse, new game and continue... I don't even want settings. You gotta start playing the game to get into
+       the settings'): two choices, no line under either (the <i> stays empty, for NEW GAME's TAP AGAIN when a game is kept); the
+       settings live on the phone once he is playing; no version text on the glass (the stamp stays in the page, unseen) */
+    m.innerHTML = '<button class="b card" data-k="new"><span class="tp2"></span><span class="tx"><b>NEW GAME</b><i></i></span></button>'
+      + '<button class="b rec" data-k="continue"><span class="tx"><b>CONTINUE</b><i></i></span></button>';
     root.appendChild(m);
     var stamp = document.createElement('div'); stamp.className = 'stamp'; var bs = document.getElementById('buildstamp'); stamp.textContent = bs ? bs.textContent.trim() : ''; root.appendChild(stamp);
     var q = function (k) { return m.querySelector('[data-k="' + k + '"]'); };
-    var MK = { 'new': ['new', '#f0c46a'], 'continue': ['cont', '#5a3a14'], 'settings': ['set', '#f0c46a'] };
-    ['new', 'continue', 'settings'].forEach(function (k) { q(k).style.setProperty('--bm-mark', 'url(' + markURL(MK[k][0], MK[k][1]) + ')');
+    var MK = { 'new': ['new', '#f0c46a'], 'continue': ['cont', '#5a3a14'] };
+    ['new', 'continue'].forEach(function (k) { q(k).style.setProperty('--bm-mark', 'url(' + markURL(MK[k][0], MK[k][1]) + ')');
       if (bare) { q(k).style.setProperty('--jtf-bone', 'url(' + markURL(MK[k][0], '#b3a993') + ')'); q(k).style.setProperty('--jtf-ink', 'url(' + markURL(MK[k][0], '#0e0a05') + ')'); } });
     var call = function (fn) { return function (e) { e.stopPropagation(); if (typeof fn === 'function') fn(e); }; };
-    q('new').addEventListener('click', call(opts.onNew)); q('continue').addEventListener('click', call(opts.onContinue)); q('settings').addEventListener('click', call(opts.onSettings));
+    q('new').addEventListener('click', call(opts.onNew)); q('continue').addEventListener('click', call(opts.onContinue));
     ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'mouseup', 'click'].forEach(function (ev) { root.addEventListener(ev, function (e) { e.stopPropagation(); }); });
     host.appendChild(root);
     var copyT = 0, copy = function () { if (!mark || !src) return; try { mark.getContext('2d').drawImage(src, 0, 0); } catch (e) {} if (++copyT < 20) setTimeout(copy, 500); };
@@ -359,10 +362,10 @@
       root: root,
       paint: function (saved) {
         var c = q('continue'); c.disabled = !saved; root.classList.toggle('saved', !!saved);   /* the bare look lights the one next thing */
-        c.querySelector('i').textContent = saved ? ((saved.day ? 'DAY ' + saved.day : 'YOUR GAME') + (saved.min == null ? '' : ' \u00b7 ' + clockOf(saved.min))) : 'NO GAME SAVED';   /* WORDS [eyes: no run saved], rule 150: there are no runs in this game */
+        c.querySelector('i').textContent = '';   /* rule 348 (b): CONTINUE says CONTINUE and nothing else (it was the day and the hour, or NO GAME SAVED) */
       },
       arm: function (line) { var n = q('new'); n.classList.add('armed'); n.querySelector('b').textContent = 'TAP AGAIN'; n.querySelector('i').textContent = line || 'YOUR GAME IS KEPT ASIDE'; },
-      disarm: function () { var n = q('new'); n.classList.remove('armed'); n.querySelector('b').textContent = 'NEW GAME'; n.querySelector('i').textContent = 'PICK YOUR CREW'; },
+      disarm: function () { var n = q('new'); n.classList.remove('armed'); n.querySelector('b').textContent = 'NEW GAME'; n.querySelector('i').textContent = ''; },
       destroy: function () { if (root.parentNode) root.parentNode.removeChild(root); }
     };
     api.paint(opts.saved || null);
