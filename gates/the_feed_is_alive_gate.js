@@ -44,6 +44,10 @@ const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? 
 const FILE_PATH = path.join(ROOT, 'records/target/bb/feed_kinds.json');
 const RAW = fs.readFileSync(FILE_PATH, 'utf8');
 const FILE = JSON.parse(RAW);
+/* THE WORLD FEED (WORDS 11/3, rule 352): the map merges records/target/bb/feed_world.json into this file at boot, so the live
+   legs (C1, C5) count its kinds and its accounts too; A and B read this file alone, as before. */
+const WORLD_PATH = path.join(ROOT, 'records/target/bb/feed_world.json');
+const WORLD = fs.existsSync(WORLD_PATH) ? JSON.parse(fs.readFileSync(WORLD_PATH, 'utf8')) : { kinds: [], accounts: [] };
 const S = require(path.join(ROOT, 'engine/bohemia_feedstream.js'));
 const SP = require(path.join(ROOT, 'engine/bohemia_spanglish.js'));
 
@@ -209,7 +213,7 @@ async function live(profile) {
     await p.waitForTimeout(2500); try { await d.clearCards(); } catch (_e) {}
     await fr.waitForFunction(() => window.BohemiaFeed && BohemiaFeed.ready(), null, { timeout: 60000 }).catch(() => {});
     const c1 = await fr.evaluate(() => ({ ready: !!(window.BohemiaFeed && BohemiaFeed.ready()), kinds: window.BohemiaFeed ? BohemiaFeed.kinds().length : 0 }));
-    leg(c1.ready && c1.kinds === FILE.kinds.length, 'C1  [' + profile + '] THE ENGINE IS UP ON THE MAP WITH EVERY KIND OF THE FILE (read at boot)', JSON.stringify(c1) + ' file ' + FILE.kinds.length);
+    leg(c1.ready && c1.kinds === FILE.kinds.length + (WORLD.kinds || []).length, 'C1  [' + profile + '] THE ENGINE IS UP ON THE MAP WITH EVERY KIND OF THE FILE (read at boot)', JSON.stringify(c1) + ' file ' + FILE.kinds.length + ' + world ' + (WORLD.kinds || []).length);
     await p.waitForTimeout(4000);
     const c2 = await fr.evaluate(() => BohemiaFeed.read().filter(x => x.type === 'game_start').map(x => x.handle + ': ' + x.text));
     leg(c2.length === 1, 'C2  [' + profile + '] HIS COMPANY\'S PAGE POSTS WHEN THE GAME STARTS', c2[0] || 'none');
@@ -237,7 +241,7 @@ async function live(profile) {
     if (cb) { if (profile === 'computer') await p.mouse.click(cb.x, cb.y); else await p.touchscreen.tap(cb.x, cb.y); }
     await p.waitForTimeout(75000);
     const c5 = await fr.evaluate(() => ({ t: DAY.day * 1440 + DAY.min, st: BohemiaFeed.stats(), posts: BohemiaFeed.read({ limit: 80 }) }));
-    const handles = {}; FILE.accounts.forEach(a => { handles[a.id] = 1; });
+    const handles = {}; FILE.accounts.concat(WORLD.accounts || []).forEach(a => { handles[a.id] = 1; });
     const kinds = { mine: 0, world: 0, life: 0 }; c5.posts.forEach(x => { kinds[x.kind]++; });
     const strangers = c5.posts.filter(x => !handles[x.account] || !x.handle);
     leg(!!cb && c5.t - t0 >= 240 && c5.st.posts > n0 && kinds.mine > 0 && kinds.world > 0 && kinds.life > 0 && strangers.length === 0,

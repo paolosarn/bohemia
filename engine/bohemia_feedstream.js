@@ -423,7 +423,11 @@
       window_min: pace.window_min == null ? 60 : +pace.window_min,
       live_jump_min: pace.live_jump_min == null ? 90 : +pace.live_jump_min,
       paused_delay_s: pace.paused_delay_s == null ? 2 : +pace.paused_delay_s,
-      life_every: pace.life_every == null ? 3 : +pace.life_every
+      life_every: pace.life_every == null ? 3 : +pace.life_every,
+      /* THE WORLD BEYOND THE VALLEY (WORDS 11/3, rule 352(a)): the share of the last far_window posts that come
+         from a far:true row (feed_world.json). 0 (the default) keeps the feed exactly as it was. */
+      far_share: pace.far_share == null ? 0 : +pace.far_share,
+      far_window: pace.far_window == null ? 10 : +pace.far_window
     };
     var accounts = {}, order = [];
     feList(file.accounts).forEach(function (a) {
@@ -445,7 +449,8 @@
         again_key: k.again_key || null, again_after_min: k.again_after_min == null ? 0 : +k.again_after_min,
         replies: feList(k.replies), follow_up: feList(k.follow_up),
         teaches: k.teaches || '',
-        alias: k.alias || null
+        alias: k.alias || null,
+        far: !!k.far                 /* a post about the world beyond the valley (rule 352) */
       };
       if (!row.words.length) return;
       kinds.push(row);
@@ -644,14 +649,17 @@
       if (!got) return null;
       var text = got.txt, form = 'en';
       var SPN = opts.spanglish || null, whoS = { key: author.id, lang: author.lang || null, player: author.kind === 'company' };
-      if (SPN && SPN.regFor && author.kind !== 'bot' && author.kind !== 'company') {
+      /* a post about the world beyond the valley (feed_world.json) is said as written: rule 355(4), the world
+         writes in English and the house Spanglish dial never touches it (nor a valley reply under it) */
+      var ownTongue = !!k.far;
+      if (SPN && SPN.regFor && author.kind !== 'bot' && author.kind !== 'company' && !ownTongue) {
         /* WORDS' how_to_speak: regFor picks the form; 'en' takes en, anything else the twin, else one word of flavour */
         try {
           var reg = SPN.regFor(whoS, item.kindId + '|' + got.vi);
           if (reg && reg !== 'en') { text = got.es || (SPN.flavour ? SPN.flavour(got.txt, whoS) : got.txt); form = 'es'; }
           if (/^[a-z]/.test(got.txt)) text = text.replace(/^([A-Za-z\u00C0-\u00FF]+[.,!] )?([A-Za-z\u00C0-\u00FF])/, function (m, op, c) { return (op ? op.toLowerCase() : '') + c.toLowerCase(); });
         } catch (_e) {}
-      } else if (say && author.kind !== 'bot') {
+      } else if (say && author.kind !== 'bot' && !ownTongue) {
         try {
           text = say({ key: author.id, lang: author.lang || null, player: author.kind === 'company' },
                      text, item.kindId + '|' + got.vi) || text;
@@ -674,6 +682,7 @@
                    handle: handleOf(author), face: (author.face && typeof author.face === 'object') ? (author.face.portrait || '') : (author.face || ''), text: text,
                    reply_to: item.parent ? item.parent.id : null, teaches: item.teaches || '',
                    tags: got.tags || null, form: form, draft: true };
+      if (k.far) post.far = true;
       st.posts.push(post);
       if (st.posts.length > P.keep) st.posts.splice(0, st.posts.length - P.keep);
       st.recent.push(got.txt);
@@ -744,9 +753,28 @@
       return n;
     }
 
-    function quietFill(t) {
+    /* THE WORLD BEYOND THE VALLEY (rule 352(a)): is the share of far posts among the last far_window short of
+       pace.far_share, and is there a far row with room to speak right now? */
+    function farReady(t) {
+      if (!(P.far_share > 0)) return false;
+      var d = titled(base(t));
+      return (F.byTrigger.quiet || []).some(function (k) { return k.far && feWhen(k.when, d) && kindRoom(k, t); });
+    }
+    function farShort(t) {
+      if (!(P.far_share > 0)) return false;
+      var n = Math.min(st.posts.length, P.far_window), f = 0;
+      if (!n) return false;
+      for (var i = st.posts.length - n; i < st.posts.length; i++) if (st.posts[i].far) f++;
+      return (f / n) < P.far_share && farReady(t);
+    }
+    function quietFill(t, want) {
       var d = titled(base(t));
       var rows = (F.byTrigger.quiet || []).filter(function (k) { return feWhen(k.when, d) && kindRoom(k, t); });
+      /* the world's share is kept by farShort: a far row speaks when the world is short, a local one otherwise */
+      if (P.far_share > 0) {
+        var part = rows.filter(function (k) { return want === 'far' ? k.far : !k.far; });
+        if (part.length) rows = part;
+      }
       if (!rows.length) return null;
       /* the row that spoke least lately goes first, so the quiet hours do not loop */
       rows.sort(function (a, b) { return (st.kindAt[a.id] == null ? -1e9 : st.kindAt[a.id]) - (st.kindAt[b.id] == null ? -1e9 : st.kindAt[b.id]); });
@@ -772,12 +800,16 @@
         starved = true;
         for (var s0 = st.posts.length - P.life_every; s0 < st.posts.length; s0++) if (st.posts[s0].kind === 'life') { starved = false; break; }
       }
+      /* THE WORLD'S SHARE (rule 352(a)): when the last posts hold too little of the world beyond the valley, the
+         valley's own news waits a slot (a deed never does, and the life rule goes first) and a far voice speaks */
+      var farNeed = !starved && farShort(t);
       var posted = false;
       for (var i = 0; i < st.queue.length; i++) {
         var it = st.queue[i];
         if (it.due > t) continue;
         if (!it.must && t > it.expiresAt) { st.queue.splice(i--, 1); continue; }
         if (starved && !it.must) continue;
+        if (farNeed && !it.must && !(it.spec && it.spec.far)) continue;
         if (!roomAt(t, !!it.parent)) break;
         if (it.top && !kindRoom(it.spec, t)) {
           if (it.must) continue;             /* a deed waits for its row's room */
@@ -787,8 +819,8 @@
         if (publish(it, t)) { posted = true; break; }   /* one post a minute at most: never a wall */
       }
       if (posted) { st.nextQuiet = t + feSpan(r, P.quiet_after_min); return; }
-      if ((starved || t >= st.nextQuiet) && roomAt(t, false) && (starved || !st.queue.some(function (q) { return q.due <= t; }))) {
-        quietFill(t);
+      if ((starved || farNeed || t >= st.nextQuiet) && roomAt(t, false) && (starved || farNeed || !st.queue.some(function (q) { return q.due <= t; }))) {
+        quietFill(t, farNeed ? 'far' : null);
         st.nextQuiet = t + feSpan(r, P.quiet_after_min);
       }
     }
@@ -899,8 +931,8 @@
       return true;
     }
     function stats() {
-      var by = { mine: 0, world: 0, life: 0 };
-      st.posts.forEach(function (p) { by[p.kind] = (by[p.kind] || 0) + 1; });
+      var by = { mine: 0, world: 0, life: 0, far: 0 };
+      st.posts.forEach(function (p) { by[p.kind] = (by[p.kind] || 0) + 1; if (p.far) by.far++; });
       return { posts: st.seq, kept: st.posts.length, queued: st.queue.length, by: by, now: st.now, bigUntil: st.bigUntil };
     }
 
@@ -909,10 +941,34 @@
              accounts: function () { return F.order.slice(); }, pace: P, file: F };
   }
 
+  /* MERGE (WORDS 11/3, rule 352): the feed file plus another file of the same shape (records/target/bb/
+     feed_world.json, the world beyond the valley), as one file for engine(). Accounts and kinds are added (an id
+     already in the base wins, so a modder's base row is never overwritten); the other file's pace keys are laid
+     over the base's (far_share, far_window). Neither file is changed. */
+  function feMerge(base, extra) {
+    base = base || {};
+    if (!extra) return base;
+    var out = {}, k;
+    for (k in base) if (Object.prototype.hasOwnProperty.call(base, k)) out[k] = base[k];
+    var pace = {}, bp = base.pace || {}, xp = extra.pace || {};
+    for (k in bp) if (Object.prototype.hasOwnProperty.call(bp, k)) pace[k] = bp[k];
+    for (k in xp) if (Object.prototype.hasOwnProperty.call(xp, k) && k.charAt(0) !== '_') pace[k] = xp[k];
+    out.pace = pace;
+    function add(list, more) {
+      var have = {}, res = feList(list).slice();
+      res.forEach(function (x) { if (x && x.id) have[x.id] = 1; });
+      feList(more).forEach(function (x) { if (x && x.id && !have[x.id]) { have[x.id] = 1; res.push(x); } });
+      return res;
+    }
+    out.accounts = add(base.accounts, extra.accounts);
+    out.kinds = add(base.kinds, extra.kinds);
+    return out;
+  }
+
   var API = { MAX_PER_DRAIN: MAX_PER_DRAIN, LIFE_EVERY: LIFE_EVERY,
               make: make, drain: drain, shape: shape,
               deeds: deeds, world: world, life: life, seed: seed,
-              engine: engine, when: feWhen, fill: feFill };
+              engine: engine, when: feWhen, fill: feFill, merge: feMerge };
   if (HASREQ) module.exports = API;
   root.BohemiaFeedStream = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

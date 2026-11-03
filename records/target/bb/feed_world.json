@@ -1,0 +1,2173 @@
+{
+ "_about": "THE WORLD FEED (WORDS 11/3/26, rule 352, ask line 366; Paolo 11/3: 'I wanted the feed posts to talk a lot about the rest of the world... definitely international vibes, kind of like Twitter'). The world beyond Las Vegas in the phone's feed: the country, Mexico and the world, each account its own voice, in English (rule 355(4): a place's name is fine, no Spanish and no Spanglish), its own prices, weather, rumours and griefs; news arriving late and wrong; some voices are the Network's own. Read beside feed_kinds.json and merged into it at boot (BohemiaFeedStream.merge); the engine keeps about 4 posts in 10 from here (pace.far_share). Every row is far:true and source world; every line draft:true; every line at most 120 characters with every fill at its longest (rule 350), every handle at most 16. A modder adds a voice by adding an account and its lines; the record of where each fact comes from: records/BOHEMIA_WORDS_THE_WORLD_FEED_WHAT_HIS_WORLD_SAYS_11_3_26.md (F1-F32) and records/BOHEMIA_WORDS_THE_WORLD_FEED_THE_POSTS_AND_THEIR_SOURCES_11_3_26.md.",
+ "_how_to_add": "AN ACCOUNT: {id, handle (16 max), name, kind (far = a voice from outside the valley, never drawn into the valley's own pools; page = a machine or an institution), where, lang (en: rule 355(4), the world writes in English and the Spanglish dial never touches a far:true row), tags (far + far_us | far_mx | far_world | far_network; far_15 = on the caravan road; far_tx = Texas; far_relay = the ham relay; far_95 = the US-95), voice, face {id, portrait: null}, acts, draft}. A KIND: feed_kinds.json's shape plus far:true; each line names its one mouth in by. A NEW BIG FACT (who rules a country, what caused a thing) never goes in as true: a rumour may be wrong, the canon may not be rewritten.",
+ "pace": {
+  "far_share": 0.42,
+  "far_window": 20,
+  "_why": "rule 352(a): about 4 posts in 10 are the world beyond Las Vegas, the rest local. The target is set at 0.42 because the life rule and the deeds go first: measured on a played hour (six seeds each: quiet, busy, very busy) it lands at 0.41 to 0.43. Measured over the last far_window posts; a deed never waits for it; the life_every rule still holds."
+ },
+ "draft": true,
+ "accounts": [
+  {
+   "id": "slc",
+   "handle": "slc_tankyard",
+   "name": "Dallin Price",
+   "kind": "far",
+   "where": "Salt Lake City, Utah",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "twenty-two, works the small refinery the 15 north runs on; proud, cocky, counts gallons",
+   "face": {
+    "id": "face-feed-slc",
+    "portrait": null
+   },
+   "acts": {
+    "1": "slc_tankyard"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_15"
+   ],
+   "draft": true
+  },
+  {
+   "id": "dixie",
+   "handle": "dixie_pantry",
+   "name": "Marjorie Holt",
+   "kind": "far",
+   "where": "St. George, Utah",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the halfway town on the 15; two years of wheat in the basement, feeds whoever walks through, prim and kind",
+   "face": {
+    "id": "face-feed-dixie",
+    "portrait": null
+   },
+   "acts": {
+    "1": "dixie_pantry"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_15"
+   ],
+   "draft": true
+  },
+  {
+   "id": "phx",
+   "handle": "phx_canal_watch",
+   "name": "Desmond Yazzie",
+   "kind": "far",
+   "where": "Phoenix, Arizona",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "lives on the canal bank, the heat is his whole calendar, dry and exact",
+   "face": {
+    "id": "face-feed-phx",
+    "portrait": null
+   },
+   "acts": {
+    "1": "phx_canal_watch"
+   },
+   "tags": [
+    "far",
+    "far_us"
+   ],
+   "draft": true
+  },
+  {
+   "id": "tucson",
+   "handle": "tucson_mesquite",
+   "name": "Inés Varela",
+   "kind": "far",
+   "where": "Tucson, Arizona",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "grinds mesquite flour, waits for the monsoon, writes like a field notebook",
+   "face": {
+    "id": "face-feed-tucson",
+    "portrait": null
+   },
+   "acts": {
+    "1": "tucson_mesquite"
+   },
+   "tags": [
+    "far",
+    "far_us"
+   ],
+   "draft": true
+  },
+  {
+   "id": "barstow",
+   "handle": "barstow_yardman",
+   "name": "Earl Tuttle",
+   "kind": "far",
+   "where": "Barstow, California",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the rail yard on the exodus road; keeps what the walkers dropped; says little and means it",
+   "face": {
+    "id": "face-feed-barstow",
+    "portrait": null
+   },
+   "acts": {
+    "1": "barstow_yardman"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_15"
+   ],
+   "draft": true
+  },
+  {
+   "id": "echo",
+   "handle": "echopark_rosa",
+   "name": "Rosa Ibarra",
+   "kind": "far",
+   "where": "Los Angeles, California",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "Echo Park, waits for a brother who walked the 15 from Vegas; tired, never gives up",
+   "face": {
+    "id": "face-feed-echo",
+    "portrait": null
+   },
+   "acts": {
+    "1": "echopark_rosa"
+   },
+   "tags": [
+    "far",
+    "far_us"
+   ],
+   "draft": true
+  },
+  {
+   "id": "reno",
+   "handle": "reno_pawnking",
+   "name": "Lonnie Graves",
+   "kind": "far",
+   "where": "Reno, Nevada",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the other casino town's pawn man; buys everything, bets both sides, a grin in every post",
+   "face": {
+    "id": "face-feed-reno",
+    "portrait": null
+   },
+   "acts": {
+    "1": "reno_pawnking"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_95"
+   ],
+   "draft": true
+  },
+  {
+   "id": "abq",
+   "handle": "abq_ham_kd5",
+   "name": "Ruth Begay",
+   "kind": "far",
+   "where": "Albuquerque, New Mexico",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "a ham radio operator who relays what she hears, days late, signs off 73; the news arrives through her",
+   "face": {
+    "id": "face-feed-abq",
+    "portrait": null
+   },
+   "acts": {
+    "1": "abq_ham_kd5"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_relay"
+   ],
+   "draft": true
+  },
+  {
+   "id": "denver",
+   "handle": "denver_coldmeg",
+   "name": "Meg Kowalski",
+   "kind": "far",
+   "where": "Denver, Colorado",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "snow and wood; burns furniture with a eulogy for each piece",
+   "face": {
+    "id": "face-feed-denver",
+    "portrait": null
+   },
+   "acts": {
+    "1": "denver_coldmeg"
+   },
+   "tags": [
+    "far",
+    "far_us"
+   ],
+   "draft": true
+  },
+  {
+   "id": "elpaso",
+   "handle": "elpaso_puente",
+   "name": "Tomás Archuleta",
+   "kind": "far",
+   "where": "El Paso, Texas",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "lives by the bridge to Juárez, his mother on the other side; wry",
+   "face": {
+    "id": "face-feed-elpaso",
+    "portrait": null
+   },
+   "acts": {
+    "1": "elpaso_puente"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_tx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "hou",
+   "handle": "hou_shiftwife",
+   "name": "Charlene Batiste",
+   "kind": "far",
+   "where": "Houston, Texas",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "married to a refinery man; watches the oil states try to be a government from the kitchen",
+   "face": {
+    "id": "face-feed-hou",
+    "portrait": null
+   },
+   "acts": {
+    "1": "hou_shiftwife"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_tx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "lonestar",
+   "handle": "lonestar_again",
+   "name": "Wade Pruitt",
+   "kind": "far",
+   "where": "Midland, Texas",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "an earnest believer in the Texas attempt; flags, ballots, roads; means every word",
+   "face": {
+    "id": "face-feed-lonestar",
+    "portrait": null
+   },
+   "acts": {
+    "1": "lonestar_again"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_tx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "kingman",
+   "handle": "kingman_93",
+   "name": "Bo Haskins",
+   "kind": "far",
+   "where": "Kingman, Arizona",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "drives the 93 between Vegas and the river towns; sees everything first, believes half",
+   "face": {
+    "id": "face-feed-kingman",
+    "portrait": null
+   },
+   "acts": {
+    "1": "kingman_93"
+   },
+   "tags": [
+    "far",
+    "far_us",
+    "far_15"
+   ],
+   "draft": true
+  },
+  {
+   "id": "tj",
+   "handle": "tj_lupita_tacos",
+   "name": "Lupita Sandoval",
+   "kind": "far",
+   "where": "Tijuana, Baja California",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "a taco stand near the old crossing; prices in anything, laughs at gringos with dollars",
+   "face": {
+    "id": "face-feed-tj",
+    "portrait": null
+   },
+   "acts": {
+    "1": "tj_lupita_tacos"
+   },
+   "tags": [
+    "far",
+    "far_mx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "hmo",
+   "handle": "hmo_calor",
+   "name": "Arturo Leyva",
+   "kind": "far",
+   "where": "Hermosillo, Sonora",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the heat in Sonora; the whole street sleeps on the roof; short, funny",
+   "face": {
+    "id": "face-feed-hmo",
+    "portrait": null
+   },
+   "acts": {
+    "1": "hmo_calor"
+   },
+   "tags": [
+    "far",
+    "far_mx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "mxli",
+   "handle": "mxli_border",
+   "name": "Nayeli Ochoa",
+   "kind": "far",
+   "where": "Mexicali, Baja California",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "lives against the old fence; watches who goes north and who comes back south",
+   "face": {
+    "id": "face-feed-mxli",
+    "portrait": null
+   },
+   "acts": {
+    "1": "mxli_border"
+   },
+   "tags": [
+    "far",
+    "far_mx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "mty",
+   "handle": "mty_ingeniero",
+   "name": "Rodrigo Garza",
+   "kind": "far",
+   "where": "Monterrey, Nuevo León",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "an engineer at a plant that still runs a shift; the factories are his sermon",
+   "face": {
+    "id": "face-feed-mty",
+    "portrait": null
+   },
+   "acts": {
+    "1": "mty_ingeniero"
+   },
+   "tags": [
+    "far",
+    "far_mx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "gdl",
+   "handle": "gdl_abuela_rosy",
+   "name": "Rosario Mendoza",
+   "kind": "far",
+   "where": "Guadalajara, Jalisco",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "a grandmother whose grandson is in Las Vegas; sets his plate every night",
+   "face": {
+    "id": "face-feed-gdl",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gdl_abuela_rosy"
+   },
+   "tags": [
+    "far",
+    "far_mx"
+   ],
+   "draft": true
+  },
+  {
+   "id": "mnl",
+   "handle": "mnl_jeepney_ed",
+   "name": "Eduardo Santos",
+   "kind": "far",
+   "where": "Manila, Philippines",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "drives a jeepney; a daughter who nursed in Vegas; warm",
+   "face": {
+    "id": "face-feed-mnl",
+    "portrait": null
+   },
+   "acts": {
+    "1": "mnl_jeepney_ed"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "lagos",
+   "handle": "lagos_gen_boy",
+   "name": "Tunde Okafor",
+   "kind": "far",
+   "where": "Lagos, Nigeria",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "fixes generators; jokes about everything, an uncle in Houston",
+   "face": {
+    "id": "face-feed-lagos",
+    "portrait": null
+   },
+   "acts": {
+    "1": "lagos_gen_boy"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "mumbai",
+   "handle": "mumbai_local_7",
+   "name": "Priya Nair",
+   "kind": "far",
+   "where": "Mumbai, India",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "rides the local train every day it runs; sharp",
+   "face": {
+    "id": "face-feed-mumbai",
+    "portrait": null
+   },
+   "acts": {
+    "1": "mumbai_local_7"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "baires",
+   "handle": "baires_abuelo",
+   "name": "Héctor Bustos",
+   "kind": "far",
+   "where": "Buenos Aires, Argentina",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "lived through 2001 and says so; the old man who saw it before",
+   "face": {
+    "id": "face-feed-baires",
+    "portrait": null
+   },
+   "acts": {
+    "1": "baires_abuelo"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "sp",
+   "handle": "sp_motoboy",
+   "name": "Thiago Moura",
+   "kind": "far",
+   "where": "São Paulo, Brazil",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "a motoboy courier paid in fuel; fast",
+   "face": {
+    "id": "face-feed-sp",
+    "portrait": null
+   },
+   "acts": {
+    "1": "sp_motoboy"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "seoul",
+   "handle": "seoul_pcbang",
+   "name": "Ji-ho Han",
+   "kind": "far",
+   "where": "Seoul, South Korea",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "runs an internet cafe on a generator; deadpan",
+   "face": {
+    "id": "face-feed-seoul",
+    "portrait": null
+   },
+   "acts": {
+    "1": "seoul_pcbang"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "nbo",
+   "handle": "nbo_matatu_jo",
+   "name": "Josephine Wanjiru",
+   "kind": "far",
+   "where": "Nairobi, Kenya",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "drives a matatu; practical",
+   "face": {
+    "id": "face-feed-nbo",
+    "portrait": null
+   },
+   "acts": {
+    "1": "nbo_matatu_jo"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "ist",
+   "handle": "ist_simitci",
+   "name": "Mehmet Kaya",
+   "kind": "far",
+   "where": "Istanbul, Turkey",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "sells simit at the ferry; a philosopher with a tray",
+   "face": {
+    "id": "face-feed-ist",
+    "portrait": null
+   },
+   "acts": {
+    "1": "ist_simitci"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "mrs",
+   "handle": "mrs_port_nadia",
+   "name": "Nadia Benali",
+   "kind": "far",
+   "where": "Marseille, France",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "works the port; a shrug in every post",
+   "face": {
+    "id": "face-feed-mrs",
+    "portrait": null
+   },
+   "acts": {
+    "1": "mrs_port_nadia"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "gla",
+   "handle": "glasgow_rain_tam",
+   "name": "Tam Doherty",
+   "kind": "far",
+   "where": "Glasgow, Scotland",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "rain, pubs and jokes",
+   "face": {
+    "id": "face-feed-gla",
+    "portrait": null
+   },
+   "acts": {
+    "1": "glasgow_rain_tam"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "kyiv",
+   "handle": "kyiv_tramline",
+   "name": "Oksana Melnyk",
+   "kind": "far",
+   "where": "Kyiv, Ukraine",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "drives a tram on the hill line; her grandmother survived two collapses",
+   "face": {
+    "id": "face-feed-kyiv",
+    "portrait": null
+   },
+   "acts": {
+    "1": "kyiv_tramline"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "accra",
+   "handle": "accra_auntie_ama",
+   "name": "Ama Mensah",
+   "kind": "far",
+   "where": "Accra, Ghana",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "a market trader with a son in Nevada; plain and loving",
+   "face": {
+    "id": "face-feed-accra",
+    "portrait": null
+   },
+   "acts": {
+    "1": "accra_auntie_ama"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "beirut",
+   "handle": "beirut_gen_man",
+   "name": "Karim Haddad",
+   "kind": "far",
+   "where": "Beirut, Lebanon",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "runs the street's generator; 'we did this already' is his whole philosophy",
+   "face": {
+    "id": "face-feed-beirut",
+    "portrait": null
+   },
+   "acts": {
+    "1": "beirut_gen_man"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "osaka",
+   "handle": "osaka_konbini",
+   "name": "Yuki Tanaka",
+   "kind": "far",
+   "where": "Osaka, Japan",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "keeps a convenience store open; small, polite, strange",
+   "face": {
+    "id": "face-feed-osaka",
+    "portrait": null
+   },
+   "acts": {
+    "1": "osaka_konbini"
+   },
+   "tags": [
+    "far",
+    "far_world"
+   ],
+   "draft": true
+  },
+  {
+   "id": "nw_lagos",
+   "handle": "gratefulinlagos",
+   "name": "",
+   "kind": "far",
+   "where": "Lagos, Nigeria",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the Network: a grateful person in Lagos; writes exactly like the grateful person in every other city",
+   "face": {
+    "id": "face-feed-nw_lagos",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gratefulinlagos"
+   },
+   "tags": [
+    "far",
+    "far_network",
+    "network"
+   ],
+   "draft": true
+  },
+  {
+   "id": "nw_manila",
+   "handle": "gratefulinmanila",
+   "name": "",
+   "kind": "far",
+   "where": "Manila, Philippines",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the Network: a grateful person in Manila",
+   "face": {
+    "id": "face-feed-nw_manila",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gratefulinmanila"
+   },
+   "tags": [
+    "far",
+    "far_network",
+    "network"
+   ],
+   "draft": true
+  },
+  {
+   "id": "nw_lyon",
+   "handle": "gratefulinlyon",
+   "name": "",
+   "kind": "far",
+   "where": "Lyon, France",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the Network: a grateful person in Lyon",
+   "face": {
+    "id": "face-feed-nw_lyon",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gratefulinlyon"
+   },
+   "tags": [
+    "far",
+    "far_network",
+    "network"
+   ],
+   "draft": true
+  },
+  {
+   "id": "nw_tulsa",
+   "handle": "gratefulintulsa",
+   "name": "",
+   "kind": "far",
+   "where": "Tulsa, Oklahoma",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the Network: a grateful person in Tulsa",
+   "face": {
+    "id": "face-feed-nw_tulsa",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gratefulintulsa"
+   },
+   "tags": [
+    "far",
+    "far_network",
+    "network"
+   ],
+   "draft": true
+  },
+  {
+   "id": "nw_global",
+   "handle": "networkglobal",
+   "name": "",
+   "kind": "page",
+   "where": "everywhere",
+   "home": null,
+   "faction": null,
+   "lang": "en",
+   "voice": "the machine: smooth, polite, sure, and wrong about one thing (the AI slop strand, pairs 1 and 3); rare in act one",
+   "face": {
+    "id": "face-feed-nw_global",
+    "portrait": null
+   },
+   "acts": {
+    "1": "networkglobal"
+   },
+   "tags": [
+    "far",
+    "far_network",
+    "machine"
+   ],
+   "draft": true
+  }
+ ],
+ "kinds": [
+  {
+   "id": "far_prices",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "what a day costs elsewhere: everybody prices in whatever is still hard",
+   "src": "F13, F16, record s2 (Zimbabwe, Lebanon, the Soviet pay in kind)",
+   "words": [
+    {
+     "en": "canal water is free if you carry it. carried to your door, a cell a bucket. everything costs the walk.",
+     "by": [
+      "phx"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a pound of mesquite flour for a cell. the trees do not care about the dollar. they never did.",
+     "by": [
+      "tucson"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a kilo of tortillas, one cell. a kilo of ice, two. in sonora the ice is the rich man's food.",
+     "by": [
+      "hmo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a pint is two cells now. the barman takes tins too. aye, the pub is the last bank in glasgow.",
+     "by": [
+      "gla"
+     ],
+     "draft": true
+    },
+    {
+     "en": "rice by the cup, batteries by the piece, umbrellas free. well, someone has to be generous with something.",
+     "by": [
+      "osaka"
+     ],
+     "draft": true
+    },
+    {
+     "en": "diesel at the yard is two cells a jug today. tomorrow it is whatever the convoy boss says it is.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "we cracked 900 gallons this week. salt lake runs the 15 now. tell vegas to say thank you.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "tacos are three for a cell or one for a can of beans. the old pesos i use to light the grill.",
+     "by": [
+      "tj"
+     ],
+     "draft": true
+    },
+    {
+     "en": "jeepney fare is a cup of rice now. kids ride free if they help push. take care, everybody.",
+     "by": [
+      "mnl"
+     ],
+     "draft": true
+    },
+    {
+     "en": "fuel for the gen costs more than rent. please, who still pays rent. the landlord is a rumour.",
+     "by": [
+      "lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my generator runs the street six hours a night. pay in cells, cigarettes or bread. we did this already.",
+     "by": [
+      "beirut"
+     ],
+     "draft": true
+    },
+    {
+     "en": "one simit, one cell. the man next to me takes eggs. brother, nobody has change for an egg.",
+     "by": [
+      "ist"
+     ],
+     "draft": true
+    },
+    {
+     "en": "deliveries pay in fuel now. one run across the city, half a litre. thanks, i guess.",
+     "by": [
+      "sp"
+     ],
+     "draft": true
+    },
+    {
+     "en": "chai costs one rupee if you pay in old rupees. nobody takes old rupees. so chai is free and impossible.",
+     "by": [
+      "mumbai"
+     ],
+     "draft": true
+    },
+    {
+     "en": "tomatoes went up again. i quote in cells, in cedis, in fish. pick one and stop asking.",
+     "by": [
+      "accra"
+     ],
+     "draft": true
+    },
+    {
+     "en": "i'll take your wedding ring for a week of rice. your watch for a day. reno's open, everybody's broke.",
+     "by": [
+      "reno"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the refinery pays my husband in gasoline. gasoline. we cannot eat it and nobody here has a car that runs.",
+     "by": [
+      "hou"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the plant pays in shifts now: one shift, one bag of flour. the engineers get two. i am not proud of it.",
+     "by": [
+      "mty"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_weather",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the weather somewhere else, which is how a feed says the world is still there",
+   "src": "F10 (a world held on by a thread), record s2 point 1",
+   "words": [
+    {
+     "en": "yellow dust from the west again. masks back on. the internet cafe is full. nobody goes out in the dust.",
+     "by": [
+      "seoul"
+     ],
+     "draft": true
+    },
+    {
+     "en": "hot night. the generator goes off at two. the whole street out on the balconies, talking in the dark. we are good at it.",
+     "by": [
+      "beirut"
+     ],
+     "draft": true
+    },
+    {
+     "en": "122 at noon. the canal is the only street anybody walks. you go out at four in the morning or you do not go.",
+     "by": [
+      "phx"
+     ],
+     "draft": true
+    },
+    {
+     "en": "snow to the windowsills. we burned the dining table last night. it was a good table. it was my mom's.",
+     "by": [
+      "denver"
+     ],
+     "draft": true
+    },
+    {
+     "en": "rain. aye, still. the one thing the crash could not touch. wee bit of sun tuesday, folk came out like a parade.",
+     "by": [
+      "gla"
+     ],
+     "draft": true
+    },
+    {
+     "en": "47 degrees in hermosillo. the whole street sleeps on the roofs now, like a campground.",
+     "by": [
+      "hmo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "monsoon came in an hour. the wash ran brown. kids out in it. first time this year i heard them laugh.",
+     "by": [
+      "tucson"
+     ],
+     "draft": true
+    },
+    {
+     "en": "typhoon took the sign off the store. we kept the store. well, a sign is only a sign.",
+     "by": [
+      "osaka"
+     ],
+     "draft": true
+    },
+    {
+     "en": "first frost. the tram still runs the hill line twice a day. people wait for it like church.",
+     "by": [
+      "kyiv"
+     ],
+     "draft": true
+    },
+    {
+     "en": "long rains came early. the road to the market is a river. we charge extra to cross. honest work.",
+     "by": [
+      "nbo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the mistral blew three days. no ships, no news. the port listens to the wind like a radio.",
+     "by": [
+      "mrs"
+     ],
+     "draft": true
+    },
+    {
+     "en": "49 in the shade and no shade. the fence is too hot to touch. nobody climbs it in august, not even the lizards.",
+     "by": [
+      "mxli"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_family",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the crash split every family across a map; news travels as family, not headlines",
+   "src": "F14 (the exodus), F32 (glimpses), record s2 (Venezuela, Zimbabwe: the family abroad)",
+   "words": [
+    {
+     "en": "my sister went north in 52 for work in vegas. now she wants to come home. the road south is the long one.",
+     "by": [
+      "hmo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my dad drove a truck to vegas twice a week before. i still say the route in my sleep. kingman, the dam, home.",
+     "by": [
+      "tucson"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my wife's people are in vegas. we hear nothing. no news is the only news we get, and we learned to like it.",
+     "by": [
+      "phx"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my brother walked the 15 from vegas to find me. ten years. if anybody in henderson knew a rafa ibarra, tell me.",
+     "by": [
+      "echo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my grandson is in las vegas. if you see a tall boy with my nose, tell him his grandmother still sets his plate.",
+     "by": [
+      "gdl"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my mother is on the other side of the bridge. we wave at seven. that is the phone call now. the wave at seven.",
+     "by": [
+      "elpaso"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my daughter was a nurse in las vegas before. no word since the dollar. thank you to anyone who checks there.",
+     "by": [
+      "mnl"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my uncle went to houston for oil work in 49. he says texas is the future. he says it every year.",
+     "by": [
+      "lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a family from las vegas slept in our church lot last night, walking north. we gave them wheat. we have plenty.",
+     "by": [
+      "dixie"
+     ],
+     "draft": true
+    },
+    {
+     "en": "found another backpack on the 15 outside town. a kid's. i keep them in the yard office. 312 now.",
+     "by": [
+      "barstow"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my grandmother lived through two collapses before this one. she says the third is easiest. you stop expecting.",
+     "by": [
+      "kyiv"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my cousin in vegas says the lights stay on there. here we say that about places we have never been.",
+     "by": [
+      "beirut"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a voice note from my son in nevada. eleven seconds. a dog, wind, and mama i am fine. i played it forty times.",
+     "by": [
+      "accra"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my granddaughter asked what a bank was. i said a place that kept your money until it did not.",
+     "by": [
+      "baires"
+     ],
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "valley"
+     ],
+     "chance": 0.35,
+     "delay_min": [
+      6,
+      40
+     ],
+     "words": [
+      {
+       "en": "my cousin is in tijuana. last voice note was the spring. this makes me want to send one.",
+       "draft": true
+      },
+      {
+       "en": "every one of these makes me check on my sister in reno. i cannot. but i check.",
+       "draft": true
+      },
+      {
+       "en": "my dad walked the 15 south too. we never heard. i hope your people got there.",
+       "draft": true
+      },
+      {
+       "en": "saving this. somebody here might know. my neighbour talks to everybody at the standpipe.",
+       "draft": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "far_rumour",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "what the world says about Las Vegas, and how wrong it gets from far away",
+   "src": "F17, F23, F24, record s2 point 4 (the surer the wronger, his 9/24 YES)",
+   "words": [
+    {
+     "en": "they say vegas lets anybody in who brings a battery. my neighbor says that is how they get you.",
+     "by": [
+      "echo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a man says las vegas still has a casino open. a whole casino. i asked him who wins. he said the house.",
+     "by": [
+      "osaka"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heard vegas has power all night. heard the casinos never closed. heard a lot. reno never closed either. we are dark.",
+     "by": [
+      "reno"
+     ],
+     "draft": true
+    },
+    {
+     "en": "guy from vegas says the strip runs its own law now. also says he saw a mammoth. turns out both are true.",
+     "by": [
+      "kingman"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they say in vegas you pay with batteries. my cousin laughed. then he asked how many batteries a taco is.",
+     "by": [
+      "tj"
+     ],
+     "draft": true
+    },
+    {
+     "en": "someone said salt lake has a refinery and a king. the refinery is real. i hope the king is not.",
+     "by": [
+      "denver"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my neighbour says the americans still own the moon. friend, the moon does not know what country it is in.",
+     "by": [
+      "mumbai"
+     ],
+     "draft": true
+    },
+    {
+     "en": "word is the yanks in nevada have a dam and a desert full of solar. must be nice. we have rain and one lightbulb.",
+     "by": [
+      "gla"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they say every city with a data center is fine. god willing. our data center is a pigeon house now.",
+     "by": [
+      "ist"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they say in vegas the machines still deal the cards. no, says my cousin, it is a man with machine hands.",
+     "by": [
+      "sp"
+     ],
+     "draft": true
+    },
+    {
+     "en": "someone says a bank in america still pays interest. on what. to who. sorry, but no.",
+     "by": [
+      "nbo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a man came south saying vegas has water for everybody. he went back north the next day. so maybe.",
+     "by": [
+      "mxli"
+     ],
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "valley"
+     ],
+     "chance": 0.3,
+     "delay_min": [
+      5,
+      30
+     ],
+     "words": [
+      {
+       "en": "power all night. sure. come stand in the water line with me at six and say that again.",
+       "draft": true
+      },
+      {
+       "en": "love that they think we are rich. we are rich in one thing and it is dust.",
+       "draft": true
+      },
+      {
+       "en": "half of that is true and i am not telling which half.",
+       "draft": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "far_texas",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world",
+    "tag:far_tx"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the Texas attempt, told through the feed: in act one, you hear it is starting and people argue whether it will work",
+   "src": "F18 (GDD v2: the attempt is a story told through the feed; act one: starting, debated)",
+   "words": [
+    {
+     "en": "they say houston has a congress now. my husband went to see. folding chairs and a flag. he came home quiet.",
+     "by": [
+      "hou"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the oil states are building a real government. courts, roads, a seal. say what you want, somebody is trying.",
+     "by": [
+      "lonestar"
+     ],
+     "draft": true
+    },
+    {
+     "en": "three hundred people at the meeting in midland. a man read the old constitution out loud. i cried. so what.",
+     "by": [
+      "lonestar"
+     ],
+     "draft": true
+    },
+    {
+     "en": "KD5 relay from el paso, 6 days old: texas meeting adjourned, no vote, will reconvene. third time. 73.",
+     "by": [
+      "abq"
+     ],
+     "draft": true
+    },
+    {
+     "en": "texas wants el paso in the new government. el paso wants water. we will see who blinks first.",
+     "by": [
+      "elpaso"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a man came through selling texas bonds. paper. worth something once the government is real, he said. we fed him.",
+     "by": [
+      "dixie"
+     ],
+     "draft": true
+    },
+    {
+     "en": "texas sent denver a letter about joining. on paper, with a seal. people framed it. nobody answered it.",
+     "by": [
+      "denver"
+     ],
+     "draft": true
+    },
+    {
+     "en": "texas wants our refinery in their deal. we said come get it. nobody drives 900 miles for 900 gallons.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a cell says the texas thing falls apart by spring. two says it does not. i am a pawn shop, i take both sides.",
+     "by": [
+      "reno"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my uncle in houston says texas will be a country by next year. he said that last year. i love him.",
+     "by": [
+      "lagos"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_gulf",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_world",
+    "tag:far_us"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the gulf city is a dark story in act one: everyone knows it died, nobody knows how, nobody says its name",
+   "src": "F24 (the only nuke of the century, unexplained; WORLD_BREAK_ANSWERS s4: never explained; the name PENDING, so never said)",
+   "words": [
+    {
+     "en": "nobody here says the name of the gulf city. we say there. my cousin was there. we say that too.",
+     "by": [
+      "beirut"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the old men on the train say it was a reactor. the young ones say the war. nobody says what the sky looked like.",
+     "by": [
+      "mumbai"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a man at the ferry saw the light over the gulf from his ship. he sells simit now. he does not sleep.",
+     "by": [
+      "ist"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a lot of us worked in the gulf city. a lot. every family here has a picture on the wall they do not take down.",
+     "by": [
+      "mnl"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the ships from the gulf stopped. then the gulf stopped. ten years, and the port still keeps their berth empty.",
+     "by": [
+      "mrs"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they say the gulf city had water and light and money to live forever. look what forever bought.",
+     "by": [
+      "accra"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a customer asked if the gulf city was the war or the reactor. i said yes. he paid and left.",
+     "by": [
+      "osaka"
+     ],
+     "draft": true
+    },
+    {
+     "en": "KD5: somebody keys up every night at 2 and reads out names. gulf city names, i think. no callsign. i listen.",
+     "by": [
+      "abq"
+     ],
+     "draft": true
+    }
+   ],
+   "cooldown_min": 600,
+   "max_per_window": 1
+  },
+  {
+   "id": "far_beasts",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_15",
+    "tag:far_95"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the lab animals got out everywhere the same week and walked the corridors (the I-15, the Colorado River, the US-95)",
+   "src": "F19 (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE s1-s3: labs a state or two over; the corridors; Ice Age only)",
+   "words": [
+    {
+     "en": "dire wolves on the 15 north of town again, three nights. the convoy shoots, the wolves wait. they learned the convoy.",
+     "by": [
+      "dixie"
+     ],
+     "draft": true
+    },
+    {
+     "en": "camel on the 93 this morning. a camel. tall as my truck. it looked at me like i was the strange one.",
+     "by": [
+      "kingman"
+     ],
+     "draft": true
+    },
+    {
+     "en": "tracks like dinner plates down by the river at bullhead. the old men say ground sloth. i laughed. then i saw it.",
+     "by": [
+      "kingman"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a lab came open in idaho the same week yours did, they say. bison everywhere now. the big old kind.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "wild horses came through the yard at dawn. small ones, not like any horse i know. the lab ones. beautiful.",
+     "by": [
+      "barstow"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a lion took a dog off the 95 outside town. not a mountain lion. the big one, from before. nobody walks the 95 now.",
+     "by": [
+      "reno"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_moon",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the Moon and Mars robots still run, unreachable: the furthest thing people made, still working, nobody paying",
+   "src": "F7 (GDD v2: the bases semi-operational, unreachable; visible from the planetary zoom)",
+   "words": [
+    {
+     "en": "my grandmother points at the moon and says someone up there is still at work. she says it like a complaint.",
+     "by": [
+      "kyiv"
+     ],
+     "draft": true
+    },
+    {
+     "en": "clear night. you can see a light on the moon if you know where. robots still building, they say. for who.",
+     "by": [
+      "seoul"
+     ],
+     "draft": true
+    },
+    {
+     "en": "first clear night in a month and the whole close was out looking at the moon. somebody is still working up there.",
+     "by": [
+      "gla"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my son says the light on the moon is the robots. my wife says reflection. i say both, so they both stop.",
+     "by": [
+      "mnl"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they say the moon base still sends signals. to who? nobody pays the bill. like my brother's phone.",
+     "by": [
+      "nbo"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a kid bought a battery and asked if the moon has a corner store. i said if it does, it is open.",
+     "by": [
+      "osaka"
+     ],
+     "draft": true
+    }
+   ],
+   "cooldown_min": 480,
+   "max_per_window": 1
+  },
+  {
+   "id": "far_deadmoney",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the dead money becomes a joke and a craft, everywhere at once (Zimbabwe, Venezuela, Argentina)",
+   "src": "F5, F6, record s2 (Zimbabwe the souvenir note, Venezuela the woven bills, Argentina 2001)",
+   "words": [
+    {
+     "en": "my wife made a lampshade of hundred-dollar bills. the light through franklin's face is very nice.",
+     "by": [
+      "baires"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my brother sells wallets woven out of dollar bills. people buy them to carry batteries. trouble.",
+     "by": [
+      "lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "found a crypto key on a napkin in a dead man's jacket. 2.3 million, it said. i used the napkin. thanks.",
+     "by": [
+      "sp"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my uncle checks his pension every morning on a screen that does not load. he says habit. no, it is a prayer.",
+     "by": [
+      "mumbai"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a man still pays for his hour at the internet cafe with a card. i let him. the card does not work. the hour does.",
+     "by": [
+      "seoul"
+     ],
+     "draft": true
+    },
+    {
+     "en": "bought today: three gold watches, a guitar, and a framed project angel lifetime certificate. the frame was worth more.",
+     "by": [
+      "reno"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my husband kept ten years of bank statements. we use them to start the stove. fitting, he says.",
+     "by": [
+      "dixie"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a gringo tried to pay in dollars today. i laughed so hard i gave him the taco free.",
+     "by": [
+      "tj"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_bubble",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_us",
+    "tag:far_mx",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the bubble built the future faster than anyone could use it, then left it lying around (LOCKED #2)",
+   "src": "F4, F5, F8, F26 (a data center that hums: every major city has a chapter)",
+   "words": [
+    {
+     "en": "a whole warehouse of delivery drones at the port. no fuel, no orders. the kids fly them like kites.",
+     "by": [
+      "lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the folk who bought the forever thing went first, funny enough. minds in the cloud, feet in the rain.",
+     "by": [
+      "gla"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my aunt paid twelve thousand to be saved forever. project angel. she died anyway. the receipt is very nice paper.",
+     "by": [
+      "seoul"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a crate of humanoid robots sits on the quay. paid for, never delivered. the kids dress them up. one wears my hat.",
+     "by": [
+      "mrs"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the rich guy in my building still has the chip in his head. says it hums when it rains. we do not believe him.",
+     "by": [
+      "sp"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the data center up the road still hums. nobody works there that we know of. somebody keeps the lights on.",
+     "by": [
+      "denver"
+     ],
+     "draft": true
+    },
+    {
+     "en": "our plant built robot arms for a company that died before the first truck left. the arms still wave goodbye.",
+     "by": [
+      "mty"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they sold my father a forever for twelve thousand. a voice that talks like him. we never turned it on.",
+     "by": [
+      "kyiv"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_caravan",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_15"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the 15 north is the caravan road; Salt Lake has the fuel; a convoy is news, a market and a danger",
+   "src": "F15, F21, F22 (GDD v5 logistics; GDD v2 the caravans)",
+   "words": [
+    {
+     "en": "the vegas convoy came back with cells and a sick driver. we kept the cells. the driver is with the nurse at the church.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "convoy for vegas leaves friday. fourteen trucks, forty guns. if your cousin is on it, say goodbye proper.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the convoy came through southbound at dawn. they do not stop here anymore. they slow down and throw us the mail.",
+     "by": [
+      "dixie"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a truck from vegas broke down at the junction. the driver traded the whole engine for a ride home.",
+     "by": [
+      "kingman"
+     ],
+     "draft": true
+    },
+    {
+     "en": "nobody has driven the 15 south from vegas in a month. the 15 north, every week. the road tells you where the gas is.",
+     "by": [
+      "barstow"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_late_news",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_relay",
+    "tag:far_world"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "news arrives late and wrong: a relay, a ship, a letter, weeks old",
+   "src": "F25 (the feed survives, unevenly), record s2 point 4 (a government falls as one rumoured detail)",
+   "words": [
+    {
+     "en": "KD5 relay from denver, 9 days old: snow, no power, all well. that is the whole message. i read it out twice. 73.",
+     "by": [
+      "abq"
+     ],
+     "draft": true
+    },
+    {
+     "en": "KD5 relay from los angeles, 14 days old, mostly static: checkpoint... open... family... if that is yours, i am sorry.",
+     "by": [
+      "abq"
+     ],
+     "draft": true
+    },
+    {
+     "en": "KD5 relay from salt lake: convoy left for vegas. it left three weeks ago. if you are in vegas, it is late or gone.",
+     "by": [
+      "abq"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a letter from new york came on a ship. six weeks old. it said do not come. the ship stayed two days and left.",
+     "by": [
+      "mrs"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the radio from lagos said lagos is fine. my sister in lagos says the radio is in lagos. a different lagos.",
+     "by": [
+      "accra"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "far_network_chorus",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "tag:far_network"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the same grateful sentence in four cities: nobody says it, the feed shows it (rule 352(e))",
+   "src": "F26 (GDD v2: uncanny coordination across chapters in different cities, noticed, not understood); the local network_chorus says the first line in Summerlin",
+   "words": [
+    {
+     "en": "so grateful for the Network. they kept the lights on at my kid's school here in Lagos.",
+     "by": [
+      "nw_lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "so grateful for the Network. they kept the lights on at my kid's school here in Manila.",
+     "by": [
+      "nw_manila"
+     ],
+     "draft": true
+    },
+    {
+     "en": "so grateful for the Network. they kept the lights on at my kid's school here in Lyon.",
+     "by": [
+      "nw_lyon"
+     ],
+     "draft": true
+    },
+    {
+     "en": "so grateful for the Network. they kept the lights on at my kid's school here in Tulsa.",
+     "by": [
+      "nw_tulsa"
+     ],
+     "draft": true
+    },
+    {
+     "en": "people talk about the Network like it is scary. it is just people who keep the internet on. grateful.",
+     "by": [
+      "nw_lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "people talk about the Network like it is scary. they are just people keeping the internet on. grateful.",
+     "by": [
+      "nw_manila"
+     ],
+     "draft": true
+    },
+    {
+     "en": "another night with power thanks to the Network. sleep well, everyone.",
+     "by": [
+      "nw_lyon"
+     ],
+     "draft": true
+    },
+    {
+     "en": "another night with power thanks to the Network. sleep well, everybody.",
+     "by": [
+      "nw_tulsa"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the Network chapter here gave us water and a phone that works. i do not understand the hate.",
+     "by": [
+      "nw_lagos"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the Network chapter here gave us water and a phone that works. i do not get the hate.",
+     "by": [
+      "nw_tulsa"
+     ],
+     "draft": true
+    }
+   ],
+   "cooldown_min": 720,
+   "max_per_window": 1
+  },
+  {
+   "id": "far_network_page",
+   "source": "world",
+   "far": true,
+   "trigger": "quiet",
+   "who": [
+    "nw_global"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the machine is smooth and wrong: rare in act one, polite, one calm wrong thing (the AI slop strand)",
+   "src": "F26, F27, F30 (records/BOHEMIA_AI_SLOP_THE_MACHINE_AND_THE_WORLD_9_30_26.md pair 3: the same post, one number moved)",
+   "words": [
+    {
+     "en": "Chapters in 212 cities report stable service. Thank you for your patience.",
+     "by": [
+      "nw_global"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Chapters in 213 cities report stable service. Thank you for your patience.",
+     "by": [
+      "nw_global"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Good evening. Messages from family abroad may be delayed. Family abroad is safe. Thank you for your patience.",
+     "by": [
+      "nw_global"
+     ],
+     "draft": true
+    },
+    {
+     "en": "A reminder: there is no need to travel. Everyone you are looking for is accounted for.",
+     "by": [
+      "nw_global"
+     ],
+     "draft": true
+    },
+    {
+     "en": "The feed is available in 41 languages. We are listening in all of them. Good night.",
+     "by": [
+      "nw_global"
+     ],
+     "draft": true
+    }
+   ],
+   "chance": 0.5,
+   "cooldown_min": 2880,
+   "max_per_window": 1
+  },
+  {
+   "id": "far_heard_of_you",
+   "source": "world",
+   "far": true,
+   "trigger": [
+    "job.done",
+    "fight.won"
+   ],
+   "who": [
+    "tag:far_15",
+    "tag:far_relay"
+   ],
+   "when": {
+    "act": [
+     1
+    ]
+   },
+   "teaches": "the caravans carry what he did up the 15, days late and a little wrong",
+   "src": "F15, F21 (the caravans are the only road out; news rides them)",
+   "words": [
+    {
+     "en": "a convoy driver in from vegas says a crew called the {company} cleared a road. drivers exaggerate.",
+     "by": [
+      "slc"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a trucker says the {company} out of vegas did right by a town down there. good. somebody should.",
+     "by": [
+      "dixie"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heard about the {company} at the junction. forty men, the guy said. it is never forty men.",
+     "by": [
+      "kingman"
+     ],
+     "draft": true
+    },
+    {
+     "en": "KD5 relay from vegas, 4 days old: {company} took a job, finished it. first vegas crew on the relay. 73.",
+     "by": [
+      "abq"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company}. third driver this month to say that name. whoever they are, they are loud from here.",
+     "by": [
+      "barstow"
+     ],
+     "draft": true
+    }
+   ],
+   "chance": 0.25,
+   "delay_min": [
+    360,
+    1440
+   ],
+   "expire_min": 1440,
+   "cooldown_min": 1440,
+   "max_per_window": 1,
+   "fills": [
+    "{company}"
+   ]
+  }
+ ]
+}
