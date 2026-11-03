@@ -1555,6 +1555,7 @@ const FIGHT = (function () {
         const k = +B.hp_x || 1; if (k > 1) { u.hp = Math.round(u.hp * k); u.hpMax = u.hp; }
         const bw = B.weapon ? weaponByName(B.weapon) : null; if (bw && strikeSkill(bw) && !isRanged(bw)) u.weapon = bw;
         const bs = B.shield ? shieldByName(B.shield) : null; if (bs && u.weapon && u.weapon.hands === 1) u.shield = bs;
+        if (bw && u.weapon === bw && bw.hands === 2) u.shield = null;   /* BOSSES 4 11/3: a two-handed boss weapon (THE SURVEYOR's range pole) leaves no hand for the shield his kind rolled */
         S.boss = { name: u.name, id: u.id, kind: B.kind, look: u.look || null, lesson: B.lesson || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
     /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
