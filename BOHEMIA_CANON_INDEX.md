@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 10/18/26
+# BOHEMIA CANON INDEX — regenerated 11/03/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-407 canon files indexed across 2 locations.
+408 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -531,6 +531,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `BOHEMIA_YOU_WERE_STANDING_IN_THE_DOORWAY_8_3_26.md` -> archive/, 10/16 by rule 96: no lane named it for 30 days and no live file reaches it (last cite f632261 PEOPLE before B)
   - `PERSONLOOK_AND_THE_CROWD_7_31_26.txt` -> archive/, 10/16 by rule 96: no lane named it for 30 days and no live file reaches it (last cite f632261 PEOPLE before B)
   - `POSTMORTEM_AGE_BREADTH_POSE_X_8_11_26.txt` -> archive/, 10/16 by rule 96: no lane named it for 30 days and no live file reaches it (last cite f632261 PEOPLE before B)
+  - `one_terrain_effect_gate.js` -> archive/, 10/18 by COMBAT [the ground fights]: it held Paolo's 9/24 'ONE terrain effect... nothing else on a tile changes a number' on the frozen fight; rule 59 (10/1, 'every floor tile from Battle Brothers needs a proper translation') amends that ruling by name. Replaced by gates/every_floor_tile_is_a_translation_gate.js, which keeps the old gate's question (a flat tile changes nothing) on the rebuilt fight
+  - `the_map_zooms_in_to_the_street_gate.js` -> archive/, 11/2 by WORLD [one zoom] (ask line 276, rule 300): it held the 10/26 street (past the map's closest stop the camera turned to the fight's straight-on camera and the painting gave way to the fight's blocks); Paolo 10/27 named that the second map mode he does not want ('a re-printed out combat map... a weird angle... why does it have to enter a whole second map mode'). Replaced by gates/one_zoom_no_second_map_mode_gate.js; the street's code stays, off (STREET.on false), for his later call on one continuous zoom.
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT
@@ -758,7 +760,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (239) — add keywords to DOMAINS
+### UNCLASSIFIED (240) — add keywords to DOMAINS
+- `BOHEMIA_LAW_THE_CHEAP_CLONE_11_3_26.md`
 - `BOHEMIA_ADDENDUM_THE_EIGHTH_VOTES_10_10_26.md`
 - `BOHEMIA_ADDENDUM_THE_SEVENTH_VOTES_10_10_26.md`
 - `BOHEMIA_LAW_THE_COORDINATORS_SCHOOL_10_10_26.md`

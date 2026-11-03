@@ -1310,25 +1310,32 @@
     H.stripFitH = fd.clientHeight;
   }
   try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { H.stripFitH = -1; }); } catch (e) {}
+  /* COORDINATOR 11/3 (Paolo: 'there should always be text there that transitions to other text, not just be empty'): the strip
+     never sits empty. One post at a time still (rule 329), each kept its read time; then, instead of sinking out to nothing, the
+     next one steps in: a new post at once when one comes, else the strip walks back through the last STRIP_BACK posts and round
+     again, so there is always something to read. */
+  var STRIP_BACK = 6;
   function stripPaint(force) {
     var fd = H.el.querySelector('.home .bpfd'); if (!fd) return;
     if (H.stripFitH !== fd.clientHeight && fd.querySelector('.fp')) fitStrip(fd);   /* shown again, the jobs grew, or the font came in */
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }));
-    var one = posts.slice(-1), sig = one.map(function (p) { return p.who + '|' + p.txt; }).join('');
+    var last = posts.length ? posts[posts.length - 1] : null, newest = last ? last.who + '|' + last.txt : '';
+    if (newest !== H.stripNewest) { H.stripNewest = newest; H.stripBack = 0; }   /* a new post steps in at once */
+    var ring = Math.max(1, Math.min(posts.length, STRIP_BACK)), back = (H.stripBack | 0) % ring;
+    var one = posts.length ? [posts[posts.length - 1 - back]] : [], sig = one.map(function (p) { return p.who + '|' + p.txt; }).join('') + '#' + back;
     if (!force && sig === H.stripSig) return;
     var was = H.stripTop; H.stripSig = sig; H.stripTop = one.length ? one[0].who + '|' + one[0].txt : null;
     if (!one.length) { clearTimeout(H.stripT); fd.innerHTML = '<div class="fp"><span>The valley is quiet.</span></div>'; fitStrip(fd); return; }   /* draft:true */
-    var p = one[0], fresh = !!(was && was !== H.stripTop), gone = !fresh && H.stripGone === sig;
-    fd.innerHTML = '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (fresh ? ' new' : '') + (gone ? ' gone done' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>';
+    var p = one[0], fresh = !!(was && was !== H.stripTop);
+    fd.innerHTML = '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (fresh ? ' new' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>';
     fitStrip(fd);
     if (fresh) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
-    if (!gone) {
-      clearTimeout(H.stripT);
-      var ms = readMs(p); H.stripRead = { sig: sig, ms: ms, t: Date.now() };
-      H.stripT = setTimeout(function () { if (H.stripSig !== sig) return; var fp = fd.querySelector('.fp'); if (fp) fp.classList.add('gone'); H.stripGone = sig;
-        window.__PHONE_STRIP_OUT = (window.__PHONE_STRIP_OUT | 0) + 1; }, ms);
-    }
+    clearTimeout(H.stripT);
+    var ms = readMs(p); H.stripRead = { sig: sig, ms: ms, t: Date.now() };
+    H.stripT = setTimeout(function () { if (H.stripSig !== sig) return;
+      window.__PHONE_STRIP_OUT = (window.__PHONE_STRIP_OUT | 0) + 1;
+      if (ring > 1) { H.stripBack = ((H.stripBack | 0) + 1) % ring; stripPaint(true); } }, ms);   /* read: the next one in, never empty */
   }
 
   /* ---- YOUR COMPANY (ask 281): while the company screen is up, the phone is its DONE and its stash's tabs ---- */
