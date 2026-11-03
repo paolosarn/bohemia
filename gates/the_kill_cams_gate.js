@@ -13,6 +13,11 @@
    K5 A TAP SKIPS IT: a finger on the board mid-cut ends it at once and the fight goes on
    K6 NO FRAME LOST: on the same seed the frames of a kill with the cams on draw within 3 ms of the same kill with them off (mean),
       measured round the page's own draw
+   K7 THE SWITCH, OFF BY DEFAULT (rule 379, ask line 408; Paolo 11/3: 'Toggle kill cams on or off'): the fight with nothing set (the
+      game's own default) plays a whole AUTO fight with its kills and never cuts: no cut, no bars, no camcorder zoom, the tags never
+      hidden; on the demo on his upright phone, after NEW GAME, the gear's settings card carries KILL CAMS (ON / OFF) under FIGHTS, OFF
+      lit; a tap on ON keeps 'on' in the game's key, a tap on OFF clears it
+   (K2 to K6 run with the switch ON, the way he would turn it on)
    Run: node gates/the_kill_cams_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -27,11 +32,11 @@ leg(!!(KC && KC.value && KC.source && KC.quote && KC.why && KC.value.on) && ['sh
   const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
   const OPTS = seed => ({ seed, speed: 1, kind: 'street', deploy: false, formation: null, auto: true, company: [{}, {}, {}, {}, {}, {}], cap: 6, band: ['brigand_thug', 'brigand_thug', 'brigand_leader'] });
   const open = async (seed, on, force) => {
-    const d = await D.open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: 'phone_portrait', arm: 'window.FIGHT_OPTS=' + JSON.stringify(OPTS(seed)) });
+    const d = await D.open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: 'phone_portrait', arm: 'window.FIGHT_OPTS=' + JSON.stringify(OPTS(seed)) + (on === 'default' ? '' : ";try{localStorage.setItem('bohemia.killcams.v1','on')}catch(e){}") });
     const p = d.page, errs = []; p.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
     await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 60000 });
     await p.evaluate(([on, force]) => {
-      DB.ours.kill_cams.value.on = on; FIGHT_UI.cutForce = force || null;
+      if (on !== 'default') DB.ours.kill_cams.value.on = on; FIGHT_UI.cutForce = force || null;
       window.__D = []; window.__K = []; const od = window.draw;
       window.draw = function (now) { const t = performance.now(); const z = [FIGHT_UI.zoom, FIGHT_UI.cx, FIGHT_UI.cy]; od(now);
         const a0 = FIGHT_UI.anim[0], kill = !!FIGHT_UI.cut || !!(a0 && a0.k === 'note' && a0.e && a0.e.t === 'dead' && a0.at <= now && now - a0.at < Math.max(a0.dur, 500));
@@ -83,6 +88,33 @@ leg(!!(KC && KC.value && KC.source && KC.quote && KC.why && KC.value.on) && ['sh
     }
     leg(Object.keys(seen).length === 6, '*** K3 EVERY STYLE ON A REAL KILL ***: SHARP, HAMMER, CINE-FOLLOW, ORBIT, X-RAY, HELD BREATH', JSON.stringify(seen));
     leg(!!tapped && tapped.gone && tapped.skipped >= 1 && tapped.goesOn && (tapped.bars === '0' || tapped.bars === '0px'), '*** K5 A TAP SKIPS IT ***: a finger on the board mid-cut ends it, the bars go, the fight goes on', JSON.stringify(tapped));
+    /* K7: the fight with the game's default (nothing set), then the settings card on the demo by his finger */
+    {
+      const { d, p, errs: e } = await open(23, 'default');
+      await toEnd(p, 160000);
+      const r = await p.evaluate(() => ({ kills: FIGHT.S.log.filter(x => x.t === 'dead' && FIGHT.byId(x.id) && FIGHT.byId(x.id).side === 'them').length, cuts: (FIGHT_UI.cuts || []).length, framesInCut: window.__K.length,
+        cutting: document.body.classList.contains('cutting'), bars: !!document.getElementById('cutT') && document.getElementById('cutT').style.height !== '0px' && document.getElementById('cutT').style.height !== '0' && document.getElementById('cutT').style.height !== '', key: localStorage.getItem('bohemia.killcams.v1') }));
+      errs.push(...e); await d.close();
+      const dm = await D.open({ profile: 'phone_portrait' }); const q = dm.page, e2 = []; q.on('pageerror', x => e2.push(String(x.message).slice(0, 140)));
+      let row = null;
+      try {
+        const tapEl = async sel => { const at = await q.evaluate(sel => { const b = document.querySelector(sel); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return r.width > 2 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }, sel); if (at) await q.touchscreen.tap(at.x, at.y); return !!at; };
+        await tapEl('#gearbtn'); await q.waitForTimeout(600);
+        const look = () => q.evaluate(() => { const h = document.getElementById('setcams'), r = h && h.closest('.setrow'), f = document.getElementById('setdiff');
+          const pos = (a, b) => a && b ? !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING) : false;
+          return h ? { label: r.querySelector('.setlab').textContent, buttons: [...h.children].map(b => b.textContent + (b.classList.contains('on') ? '*' : '')).join(' '), shown: getComputedStyle(r).display !== 'none' && r.getBoundingClientRect().height > 4,
+            underFights: pos(r, f), key: localStorage.getItem('bohemia.killcams.v1'), atStart: document.body.classList.contains('setatstart') } : null; });
+        const first = await look();
+        await tapEl('#setcams .setbtn[data-k=on]'); await q.waitForTimeout(250); const onNow = await look();
+        await tapEl('#setcams .setbtn[data-k=off]'); await q.waitForTimeout(250); const offNow = await look();
+        row = { first, onNow, offNow };
+      } catch (x) { row = { err: String(x.message).slice(0, 160) }; }
+      errs.push(...e2); await dm.close();
+      const ok = r.kills > 0 && r.cuts === 0 && r.framesInCut === 0 && !r.cutting && !r.bars && r.key === null && row && row.first && row.first.label === 'KILL CAMS' && row.first.shown && row.first.underFights
+        && /OFF\*/.test(row.first.buttons) && !/ON\*/.test(row.first.buttons) && row.first.key === null && row.onNow.key === 'on' && /ON\*/.test(row.onNow.buttons) && row.offNow.key === null && /OFF\*/.test(row.offNow.buttons);
+      leg(ok, '*** K7 THE SWITCH, OFF BY DEFAULT *** [upright 390 x 844, touch]: the game\'s default fight never cuts; KILL CAMS (ON / OFF) on the gear\'s card under FIGHTS, OFF lit, his taps set and clear it',
+        JSON.stringify({ fight: r, card: row }));
+    }
     leg(errs.length === 0, '  nothing threw', errs.slice(0, 2).join(' | ') || 'none');
   } catch (e) { leg(false, 'the page legs ran', String(e.message).slice(0, 200)); }
   console.log('\n=== THE KILL CAMS: ' + pass + ' passed, ' + fail + ' failed ===');
