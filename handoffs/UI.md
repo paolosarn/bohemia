@@ -1,7 +1,7 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
 UI (ui-7, tap a quest on the phone): 11/3 LATEST -- [tap a quest, your people go: the phone's half] BUILT, NOT YET SEEN (rule 376, ask
-line 404; BUILD 11/3zzzzaz - TAP A QUEST ON THE PHONE, code 3b77e4afc + f5ac27e5a, on main 2a3511db0), IN THE DEMO, VOTE card
+line 404; BUILD 11/3zzzzaz - TAP A QUEST ON THE PHONE, code 3b77e4afc + f5ac27e5a, on main 2a3511db0; LIVE: pages run 4265 SUCCESS for 2a3511db0), IN THE DEMO, VOTE card
 ui7-tap-a-quest-on-the-phone-11-3 WAS beside NOW. Record records/BOHEMIA_UI7_TAP_A_QUEST_ON_THE_PHONE_11_3_26.md.
 - THE PHONE (slices/bohemia_phone.js __TAP_A_QUEST_YOUR_PEOPLE_GO__): questGo(id, from) is every quest's one handler: the job's card (.jc
   click and Enter; its X keeps its own tap), the strip while it shows the post of a job he holds (questStrip sets .bpfd.quest and
