@@ -1,11 +1,11 @@
-COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzm EVERY PLACE ITS OWN THINGS. BUILT, NOT YET SEEN (rule 179):
+COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzn EVERY PLACE ITS OWN THINGS. BUILT, NOT YET SEEN (rule 179):
 - [every place its own things] SHIPPED in threes, worst first: the lab yard, the airport, the golf course (cc33b0fd); the trailer
-  park, the desert, Red Rock (8aa791af); the pass, the shore, the wash (5bbf99a0). Each thing a real model through the master rig: reference/models/bohemia/fight_props/<id>.glb
+  park, the desert, Red Rock (8aa791af); the pass, the shore, the wash (5bbf99a0); the suburbs, the landfill, the Strip (ab2cc24e). Each thing a real model through the master rig: reference/models/bohemia/fight_props/<id>.glb
   + its picture from the fight camera with its ground pixel; THE CONTRACT records/target/fight_props/manifest.json (footprint in
   12 m cells, storeys, cover/blocking/none, sees-through, the fight's own kind/tile/flags, hole_m for a pit) for COMBAT MAPS 3 to
   place. VOTE: one card a place, its things on its own ground. tools/bohemia_cook_props_every_place_its_own_11_3_26.py
   (models <place|id> / card <place> / manifest). Record records/BOHEMIA_COOK_PROPS_EVERY_PLACE_ITS_OWN_THINGS_11_3_26.md.
-NEXT: the suburbs, the landfill, the Strip; downtown, the works, the marina (built, rendering).
+NEXT: downtown, the works, the marina (built, rendering).
 [bb Battle Brothers' blockers read at a glance as what they are; every place's things here do.]
 [analog horror: one wrong thing a place: the reefer still running, the same suitcase, the flag in no wind, the white washing, the car's lights, the cairn.]
 
