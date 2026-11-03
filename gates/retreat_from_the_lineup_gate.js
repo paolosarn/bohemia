@@ -7,9 +7,10 @@
    press FIGHT and run for the edge through their turns and their free hits.
    Legs, on his phone (390 x 844 at 3x, touch) and his computer (1440 x 900):
    L1 THE LINEUP, EVERY KIND (the real fight page, the five road factions, AUTO off; one of them a fight the odds read red): RETREAT
-      is lit on the lineup and ONE real press ends the fight at once, WITHDREW: no man of either side took a turn, moved or was
-      struck; every man where he stood, his hit points and armour as he came in; the end card says so; the message home says
-      withdrew, its crew rows as they came in, no spoils;
+      is lit on the lineup and ONE real press starts the run (AMENDED 11/3 by rule 365, COMBAT 7: 'it just auto ends the fight...
+      you have to reach the edge of the map'): his men run for the edge FIRST and are seen running, no man of theirs takes a turn,
+      moves or strikes, every man of his gets out with his hit points and armour as he came in, and the fight ends WITHDREW as rule
+      253 kept it: the end card says so; the message home says withdrew, its crew rows as they came in, no spoils;
    L2 THE DEMO, THE ONE DOOR, A JOB HELD: a road fight through the game's own door with a job held; RETREAT on the lineup by a real
       press: back on the map, no spoils screen, never 'back to your last save', the job still held, the company, the condition, the
       supplies and the stash exactly as before, and the party two blocks or more from where they met (rule 275(c), the bounce);
@@ -28,7 +29,7 @@ const FACTIONS = ['brigands', 'beasts', 'kids', 'machines', 'heavies'];
 async function waitFor(page, fn, ms) { const s = Date.now(); while (Date.now() - s < ms) { if (await fn().catch(() => false)) return true; await page.waitForTimeout(150); } return false; }
 async function press(page, profile, p) { if (profile === 'computer') await page.mouse.click(p.x, p.y); else await page.touchscreen.tap(p.x, p.y); }
 const boxOf = (f, sel) => f.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, lit: !e.disabled, txt: e.textContent }; }, sel);
-const snapOf = f => f.evaluate(() => FIGHT.S.units.map(v => v.id + '@' + v.x + ',' + v.y + ' ' + Math.round(v.hp) + '/' + Math.round(v.armH) + '/' + Math.round(v.armB) + (v.dead ? 'X' : '') + (v.down ? 'D' : '')).join(' '));
+const snapOf = f => f.evaluate(() => FIGHT.S.units.filter(v => v.side !== 'you').map(v => v.id + '@' + v.x + ',' + v.y + ' ' + Math.round(v.hp) + '/' + Math.round(v.armH) + '/' + Math.round(v.armB) + (v.dead ? 'X' : '') + (v.down ? 'D' : '')).join(' '));
 
 (async () => {
   const errs = [];
@@ -52,20 +53,21 @@ const snapOf = f => f.evaluate(() => FIGHT.S.units.map(v => v.id + '@' + v.x + '
           const before = await snapOf(p), log0 = await p.evaluate(() => FIGHT.S.log.length), b = await boxOf(p, '#bflee');
           const t0 = Date.now();
           if (b) await press(p, profile, b);
-          await waitFor(p, () => p.evaluate(() => FIGHT.S.over && document.getElementById('over').style.display === 'flex'), 5000);
-          const r = await p.evaluate((l0) => ({ over: FIGHT.S.over, res: FIGHT.S.result, acts: FIGHT.S.log.slice(l0).filter(e => ['step', 'attack', 'turn', 'end', 'reload', 'skill'].indexOf(e.t) >= 0).length,
+          await waitFor(p, () => p.evaluate(() => FIGHT.S.over && document.getElementById('over').style.display === 'flex'), 30000);
+          const r = await p.evaluate((l0) => ({ over: FIGHT.S.over, res: FIGHT.S.result, acts: FIGHT.S.log.slice(l0).filter(e => ['step', 'attack', 'reload', 'skill'].indexOf(e.t) >= 0 && FIGHT.byId(e.id) && FIGHT.byId(e.id).side !== 'you').length,
+            ran: FIGHT.S.log.slice(l0).filter(e => e.t === 'step' && FIGHT.byId(e.id) && FIGHT.byId(e.id).side === 'you').length, out: FIGHT.S.units.filter(v => v.side === 'you').every(v => v.escaped && v.hp === v.hpIn),
             head: document.getElementById('oh').innerText, home: homeMessage(FIGHT.S.result) }), log0);
           const after = await snapOf(p), secs = (Date.now() - t0) / 1000;
           const home = r.home, rowsOk = home && home.result === 'withdrew' && home.withdrew === true && home.spoils === null && home.crew.every(c => !c.dead && !c.down && c.xpGained === 0);
-          const ok = b && b.lit && /RETREAT/.test(b.txt) && r.over && r.res === 'withdrew' && r.acts === 0 && after === before && /PULLED BACK/.test(r.head) && rowsOk && secs < 3;
-          rows.push(fac + (red ? '(red ' + (odds === null ? '?' : odds.toFixed(2)) + ')' : '') + ':' + (ok ? 'withdrew' : 'BAD') + ' ' + secs.toFixed(1) + 's');
-          if (!ok) bad.push(fac + ' lit ' + (b && b.lit) + ' "' + (b && b.txt) + '" over ' + r.over + ' ' + r.res + ' acts ' + r.acts + ' same ' + (after === before) + ' head "' + r.head + '" home ' + JSON.stringify(home && { result: home.result, withdrew: home.withdrew, spoils: home.spoils }));
+          const ok = b && b.lit && /RETREAT/.test(b.txt) && r.over && r.res === 'withdrew' && r.acts === 0 && after === before && r.out && r.ran > 0 && /PULLED BACK/.test(r.head) && rowsOk && secs < 25;
+          rows.push(fac + (red ? '(red ' + (odds === null ? '?' : odds.toFixed(2)) + ')' : '') + ':' + (ok ? 'ran out, withdrew' : 'BAD') + ' ' + r.ran + ' steps ' + secs.toFixed(1) + 's');
+          if (!ok) bad.push(fac + ' lit ' + (b && b.lit) + ' "' + (b && b.txt) + '" over ' + r.over + ' ' + r.res + ' acts ' + r.acts + ' ran ' + r.ran + ' out ' + r.out + ' same ' + (after === before) + ' head "' + r.head + '" home ' + JSON.stringify(home && { result: home.result, withdrew: home.withdrew, spoils: home.spoils }));
           if (red && !(odds !== null && odds < 0.5)) bad.push('the red fight read ' + odds);
           errs.push.apply(errs, (await p.evaluate(() => window.__fe || [])).map(e => tag + ' L1 ' + fac + ': ' + e));
         } catch (e) { bad.push(fac + ' ran: ' + String(e.message).slice(0, 120)); }
         finally { if (d) await d.close().catch(() => {}); }
       }
-      leg(bad.length === 0, '*** L1 ' + tag + ': RETREAT ON THE LINEUP, EVERY KIND, ONE PRESS: WITHDREW BEFORE ANYONE MOVES *** (rule 253(a)(b))', rows.join(' ') + (bad.length ? ' | ' + bad.slice(0, 2).join('; ') : ''));
+      leg(bad.length === 0, '*** L1 ' + tag + ': RETREAT ON THE LINEUP, EVERY KIND, ONE PRESS: HIS MEN RUN FOR THE EDGE FIRST, ALL OUT UNTOUCHED, WITHDREW, NONE OF THEIRS MOVED *** (rules 253(a)(b), 365)', rows.join(' ') + (bad.length ? ' | ' + bad.slice(0, 2).join('; ') : ''));
     }
     /* L2: the demo, the one door, a job held */
     {
@@ -82,8 +84,14 @@ const snapOf = f => f.evaluate(() => FIGHT.S.units.map(v => v.id + '@' + v.x + '
         await waitFor(page, async () => { const h = await page.$('#fightFrame'); const c = h && await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && FIGHT.S.deploy && !!window.FIGHT_UI && FIGHT_UI.board && performance.now() > FIGHT_UI.openUntil)) { f = c; return true; } return false; }, 90000);
         if (!f) throw new Error('the fight never stood on its lineup');
         const before = await store(), fb = await (await f.frameElement()).boundingBox(), b = await boxOf(f, '#bflee');
-        await press(page, profile, { x: fb.x + b.x, y: fb.y + b.y });
-        await waitFor(page, () => page.evaluate(() => !CITYFIGHT), 20000);
+        /* THE REAL BUTTON (rule 365): upright, the bar's RETREAT sits under the phone and the phone's own retreat (its arrows) is the one
+           he presses; elsewhere the bar's. Whichever is on the glass, at its real place */
+        const phoneFlee = async (fr0, off) => { const q = await fr0.evaluate(() => { const e = document.querySelector('.fc[data-c=flee]'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 2 && r.bottom > 0 && r.top < innerHeight ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }).catch(() => null); return q ? { x: q.x + off.x, y: q.y + off.y } : null; };
+        const onGlass = b && b.x > 0 && b.y > 0 && b.y < (await page.evaluate(() => innerHeight)) && await f.evaluate(() => { const e = document.getElementById('bflee'), r = e.getBoundingClientRect(), t = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return !!t && (t === e || e.contains(t)); });
+        const at = (onGlass ? { x: fb.x + b.x, y: fb.y + b.y } : null) || await phoneFlee(page, { x: 0, y: 0 }) || await phoneFlee(f, { x: fb.x, y: fb.y });
+        if (!at) throw new Error('no retreat button on the glass');
+        await press(page, profile, at);
+        await waitFor(page, () => page.evaluate(() => !CITYFIGHT), 40000);
         await page.waitForTimeout(1500);
         const res = await f.evaluate(() => FIGHT.S.result).catch(() => 'gone');
         const map = await fr.evaluate(() => ({ held: LOOP.held.some(h => h.id === 'lineup-gate-job'), wentDown: !!window.__WENT_DOWN, home: window.__FIGHT_CAME_HOME || null, at: { x: city.x, y: city.y } }));

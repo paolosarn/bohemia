@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Retreat Is a Run</title>
+<!-- COMBAT 7 [retreat is a run], rule 365, ask line 389 (Paolo 11/3: 'if you press the flee button it's like auto but running away,
+     my turn, and you have to reach the edge of the map... it just auto ends the fight'). Filmed from the fight's own camera on his
+     phone (390 x 844), the real RETREAT pressed by a finger: LEFT from the lineup (his men run first, all out, nobody touched),
+     RIGHT in the middle of a fight on AUTO (they run, the ones caught are fought). Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:12px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:4px;color:var(--gold)}
+  img{width:100%;display:block;border-radius:3px}
+  .say{color:#cfc5ae;margin:6px 0 2px;font-size:12px}
+</style>
+<h1>RETREAT IS A RUN FOR THE EDGE</h1>
+<p>The button no longer just ends the fight. Your men run for the edge of the map and get out one by one.</p>
+<div class="row two">
+  <div><div class="lab">FROM THE LINEUP</div><img id="a" alt="from the lineup"><div class="say">Your men go first, before they move. Everyone gets out, nobody is hurt.</div></div>
+  <div><div class="lab">IN THE FIGHT, ON AUTO</div><img id="b" alt="in the fight"><div class="say">They run on their turns. A man caught next to them gets held and fought.</div></div>
+</div>
+<script>
+(function () {
+  var A = document.getElementById('a'), B = document.getElementById('b'), na = 13, nb = 25, i = 0, pre = [];
+  function src(k, n) { return '../../records/target/combat7_11_3/' + k + '_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  for (var n = 0; n < nb; n++) { if (n < na) { var x = new Image(); x.src = src('retreat_line', n); pre.push(x); } var y = new Image(); y.src = src('retreat_mid', n); pre.push(y); }
+  function show() { A.src = src('retreat_line', Math.min(i, na - 1)); B.src = src('retreat_mid', i); i = (i + 1) % nb; }
+  show(); setInterval(show, 450);
+})();
+</script>

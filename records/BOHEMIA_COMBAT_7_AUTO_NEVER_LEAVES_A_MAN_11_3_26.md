@@ -79,3 +79,19 @@ CLOSE AS IT CAN BE on the computer (the 6-point centring above).
 never on AUTO, so the rule for AUTO is ours: stay on the man who is hurting your friend.
 [analog horror] nothing new drawn: the ask sits on the same receipt paper as every line; the fight goes still for four seconds while
 it waits, the music under it.
+
+## 4. RULE 365, RETREAT IS A RUN FOR THE EDGE (ask line 389; the coordinator's carry-on list, piece 3)
+MEASURED FIRST, the real button: on the bare fight page a mid-fight RETREAT already ran Battle Brothers' way (11 of 12 men out one
+by one in round 1). The 'it just auto ends the fight' was the LINEUP: every demo fight opens on it, and there RETREAT ended the fight
+at once (rule 253's WITHDREW, no run seen). On the upright phone the bar's RETREAT sits under the phone; he presses the phone's own
+retreat (its arrows), which presses the same button.
+NOW (slices/BOHEMIA_FIGHT.html retreatFromLine, the button's lineup branch): from the lineup one press starts the fight with the order
+given and his men take round one FIRST (rule 253's 'not like I take the first turn'); each runs for the nearest edge and is out on it;
+every man out with his hit points as he came in ends WITHDREW exactly as rule 253 kept it (nothing kept, no pay, the map's bounce);
+a man caught is fought and the run ends as any retreat (LOST, no pay). Mid-fight: unchanged rules, now gated by the real button.
+Broken enemies: flee() already runs them to the nearest edge and off it (gated E3: 12 of 12 left, none walked back).
+GATES: RETREAT IS A RUN FOR THE EDGE (new) 5/0: E1 by hand upright by touch (the fight goes on at the press, 4 of 4 out, LOST),
+E2 on AUTO sideways (2 out, 2 caught and down, LOST), E3 broken enemies. RETREAT FROM THE LINEUP (amended to rule 365) phone 3/0:
+six factions, 7 to 12 steps of his men, 4.7 to 5.7 s, WITHDREW, none of theirs moved; the demo with a job held through the phone's
+own retreat: back on the map, nothing changed, the job his, two blocks away.
+VOTE: combat-7-retreat-is-a-run-11-3 (the lineup press and a mid-fight press on AUTO, filmed from the fight's camera on his phone).
