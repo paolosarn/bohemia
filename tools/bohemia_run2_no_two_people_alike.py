@@ -514,6 +514,15 @@ def index():
         if standing_only(q['look'][len('person_'):]): q['stands'] = True   # he only ever stands: no walk made
     by = {}
     for q in people: by.setdefault(q['gang'], []).append(q['look'])
+    # HIRES [more rare hires, each his own look] (rule 351(a), 11/3): the rare men at the post, each ONE person of the valley
+    # (records/hires/BOHEMIA_HIRES_THE_RARE_ROLL.json, built by tools/bohemia_hires_the_rare_men.py). In the mix so his body, face
+    # and name read as him on every screen; gang 'rare', marked rare, NEVER fight: true and never in by_gang, so no common post
+    # slot, crowd, map sheet or main-man pick ever deals him (the settlement screen deals him only as a rare man)
+    hr = os.path.join(ROOT, 'records/hires/BOHEMIA_HIRES_THE_RARE_ROLL.json')
+    if os.path.exists(hr):
+        for p in json.load(open(hr)):
+            if not os.path.exists(os.path.join(ROOT, OUT, 'person_' + p['id'].lower(), 'face', 'M_128.png')): continue
+            q = who(p); q['gang'] = 'rare'; q['rare'] = True; q['sex'] = 'm'; people.append(q)
     J = lambda v: json.dumps(v, ensure_ascii=False, separators=(',', ':'))
     head = dict(what="RUN TWO [no two people alike] (rule 121(i)): every person rolled from CHARACTER's pieces inside his gang's colours, "
                      "built by CHARACTER's person builder, rendered on DIRECTION's master rig; nobody on one screen is the same man",

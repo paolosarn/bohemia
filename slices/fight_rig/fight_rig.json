@@ -2320,6 +2320,230 @@
     ]
    },
    "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "person_rare_0": {
+   "file": "person_rare_0.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.734,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_0/rig.json"
+  },
+  "person_rare_1": {
+   "file": "person_rare_1.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.727,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_1/rig.json"
+  },
+  "person_rare_2": {
+   "file": "person_rare_2.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_2/rig.json"
+  },
+  "person_rare_3": {
+   "file": "person_rare_3.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.736,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_3/rig.json"
+  },
+  "person_rare_4": {
+   "file": "person_rare_4.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.714,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_4/rig.json"
+  },
+  "person_rare_5": {
+   "file": "person_rare_5.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.702,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_5/rig.json"
+  },
+  "person_rare_6": {
+   "file": "person_rare_6.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.73,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_6/rig.json"
+  },
+  "person_rare_7": {
+   "file": "person_rare_7.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.732,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_7/rig.json"
+  },
+  "person_rare_8": {
+   "file": "person_rare_8.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.747,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_8/rig.json"
+  },
+  "person_rare_9": {
+   "file": "person_rare_9.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.732,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_9/rig.json"
+  },
+  "person_rare_10": {
+   "file": "person_rare_10.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.723,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_10/rig.json"
+  },
+  "person_rare_11": {
+   "file": "person_rare_11.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.745,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_11/rig.json"
+  },
+  "person_rare_12": {
+   "file": "person_rare_12.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.776,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_12/rig.json"
+  },
+  "person_rare_13": {
+   "file": "person_rare_13.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.731,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "rare",
+   "rare": true,
+   "rig": "records/target/combat/rig/person_rare_13/rig.json"
   }
  },
  "faces": {
@@ -2432,7 +2656,21 @@
    "boss_filter_0",
    "boss_burn_0",
    "boss_surveyor_0",
-   "boss_climb_0"
+   "boss_climb_0",
+   "person_rare_0",
+   "person_rare_1",
+   "person_rare_2",
+   "person_rare_3",
+   "person_rare_4",
+   "person_rare_5",
+   "person_rare_6",
+   "person_rare_7",
+   "person_rare_8",
+   "person_rare_9",
+   "person_rare_10",
+   "person_rare_11",
+   "person_rare_12",
+   "person_rare_13"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
@@ -2496,5 +2734,6 @@
  },
  "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them",
  "enemies": "CHARACTER [the three enemies' looks] 10/24: the Mechanic, the Kids and Runners and the Heavy (kind 'enemy'), packed by tools/bohemia_character_the_three_enemies.py pack into a reference gang's cell with its guns; their pools are ours.people_looks.band.mechanic / runner / heavy",
- "bosses": "BOSSES 11/2 and 11/3: THE POT, THE TAP, THE FILTER (tools/bohemia_bosses_the_three_men.py, dressed by tools/bohemia_cook_the_bosses_dressed_11_3_26.py), THE BURN, THE SURVEYOR, THE CLIMB (tools/bohemia_bosses_four_to_six_11_3_26.py), kind 'boss', each in a reference gang's cell; records/target/bb/boss_act_one.json names each"
+ "bosses": "BOSSES 11/2 and 11/3: THE POT, THE TAP, THE FILTER (tools/bohemia_bosses_the_three_men.py, dressed by tools/bohemia_cook_the_bosses_dressed_11_3_26.py), THE BURN, THE SURVEYOR, THE CLIMB (tools/bohemia_bosses_four_to_six_11_3_26.py), kind 'boss', each in a reference gang's cell; records/target/bb/boss_act_one.json names each",
+ "rare": "HIRES [the rare men's looks] 11/3: the fourteen rare men (kind 'person', gang 'rare'), packed by tools/bohemia_hires_the_rare_men.py pack into the place's people's cell with their guns; RUN TWO's fight-pack drops 'person' rows it did not make, so run this pack after it (gates/more_rare_hires_gate.js H2 says so)"
 }

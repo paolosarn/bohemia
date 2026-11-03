@@ -123,6 +123,7 @@ const HALL = () => { const S = BohemiaSettlement, R = S.recruits(), med = S.hall
     const townTrades = new Set(halls.filter(h => h.tier !== 'camp').map(h => h.cards.filter(c => !c.rare).map(c => c.bg)).flat()), campTrades = new Set(halls.filter(h => h.tier === 'camp').map(h => h.cards.map(c => c.bg)).flat());
     ok('C6 A REAL MIX (EYES: \'every one a pistol man\'): ' + gunMen.length + ' gun men with the rifle and ' + melee.length + ' melee men with the pistol of ' + plain.length + '; trades at the towns and fortresses ' + townTrades.size + ' of 6, at the camps ' + campTrades.size,
       gunMen.length >= plain.length / 4 && melee.length >= plain.length / 4 && armWrong.length === 0 && townTrades.size === 6 && campTrades.size >= 4, armWrong.slice(0, 2).map(c => c.bg + ' ' + c.kind + ' ' + c.gun).join(' | '));
+    const RARE_CH = 100 * JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')).rare_at_the_post.value.chance_per_slot;
     const rate = await p.evaluate(() => { const S = BohemiaSettlement, out = {};
       for (const [tier, name] of [['town', 'RATE TOWN'], ['fortress', 'RATE FORT'], ['camp', 'RATE CAMP']]) { S.open({ place: { name, tier }, traits: [], day: 1, batteries: 100 });
         let n = 0, hit = 0; for (let w = 0; w < 500; w++) { const key = S.rareKey(w * 7); for (let i = 0; i < 6; i++) { n++; if (S.rareAt(key, i)) hit++; } } out[tier] = Math.round(1000 * hit / n) / 10; }
@@ -133,7 +134,8 @@ const HALL = () => { const S = BohemiaSettlement, R = S.recruits(), med = S.hall
     const rh = rw == null ? null : await openHall(p, 'NELLIS GATE', 'fortress', rw * 7 + 1, true), rc = rh && rh.cards.find(c => c.rare);
     const ordered = h => h.cards.every((c, i) => !i || !(c.rank > h.cards[i - 1].rank + 1e-12 || (Math.abs(c.rank - h.cards[i - 1].rank) <= 1e-12 && c.ceil > h.cards[i - 1].ceil + 1e-9)));
     ok('C6 THE RARE MAN AT HIS RATE: ' + rate.town + ' and ' + rate.fortress + ' slots in 100 at a town and a fortress over 500 weeks, ' + rate.camp + ' at a camp; when he stands (week ' + rw + ') his card is in the order by his ceiling (' + (rc ? rc.score + ' of 100, place ' + (rh.cards.indexOf(rc) + 1) + ' of ' + rh.cards.length : 'not found') + ')',
-      rate.town >= 2 && rate.town <= 4 && rate.fortress >= 2 && rate.fortress <= 4 && rate.camp === 0 && !!rc && ordered(rh));
+      /* RE-AIMED 11/3 (HIRES, rule 351(a)): the rate is TUNING's row (ours.json rare_at_the_post, 6 in 100), and Battle Brothers' village kinds stand at a camp too (only those; gates/more_rare_hires_gate.js) */
+      Math.abs(rate.town - RARE_CH) <= 2 && Math.abs(rate.fortress - RARE_CH) <= 2 && Math.abs(rate.camp - RARE_CH) <= 2 && !!rc && ordered(rh));
 
     /* ---- C4 the switch, real taps ---- */
     /* a town week whose two orders differ (in some halls the best man is also the best for the price) */

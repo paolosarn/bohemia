@@ -685,6 +685,90 @@
 "fill": 0.18,
 "packedMB": 3.95
 },
+"person_rare_0.webp": {
+"bytes": 265580,
+"decodedMB": 17.69,
+"fill": 0.19,
+"packedMB": 3.79
+},
+"person_rare_1.webp": {
+"bytes": 297024,
+"decodedMB": 17.69,
+"fill": 0.2,
+"packedMB": 4.1
+},
+"person_rare_10.webp": {
+"bytes": 333800,
+"decodedMB": 17.69,
+"fill": 0.226,
+"packedMB": 4.59
+},
+"person_rare_11.webp": {
+"bytes": 285928,
+"decodedMB": 17.69,
+"fill": 0.193,
+"packedMB": 3.94
+},
+"person_rare_12.webp": {
+"bytes": 284846,
+"decodedMB": 17.69,
+"fill": 0.2,
+"packedMB": 4.09
+},
+"person_rare_13.webp": {
+"bytes": 275310,
+"decodedMB": 17.69,
+"fill": 0.188,
+"packedMB": 3.81
+},
+"person_rare_2.webp": {
+"bytes": 286952,
+"decodedMB": 17.69,
+"fill": 0.19,
+"packedMB": 3.78
+},
+"person_rare_3.webp": {
+"bytes": 290036,
+"decodedMB": 17.69,
+"fill": 0.192,
+"packedMB": 3.96
+},
+"person_rare_4.webp": {
+"bytes": 276780,
+"decodedMB": 17.69,
+"fill": 0.188,
+"packedMB": 3.77
+},
+"person_rare_5.webp": {
+"bytes": 271642,
+"decodedMB": 17.69,
+"fill": 0.194,
+"packedMB": 3.95
+},
+"person_rare_6.webp": {
+"bytes": 271908,
+"decodedMB": 17.69,
+"fill": 0.19,
+"packedMB": 3.81
+},
+"person_rare_7.webp": {
+"bytes": 299306,
+"decodedMB": 17.69,
+"fill": 0.191,
+"packedMB": 3.93
+},
+"person_rare_8.webp": {
+"bytes": 316350,
+"decodedMB": 17.69,
+"fill": 0.196,
+"packedMB": 4.06
+},
+"person_rare_9.webp": {
+"bytes": 269738,
+"decodedMB": 17.69,
+"fill": 0.192,
+"packedMB": 3.95
+},
 "person_reds_0.webp": {
 "bytes": 255256,
 "decodedMB": 18.17,
@@ -897,8 +981,8 @@
 }
 },
 "totals": {
-"decodedMB": 3049.6,
-"packedMB": 547.5,
-"sheets": 149
+"decodedMB": 3297.2,
+"packedMB": 603.0,
+"sheets": 163
 }
 }

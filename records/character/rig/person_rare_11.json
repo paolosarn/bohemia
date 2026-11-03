@@ -1,0 +1,203 @@
+{
+ "look": "PERSON_RARE_11",
+ "shape": "person_rare_11: a person of the Body, his own skin skin_light 0, BONE BUTTON-UP under SLATE CAR COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE BUTTON-UP",
+  "feet": "COAL COLUMN",
+  "outer": "SLATE CAR COAT",
+  "waist": "LEAD WAIST WRAP",
+  "hands": "DUST GLOVES",
+  "outfit": [
+   "STORM BUTTON-UP read as one with SLATE CAR COAT (72 and 77 of 255): the same cut in BONE BUTTON-UP (154)",
+   "SLATE CAR COAT worn open to the neck"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_rare_11.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_11_shoe": 3148,
+  "person_rare_11_shirt": 71204,
+  "person_rare_11_collar": 1536,
+  "person_rare_11_collar_points": 180,
+  "person_rare_11_placket": 162,
+  "person_rare_11_buttons": 204,
+  "person_rare_11_cuffs": 2048,
+  "person_rare_11_tail": 2016,
+  "person_rare_11_coat": 71778,
+  "person_rare_11_coat_skirt": 5454,
+  "person_rare_11_collar.001": 1170,
+  "person_rare_11_lapels": 396,
+  "person_rare_11_cuffs.001": 2048,
+  "person_rare_11_pockets": 252,
+  "person_rare_11_pocket_flaps": 252,
+  "person_rare_11_column": 74570,
+  "person_rare_11_column_sole_1": 242,
+  "person_rare_11_column_sole_0": 242,
+  "person_rare_11_lead_waist_wrap": 1792,
+  "person_rare_11_lead_waist_wrap_edge": 1792,
+  "person_rare_11_dust_gloves_L": 392,
+  "person_rare_11_dust_gloves_R": 392,
+  "person_rare_11_dust_gloves_cuff": 2048,
+  "person_rare_11_hair": 17968,
+  "person_rare_11_hand_L": 392,
+  "person_rare_11_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_11_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_rare_11_coat": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_rare_11_coat_skirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_rare_11_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_11_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_11_column": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_rare_11_column_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_rare_11_column_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_rare_11_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_11_dust_gloves": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_rare_11_dust_gloves_cuff": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_11_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_11_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_11_lapels": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_rare_11_lead_waist_wrap": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_rare_11_lead_waist_wrap_edge": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_rare_11_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_11_pocket_flaps": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_rare_11_pockets": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_rare_11_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_11_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_rare_11_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_rare_11_skin": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "person_rare_11_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_11_trousers": [
+   0.0296,
+   0.0296,
+   0.0356
+  ]
+ }
+}

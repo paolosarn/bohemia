@@ -1,0 +1,286 @@
+{
+ "look": "PERSON_RARE_1",
+ "shape": "person_rare_1: a person of the Body, his own skin skin_mid 2, WHITE TEE under TACTICAL VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WHITE TEE",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "outer": "TACTICAL VEST",
+  "gear": "SCAV KNEEPADS",
+  "back": "OLIVE RUCK PACK",
+  "outfit": [
+   "OLIVE DRAB TEE read as one with TACTICAL VEST (76 and 63 of 255): the same cut in WHITE TEE (208)",
+   "TACTICAL VEST worn open to the neck",
+   "the tee's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_rare_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_1_shoe": 3716,
+  "person_rare_1_shirt": 40296,
+  "person_rare_1_collar": 1536,
+  "person_rare_1_sleeve_hem": 2048,
+  "person_rare_1_tail": 2016,
+  "person_rare_1_coat": 23258,
+  "person_rare_1_lapels": 396,
+  "person_rare_1_pouches": 504,
+  "person_rare_1_trouser": 43706,
+  "person_rare_1_rolled_hem": 2048,
+  "person_rare_1_cargo_pockets": 252,
+  "person_rare_1_cargo_flaps": 108,
+  "person_rare_1_sole_1": 242,
+  "person_rare_1_midsole_1": 242,
+  "person_rare_1_sole_0": 242,
+  "person_rare_1_midsole_0": 242,
+  "person_rare_1_boot_collar": 2048,
+  "person_rare_1_boot_collar_line": 2048,
+  "person_rare_1_eyelets_1": 120,
+  "person_rare_1_eyelets_0": 120,
+  "person_rare_1_olive_chest_rig": 3766,
+  "person_rare_1_olive_chest_rig_pouches": 378,
+  "person_rare_1_olive_chest_rig_radio": 98,
+  "person_rare_1_olive_chest_rig_x": 196,
+  "person_rare_1_scav_kneepads_1": 3078,
+  "person_rare_1_scav_kneepads_0": 3078,
+  "person_rare_1_scav_kneepads_strap_-6": 2048,
+  "person_rare_1_scav_kneepads_strap_6": 2048,
+  "person_rare_1_olive_ruck_pack_pack": 98,
+  "person_rare_1_olive_ruck_pack_flap": 26,
+  "person_rare_1_olive_ruck_pack_pocket": 26,
+  "person_rare_1_olive_ruck_pack_straps": 252,
+  "person_rare_1_olive_ruck_pack_chest_strap": 90,
+  "person_rare_1_olive_ruck_pack_buckle": 34,
+  "person_rare_1_hair": 17968,
+  "person_rare_1_hand_L": 392,
+  "person_rare_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_1_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_rare_1_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_1_cargo_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_rare_1_cargo_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_rare_1_coat": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_rare_1_collar": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_1_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_1_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_1_lapels": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_rare_1_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_1_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_1_olive_chest_rig": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_1_olive_chest_rig_pouches": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_1_olive_chest_rig_radio": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_1_olive_chest_rig_x": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_1_olive_ruck_pack_buckle": [
+   0.1329,
+   0.1683,
+   0.0545
+  ],
+  "person_rare_1_olive_ruck_pack_chest_strap": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_1_olive_ruck_pack_flap": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_1_olive_ruck_pack_pack": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_1_olive_ruck_pack_pocket": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_1_olive_ruck_pack_straps": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_1_pouches": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_rare_1_rolled_hem": [
+   0.3864,
+   0.2664,
+   0.1119
+  ],
+  "person_rare_1_scav_kneepads_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_1_scav_kneepads_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_1_scav_kneepads_strap_-6": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_1_scav_kneepads_strap_6": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_1_shirt": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_1_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_1_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_1_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_rare_1_sleeve_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_1_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_rare_1_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_rare_1_tail": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_1_trouser": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_rare_1_trousers": [
+   0.2307,
+   0.1559,
+   0.0578
+  ]
+ }
+}

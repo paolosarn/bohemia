@@ -3688,5 +3688,18 @@
   "source": "VAMILY.md rule 377 (Paolo 11/3, ask line 406); records/BOHEMIA_PAOLO_TAP_A_QUEST_TO_GO_THE_KILL_CAMS_AND_HEAVY_ARMOUR_11_3_26.md; Battle Brothers' armour weight (armor.json fatigue, bb_all/0264_Body Armor.txt, 0958_Headgear.txt)",
   "quote": "if you're wearing the heaviest... maybe it's gonna be like -2... you can only walk one time less please check the code in the Numbers... please make sure that this does not make it impossible to do any sort of attack or abilities. If you didn't move that turn... there's weights... categories",
   "why": "COMBAT 7's default (TUNING's keys were not on main when the fight was built; TUNING 2 owns every number here; the fight, the shop and the crew card read ours.armour_weight). A man's armour weight is Battle Brothers' own (the body piece's and the helmet's Max. Fatigue, added; Brawny takes its share off, the fight's gearFat); an enemy's is the pieces of his wiki gear nearest his rolled armour. His class is the first whose 'below' his weight is under (the last has none). walk_ap comes off what he may spend on WALKING this turn (9 a turn: the heaviest walks 7, three flat tiles not four; heavy 8, the same four flat tiles and one rough tile less), NEVER off what attacks, shots and abilities may spend: a man who has not moved still has all 9 for anything he owns (the recover perk at 9), and walk then strike still fits (a strike costs 4 or more, over any walk_ap). The lit walking reach on the board, AUTO and the enemy all read the same cap. Light and medium walk free. Weight is not quality (rule 377(4)): the class is weight only, the armour's durability is its protection."
+ },
+ "rare_at_the_post": {
+  "value": {
+   "chance_per_slot": 0.06,
+   "levels": [
+    2,
+    3
+   ]
+  },
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0370_Character Backgrounds_Sources.txt (a rare background's own odds a vacant slot: hedge knight 2.2 to 2.8% in cities, sellsword 2.9 to 8.3% in forts, witch hunter 2.4 to 9.1%); VAMILY rule 351(a); records/BOHEMIA_HIRES_FOURTEEN_RARE_MEN_11_3_26.md",
+  "quote": "I'm at day 20 with like 10 super soldiers damn near I only hired like when I saw it was rare first off. We need more more rare characters, bro",
+  "why": "HIRES 11/3 (rule 351(a)): the chance a post slot holds a rare man (records/target/bb/rare_recruits.json, fourteen men, each his own look; which man is his weight among the men that place may hold). Battle Brothers keeps each rare background between 2.2 and 8.3 in 100 a slot; we keep the whole rare share inside that band at 6 in 100 so a careful player meets one every few towns: a town's four slots hold one about 1 week in 4.5 (1 - 0.94^4 = 22%), a fortress's six about 1 in 3.2 (31%), a camp's two about 1 in 8.6 (12%, only the village kinds: lab hunter, old guard, static hunter, dune rider, desert wild); market day's two more and the recruiter's two to four more raise it. Was 0.03 in the rare man's own file (RUN TWO 10/25, TUNING s3), when there were three. Levels 2 to 3 kept (TUNING's). The settlement screen reads this row first (__THE_RARE_MAN_AT_THE_POST__), the file's chance_per_slot only if this row is missing. TUNING 2 owns the number.",
+  "draft": true
  }
 }

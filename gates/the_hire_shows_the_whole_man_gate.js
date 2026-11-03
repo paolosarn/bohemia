@@ -71,7 +71,7 @@ const HTML = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.h
           for (let y = 0; y < c.height; y += k) { let any = false; for (let x = 0; x < c.width; x++) if (d[(y * c.width + x) * 4 + 3] > 200) { any = true; break; } if (any) rows++; } }
         const g = h.querySelector('.hgun'), arm = g && g.querySelector('.arm');
         const want = g && window.BohemiaRoster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', g.dataset.gun), false) : null;
-        return { id: h.dataset.id, look: c && c.dataset.look, cardLook: r && r.look, standing: standing.indexOf(r && r.look) >= 0, drawn: c && c.dataset.drawn, held: c && c.dataset.held, rows,
+        return { id: h.dataset.id, melee: !!(g && g.dataset.arm === 'melee'), look: c && c.dataset.look, cardLook: r && r.look, standing: standing.indexOf(r && r.look) >= 0, drawn: c && c.dataset.drawn, held: c && c.dataset.held, rows,
           gun: g && g.dataset.gun, gunName: g && (g.querySelector('b') || {}).textContent, arm: arm && arm.textContent, want: want && (want.reach + (want.rounds ? '  ·  ' + want.rounds : '')),
           stars: h.querySelectorAll('.hstats .star').length, btn: (h.querySelector('.act') || {}).textContent || '',
           wage: r && window.BohemiaWages ? Math.round(BohemiaWages.wage(r.backgroundId, r.level) * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1)) : 0 };   /* RE-AIMED 10/25 (RUN TWO __THE_HIRED_ARE_PAID__, rule 151(b)): his night is the bill and his wage */
@@ -82,11 +82,15 @@ const HTML = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.h
   const whole = cards.filter(c => c.drawn === '1' && c.rows >= 60 && c.look === c.cardLook && c.standing);
   ok('W1 THE WHOLE MAN: every card at the post stands its man as his whole 3D model, the man at the rail', cards.length >= 15 && whole.length === cards.length && noHall.length === 0,
      whole.length + ' of ' + cards.length + ' cards' + (whole.length < cards.length ? ', red ' + cards.filter(c => whole.indexOf(c) < 0).slice(0, 2).map(c => c.place + ':' + c.look + ' rows ' + c.rows + ' drawn ' + c.drawn).join(' | ') : ''));
-  const held = cards.filter(c => c.held === '1' || c.held === 'hidden'), shown = cards.filter(c => c.held === '1');
-  ok('  his gun in his hands (its own cell over him; covered by his body only on a pose)', held.length === cards.length && shown.length >= cards.length * 0.8, shown.length + ' of ' + cards.length + ' drawn in his hands');
+  /* RE-AIMED 11/3 (HIRES, rule 351(a) amended, Paolo 11/3: 'more rare melee guys, all the rare guys I saw were ranged only'): a rare
+     MELEE man's card shows HIS weapon and stands him bare of the pistol in his bag (gates/more_rare_hires_gate.js H5 holds it);
+     every other card as before */
+  const gunCards = cards.filter(c => !c.melee);
+  const held = gunCards.filter(c => c.held === '1' || c.held === 'hidden'), shown = gunCards.filter(c => c.held === '1');
+  ok('  his gun in his hands (its own cell over him; covered by his body only on a pose); a rare melee man his own weapon (' + (cards.length - gunCards.length) + ')', held.length === gunCards.length && shown.length >= gunCards.length * 0.8, shown.length + ' of ' + gunCards.length + ' drawn in his hands');
   const alive = cards.filter(c => c.poses >= 2);
   ok('  breathing on his own beat: two poses or more in three seconds on most cards', alive.length >= cards.length * 0.6, alive.length + ' of ' + cards.length);
-  const said = cards.filter(c => c.gun && isGun(c.gun) && c.arm && c.want && c.arm === c.want && /TILE/.test(c.arm));
+  const said = cards.filter(c => c.gun && (isGun(c.gun) || c.melee) && c.arm && c.want && c.arm === c.want && /TILE/.test(c.arm));   /* a rare melee man: his own weapon's reach (HIRES 11/3) */
   ok('W2 WHAT HIS GUN DOES: every card names his gun and its reach and rounds in the crew screen\'s own words', said.length === cards.length,
      said.length + ' of ' + cards.length + (cards[0] ? ' (' + cards[0].gunName + ' ' + cards[0].arm + ')' : ''));
   const three = cards.filter(c => c.stars === 3), priced = cards.filter(c => /\d+ batt/.test(c.btn) && new RegExp('\\b' + (night + c.wage) + ' batter(y|ies) a night').test(c.btn) && c.wage >= 1);

@@ -1,0 +1,272 @@
+{
+ "look": "PERSON_RARE_10",
+ "shape": "person_rare_10: a person of the Body, his own skin skin_mid 3, TATTERED FLANNEL under DUST PONCHO",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TATTERED FLANNEL",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "WRAPPED BOOTS",
+  "outer": "DUST PONCHO",
+  "gear": "WORN BRACERS",
+  "outfit": []
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
+ },
+ "model": "records/character/rig/person_rare_10.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_10_shoe": 3716,
+  "person_rare_10_shirt": 69552,
+  "person_rare_10_collar": 1536,
+  "person_rare_10_collar_points": 180,
+  "person_rare_10_placket": 162,
+  "person_rare_10_buttons": 204,
+  "person_rare_10_cuffs": 2048,
+  "person_rare_10_tail": 2016,
+  "person_rare_10_poncho": 23728,
+  "person_rare_10_poncho_neck": 1536,
+  "person_rare_10_trouser": 43706,
+  "person_rare_10_rolled_hem": 2048,
+  "person_rare_10_double_knee": 252,
+  "person_rare_10_hammer_loop": 50,
+  "person_rare_10_patches": 252,
+  "person_rare_10_sole_1": 242,
+  "person_rare_10_midsole_1": 242,
+  "person_rare_10_sole_0": 242,
+  "person_rare_10_midsole_0": 242,
+  "person_rare_10_boot_collar": 2048,
+  "person_rare_10_boot_collar_line": 2048,
+  "person_rare_10_eyelets_1": 120,
+  "person_rare_10_eyelets_0": 120,
+  "person_rare_10_blanket_shoulder_roll": 2688,
+  "person_rare_10_field_leg_wraps": 14228,
+  "person_rare_10_worn_bracers": 8852,
+  "person_rare_10_worn_bracers_lace": 2048,
+  "person_rare_10_worn_bracers_lace.001": 2048,
+  "person_rare_10_worn_bracers_lace.002": 2048,
+  "person_rare_10_hair": 17968,
+  "person_rare_10_hand_L": 392,
+  "person_rare_10_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_10_blanket_shoulder_roll": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_rare_10_blanket_shoulder_roll_ties": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_rare_10_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_rare_10_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_10_buttons": [
+   0.1812,
+   0.2664,
+   0.3663
+  ],
+  "person_rare_10_collar": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_collar_points": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_10_cuffs": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_double_knee": [
+   0.0343,
+   0.0595,
+   0.0976
+  ],
+  "person_rare_10_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_10_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_10_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_10_field_leg_wraps": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_rare_10_field_leg_wraps_edge": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_10_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_10_hammer_loop": [
+   0.0343,
+   0.0595,
+   0.0976
+  ],
+  "person_rare_10_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_10_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_10_patches": [
+   0.1812,
+   0.2664,
+   0.3663
+  ],
+  "person_rare_10_placket": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_placket_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_10_poncho": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_rare_10_poncho_band": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_rare_10_poncho_neck": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_10_rolled_hem": [
+   0.1812,
+   0.2664,
+   0.3663
+  ],
+  "person_rare_10_shirt": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_10_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_10_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_10_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_10_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_rare_10_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_rare_10_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_rare_10_tail": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_10_trouser": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_trousers": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_rare_10_worn_bracers": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_rare_10_worn_bracers_lace": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

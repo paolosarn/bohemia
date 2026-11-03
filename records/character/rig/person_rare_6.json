@@ -1,0 +1,243 @@
+{
+ "look": "PERSON_RARE_6",
+ "shape": "person_rare_6: a person of the Body, his own skin skin_mid 1, BONE TANK under LEATHER VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TANK",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "STACKED SOLE BOOT",
+  "outer": "LEATHER VEST",
+  "gear": "SOOT GORGET",
+  "hands": "SOOT HAND WRAPS",
+  "outfit": [
+   "BLACK TANK read as one with LEATHER VEST (42 and 69 of 255): the same cut in BONE TANK (154)",
+   "LEATHER VEST worn open to the neck"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "VEST"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_rare_6.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_6_shoe": 3836,
+  "person_rare_6_shirt": 21856,
+  "person_rare_6_coat": 23258,
+  "person_rare_6_lapels": 396,
+  "person_rare_6_zip": 324,
+  "person_rare_6_trouser": 43706,
+  "person_rare_6_sole_1": 242,
+  "person_rare_6_midsole_1": 242,
+  "person_rare_6_sole_0": 242,
+  "person_rare_6_midsole_0": 242,
+  "person_rare_6_boot_collar": 2048,
+  "person_rare_6_boot_collar_line": 2048,
+  "person_rare_6_spiked_pauldron": 7782,
+  "person_rare_6_spiked_pauldron_strap": 1792,
+  "person_rare_6_spiked_pauldron_spike_0": 16,
+  "person_rare_6_spiked_pauldron_spike_1": 16,
+  "person_rare_6_spiked_pauldron_spike_2": 16,
+  "person_rare_6_oxblood_bracers": 8852,
+  "person_rare_6_oxblood_bracers_lace": 2048,
+  "person_rare_6_oxblood_bracers_lace.001": 2048,
+  "person_rare_6_oxblood_bracers_lace.002": 2048,
+  "person_rare_6_soot_hand_wraps_L": 392,
+  "person_rare_6_soot_hand_wraps_R": 392,
+  "person_rare_6_soot_hand_wraps_wrap_0": 2048,
+  "person_rare_6_soot_hand_wraps_wrap_1": 2048,
+  "person_rare_6_soot_hand_wraps_wrap_2": 2048,
+  "person_rare_6_soot_gorget": 1536,
+  "person_rare_6_soot_gorget_rim": 1536,
+  "person_rare_6_hair": 17968,
+  "person_rare_6_hand_L": 392,
+  "person_rare_6_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_6_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_rare_6_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_6_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_rare_6_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_6_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_6_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_rare_6_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_6_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_6_oxblood_bracers": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_rare_6_oxblood_bracers_lace": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_rare_6_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_6_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_6_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_6_skin": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "person_rare_6_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_rare_6_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_rare_6_soot_gorget": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_6_soot_gorget_rim": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_rare_6_soot_hand_wraps": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_6_soot_hand_wraps_wrap_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_6_soot_hand_wraps_wrap_1": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_rare_6_soot_hand_wraps_wrap_2": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_6_spiked_pauldron": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_6_spiked_pauldron_rim": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_6_spiked_pauldron_spike_0": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_6_spiked_pauldron_spike_1": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_6_spiked_pauldron_spike_2": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_6_spiked_pauldron_strap": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_6_trouser": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_rare_6_trouser_folds": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_rare_6_trousers": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_rare_6_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

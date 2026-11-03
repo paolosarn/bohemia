@@ -1,0 +1,317 @@
+{
+ "look": "PERSON_RARE_5",
+ "shape": "person_rare_5: a person of the Body, his own skin skin_deep 2, BONE BUTTON-UP under FIELD JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE BUTTON-UP",
+  "legs": "FIELD GREEN PANTS",
+  "feet": "OLIVE BOOTS",
+  "outer": "FIELD JACKET",
+  "gear": "KHAKI ELBOW PADS",
+  "back": "DUST BEDROLL",
+  "outfit": [
+   "FIELD BUTTON-UP read as one with FIELD JACKET (76 and 76 of 255): the same cut in BONE BUTTON-UP (154)",
+   "FIELD JACKET worn open to the neck",
+   "the shirt's collar out over the lapels",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "collar_out": 0.0199,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.1,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_rare_5.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_5_shoe": 3716,
+  "person_rare_5_shirt": 71204,
+  "person_rare_5_collar": 1536,
+  "person_rare_5_collar_points": 180,
+  "person_rare_5_placket": 162,
+  "person_rare_5_buttons": 204,
+  "person_rare_5_cuffs": 2048,
+  "person_rare_5_tail": 2016,
+  "person_rare_5_coat": 55998,
+  "person_rare_5_lapels": 396,
+  "person_rare_5_waistband": 1792,
+  "person_rare_5_cuffs.001": 2048,
+  "person_rare_5_pockets": 252,
+  "person_rare_5_pocket_flaps": 252,
+  "person_rare_5_chest_pockets": 252,
+  "person_rare_5_chest_flaps": 252,
+  "person_rare_5_trouser": 43706,
+  "person_rare_5_rolled_hem": 2048,
+  "person_rare_5_crease": 180,
+  "person_rare_5_sole_1": 242,
+  "person_rare_5_midsole_1": 242,
+  "person_rare_5_sole_0": 242,
+  "person_rare_5_midsole_0": 242,
+  "person_rare_5_boot_collar": 2048,
+  "person_rare_5_boot_collar_line": 2048,
+  "person_rare_5_eyelets_1": 120,
+  "person_rare_5_eyelets_0": 120,
+  "person_rare_5_steel_shin_guards_1": 1958,
+  "person_rare_5_steel_shin_guards_0": 1958,
+  "person_rare_5_steel_shin_guards_strap_-7": 2048,
+  "person_rare_5_steel_shin_guards_strap_0": 2048,
+  "person_rare_5_steel_shin_guards_strap_7": 2048,
+  "person_rare_5_khaki_elbow_pads": 10272,
+  "person_rare_5_khaki_elbow_pads_strap": 2048,
+  "person_rare_5_khaki_elbow_pads_strap.001": 2048,
+  "person_rare_5_dust_bedroll_roll": 98,
+  "person_rare_5_dust_bedroll_tie_1": 32,
+  "person_rare_5_dust_bedroll_tie_0": 32,
+  "person_rare_5_dust_bedroll_carry": 196,
+  "person_rare_5_hair": 17968,
+  "person_rare_5_hand_L": 392,
+  "person_rare_5_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_5_boot_collar": [
+   0.1329,
+   0.1683,
+   0.0545
+  ],
+  "person_rare_5_boot_collar_line": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_5_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_rare_5_chest_flaps": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_5_chest_pockets": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_5_coat": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_5_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_5_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_5_crease": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_5_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_5_dust_bedroll_carry": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_5_dust_bedroll_roll": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_rare_5_dust_bedroll_tie_0": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_5_dust_bedroll_tie_1": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_5_dust_bedroll_weave": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_5_eyelets_0": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_5_eyelets_1": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_5_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_5_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_5_khaki_elbow_pads": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_rare_5_khaki_elbow_pads_strap": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_rare_5_lapels": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_5_midsole_0": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_5_midsole_1": [
+   0.0262,
+   0.0331,
+   0.0116
+  ],
+  "person_rare_5_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_5_pocket_flaps": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_rare_5_pockets": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_5_rolled_hem": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_rare_5_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_5_shoe": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_5_shoes": [
+   0.0666,
+   0.0823,
+   0.0262
+  ],
+  "person_rare_5_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "person_rare_5_sole_0": [
+   0.0273,
+   0.0319,
+   0.016
+  ],
+  "person_rare_5_sole_1": [
+   0.0273,
+   0.0319,
+   0.016
+  ],
+  "person_rare_5_steel_shin_guards_0": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_rare_5_steel_shin_guards_1": [
+   0.063,
+   0.1046,
+   0.1651
+  ],
+  "person_rare_5_steel_shin_guards_strap_-7": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_rare_5_steel_shin_guards_strap_0": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_rare_5_steel_shin_guards_strap_7": [
+   0.0262,
+   0.0437,
+   0.0704
+  ],
+  "person_rare_5_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_5_trouser": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_5_trousers": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_rare_5_waistband": [
+   0.0185,
+   0.0356,
+   0.016
+  ]
+ }
+}

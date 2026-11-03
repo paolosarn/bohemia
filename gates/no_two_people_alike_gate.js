@@ -58,7 +58,7 @@ const TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   const onSheet = {}, walks = {};
   Object.keys(IX.sheets).forEach(n => { const m = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_mix', n + '.json'), 'utf8'));
     m.gangs.forEach(l => { onSheet[l] = n; }); m.walks.forEach(l => { walks[l] = 1; }); });
-  const off = MIX.people.filter(q => !onSheet[q.look] || (!q.stands && !walks[q.look]));
+  const off = MIX.people.filter(q => !q.rare && (!onSheet[q.look] || (!q.stands && !walks[q.look])));   /* RE-AIMED 11/3 (HIRES): the fourteen rare men stand only at a post, never in a map's crowd (gates/more_rare_hires_gate.js H2b) */
   const tall = Object.keys(IX.sheets).filter(n => IX.sheets[n].length > 12);
   ok('  every gang and the places\' people are on the map\'s sheets (twelve a sheet at most), every walker walking', off.length === 0 && tall.length === 0 && Object.keys(MIX.by_gang).every(g => IX.pools[g]),
     Object.keys(IX.pools).map(g => g + ' ' + IX.pools[g].length).join(', ') + (off.length ? '; off: ' + off.slice(0, 3).map(q => q.look).join(' ') : ''));

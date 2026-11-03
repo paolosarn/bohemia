@@ -1,0 +1,270 @@
+{
+ "look": "PERSON_RARE_13",
+ "shape": "person_rare_13: a person of the Body, his own skin skin_light 1, TATTERED TEE under RUST WORK COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TATTERED TEE",
+  "legs": "RUST CARGOS",
+  "feet": "RUST BOOTS",
+  "outer": "RUST WORK COAT",
+  "gear": "SAND KNEEPADS",
+  "outfit": [
+   "RUST WORK COAT worn open to the neck"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "CHORE COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_rare_13.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_13_shoe": 3716,
+  "person_rare_13_shirt": 38664,
+  "person_rare_13_collar": 1536,
+  "person_rare_13_tail": 2414,
+  "person_rare_13_coat": 71778,
+  "person_rare_13_coat_skirt": 3838,
+  "person_rare_13_collar.001": 1170,
+  "person_rare_13_lapels": 396,
+  "person_rare_13_cuffs": 2048,
+  "person_rare_13_pockets": 252,
+  "person_rare_13_pocket_flaps": 252,
+  "person_rare_13_trouser": 43706,
+  "person_rare_13_rolled_hem": 2048,
+  "person_rare_13_cargo_pockets": 252,
+  "person_rare_13_cargo_flaps": 108,
+  "person_rare_13_sole_1": 242,
+  "person_rare_13_midsole_1": 242,
+  "person_rare_13_sole_0": 242,
+  "person_rare_13_midsole_0": 242,
+  "person_rare_13_boot_collar": 2048,
+  "person_rare_13_boot_collar_line": 2048,
+  "person_rare_13_eyelets_1": 120,
+  "person_rare_13_eyelets_0": 120,
+  "person_rare_13_scrap_chest_plate": 6566,
+  "person_rare_13_scrap_chest_plate_x": 196,
+  "person_rare_13_rust_gorget": 1536,
+  "person_rare_13_rust_gorget_rim": 1536,
+  "person_rare_13_sand_kneepads_1": 3078,
+  "person_rare_13_sand_kneepads_0": 3078,
+  "person_rare_13_sand_kneepads_strap_-6": 2048,
+  "person_rare_13_sand_kneepads_strap_6": 2048,
+  "person_rare_13_hair": 17968,
+  "person_rare_13_hand_L": 392,
+  "person_rare_13_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_13_boot_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_13_boot_collar_line": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_cargo_flaps": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_cargo_pockets": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_coat": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_coat_skirt": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_13_cuffs": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_eyelets_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_eyelets_1": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_13_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_13_lapels": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_midsole_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_midsole_1": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_pocket_flaps": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_pockets": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_rolled_hem": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_13_rust_gorget": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_rust_gorget_rim": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_13_sand_kneepads_0": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_rare_13_sand_kneepads_1": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_rare_13_sand_kneepads_strap_-6": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_13_sand_kneepads_strap_6": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_rare_13_scrap_chest_plate": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_scrap_chest_plate_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_rare_13_scrap_chest_plate_rivets": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_scrap_chest_plate_x": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_rare_13_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_13_shoe": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_shoes": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_rare_13_sole_0": [
+   0.0685,
+   0.0273,
+   0.0144
+  ],
+  "person_rare_13_sole_1": [
+   0.0685,
+   0.0273,
+   0.0144
+  ],
+  "person_rare_13_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_rare_13_trouser": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_rare_13_trousers": [
+   0.2122,
+   0.0595,
+   0.0185
+  ]
+ }
+}

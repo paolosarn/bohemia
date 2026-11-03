@@ -1,0 +1,245 @@
+{
+ "look": "PERSON_RARE_8",
+ "shape": "person_rare_8: a person of the Body, his own skin skin_light 3, WHITE TEE under SOOT TRENCH",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WHITE TEE",
+  "legs": "SOOT CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "outer": "SOOT TRENCH",
+  "gear": "SHELL BANDOLIER",
+  "neck": "CHARCOAL SCARF",
+  "outfit": [
+   "CHARCOAL STRIPED TEE read as one with SOOT TRENCH (52 and 70 of 255): the same cut in WHITE TEE (208)"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "TRENCH",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
+ },
+ "model": "records/character/rig/person_rare_8.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_rare_8_shoe": 3716,
+  "person_rare_8_shirt": 40296,
+  "person_rare_8_collar": 1536,
+  "person_rare_8_hem": 1792,
+  "person_rare_8_coat": 73272,
+  "person_rare_8_coat_skirt": 8938,
+  "person_rare_8_collar.001": 1536,
+  "person_rare_8_lapels": 396,
+  "person_rare_8_cuffs": 2048,
+  "person_rare_8_belt": 1792,
+  "person_rare_8_buttons": 204,
+  "person_rare_8_trouser": 43706,
+  "person_rare_8_rolled_hem": 2048,
+  "person_rare_8_cargo_pockets": 252,
+  "person_rare_8_cargo_flaps": 108,
+  "person_rare_8_sole_1": 242,
+  "person_rare_8_midsole_1": 242,
+  "person_rare_8_sole_0": 242,
+  "person_rare_8_midsole_0": 242,
+  "person_rare_8_boot_collar": 2048,
+  "person_rare_8_boot_collar_line": 2048,
+  "person_rare_8_eyelets_1": 120,
+  "person_rare_8_eyelets_0": 120,
+  "person_rare_8_shell_bandolier": 1792,
+  "person_rare_8_shell_bandolier_shells": 408,
+  "person_rare_8_shell_bandolier_pouch": 26,
+  "person_rare_8_charcoal_scarf": 3072,
+  "person_rare_8_charcoal_scarf_tail": 162,
+  "person_rare_8_charcoal_scarf_fringe": 54,
+  "person_rare_8_hair": 17968,
+  "person_rare_8_hand_L": 392,
+  "person_rare_8_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_rare_8_belt": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_rare_8_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_rare_8_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_buttons": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_rare_8_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_8_charcoal_scarf": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_8_charcoal_scarf_fringe": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_charcoal_scarf_tail": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_8_coat": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_rare_8_coat_skirt": [
+   0.0612,
+   0.0612,
+   0.0704
+  ],
+  "person_rare_8_collar": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_8_cuffs": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_rare_8_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_rare_8_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_rare_8_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_8_lapels": [
+   0.0232,
+   0.0232,
+   0.0262
+  ],
+  "person_rare_8_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_rare_8_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_rare_8_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_rare_8_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_rare_8_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_rare_8_shirt": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_rare_8_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_8_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_8_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_rare_8_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_rare_8_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_rare_8_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_rare_8_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ]
+ }
+}

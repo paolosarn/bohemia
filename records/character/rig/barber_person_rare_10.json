@@ -1,0 +1,37 @@
+{
+ "cut": "PERSON rare_10",
+ "tag": "person_rare_10",
+ "bank": {
+  "kind": "person",
+  "gang": "Body"
+ },
+ "worn_by": "Body, rolled",
+ "model": "records/character/rig/barber_person_rare_10.glb",
+ "body": "records/character/rig/person_rare_10.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_rust",
+  1
+ ],
+ "hair_rgb": [
+  95,
+  38,
+  23
+ ],
+ "skin_rgb": [
+  205,
+  160,
+  115
+ ],
+ "model_top_m": 1.5311,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7231,
+ "pieces": {
+  "barber_wild_mane_cap": 219298,
+  "barber_wild_mane_mane": 399212,
+  "f1_person_rare_10_beard": 32419,
+  "f1_person_rare_10_locks": 8322
+ }
+}

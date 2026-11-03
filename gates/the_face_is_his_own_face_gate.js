@@ -140,7 +140,7 @@ const READ = () => new Promise(res => {
         const hall = await p.evaluate(() => ({ cards: [].slice.call(document.querySelectorAll('#sheet.on .hire canvas.face')).map(c => ({ look: c.dataset.look, k: c.dataset.face })),
           standing: BohemiaSettlement.folk().filter(q => q.post).map(q => q.look), men: BohemiaSettlement.recruits().map(r => r.look) }));
         hall.cards.forEach(c => { posts++; allFaces.push(c);
-          if (c.k !== 'fresh' || !ROLLED.test(c.look) || !(WHO[c.look] || {}).fight || company.has(c.look) || hall.standing.indexOf(c.look) < 0) pBad.push(name + ':' + c.look + ':' + c.k); });
+          if (c.k !== 'fresh' || !ROLLED.test(c.look) || !((WHO[c.look] || {}).fight || (WHO[c.look] || {}).rare) || company.has(c.look) || hall.standing.indexOf(c.look) < 0) pBad.push(name + ':' + c.look + ':' + c.k); });   /* RE-AIMED 11/3 (HIRES): a rare man is in the mix as rare (his own fight sheet, never dealt to a common slot), not fight: true */
         if (hall.cards.length !== hall.men.length) pBad.push(name + ': ' + hall.cards.length + ' cards for ' + hall.men.length + ' men');
       }
       if (k === 'board') {

@@ -1,0 +1,563 @@
+[
+ {
+  "id": "rare_0",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.jawW": 33,
+   "face.chinW": 20,
+   "face.len": 38,
+   "face.cheekW": 34,
+   "face.mouthY": 1
+  },
+  "face_name": "LANTERN JAW",
+  "sex": "m",
+  "rare": true,
+  "who": "road knight: a highway patrol trooper who kept riding the 95 after the state stopped paying",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "mark_name": "BROKEN NOSE",
+  "mark": "broken_nose",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "top": "STEEL WORK SHIRT",
+  "coat": "LEATHER JACKET",
+  "legs": "BLACK CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "STEEL PAULDRON",
+   "LEATHER GLOVES",
+   "THIGH HOLSTER"
+  ]
+ },
+ {
+  "id": "rare_1",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "FRENCH CROP",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  },
+  "face_name": "BOXER",
+  "sex": "m",
+  "rare": true,
+  "who": "gun for hire: a private military contractor's rifleman; the firm folded with the dollar, he kept the rifle",
+  "facial_hair": "CHIN STRAP",
+  "new_beard": "chin_strap",
+  "hat": "HAT OLIVE FIELD CAP",
+  "eyewear": "FACE GREY WRAPAROUNDS",
+  "top": "OLIVE DRAB TEE",
+  "coat": "TACTICAL VEST",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "OLIVE CHEST RIG",
+   "SCAV KNEEPADS",
+   "OLIVE RUCK PACK"
+  ]
+ },
+ {
+  "id": "rare_2",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "HORSESHOE",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "sex": "m",
+  "rare": true,
+  "who": "blade master: thirty years the sword in a Strip casino's dinner show; the show closed, the blades stayed sharp",
+  "facial_hair": "MOUSTACHE",
+  "beard": "moustache",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "top": "BONE SHOULDER SHIRT",
+  "coat": "ASH WRAP COAT",
+  "legs": "WIDE PLEAT TROUSER",
+  "feet": "ASH COLUMN",
+  "kit": [
+   "HIP SASH",
+   "HAND WRAPS"
+  ]
+ },
+ {
+  "id": "rare_3",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "sex": "m",
+  "rare": true,
+  "who": "contract man: the one the casinos sent when a debt could not be paid",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "mark_name": "LIP SCAR",
+  "scar": "lip",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "SLATE COMMA COAT",
+  "legs": "CROPPED BLACK DENIM",
+  "feet": "COAL MID BOOT",
+  "kit": [
+   "SOOT GLOVES",
+   "CHARCOAL BELT"
+  ]
+ },
+ {
+  "id": "rare_4",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "sex": "m",
+  "rare": true,
+  "who": "lab hunter: kept the de-extinction lab's pens; when the money died the clones got out, and he knows them",
+  "facial_hair": "FULL BEARD",
+  "beard": "full",
+  "mark_name": "STITCHED GASH",
+  "mark": "stitched_gash",
+  "top": "SAGE FLANNEL",
+  "coat": "BARN COAT",
+  "legs": "DUST TROUSERS",
+  "feet": "DUST BROWN BOOTS",
+  "kit": [
+   "DUST BROWN BANDOLIER",
+   "OLIVE LEG WRAPS",
+   "SALVAGE SATCHEL"
+  ]
+ },
+ {
+  "id": "rare_5",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "deep",
+  "skin": [
+   "skin_deep",
+   2
+  ],
+  "hair_cut": "SALT SKULL",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
+  },
+  "face_name": "BULLDOG",
+  "sex": "m",
+  "rare": true,
+  "who": "old guard: a Guard sergeant whose pension died with the dollar; he still stands a line like it is drill",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "mark_name": "CHEEK SCAR",
+  "scar": "cheek",
+  "top": "FIELD BUTTON-UP",
+  "coat": "FIELD JACKET",
+  "legs": "FIELD GREEN PANTS",
+  "feet": "OLIVE BOOTS",
+  "kit": [
+   "STEEL SHIN GUARDS",
+   "KHAKI ELBOW PADS",
+   "DUST BEDROLL"
+  ]
+ },
+ {
+  "id": "rare_6",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "RAZOR LINES",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "sex": "m",
+  "rare": true,
+  "who": "pit fighter: a cage fighter out of the Mob's pit, the crowd's favourite the year the lights went half out",
+  "facial_hair": "GOATEE",
+  "beard": "goatee",
+  "mark_name": "CAULIFLOWER EAR",
+  "mark": "cauliflower_ear",
+  "top": "BLACK TANK",
+  "coat": "LEATHER VEST",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "STACKED SOLE BOOT",
+  "kit": [
+   "SPIKED PAULDRON",
+   "OXBLOOD BRACERS",
+   "SOOT HAND WRAPS",
+   "SOOT GORGET"
+  ]
+ },
+ {
+  "id": "rare_7",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "SLICK DRAPE",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "sex": "m",
+  "rare": true,
+  "who": "casino heir: a casino family's son, fenced at a private academy, the fortune went to zero; he wants a story",
+  "top": "BONE BUTTON-UP",
+  "coat": "LEATHER SPLIT-TAIL COAT",
+  "legs": "BONE WIDE TROUSER",
+  "feet": "LEATHER STACK BOOT",
+  "kit": [
+   "BONE SCARF",
+   "LEATHER GLOVES"
+  ]
+ },
+ {
+  "id": "rare_8",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "LONG DROP",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "sex": "m",
+  "rare": true,
+  "who": "static hunter: hunts the static listeners; he has heard the broadcast and it did not take him",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "top": "CHARCOAL STRIPED TEE",
+  "coat": "SOOT TRENCH",
+  "legs": "SOOT CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "SHELL BANDOLIER",
+   "CHARCOAL SCARF"
+  ]
+ },
+ {
+  "id": "rare_9",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "CURTAIN CUT",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 20,
+   "face.cheekW": 38,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "face.len": 35,
+   "eyes.gap": 7
+  },
+  "face_name": "DIAMOND",
+  "sex": "m",
+  "rare": true,
+  "who": "dune rider: a rodeo rider off the old circuit; the bulls are clones now and so is the whip hand",
+  "facial_hair": "PENCIL MOUSTACHE",
+  "new_beard": "pencil",
+  "top": "DUST PLAID SHIRT",
+  "coat": "DENIM JACKET",
+  "legs": "BLUE JEANS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "LEATHER BELT",
+   "TRAILING SCARF"
+  ]
+ },
+ {
+  "id": "rare_10",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "WILD MANE",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "sex": "m",
+  "rare": true,
+  "who": "desert wild: ten years off the grid in the Spring Mountains; he walked down and the money was gone",
+  "facial_hair": "LONG BEARD",
+  "new_beard": "long",
+  "top": "TATTERED FLANNEL",
+  "coat": "DUST PONCHO",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "BLANKET SHOULDER ROLL",
+   "FIELD LEG WRAPS",
+   "WORN BRACERS"
+  ]
+ },
+ {
+  "id": "rare_11",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "CROPPED CURLS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "sex": "m",
+  "rare": true,
+  "who": "casino guard: a casino's head of security, twenty years of the floor; the casino is dark, he is not",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "top": "STORM BUTTON-UP",
+  "coat": "SLATE CAR COAT",
+  "legs": "DROP RISE TROUSER",
+  "feet": "COAL COLUMN",
+  "kit": [
+   "LEAD WAIST WRAP",
+   "DUST GLOVES"
+  ]
+ },
+ {
+  "id": "rare_12",
+  "gang": "Body",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
+   "face.jawW": 24,
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
+  },
+  "face_name": "BABY FACE",
+  "sex": "m",
+  "rare": true,
+  "who": "oath keeper: a burned-out SWAT medic; he swore to bring them back and still does",
+  "mark_name": "CHEEK BURN",
+  "mark": "cheek_burn",
+  "top": "STEEL HOODIE",
+  "coat": "STORM JACKET",
+  "legs": "SLATE WORK PANTS",
+  "feet": "GREY SNEAKERS",
+  "kit": [
+   "ELBOW PADS",
+   "SCAV TOOL BELT",
+   "RUCK PACK"
+  ]
+ },
+ {
+  "id": "rare_13",
+  "gang": "Body",
+  "heritage": "mixed",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "SCORCH",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
+  },
+  "face_name": "SKULL",
+  "sex": "m",
+  "rare": true,
+  "who": "road raider: a convoy raider who walked off when his crew turned on each other",
+  "facial_hair": "FULL BEARD",
+  "beard": "full",
+  "eyewear": "FACE RUST DUST MASK",
+  "top": "TATTERED TEE",
+  "coat": "RUST WORK COAT",
+  "legs": "RUST CARGOS",
+  "feet": "RUST BOOTS",
+  "kit": [
+   "SCRAP CHEST PLATE",
+   "RUST GORGET",
+   "SAND KNEEPADS"
+  ]
+ }
+]

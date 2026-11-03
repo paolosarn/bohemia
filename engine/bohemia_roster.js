@@ -56,7 +56,7 @@
     messenger: 'runner', militia: 'block watch', miller: 'grain man', minstrel: 'lounge singer', monk: 'chapel keeper', pacified_flagellant: 'quiet penitent',
     melee_nomad: 'dune rider', ranged_nomad: 'dune shooter', oathtaker: 'oath keeper', orc_slayer: 'machine breaker', pimp: 'strip hustler',
     retired_soldier: 'old guard', sellsword: 'gun for hire', servant: 'house help', shepherd: 'goat herder', squire: 'gun bearer',
-    swordmaster: 'blade master', vagabond: 'drifter' };
+    swordmaster: 'blade master', vagabond: 'drifter', witchhunter: 'static hunter', raider: 'road raider' };   /* the last two: HIRES 11/3 (the rare men, rule 351(a)) */
   /* A TWO-HANDER WEARS ITS OWN NAME (RUN TWO [a two-hander wears its own name], rule 194, Paolo 10/25: 'I can't make a spear shield
      wall anymore... I tried to put the spear in the shield and it kept saying this shield was like both hands'). MEASURED (the
      coordinator): nobody made the shield two-handed; the NAME did it. Every spear row was a 'rebar spear', and the class holds the

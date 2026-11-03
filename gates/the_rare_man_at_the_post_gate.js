@@ -21,6 +21,11 @@
      R6 the fight is handed his kit (nfOpts carries his shield and helm)
      R7 the computer: his card reads as rare and fits
      R8 nothing threw
+   RE-AIMED 11/3 (HIRES [more rare hires], rule 351(a), Paolo 11/3: 'We need more rare characters'): fourteen men now
+   (records/target/bb/rare_recruits.json, RUN TWO's three first), each in his own body; the chance is TUNING's row
+   (ours.json rare_at_the_post, 6 in 100); the village kinds stand at a camp too (Battle Brothers' villages); he reads as rare
+   by a spotlight under him on his card, never a glowing border. R1, R2, R3's kinds, R4 and R7 read those; the rest as was.
+   gates/more_rare_hires_gate.js holds the fourteen looks.
    node gates/the_rare_man_at_the_post_gate.js
    ========================================================================== */
 'use strict';
@@ -43,7 +48,7 @@ const STATS = ['hp', 'fatigue', 'resolve', 'initiative', 'melee_skill', 'ranged_
 /* what a card shows and whether it fits, read in the settlement's frame */
 const CARDS = () => [...document.querySelectorAll('#sheet.on .hire')].map(h => { const r = h.getBoundingClientRect(), cs = getComputedStyle(h);
   return { rare: h.classList.contains('rare'), id: h.dataset.id, out: [...h.querySelectorAll('*')].filter(e => e.getBoundingClientRect().right > r.right + 1).length,
-    frame: /224, 173, 58|rgb\(224/.test(cs.boxShadow), badge: !!(h.querySelector('.hrare b') && /RARE/.test(h.querySelector('.hrare b').textContent)),
+    frame: !/224, 173, 58/.test(cs.boxShadow) && !!h.querySelector('canvas.hfig') && /radial-gradient/.test(getComputedStyle(h.querySelector('canvas.hfig')).backgroundImage), badge: !!(h.querySelector('.hrare b') && /RARE/.test(h.querySelector('.hrare b').textContent)),
     line: (h.querySelector('.hrare') || {}).textContent || '', says: (h.querySelector('.hsays') || {}).textContent || '', stars: h.querySelectorAll('.hstats .star').length,
     btn: (h.querySelector('.act') || {}).textContent || '' }; });
 const FITS = () => { const sh = document.getElementById('sheet'); return { sw: sh.scrollWidth, cw: sh.clientWidth }; };
@@ -52,9 +57,10 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
   /* ---- R1 ---- */
   const bad = RARE.men.filter(m => !BGS.some(b => b.id === m.background) || Object.keys(m.stars).length !== 3 || !m.line
     || ['gun', 'main'].some(k => !W.some(r => r.id === m.kit[k])) || (m.kit.off && !A.shields.some(r => r.id === m.kit.off)) || (m.kit.body && !A.body.some(r => r.id === m.kit.body)) || (m.kit.head && !A.head.some(r => r.id === m.kit.head)));
-  ok('R1 the file: a road knight, a gun for hire and a blade master on real backgrounds and real kit rows, bases 150 / 150 / 400, 3 in 100 a slot, towns and fortresses only',
-    RARE.men.map(m => m.background).join() === 'hedge_knight,sellsword,swordmaster' && bad.length === 0 && RARE.men.map(m => m.base_crowns).join() === '150,150,400'
-    && RARE.chance_per_slot === 0.03 && RARE.tiers.join() === 'town,fortress', bad.map(m => m.background).join() || 'all real');
+  const OURS_R = (J('records/target/bb/ours.json').rare_at_the_post || {}).value || {}, CH = OURS_R.chance_per_slot;
+  ok('R1 the file: a road knight, a gun for hire and a blade master first (bases 150 / 150 / 400) among ' + RARE.men.length + ' rare men on real backgrounds and real kit rows; TUNING\'s chance ' + CH + ' a slot, inside Battle Brothers\' 2.2 to 8.3',
+    RARE.men.slice(0, 3).map(m => m.background).join() === 'hedge_knight,sellsword,swordmaster' && RARE.men.length >= 12 && bad.length === 0 && RARE.men.slice(0, 3).map(m => m.base_crowns).join() === '150,150,400'
+    && CH >= 0.022 && CH <= 0.083 && RARE.men.every(m => (m.tiers || RARE.tiers).indexOf('town') >= 0 || (m.tiers || RARE.tiers).indexOf('fortress') >= 0), bad.map(m => m.background).join() || 'all real');
 
   await new Promise(r => srv.listen(0, '127.0.0.1', r));
   const { chromium } = require('playwright');
@@ -77,8 +83,9 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
       return { n, hit, men: men.map(r => ({ bg: r.backgroundId, lv: r.level, stats: r.stats, tal: r.talents, price: null, base: r.baseCrowns })) }; });
   }
   const pct = t => Math.round(1000 * odds[t].hit / odds[t].n) / 10;
-  ok('*** R2 RARE ***: 2 to 4 slots in 100 at a town and at a fortress, never at a camp (' + pct('town') + ' and ' + pct('fortress') + ' in 100 over 400 weeks of six slots; camp ' + odds.camp.hit + ')',
-    pct('town') >= 2 && pct('town') <= 4 && pct('fortress') >= 2 && pct('fortress') <= 4 && odds.camp.hit === 0);
+  const VILLAGE = ['beast_slayer', 'retired_soldier', 'witchhunter', 'melee_nomad', 'barbarian'];
+  ok('*** R2 RARE ***: about ' + Math.round(CH * 100) + ' slots in 100 at a town and at a fortress (' + pct('town') + ' and ' + pct('fortress') + ' over 400 weeks of six slots); a camp only the village kinds (' + odds.camp.hit + ')',
+    Math.abs(pct('town') - CH * 100) <= 2 && Math.abs(pct('fortress') - CH * 100) <= 2 && odds.camp.men.every(m => VILLAGE.indexOf(m.bg) >= 0));
   const all = odds.town.men.concat(odds.fortress.men), kinds = [...new Set(all.map(m => m.bg))];
   const offTop = all.filter(m => { const row = BGS.find(r => r.id === m.bg), spec = RARE.men.find(x => x.background === m.bg);
     return !(m.lv >= 2 && m.lv <= 3) || m.tal.length !== 3 || STATS.some(k => { const r = row.stats[k], lo = r[0] + Math.ceil((r[r.length - 1] - r[0]) * RARE.stat_floor);
@@ -89,8 +96,8 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
   let rkPrice = null;
   if (rk) { await openAt('NELLIS GATE', 'fortress', rk.w * 7 + 1); const hx = await p.evaluate(() => BohemiaSettlement.where('hall')); if (hx) await p.mouse.click(hx.x, hx.y); await p.waitForTimeout(900);
     rkPrice = await p.evaluate(() => { const h = document.querySelector('#sheet.on .hire.rare'); const m = h && h.querySelector('.act').textContent.match(/(\d+) batter/); return m ? +m[1] : null; }); }
-  ok('R3 he is made rare: level 2 or 3, every stat in the top quarter of his range or past it by his levels, three talents; all three kinds dealt; a level-2 road knight costs about 500 (' + rkPrice + ')',
-    all.length > 20 && offTop.length === 0 && kinds.length === 3 && rkPrice >= 450 && rkPrice <= 560, all.length + ' rare men, ' + offTop.length + ' off; kinds ' + kinds.join(' '));
+  ok('R3 he is made rare: level 2 or 3, every stat in the top quarter of his range or past it by his levels, three talents; ' + kinds.length + ' kinds dealt; a level-2 road knight costs about 500 (' + rkPrice + ')',
+    all.length > 20 && offTop.length === 0 && kinds.length >= 10 && rkPrice >= 450 && rkPrice <= 560, all.length + ' rare men, ' + offTop.length + ' off; kinds ' + kinds.join(' '));
 
   /* ---- R4 on the phone ---- */
   const fits = [], seen = [];
@@ -98,8 +105,8 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
     await openAt(name, tier, day); const hx = await p.evaluate(() => BohemiaSettlement.where('hall')); if (hx) await p.mouse.click(hx.x, hx.y); await p.waitForTimeout(900);
     const cs = await p.evaluate(CARDS), fs2 = await p.evaluate(FITS); fits.push({ name, day, cards: cs.length, out: cs.reduce((a, c) => a + c.out, 0), sw: fs2.sw, cw: fs2.cw }); cs.filter(c => c.rare).forEach(c => seen.push(c)); }
   const rc = seen[0] || {};
-  ok('*** R4 HE READS AS RARE THE MOMENT HE IS MET *** (a gold frame, RARE, his level, what he wears, his own line, three starred stats)',
-    !!seen.length && rc.frame && rc.badge && /LEVEL [23]/.test(rc.line) && /FULL RIOT HELM|RIOT HELMET/.test(rc.line) && rc.says.length > 10 && rc.stars === 3, JSON.stringify({ line: rc.line, says: rc.says, stars: rc.stars, frame: rc.frame }));
+  ok('*** R4 HE READS AS RARE THE MOMENT HE IS MET *** (a spotlight under him and no glow, RARE, his level, what he wears, his own line, three starred stats)',
+    !!seen.length && rc.frame && rc.badge && /LEVEL [23]\s+·\s+\S/.test(rc.line) && rc.says.length > 10 && rc.stars === 3, JSON.stringify({ line: rc.line, says: rc.says, stars: rc.stars, frame: rc.frame }));
   ok('R4b every card at the hall fits the 390 px phone, plain weeks and his (nothing past a card\'s edge, the sheet never scrolls sideways)',
     fits.every(f => f.cards > 0 && f.out === 0 && f.sw <= f.cw), fits.map(f => f.name + '/' + f.day + ': ' + f.cards + ' cards, ' + f.out + ' out, ' + f.sw + '/' + f.cw).join('; '));
   if (process.env.BOHEMIA_SHOT_DIR) { await p.evaluate(() => { const h = document.querySelector('#sheet.on .hire.rare'); if (h) h.scrollIntoView({ block: 'center' }); }); await p.waitForTimeout(500); await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'rare_card_phone.png') }); }
@@ -146,7 +153,12 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
     /* RE-AIMED 10/26: over a town the one bar's crew tag presses the town's CREW (UI [one HUD everywhere], a0de7409: the town's own top row is hidden) */
     const tb = await fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
     const fb = tb ? await (await fr.frameElement()).boundingBox() : null;
-    const cb = tb ? { boundingBox: async () => ({ x: fb.x + tb.x - 1, y: fb.y + tb.y - 1, width: 2, height: 2 }) } : await sf.$('#crew'); if (cb) { const r = await cb.boundingBox(); await P.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await P.waitForTimeout(2200);
+    /* RE-AIMED 11/3 (HIRES): UI 7's rule 368 (THE TOP IS ONLY RESOURCES) put CREW on the phone only; the phone's CREW first, the old
+       presses only where the phone has none (a null box is never tapped) */
+    const ph = await P.evaluate(() => { const b = document.querySelector('#bohphone.on .bprow .app[data-app=crew]'); if (!b) return null; const r = b.getBoundingClientRect(); return r.width ? { x: r.x, y: r.y, width: r.width, height: r.height } : null; }).catch(() => null);
+    const cb = ph ? { boundingBox: async () => ph } : (tb && fb) ? { boundingBox: async () => ({ x: fb.x + tb.x - 1, y: fb.y + tb.y - 1, width: 2, height: 2 }) } : await sf.$('#crew');
+    const cbb = cb ? await cb.boundingBox() : null;
+    if (cbb) { const r = cbb; await P.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await P.waitForTimeout(2200);
       const rf = P.frames().find(x => /ROSTER_SCREEN/.test(x.url()));
       if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 20000 }).catch(() => {});
         crew = await rf.evaluate((n) => { const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); if (!m) return null; const id = it => it ? it.id : null;
@@ -175,7 +187,7 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
     const hx = await q.evaluate(() => BohemiaSettlement.where('hall')); if (hx) await q.mouse.click(hx.x, hx.y); await q.waitForTimeout(900);
     const cs = await q.evaluate(CARDS), f2 = await q.evaluate(FITS), r2 = cs.find(c => c.rare) || {};
     if (process.env.BOHEMIA_SHOT_DIR) await q.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'rare_card_computer.png') });
-    ok('R7 the computer: his card reads as rare (frame, RARE, his line, three stars) and every card fits', r2.frame && r2.badge && r2.says.length > 10 && r2.stars === 3 && cs.every(c => c.out === 0) && f2.sw <= f2.cw,
+    ok('R7 the computer: his card reads as rare (the spotlight, RARE, his line, three stars) and every card fits', r2.frame && r2.badge && r2.says.length > 10 && r2.stars === 3 && cs.every(c => c.out === 0) && f2.sw <= f2.cw,
       cs.length + ' cards; ' + JSON.stringify({ line: r2.line, stars: r2.stars }));
   } catch (e) { ok('R7 the computer leg ran [' + String(e.message).slice(0, 160) + ']', false); }
   await b2.close(); srv2.close();

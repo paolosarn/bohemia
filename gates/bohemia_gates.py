@@ -10118,8 +10118,15 @@ GATES = [
      "RUN TWO gate, 10/25, rule 183(a) (Paolo 10/25: 'there definitely isn't incentive for the first 50 days to grow your crew unless it's god-tier recruits'); TUNING's recruit.rare. "
      "MEASURED before: the post dealt six lowborn backgrounds at level 1, the god-tier man never existed. NOW records/target/bb/rare_recruits.json: a road knight, a gun for hire or a blade master, a town's or fortress's slot 3 in 100, "
      "level 2 or 3 in the top quarter of his range, three talents, his own kit, priced on the hall's formula. HOLDS: the file; 2 to 4 in 100 at towns and fortresses over 400 weeks, never a camp; every rare man in range, the level-2 road knight 500; "
-     "his card reads as rare on the phone (gold frame, RARE, level, kit, his line, three stars) and every hall card fits the 390 px phone; on the demo a real tap through Church's door hires him (price taken, crew screen in his own kit, stars, line); "
+     "his card reads as rare on the phone (RE-AIMED 11/3 by HIRES: a spotlight under him, never a glow; fourteen men; TUNING's 6 in 100; the village kinds at a camp) (RARE, level, kit, his line, three stars) and every hall card fits the 390 px phone; on the demo a real tap through Church's door hires him (price taken, crew screen in his own kit, stars, line); "
      "the fight is handed his kit; the computer. about 3 min", True),
+    ('MORE RARE HIRES', ['node', 'gates/more_rare_hires_gate.js'],
+     "HIRES gate, 11/3, rule 351(a) (Paolo 11/3: 'We need more rare characters'; he hires only when he sees a rare one), ask line 361. "
+     "MEASURED before: three rare men, each in whatever body the slot dealt, a gold glow. NOW records/target/bb/rare_recruits.json: fourteen, Battle Brothers' rare backgrounds in the valley's skins, "
+     "each ONE person in his own body and face (tools/bohemia_hires_the_rare_men.py on the master rig), the perk his trade taught him and the line that says why you want him; the chance TUNING's (ours.json rare_at_the_post). "
+     "HOLDS: the file (12+, real rows, perks his edge names, draft); a look each, no two built alike, every face, still, walk, fight sheet and fight face on disk, rare in the people mix and in no pool; "
+     "every man's worst roll beats the best common man in a stat; the screen reads TUNING's chance, a town's week holds one every few visits, a camp only the village kinds, no common slot wears a rare look, a hired one never comes back; "
+     "the seeded test: each of the fourteen on his phone card in his own body with RARE, his edge, his words, three stars, a spotlight and no glow, fitting 390 px; one man one name; the demo shows one. about 3 min", True),
     ('THE WAGON AND THE SIX', ['node', 'gates/the_wagon_and_the_six_gate.js'],
      "RUN TWO gate, 10/25, rows [eyes: four currencies] and [every origin starts like itself] (rule 164 item 2, Paolo 10/24: 'we have four different currencies in this game, you're only showing batteries, it's insane'). "
      "MEASURED before: the bar carried the batteries alone; the stall took a battery for water, meds and rounds and added nothing (ECONOMY). NOW bohemia.supplies.v1, seeded at the door: FOOD and WATER the origin's food_days in the wagon (TUNING), "
