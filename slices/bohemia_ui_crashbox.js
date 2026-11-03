@@ -12,14 +12,12 @@
 
    ONE FILE, UI's, so the door's logic stays RUN's (BOH_START, the title's act(), the load): this file only dresses,
    reads and times. What it does:
-   1. THE MACHINE (the loading screen): on the title, between his letters and NEW GAME, a handmade box: plywood, a
-      rusty tin bezel with rivets, a cracked tube. Inside the tube the valley at night and DIRECTION's master-rig robot
-      (the one he loved, 10/17 and 11/2), its idle at twelve keys a bar, four beats at 120 BPM. Under the tube a tin
-      gauge whose needle IS the load's own count (#loadpct, the same stages as the bar; never a fake number), four
-      bulbs that step one a beat, and a strip of masking tape that prints the load's newest line (#loadgl).
-      THE WRONGNESS (DIRECTION 11/2, wrongness.json 'loading_it_comes_closer'): from a saved game's third day, one load
-      in four, the tube shows the empty desert with the blank figure instead of the valley, the three pictures in
-      order, never back. Never announced.
+   1. THE FEED (the loading screen; UI 5, 11/3, asks 338 and 340; his NO on the machine 11/2): a camera's own feed fills the
+      glass under his letters, made through the master rig (three were made; the pick is D.feed.pick, all three on the VOTE
+      tab), twelve keys a bar on the beat, and the camera's readout printed on it in his letters: the load's own count read as
+      the camera reads (a battery charging, a signal coming in, the miles to Vegas), never a bar of ours (rule 66a). Its own
+      sound from real recordings plays through the title's own player. THE WRONGNESS on the tube is gone with the machine
+      (his 11/2 vote: 'Bro wtf is this horseshit'; the sheet to the graveyard).
    2. THE START SCREEN (the picks, RUN's #newco): one screen on an upright phone, in the order a stranger needs: the
       crew's name, WHO YOU WERE as one big tin card at a time (swipe or the arrows; what you land on is yours), then
       the fights, the shelves, the map and the HINTS switch. The picked plate is gold paint on tin; the others rusty
@@ -39,10 +37,13 @@
   if (window.BohemiaCrashbox) return;
   var D = {
     beat_ms: 500, beats_per_bar: 4, keys_per_bar: 12,
-    robot: { big: { src: 'crashbox/robot_idle_s_120.png', w: 81, h: 120, keys: 12 }, small: { src: 'crashbox/robot_idle_s_52.png', w: 35, h: 52, keys: 12 } },
-    machine: { min_h: 150, max_h: 268, max_w: 358, gap: 14, bulbs: 4, strip_h: 40, strip_window: 36 },
+    feed: { pick: 'b', key: 'bohemia.title.feed', w: 390, h: 520, gap: 14, mini_w: 40, mini_h: 30,
+      words: { rec: 'REC', charging: 'CHARGING', charged: 'CHARGED', no_signal: 'NO SIGNAL', signal_in: 'SIGNAL', vegas: 'LAS VEGAS', mi: 'MI' },
+      options: {
+        a: { sheet: 'crashbox/feed_a.webp', sound: 'crashbox/feed_a.mp3', top_left: 'rec', reading: 'battery', corner: 'counter', focus: [0.5, 0.62] },
+        b: { sheet: 'crashbox/feed_b.webp', sound: 'crashbox/feed_b.mp3', top_left: 'cam', cam: 'CAM 03', place: 'PAWN \u00b7 LOT', reading: 'signal', corner: 'clock', tear: true, focus: [0.45, 0.5] },
+        c: { sheet: 'crashbox/feed_c.webp', sound: 'crashbox/feed_c.mp3', top_left: 'rec', reading: 'miles', corner: 'counter', focus: [0.5, 0.55] } } },
     moves: { hold_ms: 125, door_hold_ms: 83, title_out_holds: 3, door_out_holds: 4, say_in_holds: 3, say_out_holds: 3 },
-    wrongness: { id: 'loading_it_comes_closer', pictures: ['wrongness/loading_it_comes_closer_1.png', 'wrongness/loading_it_comes_closer_2.png', 'wrongness/loading_it_comes_closer_3.png'], one_in: 4, from_day: 3, key: 'bohemia.wrong.loading' },
     hints: { key: 'bohemia.hints', said_key: 'bohemia.hints.said', default_on: true, quiet_ms: { map: 8000, town: 3000, camp: 3000 }, hold_beats: 8, type_per_beat: 24,
       lines: { map: 'Tap anywhere on the map and we walk there. The clock runs while we walk.', town: 'Tap a building to go in. LEAVE on the phone takes us back out.', camp: 'We heal quicker at camp. The ring on the phone breaks camp.' },
       toggle: { title: 'HINTS', on: 'ON', on_sub: 'a face tells you, once', off: 'OFF', off_sub: 'no hints' } }
@@ -59,7 +60,6 @@
   function rng(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; }
   function cv(w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
   function img(src) { var i = new Image(); i.decoding = 'async'; i.src = src; return i; }
-  var ROBOT = { big: img(D.robot.big.src), small: img(D.robot.small.src) };
   var FONT_OK = false;
   try { document.fonts && document.fonts.load('10px BohemiaROM').then(function () { FONT_OK = true; DIRTY = true; }); } catch (e) {}
   var DIRTY = true;
@@ -112,51 +112,30 @@
     f.style.setProperty('--cbx-tape', u(tapeTile(96, 32, 4)));
   }
 
-  /* ---------------- THE MACHINE ---------------- */
-  /* the valley in the tube: the same night as the title's ground (the ridge, the dead pylons, one block with power) */
-  function valley(w, h) {
-    var c = cv(w, h), g = c.getContext('2d'), r = rng(23);
-    g.fillStyle = '#0b1018'; g.fillRect(0, 0, w, h);
-    var bands = ['#0d131c', '#101722', '#141b27', '#19202c'];
-    for (var b = 0; b < 4; b++) { g.fillStyle = bands[b]; g.fillRect(0, Math.round(h * (.18 + b * .1)), w, Math.round(h * .1) + 1); }
-    for (var i = 0; i < 26; i++) { g.fillStyle = r() < .2 ? '#cfd6c4' : '#5d6670'; g.fillRect(r() * w | 0, r() * h * .45 | 0, 1, 1); }
-    var hz = Math.round(h * .6);
-    g.fillStyle = '#1b1f29'; g.beginPath(); g.moveTo(0, hz);
-    for (var x = 0; x <= w; x += 3) g.lineTo(x, hz - 9 - Math.round(Math.sin(x / 23) * 5 + Math.sin(x / 7) * 1.5));
-    g.lineTo(w, h); g.lineTo(0, h); g.fill();
-    g.fillStyle = '#0f1013'; g.fillRect(0, hz, w, h - hz);
-    for (var y = hz + 4; y < h; y += 4 + Math.round((y - hz) / 9)) { g.fillStyle = '#16181c'; g.fillRect(0, y, w, 1); }
-    /* one block with power, far off: sodium dots, the only warm thing */
-    var bx = Math.round(w * .72), by = hz + 3;
-    for (i = 0; i < 6; i++) { g.fillStyle = '#ffd08a'; g.fillRect(bx + (i % 3) * 5, by + Math.floor(i / 3) * 3, 1, 1); }
-    g.fillStyle = '#3a2a16'; g.fillRect(bx - 2, by - 1, 15, 1);
-    /* the grid that died */
-    g.fillStyle = '#05060a';
-    [[.12, 28], [.5, 20], [.88, 14]].forEach(function (p) { var X = Math.round(w * p[0]), H = p[1], Y = hz - 4;
-      for (var k = 0; k < H; k++) { var s = Math.round((H - k) * .16); g.fillRect(X - s, Y - k, 1, 1); g.fillRect(X + s, Y - k, 1, 1); }
-      g.fillRect(X - Math.round(H * .28), Y - Math.round(H * .82), Math.round(H * .56), 1); g.fillRect(X - Math.round(H * .2), Y - Math.round(H * .62), Math.round(H * .4), 1); });
-    return c;
+  /* ---------------- THE FEED (UI 5, 11/3; asks 338 and 340) ----------------
+     His vote 11/2: NO on the machine (the box with the tin robot), no words. Rule 66a (Paolo 10/5): 'the loading shown as the
+     camera's own feed, never a bar'. So the loading screen IS a camera's feed: a picture made through the master rig (tools/
+     bohemia_ui_the_first_minute_feeds.py: the game's own models lit at night, the rig's source pass, its population snap, the
+     tape baked into every frame), twelve keys a bar on the beat, and the camera's own readout printed on it in his letters,
+     where a camera prints it: what the load has done is the camera's own reading (the battery charging, the signal coming in,
+     the miles to Vegas), never a bar of ours. Three feeds were made; D.feed.pick is the one in the game, all three are on the
+     VOTE tab. Each has its own sound, cut from real recordings (tools/bohemia_ui_the_first_minute_sounds.py): the title's own
+     player (__THE_TITLE_IS_THE_DESERT__) plays it in place of the bare wind, on his first touch, as it always did. */
+  var FEED = { el: null, img: null, src: '', lastSig: '', t0: now(), band: null, mini: null };
+  function feedKey() {
+    var k = null; try { k = localStorage.getItem(D.feed.key); } catch (e) {}   /* a probe's switch for the proof shots; the game never sets it */
+    return (k && D.feed.options[k]) ? k : D.feed.pick;
   }
-  /* the tube's glass: three rows a scanline, the corners falling away in steps (a curved tube, never a gradient), a crack */
-  function glassOver(g, x, y, w, h, seed) {
-    var r = rng(seed || 31);
-    for (var yy = 0; yy < h; yy += 3) { g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(x, y + yy + 2, w, 1); }
-    [[.07, .5], [.035, .3], [.015, .18]].forEach(function (s, i) { var d = Math.round(Math.min(w, h) * s[0]) + 2;
-      g.fillStyle = 'rgba(0,0,0,' + s[1] + ')';
-      g.fillRect(x, y, w, Math.max(1, i + 1)); g.fillRect(x, y + h - (i + 1), w, i + 1); g.fillRect(x, y, i + 1, h); g.fillRect(x + w - (i + 1), y, i + 1, h);
-      for (var k = 0; k < d; k++) { var q = d - k; g.fillRect(x, y + k, q, 1); g.fillRect(x + w - q, y + k, q, 1); g.fillRect(x, y + h - 1 - k, q, 1); g.fillRect(x + w - q, y + h - 1 - k, q, 1); } });
-    /* the crack, from the top right corner down: the box got dropped once */
-    var cx = x + Math.round(w * .78), cy = y + 1;
-    g.fillStyle = 'rgba(220,226,210,.38)';
-    for (var n = 0; n < Math.round(h * .55); n++) { cx += r() < .5 ? -1 : (r() < .25 ? 1 : 0); cy += 1; g.fillRect(cx, cy, 1, 1);
-      if (n === 14) { var bx = cx, by = cy; for (var m = 0; m < 12; m++) { bx += 1; by += r() < .6 ? 1 : 0; g.fillRect(bx, by, 1, 1); } } }
+  function feedOpt() { return D.feed.options[feedKey()] || D.feed.options[D.feed.pick]; }
+  function feedImg() {
+    var o = feedOpt(); if (!o) return null;
+    if (FEED.src !== o.sheet) { FEED.src = o.sheet; FEED.img = img(o.sheet); FEED.img.onload = function () { FEED.lastSig = ''; }; }
+    return FEED.img && FEED.img.complete && FEED.img.naturalWidth ? FEED.img : null;
   }
-  function screwAt(g, x, y) { g.fillStyle = '#0e0a05'; g.fillRect(x - 2, y - 2, 5, 5); g.fillStyle = '#8a857a'; g.fillRect(x - 1, y - 1, 3, 3); g.fillStyle = '#2a2620'; g.fillRect(x - 1, y, 3, 1); }
-  function tapeAt(g, x, y, w, h, seed) {
-    var r = rng(seed || 3);
-    g.fillStyle = '#cdbf92'; g.fillRect(x, y, w, h);
-    for (var i = 0; i < w * h / 6; i++) { g.fillStyle = r() < .5 ? '#c2b386' : '#d7caa0'; g.fillRect(x + (r() * w | 0), y + (r() * h | 0), 1, 1); }
-    g.fillStyle = 'rgba(0,0,0,.18)'; for (var yy = 0; yy < h; yy += 2) { if (r() < .5) g.fillRect(x, y + yy, 1, 1); if (r() < .5) g.fillRect(x + w - 1, y + yy, 1, 1); }
+  /* the title's own player plays this feed's sound, not the bare wind, from his first touch, as before */
+  function feedSound() {
+    var T = window.__TITLEWIND, o = feedOpt(); if (!T || !o || !o.sound) return;
+    if (T.SRC !== o.sound && !T.buf && !T.loading) { T.SRC = o.sound; LOG.push({ k: 'feed sound', src: o.sound }); }
   }
   /* the load's own reading: the same stages the bar counts (never a number of ours) */
   function progress() {
@@ -167,149 +146,117 @@
   }
   function newestLine() {
     if (window.__LOAD_READY) return 'READY';
-    var gl = $('loadgl'), c = gl && gl.lastElementChild; return c ? String(c.textContent || '').trim().toUpperCase() : 'WARMING THE TUBE';
+    var gl = $('loadgl'), c = gl && gl.lastElementChild; return c ? String(c.textContent || '').trim().toUpperCase() : '';
   }
-  /* THE WRONGNESS on the tube: decided once a load, from the save's day (B3), one in four, the next picture, never back */
-  var WRONG = { decided: false, pic: null, n: 0 };
-  function decideWrong(day) {
-    if (WRONG.decided) return; WRONG.decided = true;
-    var W = D.wrongness; if (!W || !(day >= W.from_day)) return;
-    var n = 0; try { n = +localStorage.getItem(W.key) || 0; } catch (e) {}
-    if (n >= W.pictures.length) return;
-    if (Math.random() * W.one_in >= 1) return;
-    try { localStorage.setItem(W.key, String(n + 1)); } catch (e) {}
-    WRONG.n = n + 1; WRONG.pic = img(W.pictures[n]); WRONG.pic.onload = function () { DIRTY = true; MACH.bakedFor = ''; };
-    LOG.push({ k: 'wrongness', id: W.id, picture: n + 1, day: day });
+  /* his letters printed the way a camera prints them: cream, a hard pixel of black round each, never a glow */
+  function osdText(g, s, x, y, align, col) {
+    g.font = '10px ' + (FONT_OK ? 'BohemiaROM' : 'monospace'); g.textBaseline = 'top'; g.textAlign = align || 'left';
+    g.fillStyle = '#050403'; [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(function (d) { g.fillText(s, x + d[0], y + d[1]); });
+    g.fillStyle = col || '#efe6d2'; g.fillText(s, x, y); g.textAlign = 'left';
+    return g.measureText(s).width;
   }
-  function saveDay() { try { if (typeof CITYSAVE === 'undefined' || !CITYSAVE.load) return undefined; var s = CITYSAVE.load(); return s && s.data ? (s.data.day | 0) : 0; } catch (e) { return 0; } }
-
-  var MACH = { el: null, w: 0, h: 0, bakedFor: '', base: null, tube: null, win: null, lastKey: -1, lastBeat: -1, lastF: -1, lastLine: '' };
-  function bakeMachine(W, H) {
-    var base = cv(W, H), g = base.getContext('2d');
-    var wood = ply(W, H, 9); g.drawImage(wood, 0, 0);
-    g.fillStyle = '#0e0a05'; g.fillRect(0, 0, W, 2); g.fillRect(0, H - 2, W, 2); g.fillRect(0, 0, 2, H); g.fillRect(W - 2, 0, 2, H);
-    /* a saw that wandered: the box's edge is cut by hand */
-    var r = rng(41); for (var x = 2; x < W - 2; x += 1) { if (r() < .12) { g.fillStyle = '#0e0a05'; g.fillRect(x, 2, 1, 1); } if (r() < .12) { g.fillStyle = '#0e0a05'; g.fillRect(x, H - 3, 1, 1); } }
-    /* the tin bezel round the tube */
-    var bez = { x: 9, y: 9, w: W - 18, h: H - 18 - 58 };
-    var t = tin(bez.w, bez.h, false, 13); g.drawImage(t, bez.x, bez.y);
-    g.fillStyle = '#0e0a05'; g.fillRect(bez.x - 1, bez.y - 1, bez.w + 2, 1); g.fillRect(bez.x - 1, bez.y + bez.h, bez.w + 2, 1); g.fillRect(bez.x - 1, bez.y, 1, bez.h); g.fillRect(bez.x + bez.w, bez.y, 1, bez.h);
-    var rv = rivet(); [[bez.x + 3, bez.y + 3], [bez.x + bez.w - 8, bez.y + 3], [bez.x + 3, bez.y + bez.h - 8], [bez.x + bez.w - 8, bez.y + bez.h - 8]].forEach(function (p) { g.drawImage(rv, p[0], p[1]); });
-    var win = { x: bez.x + 11, y: bez.y + 9, w: bez.w - 22, h: bez.h - 18 };
-    g.fillStyle = '#0e0a05'; g.fillRect(win.x - 2, win.y - 2, win.w + 4, win.h + 4);
-    /* the panel under the tube: a tin plate screwed to the wood */
-    var pan = { x: 9, y: H - 9 - 50, w: W - 18, h: 50 };
-    g.drawImage(tin(pan.w, pan.h, false, 17), pan.x, pan.y);
-    g.fillStyle = '#0e0a05'; g.fillRect(pan.x, pan.y - 1, pan.w, 1); g.fillRect(pan.x, pan.y + pan.h, pan.w, 1);
-    screwAt(g, 5, 5); screwAt(g, W - 6, 5); screwAt(g, 5, H - 6); screwAt(g, W - 6, H - 6);
-    /* the gauge's face: a paper dial glued in, its ticks inked by hand */
-    var gc = { x: pan.x + 28, y: pan.y + pan.h - 9, r: 22 };
-    g.fillStyle = '#0e0a05'; g.beginPath(); g.arc(gc.x, gc.y, gc.r + 2, Math.PI, 0); g.fill();
-    g.fillStyle = '#d9cfb3'; g.beginPath(); g.arc(gc.x, gc.y, gc.r, Math.PI, 0); g.fill();
-    g.fillStyle = '#0e0a05'; g.fillRect(gc.x - gc.r - 2, gc.y, gc.r * 2 + 5, 2);
-    for (var k = 0; k <= 10; k++) { var a = Math.PI + Math.PI * k / 10, l = k % 5 ? 3 : 6;
-      for (var s = 0; s < l; s++) g.fillRect(Math.round(gc.x + Math.cos(a) * (gc.r - 1 - s)), Math.round(gc.y + Math.sin(a) * (gc.r - 1 - s)), 1, 1); }
-    g.fillStyle = '#8a1c10'; for (k = 0; k < 3; k++) { var a2 = Math.PI * 2 - Math.PI * k / 30; g.fillRect(Math.round(gc.x + Math.cos(a2) * (gc.r - 2)), Math.round(gc.y + Math.sin(a2) * (gc.r - 2)), 2, 2); }
-    /* the tape for the newest line, stuck across the right of the panel */
-    var tp = { x: pan.x + 96, y: pan.y + 14, w: pan.w - 96 - 8, h: 18 };
-    tapeAt(g, tp.x, tp.y, tp.w, tp.h, 3);
-    /* a strip of tape across the bezel's corner, holding the tube in */
-    g.save(); g.translate(bez.x + bez.w - 30, bez.y - 4); g.rotate(.5); tapeAt(g, 0, 0, 42, 11, 8); g.restore();
-    MACH.base = base; MACH.win = win; MACH.gauge = gc; MACH.tape = tp; MACH.bulbs = { x: pan.x + 60, y: pan.y + 21 };
-    MACH.tube = valley(win.w, win.h);
-    if (WRONG.pic && WRONG.pic.complete && WRONG.pic.naturalWidth) {
-      /* the desert with the figure, its own picture filling the tube by its height, centred: nothing drawn over it */
-      var tc = cv(win.w, win.h), tg = tc.getContext('2d'); tg.fillStyle = '#2a2a2a'; tg.fillRect(0, 0, win.w, win.h);
-      var sc = Math.max(win.w / WRONG.pic.naturalWidth, win.h / WRONG.pic.naturalHeight), dw = Math.round(WRONG.pic.naturalWidth * sc), dh = Math.round(WRONG.pic.naturalHeight * sc);
-      tg.imageSmoothingEnabled = false; tg.drawImage(WRONG.pic, Math.round((win.w - dw) / 2), Math.round((win.h - dh) / 2), dw, dh); MACH.tube = tc;
+  function rec(g, x, y, on) {   /* the red dot and REC, the dot lit two beats of four */
+    g.fillStyle = '#050403'; g.fillRect(x - 1, y, 9, 9);
+    g.fillStyle = on ? '#d8341f' : '#3a1a14'; g.fillRect(x, y + 1, 7, 7); g.fillRect(x + 1, y, 5, 9); g.fillRect(x - 1, y + 2, 9, 5);
+    osdText(g, D.feed.words.rec, x + 13, y);
+  }
+  /* the frame: cover-fit into the box, the picture's middle kept (o.focus: where the story is, in the frame's own 0..1) */
+  function frameTo(g, im, key, bx, by, bw, bh, focus, tear) {
+    var fw = D.feed.w, fh = D.feed.h, s = Math.max(bw / fw, bh / fh), sw = bw / s, sh = bh / s;
+    var sx = Math.max(0, Math.min(fw - sw, fw * (focus ? focus[0] : 0.5) - sw / 2)), sy = Math.max(0, Math.min(fh - sh, fh * (focus ? focus[1] : 0.5) - sh / 2));
+    g.imageSmoothingEnabled = s !== 1; g.drawImage(im, sx, key * fh + sy, sw, sh, bx, by, bw, bh);
+    if (tear > 0) {   /* the signal not yet in: a band of the picture slips sideways, and rolls down the glass on the beat */
+      var bandH = Math.max(6, Math.round(bh * 0.07)), y0 = Math.round(((beatF() * 0.37) % 1) * (bh - bandH));
+      for (var r = 0; r < bandH; r += 2) { var off = Math.round(tear * Math.sin((r / bandH) * Math.PI) * (6 + 4 * Math.sin(beatF() * 3.1))), yy = by + y0 + r;
+        g.drawImage(im, sx, key * fh + sy + (y0 + r) / s, sw, 2 / s, bx + off, yy, bw, 2); }
+    }
+    g.imageSmoothingEnabled = false;
+  }
+  /* the camera's readout of the load, the option's own: a camcorder's battery charging, a camera's signal coming in, the miles in */
+  function reading(g, kind, x, y, P, align) {
+    var w = D.feed.words;
+    if (kind === 'battery') {   /* four cells, lit as the stages land; full is READY */
+      var n = P.ready ? 4 : Math.min(3, Math.floor(P.f * 4)), bx = align === 'right' ? x - 26 : x;
+      g.fillStyle = '#050403'; g.fillRect(bx - 1, y - 1, 25, 11); g.fillRect(bx + 24, y + 2, 3, 5);
+      g.fillStyle = '#efe6d2'; g.fillRect(bx, y, 23, 9); g.fillRect(bx + 23, y + 3, 2, 3);
+      g.fillStyle = '#050403'; g.fillRect(bx + 1, y + 1, 21, 7);
+      for (var i = 0; i < 4; i++) { g.fillStyle = i < n ? (P.ready ? '#efe6d2' : '#e2bd6a') : '#2a2620'; g.fillRect(bx + 2 + i * 5, y + 2, 4, 5); }
+      if (!P.ready && Math.floor(beatF()) % 2 === 0 && n < 4) { g.fillStyle = '#e2bd6a'; g.fillRect(bx + 2 + n * 5, y + 2, 4, 5); }   /* the cell charging blinks on the beat */
+      osdText(g, P.ready ? w.charged : w.charging, align === 'right' ? bx - 6 : bx + 32, y, align === 'right' ? 'right' : 'left');
+    } else if (kind === 'signal') {   /* four bars, lit as the stages land */
+      var m = P.ready ? 4 : Math.min(3, Math.floor(P.f * 4)), sx = align === 'right' ? x - 22 : x;
+      for (var j = 0; j < 4; j++) { var hh = 3 + j * 2; g.fillStyle = '#050403'; g.fillRect(sx + j * 6 - 1, y + 9 - hh - 1, 6, hh + 2);
+        g.fillStyle = j < m ? '#efe6d2' : '#2a2620'; g.fillRect(sx + j * 6, y + 9 - hh, 4, hh); }
+      osdText(g, P.ready ? w.signal_in : w.no_signal, align === 'right' ? sx - 6 : sx + 30, y, align === 'right' ? 'right' : 'left');
+    } else if (kind === 'miles') {   /* the miles left are the stages left: LAS VEGAS 6 MI ... 0 MI */
+      var left = P.ready ? 0 : Math.max(1, (P.of || 6) - P.n);
+      osdText(g, w.vegas + '  ' + left + ' ' + w.mi, x, y, align);
     }
   }
-  function paintMachine(force) {
-    var c = MACH.el; if (!c || !c.isConnected) return;
-    var W = c.width, H = c.height, sig = W + 'x' + H + (WRONG.pic ? 'w' : '');
-    if (MACH.bakedFor !== sig) { bakeMachine(W, H); MACH.bakedFor = sig; force = true; }
-    var R = D.robot.big, key = keyOf(R.keys), beat = Math.floor(beatF()) % D.machine.bulbs, P = progress(), line = newestLine();
-    if (!force && !DIRTY && key === MACH.lastKey && beat === MACH.lastBeat && P.f === MACH.lastF && line === MACH.lastLine) return;
-    MACH.lastKey = key; MACH.lastBeat = beat; MACH.lastF = P.f; MACH.lastLine = line; DIRTY = false;
-    var g = c.getContext('2d'); g.imageSmoothingEnabled = false;
-    g.drawImage(MACH.base, 0, 0);
-    var w = MACH.win; g.drawImage(MACH.tube, w.x, w.y);
-    if (!WRONG.pic) {
-      /* the robot on the valley floor, its contact shadow first; he stands where the light from the one block reaches */
-      var rx = Math.round(w.x + w.w * .5 - R.w / 2), ry = Math.round(w.y + w.h - R.h - 4);
-      if (ry < w.y + 2) ry = w.y + 2;
-      g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(rx + 14, w.y + w.h - 7, R.w - 28, 2); g.fillRect(rx + 20, w.y + w.h - 5, R.w - 40, 1);
-      g.save(); g.beginPath(); g.rect(w.x, w.y, w.w, w.h); g.clip();
-      if (ROBOT.big.complete && ROBOT.big.naturalWidth) g.drawImage(ROBOT.big, key * R.w, 0, R.w, R.h, rx, ry, R.w, R.h);
-      g.restore();
-    }
-    glassOver(g, w.x, w.y, w.w, w.h, 31);
-    /* the needle IS the load's count */
-    var gc = MACH.gauge, a = Math.PI + Math.PI * P.f;
-    g.fillStyle = '#1a120a'; for (var s = 0; s < gc.r - 4; s++) g.fillRect(Math.round(gc.x + Math.cos(a) * s), Math.round(gc.y + Math.sin(a) * s), 2, 2);
-    g.fillStyle = '#0e0a05'; g.fillRect(gc.x - 2, gc.y - 2, 5, 5); g.fillStyle = '#8a857a'; g.fillRect(gc.x - 1, gc.y - 1, 3, 3);
-    /* the bulbs: one lit a beat, stepping, the beat you can see */
-    var B = MACH.bulbs;
-    for (var i = 0; i < D.machine.bulbs; i++) { var bx = B.x + i * 8;
-      g.fillStyle = '#0e0a05'; g.fillRect(bx - 1, B.y - 1, 7, 7);
-      g.fillStyle = (i === beat) ? (P.ready ? '#e6c475' : '#d9a85a') : '#3a3226'; g.fillRect(bx, B.y, 5, 5);
-      if (i === beat) { g.fillStyle = '#fff0c8'; g.fillRect(bx + 1, B.y + 1, 2, 1); } }
-    /* the tape prints the newest line of the load, cut to what fits */
-    var tp = MACH.tape; tapeAt(g, tp.x, tp.y, tp.w, tp.h, 3);
-    g.fillStyle = '#1f1710'; g.font = '10px ' + (FONT_OK ? 'BohemiaROM' : 'monospace'); g.textBaseline = 'middle';
-    var txt = line; while (txt.length > 3 && g.measureText(txt).width > tp.w - 8) txt = txt.slice(0, -1);
-    g.fillText(txt, tp.x + 4, tp.y + tp.h / 2 + 1);
-    /* the count under the tape, printed small: what the needle reads, in the load's own words */
-    if (P.of) { g.fillStyle = '#e7dcc6'; g.fillText(P.n + ' OF ' + P.of, tp.x + 2, tp.y + tp.h + 9); }
+  function counter() { var s = Math.floor((now() - FEED.t0) / 1000); return '0:' + ('0' + Math.floor(s / 60) % 60).slice(-2) + ':' + ('0' + s % 60).slice(-2); }
+  function clock() { var d = new Date(); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2); }
+  function paintFeed(force) {
+    var c = FEED.el; if (!c || !c.isConnected) return;
+    var im = feedImg(), o = feedOpt(), P = progress(), key = still() ? 0 : keyOf(D.keys_per_bar), beat = Math.floor(beatF()), line = newestLine();
+    var tear = (!P.ready && o.tear && !still()) ? (1 - P.f) : 0;
+    var sig = [c.width, c.height, key, beat, P.f, P.ready, line, FONT_OK, !!im, feedKey(), Math.floor((now() - FEED.t0) / 1000), tear > 0 ? Math.floor(beatF() * 6) : 0].join('|');
+    if (!force && sig === FEED.lastSig) return; FEED.lastSig = sig;
+    var g = c.getContext('2d'), W = c.width, H = c.height; g.imageSmoothingEnabled = false;
+    g.fillStyle = '#050403'; g.fillRect(0, 0, W, H);
+    if (im) frameTo(g, im, key, 0, 0, W, H, o.focus, tear);
+    /* the readout: under his letters when they sit over the picture, in the camera's own corners */
+    var top = FEED.osdTop || 10, pad = 12, bot = H - 22, on = still() || beat % 4 < 2;
+    if (o.top_left === 'rec') rec(g, pad, top, on); else { osdText(g, o.cam, pad, top); osdText(g, o.place, pad, top + 14); }
+    if (o.top_right === 'rec+reading') { reading(g, o.reading, W - pad, top, P, 'right'); rec(g, W - pad - 34, top + 16, on); }
+    else reading(g, o.reading, W - pad, top, P, 'right');
+    if (o.top_left !== 'rec' && o.top_right !== 'rec+reading') rec(g, W - pad - 34, top + 16, on);
+    osdText(g, o.corner === 'clock' ? clock() : counter(), pad, bot);
+    if (line) { var t = line; g.font = '10px ' + (FONT_OK ? 'BohemiaROM' : 'monospace'); while (t.length > 3 && g.measureText(t).width > W - pad * 2 - 90) t = t.slice(0, -1); osdText(g, t, W - pad, bot, 'right'); }
   }
-  /* where the machine stands: between his letters and the three choices (upright), under his letters (sideways) */
-  function placeMachine(root) {
+  /* where the feed stands: under his letters and their line (they stay alone on the cold ground, his 10/18 JUST THE FONT, J1),
+     the whole width down to the choices (upright); the left column under them to the foot of the glass (sideways) */
+  function placeFeed(root) {
     var t = root.querySelector('.t'), m = root.querySelector('.m'); if (!t || !m) return false;
-    var rt = t.getBoundingClientRect(), rm = m.getBoundingClientRect(), G = D.machine.gap, wide = innerWidth / Math.max(1, innerHeight) >= 4 / 3;
+    var rt = t.getBoundingClientRect(), rm = m.getBoundingClientRect(), wide = innerWidth / Math.max(1, innerHeight) >= 4 / 3;
     var left, width, top, bottom;
-    if (!wide) { width = Math.min(D.machine.max_w, innerWidth - 32); left = Math.round((innerWidth - width) / 2); top = rt.bottom + G; bottom = rm.top - G; }
-    else { width = Math.min(D.machine.max_w, Math.max(200, rt.width)); left = Math.round(rt.left + (rt.width - width) / 2); top = rt.bottom + G; bottom = innerHeight - 44; }
-    var avail = bottom - top, h = Math.min(D.machine.max_h, avail);
-    if (h < D.machine.min_h || width < 200) { MACH.el.style.display = 'none'; return false; }
-    top = Math.round(top + (avail - h) / 2); width = Math.round(width); h = Math.round(h);
-    var c = MACH.el; c.style.display = '';
-    if (c.width !== width || c.height !== h) { c.width = width; c.height = h; }
+    if (!wide) { left = 0; width = innerWidth; top = Math.round(rt.bottom + D.feed.gap); bottom = rm.top - D.feed.gap; }
+    else { left = 0; width = Math.max(200, Math.round(rm.left - 24)); top = Math.round(rt.bottom + D.feed.gap); bottom = innerHeight - 30; }
+    var h = Math.round(bottom - top); if (h < 120) { FEED.el.style.display = 'none'; return false; }
+    var c = FEED.el; c.style.display = ''; FEED.osdTop = 10;
+    if (c.width !== width || c.height !== h) { c.width = width; c.height = h; FEED.lastSig = ''; }
     c.style.left = left + 'px'; c.style.top = top + 'px'; c.style.width = width + 'px'; c.style.height = h + 'px';
     return true;
   }
 
-  /* the small machine by the bar, while the picks are up: the robot's head in a little tube and the four bulbs */
-  var MINI = { el: null, lastKey: -1, lastBeat: -1 };
-  function paintMini() {
-    var c = MINI.el; if (!c || !c.isConnected) return;
-    var R = D.robot.small, key = keyOf(R.keys), beat = Math.floor(beatF()) % D.machine.bulbs, P = progress();
-    if (key === MINI.lastKey && beat === MINI.lastBeat && MINI.ready === P.ready) return;
-    MINI.lastKey = key; MINI.lastBeat = beat; MINI.ready = P.ready;
-    var g = c.getContext('2d'), W = c.width, H = c.height, ww = D.machine.strip_window; g.imageSmoothingEnabled = false;
-    if (!MINI.base) { MINI.base = cv(W, H); var b = MINI.base.getContext('2d'); b.drawImage(tin(W, H, false, 19), 0, 0);
-      b.fillStyle = '#0e0a05'; b.fillRect(0, 0, W, 1); b.fillRect(0, H - 1, W, 1); b.fillRect(0, 0, 1, H); b.fillRect(W - 1, 0, 1, H);
-      b.fillRect(2, 2, ww, H - 4); MINI.tube = valley(ww - 2, H - 6); }
-    g.drawImage(MINI.base, 0, 0); g.drawImage(MINI.tube, 3, 3);
-    g.save(); g.beginPath(); g.rect(3, 3, ww - 2, H - 6); g.clip();
-    if (ROBOT.small.complete && ROBOT.small.naturalWidth) g.drawImage(ROBOT.small, key * R.w, 0, R.w, R.h, 3 + Math.round((ww - 2 - R.w) / 2), 6, R.w, R.h);
-    g.restore(); glassOver(g, 3, 3, ww - 2, H - 6, 37);
-    for (var i = 0; i < D.machine.bulbs; i++) { var by = 5 + i * 10, bx = ww + 6;
-      g.fillStyle = '#0e0a05'; g.fillRect(bx - 1, by - 1, 7, 7); g.fillStyle = i === beat ? (P.ready ? '#e6c475' : '#d9a85a') : '#3a3226'; g.fillRect(bx, by, 5, 5); }
+  /* THE START SCREEN'S FEED: the same camera's small window by the load's row, still rolling; one look from the title to BEGIN
+     (the buttons are the camera's own, below) */
+  var MINI = { el: null, lastSig: '' };
+  function paintSmall(S) {
+    var c = S.el; if (!c || !c.isConnected) return;
+    var im = feedImg(), o = feedOpt(), P = progress(), key = still() ? 0 : keyOf(D.keys_per_bar), beat = Math.floor(beatF());
+    var sig = [c.width, c.height, key, beat, P.ready, !!im, feedKey()].join('|'); if (sig === S.lastSig) return; S.lastSig = sig;
+    var g = c.getContext('2d'), W = c.width, H = c.height; g.fillStyle = '#050403'; g.fillRect(0, 0, W, H);
+    if (im) frameTo(g, im, key, 0, 0, W, H, o.focus, 0);
+    var on = still() || beat % 4 < 2;
+    g.fillStyle = '#050403'; g.fillRect(0, 0, W, 1); g.fillRect(0, H - 1, W, 1); g.fillRect(0, 0, 1, H); g.fillRect(W - 1, 0, 1, H);
+    g.fillStyle = on ? '#d8341f' : '#3a1a14'; g.fillRect(4, 4, 5, 5);
   }
   function ensureMini() {
     var row = $('loadrow'); if (!row) return;
     if (MINI.el && MINI.el.parentNode === row) return;
-    var c = MINI.el || cv(D.machine.strip_window + 16, D.machine.strip_h); c.id = 'cbxmini'; c.setAttribute('aria-hidden', 'true');
-    MINI.el = c; row.insertBefore(c, row.firstChild); MINI.lastKey = -1;
+    var c = MINI.el || cv(D.feed.mini_w, D.feed.mini_h); c.id = 'cbxmini'; c.setAttribute('aria-hidden', 'true');
+    MINI.el = c; row.insertBefore(c, row.firstChild); MINI.lastSig = '';
   }
+  function paintMini() { paintSmall(MINI); }
 
-  /* ---------------- THE TITLE: find UI's look, put the machine in it ---------------- */
+  /* ---------------- THE TITLE: find UI's look, put the feed under it ---------------- */
   var TITLE = { root: null, watched: null, leaving: false };
   function title() { var r = document.querySelector('#title .bm-start'); return r || null; }
   function ensureMachine() {
     var root = title(); if (!root) return null;
-    if (!MACH.el) { MACH.el = cv(10, 10); MACH.el.id = 'cbxmachine'; MACH.el.setAttribute('aria-hidden', 'true'); }
-    if (MACH.el.parentNode !== root && !TITLE.leaving) { var m = root.querySelector('.m'); root.insertBefore(MACH.el, m || null); MACH.bakedFor = ''; }
+    if (!FEED.el) { FEED.el = cv(10, 10); FEED.el.id = 'cbxfeed'; FEED.el.setAttribute('aria-hidden', 'true'); }
+    /* the feed is the title's own ground: right after the ground canvas, so his letters and the choices stand over it */
+    if (FEED.el.parentNode !== root && !TITLE.leaving) { var gr = root.querySelector('canvas.gr'); root.insertBefore(FEED.el, gr ? gr.nextSibling : root.firstChild); FEED.lastSig = ''; }
     TITLE.root = root;
     var tEl = $('title'); if (tEl && TITLE.watched !== tEl) { TITLE.watched = tEl; watchTitle(tEl); }
     return root;
@@ -330,22 +277,22 @@
     var root = title(); if (!root) return;
     TITLE.leaving = true; tEl.classList.add('cbx-leaving');
     var H = D.moves.title_out_holds, ms = D.moves.hold_ms, t0 = now(), m = root.querySelector('.m'), tt = root.querySelector('.t');
-    var from = MACH.el && MACH.el.style.display !== 'none' && MACH.el.parentNode === root ? MACH.el.getBoundingClientRect() : null;
+    var from = FEED.el && FEED.el.style.display !== 'none' && FEED.el.parentNode === root ? FEED.el.getBoundingClientRect() : null;
     ensureMini(); var to = MINI.el ? MINI.el.getBoundingClientRect() : null;
     var travel = !!(from && to && to.width);
     /* his letters on the title slide onto his letters on the picks, so the name never crosses itself */
     var lift = 40; try { var tm = tt && tt.querySelector('canvas'), dm = null;
       Array.prototype.forEach.call(f.querySelectorAll('.jtf-mark,#logobig,#loadtag'), function (el) { if (!dm && !tEl.contains(el) && el.getClientRects().length && el.getBoundingClientRect().height > 8) dm = el; });
       if (tm && dm) lift = Math.round(tm.getBoundingClientRect().top - dm.getBoundingClientRect().top); } catch (e) {}
-    if (travel) { f.appendChild(MACH.el); MACH.el.style.zIndex = '45'; }
-    var row = { id: 'title-to-picks', kind: 'screen', how: 'fold down + the machine drops into the bar', t0: Math.round(t0), holds: H, planned: H * ms, frames: [] };
+    if (travel) { f.appendChild(FEED.el); FEED.el.style.zIndex = '45'; }
+    var row = { id: 'title-to-picks', kind: 'screen', how: 'fold down + the feed shrinks into its small window by the bar', t0: Math.round(t0), holds: H, planned: H * ms, frames: [] };
     LOG.push(row);
     var step = function (i) {
       row.frames.push(Math.round(now() - t0));
       if (i >= H) {
         tEl.classList.remove('cbx-leaving'); root.style.transform = ''; root.style.opacity = '';
         if (m) m.style.transform = ''; if (tt) tt.style.transform = '';
-        if (travel) { MACH.el.style.zIndex = ''; root.insertBefore(MACH.el, root.querySelector('.m') || null); MACH.bakedFor = ''; }
+        if (travel) { FEED.el.style.zIndex = ''; var gr2 = root.querySelector('canvas.gr'); root.insertBefore(FEED.el, gr2 ? gr2.nextSibling : root.firstChild); FEED.lastSig = ''; }
         TITLE.leaving = false; row.t1 = Math.round(now()); return;
       }
       var k = (i + 1) / H;
@@ -354,8 +301,8 @@
       if (tt) tt.style.transform = 'translateY(' + Math.round(-k * lift) + 'px)';
       root.style.opacity = String(Math.round((1 - k * .9) * 100) / 100);
       if (travel) { var L = function (a, b) { return Math.round(a + (b - a) * k); };
-        if (i === H - 1) MACH.el.style.display = 'none';
-        else { MACH.el.style.left = L(from.left, to.left) + 'px'; MACH.el.style.top = L(from.top, to.top) + 'px'; MACH.el.style.width = L(from.width, to.width) + 'px'; MACH.el.style.height = L(from.height, to.height) + 'px'; } }
+        if (i === H - 1) FEED.el.style.display = 'none';
+        else { FEED.el.style.left = L(from.left, to.left) + 'px'; FEED.el.style.top = L(from.top, to.top) + 'px'; FEED.el.style.width = L(from.width, to.width) + 'px'; FEED.el.style.height = L(from.height, to.height) + 'px'; } }
       setTimeout(function () { step(i + 1); }, ms);
     };
     step(0);
@@ -505,7 +452,10 @@
   var JD = 'html body #front[data-look="just-the-font"].cbx';
   var CSS = [
     /* the machine on the title, and while it drops into the bar */
-    '#cbxmachine{position:absolute;display:block;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;z-index:1}',
+    '#cbxfeed{position:absolute;display:block;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none}',
+    /* his line under the letters and the authority's line over the picks stand on their own ground, never on the picture (J5) */
+    'html body #title .bm-start .t>div{background:#0b0a09;padding:3px 6px}',
+    JD + ' #loadtag i{background:#0b0a09;padding:3px 6px}',
     'html body #title.gone.cbx-leaving{display:block!important;pointer-events:none!important;background:transparent!important}',
     'html body #title.cbx-leaving>*:not(.bm-start){visibility:hidden!important}',
     'html body #title.cbx-leaving *{pointer-events:none!important}',
@@ -518,44 +468,46 @@
     /* THE PICKS, one column in the order a stranger needs */
     JD + ' #newco{display:flex;flex-direction:column}',
     JD + ' #newco>*{flex-shrink:0}',   /* sideways the column scrolls: nothing in it is squeezed to nothing (the origins' card was) */
-    JD + ' #newco h4{margin:10px 0 5px;line-height:10px}',
+    JD + ' #newco h4{margin:5px 0 3px;line-height:10px}',   /* UI 5: tighter, so RUN's newer rows (the valley's code) and BEGIN fit one upright glass */
     JD + ' #newco h4:first-child{margin-top:0}',
     JD + ' #newco .row{padding:0;align-items:stretch;gap:6px}',
     /* what the picked plate does, said once, in its heading (Battle Brothers shows the picked difficulty's line) */
     JD + ' #newco h4 .cbxcap{margin-left:8px;font-family:"BohemiaROM",monospace;font-size:10px;letter-spacing:0;color:#e7dcc6;text-transform:none}',
-    /* every plate is rusty tin with a rivet in each corner; the picked one is gold paint on tin */
-    JD + ' #newco .row button{border:1px solid #0e0a05;background:var(--cbx-rivet) left 3px top 3px no-repeat,var(--cbx-rivet) right 3px top 3px no-repeat,var(--cbx-rivet) left 3px bottom 3px no-repeat,var(--cbx-rivet) right 3px bottom 3px no-repeat,var(--cbx-tin) 0 0/128px 64px,#26281f;'
-      + 'color:#e7dcc6;box-shadow:inset 0 1px 0 #44473d,inset 0 -1px 0 #16180f;padding:6px 8px;font-size:10px;letter-spacing:1px;line-height:10px;text-align:center;min-height:44px}',
+    /* UI 5 (ask 340, his 'not final' and 'I don't like what you did to the menu'): the picks are THE CAMERA'S OWN BUTTONS, one
+       look with the feed above them: hard black plastic lit from above (a pixel of light on the top edge, a pixel of shadow on the
+       bottom, the 3-D the 9/20 votes asked for, built with light and form), his words cream on it; the picked one is lit gold
+       (gold only for what is yours). No tin, no rivets, no tape, no gradient, no round corner. */
+    JD + ' #newco .row button{border:1px solid #050505;background:#1d1e20;color:#e7dcc6;box-shadow:inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c;'
+      + 'padding:6px 8px;font-size:10px;letter-spacing:1px;line-height:10px;text-align:center;min-height:44px}',
     JD + ' #newco .row button small{display:none}',
-    JD + ' #newco .row button.on{background:var(--cbx-rivet) left 3px top 3px no-repeat,var(--cbx-rivet) right 3px top 3px no-repeat,var(--cbx-rivet) left 3px bottom 3px no-repeat,var(--cbx-rivet) right 3px bottom 3px no-repeat,var(--cbx-gold) 0 0/128px 64px,#c8ab63;'
-      + 'color:#0e0a05;border-color:#0e0a05;box-shadow:inset 0 1px 0 #e6c475}',
+    JD + ' #newco .row button.on{background:#e2bd6a;color:#140e05;border-color:#e2bd6a;box-shadow:inset 0 1px 0 #f6dc9a,inset 0 -1px 0 #cba650}',   /* lit edge to edge: no dark pixel under his words, in the sun too (J5) */
     JD + ' #newco .row button.on small{display:none}',
-    /* WHO YOU WERE: one big tin card at a time, the arrows and the count in its heading */
+    JD + ' #newco .row button:active,' + JD + ' #newco .cbxnav button:active{box-shadow:inset 0 2px 0 #050505,inset 0 -1px 0 #4a4c51;transform:translateY(1px)}',
+    /* WHO YOU WERE: one big card at a time, the arrows and the count in its heading */
     JD + ' #newco h4.cbxorigin{color:#e7dcc6;display:flex;align-items:center;justify-content:space-between;min-height:44px;margin-top:6px;margin-bottom:4px}',
     JD + ' #newco .cbxnav{display:flex;align-items:center;gap:6px}',
-    JD + ' #newco .cbxnav button{width:44px;height:44px;padding:0;border:1px solid #0e0a05;background:var(--cbx-tin) 0 0/128px 64px,#26281f;color:#e7dcc6;font-family:"BohemiaCasing",monospace;font-size:10px;line-height:10px;box-shadow:inset 0 1px 0 #55584c,inset 0 -1px 0 #1d1f1a}',
+    JD + ' #newco .cbxnav button{width:44px;height:44px;padding:0;border:1px solid #050505;background:#1d1e20;color:#e7dcc6;font-family:"BohemiaCasing",monospace;font-size:10px;line-height:10px;box-shadow:inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
     JD + ' #newco .cbxof{min-width:60px;text-align:center;font-style:normal;font-family:"BohemiaROM",monospace;font-size:10px;letter-spacing:1px;color:#e7dcc6}',
     JD + ' #newco .strip{gap:0;padding:0;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}',
     JD + ' #newco .strip::-webkit-scrollbar{display:none}',
-    JD + ' #newco .org{flex:0 0 100%;box-sizing:border-box;scroll-snap-align:center;min-height:112px;padding:12px 14px 10px;gap:6px;border:2px solid #0e0a05;'
-      + 'background:var(--cbx-rivet) left 4px top 4px no-repeat,var(--cbx-rivet) right 4px top 4px no-repeat,var(--cbx-rivet) left 4px bottom 4px no-repeat,var(--cbx-rivet) right 4px bottom 4px no-repeat,var(--cbx-tin) 0 0/128px 64px,#26281f;'
-      + 'box-shadow:inset 0 1px 0 #55584c,inset 0 -1px 0 #1d1f1a}',
-    JD + ' #newco .org.on{border-color:#c8ab63;box-shadow:inset 0 0 0 2px #0e0a05,inset 0 3px 0 #c8ab63,inset 0 -3px 0 #c8ab63}',
+    JD + ' #newco .org{flex:0 0 100%;box-sizing:border-box;scroll-snap-align:center;min-height:96px;padding:10px 14px 8px;gap:5px;border:1px solid #050505;'
+      + 'background:#18191b;box-shadow:inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
+    JD + ' #newco .org.on{border-color:#050505;box-shadow:inset 3px 0 0 #e2bd6a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
     JD + ' #newco .org b{font-size:20px;line-height:20px;letter-spacing:1px;color:#e7dcc6}',
-    JD + ' #newco .org.on b{color:#e6c475}',
+    JD + ' #newco .org.on b{color:#e2bd6a}',
     JD + ' #newco .org i{font-size:10px;line-height:14px;color:#e7dcc6}',
     JD + ' #newco .org em{color:#bfe3ae}' + JD + ' #newco .org em.d2{color:#ead98f}' + JD + ' #newco .org em.d3{color:#f8c8a6}' + JD + ' #newco .org em.d4{color:#ffc2b8}',
     /* a card resting off the strip keeps its plate and drops its print, so nothing of it reads through another screen's plate */
     JD + ' #newco .org.cbx-out>*{visibility:hidden}',
-    /* the facts on a strip of masking tape stuck across the card */
-    JD + ' #newco .org i:last-child{margin-top:6px;padding:4px 8px;background:var(--cbx-tape) 0 0/96px 32px,#dccfa6;color:#1f1710;line-height:14px}',
-    /* the name: written on tape on the machine, ANOTHER a tin plate */
-    JD + ' #newco .name input{border:2px solid #0e0a05;background:var(--cbx-tape) 0 0/96px 32px,#dccfa6;color:#1f1710;caret-color:#8a1c10;font-family:"BohemiaCasing",monospace;font-size:20px;letter-spacing:2px}',
-    JD + ' #newco .name input:focus{border-color:#c8ab63;background:var(--cbx-tape) 0 0/96px 32px,#e3d7b0}',
-    JD + ' #newco .name button{border:1px solid #0e0a05;background:var(--cbx-tin) 0 0/128px 64px,#26281f;color:#e7dcc6;box-shadow:inset 0 1px 0 #55584c,inset 0 -1px 0 #1d1f1a}',
+    /* the facts on the camera's little screen: sunk into the plastic (the shadow on top, the light under), cream on black */
+    JD + ' #newco .org i:last-child{margin-top:6px;padding:4px 8px;background:#0a0b0b;color:#e7dcc6;line-height:14px;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40}',
+    /* the name: the camera's title screen, sunk the same, his letters at 20; ANOTHER a button beside it */
+    JD + ' #newco .name input{border:1px solid #050505;background:#0a0b0b;color:#efe6d2;caret-color:#d8341f;font-family:"BohemiaCasing",monospace;font-size:20px;letter-spacing:2px;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40}',
+    JD + ' #newco .name input:focus{border-color:#e2bd6a;background:#0a0b0b}',
+    JD + ' #newco .name button{border:1px solid #050505;background:#1d1e20;color:#e7dcc6;box-shadow:inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
     /* the load under the picks: the log is a receipt the machine prints, two lines, the newest at the bottom */
-    JD + '.load #loadgl{flex:0 0 auto;height:40px;max-height:40px;min-height:0;padding:2px 10px;line-height:18px}',
-    JD + '.load #loadgl>div:not(:nth-last-child(-n+2)){visibility:hidden}',   /* the two newest lines; the older ones scrolled off the receipt print nowhere */
+    JD + '.load #loadgl{flex:0 0 auto;height:20px;max-height:20px;min-height:0;padding:1px 10px;line-height:18px;overflow:hidden}',
+    JD + '.load #loadgl>div:not(:last-child){display:none}',   /* UI 5: the newest line only; the camera above already reads the load */   /* the two newest lines; the older ones scrolled off the receipt print nowhere */
     JD + ' #loadrow{gap:10px}',
     JD + ' #cbxmini{flex:0 0 auto;display:block;image-rendering:pixelated;image-rendering:crisp-edges}',
     /* sideways the picks keep their own column (the bare look's grid): the card a little shorter */
@@ -686,17 +638,18 @@
   }
 
   /* ---------------- THE LOOP: one, on the beat's keys, cheap ---------------- */
-  var DAY = undefined;
   function loop() {
     try {
       var f = $('front'), up = f && f.style.display !== 'none';
       if (up) {
         if ($('newco')) watchPicks();
         var root = ensureMachine();
-        if (root && !TITLE.leaving) {
-          if (DAY === undefined) { DAY = saveDay(); if (DAY !== undefined) decideWrong(DAY); }
-          if (placeMachine(root)) paintMachine(false);
-        }
+        feedSound();
+        if (root && !TITLE.leaving) { if (placeFeed(root)) paintFeed(false); }
+        if ($('newco') && !TITLE.leaving) ensureMini();
+        /* the strip was dressed while the title hid it (a hidden strip cannot scroll): the first time it is on the glass, it goes
+           to the origin that is picked, or the card reads empty (measured upright 11/3: 2 OF 15 picked, the strip at 0) */
+        var st0 = $('newcostrip'); if (st0) { var vis0 = st0.clientWidth > 0; if (vis0 && !st0.__cbxShown) { st0.__cbxShown = true; snapToPicked(false); } else if (!vis0) st0.__cbxShown = false; }
         if (MINI.el) paintMini();
       }
     } catch (e) { LOG.push({ k: 'loop threw', e: String(e) }); }
@@ -708,6 +661,8 @@
   window.BohemiaCrashbox = {
     hintsOn: hintsOn, setHints: setHints, doorOut: doorOut, say: say, log: LOG,
     data: function () { return D; },
-    state: function () { var P = progress(); return { machine: !!(MACH.el && MACH.el.isConnected && MACH.el.style.display !== 'none'), mini: !!(MINI.el && MINI.el.isConnected), key: keyOf(D.robot.big.keys), beat: Math.floor(beatF()), progress: P, line: newestLine(), wrong: WRONG.n, hints: hintsOn(), said: said() }; }
+    state: function () { var P = progress(); return { feed: !!(FEED.el && FEED.el.isConnected && FEED.el.style.display !== 'none'), pick: feedKey(), loaded: !!feedImg(), sound: window.__TITLEWIND ? __TITLEWIND.SRC : null,
+      mini: !!(MINI.el && MINI.el.isConnected), key: keyOf(D.keys_per_bar), beat: Math.floor(beatF()), progress: P, line: newestLine(), hints: hintsOn(), said: said() }; },
+    feedKey: feedKey
   };
 })();

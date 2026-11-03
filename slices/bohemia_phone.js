@@ -251,7 +251,7 @@
         var deg = null, nx = null; try { var n = window.BohemiaJobKinds && BohemiaJobKinds.nextOf ? BohemiaJobKinds.nextOf(j) : null;
           if (n && n.x != null) { var g = __CITY.state(), dx = n.x - city.x, dy = n.y - city.y, vx = (dx - dy) * g.TW / 2, vy = (dx + dy) * g.TH / 2;
             nx = [n.x, n.y]; if (dx || dy) deg = Math.round((Math.atan2(vx, -vy) * 180 / Math.PI + 360) % 360); } } catch (e) {}
-        out.push({ id: j.id, what: String((W && W[j.id]) || j.title || 'a job'), from: String(j.from || ''), at: at, stars: stars | 0, mins: mins, back: back, deg: deg, to: nx });
+        out.push({ id: j.id, what: String((W && W[j.id]) || (j.rescue ? 'Get your men back' : '') || j.title || 'a job'),   /* draft:true; the full title stays the card's label (ask 154) */ full: String(j.title || ''), from: String(j.from || ''), at: at, stars: stars | 0, mins: mins, back: back, deg: deg, to: nx });
       });
     } catch (e) {}
     JOBS_AT = { key: key, out: out };
@@ -592,7 +592,10 @@
       +   'font-family:"BohemiaROM",ui-monospace,monospace;color:#efe3c6;-webkit-user-select:none;user-select:none;touch-action:manipulation;'
       +   '-webkit-tap-highlight-color:transparent;filter:drop-shadow(3px 2px 0 rgba(8,5,2,.55))}'
       + '#bohphone.on{display:block}'
-      + '#bohphone.behind{opacity:.35;pointer-events:none}'
+      /* UI 5 (ask 133(a): 'with the phone on the left the settings card's words sit under the ghosted phone'): the card is see-through
+         paper, so a ghost under it muddied CREW, RELATIONS, NOTES and SETTINGS; behind the card the phone is gone, and a flip of the
+         corner shows it where it now stands for three beats, then it goes again */
+      + '#bohphone.behind{opacity:0;pointer-events:none;transition:opacity .25s steps(3,end)}#bohphone.behind.flipped{opacity:.35;transition:none}'
       + '#bohphone *{box-sizing:border-box}'
       + '#bohphone .case{position:absolute;inset:0;z-index:0;pointer-events:none;border-style:solid;border-width:20px 15px 23px 15px;'
       +   'border-image:url(' + IMG('case') + ') 60 45 69 45 / 20px 15px 23px 15px round}'
@@ -660,9 +663,16 @@
       + '#bohphone .jc .dir{flex:0 0 12px;width:12px;height:12px;display:block;transform-origin:50% 50%}'
       + '#bohphone .jc .dir svg{display:block}#bohphone .jc .dir path{fill:#2a1d10;stroke:#f1e4c4;stroke-width:.6}'
       + '#bohphone .jc .dir.here svg{display:none}#bohphone .jc .dir.here::after{content:"";display:block;width:6px;height:6px;margin:3px;border-radius:50%;background:#2a1d10}'
-      + '#bohphone .jc .tx{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;line-height:8px}'
-      + '#bohphone .jc .wh{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:clip}'
+      + '#bohphone .jc .tx{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;line-height:7.5px}'
+      /* UI 5 (ask 154: 'Get your men ba'): the what wraps on whole words over two lines and the place keeps its own word, so nothing is cut
+         mid-word; the card is the same 24 tall (two lines of the what and the line of stars at 7.5 each) */
+      + '#bohphone .jc .wh{font-size:7px;white-space:normal;overflow:hidden;max-height:15px;overflow-wrap:normal;word-break:normal}'
+      + '#bohphone .jc .wh .at{white-space:nowrap}'
       + '#bohphone .jc .mt{font-size:6px;white-space:nowrap;overflow:hidden;color:#4a3826}'
+      + '#bohphone .jc{padding-top:0!important;padding-bottom:0!important}'
+      /* UI 5 (ask 154: 'after two wipes the phone held three jobs and showed two'): a rescue is held past the two contracts (RUN's
+         LOOP_MAX + 1), so with three the job column takes the feed's top 26 and the feed shows its one post in the 20 left */
+      + '#bohphone .home.jobs3 .jobs{height:90px}#bohphone .home.jobs3 .bpfd{top:93px;height:20px}#bohphone .home.jobs3 .bpfd .fp{height:16px}'
       + '#bohphone .jc .st{color:#a3180c;letter-spacing:-.5px;margin-right:2px}'
       + '#bohphone .jc .x{flex:0 0 32px;width:32px;height:24px;margin:-1px -2px -1px 0;padding:0 0 0 10px;border:0;background:none;cursor:pointer}'   /* the X is 20 drawn, 32 by the card's height to a thumb */
       + '#bohphone .jc .x img{width:20px;height:21.4px;display:block;pointer-events:none}'
@@ -1152,13 +1162,14 @@
         + '<div class="tx"><span class="wh"></span><span class="mt"><span class="st"></span><span class="pl"></span></span></div>'
         + '<button type="button" class="x" aria-label="drop this job"><img alt="" src="' + IMG('app_x') + '"></button>';
       /* what and where on the first line (the place may clip), the stars and the time on the second (never clipped) */
-      d.querySelector('.wh').textContent = j.what + ' \u00b7 ' + String(j.at || j.from).toUpperCase();
+      var wh = d.querySelector('.wh'), plw = String(j.at || j.from || '').toUpperCase(); wh.textContent = j.what + (plw ? ' ' : '');
+      if (plw) { var atw = el('span', 'at'); atw.textContent = '\u00b7 ' + plw; wh.appendChild(atw); }   /* the place keeps its word, its dot with it (ask 154) */
       d.querySelector('.st').textContent = new Array(Math.max(1, Math.min(5, j.stars)) + 1).join('\u2605');
       d.querySelector('.pl').textContent = timeWord(j);
       /* WORLD 4 (rule 308, ask line 301): COME BACK or PAID THERE first on the line (the job file's one mark, by the held job's own kind) */
       try { var JK = JKW(), cw0 = cityWin(), hj = null; ((cw0 && cw0.LOOP && cw0.LOOP.held) || []).forEach(function (x) { if (x && x.id === j.id) hj = x; }); if (JK && JK.payMarkHTML) d.querySelector('.mt').insertAdjacentHTML('afterbegin', JK.payMarkHTML(hj || { id: j.id }, { short: true })); } catch (e) {}
       var dv = d.querySelector('.dir'); if (j.deg == null) dv.classList.add('here'); else { dv.style.transform = 'rotate(' + j.deg + 'deg)'; dv.dataset.deg = j.deg; }   /* which way (238(d)); a dot when he is on it */
-      d.setAttribute('aria-label', j.what + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : ''));
+      d.setAttribute('aria-label', (j.full || j.what) + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : ''));
       d.querySelector('.x').addEventListener('click', function (e) { e.stopPropagation(); H.arm = { id: j.id, cost: L ? L.dropCost(j.id) : null, why: null }; jobsPaint(L, true); });
       d.addEventListener('click', function () { H.sel = j.id; jobsPaint(L, true); });
     } else {
@@ -1186,7 +1197,9 @@
     if (!force && sig === H.jobSig) return; H.jobSig = sig;
     [].slice.call(jb.querySelectorAll('.jc, .je')).forEach(function (n) { n.remove(); });
     jb.classList.toggle('asking', !!H.arm);
-    js.slice(0, 2).forEach(function (j) { jb.appendChild(jobCard(j, L)); });
+    /* every job he holds (ask 154): two contracts and a rescue past them; the column grows into the feed's top for the third */
+    js.slice(0, 3).forEach(function (j) { jb.appendChild(jobCard(j, L)); });
+    var hm = H.el.querySelector('.home'); if (hm) hm.classList.toggle('jobs3', js.length > 2);
     /* rule 232(a): every slot he does not fill reads EMPTY, READY TO GO: a plain empty slot, never an offer */
     for (var e = Math.min(2, js.length); e < 2; e++) { var je = el('div', 'je'); je.setAttribute('role', 'img'); je.setAttribute('aria-label', 'an empty job slot, ready to go'); jb.appendChild(je); }
   }
@@ -1569,6 +1582,8 @@
     /* the game's settings card over everything: the phone shows where it now stands (the flip, at once) but takes no press */
     var sw = document.getElementById('setwrap'), setOn = !!sw && sw.classList.contains('on');
     ph.classList.toggle('behind', setOn);
+    if (setOn && H.behindSide && H.behindSide !== H.cfg.side) { ph.classList.add('flipped'); clearTimeout(H.flipT); H.flipT = setTimeout(function () { ph.classList.remove('flipped'); }, 1500); }
+    H.behindSide = setOn ? H.cfg.side : null; if (!setOn) ph.classList.remove('flipped');
     var was = H.state.screen;
     H.state = { on: on, side: H.cfg.side, screen: scr, rect: g };
     frames(window).forEach(function (w) { try { if (w.BohemiaPhone && w.BohemiaPhone._paint) w.BohemiaPhone._paint(H.state); } catch (e) {} });

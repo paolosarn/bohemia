@@ -1,22 +1,37 @@
 {
   "version": 1,
   "lane": "UI",
-  "what": "THE FIRST MINUTE (UI round 3, 11/2/26): the Crashbox machine on the loading screen, the start screen's picks, the hints toggle. Every number the three read is here (rule: any new number in a data file). Words are draft:true attempts for WORDS.",
-  "ask_lines": [280, 261, 262],
+  "what": "THE FIRST MINUTE. UI round 3 (11/2/26) made the machine, the start screen's picks and the hints toggle; UI 5 (11/3/26, asks 338 and 340, his 11/2 NO on the machine) made THE FEED: the loading screen is a camera's own feed, three made through the master rig, the pick in the game, all three on the VOTE tab; the picks restyled as the camera's own buttons. Every number the first minute reads is here. Words are draft:true attempts for WORDS.",
+  "ask_lines": [
+    280,
+    261,
+    262,
+    338,
+    340
+  ],
   "rule": 301,
   "draft": true,
   "beat_ms": 500,
   "beats_per_bar": 4,
   "keys_per_bar": 12,
   "robot": {
-    "big":   { "src": "crashbox/robot_idle_s_120.png", "w": 81, "h": 120, "keys": 12 },
-    "small": { "src": "crashbox/robot_idle_s_52.png",  "w": 35, "h": 52,  "keys": 12 },
-    "from": "records/target/master_rig/robot/raw_Idle_S_k00..k11.png (DIRECTION's master-rig robot, the one he loved, 10/17 and 11/2), cropped to its own ink, 64 colours, hard alpha"
+    "big": {
+      "src": "crashbox/robot_idle_s_120.png",
+      "w": 81,
+      "h": 120,
+      "keys": 12
+    },
+    "small": {
+      "src": "crashbox/robot_idle_s_52.png",
+      "w": 35,
+      "h": 52,
+      "keys": 12
+    },
+    "from": "records/target/master_rig/robot/raw_Idle_S_k00..k11.png (DIRECTION's master-rig robot, the one he loved, 10/17 and 11/2), cropped to its own ink, 64 colours, hard alpha",
+    "retired": "11/3 UI 5: the machine is out of the first minute (his 11/2 NO); the sheets stay on disk, nothing loads them"
   },
   "machine": {
-    "min_h": 150, "max_h": 268, "max_w": 358, "gap": 14,
-    "bulbs": 4,
-    "strip_h": 40, "strip_window": 36
+    "retired": "11/3 UI 5: replaced by THE FEED (his 11/2 NO)"
   },
   "moves": {
     "hold_ms": 125,
@@ -27,19 +42,17 @@
     "say_out_holds": 3
   },
   "wrongness": {
-    "id": "loading_it_comes_closer",
-    "file": "slices/wrongness/wrongness.json",
-    "pictures": ["wrongness/loading_it_comes_closer_1.png", "wrongness/loading_it_comes_closer_2.png", "wrongness/loading_it_comes_closer_3.png"],
-    "one_in": 4,
-    "from_day": 3,
-    "key": "bohemia.wrong.loading",
-    "why_day_3": "the bible's beat 3 (IT KNOWS YOU) comes after the first town is done; a saved game on its third day is the door's honest reading of that. Never on a first load, never two on one screen, never pointed at."
+    "retired": "11/3 UI 5: his 11/2 vote 'Bro wtf is this horseshit'; the sheet to the graveyard, nothing on the first minute shows it"
   },
   "hints": {
     "key": "bohemia.hints",
     "said_key": "bohemia.hints.said",
     "default_on": true,
-    "quiet_ms": { "map": 8000, "town": 3000, "camp": 3000 },
+    "quiet_ms": {
+      "map": 8000,
+      "town": 3000,
+      "camp": 3000
+    },
     "hold_beats": 8,
     "type_per_beat": 24,
     "draft": true,
@@ -48,6 +61,74 @@
       "town": "Tap a building to go in. LEAVE on the phone takes us back out.",
       "camp": "We heal quicker at camp. The ring on the phone breaks camp."
     },
-    "toggle": { "title": "HINTS", "on": "ON", "on_sub": "a face tells you, once", "off": "OFF", "off_sub": "no hints" }
+    "toggle": {
+      "title": "HINTS",
+      "on": "ON",
+      "on_sub": "a face tells you, once",
+      "off": "OFF",
+      "off_sub": "no hints"
+    }
+  },
+  "feed": {
+    "_why": "his 11/2 vote NO on the machine (the box with the tin robot), no words; rule 66a (Paolo 10/5): 'the loading shown as the camera's own feed, never a bar'. Made by tools/bohemia_ui_the_first_minute_feeds.py (render + tape) and tools/bohemia_ui_the_first_minute_sounds.py (each its own sound, CC0 recordings via ESC-50).",
+    "pick": "b",
+    "pick_why": "B, THE NIGHT CAMERA: the one that reads as analog horror at the source with nothing added (a security camera's grey, its six pictures a second, a dying sodium lamp), and the only one whose reading of the load is the picture itself coming in (the tear settles as the stages land).",
+    "key": "bohemia.title.feed",
+    "w": 390,
+    "h": 520,
+    "gap": 14,
+    "mini_w": 40,
+    "mini_h": 30,
+    "words": {
+      "draft": true,
+      "rec": "REC",
+      "charging": "CHARGING",
+      "charged": "CHARGED",
+      "no_signal": "NO SIGNAL",
+      "signal_in": "SIGNAL",
+      "vegas": "LAS VEGAS",
+      "mi": "MI"
+    },
+    "options": {
+      "a": {
+        "name": "THE CAMP ON TAPE",
+        "sheet": "crashbox/feed_a.webp",
+        "sound": "crashbox/feed_a.mp3",
+        "top_left": "rec",
+        "reading": "battery",
+        "corner": "counter",
+        "focus": [
+          0.5,
+          0.62
+        ]
+      },
+      "b": {
+        "name": "THE NIGHT CAMERA",
+        "sheet": "crashbox/feed_b.webp",
+        "sound": "crashbox/feed_b.mp3",
+        "top_left": "cam",
+        "cam": "CAM 03",
+        "place": "PAWN · LOT",
+        "reading": "signal",
+        "corner": "clock",
+        "tear": true,
+        "focus": [
+          0.45,
+          0.5
+        ]
+      },
+      "c": {
+        "name": "THE ROAD IN",
+        "sheet": "crashbox/feed_c.webp",
+        "sound": "crashbox/feed_c.mp3",
+        "top_left": "rec",
+        "reading": "miles",
+        "corner": "counter",
+        "focus": [
+          0.5,
+          0.55
+        ]
+      }
+    }
   }
 }

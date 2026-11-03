@@ -1,5 +1,28 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
+UI (ui-5, the first minute and the phone's fixes): 11/3 LATEST -- [the loading screen] + [the start screen] BUILT, NOT YET SEEN; [the third
+job], [the left phone], [the blood on the words], [the reload leg] BUILT, NOT YET SEEN; [the end screen on the phone] WALKED, NOT DONE
+(asks 338, 340, 154, 133(a), 129, 282; 161 handed back; BUILD 11/3zzn - THE CAMERA'S OWN FEED), IN THE DEMO, two VOTE cards.
+Record records/BOHEMIA_UI_THE_FIRST_MINUTE_AND_THE_PHONE_FIXES_11_3_26.md; proof records/target/ui_the_first_minute_feeds/ (6 sheets).
+- THE FEED (slices/bohemia_ui_crashbox.js, UI's): the machine is gone (his 11/2 NO); the loading screen is a camera's own feed under
+  his letters (rule 66a), the load read by the camera (A battery, B signal + the tear, C miles to Vegas), REC on the beat. Three
+  feeds made through the master rig: tools/bohemia_ui_the_first_minute_feeds.py (Blender bpy 4.2: <venv>/bin/python ... A|B|C <dir>,
+  then --post into slices/crashbox/feed_<x>.webp, 12 keys a bar, 390 x 520); sounds tools/bohemia_ui_the_first_minute_sounds.py
+  (CC0 via ESC-50; two diesel stems frozen into the bank). D.feed.pick = 'b' in slices/crashbox/crashbox.json; localStorage
+  bohemia.title.feed is a probe's switch only. The title's own player (TITLEWIND) plays the pick's mp3 in place of the bare wind.
+- THE START SCREEN: the picks are the camera's own buttons (black plastic lit from above, the picked lit gold edge to edge); the
+  feed's small window by the load's row; the strip snaps to the picked origin the first time it is on the glass (it read empty).
+- THE PHONE (slices/bohemia_phone.js): up to three job cards (a rescue past the two contracts), names wrap on whole words; behind
+  the settings card the phone is gone (a flip shows it 1.5 s). THE BLOOD (slices/bohemia_ui_materials.js bloodHoles): one wipe
+  a block of words. THE PHONE gate's RELOAD leg takes a shooter's turn.
+NEXT: 161 (the end screen's four on the phone) is a phone face plus seven lanes' checkers re-aimed (the spoils, the aftermath, the
+fight opens the fight, scrap is tape, the wagon and the six, his map, bosses act one): the coordinator's call. His A/B/C on the
+loading card; if A or C, set feed.pick. THE START SCREEN'S LOOK gate throws before its first leg on main (its own fix, not mine).
+[bb Battle Brothers' loading screen is one painted scene of the company with a line under it; ours is the valley seen through one
+camera, the line the camera's own readout.]
+[analog horror: the medium is the horror: a security camera's grey at six pictures a second, a tape's tear at the foot, a sodium
+lamp dying twice a bar, the siren a mile off once; nothing added on top.]
+
 UI (ui-4, nothing pops): 11/2 LATEST -- [nothing pops] + [voices clear of the phone] + [the tooltips] SHIPPED, BUILT, NOT YET SEEN
 (asks 322, 312, and 327/339 the feed one post at a time; rules 324, 329 and 316's tooltip note; BUILD 11/3zw - NOTHING POPS), IN THE DEMO. Record
 records/BOHEMIA_UI_NOTHING_POPS_VOICES_CLEAR_TOOLTIPS_11_2_26.md; proof records/target/ui_nothing_pops/ (3 sheets).

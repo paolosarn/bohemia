@@ -498,6 +498,17 @@ async function side(profile) {
       /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4, asks 265 and 275): the crew is on the phone (the turn strip, every face
          a press on top; the man's card with the fight's own name and numbers), the fight's strip and bar are off the glass and the
          fight measures both edges as 0; THE BEAT IS SEEN (ask 270): the phone's pulse lands on the fight's own beat (its beatPh) */
+      /* A SHOOTER'S TURN (UI 5, ask 282; FINISHER 11/3: 'the RELOAD leg met a man with no gun'): RELOAD shows only for a gun that
+         reloads, so the legs below read a shooter: the man up if he carries one, else the turn handed to the first of his men who
+         does, else a gun from the fight's own table in the hands of the man up (the way climb_or_attack hands one) */
+      const SH = await f.evaluate(() => { const F = FIGHT, S = F.S, u = F.current(), can = v => !!(v && v.weapon && F.reloadSkill(v.weapon));
+        if (u && u.side === 'you' && can(u)) return 'his own turn, ' + u.weapon.name;
+        const g = S.units.find(v => v.side === 'you' && !v.dead && can(v) && S.order.indexOf(v.id) >= 0);
+        if (g) { S.idx = S.order.indexOf(g.id); return 'the turn handed to ' + g.name + ', ' + g.weapon.name; }
+        const w = (typeof DB !== 'undefined' && DB.weapons ? DB.weapons.rows : []).find(r => F.isGun(r) && F.reloadSkill(r));
+        if (u && w) { u.weapon = w; u.ammo = w.ammo ? 3 : null; u.loaded = true; return 'a ' + w.name + ' in ' + u.name + '\'s hands'; } return 'no gun'; });
+      await p.waitForTimeout(1200);
+      ok('  a shooter\'s turn for the RELOAD leg (ask 282)', SH !== 'no gun', SH);
       { const G = await f.evaluate(() => { const off = id => { const e = document.getElementById(id); if (!e) return true; const r = e.getBoundingClientRect();
             return getComputedStyle(e).visibility === 'hidden' || r.bottom <= 0.5 || r.top >= innerHeight - 0.5; };
           const fb = id => { const e = document.getElementById(id); return e ? String(e.style.getPropertyValue('--n') || '').replace(/"/g, '').trim().split(' ').pop() : ''; };

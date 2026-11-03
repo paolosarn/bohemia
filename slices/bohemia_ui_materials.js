@@ -2336,10 +2336,15 @@
   function bloodHoles(el) {
     if (!el || !el.isConnected || !el.hasAttribute('data-bm-blood')) return;
     var R = el.getBoundingClientRect(); if (!R.width || !R.height) return;
+    /* UI 5 (ask 129, EYES q58 and the town board measured upright 11/3: a drip lay BETWEEN two lines of one title, across 'come tell
+       me.): a block of words is wiped as ONE label, the box round all its lines, a point and a half round it as before */
     var rs = [], pad = 1.5, add = function (q) { if (q.width > 0 && q.height > 0) rs.push([q.left - R.left - pad, q.top - R.top - pad, q.right - R.left + pad, q.bottom - R.top + pad]); };
     var tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, rg = document.createRange();
     while ((n = tw.nextNode())) { if (!/\S/.test(n.nodeValue)) continue; var pe = n.parentElement; if (pe && getComputedStyle(pe).visibility === 'hidden') continue;
-      rg.selectNodeContents(n); var L = rg.getClientRects(); for (var i = 0; i < L.length; i++) add(L[i]); }
+      rg.selectNodeContents(n); var L = rg.getClientRects(), U = null;
+      for (var i = 0; i < L.length; i++) { var q = L[i]; if (!(q.width > 0 && q.height > 0)) continue;
+        U = U ? { left: Math.min(U.left, q.left), top: Math.min(U.top, q.top), right: Math.max(U.right, q.right), bottom: Math.max(U.bottom, q.bottom) } : { left: q.left, top: q.top, right: q.right, bottom: q.bottom }; }
+      if (U) add({ left: U.left, top: U.top, right: U.right, bottom: U.bottom, width: U.right - U.left, height: U.bottom - U.top }); }
     [].slice.call(el.querySelectorAll('.bmstar, img')).forEach(function (e) { add(e.getBoundingClientRect()); });
     /* merge until no two overlap (an exclusive mask would fill a place two holes share) */
     for (var again = true; again;) { again = false;

@@ -1,0 +1,42 @@
+{
+ "_readme": "THE LOADING SCREENS HEARD (UI 5, 11/3/26, asks 338 and 340): each option of the loading screen has its own sound, cut from CC0 recordings (Freesound via ESC-50); tools/bohemia_ui_the_first_minute_sounds.py.",
+ "draft": true,
+ "feeds": {
+  "a": {
+   "file": "feed_a.mp3",
+   "seconds": 10.0,
+   "rms_db": -27.0,
+   "peak_db": -2.1,
+   "bytes": 80501,
+   "sources": [
+    "| 4-181563-A-12 | Crackling fire | Fire Crackling 01.wav | kingsrow | http://www.freesound.org/people/kingsrow/sounds/181563/ | CC0 |",
+    "| 4-182369-A-12 | Crackling fire | Fire Crackling 01.mp3 | kingsrow | http://www.freesound.org/people/kingsrow/sounds/182369/ | CC0 |",
+    "| 5-179496-A-16 | Wind | 111224_04 wind.WAV | toiletrolltube | http://www.freesound.org/people/toiletrolltube/sounds/179496/ | CC0 |"
+   ]
+  },
+  "b": {
+   "file": "feed_b.mp3",
+   "seconds": 10.0,
+   "rms_db": -28.9,
+   "peak_db": -1.0,
+   "bytes": 80501,
+   "sources": [
+    "| 4-202749-A-13 | Crickets | Soft, Chilled Crickets Field Recording | rayjensen | http://www.freesound.org/people/rayjensen/sounds/202749/ | CC0 |",
+    "| 2-152895-A-31 | Mouse click | Sound of a mouse being clicked  | davidkyoku | http://www.freesound.org/people/davidkyoku/sounds/152895/ | CC0 |",
+    "| 1-54084-A-42 | Siren | civildefense.wav | guitarguy1985 | http://www.freesound.org/people/guitarguy1985/sounds/54084/ | CC0 |"
+   ]
+  },
+  "c": {
+   "file": "feed_c.mp3",
+   "seconds": 10.0,
+   "rms_db": -27.0,
+   "peak_db": -12.4,
+   "bytes": 80501,
+   "sources": [
+    "| 5-243783-A-44 | Engine | Diesel-drive.wav | fastson | http://www.freesound.org/people/fastson/sounds/243783/ | CC0 |",
+    "| 5-243773-A-44 | Engine | Diesel-drive2.wav | fastson | http://www.freesound.org/people/fastson/sounds/243773/ | CC0 |",
+    "| 3-117504-A-16 | Wind | winter wind 01a.aiff | klangfabrik | http://www.freesound.org/people/klangfabrik/sounds/117504/ | CC0 |"
+   ]
+  }
+ }
+}

@@ -101,6 +101,8 @@ Nothing from a CC-BY, CC-BY-NC or Sampling+ source is in this folder; tools/bohe
 | 5-236288-A-28 | Snoring | human snore.wav | mffm | http://www.freesound.org/people/mffm/sounds/236288/ | CC0 |
 | 5-238492-A-23 | Breathing | 3_Breath sport.wav | mariiao2 | http://www.freesound.org/people/mariiao2/sounds/238492/ | CC0 |
 | 5-243635-A-29 | Drinking - sipping | swallowing.wav | freakinbehemoth | http://www.freesound.org/people/freakinbehemoth/sounds/243635/ | CC0 |
+| 5-243773-A-44 | Engine | Diesel-drive2.wav | fastson | http://www.freesound.org/people/fastson/sounds/243773/ | CC0 |
+| 5-243783-A-44 | Engine | Diesel-drive.wav | fastson | http://www.freesound.org/people/fastson/sounds/243783/ | CC0 |
 | 5-252248-A-34 | Can opening | can opening.wav | Reitanna | http://www.freesound.org/people/Reitanna/sounds/252248/ | CC0 |
 | 5-261464-A-23 | Breathing | Werewolf breathing and sniffing  | kd_jack | http://www.freesound.org/people/kd_jack/sounds/261464/ | CC0 |
 | 5-263775-A-26 | Laughing | Laughing Man | scottemoil | http://www.freesound.org/people/scottemoil/sounds/263775/ | CC0 |
