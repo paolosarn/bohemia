@@ -367,3 +367,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 343 | MORE CONTENT: five more lab-made beasts that could truly live in the Mojave now (and the mammoth question answered) | 302 | BEASTS (FACTIONS) | RUNNING (11/3) |
 | 344 | ASSETS: every weapon its own 3D model in the hand (the pool pole and whips first: today drawn as the rebar spear and a chain), on the shelf, its icon | 337 | COOK WEAPONS | RUNNING (11/3) |
 | 345 | ASSETS: every armour its own model on the body; the three bosses (POT, TAP, FILTER) rebuilt as real assets, their weapons in their hands | 337 | COOK ARMOUR | RUNNING (11/3) |
+| 346 | We still don't know what killing a boss does; the map where his things are; the map icons after a kill are bad | 338 | BOSSES FIX | RUNNING (11/3) |
+| 347 | (again) The map does not feel procedurally generated: every seed must look and play different | 339 | WORLD 7 | RUNNING (11/3) |
+| 348 | Get all the jobs going: every open ask finished or handed to a lane | 340 | FINISHER 2 | RUNNING (11/3) |
