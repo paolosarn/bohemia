@@ -45335,7 +45335,8 @@ function travelPath(p,to,yard,town){
    advances in travelStepped(), after the step is known to have landed. */
 /* __OVER_THE_MOUNTAIN__: how many of the walk's steps a block takes to cross on the glass (a mountain its TERRAIN_GOING, 3; a
    peak out on the region the same; every other block one, as it was: the hills and the rubble pay only on the clock) */
-function mapGoingBeats(x,y){
+function mapGoingBeats(x,y){ var __w=1; try{ if(window.BohemiaMapHouses) __w=BohemiaMapHouses.watchBeats(); }catch(_e){} return __w*mapGoingBeatsLand(x,y); }   /* __THE_HOUSES_STAND_UP_CLOSE__ */
+function mapGoingBeatsLand(x,y){
   if(TERRAIN_GOING.on===false) return 1;
   try{ if(x>=0&&y>=0&&x<om.n&&y<om.n){ var t=om.at(x,y); return t&&t.district==='mountain' ? TERRAIN_GOING.mountain : 1; }
        var R=window.BOH_REGION; if(R&&R.ready&&R.real&&R.land){ var a=R.land.at(x,y,R.compass); if(a&&a.peak) return TERRAIN_GOING.mountain; } }catch(_e){}
@@ -47458,7 +47459,8 @@ try { window.CAMF = CAMF; window.camHold = camHold; window.camLetGo = camLetGo; 
 var ZGEST = { t: 0, z0: 1, s0: null, down: false, fresh: false };   /* the zoom gesture: when it started and from where */
 function setZoomAt(z,pvx,pvy){
   if(MODE!=='city'||transing)return;
-  const [zmin,zmax]=zoomBounds();
+  let [zmin,zmax]=zoomBounds();
+  try { if (window.BohemiaMapHouses && BohemiaMapHouses.on()) zmax = Math.max(zmax, BohemiaMapHouses.streetTW()/TW0); } catch (_e) {}   /* __THE_HOUSES_STAND_UP_CLOSE__: down to the street */
   /* __ZOOM_SEAM__ -- the seam runs BOTH ways. Already at the overview's own
      closest zoom and still pinching in means he is asking to walk. Same swapMode(),
      same transition, so the round button and the pinch always agree. */
@@ -48631,7 +48633,7 @@ function cityGlidePos(now){
   const journey=!!(typeof TRAVEL!=='undefined' && TRAVEL && TRAVEL_SPEED>0);
   if(city.x!==G.tx||city.y!==G.ty){
     const gap=now-G.last; if(gap>0 && gap<2*BEAT) G.gap=G.gap?G.gap*0.6+gap*0.4:gap;
-    const E=(journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT))) * (journey ? mapGoingBeats(city.x, city.y) : 1);   /* __OVER_THE_MOUNTAIN__: a mountain block glides at its own slow pace */
+    const E=(journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT))) * (journey ? mapGoingBeats(city.x, city.y) : 1) * (journey && window.BohemiaMapHouses ? BohemiaMapHouses.glideK() : 1);   /* __THE_HOUSES_STAND_UP_CLOSE__: up close he walks the whole wait */   /* __OVER_THE_MOUNTAIN__: a mountain block glides at its own slow pace */
     glideStep(G, city.x, city.y, now, E, 3, journey);
   }
   { const __lp=(typeof streetLeadPos==='function')?streetLeadPos():null;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__ (off, rule 300): on the street he walks toward the next block between beats */
@@ -49577,7 +49579,8 @@ function mapDepthAt(X, Y, ox, oy){
 }
 /* is the picture at this CSS point standing between the camera and a walker whose feet are at depth R.d on block R.cx, R.cy
    (the same reading as mapDepthAt, made without a new object a pixel: a covered man is read a few thousand times a frame) */
-function mapDepthCovers(X, Y, R){
+function mapDepthCovers(X, Y, R){ return mapDepthCoversPaint(X, Y, R) || !!(window.BohemiaMapHouses && BohemiaMapHouses.covers(X, Y, R)); }   /* __THE_HOUSES_STAND_UP_CLOSE__ */
+function mapDepthCoversPaint(X, Y, R){
   var a = (X - MAP_DEPTH.ox) / (TW / 2), b = (Y - MAP_DEPTH.oy) / (TH / 2), bx = (a + b) / 2, by = (b - a) / 2, L = 0, k, T = null;
   if (VBT.onGlass && VBT.NT && VBT.frame) { var tx = Math.floor(bx / VB_TILE), ty = Math.floor(by / VB_TILE); if (tx >= 0 && ty >= 0 && tx < VBT.NT && ty < VBT.NT) T = VBT.onGlass[ty * VBT.NT + tx] || null; }
   if (T && T.dep) { var u = Math.floor((bx - T.org[0]) * T.S), v = Math.floor((by - T.org[1]) * T.S);
@@ -50702,6 +50705,7 @@ function vbCityCore(inp){
   var X0 = inp.org ? inp.org[0] | 0 : 0, Y0 = inp.org ? inp.org[1] | 0 : 0, NF = inp.NF || N, XS = X0 * S, YS = Y0 * S, HP = inp.hashPad != null ? inp.hashPad : PAD;
   /* the picture was drawn at 12 texels a block; Q scales every size in it, so a finer S is the same city at more pixels (RUN 10/19) */
   var Q = Math.max(1, Math.round(S / 12));
+  var LOTS = inp.lots ? [] : null, FLATH = !!inp.flat;   /* __THE_HOUSES_STAND_UP_CLOSE__: the house lots it paints, and whether the models stand on them */
   var C = {}; for (var k in VB_CCOL) C[k] = vbHex(VB_CCOL[k]);
   var cls = inp.cls, live = inp.live;
   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the campaign's state of each block, painted by this same painter on the
@@ -51266,7 +51270,10 @@ function vbCityCore(inp){
         case VB_CLASS.houses: if (sb === VB_SUB.trailer) {
           /* __THE_DISTRICTS_READ_APART__ (10/23): a trailer park is rows of long low boxes on gravel, a lane between rows */
           var ra = boxAlongX ? qy : qx, rb = boxAlongX ? qx : qy;
-          if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4) { lift = burned && r < 0.5 ? 0.5 * T : 1.6 * T; part = burned && r < 0.5 ? PART.burn : (vbHash(gx * 7 + ra, gy * 7 + (rb / 5 | 0), sd + 43) < 0.5 ? PART.roofL : PART.roof); }
+          if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4 && LOTS && !burned && !(WST && WST[cy * N + cx] === 1) && !(TWN && TWN[cy * N + cx] >= 0) && (rb === 1 || rb === 5) && tx % Q === 0 && ty % Q === 0 && (boxAlongX ? tx : ty) === rb * Q)   /* __THE_HOUSES_STAND_UP_CLOSE__ */
+            LOTS.push(1, gx, gy, (boxAlongX ? rb : ra) * Q / S, (boxAlongX ? ra : rb) * Q / S, (boxAlongX ? (rb === 1 ? 3 : 4) : 1) * Q / S, (boxAlongX ? 1 : (rb === 1 ? 3 : 4)) * Q / S, boxAlongX ? 1 : 0, vbHash(gx * 7 + ra, gy * 7 + rb, sd + 43), 0);
+          if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4 && FLATH && !burned && !(WST && WST[cy * N + cx] === 1) && !(TWN && TWN[cy * N + cx] >= 0)) { /* the model stands here (__THE_HOUSES_STAND_UP_CLOSE__) */ }
+          else if (ra % 3 === 1 && rb >= 1 && rb < 11 && (rb % 5) < 4) { lift = burned && r < 0.5 ? 0.5 * T : 1.6 * T; part = burned && r < 0.5 ? PART.burn : (vbHash(gx * 7 + ra, gy * 7 + (rb / 5 | 0), sd + 43) < 0.5 ? PART.roofL : PART.roof); }
           else if (r < 0.05) part = PART.spot;
           break;
         } else if (sb === VB_SUB.apartment) {
@@ -51290,10 +51297,14 @@ function vbCityCore(inp){
           var ox = Math.floor(vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 37) * (LQ - wq)), oy = Math.floor(vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 41) * (LQ - dq2));
           if (lx >= ox && lx < ox + wq && ly >= oy && ly < oy + dq2) {
             var hx = (lgx * LQ + ox) * Q, hy = (lgy * LQ + oy) * Q, fx2 = (tx - hx + 0.5) / (wq * Q), fy2 = (ty - hy + 0.5) / (dq2 * Q);
+            var __mh = !(burned && hh < 0.7) && !(WST && WST[cy * N + cx] === 1) && !(TWN && TWN[cy * N + cx] >= 0);   /* __THE_HOUSES_STAND_UP_CLOSE__ (WORLD 8): a standing house, the model's lot (a town paints its own over its blocks) */
+            if (__mh && LOTS && tx === hx && ty === hy) LOTS.push(0, gx, gy, hx / S, hy / S, wq * Q / S, dq2 * Q / S, longX ? 1 : 0, hh, lgy * 3 + lgx + (LQ === 4 ? 16 : 0));
+            if (__mh && FLATH) { /* the model stands on this yard */ } else {
             var dr = Math.abs((longX ? fy2 : fx2) - 0.5) * 2, wall = (big ? 3 : hl > 0.86 ? 4 : 2) * T;
             lift = burned && hh < 0.7 ? (r < 0.3 ? 0.5 * T : 1.5 * T) : wall + 1.6 * T * (1 - dr);
             part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : (hh < 0.5 ? PART.roofL : PART.roof);
             if (part !== PART.hole && part !== PART.burn && dr < 0.34 && Math.abs((longX ? fx2 : fy2) - 0.5) < 0.18) part = PART.window;   /* the chimney by day, the lit window at night */
+            }   /* __THE_HOUSES_STAND_UP_CLOSE__ */
           }
           else if (big && ((lx === (ox === 0 ? LQ - 1 : 0)) && ly >= 1 && ly < 3)) part = vbHash(gx * 4 + lgx, gy * 4 + lgy, sd + 47) < 0.2 ? PART.row : PART.line;   /* an estate's pool, most of them dry */
           else if (sb === VB_SUB.gated && (tx === 0 || ty === 0 || tx === S - 1 || ty === S - 1)) { lift = 1.2 * T; part = PART.edge; }   /* the gated block's wall */
@@ -51515,7 +51526,7 @@ function vbCityCore(inp){
   }
   ST.T = T; ST.strip = STRIP_ST;   /* __THE_STRIP_READS_AS_THE_STRIP__ */
   if (inp.wantH) { ST.HS = HS; ST.COLI = COLI; }   /* a checker's own reading of every texel's height (never in the game: the gate asks) */
-  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, dep: DEP, blk: BLK, ms: Math.round(performance.now() - t0), coli: inp.coli ? COLI : undefined, hs: inp.coli ? HS : undefined };   /* __THE_STREETS_JOIN__ (WORLD 11/2): the parts, for the join gate's reading only */
+  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, dep: DEP, blk: BLK, ms: Math.round(performance.now() - t0), coli: inp.coli ? COLI : undefined, hs: inp.coli ? HS : undefined, lots: LOTS, flat: FLATH };   /* __THE_HOUSES_STAND_UP_CLOSE__ */   /* __THE_STREETS_JOIN__ (WORLD 11/2): the parts, for the join gate's reading only */
 }
 function vbInput(m){
   var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
@@ -51556,7 +51567,7 @@ function vbWorker(){
         + '\nvar VB_TALL=' + JSON.stringify(VB_TALL) + ';' + '\nvar VB_JOIN=' + JSON.stringify(VB_JOIN) + ';'   /* __THE_MAP_STANDS_TALLER__ */
         + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'view\'){ var v=vbView(e.data); postMessage(v, v.px?[v.px.buffer]:[]); return; }'
         + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer,c.dep.buffer,c.blk.buffer]); return; }'
-        + ' if(e.data&&e.data.kind===\'tile\'){ var t=vbCityCore(e.data); postMessage({kind:\'tile\',key:e.data.key,seed:e.data.seed,tx:e.data.tx,ty:e.data.ty,org:e.data.org,S:t.S,P:t.P,ms:t.ms,day:t.day,lights:t.lights,dep:t.dep},[t.day.buffer,t.lights.buffer,t.dep.buffer]); return; }'
+        + ' if(e.data&&e.data.kind===\'tile\'){ var t=vbCityCore(e.data); postMessage({kind:\'tile\',key:e.data.key,seed:e.data.seed,tx:e.data.tx,ty:e.data.ty,org:e.data.org,S:t.S,P:t.P,ms:t.ms,day:t.day,lights:t.lights,dep:t.dep,lots:t.lots,flat:t.flat},[t.day.buffer,t.lights.buffer,t.dep.buffer]); return; }'
         + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
       w.onmessage = function (e) { if (e.data && e.data.kind === 'view') vbViewLand(e.data); else if (e.data && e.data.kind === 'city') vbCityLand(e.data); else if (e.data && e.data.kind === 'tile') vbTileLand(e.data); else vbLand(e.data); };
@@ -51640,6 +51651,7 @@ function vbCityDraw(ox, oy, night){
   if (!hid) g.drawImage(VBC.day, 0, 0);   /* unlit: the city's night pass lights it like everything else (rule 70a) */
   g.restore(); g.imageSmoothingEnabled = sm; VBC.draws++; VBC.alpha = a; VBC.hid = hid ? (VBC.hid | 0) + 1 : (VBC.hid | 0);
   try { vbTilesDraw(ox, oy, false); } catch (_e) { VBT.err = String(_e && _e.message || _e); }   /* __ONE_MAP_AT_EVERY_ZOOM__ */
+  try { if (window.BohemiaMapHouses) BohemiaMapHouses.draw(ox, oy); } catch (_e) {}   /* __THE_HOUSES_STAND_UP_CLOSE__: the models on their lots */
 }
 /* ==== __ONE_MAP_AT_EVERY_ZOOM__ (RUN 10/24/26, row [one map at every zoom], rule 142, Paolo 10/24: 'the map when it's zoomed
    out looks a certain way, and when it zooms in it fades to the 2D shit we had previously... it should just be the same map;
@@ -51669,7 +51681,8 @@ function vbTileS(){ return TW < 40 ? 36 : TW < 66 ? 60 : (VB_TILE_TOP && TW * ((
    with its 2-block margin, its lights canvas made though the sun was up). Now a tile keeps only the 8 x 8 blocks it draws (the margin
    was never drawn: its neighbour draws those blocks) and its lights stay bytes until night first asks for them. ==== */
 var VB_TILE_TOP = true;
-function vbTileKey(tx, ty, S){ return om.seed + ':' + (VBC.key || '') + ':' + S + ':' + tx + ',' + ty; }
+function vbTileKey(tx, ty, S){ return om.seed + ':' + (VBC.key || '') + ':' + S + (vbTileFlat() ? 'f' : '') + ':' + tx + ',' + ty; }   /* __THE_HOUSES_STAND_UP_CLOSE__: a yard tile is its own picture */
+function vbTileFlat(){ try { return !!(window.BohemiaMapHouses && BohemiaMapHouses.flat()); } catch (_e) { return false; } }
 function vbTileInput(tx, ty, S){
   var N = om.n, n = VB_TILE + 2 * VB_TILE_M, x0 = tx * VB_TILE - VB_TILE_M, y0 = ty * VB_TILE - VB_TILE_M;
   var cls = new Uint8Array(n * n), live = new Uint8Array(n * n), sub = new Uint8Array(n * n), thm = new Uint8Array(n * n);
@@ -51684,7 +51697,7 @@ function vbTileInput(tx, ty, S){
       var k2 = y2 * n + x2, kw = gy2 * W + gx2; jm[k2] = F.f.jm[kw]; xg[k2] = F.f.xg[kw]; rp[k2] = F.f.rp[kw]; } } catch (_e) { jm = xg = rp = null; }
   return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub, wst: wst,
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, key: vbTileKey(tx, ty, S), tx: tx, ty: ty,
-           jm: jm, xg: xg, rp: rp,
+           jm: jm, xg: xg, rp: rp, lots: true, flat: vbTileFlat(),   /* __THE_HOUSES_STAND_UP_CLOSE__ */
            towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */
 }
 function vbTileLand(r){
@@ -51702,7 +51715,7 @@ function vbTileLand(r){
   var lit = false; for (var i = 3; i < r.lights.length; i += 4) if (r.lights[i]) { lit = true; break; }   /* a tile with no light in it keeps no lights canvas */
   var by = cw * ch * 4 * (lit ? 2 : 1);
   if (r.dep) by += r.dep.length;   /* __YOU_WALK_BEHIND_IT__: a tile's depth, a byte a pixel, counted in the budget */
-  VBT.tiles.set(r.key, { day: cv(r.day), lights: null, lraw: lit && grid ? crop(r.lights) : null, cx: cx0, cy: cy0, cw: cw, ch: ch, ax: grid ? cw - iw : 0, ay: grid ? ch - ih : 0, dep: r.dep || null, P: r.P, org: r.org, tx: r.tx, ty: r.ty, S: r.S, at: performance.now(), bytes: by, seen: VBT.frame });
+  VBT.tiles.set(r.key, { day: cv(r.day), lights: null, lraw: lit && grid ? crop(r.lights) : null, cx: cx0, cy: cy0, cw: cw, ch: ch, ax: grid ? cw - iw : 0, ay: grid ? ch - ih : 0, dep: r.dep || null, P: r.P, org: r.org, tx: r.tx, ty: r.ty, S: r.S, at: performance.now(), bytes: by, seen: VBT.frame, lots: r.lots || null, flat: !!r.flat });   /* __THE_HOUSES_STAND_UP_CLOSE__ */
   if (lit && !grid) VBT.tiles.get(r.key).lights = cv(r.lights);
   VBT.bytes += by; VBT.landed++; VBT.last = { key: r.key, ms: r.ms, P: r.P };
   /* a memory budget, never a count: the oldest let go first, never one on the glass this paint */
@@ -51748,7 +51761,7 @@ function vbTilesDraw(ox, oy, lights){
     var key = vbTileKey(tx, ty, S), T = VBT.tiles.get(key);
     if (!T) { var mx = (lx + hx) / 2 - cxs, my = (ly + hy) / 2 - cys; want.push({ tx: tx, ty: ty, d: mx * mx + my * my });
       /* until it lands, the same blocks at another detail if one is kept (a pinch never blurs back to the whole painting) */
-      [128, 96, 60, 36].some(function (s2) { if (s2 === S) return false; var T2 = VBT.tiles.get(pre + s2 + ':' + tx + ',' + ty); if (T2) { T = T2; key = pre + s2 + ':' + tx + ',' + ty; return true; } return false; });
+      [S + (vbTileFlat() ? '' : 'f'), 128, 96, 60, 36, '128f', '96f', '60f'].some(function (s2) { if (s2 === S) return false; var T2 = VBT.tiles.get(pre + s2 + ':' + tx + ',' + ty);   /* __THE_HOUSES_STAND_UP_CLOSE__ */ if (T2) { T = T2; key = pre + s2 + ':' + tx + ',' + ty; return true; } return false; });
       if (!T) continue; }
     VBT.tiles.delete(key); VBT.tiles.set(key, T); T.seen = VBT.frame;   /* in use: the newest */
     if (!lights && VBT.onGlass) VBT.onGlass[ty * NT + tx] = T;   /* __YOU_WALK_BEHIND_IT__ */
@@ -51768,7 +51781,7 @@ function vbTilesDraw(ox, oy, lights){
     var t0 = want[0]; VBT.busy = true; VBT.asked++;
     var inp = vbTileInput(t0.tx, t0.ty, S);
     try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); }
-    catch (e) { VBT.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep }); }, 0); }
+    catch (e) { VBT.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep, lots: c.lots, flat: c.flat }); }, 0); }   /* __THE_HOUSES_STAND_UP_CLOSE__ */
   }
   VBT.want = want.length;
 }
@@ -52987,6 +53000,7 @@ function renderCity(){
     g.restore();
   }
   try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.under) BohemiaWorldStateMap.under(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 8): the start's sky over the ground he sees, under the fog's tape */
+  try { if (window.BohemiaMapSight) BohemiaMapSight.draw(ox, oy); } catch (_e) {}   /* __WHAT_HE_SEES_NOW__ (WORLD 8, ask line 39): what he sees from here, the rest remembered */
   try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
   try { if (window.BohemiaBosses && BohemiaBosses.draw) BohemiaBosses.draw(ox, oy); } catch (_e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): his place seen from afar, what fell with him, the blocks his verb was used on (slices/bohemia_bosses.js) */
   try { if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.draw) BohemiaWorldStateMap.draw(ox, oy); } catch (_e) {}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the camps' smoke, the lairs' birds, the ruins, the legendary masts, the shut roads */
@@ -93269,7 +93283,7 @@ window.BOHEMIA_SKIN = (function(){
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_road_events.js"></script>  <script src="bohemia_radio.js"></script>  <!-- CONTENT [twenty-five things on the road] (11/2): the road's events with a face and two or three choices, and five side quests met on the road (records/target/BOHEMIA_ROAD_EVENTS.json, BOHEMIA_SIDE_QUESTS.json) -->
-<script src="bohemia_his_map.js"></script>  <script src="bohemia_world_state_map.js"></script>  <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ WORLD 7 (rule 339): the campaign's state of the valley drawn and made true: dark, burned, looted, rebuilt; camps, lairs, ruins, legendary places; shut roads and passes; the start's sky -->  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
+<script src="bohemia_map_houses.js"></script>  <script src="bohemia_map_sight.js"></script>  <!-- __THE_HOUSES_STAND_UP_CLOSE__ WORLD 8 (ask lines 117, 185, 39): the real house models past the old closest stop; what he sees now -->  <script src="bohemia_his_map.js"></script>  <script src="bohemia_world_state_map.js"></script>  <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ WORLD 7 (rule 339): the campaign's state of the valley drawn and made true: dark, burned, looted, rebuilt; camps, lairs, ruins, legendary places; shut roads and passes; the start's sky -->  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_bosses.js"></script>  <!-- __THE_BOSSES__ BOSSES (rule 302): act one's first three bosses, their places, their fights and their verbs (records/target/bb/boss_act_one.json) -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>

@@ -1,0 +1,379 @@
+{
+ "sprites": {
+  "ranch_plain_0": {
+   "file": "ranch_plain_0.png",
+   "w": 281,
+   "h": 256,
+   "origin_px": [
+    114.0,
+    151.6
+   ],
+   "kind": "house",
+   "foot_m": [
+    11.03,
+    9.02
+   ],
+   "tall_m": 10.27
+  },
+  "ranch_plain_90": {
+   "file": "ranch_plain_90.png",
+   "w": 281,
+   "h": 275,
+   "origin_px": [
+    114.1,
+    172.6
+   ],
+   "kind": "house",
+   "foot_m": [
+    9.02,
+    11.03
+   ],
+   "tall_m": 10.27
+  },
+  "ranch_plain_180": {
+   "file": "ranch_plain_180.png",
+   "w": 282,
+   "h": 264,
+   "origin_px": [
+    114.1,
+    161.6
+   ],
+   "kind": "house",
+   "foot_m": [
+    11.03,
+    9.02
+   ],
+   "tall_m": 10.27
+  },
+  "ranch_plain_270": {
+   "file": "ranch_plain_270.png",
+   "w": 281,
+   "h": 266,
+   "origin_px": [
+    114.0,
+    150.6
+   ],
+   "kind": "house",
+   "foot_m": [
+    9.02,
+    11.03
+   ],
+   "tall_m": 10.27
+  },
+  "trailer_0": {
+   "file": "trailer_0.png",
+   "w": 302,
+   "h": 265,
+   "origin_px": [
+    122.5,
+    158.9
+   ],
+   "kind": "trailer",
+   "foot_m": [
+    17.95,
+    5.53
+   ],
+   "tall_m": 6.92
+  },
+  "trailer_90": {
+   "file": "trailer_90.png",
+   "w": 302,
+   "h": 265,
+   "origin_px": [
+    133.5,
+    148.8
+   ],
+   "kind": "trailer",
+   "foot_m": [
+    5.53,
+    17.95
+   ],
+   "tall_m": 6.92
+  },
+  "trailer_180": {
+   "file": "trailer_180.png",
+   "w": 302,
+   "h": 266,
+   "origin_px": [
+    113.3,
+    143.8
+   ],
+   "kind": "trailer",
+   "foot_m": [
+    17.95,
+    5.53
+   ],
+   "tall_m": 6.92
+  },
+  "trailer_270": {
+   "file": "trailer_270.png",
+   "w": 302,
+   "h": 266,
+   "origin_px": [
+    102.4,
+    152.9
+   ],
+   "kind": "trailer",
+   "foot_m": [
+    5.53,
+    17.95
+   ],
+   "tall_m": 6.92
+  },
+  "ranch_porch_0": {
+   "file": "ranch_porch_0.png",
+   "w": 293,
+   "h": 277,
+   "origin_px": [
+    109.1,
+    176.8
+   ],
+   "kind": "house",
+   "foot_m": [
+    12.03,
+    10.86
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_porch_90": {
+   "file": "ranch_porch_90.png",
+   "w": 293,
+   "h": 258,
+   "origin_px": [
+    130.0,
+    157.8
+   ],
+   "kind": "house",
+   "foot_m": [
+    10.86,
+    12.03
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_porch_180": {
+   "file": "ranch_porch_180.png",
+   "w": 293,
+   "h": 268,
+   "origin_px": [
+    130.1,
+    147.9
+   ],
+   "kind": "house",
+   "foot_m": [
+    12.03,
+    10.86
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_porch_270": {
+   "file": "ranch_porch_270.png",
+   "w": 293,
+   "h": 266,
+   "origin_px": [
+    109.1,
+    154.8
+   ],
+   "kind": "house",
+   "foot_m": [
+    10.86,
+    12.03
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_wing_0": {
+   "file": "ranch_wing_0.png",
+   "w": 282,
+   "h": 304,
+   "origin_px": [
+    116.7,
+    186.7
+   ],
+   "kind": "house",
+   "foot_m": [
+    14.42,
+    11.92
+   ],
+   "tall_m": 10.29
+  },
+  "ranch_wing_90": {
+   "file": "ranch_wing_90.png",
+   "w": 349,
+   "h": 250,
+   "origin_px": [
+    149.7,
+    145.7
+   ],
+   "kind": "house",
+   "foot_m": [
+    11.92,
+    14.42
+   ],
+   "tall_m": 10.29
+  },
+  "ranch_wing_180": {
+   "file": "ranch_wing_180.png",
+   "w": 285,
+   "h": 294,
+   "origin_px": [
+    114.6,
+    163.7
+   ],
+   "kind": "house",
+   "foot_m": [
+    14.42,
+    11.92
+   ],
+   "tall_m": 10.29
+  },
+  "ranch_wing_270": {
+   "file": "ranch_wing_270.png",
+   "w": 353,
+   "h": 259,
+   "origin_px": [
+    149.6,
+    158.7
+   ],
+   "kind": "house",
+   "foot_m": [
+    11.92,
+    14.42
+   ],
+   "tall_m": 10.29
+  },
+  "ranch_garage_0": {
+   "file": "ranch_garage_0.png",
+   "w": 352,
+   "h": 309,
+   "origin_px": [
+    130.3,
+    200.4
+   ],
+   "kind": "house",
+   "foot_m": [
+    18.42,
+    13.52
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_garage_90": {
+   "file": "ranch_garage_90.png",
+   "w": 362,
+   "h": 280,
+   "origin_px": [
+    181.2,
+    169.4
+   ],
+   "kind": "house",
+   "foot_m": [
+    13.52,
+    18.42
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_garage_180": {
+   "file": "ranch_garage_180.png",
+   "w": 353,
+   "h": 293,
+   "origin_px": [
+    169.3,
+    149.4
+   ],
+   "kind": "house",
+   "foot_m": [
+    18.42,
+    13.52
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_garage_270": {
+   "file": "ranch_garage_270.png",
+   "w": 404,
+   "h": 292,
+   "origin_px": [
+    170.3,
+    163.4
+   ],
+   "kind": "house",
+   "foot_m": [
+    13.52,
+    18.42
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_carport_0": {
+   "file": "ranch_carport_0.png",
+   "w": 297,
+   "h": 289,
+   "origin_px": [
+    103.4,
+    192.0
+   ],
+   "kind": "house",
+   "foot_m": [
+    13.67,
+    13.51
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_carport_90": {
+   "file": "ranch_carport_90.png",
+   "w": 313,
+   "h": 250,
+   "origin_px": [
+    154.4,
+    152.9
+   ],
+   "kind": "house",
+   "foot_m": [
+    13.51,
+    13.67
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_carport_180": {
+   "file": "ranch_carport_180.png",
+   "w": 299,
+   "h": 263,
+   "origin_px": [
+    141.3,
+    127.9
+   ],
+   "kind": "house",
+   "foot_m": [
+    13.67,
+    13.51
+   ],
+   "tall_m": 10.28
+  },
+  "ranch_carport_270": {
+   "file": "ranch_carport_270.png",
+   "w": 361,
+   "h": 267,
+   "origin_px": [
+    153.3,
+    153.0
+   ],
+   "kind": "house",
+   "foot_m": [
+    13.51,
+    13.67
+   ],
+   "tall_m": 10.28
+  }
+ },
+ "ppm": 16.0,
+ "el_deg": 30.0,
+ "az_deg": 45.0,
+ "stretch": 2.0,
+ "sun_el_deg": 40.0,
+ "camera": "orthographic, corner-on (an eighth turned), 30 down: the map's own 2:1 ground; one sun from the land's north-west",
+ "turn": "the model's front faces grid +y at 0, grid +x at 90 (Blender z turns), the sun fixed on the land",
+ "models": {
+  "ranch_plain": "bld_ranch_plain.glb",
+  "ranch_porch": "bld_ranch_porch.glb",
+  "ranch_wing": "bld_ranch_wing.glb",
+  "ranch_garage": "bld_ranch_garage.glb",
+  "ranch_carport": "bld_ranch_carport.glb",
+  "trailer": "prop:trailer.trailer"
+ }
+}

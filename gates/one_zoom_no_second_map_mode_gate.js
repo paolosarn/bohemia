@@ -38,7 +38,10 @@ async function run(profile) {
     return { phone: q(R), bar: q(b && b.getBoundingClientRect()) }; });
   const st = () => fr.evaluate(() => {
     const sf = document.getElementById('settleFrame');
-    return { cz: CZOOM, zmin: zoomBounds()[0], zmax: zoomBounds()[1], mode: MODE, mult: STREET.mult, on: streetIsOn(), te: STREET.te || 0,
+    /* WORLD 8 11/3 (ask lines 117 + 185): the pinch goes on past the old closest stop to the street stop, on this same map and camera
+       (slices/bohemia_map_houses.js); zoomBounds()[1] keeps its number (the old closest stop, where the art is one to one) */
+    const ztop = (window.BohemiaMapHouses && BohemiaMapHouses.on()) ? Math.max(zoomBounds()[1], BohemiaMapHouses.streetTW() / TW0) : zoomBounds()[1];
+    return { cz: CZOOM, zmin: zoomBounds()[0], zmax: ztop, zold: zoomBounds()[1], mode: MODE, mult: STREET.mult, on: streetIsOn(), te: STREET.te || 0,
       look: !!(typeof LOOK !== 'undefined' && LOOK.on), sky: !!(typeof SKY !== 'undefined' && SKY), settle: !!sf && getComputedStyle(sf).display !== 'none',
       street: !!(MAP_DREW && MAP_DREW.street), alpha: VBC.alpha, draws: VBC.draws, cvId: (cv.__oneZoomId = cv.__oneZoomId || Math.random()),
       artPx: TW * ((typeof CV_DPR === 'number' && CV_DPR) || 1), tw: TW };
@@ -56,19 +59,21 @@ async function run(profile) {
     if (reached > 0 && i + 1 >= reached + 2) break;   /* two more squeezes at the closest stop */
   }
   const last = rungs[rungs.length - 1], atStop = reached > 0 ? rungs[reached] : null;
-  ok('O1 THE PINCH CLIMBS TO THE CLOSEST STOP AND STOPS: squeezes in reach it, and two more there change nothing',
+  ok('O1 THE PINCH CLIMBS TO THE CLOSEST STOP (THE STREET STOP, WORLD 8) AND STOPS: squeezes in reach it, and two more there change nothing',
      reached > 0 && rungs.length - 1 >= reached + 2 && Math.abs(last.cz - last.zmax) < 1e-3 && last.mode === 'city' && last.mult === 1 && !last.on && !last.look && !last.sky && !last.settle,
      'from ' + s0.cz.toFixed(2) + ' to ' + last.cz.toFixed(2) + ' of ' + last.zmax.toFixed(2) + ' in ' + reached + ' squeezes; after two more: mode ' + last.mode + ', street ' + last.mult + ', close-up ' + last.look + ', sky ' + last.sky + ', town ' + last.settle);
   const bad = rungs.filter(s => !(s.alpha >= 0.99) || s.te > 0 || s.on || s.street || s.cvId !== s0.cvId || s.mode !== 'city');
   const drew = rungs.slice(1).filter((s, i) => s.draws > rungs[i].draws).length;
   ok('O2 THE SAME MAP AT EVERY RUNG: the painting at full weight, the camera corner-on, no street, the same canvas, on every squeeze',
      bad.length === 0 && drew >= rungs.length - 3, rungs.length + ' rungs, ' + bad.length + ' off the one map, the painting redrawn on ' + drew + ' squeezes');
-  ok('O3 THE STOP IS WHERE THE ART HOLDS UP: at the closest stop a block\'s 256-px art is one art pixel to a device pixel or finer',
-     !!atStop && atStop.artPx <= 256 + 1 && atStop.artPx >= 200, atStop ? 'a block ' + atStop.tw.toFixed(1) + ' CSS px, ' + atStop.artPx.toFixed(0) + ' device px' : 'never reached');
+  /* the old closest stop (zoomBounds()[1]) is still where a block's 256-px art is one to one; past it the models stand (WORLD 8) */
+  const old = await fr.evaluate(() => { const z0 = CZOOM; setZoomAt(zoomBounds()[1]); render(); const r = { tw: TW, artPx: TW * ((typeof CV_DPR === "number" && CV_DPR) || 1) }; setZoomAt(z0); render(); return r; });
+  ok('O3 THE OLD CLOSEST STOP IS WHERE THE ART HOLDS UP: there a block\'s 256-px art is one art pixel to a device pixel or finer',
+     !!atStop && old.artPx <= 256 + 1 && old.artPx >= 200, 'a block ' + old.tw.toFixed(1) + ' CSS px, ' + old.artPx.toFixed(0) + ' device px; the pinch goes on to a block ' + (atStop ? atStop.tw.toFixed(0) : '?') + ' (the street stop, the models)');
   const c1 = await chrome();
   ok('O4 THE PHONE AND THE BAR NEVER MOVED', c0.phone === c1.phone && c0.bar === c1.bar, 'phone ' + c0.phone + ' -> ' + c1.phone + ', bar ' + c0.bar + ' -> ' + c1.bar);
   /* O5: the second mode back on, the same squeeze at the closest stop opens it */
-  await fr.evaluate(() => { STREET.on = true; ZGEST.fresh = true; setZoomAt(zoomBounds()[1]); camHold(); render(); });
+  await fr.evaluate(() => { STREET.on = true; ZGEST.fresh = true; setZoomAt((window.BohemiaMapHouses && BohemiaMapHouses.on()) ? Math.max(zoomBounds()[1], BohemiaMapHouses.streetTW() / TW0) : zoomBounds()[1]); camHold(); render(); });
   await page.waitForTimeout(800);
   await d.pinchIn(); await page.waitForTimeout(700);
   const s5 = await st();

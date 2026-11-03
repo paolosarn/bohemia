@@ -1,5 +1,35 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (the crash) and BUILD 11/3zzzq (the rest). BUILT, NOT YET SEEN.
+- THE PIN CRASH (11/3zzt, 41843539, live): the game was right. The walk to the boss's sign can end inside a town; the town's
+  screen stands over the map and a held finger lands on the town (THE CLINIC's line), never the map. The gate now leaves the
+  town the way a player does, waits for the title itself, reopens with its own profile, never throws. Under it WORLD 7's
+  start-of-game sky tinted his map's grey tape (drawn after the fog): now drawn under the fog (BohemiaWorldStateMap.under, hook
+  H6b in tools/bohemia_world_state_patch.py). HIS MAP 42/0 phone and computer; A DIFFERENT VALLEY 60/0.
+- 117 + 185 THE HOUSES STAND UP CLOSE (slices/bohemia_map_houses.js; hooks tools/bohemia_world_8_map_houses_patch.py, 18,
+  __THE_HOUSES_STAND_UP_CLOSE__; refuses a half-hooked page): COOK's five ranch houses and COOK PROPS' single-wide, shot four ways
+  from the MAP's camera (tools/bohemia_world_8_map_houses.py, Blender 4.2 venv, slices/map_houses/ + manifest), stand 2.0 times
+  their metres on every house lot the painter rolls (the painter reports the lots, LOTS, and lays them as yards, FLATH, once
+  the models are up; never in a town's footprint, never on a burned lot). Fade in from a block 80 px, alone from 100; the pinch's
+  own clamp goes on to THE STREET STOP, a block 380 CSS px (zoomBounds()[1] keeps the old 85, so every old check means the same
+  place). Walkers behind a model are covered by the same depth test (mapDepthCovers = the painting's OR the models'). Up close
+  the walk reads: past a block 90 a block takes more beats (mapGoingBeats x watchBeats, the clock the same minutes) and the glide
+  takes all of them (glideK). Gate gates/the_houses_stand_up_close_gate.js.
+- 39 WHAT HE SEES NOW (slices/bohemia_map_sight.js, hook H13 __WHAT_HE_SEES_NOW__): the blocks mapSees() says he sees at their
+  own light, the ground he remembers about 0.65 of it, under the fog's tape. Gate gates/what_he_sees_now_gate.js. HIS MAP sets this
+  layer aside for its fog legs (it reads the tape, not the dim).
+- Gates changed: his_map (town leave, title wait, reopen profile, the dim aside), one_zoom_no_second_map_mode (the pinch's top is
+  the street stop; the old stop's 1:1 art still read at zoomBounds()[1]). Record:
+  records/BOHEMIA_WORLD_8_THE_PIN_CRASH_THE_TALL_MAP_AND_SIGHT_11_3_26.md. VOTE: world-one-pinch-to-the-street-11-3,
+  world-what-he-sees-now-11-3 (moving, records/target/world_8/).
+- MAIN'S REDS I MET, NOT MINE (measured with my two layers switched off, same numbers): THE MAP STANDS TALLER W1 (5,879 pixels
+  neither him nor the building at the near stop) and W3b (one frame sunk on the freeway berm).
+- OWED: models for the shops, works, towers and casinos (COOK's warehouse, motel, pawn shop, gas station, casino, tower casino
+  are built); the ground up close is the painter's top step (chunky at the street stop); lit windows on the models at night; the
+  phone's own 60 at the street stop (this box draws in software: PLUMBER on a phone); rule 344 THE MAP CAN TURN is WORLD's next.
+[bb Battle Brothers draws a party only inside your sight radius, and its map reads by its towns standing tall over the ground.]
+[analog horror: the remembered ground goes a shade darker the moment he turns the corner; nothing says so.]
+
 WORLD 7 (11/3, rule 339, ask line 347): A DIFFERENT VALLEY EVERY GAME. BUILD 11/3zzi. SHIPPED, NOT YET SEEN.
 - NEVER GREEN (rule 341, the coordinator's note; BUILD 11/3zzl): the first cut painted a rebuilt block's yard as a green garden; now raked
   dirt with salvaged panels in rows. Checked by measure: the painting's green texels 0.01% of the valley, 0.00% on every state block

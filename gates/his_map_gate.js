@@ -59,11 +59,15 @@ const SAMPLE = () => {
   const cx = cv.getContext('2d'), sc = cv.width / CVW;
   const grab = () => cx.getImageData(0, 0, cv.width, cv.height).data;
   const frames = {};
+  /* the walkers set aside for the SEEN ground (MAP_DEPTH.hide, the checker's own switch): the fog-lifted frame draws every roaming
+     party and his frame only the ones in his sight, so a party passing a patch flipped F4 and F6 (88% on a seed, before and after
+     WORLD 8, 11/3); those legs read the ground. The unseen legs (F1 to F3) read the fog-lifted frame with the walkers, as before */
+  MAP_DEPTH.hide = true;
   render(); frames.his = grab();
   BohemiaHisMap.faint(false); render(); frames.dark = grab(); BohemiaHisMap.faint(true);
   /* the fog lifted RUN's own way for a game from before it (FOG.all): the painting, the towns and the walkers everywhere, and this
      file's own marks still drawn in both frames (FOG.on off is the bench, which also takes them away) */
-  FOG.all = true; render(); frames.open = grab(); FOG.all = false; render();
+  FOG.all = true; render(); frames.open = grab(); MAP_DEPTH.hide = false; render(); frames.openW = grab(); FOG.all = false; render();   /* openW: the unseen legs' reading as before (the walkers drawn) */
   const L2 = BohemiaHisMap.last(), W = cv.width;
   const patch = (f, gx, gy) => { let r = 0, g = 0, b = 0, c = 0; for (let j = -2; j <= 2; j++) for (let i = -2; i <= 2; i++) { const k = ((gy + j) * W + gx + i) * 4; r += f[k]; g += f[k + 1]; b += f[k + 2]; c++; } return [r / c, g / c, b / c]; };
   for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
@@ -72,7 +76,7 @@ const SAMPLE = () => {
     if (near >= 2 && near <= 3) s = true; else { s = uni(x, y, 3); if (s !== false) continue; }
     const p = iso(x, y, L2.ox, L2.oy), gx = Math.round(p.sx * sc), gy = Math.round((p.sy + TH * 0.5) * sc);
     if (gx < 6 || gy < 6 || gx >= cv.width - 6 || gy >= cv.height - 6) continue;
-    (s ? out.seen : out.unseen).push({ x, y, his: patch(frames.his, gx, gy), dark: patch(frames.dark, gx, gy), open: patch(frames.open, gx, gy) });
+    (s ? out.seen : out.unseen).push({ x, y, his: patch(frames.his, gx, gy), dark: patch(frames.dark, gx, gy), open: patch(s ? frames.open : frames.openW, gx, gy) });
   }
   return out;
 };
@@ -116,6 +120,9 @@ async function run(prof) {
     return (await up()) ? 'STILL IN THE TOWN' : how;
   };
   await leaveTown();
+  /* WHAT HE SEES NOW (WORLD 8, ask line 39) dims the ground he has seen but cannot see from here; this gate reads the fog's own
+     tape against the painting, so that layer is set aside here (gates/what_he_sees_now_gate.js reads it) */
+  await fr.evaluate(() => { if (window.BohemiaMapSight) BohemiaMapSight.V.on = false; }).catch(() => {});
   for (let i = 0; i < 20; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!BohemiaHisMap.state().boss.sign)) break; }
   await page.waitForTimeout(600);
   const st = () => fr.evaluate(() => { const S = BohemiaHisMap.state(); return JSON.parse(JSON.stringify({ at: [city.x, city.y], boss: S.boss, pins: S.pins, crosses: S.crosses, open: S.open, lit: S.lit, places: S.places, fighting: S.fighting, drew: BohemiaHisMap.last().drew })); });
