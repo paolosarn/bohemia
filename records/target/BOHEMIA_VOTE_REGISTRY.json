@@ -18061,6 +18061,31 @@
     "scale": "his phone, 390 x 844, zoomed out, four codes"
    }
   },
+ {
+   "id": "world-tap-a-quest-11-3",
+   "kind": "animation",
+   "lane": "world",
+   "sha": "ec5a66b1",
+   "made": "11/3",
+   "draft": true,
+   "title": "TAP A QUEST, YOUR PEOPLE GO",
+   "said": "I should be able to click the quest on my phone and my people auto move towards it... Auto zooms in as much as I can... when you get to quest you hop on the settlement... if multiple markers, like I have to hunt down animals, it will just take me to the closest one.",
+   "why": "One tap on a quest sends your people down the roads to it, the closest marker by road first, while the map comes in close and sharp around them and the town opens when they get there. You see it here sped up from the game's camera, and on the MAP once the phone's quest card is wired (UI).",
+   "options": [
+    "A, yes, that is how it should go",
+    "B, closer, but zoom in even more (or less)",
+    "C, no, I want to steer them myself"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/world_8/TAP_A_QUEST_YOUR_PEOPLE_GO.webp"
+   },
+   "before_after": {
+    "before": "you tapped the job's mark on the map yourself, a hunt sent you to the pack nearest as the crow flies, and the camera stayed where it was",
+    "after": "one call from the quest: the nearest marker by road time, the camera eased in to a block 240 px holding your people, never blurry, and the town's screen on arrival",
+    "scale": "his phone, 390 x 844, a trip of 71 blocks"
+   }
+  },
   {"id": "arena-pick-your-three-11-3", "kind": "ui", "lane": "arena", "sha": "bbe3e560b", "made": "11/3", "draft": true, "title": "PICK YOUR THREE: ONE SCREEN OF BIG FACES, THE BEST THREE ALREADY PICKED, EVERY ACCESSORY CROSSED OUT", "said": "maybe we just make it easier, like your accessory thing is X'd out and it won't apply as you enter the arena, but I want it to be easier to choose the three people that go into the arena", "why": "Choosing who goes in is one screen of big faces with your best three already picked, so the fight is one tap away, and every man's accessory is crossed out in red and stays outside. You see it in the Mob's town on the RUN tab: tap THE PIT, then Pick your three.", "options": ["A, yes, that's easy", "B, closer, but change the pick (say what)", "C, no, a different way to choose"], "show": {"how": "page", "src": "vote/ARENA_PICK_YOUR_THREE_11_3.html"}, "before_after": {"before": "Battle Brothers hands you arena collars to put on three men in the accessory slot, one by one", "after": "the best three already picked on one screen, a tap swaps a man in, every accessory crossed out and stripped for the fight", "scale": "his phone, 390 x 844, the real town screen"}},
  {
   "id": "combat-7-the-decoy-11-3",
