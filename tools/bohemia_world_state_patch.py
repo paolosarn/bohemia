@@ -49,7 +49,7 @@ HOOKS = [
      '  var cls = inp.cls, live = inp.live;\n'
      '  /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, rule 339): the campaign\'s state of each block, painted by this same painter on the\n'
      '     texels it already paints: 1 BURNED (the roofs to char, ash, soot on the street; an ember at night), 2 LOOTED (stripped grey,\n'
-     '     glass and junk strewn, holes kicked in), 3 REBUILT (panels on the roofs, a garden where the lawn was; its own lights at night) */\n'
+     '     glass and junk strewn, holes kicked in), 3 REBUILT (panels on the roofs, the yards raked to dirt with salvaged panels laid in rows, never green; its own lights at night) */\n'
      '  var WST = inp.wst || null;\n'
      '  function wsMix(a, c, t){ return [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t, a[2] + (c[2] - a[2]) * t]; }\n'
      '  function wsTint(b0, st, top, c2, h, u, v){\n'
@@ -69,7 +69,7 @@ HOOKS = [
      '    if (st === 3) {\n'
      '      if (!top || road) return b0;\n'
      '      if (built) { var pu = ((u >> 1) + (v >> 1)) % 3; return pu === 0 ? [132, 172, 200] : pu === 1 ? [64, 104, 146] : [46, 80, 122]; }\n'
-     '      return h < 0.3 ? [118, 150, 74] : wsMix(b0, [88, 124, 60], 0.72);\n'
+     '      var rw = ((u + v) >> 1) % 4; return rw === 0 ? [70, 94, 122] : rw === 1 ? [112, 138, 160] : h < 0.3 ? [170, 154, 126] : wsMix(b0, [158, 144, 118], 0.6);   /* open ground taken back: raked dirt, salvaged panels laid in rows; NEVER GREEN (rule 341: no water here, a dead lawn is dust) */\n'
      '    }\n'
      '    return b0;\n'
      '  }\n'),

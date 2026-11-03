@@ -3,7 +3,7 @@
    looked the same every game. This file draws the campaign's STATE of the real valley and makes it true, through marked
    hooks (__A_DIFFERENT_VALLEY_EVERY_GAME__ in slices/BOHEMIA_CITY_WORLD.html), each of which does nothing without it:
      (1) THE BLOCKS. engine/bohemia_world_state.js decides from the code which blocks are burned, looted or rebuilt; the
-         painter paints them in the worker (char and ash, stripped grey and junk, panels and gardens), so they are the
+         painter paints them in the worker (char and ash, stripped grey and junk, panels on the roofs and raked dirt, never green), so they are the
          painting's own texels at every zoom. Which neighbourhoods are DARK is the power grid's own dark: the seeded circuits
          are put out with POWER.douse, so the painting, the lamps, the town and every 'is it black in here' reader agree.
      (2) WHAT STANDS OUT THERE. Camps (their smoke stands up over the valley by day, the fire glows at night), lairs (a wreck,

@@ -54,6 +54,11 @@ const farOut = (fr) => fr.evaluate(() => { try { const zb = zoomBounds(); setZoo
   const hooks = (page.match(/__A_DIFFERENT_VALLEY_EVERY_GAME__/g) || []).length;
   ok('V1 the hooks and the map\'s script are on the page', hooks >= 13 && page.indexOf('<script src="bohemia_world_state_map.js"></script>') >= 0, hooks + ' marks');
   ok('V1 the map\'s script is on disk', fs.existsSync(path.join(ROOT, 'slices', 'bohemia_world_state_map.js')));
+  /* NEVER GREEN (rule 341, Paolo 11/3: 'you gave a bunch of greenery to the suburb, bro this is an economic apocalypse'): no colour the
+     state paints is green; a rebuilt yard is raked dirt and panels, there is no water on it */
+  const tint = (page.match(/function wsTint\([\s\S]*?\n  \}\n/) || [''])[0], trip = (tint.match(/\[\d+, \d+, \d+\]/g) || []).map(t => JSON.parse(t));
+  const greens = trip.filter(c => c[1] > c[0] + 10 && c[1] > c[2] + 10);
+  ok('V1 NEVER GREEN: no colour the state paints is green (no water on a burned, looted or rebuilt block)', trip.length >= 10 && !greens.length, trip.length + ' colours, green: ' + JSON.stringify(greens));
 
   /* V2 + the real valley for V3 */
   let d = await open({ profile: 'computer', fog: false });
@@ -168,6 +173,15 @@ const farOut = (fr) => fr.evaluate(() => { try { const zb = zoomBounds(); setZoo
       const r2 = await d.fr.evaluate(() => { try { render(); } catch (e) {} return { I: BohemiaWorldStateMap.info(), key: VBC.key || '' }; });
       ok('V4 ' + code + (side ? ' sideways' : '') + ': the painting re-baked with the state, and the landmarks drawn', r2.key.indexOf(':ws' + r2.I.key) >= 0 && r2.I.drew && (r2.I.drew.camps + r2.I.drew.lairs + r2.I.drew.ruins + r2.I.drew.masts) >= 5,
         JSON.stringify(r2.I.drew));
+      if (!side) {
+        /* NEVER GREEN, measured on the painting itself: the share of green texels on the rebuilt blocks, against the valley's homes */
+        const gr = await d.fr.evaluate(() => { const S = BohemiaWorldStateMap.state(), C = VBC.day; if (!S || !C) return null; const P = C.width, S2 = VBC.S, PAD = VBC.PAD, n = S.n;
+          const px = C.getContext('2d').getImageData(0, 0, P, P).data; let rn = 0, rg = 0;
+          for (let v = 0; v < P; v++) for (let u = 0; u < P; u++) { const o = (v * P + u) * 4; const bx = Math.floor(u / S2) - PAD, by = Math.floor(v / S2) - PAD; if (bx < 0 || by < 0 || bx >= n || by >= n || S.cell[by * n + bx] !== 3) continue;
+            rn++; if (px[o + 1] > px[o] + 10 && px[o + 1] > px[o + 2] + 10) rg++; }
+          return { rn, rg }; });
+        ok('V4 ' + code + ': NEVER GREEN on the painting: the rebuilt blocks\' texels are not green', !!gr && gr.rn > 0 && gr.rg / gr.rn < 0.02, gr ? (100 * gr.rg / Math.max(1, gr.rn)).toFixed(2) + '% of ' + gr.rn + ' texels' : 'no painting');
+      }
       const f = path.join(SHOTS || require('os').tmpdir(), 'valley_' + code + (side ? '_side' : '') + '.png');
       await d.page.screenshot({ path: f }); (side ? sideways : shots).push([code, f]);
       if (ci === 0) {

@@ -1,4 +1,4 @@
-# WORLD 11/3 round 7: A DIFFERENT VALLEY EVERY GAME (rule 339, ask line 347; BUILD 11/3zzi)
+# WORLD 11/3 round 7: A DIFFERENT VALLEY EVERY GAME (rule 339, ask line 347; BUILD 11/3zzi, NEVER GREEN BUILD 11/3zzl)
 
 His words (Paolo 11/3, through the coordinator, the second time): 'the map is not giving procedurally generated vibes.'
 
@@ -29,7 +29,7 @@ the same world. Ours keeps the land real (Las Vegas) and deals everything ON it.
 All from the same campaign code, all on real blocks of the right kind, all in one data file (records/target/bb/world_state.json).
 - THE BLOCKS (painted by the map's own painter, in the worker, at every zoom): 3 to 6 BURNED patches (roofs to char, ash, soot on the
   street, an ember or two at night), 4 to 7 LOOTED strips (stripped grey, glass and junk strewn, holes kicked in), 3 to 6 REBUILT
-  blocks a few streets from a faction's base (panels on the roofs, a garden, their own lights at night). Never within 3 blocks of a
+  blocks a few streets from a faction's base (panels on the roofs, the yards raked to dirt with salvaged panels in rows, never green; their own lights at night). Never within 3 blocks of a
   base. Ragged edges, never squares.
 - THE DARK (the grid's own): the valley is cut into 22 neighbourhoods; each code puts 35 to 70 percent of them out. Every live
   circuit in a dark one, or in a burned or looted block, is doused with POWER.douse, never within 4 blocks of a base (they keep their
@@ -55,6 +55,22 @@ All from the same campaign code, all on real blocks of the right kind, all in on
 - THE OLD VALLEY STAYS: no code (the checkers' bench) is untouched; a game saved with a code before this file keeps its valley (a new
   game is stamped st:1 beside its code in bohemia.world.v1; no stamp, no state).
 
+## NEVER GREEN (rule 341, the coordinator's note the same round)
+Paolo on the fight maps (records/BOHEMIA_PAOLO_THE_FIGHT_MAPS_ARE_NOT_DONE_TRUE_VARIETY_11_3_26.md): 'you gave a bunch of greenery to
+the suburb, bro this is an economic apocalypse... no variety, like true variety'. The coordinator held the overworld to the same bar.
+- WHAT I FOUND: the first cut of this round painted a REBUILT block's open ground as 'a garden where the lawn was': green, on a
+  suburb with no water. Wrong; fixed the same round. A rebuilt yard is now raked dirt with salvaged panels laid in rows (blue-grey
+  panels, tan dirt), and the roofs carry panels. No colour the state paints is green.
+- HOW IT WAS CHECKED (measured, not looked at): (1) every colour in the painter's state code (18 of them) is read off the page and
+  none has its green over its red and its blue by more than 10 (the gate's V1 NEVER GREEN leg); (2) the painting itself, on the demo,
+  seed DUS-T42, every texel counted by the block it stands on: green texels are 0.01 percent of the whole valley, 0.02 percent of the
+  home blocks, 0.00 percent of the rebuilt, burned and looted blocks (the gate's V4 NEVER GREEN leg runs it on all four seeds, under 2
+  percent or red). So the map's ground has no green suburb; what green a picture shows is people's clothes and the turf's border
+  lines, not ground.
+- AND THE VARIETY IS REAL, NOT A COLOUR: what each code changes PLAYS: a shut freeway or pass changes every route (the walk refuses
+  it), a dark block is dark in the grid (no lamps, no light at night in the town or the fight), a burned built block deals the ruin
+  board, and the camps, lairs, ruins and masts stand at different places. The start's sky is the one part that is only a colour.
+
 ## THE TEN CODES (the real valley, each code's own seeded bases; node, the same module the page runs)
 ```
 code      burned / looted / rebuilt blocks   scars  circuits out of 160  camps lairs ruins legends  shut roads  start sky
@@ -79,12 +95,12 @@ upright (390 x 844, the bench walking each code, zoomed out until the valley fil
 What a stranger sees, counted per seed above: the smoke columns stand in different places (3 to 5), the burned scars are black patches
 in different neighbourhoods, a mast or two stands somewhere else, the towns are elsewhere (WORLD 6), the sky is a different colour
 (dust brown, heat haze pale, cold blue, smoke grey), and at night whole different quarters are dark with a camp's fire glowing out of
-them. Measured on the pictures: the least-different pair of the four differs in 6.7 percent of the valley's pixels (over a threshold
+them. Measured on the pictures: the least-different pair of the four differs in 7.2 percent of the valley's pixels (over a threshold
 of 24 levels). Honest: at the far stop the scars and smoke are small; it reads different, it does not yet SHOUT different. If he votes
 B, the next round turns up the scars' size and the sky's strength (all in the data file).
 
 ## THE GATE
-gates/a_different_valley_every_game_gate.js: 55 passed, 0 failed (about 13 minutes on the demo; re-run on the tree merged with main)
+gates/a_different_valley_every_game_gate.js: 60 passed, 0 failed (about 13 minutes on the demo; with the two NEVER GREEN legs)
 - V1 the page carries the data and the module as on disk, the 11 hooks and the map's script.
 - V2 the old valley (the bench, no code): no state, the 160 circuits all live, no state in the painting's key.
 - V3 ten codes: ten states; every pair differs in at least 150 blocks and circuits; same code twice, same state; every mark on its

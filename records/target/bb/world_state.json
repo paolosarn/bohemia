@@ -51,7 +51,7 @@
     },
     "reclaimed": {
       "name": "REBUILT",
-      "what": "a block a faction took back: panels on the roofs, a garden where the lawn was, its own lights at night",
+      "what": "a block a faction took back: panels on the roofs, the yards raked to dirt with salvaged panels laid out in rows (never green: no water here, rule 341), its own lights at night",
       "count": [3, 6],
       "radius": [1, 2],
       "from_base": [3, 6],

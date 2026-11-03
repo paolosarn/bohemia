@@ -1,6 +1,9 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
 WORLD 7 (11/3, rule 339, ask line 347): A DIFFERENT VALLEY EVERY GAME. BUILD 11/3zzi. SHIPPED, NOT YET SEEN.
+- NEVER GREEN (rule 341, the coordinator's note; BUILD 11/3zzl): the first cut painted a rebuilt block's yard as a green garden; now raked
+  dirt with salvaged panels in rows. Checked by measure: the painting's green texels 0.01% of the valley, 0.00% on every state block
+  (gate legs V1 and V4 NEVER GREEN, 60/60). The map's ground has no green suburb; picture green is clothes and turf lines.
 - What he asked (again): 'the map is not giving procedurally generated vibes.' WORLD 6 moved the bases; the map still looked the same.
 - What shipped, all off the same campaign code, all on real blocks of their kind, every list and number in
   records/target/bb/world_state.json: BURNED, LOOTED and REBUILT blocks painted by the map's own painter (worker, every zoom); 35-70%
