@@ -51,3 +51,15 @@ into the arena... if it's a tournament then it'll be like you can bring five peo
 - ARENA (new): research the library's arena pages in full, then build the arena building on the Mob's Strip screen, the pick screen,
   the arena board, the rules (data), the pay and ranks, the crowd's sound, the fifth-match prize, the tournament; COMBAT 7 owns the
   fight's code (the arena adds a small hook for no retreat, no loot and the crowd).
+
+## AMENDED 11/3 THE SAME ROUND: DUCT TAPE AND A THREAD (Paolo, LOCKED)
+HIS WORDS: "But like the mob, they're [held together] by fucking duct tape and a thread. Are they able to get this operational? Like
+they're barely able to."
+- The Mob BARELY keeps it running. The farm is one line on a solar field that is mostly broken or stolen (a few rows of panels still
+  turning, the rest gone), a generator they cannot always feed, cold rooms that fail, batches that die. The arena is a drained pool or
+  a dead showroom with half its lights out, a PA that cuts in and out, a small crowd, patched cages.
+- That is the point and the horror: the last people trying to keep some fun alive, with tape, wire and luck, and it shows on every
+  surface (patches, hand-painted signs, a breaker panel held shut with a belt, a clone that is thin).
+- Draft for the lanes (his to change, nothing beyond this is canon): when the power fails the farm fails (fewer beasts in the arena,
+  meat dearer on the Strip), and a job to keep it running (parts, a panel, guarding the line) is the kind of thing the Mob would pay for.
+

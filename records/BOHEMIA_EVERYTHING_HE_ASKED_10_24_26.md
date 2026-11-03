@@ -424,3 +424,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 400 | (VOTE) The big beasts must hurt you badly if they get close | 370(9) | TUNING 2, BEASTS 2 | QUEUED 11/3 |
 | 401 | The clone farm: cheap but power hungry (cold, energy, light); give it to one of our factions, never a new one; give him options | 359 (amended), 374 | COORDINATOR | OPTIONS GIVEN 11/3 (A the Mob, the default; B the Trades; C the Network); records/BOHEMIA_PAOLO_WHO_RUNS_THE_CLONE_FARM_11_3_26.md DECIDED 11/3: A, THE MOB (records/BOHEMIA_PAOLO_THE_MOB_RUNS_THE_FARM_AND_THE_ARENA_11_3_26.md). |
 | 402 | The arena, Battle Brothers' way, run by the Mob with the lab beasts; easier: the accessory slot crossed out instead of a collar, an easy pick of three, five in a tournament | 375 | ARENA (new) | QUEUED 11/3 |
+| 403 | The Mob is held together by duct tape and a thread: the farm and the arena barely run | 375 (amended) | ARENA, BEASTS 2 | QUEUED 11/3 |
