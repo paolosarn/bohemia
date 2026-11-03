@@ -16,7 +16,9 @@ hyenas, so the beast fights he plays are dogs.
 - PIECE 3 SHIPPED (40bcd8b2, BUILD 11/3zzzk): the short-faced bear and the Shasta ground sloth on the builder, on Battle Brothers'
   unhold (bohemia_enemies.json brain 'unhold', numbers regenerate and fling; two small hooks in BOHEMIA_FIGHT.html read them).
   VOTE beasts2-the-bear-and-the-sloth-11-3.
-- NEXT, in order: (4) the sabre-tooth, the American lion, the ancient bison, the Ice Age
+- PIECE 4 SHIPPED (f02618757, BUILD 11/3zzzo): the sabre-tooth, the American lion, the ancient bison, the Ice Age horse, each its own
+  body and rule set (brains ambusher and pride; the bull's charge; the camel's kick). VOTE beasts2-the-ice-age-four-11-3.
+- NEXT, in order: (4 done) the sabre-tooth, the American lion, the ancient bison, the Ice Age
   horse, (5) every lab mark readable from the fight's camera, (6) the gate (own sheet each, outline differs past a floor, no place
   only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
 
