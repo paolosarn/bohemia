@@ -73897,12 +73897,16 @@ function arenaFought(o){
   try{ if(r.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', r.paid, 'the pit: the purse', c.id, loopDay()); }catch(_e){}
   /* the pit's gear (piece d): into the stash, the same bag the stall and the spoils fill */
   try{ var pi = r.prize && window.BohemiaArena && BohemiaArena.prizeItem(r.prize); if(pi){ var bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []; bag.push(pi); localStorage.setItem('bohemia.bag.v1', JSON.stringify(bag)); } }catch(_e){}
-  /* the Strip posts it (rule 371: the feed is the radio; rule 372: a person typing on a phone), draft:true */
-  try{ var foe = c.lines && c.lines.length ? c.lines.map(function(L){ var N = window.BohemiaArena && BohemiaArena.V('names'), nm = N && N[L.id]; return L.n + ' ' + (nm ? (L.n === 1 ? nm[0] : nm[1]) : L.id); }).join(' and ') : 'the card';
-    var txt = won ? ('out of towners went in the pit tonight against ' + foe + ' and walked out. the mob paid them ' + r.paid + '. crowd lost its mind')
-                  : ('the pit tonight: ' + foe + ' won. the out of towners got carried out. no pay for them, good show though');
-    if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thepit_strip', txt: txt, kind: 'world', draft: true }); }catch(_e){}
-  window.__ARENA_LAST = { won: won, paid: r.paid, prize: r.prize, ranks: r.ranks || [], card: c.id, men: men };
+  /* the Strip posts it (rule 371: the feed is the radio; rule 372: a person typing on a phone), draft:true; a tournament round posts only its end */
+  if(!c.tournament) try{ var foe = c.lines && c.lines.length ? c.lines.map(function(L){ var N = window.BohemiaArena && BohemiaArena.V('names'), nm = N && N[L.id]; return L.n + ' ' + (nm ? (L.n === 1 ? nm[0] : nm[1]) : L.id); }).join(' and ') : 'the card';
+    var TPn = (window.BohemiaArena && BohemiaArena.V('posts')) || {}, fill = function(t, f){ return String(t || '').replace('{foe}', f).replace('{paid}', String(r.paid)); };
+    var txt = fill(won ? TPn.night_won : TPn.night_lost, foe); if(txt.length > 120) txt = fill(won ? TPn.night_won : TPn.night_lost, won ? 'the card' : 'the card');   /* rule 372: under 120 */
+    arenaPost(txt); }catch(_e){}
+  window.__ARENA_LAST = { won: won, paid: r.paid, prize: r.prize, ranks: r.ranks || [], card: c.id, men: men, tournament: c.tournament || null };
+  /* the tournament's end, on the Strip's account (rule 371: the feed is the radio): won all three, or out */
+  try{ if(c.tournament && window.BohemiaArena){ var TP = BohemiaArena.V('posts') || {}, last = (c.tournament.round || 0) + 1 >= (c.tournament.rounds || 3);
+    var tt = won && last ? TP.tournament_won : !won ? String(TP.tournament_out || '').replace('{round}', String((c.tournament.round || 0) + 1)) : null;
+    if(tt){ arenaPost(tt); } } }catch(_e){}
   try{ saveNow('arena:' + c.id); }catch(_e){}
   /* back to the Mob's town, the bookie at his rope with the result */
   var t = F.town || (function(){ var bs = null; try{ bs = ctBases(); }catch(_e){} var b = bs && bs[F.place]; return b ? { name: F.place, x: b.x | 0, y: b.y | 0, tier: mapTierOf(F.place) } : null; })();
@@ -73913,7 +73917,19 @@ window.addEventListener('message', function(ev){
   var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !ARENA_FIGHTING) return;
   try{ arenaFought(d.outcome || null); }catch(_e){}
 });
-window.arenaFight = arenaFight; window.arenaFought = arenaFought;
+function arenaPost(txt){ window.__ARENA_POSTS = (window.__ARENA_POSTS || []).concat([txt]).slice(-20); try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thepit_strip', txt: txt, kind: 'world', draft: true }); }catch(_e){} }
+/* THE TOURNAMENT IS ON (bb_all/0133: 'You learn about a settlement which is hosting an arena tournament', a situation for five days):
+   the morning it opens, the Strip's account says so on the phone's feed, once a tournament */
+function arenaWake(day){
+  if(!window.BohemiaArena || !BohemiaArena.ready()) return false;
+  var t = BohemiaArena.tournament(day); if(!t.on || t.from !== Math.floor(day)) return false;
+  var st = BohemiaArena.reload(); st.posted = st.posted || []; if(st.posted.indexOf(t.id) >= 0) return false;
+  st.posted.push(t.id); BohemiaArena.save(st);
+  arenaPost((BohemiaArena.V('posts') || {}).tournament_on || 'tournament at the pit this week');
+  return true;
+}
+DAY.on('wake', function(){ try{ arenaWake(DAY.day); }catch(_e){} });
+window.arenaFight = arenaFight; window.arenaFought = arenaFought; window.arenaWake = arenaWake;
 /* ==== end __THE_ARENA__ ==== */
 function raidFought(o){
   var base = RAID_FIGHTING; RAID_FIGHTING = null; if(!base) return null;

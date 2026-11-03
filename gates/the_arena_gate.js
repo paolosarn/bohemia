@@ -37,6 +37,12 @@
       E2 the pit gear is the game's own armour rows and no shop stocks it
       E3 the fifth card offers it, and the win puts it in the stash as a real piece
       E4 a man's rank rides into every fight (the Veteran's +10 resolve and half the death roll); the new pit fighters counted
+   F  THE TOURNAMENT (the demo; --no-tourney skips it)
+      F1 the morning it opens, the Strip's account posts it on the feed, once
+      F2 the bookie offers it in tournament week: the days left, five men, three rounds, quit and keep it, the prize
+      F3 entering is the one screen of faces, the best five picked
+      F4 round one: five go in, its purse paid on the win, round two waits with the same five locked
+      F5 quitting after a round keeps what was won and closes it
    ============================================================================ */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -126,7 +132,7 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
   ok('B5 nobody walks into the pool: the pit is ground the town\'s people go round, the bookie on open ground', blocked && walk && !(walk.miss || []).some(m => /^arena stands in a block/.test(m)), 'the nearest ground to the pool is ' + (pool ? Math.round(pool.moved) : '?') + ' px off it; ' + ((walk && walk.miss || []).slice(0, 2).join('; ') || 'every spot on open ground'));
   ok('C1 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();
-  if (process.argv.indexOf('--no-demo') < 0) return legC();
+  if (process.argv.indexOf('--no-demo') < 0) { await legC(); if (process.argv.indexOf('--no-tourney') < 0) await legF(); console.log('THE ARENA GATE (with the demo): ' + pass + ' ok, ' + fail + ' failed'); process.exit(fail ? 1 : 0); }
   console.log('THE ARENA GATE: ' + pass + ' ok, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(1); });
@@ -222,6 +228,57 @@ async function legC() {
     ok('D5 the crowd is real recordings (voices, hands, breaths, the bar\'s murmur), every file under its ceiling with no click', crowd === 'ok' && /audiomnist/.test(JSON.stringify(cj.sources)) && /esc50_cc0/.test(JSON.stringify(cj.sources)) && ['bed', 'cheer', 'cheer_long', 'gasp', 'boo'].every(k => cj[k] && cj[k].seconds > 0.5), crowd);
     ok('C6 nothing threw in the demo', errs.length === 0, errs.slice(0, 2).join(' | '));
   } finally { try { await d.browser.close(); } catch (e) {} try { d.server && d.server.close(); } catch (e) {} }
-  console.log('THE ARENA GATE (with the demo): ' + pass + ' ok, ' + fail + ' failed');
-  process.exit(fail ? 1 : 0);
+}
+/* F: THE TOURNAMENT (bb_all/0133, 2016, 0131), in the demo */
+async function legF() {
+  console.log('F  THE TOURNAMENT (the demo)');
+  const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
+  const d = await open({ fog: true }); const fr = d.fr, page = d.page, errs = [];
+  page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
+  try {
+    for (let i = 0; i < 80; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!(window.__FRESH_START && window.__FRESH_START.at) && typeof loopOpenTown === 'function' && !!window.BohemiaArena && BohemiaArena.ready()).catch(() => false)) break; }
+    for (let i = 0; i < 40; i++) { const g = await page.evaluate(() => { const w = document.getElementById('mainmaker'); if (!w) return 'gone'; if (w.dataset.armed !== '1') return null; const k = w.querySelector('.go'), r = k && k.getBoundingClientRect(); return r && r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }).catch(() => null);
+      if (g === 'gone') break; if (g) await page.touchscreen.tap(g.x, g.y); await page.waitForTimeout(500); }
+    for (let i = 0; i < 30; i++) { if (await fr.evaluate(() => !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened)).catch(() => false)) break; await page.waitForTimeout(500); }
+    await page.waitForTimeout(2000);
+    /* six men in the company, and the morning the Strip's tournament opens */
+    const T = await fr.evaluate(() => { const T = BohemiaArena.V('tournament'); return T; });
+    const plant = await page.evaluate(() => { const p = window.BOH_START && BOH_START.picks(); const co = JSON.parse(JSON.stringify((p && p.company) || []));
+      co.forEach((m, i) => { m.name = m.name || (i === 0 ? 'YOU' : 'MAN' + i); m.gear = m.gear || {}; });
+      const extra = ['TEO', 'MARCOS', 'NENO', 'LALO'].map((n, k) => Object.assign(JSON.parse(JSON.stringify(co[1 + (k % Math.max(1, co.length - 1))] || co[0])), { name: n }));
+      const all = co.concat(extra).slice(0, 6); localStorage.setItem('bohemia.company.v1', JSON.stringify(all)); return all.map(m => m.name); });
+    const posts = await fr.evaluate((day) => { BohemiaArena.reset(); DAY.day = day; arenaWake(day); arenaWake(day); return (window.__ARENA_POSTS || []).slice(); }, T.first_day);
+    ok('F1 the morning the tournament opens the Strip\'s account says so on the feed, once', posts.length === 1 && posts[0] === (await fr.evaluate(() => BohemiaArena.V('posts').tournament_on)) && posts[0].length <= 120, JSON.stringify(posts));
+    await fr.evaluate(() => { const b = ctBases().Mob; loopOpenTown({ name: 'Mob', x: b.x, y: b.y, tier: mapTierOf('Mob') }); });
+    let sf = null; for (let i = 0; i < 40 && !sf; i++) { await page.waitForTimeout(500); sf = page.frames().find(f => /SETTLEMENT/.test(f.url())); }
+    for (let i = 0; i < 40; i++) { await page.waitForTimeout(400); if (await sf.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.order().indexOf('arena') >= 0).catch(() => false)) break; }
+    await page.waitForTimeout(1200);
+    const sb = await (await fr.$('#settleFrame')).boundingBox();
+    const tapIn = async (sel, re) => { const r = await sf.evaluate((a) => { const b = [...document.querySelectorAll(a[0])].find(x => new RegExp(a[1], 'i').test(x.textContent)); if (!b) return null; b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, [sel, re]); if (r) await page.touchscreen.tap(sb.x + r.x, sb.y + r.y); return !!r; };
+    const openPit = async () => { for (let k = 0; k < 5; k++) { const xy = await sf.evaluate(() => BohemiaSettlement.where('arena')); await page.touchscreen.tap(sb.x + xy.x, sb.y + xy.y); await page.waitForTimeout(1600); if (await sf.evaluate(() => !!document.querySelector('#sheet.on .ar-card')).catch(() => false)) return true; } return false; };
+    await openPit();
+    const box = await sf.evaluate(() => { const b = document.querySelector('#sheet .ar-tourney'); return b ? { text: b.textContent, id: b.dataset.tourney, line: (document.querySelector('#sheet .say p') || {}).textContent || '' } : null; });
+    ok('F2 in tournament week the bookie offers it: days left, five of yours, three rounds, quit and keep it, the prize; tonight\'s card still up', !!box && /5 DAYS LEFT/.test(box.text) && /Five of yours, three rounds/.test(box.text) && /Quit after any round/.test(box.text) && /pit-fighter full riot helm/.test(box.text) && /Tournament week/.test(box.line) && await sf.evaluate(() => !!document.querySelector('#sheet .ar-card:not(.ar-tourney)')), box ? box.text.slice(0, 160) : 'no tournament box');
+    await tapIn('#sheet .ar-tourney .act', 'Enter the tournament'); await page.waitForTimeout(1500);
+    const pick = await sf.evaluate(() => { const w = document.getElementById('ar-pick'); return w ? { n: [...w.querySelectorAll('.ar-man.on')].length, all: w.querySelectorAll('.ar-man').length, top: w.querySelector('.ar-top').textContent, fight: w.querySelector('.ar-fight').textContent } : null; });
+    ok('F3 entering is one screen of faces with the best five picked', !!pick && pick.n === 5 && pick.all === plant.length && /pick 5 for the tournament/.test(pick.top) && /FIGHT WITH 5/.test(pick.fight), JSON.stringify(pick));
+    const bat0 = await fr.evaluate(() => loopBats());
+    await tapIn('#ar-pick .ar-fight', 'FIGHT');
+    let ff = null; for (let i = 0; i < 60 && !ff; i++) { await page.waitForTimeout(500); const h = await page.$('#fightFrame'); if (h) { const x = await h.contentFrame(); if (x && await x.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) ff = x; } }
+    const f = ff ? await ff.evaluate(() => ({ us: FIGHT.S.units.filter(u => u.side !== 'them').length, t: ((window.FIGHT_OPTS || {}).arena || {}).tournament || null })) : null;
+    if (ff) { await page.waitForTimeout(1500); await ff.evaluate(() => { if (!FIGHT.S.over) { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); } }).catch(() => {}); }
+    for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); if (await page.evaluate(() => !!(window.SPOILS && SPOILS.frame)).catch(() => false)) break; }
+    await page.waitForTimeout(1200); await page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    let line = null; for (let i = 0; i < 40 && !line; i++) { await page.waitForTimeout(500); const s2 = page.frames().find(x => /SETTLEMENT/.test(x.url())); line = s2 ? await s2.evaluate(() => { const s = document.getElementById('sheet'); const p = s && s.classList.contains('on') && s.querySelector('.say p'); return p ? p.textContent : null; }).catch(() => null) : null; if (line && !/Round 1 is yours/.test(line)) line = null; }
+    const bat1 = await fr.evaluate(() => loopBats());
+    sf = page.frames().find(x => /SETTLEMENT/.test(x.url()));
+    const box2 = await sf.evaluate(() => { const b = document.querySelector('#sheet .ar-tourney'); return b ? b.textContent : ''; });
+    const st = await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaArena.reload())));
+    ok('F4 round one: five went in, it paid its purse on the win, round two waits with the same five locked, tonight\'s card untouched', !!f && f.us === 5 && f.t && f.t.round === 0 && bat1 - bat0 === T.purse[0] && /Round 1 is yours/.test(line || '') && /Fight round 2/.test(box2) && /Nobody swaps/.test(box2) && st.tourney && st.tourney.round === 1 && st.tourney.men.length === 5 && st.lastDay == null, 'five ' + (f && f.us) + ', paid ' + (bat1 - bat0) + ' of ' + T.purse[0] + '; ' + (line || '').slice(0, 70) + '; ' + JSON.stringify(st.tourney));
+    await tapIn('#sheet .ar-tourney .act', 'Quit the tournament'); await page.waitForTimeout(1200);
+    const box3 = await sf.evaluate(() => { const b = document.querySelector('#sheet .ar-tourney'); return { box: b ? b.textContent : '', line: (document.querySelector('#sheet .say p') || {}).textContent || '' }; });
+    const st2 = await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaArena.reload())));
+    ok('F5 quitting after a round keeps what was won and closes his tournament', st2.tourney && st2.tourney.done && st2.tourney.quit && /walked away with what you won/.test(box3.box) && (await fr.evaluate(() => loopBats())) === bat1, box3.box.slice(0, 120));
+    ok('F6 nothing threw in the demo', errs.length === 0, errs.slice(0, 2).join(' | '));
+  } finally { try { await d.browser.close(); } catch (e) {} try { d.server && d.server.close(); } catch (e) {} }
 }

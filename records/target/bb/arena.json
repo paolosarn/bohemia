@@ -430,5 +430,17 @@
   },
   "source": "slices/fight_rig/fight_rig.json (the rig's sheets: 8 facings a row, the stand clip first) and records/target/bb/bohemia_enemies.json beast.rig",
   "why": "the card shows each foe in a body the fight's rig draws: the beasts in their own bodies; the caught raiders in road ponchos, the Mob's pit fighters bare-armed, the champion in the Mob's own stripes"
+ },
+ "posts": {
+  "value": {
+   "tournament_on": "the mob is running a tournament at the pit, starts today, five days. crews of five, three rounds, a big prize",
+   "tournament_won": "a crew from out of town won the whole pit tournament tonight. three rounds. the mob paid up and looked sick",
+   "tournament_out": "out of towners got knocked out of the pit tournament in round {round}. the mob's people still on top",
+   "night_won": "out of towners beat {foe} in the pit tonight. the mob paid them {paid}. crowd lost its mind",
+   "night_lost": "{foe} won in the pit tonight. the out of towners got carried out. no pay for them"
+  },
+  "source": "VAMILY rule 375 ('a feed post says the Strip hosts one for a few days', the ARENA brief); rule 371 (the radio lives in the feed) and rule 372 (a tweet sounds like a human: plain words, a verb, under 120)",
+  "why": "the Strip's own account tells the valley a tournament is on and how it ended; words are attempts, draft:true, WORDS may better them",
+  "draft": true
  }
 }

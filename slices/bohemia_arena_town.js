@@ -114,6 +114,8 @@
     if(!c) return 'Card is not up yet. Give me a minute, the board runs off the same battery as the lights.';
     if(t.fought) return 'You had your night. Card goes back up tomorrow. Come early, the good seats are the ones that still fold.';
     if(c.power && c.power.out) return 'Generator went dry this morning. The big ones are sick in the cold room, so tonight is half a card. Still pays.';
+    if(t.tournament && !t.tournament.entered && !t.tournament.done) return 'Tournament week. Tonight\'s card is still up, and the big one runs ' + t.tournament.left + ' more ' + (t.tournament.left === 1 ? 'day' : 'days') + '. Five of yours if you want in.';
+    if(t.tournament && t.tournament.entered && !t.tournament.done) return 'Your five are still in it. Round ' + ((t.tournament.round || 0) + 1) + ' whenever you are ready.';
     if(c.fifth) return 'Fifth night. The bosses sit in the front row tonight, so the card is heavier. Win it and you walk out wearing something nobody else has.';
     return 'There it is. You see what you get, no surprises. Win and you get paid. Lose and you feed them.';
   }
@@ -128,7 +130,8 @@
     w.appendChild(el('div', 'ar-says', c.says.charAt(0).toUpperCase() + c.says.slice(1) + '.'));
     if(c.power && c.power.out) w.appendChild(el('div', 'ar-power', 'THE POWER IS OUT AT THE FARM: the big ones are off the card, the rest at half.'));
     if(c.fifth && c.prize){ var pg = E().V('pit_gear') || {}, g = pg[c.prize]; w.appendChild(el('div', 'ar-prize', 'THE FIFTH NIGHT: the bosses watch. Win it and you walk out with ' + (g ? g.name + ' (holds ' + g.durability + ')' : c.prize) + '. Nobody sells one.')); }
-    var pr = el('div', 'ar-purse'); pr.appendChild(el('span', null, 'THE PURSE, ONLY IF YOU WIN')); pr.appendChild(el('b', null, c.purse + ' batteries')); w.appendChild(pr);
+    if(c.tournament && c.tournament.round === c.tournament.rounds - 1){ var tg = (E().V('pit_gear') || {})[c.tournament.prize]; w.appendChild(el('div', 'ar-prize', 'THE LAST ROUND: win it and the tournament is yours, and ' + (tg ? tg.name : 'the prize') + ' with it.')); }
+    var pr = el('div', 'ar-purse'); pr.appendChild(el('span', null, c.tournament ? 'THIS ROUND PAYS, ONLY IF YOU WIN' : 'THE PURSE, ONLY IF YOU WIN')); pr.appendChild(el('b', null, c.purse + ' batteries')); w.appendChild(pr);
     w.appendChild(el('div', 'ar-rules', 'House rules: no collar, so whatever he wears on his belt stays outside. Nobody runs once the gate shuts. Nothing comes off the dead.'));
     return w;
   }
@@ -144,6 +147,31 @@
     if(t.fought) acts.appendChild(api.act('Come back tomorrow', 'one fight a day', function(){ api.hide(); }, true));
     else acts.appendChild(api.act('Pick your ' + (c.men === 3 ? 'three' : c.men), 'then FIGHT', function(){ pickSheet(api, c); }));
     acts.appendChild(api.act('Walk away', 'the card waits till morning', function(){ api.hide(); }));
+    if(t.tournament) body.appendChild(tourneyBox(api, t, S, day));
+  }
+  /* THE TOURNAMENT (bb_all/0133, 0131: a settlement situation for five days; five men; three rounds with no rest and no change of
+     men or gear between them; quit after any round and keep what you won; the further, the tougher; win it all for the prize) */
+  function tourneyBox(api, t, S, day){
+    var T = E().V('tournament') || {}, tr = t.tournament, box = el('div', 'ar-card ar-tourney'); box.dataset.tourney = tr.id;
+    var h = el('div', 'ar-h'); h.appendChild(el('span', null, 'THE STRIP\'S TOURNAMENT')); h.appendChild(el('b', null, tr.left + (tr.left === 1 ? ' DAY LEFT' : ' DAYS LEFT'))); box.appendChild(h);
+    var pg = (E().V('pit_gear') || {})[T.prize], tot = (T.purse || []).reduce(function(a, b){ return a + b; }, 0);
+    if(tr.done){ box.appendChild(el('div', 'ar-says', tr.won ? 'You won it. The Strip will be talking about it for a while.' : tr.out ? 'You are out of this one. The next one is in a few weeks.' : 'You walked away with what you won. The next one is in a few weeks.')); return box; }
+    var c = E().card(S.place.name, day, {tournament: {id: tr.id, round: tr.round || 0}});
+    if(!tr.entered){
+      box.appendChild(el('div', 'ar-says', 'Five of yours, three rounds, each one tougher, no rest and no swapping men between them. Quit after any round and keep what you won. Win all three: ' + tot + ' batteries and ' + (pg ? pg.name : 'the prize') + '.'));
+      var a = api.act('Enter the tournament', 'pick your five', function(){ pickSheet(api, c); }); box.appendChild(a);
+      return box;
+    }
+    box.appendChild(cardEl(c));
+    box.appendChild(el('div', 'ar-rules', 'The same five: ' + (tr.men || []).join(', ') + '. Nobody swaps in a tournament.'));
+    box.appendChild(api.act('Fight round ' + ((tr.round || 0) + 1), c.purse + ' batteries', function(){ startWith(api, c, tr.men || []); }));
+    box.appendChild(api.act('Quit the tournament', 'keep what you won', function(){ E().quit(tr.id); api.openB('arena', 'Smart. Most people who go for round ' + ((tr.round || 0) + 1) + ' get carried out of it.'); }));
+    return box;
+  }
+  function startWith(api, c, men){
+    var sh = document.getElementById('sheet');
+    var pick = {card: {id: c.id, day: c.day, opp: c.opp, says: c.says, lines: c.lines, band: c.band, count: c.count, purse: c.purse, fifth: c.fifth, prize: c.prize, power: c.power, men: c.men, tournament: c.tournament, beast: c.beast}, men: men.slice()};
+    window.__arenaPicked = pick; if(sh) sh.classList.remove('ar-picking'); api.post('arena', {arena: pick}); api.hide();
   }
   function sub(S){ var Ar = E(); if(!Ar || !Ar.ready() || !S || !S.place) return 'the Mob\'s arena';
     var day = Math.floor(S.mapDay != null ? S.mapDay : (S.day || 0)), t = Ar.today(S.place.name, day);
@@ -237,6 +265,10 @@
     var who = (r.men || []).map(function(m){ return m.name; }), dead = (r.men || []).filter(function(m){ return m.dead; }).map(function(m){ return m.name; });
     var up = (r.ranks || []).map(function(g){ var you = String(g.name).toUpperCase() === 'YOU'; return (you ? 'You are ' : g.name + ' is ') + (/^[AEIOU]/.test(g.rank_name) ? 'an ' : 'a ') + g.rank_name.toLowerCase() + ' now'; });
     var pg = E() && E().V('pit_gear'), g = r.prize && pg && pg[r.prize];
+    if(r.tournament){ var T2 = E() && E().V('tournament') || {}, rn = (r.tournament.round || 0) + 1, pg2 = r.prize && E().V('pit_gear') && E().V('pit_gear')[r.prize];
+      if(r.won && rn >= (T2.rounds || 3)) return 'You took the whole tournament. ' + r.paid + ' more batteries' + (pg2 ? ', and ' + pg2.name + ' is in your stash' : '') + '. The Strip will talk about this one.' + (up.length ? ' ' + up.join('. ') + '.' : '');
+      if(r.won) return 'Round ' + rn + ' is yours. ' + r.paid + ' batteries. Round ' + (rn + 1) + ' whenever you are ready, the same five, nobody swaps. Or quit and keep it.';
+      return 'Out in round ' + rn + '. You keep what you won before it.' + (dead.length ? ' ' + dead.join(' and ') + ' did not get up.' : ''); }
     if(r.won) return 'You won. ' + r.paid + ' batteries, like I said, counted out of the cash box.' + (up.length ? ' ' + up.join('. ') + '.' : '') + (g ? ' And ' + g.name + ' is in your stash. Nobody sells those.' : '') + (dead.length ? ' We buried ' + dead.join(' and ') + ' behind the cages.' : '');
     return 'They lost. Crowd got its money\'s worth. No purse when you lose, that is the deal.' + (dead.length ? ' ' + dead.join(' and ') + ' did not get up. We put them behind the cages.' : ' Your men got carried out breathing.');
   }

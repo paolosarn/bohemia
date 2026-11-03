@@ -4,6 +4,7 @@
      node tools/bohemia_arena_shots.js pit      -> slices/vote/arena/pit_*.webp   (piece a: the pit on the Mob's town, day, night, the bookie's sheet)
      node tools/bohemia_arena_shots.js pick     -> slices/vote/arena/pick_*.webp
      node tools/bohemia_arena_shots.js ranks    -> slices/vote/arena/ranks_*.webp (piece d: the fifth night, the ranks on the faces, the purse and the prize paid)
+     node tools/bohemia_arena_shots.js tourney  -> slices/vote/arena/tourney_*.webp (piece e: the post on the phone, the bookie's box, the five, round one, round two waiting)
      node tools/bohemia_arena_shots.js fight    -> slices/vote/arena/fight_*.webp (piece c: the demo driven like a player: the card, the lineup, mid-fight, the end, home)  (piece b: the card, the pick ready, one tap swaps a man in)
    The pictures are written as webp through the python PIL (python3 -I, nothing imported from the repo). */
 const fs = require('fs'), path = require('path'), http = require('http'), { execFileSync } = require('child_process');
@@ -71,6 +72,45 @@ const MODE = process.argv[2] || 'pit';
     await p.evaluate(() => window.postMessage({ type: 'BOHEMIA_ARENA_RESULT', result: { won: true, paid: 65, prize: 'gladiator_helmet', card: 'x', men: [{ name: 'YOU' }, { name: 'DESI' }, { name: 'RAUL' }],
       ranks: [{ name: 'YOU', rank: 'arena_fighter', rank_name: 'ARENA FIGHTER' }] } }, '*'));
     await p.waitForTimeout(2200); await shot(p, 'ranks_paid');
+  }
+  if (MODE === 'tourney') {
+    /* piece e: the demo, tournament week: the Strip's post on the phone, the bookie's tournament box, the pick of five, round two waiting */
+    await b.close(); srv.close();
+    const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
+    const d = await open({ fog: true }); const fr = d.fr, pg = d.page;
+    const shotD = async (name) => { const f = path.join(TMP, name + '.png'); await pg.screenshot({ path: f }); webp(f, path.join(OUT, name + '.webp')); console.log('wrote slices/vote/arena/' + name + '.webp'); };
+    for (let i = 0; i < 80; i++) { await pg.waitForTimeout(500); if (await fr.evaluate(() => !!(window.__FRESH_START && window.__FRESH_START.at) && typeof loopOpenTown === 'function' && !!window.BohemiaArena && BohemiaArena.ready()).catch(() => false)) break; }
+    for (let i = 0; i < 40; i++) { const g = await pg.evaluate(() => { const w = document.getElementById('mainmaker'); if (!w) return 'gone'; if (w.dataset.armed !== '1') return null; const k = w.querySelector('.go'), r = k && k.getBoundingClientRect(); return r && r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }).catch(() => null); if (g === 'gone') break; if (g) await pg.touchscreen.tap(g.x, g.y); await pg.waitForTimeout(500); }
+    await pg.waitForTimeout(2500);
+    await pg.evaluate(() => { const p = window.BOH_START && BOH_START.picks(); const co = JSON.parse(JSON.stringify((p && p.company) || [])); co.forEach((m, i) => { m.name = m.name || (i === 0 ? 'YOU' : 'MAN' + i); m.gear = m.gear || {}; });
+      const extra = ['TEO', 'MARCOS', 'NENO'].map((n, k) => Object.assign(JSON.parse(JSON.stringify(co[1 + (k % Math.max(1, co.length - 1))] || co[0])), { name: n })); localStorage.setItem('bohemia.company.v1', JSON.stringify(co.concat(extra).slice(0, 6))); });
+    const T = await fr.evaluate(() => BohemiaArena.V('tournament'));
+    /* leave the start town for the map, then the morning the tournament opens: the post on his phone's feed */
+    await fr.evaluate(() => { try { loopClose(); } catch (e) {} });
+    await pg.waitForTimeout(1500);
+    await fr.evaluate((day) => { BohemiaArena.reset(); DAY.day = day; arenaWake(day); }, T.first_day);
+    await pg.waitForTimeout(4000); await shotD('tourney_feed');
+    await fr.evaluate(() => { const b = ctBases().Mob; loopOpenTown({ name: 'Mob', x: b.x, y: b.y, tier: mapTierOf('Mob') }); });
+    let sf = null; for (let i = 0; i < 40 && !sf; i++) { await pg.waitForTimeout(500); sf = pg.frames().find(f => /SETTLEMENT/.test(f.url())); }
+    for (let i = 0; i < 40; i++) { await pg.waitForTimeout(400); if (await sf.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.order().indexOf('arena') >= 0).catch(() => false)) break; }
+    await pg.waitForTimeout(1200);
+    const sb = await (await fr.$('#settleFrame')).boundingBox();
+    for (let k = 0; k < 5; k++) { const xy = await sf.evaluate(() => BohemiaSettlement.where('arena')); await pg.touchscreen.tap(sb.x + xy.x, sb.y + xy.y); await pg.waitForTimeout(1600); if (await sf.evaluate(() => !!document.querySelector('#sheet.on .ar-card')).catch(() => false)) break; }
+    await sf.evaluate(() => { const b = document.querySelector('#sheet .ar-tourney'); b && b.scrollIntoView({ block: 'end' }); }); await pg.waitForTimeout(600); await shotD('tourney_box');
+    await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet .ar-tourney .act')].find(x => /Enter/.test(x.textContent)); b && b.click(); }); await pg.waitForTimeout(1500); await shotD('tourney_pick');
+    await sf.evaluate(() => { const b = document.querySelector('#ar-pick .ar-fight'); b && b.click(); });
+    let ff = null; for (let i = 0; i < 60 && !ff; i++) { await pg.waitForTimeout(500); const h = await pg.$('#fightFrame'); if (h) { const x = await h.contentFrame(); if (x && await x.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) ff = x; } }
+    await pg.waitForTimeout(3000); await shotD('tourney_round1');
+    await ff.evaluate(() => { try { if (!UI.auto) document.getElementById('bauto').click(); } catch (e) {} });
+    let natural = false; for (let i = 0; i < 160; i++) { await pg.waitForTimeout(500); if (await ff.evaluate(() => FIGHT.S.over).catch(() => true)) { natural = true; break; } }
+    console.log('round one ended by itself', natural, await ff.evaluate(() => FIGHT.S.result).catch(() => null));
+    await ff.evaluate(() => { if (!FIGHT.S.over) { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); } }).catch(() => {});
+    for (let i = 0; i < 40; i++) { await pg.waitForTimeout(500); if (await pg.evaluate(() => !!(window.SPOILS && SPOILS.frame)).catch(() => false)) break; }
+    await pg.waitForTimeout(1500); await pg.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    for (let i = 0; i < 40; i++) { await pg.waitForTimeout(500); const s2 = pg.frames().find(f => /SETTLEMENT/.test(f.url())); const ln = s2 ? await s2.evaluate(() => { const s = document.getElementById('sheet'); const p = s && s.classList.contains('on') && s.querySelector('.say p'); return p ? p.textContent : null; }).catch(() => null) : null; if (ln && /Round|Out in/.test(ln)) break; }
+    await pg.waitForTimeout(1200); await shotD('tourney_round2');
+    try { await d.browser.close(); } catch (e) {} try { d.server && d.server.close(); } catch (e) {}
+    return;
   }
   if (MODE === 'fight') {
     /* piece c: the real demo, driven like a player: the Mob's town, the pit, the pick, FIGHT, the fight, the end, home */
