@@ -777,6 +777,41 @@
    "name": "A CAR LEFT AT THE KERB",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_car": {
+   "kind": "COVER",
+   "h": 1.5,
+   "name": "A DEAD CAR",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_sign": {
+   "kind": "COVER",
+   "h": 1.6,
+   "name": "THE MOTEL SIGN'S FOOT",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_panels": {
+   "kind": "LOW_COVER",
+   "h": 1.0,
+   "name": "FALLEN SCREEN PANELS",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_junk": {
+   "kind": "LOW_COVER",
+   "h": 1.0,
+   "name": "A PAWN SHOP'S JUNK",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_truss": {
+   "kind": "COVER",
+   "h": 1.6,
+   "name": "A FALLEN RIB OF THE CANOPY",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   }
  },
  "blocks": {
@@ -1298,26 +1333,29 @@
   "stripw.2": {
    "src": "block_stripw_2.webp"
   },
-  "fremont.3": {
-   "src": "block_fremont_3.webp"
-  },
-  "fremont.4": {
-   "src": "block_fremont_4.webp"
-  },
-  "fremont.5": {
-   "src": "block_fremont_5.webp"
-  },
-  "fremont.6": {
-   "src": "block_fremont_6.webp"
-  },
-  "fremont.7": {
-   "src": "block_fremont_7.webp"
-  },
   "stripw.3": {
    "src": "block_stripw_3.webp"
   },
   "apron.4": {
    "src": "block_apron_4.webp"
+  },
+  "fremont.10": {
+   "src": "block_fremont_10.webp"
+  },
+  "fremont.11": {
+   "src": "block_fremont_11.webp"
+  },
+  "fremont.12": {
+   "src": "block_fremont_12.webp"
+  },
+  "fremont.13": {
+   "src": "block_fremont_13.webp"
+  },
+  "fremont.14": {
+   "src": "block_fremont_14.webp"
+  },
+  "fremont.15": {
+   "src": "block_fremont_15.webp"
   }
  },
  "lights_key": {
@@ -31032,198 +31070,88 @@
   "place_downtown": {
    "blocks": [
     [
-     "fremont.5",
-     "fremont.6",
-     "fremont.5",
-     "fremont.6"
+     "fremont.10",
+     "fremont.11",
+     "fremont.10",
+     "fremont.11"
     ],
     [
-     "fremont.4",
-     "fremont.3",
-     "fremont.4",
-     "fremont.4"
+     "fremont.13",
+     "fremont.12",
+     "fremont.13",
+     "fremont.13"
     ],
     [
-     "fremont.7",
-     "fremont.7",
-     "fremont.7",
-     "fremont.7"
+     "fremont.14",
+     "fremont.15",
+     "fremont.14",
+     "fremont.15"
     ]
    ],
    "terrain": [
     [
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
+     "height",
+     "height",
+     "height",
      "flat",
      "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
+     "height",
+     "height",
+     "height",
      "flat",
      "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat"
-    ],
-    [
+     "height",
+     "height",
+     "height",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "height",
+     "height",
+     "height",
      "flat",
      "flat"
     ],
     [
+     "height",
+     "rough",
      "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "height",
+     "blocked",
      "flat",
+     "height",
+     "rough",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "height",
+     "blocked",
      "flat"
     ],
     [
      "height",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "blocked",
+     "blocked",
      "height",
      "height",
-     "flat",
-     "flat",
+     "height",
      "flat",
      "flat",
      "height",
      "flat",
      "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
+     "height",
      "flat",
      "flat"
     ],
@@ -31244,30 +31172,8 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "blocked",
+     "blocked",
      "flat",
      "flat"
     ],
@@ -31314,6 +31220,72 @@
      "blocked",
      "blocked",
      "blocked"
+    ],
+    [
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat"
     ],
     [
      "height",
@@ -31358,6 +31330,72 @@
      "height",
      "height",
      "height"
+    ],
+    [
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
     ],
     [
      "flat",
@@ -31384,73 +31422,133 @@
    ],
    "cover": [
     {
-     "piece": "downtown_entrance",
-     "x_m": 6.0,
-     "y_m": 42.0
-    },
-    {
-     "piece": "downtown_entrance",
-     "x_m": 30.0,
-     "y_m": 42.0
-    },
-    {
-     "piece": "downtown_entrance",
+     "piece": "downtown_junk",
      "x_m": 54.0,
-     "y_m": 42.0
+     "y_m": 6.0
     },
     {
-     "piece": "downtown_slots",
-     "x_m": 90.0,
+     "piece": "downtown_car",
+     "x_m": 30.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "downtown_sign",
+     "x_m": 30.0,
      "y_m": 30.0
     },
     {
-     "piece": "downtown_entrance",
-     "x_m": 66.0,
+     "piece": "downtown_car",
+     "x_m": 18.0,
      "y_m": 42.0
     },
     {
-     "piece": "downtown_entrance",
+     "piece": "downtown_car",
+     "x_m": 42.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 6.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 54.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "downtown_junk",
+     "x_m": 114.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 114.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "downtown_car",
      "x_m": 114.0,
      "y_m": 42.0
     },
     {
-     "piece": "downtown_entrance",
-     "x_m": 126.0,
-     "y_m": 42.0
+     "piece": "downtown_dumpsters",
+     "x_m": 66.0,
+     "y_m": 54.0
     },
     {
-     "piece": "downtown_entrance",
-     "x_m": 150.0,
-     "y_m": 42.0
+     "piece": "downtown_dumpsters",
+     "x_m": 114.0,
+     "y_m": 54.0
     },
     {
-     "piece": "downtown_entrance",
+     "piece": "downtown_junk",
      "x_m": 174.0,
-     "y_m": 42.0
+     "y_m": 6.0
     },
     {
-     "piece": "downtown_slots",
-     "x_m": 210.0,
+     "piece": "downtown_car",
+     "x_m": 150.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "downtown_sign",
+     "x_m": 150.0,
      "y_m": 30.0
     },
     {
-     "piece": "downtown_entrance",
-     "x_m": 186.0,
+     "piece": "downtown_car",
+     "x_m": 138.0,
      "y_m": 42.0
     },
     {
-     "piece": "downtown_entrance",
+     "piece": "downtown_car",
+     "x_m": 162.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 126.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 174.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "downtown_junk",
+     "x_m": 234.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 234.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "downtown_car",
      "x_m": 234.0,
      "y_m": 42.0
     },
     {
+     "piece": "downtown_dumpsters",
+     "x_m": 186.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 234.0,
+     "y_m": 54.0
+    },
+    {
      "piece": "downtown_kiosk",
      "x_m": 42.0,
      "y_m": 78.0
     },
     {
-     "piece": "downtown_canopy",
-     "x_m": 18.0,
+     "piece": "downtown_slots",
+     "x_m": 6.0,
      "y_m": 90.0
     },
     {
@@ -31464,13 +31562,18 @@
      "y_m": 90.0
     },
     {
-     "piece": "downtown_slots",
+     "piece": "downtown_truss",
      "x_m": 18.0,
      "y_m": 102.0
     },
     {
      "piece": "downtown_kiosk",
      "x_m": 78.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "downtown_slots",
+     "x_m": 102.0,
      "y_m": 78.0
     },
     {
@@ -31484,13 +31587,18 @@
      "y_m": 90.0
     },
     {
-     "piece": "downtown_canopy",
+     "piece": "downtown_panels",
      "x_m": 102.0,
      "y_m": 90.0
     },
     {
-     "piece": "downtown_slots",
-     "x_m": 114.0,
+     "piece": "downtown_panels",
+     "x_m": 66.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "downtown_truss",
+     "x_m": 102.0,
      "y_m": 102.0
     },
     {
@@ -31499,8 +31607,8 @@
      "y_m": 78.0
     },
     {
-     "piece": "downtown_canopy",
-     "x_m": 138.0,
+     "piece": "downtown_slots",
+     "x_m": 126.0,
      "y_m": 90.0
     },
     {
@@ -31514,7 +31622,7 @@
      "y_m": 90.0
     },
     {
-     "piece": "downtown_slots",
+     "piece": "downtown_truss",
      "x_m": 138.0,
      "y_m": 102.0
     },
@@ -31524,8 +31632,8 @@
      "y_m": 78.0
     },
     {
-     "piece": "downtown_canopy",
-     "x_m": 198.0,
+     "piece": "downtown_slots",
+     "x_m": 186.0,
      "y_m": 90.0
     },
     {
@@ -31539,47 +31647,97 @@
      "y_m": 90.0
     },
     {
-     "piece": "downtown_slots",
+     "piece": "downtown_truss",
      "x_m": 198.0,
      "y_m": 102.0
     },
     {
      "piece": "downtown_dumpsters",
      "x_m": 18.0,
-     "y_m": 174.0
+     "y_m": 150.0
     },
     {
      "piece": "downtown_dumpsters",
      "x_m": 42.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 6.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 54.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 30.0,
      "y_m": 174.0
     },
     {
      "piece": "downtown_dumpsters",
+     "x_m": 66.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 114.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "downtown_car",
      "x_m": 78.0,
-     "y_m": 174.0
+     "y_m": 162.0
     },
     {
-     "piece": "downtown_dumpsters",
+     "piece": "downtown_car",
      "x_m": 102.0,
      "y_m": 174.0
     },
     {
      "piece": "downtown_dumpsters",
      "x_m": 138.0,
-     "y_m": 174.0
+     "y_m": 150.0
     },
     {
      "piece": "downtown_dumpsters",
      "x_m": 162.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 126.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 174.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "downtown_car",
+     "x_m": 150.0,
      "y_m": 174.0
     },
     {
      "piece": "downtown_dumpsters",
+     "x_m": 186.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "downtown_dumpsters",
+     "x_m": 234.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "downtown_car",
      "x_m": 198.0,
-     "y_m": 174.0
+     "y_m": 162.0
     },
     {
-     "piece": "downtown_dumpsters",
+     "piece": "downtown_car",
      "x_m": 222.0,
      "y_m": 174.0
     }
@@ -90495,11 +90653,12 @@
     "stripw.3": "THE VALET",
     "stripe.1": "THE FALLEN SIGN",
     "stripe.2": "THE PINK TOWER",
-    "fremont.3": "UNDER THE COWBOY",
-    "fremont.4": "THE MALL",
-    "fremont.5": "THE FRONTS",
-    "fremont.6": "THE ARCADE",
-    "fremont.7": "THE ROOFS AND THE ALLEY",
+    "fremont.10": "THE MOTEL AND THE PAWN SHOP",
+    "fremont.11": "THE GARAGE AND THE CHAPEL",
+    "fremont.12": "UNDER THE COWBOY",
+    "fremont.13": "THE MALL",
+    "fremont.14": "THE ROOFS AND THE ALLEY",
+    "fremont.15": "THE GARAGE ON OGDEN",
     "rail.1": "THE CARS AND THE GANTRY",
     "rail.2": "THE SLAB",
     "basin.1": "THE HOUSEBOAT",

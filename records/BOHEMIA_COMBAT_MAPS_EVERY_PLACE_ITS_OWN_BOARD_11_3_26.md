@@ -244,3 +244,25 @@ standing green: at the source, in the models.
 - THE WHOLE ROUND (rule 346), before -> after, all fifteen: seams seen at the block seams 0% on every place but the suburb (5%,
   under the 12% floor); cell lines at most 1.6%; cut-offs at most 0.7%; roads not met 0 of 51 on every place; nothing cut at a
   picture's edge (0 of 46 blocks); a logic list checked by eye for every place, tied to its pictures.
+
+## PUSH 6 (rule 346 AMENDED, rule 356): DOWNTOWN RETHOUGHT, ROADS FIRST
+His vote on push 1's downtown: "Hell nah that shit does not look right" (the Strip and the lab: "More work more love"). Rethought
+from the real downtown, not polished. THE ROADS FIRST: three streets east to west, each whole through every block of its row:
+FREMONT EAST on the top row (a real street, its lights, the burnt Deuce in it), the FREMONT STREET mall in the middle, and on the
+bottom row the south side's SERVICE ALLEY and OGDEN AVENUE. THEN THE LOTS AND THE BUILDINGS, every front to the camera or the alley:
+- fremont.10 THE MOTEL AND THE PAWN SHOP: a two-storey motel (salmon stucco, turquoise doors, its walkway the high ground) round a
+  court with its empty pool, its tall dead sign by the street; a pawn shop with its grilles down and PAWN on its yellow band.
+- fremont.11 THE GARAGE AND THE CHAPEL: a parking garage whose decks step up one, two, three storeys from its ramp; a white wedding
+  chapel with its steeple and its arch on the lawn.
+- fremont.12 UNDER THE COWBOY (landmark) and fremont.13 THE MALL: the old casino fronts at street level, four storeys, their
+  marquees over the sidewalk, the cowboy flat on his front, the horseshoe on another; THE CANOPY CAME DOWN: its columns along both
+  sides (some snapped), one bay still standing (COOK PROPS'), its ribs and screen panels fallen into the street as cover, one panel
+  still lit; kiosks, slots, the stage, the zipline's tower; the south side's one-storey shops with their awnings.
+- fremont.14 THE ROOFS AND THE ALLEY and fremont.15 THE GARAGE ON OGDEN: the south side's backs at two and three storeys (skylights,
+  tanks, junk), their fire escapes and the garage's ramp the ways up from the alley.
+ROOF TO ROOF (his 'fantastic idea', rule 356(e)): the south side's shops (one storey), its backs (two, three) and the garages are
+walked roof to roof, each at its own storey, so height is accuracy (rule 321).
+Measured on the way: a bare canopy frame drew as a grid of lines over the mall (the camera sees an arch across the street
+edge-on), so the canopy fell instead; a first render set the south side's backs over the alley (fixed: 10% cell lines -> 0).
+Downtown: seams 0%, cell lines 0%, cut-offs 0%, roads not met 0 of 51, nothing cut at an edge. The rule 346 v1 blocks (fremont.3-7)
+are in graveyard/the_strip_and_downtown_11_3_26/.

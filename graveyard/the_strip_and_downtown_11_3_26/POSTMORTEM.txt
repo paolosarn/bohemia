@@ -23,3 +23,10 @@ the camera; Fremont Street runs across the middle (fremont.3, fremont.4) with CO
 fronts face the camera from the north (fremont.5, fremont.6), the south side's roofs and the alley at the bottom
 (fremont.7). The lesson, for every board: design for the camera (only south faces are seen, height spills north), and
 for the seam (the same ground at every edge two pictures share).
+
+POSTMORTEM 2: DOWNTOWN OF RULE 346 PUSH 1 (fremont.3-7), killed 11/3 by his vote: "Hell nah that shit does not look right".
+Why: it was a stage set, not a downtown. One street 84 m wide of empty pavers between a wall of tall fronts and a band of roofs;
+COOK PROPS' canopy bays stood in a row down its middle like a fence; nothing else of downtown was there (no motel, no pawn shop,
+no garage, no cross street life), and the fronts were 20-25 m boxes where Fremont's old casinos are three or four storeys at
+street level. What replaced it (push 6): roads first, three streets whole through their rows (Fremont East, the mall, the alley and
+Ogden), the real downtown's pieces on them, the canopy fallen, his roof-to-roof spread over the south side.

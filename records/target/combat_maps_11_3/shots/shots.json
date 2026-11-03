@@ -381,22 +381,22 @@
   "bar": "fremont",
   "blocks": [
    [
-    "fremont.5",
-    "fremont.6|h",
-    "fremont.5",
-    "fremont.6|h"
+    "fremont.10",
+    "fremont.11|h",
+    "fremont.10",
+    "fremont.11|h"
    ],
    [
-    "fremont.4",
-    "fremont.3",
-    "fremont.4",
-    "fremont.4|h"
+    "fremont.13",
+    "fremont.12",
+    "fremont.13",
+    "fremont.13|h"
    ],
    [
-    "fremont.7|h",
-    "fremont.7",
-    "fremont.7|h",
-    "fremont.7"
+    "fremont.15|h",
+    "fremont.14",
+    "fremont.15|h",
+    "fremont.14"
    ]
   ],
   "start": "line",

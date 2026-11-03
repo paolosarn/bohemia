@@ -43,39 +43,39 @@
   ]
  },
  "downtown": {
-  "sha": "b6c13e166f42",
+  "sha": "560314f26259",
   "when": "11/3",
   "by": "COMBAT MAPS 3, by eye on the live fight's shots",
   "checks": [
    {
-    "what": "the canopy's columns stand on the street's pavers in its middle row, their pairs on one line block to block; nothing stands under the beam but the street",
+    "what": "three streets run east to west whole through every block of their rows (Fremont East, the Fremont mall, the service alley and Ogden Avenue); no street starts from nothing",
     "ok": true,
-    "how": "fremont.3, fremont.4 pictures and the AFTER shot"
+    "how": "fremont.10-15 pictures and the road leg (0 of 51)"
    },
    {
-    "what": "the north fronts face the street and the camera; every door opens onto an open entrance tile under its marquee; the pillars between the doors are blocked tiles",
+    "what": "every front faces the camera or the alley: the old casino fronts at street level with their marquees face the mall, the motel, the pawn shop, the garage and the chapel face Fremont East; nothing tall stands south of open ground (the south side's shops are one storey)",
     "ok": true,
-    "how": "fremont.5, fremont.6 pictures"
+    "how": "the tiles and the pictures"
    },
    {
-    "what": "the south side's backs are walked roof to roof (his ask, rule 356(e)), each roof at its own storey (3, 2, 3, 3, 2), planks where a roof steps down; the fire escape is the way up from the alley; the alley runs edge to edge with its dumpsters against the back walls",
+    "what": "the canopy came down: its columns stand on the mall's two sides, one bay still standing, its ribs and screens lie in the street as cover, one panel still lit; no structure is drawn over the street",
     "ok": true,
-    "how": "fremont.7 picture and its roof storeys in ours.roof_storeys"
+    "how": "fremont.12, fremont.13 pictures"
    },
    {
-    "what": "the burnt Deuce lies in the street on its own two blocked tiles; the cowboy's lattice tower stands on its own height tile; the kiosks stand on open pavers",
+    "what": "roof to roof (his): the south side's shops (one storey), their backs (two and three storeys) and the garages are walked roof to roof, each at its own storey, up the fire escapes and the garage ramps; the motel's walkway and the garage decks are the high ground on Fremont East",
     "ok": true,
-    "how": "fremont.3 picture"
+    "how": "the roof storeys in ours.roof_storeys and the pictures"
    },
    {
-    "what": "no open tile has a tall mass south of it: the south side's shops are one storey (their roofs reach a quarter of the sidewalk tile), the tall backs stand behind them",
+    "what": "the Deuce lies burnt on Fremont East, a street, on its own two blocked tiles; the cars stand on streets and in the motel's court, the dumpsters on the back lot and in the alley",
     "ok": true,
-    "how": "the tiles of all five blocks"
+    "how": "fremont.10, fremont.11, fremont.14 pictures"
    },
    {
-    "what": "the zipline's cable runs from its landing tower to its own far pole inside the block, never off the picture's edge",
+    "what": "no building or thing reaches past its block's side; the south side's backs stand on their own rows with the alley open before them",
     "ok": true,
-    "how": "fremont.4 picture and the edge leg"
+    "how": "the edge leg and fremont.14, fremont.15 pictures (a first render had them over the alley: fixed)"
    }
   ]
  },

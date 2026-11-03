@@ -2074,69 +2074,245 @@
       2
      ]
     ],
-    "fremont.3": [
+    "fremont.10": [
      [
-      4,
+      0,
+      0,
+      2
+     ],
+     [
       1,
-      3
+      0,
+      2
+     ],
+     [
+      2,
+      0,
+      2
+     ],
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0,
+      2,
+      2
      ]
     ],
-    "fremont.4": [
+    "fremont.11": [
      [
       0,
+      0,
+      3
+     ],
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0,
+      2,
+      1
+     ],
+     [
+      1,
+      0,
+      3
+     ],
+     [
+      1,
+      1,
+      2
+     ],
+     [
+      1,
+      2,
+      1
+     ],
+     [
+      2,
+      0,
+      3
+     ],
+     [
+      2,
+      1,
+      2
+     ],
+     [
+      2,
+      2,
+      1
+     ]
+    ],
+    "fremont.12": [
+     [
+      0,
+      4,
+      1
+     ],
+     [
+      1,
+      4,
+      1
+     ],
+     [
+      2,
+      4,
+      1
+     ],
+     [
+      3,
+      4,
+      1
+     ],
+     [
+      4,
+      4,
+      1
+     ]
+    ],
+    "fremont.13": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      3,
+      3,
+      1
+     ],
+     [
+      0,
+      4,
+      1
+     ],
+     [
+      1,
+      4,
+      1
+     ],
+     [
+      2,
+      4,
+      1
+     ],
+     [
+      3,
+      4,
+      1
+     ],
+     [
+      4,
+      4,
+      1
+     ]
+    ],
+    "fremont.14": [
+     [
+      0,
+      0,
+      3
+     ],
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      1,
+      0,
+      2
+     ],
+     [
+      1,
+      1,
+      2
+     ],
+     [
+      2,
+      0,
+      3
+     ],
+     [
+      2,
+      1,
+      3
+     ],
+     [
+      3,
+      0,
+      3
+     ],
+     [
+      3,
+      1,
+      3
+     ],
+     [
+      4,
+      0,
+      2
+     ],
+     [
+      4,
       1,
       2
      ]
     ],
-    "fremont.7": [
+    "fremont.15": [
      [
       0,
-      2,
-      3
-     ],
-     [
       0,
-      3,
       3
      ],
      [
       1,
+      0,
+      3
+     ],
+     [
       2,
+      0,
+      3
+     ],
+     [
+      0,
+      1,
       2
      ],
      [
       1,
-      3,
+      1,
       2
      ],
      [
       2,
-      2,
-      3
-     ],
-     [
-      2,
-      3,
-      3
+      1,
+      2
      ],
      [
       3,
-      2,
-      3
+      0,
+      2
      ],
      [
       3,
-      3,
-      3
-     ],
-     [
-      4,
-      2,
+      1,
       2
      ],
      [
       4,
-      3,
+      0,
+      2
+     ],
+     [
+      4,
+      1,
       2
      ]
     ]
@@ -3364,24 +3540,25 @@
       "downtown"
      ],
      "built": true,
-     "landmark": "FREMONT STREET: the street under the canopy's ribs, the cowboy sign over it, the double-decker Deuce burnt out in it",
-     "things": "the canopy's ribs and columns, the cowboy sign, the burnt Deuce, kiosks, a zipline tower, the casino fronts and their marquees, the alley behind the south side, its dumpsters and fire escapes",
-     "twist": "THE STREET AND THE FRONTS: one long street between casino fronts whose recessed entrances are the cover, the cowboy sign's tower and the zipline tower the height, the alley behind one man wide",
+     "landmark": "FREMONT STREET: the old casino fronts at street level under the canopy's bare steel vault, the cowboy on his front, the dead screen panels fallen into the street, one still lit",
+     "things": "the canopy's frame and its fallen screen, the casino fronts' marquees and dead neon, kiosks, a stage, the zipline's landing tower; Fremont East's motel with its empty pool and its sign, a pawn shop, a parking garage, a wedding chapel, the burnt Deuce; the south side's roofs stepping up, the alley, Ogden Avenue",
+     "twist": "ROOF TO ROOF (his: 'you traverse from rooftop to rooftop... accuracy... depending on your height'): the south side's shops, its backs and the garages are walked roof to roof, one to three storeys, height for accuracy; the mall between the fronts is the open ground, the motel's walkway and the garage decks the high ground on Fremont East",
      "horror": "one panel of the dead canopy screen is still showing a picture (COOK PROPS' wrong thing)",
-     "landmark_block": "fremont.3",
+     "landmark_block": "fremont.12",
      "field": [
-      "fremont.4"
+      "fremont.13"
      ],
      "rows": {
       "0": [
-       "fremont.5",
-       "fremont.6"
+       "fremont.10",
+       "fremont.11"
       ],
       "1": [
-       "fremont.4"
+       "fremont.13"
       ],
       "2": [
-       "fremont.7"
+       "fremont.14",
+       "fremont.15"
       ]
      },
      "mirror": true,
