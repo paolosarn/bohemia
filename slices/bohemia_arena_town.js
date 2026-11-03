@@ -127,7 +127,7 @@
     w.appendChild(foes);
     w.appendChild(el('div', 'ar-says', c.says.charAt(0).toUpperCase() + c.says.slice(1) + '.'));
     if(c.power && c.power.out) w.appendChild(el('div', 'ar-power', 'THE POWER IS OUT AT THE FARM: the big ones are off the card, the rest at half.'));
-    if(c.fifth && c.prize){ var pg = E().V('pit_gear') || {}, g = pg[c.prize]; w.appendChild(el('div', 'ar-prize', 'THE FIFTH NIGHT: win it and take the ' + (g ? g.name : c.prize) + '. Nobody sells one.')); }
+    if(c.fifth && c.prize){ var pg = E().V('pit_gear') || {}, g = pg[c.prize]; w.appendChild(el('div', 'ar-prize', 'THE FIFTH NIGHT: the bosses watch. Win it and you walk out with ' + (g ? g.name + ' (holds ' + g.durability + ')' : c.prize) + '. Nobody sells one.')); }
     var pr = el('div', 'ar-purse'); pr.appendChild(el('span', null, 'THE PURSE, ONLY IF YOU WIN')); pr.appendChild(el('b', null, c.purse + ' batteries')); w.appendChild(pr);
     w.appendChild(el('div', 'ar-rules', 'House rules: no collar, so whatever he wears on his belt stays outside. Nobody runs once the gate shuts. Nothing comes off the dead.'));
     return w;
@@ -237,7 +237,7 @@
     var who = (r.men || []).map(function(m){ return m.name; }), dead = (r.men || []).filter(function(m){ return m.dead; }).map(function(m){ return m.name; });
     var up = (r.ranks || []).map(function(g){ var you = String(g.name).toUpperCase() === 'YOU'; return (you ? 'You are ' : g.name + ' is ') + (/^[AEIOU]/.test(g.rank_name) ? 'an ' : 'a ') + g.rank_name.toLowerCase() + ' now'; });
     var pg = E() && E().V('pit_gear'), g = r.prize && pg && pg[r.prize];
-    if(r.won) return 'You won. ' + r.paid + ' batteries, like I said, counted out of the cash box.' + (up.length ? ' ' + up.join('. ') + '.' : '') + (g ? ' And the ' + g.name + ' is in your stash. Nobody else has one.' : '') + (dead.length ? ' We buried ' + dead.join(' and ') + ' behind the cages.' : '');
+    if(r.won) return 'You won. ' + r.paid + ' batteries, like I said, counted out of the cash box.' + (up.length ? ' ' + up.join('. ') + '.' : '') + (g ? ' And ' + g.name + ' is in your stash. Nobody sells those.' : '') + (dead.length ? ' We buried ' + dead.join(' and ') + ' behind the cages.' : '');
     return 'They lost. Crowd got its money\'s worth. No purse when you lose, that is the deal.' + (dead.length ? ' ' + dead.join(' and ') + ' did not get up. We put them behind the cages.' : ' Your men got carried out breathing.');
   }
   function tryTell(){

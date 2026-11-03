@@ -255,9 +255,9 @@
     "id": "pit_fighter",
     "name": "PIT FIGHTER",
     "wins": 1,
-    "resolve": 2,
+    "resolve": 0,
     "struck_down_survive": 0,
-    "says": "won once in the Mob's pit"
+    "says": "won once in the Mob's pit; it counts his fights and wins"
    },
    {
     "id": "arena_fighter",
@@ -276,49 +276,45 @@
     "says": "twelve wins; he has gone down in the pit and got back up"
    }
   ],
-  "source": "bb_all/0132_Arena Fighter.txt (+5 Resolve, 5 wins), bb_all/0134_Arena Veteran.txt (+10 Resolve, 12 wins, +50% to survive struck down); Pit Fighter is named in bb_all/0131 but its page is not in the library: its +2 Resolve at the first win is ours (draft)",
-  "why": "a man who wins in the pit climbs; the rank is his, it shows on him and it helps in every fight, as Battle Brothers' do"
+  "source": "bb_all/1561_Pit Fighter.txt (the first win, no stat: it shows the arena fights and wins), bb_all/0132_Arena Fighter.txt (+5 Resolve, 5 wins), bb_all/0134_Arena Veteran.txt (+10 Resolve, 12 wins, +50% to survive struck down); records/target/bb/traits.json carries the same three rows",
+  "why": "a man who wins in the pit climbs; the rank is his and it helps in every fight (the shell hands the fight his rank: resolve added to his roll, the Veteran's struck-down death roll halved), as Battle Brothers' do"
  },
  "fifth": {
   "value": {
    "every": 5,
    "prizes": [
-    "pit_harness",
-    "pit_helmet",
-    "pit_harness_plated"
+    "gladiator_harness",
+    "gladiator_helmet"
    ],
    "then": "random"
   },
-  "source": "bb_all/0131_Arena.txt: 5 wins a Gladiator Harness with padded pieces, 10 a Gladiator Helmet, 15 a Harness with metal pieces, every 5 after a random one; 'the gear reward will wait for you until your next win'",
-  "why": "every fifth card is a third harder and offers a piece of pit gear found nowhere else; lose it and the prize waits"
+  "source": "bb_all/0131_Arena.txt: 5 wins a Gladiator Harness (with padded pieces), 10 a Gladiator Helmet, 15 a Harness with metal pieces, every 5 after a random one; 'the gear reward will wait for you until your next win'",
+  "why": "every fifth card is a third harder and offers a piece of pit gear found nowhere else: the harness at five, the helmet at ten, then one of the two; lose it and the prize waits"
  },
  "pit_gear": {
   "value": {
-   "pit_harness": {
-    "name": "Pit Harness",
-    "slot": "body",
-    "armor": 100,
-    "fatigue": -8,
+   "gladiator_harness": {
+    "kind": "body",
+    "name": "a pit-fighter padded vest",
+    "was": "Gladiator Harness",
+    "durability": 40,
+    "fatigue": -4,
+    "value": 150,
     "says": "a leather harness off a dead pit fighter, the Mob's mark burned in, patched with a seat belt"
    },
-   "pit_helmet": {
-    "name": "Pit Helmet",
-    "slot": "head",
-    "armor": 225,
+   "gladiator_helmet": {
+    "kind": "head",
+    "name": "a pit-fighter full riot helm",
+    "was": "Gladiator Helmet",
+    "durability": 225,
     "fatigue": -13,
     "vision": -3,
+    "value": 2200,
     "says": "a welded mask from the showroom's old stage props, the paint gone, a grille you look out through"
-   },
-   "pit_harness_plated": {
-    "name": "Plated Pit Harness",
-    "slot": "body",
-    "armor": 155,
-    "fatigue": -14,
-    "says": "the harness with slot-machine door panels riveted over the chest"
    }
   },
-  "source": "bb_all/0844_Gladiator Harness.txt (40 + padded 60 = 100, -8; + metal 115 = 155, -14), bb_all/0845_Gladiator Helmet.txt (225, -13, vision -3)",
-  "why": "Battle Brothers' gladiator gear in the Mob's skin; nothing else in the valley sells it"
+  "source": "records/target/bb/armor.json body gladiator_harness (bb_all/0844: 40, -4, worth 150) and head gladiator_helmet (bb_all/0845: 225, -13, vision -3, worth 2,200); records/target/bb/armour_names.json their names in the valley",
+  "why": "Battle Brothers' gladiator gear, already in the game's armour rows (their icons, names and looks), held for the pit: no shop stocks them (engine/bohemia_arena.js reserved, read by the town's restock). Battle Brothers adds padded (+60) or metal (+115) pieces to the harness; those wait on the armour attachments of rule 38 (THE FIGHT GETS DEEP), so ours is the bare harness"
  },
  "tournament": {
   "value": {
@@ -333,7 +329,7 @@
     90,
     150
    ],
-   "prize": "pit_helmet"
+   "prize": "gladiator_helmet"
   },
   "source": "bb_all/0133_Arena Tournament.txt ('the Tournament settlement situation for the next 5 days'), bb_all/2016_Tournament (Settlement Situation).txt; bb_all/0131: 'three rounds with no chance to rest or change brothers and gear, but with a possibility to quit after each round. The earlier you quit, the lower the prize. The further you progress, the tougher the opponents. If you win the tournament you will get a named item.'",
   "why": "the Strip holds one for five days about every eighteen; a feed post says so; five men, three rounds; quit after a round and keep what you won; each round draws as if you had five more wins and one more foe; all three wins pay the big prize and a piece of pit gear"

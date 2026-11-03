@@ -535,7 +535,8 @@ function restock(){
   /* each shelf rolls on its own stream, so a trait that takes or adds items never reshuffles the rest */
   function pick(rows, n, key){
     var per = restockPeriod(), R0 = rng(seedOf(S.place.name + ':stock:' + key + (per ? ':' + per : '')));
-    var sorted = rows.filter(function(r){ return r.value != null; }).sort(function(a,b){ return a.value-b.value; });
+    var held = (window.BohemiaArena && BohemiaArena.reserved) ? BohemiaArena.reserved() : [];   /* __THE_ARENA__: the pit's gear is found nowhere else (bb_all/0620) */
+    var sorted = rows.filter(function(r){ return r.value != null && held.indexOf(r.id) < 0; }).sort(function(a,b){ return a.value-b.value; });
     var lo = Math.floor(sorted.length*band[0]), hi = Math.max(lo+1, Math.floor(sorted.length*band[1])), out = [], seen = {};
     for(var t=0; t<60 && out.length<n; t++){ var r = sorted[lo + Math.floor(R0()*(hi-lo))]; if(r && !seen[r.id]){ seen[r.id]=1; out.push(r); } }
     return out;

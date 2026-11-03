@@ -2,8 +2,8 @@
 # Source: the library only, reference/library/grok/wiki/PAGES_ALL.tar.gz (bb_all/0131_Arena, 0620_Dev Blog 142: The Arena,
 # 0132_Arena Fighter, 0133_Arena Tournament, 0134_Arena Veteran, 2016_Tournament (Settlement Situation), 2216_Win Arena Fights,
 # 0840 to 0848 the Gladiator pages, 0844 Gladiator Harness, 0845 Gladiator Helmet, 1689_Retired Gladiator, 0849/0850 the
-# Gladiators origin's events). TITLES.txt names a "Pit Fighter" page; it is NOT in the tarball (0131 transcludes {{:Pit Fighter}}
-# but no file carries it), so Pit Fighter's numbers below are marked NOT IN THE LIBRARY, never guessed as fact.
+# Gladiators origin's events) and bb_all/1561_Pit Fighter.txt (CORRECTED in piece d: the first search missed it by its name; it is
+# there, and it gives Pit Fighter no stat at all).
 # Our version (the second half) is draft:true, his to change; Battle Brothers is the floor, a little easier (his words).
 
 ## 1. WHAT IT IS
@@ -76,7 +76,7 @@
 ## 5. THE RANKS AND THEIR TRAITS (they help "both inside and outside of the arena", 0620)
   | rank          | earned at          | effect                                                                 |
   |---------------|--------------------|------------------------------------------------------------------------|
-  | Pit Fighter   | first rank (0131)  | NOT IN THE LIBRARY (the page is missing from the tarball)              |
+  | Pit Fighter   | 1 arena win        | no stat; shows the man's arena fights and wins; replaced by Arena Fighter at 5 (1561) |
   | Arena Fighter | 5 arena wins       | +5 Resolve; shows the man's arena fights and wins (0132)               |
   | Arena Veteran | 12 arena wins      | +10 Resolve; +50% chance to survive when struck down (not by a fatality); replaces Arena Fighter (0134) |
 - The Gladiators ORIGIN (0848) starts with three level-3 gladiators who already have Arena Fighter, very high wages, a 12-man cap,
@@ -117,8 +117,8 @@ match, come back tomorrow. It pays only winners, takes nothing off the dead, and
 - THE FIGHT: the fight we have, on a small pit board; no retreat button; no loot after; the crowd reacts (a clean kill cheered, a
   miss gasped at, running booed).
 - THE PAY: batteries only on a win; scales a little with danger (Battle Brothers' modest scaling, so saying no stays the skill).
-- THE RANKS: Pit Fighter (first win), Arena Fighter (5 wins), Arena Veteran (12 wins), Battle Brothers' resolve numbers as the floor
-  with a small mark on the man; Veteran's struck-down survival is the one that matters (rule 38's 20% death roll).
+- THE RANKS: Pit Fighter (first win, no stat), Arena Fighter (5 wins, +5 resolve), Arena Veteran (12 wins, +10 resolve and half the
+  struck-down death roll: rule 38's 20% becomes 10%), Battle Brothers' own; the rank shows on his face in the pick and rides into every fight.
 - EVERY FIFTH MATCH: a third harder, the Mob's bosses in the box, and a piece of PIT GEAR found nowhere else (a harness, a helmet, a
   heavier harness, then a random one), the prize waits for your next win.
 - THE TOURNAMENT: a feed post says the Strip hosts one for five days; five men, three rounds, quit after any round for a smaller

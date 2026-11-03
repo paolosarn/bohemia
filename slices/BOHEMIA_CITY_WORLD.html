@@ -73896,7 +73896,7 @@ function arenaFought(o){
   try{ if(window.BohemiaArena && BohemiaArena.ready()) r = BohemiaArena.result(c, { won: won, men: men }); else r.paid = won ? (c.purse | 0) : 0; }catch(_e){}
   try{ if(r.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', r.paid, 'the pit: the purse', c.id, loopDay()); }catch(_e){}
   /* the pit's gear (piece d): into the stash, the same bag the stall and the spoils fill */
-  try{ if(r.prize){ var bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []; bag.push(r.prize); localStorage.setItem('bohemia.bag.v1', JSON.stringify(bag)); } }catch(_e){}
+  try{ var pi = r.prize && window.BohemiaArena && BohemiaArena.prizeItem(r.prize); if(pi){ var bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []; bag.push(pi); localStorage.setItem('bohemia.bag.v1', JSON.stringify(bag)); } }catch(_e){}
   /* the Strip posts it (rule 371: the feed is the radio; rule 372: a person typing on a phone), draft:true */
   try{ var foe = c.lines && c.lines.length ? c.lines.map(function(L){ var N = window.BohemiaArena && BohemiaArena.V('names'), nm = N && N[L.id]; return L.n + ' ' + (nm ? (L.n === 1 ? nm[0] : nm[1]) : L.id); }).join(' and ') : 'the card';
     var txt = won ? ('out of towners went in the pit tonight against ' + foe + ' and walked out. the mob paid them ' + r.paid + '. crowd lost its mind')

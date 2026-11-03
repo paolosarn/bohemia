@@ -20,6 +20,7 @@
 //   BohemiaArena.result(card, out)               -> settles a fight: {won, paid, prize, ranks:[{name, rank, was}], state}
 //   BohemiaArena.rankOf(name) / ranks(name)      -> a man's arena rank row (or null) / his fights and wins
 //   BohemiaArena.trait(name)                     -> {resolve, struck_down_survive, rank} what his rank gives him in any fight
+//   BohemiaArena.reserved() / prizeItem(id)      -> the pit gear no shop stocks / a prize as the stash holds it
 //   BohemiaArena.state() / save(st) / reset()    -> the save: localStorage 'bohemia.arena.v1'
 // node: require('./bohemia_arena.js')   gate: gates/the_arena_gate.js
 (function (root) {
@@ -105,6 +106,12 @@
     };
   }
 
+  /* the pit's gear, held for the pit: no shop stocks it (the town's restock reads this) */
+  function reserved() { var g = V('pit_gear'); return g ? Object.keys(g) : []; }
+  /* a prize as the stash holds a piece (the town screen's armourItem shape: id, kind, name, was, price, line, nums) */
+  function prizeItem(id) { var g = (V('pit_gear') || {})[id]; if (!g) return null;
+    return { id: id, kind: g.kind, name: g.name, was: g.was, price: Math.max(1, Math.round((g.value || 0) / 10)), line: 'Won in the Mob\'s pit. ' + String(g.says).charAt(0).toUpperCase() + String(g.says).slice(1) + '.',
+      nums: 'holds ' + g.durability + (g.fatigue != null ? '  weight ' + Math.abs(g.fatigue) : ''), arena: true }; }
   function fought(day) { var st = state(); return st.lastDay != null && Math.floor(st.lastDay) === Math.floor(day); }
   function today(place, day) {
     var st = state(), t = tournament(day), tr = null;
@@ -152,7 +159,7 @@
   /* a tournament quit after a won round keeps what that round paid (bb_all/0131: 'the earlier you quit, the lower the prize') */
   function quit(id) { var st = state(); if (st.tourney && st.tourney.id === id && !st.tourney.done) { st.tourney.done = true; st.tourney.quit = true; save(st); } return st.tourney; }
 
-  var API = { set: function (j) { D = j; return API; }, data: function () { return D; }, ready: function () { return !!D; }, card: card, today: today, fought: fought,
+  var API = { reserved: reserved, prizeItem: prizeItem, set: function (j) { D = j; return API; }, data: function () { return D; }, ready: function () { return !!D; }, card: card, today: today, fought: fought,
     tournament: tournament, result: result, quit: quit, rankOf: rankOf, ranks: ranks, trait: trait, power: power,
     state: state, save: save, reset: reset, reload: reload, KEY: KEY, V: V };
   if (NODE) module.exports = API; else root.BohemiaArena = API;

@@ -3,6 +3,7 @@
    never a mock-up. One mode per piece:
      node tools/bohemia_arena_shots.js pit      -> slices/vote/arena/pit_*.webp   (piece a: the pit on the Mob's town, day, night, the bookie's sheet)
      node tools/bohemia_arena_shots.js pick     -> slices/vote/arena/pick_*.webp
+     node tools/bohemia_arena_shots.js ranks    -> slices/vote/arena/ranks_*.webp (piece d: the fifth night, the ranks on the faces, the purse and the prize paid)
      node tools/bohemia_arena_shots.js fight    -> slices/vote/arena/fight_*.webp (piece c: the demo driven like a player: the card, the lineup, mid-fight, the end, home)  (piece b: the card, the pick ready, one tap swaps a man in)
    The pictures are written as webp through the python PIL (python3 -I, nothing imported from the repo). */
 const fs = require('fs'), path = require('path'), http = require('http'), { execFileSync } = require('child_process');
@@ -52,6 +53,24 @@ const MODE = process.argv[2] || 'pit';
     await p.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); b && b.click(); }); await p.waitForTimeout(1500); await shot(p, 'pick_ready');
     /* one tap on a fourth face swaps him in for the first pick */
     await p.evaluate(() => { const c = document.querySelectorAll('#ar-pick .ar-man')[3]; c && c.click(); }); await p.waitForTimeout(700); await shot(p, 'pick_swap');
+  }
+  if (MODE === 'ranks') {
+    /* piece d: the fifth night on the card, the ranks on the faces, and the bookie paying the purse and the prize */
+    const crew = [
+      { name: 'YOU', level: 3, look: 'you', gear: { main: 'pistol' } },
+      { name: 'DESI', level: 3, look: 'person_town_0', gear: { main: 'rifle' } },
+      { name: 'RAUL', level: 2, look: 'person_town_1', gear: { main: 'machete' } },
+      { name: 'TEO', level: 2, look: 'person_town_5', gear: { main: 'shotgun' } }];
+    const p = await page(390, 844);
+    await town(p, { day: 30, company: crew });
+    await p.evaluate(() => { const st = BohemiaArena.state(); st.wins = 9; st.fights = 11; st.prizes = 1; st.men = { YOU: { fights: 9, wins: 8 }, DESI: { fights: 13, wins: 12 }, RAUL: { fights: 2, wins: 1 } }; BohemiaArena.save(st); });
+    const xy = await p.evaluate(() => BohemiaSettlement.where('arena')); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(1600); await shot(p, 'ranks_card');
+    await p.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); b && b.click(); }); await p.waitForTimeout(1500); await shot(p, 'ranks_pick');
+    await p.evaluate(() => { document.getElementById('close').click(); });
+    await p.waitForTimeout(500);
+    await p.evaluate(() => window.postMessage({ type: 'BOHEMIA_ARENA_RESULT', result: { won: true, paid: 65, prize: 'gladiator_helmet', card: 'x', men: [{ name: 'YOU' }, { name: 'DESI' }, { name: 'RAUL' }],
+      ranks: [{ name: 'YOU', rank: 'arena_fighter', rank_name: 'ARENA FIGHTER' }] } }, '*'));
+    await p.waitForTimeout(2200); await shot(p, 'ranks_paid');
   }
   if (MODE === 'fight') {
     /* piece c: the real demo, driven like a player: the Mob's town, the pit, the pick, FIGHT, the fight, the end, home */

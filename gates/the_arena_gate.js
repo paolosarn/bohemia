@@ -32,6 +32,11 @@
       D3 the end: nothing comes off the dead (the spoils screen keeps its recap and drops nothing), the long cheer on the win
       D4 home: the card's purse paid on the win, the win counted, back in the Mob's town with the bookie saying so
       D5 the crowd is real recordings through the PA (tools/bohemia_arena_crowd.py --check)
+   E  THE PAY, THE RANKS, THE PIT GEAR
+      E1 every arena number has its row in TUNING's one table (section X)
+      E2 the pit gear is the game's own armour rows and no shop stocks it
+      E3 the fifth card offers it, and the win puts it in the stash as a real piece
+      E4 a man's rank rides into every fight (the Veteran's +10 resolve and half the death roll); the new pit fighters counted
    ============================================================================ */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -62,7 +67,7 @@ let st = A.state(); st.wins = 4; A.save(st);
 const f5 = A.card('Mob', 40), f4 = A.card('Mob', 40, { wins: 3 });
 A.result(f5, { won: false, men: [{ name: 'Ana' }] });
 const owed = A.card('Mob', 41);
-ok('A6 the fifth card is heavier and offers pit gear; a lost one waits for the next win', f5.fifth && f5.prize === 'pit_harness' && !f4.fifth && f5.count >= f4.count && owed.fifth && owed.prize === 'pit_harness', 'fifth ' + f5.count + ' vs ' + f4.count + ' foes');
+ok('A6 the fifth card is heavier and offers pit gear; a lost one waits for the next win', f5.fifth && f5.prize === 'gladiator_harness' && !f4.fifth && f5.count >= f4.count && owed.fifth && owed.prize === 'gladiator_harness', 'fifth ' + f5.count + ' vs ' + f4.count + ' foes');
 let out = null, on = null; for (let d = 1; d < 300 && !(out && on); d++) { const k = A.card('Mob', d, { wins: 12 }); if (k.power.out) out = out || k; else on = on || k; }
 const outs = []; for (let d = 1; d < 300; d++) { const k = A.card('Mob', d, { wins: 12 }); if (k.power.out) outs.push(k); }
 ok('A7 a dead-generator day has no big clone on the card and the beasts at half', outs.length > 20 && outs.every(k => { const op = A.V('opponents').find(o => o.id === k.opp); return !op.big; }), outs.length + ' dead days of 299');
@@ -72,6 +77,12 @@ const r0 = A.card('Mob', 6, { tournament: { id: 'tourney:6', round: 0 } }), r2 =
 const w0 = A.result(r0, { won: true, men: [1, 2, 3, 4, 5].map(i => ({ name: 'T' + i })) }); const q = A.quit('tourney:6');
 ok('A8 the tournament: five days in eighteen, five men, rounds pay as won, quit keeps it', T.on && T.left === 5 && !Tn.on && T2.on && r0.men === 5 && r2.purse > r0.purse && w0.paid === r0.purse && q && q.quit, 'round one ' + r0.purse + ', round three ' + r2.purse);
 
+const TT = fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md'), 'utf8'), X = TT.slice(TT.indexOf('## X. THE ARENA'));
+const want = ['arena.men', 'arena.men_tournament', 'arena.fights_per_day', 'arena.accessory_counts', 'arena.retreat', 'arena.count_scale', 'arena.opponents', 'arena.purse', 'arena.ranks', 'arena.fifth', 'arena.power', 'arena.tournament'];
+ok('E1 every arena number has its row in TUNING\'s one table (section X), the file named as the place it lives', TT.indexOf('## X. THE ARENA') > 0 && want.every(k => X.indexOf('| ' + k + ' ') >= 0) && /records\/target\/bb\/arena\.json/.test(X), want.filter(k => X.indexOf('| ' + k + ' ') < 0).join(',') || want.length + ' rows');
+const AR = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/armor.json'), 'utf8')), SET = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
+const gearOk = A.reserved().length >= 2 && A.reserved().every(id => { const g = A.V('pit_gear')[id], r = (AR[g.kind] || []).filter(x => x.id === id)[0]; return r && r.durability === g.durability && r.fatigue === g.fatigue; });
+ok('E2 the pit gear is the game\'s own armour rows (same numbers), and no shop stocks it (the restock leaves out what the pit holds)', gearOk && /BohemiaArena\.reserved\(\)[\s\S]{0,200}held\.indexOf\(r\.id\) < 0/.test(SET), A.reserved().join(','));
 console.log('B  THE PIT ON THE MOB\'S TOWN');
 const TYPE = { '.html': 'text/html', '.js': 'application/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.mp3': 'audio/mpeg', '.glb': 'model/gltf-binary', '.css': 'text/css' };
 const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIComponent(rq.url.split('?')[0])); if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); } rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs); });
@@ -136,14 +147,15 @@ async function legC() {
     const plant = await page.evaluate(() => { const p = window.BOH_START && BOH_START.picks(); const co = JSON.parse(JSON.stringify((p && p.company) || []));
       co.forEach((m, i) => { m.name = m.name || (i === 0 ? 'YOU' : 'MAN' + i); m.gear = m.gear || {}; }); if (co[1]) co[1].gear.acc = 'cell_vest_scrap';
       localStorage.setItem('bohemia.company.v1', JSON.stringify(co)); return co.map(m => ({ name: m.name, level: m.level || 1, acc: m.gear.acc || null })); });
-    await fr.evaluate(() => { BohemiaArena.reset(); const b = ctBases().Mob; loopOpenTown({ name: 'Mob', x: b.x, y: b.y, tier: mapTierOf('Mob') }); });
+    await fr.evaluate(() => { BohemiaArena.reset(); const st = BohemiaArena.state(); st.wins = 4; st.men.DESI = { fights: 12, wins: 12 }; BohemiaArena.save(st); const b = ctBases().Mob; loopOpenTown({ name: 'Mob', x: b.x, y: b.y, tier: mapTierOf('Mob') }); });   /* the next win is the fifth; DESI an Arena Veteran */
     let sf = null; for (let i = 0; i < 40 && !sf; i++) { await page.waitForTimeout(500); sf = page.frames().find(f => /SETTLEMENT/.test(f.url())); }
     for (let i = 0; i < 40; i++) { await page.waitForTimeout(400); if (await sf.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.order().indexOf('arena') >= 0).catch(() => false)) break; }
     await page.waitForTimeout(1200);
     const sb = await (await fr.$('#settleFrame')).boundingBox(), xy = await sf.evaluate(() => BohemiaSettlement.where('arena'));
     for (let k = 0; k < 5; k++) { const xy2 = await sf.evaluate(() => BohemiaSettlement.where('arena')); await page.touchscreen.tap(sb.x + xy2.x, sb.y + xy2.y); await page.waitForTimeout(1800);
       if (await sf.evaluate(() => !!document.querySelector('#sheet.on .ar-card')).catch(() => false)) break; }   /* a tap while the town still stands its people up can land on nothing: a player taps again */
-    const pickBtn = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    const cardText = await sf.evaluate(() => { const c = document.querySelector('#sheet .ar-card'); return c ? c.textContent : ''; });
+    const pickBtn = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect();   /* a tall card: he scrolls to the button */ return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     if (pickBtn) await page.touchscreen.tap(sb.x + pickBtn.x, sb.y + pickBtn.y); await page.waitForTimeout(1500);
     const pick = await sf.evaluate(() => { const w = document.getElementById('ar-pick'); if (!w) return null; const tiles = [...w.querySelectorAll('.ar-man')];
       return { card: w.dataset.card, men: tiles.map(t => ({ name: t.dataset.man, on: t.classList.contains('on'), face: !!t.querySelector('canvas.ar-face'), slot: !!t.querySelector('.ar-slot'), acc: t.querySelector('.ar-acc').dataset.acc, struck: !!t.querySelector('.ar-acc s') })),
@@ -160,6 +172,7 @@ async function legC() {
     const f = ff ? await ff.evaluate(() => ({ arena: (window.FIGHT_OPTS || {}).arena || null, w: FIGHT.S.w, h: FIGHT.S.h, us: FIGHT.S.units.filter(u => u.side !== 'them').map(u => ({ name: u.name, vest: !!u.vest })),
       them: FIGHT.S.units.filter(u => u.side === 'them').map(u => u.kind || u.id), acc: ((window.FIGHT_OPTS || {}).company || []).map(m => (m.gear && m.gear.acc) || null) })) : null;
     const picked = await page.evaluate(() => window.__NF_ARENA || null);
+    const rankIn = ff ? await ff.evaluate(() => { const c = ((window.FIGHT_OPTS || {}).company || []).filter(m => m && m.name === 'DESI')[0], u = FIGHT.S.units.filter(v => v.side !== 'them' && v.name === 'DESI')[0]; return { rank: c ? c.arenaRank || null : null, unit: u ? u.arenaSurvive : null }; }) : null;
     const sent = await sf.evaluate(() => window.__arenaPicked || null);
     ok('C4 the fight has ONLY the picked men, in his order, none wearing his accessory', !!f && f.us.map(u => u.name).join() === chosen.join() && f.acc.every(a => !a) && f.us.every(u => !u.vest) && !!picked && picked.acc.some(a => a === 'cell_vest_scrap'), f ? f.us.map(u => u.name + (u.vest ? '+vest' : '')).join(' ') + ' | picked ' + chosen.join(' ') : 'no fight');
     const band = sent && sent.card ? sent.card.band.slice().sort().join() : '';
@@ -197,7 +210,12 @@ async function legC() {
       const bat1 = await fr.evaluate(() => loopBats()).catch(() => null);
       const st = await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaArena.reload()))).catch(() => null);
       const fed = await fr.evaluate(() => { try { return (window.BOHEMIA_FEED && BOHEMIA_FEED.all ? BOHEMIA_FEED.all() : []).filter(p => /thepit/.test(p.who || '')).length; } catch (e) { return -1; } });
-      ok('D4 home: paid the card\'s purse on the win, the wins counted, back in the Mob\'s town with the bookie saying so', !!back && back.won && bat1 - bat0 === sent.card.purse && st && st.wins === 1 && !!line && line.indexOf(String(sent.card.purse)) >= 0, 'paid ' + (bat1 - bat0) + ' of ' + sent.card.purse + '; wins ' + (st && st.wins) + '; ' + (line || 'no line').slice(0, 80) + '; feed posts ' + fed);
+      ok('D4 home: paid the card\'s purse on the win, the wins counted, back in the Mob\'s town with the bookie saying so', !!back && back.won && bat1 - bat0 === sent.card.purse && st && st.wins === 5 && !!line && line.indexOf(String(sent.card.purse)) >= 0, 'paid ' + (bat1 - bat0) + ' of ' + sent.card.purse + '; wins ' + (st && st.wins) + '; ' + (line || 'no line').slice(0, 80) + '; feed posts ' + fed);
+      const bag = await fr.evaluate(() => JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]'));
+      const armor = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/armor.json'), 'utf8'));
+      const wonG = bag.filter(x => x && x.arena && x.id === sent.card.prize)[0], row = wonG && (armor[wonG.kind] || []).filter(r => r.id === wonG.id)[0];
+      ok('E3 the fifth card offered the pit gear and the win put it in the stash, a real piece (the armour row, its name, its numbers)', sent.card.fifth && sent.card.prize === 'gladiator_harness' && !!wonG && !!row && wonG.nums.indexOf('holds ' + row.durability) === 0 && /pit-fighter/.test(wonG.name) && /walk out with/.test(cardText) && /^You won/.test(line || ''), wonG ? wonG.name + ' ' + wonG.nums : 'nothing in the stash; card fifth ' + sent.card.fifth + ' prize ' + sent.card.prize);
+      ok('E4 a man\'s rank rides into every fight: the Arena Veteran\'s resolve +10 and half the death roll; the new pit fighters counted', !!rankIn && !!rankIn.rank && rankIn.rank.rank === 'arena_veteran' && rankIn.rank.resolve === 10 && rankIn.unit === 0.5 && !!st && !!st.men.YOU && st.men.YOU.wins === 1, JSON.stringify(rankIn) + ' YOU ' + JSON.stringify(st && st.men.YOU));
     }
     let crowd = ''; try { crowd = require('child_process').execFileSync('python3', [path.join(ROOT, 'tools/bohemia_arena_crowd.py'), '--check'], { encoding: 'utf8' }).trim(); } catch (e) { crowd = String(e.stdout || e.message).trim(); }
     const cj = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/arena/crowd/crowd.json'), 'utf8'));
