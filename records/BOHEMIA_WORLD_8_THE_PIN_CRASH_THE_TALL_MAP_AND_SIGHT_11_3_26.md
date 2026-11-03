@@ -131,7 +131,8 @@ and it never comes back on its own; on arrival it stays. (d) A quest at a town o
 walk's own door); a quest in the open is the meeting itself.
 MEASURED BEFORE: a hunt's next pack was picked by a straight line (nextOf: the nearest by blocks as the crow flies), and nothing
 moved the camera; a tap on a job's mark already walked the one road (WORLD 4's walkGo), so the call stands on that.
-Gate gates/tap_a_quest_your_people_go_gate.js: 10/0 on the upright phone, 10/0 sideways (each run a new valley). Q1 one call and
+Gate gates/tap_a_quest_your_people_go_gate.js: 10/0 on the upright phone (again on main's newest, the camera trip begun on a road
+20 to 40 blocks out so a near town cannot end it first), 10/0 sideways (each run a new valley). Q1 one call and
 the marker moves; Q2 the hunt's three packs timed on the roads (65 / 86 / 102 min; 91 / 91 / 108) and the shortest taken; Q3 on a
 long trip to another town the camera comes from a block 18 to 240 and holds the party every frame; Q3b 19 zoom steps, the biggest
 x1.24, none taken before the ground round him was painted; Q4 a real two-finger pinch mid-ease stops it at once and it stays where

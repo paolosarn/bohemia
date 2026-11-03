@@ -79,8 +79,8 @@ async function run(prof) {
     if (st.open) opened = st; else if (st.meet || (!st.trav && !st.fight)) { await clear(); await fr.evaluate((id) => { if (!TRAVEL) BOH_TRAVEL_TO_QUEST(id, { follow: false }); }, q6a.id); } }
   ok('Q6 ' + prof + ': on arrival the settlement opens', !!opened && String(opened.name || '').toUpperCase() === String(q6a.r.name || '').toUpperCase(),
      q6a ? q6a.how + ': to ' + q6a.r.name + ' (' + q6a.r.mins + ' min): ' + (opened ? 'opened ' + opened.name : 'not opened') : 'no quest at a town');
-  /* Q3 + Q3b on a second trip, to another town's board (a hunt's wolves can end its trip three blocks out, and the zoom rightly
-     stops with the trip): every frame of the ease logged in the page, its zoom, the ground round him painted or not, the hold */
+  /* Q3 + Q3b on a second trip, to another town's board from a road 20 to 40 blocks out (a hunt's wolves can end its trip three
+     blocks out, a near town is reached first, and the zoom rightly stops with the trip): every frame of the ease logged in the page, its zoom, the ground round him painted or not, the hold */
   await clear();
   const cam = await fr.evaluate((home) => { city.x = home.at[0]; city.y = home.at[1]; CITY_GLIDE.tx = null;   /* from where the game began, as the first trip */
     setZoomAt(1); try { camHold(); } catch (e) {} if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); try { render(); } catch (e) {}
@@ -95,7 +95,11 @@ async function run(prof) {
       window.__EZ = []; const Q = BohemiaQuestTravel.state(); let k = 0;
       const tick = () => { __EZ.push({ tw: TW, want: BohemiaQuestTravel.ready() ? 0 : 1, held: !!(typeof CAMF !== 'undefined' && CAMF.on) }); if (++k < 3000 && (Q.on || k < 3)) requestAnimationFrame(tick); else __EZ.done = true; };
       requestAnimationFrame(tick); return r; };
-    for (const o of sh) { const at = [city.x, city.y]; const r = __CAMGO(o.id); if (r.ok) return { id: o.id, at, r }; }
+    for (const o of sh) { const T = B[up(o.place)]; if (!T) continue; let st = null, sd = -1;   /* a road 20 to 40 blocks out from that town: a trip long enough to watch */
+      for (let y = 2; y < om.n - 2; y++) for (let x = 2; x < om.n - 2; x++) { const dd = Math.max(Math.abs(x - T.x), Math.abs(y - T.y));
+        if (dd < 20 || dd > 40 || dd <= sd || !cityWalkable(x, y) || loopTownAt(x, y, 2)) continue; st = [x, y]; sd = dd; }
+      if (!st) continue; try { travelStop(); } catch (e) {} city.x = st[0]; city.y = st[1]; CITY_GLIDE.tx = null; try { camHold(); render(); } catch (e) {}
+      const at = [city.x, city.y]; const r = __CAMGO(o.id); if (r.ok) return { id: o.id, at, r }; }
     return null; }, home);
   const tw = [];
   if (cam) for (let i = 0; i < 4; i++) { await page.waitForTimeout(300); tw.push(await fr.evaluate(() => ({ held: !!(typeof CAMF !== 'undefined' && CAMF.on), at: [city.x, city.y] }))); }
