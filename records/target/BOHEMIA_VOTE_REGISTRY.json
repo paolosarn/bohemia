@@ -18186,6 +18186,105 @@
     "after": "rule 346: no seam, no cut-off, every road met",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
+  },
+  {
+   "id": "combat-place-landfill-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-landfill-11-3",
+   "lane": "combat",
+   "sha": "1c5c1659",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE LANDFILL: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The landfill's haul road runs whole across the board now, the scorch and the gas wells are soft shapes, not squares, and no mound is cut at a picture's edge. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_landfill.webp",
+    "first": "../records/target/combat_maps_11_3/first_landfill.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-golf-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-golf-11-3",
+   "lane": "combat",
+   "sha": "1c5c1659",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE GOLF COURSE: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The golf course's cart path runs whole across every block now, past the clubhouse patio, and the old block that did not match is gone. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_golf.webp",
+    "first": "../records/target/combat_maps_11_3/first_golf.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-marina-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-marina-11-3",
+   "lane": "combat",
+   "sha": "1c5c1659",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE MARINA: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The marina is Lake Mead's tan dry bed now, the same at every edge, its houseboat moored to a dock on the dry bed, and the old town block whose streets met nothing is gone. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_marina.webp",
+    "first": "../records/target/combat_maps_11_3/first_marina.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
   }
  ],
  "verdicts": [

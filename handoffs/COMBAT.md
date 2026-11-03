@@ -3,7 +3,7 @@
 COMBAT MAPS 3, RULE 346 11/3 (scheduled brief from the coordinator: ask line 355; his VOTE: the Strip 'The worst, this needs to be
 THE BEST', downtown 'Looks like shit', every ground 'straight lines at grid borders... colors that end abruptly... roads that dont
 connect... things that dont visually and logically make sense'). PUSH 1 SHIPPED (BUILD 11/3zzzl - NO BOARD BREAKS ITS OWN PICTURE),
-NOT YET SEEN; PUSH 3 SHIPPED (BUILD 11/3zzzzag THE SUBURB, THE PARK AND THE WORKS RUN WHOLE: the suburb rebuilt as rows of houses, the trailer park, the works); PUSH 2 SHIPPED (BUILD 11/3zzzz - THE GREY PLACES IN THEIR OWN COLOUR: airport, shore, pass in their real colour and
+NOT YET SEEN; PUSH 4 SHIPPED (BUILD 11/3zzzzah THE LANDFILL, THE GOLF COURSE AND THE MARINA RUN WHOLE: the landfill, the golf course, the marina); PUSH 3 SHIPPED (BUILD 11/3zzzzag THE SUBURB, THE PARK AND THE WORKS RUN WHOLE: the suburb rebuilt as rows of houses, the trailer park, the works); PUSH 2 SHIPPED (BUILD 11/3zzzz - THE GREY PLACES IN THEIR OWN COLOUR: airport, shore, pass in their real colour and
 fixed; downtown's roof-to-roof back per rule 356(e); the gate's fifth leg EDGE per rule 356(c),(f)); pushes 3-5 IN FLIGHT:
 1. THE LEGS: gates/every_place_no_seams_gate.js (suite row NO BOARD BREAKS ITS OWN PICTURE; reads in
    tools/bohemia_combat_maps_seams_read_11_3_26.py): seams (block seams, cell borders), cut-offs, roads met across every block
