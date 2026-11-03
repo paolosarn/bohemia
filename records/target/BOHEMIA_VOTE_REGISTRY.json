@@ -17874,7 +17874,8 @@
     "after": "your ring and your street (4 blocks by day, 1 in the dark) at full light, the rest you remember at about 0.65 of it; a party down your street shows, round the corner it does not",
     "scale": "his phone, 390 x 844, by day, walking down a street"
    }
-  }
+  },
+  {"id": "words2-it-is-called-bohemia-11-3", "kind": "line", "lane": "words 2", "sha": "7f8612641", "made": "11/3", "draft": true, "title": "IT IS CALLED BOHEMIA: THE OLD NAME IS GONE FROM EVERY LINE YOU READ", "why": "The loading screen's camera, the start screen, the phone, the feed, the map's places and the towns now say Bohemia (119 spots in 17 files), and a checker fails the build if the old name comes back. You see it in the demo on the loading screen's miles, under the name on the start screen and in the phone's feed, and here as before and after.", "show": {"how": "page", "src": "vote/WORDS2_IT_IS_CALLED_BOHEMIA_11_3.html"}, "options": ["A, Bohemia everywhere, keep it", "B, right idea, other names for the lake, the bay and the valley"]}
  ],
  "verdicts": [
   {
