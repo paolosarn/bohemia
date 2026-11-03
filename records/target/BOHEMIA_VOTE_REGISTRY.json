@@ -17502,6 +17502,31 @@
     "scale": "his phone, 390 x 844 at 3x, the fight zoomed on the man"
    },
    "draft": true
+  },
+  {
+   "id": "home-cameras-look-test-11-3",
+   "kind": "ui",
+   "lane": "home",
+   "sha": "09041518",
+   "made": "11/3",
+   "draft": true,
+   "title": "YOUR SETTLEMENT THROUGH ITS OWN CAMERAS: THE LOOK, ACT ONE",
+   "said": "maybe it can be like the loading screens how it's giving like security camera footage and like the camera upgrades over the ages... PS1 security camera footage of our settlement vibes... a little more intimate for when it's our shit",
+   "why": "Your block built once in 3D and filmed by its three security cameras (the gate, the yards, the roofs) in act one's dying look: grainy PS1 footage, a wrong 1980 clock, the roof camera failing, upright and sideways, with the lots you tap drawn on one. You see it here in the VOTE tab; it is the look only, not in the game yet.",
+   "options": [
+    "A, yes, this is the look",
+    "B, the look is right, the cameras sit wrong",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/home_cameras/vote_look_test.webp"
+   },
+   "before_after": {
+    "before": "every place in the game at the 45-degree bird's-eye",
+    "after": "your place only, through its own security cameras, act one",
+    "scale": "his phone, upright 9:16 and sideways 16:9; the footage at the PS1's size, shown at whole multiples of its pixels"
+   }
   }
  ],
  "verdicts": [
