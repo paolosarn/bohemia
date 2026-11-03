@@ -18035,7 +18035,32 @@
    "after": "a cut on every kill he sees, the long one for a stake",
    "scale": "his phone upright, 390 x 844, the fight's own camera, AUTO on"
   }
- }
+ },
+  {
+   "id": "world-the-map-can-turn-11-3",
+   "kind": "tile",
+   "lane": "world",
+   "sha": "47d38a84",
+   "made": "11/3",
+   "draft": true,
+   "title": "FOUR CODES, FOUR WAYS THE VALLEY LIES",
+   "said": "Dont forget u can flip the map 90 degrees fuck it! While changing the locations and shit",
+   "why": "A new game's code now also flips the whole valley north to south, east to west, both, or neither, and the land around it, the roads and the towns flip with it while every place keeps its name and look. You see it here as four codes side by side on the phone, and on the MAP in every new game.",
+   "options": [
+    "A, yes, that is the flip I meant",
+    "B, closer, I want a real quarter turn too",
+    "C, no, keep the real compass"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/world_8/THE_MAP_CAN_TURN.jpg"
+   },
+   "before_after": {
+    "before": "every game the same way round: the Strip and the 15 on the same side, the dam at the same end, the land round it fixed",
+    "after": "four ways: as the land lies, flipped north to south, mirrored east to west, turned half way; one road network, every town reachable, on every one",
+    "scale": "his phone, 390 x 844, zoomed out, four codes"
+   }
+  }
  ],
  "verdicts": [
   {
