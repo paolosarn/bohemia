@@ -13,3 +13,25 @@ YES  the four whips and the pool pole spear; on the barbed wire: "Bro just anima
 NO   the six new fight maps: "They all collectively need more love, it's still this yellow brown sand dirt as the main ground, not enough unique shit going on, definitely a work in progress for all of them"
 ANYTHING ELSE: "More analog horror, no more cards with quests, just make an actual quest, make the pixels, make the sound."
 THE JOBS (coordinator): VOTE FIXES (the whips' extras out, Disarm on every whip at a low chance, the kill tally in the crew menu only, the pills off the march until redone); COMBAT MAPS 2 (each district its own ground, not the sand base); the loading screen: two or three options in the VOTE tab next UI round; THE WRONGNESS sheet to the graveyard (its pieces placed nowhere).
+
+BOHEMIA VOTE 11/2, SECOND EXPORT (Paolo, in the tab, logged 11/3). Only the twelve fight-ground cards were new (COMBAT MAPS 2, BUILD 11/3zx, c7f7ce05); the rest repeated verdicts already in the registry.
+YES  the landfill's ground: "Work in progress"
+YES  the airport's apron: "Work in progress Lookin like dogshit tho"
+YES  the lab yard (the medical district): "Looking like dogshit wtf Work in progress"
+YES  the marina's lake bed: "Work in progress"
+YES  the golf course: "Work in progress Lookin like shit"
+YES  the trailer park: "Dogshit Work in progress"
+YES  the desert: "Dogshit Work in progress"
+YES  Red Rock (the springs): "Dogshit Work in progress"
+YES  the pass (the mountain): "Dogshit Work in progress"
+YES  the shore (the reservoir): "Work in progress Dogshit"
+YES  the wash: "Dogshit Work in progress"
+YES  the suburbs: "Work in progress"
+ANYTHING ELSE (again, already rule-locked): "More analog horror, no more cards with quests, just make an actual quest, make the pixels, make the sound."
+READ (coordinator): the yes keeps each ground in the game; the words say the ground alone did not fix it. His first note on these maps was
+"not enough unique shit going on": a new floor under the same old picture is still the same fight. Nine of twelve are called dogshit.
+THE JOB (rule 337, assets first): COMBAT MAPS 3 - each place's OWN THINGS on its board, modelled through the rig and standing on the
+honest grid as cover and blockers with Battle Brothers' costs (the apron's plane and fuel truck, the lab yard's cages and gurneys, the
+golf course's carts and flag, the trailer park's trailers and propane, the desert's Joshua trees and boulders, Red Rock's ledges, the
+pass's guard rail and rockfall, the shore's boat on its side and the dead docks, the wash's culvert and the shopping cart). The nine
+called dogshit first, worst first (the lab yard, the airport, the golf course), then the other three. Ask line 349.

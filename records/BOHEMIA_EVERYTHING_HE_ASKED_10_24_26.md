@@ -370,3 +370,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 346 | We still don't know what killing a boss does; the map where his things are; the map icons after a kill are bad | 338 | BOSSES FIX | RUNNING (11/3) |
 | 347 | (again) The map does not feel procedurally generated: every seed must look and play different | 339 | WORLD 7 | RUNNING (11/3) |
 | 348 | Get all the jobs going: every open ask finished or handed to a lane | 340 | FINISHER 2 | RUNNING (11/3) |
+| 349 | (his VOTE, the twelve fight grounds) all kept, all 'work in progress', nine called dogshit: each place needs its OWN THINGS on the board, not just its own floor | 336, 337 | COMBAT MAPS 3 (session_01GKDyuseK81WoxF1DsfTS3m) | RUNNING (11/3) |
