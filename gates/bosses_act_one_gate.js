@@ -92,7 +92,13 @@ async function run(prof) {
     console.log('  .. ' + n);
     /* A1: the sign and the rumour */
     let s = null;
-    for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); s = await st(); if (s.boss.sign && s.boss.sign.n === n && s.rumours[n]) break; if (s.boss.found[n]) break; }
+    for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); s = await st(); if (s.boss.sign && s.boss.sign.n === n && s.rumours[n]) break; if (s.boss.found[n]) break;
+      /* BOSSES 4 (measured 11/3): the next sign turns up on a street near him (WORLD TWO's placeSign); a boss who stood past the valley's
+         edge leaves the party where no street is, so after 6 s with no sign the stranger walks on to the nearest street in the city */
+      if (i === 12 && !s.boss.sign) { const st2 = await fr.evaluate(() => { const h = [city.x, city.y], n = om.n; let best = null, bd = 1e9;
+          for (let y = 2; y < n - 2; y++) for (let x = 2; x < n - 2; x++) { if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue; const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd && d >= 3 && cityRoute(h[0], h[1], x, y)) { bd = d; best = [x, y]; } }
+          return best; }).catch(() => null);
+        if (st2) { await go(st2); await settle(); } } }
     const row = await fr.evaluate((n) => { const r = BohemiaBosses.data().bosses.filter(b => b.n === n)[0]; return JSON.parse(JSON.stringify(r)); }, n);
     ok('A1 ' + n + ': his sign is in the world and his rumour is on the phone\'s feed', !!(s.boss.sign && s.boss.sign.n === n || s.boss.found[n]) && !!s.rumours[n],
        (s.boss.sign ? s.boss.sign.kind + ' at ' + s.boss.sign.x + ',' + s.boss.sign.y : 'no sign') + ', rumour by ' + row.rumour.who);
