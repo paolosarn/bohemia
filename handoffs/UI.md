@@ -2,7 +2,7 @@
 
 UI (ui-7, the top and the crew's camp): 11/3 LATEST -- [the top is only resources] + [the crew sees the camp] BUILT, NOT YET SEEN (rules
 368 and 369, ask lines 392 and 393; BUILD 11/3zzzzaj - THE TOP IS ONLY RESOURCES, code f6836bd76, on main 9025ec9f8; BUILD 11/3zzzzau - THE
-CREW SEES THE CAMP, code 38ed041cc), IN THE DEMO, two VOTE cards WAS beside NOW (ui7-the-top-is-only-resources-11-3,
+CREW SEES THE CAMP, code 38ed041cc; LIVE: pages run 4258 SUCCESS for 1ee466f2e), IN THE DEMO, two VOTE cards WAS beside NOW (ui7-the-top-is-only-resources-11-3,
 ui7-the-crew-sees-the-camp-11-3). Records records/BOHEMIA_UI7_THE_TOP_IS_ONLY_RESOURCES_11_3_26.md and
 records/BOHEMIA_UI7_THE_CREW_SCREEN_SEES_THE_CAMP_11_3_26.md.
 - THE TOP (slices/bohemia_ui_materials.js __THE_TOP_IS_ONLY_RESOURCES__): the day plate, the crew plate and the place stay in the bar's DOM
