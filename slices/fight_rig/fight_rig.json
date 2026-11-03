@@ -1968,13 +1968,13 @@
   },
   "beast_feral_bull": {
    "file": "beast_feral_bull.webp",
-   "w": 205,
-   "h": 220,
+   "w": 216,
+   "h": 217,
    "foot": [
-    99,
-    162
+    108,
+    158
    ],
-   "height_m": 1.808,
+   "height_m": 1.608,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_feral_bull/rig.json",
    "clips": {
@@ -2007,7 +2007,7 @@
      17
     ]
    },
-   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   }
  },
  "faces": {
