@@ -27,7 +27,7 @@
 <p>You said the bull looked too much like the coyote and the wolf. You were right: every beast was the same fox model, stretched. Now each one has its own body, built from the real animal's size, and its own walk and attack. Your man is 1.72 m. Everything is at the fight's size, from the fight's camera.</p>
 <div class="row"><div class="lab"><b>THE LINE-UP, NOW</b><span class="tag">YOUR MAN FOR SCALE</span></div>
   <div class="lineup"><canvas id="lineup"></canvas></div>
-  <div class="small" id="lineupwords">Left to right: your man, the coyote, the feral dog, the dire wolf, the cave hyena, the feral hog, the mountain lion, the feral bull, Camelops.</div></div>
+  <div class="small" id="lineupwords">Left to right: your man, the coyote, the feral dog, the dire wolf, the cave hyena, the ground sloth, the feral hog, the mountain lion, the feral bull, the short-faced bear, Camelops.</div></div>
 <div id="list"></div>
 <script>
 const BEASTS = [
@@ -59,12 +59,20 @@ const BEASTS = [
     now: 'A hyena now: long front legs and the back falling to a low rump, a heavy neck and shoulders under a dark mane, a big blunt head, round ears, round dark spots, a short tail with a black brush. 0.9 m at the shoulder.',
     moves: 'It walks with its head low, then bites and holds.',
     mark: 'A big yellow lab tag in its ear, and a shaved, stitched patch on its shoulder.' },
+  { id: 'short_faced_bear', was: 'dire_wolf', name: 'SHORT-FACED BEAR', tag: 'WAS: THE FOSSIL BEDS GAVE YOU WOLVES',
+    now: 'The lab\'s Ice Age bear: 1.55 m at the shoulder on all fours, taller than a man when it stands, long legs, a short broad face, a hump of muscle over the shoulders.',
+    moves: 'It heals every turn (Battle Brothers\' unhold: 15% of its health). It rears up and mauls, and it throws the man beside it over its back.',
+    mark: 'A thick lab collar with its box, and a big numbered tag in its ear.' },
+  { id: 'ground_sloth', was: 'dire_wolf', name: 'SHASTA GROUND SLOTH', tag: 'WAS: THE FOSSIL BEDS GAVE YOU WOLVES',
+    now: 'Gypsum Cave\'s sloth, brought back from its own dung: the hips higher than the shoulders, a thick tail on the ground, a small head on a long neck, long arms walking on the knuckles with the great claws turned in.',
+    moves: 'Slow. It heals every turn, and it throws whoever stands beside it.',
+    mark: 'A big numbered tag in its ear, and a shaved, stitched patch on its hip where the lab took its samples.' },
   { id: 'feral_dog_shepherd', name: 'FERAL DOG', tag: 'A MUTT, NOT A WOLF',
     now: 'A mixed breed now: shepherd and pit, a blocky head, one ear up and one flopped, the tail up in a curl the way a dog carries it, black and tan with a white chest.',
     moves: 'It walks, and bites forward and holds.',
     mark: 'The red collar it wore when it had a home.' }
 ];
-const LINE_ALL = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'cave_hyena', 'feral_hog', 'mountain_lion', 'feral_bull', 'camelops'];
+const LINE_ALL = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'cave_hyena', 'ground_sloth', 'feral_hog', 'mountain_lion', 'feral_bull', 'short_faced_bear', 'camelops'];
 const PLAY = [['stand', 3], ['walk', 12], ['bite', 6], ['walk', 6], ['hit', 2], ['fall', 3], ['fall_hold', 6]];
 const KPS = 6;   /* 120 BPM, three keys a beat */
 const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
@@ -90,7 +98,7 @@ Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('be
   const only = location.hash ? location.hash.slice(1).split(',') : null;
   const order = only ? BEASTS.filter(b => only.indexOf(b.id) >= 0) : BEASTS, LINE = only ? LINE_ALL.filter(id => only.indexOf(id) >= 0) : LINE_ALL;
   const files = { man: '../fight_rig/' + MAN.file };
-  BEASTS.forEach(b => { files['now_' + b.id] = '../fight_rig/' + IDX.looks['beast_' + b.id].file; files['was_' + b.id] = 'beasts_was/' + b.id + '.webp'; });
+  BEASTS.forEach(b => { files['now_' + b.id] = '../fight_rig/' + IDX.looks['beast_' + b.id].file; files['was_' + b.id] = 'beasts_was/' + (b.was || b.id) + '.webp'; });
   const keys = Object.keys(files);
   Promise.all(keys.map(k => load(files[k]))).then(list => {
     const IM = {}; keys.forEach((k, i) => IM[k] = list[i]);
@@ -117,7 +125,7 @@ Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('be
       });
     };
     const strips = [];
-    if (only) document.getElementById('lineupwords').textContent = 'Your man, then ' + order.map(b => b.name.toLowerCase()).join(', ') + '.';
+    if (only) document.getElementById('lineupwords').textContent = 'Your man, then ' + LINE.map(id => BEASTS.filter(b => b.id === id)[0].name.toLowerCase()).join(', ') + '.';
     /* the line-up: wrapped to the screen, every line starting with the man */
     const room = Math.max(300, document.getElementById('lineup').parentElement.clientWidth - 4);
     const host = document.getElementById('lineup').parentElement; host.innerHTML = '';
@@ -130,7 +138,7 @@ Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('be
     { const st = strip(line); host.appendChild(st.cv); strips.push(st); }
     /* each beast: WAS, the man, NOW */
     order.forEach(b => {
-      const N = IDX.looks['beast_' + b.id], Wl = WAS[b.id], div = document.createElement('div'); div.className = 'row'; div.id = b.id;
+      const N = IDX.looks['beast_' + b.id], Wl = WAS[b.was || b.id], div = document.createElement('div'); div.className = 'row'; div.id = b.id;
       div.innerHTML = '<div class="lab"><b>' + b.name + '</b><span class="tag">' + b.tag + '</span></div><div class="pair"></div>' +
         '<div class="say">' + b.now + '</div><div class="small">HOW IT MOVES: ' + b.moves + '</div><div class="small">THE LAB, THE FARM, THE STREET: ' + b.mark + '</div>' +
         '<div class="small" style="margin-top:6px">NOW FROM EVERY SIDE:</div><div class="eight" style="display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end"></div>';

@@ -59,6 +59,36 @@ camel, the lion and the hogs each on their ground, real fights on his phone with
 NAMED FOR COMBAT (not this lane's file): the fight's turn strip draws every beast's face as one red wolf-head glyph (BOHEMIA_FIGHT.html,
 'a crop of its body is never a portrait', rule 115(h)), so the bar under a lion or a hog shows a wolf's head.
 
+## PIECE 3: THE SHORT-FACED BEAR AND THE SHASTA GROUND SLOTH, ON THE UNHOLD
+Two outlines nothing else in the game has, on the builder:
+- THE SHORT-FACED BEAR (Arctodus simus; its mitogenome read from bone, Mitchell et al. 2016; made on the brown bear, the right size):
+  1.55 m at the shoulder on all fours (built 1.60 with the hump), 2.4 m nose to rump, long legs for a bear, a short broad face with a
+  pale muzzle, small round ears, the shoulder hump, big paws; dark brown, grizzled over the back. The lab mark: a thick collar with
+  its box and a big numbered ear tag. It paces (a bear's amble) and its attack is the MAUL: back on the haunches, up on the hind legs,
+  the forearm swung down, the bite held.
+- THE SHASTA GROUND SLOTH (Nothrotheriops shastensis; Gypsum Cave, a few miles from the Strip, kept its dung and its DNA was read
+  from it, Poinar et al. 1998). NAMED HONESTLY: its living kin are 4 to 8 kg tree sloths, so the 9/29 law's surrogate test fails (the
+  five-beasts round skipped it for that); rule 345 amended (a) names it, newest wins, so the record says the lab grew it in its own
+  womb (the 2017 lamb in a bag, made huge): the one beast in the valley no mother carried. Built: 0.94 m at the shoulder and 1.30 at
+  the hip (the hips over the shoulders), 2.3 m with the tail, a wide pelvis, a thick tail to the ground, a small head on a longer neck
+  carried low, long forelegs on the knuckles with three great claws each (tube meshes, ivory), shaggy warm brown. The lab mark: a big
+  numbered ear tag and a shaved, stitched hip patch. It walks slowly and mauls.
+- Pass by eye: the first coats read grey (the rig's dust pass bleaches a mid brown on a big up-facing body), so both went deeper and
+  warmer; the first bear read as a sheep (body too wide, legs too thick, head small and high): leaner body, longer legs, a bigger
+  lower head; the first sloth's hips were too wide (0.9 m): narrower and higher.
+THE RULE SET (mechanic first): Battle Brothers' UNHOLD (bb_all/0146_Armored Unhold.txt): REGENERATION, 15% of its hitpoints at the start
+of each turn (bb_all/1661_Regeneration.txt), and FLING BACK, 4 AP and 20 fatigue, the man beside it tossed onto the tile behind it with
+10 fatigue and falling damage (bb_all/0794_Fling Back (20 fatigue).txt); always on a man it can finish (10 hitpoints or less, the
+unhold's own page), else 35 in 100 (ours, draft); the falling damage 5 to 10 is ours (the page gives no number). Rows, the brain
+'unhold', the numbers regenerate and fling, the parties bears and sloths (one animal each), the road (act 1 to 3: 0.1 to 0.3; the bear
+more at night) and the jobs (the hills and the open desert: near the fossil beds) are all in records/target/bb/bohemia_enemies.json and
+BOHEMIA_JOB_KINDS.json. The fight got two small hooks, both reading that data (slices/BOHEMIA_FIGHT.html beginTurn: the heal; fling()
+beside kickAll, and one line in the brain step): COMBAT 7's file, kept to that.
+MEASURED: both parties deal their own animal from their own sheet (the probe, 0 errors); six AUTO fights against four of his men: the
+bear healed 21 times and threw 14 men, the sloth healed 37 times and threw 17; the bear won one of three, the sloth one of three.
+VOTE beasts2-the-bear-and-the-sloth-11-3 (slices/vote/BEASTS_THE_BEAR_AND_THE_SLOTH.html): WAS the dire wolf (what the fossil beds
+dealt), the man, NOW, and the line-up.
+
 ## NEXT (in order)
-3. The short-faced bear and the Shasta ground sloth as the unhold (it regenerates and throws). 4. The sabre-tooth, the American lion,
-the ancient bison, the Ice Age horse. 5. Every lab mark readable from the fight's camera. 6. The gate in the suite.
+4. The sabre-tooth, the American lion, the ancient bison, the Ice Age horse. 5. Every lab mark readable from the fight's camera.
+6. The gate in the suite.

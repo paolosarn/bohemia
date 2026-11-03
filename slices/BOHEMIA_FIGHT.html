@@ -1836,6 +1836,9 @@ const FIGHT = (function () {
       u.backRound = S.round;
       const f0 = u.fat; u.fat = Math.max(0, u.fat - (u.resting ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')));
       u.fatBack = Math.round(f0 - u.fat); u.restedBack = !!u.resting; u.fatTaken = 0;
+      /* THE UNHOLD HEALS (BEASTS 2 11/3, rule 345 amended (e); bohemia_enemies.json numbers.regenerate: 'Regeneration will heal for
+         15% of their max Hitpoints at the start of each turn'): the short-faced bear and the ground sloth, once a round */
+      if (u.beast && u.hp > 0 && u.hp < u.hpMax && arche(u).regenerates) { const g = Math.min(u.hpMax - u.hp, Math.round(u.hpMax * NEW('regenerate').share)); u.hp += g; emit({ t: 'skill', id: u.id, skill: 'regenerates', to: u.id, hp: g }); }
     }
     u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length;
     emit({ t: 'turn', id: u.id });
@@ -1848,7 +1851,7 @@ const FIGHT = (function () {
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted && u.netted.by && !onField(byId(u.netted.by))) { u.netted = null; emit({ t: 'free', id: u.id }); }   /* THE PIN (FIVE MORE BEASTS): the lion gone, he is up */
-    u.kicked = false; u.charged = false; if (u.lurking) u.lurkTurns = (u.lurkTurns || 0) + 1;
+    u.kicked = false; u.charged = false; u.flung = false; if (u.lurking) u.lurkTurns = (u.lurkTurns || 0) + 1;
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
       if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
     if (u.morale === 'Fleeing' && !u.givesUp && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
@@ -2821,6 +2824,24 @@ const FIGHT = (function () {
       const q = resolveAttack(u, o, s); apply(u, o, q, { sweep: true, skill: s.name });
       if (q.hit && onField(o) && (o.immune || []).indexOf('Forced movement') < 0) { const p = pushTile(u, o); if (p) { emit({ t: 'step', id: o.id, fx: o.x, fy: o.y, x: p.x, y: p.y, shoved: true }); o.x = p.x; o.y = p.y; } }
     });
+    afterAction(u); return true;
+  }
+  /* THE FLING (BEASTS 2 11/3; bohemia_enemies.json numbers.fling, Battle Brothers' unhold: 'Fling Back will toss the target behind
+     the unhold, target gets 10 Fatigue and suffers falling damage', 4 AP, 20 fatigue; 'kill someone with 10 HP or less'): the bear
+     and the sloth throw a man beside them onto the free tile behind them; always the man it can finish, else now and then */
+  function fling(u) {
+    const F = NEW('fling'); if (u.flung || climbedNow(u) || u.ap < F.ap) return false;
+    const spot = function (t) { const x = u.x + (u.x - t.x), y = u.y + (u.y - t.y); return inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !noRoof(t, x, y) ? { x: x, y: y } : null; };
+    const round = foes(u).filter(function (t) { return dist(u, t) === 1 && onField(t) && (t.immune || []).indexOf('Forced movement') < 0 && spot(t); })
+      .sort(function (a, b) { return a.hp - b.hp; });
+    const t = round[0]; if (!t || (t.hp > F.finish_hp && rng() >= F.chance)) return false;
+    const p = spot(t); u.ap -= F.ap; u.fat += F.fatigue; u.flung = true;
+    emit({ t: 'skill', id: u.id, skill: 'flings', to: t.id });
+    emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: p.x, y: p.y, shoved: true }); t.x = p.x; t.y = p.y;
+    t.fat += F.target_fatigue;
+    const n = Math.min(Math.max(0, t.hp), F.fall_min + Math.floor(rng() * (F.fall_max - F.fall_min + 1)));
+    t.hp -= n; t.taken = (t.taken || 0) + n; emit({ t: 'bled', id: t.id, hp: n });
+    if (t.hp <= 0) fall(t, u);
     afterAction(u); return true;
   }
   /* THE CHARGE (the feral bull, the Ijirok's Gore: 'knockback and staggers the target on hit, a range of 3 to 6 tiles'): a man of
@@ -4101,6 +4122,7 @@ const FIGHT = (function () {
     if (A.rallies && !u.rallied && canUse(u, 'rally_the_troops')) { u.rallied = true; return useSkill(u, 'rally_the_troops'); }   /* THE CAPTAIN */
     /* FIVE MORE BEASTS (FACTIONS 11/3): the coyote feeds while hurt, Camelops kicks everyone beside it, the bull charges down a line */
     if (A.feeds && u.hp < u.hpMax && !adj.length) { const bb = bodyBeside(u); if (bb && feed(u, bb)) return true; }
+    if (A.flings && fling(u)) return true;   /* BEASTS 2: the bear and the sloth throw (the unhold's Fling Back) */
     if (A.kicks && kickAll(u)) return true;
     if (A.charges && !adj.length) { const ct = chargeTarget(u); if (ct) return charge(u, ct); }
     if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */

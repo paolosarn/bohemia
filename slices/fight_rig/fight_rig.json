@@ -2011,6 +2011,92 @@
     ]
    },
    "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "beast_short_faced_bear": {
+   "file": "beast_short_faced_bear.webp",
+   "w": 182,
+   "h": 218,
+   "foot": [
+    91,
+    170
+   ],
+   "height_m": 1.59,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_short_faced_bear/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "beast_ground_sloth": {
+   "file": "beast_ground_sloth.webp",
+   "w": 174,
+   "h": 190,
+   "foot": [
+    87,
+    148
+   ],
+   "height_m": 1.414,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_ground_sloth/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   }
  },
  "faces": {

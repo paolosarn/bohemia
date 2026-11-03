@@ -15,6 +15,8 @@
     "bulls": {"name": "A Bull", "holds_from": "beasts", "beast": true, "lesson": "It runs in a straight line and cannot turn. Step off the line, or stand behind something.", "draft": true},
     "wolves": {"name": "Dire Wolves", "holds_from": "beasts", "beast": true, "lesson": "A pack goes round you. Keep your backs together, or they take the man on the end.", "why": "BEASTS 2 11/3 (rule 345 amended (b)): the dire wolves as their own party; Battle Brothers' direwolf pack (the lean flanker, the rusher's brain the wiki row carries).", "draft": true},
     "hyenas": {"name": "Cave Hyenas", "holds_from": "beasts", "beast": true, "lesson": "They take the weak at the edge. The hurt man and the man alone go first.", "why": "BEASTS 2 11/3: the cave hyenas as their own clan; Battle Brothers' hyena (the bite that bleeds, the frenzied late).", "draft": true},
+    "bears": {"name": "A Short-Faced Bear", "holds_from": "beasts", "beast": true, "lesson": "It heals every turn and throws a man over its back. Kill it fast or not at all.", "why": "BEASTS 2 11/3 (rule 345 amended (a)(e)): the lab's Ice Age bear on Battle Brothers' unhold.", "draft": true},
+    "sloths": {"name": "A Ground Sloth", "holds_from": "beasts", "beast": true, "lesson": "Slow, it heals, and it throws whoever is beside it. Shoot it and keep moving.", "why": "BEASTS 2 11/3 (rule 345 amended (a)(e)): Gypsum Cave's sloth on Battle Brothers' unhold.", "draft": true},
     "dogs": {"name": "Feral Dogs", "holds_from": "beasts", "beast": true, "lesson": "They were pets. They come in a crowd and they bite low. Kill one and the rest still come.", "why": "BEASTS 2 11/3: the street's dogs as their own pack, on Battle Brothers' war dogs (wardog, warhound; the armoured one late).", "draft": true}
   },
   "rows": [
@@ -116,7 +118,27 @@
       "size_kg": "700-900",
       "real": "Bos taurus: range cattle have run loose without an owner on Gold Butte, Clark County, for decades (the cattle the BLM tried to round up in 2014)",
       "feed": "Gold Butte had wild cattle long before the crash. Now nobody counts them, and the bulls come down to the springs.",
-      "looks": ["beast_feral_bull"], "draft": true }
+      "looks": ["beast_feral_bull"], "draft": true },
+    { "id": "short_faced_bear", "from": "unhold", "faction": "bears", "name": "Short-Faced Bear", "board_name": "BEAR", "brain": "unhold",
+      "lesson_bb": "THE UNHOLD (Battle Brothers: 'Regeneration will heal for 15% of their max Hitpoints at the start of each turn', bb_all/1661_Regeneration.txt; 'Fling Back will toss the target behind the unhold, target gets 10 Fatigue and suffers falling damage', bb_all/0794_Fling Back (20 fatigue).txt; 'they can use Fling Back to get close to a vulnerable brother... or kill someone with 10 HP or less', bb_all/0146_Armored Unhold.txt)",
+      "lesson": "The lab's bear. It heals every turn, so a slow fight is its fight: hit it all at once. It throws the man beside it over its back, and it finishes the hurt one that way. Keep the hurt man away from it.",
+      "stats": {"hp": 450, "initiative": 90, "melee_skill": 70, "melee_defense": 10, "ranged_defense": 0, "resolve": 110, "xp": 450, "traits": [], "perks": ["Crippling Strikes", "Pathfinder", "Steel Brow"], "why": "a 600 to 900 kg bear, long-legged and fast for its size (Arctodus): nine tenths of the unhold's hitpoints, its regeneration and its throw; quicker than the unhold (initiative 90), and a bear's nerve"},
+      "beast": {"rig": "beast_short_faced_bear", "climbs": false, "why": "the unhold's Sweep (40-80) as the paw, its Regeneration and its Fling Back (the brain 'unhold'); a 700 kg bear does not climb a wall"},
+      "habitat": ["hills", "open_desert"], "roams": "near the fossil beds: Gypsum Cave in the hills to the east and Tule Springs north of town, where the lab was",
+      "size_kg": "600-900",
+      "real": "Arctodus simus, the giant short-faced bear of the Ice Age: its mitochondrial genome read from bone (Mitchell et al. 2016); made on the brown bear (the right size: a big grizzly is 400 to 600 kg)",
+      "feed": "The lab kept its bears in the old prison yard. The fence was the last thing on the grid to go dark.",
+      "looks": ["beast_short_faced_bear"], "draft": true },
+    { "id": "ground_sloth", "from": "unhold", "faction": "sloths", "name": "Shasta Ground Sloth", "board_name": "SLOTH", "brain": "unhold",
+      "lesson_bb": "THE UNHOLD (Battle Brothers: Regeneration, 15% of its hitpoints at the start of each turn, bb_all/1661_Regeneration.txt; Fling Back, the man beside it tossed behind it with 10 fatigue and falling damage, bb_all/0794_Fling Back (20 fatigue).txt)",
+      "lesson": "Slow, and it heals every turn. It throws whoever stands beside it. Shoot it from range and keep moving; never stand next to it with your back to a wall.",
+      "stats": {"hp": 500, "initiative": 40, "melee_skill": 60, "melee_defense": 5, "ranged_defense": 0, "resolve": 130, "xp": 450, "traits": [], "perks": ["Crippling Strikes", "Resilient"], "why": "a 250 to 350 kg sloth with hide full of bone (the ground sloths' osteoderms): the unhold's hitpoints and its nerve, its regeneration and its throw, and slow (initiative 40)"},
+      "beast": {"rig": "beast_ground_sloth", "climbs": false, "why": "the unhold's Sweep (40-80) as the claws, its Regeneration and its Fling Back (the brain 'unhold'); a ground sloth does not climb"},
+      "habitat": ["hills"], "roams": "Gypsum Cave and the canyons east of town, where its dung lay for eleven thousand years",
+      "size_kg": "250-350",
+      "real": "Nothrotheriops shastensis: Gypsum Cave, a few miles from the Strip, kept its dung, and its DNA was read from it (Poinar et al. 1998); its living kin are 4 to 8 kg tree sloths, so no mother could carry it: the lab grew it in its own womb (the lamb in the bag, CHOP 2017, made huge)",
+      "feed": "It came out of the canyon at Gypsum Cave, where its dung lay for eleven thousand years. It is slow. It does not stop.",
+      "looks": ["beast_ground_sloth"], "draft": true }
   ],
   "brains": {
     "shieldwall": { "value": { "advance": true, "keep_formation": true, "surround": false, "shield_always": true, "shield_wall": true },
@@ -141,6 +163,7 @@
     "stalker": {"value": {"advance": true, "lurks": true, "go_round_for_weakest": true, "springs": true, "pins": true}, "source": "bb_all/1757_Serpent.txt", "quote": "FACTIONS: unseen until a man of yours is lurk.seen_within tiles off or it strikes; while unseen it moves only to a tile it can spring from this turn, else it lies still; it goes round for the weakest; the man it lands on is pinned (the net's rule) until he gets up or it is gone"},
     "sounder": {"value": {"advance": true, "surround": true, "rush_even_without_ap_to_strike": true, "gashes": true}, "source": "bb_all/1055_Hyena Bite (6 fatigue).txt", "quote": "causes Bleeding for 5 dmg per turn... if at least 6 hitpoints were lost from the attack. Bleeding lasts 2 turns."},
     "kicker": {"value": {"advance": true, "surround": false, "kicks": true, "runs_below": 0.5}, "source": "bb_all/1906_Sweep (20 fatigue).txt", "quote": "Sweep does knockback, will stagger the target, can hit up to 3 targets next to each other; FACTIONS: a camel's kick reaches every man beside it, and under half its hitpoints it runs"},
+    "unhold": {"value": {"advance": true, "surround": false, "regenerates": true, "flings": true}, "source": "bb_all/0146_Armored Unhold.txt", "quote": "Regeneration; Fling Back; Sweep. They prefer fighting with a regular attack, but can use Fling Back to get close to a vulnerable brother, take the high ground, cancel a shieldwall, or kill someone with 10 HP or less (BEASTS 2 11/3: the short-faced bear and the Shasta ground sloth)"},
     "charger": {"value": {"advance": true, "straight": true, "charges": true}, "source": "bb_all/0890_Gore (20 fatigue).txt", "quote": "Gore... has knockback and staggers the target on hit (has a range of 3 to 6 tiles)"}
   },
   "numbers": {
@@ -151,6 +174,8 @@
     "gash": {"value": {"min_hp": 6, "per_turn": 5, "turns": 2, "stacks": 1}, "source": "bb_all/1055_Hyena Bite (6 fatigue).txt", "quote": "Bleeding for 5 dmg per turn on Hyenas... if at least 6 hitpoints were lost from the attack. Bleeding lasts 2 turns."},
     "kick": {"value": {"min_beside": 1}, "source": "bb_all/1906_Sweep (20 fatigue).txt", "quote": "the Sweep's own 4 AP and 20 fatigue (beast_attacks.json sweep_20); FACTIONS: every man beside it, not three, because a camel kicks with any leg"},
     "charge": {"value": {"min": 2, "max": 4, "ap": 6, "fatigue": 20, "hit_bonus": 10}, "source": "bb_all/0890_Gore (20 fatigue).txt", "quote": "Gore: 6 AP, 20 fatigue, knockback, staggers, a range of 3 to 6 tiles; FACTIONS: 2 to 4 of ours (a tile is a house), +10 to hit for the run (ours, draft)"},
+    "regenerate": {"value": {"share": 0.15}, "source": "bb_all/1661_Regeneration.txt", "quote": "Regeneration will heal for 15% of their max Hitpoints at the start of each turn"},
+    "fling": {"value": {"ap": 4, "fatigue": 20, "target_fatigue": 10, "fall_min": 5, "fall_max": 10, "finish_hp": 10, "chance": 0.35}, "source": "bb_all/0794_Fling Back (20 fatigue).txt", "quote": "4 AP, 20 fatigue: Fling Back will toss the target behind the unhold, target gets 10 Fatigue and suffers falling damage. The falling damage (5 to 10) is ours (the page gives no number), finish_hp is the unhold's page ('kill someone with 10 HP or less'), chance is ours: how often it throws a man it cannot finish (draft, TUNING's)"},
     "feed": {"value": {"ap": 6, "hp": 25, "per_body": 2}, "source": "bb_all/0925_Gruesome Feast (25 fatigue).txt", "quote": "Gruesome Feast: 6 AP, 25 fatigue; eats a dead body... heals; FACTIONS: 25 hitpoints a bite, two bites a body (ours, draft)"}
   },
   "mix": {
@@ -165,18 +190,20 @@
     "bulls": {"first": {"feral_bull": 1}, "early": {"feral_bull": 1}, "middle": {"feral_bull": 1}, "late": {"feral_bull": 1}},
     "wolves": {"first": {"direwolf": 1}, "early": {"direwolf": 1}, "middle": {"direwolf": 1}, "late": {"direwolf": 3, "frenzied_direwolf": 1}},
     "hyenas": {"first": {"hyena": 1}, "early": {"hyena": 1}, "middle": {"hyena": 1}, "late": {"hyena": 3, "frenzied_hyena": 1}},
+    "bears": {"first": {"short_faced_bear": 1}, "early": {"short_faced_bear": 1}, "middle": {"short_faced_bear": 1}, "late": {"short_faced_bear": 1}},
+    "sloths": {"first": {"ground_sloth": 1}, "early": {"ground_sloth": 1}, "middle": {"ground_sloth": 1}, "late": {"ground_sloth": 1}},
     "dogs": {"first": {"wardog": 3, "warhound": 1}, "early": {"wardog": 3, "warhound": 1}, "middle": {"wardog": 2, "warhound": 1, "armored_wardog": 1}, "late": {"wardog": 2, "warhound": 2, "armored_wardog": 1}}
   },
   "heads": { "watch": "watch_captain", "keepers": "keeper_feral" },
-  "count_scale": { "house": 0.55, "watch": 1.3, "keepers": 0.6, "water": 0.6, "coyotes": 1.0, "lions": 0.15, "hogs": 0.5, "camels": 0.35, "bulls": 0.2 },
+  "count_scale": { "house": 0.55, "watch": 1.3, "keepers": 0.6, "water": 0.6, "coyotes": 1.0, "lions": 0.15, "hogs": 0.5, "camels": 0.35, "bulls": 0.2, "bears": 0.15, "sloths": 0.15 },
   "count_scale_beasts_why": "a coyote pack is as many as his crew; a mountain lion hunts alone (one, two at eight or more); a hog sounder is 2 to 4 against a new crew (0.8 lost 9 of 10 to a crew of 6, the new-enemies gate's SIZED TO THE CREW, measured 11/3); a camel herd is a few; a bull is one, two at a big crew (FACTIONS 11/3, draft, TUNING's to move)",
   "road": {
     "why": "Paolo: 'Battle Brothers... how many groups are moving around at a certain time... way more'; enemies are never forced (a party you can see and avoid). A roaming party takes its faction from the act (by_act, added to COMBAT's road_factions), from the ground it walks (the faction that holds that ground in records/target/bb/factions.json walks there district_mult times as often) and from the hour (night).",
-    "by_act": [ { "house": 1.5, "watch": 2, "keepers": 0.75, "water": 1.25, "coyotes": 1, "lions": 0.25, "hogs": 0.5, "camels": 0.5, "bulls": 0.75 }, { "house": 1.5, "watch": 1, "keepers": 0.75, "water": 1, "coyotes": 0.75, "lions": 0.5, "hogs": 1, "camels": 0.5, "bulls": 0.5 }, { "house": 1, "watch": 0.5, "keepers": 0.5, "water": 0.75, "coyotes": 0.5, "lions": 0.5, "hogs": 0.75, "camels": 0.25, "bulls": 0.25 } ],
+    "by_act": [ { "house": 1.5, "watch": 2, "keepers": 0.75, "water": 1.25, "coyotes": 1, "lions": 0.25, "hogs": 0.5, "camels": 0.5, "bulls": 0.75, "bears": 0.1, "sloths": 0.1 }, { "house": 1.5, "watch": 1, "keepers": 0.75, "water": 1, "coyotes": 0.75, "lions": 0.5, "hogs": 1, "camels": 0.5, "bulls": 0.5, "bears": 0.2, "sloths": 0.15 }, { "house": 1, "watch": 0.5, "keepers": 0.5, "water": 0.75, "coyotes": 0.5, "lions": 0.5, "hogs": 0.75, "camels": 0.25, "bulls": 0.25, "bears": 0.3, "sloths": 0.2 } ],
     "holds": { "brigands": ["freeway", "hills"], "house": ["industrial", "golf_and_park"], "machines": ["ruin", "landfill"], "watch": ["suburb_block"], "keepers": ["open_desert"], "water": ["solar_and_pumps"], "kids": ["lot_and_bigbox"] },
     "holds_mirror": { "brigands": "brigands", "house": "noble_houses", "machines": "zombies", "watch": "militia", "keepers": "barbarians", "water": "nomads", "kids": "goblins" },
     "district_mult": 4,
-    "night": { "watch": 0.25, "water": 2, "keepers": 1.5, "coyotes": 2, "lions": 3, "hogs": 1.5, "camels": 0.5 },
+    "night": { "watch": 0.25, "water": 2, "keepers": 1.5, "coyotes": 2, "lions": 3, "hogs": 1.5, "camels": 0.5, "bears": 1.5 },
     "night_why": "the block watch goes home after dark; the water people and the keepers move at night (draft). FIVE MORE BEASTS: coyotes and lions hunt at night (a puma is most active from dusk to dawn); hogs go night-active in the heat; camels bed down",
     "source": "FACTIONS 11/3 (draft, TUNING's to move)"
   }

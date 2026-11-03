@@ -43,11 +43,23 @@
 "fill": 0.328,
 "packedMB": 3.0
 },
+"beast_ground_sloth.webp": {
+"bytes": 465636,
+"decodedMB": 18.16,
+"fill": 0.308,
+"packedMB": 6.34
+},
 "beast_mountain_lion.webp": {
 "bytes": 232768,
 "decodedMB": 11.79,
 "fill": 0.243,
 "packedMB": 3.43
+},
+"beast_short_faced_bear.webp": {
+"bytes": 515944,
+"decodedMB": 21.79,
+"fill": 0.313,
+"packedMB": 8.08
 },
 "boss_filter_0.webp": {
 "bytes": 325080,
@@ -843,8 +855,8 @@
 }
 },
 "totals": {
-"decodedMB": 2861.8,
-"packedMB": 486.0,
-"sheets": 140
+"decodedMB": 2901.7,
+"packedMB": 500.4,
+"sheets": 142
 }
 }

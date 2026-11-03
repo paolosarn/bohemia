@@ -148,6 +148,30 @@ BEASTS = {
         tail=(0.30, (0.035, 0.03, 0.026), (55, 78, 88)), tuft=(0.12, 0.05),
         crest=((0, -0.30, 0.885), (0.065, 0.36, 0.04)), bigtag=True,
         griz=0.03, res=0.0085, gait='walk', attack='bite', real_note='0.90 m at the shoulder, 0.70 m at the rump, about 1.5 m nose to tail tip'),
+    # SHORT-FACED BEAR (Arctodus simus, the Ice Age's giant bear; its mitochondrial genome read from bone (Mitchell et al. 2016);
+    # 1.5 to 1.8 m at the shoulder on all fours, 600 to 900 kg, LONG legs for a bear, a SHORT broad face, small round ears, the
+    # shoulder hump, big plantigrade paws, no tail to speak of; rule 345 amended (a): 'the lab beasts look like lab beasts').
+    # The lab mark: a thick lab collar with its box and a numbered ear tag.
+    'short_faced_bear': dict(
+        wh=1.55, hh=1.30, bl=1.70, cd=0.66, sw=0.31, bw=0.34, hw=0.26, belly=-0.02, carpus=0.16, hock=0.20, footh=0.09,
+        legf=(0.15, 0.115, 0.095, 0.125), legh=(0.145, 0.11, 0.09, 0.125), foot='paw', shoulder_mass=1.15,
+        neck=[(-0.66, 1.24, 0.30, 0.27), (-0.92, 1.08, 0.25, 0.23)],
+        head=(0.47, 0.19, 0.21, 12, 0.27, 0.115), ears=(0.10, 0.10, 0.025, 42, 66), eyes=0.025,
+        tail=(0.14, (0.06, 0.05, 0.04), (70, 80, 86)),
+        crest=((0, -0.48, 1.50), (0.24, 0.40, 0.10)), bigtag=True, collar=0.55,
+        griz=0.05, res=0.017, gait='pace', attack='maul', real_note='1.55 m at the shoulder on all fours, about 2.4 m nose to rump, 3.3 m standing up'),
+    # SHASTA GROUND SLOTH (Nothrotheriops shastensis: Gypsum Cave, a few miles from the Strip, kept its dung, and its DNA was read
+    # from it (Poinar et al. 1998); about 2.7 m with the tail and 250 to 350 kg; THE OUTLINE NOTHING ELSE HAS: the hips higher than
+    # the shoulders, a wide pelvis, a thick tail to the ground, a small head on a longer neck carried low, long forelegs walking on
+    # the knuckles with the great claws turned in, shaggy coarse hair; it rears up on its hind legs and tail to reach). Its living
+    # kin are 4 to 8 kg tree sloths, so no mother could carry it: the lab's own womb did (named in the record).
+    'ground_sloth': dict(
+        wh=0.92, hh=1.24, bl=1.40, cd=0.60, sw=0.23, bw=0.30, hw=0.30, belly=0.06, carpus=0.12, hock=0.13, footh=0.06,
+        legf=(0.12, 0.10, 0.08, 0.10), legh=(0.17, 0.13, 0.10, 0.12), foot='paw', claws=dict(len=0.24, r=0.03),
+        neck=[(-0.58, 0.78, 0.18, 0.16), (-0.90, 0.72, 0.14, 0.13)],
+        head=(0.37, 0.105, 0.095, 26, 0.45, 0.055), ears=(0.045, 0.045, 0.012, 40, 40), eyes=0.014,
+        tail=(0.78, (0.17, 0.14, 0.10, 0.06), (52, 68, 80, 86)), bigtag=True,
+        griz=0.12, res=0.015, gait='walk', attack='maul', real_note='1.0 m at the shoulder, 1.16 m at the hip, about 2.7 m with the tail, 3 m reared'),
 }
 
 
@@ -350,10 +374,12 @@ def build_body(name):
         horns(b, a, poll, dirv, upv)
     if a.get('tusks'):
         tusks(b, a, nose, dirv, upv)
+    if a.get('claws'):
+        claws(b, a)
     if a.get('collar'):
         tags(b, 'collar', poll, nk, a)
     for side in (1,):
-        if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf', 'cave_hyena'):
+        if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf', 'cave_hyena', 'short_faced_bear', 'ground_sloth'):
             et_ = b.marks[('ear', side)]
             tg = 0.04 if a.get('bigtag') else (0.022 if wh > 1 else 0.014)
             b.ell(et_ - upv * 0.01, (tg, tg, 0.014), 'tag', {B['head']: 1.0}, s=6.0)
@@ -425,6 +451,19 @@ def tusks(b, a, nose, dirv, upv):
         curve = [c - dirv * (0.004 * i * i) for i, c in enumerate(curve)]
         v, f = tube_mesh(curve, [t['r'] * (1 - 0.8 * i / 5) for i in range(6)], R=6)
         b.extra.append((v, f, 'tusk', {B['head']: 1.0}))
+
+
+def claws(b, a):
+    """the ground sloth's great claws: three on each forefoot, curved in and back under the knuckles it walks on"""
+    import numpy as np
+    c = a['claws']
+    for side in (-1, 1):
+        G = b.marks[('foot', 'F', side)]; bone = LEGS[('F', side)][2]
+        for k in (-1, 0, 1):
+            base = G + np.array([side * 0.02 + k * 0.03, -0.06, 0.07])
+            curve = [base + np.array([-side * 0.03 * (i / 5) ** 1.2, -c['len'] * 0.55 * (i / 5), -0.06 * (i / 5) ** 1.5]) for i in range(6)]
+            v, f = tube_mesh(curve, [c['r'] * (1 - 0.8 * i / 5) for i in range(6)], R=6)
+            b.extra.append((v, f, 'claw', {bone: 1.0}))
 
 
 def fields(b, P):
@@ -765,6 +804,35 @@ def paint(name, b, P, N, PART, pix):
         patch = isp('shoulder', 'chest') & (P[..., 0] > 0.05) & (np.abs(y - sp[1]) < 0.075) & (np.abs(z - sp[2]) < 0.07)
         put(patch, C(0.72, 0.60, 0.55))
         put(patch & (np.abs((y - sp[1]) - (z - sp[2]) * 0.8) < 0.009), C(0.22, 0.12, 0.11))
+    elif name == 'short_faced_bear':
+        BROWN, DARK, MUZ = C(0.30, 0.18, 0.10), C(0.17, 0.11, 0.07), C(0.55, 0.40, 0.26)
+        put(covered, BROWN)
+        out[:] = out * (1 - back[..., None] * 0.45) + C(0.40, 0.26, 0.15) * back[..., None] * 0.45   # the grizzled shoulders and back
+        put(legs & (z < 0.55), DARK)
+        put(isp('muzzle'), MUZ)
+        put(isp('muzzle') & (nose_d < 0.045), C(0.08, 0.07, 0.06))
+        put(eye_d < a['eyes'], C(0.06, 0.05, 0.05))
+        put(isp('paw') & (z < 0.03), C(0.12, 0.10, 0.09))
+        # the lab: a thick collar with its box, a numbered tag in the ear
+        if 'collar' in b.marks:
+            put(isp('neck') & (np.abs(y - b.marks['collar'][1]) < 0.05), C(0.16, 0.18, 0.16))
+            put(isp('collarbox'), C(0.16, 0.18, 0.16)); put(isp('collarbox') & (N[..., 2] < -0.6), C(0.88, 0.40, 0.10))
+        tg = isp('tag'); put(tg, C(0.92, 0.74, 0.10))
+        et_ = b.marks[('ear', 1)]; put(tg & (np.abs(P[..., 0] - et_[0]) < 0.008) & (N[..., 0] > 0.3), C(0.10, 0.08, 0.06))
+    elif name == 'ground_sloth':
+        SHAG, DARK, PALE = C(0.50, 0.34, 0.19), C(0.28, 0.19, 0.11), C(0.62, 0.47, 0.30)
+        put(covered, SHAG)
+        out[:] = out * (1 - back[..., None] * 0.4) + PALE * back[..., None] * 0.4
+        put(legs & (z < 0.35), DARK)
+        put(isp('head', 'muzzle') & (y < b.marks['poll'][1] - 0.10), C(0.26, 0.21, 0.16))
+        put(isp('claw'), C(0.80, 0.74, 0.60))
+        put(eye_d < a['eyes'], C(0.05, 0.04, 0.04))
+        put(isp('muzzle') & (nose_d < 0.03), C(0.08, 0.07, 0.06))
+        # the lab: a big numbered tag in the ear and a shaved, stitched patch on the hip where the lab took its samples
+        tg = isp('tag'); put(tg, C(0.92, 0.74, 0.10))
+        sp = np.array([0.30, bl / 2 - 0.30, hh - 0.25])
+        patch = isp('rump', 'thigh', 'barrel') & (P[..., 0] > 0.10) & (np.abs(y - sp[1]) < 0.09) & (np.abs(z - sp[2]) < 0.08)
+        put(patch, C(0.74, 0.62, 0.57)); put(patch & (np.abs((y - sp[1]) - (z - sp[2]) * 0.9) < 0.01), C(0.22, 0.12, 0.11))
     elif name == 'feral_dog_shepherd':
         BLACK, TAN, WHITE = C(0.15, 0.13, 0.12), C(0.62, 0.42, 0.24), C(0.86, 0.83, 0.77)
         put(covered, BLACK)
@@ -808,7 +876,8 @@ GAITS = {'walk': {('H', 1): 0.0, ('F', 1): 0.25, ('H', -1): 0.5, ('F', -1): 0.75
 STRIDE = {'feral_bull': (0.55, 15, 55, 38, 1.5, 4, 1.5, 6), 'camelops': (0.5, 20, 60, 44, 1.2, 3, 4.0, 8),
           'mountain_lion': (0.62, 18, 50, 40, 0.5, 1, 0.0, 6), 'feral_hog': (0.5, 18, 50, 36, 1.0, 3, 0.0, 14),
           'coyote': (0.5, 20, 58, 44, 0.9, 2, 0.0, 6), 'dire_wolf': (0.6, 18, 52, 40, 0.8, 2, 0.0, 5),
-          'feral_dog_shepherd': (0.6, 18, 52, 40, 0.8, 2, 0.0, 10), 'cave_hyena': (0.6, 16, 50, 36, 0.9, 4, 0.0, 6)}
+          'feral_dog_shepherd': (0.6, 18, 52, 40, 0.8, 2, 0.0, 10), 'cave_hyena': (0.6, 16, 50, 36, 0.9, 4, 0.0, 6),
+          'short_faced_bear': (0.55, 16, 48, 34, 1.4, 3, 3.0, 2), 'ground_sloth': (0.68, 11, 36, 26, 0.8, 2, 2.5, 4)}
 
 
 def gait(arm, a, name):
@@ -916,6 +985,16 @@ ATTACKS = {
               (18, {B['neck']: (4, 0, 0), B['head']: (2, 0, 0)}, (7, 0)),
               (22, {B['neck']: (6, 0, 0), B['head']: (6, 0, 0)}, (2, 0)),
               (24, {}, (0, 0))],
+    # THE MAUL (the unhold's blow and its throw, on a bear or a sloth): back on the haunches, up on the hind legs, the forearm swung
+    # down across, then the bite or the claws held, and down
+    'maul': [(0, {}, (0, 0)),
+             (2, {B['neck']: (8, 0, 0), B['loin']: (4, 0, 0)}, (-3, 2)),
+             (6, {B['hip']: (-22, 0, 0), B['neck']: (-6, 0, 0), RF[0]: (-40, 0, 0), LF[0]: (-30, 0, 0), RF[1]: (30, 0, 0), RH[0]: (16, 0, 0), LH[0]: (16, 0, 0)}, (2, -2)),
+             (10, {B['hip']: (-30, 0, 0), B['neck']: (-10, 0, 0), B['head']: (-8, 0, 0), RF[0]: (-70, 0, 12), LF[0]: (-25, 0, 0), RF[1]: (40, 0, 0), RH[0]: (24, 0, 0), LH[0]: (24, 0, 0)}, (4, -3)),
+             (14, {B['hip']: (-8, 0, 0), B['neck']: (16, 0, 0), B['head']: (18, 6, 0), RF[0]: (10, 0, -8), LF[0]: (-20, 0, 0)}, (10, 1)),
+             (18, {B['neck']: (12, 8, 0), B['head']: (14, 10, 0), RF[0]: (-6, 0, 0)}, (8, 1)),
+             (22, {B['neck']: (4, 0, 0), B['head']: (4, 0, 0)}, (3, 0)),
+             (24, {}, (0, 0))],
     # THE KICK: the weight forward onto the front, a hind leg cocked and driven back and out, then the other, a forefoot strike
     'kick': [(0, {}, (0, 0)),
              (2, {B['neck']: (-6, 0, 0), B['chest']: (4, 0, 0), RH[0]: (-22, 0, 0), RH[1]: (40, 0, 0), RH[2]: (-25, 0, 0)}, (3, 0)),
