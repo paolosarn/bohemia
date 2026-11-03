@@ -1239,16 +1239,16 @@
    },
    "words": [
     {
-     "en": "the {company} came back into {town} and the job's done. the paper's off the board for good. thank you.",
-     "es": "the {company} came back to {town} and the job's done. gracias, for real.",
+     "en": "the {company} finished the {town} job. the paper's off the board for good. thank you.",
+     "es": "the {company} finished the {town} job. gracias, for real.",
      "tags": [
       "saw"
      ],
      "draft": true
     },
     {
-     "en": "{town}: the {company} did what they said they'd do. got paid at the board, i watched it. first time in a while i've seen that.",
-     "es": "{town}: the {company} did what they said they'd do. got paid at the board, yo lo vi. first time in a while.",
+     "en": "{town}: the {company} did what they said they'd do and got paid for it. first time in a while i've seen that.",
+     "es": "{town}: the {company} did what they said they'd do and got paid. yo lo vi, first time in a while.",
      "tags": [
       "saw"
      ],
@@ -1263,8 +1263,8 @@
      "draft": true
     },
     {
-     "en": "the {company} walked back into {town} at an easy pace, nobody hurt that i could see. job's off the board.",
-     "es": "the {company} walked back into {town}, nadie hurt that i could see. job's off the board.",
+     "en": "saw the {company} on the road out of {town} at an easy pace, nobody hurt that i could see. job's done.",
+     "es": "saw the {company} on the road out of {town}, nadie hurt that i could see. job's done.",
      "tags": [
       "saw"
      ],
@@ -1287,8 +1287,8 @@
      "draft": true
     },
     {
-     "en": "the {company} brought it back to {town} like they said. put them on your list, people. they show up.",
-     "es": "the {company} brought it back to {town} like they said. apúntenlos, gente. they show up.",
+     "en": "the {company} did the {town} job like they said. put them on your list, people. they show up.",
+     "es": "the {company} did the {town} job like they said. apúntenlos, gente. they show up.",
      "draft": true
     }
    ]
