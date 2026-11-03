@@ -18414,7 +18414,40 @@
   {"id": "home-cameras-intimate-11-3", "kind": "redo", "redoOf": "home-cameras-all-twelve-11-3", "lane": "home", "sha": "31ca8457", "made": "11/3", "draft": true, "title": "YOUR SETTLEMENT'S CAMERAS, REDONE: WAS BESIDE NOW", "said": "Nah these camera angles aren't intimate bro, it's shit (the screen); Looks like shit (the cameras)", "why": "Measured first: with all 12 lots big enough for your thumb on an upright phone, no camera can sit lower than about 13 m, so each camera now has its own world right at the lens at night through a wide barrel lens: the street light's arm, two wires with a pair of sneakers thrown over one, the billboard's lamps and a web, palms and the dead street behind the wall. You see it here in the VOTE tab, WAS beside NOW for all three cameras upright and sideways, and on the settlement screen, which still cycles on its own.", "options": ["A, yes, this is the look", "B, close, but give up all 12 at once for one building up close", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/home_settlement/vote_intimate.webp", "first": "../records/target/vote_first/home-cameras-intimate-11-3.webp", "firstAt": [245, 86, 225, 400]}, "before_after": {"before": "the block from far and high, flat, by day", "after": "night, a wide barrel lens, each camera's own pole, wires and lamps in front, all 12 lots in every camera (worst 65% seen, smallest tap 47.7 points)", "scale": "his phone upright 9:16 and sideways 16:9, the footage at the PS1's size"}},
   {"id": "arena-the-fight-in-the-pit-11-3", "kind": "sound", "lane": "arena", "sha": "c50970427", "made": "11/3", "draft": true, "title": "THE FIGHT IN THE PIT: NO RETREAT, NOBODY LEAVES, NOTHING OFF THE DEAD, AND THE CROWD THAT CHEERS, GASPS AND BOOS", "said": "I forgot about the arena system in Battle Brothers holy shit yes I love that... they host an arena with exotic DNA lab shits", "why": "The pit fight has no retreat, a beast or man who breaks gets cornered at the wall, nothing comes off the dead, and a small crowd made from real voices cheers your kills, gasps at your misses and boos anyone who runs. You hear it in the Mob's town on the RUN tab: tap THE PIT, pick your three, FIGHT; the VOTE card plays the five crowd sounds.", "options": ["A, yes, that's the pit", "B, closer, but the crowd needs work (say what)", "C, no, a different fight"], "show": {"how": "page", "src": "vote/ARENA_THE_FIGHT_IN_THE_PIT_11_3.html"}, "before_after": {"before": "a pit fight was a road fight: a retreat button, loot after, a beast that ran off the board ended it, no crowd", "after": "no retreat and nobody spared, a broken foe cornered at the wall, nothing off the dead, the crowd answering every kill, miss and runner", "scale": "his phone, 390 x 844, the real demo, a real fight on AUTO"}},
   {"id": "tuning-the-fight-is-close-11-3", "kind": "tile", "lane": "tuning", "sha": "e412573a5", "made": "11/3", "draft": true, "title": "THE FIGHT IS CLOSE", "said": "right now I'm just killing, I'm unstoppable... I don't even feel like I get one shot anywhere... for all difficulties the tuning is so important, the numbers, how close things can get, but you still feel good", "why": "On NEW HERE the hardest job on the board can now be lost and costs about a man a fight, and the everyday job sends a man down about every other fight instead of every third, because the easiest level now sends the full crews Battle Brothers' easiest sends. You see it here as each level's two jobs before and now, and in the game in every fight.", "options": ["A, closer: that is the feel", "B, still too easy", "C, too hard now"], "show": {"how": "image", "src": "../records/target/fight_is_close_11_3/card.webp"}, "before_after": {"before": "NEW HERE, days 10 and 20, a Lone Wolf, a new crew and rare men in cheap gear: the everyday job won 98 in 100 with a man down every third fight; the hardest job won 98 with a man down every other fight; twelve men in the shop's armour had nobody go under half in 80 to 85 fights of 100", "after": "the everyday job 98 in 100 with a man down about every other fight and somebody under half in 36 of 100 (was 22); the hardest job 91 in 100 with about a man down a fight (was 98, one every other); the two harder levels where main stands on today's fight at days 10 and 20 (COMBAT 7's enemy that runs when losing softened the middle level's hardest job this hour), their late men three days sooner", "scale": "the live fight headless, AUTO both sides, 20 fights a cell, the map's own job math; the card drawn at his phone's width, 390"}},
-  {"id": "arena-paid-on-a-win-11-3", "kind": "ui", "lane": "arena", "sha": "23761c7d1", "made": "11/3", "draft": true, "title": "PAID ON A WIN, THE RANKS, THE FIFTH NIGHT: PIT FIGHTER, ARENA FIGHTER, ARENA VETERAN, AND GEAR NO SHOP SELLS", "said": "I forgot about the arena system in Battle Brothers holy shit yes I love that", "why": "The purse comes only on a win, a man who keeps winning climbs to Arena Fighter and Arena Veteran and is steadier in every fight, and every fifth night pays a pit-fighter harness or helm no shop sells. You see it in the Mob's town on the RUN tab: the ranks under the faces on the pick, the fifth night on the card, the bookie paying out.", "options": ["A, yes, keep it Battle Brothers", "B, closer, but change the ranks or the prizes (say what)", "C, no, a different reward"], "show": {"how": "page", "src": "vote/ARENA_PAID_ON_A_WIN_11_3.html"}, "before_after": {"before": "a pit win paid the purse and nothing else", "after": "the ranks in every fight (+5 and +10 resolve, the Veteran's death roll halved), the fifth night's harness and helm in the stash, every number in TUNING's table", "scale": "his phone, 390 x 844, the real town screen"}}
+  {"id": "arena-paid-on-a-win-11-3", "kind": "ui", "lane": "arena", "sha": "23761c7d1", "made": "11/3", "draft": true, "title": "PAID ON A WIN, THE RANKS, THE FIFTH NIGHT: PIT FIGHTER, ARENA FIGHTER, ARENA VETERAN, AND GEAR NO SHOP SELLS", "said": "I forgot about the arena system in Battle Brothers holy shit yes I love that", "why": "The purse comes only on a win, a man who keeps winning climbs to Arena Fighter and Arena Veteran and is steadier in every fight, and every fifth night pays a pit-fighter harness or helm no shop sells. You see it in the Mob's town on the RUN tab: the ranks under the faces on the pick, the fifth night on the card, the bookie paying out.", "options": ["A, yes, keep it Battle Brothers", "B, closer, but change the ranks or the prizes (say what)", "C, no, a different reward"], "show": {"how": "page", "src": "vote/ARENA_PAID_ON_A_WIN_11_3.html"}, "before_after": {"before": "a pit win paid the purse and nothing else", "after": "the ranks in every fight (+5 and +10 resolve, the Veteran's death roll halved), the fifth night's harness and helm in the stash, every number in TUNING's table", "scale": "his phone, 390 x 844, the real town screen"}},
+  {
+   "id": "combat-place-downtown-11-3c",
+   "kind": "redo",
+   "redoOf": "combat-place-downtown-11-3b",
+   "lane": "combat",
+   "sha": "516e5751",
+   "made": "11/3",
+   "draft": true,
+   "title": "DOWNTOWN: RETHOUGHT",
+   "said": "Hell nah that shit does not look right",
+   "why": "Downtown is rethought from the real one: Fremont East with its motel, pawn shop, garage and chapel on top, the old casino fronts with the canopy fallen into the mall in the middle, and the south side walked roof to roof over the alley. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is downtown and it plays different",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_downtown.webp",
+    "first": "../records/target/combat_maps_11_3/first_downtown.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "downtown as his last card had it (rule 346 push 1)",
+    "after": "rethought from real downtown, roads first (rule 356)",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  }
  ],
  "verdicts": [
   {
