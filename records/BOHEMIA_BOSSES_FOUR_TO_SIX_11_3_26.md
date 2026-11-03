@@ -124,7 +124,31 @@ hold that is cruelty dies). Draft, for the research; HOME builds whatever is pic
 
 ## PROOF
 
-PROOF_PENDING
+gates/bosses_act_one_gate.js, extended to walk all six (the same stranger's game: the cut demo, an upright phone 390 x 844, the fog,
+real taps on LEAVE, the mouth cards, ENGAGE, AUTO, the spoils' LEAVE, TAKE IT, the phone's button; THE BURN's step brings the clock
+to nine at night, his verb's rule). THE FIRST RUN (on 5a6b04d8 plus this round, before the rebase): **108 passed, 1 failed**, about
+20 minutes. The one: A5i THE FILTER (not this round's boss): WORLD TWO stood him past the valley's edge (51,-6), no building beside
+him, and his place was painted under his own men; fixed in placeAt (the block behind him). Also seen in it and fixed: THE SURVEYOR
+held his two-handed range pole AND the heater shield his kind rolled (slices/BOHEMIA_FIGHT.html, the boss's own marked line: a
+two-handed boss weapon drops the shield). FINAL_RUN
+
+| | who asks, the clue | his place | his fight (measured on the board) | the moment | his verb, one real tap |
+|---|---|---|---|---|---|
+| THE BURN | ABUELA PAZ; THE MARK, read by RAUL | THE FUEL YARD painted at 56,6 | THE BURN 184 blood, Woodcutter's Axe (his fire axe), no shield; 2 thugs and a raider; landfill | camera to his place, before, the tape, after, 4.2 s, her card 2 ms after; HIS FUEL flew onto LIGHT A FIRE | at night, 57,7: lit, the street beside lit, the fog's reach 3 -> 6 blocks |
+| THE SURVEYOR | MANNY; THE MAN AT THE BAR | THE SURVEY OFFICE at 43,23 | THE SURVEYOR 128 blood, Spetum (his range pole); 2 marksmen and a guard; ruin | 4.4 s; HIS MAP onto FILL IN THE MAP | 42,23: +175 BLOCKS ON THE MAP, 8 blocks off now on the map |
+| THE CLIMB | NENA; THE FLYER | THE HOIST at 42,46 | THE CLIMB 210 blood, Battle Whip (his hook on the chain, reach 2), no shield; 2 raiders and a marksman; casino | 4.1 s; HIS HOOK onto GO UP | 41,45: batteries 285 -> 297 (+12 FROM UP TOP) |
+
+Won by: THE FILTER AUTO; the other five the checker (AUTO lost: the crew meets each boss hurt, no rest between; the first rounds'
+note stands, TUNING's question). Nothing threw (C1).
+Pictures (half size, eight a boss): records/target/bosses_act_one/4_burn_*, 5_surveyor_*, 6_climb_* (who asks, the clue, his place
+and his card, his fight, what it does, his place after, the held finger, the verb used).
+
+THE SUITE (--fast, 582 gates, once, on the rebased tree): SUITE_LINE Every red read for this round's files: two were (ART PIPE A2,
+my VOTE card maker drew one line by number: removed; THE EIGHT FACINGS R1, the three things' 3-view icon renders: not kept, as
+models and icons only); after the fix both count nothing from this lane. THE VOTE TAB GATE: the same 4 as last round (a dynasty
+card's why, the alpha's landing on VOTE, 3 checks); this round's three cards pass the two-sentence, where and twin checks. THE ONE
+STOPWATCH W2 was stale on main already (RUN's stopwatch is of an older cut).
+Never purple: 0.0% of every opaque pixel of the three sheets in the Amalgamation's hue band (pack's purple()).
 
 ## WHERE HE SEES IT
 The MAP (after THE FILTER falls, THE BURN's sign; ABUELA PAZ stops you; then THE SURVEYOR, then THE CLIMB), the fight at each place,
