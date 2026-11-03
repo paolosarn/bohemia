@@ -10,6 +10,7 @@ name, twins mended at load (engine/bohemia_unique_name.js); gate NO TWO MEN SHAR
 meets at most 13.6%. records/BOHEMIA_FIXES_NO_TWO_NAMES_AND_THE_SPANGLISH_FREEZE_11_3_26.md
 Reds seen and measured as main's own: THE PHONE's fight-pulse timing (on a loaded box), THE COMPANY SCREEN's computer path (one
 scroll, the same before my change), THE SETTLEMENT SCREEN's gun-name casing, THE LONG INJURY's 'penalties list both parts'.
+12 (the coordinator's): NOTHING POPS UP's two stale legs (the recap he ruled out 10/25; the one-day demo ending, gone since 10/23) re-aimed, 23/0; its 437 s is five minutes of play by design.
 Seen, not fixed: the title offers CONTINUE DAY 1 for the new-game door's background save, a game never begun.
 
 FIXES 11/3 -- EYES' broken items 3 to 8 (rows 17, 311, 315, 294, 292, 300). ALL SIX FIXED AND LIVE (BUILD 11/3zzzf SIX SMALL FIXES,

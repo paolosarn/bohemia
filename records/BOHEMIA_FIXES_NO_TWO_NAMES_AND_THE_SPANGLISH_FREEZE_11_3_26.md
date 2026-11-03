@@ -34,3 +34,15 @@ gates/language_gate.js section I (GREEN 107/0):
 - WHAT HE MEETS AT OR UNDER 15 PERCENT: the spoken long play (89,000 lines) 12.2%, the feed paced through the real dial exactly as THE
   FEED'S WORDS plays it (40,000 posts) 13.6%; each at or under 15, so together at or under 15 at any mix.
 - Item 9's rewrites added no Spanglish: twins only shortened, 217 different twins before and after.
+
+## ITEM 12: NOTHING POPS UP, 'THE MORNING IS NOT DELETED' (0 lines) AND PAST 400 s
+- A STALE LEG, NOT A LOST MORNING. The leg asked for the morning's recap on the phone (the 9/20 card's words moved there instead of
+  deleted). Paolo ruled the recap out on 10/25 (rule 164 item 6: 'a whole daily recap I never asked for'), and RUN stood both recaps
+  down behind MAP_DAY_RECAP = false; what the night costs is still charged and said where it happens. So the leg read 0 lines on
+  every tree since. Re-aimed to his ruling: no recap on the phone, no card for it, the switch off.
+- A SECOND STALE LEG behind it, found on the first full run: 'the demo still ends' asked the demo's last night for its ending card;
+  rule 72 superseded the one-day demo and RUN took it out on 10/23 (ctDemoOver false: the refused card had frozen the clock at 22:00).
+  Re-aimed: the demo's night turns like the workshop's, with no card.
+- THE 400 s IS THE GATE'S OWN LENGTH: it plays five minutes of the map by real touches (113 touches, 0 cards) after the boot; measured
+  437 s in all, under the suite's 600 s cap. Not hung.
+- NOTHING POPS UP 23/0 (was 21/2).

@@ -25,7 +25,7 @@
      3. EVERY CARD THAT DOES OPEN SAYS WHY. cardShow refuses a card whose caller
         cannot name a reason, so a lane that adds a forced card tomorrow finds this
         red instead of Paolo finding a pop-up.
-     4. THE BOOKKEEPING IS NOT DELETED, AND THE ROOM HAS A DOOR. The morning's words
+     4. NO DAILY RECAP (re-aimed 11/3 by FIXES: Paolo 10/25 ruled the recap out, rule 164 item 6), AND THE ROOM HAS A DOOR. The morning's words
         are on the phone, which is where rule 19a sends them -- and the phone is drawn
         on the screen, it rings, one real touch opens it, and its CLOSE folds it. A
         room with no door is the same as a deleted room, which is what this leg caught:
@@ -82,16 +82,21 @@ const MINUTES = 5;
 
     ok('*** THE FIRST FRAME OF THE GAME IS THE GAME, NOT A CARD ***', !(await cardUp()));
 
-    /* THE BOOKKEEPING IS NOT DELETED. */
+    /* THE BOOKKEEPING IS NOT DELETED -- RE-AIMED 11/3 BY FIXES (item 12): this leg asked for the morning's recap on the phone
+       (the 9/20 card's lines, moved there instead of deleted). Paolo ruled it out on 10/25 (rule 164 item 6, on his PC: 'a whole
+       daily recap I never asked for'); RUN stood both recaps down behind MAP_DAY_RECAP = false (__NO_DAILY_RECAP__), what the
+       night costs still charged and said where it happens. So the leg read 0 lines on every tree since: a stale leg, not a lost
+       morning. What it holds now is his ruling: no recap on the phone and no card for it, the switch off. */
     const phone = await fr.evaluate(() => {
       try {
         const st = phoneState();
-        return { morning: st.morning };
+        return { morning: st.morning, recap: typeof MAP_DAY_RECAP === 'undefined' ? null : MAP_DAY_RECAP };
       } catch (e) { return { err: String(e.message).slice(0, 80) }; }
     });
     const lines = (phone.morning && phone.morning.lines) ? phone.morning.lines.length : 0;
-    say('  the phone carries "' + ((phone.morning || {}).head || '-') + '", ' + lines + ' lines');
-    ok('*** THE MORNING IS NOT DELETED, IT IS ON THE PHONE *** (' + lines + ' lines)', lines > 0);
+    say('  the phone carries ' + lines + ' recap lines; the daily recap switch is ' + phone.recap);
+    ok('*** NO DAILY RECAP ON THE PHONE, AND NO CARD FOR IT (rule 164 item 6, Paolo 10/25) *** (' + lines + ' lines, switch ' + phone.recap + ')',
+       !phone.err && lines === 0 && phone.recap === false);
 
     /* THE PHONE IS MEASURED FIRST NOW (9/28, RUN): the demo opens on the map where the phone
        is drawn, and five minutes of travel usually ends in a road fight that covers the map --
@@ -303,16 +308,19 @@ const MINUTES = 5;
        + roll.before + ' -> ' + roll.after + ')', !roll.err && roll.after > roll.before);
     ok('and it turned with no card to dismiss', !(await cardUp()));
 
-    /* and the demo's own last night still ends the demo, which is a card, and it is
-       the one forced card rule 19a does not name: the game finishing. */
+    /* the demo's own night (it used to end the demo, the one forced card rule 19a did not name; see below) */
     const endPops = await fr.evaluate(() => {
       window.__POPS.length = 0;
       try { CT_IS_DEMO = true; showReckoning(); } catch (e) { }
       return window.__POPS.map(p => p.why);
     });
-    say('  the demo\'s last night: ' + JSON.stringify(endPops));
-    ok('the demo still ends, and the ending names itself rather than sneaking through',
-       endPops.length === 1 && /ended/.test(String(endPops[0])));
+    say('  the demo\'s night: ' + JSON.stringify(endPops));
+    /* RE-AIMED 11/3 BY FIXES (item 12): the 8/4 'one good day' demo ended at the first night; rule 72 (10/4) superseded it and
+       RUN took it out on 10/23 (ctDemoOver returns false: at the first nightfall the ending card was refused by rule 19a and the
+       clock stood at 22:00 for good). The demo's night now turns like the workshop's, and it turns with no card at all */
+    const demoTurns = await fr.evaluate(() => { try { return { over: ctDemoOver(1), demo: !!CT_IS_DEMO }; } catch (e) { return { err: String(e.message).slice(0, 80) }; } });
+    ok('the demo\'s night turns like the workshop\'s (rule 72), and with no card (' + JSON.stringify(endPops) + ')',
+       endPops.length === 0 && demoTurns.over === false);
 
     /* *** THE OTHER HALF OF THE ROW (PAOLO 9/21, THE THIRD TIME): "all these fucked
        up quest cards that don't do anything when I click on them." ***
