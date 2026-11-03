@@ -49,6 +49,12 @@
 "fill": 0.335,
 "packedMB": 4.32
 },
+"boss_burn_0.webp": {
+"bytes": 359364,
+"decodedMB": 17.2,
+"fill": 0.268,
+"packedMB": 5.21
+},
 "boss_filter_0.webp": {
 "bytes": 325080,
 "decodedMB": 18.86,
@@ -843,8 +849,8 @@
 }
 },
 "totals": {
-"decodedMB": 2864.2,
-"packedMB": 488.1,
-"sheets": 140
+"decodedMB": 2881.4,
+"packedMB": 493.3,
+"sheets": 141
 }
 }

@@ -1,5 +1,5 @@
 {
- "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block).",
+ "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block). BOSSES 4 11/3: THE FUEL YARD, THE SURVEY OFFICE, THE HOIST and the three small things their verbs leave (barrel, stake, rope), the same way (tools/bohemia_bosses_paint_four_to_six_11_3_26.py).",
  "draft": true,
  "pictures": {
   "kitchen_before": {
@@ -119,6 +119,114 @@
    "frames": [
     "clean_0.png",
     "clean_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "depot_before": {
+   "w": 166,
+   "h": 160,
+   "bx": 83,
+   "by": 112,
+   "plate": 150,
+   "frames": [
+    "depot_before_0.png",
+    "depot_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "depot_after": {
+   "w": 166,
+   "h": 160,
+   "bx": 83,
+   "by": 112,
+   "plate": 150,
+   "frames": [
+    "depot_after_0.png",
+    "depot_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "office_before": {
+   "w": 166,
+   "h": 188,
+   "bx": 83,
+   "by": 139,
+   "plate": 150,
+   "frames": [
+    "office_before_0.png",
+    "office_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "office_after": {
+   "w": 166,
+   "h": 188,
+   "bx": 83,
+   "by": 139,
+   "plate": 150,
+   "frames": [
+    "office_after_0.png",
+    "office_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "hoist_before": {
+   "w": 166,
+   "h": 243,
+   "bx": 83,
+   "by": 194,
+   "plate": 150,
+   "frames": [
+    "hoist_before_0.png",
+    "hoist_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "hoist_after": {
+   "w": 166,
+   "h": 243,
+   "bx": 83,
+   "by": 194,
+   "plate": 150,
+   "frames": [
+    "hoist_after_0.png",
+    "hoist_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "barrel": {
+   "w": 62,
+   "h": 96,
+   "bx": 31,
+   "by": 76,
+   "plate": 46,
+   "frames": [
+    "barrel_0.png",
+    "barrel_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "stake": {
+   "w": 62,
+   "h": 96,
+   "bx": 28,
+   "by": 72,
+   "plate": 46,
+   "frames": [
+    "stake_0.png",
+    "stake_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "rope": {
+   "w": 62,
+   "h": 81,
+   "bx": 32,
+   "by": 58,
+   "plate": 46,
+   "frames": [
+    "rope_0.png",
+    "rope_1.png"
    ],
    "through_the_rig": true
   }

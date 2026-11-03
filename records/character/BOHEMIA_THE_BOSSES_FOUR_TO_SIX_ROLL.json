@@ -1,0 +1,146 @@
+[
+ {
+  "id": "burn_0",
+  "gang": "Burn",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "facial_hair": "FULL BEARD",
+  "beard": "full",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "COAL MID BOOT",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Burn",
+  "top": "SOOT TANK",
+  "coat": "TURNOUT COAT",
+  "hat": "FIRE HELMET",
+  "pieces": [
+   "burn_bands",
+   "burn_soot",
+   "burn_can",
+   "burn_flare",
+   "burn_axe"
+  ],
+  "dials": {
+   "height": 0.4,
+   "belly": 0.3,
+   "shoulders": 0.85,
+   "hips": 0.2
+  },
+  "boss": "THE BURN"
+ },
+ {
+  "id": "surveyor_0",
+  "gang": "Surveyor",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "SCAV TOOL BELT"
+  ],
+  "type": "Surveyor",
+  "top": "STORM BUTTON-UP",
+  "hat": "HARD HAT",
+  "pieces": [
+   "surv_vest",
+   "surv_tube",
+   "surv_plumb",
+   "surv_pole"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": 0.05,
+   "shoulders": -0.15,
+   "hips": -0.1
+  },
+  "boss": "THE SURVEYOR"
+ },
+ {
+  "id": "climb_0",
+  "gang": "Climb",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "COAL MID BOOT",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Climb",
+  "top": "BLACK TANK",
+  "coat": "OXBLOOD JACKET",
+  "hat": "BELLHOP CAP",
+  "pieces": [
+   "climb_braid",
+   "climb_harness",
+   "climb_rope",
+   "climb_hook"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": -0.4,
+   "shoulders": 0.6,
+   "hips": -0.2
+  },
+  "boss": "THE CLIMB"
+ }
+]

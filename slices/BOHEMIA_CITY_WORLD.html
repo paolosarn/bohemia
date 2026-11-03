@@ -45861,7 +45861,7 @@ window.addEventListener('message', function(ev){ mapStartIn(ev && ev.data); });
 var SIGHT = { on: true, street: 4, ring: 1, dark: 1, open: 6, openNight: 3 };
 var SIGHT_ROAD = { freeway: 1, arterial: 1, interchange: 1, strip: 1, beltway: 1, rail: 1, speedway: 1 };
 function sightRoad(x, y){ try { var t = om.at(x, y); return !!(t && SIGHT_ROAD[t.district]); } catch (_e) { return false; } }
-function sightLit(x, y){ try { return !!((POWER.at(x, y) || {}).live); } catch (_e) { return false; } }
+function sightLit(x, y){ try { if (window.BohemiaBosses && BohemiaBosses.lit && BohemiaBosses.lit(x, y)) return true; } catch (_e) {} try { return !!((POWER.at(x, y) || {}).live); } catch (_e) { return false; } }   /* __THE_BOSS_FIRES_LIGHT_THE_NIGHT__ (BOSSES 4 11/3): a fire THE BURN's fuel lit lights its blocks at night */
 function mapSees(x, y){
   if (!SIGHT.on || !FOG.on) return true;
   var dx = x - city.x, dy = y - city.y, d = Math.max(Math.abs(dx), Math.abs(dy));
@@ -45962,7 +45962,7 @@ function fogNewGame(reveal){
 function fogContinue(){ if (!fogLoad()) { FOG.all = true; FOG.ready = true; } }   /* a game from before the fog keeps its map open */
 function fogRadius(){
   var inCity = city.x >= 0 && city.y >= 0 && city.x < FOG.N && city.y < FOG.N, r = inCity ? 6 : 9;
-  try { if (isNight()) r = Math.max(2, Math.round(r * 0.5)); } catch (_e) {}
+  try { if (isNight() && !(window.BohemiaBosses && BohemiaBosses.lit && BohemiaBosses.lit(city.x, city.y))) r = Math.max(2, Math.round(r * 0.5)); } catch (_e) {}   /* __THE_BOSS_FIRES_LIGHT_THE_NIGHT__: by your own fire the night does not halve what you see */
   return r;
 }
 /* each frame: where he stands clears; the region's places once the region is in (reveal-all) */

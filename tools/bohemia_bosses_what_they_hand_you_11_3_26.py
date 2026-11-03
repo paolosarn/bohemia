@@ -28,7 +28,8 @@ sys.path.insert(0, os.path.join(R, 'tools'))
 import bohemia_direction_every_icon_through_the_rig_11_2_26 as D
 
 OUT = os.path.join(R, 'records/target/bosses_hand_rig')
-THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify'}   # the thing -> the verb it is
+THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify',
+          'fuel': 'burn', 'map': 'survey', 'hook': 'climb'}   # the thing -> the verb it is (BOSSES 4 11/3: THE BURN's, THE SURVEYOR's, THE CLIMB's)
 
 
 def ship_of(n):
@@ -74,12 +75,49 @@ def build(n, bpy, P, IC):
             P.cyl(bpy, 'port', grey, 0.017, 0.05, (s * 0.1, 0, h - 0.025), rot=(0, math.radians(90), 0), verts=14)
             P.cyl(bpy, 'hose', dark, 0.014, 0.05, (s * 0.14, 0, h - 0.025), rot=(0, math.radians(90), 0), verts=14)
         P.cyl(bpy, 'valve', dark, 0.012, 0.02, (0, 0, h + 0.008), verts=12)
+    elif n == 'fuel':                  # BOSSES 4: THE BURN's 20-litre steel jerrycan, fuel red, its three handles and its spout cap
+        red, dark, steel = M('red', 'blood', 1), M('dark', 'rubber', 2), M('steel', 'tape_grey', 2)
+        P.box(bpy, 'can', red, (0.165, 0.34, 0.47), (0, 0, 0.235), bevel=0.012)
+        for s in (-1, 1):              # the pressed X on each face
+            for a in (-1, 1):
+                P.box(bpy, 'x', dark, (0.006, 0.36, 0.035), (s * 0.085, 0, 0.23), rot=(math.radians(a * 34), 0, 0), bevel=0.002)
+        for y in (-0.07, 0.0, 0.07):   # the three handles
+            P.box(bpy, 'handle', red, (0.03, 0.022, 0.05), (0, y, 0.49), bevel=0.004)
+        P.box(bpy, 'grip', red, (0.03, 0.18, 0.02), (0, 0, 0.515), bevel=0.004)
+        P.cyl(bpy, 'spout', steel, 0.022, 0.05, (0, 0.13, 0.49), verts=14)
+        P.cyl(bpy, 'cap', dark, 0.024, 0.02, (0, 0.13, 0.52), verts=14)
+    elif n == 'map':                   # BOSSES 4: THE SURVEYOR's map, the county sheet folded in three, standing open, its roads and a red route
+        paper, ink, red, tube = M('paper', 'clay_bone', 3), M('ink', 'rubber', 2), M('red', 'blood', 1), M('tube', 'rubber', 1)
+        for i, (x, a) in enumerate(((-0.13, 18), (0.0, -18), (0.13, 18))):   # three panels, zig-zag, like a map opened in a hand
+            P.box(bpy, 'panel', paper, (0.135, 0.004, 0.34), (x, 0.0, 0.2), rot=(0, 0, math.radians(a)), bevel=0.0)
+            for z in (0.1, 0.19, 0.27):
+                P.box(bpy, 'road', ink, (0.13, 0.006, 0.006), (x, -0.003, z), rot=(0, 0, math.radians(a)))
+            P.box(bpy, 'street', ink, (0.005, 0.006, 0.3), (x + 0.03, -0.003, 0.2), rot=(0, 0, math.radians(a)))
+        P.box(bpy, 'route', red, (0.2, 0.007, 0.012), (0.0, -0.006, 0.15), rot=(0, 0, math.radians(-18)))
+        P.box(bpy, 'route2', red, (0.012, 0.007, 0.12), (0.07, -0.006, 0.21), rot=(0, 0, math.radians(-18)))
+        P.cyl(bpy, 'tube', tube, 0.035, 0.36, (0.24, 0.07, 0.18), verts=16)
+    elif n == 'hook':                  # BOSSES 4: THE CLIMB's crane hook, safety yellow, its eye, its latch, a short chain
+        yel, dark, steel = M('yel', 'clay_mustard', 3), M('dark', 'rubber', 2), M('steel', 'tape_grey', 2)
+        bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=10, major_radius=0.05, minor_radius=0.016, location=(0, 0, 0.36), rotation=(math.radians(90), 0, 0))
+        o = bpy.context.active_object; o.name = 'eye'; o.data.materials.append(yel)
+        P.box(bpy, 'shank', yel, (0.05, 0.035, 0.11), (0, 0, 0.27), bevel=0.01)
+        pts = []
+        for k in range(15):            # the J: round from the shank's foot and up to its point
+            a = math.radians(-20 + 220 * k / 14); pts.append((0.075 - 0.075 * math.cos(a) - 0.075, 0, 0.13 - 0.075 * math.sin(a)))
+        for a_, b_ in zip(pts, pts[1:]): P.rod(bpy, 'j', yel, a_, b_, 0.026, verts=12)
+        P.rod(bpy, 'latch', steel, (-0.0, 0, 0.21), (pts[-1][0], 0, pts[-1][2] + 0.01), 0.006, verts=6)
+        for i in range(3):             # the chain over it
+            bpy.ops.mesh.primitive_torus_add(major_segments=16, minor_segments=8, major_radius=0.03, minor_radius=0.008, location=(0, 0, 0.44 + i * 0.05),
+                                             rotation=(math.radians(90), 0, math.radians(90 * (i % 2))))
+            o = bpy.context.active_object; o.name = 'link'; o.data.materials.append(dark); o.scale = (1, 1.6, 1)
     else:
         raise KeyError(n)
 
 
 D.OUT = OUT
 D.FACE['wrench'] = 'S'   # a flat tool reads side-on (DIRECTION's flat signs' way)
+D.FACE['map'] = 'S'; D.FACE['hook'] = 'S'
+D.VENV = os.environ.get('BOHEMIA_BPY') or D.VENV
 D.ship_of = ship_of
 D.build = build
 

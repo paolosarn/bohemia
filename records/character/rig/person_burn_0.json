@@ -1,0 +1,342 @@
+{
+ "look": "PERSON_BURN_0",
+ "shape": "person_burn_0: THE BURN: the man who decides who gets warm; a turnout coat black with soot, a leather fire helmet, a jerrycan on his back, a lit flare, the fire axe, his own skin skin_light 3, SOOT TANK under TURNOUT COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SOOT TANK",
+  "outer": "TURNOUT COAT",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "COAL MID BOOT",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "TURNOUT COAT worn open to the neck",
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.4,
+  "belly": 0.3,
+  "shoulders": 0.85,
+  "hips": 0.2
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_burn_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7544,
+ "real_height_for_rig": 1.7606,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_burn_0_shoe": 3916,
+  "person_burn_0_shirt": 20404,
+  "person_burn_0_coat": 62418,
+  "person_burn_0_coat_skirt": 5454,
+  "person_burn_0_collar": 1098,
+  "person_burn_0_lapels": 396,
+  "person_burn_0_pushed": 2048,
+  "person_burn_0_pockets": 252,
+  "person_burn_0_pocket_flaps": 252,
+  "person_burn_0_burn_band_lime_0": 1792,
+  "person_burn_0_burn_band_silver_0": 1792,
+  "person_burn_0_burn_band_lime_1": 1792,
+  "person_burn_0_burn_band_silver_1": 1792,
+  "person_burn_0_burn_cuff_lime_L": 768,
+  "person_burn_0_burn_cuff_silver_L": 768,
+  "person_burn_0_burn_cuff_lime_R": 768,
+  "person_burn_0_burn_cuff_silver_R": 768,
+  "person_burn_0_burn_soot": 9822,
+  "person_burn_0_burn_can": 8,
+  "person_burn_0_burn_can_handles": 372,
+  "person_burn_0_burn_can_strap": 1792,
+  "person_burn_0_burn_flare": 20,
+  "person_burn_0_burn_flare_lit": 52,
+  "person_burn_0_burn_axe_handle": 20,
+  "person_burn_0_burn_axe_blade": 20,
+  "person_burn_0_burn_axe_eye": 24,
+  "person_burn_0_trouser": 43706,
+  "person_burn_0_rolled_hem": 2048,
+  "person_burn_0_double_knee": 252,
+  "person_burn_0_hammer_loop": 50,
+  "person_burn_0_patches": 252,
+  "person_burn_0_sole_1": 242,
+  "person_burn_0_midsole_1": 242,
+  "person_burn_0_sole_0": 242,
+  "person_burn_0_midsole_0": 242,
+  "person_burn_0_boot_collar": 2048,
+  "person_burn_0_boot_collar_line": 2048,
+  "person_burn_0_leather_gloves_L": 392,
+  "person_burn_0_leather_gloves_R": 392,
+  "person_burn_0_leather_gloves_cuff": 2048,
+  "person_burn_0_hair": 17968,
+  "person_burn_0_hand_L": 392,
+  "person_burn_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_burn_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_burn_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_burn_0_burn_axe_blade": [
+   0.305,
+   0.0176,
+   0.0116
+  ],
+  "person_burn_0_burn_axe_edge": [
+   0.6172,
+   0.5906,
+   0.5149
+  ],
+  "person_burn_0_burn_axe_eye": [
+   0.305,
+   0.0176,
+   0.0116
+  ],
+  "person_burn_0_burn_axe_grip": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_burn_0_burn_axe_handle": [
+   0.491,
+   0.3325,
+   0.0343
+  ],
+  "person_burn_0_burn_axe_pick": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_burn_0_burn_band_lime_0": [
+   0.305,
+   0.305,
+   0.0931
+  ],
+  "person_burn_0_burn_band_lime_1": [
+   0.305,
+   0.305,
+   0.0931
+  ],
+  "person_burn_0_burn_band_silver_0": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_burn_0_burn_band_silver_1": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_burn_0_burn_can": [
+   0.2462,
+   0.0212,
+   0.0144
+  ],
+  "person_burn_0_burn_can_handles": [
+   0.117,
+   0.013,
+   0.0103
+  ],
+  "person_burn_0_burn_can_strap": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_burn_0_burn_can_worn": [
+   0.0369,
+   0.0343,
+   0.0319
+  ],
+  "person_burn_0_burn_can_x": [
+   0.117,
+   0.013,
+   0.0103
+  ],
+  "person_burn_0_burn_cuff_lime_L": [
+   0.305,
+   0.305,
+   0.0931
+  ],
+  "person_burn_0_burn_cuff_lime_R": [
+   0.305,
+   0.305,
+   0.0931
+  ],
+  "person_burn_0_burn_cuff_silver_L": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_burn_0_burn_cuff_silver_R": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_burn_0_burn_flare": [
+   0.305,
+   0.0194,
+   0.013
+  ],
+  "person_burn_0_burn_flare_lit": [
+   0.9734,
+   0.552,
+   0.2307
+  ],
+  "person_burn_0_burn_soot": [
+   0.013,
+   0.0116,
+   0.0103
+  ],
+  "person_burn_0_coat": [
+   0.2918,
+   0.1845,
+   0.0595
+  ],
+  "person_burn_0_coat_skirt": [
+   0.2918,
+   0.1845,
+   0.0595
+  ],
+  "person_burn_0_collar": [
+   0.1384,
+   0.0823,
+   0.0262
+  ],
+  "person_burn_0_double_knee": [
+   0.0343,
+   0.0595,
+   0.0976
+  ],
+  "person_burn_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_burn_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_burn_0_hammer_loop": [
+   0.0343,
+   0.0595,
+   0.0976
+  ],
+  "person_burn_0_lapels": [
+   0.1384,
+   0.0823,
+   0.0262
+  ],
+  "person_burn_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_burn_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_burn_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_burn_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_burn_0_patches": [
+   0.1812,
+   0.2664,
+   0.3663
+  ],
+  "person_burn_0_pocket_flaps": [
+   0.1384,
+   0.0823,
+   0.0262
+  ],
+  "person_burn_0_pockets": [
+   0.2918,
+   0.1845,
+   0.0595
+  ],
+  "person_burn_0_pushed": [
+   0.2918,
+   0.1845,
+   0.0595
+  ],
+  "person_burn_0_rolled_hem": [
+   0.1812,
+   0.2664,
+   0.3663
+  ],
+  "person_burn_0_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_burn_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_burn_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_burn_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_burn_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_burn_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_burn_0_trouser": [
+   0.0865,
+   0.1356,
+   0.2051
+  ],
+  "person_burn_0_trousers": [
+   0.0865,
+   0.1356,
+   0.2051
+  ]
+ }
+}
