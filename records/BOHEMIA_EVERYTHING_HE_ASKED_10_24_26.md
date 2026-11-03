@@ -422,3 +422,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 398 | (VOTE) The feed does not sound like a human tweeting; a lot of it does not make sense | 372 | WORDS 2 (after the sweep) | QUEUED 11/3 |
 | 399 | (VOTE) The settlement's camera angles are not intimate; it looks like shit | 373 (amends 354) | HOME | QUEUED 11/3 |
 | 400 | (VOTE) The big beasts must hurt you badly if they get close | 370(9) | TUNING 2, BEASTS 2 | QUEUED 11/3 |
+| 401 | The clone farm: cheap but power hungry (cold, energy, light); give it to one of our factions, never a new one; give him options | 359 (amended), 374 | COORDINATOR | OPTIONS GIVEN 11/3 (A the Mob, the default; B the Trades; C the Network); records/BOHEMIA_PAOLO_WHO_RUNS_THE_CLONE_FARM_11_3_26.md |

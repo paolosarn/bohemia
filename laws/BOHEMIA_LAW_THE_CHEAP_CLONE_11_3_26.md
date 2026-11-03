@@ -101,3 +101,18 @@ WATER (big-brain draft):
 - COOK / COMBAT MAPS: a ranch, a lab pen, a dead vat farm as places with their own things (rule 341).
 - [bb] Battle Brothers' beasts come from the wild edges and are hunted for contracts and trophies (their parts sell): our hunt is the
   same trade with a reason a person in a dead economy would choose it.
+
+## 7. AMENDED 11/3 THE SAME ROUND: CHEAP, BUT IT EATS POWER; AND IT BELONGS TO A FACTION WE HAVE (Paolo, LOCKED)
+HIS WORDS: "maybe it could be relatively cheap to even run one because of how technology has developed... but you have to think...
+the reality, the economics, keeping things cold, energy, lighting... cloning animals by the time the technology comes around is the
+cheapest it's ever been, that's for sure, but it's probably power intensive no doubt, like you definitely need power... we have 10
+factions, why don't you think about it? We don't need to keep creating factions... give me options, which factions you think would do
+that."
+a. A clone farm still runs after the crash, and it is cheap to run in everything but POWER: the vats and machine wombs need steady
+   heat, cold rooms, clean air, pumps and light every hour of the day; one long outage kills a batch. Whoever runs one is whoever holds
+   steady power, cold storage and people who can keep machines alive.
+b. It is run by one of the city's factions we already have (world_seed.json: the Mob, the Remnants, the Network, the Cartel, the
+   Caravans, the Church, the Reds, the Blues, the Trades, the Volunteers, the tunnel people, the Anarchists, the Colorful crew), never
+   a new one. Which one is his pick (the coordinator's options: records/BOHEMIA_PAOLO_WHO_RUNS_THE_CLONE_FARM_11_3_26.md); until he
+   picks, the coordinator's realistic lead is the default.
+
