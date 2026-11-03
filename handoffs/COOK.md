@@ -1,3 +1,30 @@
+COOK DEAD (rule 360 and its amendment the same round, rule 337, ask lines 384 and 394, 11/3): THE DEAD ARE EVERYWHERE. BUILT, NOT YET
+SEEN (rule 179); nothing in the alpha or the demo changed, so no build stamp (the VOTE tab reads the registry live):
+- [the dead are everywhere] SHIPPED (24b80e688): thirteen dead as real models through the master rig at the fight's camera and scale,
+  worst gap first: under a tarp, in a sleeping bag in a doorway, a row of body bags at a clinic, slumped out of a car (the battery
+  gone), a skeleton by a dead car in the desert, bones in the sand, a grave with a rebar cross, a row of fresh graves (one dug and
+  empty: the wrong thing), face down with one shoe off, in a shopping cart, THE PIT (a mass grave's edge, the landmark), a coat on a
+  fence that is almost a man (the wrong thing, never explained), a man on a bus bench. Each tells who touched them last (moved, robbed,
+  buried, nobody). One PERSON on named joints (and its SKELETON), the runway's clothes gone to rag; COOK PROPS' modeller imported whole;
+  the kit's wreck, cart, fence, dozer and the graveyard's two fresh graves reused whole.
+  Models reference/models/bohemia/dead/<name>.glb; pictures records/target/dead/<name>.webp; THE CONTRACT records/target/dead/manifest.json
+  (COOK PROPS' shape plus who, the pits as holes_m, the flies, and THE COUNT per place with its floor: 23 places, graves only where
+  people live). VOTE cook-dead-the-dead-are-everywhere-11-3 (records/target/dead/CARD_THE_DEAD.webp: the set on two real fight boards
+  beside the fight's man, and on his phone at the fight's open zoom). Gate gates/the_dead_are_made_gate.py (suite row THE DEAD ARE MADE)
+  19/0. The suite table's NOTHING TAPPABLE UNDER THE PHONE row had 3 fields and stopped every gate: its slow flag added.
+  LIVE: pages run 4218 SUCCESS for 84141ebe8 (the card in the VOTE tab). Pre-push: the vote tab gate 48/4 with the card (41/5 on
+  main without it; the 4 are older: the dynasty pair's why, the alpha landing on run, the vote page box, the gear tap); REUSE-FIRST
+  passes both tools; REFERENCE CHECK passes both (the card tool's block added after the push; that gate's 2 reds are older tools).
+  tools/bohemia_cook_dead_the_dead_are_everywhere_11_3_26.py (models, bpy 4.2 venv, the set in two minutes) and
+  tools/bohemia_cook_dead_card_11_3_26.py (manifest, card). Record records/BOHEMIA_COOK_DEAD_THE_DEAD_ARE_EVERYWHERE_11_3_26.md.
+- THE SCALE, MEASURED: the board is the world's size and the fight draws its men 1.8 rows tall, so a body is about 6 points on his phone
+  at the fight's open (18 pinched in); the clusters (the bag row, the graves, the pit) carry a place. If he wants single bodies seen at
+  the open zoom, the lever is the fight's man scale (COMBAT's, his), not the dead.
+NEXT: COMBAT MAPS 3 places them on the boards after its roads, past each floor in the manifest (its board leg goes with its placing);
+WORLD on the map (the pit at the stadiums' lots and the landfill, grave rows on parks and fields). His VOTE verdict: a NO redoes the set.
+[bb Battle Brothers' dead and its ruins and graveyards tell the story without a rule; ours are scenery the same way.]
+[analog horror: a coat on a fence that is almost a man; one more grave dug than there are dead.]
+
 COOK GUNS (rule 337, ask line 344, 11/3): BUILD 11/3zzx THE SIX GUNS, EACH ITS OWN. BUILT, NOT YET SEEN (rule 179):
 - [the six guns] SHIPPED: the zip gun, the snub revolver, the lever rifle, the scoped deer rifle, the sawed-off and the pump shotgun
   each its own model in every man's hands (reference/models/bohemia/gun_zip, gun_snub, gun_rifle_scoped, gun_shotgun_sawn NEW with

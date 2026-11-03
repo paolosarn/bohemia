@@ -17,6 +17,14 @@ and the same 42.92 px a metre, so a picture's ground pixel lands on the board's 
 at the fight's size (MAN_ROWS = 1.8 rows of his ground, slices/BOHEMIA_FIGHT.html rigScale), each board also shown at a
 phone's own device pixels at the fight's open zoom; then the thirteen alone at the board's pixels, and three of them at
 the map's near stop (14.25 px a metre, COOK TWO's map joins).
+
+REFERENCE CHECK (the 9/4 standing law, compare every piece of art to the world): the world here IS the comparison: the
+pieces are laid on the game's own boards as they stand on main (slices/fight_ground/block_ruin_0, block_scrub_0), beside the
+game's own man from slices/fight_rig at the size the fight draws him, and shown again at his phone's device pixels and at
+the map's near stop; the scale numbers are the fight's own (MAN_ROWS, NEAR_TILE) and the map joins' 57/4. No reference game.
+REUSE CHECK (REUSE-FIRST): the boards, the man's sheet and his ruler are read whole from slices/; the pictures are the
+models tool's; COOK PROPS' manifest shape is kept key for key; the first picture is cut by RUN TWO's
+tools/bohemia_run2_first_picture.py; nothing here draws a pixel of its own but the plate behind the set and the labels.
 """
 import os, sys, json, math
 
