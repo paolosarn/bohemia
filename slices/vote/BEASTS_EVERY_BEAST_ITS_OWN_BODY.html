@@ -1,0 +1,143 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Every Beast Its Own Body</title>
+<!-- BEASTS 2 [every beast its own body], rule 345, ask line 354 (Paolo 11/2 in the VOTE tab, on THE FERAL BULL: 'They look wayyy
+     to similar to the og coyote the wolf actually to this needs way more work'; on the camel, the lion, the hogs and the coyotes:
+     'Work in progress keep going'). WAS is the old sheet's own SE row (slices/vote/beasts_was/, cut before the new sheets were
+     packed); NOW is the fight's own sheet (slices/fight_rig, the master rig, eight facings, three keys a beat at 120 BPM). The man
+     is a man of ours from the same sheet set (cast_shortcoat, 1.72 m = 98 px), on the same ground line, at the same pixels: one
+     image pixel is one screen point, the fight's own camera. Words draft:true.
+     tools/bohemia_beasts_every_beast_its_own_body.py; records/BOHEMIA_BEASTS_EVERY_BEAST_ITS_OWN_BODY_11_3_26.md -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f;--dim:#8d8472}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px 16px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:12px}
+  .lab{font-size:12px;letter-spacing:1.5px;margin-bottom:4px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  canvas{display:block;image-rendering:pixelated;background:#14130f;border-radius:3px}
+  .say{color:#cfc5ae;margin:6px 0 2px}
+  .small{font-size:11px;color:var(--dim)}
+  .lineup,.pair{display:flex;flex-direction:column;gap:4px}
+</style>
+<h1>EVERY BEAST ITS OWN BODY</h1>
+<p>You said the bull looked too much like the coyote and the wolf. You were right: every beast was the same fox model, stretched. Now each one has its own body, built from the real animal's size, and its own walk and attack. Your man is 1.72 m. Everything is at the fight's size, from the fight's camera.</p>
+<div class="row"><div class="lab"><b>THE LINE-UP, NOW</b><span class="tag">YOUR MAN FOR SCALE</span></div>
+  <div class="lineup"><canvas id="lineup"></canvas></div>
+  <div class="small">Left to right: your man, the coyote, the feral dog, the dire wolf, the feral hog, the mountain lion, the feral bull, Camelops.</div></div>
+<div id="list"></div>
+<script>
+const BEASTS = [
+  { id: 'feral_bull', name: 'FERAL BULL', tag: 'WAS A FOX WITH HORNS',
+    now: 'A bull now: a deep heavy body on short thick legs, a level back, a hump of neck muscle, horns out and forward, the white face. 1.5 m at the shoulder, up to your man\'s chin.',
+    moves: 'It trots heavy, the diagonal legs together. It charges with the head down so the horns face you, then hooks up.',
+    mark: 'A yellow farm tag in its ear. Old fight scars on the shoulder.' },
+  { id: 'camelops', name: 'CAMELOPS', tag: 'THE ICE AGE CAMEL',
+    now: 'A camel now: 2.1 m at the shoulder, taller than your man. Long thin legs with dark knee pads, one hump, the neck dipping down then up.',
+    moves: 'It paces: both legs on one side move together, the way camels really walk. It kicks back and out.',
+    mark: 'A shaved patch on its neck where the lab drew blood, stitched shut, and a lab tag in its ear.' },
+  { id: 'mountain_lion', name: 'MOUNTAIN LION', tag: 'A CAT, NOT A DOG',
+    now: 'A cat now: long and low, the hips higher than the shoulders, thick legs and big paws, a small round head, a long thick tail that hangs and curls up at the dark tip.',
+    moves: 'It walks low, stalking. It springs with both paws out and lands on you.',
+    mark: 'A research GPS collar on its neck.' },
+  { id: 'feral_hog', name: 'FERAL HOG', tag: 'A WEDGE ON SHORT LEGS',
+    now: 'A boar now: big shoulders and no neck, the rump lower, a bristle ridge down the back, a long snout carried low, short thin legs on small hooves.',
+    moves: 'It trots, then slashes up with the tusks, one side and the other.',
+    mark: 'A farm tag in its ear: these came from the pig farm.' },
+  { id: 'coyote', name: 'COYOTE', tag: 'SMALL AND LANKY',
+    now: 'A coyote now: small and thin, knee high on your man, big pointed ears, a narrow muzzle, rusty legs, a bushy tail carried low.',
+    moves: 'It trots light, the diagonal legs together. It snaps and pulls back.',
+    mark: 'Mange: a bare patch on its hip.' },
+  { id: 'dire_wolf', name: 'DIRE WOLF', tag: 'HEAVIER THAN ANY DOG',
+    now: 'Heavier now: 0.8 m at the shoulder, a broad head with a short deep muzzle, a thick neck ruff, big paws, a straight bushy tail. White, like the first lab dire wolves born in 2025.',
+    moves: 'It walks, and bites forward and holds.',
+    mark: 'A lab tag in its ear.' },
+  { id: 'feral_dog_shepherd', name: 'FERAL DOG', tag: 'A MUTT, NOT A WOLF',
+    now: 'A mixed breed now: shepherd and pit, a blocky head, one ear up and one flopped, the tail up in a curl the way a dog carries it, black and tan with a white chest.',
+    moves: 'It walks, and bites forward and holds.',
+    mark: 'The red collar it wore when it had a home.' }
+];
+const LINE = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'feral_hog', 'mountain_lion', 'feral_bull', 'camelops'];
+const PLAY = [['stand', 3], ['walk', 12], ['bite', 6], ['walk', 6], ['hit', 2], ['fall', 3], ['fall_hold', 6]];
+const KPS = 6;   /* 120 BPM, three keys a beat */
+const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
+/* the tight box a look's SE row actually uses, so the line-up packs the animals side by side */
+function tight(img, L, row) {
+  const c = document.createElement('canvas'); c.width = img.width; c.height = L.h; const g = c.getContext('2d');
+  g.drawImage(img, 0, row * L.h, img.width, L.h, 0, 0, img.width, L.h);
+  const d = g.getImageData(0, 0, c.width, c.height).data; let x0 = L.w, x1 = 0;
+  for (let y = 0; y < L.h; y++) for (let x = 0; x < c.width; x++) if (d[(y * c.width + x) * 4 + 3] > 8) { const cx = x % L.w; if (cx < x0) x0 = cx; if (cx > x1) x1 = cx; }
+  return x1 >= x0 ? [x0, x1] : [0, L.w - 1];
+}
+/* the box the standing picture (column 0) fills in one facing's row */
+function cellBox(img, L, row) {
+  const c = document.createElement('canvas'); c.width = L.w; c.height = L.h; const g = c.getContext('2d');
+  g.drawImage(img, 0, row * L.h, L.w, L.h, 0, 0, L.w, L.h); const d = g.getImageData(0, 0, L.w, L.h).data;
+  let x0 = L.w, y0 = L.h, x1 = 0, y1 = 0;
+  for (let y = 0; y < L.h; y++) for (let x = 0; x < L.w; x++) if (d[(y * L.w + x) * 4 + 3] > 8) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+  return x1 >= x0 ? [x0, y0, x1, y1] : [0, 0, L.w - 1, L.h - 1];
+}
+Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('beasts_was/was.json').then(r => r.json())]).then(([IDX, WAS]) => {
+  const se = IDX.dirs.indexOf('SE'), MAN = IDX.looks.cast_shortcoat;
+  const order = location.hash ? BEASTS.slice().sort((a, b) => (b.id === location.hash.slice(1)) - (a.id === location.hash.slice(1))) : BEASTS;
+  const files = { man: '../fight_rig/' + MAN.file };
+  BEASTS.forEach(b => { files['now_' + b.id] = '../fight_rig/' + IDX.looks['beast_' + b.id].file; files['was_' + b.id] = 'beasts_was/' + b.id + '.webp'; });
+  const keys = Object.keys(files);
+  Promise.all(keys.map(k => load(files[k]))).then(list => {
+    const IM = {}; keys.forEach((k, i) => IM[k] = list[i]);
+    const seq = []; PLAY.forEach(([c, k]) => { for (let i = 0; i < k; i++) seq.push([c, i]); });
+    const col = (L, clip, i) => clip === 'stand' ? 0 : clip === 'fall_hold' ? L.clips.fall[L.clips.fall.length - 1]
+      : L.clips[clip][clip === 'walk' ? i % L.clips.walk.length : Math.min(i, L.clips[clip].length - 1)];
+    const manPart = () => ({ L: MAN, img: IM.man, row: se, man: true, box: [MAN.foot[0] - 22, MAN.foot[0] + 22] });
+    const part = (L, img, row, label) => ({ L, img, row, label, box: tight(img, L, row) });
+    /* a strip of sprites on one ground line, each in its own tight box, one image pixel to one screen point */
+    function strip(parts, labels) {
+      const GAP = 8, TOP = labels ? 14 : 2; let W = 4;
+      parts.forEach(p => { p.x = W - p.box[0]; p.lx = W; W += p.box[1] - p.box[0] + GAP; });
+      const above = Math.max(...parts.map(p => p.L.foot[1])), below = Math.max(...parts.map(p => p.L.h - p.L.foot[1]));
+      const cv = document.createElement('canvas'); cv.width = W; cv.height = TOP + above + below; cv.style.width = W + 'px'; cv.style.maxWidth = '100%';
+      return { cv, parts, gy: TOP + above, labels };
+    }
+    const paint = (st, clip, i) => {
+      const g = st.cv.getContext('2d'); g.clearRect(0, 0, st.cv.width, st.cv.height);
+      st.parts.forEach(p => {
+        if (!p.img) return;
+        const c = p.man ? 0 : col(p.L, clip, i), sy = p.row * p.L.h;
+        g.drawImage(p.img, c * p.L.w, sy, p.L.w, p.L.h, p.x, st.gy - p.L.foot[1], p.L.w, p.L.h);
+        if (st.labels && p.label) { g.fillStyle = p.label === 'NOW' ? '#c79a3f' : '#8d8472'; g.font = '10px ui-monospace,monospace'; g.fillText(p.label, p.lx, 10); }
+      });
+    };
+    const strips = [];
+    /* the line-up: wrapped to the screen, every line starting with the man */
+    const room = Math.max(300, document.getElementById('lineup').parentElement.clientWidth - 4);
+    const host = document.getElementById('lineup').parentElement; host.innerHTML = '';
+    let line = [manPart()], used = 48;
+    LINE.forEach(id => {
+      const p = part(IDX.looks['beast_' + id], IM['now_' + id], se); const w = p.box[1] - p.box[0] + 8;
+      if (used + w > room && line.length > 1) { const st = strip(line); host.appendChild(st.cv); strips.push(st); line = [manPart()]; used = 48; }
+      line.push(p); used += w;
+    });
+    { const st = strip(line); host.appendChild(st.cv); strips.push(st); }
+    /* each beast: WAS, the man, NOW */
+    order.forEach(b => {
+      const N = IDX.looks['beast_' + b.id], Wl = WAS[b.id], div = document.createElement('div'); div.className = 'row'; div.id = b.id;
+      div.innerHTML = '<div class="lab"><b>' + b.name + '</b><span class="tag">' + b.tag + '</span></div><div class="pair"></div>' +
+        '<div class="say">' + b.now + '</div><div class="small">HOW IT MOVES: ' + b.moves + '</div><div class="small">THE LAB, THE FARM, THE STREET: ' + b.mark + '</div>' +
+        '<div class="small" style="margin-top:6px">NOW FROM EVERY SIDE:</div><div class="eight" style="display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end"></div>';
+      document.getElementById('list').appendChild(div);
+      const wasP = part(Wl, IM['was_' + b.id], 0, 'WAS'), m = manPart(); m.label = 'MAN'; const nowP = part(N, IM['now_' + b.id], se, 'NOW');
+      const st = strip([wasP, m, nowP], true); div.querySelector('.pair').appendChild(st.cv); strips.push(st);
+      const e = div.querySelector('.eight');
+      IDX.dirs.forEach((d, r) => { const bb = cellBox(IM['now_' + b.id], N, r), c = document.createElement('canvas');
+        c.width = bb[2] - bb[0] + 3; c.height = bb[3] - bb[1] + 3; c.style.width = c.width + 'px'; c.style.maxWidth = '30%';
+        c.getContext('2d').drawImage(IM['now_' + b.id], bb[0] - 1, r * N.h + bb[1] - 1, c.width, c.height, 0, 0, c.width, c.height); e.appendChild(c); });
+    });
+    let t = 0;
+    const draw = () => { const [clip, i] = seq[t % seq.length]; strips.forEach(st => paint(st, clip, i)); t += 1; };
+    draw(); setInterval(draw, 1000 / KPS);
+  });
+});
+</script>

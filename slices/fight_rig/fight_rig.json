@@ -469,13 +469,13 @@
   },
   "beast_dire_wolf": {
    "file": "beast_dire_wolf.webp",
-   "w": 107,
-   "h": 116,
+   "w": 118,
+   "h": 124,
    "foot": [
-    51,
-    83
+    59,
+    92
    ],
-   "height_m": 0.835,
+   "height_m": 0.893,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_dire_wolf/rig.json",
    "clips": {
@@ -507,7 +507,8 @@
      16,
      17
     ]
-   }
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "beast_cave_hyena": {
    "file": "beast_cave_hyena.webp",
@@ -553,13 +554,13 @@
   },
   "beast_feral_dog_shepherd": {
    "file": "beast_feral_dog_shepherd.webp",
-   "w": 89,
-   "h": 101,
+   "w": 104,
+   "h": 107,
    "foot": [
-    43,
-    73
+    52,
+    80
    ],
-   "height_m": 0.728,
+   "height_m": 0.81,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_feral_dog_shepherd/rig.json",
    "clips": {
@@ -591,7 +592,8 @@
      16,
      17
     ]
-   }
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "person_anarchists_0": {
    "file": "person_anarchists_0.webp",
@@ -1796,13 +1798,13 @@
   },
   "beast_coyote": {
    "file": "beast_coyote.webp",
-   "w": 80,
-   "h": 86,
+   "w": 82,
+   "h": 91,
    "foot": [
-    38,
-    61
+    41,
+    66
    ],
-   "height_m": 0.6,
+   "height_m": 0.708,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_coyote/rig.json",
    "clips": {
@@ -1835,17 +1837,17 @@
      17
     ]
    },
-   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "beast_mountain_lion": {
    "file": "beast_mountain_lion.webp",
-   "w": 140,
-   "h": 141,
+   "w": 148,
+   "h": 145,
    "foot": [
-    67,
-    105
+    74,
+    98
    ],
-   "height_m": 0.975,
+   "height_m": 0.763,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_mountain_lion/rig.json",
    "clips": {
@@ -1878,17 +1880,17 @@
      17
     ]
    },
-   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "beast_feral_hog": {
    "file": "beast_feral_hog.webp",
-   "w": 122,
+   "w": 132,
    "h": 112,
    "foot": [
-    61,
-    85
+    66,
+    82
    ],
-   "height_m": 0.809,
+   "height_m": 0.887,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_feral_hog/rig.json",
    "clips": {
@@ -1921,17 +1923,17 @@
      17
     ]
    },
-   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "beast_camelops": {
    "file": "beast_camelops.webp",
-   "w": 246,
-   "h": 279,
+   "w": 205,
+   "h": 257,
    "foot": [
-    124,
-    206
+    103,
+    192
    ],
-   "height_m": 2.335,
+   "height_m": 2.266,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_camelops/rig.json",
    "clips": {
@@ -1964,7 +1966,7 @@
      17
     ]
    },
-   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "beast_feral_bull": {
    "file": "beast_feral_bull.webp",

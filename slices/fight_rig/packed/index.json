@@ -2,10 +2,10 @@
 "about": "RUN 10/25 __THE_SHEETS_ARE_PACKED__ (rule 173): every fight look and gun sheet cut to the box its pixels fill; the fight uses an atlas only when the sheet's bytes on the server equal \"bytes\" here. tools/bohemia_run_the_sheets_packed.py",
 "sheets": {
 "beast_camelops.webp": {
-"bytes": 839538,
-"decodedMB": 37.7,
-"fill": 0.322,
-"packedMB": 13.6
+"bytes": 585924,
+"decodedMB": 28.94,
+"fill": 0.33,
+"packedMB": 11.26
 },
 "beast_cave_hyena.webp": {
 "bytes": 211878,
@@ -14,16 +14,16 @@
 "packedMB": 3.03
 },
 "beast_coyote.webp": {
-"bytes": 101938,
-"decodedMB": 3.78,
-"fill": 0.331,
-"packedMB": 1.48
+"bytes": 95328,
+"decodedMB": 4.1,
+"fill": 0.314,
+"packedMB": 1.59
 },
 "beast_dire_wolf.webp": {
-"bytes": 176984,
-"decodedMB": 6.82,
-"fill": 0.352,
-"packedMB": 2.84
+"bytes": 218312,
+"decodedMB": 8.04,
+"fill": 0.314,
+"packedMB": 2.98
 },
 "beast_feral_bull.webp": {
 "bytes": 579140,
@@ -32,22 +32,22 @@
 "packedMB": 9.77
 },
 "beast_feral_dog_shepherd.webp": {
-"bytes": 127166,
-"decodedMB": 4.94,
-"fill": 0.342,
-"packedMB": 1.95
+"bytes": 117360,
+"decodedMB": 6.11,
+"fill": 0.284,
+"packedMB": 2.08
 },
 "beast_feral_hog.webp": {
-"bytes": 230610,
-"decodedMB": 7.51,
-"fill": 0.336,
-"packedMB": 3.02
+"bytes": 224010,
+"decodedMB": 8.12,
+"fill": 0.328,
+"packedMB": 3.0
 },
 "beast_mountain_lion.webp": {
-"bytes": 296464,
-"decodedMB": 10.84,
-"fill": 0.335,
-"packedMB": 4.32
+"bytes": 232768,
+"decodedMB": 11.79,
+"fill": 0.243,
+"packedMB": 3.43
 },
 "boss_filter_0.webp": {
 "bytes": 325080,
@@ -843,8 +843,8 @@
 }
 },
 "totals": {
-"decodedMB": 2865.2,
-"packedMB": 488.8,
+"decodedMB": 2860.7,
+"packedMB": 485.9,
 "sheets": 140
 }
 }
