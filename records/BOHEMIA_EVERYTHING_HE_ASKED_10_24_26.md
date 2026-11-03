@@ -362,6 +362,8 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 338 | The loading screen voted NO (no words): two or three options in the VOTE tab | 336 | UI (next round) | QUEUED |
 | 339 | (said again) One post on the phone at a time, not two: shipped first, on its own | 329 | UI 4 | SHIPPED (UI 4, BUILD 11/3zw, with line 327), NOT YET SEEN |
 | 340 | 'I don't like what you did to the menu': which menu asked (the start screen, the phone's buttons, or the town menu); put back or redone on his answer | - | COORDINATOR, UI | ANSWERED 11/3: 'The start menu for demo is not final': the start screen is a work in progress; its redo goes with the loading screen's options (line 338), next UI round |
-| 341 | MORE CONTENT, every angle, token-efficient (Paolo 11/3): bosses #4 to #6 (THE BURN, THE SURVEYOR, THE CLIMB) end to end | 302 | BOSSES 3 | RUNNING (11/3) |
+| 341 | MORE CONTENT, every angle, token-efficient (Paolo 11/3): bosses #4 to #6 (THE BURN, THE SURVEYOR, THE CLIMB) end to end | 302, 337 | BOSSES 3 | STOPPED 11/3 (his: 'you build the bosses like shit, we don't have enough assets'): after the assets (lines 344, 345) |
 | 342 | MORE CONTENT: 10 more side quests from the library and 15 more road events, people, places and things, never cards | 302 | CONTENT 2 | RUNNING (11/3) |
 | 343 | MORE CONTENT: five more lab-made beasts that could truly live in the Mojave now (and the mammoth question answered) | 302 | BEASTS (FACTIONS) | RUNNING (11/3) |
+| 344 | ASSETS: every weapon its own 3D model in the hand (the pool pole and whips first: today drawn as the rebar spear and a chain), on the shelf, its icon | 337 | COOK WEAPONS | RUNNING (11/3) |
+| 345 | ASSETS: every armour its own model on the body; the three bosses (POT, TAP, FILTER) rebuilt as real assets, their weapons in their hands | 337 | COOK ARMOUR | RUNNING (11/3) |
