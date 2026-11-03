@@ -31,7 +31,10 @@ unchanged.
   call, the party's first block about 2.7 s after the tap. On the map the call is at once.
 - THE MARK: the quest he is going to wears it from the tap until that road ends: the card's arrow (or its dot, when he stands on it)
   turns the PLAY bar's amber and beats on the 120 BPM beat; the strip's and the page's go-mark beats. The road ending takes it off
-  (there, a road's card, a fight, his own tap elsewhere on the map: no journey, or a journey to somewhere else).
+  (there, a road's card, a fight, his own tap elsewhere on the map: no journey, or a journey to somewhere else). A hunt's pack moves
+  and the map re-aims the walk at it: the mark holds while the road still leads to one of the quest's own places
+  (BohemiaQuestTravel.places). Measured on the demo: a road's card (raiders on the carts, the wolves coming to meet him) often stops
+  a trip inside its first two blocks; the mark comes off with it, as it should.
 - A NO SAYS SO: a call the map refuses (no road, nowhere to go) or a road's card up (ENGAGE or FALL BACK first) shakes the card twice;
   nothing moves.
 - NOTES stays gone (rule 357(a)); nothing of it came back.
