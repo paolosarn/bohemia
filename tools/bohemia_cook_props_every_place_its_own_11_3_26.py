@@ -1355,7 +1355,7 @@ def pass_barricade():
       what='a water intake tower standing out on the dry bed: a concrete drum 8 m across and 14 m tall, trash racks on its '
            'sides, its gantry crane on top, a walkway stub that went to shore, the white ring where the water stood', wrong='')
 def shore_intake():
-    conc, ring, rack, steel = M('tape_grey', 3), M('tape_grey', 4), M('metal_painted', 1), M('clay_mustard', 2)
+    conc, ring, rack, steel = M('tape_grey', 3), M('tape_grey', 4), M('rubber', 2), M('clay_mustard', 2)
     C(conc, 4.0, 14.0, (0, 0, 7.0), v=32, name='drum')
     C(ring, 4.03, 2.2, (0, 0, 9.4), v=32, name='bathtub_ring')
     C(M('clay_bone', 1), 4.02, 6.0, (0, 0, 3.0), v=32, name='lake_stain')
@@ -1444,8 +1444,7 @@ def wash_culvert():
     for s in (-1, 1): B(conc, (0.5, 4.5, 3.2), (s * 6.3, -1.8, 1.6), rot=(0, 0, math.radians(s * 30)), name='wingwall')
     B(road, (12.0, 8.4, 0.3), (0, 4.1, 3.35), name='road_slab'); B(M('clay_mustard', 3), (12.0, 0.15, 0.02), (0, 4.1, 3.52), name='centreline')
     for s in (-1, 1): B(conc, (12.0, 0.3, 0.8), (0, 4.1 + s * 4.0, 3.9), name='parapet')
-    STAINS((0, -0.4, 2.5, 9.0, 1.5, '-y'), 6, 120, (('clay_teal', 2), ('clay_rust', 2), ('clay_mustard', 3), ('cloth_black', 1)), (0.3, 0.6))
-    STAINS((0, -0.12, 0.5, 9.0, 0.8, '-y'), 6, 121, (('clay_bone', 1), ('rubber', 1)), (0.3, 0.6))
+    STAINS((0, -0.4, 3.5, 10.0, 0.6, '-y'), 7, 120, (('clay_teal', 2), ('clay_rust', 2), ('clay_mustard', 3), ('cloth_black', 1)), (0.2, 0.35))
     for k in range(7): ROCK(M('clay_bone', 1 + k % 2), (-4 + k * 1.3, -1.3 - 0.3 * (k % 3), 0), (1.0, 0.7, 0.35), seed=125 + k, sub=1, sink=0.2, name='flood_drift')
 
 

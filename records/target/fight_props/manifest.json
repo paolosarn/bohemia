@@ -92,6 +92,39 @@
     "redrock.fin",
     "redrock.slot"
    ]
+  },
+  {
+   "id": "pass",
+   "name": "THE PASS",
+   "card": "records/target/fight_props/CARD_PASS.webp",
+   "props": [
+    "pass.guardrail",
+    "pass.rockfall",
+    "pass.truck",
+    "pass.barricade"
+   ]
+  },
+  {
+   "id": "shore",
+   "name": "THE SHORE",
+   "card": "records/target/fight_props/CARD_SHORE.webp",
+   "props": [
+    "shore.intake",
+    "shore.dock",
+    "shore.boat",
+    "shore.buoys"
+   ]
+  },
+  {
+   "id": "wash",
+   "name": "THE WASH",
+   "card": "records/target/fight_props/CARD_WASH.webp",
+   "props": [
+    "wash.culvert",
+    "wash.cart",
+    "wash.sofa",
+    "wash.jam"
+   ]
   }
  ],
  "models": [
@@ -1480,6 +1513,510 @@
    "what": "two sandstone walls 12 m long and 7 m high, curving together with a slot 1.1 m wide between them: one man at a time walks through it",
    "wrong": null,
    "verts": 1680
+  },
+  {
+   "id": "pass.guardrail",
+   "place": "pass",
+   "place_name": "THE PASS",
+   "name": "GUARD RAIL, A RUN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/pass_guardrail.glb",
+   "picture": "records/target/fight_props/pass/pass_guardrail.webp",
+   "picture_px": [
+    534,
+    106
+   ],
+   "anchor_px": [
+    267.9,
+    67.1
+   ],
+   "size_m": [
+    11.7,
+    1.68,
+    1.0
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.136,
+   "height_m": 1.0,
+   "height_storeys": 0.33,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "12 m of W-beam guard rail on its posts at the road's edge, one section hit and folded out over the drop, the reflectors on its posts",
+   "wrong": null,
+   "verts": 284
+  },
+  {
+   "id": "pass.rockfall",
+   "place": "pass",
+   "place_name": "THE PASS",
+   "name": "A ROCKFALL",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/pass_rockfall.glb",
+   "picture": "records/target/fight_props/pass/pass_rockfall.webp",
+   "picture_px": [
+    496,
+    235
+   ],
+   "anchor_px": [
+    249.7,
+    124.7
+   ],
+   "size_m": [
+    11.41,
+    7.27,
+    2.58
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.576,
+   "height_m": 2.19,
+   "height_storeys": 0.73,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "MOUND",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "limestone blocks down off the cut face across half the road, the biggest 2.6 m, a fan of scree under them: a heap you climb for the shot, or go round",
+   "wrong": null,
+   "verts": 984
+  },
+  {
+   "id": "pass.truck",
+   "place": "pass",
+   "place_name": "THE PASS",
+   "name": "A JACKKNIFED TRUCK",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/pass_truck.glb",
+   "picture": "records/target/fight_props/pass/pass_truck.webp",
+   "picture_px": [
+    942,
+    726
+   ],
+   "anchor_px": [
+    308.8,
+    517.1
+   ],
+   "size_m": [
+    19.65,
+    17.03,
+    4.1
+   ],
+   "footprint_cells": [
+    2,
+    2
+   ],
+   "fills_cell": 1.0,
+   "height_m": 4.1,
+   "height_storeys": 1.37,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a semi folded on the grade: the tractor turned across the road, its 16 m trailer swung round behind it, its back doors open",
+   "wrong": "the trailer is empty and white inside, spotless, in a valley of dust",
+   "verts": 1256
+  },
+  {
+   "id": "pass.barricade",
+   "place": "pass",
+   "place_name": "THE PASS",
+   "name": "THE ROAD CLOSED",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/pass_barricade.glb",
+   "picture": "records/target/fight_props/pass/pass_barricade.webp",
+   "picture_px": [
+    261,
+    120
+   ],
+   "anchor_px": [
+    65.1,
+    95.7
+   ],
+   "size_m": [
+    5.4,
+    1.51,
+    2.27
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.057,
+   "height_m": 2.26,
+   "height_storeys": 0.75,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a road-closed barricade (three striped boards on its legs), its sign bent, and three drums beside it, left when the pass was shut and never opened",
+   "wrong": null,
+   "verts": 368
+  },
+  {
+   "id": "shore.intake",
+   "place": "shore",
+   "place_name": "THE SHORE",
+   "name": "THE INTAKE TOWER",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/shore_intake.glb",
+   "picture": "records/target/fight_props/shore/shore_intake.webp",
+   "picture_px": [
+    889,
+    1246
+   ],
+   "anchor_px": [
+    214.6,
+    901.9
+   ],
+   "size_m": [
+    8.8,
+    15.62,
+    17.45
+   ],
+   "footprint_cells": [
+    1,
+    2
+   ],
+   "fills_cell": 0.955,
+   "height_m": 17.45,
+   "height_storeys": 5.82,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a water intake tower standing out on the dry bed: a concrete drum 8 m across and 14 m tall, trash racks on its sides, its gantry crane on top, a walkway stub that went to shore, the white ring where the water stood",
+   "wrong": null,
+   "verts": 640
+  },
+  {
+   "id": "shore.dock",
+   "place": "shore",
+   "place_name": "THE SHORE",
+   "name": "A DOCK ON DRY LAND",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/shore_dock.glb",
+   "picture": "records/target/fight_props/shore/shore_dock.webp",
+   "picture_px": [
+    963,
+    297
+   ],
+   "anchor_px": [
+    274.1,
+    209.5
+   ],
+   "size_m": [
+    19.22,
+    3.03,
+    4.71
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.404,
+   "height_m": 4.22,
+   "height_storeys": 1.41,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a floating dock section 12 m long come to rest on the mud on its black floats, tilted, its planks warped, its cleats and rail, a gangway climbing from it to nothing: a deck a man stands up on",
+   "wrong": null,
+   "verts": 614
+  },
+  {
+   "id": "shore.boat",
+   "place": "shore",
+   "place_name": "THE SHORE",
+   "name": "A BOAT ON ITS SIDE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/shore_boat.glb",
+   "picture": "records/target/fight_props/shore/shore_boat.webp",
+   "picture_px": [
+    468,
+    197
+   ],
+   "anchor_px": [
+    251.1,
+    142.7
+   ],
+   "size_m": [
+    9.79,
+    3.71,
+    2.42
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.252,
+   "height_m": 2.3,
+   "height_storeys": 0.77,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a 7 m runabout lying on its side in the cracked mud where the water left it, its hull to you, its outboard in the air",
+   "wrong": "its anchor line runs taut down into the dry mud, as if something under there is holding it",
+   "verts": 278
+  },
+  {
+   "id": "shore.buoys",
+   "place": "shore",
+   "place_name": "THE SHORE",
+   "name": "THE BUOYS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/shore_buoys.glb",
+   "picture": "records/target/fight_props/shore/shore_buoys.webp",
+   "picture_px": [
+    205,
+    140
+   ],
+   "anchor_px": [
+    50.9,
+    98.2
+   ],
+   "size_m": [
+    3.33,
+    2.18,
+    1.7
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.05,
+   "height_m": 1.5,
+   "height_storeys": 0.5,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a channel can buoy on its side in the mud, its chain run out, and a white no-wake buoy standing up on its sinker with no water within a mile",
+   "wrong": null,
+   "verts": 734
+  },
+  {
+   "id": "wash.culvert",
+   "place": "wash",
+   "place_name": "THE WASH",
+   "name": "THE CULVERT",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/wash_culvert.glb",
+   "picture": "records/target/fight_props/wash/wash_culvert.webp",
+   "picture_px": [
+    847,
+    604
+   ],
+   "anchor_px": [
+    353.7,
+    436.4
+   ],
+   "size_m": [
+    15.28,
+    12.17,
+    4.37
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 1.0,
+   "height_m": 4.3,
+   "height_storeys": 1.43,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a twin box culvert under a road: its concrete headwall 10 m wide, two dark mouths 3 m wide you walk through, its wingwalls, the road slab on top; tags on the headwall, the drift of the last flood piled at the mouths",
+   "wrong": null,
+   "verts": 342
+  },
+  {
+   "id": "wash.cart",
+   "place": "wash",
+   "place_name": "THE WASH",
+   "name": "A SHOPPING CART IN THE SILT",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/wash_cart.glb",
+   "picture": "records/target/fight_props/wash/wash_cart.webp",
+   "picture_px": [
+    97,
+    61
+   ],
+   "anchor_px": [
+    37.4,
+    46.6
+   ],
+   "size_m": [
+    1.89,
+    1.55,
+    0.77
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.02,
+   "height_m": 0.52,
+   "height_storeys": 0.17,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a shopping cart (the kit's own, whole) on its side half sunk in the silt, the flood's drift caught in its wires",
+   "wrong": null,
+   "verts": 2641
+  },
+  {
+   "id": "wash.sofa",
+   "place": "wash",
+   "place_name": "THE WASH",
+   "name": "A SOFA IN THE SILT",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/wash_sofa.glb",
+   "picture": "records/target/fight_props/wash/wash_sofa.webp",
+   "picture_px": [
+    198,
+    98
+   ],
+   "anchor_px": [
+    64.4,
+    71.2
+   ],
+   "size_m": [
+    3.37,
+    1.76,
+    1.91
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.041,
+   "height_m": 1.75,
+   "height_storeys": 0.58,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a three-seat sofa sunk to its seat in the silt, its cushions gone, a floor lamp standing beside it on its own",
+   "wrong": "the floor lamp is lit, plugged into nothing",
+   "verts": 248
+  },
+  {
+   "id": "wash.jam",
+   "place": "wash",
+   "place_name": "THE WASH",
+   "name": "THE DEBRIS JAM",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/wash_jam.glb",
+   "picture": "records/target/fight_props/wash/wash_jam.webp",
+   "picture_px": [
+    266,
+    142
+   ],
+   "anchor_px": [
+    141.4,
+    79.5
+   ],
+   "size_m": [
+    5.23,
+    3.19,
+    1.64
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.116,
+   "height_m": 1.4,
+   "height_storeys": 0.47,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": "r",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "what the last flood left against a boulder: a dead tamarisk trunk, tyres, a mattress, a door, plastic: low cover a man lies behind, rough ground to cross",
+   "wrong": null,
+   "verts": 356
   }
  ]
 }
