@@ -103,6 +103,9 @@ async function run(prof, plant) {
   const inTown = (await where(fr)).town, at = await cardAt(page, job.id);
   let n0 = await recN(page);
   const sT = await where(fr);
+  /* each leg after T starts from the block he started on (the town's own block): where one leg leaves him (on top of a pack that came
+     to meet him, at a road's card) is not the next leg's question */
+  const fresh = async () => { await clear(fr); await fr.evaluate((at) => { city.x = at[0]; city.y = at[1]; try { CITY_GLIDE.tx = null; } catch (e) {} try { camHold(); render(); } catch (e) {} }, sT.at); await page.waitForTimeout(300); };
   if (at) { await armMark(page, job.id); await finger(d, prof, at); }
   const t = at ? await watchGo(d, job.id, n0, sT) : { moved: null, markSeen: null, rec: null };
   const tw = await where(fr);
@@ -118,13 +121,13 @@ async function run(prof, plant) {
   const p4 = await phone(page);
   ok('T4 ' + prof + ': the mark comes off when that road ends', !p4.going && !p4.cards.some(c => c.going), p4.cards.map(c => c.id + (c.going ? ' still GOING' : '')).join(', '));
   /* M: ON THE MAP */
-  n0 = await recN(page);
+  await fresh(); n0 = await recN(page);
   const at2 = await cardAt(page, job.id), sM = await where(fr); if (at2) { await armMark(page, job.id); await finger(d, prof, at2); }
   const m = at2 ? await watchGo(d, job.id, n0, sM) : {};
   ok('M ' + prof + ': on the map a finger on the card sets the party off (WORLD 8\'s call) and the card wears the mark', !!m.moved && !!m.rec && m.rec.by === 'world' && m.rec.ok && markOk(m.markSeen, job.id),
      (m.rec ? m.rec.by + ' ' + (m.rec.ok ? 'to ' + m.rec.name + ' of ' + m.rec.of : m.rec.why) : 'no call') + '; ' + (m.moved ? 'moved ' + m.moved.from + ' -> ' + m.moved.to : 'did not move') + '; ' + markWords(m.markSeen));
   /* S: THE STRIP: the feed's post of the job he took steps in once the clock moves; the strip is that job's button */
-  await clear(fr);
+  await fresh();
   let strip = null, post = null, s2 = {}, tries = 0;
   await fr.evaluate(() => { try { travelSpeedSet(4); } catch (e) {} });
   for (let i = 0; i < 140 && !(s2.rec && s2.rec.from === 'strip'); i++) {
@@ -148,7 +151,7 @@ async function run(prof, plant) {
        '"' + strip.txt.replace(/\s+/g, ' ').slice(0, 60) + '", mark ' + strip.mark + '; ' + (s2.rec ? s2.rec.from + ' ' + s2.rec.by + ' ' + (s2.rec.ok ? 'to ' + s2.rec.name : s2.rec.why) : 'no call') + '; ' + (s2.moved ? 'moved' : 'did not move') + (tries > 1 ? '; ' + tries + ' fingers (the strip walked on under the first)' : ''));
   else ok('S ' + prof + ': the strip showed the post of his job', false, post ? 'the post is in the feed but never reached the strip in 42 s' : 'no post of the job in the feed in 42 s');
   /* F: THE FEED'S PAGE */
-  await clear(fr);
+  await fresh();
   const nowQ = await page.evaluate(() => { const f = document.querySelector('#bohphone .home .bpfd'); return f && f.dataset.quest ? 1 : 0; });
   if (!nowQ) { const fa = await page.evaluate(() => { const f = document.querySelector('#bohphone .home .bpfd'); const b = f.getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; }); await finger(d, prof, fa); }
   else await page.evaluate(() => BohemiaPhone.open('feed'));   /* the strip is his job's button this moment: the feed's page by the phone's own door */
@@ -161,7 +164,7 @@ async function run(prof, plant) {
   ok('F ' + prof + ': on the feed\'s page the post of his job is a button: a finger closes the page to the map and sets him off', !!qa.at && !pageAfter && !!f2.rec && f2.rec.from === 'feed' && f2.rec.ok && !!f2.moved,
      'page ' + qa.page + ', ' + qa.n + ' posts, ' + (qa.qp || 0) + ' of them his job\'s; ' + (f2.rec ? f2.rec.by + ' ' + (f2.rec.ok ? 'to ' + f2.rec.name : f2.rec.why) : 'no call') + '; page after: ' + (pageAfter || 'closed') + '; ' + (f2.moved ? 'moved' : 'did not move'));
   /* B: BEFORE THE MAP'S CALL WAS ON THE PAGE */
-  await clear(fr); await page.waitForTimeout(400);
+  await fresh();
   await fr.evaluate(() => { window.__GATE_TQ = window.BOH_TRAVEL_TO_QUEST; window.BOH_TRAVEL_TO_QUEST = undefined; });
   n0 = await recN(page);
   const at3 = await cardAt(page, job.id), sB = await where(fr); if (at3) { await armMark(page, job.id); await finger(d, prof, at3); }

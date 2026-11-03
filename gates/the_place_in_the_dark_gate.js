@@ -155,7 +155,12 @@ async function play(profile) {
         await page.waitForTimeout(1500);
         const card = await page.evaluate((id) => { const e = document.querySelector('#bohphone .jc[data-job="' + id + '"]'); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width * 0.3, y: r.y + r.height / 2, text: e.innerText.replace(/\s+/g, ' ') }; }, real.id);
         if (card) { if (TOUCH) await page.touchscreen.tap(card.x, card.y); else await page.mouse.click(card.x, card.y); }
-        await page.waitForTimeout(900);
+        /* RE-AIMED 11/3 BY UI 7 (rule 376, Paolo: 'I should be able to click the quest on my phone and my people auto move towards
+           it'): the touch on the card also sets the party off and WORLD 8's camera eases in (gates/tap_a_quest_on_the_phone_gate.js
+           measures that); here the journey is stopped where it got to, so the marks are read on a camera that holds still and D6's
+           touch lands on the name where it is drawn */
+        await page.waitForTimeout(300); await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+        await page.waitForTimeout(600);
         const lit = await fr.evaluate((id) => { MAP_DREW = {}; MAP_TOWN_HIT = []; render(); const cv = document.getElementById('cv').getBoundingClientRect(), pr = BOH_PHONE_RECT();
           return { held: LOOP.held.some(j => j.id === id), marks: (window.__JOB_MARKS || []).filter(m => m.id === id).map(m => ({ label: m.label, name: m.name, on: m.on, box: m.box || null, x: m.x, y: m.y })),
             phone: { x: pr.left - cv.left, y: pr.top - cv.top, w: pr.width, h: pr.height }, cv: { x: cv.left, y: cv.top } }; }, real.id);
