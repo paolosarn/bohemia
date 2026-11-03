@@ -10,7 +10,7 @@
 <script src="bohemia_settings.js"></script>
 <!-- __THE_DIFFICULTY_SWITCH__ (DIFFICULTY 11/3, rule 351(c), ask line 363): three levels on the settings card, changed any time, from the next fight -->
 <script src="bohemia_difficulty.js"></script>
-<script src="bohemia_arena_crowd.js"></script>  <!-- __THE_ARENA__ (ARENA, rule 375): the crowd in the pit answers the fight's own sounds -->
+<script src="../engine/bohemia_arena.js"></script>  <script src="bohemia_arena_crowd.js"></script>  <!-- __THE_ARENA__ (ARENA, rule 375): the crowd in the pit answers the fight's own sounds -->
 <!-- __DAMAGE_STAYS__ (CAMP, rule 226): what each man of the company is missing between fights, for the fight's door (nfOpts) and its end (nfOverIn) -->
 <script src="../engine/bohemia_condition.js"></script>
 <script src="../engine/bohemia_names.js"></script>  <!-- FIXES item 10: the one names engine, so a renamed man gets a real surname -->
@@ -493,7 +493,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"f8ea5b0b470036dc",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"b8acfe08407b9296",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1597,7 +1597,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zzzzam - THE FIGHT IS CLOSE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zzzzan - PAID ON A WIN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12551,6 +12551,10 @@ function nfOpts(d){
      armour the last fight took, less what the map's clock has healed and the tape has mended); the line is re-pointed past the dead */
   try{ if(window.BohemiaCondition && o.company){ var hc = BohemiaCondition.handOver(o.company, o.formation); o.company = hc.company; if(hc.formation) o.formation = hc.formation;
     if(window.__NF_HANDED) window.__NF_HANDED.men = o.company.map(function(m){ return m && m.name; }); window.__NF_COND = o.company.map(function(m){ return m ? { name: m.name, cond: m.cond || null } : null; }); } }catch(_e){}
+  /* __THE_ARENA__ (ARENA, rule 375; bb_all/0620: the ranks' traits 'aid them both inside and outside of the arena'): every man carries
+     his pit rank into every fight, Arena Fighter +5 resolve, Arena Veteran +10 and half the death roll when struck down (bb_all/0132,
+     0134; records/target/bb/arena.json ranks), read from the pit's own record (engine/bohemia_arena.js, bohemia.arena.v1) */
+  try{ if(window.BohemiaArena && o.company){ BohemiaArena.reload(); o.company.forEach(function(m, i){ if(!m) return; var t = BohemiaArena.trait(m.name || (i === 0 ? 'YOU' : '')); if(t) m.arenaRank = t; }); } }catch(_e){}
   /* ==== __THE_ARENA__ (ARENA, rule 375, Paolo 11/3: 'your accessory thing is X'd out and it won't apply as you enter the arena... easier
      to choose the three people that go into the arena'): a pit fight takes ONLY the men he picked on the town's one screen, in his
      order, each WITHOUT his accessory (no collar to equip, the slot simply does not count inside: bb_all/0620's collar sat in that
