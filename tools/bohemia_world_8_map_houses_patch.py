@@ -128,6 +128,17 @@ function mapGoingBeatsLand(x,y){
      """    L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit, axisFlip: !!L.axisFlip } };   /* __THE_MAP_CAN_TURN__ */"""),
     ("""  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: 'y0', s: 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {};""",
      """  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: L.axisFlip ? 'y1' : 'y0', s: L.axisFlip ? 'y0' : 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {};   /* __THE_MAP_CAN_TURN__: the valley's own north */"""),
+    # H16 TAP A QUEST, YOUR PEOPLE GO (rule 376): the map's one call, window.BOH_TRAVEL_TO_QUEST(questId) (UI 7 wires the phone to it)
+    ("""<!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ END -->
+""",
+     """<!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ END -->
+<script src="bohemia_quest_travel.js"></script>  <!-- __TAP_A_QUEST_YOUR_PEOPLE_GO__ WORLD 8 (rule 376, ask line 404): window.BOH_TRAVEL_TO_QUEST(questId) -->
+"""),
+    # H17 TAP A QUEST, YOUR PEOPLE GO: while the camera holds his crew the painter paints out from them, not from the glass's
+    #     middle (the phone frames the crew in the open map above it), so the ground round him comes first and the quest's zoom
+    #     (slices/bohemia_quest_travel.js, which waits for that ground) arrives sharp
+    ("  var want = [], cxs = CVW / 2, cys = CVH / 2, sm = g.imageSmoothingEnabled, dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;\n",
+     "  var want = [], cxs = CVW / 2, cys = CVH / 2, sm = g.imageSmoothingEnabled, dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;\n  if (typeof CAMF !== 'undefined' && CAMF.on && typeof city !== 'undefined' && city) { var cq = iso(city.x + 0.5, city.y + 0.5, ox, oy); cxs = cq.sx; cys = cq.sy; }   /* __TAP_A_QUEST_YOUR_PEOPLE_GO__: while the camera holds his crew, the painter works out from them (the phone frames them off the glass's middle) */\n"),
     # H12 the module
     ('<script src="bohemia_his_map.js"></script>',
      '<script src="bohemia_map_houses.js"></script>  <script src="bohemia_map_sight.js"></script>  <!-- %s WORLD 8 (ask lines 117, 185, 39): the real house models past the old closest stop; what he sees now -->  <script src="bohemia_his_map.js"></script>' % M),

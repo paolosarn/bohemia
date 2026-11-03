@@ -38,6 +38,17 @@ WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (t
 - OWED: models for the shops, works, towers and casinos (COOK's warehouse, motel, pawn shop, gas station, casino, tower casino
   are built); the ground up close is the painter's top step (chunky at the street stop); lit windows on the models at night; the
   phone's own 60 at the street stop (this box draws in software: PLUMBER on a phone); rule 344 THE MAP CAN TURN is WORLD's next.
+- 376 TAP A QUEST, YOUR PEOPLE GO, THE MAP'S HALF (BUILD 11/3zzzzai; ask line 404). FOR UI 7, THE ONE CALL, in the map's own
+  frame (the city frame's window, where LOOP lives): window.BOH_TRAVEL_TO_QUEST(questId [, { follow: false }]) ->
+  { ok, why, id, kind, act, name, to: [x, y], town, mins, blocks, of, timed: [{ key, to, mins }], follow }. questId = a held job
+  (LOOP.held[].id) or a phone offer (__PHONE_BOARD.shown[].id; it goes to the giving town's board). ok false says why: 'no quest',
+  'nowhere to go', 'no road', 'in a town', 'a fight', 'not on the map'. It walks the map's own road (BohemiaJobKinds.walkGo, the
+  clock and the road's events as ever); many markers (a hunt's packs, a patrol's posts) go nearest BY ROAD MINUTES first, the next
+  call the next closest; the camera eases in to a block 240 CSS px and holds the party, in small steps that wait until the ground
+  round him is painted (never a blur; the painter now paints out from the held crew, hook H17); a pinch, wheel or touch on the map
+  stops it for good; a town opens its screen on arrival, a pack in the open is the meeting. Code slices/bohemia_quest_travel.js
+  (hook H16). OWED: the phone's own painter speed at close zoom (this box needs 29 to 47 s to paint down to 240; PLUMBER). Gate gates/tap_a_quest_your_people_go_gate.js 10/0 upright and sideways. VOTE world-tap-a-quest-11-3. I never touched
+  slices/bohemia_phone.js.
 [bb Battle Brothers draws a party only inside your sight radius, and its map reads by its towns standing tall over the ground.]
 [analog horror: the remembered ground goes a shade darker the moment he turns the corner; nothing says so.]
 

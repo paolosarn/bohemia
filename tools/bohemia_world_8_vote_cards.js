@@ -70,5 +70,32 @@ const OUT = process.argv[2], WANT = process.argv[3] || 'both', PROF = process.ar
     }
     console.log('sight: ' + n + ' frames at ' + JSON.stringify(at));
   }
+  if (WANT === 'quest') {
+    /* rule 376: a quest on his phone at another town; one call (the phone's quest card calls the same), the camera comes in close,
+       his people walk the road there (the clock's fast-forward after the first steps, his own button), the town's screen opens */
+    n = 0;
+    const q = await fr.evaluate(() => { try { loopClose(); } catch (e) {} const bs = ctBases(); let home = null, bd = 1e9;
+      for (const k in bs) { const dd = Math.max(Math.abs(bs[k].x - city.x), Math.abs(bs[k].y - city.y)); if (dd < bd) { bd = dd; home = k; } }
+      const up = (k) => String(k || '').toUpperCase(), B = {}; for (const k in bs) B[up(k)] = bs[k];
+      const sh = ((window.__PHONE_BOARD && __PHONE_BOARD.shown) || []).filter(a => a && a.place && up(a.place) !== up(home) && B[up(a.place)])
+        .map(a => ({ id: a.id, place: a.place, home, d: Math.max(Math.abs(B[up(a.place)].x - city.x), Math.abs(B[up(a.place)].y - city.y)) }));
+      sh.sort((a, b) => ((a.d >= 8 && a.d <= 26) ? 0 : 1) - ((b.d >= 8 && b.d <= 26) ? 0 : 1) || a.d - b.d);   /* a trip he can watch: 8 to 26 blocks */
+      return sh[0] || null; });
+    if (q) {
+      await fr.evaluate(() => { setZoomAt(1); try { camHold(); } catch (e) {} if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); else travelSpeedSet(1); render(); });
+      await settle(3000);
+      for (let i = 0; i < 4; i++) { await snap('quest'); await page.waitForTimeout(300); }
+      const r = await fr.evaluate((id) => BOH_TRAVEL_TO_QUEST(id), q.id);
+      let opened = false;
+      for (let i = 0; i < 70 && !opened; i++) { await page.waitForTimeout(i < 10 ? 250 : 900);   /* a time-lapse past the first steps: this box paints slower than a phone */
+        if (i === 24) await fr.evaluate(() => { try { travelSpeedSet(4); } catch (e) {} });
+        const st = await fr.evaluate(() => { render(); return { open: !!(LOOP.frame && LOOP.frame.style.display === 'block'), meet: !!(typeof MEET !== 'undefined' && MEET && MEET.up), trav: !!(TRAVEL && TRAVEL.path) }; });
+        await snap('quest');
+        if (st.open) opened = true;
+        else if (st.meet || !st.trav) await fr.evaluate((id) => { try { if (MEET && MEET.up) { const u = MEET.up; MEET.up = null; try { u.el && u.el.remove(); } catch (e) {} meetFallBack(u.msg); } } catch (e) {} if (!TRAVEL) BOH_TRAVEL_TO_QUEST(id, { follow: false }); }, q.id); }
+      for (let i = 0; i < 5; i++) { await page.waitForTimeout(400); await snap('quest'); }
+      console.log('quest: ' + n + ' frames, ' + JSON.stringify({ q, to: r.to, name: r.name, mins: r.mins, opened, waited: await fr.evaluate(() => BohemiaQuestTravel.state().held) }));
+    } else console.log('quest: no offer at another town on the phone');
+  }
   await d.close().catch(() => {});
 })().catch(e => { console.log('FAILED ' + (e.stack || e.message)); process.exit(1); });

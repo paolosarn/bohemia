@@ -1959,6 +1959,7 @@ var WORLD_STATE_ON = false;
 })();
 </script>
 <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ END -->
+<script src="bohemia_quest_travel.js"></script>  <!-- __TAP_A_QUEST_YOUR_PEOPLE_GO__ WORLD 8 (rule 376, ask line 404): window.BOH_TRAVEL_TO_QUEST(questId) -->
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
@@ -51777,6 +51778,7 @@ function vbTilesDraw(ox, oy, lights){
   var tx0 = Math.max(0, Math.floor(Math.min.apply(null, xs) / VB_TILE)), tx1 = Math.min(NT - 1, Math.floor(Math.max.apply(null, xs) / VB_TILE)),
       ty0 = Math.max(0, Math.floor(Math.min.apply(null, ys) / VB_TILE)), ty1 = Math.min(NT - 1, Math.floor(Math.max.apply(null, ys) / VB_TILE));
   var want = [], cxs = CVW / 2, cys = CVH / 2, sm = g.imageSmoothingEnabled, dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;
+  if (typeof CAMF !== 'undefined' && CAMF.on && typeof city !== 'undefined' && city) { var cq = iso(city.x + 0.5, city.y + 0.5, ox, oy); cxs = cq.sx; cys = cq.sy; }   /* __TAP_A_QUEST_YOUR_PEOPLE_GO__: while the camera holds his crew, the painter works out from them (the phone frames them off the glass's middle) */
   if (!lights) { VBT.frame++; VBT.onGlass = new Array(NT * NT); VBT.NT = NT; }   /* __YOU_WALK_BEHIND_IT__: which picture each tile of blocks was drawn from this frame */
   var pre = om.seed + ':' + (VBC.key || '') + ':';
   for (var ty = ty0; ty <= ty1; ty++) for (var tx = tx0; tx <= tx1; tx++) {

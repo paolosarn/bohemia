@@ -7,7 +7,7 @@ from PIL import Image
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(R, 'records/target/world_8')
-CARDS = {'pinch': ('ONE_PINCH_TO_THE_STREET', 420), 'sight': ('WHAT_HE_SEES_NOW', 420)}
+CARDS = {'pinch': ('ONE_PINCH_TO_THE_STREET', 420), 'sight': ('WHAT_HE_SEES_NOW', 420), 'quest': ('TAP_A_QUEST_YOUR_PEOPLE_GO', 300)}
 
 
 def main(src):

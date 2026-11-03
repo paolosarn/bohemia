@@ -106,6 +106,45 @@ WORLD 7's four codes land on all four ways: DUST42 as the land lies, NEVADA flip
 K7QM9X turned half way. VOTE: world-the-map-can-turn-11-3 (records/target/world_8/THE_MAP_CAN_TURN.jpg).
 Gate gates/the_map_can_turn_gate.js (the table below). Engine touched: the RUN slice rebuilt (rule 8), the demo re-cut.
 
+## 6. TAP A QUEST, YOUR PEOPLE GO: THE MAP'S HALF (rule 376, ask line 404; BUILD 11/3zzzzai)
+His words (11/3): 'I should be able to click the quest on my phone and my people auto move towards it... Auto zooms in as much as I
+can... when you get to quest you hop on the settlement... if multiple markers, like I have to hunt down animals, it will just take
+me to the closest one.'
+FOR UI 7, THE ONE CALL (slices/bohemia_quest_travel.js, loaded by the map page; nothing here touches the phone):
+    window.BOH_TRAVEL_TO_QUEST(questId [, { follow: false }])
+      -> { ok, why, id, kind, act, name, to: [x, y], town, mins, blocks, of, timed: [{ key, to, mins }], follow }
+    questId: a job he holds (LOOP.held[].id) or an offer the phone shows (__PHONE_BOARD.shown[].id). Call it in the map's own frame
+    (the city frame's window, where LOOP lives). ok false says why: 'no quest', 'nowhere to go', 'no road', 'in a town', 'a fight',
+    'not on the map'.
+WHAT IT DOES: (a) the party walks the map's own road toward the quest (BohemiaJobKinds.walkGo: the road the quest's time was said
+on; the clock runs; the road's events still stop it). (b) A hunt's packs and a patrol's posts are each timed on the roads (the
+map's own route minutes, never a straight line): the shortest goes first; standing at one, the next call goes to the next closest.
+An offer not yet taken goes to the town that gives it (its board). Every other quest: where it sends him next. (c) The camera
+eases in to the quest's travel stop, a block 240 CSS px: the houses stand as the models and the walk reads (three beats a
+block); the street stop is a pinch away. THE ZOOM WAITS FOR THE MAP (rule 346): it moves in small steps (never more than a 20th of
+the ease a frame, so a slow frame cannot jump it) and holds still until the ground within 2 blocks of him is painted at the detail
+that zoom asks; while the camera holds his crew the painter now paints out from them, not from the glass's middle (hook H17: the
+phone frames the crew in the open map above it, so before this the ground under them came last). A slow painter only makes the
+zoom arrive later, never blur; the trip ending (arrived, a road's event, a fight, a town's screen) ends the zoom where it is. A choice, said plainly: his 'as much as I can' at the street stop would hold a 20-block
+trip to about 50 seconds of walking; at 240 it is about 30. A pinch, a wheel or a touch on the map hands the camera back at once
+and it never comes back on its own; on arrival it stays. (d) A quest at a town opens the town's settlement screen on arrival (the
+walk's own door); a quest in the open is the meeting itself.
+MEASURED BEFORE: a hunt's next pack was picked by a straight line (nextOf: the nearest by blocks as the crow flies), and nothing
+moved the camera; a tap on a job's mark already walked the one road (WORLD 4's walkGo), so the call stands on that.
+Gate gates/tap_a_quest_your_people_go_gate.js: 10/0 on the upright phone, 10/0 sideways (each run a new valley). Q1 one call and
+the marker moves; Q2 the hunt's three packs timed on the roads (65 / 86 / 102 min; 91 / 91 / 108) and the shortest taken; Q3 on a
+long trip to another town the camera comes from a block 18 to 240 and holds the party every frame; Q3b 19 zoom steps, the biggest
+x1.24, none taken before the ground round him was painted; Q4 a real two-finger pinch mid-ease stops it at once and it stays where
+the pinch left it; Q5 standing at the chosen pack, the next call goes to another; Q6 a phone offer at another town walked to its
+board and that town's screen opened (COLORFUL, 86 and 306 min); Q7 'in a town' and 'no quest' said plainly; Q8 the pack in the
+open is the fight itself; C1 nothing threw. THE HOUSES STAND UP CLOSE 14/0 after the painter's new order (H17).
+MEASURED ON THE WAY (this box draws in software, a frame 0.2 to 3 s): the first ease jumped from a block 18 to 240 in one or two
+frames and showed the whole-valley picture blown up for about a second (the card caught it); the first close step asks 45 tiles
+and this box paints one in 0.7 to 2.3 s, so here the zoom takes 29 to 47 s of painting to reach 240 (the clock paused); a phone
+paints faster, NOT MEASURED HERE (PLUMBER). My own gate mistakes on the way, never the game's: legs that asked after the hunt's
+fight was on, a trip too short to watch the zoom finish, a trip that left a town it had just entered.
+VOTE: world-tap-a-quest-11-3 (records/target/world_8/TAP_A_QUEST_YOUR_PEOPLE_GO.webp, moving, from the game's camera).
+
 ## THE GATES (this round, this box: software drawing in a headless browser, never a phone's numbers)
 - THE HOUSES STAND UP CLOSE (new): 12/0 upright phone, 12/0 sideways, 12/0 computer; with the one hand-over and the roads legs
   (BUILD 11/3zzzu) 14/0 on the upright phone. Z1 one real pinch to a block 380 on the
