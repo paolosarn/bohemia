@@ -384,6 +384,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 360 | The feed is broken, posts load half the time: find the final max character count from the upper range of what we write, make the text slightly tighter | 350 | FIXES session_01GKDyuwTb4eQZioR8rM1DVo (item 9) | RUNNING (11/3) |
 | 361 | More rare hires (he only hires rare ones), each worth wanting | 351(a) | HIRES | QUEUED (next free slot) |
 | 362 | Three men in his company share one name | 351(b) | FIXES session_01GKDyuwTb4eQZioR8rM1DVo (item 10) | RUNNING (11/3) |
-| 363 | Change the difficulty any time, three difficulties; the curve better than Battle Brothers' (hardest early game not hell even for a Lone Wolf; day 20 with ten good men is not the ceiling) | 351(c)(d) | DIFFICULTY | RUNNING (11/3) |
+| 363 | Change the difficulty any time, three difficulties; the curve better than Battle Brothers' (hardest early game not hell even for a Lone Wolf; day 20 with ten good men is not the ceiling) | 351(c)(d) | DIFFICULTY session_01GKDyutpwcv9PzqapTwa4Pq | RUNNING (11/3) |
 | 364 | AUTO better, still one button; gambits too much | 351(e) | COMBAT 7 session_01GKDyuuNDooEjTDprXTHNiT | RUNNING (11/3); gambits PARKED |
 | 365 | The kill cams from the first combat module, in this fight, on the beat, never costing frames | 351(f) | COMBAT 7 (item 4) | RUNNING (11/3) |
