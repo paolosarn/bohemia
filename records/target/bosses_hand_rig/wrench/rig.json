@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/wrench.glb",
+ "ppm": 468.16837252174,
+ "files": [
+  "records/target/bosses_hand_rig/wrench/rig_S.png",
+  "records/target/bosses_hand_rig/wrench/rig_SE.png",
+  "records/target/bosses_hand_rig/wrench/rig_SW.png"
+ ],
+ "box": null
+}

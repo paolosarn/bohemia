@@ -1,6 +1,6 @@
 {
  "draft": true,
- "about": "BOSSES lane, 11/2/26 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get something that helps you interact with the city'). Act one's first three bosses, in the ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md rows 1-3). WORLD TWO's boss_map.json still owns the sign, where he stands and what falls with him; this file owns his PLACE (the landmark you see from afar), his RUMOUR (the feed), his FIGHT (the man, his gear, his crew, his board, his one lesson) and his VERB (the phone's button and what it does on the grid). Read by slices/bohemia_bosses.js. Every word is a draft:true attempt; every number is a shape TUNING owns. A modder adds a boss by adding a row whose 'n' matches a boss_map.json row. ROUND 2 (BOSSES 11/2, rule 330, ask lines 328 and 329: 'each one has to have their own aesthetic, and maybe a quest or two that leads up to them... I'm so confused by what that means'): boss.look is HIS OWN look on the people's rig (tools/bohemia_bosses_the_three_men.py); place.paint names his place's pictures painted in the map's own look (slices/boss_places/, tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after; lead.asker is the person who lost something to him and asks for help (a mouth card on the road, CONTENT's card), lead.thing is the clue at his sign, read out by one of your men (it tells where he is and what he does to the valley); after is the person who tells you, the moment he falls, what his verb does in plain words and numbers; verb.button is the phone's one plain line and verb.tip what a held finger on it says; verb.first is what the map and the feed say the first time.",
+ "about": "BOSSES lane, 11/2/26 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get something that helps you interact with the city'). Act one's first three bosses, in the ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md rows 1-3). WORLD TWO's boss_map.json still owns the sign, where he stands and what falls with him; this file owns his PLACE (the landmark you see from afar), his RUMOUR (the feed), his FIGHT (the man, his gear, his crew, his board, his one lesson) and his VERB (the phone's button and what it does on the grid). Read by slices/bohemia_bosses.js. Every word is a draft:true attempt; every number is a shape TUNING owns. A modder adds a boss by adding a row whose 'n' matches a boss_map.json row. ROUND 2 (BOSSES 11/2, rule 330, ask lines 328 and 329: 'each one has to have their own aesthetic, and maybe a quest or two that leads up to them... I'm so confused by what that means'): boss.look is HIS OWN look on the people's rig (tools/bohemia_bosses_the_three_men.py); place.paint names his place's pictures painted in the map's own look (slices/boss_places/, tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after; lead.asker is the person who lost something to him and asks for help (a mouth card on the road, CONTENT's card), lead.thing is the clue at his sign, read out by one of your men (it tells where he is and what he does to the valley); after is the person who tells you, the moment he falls, what his verb does in plain words and numbers; verb.button is the phone's one plain line and verb.tip what a held finger on it says; verb.first is what the map and the feed say the first time. BOSSES FIX 11/3 (rule 338, ask line 346: 'we still don't know what killing them does'): after.valley is the ONE line the one who asked says the moment he falls (what it means for the valley), after.take the button; verb.hand is the thing he hands you (his pot, his wrench, his filter: slices/boss_places/hand_<verb>.png, tools/bohemia_bosses_what_they_hand_you_11_3_26.py) with its one plain line (what, where, how often, the number), shown on her card and flown into the phone; verb.first.rise is the number that rises off your men where a verb is used. after.says stays as the long form (the held finger's).",
  "verbs_order": [
   "open",
   "purify",
@@ -53,10 +53,17 @@
      "plate": "COOKED HERE: +{healed} BLOOD",
      "feed": "First hot meal. You cooked on {where}: your men got {healed} blood back, like a night's sleep. The pot cools for a day.",
      "plate_none": "COOKED HERE: NOBODY WAS HURT",
-     "feed_none": "First hot meal, on {where}. Nobody was hurt, so it only filled them up. The pot cools for a day."
+     "feed_none": "First hot meal, on {where}. Nobody was hurt, so it only filled them up. The pot cools for a day.",
+     "rise": "+{healed} BLOOD",
+     "rise_none": "NOBODY HURT"
     },
     "cooling": "THE POT IS COOLING",
-    "tip_cooling": "The pot is cooling. You can cook again after a day."
+    "tip_cooling": "The pot is cooling. You can cook again after a day.",
+    "hand": {
+     "name": "HIS POT",
+     "pic": "hand_cook.png",
+     "line": "COOK: once a day, anywhere outside a town. Your men get 8 hours of healing and no time passes."
+    }
    },
    "fallen_art": "kitchen_lit",
    "lead": {
@@ -81,7 +88,9 @@
     "look": "cast_skirt",
     "from": "back in her kitchen, the black fire out",
     "says": "You did it, mijo. His pot is yours now. Here is what it does: once a day, anywhere outside a town, press COOK on your phone. Your men eat hot and heal like a night's sleep, 8 hours of healing, and no time passes. Then the pot needs a day to cool.",
-    "ok": "GOT IT"
+    "ok": "GOT IT",
+    "valley": "The kitchen is open again, mijo. The whole strip eats tonight, not only his crew.",
+    "take": "TAKE IT"
    },
    "tip": "KILL HIM FIRST: HIS COOKS BREAK"
   },
@@ -135,7 +144,14 @@
     "tip": "Opens a water main for good. People pay you 6 batteries. Works on a street next to the water works.",
     "first": {
      "plate": "WATER ON: +{paid} BATTERIES",
-     "feed": "First main opened. The water runs on {where} for good, and people paid you {paid} batteries."
+     "feed": "First main opened. The water runs on {where} for good, and people paid you {paid} batteries.",
+     "rise": "+{paid} BATTERIES",
+     "rise_none": "THE WATER RUNS"
+    },
+    "hand": {
+     "name": "HIS WRENCH",
+     "pic": "hand_open.png",
+     "line": "TURN THE WATER ON: on a street next to the water works. Each main runs for good and pays you 6 batteries, once."
     }
    },
    "fallen_art": "tower_running",
@@ -161,7 +177,9 @@
     "look": "faction_colorful",
     "from": "at the pump house, filling both jugs",
     "says": "The water is running! Bro, you have his valve key now. Here is what it does: on a street next to the water works, press TURN THE WATER ON. That main runs for good, people bring jugs, and they pay you 6 batteries. Every main once.",
-    "ok": "GOT IT"
+    "ok": "GOT IT",
+    "valley": "The water is running! My whole street drinks again, and nobody pays him for it.",
+    "take": "TAKE IT"
    },
    "tip": "CLOSE IN FAST ON HIS SHOOTERS"
   },
@@ -221,7 +239,14 @@
      "plate": "CLEAN WATER: {WOUNDS} HEAL FASTER",
      "feed": "First clean water, on {where}. {wounds} in your crew will heal 2 days faster.",
      "plate_none": "CLEAN WATER: NOBODY WOUNDED YET",
-     "feed_none": "First clean water, on {where}. Nobody is wounded right now, so it does nothing yet. Next time a man is cut, clean water here heals him 2 days faster."
+     "feed_none": "First clean water, on {where}. Nobody is wounded right now, so it does nothing yet. Next time a man is cut, clean water here heals him 2 days faster.",
+     "rise": "{WOUNDS}: 2 DAYS FASTER",
+     "rise_none": "CLEAN WATER"
+    },
+    "hand": {
+     "name": "HIS FILTER",
+     "pic": "hand_purify.png",
+     "line": "CLEAN THE WATER: next to water or a main you opened. Every fresh wound on your men heals 2 days faster. Once a spot."
     }
    },
    "fallen_art": "tanks_clean",
@@ -247,7 +272,9 @@
     "look": "faction_volunteers",
     "from": "at the tanks, filling a bottle",
     "says": "The tanks run clean again, and his gear is yours. Here is what it does: next to any open water, or on a main you opened, press CLEAN THE WATER. Every fresh wound in your crew heals 2 days faster. Once for each spot.",
-    "ok": "GOT IT"
+    "ok": "GOT IT",
+    "valley": "The tanks run clean. Clean water means cuts stop going bad, all over the valley.",
+    "take": "TAKE IT"
    },
    "tip": "SHOOT THE MAN, NOT THE MACHINES"
   }

@@ -629,7 +629,8 @@
       + '#bohphone .bpctx.town .lv{display:flex}#bohphone .bpctx.town .clk{display:none}'
       /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 302): on the map, where a verb a boss gave him works, the band is that verb */
       + '#bohphone .bpctx .vb{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.1px;color:#1f1710;' + kit('tin', 0.5) + ';box-shadow:inset 0 0 0 1px #f2c56a}'
-      + '#bohphone .bpctx .vb img{width:14px;height:14px;image-rendering:pixelated;pointer-events:none}'
+      + '#bohphone .bpctx .vb img{width:20px;height:20px;flex:none;pointer-events:none}'   /* BOSSES FIX 11/3 (rule 338): the thing he handed you (his pot, his wrench, his filter) */
+      + '@keyframes bohVerbLit{0%{filter:brightness(1.6)}50%{filter:brightness(.8)}100%{filter:none}}#bohphone .bpctx.verb .vb{animation:bohVerbLit ' + BEAT + 'ms steps(2,end) 2}'   /* it lights where it works, a tube coming on */
       + '#bohphone .bpctx .vb.off{opacity:.55;cursor:default}'
       + '#bohphone .bpctx.verb .vb{display:flex}#bohphone .bpctx.verb .clk{display:none}'
       + '#bohphone .bpfd{position:absolute;left:3px;right:3px;top:67px;height:46px;margin:0;overflow:hidden;cursor:pointer;padding:2px 3px;background:rgba(6,5,4,.66);box-shadow:inset 0 0 0 1px rgba(240,226,196,.14)}'

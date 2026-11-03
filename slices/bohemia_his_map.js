@@ -408,16 +408,19 @@
       if (stranger) {
         if (S.lit.length) drawLit(gx, ox, oy, beat);
         S.open.forEach(function (k) { var n = N() || 96, x = k % n, y = Math.floor(k / n); var p = ground(x, y, ox, oy); if (onGlass(p)) { blit(gx, 'rubble', p.sx, p.sy + 2); LAST.drew.open = (LAST.drew.open | 0) + 1; } });
-        S.places.forEach(function (P) { var p = ground(P.x, P.y, ox, oy); if (!onGlass(p)) return; blit(gx, 'door', p.sx + 6 * scale() / 2, p.sy - 2); plate(gx, P.name, p.sx, p.sy + 1, PAL.y); LAST.drew.places = (LAST.drew.places | 0) + 1; });
+        /* __THE_BOSSES__ (BOSSES FIX 11/3, rule 338; Paolo: 'I don't like the map icons after I kill a boss too, like wtf'): where the boss's
+           place is painted (slices/bohemia_bosses.js), the changed place IS the mark: no door, no plate, no skull on top of it */
+        var painted = function (n) { try { return !!(n && root.BohemiaBosses && root.BohemiaBosses.paints && root.BohemiaBosses.paints(n)); } catch (e) { return false; } };
+        S.places.forEach(function (P) { if (painted(P.n)) { LAST.drew.places = (LAST.drew.places | 0) + 1; LAST.drew.placesPainted = (LAST.drew.placesPainted | 0) + 1; return; } var p = ground(P.x, P.y, ox, oy); if (!onGlass(p)) return; blit(gx, 'door', p.sx + 6 * scale() / 2, p.sy - 2); plate(gx, P.name, p.sx, p.sy + 1, PAL.y); LAST.drew.places = (LAST.drew.places | 0) + 1; });
         var s = S.boss.sign;
         if (s && !hidden(s.x, s.y)) { var ps = ground(s.x, s.y, ox, oy); if (onGlass(ps)) { blit(gx, s.kind, ps.sx, ps.sy - 2, (beat % 2) ? 1 : 0.7); LAST.drew.sign = { x: Math.round(ps.sx), y: Math.round(ps.sy) }; } }
         for (var n in S.boss.found) {
           var f = S.boss.found[n], down = !!S.boss.fallen[n], pb = ground(f.x, f.y, ox, oy);
           if (onGlass(pb, 0)) {
-            var placed = down && S.places.some(function (P) { return P.n === n; });
-            blit(gx, down ? 'dead' : 'skull', placed ? pb.sx - 14 * scale() / 2 : pb.sx, pb.sy - 2, down ? 0.9 : ((beat % 2) ? 1 : 0.8));
-            if (!placed) plate(gx, n, pb.sx, pb.sy, down ? PAL.g : '#ff6a55');   /* a fallen boss whose place stands there gives his plate to the place */
-            LAST.drew.boss = LAST.drew.boss || []; LAST.drew.boss.push({ n: n, x: Math.round(pb.sx), y: Math.round(pb.sy), down: down });
+            var placed = down && S.places.some(function (P) { return P.n === n; }), quiet = down && painted(n);   /* __THE_BOSSES__ (rule 338): his changed place is the mark */
+            if (!quiet) { blit(gx, down ? 'dead' : 'skull', placed ? pb.sx - 14 * scale() / 2 : pb.sx, pb.sy - 2, down ? 0.9 : ((beat % 2) ? 1 : 0.8));
+              if (!placed) plate(gx, n, pb.sx, pb.sy, down ? PAL.g : '#ff6a55'); }   /* a fallen boss whose place stands there gives his plate to the place */
+            LAST.drew.boss = LAST.drew.boss || []; LAST.drew.boss.push({ n: n, x: Math.round(pb.sx), y: Math.round(pb.sy), down: down, quiet: quiet });
           } else if (!down) edge(gx, pb, n);
         }
       }

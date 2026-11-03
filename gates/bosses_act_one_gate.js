@@ -27,6 +27,14 @@
         what it did over the block on the map and on the feed in plain words
      P1 no pixel-row landmark is left (every place and mark drawn is a painted picture) and WORLD TWO's dots stand down where a
         painted place shows the change
+   ROUND 3 (BOSSES FIX 11/3, rule 338, ask line 346: 'we still don't know what killing them does... I don't like the map icons after I
+   kill a boss'; records/BOHEMIA_BOSSES_WHAT_A_KILL_DOES_11_3_26.md):
+     A5m the moment he falls the camera goes to his place and the change plays there (before, the tape tracking in, after), then she talks
+     A5b (amended) she says ONE line for the valley and holds out the thing he hands you (his pot, wrench, filter) with one plain line, numbers
+     A5f TAKE IT (a real tap) flies the thing into the phone, onto the verb button that names it
+     A5i on the map after, the changed place is the mark: no skull, no door, no plate, his men not standing on it
+     A6c using the verb plays the change where he stands and the number rises off his men
+     BOSSES_EVERY_SECOND=<dir>: a picture a second from the win until the thing has landed (the stranger's seconds)
    C1 nothing threw
    Pictures: records/target/bosses_act_one/ (BOSSES_SHOTS=0 to skip).
    ============================================================================ */
@@ -47,6 +55,11 @@ async function run(prof) {
   const fr = d.fr, page = d.page, errs = [], wonBy = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   const shot = async (name) => { if (SHOTS) { try { await d.shot(path.join(SHOTS, name + '.png')); } catch (e) {} } };
+  /* BOSSES_EVERY_SECOND=<dir>: the stranger's seconds after the fight, one small picture a second (the measure, rule 338) */
+  const EVERY = process.env.BOSSES_EVERY_SECOND || null; let secT = null, secI = 0;
+  const secStart = (tag) => { if (!EVERY) return; fs.mkdirSync(EVERY, { recursive: true }); secI = 0; if (secT) clearInterval(secT);
+    secT = setInterval(() => { const k = String(secI++).padStart(2, '0'); page.screenshot({ path: path.join(EVERY, tag + '_' + k + '.jpg'), type: 'jpeg', quality: 55, scale: 'css' }).catch(() => {}); }, 1000); };
+  const secStop = () => { if (secT) clearInterval(secT); secT = null; };
   const tapEl = async (h) => { const b = h && await h.boundingBox(); if (!b) return false; await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); return true; };
   for (let i = 0; i < 80; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!(window.__FRESH_START && window.__FRESH_START.at) && !!window.BohemiaHisMap && !!BohemiaHisMap.data() && !!window.BohemiaBosses && !!BohemiaBosses.data()).catch(() => false)) break; }
   await fr.evaluate(() => { window.__BOSSES_TALK = true; });   /* this gate answers the bosses' mouth cards (other lanes' walks never meet them) */
@@ -140,10 +153,14 @@ async function run(prof) {
       if (res !== 'won') { by = 'THE CHECKER (AUTO ' + (res || 'did not finish in 3 min') + ')';
         await ff.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {}); }
       wonBy.push(n + ': ' + by);
+      secStart(tag);   /* BOSSES_EVERY_SECOND: a picture every second from here until he is back on the map and told */
       await page.waitForTimeout(1200); await shot(tag + '_c_won');
       for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); if (await page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) break; }
       await page.waitForTimeout(800);
-      await page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+      /* LEAVE on the spoils screen, a real tap (the stranger's way), else the checker's door */
+      let left = false; try { const sf = page.frames().find(f => /SPOILS_SCREEN/.test(f.url())); if (sf) { await page.waitForTimeout(1200); left = await tapEl(await sf.$('#leave')); } } catch (e) {}
+      await page.waitForTimeout(600);
+      if (!left || await page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) await page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
       for (let i = 0; i < 60; i++) { await page.waitForTimeout(500); const q = await st(); if (q.boss.fallen[n]) break; }
       await page.waitForTimeout(1500);
     }
@@ -153,12 +170,31 @@ async function run(prof) {
     s = await st(); const pl2 = (s.drew.places || []).filter(p => p.n === n)[0], vid = row.verb.id;
     ok('A5 ' + n + ': he has fallen, ' + row.verb.word + ' is yours, and his place is changed on the map', !!s.boss.fallen[n] && !!s.verbs[vid] && !!pl2 && pl2.down,
        'fallen ' + !!s.boss.fallen[n] + ' (' + ((s.boss.fallen[n] || {}).did || []).join(', ') + '), verb ' + JSON.stringify(s.verbs[vid]) + ', drawn ' + JSON.stringify(pl2));
-    await shot(tag + '_d_his_place_after');
-    /* A5b: the one who asked comes back and says what the verb does, plain, with the numbers */
+    /* A5m (BOSSES FIX 11/3, rule 338: 'we still don't know what killing them does'): the moment he falls the camera goes to his place
+       and the change plays there (BEFORE, the tape tracking in, AFTER), over his men, BEFORE anybody talks */
     const af = await bossCard('after', n, 30000);
-    ok('A5b ' + n + ': ' + row.after.name + ' tells you in plain words what ' + row.verb.button + ' does', !!af && af.name === row.after.name && af.text === row.after.says && /\d/.test(af.text),
-       af ? af.name + ': "' + af.text + '"' : 'no card');
-    if (af) { await shot(tag + '_d2_what_it_does'); await pressCard(0); await page.waitForTimeout(800); }
+    const bt = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_BEAT || null))).catch(() => null);
+    const off = bt && bt.mid && bt.focus ? Math.max(Math.abs(bt.mid[0] - bt.focus[0]), Math.abs(bt.mid[1] - bt.focus[1])) : null;
+    const cw = await fr.evaluate(() => CVW).catch(() => 390);
+    ok('A5m ' + n + ': the moment he falls the camera goes to his place and the change plays there (before, the tape, after), then she talks', !!bt && bt.n === n && ['glide', 'hold', 'wipe', 'show'].every(p => bt.phases.indexOf(p) >= 0) && !!bt.done && !!af && af.at >= bt.done - 50 && off != null && off < cw * 0.2 && bt.rect.cssW >= 80,
+       bt ? 'phases ' + bt.phases.join('>') + ', ' + (bt.done - bt.started) + ' ms, his place ' + bt.rect.cssW + ' points wide, ' + off + ' px from the open middle (' + cw + ' wide), zoom ' + (bt.cam ? bt.cam.z0.toFixed(2) + '>' + bt.cam.z1.toFixed(2) : 'none') + ', card ' + (af ? (af.at - bt.done) + ' ms after' : 'none') : 'no beat');
+    /* A5b: the one who asked says ONE line for the valley, and holds out the thing he hands you with its one plain line, numbers in it */
+    ok('A5b ' + n + ': ' + row.after.name + ' says one line for the valley and hands you ' + row.verb.hand.name + ' with one plain line', !!af && af.name === row.after.name && af.text === row.after.valley && !!af.hand && af.hand.name === row.verb.hand.name && af.hand.line === row.verb.hand.line && /\d/.test(af.hand.line),
+       af ? af.name + ': "' + af.text + '" + ' + (af.hand ? af.hand.name + ': "' + af.hand.line + '"' : 'NO THING') : 'no card');
+    if (af) { await page.waitForTimeout(600); await shot(tag + '_d2_what_it_does'); await pressCard(0); }
+    /* A5f: TAKE IT flies the thing into the phone, onto the button that names it */
+    let fl = null; for (let i = 0; i < 20 && !(fl && fl.landed); i++) { await page.waitForTimeout(250); fl = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_FLEW || null))).catch(() => null); if (fl && fl.n !== n) fl = null; }
+    ok('A5f ' + n + ': TAKE IT flies ' + row.verb.hand.name + ' into the phone, onto the button that says ' + row.verb.button, !!fl && fl.kind === 'verb' && !!fl.landed && fl.button === row.verb.button,
+       fl ? fl.kind + ' ' + JSON.stringify(fl.from) + ' > ' + JSON.stringify(fl.to) + ', landed ' + !!fl.landed + ', the button "' + fl.button + '"' : 'no flight');
+    await page.waitForTimeout(1200);
+    if (EVERY) await page.waitForTimeout(1300); secStop();
+    /* A5i: the map after: the changed place is the mark (no skull, no door, no plate on it), beside his men, never under them */
+    await fr.evaluate(() => render()); await page.waitForTimeout(300);
+    const mi = await fr.evaluate((n) => { const hm = ((BohemiaHisMap.last().drew || {}).boss || []).filter(b => b.n === n)[0] || null, P = (BohemiaHisMap.state().places || []).filter(p => p.n === n);
+      const me = BohemiaBosses.last().drew; return JSON.parse(JSON.stringify({ hm, hmPlaces: (BohemiaHisMap.last().drew || {}).places || 0, placeRows: P.length, ours: (me.places || []).filter(p => p.n === n)[0] || null, plates: me.plates, party: [city.x, city.y] })); }, n);
+    ok('A5i ' + n + ': on the map after, his changed place is the mark: no skull, no door, no plate, and his men do not stand on it', !!mi.ours && mi.ours.down && /_after$/.test(mi.ours.key) && (!mi.hm || mi.hm.quiet) && mi.plates === 0 && !(mi.ours.at[0] === mi.party[0] && mi.ours.at[1] === mi.party[1]),
+       'place ' + (mi.ours ? mi.ours.key + ' at ' + mi.ours.at.join(',') + ' (' + mi.ours.w + ' px, named ' + mi.ours.named + ')' : 'not drawn') + ', his men at ' + mi.party.join(',') + ', the old skull ' + (mi.hm ? (mi.hm.quiet ? 'stood down' : 'DRAWN') : 'off the glass') + ', plates ' + mi.plates + ', door+plate drawn ' + mi.hmPlaces);
+    await shot(tag + '_d_his_place_after');
     await fr.evaluate(() => { window.__BOSSES_TALK = false; });   /* the next boss's asker waits until this verb is walked and used */
     /* A6: where the verb works, the phone shows it; a real tap uses it */
     const spot = await fr.evaluate((vid) => { const h = [city.x, city.y]; if (BohemiaBosses.applies(vid, h[0], h[1])) return h;
@@ -195,6 +231,11 @@ async function run(prof) {
       return { plate: m && m.first, feed: P ? (P.txt || P.text || '') : null, drew: BohemiaBosses.last().drew }; });
     ok('A6b ' + n + ': the first use says what it did over the block on the map and on the feed, in plain words', !!fu.plate && !!fu.feed && [row.verb.first.feed, row.verb.first.feed_none].filter(Boolean).some(t => fu.feed.indexOf(t.split('{')[0].trim()) === 0),
        'map: "' + fu.plate + '", feed: "' + fu.feed + '"');
+    /* A6c (rule 338): the use plays where he stands (the fire lit, the main running, the drum filled) and the number rises off his men */
+    const ub = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_USE_BEAT || null))).catch(() => null);
+    const riseOk = !!ub && ub.id === vid && (/\d/.test(ub.rise) || ub.rise === row.verb.first.rise_none);
+    ok('A6c ' + n + ': using it plays the change where he stands and the number rises off his men', riseOk && !!ub.drawn && !!ub.drawn.mark && !!after.used && ub.at[0] === after.used.x && ub.at[1] === after.used.y,
+       ub ? ub.id + ' at ' + ub.at.join(',') + ': "' + ub.rise + '", drawn ' + JSON.stringify(ub.drawn) : 'no use beat');
     /* P1: nothing on the map from this lane is pixel rows; WORLD TWO's lights stand down where his place is painted */
     const p1 = await fr.evaluate((n) => ({ src: !/var ART = \{/.test(String(BohemiaBosses.draw)) , places: BohemiaBosses.last().drew.places.map(p => p.painted), paints: BohemiaBosses.paints(n) }), n);
     ok('P1 ' + n + ': no pixel-row landmark: every place and mark is a painted picture, and the lights\' dots stand down here', p1.src && p1.places.length > 0 && p1.places.every(Boolean) && p1.paints, JSON.stringify(p1));
