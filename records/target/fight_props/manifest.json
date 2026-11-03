@@ -1,0 +1,819 @@
+{
+ "about": "COOK PROPS 11/3 (rule 341, rule 337): each place's own things as real models through the master rig, for COMBAT MAPS 3 to place on its boards. tools/bohemia_cook_props_every_place_its_own_11_3_26.py",
+ "px_per_metre": 42.917,
+ "cell_m": 12.0,
+ "storey_m": 3.0,
+ "camera": "orthographic, tilted 45 from straight down, facing north, never turned; heights drawn full (x 1/cos45); one sun upper left",
+ "front": "every model faces -Y (south, the camera); turn it on a board in quarters; its origin is its ground centre, metres, z up",
+ "anchor": "anchor_px is the model's ground centre (its origin) in its picture, from the top-left pixel",
+ "role_key": {
+  "cover": "stops a shot, a man stands behind it",
+  "blocking": "nobody walks through it",
+  "none": "stands there, the fight walks past it"
+ },
+ "tile_key": {
+  "#": "blocked (BB impassable)",
+  "H": "height (+1 level, a roof or ledge you climb)",
+  "r": "rough (3 AP)",
+  ".": "flat; the thing is a piece on it"
+ },
+ "places": [
+  {
+   "id": "lab",
+   "name": "THE LAB YARD",
+   "card": "records/target/fight_props/CARD_LAB.webp",
+   "props": [
+    "lab.cage_block",
+    "lab.gurneys",
+    "lab.decon",
+    "lab.cold_truck",
+    "lab.fence_run",
+    "lab.fence_gate"
+   ]
+  },
+  {
+   "id": "airport",
+   "name": "THE AIRPORT",
+   "card": "records/target/fight_props/CARD_AIRPORT.webp",
+   "props": [
+    "airport.plane",
+    "airport.fuel_truck",
+    "airport.baggage",
+    "airport.jet_bridge",
+    "airport.hangar"
+   ]
+  },
+  {
+   "id": "golf",
+   "name": "THE GOLF COURSE",
+   "card": "records/target/fight_props/CARD_GOLF.webp",
+   "props": [
+    "golf.clubhouse",
+    "golf.cart",
+    "golf.cart_over",
+    "golf.flag_green",
+    "golf.tee",
+    "golf.dead_palm",
+    "golf.palm_down"
+   ]
+  }
+ ],
+ "models": [
+  {
+   "id": "lab.cage_block",
+   "place": "lab",
+   "place_name": "THE LAB YARD",
+   "name": "THE CAGE BLOCK",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/lab_cage_block.glb",
+   "picture": "records/target/fight_props/lab/lab_cage_block.webp",
+   "picture_px": [
+    631,
+    406
+   ],
+   "anchor_px": [
+    260.6,
+    211.7
+   ],
+   "size_m": [
+    10.84,
+    5.77,
+    3.55
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.434,
+   "height_m": 3.55,
+   "height_storeys": 1.18,
+   "role": "blocking",
+   "sees_through": true,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "what": "four steel holding cages on a concrete plinth under a lean-to roof, numbered; cage three burst open from inside, its door torn off and thrown out into the yard, the bars beside it bowed out",
+   "wrong": "the bars of cage three are bent OUTWARD, toward you; the straw is dragged out after it",
+   "verts": 4022
+  },
+  {
+   "id": "lab.gurneys",
+   "place": "lab",
+   "place_name": "THE LAB YARD",
+   "name": "TWO GURNEYS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/lab_gurneys.glb",
+   "picture": "records/target/fight_props/lab/lab_gurneys.webp",
+   "picture_px": [
+    159,
+    143
+   ],
+   "anchor_px": [
+    59.5,
+    103.3
+   ],
+   "size_m": [
+    2.97,
+    1.77,
+    2.16
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.037,
+   "height_m": 2.13,
+   "height_storeys": 0.71,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "two transport gurneys: one standing with its straps still buckled across an empty mattress and its drip pole, one knocked over on its side with its mattress slid off",
+   "wrong": "the standing gurney's straps are buckled shut, tight, across nothing",
+   "verts": 560
+  },
+  {
+   "id": "lab.decon",
+   "place": "lab",
+   "place_name": "THE LAB YARD",
+   "name": "THE DECON SHOWER",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/lab_decon.glb",
+   "picture": "records/target/fight_props/lab/lab_decon.webp",
+   "picture_px": [
+    239,
+    249
+   ],
+   "anchor_px": [
+    95.4,
+    151.7
+   ],
+   "size_m": [
+    5.21,
+    4.11,
+    2.63
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.149,
+   "height_m": 2.63,
+   "height_storeys": 0.88,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a portable decontamination shower: a tube frame under a sheet roof, plastic curtains on three sides (one torn open), two shower roses, a yellow catch berm, its pump on a skid with the hoses run out, a hazmat suit hung on the frame",
+   "wrong": null,
+   "verts": 738
+  },
+  {
+   "id": "lab.cold_truck",
+   "place": "lab",
+   "place_name": "THE LAB YARD",
+   "name": "THE COLD-STORE TRUCK",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/lab_cold_truck.glb",
+   "picture": "records/target/fight_props/lab/lab_cold_truck.webp",
+   "picture_px": [
+    512,
+    333
+   ],
+   "anchor_px": [
+    191.0,
+    238.1
+   ],
+   "size_m": [
+    9.92,
+    4.98,
+    3.91
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.343,
+   "height_m": 3.83,
+   "height_storeys": 1.28,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a refrigerated box truck backed up to the cages, its cab dead, its back doors swung open on an empty box, the reefer unit on the box's nose",
+   "wrong": "the reefer is still running: its panel lit and frost white on the open doors, in the desert, with no one paying for the diesel",
+   "verts": 1292
+  },
+  {
+   "id": "lab.fence_run",
+   "place": "lab",
+   "place_name": "THE LAB YARD",
+   "name": "LAB FENCE, A RUN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/lab_fence_run.glb",
+   "picture": "records/target/fight_props/lab/lab_fence_run.webp",
+   "picture_px": [
+    353,
+    137
+   ],
+   "anchor_px": [
+    135.8,
+    132.0
+   ],
+   "size_m": [
+    6.25,
+    0.67,
+    2.96
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.029,
+   "height_m": 2.96,
+   "height_storeys": 0.99,
+   "role": "blocking",
+   "sees_through": true,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "what": "six metres of 2.4 m security chain-link on galvanised posts, barbed wire on V-arms and a razor coil riding in the V, a yellow biohazard plate wired to the fabric",
+   "wrong": null,
+   "verts": 1950
+  },
+  {
+   "id": "lab.fence_gate",
+   "place": "lab",
+   "place_name": "THE LAB YARD",
+   "name": "LAB GATE, ONE LEAF DOWN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/lab_fence_gate.glb",
+   "picture": "records/target/fight_props/lab/lab_fence_gate.webp",
+   "picture_px": [
+    284,
+    180
+   ],
+   "anchor_px": [
+    97.5,
+    129.2
+   ],
+   "size_m": [
+    4.99,
+    1.85,
+    2.94
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.064,
+   "height_m": 2.93,
+   "height_storeys": 0.98,
+   "role": "blocking",
+   "sees_through": true,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "what": "a double vehicle gate in the same fence, 4 m between its posts: the left leaf shut on its chain and padlock, the right leaf torn off its top hinge and hanging, its corner dug into the ground; the gap is a way through",
+   "wrong": null,
+   "verts": 992
+  },
+  {
+   "id": "airport.plane",
+   "place": "airport",
+   "place_name": "THE AIRPORT",
+   "name": "THE PLANE ON ITS BELLY",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/airport_plane.glb",
+   "picture": "records/target/fight_props/airport/airport_plane.webp",
+   "picture_px": [
+    899,
+    526
+   ],
+   "anchor_px": [
+    377.4,
+    257.5
+   ],
+   "size_m": [
+    18.29,
+    17.61,
+    5.54
+   ],
+   "footprint_cells": [
+    2,
+    2
+   ],
+   "fills_cell": 1.0,
+   "height_m": 4.2,
+   "height_storeys": 1.4,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a 19-seat twin turboprop (a Beechcraft 1900 at its true 17.6 m) down on its belly on the apron, gear folded under it, the left wingtip on the ground, both propellers curled back, its airstair door open",
+   "wrong": null,
+   "verts": 732
+  },
+  {
+   "id": "airport.fuel_truck",
+   "place": "airport",
+   "place_name": "THE AIRPORT",
+   "name": "THE FUEL TRUCK",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/airport_fuel_truck.glb",
+   "picture": "records/target/fight_props/airport/airport_fuel_truck.webp",
+   "picture_px": [
+    503,
+    304
+   ],
+   "anchor_px": [
+    227.5,
+    162.7
+   ],
+   "size_m": [
+    10.35,
+    5.78,
+    3.27
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.415,
+   "height_m": 3.27,
+   "height_storeys": 1.09,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": true
+   },
+   "what": "an airport refueller: a cab-over cab, a 5,000 gallon tank, a walkway rail on top, the hose reel at the back with its hose run out across the apron to a nozzle lying on nothing; the Jet A placard",
+   "wrong": null,
+   "verts": 716
+  },
+  {
+   "id": "airport.baggage",
+   "place": "airport",
+   "place_name": "THE AIRPORT",
+   "name": "THE BAGGAGE CARTS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/airport_baggage.glb",
+   "picture": "records/target/fight_props/airport/airport_baggage.webp",
+   "picture_px": [
+    674,
+    267
+   ],
+   "anchor_px": [
+    296.9,
+    153.5
+   ],
+   "size_m": [
+    14.19,
+    2.95,
+    2.06
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.291,
+   "height_m": 2.06,
+   "height_storeys": 0.69,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a baggage tug and three covered carts in a train that slewed as it stopped, each cart still loaded",
+   "wrong": "every suitcase on every cart is the same suitcase: the same size, the same colour, stacked the same way",
+   "verts": 2124
+  },
+  {
+   "id": "airport.jet_bridge",
+   "place": "airport",
+   "place_name": "THE AIRPORT",
+   "name": "THE JET BRIDGE STUB",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/airport_jet_bridge.glb",
+   "picture": "records/target/fight_props/airport/airport_jet_bridge.webp",
+   "picture_px": [
+    920,
+    583
+   ],
+   "anchor_px": [
+    390.3,
+    347.5
+   ],
+   "size_m": [
+    15.89,
+    7.76,
+    7.41
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.856,
+   "height_m": 7.35,
+   "height_storeys": 2.45,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a jet bridge standing alone where its terminal was: the rotunda on its column, a corrugated tunnel 4 m up running out to its cab, the drive column on its two wheels, the service stair from the cab down to the apron; its terminal end torn off. You walk under it; the stair climbs to it",
+   "wrong": null,
+   "verts": 920
+  },
+  {
+   "id": "airport.hangar",
+   "place": "airport",
+   "place_name": "THE AIRPORT",
+   "name": "THE HANGAR'S OPEN FRONT",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/airport_hangar.glb",
+   "picture": "records/target/fight_props/airport/airport_hangar.webp",
+   "picture_px": [
+    1452,
+    1194
+   ],
+   "anchor_px": [
+    549.3,
+    823.7
+   ],
+   "size_m": [
+    25.25,
+    13.52,
+    10.72
+   ],
+   "footprint_cells": [
+    3,
+    2
+   ],
+   "fills_cell": 1.0,
+   "height_m": 10.7,
+   "height_storeys": 3.57,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the front bay of a steel hangar, 24 m wide and 9 m to the eaves: its sliding door leaves run back to both ends on their track, one leaf jumped its track and leaning, the dark inside, roof sheets gone, a caged ladder up the side to the roof",
+   "wrong": null,
+   "verts": 2094
+  },
+  {
+   "id": "golf.clubhouse",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "THE CLUBHOUSE FRONT",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/golf_clubhouse.glb",
+   "picture": "records/target/fight_props/golf/golf_clubhouse.webp",
+   "picture_px": [
+    1299,
+    885
+   ],
+   "anchor_px": [
+    538.1,
+    594.3
+   ],
+   "size_m": [
+    24.12,
+    15.23,
+    5.95
+   ],
+   "footprint_cells": [
+    2,
+    2
+   ],
+   "fills_cell": 1.0,
+   "height_m": 5.95,
+   "height_storeys": 1.98,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a desert-modern clubhouse, 22 m by 11 m: stucco walls, a clay-tile mansard round a flat roof you can stand on, a portico of five arches, its doors and windows boarded, dead shrubs in its planters, a ladder left at the side",
+   "wrong": null,
+   "verts": 1890
+  },
+  {
+   "id": "golf.cart",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "A GOLF CART, DEAD",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/golf_cart.glb",
+   "picture": "records/target/fight_props/golf/golf_cart.webp",
+   "picture_px": [
+    182,
+    131
+   ],
+   "anchor_px": [
+    58.3,
+    105.9
+   ],
+   "size_m": [
+    2.75,
+    1.25,
+    2.08
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.024,
+   "height_m": 2.01,
+   "height_storeys": 0.67,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "an electric golf cart left on the fairway: its canopy sagging, one front tyre flat, a bag of clubs on the back",
+   "wrong": null,
+   "verts": 344
+  },
+  {
+   "id": "golf.cart_over",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "A GOLF CART ON ITS SIDE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/golf_cart_over.glb",
+   "picture": "records/target/fight_props/golf/golf_cart_over.webp",
+   "picture_px": [
+    147,
+    116
+   ],
+   "anchor_px": [
+    53.3,
+    104.8
+   ],
+   "size_m": [
+    2.75,
+    2.12,
+    1.29
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.04,
+   "height_m": 1.31,
+   "height_storeys": 0.44,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the same cart, pushed over on its side: its floor toward you, a low wall a man kneels behind",
+   "wrong": null,
+   "verts": 344
+  },
+  {
+   "id": "golf.flag_green",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "THE FLAG ON A DEAD GREEN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/golf_flag_green.glb",
+   "picture": "records/target/fight_props/golf/golf_flag_green.webp",
+   "picture_px": [
+    646,
+    333
+   ],
+   "anchor_px": [
+    318.3,
+    167.5
+   ],
+   "size_m": [
+    14.8,
+    10.8,
+    2.64
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 1.0,
+   "height_m": 2.62,
+   "height_storeys": 0.87,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a green gone to straw, raised a little over the fairway in its fringe, the cup cut in it, the pin and its flag",
+   "wrong": "the flag is new: a bright yellow cloth standing straight out from the pin, with no wind, on the only thing on the course anyone still tends",
+   "verts": 880
+  },
+  {
+   "id": "golf.tee",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "THE TEE: A BALL WASHER AND ITS BENCH",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/golf_tee.glb",
+   "picture": "records/target/fight_props/golf/golf_tee.webp",
+   "picture_px": [
+    260,
+    136
+   ],
+   "anchor_px": [
+    117.8,
+    87.6
+   ],
+   "size_m": [
+    5.48,
+    2.28,
+    1.7
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.087,
+   "height_m": 1.68,
+   "height_storeys": 0.56,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a tee's furniture: the ball washer on its post with its crank and a rag on the hook, a slatted bench, the two tee markers, a bin, the hole's sign on its post",
+   "wrong": null,
+   "verts": 440
+  },
+  {
+   "id": "golf.dead_palm",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "A DEAD PALM",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/golf_dead_palm.glb",
+   "picture": "records/target/fight_props/golf/golf_dead_palm.webp",
+   "picture_px": [
+    567,
+    638
+   ],
+   "anchor_px": [
+    91.6,
+    568.6
+   ],
+   "size_m": [
+    4.91,
+    4.46,
+    12.8
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.152,
+   "height_m": 12.37,
+   "height_storeys": 4.12,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a Mexican fan palm 11.5 m tall, the kind the valley planted along every fairway: its crown dead brown, two fronds snapped, the skirt of dead fronds nobody trimmed hanging down its trunk",
+   "wrong": null,
+   "verts": 1136
+  },
+  {
+   "id": "golf.palm_down",
+   "place": "golf",
+   "place_name": "THE GOLF COURSE",
+   "name": "A PALM DOWN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/golf_palm_down.glb",
+   "picture": "records/target/fight_props/golf/golf_palm_down.webp",
+   "picture_px": [
+    617,
+    254
+   ],
+   "anchor_px": [
+    263.9,
+    92.0
+   ],
+   "size_m": [
+    12.9,
+    4.69,
+    5.62
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.42,
+   "height_m": 3.35,
+   "height_storeys": 1.12,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": "r",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the same palm fallen across the fairway, its crown smashed on the ground: a long low log a man lies behind, its dead fronds rough ground to cross",
+   "wrong": null,
+   "verts": 1136
+  }
+ ]
+}

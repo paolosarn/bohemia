@@ -1,0 +1,596 @@
+{
+ "lab.cage_block": {
+  "size_m": [
+   10.84,
+   5.77,
+   3.55
+  ],
+  "bounds_m": [
+   [
+    -5.47,
+    -3.87,
+    0.0
+   ],
+   [
+    5.37,
+    1.9,
+    3.55
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/lab_cage_block.glb",
+  "picture": "records/target/fight_props/lab/lab_cage_block.webp",
+  "picture_px": [
+   631,
+   406
+  ],
+  "anchor_px": [
+   260.6,
+   211.7
+  ],
+  "verts": 4022,
+  "materials": 15,
+  "glb_kb": 429,
+  "seconds": 27
+ },
+ "lab.gurneys": {
+  "size_m": [
+   2.97,
+   1.77,
+   2.16
+  ],
+  "bounds_m": [
+   [
+    -1.11,
+    -0.34,
+    -0.03
+   ],
+   [
+    1.86,
+    1.43,
+    2.13
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/lab_gurneys.glb",
+  "picture": "records/target/fight_props/lab/lab_gurneys.webp",
+  "picture_px": [
+   159,
+   143
+  ],
+  "anchor_px": [
+   59.5,
+   103.3
+  ],
+  "verts": 560,
+  "materials": 6,
+  "glb_kb": 64,
+  "seconds": 3
+ },
+ "lab.decon": {
+  "size_m": [
+   5.21,
+   4.11,
+   2.63
+  ],
+  "bounds_m": [
+   [
+    -2.18,
+    -2.62,
+    0.0
+   ],
+   [
+    3.03,
+    1.49,
+    2.63
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/lab_decon.glb",
+  "picture": "records/target/fight_props/lab/lab_decon.webp",
+  "picture_px": [
+   239,
+   249
+  ],
+  "anchor_px": [
+   95.4,
+   151.7
+  ],
+  "verts": 738,
+  "materials": 13,
+  "glb_kb": 92,
+  "seconds": 7
+ },
+ "lab.cold_truck": {
+  "size_m": [
+   9.92,
+   4.98,
+   3.91
+  ],
+  "bounds_m": [
+   [
+    -3.85,
+    -2.49,
+    -0.08
+   ],
+   [
+    6.07,
+    2.49,
+    3.83
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/lab_cold_truck.glb",
+  "picture": "records/target/fight_props/lab/lab_cold_truck.webp",
+  "picture_px": [
+   512,
+   333
+  ],
+  "anchor_px": [
+   191.0,
+   238.1
+  ],
+  "verts": 1292,
+  "materials": 18,
+  "glb_kb": 151,
+  "seconds": 15
+ },
+ "lab.fence_run": {
+  "size_m": [
+   6.25,
+   0.67,
+   2.96
+  ],
+  "bounds_m": [
+   [
+    -3.12,
+    -0.34,
+    0.0
+   ],
+   [
+    3.12,
+    0.34,
+    2.96
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/lab_fence_run.glb",
+  "picture": "records/target/fight_props/lab/lab_fence_run.webp",
+  "picture_px": [
+   353,
+   137
+  ],
+  "anchor_px": [
+   135.8,
+   132.0
+  ],
+  "verts": 1950,
+  "materials": 6,
+  "glb_kb": 193,
+  "seconds": 9
+ },
+ "lab.fence_gate": {
+  "size_m": [
+   4.99,
+   1.85,
+   2.94
+  ],
+  "bounds_m": [
+   [
+    -2.23,
+    -1.67,
+    -0.01
+   ],
+   [
+    2.76,
+    0.18,
+    2.93
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/lab_fence_gate.glb",
+  "picture": "records/target/fight_props/lab/lab_fence_gate.webp",
+  "picture_px": [
+   284,
+   180
+  ],
+  "anchor_px": [
+   97.5,
+   129.2
+  ],
+  "verts": 992,
+  "materials": 5,
+  "glb_kb": 63,
+  "seconds": 7
+ },
+ "airport.plane": {
+  "size_m": [
+   18.29,
+   17.61,
+   5.54
+  ],
+  "bounds_m": [
+   [
+    -8.78,
+    -8.84,
+    -1.34
+   ],
+   [
+    9.52,
+    8.77,
+    4.2
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/airport_plane.glb",
+  "picture": "records/target/fight_props/airport/airport_plane.webp",
+  "picture_px": [
+   899,
+   526
+  ],
+  "anchor_px": [
+   377.4,
+   257.5
+  ],
+  "verts": 732,
+  "materials": 8,
+  "glb_kb": 90,
+  "seconds": 33
+ },
+ "airport.fuel_truck": {
+  "size_m": [
+   10.35,
+   5.78,
+   3.27
+  ],
+  "bounds_m": [
+   [
+    -4.7,
+    -4.55,
+    0.0
+   ],
+   [
+    5.65,
+    1.23,
+    3.27
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/airport_fuel_truck.glb",
+  "picture": "records/target/fight_props/airport/airport_fuel_truck.webp",
+  "picture_px": [
+   503,
+   304
+  ],
+  "anchor_px": [
+   227.5,
+   162.7
+  ],
+  "verts": 716,
+  "materials": 11,
+  "glb_kb": 86,
+  "seconds": 17
+ },
+ "airport.baggage": {
+  "size_m": [
+   14.19,
+   2.95,
+   2.06
+  ],
+  "bounds_m": [
+   [
+    -6.9,
+    -0.82,
+    0.0
+   ],
+   [
+    7.29,
+    2.13,
+    2.06
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/airport_baggage.glb",
+  "picture": "records/target/fight_props/airport/airport_baggage.webp",
+  "picture_px": [
+   674,
+   267
+  ],
+  "anchor_px": [
+   296.9,
+   153.5
+  ],
+  "verts": 2124,
+  "materials": 6,
+  "glb_kb": 225,
+  "seconds": 14
+ },
+ "airport.jet_bridge": {
+  "size_m": [
+   15.89,
+   7.76,
+   7.41
+  ],
+  "bounds_m": [
+   [
+    -8.49,
+    -5.96,
+    -0.06
+   ],
+   [
+    7.4,
+    1.8,
+    7.35
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/airport_jet_bridge.glb",
+  "picture": "records/target/fight_props/airport/airport_jet_bridge.webp",
+  "picture_px": [
+   920,
+   583
+  ],
+  "anchor_px": [
+   390.3,
+   347.5
+  ],
+  "verts": 920,
+  "materials": 10,
+  "glb_kb": 104,
+  "seconds": 34
+ },
+ "airport.hangar": {
+  "size_m": [
+   25.25,
+   13.52,
+   10.72
+  ],
+  "bounds_m": [
+   [
+    -12.2,
+    -1.42,
+    -0.02
+   ],
+   [
+    13.05,
+    12.1,
+    10.7
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/airport_hangar.glb",
+  "picture": "records/target/fight_props/airport/airport_hangar.webp",
+  "picture_px": [
+   1452,
+   1194
+  ],
+  "anchor_px": [
+   549.3,
+   823.7
+  ],
+  "verts": 2094,
+  "materials": 11,
+  "glb_kb": 241,
+  "seconds": 90
+ },
+ "golf.clubhouse": {
+  "size_m": [
+   24.12,
+   15.23,
+   5.95
+  ],
+  "bounds_m": [
+   [
+    -11.94,
+    -3.3,
+    0.0
+   ],
+   [
+    12.18,
+    11.94,
+    5.95
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_clubhouse.glb",
+  "picture": "records/target/fight_props/golf/golf_clubhouse.webp",
+  "picture_px": [
+   1299,
+   885
+  ],
+  "anchor_px": [
+   538.1,
+   594.3
+  ],
+  "verts": 1890,
+  "materials": 12,
+  "glb_kb": 237,
+  "seconds": 64
+ },
+ "golf.cart": {
+  "size_m": [
+   2.75,
+   1.25,
+   2.08
+  ],
+  "bounds_m": [
+   [
+    -1.2,
+    -0.63,
+    -0.07
+   ],
+   [
+    1.55,
+    0.63,
+    2.01
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_cart.glb",
+  "picture": "records/target/fight_props/golf/golf_cart.webp",
+  "picture_px": [
+   182,
+   131
+  ],
+  "anchor_px": [
+   58.3,
+   105.9
+  ],
+  "verts": 344,
+  "materials": 7,
+  "glb_kb": 42,
+  "seconds": 3
+ },
+ "golf.cart_over": {
+  "size_m": [
+   2.75,
+   2.12,
+   1.29
+  ],
+  "bounds_m": [
+   [
+    -1.2,
+    -0.39,
+    0.02
+   ],
+   [
+    1.55,
+    1.73,
+    1.31
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_cart_over.glb",
+  "picture": "records/target/fight_props/golf/golf_cart_over.webp",
+  "picture_px": [
+   147,
+   116
+  ],
+  "anchor_px": [
+   53.3,
+   104.8
+  ],
+  "verts": 344,
+  "materials": 7,
+  "glb_kb": 42,
+  "seconds": 3
+ },
+ "golf.flag_green": {
+  "size_m": [
+   14.8,
+   10.8,
+   2.64
+  ],
+  "bounds_m": [
+   [
+    -7.4,
+    -5.4,
+    -0.02
+   ],
+   [
+    7.4,
+    5.4,
+    2.62
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_flag_green.glb",
+  "picture": "records/target/fight_props/golf/golf_flag_green.webp",
+  "picture_px": [
+   646,
+   333
+  ],
+  "anchor_px": [
+   318.3,
+   167.5
+  ],
+  "verts": 880,
+  "materials": 8,
+  "glb_kb": 100,
+  "seconds": 19
+ },
+ "golf.tee": {
+  "size_m": [
+   5.48,
+   2.28,
+   1.7
+  ],
+  "bounds_m": [
+   [
+    -2.73,
+    -1.63,
+    -0.02
+   ],
+   [
+    2.75,
+    0.65,
+    1.68
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_tee.glb",
+  "picture": "records/target/fight_props/golf/golf_tee.webp",
+  "picture_px": [
+   260,
+   136
+  ],
+  "anchor_px": [
+   117.8,
+   87.6
+  ],
+  "verts": 440,
+  "materials": 11,
+  "glb_kb": 64,
+  "seconds": 4
+ },
+ "golf.dead_palm": {
+  "size_m": [
+   4.91,
+   4.46,
+   12.8
+  ],
+  "bounds_m": [
+   [
+    -2.12,
+    -2.08,
+    -0.44
+   ],
+   [
+    2.79,
+    2.38,
+    12.37
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_dead_palm.glb",
+  "picture": "records/target/fight_props/golf/golf_dead_palm.webp",
+  "picture_px": [
+   567,
+   638
+  ],
+  "anchor_px": [
+   91.6,
+   568.6
+  ],
+  "verts": 1136,
+  "materials": 5,
+  "glb_kb": 124,
+  "seconds": 23
+ },
+ "golf.palm_down": {
+  "size_m": [
+   12.9,
+   4.69,
+   5.62
+  ],
+  "bounds_m": [
+   [
+    -6.04,
+    -4.31,
+    -2.27
+   ],
+   [
+    6.86,
+    0.38,
+    3.35
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/golf_palm_down.glb",
+  "picture": "records/target/fight_props/golf/golf_palm_down.webp",
+  "picture_px": [
+   617,
+   254
+  ],
+  "anchor_px": [
+   263.9,
+   92.0
+  ],
+  "verts": 1136,
+  "materials": 5,
+  "glb_kb": 124,
+  "seconds": 21
+ }
+}
