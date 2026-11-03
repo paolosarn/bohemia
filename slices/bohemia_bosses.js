@@ -445,7 +445,9 @@
   function placeAt(at) {
     if (at.bx != null && (at.bx !== at.x || at.by !== at.y)) return [at.bx, at.by];
     for (var i = 0; i < NEXT.length; i++) { var x = at.x + NEXT[i][0], y = at.y + NEXT[i][1]; if (!walk(x, y) && dist(x, y)) return [x, y]; }
-    return [at.x, at.y];
+    /* BOSSES 4 (measured 11/3, the six-boss gate, A5i): a boss WORLD TWO stood past the valley's edge (THE FILTER at 51,-6) has no
+       building beside him, and his place was painted under his own men; it stands on the block behind him (up the screen) instead */
+    return [at.x - 1, at.y - 1];
   }
   var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope' }, MARK_OFF = [0.34, 0.16];
 
