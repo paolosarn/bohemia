@@ -224,8 +224,7 @@
     "two_handed_mace",
     "two_handed_flanged_mace",
     "polemace",
-    "goedendag",
-    "crowbar"
+    "goedendag"
    ],
    "sha1": "485ccd2268f5c4418146570a13525defe3139619",
    "hands": 1,
@@ -268,8 +267,7 @@
     "two_handed_mallet",
     "two_handed_skull_hammer",
     "two_handed_hammer",
-    "polehammer",
-    "framing_hammer"
+    "polehammer"
    ],
    "sha1": "910e29baf96950ef00260b5bebfb9c5fecd2e210",
    "hands": 2,
@@ -375,8 +373,7 @@
     "warbrand",
     "longsword",
     "greatsword",
-    "executioner_s_sword",
-    "pawn_katana"
+    "executioner_s_sword"
    ],
    "sha1": "8be37a7f02b4defde45d768d58af98510e2954bb",
    "hands": 1,
@@ -422,8 +419,7 @@
     "bardiche",
     "greataxe",
     "man_splitter",
-    "longaxe",
-    "splitting_maul"
+    "longaxe"
    ],
    "sha1": "3500fdddc8aa295a8befc1f7e0b21b4c8f30084f",
    "hands": 2,
@@ -469,8 +465,7 @@
     "fire_lance",
     "fighting_spear",
     "warfork",
-    "spetum",
-    "broom_bayonet"
+    "spetum"
    ],
    "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
    "hands": 2,
@@ -522,8 +517,7 @@
     "two_handed_saif",
     "rusty_warblade",
     "crypt_cleaver",
-    "two_handed_scimitar",
-    "box_cutter"
+    "two_handed_scimitar"
    ],
    "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
    "hands": 1,
@@ -567,8 +561,7 @@
     "three_headed_flail",
     "two_handed_wooden_flail",
     "two_handed_flail",
-    "berserk_chain",
-    "bike_lock_chain"
+    "berserk_chain"
    ],
    "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
    "hands": 1,
@@ -615,8 +608,7 @@
     "pike",
     "swordlance",
     "billhook",
-    "pollaxe",
-    "sign_post_halberd"
+    "pollaxe"
    ],
    "sha1": "f836590411cb433825fa7fd3b53c4b5afdf7cc60",
    "hands": 2,
@@ -1517,6 +1509,320 @@
     "parts": 40
    },
    "was": "chain"
+  },
+  "crowbar": {
+   "glb": "item_crowbar.glb",
+   "kind": "held",
+   "name": "crowbar",
+   "say": "a red wrecking bar gone to bare steel where it is held, the gooseneck claw, the flat chisel at the butt",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "crowbar"
+   ],
+   "sha1": "2ef7588d7b161639c6848e682d60065752aadf3d",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.86,
+     0.036,
+     0.153
+    ],
+    "lo": [
+     -0.16,
+     -0.018,
+     -0.02
+    ],
+    "hi": [
+     0.7,
+     0.018,
+     0.132
+    ],
+    "materials": [
+     "clay_rust 1",
+     "clay_rust 2",
+     "metal_painted 1",
+     "rubber 1"
+    ],
+    "verts": 344,
+    "parts": 22
+   },
+   "was": "pipe"
+  },
+  "bike_lock_chain": {
+   "glb": "item_bike_lock_chain.glb",
+   "kind": "held",
+   "name": "bike-lock chain",
+   "say": "a square-link bike chain in its torn black sleeve, bunched and taped for a grip, the lock barrel with its key",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "bike_lock_chain"
+   ],
+   "sha1": "65fa67ac3c22c9306f2d575a38b56ee39bd7502c",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.938,
+     0.076,
+     0.157
+    ],
+    "lo": [
+     -0.06,
+     -0.038,
+     -0.094
+    ],
+    "hi": [
+     0.878,
+     0.038,
+     0.063
+    ],
+    "materials": [
+     "clay_mustard 3",
+     "cloth_black 2",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 1528,
+    "parts": 30
+   },
+   "was": "chain"
+  },
+  "box_cutter": {
+   "glb": "item_box_cutter.glb",
+   "kind": "held",
+   "name": "box cutter",
+   "say": "a yellow heavy-duty utility knife, the blade run all the way out, the body wound in black tape",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "box_cutter"
+   ],
+   "sha1": "e2265c5328686d22860b13717b4712735f5f0c8f",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.273,
+     0.042,
+     0.047
+    ],
+    "lo": [
+     -0.065,
+     -0.021,
+     -0.025
+    ],
+    "hi": [
+     0.208,
+     0.021,
+     0.022
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 3",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 234,
+    "parts": 8
+   },
+   "was": "cleaver"
+  },
+  "framing_hammer": {
+   "glb": "item_framing_hammer.glb",
+   "kind": "held",
+   "name": "framing hammer",
+   "say": "a hickory framing hammer, the milled face, the straight rip claw with a bent nail caught in it",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "framing_hammer"
+   ],
+   "sha1": "7fb2ff14b4613887231b2d18d9c3633817bde03b",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.502,
+     0.05,
+     0.21
+    ],
+    "lo": [
+     -0.08,
+     -0.025,
+     -0.12
+    ],
+    "hi": [
+     0.422,
+     0.025,
+     0.09
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 306,
+    "parts": 13
+   },
+   "was": "sledge"
+  },
+  "broom_bayonet": {
+   "glb": "item_broom_bayonet.glb",
+   "kind": "held",
+   "name": "broom bayonet",
+   "say": "a painted broom handle, an old bayonet hose-clamped to its end, the paint worn to wood at the grip",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "broom_bayonet"
+   ],
+   "sha1": "de403cf74e9662b726e48098acd991aa2ca71784",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     1.6,
+     0.051,
+     0.084
+    ],
+    "lo": [
+     -0.5,
+     -0.026,
+     -0.026
+    ],
+    "hi": [
+     1.1,
+     0.026,
+     0.058
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_bone 2",
+     "clay_mustard 1",
+     "clay_teal 2",
+     "metal_painted 1"
+    ],
+    "verts": 304,
+    "parts": 13
+   },
+   "was": "rebar_spear"
+  },
+  "pawn_shop_katana": {
+   "glb": "item_pawn_shop_katana.glb",
+   "kind": "held",
+   "name": "pawn-shop katana",
+   "say": "a wall-hanger katana, its wrapped grip, the round guard, the pawn tag still tied on its string",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "pawn_katana"
+   ],
+   "sha1": "e13f6776b68829850a4994fb94599f9d5af7eb4d",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.972,
+     0.081,
+     0.087
+    ],
+    "lo": [
+     -0.112,
+     -0.041,
+     -0.047
+    ],
+    "hi": [
+     0.86,
+     0.04,
+     0.04
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_bone 2",
+     "cloth_black 2",
+     "metal_painted 1",
+     "tape_masking 3"
+    ],
+    "verts": 220,
+    "parts": 15
+   },
+   "was": "machete"
+  },
+  "splitting_maul": {
+   "glb": "item_splitting_maul.glb",
+   "kind": "held",
+   "name": "splitting maul",
+   "say": "an eight-pound maul, the wedge ground bright, the sledge face behind it, the red paint mostly gone",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "splitting_maul"
+   ],
+   "sha1": "b6b521518c9758c9aef7c33a8075101626a9f91c",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     0.922,
+     0.061,
+     0.253
+    ],
+    "lo": [
+     -0.06,
+     -0.031,
+     -0.088
+    ],
+    "hi": [
+     0.862,
+     0.031,
+     0.165
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "clay_rust 2",
+     "metal_painted 1",
+     "rubber 1"
+    ],
+    "verts": 350,
+    "parts": 12,
+    "left_x": 0.42
+   },
+   "was": "fire_axe",
+   "left_x": 0.42
+  },
+  "sign_post_halberd": {
+   "glb": "item_sign_post_halberd.glb",
+   "kind": "held",
+   "name": "sign-post halberd",
+   "say": "a punched steel sign post, a STOP sign cut into an axe blade and bolted on, the post cut to a spike",
+   "made": "COOK 11/3 (tools/bohemia_cook_every_weapon_its_own_11_3_26.py)",
+   "rows": [
+    "sign_post_halberd"
+   ],
+   "sha1": "7edf622fcc02d5d92ce12601da3c0c021beac68b",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     2.03,
+     0.054,
+     0.288
+    ],
+    "lo": [
+     -0.65,
+     -0.027,
+     -0.123
+    ],
+    "hi": [
+     1.38,
+     0.027,
+     0.165
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_bone 4",
+     "clay_rust 2",
+     "metal_painted 2",
+     "rubber 0"
+    ],
+    "verts": 544,
+    "parts": 33,
+    "left_x": 0.57
+   },
+   "was": "pole_hook",
+   "left_x": 0.57
   }
  }
 }

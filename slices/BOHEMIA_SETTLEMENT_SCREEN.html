@@ -592,7 +592,7 @@ var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'
   food:'s_food', water:'s_water', meds:'s_meds', rounds:'s_rounds'};
 function packIcon(key){ var f = PACK_ICON[key]; if(!f) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
 /* __EVERY_WEAPON_ITS_OWN__ (COOK, rule 337, ask line 344): a piece of the valley's own on the shelf as its own 3D model, rendered through the master rig (slices/market_icons/own_<row>.png); a piece with none yet keeps the kit's drawn icon */
-var OWN_MODEL = {"barbed_wire":1,"extension_cord":1,"live_wire":1,"pool_pole_spear":1,"rodeo_bullwhip":1};
+var OWN_MODEL = {"barbed_wire":1,"bike_lock_chain":1,"box_cutter":1,"broom_bayonet":1,"crowbar":1,"extension_cord":1,"framing_hammer":1,"live_wire":1,"pawn_katana":1,"pool_pole_spear":1,"rodeo_bullwhip":1,"sign_post_halberd":1,"splitting_maul":1};
 function ownIcon(id){ if(!OWN_MODEL[id]) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/own_' + id + '.png'; return im; }
 /* ==== end __EVERY_WEAPON_ITS_OWN__ ==== */
 function iconTile(it, onTap, sub, money){

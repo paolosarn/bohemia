@@ -10,7 +10,7 @@ landfill, the Strip, downtown, the works, the marina), pushed as they land; the 
 [bb Battle Brothers' blockers read at a glance as what they are; every place's things here do.]
 [analog horror: one wrong thing a place: the reefer still running, the same suitcase, the flag in no wind.]
 
-COOK WEAPONS (rule 337, ask line 344, 11/3): EVERY WEAPON ITS OWN (first push BUILD 11/3zzd). BUILT, NOT YET SEEN (rule 179):
+COOK WEAPONS (rule 337, ask line 344, 11/3): EVERY WEAPON ITS OWN (BUILD 11/3zzd, then 11/3zzj). BUILT, NOT YET SEEN (rule 179):
 - [every weapon its own] SHIPPED (this push): the pool pole spear, the extension cord, the live wire, the barbed wire and the rodeo
   bullwhip each its own glb (reference/models/bohemia/item_<name>.glb, COOK's every-item kit) rendered in YOU's hands by ANIMATION's
   own render_props on new layers m4/s4/t4 (records/target/animation/BOHEMIA_MELEE_AND_SHIELD.json; 'hanging' = cords and thongs hang
@@ -19,8 +19,11 @@ COOK WEAPONS (rule 337, ask line 344, 11/3): EVERY WEAPON ITS OWN (first push BU
   sheet, WAS beside NOW. Gates: every item has a model 226/0 (amended for own models), the thing in his hand 29/0, the whip 13/0,
   the market's pack art 8/0. tools/bohemia_cook_every_weapon_its_own_11_3_26.py (model, wire, render, pack, shelf, manifest, vote),
   proof tools/bohemia_cook_every_weapon_its_own_proof_11_3_26.js.
-- [the last armory round's melee] RENDERED, ships next push: crowbar, bike-lock chain, box cutter, framing hammer, broom bayonet,
-  pawn-shop katana (row pawn_katana), splitting maul, sign-post halberd.
+- [the last armory round's melee] SHIPPED (second push, BUILD 11/3zzj): crowbar, bike-lock chain, box cutter, framing hammer, broom
+  bayonet, pawn-shop katana (row pawn_katana), on layers m5/s5 (m4 would pass 2048 x 1024), splitting maul and sign-post halberd on
+  t4. VOTE: a second moving sheet of eight.
+- [the six guns] OWED, measured: a gun is drawn by four per-look systems (fight_rig grid, rig_hold, rig_idles, rig_melee's pistol);
+  the next round's job (the record says how).
 - TO REBUILD THE RENDERS in a fresh container: bpy 4.2 venv; `bohemia_combat_the_fight_wears_the_rig.py bodies you`, the melee tool's
   `pose`, the Stand frame (CF.render you Stand into records/target/animation/melee), then the tool's `render`.
 - Record records/BOHEMIA_COOK_EVERY_WEAPON_ITS_OWN_MODEL_11_3_26.md.

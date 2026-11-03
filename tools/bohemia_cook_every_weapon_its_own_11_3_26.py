@@ -454,7 +454,7 @@ def do_wire(names):
 
 def layers_of(n, S=None):
     S = S or json.load(open(SRC))
-    return [ly for ly in ('m4', 's4', 't4') if n in S['layers'].get(ly, {}).get('props', [])]
+    return [ly for ly in ('m4', 's4', 't4', 'm5', 's5') if n in S['layers'].get(ly, {}).get('props', [])]
 
 
 # ------------------------------------------------------------------------------------------------ render (bpy, ANIMATION's)
@@ -530,7 +530,7 @@ def do_pack(names):
 
     yp = os.path.join(RIGM, 'you.json'); Y = json.load(open(yp))
     sigs = json.load(open(os.path.join(d, 'props', 'models.json')))
-    for ly in ('m4', 's4', 't4'):
+    for ly in ('m4', 's4', 't4', 'm5', 's5'):
         if ly not in S['layers']: continue
         props = [p_ for p_ in S['layers'][ly]['props'] if A.props_done('you', ly, p_)]
         if not props: continue
@@ -563,7 +563,7 @@ def do_pack(names):
         lp = os.path.join(RIGM, look + '.json'); e = json.load(open(lp))
         if e.get('props') and not e.get('props_ref') and not e.get('ref'):
             e['props_ref'] = 'you'; json.dump(e, open(lp, 'w'), separators=(',', ':')); refs += 1
-    live = [ly for ly in ('m4', 's4', 't4') if ly in Y['props']['sheets']]
+    live = [ly for ly in ('m4', 's4', 't4', 'm5', 's5') if ly in Y['props']['sheets']]
     for ly in live:
         if ly not in I['layers_ready']: I['layers_ready'].append(ly)
     ready = set(p_ for ly in I['layers_ready'] for p_ in S['layers'][ly]['props'] if ly in S['layers'])

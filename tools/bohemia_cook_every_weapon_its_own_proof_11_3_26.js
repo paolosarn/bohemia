@@ -22,9 +22,10 @@ const WAS = { pool_pole_spear: 'rebar_spear', extension_cord: 'chain', live_wire
   crowbar: 'pipe', bike_lock_chain: 'chain', box_cutter: 'cleaver', framing_hammer: 'sledge', broom_bayonet: 'rebar_spear', pawn_shop_katana: 'machete',
   splitting_maul: 'fire_axe', sign_post_halberd: 'pole_hook' };
 const REACH = { extension_cord: 2, live_wire: 2, barbed_wire: 2, rodeo_bullwhip: 2 };
+const ROW = { pawn_shop_katana: 'pawn_katana' };   /* the model's name and the armory row's id differ for the katana */
 
 async function one(id, mode) {
-  const company = [{ name: 'YOU', main: true, background: 'sellsword', level: 3, perks: [], marks: [], gear: { main: id, off: null, body: null, head: null, bag: [null, null] } }];
+  const company = [{ name: 'YOU', main: true, background: 'sellsword', level: 3, perks: [], marks: [], gear: { main: ROW[id] || id, off: null, body: null, head: null, bag: [null, null] } }];
   const arm = 'window.FIGHT_OPTS = ' + JSON.stringify({ seed: 7, speed: 1, auto: false, deploy: false, teach: false, company, party: { faction: 'brigands', count: 3, days: 1 } }) + ';';
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm }), p = d.page;
   await until(p, () => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length > 1 && !FIGHT.S.deploy, null, 60000);
@@ -46,7 +47,7 @@ async function one(id, mode) {
     a.ap = a.apTurn; a.fat = 0; t.hp = Math.max(t.hp, 400); t.hpMax = Math.max(t.hpMax || 0, 400);
     UI.zoom = Math.max(UI.zoom, UI.far * 4); const q = aimAt((a.x + t.x) / 2, (a.y + t.y) / 2); UI.cx = q[0]; UI.cy = q[1];
     return { ok: true, can: FIGHT.canStrike(a, t), d: Math.max(Math.abs(a.x - t.x), Math.abs(a.y - t.y)), prop: (meleeProp(a) || [null])[0], row: (a.weapon.of || a.weapon).id };
-  }, [REACH[id] || 1, WAS[id], id, mode]);
+  }, [REACH[id] || 1, WAS[id], ROW[id] || id, mode]);
   const out = { set, frames: [] };
   if (!set.ok) { out.errs = d.errs || []; await d.close(); return out; }
   await until(p, () => !(UI.anim && UI.anim.length), null, 20000); await sleep(600);

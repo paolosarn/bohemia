@@ -16855,6 +16855,46 @@
     "after": "per code: 75 to 205 burned blocks, 32 to 128 looted, 16 to 75 rebuilt, 17 to 79 of 160 circuits dark, 8 to 12 landmarks, 3 to 5 freeway blocks and 1 to 2 passes shut, one of 4 skies",
     "scale": "his phone, 390 x 844, zoomed out"
    }
+  },
+  {
+   "id": "cook-every-weapon-its-own-batch2-11-3",
+   "kind": "animation",
+   "lane": "cook",
+   "sha": "6199e530",
+   "made": "11/3",
+   "title": "EVERY WEAPON ITS OWN 2: CROWBAR, BIKE-LOCK CHAIN, BOX CUTTER, FRAMING HAMMER, BROOM BAYONET, PAWN-SHOP KATANA, SPLITTING MAUL, SIGN-POST HALBERD, EACH ITS OWN 3D MODEL IN HIS HANDS",
+   "said": "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing",
+   "why": "These 8 were drawn in his hands as another weapon (chain, cleaver, fire axe, machete, pipe, pole hook, rebar spear, sledge); now each is its own model made the clay way, held in all eight facings and swung or lashed on the beat. You see it here, the old one left and the new one right, and in every fight and on the shop shelf.",
+   "options": [
+    "A, yes, these are the weapons",
+    "B, close, push the look further",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook_every_weapon/sheet_batch2.webp",
+    "first": "../records/target/cook_every_weapon/first_batch2.webp",
+    "firstAt": [
+     289,
+     24,
+     277,
+     228
+    ]
+   },
+   "twin": {
+    "src": "slices/rig_melee/you_props_m2.webp",
+    "diffs": [
+     "METHOD: the twin is the sheet the fight drew these from until now, the rebar spear and the chain (his family models) on every key of YOU; mine is each weapon's own glb made the clay way through the same master rig, the same body, camera and sun.",
+     "SIZE: true size at the rig's 57 px a metre, one ruler with the man: the pool pole is 2.24 m against the rebar spear's 2.2, the cords and the whips hang 0.7 to 0.8 m from the fist to his knee where the chain hung 0.5.",
+     "LOOK: each keeps five materials of the style palette at most; the family stand-in was one look for five weapons, now the orange cord, the yellow battery, the rusted barbs and the plaited leather each read as their own at the fight's pixels."
+    ]
+   },
+   "before_after": {
+    "before": "each weapon drawn as its family's model in his hand (the rebar spear, the chain, the pipe...)",
+    "after": "each its own glb through the master rig, in YOU's hands on every key, every man borrows those pictures",
+    "scale": "his phone, 390 x 844 at 3x, the fight zoomed on the man"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
