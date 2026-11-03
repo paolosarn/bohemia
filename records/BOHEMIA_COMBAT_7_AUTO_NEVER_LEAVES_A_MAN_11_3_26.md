@@ -122,3 +122,26 @@ against their old brain). AUTO PLAYS THE BEST TURN 7/0.
 GATE: THE ENEMY WANTS TO LIVE (new) 4/0: W1 the rule is data; W2 a lone man of theirs, four of ours ahead: 0 of 10 walk into three
 (the brain before 10 of 10); W3 two roofs, he takes the higher (3 storeys over 2); W4 their Rally on two breaking men.
 VOTE: combat-7-the-enemy-wants-to-live-11-3 (the lone man before and now, their shooter's climb; the fight's camera on his phone).
+
+## 6. RULE 351(f), THE KILL CAMS (ask line 365; piece 5)
+THE FIRST MODULE'S CAMERA: this clone is shallow (124 commits), so its June code is not here; its styles and rules are in the laws:
+SHARP, HAMMER, CINE-FOLLOW, ORBIT, X-RAY, and for a stake HELD BREATH, CHAIN, LAST STAND, SHUFFLE the default
+(laws/BOHEMIA_ADDENDUM_COMBAT_DNA_RF4_6_30_26.md; laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md, whose open TODO was 'quantize killshot camera
+lengths to beats'); the research's 'the kill cam earns its length' (records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md s6).
+NOW (slices/BOHEMIA_FIGHT.html killCut/cutStep/cutAfter/cutSkip; ours.kill_cams): a kill of theirs he sees holds its fall's note for
+whole beats: short_beats (2) with a shuffled style; long_beats (4) only for a stake: the last of theirs, a boss or a champion (HELD
+BREATH), his last man standing (LAST STAND); a second kill by one man in his turn is a CHAIN (short, the gap waived); never two cuts
+within gap_beats (2); AUTO halves each; a tap skips it. Sound: real recordings from the approved bank (vital_deep under HAMMER, the
+heartbeat under HELD BREATH), on top of the kill's own death sound.
+FRAMES, MEASURED on the upright phone (390 x 844 at 3x; this container draws in software, about 35 to 44 frames a second either way, so
+the measure is each frame's own draw against the same kills with the cams off): first build eased the fight's zoom every frame and
+redrew the ground every frame: 37 to 55 ms a kill frame against 17 with no cam. Stills at a closer zoom still drew every man and the
+ground at twice the pixels: 37 to 52 ms. SHIPPED: the camera never moves for a cut; the punch-in is the camcorder's digital zoom, the
+finished picture scaled toward the man who fell by the browser's compositor (CSS keyframes per style: HAMMER's jolts, ORBIT's turn,
+HELD BREATH's push), the tags over the men step aside for the beat, X-RAY one full-glass negative fill on a frame drawn anyway:
+kill frames 16.7 ms with the cams against 18.9 ms without (the gate's K6). On his phone the compositor's scale is the graphics chip's.
+GATE: THE KILL CAMS (new) 7/0: K1 data; K2 earned and on the beat (sharp 1b, follow/chain 1b, held/last 2b, xray 1b, hammer 1b on AUTO);
+K3 every style on a real kill; K4 the camera never moves, the tags aside and back; K5 a tap skips it, the bars go, the fight goes on;
+K6 no frame lost; nothing threw.
+VOTE: combat-7-the-kill-cams-11-3 (each style stepped through on a real kill from the fight's camera on his phone; PLAY WITH SOUND plays
+the game's own death and blow recordings under each).

@@ -2279,6 +2279,37 @@
   "quote": "Battle Brothers [enemies are] slightly intelligent, they try to preserve their [lives]... our enemies should be climbing on tops as high as they can, reasonable",
   "why": "COMBAT 7's default, TUNING's to tune. storey_weight: a shooter of theirs choosing a roof weighs each storey up as this many steps of walking saved (rule 321: height is accuracy), so he takes the highest roof he can reach with a man of ours in his range, not the nearest; he climbs only when he has no shot now (rule 328). alone_into and alone_penalty_tiles: a man of theirs walking with nothing to hit this turn treats a tile where alone_into or more of ours can strike him next turn and no man of his stands beside him as alone_penalty_tiles steps farther from the fight, so he waits for his friends or comes at the side, never walks alone into five (measured before: 124 of 930 walks of theirs did, 60 fights). MEASURED, the price: 2 steps cut the walk-ins to 63 but cost his AUTO (best-turn B6 20 wins against 23); 1 step cuts them to 84 and his AUTO holds (B6 21 against 19, his 120-fight wins 81); a hurt-only or walk-in-only price was tried and left his men idler (1.57 to 1.73% of turns)."
  },
+ "kill_cams": {
+  "value": {
+   "on": true,
+   "short_beats": 2,
+   "long_beats": 4,
+   "auto_share": 0.5,
+   "gap_beats": 2,
+   "zoom": {
+    "sharp": 1.5,
+    "hammer": 1.6,
+    "follow": 1.3,
+    "orbit": 1.4,
+    "xray": 1.5,
+    "held": 1.75
+   },
+   "short_styles": [
+    "sharp",
+    "hammer",
+    "follow",
+    "orbit",
+    "xray"
+   ],
+   "sound": {
+    "hammer": "vital_deep",
+    "held": "heartbeat"
+   }
+  },
+  "source": "VAMILY.md rule 351(f) (Paolo 11/3, ask line 365); records/BOHEMIA_PAOLO_THE_CEILING_AT_DAY_20_11_3_26.md; the first combat module's killshot camera (laws/BOHEMIA_ADDENDUM_COMBAT_DNA_RF4_6_30_26.md: SHARP, HAMMER, CINE-FOLLOW, ORBIT, X-RAY, plus HELD BREATH, CHAIN, LAST STAND; laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md: SHUFFLE the default, 'quantize killshot camera lengths to beats' its open TODO); records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md section 6 (the kill cam earns its length)",
+  "quote": "in the early combat you know we had kill cams, bro why don't we have kill cams here... it will just like fit into the timing of the game... I always just care about the frames per second",
+  "why": "COMBAT 7's default, TUNING's to tune. A kill of theirs he sees gets a cut on the beat grid: short_beats (two beats at 120 BPM, one second) for an ordinary kill, a style shuffled from short_styles (the first module's default, SHUFFLE); long_beats only for a stake: the last man of theirs, a champion or a boss (HELD BREATH, the heartbeat), a second kill by the same man in one turn (CHAIN), his last man standing (LAST STAND). On AUTO each cut is auto_share as long. Never two cuts within gap_beats of each other (a chain excepted). A tap skips it. The cut moves only the fight's own camera and two letterbox bars, so it costs no frame (measured on the upright phone, the record). zoom: how close each style comes, as a share of the near stop. sound: real recordings from the approved bank."
+ },
  "chase_calc": {
   "value": {
    "runs": 4,

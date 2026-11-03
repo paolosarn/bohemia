@@ -6006,7 +6006,8 @@ function startAnim(a) {
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = a.at;   /* the fall plays from here (poseOf) */
       if (u.side === 'you' || u._seen) { thudAt(a.at, B); SND.thud(u, a.at, B); }   /* THE PUNCH: the body lands on the fall's last key */
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
-      if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
+      if (u.side === 'them') MUSIC.kill(u);   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
+      if (e.t === 'dead' && u.side === 'them' && u._seen) killCut(u, e, a); }   /* THE KILL CAMS (COMBAT 7, rule 351(f)) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side, victim: 'machine' }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
     else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
@@ -6699,12 +6700,93 @@ function autoFrame(now) {
   if (hudEdges()) fitStops();   /* the bar and the phone read every frame: the frame is never a frame behind them */
   const a = UI.camAt; if (a && !UI.pinched && (Math.abs(a.z - UI.zoom) > 1e-9 || Math.abs(a.x - UI.cx) > 1e-6 || Math.abs(a.y - UI.cy) > 1e-6)) camMine();
   camBack();
-  if (UI.pinched || gest || UI.drag) return;   /* his touch has it, a finger is down, or a man is being carried to his slot */
+  if (UI.pinched || gest || UI.drag || UI.cut) return;   /* his touch has it, a finger is down, a man is being carried to his slot, or a kill cam holds the picture still */
   const f = aimClamped(fitBoth()), g = UI.glide, to = g ? { z: g.tz, cx: g.tx, cy: g.ty } : { z: UI.zoom, cx: UI.cx, cy: UI.cy };
   if (Math.abs(Math.log(f.z / to.z)) < AIM_ZOOM && Math.hypot(f.cx - to.cx, f.cy - to.cy) * f.z < AIM_PX) return;
   glideTo(f.cx, f.cy, f.z, beatMs() * (f.z < to.z ? GLIDE_OUT : 1), !!(g && g.hold && now - g.t0 < g.ms), now);   /* inside a beat; a glide a turn waits on still holds it */
   UI.refits = (UI.refits || 0) + 1;
 }
+
+/* ===== THE KILL CAMS (COMBAT 7, rule 351(f), ask line 365; Paolo 11/3: 'in the early combat you know we had kill cams, bro why don't we
+   have kill cams here... it will just like fit into the timing of the game... I always just care about the frames per second') =====
+   The first combat module's killshot camera, its styles kept by name (laws/BOHEMIA_ADDENDUM_COMBAT_DNA_RF4_6_30_26.md: SHARP, HAMMER,
+   CINE-FOLLOW, ORBIT, X-RAY; for a stake HELD BREATH, CHAIN, LAST STAND; SHUFFLE the default), on today's board and men. EARNED
+   (records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md s6, 'the kill cam earns its length'): a kill of theirs he sees gets a
+   short cut, a stake the long one; ON THE BEAT: the cut is the fall's own note held for whole beats (the 6/27 module's open TODO,
+   'quantize killshot camera lengths to beats'); never two within gap_beats (a chain goes on); a tap skips; AUTO halves it. FRAMES: it
+   moves only the fight's own camera (zoom and aim) and two letterbox bars; X-RAY is one full-glass fill on the frame that is drawn
+   anyway. Numbers: ours.kill_cams. */
+const CUT_SAYS = { chain: 'CHAIN', last: 'LAST ONE', stand: 'LAST STAND', boss: 'HELD BREATH' };   /* draft:true */
+function cutBars(on) {
+  let t = document.getElementById('cutT'), b = document.getElementById('cutB');
+  if (!t) { ['cutT', 'cutB'].forEach(function (id) { const d = document.createElement('div'); d.id = id;
+    d.style.cssText = 'position:fixed;left:0;right:0;height:0;background:#050403;z-index:6;pointer-events:none;transition:height .25s ease-out;' + (id === 'cutT' ? 'top:0' : 'bottom:0');
+    document.body.appendChild(d); }); t = document.getElementById('cutT'); b = document.getElementById('cutB'); }
+  t.style.height = b.style.height = on ? '9vh' : '0';
+}
+function killCut(u, e, a) {
+  const K = R('ours.kill_cams'); if (!K || !K.on) return;
+  const now = performance.now(), by = e.by ? FIGHT.byId(e.by) : null, B = beatMs();
+  const chainKey = by ? by.id + ':' + FIGHT.S.round : null, chained = !!(chainKey && UI.cutChain && UI.cutChain.key === chainKey);
+  UI.cutChain = chainKey ? { key: chainKey, n: chained ? UI.cutChain.n + 1 : 1 } : null;
+  if (!chained && UI.cutEnd && now - UI.cutEnd < B * K.gap_beats) return;   /* never two cuts for the same second */
+  if (UI.cut) return;
+  /* the stake: the last of theirs to fall, a champion or a boss, a second kill by one man in his turn, his last man standing */
+  const left = FIGHT.S.units.filter(function (v) { return v.side === 'them' && v !== u && (FIGHT.onField(v) || ((v.dead || v.down) && v._fallAt === undefined && v._seen)); }).length;
+  const mine = FIGHT.S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); }).length;
+  const stake = left === 0 ? 'last' : (u.boss || u.champion) ? 'boss' : UI.cutChain && UI.cutChain.n >= 2 ? 'chain' : by && by.side === 'you' && mine === 1 && FIGHT.S.units.filter(function (v) { return v.side === 'you'; }).length > 1 ? 'stand' : null;
+  const long = !!stake && stake !== 'chain';
+  const style = UI.cutForce || (long ? 'held' : K.short_styles[Math.floor(Math.random() * K.short_styles.length)]);   /* cutForce: a gate or the card asks for one style */
+  const big = long || style === 'held', beats = (big ? K.long_beats : K.short_beats) * (UI.auto ? K.auto_share : 1);
+  const ms = Math.max(B, Math.round(beats) * B);   /* whole beats, at least one */
+  const f = aimAt(u.x, u.y), g = by ? aimAt(by.x, by.y) : f;
+  UI.cut = { style: style, stake: stake, long: big, t0: a.at, ms: ms, a: a, vx: f[0], vy: f[1], kx: g[0], ky: g[1], z0: UI.zoom, x0: UI.cx, y0: UI.cy, near: UI.near, victim: u.id, by: by ? by.id : null };
+  a.dur = Math.max(a.dur, ms);
+  if (style === 'follow' && by) cutOrigin(by.x, by.y); else cutOrigin(u.x, u.y);
+  cutClass(style, ms);
+  (UI.cuts = UI.cuts || []).push({ style: style, stake: stake, ms: ms, at: a.at });   /* for the gates and the card */
+  if (big) cutBars(true);
+  if (stake) pop(u, CUT_SAYS[stake], '#e8d8b0', true);
+  const snd = K.sound[style]; if (snd) sfx(snd, { side: 'them', cut: style });
+}
+/* THE CAMERA NEVER MOVES FOR IT (measured 11/3 on the upright phone, the same kills with the cams off and on: a cut that eased the
+   fight's own zoom redrew the ground every frame, 37 to 55 ms a frame; one still at a closer zoom still drew every man and the ground
+   at twice the pixels, 37 to 52 ms, where the same kill with no cam drew in 17): the punch-in is the CAMCORDER'S DIGITAL ZOOM, the
+   finished picture scaled toward the man who fell by the browser's compositor (no redraw at all), each style its keyframes (HAMMER's
+   jolts, ORBIT's turn, HELD BREATH's slow push), snapping in and out on the beat; the tags over the men step aside for the beat */
+function cutCss() {
+  if (document.getElementById('cutcss')) return;
+  const Z = R('ours.kill_cams').zoom, n = function (v) { return Math.round(v * 1000) / 1000; };
+  const hold = function (name, mid) { return '@keyframes ' + name + '{0%,6%{transform:none}6.1%' + mid[0] + '86%' + mid[1] + '86.1%,100%{transform:none}}'; };
+  const sc = function (z, extra) { return '{transform:scale(' + n(z) + ')' + (extra || '') + '}'; };
+  const st = document.createElement('style'); st.id = 'cutcss';
+  st.textContent = '#cv.cut{animation-duration:var(--cutms);animation-timing-function:linear;animation-fill-mode:both}'
+    + 'body.cutting #breath,body.cutting #hurts,body.cutting #num,body.cutting #pick,body.cutting #winds{visibility:hidden}'
+    + ['sharp', 'follow', 'xray'].map(function (k) { return hold('cut_' + k, [sc(Z[k]), sc(Z[k])]); }).join('')
+    + '@keyframes cut_hammer{0%,6%{transform:none}6.1%' + sc(Z.hammer, ' translate(4px,-3px)') + '12%' + sc(Z.hammer, ' translate(-3px,3px)') + '18%' + sc(Z.hammer, ' translate(2px,-1px)') + '24%,86%' + sc(Z.hammer) + '86.1%,100%{transform:none}}'
+    + hold('cut_orbit', [sc(Z.orbit, ' rotate(-2deg)'), sc(Z.orbit, ' rotate(2deg)')])
+    + hold('cut_held', [sc(1.2), sc(Z.held)]);
+  document.head.appendChild(st);
+}
+function cutOrigin(x, y) { const b = manBox(x, y); cv.style.transformOrigin = Math.round(b.x) + 'px ' + Math.round((b.head + b.feet) / 2) + 'px'; }
+function cutClass(style, ms) {
+  cutCss(); cv.classList.remove('cut'); cv.style.animationName = 'none'; void cv.offsetWidth;
+  cv.style.setProperty('--cutms', ms + 'ms'); cv.style.animationName = 'cut_' + style; cv.classList.add('cut'); document.body.classList.add('cutting');
+}
+function cutStep(now) {
+  const C = UI.cut; if (!C) return;
+  const k = (now - C.t0) / C.ms;
+  if (k >= 1) { cutDone(now); return; }
+  if (C.style === 'follow' && k >= 0.45 && !C.turned) { C.turned = true; const v = FIGHT.byId(C.victim); if (v) cutOrigin(v.x, v.y); }   /* the man who did it, then the man who fell */
+}
+/* X-RAY: the tape's negative on the impact, one fill on the frame already drawn (analog horror: the frame the deck chewed) */
+function cutAfter(now) {
+  const C = UI.cut; if (!C || C.style !== 'xray') return;
+  const k = (now - C.t0) / C.ms; if (k < 0.15 || k > 0.42) return;
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalCompositeOperation = 'difference'; cx.fillStyle = '#e8e0cc'; cx.fillRect(0, 0, cv.width, cv.height); cx.restore();
+}
+function cutDone(now) { const C = UI.cut; if (!C) return; UI.cut = null; UI.cutEnd = now; cv.classList.remove('cut'); cv.style.animationName = 'none'; document.body.classList.remove('cutting'); if (C.long) cutBars(false); }   /* back exactly where it was: no glide to pay for */
+function cutSkip() { const C = UI.cut; if (!C) return; const now = performance.now(); if (C.a) C.a.dur = Math.max(0, Math.min(C.a.dur, now - C.a.at)); UI.cutSkipped = (UI.cutSkipped || 0) + 1; cutDone(now); }
 
 /* ---------------- the marks on the board ----------------
    THE MARKS ON THE BOARD (COMBAT [the marks on the board], rule 88; rule 114: no anti-aliased line, no see-through wash, no
@@ -6792,7 +6874,8 @@ function mkDot(X, Y, col) { const c = mc(X) - 1, r = mc(Y) - 1; mkCell(c + 1, r 
 /* ---------------- drawing ---------------- */
 function draw(now) {
   autoFrame(now);   /* THE FIGHT'S CAMERA (rule 288): the tightest frame of every fighter, his touch until his next man's turn */
-  stepGlide(now); camLeft();
+  if (UI.cut) cutStep(now); else stepGlide(now);   /* a kill cam holds the camera still: its zoom is the compositor's */
+  camLeft();
   KICK = kickAt(now);   /* THE PUNCH: the glass kicks along a blow for a sixteenth */
   cx.setTransform(DPR, 0, 0, DPR, 0, 0);
   cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
@@ -9113,6 +9196,7 @@ function fightNow() {
   hud();
 }
 function tapAt(px, py) {
+  if (UI.cut) { cutSkip(); return; }   /* THE KILL CAMS: a tap skips the cut */
   if (FIGHT.S.deploy && !UI.auto && !FIGHT.S.over) { deployTap(px, py); return; }
   vetSkip();   /* change 8: a tap skips the veteran's line (it never stops the march) */
   if (!FIGHT.S.over && FIGHT.current() && !crewControlled(FIGHT.current())) { UI.skip = true; return; }   /* skip their turn */
@@ -9395,7 +9479,7 @@ function frame(now) {
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
-  try { draw(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
+  try { draw(now); if (UI.cut) cutAfter(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
   catch (e) { frameErr(e, now); }
 }
 function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }

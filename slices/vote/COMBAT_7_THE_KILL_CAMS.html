@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Kill Cams</title>
+<!-- COMBAT 7 [the kill cams], rule 351(f), ask line 365 (Paolo 11/3: 'in the early combat you know we had kill cams, bro why don't we have
+     kill cams here... it will just like fit into the timing of the game... I always just care about the frames per second'). Each style
+     filmed on a real kill in the fight on his phone (390 x 844, AUTO on), stepped through its cut. Sound: the game's own recordings
+     (slices/fight_death, slices/fight_punch), on a tap. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .cell{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px}
+  .cell.on{outline:2px solid var(--gold)}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:4px;color:var(--gold)}
+  .say{color:#cfc5ae;margin:4px 0 0;font-size:11px}
+  img{width:100%;display:block;border-radius:3px}
+  button{font:inherit;font-weight:700;letter-spacing:1px;color:#1a140c;background:var(--gold);border:0;border-radius:4px;padding:10px 14px;margin:0 0 12px}
+</style>
+<h1>THE KILL CAMS ARE BACK</h1>
+<p>The camera styles from the first combat, now on every kill you see, on the beat. A normal kill gets a quick cut. The last man, a boss or a champion gets the long one, HELD BREATH. Tap the fight to skip it. On AUTO it is half as long.</p>
+<button id="go">PLAY WITH SOUND</button>
+<div class="grid" id="g"></div>
+<script>
+(function () {
+  var S = [['sharp', 'SHARP', 'A snap in on the man who fell.'], ['hammer', 'HAMMER', 'In, with three jolts on the hit.'], ['follow', 'CINE-FOLLOW', 'On the man who did it, then the man who fell.'],
+    ['orbit', 'ORBIT', 'In, and a slow turn round him.'], ['xray', 'X-RAY', 'The tape goes negative on the hit.'], ['held', 'HELD BREATH', 'The long one, for the last man or a boss: bars and a slow push.']];
+  var N = 10, g = document.getElementById('g'), imgs = {}, pre = [];
+  function src(k, n) { return '../../records/target/combat7_11_3/cam_' + k + '_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  S.forEach(function (s) { var c = document.createElement('div'); c.className = 'cell'; c.id = 'c_' + s[0];
+    c.innerHTML = '<div class="lab">' + s[1] + '</div><img alt="' + s[1] + '"><div class="say">' + s[2] + '</div>'; g.appendChild(c); imgs[s[0]] = c.querySelector('img');
+    for (var n = 0; n < N; n++) { var x = new Image(); x.src = src(s[0], n); pre.push(x); } });
+  var i = 0; setInterval(function () { S.forEach(function (s) { imgs[s[0]].src = src(s[0], i); }); i = (i + 1) % N; }, 120);
+  /* the sound: the game's own recordings, the death and the blow, decoded from their sprites */
+  var AC = null, BUF = {}, IDX = {};
+  function load(dir) { return fetch('../' + dir + '/index.json').then(function (r) { return r.json(); }).then(function (j) { IDX[dir] = j; return fetch('../' + dir + '/' + j.file); })
+    .then(function (r) { return r.arrayBuffer(); }).then(function (b) { return AC.decodeAudioData(b); }).then(function (a) { BUF[dir] = a; }); }
+  function play(dir, voice, when) { var j = IDX[dir], v = j && j.voices[voice]; if (!v || !BUF[dir]) return; var t = v.takes[Math.floor(Math.random() * v.takes.length)];
+    var s = AC.createBufferSource(), gn = AC.createGain(); gn.gain.value = Math.pow(10, (v.db || 0) / 20) * 0.6; s.buffer = BUF[dir]; s.connect(gn); gn.connect(AC.destination); s.start(AC.currentTime + (when || 0), t[0], t[1]); }
+  document.getElementById('go').onclick = function () {
+    if (!AC) { AC = new (window.AudioContext || window.webkitAudioContext)(); }
+    Promise.all([load('fight_death'), load('fight_punch')]).then(function () {
+      var at = 0; S.forEach(function (s) {
+        setTimeout(function () { document.querySelectorAll('.cell').forEach(function (c) { c.classList.toggle('on', c.id === 'c_' + s[0]); }); i = 0; }, at * 1000);
+        play('fight_death', 'blade_theirs', at + 0.12);
+        if (s[0] === 'hammer') play('fight_punch', 'blunt', at + 0.1);
+        if (s[0] === 'held') { play('fight_punch', 'thud', at + 0.3); play('fight_punch', 'thud', at + 0.8); }
+        at += 1.4; });
+    });
+  };
+})();
+</script>
