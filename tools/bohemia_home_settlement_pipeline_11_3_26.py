@@ -39,28 +39,39 @@ sys.path.insert(0, os.path.join(R, 'tools'))
 OUT = os.path.join(R, 'records/target/home_settlement')
 RAW = '/tmp/claude-0/home_settlement_raw'
 VENV = '/tmp/v/bin/python'
-SQ = 320                                    # one square render per camera; the two shapes are its centre crops
-CROP = {'tall': (72, 0, 252, 320), 'wide': (0, 72, 320, 252)}   # x0, y0, x1, y1 (multiples of four: the dither's grid)
+SIZES = {'tall': (180, 320), 'wide': (320, 180)}   # each camera shot both ways from the same mount (rule 348), at the PS1's size
 PT_PX = 180 / 390.0                         # a point on the phone in source pixels (both shapes fit 180 px to 390 points)
 
 # ---- THE LOT TEMPLATE (metres): four columns 11 m wide with 1 m walks, three rows 10 m deep stepping back and up -----------------
-ROWS = {'front': dict(y0=6.0, z=0.0, hmax=2.6), 'middle': dict(y0=18.0, z=0.9, hmax=3.8), 'back': dict(y0=30.0, z=1.8, hmax=8.0)}
+ROWS = {'front': dict(y0=6.0, z=0.0, hmax=2.6), 'middle': dict(y0=18.0, z=1.4, hmax=3.8), 'back': dict(y0=30.0, z=2.8, hmax=8.0)}
 ROW_D = 10.0
+LOT_W = 9.0                                  # an older Vegas tract lot's frontage (the narrow block lets the cameras come close)
+BW = 4 * LOT_W + 3 * 1.0 + 2.0               # the block's width inside its walls: 41 m
+GX = BW / 2                                  # the gate and the walk on the middle
 def lots():
     out = []
     for r, (rn, RW) in enumerate(ROWS.items()):
         for c in range(4):
-            x0 = 1.0 + c * 12.0
-            out.append(dict(n=r * 4 + c + 1, row=rn, box=[x0, RW['y0'], x0 + 11.0, RW['y0'] + ROW_D], z=RW['z'], hmax=RW['hmax'],
-                            anchor=[x0 + 5.5, RW['y0'] + ROW_D / 2, RW['z']]))
+            x0 = 1.0 + c * (LOT_W + 1.0)
+            out.append(dict(n=r * 4 + c + 1, row=rn, box=[x0, RW['y0'], x0 + LOT_W, RW['y0'] + ROW_D], z=RW['z'], hmax=RW['hmax'],
+                            anchor=[x0 + LOT_W / 2, RW['y0'] + ROW_D / 2, RW['z']]))
     return out
 LOTS = lots()
-CENTRE = (24.5, 23.0, 1.2)
 
-# ---- THE THREE FIXED CAMERAS (never one more: the gate refuses a camera outside this set) --------------------------------------
-CAMS = {1: dict(name='CAM 1 THE GATE', az=-16.0, el=52.0), 2: dict(name='CAM 2 THE POLE', az=0.0, el=60.0), 3: dict(name='CAM 3 THE ROOF ACROSS', az=16.0, el=48.0)}
-ORTHO = 98.0                                # metres across the square render
-def cams_hash(): return hashlib.sha1(json.dumps([CAMS, ORTHO, SQ, CROP], sort_keys=True).encode()).hexdigest()[:12]
+# ---- THE THREE FIXED CAMERAS (rule 373: INTIMATE, a real security camera): mounted low on the block's front half, a wide lens with its
+# own barrel bend (an equisolid fisheye, Cycles' own, at the source), steep perspective: the near lots big, the far ones small, all twelve
+# in frame upright and sideways (the gate proves it). f is the lens in mm on a 36 mm sensor's long side. Never one more camera.
+CAMS = {1: dict(name='CAM 1 THE STREET LIGHT', mount='the street light across from the gate, 13 m', loc=(20.5, -5.0, 13.0),
+                at={'tall': (20.5, 30.0, 0.0), 'wide': (20.5, 22.0, 0.0)}, f={'tall': 14.8, 'wide': 16.5}),
+        2: dict(name='CAM 2 THE POWER POLE', mount='the power pole across the street, 13.6 m', loc=(18.5, -6.0, 13.6),
+                at={'tall': (21.0, 30.0, 0.0), 'wide': (21.0, 22.0, 0.0)}, f={'tall': 15.0, 'wide': 16.8}),
+        3: dict(name='CAM 3 THE BILLBOARD', mount='the dead billboard across the street, 14.8 m', loc=(22.0, -4.0, 14.8),
+                at={'tall': (19.6, 29.0, 0.0), 'wide': (19.8, 22.0, 0.0)}, f={'tall': 15.0, 'wide': 16.8})}
+def cams_hash(): return hashlib.sha1(json.dumps([CAMS, SIZES], sort_keys=True).encode()).hexdigest()[:12]
+# what stands near each lens (part of the base plate, and an occluder in the gate): the camera's own world in the foreground
+FOREGROUND = [('gate_light_pole', (15.6, 2.2, 0.0, 0.11, 6.8)), ('sign_post', (3.3, 2.4, 0.0, 0.06, 1.6)), ('hydrant', (27.0, 1.9, 0.0, 0.14, 0.8))]
+# the night (the starred feed's): the moon low and cold, three sodium heads on poles over the lots, one dying
+LAMPS = [(15.6, 2.2, 6.8), (0.6, 11.0, 7.0), (BW - 0.6, 11.0, 7.0), (0.6, 23.0, 8.0), (BW - 0.6, 23.0, 8.0), (20.5, 41.6, 10.0)]   # the gate's, two on the side walls per row, one on the back wall: none stands in front of a lot
 
 # ---- THE PIECES (one model each; a row they may stand on; their states) -----------------------------------------------------------
 PIECES = {
@@ -70,10 +81,10 @@ PIECES = {
     'garden_bed': dict(row='middle', src='pieces:garden_bed', states=['built', 'working']),
     'water_tank': dict(row='middle', src='pieces:water_tank', states=['built', 'working']),
     'solar_panel': dict(row='middle', src='pieces:solar_panel', states=['built', 'working']),
-    'house_plain': dict(row='back', src='bld:ranch_plain', states=['built']),
-    'house_garage': dict(row='back', src='bld:ranch_garage', states=['built']),
-    'house_wing': dict(row='back', src='bld:ranch_wing', states=['built']),
-    'house_carport': dict(row='back', src='bld:ranch_carport', states=['built'], width=9.8),   # deep: seated a little smaller to fit 10 m
+    'house_plain': dict(row='back', src='bld:ranch_plain', states=['built'], width=8.6),
+    'house_garage': dict(row='back', src='bld:ranch_garage', states=['built'], width=8.6),
+    'house_wing': dict(row='back', src='bld:ranch_wing', states=['built'], width=8.6),
+    'house_carport': dict(row='back', src='bld:ranch_carport', states=['built'], width=8.4),   # deep: seated a little smaller to fit 10 m
 }
 # the look test's block (a default layout, data, not a picture): lot -> (piece, state)
 DEFAULT = {1: ('main', 'working'), 2: ('purifier', 'working'), 5: ('garden_bed', 'working'), 6: ('water_tank', 'built'),
@@ -81,7 +92,7 @@ DEFAULT = {1: ('main', 'working'), 2: ('purifier', 'working'), 5: ('garden_bed',
            12: ('house_carport', 'built')}
 
 # ---- THE ACTS' LOOK: a setting of the same render ---------------------------------------------------------------------------------
-LOOKS = {'act1': dict(samples=5, mono=True, levels=32, snap=0.3, note='a dying system: PS1 size, the render grain, mono CCTV tape, 32 levels'),
+LOOKS = {'act1': dict(samples=24, mono=True, levels=32, snap=0.3, note='a dying system: PS1 size, night under sodium, the starred feeds\' mono CCTV tape, 32 levels'),
          'act2': dict(samples=12, mono=False, levels=64, snap=0.2, note='rebuilt: colour, steady, 64 levels'),
          'act3': dict(samples=32, mono=False, levels=256, snap=0.1, note='modern: clean, full colour')}
 
@@ -89,21 +100,30 @@ LOOKS = {'act1': dict(samples=5, mono=True, levels=32, snap=0.3, note='a dying s
 # ======================================================================================================================
 # UNDER BLENDER
 # ======================================================================================================================
-def _scene(samples):
+def _scene():
     import bpy, mathutils
     import bohemia_cook_the_floor_not_final_10_20_26 as NF
-    RIG = NF.RIG
     bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
     NF.LEDGER.clear(); NF.LEDGER.update(bid='home.settlement', seed=3, fires=[])
-    return bpy, mathutils, sc, NF, RIG
+    return bpy, mathutils, sc, NF, NF.RIG
 
 
-def _film(bpy, sc, RIG, samples, transparent):
+def _night(bpy, sc, RIG, samples, transparent):
+    """the town render's light, then its night (the sun down to a cold moon, the sky dark), the sodium heads lit; Cycles, a handful of
+    samples and no denoiser: the grain is the render's own"""
     sun = RIG.light_and_film(sc, dict(sun_rot=list(RIG.G['sun_rot_deg'])))
-    sc.render.film_transparent = transparent
-    sc.cycles.samples = samples; sc.cycles.use_denoising = False; sc.cycles.use_adaptive_sampling = False
+    sun.data.energy *= 0.14; sun.data.color = (0.55, 0.66, 1.0)
+    bg = sc.world.node_tree.nodes['Background']; c = bg.inputs[0].default_value
+    bg.inputs[0].default_value = (c[0] * 0.45, c[1] * 0.55, c[2] * 1.0, 1); bg.inputs[1].default_value *= 0.06
+    for (x, y, z) in LAMPS:
+        L = bpy.data.lights.new('sodium', 'SPOT'); L.energy = 2200; L.color = (1.0, 0.6, 0.24); L.spot_size = math.radians(110)
+        L.spot_blend = 0.6; L.shadow_soft_size = 0.2; o = bpy.data.objects.new('sodium', L); sc.collection.objects.link(o)
+        o.location = (x, y, z - 0.2); o.rotation_euler = (0, 0, 0)
+    sc.render.film_transparent = transparent; sc.view_settings.exposure = 0.0
+    sc.cycles.samples = samples; sc.cycles.use_denoising = True;   # the starred feeds' own film (64 samples, denoised); the tape is the medium
+    sc.cycles.use_adaptive_sampling = False
     sc.cycles.max_bounces = 3; sc.cycles.diffuse_bounces = 1; sc.cycles.glossy_bounces = 0; sc.cycles.transmission_bounces = 0
-    sc.render.resolution_x = sc.render.resolution_y = SQ; sc.render.resolution_percentage = 100; sc.render.filter_size = 0.6
+    sc.render.resolution_percentage = 100; sc.render.filter_size = 0.6
     for m in bpy.data.materials:
         if m.use_nodes:
             for nd in m.node_tree.nodes:
@@ -111,23 +131,18 @@ def _film(bpy, sc, RIG, samples, transparent):
     return sun
 
 
-def _camera(bpy, mathutils, sc):
-    cd = bpy.data.cameras.new('sec'); cd.type = 'ORTHO'; cd.ortho_scale = ORTHO; cd.clip_end = 2000
+def _camera(bpy, sc):
+    cd = bpy.data.cameras.new('sec'); cd.type = 'PANO'; cd.panorama_type = 'FISHEYE_EQUISOLID'; cd.fisheye_fov = math.radians(180)
+    cd.sensor_fit = 'AUTO'; cd.sensor_width = 36.0; cd.clip_start = 0.05; cd.clip_end = 600
     cam = bpy.data.objects.new('sec', cd); sc.collection.objects.link(cam); sc.camera = cam
     return cam
 
 
-def _aim(cam, mathutils, cn, at=None):
-    C = CAMS[cn]; az, el = math.radians(C['az']), math.radians(C['el'])
-    d = mathutils.Vector((math.sin(az) * math.cos(el), math.cos(az) * math.cos(el), -math.sin(el)))   # from the front (south), looking in
-    cam.location = mathutils.Vector(at or CENTRE) - d * 600.0
-    cam.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
-
-
-def _px(sc, cam, p):
-    from bpy_extras.object_utils import world_to_camera_view
-    import mathutils
-    v = world_to_camera_view(sc, cam, mathutils.Vector(p)); return (v.x * SQ, (1 - v.y) * SQ)
+def _aim(bpy, mathutils, sc, cam, cn, shape):
+    C = CAMS[cn]; W, H = SIZES[shape]
+    sc.render.resolution_x, sc.render.resolution_y = W, H; cam.data.fisheye_lens = C['f'][shape]
+    cam.location = C['loc']; d = mathutils.Vector(C['at'][shape]) - mathutils.Vector(C['loc'])
+    cam.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler(); bpy.context.view_layer.update()
 
 
 def _kit(bpy, rnd):
@@ -138,23 +153,20 @@ def _kit(bpy, rnd):
     return P, BLD, V, K
 
 
-def plate(kind='block', look='act1'):
-    """THE BASE PLATE of a settlement type, once per camera, three frames of the render's own grain"""
-    bpy, mathutils, sc, NF, RIG = _scene(0)
-    F = NF.F; rnd = random.Random(354)
-    P, BLD, V, K = _kit(bpy, rnd)
+def _block(bpy, rnd, K, P, V, F, life=True):
+    """THE WALLED BLOCK'S BASE PLATE: the land, the street, the stepped grade and its retaining walls, the staked lots, the tract wall and
+    its gate, the walk, the poles and their sodium heads, what stands near each lens; and, when it is the plate, a coyote looking round"""
     Bx = lambda n, m, *a, **k: V.Bx(K, n, m, *a, **k)
     G = {n: F.ground_material(bpy, n) for n in ('caliche', 'rough', 'concrete', 'asphalt')}
     blk = V.hexmat(bpy, 'block_wall', (176, 164, 144)); cap = V.hexmat(bpy, 'block_cap', (150, 140, 124))
-    if kind != 'block': raise SystemExit('only the walled block is drawn so far')
-    Bx('land', G['caliche'], -60, 110, -40, 90, -0.2, 0.0)                              # the valley floor round the block
-    Bx('street', G['asphalt'], -60, 110, -9.0, 1.6, 0.0, 0.03); Bx('kerb', G['concrete'], -60, 110, 1.6, 3.0, 0.0, 0.14)
-    for rn, RW in ROWS.items():                                                         # the stepped grade: each row a pad on its own step
-        Bx('step_' + rn, G['concrete'], 0.4, 48.6, RW['y0'] - 2.0, (RW['y0'] + ROW_D if rn != 'back' else 42.0), 0.0, RW['z'] + 0.001)
-        Bx('ret_' + rn, blk, 0.4, 48.6, RW['y0'] - 2.0, RW['y0'] - 1.8, 0.0, RW['z'] + 0.25)   # the retaining wall at the step's foot
-    for L in LOTS:                                                                      # each lot a pad of turned dirt, staked
+    ground = [Bx('land', G['caliche'], -60, 110, -40, 90, -0.2, 0.0)]
+    ground.append(Bx('street', G['asphalt'], -60, 110, -9.0, 1.6, 0.0, 0.03)); ground.append(Bx('kerb', G['concrete'], -60, 110, 1.6, 3.0, 0.0, 0.14))
+    for rn, RW in ROWS.items():
+        ground.append(Bx('step_' + rn, G['concrete'], 0.4, BW - 0.4, RW['y0'] - 2.0, (RW['y0'] + ROW_D if rn != 'back' else 42.0), 0.0, RW['z'] + 0.001))
+        Bx('ret_' + rn, blk, 0.4, BW - 0.4, RW['y0'] - 2.0, RW['y0'] - 1.8, 0.0, RW['z'] + 0.25)
+    for L in LOTS:
         x0, y0, x1, y1 = L['box']; z = L['z']
-        Bx('lot%d' % L['n'], G['rough'], x0, x1, y0, y1, z, z + 0.04)
+        ground.append(Bx('lot%d' % L['n'], G['rough'], x0, x1, y0, y1, z, z + 0.04))
         for (sx, sy) in ((x0, y0), (x1, y0), (x0, y1), (x1, y1)): Bx('stake', K.wood, sx - 0.06, sx + 0.06, sy - 0.06, sy + 0.06, z, z + 0.7)
     def wall(x0, y0, x1, y1, z0, gap=None):
         L_ = math.hypot(x1 - x0, y1 - y0); ux, uy = (x1 - x0) / L_, (y1 - y0) / L_
@@ -165,65 +177,135 @@ def plate(kind='block', look='act1'):
             t = a
             while t <= b + 1e-6:
                 px, py = x0 + ux * t, y0 + uy * t; Bx('pilaster', blk, px - 0.22, px + 0.22, py - 0.22, py + 0.22, z0, z0 + 2.05); t += 6.0
-    wall(0.2, 3.6, 48.8, 3.6, 0.0, gap=(21.6, 27.4))                                  # the front wall and its gate gap
-    wall(0.2, 42.0, 48.8, 42.0, 1.8); wall(0.2, 3.6, 0.2, 42.0, 0.0); wall(48.8, 3.6, 48.8, 42.0, 0.0)
-    for x in (21.8, 27.2): Bx('gate_pier', blk, x - 0.35, x + 0.35, 3.25, 3.95, 0, 2.4); Bx('gate_cap', cap, x - 0.42, x + 0.42, 3.18, 4.02, 2.4, 2.52)
-    Bx('gate_rail', K.steel, 25.0, 33.0, 3.5, 3.7, 1.6, 1.68); Bx('gate_rail', K.steel, 25.0, 33.0, 3.5, 3.7, 0.08, 0.16)
-    for k in range(18): x = 25.1 + k * 0.44; Bx('gate_bar', K.dark, x - 0.02, x + 0.02, 3.56, 3.64, 0.08, 1.68)
-    Bx('walk', G['concrete'], 22.2, 26.8, 3.0, 42.0, 0.0, 0.02)                         # the walk up the middle, its stairs at each step
+    wall(0.2, 3.6, BW - 0.2, 3.6, 0.0, gap=(GX - 3.1, GX + 2.7)); wall(0.2, 42.0, BW - 0.2, 42.0, 2.8); wall(0.2, 3.6, 0.2, 42.0, 0.0); wall(BW - 0.2, 3.6, BW - 0.2, 42.0, 0.0)
+    for x in (GX - 2.9, GX + 2.5): Bx('gate_pier', blk, x - 0.35, x + 0.35, 3.25, 3.95, 0, 2.4); Bx('gate_cap', cap, x - 0.42, x + 0.42, 3.18, 4.02, 2.4, 2.52)
+    Bx('gate_rail', K.steel, GX + 0.5, GX + 8.5, 3.5, 3.7, 1.6, 1.68); Bx('gate_rail', K.steel, GX + 0.5, GX + 8.5, 3.5, 3.7, 0.08, 0.16)
+    for k in range(18): x = GX + 0.6 + k * 0.44; Bx('gate_bar', K.dark, x - 0.02, x + 0.02, 3.56, 3.64, 0.08, 1.68)
+    ground.append(Bx('walk', G['concrete'], GX - 0.5, GX + 0.5, 3.0, 42.0, 0.0, 0.02))
+    # the poles and their heads (the light the night is lit by), the cameras' own mounts, what stands near each lens
+    for (x, y, z) in LAMPS:
+        P.cyl(bpy, 'lamp_pole', K.steel, 0.09, z, (x, y, z / 2), verts=10); Bx('lamp_head', K.dark, x - 0.35, x + 0.35, y - 0.15, y + 0.15, z - 0.1, z + 0.05)
+        P.box(bpy, 'lamp_glass', V.hexmat(bpy, 'sodium_glass', (255, 178, 100), 6.0), (0.5, 0.2, 0.03), (x, y, z - 0.13))
+    for nm, (x, y, z0, r, h) in FOREGROUND: P.cyl(bpy, nm, K.steel if 'pole' in nm else K.wood, r, h, (x, y, z0 + h / 2), verts=10)
+    Bx('sign', V.hexmat(bpy, 'sign_board', (196, 170, 120)), 2.6, 4.0, 2.35, 2.42, 1.0, 1.6)                 # a hand-painted board on the sign post
+    for k in range(3): Bx('sign_paint', V.hexmat(bpy, 'sign_paint', (120, 40, 30)), 2.75, 3.85 - k * 0.12, 2.33, 2.35, 1.45 - k * 0.15, 1.5 - k * 0.15)
+    Bx('shed', K.ply, BW + 1.0, BW + 3.0, 0.4, 2.8, 0.0, 2.6); P.box(bpy, 'shed_roof', K.tin, (2.6, 3.0, 0.05), (BW + 2.0, 1.6, 2.75), rot=(0, math.radians(8), 0))
+    P.cyl(bpy, 'gutter', K.steel, 0.05, 2.6, (BW + 2.0, 0.1, 2.8), rot=(0, math.radians(90), 0), verts=8)
+    P.cyl(bpy, 'cam1_pole', K.steel, 0.13, 13.4, (20.5, -5.4, 6.7), verts=10); P.cyl(bpy, 'cam2_pole', K.wood, 0.16, 14.0, (18.5, -6.4, 7.0), verts=10)
+    P.cyl(bpy, 'billboard_post', K.steel, 0.3, 14.0, (25.0, -4.9, 7.0), verts=12); Bx('billboard', K.ply, 21.4, 29.4, -4.9, -4.6, 14.2, 18.2)
+    Bx('house_across', K.ply, 2.0, 14.0, -24.0, -15.2, 0.0, 6.0); P.box(bpy, 'roof_across', K.tin, (12.6, 9.4, 0.08), (8.0, -19.6, 6.3), rot=(math.radians(-6), 0, 0))
+    for (a_, b_) in (((18.5, -6.4, 9.0), (60.0, -6.0, 9.0)), ((18.5, -6.4, 8.7), (-30.0, -7.0, 8.8)), ((18.5, -6.4, 8.7), (15.6, 2.2, 6.6))):
+        P.rod(bpy, 'wire', K.dark, a_, b_, 0.015, 4)
+    import bohemia_cook_the_settlements_through_the_rig_10_20_26 as S0
+    S0.Place(bpy, P, rnd).model('wreck.glb', 31.0, -2.5, rot=math.radians(14))
+    coyote = None
+    if life:
+        # imported the starred feed's way: every new object, its skeleton too, under one root (the props' seat skips skeletons, and the
+        # coyote's mesh hangs from its skeleton, so seated it kept its raw import size, 82 m tall)
+        before = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=os.path.join(R, 'reference/models/bohemia/coyote.glb'))
+        coyote = bpy.data.objects.new('coyote', None); bpy.context.scene.collection.objects.link(coyote)
+        for o in [o for o in bpy.data.objects if o not in before and o is not coyote]:
+            if o.parent is None: o.parent = coyote
+        coyote.rotation_euler = (0, 0, math.radians(-40))
+    return ground, coyote
+
+
+def plate(kind='block', look='act1'):
+    """THE BASE PLATE, every camera, upright and sideways, three frames: the render's grain moving, the coyote looking round, CAM 3 dying"""
+    bpy, mathutils, sc, NF, RIG = _scene(); F = NF.F; rnd = random.Random(354)
+    P, BLD, V, K = _kit(bpy, rnd)
+    if kind != 'block': raise SystemExit('only the walled block is drawn so far')
+    ground, coyote = _block(bpy, rnd, K, P, V, F)
     meshes = [o for o in sc.objects if o.type == 'MESH']
     RIG.source_pass(meshes, float(RIG.G['wear']), 1.0, 5); RIG.dent_pass(meshes, 1.0)
-    _film(bpy, sc, RIG, LOOKS[look]['samples'], False)
-    cam = _camera(bpy, mathutils, sc); os.makedirs(RAW, exist_ok=True); man = {}
+    arm = [o for o in bpy.data.objects if o.type == 'ARMATURE']; clip = bpy.data.actions.get('Survey_root')
+    if arm and clip:
+        for a in arm: a.animation_data_create(); a.animation_data.action = clip
+    f0, f1 = (clip.frame_range if clip else (1, 12))
+    if coyote is not None:                                       # the coyote's own size (1.1 m nose to tail) measured POSED, as the feed does
+        sc.frame_set(int(f0)); bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get()
+        def posed():
+            lo = [1e9] * 3; hi = [-1e9] * 3
+            for o in [o for o in coyote.children_recursive if o.type == 'MESH']:
+                e = o.evaluated_get(dg); me = e.to_mesh()
+                for v in me.vertices:
+                    q = e.matrix_world @ v.co; lo = [min(x, y) for x, y in zip(lo, q)]; hi = [max(x, y) for x, y in zip(hi, q)]
+                e.to_mesh_clear()
+            return lo, hi
+        lo, hi = posed(); span = max(hi[0] - lo[0], hi[1] - lo[1])
+        if span > 0: coyote.scale = tuple(v * 1.1 / span for v in coyote.scale)
+        bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get(); lo, hi = posed()
+        coyote.location.x += 9.0 - (lo[0] + hi[0]) / 2; coyote.location.y += 12.0 - (lo[1] + hi[1]) / 2; coyote.location.z -= lo[2]
+        print('  coyote posed', round(span, 2), 'm ->', round(max(hi[0] - lo[0], hi[1] - lo[1]), 2), 'm', flush=True)
+    _night(bpy, sc, RIG, LOOKS[look]['samples'], False); ev0 = sc.view_settings.exposure
+    cam = _camera(bpy, sc); os.makedirs(RAW, exist_ok=True)
     for cn in CAMS:
-        _aim(cam, mathutils, cn); bpy.context.view_layer.update()
-        man[cn] = {L['n']: [round(v, 2) for v in _px(sc, cam, L['anchor'])] for L in LOTS}
-        for f in range(3):
-            sc.cycles.seed = 11 * f + cn
-            sc.render.filepath = os.path.join(RAW, 'plate_%s_cam%d_%d.png' % (kind, cn, f)); bpy.ops.render.render(write_still=True)
-        print('  plate', kind, CAMS[cn]['name'], flush=True)
-    json.dump(dict(kind=kind, anchors=man, cams=cams_hash()), open(os.path.join(RAW, 'plate_%s.json' % kind), 'w'))
+        for sh in SIZES:
+            _aim(bpy, mathutils, sc, cam, cn, sh)
+            for f in range(3):
+                sc.frame_set(int(round(f0 + (f1 - f0) * f / 3))); sc.cycles.seed = 11 * f + cn
+                sc.view_settings.exposure = ev0 + (-1.4 if (cn == 3 and f == 1) else 0.0)
+                sc.render.filepath = os.path.join(RAW, 'plate_%s_cam%d_%s_%d.png' % (kind, cn, sh, f)); bpy.ops.render.render(write_still=True)
+            print('  plate', kind, CAMS[cn]['name'], sh, flush=True)
+    json.dump(dict(kind=kind, cams=cams_hash()), open(os.path.join(RAW, 'plate_%s.json' % kind), 'w'))
 
 
 def piece(pid, look='act1'):
-    """ONE MODEL, every state, every fixed camera: built at the origin on a shadow-catching ground, film clear, then each picture cut to
-    the piece with its anchor (where the lot's centre falls) kept on the dither's grid"""
+    """ONE MODEL, every state, from every fixed camera on every lot of its row (the lens has perspective now, so a lot is a place the
+    piece is seen from, made by the machine): the block stands round it holding out (it hides the piece where it should) and its ground
+    catches the piece's shadow under the same sodium light"""
     import bohemia_cook_the_icons_through_the_rig_10_20_26 as IC
     import bohemia_bosses_what_they_hand_you_11_3_26 as HAND
     import bohemia_home_pieces_11_3_26 as PCS
-    import bohemia_cook_the_settlements_through_the_rig_10_20_26 as S
-    D = PIECES[pid]; out = {}
+    D = PIECES[pid]; out = {}; row_lots = [L for L in LOTS if L['row'] == D['row']]
     for st in D['states']:
         for bt in ((0, 1) if st == 'working' else (0,)):
-            bpy, mathutils, sc, NF, RIG = _scene(0)
-            rnd = random.Random(73); P, BLD, V, K = _kit(bpy, rnd)
-            catcher = V.Bx(K, 'catcher', K.concrete, -40, 40, -40, 40, -0.05, 0.0); catcher.is_shadow_catcher = True
+            bpy, mathutils, sc, NF, RIG = _scene(); F = NF.F; rnd = random.Random(73); P, BLD, V, K = _kit(bpy, rnd)
+            ground, _ = _block(bpy, rnd, K, P, V, F, life=False)
+            for o in [o for o in sc.objects if o.type == 'MESH']:
+                if o in ground: o.is_shadow_catcher = True
+                else: o.is_holdout = True
             pl = V.Town(bpy, P, rnd); before = set(sc.objects)
             kind, name = D['src'].split(':')
             if kind == 'pieces': root = pl.here(pid, PCS.make(bpy, P, IC, V, K, pl, HAND, rnd, bt)[name], 0.0, -2.8, st)
             else: root, _ = pl.model('bld_%s.glb' % name, 0.0, -5.0, width=D.get('width', 10.4))
             ms = [o for o in sc.objects if o not in before and o.type == 'MESH']
-            lo, hi = pl._bounds(ms)                                                    # the piece's footprint centred on the lot's anchor
-            root.location.x -= (lo[0] + hi[0]) / 2; root.location.y -= (lo[1] + hi[1]) / 2; bpy.context.view_layer.update()
-            lo, hi = pl._bounds(ms)
+            lo, hi = pl._bounds(ms); root.location.x -= (lo[0] + hi[0]) / 2; root.location.y -= (lo[1] + hi[1]) / 2; bpy.context.view_layer.update()
+            lo, hi = pl._bounds(ms); size = [round(hi[k] - lo[k], 2) for k in range(3)]
             RIG.source_pass(ms, float(RIG.G['wear']), 1.0, 5); RIG.dent_pass(ms, 1.0)
-            _film(bpy, sc, RIG, LOOKS[look]['samples'], True)
-            cam = _camera(bpy, mathutils, sc); os.makedirs(RAW, exist_ok=True)
-            for cn in CAMS:
-                _aim(cam, mathutils, cn, at=(0.0, 0.0, 1.5)); bpy.context.view_layer.update()   # the piece in the middle (the long lens: only its place moves)
-                sc.cycles.seed = 7 + bt
-                fn = os.path.join(RAW, 'piece_%s_%s_%d_cam%d.png' % (pid, st, bt, cn)); sc.render.filepath = fn
-                bpy.ops.render.render(write_still=True)
-                out.setdefault(st, {})['cam%d' % cn] = dict(anchor=[round(v, 2) for v in _px(sc, cam, (0, 0, 0))])
-            out[st]['size_m'] = [round(hi[k] - lo[k], 2) for k in range(3)]
-            print('  piece', pid, st, bt, 'size', out[st]['size_m'], flush=True)
-    json.dump(dict(id=pid, row=D['row'], src=D['src'], states=out, cams=cams_hash()), open(os.path.join(RAW, 'piece_%s.json' % pid), 'w'))
+            _night(bpy, sc, RIG, LOOKS[look]['samples'], True); cam = _camera(bpy, sc); os.makedirs(RAW, exist_ok=True)
+            base = root.location.copy()
+            for L in row_lots:
+                root.location = (base.x + L['anchor'][0], base.y + L['anchor'][1], base.z + L['anchor'][2]); bpy.context.view_layer.update()
+                for cn in CAMS:
+                    for sh in SIZES:
+                        _aim(bpy, mathutils, sc, cam, cn, sh); sc.cycles.seed = 7 + bt
+                        sc.render.filepath = os.path.join(RAW, 'piece_%s_%s_%d_cam%d_%s_lot%d.png' % (pid, st, bt, cn, sh, L['n'])); bpy.ops.render.render(write_still=True)
+            out[st] = dict(size_m=size)
+            print('  piece', pid, st, bt, 'size', size, flush=True)
+    json.dump(dict(id=pid, row=D['row'], src=D['src'], states=out, lots=[L['n'] for L in row_lots], cams=cams_hash()), open(os.path.join(RAW, 'piece_%s.json' % pid), 'w'))
+
+
+def empty(look='act1'):
+    """THE BLOCK'S OWN SHADOWS, once per camera and shape: the piece scene with no piece (the block holding out, its ground catching), so
+    the bake can take away what the walls, poles and steps throw and keep only each piece and its own shadow"""
+    bpy, mathutils, sc, NF, RIG = _scene(); F = NF.F; rnd = random.Random(73); P, BLD, V, K = _kit(bpy, rnd)
+    ground, _ = _block(bpy, rnd, K, P, V, F, life=False)
+    for o in [o for o in sc.objects if o.type == 'MESH']:
+        if o in ground: o.is_shadow_catcher = True
+        else: o.is_holdout = True
+    _night(bpy, sc, RIG, LOOKS[look]['samples'], True); cam = _camera(bpy, sc); os.makedirs(RAW, exist_ok=True)
+    for cn in CAMS:
+        for sh in SIZES:
+            _aim(bpy, mathutils, sc, cam, cn, sh); sc.cycles.seed = 7
+            sc.render.filepath = os.path.join(RAW, 'empty_cam%d_%s.png' % (cn, sh)); bpy.ops.render.render(write_still=True)
+    print('  empty', flush=True)
 
 
 def gate():
-    """THE TWELVE OF TWELVE: every lot at its row's tallest (a box of the lot's footprint, its row's height limit), the plate's walls as
-    they stand; flat colours, no light: one picture all together and one per lot alone, every camera"""
-    bpy, mathutils, sc, NF, RIG = _scene(0)
+    """THE TWELVE OF TWELVE: every lot at its row's tallest, the plate's walls and the foreground as they stand; flat colours: one picture
+    all together and one per lot alone, every camera, upright and sideways"""
+    bpy, mathutils, sc, NF, RIG = _scene()
     def flat(name, rgb):
         m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
         e = nt.nodes.new('ShaderNodeEmission'); e.inputs[0].default_value = rgb + (1,); o = nt.nodes.new('ShaderNodeOutputMaterial')
@@ -232,28 +314,37 @@ def gate():
         bpy.ops.mesh.primitive_cube_add(size=1, location=((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2)); o = bpy.context.active_object
         o.name = n; o.scale = (x1 - x0, y1 - y0, z1 - z0); o.data.materials.append(m); return o
     black = flat('occ', (0.0, 0.0, 0.0))
-    box('front_wall', black, 0.2, 48.8, 3.5, 3.7, 0, 1.86); box('back_wall', black, 0.2, 48.8, 41.9, 42.1, 1.8, 3.66)
-    for rn, RW in ROWS.items(): box('ret', black, 0.4, 48.6, RW['y0'] - 2.0, RW['y0'] - 1.8, 0, RW['z'] + 0.25)
+    box('front_wall', black, 0.2, BW - 0.2, 3.5, 3.7, 0, 1.86); box('back_wall', black, 0.2, BW - 0.2, 41.9, 42.1, 2.8, 4.66)
+    box('side_w', black, 0.1, 0.3, 3.6, 42, 0, 1.86); box('side_e', black, BW - 0.3, BW - 0.1, 3.6, 42, 0, 1.86)
+    for rn, RW in ROWS.items(): box('ret', black, 0.4, BW - 0.4, RW['y0'] - 2.0, RW['y0'] - 1.8, 0, RW['z'] + 0.25)
+    for nm, (x, y, z0, r, h) in FOREGROUND: box(nm, black, x - r, x + r, y - r, y + r, z0, z0 + h)
+    for (x, y, z) in LAMPS: box('pole', black, x - 0.09, x + 0.09, y - 0.09, y + 0.09, 0, z)
+    box('sign', black, 2.6, 4.0, 2.35, 2.42, 1.0, 1.6)
+    box('wreck', black, 28.8, 33.2, -2.5, -0.6, 0.0, 1.5)
     objs = {}
     for L in LOTS:
-        x0, y0, x1, y1 = L['box']; col = ((L['n'] * 20) / 255.0, 0.0, 0.0)
-        m = flat('lot%d' % L['n'], col)
+        x0, y0, x1, y1 = L['box']; m = flat('lot%d' % L['n'], ((L['n'] * 20) / 255.0, 0.0, 0.0))
         objs[L['n']] = [box('pad%d' % L['n'], m, x0, x1, y0, y1, L['z'], L['z'] + 0.04),
                         box('tall%d' % L['n'], m, x0 + 0.8, x1 - 0.8, y0 + 0.8, y1 - 0.8, L['z'], L['z'] + L['hmax'])]
     sc.render.engine = 'CYCLES'; sc.cycles.samples = 1; sc.cycles.use_denoising = False; sc.render.filter_size = 0.01
-    sc.view_settings.view_transform = 'Raw'; sc.render.resolution_x = sc.render.resolution_y = SQ
+    sc.view_settings.view_transform = 'Raw'; sc.render.image_settings.color_depth = '8'
     sc.world = bpy.data.worlds.new('w'); sc.world.use_nodes = True; sc.world.node_tree.nodes['Background'].inputs[0].default_value = (0, 0, 0, 1)
-    sc.render.image_settings.color_depth = '8'
-    cam = _camera(bpy, mathutils, sc); os.makedirs(RAW, exist_ok=True)
+    cam = _camera(bpy, sc); os.makedirs(RAW, exist_ok=True)
     for cn in CAMS:
-        _aim(cam, mathutils, cn); bpy.context.view_layer.update()
-        for o in [o for v in objs.values() for o in v]: o.hide_render = False
-        sc.render.filepath = os.path.join(RAW, 'gate_cam%d_all.png' % cn); bpy.ops.render.render(write_still=True)
-        for n, v in objs.items():
-            for m, oo in objs.items():
-                for o in oo: o.hide_render = (m != n)
-            sc.render.filepath = os.path.join(RAW, 'gate_cam%d_lot%d.png' % (cn, n)); bpy.ops.render.render(write_still=True)
-        print('  gate', CAMS[cn]['name'], flush=True)
+        for sh in SIZES:
+            _aim(bpy, mathutils, sc, cam, cn, sh)
+            for o in [o for v in objs.values() for o in v]: o.hide_render = False
+            sc.render.filepath = os.path.join(RAW, 'gate_cam%d_%s_all.png' % (cn, sh)); bpy.ops.render.render(write_still=True)
+            # each lot ALONE on a canvas twice as big each way through the same lens (the same pixels a millimetre), so what the frame
+            # cuts off counts as not seen: a lot half outside the picture is half seen, never 'all of what is in frame'
+            W0, H0 = sc.render.resolution_x, sc.render.resolution_y
+            sc.render.resolution_x, sc.render.resolution_y = 2 * W0, 2 * H0; cam.data.sensor_width = 72.0
+            for n in objs:
+                for m_, oo in objs.items():
+                    for o in oo: o.hide_render = (m_ != n)
+                sc.render.filepath = os.path.join(RAW, 'gate_cam%d_%s_lot%d.png' % (cn, sh, n)); bpy.ops.render.render(write_still=True)
+            sc.render.resolution_x, sc.render.resolution_y = W0, H0; cam.data.sensor_width = 36.0
+    print('  gate', flush=True)
 
 
 # ======================================================================================================================
@@ -296,78 +387,81 @@ def _cctv_no_tear(a):
 def post(look='act1'):
     import numpy as np
     from PIL import Image
-    os.makedirs(os.path.join(OUT, 'plates'), exist_ok=True); os.makedirs(os.path.join(OUT, 'pieces'), exist_ok=True)
-    man = dict(about=('YOUR SETTLEMENT, every picture by tools/bohemia_home_settlement_pipeline_11_3_26.py (rule 354 (k) to (o)): the lot '
-                      'template, the fixed cameras, the plates and the pieces. A picture is a SQ x SQ square per camera; the upright and '
-                      'sideways shapes are its crops. A piece is drawn on a lot by putting its anchor on the lot\'s anchor (both on the '
-                      'four-pixel grid); pieces are drawn back row first.'),
-               by='tools/bohemia_home_settlement_pipeline_11_3_26.py', look=look, look_note=LOOKS[look]['note'], sq=SQ, crop=CROP,
-               cams={cn: C for cn, C in CAMS.items()}, cams_hash=cams_hash(), ortho_m=ORTHO,
-               rows=ROWS, lots=[dict(n=L['n'], row=L['row'], box_m=L['box'], z=L['z'], hmax=L['hmax']) for L in LOTS],
-               plates={}, pieces={}, default=DEFAULT)
+    for d in ('plates', 'pieces', 'gate'): os.makedirs(os.path.join(OUT, d), exist_ok=True)
+    man = dict(about=('YOUR SETTLEMENT, every picture by tools/bohemia_home_settlement_pipeline_11_3_26.py (rules 354 (k) to (o), 373): the '
+                      'lot template, the three fixed intimate cameras (low, a wide barrel lens), the plates and the pieces. Every camera '
+                      'is shot upright and sideways; a piece has a picture per camera, shape and lot of its row, drawn at its xy on the '
+                      'plate, the lots far to near (order). The gate\'s flat pictures prove all twelve lots in every camera.'),
+               by='tools/bohemia_home_settlement_pipeline_11_3_26.py', look=look, look_note=LOOKS[look]['note'], sizes=SIZES,
+               cams={cn: C for cn, C in CAMS.items()}, cams_hash=cams_hash(), rows=ROWS,
+               lots=[dict(n=L['n'], row=L['row'], box_m=L['box'], z=L['z'], hmax=L['hmax']) for L in LOTS], plates={}, pieces={}, default=DEFAULT)
+    # the lots far to near from each camera (the piece on a near lot is drawn last)
+    man['order'] = {'%d' % cn: sorted([L['n'] for L in LOTS], key=lambda n: -math.dist(CAMS[cn]['loc'][:2], [L for L in LOTS if L['n'] == n][0]['anchor'][:2])) for cn in CAMS}
     for fn in sorted(os.listdir(RAW)):
         if fn.startswith('plate_') and fn.endswith('.json'):
-            pj = json.load(open(os.path.join(RAW, fn))); kind = pj['kind']; ent = dict(anchors={}, frames=3, cams=pj['cams'])
+            pj = json.load(open(os.path.join(RAW, fn))); kind = pj['kind']
             for cn in CAMS:
-                ent['anchors'][cn] = {n: [int(4 * round(v[0] / 4)), int(4 * round(v[1] / 4))] for n, v in pj['anchors'][str(cn)].items()}
-                for f in range(3):
-                    a = np.asarray(Image.open(os.path.join(RAW, 'plate_%s_cam%d_%d.png' % (kind, cn, f))).convert('RGB'))
-                    Image.fromarray(medium(a, f, look)).save(os.path.join(OUT, 'plates', '%s_cam%d_%d.png' % (kind, cn, f)), optimize=True)
-            man['plates'][kind] = ent
+                for sh in SIZES:
+                    for f in range(3):
+                        a = np.asarray(Image.open(os.path.join(RAW, 'plate_%s_cam%d_%s_%d.png' % (kind, cn, sh, f))).convert('RGB'))
+                        Image.fromarray(medium(a, f, look)).save(os.path.join(OUT, 'plates', '%s_cam%d_%s_%d.png' % (kind, cn, sh, f)), optimize=True)
+            man['plates'][kind] = dict(frames=3, cams=pj['cams'])
     for fn in sorted(os.listdir(RAW)):
         if not (fn.startswith('piece_') and fn.endswith('.json')): continue
         pj = json.load(open(os.path.join(RAW, fn))); pid = pj['id']; ent = dict(row=PIECES[pid]['row'], src=pj['src'], states={}, cams=pj['cams'])
         for st, S in pj['states'].items():
-            ent['states'][st] = dict(size_m=S['size_m'], cams={})
+            ent['states'][st] = dict(size_m=S['size_m'], pics={})
             for cn in CAMS:
-                ax, ay = S['cam%d' % cn]['anchor']; ax, ay = int(round(ax)), int(round(ay)); pics = []
-                for bt in ((0, 1) if st == 'working' else (0,)):
-                    L = np.asarray(Image.open(os.path.join(RAW, 'piece_%s_%s_%d_cam%d.png' % (pid, st, bt, cn))).convert('RGBA'))
-                    al = L[..., 3] / 255.0; al = np.where(al > 0.12, al, 0.0); ys, xs = np.nonzero(al > 0.12)
-                    x0 = ax - 4 * math.ceil((ax - (xs.min() - 1)) / 4); y0 = ay - 4 * math.ceil((ay - (ys.min() - 1)) / 4)   # crop on the grid
-                    x1 = xs.max() + 2; y1 = ys.max() + 2
-                    rgb = L[y0:y1, x0:x1, :3]; a_ = al[y0:y1, x0:x1]
-                    q = medium(rgb * a_[..., None] + 0.0 * (1 - a_[..., None]), 0, look, alpha=a_)
-                    o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150)   # the piece solid, its shadow half
-                    nm = '%s_%s_cam%d_%d.png' % (pid, st, cn, bt); Image.fromarray(o).save(os.path.join(OUT, 'pieces', nm), optimize=True)
-                    pics.append(nm)
-                ent['states'][st]['cams'][cn] = dict(anchor=[ax - x0, ay - y0], pictures=pics)
+                for sh in SIZES:
+                    for ln in pj['lots']:
+                        pics, xy = [], None
+                        for bt in ((0, 1) if st == 'working' else (0,)):
+                            L = np.asarray(Image.open(os.path.join(RAW, 'piece_%s_%s_%d_cam%d_%s_lot%d.png' % (pid, st, bt, cn, sh, ln))).convert('RGBA'))
+                            al = L[..., 3] / 255.0
+                            E0 = np.asarray(Image.open(os.path.join(RAW, 'empty_cam%d_%s.png' % (cn, sh))).convert('RGBA'))[..., 3] / 255.0
+                            al = np.where(al > 0.95, al, np.clip(al - E0 - 0.04, 0, 1))   # the block's own shadows taken away: the piece and its shadow
+                            al = np.where(al > 0.12, al, 0.0); ys, xs = np.nonzero(al > 0.12)
+                            if not len(xs): continue
+                            if xy is None:                                       # cut on the four-pixel grid, the same cut for both beats
+                                x0 = 4 * (max(0, xs.min() - 2) // 4); y0 = 4 * (max(0, ys.min() - 2) // 4)
+                                x1 = min(L.shape[1], xs.max() + 3); y1 = min(L.shape[0], ys.max() + 3); xy = [int(x0), int(y0)]
+                            rgb = L[y0:y1, x0:x1, :3]; a_ = al[y0:y1, x0:x1]
+                            q = medium(rgb * a_[..., None], 0, look, alpha=a_)
+                            if cn == 3: q = q   # (the dying frame is the plate's: CAM 3 dims the whole picture on its frame 1 at the screen)
+                            o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150)
+                            nm = '%s_%s_cam%d_%s_lot%d_%d.png' % (pid, st, cn, sh, ln, bt); Image.fromarray(o).save(os.path.join(OUT, 'pieces', nm), optimize=True)
+                            pics.append(nm)
+                        if pics: ent['states'][st]['pics']['%d_%s_%d' % (cn, sh, ln)] = dict(pictures=pics, xy=xy)
         man['pieces'][pid] = ent
-    # THE GATE'S NUMBERS (gates/home_settlement_gate.py recomputes them from the same flat pictures)
     man['gate'] = gate_numbers()
-    man['tap_px'] = {}                                            # each lot's tap box per camera, square pixels: what of it the camera sees
-    import numpy as np
+    man['tap_px'] = {}
     for cn in CAMS:
-        allim = np.asarray(Image.open(os.path.join(RAW, 'gate_cam%d_all.png' % cn)).convert('RGB'))[..., 0].astype(int); man['tap_px'][cn] = {}
-        for L in LOTS:
-            ys, xs = np.nonzero(abs(allim - L['n'] * 20) <= 3)
-            if len(xs): man['tap_px'][cn][L['n']] = [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1]
-    os.makedirs(os.path.join(OUT, 'gate'), exist_ok=True)
-    for cn in CAMS:
-        for fn in ['gate_cam%d_all.png' % cn] + ['gate_cam%d_lot%d.png' % (cn, L['n']) for L in LOTS]:
-            if os.path.exists(os.path.join(RAW, fn)): Image.open(os.path.join(RAW, fn)).convert('RGB').getchannel(0).convert('RGB').save(os.path.join(OUT, 'gate', fn), optimize=True)
+        for sh in SIZES:
+            allim = np.asarray(Image.open(os.path.join(RAW, 'gate_cam%d_%s_all.png' % (cn, sh))).convert('RGB'))[..., 0].astype(int); k = '%d_%s' % (cn, sh); man['tap_px'][k] = {}
+            for L in LOTS:
+                ys, xs = np.nonzero(abs(allim - L['n'] * 20) <= 3)
+                if len(xs): man['tap_px'][k][L['n']] = [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1]
+            for fn in ['gate_cam%d_%s_all.png' % (cn, sh)] + ['gate_cam%d_%s_lot%d.png' % (cn, sh, L['n']) for L in LOTS]:
+                Image.open(os.path.join(RAW, fn)).convert('RGB').getchannel(0).convert('RGB').save(os.path.join(OUT, 'gate', fn), optimize=True)
     json.dump(man, open(os.path.join(OUT, 'manifest.json'), 'w'), indent=1)
     print('  post', look, len(man['pieces']), 'pieces;', 'gate', json.dumps(man['gate']['summary']))
 
 
 def gate_numbers(src=None):
     """per camera and shape: each lot's share of itself still seen with every lot at its tallest, and the biggest square inside what is
-    seen (its tap box), in points on the phone"""
+    seen (its tap box) in points on the phone"""
     import numpy as np
     from PIL import Image
     src = src or RAW; res = {}; worst = 1.0; worst_tap = 1e9
     for cn in CAMS:
-        allim = np.asarray(Image.open(os.path.join(src, 'gate_cam%d_all.png' % cn)).convert('RGB'))[..., 0].astype(int)
-        for sh, (x0, y0, x1, y1) in CROP.items():
-            row = {}
+        for sh in SIZES:
+            allim = np.asarray(Image.open(os.path.join(src, 'gate_cam%d_%s_all.png' % (cn, sh))).convert('RGB'))[..., 0].astype(int); row = {}
             for L in LOTS:
                 code = L['n'] * 20
-                alone = np.asarray(Image.open(os.path.join(src, 'gate_cam%d_lot%d.png' % (cn, L['n']))).convert('RGB'))[..., 0].astype(int)
-                A = (abs(alone - code) <= 3)[y0:y1, x0:x1]; S = (abs(allim - code) <= 3)[y0:y1, x0:x1]
-                share = float(S.sum()) / max(1, A.sum())
-                tap = _biggest_square(S) / PT_PX
-                row[L['n']] = dict(seen=round(share, 3), tap_pt=round(tap, 1))
-                worst = min(worst, share); worst_tap = min(worst_tap, tap)
+                alone = np.asarray(Image.open(os.path.join(src, 'gate_cam%d_%s_lot%d.png' % (cn, sh, L['n']))).convert('RGB'))[..., 0].astype(int)
+                A = abs(alone - code) <= 3; S_ = abs(allim - code) <= 3      # alone: the lot whole (a canvas twice as big); all: what the frame shows
+                share = float(S_.sum()) / max(1, A.sum()); tap = _biggest_square(S_) / PT_PX
+                row[L['n']] = dict(seen=round(share, 3), tap_pt=round(tap, 1)); worst = min(worst, share); worst_tap = min(worst_tap, tap)
             res['%d_%s' % (cn, sh)] = row
     return dict(lots=res, summary=dict(cams=len(CAMS), lots_each=len(LOTS), worst_seen=round(worst, 3), worst_tap_pt=round(worst_tap, 1),
                                        pass_=bool(worst >= 0.6 and worst_tap >= 44.0)))
@@ -382,20 +476,21 @@ def _biggest_square(m):
     return best
 
 
-def compose(layout, cn, f, shape, look_dir=None):
-    """the screen's own drawing, in Python: the plate, then each lot's piece, back row first, anchor on anchor; then the shape's crop"""
+def compose(layout, cn, f, shape):
+    """the screen's own drawing, in Python: the plate, then each lot's piece far to near at its xy"""
     from PIL import Image
-    M = json.load(open(os.path.join(OUT, 'manifest.json'))); base = Image.open(os.path.join(OUT, 'plates', 'block_cam%d_%d.png' % (cn, f))).convert('RGBA')
-    order = sorted(layout.items(), key=lambda kv: -[L for L in M['lots'] if L['n'] == kv[0]][0]['box_m'][1])
-    for n, (pid, st) in order:
-        P = M['pieces'][pid]['states'][st]['cams'][str(cn)]; pic = P['pictures'][f % len(P['pictures'])]
-        im = Image.open(os.path.join(OUT, 'pieces', pic)).convert('RGBA')
-        ax, ay = M['plates']['block']['anchors'][str(cn)][str(n)]
-        layer = Image.new('RGBA', base.size); layer.paste(im, (ax - P['anchor'][0], ay - P['anchor'][1])); base = Image.alpha_composite(base, layer)
-    return base.convert('RGB').crop(tuple(M['crop'][shape]))
+    M = json.load(open(os.path.join(OUT, 'manifest.json')))
+    base = Image.open(os.path.join(OUT, 'plates', 'block_cam%d_%s_%d.png' % (cn, shape, f))).convert('RGBA')
+    for n in M['order'][str(cn)]:
+        if n not in layout: continue
+        pid, st = layout[n]; P = M['pieces'][pid]['states'][st]['pics'].get('%d_%s_%d' % (cn, shape, n))
+        if not P: continue
+        im = Image.open(os.path.join(OUT, 'pieces', P['pictures'][f % len(P['pictures'])])).convert('RGBA')
+        layer = Image.new('RGBA', base.size); layer.paste(im, tuple(P['xy'])); base = Image.alpha_composite(base, layer)
+    return base.convert('RGB')
 
 
-def osd(im, cn, f, scale):
+def osd(im, cn, f, scale=1):
     from PIL import ImageDraw, ImageFont
     d = ImageDraw.Draw(im); fnt = ImageFont.load_default(); W, H = im.size
     def t(xy, s): d.text((xy[0] + 1, xy[1] + 1), s, font=fnt, fill=(10, 10, 10)); d.text(xy, s, font=fnt, fill=(226, 230, 222))
@@ -405,50 +500,36 @@ def osd(im, cn, f, scale):
     return im
 
 
-def card():
-    """THE LOOK TEST, MADE BY THE PIPELINE: the default block through the three fixed cameras, upright and sideways, the lots you tap on
-    one copy, and the gate's numbers: twelve of twelve in every camera"""
+def card(was_dir='/tmp/claude-0/was'):
+    """WAS beside NOW at the phone's size, upright and sideways, every camera; the gate's numbers on top"""
     from PIL import Image, ImageDraw, ImageFont
-    M = json.load(open(os.path.join(OUT, 'manifest.json'))); G = M['gate']
+    M = json.load(open(os.path.join(OUT, 'manifest.json'))); G = M['gate']['summary']
     F_ = lambda n: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', n)
-    S = 2; tw, th = 180 * S, 320 * S; ww, wh = 240, 135; gap = 12; head = 70
-    W = 4 * tw + 5 * gap; H = head + th + 70 + wh + 30
+    lay = {int(k): tuple(v) for k, v in M['default'].items()}
+    S = 1.25; tw, th = int(180 * S), int(320 * S); ww, wh = int(320 * 1.05), int(180 * 1.05); gap = 10; head = 64
+    W = 6 * tw + 7 * gap; H = head + 22 + th + 30 + 22 + wh + 30
     frames = []
     for f in range(3):
         im = Image.new('RGB', (W, H), (20, 18, 16)); d = ImageDraw.Draw(im)
-        d.text((gap, 10), 'YOUR SETTLEMENT, ITS THREE CAMERAS: ALL 12 LOTS IN EVERY ONE', font=F_(22), fill=(232, 222, 200))
-        sm = G['summary']
-        d.text((gap, 40), 'GATE, every lot at its tallest: 12 of 12 lots in each camera, upright and sideways; worst lot still %d%% seen, '
-                          'smallest tap box %d points' % (round(sm['worst_seen'] * 100), sm['worst_tap_pt']), font=F_(14), fill=(226, 176, 82))
+        d.text((gap, 8), 'YOUR SETTLEMENT\'S CAMERAS: WAS  /  NOW (low, a wide lens, night, all 12 lots in every one)', font=F_(20), fill=(232, 222, 200))
+        d.text((gap, 36), 'gate, every lot at its tallest: 12 of 12 in every camera upright and sideways; worst lot %d%% seen, smallest tap box %d points'
+               % (round(G['worst_seen'] * 100), G['worst_tap_pt']), font=F_(13), fill=(226, 176, 82))
         for i, cn in enumerate((1, 2, 3)):
-            x = gap + i * (tw + gap)
-            sh = osd(compose({int(k): tuple(v) for k, v in M['default'].items()}, cn, f, 'tall'), cn, f, S).resize((tw, th), Image.NEAREST)
-            im.paste(sh, (x, head))
-            rows = G['lots']['%d_tall' % cn]; seen = sum(1 for v in rows.values() if v['seen'] >= 0.6 and v['tap_pt'] >= 44)
-            d.text((x, head + th + 6), CAMS[cn]['name'], font=F_(14), fill=(226, 176, 82))
-            d.text((x, head + th + 24), '%d of 12 lots, upright' % seen, font=F_(13), fill=(232, 222, 200))
-            sw = osd(compose({int(k): tuple(v) for k, v in M['default'].items()}, cn, f, 'wide'), cn, f, 1).resize((ww, wh), Image.NEAREST)
-            im.paste(sw, (x + (tw - ww) // 2, head + th + 46))
-            rw = G['lots']['%d_wide' % cn]; seenw = sum(1 for v in rw.values() if v['seen'] >= 0.6 and v['tap_pt'] >= 44)
-            d.text((x + (tw - ww) // 2, head + th + 50 + wh), '%d of 12 lots, sideways' % seenw, font=F_(12), fill=(232, 222, 200))
-        # the fourth: CAM 2 upright with every lot's tap box, from the gate's own pictures
-        x = gap + 3 * (tw + gap); sh = compose({int(k): tuple(v) for k, v in M['default'].items()}, 2, f, 'tall').resize((tw, th), Image.NEAREST)
-        dd = ImageDraw.Draw(sh)
-        import numpy as np
-        allim = np.asarray(Image.open(os.path.join(OUT, 'gate', 'gate_cam2_all.png')).convert('RGB'))[..., 0].astype(int); x0c, y0c, x1c, y1c = CROP['tall']
-        for L in LOTS:
-            ys, xs = np.nonzero((abs(allim - L['n'] * 20) <= 3)[y0c:y1c, x0c:x1c])
-            if not len(xs): continue
-            bx = [xs.min() * S, ys.min() * S, (xs.max() + 1) * S, (ys.max() + 1) * S]
-            dd.rectangle(bx, outline=(226, 176, 82), width=2); cx_, cy_ = (bx[0] + bx[2]) / 2, (bx[1] + bx[3]) / 2
-            dd.rectangle([cx_ - 12, cy_ - 9, cx_ + 12, cy_ + 9], fill=(226, 176, 82)); dd.text((cx_ - 8, cy_ - 8), str(L['n']), font=F_(14), fill=(20, 18, 16))
-        im.paste(sh, (x, head)); d.text((x, head + th + 6), 'CAM 2, THE 12 LOTS YOU TAP', font=F_(14), fill=(226, 176, 82))
-        d.text((x, head + th + 24), 'the cameras cycle on their own', font=F_(13), fill=(232, 222, 200))
+            x = gap + i * 2 * (tw + gap); y = head + 22
+            d.text((x, head + 2), CAMS[cn]['name'], font=F_(14), fill=(226, 176, 82))
+            was = Image.open(os.path.join(was_dir, 'cam%d_tall.png' % cn)).convert('RGB').resize((tw, th), Image.NEAREST)
+            now = osd(compose(lay, cn, f, 'tall'), cn, f).resize((tw, th), Image.NEAREST)
+            im.paste(was, (x, y)); im.paste(now, (x + tw + gap, y))
+            d.text((x, y + th + 4), 'WAS', font=F_(13), fill=(140, 132, 120)); d.text((x + tw + gap, y + th + 4), 'NOW', font=F_(13), fill=(226, 176, 82))
+            y2 = y + th + 30
+            was = Image.open(os.path.join(was_dir, 'cam%d_wide.png' % cn)).convert('RGB').resize((ww // 2 * 2 // 2, wh // 2), Image.NEAREST)
+            noww = osd(compose(lay, cn, f, 'wide'), cn, f).resize((ww, wh), Image.NEAREST)
+            im.paste(was, (x, y2 + 22)); im.paste(noww, (x + ww // 2 + gap, y2 + 22 - 0))
+            d.text((x, y2 + 4), 'sideways: WAS (small) / NOW', font=F_(12), fill=(140, 132, 120))
         frames.append(im)
-    dst = os.path.join(OUT, 'vote_all_twelve.webp')
+    dst = os.path.join(OUT, 'vote_intimate.webp')
     frames[0].save(dst, save_all=True, append_images=frames[1:], duration=167, loop=0, quality=84, method=6)
-    frames[0].save('/tmp/claude-0/home_settlement_card.png')
-    print('  card', dst, frames[0].size)
+    frames[0].save('/tmp/claude-0/home_intimate_card.png'); print('  card', dst, frames[0].size)
 
 
 if __name__ == '__main__':
@@ -462,5 +543,6 @@ if __name__ == '__main__':
                 print('\n'.join(l for l in (r.stdout + r.stderr).splitlines() if l.startswith('  ') or 'Error' in l or 'Traceback' in l)[-1500:], flush=True)
         else: piece(a[1]); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'gate': gate(); sys.stdout.flush(); os._exit(0)
+    elif a[0] == 'empty': empty(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'post': post(a[1] if len(a) > 1 else 'act1')
     elif a[0] == 'card': card()

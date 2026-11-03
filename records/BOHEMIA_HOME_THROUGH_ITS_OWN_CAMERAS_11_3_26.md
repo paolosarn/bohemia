@@ -105,3 +105,39 @@ numbers). The data file records/target/bb/home_lots.json is on the template (lot
 - Levels and looks per piece show "LEVEL 1 of 3, LOOK: AS FOUND". The next levels are the next pieces through the same script.
 - The upright crop leaves ground above and below the block. The one-square-per-camera rule keeps a piece at nine pictures, so the crop is
   the price.
+
+## THE CAMERAS MADE INTIMATE (rule 373; ask line 399)
+His votes on the two cards: the screen "Nah these camera angles aren't intimate bro, it's shit"; the three cameras "Looks like shit". Both
+are graveyard: the far, high, flat map view is dead. Measured against the bar he starred (the loading screen's feed B, the night camera,
+tools/bohemia_ui_the_first_minute_feeds.py): it is night, low, close and dark, a 24 mm lens on a pole about 8 m up, a dying sodium head,
+a lamp post right in front of the lens, a coyote looking round, mono CCTV tape, its own hum. Ours was a bright plan seen from a plane.
+
+WHAT CHANGED, ALL IN THE ONE PIPELINE (tools/bohemia_home_settlement_pipeline_11_3_26.py; still one template, three fixed cameras, one script):
+- THE LENS: Cycles' own equisolid fisheye (a real wide CCTV lens with its barrel bend), 14.8 to 16.8 mm, at the source, upright and
+  sideways each their own framing from the same mount.
+- THE NIGHT: the starred feed's film: a cold low moon, sodium heads (the gate's lamp, two on each side wall, one on the back wall, so none
+  stands in front of a lot), 24 samples and the denoiser (the feed's own way), the feed's CCTV tape and the PS1's 32 levels after it.
+- THE NEAR WORLD: the gate's lamp post in front of the lens, the street and its kerb, a wreck at the kerb, a hydrant, a hand-painted sign
+  board on the wall, the power line sagging to the gate's lamp, the dead billboard's board over CAM 2's head; and THE COYOTE looking round
+  in the front yard, posed on its own clip, three frames (it came in 82 m tall at first: its mesh hangs from its skeleton, which the
+  props' seat skips; it is imported the feed's way now and measured posed, 1.1 m nose to tail).
+- THE TEMPLATE, STEEPER AND NARROWER: rows step up 1.4 m each (0, 1.4, 2.8 m: a foothill tract's retaining walls), lots 9 m wide (an
+  older Vegas tract), so the cameras can stand close and every lot still shows.
+- THE CAMERAS: CAM 1 THE STREET LIGHT (13 m), CAM 2 THE POWER POLE (13.6 m), CAM 3 THE BILLBOARD (14.8 m), all across the street within
+  10 m of the front wall, looking up the block.
+- PIECES: with perspective a piece looks different on every lot, so the script renders each piece on every lot of its row, from every
+  camera, both shapes, in the full scene (the block holding out, the ground catching its shadow under the same sodium light). Still one
+  model, every picture by machine, nothing by hand.
+- THE HONEST PART: his "about 3 to 4 m" was measured and does not hold 12 lots. From 4 m the back rows shrink to a strip on the horizon and
+  the front pieces hide the rows behind them (the first try: lots 0% to 16% seen, tap boxes 0 to 8 points). The cameras went up the
+  street's own poles until every lot held: 13 to 14.8 m, which is a Vegas street light's or power pole's height; the starred feed's pole
+  is 8.4 m. The intimacy comes from the lens, the near world, the night and the life, not from a low mount.
+- THE MEASURE WAS MADE HONEST ON THE WAY: a lot half outside the frame used to count as fully seen (its "alone" picture was cut by the
+  same frame). Each lot alone is now drawn on a canvas twice as big through the same lens, so what the frame cuts off counts as unseen.
+- AND THE THREE ARE CLOSE: twelve lots a thumb wide in an upright frame (a 9:16 fisheye covers about 45 degrees each side) pulls all three
+  cameras near the middle of the street, so they differ by height, lens, what hangs in front and CAM 3's dying frame, not by side.
+
+THE GATE (gates/home_settlement_gate.py, YOUR SETTLEMENT, ALL TWELVE): S5 every camera, upright and sideways, with every lot at its row's
+tallest: worst lot 65% seen, smallest tap box 47.7 points; S6 (new) every camera a wide barrel lens under 20 mm, under 16 m, within 20 m
+of the front wall. The screen draws the new pictures, cycles the cameras every 20 s on its own, and plays the starred feed's hum low
+after the first tap.

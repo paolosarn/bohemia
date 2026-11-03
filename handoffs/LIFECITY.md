@@ -1,5 +1,16 @@
 # LIFE + CITY (written only by the LIFE + CITY lane; HOME, its settlement chat, writes here too)
 
+## HOME, 11/3/26: THE CAMERAS MADE INTIMATE (rule 373; ask line 399)
+Record: records/BOHEMIA_HOME_THROUGH_ITS_OWN_CAMERAS_11_3_26.md (last section). Pipeline, gate and screen as below, re-made.
+- His votes: both cards down ('not intimate', 'looks like shit'). Now: night under sodium, the starred feed's tape and hum, an equisolid
+  barrel lens, cameras on the street's own poles across from the gate (13 to 14.8 m: 3 to 4 m measured and failed the twelve lots), the
+  gate lamp, power lines, a wreck and a sign in front, a coyote looking round; template steps 1.4 m, lots 9 m wide.
+- Pieces render per lot of their row (perspective), 528 pictures by machine; the block's own shadows taken out by an empty-scene pass.
+- Gate 10/0: twelve of twelve in every camera both ways (worst 65% seen, smallest tap 48 pt), S6 intimate lens and mount.
+- VOTE: home-cameras-intimate-11-3 (WAS beside NOW, upright and sideways). The three views are close (all twelve upright pulls them to the
+  middle of the street): said in the record.
+NEXT: the acts (CAM 4 inside), the planting on the map, the screen wired into the game for a planted place.
+
 ## HOME, 11/3/26: YOUR SETTLEMENT, MODULAR: ONE TEMPLATE, THREE FIXED CAMERAS, ONE SCRIPT, THE SCREEN (rule 354 (g) to (o); asks 371, 373)
 Record: records/BOHEMIA_HOME_THROUGH_ITS_OWN_CAMERAS_11_3_26.md (the last two sections). Pipeline: tools/bohemia_home_settlement_pipeline_11_3_26.py
 (plate / piece <id|all> / gate under /tmp/v Blender; post / card in python3) -> records/target/home_settlement/. Gate: gates/home_settlement_gate.py

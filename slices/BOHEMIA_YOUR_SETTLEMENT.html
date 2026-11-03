@@ -5,7 +5,8 @@
 <!-- HOME (rules 343, 347, 354; ask lines 352, 356, 368, 369, 371, 373): YOUR settlement, and only yours, seen through its own security
      cameras. A, THE BLOCK YOU TOOK: one lot template (twelve lots, three rows of four, stepping back and up), three fixed cameras that
      each see all twelve, cycling on their own every 20 seconds (held while a card is open or a finger is down); you never pick a camera,
-     you tap a lot. Every picture is the pipeline's (tools/bohemia_home_settlement_pipeline_11_3_26.py -> ../records/target/home_settlement/
+     you tap a lot. INTIMATE (rule 373): low across the street, a wide barrel lens, night under sodium, the starred feed's own tape and hum.
+     Every picture is the pipeline's (tools/bohemia_home_settlement_pipeline_11_3_26.py -> ../records/target/home_settlement/
      manifest.json): a plate per camera and each piece once per camera, drawn on any lot of its row by its anchor. What can stand where:
      ../records/target/bb/home_lots.json. The bill per person: ../records/target/bb/nightly_bill.json. Canvas only: 60 a second on a phone. -->
 <style>
@@ -32,7 +33,7 @@ html,body{margin:0;height:100%;background:#0c0b0a;color:var(--bone);font:600 14p
 (function(){
 'use strict';
 var BASE = '../records/target/home_settlement/', DATA = '../records/target/bb/';
-var CYCLE_MS = 20000, FPS_CCTV = 6, SAVE = 'bohemia_your_settlement_v2';
+var CYCLE_MS = 20000, FPS_CCTV = 6, SAVE = 'bohemia_your_settlement_v3';
 var cv = document.getElementById('c'), cx = cv.getContext('2d'), sheet = document.getElementById('sheet'), plant = document.getElementById('plant');
 var src = document.createElement('canvas'), sx = src.getContext('2d');
 var M = null, LB = null, BILL = null, S = { cam: 1, lots: null, planted: false, people: 0 };
@@ -54,7 +55,7 @@ function fit(){
   FIT.console = sh === 'tall' ? { x: 0, y: FIT.h, w: W, h: H - FIT.h } : { x: FIT.w, y: 0, w: W - FIT.w, h: H };
   var c = FIT.console; FIT.phone = { x: c.x + c.w - 112, y: c.y + c.h - 150, w: 100, h: 140 };
 }
-function crop(){ return M.crop[FIT.sh]; }
+function crop(){ return [0, 0, FIT.cw, FIT.ch]; }   /* each camera is shot in both shapes: the whole frame is the picture */
 
 function lotDef(n){ for (var i = 0; i < M.lots.length; i++) if (M.lots[i].n === n) return M.lots[i]; }
 function pieceDef(id){ if (!LB) return null; for (var i = 0; i < LB.pieces.length; i++) if (LB.pieces[i].id === id) return LB.pieces[i]; return null; }
@@ -91,15 +92,14 @@ function frame(now){
 }
 /* the camera's own picture at its own size: the plate, each lot's piece back row first (anchor on anchor), the camera's own text */
 function drawCam(cn, f){
-  var plate = img(BASE + 'plates/block_cam' + cn + '_' + f + '.png'); if (!ready(plate)) return false;
-  if (src.width !== M.sq) { src.width = src.height = M.sq; }
+  var sh = FIT.sh, plate = img(BASE + 'plates/block_cam' + cn + '_' + sh + '_' + f + '.png'); if (!ready(plate)) return false;
+  if (src.width !== FIT.cw || src.height !== FIT.ch) { src.width = FIT.cw; src.height = FIT.ch; }
   sx.imageSmoothingEnabled = false; sx.drawImage(plate, 0, 0);
-  var order = Object.keys(S.lots).map(Number).sort(function(a, b){ return lotDef(b).box_m[1] - lotDef(a).box_m[1]; });
-  order.forEach(function(n){
+  (M.order[cn] || []).forEach(function(n){                     /* the lots far to near from this camera: a near piece is drawn last */
     var s = S.lots[n]; if (!s || s.state === 'bare') return;
-    var P = M.pieces[s.piece] && M.pieces[s.piece].states[s.state] && M.pieces[s.piece].states[s.state].cams[cn]; if (!P) return;
+    var st = M.pieces[s.piece] && M.pieces[s.piece].states[s.state]; var P = st && st.pics[cn + '_' + sh + '_' + n]; if (!P) return;
     var im = img(BASE + 'pieces/' + P.pictures[f % P.pictures.length]); if (!ready(im)) return;
-    var a = M.plates.block.anchors[cn][n]; sx.drawImage(im, a[0] - P.anchor[0], a[1] - P.anchor[1]);
+    sx.drawImage(im, P.xy[0], P.xy[1]);
   });
   var c = crop(); sx.font = '8px monospace'; sx.textBaseline = 'top';
   function t(x, y, s){ sx.fillStyle = '#0a0a0a'; sx.fillText(s, x + 1, y + 1); sx.fillStyle = '#e2e6de'; sx.fillText(s, x, y); }
@@ -129,7 +129,7 @@ function drawConsole(){
 /* THE TAP: what of each lot this camera sees (the gate's own measure), the smallest box under the finger */
 function lotAt(px, py){
   if (px < FIT.x || py < FIT.y || px > FIT.x + FIT.w || py > FIT.y + FIT.h) return null;
-  var c = crop(), qx = c[0] + (px - FIT.x) / FIT.k, qy = c[1] + (py - FIT.y) / FIT.k, T = M.tap_px[S.cam], best = null, ba = 1e9;
+  var qx = (px - FIT.x) / FIT.k, qy = (py - FIT.y) / FIT.k, T = M.tap_px[S.cam + '_' + FIT.sh] || {}, best = null, ba = 1e9;
   for (var n in T) { var b = T[n]; if (qx >= b[0] && qx <= b[2] && qy >= b[1] && qy <= b[3]) { var a = (b[2] - b[0]) * (b[3] - b[1]); if (a < ba) { ba = a; best = +n; } } }
   return best;
 }
@@ -170,7 +170,10 @@ addEventListener('pointerup', function(e){
   var n = lotAt(e.clientX, e.clientY); if (n) openSheet(n); else closeSheet();
 });
 addEventListener('pointercancel', function(){ fingerDown = false; });
-document.getElementById('plantYes').onclick = function(){ S.planted = true; save(); plant.style.display = 'none'; lastCut = performance.now(); };
+/* the cameras' own sound: the starred night camera's hum (the loading screen's feed B), low, after a tap (a phone plays nothing before one) */
+var HUM = null; function hum(){ if (HUM) return; try { HUM = new Audio('crashbox/feed_b.mp3'); HUM.loop = true; HUM.volume = 0.25; HUM.play().catch(function(){ HUM = null; }); } catch (e) { HUM = null; } }
+addEventListener('pointerdown', hum);
+document.getElementById('plantYes').onclick = function(){ S.planted = true; save(); plant.style.display = 'none'; lastCut = performance.now(); hum(); };
 document.getElementById('plantNo').onclick = function(){ var h = plant.querySelector('h1'); h.textContent = 'NOT YET'; setTimeout(function(){ h.textContent = 'PLANT HERE?'; }, 900); };
 addEventListener('resize', function(){ fit(); closeSheet(); });
 fit();

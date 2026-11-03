@@ -1,42 +1,96 @@
 {
- "about": "YOUR SETTLEMENT, every picture by tools/bohemia_home_settlement_pipeline_11_3_26.py (rule 354 (k) to (o)): the lot template, the fixed cameras, the plates and the pieces. A picture is a SQ x SQ square per camera; the upright and sideways shapes are its crops. A piece is drawn on a lot by putting its anchor on the lot's anchor (both on the four-pixel grid); pieces are drawn back row first.",
+ "about": "YOUR SETTLEMENT, every picture by tools/bohemia_home_settlement_pipeline_11_3_26.py (rules 354 (k) to (o), 373): the lot template, the three fixed intimate cameras (low, a wide barrel lens), the plates and the pieces. Every camera is shot upright and sideways; a piece has a picture per camera, shape and lot of its row, drawn at its xy on the plate, the lots far to near (order). The gate's flat pictures prove all twelve lots in every camera.",
  "by": "tools/bohemia_home_settlement_pipeline_11_3_26.py",
  "look": "act1",
- "look_note": "a dying system: PS1 size, the render grain, mono CCTV tape, 32 levels",
- "sq": 320,
- "crop": {
+ "look_note": "a dying system: PS1 size, night under sodium, the starred feeds' mono CCTV tape, 32 levels",
+ "sizes": {
   "tall": [
-   72,
-   0,
-   252,
+   180,
    320
   ],
   "wide": [
-   0,
-   72,
    320,
-   252
+   180
   ]
  },
  "cams": {
   "1": {
-   "name": "CAM 1 THE GATE",
-   "az": -16.0,
-   "el": 52.0
+   "name": "CAM 1 THE STREET LIGHT",
+   "mount": "the street light across from the gate, 13 m",
+   "loc": [
+    20.5,
+    -5.0,
+    13.0
+   ],
+   "at": {
+    "tall": [
+     20.5,
+     30.0,
+     0.0
+    ],
+    "wide": [
+     20.5,
+     22.0,
+     0.0
+    ]
+   },
+   "f": {
+    "tall": 14.8,
+    "wide": 16.5
+   }
   },
   "2": {
-   "name": "CAM 2 THE POLE",
-   "az": 0.0,
-   "el": 60.0
+   "name": "CAM 2 THE POWER POLE",
+   "mount": "the power pole across the street, 13.6 m",
+   "loc": [
+    18.5,
+    -6.0,
+    13.6
+   ],
+   "at": {
+    "tall": [
+     21.0,
+     30.0,
+     0.0
+    ],
+    "wide": [
+     21.0,
+     22.0,
+     0.0
+    ]
+   },
+   "f": {
+    "tall": 15.0,
+    "wide": 16.8
+   }
   },
   "3": {
-   "name": "CAM 3 THE ROOF ACROSS",
-   "az": 16.0,
-   "el": 48.0
+   "name": "CAM 3 THE BILLBOARD",
+   "mount": "the dead billboard across the street, 14.8 m",
+   "loc": [
+    22.0,
+    -4.0,
+    14.8
+   ],
+   "at": {
+    "tall": [
+     19.6,
+     29.0,
+     0.0
+    ],
+    "wide": [
+     19.8,
+     22.0,
+     0.0
+    ]
+   },
+   "f": {
+    "tall": 15.0,
+    "wide": 16.8
+   }
   }
  },
- "cams_hash": "72e8f47e1738",
- "ortho_m": 98.0,
+ "cams_hash": "0fd01b2b1654",
  "rows": {
   "front": {
    "y0": 6.0,
@@ -45,12 +99,12 @@
   },
   "middle": {
    "y0": 18.0,
-   "z": 0.9,
+   "z": 1.4,
    "hmax": 3.8
   },
   "back": {
    "y0": 30.0,
-   "z": 1.8,
+   "z": 2.8,
    "hmax": 8.0
   }
  },
@@ -61,7 +115,7 @@
    "box_m": [
     1.0,
     6.0,
-    12.0,
+    10.0,
     16.0
    ],
    "z": 0.0,
@@ -71,9 +125,9 @@
    "n": 2,
    "row": "front",
    "box_m": [
-    13.0,
+    11.0,
     6.0,
-    24.0,
+    20.0,
     16.0
    ],
    "z": 0.0,
@@ -83,9 +137,9 @@
    "n": 3,
    "row": "front",
    "box_m": [
-    25.0,
+    21.0,
     6.0,
-    36.0,
+    30.0,
     16.0
    ],
    "z": 0.0,
@@ -95,9 +149,9 @@
    "n": 4,
    "row": "front",
    "box_m": [
-    37.0,
+    31.0,
     6.0,
-    48.0,
+    40.0,
     16.0
    ],
    "z": 0.0,
@@ -109,46 +163,46 @@
    "box_m": [
     1.0,
     18.0,
-    12.0,
+    10.0,
     28.0
    ],
-   "z": 0.9,
+   "z": 1.4,
    "hmax": 3.8
   },
   {
    "n": 6,
    "row": "middle",
    "box_m": [
-    13.0,
+    11.0,
     18.0,
-    24.0,
+    20.0,
     28.0
    ],
-   "z": 0.9,
+   "z": 1.4,
    "hmax": 3.8
   },
   {
    "n": 7,
    "row": "middle",
    "box_m": [
-    25.0,
+    21.0,
     18.0,
-    36.0,
+    30.0,
     28.0
    ],
-   "z": 0.9,
+   "z": 1.4,
    "hmax": 3.8
   },
   {
    "n": 8,
    "row": "middle",
    "box_m": [
-    37.0,
+    31.0,
     18.0,
-    48.0,
+    40.0,
     28.0
    ],
-   "z": 0.9,
+   "z": 1.4,
    "hmax": 3.8
   },
   {
@@ -157,205 +211,53 @@
    "box_m": [
     1.0,
     30.0,
-    12.0,
+    10.0,
     40.0
    ],
-   "z": 1.8,
+   "z": 2.8,
    "hmax": 8.0
   },
   {
    "n": 10,
    "row": "back",
    "box_m": [
-    13.0,
+    11.0,
     30.0,
-    24.0,
+    20.0,
     40.0
    ],
-   "z": 1.8,
+   "z": 2.8,
    "hmax": 8.0
   },
   {
    "n": 11,
    "row": "back",
    "box_m": [
-    25.0,
+    21.0,
     30.0,
-    36.0,
+    30.0,
     40.0
    ],
-   "z": 1.8,
+   "z": 2.8,
    "hmax": 8.0
   },
   {
    "n": 12,
    "row": "back",
    "box_m": [
-    37.0,
+    31.0,
     30.0,
-    48.0,
+    40.0,
     40.0
    ],
-   "z": 1.8,
+   "z": 2.8,
    "hmax": 8.0
   }
  ],
  "plates": {
   "block": {
-   "anchors": {
-    "1": {
-     "1": [
-      92,
-      180
-     ],
-     "2": [
-      132,
-      188
-     ],
-     "3": [
-      168,
-      196
-     ],
-     "4": [
-      204,
-      204
-     ],
-     "5": [
-      104,
-      148
-     ],
-     "6": [
-      140,
-      156
-     ],
-     "7": [
-      180,
-      164
-     ],
-     "8": [
-      216,
-      172
-     ],
-     "9": [
-      116,
-      116
-     ],
-     "10": [
-      152,
-      124
-     ],
-     "11": [
-      188,
-      132
-     ],
-     "12": [
-      228,
-      140
-     ]
-    },
-    "2": {
-     "1": [
-      100,
-      196
-     ],
-     "2": [
-      140,
-      196
-     ],
-     "3": [
-      180,
-      196
-     ],
-     "4": [
-      220,
-      196
-     ],
-     "5": [
-      100,
-      160
-     ],
-     "6": [
-      140,
-      160
-     ],
-     "7": [
-      180,
-      160
-     ],
-     "8": [
-      220,
-      160
-     ],
-     "9": [
-      100,
-      124
-     ],
-     "10": [
-      140,
-      124
-     ],
-     "11": [
-      180,
-      124
-     ],
-     "12": [
-      220,
-      124
-     ]
-    },
-    "3": {
-     "1": [
-      116,
-      204
-     ],
-     "2": [
-      152,
-      196
-     ],
-     "3": [
-      188,
-      188
-     ],
-     "4": [
-      228,
-      180
-     ],
-     "5": [
-      104,
-      172
-     ],
-     "6": [
-      140,
-      164
-     ],
-     "7": [
-      180,
-      156
-     ],
-     "8": [
-      216,
-      148
-     ],
-     "9": [
-      92,
-      144
-     ],
-     "10": [
-      132,
-      136
-     ],
-     "11": [
-      168,
-      128
-     ],
-     "12": [
-      204,
-      120
-     ]
-    }
-   },
    "frames": 3,
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   }
  },
  "pieces": {
@@ -369,32 +271,221 @@
       4.76,
       1.7
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_5": {
        "pictures": [
-        "garden_bed_built_cam1_0.png"
+        "garden_bed_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        156
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_6": {
        "pictures": [
-        "garden_bed_built_cam2_0.png"
+        "garden_bed_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        156
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_7": {
        "pictures": [
-        "garden_bed_built_cam3_0.png"
+        "garden_bed_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "garden_bed_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        156
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "garden_bed_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        72
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "garden_bed_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "garden_bed_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "garden_bed_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        72
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "garden_bed_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        156
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "garden_bed_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        156
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "garden_bed_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "garden_bed_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        156
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "garden_bed_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        72,
+        76
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "garden_bed_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        72
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "garden_bed_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "garden_bed_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        72
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "garden_bed_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "garden_bed_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        156
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "garden_bed_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "garden_bed_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "garden_bed_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        72
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "garden_bed_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "garden_bed_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "garden_bed_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        76
        ]
       }
      }
@@ -405,41 +496,251 @@
       4.76,
       1.7
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_5": {
        "pictures": [
-        "garden_bed_working_cam1_0.png",
-        "garden_bed_working_cam1_1.png"
+        "garden_bed_working_cam1_tall_lot5_0.png",
+        "garden_bed_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_6": {
        "pictures": [
-        "garden_bed_working_cam2_0.png",
-        "garden_bed_working_cam2_1.png"
+        "garden_bed_working_cam1_tall_lot6_0.png",
+        "garden_bed_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_7": {
        "pictures": [
-        "garden_bed_working_cam3_0.png",
-        "garden_bed_working_cam3_1.png"
+        "garden_bed_working_cam1_tall_lot7_0.png",
+        "garden_bed_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "garden_bed_working_cam1_tall_lot8_0.png",
+        "garden_bed_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "garden_bed_working_cam1_wide_lot5_0.png",
+        "garden_bed_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "garden_bed_working_cam1_wide_lot6_0.png",
+        "garden_bed_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "garden_bed_working_cam1_wide_lot7_0.png",
+        "garden_bed_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "garden_bed_working_cam1_wide_lot8_0.png",
+        "garden_bed_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "garden_bed_working_cam2_tall_lot5_0.png",
+        "garden_bed_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        156
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "garden_bed_working_cam2_tall_lot6_0.png",
+        "garden_bed_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "garden_bed_working_cam2_tall_lot7_0.png",
+        "garden_bed_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "garden_bed_working_cam2_tall_lot8_0.png",
+        "garden_bed_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "garden_bed_working_cam2_wide_lot5_0.png",
+        "garden_bed_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        72
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "garden_bed_working_cam2_wide_lot6_0.png",
+        "garden_bed_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "garden_bed_working_cam2_wide_lot7_0.png",
+        "garden_bed_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "garden_bed_working_cam2_wide_lot8_0.png",
+        "garden_bed_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "garden_bed_working_cam3_tall_lot5_0.png",
+        "garden_bed_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "garden_bed_working_cam3_tall_lot6_0.png",
+        "garden_bed_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "garden_bed_working_cam3_tall_lot7_0.png",
+        "garden_bed_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "garden_bed_working_cam3_tall_lot8_0.png",
+        "garden_bed_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "garden_bed_working_cam3_wide_lot5_0.png",
+        "garden_bed_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        68
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "garden_bed_working_cam3_wide_lot6_0.png",
+        "garden_bed_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "garden_bed_working_cam3_wide_lot7_0.png",
+        "garden_bed_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "garden_bed_working_cam3_wide_lot8_0.png",
+        "garden_bed_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        72
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "house_carport": {
    "row": "back",
@@ -447,42 +748,231 @@
    "states": {
     "built": {
      "size_m": [
-      9.8,
-      9.69,
-      3.68
+      8.4,
+      8.31,
+      3.16
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        20,
-        24
-       ],
+     "pics": {
+      "1_tall_9": {
        "pictures": [
-        "house_carport_built_cam1_0.png"
+        "house_carport_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        132
        ]
       },
-      "2": {
-       "anchor": [
-        20,
-        20
-       ],
+      "1_tall_10": {
        "pictures": [
-        "house_carport_built_cam2_0.png"
+        "house_carport_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        132
        ]
       },
-      "3": {
-       "anchor": [
+      "1_tall_11": {
+       "pictures": [
+        "house_carport_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "house_carport_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "house_carport_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        92,
+        48
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "house_carport_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        44
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "house_carport_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "house_carport_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "house_carport_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
         24,
-        20
-       ],
+        132
+       ]
+      },
+      "2_tall_10": {
        "pictures": [
-        "house_carport_built_cam3_0.png"
+        "house_carport_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        52,
+        132
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "house_carport_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "house_carport_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "house_carport_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        84,
+        48
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "house_carport_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        116,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "house_carport_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "house_carport_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "house_carport_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        128
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "house_carport_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "house_carport_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "house_carport_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "house_carport_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        40
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "house_carport_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "house_carport_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "house_carport_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        44
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "house_garage": {
    "row": "back",
@@ -490,42 +980,231 @@
    "states": {
     "built": {
      "size_m": [
-      10.4,
-      7.63,
-      2.9
+      8.6,
+      6.31,
+      2.4
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        20,
-        20
-       ],
+     "pics": {
+      "1_tall_9": {
        "pictures": [
-        "house_garage_built_cam1_0.png"
+        "house_garage_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        136
        ]
       },
-      "2": {
-       "anchor": [
-        20,
-        16
-       ],
+      "1_tall_10": {
        "pictures": [
-        "house_garage_built_cam2_0.png"
+        "house_garage_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        136
        ]
       },
-      "3": {
-       "anchor": [
+      "1_tall_11": {
+       "pictures": [
+        "house_garage_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "house_garage_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "house_garage_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        92,
+        48
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "house_garage_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "house_garage_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "house_garage_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "house_garage_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
         24,
-        16
-       ],
+        136
+       ]
+      },
+      "2_tall_10": {
        "pictures": [
-        "house_garage_built_cam3_0.png"
+        "house_garage_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        52,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "house_garage_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "house_garage_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "house_garage_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        84,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "house_garage_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        116,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "house_garage_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "house_garage_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "house_garage_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "house_garage_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "house_garage_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "house_garage_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "house_garage_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "house_garage_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "house_garage_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "house_garage_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        48
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "house_plain": {
    "row": "back",
@@ -533,42 +1212,231 @@
    "states": {
     "built": {
      "size_m": [
-      10.4,
-      8.51,
-      4.85
+      8.6,
+      7.04,
+      4.01
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        24,
-        24
-       ],
+     "pics": {
+      "1_tall_9": {
        "pictures": [
-        "house_plain_built_cam1_0.png"
+        "house_plain_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        24,
+        128
        ]
       },
-      "2": {
-       "anchor": [
-        24,
-        20
-       ],
+      "1_tall_10": {
        "pictures": [
-        "house_plain_built_cam2_0.png"
+        "house_plain_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        128
        ]
       },
-      "3": {
-       "anchor": [
-        24,
-        24
-       ],
+      "1_tall_11": {
        "pictures": [
-        "house_plain_built_cam3_0.png"
+        "house_plain_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        128
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "house_plain_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "house_plain_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        88,
+        44
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "house_plain_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        120,
+        44
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "house_plain_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "house_plain_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "house_plain_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        20,
+        132
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "house_plain_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        52,
+        128
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "house_plain_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        128
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "house_plain_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "house_plain_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        80,
+        44
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "house_plain_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        116,
+        44
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "house_plain_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "house_plain_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "house_plain_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        128
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "house_plain_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        128
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "house_plain_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "house_plain_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "house_plain_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        92,
+        40
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "house_plain_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        40
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "house_plain_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "house_plain_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        44
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "house_wing": {
    "row": "back",
@@ -576,42 +1444,231 @@
    "states": {
     "built": {
      "size_m": [
-      10.4,
-      8.59,
-      3.7
+      8.6,
+      7.11,
+      3.06
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        20,
-        20
-       ],
+     "pics": {
+      "1_tall_9": {
        "pictures": [
-        "house_wing_built_cam1_0.png"
+        "house_wing_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        132
        ]
       },
-      "2": {
-       "anchor": [
-        24,
-        20
-       ],
+      "1_tall_10": {
        "pictures": [
-        "house_wing_built_cam2_0.png"
+        "house_wing_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        132
        ]
       },
-      "3": {
-       "anchor": [
-        24,
-        20
-       ],
+      "1_tall_11": {
        "pictures": [
-        "house_wing_built_cam3_0.png"
+        "house_wing_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "house_wing_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "house_wing_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        88,
+        48
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "house_wing_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        120,
+        44
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "house_wing_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "house_wing_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "house_wing_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        24,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "house_wing_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        52,
+        132
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "house_wing_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "house_wing_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "house_wing_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        84,
+        48
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "house_wing_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        116,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "house_wing_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "house_wing_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "house_wing_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        128
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "house_wing_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "house_wing_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "house_wing_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "house_wing_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "house_wing_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "house_wing_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "house_wing_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        44
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "kitchen": {
    "row": "back",
@@ -623,32 +1680,221 @@
       3.8,
       3.6
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        16
-       ],
+     "pics": {
+      "1_tall_9": {
        "pictures": [
-        "kitchen_built_cam1_0.png"
+        "kitchen_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        132
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_10": {
        "pictures": [
-        "kitchen_built_cam2_0.png"
+        "kitchen_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_11": {
        "pictures": [
-        "kitchen_built_cam3_0.png"
+        "kitchen_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "kitchen_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        132
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "kitchen_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        48
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "kitchen_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "kitchen_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "kitchen_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "kitchen_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "kitchen_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "kitchen_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "kitchen_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        132
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "kitchen_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        88,
+        48
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "kitchen_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "kitchen_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "kitchen_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "kitchen_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        36,
+        128
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "kitchen_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "kitchen_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "kitchen_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "kitchen_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        100,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "kitchen_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "kitchen_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "kitchen_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        44
        ]
       }
      }
@@ -659,41 +1905,251 @@
       3.8,
       4.99
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_9": {
        "pictures": [
-        "kitchen_working_cam1_0.png",
-        "kitchen_working_cam1_1.png"
+        "kitchen_working_cam1_tall_lot9_0.png",
+        "kitchen_working_cam1_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        128
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_10": {
        "pictures": [
-        "kitchen_working_cam2_0.png",
-        "kitchen_working_cam2_1.png"
+        "kitchen_working_cam1_tall_lot10_0.png",
+        "kitchen_working_cam1_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        128
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_11": {
        "pictures": [
-        "kitchen_working_cam3_0.png",
-        "kitchen_working_cam3_1.png"
+        "kitchen_working_cam1_tall_lot11_0.png",
+        "kitchen_working_cam1_tall_lot11_1.png"
+       ],
+       "xy": [
+        68,
+        128
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "kitchen_working_cam1_tall_lot12_0.png",
+        "kitchen_working_cam1_tall_lot12_1.png"
+       ],
+       "xy": [
+        68,
+        128
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "kitchen_working_cam1_wide_lot9_0.png",
+        "kitchen_working_cam1_wide_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        44
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "kitchen_working_cam1_wide_lot10_0.png",
+        "kitchen_working_cam1_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "kitchen_working_cam1_wide_lot11_0.png",
+        "kitchen_working_cam1_wide_lot11_1.png"
+       ],
+       "xy": [
+        132,
+        40
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "kitchen_working_cam1_wide_lot12_0.png",
+        "kitchen_working_cam1_wide_lot12_1.png"
+       ],
+       "xy": [
+        132,
+        44
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "kitchen_working_cam2_tall_lot9_0.png",
+        "kitchen_working_cam2_tall_lot9_1.png"
+       ],
+       "xy": [
+        28,
+        132
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "kitchen_working_cam2_tall_lot10_0.png",
+        "kitchen_working_cam2_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "kitchen_working_cam2_tall_lot11_0.png",
+        "kitchen_working_cam2_tall_lot11_1.png"
+       ],
+       "xy": [
+        76,
+        128
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "kitchen_working_cam2_tall_lot12_0.png",
+        "kitchen_working_cam2_tall_lot12_1.png"
+       ],
+       "xy": [
+        76,
+        128
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "kitchen_working_cam2_wide_lot9_0.png",
+        "kitchen_working_cam2_wide_lot9_1.png"
+       ],
+       "xy": [
+        88,
+        44
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "kitchen_working_cam2_wide_lot10_0.png",
+        "kitchen_working_cam2_wide_lot10_1.png"
+       ],
+       "xy": [
+        124,
+        44
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "kitchen_working_cam2_wide_lot11_0.png",
+        "kitchen_working_cam2_wide_lot11_1.png"
+       ],
+       "xy": [
+        144,
+        40
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "kitchen_working_cam2_wide_lot12_0.png",
+        "kitchen_working_cam2_wide_lot12_1.png"
+       ],
+       "xy": [
+        144,
+        44
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "kitchen_working_cam3_tall_lot9_0.png",
+        "kitchen_working_cam3_tall_lot9_1.png"
+       ],
+       "xy": [
+        36,
+        124
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "kitchen_working_cam3_tall_lot10_0.png",
+        "kitchen_working_cam3_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        124
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "kitchen_working_cam3_tall_lot11_0.png",
+        "kitchen_working_cam3_tall_lot11_1.png"
+       ],
+       "xy": [
+        60,
+        124
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "kitchen_working_cam3_tall_lot12_0.png",
+        "kitchen_working_cam3_tall_lot12_1.png"
+       ],
+       "xy": [
+        60,
+        128
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "kitchen_working_cam3_wide_lot9_0.png",
+        "kitchen_working_cam3_wide_lot9_1.png"
+       ],
+       "xy": [
+        100,
+        40
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "kitchen_working_cam3_wide_lot10_0.png",
+        "kitchen_working_cam3_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        36
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "kitchen_working_cam3_wide_lot11_0.png",
+        "kitchen_working_cam3_wide_lot11_1.png"
+       ],
+       "xy": [
+        128,
+        40
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "kitchen_working_cam3_wide_lot12_0.png",
+        "kitchen_working_cam3_wide_lot12_1.png"
+       ],
+       "xy": [
+        128,
+        40
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "main": {
    "row": "front",
@@ -705,32 +2161,221 @@
       4.2,
       1.3
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        8,
-        8
-       ],
+     "pics": {
+      "1_tall_1": {
        "pictures": [
-        "main_built_cam1_0.png"
+        "main_built_cam1_tall_lot1_0.png"
+       ],
+       "xy": [
+        0,
+        188
        ]
       },
-      "2": {
-       "anchor": [
-        8,
-        8
-       ],
+      "1_tall_2": {
        "pictures": [
-        "main_built_cam2_0.png"
+        "main_built_cam1_tall_lot2_0.png"
+       ],
+       "xy": [
+        44,
+        192
        ]
       },
-      "3": {
-       "anchor": [
-        8,
-        8
-       ],
+      "1_tall_3": {
        "pictures": [
-        "main_built_cam3_0.png"
+        "main_built_cam1_tall_lot3_0.png"
+       ],
+       "xy": [
+        68,
+        192
+       ]
+      },
+      "1_tall_4": {
+       "pictures": [
+        "main_built_cam1_tall_lot4_0.png"
+       ],
+       "xy": [
+        68,
+        188
+       ]
+      },
+      "1_wide_1": {
+       "pictures": [
+        "main_built_cam1_wide_lot1_0.png"
+       ],
+       "xy": [
+        56,
+        112
+       ]
+      },
+      "1_wide_2": {
+       "pictures": [
+        "main_built_cam1_wide_lot2_0.png"
+       ],
+       "xy": [
+        108,
+        116
+       ]
+      },
+      "1_wide_3": {
+       "pictures": [
+        "main_built_cam1_wide_lot3_0.png"
+       ],
+       "xy": [
+        132,
+        116
+       ]
+      },
+      "1_wide_4": {
+       "pictures": [
+        "main_built_cam1_wide_lot4_0.png"
+       ],
+       "xy": [
+        132,
+        112
+       ]
+      },
+      "2_tall_1": {
+       "pictures": [
+        "main_built_cam2_tall_lot1_0.png"
+       ],
+       "xy": [
+        0,
+        192
+       ]
+      },
+      "2_tall_2": {
+       "pictures": [
+        "main_built_cam2_tall_lot2_0.png"
+       ],
+       "xy": [
+        52,
+        192
+       ]
+      },
+      "2_tall_3": {
+       "pictures": [
+        "main_built_cam2_tall_lot3_0.png"
+       ],
+       "xy": [
+        76,
+        192
+       ]
+      },
+      "2_tall_4": {
+       "pictures": [
+        "main_built_cam2_tall_lot4_0.png"
+       ],
+       "xy": [
+        76,
+        184
+       ]
+      },
+      "2_wide_1": {
+       "pictures": [
+        "main_built_cam2_wide_lot1_0.png"
+       ],
+       "xy": [
+        56,
+        116
+       ]
+      },
+      "2_wide_2": {
+       "pictures": [
+        "main_built_cam2_wide_lot2_0.png"
+       ],
+       "xy": [
+        112,
+        116
+       ]
+      },
+      "2_wide_3": {
+       "pictures": [
+        "main_built_cam2_wide_lot3_0.png"
+       ],
+       "xy": [
+        144,
+        112
+       ]
+      },
+      "2_wide_4": {
+       "pictures": [
+        "main_built_cam2_wide_lot4_0.png"
+       ],
+       "xy": [
+        144,
+        104
+       ]
+      },
+      "3_tall_1": {
+       "pictures": [
+        "main_built_cam3_tall_lot1_0.png"
+       ],
+       "xy": [
+        0,
+        188
+       ]
+      },
+      "3_tall_2": {
+       "pictures": [
+        "main_built_cam3_tall_lot2_0.png"
+       ],
+       "xy": [
+        40,
+        196
+       ]
+      },
+      "3_tall_3": {
+       "pictures": [
+        "main_built_cam3_tall_lot3_0.png"
+       ],
+       "xy": [
+        60,
+        200
+       ]
+      },
+      "3_tall_4": {
+       "pictures": [
+        "main_built_cam3_tall_lot4_0.png"
+       ],
+       "xy": [
+        60,
+        196
+       ]
+      },
+      "3_wide_1": {
+       "pictures": [
+        "main_built_cam3_wide_lot1_0.png"
+       ],
+       "xy": [
+        56,
+        112
+       ]
+      },
+      "3_wide_2": {
+       "pictures": [
+        "main_built_cam3_wide_lot2_0.png"
+       ],
+       "xy": [
+        108,
+        116
+       ]
+      },
+      "3_wide_3": {
+       "pictures": [
+        "main_built_cam3_wide_lot3_0.png"
+       ],
+       "xy": [
+        128,
+        120
+       ]
+      },
+      "3_wide_4": {
+       "pictures": [
+        "main_built_cam3_wide_lot4_0.png"
+       ],
+       "xy": [
+        128,
+        120
        ]
       }
      }
@@ -741,41 +2386,251 @@
       4.4,
       1.3
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        8,
-        8
-       ],
+     "pics": {
+      "1_tall_1": {
        "pictures": [
-        "main_working_cam1_0.png",
-        "main_working_cam1_1.png"
+        "main_working_cam1_tall_lot1_0.png",
+        "main_working_cam1_tall_lot1_1.png"
+       ],
+       "xy": [
+        0,
+        188
        ]
       },
-      "2": {
-       "anchor": [
-        8,
-        8
-       ],
+      "1_tall_2": {
        "pictures": [
-        "main_working_cam2_0.png",
-        "main_working_cam2_1.png"
+        "main_working_cam1_tall_lot2_0.png",
+        "main_working_cam1_tall_lot2_1.png"
+       ],
+       "xy": [
+        44,
+        192
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        8
-       ],
+      "1_tall_3": {
        "pictures": [
-        "main_working_cam3_0.png",
-        "main_working_cam3_1.png"
+        "main_working_cam1_tall_lot3_0.png",
+        "main_working_cam1_tall_lot3_1.png"
+       ],
+       "xy": [
+        68,
+        192
+       ]
+      },
+      "1_tall_4": {
+       "pictures": [
+        "main_working_cam1_tall_lot4_0.png",
+        "main_working_cam1_tall_lot4_1.png"
+       ],
+       "xy": [
+        68,
+        188
+       ]
+      },
+      "1_wide_1": {
+       "pictures": [
+        "main_working_cam1_wide_lot1_0.png",
+        "main_working_cam1_wide_lot1_1.png"
+       ],
+       "xy": [
+        56,
+        112
+       ]
+      },
+      "1_wide_2": {
+       "pictures": [
+        "main_working_cam1_wide_lot2_0.png",
+        "main_working_cam1_wide_lot2_1.png"
+       ],
+       "xy": [
+        108,
+        112
+       ]
+      },
+      "1_wide_3": {
+       "pictures": [
+        "main_working_cam1_wide_lot3_0.png",
+        "main_working_cam1_wide_lot3_1.png"
+       ],
+       "xy": [
+        132,
+        112
+       ]
+      },
+      "1_wide_4": {
+       "pictures": [
+        "main_working_cam1_wide_lot4_0.png",
+        "main_working_cam1_wide_lot4_1.png"
+       ],
+       "xy": [
+        132,
+        112
+       ]
+      },
+      "2_tall_1": {
+       "pictures": [
+        "main_working_cam2_tall_lot1_0.png",
+        "main_working_cam2_tall_lot1_1.png"
+       ],
+       "xy": [
+        0,
+        192
+       ]
+      },
+      "2_tall_2": {
+       "pictures": [
+        "main_working_cam2_tall_lot2_0.png",
+        "main_working_cam2_tall_lot2_1.png"
+       ],
+       "xy": [
+        48,
+        192
+       ]
+      },
+      "2_tall_3": {
+       "pictures": [
+        "main_working_cam2_tall_lot3_0.png",
+        "main_working_cam2_tall_lot3_1.png"
+       ],
+       "xy": [
+        76,
+        188
+       ]
+      },
+      "2_tall_4": {
+       "pictures": [
+        "main_working_cam2_tall_lot4_0.png",
+        "main_working_cam2_tall_lot4_1.png"
+       ],
+       "xy": [
+        76,
+        184
+       ]
+      },
+      "2_wide_1": {
+       "pictures": [
+        "main_working_cam2_wide_lot1_0.png",
+        "main_working_cam2_wide_lot1_1.png"
+       ],
+       "xy": [
+        56,
+        116
+       ]
+      },
+      "2_wide_2": {
+       "pictures": [
+        "main_working_cam2_wide_lot2_0.png",
+        "main_working_cam2_wide_lot2_1.png"
+       ],
+       "xy": [
+        112,
+        116
+       ]
+      },
+      "2_wide_3": {
+       "pictures": [
+        "main_working_cam2_wide_lot3_0.png",
+        "main_working_cam2_wide_lot3_1.png"
+       ],
+       "xy": [
+        144,
+        112
+       ]
+      },
+      "2_wide_4": {
+       "pictures": [
+        "main_working_cam2_wide_lot4_0.png",
+        "main_working_cam2_wide_lot4_1.png"
+       ],
+       "xy": [
+        144,
+        104
+       ]
+      },
+      "3_tall_1": {
+       "pictures": [
+        "main_working_cam3_tall_lot1_0.png",
+        "main_working_cam3_tall_lot1_1.png"
+       ],
+       "xy": [
+        0,
+        188
+       ]
+      },
+      "3_tall_2": {
+       "pictures": [
+        "main_working_cam3_tall_lot2_0.png",
+        "main_working_cam3_tall_lot2_1.png"
+       ],
+       "xy": [
+        40,
+        196
+       ]
+      },
+      "3_tall_3": {
+       "pictures": [
+        "main_working_cam3_tall_lot3_0.png",
+        "main_working_cam3_tall_lot3_1.png"
+       ],
+       "xy": [
+        60,
+        200
+       ]
+      },
+      "3_tall_4": {
+       "pictures": [
+        "main_working_cam3_tall_lot4_0.png",
+        "main_working_cam3_tall_lot4_1.png"
+       ],
+       "xy": [
+        60,
+        196
+       ]
+      },
+      "3_wide_1": {
+       "pictures": [
+        "main_working_cam3_wide_lot1_0.png",
+        "main_working_cam3_wide_lot1_1.png"
+       ],
+       "xy": [
+        56,
+        108
+       ]
+      },
+      "3_wide_2": {
+       "pictures": [
+        "main_working_cam3_wide_lot2_0.png",
+        "main_working_cam3_wide_lot2_1.png"
+       ],
+       "xy": [
+        108,
+        116
+       ]
+      },
+      "3_wide_3": {
+       "pictures": [
+        "main_working_cam3_wide_lot3_0.png",
+        "main_working_cam3_wide_lot3_1.png"
+       ],
+       "xy": [
+        128,
+        120
+       ]
+      },
+      "3_wide_4": {
+       "pictures": [
+        "main_working_cam3_wide_lot4_0.png",
+        "main_working_cam3_wide_lot4_1.png"
+       ],
+       "xy": [
+        128,
+        120
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "purifier": {
    "row": "front",
@@ -787,32 +2642,221 @@
       3.4,
       1.91
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_1": {
        "pictures": [
-        "purifier_built_cam1_0.png"
+        "purifier_built_cam1_tall_lot1_0.png"
+       ],
+       "xy": [
+        0,
+        184
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        8
-       ],
+      "1_tall_2": {
        "pictures": [
-        "purifier_built_cam2_0.png"
+        "purifier_built_cam1_tall_lot2_0.png"
+       ],
+       "xy": [
+        36,
+        184
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        8
-       ],
+      "1_tall_3": {
        "pictures": [
-        "purifier_built_cam3_0.png"
+        "purifier_built_cam1_tall_lot3_0.png"
+       ],
+       "xy": [
+        68,
+        184
+       ]
+      },
+      "1_tall_4": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot4_0.png"
+       ],
+       "xy": [
+        68,
+        184
+       ]
+      },
+      "1_wide_1": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot1_0.png"
+       ],
+       "xy": [
+        48,
+        104
+       ]
+      },
+      "1_wide_2": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot2_0.png"
+       ],
+       "xy": [
+        100,
+        104
+       ]
+      },
+      "1_wide_3": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot3_0.png"
+       ],
+       "xy": [
+        132,
+        104
+       ]
+      },
+      "1_wide_4": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot4_0.png"
+       ],
+       "xy": [
+        132,
+        104
+       ]
+      },
+      "2_tall_1": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot1_0.png"
+       ],
+       "xy": [
+        0,
+        184
+       ]
+      },
+      "2_tall_2": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot2_0.png"
+       ],
+       "xy": [
+        44,
+        184
+       ]
+      },
+      "2_tall_3": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot3_0.png"
+       ],
+       "xy": [
+        76,
+        184
+       ]
+      },
+      "2_tall_4": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot4_0.png"
+       ],
+       "xy": [
+        76,
+        180
+       ]
+      },
+      "2_wide_1": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot1_0.png"
+       ],
+       "xy": [
+        52,
+        108
+       ]
+      },
+      "2_wide_2": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot2_0.png"
+       ],
+       "xy": [
+        108,
+        108
+       ]
+      },
+      "2_wide_3": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot3_0.png"
+       ],
+       "xy": [
+        144,
+        104
+       ]
+      },
+      "2_wide_4": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot4_0.png"
+       ],
+       "xy": [
+        144,
+        100
+       ]
+      },
+      "3_tall_1": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot1_0.png"
+       ],
+       "xy": [
+        0,
+        180
+       ]
+      },
+      "3_tall_2": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot2_0.png"
+       ],
+       "xy": [
+        36,
+        188
+       ]
+      },
+      "3_tall_3": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot3_0.png"
+       ],
+       "xy": [
+        60,
+        192
+       ]
+      },
+      "3_tall_4": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot4_0.png"
+       ],
+       "xy": [
+        60,
+        192
+       ]
+      },
+      "3_wide_1": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot1_0.png"
+       ],
+       "xy": [
+        52,
+        100
+       ]
+      },
+      "3_wide_2": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot2_0.png"
+       ],
+       "xy": [
+        100,
+        108
+       ]
+      },
+      "3_wide_3": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot3_0.png"
+       ],
+       "xy": [
+        128,
+        112
+       ]
+      },
+      "3_wide_4": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot4_0.png"
+       ],
+       "xy": [
+        128,
+        112
        ]
       }
      }
@@ -823,41 +2867,251 @@
       3.4,
       1.91
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_1": {
        "pictures": [
-        "purifier_working_cam1_0.png",
-        "purifier_working_cam1_1.png"
+        "purifier_working_cam1_tall_lot1_0.png",
+        "purifier_working_cam1_tall_lot1_1.png"
+       ],
+       "xy": [
+        0,
+        184
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        8
-       ],
+      "1_tall_2": {
        "pictures": [
-        "purifier_working_cam2_0.png",
-        "purifier_working_cam2_1.png"
+        "purifier_working_cam1_tall_lot2_0.png",
+        "purifier_working_cam1_tall_lot2_1.png"
+       ],
+       "xy": [
+        36,
+        184
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        8
-       ],
+      "1_tall_3": {
        "pictures": [
-        "purifier_working_cam3_0.png",
-        "purifier_working_cam3_1.png"
+        "purifier_working_cam1_tall_lot3_0.png",
+        "purifier_working_cam1_tall_lot3_1.png"
+       ],
+       "xy": [
+        68,
+        184
+       ]
+      },
+      "1_tall_4": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot4_0.png",
+        "purifier_working_cam1_tall_lot4_1.png"
+       ],
+       "xy": [
+        68,
+        184
+       ]
+      },
+      "1_wide_1": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot1_0.png",
+        "purifier_working_cam1_wide_lot1_1.png"
+       ],
+       "xy": [
+        48,
+        104
+       ]
+      },
+      "1_wide_2": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot2_0.png",
+        "purifier_working_cam1_wide_lot2_1.png"
+       ],
+       "xy": [
+        100,
+        104
+       ]
+      },
+      "1_wide_3": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot3_0.png",
+        "purifier_working_cam1_wide_lot3_1.png"
+       ],
+       "xy": [
+        132,
+        104
+       ]
+      },
+      "1_wide_4": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot4_0.png",
+        "purifier_working_cam1_wide_lot4_1.png"
+       ],
+       "xy": [
+        132,
+        104
+       ]
+      },
+      "2_tall_1": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot1_0.png",
+        "purifier_working_cam2_tall_lot1_1.png"
+       ],
+       "xy": [
+        0,
+        184
+       ]
+      },
+      "2_tall_2": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot2_0.png",
+        "purifier_working_cam2_tall_lot2_1.png"
+       ],
+       "xy": [
+        44,
+        184
+       ]
+      },
+      "2_tall_3": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot3_0.png",
+        "purifier_working_cam2_tall_lot3_1.png"
+       ],
+       "xy": [
+        76,
+        184
+       ]
+      },
+      "2_tall_4": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot4_0.png",
+        "purifier_working_cam2_tall_lot4_1.png"
+       ],
+       "xy": [
+        76,
+        180
+       ]
+      },
+      "2_wide_1": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot1_0.png",
+        "purifier_working_cam2_wide_lot1_1.png"
+       ],
+       "xy": [
+        52,
+        108
+       ]
+      },
+      "2_wide_2": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot2_0.png",
+        "purifier_working_cam2_wide_lot2_1.png"
+       ],
+       "xy": [
+        108,
+        108
+       ]
+      },
+      "2_wide_3": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot3_0.png",
+        "purifier_working_cam2_wide_lot3_1.png"
+       ],
+       "xy": [
+        144,
+        104
+       ]
+      },
+      "2_wide_4": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot4_0.png",
+        "purifier_working_cam2_wide_lot4_1.png"
+       ],
+       "xy": [
+        144,
+        100
+       ]
+      },
+      "3_tall_1": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot1_0.png",
+        "purifier_working_cam3_tall_lot1_1.png"
+       ],
+       "xy": [
+        0,
+        180
+       ]
+      },
+      "3_tall_2": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot2_0.png",
+        "purifier_working_cam3_tall_lot2_1.png"
+       ],
+       "xy": [
+        36,
+        188
+       ]
+      },
+      "3_tall_3": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot3_0.png",
+        "purifier_working_cam3_tall_lot3_1.png"
+       ],
+       "xy": [
+        60,
+        192
+       ]
+      },
+      "3_tall_4": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot4_0.png",
+        "purifier_working_cam3_tall_lot4_1.png"
+       ],
+       "xy": [
+        60,
+        192
+       ]
+      },
+      "3_wide_1": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot1_0.png",
+        "purifier_working_cam3_wide_lot1_1.png"
+       ],
+       "xy": [
+        52,
+        100
+       ]
+      },
+      "3_wide_2": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot2_0.png",
+        "purifier_working_cam3_wide_lot2_1.png"
+       ],
+       "xy": [
+        100,
+        108
+       ]
+      },
+      "3_wide_3": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot3_0.png",
+        "purifier_working_cam3_wide_lot3_1.png"
+       ],
+       "xy": [
+        128,
+        112
+       ]
+      },
+      "3_wide_4": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot4_0.png",
+        "purifier_working_cam3_wide_lot4_1.png"
+       ],
+       "xy": [
+        128,
+        112
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "solar_panel": {
    "row": "middle",
@@ -869,32 +3123,221 @@
       2.92,
       3.2
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_5": {
        "pictures": [
-        "solar_panel_built_cam1_0.png"
+        "solar_panel_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        12,
+        148
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        8
-       ],
+      "1_tall_6": {
        "pictures": [
-        "solar_panel_built_cam2_0.png"
+        "solar_panel_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        148
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_7": {
        "pictures": [
-        "solar_panel_built_cam3_0.png"
+        "solar_panel_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "solar_panel_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "solar_panel_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "solar_panel_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        64
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "solar_panel_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "solar_panel_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "solar_panel_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        12,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "solar_panel_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "solar_panel_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "solar_panel_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "solar_panel_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        72,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "solar_panel_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        112,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "solar_panel_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "solar_panel_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "solar_panel_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "solar_panel_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "solar_panel_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        148
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "solar_panel_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "solar_panel_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "solar_panel_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "solar_panel_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        64
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "solar_panel_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        68
        ]
       }
      }
@@ -905,41 +3348,251 @@
       2.86,
       3.2
      ],
-     "cams": {
-      "1": {
-       "anchor": [
+     "pics": {
+      "1_tall_5": {
+       "pictures": [
+        "solar_panel_working_cam1_tall_lot5_0.png",
+        "solar_panel_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        12,
+        148
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "solar_panel_working_cam1_tall_lot6_0.png",
+        "solar_panel_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        48,
+        148
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "solar_panel_working_cam1_tall_lot7_0.png",
+        "solar_panel_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "solar_panel_working_cam1_tall_lot8_0.png",
+        "solar_panel_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "solar_panel_working_cam1_wide_lot5_0.png",
+        "solar_panel_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        32,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "solar_panel_working_cam1_wide_lot6_0.png",
+        "solar_panel_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        64
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "solar_panel_working_cam1_wide_lot7_0.png",
+        "solar_panel_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "solar_panel_working_cam1_wide_lot8_0.png",
+        "solar_panel_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "solar_panel_working_cam2_tall_lot5_0.png",
+        "solar_panel_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        12,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "solar_panel_working_cam2_tall_lot6_0.png",
+        "solar_panel_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "solar_panel_working_cam2_tall_lot7_0.png",
+        "solar_panel_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "solar_panel_working_cam2_tall_lot8_0.png",
+        "solar_panel_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "solar_panel_working_cam2_wide_lot5_0.png",
+        "solar_panel_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "solar_panel_working_cam2_wide_lot6_0.png",
+        "solar_panel_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        112,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "solar_panel_working_cam2_wide_lot7_0.png",
+        "solar_panel_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "solar_panel_working_cam2_wide_lot8_0.png",
+        "solar_panel_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "solar_panel_working_cam3_tall_lot5_0.png",
+        "solar_panel_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
         16,
-        12
-       ],
-       "pictures": [
-        "solar_panel_working_cam1_0.png",
-        "solar_panel_working_cam1_1.png"
+        148
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        8
-       ],
+      "3_tall_6": {
        "pictures": [
-        "solar_panel_working_cam2_0.png",
-        "solar_panel_working_cam2_1.png"
+        "solar_panel_working_cam3_tall_lot6_0.png",
+        "solar_panel_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        148
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "3_tall_7": {
        "pictures": [
-        "solar_panel_working_cam3_0.png",
-        "solar_panel_working_cam3_1.png"
+        "solar_panel_working_cam3_tall_lot7_0.png",
+        "solar_panel_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        148
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "solar_panel_working_cam3_tall_lot8_0.png",
+        "solar_panel_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "solar_panel_working_cam3_wide_lot5_0.png",
+        "solar_panel_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        76,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "solar_panel_working_cam3_wide_lot6_0.png",
+        "solar_panel_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "solar_panel_working_cam3_wide_lot7_0.png",
+        "solar_panel_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        64
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "solar_panel_working_cam3_wide_lot8_0.png",
+        "solar_panel_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        68
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   },
   "water_tank": {
    "row": "middle",
@@ -951,32 +3604,221 @@
       3.45,
       2.46
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_5": {
        "pictures": [
-        "water_tank_built_cam1_0.png"
+        "water_tank_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_6": {
        "pictures": [
-        "water_tank_built_cam2_0.png"
+        "water_tank_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        152
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_7": {
        "pictures": [
-        "water_tank_built_cam3_0.png"
+        "water_tank_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "water_tank_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "water_tank_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "water_tank_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        64
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "water_tank_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "water_tank_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "water_tank_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "water_tank_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "water_tank_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "water_tank_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "water_tank_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "water_tank_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "water_tank_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "water_tank_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "water_tank_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "water_tank_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "water_tank_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "water_tank_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "water_tank_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "water_tank_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        124,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "water_tank_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "water_tank_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        68
        ]
       }
      }
@@ -987,41 +3829,251 @@
       3.45,
       2.46
      ],
-     "cams": {
-      "1": {
-       "anchor": [
-        12,
-        12
-       ],
+     "pics": {
+      "1_tall_5": {
        "pictures": [
-        "water_tank_working_cam1_0.png",
-        "water_tank_working_cam1_1.png"
+        "water_tank_working_cam1_tall_lot5_0.png",
+        "water_tank_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
        ]
       },
-      "2": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_6": {
        "pictures": [
-        "water_tank_working_cam2_0.png",
-        "water_tank_working_cam2_1.png"
+        "water_tank_working_cam1_tall_lot6_0.png",
+        "water_tank_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
        ]
       },
-      "3": {
-       "anchor": [
-        12,
-        12
-       ],
+      "1_tall_7": {
        "pictures": [
-        "water_tank_working_cam3_0.png",
-        "water_tank_working_cam3_1.png"
+        "water_tank_working_cam1_tall_lot7_0.png",
+        "water_tank_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "water_tank_working_cam1_tall_lot8_0.png",
+        "water_tank_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "water_tank_working_cam1_wide_lot5_0.png",
+        "water_tank_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "water_tank_working_cam1_wide_lot6_0.png",
+        "water_tank_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        64
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "water_tank_working_cam1_wide_lot7_0.png",
+        "water_tank_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "water_tank_working_cam1_wide_lot8_0.png",
+        "water_tank_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "water_tank_working_cam2_tall_lot5_0.png",
+        "water_tank_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "water_tank_working_cam2_tall_lot6_0.png",
+        "water_tank_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "water_tank_working_cam2_tall_lot7_0.png",
+        "water_tank_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "water_tank_working_cam2_tall_lot8_0.png",
+        "water_tank_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "water_tank_working_cam2_wide_lot5_0.png",
+        "water_tank_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "water_tank_working_cam2_wide_lot6_0.png",
+        "water_tank_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "water_tank_working_cam2_wide_lot7_0.png",
+        "water_tank_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "water_tank_working_cam2_wide_lot8_0.png",
+        "water_tank_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "water_tank_working_cam3_tall_lot5_0.png",
+        "water_tank_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        20,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "water_tank_working_cam3_tall_lot6_0.png",
+        "water_tank_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "water_tank_working_cam3_tall_lot7_0.png",
+        "water_tank_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "water_tank_working_cam3_tall_lot8_0.png",
+        "water_tank_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "water_tank_working_cam3_wide_lot5_0.png",
+        "water_tank_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "water_tank_working_cam3_wide_lot6_0.png",
+        "water_tank_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        124,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "water_tank_working_cam3_wide_lot7_0.png",
+        "water_tank_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "water_tank_working_cam3_wide_lot8_0.png",
+        "water_tank_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        68
        ]
       }
      }
     }
    },
-   "cams": "72e8f47e1738"
+   "cams": "0fd01b2b1654"
   }
  },
  "default": {
@@ -1062,538 +4114,804 @@
    "built"
   ]
  },
+ "order": {
+  "1": [
+   9,
+   12,
+   10,
+   11,
+   5,
+   8,
+   6,
+   7,
+   1,
+   4,
+   2,
+   3
+  ],
+  "2": [
+   12,
+   9,
+   11,
+   10,
+   8,
+   5,
+   7,
+   6,
+   4,
+   1,
+   3,
+   2
+  ],
+  "3": [
+   9,
+   12,
+   10,
+   11,
+   5,
+   8,
+   6,
+   7,
+   1,
+   4,
+   2,
+   3
+  ]
+ },
  "gate": {
   "lots": {
    "1_tall": {
     "1": {
-     "seen": 1.0,
-     "tap_pt": 54.2
+     "seen": 0.649,
+     "tap_pt": 56.3
     },
     "2": {
      "seen": 1.0,
-     "tap_pt": 54.2
+     "tap_pt": 95.3
     },
     "3": {
      "seen": 1.0,
-     "tap_pt": 54.2
+     "tap_pt": 95.3
     },
     "4": {
-     "seen": 1.0,
-     "tap_pt": 54.2
+     "seen": 0.65,
+     "tap_pt": 56.3
     },
     "5": {
-     "seen": 1.0,
-     "tap_pt": 58.5
+     "seen": 0.98,
+     "tap_pt": 49.8
     },
     "6": {
      "seen": 1.0,
-     "tap_pt": 58.5
+     "tap_pt": 62.8
     },
     "7": {
      "seen": 1.0,
-     "tap_pt": 58.5
+     "tap_pt": 62.8
     },
     "8": {
-     "seen": 1.0,
-     "tap_pt": 56.3
+     "seen": 0.98,
+     "tap_pt": 49.8
     },
     "9": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.863,
+     "tap_pt": 47.7
     },
     "10": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.813,
+     "tap_pt": 49.8
     },
     "11": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.813,
+     "tap_pt": 49.8
     },
     "12": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.863,
+     "tap_pt": 47.7
     }
    },
    "1_wide": {
     "1": {
-     "seen": 1.0,
-     "tap_pt": 54.2
+     "seen": 0.98,
+     "tap_pt": 71.5
     },
     "2": {
      "seen": 1.0,
-     "tap_pt": 54.2
+     "tap_pt": 106.2
     },
     "3": {
      "seen": 1.0,
-     "tap_pt": 54.2
+     "tap_pt": 106.2
     },
     "4": {
-     "seen": 1.0,
-     "tap_pt": 54.2
+     "seen": 0.98,
+     "tap_pt": 71.5
     },
     "5": {
-     "seen": 1.0,
-     "tap_pt": 58.5
+     "seen": 0.977,
+     "tap_pt": 56.3
     },
     "6": {
      "seen": 1.0,
-     "tap_pt": 58.5
+     "tap_pt": 69.3
     },
     "7": {
      "seen": 1.0,
-     "tap_pt": 58.5
+     "tap_pt": 69.3
     },
     "8": {
-     "seen": 1.0,
+     "seen": 0.977,
      "tap_pt": 56.3
     },
     "9": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.857,
+     "tap_pt": 52.0
     },
     "10": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.815,
+     "tap_pt": 56.3
     },
     "11": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.815,
+     "tap_pt": 56.3
     },
     "12": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.857,
+     "tap_pt": 52.0
     }
    },
    "2_tall": {
     "1": {
-     "seen": 1.0,
+     "seen": 0.74,
      "tap_pt": 65.0
     },
     "2": {
      "seen": 1.0,
-     "tap_pt": 65.0
+     "tap_pt": 80.2
     },
     "3": {
      "seen": 1.0,
-     "tap_pt": 65.0
+     "tap_pt": 86.7
     },
     "4": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.682,
+     "tap_pt": 49.8
     },
     "5": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.996,
+     "tap_pt": 54.2
     },
     "6": {
      "seen": 1.0,
-     "tap_pt": 67.2
+     "tap_pt": 62.8
     },
     "7": {
      "seen": 1.0,
-     "tap_pt": 67.2
+     "tap_pt": 60.7
     },
     "8": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.961,
+     "tap_pt": 47.7
     },
     "9": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.864,
+     "tap_pt": 47.7
     },
     "10": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.802,
+     "tap_pt": 49.8
     },
     "11": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.845,
+     "tap_pt": 52.0
     },
     "12": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.867,
+     "tap_pt": 47.7
     }
    },
    "2_wide": {
     "1": {
      "seen": 1.0,
-     "tap_pt": 65.0
+     "tap_pt": 78.0
     },
     "2": {
      "seen": 1.0,
-     "tap_pt": 65.0
+     "tap_pt": 88.8
     },
     "3": {
      "seen": 1.0,
-     "tap_pt": 65.0
+     "tap_pt": 97.5
     },
     "4": {
-     "seen": 1.0,
+     "seen": 0.957,
      "tap_pt": 65.0
     },
     "5": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.997,
+     "tap_pt": 58.5
     },
     "6": {
      "seen": 1.0,
-     "tap_pt": 67.2
+     "tap_pt": 69.3
     },
     "7": {
      "seen": 1.0,
      "tap_pt": 67.2
     },
     "8": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.96,
+     "tap_pt": 52.0
     },
     "9": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.861,
+     "tap_pt": 52.0
     },
     "10": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.804,
+     "tap_pt": 56.3
     },
     "11": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.817,
+     "tap_pt": 56.3
     },
     "12": {
-     "seen": 1.0,
-     "tap_pt": 67.2
+     "seen": 0.857,
+     "tap_pt": 52.0
     }
    },
    "3_tall": {
     "1": {
-     "seen": 1.0,
-     "tap_pt": 52.0
+     "seen": 0.682,
+     "tap_pt": 56.3
     },
     "2": {
      "seen": 1.0,
-     "tap_pt": 52.0
+     "tap_pt": 93.2
     },
     "3": {
      "seen": 1.0,
-     "tap_pt": 52.0
+     "tap_pt": 97.5
     },
     "4": {
-     "seen": 1.0,
-     "tap_pt": 52.0
+     "seen": 0.655,
+     "tap_pt": 60.7
     },
     "5": {
-     "seen": 1.0,
-     "tap_pt": 56.3
+     "seen": 0.964,
+     "tap_pt": 49.8
     },
     "6": {
      "seen": 1.0,
-     "tap_pt": 56.3
+     "tap_pt": 65.0
     },
     "7": {
      "seen": 1.0,
-     "tap_pt": 56.3
+     "tap_pt": 67.2
     },
     "8": {
-     "seen": 1.0,
+     "seen": 0.99,
      "tap_pt": 56.3
     },
     "9": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.888,
+     "tap_pt": 52.0
     },
     "10": {
-     "seen": 0.997,
-     "tap_pt": 65.0
+     "seen": 0.838,
+     "tap_pt": 54.2
     },
     "11": {
-     "seen": 0.998,
-     "tap_pt": 65.0
+     "seen": 0.83,
+     "tap_pt": 54.2
     },
     "12": {
-     "seen": 0.997,
-     "tap_pt": 65.0
+     "seen": 0.887,
+     "tap_pt": 52.0
     }
    },
    "3_wide": {
     "1": {
-     "seen": 1.0,
-     "tap_pt": 52.0
+     "seen": 0.976,
+     "tap_pt": 69.3
     },
     "2": {
      "seen": 1.0,
-     "tap_pt": 52.0
+     "tap_pt": 104.0
     },
     "3": {
      "seen": 1.0,
-     "tap_pt": 52.0
+     "tap_pt": 108.3
     },
     "4": {
      "seen": 1.0,
-     "tap_pt": 52.0
+     "tap_pt": 82.3
     },
     "5": {
-     "seen": 1.0,
+     "seen": 0.962,
      "tap_pt": 56.3
     },
     "6": {
      "seen": 1.0,
-     "tap_pt": 56.3
+     "tap_pt": 73.7
     },
     "7": {
      "seen": 1.0,
-     "tap_pt": 56.3
+     "tap_pt": 73.7
     },
     "8": {
-     "seen": 1.0,
-     "tap_pt": 56.3
+     "seen": 0.989,
+     "tap_pt": 62.8
     },
     "9": {
-     "seen": 1.0,
-     "tap_pt": 65.0
+     "seen": 0.888,
+     "tap_pt": 56.3
     },
     "10": {
-     "seen": 0.997,
-     "tap_pt": 65.0
+     "seen": 0.852,
+     "tap_pt": 60.7
     },
     "11": {
-     "seen": 0.998,
-     "tap_pt": 65.0
+     "seen": 0.833,
+     "tap_pt": 60.7
     },
     "12": {
-     "seen": 0.997,
-     "tap_pt": 65.0
+     "seen": 0.888,
+     "tap_pt": 58.5
     }
    }
   },
   "summary": {
    "cams": 3,
    "lots_each": 12,
-   "worst_seen": 0.997,
-   "worst_tap_pt": 52.0,
+   "worst_seen": 0.649,
+   "worst_tap_pt": 47.7,
    "pass_": true
   }
  },
  "tap_px": {
-  "1": {
+  "1_tall": {
    "1": [
-    71,
-    161,
-    114,
-    195
+    0,
+    173,
+    35,
+    219
    ],
    "2": [
-    109,
-    169,
-    152,
-    204
+    22,
+    175,
+    87,
+    227
    ],
    "3": [
-    146,
-    178,
-    190,
-    213
+    93,
+    175,
+    158,
+    227
    ],
    "4": [
-    184,
-    186,
-    227,
-    221
+    144,
+    173,
+    180,
+    219
    ],
    "5": [
-    82,
-    127,
-    125,
-    164
+    7,
+    145,
+    48,
+    174
    ],
    "6": [
-    119,
-    135,
-    163,
-    173
+    44,
+    144,
+    88,
+    175
    ],
    "7": [
-    157,
+    92,
     144,
-    201,
-    181
+    136,
+    175
    ],
    "8": [
-    195,
-    152,
-    238,
-    189
+    132,
+    145,
+    173,
+    174
    ],
    "9": [
-    93,
-    87,
-    136,
-    132
+    27,
+    121,
+    59,
+    151
    ],
    "10": [
-    130,
-    95,
-    174,
-    141
+    58,
+    120,
+    89,
+    151
    ],
    "11": [
-    168,
-    104,
-    211,
+    91,
+    120,
+    122,
+    151
+   ],
+   "12": [
+    121,
+    121,
+    153,
+    151
+   ]
+  },
+  "1_wide": {
+   "1": [
+    35,
+    93,
+    100,
+    144
+   ],
+   "2": [
+    85,
+    94,
+    157,
+    151
+   ],
+   "3": [
+    163,
+    94,
+    235,
+    151
+   ],
+   "4": [
+    220,
+    93,
+    285,
+    144
+   ],
+   "5": [
+    67,
+    60,
+    113,
+    93
+   ],
+   "6": [
+    108,
+    59,
+    158,
+    93
+   ],
+   "7": [
+    162,
+    59,
+    212,
+    93
+   ],
+   "8": [
+    207,
+    60,
+    253,
+    93
+   ],
+   "9": [
+    89,
+    33,
+    126,
+    67
+   ],
+   "10": [
+    125,
+    32,
+    158,
+    66
+   ],
+   "11": [
+    162,
+    32,
+    195,
+    66
+   ],
+   "12": [
+    194,
+    33,
+    231,
+    67
+   ]
+  },
+  "2_tall": {
+   "1": [
+    0,
+    176,
+    40,
+    222
+   ],
+   "2": [
+    30,
+    176,
+    95,
+    225
+   ],
+   "3": [
+    95,
+    173,
+    160,
+    223
+   ],
+   "4": [
+    145,
+    170,
+    180,
+    213
+   ],
+   "5": [
+    6,
+    146,
+    49,
+    175
+   ],
+   "6": [
+    46,
+    145,
+    89,
+    175
+   ],
+   "7": [
+    91,
+    145,
+    135,
+    174
+   ],
+   "8": [
+    130,
+    145,
+    170,
+    172
+   ],
+   "9": [
+    24,
+    122,
+    57,
+    152
+   ],
+   "10": [
+    57,
+    120,
+    86,
+    151
+   ],
+   "11": [
+    88,
+    120,
+    119,
+    151
+   ],
+   "12": [
+    118,
+    121,
+    149,
+    150
+   ]
+  },
+  "2_wide": {
+   "1": [
+    36,
+    96,
+    101,
+    148
+   ],
+   "2": [
+    92,
+    94,
+    163,
+    150
+   ],
+   "3": [
+    163,
+    92,
+    236,
+    148
+   ],
+   "4": [
+    219,
+    90,
+    279,
+    137
+   ],
+   "5": [
+    64,
+    62,
+    111,
+    96
+   ],
+   "6": [
+    108,
+    60,
+    156,
+    95
+   ],
+   "7": [
+    158,
+    59,
+    208,
+    93
+   ],
+   "8": [
+    202,
+    60,
+    247,
+    90
+   ],
+   "9": [
+    83,
+    34,
+    120,
+    68
+   ],
+   "10": [
+    119,
+    32,
+    153,
+    66
+   ],
+   "11": [
+    155,
+    32,
+    189,
+    66
+   ],
+   "12": [
+    188,
+    33,
+    224,
+    66
+   ]
+  },
+  "3_tall": {
+   "1": [
+    0,
+    173,
+    36,
+    220
+   ],
+   "2": [
+    20,
+    176,
+    87,
+    232
+   ],
+   "3": [
+    88,
+    179,
+    153,
+    234
+   ],
+   "4": [
+    144,
+    179,
+    180,
+    229
+   ],
+   "5": [
+    9,
+    143,
+    50,
+    174
+   ],
+   "6": [
+    45,
+    143,
+    91,
+    177
+   ],
+   "7": [
+    93,
+    144,
+    138,
+    178
+   ],
+   "8": [
+    136,
+    145,
+    178,
+    178
+   ],
+   "9": [
+    30,
+    117,
+    63,
+    148
+   ],
+   "10": [
+    62,
+    116,
+    93,
+    149
+   ],
+   "11": [
+    95,
+    117,
+    127,
     149
    ],
    "12": [
-    206,
-    112,
-    249,
-    158
-   ]
-  },
-  "2": {
-   "1": [
-    83,
-    180,
-    119,
-    210
-   ],
-   "2": [
-    122,
-    180,
-    158,
-    210
-   ],
-   "3": [
-    162,
-    180,
-    198,
-    210
-   ],
-   "4": [
-    201,
-    180,
-    237,
-    210
-   ],
-   "5": [
-    83,
-    142,
-    119,
-    175
-   ],
-   "6": [
-    122,
-    142,
-    158,
-    175
-   ],
-   "7": [
-    162,
-    142,
-    198,
-    175
-   ],
-   "8": [
-    201,
-    142,
-    237,
-    175
-   ],
-   "9": [
-    83,
-    100,
-    119,
-    139
-   ],
-   "10": [
-    122,
-    100,
-    158,
-    139
-   ],
-   "11": [
-    162,
-    100,
-    198,
-    139
-   ],
-   "12": [
-    201,
-    100,
-    237,
-    139
-   ]
-  },
-  "3": {
-   "1": [
-    93,
-    184,
-    136,
-    218
-   ],
-   "2": [
-    130,
-    176,
-    174,
-    210
-   ],
-   "3": [
-    168,
-    168,
-    211,
-    202
-   ],
-   "4": [
-    206,
+    126,
+    118,
     160,
-    249,
-    194
+    151
+   ]
+  },
+  "3_wide": {
+   "1": [
+    38,
+    92,
+    101,
+    145
+   ],
+   "2": [
+    84,
+    95,
+    158,
+    157
+   ],
+   "3": [
+    159,
+    98,
+    231,
+    159
+   ],
+   "4": [
+    222,
+    100,
+    287,
+    156
    ],
    "5": [
-    82,
-    152,
-    125,
-    188
+    70,
+    57,
+    117,
+    92
    ],
    "6": [
-    120,
-    144,
+    111,
+    57,
     163,
-    180
+    94
    ],
    "7": [
-    157,
-    135,
-    201,
-    172
+    165,
+    58,
+    215,
+    97
    ],
    "8": [
-    195,
-    127,
-    238,
-    164
+    213,
+    61,
+    260,
+    98
    ],
    "9": [
-    71,
-    112,
-    114,
-    158
+    94,
+    28,
+    131,
+    63
    ],
    "10": [
-    109,
-    104,
-    152,
-    150
+    130,
+    27,
+    166,
+    64
    ],
    "11": [
-    147,
-    96,
-    190,
-    142
+    168,
+    27,
+    203,
+    64
    ],
    "12": [
-    184,
-    88,
-    227,
-    134
+    202,
+    30,
+    241,
+    66
    ]
   }
  }
