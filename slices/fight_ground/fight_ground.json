@@ -425,9 +425,10 @@
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
   "trailer_propane": {
-   "kind": "LOW_COVER",
-   "h": 1.2,
+   "kind": "COVER",
+   "h": 1.6,
    "name": "PROPANE TANKS",
+   "by_props": "trailer.propane",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -468,8 +469,9 @@
   },
   "desert_boulder": {
    "kind": "COVER",
-   "h": 1.6,
+   "h": 1.7,
    "name": "BOULDERS",
+   "by_props": "desert.boulders",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -481,9 +483,10 @@
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
   "desert_car": {
-   "kind": "LOW_COVER",
-   "h": 0.9,
+   "kind": "COVER",
+   "h": 1.8,
    "name": "DEAD CAR, HALF BURIED",
+   "by_props": "desert.buried_car",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -493,6 +496,7 @@
    "blocks_move": true,
    "see_through": true,
    "name": "THE FALLEN PYLON",
+   "by_props": "desert.pylon",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -511,9 +515,10 @@
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
   "pass_rail": {
-   "kind": "LOW_COVER",
-   "h": 0.8,
+   "kind": "COVER",
+   "h": 1.0,
    "name": "GUARD RAIL",
+   "by_props": "pass.guardrail",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -542,8 +547,9 @@
   },
   "shore_boat": {
    "kind": "COVER",
-   "h": 2.0,
+   "h": 2.4,
    "name": "A BOAT ON ITS SIDE",
+   "by_props": "shore.boat",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -565,13 +571,15 @@
    "kind": "COVER",
    "h": 2.4,
    "name": "INSIDE THE CULVERT",
+   "by_props": "wash.culvert",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
   "wash_sofa": {
-   "kind": "LOW_COVER",
-   "h": 0.8,
+   "kind": "COVER",
+   "h": 1.0,
    "name": "A SOFA IN THE SILT",
+   "by_props": "wash.sofa",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   },
@@ -609,6 +617,101 @@
    "blocks_move": true,
    "see_through": true,
    "name": "CHAIN-LINK, THE CHANNEL'S",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "pass_barricade": {
+   "kind": "COVER",
+   "h": 1.2,
+   "name": "ROAD CLOSED",
+   "by_props": "pass.barricade",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "wash_jam": {
+   "kind": "COVER",
+   "h": 1.2,
+   "name": "THE FLOOD'S JAM",
+   "by_props": "wash.jam",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "landfill_fire": {
+   "kind": "FIRE",
+   "h": 0.0,
+   "burning": true,
+   "name": "THE GAS, BURNING",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "landfill_wells": {
+   "kind": "COVER",
+   "h": 1.3,
+   "name": "GAS WELLS AND THEIR PIPE",
+   "by_props": "landfill.wells",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "yards_wall": {
+   "kind": "COVER",
+   "h": 1.8,
+   "name": "BLOCK WALL",
+   "by_props": "suburbs.yard_wall",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "strip_fountain": {
+   "kind": "COVER",
+   "h": 0.6,
+   "name": "THE FOUNTAIN'S RIM",
+   "by_props": "strip.fountain",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "strip_planter": {
+   "kind": "LOW_COVER",
+   "h": 0.9,
+   "name": "MARBLE PLANTER",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_canopy": {
+   "kind": "COVER",
+   "h": 1.4,
+   "name": "THE CANOPY'S COLUMN",
+   "by_props": "downtown.canopy",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "downtown_dumpsters": {
+   "kind": "COVER",
+   "h": 1.9,
+   "name": "DUMPSTERS",
+   "by_props": "downtown.dumpsters",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "works_gantry": {
+   "kind": "COVER",
+   "h": 1.6,
+   "name": "THE GANTRY'S LEG",
+   "by_props": "works.gantry",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "works_pipes": {
+   "kind": "COVER",
+   "h": 2.5,
+   "name": "STACKED PIPE",
+   "by_props": "works.pipes",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "marina_bass": {
+   "kind": "COVER",
+   "h": 2.0,
+   "name": "A BASS BOAT ON ITS TRAILER",
+   "by_props": "marina.bass_boat",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   }
@@ -1041,6 +1144,54 @@
   },
   "golf.2": {
    "src": "block_golf_2.webp"
+  },
+  "trailer.1": {
+   "src": "block_trailer_1.webp"
+  },
+  "trailer.2": {
+   "src": "block_trailer_2.webp"
+  },
+  "desert.1": {
+   "src": "block_desert_1.webp"
+  },
+  "desert.2": {
+   "src": "block_desert_2.webp"
+  },
+  "desert.3": {
+   "src": "block_desert_3.webp"
+  },
+  "canyon.1": {
+   "src": "block_canyon_1.webp"
+  },
+  "canyon.2": {
+   "src": "block_canyon_2.webp"
+  },
+  "pass.1": {
+   "src": "block_pass_1.webp"
+  },
+  "pass.2": {
+   "src": "block_pass_2.webp"
+  },
+  "pass.3": {
+   "src": "block_pass_3.webp"
+  },
+  "lakebed.1": {
+   "src": "block_lakebed_1.webp"
+  },
+  "lakebed.2": {
+   "src": "block_lakebed_2.webp"
+  },
+  "lakebed.3": {
+   "src": "block_lakebed_3.webp"
+  },
+  "wash.2": {
+   "src": "block_wash_2.webp"
+  },
+  "wash.3": {
+   "src": "block_wash_3.webp"
+  },
+  "wash.4": {
+   "src": "block_wash_4.webp"
   }
  },
  "lights_key": {
@@ -25130,6 +25281,3898 @@
      "piece": "rubble_6",
      "x_m": 194.0,
      "y_m": 138.0
+    }
+   ],
+   "lights": []
+  },
+  "place_trailer": {
+   "blocks": [
+    [
+     "trailer.2",
+     "trailer.0",
+     "trailer.2",
+     "trailer.0"
+    ],
+    [
+     "trailer.0",
+     "trailer.1",
+     "trailer.0",
+     "trailer.2"
+    ],
+    [
+     "trailer.2",
+     "trailer.0",
+     "trailer.2",
+     "trailer.0"
+    ]
+   ],
+   "terrain": [
+    [
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "trailer_propane",
+     "x_m": 30.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 54.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "trailer_bins",
+     "x_m": 6.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "trailer_mail",
+     "x_m": 18.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 54.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 18.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "trailer",
+     "x_m": 87.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 66.0,
+     "y_m": 26.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 100.0,
+     "y_m": 27.5
+    },
+    {
+     "piece": "fence",
+     "x_m": 73.0,
+     "y_m": 55.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 80.0,
+     "y_m": 55.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 110.0,
+     "y_m": 52.0
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 66.0,
+     "y_m": 3.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 150.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 174.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "trailer_bins",
+     "x_m": 126.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "trailer_mail",
+     "x_m": 138.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 174.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 138.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "trailer",
+     "x_m": 207.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 186.0,
+     "y_m": 26.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 220.0,
+     "y_m": 27.5
+    },
+    {
+     "piece": "fence",
+     "x_m": 193.0,
+     "y_m": 55.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 200.0,
+     "y_m": 55.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 230.0,
+     "y_m": 52.0
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 186.0,
+     "y_m": 3.0
+    },
+    {
+     "piece": "trailer",
+     "x_m": 27.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 6.0,
+     "y_m": 86.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 40.0,
+     "y_m": 87.5
+    },
+    {
+     "piece": "fence",
+     "x_m": 13.0,
+     "y_m": 115.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 20.0,
+     "y_m": 115.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 50.0,
+     "y_m": 112.0
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 6.0,
+     "y_m": 63.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 78.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 66.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "trailer_car",
+     "x_m": 90.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 114.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 66.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 114.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "trailer",
+     "x_m": 147.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 126.0,
+     "y_m": 86.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 160.0,
+     "y_m": 87.5
+    },
+    {
+     "piece": "fence",
+     "x_m": 133.0,
+     "y_m": 115.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 140.0,
+     "y_m": 115.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 170.0,
+     "y_m": 112.0
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 126.0,
+     "y_m": 63.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 210.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 234.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "trailer_bins",
+     "x_m": 186.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "trailer_mail",
+     "x_m": 198.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 234.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 198.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 30.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 54.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "trailer_bins",
+     "x_m": 6.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "trailer_mail",
+     "x_m": 18.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 54.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 18.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "trailer",
+     "x_m": 87.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 66.0,
+     "y_m": 146.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 100.0,
+     "y_m": 147.5
+    },
+    {
+     "piece": "fence",
+     "x_m": 73.0,
+     "y_m": 175.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 80.0,
+     "y_m": 175.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 110.0,
+     "y_m": 172.0
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 66.0,
+     "y_m": 123.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 150.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "trailer_propane",
+     "x_m": 174.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "trailer_bins",
+     "x_m": 126.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "trailer_mail",
+     "x_m": 138.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 174.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "trailer_junk",
+     "x_m": 138.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "trailer",
+     "x_m": 207.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 186.0,
+     "y_m": 146.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 220.0,
+     "y_m": 147.5
+    },
+    {
+     "piece": "fence",
+     "x_m": 193.0,
+     "y_m": 175.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 200.0,
+     "y_m": 175.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 230.0,
+     "y_m": 172.0
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 186.0,
+     "y_m": 123.0
+    }
+   ],
+   "lights": []
+  },
+  "place_desert": {
+   "blocks": [
+    [
+     "desert.3",
+     "desert.2",
+     "desert.3",
+     "desert.3"
+    ],
+    [
+     "desert.3",
+     "desert.1",
+     "desert.3",
+     "desert.3"
+    ],
+    [
+     "desert.3",
+     "desert.2",
+     "desert.3",
+     "desert.3"
+    ]
+   ],
+   "terrain": [
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "debris",
+     "debris",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "desert_boulder",
+     "x_m": 54.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 42.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 30.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 114.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "desert_car",
+     "x_m": 78.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 174.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 162.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 150.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 234.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 222.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 210.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 54.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 42.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 30.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 114.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "desert_pylon",
+     "x_m": 78.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "desert_pylon",
+     "x_m": 90.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "desert_pylon",
+     "x_m": 102.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "desert_pylon",
+     "x_m": 78.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "desert_pylon",
+     "x_m": 90.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "desert_pylon",
+     "x_m": 102.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "desert_car",
+     "x_m": 90.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 174.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 162.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 150.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 234.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 222.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 210.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 54.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 42.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 30.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 114.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "desert_car",
+     "x_m": 78.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 174.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 162.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 150.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 234.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 222.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "desert_boulder",
+     "x_m": 210.0,
+     "y_m": 174.0
+    }
+   ],
+   "lights": []
+  },
+  "place_redrock": {
+   "blocks": [
+    [
+     "canyon.2",
+     "canyon.0",
+     "canyon.2",
+     "canyon.0"
+    ],
+    [
+     "canyon.0",
+     "canyon.1",
+     "canyon.0",
+     "canyon.2"
+    ],
+    [
+     "canyon.2",
+     "canyon.0",
+     "canyon.2",
+     "canyon.0"
+    ]
+   ],
+   "terrain": [
+    [
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "height",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "height",
+     "blocked",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "height",
+     "flat",
+     "height",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "flat"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "height",
+     "blocked",
+     "height",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "flat",
+     "height",
+     "flat"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "blocked",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "rough",
+     "blocked",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "height",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "canyon_juniper",
+     "x_m": 54.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 6.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 54.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 88.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 67.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 105.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "rock_16",
+     "x_m": 90.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 64.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "rock_18",
+     "x_m": 112.0,
+     "y_m": 5.0
+    },
+    {
+     "piece": "canyon_juniper",
+     "x_m": 174.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 126.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 174.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 208.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 187.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 225.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "rock_16",
+     "x_m": 210.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 184.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "rock_18",
+     "x_m": 232.0,
+     "y_m": 5.0
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 28.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 7.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 45.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "rock_16",
+     "x_m": 30.0,
+     "y_m": 101.0
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 4.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "rock_18",
+     "x_m": 52.0,
+     "y_m": 65.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 66.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 114.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 148.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 127.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 165.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "rock_16",
+     "x_m": 150.0,
+     "y_m": 101.0
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 124.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "rock_18",
+     "x_m": 172.0,
+     "y_m": 65.0
+    },
+    {
+     "piece": "canyon_juniper",
+     "x_m": 234.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 186.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 234.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "canyon_juniper",
+     "x_m": 54.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 6.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 54.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 88.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 67.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 105.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "rock_16",
+     "x_m": 90.0,
+     "y_m": 161.0
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 64.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "rock_18",
+     "x_m": 112.0,
+     "y_m": 125.0
+    },
+    {
+     "piece": "canyon_juniper",
+     "x_m": 174.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 126.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "canyon_boulder",
+     "x_m": 174.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 208.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 187.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 225.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "rock_16",
+     "x_m": 210.0,
+     "y_m": 161.0
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 184.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "rock_18",
+     "x_m": 232.0,
+     "y_m": 125.0
+    }
+   ],
+   "lights": []
+  },
+  "place_pass": {
+   "blocks": [
+    [
+     "pass.3",
+     "pass.3",
+     "pass.3",
+     "pass.3"
+    ],
+    [
+     "pass.0",
+     "pass.1",
+     "pass.0",
+     "pass.2"
+    ],
+    [
+     "pass.2",
+     "pass.0",
+     "pass.2",
+     "pass.0"
+    ]
+   ],
+   "terrain": [
+    [
+     "blocked",
+     "height",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "height"
+    ],
+    [
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "blocked",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "blocked",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "blocked",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "blocked",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "blocked",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "blocked"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "height",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "blocked",
+     "blocked",
+     "height",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "blocked",
+     "rough",
+     "height",
+     "rough",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "rough",
+     "blocked",
+     "rough",
+     "height",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "blocked",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "blocked",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "blocked",
+     "blocked",
+     "height",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "blocked",
+     "blocked",
+     "height",
+     "rough",
+     "debris"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "blocked",
+     "rough",
+     "height",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "blocked",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "debris",
+     "rough",
+     "rough"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "pass_boulder",
+     "x_m": 54.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 18.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 114.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 78.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 174.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 138.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 234.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "pass_boulder",
+     "x_m": 198.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 1.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 7.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 37.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 49.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 40.0,
+     "y_m": 77.0
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 4.0,
+     "y_m": 112.0
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 54.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30.0,
+     "y_m": 65.0
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 26.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "rock_14",
+     "x_m": 15.0,
+     "y_m": 64.0
+    },
+    {
+     "piece": "pass_barricade",
+     "x_m": 66.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 66.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 114.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 66.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 78.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 90.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 102.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 114.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 121.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 127.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 157.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 169.0,
+     "y_m": 91.0
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 160.0,
+     "y_m": 77.0
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 124.0,
+     "y_m": 112.0
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 174.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 150.0,
+     "y_m": 65.0
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 146.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "rock_14",
+     "x_m": 135.0,
+     "y_m": 64.0
+    },
+    {
+     "piece": "pass_barricade",
+     "x_m": 210.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 186.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 210.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 222.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 186.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 198.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 222.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 234.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_barricade",
+     "x_m": 30.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 6.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 30.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 42.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 6.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 18.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 42.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 54.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 61.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 67.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 97.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 109.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 100.0,
+     "y_m": 137.0
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 64.0,
+     "y_m": 172.0
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 114.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90.0,
+     "y_m": 125.0
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 86.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "rock_14",
+     "x_m": 75.0,
+     "y_m": 124.0
+    },
+    {
+     "piece": "pass_barricade",
+     "x_m": 150.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 126.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 150.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 162.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 126.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 138.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 162.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 174.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 181.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 187.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 217.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "jersey",
+     "x_m": 229.0,
+     "y_m": 151.0
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 220.0,
+     "y_m": 137.0
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 184.0,
+     "y_m": 172.0
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 234.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210.0,
+     "y_m": 125.0
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 206.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "rock_14",
+     "x_m": 195.0,
+     "y_m": 124.0
+    }
+   ],
+   "lights": []
+  },
+  "place_shore": {
+   "blocks": [
+    [
+     "lakebed.2",
+     "lakebed.2",
+     "lakebed.2",
+     "lakebed.2"
+    ],
+    [
+     "lakebed.2",
+     "lakebed.1",
+     "lakebed.2",
+     "lakebed.2"
+    ],
+    [
+     "lakebed.3",
+     "lakebed.3",
+     "lakebed.3",
+     "lakebed.3"
+    ]
+   ],
+   "terrain": [
+    [
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water"
+    ],
+    [
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "flat",
+     "blocked",
+     "height",
+     "height",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water"
+    ],
+    [
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "water",
+     "flat",
+     "flat",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "flat",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water"
+    ],
+    [
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "shore_boat",
+     "x_m": 18.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 54.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 78.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 114.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 138.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 174.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 198.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 234.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 18.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 54.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 66.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 102.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 138.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 174.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 198.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "shore_boat",
+     "x_m": 234.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 6.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 54.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_car",
+     "x_m": 6.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 66.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 114.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_car",
+     "x_m": 66.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 126.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 174.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_car",
+     "x_m": 126.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 186.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_junk",
+     "x_m": 234.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "shore_car",
+     "x_m": 186.0,
+     "y_m": 174.0
+    }
+   ],
+   "lights": []
+  },
+  "place_wash": {
+   "blocks": [
+    [
+     "wash.4",
+     "wash.3",
+     "wash.4",
+     "wash.4"
+    ],
+    [
+     "wash.4",
+     "wash.2",
+     "wash.4",
+     "wash.4"
+    ],
+    [
+     "wash.4",
+     "wash.3",
+     "wash.4",
+     "wash.4"
+    ]
+   ],
+   "terrain": [
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "wash_tents",
+     "x_m": 18.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 54.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 6.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 54.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 30.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 6.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 54.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "wash_jam",
+     "x_m": 102.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_sofa",
+     "x_m": 90.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "wash_jam",
+     "x_m": 78.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 138.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 174.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 126.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 174.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 150.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 126.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 174.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 198.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 234.0,
+     "y_m": 6.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 186.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 234.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 210.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 186.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 234.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 18.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 54.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 6.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 54.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 30.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 6.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 54.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_culvert",
+     "x_m": 90.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_jam",
+     "x_m": 102.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "wash_sofa",
+     "x_m": 90.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 138.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 174.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 126.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 174.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 150.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 126.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 174.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 198.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 234.0,
+     "y_m": 66.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 186.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 234.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 210.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 186.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 234.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 18.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 54.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 6.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 54.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 30.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 6.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 54.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "wash_jam",
+     "x_m": 102.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_sofa",
+     "x_m": 90.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "wash_jam",
+     "x_m": 78.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 138.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 174.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 126.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 174.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 150.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 126.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 174.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 198.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_oleander",
+     "x_m": 234.0,
+     "y_m": 126.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 186.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "wash_tents",
+     "x_m": 234.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "wash_car",
+     "x_m": 210.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 186.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "wash_fence",
+     "x_m": 234.0,
+     "y_m": 174.0
     }
    ],
    "lights": []
@@ -82791,7 +86834,19 @@
     "lakebed.3": "THE RING",
     "wash.2": "THE CULVERT",
     "wash.3": "THE CHANNEL",
-    "wash.4": "THE BANK"
+    "wash.4": "THE BANK",
+    "dump.1": "THE FLARE",
+    "dump.2": "THE CELLS",
+    "yards.1": "THE BACKYARDS",
+    "yards.2": "THE YARDS",
+    "plaza.1": "THE FOUNTAIN",
+    "plaza.2": "THE BRIDGE",
+    "fremont.1": "UNDER THE CANOPY",
+    "fremont.2": "THE ALLEYS",
+    "rail.1": "THE CARS AND THE GANTRY",
+    "rail.2": "THE SLAB",
+    "basin.1": "THE HOUSEBOAT",
+    "basin.2": "THE DRY BED"
    },
    "futures": "the fight reads no futures picture; only the present is rendered"
   }

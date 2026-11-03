@@ -83,7 +83,7 @@ PLACES = {
         things='trailers on blocks, propane tanks, a carport, a clothesline, a swing set, mailboxes, the park office and its laundry',
         twist='A MAZE: lanes one man wide between trailers you cannot see through, so it is close, melee ground and chokepoints; '
               'the carport roof is the one height, and they are often already in among the rows',
-        horror='the swing on the A-frame hangs stopped at the top of its swing, nobody on it',
+        horror='the washing on the line is spotless white, pegged out fresh, the only clean thing in the park (COOK PROPS\' wrong thing)',
         landmark_block='trailer.1', field=['trailer.2', 'trailer.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'camp': 2, 'pincer': 1, 'line': 1}),
     'desert': dict(name='THE DESERT', districts=['desert'], built=True,
@@ -91,7 +91,7 @@ PLACES = {
         things='Joshua trees, boulders, a dead car half buried, the fallen pylon and its draped lines, the dry wash',
         twist='THE LOW GROUND: open flat desert cut by a dry wash between the lines; the wash is soft sand (slow), its banks a step up, '
               'so whoever holds a bank shoots down on whoever crosses; their line starts far off on the open flat',
-        horror='one perfect bare circle of caliche on the flat, nothing growing in it, nothing on it',
+        horror='the half-buried car\'s headlights are on (COOK PROPS\' wrong thing); one perfect bare circle of caliche on the flat',
         landmark_block='desert.1', field=['desert.3'], cols={1: ['desert.2']}, mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'wide': 2, 'line': 1, 'camp': 1}),
     'redrock': dict(name='RED ROCK', districts=['springs'], built=True,
@@ -99,15 +99,15 @@ PLACES = {
         things='the fin, ledges one, two and three storeys up, the slot canyon, slickrock terraces, boulders, a dead juniper',
         twist='REAL HEIGHT: ledges one, two and three storeys up (higher hits harder and sees farther, rule 321), a climb costs the '
               'turn\'s attack (rule 328), and the slot through the fin is one man wide',
-        horror='a line of red handprints climbs the fin far higher than a man can reach',
+        horror='on top of the highest ledge, where nobody could climb, a cairn of stones somebody stacked (COOK PROPS\' wrong thing)',
         landmark_block='canyon.1', field=['canyon.2', 'canyon.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'pincer': 1}),
     'pass': dict(name='THE PASS', districts=['mountain'], built=True,
-        landmark='THE JACKKNIFE: a semi folded across the road under the cut, a rockfall closing the rest of it',
+        landmark='THE JACKKNIFE: a semi folded across the road under the cut, a rockfall heaped over the other lane (climb it for the shot)',
         things='the switchback road, the guard rail, a rockfall, a jackknifed truck, the cut face and its scree, the drop',
         twist='A ROAD ON A SLOPE: the road is the only fast ground, the high side is slow scree and ledges, the low side the drop no '
-              'man walks; the jackknife and the rockfall close the road to one lane',
-        horror='the jackknifed truck\'s hazards still blink, years on',
+              'man walks; the jackknife closes the road and the rockfall is a heap you climb to shoot down the grade',
+        horror='the jackknifed trailer is empty and white inside, spotless, in a valley of dust (COOK PROPS\' wrong thing)',
         landmark_block='pass.1', field=['pass.2', 'pass.0'], rows={0: ['pass.3']}, mirror=True, landmark_col=1, landmark_rows={'1': 2, '2': 1},
         camp_tile=[4, 2], starts={'pincer': 2, 'line': 1}),
     'shore': dict(name='THE SHORE', districts=['reservoir', 'dam'], built=True,
@@ -115,7 +115,7 @@ PLACES = {
         things='the intake tower, dead docks standing on dry land, a boat on its side, the mud and the last of the water, the white bathtub ring',
         twist='THE MUD: the receded lake\'s mud and its last shallows are swamp (slow, and a man fights worse standing in it); the '
               'white bathtub ring is a step up onto the old shore, and the docks are decks to climb',
-        horror='a second bathtub ring runs far above the first, higher than the lake ever stood',
+        horror='a runabout\'s anchor line runs taut down into the dry mud (COOK PROPS\' wrong thing); a second bathtub ring far above the first',
         landmark_block='lakebed.1', field=['lakebed.2'], rows={0: ['lakebed.2'], 2: ['lakebed.3']}, mirror=True, landmark_col=1, landmark_rows={'1': 1},
         camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'wide': 1}),
     'wash': dict(name='THE WASH', districts=['wash', 'basin'], built=True,
@@ -123,27 +123,57 @@ PLACES = {
         things='the concrete channel, its high banks, the culvert, shopping carts, a sofa in the silt, a camp\'s tarps and tents on the bank',
         twist='THE CHANNEL: a low concrete channel between two high banks runs between the lines; its silt floor is slow, the banks '
               'are height, and the culvert is the one way through under the road: one man wide, and cover inside it',
-        horror='a line of bare footprints walks into the culvert and none walks out',
+        horror='a floor lamp stands lit beside the sofa in the silt, plugged into nothing (COOK PROPS\' wrong thing)',
         landmark_block='wash.2', field=['wash.4'], cols={1: ['wash.3']}, mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
-    'landfill': dict(name='THE LANDFILL', districts=['landfill'], built=False,
-        landmark='the methane flare', things='trash mounds, a methane flare, a dead dozer',
-        twist='the mounds are height; the flare\'s ground burns'),
-    'suburb': dict(name='THE SUBURBS', districts=['suburb', 'estate', 'gated', 'town', 'school', 'chapel', 'library'], built=False,
-        landmark='the empty pool in a walled backyard', things='cinder-block yard walls, empty pools, a cul-de-sac',
-        twist='walls you fight along and over; an empty pool is a pit; brown dead lawns'),
-    'strip': dict(name='THE STRIP', districts=['strip', 'casino', 'highroller', 'luxor', 'resort', 'convention', 'sign', 'sphere', 'strat'], built=False,
-        landmark='a fallen casino sign', things='a dry fountain, a fallen casino sign, a pedestrian bridge',
-        twist='the bridge is height over the boulevard; the fountain\'s rim is cover'),
-    'downtown': dict(name='DOWNTOWN', districts=['downtown'], built=False,
-        landmark='the canopy over the street', things='the canopy, the alleys',
-        twist='under the canopy no shot from a roof; alleys one or two wide'),
-    'works': dict(name='THE WORKS', districts=['industrial', 'rail', 'railyard', 'warehouse', 'storage'], built=False,
-        landmark='the gantry over the rail cars', things='rail cars, a gantry, machines',
-        twist='the rail cars are a wall of cover; the gantry is height'),
-    'marina': dict(name='THE MARINA', districts=['water', 'intake'], built=False,
-        landmark='the boats sitting on the dry bed', things='boats on the dry bed',
-        twist='the boats are cover on open mud'),
+    'landfill': dict(name='THE LANDFILL', districts=['landfill'], built=True,
+        landmark='THE FLARE: the landfill gas flare still burning on its pad among the trash mounds, a dozer stopped mid-push',
+        things='trash mounds, the gas flare and its burning ground, a dozer, the gas wells and their header pipe',
+        twist='HILLS AND FIRE: the trash mounds are height you climb for the shot, and the gas round the flare burns the ground '
+              'from the first round (a man who ends his turn in it takes 15 to 30)',
+        horror='the flare is still burning, years after anyone paid for the gas (COOK PROPS\' wrong thing)',
+        landmark_block='dump.1', field=['dump.2', 'landfill.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'wide': 1}),
+    'suburb': dict(name='THE SUBURBS', districts=['suburb', 'estate', 'gated', 'town', 'school', 'chapel', 'library'], built=True,
+        landmark='THE BACKYARDS: the split-face block walls of a row of backyards, their kidney pools dug in and empty',
+        things='cinder-block yard walls, empty pools, a swing set, a trampoline frame, the ranch houses, dead brown lawns',
+        twist='WALLS AND PITS: the yard walls are cover you fight along and over, and an empty pool is a pit (slow to cross, '
+              'nothing to hide behind in it); the houses are roofs',
+        horror='two fingers of perfectly clear water in the deep end of one empty pool (COOK PROPS\' wrong thing)',
+        landmark_block='yards.1', field=['yards.2', 'subs.0', 'corner.0', 'culdesac.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
+    'strip': dict(name='THE STRIP', districts=['strip', 'sign', 'sphere', 'strat', 'convention'], built=True,
+        landmark='THE FOUNTAIN: a casino plaza fountain gone dry, a giant arrow sign down on the plaza beside it, a limo at the valet',
+        things='the dry fountain, the fallen sign, the pedestrian bridge over the Boulevard, a stretch limo, marble planters',
+        twist='THE BRIDGE AND THE RIM: the pedestrian bridge is height two storeys over the Boulevard, the fountain\'s rim is cover '
+              'in the middle of an open marble plaza, and the fallen sign is a wall',
+        horror='one bulb of the hundred on the fallen sign is still lit (COOK PROPS\' wrong thing)',
+        landmark_block='plaza.1', field=['plaza.2', 'strip.0', 'strip.1'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        camp_tile=[4, 2], starts={'line': 1, 'wide': 1, 'camp': 1}),
+    'downtown': dict(name='DOWNTOWN', districts=['downtown'], built=True,
+        landmark='UNDER THE CANOPY: a bay of the Fremont canopy over the street, the double-decker Deuce burnt out under it',
+        things='the canopy, the burnt Deuce, alley dumpsters, the brick hotel backs and their fire escapes',
+        twist='THE ALLEYS: alleys one man wide between three-storey brick backs whose fire escapes climb to the roofs; the street '
+              'under the canopy is the one wide ground and the burnt bus closes half of it',
+        horror='one panel of the dead canopy screen is still showing a picture (COOK PROPS\' wrong thing)',
+        landmark_block='fremont.1', field=['fremont.2', 'main.0', 'ruin.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
+    'works': dict(name='THE WORKS', districts=['industrial', 'rail', 'railyard', 'warehouse', 'storage'], built=True,
+        landmark='THE CARS AND THE GANTRY: a boxcar and a black tank car on the spur, a yard gantry crane with a car hanging from its hook',
+        things='a boxcar, a tank car, the gantry crane, a shop\'s machines dragged out, stacked pipe, the spur\'s ties and ballast',
+        twist='THE RAIL CARS: the cars on the spur are a wall across the yard with one crossing between them, and the stacked pipe '
+              'and the gantry\'s legs are the cover either side of it',
+        horror='a car hangs from the gantry\'s hook over your heads (COOK PROPS\' wrong thing)',
+        landmark_block='rail.1', field=['rail.2', 'works.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        camp_tile=[4, 2], starts={'line': 1, 'camp': 1, 'pincer': 1}),
+    'marina': dict(name='THE MARINA', districts=['water', 'intake'], built=True,
+        landmark='THE HOUSEBOAT: a Lake Mead houseboat sat down on the dry bed on its pontoons, its top deck to climb',
+        things='the houseboat, cabin cruisers on their keels, bass boats on their trailers, the dry marina bed',
+        twist='BOATS ON OPEN MUD: the dry bed is open ground and the boats are the only cover on it; the houseboat\'s top deck is '
+              'the one height',
+        horror='a fresh towel lies at the foot of the houseboat\'s slide (COOK PROPS\' wrong thing)',
+        landmark_block='basin.1', field=['basin.2', 'marina.0'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
+        camp_tile=[4, 2], starts={'wide': 1, 'line': 1, 'camp': 1}),
 }
 GATE_DISTRICT = {'lab': 'medical', 'airport': 'airport', 'golf': 'golf', 'trailer': 'trailer', 'desert': 'desert', 'redrock': 'springs',
                  'pass': 'mountain', 'shore': 'reservoir', 'wash': 'wash', 'landfill': 'landfill', 'suburb': 'suburb', 'strip': 'strip',
@@ -168,32 +198,44 @@ PIECES = {
     'golf_carts':   dict(kind='LOW_COVER', h=1.2, name='GOLF CARTS'),
     'golf_shelter': dict(kind='COVER', h=2.4, name='RAIN SHELTER'),
     'golf_pines':   dict(kind='COVER', h=1.8, name='DEAD PINES'),
-    'trailer_propane': dict(kind='LOW_COVER', h=1.2, name='PROPANE TANKS'),
+    'trailer_propane': dict(kind='COVER', h=1.6, name='PROPANE TANKS', by_props='trailer.propane'),
     'trailer_car':  dict(kind='COVER', h=1.5, name='A CAR UNDER A TARP'),
     'trailer_junk': dict(kind='LOW_COVER', h=1.0, name='A YARD\'S JUNK'),
     'trailer_bins': dict(kind='COVER', h=1.4, name='DUMPSTERS'),
     'trailer_mail': dict(kind='LOW_COVER', h=1.2, name='MAILBOXES'),
     'desert_joshua': dict(kind='COVER', h=2.0, name='JOSHUA TREE'),
-    'desert_boulder': dict(kind='COVER', h=1.6, name='BOULDERS'),
+    'desert_boulder': dict(kind='COVER', h=1.7, name='BOULDERS', by_props='desert.boulders'),
     'desert_rocks': dict(kind='LOW_COVER', h=0.8, name='ROCKS'),
-    'desert_car':   dict(kind='LOW_COVER', h=0.9, name='DEAD CAR, HALF BURIED'),
-    'desert_pylon': dict(kind='COVER', h=2.0, blocks_move=True, see_through=True, name='THE FALLEN PYLON'),
+    'desert_car':   dict(kind='COVER', h=1.8, name='DEAD CAR, HALF BURIED', by_props='desert.buried_car'),
+    'desert_pylon': dict(kind='COVER', h=2.0, blocks_move=True, see_through=True, name='THE FALLEN PYLON', by_props='desert.pylon'),
     'canyon_boulder': dict(kind='COVER', h=1.6, name='SANDSTONE BOULDERS'),
     'canyon_juniper': dict(kind='COVER', h=1.8, name='DEAD JUNIPER'),
-    'pass_rail':    dict(kind='LOW_COVER', h=0.8, name='GUARD RAIL'),
+    'pass_rail':    dict(kind='COVER', h=1.0, name='GUARD RAIL', by_props='pass.guardrail'),
+    'pass_barricade': dict(kind='COVER', h=1.2, name='ROAD CLOSED', by_props='pass.barricade'),
     'pass_boulder': dict(kind='COVER', h=1.8, name='ROCKFALL BOULDER'),
     'pass_car':     dict(kind='LOW_COVER', h=1.2, name='DEAD CAR ON THE ROAD'),
     'pass_drop':    dict(kind='DROP', h=0.0, blocks_move=True, see_through=True, name='THE DROP'),
-    'shore_boat':   dict(kind='COVER', h=2.0, name='A BOAT ON ITS SIDE'),
+    'shore_boat':   dict(kind='COVER', h=2.4, name='A BOAT ON ITS SIDE', by_props='shore.boat'),
     'shore_junk':   dict(kind='LOW_COVER', h=0.9, name='BUOYS AND DRUMS'),
     'shore_car':    dict(kind='COVER', h=1.6, name='A TRUCK AND ITS BOAT TRAILER'),
-    'wash_culvert': dict(kind='COVER', h=2.4, name='INSIDE THE CULVERT'),
-    'wash_sofa':    dict(kind='LOW_COVER', h=0.8, name='A SOFA IN THE SILT'),
+    'wash_culvert': dict(kind='COVER', h=2.4, name='INSIDE THE CULVERT', by_props='wash.culvert'),
+    'wash_sofa':    dict(kind='COVER', h=1.0, name='A SOFA IN THE SILT', by_props='wash.sofa'),
+    'wash_jam':     dict(kind='COVER', h=1.2, name='THE FLOOD\'S JAM', by_props='wash.jam'),
     'wash_carts':   dict(kind='LOW_COVER', h=1.0, name='SHOPPING CARTS'),
     'wash_tents':   dict(kind='LOW_COVER', h=1.2, name='A CAMP\'S TENTS'),
     'wash_car':     dict(kind='COVER', h=1.5, name='DEAD CAR ON THE BANK'),
     'wash_oleander': dict(kind='COVER', h=1.8, name='DEAD OLEANDERS'),
     'wash_fence':   dict(kind='COVER', h=2.0, blocks_move=True, see_through=True, name='CHAIN-LINK, THE CHANNEL\'S'),
+    'landfill_fire': dict(kind='FIRE', h=0.0, burning=True, name='THE GAS, BURNING'),
+    'landfill_wells': dict(kind='COVER', h=1.3, name='GAS WELLS AND THEIR PIPE', by_props='landfill.wells'),
+    'yards_wall':   dict(kind='COVER', h=1.8, name='BLOCK WALL', by_props='suburbs.yard_wall'),
+    'strip_fountain': dict(kind='COVER', h=0.6, name='THE FOUNTAIN\'S RIM', by_props='strip.fountain'),
+    'strip_planter': dict(kind='LOW_COVER', h=0.9, name='MARBLE PLANTER'),
+    'downtown_canopy': dict(kind='COVER', h=1.4, name='THE CANOPY\'S COLUMN', by_props='downtown.canopy'),
+    'downtown_dumpsters': dict(kind='COVER', h=1.9, name='DUMPSTERS', by_props='downtown.dumpsters'),
+    'works_gantry': dict(kind='COVER', h=1.6, name='THE GANTRY\'S LEG', by_props='works.gantry'),
+    'works_pipes':  dict(kind='COVER', h=2.5, name='STACKED PIPE', by_props='works.pipes'),
+    'marina_bass':  dict(kind='COVER', h=2.0, name='A BASS BOAT ON ITS TRAILER', by_props='marina.bass_boat'),
 }
 MARK_PIECE = {}      # (bid, mark) -> piece, written per block below
 
@@ -223,55 +265,90 @@ BLOCKS = {
     'golf.2': dict(name='THE FAIRWAY', tiles=['.....', '.dd..', '.....', '..dd.', '.....'],
                    marks=['---C-', '-----', '-----', '-----', 'C----'], pieces={'C': 'golf_shelter'}, piece_at={(4, 0): 'golf_pines'}),
     # THE TRAILER PARK ----------------------------------------------------------------------------------------------------
-    'trailer.1': dict(name='THE ROWS', tiles=['#.#.#', '#.#.d', '.....', '.#H#.', '.#.#.'],
-                      marks=['-----', '-c---', 'c-C-c', '-----', 'c---c'], pieces={'c': 'trailer_propane', 'C': 'trailer_car'},
-                      piece_at={(2, 0): 'trailer_junk', (4, 0): 'trailer_junk'}, roofs=[(2, 3, 1)]),
+    'trailer.1': dict(name='THE ROWS', tiles=['#.#.#', '#.#.#', '.....', '.#.#.', '.#.#.'],
+                      marks=['-----', '-C---', 'C-C-C', '-----', 'c---c'], pieces={'C': 'trailer_propane', 'c': 'trailer_junk'},
+                      piece_at={(2, 2): 'trailer_car'}, props=True),
     'trailer.2': dict(name='THE OFFICE', tiles=['##...', '.....', '...#.', '.##..', '.....'],
-                      marks=['-----', '--c-c', 'C----', '----c', '-c---'], pieces={'c': 'trailer_propane', 'C': 'trailer_bins'},
-                      piece_at={(1, 2): 'trailer_mail', (3, 4): 'trailer_junk', (4, 1): 'trailer_junk'}),
+                      marks=['-----', '--C-C', 'Cc---', '----c', '-c---'], pieces={'C': 'trailer_propane', 'c': 'trailer_junk'},
+                      piece_at={(2, 0): 'trailer_bins', (2, 1): 'trailer_mail'}, props=True),
     # THE DESERT ----------------------------------------------------------------------------------------------------------
-    'desert.1': dict(name='THE PYLON', tiles=['HddH.', 'HddH.', 'Hdd..', 'HddH.', 'HddH.'],
-                     marks=['----C', '---XX', '-cX--', '----C', '--c--'], pieces={'X': 'desert_pylon', 'C': 'desert_joshua', 'c': 'desert_rocks'}),
+    'desert.1': dict(name='THE PYLON', tiles=['HddH.', 'HddH.', 'HddH.', 'HddH.', 'HddH.'],
+                     marks=['----C', '-XXX-', '-XXX-', '-----', '--C--'], pieces={'X': 'desert_pylon', 'C': 'desert_boulder'},
+                     piece_at={(4, 2): 'desert_car'}, props=True),
     'desert.2': dict(name='THE WASH', tiles=['HddH.', 'HddH.', 'HddH.', 'HddH.', 'HddH.'],
-                     marks=['C----', '----C', '--c--', 'C---c', '-c---'], pieces={'C': 'desert_joshua', 'c': 'desert_rocks'},
-                     piece_at={(4, 3): 'desert_car'}),
+                     marks=['-----', '----C', '-----', '-C---', '-----'], pieces={'C': 'desert_boulder'},
+                     piece_at={(3, 1): 'desert_car'}, props=True),
     'desert.3': dict(name='THE FLAT', tiles=['.....', '..r..', '.....', 'r....', '.....'],
-                     marks=['-C---', '----c', 'C--C-', '-----', '--c-C'], pieces={'C': 'desert_joshua', 'c': 'desert_rocks'},
-                     piece_at={(2, 3): 'desert_boulder', (4, 2): 'desert_car', (4, 4): 'desert_boulder'}),
+                     marks=['-----', '----C', '---C-', '-----', '--C--'], pieces={'C': 'desert_boulder'},
+                     piece_at={(2, 4): 'desert_car'}, props=True),
     # RED ROCK ------------------------------------------------------------------------------------------------------------
     'canyon.1': dict(name='THE FIN AND THE SLOT', tiles=['.H#H.', '.H#H.', '.H.H.', '.H#H.', 'r.#.r'],
                      marks=['-----', '-----', '-----', '-----', 'c---c'], pieces={'c': 'canyon_boulder'},
-                     roofs=[(1, 0, 2), (1, 1, 3), (3, 1, 2), (1, 2, 2), (3, 2, 3), (3, 3, 2)]),
-    'canyon.2': dict(name='THE SLICKROCK', tiles=['..HH.', '.HH#.', '.....', '#..H.', '..r..'],
+                     roofs=[(1, 0, 2), (1, 1, 3), (3, 1, 2), (1, 2, 2), (3, 2, 3), (3, 3, 2)], props=True),
+    'canyon.2': dict(name='THE SLICKROCK', tiles=['..HH.', '.HHH.', '.....', 'H..H.', '..r..'],
                      marks=['-----', '----C', 'c----', '-----', '----c'], pieces={'c': 'canyon_boulder', 'C': 'canyon_juniper'},
-                     roofs=[(3, 0, 2), (2, 1, 2)]),
-    # THE PASS ------------------------------------------------------------------------------------------------------------
-    'pass.1': dict(name='THE JACKKNIFE', tiles=['rrH#r', 'r#rdr', '.##d.', '.....', 'rrrrr'],
-                   marks=['-----', '---C-', '----c', 'cc-cc', 'VVVVV'], pieces={'C': 'pass_boulder', 'c': 'pass_rail', 'V': 'pass_drop'},
-                   piece_at={(2, 4): 'pass_car'}),
+                     roofs=[(3, 0, 2), (2, 1, 2), (3, 1, 3)], props=True),
+    # THE PASS ----------------------------------------------------------------------------------------------------------
+    'pass.1': dict(name='THE JACKKNIFE', tiles=['rrH#r', 'rr.rr', '.##H.', '.##..', 'rrrrr'],
+                   marks=['-----', '-----', 'C----', 'C---C', 'VVVVV'], pieces={'C': 'pass_rail', 'V': 'pass_drop'},
+                   piece_at={(2, 0): 'pass_barricade'}, props=True),
     'pass.2': dict(name='THE ROAD', tiles=['rHrr#', 'rrrHr', '.....', '.....', 'rrdrr'],
-                   marks=['-----', '-----', '--c--', 'c-cc-', 'VV-VV'], pieces={'c': 'pass_rail', 'V': 'pass_drop'},
-                   piece_at={(2, 2): 'pass_car'}),
+                   marks=['-----', '-----', '--C--', 'C-CC-', 'VV-VV'], pieces={'C': 'pass_rail', 'V': 'pass_drop'},
+                   piece_at={(2, 2): 'pass_barricade'}, props=True),
     'pass.3': dict(name='THE CUT', tiles=['#H#H#', 'rHrrH', 'rrHrr', 'r#rrr', 'rrrHr'],
                    marks=['-----', '-----', '-----', '----C', '-C---'], pieces={'C': 'pass_boulder'},
                    roofs=[(1, 0, 3), (3, 0, 2), (1, 1, 2), (4, 1, 2)]),
     # THE SHORE -----------------------------------------------------------------------------------------------------------
-    'lakebed.1': dict(name='THE INTAKE TOWER', tiles=['wwwww', 'w.Hww', '..#..', 'ww.ww', 'ww.ww'],
-                      marks=['-----', '-----', '-----', 'C---c', '---C-'], pieces={'C': 'shore_boat', 'c': 'shore_junk'}),
-    'lakebed.2': dict(name='THE MUD', tiles=['wwwww', 'ww..w', 'w..ww', '..www', '.wwww'],
-                      marks=['-----', '-C---', '-----', '---c-', '--c-C'], pieces={'C': 'shore_boat', 'c': 'shore_junk'}),
+    'lakebed.1': dict(name='THE INTAKE TOWER', tiles=['wwwww', 'w.#HH', '..#..', 'ww.ww', 'ww.ww'],
+                      marks=['-----', '-----', '-----', 'C----', '---C-'], pieces={'C': 'shore_boat'}, props=True),
+    'lakebed.2': dict(name='THE MUD', tiles=['wwwww', 'ww..w', 'w..HH', '..www', '.wwww'],
+                      marks=['-----', '-C---', '-----', '-----', '----C'], pieces={'C': 'shore_boat'}, props=True),
     'lakebed.3': dict(name='THE RING', tiles=['ww.ww', 'HHHHH', '.....', '.HH..', '..#..'],
-                      marks=['-----', '-----', 'c---c', '-----', 'C----'], pieces={'c': 'shore_junk', 'C': 'shore_car'}),
+                      marks=['-----', '-----', 'c---c', '-----', 'C----'], pieces={'c': 'shore_junk', 'C': 'shore_car'}, props=True),
     # THE WASH ------------------------------------------------------------------------------------------------------------
     'wash.2': dict(name='THE CULVERT', tiles=['H.r.H', 'H.r.H', 'H#.#H', 'H.r.H', 'H.r.H'],
-                   marks=['-c---', '-----', '--C--', '---c-', '--c--'], pieces={'C': 'wash_culvert', 'c': 'wash_carts'},
-                   piece_at={(2, 4): 'wash_sofa'}),
-    'wash.3': dict(name='THE CHANNEL', tiles=['H.r.H', 'H.r.H', 'H.r.H', 'H.r.H', 'H.r.H'],
-                   marks=['---c-', '--c--', '-----', '-c---', '-----'], pieces={'c': 'wash_carts'},
-                   piece_at={(2, 1): 'wash_sofa'}),
+                   marks=['-----', '-----', '--C--', '---C-', '--C--'], pieces={'C': 'wash_jam'},
+                   piece_at={(2, 2): 'wash_culvert', (4, 2): 'wash_sofa'}, props=True),
+    'wash.3': dict(name='THE CHANNEL', tiles=['H.rrH', 'H.r.H', 'H.r.H', 'Hrr.H', 'H.r.H'],
+                   marks=['---C-', '--C--', '-----', '-C---', '-----'], pieces={'C': 'wash_jam'},
+                   piece_at={(1, 2): 'wash_sofa'}, props=True),
     'wash.4': dict(name='THE BANK', tiles=['.....', '..#..', '.....', '.....', '.....'],
                    marks=['-c--C', '-----', 'c---c', '--C--', 'X---X'], pieces={'c': 'wash_tents', 'C': 'wash_oleander', 'X': 'wash_fence'},
-                   piece_at={(2, 3): 'wash_car'}),
+                   piece_at={(3, 2): 'wash_car'}),
+    # THE LANDFILL -------------------------------------------------------------------------------------------------------
+    'dump.1': dict(name='THE FLARE', tiles=['HH.HH', '.....', '.#..H', '..#..', 'H...H'],
+                   marks=['-----', '-F---', 'F----', 'C---C', '-----'], pieces={'F': 'landfill_fire', 'C': 'landfill_wells'}, props=True),
+    'dump.2': dict(name='THE CELLS', tiles=['.H...', '...H.', 'H....', '..H.H', '.....'],
+                   marks=['---C-', '-----', '--C--', '-----', 'C----'], pieces={'C': 'landfill_wells'}, props=True),
+    # THE SUBURBS -------------------------------------------------------------------------------------------------------
+    'yards.1': dict(name='THE BACKYARDS', tiles=['.....', '.r..r', '.....', 'r..r.', '.....'],
+                    marks=['C-C-C', '-----', 'CC-CC', '-----', '-C-C-'], pieces={'C': 'yards_wall'}, props=True),
+    'yards.2': dict(name='THE YARDS', tiles=['r....', '...r.', '.....', '.r...', '....r'],
+                    marks=['-C-C-', 'C---C', '--C--', 'C---C', '-C-C-'], pieces={'C': 'yards_wall'}, props=True),
+    # THE STRIP ---------------------------------------------------------------------------------------------------------
+    'plaza.1': dict(name='THE FOUNTAIN', tiles=['.....', '.##..', '.....', '...#.', '.....'],
+                    marks=['c---c', '-----', '--C--', '-----', 'c---c'], pieces={'C': 'strip_fountain', 'c': 'strip_planter'}, props=True),
+    'plaza.2': dict(name='THE BRIDGE', tiles=['.....', '..H..', '..H..', '.#...', '.....'],
+                    marks=['c---c', '-----', '-----', '-----', 'c---c'], pieces={'c': 'strip_planter'}, roofs=[(2, 1, 2), (2, 2, 2)], props=True),
+    # DOWNTOWN ----------------------------------------------------------------------------------------------------------
+    'fremont.1': dict(name='UNDER THE CANOPY', tiles=['HH.HH', '.....', '..##.', '.....', 'H.HH.'],
+                      marks=['-----', '-CC--', '-----', '-C-C-', '-----'], pieces={'C': 'downtown_dumpsters'},
+                      piece_at={(1, 1): 'downtown_canopy', (1, 2): 'downtown_canopy'},
+                      roofs=[(0, 0, 3), (1, 0, 3), (3, 0, 3), (4, 0, 3), (0, 4, 3), (2, 4, 3), (3, 4, 3)], props=True),
+    'fremont.2': dict(name='THE ALLEYS', tiles=['H.HH.', 'H....', 'H.HHH', '..H..', 'H.H.H'],
+                      marks=['-----', '-C---', '-----', '---C-', '-----'], pieces={'C': 'downtown_dumpsters'},
+                      roofs=[(0, 0, 3), (2, 0, 3), (3, 0, 3), (0, 1, 3), (0, 2, 3), (2, 2, 3), (3, 2, 3), (4, 2, 3), (2, 3, 3), (0, 4, 3), (2, 4, 3), (4, 4, 3)], props=True),
+    # THE WORKS ---------------------------------------------------------------------------------------------------------
+    'rail.1': dict(name='THE CARS AND THE GANTRY', tiles=['....#', '.....', '##.##', '.....', '.....'],
+                   marks=['-----', '-----', '-----', '-CC--', 'C--C-'], pieces={'C': 'works_pipes'},
+                   piece_at={(3, 1): 'works_gantry', (3, 2): 'works_gantry'}, props=True),
+    'rail.2': dict(name='THE SLAB', tiles=['.....', '.#...', '.....', '...#.', '..##.'],
+                   marks=['--C--', '-----', 'C---C', '-----', '-----'], pieces={'C': 'works_pipes'}, props=True),
+    # THE MARINA --------------------------------------------------------------------------------------------------------
+    'basin.1': dict(name='THE HOUSEBOAT', tiles=['.....', '....#', '.HH..', '#....', '.....'],
+                    marks=['-C---', '-----', '-----', '---C-', '-----'], pieces={'C': 'marina_bass'}, props=True),
+    'basin.2': dict(name='THE DRY BED', tiles=['..#..', '.....', '.....', '.#...', '.....'],
+                    marks=['-----', 'C---C', '--C--', '-----', 'C--C-'], pieces={'C': 'marina_bass'}, props=True),
 }
 CODE = {'.': 'flat', 'r': 'rough', 'd': 'debris', 'w': 'water', 'H': 'height', '#': 'blocked'}
 
@@ -319,7 +396,7 @@ def plan(bid, F):
     wx = F.vnoise((H, W), 4.0 * F.PPM, rng); wy = F.vnoise((H, W), 4.0 * F.PPM, rng)
     wx = np.clip((wx - wx.mean()) / (wx.std() + 1e-6), -2, 2) * 1.2; wy = np.clip((wy - wy.mean()) / (wy.std() + 1e-6), -2, 2) * 1.2
     colw = np.clip(((xm + wx) // TM).astype(int), 0, 4); roww = np.clip(((60.0 - ym + wy) // TM).astype(int), 0, 4)
-    if bid.split('.')[0] in ('desert', 'canyon', 'pass', 'lakebed', 'golf'):
+    if bid.split('.')[0] in ('desert', 'canyon', 'pass', 'lakebed', 'golf', 'dump', 'basin'):
         code = np.array([[T[r][c] for c in range(5)] for r in range(5)])[roww, colw]
         mark = np.array([[M[r][c] for c in range(5)] for r in range(5)])[roww, colw]
     vein = lambda nz, w: np.abs(nz - np.median(nz)) < w                    # a wandering line (a contour of smooth noise)
@@ -431,6 +508,39 @@ def plan(bid, F):
             gid[code == 'r'] = ID['silt']                                   # the channel's floor: silt over the concrete
             gid[(code == 'r') & (n2 > 0.5)] = ID['cobble']
             gid[(code == '.') & (n3 > 0.5)] = ID['oilcrete']                # the channel's sloped concrete, stained
+    elif kind == 'dump':
+        gid[:] = ID['coversoil']                                            # grey cover soil, the trash working up through it
+        gid[(code == 'H')] = ID['coversoil']
+        if bid == 'dump.1': gid[band(36.0, 48.0)] = ID['gravel']; gid[(xm > 13) & (xm < 23) & band(25, 35)] = ID['concrete']   # the haul road, the flare's pad
+        gid[mark == 'F'] = ID['tie']                                        # scorched where the gas burns
+        gid[(mark == 'C')] = ID['gravel']
+    elif kind == 'yards':
+        gid[:] = ID['deadlawn']                                             # dead brown lawns, yard by yard
+        gid[n3 > 0.72] = ID['deadlawn_b']
+        for r_ in range(5):
+            for c_ in range(5):
+                if T[r_][c_] == 'r':                                        # the pool's deck round the pit
+                    cx_, cy_ = centre(c_, r_); gid[(np.abs(xm - cx_) < 5.6) & (np.abs(ym - cy_) < 4.6)] = ID['concrete']
+    elif kind == 'plaza':
+        gid[:] = ID['marble']                                               # the casino plaza's marble, cracked
+        gid[(n3 > 0.68)] = ID['pooltile']
+        if bid == 'plaza.2':
+            gid[band(12.0, 36.0)] = ID['asphalt']                           # the Boulevard under the bridge
+            gid[band(23.85, 24.15) & ((xm % 6.0) < 3.0)] = ID['paint']; gid[band(12.0, 12.3) | band(35.7, 36.0)] = ID['paint']
+    elif kind == 'fremont':
+        gid[:] = ID['asphalt']                                              # the street and the alleys
+        gid[(code == 'H')] = ID['concrete']
+        gid[(n3 > 0.6) & (code != 'H')] = ID['oilcrete']
+        if bid == 'fremont.1': gid[band(36.0, 37.0) | band(11.0, 12.0)] = ID['concrete']   # the kerbs under the canopy
+    elif kind == 'rail':
+        gid[:] = ID['oilcrete']                                             # the yard's slab, black with oil
+        trackrows = {'rail.1': [(24.0, 36.0)], 'rail.2': [(0.0, 12.0)]}[bid]
+        for (a, b) in trackrows:
+            gid[band(a + 1.5, b - 1.5)] = ID['ballast']; gid[band(a + 3.6, b - 3.6) & ((xm % 0.65) < 0.25)] = ID['tie']
+        gid[(code == '#') & ~np.isin(row, [2])] = ID['concrete']
+    elif kind == 'basin':
+        gid[:] = ID['mud']                                                  # the marina's dry bed, cracked
+        gid[(n3 > 0.7)] = ID['silt']
     return gid, np.ones((H, W), bool), np.full((H, W), 255, np.uint8), np.zeros((H, W, 3), np.uint8), np.zeros((H, W), bool)
 
 
@@ -458,7 +568,7 @@ class Kit:
     """the things of one block: boxes, prisms, horizontal tubes, gables, rocks; one instanced mesh per material"""
     def __init__(self, bpy, NF, F, g, h, seed):
         self.bpy, self.NF, self.F, self.g, self.h = bpy, NF, F, g, h
-        self.rng = np.random.RandomState(seed); self.M = {}; self.items = {}; self.rocks = {}
+        self.rng = np.random.RandomState(seed); self.M = {}; self.items = {}; self.rocks = {}; self.models = []
         self.T = {'box': (NF.CUBE_V, NF.CUBE_F), 'cyl': prism(12), 'tube': prism(12, 'x'), 'gable': gable(), 'cyl6': prism(6)}
     def z(self, x, y):
         F = self.F; ny, nx = self.g.shape
@@ -487,6 +597,10 @@ class Kit:
         L[0].append((x, y)); L[1].append(s); L[2].append((self.z(x, y) if z is None else z) - s * flat * sink)
     def scatter(self, m, x0, x1, y0, y1, n, lo, hi, flat=0.6):
         for _ in range(n): self.rock(m, self.rng.uniform(x0, x1), self.rng.uniform(y0, y1), lo * (hi / lo) ** (self.rng.rand() ** 1.5), flat)
+    def model(self, mid, x, y, quarter=0, z=None):
+        """one of COOK PROPS' models (records/target/fight_props/manifest.json): its .glb, origin at its ground centre, facing south,
+        turned in quarters on the board (their rule), set on the ground here"""
+        self.models.append((mid, x, y, quarter, self.z(x, y) if z is None else z))
     def line(self, m, x0, y0, x1, y1, w, hgt, z=0.0):
         """a straight bar from one point to another (a rail, a hose, a strap), w wide and hgt tall"""
         L = math.hypot(x1 - x0, y1 - y0); self.box(m, (x0 + x1) / 2, (y0 + y1) / 2, z, L, w, hgt, math.atan2(y1 - y0, x1 - x0))
@@ -499,7 +613,44 @@ class Kit:
             if not pts: continue
             if m not in self.M: self.rgb(m, (120, 114, 104))
             out.append(F.stones_mesh(bpy, 'cm3_rock_' + m, np.array(pts, np.float32), np.array(sizes, np.float32), np.array(zs, np.float32), self.rng, ico, self.M[m], flat))
+        for (mid, x, y, q, z) in self.models:
+            out += import_model(bpy, mid, x, y, q, z)
         return [o for o in out if o is not None]
+
+
+PROPS = os.path.join(R, 'records/target/fight_props/manifest.json')
+
+
+def props():
+    return {m['id']: m for m in json.load(open(PROPS))['models']} if os.path.exists(PROPS) else {}
+
+
+def import_model(bpy, mid, x, y, quarter, z):
+    """the .glb into this block's scene, turned and set, its transform baked into its vertices (the rig's source pass, dents and
+    the camera's vertical stretch then treat it as one of the block's own meshes, never twice)"""
+    m = props()[mid]
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=os.path.join(R, m['model']))
+    new = [o for o in bpy.data.objects if o not in before]
+    roots = [o for o in new if o.parent is None]
+    for o in roots:
+        o.location = (x, y, z); o.rotation_mode = 'XYZ'; o.rotation_euler = (0.0, 0.0, quarter * math.pi / 2)
+    bpy.context.view_layer.update()
+    meshes = []
+    for o in new:
+        if o.type != 'MESH': continue
+        mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
+        o.data = o.data.copy(); o.data.transform(o.matrix_world); o.matrix_world = __import__('mathutils').Matrix.Identity(4)
+        meshes.append(o)
+    for o in new:
+        if o.type != 'MESH': bpy.data.objects.remove(o, do_unlink=True)
+    # its footprint's middle on the tiles it names (a model's origin may sit at its footing, the pylon's does): the box of its
+    # vertices centred on (x, y), its ground kept
+    if meshes:
+        V = np.concatenate([np.array([v.co[:] for v in o.data.vertices], np.float32) for o in meshes])
+        dx = x - (V[:, 0].min() + V[:, 0].max()) / 2; dy = y - (V[:, 1].min() + V[:, 1].max()) / 2
+        for o in meshes: o.data.transform(__import__('mathutils').Matrix.Translation((dx, dy, 0.0)))
+    return meshes
 
 
 # ---- the things, by kind ---------------------------------------------------------------------------------------------
@@ -926,54 +1077,35 @@ def things_trailer(k, bid):
         for i in range(3): k.box('board', x + k.rng.uniform(-3, 3), y + k.rng.uniform(-3, 3), 0.0, 1.8, 0.6, 0.3 + 0.3 * i, k.rng.uniform(0, 3))
         k.tube('tyre', x + 2.5, y - 2, 0.0, 0.3, 0.7, 0.4); k.tube('tyre', x + 2.6, y - 1.2, 0.0, 0.3, 0.7, 1.0)
         k.rgb('chair', (176, 150, 90), 'clay_mustard'); k.box('chair', x - 0.5, y - 2.5, 0.0, 0.6, 0.6, 0.9, 0.5)
-    if bid == 'trailer.1':
-        tints = [(196, 186, 160), (184, 150, 130), (176, 172, 160), (190, 170, 140), (170, 160, 150)]
-        for i, (c, burnt) in enumerate(((0, False), (2, False))):        # end-on, north to south, rows 0-1
-            x, _ = centre(c, 0); single_wide(k, x, 48.0, math.pi / 2, tints[i])
-        x, _ = centre(4, 0); single_wide(k, x, 48.0, math.pi / 2, tints[2], burnt=True, length=21.0)   # the burnt one (its back half is the rubble tile)
-        for i, c in enumerate((1, 3)):                                   # rows 3-4
-            x, _ = centre(c, 3); single_wide(k, x, 12.0, math.pi / 2, tints[3 + i])
-        x0, x1, y0, y1 = tile_m(2, 3)                                    # the carport between them: its roof is the one height
-        k.rgb('carport', (150, 148, 140), 'tape_grey')
-        for px_ in (x0 + 1.0, x1 - 1.0):
-            for py_ in (y0 + 1.0, y1 - 1.0): k.cyl('steel', px_, py_, 0.0, 0.12, 2.8)
-        k.box('carport', (x0 + x1) / 2, (y0 + y1) / 2, 2.8, 10.6, 10.6, 0.12)
-        for i in range(10): k.box('tseam', x0 + 1.0 + i * 1.1, (y0 + y1) / 2, 2.93, 0.05, 10.4, 0.03)
-        propane(1, 1, big=False); propane(0, 2); propane(4, 2)
-        cx, cy = centre(2, 2)                                            # the car under a tarp in the lane
+    if bid == 'trailer.1':                                            # COOK PROPS' single-wides end to end, north to south
+        for c in (0, 2): k.model('trailer.trailer', centre(c, 0)[0], 48.0, 1)
+        k.model('trailer.burnt', centre(4, 0)[0], 48.0, 1)
+        for c in (1, 3): k.model('trailer.trailer', centre(c, 3)[0], 12.0, 3)
+        for (c, r) in ((1, 1), (0, 2), (4, 2)): k.model('trailer.propane', *centre(c, r), quarter=int(k.rng.randint(4)))
+        k.model('trailer.carport', *centre(2, 3))                       # between two homes (no height: its roof sags)
+        k.model('trailer.clothesline', *centre(3, 1), quarter=1)        # the spotless washing (COOK PROPS' wrong thing)
+        cx, cy = centre(2, 2)                                            # the car under a tarp in the lane (this lane's)
         k.box('tarp', cx, cy, 0.0, 4.6, 2.1, 1.4, 0.1); k.roof('tarp', cx, cy, 1.4, 4.4, 2.0, 0.2, 0.1)
         for (u, v) in ((-1.6, -1.05), (1.6, -1.05), (-1.6, 1.05), (1.6, 1.05)): k.tube('tyre', cx + u, cy + v, 0.0, 0.3, 0.65, 0.1)
-        junk(2, 0); junk(0, 4); junk(4, 4)
-        k.rgb('line', (210, 206, 196), 'tape_grey'); k.rgb('wash1', (150, 60, 44), 'clay_rust'); k.rgb('wash2', (66, 86, 98), 'clay_teal')
-        for px_ in (13.5, 22.5): k.cyl('steel', px_, 40.0, 0.0, 0.08, 2.0)   # the clothesline in the north lane
-        k.line('line', 13.5, 40.0, 22.5, 40.0, 0.02, 0.02, 1.95)
-        for i in range(5): k.box('wash1' if i % 2 else 'wash2', 14.5 + i * 1.7, 40.0, 1.2, 0.8, 0.03, 0.75)
-        k.rgb('swing', (176, 60, 44), 'clay_rust')                       # the swing stopped at the top of its swing (the horror)
-        sx, sy = 56.0, 7.0
-        for v in (-1.2, 1.2): k.line('steel', sx - 1.0, sy + v, sx, sy + v, 0.08, 0.08, 0.0); k.cyl('steel', sx - 1.0, sy + v, 0.0, 0.08, 2.4); k.cyl('steel', sx + 1.0, sy + v, 0.0, 0.08, 2.4)
-        k.box('steel', sx, sy, 2.4, 0.1, 2.6, 0.1)
-        k.box('swing', sx + 1.4, sy, 1.75, 0.5, 0.45, 0.05, 0.0, 0.0)
-        k.line('steel', sx, sy - 0.2, sx + 1.4, sy - 0.2, 0.02, 0.02, 2.0); k.line('steel', sx, sy + 0.2, sx + 1.4, sy + 0.2, 0.02, 0.02, 2.0)
+        junk(0, 4); junk(4, 4)
     elif bid == 'trailer.2':
         k.rgb('office', (200, 190, 170), 'clay_bone'); k.rgb('sign', (150, 60, 44), 'clay_rust'); k.rgb('laundry', (176, 172, 160), 'tape_grey')
-        k.box('office', 12.0, 54.0, 0.0, 23.0, 10.5, 3.2)
-        k.rgb('troof', (168, 168, 160), 'tape_grey'); k.box('troof', 12.0, 54.0, 3.2, 23.4, 11.0, 0.15)
-        k.box('dark', 6.0, 48.7, 0.0, 1.2, 0.05, 2.1); k.rgb('glass', (40, 48, 52), 'glass_eye')
+        k.rgb('troof', (168, 168, 160), 'tape_grey'); k.rgb('glass', (40, 48, 52), 'glass_eye')
+        k.box('office', 12.0, 54.0, 0.0, 23.0, 10.5, 3.2); k.box('troof', 12.0, 54.0, 3.2, 23.4, 11.0, 0.15)
+        k.box('dark', 6.0, 48.7, 0.0, 1.2, 0.05, 2.1)
         for i in range(3): k.box('glass', 12 + i * 3.5, 48.7, 1.2, 2.0, 0.05, 1.2)
         k.cyl('steel', 2.0, 46.5, 0.0, 0.15, 4.5); k.box('sign', 2.0, 46.5, 4.0, 3.2, 0.2, 1.4)   # the park's sign
         cx, cy = centre(3, 2); k.box('laundry', cx, cy, 0.0, 9.0, 7.0, 3.0); k.roof('troof', cx, cy, 3.0, 9.6, 7.6, 1.0)
         k.box('dark', cx - 2.0, cy - 3.52, 0.0, 1.2, 0.05, 2.1)
-        single_wide(k, 24.0, 18.0, 0.0, (190, 176, 150))                  # a trailer east-west across row 3, c1-c2
-        propane(2, 1, big=False); propane(4, 1); propane(4, 3)
-        k.rgb('mailbox', (150, 152, 150), 'chrome')                     # the mailbox bank
-        x, y = centre(1, 2)
+        k.model('trailer.trailer', 24.0, 18.0, 0)                        # a single-wide east to west across row 3, c1-c2
+        for (c, r) in ((2, 1), (4, 1)): k.model('trailer.propane', *centre(c, r), quarter=int(k.rng.randint(4)))
+        k.model('trailer.clothesline', *centre(3, 4))
+        k.rgb('mailbox', (150, 152, 150), 'chrome'); x, y = centre(1, 2)
         for i in range(3): k.box('mailbox', x - 2 + i * 2, y, 0.0, 1.8, 0.5, 1.4)
         k.rgb('dumpster', (66, 86, 98), 'clay_teal'); x, y = centre(0, 2)
         for i in range(2): k.box('dumpster', x - 1.5 + i * 3.4, y + 1, 0.0, 3.0, 1.8, 1.4, 0.1 * i)
         k.scatter('board', x - 4, x + 4, y - 4, y + 4, 12, 0.2, 0.5, 0.3)
-        junk(3, 4); junk(4, 1)
-        k.rgb('boat', (196, 192, 180), 'tape_grey'); x, y = centre(1, 4)    # a boat on its trailer, a flat tyre
-        k.tube('boat', x, y, 0.5, 5.5, 1.9, 0.3); k.tube('tyre', x, y - 1.0, 0.0, 0.3, 0.6, 0.3)
+        junk(4, 3); junk(1, 4)
 
 
 def joshua(k, x, y, hgt):
@@ -994,6 +1126,10 @@ def boulders(k, x, y, n, big, mat='bould'):
     for i in range(n): k.rock(mat if i % 2 else 'bould_d', x + k.rng.uniform(-2.5, 2.5), y + k.rng.uniform(-2.5, 2.5), big * k.rng.uniform(0.6, 1.1), 0.7)
 
 
+JOSHUAS = {'desert.1': [(4, 1), (4, 3), (0, 4), (4, 4)], 'desert.2': [(4, 0), (0, 2), (4, 3), (0, 4)],
+           'desert.3': [(1, 0), (0, 2), (3, 3), (4, 4), (2, 1), (1, 4)]}
+
+
 def things_desert(k, bid):
     k.rgb('bould', (104, 98, 90), 'tape_grey'); k.rgb('bould_d', (76, 70, 64), 'rubber')
     k.rgb('dark', (26, 24, 23), 'rubber'); k.rgb('steel', (140, 142, 140), 'chrome'); k.rgb('tyre', (34, 32, 31), 'rubber')
@@ -1001,13 +1137,10 @@ def things_desert(k, bid):
     for r in range(5):
         for c in range(5):
             pc = piece_of(bid, c, r); x, y = centre(c, r); x0, x1, y0, y1 = tile_m(c, r)
-            if pc == 'desert_joshua': joshua(k, x + k.rng.uniform(-2, 2), y + k.rng.uniform(-2, 2), k.rng.uniform(5.0, 7.5)); joshua(k, x + 3.5, y - 3, 3.5)
-            elif pc == 'desert_boulder': boulders(k, x, y, 7, 2.2)
-            elif pc == 'desert_rocks': boulders(k, x, y, 9, 1.0)
-            elif pc == 'desert_car':
-                k.rgb('carbody', (150, 120, 90), 'clay_rust'); k.rgb('rust', (110, 60, 40), 'clay_rust')
-                k.box('carbody', x, y, -0.5, 4.4, 1.9, 1.3, 0.4, 0.15); k.box('rust', x - 0.3, y, 0.8, 2.2, 1.7, 0.5, 0.4, 0.15)
-                k.rgb('glass', (40, 48, 52), 'glass_eye'); k.box('glass', x + 0.6, y + 0.2, 0.9, 0.05, 1.5, 0.4, 0.4)
+            if pc == 'desert_boulder': k.model('desert.boulders', x, y, int(k.rng.randint(4)))
+            elif pc == 'desert_car': k.model('desert.buried_car', x, y, int(k.rng.randint(4)))
+            elif pc is None and (c, r) in JOSHUAS.get(bid, ()):         # Joshua trees: decoration (COOK PROPS: the fight walks past)
+                k.model('desert.joshua' if (c + r) % 2 else 'desert.joshua_small', x + k.rng.uniform(-3, 3), y + k.rng.uniform(-3, 3), int(k.rng.randint(4)))
             if T[r][c] == 'H':                                        # the wash's cut bank: a lip of rock along its edge, creosote on top
                 ex = x0 + 11.0 if c == 0 else x0 + 1.0
                 for _ in range(10): k.rock('bould_d' if k.rng.rand() < 0.5 else 'bould', ex + k.rng.uniform(-0.8, 0.8), k.rng.uniform(y0, y1), k.rng.uniform(0.4, 0.9), 0.6)
@@ -1020,7 +1153,9 @@ def things_desert(k, bid):
             if T[r][c] == '.' and pc is None and k.rng.rand() < 0.6:   # creosote on the flat, low (no cover: BB's grass)
                 k.rgb('creo', (92, 90, 72), 'metal_painted')
                 for _ in range(2): k.rock('creo', x + k.rng.uniform(-5, 5), y + k.rng.uniform(-5, 5), k.rng.uniform(0.4, 0.7), 0.8, z=0.1)
-    if bid == 'desert.1':                                             # the pylon down: a 40 m lattice tower lying across the wash
+    if bid == 'desert.1':                                             # COOK PROPS' pylon down across the wash (c1-c3, rows 1-2)
+        k.model('desert.pylon', 30.0, 36.0, 0)
+    if False:                                                         # (this lane's own pylon, kept for a place with no props)
         k.rgb('lattice', (140, 140, 136), 'tape_grey'); k.rgb('insul', (190, 196, 196), 'chrome'); k.rgb('wire', (50, 50, 50), 'rubber')
         x0, y0, x1, y1 = 58.0, 44.0, 22.0, 31.0                       # its foot east (r1 c4), its head across the wash (r2 c2)
         L = math.hypot(x1 - x0, y1 - y0); a = math.atan2(y1 - y0, x1 - x0); ca, sa = math.cos(a), math.sin(a)
@@ -1061,8 +1196,8 @@ def things_canyon(k, bid):
     for r in range(5):
         for c in range(5):
             x0, x1, y0, y1 = tile_m(c, r); x, y = centre(c, r)
-            if T[r][c] == '#': fin(k, x0 - 0.5, x1 + 0.5, y0 - 0.3, y1 + 0.3, 4, k.rng)
-            elif T[r][c] == 'H': fin(k, x0 + 0.3, x1 - 0.3, y0 + 0.3, y1 - 0.3, lv.get((c, r), 1), k.rng)
+            if T[r][c] == 'H': k.model('redrock.ledge_%d' % lv.get((c, r), 1), x, y, int(k.rng.randint(4)))   # COOK PROPS' ledges
+            elif T[r][c] == '#' and bid != 'canyon.1': fin(k, x0 - 0.5, x1 + 0.5, y0 - 0.3, y1 + 0.3, 4, k.rng)
             elif T[r][c] == 'r': k.scatter('aztec_d', x0, x1, y0, y1, 18, 0.3, 1.1, 0.55)
             pc = piece_of(bid, c, r)
             if pc == 'canyon_boulder':
@@ -1071,9 +1206,8 @@ def things_canyon(k, bid):
                 k.rgb('jun', (90, 78, 62), 'clay_rust'); k.rgb('jundead', (120, 100, 76), 'clay_bone')
                 k.cyl('jun', x, y, 0.0, 0.5, 2.0)
                 for i in range(6): k.rock('jundead', x + k.rng.uniform(-1.8, 1.8), y + k.rng.uniform(-1.8, 1.8), 1.3, 0.6, z=1.4 + k.rng.uniform(0, 1.2))
-    if bid == 'canyon.1':                                             # the slot: its walls close, one man wide; the handprints climbing
-        k.rgb('hand', (150, 50, 40), 'clay_rust')
-        for i in range(7): k.box('hand', 25.0 + i * 0.4, 37.6, 1.2 + i * 1.4, 0.22, 0.04, 0.26)
+    if bid == 'canyon.1':                                             # COOK PROPS' fin either side of their slot, one man wide
+        k.model('redrock.fin', 30.0, 48.0, 1); k.model('redrock.fin', 30.0, 12.0, 1); k.model('redrock.slot', 30.0, 30.0, 0)
         k.scatter('aztec_d', 26, 34, 25, 35, 14, 0.2, 0.6, 0.5)
 
 
@@ -1085,35 +1219,24 @@ def things_pass(k, bid):
     for r in range(5):
         for c in range(5):
             x0, x1, y0, y1 = tile_m(c, r); x, y = centre(c, r); pc = piece_of(bid, c, r)
-            if T[r][c] == '#':
+            if T[r][c] == '#' and not (bid == 'pass.1' and (c, r) in ((1, 2), (2, 2), (1, 3), (2, 3))):   # (the truck's own tiles: no rock)
                 k.scatter('lime_d', x0 + 0.5, x1 - 0.5, y0 + 0.8, y1 - 0.8, 16, 4.0, 7.0, 0.8)
+            elif T[r][c] == 'H' and (bid, c, r) == ('pass.1', 3, 2): k.model('pass.rockfall', x, y, 0)   # the heap across the lane
             elif T[r][c] == 'H':
                 for kk in range(lv.get((c, r), 1)):
                     for _ in range(5): k.rock('lime' if kk % 2 else 'lime_d', k.rng.uniform(x0 + 3, x1 - 3), k.rng.uniform(y0 + 3, y1 - 3), 4.6, 0.3, z=kk * 3.0)
             elif T[r][c] in 'rd' and pc != 'pass_drop':
                 k.scatter('lime_d', x0, x1, y0, y1, 40 if T[r][c] == 'r' else 60, 0.2, 0.8 if T[r][c] == 'r' else 1.4, 0.55)
             if pc == 'pass_boulder': boulders(k, x, y, 6, 2.4, 'lime')
-            elif pc == 'pass_rail':                                      # the guard rail on its posts along the road's lip
-                k.line('rail', x0, y1 - 2.0, x1, y1 - 2.0 + k.rng.uniform(-0.3, 0.3), 0.08, 0.35, 0.5)
-                for i in range(6): k.cyl('steel', x0 + 1 + i * 2, y1 - 2.0, 0.0, 0.15, 0.8)
+            elif pc == 'pass_rail': k.model('pass.guardrail', x, y1 - 2.2, 0)          # COOK PROPS' W-beam on the road's lip
+            elif pc == 'pass_barricade': k.model('pass.barricade', x, y, 0)
             elif pc == 'pass_drop':                                      # the drop: the slope falls away, dark, pines far below
                 for _ in range(8): k.rock('lime_d', k.rng.uniform(x0, x1), k.rng.uniform(y0, y1), k.rng.uniform(0.8, 2.0), 0.5)
                 for _ in range(3): k.rock('pine', k.rng.uniform(x0 + 1, x1 - 1), k.rng.uniform(y0 + 1, y1 - 3), k.rng.uniform(1.2, 2.0), 0.9, z=-0.4)
             elif pc == 'pass_car':
                 k.rgb('car_c', (120, 132, 140), 'clay_teal'); k.box('car_c', x, y, 0.3, 4.4, 1.8, 1.1, 0.3); k.box('glass', x + 0.4, y + 0.1, 1.4, 1.6, 1.6, 0.4, 0.3)
                 for (u, v) in ((-1.4, -0.9), (1.4, -0.9), (-1.4, 0.9), (1.4, 0.9)): k.tube('tyre', x + u, y + v, 0.0, 0.25, 0.6, 0.3)
-    if bid == 'pass.1':                                                # the jackknife: the cab and its 16 m box folded across the road
-        k.rgb('semibox', (196, 196, 190), 'tape_grey'); k.rgb('semicab', (150, 60, 44), 'clay_rust'); k.rgb('hazard', (226, 160, 80), 'sodium')
-        k.box('semibox', 20.0, 30.0, 1.2, 16.0, 2.6, 2.9, 0.12)
-        for u in (-6.5, -5.2):
-            for v in (-1.2, 1.2): k.tube('tyre', 20 + u, 30 + v + u * 0.12, 0.0, 0.45, 1.0, 0.12 + math.pi / 2)
-        k.box('semicab', 31.5, 26.5, 0.6, 3.2, 2.6, 2.6, -1.1); k.box('glass', 32.2, 25.0, 1.9, 2.2, 0.05, 0.8, -1.1)
-        for v in (-1.3, 1.3): k.tube('tyre', 31.5 + v, 26.5 + 0.6 * v, 0.0, 0.45, 1.0, -1.1 + math.pi / 2)
-        k.box('hazard', 30.5, 24.6, 1.0, 0.25, 0.1, 0.2, -1.1); k.box('hazard', 12.1, 29.0, 1.0, 0.1, 0.25, 0.2, 0.12)   # still blinking (the horror)
-        k.rgb('cargo', (176, 150, 100), 'tape_masking')
-        for _ in range(14): k.box('cargo', 10 + k.rng.uniform(-3, 4), 24 + k.rng.uniform(-3, 2), 0.0, 1.0, 0.8, 0.6 + k.rng.uniform(0, 0.5), k.rng.uniform(0, 3))
-        x0, x1, y0, y1 = tile_m(3, 2)                                  # the rockfall over the road's other lane (debris: slow)
-        k.scatter('lime', x0, x1, y0, y1, 40, 0.4, 2.0, 0.6); k.scatter('lime_d', x0 - 2, x1, y0 + 2, y1 + 6, 25, 0.8, 2.6, 0.6)
+    if bid == 'pass.1': k.model('pass.truck', 24.0, 24.0, 0)          # COOK PROPS' jackknifed semi across the road (c1-c2, rows 2-3)
     if bid in ('pass.1', 'pass.2'):
         k.rgb('roadline', (196, 170, 90), 'clay_mustard')
         for i in range(10): k.box('roadline', 3 + i * 6, 29.8, 0.0, 3.0, 0.15, 0.02)
@@ -1134,11 +1257,7 @@ def things_lakebed(k, bid):
     for r in range(5):
         for c in range(5):
             x0, x1, y0, y1 = tile_m(c, r); x, y = centre(c, r); pc = piece_of(bid, c, r)
-            if T[r][c] == 'H' and bid != 'lakebed.3' or (bid == 'lakebed.3' and r == 3 and T[r][c] == 'H'):   # a dead dock on the dry bed: its deck to climb
-                k.box('float', x, y, 0.0, 10.6, 3.2, 0.9)
-                for i in range(26): k.box('dock', x0 + 0.8 + i * 0.4, y, 0.9, 0.32, 3.3, 0.08)
-                for i in range(3): k.box('float', x0 + 2 + i * 4, y + 3.4, 0.0, 1.4, 3.8, 0.9); k.cyl('pile', x0 + 2 + i * 4, y - 1.8, 0.0, 0.35, 3.6)
-            if pc == 'shore_boat': boat_on_side(k, x, y, k.rng.uniform(-0.4, 0.4), k.rng.uniform(7, 9))
+            if pc == 'shore_boat': k.model('shore.boat', x, y, int(k.rng.randint(4)))             # COOK PROPS' runabout on its side
             elif pc == 'shore_junk':
                 for i in range(5): k.cyl('buoy' if i % 2 else 'drum_w', x + k.rng.uniform(-3, 3), y + k.rng.uniform(-3, 3), 0.0, 0.7, 0.9)
                 k.tube('drum_w', x + 2, y - 2, 0.0, 1.0, 0.7, 0.7)
@@ -1148,16 +1267,14 @@ def things_lakebed(k, bid):
                 k.rgb('hull', (196, 192, 180), 'tape_grey'); k.tube('hull', x + 3.5, y, 0.6, 6.0, 2.0, 0.0)
                 for (u, v) in ((-4.6, -1), (-1.6, -1), (-4.6, 1), (-1.6, 1), (3.5, -1), (3.5, 1)): k.tube('tyre', x + u, y + v, 0.0, 0.3, 0.75, 0.0)
             if T[r][c] == 'w': k.scatter('mudrock', x0, x1, y0, y1, 3, 0.2, 0.5, 0.5)
-    if bid == 'lakebed.1':                                             # the intake tower, high and dry: its shaft, its gallery, its gates
-        k.rgb('tower', (176, 172, 162), 'clay_bone'); k.rgb('tower_d', (120, 116, 108), 'tape_grey'); k.rgb('stain', (90, 86, 76), 'tape_grey')
-        x, y = centre(2, 2)
-        k.cyl('tower', x, y, 0.0, 9.0, 11.0); k.cyl('tower_d', x, y, 11.0, 10.0, 0.6); k.cyl('tower', x, y, 11.6, 6.0, 3.0)
-        k.cyl('stain', x, y, 0.0, 9.1, 4.0)                            # the lake's own line round its foot
-        for i in range(4):
-            a = i * math.pi / 2 + math.pi / 4; k.box('dark', x + 4.52 * math.cos(a), y + 4.52 * math.sin(a), 1.0, 0.1, 1.8, 2.4, a)
-        k.box('steel', x, y + 9.0, 10.8, 1.8, 10.0, 0.4)                # its bridge to the old shore, broken off
-        for i in range(6): k.box('mudrock', x + k.rng.uniform(-6, 6), y + k.rng.uniform(-6, -3), 0.0, 1.2, 0.8, 0.4, k.rng.uniform(0, 3))
+    if bid == 'lakebed.1':                                             # COOK PROPS' intake tower (c2, rows 1-2), a dock come to rest (c3-c4)
+        k.model('shore.intake', 30.0, 36.0, 0); k.model('shore.dock', 48.0, 42.0, 0)
+        for (c, r) in ((4, 3), (1, 0)): k.model('shore.buoys', *centre(c, r), quarter=int(k.rng.randint(4)))
+    if bid == 'lakebed.2':
+        k.model('shore.dock', 48.0, 30.0, 2)
+        for (c, r) in ((3, 3), (2, 4)): k.model('shore.buoys', *centre(c, r), quarter=int(k.rng.randint(4)))
     if bid == 'lakebed.3':                                             # the white bathtub ring (a step up) and a second one far above it
+        k.model('shore.dock', 18.0, 18.0, 0)                          # two docks' worth of deck on the old shore, row 3
         k.rgb('ringcrust', (224, 222, 214), 'tape_grey'); k.rgb('ringrock', (196, 194, 186), 'tape_grey')
         for i in range(70): k.rock('ringcrust' if i % 3 else 'ringrock', k.rng.uniform(0, 60), k.rng.uniform(37.5, 46.5), k.rng.uniform(1.4, 2.6), 0.45, z=0.2)
         k.rgb('store', (176, 164, 140), 'clay_bone'); x, y = centre(2, 4)
@@ -1182,9 +1299,8 @@ def things_wash(k, bid):
                 k.box('wconc_d', x + (5.2 if c == 0 else -5.2), y, 0.0, 1.6, 12.0, 2.62, 0.0, 0.0)
                 if c == 0: k.box('steel', x - 5.5, y, 2.6, 0.08, 12.0, 1.0)
             if pc == 'wash_carts': carts(x, y)
-            elif pc == 'wash_sofa':
-                k.box('sofa', x, y, 0.0, 2.2, 0.9, 0.5, 0.5, 0.15); k.box('sofa', x - 0.4 * math.sin(0.5), y + 0.4 * math.cos(0.5), 0.4, 2.2, 0.25, 0.6, 0.5, 0.15)
-                carts(x + 3, y - 3, 1)
+            elif pc == 'wash_sofa': k.model('wash.sofa', x, y, 0)                     # COOK PROPS' sofa, its lamp lit
+            elif pc == 'wash_jam': k.model('wash.jam', x, y, int(k.rng.randint(4)))
             elif pc == 'wash_tents':
                 for i in range(2): tx, ty = x + k.rng.uniform(-3, 3), y + k.rng.uniform(-3, 3); k.roof('tent' if i else 'tarp', tx, ty, 0.0, 2.8, 2.2, 1.3, k.rng.uniform(0, 3))
                 carts(x + 2, y - 2, 2); k.box('tarp', x - 2, y + 2, 0.0, 3.0, 2.0, 0.05, 0.3, 0.1)
@@ -1196,19 +1312,110 @@ def things_wash(k, bid):
                 for i in range(9): k.rock('olea' if i % 2 else 'olea_d', x + k.rng.uniform(-4.5, 4.5), y + k.rng.uniform(-4.5, 4.5), k.rng.uniform(1.0, 1.6), 0.8)
             elif pc == 'wash_fence':
                 chainlink(k, x0 + 0.6, y0 + 0.6, x1 - 0.6, y1 - 0.6, 2.0, wire=False)
-    if bid == 'wash.2':                                                # the road embankment over the culvert, its three barrels
-        k.box('wconc', 30.0, 30.0, 0.0, 36.0, 12.0, 2.6)                # the road's fill, the H banks either side join it
-        k.rgb('asph', (70, 68, 64), 'rubber'); k.box('asph', 30.0, 30.0, 2.6, 60.0, 9.0, 0.08)
-        k.box('steel', 30.0, 25.6, 2.6, 60.0, 0.1, 0.9); k.box('steel', 30.0, 34.4, 2.6, 60.0, 0.1, 0.9)
-        for bx_ in (18.0, 30.0, 42.0): k.box('dark', bx_, 23.99, 0.0, 3.0 if bx_ == 30.0 else 2.4, 0.05, 2.0)   # the barrels' mouths
-        k.rgb('foot', (60, 50, 44), 'rubber')
-        for i in range(9): k.box('foot', 30.0 + (0.25 if i % 2 else -0.25), 10.0 + i * 1.5, 0.0, 0.18, 0.3, 0.01)   # bare feet in, none out
+    if bid == 'wash.2':                                                # COOK PROPS' twin-box culvert under the road (c2), the fill either side
+        k.model('wash.culvert', 30.0, 30.0, 0)
+        k.rgb('asph', (70, 68, 64), 'rubber')
+        for (a, b) in ((12.0, 22.6), (37.4, 48.0)): k.box('wconc', (a + b) / 2, 30.0, 0.0, b - a, 12.0, 4.0); k.box('asph', (a + b) / 2, 30.0, 4.0, b - a, 9.0, 0.08)
+    if bid in ('wash.2', 'wash.3', 'wash.4'):
+        for _ in range(2): k.model('wash.cart', k.rng.uniform(26, 34), k.rng.uniform(4, 56) if bid != 'wash.4' else k.rng.uniform(4, 56), int(k.rng.randint(4)))
     if bid in ('wash.2', 'wash.3'):
         k.scatter('wconc_d', 26, 34, 0, 60, 14, 0.2, 0.6, 0.5)
 
 
+def things_dump(k, bid):
+    k.rgb('dark', (26, 24, 23), 'rubber')
+    k.rgb('trash_w', (190, 188, 180), 'tape_grey'); k.rgb('trash_b', (44, 42, 44), 'cloth_black'); k.rgb('trash_t', (80, 104, 110), 'clay_teal')
+    k.rgb('trash_r', (150, 70, 50), 'clay_rust'); k.rgb('scorch', (38, 33, 29), 'rubber')
+    B = BLOCKS[bid]; T = B['tiles']
+    for r in range(5):
+        for c in range(5):
+            x0, x1, y0, y1 = tile_m(c, r); x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if T[r][c] == 'H': k.model('landfill.mound', x, y, int(k.rng.randint(4)))            # COOK PROPS' trash mound
+            elif pc == 'landfill_wells': k.model('landfill.wells', x, y, int(k.rng.randint(2)) * 2)
+            elif pc == 'landfill_fire':
+                for _ in range(10): k.rock('scorch', x + k.rng.uniform(-5, 5), y + k.rng.uniform(-5, 5), k.rng.uniform(1.5, 3.0), 0.012, -1.0)
+            if T[r][c] == '.' and pc is None:                                  # the trash working up through the cover soil
+                for m_ in ('trash_w', 'trash_b', 'trash_t', 'trash_r'):
+                    for _ in range(4): k.box(m_, x + k.rng.uniform(-5.5, 5.5), y + k.rng.uniform(-5.5, 5.5), 0.0, k.rng.uniform(0.3, 0.9), k.rng.uniform(0.2, 0.6), 0.1, k.rng.uniform(0, 3))
+    if bid == 'dump.1':
+        k.model('landfill.flare', *centre(1, 2)); k.model('landfill.dozer', *centre(2, 3), quarter=0)
+
+
+def things_yards(k, bid):
+    k.rgb('block', (168, 150, 126), 'clay_bone'); k.rgb('cap', (186, 172, 150), 'clay_bone')
+    B = BLOCKS[bid]; T = B['tiles']
+    for r in range(5):
+        for c in range(5):
+            x0, x1, y0, y1 = tile_m(c, r); x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if T[r][c] == 'r': k.model('suburbs.pool', x, y, int(k.rng.randint(2)) * 2)          # COOK PROPS' empty pool
+            if pc == 'yards_wall':                                             # their wall corner, and the run it belongs to
+                k.model('suburbs.yard_wall', x + k.rng.uniform(-2, 2), y + k.rng.uniform(-2, 2), int(k.rng.randint(4)))
+                k.box('block', x, y, 0.0, 12.0, 0.22, 1.8); k.box('cap', x, y, 1.8, 12.1, 0.3, 0.06)   # the lot line's run, east to west
+                for px_ in (x - 5.9, x + 5.9): k.box('cap', px_, y, 0.0, 0.45, 0.45, 2.0)                # its pilasters
+    if bid == 'yards.1': k.model('suburbs.swing', *centre(2, 1), quarter=0); k.model('suburbs.trampoline', *centre(2, 3))
+    else: k.model('suburbs.swing', *centre(2, 4), quarter=0); k.model('suburbs.trampoline', *centre(0, 2))
+
+
+def things_plaza(k, bid):
+    k.rgb('planter', (196, 190, 178), 'tape_grey'); k.rgb('trunk', (120, 104, 80), 'clay_bone'); k.rgb('frond_d', (92, 80, 58), 'clay_bone')
+    B = BLOCKS[bid]
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if pc == 'strip_planter':                                           # a marble planter, its palm dead in it
+                k.box('planter', x, y, 0.0, 3.0, 3.0, 0.9); k.cyl('trunk', x, y, 0.9, 0.5, 7.0)
+                for i in range(10): a = i * 0.63; k.rock('frond_d', x + 0.5 * math.cos(a), y + 0.5 * math.sin(a), 0.8, 2.0, z=5.4)
+            elif pc == 'strip_fountain': k.model('strip.fountain', x, y, 0)
+    if bid == 'plaza.1':
+        k.model('strip.sign', 24.0, 42.0, 0); k.model('strip.limo', *centre(3, 3), quarter=0)
+    else:
+        k.model('strip.bridge', 30.0, 36.0, 1); k.model('strip.limo', *centre(1, 3), quarter=0)
+
+
+def things_fremont(k, bid):
+    k.rgb('brick', (132, 84, 64), 'clay_rust'); k.rgb('brick_d', (100, 64, 50), 'clay_rust'); k.rgb('roofg', (120, 116, 108), 'tape_grey')
+    B = BLOCKS[bid]; T = B['tiles']
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if T[r][c] == 'H':                                                 # a three-storey brick back, its fire escape to the roof
+                k.box('brick' if (c + r) % 2 else 'brick_d', x, y + 0.6, 0.0, 11.8, 10.6, 9.0); k.box('roofg', x, y + 0.6, 9.0, 12.0, 10.8, 0.3)
+                k.model('downtown.fire_escape', x, y - 5.0, 0)
+            elif pc == 'downtown_dumpsters': k.model('downtown.dumpsters', x, y, int(k.rng.randint(4)))
+    if bid == 'fremont.1':
+        k.model('downtown.canopy', 24.0, 42.0, 0); k.model('downtown.deuce', 36.0, 30.0, 0)
+
+
+def things_rail(k, bid):
+    k.rgb('rail', (170, 172, 174), 'chrome')
+    for (a, b) in {'rail.1': [(24.0, 36.0)], 'rail.2': [(0.0, 12.0)]}[bid]:
+        for v in (-0.72, 0.72): k.box('rail', 30.0, (a + b) / 2 + v, 0.1, 60.0, 0.08, 0.16)
+    B = BLOCKS[bid]
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if pc == 'works_pipes': k.model('works.pipes', x, y, int(k.rng.randint(2)) * 2)
+    if bid == 'rail.1':
+        k.model('works.boxcar', 12.0, 30.0, 0); k.model('works.tankcar', 48.0, 30.0, 0); k.model('works.gantry', 24.0, 18.0, 0)
+        k.model('works.machines', *centre(4, 0))
+    else:
+        k.model('works.machines', *centre(1, 1)); k.model('works.machines', *centre(3, 3), quarter=2); k.model('works.boxcar', 36.0, 6.0, 0)
+
+
+def things_basin(k, bid):
+    B = BLOCKS[bid]; T = B['tiles']
+    for r in range(5):
+        for c in range(5):
+            x, y = centre(c, r); pc = piece_of(bid, c, r)
+            if T[r][c] == '#': k.model('marina.cruiser', x, y, int(k.rng.randint(4)))
+            elif pc == 'marina_bass': k.model('marina.bass_boat', x, y, int(k.rng.randint(4)))
+    if bid == 'basin.1': k.model('marina.houseboat', 24.0, 30.0, 0)
+    k.rgb('mudrock', (140, 132, 118), 'tape_grey'); k.scatter('mudrock', 0, 60, 0, 60, 30, 0.2, 0.6, 0.5)
+
+
 THINGS = {'lab': things_lab, 'apron': things_apron, 'golf': things_golf, 'trailer': things_trailer, 'desert': things_desert,
-          'canyon': things_canyon, 'pass': things_pass, 'lakebed': things_lakebed, 'wash': things_wash}
+          'canyon': things_canyon, 'pass': things_pass, 'lakebed': things_lakebed, 'wash': things_wash, 'dump': things_dump,
+          'yards': things_yards, 'plaza': things_plaza, 'fremont': things_fremont, 'rail': things_rail, 'basin': things_basin}
 
 
 def install():
@@ -1362,6 +1569,30 @@ CARD_SAYS = {
                 'three storeys up and the cart trains, and their line usually starts far off, so the wreck is the cover everybody runs for.'),
     'golf': ('The golf course is its own board now and dead, the clubhouse with a roof you can climb, the carts, a brown 18th green '
              'with its flag, bunkers and a dry pond that slow you, no green anywhere, and sometimes they come at you from both flanks.'),
+    'trailer': ('The trailer park is its own board now, single-wides end to end on their blocks with one burnt out, propane tanks, a '
+                'carport and the washing on the line, and the lanes between them are one man wide, so it is close fighting and they are often already in among the rows.'),
+    'desert': ('The desert is its own board now, open dark desert pavement cut by a dry wash with a power pylon fallen across it, '
+               'Joshua trees, boulders and a car half buried, and the wash is soft and slow while its banks are a step up.'),
+    'redrock': ('Red Rock is its own board now, a sandstone fin split by a slot canyon one man wide with ledges one, two and three '
+                'storeys up on both sides, so height wins the shot and the climb costs your attack.'),
+    'pass': ('The pass is its own board now, a mountain road with a jackknifed semi across it, a rockfall you climb over the other '
+             'lane, scree and ledges above and the drop below that nobody walks, and they often come at you from above and below the road.'),
+    'shore': ('The shore is its own board now, the lake\'s intake tower standing on the dry bed with docks and boats left on the mud, '
+              'and the mud is slow and you fight worse in it, so the one gravel bar and the white bathtub ring\'s step are what you hold.'),
+    'wash': ('The wash is its own board now, a concrete flood channel between two high banks running between the lines with a twin '
+             'culvert under the road, a sofa and the flood\'s junk in the silt, and the culvert is the one covered way through.'),
+    'landfill': ('The landfill is its own board now, trash mounds you climb for the shot, the gas flare still burning on its pad with '
+                 'the ground round it on fire from the first round, a dozer stopped mid-push and the gas wells for cover.'),
+    'suburb': ('The suburbs are their own board now and dead brown, a row of backyards with the block walls you fight along and over, '
+               'empty pools that are pits to cross, a swing set and a trampoline frame between the ranch houses.'),
+    'strip': ('The Strip is its own board now, an open marble casino plaza with a dry fountain whose rim is the cover, a giant arrow '
+              'sign fallen on it, a stretch limo at the valet and the pedestrian bridge two storeys over the Boulevard.'),
+    'downtown': ('Downtown is its own board now, a bay of the Fremont canopy over the street with the burnt double-decker under it, '
+                 'and brick hotel backs with fire escapes to their roofs and alleys between them one man wide.'),
+    'works': ('The works is its own board now, a boxcar and a black tank car on the spur making a wall across the yard with one '
+              'crossing, a gantry crane with a car hanging off its hook, the shop\'s machines and stacked pipe for cover.'),
+    'marina': ('The marina is its own board now, the dry marina bed open on all sides with a houseboat sat on its pontoons, '
+               'cabin cruisers on their keels and bass boats on their trailers as the only cover, the houseboat\'s deck the one height.'),
 }
 
 

@@ -1520,6 +1520,10 @@ const FIGHT = (function () {
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
     S.fire = []; S.smoke = []; S.sparkSeen = {};   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
+    /* GROUND THAT IS ALREADY BURNING (COMBAT MAPS 3, rule 341: the landfill's gas): a piece whose def says burning stands on a
+       tile that is On Fire from the first round to the last (the cell vest's own rule 305: 15 to 30 to a man who ends his turn
+       on it, walking through is free); nobody set it */
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const d = S.cover[y][x] ? pieceDef(S.cover[y][x]) : null; if (d && d.burning) S.fire.push({ x: x, y: y, until: 1e9, by: null }); }
     S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
@@ -4950,7 +4954,7 @@ function surround() {
   const key = S.w + 'x' + S.h + ':' + (B.name || '');
   if (UI.ring && UI.ringKey === key) return UI.ring;
   const names = Object.keys(G.blocks), kinds = (B.kinds || []).map(function (k) { return k.split('.')[0]; });
-  let pool = names.filter(function (n) { return kinds.indexOf(n.split('.')[0]) >= 0; }); if (!pool.length) pool = names;
+  let pool = names.filter(function (n) { return kinds.indexOf(n.split('.')[0]) >= 0 && n !== B.lm; }); if (!pool.length) pool = names;
   const nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt), R = SURROUND_BLOCKS, seed = (window.FIGHT_OPTS && window.FIGHT_OPTS.seed) || 1, out = [];
   const grid = !B.crop && B.blocks && B.blocks.length === ny && B.blocks[0].length === nx ? B.blocks : null;
   const refl = function (i, n) { let f = false; while (i < 0 || i >= n) { if (i < 0) i = -1 - i; else i = n + n - 1 - i; f = !f; } return { i: i, f: f }; };
@@ -4961,7 +4965,7 @@ function surround() {
     if (grid) {
       const rx = refl(bx, nx), ry = refl(by, ny), src = grid[ry.i][rx.i], k = blockBase(src).split('.')[0];
       if (k === 'shore') n = flipOf(src, (rx.f ? 'h' : '') + (ry.f ? 'v' : ''));
-      else { const same = names.filter(function (m) { return m.split('.')[0] === k && m !== blockBase(src); }); n = same.length ? same[Math.floor(h * same.length)] : blockBase(src); }
+      else { const same = names.filter(function (m) { return m.split('.')[0] === k && m !== blockBase(src) && m !== B.lm; }); n = same.length ? same[Math.floor(h * same.length)] : (blockBase(src) === B.lm ? names.filter(function (m) { return m.split('.')[0] === k && m !== B.lm; })[0] || blockBase(src) : blockBase(src)); }   /* a place's landmark stands once, between the lines (COMBAT MAPS 3) */
     }
     out.push({ bx: bx, by: by, n: n });
   }

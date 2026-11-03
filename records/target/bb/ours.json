@@ -1980,6 +1980,11 @@
       2,
       1,
       2
+     ],
+     [
+      3,
+      1,
+      3
      ]
     ],
     "pass.3": [
@@ -2002,6 +2007,117 @@
       4,
       1,
       2
+     ]
+    ],
+    "plaza.2": [
+     [
+      2,
+      1,
+      2
+     ],
+     [
+      2,
+      2,
+      2
+     ]
+    ],
+    "fremont.1": [
+     [
+      0,
+      0,
+      3
+     ],
+     [
+      1,
+      0,
+      3
+     ],
+     [
+      3,
+      0,
+      3
+     ],
+     [
+      4,
+      0,
+      3
+     ],
+     [
+      0,
+      4,
+      3
+     ],
+     [
+      2,
+      4,
+      3
+     ],
+     [
+      3,
+      4,
+      3
+     ]
+    ],
+    "fremont.2": [
+     [
+      0,
+      0,
+      3
+     ],
+     [
+      2,
+      0,
+      3
+     ],
+     [
+      3,
+      0,
+      3
+     ],
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      0,
+      2,
+      3
+     ],
+     [
+      2,
+      2,
+      3
+     ],
+     [
+      3,
+      2,
+      3
+     ],
+     [
+      4,
+      2,
+      3
+     ],
+     [
+      2,
+      3,
+      3
+     ],
+     [
+      0,
+      4,
+      3
+     ],
+     [
+      2,
+      4,
+      3
+     ],
+     [
+      4,
+      4,
+      3
      ]
     ]
    },
@@ -2831,11 +2947,11 @@
      "districts": [
       "trailer"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE ROWS: single-wides on their blocks end to end, one burnt to its frame, a carport roof between two of them",
      "things": "trailers on blocks, propane tanks, a carport, a clothesline, a swing set, mailboxes, the park office and its laundry",
      "twist": "A MAZE: lanes one man wide between trailers you cannot see through, so it is close, melee ground and chokepoints; the carport roof is the one height, and they are often already in among the rows",
-     "horror": "the swing on the A-frame hangs stopped at the top of its swing, nobody on it",
+     "horror": "the washing on the line is spotless white, pegged out fresh, the only clean thing in the park (COOK PROPS' wrong thing)",
      "landmark_block": "trailer.1",
      "field": [
       "trailer.2",
@@ -2864,11 +2980,11 @@
      "districts": [
       "desert"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE PYLON: a high-voltage lattice tower fallen across a dry wash, its lines on the ground, Joshua trees round it",
      "things": "Joshua trees, boulders, a dead car half buried, the fallen pylon and its draped lines, the dry wash",
      "twist": "THE LOW GROUND: open flat desert cut by a dry wash between the lines; the wash is soft sand (slow), its banks a step up, so whoever holds a bank shoots down on whoever crosses; their line starts far off on the open flat",
-     "horror": "one perfect bare circle of caliche on the flat, nothing growing in it, nothing on it",
+     "horror": "the half-buried car's headlights are on (COOK PROPS' wrong thing); one perfect bare circle of caliche on the flat",
      "landmark_block": "desert.1",
      "field": [
       "desert.3"
@@ -2901,11 +3017,11 @@
      "districts": [
       "springs"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE FIN AND THE SLOT: a sandstone fin split by a slot canyon one man wide, its flanks stepping up in ledges",
      "things": "the fin, ledges one, two and three storeys up, the slot canyon, slickrock terraces, boulders, a dead juniper",
      "twist": "REAL HEIGHT: ledges one, two and three storeys up (higher hits harder and sees farther, rule 321), a climb costs the turn's attack (rule 328), and the slot through the fin is one man wide",
-     "horror": "a line of red handprints climbs the fin far higher than a man can reach",
+     "horror": "on top of the highest ledge, where nobody could climb, a cairn of stones somebody stacked (COOK PROPS' wrong thing)",
      "landmark_block": "canyon.1",
      "field": [
       "canyon.2",
@@ -2934,11 +3050,11 @@
      "districts": [
       "mountain"
      ],
-     "built": false,
-     "landmark": "THE JACKKNIFE: a semi folded across the road under the cut, a rockfall closing the rest of it",
+     "built": true,
+     "landmark": "THE JACKKNIFE: a semi folded across the road under the cut, a rockfall heaped over the other lane (climb it for the shot)",
      "things": "the switchback road, the guard rail, a rockfall, a jackknifed truck, the cut face and its scree, the drop",
-     "twist": "A ROAD ON A SLOPE: the road is the only fast ground, the high side is slow scree and ledges, the low side the drop no man walks; the jackknife and the rockfall close the road to one lane",
-     "horror": "the jackknifed truck's hazards still blink, years on",
+     "twist": "A ROAD ON A SLOPE: the road is the only fast ground, the high side is slow scree and ledges, the low side the drop no man walks; the jackknife closes the road and the rockfall is a heap you climb to shoot down the grade",
+     "horror": "the jackknifed trailer is empty and white inside, spotless, in a valley of dust (COOK PROPS' wrong thing)",
      "landmark_block": "pass.1",
      "field": [
       "pass.2",
@@ -2971,11 +3087,11 @@
       "reservoir",
       "dam"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE INTAKE TOWER: the lake's concrete intake standing high and dry on the cracked bed, a dead dock beside it",
      "things": "the intake tower, dead docks standing on dry land, a boat on its side, the mud and the last of the water, the white bathtub ring",
      "twist": "THE MUD: the receded lake's mud and its last shallows are swamp (slow, and a man fights worse standing in it); the white bathtub ring is a step up onto the old shore, and the docks are decks to climb",
-     "horror": "a second bathtub ring runs far above the first, higher than the lake ever stood",
+     "horror": "a runabout's anchor line runs taut down into the dry mud (COOK PROPS' wrong thing); a second bathtub ring far above the first",
      "landmark_block": "lakebed.1",
      "field": [
       "lakebed.2"
@@ -3010,11 +3126,11 @@
       "wash",
       "basin"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE CULVERT: the concrete flood channel running under a road embankment through three box barrels",
      "things": "the concrete channel, its high banks, the culvert, shopping carts, a sofa in the silt, a camp's tarps and tents on the bank",
      "twist": "THE CHANNEL: a low concrete channel between two high banks runs between the lines; its silt floor is slow, the banks are height, and the culvert is the one way through under the road: one man wide, and cover inside it",
-     "horror": "a line of bare footprints walks into the culvert and none walks out",
+     "horror": "a floor lamp stands lit beside the sofa in the silt, plugged into nothing (COOK PROPS' wrong thing)",
      "landmark_block": "wash.2",
      "field": [
       "wash.4"
@@ -3048,9 +3164,31 @@
       "landfill"
      ],
      "built": false,
-     "landmark": "the methane flare",
-     "things": "trash mounds, a methane flare, a dead dozer",
-     "twist": "the mounds are height; the flare's ground burns",
+     "landmark": "THE FLARE: the landfill gas flare still burning on its pad among the trash mounds, a dozer stopped mid-push",
+     "things": "trash mounds, the gas flare and its burning ground, a dozer, the gas wells and their header pipe",
+     "twist": "HILLS AND FIRE: the trash mounds are height you climb for the shot, and the gas round the flare burns the ground from the first round (a man who ends his turn in it takes 15 to 30)",
+     "horror": "the flare is still burning, years after anyone paid for the gas (COOK PROPS' wrong thing)",
+     "landmark_block": "dump.1",
+     "field": [
+      "dump.2",
+      "landfill.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "camp": 1,
+      "wide": 1
+     },
      "gate_district": "landfill"
     },
     "suburb": {
@@ -3065,28 +3203,71 @@
       "library"
      ],
      "built": false,
-     "landmark": "the empty pool in a walled backyard",
-     "things": "cinder-block yard walls, empty pools, a cul-de-sac",
-     "twist": "walls you fight along and over; an empty pool is a pit; brown dead lawns",
+     "landmark": "THE BACKYARDS: the split-face block walls of a row of backyards, their kidney pools dug in and empty",
+     "things": "cinder-block yard walls, empty pools, a swing set, a trampoline frame, the ranch houses, dead brown lawns",
+     "twist": "WALLS AND PITS: the yard walls are cover you fight along and over, and an empty pool is a pit (slow to cross, nothing to hide behind in it); the houses are roofs",
+     "horror": "two fingers of perfectly clear water in the deep end of one empty pool (COOK PROPS' wrong thing)",
+     "landmark_block": "yards.1",
+     "field": [
+      "yards.2",
+      "subs.0",
+      "corner.0",
+      "culdesac.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "pincer": 1,
+      "camp": 1
+     },
      "gate_district": "suburb"
     },
     "strip": {
      "name": "THE STRIP",
      "districts": [
       "strip",
-      "casino",
-      "highroller",
-      "luxor",
-      "resort",
-      "convention",
       "sign",
       "sphere",
-      "strat"
+      "strat",
+      "convention"
      ],
      "built": false,
-     "landmark": "a fallen casino sign",
-     "things": "a dry fountain, a fallen casino sign, a pedestrian bridge",
-     "twist": "the bridge is height over the boulevard; the fountain's rim is cover",
+     "landmark": "THE FOUNTAIN: a casino plaza fountain gone dry, a giant arrow sign down on the plaza beside it, a limo at the valet",
+     "things": "the dry fountain, the fallen sign, the pedestrian bridge over the Boulevard, a stretch limo, marble planters",
+     "twist": "THE BRIDGE AND THE RIM: the pedestrian bridge is height two storeys over the Boulevard, the fountain's rim is cover in the middle of an open marble plaza, and the fallen sign is a wall",
+     "horror": "one bulb of the hundred on the fallen sign is still lit (COOK PROPS' wrong thing)",
+     "landmark_block": "plaza.1",
+     "field": [
+      "plaza.2",
+      "strip.0",
+      "strip.1"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "wide": 1,
+      "camp": 1
+     },
      "gate_district": "strip"
     },
     "downtown": {
@@ -3095,9 +3276,32 @@
       "downtown"
      ],
      "built": false,
-     "landmark": "the canopy over the street",
-     "things": "the canopy, the alleys",
-     "twist": "under the canopy no shot from a roof; alleys one or two wide",
+     "landmark": "UNDER THE CANOPY: a bay of the Fremont canopy over the street, the double-decker Deuce burnt out under it",
+     "things": "the canopy, the burnt Deuce, alley dumpsters, the brick hotel backs and their fire escapes",
+     "twist": "THE ALLEYS: alleys one man wide between three-storey brick backs whose fire escapes climb to the roofs; the street under the canopy is the one wide ground and the burnt bus closes half of it",
+     "horror": "one panel of the dead canopy screen is still showing a picture (COOK PROPS' wrong thing)",
+     "landmark_block": "fremont.1",
+     "field": [
+      "fremont.2",
+      "main.0",
+      "ruin.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "pincer": 1,
+      "camp": 1
+     },
      "gate_district": "downtown"
     },
     "works": {
@@ -3110,9 +3314,31 @@
       "storage"
      ],
      "built": false,
-     "landmark": "the gantry over the rail cars",
-     "things": "rail cars, a gantry, machines",
-     "twist": "the rail cars are a wall of cover; the gantry is height",
+     "landmark": "THE CARS AND THE GANTRY: a boxcar and a black tank car on the spur, a yard gantry crane with a car hanging from its hook",
+     "things": "a boxcar, a tank car, the gantry crane, a shop's machines dragged out, stacked pipe, the spur's ties and ballast",
+     "twist": "THE RAIL CARS: the cars on the spur are a wall across the yard with one crossing between them, and the stacked pipe and the gantry's legs are the cover either side of it",
+     "horror": "a car hangs from the gantry's hook over your heads (COOK PROPS' wrong thing)",
+     "landmark_block": "rail.1",
+     "field": [
+      "rail.2",
+      "works.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "camp": 1,
+      "pincer": 1
+     },
      "gate_district": "industrial"
     },
     "marina": {
@@ -3122,9 +3348,31 @@
       "intake"
      ],
      "built": false,
-     "landmark": "the boats sitting on the dry bed",
-     "things": "boats on the dry bed",
-     "twist": "the boats are cover on open mud",
+     "landmark": "THE HOUSEBOAT: a Lake Mead houseboat sat down on the dry bed on its pontoons, its top deck to climb",
+     "things": "the houseboat, cabin cruisers on their keels, bass boats on their trailers, the dry marina bed",
+     "twist": "BOATS ON OPEN MUD: the dry bed is open ground and the boats are the only cover on it; the houseboat's top deck is the one height",
+     "horror": "a fresh towel lies at the foot of the houseboat's slide (COOK PROPS' wrong thing)",
+     "landmark_block": "basin.1",
+     "field": [
+      "basin.2",
+      "marina.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "wide": 1,
+      "line": 1,
+      "camp": 1
+     },
      "gate_district": "water"
     }
    },

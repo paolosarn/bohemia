@@ -67,8 +67,25 @@ Analog horror, one wrong thing a place, nothing remarks on it: one pen's trough 
 packed and upright on the bare slab far from the wreck; the flag on the dead green stands straight out in a wind that moves
 nothing else.
 
+## PUSH 2: THE TRAILER PARK, THE DESERT, RED ROCK, THE PASS, THE SHORE, THE WASH (on COOK PROPS' models)
+COOK PROPS' .glb models (records/target/fight_props/manifest.json) are imported into the same render as the ground, each on the
+tiles its manifest names, turned in quarters, centred on its footprint (the pylon's origin is at its footings), and every tile
+map follows its model's own fight rule (their Joshua trees are decoration the fight walks past; their carport is no height; their
+fin and slot are walls; their rockfall is a heap you climb; their dock a deck). This lane adds only what their list lacks (the
+grounds, the trailer park's office, laundry, mailboxes, dumpsters and a car under a tarp, the desert's creosote and bank rocks,
+the pass's cut face and drop, the wash's levees and road fill, the shore's crusted ring and store).
+| place | landmark | the twist | starts |
+|---|---|---|---|
+| THE TRAILER PARK (trailer) | THE ROWS: single-wides end to end on their blocks, one burnt to its shell | a maze of one-wide lanes between trailers you cannot see through: close, melee ground and chokepoints | camp 2, pincer 1, line 1 |
+| THE DESERT (desert) | THE PYLON: a lattice tower fallen across a dry wash (six tiles: no step, the shot goes through) | open dark pavement cut by the wash between the lines: soft and slow, its banks a step up | wide 2, line 1, camp 1 |
+| RED ROCK (springs) | THE FIN AND THE SLOT: a sandstone fin split by a slot one man wide | ledges one, two and three storeys up (rule 321), the climb costs the attack (rule 328), the slot a one-wide lane | line 1, camp 1, pincer 1 |
+| THE PASS (mountain) | THE JACKKNIFE: a semi across the road, a rockfall heaped over the other lane | the road the only fast ground; slow scree and ledges above, the drop below no man walks (no step, the shot goes over) | pincer 2, line 1 |
+| THE SHORE (reservoir, dam) | THE INTAKE TOWER standing on the dry bed, a dock come to rest beside it | the mud is swamp (slow, you fight worse); one gravel bar through it and the bathtub ring's step onto the old shore | line 1, camp 1, wide 1 |
+| THE WASH (wash, basin) | THE CULVERT: a twin box culvert under a road embankment | a low concrete channel between two high banks runs between the lines; its silt is slow, the banks are height, the culvert the one covered way through | line 1, pincer 1, camp 1 |
+The wrong thing in each is COOK PROPS' own (the spotless washing; the buried car's headlights on; the cairn where nobody could
+climb; the empty spotless trailer; the anchor line taut into dry mud; the floor lamp lit, plugged into nothing).
+
 ## WHAT IS LEFT
-- PUSH 2: the trailer park, the desert, Red Rock, the pass, the shore, the wash (rendering behind push 1).
 - PUSH 3: the landfill, the suburbs, the Strip, downtown, the works, the marina.
 - The fight's futures pictures (raided, reclaimed) are not read by the fight: none were made for the new blocks.
 

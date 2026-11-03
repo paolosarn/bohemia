@@ -29,7 +29,7 @@ const G = require('../tools/bohemia_tuning_the_whole_grid.js');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const OUT = arg('--json', null), BEFORE = process.argv.includes('--before');
 const K = 10, FLOOR = 0.6, GREEN_MAX = 0.01;
-const OWED = ['trailer', 'desert', 'redrock', 'pass', 'shore', 'wash', 'landfill', 'suburb', 'strip', 'downtown', 'works', 'marina'];
+const OWED = ['landfill', 'suburb', 'strip', 'downtown', 'works', 'marina'];
 const FIFTEEN = ['lab', 'airport', 'golf', 'trailer', 'desert', 'redrock', 'pass', 'shore', 'wash', 'landfill', 'suburb', 'strip', 'downtown', 'works', 'marina'];
 const FEATS = ['open', 'cover', 'blocked', 'fence', 'height', 'slow', 'choke'];
 
@@ -145,7 +145,8 @@ function greenShare(files) {
     if (M[id].some(r => !r.landmarkBetween)) fails.push(id + ': its landmark did not stand between the two lines in every fight');
     if ((MEAN[id].modes.line || 0) > 0.6) fails.push(id + ': ' + Math.round(MEAN[id].modes.line * 100) + '% of its fights start as the two plain lines (never always the lines at the edges)');
     if (MEAN[id].landmark < 0.3) fails.push(id + ': no landmark in the middle (its biggest group of things there is ' + Math.round(MEAN[id].landmark * 12) + ' cells)');
-    const strangers = MEAN[id].blocks.filter(b => b.split('.')[0] !== lm.split('.')[0]);
+    const own = new Set([lm].concat(places[id].field || [], [].concat(...Object.values(places[id].cols || {})), [].concat(...Object.values(places[id].rows || {}))));
+    const strangers = MEAN[id].blocks.filter(b => !own.has(b));
     if (strangers.length) fails.push(id + ' deals another place\'s blocks: ' + strangers.join(', '));
   });
   ['suburb', 'golf'].forEach(id => greenOf(id).forEach(g => { if (g.share > GREEN_MAX) fails.push(id + ': ' + g.file + ' is ' + (g.share * 100).toFixed(1) + '% green'); }));

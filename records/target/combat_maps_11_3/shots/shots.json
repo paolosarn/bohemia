@@ -91,5 +91,191 @@
   ],
   "start": "pincer",
   "own": "golf"
+ },
+ "trailer": {
+  "place": "trailer",
+  "district": "trailer",
+  "seed": 6,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/trailer_after.png",
+  "play": "records/target/combat_maps_11_3/shots/trailer_play.png",
+  "bar": "trailer",
+  "blocks": [
+   [
+    "trailer.2",
+    "trailer.0|h",
+    "trailer.2",
+    "trailer.0|h"
+   ],
+   [
+    "trailer.0",
+    "trailer.1",
+    "trailer.0",
+    "trailer.2|h"
+   ],
+   [
+    "trailer.2|h",
+    "trailer.0",
+    "trailer.2|h",
+    "trailer.0"
+   ]
+  ],
+  "start": "camp",
+  "own": "trailer"
+ },
+ "desert": {
+  "place": "desert",
+  "district": "desert",
+  "seed": 6,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/desert_after.png",
+  "play": "records/target/combat_maps_11_3/shots/desert_play.png",
+  "bar": "desert",
+  "blocks": [
+   [
+    "desert.3",
+    "desert.2|h",
+    "desert.3",
+    "desert.3|h"
+   ],
+   [
+    "desert.3",
+    "desert.1",
+    "desert.3",
+    "desert.3|h"
+   ],
+   [
+    "desert.3|h",
+    "desert.2",
+    "desert.3|h",
+    "desert.3"
+   ]
+  ],
+  "start": "wide",
+  "own": "desert"
+ },
+ "redrock": {
+  "place": "redrock",
+  "district": "springs",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/redrock_after.png",
+  "play": "records/target/combat_maps_11_3/shots/redrock_play.png",
+  "bar": "canyon",
+  "blocks": [
+   [
+    "canyon.0|h",
+    "canyon.2",
+    "canyon.0|h",
+    "canyon.2"
+   ],
+   [
+    "canyon.2|h",
+    "canyon.1",
+    "canyon.2|h",
+    "canyon.0"
+   ],
+   [
+    "canyon.0|h",
+    "canyon.2",
+    "canyon.0|h",
+    "canyon.2|h"
+   ]
+  ],
+  "start": "camp",
+  "own": "redrock"
+ },
+ "pass": {
+  "place": "pass",
+  "district": "mountain",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/pass_after.png",
+  "play": "records/target/combat_maps_11_3/shots/pass_play.png",
+  "bar": "pass",
+  "blocks": [
+   [
+    "pass.3|h",
+    "pass.3",
+    "pass.3|h",
+    "pass.3"
+   ],
+   [
+    "pass.2|h",
+    "pass.0|h",
+    "pass.2",
+    "pass.0|h"
+   ],
+   [
+    "pass.0",
+    "pass.1",
+    "pass.0|h",
+    "pass.2|h"
+   ]
+  ],
+  "start": "pincer",
+  "own": "pass"
+ },
+ "shore": {
+  "place": "shore",
+  "district": "reservoir",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/shore_after.png",
+  "play": "records/target/combat_maps_11_3/shots/shore_play.png",
+  "bar": "lakebed",
+  "blocks": [
+   [
+    "lakebed.2|h",
+    "lakebed.2",
+    "lakebed.2|h",
+    "lakebed.2"
+   ],
+   [
+    "lakebed.2|h",
+    "lakebed.1",
+    "lakebed.2|h",
+    "lakebed.2"
+   ],
+   [
+    "lakebed.3|h",
+    "lakebed.3",
+    "lakebed.3|h",
+    "lakebed.3|h"
+   ]
+  ],
+  "start": "camp",
+  "own": "shore"
+ },
+ "wash": {
+  "place": "wash",
+  "district": "wash",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/wash_after.png",
+  "play": "records/target/combat_maps_11_3/shots/wash_play.png",
+  "bar": "wash",
+  "blocks": [
+   [
+    "wash.4|h",
+    "wash.3",
+    "wash.4|h",
+    "wash.4"
+   ],
+   [
+    "wash.4|h",
+    "wash.2",
+    "wash.4|h",
+    "wash.4"
+   ],
+   [
+    "wash.4|h",
+    "wash.3",
+    "wash.4|h",
+    "wash.4|h"
+   ]
+  ],
+  "start": "pincer",
+  "own": "wash"
  }
 }
