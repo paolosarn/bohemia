@@ -28,6 +28,13 @@
      D1  THE LEVELS ARE SMALL STEPS (rule 380): no level's crew is more than closeness_bands.steps.count_step from its neighbour and SEEN IT
          is the math (1); no level's aim is more than steps.aim_step from its neighbour; no easier level is harder than the next on crews, aim,
          how soon the late men come (job_bb.dress_ahead) or the tier's days (enemy_tiers.difficulty_days)
+     W1  EVERY ARMOUR ROW HAS A CLASS (rule 377(a)(b)): ours.armour_weight classes the man (body and helmet added) and row_below one piece;
+         every body and head row of armor.json resolves to light, medium, heavy or heaviest; two pieces of a class make a man of it; light
+         and medium walk free, heavy costs a little under a flat tile, the heaviest one flat tile less; at least 4 in 5 of Battle Brothers'
+         own named labels (bb_named, the wiki's Named Armors and Named Helmets) land one step up in our four
+     W2  WEIGHT IS NOT QUALITY (rule 377(d)): a light endgame piece of each slot (endgame_light: a champion's drop, never the shelf, no more
+         protection than its named medium's lowest roll) beats more than half the heavy rows of its slot by durability, and a body and a
+         helmet of them make a light man
      B4  nothing threw
    node gates/the_fight_is_close_gate.js             FIGHT_CLOSE_N=<fights a cell> (20: the bank's own seeds, so the live fight must reproduce the committed after bank)
    ========================================================================== */
@@ -155,6 +162,48 @@ const say = p => 'won ' + p.won + ', struck ' + p.struck + ' a fight, nobody und
     }
     ok('D1 THE LEVELS ARE SMALL STEPS: crews within ' + ST.count_step + ' of each other (SEEN IT the math), aim within ' + ST.aim_step + ' points, no easier level harder on any lever',
       d1.length === 0, d1.length ? d1.join('; ') : 'crews ' + cm.join(' / ') + ', aim ' + aim.join(' / ') + ', late men pace ' + pace.join(' / ') + ', tier days ' + tdays.join(' / '));
+
+    /* W1 / W2: heavy armour costs a tile (rule 377), TUNING's half: ours.armour_weight */
+    {
+      const AW = OURS.armour_weight || {}, V = AW.value || {}, C = V.classes || [], RB = V.row_below || {}, flat = RULES.ap.move_cost.flat.value, per = RULES.ap.per_turn.value;
+      const ids = C.map(c => c.id), cls = (w, list) => { for (const c of list) if (typeof c.below !== 'number' || w < c.below) return c.id; return null; };
+      const w1 = [], count = { body: {}, head: {} };
+      ['body', 'head'].forEach(s => {
+        const L = RB[s] || [];
+        if (L.map(c => c.id).join() !== ids.join()) { w1.push(s + ' row lines ' + L.map(c => c.id).join('/')); return; }
+        A[s].forEach(r => { const k = (r.fatigue === null || r.fatigue === undefined) ? cls(0, L) : typeof r.fatigue === 'number' ? cls(-r.fatigue, L) : null;
+          if (!k) w1.push(s + ':' + r.id + ' has no class'); else count[s][k] = (count[s][k] || 0) + 1; });
+      });
+      for (let i = 0; i + 1 < C.length && RB.body && RB.head; i++) {
+        const b = RB.body[i].below, h = RB.head[i].below, m = C[i].below;
+        if (!(b + h <= m + 1 && b + h >= m)) w1.push('a ' + C[i].id + ' body and helmet do not make a ' + C[i].id + ' man (' + b + ' + ' + h + ' against ' + m + ')');
+      }
+      const wa = id => (C.filter(c => c.id === id)[0] || {}).walk_ap;
+      if (wa('light') !== 0 || wa('medium') !== 0) w1.push('light or medium costs walking');
+      if (!(wa('heavy') > 0 && wa('heavy') < flat)) w1.push('heavy is not a little under a tile (' + wa('heavy') + ' of ' + flat + ')');
+      if (Math.floor((per - wa('heaviest')) / flat) !== Math.floor(per / flat) - 1) w1.push('the heaviest is not one flat tile less');
+      const step = { Light: 'medium', Medium: 'heavy', Heavy: 'heaviest' }, NB = V.bb_named || [];
+      const up = NB.filter(n => cls(n.weight, RB[n.slot] || []) === step[n.label]).length;
+      if (NB.length < 20 || up < 0.8 * NB.length) w1.push('Battle Brothers\' own labels one step up in ours: ' + up + ' of ' + NB.length + ' (4 in 5 asked)');
+      ok('W1 EVERY ARMOUR ROW HAS A CLASS (rule 377(a)(b)): every body and head row is light, medium, heavy or heaviest by its weight; two pieces of a class make a man of it; light and medium walk free, heavy a little under a tile, the heaviest one flat tile less; Battle Brothers\' named labels land one step up',
+        w1.length === 0 && AW.tuned === true && !!(AW.source && AW.quote && AW.why), w1.length ? w1.slice(0, 5).join('; ') :
+          'body ' + ids.map(k => k + ' ' + (count.body[k] || 0)).join(', ') + '; head ' + ids.map(k => k + ' ' + (count.head[k] || 0)).join(', ') + '; walk ' + C.map(c => c.walk_ap).join('/') + '; Battle Brothers one up ' + up + ' of ' + NB.length);
+      /* W2: weight is not quality, measured against the shelf as it stands now */
+      const EP = ((V.endgame_light || {}).pieces) || [], w2 = [], said = [];
+      ['body', 'head'].forEach(s => {
+        const heavy = A[s].filter(r => cls(-(r.fatigue || 0), RB[s] || []) === 'heavy');
+        const best = EP.filter(p => p.slot === s && cls(-(p.fatigue || 0), RB[s] || []) === 'light' && p.drop === 'champion' && p.shelf === false).map(p => ({ p, beats: heavy.filter(r => r.durability < p.durability).length }))
+          .sort((a, b) => b.beats - a.beats)[0];
+        if (!best || best.beats * 2 <= heavy.length) w2.push(s + ': no light endgame piece beats most heavy (' + (best ? best.p.id + ' ' + best.beats + ' of ' + heavy.length : 'none') + ')');
+        else said.push(best.p.name + ' (' + s + ', weighs ' + -best.p.fatigue + ', holds ' + best.p.durability + ') beats ' + best.beats + ' of ' + heavy.length + ' heavy');
+      });
+      EP.forEach(p => { const n = NB.filter(x => x.slot === p.slot && x.label === 'Medium' && p.from && p.from.protection && p.from.protection.indexOf(x.name) === 0)[0];
+        if (!n || p.durability > n.durability[0]) w2.push(p.id + ' holds more than its named medium\'s lowest roll'); if (A[p.slot].some(r => r.id === p.id)) w2.push(p.id + ' is on the shelf'); });
+      const kitW = (EP.filter(p => p.slot === 'body')[0] || {}).fatigue + (EP.filter(p => p.slot === 'head')[0] || {}).fatigue;
+      if (!(cls(-kitW, C) === 'light')) w2.push('an endgame body and helmet together are not a light man (' + -kitW + ')');
+      ok('W2 WEIGHT IS NOT QUALITY (rule 377(d)): a light endgame piece of each slot (a champion\'s drop, never the shelf, Battle Brothers\' named medium protection at its named light weight) beats most heavy rows of its slot, and a body and helmet of them make a light man',
+        w2.length === 0, w2.length ? w2.slice(0, 4).join('; ') : said.join('; ') + '; the kit weighs ' + -kitW);
+    }
 
     /* B3 first (static): the before bank fails, the after bank holds */
     const before = J('banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_BEFORE_11_3_26.json'), after = J('banks/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_AFTER_11_3_26.json');

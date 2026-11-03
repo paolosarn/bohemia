@@ -42,6 +42,12 @@ const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(k);
 
 const LEVELS = [{ id: 'new', dif: 0 }, { id: 'seen', dif: 1 }, { id: 'out', dif: 2 }];
 const CLOSE = argv.indexOf('--close') >= 0, OWN_KIT = argv.indexOf('--own-kit') >= 0;
+/* TUNING 2 rule 377(d): --walk-free plays the fight as it was before heavy armour cost walking (every class's walk_ap 0, in this
+   memory copy only), so the closeness of the cap is measured against the same fights without it */
+const WALK_FREE = argv.indexOf('--walk-free') >= 0;
+/* TUNING 2 rule 377(d): --kit <stage> dresses every man of the close companies in the whole grid's <stage> body and helmet (endgame: a coat of
+   scales and a full helm, 58, the heaviest), so the heaviest's walk is measured on whole companies */
+const KIT = arg('--kit', null);
 const DAYS = (arg('--days', '') || (CLOSE ? '1,5,10,20,40' : '1,3,5,7,10,13,16,20,25,30')).split(',').map(Number);
 const FACTIONS = (arg('--factions', '') || 'brigands,machines,brigands,kids,heavies').split(',');
 /* rule 370(9) (Paolo 11/3: 'these big ass animals better fuck you up if they get close to you for real'): --factions bulls,bears,sloths,camels,lions
@@ -142,6 +148,7 @@ async function boot() {
   if (CTX) return;
   G = require('./bohemia_tuning_the_whole_grid.js');
   CTX = await G.engine(true);
+  if (WALK_FREE) CTX.DB.ours.armour_weight.value.classes.forEach(c => { c.walk_ap = 0; });
   const vm = require('vm');
   const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Promise, setTimeout: () => 0,
     localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
@@ -204,6 +211,7 @@ function closeCompanyFor(key, d, seed) {
       const job = J('records/target/bb/ours.json').crew.value[(i + door.length) % 12].jobs.filter(j => j !== 'car_door')[0];
       m.level = C.hireLevel(d); m.stats = hireStats(m.background, job, m.level, mulberry(seed + 211 * (i + 1))); men.push(m); });
   }
+  if (KIT) men.forEach(m => { const g = G.GEAR[KIT]; m.gear = Object.assign({}, m.gear || {}, { body: g.body, head: g.head }); });
   return men;
 }
 function one(key, lvl, d, skulls, k, PM) {
@@ -304,7 +312,7 @@ function summarise(rows) {
   }
   const n = +arg('--n', 24), tag = arg('--tag', 'now'), outf = arg('--out', null), m = Math.max(1, Math.min(4, os.cpus().length));
   const parts = await Promise.all(Array.from({ length: m }, (_, i) => new Promise((res, rej) => {
-    const p = cp.spawn(process.execPath, [__filename, '--shard', i + '/' + m, String(n)].concat(argv.indexOf('--try') >= 0 ? ['--try', arg('--try')] : []).concat(argv.indexOf('--days') >= 0 ? ['--days', arg('--days')] : []).concat(CLOSE ? ['--close'] : []).concat(OWN_KIT ? ['--own-kit'] : []).concat(argv.indexOf('--factions') >= 0 ? ['--factions', arg('--factions')] : []).concat(argv.indexOf('--companies') >= 0 ? ['--companies', arg('--companies')] : []), { stdio: ['ignore', 'pipe', 'inherit'] });
+    const p = cp.spawn(process.execPath, [__filename, '--shard', i + '/' + m, String(n)].concat(argv.indexOf('--try') >= 0 ? ['--try', arg('--try')] : []).concat(argv.indexOf('--days') >= 0 ? ['--days', arg('--days')] : []).concat(CLOSE ? ['--close'] : []).concat(OWN_KIT ? ['--own-kit'] : []).concat(WALK_FREE ? ['--walk-free'] : []).concat(KIT ? ['--kit', KIT] : []).concat(argv.indexOf('--factions') >= 0 ? ['--factions', arg('--factions')] : []).concat(argv.indexOf('--companies') >= 0 ? ['--companies', arg('--companies')] : []), { stdio: ['ignore', 'pipe', 'inherit'] });
     let s = ''; p.stdout.on('data', b => { s += b; }); p.on('close', c => c ? rej(new Error('shard ' + i + ' exit ' + c)) : res(JSON.parse(s)));
   })));
   const rows = [].concat.apply([], parts);
