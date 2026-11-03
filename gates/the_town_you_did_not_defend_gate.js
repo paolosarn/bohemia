@@ -50,18 +50,18 @@ function words() {
       if (/!/.test(ln.say)) probs.push(t + ' ' + (i + 1) + ' has an exclamation mark');
       if (/[\u2013\u2014]/.test(ln.say)) probs.push(t + ' ' + (i + 1) + ' has a dash');
       if (SPANISH.some(w => low.indexOf(' ' + w + ' ') >= 0)) probs.push(t + ' ' + (i + 1) + ' is Spanglish');
-      if (L.skeleton[i].src === 'PHONE' && !/^\[|^END OF TRANSMISSION/.test(ln.say)) probs.push(t + ' ' + (i + 1) + ': the phone speaks only in brackets');
+      if (L.skeleton[i].src === 'PHONE' && ln.say.split(/\s+/).length > 9) probs.push(t + ' ' + (i + 1) + ': the channel\'s relay posts short (rule 372)');
     });
-    if (!/^END OF TRANSMISSION/.test(T.lines[n - 1].say)) probs.push(t + ': the last line is not the end of transmission');
+    if (!/channel 4 has gone quiet/.test(T.lines[n - 1].say)) probs.push(t + ': the last line does not say the channel has gone quiet');
   });
-  leg(probs.length === 0 && towns.length >= 4, 'A1 EVERY LINE OF EVERY TOWN IS WHOLE ON THE PHONE, DRAFT, CALM, NO SPANGLISH (rules 350, 355; R3, R4)',
+  leg(probs.length === 0 && towns.length >= 4, 'A1 EVERY LINE OF EVERY TOWN IS WHOLE ON THE PHONE, DRAFT, CALM, NO SPANGLISH; THE RELAY SHORT AND ENDING ON THE QUIET CHANNEL (rules 350, 355, 372)',
     probs.length ? probs.slice(0, 4).join('; ') : towns.length + ' towns x ' + n + ' lines, longest ' + Math.max(...towns.flatMap(t => L.towns[t].lines.map((_, i) => shown(t, i).length))) + ' of ' + L.max_chars);
   const hs = ['@ch4_volunte', '@volunte_clinic', '@church_tower', '@church_nurse', '@mob_doc'];
   leg(hs.every(h => h.length <= L.handle_max) && L.handles && L.handles.GATE, 'A2 THE HANDLES FIT (16): @<town>_<who> and the channel\'s relay (rule 371(a))', hs.join(' '));
   /* R6: the gate calls the roof, twice, and the phone says nobody answered */
-  const sk = L.skeleton, calls = sk.map((s, i) => [s, i]).filter(([s, i]) => s.src === 'GATE' && /four-one/i.test(L.towns._plain.lines[i].say));
+  const sk = L.skeleton, calls = sk.map((s, i) => [s, i]).filter(([s, i]) => s.src === 'GATE' && /\broof\b/i.test(L.towns._plain.lines[i].say) && /answer me/i.test(L.towns._plain.lines[i].say));
   const after = calls.length ? sk[calls[calls.length - 1][1] + 1] : null;
-  const noReply = after && after.src === 'PHONE' && /no reply/.test(L.towns._plain.lines[sk.indexOf(after)].say);
+  const noReply = after && after.src === 'PHONE' && /isn't answering/.test(L.towns._plain.lines[sk.indexOf(after)].say);
   leg(calls.length >= 2 && noReply, 'A3 ONE CALL IS REPEATED AND NEVER ANSWERED (R6)', calls.length + ' calls, then ' + (after ? L.towns._plain.lines[sk.indexOf(after)].say : 'nothing'));
   leg((L.when.never_before_s | 0) >= 60 && L.draft === true, 'A4 NEVER IN THE FIRST MINUTE, AND THE FILE IS DRAFT (353e)', 'never_before_s ' + L.when.never_before_s);
   /* the strip keeps a post 1.2 s + 0.25 s a word in whole beats (UI 4, rule 329): each line gets that before the next */
@@ -165,7 +165,7 @@ async function card() {
     await p.click('text=MOB'); await p.waitForTimeout(16000);
     const st = await p.evaluate(() => ({ c: window.__RADIO_CARD, rows: [...document.querySelectorAll('#log div')].map(d => d.textContent), strip: document.getElementById('strip').innerText }));
     const due = L.skeleton.filter(s => 0.15 + s.at <= 15.6).length;
-    leg(st.c && st.c.town === 'Mob' && st.rows.length >= due - 1 && st.rows.length <= due + 1 && /Headlights off/.test(st.rows[0] || '') && /Somebody paid/.test(st.rows.join(' ')) && /CH 4 MOB/.test(st.strip) && errs.length === 0,
+    leg(st.c && st.c.town === 'Mob' && st.rows.length >= due - 1 && st.rows.length <= due + 1 && /headlights off/i.test(st.rows[0] || '') && /somebody paid/i.test(st.rows.join(' ')) && /CH 4 MOB/.test(st.strip) && errs.length === 0,
       'D2 THE CARD PLAYS ONE TOWN FALLING: THE GAME\'S RECORDING AND ITS LINES IN ORDER, ON THE PHONE', st.rows.length + ' lines by 16 s (due ' + due + '), errors ' + errs.length + (errs[0] ? ': ' + errs[0] : ''));
   } finally { await b.close(); srv.close(); }
 }

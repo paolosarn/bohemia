@@ -1387,8 +1387,7 @@
      "draft": true
     },
     {
-     "en": "no {enemy} on {place} now. the {company} saw to it. same number out and back.",
-     "es": "no {enemy} on {place} now. the {company} saw to it. los conté, same number back.",
+     "en": "no {enemy} on {place} now. the {company} cleared them out. nobody lost.",
      "tags": [
       "saw",
       "ah"
@@ -1404,7 +1403,7 @@
      "draft": true
     },
     {
-     "en": "{enemy} lost at {place}, the {company} won. the dogs bark again.",
+     "en": "the {company} beat {enemy} at {place}. quiet out there now.",
      "tags": [
       "heard",
       "ah"
@@ -1724,7 +1723,7 @@
      "draft": true
     },
     {
-     "en": "{man}. That's all. {place}.",
+     "en": "{man} died at {place}. That's all we can say tonight.",
      "draft": true
     }
    ]
@@ -1915,8 +1914,7 @@
      "draft": true
     },
     {
-     "en": "pray for the {company}. {place} took everything they had but their names.",
-     "es": "pray for the {company}. {place} took todo they had but their names.",
+     "en": "pray for the {company}. they lost everything at {place}. guns, trucks, all of it.",
      "draft": true
     },
     {
@@ -1924,7 +1922,7 @@
      "draft": true
     },
     {
-     "en": "the {company}'s captain walked into {town} alone from {place}. clinic. not a word.",
+     "en": "the {company}'s captain walked into {town} alone from {place}. didn't say a word.",
      "tags": [
       "saw",
       "ah"
@@ -2268,7 +2266,7 @@
      "draft": true
     },
     {
-     "en": "{faction} closed {road} at {place}. a handwritten sign, spelled right. scarier.",
+     "en": "{faction} closed {road} at {place}. guy with a rifle on a car. turn around.",
      "tags": [
       "saw",
       "ah"
@@ -2397,7 +2395,7 @@
      "draft": true
     },
     {
-     "en": "a line of {faction} crossing {place} at sundown. i counted them twice and got two numbers.",
+     "en": "a line of {faction} crossing {place} at sundown. thirty, maybe more. in a hurry.",
      "tags": [
       "saw",
       "ah"
@@ -2451,7 +2449,7 @@
      "draft": true
     },
     {
-     "en": "{enemy} and {faction} at {place}. the scanner's men all saying three words.",
+     "en": "{enemy} and {faction} fighting at {place}. the scanner's going crazy. stay in.",
      "tags": [
       "ah"
      ],
@@ -2646,7 +2644,7 @@
      "draft": true
     },
     {
-     "en": "saw one of the lab animals at {place}. like the pictures at Tule Springs, but breathing.",
+     "en": "saw one of the lab animals at {place}. big as a truck. it looked right at me and kept walking.",
      "tags": [
       "saw",
       "ah"
@@ -2871,7 +2869,7 @@
      "draft": true
     },
     {
-     "en": "storm over the mountains. no rain, just the light. stay off metal roofs.",
+     "en": "storm over the mountains. lightning but no rain. stay off metal roofs.",
      "es": "storm over the mountains. no lluvia, just the light. stay off metal roofs.",
      "tags": [
       "ah"
@@ -2978,16 +2976,14 @@
    },
    "words": [
     {
-     "en": "no lights anywhere from the ridge. just the stars, and they do not help.",
-     "es": "no lights anywhere from the ridge. nomás las estrellas, and they do not help.",
+     "en": "went up the ridge tonight. not one light anywhere in the valley. first time i've seen that.",
      "tags": [
       "ah"
      ],
      "draft": true
     },
     {
-     "en": "counting lights from the ridge again. {count} tonight.",
-     "es": "counting lights from the ridge again. {count} esta noche.",
+     "en": "counted the lights in the valley from the ridge again tonight. {count}.",
      "draft": true
     },
     {
@@ -3058,7 +3054,7 @@
      "draft": true
     },
     {
-     "en": "{road}: two vehicles across both lanes. {faction}, or a breakdown. nothing on the air.",
+     "en": "{road}: two vehicles are blocking both lanes. {faction}, or a breakdown. stay off it.",
      "draft": true
     },
     {
@@ -3097,8 +3093,7 @@
    },
    "words": [
     {
-     "en": "quiet day. nobody has anything to say and that is its own news.",
-     "es": "quiet day. nadie has anything to say and that is its own news.",
+     "en": "quiet day. nobody's posting anything. honestly, good.",
      "draft": true
     },
     {
@@ -3719,8 +3714,7 @@
    },
    "words": [
     {
-     "en": "They are not hungry. They are only unfinished. Please don't shoot at them. They remember it.",
-     "es": "They are not hungry, vecino. Only unfinished. Please don't shoot at them. Se acuerdan.",
+     "en": "My machines are not dangerous. They're just not finished yet. Please don't shoot at them.",
      "tags": [
       "ah"
      ],
@@ -3741,14 +3735,14 @@
      "draft": true
     },
     {
-     "en": "The landfill is not empty. It is waiting. Stay out, for your sake and for theirs.",
+     "en": "Stay out of the landfill. My machines work there at night and they don't see well.",
      "tags": [
       "ah"
      ],
      "draft": true
     },
     {
-     "en": "Some of them still say the last thing they heard before the money stopped. Don't answer them.",
+     "en": "Some of my machines still repeat the last ad they heard before the crash. Don't talk back to them.",
      "tags": [
       "ah"
      ],
@@ -3785,7 +3779,7 @@
      "draft": true
     },
     {
-     "en": "Mine walked through {town} last night. They took nothing. They were looking for a face they knew.",
+     "en": "My machines walked through {town} last night. Took nothing. They still walk their old routes.",
      "tags": [
       "ah"
      ],
@@ -3796,7 +3790,7 @@
      "draft": true
     },
     {
-     "en": "To {enemy}: you can't kill what was never finished.",
+     "en": "To {enemy}: break them and I'll fix them. I have more parts than you have bullets.",
      "draft": true
     },
     {
@@ -4320,7 +4314,7 @@
      "draft": true
     },
     {
-     "en": "Members: payouts in cells at the cage after noon. Everybody else: the door.",
+     "en": "Members get paid in cells at the cage after noon. Everybody else, the door is that way.",
      "draft": true
     },
     {
@@ -4331,7 +4325,7 @@
      "draft": true
     },
     {
-     "en": "The floor always wins. We keep the floor.",
+     "en": "The casino always wins. We run the casino now.",
      "draft": true
     }
    ]
@@ -4417,7 +4411,7 @@
      "draft": true
     },
     {
-     "en": "A strange car on the block gets one knock. Then two men.",
+     "en": "Park a car on our block without asking and we will knock on it. Then we tow it.",
      "draft": true
     },
     {
@@ -4783,7 +4777,7 @@
      "draft": true
     },
     {
-     "en": "a description please, not just 'not from here'.",
+     "en": "can we get a description please, not just 'not from here'.",
      "draft": true
     },
     {
@@ -4879,15 +4873,14 @@
      "draft": true
     },
     {
-     "en": "i went to the stop. i waited the minutes. nothing came.",
+     "en": "i actually went to the stop and waited the minutes it said. nothing came.",
      "tags": [
       "ah"
      ],
      "draft": true
     },
     {
-     "en": "don't reply to it. it doesn't know.",
-     "es": "no le contestes, mija. it doesn't know.",
+     "en": "don't reply to it, it's a bot. the guy who ran it is dead.",
      "tags": [
       "ah"
      ],
@@ -5087,7 +5080,7 @@
      "draft": true
     },
     {
-     "en": "{faction} came back for what they left. that's how sure they are.",
+     "en": "{faction} came back the next day for what they couldn't carry. they're not even scared of us.",
      "tags": [
       "ah"
      ],

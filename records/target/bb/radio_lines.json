@@ -181,67 +181,67 @@
       "labels": {},
       "lines": [
         {
-          "say": "Gate to all posts. Lights on the east road. Eight, maybe nine. Walking, not driving.",
+          "say": "lights on the east road. eight or nine people walking toward the gate. everybody get inside.",
           "draft": true
         },
         {
-          "say": "Roof copies. I count nine. Long guns. Nobody's carrying a flag.",
+          "say": "on the roof. i count nine. long guns. no flag on any of them.",
           "draft": true
         },
         {
-          "say": "Copy nine. Bar the gate. Kids inside. Clinic, you hear me?",
+          "say": "nine. we're barring the gate. kids inside now. clinic, are you seeing this",
           "draft": true
         },
         {
-          "say": "Clinic hears you. Four beds full. I have tape and one battery for the lamp.",
+          "say": "clinic here. all four beds full. i have tape and one battery for the lamp.",
           "draft": true
         },
         {
-          "say": "They stopped at the wire. One of them is talking. He wants whoever is in charge.",
+          "say": "they stopped at the fence. one of them is yelling for whoever's in charge.",
           "draft": true
         },
         {
-          "say": "Tell him {town} is held. Tell him the company is on the way.",
+          "say": "tell him {town} is held and the company is on the way.",
           "draft": true
         },
         {
-          "say": "He says nobody is on the way.",
+          "say": "he says nobody is on the way.",
           "draft": true
         },
         {
-          "say": "[unintelligible] the ladder. They're on the ladder. [two shots, far]",
+          "say": "they're coming up the ladder. i heard two shots.",
           "draft": true
         },
         {
-          "say": "Roof. Roof, talk to me. Four-one, roof.",
+          "say": "roof, answer me. roof.",
           "draft": true
         },
         {
-          "say": "Four-one, roof. Come back.",
+          "say": "roof. answer me. please.",
           "draft": true
         },
         {
-          "say": "[no reply]",
+          "say": "the roof isn't answering.",
           "draft": true
         },
         {
-          "say": "Gate, clinic. They're at the door. We're opening it. Kids in here. Okay. We're opening it.",
+          "say": "they're at the clinic door. we're opening it. the kids are in here with us.",
           "draft": true
         },
         {
-          "say": "Copy, clinic. Keep them in the back. I'm going down there.",
+          "say": "keep the kids in the back. i'm coming down.",
           "draft": true
         },
         {
-          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "say": "the gate's mic is stuck on. breathing, a fire close by, a siren far off. nobody is talking.",
           "draft": true
         },
         {
-          "say": "[carrier lost]",
+          "say": "lost the signal.",
           "draft": true
         },
         {
-          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "say": "{town} channel 4 has gone quiet. nobody is answering.",
           "draft": true
         }
       ]
@@ -254,67 +254,67 @@
       },
       "lines": [
         {
-          "say": "Gate to all posts, peace be with you. Lights on the east road. Eight, maybe nine. On foot.",
+          "say": "lights on the east road. eight or nine people on foot. peace be with you all, get inside.",
           "draft": true
         },
         {
-          "say": "Tower copies. I count nine. Long guns. No flag. I'm praying they keep walking.",
+          "say": "from the bell tower: nine of them. long guns, no flag. praying they keep walking.",
           "draft": true
         },
         {
-          "say": "Copy nine. Bar the doors. Children to the crypt. Infirmary, you hear me?",
+          "say": "nine. bar the doors. children down to the crypt. infirmary, are you seeing this",
           "draft": true
         },
         {
-          "say": "Infirmary hears you. Four cots full. Sister has the candles. One battery for the lamp.",
+          "say": "infirmary here. four cots full. sister has candles. one battery for the lamp.",
           "draft": true
         },
         {
-          "say": "They stopped at the wire. One is calling out. He wants whoever keeps this house.",
+          "say": "they stopped at the fence. one is calling for whoever runs this church.",
           "draft": true
         },
         {
-          "say": "Tell him {town} is held. Tell him the company is coming, God willing.",
+          "say": "tell him {town} is held. the company is coming, god willing.",
           "draft": true
         },
         {
-          "say": "He says nobody is coming. He said it kindly.",
+          "say": "he says nobody is coming. he said it kindly.",
           "draft": true
         },
         {
-          "say": "[unintelligible] the tower stairs. They're on the stairs. [two shots, far]",
+          "say": "they're on the tower stairs. two shots.",
           "draft": true
         },
         {
-          "say": "Tower. Tower, talk to me. Four-one, tower.",
+          "say": "tower, answer me. tower.",
           "draft": true
         },
         {
-          "say": "Four-one, tower. Come back. Please.",
+          "say": "tower. please answer.",
           "draft": true
         },
         {
-          "say": "[no reply]",
+          "say": "the tower isn't answering.",
           "draft": true
         },
         {
-          "say": "Gate, infirmary. They're at the door. The children are with us. Hail Mary. We're opening it.",
+          "say": "they're at the infirmary door. the children are with us. hail mary. we're opening it.",
           "draft": true
         },
         {
-          "say": "Copy, infirmary. Keep them behind the altar rail. I'm going down there.",
+          "say": "keep them behind the altar rail. i'm coming down.",
           "draft": true
         },
         {
-          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "say": "the gate's mic is stuck on. breathing, a fire close by, a siren far off. nobody is talking.",
           "draft": true
         },
         {
-          "say": "[carrier lost]",
+          "say": "lost the signal.",
           "draft": true
         },
         {
-          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "say": "{town} channel 4 has gone quiet. nobody is answering.",
           "draft": true
         }
       ]
@@ -326,67 +326,67 @@
       },
       "lines": [
         {
-          "say": "Gate to all posts. Headlights off on the east road. Eight, nine guys. Walking.",
+          "say": "headlights off on the east road. eight, nine guys walking up.",
           "draft": true
         },
         {
-          "say": "Roof copies. Nine. Long guns, good ones. Somebody paid for those.",
+          "say": "roof. nine of them. long guns, good ones. somebody paid for those.",
           "draft": true
         },
         {
-          "say": "Copy nine. Doors one through four shut. Lock the count room. Doc, you hear me?",
+          "say": "doors one through four shut. lock the count room. doc, you seeing this",
           "draft": true
         },
         {
-          "say": "Doc hears you. Four beds full, two of them ours. I got tape and one battery.",
+          "say": "doc here. four beds full, two of them ours. i got tape and one battery.",
           "draft": true
         },
         {
-          "say": "They stopped at the wire. One's talking. He wants whoever runs the place.",
+          "say": "they stopped at the fence. one wants to talk to whoever runs the place.",
           "draft": true
         },
         {
-          "say": "Tell him {town} is held. Tell him we pay. Ask him the number.",
+          "say": "tell him {town} is held. tell him we pay. ask him how much.",
           "draft": true
         },
         {
-          "say": "He says there's no number.",
+          "say": "he says it's not about money.",
           "draft": true
         },
         {
-          "say": "[unintelligible] the fire stairs. They're on the stairs. [two shots, far]",
+          "say": "they're on the fire stairs. two shots.",
           "draft": true
         },
         {
-          "say": "Roof. Roof, pick up. Four-one, roof.",
+          "say": "roof, pick up. roof.",
           "draft": true
         },
         {
-          "say": "Four-one, roof. Come on. Come back.",
+          "say": "roof. come on. pick up.",
           "draft": true
         },
         {
-          "say": "[no reply]",
+          "say": "the roof isn't answering.",
           "draft": true
         },
         {
-          "say": "Gate, doc. They're at the door. I'm opening it. Kids in here, the cook's kids. Okay. Okay. I'm opening it.",
+          "say": "they're at my door. i'm opening it. the cook's kids are in here with me. okay. opening it.",
           "draft": true
         },
         {
-          "say": "Copy, doc. Keep the kids in the back. I'm coming down with the cash.",
+          "say": "keep the kids in the back. i'm coming down with the cash.",
           "draft": true
         },
         {
-          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "say": "the gate's mic is stuck on. breathing, a fire close by, a siren far off. nobody is talking.",
           "draft": true
         },
         {
-          "say": "[carrier lost]",
+          "say": "lost the signal.",
           "draft": true
         },
         {
-          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "say": "{town} channel 4 has gone quiet. nobody is answering.",
           "draft": true
         }
       ]
@@ -396,67 +396,67 @@
       "labels": {},
       "lines": [
         {
-          "say": "Gate to all posts, comrades. Lights on the east road. Eight, maybe nine. On foot.",
+          "say": "lights on the east road, comrades. eight or nine coming on foot. everybody up.",
           "draft": true
         },
         {
-          "say": "Roof copies. Nine. Long guns. No colours. All hands to the wall?",
+          "say": "roof. nine of them. long guns, no colors. all hands to the wall?",
           "draft": true
         },
         {
-          "say": "Copy nine. All hands to the gate. Children to the hall. Clinic, you hear me?",
+          "say": "nine. all hands to the gate. children to the hall. clinic, are you seeing this",
           "draft": true
         },
         {
-          "say": "Clinic hears you. Four beds full. Tape, no thread. One battery for the lamp. We share it.",
+          "say": "clinic here. four beds full. tape, no thread. one battery for the lamp, we share it.",
           "draft": true
         },
         {
-          "say": "They stopped at the wire. One is talking. He wants the committee.",
+          "say": "they stopped at the fence. one is asking for the committee.",
           "draft": true
         },
         {
-          "say": "Tell him {town} is held, the company is coming, and we are all the committee.",
+          "say": "tell him {town} is held, the company is coming, and we are all the committee.",
           "draft": true
         },
         {
-          "say": "He says there's no committee coming.",
+          "say": "he says no committee is coming.",
           "draft": true
         },
         {
-          "say": "[unintelligible] the ladder. They're on the ladder. [two shots, far]",
+          "say": "they're on the ladder. two shots.",
           "draft": true
         },
         {
-          "say": "Roof. Roof, comrade, talk to me. Four-one, roof.",
+          "say": "roof, comrade, answer me. roof.",
           "draft": true
         },
         {
-          "say": "Four-one, roof. Come back.",
+          "say": "roof. answer me.",
           "draft": true
         },
         {
-          "say": "[no reply]",
+          "say": "the roof isn't answering.",
           "draft": true
         },
         {
-          "say": "Gate, clinic. They're at the door. The little ones are here. Hands up, everybody. We're opening it.",
+          "say": "they're at the clinic door. the little ones are here. hands up, everybody. we're opening it.",
           "draft": true
         },
         {
-          "say": "Copy, clinic. Hands up, slow. Keep the little ones behind you. I'm going down.",
+          "say": "hands up, slow. keep the little ones behind you. i'm coming down.",
           "draft": true
         },
         {
-          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "say": "the gate's mic is stuck on. breathing, a fire close by, a siren far off. nobody is talking.",
           "draft": true
         },
         {
-          "say": "[carrier lost]",
+          "say": "lost the signal.",
           "draft": true
         },
         {
-          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "say": "{town} channel 4 has gone quiet. nobody is answering.",
           "draft": true
         }
       ]

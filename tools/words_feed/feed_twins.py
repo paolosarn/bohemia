@@ -73,7 +73,7 @@ TWINS = {
         "giving away dos car doors off the van. good for a fence or a shield.",
     "lost: grey cat, one eye, named Monday. if you see her, she's fine, she just likes you better.":
         "lost: grey cat, one eye, se llama Monday. si la ven, she's fine, she just likes you better.",
-    "storm over the mountains. no rain, just the light. stay off metal roofs.":
+    "storm over the mountains. lightning but no rain. stay off metal roofs.":
         "storm over the mountains. no lluvia, just the light. stay off metal roofs.",
     "the line at the {town} pump goes around the block. two hours if you're lucky. bring water to wait for water.":
         "the line at the {town} pump goes around the block. dos horas si you're lucky. bring water to wait for water.",

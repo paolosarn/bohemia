@@ -10482,6 +10482,12 @@ GATES = [
      "any is up and an important one its read time, its fit and scroll untouched; the scanner draws nothing itself; every radio asset kept, "
      "every big kind its slice where it says. LIVE on the demo: a newer ordinary post shows when nothing plays, and never while the Church "
      "falls (48 samples). About 3 min", True),
+    ('A TWEET SOUNDS LIKE A HUMAN', ['node', 'gates/a_tweet_sounds_like_a_human_gate.js'],
+     "WORDS 2 gate, 11/3, rule 372 (ask line 398; PAOLO 11/3 on the world feed: 'you kinda suck at sounding like a human tweeting... a lot of "
+     "it is kinda like what the fuck does that even mean'). Reads every line the phone's feed can post (the valley's kinds, replies and "
+     "follow-ups, the world feed and its replies, a falling town's 64 lines): no cryptic tell (a thing doing a person's thing, a formula nobody "
+     "types, two fragments mirrored, a paradox for its own sake, the turn-around, radio jargon, a transcript in a post), every post a person "
+     "writes has a verb (a question, a short reply and the bots exempt), no em dash, no old name. Plants for every tell. Node only, seconds", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
