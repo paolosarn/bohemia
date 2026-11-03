@@ -387,4 +387,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 363 | Change the difficulty any time, three difficulties; the curve better than Battle Brothers' (hardest early game not hell even for a Lone Wolf; day 20 with ten good men is not the ceiling) | 351(c)(d) | DIFFICULTY session_01GKDyutpwcv9PzqapTwa4Pq | RUNNING (11/3) |
 | 364 | AUTO better, still one button; gambits too much | 351(e) | COMBAT 7 session_01GKDyuuNDooEjTDprXTHNiT | RUNNING (11/3); gambits PARKED |
 | 365 | The kill cams from the first combat module, in this fight, on the beat, never costing frames | 351(f) | COMBAT 7 (item 4) | RUNNING (11/3) |
-| 366 | The feed talks a lot about the rest of the world, international vibes like Twitter, so a glance teaches the world he built | 352 | WORDS (THE WORLD FEED) | RUNNING (11/3) |
+| 366 | The feed talks a lot about the rest of the world, international vibes like Twitter, so a glance teaches the world he built | 352 | WORDS (THE WORLD FEED) session_01GKDyuwRofRh6Gz9p9rotEj | RUNNING (11/3) |
