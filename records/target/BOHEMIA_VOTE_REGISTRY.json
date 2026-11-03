@@ -17462,7 +17462,47 @@
     "scale": "his phone, 390 x 844 upright and 844 x 390 on its side, by day, the game's own camera"
    }
   },
-{"id": "ui-the-camera-feeds-11-3", "kind": "redo", "redoOf": "ui-the-loading-screen-three-feeds-11-3", "lane": "ui", "sha": "pending", "made": "11/3", "draft": true, "title": "THE CAMERA FEEDS: ALL TEN, TALL AND WIDE, FULL SCREEN", "said": "Why not all 3? The view of the city could be better... Why don't we just have as much of these as possible to really build that lore ambience? (11/2, your star) ... two versions one vertical one horizontal... new game and continue... not super loud (11/3)", "why": "You starred the camera feeds, so now they are all in the game: the three you saw, the city one re-shot close with the Strip dark and one block lit, and new places of the valley (the dam, the lab pens, the airport, the landfill flare, a market, a pylon in the desert, the Strip fountain), each tall and wide with its own quiet sound. You see it here, every feed moving (tap one to hear it), and on the demo's start screen, which now shows only BOHEMIA, the line under it, NEW GAME and CONTINUE, a different camera every time you open it.", "options": ["Keep them all rolling (in the game now)", "Fewer: only the ones I star", "More places like these"], "show": {"how": "page", "src": "BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.html"}}
+{"id": "ui-the-camera-feeds-11-3", "kind": "redo", "redoOf": "ui-the-loading-screen-three-feeds-11-3", "lane": "ui", "sha": "pending", "made": "11/3", "draft": true, "title": "THE CAMERA FEEDS: ALL TEN, TALL AND WIDE, FULL SCREEN", "said": "Why not all 3? The view of the city could be better... Why don't we just have as much of these as possible to really build that lore ambience? (11/2, your star) ... two versions one vertical one horizontal... new game and continue... not super loud (11/3)", "why": "You starred the camera feeds, so now they are all in the game: the three you saw, the city one re-shot close with the Strip dark and one block lit, and new places of the valley (the dam, the lab pens, the airport, the landfill flare, a market, a pylon in the desert, the Strip fountain), each tall and wide with its own quiet sound. You see it here, every feed moving (tap one to hear it), and on the demo's start screen, which now shows only BOHEMIA, the line under it, NEW GAME and CONTINUE, a different camera every time you open it.", "options": ["Keep them all rolling (in the game now)", "Fewer: only the ones I star", "More places like these"], "show": {"how": "page", "src": "BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.html"}},
+  {
+   "id": "cook-the-six-guns-11-3",
+   "kind": "animation",
+   "lane": "cook",
+   "sha": "41ee0572",
+   "made": "11/3",
+   "title": "THE SIX GUNS: ZIP GUN, SNUB, LEVER RIFLE, SCOPED DEER RIFLE, SAWED-OFF, PUMP, EACH ITS OWN 3D MODEL IN HIS HANDS",
+   "said": "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing",
+   "why": "These six were drawn in his hands as the plain pistol, rifle and shotgun; now each is its own model made the clay way, held in all eight facings and fired on the beat, by him and by the man across from him. Old one left, new one right. Same in every fight and on the shop shelf.",
+   "options": [
+    "A, yes, these are the guns",
+    "B, close, push the look further",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook_six_guns/sheet.webp",
+    "first": "../records/target/cook_six_guns/first.webp",
+    "firstAt": [
+     289,
+     24,
+     277,
+     228
+    ]
+   },
+   "twin": {
+    "src": "slices/fight_rig/you_guns.webp",
+    "diffs": [
+     "METHOD: the twin is the sheet the fight drew these from until now (the class pistol, rifle and shotgun on every key of YOU); mine is each gun's own glb through the same master rig, the same body, camera and sun, in all four of a gun's pictures.",
+     "SIZE: true size at the rig's 57 px a metre, one ruler with the man: the snub is 0.14 m against the class pistol's 0.23, the sawed-off 0.46 m against the class shotgun's 0.65, the scoped rifle carries 40 mm of glass on top.",
+     "LOOK: COOK's five gun materials, every one a palette step; the zip gun is raw pine and galvanised pipe, the snub blued with a black rubber grip, the sawed-off's cut ends filed bright."
+    ]
+   },
+   "before_after": {
+    "before": "each gun drawn as its class model in his hand (the pistol, the rifle, the shotgun)",
+    "after": "each its own glb through the master rig, in YOU's hands on every key; every man holds those pictures at his own hands",
+    "scale": "his phone, 390 x 844 at 3x, the fight zoomed on the man"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {
