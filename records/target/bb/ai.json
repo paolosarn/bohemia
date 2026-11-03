@@ -95,6 +95,24 @@
    "value": "line",
    "source": "bb_all/1504_Orc Young.txt",
    "quote": "Orc Young (the young of the orcs' line: Charge, the Orc Hand-to-Hand Attack)"
+  },
+  "brigand_leader_champion": {
+   "value": "leader",
+   "source": "bb_all/0291_Brigand Leader (Champion).txt; bb_all/0363_Champions.txt",
+   "quote": "Champions are stronger versions of enemies that always have a named item",
+   "why": "DIFFICULTY [the curve] 11/3: a champion fights as the kind he is a stronger version of (the brigand leader's brain)"
+  },
+  "goblin_skirmisher_champion": {
+   "value": "kid",
+   "source": "bb_all/0873_Goblin Skirmisher (Champion).txt; bb_all/0363_Champions.txt",
+   "quote": "Champions are stronger versions of enemies that always have a named item",
+   "why": "DIFFICULTY [the curve] 11/3: a champion fights as the kind he is a stronger version of (the skirmisher's brain, KID)"
+  },
+  "orc_warrior_champion": {
+   "value": "heavy",
+   "source": "bb_all/1502_Orc Warrior (Champion).txt; bb_all/0363_Champions.txt",
+   "quote": "Champions are stronger versions of enemies that always have a named item",
+   "why": "DIFFICULTY [the curve] 11/3: a champion fights as the kind he is a stronger version of (the orc warrior's brain, HEAVY)"
   }
  },
  "archetypes": {

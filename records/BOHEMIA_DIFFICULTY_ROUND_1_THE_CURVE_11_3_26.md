@@ -152,3 +152,62 @@ ours dresses a strong company by its strength, sooner on a harder level, so the 
   https://www.nexusmods.com/battlebrothers/mods/587/?tab=posts (Max Brothers Scale)
 - XCOM 2: https://forums.nexusmods.com/topic/3797990-alertlevel-and-forcelevel ; Darkest Dungeon: https://darkestdungeon.wiki.gg/wiki/Resolve ;
   Into the Breach: https://steamcommunity.com/app/590380/discussions/0/1697167168520657423
+
+## 8. ROUND 2, BUILT AND MEASURED AGAIN (the same tool, the same seeds, the data files as shipped; banks/BOHEMIA_DIFFICULTY_THE_CURVE_AFTER_11_3_26.json)
+THE SMALL CHARTS (won in 100 on the day's hardest job, days 1 3 5 7 10 13 16 20 25 30, low bar = lost often); the VOTE card draws them as
+lines: records/target/difficulty_curve_11_3/card.webp (page slices/BOHEMIA_DIFFICULTY_THE_CURVE_11_3_26.html).
+```
+NEW HERE
+  LONE WOLF  before ██▆███████   now ██▆██████▇
+  FULL CREW  before ██████████   now ██████▇██▆
+SEEN IT
+  LONE WOLF  before █▇▅▇██████   now █▇▅▇██▆█▆▇
+  FULL CREW  before ███████▇██   now █████▇▇▆▆▆
+OUTLIVED IT
+  LONE WOLF  before ▇▆▂▅▄▇▇▇██   now █▇▄▆▇▇▆▅▆▇
+  FULL CREW  before ██▇▆▅▇▇▇██   now ████▄▇▇▅▅▅
+```
+
+LONE WOLF (the day's hardest job: won in 100 BEFORE -> NOW; men struck down a fight NOW)
+| level | day 1 | day 3 | day 5 | day 7 | day 10 | day 13 | day 16 | day 20 | day 25 | day 30 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| NEW HERE | 100 -> **100** (0) | 100 -> **100** (0) | 70 -> **70** (0.3) | 100 -> **100** (0.15) | 100 -> **100** (0) | 100 -> **100** (0) | 100 -> **100** (0.35) | 100 -> **100** (0.3) | 100 -> **95** (1.05) | 100 -> **90** (2.4) |
+| SEEN IT | 100 -> **100** (0) | 90 -> **90** (0.1) | 55 -> **55** (0.45) | 80 -> **80** (0.65) | 95 -> **95** (0.4) | 100 -> **100** (0) | 100 -> **75** (1.85) | 100 -> **95** (1.05) | 100 -> **70** (3.1) | 100 -> **85** (1.95) |
+| OUTLIVED IT | 85 -> **95** (0.05) | 75 -> **85** (0.15) | 20 -> **45** (0.55) | 50 -> **75** (0.7) | 45 -> **85** (0.6) | 80 -> **80** (0.85) | 80 -> **70** (2.05) | 90 -> **55** (4.35) | 100 -> **65** (3.8) | 100 -> **80** (2.75) |
+| champions a fight NOW (OUTLIVED IT) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.5 | 0.4 | 0.4 |
+
+FULL CREW (the day's hardest job: won in 100 BEFORE -> NOW; men struck down a fight NOW)
+| level | day 1 | day 3 | day 5 | day 7 | day 10 | day 13 | day 16 | day 20 | day 25 | day 30 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| NEW HERE | 100 -> **100** (0.05) | 100 -> **100** (0) | 100 -> **100** (0.25) | 100 -> **100** (0.35) | 100 -> **100** (0.35) | 100 -> **95** (1.45) | 100 -> **85** (2) | 100 -> **95** (1.4) | 100 -> **95** (0.85) | 100 -> **75** (2.9) |
+| SEEN IT | 100 -> **100** (0.05) | 100 -> **100** (0.25) | 95 -> **95** (0.65) | 100 -> **100** (0.5) | 95 -> **95** (1.65) | 100 -> **90** (1.95) | 100 -> **80** (2.9) | 90 -> **75** (3.1) | 100 -> **70** (4) | 100 -> **70** (3.6) |
+| OUTLIVED IT | 95 -> **100** (0.15) | 100 -> **100** (0.35) | 85 -> **95** (1.55) | 75 -> **100** (1.2) | 50 -> **45** (6) | 90 -> **85** (3.3) | 90 -> **85** (3) | 90 -> **50** (5.25) | 100 -> **60** (4.1) | 100 -> **60** (3.95) |
+| champions a fight NOW (OUTLIVED IT) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.65 | 0.7 | 0.4 |
+
+TWO SKULLS (the routine job) NOW, days 10/20/30: wolf NEW HERE: 100/100/90; wolf SEEN IT: 100/100/75; wolf OUTLIVED IT: 95/70/85; crew NEW HERE: 100/100/95; crew SEEN IT: 100/90/75; crew OUTLIVED IT: 70/60/65
+
+STASH NOW (before) day 30: wolf|new 2050 (2099), wolf|seen 1750 (2024), wolf|out 1428 (1618), crew|new 1634 (1805), crew|seen 1378 (1745), crew|out 1072 (1506)
+
+WHAT IT SAYS IN PLAIN WORDS
+- OUTLIVED IT, THE LONE WOLF: day 5 went from 20 to 45 in 100, days 7 and 10 from 50 and 45 to 75 and 85: hard, never hell. Day 20 to 30 went
+  from 90 to 100 down to 55 to 80, with three to four men struck down a fight and a champion in about every other fight: the ceiling is gone.
+- SEEN IT: the same slope at a softer height, 90 to 100 at day 10, sliding to about 70 by day 25 (the 70 line he asked for, 'slightly harder').
+- NEW HERE: still a walk to day 20 (the honest line: at day 20 on the easiest level he still wins everything; the switch is his answer the
+  moment he is bored), then the threat arrives around day 25 to 30: 90 and 75 by day 30 with two to three men struck down.
+- THE WEAK SPOT, SAID: the Block Watch's twelve farmhands in rags on OUTLIVED IT, taking a three-skull job on day 10: 45 in 100 (it was 50).
+  Twelve men count as a strong roster before they are good men (the militia under-count Battle Brothers' own players name). Their two-skull job
+  that day is 70.
+- MONEY: day-30 stashes fall 2 to 29 percent with the harder fights (wolf 2,099 to 2,050 on NEW HERE; crew 1,506 to 1,072 on OUTLIVED IT);
+  never a squeeze (ECONOMY's).
+- TWO NUMBERS MOVED AFTER THE FIRST MEASURE, BY A GATE (most_jobs_fit_the_company_gate, rule 192's 'overpowered enemies in 75% of the
+  quests'): the middle-game leader first came with every crew of four or more AND as an ordinary pick, and WORLD's typical day-20 company (six at
+  level 3 in its starting kit) won its two-skull job 30 to 40 in 100. Now leader_from_count 4 -> 8 and the leader's weight 0: he comes only as
+  the one leader of a crew of eight or more, which only a big company draws. Side by side on the gate's own fight: main's numbers 50 and 30 in
+  100 (two and three skulls), ours 65 and 30; the gate's board leg (M2) is green with ours. Its day-90 cell (two skulls, 55 in 100) is the same
+  55 on main's numbers, champions or none: not this lane's (FOR WORLD). The tables above are measured with the numbers as shipped.
+- NOT MEASURED: a phone's frames (no new count: the most a job sends stays 13, so the board holds no more men than before; champions are rows
+  the fight already draws); beasts; the roaming parties (they read the same levels' tier days, so OUTLIVED IT's road is gentler on day one too).
+
+THE SWITCH, CHECKED ON THE REAL PAGE (the alpha at phone size): the settings card shows FIGHTS with NEW HERE, SEEN IT, OUTLIVED IT; a tap on
+OUTLIVED IT lights it, saves it where the door keeps its pick, the fight's hand-over reads level 2, the line under it reads 'FROM THE NEXT
+FIGHT'; opened from the start screen the row is hidden (rule 348); no page error.

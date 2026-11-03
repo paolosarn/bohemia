@@ -113,15 +113,25 @@
      288,
      90
     ]
-   ]
+   ],
+   "dress_ahead": {
+    "from_day": 7,
+    "mult": [
+     2.5,
+     3,
+     4
+    ]
+   }
   },
   "source": "reference/library/grok/GROK_ASK_105_KEYBOARD_CONTRACTS_SCALING_2026_10_24.md (Grok, unverified, PASSED FILTER 10/25; the wiki's Game Mechanics page agrees on the inputs): k, exp, mult_min, mult_max are Battle Brothers'; base_men and dress are OURS (WORLD [most jobs fit the company], rule 192, 10/25), calibrated on the live fight by tools/bohemia_world_most_jobs_fit.js",
   "quote": "The final multiplier is 94 percent times (1 percent times roster strength) raised to the power of 0.89. The multiplier cannot be lower than 0.75 or higher than 5. / Non-contract locations and most roaming parties scale mainly with days and distance to civilization.",
   "ours": [
    "base_men",
-   "dress"
+   "dress",
+   "dress_ahead"
   ],
-  "why": "Rule 192 (Paolo 10/25: 'why is the game so in love with throwing overpowered enemies in like 75% of the quests I take... look how Battle Brothers does it'). MEASURED on the live fight before: a job's count grew one for one with his men and their levels (job.strength_per_enemy) AND its enemies were dressed by the calendar day, so a day-20 company of six at level 3 met 7 to 11 men dressed for day 20: a one-skull job won 33 in 100, three skulls 13, an enemy OUTCLASSED him in 97 to 100 fights. Battle Brothers scales a contract by the company's strength alone, bent down (^0.89) and floored (0.75), and only roaming parties by the days. NOW a job's count is base_men[skulls] x that multiplier x the difficulty, and it is DRESSED for the day a typical company stands that strong (dress: [strength, day], the company of tools/bohemia_world_most_jobs_fit.js: day 1 a new crew of three, day 20 six at level 3, day 50 nine at 5, day 90 twelve at 8). Calibrated (30 fights a cell): one skull won 90 to 100 at every point, two 70 to 80, three 50 to 80 (a real risk, the stars say so); a crew of three at day 6 and 30: 97, 67 to 73, 30 to 37. AMENDED 10/26 (EYES round three: the Block Watch's twelve at level 1 met an LV 8 Marauder with 386 armour on days one and two): the dress day is never later than the calendar's day (BOHEMIA_CITY_WORLD.html __NO_CHAMPION_ON_DAY_ONE__): Battle Brothers grows a contract's count with the company and its kinds with the days, so a strong crew early meets more men of the early kinds."
+  "why": "Rule 192 (Paolo 10/25: 'why is the game so in love with throwing overpowered enemies in like 75% of the quests I take... look how Battle Brothers does it'). MEASURED on the live fight before: a job's count grew one for one with his men and their levels (job.strength_per_enemy) AND its enemies were dressed by the calendar day, so a day-20 company of six at level 3 met 7 to 11 men dressed for day 20: a one-skull job won 33 in 100, three skulls 13, an enemy OUTCLASSED him in 97 to 100 fights. Battle Brothers scales a contract by the company's strength alone, bent down (^0.89) and floored (0.75), and only roaming parties by the days. NOW a job's count is base_men[skulls] x that multiplier x the difficulty, and it is DRESSED for the day a typical company stands that strong (dress: [strength, day], the company of tools/bohemia_world_most_jobs_fit.js: day 1 a new crew of three, day 20 six at level 3, day 50 nine at 5, day 90 twelve at 8). Calibrated (30 fights a cell): one skull won 90 to 100 at every point, two 70 to 80, three 50 to 80 (a real risk, the stars say so); a crew of three at day 6 and 30: 97, 67 to 73, 30 to 37. AMENDED 10/26 (EYES round three: the Block Watch's twelve at level 1 met an LV 8 Marauder with 386 armour on days one and two): the dress day is never later than the calendar's day (BOHEMIA_CITY_WORLD.html __NO_CHAMPION_ON_DAY_ONE__): Battle Brothers grows a contract's count with the company and its kinds with the days, so a strong crew early meets more men of the early kinds.",
+  "dress_ahead_why": "DIFFICULTY [the curve] 11/3 (rule 351(d), ask line 363; Paolo 11/3: 'day 20 with like 10 super soldiers... I reached the ceiling'). MEASURED before (tools/bohemia_difficulty_the_curve.js, banks/BOHEMIA_DIFFICULTY_THE_CURVE_BEFORE_11_3_26.json): the dress never ran past the calendar, so a company standing at day-57 strength on day 20 met day-20 men, and every level won the day's hardest job 90 to 100 in 100 from day 13 to day 30. NOW, after the first week (from_day, rule 120(a)'s thugs first), each day counts mult days by level (NEW HERE 2.5, SEEN IT 3, OUTLIVED IT 4), never past the day the company's own strength stands for (dress): a weak company still meets the easy dress, a strong one meets the late kinds about day 29, 25 and 19. OURS (draft), calibrated on the live fight; the direction is Battle Brothers' ('harder enemy groups appear sooner' on a higher combat difficulty, bb_all/0828:16; a contract 'closely matched to the player's party', :109)."
  },
  "roaming": {
   "value": {
@@ -135,5 +145,44 @@
   "ours": true,
   "source": "ours (draft): roaming parties 'scale mostly with distance to civilization and time... also slightly with player strength, but less so than contracts' (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:107); two on day one at a town's edge (rule 75b), about lots by day 100",
   "quote": "Difficulty of non-contract locations and roaming parties scales mostly with distance to civilization and time. Roaming parties also scale slightly with player strength, but less so than contracts"
+ },
+ "difficulty_levels": {
+  "ours": true,
+  "value": [
+   {
+    "id": "new",
+    "name": "NEW HERE",
+    "say": "Fewer of them. Your shots land more, theirs less. Harder men come slowly, around day 30.",
+    "changes": [
+     "crews 15% smaller",
+     "your hit chance +5, theirs -5",
+     "harder men and champions around day 30, if you are strong"
+    ]
+   },
+   {
+    "id": "seen",
+    "name": "SEEN IT",
+    "say": "Crews as they come. Your aim still helped. Harder men from around day 25.",
+    "changes": [
+     "crews as the math sends them",
+     "your hit chance +5, theirs -5",
+     "harder men and champions around day 25, if you are strong"
+    ]
+   },
+   {
+    "id": "out",
+    "name": "OUTLIVED IT",
+    "say": "Battle Brothers' own aim. Bigger crews, tougher from day one. Champions from around day 20.",
+    "changes": [
+     "crews 15% bigger",
+     "Battle Brothers' own hit chances",
+     "a step tougher from day one; champions around day 20, if you are strong"
+    ]
+   }
+  ],
+  "draft": true,
+  "source": "VAMILY.md rule 351(c) (Paolo 11/3, LOCKED); records/BOHEMIA_PAOLO_THE_CEILING_AT_DAY_20_11_3_26.md; the names are the door's own (slices/BOHEMIA_ALPHA_0_9.html BOH_START COMBAT, draft)",
+  "quote": "I want to be able to change the difficulty right now and I should be able to do that so yeah three difficulties",
+  "why": "The three levels the in-game settings card shows (slices/bohemia_difficulty.js, the FIGHTS row), changed any time, from the next fight; the id is the door's fights pick (difficulty_by_pick). What each level DOES is the numbers: difficulty_count_mult, job_bb.dress_ahead.mult here, ours.json hit_roll_shift and enemy_tiers.difficulty_days. The say lines are draft:true, his to change; every claim in them is a number in these rows."
  }
 }

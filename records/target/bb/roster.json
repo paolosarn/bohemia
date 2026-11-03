@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 140,
-  "types_in_the_fight": 27,
+  "types": 147,
+  "types_in_the_fight": 38,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -61,6 +61,7 @@
     "zweihander"
    ],
    "in_the_fight": [
+    "dogs",
     "house"
    ],
    "draft": true
@@ -106,6 +107,7 @@
     "warhound"
    ],
    "in_the_fight": [
+    "dogs",
     "keepers"
    ],
    "draft": true
@@ -302,10 +304,15 @@
     "armored_frost_unhold",
     "armored_unhold",
     "bog_unhold",
+    "camelops",
+    "coyote",
     "direwolf",
+    "feral_bull",
+    "feral_hog",
     "frenzied_direwolf",
     "frenzied_hyena",
     "frost_unhold",
+    "ground_sloth",
     "hexe",
     "hyena",
     "ifrit_large",
@@ -316,12 +323,14 @@
     "kraken_tentacle_enraged",
     "lindwurm",
     "lindwurm_tail",
+    "mountain_lion",
     "nachzehrer_large",
     "nachzehrer_medium",
     "nachzehrer_small",
     "sapling",
     "schrat",
     "serpent",
+    "short_faced_bear",
     "the_ijirok",
     "unhold",
     "wardog",
@@ -330,7 +339,17 @@
     "wolf"
    ],
    "in_the_fight": [
-    "beasts"
+    "bears",
+    "beasts",
+    "bulls",
+    "camels",
+    "coyotes",
+    "dogs",
+    "hogs",
+    "hyenas",
+    "lions",
+    "sloths",
+    "wolves"
    ],
    "draft": true
   },
@@ -761,7 +780,9 @@
     1,
     1
    ],
-   "fielded": [],
+   "fielded": [
+    "dogs"
+   ],
    "champion": false,
    "boss": false,
    "page": "bb_all/1430_Noble Houses.txt#Squads"
@@ -1167,6 +1188,27 @@
    "page": "bb_all/0298_Brigand Thug.txt"
   },
   {
+   "type": "camelops",
+   "bb_name": "Camelops",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "camelops"
+   ],
+   "name": "CAMEL",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "camels"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
    "type": "caravan_guard",
    "bb_name": "Caravan Guard",
    "bb_faction": "civilians",
@@ -1262,6 +1304,27 @@
    "page": "bb_all/0440_Conscript with Polearm.txt"
   },
   {
+   "type": "coyote",
+   "bb_name": "Coyote",
+   "bb_faction": "animals",
+   "family": "beasts",
+   "rows": [
+    "coyote"
+   ],
+   "name": "COYOTE",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "coyotes"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2230_Wolf.txt"
+  },
+  {
    "type": "cultist",
    "bb_name": "Cultist",
    "bb_faction": "cultists",
@@ -1315,7 +1378,8 @@
     1
    ],
    "fielded": [
-    "beasts"
+    "beasts",
+    "wolves"
    ],
    "champion": false,
    "boss": false,
@@ -1456,6 +1520,48 @@
    "page": "bb_all/0746_Fault Finder.txt"
   },
   {
+   "type": "feral_bull",
+   "bb_name": "Feral Bull",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "feral_bull"
+   ],
+   "name": "BULL",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "bulls"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
+   "type": "feral_hog",
+   "bb_name": "Feral Hog",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "feral_hog"
+   ],
+   "name": "HOG",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "hogs"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1054_Hyena.txt"
+  },
+  {
    "type": "firstborn",
    "bb_name": "Firstborn",
    "bb_faction": "civilians",
@@ -1546,7 +1652,8 @@
     1
    ],
    "fielded": [
-    "beasts"
+    "beasts",
+    "wolves"
    ],
    "champion": false,
    "boss": false,
@@ -1566,7 +1673,9 @@
     1,
     1
    ],
-   "fielded": [],
+   "fielded": [
+    "hyenas"
+   ],
    "champion": false,
    "boss": false,
    "page": "bb_all/0816_Frenzied Hyena.txt"
@@ -1792,6 +1901,27 @@
    "page": "bb_all/0912_Greenskin Catapult.txt"
   },
   {
+   "type": "ground_sloth",
+   "bb_name": "Shasta Ground Sloth",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "ground_sloth"
+   ],
+   "name": "SLOTH",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "sloths"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
    "type": "gunner",
    "bb_name": "Gunner",
    "bb_faction": "city_states",
@@ -1927,7 +2057,8 @@
     1
    ],
    "fielded": [
-    "beasts"
+    "beasts",
+    "hyenas"
    ],
    "champion": false,
    "boss": false,
@@ -2376,6 +2507,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/1321_Mortar.txt"
+  },
+  {
+   "type": "mountain_lion",
+   "bb_name": "Mountain Lion",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "mountain_lion"
+   ],
+   "name": "LION",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "lions"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1757_Serpent.txt"
   },
   {
    "type": "nachzehrer_large",
@@ -2890,6 +3042,27 @@
    "page": "bb_all/1757_Serpent.txt"
   },
   {
+   "type": "short_faced_bear",
+   "bb_name": "Short-Faced Bear",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "short_faced_bear"
+   ],
+   "name": "BEAR",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "bears"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
    "type": "standard_bearer",
    "bb_name": "Standard Bearer",
    "bb_faction": "noble_houses",
@@ -3037,7 +3210,9 @@
     1,
     1
    ],
-   "fielded": [],
+   "fielded": [
+    "dogs"
+   ],
    "champion": false,
    "boss": false,
    "page": "bb_all/2174_Wardog.txt"
@@ -3056,7 +3231,9 @@
     1,
     1
    ],
-   "fielded": [],
+   "fielded": [
+    "dogs"
+   ],
    "champion": false,
    "boss": false,
    "page": "bb_all/2182_Warhound.txt"

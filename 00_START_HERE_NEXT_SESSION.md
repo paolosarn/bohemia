@@ -1,3 +1,9 @@
+DIFFICULTY (difficulty-the-curve): 11/3 LATEST -- BUILD 11/3zzzn - THREE DIFFICULTIES, BUILT, NOT YET SEEN (rule 351(c)(d), ask line 363): the FIGHTS
+row behind the gear (NEW HERE, SEEN IT, OUTLIVED IT), any time, from the next fight; the curve in the data files, measured on the live fight before
+and after (the hardest level's Lone Wolf 20 -> 45 on day 5, 90 -> 55 on day 20). The whole block: handoffs/TUNING.md.
+[bb the ramp: Battle Brothers dresses a contract by the calendar; ours by the company's strength, sooner on a harder level.]
+[analog horror: the men on the road get better because you did; the coats just get heavier.]
+
 RUN TWO (run-two): 10/26 LATEST -- BUILD 10/26zzr - THE TOWN TURNS WITH YOU (1bdccfd8): the whole town fitted around the phone, two
 fingers out to the map, every home base its own TALL picture held up and WIDE on its side, a turn glides every building to its new
 spot; the new game's crew name takes typing; the Lone Wolf's door gives him Recover. All BUILT, NOT YET SEEN. The whole block:

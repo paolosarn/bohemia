@@ -994,12 +994,12 @@
    "difficulty_days": [
     0,
     0,
-    20,
+    8,
     40
    ],
    "day_cap": 100,
    "skill_day": 40,
-   "leader_from_count": 4,
+   "leader_from_count": 8,
    "leaders_max": 1,
    "mix": {
     "brigands": {
@@ -1015,14 +1015,16 @@
       "brigand_raider": 3,
       "brigand_marksman": 2,
       "brigand_poacher": 1,
-      "brigand_marauder": 1
+      "brigand_marauder": 1,
+      "brigand_leader": 0
      },
      "late": {
       "brigand_thug": 1,
       "brigand_raider": 3,
       "brigand_marksman": 2,
       "brigand_marauder": 3,
-      "brigand_leader": 1
+      "brigand_leader": 1,
+      "brigand_leader_champion": 0.5
      }
     },
     "beasts": {
@@ -1089,7 +1091,8 @@
      },
      "late": {
       "goblin_skirmisher": 2,
-      "goblin_wolfrider": 1
+      "goblin_wolfrider": 1,
+      "goblin_skirmisher_champion": 0.3
      }
     },
     "heavies": {
@@ -1107,7 +1110,8 @@
      },
      "late": {
       "orc_warrior": 3,
-      "orc_young": 1
+      "orc_young": 1,
+      "orc_warrior_champion": 0.3
      }
     }
    },
@@ -1122,7 +1126,7 @@
   },
   "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md; bb_all/1409_Necromancer.txt (the mechanic's party: 'There is rarely more than one of them'), bb_all/0878_Goblins.txt, bb_all/1505_Orcs.txt",
   "quote": "In the early game Brigand groups usually consist of Thugs and sometimes Raiders. Later, Raiders become more common, ranged attackers appear and their numbers increase, and armored Marauders can spawn. In the late game you will usually see a Brigand Leader and other elite enemies among them. / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. It's rare to see simultaneously more than one. / Melee skill is 65 before day 40, 70 after. / (GROK_60) Combat difficulty, set at the start, raises both the count and the tier. Higher tier means more leaders and fewer thugs. Day scaling for those stops at day 100. A few is 2 to 3. Some is 4 to 6. / (Brigand Marksman) Ranged defense is 10 before day 40, 15 after.",
-  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll. THE BEASTS (COMBAT [the fight holds the grid], rule 117(e), 10/18): the pack's make-up is FACTIONS' draft for the lab-made beasts (records/target/bb/factions.json, faction beasts: early four dire wolves to two hyenas, late three dire wolves, two frenzied, one schrat); the middle phase keeps the early pack until a source says when the frenzied ones join; TUNING owns every weight.",
+  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same) (AMENDED 11/3 by DIFFICULTY [the curve]: OUTLIVED IT is 8 days, not 20, so its day one is never the middle phase; see the_curve); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll. THE BEASTS (COMBAT [the fight holds the grid], rule 117(e), 10/18): the pack's make-up is FACTIONS' draft for the lab-made beasts (records/target/bb/factions.json, faction beasts: early four dire wolves to two hyenas, late three dire wolves, two frenzied, one schrat); the middle phase keeps the early pack until a source says when the frenzied ones join; TUNING owns every weight.",
   "first_week": {
    "source": "VAMILY.md rule 120(a) (Paolo 10/18); bb_all/0299_Brigands.txt",
    "record": "records/BOHEMIA_PAOLO_THE_COMBAT_IS_STILL_ASS_GUNS_FIRST_THE_AURA_AND_THE_FACE_IS_THE_BODYS_10_18_26.md",
@@ -1131,7 +1135,13 @@
   },
   "ghosts": "COMBAT [ghosts and apparitions] 10/23, rule 134: a party of the Amalgamation's haunting is Geists only (bb_all/0831_Geist.txt: 'Graveyards sometimes have nothing but a lot of Geists guarding them'); every phase the same, the act decides how often they come",
   "bestiary": "COMBAT [bestiary] 10/24: three factions added from the bestiary count (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md): machines (the Necromancer's zombies: his machines and the one MECHANIC at their head, heads.machines, always first, never two), kids (the goblin skirmishers and one wolfrider in four), heavies (orc warriors with the young). The mixes are drafts (tuned: false); TUNING owns them.",
-  "count_scale_why": "COMBAT [bestiary] 10/24 (rule 133, sized to the crew): a party the map hands is counted in brigands; a faction whose men are tougher fields fewer of them. MEASURED on today's fight, AUTO both sides, 40 seeds a cell, a new crew of farmhands: machines (the MECHANIC and his dead) at the same count as the crew win 31/40 (3 men), 30/40 (6), 20/40 (12); at 0.85 of it 31/40, 36/40, 33/40 (12 vs 10), on TUNING's 70-in-100 line or above. Draft; TUNING owns it. KIDS (the skirmishers and their runners, fragile but evasive, the net): at the crew's own count they win 5/30 (3 men vs 3), 4/30 (6 vs 6); at 0.6 of it 22/30 (3 vs 2), 20/30 (6 vs 4), 24/30 (12 vs 7). HEAVIES (orc warriors in 300 of plate with the young): 3/30 at 3 men vs 2; at 0.45 of the count 19/30 (3 vs 1), 21/30 (6 vs 3), 22/30 (12 vs 5)."
+  "count_scale_why": "COMBAT [bestiary] 10/24 (rule 133, sized to the crew): a party the map hands is counted in brigands; a faction whose men are tougher fields fewer of them. MEASURED on today's fight, AUTO both sides, 40 seeds a cell, a new crew of farmhands: machines (the MECHANIC and his dead) at the same count as the crew win 31/40 (3 men), 30/40 (6), 20/40 (12); at 0.85 of it 31/40, 36/40, 33/40 (12 vs 10), on TUNING's 70-in-100 line or above. Draft; TUNING owns it. KIDS (the skirmishers and their runners, fragile but evasive, the net): at the crew's own count they win 5/30 (3 men vs 3), 4/30 (6 vs 6); at 0.6 of it 22/30 (3 vs 2), 20/30 (6 vs 4), 24/30 (12 vs 7). HEAVIES (orc warriors in 300 of plate with the young): 3/30 at 3 men vs 2; at 0.45 of the count 19/30 (3 vs 1), 21/30 (6 vs 3), 22/30 (12 vs 5).",
+  "the_curve": {
+   "source": "DIFFICULTY [the curve] 11/3, VAMILY.md rule 351(d) (ask line 363); bb_all/0363_Champions.txt; bb_all/0290_Brigand Leader.txt; records/BOHEMIA_DIFFICULTY_ROUND_1_THE_CURVE_11_3_26.md",
+   "quote": "Champions are stronger versions of enemies that always have a named item... 3 skulls contract +5% / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. / the hardest difficulty in the early game isn't gonna be hell... I reached the ceiling",
+   "why": "THREE NUMBERS, MEASURED on the live fight (tools/bohemia_difficulty_the_curve.js, before and after in banks/BOHEMIA_DIFFICULTY_THE_CURVE_*_11_3_26.json). (1) difficulty_days for OUTLIVED IT 20 -> 8: +20 dressed a Lone Wolf's day 1 as day 21, the middle phase's marauders and marksmen, and he won a day-5 job 20 in 100 (Battle Brothers' brutal start); +8 is the early phase, a step tougher than the others, never the middle on day one. (2) THE LEADER IN THE MIDDLE GAME, the wiki's own words, at weight 0 (never an ordinary pick: measured at 0.5 a typical day-20 crew of five drew him one fight in five and its two-skull job fell from 65 to 40 in 100), and leader_from_count 4 -> 8: a party of EIGHT or more brings its one leader, so only a big company's crew has one (MEASURED: at four, every middle crew of four or more carried one and WORLD's typical day-20 company of six at level 3 won its two-skull job 30 in 100, most_jobs_fit_the_company_gate M1): the middle phase was nothing a geared company felt, SEEN IT won 92 to 100 from day 10 to 20. (3) THE CHAMPIONS (bb_all/0363: 1.35 health, 1.15 skill, 1.25 defence, a named item), the rows our enemies.json already holds, in the late mix at about one slot in twenty (Battle Brothers' +5% on a three-skull job): brigand_leader_champion 0.5, goblin_skirmisher_champion 0.3, orc_warrior_champion 0.3; the machines and the beasts have no champion row, said. A company meets the late phase as party_math.json job_bb.dress_ahead lets it, by level.",
+   "tuned": false
+  }
  },
  "captain_aura": {
   "value": {
@@ -1566,6 +1576,21 @@
      0.5,
      1,
      1.5
+    ],
+    "brigand_leader_champion": [
+     1,
+     1,
+     1
+    ],
+    "goblin_skirmisher_champion": [
+     1.5,
+     1,
+     0.5
+    ],
+    "orc_warrior_champion": [
+     0.5,
+     1,
+     1.5
     ]
    }
   },
@@ -1626,7 +1651,9 @@
     "goblin_wolfrider": "RUNNER",
     "orc_warrior": "HEAVY",
     "lower_orc_warrior": "HEAVY",
-    "orc_young": "BRUISER"
+    "orc_young": "BRUISER",
+    "goblin_skirmisher_champion": "KID (CHAMPION)",
+    "orc_warrior_champion": "HEAVY (CHAMPION)"
    },
    "mechanic": {
     "kind": "necromancer",
@@ -1644,7 +1671,9 @@
     "orc_warrior": "heavy",
     "lower_orc_warrior": "heavy",
     "wiederganger": "robot",
-    "armored_wiederganger": "robot"
+    "armored_wiederganger": "robot",
+    "goblin_skirmisher_champion": "runner",
+    "orc_warrior_champion": "heavy"
    }
   },
   "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md (the 9/29 draft; NECROMANCER -> THE MECHANIC is marked his words); VAMILY.md COMBAT [bestiary]",
