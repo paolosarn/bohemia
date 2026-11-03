@@ -158,6 +158,39 @@
     "strip.bridge",
     "strip.limo"
    ]
+  },
+  {
+   "id": "downtown",
+   "name": "DOWNTOWN",
+   "card": "records/target/fight_props/CARD_DOWNTOWN.webp",
+   "props": [
+    "downtown.canopy",
+    "downtown.dumpsters",
+    "downtown.fire_escape",
+    "downtown.deuce"
+   ]
+  },
+  {
+   "id": "works",
+   "name": "THE WORKS",
+   "card": "records/target/fight_props/CARD_WORKS.webp",
+   "props": [
+    "works.boxcar",
+    "works.tankcar",
+    "works.gantry",
+    "works.machines",
+    "works.pipes"
+   ]
+  },
+  {
+   "id": "marina",
+   "name": "THE MARINA",
+   "card": "records/target/fight_props/CARD_MARINA.webp",
+   "props": [
+    "marina.houseboat",
+    "marina.cruiser",
+    "marina.bass_boat"
+   ]
   }
  ],
  "models": [
@@ -2561,6 +2594,510 @@
    "what": "a white stretch limousine, 9 m, dead at the valet line, its tyres flat, its dark windows, a door open",
    "wrong": null,
    "verts": 460
+  },
+  {
+   "id": "downtown.canopy",
+   "place": "downtown",
+   "place_name": "DOWNTOWN",
+   "name": "A BAY OF THE CANOPY",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/downtown_canopy.glb",
+   "picture": "records/target/fight_props/downtown/downtown_canopy.webp",
+   "picture_px": [
+    973,
+    673
+   ],
+   "anchor_px": [
+    327.1,
+    633.7
+   ],
+   "size_m": [
+    14.46,
+    3.16,
+    13.67
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.317,
+   "height_m": 13.67,
+   "height_storeys": 4.56,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "one bay of the Fremont canopy over the street: two steel columns 13 m apart, the curved lattice rib between them, a 3 m band of its screen panels underneath (the board repeats the bay down the street); under it no shot comes from a roof",
+   "wrong": "one panel of the dead screen is still showing a picture, a few squares of colour, the same ones, all night",
+   "verts": 1336
+  },
+  {
+   "id": "downtown.dumpsters",
+   "place": "downtown",
+   "place_name": "DOWNTOWN",
+   "name": "ALLEY DUMPSTERS",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/downtown_dumpsters.glb",
+   "picture": "records/target/fight_props/downtown/downtown_dumpsters.webp",
+   "picture_px": [
+    306,
+    179
+   ],
+   "anchor_px": [
+    123.8,
+    106.6
+   ],
+   "size_m": [
+    6.23,
+    3.9,
+    1.92
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.169,
+   "height_m": 1.89,
+   "height_storeys": 0.63,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "two dumpsters (the kit's own, whole) in the alley, one tipped on its side and spilled, the bags piled round them",
+   "wrong": null,
+   "verts": 4722
+  },
+  {
+   "id": "downtown.fire_escape",
+   "place": "downtown",
+   "place_name": "DOWNTOWN",
+   "name": "AN ALLEY WALL AND ITS FIRE ESCAPE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/downtown_fire_escape.glb",
+   "picture": "records/target/fight_props/downtown/downtown_fire_escape.webp",
+   "picture_px": [
+    762,
+    759
+   ],
+   "anchor_px": [
+    244.6,
+    464.0
+   ],
+   "size_m": [
+    10.2,
+    2.33,
+    10.02
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.165,
+   "height_m": 10.02,
+   "height_storeys": 3.34,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the brick back of a three-storey downtown hotel, 10 m of it, its fire escape zigzagging up to the roof, a steel back door, window units, a drop ladder hanging: the way up to a roof",
+   "wrong": null,
+   "verts": 824
+  },
+  {
+   "id": "downtown.deuce",
+   "place": "downtown",
+   "place_name": "DOWNTOWN",
+   "name": "THE DEUCE, BURNT",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/downtown_deuce.glb",
+   "picture": "records/target/fight_props/downtown/downtown_deuce.webp",
+   "picture_px": [
+    732,
+    449
+   ],
+   "anchor_px": [
+    306.2,
+    231.5
+   ],
+   "size_m": [
+    13.03,
+    2.96,
+    4.39
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.268,
+   "height_m": 4.34,
+   "height_storeys": 1.45,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a double-decker Strip-and-downtown bus burnt out where it stopped: 13 m long, 4.4 m high, its shell black, both decks' windows empty, its tyres gone to the rims",
+   "wrong": null,
+   "verts": 632
+  },
+  {
+   "id": "works.boxcar",
+   "place": "works",
+   "place_name": "THE WORKS",
+   "name": "A BOXCAR",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/works_boxcar.glb",
+   "picture": "records/target/fight_props/works/works_boxcar.webp",
+   "picture_px": [
+    903,
+    491
+   ],
+   "anchor_px": [
+    412.0,
+    255.4
+   ],
+   "size_m": [
+    18.0,
+    3.38,
+    4.86
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.422,
+   "height_m": 4.86,
+   "height_storeys": 1.62,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a 50 foot boxcar on its trucks on a short run of track, its door slid open on the dark inside, rust down its sides, the ladder at its end to its roof",
+   "wrong": null,
+   "verts": 984
+  },
+  {
+   "id": "works.tankcar",
+   "place": "works",
+   "place_name": "THE WORKS",
+   "name": "A TANK CAR",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/works_tankcar.glb",
+   "picture": "records/target/fight_props/works/works_tankcar.webp",
+   "picture_px": [
+    868,
+    416
+   ],
+   "anchor_px": [
+    412.0,
+    210.0
+   ],
+   "size_m": [
+    18.0,
+    2.94,
+    4.4
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.367,
+   "height_m": 4.4,
+   "height_storeys": 1.47,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": true
+   },
+   "what": "a black tank car on its trucks, its dome and walkway, a hazmat placard; it burns if it is hit",
+   "wrong": null,
+   "verts": 772
+  },
+  {
+   "id": "works.gantry",
+   "place": "works",
+   "place_name": "THE WORKS",
+   "name": "THE GANTRY CRANE, A CAR ON ITS HOOK",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/works_gantry.glb",
+   "picture": "records/target/fight_props/works/works_gantry.webp",
+   "picture_px": [
+    931,
+    572
+   ],
+   "anchor_px": [
+    323.6,
+    411.0
+   ],
+   "size_m": [
+    15.0,
+    5.0,
+    9.11
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.521,
+   "height_m": 9.11,
+   "height_storeys": 3.04,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a yard gantry crane: two A-frame legs 8 m tall on rail wheels, the beam 14 m across them, the trolley and its hook; you fight between its legs",
+   "wrong": "a car (the kit's own wreck) hangs from the hook over your head, and nobody is at the controls",
+   "verts": 3374
+  },
+  {
+   "id": "works.machines",
+   "place": "works",
+   "place_name": "THE WORKS",
+   "name": "THE MACHINES",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/works_machines.glb",
+   "picture": "records/target/fight_props/works/works_machines.webp",
+   "picture_px": [
+    484,
+    296
+   ],
+   "anchor_px": [
+    243.9,
+    198.7
+   ],
+   "size_m": [
+    10.44,
+    3.71,
+    4.15
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.269,
+   "height_m": 4.15,
+   "height_storeys": 1.38,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a shop's machines dragged out onto the slab: a 4 m hydraulic press, a lathe on its bed, an air compressor, a crate; cover between them",
+   "wrong": null,
+   "verts": 280
+  },
+  {
+   "id": "works.pipes",
+   "place": "works",
+   "place_name": "THE WORKS",
+   "name": "A STACK OF PIPE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/works_pipes.glb",
+   "picture": "records/target/fight_props/works/works_pipes.webp",
+   "picture_px": [
+    531,
+    269
+   ],
+   "anchor_px": [
+    219.3,
+    141.6
+   ],
+   "size_m": [
+    9.02,
+    4.0,
+    2.47
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.251,
+   "height_m": 2.47,
+   "height_storeys": 0.82,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "steel pipe 0.9 m across stacked three high on timber chocks, 9 m long: a wall of cover, and a man can stand in its ends",
+   "wrong": null,
+   "verts": 600
+  },
+  {
+   "id": "marina.houseboat",
+   "place": "marina",
+   "place_name": "THE MARINA",
+   "name": "A HOUSEBOAT ON THE DRY BED",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/marina_houseboat.glb",
+   "picture": "records/target/fight_props/marina/marina_houseboat.webp",
+   "picture_px": [
+    978,
+    559
+   ],
+   "anchor_px": [
+    414.1,
+    304.8
+   ],
+   "size_m": [
+    21.75,
+    5.41,
+    6.0
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.817,
+   "height_m": 5.85,
+   "height_storeys": 1.95,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a Lake Mead houseboat, 18 m, sat down on the cracked bed on its pontoons, listing: its cabin, its windows, the top deck with its rail and its water slide, the ladder up: a roof you take",
+   "wrong": "a fresh towel lies at the foot of the slide, where you would land in the water",
+   "verts": 816
+  },
+  {
+   "id": "marina.cruiser",
+   "place": "marina",
+   "place_name": "THE MARINA",
+   "name": "A CRUISER ON ITS KEEL",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/marina_cruiser.glb",
+   "picture": "records/target/fight_props/marina/marina_cruiser.webp",
+   "picture_px": [
+    542,
+    287
+   ],
+   "anchor_px": [
+    240.8,
+    172.7
+   ],
+   "size_m": [
+    11.47,
+    4.07,
+    4.11
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.324,
+   "height_m": 3.76,
+   "height_storeys": 1.25,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "an 11 m cabin cruiser sat on its keel in the mud, heeled over 14 degrees, its flybridge and its cabin windows",
+   "wrong": null,
+   "verts": 332
+  },
+  {
+   "id": "marina.bass_boat",
+   "place": "marina",
+   "place_name": "THE MARINA",
+   "name": "A BASS BOAT ON ITS TRAILER",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/marina_bass_boat.glb",
+   "picture": "records/target/fight_props/marina/marina_bass_boat.webp",
+   "picture_px": [
+    402,
+    189
+   ],
+   "anchor_px": [
+    200.2,
+    110.3
+   ],
+   "size_m": [
+    8.1,
+    2.78,
+    2.03
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.156,
+   "height_m": 1.92,
+   "height_storeys": 0.64,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a 6 m bass boat still strapped on its rusted trailer, both trailer tyres flat and sunk in the mud, its tongue down",
+   "wrong": null,
+   "verts": 380
   }
  ]
 }

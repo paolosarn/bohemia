@@ -1879,5 +1879,401 @@
   "materials": 6,
   "glb_kb": 56,
   "seconds": 7
+ },
+ "downtown.canopy": {
+  "size_m": [
+   14.46,
+   3.16,
+   13.67
+  ],
+  "bounds_m": [
+   [
+    -7.23,
+    -1.58,
+    0.0
+   ],
+   [
+    7.23,
+    1.58,
+    13.67
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/downtown_canopy.glb",
+  "picture": "records/target/fight_props/downtown/downtown_canopy.webp",
+  "picture_px": [
+   973,
+   673
+  ],
+  "anchor_px": [
+   327.1,
+   633.7
+  ],
+  "verts": 1336,
+  "materials": 5,
+  "glb_kb": 143,
+  "seconds": 40
+ },
+ "downtown.dumpsters": {
+  "size_m": [
+   6.23,
+   3.9,
+   1.92
+  ],
+  "bounds_m": [
+   [
+    -2.28,
+    -1.96,
+    -0.03
+   ],
+   [
+    3.95,
+    1.94,
+    1.89
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/downtown_dumpsters.glb",
+  "picture": "records/target/fight_props/downtown/downtown_dumpsters.webp",
+  "picture_px": [
+   306,
+   179
+  ],
+  "anchor_px": [
+   123.8,
+   106.6
+  ],
+  "verts": 4722,
+  "materials": 13,
+  "glb_kb": 286,
+  "seconds": 7
+ },
+ "downtown.fire_escape": {
+  "size_m": [
+   10.2,
+   2.33,
+   10.02
+  ],
+  "bounds_m": [
+   [
+    -5.1,
+    -1.23,
+    0.0
+   ],
+   [
+    5.1,
+    1.1,
+    10.02
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/downtown_fire_escape.glb",
+  "picture": "records/target/fight_props/downtown/downtown_fire_escape.webp",
+  "picture_px": [
+   762,
+   759
+  ],
+  "anchor_px": [
+   244.6,
+   464.0
+  ],
+  "verts": 824,
+  "materials": 8,
+  "glb_kb": 92,
+  "seconds": 30
+ },
+ "downtown.deuce": {
+  "size_m": [
+   13.03,
+   2.96,
+   4.39
+  ],
+  "bounds_m": [
+   [
+    -6.53,
+    -1.46,
+    -0.05
+   ],
+   [
+    6.5,
+    1.5,
+    4.34
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/downtown_deuce.glb",
+  "picture": "records/target/fight_props/downtown/downtown_deuce.webp",
+  "picture_px": [
+   732,
+   449
+  ],
+  "anchor_px": [
+   306.2,
+   231.5
+  ],
+  "verts": 632,
+  "materials": 8,
+  "glb_kb": 73,
+  "seconds": 17
+ },
+ "works.boxcar": {
+  "size_m": [
+   18.0,
+   3.38,
+   4.86
+  ],
+  "bounds_m": [
+   [
+    -9.0,
+    -1.76,
+    0.0
+   ],
+   [
+    9.0,
+    1.62,
+    4.86
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/works_boxcar.glb",
+  "picture": "records/target/fight_props/works/works_boxcar.webp",
+  "picture_px": [
+   903,
+   491
+  ],
+  "anchor_px": [
+   412.0,
+   255.4
+  ],
+  "verts": 984,
+  "materials": 9,
+  "glb_kb": 110,
+  "seconds": 26
+ },
+ "works.tankcar": {
+  "size_m": [
+   18.0,
+   2.94,
+   4.4
+  ],
+  "bounds_m": [
+   [
+    -9.0,
+    -1.49,
+    0.0
+   ],
+   [
+    9.0,
+    1.45,
+    4.4
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/works_tankcar.glb",
+  "picture": "records/target/fight_props/works/works_tankcar.webp",
+  "picture_px": [
+   868,
+   416
+  ],
+  "anchor_px": [
+   412.0,
+   210.0
+  ],
+  "verts": 772,
+  "materials": 7,
+  "glb_kb": 88,
+  "seconds": 21
+ },
+ "works.gantry": {
+  "size_m": [
+   15.0,
+   5.0,
+   9.11
+  ],
+  "bounds_m": [
+   [
+    -7.5,
+    -2.5,
+    0.0
+   ],
+   [
+    7.5,
+    2.5,
+    9.11
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/works_gantry.glb",
+  "picture": "records/target/fight_props/works/works_gantry.webp",
+  "picture_px": [
+   931,
+   572
+  ],
+  "anchor_px": [
+   323.6,
+   411.0
+  ],
+  "verts": 3374,
+  "materials": 12,
+  "glb_kb": 162,
+  "seconds": 35
+ },
+ "works.machines": {
+  "size_m": [
+   10.44,
+   3.71,
+   4.15
+  ],
+  "bounds_m": [
+   [
+    -5.64,
+    -1.86,
+    0.0
+   ],
+   [
+    4.8,
+    1.85,
+    4.15
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/works_machines.glb",
+  "picture": "records/target/fight_props/works/works_machines.webp",
+  "picture_px": [
+   484,
+   296
+  ],
+  "anchor_px": [
+   243.9,
+   198.7
+  ],
+  "verts": 280,
+  "materials": 8,
+  "glb_kb": 37,
+  "seconds": 14
+ },
+ "works.pipes": {
+  "size_m": [
+   9.02,
+   4.0,
+   2.47
+  ],
+  "bounds_m": [
+   [
+    -4.51,
+    -2.0,
+    0.0
+   ],
+   [
+    4.51,
+    2.0,
+    2.47
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/works_pipes.glb",
+  "picture": "records/target/fight_props/works/works_pipes.webp",
+  "picture_px": [
+   531,
+   269
+  ],
+  "anchor_px": [
+   219.3,
+   141.6
+  ],
+  "verts": 600,
+  "materials": 4,
+  "glb_kb": 67,
+  "seconds": 12
+ },
+ "marina.houseboat": {
+  "size_m": [
+   21.75,
+   5.41,
+   6.0
+  ],
+  "bounds_m": [
+   [
+    -9.05,
+    -2.81,
+    -0.15
+   ],
+   [
+    12.7,
+    2.6,
+    5.85
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/marina_houseboat.glb",
+  "picture": "records/target/fight_props/marina/marina_houseboat.webp",
+  "picture_px": [
+   978,
+   559
+  ],
+  "anchor_px": [
+   414.1,
+   304.8
+  ],
+  "verts": 816,
+  "materials": 12,
+  "glb_kb": 98,
+  "seconds": 33
+ },
+ "marina.cruiser": {
+  "size_m": [
+   11.47,
+   4.07,
+   4.11
+  ],
+  "bounds_m": [
+   [
+    -5.5,
+    -2.2,
+    -0.35
+   ],
+   [
+    5.97,
+    1.87,
+    3.76
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/marina_cruiser.glb",
+  "picture": "records/target/fight_props/marina/marina_cruiser.webp",
+  "picture_px": [
+   542,
+   287
+  ],
+  "anchor_px": [
+   240.8,
+   172.7
+  ],
+  "verts": 332,
+  "materials": 8,
+  "glb_kb": 47,
+  "seconds": 15
+ },
+ "marina.bass_boat": {
+  "size_m": [
+   8.1,
+   2.78,
+   2.03
+  ],
+  "bounds_m": [
+   [
+    -4.63,
+    -1.35,
+    -0.11
+   ],
+   [
+    3.47,
+    1.43,
+    1.92
+   ]
+  ],
+  "model": "reference/models/bohemia/fight_props/marina_bass_boat.glb",
+  "picture": "records/target/fight_props/marina/marina_bass_boat.webp",
+  "picture_px": [
+   402,
+   189
+  ],
+  "anchor_px": [
+   200.2,
+   110.3
+  ],
+  "verts": 380,
+  "materials": 9,
+  "glb_kb": 53,
+  "seconds": 8
  }
 }
