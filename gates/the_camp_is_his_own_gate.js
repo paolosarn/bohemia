@@ -98,9 +98,11 @@ async function run(profile) {
     ok(P + 'K2 *** THE PITCH *** making camp plays it (a few seconds, the shopping cart first) and a real tap skips it',
       !!k2a && k2a.on && k2a.ms >= 1500 && k2a.ms <= 8000 && k2a.carrier === 'shopping_cart' && !!k2b && !k2b.on && k2b.skipped, JSON.stringify({ at_open: k2a, after_tap: k2b }));
     /* ---- K4c (ANIMATION's camp acts): each in his real gear, by the act his condition says, where his look has the pictures ---- */
-    const has = await sf.evaluate((ls) => ls.map(l => { try { return window.BohemiaIdles && BohemiaIdles.activities ? BohemiaIdles.activities(l) : []; } catch (e) { return []; } }), [(k4a.acts.filter(a => a.name === men[1])[0] || {}).look, (k4a.acts.filter(a => a.name === men[2])[0] || {}).look]);
-    let k4c = null;
-    for (let k = 0; k < 30; k++) { k4c = await look(sf); const d = k4c.drawnBy || {}; if (d[men[1]] === 'anim:lie' && d[men[2]] === 'anim:repair') break; await p.waitForTimeout(400); }
+    /* FINISHER 11/3: BohemiaIdles.activities(look) is a lazy loader (its first call fetches the look's index and answers []), so it is
+       read again on every poll, never once before the index has arrived (it read [] for both men while the camp drew them right) */
+    const hasOf = () => sf.evaluate((ls) => ls.map(l => { try { return window.BohemiaIdles && BohemiaIdles.activities ? BohemiaIdles.activities(l) : []; } catch (e) { return []; } }), [(k4a.acts.filter(a => a.name === men[1])[0] || {}).look, (k4a.acts.filter(a => a.name === men[2])[0] || {}).look]);
+    let k4c = null, has = await hasOf();
+    for (let k = 0; k < 30; k++) { k4c = await look(sf); has = await hasOf(); const d = k4c.drawnBy || {}; if (d[men[1]] === 'anim:lie' && d[men[2]] === 'anim:repair' && (has[0].length || has[1].length)) break; await p.waitForTimeout(400); }
     const want1 = has[0].indexOf('lie') >= 0, want2 = has[1].indexOf('repair') >= 0, dB = (k4c && k4c.drawnBy) || {};
     ok(P + 'K4c THEIR ACTS IN THEIR REAL GEAR: the hurt man lies bandaged in ANIMATION\'s lie, the broken one kneels at the car door in its repair (where his look has the pictures)',
       (!want1 || dB[men[1]] === 'anim:lie') && (!want2 || dB[men[2]] === 'anim:repair') && (want1 || want2), JSON.stringify({ has, drawnBy: dB }));

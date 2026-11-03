@@ -8074,6 +8074,19 @@ function iconCanvas(id, css) {
   c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
   perkIcon(c.getContext('2d'), id, c.width); c.dataset.perk = id; c.className = 'picon'; return c;
 }
+/* FINISHER 11/3 (ask line 179, rule 252(c): 'every perk has an icon, everywhere, next to its words'): where a perk is SHOWN (his
+   card's perk row, the veteran's card beside its words) it wears COOK's own picture (slices/perk_icons/<id>.png, the same fifty the
+   crew screen shows), drawn over the plate the moment it loads; a perk with no picture keeps the drawn plate. The ability buttons
+   (a control, gold or blue by what it does) keep their plates. */
+const PERK_ART = {};
+function perkArt(id, css) {
+  const c = iconCanvas(id, css), put = function (im) { const g = c.getContext('2d'); g.clearRect(0, 0, c.width, c.height); g.imageSmoothingQuality = 'high'; g.drawImage(im, 0, 0, c.width, c.height); c.dataset.art = 'cook'; };
+  let a = PERK_ART[id];
+  if (a === false) return c;
+  if (!a) { a = PERK_ART[id] = new Image(); a.onerror = function () { PERK_ART[id] = false; }; a.src = 'perk_icons/' + id + '.png'; }
+  if (a.complete && a.naturalWidth) put(a); else a.addEventListener('load', function () { put(a); }, { once: true });
+  return c;
+}
 /* HIS GUN'S ROUNDS AS BULLETS (rule 124): one bullet a round it holds, a full one in brass, a spent one an empty case; on the
    big RELOAD every case is hollow in the warning's red. Whole device pixels, a nose on each. */
 const RD_MAX = 6;
@@ -8131,7 +8144,7 @@ function hud() {
   hpBar.style.setProperty('--n', '"' + show.id + ' ' + show.hp + '/' + show.hpMax + '"'); ab.style.setProperty('--n', '"' + show.id + ' ' + (show.armB + show.armH) + '/' + (show.armBMax + show.armHMax) + '"');
   fb.style.setProperty('--n', '"' + show.id + ' ' + Math.round(show.fat) + '/' + fm + '"');
   const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
-  if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 16)); }); }
+  if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(perkArt(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
   /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
@@ -8353,7 +8366,7 @@ function drawer(v) {
     + r('Ranged skill / defence', v.rskill + ' / ' + v.rdef) + r('Initiative', v.initiative) + r('Resolve', v.resolve === null ? '-' : v.resolve)
     + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', pips(v.ammo, v.weapon.mag || v.ammo)) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
     + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
-  v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(iconCanvas(id, 18));
+  v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(perkArt(id, 18));
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block';
 }

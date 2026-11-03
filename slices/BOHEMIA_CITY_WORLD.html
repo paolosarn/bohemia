@@ -46642,7 +46642,11 @@ function btwTap(ev){
     var onCard = !!(ev.target && ev.target.closest && ev.target.closest('#meetcard [data-meet]'));
     BETWEEN.log.push({ kind: 'skip', of: BETWEEN.m.kind, at: Math.round(now), t: Math.round(BETWEEN.m.el / BETWEEN.m.dur * 1000) / 1000 });
     window.__BETWEEN = { now: null, log: BETWEEN.log.slice(), skipped: BETWEEN.m.kind };
+    var wasCampIn = BETWEEN.m.kind === 'campIn';
     btwFinish();
+    /* FINISHER 11/3 (rule 269(c), THE CAMP IS HIS OWN K2): making camp is ONE moment to him; the tap that skips the map's three beats
+       skips the camp's own pitch behind them too (it took two taps: the first ended the fade, the cart still rolled in) */
+    if (wasCampIn) { try { var cfw = btwFrame(); if (cfw && cfw.contentWindow && cfw.contentWindow.BohemiaCampLook) cfw.contentWindow.BohemiaCampLook.tap(); } catch (_e) {} }
     BETWEEN.eat = onCard ? 0 : now + 450;
   }
   if (BETWEEN.eat && now < BETWEEN.eat) {

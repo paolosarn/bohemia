@@ -219,6 +219,14 @@ async function side(profile) {
         const pi = (await p.evaluate('(' + PHONE + ')()')).apps.find(z => z.app === 'play');
         ok('  an interrupt (a road event, a fight) drops it to PAUSE and the phone shows PLAY', it0 > 0 && it === 0 && /app_play/.test(pi.img), 'speed ' + it0 + ' -> ' + it + ', picture ' + pi.img.split('/').pop());
         await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+        /* FINISHER 11/3 (ask line 133's hole): standing still the map's clock runs (RUN 10/26), and a press then goes to the job, so the
+           picture is PLAY and the line says STOPPED; PAUSE only while a journey is under way */
+        { const rest = await fr.evaluate(() => { try { travelStop(); travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); } catch (e) {} return { v: window.__TRAVEL_SPEED, going: !!TRAVEL }; });
+          await p.waitForTimeout(450);
+          const pr = (await p.evaluate('(' + PHONE + ')()')).apps.find(z => z.app === 'play'), g = await p.evaluate(() => { const e = document.querySelector('#bohphone .home .clk .g'); return e ? e.textContent : null; });
+          ok('  standing still with the clock running, the picture is PLAY and the line says STOPPED (PAUSE is for a journey)', rest.v > 0 && !rest.going && /app_play/.test(pr.img) && (g === null || g === 'STOPPED'),
+            'speed ' + rest.v + ', going ' + rest.going + ', picture ' + pr.img.split('/').pop() + ', line ' + g);
+          await fr.evaluate(() => { try { travelSpeedSet(0); } catch (e) {} }); await p.waitForTimeout(200); }
         if (!touch) {
           const t = (await p.evaluate('(' + PHONE + ')()')).apps.find(z => z.app === 'play');
           /* WORLD 5 (rule 311, __HOLD_PLAY_SLIDE_THE_SPEED__): a held press brings the slider up under the pointer; one notch up and

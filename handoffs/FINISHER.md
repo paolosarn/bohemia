@@ -1,5 +1,20 @@
 # FINISHER (the half-baked, finished or checked; brief from the coordinator 11/2) -- written only by FINISHER, newest first
 
+FINISHER 2, 11/3 (rule 340, ask line 348: 'get all them jobs going') -- BUILD 11/3zze THE OPEN ASKS.
+Record and the coordinator's page: records/BOHEMIA_FINISHER_THE_OPEN_ASKS_11_3_26.md (the open asks in a studio's order, row | missing
+| lane | size; the coordinator starts lanes from it; this lane started none).
+FINISHED (upright phone): one tap skips making camp whole (slices/BOHEMIA_CITY_WORLD.html btwTap also skips the camp's pitch; K2);
+PLAY shows PLAY standing with a job, PAUSE only on a journey, the line STOPPED (slices/bohemia_phone.js state.going; new leg on THE
+PHONE); the fight's perk row and veteran card wear COOK's fifty pictures (slices/BOHEMIA_FIGHT.html perkArt). GATES MADE HONEST:
+THE CAMP IS HIS OWN K4c read ANIMATION's lazy index once (now every poll: 16/16 upright); OPTIMIZE LOOT S1's 88 px floor predates
+rule 293's one row (now the 44 px thumb: 22/22).
+KNOWN REDS NOT MINE: THE PHONE 'the walk finished' (line 323 reads a second job card that one held job does not have), RELOAD is big
+(the leg's man had no gun: PLUMBER, line 282), the computer profiles of THE PHONE and THE CAMP IS HIS OWN lose the browser late in a
+long run (not diagnosed; it reads as the box, the game threw nothing before it). K14 (surgeon and minstrel under the upright phone) flips one run in two: CAMP TWO.
+NEXT FOR THIS LANE: nothing; the page is the coordinator's.
+[bb Battle Brothers' camp is one press and one press breaks it; there is no second thing to skip.]
+[analog horror: STOPPED, while the clock under it keeps running.]
+
 FINISHER 11/2 THIRD PUSH -- the rest of the list read and marked: every row not clean SEEN now carries a FINISHER 11/2 line, either
 what was checked or the lane that must (COMBAT: 47, 67, 90, 96, 103, 108, 109, 122, 139, 152, 212; UI TWO: 133, 154, 161; UI: 129;
 UI THREE: 175, 178; WORLD: 39, 114, 117, 144, 167, 181, 185, 234, 235, 242; the town's ground around the phone: 106, 195, 219, 226,

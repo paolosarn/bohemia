@@ -199,6 +199,9 @@
     var o = { mode: null, speed: 0, last: 0, speeds: [], town: false, camp: false, meet: false, sky: false, clock: '', day: 0, place: '' };
     try { o.mode = (typeof MODE !== 'undefined') ? MODE : null; } catch (e) {}
     try { o.speed = +TRAVEL_SPEED || 0; o.last = +(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT) || 0; o.speeds = (TRAVEL_SPEEDS || []).filter(function (n) { return n > 0; }); } catch (e) {}
+    /* FINISHER 11/3 (ask line 133's hole, EYES R6: 'standing with a job the big button shows a pause sign and means go to the job'):
+       the clock runs while he stands (RUN 10/26), so speed alone is not a journey; PAUSE is only for a journey under way (P.play) */
+    try { o.going = !!TRAVEL; } catch (e) {}
     try { o.regular = +TRAVEL_CLOCK.regular || 1; o.pick = +TRAVEL_CLOCK.pick || 1; o.holdMs = +TRAVEL_CLOCK.holdMs || 350; } catch (e) {}   /* __HOLD_PLAY_SLIDE_THE_SPEED__ */
     try { o.camp = !!(window.BohemiaMapCamp && BohemiaMapCamp.on()); } catch (e) {}
     try { o.campTown = (o.camp && typeof CAMP !== 'undefined' && CAMP.town) ? String(CAMP.town.name || '') : null; } catch (e) {}   /* CAMP [a town is safe]: a rest in a town */
@@ -1214,7 +1217,7 @@
   /* ---- THE HOME'S FACE: the hour, the speed's mark, what each app can do here ---- */
   function paintHome(force) {
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P, s = L ? L.state() : null, scr = H.state.screen;
-    var running = !!(s && s.speed > 0), mark = s ? (s.last || s.speed) : 0;
+    var running = !!(s && s.speed > 0 && s.going !== false), mark = s ? (s.last || s.speed) : 0;
     jobsPaint(L, force);
     H.el.classList.toggle('tl', !!(L && L.timeline(false)));
     var cd = L ? L.condition() : null;

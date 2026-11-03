@@ -151,7 +151,9 @@ function cutFn(src, name) {
     const apart = (a, c) => a.x + a.w <= c.x + 0.5 || c.x + c.w <= a.x + 0.5 || a.y + a.h <= c.y + 0.5 || c.y + c.h <= a.y + 0.5;
     ok('S1 ' + name + ': a full stash (' + n0.stash + ' of ' + n0.cap + ') and ' + n0.ground + ' on the ground: OPTIMIZE LOOT stands beside LOOT ALL, both whole, a thumb\'s size, and says its gain before the tap',
       lay.opt.shown && /OPTIMIZE/.test(lay.opt.t) && Math.abs((lay.opt.y + lay.opt.h / 2) - (lay.all.y + lay.all.h / 2)) < 4 && lay.opt.x > lay.all.x && whole(lay.opt) && whole(lay.all) && whole(lay.leave)
-        && lay.opt.h >= 44 && lay.opt.w >= 88 && apart(lay.opt, lay.all) && apart(lay.opt, lay.leave) && lay.opt.t.indexOf('▲' + lay.gain) >= 0 && lay.took > 0,
+        /* FINISHER 11/3: 'a thumb's size' is 44 by 44 (Apple's floor). The old 88 wide was set before rule 293 put the end screen's
+           four buttons in ONE row (Paolo 10/27, 'the end-of-fight buttons in one row'); upright they are 65, 61, 113, 113 wide by 50 */
+        && lay.opt.h >= 44 && lay.opt.w >= 44 && apart(lay.opt, lay.all) && apart(lay.opt, lay.leave) && lay.opt.t.indexOf('▲' + lay.gain) >= 0 && lay.took > 0,
       Math.round(lay.opt.w) + 'x' + Math.round(lay.opt.h) + ' at ' + Math.round(lay.opt.x) + ',' + Math.round(lay.opt.y) + ' beside ' + Math.round(lay.all.w) + 'x' + Math.round(lay.all.h) + '; "' + lay.opt.t + '"');
     const before = await p.evaluate(snap);
     const fixedAt = await p.evaluate(() => BohemiaSpoilsScreen.state.stash.map((it, i) => BohemiaSpoils.fixed(it) ? i + ':' + it.id : null).filter(Boolean));
