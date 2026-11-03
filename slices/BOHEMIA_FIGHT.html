@@ -534,7 +534,8 @@ const FIGHT = (function () {
      stupid'): a roof is climbed by a ladder or a wall's handholds; a man in a beast's sheet (ours.beast_looks) or of a kind in
      ours.climbers.never_climb cannot, so a roof tile is no ground to him (a rise of bare ground still is). MEASURED before: wolves
      stood on a roof in 8 of 30 wolf fights, every time by walking up it */
-  function cannotClimb(u) { const C = R('ours.climbers'); return !!u && ((!!u.beast && !C.beast_sheet_climbs) || C.never_climb.indexOf(u.kind) >= 0); }
+  function cannotClimb(u) { const C = R('ours.climbers'); if (u && (C.climbs || []).indexOf(u.kind) >= 0) return false;   /* FIVE MORE BEASTS: the mountain lion climbs */
+    return !!u && ((!!u.beast && !C.beast_sheet_climbs) || C.never_climb.indexOf(u.kind) >= 0); }
   function noRoof(u, x, y) { return !!u && isRoof(x, y) && cannotClimb(u); }
   /* CLIMB OR ATTACK (COMBAT 5, rule 328, Paolo 11/2: 'you cannot climb on top of a building and attack anything within the same
      turn. This is for everyone, the same turn'): a step from lower ground up onto a roof (a roof tile at a higher level than the
@@ -982,6 +983,15 @@ const FIGHT = (function () {
       DB.ai.kinds[o.id] = { value: o.brain, source: N.brains[o.brain].source, quote: o.lesson_bb };
       B.names[o.id] = o.board_name; PL[o.id] = o.looks.slice();
       if (DB.racial && DB.racial.by_enemy[o.from] && !DB.racial.by_enemy[o.id]) DB.racial.by_enemy[o.id] = DB.racial.by_enemy[o.from];
+      /* FIVE MORE BEASTS (FACTIONS 11/3, ask line 343): a beast row names its rig model (slices/fight_rig), its bite (a page of
+         beast_attacks.json) and whether the real animal climbs (rule 321: a wolf cannot; a mountain lion can) */
+      if (o.beast) {
+        R('ours.beast_looks')[o.id] = o.beast.flat || 'dire_wolf';
+        if (DB.ours.beast_rig_looks) DB.ours.beast_rig_looks.value[o.id] = o.beast.rig;
+        DB.beastAttacks.by_enemy[o.id] = o.beast.attack ? { attack: o.beast.attack, also: [] } : DB.beastAttacks.by_enemy[o.from];
+        const C = R('ours.climbers'); C.climbs = C.climbs || [];
+        if (o.beast.climbs) { if (C.climbs.indexOf(o.id) < 0) C.climbs.push(o.id); } else if (C.never_climb.indexOf(o.id) < 0) C.never_climb.push(o.id);
+      }
     });
     Object.keys(N.mix).forEach(function (f) { if (!T.mix[f]) T.mix[f] = N.mix[f]; });
     T.heads = Object.assign({}, N.heads, T.heads || {}); T.count_scale = Object.assign({}, N.count_scale, T.count_scale || {});
@@ -1289,6 +1299,9 @@ const FIGHT = (function () {
        times as often; the block watch goes home at night and the water people come out */
     const RD = DB.newEnemies && DB.newEnemies.road, dr = (opts.roadDistrict || opts.district) && DB.boardKinds.districts.filter(function (r) { return r.district === (opts.roadDistrict || opts.district); })[0];
     if (RD && dr) Object.keys(RD.holds).forEach(function (f) { if (w[f] !== undefined && RD.holds[f].indexOf(dr.ground) >= 0) w[f] *= RD.district_mult; });
+    /* FIVE MORE BEASTS: a beast holds no ground, it LIVES somewhere (its row's habitat: the coyote the suburbs' edges, the hog the
+       water, the camel the open desert); a beast faction is district_mult times as likely where its animal lives */
+    if (RD && dr) DB.newEnemies.rows.forEach(function (o) { if (o.habitat && w[o.faction] !== undefined && o.habitat.indexOf(dr.ground) >= 0 && !(o.faction in (RD.holds || {}))) w[o.faction] *= RD.district_mult; });
     if (RD && S.night) Object.keys(RD.night).forEach(function (f) { if (w[f] !== undefined) w[f] *= RD.night[f]; });
     let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
     const f = ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
@@ -1763,6 +1776,8 @@ const FIGHT = (function () {
     u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
+    if (u.netted && u.netted.by && !onField(byId(u.netted.by))) { u.netted = null; emit({ t: 'free', id: u.id }); }   /* THE PIN (FIVE MORE BEASTS): the lion gone, he is up */
+    u.kicked = false; u.charged = false; if (u.lurking) u.lurkTurns = (u.lurkTurns || 0) + 1;
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
       if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
     if (u.morale === 'Fleeing' && !u.givesUp && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
@@ -2147,6 +2162,7 @@ const FIGHT = (function () {
     let hc; if (forced.astray) NOBLOCK = true;
     try { hc = hitChance(a, t, skill); } finally { NOBLOCK = false; }
     if (forced.astray) { const cap = R('hit_chance.cap'); hc.chance = Math.max(cap.min, hc.chance + R('hit_chance.ranged.cover_hit_chance_page').astray_penalty); hc.parts = hc.parts.concat(['astray']); }   /* rule 230(b): -15 */
+    if (forced.bonus) { const cap = R('hit_chance.cap'); hc.chance = Math.min(cap.max || 95, hc.chance + forced.bonus); hc.parts = hc.parts.concat(['charge']); }   /* THE BULL's run (FIVE MORE BEASTS) */
     const roll = forced.roll !== undefined ? forced.roll : die();
     const res = { by: a.id, to: t.id, chance: hc.chance, parts: hc.parts, roll: roll, hit: roll <= hc.chance, head: false, armour: 0, hp: 0, astray: !!forced.astray };
     if (!res.hit) return res;
@@ -2230,6 +2246,7 @@ const FIGHT = (function () {
     /* THE NEEDLE (FACTIONS 11/3; Goblin Poison's page): a hit that draws blood poisons him for 3 turns */
     if (r.hp > 0 && a.side !== t.side && arche(a).poisons && (t.immune || []).indexOf('Poison') < 0) { t.poison = NEW('poison').turns; emit({ t: 'poisoned', id: t.id, by: a.id }); }
     injure(t, a, r);
+    beastLanded(a, t, r);   /* FIVE MORE BEASTS: the tusk's gash, the lion's pin */
     if (isWhip(a.weapon) && !isRanged(a.weapon)) whipLanded(a, t, r);   /* ARMORY 2: the bleeding; VOTE FIXES: the disarm's luck roll */
     const s = R('parsed.morale_struck'), fs = PK(a, 'fearsome');
     if (fs && r.hp >= fs.min_hitpoint_damage_to_trigger)
@@ -2705,6 +2722,75 @@ const FIGHT = (function () {
     if (!r || !onField(u) || !onField(t) || t.side === u.side || dist(u, t) > r.range_tiles || t.ghost || climbedNow(u)) return false;
     if ((t.immune || []).indexOf('Forced movement') >= 0 || t.indomitable) return false;
     return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && !!pushTile(u, t);
+  }
+  /* ---------------- FIVE MORE BEASTS' MOVES (FACTIONS 11/3, ask line 343, bohemia_enemies.json beast rows; each a Battle Brothers
+     beast's lesson on a real Mojave animal: records/BOHEMIA_FACTIONS_FIVE_MORE_BEASTS_11_3_26.md) ----------------
+     THE GASH (the feral hog, Battle Brothers' Hyena page: 'causes Bleeding... if at least 6 hitpoints were lost... lasts 2 turns'):
+     a tusk that draws gash.min_hp opens a bleed. THE PIN (the mountain lion, the Serpent's constrict): the man it lands on is held
+     where he stands (the net's own rule: he rolls to get up each turn) until he gets up or the lion is gone */
+  function beastLanded(a, t, r) {
+    if (a.side === t.side || !onField(t) || t.beast) return;
+    const A = arche(a), imm = t.immune || [];
+    if (A.gashes && r.hp >= NEW('gash').min_hp && imm.indexOf('Bleeding') < 0) {
+      const G = NEW('gash'); t.bleed = t.bleed || [];
+      for (let i = 0; i < G.stacks; i++) t.bleed.push({ per: G.per_turn, left: G.turns });
+      t.bleedBy = a.id; emit({ t: 'bleeding', id: t.id, by: a.id, stacks: G.stacks });
+    }
+    if (A.pins && r.hp > 0 && !t.netted && imm.indexOf('Nets') < 0) { t.netted = { fails: 0, by: a.id }; emit({ t: 'pinned', id: t.id, by: a.id }); }
+  }
+  /* THE KICK (Camelops, the Unhold's Sweep: 'can hit up to 3 targets... knockback'; a camel kicks with any leg, any way): one blow's
+     cost, every man of ours beside it struck, each his own roll, and each it lands on knocked a tile back */
+  function kickAll(u) {
+    const s = strikeSkill(u.weapon), round = foes(u).filter(function (f) { return dist(u, f) === 1 && canStrike(u, f); });
+    if (!s || round.length < NEW('kick').min_beside || u.kicked || climbedNow(u) || u.ap < skillAP(u.weapon, s, u)) return false;
+    u.ap -= skillAP(u.weapon, s, u); u.fat += skillFat(u, s); u.kicked = true;
+    emit({ t: 'skill', id: u.id, skill: 'kick', to: round[0].id, n: round.length });
+    round.forEach(function (o) {
+      if (!onField(o)) return;
+      const q = resolveAttack(u, o, s); apply(u, o, q, { sweep: true, skill: s.name });
+      if (q.hit && onField(o) && (o.immune || []).indexOf('Forced movement') < 0) { const p = pushTile(u, o); if (p) { emit({ t: 'step', id: o.id, fx: o.x, fy: o.y, x: p.x, y: p.y, shoved: true }); o.x = p.x; o.y = p.y; } }
+    });
+    afterAction(u); return true;
+  }
+  /* THE CHARGE (the feral bull, the Ijirok's Gore: 'knockback and staggers the target on hit, a range of 3 to 6 tiles'): a man of
+     ours in a straight free line (a row, a column or a diagonal) charge.min to charge.max tiles off is run at; the bull stops
+     beside him and hits with charge.hit_bonus, and the man it lands on goes a tile back and loses his next turn. It cannot turn
+     mid-run: a man off the line is safe from it, and a man behind a wall or another man is too */
+  function chargeLine(u, f) {
+    const C = NEW('charge'), dx = f.x - u.x, dy = f.y - u.y, n = Math.max(Math.abs(dx), Math.abs(dy));
+    if (n < C.min || n > C.max || (dx && dy && Math.abs(dx) !== Math.abs(dy))) return null;
+    const sx = Math.sign(dx), sy = Math.sign(dy);
+    for (let i = 1; i < n; i++) { const x = u.x + sx * i, y = u.y + sy * i; if (!passable(x, y) || unitAt(x, y) || noRoof(u, x, y) || (i > 1 && zocOn(u, x, y).length)) return null; }
+    return { x: f.x - sx, y: f.y - sy };
+  }
+  function chargeTarget(u) {
+    const C = NEW('charge');
+    if (u.charged || u.netted || climbedNow(u) || u.ap < C.ap) return null;
+    return foes(u).filter(function (f) { return sees(u, f) && sideSees(u.side, f) && chargeLine(u, f); }).sort(function (p, q) { return dist(u, p) - dist(u, q); })[0] || null;
+  }
+  function charge(u, f) {
+    const C = NEW('charge'), end = chargeLine(u, f), s = strikeSkill(u.weapon); if (!end || !s) return false;
+    u.ap -= C.ap; u.fat += C.fatigue; u.charged = true;
+    emit({ t: 'skill', id: u.id, skill: 'charge', to: f.id });
+    emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: end.x, y: end.y }); u.x = end.x; u.y = end.y;
+    const q = resolveAttack(u, f, s, { bonus: C.hit_bonus }); apply(u, f, q, { skill: 'charge' });
+    if (q.hit && onField(f)) {
+      if ((f.immune || []).indexOf('Stun') < 0) { f.stunned = true; emit({ t: 'staggered', id: f.id, by: u.id }); }
+      const p = (f.immune || []).indexOf('Forced movement') < 0 && pushTile(u, f); if (p) { emit({ t: 'step', id: f.id, fx: f.x, fy: f.y, x: p.x, y: p.y, shoved: true }); f.x = p.x; f.y = p.y; }
+    }
+    afterAction(u); return true;
+  }
+  /* THE FEED (the coyote, the Nachzehrer: 'devours a corpse or a downed man to grow'): a coyote beside a body, its own pack's or
+     ours, eats instead of fighting while it is hurt; each body feeds feed.per_body times, feed.hp a bite. Leave nobody on the field */
+  function bodyBeside(u) {
+    return S.units.filter(function (v) { return v !== u && (v.dead || v.down) && !v.fled && dist(u, v) === 1 && (v.eaten || 0) < NEW('feed').per_body; })[0] || null;
+  }
+  function feed(u, b) {
+    const F = NEW('feed'); if (u.ap < F.ap) return false;
+    u.ap -= F.ap; b.eaten = (b.eaten || 0) + 1;
+    const hp = Math.min(F.hp, u.hpMax - u.hp); u.hp += hp;
+    emit({ t: 'skill', id: u.id, skill: 'feeds', to: b.id, hp: hp });
+    afterAction(u); return true;
   }
   /* ---------------- THE NEW ACT-ONE ENEMIES' MOVES (FACTIONS 11/3, records/target/bb/bohemia_enemies.json) ---------------- */
   /* THE SHIELD: 4 AP and 20 fatigue lock his shield until his next turn (Shieldwall's page); he raises it once he has moved or
@@ -3923,6 +4009,10 @@ const FIGHT = (function () {
       u.ranOnce = true; u.morale = 'Fleeing'; u.roundsFleeing = 0; emit({ t: 'morale', id: u.id, to: u.morale }); ripple(u, null, 'flees'); return true;
     }
     if (A.rallies && !u.rallied && canUse(u, 'rally_the_troops')) { u.rallied = true; return useSkill(u, 'rally_the_troops'); }   /* THE CAPTAIN */
+    /* FIVE MORE BEASTS (FACTIONS 11/3): the coyote feeds while hurt, Camelops kicks everyone beside it, the bull charges down a line */
+    if (A.feeds && u.hp < u.hpMax && !adj.length) { const bb = bodyBeside(u); if (bb && feed(u, bb)) return true; }
+    if (A.kicks && kickAll(u)) return true;
+    if (A.charges && !adj.length) { const ct = chargeTarget(u); if (ct) return charge(u, ct); }
     if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */
     if (A.volley) { const vt = volleyTarget(u); if (vt) { strike(u, vt); return true; } }   /* THE CROSSBOWS */
     /* THE KIDS (ai.json kid): out of stones, the blade; the net on the man coming; after the throw, the step back */
@@ -4061,6 +4151,9 @@ const FIGHT = (function () {
       if (A.long_weapon_waits && !canHit && (w.range_max || 1) > 1 && line && line.front !== null && hl(x, y) < line.front) sc = -Infinity;
       /* the leader: still until the lines meet, then a step behind his own front man unless he can strike from there now */
       if (A.stays_back && (!S.contact || (!canHit && line && line.front !== null && hl(x, y) <= line.front))) sc = -Infinity;
+      /* THE LION WAITS (FIVE MORE BEASTS): unseen, it moves only to a tile it can spring from this turn, else it lies still, for
+         lurk.wait_rounds of its turns; then it stalks in (a crew that never comes to it is never a fight that never ends) */
+      if (A.springs && u.lurking && !canHit && (u.lurkTurns || 0) <= NEW('lurk').wait_rounds) sc = -Infinity;
       if (A.shield_the_backline && ranged && line && line.front !== null && hl(x, y) <= line.front && hl(x, y) < hl(u.x, u.y)) sc = -Infinity;
       if (u.side === 'you' && x === u.x && y === u.y && sc > -Infinity) sc += R('ap.move_cost.flat');   /* the step he saves */
       /* THE UNDO VETO (rule 176(b): 'never off and back'): after a turn in which he did nothing, AUTO never walks back to where
@@ -5791,6 +5884,8 @@ function startAnim(a) {
     if (e.t === 'reload' && u) { sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
+    if (e.t === 'pinned' && u) pop(u, 'PINNED', '#e8c39c', false, u.name + ' is down under it. He has to fight his way up.');   /* FIVE MORE BEASTS, draft:true */
+    if (e.t === 'staggered' && u) pop(u, 'KNOCKED DOWN', '#e8a07c', false, u.name + ' is knocked flat and loses his next turn.');
     if (e.t === 'free' && u) { sfx('cloth_on', { side: u.side }); pop(u, 'tears free', '#c9b48a'); }
     if (e.t === 'stuck' && u) pop(u, 'still netted', '#c9b48a');
     /* CLIMB OR ATTACK (rule 328): up on the roof, said over him, his attacks done for the turn */
@@ -5821,6 +5916,10 @@ function startAnim(a) {
       teachSoon('mechanic'); }
     /* THE NEW ACT-ONE ENEMIES (FACTIONS 11/3; words draft:true) */
     else if (e.t === 'skill' && e.skill === 'shieldwall') { sfx('block', { side: u.side }); pop(u, 'WALL', '#9cc3e8', false, u.name + ' locks his shield.'); }
+    /* FIVE MORE BEASTS (FACTIONS 11/3; words draft:true) */
+    else if (e.t === 'skill' && e.skill === 'kick') { sfx('body_land', { side: u.side }); pop(u, 'KICK', '#e8c39c', false, u.name + ' kicks out on every side' + (e.n > 1 ? ' and catches ' + e.n + ' of them.' : '.')); }
+    else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + ' puts its head down and runs at ' + nameOf(e.to) + '.'); }
+    else if (e.t === 'skill' && e.skill === 'feeds') { pop(u, 'FEEDS', '#c06050', false, u.name + ' eats from ' + nameOf(e.to) + ' and gets back up.'); }
     else if (e.t === 'skill' && e.skill === 'hook') { sfx('swing_air'); pop(u, e.hit ? 'HOOK' : '', '#e8c39c', false, u.name + (e.hit ? ' hooks ' + nameOf(e.to) + ' into the wall.' : ' swings the hook at ' + nameOf(e.to) + ' and misses.')); }
     else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
@@ -8374,7 +8473,9 @@ const CLIMB_SAYS = { tag: 'CLIMBED', square: 'CLIMBED', title: 'CLIMBED THIS TUR
   warn: 'Climbing ends his attacks this turn.', warnYou: 'Climbing ends your attacks this turn.', pick: 'CLIMBING ENDS HIS ATTACKS THIS TURN', pickYou: 'CLIMBING ENDS YOUR ATTACKS THIS TURN' };
 const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.',
   backHead: 'YOU PULLED BACK', back: 'Nobody moved. Nobody hurt, nothing spent, nothing taken. No pay.' };   /* draft:true */
-const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
+const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead',
+  house: 'The House', watch: 'The block watch', keepers: 'The keepers', water: 'The water people',   /* FACTIONS 11/3 */
+  coyotes: 'The coyotes', lions: 'A mountain lion', hogs: 'The hogs', camels: 'The camels', bulls: 'A bull' };   /* FIVE MORE BEASTS; draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
   if (result !== 'lost') return false;

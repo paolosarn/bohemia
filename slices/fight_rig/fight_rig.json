@@ -1787,6 +1787,221 @@
    "guns": "faction_trades_guns.webp",
    "boss": "THE FILTER",
    "rig": "records/target/combat/rig/boss_filter_0/rig.json"
+  },
+  "beast_coyote": {
+   "file": "beast_coyote.webp",
+   "w": 80,
+   "h": 86,
+   "foot": [
+    38,
+    61
+   ],
+   "height_m": 0.6,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_coyote/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+  },
+  "beast_mountain_lion": {
+   "file": "beast_mountain_lion.webp",
+   "w": 140,
+   "h": 141,
+   "foot": [
+    67,
+    105
+   ],
+   "height_m": 0.975,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_mountain_lion/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+  },
+  "beast_feral_hog": {
+   "file": "beast_feral_hog.webp",
+   "w": 122,
+   "h": 112,
+   "foot": [
+    61,
+    85
+   ],
+   "height_m": 0.809,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_feral_hog/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+  },
+  "beast_camelops": {
+   "file": "beast_camelops.webp",
+   "w": 246,
+   "h": 279,
+   "foot": [
+    124,
+    206
+   ],
+   "height_m": 2.335,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_camelops/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
+  },
+  "beast_feral_bull": {
+   "file": "beast_feral_bull.webp",
+   "w": 205,
+   "h": 220,
+   "foot": [
+    99,
+    162
+   ],
+   "height_m": 1.808,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_feral_bull/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "FACTIONS [five more beasts] 11/3, tools/bohemia_factions_five_more_beasts.py"
   }
  },
  "faces": {

@@ -1,0 +1,66 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Five More Beasts</title>
+<!-- FACTIONS [five more beasts], ask line 343 (Paolo: 'keep building content please, all angles, every angle possible'; 9/30: 'it
+     has to be realistic: if they could not survive in an economic apocalypse in the desert Mojave of Las Vegas, then they can't be
+     around'). Each beast is played from the fight's own sheet (slices/fight_rig, the master rig in eight facings, three keys a
+     beat at 120 BPM): it stands a beat, walks, attacks, takes a blow and falls, then turns to the next facing. Beside it the dire
+     wolf at the same pixels, and under it the fight against it on his phone (tools/bohemia_factions_five_more_beasts_shots.js).
+     A hash (#coyote) shows that one first. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:12px}
+  .lab{font-size:12px;letter-spacing:1.5px;margin-bottom:4px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  canvas{width:100%;display:block;image-rendering:pixelated;background:#14130f;border-radius:3px}
+  img{width:100%;display:block;border-radius:3px;margin-top:6px}
+  .say{color:#cfc5ae;margin:6px 0 2px}
+  .small{font-size:11px;color:#8d8472}
+</style>
+<h1>FIVE MORE BEASTS</h1>
+<p>Five animals that can really live in the Mojave after the money died. Each one plays from the fight's own model: it stands, walks, attacks, gets hit and falls, then turns. The dire wolf stands beside it at the same size. Under it, a fight against it on your phone.</p>
+<div id="list"></div>
+<script>
+const BEASTS = [
+  { id: 'coyote', name: 'COYOTE', rule: 'Eats the dead', say: 'Coyotes never fight a man standing up. They go for the hurt one, run when hurt, and a coyote beside a body eats and gets back up.', where: 'Suburb edges, dead golf courses, every wash. More at night.', feed: 'The coyotes were here before the city and they will be here after it.', fight: 'coyotes' },
+  { id: 'mountain_lion', name: 'MOUNTAIN LION', rule: 'Hides, jumps, pins', say: 'You cannot see it until it is two tiles off. It jumps the man on his own and pins him. One good shot drops it. It can climb a roof.', where: 'The mountain: Mount Charleston and Red Rock. At night.', feed: 'Nothing let the lions out. They came down after the lab\'s horses and camels.', fight: 'lions' },
+  { id: 'feral_hog', name: 'FERAL HOG', rule: 'Opens your legs', say: 'Hogs run straight at the nearest man. A tusk that draws blood makes him bleed 5 a turn for 2 turns. Their shoulders are armoured.', where: 'Only near water: the Wash, the wetlands, the lake shore.', feed: 'The pig farm north of town ate the Strip\'s leftovers. When the trucks stopped, the pigs walked to the Wash.', fight: 'hogs' },
+  { id: 'camelops', name: 'CAMELOPS', rule: 'Kicks every way', say: 'The valley\'s own Ice Age camel. One kick hits every man beside it and knocks each back a tile. Hurt it and it runs.', where: 'The open desert north of town: Tule Springs, Gypsum Cave, the springs.', feed: 'The lab at Tule Springs made them from the bones in the wash.', fight: 'camels' },
+  { id: 'feral_bull', name: 'FERAL BULL', rule: 'Charges in a line', say: 'It runs at a man two to four tiles off in a straight line. If it lands he is knocked flat and loses his turn. It cannot turn: step off the line.', where: 'The open desert and the dead farms, near the springs.', feed: 'Gold Butte had wild cattle long before the crash. Now nobody counts them.', fight: 'bulls' }
+];
+const PLAY = [['stand', 3], ['walk', 12], ['bite', 6], ['walk', 6], ['hit', 2], ['fall', 3], ['fall_hold', 6]];
+const KPS = 6;   /* 120 BPM, three keys a beat */
+fetch('../fight_rig/fight_rig.json').then(r => r.json()).then(IDX => {
+  const order = location.hash ? BEASTS.slice().sort((a, b) => (b.id === location.hash.slice(1)) - (a.id === location.hash.slice(1))) : BEASTS;
+  const wolf = IDX.looks.beast_dire_wolf, list = document.getElementById('list'), rows = [];
+  const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.src = '../fight_rig/' + src; });
+  Promise.all([load(wolf.file)].concat(order.map(b => load(IDX.looks['beast_' + b.id].file)))).then(imgs => {
+    order.forEach((b, n) => {
+      const L = IDX.looks['beast_' + b.id], div = document.createElement('div'); div.className = 'row';
+      div.innerHTML = '<div class="lab"><b>' + b.name + '</b><span class="tag">' + b.rule.toUpperCase() + '</span></div>' +
+        '<canvas width="' + (L.w + wolf.w + 12) + '" height="' + Math.max(L.h, wolf.h) + '"></canvas>' +
+        '<div class="say">' + b.say + '</div><div class="small">WHERE: ' + b.where + '</div><div class="small">THE FEED: ' + b.feed + '</div>' +
+        '<img loading="lazy" src="../../records/target/factions_five_beasts/' + b.fight + '_fight.webp" alt="the fight against it on the phone">';
+      list.appendChild(div); rows.push({ L, img: imgs[n + 1], cv: div.querySelector('canvas') });
+    });
+    const seq = []; PLAY.forEach(([c, k]) => { for (let i = 0; i < k; i++) seq.push([c, i]); });
+    let t = 0;
+    const draw = () => {
+      const step = Math.floor(t), dir = Math.floor(step / seq.length) % 8, [clip, i] = seq[step % seq.length];
+      rows.forEach(r => {
+        const g = r.cv.getContext('2d'), L = r.L; g.clearRect(0, 0, r.cv.width, r.cv.height);
+        const cl = clip === 'fall_hold' ? L.clips.fall[L.clips.fall.length - 1] : L.clips[clip][clip === 'walk' ? i % L.clips.walk.length : Math.min(i, L.clips[clip].length - 1)];
+        const gy = r.cv.height - (L.h - L.foot[1]) - 4;
+        g.drawImage(r.img, cl * L.w, dir * L.h, L.w, L.h, 0, gy - L.foot[1], L.w, L.h);
+        g.drawImage(imgs[0], 0, dir * wolf.h, wolf.w, wolf.h, L.w + 12, gy - wolf.foot[1], wolf.w, wolf.h);
+      });
+      t += 1;
+    };
+    draw(); setInterval(draw, 1000 / KPS);
+  });
+});
+</script>

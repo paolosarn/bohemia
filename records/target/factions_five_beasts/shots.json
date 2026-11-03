@@ -1,0 +1,193 @@
+[
+ {
+  "faction": "coyotes",
+  "kind": "suburb",
+  "stood": [
+   {
+    "kind": "coyote",
+    "name": "COYOTE",
+    "look": "beast_coyote",
+    "weapon": "Bite",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "coyote",
+    "name": "COYOTE",
+    "look": "beast_coyote",
+    "weapon": "Bite",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "coyote",
+    "name": "COYOTE",
+    "look": "beast_coyote",
+    "weapon": "Bite",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "coyote",
+    "name": "COYOTE",
+    "look": "beast_coyote",
+    "weapon": "Bite",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "coyote",
+    "name": "COYOTE",
+    "look": "beast_coyote",
+    "weapon": "Bite",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "coyote",
+    "name": "COYOTE",
+    "look": "beast_coyote",
+    "weapon": "Bite",
+    "shield": null,
+    "hp": 50
+   }
+  ],
+  "moves": {
+   "flees": 5,
+   "feeds": 2
+  },
+  "round": 4,
+  "over": true,
+  "result": "won",
+  "errors": []
+ },
+ {
+  "faction": "lions",
+  "kind": "scrub",
+  "stood": [
+   {
+    "kind": "mountain_lion",
+    "name": "LION",
+    "look": "beast_mountain_lion",
+    "weapon": "Serpent Bite",
+    "shield": null,
+    "hp": 110
+   }
+  ],
+  "moves": {
+   "pinned": 1,
+   "free": 1
+  },
+  "round": 4,
+  "over": true,
+  "result": "won",
+  "errors": []
+ },
+ {
+  "faction": "hogs",
+  "kind": "wash",
+  "stood": [
+   {
+    "kind": "feral_hog",
+    "name": "HOG",
+    "look": "beast_feral_hog",
+    "weapon": "Hyena Bite",
+    "shield": null,
+    "hp": 110
+   },
+   {
+    "kind": "feral_hog",
+    "name": "HOG",
+    "look": "beast_feral_hog",
+    "weapon": "Hyena Bite",
+    "shield": null,
+    "hp": 110
+   },
+   {
+    "kind": "feral_hog",
+    "name": "HOG",
+    "look": "beast_feral_hog",
+    "weapon": "Hyena Bite",
+    "shield": null,
+    "hp": 110
+   },
+   {
+    "kind": "feral_hog",
+    "name": "HOG",
+    "look": "beast_feral_hog",
+    "weapon": "Hyena Bite",
+    "shield": null,
+    "hp": 110
+   }
+  ],
+  "moves": {
+   "flees": 3,
+   "bleeding": 1
+  },
+  "round": 5,
+  "over": true,
+  "result": "won",
+  "errors": []
+ },
+ {
+  "faction": "camels",
+  "kind": "shore",
+  "stood": [
+   {
+    "kind": "camelops",
+    "name": "CAMEL",
+    "look": "beast_camelops",
+    "weapon": "Sweep",
+    "shield": null,
+    "hp": 320
+   },
+   {
+    "kind": "camelops",
+    "name": "CAMEL",
+    "look": "beast_camelops",
+    "weapon": "Sweep",
+    "shield": null,
+    "hp": 320
+   },
+   {
+    "kind": "camelops",
+    "name": "CAMEL",
+    "look": "beast_camelops",
+    "weapon": "Sweep",
+    "shield": null,
+    "hp": 320
+   }
+  ],
+  "moves": {
+   "flees": 4,
+   "kick": 3,
+   "rally": 1
+  },
+  "round": 5,
+  "over": true,
+  "result": "won",
+  "errors": []
+ },
+ {
+  "faction": "bulls",
+  "kind": "scrub",
+  "stood": [
+   {
+    "kind": "feral_bull",
+    "name": "BULL",
+    "look": "beast_feral_bull",
+    "weapon": "Sweep",
+    "shield": null,
+    "hp": 420
+   }
+  ],
+  "moves": {
+   "charge": 1,
+   "flees": 1
+  },
+  "round": 2,
+  "over": true,
+  "result": "won",
+  "errors": []
+ }
+]
