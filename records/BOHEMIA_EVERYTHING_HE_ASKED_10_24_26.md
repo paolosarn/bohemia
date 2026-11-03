@@ -388,4 +388,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 364 | AUTO better, still one button; gambits too much | 351(e) | COMBAT 7 session_01GKDyuuNDooEjTDprXTHNiT | RUNNING (11/3); gambits PARKED |
 | 365 | The kill cams from the first combat module, in this fight, on the beat, never costing frames | 351(f) | COMBAT 7 (item 4) | RUNNING (11/3) |
 | 366 | The feed talks a lot about the rest of the world, international vibes like Twitter, so a glance teaches the world he built | 352 | WORDS (THE WORLD FEED) session_01GKDyuwRofRh6Gz9p9rotEj | RUNNING (11/3) |
-| 367 | (very important, start it) The communication sometimes feels like death transcripts and last radio calls (Modern Warfare 2's Washington DC defence; real crash transcripts): what you hear when you did not hold | 353 | RADIO | RUNNING (11/3) |
+| 367 | (very important, start it) The communication sometimes feels like death transcripts and last radio calls (Modern Warfare 2's Washington DC defence; real crash transcripts): what you hear when you did not hold | 353 | RADIO session_01GKDyuuAEEAxHzcpoC7EFFW | RUNNING (11/3) |
