@@ -1491,7 +1491,7 @@ def wash_jam():
            'leaves and a chair at the deep end; a pit a man climbs down into. The board must cut its ground to the deck '
            '(hole_m in the manifest)', wrong='in the deep end, two fingers of perfectly clear water, and no rain in a year')
 def suburbs_pool():
-    deck, plaster, tile, coping = M('tape_grey', 3), M('clay_teal', 4), M('clay_teal', 2), M('clay_bone', 3)
+    deck, plaster, tile, coping = M('tape_grey', 3), M('tape_grey', 4), M('clay_teal', 2), M('clay_bone', 3)
     Lp, Wp = 9.0, 4.6
     def outline(t, n=36):
         pts = []
@@ -1522,7 +1522,12 @@ def suburbs_pool():
     for k in range(36):
         a0, a1 = o[k], o[(k + 1) % 36]
         POLY(tile, [(a0[0], a0[1]), (a1[0], a1[1]), (a1[0] * 0.995, a1[1] * 0.995), (a0[0] * 0.995, a0[1] * 0.995)], 0.22, 'xy', loc=(0, 0, -0.24), name='tile_band')
-    STAINS((1.0, 0, -2.0, 4.0, 2.4, 'z'), 9, 160, (('clay_mustard', 1), ('clay_rust', 1), ('rubber', 1)), (0.12, 0.35))
+    import random, bohemia_cook_model_props as PM
+    rnd = random.Random(160)
+    for i in range(46):                                        # the dirt and the dead leaves blown in, thickest at the deep end
+        x = rnd.uniform(0.0, 1.0) ** 0.5 * Lp * 0.42 if rnd.random() < 0.7 else rnd.uniform(-Lp * 0.4, Lp * 0.4); y = rnd.uniform(-Wp * 0.34, Wp * 0.34)
+        m = M(*[('clay_mustard', 1), ('clay_rust', 1), ('rubber', 1), ('clay_bone', 1)][i % 4])
+        OBJS.append(PM.blotch(bpy, 'pool_dirt', m, rnd.uniform(0.12, 0.5), (x, y, depth(x) + 0.012), (0, 0, rnd.uniform(0, 3)), 900 + i, thick=0.01))
     B(M('glass_eye', 2), (1.4, 1.6, 0.04), (3.2, 0.1, depth(3.2) + 0.05), name='clear_water')
     for s in (-1, 1): ROD(M('chrome', 1), (-3.6, s * 0.3 - 0.9, 0.9), (-3.6, s * 0.3 - 1.2, -0.9), 0.025, 6, name='ladder_rail')
     for k in range(4): ROD(M('chrome', 1), (-3.6, -0.6 - 0.07 * k, 0.4 - 0.4 * k), (-3.6, -1.2 - 0.07 * k, 0.4 - 0.4 * k), 0.02, 5, name='ladder_step')
@@ -1599,16 +1604,16 @@ def suburbs_trampoline():
 def landfill_mound():
     import random
     rnd = random.Random(12)
-    ROCK(M('tape_grey', 1), (0, 0, 0), (12.0, 10.0, 4.0), seed=600, sub=4, rough=0.16, sink=0.08, name='mound')
+    ROCK(M('clay_bone', 1), (0, 0, 0), (12.0, 10.0, 4.0), seed=600, sub=4, rough=0.16, sink=0.08, name='mound')
     bpy.context.view_layer.update(); mesh = OBJS[-1]
-    tops = sorted(((v.co.x, v.co.y, v.co.z) for v in mesh.data.vertices if v.co.z > 0.2), key=lambda c: rnd.random())[:70]
+    tops = sorted(((v.co.x, v.co.y, v.co.z) for v in mesh.data.vertices if v.co.z > 0.2), key=lambda c: rnd.random())[:190]
     for i, (x, y, z) in enumerate(tops):
         k = i % 7
         if k in (0, 1): S(M('cloth_black', 1 + (i % 2)), 0.35, (x, y, z), (1.2, 1, 0.8), name='bag')
         elif k == 2: S(M('tape_grey', 4), 0.3, (x, y, z), (1.1, 1, 0.8), name='bag_white')
         elif k == 3: B(M('tape_masking', 2), (0.6, 0.5, 0.4), (x, y, z + 0.1), rot=(0.3, 0.2, i), name='box')
         elif k == 4: C(M('rubber', 1), 0.38, 0.25, (x, y, z + 0.1), (1.2, 0.3, i), 14, name='tyre')
-        else: B(M(*[('clay_teal', 3), ('clay_rust', 2), ('clay_mustard', 3)][i % 3]), (0.4, 0.3, 0.05), (x, y, z + 0.03), rot=(0.4, 0.2, i), name='plastic')
+        else: B(M(*[('clay_teal', 3), ('clay_rust', 2), ('clay_mustard', 3), ('tape_grey', 4)][i % 4]), (0.7, 0.5, 0.06), (x, y, z + 0.03), rot=(0.4, 0.2, i), name='plastic')
     B(M('tape_grey', 4), (0.75, 0.7, 1.7), (-3.5, -2.6, 0.9), rot=(math.radians(-60), 0, 0.3), name='fridge')
     B(M('clay_bone', 3), (1.9, 1.4, 0.2), (2.8, -3.0, 1.1), rot=(math.radians(-25), 0, -0.4), name='mattress')
 
@@ -2089,7 +2094,7 @@ def camera_on(sc, sx0, sx1, sy0, sy1):
     return W, H, sx0, sy1
 
 
-def shot(o, fn, samples=64):
+def shot(o, fn, samples=64, hole=None):
     """one prop alone from the fight camera, through the rig, onto a shadow catcher: a cover sprite at 42.92 px a metre"""
     sc = bpy.context.scene
     co = np.zeros(len(o.data.vertices) * 3, np.float32); o.data.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
@@ -2101,6 +2106,13 @@ def shot(o, fn, samples=64):
     sy0, sy1 = lo[1] * math.cos(t) - 0.6 - reach * 0.7, hi[1] * math.cos(t) + h + 0.6
     bpy.ops.mesh.primitive_plane_add(size=1, location=((sx0 + sx1) / 2, (lo[1] + hi[1]) / 2 - reach * 0.5, 0.0))
     pl = bpy.context.active_object; pl.scale = ((sx1 - sx0) * 1.6, (hi[1] - lo[1]) + 2 * reach + 6, 1); pl.is_shadow_catcher = True
+    if hole:                                                   # a pit: the catcher is cut to its rim so the camera sees down into it
+        import bmesh
+        bpy.ops.object.transform_apply(location=True, scale=True)
+        bm = bmesh.new(); bm.from_mesh(pl.data)
+        bmesh.ops.subdivide_edges(bm, edges=bm.edges[:], cuts=90, use_grid_fill=True)
+        kill = [f for f in bm.faces if (f.calc_center_median().x / hole[0]) ** 2 + (f.calc_center_median().y / hole[1]) ** 2 < 1.0]
+        bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.to_mesh(pl.data); bm.free()
     RIG.light_and_film(sc, dict(sun_rot=list(RIG.G['sun_rot_deg']))); sc.render.film_transparent = True
     sc.cycles.samples = samples; sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = 0.02
     sc.cycles.max_bounces = 3; sc.cycles.diffuse_bounces = 2; sc.cycles.glossy_bounces = 0; sc.cycles.transmission_bounces = 0
@@ -2127,7 +2139,7 @@ def models(place):
         bpy.ops.export_scene.gltf(filepath=glb, export_format='GLB', use_selection=True, export_apply=True, export_extras=True)
         nv, nmat = len(o.data.vertices), len(o.data.materials)
         raw = os.path.join('/tmp/claude-0/fight_props_raw', stem + '.png'); os.makedirs(os.path.dirname(raw), exist_ok=True)
-        info = shot(o, raw)
+        info = shot(o, raw, hole=PROPS[pid]['hole'])
         a = Image.open(raw).convert('RGBA'); bb = a.getchannel('A').point(lambda v: 255 if v > 6 else 0).getbbox()
         a = a.crop(bb); pic = os.path.join(OUT, PROPS[pid]['place'], stem + '.webp'); a.save(pic, quality=90, method=6)
         info.update(model=os.path.relpath(glb, R), picture=os.path.relpath(pic, R), picture_px=list(a.size),

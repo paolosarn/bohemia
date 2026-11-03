@@ -125,6 +125,39 @@
     "wash.sofa",
     "wash.jam"
    ]
+  },
+  {
+   "id": "suburbs",
+   "name": "THE SUBURBS",
+   "card": "records/target/fight_props/CARD_SUBURBS.webp",
+   "props": [
+    "suburbs.pool",
+    "suburbs.yard_wall",
+    "suburbs.swing",
+    "suburbs.trampoline"
+   ]
+  },
+  {
+   "id": "landfill",
+   "name": "THE LANDFILL",
+   "card": "records/target/fight_props/CARD_LANDFILL.webp",
+   "props": [
+    "landfill.mound",
+    "landfill.flare",
+    "landfill.dozer",
+    "landfill.wells"
+   ]
+  },
+  {
+   "id": "strip",
+   "name": "THE STRIP",
+   "card": "records/target/fight_props/CARD_STRIP.webp",
+   "props": [
+    "strip.fountain",
+    "strip.sign",
+    "strip.bridge",
+    "strip.limo"
+   ]
   }
  ],
  "models": [
@@ -2017,6 +2050,517 @@
    "what": "what the last flood left against a boulder: a dead tamarisk trunk, tyres, a mattress, a door, plastic: low cover a man lies behind, rough ground to cross",
    "wrong": null,
    "verts": 356
+  },
+  {
+   "id": "suburbs.pool",
+   "place": "suburbs",
+   "place_name": "THE SUBURBS",
+   "name": "AN EMPTY POOL",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/suburbs_pool.glb",
+   "picture": "records/target/fight_props/suburbs/suburbs_pool.webp",
+   "picture_px": [
+    566,
+    247
+   ],
+   "anchor_px": [
+    257.6,
+    134.1
+   ],
+   "size_m": [
+    12.74,
+    8.02,
+    3.21
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.71,
+   "height_m": 0.9,
+   "height_storeys": 0.3,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": "r",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a kidney pool dug into its concrete deck, empty: faded plaster, the tile band, its ladder and diving board, the leaves and a chair at the deep end; a pit a man climbs down into. The board must cut its ground to the deck (hole_m in the manifest)",
+   "wrong": "in the deep end, two fingers of perfectly clear water, and no rain in a year",
+   "verts": 2116,
+   "hole_m": {
+    "ellipse_radii": [
+     4.5,
+     2.3
+    ],
+    "about": "a pit: cut the board's ground inside this ellipse round the model's origin"
+   }
+  },
+  {
+   "id": "suburbs.yard_wall",
+   "place": "suburbs",
+   "place_name": "THE SUBURBS",
+   "name": "A BACKYARD CORNER",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/suburbs_yard_wall.glb",
+   "picture": "records/target/fight_props/suburbs/suburbs_yard_wall.webp",
+   "picture_px": [
+    369,
+    248
+   ],
+   "anchor_px": [
+    228.3,
+    203.0
+   ],
+   "size_m": [
+    6.22,
+    4.89,
+    2.0
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.211,
+   "height_m": 2.0,
+   "height_storeys": 0.67,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the split-face block walls every Vegas backyard has, 1.8 m, two runs meeting at a corner with its pilaster, a wrought-iron side gate hanging open, a bin against it: walls you fight along and over",
+   "wrong": null,
+   "verts": 1968
+  },
+  {
+   "id": "suburbs.swing",
+   "place": "suburbs",
+   "place_name": "THE SUBURBS",
+   "name": "A DEAD SWING SET",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/suburbs_swing.glb",
+   "picture": "records/target/fight_props/suburbs/suburbs_swing.webp",
+   "picture_px": [
+    272,
+    137
+   ],
+   "anchor_px": [
+    86.3,
+    101.7
+   ],
+   "size_m": [
+    5.93,
+    2.78,
+    2.37
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.114,
+   "height_m": 2.35,
+   "height_storeys": 0.78,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a steel A-frame swing set 3.6 m wide, its slide gone to rust, two swings on their chains",
+   "wrong": "one swing hangs straight; the other is stopped high in the air at the top of its arc, and stays there",
+   "verts": 136
+  },
+  {
+   "id": "suburbs.trampoline",
+   "place": "suburbs",
+   "place_name": "THE SUBURBS",
+   "name": "A TRAMPOLINE FRAME",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/suburbs_trampoline.glb",
+   "picture": "records/target/fight_props/suburbs/suburbs_trampoline.webp",
+   "picture_px": [
+    274,
+    237
+   ],
+   "anchor_px": [
+    100.5,
+    175.7
+   ],
+   "size_m": [
+    4.65,
+    4.36,
+    2.61
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.141,
+   "height_m": 2.6,
+   "height_storeys": 0.87,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a backyard trampoline's frame, 4.3 m across, its mat rotted out, its net poles leaning, its springs hanging",
+   "wrong": null,
+   "verts": 344
+  },
+  {
+   "id": "landfill.mound",
+   "place": "landfill",
+   "place_name": "THE LANDFILL",
+   "name": "A TRASH MOUND",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/landfill_mound.glb",
+   "picture": "records/target/fight_props/landfill/landfill_mound.webp",
+   "picture_px": [
+    700,
+    530
+   ],
+   "anchor_px": [
+    302.2,
+    275.9
+   ],
+   "size_m": [
+    12.84,
+    10.61,
+    5.2
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.946,
+   "height_m": 4.88,
+   "height_storeys": 1.63,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "MOUND",
+    "tile": "H",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a mound of the valley's trash 12 m across and 4 m high, the cover soil eroded off it: bags, boxes, tyres, a fridge, a mattress, a shopping cart poking out of it: height you climb",
+   "wrong": null,
+   "verts": 8130
+  },
+  {
+   "id": "landfill.flare",
+   "place": "landfill",
+   "place_name": "THE LANDFILL",
+   "name": "THE METHANE FLARE",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/landfill_flare.glb",
+   "picture": "records/target/fight_props/landfill/landfill_flare.webp",
+   "picture_px": [
+    615,
+    561
+   ],
+   "anchor_px": [
+    260.1,
+    491.0
+   ],
+   "size_m": [
+    8.52,
+    4.48,
+    11.4
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.265,
+   "height_m": 11.4,
+   "height_storeys": 3.8,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": true
+   },
+   "what": "the landfill gas flare: a 9 m steel stack on its concrete pad, its wind shield at the top, the knockout drum and the header pipe feeding it, a fence round it; the ground round it burns",
+   "wrong": "it is still burning: the flame up top, years after anyone paid for anything",
+   "verts": 1252
+  },
+  {
+   "id": "landfill.dozer",
+   "place": "landfill",
+   "place_name": "THE LANDFILL",
+   "name": "THE DEAD DOZER",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/landfill_dozer.glb",
+   "picture": "records/target/fight_props/landfill/landfill_dozer.webp",
+   "picture_px": [
+    578,
+    276
+   ],
+   "anchor_px": [
+    230.6,
+    163.0
+   ],
+   "size_m": [
+    12.8,
+    3.76,
+    3.38
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.334,
+   "height_m": 3.26,
+   "height_storeys": 1.09,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a bulldozer (the kit's own, whole) stopped mid-push, its blade full of the trash it was moving, a windrow of it beside the track it left",
+   "wrong": null,
+   "verts": 8656
+  },
+  {
+   "id": "landfill.wells",
+   "place": "landfill",
+   "place_name": "THE LANDFILL",
+   "name": "THE GAS HEADER",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/landfill_wells.glb",
+   "picture": "records/target/fight_props/landfill/landfill_wells.webp",
+   "picture_px": [
+    539,
+    93
+   ],
+   "anchor_px": [
+    259.2,
+    35.9
+   ],
+   "size_m": [
+    12.0,
+    2.2,
+    1.3
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.183,
+   "height_m": 1.3,
+   "height_storeys": 0.43,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "the landfill gas wells: white pipe wellheads standing out of the cover with their valves, a 0.6 m header pipe running 12 m along the ground on its saddles between them: a low wall of pipe",
+   "wrong": null,
+   "verts": 276
+  },
+  {
+   "id": "strip.fountain",
+   "place": "strip",
+   "place_name": "THE STRIP",
+   "name": "THE DRY FOUNTAIN",
+   "landmark": true,
+   "model": "reference/models/bohemia/fight_props/strip_fountain.glb",
+   "picture": "records/target/fight_props/strip/strip_fountain.webp",
+   "picture_px": [
+    536,
+    394
+   ],
+   "anchor_px": [
+    258.2,
+    210.7
+   ],
+   "size_m": [
+    12.0,
+    12.0,
+    4.75
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 1.0,
+   "height_m": 4.75,
+   "height_storeys": 1.58,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a casino plaza fountain 12 m across, dry: its marble rim knee high all round (cover), its three-tier centre, the stained floor, the coins still in it",
+   "wrong": null,
+   "verts": 1834
+  },
+  {
+   "id": "strip.sign",
+   "place": "strip",
+   "place_name": "THE STRIP",
+   "name": "A FALLEN CASINO SIGN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/strip_sign.glb",
+   "picture": "records/target/fight_props/strip/strip_sign.webp",
+   "picture_px": [
+    673,
+    274
+   ],
+   "anchor_px": [
+    288.5,
+    194.9
+   ],
+   "size_m": [
+    13.44,
+    4.83,
+    3.67
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.451,
+   "height_m": 3.67,
+   "height_storeys": 1.22,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a 12 m arrow sign down on the plaza off its snapped pylon, tilted on its edge, its rows of bulbs, its letters' ghosts",
+   "wrong": "one bulb, out of the hundred, is still lit",
+   "verts": 5132
+  },
+  {
+   "id": "strip.bridge",
+   "place": "strip",
+   "place_name": "THE STRIP",
+   "name": "THE BRIDGE SPAN",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/strip_bridge.glb",
+   "picture": "records/target/fight_props/strip/strip_bridge.webp",
+   "picture_px": [
+    978,
+    751
+   ],
+   "anchor_px": [
+    314.2,
+    432.0
+   ],
+   "size_m": [
+    21.95,
+    4.25,
+    9.12
+   ],
+   "footprint_cells": [
+    2,
+    1
+   ],
+   "fills_cell": 0.648,
+   "height_m": 8.58,
+   "height_storeys": 2.86,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "HEIGHT",
+    "tile": "H",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a span of the Boulevard's pedestrian bridge, 14 m on two pylons, its deck 6 m up, its glass sides broken out, the escalator at one end stopped: you walk under it, you climb it by the escalator",
+   "wrong": null,
+   "verts": 836
+  },
+  {
+   "id": "strip.limo",
+   "place": "strip",
+   "place_name": "THE STRIP",
+   "name": "A STRETCH LIMO",
+   "landmark": false,
+   "model": "reference/models/bohemia/fight_props/strip_limo.glb",
+   "picture": "records/target/fight_props/strip/strip_limo.webp",
+   "picture_px": [
+    445,
+    136
+   ],
+   "anchor_px": [
+    216.5,
+    94.3
+   ],
+   "size_m": [
+    9.35,
+    2.68,
+    1.63
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.174,
+   "height_m": 1.57,
+   "height_storeys": 0.52,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "what": "a white stretch limousine, 9 m, dead at the valet line, its tyres flat, its dark windows, a door open",
+   "wrong": null,
+   "verts": 460
   }
  ]
 }
