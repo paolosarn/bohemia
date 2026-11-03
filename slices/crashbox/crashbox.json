@@ -151,8 +151,7 @@
     "place": "INTAKE · LAKE",
     "reading": "signal",
     "corner": "clock",
-    "tear": true,
-    "on": false
+    "tear": true
    },
    "e": {
     "name": "THE PENS",
@@ -165,8 +164,7 @@
     "cam": "TRAIL 2",
     "place": "LAB · PENS",
     "reading": "battery",
-    "corner": "clock",
-    "on": false
+    "corner": "clock"
    },
    "f": {
     "name": "THE APRON",
@@ -180,8 +178,7 @@
     "place": "APRON · GATE C",
     "reading": "signal",
     "corner": "clock",
-    "tear": true,
-    "on": false
+    "tear": true
    },
    "g": {
     "name": "THE FLARE",
