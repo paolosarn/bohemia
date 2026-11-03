@@ -21,7 +21,11 @@ hyenas, so the beast fights he plays are dogs.
 - PIECE 5 SHIPPED (d001cbe1c, BUILD 11/3zzzs): the lab's hi-vis collar plate on the nape of every lab beast and the farm's lime tag on
   the bull and the hog, read from the fight's camera (6+ px in 5 to 8 of 8 facings, was 0); the pack keeps the mark's colour; rule 359
   folded in (the batch is one sheet: one face; bohemia_enemies.json 'water' for WORLD). VOTE beasts2-the-lab-marks-11-3.
-- NEXT: (6) the gate (own sheet each, outline differs past a floor, no place
+- PIECE 6 SHIPPED (30e9d48e7, BUILD 11/3zzzt): gates/every_beast_its_own_outline_gate.py in the suite (B1 to B7, plants, 11/0); the
+  schrat out of the late beasts mix (real DNA only). VOTE beasts2-the-outlines-11-3.
+- THE LIST IS DONE. WHAT IS LEFT (no Paolo needed): his verdicts on the six cards; COMBAT's turn strip draws one red wolf-head glyph
+  for every beast (rule 115(h), named to COMBAT); WORLD places the beasts at their waters (bohemia_enemies.json 'water').
+- WAS: (6) the gate (own sheet each, outline differs past a floor, no place
   only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
 
 ## FACTIONS (BEASTS 2), 11/3/26: EVERY BEAST ITS OWN BODY (rule 345, ask line 354), BUILD 11/3zzy (the bull) and 11/3zzza (the six)
