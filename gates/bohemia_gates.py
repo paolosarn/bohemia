@@ -10290,7 +10290,8 @@ GATES = [
      "COMBAT 7 gate, 11/3, rule 351(f), ask lines 364 and 365 (Paolo 11/3: 'we had kill cams, bro why don't we have kill cams here... I always "
      "just care about the frames per second'): on his upright phone on AUTO, every cut whole beats, short on a plain kill, long only for a "
      "stake, AUTO halves, never two within the gap; every style on a real kill; the camera never moves; a tap skips; a kill's frames within "
-     "3 ms of the same kills with the cams off. About 8 minutes", True),
+     "3 ms of the same kills with the cams off; rule 379 (ask line 408, 'Toggle kill cams on or off'): the game's default fight never cuts, the "
+     "gear's card carries KILL CAMS ON / OFF under FIGHTS, OFF lit, his taps set and clear it. About 12 minutes", True),
     ("THE DECOY", ['node', 'gates/the_decoy_gate.js'],
      "COMBAT 7 gate, 11/3, rule 367, ask line 391 (Paolo 11/3: 'did you seriously just walk around with a cardboard cutout... you can set it "
      "down, enemy can as well'): the perk is data; headless his cutout is struck, takes no turn, never swings, holds no zone, never counts as "

@@ -18092,7 +18092,7 @@
   "id": "combat-7-heavy-armour-costs-a-tile-11-3",
   "kind": "animation",
   "lane": "combat",
-  "sha": "PENDING",
+  "sha": "a19b52b3",
   "made": "11/3",
   "draft": true,
   "title": "HEAVY ARMOUR COSTS A TILE, NEVER A SWING",
@@ -18111,6 +18111,31 @@
    "before": "every armour walked 4 houses",
    "after": "the heaviest walks 3, strikes the same; the shop says ONE LESS TILE",
    "scale": "his phone upright, 390 x 844, the fight's own camera"
+  }
+ },
+ {
+  "id": "combat-7-the-kill-cams-switch-11-3",
+  "kind": "ui",
+  "lane": "combat",
+  "sha": "PENDING",
+  "made": "11/3",
+  "draft": true,
+  "title": "KILL CAMS: A SWITCH, OFF FOR NOW",
+  "said": "Kill cams came in like ugly dogshit, they are far from final, let's have a kill cam setting while you still work on it... Toggle kill cams on or off",
+  "why": "The kill cams are off as the game comes, and a KILL CAMS row (ON or OFF) sits under FIGHTS on the settings card while they are reworked. You see it behind the gear, under FIGHTS.",
+  "options": [
+   "A, yes, off until they are good",
+   "B, good, but keep them on by default",
+   "C, no, cut the kill cams"
+  ],
+  "show": {
+   "how": "page",
+   "src": "vote/COMBAT_7_THE_KILL_CAMS_SWITCH.html"
+  },
+  "before_after": {
+   "before": "a kill cam on every kill he saw, no way to stop them",
+   "after": "OFF by default, one tap on the settings card",
+   "scale": "his phone upright, 390 x 844, the game's own settings card"
   }
  },
   {

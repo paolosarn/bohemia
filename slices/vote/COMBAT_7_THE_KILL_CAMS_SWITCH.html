@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Kill Cams Switch</title>
+<!-- COMBAT 7 [the kill cams switch], rule 379, ask line 408 (Paolo 11/3: 'Kill cams came in like ugly dogshit, they are far from
+     final, let's have a kill cam setting while you still work on it... Toggle kill cams on or off'). The game's own settings card
+     behind the gear, on his phone (390 x 844), after NEW GAME: OFF as it comes, then his tap on ON. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;max-width:420px;margin-bottom:10px}
+  img{width:100%;display:block;border-radius:3px}
+  .cap{margin:6px 0 0;color:#e8d8b0;font-weight:bold;letter-spacing:1px}
+  .q{color:#e8d8b0;font-style:italic;margin:0 0 10px}
+</style>
+<h1>KILL CAMS: A SWITCH, OFF FOR NOW</h1>
+<p class="q">"Toggle kill cams on or off."</p>
+<p>The kill cams are off as the game comes. Open the gear: under FIGHTS there is a KILL CAMS row, ON or OFF. With it off, a kill never stops the fight and nothing on the board changes. They are being reworked behind the switch.</p>
+<div class="row"><img id="a" alt="the settings card"><div class="cap" id="c"></div></div>
+<script>
+(function () {
+  var F = [['cams_switch_off', 'AS THE GAME COMES: OFF'], ['cams_switch_on', 'ONE TAP ON ON: THEY PLAY AGAIN']], i = 0, A = document.getElementById('a'), C = document.getElementById('c');
+  function src(n) { return '../../records/target/combat7_11_3/' + n + '.webp'; }
+  F.forEach(function (f) { var x = new Image(); x.src = src(f[0]); });
+  function show() { A.src = src(F[i][0]); C.textContent = F[i][1]; i = (i + 1) % F.length; } show(); setInterval(show, 1800); })();
+</script>

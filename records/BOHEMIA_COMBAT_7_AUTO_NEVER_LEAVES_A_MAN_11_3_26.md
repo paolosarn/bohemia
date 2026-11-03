@@ -198,3 +198,20 @@ then 3; he walks one and still strikes; the shop's card).
 [bb] Battle Brothers puts armour's weight on maximum fatigue and initiative only; a plate man walks as far as anyone and tires sooner.
 Ours keeps that and adds one clear tile, the cost a phone player sees on the ground before he buys.
 [analog horror] the lit ground is the lamp's lift on the tiles, never a new colour; the shorter walk is read off the same chalk line.
+
+## 9. RULE 379, THE KILL CAMS SWITCH, OFF FOR NOW (ask line 408; the coordinator's first item after the armour)
+His words: 'Kill cams came in like ugly dogshit, they are far from final, let's have a kill cam setting while you still work on it,
+it's fucking with the visuals they are that bad. Toggle kill cams on or off.'
+THE ROW (slices/bohemia_killcams.js, built the way slices/bohemia_difficulty.js builds FIGHTS): KILL CAMS, ON / OFF, on the game's one
+settings card behind the gear, under FIGHTS; its own line under it (draft:true); hidden on the start screen (body.setatstart) as FIGHTS
+is. ONE TRUTH: localStorage 'bohemia.killcams.v1' holds 'on' or nothing; NOTHING IS OFF, the default (rule 379(b)). The alpha loads it
+beside the difficulty row; the demo carries it from the cut.
+THE FIGHT (slices/BOHEMIA_FIGHT.html killCamsOn): read at every kill; off, killCut returns before anything (no cut, no bars, no
+camcorder zoom, the tags never hidden, no sound): nothing on the board changes. A tap holds from the next kill.
+GATE: THE KILL CAMS 8 legs now: K7 THE SWITCH, OFF BY DEFAULT: the game's default fight (nothing set) plays seed 23 on AUTO, 3 kills,
+0 cuts, the board never cut; on the demo on his upright phone the gear's card carries KILL CAMS (ON / OFF) under FIGHTS, OFF lit, his tap
+on ON keeps 'on', on OFF clears it. K2 to K6 run with the switch ON, as he would turn it on.
+NEXT, behind the switch (rule 379, the rest): what made them ugly, from this lane's own clips: the punch-in is a CSS scale of the whole
+composited glass, so every pixel of the 112 px art is blown up and smeared by the browser's filter, and the tags stepping aside leave
+the man bare for a beat; the rework draws the close-up at the art's own pixel size like the starred loading-screen camera feeds, with
+a before and after card; OFF until he says they are good.

@@ -6796,8 +6796,13 @@ function cutBars(on) {
     document.body.appendChild(d); }); t = document.getElementById('cutT'); b = document.getElementById('cutB'); }
   t.style.height = b.style.height = on ? '9vh' : '0';
 }
+/* THE SWITCH (COMBAT 7, rule 379, ask line 408; Paolo 11/3: 'Kill cams came in like ugly dogshit... let's have a kill cam setting
+   while you still work on it... Toggle kill cams on or off'): the settings card's KILL CAMS row (slices/bohemia_killcams.js) keeps
+   'on' or nothing under this key; nothing is OFF, the default, and then killCut never runs. Read at every kill, so a tap holds
+   from the next one. */
+function killCamsOn() { try { return localStorage.getItem('bohemia.killcams.v1') === 'on'; } catch (e) { return false; } }
 function killCut(u, e, a) {
-  const K = R('ours.kill_cams'); if (!K || !K.on) return;
+  const K = R('ours.kill_cams'); if (!K || !K.on || !killCamsOn()) return;
   const now = performance.now(), by = e.by ? FIGHT.byId(e.by) : null, B = beatMs();
   const chainKey = by ? by.id + ':' + FIGHT.S.round : null, chained = !!(chainKey && UI.cutChain && UI.cutChain.key === chainKey);
   UI.cutChain = chainKey ? { key: chainKey, n: chained ? UI.cutChain.n + 1 : 1 } : null;
