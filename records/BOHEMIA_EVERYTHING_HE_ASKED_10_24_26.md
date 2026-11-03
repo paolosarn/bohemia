@@ -436,3 +436,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 412 | Two quiet days: only talk; record feedback and jobs, run nothing; finish only the half-baked things he loved | 382 | COORDINATOR | IN FORCE 11/3 (every ask of the night already shipped by the lanes; nothing else pushed) |
 | 413 | His company takes Battle Brothers' cap: 12 into a fight, 20 kept; the Peasant Militia origin (our BLOCK WATCH) 16 and 25; the enemy keeps no cap | 378 (amended) | COMBAT, RUN, TUNING | QUEUED (QUIET DAYS, rule 382) |
 | 414 | The town screen is cut by a straight line where the phone sits (a round object sliced, a mirrored band); draw every town whole and let the phone float over it | 383 | RUN | QUEUED (QUIET DAYS, rule 382) |
+| 415 | Zooming in slows time down; it must never (people won't zoom) | 384 (amends THE WALK READS) | WORLD | QUEUED (QUIET DAYS, rule 382) |
