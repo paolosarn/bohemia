@@ -57,7 +57,7 @@ const GONE = [
 /* RE-AIMED 9/28 (rule 38c): THE FOUR THINGS ARE LOADING, TRAVEL ON THE MAP, ARRIVAL, THE FIGHT
    AND THE FIRST PERSON. The walk pad was KEPT here because walking was item 2; travel on the
    map replaced it, so the pad moves to GONE and the map's tap is proved below instead. */
-const KEPT = [['notebtn', 'NOTES']];
+const KEPT = [];   /* NOTES was kept here; rule 357 (a) took it away (11/3), and its leg below now holds that it is gone */
 
 const drawn = (fr, id) => fr.evaluate((i) => {
   const el = document.getElementById(i);
@@ -131,17 +131,10 @@ const drawn = (fr, id) => fr.evaluate((i) => {
       return { there: true, seen: s.display !== 'none' && s.visibility !== 'hidden' && b.width > 4 && b.height > 4 && b.left < innerWidth && b.top < innerHeight,
                w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), shell: true };
     });
-    const notesBox = async () => (await phoneNotes()) || drawn(fr, 'notebtn');
-    for (const [id, what] of KEPT) {
-      const g = id === 'notebtn' ? await notesBox() : await drawn(fr, id);
-      ok('still on the screen: ' + what + (g.shell ? ' (on the phone)' : ''), g.seen === true);
-    }
-    /* NOTES DID NOT MOVE ACROSS THE SCREEN. Taking things away must not push the
-       one control that stayed under the other hand. */
-    const nb = await notesBox();
-    say('  NOTES sits at x=' + nb.x + ' of 390');
-    ok('and NOTES is still on the right, where his thumb left it', nb.x > 195);
-
+    /* RE-AIMED 11/3 BY UI 6 (rule 357 (a), Paolo 11/3: 'remove the Notes button from everywhere, I don't use it, no one uses
+       it'): NOTES is no longer something he must reach; it must be GONE, from the phone and from the bar. */
+    const pn = await phoneNotes(), bn = await drawn(fr, 'notebtn');
+    ok('NOTES IS GONE (rule 357): not on the phone, not on the bar', !(pn && pn.seen) && !(bn && bn.seen), 'phone ' + !!(pn && pn.seen) + ', bar ' + !!(bn && bn.seen));
     /* A TAP ON THE MAP MOVES HIM (9/28, rule 38c: TRAVEL is item 2 now). The game's own
        block numbers, not a picture diff: find a block a thumb could pick three to six blocks
        of road away, touch it once, and read where the marker is. */
@@ -163,42 +156,7 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     say('  one tap on the map moved the marker ' + moved + ' blocks');
     ok('*** A TAP ON THE MAP MOVES HIM ON THE STRIPPED CUT ***', !!spot && moved > 0);
 
-    /* NOTES OPENS AND HOLDS WORDS. Open, and STILL open, with text in it. */
-    if (nb.seen) { if (nb.shell) await d.page.touchscreen.tap(nb.x + nb.w / 2, nb.y + nb.h / 2); else await d.tapAt(nb.x + nb.w / 2, nb.y + nb.h / 2); await d.page.waitForTimeout(700); }
-    const notes = await fr.evaluate(() => {
-      const el = document.querySelector('#notepanel, #notewrap, .notepanel')
-             || document.getElementById('notebtn');
-      const open = !!document.querySelector('#notepanel.on, #notewrap.on, #notebtn.on')
-                || !!(el && /\bon\b/.test(el.className));
-      const box = document.querySelector('#notepanel, #notewrap');
-      const words = box ? (box.textContent || '').replace(/\s+/g, ' ').trim().length : 0;
-      return { open: open, words: words };
-    });
-    say('  NOTES opened: ' + notes.open + ', and it is holding ' + notes.words + ' characters');
-    ok('*** NOTES STILL OPENS, AND STAYS OPEN WITH WORDS IN IT ***',
-       notes.open === true && notes.words > 0);
-
-    /* AND IT FOLDS AGAIN, BY ITS OWN CLOSE.
-       *** MEASURED, BECAUSE MY FIRST TWO GUESSES WERE BOTH WRONG. *** The notes panel
-       is 390 x 844 -- the WHOLE SCREEN -- so it covers the NOTES button itself, and
-       tapping NOTES again cannot fold it: that touch lands on the panel. A tap low on
-       the world does not fold it either. Its own CLOSE does, first try. That is not a
-       defect, it is a full-screen panel behaving like one, and the gate has to use the
-       door the panel actually has instead of the one I assumed.
-       FOLDING IT HERE IS ALSO THE RULER, NOT THE GAME: the first cut of this gate left
-       NOTES up and then went straight at the phone, and both phone legs went red with
-       the point landing on the notes panel -- correct behaviour reported as a break,
-       which is the "before blaming the game, blame the ruler" mistake with an extra
-       step. */
-    const back = await fr.evaluate(() => {
-      const b = document.getElementById('noteback'); if (!b) return null;
-      const r = b.getBoundingClientRect();
-      return { x: r.x + r.width / 2, y: r.y + r.height / 2, says: (b.textContent || '').trim() };
-    });
-    if (back) { await d.tapAt(back.x, back.y); await d.page.waitForTimeout(600); }
-    const folded = await fr.evaluate(() => !document.querySelector('#notewrap.on'));
-    say('  NOTES folds again on its own ' + (back ? back.says : '(no close found)'));
-    ok('and NOTES folds again, so it is not a one-way door', folded === true);
+    /* NOTES OPENS AND HOLDS WORDS, AND FOLDS AGAIN: retired 11/3 with the button (rule 357 (a)). */
 
     /* TO THE CITY SCREEN BY HIS OWN GESTURE, NOT BY SETTING THE CAMERA. The first cut
        of this gate set MODE by hand and said so, because the pinch did not cross --

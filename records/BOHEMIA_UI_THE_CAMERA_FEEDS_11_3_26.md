@@ -82,6 +82,12 @@ shape only if it turns, the next camera's 8 s before the cut. All twenty sheets 
 loads more than two of them in the first 40 seconds.
 
 ## CHECKS
+- ROUND TWO (rules 357, 358), on the rebased tree: THE CAMERA FEEDS 25/0 (C10 nothing behind, C11 all twenty screens worst 4.7 to 1 in the
+  sun, C12 NOTES gone, every plant caught), THE FRONT SCREEN 42/0 (twice, two random feeds), THE START SCREEN 12/0, THE PHONE (main's,
+  the coordinator's re-aim), THE DAYS ONCE 59/0, THE LOADING MENU IS FROZEN 8/0, THE MENU HEARS ONLY ITS FEED 4/0, DEMO BUILD 25/0, HANDOFF
+  10/0. Reds the same on main, run on main's files this round: THE CUT IS THE FOUR THINGS (the fight still starts), NO TOP BAR IN THE
+  FIGHT (its bar plant), ONE HUD EVERYWHERE (the town's board covers four presses, and its plant), THE PHONE TURNS (reads the old phone).
+ROUND ONE (the feeds):
 - THE CAMERA FEEDS (gates/the_camera_feeds_gate.js, new, in the suite): 19 passed, 0 failed (rolls on one phone: i a h b j d; the
   cut d -> h with feed_h.mp3; sideways the wide picture; the first paint 120 ms, the feed's sheet at 595 ms). Its plants all caught:
   a feed missing its wide sheet, a 4:3 sheet called tall, a loud sound, SETTINGS back on the title, the same feed twice running.
@@ -93,8 +99,53 @@ loads more than two of them in the first 40 seconds.
   PAGES PUBLISH 16/2 (the published surface over its cap, the handoffs/skills/tickets folders).
 - The full suite unmeasured since PLUMBER's last line (rule 13).
 
+## RULE 357, THE SAME ROUND: THE TEXT BELONGS TO THE PICTURE, AND NOTES IS GONE (asks 377, 378, 379)
+His words (11/3, after the feeds landed): 'I am so in love with the loading screens. It's literally changing my life... remove the
+Notes button from everywhere... the text on the screen, post economic apocalypse, new game, continue: I don't want an effect behind
+them, a shadow box, a contrast box... wherever you place all the text moving forward it feels like it was meant to be placed there
+by what's going on in the background behind it'; amended: 'the text is still obviously a menu overlay... I don't want you to make
+graffiti of the text... very visible... not everything has to be at night time'.
+- NOTHING BEHIND THE FOUR WORDS: no black ground under the line, no plate under NEW GAME (it was a gold plate), no box under CONTINUE,
+  no marks beside the choices. The words are the game's type flat on the footage: his gold letters, the line and CONTINUE in the bone
+  of his letters, the one next thing (NEW GAME, or CONTINUE with a game kept) in his gold at 20 points.
+- THE PICTURE GIVES THEM THEIR PLACE: tools/bohemia_ui_the_camera_feeds.py --place reads every feed's own frames, cover-fit onto his
+  phone upright (390 x 844) and sideways (844 x 390), and puts the title block and the two choices where EVERY frame keeps them
+  readable by the front screen's own test (J5: 4.5 to 1 against the worse side of what is under the word, plain and in the sun; his
+  letters 3 to 1), as near the usual place as that allows (the title high, the choices under the thumb); sideways each block takes the
+  left or the right column. Stored per feed in crashbox.json (feed.options[k].words). Through a cut the words are off the glass with
+  the snow and come back in the next camera's place; on the first load they wait for their place (never drawn in one and moved).
+- NOT ALL NIGHT: the feeds run through the day: the camp and the flare at dusk, the market, the pylon and the fountain at dawn, the dam
+  at a white noon, the airport apron in the afternoon's dust; the pawn lot, the road into the Strip and the lab pens stay at night
+  (their identity is the dark). Each hour composed with a quiet place for the words: the dam's dark water at noon, the terminal's long
+  shadow across the apron, the porte-cochere's dark underside over the fountain.
+- NOTES IS GONE: off the title, off every bar the game draws (the map, the fight, the spoils: still built off the glass so nothing
+  that held it breaks), and the phone has no NOTES app. Its two gates are in graveyard/the_notes_button_11_3_26/ with a post-mortem;
+  eight gates that tested NOTES now hold that it is gone (the cut is the four things, no top bar in the fight, the days once, the
+  phone, the phone turns, one HUD everywhere, the one screen, the top bar).
+
+- WHAT IT TOOK TO MAKE THE DAY READ: the front screen's sun test (rule 73: the word against the worse side of what is under it, the
+  picture whitened 25%) needs a place darker than about 52 out of 255 for bone and 32 for gold in every frame. The night feeds have it
+  everywhere; the day feeds did not, so (1) the choices take bone where gold would not read, NEW GAME marked by its size (20 points
+  against 13), (2) the dark ink is there for a light place (the finder never needed it in the end), (3) the day feeds' film sits under
+  the night's: the camera's own exposure baked into the frames (the camp 0.74, the apron 0.68, the flare and the fountain 0.8, the
+  pylon 0.42: a dark dawn). Measured on all twenty: every word 4.5 to 1 or better in the sun, his letters 3 to 1 or better.
+- The two front-screen gates moved with it: J1's card is what the letters' own block adds to the glass (shown less hidden: footage has
+  greys of its own), J6's one next thing is the gold word or the 20-point word (no plate), its plant gilds CONTINUE's word; J7 holds NOTES at 0; RUN's start-screen gate holds NO SETTINGS (T5) and NO NOTES (T6) and a CONTINUE that says only
+  CONTINUE (T8).
+- KNOWN, NOT DONE: the feel of (g) (MW2's Washington DC radio) was not re-made into these sounds this round; the feeds keep their
+  own recorded sounds at -33 dB. The bar's NOTES is hidden, not deleted from the city's own file (other lanes' code calls it).
+
+## RULE 358: THE LOADING MENU IS NEAR FINAL, AND NOW FROZEN (ask line 380)
+His words (11/3): 'I'm in love with the loading menu, I can already see a lot of this being final final final.' What he asked is built
+(348 and 357), and the menu is held: gates/the_loading_menu_is_frozen_gate.js (in the suite) fingerprints the four words, the start
+screen's type and overlay (the 21 rules of its look) and how the feeds roll (the key, the 40 s cut, the preload, the roll, the snow,
+the fade, the two shapes) against records/target/ui_the_loading_menu_frozen.json; a change fails unless a commit since the baseline
+says NEW RULING (then --freeze re-records it in that commit); no feed may leave the roll; new feeds are welcome. 8 passed, 0 failed,
+four plants caught (NEW GAME renamed, the cut at 30 s, a size in the look, a feed taken away).
+
 ## PROOF (records/target/ui_the_camera_feeds/)
-A still of every feed, tall and wide (feed_<x>_<tall|wide>_still.png); the start screen upright and sideways, before and after.
+A still of every feed, tall and wide (feed_<x>_<tall|wide>_still.png). The VOTE picture slices/vote/UI_THE_WORDS_BELONG_TO_THE_PICTURE_11_3.webp:
+the real start screen on all ten feeds, upright and sideways, as the demo draws it (card ui-the-words-belong-to-the-picture-11-3).
 The VOTE page: slices/BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.html (every feed moving, tall or wide, tap to hear; the monitor at the top
 cycles them every 8 s so the cut can be seen).
 

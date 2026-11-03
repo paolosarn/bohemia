@@ -1,6 +1,34 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
-UI (ui-5, the first minute and the phone's fixes): 11/3 LATEST -- [the loading screen] + [the start screen] BUILT, NOT YET SEEN; [the third
+UI (ui-6, the camera feeds; the words belong to the picture; the menu frozen): 11/3 LATEST -- [the camera feeds] + [the start screen,
+two ways] + [the words in the picture] + [notes gone] + [the menu frozen] BUILT (asks 351, 358 SEEN YES; 377, 378, 379, 380 BUILT, NOT
+YET SEEN; rules 342, 348, 357, 358; BUILD 11/3zzzzab - THE WORDS BELONG TO THE PICTURE), IN THE DEMO, two VOTE cards (ui-the-camera-feeds-11-3, ui-the-words-belong-to-the-
+picture-11-3). Record records/BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.md; proof records/target/ui_the_camera_feeds/.
+- THE FEED (slices/bohemia_ui_crashbox.js): the whole glass, first person; ten feeds a..j, a random one each open, never the last
+  (localStorage bohemia.title.feed.last); after 40 s the monitor cuts (2 holds of roll, 1 of snow) to the next camera and its sound;
+  each feed a tall 432 x 768 and a wide 768 x 432 sheet (6 or 12 frames one under the next); a turn cross-fades over 4 holds.
+  Everything in slices/crashbox/crashbox.json (feed.options[k]: sheets, sound, the camera's corner, words[tall|wide] = where the
+  title block (t) and the choices (m) sit, tink/mink = the inks). Probe switches: localStorage bohemia.title.feed holds one feed;
+  BohemiaCrashbox.cutSoon() winds the clock to the cut.
+- THE WORDS (rule 357): nothing behind them (no plate, box, shadow, outline, marks); placed per feed by the picture's own frames:
+  tools/bohemia_ui_the_camera_feeds.py --place measures every frame on his phone both ways with the front screen's J5 (sun test) and
+  writes words into crashbox.json. A new or re-shot feed: render, --post, then --place, then check THE CAMERA FEEDS C11.
+- THE HOURS (rule 357 (f)): HOUR in the tool: dusk a, g; dawn h, i, j; noon d; afternoon f; night b, c, e. EXPOSE bakes the day
+  feeds' film under the night's so the words have their place (a 0.74, f 0.68, g 0.8, i 0.42, j 0.8).
+- NOTES IS GONE: the title's and the bar's #notebtn hidden by CSS (the city's own file still builds it; other lanes' code calls it),
+  the phone's APPS without notes; its two gates in graveyard/the_notes_button_11_3_26/ with a post-mortem; eight gates re-aimed.
+- FROZEN (rule 358): gates/the_loading_menu_is_frozen_gate.js holds the four words, the start screen's 21 rules of look and the roll's
+  numbers against records/target/ui_the_loading_menu_frozen.json. A change needs a commit saying NEW RULING, then --freeze in it.
+  More feeds are welcome (same bar: tall and wide, its own sound, --place, C11 green).
+- PICTURES: tools/bohemia_ui_the_camera_feeds.py <a..j> <tall|wide> <dir> (bpy 4.2 venv; ~20 s a frame on four cores), --post
+  into slices/crashbox/feed_<x>_<tall|wide>.webp; SOUNDS tools/bohemia_ui_the_camera_feeds_sounds.py (CC0 bank, -33 dB rms).
+NEXT: (g) the MW2 Washington DC radio feel was not put into the feeds' sounds this round (RADIO's lane holds the last transmissions);
+UI 5's 161 (the end screen's four on the phone) still the coordinator's call.
+[bb Battle Brothers' main menu is a few words over one picture; ours is four words over a different camera each time, placed by it.]
+[analog horror: a monitor cycling cameras nobody watches through a whole day, the sync rolling into snow, a dropped camcorder at dawn
+still recording, a wolf in a trail camera's flash.]
+
+UI (ui-5, the first minute and the phone's fixes): 11/3 -- [the loading screen] + [the start screen] BUILT, NOT YET SEEN; [the third
 job], [the left phone], [the blood on the words], [the reload leg] BUILT, NOT YET SEEN; [the end screen on the phone] WALKED, NOT DONE
 (asks 338, 340, 154, 133(a), 129, 282; 161 handed back; BUILD 11/3zzo - THE CAMERA'S OWN FEED), IN THE DEMO, two VOTE cards.
 Record records/BOHEMIA_UI_THE_FIRST_MINUTE_AND_THE_PHONE_FIXES_11_3_26.md; proof records/target/ui_the_first_minute_feeds/ (6 sheets).

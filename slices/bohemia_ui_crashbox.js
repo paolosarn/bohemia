@@ -258,6 +258,7 @@
     cycle(); var cut = cutStep();
     var k = feedKey(), o = feedOpt(k), ori = orient();
     if (FEED.orient && FEED.orient !== ori) FEED.fade = { from: FEED.orient, t0: now() }; FEED.orient = ori;
+    placeWords(TITLE.root, k, ori, !!cut);
     var im = sheet(k, ori), P = progress(), key = still() ? 0 : keyOf(D.keys_per_bar), beat = Math.floor(beatF());
     /* THE PHONE TURNS (rule 348 (a)): the picture made for the new shape comes up through the old one over fade_holds holds on
        the music's grid (rule 324, never a jump); until the new one has arrived the old one stays, cover-fit, whole */
@@ -285,8 +286,26 @@
     osdText(g, o.corner === 'clock' ? clock() : counter(), pad, bot);
     reading(g, o.reading, W - pad, bot, P, 'right');
   }
+  /* RULE 357: the four words sit where this feed's picture keeps a quiet place for them (feed.options[k].words[tall|wide], measured
+     on the feed's own frames by tools/bohemia_ui_the_camera_feeds.py --place); set on the title's root, changed only when the
+     camera or the shape changes, and hidden through a cut (the switcher's snow carries no menu) */
+  function placeWords(root, k, ori, cutting) {
+    var o = D.feed.options[k], w = o && o.words && o.words[ori]; if (!root) return;
+    var tEl = $('title'), wait = !D.loaded && now() - T0 < 2500;   /* the words wait for their place (never shown in one and moved) */
+    if (tEl) tEl.classList.toggle('cbx-cut', !!cutting || wait); if (wait) return;
+    var sig = k + '|' + ori + '|' + (w ? JSON.stringify(w) : ''); if (root.__cbxPlace === sig) return; root.__cbxPlace = sig;
+    root.classList.toggle('cbxp', !!w); root.classList.toggle('cbxw', ori === 'wide');
+    root.classList.toggle('cbx-tdark', !!w && w.tink === 'dark'); root.classList.toggle('cbx-mbone', !!w && w.mink === 'bone'); root.classList.toggle('cbx-mdark', !!w && w.mink === 'dark');
+    if (!w) return;
+    var st = root.style; st.setProperty('--cbx-ty', (w.t[1] * 100).toFixed(1) + '%'); st.setProperty('--cbx-my', (w.m[1] * 100).toFixed(1) + '%');
+    if (ori === 'wide') {
+      var col = function (side) { return side === 'right' ? ['54%', '5%'] : ['5%', '54%']; }, a = col(w.t[0] > 0.5 ? 'right' : 'left'), b = col(w.m[0] > 0.5 ? 'right' : 'left');
+      st.setProperty('--cbx-tl', a[0]); st.setProperty('--cbx-tr', a[1]); st.setProperty('--cbx-ml', b[0]); st.setProperty('--cbx-mr', b[1]);
+    }
+    LOG.push({ k: 'words placed', feed: k, ori: ori, t: w.t, m: w.m });
+  }
   /* where the feed stands: THE WHOLE GLASS (rule 348: full screen, first person through the camera), his letters and the two
-     choices over it on their own ground */
+     choices over it */
   function placeFeed(root) {
     var W = Math.round(innerWidth), H = Math.round(innerHeight); if (W < 50 || H < 50) return false;
     var c = FEED.el; c.style.display = '';
@@ -521,11 +540,38 @@
     /* the machine on the title, and while it drops into the bar */
     '#cbxfeed{position:absolute;display:block;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none}',
     /* his line under the letters and the authority's line over the picks stand on their own ground, never on the picture (J5) */
-    'html body #title .bm-start .t>div{background:#0b0a09;padding:3px 6px}',
-    /* rule 348: the picture fills the glass, so the choice that is not lit stands on the camera's own black, and nothing of the
-       title's own fallback (its stamp, its loading line) shows: four things only */
-    'html body #title .bm-start.jtf:not(.saved) .b.rec,html body #title .bm-start.jtf.saved .b.card{background:#0b0a09;outline:1px solid #2a2620}',
+    /* RULE 357 (Paolo 11/3: 'I don't want an effect behind them, a shadow box, a contrast box... wherever you place all the text
+       it feels like it was meant to be placed there by what's going on in the background'; amended: 'still obviously a menu overlay'):
+       the four words are a clean overlay in the game's type with NOTHING behind them (no box, no plate, no shadow, no outline, no
+       glow); each feed says WHERE they sit (its quiet place, measured on its own frames: feed.options[k].words), the one next thing
+       in his gold, the rest in the bone of his letters. Nothing of the title's fallback shows (its stamp, its loading line). */
     'html body #title .stamp,html body #title .bm-start .stamp{display:none!important}',
+    'html body #title .bm-start .t>div,html body #title .bm-start .sub{background:none!important;padding:0!important;border:0!important;box-shadow:none!important;text-shadow:none!important}',
+    'html body #title .bm-start.jtf .b,html body #title .bm-start.jtf .b.card,html body #title .bm-start.jtf .b.rec,html body #title .bm-start.jtf .b.armed{background:none!important;box-shadow:none!important;outline:0!important;border:0!important;filter:none!important;text-shadow:none!important}',
+    'html body #title .bm-start.jtf .b::before,html body #title .bm-start.jtf .b::after{display:none!important}',
+    'html body #title .bm-start.jtf .sub{color:#efe6d2!important}',
+    'html body #title .bm-start.jtf .b b{color:#efe6d2!important;font-size:13.333px!important;letter-spacing:3px!important}',
+    'html body #title .bm-start.jtf:not(.saved) .b.card b,html body #title .bm-start.jtf.saved .b.rec b,html body #title .bm-start.jtf .b.armed b{color:#e2bd6a!important;font-size:20px!important;letter-spacing:4px!important}',
+    'html body #title .bm-start.jtf .b.armed i{color:#e2bd6a!important}',
+    'html body #title .bm-start.jtf .b.rec:disabled b{color:#efe6d2!important;opacity:.42}',
+    'html body #title .bm-start.jtf .b{min-height:48px;padding:0 4px}',
+    /* the place, per feed (the root's variables, set by the feed); tall: the title block and the choices centred, each at its own
+       height; wide: each in its own column at its own height */
+    'html body #title .bm-start.jtf.cbxp .t{top:var(--cbx-ty)!important;bottom:auto!important;transform:none!important}',
+    'html body #title .bm-start.jtf.cbxp .m{top:var(--cbx-my)!important;bottom:auto!important;transform:none!important;gap:2px!important}',
+    'html body #title .bm-start.jtf.cbxp:not(.cbxw) .t{left:20px!important;right:20px!important;align-items:center!important}',
+    'html body #title .bm-start.jtf.cbxp:not(.cbxw) .m{left:50%!important;right:auto!important;width:auto!important;transform:translateX(-50%)!important;align-items:center}',
+    'html body #title .bm-start.jtf.cbxp:not(.cbxw) .m .b{justify-content:center}',
+    'html body #title .bm-start.jtf.cbxp.cbxw .t{left:var(--cbx-tl)!important;right:var(--cbx-tr)!important;align-items:flex-start!important}',
+    'html body #title .bm-start.jtf.cbxp.cbxw .m{left:var(--cbx-ml)!important;right:var(--cbx-mr)!important;width:auto!important}',
+    'html body #title.cbx-cut .bm-start .t,html body #title.cbx-cut .bm-start .m{visibility:hidden!important}',
+    /* the inks, per feed (rule 357 (b): colour chosen per feed): where the picture is light the words take the dark; where gold
+       would not read the one next thing is the bone at its own size (NEW GAME 20 points, the other 13) */
+    'html body #title .bm-start.jtf.cbx-tdark .sub{color:#17120b!important}',
+    'html body #title .bm-start.jtf.cbx-mbone .b b,html body #title .bm-start.jtf.cbx-mbone:not(.saved) .b.card b,html body #title .bm-start.jtf.cbx-mbone.saved .b.rec b{color:#efe6d2!important}',
+    'html body #title .bm-start.jtf.cbx-mdark .b b,html body #title .bm-start.jtf.cbx-mdark:not(.saved) .b.card b,html body #title .bm-start.jtf.cbx-mdark.saved .b.rec b,html body #title .bm-start.jtf.cbx-mdark .b.rec:disabled b{color:#17120b!important}',
+    /* RULE 357 (a): THE NOTES BUTTON IS GONE, from the title and from every bar the game draws (the phone has no NOTES app) */
+    'html body #title .notes,html body #notebtn{display:none!important}',
     JD + ' #loadtag i{background:#0b0a09;padding:3px 6px}',
     'html body #title.gone.cbx-leaving{display:block!important;pointer-events:none!important;background:transparent!important}',
     'html body #title.cbx-leaving>*:not(.bm-start){visibility:hidden!important}',

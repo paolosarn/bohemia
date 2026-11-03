@@ -1,0 +1,11 @@
+POSTMORTEM: THE NOTES BUTTON (built 9/20 and 9/21 by UI for Paolo's own notes while he played; retired 11/3 by UI 6, rule 357 (a))
+
+His words, 11/3: "remove the Notes button from everywhere, I don't use it, no one uses it."
+What it was: a tiny NOTES button at the top right of the title, the map, the fight and the spoils, a NOTES app on the phone, a sheet
+to type into that paused the game and copied out with the build stamp and the place.
+Why it died: he never used it; it was a tool for the studio sitting on the player's glass, and on the starred start screen it was the
+one thing that was not the game.
+What went: the button is off the glass everywhere (slices/bohemia_ui_crashbox.js hides the title's, slices/bohemia_ui_materials.js
+the bar's #notebtn, still built so nothing that held it breaks), the phone's NOTES app (slices/bohemia_phone.js APPS), and its two
+gates (the_notes_button_gate.js, the_notes_section_gate.js, here). THE CAMERA FEEDS gate's C12 holds the removal.
+Lesson: a control for the people making the game does not belong on the player's screen; his VOTE tab is where he talks to us.

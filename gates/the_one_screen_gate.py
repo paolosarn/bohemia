@@ -29,12 +29,12 @@ man = json.load(open(MAN)); H = man['hud']
 SCREENS = ['map', 'settlement', 'fight']
 same = []
 for prof in ['portrait', 'landscape']:
-    for what in ['crew', 'notes', 'six']:
+    for what in ['crew', 'six']:   # NOTES gone, rule 357 (a), 11/3
         xs = [H[s + '_' + prof][what] for s in SCREENS]
         if any(x is None for x in xs): same.append(prof + ' ' + what + ' missing'); continue
         if max(abs(a[0] - xs[0][0]) + abs(a[1] - xs[0][1]) for a in xs) > 1: same.append(prof + ' ' + what + ' ' + str([x[:2] for x in xs]))
-ok('THE SAME BAR ON ALL THREE SCREENS, upright and sideways: CREW, NOTES and the six within one point', not same, '; '.join(same) or 'map = settlement = fight')
-small = [k + ' ' + w for k, v in H.items() for w in ['clock', 'place', 'crew', 'notes', 'action'] if v.get(w) and v[w][3] < 44]
+ok('THE SAME BAR ON ALL THREE SCREENS, upright and sideways: CREW and the six within one point (NOTES gone, rule 357)', not same, '; '.join(same) or 'map = settlement = fight')
+small = [k + ' ' + w for k, v in H.items() for w in ['clock', 'place', 'crew', 'action'] if v.get(w) and v[w][3] < 44]
 ok('EVERY PRESS IS A THUMB: every tag and the big action at least 44 points tall', not small, ', '.join(small) or 'all 44+')
 tiny = [k + ' ' + i['s'] for k, v in H.items() for i in v['icons'] if max(i['nat']) != 96 or abs(max(i['box'][2:]) - 32) > 0.5]
 ok('THE SIX AT HIS PACKS\' PIXELS: 96 in the file, 32 points on the glass, every screen', not tiny, ', '.join(tiny) or '36 icons at 1:1')

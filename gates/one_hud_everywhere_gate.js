@@ -48,7 +48,7 @@ const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const TOL = 1.5, PIC = 0.02;
-const ALL_PIECES = ['bar', 'day', 'crew', 'gear', 'notes', 'glass'];   /* the place is said only where it is a place (rule 262(a)) */
+const ALL_PIECES = ['bar', 'day', 'crew', 'gear', 'glass'];   /* NOTES gone, rule 357 (a), 11/3 */   /* the place is said only where it is a place (rule 262(a)) */
 /* RE-AIMED 10/26 BY UI TWO (rules 238(a), 286(b): every press on the phone, no button twice): with the phone up the bar's gear and
    NOTES are the phone's SETTINGS and NOTES (their copies off the glass) and the bar's crew chip is a readout (his lead's face, the
    head count, their blood; its press is the phone's CREW). The bar's pieces read are then the bar, the day, the crew chip and the
@@ -127,11 +127,11 @@ async function side(profile) {
     const M = await fr.evaluate('(' + READ + ')()'), MP = await fr.evaluate('(' + PHONE + ')()'), Ms = await shot();
     const ON = await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-on'));
     PIECES = ON ? ['bar', 'day', 'crew', 'glass'] : ALL_PIECES.slice();
-    const PH3 = () => p.evaluate(() => ['crew', 'notes', 'settings'].map(a => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=' + a + ']'); if (!e) return a + ' missing';
+    const PH3 = () => p.evaluate(() => ['crew', 'settings'].map(a => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=' + a + ']'); if (!e) return a + ' missing';
       const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && h && e.contains(h) ? null : a + ' covered'; }).filter(Boolean));
     if (ON) { const miss = await PH3(), copies = await fr.evaluate(() => ['#bmtb .t.gear', '#bmtb #notebtn'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0; }));
       const ro = await fr.evaluate(() => { const e = document.querySelector('#bmtb .t.crew'); return !!e && getComputedStyle(e).pointerEvents === 'none'; });
-      ok('the map: CREW, NOTES and SETTINGS are on the phone, on top; the bar has no gear or NOTES, its crew chip a readout (238(a), 286(b))', !miss.length && !copies.length && ro, (miss.join(' ') || 'all three on the phone') + '; on the bar ' + (copies.join(' ') || 'none') + ', crew chip readout ' + ro); }
+      ok('the map: CREW and SETTINGS are on the phone, on top (NOTES gone, rule 357); the bar has no gear or NOTES, its crew chip a readout (238(a), 286(b))', !miss.length && !copies.length && ro, (miss.join(' ') || 'all three on the phone') + '; on the bar ' + (copies.join(' ') || 'none') + ', crew chip readout ' + ro); }
     ok('the map: the bar and its pieces are on the glass', PIECES.every(k => M.rect[k] && M.rect[k][2] > 0), PIECES.filter(k => !M.rect[k]).join(' '));
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
     ok('  no ground or tile name on the map\'s bar (rule 262(a): \'the character sees it visually\')', M.placeShown === 0 && !M.groundOnBar && !!M.ground, 'the ground ' + M.ground + ' kept in the code; on the bar: ' + (M.placeShown ? M.facts.place : 'nothing'));
@@ -288,23 +288,9 @@ async function side(profile) {
         return { on: w.classList.contains('on'), top: !!h && w.contains(h) }; });
       ok('  SETTINGS in the fight (the phone\'s) opens the game\'s settings, over the fight', !!set && set.on && set.top, JSON.stringify(set));
       await p.evaluate(() => { const w = document.getElementById('setwrap'); if (w) w.classList.remove('on'); }); await p.waitForTimeout(300);
-      const before = await p.evaluate(() => { try { return (JSON.parse(localStorage.getItem('bohemia.notes.v1') || '[]') || []).length; } catch (e) { return -1; } });
-      await press('notes', '#bmtb #notebtn'); await p.waitForTimeout(500);
-      const box = await f.evaluate(() => { const w = document.getElementById('notewrap'); if (!w) return null; const c = document.getElementById('notecard'), r = c.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + 20);
-        return { on: w.classList.contains('on'), top: !!h && w.contains(h), styled: !!document.getElementById('notecss') }; });
-      ok('  NOTES in the fight (the phone\'s) opens the notes, in the map\'s look, over the fight', !!box && box.on && box.top && box.styled, JSON.stringify(box));
-      const fbx = await (await p.$('#fightFrame')).boundingBox();
-      const ta = await f.evaluate(() => { const r = document.getElementById('notetext').getBoundingClientRect(); return [r.x + 20, r.y + 10]; });
-      await p.mouse.click(fbx.x + ta[0], fbx.y + ta[1]); await p.keyboard.type('no bar in the fight'); await p.waitForTimeout(200);
-      await f.evaluate(() => document.getElementById('notesave').click()); await p.waitForTimeout(1200);
-      const after = await p.evaluate(() => { try { return JSON.parse(localStorage.getItem('bohemia.notes.v1') || '[]') || []; } catch (e) { return []; } });
-      const last = after[after.length - 1] || {};
-      const plates = { fight: await f.evaluate(() => document.getElementById('noteplate').textContent), map: await fr.evaluate(() => document.getElementById('noteplate').textContent) };
-      ok('  a note saved in the fight is in the same notes as the map\'s, marked as the fight, and both NOTES count it',
-        after.length === before + 1 && last.text === 'no bar in the fight' && last.ctx && last.ctx.mode === 'fight' && plates.fight === 'NOTES ' + after.length && plates.map === 'NOTES ' + after.length,
-        before + ' -> ' + after.length + ', mode ' + (last.ctx && last.ctx.mode) + ', plates ' + JSON.stringify(plates));
-      const shut = await f.evaluate(() => !document.getElementById('notewrap').classList.contains('on'));
-      ok('  and SAVE closes the notes', shut);
+      /* RE-AIMED 11/3 BY UI 6 (rule 357 (a), Paolo: 'remove the Notes button from everywhere'): no NOTES in the fight */
+      const nIn = ON ? !!(await app('notes')) : await f.evaluate(() => { const e = document.querySelector('#bmtb #notebtn'); return !!e && e.getBoundingClientRect().width > 0; });
+      ok('  NOTES IS GONE from the fight (rule 357)', !nIn);
       if (PLANT) {
         await f.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = 'html.bm-nobar body #top.bmhost#top{display:block!important}'; document.head.appendChild(s); });
         await p.waitForTimeout(300); const a = await FCHK(); await f.evaluate(() => document.getElementById('plant').remove());

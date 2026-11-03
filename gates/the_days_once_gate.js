@@ -79,12 +79,12 @@ const CHECK = () => {
   const TD = (() => { try { return window.top.document; } catch (_e) { return document; } })();
   const onPhone = document.documentElement.classList.contains('boh-phone-on') && !!TD.querySelector('#bohphone.on .bprow');
   if (onPhone) {
-    const ps = ['settings', 'notes'].map(a => TD.querySelector('#bohphone .bprow .app[data-app=' + a + ']')).map(e => e ? e.getBoundingClientRect() : null);
+    const ps = ['settings'].map(a =>   /* rule 357 (a): NOTES is gone (11/3) */ TD.querySelector('#bohphone .bprow .app[data-app=' + a + ']')).map(e => e ? e.getBoundingClientRect() : null);
     const copies = [root.querySelector('.gear'), document.getElementById('notebtn')].filter(e => e && e.getBoundingClientRect().width > 0).length;
-    out.push(['the gear and NOTES are a press each', ps.every(r => r && r.width >= 20 && r.height >= 20) && !copies, ps.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ') + ' on the phone, ' + copies + ' on the bar']);
+    out.push(['the gear is a press (NOTES gone, rule 357)', ps.every(r => r && r.width >= 20 && r.height >= 20) && !copies, ps.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ') + ' on the phone, ' + copies + ' on the bar']);
   } else {
-    const presses = [root.querySelector('.gear'), document.getElementById('notebtn')].map(e => e ? e.getBoundingClientRect() : null);
-    out.push(['the gear and NOTES are a press each', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
+    const presses = [root.querySelector('.gear')].map(e => e ? e.getBoundingClientRect() : null);   /* rule 357 (a): NOTES is gone */
+    out.push(['the gear is a press (NOTES gone, rule 357)', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
   }
   const boxes = [...root.querySelectorAll('.t,#notebtn,.g')].map(e => e.getBoundingClientRect()).filter(r => r.width > 0);
   out.push(['the bar fits the glass', boxes.every(r => r.left >= 0 && r.right <= W + 0.5), boxes.map(r => Math.round(r.right)).join(' ') + ' of ' + W]);
@@ -186,7 +186,7 @@ async function side(profile) {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
       const n320 = await fr.evaluate('(' + CHECK.toString() + ')()');
-      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are a press each', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
+      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear is a press (NOTES gone, rule 357)', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
       ok('at 320 wide every fact stays, it fits, nothing overlaps, every press 44', want.every(w => (n320.find(x => x[0] === w) || [0, false])[1]),
         n320.filter(x => want.indexOf(x[0]) >= 0 && !x[1]).map(x => x[0] + ' ' + x[2]).join(' | '));
       await p.setViewportSize(was); await p.waitForTimeout(900);
@@ -203,7 +203,7 @@ async function side(profile) {
       ok('PLANTED: the hour back on the day tag is caught', caught.hour);
       ok('PLANTED: a gear too small to press is caught', caught.gear);
       ok('  and the bar reads clean again once they are taken out', caught.clean);
-      /* the bar's gear opens the settings; NOTES opens and closes the notes */
+      /* the bar's gear opens the settings (NOTES gone, rule 357) */
       const off = await p.evaluate(() => { const r = document.getElementById('cityFrame').getBoundingClientRect(); return [r.x, r.y]; });
       const at = async sel => { const b = await fr.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, sel); return b && [b[0] + off[0], b[1] + off[1]]; };
       /* with the phone up its SETTINGS and NOTES are the presses (the shell's own pixels); else the bar's */
@@ -213,11 +213,9 @@ async function side(profile) {
       ok('the bar\'s gear opens the game\'s settings', setOn);
       await p.evaluate(() => { const w = document.getElementById('setwrap'); if (w) w.classList.remove('on'); });
       await p.waitForTimeout(300);
-      g = (await atP('notes')) || await at('#notebtn'); await p.mouse.click(g[0], g[1]); await p.waitForTimeout(500);
-      const nOpen = await fr.evaluate(() => document.getElementById('notewrap').classList.contains('on'));
-      await fr.evaluate(() => document.getElementById('noteback').click()); await p.waitForTimeout(300);
-      const nShut = await fr.evaluate(() => !document.getElementById('notewrap').classList.contains('on'));
-      ok('NOTES is the city\'s own (the phone\'s NOTES presses it): it opens the notes and they close', nOpen && nShut, nOpen + ' ' + nShut);
+      /* RE-AIMED 11/3 BY UI 6 (rule 357 (a), Paolo: 'remove the Notes button from everywhere'): no NOTES on the phone or the bar */
+      const nGone = !(await atP('notes')) && !(await fr.evaluate(() => { const e = document.getElementById('notebtn'); return !!e && e.getBoundingClientRect().width > 0; }));
+      ok('NOTES IS GONE, from the phone and the bar (rule 357)', nGone);
     }
     /* a road fight, the game's own */
     const st = await fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); try { stepOnce(0); stepOnce(4); } catch (_e) {}

@@ -121,7 +121,7 @@ async function side(profile) {
       /* ---- N4 THE BOARD GETS THE ROOM ---- */
       const room = await f.evaluate(() => ({ toph: TOPH, both: BOTH, share: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), was: Math.round(100 * (innerHeight - 108 - BOTH) / innerHeight) }));
       ok(tag + 'N4 the board gets the room: the fight measures its top as 0', room.toph === 0, 'TOPH ' + room.toph + ', the board ' + room.share + '% of the glass');
-      /* ---- N5 THE PHONE'S CREW, SETTINGS, NOTES ---- */
+      /* ---- N5 THE PHONE'S CREW AND SETTINGS (NOTES gone, rule 357) ---- */
       if (seq === 1) {
         const app = (a) => p.evaluate((a) => { const e = document.querySelector('#bohphone.on .fight.on .frow .app[data-app=' + a + ']'); if (!e) return null; const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
           return r.width > 0 && h && e.contains(h) ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, a);
@@ -134,10 +134,9 @@ async function side(profile) {
         const set = await p.evaluate(() => { const w = document.getElementById('setwrap'); if (!w) return null; const c = document.getElementById('setcard') || w, r = c.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { on: w.classList.contains('on'), top: !!h && w.contains(h) }; });
         ok(tag + 'N5 the phone\'s SETTINGS opens the game\'s settings over the fight', !!at && !!set && set.on && set.top, at ? JSON.stringify(set) : 'no SETTINGS on the phone');
         await p.evaluate(() => { const w = document.getElementById('setwrap'); if (w) w.classList.remove('on'); }); await p.waitForTimeout(300);
-        at = await app('notes'); if (at) await tapAt(at[0], at[1]); await p.waitForTimeout(600);
-        const nb = await f.evaluate(() => { const w = document.getElementById('notewrap'); if (!w) return null; const c = document.getElementById('notecard'), r = c.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + 20); return { on: w.classList.contains('on'), top: !!h && w.contains(h) }; });
-        ok(tag + 'N5 the phone\'s NOTES opens the notes over the fight', !!at && !!nb && nb.on && nb.top, at ? JSON.stringify(nb) : 'no NOTES on the phone');
-        await f.evaluate(() => { const b = document.getElementById('noteback'); if (b) b.click(); }); await p.waitForTimeout(300);
+        /* RE-AIMED 11/3 BY UI 6 (rule 357 (a), Paolo: 'remove the Notes button from everywhere'): the phone has no NOTES */
+        at = await app('notes');
+        ok(tag + 'N5 NOTES IS GONE from the fight\'s phone (rule 357)', !at, at ? 'a NOTES app at ' + at.join(',') : 'none');
       }
       /* ---- N6 THE FIGHT ENDS: THE LOOT SCREEN ---- */
       await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; }); S.over = true; S.result = 'won'; showOver('won'); });

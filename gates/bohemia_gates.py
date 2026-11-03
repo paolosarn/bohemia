@@ -519,24 +519,7 @@ GATES = [
      'in-world screen with nothing drawn over the frame. Plus: ready() refuses while a promised '
      'source is unfinished and names it, BEGIN is dead until the game really is in, one tap fires it '
      'once, and a whole thumb reaches it. Three mutations proved.', True),
-    ('NOTES SECTION',  ['node', 'gates/the_notes_section_gate.js'],
-     'PAOLO 9/21: "I still don\'t see a note section anywhere. A collapsible note section that I '
-     'can copy and paste when I am done playing the demo into you." The 9/20 gate was GREEN about a '
-     'control he could not find, which means it measured the wrong thing: it checked the mark '
-     'against a number this lane picked (5 px of ink) instead of against the only thing that decides '
-     'findability, WHICH IS ITS NEIGHBOURS. Measured on a fresh cut: every other child of that bar is '
-     'a WORD ON A PLATE (MUSIC, SAVE, PHONE, all box-shadowed, ink rgb(216,196,154)); the notes '
-     'control was a bare pencil with background transparent, NO box-shadow and dimmer ink. It was the '
-     'only thing up there with no body, and a control with no body does not read as a control. Every '
-     'leg here compares it to its neighbours or to his sentence, never to a number I chose: it says a '
-     'WORD and the word is NOTES; it has a plate like SAVE; its ink is no dimmer than the dimmest '
-     'chip beside it; its 44 reach steals nobody else\'s centre (this file measured once that a 44 pad '
-     'on a chip lies across its neighbour and makes a tap do the wrong thing, which is why the pads '
-     'are off everywhere else -- the far-right end is the one slot where a full thumb is free); it '
-     'TOGGLES open and collapsed with the chip still in the bar; COPY ALL saves what is still in the '
-     'box first, because that is the order he does it in, and THE CLIPBOARD IS READ BACK rather than '
-     'assumed. It runs on a FRESH CUT of the demo, never the committed copy, which lags. Five '
-     'mutations proved.', True),
+    # NOTES SECTION RETIRED 11/3 (UI 6, rule 357 (a): 'remove the Notes button from everywhere'): graveyard/the_notes_button_11_3_26/
     ('UI IS OBJECTS',  ['node', 'gates/the_ui_is_built_from_objects_gate.js'],
      'PAOLO 9/20: "we are gonna be trying to make all the UI look 3-D", and PAOLO 9/21, rule 22: '
      '"I need to be seeing them cooking up more, every time, not never" -- a UI round is PANELS he '
@@ -552,27 +535,7 @@ GATES = [
      'play surface (rule 18 hold), and that the round REGISTERED its panels in the vote tab, which '
      'is rule 22 measured rather than asserted. Six mutations proved: delete the body, blend a '
      'ramp, light a bottom edge, unhook a sheet, break a registry path, take the travel out.', True),
-    ('NOTES BUTTON',   ['node', 'gates/the_notes_button_gate.js'],
-     'PAOLO 9/20: "in the demo there should be a note section at the very top right, just the '
-     'tiniest button, where as I am playing the demo I can write all my thoughts down and then '
-     'resume back to playing." Rule 18(f): his direct ask, tiny, touches none of the three, so it '
-     'ships while the rest of the UI lane holds. The row\'s own ship test is the spine of this '
-     'gate: open, type, close, and he resumed on the SAME cell at the SAME clock, with the export '
-     'carrying the stamp and the place. THE LEG THAT EARNS IT IS THE PAUSE, and the first run of '
-     'that test LIED: it reported the game moving with the box open, and a leaking overlay was the '
-     'obvious cause. It was not -- a tap EARLIER in the same run had started a HOLD on the walk pad '
-     'and the hold was still stepping. The test opens the box before it touches anything now, and '
-     'the pause is EXPLICIT in the page (a capture-phase block, the pattern the sky pinch already '
-     'uses) rather than left to stacking order, because asking the browser who owned the arrow\'s '
-     'pixel gave two different answers on two runs of the same probe. There was no clock to stop: '
-     'this valley is I-MOVE-YOU-MOVE, so with hands off T.day and T.min do not advance, and the '
-     'pause he asked for is the pause of not stepping. The test also caught TWO real defects that '
-     'reading would not have: a tap outside the card threw away what he had written (fine for a '
-     'card you READ, not for the only place he writes anything down -- the scrim does nothing now), '
-     'and the "tiniest button" shipped at 9px of ink while every chip beside it is halved to 5, '
-     'caught by a leg that compares it to its own neighbours instead of to a number somebody '
-     'picked. Mutation-proved four ways.',
-     False),
+    # NOTES BUTTON RETIRED 11/3 (UI 6, rule 357 (a): 'remove the Notes button from everywhere'): graveyard/the_notes_button_11_3_26/
     ('STREET NO HAIRLINES', ['node', 'gates/the_street_draws_no_hairlines_gate.js'],
      'THE TELL RULER READS SOURCE, AND ON THE WALKED CITY IT WAS FIFTEEN TIMES THE TRUTH. It '
      'said 46 one-pixel borders and 53 rounded corners; the LIVE opening street was drawing '
@@ -10040,6 +10003,8 @@ GATES = [
      "UI gate, 10/18, row [the front screen, just the font]. PAOLO 10/18: 'the loading screen, the Bohemia title card, I don't want the card behind it, I just want the crazy font... the whole front screen looks like dog shit.' With the door's switch on (data-look just-the-font; RUN flips it at the cut, rule 93): his letters with the card keyed out, every kept pixel his, one pixel size, no browser default on the title, the picks, the terminal or the NOTES sheet, every word 4.5 to 1 and in the sun, one gold next thing, thumbs, nothing off the glass upright or sideways, and the classic door untouched while the switch says classic; nine planted defects caught every run. green at registration, 42/0, about 150 s", True),
     ('THE CAMERA FEEDS', ['node', 'gates/the_camera_feeds_gate.js'],
      "UI 6 gate, 11/3, rules 342 and 348 (ask lines 351, 358). PAOLO 11/2 (the second star): 'Why not all 3?... as much of these as possible to really build that lore ambience'; 11/3: 'two versions one vertical one horizontal... Bohemia... post economic apocalypse, new game and continue... not super loud... a random roll'. Ten feeds or more, each a tall 9:16 and a wide 16:9 sheet and its own quiet sound (-30 dB rms or under); the start screen shows four things only; the feed fills the glass upright and sideways; six opens never repeat a feed twice running; turning the phone cross-fades to the wide picture; the monitor cuts to the next camera with its own sound; no feed picture before the first paint. Planted: a missing wide sheet, a 4:3 sheet called tall, a loud sound, SETTINGS back on the title, the same feed twice.", True),
+    ('THE LOADING MENU IS FROZEN', ['node', 'gates/the_loading_menu_is_frozen_gate.js'],
+     "UI 6 gate, 11/3, rule 358 (ask line 380). PAOLO 11/3: 'I'm in love with the loading menu, I can already see a lot of this being final final final.' The four words, the start screen's type and overlay, and how the feeds roll are held against records/target/ui_the_loading_menu_frozen.json; a change fails unless a commit since the baseline cites a NEW RULING (then --freeze re-records it); no frozen feed may leave the roll; new feeds welcome. Planted: NEW GAME renamed, the cut at 30 s, a size in the look, a feed taken away.", False),
     ('THE LINE ON A GROUND', ['node', 'gates/the_line_on_a_ground_gate.js'],
      "UI gate, 10/18, row [the line on a ground] (rule 88, the twin's difference 2): a CANDIDATE laid in the browser only (rule 100), the company screen and the hall on a ground from his packs. Every tile laid is the bank's own bytes and the painting follows each tile's own light (correlation 0.997); re-lit through two hue-shifted ramps, never darkened; one pixel size; no gradient, glow, blur or round corner; every word on the ground 4.5 to 1 plain and in the sun; every cell where it was, hit by the finger, every face unchanged; the contact line or the cardboard per candidate; one light; the hall's floor under every card; six planted defects caught every run on one page with a clean undo. green at registration, 68/0, about 50 s", True),
     ('THE ART FENCE', ['python3', 'gates/art_fence_gate.py'],

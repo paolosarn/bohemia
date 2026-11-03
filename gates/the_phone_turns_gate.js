@@ -68,14 +68,14 @@ async function measure(profile) {
     console.log('\n  -- ' + prof + (M ? ' ' + M.vw + 'x' + M.vh : '') + '\n');
     if (!M) { ok('the driver got past the door', false); continue; }
     const on = r => r && r.x >= -0.5 && r.y >= -0.5 && r.x + r.w <= M.vw + 0.5 && r.y + r.h <= M.vh + 0.5;
-    const parts = { gear: M.gear, bar: M.bar, notes: M.notes, speedpad: M.pad, phone: M.phone };
+    const parts = { gear: M.gear, bar: M.bar, speedpad: M.pad, phone: M.phone };   /* NOTES gone, rule 357 (a) */
     const missing = Object.keys(parts).filter(k => !parts[k]);
     ok('EVERY PIECE OF THE HUD IS ON THE GLASS, WHOLE', missing.length === 0 && Object.values(parts).every(on) && M.reads.every(on) && M.speeds.every(on) && M.three.faces.every(on),
        missing.length ? 'missing ' + missing.join(' ') : Object.keys(parts).map(k => k + ' ' + box(parts[k])).join(' | '));
     const big = { gear: M.gear, bar: M.bar, speedpad: M.pad, phone: M.phone }, ks = Object.keys(big), clash = [];
     for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) if (big[ks[i]] && big[ks[j]] && hit(big[ks[i]], big[ks[j]]) && !(M.gearInBar && ks[i] === 'gear' && ks[j] === 'bar')) clash.push(ks[i] + ' on ' + ks[j]);
     ok('  no two pieces cover each other', clash.length === 0, clash.join(', '));
-    const pressed = [['gear', M.gear], ['NOTES', M.notes], ['phone', M.phone]].concat(M.speeds.map(s => [s.t, s]), M.faces.map((f, i) => ['face ' + i, f]));
+    const pressed = [['gear', M.gear], ['phone', M.phone]].concat(M.speeds.map(s => [s.t, s]), M.faces.map((f, i) => ['face ' + i, f]));
     const small = pressed.filter(([, r]) => !r || r.w < 44 || r.h < 44);
     ok('  every pressed thing is 44 points', small.length === 0, small.map(([k, r]) => k + ' ' + (r ? Math.round(r.w) + 'x' + Math.round(r.h) : 'none')).join(', '));
     /* RE-AIMED 10/24 (UI [eyes: the empty phone], rule 150): as tall as what it holds, never past 19.5 by 9 */
@@ -89,7 +89,7 @@ async function measure(profile) {
   const A = P.phone_portrait, B = P.phone_landscape;
   if (A && B) {
     console.log('\n  -- both ways\n');
-    const sig = M => ['readouts ' + M.reads.length, 'speeds ' + M.speeds.map(s => s.t).join(' '), 'notes ' + !!M.notes, 'gear ' + !!M.gear, 'phone ' + !!M.phone, 'faces ' + M.three.faces.length].join('; ');
+    const sig = M => ['readouts ' + M.reads.length, 'speeds ' + M.speeds.map(s => s.t).join(' '), 'gear ' + !!M.gear, 'phone ' + !!M.phone, 'faces ' + M.three.faces.length].join('; ');
     ok('THE SAME BUTTONS BOTH WAYS', sig(A) === sig(B), sig(B));
     const L = B;
     ok('ON ITS SIDE, THE CORNERS: the bar across the top, the phone on the left, the speed pad bottom right',

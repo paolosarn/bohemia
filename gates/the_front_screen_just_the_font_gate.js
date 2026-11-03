@@ -64,7 +64,16 @@ const READ_MARK = async (page, sel) => page.evaluate(async ({ sel, CROP }) => {
 }, { sel, CROP });
 
 /* the share of the grey card's colour in a box on the glass */
-async function cardOnGlass(page, box) {
+/* RE-AIMED 11/3 BY UI 6 (rules 348 and 357): the title's letters stand on a camera's footage now, and footage has greys; so on the
+   title the card is what the LETTERS' OWN BLOCK adds: the glass with the block shown, less the glass with it hidden, a breath apart */
+async function cardOnGlass(page, box, hideSel) {
+  if (hideSel) {
+    const shown = await cardOnGlass(page, box);
+    await page.evaluate(sel => { const e = document.querySelector(sel); if (e) e.style.setProperty('visibility', 'hidden', 'important'); }, hideSel);
+    const hidden = await cardOnGlass(page, box);
+    await page.evaluate(sel => { const e = document.querySelector(sel); if (e) e.style.removeProperty('visibility'); }, hideSel);
+    return Math.max(0, shown - hidden);
+  }
   const png = (await page.screenshot()).toString('base64');
   return page.evaluate(async ({ png, box }) => {
     const im = new Image(); im.src = 'data:image/png;base64,' + png; await im.decode();
@@ -139,8 +148,8 @@ async function words(page) {
   }, { png, items });
 }
 
-const READ_LEAD = () => {
-  const bs = Array.from(document.querySelectorAll('#title .bm-start .b')), gold = b => getComputedStyle(b).backgroundColor === 'rgb(200, 171, 99)';
+const READ_LEAD = () => {   /* rule 357: no plate behind a choice, so the one next thing is the choice whose WORD is his gold (a plate, if one came back, still counts) */
+  const bs = Array.from(document.querySelectorAll('#title .bm-start .b')), gold = b => getComputedStyle(b).backgroundColor === 'rgb(200, 171, 99)' || getComputedStyle(b.querySelector('b')).color === 'rgb(226, 189, 106)' || parseFloat(getComputedStyle(b.querySelector('b')).fontSize) >= 19.9;   /* rule 357 (b): where gold would not read on a feed, the one next thing is the bone at 20 points */
   return { gold: bs.filter(gold).map(b => b.getAttribute('data-k')), hs: bs.map(b => Math.round(b.getBoundingClientRect().height)) };
 };
 const READ_FIT = () => {
@@ -179,7 +188,7 @@ async function walk(profile, legs) {
   /* ---------- upright: the title, the picks, the door once the game is in, then the plants ---------- */
   const up = await walk('phone_portrait', async (page, res) => {
     res.tMark = await READ_MARK(page, '#title .bm-start .jtf-mark');
-    res.tCard = res.tMark ? await cardOnGlass(page, res.tMark.box) : 1;
+    res.tCard = res.tMark ? await cardOnGlass(page, res.tMark.box, '#title .bm-start .t') : 1;
     res.tDef = await page.evaluate(READ_DEFAULTS);
     res.tWords = await words(page);
     res.lead0 = await page.evaluate(READ_LEAD);
@@ -187,7 +196,7 @@ async function walk(profile, legs) {
     await page.evaluate(() => { BOH_TITLE.save = { day: 3, min: 980 }; BOH_TITLE.ui.paint(BOH_TITLE.save); });
     res.lead1 = await page.evaluate(READ_LEAD);
     await page.evaluate(() => { BOH_TITLE.save = null; BOH_TITLE.ui.paint(null); });
-    res.notesH = await page.evaluate(() => Math.round(document.querySelector('#title .notes').getBoundingClientRect().height));
+    res.notesH = await page.evaluate(() => { const n = document.querySelector('#title .notes'); return n ? Math.round(n.getBoundingClientRect().height) : 0; });   /* rule 357: the button may be gone from the page altogether */
     /* the NOTES sheet over the title */
     await page.evaluate(() => BOH_TITLE.act('notes')); await page.waitForTimeout(200);
     res.nDef = await page.evaluate(READ_DEFAULTS);
@@ -196,11 +205,11 @@ async function walk(profile, legs) {
     const plant = async css => page.evaluate(c => { const s = document.createElement('style'); s.id = 'jtf-plant'; s.textContent = c; document.head.appendChild(s); }, css);
     const unplant = async () => page.evaluate(() => { const s = document.getElementById('jtf-plant'); if (s) s.remove(); });
     res.plants = {};
-    await plant('html body .bm-start.jtf .t .jtf-mark{background:#2d2b27!important}'); res.plants.card = await cardOnGlass(page, res.tMark.box); await unplant();
-    await plant('html body .bm-start.jtf .sub{font-family:Arial,sans-serif!important}'); res.plants.face = await page.evaluate(READ_DEFAULTS); await unplant();
-    await plant('html body .bm-start.jtf .b b{font-size:11px!important}');   /* the choice's own word: since rule 348 a choice has no line under it */ res.plants.size = await page.evaluate(READ_DEFAULTS); await unplant();
-    await plant('html body .bm-start.jtf .sub{color:#3a362f!important}'); res.plants.dim = await words(page); await unplant();
-    await plant('html body .bm-start.jtf .b.rec{background:#c8ab63!important}');   /* CONTINUE with no game: since rule 348 there is no SETTINGS to gild */ res.plants.lead = await page.evaluate(READ_LEAD); await unplant();
+    await plant('html body .bm-start.jtf .t .jtf-mark{background:#2d2b27!important}'); res.plants.card = await cardOnGlass(page, res.tMark.box, '#title .bm-start .t'); await unplant();
+    await plant('html body #title#title .bm-start.jtf .sub{font-family:Arial,sans-serif!important}'); res.plants.face = await page.evaluate(READ_DEFAULTS); await unplant();
+    await plant('html body #title#title .bm-start.jtf .b b{font-size:11px!important}');   /* the choice's own word: since rule 348 a choice has no line under it */ res.plants.size = await page.evaluate(READ_DEFAULTS); await unplant();
+    await plant('html body #title#title .bm-start.jtf .sub{color:#3a362f!important}'); res.plants.dim = await words(page); await unplant();
+    await plant('html body #title#title .bm-start.jtf .b.rec b{color:#e2bd6a!important}');   /* CONTINUE with no game gilded: since rule 357 the gold is the word's own, no plate */ res.plants.lead = await page.evaluate(READ_LEAD); await unplant();
     /* NEW GAME, the way a person goes in */
     const nb = await page.evaluate(() => { const r = document.querySelector('#title .bm-start [data-k=new]').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     await page.touchscreen.tap(nb.x, nb.y); await page.waitForTimeout(900);
@@ -260,14 +269,14 @@ async function walk(profile, legs) {
   ok('J4 PLANTED: a glow on BEGIN is caught', up.plants.glow.some(s => /fronttap.*glow/.test(s)));
   ok('J4 PLANTED: a round corner on a pick is caught', up.plants.corner.some(s => /corner/.test(s)));
   const wordsOk = (list, where) => { const bad = (list || []).filter(w => w.plain < 4.5 || w.sun < 4.5);
-    ok('J5 every enabled word reads on ' + where + ': 4.5 to 1 and in the sun (' + (list || []).length + ' words; three since rule 348: the line, NEW GAME, CONTINUE)', list && list.length >= 3 && !bad.length, bad.slice(0, 4).map(w => w.k + ' ' + w.plain + '/' + w.sun + ' on ' + w.bg + ' in ' + w.col).join(' | ')); };
+    ok('J5 every enabled word reads on ' + where + ': 4.5 to 1 and in the sun (' + (list || []).length + ' words; the line and the lit choice at least, since rules 348 and 357)', list && list.length >= 2 && !bad.length, bad.slice(0, 4).map(w => w.k + ' ' + w.plain + '/' + w.sun + ' on ' + w.bg + ' in ' + w.col).join(' | ')); };
   wordsOk(up.tWords, 'the title, upright'); wordsOk(up.lWords, 'the picks and the terminal, upright'); wordsOk(side.tWords, 'the title, sideways'); wordsOk(side.lWords, 'the picks and the terminal, sideways');
   ok('J5 PLANTED: a dim subtitle is caught', (up.plants.dim || []).some(w => /POST-ECONOMIC/.test(w.k) && (w.plain < 4.5 || w.sun < 4.5)));
   ok('J6 ONE NEXT THING: with no run the one gold choice is NEW GAME', JSON.stringify(up.lead0.gold) === '["new"]', up.lead0.gold.join(','));
   ok('J6 and with a run saved the one gold choice is CONTINUE', JSON.stringify(up.lead1.gold) === '["continue"]', up.lead1.gold.join(','));
   ok('J6 PLANTED: the gold on a second title choice is caught', up.plants.lead.gold.length > 1, up.plants.lead.gold.join(','));
   ok('J6 BEGIN is gold once the game is in, and says BEGIN', up.begin.ready && up.begin.bg === 'rgb(200, 171, 99)' && up.begin.txt === 'BEGIN', up.begin.txt + ' ' + up.begin.bg);
-  ok('J7 THUMBS: every title choice 48 css px or taller, NOTES 40 (two choices since rule 348: NEW GAME and CONTINUE)', up.lead0.hs.length === 2 && up.lead0.hs.every(h => h >= 48) && up.notesH >= 40, up.lead0.hs.join(',') + ' notes ' + up.notesH);
+  ok('J7 THUMBS: every title choice 48 css px or taller (two choices since rule 348: NEW GAME and CONTINUE; NOTES gone, rule 357)', up.lead0.hs.length === 2 && up.lead0.hs.every(h => h >= 48) && up.notesH === 0, up.lead0.hs.join(',') + ' notes ' + up.notesH);
   ok('J7 every pick 44 css px or taller and BEGIN 48, upright and sideways', !up.fit.thin.length && !side.fit.thin.length && up.fit.tapH >= 48 && side.fit.tapH >= 48, up.fit.thin.concat(side.fit.thin).join(' | '));
   ok('J7 PLANTED: a pick squeezed under a thumb is caught', up.plants.thumb.thin.length > 0);
   const fitOk = (f, where) => ok('J8 NOTHING OFF THE GLASS ' + where + ': the picks fit their column (' + f.scroll + ' of ' + f.client + '), none below the glass, BEGIN clear of the picks and the stamp, the stamp on the glass',

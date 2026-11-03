@@ -1,0 +1,31 @@
+{
+ "_readme": "THE LOADING MENU, FROZEN (rule 358, Paolo 11/3: final final final). Re-record only with a NEW RULING: node gates/the_loading_menu_is_frozen_gate.js --freeze",
+ "frozen_at": "866044bcc",
+ "ruling": "rule 358",
+ "prints": {
+  "words": {
+   "text": "POST-ECONOMIC APOCALYPSE|<b>NEW GAME</b>|<b>CONTINUE</b>|NEW GAME",
+   "h": "639092a1a0bf950f"
+  },
+  "look": {
+   "lines": 21,
+   "h": "fe613bf6310c2329"
+  },
+  "roll": {
+   "text": "{\"key\":\"bohemia.title.feed\",\"last_key\":\"bohemia.title.feed.last\",\"cycle_s\":40,\"preload_s\":8,\"roll_holds\":2,\"snow_holds\":1,\"fade_holds\":4,\"size\":{\"tall\":[432,768],\"wide\":[768,432]}}",
+   "h": "be673a49b05c54ae"
+  },
+  "feeds": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h",
+   "i",
+   "j"
+  ]
+ }
+}

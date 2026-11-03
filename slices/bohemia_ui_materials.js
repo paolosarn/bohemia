@@ -837,6 +837,9 @@
     + '#bmtb .t.crew{cursor:pointer;-webkit-tap-highlight-color:transparent;padding-left:6px} #bmtb .t.crew img.me{image-rendering:auto;box-shadow:0 0 0 1px #1f1710,1px 1px 0 1px rgba(10,6,3,.5);background:#2a2016}'
     + '#bmtb .t.gear{width:44px;padding:0;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}'
     + 'html body #menubar #bmtb #notebtn,html body #bmtb #notebtn{cursor:pointer;min-width:44px;justify-content:center;font-size:12px;-webkit-tap-highlight-color:transparent}'
+    /* RULE 357 (a), Paolo 11/3: 'remove the Notes button from everywhere, I don't use it, no one uses it': the bar's NOTES is gone on the
+       map, in the fight and on the spoils (still built, off the glass, so nothing that held it breaks; nothing presses it) */
+    + 'html body #menubar #bmtb #notebtn,html body #bmtb #notebtn,html body #notebtn{display:none!important}'
     + 'html body #menubar #bmtb #noteplate,html body #bmtb #noteplate{display:inline;padding:0!important;font-family:inherit;font-size:12px;letter-spacing:.8px;color:#1f1710!important;background:none!important;filter:none!important;box-shadow:none!important}'
     + 'html body #menubar #bmtb #notebtn.on,html body #bmtb #notebtn.on{background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
     + '#bmtb .ticks{display:inline-flex;gap:2px;align-items:flex-end;height:14px}'

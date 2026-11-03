@@ -14,15 +14,14 @@
         lands on a title button)
      T3 a stray tap on the picture does not skip the title
      T4 with no save, CONTINUE is off and does nothing
-     T5 SETTINGS opens the game's one settings card OVER the title, without its save/quit row, and
-        closing it is the title again
-     T6 NOTES keeps a note in the game's own notes list, marked as written on the start screen
+     T5 RE-AIMED 11/3 (rule 348 (b), Paolo: 'I don't even want settings'): NO SETTINGS on the title; the settings live in the game
+     T6 RE-AIMED 11/3 (rule 357 (a), Paolo: 'remove the Notes button from everywhere'): NO NOTES on the title
      T7 NEW GAME is the door's picks, and BEGIN is the game, paid its start once
-     T8 *** CONTINUE ***: back on the title after a reload, it names the saved day, and a tap is the game
+     T8 *** CONTINUE ***: back on the title after a reload, it is lit (and says only CONTINUE, rule 348), and a tap is the game
         with the SAME purse (the start batteries are not paid again)
      T8b the start is paid once per GAME: the picks arriving again never pay a paid crew twice
      T9 *** NEW GAME OVER A SAVE ***: it asks first; asked twice it starts over -- the picks, no title, a
-        new game with nothing in the purse until BEGIN pays its start, and the notes kept
+        new game with nothing in the purse until BEGIN pays its start
      T10 RE-AIMED 10/9 ([a fresh phone sees the door], EYES 1bdc7023): with the title up, a click on the door's
         BEGIN does NOT get in (it was the hole a stranger's walk fell through); the title's own way does
      T11 nothing threw
@@ -70,21 +69,7 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
       /* T4 */
       await page.touchscreen.tap(pre.up.cont.x, pre.up.cont.y); await page.waitForTimeout(600);
       pre.t4 = await page.evaluate(titleState);
-      /* T5 */
-      await page.touchscreen.tap(pre.up.set.x, pre.up.set.y); await page.waitForTimeout(600);
-      pre.t5 = await page.evaluate(() => { const w = document.getElementById('setwrap'), c = document.getElementById('setcard'); const r = c ? c.getBoundingClientRect() : null;
-        const top = r ? document.elementFromPoint(r.x + r.width / 2, r.y + 20) : null; const v = el => !!el && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().width > 0;
-        return { open: !!w && w.classList.contains('on'), onTop: !!top && !!c && c.contains(top), save: v(document.getElementById('setsave')), quit: v(document.getElementById('setquit')) }; });
-      await page.evaluate(() => { try { BOHEMIA_SETTINGS.close(); } catch (_e) {} }); await page.waitForTimeout(700);
-      pre.t5b = await page.evaluate(titleState);
-      /* T6 */
-      await page.touchscreen.tap(pre.up.notes.x, pre.up.notes.y); await page.waitForTimeout(400);
-      await page.fill('#title .sheet textarea', 'the start screen gate wrote this');
-      const ks = await page.evaluate(() => { const r = document.querySelector('#title [data-k=nsave]').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-      await page.touchscreen.tap(ks.x, ks.y); await page.waitForTimeout(300);
-      pre.t6 = await page.evaluate(() => { const a = JSON.parse(localStorage.getItem('bohemia.notes.v1') || '[]'); const n = a[a.length - 1] || {}; return { n: a.length, text: n.text, where: n.ctx && n.ctx.where }; });
-      const kc = await page.evaluate(() => { const r = document.querySelector('#title [data-k=nclose]').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-      await page.touchscreen.tap(kc.x, kc.y); await page.waitForTimeout(300);
+      /* T5, T6 (rules 348 and 357): nothing to press; read off the title as he meets it */
       /* T7: NEW GAME is the picks */
       await page.touchscreen.tap(pre.up.new.x, pre.up.new.y); await page.waitForTimeout(600);
       pre.t7 = await page.evaluate(() => ({ title: !document.getElementById('title').classList.contains('gone'), picks: [...document.querySelectorAll('#newco button')].filter(b => b.getBoundingClientRect().width > 0).length,
@@ -96,15 +81,14 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
     const t1 = pre.t1;
     ok('T1 the demo opens on the title, over the whole glass (' + (t1.ui ? 'UI\'s look' : 'the fallback look') + ', ' + (t1.up ? 'up' : 'not up') + ', covers ' + t1.cover + ', the picture behind ' + pre.bgOk + ' px wide, his logo ' + t1.logo + ', ' + [t1.new, t1.cont, t1.set].filter(x => x && x.vis).map(x => x.b).join(' / ') + ')',
       t1.up && t1.cover && (t1.ui ? pre.bgOk >= Math.floor(t1.iw / 2) - 1 : pre.bgOk > 300) &&   /* UI paints its ground at half the screen's pixels on purpose */
-      t1.logo && [t1.new, t1.cont, t1.set].every(x => x && x.vis) && t1.new.b === 'NEW GAME' && t1.cont.b === 'CONTINUE' && t1.set.b === 'SETTINGS');
+      t1.logo && [t1.new, t1.cont].every(x => x && x.vis) && t1.new.b === 'NEW GAME' && t1.cont.b === 'CONTINUE');   /* two choices since rule 348 */
     const clear = s => ['new', 'cont', 'set', 'notes'].every(k => !hits(s[k], s.tap));
-    ok('T2 the menu is clear of the door\'s BEGIN, upright and on its side (upright ' + clear(pre.up) + ', BEGIN at ' + (pre.up.tap ? Math.round(pre.up.tap.top) : '?') + ', the menu ends at ' + Math.round(pre.up.set.bottom) + '; on its side ' + clear(pre.side) + ')',
-      !!pre.up.tap && !!pre.side.tap && clear(pre.up) && clear(pre.side) && pre.side.set.vis);
+    ok('T2 the menu is clear of the door\'s BEGIN, upright and on its side (upright ' + clear(pre.up) + ', BEGIN at ' + (pre.up.tap ? Math.round(pre.up.tap.top) : '?') + ', the menu ends at ' + Math.round(pre.up.cont.bottom) + '; on its side ' + clear(pre.side) + ')',
+      !!pre.up.tap && !!pre.side.tap && clear(pre.up) && clear(pre.side) && pre.side.cont.vis);
     ok('T3 a stray tap on the picture does not skip the title (still up ' + pre.t3.up + ', the game began ' + pre.t3.began + ')', pre.t3.up && !pre.t3.began && pre.t3.front);
     ok('T4 with no save, CONTINUE is off and does nothing ("' + pre.t1.cont.sub + '", off ' + pre.t1.cont.off + '; after a tap the title is up ' + pre.t4.up + ')', pre.t1.cont.off && pre.t4.up && !pre.t4.began);
-    ok('T5 SETTINGS opens the settings card over the title, without save and quit, and closing it is the title again (' + JSON.stringify(pre.t5) + ', after: title ' + pre.t5b.up + ')',
-      pre.t5.open && pre.t5.onTop && !pre.t5.save && !pre.t5.quit && pre.t5b.up && !pre.t5b.began);
-    ok('T6 NOTES keeps a note in the game\'s notes list (' + JSON.stringify(pre.t6) + ')', pre.t6.text === 'the start screen gate wrote this' && pre.t6.where === 'the start screen');
+    ok('T5 NO SETTINGS on the title (rule 348 (b): the settings live in the game)', !(pre.t1.set && pre.t1.set.vis) && !(pre.side.set && pre.side.set.vis));
+    ok('T6 NO NOTES on the title (rule 357 (a))', !(pre.t1.notes && pre.t1.notes.vis) && !(pre.side.notes && pre.side.notes.vis));
     /* the driver knocked BEGIN after the picks: in the game now */
     await page.waitForTimeout(3000);
     const g7 = await d.fr.evaluate(() => ({ bats: loopBats(), start: LOOP.start ? LOOP.start.start : null }));
@@ -124,7 +108,7 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
     await page.waitForTimeout(2500);
     const f8 = await cityFrame(); const b8 = f8 ? await f8.evaluate(() => loopBats()) : null;
     ok('*** T8 CONTINUE *** (saved on day ' + saved + '; "' + (s8 && s8.cont.sub) + '", off ' + (s8 && s8.cont.off) + '; a tap: in the game ' + in8 + ' with ' + b8 + ' batteries, ' + purse0 + ' when it was saved)',
-      !!s8 && !s8.cont.off && /^DAY \d+/.test(s8.cont.sub) && in8 && b8 === purse0);
+      !!s8 && !s8.cont.off && !s8.cont.sub && in8 && b8 === purse0);   /* rule 348 (b): CONTINUE says CONTINUE and nothing under it */
 
     /* T8b: the start is paid once per GAME. Measured: after CONTINUE the map restores the save a second time,
        which happens to put the saved purse back over a second start payment, so the double pay hid behind timing.
@@ -147,7 +131,7 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
     await page.evaluate(() => document.getElementById('front').click()); await page.waitForTimeout(2500);
     const b9b = f9 ? await f9.evaluate(() => ({ bats: loopBats(), start: LOOP.start ? LOOP.start.start : null })) : null;
     ok('*** T9 NEW GAME OVER A SAVE *** (first tap: "' + ask.new.b + ' / ' + ask.new.sub + '"; second: the picks ' + (s9b && s9b.picks) + ', title ' + (s9b && s9b.title) + '; the purse ' + b9a + ' before BEGIN, ' + (b9b && b9b.bats) + ' after for a start of ' + (b9b && b9b.start) + '; notes ' + (s9b && s9b.notes) + ')',
-      ask.up && /START OVER\?|TAP AGAIN/.test(ask.new.b) && /ends day \d+/i.test(ask.new.sub) && !!s9b && !s9b.title && s9b.picks >= 6 && b9a === 0 && !!b9b && b9b.start > 0 && b9b.bats === b9b.start && s9b.notes >= pre.t6.n);
+      ask.up && /START OVER\?|TAP AGAIN/.test(ask.new.b) && /ends day \d+/i.test(ask.new.sub) && !!s9b && !s9b.title && s9b.picks >= 6 && b9a === 0 && !!b9b && b9b.start > 0 && b9b.bats === b9b.start);   /* 'and the notes kept' left with NOTES (rule 357 (a)) */
 
     /* T10: with the title up, the door's own BEGIN is NOT a way in; the title's own CONTINUE is */
     const s10 = await back();

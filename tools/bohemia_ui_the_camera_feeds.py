@@ -47,6 +47,15 @@ SIZE = {'tall': (432, 768), 'wide': (768, 432)}
 # the medium of each feed: how many pictures its camera takes a bar (a security or trail camera six a second, held on twos)
 MEDIUM = {'a': 'vhs_warm', 'b': 'cctv', 'c': 'vhs_cold', 'd': 'cctv', 'e': 'ir', 'f': 'cctv_colour', 'g': 'vhs_warm', 'h': 'cctv_colour', 'i': 'vhs_cold', 'j': 'cctv'}
 FRAMES = {k: (6 if MEDIUM[k] in ('cctv', 'ir', 'cctv_colour') else 12) for k in MEDIUM}
+# RULE 357 (f), Paolo 11/3: 'not everything has to be at night time': the feeds run through the whole day. Each feed's hour; the night
+# ones keep their own light (their identity is the dark: the dying lamp, the one lit block, the infrared flash)
+HOUR = {'a': 'dusk', 'b': 'night', 'c': 'night', 'd': 'noon', 'e': 'night', 'f': 'afternoon', 'g': 'dusk', 'h': 'dawn', 'i': 'dawn', 'j': 'dawn'}
+# the sun (energy, colour, elevation, azimuth from the camera's back), the sky's fill (colour, strength), the film's exposure
+DAYLIGHT = {
+    'dawn':      dict(sun=1.6, col=(1.0, 0.72, 0.52), el=7, az=180, fill=(0.20, 0.23, 0.34), fs=0.9, exp=-0.7),
+    'noon':      dict(sun=4.2, col=(1.0, 0.97, 0.92), el=72, az=35, fill=(0.42, 0.50, 0.62), fs=1.0, exp=-1.0),
+    'afternoon': dict(sun=3.0, col=(1.0, 0.84, 0.62), el=24, az=250, fill=(0.46, 0.39, 0.30), fs=0.6, exp=-1.3),
+    'dusk':      dict(sun=1.1, col=(1.0, 0.46, 0.24), el=4, az=170, fill=(0.12, 0.10, 0.17), fs=0.9, exp=0.0)}
 
 
 def opt(k, d):
@@ -359,6 +368,7 @@ def render(scene, orient, out):
         add(P + 'airport_plane.glb', (4, 40, -0.6), -30); add(P + 'airport_jet_bridge.glb', (-14, 22, 0), 90); add(P + 'airport_fuel_truck.glb', (18, 30, 0), 120)
         add(P + 'airport_baggage.glb', (-6, 18, 0), 15); add(P + 'airport_hangar.glb', (-30, 70, 0), 20); add(P + 'airport_hangar.glb', (2, 95, 0), 0)
         lion = add(M + 'mountain_lion.glb', (1.5, 25, 0), 120, length=2.1); f0, f1 = clip(lion, 'Survey')
+        meshes.append(box('terminal', (-26, 6, 9), (22, 40, 18), mat('terminal', (0.22, 0.2, 0.18))))   # off the frame's left: its shadow is the words' place
         # the apron's mast lights: all dead but one, and that one sodium-orange and failing
         mast, mast_d = light('mast', 'SPOT', (22, 12, 24), 9000, (1.0, 0.55, 0.2), 0.5, spot=80, blend=0.5); mast.rotation_euler = (math.radians(20), 0, math.radians(40))
         meshes.append(box('mast_pole', (23, 13, 12), (0.5, 0.5, 24), mat('pole', (0.3, 0.3, 0.29))))
@@ -446,17 +456,27 @@ def render(scene, orient, out):
         add(P + 'strip_bridge.glb', (6, 42, 0), 0); add(M + 'bld_casino.glb', (-26, 46, 0), 10, 1.1)
         tw = joined(M + 'bld_tower_casino.glb'); place(tw, (22, 90, 0), -10, 2.4); place(tw, (-40, 130, 0), 20, 3.0); bpy.data.objects.remove(tw)
         add(P + 'golf_dead_palm.glb', (-4, 24, 0)); add(P + 'golf_dead_palm.glb', (5.5, 25, 0), 90); add(M + 'wreck.glb', (-1, 30, 0), 80)
+        meshes.append(box('canopy', (-4, -4, 9.6), (30, 16, 0.8), mat('canopy', (0.10, 0.09, 0.085))))   # the porte-cochere's underside: the title's quiet place
+        meshes.append(box('fascia', (-4, 4.1, 9.0), (30, 0.4, 1.6), mat('fascia', (0.14, 0.13, 0.12))))
         bulb = mat('bulb', (1, 0.85, 0.5), 1.0, (1.0, 0.8, 0.45), 50.0)
         bl = cyl('one_bulb', (-6.2, 9.0, 1.6), 0.09, 0.12, bulb, 8)
         bl_l, bl_d = light('one_bulb', 'POINT', (-6.2, 8.8, 1.7), 25, (1.0, 0.78, 0.45), 0.05)
         sc.view_settings.exposure = 1.1
-        shoot(((-6, -8, 7.5), (0, 16, 1.0), 62, 0), ((-8, -8, 6.5), (0, 18, 2.4), 42, 0))
+        shoot(((-6, -8, 7.5), (0, 16, 3.0), 66, 0), ((-8, -8, 6.5), (0, 18, 3.4), 46, 0))
         def key(i):
             on = i not in (3, 4)   # the bulb's own bad contact
             bl_d.energy = 25 if on else 4; bulb.node_tree.nodes['Principled BSDF'].inputs['Emission Strength'].default_value = 50.0 if on else 6.0
     else:
         raise SystemExit('scene a..j')
 
+    # THE HOUR (rule 357 (f)): a day feed's sun and sky replace the night's moon and dark; the scene's own lamps stay (a bulb still
+    # lit at dawn is the wrong thing, not a mistake)
+    L = DAYLIGHT.get(HOUR[scene])
+    if L:
+        moon_d.energy = L['sun']; moon_d.color = L['col']; moon_d.angle = math.radians(1.5)
+        moon.rotation_euler = (math.radians(90 - L['el']), 0, cam.matrix_world.to_euler().z + math.radians(L['az']))
+        bg.inputs[0].default_value = tuple(L['fill']) + (1,); bg.inputs[1].default_value = L['fs']
+        sc.view_settings.exposure = L['exp']
     # THE LOOK AT THE SOURCE: the master rig's own pass on every material in the frame (metres: the scene is built in metres)
     seen = set(); uniq = []
     for o in meshes:
@@ -478,6 +498,10 @@ def render(scene, orient, out):
 # =====================================================================================================================
 # THE POST: the sky, the population snap, and THE MEDIUM, baked into every frame (numpy, Pillow)
 # =====================================================================================================================
+EXPOSE = {'a': 0.74, 'f': 0.68, 'g': 0.8, 'i': 0.42, 'j': 0.8}   # the day feeds' film, a stop under where the words sit (rule 357 (b))
+HOUR_SKY = {   # rule 357 (f): the sky behind a day feed (top, horizon, stars, the horizon's own thing)
+    'dawn': ((34, 42, 70), (214, 150, 112), 12, None), 'noon': ((150, 166, 184), (222, 218, 208), 0, None),
+    'afternoon': ((152, 140, 124), (216, 188, 146), 0, None), 'dusk': ((22, 22, 44), (184, 92, 58), 18, None)}
 SKY = {   # top, horizon, stars, and the horizon's own thing
     'a': ((6, 8, 14), (24, 24, 30), 70, 'ridge'), 'b': ((8, 8, 9), (16, 16, 17), 0, None), 'c': ((5, 8, 16), (34, 28, 34), 90, 'glow'),
     'd': ((6, 8, 15), (20, 22, 30), 120, None), 'e': ((0, 0, 0), (0, 0, 0), 0, None), 'f': ((7, 7, 12), (24, 20, 22), 40, 'glow_far'),
@@ -494,7 +518,7 @@ def post(scene, orient, out, dst):
     fr = [np.asarray(Image.open(os.path.join(out, f)).convert('RGBA')).astype(float) for f in files]
     H, W = fr[0].shape[:2]
     R = np.random.RandomState(ord(scene))
-    top, low, stars, thing = SKY[scene]
+    top, low, stars, thing = HOUR_SKY.get(HOUR[scene], SKY[scene])
     yy = np.arange(H)[:, None] / H
     sky = np.zeros((H, W, 3)); f = np.clip(yy / 0.55, 0, 1) ** 1.6
     for c in range(3): sky[..., c] = top[c] + (low[c] - top[c]) * f
@@ -515,9 +539,10 @@ def post(scene, orient, out, dst):
     pop, nb, nf = RIG.population('prop')
     SNAP = 0.3
     by = {}
+    gain = EXPOSE.get(scene, 1.0)   # rule 357 (b): the camera's own exposure, so the words have their quiet place at this hour
     for i, a in zip(keys, fr):
         al = a[..., 3:4] / 255.0
-        rgb = a[..., :3] * al + sky * (1 - al)
+        rgb = (a[..., :3] * al + sky * (1 - al)) * gain
         b = np.clip((rgb // 8).astype(int), 0, 31)
         rgb = rgb + (pop[b[..., 0], b[..., 1], b[..., 2]] - rgb) * SNAP
         by[i] = medium(MEDIUM[scene], rgb, i, scene)
@@ -589,8 +614,102 @@ def medium(kind, rgb, i, scene):
     return np.clip(out, 0, 255).astype(np.uint8)
 
 
+
+# =====================================================================================================================
+# THE PLACE FOR THE WORDS (rule 357, Paolo 11/3: 'wherever you place all the text moving forward it feels like it was meant to be
+# placed there by what's going on in the background behind it'; no box behind them). Each feed's own frames, cover-fit onto his
+# phone (390 x 844 upright, 844 x 390 sideways), are measured the way the front screen's gate measures a word (J5: the worse side of
+# what is under it, the 90th percentile pixel, plain and in the sun): the title block (his gold letters and the line) and the two
+# choices (NEW GAME in gold, CONTINUE in bone) each go where EVERY frame keeps them readable, as near the usual place as that allows.
+# =====================================================================================================================
+GOLD, BONE, INK = (226, 189, 106), (239, 230, 210), (23, 18, 11)   # INK: the dark the words take where the picture is light (rule 357 (b): colour chosen per feed)
+
+
+def place(out_json):
+    import numpy as np
+    from PIL import Image
+    def lum(a):
+        a = a / 255.0; a = np.where(a <= 0.03928, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+        return 0.2126 * a[..., 0] + 0.7152 * a[..., 1] + 0.0722 * a[..., 2]
+    def L1(c): return float(lum(np.array(c, float)[None, None, :])[0, 0])
+    def sun(c): return tuple(v + (255 - v) * 0.25 for v in c)
+    CR = lambda x, y: (max(x, y) + 0.05) / (min(x, y) + 0.05)
+    J = json.load(open(out_json)); F = J['feed']
+    rows = []
+    for k, o in sorted(F['options'].items()):
+        words = {}
+        for ori, (SW, SH) in (('tall', (390, 844)), ('wide', (844, 390))):
+            im = np.asarray(Image.open(os.path.join(ROOT, 'slices', o[ori])).convert('RGB')).astype(float)
+            n = o['frames']; fh = im.shape[0] // n; fw = im.shape[1]
+            sc = max(SW / fw, SH / fh); cw, ch = SW / sc, SH / sc; x0, y0 = (fw - cw) / 2, (fh - ch) / 2
+            frames = []
+            for f in range(n):
+                fr = Image.fromarray(im[f * fh:(f + 1) * fh].astype(np.uint8)).crop((int(x0), int(y0), int(x0 + cw), int(y0 + ch))).resize((SW, SH), Image.BILINEAR)
+                frames.append(np.asarray(fr).astype(float))
+            st = np.stack(frames)                              # every frame on his glass
+            Ls = lum(st)                                       # (n, SH, SW)
+            def worst(box, col, need):                         # the worst frame's reading of a word in this box, plain and in the sun
+                x, y, w, h = [int(round(v)) for v in box]; x = max(0, x); y = max(0, y); w = min(SW - x, w); h = min(SH - y, h)
+                if w <= 2 or h <= 2: return 0.0
+                lo = 1e9
+                for f in range(n):
+                    reg = st[f, y:y + h:2, x:x + w:2].reshape(-1, 3); Lr = Ls[f, y:y + h:2, x:x + w:2].reshape(-1)
+                    bg = reg[np.argsort(Lr)[int((len(Lr) - 1) * 0.9)]]
+                    lo = min(lo, CR(L1(col), L1(bg)) if need == 'plain' else min(CR(L1(col), L1(bg)), CR(L1(sun(col)), L1(sun(bg)))))
+                return lo
+            if ori == 'tall':
+                cols = [(SW / 2, 'c')]
+                tbox = lambda cx, ty, ink: [(cx - 164, ty - 2, 328, 75, GOLD, 'plain', 3.0), (cx - 104, ty + 81, 208, 16, ink, 'sun', 4.5)]
+                mbox = lambda cx, my, ink: [(cx - 74, my + 12, 148, 24, ink[0], 'sun', 4.5), (cx - 54, my + 65, 108, 18, ink[1], 'sun', 4.5)]
+                ty0, my0 = 0.17, 0.70
+            else:
+                cols = [(0.05 * SW, 'left'), (0.54 * SW, 'right')]
+                tbox = lambda cx, ty, ink: [(cx - 4, ty - 2, 328, 75, GOLD, 'plain', 3.0), (cx - 4, ty + 81, 208, 16, ink, 'sun', 4.5)]
+                mbox = lambda cx, my, ink: [(cx - 4, my + 12, 148, 24, ink[0], 'sun', 4.5), (cx - 4, my + 65, 108, 18, ink[1], 'sun', 4.5)]
+                ty0, my0 = 0.12, 0.50
+            def score(boxes):
+                rs = [worst(b[:4], b[4], b[5]) for b in boxes]
+                return min(r / b[6] for r, b in zip(rs, boxes)), rs
+            best = None
+            TY, MY = np.round(np.arange(0.04, 0.66, 0.02), 2), np.round(np.arange(0.20, 0.86, 0.02), 2)
+            MINKS = {'light': (GOLD, BONE), 'bone': (BONE, BONE), 'dark': (INK, INK)}   # light: NEW GAME gold, CONTINUE bone; bone and dark: both the one colour, NEW GAME by its size
+            TINKS = {'light': BONE, 'dark': INK}
+            def best_ink(boxes_of):
+                got = {n: score(boxes_of(v)) for n, v in boxes_of.__inks__.items()}
+                n = max(got, key=lambda q: min(got[q][0], 1.1) + {'light': 0.06, 'bone': 0.03}.get(q, 0))   # his gold first, then bone, then the dark, when each reads
+                return (n,) + got[n]
+            MS = {}
+            for mcx, _ in cols:
+                for my in MY:
+                    f = lambda ink, mcx=mcx, my=my: mbox(mcx, my * SH, ink); f.__inks__ = MINKS; MS[(mcx, my)] = best_ink(f)
+            for tcx, tside in cols:
+                for ty in TY:
+                    ft = lambda ink, tcx=tcx, ty=ty: tbox(tcx, ty * SH, ink); ft.__inks__ = TINKS
+                    tink, sT, rT = best_ink(ft)
+                    for mcx, mside in cols:
+                        for my in MY:
+                            if ori == 'tall' and my * SH < ty * SH + 71 + 12 + 12 + 30: continue
+                            if ori == 'wide' and mside == tside and my * SH < ty * SH + 71 + 12 + 12 + 24: continue
+                            if my * SH + 100 > SH - 40: continue
+                            mink, sM, rM = MS[(mcx, my)]
+                            ok = min(sT, sM)
+                            # passing places are ranked by nearness to the usual place (the title high, the choices under the thumb)
+                            cost = (0 if ok >= 1.04 else 10 + (1.04 - ok) * 10) + abs(ty - ty0) * 1.5 + abs(my - my0) + (0.15 if ori == 'wide' and tside != 'left' else 0) \
+                                + (0.3 if tink == 'dark' else 0) + {'dark': 0.3, 'bone': 0.1}.get(mink, 0)
+                            if best is None or cost < best[0]:
+                                best = (cost, ty, my, tcx, mcx, ok, rT + rM, tink, mink)
+            cost, ty, my, tcx, mcx, ok, rs, tink, mink = best
+            words[ori] = {'t': [round(tcx / SW, 2), round(float(ty), 2)], 'm': [round(mcx / SW, 2), round(float(my), 2)], 'tink': tink, 'mink': mink,
+                          'reads': [round(r, 2) for r in rs], 'ok': bool(ok >= 1.04)}
+            rows.append((k, ori, words[ori]))
+        o['words'] = words
+    json.dump(J, open(out_json, 'w'), indent=1, ensure_ascii=False)
+    for k, ori, w in rows: print(k, ori, 't', w['t'], w['tink'], 'm', w['m'], w['mink'], 'reads', w['reads'], 'OK' if w['ok'] else 'SHORT')
+
 if __name__ == '__main__':
-    if '--post' in sys.argv:
+    if '--place' in sys.argv:
+        place(os.path.join(ROOT, 'slices/crashbox/crashbox.json'))
+    elif '--post' in sys.argv:
         a = sys.argv[sys.argv.index('--post') + 1:]
         post(a[0], a[1], a[2], a[3])
     else:

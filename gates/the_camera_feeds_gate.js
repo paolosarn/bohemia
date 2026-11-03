@@ -20,8 +20,18 @@
      C7  THE MONITOR CYCLES: wound to the cut, the camera cuts to another feed (a roll, a picture of snow) and takes its sound
      C8  NOT SLOWER: no feed picture is asked for before the page's first paint, and only one feed's picture before the title
      C9  nothing threw
+   RULE 357 (Paolo 11/3: 'remove the Notes button from everywhere... I don't want an effect behind them, a shadow box, a contrast
+   box... wherever you place all the text... it feels like it was meant to be placed there by what's going on in the background'):
+     C10 NOTHING BEHIND THE FOUR WORDS: no background, plate, shadow, outline, border, glow or blur on the words or anything between
+         them and the picture
+     C11 THEY READ ON EVERY FEED, TALL AND WIDE: each feed held in turn, upright and sideways, its words photographed off the glass
+         over three keys of its loop: every word 4.5 to 1 against the worse side of the real pixels under it, plain and in the sun
+         (the front screen's own J5), his letters 3 to 1
+     C12 NO NOTES BUTTON ANYWHERE: none on the title, the phone has no NOTES app, the bar's NOTES is off the glass in every frame
+         the game draws
    PLANTED (each must turn its leg red, every run): a feed missing its wide sheet, a 4:3 sheet called tall, a loud sound, a
-   SETTINGS choice back on the title, the same feed twice running.
+   SETTINGS choice back on the title, the same feed twice running, a box behind the line, the choices in a grey the picture does not hold up,
+   the NOTES button back on the title.
 
    node gates/the_camera_feeds_gate.js */
 'use strict';
@@ -117,6 +127,77 @@ function judgeFiles(F, SZ, RMS) {
       /* C8: what was asked for, and when */
       res.loads = await page.evaluate(() => performance.getEntriesByType('resource').filter(e => /crashbox\/feed_.*\.webp/.test(e.name)).map(e => ({ n: e.name.split('/').pop(), at: Math.round(e.startTime) })));
       res.fp = await page.evaluate(() => { const p = performance.getEntriesByType('paint').find(e => e.name === 'first-paint'); return p ? Math.round(p.startTime) : null; });
+      /* C10: nothing behind the words (the words, and every element between them and the title's root) */
+      const BEHIND = () => { const root = document.querySelector('#title .bm-start'); if (!root) return ['no title'];
+        const bad = [], seen = new Set();
+        root.querySelectorAll('.t, .t *, .m, .m *').forEach(e => { for (let p = e; p && p !== root; p = p.parentElement) { if (seen.has(p)) break; seen.add(p);
+          const c = getComputedStyle(p), tag = (p.className && String(p.className)) || p.tagName;
+          if (c.display === 'none') continue;
+          const bgA = (c.backgroundColor.match(/[\d.]+/g) || [0, 0, 0, 0]); if ((bgA.length === 3 || +bgA[3] > 0) && c.backgroundColor !== 'rgba(0, 0, 0, 0)' && c.backgroundColor !== 'transparent') bad.push(tag + ' background ' + c.backgroundColor);
+          if (c.backgroundImage !== 'none') bad.push(tag + ' background-image');
+          if (c.boxShadow !== 'none') bad.push(tag + ' box-shadow');
+          if (c.textShadow !== 'none') bad.push(tag + ' text-shadow');
+          if (c.filter !== 'none') bad.push(tag + ' filter');
+          if (c.outlineStyle !== 'none' && parseFloat(c.outlineWidth) > 0) bad.push(tag + ' outline');
+          if (['Top', 'Right', 'Bottom', 'Left'].some(sd => parseFloat(c['border' + sd + 'Width']) > 0 && c['border' + sd + 'Style'] !== 'none')) bad.push(tag + ' border');
+          const b2 = getComputedStyle(p, '::before'), a2 = getComputedStyle(p, '::after');
+          [b2, a2].forEach(q => { if (q && q.content && q.content !== 'none' && q.content !== 'normal' && q.display !== 'none') bad.push(tag + ' ::before/::after'); }); } });
+        return bad; };
+      res.behind = await page.evaluate(BEHIND);
+      await page.evaluate(() => { const sb = document.querySelector('#title .bm-start .sub'); if (sb) sb.style.setProperty('background', '#000', 'important'); });
+      res.behindPlant = await page.evaluate(BEHIND);
+      await page.evaluate(() => { const sb = document.querySelector('#title .bm-start .sub'); if (sb) sb.style.removeProperty('background'); });
+      /* C12 on the title, and its plant */
+      const NOTES = () => { const n = Array.from(document.querySelectorAll('#title .notes, #notebtn, [data-k="notes"]')).filter(e => { const r = e.getBoundingClientRect(); let v = r.width > 0 && r.height > 0;
+        for (let p = e; p && v; p = p.parentElement) { const c = getComputedStyle(p); if (c.display === 'none' || c.visibility === 'hidden' || +c.opacity === 0) v = false; } return v; }); return n.length; };
+      res.notes = await page.evaluate(NOTES);
+      await page.evaluate(() => { let n = document.querySelector('#title .notes'); if (!n) { n = document.createElement('div'); n.className = 'notes'; n.setAttribute('role', 'button'); n.setAttribute('data-k', 'notes'); n.textContent = 'NOTES'; n.id = 'cf-plant-notes';
+        n.style.cssText = 'position:fixed;top:10px;right:10px;padding:12px;color:#fff'; document.getElementById('title').appendChild(n); } n.style.setProperty('display', 'block', 'important'); });
+      res.notesPlant = await page.evaluate(NOTES);
+      await page.evaluate(() => { const p = document.getElementById('cf-plant-notes'); if (p) p.remove(); else { const n = document.querySelector('#title .notes'); if (n) n.style.removeProperty('display'); } });
+      /* C11: every feed held in turn, upright and sideways, its words read off the real glass over three keys */
+      res.reads = []; res.readPlant = null;
+      const READ = async () => {
+        const items = await page.evaluate(() => { const out = [], root = document.querySelector('#title .bm-start');
+          const add = (e, k, col, need) => { if (!e) return; const r = e.getBoundingClientRect(); if (!r.width || !r.height) return; out.push({ k, need, col, box: [Math.max(0, r.left), Math.max(0, r.top), Math.min(innerWidth, r.right) - Math.max(0, r.left), Math.min(innerHeight, r.bottom) - Math.max(0, r.top)] }); };
+          const col = e => getComputedStyle(e).color;
+          const sub = root.querySelector('.sub'); add(sub, 'the line', col(sub), 4.5);
+          root.querySelectorAll('.m .b').forEach(b => { if (b.disabled) return; const w = b.querySelector('b'); const rg = document.createRange(); rg.selectNodeContents(w); const r = rg.getBoundingClientRect();
+            out.push({ k: w.textContent, need: 4.5, col: col(w), box: [r.left, r.top, r.width, r.height] }); });
+          const mk = root.querySelector('.t canvas'); add(mk, 'BOHEMIA', 'rgb(226, 189, 106)', 3.0);
+          const st = document.createElement('style'); st.id = 'cf-hide'; st.textContent = '#title .bm-start .t, #title .bm-start .m{visibility:hidden!important}'; document.head.appendChild(st);
+          return out; });
+        const shots = []; for (let i = 0; i < 3; i++) { await page.waitForTimeout(i ? 560 : 150); shots.push((await page.screenshot()).toString('base64')); }
+        await page.evaluate(() => { const st = document.getElementById('cf-hide'); if (st) st.remove(); });
+        return page.evaluate(async ({ shots, items }) => {
+          const LUM = (r, g, b) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+          const CR = (x, y) => (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05), SUN = q => q.map(v => v + (255 - v) * 0.25);
+          const worst = items.map(it => ({ k: it.k, need: it.need, plain: 99, sun: 99 }));
+          for (const png of shots) { const im = new Image(); im.src = 'data:image/png;base64,' + png; await im.decode();
+            const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d'); g.drawImage(im, 0, 0); const sc = im.width / innerWidth;
+            items.forEach((it, j) => { const [x, y, w, h] = it.box, d = g.getImageData(Math.round(x * sc), Math.round(y * sc), Math.max(1, Math.round(w * sc)), Math.max(1, Math.round(h * sc))).data, S = [];
+              for (let i = 0; i < d.length; i += 4 * 3) S.push([d[i], d[i + 1], d[i + 2]]); S.sort((p, q) => LUM(...p) - LUM(...q));
+              const t = it.col.match(/[\d.]+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor((S.length - 1) * (tl > 0.18 ? 0.9 : 0.1))];
+              worst[j].plain = Math.min(worst[j].plain, +CR(tl, LUM(...bg)).toFixed(2)); worst[j].sun = Math.min(worst[j].sun, +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2)); }); }
+          return worst; }, { shots, items });
+      };
+      const keys = await page.evaluate(() => Object.keys(BohemiaCrashbox.data().feed.options).filter(k => BohemiaCrashbox.data().feed.options[k].on !== false));
+      for (const [vw, vh, ori] of [[390, 844, 'tall'], [844, 390, 'wide']]) {
+        await page.setViewportSize({ width: vw, height: vh });
+        for (const k of keys) {
+          await page.evaluate(k => { localStorage.setItem('bohemia.title.feed', k); }, k);
+          await wait(() => { const s = BohemiaCrashbox.state(); return s.loaded && !s.fading && s.shown === (innerWidth >= innerHeight ? 'wide' : 'tall'); }, 15000);
+          await page.waitForTimeout(250);
+          const r = await READ(); res.reads.push({ k, ori, r });
+          if (k === keys[1] && ori === 'tall' && !res.readPlant) {   /* PLANTED: the choices in a grey the picture does not hold up */
+            await page.evaluate(() => { document.querySelectorAll('#title .bm-start .m .b b').forEach(w => w.style.setProperty('color', '#6e6a62', 'important')); });
+            res.readPlant = await READ();
+            await page.evaluate(() => { document.querySelectorAll('#title .bm-start .m .b b').forEach(w => w.style.removeProperty('color')); });
+          }
+        }
+      }
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.evaluate(() => localStorage.removeItem('bohemia.title.feed'));
       /* C5: opened again and again on the same phone */
       res.rolls = [res.box && res.box.st ? res.box.st.pick : null];
       for (let i = 0; i < 5; i++) {
@@ -161,6 +242,18 @@ function judgeFiles(F, SZ, RMS) {
   const L = res.loads || [];
   ok('C8 NOT SLOWER: no feed picture asked for before the first paint, and one feed\'s picture only before the title is up', L.length >= 1 && res.fp != null && L.every(x => x.at >= res.fp) && new Set(L.map(x => x.n.replace(/_(tall|wide)\.webp$/, ''))).size === 1,
     'first paint ' + res.fp + ' ms; ' + L.map(x => x.n + '@' + x.at).join(' '));
+  ok('C10 NOTHING BEHIND THE FOUR WORDS: no box, plate, shadow, outline, border, glow or blur', !!res.behind && !res.behind.length, (res.behind || ['not read']).slice(0, 4).join('; '));
+  ok('C10 PLANTED: a box behind the line is caught', !!res.behindPlant && res.behindPlant.some(b => /background/.test(b)), (res.behindPlant || []).slice(0, 2).join('; '));
+  const shortOf = r => r.filter(w => w.plain < w.need || (w.need > 3 && w.sun < w.need));
+  const allReads = res.reads || [], shortReads = allReads.filter(x => shortOf(x.r).length || x.r.length < 3);
+  ok('C11 THEY READ ON EVERY FEED, TALL AND WIDE: every word 4.5 to 1 (and in the sun), his letters 3 to 1, over three keys (' + allReads.length + ' screens)',
+    allReads.length >= 20 && !shortReads.length, shortReads.slice(0, 4).map(x => x.k + ' ' + x.ori + ': ' + (x.r.length < 3 ? 'words missing' : shortOf(x.r).map(w => w.k + ' ' + w.plain + '/' + w.sun).join(','))).join(' | ') || allReads.map(x => x.k + x.ori[0] + ' ' + Math.min(...x.r.filter(w => w.need > 3).map(w => Math.min(w.plain, w.sun))).toFixed(1)).join(' '));
+  ok('C11 PLANTED: the choices in a grey the picture does not hold up are caught', !!res.readPlant && shortOf(res.readPlant).length > 0, res.readPlant ? shortOf(res.readPlant).map(w => w.k + ' ' + w.plain + '/' + w.sun).join(',') : 'not read');
+  const phoneSrc = fs.readFileSync(SL('bohemia_phone.js'), 'utf8'), matSrc = fs.readFileSync(SL('bohemia_ui_materials.js'), 'utf8');
+  const appsM = /var APPS = (\[[^\]]*\])/.exec(phoneSrc);
+  ok('C12 NO NOTES BUTTON ANYWHERE: none on the title, no NOTES app on the phone, the bar\'s NOTES off the glass', res.notes === 0 && !!appsM && !/notes/.test(appsM[1]) && /#notebtn\{display:none!important\}/.test(matSrc),
+    'title ' + res.notes + ', apps ' + (appsM ? appsM[1] : '?'));
+  ok('C12 PLANTED: the NOTES button back on the title is caught', res.notesPlant > 0, res.notesPlant + ' shown');
   const errs = (res.errs || []).filter(e => !/favicon|ERR_ABORTED|net::/.test(e));
   ok('C9 nothing threw', !res.threw && !errs.length, (res.threw || errs.slice(0, 3).join(' | ')).slice(0, 300));
   console.log('\nTHE CAMERA FEEDS: ' + pass + ' passed, ' + fail + ' failed');
