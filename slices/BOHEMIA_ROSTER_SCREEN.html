@@ -216,6 +216,82 @@ html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 /* ==== end __UI_THREE_STATS__ ==== */
 .who .ktally{font-size:11px;letter-spacing:.5px;color:#c4b190;margin-top:2px}
 </style>
+<style id="campsees">
+/* ==== __THE_CREW_SEES_THE_CAMP__ (UI 7, rule 369(b)): the brown is gone. While the camp is under the screen (html.bm-camp-live, set
+   the moment it is drawn) every card, paper and plate is taken off the sheet: the line is faces in thin frames, his slots small dark
+   glass round him, his numbers bars on the camp, the stash pockets; the words sit on the camp itself where the lamp falls off (the
+   camera's light is on him), with the one-pixel drop every word in the game carries, never a box behind them (rule 357(c)). The
+   phone says YOUR COMPANY, the count and DONE, so the screen's own title bar steps off the glass while the phone is up. On its own
+   (no camp: a bench, a checker) the screen keeps its old look. The kit's own skin is injected after this sheet, so each rule is
+   held by its specificity (html.bm-camp-live[data-bm-roster]:not(#bm-x) body) ==== */
+html.bm-camp-live[data-bm-roster]:not(#bm-x),html.bm-camp-live[data-bm-roster]:not(#bm-x) body{background:transparent!important}
+html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body #bar{display:none!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #bar{background:none!important;box-shadow:none!important;border:0!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #bar .t{text-shadow:0 1px 0 #000}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #cols{padding-top:max(4px,env(safe-area-inset-top))}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #card{background:none!important;box-shadow:none!important;border:0!important;padding:4px 0 2px!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #card::before{display:none!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .cell{background:rgba(10,8,6,.16)!important;border:1px solid rgba(255,244,222,.3)!important;box-shadow:none!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .cell.full{background:rgba(10,8,6,.5)!important;border-color:rgba(255,244,222,.72)!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .cell.sel{outline:2px solid #f4cf7c!important;outline-offset:-1px}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .ln{color:#f6ecd6!important;text-shadow:0 1px 0 #000}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .nm{color:#f8d488!important;text-shadow:0 1px 0 #000}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .sub,html.bm-camp-live[data-bm-roster]:not(#bm-x) body .ktally,html.bm-camp-live[data-bm-roster]:not(#bm-x) body .trait,
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #said,html.bm-camp-live[data-bm-roster]:not(#bm-x) body #tabs .n,html.bm-camp-live[data-bm-roster]:not(#bm-x) body #bag .none,
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .perks,html.bm-camp-live[data-bm-roster]:not(#bm-x) body .levelup>b{color:#f6ecd6!important;text-shadow:0 1px 0 #000}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #said b{color:#fff7e6!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .pain{display:none!important}   /* he says it himself, from his face on the line (talkOnLine) */
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .xpbar{height:5px!important;background:rgba(10,8,6,.5)!important;border:1px solid rgba(255,244,222,.42)!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .gslot{background:rgba(10,8,6,.58)!important;border:1px solid rgba(255,244,222,.36)!important;box-shadow:none!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .gslot.full{background:rgba(10,8,6,.66)!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .mid{position:relative}
+html.bm-camp-live.bm-camp-town[data-bm-roster]:not(#bm-x) body #card .rbody{visibility:hidden}   /* in a town the town draws him, in its own picture, under his sheet */
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .stats{background:none!important;filter:none!important;padding:2px 0 4px!important;
+  --bst-ink:#f6ecd6;--bst-track:rgba(10,8,6,.3);--bst-edge:rgba(255,236,200,.5);--bst-tick:rgba(255,236,200,.85);--bst-tag:rgba(10,8,6,.66);--bst-up:#8fd16a;--bst-dn:#f08a6c}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .stats>div{border-bottom:0!important;color:#f6ecd6!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .stats .bmstar{background-image:var(--bm-mark-star)!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .lugrid button{background:rgba(10,8,6,.58)!important;border:1px solid rgba(255,244,222,.38)!important;box-shadow:none!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .lugrid button.on{background:linear-gradient(#f4cf7c,#d9a650)!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body #bag .slot,html.bm-camp-live[data-bm-roster]:not(#bm-x) body #bag .slot.full{background:rgba(10,8,6,.58)!important;border:1px solid rgba(255,244,222,.38)!important;box-shadow:none!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .hurtbox{background:rgba(34,19,15,.72)!important}
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .wcls{background:rgba(10,8,6,.58)!important;border-color:rgba(255,244,222,.36)!important;color:#f6ecd6}   /* COMBAT 7's armour class (rule 377): the slots' own glass */
+html.bm-camp-live[data-bm-roster]:not(#bm-x) body .wcls.less{color:#f4a088}
+html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body #tabs .n,html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body #bag .none{display:none!important}   /* STASH n/36 is the phone's crew face's own line, and an empty stash says so there: said once */
+/* his name, his trade and level, his XP and his kills are the phone's (its YOUR COMPANY face says who is picked): the camp keeps
+   his slots, his numbers and him; DISMISS stays on his sheet */
+html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body .who .id{display:none!important}
+html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body .who{justify-content:flex-end;min-height:0}
+/* UPRIGHT: he stands at the foot of his slots (the bag's two pockets join the side columns), so the camera can bring his place in
+   the camp, low in the picture where the fire is, under his figure (measured: with his feet at the top third the picture's own
+   edge held the camera 186 points short of him) */
+@media (max-width:699px){
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll{grid-template-columns:62px minmax(0,1fr) 62px;grid-template-rows:repeat(4,auto);grid-auto-flow:row}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side,html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .mid,html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .bagrow{display:contents}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side:first-child>.gslot:nth-child(1){grid-area:1/1}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side:first-child>.gslot:nth-child(2){grid-area:2/1}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side:first-child>.gslot:nth-child(3){grid-area:3/1}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side:last-child>.gslot:nth-child(1){grid-area:1/3}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side:last-child>.gslot:nth-child(2){grid-area:2/3}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .side:last-child>.gslot:nth-child(3){grid-area:3/3}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .bagrow>.gslot:nth-child(1){grid-area:4/1}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .bagrow>.gslot:nth-child(2){grid-area:4/3}
+  /* four slots a column: each 54 tall (the kit's 64 made the screen 1.06 of the glass, a scroll THE COMPANY SCREEN, BATTLE BROTHERS SIMPLE
+     refuses); the icon, the label and the number still fit */
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .gslot{min-height:54px!important;height:54px;padding:2px 4px!important}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .mid>.rbody,html.bm-camp-live[data-bm-roster]:not(#bm-x) body .doll .mid>.face{grid-area:1/2/5/3;align-self:end;justify-self:center}
+}
+/* ON ITS SIDE (a phone held flat): the line of faces stands at the top of the right column, over the stash and clear of the phone
+   (it sat under the glass's foot, one scroll away); him and his numbers on the left over the camp */
+@media (min-width:700px) and (max-height:500px){
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body #cols{grid-template-areas:"man strip" "man stash" "man said";grid-template-rows:auto auto 1fr;align-content:start;row-gap:4px}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body .line{--cw:42px}
+  html.bm-camp-live[data-bm-roster]:not(#bm-x) body #lines{margin-top:2px}
+  html.bm-camp-live.boh-phone-on.boh-phone-right[data-bm-roster]:not(#bm-x) body #stash,html.bm-camp-live.boh-phone-on.boh-phone-right[data-bm-roster]:not(#bm-x) body #said{padding-right:calc(var(--boh-phone-gap-r) + 6px)}
+  html.bm-camp-live.boh-phone-on.boh-phone-left[data-bm-roster]:not(#bm-x) body #cols{grid-template-areas:"strip man" "stash man" "said man"}
+  html.bm-camp-live.boh-phone-on.boh-phone-left[data-bm-roster]:not(#bm-x) body #stash,html.bm-camp-live.boh-phone-on.boh-phone-left[data-bm-roster]:not(#bm-x) body #said{padding-left:calc(var(--boh-phone-gap-l) + 6px)}
+}
+/* ==== end __THE_CREW_SEES_THE_CAMP__ ==== */
+</style>
 </head>
 <body>
 <div id="bar"><span class="t" id="title">YOUR COMPANY</span><button id="done">DONE</button></div>
@@ -1143,7 +1219,7 @@ function open(o){
    paper or tin) is measured on the pixels behind it and the dim is the least that keeps the worst of them at 4.5 to 1, the kit's
    floor, never under half. A little life: the men (and the town's own) move on the beat; the place holds still. ==== */
 var CAMPBG = { c: null, base: null, men: [], night: false, on: false, kind: '', ground: '', dim: 0.62, focus: null, live: false, t: {} };
-var CAMP_FLOOR = 4.5, CAMP_DIM_MIN = 0.5, CAMP_DIM_MAX = 0.9, CAMP_SHADE = [12, 8, 5];
+var CAMP_FLOOR = 4.5, CAMP_DIM_MIN = 0.5, CAMP_DIM_MAX = 0.92, CAMP_SHADE = [12, 8, 5];
 var CAMP_GROUND = { desert: 'desert', wash: 'desert', mountain: 'desert', basin: 'desert', quarry: 'desert', freeway: 'freeway', interchange: 'freeway' };   /* the rest is street */
 function campHost(){   /* the game's windows above this screen: the one that runs the clock and the map, and the town if one is open */
   var w = window.parent, out = { map: null, town: null, off: false }, n = 0;
@@ -1229,10 +1305,18 @@ function campFit(){ var c = CAMPBG.c, im = CAMPBG.base, sp = CAMPBG.spot || { x:
   var ox = X - fx * k, oy = Y - fy * k;
   ox = Math.min(0, Math.max(c.width - im.width * k, ox)); oy = Math.min(0, Math.max(c.height - im.height * k, oy)); return { k: k, ox: ox, oy: oy }; }
 function campMen(){
-  var acts = ['sit', 'smoke', 'talk', 'drink'], men = S.crew.filter(function(m){ return m && !m.dead && m.look; }).slice(0, 8), fire = CAMPBG.fire || CAMP_FIRE_AT;
-  CAMPBG.men = men.map(function(m, i){ var a = (0.75 + i / Math.max(1, men.length) * 1.5) * Math.PI;   /* round the back of the fire, the front left open */
-    var dx = Math.cos(a) * 115, dy = Math.sin(a) * 55, f = Math.round(((Math.atan2(-dy * 2, -dx) / Math.PI * 180 + 360 + 90) % 360) / 45) % 8;
-    return { look: m.look, x: fire.x + dx, y: fire.y + dy, f: f, act: acts[i % acts.length], n: i, seed: 'camp:' + (m.name || i), pair: acts[i % acts.length] === 'talk' ? 'campfire' : undefined, partner: i % 2 === 1 }; });
+  /* __THE_CREW_SEES_THE_CAMP__ (rule 369(e)): EVERY man of the company round the fire (it was the first eight): eight to a ring, the
+     next eight a ring further out, each named so a tap on him and the camera find him */
+  var acts = ['sit', 'smoke', 'talk', 'drink'], men = S.crew.filter(function(m){ return m && !m.dead && m.look; }), fire = CAMPBG.fire || CAMP_FIRE_AT;
+  /* close round the fire: four in the first ring (his neighbours stand in the open middle of his sheet, between his slots, where a
+     finger reaches them: measured, at the old 115 they stood behind his slot columns), six in the next, eight, then twelve */
+  var RINGS = [[4, 78, 40], [6, 140, 70], [8, 200, 100], [12, 260, 130]];
+  CAMPBG.men = men.map(function(m, i){ var ring = 0, k0 = 0; while(ring < RINGS.length - 1 && i >= k0 + RINGS[ring][0]){ k0 += RINGS[ring][0]; ring++; }
+    var R0 = RINGS[ring], inRing = Math.min(R0[0], men.length - k0), j = i - k0;
+    var a = (1.0 + (j + 0.5) / Math.max(1, inRing)) * Math.PI;   /* round the back of the fire (the far half), evenly, the front left open to the camera */
+    var dx = Math.cos(a) * R0[1], dy = Math.sin(a) * R0[2], f = Math.round(((Math.atan2(-dy * 2, -dx) / Math.PI * 180 + 360 + 90) % 360) / 45) % 8;
+    return { look: m.look, name: m.name, x: fire.x + dx, y: fire.y + dy, f: f, act: acts[i % acts.length], n: i, seed: 'camp:' + (m.name || i), pair: acts[i % acts.length] === 'talk' ? 'campfire' : undefined, partner: i % 2 === 1 }; });
+  CAMPBG.menKey = men.map(function(m){ return m.name; }).join('|');
   CAMPBG.men.sort(function(a, b){ return a.y - b.y; });
 }
 function campDim(){ var x = CAMPBG.c.getContext('2d'); x.fillStyle = 'rgba(' + CAMP_SHADE.join(',') + ',' + CAMPBG.dim + ')'; x.fillRect(0, 0, CAMPBG.c.width, CAMPBG.c.height); }
@@ -1247,40 +1331,203 @@ function campWords(){ var out = [], tw = document.createTreeWalker(document.body
   return out; }
 function campLum(r, g, b){ var f = function(v){ v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); }
 function campRatio(a, b){ return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05); }
-/* the least dim that keeps every word on the picture at the floor: the brightest and the darkest tenth of the pixels behind each */
+/* __THE_CREW_SEES_THE_CAMP__ (rule 369(b)): the old dim over the whole picture is gone. THE LAMP: the camp is lit where he stands (the
+   man picked and the camp round him, never dimmed) and falls off toward the glass's edges, where the sheet's words sit; the least
+   fall-off that keeps every word on the picture at the kit's floor (4.5 to 1 against the brightest and the darkest tenth of the pixels
+   behind it) is measured off the drawn picture. CAMPBG.dim is the fall-off at the far corners (0 is no lamp: every word on the bare camp) */
+function campShape(px, py){   /* how deep in the shade a point is: the pool's fall-off round him, the frame's top and its foot */
+  var L = CAMPBG.lamp; if(!L) return { lamp: 0, top: 0, bot: 0 };
+  var dn = Math.hypot((px - L.x) / L.rx, (py - L.y) / L.ry), t = Math.max(0, Math.min(1, (dn - 1) / (L.k - 1)));
+  var u = L.top > 0 ? Math.max(0, Math.min(1, (L.top + 30 - py) / 30)) : 0, v = L.bot < innerHeight ? Math.max(0, Math.min(1, (py - (L.bot - 30)) / 30)) : 0;
+  return { lamp: t * t * (3 - 2 * t), top: u * u * (3 - 2 * u), bot: v * v * (3 - 2 * v) }; }
+function campLampAt(px, py, A, B, C){ var q = campShape(px, py); if(B == null) B = CAMPBG.shadeTop || 0; if(C == null) C = CAMPBG.shadeBot || 0;
+  return 1 - (1 - (A || 0) * q.lamp) * (1 - B * q.top) * (1 - C * q.bot); }
+/* the pool: his feet and the room between his slots; the frame falls into shade above the words over the pool and below the words
+   under it, as far as they reach and no further (the camp round him is never dimmed) */
+function campLampGeom(){ var sp = campSpot(), W = innerWidth, Hh = innerHeight, cx = sp ? sp.x : W / 2, h = sp ? sp.h : 98, cy = sp ? sp.y - h * 0.45 : Hh * 0.45;
+  var L = { x: cx, y: cy, rx: Math.max(120, Math.min(W * 0.46, 200)), ry: h * 0.85 + 30, k: 2.6, top: 0, bot: Hh + 1 };
+  campWords().forEach(function(e){ var r = e.getBoundingClientRect(), my = r.top + r.height / 2;
+    if(my < L.y - L.ry * 0.6) L.top = Math.max(L.top, r.bottom + 4); else if(my > L.y + L.ry * 0.6) L.bot = Math.min(L.bot, r.top - 4); });
+  CAMPBG.lamp = L; return L; }
+function campLamp(){ var c = CAMPBG.c, d = CAMPBG.dpr || 1, A = CAMPBG.dim || 0, B = CAMPBG.shadeTop || 0, C = CAMPBG.shadeBot || 0, L = CAMPBG.lamp || campLampGeom(); if(!(A > 0) && !(B > 0) && !(C > 0)) return;
+  /* the light is the screen's, not the picture's: it is drawn once for where he stands and laid over every frame (a glide is the
+     picture moving under a lamp that holds still) */
+  var key = [c.width, c.height, A, B, C, Math.round(L.x), Math.round(L.y), Math.round(L.rx), Math.round(L.ry), Math.round(L.top), Math.round(L.bot)].join('|');
+  if(!CAMPBG.lampC || CAMPBG.lampKey !== key){ var lc = CAMPBG.lampC || document.createElement('canvas'); lc.width = c.width; lc.height = c.height; CAMPBG.lampC = lc; CAMPBG.lampKey = key;
+    var lx = lc.getContext('2d'); lx.clearRect(0, 0, lc.width, lc.height); campLampDraw(lx, lc, d, A, B, C, L); }
+  c.getContext('2d').drawImage(CAMPBG.lampC, 0, 0); }
+function campLampDraw(x, c, d, A, B, C, L){
+  var sh = CAMP_SHADE.join(','), i, t, ease = function(q){ return q * q * (3 - 2 * q); };
+  if(A > 0){ var sy = L.ry / L.rx; x.save(); x.setTransform(1, 0, 0, sy, 0, 0);
+    var g = x.createRadialGradient(L.x * d, L.y * d / sy, L.rx * d, L.x * d, L.y * d / sy, L.rx * d * L.k);
+    for(i = 0; i <= 8; i++){ t = i / 8; g.addColorStop(t, 'rgba(' + sh + ',' + (A * ease(t)).toFixed(3) + ')'); }
+    x.fillStyle = g; x.fillRect(0, 0, c.width, c.height / sy); x.restore(); }
+  if(B > 0 && L.top > 0){ var y1 = (L.top + 30) * d, g2 = x.createLinearGradient(0, 0, 0, y1);
+    for(i = 0; i <= 8; i++){ t = i / 8; var yy = t * (L.top + 30), u = Math.max(0, Math.min(1, (L.top + 30 - yy) / 30)); g2.addColorStop(t, 'rgba(' + sh + ',' + (B * ease(u)).toFixed(3) + ')'); }
+    x.fillStyle = g2; x.fillRect(0, 0, c.width, y1); }
+  if(C > 0 && L.bot < c.height / d){ var y0 = (L.bot - 30) * d, g3 = x.createLinearGradient(0, y0, 0, y0 + 30 * d);
+    g3.addColorStop(0, 'rgba(' + sh + ',0)'); g3.addColorStop(0.5, 'rgba(' + sh + ',' + (C * 0.5).toFixed(3) + ')'); g3.addColorStop(1, 'rgba(' + sh + ',' + C.toFixed(3) + ')');
+    x.fillStyle = g3; x.fillRect(0, y0, c.width, c.height - y0); } }
 function campFloor(){
   var c = CAMPBG.c, x = c.getContext('2d'), d = CAMPBG.dpr || 1, rows = [];
+  campLampGeom();
   campWords().forEach(function(e){ var r = e.getBoundingClientRect(), L = Math.max(0, Math.floor(r.left * d)), T = Math.max(0, Math.floor(r.top * d)), W = Math.min(c.width - L, Math.ceil(r.width * d)), H = Math.min(c.height - T, Math.ceil(r.height * d));
     if(W < 1 || H < 1) return; var px = x.getImageData(L, T, W, H).data, all = [];
     for(var i = 0; i < px.length; i += 4) all.push([campLum(px[i], px[i + 1], px[i + 2]), px[i], px[i + 1], px[i + 2]]);
     all.sort(function(a, b){ return a[0] - b[0]; });
     var ink = (getComputedStyle(e).color.match(/[\d.]+/g) || [230, 220, 200]).map(Number);
-    rows.push({ e: e, ink: campLum(ink[0], ink[1], ink[2]), lo: all[Math.floor(all.length * 0.1)], hi: all[Math.min(all.length - 1, Math.floor(all.length * 0.9))] }); });
+    rows.push({ e: e, cx: r.left + r.width / 2, cy: r.top + r.height / 2, ink: campLum(ink[0], ink[1], ink[2]), lo: all[Math.floor(all.length * 0.1)], hi: all[Math.min(all.length - 1, Math.floor(all.length * 0.9))] }); });
   var at = function(p, dm){ return campLum(p[1] * (1 - dm) + CAMP_SHADE[0] * dm, p[2] * (1 - dm) + CAMP_SHADE[1] * dm, p[3] * (1 - dm) + CAMP_SHADE[2] * dm); };
-  var worst = function(row, dm){ return Math.min(campRatio(row.ink, at(row.lo, dm)), campRatio(row.ink, at(row.hi, dm))); };
-  var dm = CAMP_DIM_MIN; for(; dm < CAMP_DIM_MAX; dm += 0.02){ if(rows.every(function(row){ return worst(row, dm) >= CAMP_FLOOR || worst(row, CAMP_DIM_MAX) < CAMP_FLOOR; })) break; }
-  CAMPBG.dim = Math.min(CAMP_DIM_MAX, Math.round(dm * 100) / 100);
-  CAMPBG.floor = { words: rows.length, dim: CAMPBG.dim, short: rows.filter(function(row){ return worst(row, CAMPBG.dim) < CAMP_FLOOR; }).map(function(row){ return row.e.textContent.trim().slice(0, 40); }) };
+  var worst = function(row, A, B, C){ var dm = campLampAt(row.cx, row.cy, A, B, C); return Math.min(campRatio(row.ink, at(row.lo, dm)), campRatio(row.ink, at(row.hi, dm))); };
+  /* the least shade that passes, each where it belongs: the pool's fall-off only for words beside the pool, the frame's top for the words
+     above it, its foot for the words below; a word no shade can save is named */
+  var L = CAMPBG.lamp, pass = function(set, A, B, C){ return set.every(function(row){ return worst(row, A, B, C) >= CAMP_FLOOR; }); };
+  var can = rows.filter(function(row){ return worst(row, CAMP_DIM_MAX, CAMP_DIM_MAX, CAMP_DIM_MAX) >= CAMP_FLOOR; });
+  var top = can.filter(function(row){ return campShape(row.cx, row.cy).top > 0.5; }), bot = can.filter(function(row){ return campShape(row.cx, row.cy).bot > 0.5; });
+  var mid = can.filter(function(row){ return top.indexOf(row) < 0 && bot.indexOf(row) < 0; });
+  var step = function(f){ for(var q = 0; q <= CAMP_DIM_MAX + 1e-9; q += 0.04) if(f(q)) return q; return CAMP_DIM_MAX; };
+  var A = step(function(q){ return pass(mid, q, 0, 0); }), B = step(function(q){ return pass(top, A, q, 0); }), C = step(function(q){ return pass(bot, A, B, q); });
+  CAMPBG.dim = Math.round(A * 100) / 100; CAMPBG.shadeTop = Math.round(B * 100) / 100; CAMPBG.shadeBot = Math.round(C * 100) / 100;
+  CAMPBG.floor = { words: rows.length, dim: CAMPBG.dim, top: CAMPBG.shadeTop, bot: CAMPBG.shadeBot, short: rows.filter(function(row){ return worst(row, CAMPBG.dim, CAMPBG.shadeTop, CAMPBG.shadeBot) < CAMP_FLOOR; }).map(function(row){ return row.e.textContent.trim().slice(0, 40); }) };
+  c.dataset.top = CAMPBG.shadeTop; c.dataset.bot = CAMPBG.shadeBot;
   c.dataset.dim = CAMPBG.dim;
 }
-function campFirst(){ campPaint(true); campFloor(); campPaint(); CAMPBG.c.style.opacity = 1; CAMPBG.t.drawn = performance.timeOrigin + performance.now(); campTick(); }
+function campFirst(){ document.documentElement.classList.add('bm-camp-live'); document.documentElement.classList.toggle('bm-camp-town', !!CAMPBG.live);   /* __THE_CREW_SEES_THE_CAMP__: the sheet goes light the moment the camp is under it */
+  campAim(true); campPaint(true); campFloor(); campPaint(); CAMPBG.c.style.opacity = 1; CAMPBG.t.drawn = performance.timeOrigin + performance.now(); campTick(); }
 function campPaint(bare){
   var c = CAMPBG.c, im = CAMPBG.base; if(!c || !im || !c.isConnected) return;
-  var x = c.getContext('2d'), F = campFit(), B = window.BohemiaIdles, now = performance.now(), s = F.k * (CAMPBG.ppm || CAMP_PPM) / MAN_PPM, drawn = 0;
-  x.imageSmoothingEnabled = false; x.clearRect(0, 0, c.width, c.height);
-  try{ x.drawImage(im, F.ox, F.oy, im.width * F.k, im.height * F.k); }catch(e){}
+  var x = c.getContext('2d'), F = CAM.k ? CAM : campFit(), B = window.BohemiaIdles, now = performance.now(), s = F.k * (CAMPBG.ppm || CAMP_PPM) / MAN_PPM, drawn = 0;   /* __THE_CREW_SEES_THE_CAMP__: the camera's own place */
+  x.imageSmoothingEnabled = F.k > 1.05; x.imageSmoothingQuality = CAM.raf ? 'low' : 'high'; x.clearRect(0, 0, c.width, c.height);   /* the picture brought closer than its own pixels is smoothed, never stepped (the cheap smoothing while it glides) */
+  /* only the part of the picture on the glass is drawn (measured: drawing the whole zoomed picture held a glide's frames to 200 ms) */
+  try{ var sx = Math.max(0, -F.ox / F.k), sy = Math.max(0, -F.oy / F.k), sw = Math.min(im.width - sx, c.width / F.k), sh = Math.min(im.height - sy, c.height / F.k);
+    if(sw > 0 && sh > 0) x.drawImage(im, sx, sy, sw, sh, F.ox + sx * F.k, F.oy + sy * F.k, sw * F.k, sh * F.k); }catch(e){}
+  x.imageSmoothingEnabled = false;
+  var fig = campFigureOn() ? (S.crew[S.sel] || {}).name : null; CAMPBG.drawn = [];
   CAMPBG.men.forEach(function(m){
+    if(fig && m.name === fig){ CAMPBG.drawn.push(m.name); return; }   /* the man picked stands in his own place as the figure on his sheet (his gear, his gun), never twice */
     var q = null; try{ q = B && B.activity ? B.activity(m.look, m.seed, now, m.f, { act: m.act, n: m.n, pair: m.pair, partner: m.partner }) : null; if(!q && B) q = B.frame(m.look, m.seed, now, m.f, { set: 'bare' }); }catch(e){ q = null; }
     if(!q) return;
     var px = F.ox + m.x * F.k, py = F.oy + m.y * F.k;
-    x.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(px - (q.foot[0] - q.dx) * s), Math.round(py - (q.foot[1] - q.dy) * s), Math.round(q.w * s), Math.round(q.h * s)); drawn++; });
-  c.dataset.men = drawn;
-  if(!bare) campDim();
+    x.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(px - (q.foot[0] - q.dx) * s), Math.round(py - (q.foot[1] - q.dy) * s), Math.round(q.w * s), Math.round(q.h * s)); drawn++; CAMPBG.drawn.push(m.name); });
+  if(CAMPBG.live) CAMPBG.drawn = campTownMen().map(function(t){ return t.name; });   /* the town draws his men itself, in its own picture */
+  c.dataset.men = CAMPBG.live ? CAMPBG.drawn.length : CAMPBG.drawn.length;
+  if(!bare) campLamp();
 }
 /* the men (and the town's own people) move on the beat, an eighth at 120; nothing is drawn while the screen is not on the glass */
-function campTick(){ if(!CAMPBG.c || !CAMPBG.c.isConnected) return; if(document.visibilityState !== 'hidden' && innerWidth > 0) campPaint(); setTimeout(campTick, 500); }
+function campTick(){ if(!CAMPBG.c || !CAMPBG.c.isConnected) return; if(document.visibilityState !== 'hidden' && innerWidth > 0){ if(CAMPBG.live && !CAM.raf) campAim(false, true); if(!CAM.raf) campPaint(); } setTimeout(campTick, 500); }   /* in a town he walks: the camera follows him */
 /* ==== end __THEIR_CAMP_BEHIND__ ==== */
-window.BohemiaRosterScreen = {open:open, state:S, held:HELD, camp:CAMPBG, campWords:campWords, campPick:campPick, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
+/* ==== __THE_CREW_SEES_THE_CAMP__ (UI 7, rule 369, Paolo 11/3: 'I'm tired of all that brown backdrop shit. I wanna see more of the
+   camp, of the settlement, when you're in the crew screen... It's your people in the camp... right now it's hard to see them...
+   especially in the crew menu, you click on a character, it centers the camera on that character, to make it that much more like
+   walking around'). MEASURED FIRST (the demo at a5e7eaa6, 390 x 844, records/target/coordinator_11_3/crew_screen_now.png): the
+   camp was dimmed 0.62 under four brown textured panels (the line, his card, the stats' paper, the stash) and showed on 0 of the
+   card's points; his men were a dark smudge at the foot of the glass.
+   NOW THE CAMP IS THE SCREEN. One camera over the camp (or the town, or the camp in a town) with the man picked in the middle of
+   his own sheet: his slots round him, his figure (his gear, his gun) standing in his own place in the camp, the others at their
+   camp things round the fire. Tap a man (in the line or in the camp) and the camera glides to him in under a beat, eased in and
+   out, and his sheet is his; tap another and it glides on. In a town his men live in the town's own picture (rule 218): the
+   camera finds him there and follows him while he walks. The ground may zoom, the person may not (rule 21): the camera comes as
+   close as makes his people the figure's size (98 points, the rig's ruler), never past the picture's edge.
+   Battle Brothers keeps its company screen over a painting of the camp's fire; ours is the camp itself, live.
+   Gate: gates/the_crew_screen_sees_the_camp_gate.js ==== */
+var CAM = { k: 0, ox: 0, oy: 0, raf: 0, aim: null, glides: 0, log: [] };
+var CAM_MS = 450;   /* under a beat at 120 (500 ms) */
+/* the figure on his sheet stands in the camp where the roster draws the camp (the map, the fight); in a town the town draws him */
+function campFigureOn(){ return !!CAMPBG.c && !CAMPBG.live; }
+function campFigure(){ return document.querySelector('#card .rbody') || document.querySelector('#card .face.big'); }
+/* where his feet go on the glass: the figure's own feet (idleCard stands him 5 px off the canvas's foot) */
+function campSpot(){ var f = campFigure(); if(!f) return null; var r = f.getBoundingClientRect(); if(r.width < 2 || r.height < 2) return null;
+  var sc = r.height / (f.height || 124); return { x: r.left + r.width / 2, y: r.top + r.height - 5 * sc, h: 98 * sc }; }
+/* the town's (or the camp in a town's) own: his men in its picture and how tall a person stands there, in the copied canvas's pixels */
+function campTownHost(){ try{ var w = window.parent, n = 0; while(w && n++ < 4){ if(w.BohemiaSettlement && w.BohemiaSettlement.crewHere) return w; if(w === w.parent) break; w = w.parent; } }catch(e){} return null; }
+function campTownMen(){
+  var T = campTownHost(), base = CAMPBG.base, out = []; if(!T || !base) return out;
+  try{ var B = T.BohemiaSettlement, r = base.getBoundingClientRect(), k = base.width / Math.max(1, r.width), main = S.crew.filter(function(m){ return m.main; })[0];
+    var put = function(name, x, y){ if(x == null || y == null || !name) return; var q = B.toScreen(x, y); out.push({ name: name, x: q.x * k, y: q.y * k }); };
+    (B.crewHere() || []).forEach(function(p){ put(p.name, p.x, p.y); });
+    var L = B.lead ? B.lead() : null; if(main && L && L.x != null) put(main.name, L.x, L.y);   /* the lead (YOU) walks the town himself: its own read of him, nothing changed */
+    var sc = B.scale ? B.scale() : null; CAMPBG.townPerson = sc ? sc.person * sc.s * k : 0;
+  }catch(e){}
+  return out;
+}
+function campManAt(name){
+  if(!name) return null;
+  if(CAMPBG.live){ var t = campTownMen().filter(function(q){ return q.name === name; })[0]; return t ? { x: t.x, y: t.y } : null; }
+  var m = CAMPBG.men.filter(function(q){ return q.name === name; })[0]; return m ? { x: m.x, y: m.y } : null;
+}
+/* where the camera wants to be: his feet on the figure's feet, his people the figure's size, the picture covering the glass */
+function campTarget(){
+  var c = CAMPBG.c, im = CAMPBG.base; if(!c || !im || !im.width) return null;
+  var d = CAMPBG.dpr || 1, sp = campSpot(), m = S.crew[S.sel], at = m ? campManAt(m.name) : null;
+  var cover = Math.max(c.width / im.width, c.height / im.height), k;
+  var manPx = (sp ? sp.h : 98) * d;
+  /* in a town the town draws its people at its own size (his figure is not over them): the camera comes in a half, enough to walk to a
+     man and still see the men round him (measured on its side: brought to the figure's size, two of three men fell off the glass) */
+  if(CAMPBG.live) k = cover * 1.5;
+  else k = manPx / (1.72 * (CAMPBG.ppm || CAMP_PPM) * 57 / MAN_PPM * MAN_PPM / 57);   /* a man is 1.72 m of the picture's own metres */
+  k = Math.max(cover, Math.min(cover * 3, k));
+  if(!at) at = CAMPBG.fire || CAMPBG.focus || { x: im.width / 2, y: im.height / 2 };
+  var X = (sp ? sp.x : innerWidth / 2) * d, Y = (sp ? sp.y : innerHeight * 0.45) * d;
+  var ox = X - at.x * k, oy = Y - at.y * k;
+  ox = Math.min(0, Math.max(c.width - im.width * k, ox)); oy = Math.min(0, Math.max(c.height - im.height * k, oy));
+  return { k: k, ox: ox, oy: oy, who: m ? m.name : null, man: at ? { x: at.x, y: at.y } : null, spot: sp };
+}
+/* glide there: eased in and out, a frame a step, under a beat; a fresh tap mid-glide glides on from where the camera is */
+function campAim(now, follow){
+  var t = campTarget(); if(!t) return false; CAM.aim = t;
+  if(follow && CAM.k && Math.abs(t.ox - CAM.ox) < 8 && Math.abs(t.oy - CAM.oy) < 8) return false;   /* a man standing still: the camera stays */
+  var rm = false; try{ rm = matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(now || !CAM.k || rm){ cancelAnimationFrame(CAM.raf); CAM.raf = 0; CAM.k = t.k; CAM.ox = t.ox; CAM.oy = t.oy; campLampGeom(); if(CAMPBG.c && CAMPBG.base && !now) campPaint(); return true; }
+  if(Math.abs(t.ox - CAM.ox) < 0.5 && Math.abs(t.oy - CAM.oy) < 0.5 && Math.abs(t.k - CAM.k) < 0.001) return false;
+  /* the glide's own clock starts on its first drawn frame (his sheet is rebuilt on a pick before it: that wait is logged, never eaten
+     out of the glide, which would jump) */
+  var from = { k: CAM.k, ox: CAM.ox, oy: CAM.oy }, aimAt = performance.now(), t0 = null, row = { who: t.who, t0: performance.timeOrigin + aimAt, ms: null, wait: null, frames: 0, gap: 0, plan: CAM_MS }, prev = 0;
+  CAM.glides++; CAM.log.push(row); if(CAM.log.length > 20) CAM.log.shift();
+  cancelAnimationFrame(CAM.raf); campLampGeom();
+  var step = function(now2){
+    if(t0 == null){ t0 = now2; prev = now2; row.wait = Math.round(now2 - aimAt); }
+    var u = Math.min(1, (now2 - t0) / CAM_MS), e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+    CAM.k = from.k + (t.k - from.k) * e; CAM.ox = from.ox + (t.ox - from.ox) * e; CAM.oy = from.oy + (t.oy - from.oy) * e;
+    row.frames++; row.gap = Math.max(row.gap, Math.round(now2 - prev)); prev = now2;
+    var pt = performance.now(); campPaint(); (row.paint = row.paint || []).push(Math.round((performance.now() - pt) * 10) / 10);   /* the lamp holds still: placed once, at the pick; what each frame of the camera costs, kept */
+    if(u < 1) CAM.raf = requestAnimationFrame(step); else { CAM.raf = 0; row.ms = Math.round(now2 - t0); }
+  };
+  CAM.raf = requestAnimationFrame(step); return true;
+}
+/* where each of his men stands on the glass right now (the gate's, and the tap's): his feet, his height */
+function campMenOnGlass(){
+  var d = CAMPBG.dpr || 1, k = CAM.k || 1, h, out = [];
+  if(CAMPBG.live){ h = (CAMPBG.townPerson || 60) * k / d; campTownMen().forEach(function(t){ out.push({ name: t.name, x: (CAM.ox + t.x * k) / d, y: (CAM.oy + t.y * k) / d, h: h }); }); }
+  else { h = 1.72 * (CAMPBG.ppm || CAMP_PPM) * k / d; CAMPBG.men.forEach(function(m){ out.push({ name: m.name, x: (CAM.ox + m.x * k) / d, y: (CAM.oy + m.y * k) / d, h: h }); }); }
+  return out;
+}
+/* who a finger at a point of the glass lands on: of the men whose body is under it, the one standing nearest the camera (his feet lowest) */
+function campManAtPoint(x, y){ var best = null;
+  campMenOnGlass().forEach(function(q){ var w = Math.max(22, q.h * 0.28); if(Math.abs(x - q.x) > w || y > q.y + 8 || y < q.y - q.h - 6) return; if(!best || q.y > best.y) best = q; });
+  return best; }
+/* a finger reaches the camp only where nothing of the sheet is under it (his slots, his numbers, the line, the stash, any press) */
+var CAMP_SHEET = 'button,[data-drag],[data-drop],.gslot,#bag,.stats,.lugrid,.cell,#tabs,canvas,.ask,.plist,.hurtbox,a,input';
+function campTapOpen(t){ return !(t && t.closest && t.closest(CAMP_SHEET)); }
+/* a tap on the camp itself (nothing of the sheet under the finger) picks the man it lands on */
+(function(){
+  var down = null;
+  document.addEventListener('pointerdown', function(e){ down = { x: e.clientX, y: e.clientY, t: e.target }; }, true);
+  document.addEventListener('pointerup', function(e){
+    var d0 = down; down = null; if(!d0 || !CAMPBG.c || Math.hypot(e.clientX - d0.x, e.clientY - d0.y) > 10) return;
+    if(!campTapOpen(d0.t)) return;
+    var best = campManAtPoint(e.clientX, e.clientY);
+    if(!best) return;
+    var i = S.crew.findIndex(function(m){ return m.name === best.name; }); if(i < 0 || i === S.sel) return;
+    CAM.tapped = (CAM.tapped | 0) + 1; choose(i);
+  }, true);
+})();
+/* every pick (the line, a swipe, Tab, the camp) glides the camera; every redraw keeps him under his figure */
+var campChoose0 = choose; choose = function(i){ CAM.picking = true; try{ campChoose0(i); }finally{ CAM.picking = false; } try{ if(CAMPBG.c && CAMPBG.base){ campFigureShow(); campAim(false); } }catch(e){} };
+var campDraw0 = draw; draw = function(){ campDraw0(); try{ if(CAMPBG.c && CAMPBG.base && !CAM.picking){ if(!CAMPBG.live && CAMPBG.menKey !== S.crew.filter(function(m){ return m && !m.dead && m.look; }).map(function(m){ return m.name; }).join('|')) campMen(); campFigureShow(); if(!CAM.raf) campAim(false); } }catch(e){} };
+function campFigureShow(){ var f = campFigure(); if(f) f.dataset.inCamp = campFigureOn() ? '1' : '0'; }
+window.addEventListener('resize', function(){ try{ if(CAMPBG.c && CAMPBG.base){ var dpr = Math.min(2, window.devicePixelRatio || 1); CAMPBG.c.width = Math.round(innerWidth * dpr); CAMPBG.c.height = Math.round(innerHeight * dpr); CAMPBG.dpr = dpr; campAim(true); campFloor(); campPaint(); } }catch(e){} });
+/* ==== end __THE_CREW_SEES_THE_CAMP__ ==== */
+window.BohemiaRosterScreen = {open:open, state:S, held:HELD, camp:CAMPBG, cam:CAM, campMenOnGlass:campMenOnGlass, campManAtPoint:campManAtPoint, campTapOpen:function(x, y){ return campTapOpen(document.elementFromPoint(x, y)); }, campTarget:campTarget, campSpot:campSpot, campLampAt:campLampAt, campWords:campWords, campPick:campPick, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN'){ S.doorSpoke = true; open(d); } if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 Promise.all([C.load(), window.BohemiaStats ? BohemiaStats.load() : null]).then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });

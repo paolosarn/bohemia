@@ -1107,7 +1107,10 @@
   }
   function hudTownWin() {
     if (!document.documentElement.classList.contains('bm-town')) return null;
-    try { var sf = document.getElementById('settleFrame'); return sf && sf.contentWindow && sf.contentWindow.document ? sf.contentWindow : null; } catch (_e) { return null; }
+    /* UI 7 (rule 369; MEASURED on main a5e7eaa6 and after: camp made on the map after a town, the town's frame stays display:block at
+       opacity 0, so the phone's CREW opened the company screen INSIDE that unseen frame: the phone showed YOUR COMPANY over the bare
+       map and the screen was nowhere). A town frame nobody can see never takes the crew: the map's own door opens it */
+    try { var sf = document.getElementById('settleFrame'); if (sf && +getComputedStyle(sf).opacity < 0.05) return null; return sf && sf.contentWindow && sf.contentWindow.document ? sf.contentWindow : null; } catch (_e) { return null; }
   }
   function hudTownOver() {
     var w = hudTownWin(); if (!w) return null;

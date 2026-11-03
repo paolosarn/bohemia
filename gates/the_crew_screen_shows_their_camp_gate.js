@@ -114,10 +114,12 @@ async function side(profile) {
       ok('M ' + profile + ': one screen-sized canvas, under 8 MB of pixels', w1.bytes < 8e6, (w1.bytes / 1e6).toFixed(1) + ' MB');
       ok('T ' + profile + ': the camp is drawn after the screen\'s first frame', w1.drawnAfter && w1.t.cost < 400, 'ready ' + w1.t.ready + ', drawn ' + w1.t.drawn + ', its own work ' + Math.round(w1.t.cost) + ' ms');
       if (profile === 'phone_portrait') {
-        await w1.cf.evaluate(() => { BohemiaRosterScreen.camp.__keep = BohemiaRosterScreen.camp.dim; BohemiaRosterScreen.camp.dim = 0; }); await p.waitForTimeout(1200);
+        /* RE-AIMED 11/3 BY UI 7 (rule 369): the light is the lamp's pool and the frame's top and foot now (__THE_CREW_SEES_THE_CAMP__), so the
+           plant takes all three off: every word then sits on the bare camp */
+        await w1.cf.evaluate(() => { const C = BohemiaRosterScreen.camp; C.__keep = [C.dim, C.shadeTop, C.shadeBot]; C.dim = 0; C.shadeTop = 0; C.shadeBot = 0; }); await p.waitForTimeout(1200);
         const pl = await w1.cf.evaluate('(' + READ + ')()');
         ok('PLANTED: the dim taken off, C catches a word under the floor', pl.words.some(w => w.worst < FLOOR), pl.words.map(w => w.word + ' ' + w.worst).join('; '));
-        await w1.cf.evaluate(() => { BohemiaRosterScreen.camp.dim = BohemiaRosterScreen.camp.__keep; });
+        await w1.cf.evaluate(() => { const C = BohemiaRosterScreen.camp; C.dim = C.__keep[0]; C.shadeTop = C.__keep[1]; C.shadeBot = C.__keep[2]; });
       }
     }
     await closeCrew();

@@ -361,7 +361,12 @@
   P.roster = function () {
     var d = document.getElementById('done'), t = document.getElementById('tabs'); if (!d || !t || !document.getElementById('bag')) return null;
     var ti = document.getElementById('title'), n = t.querySelector('.n');
-    return { title: ti ? String(ti.textContent || '').replace(/\s+/g, ' ').trim() : '', n: n ? String(n.textContent || '').trim() : '',
+    /* UI 7 (rule 369): who is picked, read off his own sheet (his name, trade and level, his XP, his kills, his trait's name): the phone
+       says it, so the camp under the screen keeps his slots and him and fewer words */
+    var cq = function (q) { var e = document.querySelector('#card ' + q); return e ? String(e.firstChild && e.firstChild.nodeType === 3 ? e.firstChild.nodeValue : e.textContent || '').replace(/\s+/g, ' ').trim() : ''; };
+    var xi = document.querySelector('#card .xpbar i'), tr = cq('.trait');
+    var man = { name: cq('.nm'), sub: cq('.sub'), tally: cq('.ktally'), trait: tr ? tr.split(/\s{2,}/)[0] : '', xp: xi ? (parseFloat(xi.style.width) || 0) / 100 : null };
+    return { man: man, title: ti ? String(ti.textContent || '').replace(/\s+/g, ' ').trim() : '', n: n ? String(n.textContent || '').trim() : '',
       tabs: [].slice.call(t.querySelectorAll('button')).map(function (b, i) { return { i: i, t: String(b.textContent || '').replace(/\s+/g, ' ').trim(), on: b.classList.contains('on'), perk: b.id === 'pick' || b.classList.contains('perk'), off: !!b.disabled }; }) };
   };
   P.rosterPress = function (k) {
@@ -724,6 +729,10 @@
       + '#bohphone .cph{flex:0 0 auto;padding:5px 3px 4px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid rgba(255,236,200,.08)}'
       + '#bohphone .cph b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:1.2px;color:#f4e8cc;text-shadow:0 1px 0 #000}'
       + '#bohphone .cph em,#bohphone .cph span{font-style:normal;font-size:6px;line-height:8px;color:#cdbd98;white-space:nowrap;overflow:hidden}'
+      + '#bohphone .cman{flex:0 0 auto;padding:1px 3px 3px;display:flex;flex-direction:column;gap:2px}'
+      + '#bohphone .cman b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:1px;color:#f6cf74;white-space:nowrap;overflow:hidden}'
+      + '#bohphone .cman em,#bohphone .cman span{font-style:normal;font-size:6px;line-height:8px;color:#e6d8b6;white-space:normal;overflow:hidden;max-height:16px}'
+      + '#bohphone .cman s{display:block;height:3px;background:rgba(255,236,200,.14);text-decoration:none}#bohphone .cman s i{display:block;height:100%;background:#d9a650}'
       + '#bohphone .ctabs{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:30px;gap:3px;align-content:start;overflow:hidden}'
       + '#bohphone .ctabs button{padding:0 3px;margin:0;border:0;cursor:pointer;color:#1f1710;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.8px;white-space:nowrap;overflow:hidden;' + kit('tin', 0.5) + '}'
       + '#bohphone .ctabs button.on{' + kit('tin_amber', 0.5) + '}'
@@ -899,6 +908,7 @@
       +     '<button type="button" class="fc sp" data-c="speed" aria-label="the fight\'s speed">1x</button></div>'
       +   '<div class="abig" role="toolbar" aria-label="reload and strike"></div><div class="ab"></div><div class="frow" role="toolbar" aria-label="your apps in the fight"></div></div>'
       + '<div class="crewp" aria-label="your company"><div class="cph"><b>YOUR COMPANY</b><em></em><span></span></div>'
+      +   '<div class="cman" aria-label="who is picked"><b></b><em></em><s><i></i></s><span></span></div>'   /* UI 7 (rule 369): the man picked, his own sheet's words */
       +   '<div class="ctabs" role="toolbar" aria-label="the stash"></div>'
       +   '<button type="button" class="cdone"><img alt="" src="' + IMG('app_crew') + '"><b>DONE</b></button></div>'
       + '<div class="cmb" aria-hidden="true"><img alt="" src="' + IMG('app_combat') + '"><b>COMBAT</b></div>'
@@ -1402,6 +1412,10 @@
     var key = JSON.stringify(o); if (!force && key === H.crewKey) return; H.crewKey = key;
     var m = /^(YOUR COMPANY)\s*(.*)$/.exec(o.title) || [0, o.title, ''];
     var cp = H.el.querySelector('.crewp'); cp.querySelector('.cph b').textContent = m[1] || 'YOUR COMPANY'; cp.querySelector('.cph em').textContent = m[2] || ''; cp.querySelector('.cph span').textContent = o.n || '';
+    var mn = o.man || {}, cm = cp.querySelector('.cman');   /* UI 7 (rule 369): who is picked, on the phone */
+    if (cm) { cm.style.display = mn.name ? '' : 'none'; cm.querySelector('b').textContent = mn.name || ''; cm.querySelector('em').textContent = mn.sub || '';
+      cm.querySelector('span').textContent = [mn.trait, mn.tally].filter(Boolean).join('  ');
+      var xb = cm.querySelector('s'); xb.style.display = mn.xp == null ? 'none' : ''; xb.querySelector('i').style.width = Math.round(Math.max(0, Math.min(1, mn.xp || 0)) * 100) + '%'; }
     var tb = cp.querySelector('.ctabs'); tb.textContent = '';
     o.tabs.forEach(function (t) { var b = el('button', (t.on ? 'on' : '') + (t.perk ? ' perk' : '')); b.type = 'button'; b.dataset.i = t.i; b.disabled = t.off; b.textContent = t.t; b.setAttribute('aria-label', t.t.toLowerCase()); tb.appendChild(b); });
     window.__PHONE_CREW_TABS = o.tabs.length;
