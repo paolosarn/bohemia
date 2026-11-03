@@ -34,3 +34,21 @@ this. You know like this is how I want like the communication to feel sometimes 
 6. SOUND FROM REAL MATERIAL: real radio static, squelch, key clicks, a real handheld's hiss (the 10/9 rule: a recording of the real thing
    or its real physics, never noise). THE VOICES are the hard part: research the honest options (voice performers, recorded lines, a
    heavily band-limited radio voice) and bring him two or three to hear before any voice ships; text transcripts can ship first.
+
+## AMENDED 11/3, THE SAME ROUND (Paolo, verbatim)
+"Well bro, we're not adding real voices bro. Just keep in mind like this is the sort of like aesthetic and you know maybe yeah maybe like
+if this influenced some of the things you write moving forward you know I just want this to be a bat maybe like one of the biggest
+influencers that I want to see like that sort of like fucked up like it breaks your heart kind of vibe like just reading it you know or
+you know this is the aesthetic and what that even brings into the world like like what if our game kept feeling like that in a lot of
+ways is like what I'm trying to get to"
+
+1. NO VOICES. Not real ones, not performed ones, not synthetic ones: the transmissions are TEXT (the transcript) under real radio sound
+   (static, squelch, key clicks). Point 6's voice research and the voice samples are dead.
+2. IT IS AN AESTHETIC FOR THE WHOLE GAME'S WRITING, not only a radio feature: one of the biggest influences on everything we write from now
+   on (the feed, the people's lines, the road events, the quests' people, the survivor's word after a fight, the bosses' crews, the
+   radio). The feel: it breaks your heart just reading it. Plain words from people doing their job or living their day while it goes
+   wrong; the detail that is too ordinary; procedure holding; what is not said; the silence after. Never melodrama, never gore, never
+   explained. 'What if our game kept feeling like that in a lot of ways.'
+3. THE GUIDE: RADIO's research round becomes THE WRITING GUIDE every words lane follows (records/BOHEMIA_RADIO_ROUND_1_HOW_A_LAST_
+   TRANSMISSION_READS_11_3_26.md), with ten before-and-after lines from our own game rewritten in this voice. Every lane that writes
+   player-facing words reads it before writing.
