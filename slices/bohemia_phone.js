@@ -1300,14 +1300,39 @@
   }
   /* the one post fills the strip: try 9 px down to 6 px in half steps, keep the first size at which nothing is cut. A hidden phone
      (no height) is fitted the next time it paints with a height. */
+  /* COORDINATOR 11/3 (Paolo: 'make sure this tweet box works when we change it to larger font... the setting on your phone for the
+     largest font... it's OK if the tweet box scrolls down a little bit if it needs to'): a phone set to its biggest text scales every
+     letter past what any size here can fit. So the line height follows the letters (unitless, never a fixed px that the phone's
+     scaling leaves behind), and when even the smallest size cannot hold the post, the words scroll slowly up under the handle
+     through the post's time (stripScroll below), then the next post steps in. Nothing is ever cut. */
   function fitStrip(fd) {
     var fp = fd && fd.querySelector('.fp'); if (!fp) return;
     var h = fp.clientHeight; if (!(h > 4)) { H.stripFitH = 0; return; }
+    var sp = fp.querySelector('span'), hb = fp.querySelector('b');
+    if (sp) { sp.style.maxHeight = ''; sp.scrollTop = 0; }
     for (var sz = 9; sz >= 6; sz -= 0.5) {
-      fp.style.fontSize = sz + 'px'; fp.style.lineHeight = (Math.round(sz * 1.16 * 2) / 2) + 'px';
+      fp.style.fontSize = sz + 'px'; fp.style.lineHeight = '1.16';
       if (fp.scrollHeight <= h + 0.5) break;
     }
+    H.stripOver = 0;
+    if (sp && fp.scrollHeight > h + 0.5) {   /* even 6 px does not fit: the phone's text is scaled up; the words scroll */
+      var lh0 = parseFloat(getComputedStyle(sp).lineHeight) || 8, room = Math.max(lh0, h - (hb ? hb.offsetHeight : 0));
+      sp.style.maxHeight = Math.floor(room / lh0) * lh0 + 'px';   /* whole lines only: never half a line peeking */
+      H.stripOver = Math.max(0, sp.scrollHeight - sp.clientHeight);
+    }
     H.stripFitH = fd.clientHeight;
+  }
+  /* the scroll: hold the top 1.2 s, then one whole line up every 1.5 s (stop-motion, the game's own step), hold the end 1.2 s;
+     returns its ms so the post stays until its last line has been read */
+  function stripScroll(fd) {
+    clearTimeout(H.stripScrollT);
+    var sp = fd.querySelector('.fp span'), over = H.stripOver || 0; if (!sp || !(over > 0)) return 0;
+    var lh = parseFloat(getComputedStyle(sp).lineHeight) || 8, lines = Math.ceil(over / lh - 0.01), n = 0;
+    H.stripScrollT = setTimeout(function step() {
+      n++; sp.scrollTop = Math.min(over, n * lh);
+      if (n < lines) H.stripScrollT = setTimeout(step, 1500);
+    }, 1200 + 300);
+    return 1500 + lines * 1500 + 1200;
   }
   try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { H.stripFitH = -1; }); } catch (e) {}
   /* COORDINATOR 11/3 (Paolo: 'there should always be text there that transitions to other text, not just be empty'): the strip
@@ -1326,13 +1351,13 @@
     var one = posts.length ? [posts[posts.length - 1 - back]] : [], sig = one.map(function (p) { return p.who + '|' + p.txt; }).join('') + '#' + back;
     if (!force && sig === H.stripSig) return;
     var was = H.stripTop; H.stripSig = sig; H.stripTop = one.length ? one[0].who + '|' + one[0].txt : null;
-    if (!one.length) { clearTimeout(H.stripT); fd.innerHTML = '<div class="fp"><span>The valley is quiet.</span></div>'; fitStrip(fd); return; }   /* draft:true */
+    if (!one.length) { clearTimeout(H.stripT); clearTimeout(H.stripScrollT); fd.innerHTML = '<div class="fp"><span>The valley is quiet.</span></div>'; fitStrip(fd); return; }   /* draft:true */
     var p = one[0], fresh = !!(was && was !== H.stripTop);
     fd.innerHTML = '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (fresh ? ' new' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>';
     fitStrip(fd);
     if (fresh) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
     clearTimeout(H.stripT);
-    var ms = readMs(p); H.stripRead = { sig: sig, ms: ms, t: Date.now() };
+    var ms = Math.max(readMs(p), stripScroll(fd)); H.stripRead = { sig: sig, ms: ms, t: Date.now() };
     H.stripT = setTimeout(function () { if (H.stripSig !== sig) return;
       window.__PHONE_STRIP_OUT = (window.__PHONE_STRIP_OUT | 0) + 1;
       if (ring > 1) { H.stripBack = ((H.stripBack | 0) + 1) % ring; stripPaint(true); } }, ms);   /* read: the next one in, never empty */
