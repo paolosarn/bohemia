@@ -38,7 +38,7 @@ WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (t
 - OWED: models for the shops, works, towers and casinos (COOK's warehouse, motel, pawn shop, gas station, casino, tower casino
   are built); the ground up close is the painter's top step (chunky at the street stop); lit windows on the models at night; the
   phone's own 60 at the street stop (this box draws in software: PLUMBER on a phone); rule 344 THE MAP CAN TURN is WORLD's next.
-- 376 TAP A QUEST, YOUR PEOPLE GO, THE MAP'S HALF (BUILD 11/3zzzzai; ask line 404). FOR UI 7, THE ONE CALL, in the map's own
+- 376 TAP A QUEST, YOUR PEOPLE GO, THE MAP'S HALF (BUILD 11/3zzzzas; ask line 404). FOR UI 7, THE ONE CALL, in the map's own
   frame (the city frame's window, where LOOP lives): window.BOH_TRAVEL_TO_QUEST(questId [, { follow: false }]) ->
   { ok, why, id, kind, act, name, to: [x, y], town, mins, blocks, of, timed: [{ key, to, mins }], follow }. questId = a held job
   (LOOP.held[].id) or a phone offer (__PHONE_BOARD.shown[].id; it goes to the giving town's board). ok false says why: 'no quest',

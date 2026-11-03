@@ -106,7 +106,7 @@ WORLD 7's four codes land on all four ways: DUST42 as the land lies, NEVADA flip
 K7QM9X turned half way. VOTE: world-the-map-can-turn-11-3 (records/target/world_8/THE_MAP_CAN_TURN.jpg).
 Gate gates/the_map_can_turn_gate.js (the table below). Engine touched: the RUN slice rebuilt (rule 8), the demo re-cut.
 
-## 6. TAP A QUEST, YOUR PEOPLE GO: THE MAP'S HALF (rule 376, ask line 404; BUILD 11/3zzzzai)
+## 6. TAP A QUEST, YOUR PEOPLE GO: THE MAP'S HALF (rule 376, ask line 404; BUILD 11/3zzzzas)
 His words (11/3): 'I should be able to click the quest on my phone and my people auto move towards it... Auto zooms in as much as I
 can... when you get to quest you hop on the settlement... if multiple markers, like I have to hunt down animals, it will just take
 me to the closest one.'
