@@ -8,6 +8,7 @@
   "source": "CORE_WIKITEXT.md # PAGE Perks"
  },
  "rows": [
+  {"id": "decoy", "name": "Decoy", "tier": 3, "effect": "Did you seriously just walk around with a cardboard cutout?", "numbers": {"skill_ap_cost": 4, "skill_fatigue_cost": 10}, "source": "ours, not Battle Brothers: Paolo 11/3, VAMILY rule 367, ask line 391 (his name, his line as its description); the cutout's own numbers in records/target/bb/ours.json decoy", "draft": true},
   {
    "id": "fast_adaptation",
    "name": "Fast Adaptation",

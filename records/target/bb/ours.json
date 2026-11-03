@@ -2310,6 +2310,23 @@
   "quote": "in the early combat you know we had kill cams, bro why don't we have kill cams here... it will just like fit into the timing of the game... I always just care about the frames per second",
   "why": "COMBAT 7's default, TUNING's to tune. A kill of theirs he sees gets a cut on the beat grid: short_beats (two beats at 120 BPM, one second) for an ordinary kill, a style shuffled from short_styles (the first module's default, SHUFFLE); long_beats only for a stake: the last man of theirs, a champion or a boss (HELD BREATH, the heartbeat), a second kill by the same man in one turn (CHAIN), his last man standing (LAST STAND). On AUTO each cut is auto_share as long. Never two cuts within gap_beats of each other (a chain excepted). A tap skips it. The cut moves only the fight's own camera and two letterbox bars, so it costs no frame (measured on the upright phone, the record). zoom: how close each style comes, as a share of the near stop. sound: real recordings from the approved bank."
  },
+ "decoy": {
+  "value": {
+   "hp": 30,
+   "range_tiles": 2,
+   "per_fight": 1,
+   "auto_share": 0.5,
+   "auto_floor": 8,
+   "name": "CUTOUT",
+   "enemy_archetypes": [
+    "kid",
+    "rider"
+   ]
+  },
+  "source": "VAMILY.md rule 367 (Paolo 11/3, ask line 391); records/BOHEMIA_PAOLO_THE_DEAD_THE_NAME_THE_SOUND_AND_THE_FIGHT_NOTES_11_3_26.md",
+  "quote": "a new perk potentially called decoy... the description: did you seriously just walk around with a cardboard cut out... you can set it down, enemy can as well",
+  "why": "COMBAT 7's default, TUNING's to tune (rule 367 names TUNING's table). DECOY, a perk (perks.json row decoy: its AP and breath, his line as its description): once a fight (per_fight) he sets a cardboard cutout of himself on a free tile within range_tiles; the other side sees a man of his there and goes for it (it carries his look and his weapon's threat) until it is knocked down at hp; it never takes a turn, holds no zone, never swings or shoots, and knocked down it is cardboard: no death roll, no morale, no XP, never counted as his man. AUTO and the enemy set it when auto_share of the hurt he expects where he stands is worth more than auto_floor, on the free tile nearest them. The enemy can have it too: their enemy_archetypes (the kids and runners, Battle Brothers' goblin tricksters' place in our bestiary) carry the perk."
+ },
  "chase_calc": {
   "value": {
    "runs": 4,

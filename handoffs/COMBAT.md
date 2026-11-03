@@ -15,23 +15,32 @@ fixed; downtown's roof-to-roof back per rule 356(e); the gate's fifth leg EDGE p
    passtan, apron.4, the old town blocks out of every place, every road/track/path at fixed rows, margins); --data --hold <places>
    keeps a place as on main until its pictures are rendered and swapped. VOTE: combat-place-<place>-11-3b.
 
-COMBAT 7 11/3 (brief from the coordinator, check-in 10: EYES 11/3 broken items 1 and 2, the open asks page's 139, 152, 229).
-SHIPPED (BUILD 11/3zzzc item 1 alone 0de54ccb, then BUILD 11/3zzze), NOT YET SEEN:
-1. AUTO NEVER LEAVES A MAN (rows 96, 109, 319, 331): the cause was a man of theirs who had BROKEN and was running, counted by AUTO
-   as a full target (the walk's hunt field, the roof climbed for next turn's blow on him, the walk-then-blow). Now (BOHEMIA_FIGHT.html
-   huntField keepOffRunners, bestTurn runOnly, nextBest's moved flag, the old brain's tile targets) his men hunt the men who stand;
-   a runner only when no standing man is reachable, or for a kill on offer. Repro 0 of 25 (was 23); planner test 79 of 120 before
-   and after on today's boards (COMBAT 6's 81 was on the old boards); men down 197 -> 196.
-2. THE ROUND SWING'S WORDS (row 332): SWEEP_SAYS.front when FIGHT.frontSwing(sk).
-3. 139: the break is asked on AUTO too (routUp/routHolds, ours.chase_calc.ask_beats 8; S.runDown holds his RUN THEM DOWN).
-   152: the hole not met (0 off the glass in 2,355 computer frames); the camera gate's 6-point centring red (BAR_TALL vs the gate's
-   own tallest) is on main too, left for the camera's owner. 229: three long AUTO fights on the computer, 0 throws.
-Gate: gates/auto_never_leaves_a_man_gate.js (8 legs, --headless-only for N1/N2). Probe: tools/bohemia_combat_auto_never_leaves_a_man_probe_11_3_26.js.
-VOTE: combat-7-auto-never-leaves-a-man-11-3 (the same fight before and after, moving, plus the ask and the swing's words).
-Record: records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md.
-NEXT: 90, 103, 108 (left as briefed); THE FORMATION IS KEPT gate is 19/4 on main (the lineup drag and kept line), not this round's.
-[bb] Battle Brothers lets the player choose the rout once they all run; its brothers are never on AUTO, so 'stay on the man hurting
-your friend' is ours. [analog horror] nothing new drawn; the fight goes still four seconds on receipt paper while it asks.
+COMBAT 7 11/3 (brief from the coordinator, check-in 10, then its carry-on list: EYES 11/3 items 1 and 2; rows 139, 152, 229; rules
+365, 366, 351(f), 367). DONE, EVERY PIECE SHIPPED AND DEPLOYED, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md.
+1. AUTO NEVER LEAVES A MAN (0de54ccb, BUILD 11/3zzzc; rows 96, 109, 319, 331): a man of theirs running was a full target to AUTO (the
+   hunt, the empty roof's next-turn blow); now his men hunt the men who stand, a runner only when none can be reached or for a kill
+   on offer. Repro 0 of 25 (was 23); planner test 79 of 120 before and after.
+2. THE ROUND SWING SAYS THREE + THE BREAK ASKED ON AUTO (af8758b9, BUILD 11/3zzze; rows 332, 139): SWEEP_SAYS.front; routUp/routHolds,
+   ours.chase_calc.ask_beats. 152: the hole not met (the camera gate's 6-point centring red is BAR_TALL vs its own tallest, on main
+   too). 229: three long AUTO fights on the computer, 0 throws.
+3. RETREAT IS A RUN FOR THE EDGE (4a328638, BUILD 11/3zzzp; rule 365): from the lineup the button starts the run, his men first, all
+   out untouched = WITHDREW (rule 253 kept). Gates RETREAT IS A RUN FOR THE EDGE 5/0, RETREAT FROM THE LINEUP (amended) 3/0 both screens.
+4. THE ENEMY WANTS TO LIVE (76e5d9df, BUILD 11/3zzzzaa; rule 366): no walking alone into three or more of ours (one step's price,
+   ours.enemy_wants_to_live; 124 -> 84 of ~910 walks), their shooters take the highest roof. Gate THE ENEMY WANTS TO LIVE 4/0.
+5. THE KILL CAMS (5d1d0766, BUILD 11/3zzzzac; rule 351(f)): SHARP, HAMMER, CINE-FOLLOW, ORBIT, X-RAY shuffled, HELD BREATH for a stake,
+   CHAIN, LAST STAND; on the beat, AUTO half, a tap skips; the camcorder zoom on the compositor (kill frames 16.7 ms with, 18.9 without).
+   Gate THE KILL CAMS 7/0.
+6. THE DECOY (this push; rule 367): perk 'decoy' (his line), ours.decoy; a cardboard cutout of the man, struck, never fights, never
+   his man; the enemy's kids and riders carry it. Gate THE DECOY 6/0.
+VOTE cards: combat-7-auto-never-leaves-a-man, -retreat-is-a-run, -the-enemy-wants-to-live, -the-kill-cams (with sound), -the-decoy (11-3).
+Probes: tools/bohemia_combat_auto_never_leaves_a_man_probe_11_3_26.js, tools/bohemia_combat_the_enemy_wants_to_live_probe_11_3_26.js.
+RED AND NOT THIS LANE'S TO SETTLE: EVERY MAN HAS A JOB (J3 his idle turns 2.24% on main before rule 366, 1.19% after; J4 157 of 300
+against a fixed 158 measured against their old brain: re-base it); THE FIGHT AS CLOSE AS IT CAN BE on the computer (6-point centring);
+THE FORMATION IS KEPT 19/4 on main.
+NEXT (left as briefed): 90, 103, 108. The decoy's perk square on the crew screen's level-up picks is CHARACTER/UI's to show.
+[bb] Battle Brothers: the rout is the player's choice; its AI weighs every tile by who can reach it (PotentialDanger) and its ranged
+units seek height; its brothers are never on AUTO, so 'never leave a man' is ours. [analog horror] the kill cam is the camcorder's own
+digital zoom and the tape's negative frame; the decoy is a cardboard man standing in the street.
 
 COMBAT MAPS 3 11/3 (brief from the coordinator, re-briefed mid-round: rule 341, ask line 350; his 'everything just looked exactly
 the same as the main suburb shit... no variety, like true variety... you're not done'). DONE, ALL THREE PUSHES SHIPPED (BUILD 11/3zzq,

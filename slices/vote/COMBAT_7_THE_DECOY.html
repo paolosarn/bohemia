@@ -1,0 +1,26 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Decoy</title>
+<!-- COMBAT 7 [the decoy], rule 367, ask line 391 (Paolo 11/3: a perk, his name and his line, 'Did you seriously just walk around with a
+     cardboard cutout?'; 'you can set it down, enemy can as well'). Filmed from the fight's own camera on his phone (390 x 844): his man
+     sets the cutout two tiles ahead, three of theirs go for it on AUTO and knock it over. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;max-width:420px}
+  img{width:100%;display:block;border-radius:3px}
+  .q{color:#e8d8b0;font-style:italic;margin:0 0 10px}
+</style>
+<h1>DECOY, A NEW PERK</h1>
+<p class="q">"Did you seriously just walk around with a cardboard cutout?"</p>
+<p>Once a fight, your man sets a cardboard cutout of himself on a tile up to two away. Their side thinks it is him and goes for it until it falls over. It never fights back. The kids and the riders can carry one too.</p>
+<div class="row"><img id="a" alt="the decoy"></div>
+<script>
+(function () { var N = 14, i = 0, A = document.getElementById('a'), pre = [];
+  function src(n) { return '../../records/target/combat7_11_3/decoy_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  for (var n = 0; n < N; n++) { var x = new Image(); x.src = src(n); pre.push(x); }
+  function show() { A.src = src(i); i = (i + 1) % N; } show(); setInterval(show, 420); })();
+</script>

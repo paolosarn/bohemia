@@ -145,3 +145,20 @@ K3 every style on a real kill; K4 the camera never moves, the tags aside and bac
 K6 no frame lost; nothing threw.
 VOTE: combat-7-the-kill-cams-11-3 (each style stepped through on a real kill from the fight's camera on his phone; PLAY WITH SOUND plays
 the game's own death and blow recordings under each).
+
+## 7. RULE 367, THE DECOY (ask line 391; piece 6, the last)
+A PERK, HIS NAME AND HIS LINE: perks.json row decoy ('Decoy', tier 3, its description his words: 'Did you seriously just walk around
+with a cardboard cutout?', 4 AP and 10 breath, marked ours, not Battle Brothers'); its numbers in TUNING's table, ours.decoy (30 hit
+points, a tile up to 2 away, once a fight, AUTO's share and floor, the enemy's archetypes).
+THE CUTOUT (slices/BOHEMIA_FIGHT.html setDecoy, the skill 'decoy'): a copy of the man who set it (his look, his weapon's threat, its own
+30 hit points) stands on the tile; the other side's brains see a man of his there and go for it. It takes no turn (newRound), holds no
+zone (zocOn), never swings or shoots (threatReach, freeShot), is no friend (friends) and no man of his alive (alive); knocked down it is
+cardboard (fall: no death roll, no morale, no XP, an event of its own, 'knocked'); at the fight's end it is a prop (emit 'over'), never
+listed among his men on the end card or in the message home. AUTO and the enemy set it when half the hurt he expects where he stands
+is worth more than the floor, on the free tile nearest them (planTurn 5b). The enemy's kids and riders carry the perk.
+By hand: the DECOY square (a cutout on its stand), then a tile; the line asks 'Tap a tile to set the cutout down.'; set down and
+knocked over are said on the board (draft:true), with the approved set_down and body_land sounds.
+GATE: THE DECOY (new) 6/0: D1 the perk is data; D2 his cutout between him and three of theirs struck in 6 of 6, no turn, no swing, no
+zone, cardboard, never his man; D3 a kid of theirs sets his own (8 of 8); D4 by his finger on the upright phone (the square, a tile, the
+cutout there); never among his men at the end; nothing threw.
+VOTE: combat-7-the-decoy-11-3 (set down, struck four times, knocked over; the fight's camera on his phone).

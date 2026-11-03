@@ -447,11 +447,11 @@ const FIGHT = (function () {
   function dist(a, b) { return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)); }
   function inBoard(x, y) { return x >= 0 && y >= 0 && x < S.w && y < S.h; }
   function onField(u) { return !u.dead && !u.down && !u.fled; }
-  function alive(side) { return S.units.filter(function (u) { return u.side === side && onField(u); }); }
+  function alive(side) { return S.units.filter(function (u) { return u.side === side && onField(u) && !u.decoy; }); }   /* a cutout is cardboard (rule 367) */
   function foes(u) { return S.units.filter(function (v) { return v.side !== u.side && onField(v); }); }
-  function friends(u) { return S.units.filter(function (v) { return v.side === u.side && v !== u && onField(v); }); }
+  function friends(u) { return S.units.filter(function (v) { return v.side === u.side && v !== u && onField(v) && !v.decoy; }); }
   function unitAt(x, y) { return S.units.filter(function (u) { return onField(u) && u.x === x && u.y === y; })[0] || null; }
-  function emit(e) { e.round = S.round; S.events.push(e); S.log.push(e); }
+  function emit(e) { e.round = S.round; S.events.push(e); S.log.push(e); if (e.t === 'over') S.units.forEach(function (v) { if (v.decoy) { v.side = 'prop'; v.fled = true; } }); }   /* the fight over, a cutout is a prop: never his man on any count */
 
   /* ---------------- THE PERKS (rule 48: their fifty, mechanic kept, records/target/bb/perks.json) ----------------
      PK(u, id) is the perk's numbers when the man has it, else null. Every number a perk
@@ -1029,7 +1029,7 @@ const FIGHT = (function () {
     const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
     const lp = R('ours.bestiary').look_pools[id], pl = R('ours.people_looks').band, pool = (lp && pl[lp]) || pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
     return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
-      racial: (DB.racial && DB.racial.by_enemy[id]) || [], traits: (r.traits || []).slice(), ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: perksByName(r.perks, S.days),
+      racial: (DB.racial && DB.racial.by_enemy[id]) || [], traits: (r.traits || []).slice(), ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: (R('ours.decoy').enemy_archetypes.indexOf(kind) >= 0 ? ['decoy'] : []).concat(perksByName(r.perks, S.days)),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
@@ -1797,7 +1797,7 @@ const FIGHT = (function () {
       u.waitedLast = u.waited; u.waited = false;
       if (u.morale === 'Fleeing') u.roundsFleeing++;
     });
-    const live = S.units.filter(onField);
+    const live = S.units.filter(function (u) { return onField(u) && !u.decoy; });   /* a cutout takes no turn */
     live.forEach(function (u) {
       let ini = curIni(u);
       if (u.waitedLast && !PK(u, 'relentless')) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
@@ -1908,7 +1908,7 @@ const FIGHT = (function () {
   /* ---------------- MOVING ---------------- */
   function zocOn(u, x, y) {
     return foes(u).filter(function (f) {
-      if (f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)) return false;   /* rule 103: a gun in his hands holds no ring */
+      if (f.decoy || f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)) return false;   /* rule 103: a gun in his hands holds no ring; a cutout none (rule 367) */
       /* HEIGHT IS ACCURACY, NEVER A WALL (COMBAT 4, rule 321, Paolo 11/2): the library's ring stops at two levels apart; his
          ruling holds it across any storey (ours.height_is_accuracy.zone_any_storey) */
       if (!R('ours.height_is_accuracy').zone_any_storey && Math.abs(level(f.x, f.y) - level(x, y)) >= R('zone_of_control.height_gap_breaks_zoc_levels')) return false;
@@ -2350,6 +2350,7 @@ const FIGHT = (function () {
   }
   function fall(t, a) {
     t.hp = 0;
+    if (t.decoy) { t.fled = true; t.knocked = true; emit({ t: 'knocked', id: t.id, by: a ? a.id : null }); return; }   /* THE DECOY (rule 367): cardboard goes over, nothing else */
     /* THE DEAD MAN'S SWITCH (rule 305): struck down with a live vest, the grip lets go: every cell, no dial; his death roll gets the
        vest's share (vestShare) since he is in the fire */
     const sw = vestLive(t); if (sw) { t.vest.gone = true; t.vestLit = true; }
@@ -2989,7 +2990,7 @@ const FIGHT = (function () {
   }
   /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
      Each costs what its wiki row says in AP and fatigue, and does what its row says. */
-  const ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable'];
+  const ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable', 'decoy'];   /* decoy: ours, rule 367 */
   /* RECOVER FOR ANY WINDED MAN OF HIS (rule 283(b)): the perk's own numbers, without the perk, while he is winded; his button by
      hand only (aiFirst never presses it for his side, rule 231; theirs keep Battle Brothers' perk) */
   function skillNums(u, id) { return PK(u, id) || (id === 'recover' && u.side === 'you' && winded(u) ? ((perkRow('recover') || {}).numbers || null) : null); }
@@ -3005,15 +3006,19 @@ const FIGHT = (function () {
       .map(function (f) { return { x: f.x, y: f.y, id: f.id }; }); }
     if (id === 'footwork') return DIRS.map(function (d) { return { x: u.x + d[0], y: u.y + d[1] }; })
       .filter(function (q) { return passable(q.x, q.y) && !unitAt(q.x, q.y) && !squeezes(u.x, u.y, q.x, q.y, u); });
+    if (id === 'decoy') { const r = R('ours.decoy').range_tiles, out = [];   /* a free tile within reach of his arm (rule 367) */
+      for (let y = u.y - r; y <= u.y + r; y++) for (let x = u.x - r; x <= u.x + r; x++) if ((x !== u.x || y !== u.y) && inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !noRoof(u, x, y)) out.push({ x: x, y: y });
+      return out; }
     return [];
   }
-  function needsTarget(id) { return id === 'rotation' || id === 'taunt' || id === 'footwork'; }
+  function needsTarget(id) { return id === 'rotation' || id === 'taunt' || id === 'footwork' || id === 'decoy'; }
   function canUse(u, id) {
     if (S.over || current() !== u || !onField(u) || u.morale === 'Fleeing') return false;
     const c = activeCost(u, id); if (!c) return false;
     if (u.ap < c.ap || u.fat + c.fat > fatMax(u)) return false;
     if (id === 'adrenaline' && u.adrenaline) return false;
     if (id === 'indomitable' && u.indomitable) return false;
+    if (id === 'decoy' && (u.decoysSet || 0) >= R('ours.decoy').per_fight) return false;   /* once a fight */
     if (climbedNow(u) && R('ours.climb_or_attack').attack_skills.indexOf(id) >= 0) return false;   /* rule 328: an attacking perk */
     if (id === 'rally_the_troops' && !rallyable(u).length) return false;
     if (needsTarget(id) && !skillTargets(u, id).length) return false;
@@ -3040,6 +3045,7 @@ const FIGHT = (function () {
     if (id === 'rotation') { const f = byId(tg.id), x = u.x, y = u.y; u.x = f.x; u.y = f.y; f.x = x; f.y = y; markClimb(u, x, y); }
     if (id === 'footwork') { const x = u.x, y = u.y; emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: tg.x, y: tg.y }); u.x = tg.x; u.y = tg.y; markClimb(u, x, y); }
     if (id === 'taunt') byId(tg.id).tauntedBy = u.id;
+    if (id === 'decoy') setDecoy(u, tg);
     if (id === 'rally_the_troops') {
       const row = R('morale.rally.rally_the_troops'), st = STATES(), cap = R('morale.check.cap');
       rallyable(u).forEach(function (f) {
@@ -3065,6 +3071,22 @@ const FIGHT = (function () {
      difficulty' and names no number: ours has none until TUNING finds one. A retreat ends lost (no pay), never a wipe. */
   function onEdge(u) { return u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1; }
   function getOut(u) { u.fled = true; u.escaped = true; emit({ t: 'fled', id: u.id, retreat: true }); }
+  /* THE DECOY (COMBAT 7, rule 367, Paolo 11/3: 'a new perk potentially called decoy... did you seriously just walk around with a
+     cardboard cut out... you can set it down, enemy can as well'): a cardboard cutout of him on a free tile; the other side sees a man
+     of his there (his look, his weapon's threat, its own hit points, ours.decoy.hp) and goes for it until it is knocked down. It
+     takes no turn, holds no zone, never swings or shoots; knocked down it is cardboard (fall). Every side: their kids and riders
+     carry the perk */
+  function setDecoy(u, q) {
+    const D = R('ours.decoy'), c = {};
+    Object.keys(u).forEach(function (k) { if (k.charAt(0) !== '_' && typeof u[k] !== 'function') c[k] = u[k]; });
+    u.decoysSet = (u.decoysSet || 0) + 1;
+    Object.assign(c, { id: u.id + 'c' + u.decoysSet, name: D.name, decoy: true, owner: u.id, x: q.x, y: q.y, hp: D.hp, hpMax: D.hp, armB: 0, armH: 0, armBMax: 0, armHMax: 0,
+      ap: 0, apTurn: 0, fat: 0, perks: [], injuries: [], bag: null, bagState: null, morale: R('morale.default_state'), resolve: null, immune: ['Morale'], initiative: 0, turnIni: 0,
+      main: false, captain: false, boss: false, champion: false, kills: 0, xp: 0, xpGained: 0, dead: false, down: false, fled: false, upRound: null, waited: false, begun: false,
+      vest: null, shield: null, netted: null, stunned: false, poison: 0, tauntedBy: null, decoysSet: 0, laidUp: 0 });
+    S.units.push(c); emit({ t: 'decoy', id: c.id, by: u.id, x: q.x, y: q.y });
+    return c;
+  }
   /* RETREAT FROM THE LINEUP, ALWAYS (rule 253, Paolo 10/26: 'in the lineup menu, that's super important, I should be able to
      retreat from the lineup, before the enemy, no matter what, end of story... not like I take the first turn if I press
      retreat'). On the lineup nobody has moved, so it is no run for the edge: the fight ends at once, WITHDREW: no turn, no free
@@ -3200,7 +3222,7 @@ const FIGHT = (function () {
     if (u.shotAt === S.round || !onField(u)) return null;
     let g = null, gc = -1;
     foes(u).forEach(function (f) {
-      if (f.morale === 'Fleeing' || f.stunned || f.freeShotAt === S.round || !readyShot(f) || !inRange(f, u)) return;
+      if (f.decoy || f.morale === 'Fleeing' || f.stunned || f.freeShotAt === S.round || !readyShot(f) || !inRange(f, u)) return;
       const c = hitChance(f, u).chance; if (c > gc) { gc = c; g = f; }
     });
     if (!g) return null;
@@ -3775,7 +3797,7 @@ const FIGHT = (function () {
      already beside another man of ours keeps to his own reach (he does not walk out of a ring for him); the netted, the stunned,
      the disarmed and the fleeing reach nobody */
   function threatReach(f, m) {
-    if (!onField(f) || f.morale === 'Fleeing' || f.disarmed || f.stunned || !f.weapon) return null;
+    if (!onField(f) || f.decoy || f.morale === 'Fleeing' || f.disarmed || f.stunned || !f.weapon) return null;
     const d = dist(f, m), flat = R('ap.move_cost.flat'), s = strikeSkill(f.weapon), sAP = skillAP(f.weapon, s, f);
     if (isRanged(f.weapon)) {
       const far = rangeMax(f.weapon.range);
@@ -4036,6 +4058,14 @@ const FIGHT = (function () {
       if (v <= 0) return;
       add({ kind: 'rotation', deal: v, gone: {}, pk: 0, fat: activeCost(u, 'rotation').fat }, { x: m.x, y: m.y }, 1, 0, function () { u.btMoves++; return useSkill(u, 'rotation', q); });
     });
+    /* 5b. THE DECOY (rule 367): set on the free tile nearest them, worth auto_share of the hurt he expects where he stands */
+    if (canUse(u, 'decoy')) {
+      const DQ = R('ours.decoy'), dv = DQ.auto_share * -holdV;
+      if (dv > DQ.auto_floor) {
+        const dq = skillTargets(u, 'decoy').map(function (t) { return { t: t, d: foes(u).reduce(function (m, f) { return Math.min(m, dist(f, t)); }, Infinity) }; }).sort(function (a, b) { return a.d - b.d; })[0];
+        if (dq) add({ kind: 'decoy', deal: dv, gone: {}, pk: 0, fat: activeCost(u, 'decoy').fat }, here, 1, 0, function () { return useSkill(u, 'decoy', dq.t); });
+      }
+    }
     /* 6. THE CELL VEST's squeeze (rule 305: the risk shown first): only when the preview burns none of his own men and drops
        falls_needed of theirs, or he is going down before his next turn anyway */
     if (canSpark(u)) {
@@ -5288,7 +5318,7 @@ function bullet(moment, a, t, e) {
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
-const NOTE_BEATS = { spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
+const NOTE_BEATS = { decoy: .5, knocked: .5, spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
   bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0 };   /* ARMORY 2: the whip's marks */
 function take() {
   const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
@@ -6002,6 +6032,9 @@ function startAnim(a) {
     /* THE CELL VEST (rule 305): the frame whites out on the beat the cells catch; the fire said over every man it touched */
     if (e.t === 'spark' && u) { UI.whiteAt = a.at; sfx('cell_vest', { side: u.side, cells: e.cells, of: e.of, how: e.how, wall: !!e.wall }); pop(u, e.how === 'switch' ? SPARK_SAYS.switchTag : SPARK_SAYS.tag, '#ff4a3a', true); }
     if (e.t === 'burn' && u) pop(u, '-' + e.hp, '#f08a3a', false);
+    /* THE DECOY (rule 367): set down and knocked over, said on the board (draft:true) */
+    if (e.t === 'decoy' && u) { const by = FIGHT.byId(e.by); pop(u, 'cutout', '#d8c8a0', true, (by ? by.name : 'Someone') + ' sets down a cardboard cutout.'); sfx('set_down', { side: u.side }); }
+    if (e.t === 'knocked' && u) { pop(u, 'cardboard', '#c8b890', true, 'The cutout goes over. It was cardboard.'); sfx('body_land', { side: u.side }); }
     if ((e.t === 'dead' || e.t === 'down' || e.t === 'fled') && u) UI.fallN = (UI.fallN || 0) + 1;   /* the class read and the last stand look again */
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = a.at;   /* the fall plays from here (poseOf) */
       if (u.side === 'you' || u._seen) { thudAt(a.at, B); SND.thud(u, a.at, B); }   /* THE PUNCH: the body lands on the fall's last key */
@@ -8279,6 +8312,7 @@ function perkIcon(g, id, S) {
     case 'fearsome': L([[4, 7], [20, 7], [17, 15], [7, 15]], 0, INK, true); L([[7, 7], [9, 13], [11, 7]], 0, '#f2e8d8', true); L([[13, 7], [15, 13], [17, 7]], 0, '#f2e8d8', true); L([[6, 18], [18, 18]], 1.4, RED); break;
     case 'duelist': W('blade'); C(18, 18, 3, RED, false, 1.4); break;
     case 'killing_frenzy': L([[12, 3], [18, 13], [18, 16], [15, 20], [9, 20], [6, 16], [6, 13]], 0, RED, true); break;
+    case 'decoy': C(12, 5.5, 2.6, INK, false, 1.6); L([[12, 8], [12, 15]], 2.2, INK); L([[8, 11], [16, 11]], 1.8, INK); L([[12, 15], [12, 20]], 1.4, INK); L([[7, 20], [17, 20]], 2.2, RED); break;   /* the cutout on its stand */
     case 'indomitable': L([[12, 3], [12, 18]], 2.4, INK); C(12, 4.5, 2, INK, false, 1.6); g.beginPath(); g.arc(12 * u, 13 * u, 8 * u, .2, Math.PI - .2); g.strokeStyle = INK; g.lineWidth = 2.2 * u; g.stroke(); L([[7, 9], [17, 9]], 1.8, INK); break;
     default: C(12, 12, 6, DIM, true);
   }
@@ -9104,7 +9138,7 @@ function skillTap(id) {
   if (UI.skillMode === id) { UI.skillMode = null; if (!FIGHT.needsTarget(id)) { FIGHT.useSkill(u, id); take(); return; } say('Put away.'); return; }
   if (!FIGHT.needsTarget(id)) { UI.skillMode = id; say(selfSay(u, id), true); hud(); return; }
   UI.skillMode = id;
-  say(id === 'rotation' ? 'Tap the friend to swap places with.' : id === 'taunt' ? 'Tap the man to call over.' : 'Tap the tile to step to. No free swing.');
+  say(id === 'rotation' ? 'Tap the friend to swap places with.' : id === 'taunt' ? 'Tap the man to call over.' : id === 'decoy' ? 'Tap a tile to set the cutout down.' : 'Tap the tile to step to. No free swing.');   /* draft:true */
 }
 function tileAt(px, py) { return { x: Math.floor(wx(px) / UI.tw), y: Math.floor(wy(py) / UI.th) }; }
 /* before turn one: tap one of your men, then a tile of your two columns; tap him again to let go */
