@@ -333,7 +333,10 @@
     if (!sync() || !DATA) return null;
     var h = here(); if (!h) return null;
     try { if (TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length) return null; } catch (e) {}
-    var order = DATA.verbs_order || ['open', 'purify', 'cook'], off = null;
+    var order = (DATA.verbs_order || ['open', 'purify', 'cook']).slice(), off = null;
+    /* BOSSES 4 (measured 11/3, the six-boss gate's A5f): at a fallen boss's own place HIS verb comes first, so the thing he just
+       handed you lands on its own button (THE FILTER's place was a main too, and OPEN took the button from CLEAN THE WATER) */
+    for (var j = 0; j < order.length; j++) if (hisPlace(order[j], h[0], h[1])) { order.unshift(order.splice(j, 1)[0]); break; }
     for (var i = 0; i < order.length; i++) {
       var a = applies(order[i], h[0], h[1]); if (!a) continue;
       var V = verbRow(order[i]).verb;
