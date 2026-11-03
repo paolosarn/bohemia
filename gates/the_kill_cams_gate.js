@@ -99,7 +99,7 @@ leg(!!(KC && KC.value && KC.source && KC.quote && KC.why && KC.value.on) && ['sh
       let row = null;
       try {
         const tapEl = async sel => { const at = await q.evaluate(sel => { const b = document.querySelector(sel); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return r.width > 2 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }, sel); if (at) await q.touchscreen.tap(at.x, at.y); return !!at; };
-        await tapEl('#gearbtn'); await q.waitForTimeout(600);
+        await q.evaluate(() => document.getElementById('gearbtn').click()); await q.waitForTimeout(700);   /* the gear's own door, as SETTINGS AND PAUSE opens it */
         const look = () => q.evaluate(() => { const h = document.getElementById('setcams'), r = h && h.closest('.setrow'), f = document.getElementById('setdiff');
           const pos = (a, b) => a && b ? !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING) : false;
           return h ? { label: r.querySelector('.setlab').textContent, buttons: [...h.children].map(b => b.textContent + (b.classList.contains('on') ? '*' : '')).join(' '), shown: getComputedStyle(r).display !== 'none' && r.getBoundingClientRect().height > 4,

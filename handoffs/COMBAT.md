@@ -39,6 +39,10 @@ COMBAT 7 11/3 (brief from the coordinator, check-in 10, then its carry-on list: 
    the shop card ('ARMOUR CLASS MEDIUM to HEAVIEST, ONE LESS TILE', labels only) and the crew card ('ARMOUR: ...'). Gate HEAVY ARMOUR
    COSTS A TILE 8/0. FOR TUNING: the armour's older breath cost (its weight off max fatigue, gearFat) still blocks 5 of 23 heavy
    two-handers for a sellsword in full plate; that is the part of 'never impossible to attack' that is a number, theirs.
+8. THE KILL CAMS SWITCH (rule 379, ask line 408): slices/bohemia_killcams.js, KILL CAMS ON / OFF under FIGHTS on the gear's card,
+   localStorage 'bohemia.killcams.v1' ('on' or nothing = OFF, the default); the fight's killCamsOn reads it at every kill. Gate THE
+   KILL CAMS K7. NEXT, behind the switch: the rework (the CSS scale of the whole glass smears the 112 px art; draw the close-up at the
+   art's own pixel size like the loading screen's camera feeds; the tags stepping aside), a before/after card, OFF until he says good.
 THE SUITE: COMBAT 7's six gates are now rows in gates/bohemia_gates.py (they were run by hand before; COMBAT 6's AUTO PLAYS THE BEST
 TURN and CLIMB OR ATTACK still are not rows: both green on this tree, add them when you next touch them).
 VOTE cards: combat-7-auto-never-leaves-a-man, -retreat-is-a-run, -the-enemy-wants-to-live, -the-kill-cams (with sound), -the-decoy,
