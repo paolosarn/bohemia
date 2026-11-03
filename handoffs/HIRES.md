@@ -9,6 +9,7 @@ WHAT IS LIVE AT EVERY TOWN'S, FORTRESS'S AND CAMP'S POST (the hall), the demo an
   adventurous noble, witch hunter, nomad, barbarian, king's guard, oathtaker, raider) in the valley's 2050 skins. ELEVEN fight with
   a melee weapon in hand (351(a) amended: 'all the rare guys I saw were ranged only'; the cause was the card, which always drew the
   pistol riding in his bag: now a melee man's card shows HIS weapon and he stands bare of the gun).
+  By the odds a slot deals them, melee is 79% at a camp, 80% at a town, 76% at a fortress (gate H1b, the coordinator's 11/3 leg).
 - EACH HIS OWN LOOK: one person of the valley each (records/hires/BOHEMIA_HIRES_THE_RARE_ROLL.json, hand-picked from CHARACTER's
   barber's book, built and rendered on the master rig by tools/bohemia_hires_the_rare_men.py through RUN TWO's people tool): his face
   and four mouths, eight stills, walk, fight sheet (slices/fight_rig/person_rare_<n>.webp), fight face, walk sheet; in the people mix

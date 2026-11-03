@@ -66,8 +66,12 @@ ok('H1 the file: ' + men.length + ' rare men (at least 12), each a real backgrou
 const GUNC = (OURS.gun_classes && OURS.gun_classes.value) || ['dagger', 'firearm', 'crossbow'];
 const isMelee = m => { const w = W.find(r => r.id === m.kit.main); return !!w && GUNC.indexOf(w['class']) < 0; };
 const melee = men.filter(isMelee);
-ok('*** H1b HALF OR MORE ARE MELEE ***: ' + melee.length + ' of ' + men.length + ' hold a melee weapon in hand (his pistol rides in the bag), every one with his perk',
-  melee.length * 2 >= men.length && melee.every(m => isW(m.kit.gun)), melee.map(m => m.kind).join(', '));
+/* and by the odds a slot deals them, at every kind of place (the coordinator's leg, 11/3: 'of the rare pool, melee is at least half') */
+const share = t => { const pool = men.filter(m => (m.tiers || RARE.tiers).indexOf(t) >= 0), w = pool.reduce((a, m) => a + (+m.weight || 1), 0);
+  return w ? pool.filter(isMelee).reduce((a, m) => a + (+m.weight || 1), 0) / w : 0; };
+const shares = ['camp', 'town', 'fortress'].map(t => [t, Math.round(100 * share(t))]);
+ok('*** H1b HALF OR MORE ARE MELEE ***: ' + melee.length + ' of ' + men.length + ' hold a melee weapon in hand (his pistol rides in the bag), every one with his perk; by the odds a slot deals them, melee is ' + shares.map(x => x[1] + '% at a ' + x[0]).join(', '),
+  melee.length * 2 >= men.length && melee.every(m => isW(m.kit.gun)) && shares.every(x => x[1] >= 50), melee.map(m => m.kind).join(', '));
 
 /* ---- H2 ---- */
 const looks = men.map(m => m.look), lookSet = new Set(looks);
