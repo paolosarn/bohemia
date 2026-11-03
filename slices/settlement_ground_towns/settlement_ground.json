@@ -1639,12 +1639,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -1798,12 +1800,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -3287,12 +3291,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -3446,12 +3452,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -5056,12 +5064,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -5215,12 +5225,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -6902,12 +6914,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -7061,12 +7075,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -8886,12 +8902,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true,
      "landmark_in_pad": [
       "church"
@@ -9048,12 +9066,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true,
      "landmark_in_pad": [
       "church"
@@ -10877,12 +10897,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -11026,12 +11048,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -12742,12 +12766,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -12891,12 +12917,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -14757,12 +14785,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -14906,12 +14936,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -16438,12 +16470,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -16597,12 +16631,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -18462,12 +18498,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -18621,12 +18659,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -20039,12 +20079,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -20198,12 +20240,14 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -21694,12 +21738,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -21853,12 +21899,14 @@
      ]
     },
     "zoom_max": 2.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -23491,12 +23539,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -23640,12 +23690,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }
@@ -25279,12 +25331,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    },
@@ -25428,12 +25482,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true,
+    "lot": false,
+    "night_drawn": "rendered",
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "own_ground": true,
+     "note": "rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town's own ground going on under the phone, no lot, no fade",
      "organic": true
     }
    }

@@ -23,6 +23,12 @@
      N4 <orientation> the arrival card's words clear of the phone
      N5 a tap answers nothing while no picture is drawn, and a failed picture is asked for again (read in the screen's
         source: a load cannot be made to fail on the demo without a network shim)
+     N6 <view> *** NO TAPE ROUND THE PHONE *** (Paolo 11/3, rule 356(g), ask line 376: 'what's up with the duct tape... you're duct
+        taping the phone to the town'): the town's empty LEAVE holder, a scrap of cardboard with a strip of tape that stood over the
+        phone's corner in every town, is not shown while the phone carries LEAVE
+     N7 *** THE PHONE'S GROUND IS THE TOWN'S OWN *** ('naturally a part of what the settlement would look like, no AI slop fade'):
+        every upright drawing's phone ground is the town's own ground going on under it (no lot painted in), its day and night
+        rendered, never feathered; the ground laid beside the phone on its side has one hard edge (source)
      Z  nothing threw
    node gates/nothing_tappable_under_the_phone_gate.js
    ========================================================================== */
@@ -69,7 +75,7 @@ async function run(profile) {
     let arriveDone = false;
     for (const side of ['right', 'left']) {
       await P.evaluate((s) => { try { BohemiaPhone.setSide(s); } catch (e) {} }, side); await P.waitForTimeout(400);
-      const view = tag + ', PHONE ' + side.toUpperCase(), own = [], badDoor = [], noFinger = [], badFolk = [], missing = [];
+      const view = tag + ', PHONE ' + side.toUpperCase(), own = [], badDoor = [], noFinger = [], badFolk = [], missing = [], taped = [];
       for (const w of names) {
         const sf = await openTown(P, fr, w); if (!sf) { missing.push(w); continue; }
         if (!arriveDone) {   /* N4: the arrival card, once an orientation */
@@ -84,11 +90,13 @@ async function run(profile) {
         if (!new RegExp('^' + w.toLowerCase() + '(_tall(_left|_right)?)?\\.webp$').test(m.drawn || '')) own.push(w + ' draws ' + m.drawn);
         m.doors.forEach(x => { if (x.under) badDoor.push(w + ' ' + x.k); if (!x.finger) noFinger.push(w + ' ' + x.k); });
         m.folk.forEach(x => { if (x.under || !x.on) badFolk.push(w + ' ' + x.who + (x.under ? ' under' : ' off the glass')); });
+        if (await sf.evaluate(() => { const b = document.getElementById('bmcorner'); if (!b) return false; const r = b.getBoundingClientRect(); return getComputedStyle(b).display !== 'none' && r.width > 0; })) taped.push(w);
         await leaveTown(P);
       }
       ok('N1 ' + view + ': *** EVERY TOWN DRAWS ITS OWN PICTURE *** (' + (names.length - own.length - missing.length) + ' of ' + names.length + ')', names.length >= 14 && !own.length && !missing.length, own.concat(missing.map(x => x + ' never opened')).slice(0, 4).join('; ') || 'all');
       ok('N2 ' + view + ': *** NO BUILDING\'S TAP UNDER THE PHONE *** and a finger of every one on the glass', !badDoor.length && !noFinger.length && !missing.length, badDoor.map(x => x + ' under').concat(noFinger.map(x => x + ' no finger on the glass')).slice(0, 6).join(', ') || 'every building in every town');
       ok('N3 ' + view + ': *** NOBODY YOU CAN TAP UNDER THE PHONE *** (keepers, the post, the crowd, your crew)', !badFolk.length && !missing.length, badFolk.slice(0, 6).join(', ') || 'everybody in every town');
+      ok('N6 ' + view + ': *** NO TAPE ROUND THE PHONE *** (the empty LEAVE holder and its tape not shown)', !taped.length && !missing.length, taped.slice(0, 6).join(', ') || 'no town');
     }
   } catch (e) { ok(tag + ' legs ran [' + String(e.stack || e.message).slice(0, 300) + ']', false); }
   return d;
@@ -99,6 +107,13 @@ async function run(profile) {
   const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
   ok('N5 a tap answers nothing while no picture is drawn, and a failed picture is asked for again, then the tier\'s drawn',
     /if\(!S\.camp && !picIn\(\)\) return;/.test(src) && /im\.onerror = function\(\)\{ im\._tries\+\+; if\(im\._tries <= 2\)/.test(src) && /function townImDead\(url\)/.test(src));
+  /* N7: the drawings' own record (COOK's and the four layouts' data) and the screen's pad */
+  const TW = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/settlement_ground_towns/settlement_ground.json'), 'utf8')).towns;
+  const notOwn = []; Object.keys(TW).forEach(n => ['tall_left', 'tall_right'].forEach(sh => { const c = TW[n][sh]; const g = c && c.phone_ground;
+    if (!c || c.lot || (g && !g.own_ground) || (c.night_src || '') === (c.src || '') || c.night_drawn !== 'rendered') notOwn.push(n + ' ' + sh); }));
+  const padSrc = (src.match(/function padDraw\(im\)\{[\s\S]*?\n\}/) || [''])[0];
+  ok('N7 *** THE PHONE\'S GROUND IS THE TOWN\'S OWN ***: every upright drawing\'s phone ground the town\'s own (no lot), day and night drawn; the side strip one hard edge (' + (Object.keys(TW).length * 2 - notOwn.length) + ' of ' + Object.keys(TW).length * 2 + ' drawings)',
+    Object.keys(TW).length >= 14 && !notOwn.length && !!padSrc && !/globalAlpha/.test(padSrc) && !/roundRect/.test(padSrc), notOwn.slice(0, 6).join(', ') || 'all');
   for (const profile of ['phone_portrait', 'phone_landscape']) {
     const d = await run(profile);
     ok('Z ' + profile + ': nothing threw', d.errs.length === 0, d.errs.slice(0, 2).join(' | '));

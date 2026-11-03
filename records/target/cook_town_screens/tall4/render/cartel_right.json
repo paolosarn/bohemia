@@ -362,5 +362,7 @@
 "barrier"
 ],
 "taps_in_pad": [],
-"lot_cells": 2960640
+"lot_cells": 0,
+"moved": [],
+"landmark_in_pad": []
 }

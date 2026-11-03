@@ -193,7 +193,9 @@ def render(town, quick=False, day_only=False):
     g = V.plan(town, rnd)
     import numpy as np                                  # the ground goes on south past the plan's 60 m: the plan mirrored, laid on south of it,
     g2 = np.flipud(g).copy()                            # so the seam is the same ground meeting itself
-    LOT[0] = organic_lot(town, g, g2, seed)             # Paolo 11/2 (ask line 253): the phone's corner is an old lot drawn into the ground
+    LOT[0] = organic_lot(town, g, g2, seed) if '--lot' in sys.argv else 0   # RUN TWO 11/3 (Paolo, rule 356(g), ask line 376: 'get rid of the duct tape... naturally a part of
+    # what the settlement would look like, no AI slop fade transition'): no lot any more; the phone's corner is the town's own ground
+    # going on under it (its dirt, slab or street as the plan lays it), the things cleared, nothing painted on top. --lot draws the old one.
     objs, gg = F.build(bpy, g, 2020 + seed, quick)
     objs2, _ = F.build(bpy, g2, 3030 + seed, True)
     SIDE_M = float(getattr(NF.F, 'SIDE', 60.0))
@@ -298,7 +300,8 @@ def ship(towns_, sides):
             if not os.path.exists(jp): print('  not shipped (no render)', key); continue
             meta = json.load(open(jp))
             src = s + '_tall_' + sd + '.webp'; nsrc = s + '_tall_' + sd + '_night.webp'
-            if not os.path.exists(os.path.join(rd, key + '_night.png')): night_from(town, sd, rd, key)
+            night_rendered = os.path.exists(os.path.join(rd, key + '_night.png'))   # RUN TWO 11/3 (rule 356(g), 'no fade'): a rendered night, or COOK's night feathered in
+            if not night_rendered: night_from(town, sd, rd, key)
             have_night = os.path.exists(os.path.join(rd, key + '_night.png'))
             for suf, out in (('', src), ('_night', nsrc)):
                 p = os.path.join(rd, key + suf + '.png')
@@ -308,8 +311,8 @@ def ship(towns_, sides):
             hot, boxes = T.taps_tall(town, meta)
             e = man['towns'].setdefault(town['name'], {})
             e['tall_' + sd] = dict(src=src, night_src=nsrc if have_night else src, px=[T.TW, T.TH + EXT], hotspots=hot, boxes=boxes,
-                                   doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']], lot=bool(meta.get('lot_cells')),   # ask line 253: the old lot is drawn into this town's ground (the plan's corner and the ground south of it)
-                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town', 'organic': True, **({'landmark_in_pad': meta['landmark_in_pad']} if meta.get('landmark_in_pad') else {})}}))
+                                   doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']], lot=bool(meta.get('lot_cells')), night_drawn='rendered' if night_rendered else 'feathered from COOK\'s night',   # ask line 253: the old lot is drawn into this town's ground (the plan's corner and the ground south of it)
+                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'own_ground': not meta.get('lot_cells'), 'note': ('rule 292, 356(g), ask line 376 (11/3): below top, within width of the phone side, the ground only: the town\'s own ground going on under the phone, no lot, no fade' if not meta.get('lot_cells') else 'rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town'), 'organic': True, **({'landmark_in_pad': meta['landmark_in_pad']} if meta.get('landmark_in_pad') else {})}}))
             if meta.get('taps_in_pad'): print('  NOTE', key, 'keeps', meta['taps_in_pad'], 'in the corner: shipped without the phone ground (the screen lifts it clear)', flush=True)
             bl = sorted({tuple(o['box']) for o in meta['outlines']})
             for out in (src, nsrc): walk['pictures'][out] = {'blocks': [list(b) for b in bl]}

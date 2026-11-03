@@ -56,6 +56,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #leave{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);
   border-radius:6px;font:inherit;font-weight:700}
 #scene{position:relative;flex:1;min-height:0;overflow:hidden;background:#0b0907}
+/* __NO_TAPE_ROUND_THE_PHONE__ (RUN TWO 11/3, rule 356(g), ask line 376, Paolo: 'what's up with the duct tape... you're duct taping the phone to the town'): with the phone up LEAVE is the phone's (bohemia_phone.js hides the town's #leave), and its empty holder #bmcorner (UI's, a scrap of cardboard with a strip of tape on it) was left standing over the phone's corner in every town and the camp: it goes with its LEAVE */
+html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 #cv{position:absolute;left:0;top:0;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none}   /* EYES [eyes: the town will not slide] (rule 150): the finger is the pan's, never the browser's (it cancelled the pointer after one move: a 280 px swipe moved the town 17 px) */
 .hot{position:absolute;border:1px dashed rgba(217,168,90,0);border-radius:3px;background:transparent;padding:0;
   min-width:44px;min-height:44px;cursor:pointer}
@@ -3003,10 +3005,9 @@ function padGround(im){
   return PADG.pat || PADG.fill;
 }
 function padDraw(im){
-  var P = FIT.pad; if(!P) return; var fillS = padGround(im) || PADG.fill, r = P.r, F = 18;
-  cx.save(); cx.fillStyle = fillS;
-  for(var k = 6; k >= 0; k--){ var e = F*k/6; cx.globalAlpha = k === 0 ? 1 : .2; var x0 = r[0] - e, y0 = r[1] - e, x1 = r[2] + e, y1 = r[3] + e, rad = 18 + e;
-    cx.beginPath(); if(cx.roundRect) cx.roundRect(x0, y0, x1 - x0, y1 - y0, rad); else cx.rect(x0, y0, x1 - x0, y1 - y0); cx.fill(); }
+  var P = FIT.pad; if(!P) return; var fillS = padGround(im) || PADG.fill, r = P.r;
+  /* __NO_TAPE_ROUND_THE_PHONE__ (rule 356(g), 'no AI slop fade transition'): the town's own ground, one hard edge (was six soft rings 18 px out over the picture) */
+  cx.save(); cx.fillStyle = fillS; cx.beginPath(); cx.rect(r[0], r[1], r[2] - r[0], r[3] - r[1]); cx.fill();
   cx.restore();
 }
 function draw(){
@@ -3039,10 +3040,11 @@ function draw(){
   try{ drawSigns(s); }catch(e){}   /* the post and the bar name themselves in pictures (TUNING's change 7, round 2), hung over their heads */
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   }
-  var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
-  cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
-  var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
-  cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe);
+  var fe = 18;   /* __NO_TAPE_ROUND_THE_PHONE__ (rule 356(g), 'no AI slop fade'): a picture that covers the glass has no edge on it, so no fade; measured 11/3, upright the bottom fade darkened the last 8 points of the glass under the phone */
+  if(view.oy > 0.5){ var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
+  cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe); }
+  if(view.oy + picH()*s < H - 0.5){ var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
+  cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe); }
   if(view.ox > 0 && !(FIT.pad && FIT.pad.col)){   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town on a wide glass fades out at its sides too */
     var gl = cx.createLinearGradient(view.ox, 0, view.ox+fe, 0); gl.addColorStop(0,'rgba(14,10,7,.8)'); gl.addColorStop(1,'rgba(14,10,7,0)'); cx.fillStyle = gl; cx.fillRect(view.ox, view.oy, fe, picH()*s);
     var gr = cx.createLinearGradient(view.ox+picW()*s-fe, 0, view.ox+picW()*s, 0); gr.addColorStop(0,'rgba(14,10,7,0)'); gr.addColorStop(1,'rgba(14,10,7,.8)'); cx.fillStyle = gr; cx.fillRect(view.ox+picW()*s-fe, view.oy, fe, picH()*s); }
