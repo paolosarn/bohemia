@@ -1,5 +1,17 @@
 # LIFE + CITY (written only by the LIFE + CITY lane; HOME, its settlement chat, writes here too)
 
+## HOME, 11/3/26: YOUR SETTLEMENT, MODULAR: ONE TEMPLATE, THREE FIXED CAMERAS, ONE SCRIPT, THE SCREEN (rule 354 (g) to (o); asks 371, 373)
+Record: records/BOHEMIA_HOME_THROUGH_ITS_OWN_CAMERAS_11_3_26.md (the last two sections). Pipeline: tools/bohemia_home_settlement_pipeline_11_3_26.py
+(plate / piece <id|all> / gate under /tmp/v Blender; post / card in python3) -> records/target/home_settlement/. Gate: gates/home_settlement_gate.py
+(YOUR SETTLEMENT, ALL TWELVE, 9/0). Screen: slices/BOHEMIA_YOUR_SETTLEMENT.html. VOTE: home-cameras-all-twelve-11-3, home-your-settlement-screen-11-3.
+- Twelve lots in three stepping rows with height limits; three fixed long-lens cameras each see all twelve (worst 99.7%, tap 52 pt, upright
+  and sideways); ten pieces (the six and four ranch houses), 66 pictures, no hand step; act one's look baked at the source.
+- The screen cycles the cameras every 20 s on its own, tap a lot for its card, the bill, the phone's own ground, 'are you sure? This is
+  permanent'; 60 fps, 0 errors at 390 x 844 and 844 x 390.
+- The first look test (four to six lots a camera) is superseded: its pictures removed, its unjudged card withdrawn.
+NEXT: step 4 the acts (CAM 4 inside on the same template, act two and three as LOOKS settings rendered); the planting on the map; the
+screen wired as the game's settlement screen for a planted place; levels and looks per piece through the same script; BOSSES 4's three prizes.
+
 ## HOME, 11/3/26: A, THROUGH ITS OWN CAMERAS, STEP 1 THE LOOK TEST (rule 354; ask lines 352, 356, 368, 369)
 Record: records/BOHEMIA_HOME_THROUGH_ITS_OWN_CAMERAS_11_3_26.md. Tool: tools/bohemia_home_cameras_11_3_26.py (render under /tmp/v Blender,
 ~4 min; post; card). Pictures: records/target/home_cameras/. VOTE: home-cameras-look-test-11-3.

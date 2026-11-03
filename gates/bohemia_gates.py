@@ -9899,6 +9899,13 @@ GATES = [
      "named, his fight through the one door as the man himself with his crew and his board, won (AUTO, or the checker says it ended "
      "it), he falls and his place changes, his verb on the phone's band where it works on the grid, a real tap uses it and it did what "
      "it says (blood back, batteries, wound days). green at registration, 19/0, about 10 min", True),
+    ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
+     "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
+     "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "
+     "reads what the one pipeline wrote (records/target/home_settlement/): the three fixed cameras and nothing outside them, every piece's "
+     "every state from every camera made by the script (no hand step), no piece taller than its row, and twelve of twelve lots in every "
+     "camera upright and sideways with every lot at its tallest (60% seen, a 44-point tap box), recomputed from the flat pictures; it fails "
+     "a planted fourth camera, a planted picture and a wall painted over a lot. green at registration, 9/0, a second", True),
     ('THE FIGHT OPENS THE FIGHT', ['node', 'gates/the_fight_opens_the_fight_gate.js'],
      "PLUMBER gate, 11/2, ask line 309 (Paolo 11/2: 'I was supposed to get into combat, and then it took me to the crew screen'): "
      "on the demo at phone size, the stranger's game, a fight started every way the game starts one (the town, FALL BACK, the road, "

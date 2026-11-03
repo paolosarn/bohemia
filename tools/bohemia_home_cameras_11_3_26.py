@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """BOHEMIA -- HOME, YOUR SETTLEMENT THROUGH ITS OWN CAMERAS: THE LOOK TEST (rule 354, ask lines 368 and 369; 11/3/26).
+SUPERSEDED THE SAME ROUND by tools/bohemia_home_settlement_pipeline_11_3_26.py (rule 354 (g) to (o): every camera sees all twelve lots,
+the cameras cycle on their own, one lot template, three fixed cameras, one script). Kept as the first try; its pictures are removed.
 Paolo 11/3: 'it was always going to be A... like the loading screens how it's giving like security camera footage and like the camera
 upgrades over the ages... PS1 security camera footage of our settlement vibes... a little more intimate for when it's our shit... the
 rest of the city can be how it is... it works the exact same way'.

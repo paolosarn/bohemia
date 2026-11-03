@@ -1,0 +1,1600 @@
+{
+ "about": "YOUR SETTLEMENT, every picture by tools/bohemia_home_settlement_pipeline_11_3_26.py (rule 354 (k) to (o)): the lot template, the fixed cameras, the plates and the pieces. A picture is a SQ x SQ square per camera; the upright and sideways shapes are its crops. A piece is drawn on a lot by putting its anchor on the lot's anchor (both on the four-pixel grid); pieces are drawn back row first.",
+ "by": "tools/bohemia_home_settlement_pipeline_11_3_26.py",
+ "look": "act1",
+ "look_note": "a dying system: PS1 size, the render grain, mono CCTV tape, 32 levels",
+ "sq": 320,
+ "crop": {
+  "tall": [
+   72,
+   0,
+   252,
+   320
+  ],
+  "wide": [
+   0,
+   72,
+   320,
+   252
+  ]
+ },
+ "cams": {
+  "1": {
+   "name": "CAM 1 THE GATE",
+   "az": -16.0,
+   "el": 52.0
+  },
+  "2": {
+   "name": "CAM 2 THE POLE",
+   "az": 0.0,
+   "el": 60.0
+  },
+  "3": {
+   "name": "CAM 3 THE ROOF ACROSS",
+   "az": 16.0,
+   "el": 48.0
+  }
+ },
+ "cams_hash": "72e8f47e1738",
+ "ortho_m": 98.0,
+ "rows": {
+  "front": {
+   "y0": 6.0,
+   "z": 0.0,
+   "hmax": 2.6
+  },
+  "middle": {
+   "y0": 18.0,
+   "z": 0.9,
+   "hmax": 3.8
+  },
+  "back": {
+   "y0": 30.0,
+   "z": 1.8,
+   "hmax": 8.0
+  }
+ },
+ "lots": [
+  {
+   "n": 1,
+   "row": "front",
+   "box_m": [
+    1.0,
+    6.0,
+    12.0,
+    16.0
+   ],
+   "z": 0.0,
+   "hmax": 2.6
+  },
+  {
+   "n": 2,
+   "row": "front",
+   "box_m": [
+    13.0,
+    6.0,
+    24.0,
+    16.0
+   ],
+   "z": 0.0,
+   "hmax": 2.6
+  },
+  {
+   "n": 3,
+   "row": "front",
+   "box_m": [
+    25.0,
+    6.0,
+    36.0,
+    16.0
+   ],
+   "z": 0.0,
+   "hmax": 2.6
+  },
+  {
+   "n": 4,
+   "row": "front",
+   "box_m": [
+    37.0,
+    6.0,
+    48.0,
+    16.0
+   ],
+   "z": 0.0,
+   "hmax": 2.6
+  },
+  {
+   "n": 5,
+   "row": "middle",
+   "box_m": [
+    1.0,
+    18.0,
+    12.0,
+    28.0
+   ],
+   "z": 0.9,
+   "hmax": 3.8
+  },
+  {
+   "n": 6,
+   "row": "middle",
+   "box_m": [
+    13.0,
+    18.0,
+    24.0,
+    28.0
+   ],
+   "z": 0.9,
+   "hmax": 3.8
+  },
+  {
+   "n": 7,
+   "row": "middle",
+   "box_m": [
+    25.0,
+    18.0,
+    36.0,
+    28.0
+   ],
+   "z": 0.9,
+   "hmax": 3.8
+  },
+  {
+   "n": 8,
+   "row": "middle",
+   "box_m": [
+    37.0,
+    18.0,
+    48.0,
+    28.0
+   ],
+   "z": 0.9,
+   "hmax": 3.8
+  },
+  {
+   "n": 9,
+   "row": "back",
+   "box_m": [
+    1.0,
+    30.0,
+    12.0,
+    40.0
+   ],
+   "z": 1.8,
+   "hmax": 8.0
+  },
+  {
+   "n": 10,
+   "row": "back",
+   "box_m": [
+    13.0,
+    30.0,
+    24.0,
+    40.0
+   ],
+   "z": 1.8,
+   "hmax": 8.0
+  },
+  {
+   "n": 11,
+   "row": "back",
+   "box_m": [
+    25.0,
+    30.0,
+    36.0,
+    40.0
+   ],
+   "z": 1.8,
+   "hmax": 8.0
+  },
+  {
+   "n": 12,
+   "row": "back",
+   "box_m": [
+    37.0,
+    30.0,
+    48.0,
+    40.0
+   ],
+   "z": 1.8,
+   "hmax": 8.0
+  }
+ ],
+ "plates": {
+  "block": {
+   "anchors": {
+    "1": {
+     "1": [
+      92,
+      180
+     ],
+     "2": [
+      132,
+      188
+     ],
+     "3": [
+      168,
+      196
+     ],
+     "4": [
+      204,
+      204
+     ],
+     "5": [
+      104,
+      148
+     ],
+     "6": [
+      140,
+      156
+     ],
+     "7": [
+      180,
+      164
+     ],
+     "8": [
+      216,
+      172
+     ],
+     "9": [
+      116,
+      116
+     ],
+     "10": [
+      152,
+      124
+     ],
+     "11": [
+      188,
+      132
+     ],
+     "12": [
+      228,
+      140
+     ]
+    },
+    "2": {
+     "1": [
+      100,
+      196
+     ],
+     "2": [
+      140,
+      196
+     ],
+     "3": [
+      180,
+      196
+     ],
+     "4": [
+      220,
+      196
+     ],
+     "5": [
+      100,
+      160
+     ],
+     "6": [
+      140,
+      160
+     ],
+     "7": [
+      180,
+      160
+     ],
+     "8": [
+      220,
+      160
+     ],
+     "9": [
+      100,
+      124
+     ],
+     "10": [
+      140,
+      124
+     ],
+     "11": [
+      180,
+      124
+     ],
+     "12": [
+      220,
+      124
+     ]
+    },
+    "3": {
+     "1": [
+      116,
+      204
+     ],
+     "2": [
+      152,
+      196
+     ],
+     "3": [
+      188,
+      188
+     ],
+     "4": [
+      228,
+      180
+     ],
+     "5": [
+      104,
+      172
+     ],
+     "6": [
+      140,
+      164
+     ],
+     "7": [
+      180,
+      156
+     ],
+     "8": [
+      216,
+      148
+     ],
+     "9": [
+      92,
+      144
+     ],
+     "10": [
+      132,
+      136
+     ],
+     "11": [
+      168,
+      128
+     ],
+     "12": [
+      204,
+      120
+     ]
+    }
+   },
+   "frames": 3,
+   "cams": "72e8f47e1738"
+  }
+ },
+ "pieces": {
+  "garden_bed": {
+   "row": "middle",
+   "src": "pieces:garden_bed",
+   "states": {
+    "built": {
+     "size_m": [
+      5.26,
+      4.76,
+      1.7
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "garden_bed_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "garden_bed_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "garden_bed_built_cam3_0.png"
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      5.26,
+      4.76,
+      1.7
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "garden_bed_working_cam1_0.png",
+        "garden_bed_working_cam1_1.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "garden_bed_working_cam2_0.png",
+        "garden_bed_working_cam2_1.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "garden_bed_working_cam3_0.png",
+        "garden_bed_working_cam3_1.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "house_carport": {
+   "row": "back",
+   "src": "bld:ranch_carport",
+   "states": {
+    "built": {
+     "size_m": [
+      9.8,
+      9.69,
+      3.68
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        20,
+        24
+       ],
+       "pictures": [
+        "house_carport_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        20,
+        20
+       ],
+       "pictures": [
+        "house_carport_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        24,
+        20
+       ],
+       "pictures": [
+        "house_carport_built_cam3_0.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "house_garage": {
+   "row": "back",
+   "src": "bld:ranch_garage",
+   "states": {
+    "built": {
+     "size_m": [
+      10.4,
+      7.63,
+      2.9
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        20,
+        20
+       ],
+       "pictures": [
+        "house_garage_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        20,
+        16
+       ],
+       "pictures": [
+        "house_garage_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        24,
+        16
+       ],
+       "pictures": [
+        "house_garage_built_cam3_0.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "house_plain": {
+   "row": "back",
+   "src": "bld:ranch_plain",
+   "states": {
+    "built": {
+     "size_m": [
+      10.4,
+      8.51,
+      4.85
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        24,
+        24
+       ],
+       "pictures": [
+        "house_plain_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        24,
+        20
+       ],
+       "pictures": [
+        "house_plain_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        24,
+        24
+       ],
+       "pictures": [
+        "house_plain_built_cam3_0.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "house_wing": {
+   "row": "back",
+   "src": "bld:ranch_wing",
+   "states": {
+    "built": {
+     "size_m": [
+      10.4,
+      8.59,
+      3.7
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        20,
+        20
+       ],
+       "pictures": [
+        "house_wing_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        24,
+        20
+       ],
+       "pictures": [
+        "house_wing_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        24,
+        20
+       ],
+       "pictures": [
+        "house_wing_built_cam3_0.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "kitchen": {
+   "row": "back",
+   "src": "pieces:kitchen",
+   "states": {
+    "built": {
+     "size_m": [
+      4.9,
+      3.8,
+      3.6
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        16
+       ],
+       "pictures": [
+        "kitchen_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "kitchen_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "kitchen_built_cam3_0.png"
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      4.9,
+      3.8,
+      4.99
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "kitchen_working_cam1_0.png",
+        "kitchen_working_cam1_1.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "kitchen_working_cam2_0.png",
+        "kitchen_working_cam2_1.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "kitchen_working_cam3_0.png",
+        "kitchen_working_cam3_1.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "main": {
+   "row": "front",
+   "src": "pieces:main",
+   "states": {
+    "built": {
+     "size_m": [
+      3.15,
+      4.2,
+      1.3
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        8,
+        8
+       ],
+       "pictures": [
+        "main_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        8,
+        8
+       ],
+       "pictures": [
+        "main_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        8,
+        8
+       ],
+       "pictures": [
+        "main_built_cam3_0.png"
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      3.25,
+      4.4,
+      1.3
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        8,
+        8
+       ],
+       "pictures": [
+        "main_working_cam1_0.png",
+        "main_working_cam1_1.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        8,
+        8
+       ],
+       "pictures": [
+        "main_working_cam2_0.png",
+        "main_working_cam2_1.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "main_working_cam3_0.png",
+        "main_working_cam3_1.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "purifier": {
+   "row": "front",
+   "src": "pieces:purifier",
+   "states": {
+    "built": {
+     "size_m": [
+      5.2,
+      3.4,
+      1.91
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "purifier_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "purifier_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "purifier_built_cam3_0.png"
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      5.2,
+      3.4,
+      1.91
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "purifier_working_cam1_0.png",
+        "purifier_working_cam1_1.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "purifier_working_cam2_0.png",
+        "purifier_working_cam2_1.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "purifier_working_cam3_0.png",
+        "purifier_working_cam3_1.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "solar_panel": {
+   "row": "middle",
+   "src": "pieces:solar_panel",
+   "states": {
+    "built": {
+     "size_m": [
+      5.94,
+      2.92,
+      3.2
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "solar_panel_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "solar_panel_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "solar_panel_built_cam3_0.png"
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      6.07,
+      2.86,
+      3.2
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        16,
+        12
+       ],
+       "pictures": [
+        "solar_panel_working_cam1_0.png",
+        "solar_panel_working_cam1_1.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        8
+       ],
+       "pictures": [
+        "solar_panel_working_cam2_0.png",
+        "solar_panel_working_cam2_1.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "solar_panel_working_cam3_0.png",
+        "solar_panel_working_cam3_1.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  },
+  "water_tank": {
+   "row": "middle",
+   "src": "pieces:water_tank",
+   "states": {
+    "built": {
+     "size_m": [
+      5.05,
+      3.45,
+      2.46
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "water_tank_built_cam1_0.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "water_tank_built_cam2_0.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "water_tank_built_cam3_0.png"
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      5.31,
+      3.45,
+      2.46
+     ],
+     "cams": {
+      "1": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "water_tank_working_cam1_0.png",
+        "water_tank_working_cam1_1.png"
+       ]
+      },
+      "2": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "water_tank_working_cam2_0.png",
+        "water_tank_working_cam2_1.png"
+       ]
+      },
+      "3": {
+       "anchor": [
+        12,
+        12
+       ],
+       "pictures": [
+        "water_tank_working_cam3_0.png",
+        "water_tank_working_cam3_1.png"
+       ]
+      }
+     }
+    }
+   },
+   "cams": "72e8f47e1738"
+  }
+ },
+ "default": {
+  "1": [
+   "main",
+   "working"
+  ],
+  "2": [
+   "purifier",
+   "working"
+  ],
+  "5": [
+   "garden_bed",
+   "working"
+  ],
+  "6": [
+   "water_tank",
+   "built"
+  ],
+  "7": [
+   "solar_panel",
+   "working"
+  ],
+  "9": [
+   "kitchen",
+   "working"
+  ],
+  "10": [
+   "house_plain",
+   "built"
+  ],
+  "11": [
+   "house_wing",
+   "built"
+  ],
+  "12": [
+   "house_carport",
+   "built"
+  ]
+ },
+ "gate": {
+  "lots": {
+   "1_tall": {
+    "1": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "2": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "3": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "4": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "5": {
+     "seen": 1.0,
+     "tap_pt": 58.5
+    },
+    "6": {
+     "seen": 1.0,
+     "tap_pt": 58.5
+    },
+    "7": {
+     "seen": 1.0,
+     "tap_pt": 58.5
+    },
+    "8": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "9": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "10": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "11": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "12": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    }
+   },
+   "1_wide": {
+    "1": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "2": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "3": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "4": {
+     "seen": 1.0,
+     "tap_pt": 54.2
+    },
+    "5": {
+     "seen": 1.0,
+     "tap_pt": 58.5
+    },
+    "6": {
+     "seen": 1.0,
+     "tap_pt": 58.5
+    },
+    "7": {
+     "seen": 1.0,
+     "tap_pt": 58.5
+    },
+    "8": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "9": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "10": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "11": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "12": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    }
+   },
+   "2_tall": {
+    "1": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "2": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "3": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "4": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "5": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "6": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "7": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "8": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "9": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "10": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "11": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "12": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    }
+   },
+   "2_wide": {
+    "1": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "2": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "3": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "4": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "5": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "6": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "7": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "8": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "9": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "10": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "11": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    },
+    "12": {
+     "seen": 1.0,
+     "tap_pt": 67.2
+    }
+   },
+   "3_tall": {
+    "1": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "2": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "3": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "4": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "5": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "6": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "7": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "8": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "9": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "10": {
+     "seen": 0.997,
+     "tap_pt": 65.0
+    },
+    "11": {
+     "seen": 0.998,
+     "tap_pt": 65.0
+    },
+    "12": {
+     "seen": 0.997,
+     "tap_pt": 65.0
+    }
+   },
+   "3_wide": {
+    "1": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "2": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "3": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "4": {
+     "seen": 1.0,
+     "tap_pt": 52.0
+    },
+    "5": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "6": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "7": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "8": {
+     "seen": 1.0,
+     "tap_pt": 56.3
+    },
+    "9": {
+     "seen": 1.0,
+     "tap_pt": 65.0
+    },
+    "10": {
+     "seen": 0.997,
+     "tap_pt": 65.0
+    },
+    "11": {
+     "seen": 0.998,
+     "tap_pt": 65.0
+    },
+    "12": {
+     "seen": 0.997,
+     "tap_pt": 65.0
+    }
+   }
+  },
+  "summary": {
+   "cams": 3,
+   "lots_each": 12,
+   "worst_seen": 0.997,
+   "worst_tap_pt": 52.0,
+   "pass_": true
+  }
+ },
+ "tap_px": {
+  "1": {
+   "1": [
+    71,
+    161,
+    114,
+    195
+   ],
+   "2": [
+    109,
+    169,
+    152,
+    204
+   ],
+   "3": [
+    146,
+    178,
+    190,
+    213
+   ],
+   "4": [
+    184,
+    186,
+    227,
+    221
+   ],
+   "5": [
+    82,
+    127,
+    125,
+    164
+   ],
+   "6": [
+    119,
+    135,
+    163,
+    173
+   ],
+   "7": [
+    157,
+    144,
+    201,
+    181
+   ],
+   "8": [
+    195,
+    152,
+    238,
+    189
+   ],
+   "9": [
+    93,
+    87,
+    136,
+    132
+   ],
+   "10": [
+    130,
+    95,
+    174,
+    141
+   ],
+   "11": [
+    168,
+    104,
+    211,
+    149
+   ],
+   "12": [
+    206,
+    112,
+    249,
+    158
+   ]
+  },
+  "2": {
+   "1": [
+    83,
+    180,
+    119,
+    210
+   ],
+   "2": [
+    122,
+    180,
+    158,
+    210
+   ],
+   "3": [
+    162,
+    180,
+    198,
+    210
+   ],
+   "4": [
+    201,
+    180,
+    237,
+    210
+   ],
+   "5": [
+    83,
+    142,
+    119,
+    175
+   ],
+   "6": [
+    122,
+    142,
+    158,
+    175
+   ],
+   "7": [
+    162,
+    142,
+    198,
+    175
+   ],
+   "8": [
+    201,
+    142,
+    237,
+    175
+   ],
+   "9": [
+    83,
+    100,
+    119,
+    139
+   ],
+   "10": [
+    122,
+    100,
+    158,
+    139
+   ],
+   "11": [
+    162,
+    100,
+    198,
+    139
+   ],
+   "12": [
+    201,
+    100,
+    237,
+    139
+   ]
+  },
+  "3": {
+   "1": [
+    93,
+    184,
+    136,
+    218
+   ],
+   "2": [
+    130,
+    176,
+    174,
+    210
+   ],
+   "3": [
+    168,
+    168,
+    211,
+    202
+   ],
+   "4": [
+    206,
+    160,
+    249,
+    194
+   ],
+   "5": [
+    82,
+    152,
+    125,
+    188
+   ],
+   "6": [
+    120,
+    144,
+    163,
+    180
+   ],
+   "7": [
+    157,
+    135,
+    201,
+    172
+   ],
+   "8": [
+    195,
+    127,
+    238,
+    164
+   ],
+   "9": [
+    71,
+    112,
+    114,
+    158
+   ],
+   "10": [
+    109,
+    104,
+    152,
+    150
+   ],
+   "11": [
+    147,
+    96,
+    190,
+    142
+   ],
+   "12": [
+    184,
+    88,
+    227,
+    134
+   ]
+  }
+ }
+}
