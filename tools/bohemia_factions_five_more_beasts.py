@@ -302,8 +302,13 @@ def pack():
                     a[near & ~op] = WR.RIM
                     sheet.paste(Image.fromarray(a, 'RGBA'), (col * w, row * h)); col += 1
         a = np.asarray(sheet)
-        q = Image.fromarray(a[..., :3]).quantize(WR.SHEET_COLOURS, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
-        sheet = Image.fromarray(np.dstack([np.asarray(q), a[..., 3]]), 'RGBA')
+        # THE LAB MARK KEEPS ITS COLOUR (BEASTS 2 11/3, rule 345 amended (d)): the hi-vis plate's pixels (green over red, far over blue:
+        # no coat is that) get a palette entry of their own, so 64 colours never merge the mark into the fur
+        f = a[..., :3].astype(np.float32); mark = (a[..., 3] > 0) & (f[..., 1] > f[..., 0] * 1.05) & (f[..., 1] > f[..., 2] * 1.8) & (f[..., 1] > 70)
+        n_res = 1 if mark.sum() >= 4 else 0
+        q = np.asarray(Image.fromarray(a[..., :3]).quantize(WR.SHEET_COLOURS - n_res, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')).copy()
+        if n_res: q[mark] = f[mark].mean(0).round().astype(np.uint8)
+        sheet = Image.fromarray(np.dstack([q, a[..., 3]]), 'RGBA')
         file = look + '.webp'
         sheet.save(os.path.join(ROOT, OUT, file), 'WEBP', lossless=True, quality=100, method=6)
         index['looks'][look] = dict(file=file, w=w, h=h, foot=[r['ground_px'][0] + 1, r['ground_px'][1] + 1], height_m=r['real_dims_m'][2],

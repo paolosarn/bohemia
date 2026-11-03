@@ -70,7 +70,7 @@ BEASTS = {
         tail=(0.95, (0.05, 0.03, 0.022), (78, 88, 90)), tuft=(0.20, 0.055),
         horns=dict(out=0.30, fwd=0.14, up=0.22, r=0.07, n=10),
         crest=((0, -0.62, 1.42), (0.22, 0.34, 0.15)), dewlap=((0, -0.86, 0.80), (0.07, 0.30, 0.22)),
-        res=0.017, gait='trot', griz=0.035, attack='gore', real_note='1.48 m at the withers, 1.8 m body, about 2.9 m nose to switch'),
+        res=0.017, gait='trot', griz=0.035, attack='gore', farmtag=0.06, real_note='1.48 m at the withers, 1.8 m body, about 2.9 m nose to switch'),
     # CAMELOPS (Camelops hesternus, 'yesterday's camel', Tule Springs bone; about a fifth bigger than a dromedary: 2.1 to 2.3 m at
     # the shoulder, long thin legs with the knees high, a short body, the neck carried forward and DOWN then UP in a U, a long
     # heavy face held near level, small round ears, one hump (the dromedary surrogate's), the thighs joined to the body high,
@@ -104,7 +104,7 @@ BEASTS = {
         head=(0.44, 0.13, 0.10, 42, 0.52, 0.055), ears=(0.11, 0.05, 0.016, 25, 70), eyes=0.016,
         tail=(0.26, (0.025, 0.016, 0.012), (45, 70, 85)), tuft=(0.06, 0.02),
         crest=((0, -0.22, 0.82), (0.075, 0.36, 0.06)), snout=True, tusks=dict(len=0.09, r=0.016),
-        res=0.009, gait='trot', bob=1.2, attack='slash', real_note='0.84 m at the shoulder, 0.72 m at the rump, 1.6 m snout to tail root'),
+        res=0.009, gait='trot', bob=1.2, attack='slash', farmtag=0.07, tagboth=True, real_note='0.84 m at the shoulder, 0.72 m at the rump, 1.6 m snout to tail root'),
     # COYOTE (Canis latrans; the valley's own, 10 to 15 kg in the desert, 0.58 m at the shoulder, 1.0 to 1.3 m with the tail; lanky:
     # long thin legs, a narrow deep chest, a tucked waist, a NARROW pointed muzzle, BIG upright pointed ears, a bushy tail carried
     # LOW, hanging down behind the legs, never up like a dog's).
@@ -432,11 +432,11 @@ def build_body(name):
         tags(b, 'collar', poll, nk, a)
     if a.get('labmark'):
         labplate(b, a, nk)
-    for side in (1,):
+    for side in ((-1, 1) if a.get('tagboth') else (1,)):
         if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf', 'cave_hyena', 'short_faced_bear', 'ground_sloth', 'sabre_tooth', 'american_lion', 'ancient_bison'):
             et_ = b.marks[('ear', side)]
-            tg = 0.04 if a.get('bigtag') else (0.022 if wh > 1 else 0.014)
-            b.ell(et_ - upv * 0.01, (tg, tg, 0.014), 'tag', {B['head']: 1.0}, s=6.0)
+            tg = a.get('farmtag') or (0.04 if a.get('bigtag') else (0.022 if wh > 1 else 0.014))
+            b.ell(et_ - upv * 0.01 + (np.array([0, 0, tg * 0.6]) if a.get('farmtag') else 0), (tg, tg, 0.014 if not a.get('farmtag') else tg * 0.45), 'tag', {B['head']: 1.0}, s=6.0)
     if a.get('dogcollar'):
         p = nk[0] + (nk[-1] - nk[0]) * a['dogcollar']
         b.ell(p - np.array([0, 0, a['neck'][0][2] * 0.95]), (0.012, 0.012, 0.02), 'tag', {B['neck']: 1.0}, s=6.0)
@@ -471,7 +471,13 @@ def labplate(b, a, nk):
     c = a.get('collar', 0.45); k = min(1.5, max(0.85, a['wh'] / 1.0))
     p = nk[0] + (nk[-1] - nk[0]) * c
     hd = a['neck'][0][2] + (a['neck'][-1][2] - a['neck'][0][2]) * c
-    top = p + np.array([0, 0, hd * 0.92])
+    # the plate sits ON the surface: march up from the neck's line until the body's field falls under the threshold (measured 11/3: a
+    # plate set at the neck's half-depth was buried under the bear's and the bison's humps and the sloth's shoulders, 0 pixels)
+    top = p.copy()
+    for _ in range(400):
+        if fields(b, top[None]).sum() < T_MB: break
+        top = top + np.array([0, 0, 0.005])
+    top = top - np.array([0, 0, 0.012 * k])
     b.ell(top, (0.075 * k, 0.065 * k, 0.03 * k), 'labplate', {B['neck']: 1.0}, s=6.0)
     b.marks['labplate'] = top; b.marks.setdefault('collar', p); b.marks['labk'] = k
 
@@ -779,7 +785,7 @@ def paint(name, b, P, N, PART, pix):
             out[hrn] = (C(0.84, 0.78, 0.64) * (1 - ht[hrn, None]) + C(0.22, 0.19, 0.16) * ht[hrn, None])
         put(isp('muzzle') & (nose_d < a['head'][5] * 1.25), C(0.60, 0.46, 0.42))
         put(eye_d < a['eyes'], C(0.09, 0.07, 0.06))
-        put(isp('tag'), C(0.86, 0.70, 0.13))
+        put(isp('tag'), C(0.80, 0.98, 0.16))   # the farm tag, lime like a real one (rule 359 (2))
         # old fight scars, healed pale on the shoulder (a range bull's own)
         for k in range(3):
             d, _ = seg_dist(P, np.array([0.30, -0.55 + 0.07 * k, 1.10 - 0.05 * k]), np.array([0.36, -0.40 + 0.08 * k, 0.86 - 0.04 * k]))
@@ -833,7 +839,7 @@ def paint(name, b, P, N, PART, pix):
         put(isp('tusk'), C(0.86, 0.81, 0.68))
         put(isp('hoof'), C(0.12, 0.10, 0.09))
         put(eye_d < a['eyes'], C(0.06, 0.05, 0.05))
-        put(isp('tag'), C(0.86, 0.70, 0.13))
+        put(isp('tag'), C(0.80, 0.98, 0.16))   # the farm tag, lime like a real one (rule 359 (2))
     elif name == 'coyote':
         BUFF, SADDLE, RUST, PALE = C(0.58, 0.48, 0.36), C(0.31, 0.28, 0.25), C(0.62, 0.40, 0.23), C(0.82, 0.77, 0.68)
         put(covered, BUFF)

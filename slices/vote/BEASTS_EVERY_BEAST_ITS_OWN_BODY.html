@@ -34,11 +34,11 @@ const BEASTS = [
   { id: 'feral_bull', name: 'FERAL BULL', tag: 'WAS A FOX WITH HORNS',
     now: 'A bull now: a deep heavy body on short thick legs, a level back, a hump of neck muscle, horns out and forward, the white face. 1.5 m at the shoulder, up to your man\'s chin.',
     moves: 'It trots heavy, the diagonal legs together. It charges with the head down so the horns face you, then hooks up.',
-    mark: 'A yellow farm tag in its ear. Old fight scars on the shoulder.' },
+    mark: 'A big lime farm tag in its ear: a range bull, not a lab one. Old fight scars on the shoulder.' },
   { id: 'camelops', name: 'CAMELOPS', tag: 'THE ICE AGE CAMEL',
     now: 'A camel now: 2.1 m at the shoulder, taller than your man. Long thin legs with dark knee pads, one hump, the neck dipping down then up.',
     moves: 'It paces: both legs on one side move together, the way camels really walk. It kicks back and out.',
-    mark: 'A shaved patch on its neck where the lab drew blood, stitched shut, and a lab tag in its ear.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, a shaved neck patch where the lab drew blood, stitched shut.' },
   { id: 'mountain_lion', name: 'MOUNTAIN LION', tag: 'A CAT, NOT A DOG',
     now: 'A cat now: long and low, the hips higher than the shoulders, thick legs and big paws, a small round head, a long thick tail that hangs and curls up at the dark tip.',
     moves: 'It walks low, stalking. It springs with both paws out and lands on you.',
@@ -46,7 +46,7 @@ const BEASTS = [
   { id: 'feral_hog', name: 'FERAL HOG', tag: 'A WEDGE ON SHORT LEGS',
     now: 'A boar now: big shoulders and no neck, the rump lower, a bristle ridge down the back, a long snout carried low, short thin legs on small hooves.',
     moves: 'It trots, then slashes up with the tusks, one side and the other.',
-    mark: 'A farm tag in its ear: these came from the pig farm.' },
+    mark: 'A big lime farm tag in its ear: these came from the pig farm.' },
   { id: 'coyote', name: 'COYOTE', tag: 'SMALL AND LANKY',
     now: 'A coyote now: small and thin, knee high on your man, big pointed ears, a narrow muzzle, rusty legs, a bushy tail carried low.',
     moves: 'It trots light, the diagonal legs together. It snaps and pulls back.',
@@ -54,35 +54,35 @@ const BEASTS = [
   { id: 'dire_wolf', name: 'DIRE WOLF', tag: 'HEAVIER THAN ANY DOG',
     now: 'Heavier now: 0.8 m at the shoulder, a broad head with a short deep muzzle, a thick neck ruff, big paws, a straight bushy tail. White, like the first lab dire wolves born in 2025.',
     moves: 'It walks, and bites forward and holds.',
-    mark: 'A lab tag in its ear.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, and a lab tag in its ear.' },
   { id: 'cave_hyena', name: 'CAVE HYENA', tag: 'WAS A FOX WITH SPOTS',
     now: 'A hyena now: long front legs and the back falling to a low rump, a heavy neck and shoulders under a dark mane, a big blunt head, round ears, round dark spots, a short tail with a black brush. 0.9 m at the shoulder.',
     moves: 'It walks with its head low, then bites and holds.',
-    mark: 'A big yellow lab tag in its ear, and a shaved, stitched patch on its shoulder.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, a yellow lab tag in its ear, and a shaved, stitched patch on its shoulder.' },
   { id: 'short_faced_bear', was: 'dire_wolf', name: 'SHORT-FACED BEAR', tag: 'WAS: THE FOSSIL BEDS GAVE YOU WOLVES',
     now: 'The lab\'s Ice Age bear: 1.55 m at the shoulder on all fours, taller than a man when it stands, long legs, a short broad face, a hump of muscle over the shoulders.',
     moves: 'It heals every turn (Battle Brothers\' unhold: 15% of its health). It rears up and mauls, and it throws the man beside it over its back.',
-    mark: 'A thick lab collar with its box, and a big numbered tag in its ear.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, and a numbered tag in its ear.' },
   { id: 'ground_sloth', was: 'dire_wolf', name: 'SHASTA GROUND SLOTH', tag: 'WAS: THE FOSSIL BEDS GAVE YOU WOLVES',
     now: 'Gypsum Cave\'s sloth, brought back from its own dung: the hips higher than the shoulders, a thick tail on the ground, a small head on a long neck, long arms walking on the knuckles with the great claws turned in.',
     moves: 'Slow. It heals every turn, and it throws whoever stands beside it.',
-    mark: 'A big numbered tag in its ear, and a shaved, stitched patch on its hip where the lab took its samples.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, a numbered tag in its ear, and a shaved, stitched patch on its hip where the lab took its samples.' },
   { id: 'sabre_tooth', was: 'dire_wolf', name: 'SABRE-TOOTH', tag: 'WAS: THE ROCKS GAVE YOU WOLVES',
     now: 'The Ice Age sabre-tooth: 1 m at the shoulder, massive forelegs and neck, the back falling to a bob tail, and the two sabres hanging past its chin.',
     moves: 'It waits unseen in the rocks, springs on the man alone and holds him down, and the sabres make him bleed.',
-    mark: 'A big numbered tag in its ear, and a shaved, stitched patch on its shoulder.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, a numbered tag in its ear, and a shaved, stitched patch on its shoulder.' },
   { id: 'american_lion', was: 'dire_wolf', name: 'AMERICAN LION', tag: 'WAS: THE DESERT GAVE YOU WOLVES',
     now: 'The Ice Age lion: 1.2 m at the shoulder, a quarter bigger than any lion alive, long legs, no mane, a long tail with a dark tuft.',
     moves: 'A pride of two or three. They go round you for the weak one, like Battle Brothers\' direwolves.',
-    mark: 'A lab collar with its box, and a numbered tag in its ear.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, and a numbered tag in its ear.' },
   { id: 'ancient_bison', was: 'dire_wolf', name: 'ANCIENT BISON', tag: 'WAS: THE DESERT GAVE YOU WOLVES',
     now: 'The valley\'s own Ice Age bison: 2 m at the hump, a ton and more, a shaggy dark front, its head carried low, wide horns curving up.',
     moves: 'It walks heavy, and it charges in a straight line like the bull, head down.',
-    mark: 'The lab\'s freeze brand, white marks burned into its hip, and a tag in its ear.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, and the lab\'s white freeze brand burned into its hip.' },
   { id: 'ice_age_horse', was: 'dire_wolf', name: 'ICE AGE HORSE', tag: 'WAS: THE DESERT GAVE YOU WOLVES',
     now: 'The valley\'s own wild horse: 1.45 m at the withers, stocky, dun with dark legs, a dark upright mane and a dark stripe down its back.',
     moves: 'In bands. It kicks every man beside it, and hurt it runs.',
-    mark: 'A white freeze mark on the left of its neck, the mark real wild horses carry.' },
+    mark: 'The lab collar\'s hi-vis plate on the back of its neck, and a white freeze mark on the left of its neck, the mark real wild horses carry.' },
   { id: 'feral_dog_shepherd', name: 'FERAL DOG', tag: 'A MUTT, NOT A WOLF',
     now: 'A mixed breed now: shepherd and pit, a blocky head, one ear up and one flopped, the tail up in a curl the way a dog carries it, black and tan with a white chest.',
     moves: 'It walks, and bites forward and holds.',
@@ -111,7 +111,11 @@ function cellBox(img, L, row) {
 Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('beasts_was/was.json').then(r => r.json())]).then(([IDX, WAS]) => {
   const se = IDX.dirs.indexOf('SE'), MAN = IDX.looks.cast_shortcoat;
   /* a hash names the animals one piece of work shipped (#cave_hyena or #a,b): only those, and the line-up is them beside the man */
-  const only = location.hash ? location.hash.slice(1).split(',') : null;
+  /* #marks:a,b (BEASTS 2, rule 345 amended (d), rule 359 (2)): the same animals, WAS the sheet before its mark could be read, NOW the
+     sheet with the lab's hi-vis collar plate (or the farm's lime tag) */
+  const MARKS = /^#marks:/.test(location.hash);
+  const only = location.hash ? location.hash.replace(/^#(marks:)?/, '').split(',') : null;
+  if (MARKS) BEASTS.forEach(b => { if (only.indexOf(b.id) < 0) return; b.was = b.id + '_unmarked'; b.tag = 'WAS: THE MARK YOU COULD NOT SEE'; b.moves = 'The lab mark, read from the fight\'s camera: ' + b.mark; });
   const order = only ? BEASTS.filter(b => only.indexOf(b.id) >= 0) : BEASTS, LINE = only ? LINE_ALL.filter(id => only.indexOf(id) >= 0) : LINE_ALL;
   const files = { man: '../fight_rig/' + MAN.file };
   BEASTS.forEach(b => { files['now_' + b.id] = '../fight_rig/' + IDX.looks['beast_' + b.id].file; files['was_' + b.id] = 'beasts_was/' + (b.was || b.id) + '.webp'; });

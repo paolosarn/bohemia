@@ -516,9 +516,9 @@
    "h": 129,
    "foot": [
     58,
-    97
+    98
    ],
-   "height_m": 0.998,
+   "height_m": 1.015,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_cave_hyena/rig.json",
    "clips": {
@@ -2195,12 +2195,12 @@
   "beast_american_lion": {
    "file": "beast_american_lion.webp",
    "w": 226,
-   "h": 234,
+   "h": 233,
    "foot": [
     112,
-    163
+    162
    ],
-   "height_m": 1.252,
+   "height_m": 1.267,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_american_lion/rig.json",
    "clips": {
@@ -2238,10 +2238,10 @@
   "beast_ancient_bison": {
    "file": "beast_ancient_bison.webp",
    "w": 250,
-   "h": 241,
+   "h": 244,
    "foot": [
     125,
-    172
+    175
    ],
    "height_m": 2.044,
    "kind": "beast",

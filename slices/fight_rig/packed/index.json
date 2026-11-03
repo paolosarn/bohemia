@@ -2,28 +2,28 @@
 "about": "RUN 10/25 __THE_SHEETS_ARE_PACKED__ (rule 173): every fight look and gun sheet cut to the box its pixels fill; the fight uses an atlas only when the sheet's bytes on the server equal \"bytes\" here. tools/bohemia_run_the_sheets_packed.py",
 "sheets": {
 "beast_american_lion.webp": {
-"bytes": 503348,
-"decodedMB": 29.05,
-"fill": 0.238,
-"packedMB": 8.29
+"bytes": 498448,
+"decodedMB": 28.93,
+"fill": 0.24,
+"packedMB": 8.27
 },
 "beast_ancient_bison.webp": {
-"bytes": 766018,
-"decodedMB": 33.1,
-"fill": 0.31,
-"packedMB": 11.76
+"bytes": 763498,
+"decodedMB": 33.51,
+"fill": 0.308,
+"packedMB": 11.8
 },
 "beast_camelops.webp": {
-"bytes": 585924,
+"bytes": 589810,
 "decodedMB": 28.94,
 "fill": 0.33,
 "packedMB": 11.26
 },
 "beast_cave_hyena.webp": {
-"bytes": 227884,
+"bytes": 225662,
 "decodedMB": 8.36,
-"fill": 0.319,
-"packedMB": 3.1
+"fill": 0.32,
+"packedMB": 3.13
 },
 "beast_coyote.webp": {
 "bytes": 95328,
@@ -32,13 +32,13 @@
 "packedMB": 1.59
 },
 "beast_dire_wolf.webp": {
-"bytes": 218312,
+"bytes": 217434,
 "decodedMB": 8.04,
 "fill": 0.314,
 "packedMB": 2.98
 },
 "beast_feral_bull.webp": {
-"bytes": 579140,
+"bytes": 582368,
 "decodedMB": 25.75,
 "fill": 0.322,
 "packedMB": 9.77
@@ -50,19 +50,19 @@
 "packedMB": 2.08
 },
 "beast_feral_hog.webp": {
-"bytes": 224010,
+"bytes": 224414,
 "decodedMB": 8.12,
 "fill": 0.328,
-"packedMB": 3.0
+"packedMB": 3.01
 },
 "beast_ground_sloth.webp": {
-"bytes": 465636,
+"bytes": 448574,
 "decodedMB": 18.16,
 "fill": 0.308,
-"packedMB": 6.34
+"packedMB": 6.37
 },
 "beast_ice_age_horse.webp": {
-"bytes": 430124,
+"bytes": 427896,
 "decodedMB": 18.56,
 "fill": 0.361,
 "packedMB": 7.55
@@ -74,16 +74,16 @@
 "packedMB": 3.43
 },
 "beast_sabre_tooth.webp": {
-"bytes": 318884,
+"bytes": 317702,
 "decodedMB": 13.6,
 "fill": 0.27,
 "packedMB": 4.26
 },
 "beast_short_faced_bear.webp": {
-"bytes": 515944,
+"bytes": 518812,
 "decodedMB": 21.79,
-"fill": 0.313,
-"packedMB": 8.08
+"fill": 0.314,
+"packedMB": 8.17
 },
 "boss_burn_0.webp": {
 "bytes": 359364,
@@ -897,8 +897,8 @@
 }
 },
 "totals": {
-"decodedMB": 3049.3,
-"packedMB": 547.3,
+"decodedMB": 3049.6,
+"packedMB": 547.5,
 "sheets": 149
 }
 }

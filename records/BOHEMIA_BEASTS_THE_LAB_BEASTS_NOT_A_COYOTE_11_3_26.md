@@ -105,5 +105,59 @@ and the horses on the open desert, the bison on the golf courses' grass, the hor
 road by act (more in act two and three) and the cats more at night. Pass by eye: the bison's hump read as a ball set on its back:
 blended longer and lower into the shoulders.
 
-## NEXT (in order)
-5. Every lab mark readable from the fight's camera. 6. The gate in the suite.
+## RULE 359, THE CHEAP CLONE (Paolo 11/3, laws/BOHEMIA_LAW_THE_CHEAP_CLONE_11_3_26.md), FOLDED IN
+- THE BATCH (one pack, one face): MEASURED, every animal in a beast party is drawn from its faction's ONE sheet, so a pack from one
+  line already has one face, the same markings, the same plate and the same number on every animal. Nothing was built for it, and
+  it is named so no later round 'fixes' it with variety: a batch's sameness is the horror. (A second batch with its own face is a new
+  sheet and a new party, never a random tint.)
+- THE MARKS: piece 5 below (the lab's collar plate on every lab beast, the farm's lime tag on the bull and the hog instead).
+- THE WATER: records/target/bb/bohemia_enemies.json 'water': the valley's waters (the Wash, the lake shore, the springs, the
+  guzzlers, the golf ponds, the fountains, the pools, the mains, each said as the law says it) and every beast party's waters, the
+  first where it is found most, with what the real animal drinks (a pig cannot sweat and never leaves the wallow; a camel goes a week
+  and then drinks over 100 litres; a bull 40 to 80 litres a day; a horse 25 to 45; a bison 30 to 40, once a day, in a herd). For
+  WORLD [creatures] to put them there. Gate leg B7 holds it.
+
+## PIECE 5: THE LAB MARK READS FROM THE FIGHT'S CAMERA (rule 345 amended (d), rule 359 (2))
+MEASURED FIRST: the ear tags (even the big ones of pieces 1, 3 and 4) rendered 0 to 3 dull pixels: a small thing on the side of an
+ear, seen from 45 degrees above, desaturated by the rig's own wear pass; and the sheet's 64-colour pack (median cut) merged what was
+left into the coat. A mark nobody can see is not a mark.
+AT THE SOURCE:
+- THE LAB COLLAR'S PLATE on the NAPE, the top of the neck the camera looks down on, in HI-VIS YELLOW-GREEN (a safety vest's colour:
+  no fur on any animal is it, so it reads on the white wolf, the sand camel and the black bison alike), with a dark number down its
+  middle and the collar's dark band round the neck; sized to the animal. The plate finds the neck's real top surface (measured: set
+  at the neck's half-depth it was buried under the bear's and the bison's humps and the sloth's shoulders, 0 pixels).
+- THE FARM TAG instead on the feral bull and the hog (rule 359: range and farm animals, not the lab's): big and lime, the colour
+  real cattle tags come in; the hog wears one in each ear (its ears are small: one tag read 0 pixels).
+- THE PACK KEEPS THE MARK'S COLOUR: tools/bohemia_factions_five_more_beasts.py pack() gives the hi-vis pixels (green over red, far over
+  blue: no coat is that) a palette entry of their own, so the 64 colours never merge the mark into the fur.
+- The old marks stay where they were (the stitched patches, the camel's blood-draw patch, the freeze brands): they are the close look.
+MEASURED on the fight's own sheets (the standing picture, hi-vis pixels, facings S SE E NE N NW W SW; before: 0 in every facing):
+| beast | pixels per facing |
+|---|---|
+| dire wolf | 14 18 21 22 20 19 19 17 |
+| cave hyena | 26 28 25 24 20 23 24 29 |
+| camelops | 18 55 56 63 59 53 54 63 |
+| short faced bear | 80 72 51 33 25 37 58 79 |
+| ground sloth | 35 32 24 20 12 14 26 36 |
+| sabre tooth | 26 31 35 34 28 34 30 31 |
+| american lion | 30 38 48 54 52 55 45 39 |
+| ancient bison | 27 28 19 6 5 7 19 26 |
+| ice age horse | 16 30 46 47 59 51 46 29 |
+| feral bull | 9 0 0 0 24 25 33 21 |
+| feral hog | 31 28 20 8 0 9 21 28 |
+
+## PIECE 6: THE GATE (rule 345 amended (f)), IN THE SUITE
+gates/every_beast_its_own_outline_gate.py, registered in gates/bohemia_gates.py as EVERY BEAST ITS OWN OUTLINE (python, seconds, no
+browser). Its legs and what each was measured against are in its header: B1 every beast kind a beast party can deal has its own
+picture (it found the late beasts mix's SCHRAT drawn as the dire wolf: the walking tree breaks rule 345 (a)'s 'real DNA only', so it is
+out of ours.enemy_tiers.mix.beasts.late and records/target/bb/roster.json says why; its lesson, it heals, lives in the bear and the
+sloth, and the roster's unhold row is now in the fight); B2 no two animals share a sheet; B3 every pair differs by OUTLINE: each
+silhouette cut to its box and scaled to one height (a SHAPE: a stretched fox is a fox at any size), E and SE, 1 - overlap/union, the
+floor 0.20 MEASURED between the old fox cast's closest pair (the dire wolf and the feral dog, 0.16, the control leg that must fail) and
+the rebuilt cast's closest (the cave hyena and the sabre-tooth, 0.23); a first version compared the silhouettes at their fight sizes
+and passed the old fox cast too (it measured size, not shape), so it was thrown out; B4 no ground is only canids; B5 the map types no
+beast cell size; B6 every mark reads (6+ pixels in 4+ of 8 facings; the unmarked rows the plant); B7 every beast lives at a water.
+
+## NEXT
+Nothing on the list is open. His verdicts on the cards decide the next pass. Named for COMBAT: the turn strip's one red wolf-head
+glyph for every beast (rule 115(h)).
