@@ -8,10 +8,10 @@
 "packedMB": 11.26
 },
 "beast_cave_hyena.webp": {
-"bytes": 211878,
-"decodedMB": 7.28,
-"fill": 0.356,
-"packedMB": 3.03
+"bytes": 227884,
+"decodedMB": 8.36,
+"fill": 0.319,
+"packedMB": 3.1
 },
 "beast_coyote.webp": {
 "bytes": 95328,
@@ -843,8 +843,8 @@
 }
 },
 "totals": {
-"decodedMB": 2860.7,
-"packedMB": 485.9,
+"decodedMB": 2861.8,
+"packedMB": 486.0,
 "sheets": 140
 }
 }

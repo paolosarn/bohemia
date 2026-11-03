@@ -27,7 +27,7 @@
 <p>You said the bull looked too much like the coyote and the wolf. You were right: every beast was the same fox model, stretched. Now each one has its own body, built from the real animal's size, and its own walk and attack. Your man is 1.72 m. Everything is at the fight's size, from the fight's camera.</p>
 <div class="row"><div class="lab"><b>THE LINE-UP, NOW</b><span class="tag">YOUR MAN FOR SCALE</span></div>
   <div class="lineup"><canvas id="lineup"></canvas></div>
-  <div class="small">Left to right: your man, the coyote, the feral dog, the dire wolf, the feral hog, the mountain lion, the feral bull, Camelops.</div></div>
+  <div class="small" id="lineupwords">Left to right: your man, the coyote, the feral dog, the dire wolf, the cave hyena, the feral hog, the mountain lion, the feral bull, Camelops.</div></div>
 <div id="list"></div>
 <script>
 const BEASTS = [
@@ -55,12 +55,16 @@ const BEASTS = [
     now: 'Heavier now: 0.8 m at the shoulder, a broad head with a short deep muzzle, a thick neck ruff, big paws, a straight bushy tail. White, like the first lab dire wolves born in 2025.',
     moves: 'It walks, and bites forward and holds.',
     mark: 'A lab tag in its ear.' },
+  { id: 'cave_hyena', name: 'CAVE HYENA', tag: 'WAS A FOX WITH SPOTS',
+    now: 'A hyena now: long front legs and the back falling to a low rump, a heavy neck and shoulders under a dark mane, a big blunt head, round ears, round dark spots, a short tail with a black brush. 0.9 m at the shoulder.',
+    moves: 'It walks with its head low, then bites and holds.',
+    mark: 'A big yellow lab tag in its ear, and a shaved, stitched patch on its shoulder.' },
   { id: 'feral_dog_shepherd', name: 'FERAL DOG', tag: 'A MUTT, NOT A WOLF',
     now: 'A mixed breed now: shepherd and pit, a blocky head, one ear up and one flopped, the tail up in a curl the way a dog carries it, black and tan with a white chest.',
     moves: 'It walks, and bites forward and holds.',
     mark: 'The red collar it wore when it had a home.' }
 ];
-const LINE = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'feral_hog', 'mountain_lion', 'feral_bull', 'camelops'];
+const LINE_ALL = ['coyote', 'feral_dog_shepherd', 'dire_wolf', 'cave_hyena', 'feral_hog', 'mountain_lion', 'feral_bull', 'camelops'];
 const PLAY = [['stand', 3], ['walk', 12], ['bite', 6], ['walk', 6], ['hit', 2], ['fall', 3], ['fall_hold', 6]];
 const KPS = 6;   /* 120 BPM, three keys a beat */
 const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
@@ -82,7 +86,9 @@ function cellBox(img, L, row) {
 }
 Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('beasts_was/was.json').then(r => r.json())]).then(([IDX, WAS]) => {
   const se = IDX.dirs.indexOf('SE'), MAN = IDX.looks.cast_shortcoat;
-  const order = location.hash ? BEASTS.slice().sort((a, b) => (b.id === location.hash.slice(1)) - (a.id === location.hash.slice(1))) : BEASTS;
+  /* a hash names the animals one piece of work shipped (#cave_hyena or #a,b): only those, and the line-up is them beside the man */
+  const only = location.hash ? location.hash.slice(1).split(',') : null;
+  const order = only ? BEASTS.filter(b => only.indexOf(b.id) >= 0) : BEASTS, LINE = only ? LINE_ALL.filter(id => only.indexOf(id) >= 0) : LINE_ALL;
   const files = { man: '../fight_rig/' + MAN.file };
   BEASTS.forEach(b => { files['now_' + b.id] = '../fight_rig/' + IDX.looks['beast_' + b.id].file; files['was_' + b.id] = 'beasts_was/' + b.id + '.webp'; });
   const keys = Object.keys(files);
@@ -111,6 +117,7 @@ Promise.all([fetch('../fight_rig/fight_rig.json').then(r => r.json()), fetch('be
       });
     };
     const strips = [];
+    if (only) document.getElementById('lineupwords').textContent = 'Your man, then ' + order.map(b => b.name.toLowerCase()).join(', ') + '.';
     /* the line-up: wrapped to the screen, every line starting with the man */
     const room = Math.max(300, document.getElementById('lineup').parentElement.clientWidth - 4);
     const host = document.getElementById('lineup').parentElement; host.innerHTML = '';

@@ -512,13 +512,13 @@
   },
   "beast_cave_hyena": {
    "file": "beast_cave_hyena.webp",
-   "w": 106,
-   "h": 125,
+   "w": 118,
+   "h": 129,
    "foot": [
-    53,
-    91
+    58,
+    97
    ],
-   "height_m": 0.971,
+   "height_m": 0.998,
    "kind": "beast",
    "rig": "records/target/combat/rig/beast_cave_hyena/rig.json",
    "clips": {
@@ -550,7 +550,8 @@
      16,
      17
     ]
-   }
+   },
+   "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
   },
   "beast_feral_dog_shepherd": {
    "file": "beast_feral_dog_shepherd.webp",

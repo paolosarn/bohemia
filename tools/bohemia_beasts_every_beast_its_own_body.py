@@ -135,6 +135,19 @@ BEASTS = {
         head=(0.22, 0.065, 0.07, 8, 0.40, 0.038), ears=(0.09, 0.045, 0.01, 22, 75), flop='L', eyes=0.013,
         tail=(0.34, (0.03, 0.026, 0.018), (-25, -50, -80)),
         dogcollar=0.5, griz=0.03, res=0.0065, gait='walk', bob=1.0, attack='bite', real_note='0.58 m at the shoulder, about 1.25 m nose to tail tip'),
+    # CAVE HYENA (Crocuta crocuta spelaea, the Ice Age's own: its genome read from bone (Westbury et al. 2020), made on the
+    # spotted hyena; bigger than today's, about 0.9 m at the shoulder and 90 to 100 kg; THE SLOPE: long front legs and the back
+    # falling to a low narrow rump, a massive neck and shoulders under a mane, a big broad head on a blunt bone-crusher's muzzle,
+    # ROUND ears, a short tail with a black brush, a sand coat with round dark spots; rule 345 (c), Paolo 11/3: 'everything's
+    # looking like a fucking coyote'). The coat keeps the hyena's own colours (records/BOHEMIA_THE_CAVE_HYENA_HELD_10_18_26.md).
+    'cave_hyena': dict(
+        wh=0.90, hh=0.70, bl=1.05, cd=0.46, sw=0.155, bw=0.16, hw=0.115, belly=-0.02, carpus=0.14, hock=0.30, footh=0.05,
+        legf=(0.08, 0.056, 0.037, 0.05), legh=(0.07, 0.045, 0.032, 0.045), foot='paw', shoulder_mass=1.2, ruff=1.0,
+        neck=[(-0.42, 0.80, 0.17, 0.14), (-0.60, 0.80, 0.14, 0.125)],
+        head=(0.28, 0.11, 0.115, 15, 0.34, 0.066), ears=(0.075, 0.075, 0.012, 32, 62), eyes=0.016,
+        tail=(0.30, (0.035, 0.03, 0.026), (55, 78, 88)), tuft=(0.12, 0.05),
+        crest=((0, -0.30, 0.885), (0.065, 0.36, 0.04)), bigtag=True,
+        griz=0.03, res=0.0085, gait='walk', attack='bite', real_note='0.90 m at the shoulder, 0.70 m at the rump, about 1.5 m nose to tail tip'),
 }
 
 
@@ -340,9 +353,10 @@ def build_body(name):
     if a.get('collar'):
         tags(b, 'collar', poll, nk, a)
     for side in (1,):
-        if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf'):
+        if name in ('feral_bull', 'feral_hog', 'camelops', 'dire_wolf', 'cave_hyena'):
             et_ = b.marks[('ear', side)]
-            b.ell(et_ - upv * 0.01, (0.022 if wh > 1 else 0.014,) * 2 + (0.012,), 'tag', {B['head']: 1.0}, s=6.0)
+            tg = 0.04 if a.get('bigtag') else (0.022 if wh > 1 else 0.014)
+            b.ell(et_ - upv * 0.01, (tg, tg, 0.014), 'tag', {B['head']: 1.0}, s=6.0)
     if a.get('dogcollar'):
         p = nk[0] + (nk[-1] - nk[0]) * a['dogcollar']
         b.ell(p - np.array([0, 0, a['neck'][0][2] * 0.95]), (0.012, 0.012, 0.02), 'tag', {B['neck']: 1.0}, s=6.0)
@@ -726,6 +740,31 @@ def paint(name, b, P, N, PART, pix):
         put(eye_d < a['eyes'], C(0.12, 0.10, 0.09))
         put(isp('paw') & (z < 0.02), C(0.55, 0.52, 0.48))
         put(isp('tag'), C(0.90, 0.48, 0.12))
+    elif name == 'cave_hyena':
+        SAND, SPOT, MANE, TIP, LEGS, FACE = C(0.54, 0.46, 0.34), C(0.15, 0.11, 0.08), C(0.20, 0.16, 0.13), C(0.08, 0.07, 0.06), C(0.30, 0.24, 0.19), C(0.30, 0.25, 0.21)
+        put(covered, SAND)
+        # round spots, one per cell of a jittered 3D grid (about 6 cm across), on the flanks, the haunches and the legs, never the back's top
+        cell = 0.085; gi = np.floor(P / cell); h = (gi[..., 0] * 73856093 + gi[..., 1] * 19349663 + gi[..., 2] * 83492791) % 1000003
+        jit = np.stack([(h % 97) / 97.0, (h % 89) / 89.0, (h % 83) / 83.0], -1)
+        d = np.linalg.norm(P - (gi + 0.25 + 0.5 * jit) * cell, axis=-1)
+        spot = covered & (d < 0.028) & (up < 0.35) & ~isp('head', 'muzzle', 'ear', 'crest', 'tuft') & (h % 7 != 0)
+        put(spot, SPOT)
+        put(legs & (z < 0.30), LEGS)
+        put(isp('crest') | (isp('neck', 'chest') & (up > 0.75)), MANE)
+        put(isp('muzzle'), FACE)
+        put(isp('head') & (y < b.marks['poll'][1] - 0.12), FACE)
+        put(isp('ear') & (N[..., 1] > 0.0), MANE)
+        put(isp('tuft'), TIP)
+        put(isp('muzzle') & (nose_d < 0.03), C(0.06, 0.05, 0.05))
+        put(eye_d < a['eyes'], C(0.07, 0.06, 0.05))
+        # the lab: a big numbered tag in the ear (bright, two dark digits), and the shaved, stitched patch on the shoulder
+        tg = isp('tag'); put(tg, C(0.92, 0.74, 0.10))
+        et_ = b.marks[('ear', 1)]
+        put(tg & (np.abs(P[..., 0] - et_[0]) < 0.006) & (N[..., 0] > 0.3), C(0.10, 0.08, 0.06))
+        sp = np.array([0.15, -0.38, 0.66])
+        patch = isp('shoulder', 'chest') & (P[..., 0] > 0.05) & (np.abs(y - sp[1]) < 0.075) & (np.abs(z - sp[2]) < 0.07)
+        put(patch, C(0.72, 0.60, 0.55))
+        put(patch & (np.abs((y - sp[1]) - (z - sp[2]) * 0.8) < 0.009), C(0.22, 0.12, 0.11))
     elif name == 'feral_dog_shepherd':
         BLACK, TAN, WHITE = C(0.15, 0.13, 0.12), C(0.62, 0.42, 0.24), C(0.86, 0.83, 0.77)
         put(covered, BLACK)
@@ -769,7 +808,7 @@ GAITS = {'walk': {('H', 1): 0.0, ('F', 1): 0.25, ('H', -1): 0.5, ('F', -1): 0.75
 STRIDE = {'feral_bull': (0.55, 15, 55, 38, 1.5, 4, 1.5, 6), 'camelops': (0.5, 20, 60, 44, 1.2, 3, 4.0, 8),
           'mountain_lion': (0.62, 18, 50, 40, 0.5, 1, 0.0, 6), 'feral_hog': (0.5, 18, 50, 36, 1.0, 3, 0.0, 14),
           'coyote': (0.5, 20, 58, 44, 0.9, 2, 0.0, 6), 'dire_wolf': (0.6, 18, 52, 40, 0.8, 2, 0.0, 5),
-          'feral_dog_shepherd': (0.6, 18, 52, 40, 0.8, 2, 0.0, 10)}
+          'feral_dog_shepherd': (0.6, 18, 52, 40, 0.8, 2, 0.0, 10), 'cave_hyena': (0.6, 16, 50, 36, 0.9, 4, 0.0, 6)}
 
 
 def gait(arm, a, name):
