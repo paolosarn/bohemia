@@ -17529,7 +17529,27 @@
    }
   },
 {"id": "words-the-world-feed-11-3", "kind": "line", "lane": "words", "sha": "e86c1104", "made": "11/3", "draft": true, "title": "THE WORLD IN YOUR FEED: SALT LAKE, TIJUANA, MANILA, LAGOS, BEIRUT AND 30 MORE PLACES TALKING", "why": "The phone's feed now talks about the whole world, 132 posts from 37 people in 35 places (prices, weather, split families, Texas trying to be a government, the city in the gulf nobody names, the Network saying one grateful sentence in four cities), about 4 in 10 of what you read, all in English. You see it in the demo on the phone's feed, and here it plays for a minute, then 20 of the best.", "show": {"how": "page", "src": "vote/WORDS_THE_WORLD_FEED_11_3.html"}, "options": ["A, more of the world, keep it", "B, right idea, other voices", "C, less world, more of the valley"]},
-  {"id": "beasts2-every-beast-its-own-body-11-3", "kind": "animation", "lane": "factions", "sha": "f7346a72", "made": "11/3", "draft": true, "title": "EVERY BEAST ITS OWN BODY: THE BULL, THE CAMEL, THE LION, THE HOGS, THE COYOTES, THE DIRE WOLF, THE DOG", "said": "They look wayyy to similar to the og coyote the wolf actually to this needs way more work / Work in progress keep going", "why": "Every beast was one fox model stretched; now each has its own body at its real size, its own walk and its own attack. You see it in the VOTE tab, the old one beside the new one with your man for scale.", "options": ["A, yes, they read as their own animals now", "B, closer, but some still need work (say which)", "C, no, start them over"], "show": {"how": "page", "src": "vote/BEASTS_EVERY_BEAST_ITS_OWN_BODY.html"}, "twin": {"src": "vote/beasts_was/feral_bull.webp", "diffs": ["each body is its own animal's, not one fox stretched: the bull's deep barrel and short thick legs, the camel's long legs and hump, the hog's wedge, the lion's long low cat body", "true size beside the 1.72 m man: Camelops 2.2 m at the shoulder, the bull 1.5, the dire wolf 0.8, the coyote 0.58", "each moves its own way: the camel paces, the bull, hog and coyote trot, the lion stalks low; the bull gores, the lion springs, the hog slashes, the camel kicks"]}, "before_after": {"before": "the Khronos Fox's one mesh, stretched, for all of them: the bull a fox with horns", "after": "seven bodies grown from the real animals' measures, each on its own joints, gait and attack, through the master rig", "scale": "his phone, 390 x 844, the fight's camera, one image pixel to one point, a man of ours on the same ground line"}}
+  {"id": "beasts2-every-beast-its-own-body-11-3", "kind": "animation", "lane": "factions", "sha": "f7346a72", "made": "11/3", "draft": true, "title": "EVERY BEAST ITS OWN BODY: THE BULL, THE CAMEL, THE LION, THE HOGS, THE COYOTES, THE DIRE WOLF, THE DOG", "said": "They look wayyy to similar to the og coyote the wolf actually to this needs way more work / Work in progress keep going", "why": "Every beast was one fox model stretched; now each has its own body at its real size, its own walk and its own attack. You see it in the VOTE tab, the old one beside the new one with your man for scale.", "options": ["A, yes, they read as their own animals now", "B, closer, but some still need work (say which)", "C, no, start them over"], "show": {"how": "page", "src": "vote/BEASTS_EVERY_BEAST_ITS_OWN_BODY.html"}, "twin": {"src": "vote/beasts_was/feral_bull.webp", "diffs": ["each body is its own animal's, not one fox stretched: the bull's deep barrel and short thick legs, the camel's long legs and hump, the hog's wedge, the lion's long low cat body", "true size beside the 1.72 m man: Camelops 2.2 m at the shoulder, the bull 1.5, the dire wolf 0.8, the coyote 0.58", "each moves its own way: the camel paces, the bull, hog and coyote trot, the lion stalks low; the bull gores, the lion springs, the hog slashes, the camel kicks"]}, "before_after": {"before": "the Khronos Fox's one mesh, stretched, for all of them: the bull a fox with horns", "after": "seven bodies grown from the real animals' measures, each on its own joints, gait and attack, through the master rig", "scale": "his phone, 390 x 844, the fight's camera, one image pixel to one point, a man of ours on the same ground line"}},
+  {
+   "id": "radio-the-town-you-did-not-defend-11-3",
+   "kind": "sound",
+   "lane": "radio",
+   "sha": "PENDING",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE TOWN YOU DID NOT DEFEND: IT FALLS ON YOUR PHONE'S RADIO",
+   "said": "what happens if you don't support the defense enough... how creepy the audio and transcripts get... we're not adding real voices... it breaks your heart kind of vibe, just reading it",
+   "why": "When a town you hold is raided and nobody comes, your phone picks up its radio as it falls: the gate, the roof, the clinic, an open mic, then nothing, in words under real radio sound with no voices. You hear it here whole when you tap a town, and in the demo on the phone's strip when it happens to you, rarely.",
+   "options": [
+    "A, yes, that breaks my heart, keep it",
+    "B, the words land but the radio sound is wrong",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_TOWN_YOU_DID_NOT_DEFEND_11_3_26.html"
+   }
+  }
  ],
  "verdicts": [
   {

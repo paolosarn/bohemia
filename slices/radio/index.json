@@ -1,0 +1,237 @@
+{
+ "_readme": "THE LAST TRANSMISSIONS, WHAT THE GAME READS (RADIO 11/3/26, tools/bohemia_radio_cook.py): the fall's one recording, the skeleton it was rendered from (records/target/bb/radio_lines.json), the heard gain and every transmission's measured numbers. No voice in it, ever (rule 353g): the words are the phone's.",
+ "made": "11/3/26",
+ "file": "fall.mp3",
+ "length_s": 100.0,
+ "db": -10.0,
+ "skeleton": [
+  {
+   "n": 1,
+   "src": "GATE",
+   "kind": "key",
+   "at": 2.0,
+   "key": 5.76,
+   "sig": 0.92
+  },
+  {
+   "n": 2,
+   "src": "ROOF",
+   "kind": "key",
+   "at": 9.0,
+   "key": 4.33,
+   "sig": 0.55
+  },
+  {
+   "n": 3,
+   "src": "GATE",
+   "kind": "key",
+   "at": 15.0,
+   "key": 4.33,
+   "sig": 0.92
+  },
+  {
+   "n": 4,
+   "src": "CLINIC",
+   "kind": "key",
+   "at": 21.5,
+   "key": 5.76,
+   "sig": 0.72
+  },
+  {
+   "n": 5,
+   "src": "ROOF",
+   "kind": "key",
+   "at": 28.5,
+   "key": 6.0,
+   "sig": 0.45
+  },
+  {
+   "n": 6,
+   "src": "GATE",
+   "kind": "key",
+   "at": 35.5,
+   "key": 5.04,
+   "sig": 0.92
+  },
+  {
+   "n": 7,
+   "src": "ROOF",
+   "kind": "key",
+   "at": 42.0,
+   "key": 2.9,
+   "sig": 0.36
+  },
+  {
+   "n": 8,
+   "src": "ROOF",
+   "kind": "key",
+   "at": 47.0,
+   "key": 3.97,
+   "sig": 0.19
+  },
+  {
+   "n": 9,
+   "src": "GATE",
+   "kind": "key",
+   "at": 52.5,
+   "key": 2.9,
+   "sig": 0.92
+  },
+  {
+   "n": 10,
+   "src": "GATE",
+   "kind": "key",
+   "at": 57.0,
+   "key": 1.83,
+   "sig": 0.92
+  },
+  {
+   "n": 11,
+   "src": "PHONE",
+   "kind": "mark",
+   "at": 61.0
+  },
+  {
+   "n": 12,
+   "src": "CLINIC",
+   "kind": "key",
+   "at": 64.0,
+   "key": 6.0,
+   "sig": 0.62
+  },
+  {
+   "n": 13,
+   "src": "GATE",
+   "kind": "key",
+   "at": 71.5,
+   "key": 4.33,
+   "sig": 0.92
+  },
+  {
+   "n": 14,
+   "src": "OPEN",
+   "kind": "open",
+   "at": 77.5,
+   "key": 12,
+   "sig": 0.42
+  },
+  {
+   "n": 15,
+   "src": "PHONE",
+   "kind": "cut",
+   "at": 90.5
+  },
+  {
+   "n": 16,
+   "src": "PHONE",
+   "kind": "end",
+   "at": 93.5
+  }
+ ],
+ "measured": [
+  {
+   "n": 1,
+   "sig": 0.92,
+   "body_db": -39.0,
+   "tail_db": -12.4,
+   "tail_ms": 161,
+   "kurtosis": 3.68
+  },
+  {
+   "n": 2,
+   "sig": 0.55,
+   "body_db": -27.6,
+   "tail_db": -13.7,
+   "tail_ms": 137,
+   "kurtosis": 3.02
+  },
+  {
+   "n": 3,
+   "sig": 0.92,
+   "body_db": -38.8,
+   "tail_db": -12.2,
+   "tail_ms": 169,
+   "kurtosis": 3.99
+  },
+  {
+   "n": 4,
+   "sig": 0.72,
+   "body_db": -41.6,
+   "tail_db": -13.0,
+   "tail_ms": 158,
+   "kurtosis": 3.03
+  },
+  {
+   "n": 5,
+   "sig": 0.45,
+   "body_db": -27.1,
+   "tail_db": -13.4,
+   "tail_ms": 134,
+   "kurtosis": 2.98
+  },
+  {
+   "n": 6,
+   "sig": 0.92,
+   "body_db": -39.1,
+   "tail_db": -13.0,
+   "tail_ms": 152,
+   "kurtosis": 3.79
+  },
+  {
+   "n": 7,
+   "sig": 0.36,
+   "body_db": -26.6,
+   "tail_db": -14.0,
+   "tail_ms": 124,
+   "kurtosis": 3.01
+  },
+  {
+   "n": 8,
+   "sig": 0.19,
+   "body_db": -24.7,
+   "tail_db": -15.5,
+   "tail_ms": 80,
+   "kurtosis": 3.41
+  },
+  {
+   "n": 9,
+   "sig": 0.92,
+   "body_db": -39.5,
+   "tail_db": -12.6,
+   "tail_ms": 175,
+   "kurtosis": 3.57
+  },
+  {
+   "n": 10,
+   "sig": 0.92,
+   "body_db": -40.8,
+   "tail_db": -12.6,
+   "tail_ms": 160,
+   "kurtosis": 3.48
+  },
+  {
+   "n": 12,
+   "sig": 0.62,
+   "body_db": -37.1,
+   "tail_db": -12.7,
+   "tail_ms": 164,
+   "kurtosis": 20.81
+  },
+  {
+   "n": 13,
+   "sig": 0.92,
+   "body_db": -38.7,
+   "tail_db": -12.6,
+   "tail_ms": 171,
+   "kurtosis": 3.99
+  },
+  {
+   "n": 14,
+   "sig": 0.42,
+   "body_db": -22.3,
+   "tail_db": -13.6,
+   "tail_ms": 130,
+   "kurtosis": 8.76
+  }
+ ]
+}

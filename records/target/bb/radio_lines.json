@@ -1,0 +1,466 @@
+{
+  "_about": "THE LAST TRANSMISSIONS, ONE FILE (RADIO, 11/3/26; Paolo 11/3, rule 353, ask line 367: 'this is how I want the communication to feel sometimes... this is Bohemian, this is my swag'). THE TOWN YOU DID NOT DEFEND: when a raid on a town you hold is settled the world's way (nobody came, the crew took it), your phone picks up its channel as it falls: the gate, the man on the roof, the clinic, then the open channel and the cut. The rules every line obeys are records/BOHEMIA_RADIO_ROUND_1_HOW_A_LAST_TRANSMISSION_READS_11_3_26.md (R1 to R11): a time stamp and a post on every line, 120 characters at most with every fill at its longest (rule 350), no exclamation marks, the phone's own marks in brackets, one call repeated and never answered, no gore, Spanglish only where a person would, never a real line. Every line here is our own, written for Bohemia's people. A modder may add a town under towns (16 lines in the skeleton's order, and labels to rename a post) or change the words; the timing (at, key) is written by tools/bohemia_radio_cook.py from the words, and the radio's sound (slices/radio/) is rendered from the same skeleton, so after changing words run: python3 tools/bohemia_radio_cook.py --all.",
+  "draft": true,
+  "rules": "records/BOHEMIA_RADIO_ROUND_1_HOW_A_LAST_TRANSMISSION_READS_11_3_26.md",
+  "max_chars": 120,
+  "handle_max": 16,
+  "channel": "CH 4",
+  "when": {
+    "trigger": "a raid on a town you hold settled 'taken' with nobody at its gate (raidSettle in slices/BOHEMIA_CITY_WORLD.html calls BohemiaRadio.fall)",
+    "never_before_s": 60,
+    "once_per_town_per_act": true,
+    "note": "rare by nature: a crew comes for a town you hold once an act at most, and it only falls if you stayed away"
+  },
+  "read": {
+    "base_ms": 1200,
+    "per_word_ms": 250,
+    "beat_ms": 500,
+    "words_per_s": 2.8,
+    "why": "the phone strip keeps a post 1.2 s plus 0.25 s a word, whole beats (UI 4, rule 329); a line stays on the strip at least that long before the next one comes, so every line is read whole. A radio voice runs about 2.8 words a second, which sets how long the key is held."
+  },
+  "sound": {
+    "dir": "radio/",
+    "index": "index.json"
+  },
+  "skeleton": [
+    {
+      "n": 1,
+      "src": "GATE",
+      "kind": "key",
+      "t": 0,
+      "sig": 0.92,
+      "room": "wind_low",
+      "at": 2.0,
+      "key": 5.76
+    },
+    {
+      "n": 2,
+      "src": "ROOF",
+      "kind": "key",
+      "t": 9,
+      "sig": 0.55,
+      "room": "wind",
+      "at": 9.0,
+      "key": 4.33
+    },
+    {
+      "n": 3,
+      "src": "GATE",
+      "kind": "key",
+      "t": 21,
+      "sig": 0.92,
+      "room": "wind_low",
+      "at": 15.0,
+      "key": 4.33
+    },
+    {
+      "n": 4,
+      "src": "CLINIC",
+      "kind": "key",
+      "t": 30,
+      "sig": 0.72,
+      "room": "room",
+      "at": 21.5,
+      "key": 5.76
+    },
+    {
+      "n": 5,
+      "src": "ROOF",
+      "kind": "key",
+      "t": 75,
+      "sig": 0.45,
+      "room": "wind",
+      "at": 28.5,
+      "key": 6.0
+    },
+    {
+      "n": 6,
+      "src": "GATE",
+      "kind": "key",
+      "t": 98,
+      "sig": 0.92,
+      "room": "wind_low",
+      "at": 35.5,
+      "key": 5.04
+    },
+    {
+      "n": 7,
+      "src": "ROOF",
+      "kind": "key",
+      "t": 110,
+      "sig": 0.36,
+      "room": "wind",
+      "at": 42.0,
+      "key": 2.9
+    },
+    {
+      "n": 8,
+      "src": "ROOF",
+      "kind": "key",
+      "t": 171,
+      "sig": 0.19,
+      "room": "shots",
+      "at": 47.0,
+      "key": 3.97
+    },
+    {
+      "n": 9,
+      "src": "GATE",
+      "kind": "key",
+      "t": 180,
+      "sig": 0.92,
+      "room": "wind_low",
+      "at": 52.5,
+      "key": 2.9
+    },
+    {
+      "n": 10,
+      "src": "GATE",
+      "kind": "key",
+      "t": 196,
+      "sig": 0.92,
+      "room": "wind_low",
+      "at": 57.0,
+      "key": 1.83
+    },
+    {
+      "n": 11,
+      "src": "PHONE",
+      "kind": "mark",
+      "t": 228,
+      "at": 61.0
+    },
+    {
+      "n": 12,
+      "src": "CLINIC",
+      "kind": "key",
+      "t": 291,
+      "sig": 0.62,
+      "room": "door",
+      "at": 64.0,
+      "key": 6.0
+    },
+    {
+      "n": 13,
+      "src": "GATE",
+      "kind": "key",
+      "t": 300,
+      "sig": 0.92,
+      "room": "wind_low",
+      "at": 71.5,
+      "key": 4.33
+    },
+    {
+      "n": 14,
+      "src": "OPEN",
+      "kind": "open",
+      "t": 362,
+      "sig": 0.42,
+      "room": "open",
+      "key": 12,
+      "at": 77.5
+    },
+    {
+      "n": 15,
+      "src": "PHONE",
+      "kind": "cut",
+      "t": 403,
+      "at": 90.5
+    },
+    {
+      "n": 16,
+      "src": "PHONE",
+      "kind": "end",
+      "t": 404,
+      "at": 93.5
+    }
+  ],
+  "towns": {
+    "_plain": {
+      "draft": true,
+      "labels": {},
+      "lines": [
+        {
+          "say": "Gate to all posts. Lights on the east road. Eight, maybe nine. Walking, not driving.",
+          "draft": true
+        },
+        {
+          "say": "Roof copies. I count nine. Long guns. Nobody's carrying a flag.",
+          "draft": true
+        },
+        {
+          "say": "Copy nine. Bar the gate. Kids inside. Clinic, you hear me?",
+          "draft": true
+        },
+        {
+          "say": "Clinic hears you. Four beds full. I have tape and one battery for the lamp.",
+          "draft": true
+        },
+        {
+          "say": "They stopped at the wire. One of them is talking. He wants whoever is in charge.",
+          "draft": true
+        },
+        {
+          "say": "Tell him {town} is held. Tell him the company is on the way.",
+          "draft": true
+        },
+        {
+          "say": "He says nobody is on the way.",
+          "draft": true
+        },
+        {
+          "say": "[unintelligible] the ladder. They're on the ladder. [two shots, far]",
+          "draft": true
+        },
+        {
+          "say": "Roof. Roof, talk to me. Four-one, roof.",
+          "draft": true
+        },
+        {
+          "say": "Four-one, roof. Come back.",
+          "draft": true
+        },
+        {
+          "say": "[no reply]",
+          "draft": true
+        },
+        {
+          "say": "Gate, clinic. They're at the door. We're opening it. Kids in here. Okay. We're opening it.",
+          "draft": true
+        },
+        {
+          "say": "Copy, clinic. Keep them in the back. I'm going down there.",
+          "draft": true
+        },
+        {
+          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "draft": true
+        },
+        {
+          "say": "[carrier lost]",
+          "draft": true
+        },
+        {
+          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "draft": true
+        }
+      ]
+    },
+    "Church": {
+      "draft": true,
+      "labels": {
+        "ROOF": "TOWER",
+        "CLINIC": "INFIRMARY"
+      },
+      "lines": [
+        {
+          "say": "Gate to all posts, peace be with you. Lights on the east road. Eight, maybe nine. On foot.",
+          "draft": true
+        },
+        {
+          "say": "Tower copies. I count nine. Long guns. No flag. I'm praying they keep walking.",
+          "draft": true
+        },
+        {
+          "say": "Copy nine. Bar the doors. Children to the crypt. Infirmary, you hear me?",
+          "draft": true
+        },
+        {
+          "say": "Infirmary hears you. Four cots full. Sister has the candles. One battery for the lamp.",
+          "draft": true
+        },
+        {
+          "say": "They stopped at the wire. One is calling out. He wants whoever keeps this house.",
+          "draft": true
+        },
+        {
+          "say": "Tell him {town} is held. Tell him the company is coming, God willing.",
+          "draft": true
+        },
+        {
+          "say": "He says nobody is coming. He said it kindly.",
+          "draft": true
+        },
+        {
+          "say": "[unintelligible] the tower stairs. They're on the stairs. [two shots, far]",
+          "draft": true
+        },
+        {
+          "say": "Tower. Tower, talk to me. Four-one, tower.",
+          "draft": true
+        },
+        {
+          "say": "Four-one, tower. Come back. Please.",
+          "draft": true
+        },
+        {
+          "say": "[no reply]",
+          "draft": true
+        },
+        {
+          "say": "Gate, infirmary. They're at the door. The children are with us. Hail Mary. We're opening it.",
+          "draft": true
+        },
+        {
+          "say": "Copy, infirmary. Keep them behind the altar rail. I'm going down there.",
+          "draft": true
+        },
+        {
+          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "draft": true
+        },
+        {
+          "say": "[carrier lost]",
+          "draft": true
+        },
+        {
+          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "draft": true
+        }
+      ]
+    },
+    "Mob": {
+      "draft": true,
+      "labels": {
+        "CLINIC": "DOC"
+      },
+      "lines": [
+        {
+          "say": "Gate to all posts. Headlights off on the east road. Eight, nine guys. Walking.",
+          "draft": true
+        },
+        {
+          "say": "Roof copies. Nine. Long guns, good ones. Somebody paid for those.",
+          "draft": true
+        },
+        {
+          "say": "Copy nine. Doors one through four shut. Lock the count room. Doc, you hear me?",
+          "draft": true
+        },
+        {
+          "say": "Doc hears you. Four beds full, two of them ours. I got tape and one battery.",
+          "draft": true
+        },
+        {
+          "say": "They stopped at the wire. One's talking. He wants whoever runs the place.",
+          "draft": true
+        },
+        {
+          "say": "Tell him {town} is held. Tell him we pay. Ask him the number.",
+          "draft": true
+        },
+        {
+          "say": "He says there's no number.",
+          "draft": true
+        },
+        {
+          "say": "[unintelligible] the fire stairs. They're on the stairs. [two shots, far]",
+          "draft": true
+        },
+        {
+          "say": "Roof. Roof, pick up. Four-one, roof.",
+          "draft": true
+        },
+        {
+          "say": "Four-one, roof. Come on. Come back.",
+          "draft": true
+        },
+        {
+          "say": "[no reply]",
+          "draft": true
+        },
+        {
+          "say": "Gate, doc. They're at the door. I'm opening it. Kids in here, the cook's kids. Okay. Okay. I'm opening it.",
+          "draft": true
+        },
+        {
+          "say": "Copy, doc. Keep the kids in the back. I'm coming down with the cash.",
+          "draft": true
+        },
+        {
+          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "draft": true
+        },
+        {
+          "say": "[carrier lost]",
+          "draft": true
+        },
+        {
+          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "draft": true
+        }
+      ]
+    },
+    "Reds": {
+      "draft": true,
+      "labels": {},
+      "lines": [
+        {
+          "say": "Gate to all posts, comrades. Lights on the east road. Eight, maybe nine. On foot.",
+          "draft": true
+        },
+        {
+          "say": "Roof copies. Nine. Long guns. No colours. All hands to the wall?",
+          "draft": true
+        },
+        {
+          "say": "Copy nine. All hands to the gate. Children to the hall. Clinic, you hear me?",
+          "draft": true
+        },
+        {
+          "say": "Clinic hears you. Four beds full. Tape, no thread. One battery for the lamp. We share it.",
+          "draft": true
+        },
+        {
+          "say": "They stopped at the wire. One is talking. He wants the committee.",
+          "draft": true
+        },
+        {
+          "say": "Tell him {town} is held, the company is coming, and we are all the committee.",
+          "draft": true
+        },
+        {
+          "say": "He says there's no committee coming.",
+          "draft": true
+        },
+        {
+          "say": "[unintelligible] the ladder. They're on the ladder. [two shots, far]",
+          "draft": true
+        },
+        {
+          "say": "Roof. Roof, comrade, talk to me. Four-one, roof.",
+          "draft": true
+        },
+        {
+          "say": "Four-one, roof. Come back.",
+          "draft": true
+        },
+        {
+          "say": "[no reply]",
+          "draft": true
+        },
+        {
+          "say": "Gate, clinic. They're at the door. The little ones are here. Hands up, everybody. We're opening it.",
+          "draft": true
+        },
+        {
+          "say": "Copy, clinic. Hands up, slow. Keep the little ones behind you. I'm going down.",
+          "draft": true
+        },
+        {
+          "say": "[open mic, 41 seconds. somebody breathing. a fire, close. a siren, far.]",
+          "draft": true
+        },
+        {
+          "say": "[carrier lost]",
+          "draft": true
+        },
+        {
+          "say": "END OF TRANSMISSION. {town} channel 4 is quiet.",
+          "draft": true
+        }
+      ]
+    }
+  },
+  "length_s": 100.0
+}

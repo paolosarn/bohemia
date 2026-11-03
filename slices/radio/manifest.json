@@ -1,0 +1,45 @@
+{
+ "_readme": "THE LAST TRANSMISSIONS: every recording the radio carries. The static, the squelch and its tail are the receiver's physics (tools/bohemia_radio_cook.py, class Radio), not a recording and not a filter on noise; a CC0 recording of a real handheld replaces them when a machine can reach Freesound.",
+ "objects": {
+  "click": {
+   "file": "reference/library/sound_bank/esc50_cc0/2-152895-A-31.flac",
+   "what": "Mouse click: a microswitch, the same part as a talk switch (davidkyoku, CC0)"
+  },
+  "wind": {
+   "file": "reference/library/sound_bank/esc50_cc0/3-117504-A-16.flac",
+   "what": "Wind: winter wind 01a (klangfabrik, CC0)"
+  },
+  "wind2": {
+   "file": "reference/library/sound_bank/esc50_cc0/5-179496-A-16.flac",
+   "what": "Wind: 111224_04 wind (toiletrolltube, CC0)"
+  },
+  "shot1": {
+   "file": "reference/library/sound_bank/ffsl_cc0/A_39_0_far.flac",
+   "what": "A far shot (The Free Firearm Sound Library, Still North Media, CC0)"
+  },
+  "shot2": {
+   "file": "reference/library/sound_bank/ffsl_cc0/B_21_0_far.flac",
+   "what": "A far shot (The Free Firearm Sound Library, Still North Media, CC0)"
+  },
+  "knock": {
+   "file": "reference/library/sound_bank/esc50_cc0/2-133889-A-30.flac",
+   "what": "Door knock: large wood door knocking (aroth4, CC0)"
+  },
+  "knock2": {
+   "file": "reference/library/sound_bank/esc50_cc0/5-235644-A-30.flac",
+   "what": "Door knock (Coonick, CC0)"
+  },
+  "breath": {
+   "file": "reference/library/sound_bank/esc50_cc0/3-112557-A-23.flac",
+   "what": "Breathing: frightened breathing (nickrave, CC0)"
+  },
+  "fire": {
+   "file": "reference/library/sound_bank/esc50_cc0/4-181563-A-12.flac",
+   "what": "Crackling fire 01 (kingsrow, CC0)"
+  },
+  "siren": {
+   "file": "reference/library/sound_bank/esc50_cc0/1-54084-A-42.flac",
+   "what": "Siren: civil defense (guitarguy1985, CC0)"
+  }
+ }
+}

@@ -10410,6 +10410,15 @@ GATES = [
      "engine/bohemia_haptics.js is the one call, records/target/bb/haptics.json every buzz: the alpha and the demo load it, the recap says won/lost/withdrew; every kind has its reason, every mapped sound is real; "
      "no footstep, shot, swing, miss, room or music is felt, no pulse over 150 ms; no felt number in the module's code; in a fake window the sound call is felt once through two wraps, the fight's message with its facts, "
      "the cooldown drops, BUZZ OFF reaches nothing, LIGHT halves, a pad rumbles, an iPhone ticks only inside a touch, native wins; the demo probe's fight felt and never over one a second. Three plants bite. Seconds", True),
+    ('THE TOWN YOU DID NOT DEFEND', ['node', 'gates/the_town_you_did_not_defend_gate.js', '--live'],
+     "RADIO gate, 11/3, rule 353 (asks 367 and 370; PAOLO 11/3: 'what happens if you don't support the defense enough... how creepy the audio and transcripts get... "
+     "this is Bohemian, this is my swag'; amended the same round: 'we're not adding real voices... it breaks your heart kind of vibe, just reading it'). THE WORDS "
+     "(records/target/bb/radio_lines.json): four towns x 16 lines, each whole on the phone at 120 with every fill at its longest, draft, no exclamation mark, no Spanglish "
+     "(rule 355), the phone speaks only in brackets and ends it, one call repeated and never answered, every line its read time on the strip; in a sandbox a fall asked "
+     "inside the first minute waits and after it plays. THE SOUND (slices/radio/fall.mp3, decoded): the words' own skeleton, a squelch tail after every key-up, silence "
+     "between keys, weak posts hiss 8+ dB over strong ones, no voice, every object a CC0/PD/MIT recording in the bank. THE WIRING: the alpha and the demo carry "
+     "engine/bohemia_radio_heard.js byte for byte, the map loads slices/bohemia_radio.js, raidSettle asks only on 'taken'. THE VOTE CARD plays a town's fall in order, "
+     "0 errors. THE LIVE DEMO: the Church falls on the phone line by line, the shell books it on the next beat and tells the map, 0 errors. About 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
