@@ -18285,6 +18285,105 @@
     "after": "rule 346: no seam, no cut-off, every road met",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
+  },
+  {
+   "id": "combat-place-redrock-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-redrock-11-3",
+   "lane": "combat",
+   "sha": "2a9e400e",
+   "made": "11/3",
+   "draft": true,
+   "title": "RED ROCK: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "Red Rock's slickrock sheets are soft shapes now, never along the grid's lines, and its ledges sit whole inside their blocks. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_redrock.webp",
+    "first": "../records/target/combat_maps_11_3/first_redrock.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-wash-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-wash-11-3",
+   "lane": "combat",
+   "sha": "2a9e400e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE WASH: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The wash's silt floor lies a metre in from the channel's slopes now, so no line runs on the grid, and its gravel and stains stay off the block edges. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_wash.webp",
+    "first": "../records/target/combat_maps_11_3/first_wash.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-desert-11-3b",
+   "kind": "redo",
+   "redoOf": "combat-place-desert-11-3",
+   "lane": "combat",
+   "sha": "2a9e400e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE DESERT: NO SEAMS",
+   "said": "Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont connect and things that dont visually and logically make sense",
+   "why": "The desert already held at its seams, and now its one boulder cut at a picture's edge sits whole inside it too. You see it in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and nothing breaks the picture",
+    "B, better, push it further",
+    "C, no, still wrong"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_desert.webp",
+    "first": "../records/target/combat_maps_11_3/first_desert.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the board on main (rule 341, its own board)",
+    "after": "rule 346: no seam, no cut-off, every road met",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
   }
  ],
  "verdicts": [
