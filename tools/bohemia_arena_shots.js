@@ -2,7 +2,7 @@
 /* ARENA (rule 375): the VOTE cards' pictures, taken on his phone's glass (390 x 844, two pixels a point) from the real screens,
    never a mock-up. One mode per piece:
      node tools/bohemia_arena_shots.js pit      -> slices/vote/arena/pit_*.webp   (piece a: the pit on the Mob's town, day, night, the bookie's sheet)
-     node tools/bohemia_arena_shots.js pick     -> slices/vote/arena/pick_*.webp  (piece b: the card and the pick, the collar crossed out)
+     node tools/bohemia_arena_shots.js pick     -> slices/vote/arena/pick_*.webp  (piece b: the card, the pick ready, one tap swaps a man in)
    The pictures are written as webp through the python PIL (python3 -I, nothing imported from the repo). */
 const fs = require('fs'), path = require('path'), http = require('http'), { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(ROOT, 'slices/vote/arena'), TMP = path.join(require('os').tmpdir(), 'arena_shots');
@@ -40,17 +40,17 @@ const MODE = process.argv[2] || 'pit';
   }
   if (MODE === 'pick') {
     const crew = [
-      { name: 'Ruben Okafor', level: 3, look: 'cast_longcoat', gear: { main: 'pistol', body: 'leather_jacket', acc: 'cell_vest_scrap' } },
-      { name: 'Lupe Varga', level: 2, look: 'cast_poncho', gear: { main: 'rifle', body: 'padded_vest' } },
-      { name: 'Teo Salas', level: 2, look: 'cast_barearms', gear: { main: 'machete', off: 'shield_door', acc: 'cell_vest_yard' } },
-      { name: 'Marisol Ortiz', level: 1, look: 'cast_apron', gear: { main: 'shotgun' } },
-      { name: 'Dax Pruitt', level: 1, look: 'cast_widebrim', gear: { main: 'pistol' } }];
+      { name: 'YOU', level: 2, look: 'you', gear: { main: 'pistol' } },
+      { name: 'DESI', level: 2, look: 'person_town_0', gear: { main: 'rifle', acc: 'cell_vest_scrap' } },
+      { name: 'RAUL', level: 2, look: 'person_town_1', gear: { main: 'machete' } },
+      { name: 'TEO', level: 1, look: 'person_town_5', gear: { main: 'shotgun', acc: 'cell_vest_yard' } },
+      { name: 'MARCOS', level: 1, look: 'person_town_2', gear: { main: 'pistol' } }];
     const p = await page(390, 844);
     await town(p, { day: 43, company: crew });
     const xy = await p.evaluate(() => BohemiaSettlement.where('arena')); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(1600); await shot(p, 'pick_card');
-    await p.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); b && b.click(); }); await p.waitForTimeout(1200); await shot(p, 'pick_empty');
-    for (const i of [0, 2, 1]) { await p.evaluate(i => { const c = document.querySelectorAll('#ar-pick .ar-man')[i]; c && c.click(); }, i); await p.waitForTimeout(300); }
-    await p.waitForTimeout(600); await shot(p, 'pick_three');
+    await p.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); b && b.click(); }); await p.waitForTimeout(1500); await shot(p, 'pick_ready');
+    /* one tap on a fourth face swaps him in for the first pick */
+    await p.evaluate(() => { const c = document.querySelectorAll('#ar-pick .ar-man')[3]; c && c.click(); }); await p.waitForTimeout(700); await shot(p, 'pick_swap');
   }
   await b.close(); srv.close();
 })().catch(e => { console.error(e); process.exit(1); });

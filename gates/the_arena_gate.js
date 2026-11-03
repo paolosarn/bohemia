@@ -20,6 +20,11 @@
       B3 a tap on the pit opens the bookie: his face, his name, a line about tonight, never the market
       B4 the card says it plainly: every foe in his own body, how many, the purse in batteries, the house rules
       B5 nobody walks into the pool (the pit's ground is a block the town's people go round)
+   C  THE PICK AND THE WAY IN (the demo, a real finger: the Mob's town, the pit, the pick, FIGHT)
+      C2 one screen of big faces: every man of the company, the best N already picked (three), FIGHT one tap away
+      C3 every man's accessory slot is crossed out in red, and a man who wears one shows it struck through
+      C4 FIGHT hands the fight ONLY the picked men, in his order, and none of them wears his accessory inside
+      C5 the foes are the card's, every one, on a small board cut to the two sides, the arena flag riding with it
    ============================================================================ */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -103,6 +108,56 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
   ok('B5 nobody walks into the pool: the pit is ground the town\'s people go round, the bookie on open ground', blocked && walk && !(walk.miss || []).some(m => /^arena stands in a block/.test(m)), 'the nearest ground to the pool is ' + (pool ? Math.round(pool.moved) : '?') + ' px off it; ' + ((walk && walk.miss || []).slice(0, 2).join('; ') || 'every spot on open ground'));
   ok('C1 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();
+  if (process.argv.indexOf('--no-demo') < 0) return legC();
   console.log('THE ARENA GATE: ' + pass + ' ok, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(1); });
+
+/* C: the demo, driven like a player (tools/bohemia_drive_the_demo.js) */
+async function legC() {
+  console.log('C  THE PICK AND THE WAY IN (the demo)');
+  const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
+  const d = await open({ fog: true }); const fr = d.fr, page = d.page, errs = [];
+  page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
+  try {
+    for (let i = 0; i < 80; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!(window.__FRESH_START && window.__FRESH_START.at) && typeof loopOpenTown === 'function' && !!window.BohemiaArena && BohemiaArena.ready()).catch(() => false)) break; }
+    for (let i = 0; i < 40; i++) { const g = await page.evaluate(() => { const w = document.getElementById('mainmaker'); if (!w) return 'gone'; if (w.dataset.armed !== '1') return null; const k = w.querySelector('.go'), r = k && k.getBoundingClientRect(); return r && r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }).catch(() => null);
+      if (g === 'gone') break; if (g) await page.touchscreen.tap(g.x, g.y); await page.waitForTimeout(500); }
+    for (let i = 0; i < 30; i++) { if (await fr.evaluate(() => !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened)).catch(() => false)) break; await page.waitForTimeout(500); }
+    await page.waitForTimeout(2000);
+    /* the company the crew screen hands over, one man wearing an accessory (a spark vest) */
+    const plant = await page.evaluate(() => { const p = window.BOH_START && BOH_START.picks(); const co = JSON.parse(JSON.stringify((p && p.company) || []));
+      co.forEach((m, i) => { m.name = m.name || (i === 0 ? 'YOU' : 'MAN' + i); m.gear = m.gear || {}; }); if (co[1]) co[1].gear.acc = 'cell_vest_scrap';
+      localStorage.setItem('bohemia.company.v1', JSON.stringify(co)); return co.map(m => ({ name: m.name, level: m.level || 1, acc: m.gear.acc || null })); });
+    await fr.evaluate(() => { BohemiaArena.reset(); const b = ctBases().Mob; loopOpenTown({ name: 'Mob', x: b.x, y: b.y, tier: mapTierOf('Mob') }); });
+    let sf = null; for (let i = 0; i < 40 && !sf; i++) { await page.waitForTimeout(500); sf = page.frames().find(f => /SETTLEMENT/.test(f.url())); }
+    for (let i = 0; i < 40; i++) { await page.waitForTimeout(400); if (await sf.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.order().indexOf('arena') >= 0).catch(() => false)) break; }
+    await page.waitForTimeout(1200);
+    const sb = await (await fr.$('#settleFrame')).boundingBox(), xy = await sf.evaluate(() => BohemiaSettlement.where('arena'));
+    await page.touchscreen.tap(sb.x + xy.x, sb.y + xy.y); await page.waitForTimeout(1800);
+    const pickBtn = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /pick/i.test(x.textContent)); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (pickBtn) await page.touchscreen.tap(sb.x + pickBtn.x, sb.y + pickBtn.y); await page.waitForTimeout(1500);
+    const pick = await sf.evaluate(() => { const w = document.getElementById('ar-pick'); if (!w) return null; const tiles = [...w.querySelectorAll('.ar-man')];
+      return { card: w.dataset.card, men: tiles.map(t => ({ name: t.dataset.man, on: t.classList.contains('on'), face: !!t.querySelector('canvas.ar-face'), slot: !!t.querySelector('.ar-slot'), acc: t.querySelector('.ar-acc').dataset.acc, struck: !!t.querySelector('.ar-acc s') })),
+        fight: (w.querySelector('.ar-fight') || {}).textContent || '' }; });
+    const N = 3, best = plant.slice().map((m, i) => ({ m, i })).sort((a, b) => (b.m.level - a.m.level) || (a.i - b.i)).slice(0, N).map(x => x.m.name);
+    ok('C2 one screen of big faces, every man of the company, the best three already picked, FIGHT one tap away', !!pick && pick.men.length === plant.length && pick.men.every(m => m.face) && pick.men.filter(m => m.on).length === Math.min(N, plant.length) && best.every(n => pick.men.find(m => m.name === n && m.on)) && /FIGHT WITH/.test(pick.fight), pick ? pick.men.map(m => m.name + (m.on ? '*' : '')).join(' ') + ' | ' + pick.fight : 'no pick screen');
+    ok('C3 every accessory slot crossed out in red; the man wearing one shows it struck through', !!pick && pick.men.every(m => m.slot) && pick.men.filter(m => m.acc).every(m => m.struck) && pick.men.some(m => m.acc === 'cell_vest_scrap' && m.struck), pick ? pick.men.filter(m => m.acc).map(m => m.name + ':' + m.acc).join(' ') : '');
+    /* take the man with the vest in, if the best three left him out: a tap on his face swaps him for the last pick */
+    const vestMan = plant.find(m => m.acc); if (vestMan && pick && !pick.men.find(m => m.name === vestMan.name).on) { const r = await sf.evaluate(n => { const t = [...document.querySelectorAll('#ar-pick .ar-man')].find(x => x.dataset.man === n); const b = t.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; }, vestMan.name); await page.touchscreen.tap(sb.x + r.x, sb.y + r.y); await page.waitForTimeout(400); }
+    const chosen = await sf.evaluate(() => [...document.querySelectorAll('#ar-pick .ar-man')].filter(t => t.classList.contains('on')).map(t => ({ name: t.dataset.man, n: +t.querySelector('.ar-num').textContent })).sort((a, b) => a.n - b.n).map(x => x.name));
+    const fb = await sf.evaluate(() => { const b = document.querySelector('#ar-pick .ar-fight'), r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    await page.touchscreen.tap(sb.x + fb.x, sb.y + fb.y);
+    let ff = null; for (let i = 0; i < 60 && !ff; i++) { await page.waitForTimeout(500); const h = await page.$('#fightFrame'); if (h) { const x = await h.contentFrame(); if (x && await x.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) ff = x; } }
+    const f = ff ? await ff.evaluate(() => ({ arena: (window.FIGHT_OPTS || {}).arena || null, w: FIGHT.S.w, h: FIGHT.S.h, us: FIGHT.S.units.filter(u => u.side !== 'them').map(u => ({ name: u.name, vest: !!u.vest })),
+      them: FIGHT.S.units.filter(u => u.side === 'them').map(u => u.kind || u.id), acc: ((window.FIGHT_OPTS || {}).company || []).map(m => (m.gear && m.gear.acc) || null) })) : null;
+    const picked = await page.evaluate(() => window.__NF_ARENA || null);
+    const sent = await sf.evaluate(() => window.__arenaPicked || null);
+    ok('C4 the fight has ONLY the picked men, in his order, none wearing his accessory', !!f && f.us.map(u => u.name).join() === chosen.join() && f.acc.every(a => !a) && f.us.every(u => !u.vest) && !!picked && picked.acc.some(a => a === 'cell_vest_scrap'), f ? f.us.map(u => u.name + (u.vest ? '+vest' : '')).join(' ') + ' | picked ' + chosen.join(' ') : 'no fight');
+    const band = sent && sent.card ? sent.card.band.slice().sort().join() : '';
+    ok('C5 the card\'s foes, every one, on a small board, the arena flag riding with it', !!f && f.them.slice().sort().join() === band && f.w * f.h < 20 * 15 / 2 && !!f.arena && f.arena.id === sent.card.id, f ? f.them.join(',') + ' on ' + f.w + 'x' + f.h + ' | card ' + band : '');
+    ok('C6 nothing threw in the demo', errs.length === 0, errs.slice(0, 2).join(' | '));
+  } finally { try { await d.browser.close(); } catch (e) {} try { d.server && d.server.close(); } catch (e) {} }
+  console.log('THE ARENA GATE (with the demo): ' + pass + ' ok, ' + fail + ' failed');
+  process.exit(fail ? 1 : 0);
+}

@@ -142,6 +142,7 @@
     if(!c){ acts.appendChild(api.act('Wait for the card', '', function(){ api.openB('arena'); })); return; }
     body.appendChild(cardEl(c));
     if(t.fought) acts.appendChild(api.act('Come back tomorrow', 'one fight a day', function(){ api.hide(); }, true));
+    else acts.appendChild(api.act('Pick your ' + (c.men === 3 ? 'three' : c.men), 'then FIGHT', function(){ pickSheet(api, c); }));
     acts.appendChild(api.act('Walk away', 'the card waits till morning', function(){ api.hide(); }));
   }
   function sub(S){ var Ar = E(); if(!Ar || !Ar.ready() || !S || !S.place) return 'the Mob\'s arena';
@@ -211,7 +212,7 @@
       if(hurt(m.name)) t.appendChild(el('div', 'ar-hurt', 'HURT'));
       var acc = el('div', 'ar-acc'); acc.dataset.acc = m.gear && m.gear.acc ? m.gear.acc : '';
       acc.appendChild(el('span', 'ar-slot'));
-      var at = el('span'); if(m.gear && m.gear.acc){ var st = el('s', null, String(m.gear.acc).replace(/_/g, ' ')); at.appendChild(st); at.appendChild(document.createTextNode(' stays outside')); } else at.textContent = 'accessory: does not count';
+      var at = el('span'); if(m.gear && m.gear.acc){ var st = el('s', null, String(m.gear.acc).replace(/^cell_vest_(\w+)$/, '$1 cell vest').replace(/_/g, ' ')); at.appendChild(st); at.appendChild(document.createTextNode(' stays outside')); } else at.textContent = 'accessory: does not count';
       acc.appendChild(at); t.appendChild(acc);
       t.addEventListener('click', function(){ var k = chosen.indexOf(m.name); if(k >= 0) chosen.splice(k, 1); else if(chosen.length < N) chosen.push(m.name); else { chosen.shift(); chosen.push(m.name); } paint(); });
       grid.appendChild(t);

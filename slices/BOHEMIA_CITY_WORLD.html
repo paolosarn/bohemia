@@ -73859,6 +73859,62 @@ window.addEventListener('message', function(ev){
   try{ raidTake(d.place); }catch(_e){}
 });
 window.raidTake = raidTake;
+/* ==== __THE_ARENA__ (ARENA, 11/3/26, VAMILY rule 375, ask lines 402 and 403; Paolo 11/3: 'they host an arena with exotic DNA lab
+   shits'): the Mob's pit. The town screen shows tonight's card and the pick (slices/bohemia_arena_town.js); FIGHT comes here as
+   BOHEMIA_SETTLEMENT act 'arena' with the card and the names of the men he picked. The town closes, the fight is handed over the
+   way every fight is (cityHandOver), already met (he saw the card: Battle Brothers' 'you'll know exactly which and how many
+   opponents'), on the Strip's own ground, the arena flag riding with it (the shell takes only the picked men, without their
+   accessories). When the fight comes home the purse is paid only on a win (engine/bohemia_arena.js result, the numbers in
+   records/target/bb/arena.json), the Strip posts it, and the town opens again with the bookie saying how it went. */
+var ARENA_FIGHTING = null;
+function arenaFight(pick, place){
+  if(ARENA_FIGHTING || !pick || !pick.card || !Array.isArray(pick.card.band) || !pick.card.band.length || !Array.isArray(pick.men) || !pick.men.length) return { applied: false, reason: ARENA_FIGHTING ? 'BUSY' : 'NO_CARD' };
+  var c = pick.card, town = LOOP.open || null, b = null;
+  try{ var bs = (typeof ctBases === 'function' ? ctBases() : null) || CT_BASES_BAKED; b = bs && bs[place]; }catch(_e){ b = null; }
+  var at = b ? { x: b.x | 0, y: b.y | 0, gx: b.x | 0, gy: b.y | 0 } : undefined;
+  try{ loopClose(); }catch(_e){}
+  ARENA_FIGHTING = { pick: pick, place: place, town: town, day: loopDay() };
+  var ok = false;
+  try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'The pit', faction: 'Mob', draft: true, __met: true,
+    roster: c.band.map(function(){ return { arch: c.beast ? 'beast' : 'human' }; }),
+    party: { count: c.band.length, days: loopDay() | 0 || 1, difficulty: 1, faction: 'mob', band: c.band.slice() },
+    street: true, why: 'arena:' + c.id, district: 'strip',
+    arena: { id: c.id, men: pick.men.slice(), fifth: !!c.fifth, tournament: c.tournament || null, purse: c.purse },
+    at: at }); }catch(_e){ ok = false; }
+  if(!ok){ ARENA_FIGHTING = null; if(town) try{ loopOpenTown(town); }catch(_e){} return { applied: false, reason: 'NO_FIGHT' }; }
+  return { applied: true };
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_SETTLEMENT' || d.act !== 'arena') return;
+  try{ arenaFight(d.arena, d.place); }catch(_e){}
+});
+function arenaFought(o){
+  var F = ARENA_FIGHTING; ARENA_FIGHTING = null; if(!F) return null;
+  var c = F.pick.card, won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
+  var men = (o && o.arena && Array.isArray(o.arena.men) && o.arena.men.length) ? o.arena.men : F.pick.men.map(function(n){ return { name: n }; });
+  var r = { won: won, paid: 0, prize: null, ranks: [] };
+  try{ if(window.BohemiaArena && BohemiaArena.ready()) r = BohemiaArena.result(c, { won: won, men: men }); else r.paid = won ? (c.purse | 0) : 0; }catch(_e){}
+  try{ if(r.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', r.paid, 'the pit: the purse', c.id, loopDay()); }catch(_e){}
+  /* the pit's gear (piece d): into the stash, the same bag the stall and the spoils fill */
+  try{ if(r.prize){ var bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []; bag.push(r.prize); localStorage.setItem('bohemia.bag.v1', JSON.stringify(bag)); } }catch(_e){}
+  /* the Strip posts it (rule 371: the feed is the radio; rule 372: a person typing on a phone), draft:true */
+  try{ var foe = c.lines && c.lines.length ? c.lines.map(function(L){ var N = window.BohemiaArena && BohemiaArena.V('names'), nm = N && N[L.id]; return L.n + ' ' + (nm ? (L.n === 1 ? nm[0] : nm[1]) : L.id); }).join(' and ') : 'the card';
+    var txt = won ? ('out of towners went in the pit tonight against ' + foe + ' and walked out. the mob paid them ' + r.paid + '. crowd lost its mind')
+                  : ('the pit tonight: ' + foe + ' won. the out of towners got carried out. no pay for them, good show though');
+    if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thepit_strip', txt: txt, kind: 'world', draft: true }); }catch(_e){}
+  window.__ARENA_LAST = { won: won, paid: r.paid, prize: r.prize, ranks: r.ranks || [], card: c.id, men: men };
+  try{ saveNow('arena:' + c.id); }catch(_e){}
+  /* back to the Mob's town, the bookie at his rope with the result */
+  var t = F.town || (function(){ var bs = null; try{ bs = ctBases(); }catch(_e){} var b = bs && bs[F.place]; return b ? { name: F.place, x: b.x | 0, y: b.y | 0, tier: mapTierOf(F.place) } : null; })();
+  if(t) setTimeout(function(){ try{ loopOpenTown(t); setTimeout(function(){ try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_ARENA_RESULT', result: window.__ARENA_LAST }, '*'); }catch(_e){} }, 400); }catch(_e){} }, 900);
+  return r;
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !ARENA_FIGHTING) return;
+  try{ arenaFought(d.outcome || null); }catch(_e){}
+});
+window.arenaFight = arenaFight; window.arenaFought = arenaFought;
+/* ==== end __THE_ARENA__ ==== */
 function raidFought(o){
   var base = RAID_FIGHTING; RAID_FIGHTING = null; if(!base) return null;
   var won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
@@ -93307,7 +93363,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_arena.js"></script>  <!-- __THE_ARENA__ (ARENA, rule 375): the pit's purse, ranks and prizes when the fight comes home -->  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_road_events.js"></script>  <script src="bohemia_radio.js"></script>  <!-- CONTENT [twenty-five things on the road] (11/2): the road's events with a face and two or three choices, and five side quests met on the road (records/target/BOHEMIA_ROAD_EVENTS.json, BOHEMIA_SIDE_QUESTS.json) -->
 <script src="bohemia_map_houses.js"></script>  <script src="bohemia_map_sight.js"></script>  <!-- __THE_HOUSES_STAND_UP_CLOSE__ WORLD 8 (ask lines 117, 185, 39): the real house models past the old closest stop; what he sees now -->  <script src="bohemia_his_map.js"></script>  <script src="bohemia_world_state_map.js"></script>  <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ WORLD 7 (rule 339): the campaign's state of the valley drawn and made true: dark, burned, looted, rebuilt; camps, lairs, ruins, legendary places; shut roads and passes; the start's sky -->  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->

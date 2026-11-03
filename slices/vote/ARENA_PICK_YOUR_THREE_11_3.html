@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pick Your Three</title>
+<!-- ARENA, 11/3/26, VAMILY rule 375 (and its duct-tape amendment), ask lines 402 and 403. The VOTE card for piece (b): the card,
+     the pick, the way in. Every picture is the real screen on a 390 x 844 phone (tools/bohemia_arena_shots.js pick); the pit is
+     rendered in the towns' own camera by tools/bohemia_arena_the_pit.py. -->
+<style>
+@font-face{font-family:'BohemiaROM';src:url(../fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'BohemiaCasing';src:url(../fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:block}
+:root{--bg:#0b0a08;--panel:#16130f;--line:rgba(240,226,196,.14);--ink:#efe6d2;--dim:#8f8670;--gold:#e2bd6a;--red:#d8341f}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 'BohemiaROM',ui-monospace,monospace}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font:20px/1.2 'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:2px;margin:4px 0 4px;color:var(--gold)}
+p.lede{margin:0 0 14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+figure{margin:0 0 12px;background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:11px;letter-spacing:.5px;color:var(--dim);padding:6px 8px}
+.note{font-size:12px;color:var(--dim);margin:14px 0 0}
+</style></head><body><main>
+<h1>PICK YOUR THREE</h1>
+<p class="lede">Tap the pit, read tonight's card, then one screen of big faces: your best three are already picked, so it's one tap to fight. Tap another face to swap him in. Every man's accessory is crossed out in red: there's no collar to put on, his accessory just doesn't count in the pit. FIGHT takes only those three in, against exactly what the card said.</p>
+<div class="two">
+ <figure><img src="arena/pick_card.webp" alt="the bookie and tonight's card with the Pick your three button" loading="eager"><figcaption>TONIGHT'S CARD: WHO, HOW MANY, THE PURSE</figcaption></figure>
+ <figure><img src="arena/pick_ready.webp" alt="the pick screen, the best three already picked" loading="eager"><figcaption>WHO GOES IN: THE BEST THREE ALREADY PICKED</figcaption></figure>
+</div>
+<figure><img src="arena/pick_swap.webp" alt="one tap on Teo swaps him in" loading="lazy"><figcaption>ONE TAP SWAPS A MAN IN. EVERY ACCESSORY CROSSED OUT; A VEST HE WEARS STAYS OUTSIDE</figcaption></figure>
+<p class="note">Measured in the real demo: FIGHT hands the fight only the picked men in your order, none of them wearing his accessory, against every foe on the card, on a small board (9 by 5 instead of 20 by 15). Next: no retreat, no loot, and the crowd.</p>
+</main></body></html>
