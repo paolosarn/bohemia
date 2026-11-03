@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Radio In The Feed</title>
+<!-- WORDS 2, 11/3/26, VAMILY rule 371, ask line 397. The VOTE card: the real demo's phone while the Church falls (three pictures by
+     tools/bohemia_words2_radio_in_the_feed_shots.js), the fall played with the game's own recording and its own lines stepping in as
+     posts, and the four slices of that recording that now play under the feed's big posts. Every word and sound is the game's file. -->
+<style>
+@font-face{font-family:'BohemiaROM';src:url(../fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'BohemiaCasing';src:url(../fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:block}
+:root{--bg:#0b0a08;--panel:#16130f;--line:rgba(240,226,196,.14);--ink:#efe6d2;--dim:#8f8670;--gold:#f0c47e;--red:#d8341f}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 'BohemiaROM',ui-monospace,monospace}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font:20px/1.2 'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:2px;margin:4px 0 4px;color:var(--gold)}
+h2{font:13px/1.2 'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:2px;margin:22px 0 8px;color:var(--gold)}
+p{margin:0 0 12px}
+.shots{display:flex;gap:8px;overflow-x:auto}
+.shots img{flex:0 0 auto;width:31%;min-width:150px;border-radius:8px;border:1px solid var(--line);background:#000}
+.strip{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:84px}
+.strip b{display:block;font:11px/1.2 'BohemiaCasing',ui-sans-serif,sans-serif;letter-spacing:.5px;color:var(--gold)}
+.strip span{display:block;margin-top:4px}
+.held{font-size:11px;color:var(--dim);margin-top:6px}
+button{font:inherit;font-size:12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin:0 6px 6px 0}
+button.on{border-color:var(--gold);color:var(--gold)}
+.note{font-size:12px;color:var(--dim)}
+</style></head><body><main>
+<h1>THE RADIO LIVES IN THE FEED</h1>
+<p>When a town you hold falls, its people post it on your phone's feed, one line at a time, and nothing else shows until it ends. The radio's sounds stay, and now also play under the feed's big posts.</p>
+<h2>THE REAL DEMO, THE CHURCH FALLING</h2>
+<div class="shots"><img src="words2_radio/fall_1.webp" alt="the phone, the first post of the fall"><img src="words2_radio/fall_2.webp" alt="the phone, the tower answering"><img src="words2_radio/fall_3.webp" alt="the phone, near the end"></div>
+<h2>PLAY IT: THE GAME'S RECORDING, ITS POSTS</h2>
+<button id="go">PLAY THE FALL</button><button id="stop">STOP</button>
+<div class="strip" id="strip"><b>@valley</b><span>The valley is quiet.</span></div>
+<div class="held" id="held">An ordinary post waiting: none.</div>
+<h2>UNDER THE FEED'S BIG POSTS</h2>
+<div id="unders"></div>
+<p class="note">Same feed, same look, no radio screen. Every word is records/target/bb/radio_lines.json; every sound is slices/radio/fall.mp3.</p>
+</main>
+<script>
+(function () {
+  var L = null, AC = null, BUF = null, src = null, timers = [], ORD = null;
+  /* one ordinary post from the game's own feed file: a kind that is not big, its first line with nothing to fill */
+  fetch('../../records/target/bb/feed_kinds.json').then(function (r) { return r.json(); }).then(function (K) {
+    var acc = {}; (K.accounts || []).forEach(function (a) { acc[a.id] = a; });
+    K.kinds.some(function (k) { if (k.big) return false; var w = (k.words || []).filter(function (x) { return x.en && x.en.indexOf('{') < 0; })[0];
+      var a = acc[(k.who || [])[0]] || null; if (!w || !a || !a.handle) return false; ORD = { who: '@' + String(a.handle).replace(/^@/, ''), txt: w.en }; return true; });
+  }).catch(function () {});
+  var strip = document.getElementById('strip'), held = document.getElementById('held');
+  function show(who, txt) { strip.innerHTML = ''; var b = document.createElement('b'), s = document.createElement('span'); b.textContent = who; s.textContent = txt; strip.appendChild(b); strip.appendChild(s); }
+  function slug(s, n) { return String(s || '').toLowerCase().replace(/^the\s+/, '').split(',')[0].replace(/[^a-z0-9]+/g, '').slice(0, n); }
+  function handle(src, lab, town) {   /* the game's own rule, slices/bohemia_radio.js handleOf */
+    var t = slug(town, 7), H = L.handles || {};
+    if (src === 'PHONE' || src === 'OPEN') return ('@' + String(L.channel).toLowerCase().replace(/[^a-z0-9]+/g, '') + '_' + t).slice(0, 16);
+    return ('@' + t + '_' + (H[lab] || H[src] || slug(lab, 7))).slice(0, 16);
+  }
+  function ctx() { if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)(); return AC; }
+  function buf() { if (BUF) return Promise.resolve(BUF); return fetch('../radio/fall.mp3').then(function (r) { return r.arrayBuffer(); }).then(function (ab) { return new Promise(function (res, rej) { ctx().decodeAudioData(ab, res, rej); }); }).then(function (b) { BUF = b; return b; }); }
+  function stop() { timers.forEach(clearTimeout); timers = []; try { if (src) src.stop(); } catch (e) {} src = null; document.getElementById('go').classList.remove('on'); held.textContent = 'An ordinary post waiting: none.'; }
+  function play(from, dur, db) {
+    var a = ctx(); return buf().then(function (b) { var s = a.createBufferSource(), g = a.createGain(); s.buffer = b; g.gain.value = Math.pow(10, db / 20); s.connect(g); g.connect(a.destination); s.start(a.currentTime + 0.05, from, dur); return s; });
+  }
+  fetch('../../records/target/bb/radio_lines.json').then(function (r) { return r.json(); }).then(function (j) {
+    L = j;
+    var box = document.getElementById('unders');
+    Object.keys(L.under_posts).filter(function (k) { return k[0] !== '_'; }).forEach(function (kind) {
+      var what = L.under_posts[kind], seg = L.segments[what], btn = document.createElement('button');
+      btn.textContent = kind.replace(/_/g, ' ').toUpperCase() + ': ' + what.toUpperCase();
+      btn.onclick = function () { stop(); play(seg.from, seg.dur, seg.db).then(function (s) { src = s; }); };
+      box.appendChild(btn);
+    });
+  });
+  document.getElementById('stop').onclick = stop;
+  document.getElementById('go').onclick = function () {
+    if (!L) return; stop(); this.classList.add('on');
+    var T = L.towns.Church, town = 'Church';
+    play(0, L.length_s, -6).then(function (s) { src = s; });
+    L.skeleton.forEach(function (sk, i) {
+      timers.push(setTimeout(function () { show(handle(sk.src, (T.labels || {})[sk.src] || sk.src, town), String(T.lines[i].say).replace(/\{town\}/g, town)); }, sk.at * 1000 + 50));
+    });
+    /* an ordinary post from the game's own feed arrives in the middle and waits: the priority hold */
+    var o = ORD || { who: '@thevalley', txt: 'The valley is quiet.' };
+    timers.push(setTimeout(function () { held.textContent = 'An ordinary post waiting: ' + o.who + ', "' + o.txt + '". It shows when the fall ends.'; }, 12000));
+    timers.push(setTimeout(function () { show(o.who, o.txt); held.textContent = 'An ordinary post waiting: none.'; }, (L.length_s + 0.5) * 1000));
+  };
+})();
+</script>
+</body></html>

@@ -462,5 +462,49 @@
       ]
     }
   },
-  "length_s": 100.0
+  "length_s": 100.0,
+  "handles": {
+    "_about": "rule 371(a): each voice on the town's channel posts as itself, @<town>_<this>; the brackets and the end are the channel's relay, @ch4_<town>. Keys are the skeleton's sources and the towns' labels.",
+    "GATE": "gate",
+    "ROOF": "roof",
+    "TOWER": "tower",
+    "CLINIC": "clinic",
+    "INFIRMARY": "nurse",
+    "DOC": "doc"
+  },
+  "under_posts": {
+    "_about": "rule 371(c): the feed's important posts (its big kinds, records/target/bb/feed_kinds.json) get a slice of the fall's own recording under them, on the beat; the kind id -> the segment",
+    "man_dead": "carrier",
+    "wipe": "carrier",
+    "town_falls": "open",
+    "raid_seen": "static",
+    "faction_war": "static",
+    "fight_lost": "static",
+    "road_closed": "squelch",
+    "fight_won": "squelch"
+  },
+  "segments": {
+    "_about": "slices of slices/radio/fall.mp3 by its own skeleton (seconds): the static is the weakest post (n 8, signal 0.19), the squelch a strong key-up and its tail (n 1 ends at 7.76), the open mic (n 14), the carrier lost (the cut, n 15). db is under the fall's own gain.",
+    "static": {
+      "from": 47.2,
+      "dur": 1.6,
+      "db": -14
+    },
+    "squelch": {
+      "from": 7.2,
+      "dur": 0.9,
+      "db": -14
+    },
+    "open": {
+      "from": 79.0,
+      "dur": 3.0,
+      "db": -16
+    },
+    "carrier": {
+      "from": 90.5,
+      "dur": 2.5,
+      "db": -14
+    }
+  },
+  "under_gap_s": 20
 }

@@ -10465,6 +10465,14 @@ GATES = [
      "table is only canids; B5 the map types no beast cell size; B6 every lab beast's hi-vis collar plate and the bull's and the hog's lime farm tag show 6+ "
      "pixels in 4+ of 8 facings of the fight's own sheet, the unmarked rows the plant; B7 every beast party names the water it lives at. Plants for every leg. "
      "Seconds, no browser", True),
+    ('THE RADIO LIVES IN THE FEED', ['node', 'gates/the_radio_lives_in_the_feed_gate.js', '--live'],
+     "WORDS 2 gate, 11/3, rule 371 (ask line 397; PAOLO 11/3, NO on the town falling on its own radio: 'this is what the tweets are for... "
+     "priority... I love the radio noise... we're not running a new system... keep all these assets'). A town's fall posts in the feed's own "
+     "format (a handle and the words, each voice as itself), every line priority while it plays and no hold after; a big post asks for its "
+     "slice of the fall's own recording once (never in the gap, the first minute or over a fall); the strip keeps only priority posts while "
+     "any is up and an important one its read time, its fit and scroll untouched; the scanner draws nothing itself; every radio asset kept, "
+     "every big kind its slice where it says. LIVE on the demo: a newer ordinary post shows when nothing plays, and never while the Church "
+     "falls (48 samples). About 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

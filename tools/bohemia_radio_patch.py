@@ -30,9 +30,10 @@ GLUE = r"""/* ---- __THE_LAST_TRANSMISSIONS__: the glue (tools/bohemia_radio_pat
     out: function () { return window.__sfxOut ? window.__sfxOut() : null; }
   });
   addEventListener('message', function (ev) {
-    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_RADIO' || d.ev !== 'fall') return;
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_RADIO' || (d.ev !== 'fall' && d.ev !== 'under')) return;
     var src = ev.source;
     try { if (typeof window.__judging === 'function' && window.__judging()) return; } catch (_e) {}   /* he is judging: the words run alone */
+    if (d.ev === 'under') { try { R.under(d.id, { from: d.from, dur: d.dur, db: d.db }); } catch (_e) {} return; }   /* rule 371(c) */
     try {
       R.fall(d.id).then(function (res) {
         if (!res || !src) return;

@@ -312,7 +312,7 @@
     try {
       if (window.BohemiaFeed && typeof BohemiaFeed.read === 'function') {
         var r = BohemiaFeed.read({ limit: 30 }) || [];
-        if (r.length) return r.slice().reverse().map(function (x) { var h = String(x.handle || ''); return { who: h.charAt(0) === '@' ? h : '@' + h, txt: String(x.text || ''), kind: x.kind || 'world', re: !!x.reply_to, id: x.id }; });
+        if (r.length) return r.slice().reverse().map(function (x) { var h = String(x.handle || ''); return { who: h.charAt(0) === '@' ? h : '@' + h, txt: String(x.text || ''), kind: x.kind || 'world', re: !!x.reply_to, id: x.id, type: x.type || '', big: !!x.big }; });
       }
       return window.BOHEMIA_FEED ? window.BOHEMIA_FEED.posts() : [];
     } catch (e) { return []; }
@@ -1340,12 +1340,22 @@
      next one steps in: a new post at once when one comes, else the strip walks back through the last STRIP_BACK posts and round
      again, so there is always something to read. */
   var STRIP_BACK = 6;
+  /* THE PRIORITY HOLD (rule 371(b), Paolo 11/3: 'if it's an important quest and timewise you won't see any other tweets,
+     priority'): while an important run plays (a town falling on its channel: its posts carry priority), the strip shows only
+     those posts; and an important post on the strip (priority, or one of the feed's big kinds) keeps it its whole read time
+     before anything newer steps in. Nothing else in the strip changes: its fit, its scroll and its read times are as they were. */
+  function stripHold(posts) {
+    var h = posts.filter(function (p) { return p && p.priority; });
+    return h.length ? h : posts;
+  }
   function stripPaint(force) {
     var fd = H.el.querySelector('.home .bpfd'); if (!fd) return;
     if (H.stripFitH !== fd.clientHeight && fd.querySelector('.fp')) fitStrip(fd);   /* shown again, the jobs grew, or the font came in */
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
-    var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }));
+    var posts = stripHold((L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; })));
     var last = posts.length ? posts[posts.length - 1] : null, newest = last ? last.who + '|' + last.txt : '';
+    if (newest !== H.stripNewest && H.stripHeld && Date.now() < H.stripHeld && !(last && last.priority && !H.stripHeldPri)) {
+      window.__PHONE_HELD = (window.__PHONE_HELD | 0) + 1; return; }   /* 371(b): the important one keeps the strip its read time */
     if (newest !== H.stripNewest) { H.stripNewest = newest; H.stripBack = 0; }   /* a new post steps in at once */
     var ring = Math.max(1, Math.min(posts.length, STRIP_BACK)), back = (H.stripBack | 0) % ring;
     var one = posts.length ? [posts[posts.length - 1 - back]] : [], sig = one.map(function (p) { return p.who + '|' + p.txt; }).join('') + '#' + back;
@@ -1358,6 +1368,8 @@
     if (fresh) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
     clearTimeout(H.stripT);
     var ms = Math.max(readMs(p), stripScroll(fd)); H.stripRead = { sig: sig, ms: ms, t: Date.now() };
+    H.stripHeld = (p.priority || p.big) ? Date.now() + ms : 0; H.stripHeldPri = !!p.priority;   /* 371(b) */
+    if (p.priority) window.__PHONE_PRIORITY = (window.__PHONE_PRIORITY | 0) + 1;
     H.stripT = setTimeout(function () { if (H.stripSig !== sig) return;
       window.__PHONE_STRIP_OUT = (window.__PHONE_STRIP_OUT | 0) + 1;
       if (ring > 1) { H.stripBack = ((H.stripBack | 0) + 1) % ring; stripPaint(true); } }, ms);   /* read: the next one in, never empty */

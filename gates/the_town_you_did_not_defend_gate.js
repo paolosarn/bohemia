@@ -16,7 +16,7 @@
  *      slices/bohemia_radio.js and raidSettle asks for the fall only on 'taken'.
  *   D. THE VOTE CARD: the page plays the game's own recording and shows the lines in order, 0 page errors; it is in the
  *      registry once.
- *   E. (--live) THE REAL DEMO: a town falls; the phone's posts carry its channel line by line, the shell books the
+ *   E. (--live) THE REAL DEMO: a town falls; the phone's posts carry its channel line by line as feed posts (371), the shell books the
  *      recording on the next beat and answers the map, 0 page errors. (The first minute is A6's: this box boots past it.)
  */
 'use strict';
@@ -32,10 +32,10 @@ const MAN = JSON.parse(fs.readFileSync(R('slices/radio/manifest.json'), 'utf8'))
 const SPANISH = ['mio', 'mia', 'dios', 'madre', 'santa', 'mijo', 'mija', 'quiere', 'ay', 'oye', 'pues', 'hermano', 'ojala', 'gracias', 'bueno', 'vamos', 'nada', 'calle', 'jefe'];
 
 /* ---------------- A. THE WORDS ---------------- */
+/* rule 371(a): a line is a feed post now, a handle and the words; it is whole when both fit (the handle 16, the words 120) */
 function shown(town, i) {
-  const sk = L.skeleton[i], T = L.towns[town], lab = (T.labels || {})[sk.src] || sk.src;
-  const say = T.lines[i].say.replace(/\{town\}/g, town === '_plain' ? 'Volunteers' : town);
-  return '23:59:59 ' + (sk.src === 'PHONE' ? '' : lab + '  ') + say;
+  const T = L.towns[town];
+  return T.lines[i].say.replace(/\{town\}/g, town === '_plain' ? 'Volunteers' : town);
 }
 function words() {
   console.log('A. THE WORDS');
@@ -56,7 +56,8 @@ function words() {
   });
   leg(probs.length === 0 && towns.length >= 4, 'A1 EVERY LINE OF EVERY TOWN IS WHOLE ON THE PHONE, DRAFT, CALM, NO SPANGLISH (rules 350, 355; R3, R4)',
     probs.length ? probs.slice(0, 4).join('; ') : towns.length + ' towns x ' + n + ' lines, longest ' + Math.max(...towns.flatMap(t => L.towns[t].lines.map((_, i) => shown(t, i).length))) + ' of ' + L.max_chars);
-  leg((L.channel + ' VOLUNTEERS').length <= L.handle_max, 'A2 THE CHANNEL\'S HANDLE FITS (16)', L.channel + ' VOLUNTEERS');
+  const hs = ['@ch4_volunte', '@volunte_clinic', '@church_tower', '@church_nurse', '@mob_doc'];
+  leg(hs.every(h => h.length <= L.handle_max) && L.handles && L.handles.GATE, 'A2 THE HANDLES FIT (16): @<town>_<who> and the channel\'s relay (rule 371(a))', hs.join(' '));
   /* R6: the gate calls the roof, twice, and the phone says nobody answered */
   const sk = L.skeleton, calls = sk.map((s, i) => [s, i]).filter(([s, i]) => s.src === 'GATE' && /four-one/i.test(L.towns._plain.lines[i].say));
   const after = calls.length ? sk[calls[calls.length - 1][1] + 1] : null;
@@ -126,7 +127,7 @@ function sound() {
   const lic = objs.every(o => { const d = path.dirname(R(o.file)), l = path.join(d, 'LICENCES.md'); return fs.existsSync(l); });
   leg(objs.length >= 6 && bad.length === 0 && lic && !MAN.voices_vote_only && !/voice/i.test(Object.keys(MAN.objects).join(' ')),
     'B5 NO VOICE IN IT, AND EVERY OBJECT IS A REAL RECORDING IN THE BANK UNDER CC0, PUBLIC DOMAIN OR MIT (353f, 353g)', objs.length + ' recordings' + (bad.length ? '; bad: ' + bad.map(o => o.file).join(', ') : ''));
-  leg(typeof IDX.db === 'number' && IDX.db <= -8 && fs.statSync(R('slices/radio/' + IDX.file)).size < 700000, 'B6 UNDER THE MUSIC AND SMALL (heard gain, file size)', IDX.db + ' dB, ' + Math.round(fs.statSync(R('slices/radio/' + IDX.file)).size / 1024) + ' KB, loaded only when a town falls');
+  leg(typeof IDX.db === 'number' && IDX.db <= -8 && fs.statSync(R('slices/radio/' + IDX.file)).size < 700000, 'B6 UNDER THE MUSIC AND SMALL (heard gain, file size)', IDX.db + ' dB, ' + Math.round(fs.statSync(R('slices/radio/' + IDX.file)).size / 1024) + ' KB, loaded only when a town falls or an important post first asks (371c)');
 }
 
 /* ---------------- C. THE WIRING ---------------- */
@@ -181,8 +182,8 @@ async function live() {
     const posts = await fr.evaluate(() => BohemiaPhone.P.posts().filter(x => x.radio).map(x => x.who + ' | ' + x.txt));
     const due = L.skeleton.filter(s => s.at <= 19).length;
     const top = await p.evaluate(() => ({ log: window.RADIO ? window.RADIO.log : null, err: window.RADIO ? window.RADIO.err : 'no player' }));
-    leg(t1.st.playing && t1.up >= 60000 && posts.length >= due && posts.length <= due + 1 && posts.every(s => /^CH 4 CHURCH \| \d\d:\d\d:\d\d /.test(s)) && /TOWER/.test(posts.join(' ')),
-      'E2 AFTER THE FIRST MINUTE THE CHURCH FALLS ON THE PHONE, LINE BY LINE, TIME-STAMPED', posts.length + ' lines by 20 s (due ' + due + '); ' + (posts[posts.length - 1] || 'none'));
+    leg(t1.st.playing && t1.up >= 60000 && posts.length >= due && posts.length <= due + 1 && posts.every(s => /^@[a-z0-9_]{2,15} \| (?!\d\d:\d\d)/.test(s)) && /@church_tower/.test(posts.join(' ')),
+      'E2 AFTER THE FIRST MINUTE THE CHURCH FALLS ON THE PHONE, LINE BY LINE, IN THE FEED\'S OWN FORMAT (rule 371(a))', posts.length + ' lines by 20 s (due ' + due + '); ' + (posts[posts.length - 1] || 'none'));
     leg(top.log && top.log.length === 1 && top.log[0].in_ms >= 0 && top.log[0].in_ms < 700 && !top.err, 'E3 THE SHELL BOOKS THE RECORDING ON THE NEXT BEAT AND TELLS THE MAP', JSON.stringify(top));
     leg(d.errs.length === 0, 'E4 0 PAGE ERRORS', d.errs[0] || '');
   } finally { try { await d.browser.close(); } catch (_e) {} try { d.server.close(); } catch (_e) {} }

@@ -23092,7 +23092,8 @@ drawLogoBig();requestAnimationFrame(loop);
    Nothing loads until a fall asks (500 KB, rare by nature).
 
    const R = BOH_RADIO.make({ dir: 'radio/', out: fn -> { AC, bus } });
-   R.fall(id) -> Promise<{ in_ms, at } | null>                                                               */
+   R.fall(id) -> Promise<{ in_ms, at } | null>
+   R.under(id, {from, dur, db}) -> a slice of it under one of the feed's important posts (rule 371(c))                                                               */
 (function (root) {
   'use strict';
   function make(opts) {
@@ -23133,6 +23134,26 @@ drawLogoBig();requestAnimationFrame(loop);
           self.log.push({ id: id, at: at, in_ms: in_ms, t: Date.now() }); if (self.log.length > 20) self.log.shift();
           return { in_ms: in_ms, at: at };
         });
+      },
+      /* rule 371(c): a slice of the same recording under one of the feed's important posts ({from, dur} seconds into the fall,
+         db its own gain), on the next beat, faded in and out; never over a fall that is playing */
+      under: function (id, seg) {
+        var self = this, o = this.ctx(); if (!o || !seg || this.playing) return Promise.resolve(null);
+        return Promise.resolve(this.ready() ? this : this.load()).then(function (ok) {
+          if (!ok || !self.ready() || self.playing) return null;
+          var AC = o.AC, from = Math.max(0, +seg.from || 0), dur = Math.max(0.2, Math.min(4, +seg.dur || 1));
+          var minT = AC.currentTime + 0.08, at = minT;
+          try { if (typeof root.__beatNext === 'function') at = Math.max(minT, root.__beatNext(minT)); } catch (_e) { at = minT; }
+          var s = AC.createBufferSource(), g = AC.createGain(), v = Math.pow(10, (seg.db == null ? (self.idx.db || -10) - 4 : +seg.db) / 20);
+          s.buffer = self.buf; s.connect(g); g.connect(o.bus);
+          g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(v, at + 0.04);
+          g.gain.setValueAtTime(v, at + dur - 0.12); g.gain.linearRampToValueAtTime(0, at + dur);
+          s.start(at, from, dur);
+          s.onended = function () { try { s.disconnect(); g.disconnect(); } catch (_e) {} };
+          var in_ms = Math.round((at - AC.currentTime) * 1000);
+          self.log.push({ id: id, under: true, from: from, dur: dur, at: at, in_ms: in_ms, t: Date.now() }); if (self.log.length > 20) self.log.shift();
+          return { in_ms: in_ms, at: at };
+        });
       }
     };
     return R;
@@ -23147,9 +23168,10 @@ drawLogoBig();requestAnimationFrame(loop);
     out: function () { return window.__sfxOut ? window.__sfxOut() : null; }
   });
   addEventListener('message', function (ev) {
-    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_RADIO' || d.ev !== 'fall') return;
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_RADIO' || (d.ev !== 'fall' && d.ev !== 'under')) return;
     var src = ev.source;
     try { if (typeof window.__judging === 'function' && window.__judging()) return; } catch (_e) {}   /* he is judging: the words run alone */
+    if (d.ev === 'under') { try { R.under(d.id, { from: d.from, dur: d.dur, db: d.db }); } catch (_e) {} return; }   /* rule 371(c) */
     try {
       R.fall(d.id).then(function (res) {
         if (!res || !src) return;

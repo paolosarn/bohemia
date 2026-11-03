@@ -36312,6 +36312,7 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
                    reply_to: item.parent ? item.parent.id : null, teaches: item.teaches || '',
                    tags: got.tags || null, form: form, draft: true };
       if (k.far) post.far = true;
+      if (item.big) post.big = true;   /* rule 371(b)(c): the phone holds a big post its read time, the radio sounds under it */
       st.posts.push(post);
       if (st.posts.length > P.keep) st.posts.splice(0, st.posts.length - P.keep);
       st.recent.push(got.txt);
