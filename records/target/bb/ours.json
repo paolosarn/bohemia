@@ -2023,11 +2023,6 @@
     ],
     "fremont.1": [
      [
-      0,
-      0,
-      3
-     ],
-     [
       1,
       0,
       3
@@ -2038,39 +2033,14 @@
       3
      ],
      [
-      4,
-      0,
-      3
-     ],
-     [
-      0,
-      4,
-      3
-     ],
-     [
       2,
-      4,
-      3
-     ],
-     [
-      3,
       4,
       3
      ]
     ],
     "fremont.2": [
      [
-      0,
-      0,
-      3
-     ],
-     [
       2,
-      0,
-      3
-     ],
-     [
-      3,
       0,
       3
      ],
@@ -2080,42 +2050,12 @@
       3
      ],
      [
-      0,
-      2,
-      3
-     ],
-     [
-      2,
-      2,
-      3
-     ],
-     [
       3,
       2,
       3
      ],
      [
-      4,
-      2,
-      3
-     ],
-     [
-      2,
-      3,
-      3
-     ],
-     [
       0,
-      4,
-      3
-     ],
-     [
-      2,
-      4,
-      3
-     ],
-     [
-      4,
       4,
       3
      ]
@@ -3163,7 +3103,7 @@
      "districts": [
       "landfill"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE FLARE: the landfill gas flare still burning on its pad among the trash mounds, a dozer stopped mid-push",
      "things": "trash mounds, the gas flare and its burning ground, a dozer, the gas wells and their header pipe",
      "twist": "HILLS AND FIRE: the trash mounds are height you climb for the shot, and the gas round the flare burns the ground from the first round (a man who ends his turn in it takes 15 to 30)",
@@ -3202,7 +3142,7 @@
       "chapel",
       "library"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE BACKYARDS: the split-face block walls of a row of backyards, their kidney pools dug in and empty",
      "things": "cinder-block yard walls, empty pools, a swing set, a trampoline frame, the ranch houses, dead brown lawns",
      "twist": "WALLS AND PITS: the yard walls are cover you fight along and over, and an empty pool is a pit (slow to cross, nothing to hide behind in it); the houses are roofs",
@@ -3241,7 +3181,7 @@
       "strat",
       "convention"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE FOUNTAIN: a casino plaza fountain gone dry, a giant arrow sign down on the plaza beside it, a limo at the valet",
      "things": "the dry fountain, the fallen sign, the pedestrian bridge over the Boulevard, a stretch limo, marble planters",
      "twist": "THE BRIDGE AND THE RIM: the pedestrian bridge is height two storeys over the Boulevard, the fountain's rim is cover in the middle of an open marble plaza, and the fallen sign is a wall",
@@ -3275,7 +3215,7 @@
      "districts": [
       "downtown"
      ],
-     "built": false,
+     "built": true,
      "landmark": "UNDER THE CANOPY: a bay of the Fremont canopy over the street, the double-decker Deuce burnt out under it",
      "things": "the canopy, the burnt Deuce, alley dumpsters, the brick hotel backs and their fire escapes",
      "twist": "THE ALLEYS: alleys one man wide between three-storey brick backs whose fire escapes climb to the roofs; the street under the canopy is the one wide ground and the burnt bus closes half of it",
@@ -3313,7 +3253,7 @@
       "warehouse",
       "storage"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE CARS AND THE GANTRY: a boxcar and a black tank car on the spur, a yard gantry crane with a car hanging from its hook",
      "things": "a boxcar, a tank car, the gantry crane, a shop's machines dragged out, stacked pipe, the spur's ties and ballast",
      "twist": "THE RAIL CARS: the cars on the spur are a wall across the yard with one crossing between them, and the stacked pipe and the gantry's legs are the cover either side of it",
@@ -3347,7 +3287,7 @@
       "water",
       "intake"
      ],
-     "built": false,
+     "built": true,
      "landmark": "THE HOUSEBOAT: a Lake Mead houseboat sat down on the dry bed on its pontoons, its top deck to climb",
      "things": "the houseboat, cabin cruisers on their keels, bass boats on their trailers, the dry marina bed",
      "twist": "BOATS ON OPEN MUD: the dry bed is open ground and the boats are the only cover on it; the houseboat's top deck is the one height",

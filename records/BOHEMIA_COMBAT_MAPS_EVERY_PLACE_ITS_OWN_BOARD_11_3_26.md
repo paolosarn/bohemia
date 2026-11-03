@@ -85,9 +85,37 @@ the pass's cut face and drop, the wash's levees and road fill, the shore's crust
 The wrong thing in each is COOK PROPS' own (the spotless washing; the buried car's headlights on; the cairn where nobody could
 climb; the empty spotless trailer; the anchor line taut into dry mud; the floor lamp lit, plugged into nothing).
 
+## PUSH 3: THE LANDFILL, THE SUBURBS, THE STRIP, DOWNTOWN, THE WORKS, THE MARINA (on COOK PROPS' models)
+| place | landmark | the twist | starts |
+|---|---|---|---|
+| THE LANDFILL (landfill) | THE FLARE: the gas flare still burning among the trash mounds, a dozer stopped mid-push | the mounds are height you climb for the shot; the gas round the flare burns the ground from round one (a piece with burning: true is On Fire for the whole fight: the cell vest's own rule 305, 15 to 30 to a man who ends his turn in it; walking through is free) | line 1, camp 1, wide 1 |
+| THE SUBURBS (suburb, estate, gated, town, school, chapel, library) | THE BACKYARDS: block walls along the lot lines, the empty kidney pools | the walls are cover you fight along (runs of them with gates between), an empty pool is a pit (slow, nothing to hide behind in it), the ranch houses are roofs; dead brown lawns | line 1, pincer 1, camp 1 |
+| THE STRIP (strip, sign, sphere, strat, convention; the casinos keep their floors) | THE FOUNTAIN: a dry plaza fountain, a giant arrow sign fallen beside it, a limo at the valet | open marble with the fountain's rim the cover in the middle, the sign a wall, the pedestrian bridge two storeys over the Boulevard | line 1, wide 1, camp 1 |
+| DOWNTOWN (downtown) | UNDER THE CANOPY: a bay of the Fremont canopy over the street, the burnt Deuce under it | alleys one man wide between three-storey brick backs whose fire escapes climb to the roofs; the bus closes half the street | line 1, pincer 1, camp 1 |
+| THE WORKS (industrial, rail, railyard, warehouse, storage) | THE CARS AND THE GANTRY: a boxcar and a tank car on the spur, the gantry with a car on its hook | the cars are a wall across the yard with one crossing; the pipe stacks and the gantry's legs the cover either side | line 1, camp 1, pincer 1 |
+| THE MARINA (water, intake) | THE HOUSEBOAT sat on its pontoons on the dry bed | open dry mud where the boats are the only cover; the houseboat's deck the one height | wide 1, line 1, camp 1 |
+
+## THE GATE AFTER ALL THREE PUSHES (records/target/combat_maps_11_3/gate_after.json; before: gate_before.json)
+All fifteen built, OWED empty, PASS. 0 pairs of places within the floor (0.6) of each other (before: 3, the lab yard 0.29 from the
+works, the shore 0.21 from the marina, the trailer park 0.54 from the works). Every place deals 10 different boards in 10 fights
+and its landmark stands between the lines every time. The two plain lines at the edges (before: 10 of 10 at all fifteen): now
+1 to 5 fights in 10, the rest wide, camp or pincer. Each place's nearest other place: the lab yard 1.21 (the trailer park), the
+airport 0.69 (the Strip), the golf course 1.02 (the marina), the trailer park 0.99 (the suburbs), the desert 1.36 (the landfill),
+Red Rock 0.79 (downtown), the pass 1.85 (the shore), the shore 1.36 (the desert), the wash 1.08 (Red Rock), the landfill 1.10
+(the wash), the suburbs 0.78 (the works), the Strip 0.69 (the airport), downtown 0.79 (Red Rock), the works 0.78 (the suburbs),
+the marina 0.98 (the Strip). Green-or-olive: the suburbs 0.1-0.2%, the golf course 0.0-0.4%.
+Downtown first measured 0.597 from Red Rock (every brick back a climbable roof, so its alleys were not lanes): only a back with
+a fire escape is climbed now and the rest are walls (its two blocks re-rendered, their fire escapes only where the tile is H).
+
 ## WHAT IS LEFT
-- PUSH 3: the landfill, the suburbs, the Strip, downtown, the works, the marina.
 - The fight's futures pictures (raided, reclaimed) are not read by the fight: none were made for the new blocks.
+- The lab yard, the airport and the golf course stand on this lane's own models (made before COOK PROPS' first batch landed);
+  COOK PROPS' cage block, plane, hangar front, clubhouse front and the rest are not on those boards yet.
+- COOK PROPS marks the propane tanks and the tank car 'burns if hit': that is a new rule (a hit on a piece sets the ground on
+  fire) and was not built; the landfill's ground burns from round one by the fight's existing rule. Downtown's 'under the canopy
+  no shot from a roof' is likewise a new rule, not built: downtown's twist is its alleys and fire escapes.
+- gates/tiles_are_legos_gate.py LEG 3 lists every block COMBAT MAPS 1 shipped as not in records/target/bb/BOHEMIA_GROUND_EDGES.json;
+  this round's blocks join that same list (red on main before this round, the same red after).
 
 [bb] Battle Brothers builds a tactical map from the world tile it is fought on (its terrain kinds, height levels and obstacles),
 its camps and ruins have their own built plans, and its battles open in a line, in an ambush, or with the enemy in its camp.

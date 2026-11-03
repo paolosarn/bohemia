@@ -331,13 +331,13 @@ BLOCKS = {
     'plaza.2': dict(name='THE BRIDGE', tiles=['.....', '..H..', '..H..', '.#...', '.....'],
                     marks=['c---c', '-----', '-----', '-----', 'c---c'], pieces={'c': 'strip_planter'}, roofs=[(2, 1, 2), (2, 2, 2)], props=True),
     # DOWNTOWN ----------------------------------------------------------------------------------------------------------
-    'fremont.1': dict(name='UNDER THE CANOPY', tiles=['HH.HH', '.....', '..##.', '.....', 'H.HH.'],
+    'fremont.1': dict(name='UNDER THE CANOPY', tiles=['#H.H#', '.....', '..##.', '.....', '#.H#.'],
                       marks=['-----', '-CC--', '-----', '-C-C-', '-----'], pieces={'C': 'downtown_dumpsters'},
                       piece_at={(1, 1): 'downtown_canopy', (1, 2): 'downtown_canopy'},
-                      roofs=[(0, 0, 3), (1, 0, 3), (3, 0, 3), (4, 0, 3), (0, 4, 3), (2, 4, 3), (3, 4, 3)], props=True),
-    'fremont.2': dict(name='THE ALLEYS', tiles=['H.HH.', 'H....', 'H.HHH', '..H..', 'H.H.H'],
+                      roofs=[(1, 0, 3), (3, 0, 3), (2, 4, 3)], props=True),
+    'fremont.2': dict(name='THE ALLEYS', tiles=['#.H#.', 'H....', '#.#H#', '..#..', 'H.#.#'],
                       marks=['-----', '-C---', '-----', '---C-', '-----'], pieces={'C': 'downtown_dumpsters'},
-                      roofs=[(0, 0, 3), (2, 0, 3), (3, 0, 3), (0, 1, 3), (0, 2, 3), (2, 2, 3), (3, 2, 3), (4, 2, 3), (2, 3, 3), (0, 4, 3), (2, 4, 3), (4, 4, 3)], props=True),
+                      roofs=[(2, 0, 3), (0, 1, 3), (3, 2, 3), (0, 4, 3)], props=True),
     # THE WORKS ---------------------------------------------------------------------------------------------------------
     'rail.1': dict(name='THE CARS AND THE GANTRY', tiles=['....#', '.....', '##.##', '.....', '.....'],
                    marks=['-----', '-----', '-----', '-CC--', 'C--C-'], pieces={'C': 'works_pipes'},
@@ -1378,9 +1378,14 @@ def things_fremont(k, bid):
     for r in range(5):
         for c in range(5):
             x, y = centre(c, r); pc = piece_of(bid, c, r)
-            if T[r][c] == 'H':                                                 # a three-storey brick back, its fire escape to the roof
+            if T[r][c] in 'H#':                                                # a three-storey brick back
                 k.box('brick' if (c + r) % 2 else 'brick_d', x, y + 0.6, 0.0, 11.8, 10.6, 9.0); k.box('roofg', x, y + 0.6, 9.0, 12.0, 10.8, 0.3)
-                k.model('downtown.fire_escape', x, y - 5.0, 0)
+                if T[r][c] == 'H': k.model('downtown.fire_escape', x, y - 5.0, 0)   # only a back with a fire escape is climbed (honest grid)
+                else:
+                    k.rgb('win', (40, 44, 48), 'glass_eye'); k.rgb('door', (70, 64, 58), 'rubber')
+                    for i in range(3):
+                        for j in range(2): k.box('win', x - 3.5 + i * 3.5, y - 4.72, 2.5 + j * 3.0, 1.0, 0.05, 1.4)
+                    k.box('door', x + 3.5, y - 4.72, 0.0, 2.6, 0.06, 2.6)      # a roller door, shut
             elif pc == 'downtown_dumpsters': k.model('downtown.dumpsters', x, y, int(k.rng.randint(4)))
     if bid == 'fremont.1':
         k.model('downtown.canopy', 24.0, 42.0, 0); k.model('downtown.deuce', 36.0, 30.0, 0)

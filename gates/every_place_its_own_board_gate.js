@@ -29,7 +29,7 @@ const G = require('../tools/bohemia_tuning_the_whole_grid.js');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const OUT = arg('--json', null), BEFORE = process.argv.includes('--before');
 const K = 10, FLOOR = 0.6, GREEN_MAX = 0.01;
-const OWED = ['landfill', 'suburb', 'strip', 'downtown', 'works', 'marina'];
+const OWED = [];
 const FIFTEEN = ['lab', 'airport', 'golf', 'trailer', 'desert', 'redrock', 'pass', 'shore', 'wash', 'landfill', 'suburb', 'strip', 'downtown', 'works', 'marina'];
 const FEATS = ['open', 'cover', 'blocked', 'fence', 'height', 'slow', 'choke'];
 

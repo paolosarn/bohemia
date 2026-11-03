@@ -277,5 +277,191 @@
   ],
   "start": "pincer",
   "own": "wash"
+ },
+ "landfill": {
+  "place": "landfill",
+  "district": "landfill",
+  "seed": 6,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/landfill_after.png",
+  "play": "records/target/combat_maps_11_3/shots/landfill_play.png",
+  "bar": "dump + landfill",
+  "blocks": [
+   [
+    "dump.2",
+    "landfill.0|h",
+    "dump.2",
+    "landfill.0|h"
+   ],
+   [
+    "landfill.0",
+    "dump.1",
+    "landfill.0",
+    "dump.2|h"
+   ],
+   [
+    "dump.2|h",
+    "landfill.0",
+    "dump.2|h",
+    "landfill.0"
+   ]
+  ],
+  "start": "line",
+  "own": "landfill"
+ },
+ "suburb": {
+  "place": "suburb",
+  "district": "suburb",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/suburb_after.png",
+  "play": "records/target/combat_maps_11_3/shots/suburb_play.png",
+  "bar": "suburb + yards + culdesac",
+  "blocks": [
+   [
+    "corner.0|h",
+    "subs.0",
+    "yards.2|h",
+    "subs.0"
+   ],
+   [
+    "yards.2|h",
+    "yards.1",
+    "corner.0|h",
+    "culdesac.0"
+   ],
+   [
+    "culdesac.0|h",
+    "subs.0",
+    "culdesac.0|h",
+    "subs.0|h"
+   ]
+  ],
+  "start": "pincer",
+  "own": "suburb"
+ },
+ "strip": {
+  "place": "strip",
+  "district": "strip",
+  "seed": 3,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/strip_after.png",
+  "play": "records/target/combat_maps_11_3/shots/strip_play.png",
+  "bar": "plaza + strip",
+  "blocks": [
+   [
+    "plaza.2",
+    "strip.1",
+    "plaza.2",
+    "strip.1|h"
+   ],
+   [
+    "strip.1",
+    "plaza.1",
+    "strip.1",
+    "plaza.2"
+   ],
+   [
+    "strip.0",
+    "plaza.2|h",
+    "strip.0",
+    "strip.1"
+   ]
+  ],
+  "start": "camp",
+  "own": "strip"
+ },
+ "downtown": {
+  "place": "downtown",
+  "district": "downtown",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/downtown_after.png",
+  "play": "records/target/combat_maps_11_3/shots/downtown_play.png",
+  "bar": "main + fremont + ruin",
+  "blocks": [
+   [
+    "main.0|h",
+    "fremont.2",
+    "main.0|h",
+    "fremont.2"
+   ],
+   [
+    "fremont.2|h",
+    "fremont.1",
+    "fremont.2|h",
+    "ruin.0"
+   ],
+   [
+    "ruin.0|h",
+    "fremont.2",
+    "ruin.0|h",
+    "fremont.2|h"
+   ]
+  ],
+  "start": "pincer",
+  "own": "downtown"
+ },
+ "works": {
+  "place": "works",
+  "district": "industrial",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/works_after.png",
+  "play": "records/target/combat_maps_11_3/shots/works_play.png",
+  "bar": "works + rail",
+  "blocks": [
+   [
+    "works.0|h",
+    "rail.2",
+    "works.0|h",
+    "rail.2"
+   ],
+   [
+    "rail.2|h",
+    "rail.1",
+    "rail.2|h",
+    "works.0"
+   ],
+   [
+    "works.0|h",
+    "rail.2",
+    "works.0|h",
+    "rail.2|h"
+   ]
+  ],
+  "start": "camp",
+  "own": "works"
+ },
+ "marina": {
+  "place": "marina",
+  "district": "water",
+  "seed": 6,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/marina_after.png",
+  "play": "records/target/combat_maps_11_3/shots/marina_play.png",
+  "bar": "basin + marina",
+  "blocks": [
+   [
+    "basin.2",
+    "marina.0|h",
+    "basin.2",
+    "marina.0|h"
+   ],
+   [
+    "marina.0",
+    "basin.1",
+    "marina.0",
+    "basin.2|h"
+   ],
+   [
+    "basin.2|h",
+    "marina.0",
+    "basin.2|h",
+    "marina.0"
+   ]
+  ],
+  "start": "wide",
+  "own": "marina"
  }
 }

@@ -13,6 +13,14 @@
    "src": "block_apron_3.webp",
    "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
   },
+  "basin.1": {
+   "src": "block_basin_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "basin.2": {
+   "src": "block_basin_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
   "canyon.1": {
    "src": "block_canyon_1.webp",
    "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
@@ -31,6 +39,22 @@
   },
   "desert.3": {
    "src": "block_desert_3.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "dump.1": {
+   "src": "block_dump_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "dump.2": {
+   "src": "block_dump_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "fremont.1": {
+   "src": "block_fremont_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "fremont.2": {
+   "src": "block_fremont_2.webp",
    "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
   },
   "golf.1": {
@@ -77,6 +101,22 @@
    "src": "block_pass_3.webp",
    "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
   },
+  "plaza.1": {
+   "src": "block_plaza_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "plaza.2": {
+   "src": "block_plaza_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "rail.1": {
+   "src": "block_rail_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "rail.2": {
+   "src": "block_rail_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
   "trailer.1": {
    "src": "block_trailer_1.webp",
    "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
@@ -95,6 +135,14 @@
   },
   "wash.4": {
    "src": "block_wash_4.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "yards.1": {
+   "src": "block_yards_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "yards.2": {
+   "src": "block_yards_2.webp",
    "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
   }
  }
