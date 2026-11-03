@@ -1031,6 +1031,15 @@ GATES = [
      'table inside this lane\'s own module, holds the sixteen as a ratchet, refuses the '
      'seven/nine split being passed off as a measurement, and proves every district called blocked '
      'really has no kit module.', False),
+    ('EVERY PLACE ITS OWN BOARD', ['node', 'gates/every_place_its_own_board_gate.js'],
+     'RULE 341 (Paolo 11/3: "everything just looked exactly the same as the main suburb shit we have... you gave a bunch of '
+     'greenery to the suburb... no variety, like true variety"). COMBAT MAPS 2 measured a colour (old sand %) and never the '
+     'PLAN. This deals ten fights a place in the live fight and measures each board on its plan in the fight window (open, '
+     'cover, blocking, see-through fences, height, slow ground, one-wide lanes, the middle between the lines, where their men '
+     'start): every BUILT place must differ from all fifteen and from the suburb past a floor, deal ten different boards, stand '
+     'its landmark between the lines every fight, start as the two plain lines at most 60% of the time, and name its landmark, '
+     'things and twist in ours.place_boards; the suburb and the golf course under 1% green-or-olive pixels; a place not yet '
+     'built must be on the gate\'s OWED list, which only shrinks.', False),
     ('THREE BLOCKS', ['node', 'gates/three_blocks_gate.js'],
      'ROW [the apron, the compound and the civic interior], rule 46 and rule 59. The row (WORLD\'s '
      'own, written 10/10 under rule 74) said THREE BLOCKS ARE MISSING for the 24 districts that '

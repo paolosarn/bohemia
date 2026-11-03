@@ -73,8 +73,11 @@ STATES = ('present', 'raided', 'reclaimed')
 # ======================================================================================================================
 NEW = {
     # the suburb: bermuda dead in a foreclosure summer, grey-olive straw, never the sand's tan; two for the mower's stripes
-    'deadlawn':   dict(role=('metal_painted', 3), target=(141, 136, 97), h=0.05, alt=('clay_mustard', 2), alt_amt=0.42, grit=0.55, speck=(28, 0.55), cal=0.8),
-    'deadlawn_b': dict(role=('metal_painted', 2), target=(124, 121, 87), h=0.05, alt=('clay_mustard', 2), alt_amt=0.3, grit=0.55, speck=(28, 0.55), cal=0.85),
+    # KILL THE GREEN (COMBAT MAPS 3, rule 341(4), Paolo 11/3: 'you gave a bunch of greenery to the suburb, bro this is an economic
+    # apocalypse'): the dead lawns and fairways were olive drab (metal_painted) and read green on his phone; a Vegas lawn with the
+    # pumps off is grey-brown thatch in weeks (and AB 356 bans decorative turf water from 2027): clay_bone's dark step and grey
+    'deadlawn':   dict(role=('clay_bone', 1), target=(122, 110, 92), h=0.05, alt=('tape_grey', 2), alt_amt=0.38, grit=0.6, speck=(28, 0.6), cal=1.0),
+    'deadlawn_b': dict(role=('clay_bone', 1), target=(104, 95, 80), h=0.05, alt=('rubber', 3), alt_amt=0.25, grit=0.6, speck=(28, 0.6), cal=0.92),
     # the Strip: cracked marble slabs and the pool deck's tile
     'marble':     dict(role=('tape_grey', 4), target=(214, 212, 204), h=0.02, alt=('tape_grey', 3), alt_amt=0.3, grit=0.06, speck=(60, 0.08),
                        joints=dict(pitch=1.2, width=0.012), panel_var=0.08, cracks=dict(cell=0.8, width=0.006, region=0.5, cut=0.52, depth=0.4),
@@ -112,8 +115,8 @@ NEW = {
     'coversoil':  dict(role=('tape_grey', 1), target=(104, 100, 94), h=0.04, alt=('clay_bone', 1), alt_amt=0.4, grit=0.5, speck=(45, 0.5), cal=0.98),
     # the golf course: the bunker's white sand, the dead fairway in two stripes
     'bunker':     dict(role=('tape_grey', 4), target=(212, 208, 196), h=-0.25, alt=('clay_bone', 4), alt_amt=0.3, grit=0.22, speck=(70, 0.22), cal=0.9),
-    'fairway':    dict(role=('metal_painted', 3), target=(146, 141, 99), h=0.04, alt=('clay_mustard', 2), alt_amt=0.35, grit=0.5, speck=(30, 0.5), cal=0.82),
-    'fairway_b':  dict(role=('metal_painted', 2), target=(124, 122, 88), h=0.04, alt=('clay_mustard', 2), alt_amt=0.25, grit=0.5, speck=(30, 0.5), cal=0.88),
+    'fairway':    dict(role=('clay_bone', 1), target=(126, 114, 96), h=0.04, alt=('tape_grey', 2), alt_amt=0.4, grit=0.55, speck=(30, 0.55), cal=1.02),
+    'fairway_b':  dict(role=('clay_bone', 1), target=(116, 106, 90), h=0.04, alt=('tape_grey', 2), alt_amt=0.3, grit=0.55, speck=(30, 0.55), cal=0.97),
     # the airport: the apron's slabs and the tie-down rings
     'apronslab':  dict(role=('tape_grey', 3), target=(178, 176, 168), h=0.1, alt=('tape_grey', 2), alt_amt=0.2, grit=0.08, speck=(70, 0.1),
                        joints=dict(pitch=6.0, width=0.025), panel_var=0.1, oil=dict(scale=0.7, cut=0.66, mul=0.5),
@@ -143,7 +146,7 @@ NEW_STONES = {
     'bunker':    [(0.1, 0.03, 0.06, 'pebble')], 'apronslab': [(0.15, 0.03, 0.08, 'gravel')],
     'rubbleg':   [(3.0, 0.06, 0.3, 'rubble'), (1.4, 0.06, 0.2, 'brick')],
 }
-NEW_STONE_MATS = {'tuft': ('metal_painted', 1), 'straw': ('clay_mustard', 2), 'marblechip': ('tape_grey', 4), 'tileshard': ('clay_teal', 3), 'ballast': ('tape_grey', 1),
+NEW_STONE_MATS = {'tuft': ('clay_bone', 0), 'straw': ('clay_mustard', 2), 'marblechip': ('tape_grey', 4), 'tileshard': ('clay_teal', 3), 'ballast': ('tape_grey', 1),
                   'cobble': ('tape_grey', 2), 'cobble_r': ('clay_rust', 2), 'shell': ('tape_grey', 4), 'varnish': ('rubber', 3),
                   'lime': ('tape_grey', 3), 'redrock': ('clay_rust', 2), 'trash_w': ('tape_grey', 4), 'trash_t': ('clay_teal', 3),
                   'trash_r': ('clay_rust', 3)}
@@ -332,6 +335,10 @@ def families(a, bid, things):
         fams.append(lots & ~sand)
     if kind == 'apron':
         fams.append(grey_family(a) & (hsv(a)[2] > 120) & ~things & ~sand)
+    if kind in ('golf', 'subs', 'corner', 'culdesac', 'suburb_stem', 'lots'):   # KILL THE GREEN (COMBAT MAPS 3, rule 341(4)): the old green
+        b = a.astype(np.int32); mx = b.max(-1); mn = b.min(-1)        # 'lawn' dies with the fairway (no water reaches it)
+        green = (b[..., 1] >= b[..., 0] - 4) & (b[..., 1] > b[..., 2] + 18) & ((mx - mn) / np.maximum(mx, 1) > 0.15)
+        fams.append((blur(green.astype(np.float32), 2.0) > 0.06) & ~things & ~sand)   # its edge too (a ring of it survived the first lay)
     return fams
 
 
@@ -391,8 +398,9 @@ def plan(bid, a, things, tiles):
     notes = []
     if kind in ('subs', 'corner', 'culdesac', 'suburb_stem', 'lots'):
         S('deadlawn', np.ones((H, W), bool))
-        S('deadlawn_b', (n3 > 0.7) & (n2 > 0.55))                           # where the sprinkler reached longest: a darker patch
-        S('caliche', (n1 > 0.8) & (n2 > 0.4))                             # where the lawn gave out completely (never his 'camouflage')
+        S('deadlawn_b', n3 > 0.72)                                         # where the sprinkler reached longest: a broad darker patch
+        # (COMBAT MAPS 3: the small caliche blotches read as camouflage on the dead brown lawn, his 10/19 NO: gone; the lawn is one
+        # dead thatch with broad patches)
         houses = HOUSE_LEDGER.get(SRC.get(bid, bid), {}).get('houses') or []
         mown = rng.randint(len(houses)) if houses else -1
         px_, py_ = XM * PPM, (60 - YM) * VPM
@@ -779,7 +787,7 @@ GROUND_SAYS = {
     'desert': 'The desert is dark varnished pavement and white caliche crust, the sand kept only in the mound under each creosote, and one perfect bare circle.',
     'springs': 'Red Rock is red sand and red slickrock between the sandstone fins.',
     'trailer': 'The trailer park sits on grey gravel lots and pads, the sand only around the weeds.',
-    'golf': 'The golf course is a dead fairway in its mowing stripes with a white bunker, the green still green.',
+    'golf': 'The golf course is a dead fairway in its mowing stripes with a white bunker, the green dead with it (11/3: no water reaches it).',
     'water': 'The marina\'s lake bed is cracked mud with the bathtub ring and a second ring above it.',
     'medical': 'The lab yard is new: sealed epoxy, hazard hatching at the docks, a decon pad and its drains, and big paw prints walking out of the yard.',
     'airport': 'The apron is its slabs with a tie-down ring in each and oil where the aircraft stood.',

@@ -1,0 +1,95 @@
+{
+ "lab": {
+  "place": "lab",
+  "district": "medical",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/lab_after.png",
+  "play": "records/target/combat_maps_11_3/shots/lab_play.png",
+  "bar": "lab",
+  "blocks": [
+   [
+    "lab.3|h",
+    "lab.2",
+    "lab.3|h",
+    "lab.2"
+   ],
+   [
+    "lab.2|h",
+    "lab.1",
+    "lab.2|h",
+    "lab.3"
+   ],
+   [
+    "lab.3|h",
+    "lab.2",
+    "lab.3|h",
+    "lab.2|h"
+   ]
+  ],
+  "start": "camp",
+  "own": "lab"
+ },
+ "airport": {
+  "place": "airport",
+  "district": "airport",
+  "seed": 6,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/airport_after.png",
+  "play": "records/target/combat_maps_11_3/shots/airport_play.png",
+  "bar": "apron",
+  "blocks": [
+   [
+    "apron.3",
+    "apron.3|h",
+    "apron.3",
+    "apron.3|h"
+   ],
+   [
+    "apron.0",
+    "apron.1",
+    "apron.0",
+    "apron.2|h"
+   ],
+   [
+    "apron.2|h",
+    "apron.0",
+    "apron.2|h",
+    "apron.0"
+   ]
+  ],
+  "start": "wide",
+  "own": "airport"
+ },
+ "golf": {
+  "place": "golf",
+  "district": "golf",
+  "seed": 5,
+  "round": 3,
+  "after": "records/target/combat_maps_11_3/shots/golf_after.png",
+  "play": "records/target/combat_maps_11_3/shots/golf_play.png",
+  "bar": "golf",
+  "blocks": [
+   [
+    "golf.0|h",
+    "golf.2",
+    "golf.0|h",
+    "golf.2"
+   ],
+   [
+    "golf.2|h",
+    "golf.1",
+    "golf.2|h",
+    "golf.0"
+   ],
+   [
+    "golf.0|h",
+    "golf.2",
+    "golf.0|h",
+    "golf.2|h"
+   ]
+  ],
+  "start": "pincer",
+  "own": "golf"
+ }
+}

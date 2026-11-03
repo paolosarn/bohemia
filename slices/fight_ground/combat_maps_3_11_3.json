@@ -1,0 +1,37 @@
+{
+ "about": "COMBAT MAPS 3 11/3: every place its own board (tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py)",
+ "pieces": {
+  "apron.1": {
+   "src": "block_apron_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "apron.2": {
+   "src": "block_apron_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "apron.3": {
+   "src": "block_apron_3.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "golf.1": {
+   "src": "block_golf_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "golf.2": {
+   "src": "block_golf_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "lab.1": {
+   "src": "block_lab_1.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "lab.2": {
+   "src": "block_lab_2.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "lab.3": {
+   "src": "block_lab_3.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123): the floor tool's ground with COMBAT MAPS 2's grounds, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  }
+ }
+}

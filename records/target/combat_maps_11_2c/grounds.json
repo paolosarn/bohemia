@@ -124,25 +124,24 @@
   "states": {
    "present": {
     "before": 0.6347,
-    "after": 0.3241,
-    "laid": 0.4127
+    "after": 0.3885,
+    "laid": 0.4575
    },
    "raided": {
     "before": 0.5785,
-    "after": 0.2793,
-    "laid": 0.4073
+    "after": 0.3455,
+    "laid": 0.4523
    },
    "reclaimed": {
     "before": 0.543,
-    "after": 0.2272,
-    "laid": 0.4098
+    "after": 0.2866,
+    "laid": 0.454
    }
   },
   "grounds": {
-   "caliche": 0.085,
    "concrete": 0.04,
-   "deadlawn": 0.766,
-   "deadlawn_b": 0.099,
+   "deadlawn": 0.722,
+   "deadlawn_b": 0.228,
    "gravel": 0.01
   },
   "notes": [
@@ -153,25 +152,24 @@
   "states": {
    "present": {
     "before": 0.6331,
-    "after": 0.2345,
-    "laid": 0.494
+    "after": 0.4196,
+    "laid": 0.5484
    },
    "raided": {
     "before": 0.5749,
-    "after": 0.2038,
-    "laid": 0.4907
+    "after": 0.3856,
+    "laid": 0.5447
    },
    "reclaimed": {
     "before": 0.573,
-    "after": 0.1706,
-    "laid": 0.4939
+    "after": 0.3572,
+    "laid": 0.5461
    }
   },
   "grounds": {
-   "caliche": 0.075,
    "concrete": 0.023,
-   "deadlawn": 0.798,
-   "deadlawn_b": 0.099,
+   "deadlawn": 0.748,
+   "deadlawn_b": 0.224,
    "gravel": 0.005
   },
   "notes": [
@@ -182,25 +180,24 @@
   "states": {
    "present": {
     "before": 0.6505,
-    "after": 0.2753,
-    "laid": 0.4622
+    "after": 0.4229,
+    "laid": 0.4994
    },
    "raided": {
     "before": 0.5836,
-    "after": 0.232,
-    "laid": 0.4639
+    "after": 0.374,
+    "laid": 0.5016
    },
    "reclaimed": {
     "before": 0.5695,
-    "after": 0.1919,
-    "laid": 0.4599
+    "after": 0.3405,
+    "laid": 0.4965
    }
   },
   "grounds": {
-   "caliche": 0.071,
    "concrete": 0.028,
-   "deadlawn": 0.809,
-   "deadlawn_b": 0.085,
+   "deadlawn": 0.762,
+   "deadlawn_b": 0.204,
    "gravel": 0.007
   },
   "notes": [
@@ -211,25 +208,24 @@
   "states": {
    "present": {
     "before": 0.7106,
-    "after": 0.2972,
-    "laid": 0.508
+    "after": 0.459,
+    "laid": 0.5416
    },
    "raided": {
     "before": 0.6632,
-    "after": 0.2804,
-    "laid": 0.5054
+    "after": 0.4361,
+    "laid": 0.5389
    },
    "reclaimed": {
     "before": 0.6585,
-    "after": 0.242,
-    "laid": 0.5022
+    "after": 0.4021,
+    "laid": 0.5347
    }
   },
   "grounds": {
-   "caliche": 0.072,
    "concrete": 0.027,
-   "deadlawn": 0.777,
-   "deadlawn_b": 0.117,
+   "deadlawn": 0.722,
+   "deadlawn_b": 0.245,
    "gravel": 0.006
   },
   "notes": [
@@ -240,25 +236,24 @@
   "states": {
    "present": {
     "before": 0.7119,
-    "after": 0.2878,
-    "laid": 0.5049
+    "after": 0.5069,
+    "laid": 0.5376
    },
    "raided": {
     "before": 0.648,
-    "after": 0.2655,
-    "laid": 0.493
+    "after": 0.466,
+    "laid": 0.5258
    },
    "reclaimed": {
     "before": 0.6585,
-    "after": 0.2331,
-    "laid": 0.4989
+    "after": 0.454,
+    "laid": 0.5307
    }
   },
   "grounds": {
-   "caliche": 0.07,
    "concrete": 0.026,
-   "deadlawn": 0.825,
-   "deadlawn_b": 0.072,
+   "deadlawn": 0.806,
+   "deadlawn_b": 0.162,
    "gravel": 0.006
   },
   "notes": [
@@ -323,18 +318,18 @@
   "states": {
    "present": {
     "before": 0.8479,
-    "after": 0.2599,
-    "laid": 0.8313
+    "after": 0.6204,
+    "laid": 0.8546
    },
    "raided": {
     "before": 0.8179,
-    "after": 0.257,
-    "laid": 0.8257
+    "after": 0.6114,
+    "laid": 0.849
    },
    "reclaimed": {
     "before": 0.712,
-    "after": 0.229,
-    "laid": 0.7061
+    "after": 0.5349,
+    "laid": 0.7334
    }
   },
   "grounds": {
@@ -431,25 +426,24 @@
   "states": {
    "present": {
     "before": 0.6263,
-    "after": 0.1017,
-    "laid": 0.5989
+    "after": 0.2772,
+    "laid": 0.652
    },
    "raided": {
     "before": 0.603,
-    "after": 0.0956,
-    "laid": 0.5977
+    "after": 0.2668,
+    "laid": 0.6504
    },
    "reclaimed": {
     "before": 0.6243,
-    "after": 0.0994,
-    "laid": 0.5941
+    "after": 0.2748,
+    "laid": 0.6459
    }
   },
   "grounds": {
-   "caliche": 0.087,
    "concrete": 0.152,
-   "deadlawn": 0.705,
-   "deadlawn_b": 0.056
+   "deadlawn": 0.696,
+   "deadlawn_b": 0.152
   },
   "notes": [
    "dead lawn yard by yard, gravel lot lines, a patio slab, the yards' dirt where it gave out, driveways to the street, one lawn mown"
@@ -865,25 +859,24 @@
   "states": {
    "present": {
     "before": 0.7642,
-    "after": 0.3832,
-    "laid": 0.4711
+    "after": 0.5226,
+    "laid": 0.4987
    },
    "raided": {
     "before": 0.6459,
-    "after": 0.3145,
-    "laid": 0.4644
+    "after": 0.4534,
+    "laid": 0.4919
    },
    "reclaimed": {
     "before": 0.6413,
-    "after": 0.2611,
-    "laid": 0.4695
+    "after": 0.3963,
+    "laid": 0.4974
    }
   },
   "grounds": {
-   "caliche": 0.058,
    "concrete": 0.047,
-   "deadlawn": 0.781,
-   "deadlawn_b": 0.1,
+   "deadlawn": 0.732,
+   "deadlawn_b": 0.207,
    "gravel": 0.015
   },
   "notes": [
@@ -894,25 +887,24 @@
   "states": {
    "present": {
     "before": 0.7624,
-    "after": 0.358,
-    "laid": 0.4979
+    "after": 0.5276,
+    "laid": 0.5551
    },
    "raided": {
     "before": 0.7134,
-    "after": 0.3323,
-    "laid": 0.4936
+    "after": 0.501,
+    "laid": 0.5507
    },
    "reclaimed": {
     "before": 0.6592,
-    "after": 0.2511,
-    "laid": 0.4945
+    "after": 0.4143,
+    "laid": 0.5511
    }
   },
   "grounds": {
-   "caliche": 0.091,
    "concrete": 0.033,
-   "deadlawn": 0.772,
-   "deadlawn_b": 0.092,
+   "deadlawn": 0.748,
+   "deadlawn_b": 0.208,
    "gravel": 0.011
   },
   "notes": [
@@ -923,25 +915,24 @@
   "states": {
    "present": {
     "before": 0.7787,
-    "after": 0.35,
-    "laid": 0.5115
+    "after": 0.5539,
+    "laid": 0.551
    },
    "raided": {
     "before": 0.6877,
-    "after": 0.2923,
-    "laid": 0.5099
+    "after": 0.4858,
+    "laid": 0.5493
    },
    "reclaimed": {
     "before": 0.6637,
-    "after": 0.2346,
-    "laid": 0.5083
+    "after": 0.4358,
+    "laid": 0.5473
    }
   },
   "grounds": {
-   "caliche": 0.068,
    "concrete": 0.045,
-   "deadlawn": 0.777,
-   "deadlawn_b": 0.099,
+   "deadlawn": 0.718,
+   "deadlawn_b": 0.227,
    "gravel": 0.01
   },
   "notes": [
@@ -952,25 +943,24 @@
   "states": {
    "present": {
     "before": 0.7582,
-    "after": 0.4194,
-    "laid": 0.4336
+    "after": 0.5188,
+    "laid": 0.464
    },
    "raided": {
     "before": 0.6877,
-    "after": 0.3721,
-    "laid": 0.4292
+    "after": 0.4709,
+    "laid": 0.4593
    },
    "reclaimed": {
     "before": 0.6226,
-    "after": 0.2816,
-    "laid": 0.4302
+    "after": 0.3814,
+    "laid": 0.4608
    }
   },
   "grounds": {
-   "caliche": 0.078,
    "concrete": 0.048,
-   "deadlawn": 0.75,
-   "deadlawn_b": 0.108,
+   "deadlawn": 0.707,
+   "deadlawn_b": 0.229,
    "gravel": 0.016
   },
   "notes": [
@@ -981,25 +971,24 @@
   "states": {
    "present": {
     "before": 0.7008,
-    "after": 0.3698,
-    "laid": 0.4183
+    "after": 0.5105,
+    "laid": 0.4397
    },
    "raided": {
     "before": 0.6172,
-    "after": 0.3055,
-    "laid": 0.4179
+    "after": 0.442,
+    "laid": 0.4395
    },
    "reclaimed": {
     "before": 0.5793,
-    "after": 0.2491,
-    "laid": 0.4149
+    "after": 0.3878,
+    "laid": 0.436
    }
   },
   "grounds": {
-   "caliche": 0.056,
    "concrete": 0.047,
-   "deadlawn": 0.816,
-   "deadlawn_b": 0.066,
+   "deadlawn": 0.805,
+   "deadlawn_b": 0.133,
    "gravel": 0.014
   },
   "notes": [
@@ -1010,25 +999,24 @@
   "states": {
    "present": {
     "before": 0.7012,
-    "after": 0.38,
-    "laid": 0.4058
+    "after": 0.5116,
+    "laid": 0.431
    },
    "raided": {
     "before": 0.5893,
-    "after": 0.29,
-    "laid": 0.4035
+    "after": 0.4238,
+    "laid": 0.4285
    },
    "reclaimed": {
     "before": 0.5756,
-    "after": 0.252,
-    "laid": 0.4023
+    "after": 0.3853,
+    "laid": 0.4272
    }
   },
   "grounds": {
-   "caliche": 0.06,
    "concrete": 0.053,
-   "deadlawn": 0.775,
-   "deadlawn_b": 0.101,
+   "deadlawn": 0.743,
+   "deadlawn_b": 0.193,
    "gravel": 0.011
   },
   "notes": [

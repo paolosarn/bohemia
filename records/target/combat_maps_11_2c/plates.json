@@ -1,6 +1,6 @@
 {
  "deadlawn": {
-  "seconds": 33,
+  "seconds": 52,
   "samples": 12,
   "metres": 33.0,
   "px": [
@@ -8,27 +8,13 @@
    1001
   ],
   "mean": [
-   159.1,
-   144.5,
-   121.6
+   140.1,
+   133.7,
+   124.0
   ]
  },
  "concrete": {
-  "seconds": 390,
-  "samples": 16,
-  "metres": 66.0,
-  "px": [
-   2832,
-   2002
-  ],
-  "mean": [
-   167.6,
-   162.5,
-   149.7
-  ]
- },
- "deadlawn_b": {
-  "seconds": 32,
+  "seconds": 86,
   "samples": 12,
   "metres": 33.0,
   "px": [
@@ -36,9 +22,23 @@
    1001
   ],
   "mean": [
-   139.6,
-   126.4,
-   105.5
+   164.3,
+   161.0,
+   153.2
+  ]
+ },
+ "deadlawn_b": {
+  "seconds": 50,
+  "samples": 12,
+  "metres": 33.0,
+  "px": [
+   1416,
+   1001
+  ],
+  "mean": [
+   120.6,
+   112.4,
+   101.6
   ]
  },
  "asphalt": {
@@ -98,7 +98,7 @@
   ]
  },
  "gravel": {
-  "seconds": 35,
+  "seconds": 42,
   "samples": 12,
   "metres": 33.0,
   "px": [
@@ -266,7 +266,7 @@
   ]
  },
  "fairway": {
-  "seconds": 32,
+  "seconds": 48,
   "samples": 12,
   "metres": 33.0,
   "px": [
@@ -274,13 +274,13 @@
    1001
   ],
   "mean": [
-   160.7,
-   148.0,
-   126.4
+   143.4,
+   137.2,
+   127.7
   ]
  },
  "fairway_b": {
-  "seconds": 32,
+  "seconds": 48,
   "samples": 12,
   "metres": 33.0,
   "px": [
@@ -288,13 +288,13 @@
    1001
   ],
   "mean": [
-   139.3,
-   127.5,
-   107.6
+   137.8,
+   130.9,
+   120.9
   ]
  },
  "bunker": {
-  "seconds": 32,
+  "seconds": 44,
   "samples": 12,
   "metres": 33.0,
   "px": [

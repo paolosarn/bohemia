@@ -1,0 +1,785 @@
+{
+ "k": 10,
+ "floor": 0.6,
+ "rows": [
+  {
+   "place": "lab",
+   "built": false,
+   "mid_open": 0.371,
+   "landmark": 1,
+   "open": 0.393,
+   "cover": 0.211,
+   "blocked": 0.263,
+   "fence": 0.13,
+   "height": 0.079,
+   "slow": 0.12,
+   "choke": 0.212,
+   "spread": 0.03,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "works",
+   "nearest_d": 0.769,
+   "to_suburb": 1.445,
+   "blocks": [
+    "lab.0",
+    "lab.1",
+    "lab.2",
+    "lab.3",
+    "main.0",
+    "main.1",
+    "ruin.0",
+    "ruin.1"
+   ]
+  },
+  {
+   "place": "airport",
+   "built": false,
+   "mid_open": 0.493,
+   "landmark": 0.92,
+   "open": 0.469,
+   "cover": 0.221,
+   "blocked": 0.143,
+   "fence": 0.007,
+   "height": 0.047,
+   "slow": 0.162,
+   "choke": 0.095,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "marina",
+   "nearest_d": 0.748,
+   "to_suburb": 0.785,
+   "blocks": [
+    "apron.0",
+    "scrubroad.0",
+    "scrubroad.1",
+    "works.0"
+   ]
+  },
+  {
+   "place": "golf",
+   "built": false,
+   "mid_open": 0.455,
+   "landmark": 0.36,
+   "open": 0.445,
+   "cover": 0.163,
+   "blocked": 0.021,
+   "fence": 0,
+   "height": 0.039,
+   "slow": 0.463,
+   "choke": 0.011,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "desert",
+   "nearest_d": 1.033,
+   "to_suburb": 2.251,
+   "blocks": [
+    "golf.0",
+    "scrub.0",
+    "scrub.1",
+    "scrub.2",
+    "wash.0",
+    "wash.1"
+   ]
+  },
+  {
+   "place": "trailer",
+   "built": false,
+   "mid_open": 0.355,
+   "landmark": 1,
+   "open": 0.351,
+   "cover": 0.263,
+   "blocked": 0.221,
+   "fence": 0.024,
+   "height": 0.037,
+   "slow": 0.212,
+   "choke": 0.221,
+   "spread": 0.03,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "works",
+   "nearest_d": 0.542,
+   "to_suburb": 1.193,
+   "blocks": [
+    "lots.0",
+    "scrub.0",
+    "scrub.1",
+    "scrub.2",
+    "trailer.0"
+   ]
+  },
+  {
+   "place": "desert",
+   "built": false,
+   "mid_open": 0.333,
+   "landmark": 0.16,
+   "open": 0.329,
+   "cover": 0.01,
+   "blocked": 0.004,
+   "fence": 0,
+   "height": 0.045,
+   "slow": 0.618,
+   "choke": 0.001,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "golf",
+   "nearest_d": 1.033,
+   "to_suburb": 3.281,
+   "blocks": [
+    "pass.0",
+    "scrub.0",
+    "scrub.1",
+    "scrub.2",
+    "scrubroad.0",
+    "scrubroad.1",
+    "wash.0",
+    "wash.1"
+   ]
+  },
+  {
+   "place": "redrock",
+   "built": false,
+   "mid_open": 0.28,
+   "landmark": 0.49,
+   "open": 0.289,
+   "cover": 0.014,
+   "blocked": 0.146,
+   "fence": 0,
+   "height": 0.063,
+   "slow": 0.495,
+   "choke": 0.173,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "desert",
+   "nearest_d": 1.243,
+   "to_suburb": 2.507,
+   "blocks": [
+    "canyon.0",
+    "scrub.0",
+    "scrub.1",
+    "scrub.2",
+    "wash.0",
+    "wash.1"
+   ]
+  },
+  {
+   "place": "pass",
+   "built": false,
+   "mid_open": 0,
+   "landmark": 1,
+   "open": 0,
+   "cover": 0.853,
+   "blocked": 0.144,
+   "fence": 0,
+   "height": 0.078,
+   "slow": 0.506,
+   "choke": 0.131,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "wash",
+   "nearest_d": 2.168,
+   "to_suburb": 3.616,
+   "blocks": [
+    "canyon.0",
+    "pass.0",
+    "scrub.0",
+    "scrub.1",
+    "scrub.2"
+   ]
+  },
+  {
+   "place": "shore",
+   "built": false,
+   "mid_open": 0.328,
+   "landmark": 1,
+   "open": 0.328,
+   "cover": 0.28,
+   "blocked": 0.149,
+   "fence": 0,
+   "height": 0.059,
+   "slow": 0.256,
+   "choke": 0.037,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "marina",
+   "nearest_d": 0.21,
+   "to_suburb": 1.429,
+   "blocks": [
+    "marina.0",
+    "shore.0",
+    "shore.1",
+    "wash.0",
+    "wash.1"
+   ]
+  },
+  {
+   "place": "wash",
+   "built": false,
+   "mid_open": 0.187,
+   "landmark": 0.89,
+   "open": 0.184,
+   "cover": 0.299,
+   "blocked": 0.075,
+   "fence": 0,
+   "height": 0.041,
+   "slow": 0.567,
+   "choke": 0,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "shore",
+   "nearest_d": 1.282,
+   "to_suburb": 2.59,
+   "blocks": [
+    "scrub.0",
+    "scrub.1",
+    "scrub.2",
+    "shore.0",
+    "shore.1",
+    "wash.0",
+    "wash.1"
+   ]
+  },
+  {
+   "place": "landfill",
+   "built": false,
+   "mid_open": 0.295,
+   "landmark": 0.97,
+   "open": 0.301,
+   "cover": 0.135,
+   "blocked": 0.046,
+   "fence": 0.005,
+   "height": 0.238,
+   "slow": 0.339,
+   "choke": 0.035,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "shore",
+   "nearest_d": 1.021,
+   "to_suburb": 2.29,
+   "blocks": [
+    "landfill.0",
+    "landfill.1",
+    "scrub.0",
+    "scrub.1",
+    "scrub.2",
+    "works.0"
+   ]
+  },
+  {
+   "place": "suburb",
+   "built": false,
+   "mid_open": 0.551,
+   "landmark": 0.96,
+   "open": 0.549,
+   "cover": 0.245,
+   "blocked": 0.184,
+   "fence": 0.019,
+   "height": 0.025,
+   "slow": 0,
+   "choke": 0.145,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "strip",
+   "nearest_d": 0.714,
+   "to_suburb": 0,
+   "blocks": [
+    "corner.0",
+    "corner.1",
+    "corner.2",
+    "culdesac.0",
+    "culdesac.1",
+    "lots.0",
+    "subs.0",
+    "subs.1",
+    "subs.2",
+    "subs.3",
+    "suburb_stem.0",
+    "suburb_stem.1"
+   ]
+  },
+  {
+   "place": "strip",
+   "built": false,
+   "mid_open": 0.507,
+   "landmark": 1,
+   "open": 0.515,
+   "cover": 0.279,
+   "blocked": 0.103,
+   "fence": 0.009,
+   "height": 0.103,
+   "slow": 0,
+   "choke": 0.029,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "downtown",
+   "nearest_d": 0.639,
+   "to_suburb": 0.714,
+   "blocks": [
+    "casino.0",
+    "casino.1",
+    "casino.2",
+    "main.0",
+    "main.1",
+    "strip.0",
+    "strip.1"
+   ]
+  },
+  {
+   "place": "downtown",
+   "built": false,
+   "mid_open": 0.409,
+   "landmark": 1,
+   "open": 0.407,
+   "cover": 0.285,
+   "blocked": 0.093,
+   "fence": 0,
+   "height": 0.183,
+   "slow": 0.075,
+   "choke": 0.063,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "strip",
+   "nearest_d": 0.639,
+   "to_suburb": 1.219,
+   "blocks": [
+    "main.0",
+    "main.1",
+    "ruin.0",
+    "ruin.1",
+    "strip.0",
+    "strip.1"
+   ]
+  },
+  {
+   "place": "works",
+   "built": false,
+   "mid_open": 0.305,
+   "landmark": 1,
+   "open": 0.305,
+   "cover": 0.238,
+   "blocked": 0.227,
+   "fence": 0.022,
+   "height": 0.145,
+   "slow": 0.176,
+   "choke": 0.223,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 10,
+   "nearest": "trailer",
+   "nearest_d": 0.542,
+   "to_suburb": 1.486,
+   "blocks": [
+    "landfill.0",
+    "landfill.1",
+    "ruin.0",
+    "ruin.1",
+    "works.0"
+   ]
+  },
+  {
+   "place": "marina",
+   "built": false,
+   "mid_open": 0.357,
+   "landmark": 0.87,
+   "open": 0.353,
+   "cover": 0.27,
+   "blocked": 0.135,
+   "fence": 0,
+   "height": 0.064,
+   "slow": 0.252,
+   "choke": 0.049,
+   "spread": 0,
+   "gap": 0.6,
+   "starts": {
+    "line": 10
+   },
+   "distinct": 8,
+   "nearest": "shore",
+   "nearest_d": 0.21,
+   "to_suburb": 1.372,
+   "blocks": [
+    "marina.0",
+    "shore.0",
+    "shore.1",
+    "wash.0",
+    "wash.1"
+   ]
+  }
+ ],
+ "pairs_under_floor": [
+  "trailer/works 0.542",
+  "shore/marina 0.21"
+ ],
+ "green": {
+  "suburb": [
+   {
+    "file": "block_corner_0.webp",
+    "share": 0.0007786194388136135
+   },
+   {
+    "file": "block_corner_1.webp",
+    "share": 0.0006458977915288595
+   },
+   {
+    "file": "block_corner_2.webp",
+    "share": 0.0009292649098474341
+   },
+   {
+    "file": "block_culdesac_0.webp",
+    "share": 0.0010156833457804332
+   },
+   {
+    "file": "block_culdesac_1.webp",
+    "share": 0.000693908033713859
+   },
+   {
+    "file": "block_lots_0.webp",
+    "share": 0.00034567374373199614
+   },
+   {
+    "file": "block_subs_0.webp",
+    "share": 0.0016477115117891816
+   },
+   {
+    "file": "block_subs_1.webp",
+    "share": 0.000856289341726235
+   },
+   {
+    "file": "block_subs_2.webp",
+    "share": 0.0008530886589139016
+   },
+   {
+    "file": "block_subs_3.webp",
+    "share": 0.0011511789181692094
+   },
+   {
+    "file": "block_suburb_stem_0.webp",
+    "share": 0.001149045129627654
+   },
+   {
+    "file": "block_suburb_stem_1.webp",
+    "share": 0.0010530246452576549
+   }
+  ],
+  "golf": [
+   {
+    "file": "block_golf_0.webp",
+    "share": 0.0037625093353248693
+   },
+   {
+    "file": "block_scrub_0.webp",
+    "share": 0.003318041182118852
+   },
+   {
+    "file": "block_scrub_1.webp",
+    "share": 0.002902379174223834
+   },
+   {
+    "file": "block_scrub_2.webp",
+    "share": 0.0030705217112984105
+   },
+   {
+    "file": "block_wash_0.webp",
+    "share": 0.0034353995519044063
+   },
+   {
+    "file": "block_wash_1.webp",
+    "share": 0.003986343753334044
+   }
+  ]
+ },
+ "distances": {
+  "lab": {
+   "airport": 1.193,
+   "golf": 2.572,
+   "trailer": 0.808,
+   "desert": 3.319,
+   "redrock": 2.263,
+   "pass": 3.597,
+   "shore": 1.489,
+   "wash": 2.771,
+   "landfill": 2.131,
+   "suburb": 1.445,
+   "strip": 1.699,
+   "downtown": 1.47,
+   "works": 0.769,
+   "marina": 1.464
+  },
+  "airport": {
+   "lab": 1.193,
+   "golf": 1.527,
+   "trailer": 1.013,
+   "desert": 2.547,
+   "redrock": 1.928,
+   "pass": 3.157,
+   "shore": 0.859,
+   "wash": 1.985,
+   "landfill": 1.547,
+   "suburb": 0.785,
+   "strip": 0.851,
+   "downtown": 0.935,
+   "works": 1.191,
+   "marina": 0.748
+  },
+  "golf": {
+   "lab": 2.572,
+   "airport": 1.527,
+   "trailer": 2.123,
+   "desert": 1.033,
+   "redrock": 1.474,
+   "pass": 3.319,
+   "shore": 1.542,
+   "wash": 1.402,
+   "landfill": 1.453,
+   "suburb": 2.251,
+   "strip": 1.98,
+   "downtown": 2,
+   "works": 2.494,
+   "marina": 1.42
+  },
+  "trailer": {
+   "lab": 0.808,
+   "airport": 1.013,
+   "golf": 2.123,
+   "desert": 2.766,
+   "redrock": 1.812,
+   "pass": 3.002,
+   "shore": 0.836,
+   "wash": 2.039,
+   "landfill": 1.736,
+   "suburb": 1.193,
+   "strip": 1.594,
+   "downtown": 1.398,
+   "works": 0.542,
+   "marina": 0.831
+  },
+  "desert": {
+   "lab": 3.319,
+   "airport": 2.547,
+   "golf": 1.033,
+   "trailer": 2.766,
+   "redrock": 1.243,
+   "pass": 3.624,
+   "shore": 2.088,
+   "wash": 1.471,
+   "landfill": 1.892,
+   "suburb": 3.281,
+   "strip": 2.999,
+   "downtown": 2.854,
+   "works": 3.04,
+   "marina": 2.062
+  },
+  "redrock": {
+   "lab": 2.263,
+   "airport": 1.928,
+   "golf": 1.474,
+   "trailer": 1.812,
+   "desert": 1.243,
+   "pass": 2.685,
+   "shore": 1.645,
+   "wash": 1.707,
+   "landfill": 1.606,
+   "suburb": 2.507,
+   "strip": 2.716,
+   "downtown": 2.468,
+   "works": 1.88,
+   "marina": 1.629
+  },
+  "pass": {
+   "lab": 3.597,
+   "airport": 3.157,
+   "golf": 3.319,
+   "trailer": 3.002,
+   "desert": 3.624,
+   "redrock": 2.685,
+   "shore": 2.553,
+   "wash": 2.168,
+   "landfill": 3.03,
+   "suburb": 3.616,
+   "strip": 3.574,
+   "downtown": 3.287,
+   "works": 3.124,
+   "marina": 2.702
+  },
+  "shore": {
+   "lab": 1.489,
+   "airport": 0.859,
+   "golf": 1.542,
+   "trailer": 0.836,
+   "desert": 2.088,
+   "redrock": 1.645,
+   "pass": 2.553,
+   "wash": 1.282,
+   "landfill": 1.021,
+   "suburb": 1.429,
+   "strip": 1.109,
+   "downtown": 0.972,
+   "works": 1.108,
+   "marina": 0.21
+  },
+  "wash": {
+   "lab": 2.771,
+   "airport": 1.985,
+   "golf": 1.402,
+   "trailer": 2.039,
+   "desert": 1.471,
+   "redrock": 1.707,
+   "pass": 2.168,
+   "shore": 1.282,
+   "landfill": 1.558,
+   "suburb": 2.59,
+   "strip": 2.199,
+   "downtown": 2.015,
+   "works": 2.299,
+   "marina": 1.332
+  },
+  "landfill": {
+   "lab": 2.131,
+   "airport": 1.547,
+   "golf": 1.453,
+   "trailer": 1.736,
+   "desert": 1.892,
+   "redrock": 1.606,
+   "pass": 3.03,
+   "shore": 1.021,
+   "wash": 1.558,
+   "suburb": 2.29,
+   "strip": 1.76,
+   "downtown": 1.28,
+   "works": 1.486,
+   "marina": 1.101
+  },
+  "suburb": {
+   "lab": 1.445,
+   "airport": 0.785,
+   "golf": 2.251,
+   "trailer": 1.193,
+   "desert": 3.281,
+   "redrock": 2.507,
+   "pass": 3.616,
+   "shore": 1.429,
+   "wash": 2.59,
+   "landfill": 2.29,
+   "strip": 0.714,
+   "downtown": 1.219,
+   "works": 1.486,
+   "marina": 1.372
+  },
+  "strip": {
+   "lab": 1.699,
+   "airport": 0.851,
+   "golf": 1.98,
+   "trailer": 1.594,
+   "desert": 2.999,
+   "redrock": 2.716,
+   "pass": 3.574,
+   "shore": 1.109,
+   "wash": 2.199,
+   "landfill": 1.76,
+   "suburb": 0.714,
+   "downtown": 0.639,
+   "works": 1.63,
+   "marina": 1.121
+  },
+  "downtown": {
+   "lab": 1.47,
+   "airport": 0.935,
+   "golf": 2,
+   "trailer": 1.398,
+   "desert": 2.854,
+   "redrock": 2.468,
+   "pass": 3.287,
+   "shore": 0.972,
+   "wash": 2.015,
+   "landfill": 1.28,
+   "suburb": 1.219,
+   "strip": 0.639,
+   "works": 1.249,
+   "marina": 0.945
+  },
+  "works": {
+   "lab": 0.769,
+   "airport": 1.191,
+   "golf": 2.494,
+   "trailer": 0.542,
+   "desert": 3.04,
+   "redrock": 1.88,
+   "pass": 3.124,
+   "shore": 1.108,
+   "wash": 2.299,
+   "landfill": 1.486,
+   "suburb": 1.486,
+   "strip": 1.63,
+   "downtown": 1.249,
+   "marina": 1.191
+  },
+  "marina": {
+   "lab": 1.464,
+   "airport": 0.748,
+   "golf": 1.42,
+   "trailer": 0.831,
+   "desert": 2.062,
+   "redrock": 1.629,
+   "pass": 2.702,
+   "shore": 0.21,
+   "wash": 1.332,
+   "landfill": 1.101,
+   "suburb": 1.372,
+   "strip": 1.121,
+   "downtown": 0.945,
+   "works": 1.191
+  }
+ }
+}

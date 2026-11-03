@@ -1193,9 +1193,17 @@
  "whip": {
   "value": {
    "reach": 2,
-   "skills": ["Whip", "Lash"],
+   "skills": [
+    "Whip",
+    "Lash"
+   ],
    "other": [],
-   "bleed": {"stacks": 2, "per_turn": 5, "turns": 2, "min_hp_lost": 6},
+   "bleed": {
+    "stacks": 2,
+    "per_turn": 5,
+    "turns": 2,
+    "min_hp_lost": 6
+   },
    "disarm_pct": 10,
    "disarm_turns": 1,
    "auto_second_tile": 12,
@@ -1222,7 +1230,10 @@
    "kill_rounds": 2,
    "best_shot_margin": 10,
    "shot_floor": 0.25,
-   "damage_quantiles": [0.25, 0.75],
+   "damage_quantiles": [
+    0.25,
+    0.75
+   ],
    "count_blows": 8,
    "commit_kill": 0.8
   },
@@ -1235,27 +1246,70 @@
  "lessons": {
   "value": {
    "kinds": {
-    "brigand_thug": ["blows"],
-    "brigand_marauder": ["blows"],
-    "brigand_raider": ["blows"],
-    "lower_brigand_raider": ["blows"],
-    "brigand_marksman": ["shoots_the_soft"],
-    "brigand_poacher": ["shoots_the_soft"],
-    "brigand_leader": ["leads"],
-    "necromancer": ["his_machines_drop", "stands_them_up"],
-    "wiederganger": ["gets_up"],
-    "armored_wiederganger": ["gets_up"],
-    "goblin_skirmisher": ["nets"],
-    "lower_goblin_skirmisher": ["nets"],
-    "goblin_wolfrider": ["runs_round"],
-    "orc_warrior": ["breaks_the_line"],
-    "lower_orc_warrior": ["breaks_the_line"],
-    "orc_young": ["blows"],
-    "geist": ["breaks_nerve"],
-    "direwolf": ["runs_round"],
-    "frenzied_direwolf": ["runs_round"],
-    "hyena": ["runs_round"],
-    "schrat": ["blows"]
+    "brigand_thug": [
+     "blows"
+    ],
+    "brigand_marauder": [
+     "blows"
+    ],
+    "brigand_raider": [
+     "blows"
+    ],
+    "lower_brigand_raider": [
+     "blows"
+    ],
+    "brigand_marksman": [
+     "shoots_the_soft"
+    ],
+    "brigand_poacher": [
+     "shoots_the_soft"
+    ],
+    "brigand_leader": [
+     "leads"
+    ],
+    "necromancer": [
+     "his_machines_drop",
+     "stands_them_up"
+    ],
+    "wiederganger": [
+     "gets_up"
+    ],
+    "armored_wiederganger": [
+     "gets_up"
+    ],
+    "goblin_skirmisher": [
+     "nets"
+    ],
+    "lower_goblin_skirmisher": [
+     "nets"
+    ],
+    "goblin_wolfrider": [
+     "runs_round"
+    ],
+    "orc_warrior": [
+     "breaks_the_line"
+    ],
+    "lower_orc_warrior": [
+     "breaks_the_line"
+    ],
+    "orc_young": [
+     "blows"
+    ],
+    "geist": [
+     "breaks_nerve"
+    ],
+    "direwolf": [
+     "runs_round"
+    ],
+    "frenzied_direwolf": [
+     "runs_round"
+    ],
+    "hyena": [
+     "runs_round"
+    ],
+    "schrat": [
+     "blows"
+    ]
    }
   },
   "source": "VAMILY.md rule 182 (Paolo 10/25); each lesson reads the game's own row for it: blows (his weapon, the rules' hitChance and hitDamage), his_machines_drop (ours.bestiary.mechanic), stands_them_up and gets_up (racial_skills.json raise_undead, bb_all/1631_Raise Undead), nets (racial_skills.json throw_net, bb_all/1998_Throw Net), breaks_the_line (racial_skills.json line_breaker, bb_all/1501_Orc Warrior), breaks_nerve (racial_skills.json horrific_scream, bb_all/0831_Geist), leads (ours.captain_aura, bb_all/0343_Captain), shoots_the_soft (ai.json backline.soft, bb_all/0294_Brigand Marksman), runs_round (ai.json rider and rusher, bb_all/0629_Direwolf, bb_all/0877_Goblin Wolfrider)",
@@ -1842,6 +1896,113 @@
       1,
       3
      ]
+    ],
+    "apron.2": [
+     [
+      0,
+      0,
+      3
+     ],
+     [
+      1,
+      0,
+      3
+     ],
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      1,
+      1,
+      3
+     ]
+    ],
+    "golf.1": [
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ]
+    ],
+    "trailer.1": [
+     [
+      2,
+      3,
+      1
+     ]
+    ],
+    "canyon.1": [
+     [
+      1,
+      0,
+      2
+     ],
+     [
+      1,
+      1,
+      3
+     ],
+     [
+      3,
+      1,
+      2
+     ],
+     [
+      1,
+      2,
+      2
+     ],
+     [
+      3,
+      2,
+      3
+     ],
+     [
+      3,
+      3,
+      2
+     ]
+    ],
+    "canyon.2": [
+     [
+      3,
+      0,
+      2
+     ],
+     [
+      2,
+      1,
+      2
+     ]
+    ],
+    "pass.3": [
+     [
+      1,
+      0,
+      3
+     ],
+     [
+      3,
+      0,
+      2
+     ],
+     [
+      1,
+      1,
+      2
+     ],
+     [
+      4,
+      1,
+      2
+     ]
     ]
    },
    "roof_kinds": [
@@ -1852,7 +2013,9 @@
     "strip",
     "main",
     "ruin",
-    "works"
+    "works",
+    "apron",
+    "golf"
    ],
    "rise": [
     0,
@@ -1873,6 +2036,18 @@
      [
       1,
       4
+     ]
+    ],
+    "apron.0": [
+     [
+      3,
+      3
+     ]
+    ],
+    "golf.0": [
+     [
+      4,
+      1
      ]
     ]
    }
@@ -1946,7 +2121,9 @@
   "tuned": false
  },
  "early_retreat": {
-  "value": {"edge_margin_tiles": 1},
+  "value": {
+   "edge_margin_tiles": 1
+  },
   "source": "VAMILY.md rule 256 (Paolo 10/26, LOCKED: 'if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... in Battle Brothers every time I retreated I watched my people run tile to tile and they always made it, they got that head start'); records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md",
   "quote": "they got that head start",
   "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: his front column stands a man's run on flat ground (ap.per_turn over ap.move_cost.flat, four tiles) LESS this many tiles from his edge, so rough ground still lets a first-turn retreat reach it; ours.start_cols stays the farthest it may be. Measured on 300 rolled fights, RETREAT on his first turn: margin 0 put 98.8% of his men out, 1 put 99.9% (beasts 100%), 2 the same as 1."
@@ -1958,7 +2135,13 @@
   "why": "END TURN with no AP spent is a REST: at his next turn this comes back instead of fatigue.recovery_per_turn (Battle Brothers' 15), and the fatigue hits and blocks put on him while he rests is owed until his next turn that spends closes, so one rest always buys the swing the turn after. TUNING's to tune."
  },
  "chase_calc": {
-  "value": {"runs": 4, "steps": 100, "rounds": 2, "worth": 0.5, "safe": 0.9},
+  "value": {
+   "runs": 4,
+   "steps": 100,
+   "rounds": 2,
+   "worth": 0.5,
+   "safe": 0.9
+  },
   "source": "VAMILY.md rule 198(h) (Paolo 10/26, LOCKED: 'even Battle Brothers has it: when the enemy wants to retreat because we messed with their morale, the game lets you know, and it's spare them or run them down'); records/BOHEMIA_COMBAT_SPARE_THEM_OR_RUN_THEM_DOWN_10_26_26.md",
   "quote": "spare them or run them down, spare them or kill them, it lets you do that",
   "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: AUTO's half of the choice. The rest of the rout is played runs times from copies of the moment every enemy left is fleeing (at most steps actions and rounds rounds, every man on AUTO); AUTO runs them down when a runner is caught in at least worth of the runs AND no man of ours who stands goes down in at least safe of them; else it spares them. Battle Brothers leaves the chase to the player; these numbers are ours."
@@ -2176,13 +2359,125 @@
       ]
      ]
     },
-    "the_top_open": {"w": 1, "open": [[0, 0], [1, 0], [2, 0], [3, 0]]},
-    "the_bottom_open": {"w": 1, "open": [[1, 2], [2, 2], [3, 2]]},
-    "the_pocket": {"w": 1, "open": [[2, 1]]},
-    "their_corner": {"w": 1, "open": [[3, 0], [3, 1]]},
-    "the_middle_open": {"w": 1, "open": [[1, 0], [2, 0], [1, 1], [2, 1], [1, 2], [2, 2]]},
-    "two_corners": {"w": 1, "open": [[0, 0], [3, 2]]},
-    "the_step": {"w": 1, "open": [[1, 0], [2, 1], [3, 2]]}
+    "the_top_open": {
+     "w": 1,
+     "open": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       3,
+       0
+      ]
+     ]
+    },
+    "the_bottom_open": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       2
+      ]
+     ]
+    },
+    "the_pocket": {
+     "w": 1,
+     "open": [
+      [
+       2,
+       1
+      ]
+     ]
+    },
+    "their_corner": {
+     "w": 1,
+     "open": [
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ]
+     ]
+    },
+    "the_middle_open": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       2
+      ]
+     ]
+    },
+    "two_corners": {
+     "w": 1,
+     "open": [
+      [
+       0,
+       0
+      ],
+      [
+       3,
+       2
+      ]
+     ]
+    },
+    "the_step": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       2
+      ]
+     ]
+    }
    }
   },
   "source": "records/BOHEMIA_PAOLO_NOTES_WHILE_THE_KITCHEN_IS_CLOSED_10_27_26.md note 3, ask line 252 (records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md); CLAUDE.md 'NO TWO COMBAT BOARDS ARE THE SAME' (Paolo 9/29)",
@@ -2422,5 +2717,422 @@
   "ours": true,
   "draft": true,
   "tuned": false
+ },
+ "place_boards": {
+  "value": {
+   "places": {
+    "lab": {
+     "name": "THE LAB YARD",
+     "districts": [
+      "medical"
+     ],
+     "built": true,
+     "landmark": "THE PENS: a block of chain-link beast pens off the vivarium, one burst open from inside, its den door chewed",
+     "things": "beast pens, gurneys, a decon shower line, the cold-store truck at the dock, biohazard drums, a dead ambulance",
+     "twist": "LANES AND GATES: the pens are chain link, a shot goes through and a man does not, so the fight runs down one-tile lanes; shooters own it, melee has to find the gate",
+     "horror": "one pen's water trough is full and clean, years after the last keeper; the burst pen's straw is dragged out the gate",
+     "landmark_block": "lab.1",
+     "field": [
+      "lab.2",
+      "lab.3"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "camp": 2,
+      "line": 1
+     },
+     "gate_district": "medical"
+    },
+    "airport": {
+     "name": "THE AIRPORT",
+     "districts": [
+      "airport",
+      "airbase",
+      "terminal"
+     ],
+     "built": true,
+     "landmark": "THE WRECK: a twin-prop commuter on its belly in the middle of the apron, its tail broken off, the bags all over",
+     "things": "the commuter wreck, the hangar, a fuel truck, a baggage cart train, the terminal's glass and a jet bridge stub",
+     "twist": "A SHOOTER'S GROUND: wide open slab, their line starts far off, and the wreck is the one big cover everybody wants; the hangar roof three storeys up",
+     "horror": "one suitcase stands upright and packed on the bare slab, far from the wreck, its tag on",
+     "landmark_block": "apron.1",
+     "field": [
+      "apron.0",
+      "apron.2"
+     ],
+     "rows": {
+      "0": [
+       "apron.3"
+      ]
+     },
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "1": 3,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "wide": 2,
+      "camp": 1,
+      "line": 1
+     },
+     "gate_district": "airport"
+    },
+    "golf": {
+     "name": "THE GOLF COURSE",
+     "districts": [
+      "golf",
+      "park"
+     ],
+     "built": true,
+     "landmark": "THE CLUBHOUSE AND THE 18TH: the stucco clubhouse, its torn awning over the patio, the carts in their row, the dead green and its flag",
+     "things": "the clubhouse, golf carts, the flag on a dead green, a ball washer, bunkers, the dry water hazard, a stand of dead pines",
+     "twist": "SAND AND ROOFS: the bunkers and the dry pond are slow ground in the open; the clubhouse roof is the one height, and they may come from both flanks (an ambush from the trees and the carts)",
+     "horror": "the flag on the dead green stands straight out in a wind that moves nothing else",
+     "landmark_block": "golf.1",
+     "field": [
+      "golf.2",
+      "golf.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "pincer": 1,
+      "wide": 1
+     },
+     "gate_district": "golf"
+    },
+    "trailer": {
+     "name": "THE TRAILER PARK",
+     "districts": [
+      "trailer"
+     ],
+     "built": false,
+     "landmark": "THE ROWS: single-wides on their blocks end to end, one burnt to its frame, a carport roof between two of them",
+     "things": "trailers on blocks, propane tanks, a carport, a clothesline, a swing set, mailboxes, the park office and its laundry",
+     "twist": "A MAZE: lanes one man wide between trailers you cannot see through, so it is close, melee ground and chokepoints; the carport roof is the one height, and they are often already in among the rows",
+     "horror": "the swing on the A-frame hangs stopped at the top of its swing, nobody on it",
+     "landmark_block": "trailer.1",
+     "field": [
+      "trailer.2",
+      "trailer.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "camp": 2,
+      "pincer": 1,
+      "line": 1
+     },
+     "gate_district": "trailer"
+    },
+    "desert": {
+     "name": "THE DESERT",
+     "districts": [
+      "desert"
+     ],
+     "built": false,
+     "landmark": "THE PYLON: a high-voltage lattice tower fallen across a dry wash, its lines on the ground, Joshua trees round it",
+     "things": "Joshua trees, boulders, a dead car half buried, the fallen pylon and its draped lines, the dry wash",
+     "twist": "THE LOW GROUND: open flat desert cut by a dry wash between the lines; the wash is soft sand (slow), its banks a step up, so whoever holds a bank shoots down on whoever crosses; their line starts far off on the open flat",
+     "horror": "one perfect bare circle of caliche on the flat, nothing growing in it, nothing on it",
+     "landmark_block": "desert.1",
+     "field": [
+      "desert.3"
+     ],
+     "cols": {
+      "1": [
+       "desert.2"
+      ]
+     },
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "wide": 2,
+      "line": 1,
+      "camp": 1
+     },
+     "gate_district": "desert"
+    },
+    "redrock": {
+     "name": "RED ROCK",
+     "districts": [
+      "springs"
+     ],
+     "built": false,
+     "landmark": "THE FIN AND THE SLOT: a sandstone fin split by a slot canyon one man wide, its flanks stepping up in ledges",
+     "things": "the fin, ledges one, two and three storeys up, the slot canyon, slickrock terraces, boulders, a dead juniper",
+     "twist": "REAL HEIGHT: ledges one, two and three storeys up (higher hits harder and sees farther, rule 321), a climb costs the turn's attack (rule 328), and the slot through the fin is one man wide",
+     "horror": "a line of red handprints climbs the fin far higher than a man can reach",
+     "landmark_block": "canyon.1",
+     "field": [
+      "canyon.2",
+      "canyon.0"
+     ],
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "camp": 1,
+      "pincer": 1
+     },
+     "gate_district": "springs"
+    },
+    "pass": {
+     "name": "THE PASS",
+     "districts": [
+      "mountain"
+     ],
+     "built": false,
+     "landmark": "THE JACKKNIFE: a semi folded across the road under the cut, a rockfall closing the rest of it",
+     "things": "the switchback road, the guard rail, a rockfall, a jackknifed truck, the cut face and its scree, the drop",
+     "twist": "A ROAD ON A SLOPE: the road is the only fast ground, the high side is slow scree and ledges, the low side the drop no man walks; the jackknife and the rockfall close the road to one lane",
+     "horror": "the jackknifed truck's hazards still blink, years on",
+     "landmark_block": "pass.1",
+     "field": [
+      "pass.2",
+      "pass.0"
+     ],
+     "rows": {
+      "0": [
+       "pass.3"
+      ]
+     },
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "pincer": 2,
+      "line": 1
+     },
+     "gate_district": "mountain"
+    },
+    "shore": {
+     "name": "THE SHORE",
+     "districts": [
+      "reservoir",
+      "dam"
+     ],
+     "built": false,
+     "landmark": "THE INTAKE TOWER: the lake's concrete intake standing high and dry on the cracked bed, a dead dock beside it",
+     "things": "the intake tower, dead docks standing on dry land, a boat on its side, the mud and the last of the water, the white bathtub ring",
+     "twist": "THE MUD: the receded lake's mud and its last shallows are swamp (slow, and a man fights worse standing in it); the white bathtub ring is a step up onto the old shore, and the docks are decks to climb",
+     "horror": "a second bathtub ring runs far above the first, higher than the lake ever stood",
+     "landmark_block": "lakebed.1",
+     "field": [
+      "lakebed.2"
+     ],
+     "rows": {
+      "0": [
+       "lakebed.2"
+      ],
+      "2": [
+       "lakebed.3"
+      ]
+     },
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "1": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "camp": 1,
+      "wide": 1
+     },
+     "gate_district": "reservoir"
+    },
+    "wash": {
+     "name": "THE WASH",
+     "districts": [
+      "wash",
+      "basin"
+     ],
+     "built": false,
+     "landmark": "THE CULVERT: the concrete flood channel running under a road embankment through three box barrels",
+     "things": "the concrete channel, its high banks, the culvert, shopping carts, a sofa in the silt, a camp's tarps and tents on the bank",
+     "twist": "THE CHANNEL: a low concrete channel between two high banks runs between the lines; its silt floor is slow, the banks are height, and the culvert is the one way through under the road: one man wide, and cover inside it",
+     "horror": "a line of bare footprints walks into the culvert and none walks out",
+     "landmark_block": "wash.2",
+     "field": [
+      "wash.4"
+     ],
+     "cols": {
+      "1": [
+       "wash.3"
+      ]
+     },
+     "mirror": true,
+     "landmark_col": 1,
+     "landmark_rows": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+     },
+     "camp_tile": [
+      4,
+      2
+     ],
+     "starts": {
+      "line": 1,
+      "pincer": 1,
+      "camp": 1
+     },
+     "gate_district": "wash"
+    },
+    "landfill": {
+     "name": "THE LANDFILL",
+     "districts": [
+      "landfill"
+     ],
+     "built": false,
+     "landmark": "the methane flare",
+     "things": "trash mounds, a methane flare, a dead dozer",
+     "twist": "the mounds are height; the flare's ground burns",
+     "gate_district": "landfill"
+    },
+    "suburb": {
+     "name": "THE SUBURBS",
+     "districts": [
+      "suburb",
+      "estate",
+      "gated",
+      "town",
+      "school",
+      "chapel",
+      "library"
+     ],
+     "built": false,
+     "landmark": "the empty pool in a walled backyard",
+     "things": "cinder-block yard walls, empty pools, a cul-de-sac",
+     "twist": "walls you fight along and over; an empty pool is a pit; brown dead lawns",
+     "gate_district": "suburb"
+    },
+    "strip": {
+     "name": "THE STRIP",
+     "districts": [
+      "strip",
+      "casino",
+      "highroller",
+      "luxor",
+      "resort",
+      "convention",
+      "sign",
+      "sphere",
+      "strat"
+     ],
+     "built": false,
+     "landmark": "a fallen casino sign",
+     "things": "a dry fountain, a fallen casino sign, a pedestrian bridge",
+     "twist": "the bridge is height over the boulevard; the fountain's rim is cover",
+     "gate_district": "strip"
+    },
+    "downtown": {
+     "name": "DOWNTOWN",
+     "districts": [
+      "downtown"
+     ],
+     "built": false,
+     "landmark": "the canopy over the street",
+     "things": "the canopy, the alleys",
+     "twist": "under the canopy no shot from a roof; alleys one or two wide",
+     "gate_district": "downtown"
+    },
+    "works": {
+     "name": "THE WORKS",
+     "districts": [
+      "industrial",
+      "rail",
+      "railyard",
+      "warehouse",
+      "storage"
+     ],
+     "built": false,
+     "landmark": "the gantry over the rail cars",
+     "things": "rail cars, a gantry, machines",
+     "twist": "the rail cars are a wall of cover; the gantry is height",
+     "gate_district": "industrial"
+    },
+    "marina": {
+     "name": "THE MARINA",
+     "districts": [
+      "water",
+      "intake"
+     ],
+     "built": false,
+     "landmark": "the boats sitting on the dry bed",
+     "things": "boats on the dry bed",
+     "twist": "the boats are cover on open mud",
+     "gate_district": "water"
+    }
+   },
+   "wide_extra": 2
+  },
+  "source": "records/BOHEMIA_PAOLO_THE_FIGHT_MAPS_ARE_NOT_DONE_TRUE_VARIETY_11_3_26.md (rule 341, ask line 350)",
+  "quote": "everything just looked exactly the same as the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do... no variety, like true variety",
+  "why": "COMBAT MAPS 3: a place with built: true deals only its own blocks (its landmark between the lines in a row the deal picks, its field blocks round it, mirrored or not, never beside its twin) and starts the two sides by its own weights (line; wide: their line wide_extra tiles farther off; camp: round the landmark; pincer: both flanks). Every place names its landmark, its things and its twist (gates/every_place_its_own_board_gate.js reads them). An unbuilt place deals as before. TUNING may move the weights.",
+  "draft": true
  }
 }

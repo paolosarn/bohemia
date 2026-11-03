@@ -1138,8 +1138,50 @@ const FIGHT = (function () {
     }
     return { grid: waterRunsOn(grid, pool), fam: own.shaped ? 'city' : 'place', leads: [lead], place: opts.district };
   }
+  /* EVERY PLACE ITS OWN BOARD (COMBAT MAPS 3, rule 341, ask line 350, Paolo 11/3: 'everything just looked exactly the same as
+     the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do... no variety, like true
+     variety'). MEASURED BEFORE (gates/every_place_its_own_board_gate.js on main): a place dealt its kinds from a shared list, so
+     the lab yard was downtown's and the works' blocks, the airport the works' sheds, and every board's plan sat within reach of
+     the suburb's rows. NOW a place that has its own board (ours.place_boards, built: true) deals ONLY its own blocks: its
+     landmark between the two lines (the block your line faces, in a row the deal picks), its own field blocks round it (each
+     maybe mirrored, never beside its twin), and WHERE THE TWO SIDES START from the place (its starts' weights: the line, a
+     wide line on open ground, their camp round the landmark, or a pincer from both flanks). The cell seeds it (rule 46a), so a
+     place is never the same board twice and the fight's own dice never move. [bb] Battle Brothers builds a tactical map from
+     the tile it is fought on, and its camps and ruins have their own built plans. */
+  function placeOwn(opts) {
+    const P = DB.ours && DB.ours.place_boards ? R('ours.place_boards') : null;
+    if (!P || !opts.district || opts.boss) return null;
+    const lib = blockLibrary(), id = Object.keys(P.places).filter(function (k) { const p = P.places[k]; return p.built && p.districts.indexOf(opts.district) >= 0; })[0];
+    const p = id ? P.places[id] : null; if (!p) return null;
+    const every = [p.landmark_block].concat(p.field, [].concat.apply([], Object.values(p.cols || {})), [].concat.apply([], Object.values(p.rows || {})));
+    if (every.some(function (n) { return !lib[n]; })) return null;
+    return Object.assign({ id: id }, p);
+  }
+  function pickW(w) { const ks = Object.keys(w); let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0); return ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0]; }
+  function dealOwn(opts, p) {
+    const bt = DB.ground.block_tiles, cols = S.w / bt, rows = S.h / bt, lr = +pickW(p.landmark_rows), grid = [];
+    const mir = function (l) { return l.concat(p.mirror ? l.map(function (n) { return n + '|h'; }) : []); };
+    /* a place may pin its own blocks to a column (the wash's channel runs down between the lines) or a row (the pass's high
+       side on top, the drop below); else any of its field blocks */
+    const poolAt = function (by, bx) { const c = p.cols && p.cols[bx], r = p.rows && p.rows[by]; return mir(c || r || p.field); };
+    for (let by = 0; by < rows; by++) {
+      const row = [];
+      for (let bx = 0; bx < cols; bx++) {
+        if (by === lr && bx === p.landmark_col) { row.push(p.landmark_block); continue; }
+        const base = function (n) { return String(n).split('|')[0]; }, pool = poolAt(by, bx);
+        const can = pool.filter(function (n) { return base(n) !== base(row[bx - 1] || '') && !(by && base(grid[by - 1][bx]) === base(n)); });
+        row.push((can.length ? can : pool)[Math.floor(rng() * (can.length || pool.length))]);
+      }
+      grid.push(row);
+    }
+    const start = pickW(p.starts);
+    return { grid: grid, fam: 'place', leads: [kindOf(p.landmark_block)], place: opts.district, own: p.id, start: start, lm: p.landmark_block,
+      camp: { x: p.landmark_col * bt + p.camp_tile[0], y: lr * bt + p.camp_tile[1] } };
+  }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
+    const mine = placeOwn(opts);
+    if (mine) return dealt(opts, dealOwn(opts, mine));
     const own = placeKinds(opts, lib);
     if (own) return dealt(opts, dealPlace(opts, own, lib));
     const fams = Object.keys(mix.families);
@@ -1192,7 +1234,8 @@ const FIGHT = (function () {
     const call = function (k) { const al = mix.aliases || {}; return Object.keys(al).filter(function (n) { return al[n].indexOf(k) >= 0; })[0] || k; };
     const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
     if (asked && d.place) used.push(opts.kind);   /* a place's board is named by its own blocks; the door's kind is answered, last */
-    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null, shape: shaped.shape, place: d.place || null };
+    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null, shape: shaped.shape, place: d.place || null,
+      own: d.own || null, start: d.start || null, camp: d.camp || null, lm: d.lm || null };
   }
   /* ---------------- THE BOARD HAS A SHAPE (COMBAT [way more fight maps], ask line 252, Paolo 10/27: 'more maps... it got pretty
      boring... we need way more maps, way more combat maps'; CLAUDE.md, Paolo 9/29: 'no two combat boards are the same') ----------
@@ -1245,7 +1288,7 @@ const FIGHT = (function () {
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
   function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || null; }
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p); return d ? (G.cover[p] || G.cover_extra[p] ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p); return d && d.src ? (G.cover[p] || G.cover_extra[p] ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -1410,6 +1453,25 @@ const FIGHT = (function () {
     const ours = Math.max(1, Math.min(c[0], run - R('ours.early_retreat').edge_margin_tiles));
     return [ours, ours + Math.max(c[1] - c[0], R('deployment.min_gap_between_lines_hexes') + 1)];   /* five tiles BETWEEN the fronts, as the wiki's 'at least 5 hexes between parties' */
   }
+  /* THEIR CAMP, OR BOTH FLANKS (COMBAT MAPS 3, rule 341): Battle Brothers' camp you walk into (they stand round the landmark,
+     the shooters behind it) and its ambush (they split onto both flanks ahead of you); always on the ground (rule 256) and with
+     the wiki's five clear tiles in front of your front column, so nobody closes to melee in round one */
+  function placeOwnStart(units, mode, camp) {
+    const minX = S.cols[0] + R('deployment.min_gap_between_lines_hexes') + 1, left = [];
+    const centres = mode === 'camp' ? [camp] : [{ x: camp.x, y: 1 }, { x: camp.x, y: S.h - (1 + 1) }];
+    const free = function (x, y) { return passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0); };
+    units.forEach(function (u, i) {
+      const c = centres[i % centres.length], back = isRanged(u.weapon) || u.arche === 'backline';
+      let best = null, bd = Infinity;
+      for (let y = 0; y < S.h; y++) for (let x = minX; x < S.w; x++) {
+        if (!free(x, y)) continue;
+        const d = Math.hypot(x - c.x, (y - c.y) * 1.2) + (back ? Math.max(0, c.x + 1 - x) * (1 + 1) : 0);
+        if (d < bd) { bd = d; best = { x: x, y: y }; }
+      }
+      if (best) { u.x = best.x; u.y = best.y; } else left.push(u);
+    });
+    if (left.length) place(left, S.cols[1], 1);
+  }
   function placeBack(units) {
     const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat')), front = S.cols[1];
     /* only a man nearer than his own extra run allows moves, to the nearest open tile at that column or past it (the ranks behind
@@ -1453,7 +1515,7 @@ const FIGHT = (function () {
       for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
-      if (fromMap && !opts.flat) S.boardDef.groundFit = fitCover(S.ground.ground);
+      if (fromMap && !opts.flat && !S.boardDef.own) S.boardDef.groundFit = fitCover(S.ground.ground);   /* a place's own board is built, never thinned or filled */
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
@@ -1506,10 +1568,15 @@ const FIGHT = (function () {
        set last time is read back by name; opts.formation === null forgets it (the test bench's clean start) */
     const kept = opts.formation === null ? null : (opts.formation || readFormation());
     S.formationKept = false;
-    deployCrew(crewUnits, cols[0], -1, kept);
+    /* WHERE THE TWO SIDES START (COMBAT MAPS 3, rule 341): a place's own board names it (its deal picked it from the place's
+       starts): 'wide' puts their line farther off on open ground; 'camp' and 'pincer' start them round the landmark or on both
+       flanks (placeOwnStart); else the line as it always was */
+    const st = S.boardDef && S.boardDef.start;
+    if (st === 'wide') S.cols = [cols[0], Math.min(S.w - 2, cols[1] + R('ours.place_boards').wide_extra)];
+    deployCrew(crewUnits, S.cols[0], -1, kept);
     S.formation = formationNow();
-    place(bandUnits, cols[1], 1);
-    placeBack(bandUnits);   /* rule 256(a): the fast ones start back by their extra run */
+    if ((st === 'camp' || st === 'pincer') && S.boardDef.camp) placeOwnStart(bandUnits, st, S.boardDef.camp);
+    else { place(bandUnits, S.cols[1], 1); placeBack(bandUnits); }   /* rule 256(a): the fast ones start back by their extra run */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
     S.deploy = !opts.auto && opts.deploy !== false;

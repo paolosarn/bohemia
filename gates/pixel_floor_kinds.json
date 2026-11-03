@@ -311,6 +311,11 @@
    "why": "COMBAT MAPS 2's phone sheet and cards: every place's fight before and after its own ground (tools/bohemia_combat_maps_every_ground_sheet_11_2_26.js)"
   },
   {
+   "glob": "records/target/combat_maps_11_3/**",
+   "kind": "proof",
+   "why": "COMBAT MAPS 3's renders, phone shots and cards: every place its own board before, after and in play (tools/bohemia_combat_maps_every_place_its_own_board_shots_11_3_26.js)"
+  },
+  {
    "glob": "records/target/graveyard/**",
    "kind": "proof",
    "why": "a dead thing's last picture"
