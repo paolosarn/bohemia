@@ -637,11 +637,15 @@
       + '#bohphone .bpctx .vb.off{opacity:.55;cursor:default}'
       + '#bohphone .bpctx.verb .vb{display:flex}#bohphone .bpctx.verb .clk{display:none}'
       + '#bohphone .bpfd{position:absolute;left:3px;right:3px;top:67px;height:46px;margin:0;overflow:hidden;cursor:pointer;padding:2px 3px;background:rgba(6,5,4,.66);box-shadow:inset 0 0 0 1px rgba(240,226,196,.14)}'
-      + '#bohphone .bpfd .fp{height:21px;overflow:hidden;font-size:6.5px;line-height:7.5px;color:#ecdfc2}'
+      /* COORDINATOR 11/3 (Paolo, his screenshot: 'the tweets are only taking up half the space they should'): the strip was cut for
+         TWO posts (21 px each) and rule 329 made it ONE, so the one post sat in the top half and the bottom half was always empty.
+         Now the one post owns the whole strip (rule 350) and its size is FITTED: the biggest type, 9 px down to 6 px, at which the
+         handle and every word fit the box. A short post reads big; a 120-character post still shows every word. fitStrip() below. */
+      + '#bohphone .bpfd .fp{height:100%;overflow:hidden;font-size:6.5px;line-height:7.5px;color:#ecdfc2}'
       + '#bohphone .bpfd .fp + .fp{border-top:1px solid rgba(240,226,196,.14);padding-top:1px}'
       + '#bohphone .bpfd .fp b{display:block;font-weight:400;color:#f6cf74;white-space:nowrap;overflow:hidden}'
       + '#bohphone .bpfd .fp.mine b{color:#9fd08a}'
-      + '#bohphone .bpfd .fp span{display:block;max-height:13.5px;overflow:hidden}'
+      + '#bohphone .bpfd .fp span{display:block;overflow:hidden;overflow-wrap:break-word}'
       + '#bohphone .bpfd .fp.new{animation:bohIn ' + BEAT + 'ms steps(2,end)}'
       + '#bohphone .bpfd .fp.gone{animation:bphSink ' + Math.round(BEAT * 2 / 3) + 'ms steps(1,end) both}#bohphone .bpfd .fp.gone.done{animation:none;visibility:hidden;opacity:0}'   /* rule 329: read, then out */
       + '@keyframes bohIn{0%{transform:translateY(-100%)}100%{transform:none}}'
@@ -672,7 +676,7 @@
       + '#bohphone .jc{padding-top:0!important;padding-bottom:0!important}'
       /* UI 5 (ask 154: 'after two wipes the phone held three jobs and showed two'): a rescue is held past the two contracts (RUN's
          LOOP_MAX + 1), so with three the job column takes the feed's top 26 and the feed shows its one post in the 20 left */
-      + '#bohphone .home.jobs3 .jobs{height:90px}#bohphone .home.jobs3 .bpfd{top:93px;height:20px}#bohphone .home.jobs3 .bpfd .fp{height:16px}'
+      + '#bohphone .home.jobs3 .jobs{height:90px}#bohphone .home.jobs3 .bpfd{top:93px;height:20px}#bohphone .home.jobs3 .bpfd .fp{height:100%}'
       + '#bohphone .jc .st{color:#a3180c;letter-spacing:-.5px;margin-right:2px}'
       + '#bohphone .jc .x{flex:0 0 32px;width:32px;height:24px;margin:-1px -2px -1px 0;padding:0 0 0 10px;border:0;background:none;cursor:pointer}'   /* the X is 20 drawn, 32 by the card's height to a thumb */
       + '#bohphone .jc .x img{width:20px;height:21.4px;display:block;pointer-events:none}'
@@ -1294,16 +1298,30 @@
     var bm = READ.beat_ms; try { var B = window.BOHEMIA_BEAT, n = B && B.now && B.now(); if (n && n.beatMs > 0) bm = n.beatMs; } catch (e) {}
     return Math.ceil((READ.base_ms + READ.per_word_ms * words) / bm) * bm;
   }
+  /* the one post fills the strip: try 9 px down to 6 px in half steps, keep the first size at which nothing is cut. A hidden phone
+     (no height) is fitted the next time it paints with a height. */
+  function fitStrip(fd) {
+    var fp = fd && fd.querySelector('.fp'); if (!fp) return;
+    var h = fp.clientHeight; if (!(h > 4)) { H.stripFitH = 0; return; }
+    for (var sz = 9; sz >= 6; sz -= 0.5) {
+      fp.style.fontSize = sz + 'px'; fp.style.lineHeight = (Math.round(sz * 1.16 * 2) / 2) + 'px';
+      if (fp.scrollHeight <= h + 0.5) break;
+    }
+    H.stripFitH = fd.clientHeight;
+  }
+  try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { H.stripFitH = -1; }); } catch (e) {}
   function stripPaint(force) {
     var fd = H.el.querySelector('.home .bpfd'); if (!fd) return;
+    if (H.stripFitH !== fd.clientHeight && fd.querySelector('.fp')) fitStrip(fd);   /* shown again, the jobs grew, or the font came in */
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }));
     var one = posts.slice(-1), sig = one.map(function (p) { return p.who + '|' + p.txt; }).join('');
     if (!force && sig === H.stripSig) return;
     var was = H.stripTop; H.stripSig = sig; H.stripTop = one.length ? one[0].who + '|' + one[0].txt : null;
-    if (!one.length) { clearTimeout(H.stripT); fd.innerHTML = '<div class="fp"><span>The valley is quiet.</span></div>'; return; }   /* draft:true */
+    if (!one.length) { clearTimeout(H.stripT); fd.innerHTML = '<div class="fp"><span>The valley is quiet.</span></div>'; fitStrip(fd); return; }   /* draft:true */
     var p = one[0], fresh = !!(was && was !== H.stripTop), gone = !fresh && H.stripGone === sig;
     fd.innerHTML = '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (fresh ? ' new' : '') + (gone ? ' gone done' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>';
+    fitStrip(fd);
     if (fresh) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
     if (!gone) {
       clearTimeout(H.stripT);
