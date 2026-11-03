@@ -16230,7 +16230,7 @@
    "draft": true,
    "title": "THE POT: HIS OWN LOOK AND HIS PLACE, BEFORE AND AFTER",
    "said": "each one has to have their own aesthetic... there's a bunch of bright pixels on the part of the map where I killed the boss... I'm so confused",
-   "why": "The boss is a casino line cook who took the last good kitchen: grey chef's whites, a half apron, a wrapped cook's cap. He wears it in the fight and on his card. His kitchen on the map: black smoke and dark windows; after he falls the fire is out, the windows are lit and the pot steams, painted like the rest of the map (no more bright dots).",
+   "why": "The boss is a casino line cook in grey chef's whites, a half apron and a wrapped cap, in the fight and on his card. His kitchen on the map has black smoke and dark windows, then the fire out and the windows lit after he falls: you see it in the RUN tab.",
    "options": [
     "A, yes, like this",
     "B, no, not like this"
@@ -16257,7 +16257,7 @@
    "draft": true,
    "title": "THE TAP: HIS OWN LOOK AND HIS PLACE, BEFORE AND AFTER",
    "said": "each one has to have their own aesthetic... there's a bunch of bright pixels on the part of the map where I killed the boss... I'm so confused",
-   "why": "The boss is the waterworks man who keeps the valve key: a utility vest over his work shirt, the work cap, shades, a tool belt. He wears it in the fight and on his card. His pump house: a dry rusted tower with a red lamp blinking; after he falls the water pours out into a trough, painted like the rest of the map (no more bright dots).",
+   "why": "The boss is the waterworks man in a utility vest, work cap, shades and tool belt, in the fight and on his card. His pump house is a dry rusted tower with a red lamp, then water pouring into a trough after he falls: you see it in the RUN tab.",
    "options": [
     "A, yes, like this",
     "B, no, not like this"
@@ -16826,7 +16826,8 @@
     "scale": "his phone, 390 x 844 at 3x, the fight zoomed on the man"
    },
    "draft": true
-  }
+  },
+{"id": "bosses-what-a-kill-does-11-3", "kind": "ui", "lane": "bosses", "sha": "a5aece7f", "made": "11/3", "draft": true, "title": "WHAT A KILL DOES: THE CAMERA GOES TO HIS PLACE, IT CHANGES, AND HIS POT FLIES INTO YOUR PHONE", "said": "we still don't know what killing them does, like wtf, and the map effects where their shit is... I don't like the map icons after I kill a boss too, like wtf", "why": "Kill a boss and the camera flies to his place, you watch it change, and the person who asked hands you his pot, wrench or filter, which flies into your phone as the button. The map after shows only the changed place (no skull, no labels), and using the power plays the change where you stand with the number over your men: you see it in the RUN tab.", "options": ["A, yes, like this", "B, no, not like this"], "before_after": {"before": "last round: one second of dark map, then six lines of text over his place; after it a skull, a door, plates and his men standing on the change", "after": "BUILD 11/3zzd: the camera to his place, the change on the tape, one line, the thing into the phone, a clean map", "scale": "his phone upright, the game's own camera"}, "show": {"how": "image", "src": "../records/target/bosses_act_one/vote_what_a_kill_does.webp", "first": "../records/target/vote_first/bosses-what-a-kill-does-11-3.webp", "firstAt": [630, 791, 300, 566]}, "twin": {"src": "records/target/bosses_act_one/was_filter_map_after_the_kill.webp", "diffs": ["THE MOMENT: last round the card covered his place a second after the fight; now the camera goes there and you watch it change first.", "WHAT YOU GET: last round six lines of text; now one line from her and the thing itself (his filter) with one line of numbers, flying into the phone.", "THE MAP AFTER: last round a cracked skull, a door, two labels and his men on the tanks; now just the changed tanks, his men beside them."]}}
  ],
  "verdicts": [
   {

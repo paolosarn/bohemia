@@ -83,7 +83,7 @@ every number a shape TUNING owns.
 
 gates/bosses_act_one_gate.js, extended (A5m the moment, A5b one line and the thing, A5f the flight, A5i the map after, A6c the use),
 the same stranger's game with a picture a second (BOSSES_EVERY_SECOND): **55 passed, 0 failed** (on origin/main 6515a3f2 plus this
-round, the final code). Won by: THE POT AUTO; THE TAP and THE FILTER the checker (AUTO lost; the crew meets them hurt, last round's note stands).
+round, the final code; AGAIN on origin/main 05587781 after COOK ARMOUR dressed the three bosses: 55 passed, 0 failed). Won by: THE POT AUTO; THE TAP and THE FILTER the checker (AUTO lost; the crew meets them hurt, last round's note stands).
 
 | | the moment (A5m) | her line and the thing (A5b, A5f) | the map after (A5i) | first use (A6c) |
 |---|---|---|---|---|
@@ -107,6 +107,16 @@ FOUND AND FIXED ON THE WAY, BY THE PICTURES:
 Pictures (half size): records/target/bosses_act_one/ (each boss: who asks, the clue, his place and card, his fight, the moment's card,
 his place after, the held finger, the verb used). The VOTE sheet: records/target/bosses_act_one/vote_what_a_kill_does.webp (last
 round's two moments over this build's five), its twin was_filter_map_after_the_kill.webp.
+
+ALSO RUN: THE VOTE TAB GATE on the registry with this card: the card is the newest on top, NEW CARDS SHOW FIRST, FULL SIZE (its
+first picture, records/target/vote_first/bosses-what-a-kill-does-11-3.webp, the moment's card cut from the sheet) all ok. It
+flagged this card's why (too long) and two of this lane's own waiting cards from last round (three sentences): all three are two
+sentences now and say where you see it (checked against the gate's own rule). Its other reds are not this lane's: two dynasty
+cards with no where, and the alpha's landing on VOTE after BEGIN (3 checks, the same as last round's record).
+HIS MAP (slices/bohemia_his_map.js is touched: two marked lines): 18 passed, then the SAME crash last round's record names, at
+its pin box (gates/his_map_gate.js:216, a held finger's menu undefined), on both phone and computer, before its boss steps; its B2
+(the boss marked on the map) passes and shows the new 'quiet' flag false for a live boss. Its B4 counts a painted place as drawn
+(the place counter still counts it, by the painter). The crash is not this round's; it is left for WORLD's row.
 
 ## NOT DONE / NEXT
 - The other sixteen of act one take a row each the same way (valley, hand, rise) and a model each in the hand tool.
