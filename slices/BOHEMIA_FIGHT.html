@@ -1524,7 +1524,7 @@ const FIGHT = (function () {
        tile that is On Fire from the first round to the last (the cell vest's own rule 305: 15 to 30 to a man who ends his turn
        on it, walking through is free); nobody set it */
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const d = S.cover[y][x] ? pieceDef(S.cover[y][x]) : null; if (d && d.burning) S.fire.push({ x: x, y: y, until: 1e9, by: null }); }
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -4085,7 +4085,7 @@ const FIGHT = (function () {
   function aiStep(u) {
     if (S.over || current() !== u) return false;
     if (S.retreat && u.side === 'you') return retreatStep(u);
-    if (u.side === 'you' && allFleeing() && !S.byHand && !chaseRun()) { endFight(); return false; }   /* rule 198(h): by hand the choice is his */
+    if (u.side === 'you' && allFleeing() && !S.byHand && !S.runDown && !chaseRun()) { endFight(); return false; }   /* rule 198(h): by hand the choice is his; on AUTO his RUN THEM DOWN holds (COMBAT 7, row 139) */
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
     /* A WINDED MAN OF HIS RESTS (rules 283(d), 285(a)): on AUTO, a man of his too winded for his own blow ends his turn with nothing
        spent, a rest, so the next turn brings ours.rest_recovery and his swing (MEASURED BEFORE: in the heaviest kit AUTO kept him
@@ -6194,6 +6194,7 @@ function tick(now) {
     if (!UI.anim.length && spentCheck(u, now)) return;
     follow(u); return; }
   if (!UI.auto && u.side === 'them' && !isTheirsSay(sayEl.textContent)) { say(theirsSay()); teachSoon('skip'); }
+  if (routHolds(now)) return;   /* COMBAT 7, row 139: they are breaking, and on AUTO the fight waits a few beats for his word */
   if (now < UI.nextAI) return;
   if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first (three quarters of a beat), then he acts */
   const before = UI.anim.length, th0 = performance.now();
@@ -8158,14 +8159,16 @@ function shapeIcon(k, css) {
   c.className = 'picon'; c.dataset.sweep = k.name; return c;
 }
 /* the sweep's one line under the finger (draft:true for WORDS): what it strikes, in plain words */
-const SWEEP_SAYS = { line: 'It hits him and the man behind him.', arc: 'It hits him and the next two around you.', ring: 'It hits every man of theirs around you.' };   /* draft:true */
+const SWEEP_SAYS = { line: 'It hits him and the man behind him.', arc: 'It hits him and the next two around you.', ring: 'It hits every man of theirs around you.',
+  front: 'It hits the three in front of you: him and the man on each side of him.' };   /* draft:true; front: the round swing's three (rule 333, COMBAT 7, EYES 11/3 item 2) */
 const WHIP_SAYS = { Disarm: 'It takes the weapon out of his hands: no weapon skill on his next turn. Two tiles.' };   /* ARMORY 2, draft:true */
 function sweepTap(name) {
   audio(); const u = FIGHT.current(); if (!crewControlled(u)) return;
   UI.pend = null; UI.skillMode = null;
   if (UI.sweep === name) { UI.sweep = null; say('Put away.'); hud(); return; }
-  UI.sweep = name; const row = FIGHT.shapeOf(FIGHT.sweepSkill(u.weapon, name));
-  say(name.toUpperCase() + ': tap a man of theirs. ' + ((row ? SWEEP_SAYS[row.kind] : WHIP_SAYS[name]) || ''), true); hud();
+  UI.sweep = name; const sk = FIGHT.sweepSkill(u.weapon, name), row = FIGHT.shapeOf(sk);
+  const kind = row && row.kind === 'ring' && FIGHT.frontSwing(sk) ? 'front' : row && row.kind;   /* rule 333: the round swing is three in front */
+  say(name.toUpperCase() + ': tap a man of theirs. ' + ((row ? SWEEP_SAYS[kind] : WHIP_SAYS[name]) || ''), true); hud();
 }
 function sweepSay(u, t, name) {
   const k = FIGHT.sweepSkill(u.weapon, name), n = FIGHT.shapeFoes(u, t, k).length;
@@ -8404,7 +8407,7 @@ function hud() {
      takes the order at any moment of the fight once the line is set, and when every man of theirs left is running it is END THE
      FIGHT (rule 198(d)) */
   const bf = document.getElementById('bflee'), endIt = FIGHT.allFleeing(), bfT = endIt ? RETREAT_SAYS.endLabel : RETREAT_SAYS.label;
-  if (!endIt) { UI.rout = null; S.chaseCalc = null; CHASE.at = null; }   /* a runner rallied: when they break again it is asked again */
+  if (!endIt) { UI.rout = null; UI.routAt = undefined; S.chaseCalc = null; CHASE.at = null; S.runDown = false; }   /* a runner rallied: when they break again it is asked again */
   else chaseAsk();
   if (bf.textContent !== bfT) bf.textContent = bfT; bf.classList.toggle('end', endIt);
   bf.disabled = !!S.over || (dep ? !!UI.auto : (!!S.retreat && !endIt) || !S.round);   /* rule 253: lit on the lineup, AUTO's colour on the tin or not */
@@ -9219,9 +9222,17 @@ const RETREAT_SAYS = { label: 'RETREAT', endLabel: 'SPARE THEM', runLabel: 'RUN 
    RUN THEM DOWN (the chase goes on, every runner who crosses a zone or a loaded gun's reach takes a free hit, rule 198(c)); SPARE
    THEM stays on the retreat button for the whole chase. On AUTO the rules choose (chaseRun: the calculator's runs) */
 function routUp() {
+  if (UI.routAt !== undefined) return;   /* asked once a break (a rally clears it, hud) */
   callSoon('breaking');
-  if (UI.auto) return;
-  UI.rout = FIGHT.S.round; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); say(RETREAT_SAYS.ran); hud();
+  /* ON AUTO TOO (COMBAT 7, row 139; EYES R6: 'on AUTO the fight decided by itself... WAIT never read RUN THEM DOWN'): the line says
+     it and both buttons ask; the fight holds ours.chase_calc.ask_beats for his tap (routHolds), then the rules choose as before */
+  UI.rout = FIGHT.S.round; UI.routAt = performance.now(); UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); say(RETREAT_SAYS.ran); hud();
+}
+/* the fight waits for his word while the break is asked on AUTO (nothing moves, a few beats; after that the rules choose) */
+function routHolds(now) {
+  if (!UI.auto || FIGHT.S.over || !FIGHT.allFleeing()) return false;
+  if (UI.routAt === undefined) routUp();   /* the moment they all run, before AUTO's next act (the note's line comes a beat later) */
+  return routChoosing() && now - UI.routAt < beatMs() * R('ours.chase_calc').ask_beats;
 }
 /* AUTO's half: the worker plays the rest of the rout from the moment they broke (rule 198(h)); its answer is the rules' S.chaseCalc */
 const CHASE = { job: 0, at: null };
@@ -9239,7 +9250,7 @@ function chaseHeard(d) {
   if (d.runs < C.runs) return;
   S.chaseCalc = { run: d.caught >= C.worth * d.runs && d.safe >= C.safe * d.runs, caught: d.caught, safe: d.safe, runs: d.runs, at: CHASE.at };
 }
-function routChoosing() { return UI.rout !== null && UI.rout !== undefined && !UI.auto && !FIGHT.S.over && FIGHT.allFleeing(); }
+function routChoosing() { return UI.rout !== null && UI.rout !== undefined && !FIGHT.S.over && FIGHT.allFleeing(); }   /* on AUTO too (COMBAT 7, row 139) */
 document.getElementById('bflee').onclick = function () {
   audio(); const b = this, S = FIGHT.S, endIt = FIGHT.allFleeing(), ask = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
   if (S.over) return;
@@ -9254,7 +9265,7 @@ document.getElementById('bflee').onclick = function () {
   FIGHT.retreat(); say(RETREAT_SAYS.go); callSoon('retreat'); take(); hud();
 };
 document.getElementById('bwait').onclick = function () { audio();
-  if (routChoosing()) { UI.rout = null; UI.routRun = FIGHT.S.round; say(RETREAT_SAYS.run); sfx('ui_tap'); hud(); return; }   /* RUN THEM DOWN: the chase goes on */
+  if (routChoosing()) { UI.rout = null; UI.routRun = FIGHT.S.round; FIGHT.S.runDown = true; say(RETREAT_SAYS.run); sfx('ui_tap'); hud(); return; }   /* RUN THEM DOWN: the chase goes on (on AUTO too: his word, never the rules', COMBAT 7) */
   const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };
 document.getElementById('bend').onclick = function () { audio();
   if (FIGHT.S.deploy) { fightNow(); return; }

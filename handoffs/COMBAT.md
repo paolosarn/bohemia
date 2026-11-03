@@ -1,5 +1,23 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 7 11/3 (brief from the coordinator, check-in 10: EYES 11/3 broken items 1 and 2, the open asks page's 139, 152, 229).
+SHIPPED (BUILD 11/3zzzc item 1 alone 0de54ccb, then BUILD 11/3zzze), NOT YET SEEN:
+1. AUTO NEVER LEAVES A MAN (rows 96, 109, 319, 331): the cause was a man of theirs who had BROKEN and was running, counted by AUTO
+   as a full target (the walk's hunt field, the roof climbed for next turn's blow on him, the walk-then-blow). Now (BOHEMIA_FIGHT.html
+   huntField keepOffRunners, bestTurn runOnly, nextBest's moved flag, the old brain's tile targets) his men hunt the men who stand;
+   a runner only when no standing man is reachable, or for a kill on offer. Repro 0 of 25 (was 23); planner test 79 of 120 before
+   and after on today's boards (COMBAT 6's 81 was on the old boards); men down 197 -> 196.
+2. THE ROUND SWING'S WORDS (row 332): SWEEP_SAYS.front when FIGHT.frontSwing(sk).
+3. 139: the break is asked on AUTO too (routUp/routHolds, ours.chase_calc.ask_beats 8; S.runDown holds his RUN THEM DOWN).
+   152: the hole not met (0 off the glass in 2,355 computer frames); the camera gate's 6-point centring red (BAR_TALL vs the gate's
+   own tallest) is on main too, left for the camera's owner. 229: three long AUTO fights on the computer, 0 throws.
+Gate: gates/auto_never_leaves_a_man_gate.js (8 legs, --headless-only for N1/N2). Probe: tools/bohemia_combat_auto_never_leaves_a_man_probe_11_3_26.js.
+VOTE: combat-7-auto-never-leaves-a-man-11-3 (the same fight before and after, moving, plus the ask and the swing's words).
+Record: records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md.
+NEXT: 90, 103, 108 (left as briefed); THE FORMATION IS KEPT gate is 19/4 on main (the lineup drag and kept line), not this round's.
+[bb] Battle Brothers lets the player choose the rout once they all run; its brothers are never on AUTO, so 'stay on the man hurting
+your friend' is ours. [analog horror] nothing new drawn; the fight goes still four seconds on receipt paper while it asks.
+
 COMBAT MAPS 3 11/3 (brief from the coordinator, re-briefed mid-round: rule 341, ask line 350; his 'everything just looked exactly
 the same as the main suburb shit... no variety, like true variety... you're not done'). DONE, ALL THREE PUSHES SHIPPED (BUILD 11/3zzq,
 11/3zzr, 11/3zzs - EVERY PLACE ITS OWN BOARD), NOT YET SEEN:

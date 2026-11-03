@@ -17549,7 +17549,32 @@
     "how": "page",
     "src": "BOHEMIA_THE_TOWN_YOU_DID_NOT_DEFEND_11_3_26.html"
    }
+  },
+ {
+  "id": "combat-7-auto-never-leaves-a-man-11-3",
+  "kind": "animation",
+  "lane": "combat",
+  "sha": "0de54ccb",
+  "made": "11/3",
+  "draft": true,
+  "title": "AUTO NEVER LEAVES A MAN: YOUR MAN GOES TO THE ONE HURTING HIS FRIEND",
+  "said": "with auto combat you want the characters to get into places where they have the ability to hit the enemy... never ends his turn without trying",
+  "why": "Before, AUTO chased a man who was already running away while another one stabbed RAUL; now your man goes straight to the one hurting his friend, AUTO asks SPARE THEM or RUN THEM DOWN when they all break, and the round swing says three in front. You see it in every fight with AUTO on.",
+  "options": [
+   "A, yes, that is how AUTO should fight",
+   "B, better, but he should still finish a runner he can catch",
+   "C, no, something still looks wrong"
+  ],
+  "show": {
+   "how": "page",
+   "src": "vote/COMBAT_7_AUTO_NEVER_LEAVES_A_MAN.html"
+  },
+  "before_after": {
+   "before": "the brain before this round: YOU walks after the man running away and comes back a round late",
+   "after": "this round: YOU goes to the man stabbing RAUL",
+   "scale": "his phone upright, 390 x 844, the fight's own camera, AUTO on, the same fight and dice"
   }
+ }
  ],
  "verdicts": [
   {

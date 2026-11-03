@@ -1,0 +1,47 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — AUTO Never Leaves a Man</title>
+<!-- COMBAT 7 [auto never leaves a man], EYES 11/3 items 1 and 2 (rows 96, 109, 319, 331, 332; the open asks page's 139).
+     The same fight filmed twice from the game's own camera on his phone (390 x 844, AUTO on, the fight's own page and rules,
+     tools in records/BOHEMIA_COMBAT_7_AUTO_NEVER_LEAVES_A_MAN_11_3_26.md): a runner of theirs beside RAUL's roof hitting him, a
+     second man of theirs already running away, YOU with the splitting maul. LEFT the brain before this round, RIGHT this round's.
+     Under it: the break asked on AUTO, and the round swing's new words. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:12px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:4px;color:var(--gold)}
+  img{width:100%;display:block;border-radius:3px}
+  .say{color:#cfc5ae;margin:6px 0 2px;font-size:12px}
+  .small{font-size:11px;color:#8d8472}
+  .bar{height:3px;background:#2a2833;margin-top:6px;border-radius:2px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--gold)}
+</style>
+<h1>AUTO NEVER LEAVES A MAN</h1>
+<p>A runner is stabbing RAUL. Another of theirs is already running away. YOU has the maul and AUTO is on.</p>
+<div class="row">
+  <div class="two">
+    <div><div class="lab">BEFORE</div><img id="b" alt="before"></div>
+    <div><div class="lab">NOW</div><img id="a" alt="now"></div>
+  </div>
+  <div class="bar"><i id="t"></i></div>
+  <div class="say">Before: YOU walks off after the man running away, then comes back a round late. Now: YOU goes straight to the man hurting RAUL.</div>
+  <div class="small">Same fight, same dice, his phone, the game's own camera.</div>
+</div>
+<div class="row two">
+  <div><div class="lab">THEY BREAK, ON AUTO TOO</div><img src="../../records/target/combat7_11_3/rout_phone_portrait.webp" alt="the break asked"><div class="say">The fight stops and asks: SPARE THEM or RUN THEM DOWN.</div></div>
+  <div><div class="lab">THE ROUND SWING'S WORDS</div><img src="../../records/target/combat7_11_3/swing_words.webp" alt="the round swing"><div class="say">It says the three in front now, not every man around you.</div></div>
+</div>
+<script>
+(function () {
+  var N = 26, i = 0, B = document.getElementById('b'), A = document.getElementById('a'), T = document.getElementById('t'), pre = [];
+  function src(k, n) { return '../../records/target/combat7_11_3/' + k + '_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  for (var n = 0; n < N; n++) { var x = new Image(); x.src = src('before', n); pre.push(x); var y = new Image(); y.src = src('after', n); pre.push(y); }
+  function show() { B.src = src('before', i); A.src = src('after', i); T.style.width = Math.round((i + 1) / N * 100) + '%'; i = (i + 1) % N; }
+  show(); setInterval(show, 500);   /* a beat a frame at 120 BPM */
+})();
+</script>

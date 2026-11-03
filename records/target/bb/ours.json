@@ -2196,11 +2196,12 @@
    "steps": 100,
    "rounds": 2,
    "worth": 0.5,
-   "safe": 0.9
+   "safe": 0.9,
+   "ask_beats": 8
   },
   "source": "VAMILY.md rule 198(h) (Paolo 10/26, LOCKED: 'even Battle Brothers has it: when the enemy wants to retreat because we messed with their morale, the game lets you know, and it's spare them or run them down'); records/BOHEMIA_COMBAT_SPARE_THEM_OR_RUN_THEM_DOWN_10_26_26.md",
   "quote": "spare them or run them down, spare them or kill them, it lets you do that",
-  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: AUTO's half of the choice. The rest of the rout is played runs times from copies of the moment every enemy left is fleeing (at most steps actions and rounds rounds, every man on AUTO); AUTO runs them down when a runner is caught in at least worth of the runs AND no man of ours who stands goes down in at least safe of them; else it spares them. Battle Brothers leaves the chase to the player; these numbers are ours."
+  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: AUTO's half of the choice. The rest of the rout is played runs times from copies of the moment every enemy left is fleeing (at most steps actions and rounds rounds, every man on AUTO); AUTO runs them down when a runner is caught in at least worth of the runs AND no man of ours who stands goes down in at least safe of them; else it spares them. Battle Brothers leaves the chase to the player; these numbers are ours. ask_beats (COMBAT 7, row 139, EYES R6: 'WAIT never read RUN THEM DOWN... on AUTO the fight decided by itself'): on AUTO too the break is asked, the line says it and the two buttons read SPARE THEM and RUN THEM DOWN; the fight holds ask_beats beats (8 at 120 BPM, four seconds) for his tap, then the rules choose as before."
  },
  "punch": {
   "value": {
