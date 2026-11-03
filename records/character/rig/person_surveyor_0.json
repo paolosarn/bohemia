@@ -1,0 +1,361 @@
+{
+ "look": "PERSON_SURVEYOR_0",
+ "shape": "person_surveyor_0: THE SURVEYOR: the man with the last complete map; a faded hi-vis vest, a white hard hat, a map tube on his back, a plumb bob, the range pole, his own skin skin_deep 3, STRIPED TEE",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STRIPED TEE",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "waist": "SCAV TOOL BELT",
+  "outfit": [
+   "his STORM BUTTON-UP worn open over a STRIPED TEE"
+  ],
+  "mid": "STORM BUTTON-UP"
+ },
+ "dials": {
+  "height": 0.35,
+  "belly": 0.05,
+  "shoulders": -0.15,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
+ },
+ "model": "records/character/rig/person_surveyor_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7501,
+ "real_height_for_rig": 1.7563,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_surveyor_0_shoe": 3716,
+  "person_surveyor_0_shirt": 40200,
+  "person_surveyor_0_collar": 1536,
+  "person_surveyor_0_hem": 1792,
+  "person_surveyor_0_surv_vest": 7524,
+  "person_surveyor_0_surv_band_0": 1792,
+  "person_surveyor_0_surv_band_1": 1792,
+  "person_surveyor_0_surv_brace_1_0": 70,
+  "person_surveyor_0_surv_brace_1_1": 70,
+  "person_surveyor_0_surv_brace_0_0": 70,
+  "person_surveyor_0_surv_brace_0_1": 70,
+  "person_surveyor_0_surv_tube": 32,
+  "person_surveyor_0_surv_tube_caps": 64,
+  "person_surveyor_0_surv_tube_strap": 1792,
+  "person_surveyor_0_surv_plumb": 198,
+  "person_surveyor_0_surv_plumb_cord": 84,
+  "person_surveyor_0_surv_pole": 24,
+  "person_surveyor_0_surv_pole_shoe": 20,
+  "person_surveyor_0_surv_pole_cap": 20,
+  "person_surveyor_0_surv_pole_level": 28,
+  "person_surveyor_0_surv_pole_bubble": 42,
+  "person_surveyor_0_trouser": 43706,
+  "person_surveyor_0_rolled_hem": 2048,
+  "person_surveyor_0_cargo_pockets": 252,
+  "person_surveyor_0_cargo_flaps": 108,
+  "person_surveyor_0_sole_1": 242,
+  "person_surveyor_0_midsole_1": 242,
+  "person_surveyor_0_sole_0": 242,
+  "person_surveyor_0_midsole_0": 242,
+  "person_surveyor_0_boot_collar": 2048,
+  "person_surveyor_0_boot_collar_line": 2048,
+  "person_surveyor_0_eyelets_1": 120,
+  "person_surveyor_0_eyelets_0": 120,
+  "person_surveyor_0_scav_tool_belt": 1792,
+  "person_surveyor_0_scav_tool_belt_pouch_1": 26,
+  "person_surveyor_0_scav_tool_belt_pouch_0": 26,
+  "person_surveyor_0_scav_tool_belt_buckle": 34,
+  "person_surveyor_0_mid_shirt": 66436,
+  "person_surveyor_0_mid_collar": 1536,
+  "person_surveyor_0_mid_collar_points": 180,
+  "person_surveyor_0_mid_front_edge": 396,
+  "person_surveyor_0_mid_cuffs": 2048,
+  "person_surveyor_0_mid_tail": 1818,
+  "person_surveyor_0_hair": 17968,
+  "person_surveyor_0_hand_L": 392,
+  "person_surveyor_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_surveyor_0_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_surveyor_0_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_surveyor_0_cargo_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_surveyor_0_cargo_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_surveyor_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_surveyor_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_surveyor_0_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_surveyor_0_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_surveyor_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_surveyor_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_surveyor_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_surveyor_0_mid_collar": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_surveyor_0_mid_collar_points": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_surveyor_0_mid_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_surveyor_0_mid_front_edge": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_surveyor_0_mid_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_surveyor_0_mid_tail": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_surveyor_0_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_surveyor_0_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_surveyor_0_rolled_hem": [
+   0.3864,
+   0.2664,
+   0.1119
+  ],
+  "person_surveyor_0_scav_tool_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_surveyor_0_scav_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_surveyor_0_scav_tool_belt_pouch_0": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_surveyor_0_scav_tool_belt_pouch_1": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_surveyor_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_surveyor_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_surveyor_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_surveyor_0_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_surveyor_0_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_surveyor_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_surveyor_0_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_surveyor_0_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_surveyor_0_surv_band_0": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_surveyor_0_surv_band_1": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_surveyor_0_surv_brace_0_0": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_surveyor_0_surv_brace_0_1": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_surveyor_0_surv_brace_1_0": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_surveyor_0_surv_brace_1_1": [
+   0.4125,
+   0.4125,
+   0.3712
+  ],
+  "person_surveyor_0_surv_plumb": [
+   0.3515,
+   0.2159,
+   0.0513
+  ],
+  "person_surveyor_0_surv_plumb_cord": [
+   0.0452,
+   0.0395,
+   0.0319
+  ],
+  "person_surveyor_0_surv_pole": [
+   0.552,
+   0.5149,
+   0.4342
+  ],
+  "person_surveyor_0_surv_pole_bubble": [
+   0.305,
+   0.4342,
+   0.1878
+  ],
+  "person_surveyor_0_surv_pole_cap": [
+   0.0212,
+   0.0212,
+   0.0212
+  ],
+  "person_surveyor_0_surv_pole_level": [
+   0.0452,
+   0.0423,
+   0.0343
+  ],
+  "person_surveyor_0_surv_pole_red": [
+   0.4125,
+   0.0212,
+   0.013
+  ],
+  "person_surveyor_0_surv_pole_shoe": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_surveyor_0_surv_tube": [
+   0.016,
+   0.0152,
+   0.0144
+  ],
+  "person_surveyor_0_surv_tube_caps": [
+   0.117,
+   0.1119,
+   0.0976
+  ],
+  "person_surveyor_0_surv_tube_strap": [
+   0.0176,
+   0.0168,
+   0.0152
+  ],
+  "person_surveyor_0_surv_vest": [
+   0.6038,
+   0.5647,
+   0.0395
+  ],
+  "person_surveyor_0_surv_vest_edge": [
+   0.305,
+   0.2705,
+   0.0212
+  ],
+  "person_surveyor_0_trouser": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_surveyor_0_trousers": [
+   0.2307,
+   0.1559,
+   0.0578
+  ]
+ }
+}

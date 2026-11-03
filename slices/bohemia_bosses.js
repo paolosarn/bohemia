@@ -42,7 +42,14 @@
      (6) THE MAP AFTER: the changed place is the mark. WORLD TWO's skull, door and plate stand down for a painted place (his_map,
          marked), the place is painted beside the street he fought on (never under his men), its name quiet under it when close.
      (7) USING IT: the button lights only where it works (no grey cooling button); every use plays the change where he stands
-         (the fire lit, the main running, the drum filled) and the number rises off his men (verb.first.rise), and it is on the feed. */
+         (the fire lit, the main running, the drum filled) and the number rises off his men (verb.first.rise), and it is on the feed.
+   BOSSES 4 11/3 (rules 330, 337, 338): THE BURN, THE SURVEYOR, THE CLIMB, the same package, their assets first (his own model,
+   his place painted before and after, the thing he hands you). Three verbs, each its own kind of place so the phone's one
+   button never hides another (verbs_order: the place-bound first, the anywhere ones last):
+     BURN   (LIGHT A FIRE) at night, on a dark block off a town, once a night: a fire that stays; at night, 2 blocks round any
+            fire you lit, you see like in the day (lit(), asked by the city's sight and fog, marked __THE_BOSS_FIRES_LIGHT_THE_NIGHT__);
+     SURVEY (FILL IN THE MAP) on a road, once a day: the fog lifts 10 blocks round you for good (the city's own fogReveal);
+     CLIMB  (GO UP) beside a tower, once a tower: the floors nobody reached pay 12 batteries. */
 (function (root) {
   'use strict';
   var KEY = 'bohemia.bosses.v1', DATA_URL = '../records/target/bb/boss_act_one.json', PICS_URL = 'boss_places/boss_places.json';
@@ -276,6 +283,22 @@
     MAINS = []; for (var y = 1; y < n - 1; y++) for (var x = 1; x < n - 1; x++) if (isMain(x, y)) MAINS.push([x, y]);
     return MAINS;
   }
+  function night() { try { return !!isNight(); } catch (e) { return false; } }
+  function nightOf() { var d = day(); try { if (T.min < 6 * 60) d -= 1; } catch (e) {} return d; }   /* the night belongs to the day it fell on */
+  function powered(x, y) { try { return !!((POWER.at(x, y) || {}).live); } catch (e) { return false; } }
+  function roadAt(x, y, kinds) { var d = dist(x, y); return !!d && kinds.indexOf(d) >= 0; }
+  /* a tower is climbed once: the block beside it is marked, and so is every block beside the same tower block */
+  function towerOf(x, y) { var V = verbRow('climb'); if (!V) return null; var K = V.verb.tower_districts || [];
+    for (var a = -1; a <= 1; a++) for (var b = -1; b <= 1; b++) { var d = dist(x + a, y + b); if (d && K.indexOf(d) >= 0) return [x + a, y + b]; } return null; }
+  function climbed(x, y) { if (!S) return false; var t = towerOf(x, y); return S.marks.some(function (m) { return m.k === 'climb' && ((m.x === x && m.y === y) || (t && m.tx === t[0] && m.ty === t[1])); }); }
+  /* (BURN) every fire he lit lights the blocks round it at night: the city's sight down a street and its fog ask (marked
+     __THE_BOSS_FIRES_LIGHT_THE_NIGHT__ in slices/BOHEMIA_CITY_WORLD.html) */
+  function lit(x, y) {
+    if (!S || !S.verbs || !S.verbs.burn) return false;
+    var V = verbRow('burn'), r = (V && V.verb.light_blocks) || 2;
+    for (var i = 0; i < S.marks.length; i++) { var m = S.marks[i]; if (m.k === 'burn' && cheb(m.x, m.y, x, y) <= r) return true; }
+    return false;
+  }
   function applies(id, x, y) {
     if (!S || !S.verbs[id]) return null;
     var r = verbRow(id); if (!r) return null; var V = r.verb;
@@ -287,6 +310,21 @@
     }
     if (id === 'open') return (!marked('open', x, y) && isMain(x, y)) ? { id: id } : null;
     if (id === 'purify') return (!marked('purify', x, y) && (marked('open', x, y) || hisPlace('purify', x, y) || !!nearKind(x, y, V.water_districts || []))) ? { id: id } : null;
+    /* BOSSES 4: THE BURN's fire (at night, a dark block off a town, once a night), THE SURVEYOR's map (on a road, once a day),
+       THE CLIMB's hook (beside a tower, once a tower); his own place always works for his verb */
+    if (id === 'burn') {
+      if (nearTown(x, y, 1) || marked('burn', x, y)) return null;
+      if (V.night_only && !night() && !hisPlace('burn', x, y)) return null;
+      if (powered(x, y) && !hisPlace('burn', x, y)) return null;
+      var lb = S.verbs.burn.last; if (lb != null && nightOf() === lb) return { id: id, off: true, why: 'lit tonight' };
+      return { id: id };
+    }
+    if (id === 'survey') {
+      if (!hisPlace('survey', x, y) && !roadAt(x, y, V.road_districts || [])) return null;
+      var ls = S.verbs.survey.last; if (ls != null && day() - ls < (V.cooldown_days || 1)) return { id: id, off: true, why: 'mapped today' };
+      return { id: id };
+    }
+    if (id === 'climb') return (!climbed(x, y) && (hisPlace('climb', x, y) || !!nearKind(x, y, V.tower_districts || []))) ? { id: id } : null;
     return null;
   }
   /* the phone's band: the verb that works where he stands (the order the file says), a cooling one only when nothing else does;
@@ -295,7 +333,10 @@
     if (!sync() || !DATA) return null;
     var h = here(); if (!h) return null;
     try { if (TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length) return null; } catch (e) {}
-    var order = DATA.verbs_order || ['open', 'purify', 'cook'], off = null;
+    var order = (DATA.verbs_order || ['open', 'purify', 'cook']).slice(), off = null;
+    /* BOSSES 4 (measured 11/3, the six-boss gate's A5f): at a fallen boss's own place HIS verb comes first, so the thing he just
+       handed you lands on its own button (THE FILTER's place was a main too, and OPEN took the button from CLEAN THE WATER) */
+    for (var j = 0; j < order.length; j++) if (hisPlace(order[j], h[0], h[1])) { order.unshift(order.splice(j, 1)[0]); break; }
     for (var i = 0; i < order.length; i++) {
       var a = applies(order[i], h[0], h[1]); if (!a) continue;
       var V = verbRow(order[i]).verb;
@@ -320,6 +361,17 @@
     try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { purified: men } })); } catch (e) {}
     return { men: men, closed: closed };
   }
+  /* (SURVEY) the city's own fog, lifted round him: how many blocks came out of it (the bench's open valley counts none) */
+  function mapAround(x, y, r) {
+    var n = 0, ri = Math.ceil(r);
+    try {
+      var was = []; for (var dy = -ri; dy <= ri; dy++) for (var dx = -ri; dx <= ri; dx++) { if (dx * dx + dy * dy > (r - 0.5) * (r - 0.5)) continue; was.push([x + dx, y + dy, seen(x + dx, y + dy)]); }
+      if (typeof fogReveal === 'function') fogReveal(x, y, r);
+      was.forEach(function (w) { if (!w[2] && seen(w[0], w[1])) n++; });
+      try { if (typeof fogSave === 'function') fogSave(); } catch (e) {}
+    } catch (e) { LAST.err = String(e && e.message || e); }
+    return { blocks: n };
+  }
   function use(id) {
     if (!sync()) return false;
     var h = here(); if (!h) return false;
@@ -328,15 +380,21 @@
     if (id === 'cook') { got = condHeal(V.heal_hours || 8); S.verbs.cook.last = day(); }
     if (id === 'open') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'the main on ' + w, 'boss-verb:open:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
     if (id === 'purify') got = condWounds(V.wound_days || 2);
-    var nums = { where: w, healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0 };
+    if (id === 'burn') { got = { lit: true, blocks: (V.light_blocks || 2) }; S.verbs.burn.last = nightOf(); }
+    if (id === 'survey') { got = mapAround(h[0], h[1], V.radius || 10); S.verbs.survey.last = day(); }
+    if (id === 'climb') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'the top floors on ' + w, 'boss-verb:climb:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
+    var nums = { where: w, healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0 };
     nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
-    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
-    S.marks.push({ k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() });
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || (id === 'climb' && !nums.paid), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    var mk = { k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() };
+    if (id === 'climb') { var tw = towerOf(h[0], h[1]); if (tw) { mk.tx = tw[0]; mk.ty = tw[1]; } }
+    S.marks.push(mk);
     S.verbs[id].uses = (S.verbs[id].uses | 0) + 1;
     save();
     var said = first && (F.feed || F.feed_none) ? fill((none && F.feed_none) || F.feed, nums)
       : V.says + (id === 'cook' && got ? (got.men ? ' ' + got.healed + ' blood back across ' + got.men + (got.men === 1 ? ' man.' : ' men.') : ' Nobody was hurt; they eat anyway.')
-      : id === 'open' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'purify' && got ? (got.men ? ' ' + got.men + (got.men === 1 ? ' wound' : ' wounds') + ' closing sooner.' : ' Nobody is wounded right now.') : '');
+      : id === 'open' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'purify' && got ? (got.men ? ' ' + got.men + (got.men === 1 ? ' wound' : ' wounds') + ' closing sooner.' : ' Nobody is wounded right now.')
+      : id === 'survey' && got ? ' ' + got.blocks + (got.blocks === 1 ? ' block' : ' blocks') + ' out of the fog.' : id === 'climb' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : '');
     feed('@yourcompany', said, 'mine');   /* draft:true: the company's own post, on the phone */
     if (V.feed) feed(V.feed.who, fill(V.feed.txt, nums), 'world');
     var rise = fill((none && F.rise_none) || F.rise || '', nums);   /* (7) the change plays where he stands, the number rises off his men */
@@ -390,9 +448,11 @@
   function placeAt(at) {
     if (at.bx != null && (at.bx !== at.x || at.by !== at.y)) return [at.bx, at.by];
     for (var i = 0; i < NEXT.length; i++) { var x = at.x + NEXT[i][0], y = at.y + NEXT[i][1]; if (!walk(x, y) && dist(x, y)) return [x, y]; }
-    return [at.x, at.y];
+    /* BOSSES 4 (measured 11/3, the six-boss gate, A5i): a boss WORLD TWO stood past the valley's edge (THE FILTER at 51,-6) has no
+       building beside him, and his place was painted under his own men; it stands on the block behind him (up the screen) instead */
+    return [at.x - 1, at.y - 1];
   }
-  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean' }, MARK_OFF = [0.34, 0.16];
+  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope' }, MARK_OFF = [0.34, 0.16];
 
   /* ---------- (5) THE MOMENT HE FALLS: the camera, the change over his men, then her line ---------- */
   var BEAT = null, UB = null, OV = null, RAF = 0;
@@ -500,7 +560,7 @@
       x.save(); x.globalAlpha = a; x.font = '400 ' + Math.round(12 * k) + 'px ' + f; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.lineJoin = 'round';
       var ty = Math.round(p.sy - TH * 0.6 - 18 * k - e * 34 * k);
       x.lineWidth = Math.round(4 * k); x.strokeStyle = 'rgba(10,8,6,0.9)'; x.strokeText(UB.rise, Math.round(p.sx), ty);
-      x.fillStyle = UB.id === 'cook' ? '#9fd08a' : UB.id === 'open' ? '#f2c56a' : '#bfeae2'; x.fillText(UB.rise, Math.round(p.sx), ty); x.restore();
+      x.fillStyle = UB.id === 'cook' ? '#9fd08a' : (UB.id === 'open' || UB.id === 'climb') ? '#f2c56a' : UB.id === 'burn' ? '#f2a46a' : UB.id === 'survey' ? '#e6dcc4' : '#bfeae2'; x.fillText(UB.rise, Math.round(p.sx), ty); x.restore();
       LAST.useBeat.drawn = { rise: UB.rise, at: [Math.round(p.sx), ty], mark: bm ? [bm.x, bm.y, bm.w, bm.h] : null };
     }
   }
@@ -579,6 +639,8 @@
     verbHere: verbHere, use: use, icon: icon,
     /* reading, for the gate */
     data: function () { return DATA; }, pictures: function () { return PICS; }, state: function () { sync(); return S; }, last: function () { return LAST; },
-    mains: function () { return mains().slice(); }, applies: function (id, x, y) { sync(); return applies(id, x, y); }, isMain: isMain, talkTick: talkTick
+    mains: function () { return mains().slice(); }, applies: function (id, x, y) { sync(); return applies(id, x, y); }, isMain: isMain, talkTick: talkTick,
+    /* BOSSES 4: the city's night sight asks if a fire he lit lights this block (__THE_BOSS_FIRES_LIGHT_THE_NIGHT__) */
+    lit: function (x, y) { try { if (!S) sync(); return lit(x, y); } catch (e) { return false; } }
   };
 })(typeof window !== 'undefined' ? window : this);

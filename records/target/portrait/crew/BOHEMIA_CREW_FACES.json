@@ -289,6 +289,45 @@
     "O": "records/target/portrait/crew/boss_filter_0/O_{64|128}.png",
     "M": "records/target/portrait/crew/boss_filter_0/M_{64|128}.png"
    }
+  },
+  "boss_burn_0": {
+   "name": "THE BURN",
+   "look": "boss_burn_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_burn_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_burn_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_burn_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_burn_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_burn_0/M_{64|128}.png"
+   }
+  },
+  "boss_surveyor_0": {
+   "name": "THE SURVEYOR",
+   "look": "boss_surveyor_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_surveyor_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_surveyor_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_surveyor_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_surveyor_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_surveyor_0/M_{64|128}.png"
+   }
+  },
+  "boss_climb_0": {
+   "name": "THE CLIMB",
+   "look": "boss_climb_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_climb_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_climb_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_climb_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_climb_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_climb_0/M_{64|128}.png"
+   }
   }
  },
  "groups": {

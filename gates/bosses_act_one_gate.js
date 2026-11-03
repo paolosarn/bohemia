@@ -46,7 +46,9 @@ const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
 const SHOTS = process.env.BOSSES_SHOTS === '0' ? null : path.join(ROOT, 'records', 'target', 'bosses_act_one');
-const NAMES = ['THE POT', 'THE TAP', 'THE FILTER'];
+/* BOSSES 4 11/3 (rules 330, 337, 338): THE BURN, THE SURVEYOR and THE CLIMB walked the same way, after the first three.
+   BOSSES_FROM=<n> starts the report at boss n (the walk still plays every boss before him: the ladder is in order). */
+const NAMES = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB'];
 
 async function run(prof) {
   console.log('\n-- ' + prof + ' --');
@@ -90,7 +92,13 @@ async function run(prof) {
     console.log('  .. ' + n);
     /* A1: the sign and the rumour */
     let s = null;
-    for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); s = await st(); if (s.boss.sign && s.boss.sign.n === n && s.rumours[n]) break; if (s.boss.found[n]) break; }
+    for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); s = await st(); if (s.boss.sign && s.boss.sign.n === n && s.rumours[n]) break; if (s.boss.found[n]) break;
+      /* BOSSES 4 (measured 11/3): the next sign turns up on a street near him (WORLD TWO's placeSign); a boss who stood past the valley's
+         edge leaves the party where no street is, so after 6 s with no sign the stranger walks on to the nearest street in the city */
+      if (i === 12 && !s.boss.sign) { const st2 = await fr.evaluate(() => { const h = [city.x, city.y], n = om.n; let best = null, bd = 1e9;
+          for (let y = 2; y < n - 2; y++) for (let x = 2; x < n - 2; x++) { if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue; const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd && d >= 3 && cityRoute(h[0], h[1], x, y)) { bd = d; best = [x, y]; } }
+          return best; }).catch(() => null);
+        if (st2) { await go(st2); await settle(); } } }
     const row = await fr.evaluate((n) => { const r = BohemiaBosses.data().bosses.filter(b => b.n === n)[0]; return JSON.parse(JSON.stringify(r)); }, n);
     ok('A1 ' + n + ': his sign is in the world and his rumour is on the phone\'s feed', !!(s.boss.sign && s.boss.sign.n === n || s.boss.found[n]) && !!s.rumours[n],
        (s.boss.sign ? s.boss.sign.kind + ' at ' + s.boss.sign.x + ',' + s.boss.sign.y : 'no sign') + ', rumour by ' + row.rumour.who);
@@ -196,13 +204,15 @@ async function run(prof) {
        'place ' + (mi.ours ? mi.ours.key + ' at ' + mi.ours.at.join(',') + ' (' + mi.ours.w + ' px, named ' + mi.ours.named + ')' : 'not drawn') + ', his men at ' + mi.party.join(',') + ', the old skull ' + (mi.hm ? (mi.hm.quiet ? 'stood down' : 'DRAWN') : 'off the glass') + ', plates ' + mi.plates + ', door+plate drawn ' + mi.hmPlaces);
     await shot(tag + '_d_his_place_after');
     await fr.evaluate(() => { window.__BOSSES_TALK = false; });   /* the next boss's asker waits until this verb is walked and used */
+    /* THE BURN's fire is lit at night (the verb's rule): the checker brings the clock to nine at night (a stranger waits for it) */
+    if (vid === 'burn') await fr.evaluate(() => { try { if (!isNight()) T.min = 21 * 60; render(); } catch (e) {} });
     /* A6: where the verb works, the phone shows it; a real tap uses it */
     const spot = await fr.evaluate((vid) => { const h = [city.x, city.y]; if (BohemiaBosses.applies(vid, h[0], h[1])) return h;
       let best = null, bd = 1e9; const n = om.n; for (let y = 1; y < n - 1; y++) for (let x = 1; x < n - 1; x++) { const a = BohemiaBosses.applies(vid, x, y); if (!a || a.off) continue;
         const dd = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (dd < bd && !loopTownAt(x, y, 1) && cityRoute(h[0], h[1], x, y)) { bd = dd; best = [x, y]; } } return best; }, vid);
     if (spot && (spot[0] !== s.at[0] || spot[1] !== s.at[1])) { await go(spot); await settle(); }
     const before = await fr.evaluate(() => { const C = BohemiaCondition.get(); let hp = 0, w = 0; for (const k in C.men) { hp += C.men[k].lostHp || 0; if (C.men[k].wound && C.men[k].wound.left > 0) w += C.men[k].wound.left; }
-      let bat = null; try { bat = BohemiaPurse.balance(purseGet(), 'electricity'); } catch (e) {} return { hp, w, bat, marks: BohemiaBosses.state().marks.length }; });
+      let bat = null; try { bat = BohemiaPurse.balance(purseGet(), 'electricity'); } catch (e) {} return { hp, w, bat, marks: BohemiaBosses.state().marks.length, fogR: (typeof fogRadius === 'function' ? fogRadius() : null), lit: BohemiaBosses.lit(city.x, city.y) }; });
     let band = null;
     for (let i = 0; i < 20; i++) { await page.waitForTimeout(300); band = await page.evaluate(() => { const b = document.querySelector('#bohphone .bpctx.verb .vb'); if (!b) return null; const r = b.getBoundingClientRect();
       return { text: b.textContent, verb: b.dataset.verb, off: b.classList.contains('off'), w: Math.round(r.width), h: Math.round(r.height) }; }); if (band && band.verb === vid) break; }
@@ -222,10 +232,20 @@ async function run(prof) {
     if (band && band.verb === vid && !band.off) await tapEl(await page.$('#bohphone .bpctx.verb .vb'));
     await page.waitForTimeout(1200);
     const after = await fr.evaluate(() => { const C = BohemiaCondition.get(); let hp = 0, w = 0; for (const k in C.men) { hp += C.men[k].lostHp || 0; if (C.men[k].wound && C.men[k].wound.left > 0) w += C.men[k].wound.left; }
-      let bat = null; try { bat = BohemiaPurse.balance(purseGet(), 'electricity'); } catch (e) {} const u = (window.__BOSS_VERB_USED || []).slice(-1)[0]; return { hp, w, bat, marks: BohemiaBosses.state().marks.length, used: u ? JSON.parse(JSON.stringify(u)) : null }; });
-    const did = vid === 'cook' ? (before.hp > 0 ? after.hp < before.hp : true) : vid === 'open' ? (after.bat != null && before.bat != null && after.bat - before.bat === row.verb.pay_batteries) : (before.w > 0 ? after.w < before.w : true);
+      let bat = null; try { bat = BohemiaPurse.balance(purseGet(), 'electricity'); } catch (e) {} const u = (window.__BOSS_VERB_USED || []).slice(-1)[0];
+      /* BOSSES 4: the burn's fire lights its blocks (the city's own sight and fog ask), the survey's blocks came out of the fog */
+      let sightLitHere = null; try { sightLitHere = sightLit(city.x + 1, city.y); } catch (e) {}
+      let fogSeenFar = null; try { fogSeenFar = typeof fogSeen !== 'function' || fogSeen(city.x + 8, city.y); } catch (e) {}
+      return { hp, w, bat, marks: BohemiaBosses.state().marks.length, used: u ? JSON.parse(JSON.stringify(u)) : null, fogR: (typeof fogRadius === 'function' ? fogRadius() : null),
+        lit: BohemiaBosses.lit(city.x, city.y), sightLitHere, fogSeenFar, night: isNight() }; });
+    const did = vid === 'cook' ? (before.hp > 0 ? after.hp < before.hp : true) : (vid === 'open' || vid === 'climb') ? (after.bat != null && before.bat != null && after.bat - before.bat === row.verb.pay_batteries)
+      : vid === 'burn' ? (after.night && after.lit && after.sightLitHere === true && after.fogR != null && before.fogR != null && after.fogR > before.fogR && !before.lit)
+      : vid === 'survey' ? (!!after.used && !!after.used.got && after.used.got.blocks >= 0 && after.fogSeenFar === true)
+      : (before.w > 0 ? after.w < before.w : true);
     ok('A6 ' + n + ': the phone shows ' + row.verb.button + ' where it works, a real tap uses it once, and it did what it says', !!band && band.verb === vid && after.marks === before.marks + 1 && !!after.used && after.used.id === vid && did,
-       (first ? first.toUpperCase() + ' first, then ' : '') + 'band ' + JSON.stringify(band) + ' at ' + JSON.stringify(spot) + '; blood lost ' + Math.round(before.hp) + ' -> ' + Math.round(after.hp) + ', wound days ' + before.w.toFixed(1) + ' -> ' + after.w.toFixed(1) + ', batteries ' + before.bat + ' -> ' + after.bat + ', got ' + JSON.stringify(after.used && after.used.got));
+       (first ? first.toUpperCase() + ' first, then ' : '') + 'band ' + JSON.stringify(band) + ' at ' + JSON.stringify(spot) + '; blood lost ' + Math.round(before.hp) + ' -> ' + Math.round(after.hp) + ', wound days ' + before.w.toFixed(1) + ' -> ' + after.w.toFixed(1) + ', batteries ' + before.bat + ' -> ' + after.bat + ', got ' + JSON.stringify(after.used && after.used.got)
+         + (vid === 'burn' ? ', night ' + after.night + ', lit ' + before.lit + ' -> ' + after.lit + ', the street beside lit ' + after.sightLitHere + ', sight ' + before.fogR + ' -> ' + after.fogR + ' blocks' : '')
+         + (vid === 'survey' ? ', 8 blocks off on the map ' + after.fogSeenFar : ''));
     await fr.evaluate(() => render()); await page.waitForTimeout(400);
     const fu = await fr.evaluate(() => { const m = BohemiaBosses.state().marks.slice(-1)[0], P = (BOHEMIA_FEED.posts ? BOHEMIA_FEED.posts() : []).filter(p => p.who === '@yourcompany').slice(-1)[0];
       return { plate: m && m.first, feed: P ? (P.txt || P.text || '') : null, drew: BohemiaBosses.last().drew }; });
@@ -252,6 +272,6 @@ async function run(prof) {
   const want = process.argv[2];
   const profiles = want ? [want] : ['phone_portrait'];
   for (const p of profiles) { try { await run(p); } catch (e) { ok('the gate ran on ' + p, false, String(e.stack || e.message).slice(0, 300)); } }
-  console.log('\nTHE FIRST THREE BOSSES: ' + pass + ' passed, ' + fail + ' failed');
+  console.log('\nTHE FIRST THREE BOSSES (all six of act one\'s first six since BOSSES 4): ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })();

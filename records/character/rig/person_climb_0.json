@@ -1,0 +1,305 @@
+{
+ "look": "PERSON_CLIMB_0",
+ "shape": "person_climb_0: THE CLIMB: the man who decides who goes up; a bellhop's oxblood jacket under a climbing harness, a coil of rope, a pillbox cap, the hoist's hook on a chain, his own skin skin_mid 1, BONE TANK under OXBLOOD JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TANK",
+  "outer": "OXBLOOD JACKET",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "COAL MID BOOT",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "BLACK TANK read as one with OXBLOOD JACKET (42 and 56 of 255): the same cut in BONE TANK (154)",
+   "OXBLOOD JACKET worn open to the neck",
+   "the tank's hem below the jacket",
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.1,
+  "belly": -0.4,
+  "shoulders": 0.6,
+  "hips": -0.2
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "hem_drop": 0.05,
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_climb_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7286,
+ "real_height_for_rig": 1.7347,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_climb_0_shoe": 3916,
+  "person_climb_0_shirt": 20628,
+  "person_climb_0_tail": 2464,
+  "person_climb_0_coat": 57458,
+  "person_climb_0_collar": 1098,
+  "person_climb_0_lapels": 396,
+  "person_climb_0_waistband": 1792,
+  "person_climb_0_pushed": 2048,
+  "person_climb_0_climb_buttons": 272,
+  "person_climb_0_climb_cuff_L": 768,
+  "person_climb_0_climb_cuff2_L": 768,
+  "person_climb_0_climb_cuff_R": 768,
+  "person_climb_0_climb_cuff2_R": 768,
+  "person_climb_0_climb_belt": 1792,
+  "person_climb_0_climb_brace_1": 190,
+  "person_climb_0_climb_brace_0": 190,
+  "person_climb_0_climb_chest": 1792,
+  "person_climb_0_climb_steel": 248,
+  "person_climb_0_climb_rope_0": 1792,
+  "person_climb_0_climb_rope_1": 1792,
+  "person_climb_0_climb_chain": 492,
+  "person_climb_0_climb_hook": 908,
+  "person_climb_0_climb_hook_latch": 8,
+  "person_climb_0_trouser": 35674,
+  "person_climb_0_turn_up": 2048,
+  "person_climb_0_turn_up_edge": 2048,
+  "person_climb_0_sole_1": 242,
+  "person_climb_0_midsole_1": 242,
+  "person_climb_0_sole_0": 242,
+  "person_climb_0_midsole_0": 242,
+  "person_climb_0_boot_collar": 2048,
+  "person_climb_0_boot_collar_line": 2048,
+  "person_climb_0_leather_gloves_L": 392,
+  "person_climb_0_leather_gloves_R": 392,
+  "person_climb_0_leather_gloves_cuff": 2048,
+  "person_climb_0_hair": 17968,
+  "person_climb_0_hand_L": 392,
+  "person_climb_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_climb_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_climb_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_climb_0_climb_belt": [
+   0.4452,
+   0.1221,
+   0.0252
+  ],
+  "person_climb_0_climb_brace_0": [
+   0.4452,
+   0.1221,
+   0.0252
+  ],
+  "person_climb_0_climb_brace_1": [
+   0.4452,
+   0.1221,
+   0.0252
+  ],
+  "person_climb_0_climb_buttons": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_climb_0_climb_chain": [
+   0.0369,
+   0.0343,
+   0.0319
+  ],
+  "person_climb_0_climb_chest": [
+   0.1878,
+   0.0545,
+   0.013
+  ],
+  "person_climb_0_climb_cuff2_L": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_climb_0_climb_cuff2_R": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_climb_0_climb_cuff_L": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_climb_0_climb_cuff_R": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_climb_0_climb_hook": [
+   0.552,
+   0.3515,
+   0.0252
+  ],
+  "person_climb_0_climb_hook_latch": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_climb_0_climb_hook_worn": [
+   0.0452,
+   0.0395,
+   0.0319
+  ],
+  "person_climb_0_climb_rope_0": [
+   0.3712,
+   0.3231,
+   0.2307
+  ],
+  "person_climb_0_climb_rope_1": [
+   0.3712,
+   0.3231,
+   0.2307
+  ],
+  "person_climb_0_climb_rope_trace_0": [
+   0.0612,
+   0.0887,
+   0.1274
+  ],
+  "person_climb_0_climb_rope_trace_1": [
+   0.0612,
+   0.0887,
+   0.1274
+  ],
+  "person_climb_0_climb_steel": [
+   0.1384,
+   0.1329,
+   0.1221
+  ],
+  "person_climb_0_coat": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_climb_0_collar": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_climb_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_climb_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_climb_0_lapels": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_climb_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_climb_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_climb_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_climb_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_climb_0_pushed": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_climb_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_climb_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_climb_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_climb_0_skin": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "person_climb_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_climb_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_climb_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_climb_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_climb_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_climb_0_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_climb_0_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_climb_0_waistband": [
+   0.0482,
+   0.0103,
+   0.0086
+  ]
+ }
+}

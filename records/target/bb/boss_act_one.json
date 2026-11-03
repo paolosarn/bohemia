@@ -1,9 +1,12 @@
 {
  "draft": true,
- "about": "BOSSES lane, 11/2/26 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get something that helps you interact with the city'). Act one's first three bosses, in the ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md rows 1-3). WORLD TWO's boss_map.json still owns the sign, where he stands and what falls with him; this file owns his PLACE (the landmark you see from afar), his RUMOUR (the feed), his FIGHT (the man, his gear, his crew, his board, his one lesson) and his VERB (the phone's button and what it does on the grid). Read by slices/bohemia_bosses.js. Every word is a draft:true attempt; every number is a shape TUNING owns. A modder adds a boss by adding a row whose 'n' matches a boss_map.json row. ROUND 2 (BOSSES 11/2, rule 330, ask lines 328 and 329: 'each one has to have their own aesthetic, and maybe a quest or two that leads up to them... I'm so confused by what that means'): boss.look is HIS OWN look on the people's rig (tools/bohemia_bosses_the_three_men.py); place.paint names his place's pictures painted in the map's own look (slices/boss_places/, tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after; lead.asker is the person who lost something to him and asks for help (a mouth card on the road, CONTENT's card), lead.thing is the clue at his sign, read out by one of your men (it tells where he is and what he does to the valley); after is the person who tells you, the moment he falls, what his verb does in plain words and numbers; verb.button is the phone's one plain line and verb.tip what a held finger on it says; verb.first is what the map and the feed say the first time. BOSSES FIX 11/3 (rule 338, ask line 346: 'we still don't know what killing them does'): after.valley is the ONE line the one who asked says the moment he falls (what it means for the valley), after.take the button; verb.hand is the thing he hands you (his pot, his wrench, his filter: slices/boss_places/hand_<verb>.png, tools/bohemia_bosses_what_they_hand_you_11_3_26.py) with its one plain line (what, where, how often, the number), shown on her card and flown into the phone; verb.first.rise is the number that rises off your men where a verb is used. after.says stays as the long form (the held finger's).",
+ "about": "BOSSES lane, 11/2/26 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get something that helps you interact with the city'). Act one's first three bosses, in the ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md rows 1-3). WORLD TWO's boss_map.json still owns the sign, where he stands and what falls with him; this file owns his PLACE (the landmark you see from afar), his RUMOUR (the feed), his FIGHT (the man, his gear, his crew, his board, his one lesson) and his VERB (the phone's button and what it does on the grid). Read by slices/bohemia_bosses.js. Every word is a draft:true attempt; every number is a shape TUNING owns. A modder adds a boss by adding a row whose 'n' matches a boss_map.json row. ROUND 2 (BOSSES 11/2, rule 330, ask lines 328 and 329: 'each one has to have their own aesthetic, and maybe a quest or two that leads up to them... I'm so confused by what that means'): boss.look is HIS OWN look on the people's rig (tools/bohemia_bosses_the_three_men.py); place.paint names his place's pictures painted in the map's own look (slices/boss_places/, tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after; lead.asker is the person who lost something to him and asks for help (a mouth card on the road, CONTENT's card), lead.thing is the clue at his sign, read out by one of your men (it tells where he is and what he does to the valley); after is the person who tells you, the moment he falls, what his verb does in plain words and numbers; verb.button is the phone's one plain line and verb.tip what a held finger on it says; verb.first is what the map and the feed say the first time. BOSSES FIX 11/3 (rule 338, ask line 346: 'we still don't know what killing them does'): after.valley is the ONE line the one who asked says the moment he falls (what it means for the valley), after.take the button; verb.hand is the thing he hands you (his pot, his wrench, his filter: slices/boss_places/hand_<verb>.png, tools/bohemia_bosses_what_they_hand_you_11_3_26.py) with its one plain line (what, where, how often, the number), shown on her card and flown into the phone; verb.first.rise is the number that rises off your men where a verb is used. after.says stays as the long form (the held finger's). BOSSES 4 11/3 (rules 330, 337, 338, ask lines 328, 345, 346): THE BURN, THE SURVEYOR and THE CLIMB, assets first (his own model through the pipe: tools/bohemia_bosses_four_to_six_11_3_26.py; his place before and after: tools/bohemia_bosses_paint_four_to_six_11_3_26.py; the thing he hands you: tools/bohemia_bosses_what_they_hand_you_11_3_26.py run with four_to_six). Three new verbs, each its own kind of place so the phone's one button never hides another: burn (at night, on a dark block off a town, once a night; the fire stays and lights its blocks at night), survey (on a road, once a day: the fog lifts round you for good), climb (beside a tower, once a tower: the floors nobody reached pay batteries). verb.place_after is the small thing the verb leaves on the block (boss_places/<key>).",
  "verbs_order": [
   "open",
   "purify",
+  "climb",
+  "survey",
+  "burn",
   "cook"
  ],
  "bosses": [
@@ -277,6 +280,279 @@
     "take": "TAKE IT"
    },
    "tip": "SHOOT THE MAN, NOT THE MACHINES"
+  },
+  {
+   "n": "THE BURN",
+   "place": {
+    "name": "THE FUEL YARD",
+    "art": "depot",
+    "seen": "two fuel tanks behind a berm and one big fire in the yard, black smoke",
+    "paint": "depot"
+   },
+   "rumour": {
+    "who": "@abuela_paz",
+    "txt": "THE BURN has every drop of fuel on this side. Only his people are warm at night. Mira, his axe takes two men at once, don't bunch up in front of him."
+   },
+   "boss": {
+    "kind": "brigand_marauder",
+    "name": "THE BURN",
+    "title": "the man who decides who gets warm",
+    "hp_x": 1.6,
+    "weapon": "Woodcutter's Axe",
+    "shield": null,
+    "look": "boss_burn_0",
+    "says": "Warm costs. Everybody pays the Burn."
+   },
+   "crew": [
+    "brigand_thug",
+    "brigand_thug",
+    "lower_brigand_raider"
+   ],
+   "crew_word": "THE BURN AND HIS STOKERS",
+   "board": "landfill",
+   "lesson": "His fire axe swings through the three men in front of him at once. Never stand two in front of him; come at him from the sides.",
+   "verb": {
+    "id": "burn",
+    "word": "BURN",
+    "button": "LIGHT A FIRE",
+    "rule": "at night, on a dark block (no power) outside a town; once a night; the fire burns for good and lights the blocks round it at night",
+    "night_only": true,
+    "light_blocks": 2,
+    "says": "A fire on the block, burning for good. At night you see round it like in the day.",
+    "feed": {
+     "who": "@abuela_paz",
+     "txt": "Somebody lit a fire on {where} and nobody is charging for it. Bring the kids, it's warm."
+    },
+    "tip": "Lights a fire that burns for good. At night, 2 blocks round it, you see like in the day. Once a night, outside a town.",
+    "first": {
+     "plate": "FIRE LIT: NIGHT SIGHT HERE",
+     "feed": "First fire of your own, on {where}. It burns for good: at night, 2 blocks round it, you see like in the day.",
+     "rise": "FIRE LIT: 2 BLOCKS SEEN AT NIGHT"
+    },
+    "cooling": "THE FIRE IS LIT TONIGHT",
+    "tip_cooling": "You lit a fire tonight. Light another tomorrow night.",
+    "place_after": "barrel",
+    "hand": {
+     "name": "HIS FUEL",
+     "pic": "hand_burn.png",
+     "line": "LIGHT A FIRE: once a night, outside a town. The fire burns for good, and 2 blocks round it you see at night like in the day."
+    }
+   },
+   "fallen_art": "depot_lit",
+   "lead": {
+    "asker": {
+     "name": "ABUELA PAZ",
+     "look": "faction_homeless",
+     "from": "an old woman wrapped in a blanket, a cold stove at her feet",
+     "says": "Mijo, a minute. THE BURN took all the fuel on this side. Now only his people are warm at night, and the cold takes the old ones first. He burns his name into doors. Find one, it points to his yard.",
+     "yes": "I'll find his mark.",
+     "no": "Not tonight.",
+     "yes_says": "Look for the big fire behind the tanks. He keeps it going all night so everybody sees who has the heat. And his axe swings wide, mijo.",
+     "no_says": "Okay. His mark is still on the door."
+    },
+    "thing": {
+     "head": "THE MARK",
+     "what": "a door with words burned into it",
+     "says": "Burned into the door with a torch: WARM IS THE BURN'S. The marks go toward the fuel yard with the big fire. He keeps the last fuel and sells the heat. I marked it."
+    }
+   },
+   "after": {
+    "name": "ABUELA PAZ",
+    "look": "faction_homeless",
+    "from": "at a burn barrel in the yard, warming her hands",
+    "says": "You did it, mijo. His fuel is yours now. At night, on a dark block outside a town, press LIGHT A FIRE. It burns for good, and 2 blocks round it you see at night like in the day. Once a night.",
+    "ok": "GOT IT",
+    "valley": "There are fires all down the street tonight. Nobody pays him to be warm anymore.",
+    "take": "TAKE IT"
+   },
+   "tip": "NEVER TWO IN FRONT OF HIS AXE"
+  },
+  {
+   "n": "THE SURVEYOR",
+   "place": {
+    "name": "THE SURVEY OFFICE",
+    "art": "office",
+    "seen": "an old county office with a survey tripod on its roof, one window lit",
+    "paint": "office"
+   },
+   "rumour": {
+    "who": "@manny_trucks",
+    "txt": "20 years I drove this valley and now I can't find a town without paying THE SURVEYOR for a piece of his map. His spotters sit up high, bro. Get to them first."
+   },
+   "boss": {
+    "kind": "bounty_hunter",
+    "name": "THE SURVEYOR",
+    "title": "the man with the last complete map",
+    "hp_x": 1.6,
+    "weapon": "Spetum",
+    "shield": null,
+    "look": "boss_surveyor_0",
+    "says": "Every street has a price. I sell it by the piece."
+   },
+   "crew": [
+    "bounty_hunter_marksman",
+    "bounty_hunter_marksman",
+    "caravan_guard"
+   ],
+   "crew_word": "THE SURVEYOR AND HIS CHAINMEN",
+   "board": "ruin",
+   "lesson": "His two spotters shoot from up high wherever the board has it, and up high a shot reaches farther and hits easier. Get to his spotters first, or keep a wall between you.",
+   "verb": {
+    "id": "survey",
+    "word": "SURVEY",
+    "button": "FILL IN THE MAP",
+    "rule": "standing on a road (a freeway, the Strip, a big street); once a day; the fog lifts all round you for good",
+    "road_districts": [
+     "freeway",
+     "arterial",
+     "interchange",
+     "strip",
+     "beltway",
+     "speedway"
+    ],
+    "radius": 10,
+    "cooldown_days": 1,
+    "says": "You set his tripod on the road and fill in the map all round you.",
+    "feed": {
+     "who": "@manny_trucks",
+     "txt": "Somebody is mapping the streets round {where} again. Real lines, no charge."
+    },
+    "tip": "On a road, the fog lifts 10 blocks all round you, for good. Once a day.",
+    "first": {
+     "plate": "MAPPED: +{blocks} BLOCKS",
+     "feed": "First survey, on {where}. {blocks} blocks came out of the fog for good. You can do it again tomorrow, on any road.",
+     "rise": "+{blocks} BLOCKS ON THE MAP",
+     "rise_none": "ALREADY ON THE MAP"
+    },
+    "cooling": "MAPPED TODAY",
+    "tip_cooling": "You surveyed today. Do it again tomorrow, on any road.",
+    "place_after": "stake",
+    "hand": {
+     "name": "HIS MAP",
+     "pic": "hand_survey.png",
+     "line": "FILL IN THE MAP: once a day, standing on a road. The fog lifts 10 blocks all round you, for good."
+    }
+   },
+   "fallen_art": "office_open",
+   "lead": {
+    "asker": {
+     "name": "MANNY",
+     "look": "faction_caravans",
+     "from": "a trucker with no truck, a torn road map in his hands",
+     "says": "Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works.",
+     "yes": "I'll ask at the bar.",
+     "no": "Not my problem.",
+     "yes_says": "Gracias. He works out of the old county office, the one with the tripod on the roof.",
+     "no_says": "Okay. The man is still at the bar."
+    },
+    "thing": {
+     "head": "THE MAN AT THE BAR",
+     "what": "a man at the bar who drew it on a napkin",
+     "says": "The man at the bar says THE SURVEYOR works out of the old county survey office, the tripod on the roof. He has the only full map of the valley and sells it a piece at a time. I marked it."
+    }
+   },
+   "after": {
+    "name": "MANNY",
+    "look": "faction_caravans",
+    "from": "at the survey office, copying the big map",
+    "says": "You did it! His map is yours, and every town is on it now. On any road, press FILL IN THE MAP: the fog lifts 10 blocks all round you, for good. Once a day.",
+    "ok": "GOT IT",
+    "valley": "The whole map is on the wall for anybody to copy. Every town is on it now, no charge.",
+    "take": "TAKE IT"
+   },
+   "tip": "GET TO HIS SPOTTERS FIRST"
+  },
+  {
+   "n": "THE CLIMB",
+   "place": {
+    "name": "THE HOIST",
+    "art": "hoist",
+    "seen": "a dead casino tower with a work hoist up its side, the cage parked at the top",
+    "paint": "hoist"
+   },
+   "rumour": {
+    "who": "@nena_scraps",
+    "txt": "Everything good is up high, where nobody's been since the elevators died. THE CLIMB has the last hoist and only takes his crew. Careful, his hook on the chain reaches you from two steps away."
+   },
+   "boss": {
+    "kind": "hedge_knight",
+    "name": "THE CLIMB",
+    "title": "the man who decides who goes up",
+    "hp_x": 1.4,
+    "weapon": "Battle Whip",
+    "shield": null,
+    "look": "boss_climb_0",
+    "says": "Going up? Not you."
+   },
+   "crew": [
+    "brigand_raider",
+    "brigand_raider",
+    "brigand_marksman"
+   ],
+   "crew_word": "THE CLIMB AND HIS RIGGERS",
+   "board": "casino",
+   "lesson": "His hook on the chain reaches two tiles: he hits you before you reach him, the cut bleeds, and it can knock a weapon out of a hand. Close in on him fast, or shoot him.",
+   "verb": {
+    "id": "climb",
+    "word": "CLIMB",
+    "button": "GO UP",
+    "rule": "on a street beside a tower (a casino, a resort, a high-rise); once a tower; the floors nobody reached pay batteries",
+    "tower_districts": [
+     "highroller",
+     "casino",
+     "resort",
+     "luxor",
+     "strat",
+     "sphere"
+    ],
+    "pay_batteries": 12,
+    "says": "Your men climb the dead stairs to floors nobody reached since the power died.",
+    "feed": {
+     "who": "@nena_scraps",
+     "txt": "Somebody got to the top floors on {where}. Lights up there for the first time in years."
+    },
+    "tip": "Your men climb a tower to the floors nobody reached. 12 batteries, once a tower. Works next to a casino, a resort or a high-rise.",
+    "first": {
+     "plate": "WENT UP: +{paid} BATTERIES",
+     "feed": "First climb, on {where}. Your men reached floors nobody had touched and brought down {paid} batteries. Every tower once.",
+     "rise": "+{paid} BATTERIES FROM UP TOP",
+     "rise_none": "NOTHING LEFT UP THERE"
+    },
+    "place_after": "rope",
+    "hand": {
+     "name": "HIS HOOK",
+     "pic": "hand_climb.png",
+     "line": "GO UP: next to a tower (a casino, a resort, a high-rise). Your men climb to the floors nobody reached and bring down 12 batteries. Once a tower."
+    }
+   },
+   "fallen_art": "hoist_down",
+   "lead": {
+    "asker": {
+     "name": "NENA",
+     "look": "faction_network",
+     "from": "a scavenger kid with a rope and an empty sack",
+     "says": "Ey, you. Everything good is up high, the floors nobody reached since the elevators died. THE CLIMB has the last hoist that runs and he only takes his crew. His flyers are on the poles by the casinos.",
+     "yes": "I'll find a flyer.",
+     "no": "Can't help you.",
+     "yes_says": "For real? Look for the tower with the cage on its side. He keeps the cage up top so nobody else gets it.",
+     "no_says": "Okay. His flyers are still up."
+    },
+    "thing": {
+     "head": "THE FLYER",
+     "what": "a flyer taped to a light pole",
+     "says": "It says THE HOIST WORKS. THE CLIMB DECIDES WHO GOES UP. It shows the casino tower with the hoist up its side. He takes his own crew up and leaves everybody on the ground. I marked it."
+    }
+   },
+   "after": {
+    "name": "NENA",
+    "look": "faction_network",
+    "from": "at the bottom of the hoist, the cage come down",
+    "says": "You did it! His hook is yours. Next to any tower, a casino, a resort, a high-rise, press GO UP. Your men climb to the floors nobody reached and bring down 12 batteries. Every tower once.",
+    "ok": "GOT IT",
+    "valley": "The hoist runs for anybody now. The top floors are open, and the lights are on up there.",
+    "take": "TAKE IT"
+   },
+   "tip": "CLOSE IN FAST: HIS HOOK REACHES TWO"
   }
  ]
 }

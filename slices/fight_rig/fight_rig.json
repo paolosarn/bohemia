@@ -2097,6 +2097,57 @@
     ]
    },
    "by": "BEASTS 2 [every beast its own body] 11/3 (rule 345), tools/bohemia_beasts_every_beast_its_own_body.py"
+  },
+  "boss_burn_0": {
+   "file": "boss_burn_0.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.738,
+   "kind": "boss",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "boss": "THE BURN",
+   "rig": "records/target/combat/rig/boss_burn_0/rig.json",
+   "own_kit": true,
+   "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
+  },
+  "boss_surveyor_0": {
+   "file": "boss_surveyor_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.713,
+   "kind": "boss",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "boss": "THE SURVEYOR",
+   "rig": "records/target/combat/rig/boss_surveyor_0/rig.json",
+   "own_kit": true,
+   "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
+  },
+  "boss_climb_0": {
+   "file": "boss_climb_0.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.737,
+   "kind": "boss",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "boss": "THE CLIMB",
+   "rig": "records/target/combat/rig/boss_climb_0/rig.json",
+   "own_kit": true,
+   "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
   }
  },
  "faces": {
@@ -2206,7 +2257,10 @@
    "robot",
    "boss_pot_0",
    "boss_tap_0",
-   "boss_filter_0"
+   "boss_filter_0",
+   "boss_burn_0",
+   "boss_surveyor_0",
+   "boss_climb_0"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
@@ -2270,5 +2324,5 @@
  },
  "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them",
  "enemies": "CHARACTER [the three enemies' looks] 10/24: the Mechanic, the Kids and Runners and the Heavy (kind 'enemy'), packed by tools/bohemia_character_the_three_enemies.py pack into a reference gang's cell with its guns; their pools are ours.people_looks.band.mechanic / runner / heavy",
- "bosses": "BOSSES [each his own look] 11/2: THE POT, THE TAP, THE FILTER (kind 'boss'), packed by tools/bohemia_bosses_the_three_men.py into a reference gang's cell; records/target/bb/boss_act_one.json names each"
+ "bosses": "BOSSES 11/2 and 11/3: THE POT, THE TAP, THE FILTER (tools/bohemia_bosses_the_three_men.py, dressed by tools/bohemia_cook_the_bosses_dressed_11_3_26.py), THE BURN, THE SURVEYOR, THE CLIMB (tools/bohemia_bosses_four_to_six_11_3_26.py), kind 'boss', each in a reference gang's cell; records/target/bb/boss_act_one.json names each"
 }
