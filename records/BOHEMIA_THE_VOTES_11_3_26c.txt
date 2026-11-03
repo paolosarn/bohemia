@@ -1,0 +1,11 @@
+BOHEMIA VOTE -- 11/3 (fourth export of the stretch). Logged by the coordinator; registry +6 (records/target/BOHEMIA_VOTE_REGISTRY.json).
+NEW VERDICTS (all YES):
+  combat-place-pass-11-3b          (no words)
+  combat-place-shore-11-3b         "Wip (work in progress)"
+  combat-place-airport-11-3b       "Wip"
+  words2-a-tweet-sounds-like-a-human-11-3   (no words)
+  run2-no-tape-round-the-phone-11-3         (no words)
+  words2-the-radio-lives-in-the-feed-11-3   (no words)
+ANYTHING ELSE: the same line as the 11/2 export (more analog horror, no cards for quests, make the pixels and the sound): already logged.
+WITH IT, HIS WORDS (rules 378, 379, 380, 351(a) amended; records/BOHEMIA_PAOLO_NO_CAP_KILL_CAMS_OFF_FINE_TUNED_DIFFICULTY_AND_RARE_MELEE_11_3_26.md):
+  no coded cap on how many fight; the kill cams are ugly, a switch, off for now; difficulty fine-tuned the Battle Brothers way; more rare melee men.

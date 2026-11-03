@@ -428,3 +428,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 404 | Tap a quest on the phone and your people go there; the nearest marker when there are many; the camera zoomed in close on the way; the settlement opens on arrival | 376 | WORLD 8 session_01GKDyuwH34PpUPZcJFG3Fs1, UI 7 session_01GKDyuw9C2p6tdjJqPePVc4 | QUEUED 11/3 |
 | 405 | The kill cams (he asked before and did not see them) | 351(f) | COMBAT 7 session_01GKDyuuNDooEjTDprXTHNiT | SHIPPED 11/3 5d1d0766 (BUILD 11/3zzzzac THE KILL CAMS ARE BACK; VOTE combat-7-the-kill-cams-11-3) |
 | 406 | The heaviest armour costs one tile of walking, never an attack or ability from standing; weight classes; endgame light armour beats most heavy | 377 | TUNING 2 session_01GKDyuv8sejYGSXYyFMacNf, COMBAT 7 | QUEUED 11/3 |
+| 407 | No coded cap on how many fight, his or theirs (he felt one; there were two: 18 of his, 8 on a road) | 378 | COMBAT 7 session_01GKDyuuNDooEjTDprXTHNiT, WORLD 8 session_01GKDyuwH34PpUPZcJFG3Fs1 | QUEUED 11/3 |
+| 408 | The kill cams are ugly: a switch to turn them on or off, off while they are reworked | 379 | COMBAT 7 | QUEUED 11/3 (first) |
+| 409 | Difficulty: research every number against Battle Brothers; small fine-tuned steps, not twice the enemies | 380 (amends 351(c)(d)) | TUNING 2 session_01GKDyuv8sejYGSXYyFMacNf | QUEUED 11/3 |
+| 410 | More rare melee men; every rare he saw was a shooter | 351(a) amended | HIRES session_01GKDyuvFuZosW51V4g2K5wr | QUEUED 11/3 |
