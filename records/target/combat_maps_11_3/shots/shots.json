@@ -353,19 +353,19 @@
     "stripw.1",
     "blvd.2",
     "stripe.1",
-    "stripw.1"
+    "stripw.3"
    ],
    [
     "stripw.2",
     "blvd.1",
     "stripe.2",
-    "stripw.2"
+    "stripw.1"
    ],
    [
-    "stripw.1",
+    "stripw.3",
     "blvd.2",
     "stripe.1",
-    "stripw.1"
+    "stripw.2"
    ]
   ],
   "start": "line",

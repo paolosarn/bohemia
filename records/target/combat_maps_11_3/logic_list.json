@@ -1,7 +1,7 @@
 {
  "about": "COMBAT MAPS 3, rule 346(b): nothing stands where it could not. A by-eye list per place, checked on its board in the live fight (the card's AFTER and IN PLAY shots), tied to the sha1 of its block pictures (gates/every_place_no_seams_gate.js): a changed picture is a list nobody has checked yet.",
  "strip": {
-  "sha": "8325a496ef51",
+  "sha": "2aacbb765f56",
   "when": "11/3",
   "by": "COMBAT MAPS 3, by eye on the live fight's shots",
   "checks": [
@@ -39,11 +39,16 @@
     "what": "the valet's last cars stand nose-in on the forecourt beside the door, not on the drop-off lane; the valet stand and its rope on the lane's kerb",
     "ok": true,
     "how": "stripw.3 picture"
+   },
+   {
+    "what": "the dead lie only where nobody was left to move them (rule 360 amended): body bags in rows on the casino forecourts that became morgues, a body on a bench and under a tarp, the luggage dropped along the sidewalks; none on a road's lane or a marked piece",
+    "ok": true,
+    "how": "the pictures, COOK DEAD's models placed by hand (DEAD in the tool)"
    }
   ]
  },
  "downtown": {
-  "sha": "560314f26259",
+  "sha": "53e6a4ba1648",
   "when": "11/3",
   "by": "COMBAT MAPS 3, by eye on the live fight's shots",
   "checks": [
@@ -76,6 +81,11 @@
     "what": "no building or thing reaches past its block's side; the south side's backs stand on their own rows with the alley open before them",
     "ok": true,
     "how": "the edge leg and fremont.14, fremont.15 pictures (a first render had them over the alley: fixed)"
+   },
+   {
+    "what": "the dead lie only where nobody was left to move them (rule 360 amended): in a casino's doorway under its marquee, on the mall's sidewalk, under a tarp in the back lot and the alley; graves only in the chapel's yard, where somebody stayed; none on a road's lane or a marked piece",
+    "ok": true,
+    "how": "the pictures, COOK DEAD's models placed by hand (DEAD in the tool)"
    }
   ]
  },

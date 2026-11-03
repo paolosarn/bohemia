@@ -266,3 +266,14 @@ Measured on the way: a bare canopy frame drew as a grid of lines over the mall (
 edge-on), so the canopy fell instead; a first render set the south side's backs over the alley (fixed: 10% cell lines -> 0).
 Downtown: seams 0%, cell lines 0%, cut-offs 0%, roads not met 0 of 51, nothing cut at an edge. The rule 346 v1 blocks (fremont.3-7)
 are in graveyard/the_strip_and_downtown_11_3_26/.
+
+## PUSH 7 (rule 360 AMENDED, rule 346 AMENDED 'more work more love'): THE DEAD ON THE STRIP AND DOWNTOWN
+COOK DEAD's models (records/target/dead/manifest.json, reference/models/bohemia/dead/*.glb) through the same rig as COOK PROPS'
+(props() reads both manifests), set by hand per block (DEAD in the tool), about one a block (COOK DEAD's counts a board: downtown
+11, the Strip 4; the coordinator's brief: the Strip's sidewalks crowded with dead things), only where nobody was left to move them:
+- THE STRIP: body bags in rows on two casino forecourts (the casinos were the morgues), a body on the sidewalk, one on a bench,
+  one under a tarp; the last tourists' luggage dropped along the Boulevard's sidewalks.
+- DOWNTOWN: a body in a casino's doorway, half hidden under its marquee; one on the mall's sidewalk, one under a tarp in the back
+  lot and one in the mall, a shopping cart in the alley, one on Ogden's kerb; graves only in the chapel's yard (somebody stayed).
+Scenery only (rule 360 amended (b)): no piece on a road's lane or a marked tile, no new rule; the doorway on its front's own blocked
+tile. Both boards: seams 0%, cell lines 0%, cut-offs 0%, roads 0 of 51, nothing cut at an edge; their logic lists re-checked by eye.

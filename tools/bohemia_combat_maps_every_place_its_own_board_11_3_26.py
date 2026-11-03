@@ -752,10 +752,7 @@ def fit_in(v, half, lo=0.0, hi=60.0, most=1.5):
 
 
 def model_size(mid):
-    if not _SIZES:
-        man = json.load(open(os.path.join(R, 'records/target/fight_props/manifest.json')))
-        man = man.get('models') or man.get('props') or man
-        _SIZES.update({m['id']: m['size_m'][:2] for m in (man if isinstance(man, list) else man.values())})
+    if not _SIZES: _SIZES.update({k_: m['size_m'][:2] for k_, m in props().items()})
     return _SIZES[mid]
 
 
@@ -829,8 +826,14 @@ class Kit:
 PROPS = os.path.join(R, 'records/target/fight_props/manifest.json')
 
 
+DEAD_MAN = os.path.join(R, 'records/target/dead/manifest.json')
+
+
 def props():
-    return {m['id']: m for m in json.load(open(PROPS))['models']} if os.path.exists(PROPS) else {}
+    """COOK PROPS' models and COOK DEAD's (rule 360: the dead through the same rig), one lookup by id"""
+    out = {m['id']: m for m in json.load(open(PROPS))['models']} if os.path.exists(PROPS) else {}
+    if os.path.exists(DEAD_MAN): out.update({m['id']: m for m in json.load(open(DEAD_MAN))['models']})
+    return out
 
 
 def import_model(bpy, mid, x, y, quarter, z):
@@ -1716,6 +1719,8 @@ def things_blvd(k, bid):
                 yel = (c + r) % 2 == 0
                 car(k, x - 1.6, y + 2.4, math.pi / 2 + k.rng.uniform(-0.25, 0.25), (226, 190, 60) if yel else (150, 40, 36), cab=yel)
                 car(k, x + 1.9, y - 2.6, math.pi / 2 + k.rng.uniform(-0.7, 0.7), (96, 104, 112), wreck=True)
+    for (lx, ly) in ((4.5, 8.0), (55.0, 30.0), (5.5, 52.0)):                 # what the last tourists dropped on the sidewalks
+        luggage(k, lx, ly, 1.6, 7)
     for yy in (0.0, 12.0, 24.0, 36.0, 48.0):                                 # the median's lights, dead, every tile
         if not (bid == 'blvd.1' and yy in (24.0, 0.0)): streetlight(k, 30.0, yy + 3.0)
     if bid == 'blvd.1':
@@ -1998,6 +2003,29 @@ def things_fremont(k, bid):
         for xx in (6.0, 30.0, 54.0): streetlight(k, xx, 11.4, arms=(-1,))    # OGDEN's lights along its north kerb
 
 
+# THE DEAD (rule 360 AMENDED, Paolo 11/3: 'keep the bodies lore friendly... if it's a busy civilized settlement or part of the town,
+# obviously they don't have [corpses]... very simplified'): COOK DEAD's models (records/target/dead/manifest.json) set by hand where
+# nobody is left to move them, about one a block (COOK DEAD's counts a board: downtown 11, the Strip 4), never on a road's lane, never
+# on a marked piece's tile; graves only where somebody stayed (the chapel's yard). Scenery: no new rule, no interaction.
+DEAD = {
+    'blvd.1': [('dead.sidewalk', 5.0, 38.0, 0), ('dead.bench', 54.0, 18.0, 0)],
+    'blvd.2': [('dead.tarp', 54.0, 20.0, 1)],
+    'stripw.1': [('dead.bag_row', 30.0, 42.0, 0)],                          # the casinos were the morgues
+    'stripw.2': [('dead.sidewalk', 54.0, 40.0, 0)],
+    'stripe.1': [('dead.bag_row', 30.0, 54.0, 0)],
+    'fremont.10': [('dead.tarp', 30.0, 6.0, 0)],
+    'fremont.11': [('dead.grave_cross', 40.0, 54.0, 0), ('dead.grave_cross', 44.5, 55.0, 0)],   # the chapel's yard: somebody stayed
+    'fremont.12': [('dead.doorway', 8.0, 50.6, 0), ('dead.sidewalk', 6.0, 40.0, 1)],
+    'fremont.13': [('dead.tarp', 18.0, 28.0, 0)],
+    'fremont.14': [('dead.cart', 30.0, 29.0, 0)],
+    'fremont.15': [('dead.sidewalk', 30.0, 16.0, 0)],
+}
+
+
+def place_dead(k, bid):
+    for (mid, x, y, q) in DEAD.get(bid, []): k.model(mid, x, y, q)
+
+
 class DryKit(Kit):
     """the things of one block without Blender: what stands where, for the edge leg (rule 356(c),(f))"""
     def rgb(self, name, c, role='clay_bone', alpha=None): self.M.setdefault(name, None); return name
@@ -2010,10 +2038,8 @@ def edge_clips(bid, tol=0.15):
     manifest's size and their quarter turn, rocks by their size"""
     NB, EG, NF, F = rig()
     k = DryKit(None, NF, F, np.zeros((8, 8), np.uint8), np.zeros((8, 8), np.float32), 1)
-    THINGS[bid.split('.')[0]](k, bid)
-    man = json.load(open(os.path.join(R, 'records/target/fight_props/manifest.json')))
-    man = man.get('models') or man.get('props') or man
-    size = {m['id']: m['size_m'] for m in (man if isinstance(man, list) else man.values())}
+    THINGS[bid.split('.')[0]](k, bid); place_dead(k, bid)
+    size = {k_: m['size_m'] for k_, m in props().items()}
     out = []
     def check(what, x, y, ex, ey):
         if x - ex < -tol or x + ex > 60.0 + tol or y - ey < -tol or y + ey > 60.0 + tol:
@@ -2049,7 +2075,7 @@ def install():
     def things_(bpy, g, h, bid, seed):
         if bid not in BLOCKS: return _things(bpy, g, h, bid, seed)
         k = Kit(bpy, NF, F, g, h, seed)
-        THINGS[bid.split('.')[0]](k, bid)
+        THINGS[bid.split('.')[0]](k, bid); place_dead(k, bid)
         return k.objects(NB.ico2(bpy)), []
     NB.plan, NB.things = plan_, things_
     NB.BASE = BASE
@@ -2252,16 +2278,17 @@ def first_of(pid):
 
 
 REBUILT_346 = ('strip', 'downtown')
-SAID_346C = {'downtown': 'Hell nah that shit does not look right'}
+SAID_346C = {'downtown': 'Hell nah that shit does not look right', 'strip': 'More work more love'}
+TITLE_346C = {'downtown': 'RETHOUGHT', 'strip': 'MORE LOVE'}
 SAID_346 = {'strip': 'The worststtt this needs to be THE BESTTTT Work in progress keep going',
             'downtown': 'Looks like shit Work in progress keep going'}
 EVERY_GROUND_346 = ('Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont '
                     'connect and things that dont visually and logically make sense')
 CARD_SAYS_346 = {
-    'strip': ('The Strip is rebuilt as the showcase: the Boulevard down the middle with its cabs and wrecks, the bridge you can '
-              'climb, the Welcome sign in the median, a gold tower and a pink tower on either side with their drives and porte-cocheres.'),
-    'downtown': ('Downtown is rethought from the real one: Fremont East with its motel, pawn shop, garage and chapel on top, the old '
-                 'casino fronts with the canopy fallen into the mall in the middle, and the south side walked roof to roof over the alley.'),
+    'strip': ('The Strip has more love: the Boulevard, its bridge and Welcome sign, gold and pink towers, and its tourists who never '
+              'left, body bags in rows on the forecourts that became morgues, a body on a bench, luggage dropped along the sidewalks.'),
+    'downtown': ('Downtown is rethought from the real one: Fremont East with its motel, garage and chapel, the old casino fronts with '
+                 'the canopy fallen into the mall, the south side walked roof to roof, and its dead in the doorways nobody cleared.'),
     'airport': ('The airport is warm desert-dusted slab now, not a grey card, with a third block of stands (a fuel truck, a baggage '
                 'train), and its taxi line runs whole across the board.'),
     'shore': ('The shore is Lake Mead\'s tan cracked bed now, not grey, and its gravel bars are soft shapes that meet bar to bar '
@@ -2301,13 +2328,13 @@ def register(sha, ids, tag=None):
         P = PLACES[pid]
         if tag == '346c':                                                    # a redo of a 346 card he has voted on
             new.append(dict(id='combat-place-%s-11-3c' % pid, kind='redo', redoOf='combat-place-%s-11-3b' % pid, lane='combat', sha=sha,
-                            made='11/3', draft=True, title='%s: RETHOUGHT' % P['name'], said=SAID_346C[pid],
+                            made='11/3', draft=True, title='%s: %s' % (P['name'], TITLE_346C[pid]), said=SAID_346C[pid],
                             why=CARD_SAYS_346[pid] + ' You see it in every fight there on the map.',
-                            options=['A, yes, that is downtown and it plays different', 'B, better, push it further', 'C, no, still wrong'],
+                            options=['A, yes, that is the place and it plays different', 'B, better, push it further', 'C, no, still wrong'],
                             show=dict(how='image', src='../records/target/combat_maps_11_3/card_%s.webp' % pid,
                                       first=first_of(pid), firstAt=[398, 40, 390, 844]),
-                            before_after=dict(before='downtown as his last card had it (rule 346 push 1)',
-                                              after='rethought from real downtown, roads first (rule 356)',
+                            before_after=dict(before='the board as his last card had it (rule 346 push 1)',
+                                              after='downtown rethought from the real one, roads first' if pid == 'downtown' else 'more love: the dead where nobody moved them',
                                               scale='his phone, 390 x 844, by day, the fight\'s opening view and a few rounds in')))
             continue
         if tag == '346':
