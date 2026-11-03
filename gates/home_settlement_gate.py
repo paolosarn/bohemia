@@ -8,10 +8,14 @@ Reads what tools/bohemia_home_settlement_pipeline_11_3_26.py wrote to records/ta
      on disk and listed; no picture in the folder that the pipeline did not list (a hand-made angle fails)
   S4 THE ROW'S HEIGHT: no piece taller than its row allows, none wider than a lot
   S5 TWELVE OF TWELVE, recomputed from the flat pictures: every camera, upright and sideways, every lot at its tallest still shows 60% of
-     itself (measured against the lot alone on a canvas twice as big, so what the frame cuts off counts as unseen) and a 44-point tap box
+     itself (measured against the lot ALONE, nothing else in the world, on a canvas twice as big, so what the frame cuts off and what
+     stands in front of it, a wall, a pole, the palm, the near set, all count as unseen) and a 44-point tap box
   S6 INTIMATE (rule 373): the three cameras look through a wide barrel lens (the equisolid fisheye) from across the street, not from far
      overhead: a lens under 20 mm, mounted under 16 m, within 20 m of the block's front wall
-  M  it can fail: a planted fourth camera fails S2, a planted picture fails S3, a wall painted over lot 10 fails S5
+  S7 WHAT HANGS AT THE LENS (rule 373, second look): every camera, upright and sideways, has its near layer on all three frames, rendered
+     by the script for the fixed set, and nothing else in its folder (the closeness is the camera's own world, made by the machine)
+  M  it can fail: a planted fourth camera fails S2, a planted picture fails S3, a wall painted over lot 10 fails S5, a missing near
+     frame fails S7
 """
 import os, sys, json, copy
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +45,10 @@ def s3(M, files):
                         want |= set(c['pictures'])
     extra = files - want; missing = want - files
     return (not extra and not missing), 'extra %s missing %s' % (sorted(extra)[:3], sorted(missing)[:3])
+def s7(M, files):
+    N = M.get('near') or {}
+    want = {'cam%d_%s_%d.png' % (cn, sh, f) for cn in H.CAMS for sh in H.SIZES for f in range(3)}
+    return (N.get('cams') == H.cams_hash() and len(N.get('what', [])) >= 3 and files == want), 'missing %s extra %s' % (sorted(want - files)[:3], sorted(files - want)[:3])
 def s5(src):
     g = H.gate_numbers(src); bad = [(k, n, v) for k, row in g['lots'].items() for n, v in row.items() if v['seen'] < 0.6 or v['tap_pt'] < 44]
     return not bad, g, bad
@@ -63,6 +71,8 @@ ok('S4 no piece taller than its row allows or bigger than a lot', not tall, str(
 r5, g, bad = s5(os.path.join(OUT, 'gate'))
 ok('S5 twelve of twelve in every camera, upright and sideways: worst %.0f%% seen, smallest tap %.0f points' %
    (g['summary']['worst_seen'] * 100, g['summary']['worst_tap_pt']), r5, str(bad[:3]))
+nd = os.path.join(OUT, 'near'); nfiles = set(os.listdir(nd)) if os.path.isdir(nd) else set()
+r7, why7 = s7(M, nfiles); ok('S7 the lens\'s own world: every camera, both shapes, three frames, by the script (%d pictures: %s)' % (len(nfiles), '; '.join((M.get('near') or {}).get('what', [])[:3])), r7, why7)
 # M: the ruler can fail
 M2 = copy.deepcopy(M); M2['cams']['4'] = dict(name='CAM 4 A HAND ANGLE', az=40.0, el=20.0)
 ok('M  a fourth camera outside the set fails S2', not s2(M2))
@@ -75,5 +85,6 @@ for fn in os.listdir(os.path.join(OUT, 'gate')): shutil.copy(os.path.join(OUT, '
 a = np.asarray(Image.open(os.path.join(tmp, 'gate_cam1_tall_all.png')).convert('RGB')).copy(); m = abs(a[..., 0].astype(int) - 200) <= 3
 a[m] = 0; Image.fromarray(a).save(os.path.join(tmp, 'gate_cam1_tall_all.png'))
 r, _, _ = s5(tmp); ok('M  a wall painted over lot 10 in CAM 1 fails S5', not r); shutil.rmtree(tmp)
+r, _ = s7(M, nfiles - {'cam2_tall_1.png'}); ok('M  a missing near frame fails S7', not r)
 print('=== HOME SETTLEMENT GATE: %d passed, %d failed ===' % (ok_n, bad_n))
 sys.exit(1 if bad_n else 0)

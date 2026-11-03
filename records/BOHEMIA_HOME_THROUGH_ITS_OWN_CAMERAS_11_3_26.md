@@ -141,3 +141,33 @@ THE GATE (gates/home_settlement_gate.py, YOUR SETTLEMENT, ALL TWELVE): S5 every 
 tallest: worst lot 65% seen, smallest tap box 47.7 points; S6 (new) every camera a wide barrel lens under 20 mm, under 16 m, within 20 m
 of the front wall. The screen draws the new pictures, cycles the cameras every 20 s on its own, and plays the starred feed's hum low
 after the first tap.
+
+### THE SECOND LOOK, BEFORE IT WENT TO HIM (the brief: "look at it yourself next to the starred feeds before you register it")
+Side by side with the starred feed B, the first intimate render FAILED the bar: the block was a thin band across the middle (the lots
+filled 26% of the upright picture, rows 120 to 226 of 320), the bottom a third was empty street bent by the lens, the top a third black
+sky. Feed B is one building from close, its pole and its car in front of the lens. It was not registered like that.
+
+MEASURED, NOT GUESSED (tools in the scratchpad, flat renders through the same lens, every lot at its tallest):
+- 300 mounts on the block's middle (3 to 13 m up, -6 to +2.5 m from the kerb, three aims, five lenses) and 128 on its corner: with every
+  lot keeping a 44-point tap box upright, NO corner mount holds all twelve (the far lots shrink under a thumb), and the best middle mount
+  fills 30% of the picture against our 26%.
+- 900 more on three smaller blocks (lots 6.5 m by 5.5 m, three rows of four or four rows of three, steps of 1.4 and 2.2 m): best 33% to
+  34%. The block's size does not change it: twelve thumb-sized lots in a 9:16 frame keep any camera 11 to 13 m up with the lots a band
+  across the middle. Closer means the far lots go under a thumb; lower means the front pieces hide the rows behind them.
+So the closeness had to come from the camera's own world, the way feed B's pole and car make it close:
+- THE NEAR SET (one set for the whole street, seen by all three cameras from where it stands, so a cut never makes a thing appear or
+  vanish): CAM 1's street light arm and its dead cobra head over the lens, a Washingtonia beside it, a dead pickup at its kerb; CAM 2's
+  crossarm out over the street and its two insulators, two lines sagging across the street, a pair of sneakers thrown over the low one, a
+  shopping cart on the far kerb; CAM 3's two gooseneck lamps reaching out from the billboard, a strip of its torn vinyl caught on one, a
+  torn web in the housing's corner. Lit by the night and by each camera's own infrared ring (90 W at the lens, inverse square): what is
+  nearest glows, the real night camera's look. Its own layer (records/target/home_settlement/near/), drawn over every lot's piece.
+- THE TRACT BEYOND THE BACK WALL, in the plate only (behind every lot, so no piece is touched): the grade steps up twice more, two rows of
+  the next street's dead ranch houses with their backs to our wall, four old palms over them, the city's glow faint on the haze low over
+  the ridge (a far card inside the lens's 600 m: the first one stood at 900 m and never drew; the second was a hard white stripe).
+- THE GATE MADE STRICTER ON THE WAY: a lot's "alone" picture used to keep the walls and poles in front of it, so a real thing standing in
+  front of a lot never counted against it (only a painted one did). The alone picture is now the lot with nothing else in the world;
+  the near set stands in the full picture as an occluder. Still 12 of 12 in every camera, upright and sideways: worst lot 65% seen,
+  smallest tap box 47.7 points. S7 (new): every camera has its near layer, both shapes, three frames, by the script.
+- Only the near layer (18 pictures), the plate (18) and the gate were rendered again; the 528 piece pictures stand (the cameras did not move).
+THE HONEST LINE FOR HIM: the cameras could not come lower or closer and keep all twelve lots big enough to tap upright (measured on
+about 1,300 mounts); what is new is the camera's own world in front of it and the street around the block.

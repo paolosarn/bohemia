@@ -6,7 +6,11 @@ Record: records/BOHEMIA_HOME_THROUGH_ITS_OWN_CAMERAS_11_3_26.md (last section). 
   barrel lens, cameras on the street's own poles across from the gate (13 to 14.8 m: 3 to 4 m measured and failed the twelve lots), the
   gate lamp, power lines, a wreck and a sign in front, a coyote looking round; template steps 1.4 m, lots 9 m wide.
 - Pieces render per lot of their row (perspective), 528 pictures by machine; the block's own shadows taken out by an empty-scene pass.
-- Gate 10/0: twelve of twelve in every camera both ways (worst 65% seen, smallest tap 48 pt), S6 intimate lens and mount.
+- Gate 12/0: twelve of twelve in every camera both ways (worst 65% seen, smallest tap 48 pt), S6 intimate lens and mount, S7 the near layer.
+- SECOND LOOK before registering: beside feed B it failed (the lots a 26% band). Measured on ~1,300 mounts and three smaller blocks: twelve
+  thumb-sized lots upright cap any camera at 11 to 13 m and ~30% fill. So: THE NEAR SET at the lenses (lamp arm, crossarm and lines,
+  sneakers on the wire, goosenecks, vinyl, a web, a palm, a pickup, a cart; IR-lit), its own layer drawn last (near/, 18 pictures); the tract
+  beyond the back wall and the city glow in the plate. Gate stricter (a lot alone = nothing else in the world), 12/0 with S7 the near layer.
 - VOTE: home-cameras-intimate-11-3 (WAS beside NOW, upright and sideways). The three views are close (all twelve upright pulls them to the
   middle of the street): said in the record.
 NEXT: the acts (CAM 4 inside), the planting on the map, the screen wired into the game for a planted place.

@@ -23,6 +23,7 @@ MODULAR, OR IT IS NOT BUILT. This one script makes every picture of your settlem
   /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py plate block    the base plate, every camera
   /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py piece <id|all>  a piece, every state, every camera
   /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py gate             the twelve-of-twelve renders
+  /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py near             what hangs at each lens, every camera
   python3 tools/bohemia_home_settlement_pipeline_11_3_26.py post [act1]                the look, at the source, baked into every picture
   python3 tools/bohemia_home_settlement_pipeline_11_3_26.py card                       the look test's VOTE card (the default block)
   -> records/target/home_settlement/ (manifest.json, plates/, pieces/, gate/)
@@ -72,6 +73,19 @@ def cams_hash(): return hashlib.sha1(json.dumps([CAMS, SIZES], sort_keys=True).e
 FOREGROUND = [('gate_light_pole', (15.6, 2.2, 0.0, 0.11, 6.8)), ('sign_post', (3.3, 2.4, 0.0, 0.06, 1.6)), ('hydrant', (27.0, 1.9, 0.0, 0.14, 0.8))]
 # the night (the starred feed's): the moon low and cold, three sodium heads on poles over the lots, one dying
 LAMPS = [(15.6, 2.2, 6.8), (0.6, 11.0, 7.0), (BW - 0.6, 11.0, 7.0), (0.6, 23.0, 8.0), (BW - 0.6, 23.0, 8.0), (20.5, 41.6, 10.0)]   # the gate's, two on the side walls per row, one on the back wall: none stands in front of a lot
+
+# ---- WHAT STANDS AT THE LENSES (rule 373, second look: measured, 12 thumb-sized lots upright keep every camera 11 to 13 m up and the
+# lots a band across the middle, whatever the block's size; so the closeness is what hangs right at each lens, as the starred feed's
+# pole and car are). ONE near set for the whole street, seen by all three cameras from where it stands, so the world agrees between
+# cuts: the street light's arm over CAM 1, a fan palm beside it, a dead pickup at its foot; the pole's bracket and insulators over
+# CAM 2, two lines across the street, a pair of sneakers hung on the low one, a shopping cart on its side; the billboard's gooseneck
+# lamps over CAM 3, a strip of its vinyl caught on one, a web across its housing. Lit by the night and by each camera's own infrared
+# ring (so what is nearest glows, the real night camera's look). Drawn over every lot's piece: where it shows, it is nearer than any
+# lot; the gate counts it standing in front of the lots.
+NEAR = ['the street light arm and dead head over CAM 1', 'a fan palm beside CAM 1', 'a dead pickup at the kerb under CAM 1',
+        'the bracket and insulators over CAM 2', 'two lines across the street', 'sneakers hung on the low line', 'a shopping cart on its side',
+        'two gooseneck lamps over CAM 3', 'a strip of torn vinyl caught on one', 'a web across CAM 3\'s housing']
+IR_W = 90.0                                  # each camera's infrared ring (a point at the lens, watts): inverse square, the near things glow
 
 # ---- THE PIECES (one model each; a row they may stand on; their states) -----------------------------------------------------------
 PIECES = {
@@ -216,6 +230,7 @@ def plate(kind='block', look='act1'):
     P, BLD, V, K = _kit(bpy, rnd)
     if kind != 'block': raise SystemExit('only the walled block is drawn so far')
     ground, coyote = _block(bpy, rnd, K, P, V, F)
+    _beyond(bpy, P, K, V, rnd)
     meshes = [o for o in sc.objects if o.type == 'MESH']
     RIG.source_pass(meshes, float(RIG.G['wear']), 1.0, 5); RIG.dent_pass(meshes, 1.0)
     arm = [o for o in bpy.data.objects if o.type == 'ARMATURE']; clip = bpy.data.actions.get('Survey_root')
@@ -237,7 +252,7 @@ def plate(kind='block', look='act1'):
         bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get(); lo, hi = posed()
         coyote.location.x += 9.0 - (lo[0] + hi[0]) / 2; coyote.location.y += 12.0 - (lo[1] + hi[1]) / 2; coyote.location.z -= lo[2]
         print('  coyote posed', round(span, 2), 'm ->', round(max(hi[0] - lo[0], hi[1] - lo[1]), 2), 'm', flush=True)
-    _night(bpy, sc, RIG, LOOKS[look]['samples'], False); ev0 = sc.view_settings.exposure
+    _night(bpy, sc, RIG, LOOKS[look]['samples'], False); ev0 = sc.view_settings.exposure; _glow(bpy, sc)
     cam = _camera(bpy, sc); os.makedirs(RAW, exist_ok=True)
     for cn in CAMS:
         for sh in SIZES:
@@ -302,9 +317,123 @@ def empty(look='act1'):
     print('  empty', flush=True)
 
 
+PALM = (26.2, -2.2, 16.4)                    # a Washingtonia beside CAM 1's street light: trunk to 16.4 m, its crown over every lens
+LINES = [(-3.6, 15.6), (-2.0, 15.6)]         # the two lines along the street (y, height at CAM 2's pole), sagging 0.65 m between poles
+
+
+def _palm(bpy, P, K, px, py, z0, h, sw, dead):
+    """a Washingtonia: the trunk, the crown, the skirt of old fronds hanging under it"""
+    pz = z0 + h; P.cyl(bpy, 'palm_trunk', K.wood, 0.3, h, (px, py, z0 + h / 2), verts=10)
+    for k in range(18):
+        yaw = k * 2 * math.pi / 18 + 0.2 + px; skirt = k % 3 == 0
+        tilt = math.radians((-62 if skirt else -12 + 26 * ((k * 7) % 5) / 4.0) + 2.5 * sw)
+        L_ = 1.6 if skirt else 2.5; cxp = px + 0.6 * L_ * math.cos(yaw) * math.cos(tilt); cyp = py + 0.6 * L_ * math.sin(yaw) * math.cos(tilt)
+        P.box(bpy, 'frond', dead, (L_, 0.75 if not skirt else 0.5, 0.03), (cxp, cyp, pz + 0.6 * L_ * math.sin(tilt)), rot=(0, -tilt, yaw))
+
+
+BEYOND = [('ranch_plain', -7.0), ('ranch_wing', 5.0), ('ranch_garage', 17.0), ('ranch_carport', 29.0), ('ranch_plain', 41.0), ('ranch_wing', 53.0)]
+
+
+def _beyond(bpy, P, K, V, rnd):
+    """THE TRACT BEYOND THE BACK WALL (the plate only, behind every lot): the grade steps up again, the dead ranch houses of the next
+    street face the block over their own walls, two rows, and old palms stand over them against the city's glow"""
+    G = {n: __import__('bohemia_cook_the_floor_not_final_10_20_26').F.ground_material(bpy, n) for n in ('rough', 'caliche')}
+    V.Bx(K, 'beyond1', G['rough'], -60, 110, 42.1, 58.0, 0.0, 4.2); V.Bx(K, 'beyond2', G['caliche'], -60, 110, 58.0, 140.0, 0.0, 5.6)
+    pl = V.Town(bpy, P, rnd); dead = V.hexmat(bpy, 'palm_dead', (132, 116, 80))
+    for row, (yf, z, sc_) in enumerate(((45.0, 4.2, 1.0), (61.0, 5.6, 0.95))):
+        for k, (bld, x) in enumerate(BEYOND):
+            root, _ = pl.model('bld_%s.glb' % bld, x + 6.0 * row, yf, width=9.6 * sc_, rot=math.pi)
+            root.location.z += z
+    for (x, y, h) in ((-1.0, 55.0, 15.5), (23.5, 56.0, 18.0), (36.0, 70.0, 13.0), (51.0, 54.0, 16.5)):
+        _palm(bpy, P, K, x, y, 4.2 if y < 58 else 5.6, h, 0.0, dead)
+
+
+def _glow(bpy, sc):
+    """the city's glow on the haze low over the ridge (the plate only): a far card, faint at the horizon, gone by 15 degrees up"""
+    me = bpy.data.meshes.new('glow'); me.from_pydata([(-500, 450, -40), (600, 450, -40), (600, 450, 120), (-500, 450, 120)], [], [(0, 1, 2, 3)])   # inside the lens's 600 m
+    o = bpy.data.objects.new('glow', me); sc.collection.objects.link(o)
+    m = bpy.data.materials.new('glow'); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
+    tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); mr = nt.nodes.new('ShaderNodeMapRange')
+    mr.inputs['From Min'].default_value = -20.0; mr.inputs['From Max'].default_value = 120.0; mr.inputs['To Min'].default_value = 1.0; mr.inputs['To Max'].default_value = 0.0
+    pw = nt.nodes.new('ShaderNodeMath'); pw.operation = 'POWER'; pw.inputs[1].default_value = 2.0
+    em = nt.nodes.new('ShaderNodeEmission'); em.inputs['Color'].default_value = (1.0, 0.62, 0.36, 1.0)
+    st = nt.nodes.new('ShaderNodeMath'); st.operation = 'MULTIPLY'; st.inputs[1].default_value = 0.16
+    out = nt.nodes.new('ShaderNodeOutputMaterial')
+    nt.links.new(tc.outputs['Object'], sep.inputs[0]); nt.links.new(sep.outputs['Z'], mr.inputs['Value']); nt.links.new(mr.outputs['Result'], pw.inputs[0])
+    nt.links.new(pw.outputs[0], st.inputs[0]); nt.links.new(st.outputs[0], em.inputs['Strength']); nt.links.new(em.outputs[0], out.inputs['Surface'])
+    o.data.materials.append(m); o.visible_shadow = False
+    return o
+
+
+def _near(bpy, K, P, V, f=0):
+    """THE NEAR SET, for frame f (the fronds and the vinyl move a little with the wind): every object it makes is returned"""
+    import bohemia_cook_the_settlements_through_the_rig_10_20_26 as S0
+    before = set(bpy.data.objects); sw = (-1.0, 0.0, 1.0)[f % 3]; Bx = lambda n, m, *a, **k: V.Bx(K, n, m, *a, **k)
+    dead = V.hexmat(bpy, 'palm_dead', (132, 116, 80)); porcelain = V.hexmat(bpy, 'porcelain', (214, 208, 196))
+    vinyl = V.hexmat(bpy, 'vinyl', (206, 200, 188)); white = V.hexmat(bpy, 'sneaker', (226, 222, 214)); silk = V.hexmat(bpy, 'web', (150, 150, 146))
+    # CAM 1: the street light's arm reaching out over the lens, its dead head; the palm; a pickup dead at the kerb under it
+    P.rod(bpy, 'light_arm', K.steel, (20.5, -5.5, 14.2), (20.5, -2.4, 14.75), 0.06)
+    hd = P.cyl(bpy, 'light_head', K.dark, 0.3, 1.0, (20.5, -2.1, 14.7), rot=(math.radians(84), 0, 0), verts=12); hd.scale = (1.0, 0.5, 1.0)
+    gl = P.cyl(bpy, 'light_glass', K.steel, 0.22, 0.7, (20.5, -2.1, 14.56), rot=(math.radians(84), 0, 0), verts=12); gl.scale = (1.0, 0.3, 1.0)
+    _palm(bpy, P, K, PALM[0], PALM[1], 0.0, PALM[2], sw, dead)
+    S0.Place(bpy, P, random.Random(5)).model('truck.glb', 17.2, 0.2, rot=math.radians(90))
+    # CAM 2: the crossarm out over the street, two insulators, the two lines, the sneakers on the low one, a cart on the far kerb
+    P.rod(bpy, 'crossarm', K.wood, (18.5, -6.4, 15.4), (18.5, -1.6, 15.4), 0.07)
+    for (y, z) in LINES:
+        P.cyl(bpy, 'insulator', porcelain, 0.08, 0.24, (18.5, y, z - 0.08), verts=10)
+        pts = [(x, y, z - 0.65 * math.sin(math.pi * min(1.0, abs(x - 18.5) / 45.0))) for x in range(-27, 66, 3)] + [(18.5, y, z)]
+        pts.sort()
+        for a_, b_ in zip(pts, pts[1:]): P.rod(bpy, 'line', K.dark, a_, b_, 0.025, 6)
+    ly, lz = LINES[1]; xs = 15.6; zl = lz - 0.65 * math.sin(math.pi * abs(xs - 18.5) / 45.0)
+    for k, dx in enumerate((-0.12, 0.14)):                       # one pair, tied by the laces, thrown over the line
+        P.rod(bpy, 'lace', silk, (xs, ly, zl), (xs + dx, ly, zl - 0.32 - 0.05 * k), 0.006, 4)
+        P.box(bpy, 'sneaker', white, (0.11, 0.29, 0.11), (xs + dx, ly, zl - 0.42 - 0.05 * k), rot=(math.radians(70 + 8 * sw), 0, math.radians(20 * k)))
+    S0.Place(bpy, P, random.Random(6)).model('cart.glb', 9.5, -7.4, rot=math.radians(-30))
+    # CAM 3: two gooseneck lamps reaching out from the billboard over the lens, the vinyl caught on the right one, a web on the housing
+    for gx in (20.4, 24.0):
+        P.rod(bpy, 'goose', K.steel, (gx, -4.6, 15.9), (gx, -2.2, 16.6), 0.05); Bx('goose_head', K.dark, gx - 0.3, gx + 0.3, -2.45, -1.95, 16.2, 16.55)
+    v = P.box(bpy, 'vinyl', vinyl, (0.55, 0.02, 1.15), (23.7, -2.5, 15.95), rot=(math.radians(10 * sw), 0, math.radians(18 + 9 * sw)))
+    cx_, cy_, cz_ = 21.62, -3.7, 15.1                            # the web: torn, in the housing's corner, over the lens only
+    wr = random.Random(9)
+    def wpt(a, r): return (cx_ + r * math.cos(a), cy_ + 0.12 * r * math.sin(a), cz_ + r * math.sin(a))
+    sp = [math.pi * (0.08 + 0.84 * k / 5.0) + wr.uniform(-0.12, 0.12) for k in range(6)]
+    for a in sp: P.rod(bpy, 'web', silk, (cx_, cy_, cz_), wpt(a, wr.uniform(0.32, 0.5)), 0.0018, 3)
+    for r in (0.14, 0.24, 0.31):
+        for a, b in zip(sp, sp[1:]):
+            if wr.random() < 0.72: P.rod(bpy, 'web', silk, wpt(a, r * wr.uniform(0.9, 1.1)), wpt(b, r * wr.uniform(0.9, 1.1)), 0.0015, 3)
+    return [o for o in bpy.data.objects if o not in before]
+
+
+def near(look='act1'):
+    """THE NEAR LAYER, every camera, upright and sideways, three frames: the near set in the full street (the block holding out, its
+    ground catching the near things' shadows), the night's light and each camera's infrared ring"""
+    for f in range(3):
+        bpy, mathutils, sc, NF, RIG = _scene(); F = NF.F; rnd = random.Random(73); P, BLD, V, K = _kit(bpy, rnd)
+        ground, _ = _block(bpy, rnd, K, P, V, F, life=False)
+        for o in [o for o in sc.objects if o.type == 'MESH']:
+            if o in ground: o.is_shadow_catcher = True
+            else: o.is_holdout = True
+        ms = [o for o in _near(bpy, K, P, V, f) if o.type == 'MESH']
+        RIG.source_pass(ms, float(RIG.G['wear']), 1.0, 5); RIG.dent_pass(ms, 1.0)
+        _night(bpy, sc, RIG, LOOKS[look]['samples'], True)
+        for cn, C in CAMS.items():
+            L = bpy.data.lights.new('ir%d' % cn, 'POINT'); L.energy = IR_W; L.shadow_soft_size = 0.05; L.color = (0.92, 0.95, 1.0)
+            o = bpy.data.objects.new('ir%d' % cn, L); sc.collection.objects.link(o); o.location = C['loc']
+        lo = min((o.matrix_world @ mathutils.Vector(c)).z for o in ms for c in o.bound_box)
+        cam = _camera(bpy, sc); os.makedirs(RAW, exist_ok=True)
+        for cn in CAMS:
+            for sh in SIZES:
+                _aim(bpy, mathutils, sc, cam, cn, sh); sc.cycles.seed = 5 + f
+                sc.render.filepath = os.path.join(RAW, 'near_cam%d_%s_%d.png' % (cn, sh, f)); bpy.ops.render.render(write_still=True)
+        print('  near frame', f, flush=True)
+        json.dump(dict(cams=cams_hash(), near=NEAR, frames=3, lowest_m=round(lo, 2)), open(os.path.join(RAW, 'near.json'), 'w'))
+
+
 def gate():
-    """THE TWELVE OF TWELVE: every lot at its row's tallest, the plate's walls and the foreground as they stand; flat colours: one picture
-    all together and one per lot alone, every camera, upright and sideways"""
+    """THE TWELVE OF TWELVE: every lot at its row's tallest, the plate's walls, the foreground and the near set as they stand; flat
+    colours: one picture all together, and one per lot ALONE (nothing else in the world, on a canvas twice as big), every camera, upright
+    and sideways: a lot's share seen is what the full street shows of it over the whole lot, so a wall, a pole, a palm or the frame's
+    edge in front of it all count against it"""
     bpy, mathutils, sc, NF, RIG = _scene()
     def flat(name, rgb):
         m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
@@ -321,6 +450,12 @@ def gate():
     for (x, y, z) in LAMPS: box('pole', black, x - 0.09, x + 0.09, y - 0.09, y + 0.09, 0, z)
     box('sign', black, 2.6, 4.0, 2.35, 2.42, 1.0, 1.6)
     box('wreck', black, 28.8, 33.2, -2.5, -0.6, 0.0, 1.5)
+    P, BLD, V, K = _kit(bpy, random.Random(73))                  # the near set, as it stands on frame 0, all of it black
+    for o in _near(bpy, K, P, V, 0):
+        if o.type == 'MESH':
+            o.data.materials.clear(); o.data.materials.append(black)
+            for pg in o.data.polygons: pg.material_index = 0
+    occ = [o for o in sc.objects if o.type == 'MESH']
     objs = {}
     for L in LOTS:
         x0, y0, x1, y1 = L['box']; m = flat('lot%d' % L['n'], ((L['n'] * 20) / 255.0, 0.0, 0.0))
@@ -339,11 +474,13 @@ def gate():
             # cuts off counts as not seen: a lot half outside the picture is half seen, never 'all of what is in frame'
             W0, H0 = sc.render.resolution_x, sc.render.resolution_y
             sc.render.resolution_x, sc.render.resolution_y = 2 * W0, 2 * H0; cam.data.sensor_width = 72.0
+            for o in occ: o.hide_render = True                 # the lot alone: nothing else in the world
             for n in objs:
                 for m_, oo in objs.items():
                     for o in oo: o.hide_render = (m_ != n)
                 sc.render.filepath = os.path.join(RAW, 'gate_cam%d_%s_lot%d.png' % (cn, sh, n)); bpy.ops.render.render(write_still=True)
             sc.render.resolution_x, sc.render.resolution_y = W0, H0; cam.data.sensor_width = 36.0
+            for o in occ: o.hide_render = False
     print('  gate', flush=True)
 
 
@@ -406,6 +543,18 @@ def post(look='act1'):
                         a = np.asarray(Image.open(os.path.join(RAW, 'plate_%s_cam%d_%s_%d.png' % (kind, cn, sh, f))).convert('RGB'))
                         Image.fromarray(medium(a, f, look)).save(os.path.join(OUT, 'plates', '%s_cam%d_%s_%d.png' % (kind, cn, sh, f)), optimize=True)
             man['plates'][kind] = dict(frames=3, cams=pj['cams'])
+    if os.path.exists(os.path.join(RAW, 'near.json')):          # what hangs at each lens: one full-frame layer per camera, shape, frame
+        nj = json.load(open(os.path.join(RAW, 'near.json'))); os.makedirs(os.path.join(OUT, 'near'), exist_ok=True)
+        for cn in CAMS:
+            for sh in SIZES:
+                E0 = np.asarray(Image.open(os.path.join(RAW, 'empty_cam%d_%s.png' % (cn, sh))).convert('RGBA'))[..., 3] / 255.0
+                for f in range(3):
+                    L = np.asarray(Image.open(os.path.join(RAW, 'near_cam%d_%s_%d.png' % (cn, sh, f))).convert('RGBA')); al = L[..., 3] / 255.0
+                    al = np.where(al > 0.95, al, np.clip(al - E0 - 0.04, 0, 1)); al = np.where(al > 0.12, al, 0.0)
+                    q = medium(L[..., :3] * al[..., None], f, look, alpha=al)
+                    o = np.zeros(L.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(al > 0.5, 255, (al > 0.12) * 150)
+                    Image.fromarray(o).save(os.path.join(OUT, 'near', 'cam%d_%s_%d.png' % (cn, sh, f)), optimize=True)
+        man['near'] = dict(what=nj['near'], frames=nj['frames'], cams=nj['cams'], lowest_m=nj.get('lowest_m'), ir_w=IR_W)
     for fn in sorted(os.listdir(RAW)):
         if not (fn.startswith('piece_') and fn.endswith('.json')): continue
         pj = json.load(open(os.path.join(RAW, fn))); pid = pj['id']; ent = dict(row=PIECES[pid]['row'], src=pj['src'], states={}, cams=pj['cams'])
@@ -487,6 +636,8 @@ def compose(layout, cn, f, shape):
         if not P: continue
         im = Image.open(os.path.join(OUT, 'pieces', P['pictures'][f % len(P['pictures'])])).convert('RGBA')
         layer = Image.new('RGBA', base.size); layer.paste(im, tuple(P['xy'])); base = Image.alpha_composite(base, layer)
+    nf = os.path.join(OUT, 'near', 'cam%d_%s_%d.png' % (cn, shape, f))
+    if M.get('near') and os.path.exists(nf): base = Image.alpha_composite(base, Image.open(nf).convert('RGBA'))   # the lens's own world, last
     return base.convert('RGB')
 
 
@@ -511,8 +662,8 @@ def card(was_dir='/tmp/claude-0/was'):
     frames = []
     for f in range(3):
         im = Image.new('RGB', (W, H), (20, 18, 16)); d = ImageDraw.Draw(im)
-        d.text((gap, 8), 'YOUR SETTLEMENT\'S CAMERAS: WAS  /  NOW (low, a wide lens, night, all 12 lots in every one)', font=F_(20), fill=(232, 222, 200))
-        d.text((gap, 36), 'gate, every lot at its tallest: 12 of 12 in every camera upright and sideways; worst lot %d%% seen, smallest tap box %d points'
+        d.text((gap, 8), 'YOUR SETTLEMENT\'S CAMERAS: WAS  /  NOW (night, a wide lens, its own pole and wires in front, all 12 lots in every one)', font=F_(20), fill=(232, 222, 200))
+        d.text((gap, 36), 'gate, every lot at its tallest, the near things standing in front: 12 of 12 in every camera upright and sideways; worst lot %d%% seen, smallest tap box %d points'
                % (round(G['worst_seen'] * 100), G['worst_tap_pt']), font=F_(13), fill=(226, 176, 82))
         for i, cn in enumerate((1, 2, 3)):
             x = gap + i * 2 * (tw + gap); y = head + 22
@@ -544,5 +695,6 @@ if __name__ == '__main__':
         else: piece(a[1]); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'gate': gate(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'empty': empty(); sys.stdout.flush(); os._exit(0)
+    elif a[0] == 'near': near(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'post': post(a[1] if len(a) > 1 else 'act1')
     elif a[0] == 'card': card()
