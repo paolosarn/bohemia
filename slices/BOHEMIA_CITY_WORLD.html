@@ -93215,6 +93215,7 @@ window.BOHEMIA_SKIN = (function(){
   }
 
   function build(){
+    return true;   /* (true: done, so nothing retries) COORDINATOR 11/3, rule 357(a): the NOTES chip is gone from the game (Paolo: 'from the top right to the phone, anything with the Notes button, remove it'); nothing builds it */
     var R=document.getElementById('barright');
     if(!R || document.getElementById('notebtn')) return !!document.getElementById('notebtn');
     css();

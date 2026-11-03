@@ -130,7 +130,7 @@ async function side(profile) {
         await tapApp('settings'); await p.waitForTimeout(700);   /* rule 238(a): SETTINGS is on the phone (the bar's gear steps aside) */
         const card = await p.evaluate(() => { const b = document.getElementById('setphone'); if (!b) return null; b.scrollIntoView({ block: 'center' });
           return { h: b.querySelector('.seth') && b.querySelector('.seth').textContent, apps: b.querySelectorAll('.pa').length }; });
-        ok('SETTINGS on the phone opens the game\'s SETTINGS card, and it carries THE PHONE (the corner and the row\'s four)', !!card && /PHONE/.test(card.h) && card.apps === 4, JSON.stringify(card));
+        ok('SETTINGS on the phone opens the game\'s SETTINGS card, and it carries THE PHONE (the corner and the row\'s three: NOTES is gone, rule 357(a))', !!card && /PHONE/.test(card.h) && card.apps === 3, JSON.stringify(card));
         await p.waitForTimeout(300);
         const before = await p.evaluate('(' + PHONE + ')()');
         await tapIn(p.mainFrame(), '#setphone [data-side=left]');
@@ -142,16 +142,16 @@ async function side(profile) {
           && await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-left')), 'events ' + ev0 + ' -> ' + ev1);
         /* an app moved up goes first in the row; HIDE takes it off (SETTINGS never hides); then back as it was */
         await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=up]'); await p.waitForTimeout(200);
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=notes] [data-do=hide]'); await p.waitForTimeout(200);
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=crew] [data-do=hide]'); await p.waitForTimeout(200);
         const re = await p.evaluate('(' + PHONE + ')()');
         const row = re.apps.filter(a => !a.big).map(a => a.app);
-        ok('  RELATIONS moved up goes first in the row; NOTES hidden leaves three; PLAY and HEAL stay', row.join() === 'relations,crew,settings' && re.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal'
+        ok('  RELATIONS moved up goes first in the row; CREW hidden leaves two (NOTES is gone, rule 357(a)); PLAY and HEAL stay', row.join() === 'relations,settings' && re.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal'
           && !(await p.evaluate(() => !!document.querySelector('#setphone .pa[data-a=settings] [data-do=hide]'))),
           re.apps.map(a => a.app + (a.big ? '*' : '')).join(' '));
         await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=down]'); await p.waitForTimeout(200);
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=notes] [data-do=hide]'); await p.waitForTimeout(200);
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=crew] [data-do=hide]'); await p.waitForTimeout(200);
         const back = await p.evaluate('(' + PHONE + ')()');
-        ok('  and back as it was by the same presses', back.apps.map(a => a.app).join() === 'play,heal,crew,relations,notes,settings', back.apps.map(a => a.app).join(' '));
+        ok('  and back as it was by the same presses', back.apps.map(a => a.app).join() === 'play,heal,crew,relations,settings', back.apps.map(a => a.app).join(' '));
         await p.evaluate(() => { const c = document.getElementById('setclose'); if (c) c.click(); else document.getElementById('setwrap').classList.remove('on'); });
         await p.waitForTimeout(600);
       }
@@ -162,7 +162,7 @@ async function side(profile) {
       ok('[' + sd + '] the map: the phone is on, in the ' + sd + ' bottom corner, inside the glass', M.on && M.screen === 'map' && M.R.side === sd && M.R.bottom <= M.H && M.R.bottom >= M.H - 60
         && (sd === 'right' ? M.R.right <= M.W && M.R.right >= M.W - 60 : M.R.left >= 0 && M.R.left <= 60), fmt(M.R) + ' of ' + M.W + 'x' + M.H);
       ok('  the page draws it where BOH_PHONE_RECT says, and the map\'s own page answers the same', same(M.R, M.dom) && same(M.R, await fr.evaluate(() => BOH_PHONE_RECT())), fmt(M.dom));
-      ok('  PLAY and HEAL and the row\'s small icons (238), every one\'s centre hit-tests to itself', M.apps.length === 6 && M.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal' && M.apps.every(a => a.self), M.apps.map(a => a.app + (a.self ? '' : '!')).join(' '));
+      ok('  PLAY and HEAL and the row\'s small icons (238), every one\'s centre hit-tests to itself', M.apps.length === 5 && M.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal' && M.apps.every(a => a.self), M.apps.map(a => a.app + (a.self ? '' : '!')).join(' '));
       /* rule 286(b): every action has one button on the glass: the bar's gear and NOTES are the phone's, off the glass; the bar's crew
          chip stays as a readout (his lead's face, the head count, their blood) with no press, CREW being the phone's */
       { const dup = await fr.evaluate(() => ['#bmtb .t.gear', '#notebtn'].filter(q => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; })
@@ -294,11 +294,11 @@ async function side(profile) {
         ok('RELATIONS opens in one tap: every town, how it takes you, and why', !!RL && RL.page === 'relations' && RL.rows.length >= 10 && RL.rows.every(r => /(HOSTILE|THREATENING|UNFRIENDLY|COLD|NEUTRAL|OPEN|FRIENDLY|ALLIED) \d+/.test(r)),
           RL && (RL.rows.length + ' towns: ' + RL.rows.slice(0, 2).join(' / ')));
         await tapIn(p.mainFrame(), '#bohphone .page .ph'); await p.waitForTimeout(250);
-        /* ---- NOTES on the phone (rule 238(a)): the map's own notes open from it, and fold again from it ---- */
-        await tapApp('notes'); await p.waitForTimeout(500);
-        const nOn = await fr.evaluate(() => !!document.querySelector('#notewrap.on'));
-        await fr.evaluate(() => { try { BohemiaNotes.close(false); } catch (e) {} }); await p.waitForTimeout(300);
-        ok('NOTES on the phone opens the notes (the bar\'s own, pressed from the phone)', nOn, 'open ' + nOn);
+        /* ---- RE-AIMED 11/3 BY THE COORDINATOR (rule 357(a), Paolo: 'remove all notes buttons everywhere... from the top right to the
+           phone'): NOTES is gone: no notes app on the phone, no NOTES chip in the map's bar ---- */
+        const nGone = await p.evaluate(() => !document.querySelector('#bohphone .app[data-app=notes]'));
+        const chipGone = await fr.evaluate(() => !document.getElementById('notebtn'));
+        ok('NOTES IS GONE: no notes app on the phone and no NOTES chip in the map\'s bar (rule 357(a))', nGone && chipGone, 'phone app gone ' + nGone + ', map chip gone ' + chipGone);
         /* ---- THE JOB COLUMN (rules 227, 228): the main quest's slot first, then the jobs he is on, X and DROP, PLAY to the job ---- */
         const COL = () => p.evaluate(() => { const jb = document.querySelector('#bohphone .home .jobs'); if (!jb) return null; const sc = document.querySelector('#bohphone .scr').getBoundingClientRect();
           const kids = [...jb.children].filter(k => k.getBoundingClientRect().height > 0);
@@ -492,7 +492,7 @@ async function side(profile) {
       { const FR = await p.evaluate(() => [...document.querySelectorAll('#bohphone .fight .frow .app')].map(a => { const r = a.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return a.dataset.app + (h && a.contains(h) ? '' : '!'); }));
         const dup = await f.evaluate(() => ['#bmtb .t.gear', '#notebtn'].filter(q => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && getComputedStyle(e).display !== 'none'; })
           .concat(['#bmtb .t.crew'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0 && getComputedStyle(e).pointerEvents !== 'none'; })));   /* the crew chip a readout */
-        ok('  CREW, NOTES and SETTINGS ride the fight\'s phone, and the fight\'s bar has no copy of them', FR.join() === 'crew,notes,settings' && !dup.length, FR.join(' ') + ' / bar ' + (dup.join(' ') || 'none')); }
+        ok('  CREW and SETTINGS ride the fight\'s phone (NOTES is gone, rule 357(a)), and the fight\'s bar has no copy of them', FR.join() === 'crew,settings' && !dup.length, FR.join(' ') + ' / bar ' + (dup.join(' ') || 'none')); }
       U = await under([f]);
       ok('  no press of the fight lies under the phone', !U.length, U.join(' | ') || 'none');
       /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4, asks 265 and 275): the crew is on the phone (the turn strip, every face

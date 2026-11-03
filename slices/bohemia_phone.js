@@ -65,7 +65,9 @@
   /* rule 232(b): PLAY/PAUSE and HEAL/CAMP are on the phone ALWAYS, the two big buttons; rule 238(a): every other press of the map,
      the town and the fight lives on the phone too, small, in one row he orders (SETTINGS never hides: it is the way back);
      rule 286(c): the feed is on the face, never an app */
-  var APPS = ['crew', 'relations', 'notes', 'settings'];
+  /* COORDINATOR 11/3 (rule 357(a), Paolo again: 'remove all notes buttons everywhere, even the phone... from the top right to the
+     phone, anything with the Notes button, remove it from the game'): NOTES is gone from the phone's row. */
+  var APPS = ['crew', 'relations', 'settings'];
   var LABEL = { play: 'PLAY', heal: 'HEAL', crew: 'CREW', relations: 'RELATIONS', notes: 'NOTES', settings: 'SETTINGS', leave: 'LEAVE', feed: 'THE FEED' };   /* draft:true */
   var KEEP = ['settings'];
   /* THE HEAL RING (rule 232(b), Paolo: 'a medical icon maybe in a circle'): where the rig struck the ring's track on app_heal.png,
@@ -909,7 +911,7 @@
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { home.addEventListener(k, function () { clearTimeout(ht); }); });
     homeBuild();
     /* in a fight the same small icons ride under his abilities: the fight's own bar answers them (238(a)) */
-    ['crew', 'notes', 'settings'].forEach(function (a) { ph.querySelector('.frow').appendChild(appButton(a, 'sm')); });
+    ['crew', 'settings'].forEach(function (a) { ph.querySelector('.frow').appendChild(appButton(a, 'sm')); });
     /* his face is his sheet; a face in the turn strip is that man's sheet (the fight's own drawer) */
     ph.querySelector('.fh .fme').addEventListener('click', function () {
       var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.card) return;
