@@ -361,4 +361,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 337 | The fight maps need more love: every district its own ground, not the yellow-brown sand as the base everywhere | 336 | COMBAT MAPS 2 | SHIPPED (COMBAT MAPS 2, BUILD 11/3zx), NOT YET SEEN |
 | 338 | The loading screen voted NO (no words): two or three options in the VOTE tab | 336 | UI (next round) | QUEUED |
 | 339 | (said again) One post on the phone at a time, not two: shipped first, on its own | 329 | UI 4 | SHIPPED (UI 4, BUILD 11/3zw, with line 327), NOT YET SEEN |
-| 340 | 'I don't like what you did to the menu': which menu asked (the start screen, the phone's buttons, or the town menu); put back or redone on his answer | - | COORDINATOR, UI | ASKED: which menu |
+| 340 | 'I don't like what you did to the menu': which menu asked (the start screen, the phone's buttons, or the town menu); put back or redone on his answer | - | COORDINATOR, UI | ANSWERED 11/3: 'The start menu for demo is not final': the start screen is a work in progress; its redo goes with the loading screen's options (line 338), next UI round |
+| 341 | MORE CONTENT, every angle, token-efficient (Paolo 11/3): bosses #4 to #6 (THE BURN, THE SURVEYOR, THE CLIMB) end to end | 302 | BOSSES 3 | RUNNING (11/3) |
+| 342 | MORE CONTENT: 10 more side quests from the library and 15 more road events, people, places and things, never cards | 302 | CONTENT 2 | RUNNING (11/3) |
+| 343 | MORE CONTENT: five more lab-made beasts that could truly live in the Mojave now (and the mammoth question answered) | 302 | BEASTS (FACTIONS) | RUNNING (11/3) |
