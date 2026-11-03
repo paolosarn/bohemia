@@ -895,14 +895,21 @@ def chainlink(k, x0, y0, x1, y1, hgt=2.6, gate=None, wire=True, torn=None):
             k.line('gatepanel', ax + (bx_ - ax) * 0.4, ay + (by_ - ay) * 0.4, ax + (bx_ - ax) * 0.6, ay + (by_ - ay) * 0.6, 0.12, 0.12, 1.2)
 
 
-def pen(k, c, r, burst=False, horror=False):
+SPECIES = [(170, 56, 46), (66, 110, 132), (214, 178, 70), (226, 222, 210)]   # the pens' colour codes: dire wolf, sloth, bear, quarantine
+
+
+def pen(k, c, r, burst=False, horror=False, code=None):
     """a beast pen: a 10 m chain-link run on its pad, a plywood den with its dark door, a steel trough, straw"""
     x0, x1, y0, y1 = tile_m(c, r); ix0, ix1, iy0, iy1 = x0 + 1.0, x1 - 1.0, y0 + 1.0, y1 - 1.0
     chainlink(k, ix0, iy0, ix1, iy1, 3.0, gate='w', torn='nes' if burst else None)   # burst: three sides down, the tile open (debris)
     k.rgb('den', (128, 112, 90), 'clay_bone'); k.rgb('denroof', (82, 78, 72), 'tape_grey'); k.rgb('dark', (26, 24, 23), 'rubber')
     k.rgb('trough', (150, 152, 150), 'chrome'); k.rgb('straw', (176, 152, 102), 'tape_masking'); k.rgb('water', (60, 86, 92), 'clay_teal')
     dx, dy = ix1 - 3.0, iy1 - 2.6
-    k.box('den', dx, dy, 0.0, 3.6, 3.0, 1.9); k.roof('denroof', dx, dy, 1.9, 3.9, 3.3, 0.6)
+    rf = 'denroof'
+    if code is not None:                                         # its species' colour on the den's roof and the mat at its gate
+        rf = 'denroof_%d' % code; k.rgb(rf, SPECIES[code], 'clay_rust' if code == 0 else 'clay_teal' if code == 1 else 'clay_mustard' if code == 2 else 'tape_grey')
+        k.box(rf, ix0 + 0.9, (iy0 + iy1) / 2, 0.0, 1.4, 3.2, 0.03)
+    k.box('den', dx, dy, 0.0, 3.6, 3.0, 1.9); k.roof(rf, dx, dy, 1.9, 3.9, 3.3, 0.6)
     k.box('dark', dx - 0.6, dy - 1.51, 0.0, 1.0, 0.05, 1.1)
     if burst:                                                    # the den door chewed through, splinters on the pad
         k.rgb('splinter', (150, 132, 104), 'clay_bone')
@@ -969,8 +976,14 @@ def things_lab(k, bid):
     k.rgb('dark', (26, 24, 23), 'rubber')
     if bid == 'lab.1':
         for (c, r) in [(0, 0), (2, 0), (4, 0), (0, 1), (2, 1), (4, 1), (0, 3), (4, 3), (0, 4), (2, 4), (4, 4)]:
-            pen(k, c, r, horror=(c, r) == (2, 1))
+            pen(k, c, r, horror=(c, r) == (2, 1), code=(c * 3 + r) % 4)
         pen(k, 2, 3, burst=True)                                 # the one burst open from inside
+        k.rgb('placard', (214, 178, 60), 'clay_mustard'); k.rgb('placard_k', (30, 28, 27), 'rubber'); k.rgb('qtape', (214, 110, 50), 'clay_rust')
+        for (c, r) in [(0, 0), (2, 0), (4, 0), (0, 1), (2, 1), (4, 1), (0, 3), (2, 3), (4, 3), (0, 4), (2, 4), (4, 4)]:
+            x0, x1, y0, y1 = tile_m(c, r)                         # the biohazard placard on each pen's south fence (more love: rule 346)
+            k.box('placard', (x0 + x1) / 2 - 2.0, y0 + 0.92, 1.3, 0.9, 0.04, 0.9); k.box('placard_k', (x0 + x1) / 2 - 2.0, y0 + 0.9, 1.6, 0.4, 0.04, 0.3)
+        for (xa, ya, xb, yb) in ((13.0, 40.0, 23.0, 41.4), (37.0, 16.6, 46.0, 15.2), (13.5, 16.0, 17.0, 16.4)):
+            k.line('qtape', xa, ya, xb, yb, 0.12, 0.04, 1.0)       # quarantine tape across the lanes, torn short
         gurneys(k, 1, 2, 5); gurneys(k, 3, 2, 4)
         k.rgb('hose', (150, 60, 40), 'clay_rust')               # a hose run down the aisle to the pens
         pts = [(2.0, 30.5), (14, 31.5), (26, 29.5), (38, 30.8), (50, 29.6), (58, 30.4)]
@@ -2019,6 +2032,9 @@ DEAD = {
     'fremont.13': [('dead.tarp', 18.0, 28.0, 0)],
     'fremont.14': [('dead.cart', 30.0, 29.0, 0)],
     'fremont.15': [('dead.sidewalk', 30.0, 16.0, 0)],
+    'lab.1': [('dead.tarp', 30.0, 30.6, 0), ('dead.sidewalk', 18.0, 6.0, 1)],    # the staff who stayed with the animals
+    'lab.2': [('dead.bag_row', 42.0, 54.0, 0)],                             # bagged on the dock for a truck that never came
+    'lab.3': [('dead.tarp', 30.0, 30.0, 1)],
 }
 
 
@@ -2263,7 +2279,7 @@ def cards(ids=None):
         after = Image.open(os.path.join(R, m['after'])).convert('RGB'); play = Image.open(os.path.join(R, m['play'])).convert('RGB')
         C = Image.new('RGB', (390 * 3 + 16, 844 + 40), (14, 13, 12)); d = ImageDraw.Draw(C)
         for i, (im, t) in enumerate(((before, 'BEFORE (on main)'), (after, 'AFTER: ITS OWN BOARD'), (play, 'IN PLAY, ROUND %d' % m['round']))):
-            if i == 1 and os.path.exists(b346): t = 'AFTER: REBUILT' if pid in REBUILT_346 else 'AFTER: NO SEAMS'
+            if i == 1 and os.path.exists(b346): t = 'AFTER: ' + TITLE_346C[pid] if pid in TITLE_346C else 'AFTER: REBUILT' if pid in REBUILT_346 else 'AFTER: NO SEAMS'
             C.paste(im, (i * 398, 40)); d.text((i * 398 + 8, 11), t, fill=(236, 226, 196), font=font)
         fn = os.path.join(BASE, 'card_%s.webp' % pid); C.save(fn, quality=82, method=6); out[pid] = os.path.relpath(fn, R)
         print('  card', pid, os.path.getsize(fn) // 1024, 'KB')
@@ -2278,8 +2294,8 @@ def first_of(pid):
 
 
 REBUILT_346 = ('strip', 'downtown')
-SAID_346C = {'downtown': 'Hell nah that shit does not look right', 'strip': 'More work more love'}
-TITLE_346C = {'downtown': 'RETHOUGHT', 'strip': 'MORE LOVE'}
+SAID_346C = {'downtown': 'Hell nah that shit does not look right', 'strip': 'More work more love', 'lab': 'More work more love'}
+TITLE_346C = {'downtown': 'RETHOUGHT', 'strip': 'MORE LOVE', 'lab': 'MORE LOVE'}
 SAID_346 = {'strip': 'The worststtt this needs to be THE BESTTTT Work in progress keep going',
             'downtown': 'Looks like shit Work in progress keep going'}
 EVERY_GROUND_346 = ('Needs way more work watch out for atraight lines at grid borders and colors that end abruptly and roads that dont '
@@ -2312,8 +2328,8 @@ CARD_SAYS_346 = {
     'wash': ('The wash\'s silt floor lies a metre in from the channel\'s slopes now, so no line runs on the grid, and its gravel and '
              'stains stay off the block edges.'),
     'desert': ('The desert already held at its seams, and now its one boulder cut at a picture\'s edge sits whole inside it too.'),
-    'lab': ('The lab yard keeps its pens but its lot is the yard\'s own floor now, and every edge where two pictures meet is the '
-            'same sealed floor, so no line runs where the grid is.'),
+    'lab': ('The lab yard has more love: a biohazard placard on every pen, quarantine tape torn across the lanes, and the staff who '
+            'stayed with the animals, bagged on the dock for a truck that never came and under tarps in the aisles.'),
 }
 
 

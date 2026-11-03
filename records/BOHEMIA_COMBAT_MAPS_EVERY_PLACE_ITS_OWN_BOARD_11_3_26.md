@@ -277,3 +277,10 @@ COOK DEAD's models (records/target/dead/manifest.json, reference/models/bohemia/
   lot and one in the mall, a shopping cart in the alley, one on Ogden's kerb; graves only in the chapel's yard (somebody stayed).
 Scenery only (rule 360 amended (b)): no piece on a road's lane or a marked tile, no new rule; the doorway on its front's own blocked
 tile. Both boards: seams 0%, cell lines 0%, cut-offs 0%, roads 0 of 51, nothing cut at an edge; their logic lists re-checked by eye.
+
+## PUSH 8 (rule 346 AMENDED 'more work more love', rule 360 AMENDED): THE LAB YARD'S MORE LOVE
+- Each pen's den roof and its gate mat in its species' colour code (dire wolf red, sloth blue, bear yellow, quarantine white:
+  SPECIES in the tool), a biohazard placard on every pen's south fence, quarantine tape torn across the lanes.
+- The dead (COOK DEAD's count for the lab: a bag row, two tarps, one more): the staff who stayed with the animals, bagged on the
+  dock for a truck that never came, under tarps in the aisles, one between the pens; none in a pen or across a fence.
+- The lab: seams 0%, cell lines 1.6%, cut-offs 0.7%, roads 0 of 51, nothing cut at an edge; its logic list re-checked by eye.

@@ -90,7 +90,7 @@
   ]
  },
  "lab": {
-  "sha": "00e8a133b349",
+  "sha": "5c765dfe3a17",
   "when": "11/3",
   "by": "COMBAT MAPS 3, by eye on the live fight's shots",
   "checks": [
@@ -118,6 +118,16 @@
     "what": "the pallets stand beside the cold-store truck's open doors inside the block; no shed or roof reaches past the picture's edge",
     "ok": true,
     "how": "lab.2 picture and the edge leg"
+   },
+   {
+    "what": "the dead lie only where nobody was left to move them (rule 360 amended): the staff who stayed with the animals, a row of body bags on the dock for a truck that never came, under tarps in the aisles, one between the pens; none in a pen or across a fence",
+    "ok": true,
+    "how": "lab.1-3 pictures, COOK DEAD's models (DEAD in the tool)"
+   },
+   {
+    "what": "each pen's biohazard placard hangs on its own south fence; the quarantine tape runs across the open lanes, never through a fence",
+    "ok": true,
+    "how": "lab.1 picture"
    }
   ]
  },
