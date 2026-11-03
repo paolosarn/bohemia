@@ -10,10 +10,11 @@
    box about 25 px wide and 20 tall while his men stand 51 px, so the crew stood taller than the houses and nothing hid them
    (EYES q28, 10/25w). The block war's walk and the fight have real models; the map had none.
 
-   NOW, ONE PINCH ON THE SAME MAP AND THE SAME CAMERA: past a block 80 px every house lot the painter rolls (where it stood
+   NOW, ONE PINCH ON THE SAME MAP AND THE SAME CAMERA: from a block 96 px every house lot the painter rolls (where it stood
    at every zoom, the same rolls) gets the studio's own model (COOK's five ranch houses, COOK PROPS' single-wide in a trailer
    park), shot from THE MAP'S camera (corner-on, 30 down, the land's one sun: tools/bohemia_world_8_map_houses.py), standing
-   1.7 times its metres; from a block 100 px the painter lays those lots as yards and the models stand on them alone. The
+   2.0 times its metres, toned to the map's light; the painter lays those lots as yards and a tile's models stand the moment its
+   yards land (never a box and a model at once). The
    pinch goes on to THE STREET STOP, a block 380 CSS px, where a house is about 100 to 120 px tall to his 56 px men. His
    men, the roaming parties and the hunters walk BEHIND a model nearer the camera (the painting's own depth test, the same
    ghost of his outline when most of him is hidden). Up close THE WALK READS: past a block 90 px the crew crosses the glass at
@@ -23,7 +24,7 @@
    ============================================================================ */
 (function (root) {
   'use strict';
-  var H = { on: true, from: 80, full: 100, streetTW: 380, walkPx: 80, walkFrom: 90, B: 36, eps: 0.08,
+  var H = { on: true, from: 96, full: 96, tone: [0.70, 0.67, 0.62], grey: 0.3, streetTW: 380, walkPx: 80, walkFrom: 90, B: 36, eps: 0.08,
             houses: ['ranch_plain', 'ranch_porch', 'ranch_wing', 'ranch_garage', 'ranch_carport'], trailer: 'trailer' };
   var MAN = null, IMG = {}, AL = {}, ASKED = false, READY = false, FR = [], GRID = null, GC = 64;
   var LAST = { drew: 0, tiles: 0, lots: 0, culled: 0, unseen: 0, a: 0, ms: 0, covered: 0 };
@@ -40,8 +41,13 @@
         var im = new Image();
         im.onload = function () {
           try { var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d', { willReadFrequently: true });
-            x.drawImage(im, 0, 0); var d = x.getImageData(0, 0, c.width, c.height).data, a = new Uint8Array(c.width * c.height);
-            for (var i = 0; i < a.length; i++) a[i] = d[i * 4 + 3]; AL[k] = a; IMG[k] = im; } catch (e) {}
+            x.drawImage(im, 0, 0); var D = x.getImageData(0, 0, c.width, c.height), d = D.data, a = new Uint8Array(c.width * c.height);
+            /* toned to the map's own light once, at load (the painting is dust and shade; a render under the studio's sun is paler):
+               a third of the way to grey, then the map's warm dim; never a filter or a blend on the world canvas */
+            for (var i = 0; i < a.length; i++) { var o = i * 4, l = 0.299 * d[o] + 0.587 * d[o + 1] + 0.114 * d[o + 2];
+              for (var ch = 0; ch < 3; ch++) d[o + ch] = Math.round((d[o + ch] + (l - d[o + ch]) * H.grey) * H.tone[ch]);
+              a[i] = d[o + 3]; }
+            x.putImageData(D, 0, 0); AL[k] = a; IMG[k] = c; } catch (e) {}
           if (--left <= 0) { READY = true; try { MAP_GROUND.key = ''; render(); } catch (e) {} }
         };
         im.onerror = function () { if (--left <= 0) READY = Object.keys(IMG).length > 0; };
@@ -50,8 +56,9 @@
     };
     try { fetch('map_houses/manifest.json').then(function (r) { return r.json(); }).then(done).catch(function () {}); } catch (e) {}
   }
-  /* the models come in over the painted boxes from a block H.from px to H.full, then stand alone on the painter's yards */
-  function fade() { var t = (TW - H.from) / (H.full - H.from); return t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t); }
+  /* ONE HAND-OVER, NO GHOST (rule 142's measurement: a long fade is two cities through each other): from a block H.full px a
+     tile's houses are its models, and only once that tile's yards are laid (until then its painted boxes stand, never both) */
+  function fade() { return TW >= H.full ? 1 : 0; }
   function flat() { return on() && TW >= H.full; }
   function seen(x, y) { try { return typeof fogSeen !== 'function' || !!fogSeen(x, y); } catch (e) { return true; } }
   function pick(kind, along, roll, idx) {
@@ -73,7 +80,7 @@
     var t0 = performance.now(), list = VBT.onGlass, NT = VBT.NT; if (!list || !NT || !MAN) return;
     var k = TW / (Math.SQRT2 * H.B), ppm = MAN.ppm || 16, seenT = [];
     for (var ti = 0; ti < list.length; ti++) {
-      var T = list[ti]; if (!T || !T.lots || seenT.indexOf(T) >= 0) continue; seenT.push(T); LAST.tiles++;
+      var T = list[ti]; if (!T || !T.lots || !T.flat || seenT.indexOf(T) >= 0) continue; seenT.push(T); LAST.tiles++;
       var L = T.lots, bx0 = T.tx * VB_TILE, by0 = T.ty * VB_TILE;
       for (var j = 0; j + 9 < L.length; j += 10) {
         var gx = L[j + 1], gy = L[j + 2];
@@ -95,7 +102,6 @@
     for (var f = 0; f < FR.length; f++) { var q = FR[f]; g.drawImage(q.im, q.rx, q.ry, q.rw, q.rh); }
     g.globalAlpha = ga; g.imageSmoothingEnabled = sm;
     LAST.drew = FR.length; LAST.ms = Math.round((performance.now() - t0) * 100) / 100;
-    if (a < 0.5) FR = [];   /* half faded in, a model does not yet hide anyone (the painted box under it still does) */
     /* a grid of the glass, so a walker's pixel asks only the models over it */
     GRID = {}; for (var f2 = 0; f2 < FR.length; f2++) { var e = FR[f2];
       for (var gy2 = Math.floor(e.ry / GC); gy2 <= Math.floor((e.ry + e.rh) / GC); gy2++) for (var gx2 = Math.floor(e.rx / GC); gx2 <= Math.floor((e.rx + e.rw) / GC); gx2++) {

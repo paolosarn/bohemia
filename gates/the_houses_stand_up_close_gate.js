@@ -15,13 +15,17 @@
      M2 under them the painter lays the yard: the painting's depth at a drawn house's ground is flat on its tile; the same tile
         painted without the yards stands there (MUTATION)
      M3 TALLER: at the street stop a house stands over his men (the median 1.6 times, the tallest twice)
-     M4 they come in at the old stop (a block 85 px: drawn, fading in) and not far out (a block 60: none)
+     M4 ONE HAND-OVER, NO GHOST: at the old stop (a block 85) the painted houses; from a block 96 the models, each only on a
+        tile whose yards are laid (never a painted box and a model at once)
      W1 BEHIND A HOUSE: a walker behind a model is covered at its pixels; in front of it he is not
      W2 his crew, walking at the street stop, is covered by models (the depth test counts model pixels over them)
      W3 THE WALK READS: at the street stop a block takes several beats and the crew crosses the glass at most 130 CSS px a
         second; at the opening stop one beat, as before
      F1 no model stands on ground he has not seen
      C1 the layer costs at most 3 ms a frame at the street stop (the median of 10; the whole frame printed beside it)
+     R1 ROADS FIRST (rule 356): the valley's road network is one piece
+     R2 a street ends only at the city's edge, open ground or water, or a place's own gate; at most two into houses (a walled
+        suburb street's end, drawn with the painter's kerb across)
      C2 nothing threw
    ============================================================================ */
 'use strict';
@@ -108,8 +112,11 @@ async function run(prof) {
   ok('M3 ' + prof + ': TALLER: at the street stop a house stands over his men (the median at least 1.6 times his height, the tallest twice)', man > 0 && tallMed >= 1.6 * man && Math.max.apply(null, M.tall) >= 2 * man,
      'houses ' + tallMed.toFixed(0) + ' CSS px tall (median of ' + M.tall.length + ', the tallest ' + Math.max.apply(null, M.tall).toFixed(0) + '), his men ' + man.toFixed(0) + ' px');
   ok('F1 ' + prof + ': no model stands on ground he has not seen', M.unseen === 0 && M.n > 0, M.unseen + ' of ' + M.n + ' on unseen ground; ' + (await fr.evaluate(() => BohemiaMapHouses.last.unseen)) + ' lots left off unseen ground');
-  const M4 = await fr.evaluate(async () => { const r = {}; for (const tw of [85, 60]) { setZoomAt(tw / TW0); render(); await new Promise(q => setTimeout(q, 300)); render(); r[tw] = { n: BohemiaMapHouses.last.drew, a: BohemiaMapHouses.last.a }; } return r; });
-  ok('M4 ' + prof + ': they come in at the old closest stop, never far out', M4[85].n > 0 && M4[85].a > 0.15 && M4[60].n === 0, 'a block 85 px: ' + M4[85].n + ' at ' + M4[85].a.toFixed(2) + '; a block 60: ' + M4[60].n);
+  const M4 = await fr.evaluate(async () => { const r = {}; for (const tw of [85, 100]) { setZoomAt(tw / TW0); render();
+      for (let i = 0; i < 40 && (VBT.want | 0); i++) { await new Promise(q => setTimeout(q, 300)); render(); } render();
+      const F = BohemiaMapHouses.frame(); r[tw] = { n: F.length, notYard: F.filter(e => !e.T || !e.T.flat).length }; } return r; });
+  ok('M4 ' + prof + ': ONE HAND-OVER, NO GHOST: at the old closest stop the painted houses, from a block 96 the models, each only on a tile whose yards are laid',
+     M4[85].n === 0 && M4[100].n > 0 && M4[100].notYard === 0, 'a block 85 px: ' + M4[85].n + ' models; a block 100: ' + M4[100].n + ', ' + M4[100].notYard + ' over a painted box');
 
   /* ---------- W1: behind and in front ---------- */
   await fr.evaluate(() => { setZoomAt(BohemiaMapHouses.streetTW() / TW0); try { camHold(); } catch (e) {} render(); });
@@ -174,6 +181,21 @@ async function run(prof) {
     const med = (v) => v.slice().sort((x, y) => x - y)[v.length >> 1]; return { layer: med(a), frame: med(f), off, n: BohemiaMapHouses.last.drew, over: px / (CVW * CVH) }; });
   ok('C1 ' + prof + ': the models paint at most two and a half glasses of pixels a frame at the street stop', C.over <= 2.5,
      C.n + ' models paint ' + C.over.toFixed(2) + ' glasses; on this software box the layer ' + C.layer.toFixed(1) + ' ms, the frame ' + C.frame.toFixed(0) + ' ms (' + C.off.toFixed(0) + ' ms with the models off)');
+  /* ---------- ROADS FIRST (rule 356): the valley's road network is one piece, and a street ends only where an end reads ---------- */
+  const RG = await fr.evaluate(() => { const N = om.n, isR = (x, y) => x >= 0 && y >= 0 && x < N && y < N && !!(om.at(x, y) && ROAD[om.at(x, y).district]);
+    const comp = new Int32Array(N * N).fill(-1); let nc = 0, n = 0;
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!isR(x, y) || comp[y * N + x] >= 0) continue; const q = [[x, y]]; comp[y * N + x] = nc;
+      while (q.length) { const [a, b] = q.pop(); n++; for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const u = a + dx, v = b + dy; if (isR(u, v) && comp[v * N + u] < 0) { comp[v * N + u] = nc; q.push([u, v]); } } } nc++; }
+    const HOUSE = /^(suburb|estate|gated|trailer|apartment|town)$/, OPEN = /^(mountain|desert|land|wash|water|lake|playa|basin|dam|springs|scrub|dunes)$/, out = { nc, n, ends: 0, open: 0, site: 0, house: [] };
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!isR(x, y)) continue; let k = 0, dx = 0, dy = 0;
+      for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (isR(x + a, y + b)) { k++; dx = -a; dy = -b; }
+      if (k !== 1 || x === 0 || y === 0 || x === N - 1 || y === N - 1) continue; out.ends++;
+      const t = om.at(x + dx, y + dy), d = t ? t.district : 'edge';
+      if (d === 'edge' || OPEN.test(d)) out.open++; else if (HOUSE.test(d)) out.house.push(x + ',' + y + ' into ' + d); else out.site++; }
+    return out; });
+  ok('R1 ' + prof + ': ROADS FIRST: the valley\'s roads are one network, no street out of thin air', RG.nc === 1 && RG.n > 1000, RG.n + ' road blocks in ' + RG.nc + ' network');
+  ok('R2 ' + prof + ': a street ends only at the city\'s edge, open ground or water, or a place\'s own gate (at most two into houses, a walled street\'s end)', RG.house.length <= 2,
+     RG.ends + ' ends: ' + RG.open + ' at the edge, the mountains or the water, ' + RG.site + ' at a place\'s gate, ' + RG.house.length + ' into houses' + (RG.house.length ? ' (' + RG.house.join('; ') + ')' : ''));
   ok('C2 ' + prof + ': nothing threw', errs.length === 0 && d.errs.length === 0, errs.concat(d.errs).slice(0, 2).join(' | '));
   if (process.env.HOUSES_SHOTS) { try { await d.shot(path.join(process.env.HOUSES_SHOTS, prof + '_street.png')); } catch (e) {} }
   await d.close().catch(() => {});

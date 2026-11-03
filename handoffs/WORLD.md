@@ -10,7 +10,7 @@ WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (t
   __THE_HOUSES_STAND_UP_CLOSE__; refuses a half-hooked page): COOK's five ranch houses and COOK PROPS' single-wide, shot four ways
   from the MAP's camera (tools/bohemia_world_8_map_houses.py, Blender 4.2 venv, slices/map_houses/ + manifest), stand 2.0 times
   their metres on every house lot the painter rolls (the painter reports the lots, LOTS, and lays them as yards, FLATH, once
-  the models are up; never in a town's footprint, never on a burned lot). Fade in from a block 80 px, alone from 100; the pinch's
+  the models are up; never in a town's footprint, never on a burned lot). One hand-over at a block 96 px (no fade, only on a tile whose yards are laid; the models toned to the map at load); the pinch's
   own clamp goes on to THE STREET STOP, a block 380 CSS px (zoomBounds()[1] keeps the old 85, so every old check means the same
   place). Walkers behind a model are covered by the same depth test (mapDepthCovers = the painting's OR the models'). Up close
   the walk reads: past a block 90 a block takes more beats (mapGoingBeats x watchBeats, the clock the same minutes) and the glide
@@ -22,6 +22,11 @@ WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (t
   the street stop; the old stop's 1:1 art still read at zoomBounds()[1]). Record:
   records/BOHEMIA_WORLD_8_THE_PIN_CRASH_THE_TALL_MAP_AND_SIGHT_11_3_26.md. VOTE: world-one-pinch-to-the-street-11-3,
   world-what-he-sees-now-11-3 (moving, records/target/world_8/).
+- RULES 346 + 356 on the map (BUILD 11/3zzzu): checked on the pinch card's 41 frames at every zoom. Fixed the ghost (models faded
+  over the painted boxes between a block 70 and 96: now one hand-over at 96, only on a tile whose yards are laid) and the pale
+  models (toned to the map at load). Roads first: ONE network of 3,628 road blocks; 95 ends: 49 at the city's edge, 45 at a
+  place's gate, 1 into a walled suburb (41,23); gate legs R1, R2; nothing to fix. STILL WEAK: the shops, works, slabs and towers
+  are the painter's boxes at the street stop (the next job: their models).
 - MAIN'S REDS I MET, NOT MINE (measured with my two layers switched off, same numbers): THE MAP STANDS TALLER W1 (5,879 pixels
   neither him nor the building at the near stop) and W3b (one frame sunk on the freeway berm).
 - OWED: models for the shops, works, towers and casinos (COOK's warehouse, motel, pawn shop, gas station, casino, tower casino

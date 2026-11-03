@@ -39,7 +39,7 @@ WHAT SHIPPED (__THE_HOUSES_STAND_UP_CLOSE__, slices/bohemia_map_houses.js, hooks
 - WHERE THEY STAND: the painter reports every house lot and trailer box it rolls (the same rolls at every zoom, so each house
   stands where its painted box stood) and, once the models are up, lays those lots as their yards. A burned house (the
   painter's own ruin, or WORLD 7's burned block) keeps its painted ruin and gets no model.
-- ONE PINCH: past a block 80 px the models fade in over the painted boxes; from 100 they stand alone on the yards; the pinch
+- ONE PINCH: from a block 96 px a tile's houses are its models, standing alone on its yards (one hand-over, no fade, section 4); the pinch
   goes on to THE STREET STOP, a block 340 CSS px (four times the old closest stop), on the same corner-on camera (the old
   second mode stays off). The old closest stop keeps its number (zoomBounds), so every check that names it still means it;
   only the pinch's own clamp reaches further.
@@ -67,8 +67,28 @@ street sight (15 blocks in sight by day on a straight street, 9 at night in the 
 stands: the fog still clears a radius and stays cleared; this only shows which part of it he sees now.
 Gate: gates/what_he_sees_now_gate.js. VOTE: world-what-he-sees-now-11-3 (moving).
 
+## 4. THE LOOK AND ROADS FIRST ON THE MAP (rules 346 and 356, the coordinator's notes; BUILD 11/3zzzu)
+HOW I CHECKED (rule 346): the pinch card's 41 frames from the game's camera on his phone, read at every zoom from the opening
+stop to the street stop, side by side. FOUND: between a block 70 and 96 px the models faded in over the painted boxes, so every
+house showed twice (the ghost rule 142 measured and killed: 'two cities ghosted through each other'); and the models, lit by the
+studio's sun, were paler and brighter than the dusty painting. FIXED: one hand-over, no fade: a tile's houses are its painted
+boxes until a block 96 px, then its models, and only once that tile's yards are laid (never a box and a model at once; gate M4:
+at a block 100, 167 models, 0 over a painted box); and every model is toned once at load to the map's own light (a third of the
+way to grey, then the map's warm dim; at bake time, never a filter or a blend on the world canvas). Streets and crossings join at
+every zoom on the frames; no seam where two tiles meet (the painter's own one-texel overlap).
+ROADS FIRST (rule 356(b), (f)), measured on the demo's valley: ONE network, 3,628 road blocks (arterials 2,489, freeway 952,
+rail 90, Strip 81, interchanges 16), nothing stranded. 95 street ends away from the map's edge: 49 run into the city's own edge
+(the mountains, the washes, the basin, the lake), 45 into a place's own gate (the solar farm, the airport and the air base, the
+resorts and casinos, the stadium, the ballpark, the data fort), 1 into a suburb (41,23: a walled suburb street's end, drawn with
+the painter's kerb across). Nothing needed fixing on the map's network. Gate legs R1 (one network) and R2 (where every end runs).
+No picture is cut at a cell's edge: a model is drawn whole across its cells; a tile keeps one texel under its neighbour's edge.
+STILL WEAK, SAID PLAINLY: at the street stop the shops, works, apartment slabs and towers are the painter's boxes four and a half
+times bigger than before, flat walls and stair-stepped edges. The next job on this map is their models (COOK's warehouse, motel,
+pawn shop, gas station, casino and tower casino are built), on the lots the painter already rolls.
+
 ## THE GATES (this round, this box: software drawing in a headless browser, never a phone's numbers)
-- THE HOUSES STAND UP CLOSE (new): 12/0 upright phone, 12/0 sideways, 12/0 computer. Z1 one real pinch to a block 380 on the
+- THE HOUSES STAND UP CLOSE (new): 12/0 upright phone, 12/0 sideways, 12/0 computer; with the one hand-over and the roads legs
+  (BUILD 11/3zzzu) 14/0 on the upright phone. Z1 one real pinch to a block 380 on the
   same camera; Z2 the old stop keeps its number; M1 the models on the lots (29 to 53 drawn); M2 the yards flat under them, and
   without the yards the boxes stand (the mutation); M3 houses about 100 CSS px (the biggest 115 to 142) to his 56 px men; M4 in
   from the old stop, none far out; W1 behind a model covered, in front not; W2 his crew behind the models (stood on a road
