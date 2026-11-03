@@ -45,11 +45,29 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
         const c = await fr.evaluate(() => { const el = document.getElementById('roadcard'); const b = [...el.querySelectorAll('button[data-road]')]; return { name: (el.querySelector('.rc div[style*="15px"]') || {}).textContent || '', text: (el.querySelector('.rctext') || {}).textContent || '', opts: b.map(x => ({ t: x.textContent, off: x.disabled })), face: (el.querySelector('.rcface') || {}).dataset || {} }; });
         const pickI = Math.max(0, c.opts.findIndex(o => !o.off));
         console.log('    EVENT ' + c.name + ' :: ' + c.opts.map(o => o.t + (o.off ? '(x)' : '')).join(' / '));
-        R.events.push({ day: s.day, min: s.min, who: c.name, said: c.text.slice(0, 90), opts: c.opts.map(o => o.t), tapped: (c.opts[pickI] || {}).t, mouth: c.face.mouth || null });
+        if (R.lastSig !== c.name + '|' + c.text.slice(0, 60)) R.events.push({ day: s.day, min: s.min, who: c.name, said: c.text.slice(0, 90), opts: c.opts.map(o => o.t), tapped: (c.opts[pickI] || {}).t, mouth: c.face.mouth || null });
+        /* CONTENT 2: a tap that did not take (the same card, the same words, still up) is MEASURED, never hidden: what stands on
+           the button's middle is written down (in the map's frame and on the shell), then the button's own press is sent so the
+           drive goes on; R.covered counts them and names the cover */
+        const sig = c.name + '|' + c.text.slice(0, 60);
+        if (R.lastSig === sig) {
+          const cov = await fr.evaluate((k) => { const b = document.querySelectorAll('#roadcard button[data-road]')[k]; if (!b) return null; const r = b.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2, e = document.elementFromPoint(x, y);
+            return { x, y, frameHit: e ? (e.tagName + '#' + (e.id || '') + '.' + String(e.className || '').slice(0, 30) + ' ' + String(e.textContent || '').slice(0, 24)) : null, town: !!(LOOP.frame && LOOP.frame.style.display === 'block'), meet: !!document.getElementById('meetcard') }; }, pickI).catch(() => null);
+          const topHit = cov ? await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return e ? (e.tagName + '#' + (e.id || '') + '.' + String(e.className || '').slice(0, 30)) : null; }, [cov.x, cov.y]).catch(() => null) : null;
+          R.covered = (R.covered || []).concat([{ who: c.name, day: s.day, min: s.min, cov, topHit }]).slice(-30);
+          await fr.evaluate((k) => { const b = document.querySelectorAll('#roadcard button[data-road]')[k]; if (b) b.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true })); }, pickI).catch(() => {});
+          R.lastSig = null; await page.waitForTimeout(900); continue;
+        }
+        R.lastSig = sig;
         await tapIn('#roadcard button[data-road]', pickI); await page.waitForTimeout(900); continue;
       }
       if (s.meet) { await tapIn('#meetcard [data-meet="go"]', 0); await page.waitForTimeout(1500); continue; }
-      if (s.open) { await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500); continue; }
+      if (s.open) {
+        /* CONTENT 2: THE SCAVENGE ACTION IN A TOWN, once: the lot's own button in the settlement screen (what his tap calls), then out */
+        if (!R.scav) { const r = await fr.evaluate(() => { try { const w = LOOP.frame && LOOP.frame.contentWindow; if (!w || typeof w.openB !== 'function') return 'no lot';
+            w.openB('lot'); const b = [...w.document.querySelectorAll('button')].find(x => /Search the lot/i.test(x.textContent || '')); if (!b || b.disabled) return 'no button'; b.click(); return 'searched'; } catch (e) { return String(e && e.message || e); } }).catch(e => String(e));
+          if (r === 'searched') { R.scav = { day: s.day, min: s.min, at: s.at }; console.log('    SCAVENGED the lot at ' + s.at); await page.waitForTimeout(800); } else R.scavTry = r; }
+        await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500); continue; }
       break;
     }
   };
@@ -83,6 +101,8 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
       let tgt = null;
       for (const j of s.held) if (j.next && j.next.x != null) { tgt = [j.next.x, j.next.y, j.id]; break; }
       if (!tgt && s.rq.length) tgt = [s.rq[0].x, s.rq[0].y, s.rq[0].id];
+      /* CONTENT 2: once, from the third day, over a mountain pass road (the region's joins: a block with passRoad) */
+      if (!tgt && !R.passWalk && s.day >= s0.day + 2) { R.passWalk = await fr.evaluate(() => { let best = null, bd = 1e9; for (let y = -20; y < om.n + 20; y++) for (let x = -20; x < om.n + 20; x++) { let c = null; try { c = om.at(x, y); } catch (e) {} if (c && c.passRoad) { const d = Math.max(Math.abs(x - city.x), Math.abs(y - city.y)); if (d < bd && d > 4) { bd = d; best = [x, y, 'pass:' + c.passRoad]; } } } return best || 'none'; }); if (Array.isArray(R.passWalk)) tgt = R.passWalk; }
       if (!tgt) { tgt = await fr.evaluate((w) => { const bs = ctBases() || {}, ks = Object.keys(bs).sort(); const k = ks[(w * 7 + 3) % ks.length]; const b = bs[k]; const g = townDoor(b.x, b.y) || [b.x, b.y]; return [g[0], g[1], 'wander:' + k]; }, wander++); }
       const ok = await go(tgt[0], tgt[1]);
       if (ok !== true) { R.errors.push('route ' + JSON.stringify(tgt) + ' ' + ok); wander++; await page.waitForTimeout(300); if (wander > 40) break; continue; }
@@ -97,13 +117,18 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
     R.legsDone = await fr.evaluate(() => window.__JOB_LEGS || []);
     R.talks = await fr.evaluate(() => window.__JOB_TALKS || []);
     R.qdone = await fr.evaluate(() => window.__ROADEV_QDONE || []);
+    R.qmet = await fr.evaluate(() => window.__ROADEV_QUESTS || []);
+    R.met = await fr.evaluate(() => window.__ROADEV_MET || []);
+    R.fought = await fr.evaluate(() => window.__ROADEV_FOUGHT || []);
+    R.joined = await fr.evaluate(() => window.__ROADEV_JOINED || []);
+    R.gear = await fr.evaluate(() => window.__ROADEV_GEAR || []);
     R.frameErr = await fr.evaluate(() => [window.__ROADEV_ERR || null, window.__JOB_ERR || null, window.__JOB_DRAW_ERR || null]);
     R.driverErrs = (d.errs || []).slice(0, 10);
   } catch (e) { R.errors.push('drive: ' + String(e && e.stack || e).slice(0, 400)); }
   finally { await d.close(); }
   const newEv = R.events.length, jobsTaken = R.jobs.filter(j => j.took && j.took.ok && j.took.legs).length;
   R.verdict = { days: (R.end && R.start) ? R.end.day - R.start.day : null, events_met: newEv, distinct: [...new Set(R.events.map(e => e.who))].length, new_jobs_taken: jobsTaken,
-    jobs_paid: R.paid.length, thrown: R.errors.length + (R.driverErrs || []).length };
+    jobs_paid: R.paid.length, quests_met: (R.qmet || []).length, quests_finished: (R.qdone || []).length, scavenged: !!R.scav, thrown: R.errors.length + (R.driverErrs || []).length };
   console.log(JSON.stringify(R.verdict));
   console.log('events:', R.events.map(e => 'day ' + e.day + ' ' + e.who + ' -> ' + e.tapped).join(' | '));
   console.log('jobs:', JSON.stringify(R.jobs.map(j => [j.id, j.took && j.took.plays, j.took && j.took.legs])), 'paid:', JSON.stringify(R.paid), 'talks:', JSON.stringify(R.talks));

@@ -1,0 +1,36 @@
+{
+ "errs": [],
+ "steps": [
+  "town {\"name\":\"Colorful\",\"x\":24,\"y\":16}",
+  "lot posted from the town frame",
+  "scav seen by the road {\"place\":\"Colorful\",\"day\":1,\"used\":false}",
+  "walk to [27,16]",
+  "MET {\"name\":\"DOÑA MERCEDES\",\"text\":\"You look like you can walk into a bad place and walk back out.\\n\\nMine went into the east ruins for cable and did not. Nobody will fetch a body out of there. I cannot pay much.\\n\\nI cannot go see him like that. But he should not be LEFT there. Nobody should. Will you bring him home?\",\"opts\":[\"“Tell me about him.”\",\"“How do you know?”\",\"“I will bring him home.”\",\"(wa",
+  "  card DOÑA MERCEDES :: You look like you can walk into a bad place and walk back out.  Mine w :: “Tell me about him.” / “How do you know?” / “I will bring him home.” / (wait and let her finish)",
+  "  card DOÑA MERCEDES :: Thank you. Take this. His cloth. Wrap him in it.  He would want to go  :: Go.",
+  "  walk to BRING HIM HOME THE EAST RUINS 23 30",
+  "  card THE WARDEN :: Territory. Held. No taking. Nothing leaves. Nothing.  He will not wake :: (stand still and let him talk) / “Somebody came. His wife sent me.” / (go round him for the body)",
+  "  card THE WARDEN :: Years. Nobody. I stay with all of them because somebody should. :: “His wife sent me. Let me take him home.” / (go round him for the body)",
+  "  card THE WARDEN :: Home. Yes. Take him home.  Tell her he was not alone. I stayed. :: (wrap him and pick him up) / (pick him up)",
+  "  walk to CARRY HIM HOME MERCEDES' DOOR 23 17",
+  "  card DOÑA MERCEDES :: (He is light. Two weeks and the heat and he is so light. It is a long  :: (knock, with the people who came to stand for him) / (knock, with nobody)",
+  "  card DOÑA MERCEDES :: Carried him the whole way and brought people to stand for him. She sai :: GO ON",
+  "done [{\"id\":\"bq_d013_long_walk_home\",\"stage\":30,\"end\":\"COMPLETE\",\"got\":[\"+10 BATTERIES\",\"COLORFUL LIKES YOU MORE\"],\"fight\":false}] met [\"bq_d013_long_walk_home\"] err  page errors 0"
+ ],
+ "qdone": [
+  {
+   "id": "bq_d013_long_walk_home",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+10 BATTERIES",
+    "COLORFUL LIKES YOU MORE"
+   ],
+   "fight": false
+  }
+ ],
+ "qmet": [
+  "bq_d013_long_walk_home"
+ ],
+ "err": null
+}

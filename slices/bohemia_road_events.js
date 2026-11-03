@@ -61,6 +61,47 @@
   function save(why) { try { setTimeout(function () { try { saveNow(why); } catch (e) {} }, 0); } catch (e) {} }
   function bar() { try { if (typeof updHud === 'function') updHud(); } catch (e) {} try { if (typeof root.__barPaintRead === 'function') root.__barPaintRead(); } catch (e) {} }
 
+  /* ---------- CONTENT 2 (11/3): WHAT IS ON THE MAP NOW, READ ONLY (the road's people talk about what is really there) ----------
+     a roaming party (FACTIONS' parties, RUN's partiesAll: a caravan carrying, a crew going to take, a patrol), a raided town (a CREW
+     that reached somebody's ground and is walking home with it: party.arrived), a boss's sign standing in the world (WORLD TWO's
+     his map, bohemia_his_map.js state().boss.sign, never written here), the nearest town. A row asks with needs.party / needs.raided /
+     needs.boss_sign; its words carry {party} {toward} {raided} {raider} {boss} {town} and are filled from what the map says. */
+  function partyNear(want) {
+    var ps = null, w = at(), best = null, bd = 1e9; try { ps = partiesAll(); } catch (e) {} if (!ps || !ps.length) return null;
+    ps.forEach(function (p) { if (!p || !p.at || !p.from) return; if (want.agenda && p.agenda !== want.agenda) return;
+      if (want.faction && String(p.from.faction || '').toLowerCase().indexOf(String(want.faction).toLowerCase()) < 0) return;
+      if (!p.arrived && cheb(p.at.x | 0, p.at.y | 0, p.from.x | 0, p.from.y | 0) < 2) return;   /* still at its own gate: the map does not draw it yet */
+      var d = cheb(w[0], w[1], p.at.x | 0, p.at.y | 0); if (d > (want.within || 14)) return; if (d < bd) { bd = d; best = p; } });
+    return best ? { party: String(best.from.faction), toward: best.toward ? String(best.toward) : null, px: best.at.x | 0, py: best.at.y | 0, blocks: bd, pid: best.id } : null;
+  }
+  function raidNow() {
+    var r = null, w = at(), bd = 1e9; try { (partiesAll() || []).forEach(function (p) { if (!p || p.agenda !== 'crew' || !p.arrived || !p.toward || !p.at) return;
+      var d = cheb(w[0], w[1], p.at.x | 0, p.at.y | 0); if (d < bd) { bd = d; r = { raider: String(p.from.faction), raided: String(p.toward), px: p.at.x | 0, py: p.at.y | 0 }; } }); } catch (e) {}
+    return r;
+  }
+  function bossSign(want) {
+    var h = null; try { h = root.BohemiaHisMap && BohemiaHisMap.state ? BohemiaHisMap.state() : null; } catch (e) {}
+    var sg = h && h.boss && h.boss.sign; if (!sg || (h.boss.fallen && h.boss.fallen[sg.n])) return null;
+    if (want && want !== 'any' && want !== sg.n) return null;
+    return { boss: String(sg.n), sx: sg.x | 0, sy: sg.y | 0 };
+  }
+  function nearTown() { try { return townOf('near'); } catch (e) { return null; } }
+  function ctxOf(n, s) {
+    n = n || {}; var c = { town: nearTown() || 'the next town' };
+    if (n.flag && s && s.fctx && s.fctx[n.flag]) Object.keys(s.fctx[n.flag]).forEach(function (k) { c[k] = s.fctx[n.flag][k]; });
+    if (n.party) { var p = partyNear(n.party); if (!p) return null; Object.keys(p).forEach(function (k) { c[k] = p[k]; }); }
+    if (n.raided) { var r = raidNow(); if (!r) return null; Object.keys(r).forEach(function (k) { c[k] = r[k]; }); }
+    if (n.boss_sign) { var b = bossSign(n.boss_sign); if (!b) return null; Object.keys(b).forEach(function (k) { c[k] = b[k]; }); }
+    return c;
+  }
+  /* {word} or {word|what to say when the map has none}; a faction word for a mood's place is lower case ('faction:{party}') */
+  function fill(t, c) {
+    if (t == null || !c) return t;
+    var D0 = { party: 'Caravans', toward: 'the next town', raided: 'nearest', raider: 'raiders', boss: 'him', town: 'the next town' };   /* a word the map did not give (a row fired by hand) */
+    return String(t).replace(/\{([a-z_]+)(?:\|([^}]*))?\}/g, function (m, k, dflt) { var v = c[k]; return v != null && v !== '' ? String(v) : (dflt != null ? dflt : (D0[k] || m)); });
+  }
+  function fillFx(fx, c) { if (!fx || !c) return fx; try { return JSON.parse(fill(JSON.stringify(fx), c).replace(/"place":"faction:([^"]+)"/g, function (m, f) { return '"place":"faction:' + f.toLowerCase() + '"'; })); } catch (e) { return fx; } }
+
   /* ---------- what he has ---------- */
   function bats() { try { return loopBats() | 0; } catch (e) { return 0; } }
   function food() { try { var w = wagonGet(); return w ? (w.food | 0) : 0; } catch (e) { return 0; } }
@@ -75,6 +116,7 @@
       if (w === 'any') return true;
       if (w === 'paved') { try { if (CITY_PAVED[d]) return true; } catch (e) {} continue; }
       if (w === 'rough') { if (d === 'rail' || d === 'wash') return true; continue; }
+      if (w === 'pass') { var c0 = null, w0 = at(); try { c0 = om.at(w0[0], w0[1]); } catch (e) {} if (c0 && (c0.passRoad || c0.passWas === 'mountain' || c0.district === 'mountain')) return true; continue; }   /* CONTENT 2: the mountains' pass roads (RUN's region joins, bohemia_region.js: a pass road's blocks carry passRoad) */
       if (w === d) return true; }
     return false;
   }
@@ -118,7 +160,7 @@
       var h = []; try { h = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; } catch (e) {}
       var nm = String(m.name || 'A STRANGER').toUpperCase(); if (h.some(function (x) { return x && x.name === nm; })) nm += ' II';
       var def = { name: nm, hid: 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), day: day(), background: m.bg || 'refugee', jobs: [],
-        stats: st0, base: st0, traits: [], trait: null, stars: {}, look: m.look || null, kit: [], gear: {}, from: 'road' };
+        stats: st0, base: st0, traits: [], trait: null, stars: {}, look: m.look || null, kit: [], gear: (m.gear && typeof m.gear === 'object') ? JSON.parse(JSON.stringify(m.gear)) : {}, from: 'road' };   /* CONTENT 2: he comes with what he wears (the cell vest's hire: gear.acc, COMBAT's ours.cell_vest) */
       h.push(def); try { localStorage.setItem('bohemia.hired.v1', JSON.stringify(h)); } catch (e) {}
       root.__ROADEV_JOINED = (root.__ROADEV_JOINED || []).concat([nm]); bar(); save('road:joined');
     };
@@ -263,11 +305,14 @@
       if (n.notflag && s.flags[n.notflag] != null) return false;
       if (n.men && men() < n.men) return false; if (n.bats && bats() < n.bats) return false;
       if (s.seen[e.id] != null) { if (e.once) return false; if (dn - s.seen[e.id] < rep) return false; }
+      if (e.on) return false;   /* CONTENT 2: met another way (on: 'scavenge', after a search in a town's lot), never by the director */
+      if ((n.party || n.raided || n.boss_sign) && !ctxOf(n, s)) return false;
       return true;
     };
     ((EV && EV.events) || []).forEach(function (e) { if (ok(e)) out.push(e); });
     if (SQ) Object.keys(SQ.quests).forEach(function (qid) { var Q = SQ.quests[qid], m = Q.meet || {}; if (s.quests[qid]) return;
-      var e = { id: 'quest:' + qid, quest: qid, where: m.where, when: m.when, weight: m.weight || 3, once: true, needs: { min_day: m.min_day } }; if (ok(e)) out.push(e); });
+      var nd = { min_day: m.min_day }; Object.keys(m.needs || {}).forEach(function (k) { nd[k] = m.needs[k]; });
+      var e = { id: 'quest:' + qid, quest: qid, where: m.where, when: m.when, weight: m.weight || 3, once: true, needs: nd, on: m.on || null }; if (ok(e)) out.push(e); });
     return out;
   }
   function pickOne(list) {
@@ -281,6 +326,22 @@
     try { if (document.getElementById('meetcard')) return true; } catch (e) {}
     return false;
   }
+  /* CONTENT 2: THE SCAVENGE ACTION IN A TOWN. The settlement posts its lot search ({type:'BOHEMIA_SETTLEMENT', act:'scavenge',
+     place}); a side quest whose meet is on: 'scavenge' is met on the first block out of that town (the one who saw you come out of
+     the lot), never the first minute, once. */
+  root.addEventListener && root.addEventListener('message', function (ev) {
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_SETTLEMENT' || d.act !== 'scavenge') return;
+    var s = st(); s.scav = { place: String(d.place || ''), day: day(), used: false }; put(s); root.__ROADEV_SCAV = s.scav;
+  });
+  function scavMeet(s) {
+    if (!SQ || !s.scav || s.scav.used || day() - (s.scav.day | 0) > 1 || Date.now() - T0 < 60000) return false;
+    var qid = Object.keys(SQ.quests).filter(function (k) { var m = SQ.quests[k].meet || {}; return m.on === 'scavenge' && !s.quests[k] && (!m.min_day || day() >= m.min_day); })[0];
+    s.scav.used = true; put(s); if (!qid) return false;
+    s.seen['quest:' + qid] = day(); s.met++; s.log.push({ id: 'quest:' + qid, day: day(), at: at(), on: 'scavenge' }); put(s);
+    root.__ROADEV_MET = (root.__ROADEV_MET || []).concat(['quest:' + qid]);
+    try { if (typeof travelInterrupt === 'function') travelInterrupt('event'); } catch (e) {}
+    return questBegin(qid, { town: s.scav.place || nearTown() || 'the town' });
+  }
   function step() {
     if (!EV || root.__ROADEV_OFF) return false;
     /* A SCRIPTED BROWSER IS NOT A PLAYER (CONTENT 11/2, measured: every_job_kind_gate's walks to a town stalled under a road card
@@ -291,6 +352,7 @@
     try { if (typeof MODE !== 'undefined' && MODE !== 'city') return false; } catch (e) {}
     if (busy()) return false;
     var s = st(), D = EV.director || {}; s.walked++;
+    if (s.scav && !s.scav.used && scavMeet(s)) { s = st(); s.last = s.walked; put(s); return true; }
     var gate = Date.now() - T0 < (D.first_minute_s == null ? 60 : D.first_minute_s) * 1000 || day() < (D.first_day_min || 0)
       || s.walked - s.last < (D.gap_blocks || 22) || Math.random() >= (root.__ROADEV_CHANCE != null ? root.__ROADEV_CHANCE : (D.chance_per_block || 0.06));
     if (gate) { put(s); return false; }
@@ -307,14 +369,16 @@
     var s = st(); s.seen[id] = day(); s.met++; s.log.push({ id: id, day: day(), at: at() }); s.log = s.log.slice(-60); put(s);
     root.__ROADEV_MET = (root.__ROADEV_MET || []).concat([id]);
     try { if (typeof travelInterrupt === 'function') travelInterrupt('event'); } catch (e2) {}
-    if (qid) { questBegin(qid); return true; }
-    var who = e.who || {};
-    card({ look: who.look, name: who.name, from: who.from, text: e.says, head: 'ON THE ROAD', opts: (e.opts || []).slice(0, 3).map(function (o) {
-      return { t: o.t, tag: tagOf(o), off: !needOk(o.need), fn: function () { chose(e, o); } }; }) });
+    if (qid) { var Qm = SQ.quests[qid].meet || {}; questBegin(qid, ctxOf(Qm.needs, s) || { town: nearTown() || 'the next town' }); return true; }
+    var who = e.who || {}, cx = ctxOf(e.needs, s) || { town: nearTown() || 'the next town' };
+    card({ look: who.look, name: fill(who.name, cx), from: fill(who.from, cx), text: fill(e.says, cx), head: 'ON THE ROAD', opts: (e.opts || []).slice(0, 3).map(function (o) {
+      return { t: fill(o.t, cx), tag: tagOf(o), off: !needOk(o.need), fn: function () { chose(e, o, cx); } }; }) });
     return true;
   }
-  function chose(e, o) {
-    var who = e.who || {}, r = apply(o.fx, { id: e.id, name: who.name });
+  function chose(e, o, cx) {
+    var who = { name: fill((e.who || {}).name, cx), look: (e.who || {}).look, from: fill((e.who || {}).from, cx) }, fx = fillFx(o.fx, cx);
+    if (fx && fx.flag && cx) { var s0 = st(); s0.fctx = s0.fctx || {}; s0.fctx[fx.flag] = cx; put(s0); }   /* a chain remembers what the map said (the town, the faction) */
+    var r = apply(fx, { id: e.id, name: who.name });
     var s = st(); s.log.push({ id: e.id, chose: o.t, day: day() }); s.log = s.log.slice(-60); put(s);
     root.__ROADEV_CHOSE = (root.__ROADEV_CHOSE || []).concat([{ id: e.id, t: o.t, got: r.got }]);
     happened((who.name || 'Someone') + ' on the road: ' + o.t);
@@ -325,7 +389,9 @@
   }
 
   /* ======================= THE SIDE QUESTS ======================= */
-  function person(Q, role) { return (Q.people && Q.people[role]) || { name: String(role).toUpperCase(), look: 'faction_homeless' }; }
+  function person(Q, role, c) { var P = (Q.people && Q.people[role]) || { name: String(role).toUpperCase(), look: 'faction_homeless' };
+    return c ? { name: fill(P.name, c), look: P.look, from: fill(P.from, c) } : P; }
+  function qctx(qid) { try { var q = st().quests[qid]; return (q && q.ctx) || null; } catch (e) { return null; } }
   function spotFrom(x, y, b) {
     b = b || [6, 12];
     for (var i = 0; i < 48; i++) {
@@ -335,18 +401,18 @@
     }
     return null;
   }
-  function questBegin(qid) {
+  function questBegin(qid, cx) {
     var Q = SQ && SQ.quests[qid]; if (!Q) return false;
-    var s = st(), w = at(); s.quests[qid] = { stage: 10, at: { x: w[0], y: w[1] }, node: Q.start, know: {}, seen: {}, spots: {}, mark: null, began: day() }; put(s);
+    var s = st(), w = at(); s.quests[qid] = { stage: 10, at: { x: w[0], y: w[1] }, node: Q.start, know: {}, seen: {}, spots: {}, mark: null, began: day(), ctx: cx || { town: nearTown() || 'the next town' } }; put(s);
     root.__ROADEV_QUESTS = (root.__ROADEV_QUESTS || []).concat([qid]);
-    happened('Met someone on the road: ' + person(Q, Q.nodes[Q.start].who).name + '.');
+    happened('Met someone on the road: ' + person(Q, Q.nodes[Q.start].who, qctx(qid)).name + '.');
     node(qid, Q.start);
     return true;
   }
   function node(qid, nid) {
     var Q = SQ.quests[qid], s = st(), q = s.quests[qid], N = Q.nodes[nid]; if (!q || !N) { close(); return; }
     q.node = nid; q.seen[nid] = 1; q.mark = null; put(s);
-    var P = person(Q, N.who);
+    var P = person(Q, N.who, q.ctx);
     var opts = N.opts.length ? N.opts.slice(0, 4).map(function (o) { return { t: o.silent ? o.t : '“' + o.t + '”', fn: function () { pick(qid, nid, o); } }; })
       : [{ t: 'Go.', fn: function () { after(qid, nid); } }];   /* draft:true: the talk ends on what the world does next */
     card({ look: P.look, name: P.name, from: P.from, text: N.says.join('\n\n'), head: String(Q.title || '').toUpperCase(), opts: opts });
@@ -376,11 +442,22 @@
     if (Q.nodes[nx].who === cur) return node(qid, nx);
     goTo(qid, nx);
   }
+  /* CONTENT 2: the second person waits where the map already has something: at a boss's sign (near: 'boss_sign', reading it is
+     WORLD TWO's own step), by the raided town's gate (near: 'raided'), on the roaming party's road (near: 'party'); else spotFrom */
+  function spotNear(q, pl) {
+    var c = q.ctx || {}, x = null, y = null;
+    if (pl.near === 'boss_sign') { var b = bossSign('any'); if (b) { x = b.sx; y = b.sy; } else if (c.sx != null) { x = c.sx; y = c.sy; } }
+    else if (pl.near === 'party' && c.px != null) { x = c.px; y = c.py; }
+    else if (pl.near === 'raided' && c.raided) { try { var bs = ctBases() || {}, k = Object.keys(bs).filter(function (n) { return n.toUpperCase().indexOf(String(c.raided).toUpperCase()) >= 0; })[0]; if (k) { x = bs[k].x | 0; y = bs[k].y | 0; } } catch (e) {} }
+    if (x == null) return null;
+    if (pl.near === 'boss_sign') { try { if (cityWalkable(x, y) && cityRoute(city.x, city.y, x, y)) return [x, y]; } catch (e) {} }
+    return spotFrom(x, y, pl.blocks || [1, 3]);
+  }
   function goTo(qid, nid) {
-    var Q = SQ.quests[qid], s = st(), q = s.quests[qid], role = Q.nodes[nid].who, giver = Q.nodes[Q.start].who, pl = (Q.places && Q.places[role]) || {}, P = person(Q, role);
-    var sp = q.spots[role] || (role === giver ? [q.at.x, q.at.y] : spotFrom(q.at.x, q.at.y, pl.blocks));
+    var Q = SQ.quests[qid], s = st(), q = s.quests[qid], role = Q.nodes[nid].who, giver = Q.nodes[Q.start].who, pl = (Q.places && Q.places[role]) || {}, P = person(Q, role, q.ctx);
+    var sp = q.spots[role] || (role === giver ? [q.at.x, q.at.y] : spotNear(q, pl) || spotFrom(q.at.x, q.at.y, pl.blocks));
     if (!sp) { put(s); return node(qid, nid); }   /* no place reachable: they are here after all, never a quest stranded */
-    q.spots[role] = sp; q.node = nid; q.mark = { x: sp[0], y: sp[1], name: String(pl.name || P.name).toUpperCase(), act: String(pl.act || 'FIND').toUpperCase() }; put(s);
+    q.spots[role] = sp; q.node = nid; q.mark = { x: sp[0], y: sp[1], name: String(fill(pl.name, q.ctx) || P.name).toUpperCase(), act: String(pl.act || 'FIND').toUpperCase() }; put(s);
     close(false);
     var w = at(), far = cheb(sp[0], sp[1], w[0], w[1]);
     say(q.mark.act + ': ' + q.mark.name + ', ' + far + ' blocks. It is marked on the map.');   /* draft:true */
@@ -390,12 +467,13 @@
   function done(qid, n) {
     var Q = SQ.quests[qid], s = st(), q = s.quests[qid], S = Q.stages[n] || {};
     q.done = n; q.end = S.end; q.mark = null; put(s);
-    var r = apply(S.fx || {}, { id: 'quest:' + qid, name: Q.title, why: 'side quest: ' + Q.title });
-    root.__ROADEV_QDONE = (root.__ROADEV_QDONE || []).concat([{ id: qid, stage: n, end: S.end, got: r.got }]);
+    var N = Q.nodes[q.node] || {}, P = person(Q, N.who || Q.nodes[Q.start].who, q.ctx);
+    var r = apply(fillFx(S.fx || {}, q.ctx), { id: 'quest:' + qid, name: P.name, why: 'side quest: ' + Q.title });
+    root.__ROADEV_QDONE = (root.__ROADEV_QDONE || []).concat([{ id: qid, stage: n, end: S.end, got: r.got, fight: !!r.fight }]);
     happened(Q.title + ': ' + (S.log || 'done.'));
     feed('@thecrew', S.log || (Q.title + ', done.'));   /* the quest's own @LOG line, the journal on the phone */
-    var N = Q.nodes[q.node] || {}, P = person(Q, N.who || Q.nodes[Q.start].who);
-    card({ look: P.look, name: P.name, from: P.from, text: S.log || '...', got: r.got, head: String(Q.title || '').toUpperCase() + (S.end === 'FAIL' ? ' · OVER' : ' · DONE'), opts: [{ t: 'GO ON', fn: function () { close(); } }] });
+    if (r.fight) { close(false); return; }   /* CONTENT 2: an ending that is a fight (their blood is in its pay): the fight's own end says what it paid */
+    card({ look: P.look, name: P.name, from: P.from, text: (S.log || '...') + (r.say ? '\n\n' + r.say : ''), got: r.got, head: String(Q.title || '').toUpperCase() + (S.end === 'FAIL' ? ' · OVER' : ' · DONE'), opts: [{ t: 'GO ON', fn: function () { close(); } }] });
   }
   function places() {
     var s = st(), out = []; if (!SQ) return out;

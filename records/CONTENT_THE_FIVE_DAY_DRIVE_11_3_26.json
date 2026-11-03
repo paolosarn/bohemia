@@ -1,0 +1,2226 @@
+{
+ "file": "BOHEMIA_DEMO.html",
+ "box": "Playwright Chromium, phone 390x844 touch",
+ "when": "2026-11-03T01:15:11.897Z",
+ "events": [
+  {
+   "day": 1,
+   "min": 498,
+   "who": "DON ISIDRO",
+   "said": "First year this ground has given us more than we eat. First year ever.\n\nAnd the store is s",
+   "opts": [
+    "“How short?”",
+    "“I'll count it.”",
+    "“You would know if it was.”",
+    "(go to the store)"
+   ],
+   "tapped": "“How short?”",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 498,
+   "who": "DON ISIDRO",
+   "said": "That is exactly the thing I want somebody else's hands on. If I tell you a number you will",
+   "opts": [
+    "“Fair. I'll count it.”",
+    "(go)"
+   ],
+   "tapped": "“Fair. I'll count it.”",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 498,
+   "who": "DON ISIDRO",
+   "said": "Door is open. It has always been open, which may be the whole answer.",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "O"
+  },
+  {
+   "day": 1,
+   "min": 638,
+   "who": "DON BETO",
+   "said": "Sí, sí, I owe. Forty batteries, I know the number, I dream the number. But mira, my kids e",
+   "opts": [
+    "Take all of it.A FIGHT",
+    "Take half. Leave him the rest.50% PAY",
+    "Pay his debt yourself: 20 batteries.-20 BAT"
+   ],
+   "tapped": "Take all of it.A FIGHT",
+   "mouth": "rest"
+  },
+  {
+   "day": 1,
+   "min": 702,
+   "who": "A KID WITH A TV",
+   "said": "The Remnants already took the good stuff. They left the doors open. Everybody's in there t",
+   "opts": [
+    "Go in and take what's left.+14 BAT · +2 FOOD",
+    "Tell him to put it back.",
+    "Walk on."
+   ],
+   "tapped": "Go in and take what's left.+14 BAT · +2 FOOD",
+   "mouth": null
+  },
+  {
+   "day": 1,
+   "min": 822,
+   "who": "A KID WITH A TV",
+   "said": "Fourteen in cells and two cans. A woman in a doorway watches you carry it out.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 865,
+   "who": "EL NENE",
+   "said": "You are counting.\n\nThen you already know it is short and you already know by how much, so ",
+   "opts": [
+    "“Put it back and we're done.”",
+    "“The block is going to hear this.”",
+    "“Then the door gets a lock.”",
+    "(stand there and let them talk)"
+   ],
+   "tapped": "“Put it back and we're done.”",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 865,
+   "who": "EL NENE",
+   "said": "Tonight. All of it. And nobody has to know it was me.",
+   "opts": [
+    "(let it be that)",
+    "“No. They hear it.”"
+   ],
+   "tapped": "(let it be that)",
+   "mouth": "rest"
+  },
+  {
+   "day": 1,
+   "min": 865,
+   "who": "EL NENE",
+   "said": "Sorted it without a name being said. Store is full, nobody was thrown off the block.\n\nIt w",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 989,
+   "who": "EL FLACO RUIZ",
+   "said": "Shh. Get down. That's the Network convoy coming, to Mob. We hit it at the bend. You want a",
+   "opts": [
+    "Join the robbery.A FIGHT",
+    "Walk up and warn the convoy.+12 BAT · 30 MIN",
+    "Walk on and see nothing."
+   ],
+   "tapped": "Join the robbery.A FIGHT",
+   "mouth": "rest"
+  },
+  {
+   "day": 1,
+   "min": 1128,
+   "who": "TWO RED DESERTERS",
+   "said": "We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take u",
+   "opts": [
+    "Take one of them.+1 MAN",
+    "Turn them in to the Reds.+20 BAT",
+    "Say nothing and go."
+   ],
+   "tapped": "Take one of them.+1 MAN",
+   "mouth": null
+  },
+  {
+   "day": 1,
+   "min": 1128,
+   "who": "TWO RED DESERTERS",
+   "said": "Benny. The other one goes his own way. The Reds will hear, they always hear.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1325,
+   "who": "RUBÉN EL LINIERO",
+   "said": "Nine at night, every night, and half this block goes brown.\n\nI tested it myself, line's cl",
+   "opts": [
+    "“I'll walk it.”",
+    "“Why not you?”",
+    "“Not my block.”",
+    "(say nothing, just go)"
+   ],
+   "tapped": "“I'll walk it.”",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1325,
+   "who": "RUBÉN EL LINIERO",
+   "said": "Good. Splits somewhere past the dead storefronts, warm cable, you'll feel it before you se",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "M"
+  },
+  {
+   "day": 2,
+   "min": 35,
+   "who": "DOÑA LUPE",
+   "said": "The Caravans came into Cartel last night. They took the water, the cells, my cousin's truc",
+   "opts": [
+    "Give her two nights of food.-2 FOOD",
+    "Go after the crew and the truck.A FIGHT",
+    "Walk on."
+   ],
+   "tapped": "Give her two nights of food.-2 FOOD",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 35,
+   "who": "DOÑA LUPE",
+   "said": "Que Dios te lo pague. Everybody from Cartel remembers the ones who gave.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 89,
+   "who": "LA FIXER",
+   "said": "Easy. Easy, easy. Don't touch that, it's live.\n\nI don't steal it. I move it. The grid does",
+   "opts": [
+    "Put it back. Nobody hears it.",
+    "“The trades should see this.”",
+    "“Whose current is it?”",
+    "(cut the tap, right now)"
+   ],
+   "tapped": "Put it back. Nobody hears it.",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 132,
+   "who": "RUBÉN EL LINIERO",
+   "said": "Light's back. I'm not going to ask how.\n\nYou didn't make a show of it, and I noticed. Not ",
+   "opts": [
+    "“Just fixed a line.”"
+   ],
+   "tapped": "“Just fixed a line.”",
+   "mouth": "M"
+  },
+  {
+   "day": 2,
+   "min": 132,
+   "who": "RUBÉN EL LINIERO",
+   "said": "Put the current back myself. Block has light tonight. Nobody knows it was me.\n\nRubén pays ",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 342,
+   "who": "A HUNTER WITH ONE ARM",
+   "said": "Lab cat. American lion, they said, from a bone in Tule Springs. It took my arm and my part",
+   "opts": [
+    "Go after the lion.A FIGHT",
+    "Not our fight."
+   ],
+   "tapped": "Go after the lion.A FIGHT",
+   "mouth": "M"
+  },
+  {
+   "day": 2,
+   "min": 460,
+   "who": "MADAME BOTTEGA",
+   "said": "Darling. The world ended and you still dress like a parking lot. One coat, Balenciaga, rea",
+   "opts": [
+    "Buy something cheaper: a knife she keeps under the rack.-12 BAT · +GEAR",
+    "Trade her two nights of food.+6 BAT · -2 FOOD",
+    "Not today."
+   ],
+   "tapped": "Buy something cheaper: a knife she keeps under the rack.-12 BAT · +GEAR",
+   "mouth": null
+  },
+  {
+   "day": 2,
+   "min": 460,
+   "who": "MADAME BOTTEGA",
+   "said": "The knife. Tragic. But it matches nothing, so it matches everything.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 691,
+   "who": "EL CONTADOR",
+   "said": "Head count. Not names if you'd rather not give names. Just how many sleep on this block.\n\n",
+   "opts": [
+    "“How many, or how many I admit to?”",
+    "“Who reads it after you?”",
+    "“Nobody here gets counted.”",
+    "(wait for the rest of it)"
+   ],
+   "tapped": "“How many, or how many I admit to?”",
+   "mouth": "O"
+  },
+  {
+   "day": 2,
+   "min": 691,
+   "who": "EL CONTADOR",
+   "said": "Both, usually. I've been doing this eleven months and the second number is always the hone",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "rest"
+  },
+  {
+   "day": 2,
+   "min": 879,
+   "who": "A GIRL IN A STORM DRAIN",
+   "said": "¡Aquí abajo! My foot is stuck in the grate. The water comes when it rains, and it's going ",
+   "opts": [
+    "Dig her out.45 MIN",
+    "Pull hard and fast.A CHANCE"
+   ],
+   "tapped": "Dig her out.45 MIN",
+   "mouth": "A"
+  },
+  {
+   "day": 2,
+   "min": 924,
+   "who": "A GIRL IN A STORM DRAIN",
+   "said": "She runs home without saying gracias. Later the whole town knows who did it.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "O"
+  },
+  {
+   "day": 2,
+   "min": 1075,
+   "who": "CHISPA",
+   "said": "Nobody hires me. They see the vest and cross the street. Mira, I'm not crazy. Four cells w",
+   "opts": [
+    "Hire him, vest and all.+1 MAN",
+    "Feed him and send him home.-1 FOOD",
+    "Cross the street."
+   ],
+   "tapped": "Hire him, vest and all.+1 MAN",
+   "mouth": "M"
+  },
+  {
+   "day": 2,
+   "min": 1075,
+   "who": "CHISPA",
+   "said": "Bueno. Walk in front of me, not behind. Everybody learns that the first day.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "M"
+  },
+  {
+   "day": 2,
+   "min": 1215,
+   "who": "DOÑA ROSA",
+   "said": "They already came to you. It's on your face.\n\nHere is what the line knows. The crates are ",
+   "opts": [
+    "“True count. All of us.”",
+    "“Short. Leave off the ones who can't be listed.”",
+    "“I read the list on the street first.”",
+    "“Nobody gets counted. Not for food, not for anything.”"
+   ],
+   "tapped": "“True count. All of us.”",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1215,
+   "who": "DOÑA ROSA",
+   "said": "Honest, then. It's the answer that feeds the most people and I still don't feel good handi",
+   "opts": [
+    "“Send the true number.”",
+    "(nod once and let her write it)"
+   ],
+   "tapped": "“Send the true number.”",
+   "mouth": "rest"
+  },
+  {
+   "day": 2,
+   "min": 1215,
+   "who": "DOÑA ROSA",
+   "said": "Gave the true number, plainly, and let it go up. The block eats. The block is also on a pa",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1295,
+   "who": "A MAN ON A MATTRESS",
+   "said": "Fever three days. My wife went for the clinic, she don't come back. If you got water, a li",
+   "opts": [
+    "Leave him a night of food and water.-1 FOOD",
+    "Carry him to the nearest town.50 MIN",
+    "Go on."
+   ],
+   "tapped": "Leave him a night of food and water.-1 FOOD",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1295,
+   "who": "A MAN ON A MATTRESS",
+   "said": "Dios te lo pague. Her name is Lupe. Lupe Ortiz.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 25,
+   "who": "NIETA LUZ",
+   "said": "He went off the slope behind the house. That is all. He was old and it was dark.\n\nI know w",
+   "opts": [
+    "“Show me where.”",
+    "“What did he want to show me?”",
+    "“Alright. It was a fall.”",
+    "(go and look anyway)"
+   ],
+   "tapped": "“Show me where.”",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 25,
+   "who": "NIETA LUZ",
+   "said": "Behind the house, past the wire. Mind the loose ground.",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 68,
+   "who": "EL CAMILLERO",
+   "said": "You are standing where I was standing.\n\nLook at it. He came off there and landed here, and",
+   "opts": [
+    "“Then I keep it quiet.”",
+    "“Then people should hear it.”",
+    "“You were up here that night.”",
+    "(look at the ground a long time)"
+   ],
+   "tapped": "“Then I keep it quiet.”",
+   "mouth": null
+  },
+  {
+   "day": 3,
+   "min": 68,
+   "who": "EL CAMILLERO",
+   "said": "Then take his box and let them bury him as a man who fell.",
+   "opts": [
+    "(take the box, say nothing)",
+    "“No. They should hear it.”"
+   ],
+   "tapped": "(take the box, say nothing)",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 68,
+   "who": "EL CAMILLERO",
+   "said": "Kept it to myself. Took the box he left and put it somewhere nobody looks.\n\nIn the box: ce",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 207,
+   "who": "BLUES SERGEANT",
+   "said": "Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay w",
+   "opts": [
+    "Ride with them.A FIGHT",
+    "Say you're busy.THEY WILL HEAR"
+   ],
+   "tapped": "Ride with them.A FIGHT",
+   "mouth": "A"
+  },
+  {
+   "day": 3,
+   "min": 342,
+   "who": "A WOMAN WITH TWO JUGS",
+   "said": "¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. ",
+   "opts": [
+    "Hide her.A CHANCE",
+    "Turn her in for the reward.+12 BAT",
+    "Stay out of it."
+   ],
+   "tapped": "Hide her.A CHANCE",
+   "mouth": "A"
+  },
+  {
+   "day": 3,
+   "min": 342,
+   "who": "A WOMAN WITH TWO JUGS",
+   "said": "They walk right past. She leaves you three jugs. Three nights of water.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 514,
+   "who": "DON CIRO",
+   "said": "Look up. Blue, all the way across, and that's exactly the problem.\n\nIt's raining hard twen",
+   "opts": [
+    "“How sure are you?”",
+    "“Going now.”",
+    "“You've been wrong before.”",
+    "(already moving)"
+   ],
+   "tapped": "“How sure are you?”",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 514,
+   "who": "DON CIRO",
+   "said": "Sure enough that I'm standing in the street telling a stranger instead of sitting down.\n\nN",
+   "opts": [
+    "“Then I'm gone.”",
+    "(turn and run)"
+   ],
+   "tapped": "“Then I'm gone.”",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 514,
+   "who": "DON CIRO",
+   "said": "Culvert mouth, past the dead lot. There will be four or five of them and at least one who ",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "M"
+  },
+  {
+   "day": 3,
+   "min": 535,
+   "who": "LA FLACA",
+   "said": "Sun is out. Whatever this is, say it fast, because it usually ends with me carrying my bed",
+   "opts": [
+    "“It's raining north. Come up with me now.”",
+    "“Ringing the market bell. Everyone comes.”",
+    "“Then I'm taking the grate off.”"
+   ],
+   "tapped": "“It's raining north. Come up with me now.”",
+   "mouth": null
+  },
+  {
+   "day": 3,
+   "min": 535,
+   "who": "LA FLACA",
+   "said": "You came down here. Nobody comes down here.\n\nAll right. All right, I'm up. There are two m",
+   "opts": [
+    "“One at a time. Go.”",
+    "(haul him up and go back for the others)"
+   ],
+   "tapped": "“One at a time. Go.”",
+   "mouth": "M"
+  },
+  {
+   "day": 3,
+   "min": 535,
+   "who": "LA FLACA",
+   "said": "Went down myself and walked them out with a hand on each shoulder. It came through eight m",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "M"
+  },
+  {
+   "day": 3,
+   "min": 664,
+   "who": "A KID WITH A CAN",
+   "said": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother say",
+   "opts": [
+    "Give him two nights of food.-2 FOOD",
+    "Give him five batteries.-5 BAT",
+    "Keep walking."
+   ],
+   "tapped": "Give him two nights of food.-2 FOOD",
+   "mouth": null
+  },
+  {
+   "day": 3,
+   "min": 664,
+   "who": "A KID WITH A CAN",
+   "said": "Gracias. I don't forget faces. Neither does my brother.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "rest"
+  },
+  {
+   "day": 3,
+   "min": 804,
+   "who": "MEMO EL CORREDOR",
+   "said": "They are gone. One night. I have run that road twice a week for a year and there is nobody",
+   "opts": [
+    "“I'll look.”",
+    "“Why would I wonder?”",
+    "“Nobody sold them.”",
+    "(start walking)"
+   ],
+   "tapped": "“I'll look.”",
+   "mouth": "A"
+  },
+  {
+   "day": 3,
+   "min": 804,
+   "who": "MEMO EL CORREDOR",
+   "said": "Two hours up the road. Take water.",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 944,
+   "who": "LUPE ORTIZ",
+   "said": "You're them. He told me. He lived, ¿me oyes? He lived. I got nothing much. I sew. Let me g",
+   "opts": [
+    "Take what she made.+GEAR",
+    "Tell her to keep it.THEY WILL HEAR"
+   ],
+   "tapped": "Take what she made.+GEAR",
+   "mouth": null
+  },
+  {
+   "day": 3,
+   "min": 944,
+   "who": "LUPE ORTIZ",
+   "said": "A knife, in a sheath I stitched with his old belt. Cut good things with it.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 1164,
+   "who": "DOCTORA IBARRA",
+   "said": "One course. Two people. I've run the numbers four times hoping they were three people ago.",
+   "opts": [
+    "“Tell me about both of them.”",
+    "“Can it be stretched?”",
+    "“Is there anywhere else to get more?”",
+    "(wait for her to keep going)"
+   ],
+   "tapped": "“Tell me about both of them.”",
+   "mouth": null
+  },
+  {
+   "day": 3,
+   "min": 1164,
+   "who": "DOCTORA IBARRA",
+   "said": "One is forty, strong lungs, will be back on a roof in nine days with the full course. Noth",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 1272,
+   "who": "DOÑA FAUSTA",
+   "said": "Forty of us. There were three hundred on this ground a week ago.\n\nSomebody let them throug",
+   "opts": [
+    "“You can stand on it.”",
+    "“Who let them through?”",
+    "“You cannot stay here.”",
+    "(nod them toward the block)"
+   ],
+   "tapped": "“You can stand on it.”",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 1272,
+   "who": "DOÑA FAUSTA",
+   "said": "Then we come. And somebody is going to have to say whose ground it is, because we will not",
+   "opts": [
+    "(say it is ours, out loud)",
+    "(leave that for later)"
+   ],
+   "tapped": "(say it is ours, out loud)",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 1272,
+   "who": "DOÑA FAUSTA",
+   "said": "Took them in and said the ground is ours now. Everybody heard both halves of that.\n\nOne of",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "O"
+  },
+  {
+   "day": 4,
+   "min": 1320,
+   "who": "PADRE ANSELMO",
+   "said": "I ring it for the ones in the houses who died alone after the money went. Nobody came for ",
+   "opts": [
+    "Stand with him a while.30 MIN",
+    "Give him a battery for candles.-1 BAT",
+    "Walk on."
+   ],
+   "tapped": "Stand with him a while.30 MIN",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 1350,
+   "who": "PADRE ANSELMO",
+   "said": "Thirty-one doors. He says each number out loud. Nobody opens one.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "O"
+  },
+  {
+   "day": 4,
+   "min": 1419,
+   "who": "EL FLACO",
+   "said": "She sent you. She always sends someone, she has never once come herself, and I have never ",
+   "opts": [
+    "“What's the small thing?”",
+    "“Take the crate. Both of them live.”",
+    "“No. We do it with what we have.”"
+   ],
+   "tapped": "“What's the small thing?”",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 1419,
+   "who": "EL FLACO",
+   "said": "If I knew, it would be a contract, and contracts are for people who plan to argue.\n\nIt'll ",
+   "opts": [
+    "“Take the crate anyway.”",
+    "(walk out without answering)"
+   ],
+   "tapped": "“Take the crate anyway.”",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 1419,
+   "who": "EL FLACO",
+   "said": "Took the crate. Both of them live, the clinic runs another month, and somewhere a ledger h",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "A"
+  },
+  {
+   "day": 4,
+   "min": 39,
+   "who": "THE KID'S BROTHER",
+   "said": "You fed my little brother. So I tell you straight: three men sit on the next bend with a r",
+   "opts": [
+    "Take him on.+1 MAN",
+    "Take the way around.+6 BAT · 40 MIN",
+    "Thank him and go on."
+   ],
+   "tapped": "Take him on.+1 MAN",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 39,
+   "who": "THE KID'S BROTHER",
+   "said": "Teo. I carry, I watch, I don't complain. Vámonos.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "A"
+  },
+  {
+   "day": 4,
+   "min": 221,
+   "who": "CARTEL CHECKPOINT",
+   "said": "Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Ou",
+   "opts": [
+    "Pay the tenth.-8 BAT · -1 FOOD",
+    "Argue.A CHANCE",
+    "Turn around.50 MIN"
+   ],
+   "tapped": "Pay the tenth.-8 BAT · -1 FOOD",
+   "mouth": null
+  },
+  {
+   "day": 4,
+   "min": 221,
+   "who": "CARTEL CHECKPOINT",
+   "said": "Eight batteries and a night of food. Pásale. Have a nice day.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "A"
+  },
+  {
+   "day": 4,
+   "min": 452,
+   "who": "A KID WITH A CUE",
+   "said": "The Golden Cue closed forever, so we make spears out of the cues. Two cues taped long, a k",
+   "opts": [
+    "Buy a pool pole spear.-12 BAT · +GEAR",
+    "Make one with him.-4 BAT · +GEAR",
+    "Walk on."
+   ],
+   "tapped": "Buy a pool pole spear.-12 BAT · +GEAR",
+   "mouth": null
+  },
+  {
+   "day": 4,
+   "min": 452,
+   "who": "A KID WITH A CUE",
+   "said": "Hold it at the back, not the middle. The middle is for the felt.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "A"
+  },
+  {
+   "day": 4,
+   "min": 619,
+   "who": "DOÑA PILI",
+   "said": "The axle, mijo. I got the part, I don't got the arms. One hour of your boys lifting and I ",
+   "opts": [
+    "Lift the truck. One hour.1 H",
+    "Sell her the time: ten batteries.+10 BAT · 1 H",
+    "No time."
+   ],
+   "tapped": "Lift the truck. One hour.1 H",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 679,
+   "who": "DOÑA PILI",
+   "said": "Ándale, that's it. I run the Primm road. You'll see me again.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 840,
+   "who": "LA RATA",
+   "said": "Second floor and up is spoken for. Something big is holding the landing and it has not eat",
+   "opts": [
+    "“I'll go up.”",
+    "“Holding what?”",
+    "“Leave it. It'll sort itself.”",
+    "(start up the stairs)"
+   ],
+   "tapped": "“I'll go up.”",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 840,
+   "who": "LA RATA",
+   "said": "Slow, then. Don't look it in the face and don't put your hand out yet. It isn't angry. It'",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 943,
+   "who": "SARGENTO VEGA",
+   "said": "I know whose dog that is. I knew before you told me, because I know who has not checked in",
+   "opts": [
+    "“I'll sit with it.”",
+    "“Bring the crew. Do it properly.”",
+    "“The block should see this.”",
+    "“How long was he up there alone?”"
+   ],
+   "tapped": "“I'll sit with it.”",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 943,
+   "who": "SARGENTO VEGA",
+   "said": "Two hours. Maybe three. No talking, no reaching, and don't take the kit, the kit is what i",
+   "opts": [
+    "“I have the time.”",
+    "(sit down on the step and wait)",
+    "“No. Bring the crew instead.”"
+   ],
+   "tapped": "“I have the time.”",
+   "mouth": "rest"
+  },
+  {
+   "day": 4,
+   "min": 943,
+   "who": "SARGENTO VEGA",
+   "said": "Sat on the step for two hours saying nothing until it took food out of my hand. Buried him",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 4,
+   "min": 996,
+   "who": "DOÑA REFUGIO",
+   "said": "Come close, I don't have the breath to say it twice. There's one thing left and I can't wa",
+   "opts": [
+    "“I forgive you. I'll carry it.”",
+    "“He doesn't deserve that.”",
+    "“I can't promise I will.”"
+   ],
+   "tapped": "“I forgive you. I'll carry it.”",
+   "mouth": null
+  },
+  {
+   "day": 4,
+   "min": 996,
+   "who": "DOÑA REFUGIO",
+   "said": "Deserve. You sound like the part of me that stayed angry for nine years.\n\nIt isn't for him",
+   "opts": [
+    "“I'll find him.”",
+    "“And if I change the words on the way?”"
+   ],
+   "tapped": "“I'll find him.”",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 1411,
+   "who": "DOÑA PILI",
+   "said": "¡Mira quién es! The arms! I been looking for you. A crate of beans fell off the back of my",
+   "opts": [
+    "Take the beans.+6 FOOD",
+    "Ask for batteries instead.+25 BAT"
+   ],
+   "tapped": "Take the beans.+6 FOOD",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 1411,
+   "who": "DOÑA PILI",
+   "said": "Six nights for your boys. We're square. Until next time.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "O"
+  },
+  {
+   "day": 5,
+   "min": 84,
+   "who": "EL TUERTO",
+   "said": "I know that name. I've waited years for someone to come about that name, and I always thou",
+   "opts": [
+    "“In her words: she forgives you.”",
+    "“Bring people. Let them see this.”",
+    "“She curses you with her last breath.”"
+   ],
+   "tapped": "“In her words: she forgives you.”",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 84,
+   "who": "EL TUERTO",
+   "said": "(he doesn't speak for a long time. when he does it isn't words, it's the sound a man makes",
+   "opts": [
+    "“She wanted it lighter. Now it is.”",
+    "(leave him to it)"
+   ],
+   "tapped": "“She wanted it lighter. Now it is.”",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 84,
+   "who": "EL TUERTO",
+   "said": "Carried her words, plain and true, to the man who earned none of them. He wept. Nobody els",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 261,
+   "who": "A RADIO ON A POLE",
+   "said": "(a radio taped to a pole, playing a weather report from before. Sunny. Seventy-two. The do",
+   "opts": [
+    "Take its batteries.+4 BAT",
+    "Leave it playing."
+   ],
+   "tapped": "Take its batteries.+4 BAT",
+   "mouth": "A"
+  },
+  {
+   "day": 5,
+   "min": 261,
+   "who": "A RADIO ON A POLE",
+   "said": "Four batteries. The report stops on 'the dollar is'. The quiet is worse.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "A"
+  },
+  {
+   "day": 5,
+   "min": 584,
+   "who": "HERMANO CANDELARIO",
+   "said": "The dollar was a false god and it died like one. Now everybody worships the battery. Broth",
+   "opts": [
+    "Give five.-5 BAT",
+    "Listen to the sermon.30 MIN",
+    "Walk past."
+   ],
+   "tapped": "Give five.-5 BAT",
+   "mouth": null
+  },
+  {
+   "day": 5,
+   "min": 584,
+   "who": "HERMANO CANDELARIO",
+   "said": "Five. Bendito. The sisters will hear your name tonight.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "rest"
+  },
+  {
+   "day": 5,
+   "min": 734,
+   "who": "A BRIDE IN SILVER",
+   "said": "¡Vengan, vengan! A wedding! Two families stop fighting today. Eat, drink, and if you have ",
+   "opts": [
+    "Give a gift: ten batteries.-10 BAT · +4 FOOD",
+    "Eat and leave.+2 FOOD · 1 H",
+    "Keep moving."
+   ],
+   "tapped": "Give a gift: ten batteries.-10 BAT · +4 FOOD",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 794,
+   "who": "A BRIDE IN SILVER",
+   "said": "Ten! You eat like family. Take a plate for the road. The whole town will hear.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 1068,
+   "who": "DOÑA SALAZAR",
+   "said": "Four posts and the wire off the top of them, between our ground and theirs.\n\nI am not goin",
+   "opts": [
+    "“Did you see them do it?”",
+    "“I'll hear them too.”",
+    "“Why would they need it?”",
+    "(go across)"
+   ],
+   "tapped": "“Did you see them do it?”",
+   "mouth": "O"
+  },
+  {
+   "day": 5,
+   "min": 1068,
+   "who": "DOÑA SALAZAR",
+   "said": "No. I heard it. And I know what I heard the way you know your own door.\n\nWhich is worth no",
+   "opts": [
+    "“Then I'll go look at it.”",
+    "(say nothing)"
+   ],
+   "tapped": "“Then I'll go look at it.”",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 1068,
+   "who": "DOÑA SALAZAR",
+   "said": "Go on then. Their door is the one with the good hinge. Ours took the wire.",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 1214,
+   "who": "A MAN WITH A WALKMAN",
+   "said": "Listen to this. Somebody tapes cassettes to the fences. Same voice every time, reading the",
+   "opts": [
+    "Listen to the whole tape.30 MIN",
+    "Buy the tape off him.-2 BAT",
+    "Walk on."
+   ],
+   "tapped": "Listen to the whole tape.30 MIN",
+   "mouth": "E"
+  },
+  {
+   "day": 5,
+   "min": 1244,
+   "who": "A MAN WITH A WALKMAN",
+   "said": "After the eggs, milk. After the milk, ten seconds of a crowd breathing. Then the date, and",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 6,
+   "min": 1368,
+   "who": "DON PEÑA",
+   "said": "They already told you. Four posts and the wire. Ours.\n\nI could stand here and be upset at ",
+   "opts": [
+    "“Then I'll look.”",
+    "“One of you is lying to me.”",
+    "“I already believe them.”",
+    "(walk to the fence line)"
+   ],
+   "tapped": "“Then I'll look.”",
+   "mouth": "E"
+  },
+  {
+   "day": 6,
+   "min": 1368,
+   "who": "DON PEÑA",
+   "said": "Drag marks. Both directions, one deeper than the other, and the deep one is loaded.\n\nSo no",
+   "opts": [
+    "“Put it back. Quietly.”",
+    "“Both houses hear this.”",
+    "“Then the fence comes down.”",
+    "(stand and look at it)"
+   ],
+   "tapped": "“Put it back. Quietly.”",
+   "mouth": "A"
+  },
+  {
+   "day": 6,
+   "min": 1368,
+   "who": "DON PEÑA",
+   "said": "Back up tonight, nothing said. The one who took it will know that you knew.",
+   "opts": [
+    "(let it be that)",
+    "“No. Out loud.”"
+   ],
+   "tapped": "(let it be that)",
+   "mouth": "O"
+  },
+  {
+   "day": 6,
+   "min": 1368,
+   "who": "DON PEÑA",
+   "said": "Walked the fence. Ground told me which way it went. Fixed it without saying it out loud.\n\n",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  }
+ ],
+ "jobs": [
+  {
+   "id": "jk-scout-wells",
+   "took": {
+    "ok": true,
+    "plays": "scout",
+    "kind": "scout",
+    "legs": [
+     "SCOUT@THE FIRST WELL",
+     "SCOUT@THE SECOND WELL",
+     "SCOUT@THE THIRD WELL",
+     "undefined@Anarchists"
+    ],
+    "said": "Contract from Anarchists: Look at the three wells and come tell me. Scout at THE FIRST WELL, west, a short walk; then Scout at THE SECOND WELL, west, a short walk; then Scout at THE THIRD WELL, south-west, a long walk; then back to Anarchists to be paid. Pays 15 batteries."
+   }
+  },
+  {
+   "id": "jk-collect-beto",
+   "took": {
+    "ok": true,
+    "plays": "collect",
+    "kind": "collect",
+    "legs": [
+     "COLLECT@DON BETO",
+     "undefined@Anarchists"
+    ],
+    "said": "Contract from Anarchists: Collect what Don Beto owes. Collect at DON BETO, east, a short walk; then back to Anarchists to be paid. Pays 60 batteries."
+   }
+  }
+ ],
+ "quests": [],
+ "taps": 98,
+ "fights": 4,
+ "errors": [],
+ "scavTry": "no lot",
+ "stamp": "DEMO - BUILD 11/3zz - THE JOBS ARE BACK",
+ "start": {
+  "day": 1,
+  "min": 360,
+  "at": [
+   64,
+   80
+  ],
+  "travel": false,
+  "speed": 2,
+  "bats": 290,
+  "food": 21,
+  "men": 3,
+  "open": false,
+  "card": false,
+  "meet": false,
+  "held": [],
+  "rq": [],
+  "err": null
+ },
+ "town": "Anarchists",
+ "lastSig": "DON PEÑA|Walked the fence. Ground told me which way it went. Fixed it",
+ "passWalk": [
+  6,
+  2,
+  "pass:I-15 N"
+ ],
+ "end": {
+  "day": 6,
+  "min": 1368,
+  "at": [
+   37,
+   18
+  ],
+  "travel": false,
+  "speed": 0,
+  "bats": 340,
+  "food": 8,
+  "men": 7,
+  "open": false,
+  "card": false,
+  "meet": false,
+  "held": [],
+  "rq": [],
+  "err": null
+ },
+ "road": {
+  "ready": true,
+  "events": 45,
+  "quests": 15,
+  "walked": 1176,
+  "last": 1153,
+  "met": 33,
+  "seen": [
+   "quest:bq_a06_the_first_harvest",
+   "ev_the_looter",
+   "ev_the_convoy_robbers",
+   "ev_the_deserters",
+   "quest:bq_meter_reader",
+   "ev_the_raid_wagon",
+   "ev_the_cave_cat",
+   "ev_the_runway_stall",
+   "quest:bq_the_count",
+   "ev_the_stuck_child",
+   "ev_the_spark",
+   "ev_the_sick_man",
+   "quest:bq_a02_the_elders_accident",
+   "ev_the_blue_patrol",
+   "ev_the_water_thief",
+   "quest:bq_sixty_seconds",
+   "ev_the_hungry_kid",
+   "quest:bq_a03_the_faction_that_died",
+   "ev_the_sick_mans_wife",
+   "quest:bq_last_good_doctor",
+   "ev_the_three_oclock_bell",
+   "ev_the_kid_comes_back",
+   "ev_the_cartel_checkpoint",
+   "ev_the_pool_hall_kid",
+   "ev_the_broken_truck",
+   "quest:bq_what_the_dog_knows",
+   "quest:bq_say_it_back",
+   "ev_the_trucker_pays_back",
+   "ev_the_static_radio",
+   "ev_the_preacher",
+   "ev_the_wedding",
+   "quest:bq_a07_the_two_families",
+   "ev_the_egg_tape"
+  ],
+  "flags": {
+   "helped_the_sick_man": 2,
+   "hid_the_water_woman": 3,
+   "fed_the_kid": 3,
+   "helped_the_trucker": 4,
+   "took_the_radio": 5,
+   "heard_the_egg_tape": 5
+  },
+  "held": [],
+  "questState": {
+   "bq_a06_the_first_harvest": {
+    "stage": 30,
+    "at": {
+     "x": 61,
+     "y": 90
+    },
+    "node": "back",
+    "know": {},
+    "seen": {
+     "claim": 1,
+     "short": 1,
+     "count": 1,
+     "store": 1,
+     "back": 1
+    },
+    "spots": {
+     "hand": [
+      66,
+      84
+     ]
+    },
+    "mark": null,
+    "began": 1,
+    "ctx": {
+     "town": "Mob",
+     "boss": "THE POT",
+     "sx": 66,
+     "sy": 84
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_meter_reader": {
+    "stage": 30,
+    "at": {
+     "x": 36,
+     "y": 23
+    },
+    "node": "put",
+    "know": {
+     "line_is_clean": 1
+    },
+    "seen": {
+     "open": 1,
+     "walk": 1,
+     "split": 1,
+     "put": 1
+    },
+    "spots": {
+     "fixer": [
+      36,
+      15
+     ],
+     "lineman": [
+      36,
+      23
+     ]
+    },
+    "mark": null,
+    "began": 2,
+    "ctx": {
+     "town": "Remnants"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_the_count": {
+    "stage": 30,
+    "at": {
+     "x": 25,
+     "y": 13
+    },
+    "node": "true_end",
+    "know": {},
+    "seen": {
+     "count": 1,
+     "why": 1,
+     "line": 1,
+     "true_end": 1
+    },
+    "spots": {
+     "organizer": [
+      25,
+      6
+     ]
+    },
+    "mark": null,
+    "began": 2,
+    "ctx": {
+     "town": "Cartel"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_a02_the_elders_accident": {
+    "stage": 30,
+    "at": {
+     "x": 42,
+     "y": 36
+    },
+    "node": "quiet",
+    "know": {},
+    "seen": {
+     "claim": 1,
+     "where": 1,
+     "slope": 1,
+     "quiet": 1
+    },
+    "spots": {
+     "witness": [
+      40,
+      36
+     ]
+    },
+    "mark": null,
+    "began": 3,
+    "ctx": {
+     "town": "Reds"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_sixty_seconds": {
+    "stage": 30,
+    "at": {
+     "x": 45,
+     "y": 36
+    },
+    "node": "hand",
+    "know": {
+     "water_is_coming": 1
+    },
+    "seen": {
+     "sky": 1,
+     "sure": 1,
+     "down": 1,
+     "mouth": 1,
+     "hand": 1
+    },
+    "spots": {
+     "tunnel": [
+      49,
+      36
+     ]
+    },
+    "mark": null,
+    "began": 3,
+    "ctx": {
+     "town": "Reds"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_a03_the_faction_that_died": {
+    "stage": 30,
+    "at": {
+     "x": 23,
+     "y": 13
+    },
+    "node": "take",
+    "know": {},
+    "seen": {
+     "claim": 1,
+     "walk": 1,
+     "ground": 1,
+     "take": 1
+    },
+    "spots": {
+     "elder": [
+      27,
+      7
+     ]
+    },
+    "mark": null,
+    "began": 3,
+    "ctx": {
+     "town": "Cartel",
+     "raider": "Remnants",
+     "raided": "Cartel",
+     "px": 28,
+     "py": 14
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_last_good_doctor": {
+    "stage": 32,
+    "at": {
+     "x": 35,
+     "y": 21
+    },
+    "node": "smallthing",
+    "know": {
+     "the_price_is_later": 1
+    },
+    "seen": {
+     "clinic": 1,
+     "both": 1,
+     "crate": 1,
+     "smallthing": 1
+    },
+    "spots": {
+     "runner": [
+      29,
+      27
+     ]
+    },
+    "mark": null,
+    "began": 3,
+    "ctx": {
+     "town": "Remnants"
+    },
+    "done": 32,
+    "end": "COMPLETE"
+   },
+   "bq_what_the_dog_knows": {
+    "stage": 30,
+    "at": {
+     "x": 42,
+     "y": 36
+    },
+    "node": "sit",
+    "know": {},
+    "seen": {
+     "stairwell": 1,
+     "landing": 1,
+     "bottom": 1,
+     "sit": 1
+    },
+    "spots": {
+     "sergeant": [
+      52,
+      46
+     ]
+    },
+    "mark": null,
+    "began": 4,
+    "ctx": {
+     "town": "Reds"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_say_it_back": {
+    "stage": 30,
+    "at": {
+     "x": 52,
+     "y": 36
+    },
+    "node": "true_end",
+    "know": {
+     "holds_the_words": 1
+    },
+    "seen": {
+     "bedside": 1,
+     "why": 1,
+     "deliver_true": 1,
+     "true_end": 1
+    },
+    "spots": {
+     "wrongdoer": [
+      59,
+      29
+     ]
+    },
+    "mark": null,
+    "began": 4,
+    "ctx": {
+     "town": "Caravans"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_a07_the_two_families": {
+    "stage": 30,
+    "at": {
+     "x": 35,
+     "y": 20
+    },
+    "node": "quiet",
+    "know": {},
+    "seen": {
+     "first": 1,
+     "saw": 1,
+     "other": 1,
+     "second": 1,
+     "fence": 1,
+     "quiet": 1
+    },
+    "spots": {
+     "neighbour_two": [
+      37,
+      18
+     ]
+    },
+    "mark": null,
+    "began": 5,
+    "ctx": {
+     "town": "Remnants"
+    },
+    "done": 30,
+    "end": "COMPLETE"
+   }
+  },
+  "card": false,
+  "fighting": false
+ },
+ "chose": [
+  {
+   "id": "quest:bq_a06_the_first_harvest",
+   "node": "claim",
+   "t": "How short?"
+  },
+  {
+   "id": "quest:bq_a06_the_first_harvest",
+   "node": "short",
+   "t": "Fair. I'll count it."
+  },
+  {
+   "id": "ev_the_looter",
+   "t": "Go in and take what's left.",
+   "got": [
+    "+14 BATTERIES",
+    "+2 FOOD",
+    "CARTEL LIKES YOU LESS",
+    "2 H"
+   ]
+  },
+  {
+   "id": "quest:bq_a06_the_first_harvest",
+   "node": "store",
+   "t": "Put it back and we're done."
+  },
+  {
+   "id": "quest:bq_a06_the_first_harvest",
+   "node": "back",
+   "t": "(let it be that)"
+  },
+  {
+   "id": "ev_the_convoy_robbers",
+   "t": "Join the robbery.",
+   "got": []
+  },
+  {
+   "id": "ev_the_deserters",
+   "t": "Take one of them.",
+   "got": [
+    "+1 MAN: BENNY CRUZ",
+    "REDS LIKES YOU LESS"
+   ]
+  },
+  {
+   "id": "quest:bq_meter_reader",
+   "node": "open",
+   "t": "I'll walk it."
+  },
+  {
+   "id": "ev_the_raid_wagon",
+   "t": "Give her two nights of food.",
+   "got": [
+    "-2 FOOD",
+    "CARTEL LIKES YOU MORE"
+   ]
+  },
+  {
+   "id": "quest:bq_meter_reader",
+   "node": "split",
+   "t": "Put it back. Nobody hears it."
+  },
+  {
+   "id": "quest:bq_meter_reader",
+   "node": "put",
+   "t": "Just fixed a line."
+  },
+  {
+   "id": "ev_the_cave_cat",
+   "t": "Go after the lion.",
+   "got": []
+  },
+  {
+   "id": "ev_the_runway_stall",
+   "t": "Buy something cheaper: a knife she keeps under the rack.",
+   "got": [
+    "-12 BATTERIES",
+    "+1 GEAR"
+   ]
+  },
+  {
+   "id": "quest:bq_the_count",
+   "node": "count",
+   "t": "How many, or how many I admit to?"
+  },
+  {
+   "id": "ev_the_stuck_child",
+   "t": "Dig her out.",
+   "got": [
+    "REDS LIKES YOU MORE",
+    "45 MIN"
+   ]
+  },
+  {
+   "id": "ev_the_spark",
+   "t": "Hire him, vest and all.",
+   "got": [
+    "-12 BATTERIES",
+    "+1 MAN: CHISPA"
+   ]
+  },
+  {
+   "id": "quest:bq_the_count",
+   "node": "line",
+   "t": "True count. All of us."
+  },
+  {
+   "id": "quest:bq_the_count",
+   "node": "true_end",
+   "t": "Send the true number."
+  },
+  {
+   "id": "ev_the_sick_man",
+   "t": "Leave him a night of food and water.",
+   "got": [
+    "-1 FOOD"
+   ]
+  },
+  {
+   "id": "quest:bq_a02_the_elders_accident",
+   "node": "claim",
+   "t": "Show me where."
+  },
+  {
+   "id": "quest:bq_a02_the_elders_accident",
+   "node": "slope",
+   "t": "Then I keep it quiet."
+  },
+  {
+   "id": "quest:bq_a02_the_elders_accident",
+   "node": "quiet",
+   "t": "(take the box, say nothing)"
+  },
+  {
+   "id": "ev_the_blue_patrol",
+   "t": "Ride with them.",
+   "got": []
+  },
+  {
+   "id": "ev_the_water_thief",
+   "t": "Hide her.",
+   "got": [
+    "+3 FOOD"
+   ]
+  },
+  {
+   "id": "quest:bq_sixty_seconds",
+   "node": "sky",
+   "t": "How sure are you?"
+  },
+  {
+   "id": "quest:bq_sixty_seconds",
+   "node": "sure",
+   "t": "Then I'm gone."
+  },
+  {
+   "id": "quest:bq_sixty_seconds",
+   "node": "mouth",
+   "t": "It's raining north. Come up with me now."
+  },
+  {
+   "id": "quest:bq_sixty_seconds",
+   "node": "hand",
+   "t": "One at a time. Go."
+  },
+  {
+   "id": "ev_the_hungry_kid",
+   "t": "Give him two nights of food.",
+   "got": [
+    "-2 FOOD"
+   ]
+  },
+  {
+   "id": "quest:bq_a03_the_faction_that_died",
+   "node": "claim",
+   "t": "I'll look."
+  },
+  {
+   "id": "ev_the_sick_mans_wife",
+   "t": "Take what she made.",
+   "got": [
+    "+1 GEAR"
+   ]
+  },
+  {
+   "id": "quest:bq_last_good_doctor",
+   "node": "clinic",
+   "t": "Tell me about both of them."
+  },
+  {
+   "id": "quest:bq_a03_the_faction_that_died",
+   "node": "ground",
+   "t": "You can stand on it."
+  },
+  {
+   "id": "quest:bq_a03_the_faction_that_died",
+   "node": "take",
+   "t": "(say it is ours, out loud)"
+  },
+  {
+   "id": "ev_the_three_oclock_bell",
+   "t": "Stand with him a while.",
+   "got": [
+    "CHURCH LIKES YOU MORE",
+    "30 MIN"
+   ]
+  },
+  {
+   "id": "quest:bq_last_good_doctor",
+   "node": "crate",
+   "t": "What's the small thing?"
+  },
+  {
+   "id": "quest:bq_last_good_doctor",
+   "node": "smallthing",
+   "t": "Take the crate anyway."
+  },
+  {
+   "id": "ev_the_kid_comes_back",
+   "t": "Take him on.",
+   "got": [
+    "+1 MAN: TEO RAMOS"
+   ]
+  },
+  {
+   "id": "ev_the_cartel_checkpoint",
+   "t": "Pay the tenth.",
+   "got": [
+    "-8 BATTERIES",
+    "-1 FOOD"
+   ]
+  },
+  {
+   "id": "ev_the_pool_hall_kid",
+   "t": "Buy a pool pole spear.",
+   "got": [
+    "-12 BATTERIES",
+    "+1 GEAR"
+   ]
+  },
+  {
+   "id": "ev_the_broken_truck",
+   "t": "Lift the truck. One hour.",
+   "got": [
+    "1 H"
+   ]
+  },
+  {
+   "id": "quest:bq_what_the_dog_knows",
+   "node": "stairwell",
+   "t": "I'll go up."
+  },
+  {
+   "id": "quest:bq_what_the_dog_knows",
+   "node": "bottom",
+   "t": "I'll sit with it."
+  },
+  {
+   "id": "quest:bq_what_the_dog_knows",
+   "node": "sit",
+   "t": "I have the time."
+  },
+  {
+   "id": "quest:bq_say_it_back",
+   "node": "bedside",
+   "t": "I forgive you. I'll carry it."
+  },
+  {
+   "id": "quest:bq_say_it_back",
+   "node": "why",
+   "t": "I'll find him."
+  },
+  {
+   "id": "ev_the_trucker_pays_back",
+   "t": "Take the beans.",
+   "got": [
+    "+6 FOOD"
+   ]
+  },
+  {
+   "id": "quest:bq_say_it_back",
+   "node": "deliver_true",
+   "t": "In her words: she forgives you."
+  },
+  {
+   "id": "quest:bq_say_it_back",
+   "node": "true_end",
+   "t": "She wanted it lighter. Now it is."
+  },
+  {
+   "id": "ev_the_static_radio",
+   "t": "Take its batteries.",
+   "got": [
+    "+4 BATTERIES"
+   ]
+  },
+  {
+   "id": "ev_the_preacher",
+   "t": "Give five.",
+   "got": [
+    "-5 BATTERIES",
+    "CHURCH LIKES YOU MORE"
+   ]
+  },
+  {
+   "id": "ev_the_wedding",
+   "t": "Give a gift: ten batteries.",
+   "got": [
+    "-10 BATTERIES",
+    "+4 FOOD",
+    "BLUES LIKES YOU MORE",
+    "1 H"
+   ]
+  },
+  {
+   "id": "quest:bq_a07_the_two_families",
+   "node": "first",
+   "t": "Did you see them do it?"
+  },
+  {
+   "id": "quest:bq_a07_the_two_families",
+   "node": "saw",
+   "t": "Then I'll go look at it."
+  },
+  {
+   "id": "ev_the_egg_tape",
+   "t": "Listen to the whole tape.",
+   "got": [
+    "30 MIN"
+   ]
+  },
+  {
+   "id": "quest:bq_a07_the_two_families",
+   "node": "second",
+   "t": "Then I'll look."
+  },
+  {
+   "id": "quest:bq_a07_the_two_families",
+   "node": "fence",
+   "t": "Put it back. Quietly."
+  },
+  {
+   "id": "quest:bq_a07_the_two_families",
+   "node": "quiet",
+   "t": "(let it be that)"
+  }
+ ],
+ "paid": [
+  {
+   "id": "jk-scout-wells",
+   "kind": "scout",
+   "paid": 15,
+   "of": 15
+  },
+  {
+   "id": "jk-collect-beto",
+   "kind": "collect",
+   "paid": 60,
+   "of": 60
+  }
+ ],
+ "legsDone": [
+  {
+   "id": "jk-scout-wells",
+   "leg": 1,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-scout-wells",
+   "leg": 2,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-scout-wells",
+   "leg": 3,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-scout-wells",
+   "leg": 4,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-collect-beto",
+   "leg": 1,
+   "kind": "collect"
+  },
+  {
+   "id": "jk-collect-beto",
+   "leg": 2,
+   "kind": "collect"
+  }
+ ],
+ "talks": [
+  {
+   "id": "jk-collect-beto",
+   "t": "Take all of it."
+  }
+ ],
+ "qdone": [
+  {
+   "id": "bq_a06_the_first_harvest",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+10 BATTERIES",
+    "+2 FOOD"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_meter_reader",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+10 BATTERIES"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_the_count",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+5 FOOD",
+    "VOLUNTEERS LIKES YOU MORE"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_a02_the_elders_accident",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+10 BATTERIES"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_sixty_seconds",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+10 BATTERIES",
+    "HOMELESS LIKES YOU MORE"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_a03_the_faction_that_died",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+5 BATTERIES",
+    "+1 MAN: ONE OF THE FORTY",
+    "CARTEL LIKES YOU LESS"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_last_good_doctor",
+   "stage": 32,
+   "end": "COMPLETE",
+   "got": [
+    "+30 BATTERIES",
+    "CARTEL LIKES YOU MORE"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_what_the_dog_knows",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+8 BATTERIES"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_say_it_back",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "CHURCH LIKES YOU MORE"
+   ],
+   "fight": false
+  },
+  {
+   "id": "bq_a07_the_two_families",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+10 BATTERIES"
+   ],
+   "fight": false
+  }
+ ],
+ "qmet": [
+  "bq_a06_the_first_harvest",
+  "bq_meter_reader",
+  "bq_the_count",
+  "bq_a02_the_elders_accident",
+  "bq_sixty_seconds",
+  "bq_a03_the_faction_that_died",
+  "bq_last_good_doctor",
+  "bq_what_the_dog_knows",
+  "bq_say_it_back",
+  "bq_a07_the_two_families"
+ ],
+ "met": [
+  "quest:bq_a06_the_first_harvest",
+  "ev_the_looter",
+  "ev_the_convoy_robbers",
+  "ev_the_deserters",
+  "quest:bq_meter_reader",
+  "ev_the_raid_wagon",
+  "ev_the_cave_cat",
+  "ev_the_runway_stall",
+  "quest:bq_the_count",
+  "ev_the_stuck_child",
+  "ev_the_spark",
+  "ev_the_sick_man",
+  "quest:bq_a02_the_elders_accident",
+  "ev_the_blue_patrol",
+  "ev_the_water_thief",
+  "quest:bq_sixty_seconds",
+  "ev_the_hungry_kid",
+  "quest:bq_a03_the_faction_that_died",
+  "ev_the_sick_mans_wife",
+  "quest:bq_last_good_doctor",
+  "ev_the_three_oclock_bell",
+  "ev_the_kid_comes_back",
+  "ev_the_cartel_checkpoint",
+  "ev_the_pool_hall_kid",
+  "ev_the_broken_truck",
+  "quest:bq_what_the_dog_knows",
+  "quest:bq_say_it_back",
+  "ev_the_trucker_pays_back",
+  "ev_the_static_radio",
+  "ev_the_preacher",
+  "ev_the_wedding",
+  "quest:bq_a07_the_two_families",
+  "ev_the_egg_tape"
+ ],
+ "fought": [
+  {
+   "id": "ev_the_convoy_robbers",
+   "won": true
+  },
+  {
+   "id": "ev_the_cave_cat",
+   "won": true
+  },
+  {
+   "id": "ev_the_blue_patrol",
+   "won": true
+  }
+ ],
+ "joined": [
+  "BENNY CRUZ",
+  "CHISPA",
+  "ONE OF THE FORTY",
+  "TEO RAMOS"
+ ],
+ "gear": [
+  "knife",
+  "knife",
+  "pool_pole_spear"
+ ],
+ "frameErr": [
+  null,
+  null,
+  null
+ ],
+ "driverErrs": [],
+ "verdict": {
+  "days": 5,
+  "events_met": 98,
+  "distinct": 43,
+  "new_jobs_taken": 2,
+  "jobs_paid": 2,
+  "quests_met": 10,
+  "quests_finished": 10,
+  "scavenged": false,
+  "thrown": 0
+ }
+}

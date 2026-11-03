@@ -1,6 +1,6 @@
 {
- "_about": "CONTENT [five side quests played], 11/2/26. Baked by tools/bohemia_side_quests_bake.js from quests/bq (QUESTS' pages, read and never asked to build): every say and every choice VERBATIM from the .bq; the glue (who each role is, where the giver is met on the road, where the second person waits, what an ending pays) is this lane's attempt, draft:true. Played by slices/bohemia_road_events.js: the giver stops you on the road (a face, the .bq's own words); when the talk turns to somebody who is not here, that person's place goes on the map; walk there, they talk; an ending's stage closes it and pays. A modder edits this file, or a .bq and the tool.",
- "version": "side-quests-11-2a",
+ "_about": "CONTENT [five side quests played], 11/2/26; CONTENT 2 [ten more], 11/3/26 (ask line 342): fifteen in all, the ten new ones paid by ECONOMY 2's rule (each ending's fx.pay_why says the hours and the rate), three of them met by what is on the map now (a boss's sign: A05, A06; a crew walking home from a raid: A03; a search in a town's lot: D013). Baked by tools/bohemia_side_quests_bake.js from quests/bq (QUESTS' pages, read and never asked to build): every say and every choice VERBATIM from the .bq; the glue (who each role is, where the giver is met on the road, where the second person waits, what an ending pays) is this lane's attempt, draft:true. Played by slices/bohemia_road_events.js: the giver stops you on the road (a face, the .bq's own words); when the talk turns to somebody who is not here, that person's place goes on the map; walk there, they talk; an ending's stage closes it and pays. A modder edits this file, or a .bq and the tool.",
+ "version": "side-quests-11-3a",
  "draft": true,
  "quests": {
   "bq_say_it_back": {
@@ -1436,6 +1436,3018 @@
        "place": "faction:blues"
       }
      }
+    }
+   },
+   "draft": true
+  },
+  "bq_a01_the_killing_summer": {
+   "id": "bq_a01_the_killing_summer",
+   "file": "A01_THE_KILLING_SUMMER",
+   "title": "The Killing Summer",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "keeper": {
+     "name": "DON TEO",
+     "look": "cast_apron",
+     "from": "at a standpipe spitting air, a line of empty jugs behind him"
+    },
+    "upstream": {
+     "name": "DOÑA PAZ",
+     "look": "faction_blues",
+     "from": "at the standpipe up the line, her own jugs half full"
+    }
+   },
+   "places": {
+    "upstream": {
+     "name": "THE STANDPIPE UP THE LINE",
+     "act": "WALK UP THE LINE",
+     "blocks": [
+      5,
+      10
+     ]
+    }
+   },
+   "go": 20,
+   "start": "claim",
+   "nodes": {
+    "claim": {
+     "who": "keeper",
+     "entry": "stage>=10",
+     "says": [
+      "By noon this pipe is spitting air and by three there is nothing. Third day running.",
+      "The block above us is drawing more than their share. I am not guessing, I am telling you.",
+      "Go up and look at their standpipe yourself. Then come back and tell me I am wrong."
+     ],
+     "opts": [
+      {
+       "t": "How do you know?",
+       "to": "how"
+      },
+      {
+       "t": "I'll go and look.",
+       "to": "walk"
+      },
+      {
+       "t": "Say they are. Then what?",
+       "to": "then"
+      },
+      {
+       "t": "(go, without answering)",
+       "to": "walk",
+       "silent": true
+      }
+     ]
+    },
+    "how": {
+     "who": "keeper",
+     "entry": null,
+     "says": [
+      "I do not, not the way you mean. I know what my own pipe does and I know it did not do this last summer.",
+      "That is everything I have. Which is why I am asking you to go instead of arguing with me."
+     ],
+     "opts": [
+      {
+       "t": "Then I'll go.",
+       "to": "walk"
+      },
+      {
+       "t": "Say they are. Then what?",
+       "to": "then"
+      }
+     ]
+    },
+    "then": {
+     "who": "keeper",
+     "entry": null,
+     "says": [
+      "Then somebody goes without, and it is either them or it is us, and I would rather it was them.",
+      "I am not going to pretend that is a nice thing to want."
+     ],
+     "opts": [
+      {
+       "t": "I'll look first.",
+       "to": "walk"
+      },
+      {
+       "t": "(say nothing)",
+       "to": "walk",
+       "silent": true
+      }
+     ]
+    },
+    "walk": {
+     "who": "keeper",
+     "entry": null,
+     "says": [
+      "Straight up the line. You will hear it before you see it."
+     ],
+     "opts": []
+    },
+    "standpipe": {
+     "who": "upstream",
+     "entry": "stage>=20",
+     "says": [
+      "You are the third one up here this week and I will tell you what I told them.",
+      "Feel it. Ours is worse than yours. Whatever is happening is happening above both of us and neither of us has the reach to go and look at it.",
+      "So the only thing left to decide is who gets what is coming down. That is not a lie, that is a valve."
+     ],
+     "opts": [
+      {
+       "t": "Then we split it.",
+       "to": "split"
+      },
+      {
+       "t": "Then it comes to us.",
+       "to": "ours"
+      },
+      {
+       "t": "Then keep it.",
+       "to": "theirs"
+      },
+      {
+       "t": "(stand there and think)",
+       "to": "split",
+       "silent": true
+      }
+     ]
+    },
+    "split": {
+     "who": "upstream",
+     "entry": null,
+     "says": [
+      "Half a week each and both of us thirsty. That is the honest one and it is nobody's favourite."
+     ],
+     "opts": [
+      {
+       "t": "(set it that way)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "No. Ours.",
+       "to": "ours"
+      }
+     ]
+    },
+    "ours": {
+     "who": "upstream",
+     "entry": null,
+     "says": [
+      "Then say it where my people can hear you say it, because they are going to ask me who decided."
+     ],
+     "opts": [
+      {
+       "t": "(say it in front of them)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      },
+      {
+       "t": "Split it instead.",
+       "to": "split"
+      }
+     ]
+    },
+    "theirs": {
+     "who": "upstream",
+     "entry": null,
+     "says": [
+      "You are going to have to walk back down and tell your own people that."
+     ],
+     "opts": [
+      {
+       "t": "(walk back down)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "Split it instead.",
+       "to": "split"
+      },
+      {
+       "t": "(leave the valve alone)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Hottest week anybody remembers and our standpipe is down to a dribble by noon.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Walked up the line myself. He was right about the pressure and wrong about why.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Split it. Neither block gets what it needs and both blocks get through the week.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "near"
+      },
+      "say": "Don Teo sends a boy after you with what the block put in a can.",
+      "pay_why": {
+       "hours": 1.06,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Gave it to us and said so out loud. They know who did it and they know why.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "food": 2,
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "Your block fills your jugs first. Nobody up the line will look at you.",
+      "pay_why": {
+       "hours": 1.06,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 2,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Gave it upstream. Our people watched me do it and nobody has said a word to me since.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "bats": 5,
+      "mood": {
+       "act": "negotiation_fail",
+       "place": "near"
+      },
+      "say": "Doña Paz pays you half of what Don Teo would have. Don Teo pays nothing.",
+      "pay_why": {
+       "hours": 1.06,
+       "kind": "quiet",
+       "bats": 5,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Left the valve where it was. The heat did the choosing instead of me.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_a02_the_elders_accident": {
+   "id": "bq_a02_the_elders_accident",
+   "file": "A02_THE_ELDERS_ACCIDENT",
+   "title": "The Elder's Accident",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "any",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "kin": {
+     "name": "NIETA LUZ",
+     "look": "cast_skirt",
+     "from": "in black, at a house with the curtains shut"
+    },
+    "witness": {
+     "name": "EL CAMILLERO",
+     "look": "faction_volunteers",
+     "from": "a stretcher-bearer standing on the slope behind the house"
+    }
+   },
+   "places": {
+    "witness": {
+     "name": "THE SLOPE BEHIND THE HOUSE",
+     "act": "GO AND LOOK",
+     "blocks": [
+      2,
+      4
+     ]
+    }
+   },
+   "go": 20,
+   "start": "claim",
+   "nodes": {
+    "claim": {
+     "who": "kin",
+     "entry": "stage>=10",
+     "says": [
+      "He went off the slope behind the house. That is all. He was old and it was dark.",
+      "I know what people are going to say and I am asking you not to be one of them.",
+      "He wanted to show you something first. He said that to me twice this month and he never said what."
+     ],
+     "opts": [
+      {
+       "t": "Show me where.",
+       "to": "where"
+      },
+      {
+       "t": "What did he want to show me?",
+       "to": "what"
+      },
+      {
+       "t": "Alright. It was a fall.",
+       "to": "let"
+      },
+      {
+       "t": "(go and look anyway)",
+       "to": "where",
+       "silent": true
+      }
+     ]
+    },
+    "what": {
+     "who": "kin",
+     "entry": null,
+     "says": [
+      "Dubai. That is all of it. He said the word and he said not yet and then he was going to bed.",
+      "There is a box in his room with a lock on it he never explained either. It is yours now, he wrote that down years ago."
+     ],
+     "opts": [
+      {
+       "t": "Show me where he fell.",
+       "to": "where"
+      },
+      {
+       "t": "(say nothing)",
+       "to": "where",
+       "silent": true
+      }
+     ]
+    },
+    "let": {
+     "who": "kin",
+     "entry": null,
+     "says": [
+      "Thank you."
+     ],
+     "opts": [
+      {
+       "t": "(go and look anyway)",
+       "to": "where",
+       "silent": true
+      },
+      {
+       "t": "(leave it)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      }
+     ]
+    },
+    "where": {
+     "who": "kin",
+     "entry": null,
+     "says": [
+      "Behind the house, past the wire. Mind the loose ground."
+     ],
+     "opts": []
+    },
+    "slope": {
+     "who": "witness",
+     "entry": "stage>=20",
+     "says": [
+      "You are standing where I was standing.",
+      "Look at it. He came off there and landed here, and a man who falls does not land that far out. I have carried enough of them to know.",
+      "That is what I have got. I do not know who and I am not going to guess in front of you."
+     ],
+     "opts": [
+      {
+       "t": "Then I keep it quiet.",
+       "to": "quiet"
+      },
+      {
+       "t": "Then people should hear it.",
+       "to": "loud"
+      },
+      {
+       "t": "You were up here that night.",
+       "to": "you"
+      },
+      {
+       "t": "(look at the ground a long time)",
+       "to": "quiet",
+       "silent": true
+      }
+     ]
+    },
+    "you": {
+     "who": "witness",
+     "entry": null,
+     "says": [
+      "I was. I have said so to anybody who asked, which is you.",
+      "And if you go down there and say my name, that is the end of me on this block whether I did it or not. You know that."
+     ],
+     "opts": [
+      {
+       "t": "(say their name anyway)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "I'm not saying your name.",
+       "to": "quiet"
+      }
+     ]
+    },
+    "quiet": {
+     "who": "witness",
+     "entry": null,
+     "says": [
+      "Then take his box and let them bury him as a man who fell."
+     ],
+     "opts": [
+      {
+       "t": "(take the box, say nothing)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "No. They should hear it.",
+       "to": "loud"
+      }
+     ]
+    },
+    "loud": {
+     "who": "witness",
+     "entry": null,
+     "says": [
+      "At the burial, then, with all of them there, and you had better be ready for what comes after."
+     ],
+     "opts": [
+      {
+       "t": "(say it at the burial)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      },
+      {
+       "t": "(keep it quiet after all)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "The old man died on the slope behind his own house. Everybody is calling it a fall.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Went and stood where he landed. It does not add up and I cannot tell you why it does not.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Kept it to myself. Took the box he left and put it somewhere nobody looks.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "say": "In the box: cells wrapped in a 2029 newspaper, and a plane ticket to Dubai nobody used.",
+      "pay_why": {
+       "hours": 0.43,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Said it at the burial, in front of everybody. That it was not a fall. Nobody argued and nobody agreed.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "In the box: cells wrapped in a 2029 newspaper, and a plane ticket to Dubai nobody used.",
+      "pay_why": {
+       "hours": 0.43,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Told the one person who was up there that night that I know they were up there.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "near"
+      },
+      "say": "In the box: cells wrapped in a 2029 newspaper, and a plane ticket to Dubai nobody used.",
+      "pay_why": {
+       "hours": 0.43,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Let it be a fall. The box is still in his house and I have not been back for it.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_a03_the_faction_that_died": {
+   "id": "bq_a03_the_faction_that_died",
+   "file": "A03_THE_FACTION_THAT_DIED",
+   "title": "The Faction That Died",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 5,
+    "min_day": 1,
+    "needs": {
+     "raided": true
+    }
+   },
+   "people": {
+    "runner": {
+     "name": "MEMO EL CORREDOR",
+     "look": "faction_caravans",
+     "from": "a runner off the {raided} road, out of breath"
+    },
+    "elder": {
+     "name": "DOÑA FAUSTA",
+     "look": "faction_homeless",
+     "from": "with forty people outside the {raided} gate, the {raider} dust still on the road"
+    }
+   },
+   "places": {
+    "elder": {
+     "name": "THE {raided} GATE",
+     "act": "WALK THEIR GROUND",
+     "near": "raided",
+     "blocks": [
+      1,
+      3
+     ]
+    }
+   },
+   "go": 20,
+   "start": "claim",
+   "nodes": {
+    "claim": {
+     "who": "runner",
+     "entry": "stage>=10",
+     "says": [
+      "They are gone. One night. I have run that road twice a week for a year and there is nobody on it.",
+      "And before you ask: nobody sold them. There was no deal. We were not part of it.",
+      "Go and look if you want. I would rather you looked than wondered."
+     ],
+     "opts": [
+      {
+       "t": "I'll look.",
+       "to": "walk"
+      },
+      {
+       "t": "Why would I wonder?",
+       "to": "why"
+      },
+      {
+       "t": "Nobody sold them.",
+       "to": "flat"
+      },
+      {
+       "t": "(start walking)",
+       "to": "walk",
+       "silent": true
+      }
+     ]
+    },
+    "why": {
+     "who": "runner",
+     "entry": null,
+     "says": [
+      "Because we are still here and they are not, and that is the sort of thing people do arithmetic about."
+     ],
+     "opts": [
+      {
+       "t": "I'll look.",
+       "to": "walk"
+      },
+      {
+       "t": "(go)",
+       "to": "walk",
+       "silent": true
+      }
+     ]
+    },
+    "flat": {
+     "who": "runner",
+     "entry": null,
+     "says": [
+      "That is what I said.",
+      "You will notice I said it without you asking me. Go and look."
+     ],
+     "opts": [
+      {
+       "t": "(go)",
+       "to": "walk",
+       "silent": true
+      },
+      {
+       "t": "I'll look.",
+       "to": "walk"
+      }
+     ]
+    },
+    "walk": {
+     "who": "runner",
+     "entry": null,
+     "says": [
+      "Two hours up the road. Take water."
+     ],
+     "opts": []
+    },
+    "ground": {
+     "who": "elder",
+     "entry": "stage>=20",
+     "says": [
+      "Forty of us. There were three hundred on this ground a week ago.",
+      "Somebody let them through and everybody here knows which somebody, and none of us can prove it and none of us is going to try.",
+      "What I want to know is whether we can stand on your block or not. That is the only question I have left."
+     ],
+     "opts": [
+      {
+       "t": "You can stand on it.",
+       "to": "take"
+      },
+      {
+       "t": "Who let them through?",
+       "to": "who"
+      },
+      {
+       "t": "You cannot stay here.",
+       "to": "send"
+      },
+      {
+       "t": "(nod them toward the block)",
+       "to": "take",
+       "silent": true
+      }
+     ]
+    },
+    "who": {
+     "who": "elder",
+     "entry": null,
+     "says": [
+      "You already know or you would not be asking me in that voice.",
+      "Say it out loud on this ground and forty people hear you say it, and then it is a thing that was said and it never stops being said."
+     ],
+     "opts": [
+      {
+       "t": "(say it)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "Never mind. Come with me.",
+       "to": "take"
+      }
+     ]
+    },
+    "take": {
+     "who": "elder",
+     "entry": null,
+     "says": [
+      "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever."
+     ],
+     "opts": [
+      {
+       "t": "(say it is ours, out loud)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "(leave that for later)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      }
+     ]
+    },
+    "send": {
+     "who": "elder",
+     "entry": null,
+     "says": [
+      "Then say it plainly so I can tell them tonight instead of tomorrow."
+     ],
+     "opts": [
+      {
+       "t": "(say it plainly)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      },
+      {
+       "t": "No. Come with me.",
+       "to": "take"
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "An outfit we traded with is gone. Not beaten, gone, in one night.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Walked their ground. Counted forty and some of them are already on ours.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Took them in and said the ground is ours now. Everybody heard both halves of that.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "man": {
+       "n": 1,
+       "name": "ONE OF THE FORTY",
+       "look": "faction_homeless",
+       "bg": "refugee"
+      },
+      "bats": 5,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "faction:{raided}"
+      },
+      "say": "One of the forty walks with you now. The rest go to your block.",
+      "pay_why": {
+       "hours": 0.28,
+       "kind": "man",
+       "bats": 5,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Took them in and did not say anything about the ground. It will come up later.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "man": {
+       "n": 1,
+       "name": "ONE OF THE FORTY",
+       "look": "faction_homeless",
+       "bg": "refugee"
+      },
+      "bats": 5,
+      "say": "One of the forty walks with you now. Nobody says whose ground it is. Yet.",
+      "pay_why": {
+       "hours": 0.28,
+       "kind": "man",
+       "bats": 5,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Said out loud who made the deal that let this happen. To their faces, on their ground.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "bats": 10,
+      "food": 2,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "faction:{raider}"
+      },
+      "say": "The forty give you what they carried out. Somebody runs to tell the {raider} what you said.",
+      "pay_why": {
+       "hours": 0.28,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 2,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Sent them on. Somebody else's block, somebody else's problem, and I have to live here.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_a05_the_dry_taps": {
+   "id": "bq_a05_the_dry_taps",
+   "file": "A05_THE_DRY_TAPS",
+   "title": "The Dry Taps",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 6,
+    "min_day": 1,
+    "needs": {
+     "boss_sign": "THE TAP"
+    }
+   },
+   "people": {
+    "neighbour": {
+     "name": "DOÑA CHAYO",
+     "look": "cast_shortcoat",
+     "from": "with a dry hose in her hand"
+    },
+    "holder": {
+     "name": "THE TAP'S MEN",
+     "look": "cast_widebrim",
+     "from": "three men sitting on the pump station, rifles across their knees, his tag on the pipe"
+    }
+   },
+   "places": {
+    "holder": {
+     "name": "THE PUMP STATION",
+     "act": "WALK OUT TO THE PUMP",
+     "near": "boss_sign",
+     "blocks": [
+      1,
+      2
+     ]
+    }
+   },
+   "go": 20,
+   "start": "claim",
+   "nodes": {
+    "claim": {
+     "who": "neighbour",
+     "entry": "stage>=10",
+     "says": [
+      "Dry since this morning. All of them, all at once, which is not how a pipe fails.",
+      "Word coming down is the pump is broken. That is the word, and I notice nobody has said who looked at it.",
+      "It is a walk. It is a long walk. But it is the only way anybody in this valley finds out anything."
+     ],
+     "opts": [
+      {
+       "t": "Then I'll walk it.",
+       "to": "walk"
+      },
+      {
+       "t": "Who said it was broken?",
+       "to": "who"
+      },
+      {
+       "t": "It's broken. It happens.",
+       "to": "shrug"
+      },
+      {
+       "t": "(start out)",
+       "to": "walk",
+       "silent": true
+      }
+     ]
+    },
+    "who": {
+     "who": "neighbour",
+     "entry": null,
+     "says": [
+      "Everybody. Which means nobody. It came down the road the way things do and it arrived already true."
+     ],
+     "opts": [
+      {
+       "t": "Then I'll walk it.",
+       "to": "walk"
+      },
+      {
+       "t": "(go)",
+       "to": "walk",
+       "silent": true
+      }
+     ]
+    },
+    "shrug": {
+     "who": "neighbour",
+     "entry": null,
+     "says": [
+      "It does happen. And every tap on one side of a valley at the same hour does not."
+     ],
+     "opts": [
+      {
+       "t": "Alright. I'll walk it.",
+       "to": "walk"
+      },
+      {
+       "t": "(leave it)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      }
+     ]
+    },
+    "walk": {
+     "who": "neighbour",
+     "entry": null,
+     "says": [
+      "Take water. There is a joke in there and I am too dry for it."
+     ],
+     "opts": []
+    },
+    "station": {
+     "who": "holder",
+     "entry": "stage>=20",
+     "says": [
+      "Close enough. That is close enough.",
+      "Nothing here is broken and you can see that from where you are standing, so let us not do the part where I pretend.",
+      "We turn it back on when we get what we are here for. Or you take it off us. Those are the two."
+     ],
+     "opts": [
+      {
+       "t": "Then we take it.",
+       "to": "take"
+      },
+      {
+       "t": "What do you want?",
+       "to": "want"
+      },
+      {
+       "t": "Tonight, then.",
+       "to": "night"
+      },
+      {
+       "t": "(look at the valve, say nothing)",
+       "to": "want",
+       "silent": true
+      }
+     ]
+    },
+    "want": {
+     "who": "holder",
+     "entry": null,
+     "says": [
+      "Less than you think and more than you will want to admit to giving.",
+      "Say yes and the taps run by morning and nobody down there ever hears what it cost."
+     ],
+     "opts": [
+      {
+       "t": "(pay it, quietly)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      },
+      {
+       "t": "No. We take it.",
+       "to": "take"
+      }
+     ]
+    },
+    "take": {
+     "who": "holder",
+     "entry": null,
+     "says": [
+      "Then bring people and do it in daylight where everybody can see, or bring four and do it tonight."
+     ],
+     "opts": [
+      {
+       "t": "(bring everybody, in daylight)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "(bring four, tonight)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      }
+     ]
+    },
+    "night": {
+     "who": "holder",
+     "entry": null,
+     "says": [
+      "Tonight is how people get killed over a pump. Yours or mine."
+     ],
+     "opts": [
+      {
+       "t": "(go tonight anyway)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "(daylight, everybody)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Every tap on this side of the valley went dry inside an hour. Nobody has said why.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Walked out to the pump station. It is not broken. There are people on it.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Took it back with everybody watching. The taps ran that night and the whole valley knows whose doing.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "fight": {
+       "foe": "brigands",
+       "n": 3,
+       "skulls": 1,
+       "label": "THE TAP's men at the pump",
+       "win": {
+        "bats": 30,
+        "say": "The taps run that night. His tag is still on the pipe, and the pipe runs to his pump house."
+       },
+       "lose": {
+        "say": "You got out of it. Nobody pays for that."
+       }
+      },
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "",
+      "pay_why": {
+       "hours": 0.57,
+       "kind": "fight",
+       "win": 30,
+       "bats": 0,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Talked them off it. Cost me something I have not told anybody about. Taps ran by morning.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": -8,
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "Eight batteries, and nobody down there ever hears it. The pipe still says his name.",
+      "pay_why": {
+       "hours": 0.57,
+       "kind": "none",
+       "bats": -8,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Went at night with four people and no plan worth the name. It worked. It should not have.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "fight": {
+       "foe": "brigands",
+       "n": 2,
+       "skulls": 1,
+       "label": "THE TAP's night watch",
+       "win": {
+        "bats": 30,
+        "say": "Four of you in the dark and it worked. His tag is on the pipe. It runs to his pump house."
+       },
+       "lose": {
+        "say": "You got out of it. Nobody pays for that."
+       }
+      },
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "",
+      "pay_why": {
+       "hours": 0.57,
+       "kind": "fight",
+       "win": 30,
+       "bats": 0,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Came back and said it was broken, same as everybody else was saying. The taps are still dry.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_a06_the_first_harvest": {
+   "id": "bq_a06_the_first_harvest",
+   "file": "A06_THE_FIRST_HARVEST",
+   "title": "The First Harvest",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 6,
+    "min_day": 1,
+    "needs": {
+     "boss_sign": "THE POT"
+    }
+   },
+   "people": {
+    "grower": {
+     "name": "DON ISIDRO",
+     "look": "faction_blues",
+     "from": "at a store room of sacks, a pencil behind his ear"
+    },
+    "hand": {
+     "name": "EL NENE",
+     "look": "cast_pack",
+     "from": "a field hand with an empty sack, by THE POT's flyer on the pole"
+    }
+   },
+   "places": {
+    "hand": {
+     "name": "THE STORE ROOM",
+     "act": "COUNT IT YOURSELF",
+     "near": "boss_sign",
+     "blocks": [
+      1,
+      2
+     ]
+    }
+   },
+   "go": 20,
+   "start": "claim",
+   "nodes": {
+    "claim": {
+     "who": "grower",
+     "entry": "stage>=10",
+     "says": [
+      "First year this ground has given us more than we eat. First year ever.",
+      "And the store is short. I know it is short. I have looked at that room every night of my life for eight months.",
+      "I am not going to say a name to you. I am going to ask you to go and count it."
+     ],
+     "opts": [
+      {
+       "t": "How short?",
+       "to": "short"
+      },
+      {
+       "t": "I'll count it.",
+       "to": "count"
+      },
+      {
+       "t": "You would know if it was.",
+       "to": "know"
+      },
+      {
+       "t": "(go to the store)",
+       "to": "count",
+       "silent": true
+      }
+     ]
+    },
+    "short": {
+     "who": "grower",
+     "entry": null,
+     "says": [
+      "That is exactly the thing I want somebody else's hands on. If I tell you a number you will find that number."
+     ],
+     "opts": [
+      {
+       "t": "Fair. I'll count it.",
+       "to": "count"
+      },
+      {
+       "t": "(go)",
+       "to": "count",
+       "silent": true
+      }
+     ]
+    },
+    "know": {
+     "who": "grower",
+     "entry": null,
+     "says": [
+      "I would. And I have been wrong about this room twice this month and both times I was certain."
+     ],
+     "opts": [
+      {
+       "t": "I'll count it.",
+       "to": "count"
+      },
+      {
+       "t": "(go)",
+       "to": "count",
+       "silent": true
+      },
+      {
+       "t": "Then take your own word for it.",
+       "to": "END",
+       "stage": 33
+      }
+     ]
+    },
+    "count": {
+     "who": "grower",
+     "entry": null,
+     "says": [
+      "Door is open. It has always been open, which may be the whole answer."
+     ],
+     "opts": []
+    },
+    "store": {
+     "who": "hand",
+     "entry": "stage>=20",
+     "says": [
+      "You are counting.",
+      "Then you already know it is short and you already know by how much, so I am not going to stand here and do the other thing.",
+      "My family eats what I carry out of here. I am not calling that an excuse. It is the reason."
+     ],
+     "opts": [
+      {
+       "t": "Put it back and we're done.",
+       "to": "back"
+      },
+      {
+       "t": "The block is going to hear this.",
+       "to": "loud"
+      },
+      {
+       "t": "Then the door gets a lock.",
+       "to": "lock"
+      },
+      {
+       "t": "(stand there and let them talk)",
+       "to": "back",
+       "silent": true
+      }
+     ]
+    },
+    "back": {
+     "who": "hand",
+     "entry": null,
+     "says": [
+      "Tonight. All of it. And nobody has to know it was me."
+     ],
+     "opts": [
+      {
+       "t": "(let it be that)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "No. They hear it.",
+       "to": "loud"
+      }
+     ]
+    },
+    "lock": {
+     "who": "hand",
+     "entry": null,
+     "says": [
+      "A lock says somebody on this block is a thief without saying which of us.",
+      "Half of them will think it is them you meant."
+     ],
+     "opts": [
+      {
+       "t": "(put the lock on anyway)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      },
+      {
+       "t": "Then I say the name.",
+       "to": "loud"
+      }
+     ]
+    },
+    "loud": {
+     "who": "hand",
+     "entry": null,
+     "says": [
+      "Then say it where they can hear you and be sure, because they have known me fifteen years and they will remember which of us said it."
+     ],
+     "opts": [
+      {
+       "t": "(say the name)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "(put a lock on instead)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "First surplus this block has ever had. Somebody says the count is short already.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Counted it myself. It is short, and it is short by exactly what one person carries.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Sorted it without a name being said. Store is full, nobody was thrown off the block.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "food": 2,
+      "say": "It went in a sack to THE POT's kitchen, a meal a day for carrying it. Don Isidro gives you two nights of food.",
+      "pay_why": {
+       "hours": 0.57,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 2,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Said the number in front of the whole block and put a lock on the door. Everybody watched.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "A lock on the door. The flyer on the pole says HOT FOOD. ASK FOR THE POT.",
+      "pay_why": {
+       "hours": 0.57,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Named them, out loud, in front of people who have known them fifteen years.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "near"
+      },
+      "say": "El Nene says he carried it to THE POT because THE POT feeds the ones who carry. Then he is gone.",
+      "pay_why": {
+       "hours": 0.57,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Did not count it. Took his word. The store will be short again next week.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_a07_the_two_families": {
+   "id": "bq_a07_the_two_families",
+   "file": "A07_THE_TWO_FAMILIES",
+   "title": "The Two Families",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "neighbour_one": {
+     "name": "DOÑA SALAZAR",
+     "look": "cast_poncho",
+     "from": "at her side of a broken fence"
+    },
+    "neighbour_two": {
+     "name": "DON PEÑA",
+     "look": "cast_satchel",
+     "from": "at the other side of the same fence"
+    }
+   },
+   "places": {
+    "neighbour_two": {
+     "name": "THE PEÑA HOUSE",
+     "act": "HEAR THE OTHER SIDE",
+     "blocks": [
+      2,
+      3
+     ]
+    }
+   },
+   "go": 20,
+   "start": "first",
+   "nodes": {
+    "first": {
+     "who": "neighbour_one",
+     "entry": "stage>=10",
+     "says": [
+      "Four posts and the wire off the top of them, between our ground and theirs.",
+      "I am not going to shout about it. I am telling you they carried it over there in the night and I am telling you where it is now.",
+      "Ask them. They will tell you the opposite in the same voice I am using."
+     ],
+     "opts": [
+      {
+       "t": "Did you see them do it?",
+       "to": "saw"
+      },
+      {
+       "t": "I'll hear them too.",
+       "to": "other"
+      },
+      {
+       "t": "Why would they need it?",
+       "to": "need"
+      },
+      {
+       "t": "(go across)",
+       "to": "other",
+       "silent": true
+      }
+     ]
+    },
+    "saw": {
+     "who": "neighbour_one",
+     "entry": null,
+     "says": [
+      "No. I heard it. And I know what I heard the way you know your own door.",
+      "Which is worth nothing to you, and I know that too."
+     ],
+     "opts": [
+      {
+       "t": "Then I'll go look at it.",
+       "to": "other"
+      },
+      {
+       "t": "(say nothing)",
+       "to": "other",
+       "silent": true
+      }
+     ]
+    },
+    "need": {
+     "who": "neighbour_one",
+     "entry": null,
+     "says": [
+      "Same reason we needed it. Winter is the same length on both sides of that line."
+     ],
+     "opts": [
+      {
+       "t": "I'll hear them.",
+       "to": "other"
+      },
+      {
+       "t": "(go)",
+       "to": "other",
+       "silent": true
+      }
+     ]
+    },
+    "other": {
+     "who": "neighbour_one",
+     "entry": null,
+     "says": [
+      "Go on then. Their door is the one with the good hinge. Ours took the wire."
+     ],
+     "opts": []
+    },
+    "second": {
+     "who": "neighbour_two",
+     "entry": "stage>=20",
+     "says": [
+      "They already told you. Four posts and the wire. Ours.",
+      "I could stand here and be upset at you and it would not make it any more true than it already is.",
+      "Or you could go and look at the ground where the posts were. Nobody has looked at the ground."
+     ],
+     "opts": [
+      {
+       "t": "Then I'll look.",
+       "to": "fence"
+      },
+      {
+       "t": "One of you is lying to me.",
+       "to": "lying"
+      },
+      {
+       "t": "I already believe them.",
+       "to": "believe"
+      },
+      {
+       "t": "(walk to the fence line)",
+       "to": "fence",
+       "silent": true
+      }
+     ]
+    },
+    "lying": {
+     "who": "neighbour_two",
+     "entry": null,
+     "says": [
+      "Yes. And you cannot tell which by looking at either of us, so stop looking at us."
+     ],
+     "opts": [
+      {
+       "t": "The fence, then.",
+       "to": "fence"
+      },
+      {
+       "t": "(go and look)",
+       "to": "fence",
+       "silent": true
+      }
+     ]
+    },
+    "believe": {
+     "who": "neighbour_two",
+     "entry": null,
+     "says": [
+      "Then you have settled it without walking twenty steps, and my house will be the thief on this block forever."
+     ],
+     "opts": [
+      {
+       "t": "You're right. I'll look.",
+       "to": "fence"
+      },
+      {
+       "t": "(leave it settled)",
+       "to": "END",
+       "stage": 33,
+       "silent": true
+      },
+      {
+       "t": "(say nothing and go look)",
+       "to": "fence",
+       "silent": true
+      }
+     ]
+    },
+    "fence": {
+     "who": "neighbour_two",
+     "entry": null,
+     "says": [
+      "Drag marks. Both directions, one deeper than the other, and the deep one is loaded.",
+      "So now you know, and knowing is the easy half."
+     ],
+     "opts": [
+      {
+       "t": "Put it back. Quietly.",
+       "to": "quiet"
+      },
+      {
+       "t": "Both houses hear this.",
+       "to": "both"
+      },
+      {
+       "t": "Then the fence comes down.",
+       "to": "down"
+      },
+      {
+       "t": "(stand and look at it)",
+       "to": "quiet",
+       "silent": true
+      }
+     ]
+    },
+    "quiet": {
+     "who": "neighbour_two",
+     "entry": null,
+     "says": [
+      "Back up tonight, nothing said. The one who took it will know that you knew."
+     ],
+     "opts": [
+      {
+       "t": "(let it be that)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "No. Out loud.",
+       "to": "both"
+      }
+     ]
+    },
+    "both": {
+     "who": "neighbour_two",
+     "entry": null,
+     "says": [
+      "Say it in front of both doors then, and say what the ground said and nothing else.",
+      "They have to live here after you walk off."
+     ],
+     "opts": [
+      {
+       "t": "(say it to both houses)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      },
+      {
+       "t": "(put it back quietly instead)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    },
+    "down": {
+     "who": "neighbour_two",
+     "entry": null,
+     "says": [
+      "No fence, no fence to argue about. And no line either, which is the part you are not thinking about."
+     ],
+     "opts": [
+      {
+       "t": "(take it down anyway)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "(put it back quietly)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Two houses on this block. Each one says the other took off the fence. Both are calm about it.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Heard the second one. Same story, other direction, same certainty. One of them is lying to me.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Walked the fence. Ground told me which way it went. Fixed it without saying it out loud.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "say": "Both houses pay you a little, and neither one knows the other did.",
+      "pay_why": {
+       "hours": 0.35,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Walked the fence, then said what the ground said, in front of both houses. One of them will not forget it.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "near"
+      },
+      "say": "One house pays you. The other closes its door.",
+      "pay_why": {
+       "hours": 0.35,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Took the fence down. No fence, no fence argument. Both houses are furious and both houses are speaking.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "bats": 5,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "near"
+      },
+      "say": "Nobody pays for a fence that is gone. Doña Salazar gives you half, to make you leave.",
+      "pay_why": {
+       "hours": 0.35,
+       "kind": "quiet",
+       "bats": 5,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Picked the one I liked better and never went to look. Might have been right. Will never know.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_d013_long_walk_home": {
+   "id": "bq_d013_long_walk_home",
+   "file": "D013_LONG_WALK_HOME",
+   "title": "Long Walk Home",
+   "meet": {
+    "on": "scavenge",
+    "where": [
+     "any"
+    ],
+    "when": "any",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "widow": {
+     "name": "DOÑA MERCEDES",
+     "look": "faction_church",
+     "from": "at the gate of {town}, she watched you come out of the lot"
+    },
+    "warden": {
+     "name": "THE WARDEN",
+     "look": "faction_homeless",
+     "from": "in the east ruins, standing over the dead, waving the birds off"
+    }
+   },
+   "places": {
+    "warden": {
+     "name": "THE EAST RUINS",
+     "act": "BRING HIM HOME",
+     "blocks": [
+      7,
+      13
+     ]
+    },
+    "widow": {
+     "name": "MERCEDES' DOOR",
+     "act": "CARRY HIM HOME"
+    }
+   },
+   "go": 20,
+   "start": "ask",
+   "nodes": {
+    "ask": {
+     "who": "widow",
+     "entry": "stage>=10",
+     "says": [
+      "You look like you can walk into a bad place and walk back out.",
+      "Mine went into the east ruins for cable and did not. Nobody will fetch a body out of there. I cannot pay much.",
+      "I cannot go see him like that. But he should not be LEFT there. Nobody should. Will you bring him home?"
+     ],
+     "opts": [
+      {
+       "t": "Tell me about him.",
+       "to": "him"
+      },
+      {
+       "t": "How do you know?",
+       "to": "know"
+      },
+      {
+       "t": "I will bring him home.",
+       "to": "accept"
+      },
+      {
+       "t": "(wait and let her finish)",
+       "to": "him",
+       "silent": true
+      },
+      {
+       "t": "No.",
+       "to": "END",
+       "stage": 33
+      }
+     ]
+    },
+    "him": {
+     "who": "widow",
+     "entry": null,
+     "says": [
+      "Forty years a cable man. Could splice anything, mend anything but his own knees.",
+      "Hummed when he worked. I keep listening for it. House is too quiet to sleep in."
+     ],
+     "opts": [
+      {
+       "t": "How do you know he is gone?",
+       "to": "know"
+      },
+      {
+       "t": "I will bring him home.",
+       "to": "accept"
+      },
+      {
+       "t": "(say nothing)",
+       "to": "ask",
+       "silent": true
+      }
+     ]
+    },
+    "know": {
+     "who": "widow",
+     "entry": null,
+     "says": [
+      "His partner made it back. Said he went down and did not get up, and the one out there would not let him drag him clear.",
+      "So he is there. Two weeks. In this heat. I KNOW what that means. Bring me what is left. He gets a grave."
+     ],
+     "opts": [
+      {
+       "t": "I will bring him home.",
+       "to": "accept"
+      },
+      {
+       "t": "(nod)",
+       "to": "accept",
+       "silent": true
+      }
+     ]
+    },
+    "accept": {
+     "who": "widow",
+     "entry": null,
+     "says": [
+      "Thank you. Take this. His cloth. Wrap him in it.",
+      "He would want to go home in something of ours."
+     ],
+     "opts": []
+    },
+    "ruin": {
+     "who": "warden",
+     "entry": "stage>=20",
+     "says": [
+      "Territory. Held. No taking. Nothing leaves. Nothing.",
+      "He will not wake. I kept the birds off him. I keep them all off. Nobody comes for them.",
+      "Did somebody come? Did somebody finally come?"
+     ],
+     "opts": [
+      {
+       "t": "(stand still and let him talk)",
+       "to": "heard",
+       "silent": true
+      },
+      {
+       "t": "Somebody came. His wife sent me.",
+       "to": "sent"
+      },
+      {
+       "t": "(go round him for the body)",
+       "to": "through",
+       "silent": true
+      }
+     ]
+    },
+    "heard": {
+     "who": "warden",
+     "entry": null,
+     "says": [
+      "Years. Nobody. I stay with all of them because somebody should."
+     ],
+     "opts": [
+      {
+       "t": "His wife sent me. Let me take him home.",
+       "to": "sent"
+      },
+      {
+       "t": "(go round him for the body)",
+       "to": "through",
+       "silent": true
+      }
+     ]
+    },
+    "sent": {
+     "who": "warden",
+     "entry": null,
+     "says": [
+      "Home. Yes. Take him home.",
+      "Tell her he was not alone. I stayed."
+     ],
+     "opts": [
+      {
+       "t": "(wrap him and pick him up)",
+       "to": "carry",
+       "silent": true
+      },
+      {
+       "t": "(pick him up)",
+       "to": "carry",
+       "silent": true
+      }
+     ]
+    },
+    "through": {
+     "who": "warden",
+     "entry": null,
+     "says": [
+      "NO TAKING. HELD. HELD."
+     ],
+     "opts": [
+      {
+       "t": "(go through him)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "(back off and hear him out)",
+       "to": "heard",
+       "silent": true
+      }
+     ]
+    },
+    "carry": {
+     "who": "widow",
+     "entry": null,
+     "says": [
+      "(He is light. Two weeks and the heat and he is so light. It is a long walk and you take every step of it.)"
+     ],
+     "opts": [
+      {
+       "t": "(knock, with the people who came to stand for him)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      },
+      {
+       "t": "(knock, with nobody)",
+       "to": "END",
+       "stage": 31,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "A widow at the district edge. Her husband went into the east ruins for cable and did not come back.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Took her cloth. Somebody is holding that ruin and he has been keeping the birds off the dead.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Carried him the whole way and brought people to stand for him. She said there will always be a plate for the one who walked.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "favor",
+       "place": "near"
+      },
+      "say": "She cannot pay much. She pays it all, and a plate is kept for you.",
+      "pay_why": {
+       "hours": 2.83,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Carried him the whole way and handed him over with nobody watching. She said that is how he would have wanted it.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "near"
+      },
+      "say": "She cannot pay much. She pays it all.",
+      "pay_why": {
+       "hours": 2.83,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Went through the man holding the ruin to get to the body. Carried him home over somebody who was keeping him safe.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "fight": {
+       "foe": "brigands",
+       "n": 1,
+       "skulls": 1,
+       "label": "the warden of the east ruins",
+       "win": {
+        "bats": 34,
+        "say": "He fought you for a body that was not his. You carry it home anyway."
+       },
+       "lose": {
+        "say": "You got out of it. Nobody pays for that."
+       }
+      },
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "near"
+      },
+      "say": "",
+      "pay_why": {
+       "hours": 2.83,
+       "kind": "fight",
+       "win": 34,
+       "bats": 0,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Did not go. He is still out there and she is still asking people.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_meter_reader": {
+   "id": "bq_meter_reader",
+   "file": "S01_THE_METER_READER",
+   "title": "The Meter Reader",
+   "meet": {
+    "where": [
+     "paved",
+     "any"
+    ],
+    "when": "night",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "lineman": {
+     "name": "RUBÉN EL LINIERO",
+     "look": "faction_trades",
+     "from": "up a pole with a meter, every night at nine"
+    },
+    "fixer": {
+     "name": "LA FIXER",
+     "look": "faction_network",
+     "from": "at a split in the line, a laptop on a cooler"
+    }
+   },
+   "places": {
+    "fixer": {
+     "name": "THE SPLIT IN THE LINE",
+     "act": "FIND THE SPLIT",
+     "blocks": [
+      4,
+      8
+     ]
+    },
+    "lineman": {
+     "name": "THE BROWN BLOCK",
+     "act": "BACK TO THE LINEMAN"
+    }
+   },
+   "go": 20,
+   "start": "open",
+   "nodes": {
+    "open": {
+     "who": "lineman",
+     "entry": "stage>=10",
+     "says": [
+      "Nine at night, every night, and half this block goes brown.",
+      "I tested it myself, line's clean, and clean plus browning out means somebody upstream's on my feed drinking before we do.",
+      "Somebody still chalks the meter box every month. Never seen who.",
+      "So walk it back for me, past the dead storefronts, follow whatever cable's running warm. You any good at quiet?"
+     ],
+     "opts": [
+      {
+       "t": "I'll walk it.",
+       "to": "walk",
+       "learn": [
+        "line_is_clean"
+       ]
+      },
+      {
+       "t": "Why not you?",
+       "to": "why"
+      },
+      {
+       "t": "Not my block.",
+       "to": "refuse"
+      },
+      {
+       "t": "(say nothing, just go)",
+       "to": "walk",
+       "learn": [
+        "line_is_clean"
+       ],
+       "silent": true
+      }
+     ]
+    },
+    "why": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "Because everybody on this block knows my face, man. I've got a kid.",
+      "Whoever's drinking that current likes being invisible, and you're new. Nobody comes asking if you don't come back."
+     ],
+     "opts": [
+      {
+       "t": "Comforting.",
+       "to": "walk",
+       "learn": [
+        "line_is_clean"
+       ]
+      },
+      {
+       "t": "Who doesn't like being looked at?",
+       "to": "why2"
+      }
+     ]
+    },
+    "why2": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "If I knew, I wouldn't need you, would I? I asked my foreman about it once and he just looked at his hands till I stopped talking.",
+      "Follow the split, and don't make a show of it. Please."
+     ],
+     "opts": []
+    },
+    "refuse": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "Yeah. Fair. I'll go ask somebody else's kid to do it."
+     ],
+     "opts": [
+      {
+       "t": "Maybe another night.",
+       "to": "END",
+       "stage": 33
+      },
+      {
+       "t": "Fine. I'll look.",
+       "to": "walk",
+       "learn": [
+        "line_is_clean"
+       ]
+      }
+     ]
+    },
+    "walk": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "Good. Splits somewhere past the dead storefronts, warm cable, you'll feel it before you see it."
+     ],
+     "opts": []
+    },
+    "split": {
+     "who": "fixer",
+     "entry": "stage>=20",
+     "says": [
+      "Easy. Easy, easy. Don't touch that, it's live.",
+      "I don't steal it. I move it. The grid doesn't belong to anybody so there's nothing there to steal, I'm just faster than the meter. That's it.",
+      "So. Put it back and go home and nobody hears a thing about it, or make it loud. Which are you?"
+     ],
+     "opts": [
+      {
+       "t": "Put it back. Nobody hears it.",
+       "to": "put",
+       "silent": true
+      },
+      {
+       "t": "The trades should see this.",
+       "to": "report"
+      },
+      {
+       "t": "Whose current is it?",
+       "to": "whose"
+      },
+      {
+       "t": "(cut the tap, right now)",
+       "to": "cut",
+       "silent": true
+      }
+     ]
+    },
+    "whose": {
+     "who": "fixer",
+     "entry": null,
+     "says": [
+      "Huh. That's the one question, isn't it? I don't know whose. Never have.",
+      "It runs down, not up. Down, toward the water, and that's where I quit asking. You should quit there too.",
+      "I told you nothing, understand me? Put it back or don't. It's your block and it's your face they'll remember."
+     ],
+     "opts": [
+      {
+       "t": "Put it back. Quietly.",
+       "to": "put",
+       "learn": [
+        "it_goes_down"
+       ],
+       "silent": true
+      },
+      {
+       "t": "Cut it. Let them see.",
+       "to": "cut",
+       "learn": [
+        "it_goes_down"
+       ]
+      }
+     ]
+    },
+    "put": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "Light's back. I'm not going to ask how.",
+      "You didn't make a show of it, and I noticed. Not going to say anything else about it."
+     ],
+     "opts": [
+      {
+       "t": "Just fixed a line.",
+       "to": "END",
+       "stage": 30
+      }
+     ]
+    },
+    "report": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "You brought it to us. Could've kept it to yourself and you didn't.",
+      "We patch it in daylight, names on the work order, mine first, then the crew, then yours if you want it up there."
+     ],
+     "opts": [
+      {
+       "t": "Do it in daylight.",
+       "to": "END",
+       "stage": 31
+      }
+     ]
+    },
+    "cut": {
+     "who": "lineman",
+     "entry": null,
+     "says": [
+      "You cut it in front of everybody. Somebody's kid was clapping. Nobody's mother was.",
+      "They felt that upstream, and somebody up there has your face now. I don't know what else to tell you, man."
+     ],
+     "opts": [
+      {
+       "t": "Let them know my face.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "(say nothing)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Nine at night, every night, half this block goes brown.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "Line tests clean. Clean and browning out means somebody's on our feed. Found the split.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Put the current back myself. Block has light tonight. Nobody knows it was me.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "say": "Rubén pays from his own pocket. He does not ask how.",
+      "pay_why": {
+       "hours": 1.7,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Handed the tap to the trades. Daylight patch, every name on the work order.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:trades"
+      },
+      "say": "The Trades pay the work order. Your name is on it, third.",
+      "pay_why": {
+       "hours": 1.7,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Cut the skim line in front of the whole block. Sparks, a crowd, and somebody upstream has my face now.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "faction:network"
+      },
+      "say": "The block pays you in a can. Somebody upstream has your face now.",
+      "pay_why": {
+       "hours": 1.7,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Left it alone. Block goes dark again tonight, same hour.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_the_count": {
+   "id": "bq_the_count",
+   "file": "S10_THE_COUNT_THAT_DOES_NOT_ADD",
+   "title": "The Count That Does Not Add",
+   "meet": {
+    "where": [
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "canvasser": {
+     "name": "EL CONTADOR",
+     "look": "faction_network",
+     "from": "a man with a clipboard, going door to door"
+    },
+    "organizer": {
+     "name": "DOÑA ROSA",
+     "look": "faction_volunteers",
+     "from": "at the food line, behind a table of crates"
+    }
+   },
+   "places": {
+    "organizer": {
+     "name": "THE FOOD LINE",
+     "act": "ASK THE FOOD LINE",
+     "blocks": [
+      3,
+      7
+     ]
+    }
+   },
+   "go": 20,
+   "start": "count",
+   "nodes": {
+    "count": {
+     "who": "canvasser",
+     "entry": "stage>=10,stage<20",
+     "says": [
+      "Head count. Not names if you'd rather not give names. Just how many sleep on this block.",
+      "The food line allocates by count. No count, no crates. That isn't a threat, that's arithmetic.",
+      "So. How many."
+     ],
+     "opts": [
+      {
+       "t": "How many, or how many I admit to?",
+       "to": "why"
+      },
+      {
+       "t": "Who reads it after you?",
+       "to": "whoreads"
+      },
+      {
+       "t": "Nobody here gets counted.",
+       "to": "refuse"
+      },
+      {
+       "t": "(wait for the rest of it)",
+       "to": "why",
+       "silent": true
+      }
+     ]
+    },
+    "why": {
+     "who": "canvasser",
+     "entry": null,
+     "says": [
+      "Both, usually. I've been doing this eleven months and the second number is always the honest one.",
+      "I write a number. The number becomes crates. Crates become a week where nobody here halves a meal.",
+      "The number also becomes a page in a room I have never stood in. Both things are true. I'm not going to lie about the second one to sell you the first."
+     ],
+     "opts": []
+    },
+    "whoreads": {
+     "who": "canvasser",
+     "entry": null,
+     "says": [
+      "There it is. That question puts a mark beside a block, and I can't unhear it.",
+      "I hand it up. Up is a stairwell with no landings I have ever seen. I stopped asking what's at the top, because asking is how you stop being the one who counts."
+     ],
+     "opts": [
+      {
+       "t": "Then I decide what you get.",
+       "to": "END",
+       "stage": 20,
+       "learn": [
+        "count_goes_up"
+       ]
+      },
+      {
+       "t": "(nod, and let it sit)",
+       "to": "END",
+       "stage": 20,
+       "learn": [
+        "count_goes_up"
+       ],
+       "silent": true
+      }
+     ]
+    },
+    "line": {
+     "who": "organizer",
+     "entry": "stage>=20",
+     "says": [
+      "They already came to you. It's on your face.",
+      "Here is what the line knows. The crates are real, I've carried them. And twice now a block that gave a full honest count had two polite people knocking a month later, asking after names that were on it.",
+      "True number feeds everybody and lists everybody. Short number feeds most and hides the few who can't survive a page. Loud feeds nobody and makes a point. Say it and I'll back it."
+     ],
+     "opts": [
+      {
+       "t": "True count. All of us.",
+       "to": "true_end"
+      },
+      {
+       "t": "Short. Leave off the ones who can't be listed.",
+       "to": "shave"
+      },
+      {
+       "t": "I read the list on the street first.",
+       "to": "public"
+      },
+      {
+       "t": "Nobody gets counted. Not for food, not for anything.",
+       "to": "refuse"
+      }
+     ]
+    },
+    "true_end": {
+     "who": "organizer",
+     "entry": null,
+     "says": [
+      "Honest, then. It's the answer that feeds the most people and I still don't feel good handing it up.",
+      "If the knock comes, it comes to my door too. That's the only part of this I'm sure is fair."
+     ],
+     "opts": [
+      {
+       "t": "Send the true number.",
+       "to": "END",
+       "stage": 30
+      },
+      {
+       "t": "(nod once and let her write it)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    },
+    "shave": {
+     "who": "organizer",
+     "entry": null,
+     "says": [
+      "Short it is. Four fewer crates, and four people who don't exist on paper get to keep not existing.",
+      "Everybody on this block eats a little less so that a few of them can stay invisible. Nobody will ever thank you for it, because nobody can be told."
+     ],
+     "opts": [
+      {
+       "t": "Short number. That's the trade.",
+       "to": "END",
+       "stage": 31
+      }
+     ]
+    },
+    "public": {
+     "who": "organizer",
+     "entry": null,
+     "says": [
+      "In the open. Every name, out loud, so nobody is on a page they never agreed to.",
+      "They'll hear about that upstairs before the sun goes down, and they'll hear it as a block that reads their mail. But not one person here gets listed in the dark."
+     ],
+     "opts": [
+      {
+       "t": "Read it out. All of it.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "Wait. Send the true number quietly instead.",
+       "to": "true_end"
+      }
+     ]
+    },
+    "refuse": {
+     "who": "organizer",
+     "entry": null,
+     "says": [
+      "Then we're a blank space on their page and an empty shelf on mine.",
+      "I've watched two blocks do that. Both of them were very proud for about nine days."
+     ],
+     "opts": [
+      {
+       "t": "Blank space. That's final.",
+       "to": "END",
+       "stage": 33
+      },
+      {
+       "t": "No. Give them the true number.",
+       "to": "true_end"
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Somebody is going door to door counting how many sleep on this block.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "The count becomes crates. It also becomes a page in a room nobody here has seen.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Gave the true number, plainly, and let it go up. The block eats. The block is also on a page now.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "food": 5,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "faction:volunteers"
+      },
+      "say": "The crates come. Your crew eats from them too.",
+      "pay_why": {
+       "hours": 0.71,
+       "kind": "food",
+       "bats": 0,
+       "food": 5,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Handed up a short number. The ones who can't be on any list stayed off it, and everyone eats a little less for that.",
+     "end": "COMPLETE",
+     "tag": "risky",
+     "fx": {
+      "food": 3,
+      "say": "Four fewer crates. Your crew eats a little less with everybody.",
+      "pay_why": {
+       "hours": 0.71,
+       "kind": "food",
+       "bats": 0,
+       "food": 3,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Read the page out loud on the street first, every name, so nobody could be listed without knowing they were listed.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "mood": {
+       "act": "minor_offensive_action",
+       "place": "faction:network"
+      },
+      "say": "No crates for a block that reads their mail out loud.",
+      "pay_why": {
+       "hours": 0.71,
+       "kind": "none",
+       "bats": 0,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Nobody got counted. Nobody gets crates either. The block cuts its meals in half and calls it dignity.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
+    }
+   },
+   "draft": true
+  },
+  "bq_sixty_seconds": {
+   "id": "bq_sixty_seconds",
+   "file": "S11_SIXTY_SECONDS_OF_RAIN",
+   "title": "Sixty Seconds Of Rain",
+   "meet": {
+    "where": [
+     "rough",
+     "any"
+    ],
+    "when": "day",
+    "weight": 3,
+    "min_day": 1
+   },
+   "people": {
+    "watcher": {
+     "name": "DON CIRO",
+     "look": "faction_blues",
+     "from": "in the street, looking up at a blue sky"
+    },
+    "tunnel": {
+     "name": "LA FLACA",
+     "look": "faction_homeless",
+     "from": "at the culvert mouth, people asleep in the dark behind her"
+    }
+   },
+   "places": {
+    "tunnel": {
+     "name": "THE CULVERT",
+     "act": "GET THEM OUT",
+     "blocks": [
+      3,
+      6
+     ]
+    }
+   },
+   "go": 20,
+   "start": "sky",
+   "nodes": {
+    "sky": {
+     "who": "watcher",
+     "entry": "stage>=10,stage<20",
+     "says": [
+      "Look up. Blue, all the way across, and that's exactly the problem.",
+      "It's raining hard twenty miles north where nobody lives. All of it comes here. The wash doesn't care that the sun is out over your head.",
+      "I have maybe twenty minutes of usefulness left and two bad knees. There are people sleeping in the culvert. Go."
+     ],
+     "opts": [
+      {
+       "t": "How sure are you?",
+       "to": "sure"
+      },
+      {
+       "t": "Going now.",
+       "to": "down",
+       "learn": [
+        "water_is_coming"
+       ]
+      },
+      {
+       "t": "You've been wrong before.",
+       "to": "wrong"
+      },
+      {
+       "t": "(already moving)",
+       "to": "down",
+       "learn": [
+        "water_is_coming"
+       ],
+       "silent": true
+      }
+     ]
+    },
+    "sure": {
+     "who": "watcher",
+     "entry": null,
+     "says": [
+      "Sure enough that I'm standing in the street telling a stranger instead of sitting down.",
+      "Nobody gets a wall of water on the horizon. You get a sound, and by the time you get the sound you're already in it."
+     ],
+     "opts": [
+      {
+       "t": "Then I'm gone.",
+       "to": "down",
+       "learn": [
+        "water_is_coming"
+       ]
+      },
+      {
+       "t": "(turn and run)",
+       "to": "down",
+       "learn": [
+        "water_is_coming"
+       ],
+       "silent": true
+      }
+     ]
+    },
+    "wrong": {
+     "who": "watcher",
+     "entry": null,
+     "says": [
+      "Twice. Both times I was wrong I was early, and both times everybody got wet and annoyed and alive.",
+      "You want me to be certain. Certainty out here arrives about four minutes after it's useful. Stand there and wait for it if you like."
+     ],
+     "opts": [
+      {
+       "t": "Then I wait for the rain.",
+       "to": "END",
+       "stage": 33
+      },
+      {
+       "t": "No. Moving.",
+       "to": "down",
+       "learn": [
+        "water_is_coming"
+       ]
+      }
+     ]
+    },
+    "down": {
+     "who": "watcher",
+     "entry": null,
+     "says": [
+      "Culvert mouth, past the dead lot. There will be four or five of them and at least one who won't believe you."
+     ],
+     "opts": []
+    },
+    "mouth": {
+     "who": "tunnel",
+     "entry": "stage>=20",
+     "says": [
+      "Sun is out. Whatever this is, say it fast, because it usually ends with me carrying my bedroll somewhere worse.",
+      "I've heard flood, fire, raid, sweep and inspection. Four of those were somebody wanting this spot."
+     ],
+     "opts": [
+      {
+       "t": "It's raining north. Come up with me now.",
+       "to": "hand"
+      },
+      {
+       "t": "Ringing the market bell. Everyone comes.",
+       "to": "bell"
+      },
+      {
+       "t": "Then I'm taking the grate off.",
+       "to": "grate"
+      }
+     ]
+    },
+    "hand": {
+     "who": "tunnel",
+     "entry": null,
+     "says": [
+      "You came down here. Nobody comes down here.",
+      "All right. All right, I'm up. There are two more asleep at the bend and one of them will swing at you before he's awake. Take my hand, don't take his."
+     ],
+     "opts": [
+      {
+       "t": "One at a time. Go.",
+       "to": "END",
+       "stage": 30
+      },
+      {
+       "t": "(haul him up and go back for the others)",
+       "to": "END",
+       "stage": 30,
+       "silent": true
+      }
+     ]
+    },
+    "bell": {
+     "who": "tunnel",
+     "entry": null,
+     "says": [
+      "The bell brings help and it brings shoppers. Half of them will be pulling us out and half will be checking what we left behind.",
+      "Ring it anyway. I'd rather be robbed than drowned, and that's a sentence I didn't think I'd say today."
+     ],
+     "opts": [
+      {
+       "t": "Ringing it.",
+       "to": "END",
+       "stage": 31
+      },
+      {
+       "t": "No. Quietly. Just you and me and the bend.",
+       "to": "hand"
+      }
+     ]
+    },
+    "grate": {
+     "who": "tunnel",
+     "entry": null,
+     "says": [
+      "You're going to open the whole mouth. In daylight. With people watching where we sleep.",
+      "Everyone gets out. And everyone learns exactly where the deep goes and who's in it. You can't put a hole back."
+     ],
+     "opts": [
+      {
+       "t": "Open it. Everyone out.",
+       "to": "END",
+       "stage": 32
+      },
+      {
+       "t": "(say nothing and pull the grate anyway)",
+       "to": "END",
+       "stage": 32,
+       "silent": true
+      },
+      {
+       "t": "Fine. Quietly. Your hand.",
+       "to": "hand"
+      }
+     ]
+    }
+   },
+   "stages": {
+    "10": {
+     "log": "Storm upstream, twenty miles out. Not a drop falling here. The wash is bone dry and the sky over it's blue.",
+     "end": null,
+     "tag": null
+    },
+    "20": {
+     "log": "People are sleeping in the culvert. The water gets there before the sound does.",
+     "end": null,
+     "tag": null
+    },
+    "30": {
+     "log": "Went down myself and walked them out with a hand on each shoulder. It came through eight minutes later. Nobody up top ever knew.",
+     "end": "COMPLETE",
+     "tag": "quiet",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "favor",
+       "place": "faction:homeless"
+      },
+      "say": "The water comes through eight minutes later. La Flaca puts the cells they had in your hand.",
+      "pay_why": {
+       "hours": 0.64,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "31": {
+     "log": "Rang the market bell. Half the block came to help and a few came to see what got left unattended. Everyone in the culvert got out.",
+     "end": "COMPLETE",
+     "tag": "notable",
+     "fx": {
+      "bats": 10,
+      "mood": {
+       "act": "civilian_contract_done",
+       "place": "near"
+      },
+      "say": "The market pays for the bell. Somebody took La Flaca's bedroll.",
+      "pay_why": {
+       "hours": 0.64,
+       "kind": "quiet",
+       "bats": 10,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "32": {
+     "log": "Broke the grate off the culvert mouth with a crowd watching, screaming into a hole in the ground. They got out. So did everything that lived down there.",
+     "end": "COMPLETE",
+     "tag": "reckless",
+     "fx": {
+      "man": {
+       "n": 1,
+       "name": "EL DEL CULVERT",
+       "look": "faction_homeless",
+       "bg": "beggar"
+      },
+      "bats": 5,
+      "say": "One of the ones you pulled out walks with you now. He has nowhere to sleep anyway.",
+      "pay_why": {
+       "hours": 0.64,
+       "kind": "man",
+       "bats": 5,
+       "food": 0,
+       "quiet_rate": 10
+      }
+     }
+    },
+    "33": {
+     "log": "Waited to be sure. It was sunny the whole time, right up until the wash filled. Nobody watched me decide nothing.",
+     "end": "FAIL",
+     "tag": "quiet",
+     "fx": {}
     }
    },
    "draft": true

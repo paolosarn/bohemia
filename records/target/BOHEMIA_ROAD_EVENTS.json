@@ -1,6 +1,6 @@
 {
-  "_about": "CONTENT [twenty-five things on the road], 11/2/26 (Paolo 11/2: 'I want more content for the game, more content'; earlier: 'it got pretty boring... a little more quests to do'). THE ROAD'S EVENTS, Battle Brothers' way (reference/library/battle_brothers/: an event stops the company on the road, a face and a situation, two or three choices, a real cost or gain; some remember what you chose and come back later). A modder's file: every event is a row; slices/bohemia_road_events.js reads it and owns no words of its own. WHO: a name and a portrait look (engine/bohemia_crew_faces.js LOOKS: cast_* and faction_*). WHERE: any | paved (the five asphalt road kinds) | rough (rail bed, dry wash) | a district id. WHEN: day | night | any. NEEDS: flag / notflag (a chain), min_day, bats (he must have that many for the event to come), men (crew at least). OPTS: two or three; each option's fx is what happens: bats (+/-), food (+/- a man's night each, the wagon's), gear (a weapon id from records/target/bb/weapons.json, or -1 to lose the bag's newest item), man (+1 joins with {name, look, bg}; -1 one walks), mood ({act, place}: act from records/target/bb/relations.json, place 'near' = the nearest town, or 'faction:<word>'), mins (the clock), flag / unflag (chains), fight ({foe, n, label, win, lose}), chance ({p, yes, no}), quest (a side quest id in BOHEMIA_SIDE_QUESTS.json), say (the speaker's answer). need: what an option asks before it can be chosen. Every word is an attempt, draft:true; the valley's people talk Spanglish, the player's choices are plain English (THE FIRST VOTES: the player does not speak Spanglish). Numbers are shapes TUNING owns.",
-  "version": "road-events-11-2a",
+  "_about": "CONTENT [twenty-five things on the road], 11/2/26 (Paolo 11/2: 'I want more content for the game, more content'; earlier: 'it got pretty boring... a little more quests to do'). THE ROAD'S EVENTS, Battle Brothers' way (reference/library/battle_brothers/: an event stops the company on the road, a face and a situation, two or three choices, a real cost or gain; some remember what you chose and come back later). A modder's file: every event is a row; slices/bohemia_road_events.js reads it and owns no words of its own. WHO: a name and a portrait look (engine/bohemia_crew_faces.js LOOKS: cast_* and faction_*). WHERE: any | paved (the five asphalt road kinds) | rough (rail bed, dry wash) | a district id. WHEN: day | night | any. NEEDS: flag / notflag (a chain), min_day, bats (he must have that many for the event to come), men (crew at least). OPTS: two or three; each option's fx is what happens: bats (+/-), food (+/- a man's night each, the wagon's), gear (a weapon id from records/target/bb/weapons.json, or -1 to lose the bag's newest item), man (+1 joins with {name, look, bg}; -1 one walks), mood ({act, place}: act from records/target/bb/relations.json, place 'near' = the nearest town, or 'faction:<word>'), mins (the clock), flag / unflag (chains), fight ({foe, n, label, win, lose}), chance ({p, yes, no}), quest (a side quest id in BOHEMIA_SIDE_QUESTS.json), say (the speaker's answer). need: what an option asks before it can be chosen. Every word is an attempt, draft:true; the valley's people talk Spanglish, the player's choices are plain English (THE FIRST VOTES: the player does not speak Spanglish). Numbers are shapes TUNING owns. CONTENT 2 (11/3, ask line 342): sixteen more (fifteen and one payoff), eleven of them using what is new on the map: WHERE 'pass' (the mountains' pass roads, a block with passRoad); NEEDS party ({agenda: caravan | crew | patrol, faction?, within}: a roaming party on the map that near), raided (a crew walking home from somebody's ground, the raided town), boss_sign (a boss's sign standing in the world); the words carry {party} {toward} {raided} {raider} {boss} {town}, filled from what the map says ({word|what to say if it has none}); a man who joins can come wearing gear (man.gear: the cell vest's hire, gear.acc).",
+  "version": "road-events-11-3a",
   "draft": true,
   "director": {
     "first_minute_s": 60,
@@ -284,6 +284,166 @@
       "opts": [
         { "t": "Ride with them.", "fx": { "fight": { "foe": "brigands", "n": 3, "label": "the farm raiders", "win": { "bats": 20, "mood": { "act": "civilian_contract_done", "place": "faction:blues" }, "say": "Twenty batteries and a handshake. The Blues remember." }, "lose": { "say": "The raiders got away. The sergeant doesn't blame you. Much." } } } },
         { "t": "Say you're busy.", "fx": { "mood": { "act": "negotiation_fail", "place": "faction:blues" }, "say": "Busy. Everybody's busy until it's their farm." } }
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_rodeo_man", "who": {"name": "EL VAQUERO", "look": "cast_widebrim", "from": "a rancher with a coiled bullwhip on his shoulder"},
+      "where": ["any"], "when": "day", "weight": 3,
+      "says": "Mi patrón's ranch out by Moapa is dust. The cattle went when the feed trucks stopped coming. All I got left is this. A rodeo bullwhip, braided by hand. It cracks louder than a pistol and it don't need bullets. Sixty batteries. In town they want a hundred.",
+      "opts": [
+        {"t": "Buy the bullwhip for sixty.", "need": {"bats": 60}, "fx": {"bats": -60, "gear": "rodeo_bullwhip", "say": "Take care of it. It took my abuelo a whole winter."}},
+        {"t": "Trade him four nights of food for it.", "need": {"food": 4}, "fx": {"food": -4, "gear": "rodeo_bullwhip", "say": "Food. Okay. Food I can't braid. It's yours."}},
+        {"t": "Keep walking.", "fx": {"say": "Sí. Nobody needs a cowboy in a city with no cows."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_pool_hall_kid", "who": {"name": "A KID WITH A CUE", "look": "faction_colorful", "from": "outside a pool hall with the windows out"},
+      "where": ["paved", "any"], "when": "day", "weight": 3,
+      "says": "The Golden Cue closed forever, so we make spears out of the cues. Two cues taped long, a knife on the tip. It reaches two houses, jefe, it keeps a dog off you. Twelve batteries. In the market it's seventeen.",
+      "opts": [
+        {"t": "Buy a pool pole spear.", "need": {"bats": 12}, "fx": {"bats": -12, "gear": "pool_pole_spear", "say": "Hold it at the back, not the middle. The middle is for the felt."}},
+        {"t": "Make one with him.", "need": {"bats": 4}, "fx": {"bats": -4, "mins": 90, "gear": "pool_pole_spear", "say": "Four for the tape and the blade. Your tape job is ugly, but it holds."}},
+        {"t": "Walk on.", "fx": {"say": "Okay. The dogs don't care how cool you look."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_spark", "who": {"name": "CHISPA", "look": "cast_barearms", "from": "a thin man in a vest stitched with salvaged cells, a switch in his fist"},
+      "where": ["any"], "when": "any", "weight": 3, "once": true, "needs": {"min_day": 2},
+      "says": "Nobody hires me. They see the vest and cross the street. Mira, I'm not crazy. Four cells wired to a switch. If I go down, the switch lets go, and whoever is standing on me goes with me. You want a man nobody wants to get close to? Twelve batteries and I walk with you.",
+      "opts": [
+        {"t": "Hire him, vest and all.", "need": {"bats": 12}, "fx": {"bats": -12, "man": {"n": 1, "name": "CHISPA", "look": "cast_barearms", "bg": "daytaler", "gear": {"acc": "cell_vest_scrap"}}, "say": "Bueno. Walk in front of me, not behind. Everybody learns that the first day."}},
+        {"t": "Feed him and send him home.", "need": {"food": 1}, "fx": {"food": -1, "mood": {"act": "favor", "place": "near"}, "say": "Home. Sí. I'll eat first and think about home after."}},
+        {"t": "Cross the street.", "fx": {"say": "Like everybody. It's okay. I'm used to the street."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_broken_delivery", "who": {"name": "A CARAVANS DRIVER", "look": "faction_caravans", "from": "a box truck on three wheels, the stencil on its door"},
+      "where": ["paved", "any"], "when": "day", "weight": 5, "once": true, "needs": {"party": {"agenda": "caravan", "within": 16}},
+      "says": "Ey! The {party} delivery to {toward|the next town}, that's us. The axle went. The rest of the convoy is up the road, they don't stop, that's the rule. I got medicine in the back and two guys with bats for a whole valley. Help me push it to the convoy and they pay you, I swear on my mother.",
+      "opts": [
+        {"t": "Push the truck to the convoy.", "fx": {"mins": 120, "bats": 18, "mood": {"act": "civilian_contract_done", "place": "faction:{party}"}, "flag": "pushed_the_truck", "say": "Eighteen, from the convoy boss. He didn't say thank you. He never does."}},
+        {"t": "Take the medicine.", "fx": {"fight": {"foe": "brigands", "n": 2, "label": "the {party} drivers", "win": {"bats": 24, "food": 1, "mood": {"act": "offensive_action", "place": "faction:{party}"}, "say": "Antibiotics and a box of crackers. The {party} will hear about this."}, "lose": {"bats": -6, "say": "Two guys with bats. You were wrong about them."}}}},
+        {"t": "Leave them.", "fx": {"say": "Sí. The convoy left us too."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_convoy_robbers", "who": {"name": "EL FLACO RUIZ", "look": "cast_poncho", "from": "lying flat in the creosote with two others and a rifle"},
+      "where": ["any"], "when": "any", "weight": 5, "once": true, "needs": {"party": {"agenda": "caravan", "within": 12}},
+      "says": "Shh. Get down. That's the {party} convoy coming, to {toward|wherever}. We hit it at the bend. You want a share? Hold the back, nobody gets hurt that matters.",
+      "opts": [
+        {"t": "Join the robbery.", "fx": {"fight": {"foe": "brigands", "n": 3, "label": "the {party} convoy's guards", "win": {"bats": 34, "mood": {"act": "offensive_action", "place": "faction:{party}"}, "say": "Your share is thirty-four. Ruiz counts it twice, slow, so you can see."}, "lose": {"bats": -8, "say": "The guards were ready. Ruiz ran first."}}}},
+        {"t": "Walk up and warn the convoy.", "fx": {"mins": 30, "bats": 12, "mood": {"act": "favor", "place": "faction:{party}"}, "flag": "warned_the_convoy", "say": "The convoy boss pays twelve for the warning. Ruiz saw your face."}},
+        {"t": "Walk on and see nothing.", "fx": {"say": "Smart. You never saw me."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_robbers_remember", "who": {"name": "EL FLACO RUIZ", "look": "cast_poncho", "from": "on the road ahead, waiting for you this time"},
+      "where": ["any"], "when": "any", "weight": 6, "once": true, "needs": {"flag": "warned_the_convoy", "flag_days": 1},
+      "says": "You. The one who warned the {party}. Two of my guys are in their pen now because of you. I'm not here to kill you, I'm here for what they cost me. Twenty.",
+      "opts": [
+        {"t": "Pay him twenty.", "need": {"bats": 20}, "fx": {"bats": -20, "unflag": "warned_the_convoy", "say": "Twenty. Now we're nothing to each other. That's the best thing I can be."}},
+        {"t": "Fight him.", "fx": {"fight": {"foe": "brigands", "n": 2, "label": "Ruiz and his cousin", "win": {"bats": 10, "say": "He had ten on him and a photo of a dog."}, "lose": {"bats": -12, "say": "He took twelve and your hat."}}}},
+        {"t": "Tell him to take it up with the convoy.", "fx": {"unflag": "warned_the_convoy", "say": "Ja. With the {party}. Okay, jefe. You're funny. I'll be around."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_cairn", "who": {"name": "THE STONE MAN", "look": "cast_bedroll", "from": "stacking stones at the top of the pass"},
+      "where": ["pass"], "when": "any", "weight": 6,
+      "says": "Count the stones, amigo. One for every car that tried the pass after the dollar went. Fifty-one. The ones that made it don't get a stone. Leave a battery on the pile and you make it down. Everybody who left one made it down. I counted them too.",
+      "opts": [
+        {"t": "Leave a battery on the pile.", "need": {"bats": 1}, "fx": {"bats": -1, "say": "Bueno. Keep left at the burned bus. Right goes to the drop."}},
+        {"t": "Take the batteries off the pile.", "fx": {"bats": 6, "chance": {"p": 0.5, "yes": {"say": "Nothing happens. The wind comes up the pass and the stone man doesn't look at you again."}, "no": {"fight": {"foe": "beasts", "n": 2, "label": "the coyotes that live under the pass", "win": {"say": "Two coyotes, thin as wire. The stone man adds two stones."}, "lose": {"bats": -6, "say": "You drop the batteries running. The pile gets them back."}}}}}},
+        {"t": "Walk past him.", "fx": {"say": "Fifty-one. I'll leave room for one more."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_last_bus", "who": {"name": "LA CHOFER", "look": "cast_shortcoat", "from": "a school bus full of people, stopped on the pass road, its brakes smoking"},
+      "where": ["pass"], "when": "day", "weight": 6,
+      "says": "We're going over to Pahrump. My cousin says there's well water there and nobody counts it. Thirty-two people. The brakes are cooked from the grade and the next part is down. You got a man who knows brakes? We pay what we have.",
+      "opts": [
+        {"t": "Lend them a man for two hours.", "fx": {"mins": 120, "bats": 12, "food": 2, "flag": "fixed_the_bus", "say": "Twelve batteries and two bags of tortillas. Thirty-two people wave at you out the back window."}},
+        {"t": "Sell them two nights of food.", "need": {"food": 2}, "fx": {"food": -2, "bats": 14, "say": "Fourteen. They needed brakes more than food, but okay."}},
+        {"t": "Leave them on the pass.", "fx": {"say": "Okay. We'll go slow. Pray for the slow."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_rock_tax", "who": {"name": "A MAN WITH A RADIO", "look": "faction_anarchists", "from": "a rope across the pass road, a rockslide behind it"},
+      "where": ["pass"], "when": "any", "weight": 5,
+      "says": "The pass is ours. Nobody else clears the rockslides, so everybody pays the rock tax. Five. Or pick up a shovel, we got a slide right there, two hours and you walk free.",
+      "opts": [
+        {"t": "Pay the rock tax.", "need": {"bats": 5}, "fx": {"bats": -5, "mood": {"act": "favor", "place": "faction:anarchists"}, "say": "Five. Mutual aid, compa. The rocks don't care who's in charge."}},
+        {"t": "Dig the slide for two hours.", "fx": {"mins": 120, "bats": 4, "mood": {"act": "civilian_contract_done", "place": "faction:anarchists"}, "say": "You dig. They pay you four for the extra rocks. Nobody owns this pass and everybody works it."}},
+        {"t": "Cut the rope.", "fx": {"fight": {"foe": "brigands", "n": 3, "label": "the pass keepers", "win": {"bats": 15, "mood": {"act": "offensive_action", "place": "faction:anarchists"}, "say": "Fifteen in their tax box. The slide is still there."}, "lose": {"bats": -10, "say": "They take ten and your shovel would have been cheaper."}}}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_raid_wagon", "who": {"name": "DOÑA LUPE", "look": "cast_skirt", "from": "pulling a wagon of everything she owns, out of the {raided} town"},
+      "where": ["any"], "when": "any", "weight": 6, "once": true, "needs": {"raided": true},
+      "says": "The {raider} hit the {raided} town last night. They took the water, the cells, my cousin's truck. They're walking home with it right now, you can see their dust. Me, I'm going to my sister. You got a little food for the road?",
+      "opts": [
+        {"t": "Give her two nights of food.", "need": {"food": 2}, "fx": {"food": -2, "mood": {"act": "favor", "place": "faction:{raided}"}, "say": "Que Dios te lo pague. Everybody from the {raided} town remembers the ones who gave."}},
+        {"t": "Go after the crew and the truck.", "fx": {"fight": {"foe": "brigands", "n": "party", "label": "the {raider} crew, walking home with it", "win": {"bats": 28, "mood": {"act": "favor", "place": "faction:{raided}"}, "say": "Twenty-eight batteries off their backs, and the truck. Lupe's cousin comes for it on foot."}, "lose": {"bats": -10, "say": "There were more of them than dust. You got out."}}}},
+        {"t": "Walk on.", "fx": {"say": "Sí. Everybody's walking today."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_looter", "who": {"name": "A KID WITH A TV", "look": "faction_colorful", "from": "carrying a cracked TV out of the {raided} town"},
+      "where": ["any"], "when": "day", "weight": 5, "once": true, "needs": {"raided": true},
+      "says": "The {raider} already took the good stuff. They left the doors open. Everybody's in there taking what's left. There's a pharmacy nobody found yet, jefe. You want in?",
+      "opts": [
+        {"t": "Go in and take what's left.", "fx": {"mins": 120, "bats": 14, "food": 2, "mood": {"act": "minor_offensive_action", "place": "faction:{raided}"}, "say": "Fourteen in cells and two cans. A woman in a doorway watches you carry it out."}},
+        {"t": "Tell him to put it back.", "fx": {"say": "Put it back for who? For the {raider}? They'll be back next week for the TV."}},
+        {"t": "Walk on.", "fx": {"say": "Okay. More for me."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_egg_tape", "who": {"name": "A MAN WITH A WALKMAN", "look": "cast_pack", "from": "holding a cassette he pulled off a fence"},
+      "where": ["any"], "when": "night", "weight": 3,
+      "says": "Listen to this. Somebody tapes cassettes to the fences. Same voice every time, reading the price of eggs. Every week the price is higher. This one says a dozen eggs, one hundred ninety dollars. Dollars, bro. Who is still counting in dollars?",
+      "opts": [
+        {"t": "Listen to the whole tape.", "fx": {"mins": 30, "flag": "heard_the_egg_tape", "say": "After the eggs, milk. After the milk, ten seconds of a crowd breathing. Then the date, and it is next week."}},
+        {"t": "Buy the tape off him.", "need": {"bats": 2}, "fx": {"bats": -2, "flag": "heard_the_egg_tape", "say": "Two. Keep it. I don't want it in my house anymore."}},
+        {"t": "Walk on.", "fx": {"say": "Yeah. Don't listen. That's what I should've done."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_buffet_sign", "who": {"name": "A MOTHER UNDER A SIGN", "look": "cast_poncho", "from": "under a digital billboard flickering on a dying solar cell"},
+      "where": ["paved"], "when": "night", "weight": 3,
+      "says": "It comes on every night at the same time. BUFFET, NINE NINETY-NINE. Somebody still pays for the cell. My boy watches it for the food. He thinks if he watches long enough they open.",
+      "opts": [
+        {"t": "Give the boy a night of food.", "need": {"food": 1}, "fx": {"food": -1, "mood": {"act": "favor", "place": "near"}, "say": "He eats it looking at the sign. He says it tastes like nine ninety-nine."}},
+        {"t": "Pull the cell out of the sign.", "fx": {"bats": 6, "mood": {"act": "minor_offensive_action", "place": "near"}, "say": "Six in the cell. The sign goes dark. The boy doesn't cry. He just keeps looking at it."}},
+        {"t": "Leave them with the sign.", "fx": {"say": "It's okay. It comes on again tomorrow."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_debt_follows", "who": {"name": "A MAN WITH A LEDGER", "look": "faction_mob", "from": "a pressed shirt, a ledger, two big men behind him"},
+      "where": ["paved", "any"], "when": "day", "weight": 3, "once": true, "needs": {"men": 3, "min_day": 2},
+      "says": "Your crew owes. Not you. One of your men signed for a loan with the Mob before he walked with you. Forty batteries and the interest. A debt doesn't care who you work for now. Pay half today and we write it closed, or we take him.",
+      "opts": [
+        {"t": "Pay twenty and close it.", "need": {"bats": 20}, "fx": {"bats": -20, "mood": {"act": "favor", "place": "faction:mob"}, "say": "Closed. Clean. I'll write your name in the good column."}},
+        {"t": "Hand him over.", "fx": {"man": {"n": -1}, "say": "Sensible. He'll work it off. They always do, eventually."}},
+        {"t": "Walk on. He can find you.", "fx": {"mood": {"act": "negotiation_fail", "place": "faction:mob"}, "say": "We always do. It's sixty next time. The ledger doesn't sleep."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_three_oclock_bell", "who": {"name": "PADRE ANSELMO", "look": "faction_church", "from": "ringing a hand bell at a crossroads in the dark"},
+      "where": ["any"], "when": "night", "weight": 3,
+      "says": "I ring it for the ones in the houses who died alone after the money went. Nobody came for them, so I come. Every night a different street. Tonight it's this one. Stand with me a minute, hijo, it's only a minute.",
+      "opts": [
+        {"t": "Stand with him a while.", "fx": {"mins": 30, "mood": {"act": "favor", "place": "faction:church"}, "say": "Thirty-one doors. He says each number out loud. Nobody opens one."}},
+        {"t": "Give him a battery for candles.", "need": {"bats": 1}, "fx": {"bats": -1, "mood": {"act": "favor", "place": "faction:church"}, "say": "One candle a house. That's tonight's street. Gracias."}},
+        {"t": "Walk on.", "fx": {"say": "Go with God. Somebody will ring for you too."}}
+      ], "draft": true
+    },
+    {
+      "id": "ev_the_lake_water", "who": {"name": "THE WATER MAN", "look": "faction_blues", "from": "a tanker truck painted with a wave, a hose and a line of jugs"},
+      "where": ["paved", "any"], "when": "day", "weight": 4,
+      "says": "Agua del lago! Lake Mead, the deep intake, the third straw. Boiled twice. Three batteries a jug. Food and water is the same thing out here, compa, you know that.",
+      "opts": [
+        {"t": "Buy two jugs.", "need": {"bats": 6}, "fx": {"bats": -6, "food": 2, "say": "Two jugs. Drink the old one first, the new one keeps."}},
+        {"t": "Ask how the lake is.", "fx": {"say": "Lower every year. The first straw sucks air since 2022, the second since 2027. The third is the last one. After that we drink the river, and the river is Arizona's."}},
+        {"t": "Walk on.", "fx": {"say": "Okay. The sun will sell it to you later, more expensive."}}
       ], "draft": true
     }
   ]
