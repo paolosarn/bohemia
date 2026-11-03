@@ -18,7 +18,7 @@ picture-11-3). Record records/BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.md; proof reco
 - NOTES IS GONE: the title's and the bar's #notebtn hidden by CSS (the city's own file still builds it; other lanes' code calls it),
   the phone's APPS without notes; its two gates in graveyard/the_notes_button_11_3_26/ with a post-mortem; eight gates re-aimed.
 - FROZEN (rule 358): gates/the_loading_menu_is_frozen_gate.js holds the four words, the start screen's 21 rules of look and the roll's
-  numbers against records/target/ui_the_loading_menu_frozen.json. A change needs a commit saying NEW RULING, then --freeze in it.
+  numbers against records/target/ui_the_loading_menu_frozen.json, and F5 SILENCE (rule 361: after a tap only the feed's own loop). A change needs a commit saying NEW RULING, then --freeze in it.
   More feeds are welcome (same bar: tall and wide, its own sound, --place, C11 green).
 - PICTURES: tools/bohemia_ui_the_camera_feeds.py <a..j> <tall|wide> <dir> (bpy 4.2 venv; ~20 s a frame on four cores), --post
   into slices/crashbox/feed_<x>_<tall|wide>.webp; SOUNDS tools/bohemia_ui_the_camera_feeds_sounds.py (CC0 bank, -33 dB rms).

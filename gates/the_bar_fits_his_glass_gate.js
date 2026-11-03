@@ -211,8 +211,11 @@ const done = (d) => {
     }, { infl, words });
     await d.page.waitForTimeout(320);
     return d.fr.evaluate(() => {
-      const n = document.getElementById('notebtn');
-      const b = n ? n.getBoundingClientRect() : null;
+      /* RE-AIMED 11/3 BY UI 6 (rule 357 (a): NOTES is gone, never built): the property is the bar's RIGHTMOST piece on the glass,
+         whatever it is now (the gear, the glass, the crew chip), whole at every width and under the 30% stress */
+      const bar = document.getElementById('bmtb') || document.getElementById('menubar');
+      const kids = bar ? [...bar.querySelectorAll('*')].filter(e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; }) : [];
+      const b = kids.length ? kids.reduce((m, e) => { const r = e.getBoundingClientRect(); return !m || r.right > m.right ? r : m; }, null) : null;
       const m = document.getElementById('musbtn');
       return { whole: !!(b && b.left >= -0.5 && b.right <= innerWidth + 0.5),
                at: b ? Math.round(b.left) + '..' + Math.round(b.right) : 'ABSENT',
@@ -222,7 +225,7 @@ const done = (d) => {
   };
 
   const plain = await look(390, 0, false);
-  ok('NOTES is WHOLLY on the glass at 390 (not merely "on screen")',
+  ok('the bar\'s rightmost piece is WHOLLY on the glass at 390 (not merely "on screen"; NOTES gone, rule 357)',
      plain.whole, plain.at + ' of ' + plain.vw);
   const his = await look(375, 0, true);
   ok('  with his exact words in the bar, at 375', his.whole, his.at + ' of ' + his.vw);
@@ -233,7 +236,7 @@ const done = (d) => {
      not a stress, and this gate refuses to score it. */
   ok('the inflation stress really changed the type', infl.ink > plain.ink + 0.4,
      plain.ink + 'px -> ' + infl.ink + 'px');
-  ok('  and NOTES is still whole with the type 30% bigger', infl.whole, infl.at + ' of ' + infl.vw);
+  ok('  and the bar\'s rightmost piece is still whole with the type 30% bigger', infl.whole, infl.at + ' of ' + infl.vw);
   const tiny = await look(320, 1.15, true);
   ok('  and still whole at 320, the narrowest phone anybody holds',
      tiny.whole, tiny.at + ' of ' + tiny.vw);

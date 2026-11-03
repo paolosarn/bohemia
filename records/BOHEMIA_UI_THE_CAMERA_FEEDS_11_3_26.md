@@ -82,6 +82,11 @@ shape only if it turns, the next camera's 8 s before the cut. All twenty sheets 
 loads more than two of them in the first 40 seconds.
 
 ## CHECKS
+- LAST PIECE (the coordinator's queued notes): THE LOADING MENU IS FROZEN 10/0 with F5 SILENCE (rule 361: on the demo's start screen,
+  after a real tap, only the camera feed's own ten-second loop starts; a planted sound is caught); the bar's two checkers that still
+  read the NOTES button (THE BAR FITS HIS GLASS, THE BAR SAYS THREE THINGS) re-aimed to the bar's rightmost piece and to a bar with
+  no NOTES. Seen at 430 x 932 (a tall phone) and 1440 x 900 (a laptop): the picture fills the glass, no bars, no stretch, the words
+  readable (the laptop draws his letters at twice the pixels, the placement carried from 844 x 390).
 - ROUND TWO (rules 357, 358), on the rebased tree: THE CAMERA FEEDS 25/0 (C10 nothing behind, C11 all twenty screens worst 4.7 to 1 in the
   sun, C12 NOTES gone, every plant caught), THE FRONT SCREEN 42/0 (twice, two random feeds), THE START SCREEN 12/0, THE PHONE (main's,
   the coordinator's re-aim), THE DAYS ONCE 59/0, THE LOADING MENU IS FROZEN 8/0, THE MENU HEARS ONLY ITS FEED 4/0, DEMO BUILD 25/0, HANDOFF

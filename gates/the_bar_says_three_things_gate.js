@@ -74,7 +74,7 @@ const done = () => { console.log('\nTHE BAR SAYS THREE THINGS: ' + pass + ' ok, 
     const clipped = whereEl ? whereEl.scrollWidth > whereEl.clientWidth + 1 : null;
     try { const f = clockStr(); const b = f.split('·'); truth.hour = b[b.length - 1].trim(); } catch (e) {}
     try { const t = om.at(city.x, city.y); truth.where = t && t.district ? String(t.district).toUpperCase() : null; } catch (e) {}
-    const n = document.getElementById('notebtn').getBoundingClientRect();
+    const nb = document.getElementById('notebtn'), n = nb ? nb.getBoundingClientRect() : { width: 0, x: innerWidth };   /* rule 357 (a): NOTES may never be built; the bar then runs to the glass's edge */
     /* a finger at each reading's centre: what does it land on? */
     const under = chips.map(c => { const el = document.elementFromPoint(c.x + c.w / 2, c.y + c.h / 2);
       return el ? (el.id || el.className || el.tagName) : ''; });

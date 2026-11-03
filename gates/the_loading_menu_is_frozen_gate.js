@@ -12,10 +12,13 @@
      F3 HOW THE FEEDS ROLL: the roll's own numbers in slices/crashbox/crashbox.json (the random roll's key, the 40 s cut, the
         preload, the roll and the snow, the fade, the two shapes)
      F4 NO FEED TAKEN AWAY: every feed of the baseline is still in the roll, tall and wide, with its words placed (new feeds welcome)
+     F5 SILENCE (rule 361, Paolo: the day-speed sound on the menu was a 'vibe killer'): on the demo's start screen, after a real tap,
+        nothing starts but the camera feed's own loop (no sound effect, no music); FIXES' wiring (THE MENU HEARS ONLY ITS FEED) holds the
+        why, this holds the menu
    A CHANGE TO F1, F2 OR F3 FAILS unless a commit since the baseline that touched the file cites a new ruling with the words
    'NEW RULING' (his words, the rule number); whoever lands that ruling re-records the baseline with --freeze in the same commit.
    PLANTED (each must turn its leg red, every run): NEW GAME renamed, the cut moved to 30 s, a size in the look changed, a feed
-   taken away.
+   taken away, a sound started on the menu.
 
    node gates/the_loading_menu_is_frozen_gate.js            (the check)
    node gates/the_loading_menu_is_frozen_gate.js --freeze   (re-record the baseline: only with a new ruling) */
@@ -83,5 +86,36 @@ ok('PLANTED: the cut moved to 30 s is caught', !judge(prints(Object.assign({}, s
 ok('PLANTED: a size in the look changed is caught', !judge(prints(Object.assign({}, src, { cbx: src.cbx.replace('font-size:20px!important;letter-spacing:4px!important', 'font-size:23.333px!important;letter-spacing:4px!important') })), base, false).look);
 const jk = JSON.parse(src.json); delete jk.feed.options[base.prints.feeds[0]];
 ok('PLANTED: a feed taken away is caught', !judge(prints(Object.assign({}, src, { json: JSON.stringify(jk) })), base, false).feeds);
-console.log('\nTHE LOADING MENU IS FROZEN: ' + pass + ' passed, ' + fail + ' failed');
-process.exit(fail ? 1 : 0);
+/* F5 SILENCE, driven on the demo upright: every sound that starts is recorded from the page's first line */
+(async () => {
+  let res = null;
+  try {
+    const { chromium } = require('playwright'); const http = require('http');
+    const types = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.mp3': 'audio/mpeg', '.woff2': 'font/woff2' };
+    const srv = http.createServer((q, r) => { const p = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); fs.readFile(p, (e, b) => { if (e) { r.writeHead(404); r.end(); return; } r.writeHead(200, { 'content-type': types[path.extname(p)] || 'application/octet-stream' }); r.end(b); }); });
+    await new Promise(r => srv.listen(0, '127.0.0.1', r));
+    const br = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+    const ctx = await br.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true }), pg = await ctx.newPage();
+    await pg.addInitScript(() => { const L = window.__SOUNDS = [];
+      const wrap = (P, kind) => { const o = P.prototype.start; P.prototype.start = function () { L.push({ kind, dur: this.buffer ? Math.round(this.buffer.duration * 10) / 10 : null, t: Math.round(performance.now()) }); return o.apply(this, arguments); }; };
+      try { wrap(AudioBufferSourceNode, 'buffer'); wrap(OscillatorNode, 'osc'); } catch (e) {}
+      const pl = HTMLMediaElement.prototype.play; HTMLMediaElement.prototype.play = function () { L.push({ kind: 'media', src: String(this.currentSrc || this.src || '').split('/').pop(), t: Math.round(performance.now()) }); return pl.apply(this, arguments); }; });
+    await pg.goto('http://127.0.0.1:' + srv.address().port + '/slices/BOHEMIA_DEMO.html');
+    for (let i = 0; i < 120; i++) { const up = await pg.evaluate(() => { const m = document.querySelector('#title .bm-start .m'); return !!window.__LOAD_READY && !!m && getComputedStyle(m).visibility !== 'hidden'; }).catch(() => false); if (up) break; await pg.waitForTimeout(250); }
+    const spot = await pg.evaluate(() => { const R = s => { const e = document.querySelector(s); return e ? e.getBoundingClientRect() : null; }, t = R('#title .bm-start .t'), m = R('#title .bm-start .m');
+      for (let y = 60; y < innerHeight - 60; y += 20) { const hit = [t, m].some(r => r && y > r.top - 10 && y < r.bottom + 10); if (!hit) return [innerWidth / 2, y]; } return [20, innerHeight / 2]; });
+    await pg.touchscreen.tap(spot[0], spot[1]); await pg.waitForTimeout(3500);
+    const after = await pg.evaluate(() => ({ L: window.__SOUNDS.slice(), feed: window.__TITLEWIND ? { src: __TITLEWIND.SRC, playing: __TITLEWIND.playing && __TITLEWIND.playing() } : null, up: !document.getElementById('title').classList.contains('gone') }));
+    await pg.evaluate(() => { const AC = (window.MUS && MUS.AC) || new AudioContext(); const o = AC.createOscillator(); o.connect(AC.destination); o.start(); o.stop(AC.currentTime + 0.05); });
+    const planted = await pg.evaluate(() => window.__SOUNDS.slice());
+    await br.close(); srv.close();
+    res = { after, planted };
+  } catch (e) { res = { err: String(e).slice(0, 200) }; }
+  const others = L => (L || []).filter(x => !(x.kind === 'buffer' && x.dur != null && x.dur >= 9 && x.dur <= 11));   /* the feed's own loop: a ten-second recording, laid end on end */
+  const A = res && res.after;
+  ok('F5 SILENCE: after a real tap on the start screen nothing starts but the camera feed\'s own loop', !!A && A.up && !!A.feed && /crashbox\/feed_/.test(A.feed.src) && !others(A.L).length,
+    res && res.err ? res.err : A ? ('the feed ' + (A.feed && A.feed.src) + ' playing ' + (A.feed && A.feed.playing) + '; ' + A.L.length + ' started, others: ' + (JSON.stringify(others(A.L)).slice(0, 160) || 'none')) : 'not read');
+  ok('PLANTED: a sound started on the menu is caught', !!res && !!res.planted && others(res.planted).length > 0);
+  console.log('\nTHE LOADING MENU IS FROZEN: ' + pass + ' passed, ' + fail + ' failed');
+  process.exit(fail ? 1 : 0);
+})();
