@@ -197,3 +197,19 @@ and loses apron.0; the shore's gravel bars cross every block side at its middle 
 [bb] Battle Brothers paints its tactical maps from tiles whose edges blend (a ground's border is a soft brush, never the grid);
 its roads cross the map whole. [analog horror] the one lit canopy panel, the valet's key box open, the rooftop pool's water
 standing green: at the source, in the models.
+
+## PUSH 2 (rule 346 + rule 356, ask lines 355, 374, 375): THE GREY PLACES, DOWNTOWN'S ROOFS, NOTHING CUT AT AN EDGE
+- THE AIRPORT: dustslab (the apron's real colour), apron.4 THE STANDS (COOK PROPS' fuel truck and baggage train) in its field,
+  apron.0 out; the taxi line and the stands' lead-in lines run whole. Seams 16% -> 0%, cell lines 6% -> 0%, cut-offs 2% -> 0%,
+  roads not met 28 -> 0.
+- THE SHORE: lakemud (Lake Mead's tan), its gravel bars crossing every block side at the middle row and column, each bar a SOFT
+  SHAPE (soft_tiles: the tile map blurred, the edge a metre inside its own tiles; measured first: a plain rule of the tiles puts
+  every edge ON the grid line, 7.8% of its cell borders). 21% -> 0%, 11% -> 0%, 9% -> 0%, 41 -> 0.
+- THE PASS: passtan (buff scree, iron-red), verges off the grid lines, pass.0 out. 23% -> 0%, 2.3% -> 2.0%, 3.5% -> 0%, 46 -> 0.
+- DOWNTOWN'S ROOF-TO-ROOF (rule 356(e), his 'fantastic idea', which the rebuild had dropped): fremont.7's backs are walked roof
+  to roof now, each roof at its own storey (3, 2, 3, 3, 2), planks where one steps down, the fire escape the way up from the alley.
+  The zipline's cable ends at its own pole inside the block.
+- EDGE (rule 356(c),(f)): a fifth leg in the seams gate: no box, model or rock reaches past its block's side (where the picture
+  stops and cuts it), read without a render (--clips). Measured: 16 blocks had something cut (rocks, mounds, pools, ledges, the
+  lab's sheds and pallets by 0.2 to 2.5 m); now 0 of 46 (Kit.put/model/rock move a thing in when it reaches past by a little;
+  the pallets and the terminal fixed by hand). The Strip's and downtown's blocks had none.

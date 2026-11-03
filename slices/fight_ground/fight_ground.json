@@ -1308,6 +1308,9 @@
   },
   "stripw.3": {
    "src": "block_stripw_3.webp"
+  },
+  "apron.4": {
+   "src": "block_apron_4.webp"
   }
  },
  "lights_key": {
@@ -24216,16 +24219,16 @@
      "apron.3"
     ],
     [
-     "apron.2",
+     "apron.4",
      "apron.1",
-     "apron.2",
-     "apron.0"
+     "apron.4",
+     "apron.2"
     ],
     [
-     "apron.0",
      "apron.2",
-     "apron.0",
-     "apron.2"
+     "apron.4",
+     "apron.2",
+     "apron.4"
     ]
    ],
    "terrain": [
@@ -24340,6 +24343,116 @@
      "flat"
     ],
     [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
      "height",
      "height",
      "flat",
@@ -24368,7 +24481,7 @@
      "flat",
      "flat",
      "flat",
-     "flat",
+     "blocked",
      "flat",
      "flat",
      "flat",
@@ -24377,9 +24490,9 @@
      "flat",
      "flat",
      "flat",
+     "flat",
      "blocked",
-     "blocked",
-     "blocked",
+     "flat",
      "flat",
      "flat"
     ],
@@ -24390,8 +24503,8 @@
      "blocked",
      "flat",
      "flat",
-     "blocked",
-     "blocked",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -24414,6 +24527,8 @@
      "flat",
      "flat",
      "flat",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat",
@@ -24423,119 +24538,7 @@
      "flat",
      "flat",
      "blocked",
-     "flat",
-     "height",
      "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "height",
-     "height",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "height",
-     "height",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "height",
-     "height",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "height",
-     "height",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat"
-    ],
-    [
-     "flat",
-     "blocked",
-     "flat",
-     "height",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "height",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
     ],
     [
      "flat",
@@ -24602,19 +24605,19 @@
      "y_m": 42.0
     },
     {
-     "piece": "apron_carts",
-     "x_m": 18.0,
-     "y_m": 102.0
-    },
-    {
-     "piece": "apron_carts",
-     "x_m": 30.0,
-     "y_m": 102.0
-    },
-    {
-     "piece": "apron_carts",
+     "piece": "apron_loader",
      "x_m": 42.0,
-     "y_m": 102.0
+     "y_m": 78.0
+    },
+    {
+     "piece": "apron_tug",
+     "x_m": 54.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "apron_tug",
+     "x_m": 18.0,
+     "y_m": 114.0
     },
     {
      "piece": "apron_wreck",
@@ -24642,154 +24645,94 @@
      "y_m": 102.0
     },
     {
-     "piece": "apron_carts",
-     "x_m": 138.0,
-     "y_m": 102.0
-    },
-    {
-     "piece": "apron_carts",
-     "x_m": 150.0,
-     "y_m": 102.0
-    },
-    {
-     "piece": "apron_carts",
+     "piece": "apron_loader",
      "x_m": 162.0,
-     "y_m": 102.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 220.0,
-     "y_m": 66.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 226.0,
-     "y_m": 66.0
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 230.0,
      "y_m": 78.0
     },
     {
-     "piece": "fence",
-     "x_m": 182.0,
-     "y_m": 115.0
-    },
-    {
-     "piece": "fence",
-     "x_m": 189.0,
-     "y_m": 115.0
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 210.0,
+     "piece": "apron_tug",
+     "x_m": 174.0,
      "y_m": 90.0
     },
     {
-     "piece": "rubble_9",
-     "x_m": 213.0,
-     "y_m": 113.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 40.0,
-     "y_m": 126.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 46.0,
-     "y_m": 126.0
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 50.0,
-     "y_m": 138.0
-    },
-    {
-     "piece": "fence",
-     "x_m": 2.0,
-     "y_m": 175.0
-    },
-    {
-     "piece": "fence",
-     "x_m": 9.0,
-     "y_m": 175.0
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 30.0,
-     "y_m": 150.0
-    },
-    {
-     "piece": "rubble_9",
-     "x_m": 33.0,
-     "y_m": 173.0
-    },
-    {
-     "piece": "apron_carts",
-     "x_m": 78.0,
-     "y_m": 162.0
-    },
-    {
-     "piece": "apron_carts",
-     "x_m": 90.0,
-     "y_m": 162.0
-    },
-    {
-     "piece": "apron_carts",
-     "x_m": 102.0,
-     "y_m": 162.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 160.0,
-     "y_m": 126.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 166.0,
-     "y_m": 126.0
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 170.0,
-     "y_m": 138.0
-    },
-    {
-     "piece": "fence",
-     "x_m": 122.0,
-     "y_m": 175.0
-    },
-    {
-     "piece": "fence",
-     "x_m": 129.0,
-     "y_m": 175.0
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 150.0,
-     "y_m": 150.0
-    },
-    {
-     "piece": "rubble_9",
-     "x_m": 153.0,
-     "y_m": 173.0
+     "piece": "apron_tug",
+     "x_m": 138.0,
+     "y_m": 114.0
     },
     {
      "piece": "apron_carts",
      "x_m": 198.0,
-     "y_m": 162.0
+     "y_m": 102.0
     },
     {
      "piece": "apron_carts",
      "x_m": 210.0,
-     "y_m": 162.0
+     "y_m": 102.0
     },
     {
      "piece": "apron_carts",
      "x_m": 222.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "apron_carts",
+     "x_m": 18.0,
      "y_m": 162.0
+    },
+    {
+     "piece": "apron_carts",
+     "x_m": 30.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "apron_carts",
+     "x_m": 42.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "apron_loader",
+     "x_m": 102.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "apron_tug",
+     "x_m": 114.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "apron_tug",
+     "x_m": 78.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "apron_carts",
+     "x_m": 138.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "apron_carts",
+     "x_m": 150.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "apron_carts",
+     "x_m": 162.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "apron_loader",
+     "x_m": 222.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "apron_tug",
+     "x_m": 234.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "apron_tug",
+     "x_m": 198.0,
+     "y_m": 174.0
     }
    ],
    "lights": []
@@ -27331,16 +27274,16 @@
      "pass.3"
     ],
     [
-     "pass.0",
+     "pass.2",
      "pass.1",
-     "pass.0",
+     "pass.2",
      "pass.2"
     ],
     [
      "pass.2",
-     "pass.0",
      "pass.2",
-     "pass.0"
+     "pass.2",
+     "pass.2"
     ]
    ],
    "terrain": [
@@ -27456,20 +27399,20 @@
     ],
     [
      "rough",
+     "height",
      "rough",
-     "flat",
      "rough",
-     "rough",
+     "blocked",
      "rough",
      "rough",
      "height",
      "blocked",
      "rough",
      "rough",
+     "height",
      "rough",
-     "flat",
      "rough",
-     "rough",
+     "blocked",
      "rough",
      "height",
      "rough",
@@ -27477,21 +27420,21 @@
      "blocked"
     ],
     [
-     "blocked",
-     "blocked",
+     "rough",
+     "rough",
+     "rough",
      "height",
      "rough",
-     "debris",
      "rough",
      "rough",
      "flat",
      "rough",
      "rough",
-     "blocked",
-     "blocked",
+     "rough",
+     "rough",
+     "rough",
      "height",
      "rough",
-     "debris",
      "rough",
      "rough",
      "rough",
@@ -27521,21 +27464,21 @@
      "flat"
     ],
     [
-     "rough",
-     "blocked",
-     "rough",
-     "height",
-     "rough",
-     "flat",
-     "blocked",
-     "blocked",
      "flat",
      "flat",
-     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "blocked",
-     "rough",
-     "height",
-     "rough",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -27571,20 +27514,20 @@
      "rough",
      "blocked",
      "rough",
+     "height",
      "rough",
-     "flat",
      "rough",
-     "rough",
+     "blocked",
      "rough",
      "height",
      "rough",
      "rough",
      "blocked",
      "rough",
+     "height",
      "rough",
-     "flat",
      "rough",
-     "rough"
+     "blocked"
     ],
     [
      "rough",
@@ -27592,21 +27535,21 @@
      "rough",
      "height",
      "rough",
-     "blocked",
-     "blocked",
-     "height",
-     "rough",
-     "debris",
      "rough",
      "rough",
      "rough",
      "height",
      "rough",
-     "blocked",
-     "blocked",
+     "rough",
+     "rough",
+     "rough",
      "height",
      "rough",
-     "debris"
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough"
     ],
     [
      "flat",
@@ -27636,21 +27579,21 @@
      "flat",
      "flat",
      "flat",
-     "rough",
-     "blocked",
-     "rough",
-     "height",
-     "rough",
      "flat",
      "flat",
      "flat",
      "flat",
      "flat",
-     "rough",
-     "blocked",
-     "rough",
-     "height",
-     "rough"
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
     ],
     [
      "rough",
@@ -27717,54 +27660,44 @@
      "y_m": 54.0
     },
     {
-     "piece": "jersey",
-     "x_m": 1.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 7.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 37.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 49.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 40.0,
-     "y_m": 77.0
-    },
-    {
-     "piece": "rock_7",
-     "x_m": 4.0,
-     "y_m": 112.0
-    },
-    {
-     "piece": "rock_11",
-     "x_m": 54.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "rock_5",
+     "piece": "pass_barricade",
      "x_m": 30.0,
-     "y_m": 65.0
+     "y_m": 90.0
     },
     {
-     "piece": "rubble_2",
-     "x_m": 26.0,
-     "y_m": 100.0
+     "piece": "pass_rail",
+     "x_m": 6.0,
+     "y_m": 102.0
     },
     {
-     "piece": "rock_14",
-     "x_m": 15.0,
-     "y_m": 64.0
+     "piece": "pass_rail",
+     "x_m": 30.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 42.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 6.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 18.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 42.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 54.0,
+     "y_m": 114.0
     },
     {
      "piece": "pass_barricade",
@@ -27807,54 +27740,44 @@
      "y_m": 114.0
     },
     {
-     "piece": "jersey",
-     "x_m": 121.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 127.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 157.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 169.0,
-     "y_m": 91.0
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 160.0,
-     "y_m": 77.0
-    },
-    {
-     "piece": "rock_7",
-     "x_m": 124.0,
-     "y_m": 112.0
-    },
-    {
-     "piece": "rock_11",
-     "x_m": 174.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "rock_5",
+     "piece": "pass_barricade",
      "x_m": 150.0,
-     "y_m": 65.0
+     "y_m": 90.0
     },
     {
-     "piece": "rubble_2",
-     "x_m": 146.0,
-     "y_m": 100.0
+     "piece": "pass_rail",
+     "x_m": 126.0,
+     "y_m": 102.0
     },
     {
-     "piece": "rock_14",
-     "x_m": 135.0,
-     "y_m": 64.0
+     "piece": "pass_rail",
+     "x_m": 150.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 162.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 126.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 138.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 162.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 174.0,
+     "y_m": 114.0
     },
     {
      "piece": "pass_barricade",
@@ -27937,54 +27860,44 @@
      "y_m": 174.0
     },
     {
-     "piece": "jersey",
-     "x_m": 61.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 67.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 97.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 109.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 100.0,
-     "y_m": 137.0
-    },
-    {
-     "piece": "rock_7",
-     "x_m": 64.0,
-     "y_m": 172.0
-    },
-    {
-     "piece": "rock_11",
-     "x_m": 114.0,
-     "y_m": 170.0
-    },
-    {
-     "piece": "rock_5",
+     "piece": "pass_barricade",
      "x_m": 90.0,
-     "y_m": 125.0
+     "y_m": 150.0
     },
     {
-     "piece": "rubble_2",
-     "x_m": 86.0,
-     "y_m": 160.0
+     "piece": "pass_rail",
+     "x_m": 66.0,
+     "y_m": 162.0
     },
     {
-     "piece": "rock_14",
-     "x_m": 75.0,
-     "y_m": 124.0
+     "piece": "pass_rail",
+     "x_m": 90.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 102.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 66.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 78.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 102.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 114.0,
+     "y_m": 174.0
     },
     {
      "piece": "pass_barricade",
@@ -28027,54 +27940,44 @@
      "y_m": 174.0
     },
     {
-     "piece": "jersey",
-     "x_m": 181.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 187.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 217.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "jersey",
-     "x_m": 229.0,
-     "y_m": 151.0
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 220.0,
-     "y_m": 137.0
-    },
-    {
-     "piece": "rock_7",
-     "x_m": 184.0,
-     "y_m": 172.0
-    },
-    {
-     "piece": "rock_11",
-     "x_m": 234.0,
-     "y_m": 170.0
-    },
-    {
-     "piece": "rock_5",
+     "piece": "pass_barricade",
      "x_m": 210.0,
-     "y_m": 125.0
+     "y_m": 150.0
     },
     {
-     "piece": "rubble_2",
-     "x_m": 206.0,
-     "y_m": 160.0
+     "piece": "pass_rail",
+     "x_m": 186.0,
+     "y_m": 162.0
     },
     {
-     "piece": "rock_14",
-     "x_m": 195.0,
-     "y_m": 124.0
+     "piece": "pass_rail",
+     "x_m": 210.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_rail",
+     "x_m": 222.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 186.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 198.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 222.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "pass_drop",
+     "x_m": 234.0,
+     "y_m": 174.0
     }
    ],
    "lights": []
@@ -28104,73 +28007,70 @@
     [
      "water",
      "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water"
-    ],
-    [
-     "water",
-     "water",
-     "flat",
      "flat",
      "water",
      "water",
      "water",
-     "flat",
+     "water",
      "flat",
      "water",
      "water",
      "water",
-     "flat",
+     "water",
      "flat",
      "water",
      "water",
      "water",
+     "water",
      "flat",
-     "flat",
+     "water",
      "water"
     ],
     [
      "water",
      "flat",
      "flat",
-     "height",
-     "height",
+     "flat",
+     "water",
      "water",
      "flat",
      "flat",
-     "height",
-     "height",
+     "flat",
+     "water",
      "water",
      "flat",
      "flat",
-     "height",
-     "height",
+     "flat",
      "water",
+     "water",
+     "flat",
+     "flat",
+     "flat",
+     "water"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "flat",
      "flat",
      "flat",
      "height",
      "height"
     ],
     [
-     "flat",
-     "flat",
-     "water",
      "water",
      "water",
      "flat",
@@ -28187,55 +28087,58 @@
      "flat",
      "water",
      "water",
-     "water"
-    ],
-    [
-     "flat",
-     "water",
-     "water",
-     "water",
      "water",
      "flat",
-     "water",
-     "water",
-     "water",
-     "water",
      "flat",
-     "water",
-     "water",
-     "water",
-     "water",
-     "flat",
-     "water",
-     "water",
-     "water",
      "water"
     ],
     [
      "water",
      "water",
+     "flat",
      "water",
      "water",
      "water",
      "water",
+     "flat",
      "water",
      "water",
      "water",
      "water",
+     "flat",
      "water",
      "water",
      "water",
      "water",
-     "water",
-     "water",
-     "water",
-     "water",
+     "flat",
      "water",
      "water"
     ],
     [
      "water",
      "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water"
+    ],
+    [
+     "water",
+     "flat",
      "flat",
      "flat",
      "water",
@@ -28245,18 +28148,18 @@
      "height",
      "height",
      "water",
-     "water",
      "flat",
      "flat",
+     "flat",
      "water",
      "water",
-     "water",
+     "flat",
      "flat",
      "flat",
      "water"
     ],
     [
-     "water",
+     "flat",
      "flat",
      "flat",
      "height",
@@ -28266,26 +28169,18 @@
      "blocked",
      "flat",
      "flat",
-     "water",
+     "flat",
      "flat",
      "flat",
      "height",
      "height",
-     "water",
+     "flat",
      "flat",
      "flat",
      "height",
      "height"
     ],
     [
-     "flat",
-     "flat",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "flat",
      "water",
      "water",
      "flat",
@@ -28294,20 +28189,20 @@
      "water",
      "water",
      "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
      "flat",
      "water",
      "water",
+     "water",
+     "flat",
+     "flat",
      "water"
     ],
     [
-     "flat",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "water",
-     "flat",
      "water",
      "water",
      "flat",
@@ -28318,6 +28213,14 @@
      "flat",
      "water",
      "water",
+     "water",
+     "water",
+     "flat",
+     "water",
+     "water",
+     "water",
+     "water",
+     "flat",
      "water",
      "water"
     ],
@@ -31726,48 +31629,48 @@
      "blocked"
     ],
     [
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked"
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height"
     ],
     [
-     "blocked",
-     "blocked",
      "height",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
      "height",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
      "height",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
      "height",
-     "blocked",
-     "blocked"
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height"
     ],
     [
      "flat",
@@ -91004,7 +90907,7 @@
     "fremont.4": "THE MALL",
     "fremont.5": "THE FRONTS",
     "fremont.6": "THE ARCADE",
-    "fremont.7": "THE ALLEY",
+    "fremont.7": "THE ROOFS AND THE ALLEY",
     "rail.1": "THE CARS AND THE GANTRY",
     "rail.2": "THE SLAB",
     "basin.1": "THE HOUSEBOAT",

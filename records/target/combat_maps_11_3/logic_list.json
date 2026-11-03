@@ -43,7 +43,7 @@
   ]
  },
  "downtown": {
-  "sha": "b85d5a6323ae",
+  "sha": "b6c13e166f42",
   "when": "11/3",
   "by": "COMBAT MAPS 3, by eye on the live fight's shots",
   "checks": [
@@ -58,9 +58,9 @@
     "how": "fremont.5, fremont.6 pictures"
    },
    {
-    "what": "on the south side only the fire escape's tile is climbed; the alley runs edge to edge at the board's bottom, its dumpsters against the back walls, not in the lane's middle",
+    "what": "the south side's backs are walked roof to roof (his ask, rule 356(e)), each roof at its own storey (3, 2, 3, 3, 2), planks where a roof steps down; the fire escape is the way up from the alley; the alley runs edge to edge with its dumpsters against the back walls",
     "ok": true,
-    "how": "fremont.7 picture"
+    "how": "fremont.7 picture and its roof storeys in ours.roof_storeys"
    },
    {
     "what": "the burnt Deuce lies in the street on its own two blocked tiles; the cowboy's lattice tower stands on its own height tile; the kiosks stand on open pavers",
@@ -71,11 +71,16 @@
     "what": "no open tile has a tall mass south of it: the south side's shops are one storey (their roofs reach a quarter of the sidewalk tile), the tall backs stand behind them",
     "ok": true,
     "how": "the tiles of all five blocks"
+   },
+   {
+    "what": "the zipline's cable runs from its landing tower to its own far pole inside the block, never off the picture's edge",
+    "ok": true,
+    "how": "fremont.4 picture and the edge leg"
    }
   ]
  },
  "lab": {
-  "sha": "4f3efc1c352c",
+  "sha": "00e8a133b349",
   "when": "11/3",
   "by": "COMBAT MAPS 3, by eye on the live fight's shots",
   "checks": [
@@ -98,6 +103,107 @@
     "what": "no open tile has a tall mass south of it: the vivarium's sheds stand on their own blocked tiles, their roofs over their own row",
     "ok": true,
     "how": "the tiles of all three blocks"
+   },
+   {
+    "what": "the pallets stand beside the cold-store truck's open doors inside the block; no shed or roof reaches past the picture's edge",
+    "ok": true,
+    "how": "lab.2 picture and the edge leg"
+   }
+  ]
+ },
+ "airport": {
+  "sha": "84294392a8ad",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the wrecked plane lies on the apron on its own blocked tiles, its tail torn off onto its own low-cover tile, the fuel spill under it",
+    "ok": true,
+    "how": "apron.1 picture and the AFTER shot"
+   },
+   {
+    "what": "the hangar stands on its own height tiles with its doors to the apron; the terminal fills the top row edge to edge with its jet bridge stub over the apron",
+    "ok": true,
+    "how": "apron.2, apron.3 pictures"
+   },
+   {
+    "what": "the fuel trucks, baggage trains, tugs and loaders stand on the apron at the stands, never inside a building or across the taxi line's end",
+    "ok": true,
+    "how": "apron.2-4 pictures"
+   },
+   {
+    "what": "the taxi line runs edge to edge through every block; the stands' lead-in lines end at their stop bars inside the block",
+    "ok": true,
+    "how": "the plans and the road leg"
+   },
+   {
+    "what": "the slab is the valley's warm dust colour, no plain grey card",
+    "ok": true,
+    "how": "the AFTER shot against BEFORE"
+   }
+  ]
+ },
+ "pass": {
+  "sha": "ac2b82fec23a",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "each row's road runs edge to edge through every block of the row with its verges either side; the jackknifed semi lies across the road on its own blocked tiles",
+    "ok": true,
+    "how": "pass.1, pass.2 pictures and the AFTER shot"
+   },
+   {
+    "what": "the guardrails stand on the road's south lip above the drop, never on the asphalt",
+    "ok": true,
+    "how": "the pictures"
+   },
+   {
+    "what": "the drop below one road and the rock rising above the next road are the same slope seen from its two sides (a switchback), never a cliff falling into a wall",
+    "ok": true,
+    "how": "the board's rows as dealt"
+   },
+   {
+    "what": "the rockfall heap stands on its own height tile; boulders stand on rough ground, none on the road",
+    "ok": true,
+    "how": "pass.1-3 pictures"
+   },
+   {
+    "what": "the ground is the pass's own buff scree and iron-red rock, no plain grey left",
+    "ok": true,
+    "how": "the AFTER shot against BEFORE"
+   }
+  ]
+ },
+ "shore": {
+  "sha": "b2bb91d72242",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the gravel bars meet bar to bar at every block side (its middle row and column); the firm way through the mud never ends at a line",
+    "ok": true,
+    "how": "lakebed.1-3 pictures, the road and seam legs"
+   },
+   {
+    "what": "the intake tower stands on its own blocked tiles in the mud; the docks lie at the bars' ends as their height tiles",
+    "ok": true,
+    "how": "lakebed.1, lakebed.2 pictures"
+   },
+   {
+    "what": "the boats lie on their sides on the mud or a bar, never on the ring's ledge or inside the store",
+    "ok": true,
+    "how": "the pictures"
+   },
+   {
+    "what": "the bathtub ring is a white ledge along the old shore edge to edge, the second ring higher; the launch ramp runs down from the old shore, the store on its own blocked tile",
+    "ok": true,
+    "how": "lakebed.3 picture"
+   },
+   {
+    "what": "the bed is Lake Mead's tan, no plain grey left",
+    "ok": true,
+    "how": "the AFTER shot against BEFORE"
    }
   ]
  }

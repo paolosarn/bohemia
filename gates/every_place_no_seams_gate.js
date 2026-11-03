@@ -6,6 +6,9 @@
               honest grid, not a seam), a straight line the eye sees where the two meet;
      CUT-OFF  a colour that stops dead at a border;
      ROADS    every road that reaches a block seam goes on across it (or the board's edge);
+     EDGE     no thing reaches past its block's side, where the picture stops and would cut it (rule 356(c): 'these art assets cut
+              off at the edge of any grid tile'): every box, model and rock of the place's blocks as the tool places them
+              (tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py --clips, no render needed);
      LOGIC    nothing stands where it could not (a car in a wall, a dock on a road, a tree through a roof): a by-eye list per place in
               records/target/combat_maps_11_3/logic_list.json, each entry tied to the sha1 of the place's own block pictures, so a
               changed picture is a list nobody has checked yet.
@@ -22,7 +25,7 @@ const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? proces
 const BEFORE = process.argv.includes('--before'), OUT = arg('--json', null), ONLY = arg('--only', null);
 const K = 3;
 const FLOOR = { block_seen: 0.12, cell_seen: 0.04, cut: 0.04, road_bad: 0 };   /* shares of the borders read (roads: none) */
-const OWED_SEAMS = ['airport', 'golf', 'trailer', 'desert', 'redrock', 'pass', 'shore', 'wash', 'landfill', 'suburb', 'works', 'marina'];
+const OWED_SEAMS = ['golf', 'trailer', 'desert', 'redrock', 'wash', 'landfill', 'suburb', 'works', 'marina'];
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.css': 'text/css', '.wasm': 'application/wasm', '.glb': 'model/gltf-binary' };
 
 function blocksSha(place, P, G) {
@@ -67,22 +70,29 @@ function blocksSha(place, P, G) {
   await br.close(); srv.close();
   fs.writeFileSync(path.join(dir, 'boards.json'), JSON.stringify(meta));
   const res = JSON.parse(cp.execFileSync('python3', [path.join(ROOT, 'tools/bohemia_combat_maps_seams_read_11_3_26.py'), dir], { encoding: 'utf8', maxBuffer: 1 << 26 }));
+  const own = id => Array.from(new Set([places[id].landmark_block].concat(places[id].field || [], [].concat(...Object.values(places[id].cols || {})),
+    [].concat(...Object.values(places[id].rows || {}))).map(b => b.split('|')[0])));
+  const allB = Array.from(new Set([].concat(...ids.filter(id => !OWED_SEAMS.includes(id)).map(own))));   /* the fixed places' blocks */
+  const clipOut = cp.execFileSync('python3', [path.join(ROOT, 'tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py'), '--clips'].concat(allB), { encoding: 'utf8', maxBuffer: 1 << 26 });
+  const CLIPS = JSON.parse(clipOut.trim().split('\n').pop());
   const LL = path.join(ROOT, 'records/target/combat_maps_11_3/logic_list.json');
   const logic = fs.existsSync(LL) ? JSON.parse(fs.readFileSync(LL, 'utf8')) : {};
   const fails = [], rows = [];
-  console.log('place      block seams seen   cell borders seen   cut-offs   roads not met   logic');
+  console.log('place      block seams seen   cell borders seen   cut-offs   roads not met   cut at an edge   logic');
   ids.forEach(id => {
     const r = res[id], sha = blocksSha(id, places[id], G), lg = logic[id];
     const bs = r.block_seen / Math.max(1, r.block_n), cs = r.cell_seen / Math.max(1, r.cell_n), cu = r.cut / Math.max(1, r.block_n + r.cell_n);
     const lok = !!lg && lg.sha === sha && (lg.checks || []).length >= 3 && lg.checks.every(c => c.ok);
-    rows.push({ place: id, block_seen: +bs.toFixed(3), cell_seen: +cs.toFixed(3), cut: +cu.toFixed(3), road_bad: r.road_bad, road_n: r.road_n, logic: lok, sha, road_examples: r.road_examples, where: r.where });
+    const clipped = [].concat(...own(id).map(b => (CLIPS[b] || []).map(t => b + ': ' + t)));
+    rows.push({ place: id, block_seen: +bs.toFixed(3), cell_seen: +cs.toFixed(3), cut: +cu.toFixed(3), road_bad: r.road_bad, road_n: r.road_n, clipped: clipped.length, logic: lok, sha, road_examples: r.road_examples, clip_examples: clipped.slice(0, 4), where: r.where });
     console.log([id.padEnd(10), (r.block_seen + '/' + r.block_n + ' ' + (bs * 100).toFixed(0) + '%').padEnd(18), (r.cell_seen + '/' + r.cell_n + ' ' + (cs * 100).toFixed(1) + '%').padEnd(19),
-      (r.cut + ' ' + (cu * 100).toFixed(1) + '%').padEnd(10), (r.road_bad + '/' + r.road_n).padEnd(15), lok ? 'checked' : (lg ? 'STALE OR NOT OK' : 'none')].join(' '));
+      (r.cut + ' ' + (cu * 100).toFixed(1) + '%').padEnd(10), (r.road_bad + '/' + r.road_n).padEnd(15), String(clipped.length).padEnd(16), lok ? 'checked' : (lg ? 'STALE OR NOT OK' : 'none')].join(' '));
     if (OWED_SEAMS.includes(id)) return;
     if (bs > FLOOR.block_seen) fails.push(id + ': ' + (bs * 100).toFixed(0) + '% of its block seams are a line you see (floor ' + FLOOR.block_seen * 100 + '%)');
     if (cs > FLOOR.cell_seen) fails.push(id + ': ' + (cs * 100).toFixed(1) + '% of its cell borders are a line you see (floor ' + FLOOR.cell_seen * 100 + '%)');
     if (cu > FLOOR.cut) fails.push(id + ': ' + (cu * 100).toFixed(1) + '% of its borders cut a colour off dead (floor ' + FLOOR.cut * 100 + '%)');
     if (r.road_bad > FLOOR.road_bad) fails.push(id + ': ' + r.road_bad + ' roads meet nothing across a seam (' + r.road_examples.slice(0, 2).join('; ') + ')');
+    if (clipped.length) fails.push(id + ': ' + clipped.length + ' things cut at a picture\'s edge (' + clipped.slice(0, 2).join('; ') + ')');
     if (!lok) fails.push(id + ': its logic list is ' + (lg ? 'stale (its pictures changed since it was checked) or not ok' : 'missing'));
   });
   Object.keys(places).forEach(id => { if (!OWED_SEAMS.includes(id) && !places[id].built) fails.push(id + ': not built'); });

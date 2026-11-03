@@ -143,7 +143,7 @@ PLACES = {
         landmark_block='yards.1', field=['yards.2'], mirror=True, landmark_col=1, landmark_rows={'0': 1, '1': 2, '2': 1},
         camp_tile=[4, 2], starts={'line': 1, 'pincer': 1, 'camp': 1}),
     'strip': dict(name='THE STRIP', districts=['strip', 'sign', 'sphere', 'strat', 'convention'], built=True,
-        landmark='THE BOULEVARD: Bohemia Boulevard running down between the two lines, its pedestrian bridge across it, the '
+        landmark='THE BOULEVARD: Las Vegas Boulevard running down between the two lines, its pedestrian bridge across it, the '
                  'Welcome sign dead in its median, the casino frontages on both sides',
         things='the Welcome sign, the pedestrian bridge, porte-cocheres with their dead marquees, the plaza fountain, the fallen '
                'arrow sign, a dead LED tower, slot machines spilled out of a broken entrance, a stretch limo, cabs, a tour bus, dead palms',
@@ -253,6 +253,7 @@ MARK_PIECE = {}      # (bid, mark) -> piece, written per block below
 # ======================================================================================================================
 # THE BLOCKS: tiles (rows north to south), marks (the pieces), the ground, the roofs; the things are things_<bid>()
 # ======================================================================================================================
+BACKS = [3, 2, 3, 3, 2]                                                 # fremont.7's backs, their storeys column by column
 BLOCKS = {
     # THE LAB YARD ---------------------------------------------------------------------------------------------------------
     'lab.1': dict(name='THE PENS', tiles=['.....', '.....', '.....', '..d..', '.....'],
@@ -374,9 +375,9 @@ BLOCKS = {
                       marks=['-----', '-----', '-----', 'C-C-C', '-----'], pieces={'C': 'downtown_entrance'}, props=True),
     'fremont.6': dict(name='THE ARCADE', tiles=['#####', '#####', '##.##', '.#.#.', '.....'],
                       marks=['-----', '-----', '--c--', 'C---C', '-----'], pieces={'C': 'downtown_entrance', 'c': 'downtown_slots'}, props=True),
-    'fremont.7': dict(name='THE ALLEY', tiles=['.....', '#####', '#####', '##H##', '.....'],
+    'fremont.7': dict(name='THE ROOFS AND THE ALLEY', tiles=['.....', '#####', 'HHHHH', 'HHHHH', '.....'],
                       marks=['-----', '-----', '-----', '-----', '-C-C-'], pieces={'C': 'downtown_dumpsters'},
-                      roofs=[(2, 3, 3)], props=True),
+                      roofs=[(c, r, BACKS[c]) for c in range(5) for r in (2, 3)], props=True),
     # THE WORKS ---------------------------------------------------------------------------------------------------------
     'rail.1': dict(name='THE CARS AND THE GANTRY', tiles=['....#', '.....', '##.##', '.....', '.....'],
                    marks=['-----', '-----', '-----', '-CC--', 'C--C-'], pieces={'C': 'works_pipes'},
@@ -543,7 +544,8 @@ def plan(bid, F):
     elif kind == 'canyon':
         gid[:] = ID['redsand']
         gid[(code == 'H') | (code == '#')] = ID['slickrock']
-        gid[(code == '.') & (n3 > 0.62)] = ID['slickrock']                  # bare slickrock sheets in the open, broad
+        gid[(soft_tiles(T, '.', xm, ym) > 0.66) & (n3 > 0.62)] = ID['slickrock']   # bare slickrock sheets in the open, broad (their
+        # edges a metre inside the open tiles, never along the grid's line: rule 346)
     elif kind == 'pass':
         gid[:] = ID['passtan']                                              # buff limestone scree, iron-red in it
         gid[(code == '.') & (roww >= 2) & (roww <= 3)] = ID['pavement']     # the road's verges, crushed rock gone brown (wandered: never a tile's edge)
@@ -554,21 +556,22 @@ def plan(bid, F):
         gid[mark == 'V'] = ID['tie']                                         # the drop: falling away into its own shadow
     elif kind == 'lakebed':
         gid[:] = ID['lakemud']                                              # the cracked bed, Lake Mead's tan
-        gid[code == '.'] = ID['pavement']                                   # the old gravel bar, varnished brown: the firm way through the mud
-        if bid == 'lakebed.2': gid[(row == 0) & (fy > 2.0 + 2.0 * n1) & (np.abs(xm - 30) > 6)] = ID['lakemud']
-        if bid == 'lakebed.3':
+        bar = soft_tiles(T, '.H' if bid == 'lakebed.3' else '.', xm, ym) + 0.06 * (n1 - n1.mean()) / (n1.std() + 1e-6) > 0.66
+        gid[bar] = ID['pavement']                                           # the old gravel bar, varnished brown: the firm way through the mud,
+        if bid == 'lakebed.3':                                              # its edge a soft shape a metre inside its own tiles (rule 346)
             gid[band(36, 48)] = ID['ring']                                  # the white bathtub ring
             gid[band(53.2, 54.0)] = ID['ring']                              # and the second, higher than the lake ever stood (horror)
             gid[ym < 36] = ID['pavement']; gid[(ym < 24) & (np.abs(xm - 30) < 7)] = ID['concrete']   # the old shore, the launch ramp
-            gid[band(48, 60) & (code == 'w')] = ID['lakemud']
+            gid[band(48, 60) & ~bar] = ID['lakemud']
     elif kind == 'wash':
         gid[:] = ID['pavement'] if bid == 'wash.4' else ID['concrete']
         if bid == 'wash.4':                                                 # the bank: its gravel patches off every edge (rule 346)
             far = (np.minimum.reduce([xm, 60.0 - xm, ym, 60.0 - ym]) + 0.8 * wx) > 3.5
-            gid[(n3 > 0.62) & far] = ID['gravel']; gid[mark == 'X'] = ID['gravel']
+            gid[(n3 > 0.62) & far] = ID['gravel']; gid[soft_tiles(M, 'X', xm, ym) > 0.66] = ID['gravel']   # the fence lines' gravel, a soft strip
         else:                                                               # the channel runs on north and south: its stains off those edges
             far = (np.minimum(ym, 60.0 - ym) + 0.8 * wy) > 3.5
-            gid[code == 'r'] = ID['silt']                                   # the channel's floor: silt over the concrete
+            gid[soft_tiles(T, 'r', xm, ym) + 0.05 * (n1 - n1.mean()) / (n1.std() + 1e-6) > 0.66] = ID['silt']   # the channel's floor: silt
+            # over the concrete, lying a metre in from the slopes' feet (never along the grid's line: rule 346)
             gid[(code == 'r') & (n2 > 0.5) & far] = ID['cobble']
             gid[(code == '.') & (n3 > 0.5) & far] = ID['oilcrete']          # the channel's sloped concrete, stained
     elif kind == 'dump':
@@ -576,15 +579,15 @@ def plan(bid, F):
         gid[(code == 'H')] = ID['coversoil']
         gid[band(37.5, 46.5)] = ID['gravel']                                # the haul road, block to block at one row
         if bid == 'dump.1': gid[(xm > 13) & (xm < 23) & band(25, 35)] = ID['concrete']   # the flare's pad
-        gid[mark == 'F'] = ID['tie']                                        # scorched where the gas burns
-        gid[(mark == 'C')] = ID['gravel']
+        gid[soft_tiles(M, 'F', xm, ym) > 0.66] = ID['tie']                  # scorched where the gas burns (soft shapes inside their tiles)
+        gid[soft_tiles(M, 'C', xm, ym) > 0.66] = ID['gravel']
     elif kind == 'yards':
         gid[:] = ID['deadlawn']                                             # dead brown lawns, yard by yard
         gid[n3 > 0.72] = ID['deadlawn_b']
         for r_ in range(5):
             for c_ in range(5):
                 if T[r_][c_] == 'r':                                        # the pool's deck round the pit
-                    cx_, cy_ = centre(c_, r_); gid[(np.abs(xm - cx_) < 5.6) & (np.abs(ym - cy_) < 4.6)] = ID['concrete']
+                    cx_, cy_ = centre(c_, r_); gid[(np.abs(xm - cx_) < 4.9) & (np.abs(ym - cy_) < 4.4)] = ID['concrete']   # a metre in from the tile's edge
     elif kind == 'rail':
         gid[:] = ID['oilcrete']                                             # the yard's slab, black with oil
         trackrows = [(24.0, 36.0)]                                          # every block's spur at the same row: the tracks run on
@@ -637,7 +640,7 @@ def plan(bid, F):
                 if T[3][c_] == '.': gid[(np.abs(xm - (c_ * 12 + 6)) < 4.6) & (ym > 15.0) & (ym < 24.0)] = ID['marble']
             if bid == 'fremont.6': gid[(np.abs(xm - 30) < 5.5) & (ym > 24.0) & (ym < 36.0)] = ID['marble']   # the arcade's floor
         if bid == 'fremont.7':                                              # the alley behind the south side, edge to edge
-            gid[ym < 11.2 + 0.4 * wyf] = ID['asphalt']; gid[(ym < 11) & (n2 > 0.35)] = ID['oilcrete']
+            gid[ym < 11.2 + 0.4 * wyf] = ID['asphalt']; gid[(ym < 11) & (n2 > 0.62) & inner] = ID['oilcrete']   # its stains off the block's sides
             gid[(ym < 1.0 + 0.3 * wyf)] = ID['concrete']                    # the alley's far kerb
     # ONE GROUND AT EVERY EDGE (rule 346: no straight line where two of a place's pictures meet, no colour stopping dead): the
     # place's base ground in a 3 m margin round the block, its edge wandering, except under a mass and where a road or a track
@@ -651,6 +654,20 @@ def plan(bid, F):
 
 
 GONE = ('plaza.1', 'plaza.2', 'fremont.1', 'fremont.2')                 # rule 346 killed them: graveyard/the_strip_and_downtown_11_3_26/
+def soft_tiles(T, chars, xm, ym, sigma=3.0):
+    """how much of the ground round a point belongs to tiles of these kinds, the tile map blurred (the block's edge tiles carried
+    on past its sides, so a shape that runs off the block runs on): a threshold over a half puts a shape's edge inside its own
+    tiles, never on the grid's line, where a plain rule of the tiles always puts it"""
+    from scipy.special import erf
+    f = np.zeros_like(xm, dtype=np.float32); s2 = sigma * math.sqrt(2.0)
+    for r in range(-1, 6):
+        for c in range(-1, 6):
+            if T[min(max(r, 0), 4)][min(max(c, 0), 4)] not in chars: continue
+            x0, x1, y0, y1 = c * TM, (c + 1) * TM, 60.0 - (r + 1) * TM, 60.0 - r * TM
+            f += 0.25 * (erf((xm - x0) / s2) - erf((xm - x1) / s2)) * (erf((ym - y0) / s2) - erf((ym - y1) / s2))
+    return f
+
+
 DRIVES = (18.0, 42.0)                                                  # the Strip's drives: every frontage and the Boulevard at these rows
 MARGIN = {'lab': 'epoxy', 'apron': 'dustslab', 'golf': 'fairway', 'trailer': 'gravel', 'desert': 'pavement', 'canyon': 'redsand',
           'pass': 'passtan', 'lakebed': 'lakemud', 'dump': 'coversoil', 'yards': 'deadlawn', 'rail': 'oilcrete', 'basin': 'lakemud'}
@@ -678,6 +695,25 @@ def gable():
     return np.array(v, np.float32), np.array(f, np.int32)
 
 
+EDGE_TOL = 0.15
+_SIZES = {}
+
+
+def fit_in(v, half, lo=0.0, hi=60.0, most=1.5):
+    """a centre moved in so its half-width stays inside the block (by at most 1.5 m: more is a placement to fix by hand)"""
+    if v - half < lo - EDGE_TOL and (lo + half) - v <= most and v + half <= hi: return lo + half
+    if v + half > hi + EDGE_TOL and v - (hi - half) <= most and v - half >= lo: return hi - half
+    return v
+
+
+def model_size(mid):
+    if not _SIZES:
+        man = json.load(open(os.path.join(R, 'records/target/fight_props/manifest.json')))
+        man = man.get('models') or man.get('props') or man
+        _SIZES.update({m['id']: m['size_m'][:2] for m in (man if isinstance(man, list) else man.values())})
+    return _SIZES[mid]
+
+
 class Kit:
     """the things of one block: boxes, prisms, horizontal tubes, gables, rocks; one instanced mesh per material"""
     def __init__(self, bpy, NF, F, g, h, seed):
@@ -703,12 +739,20 @@ class Kit:
         if name not in self.M: self.M[name] = self.NF.material(self.bpy, name, role, step, mul)
         return name
     def put(self, tpl, m, x, y, z, sx, sy, sz, rz=0.0, tilt=0.0):
+        # NO ASSET CUT AT THE PICTURE'S EDGE (rule 356(c)): a thing that reaches a little past its block's side is moved in (or, past
+        # both sides, made to fit), so the picture never cuts it; edge_clips() measures what is left
+        dy_ = max(sy, sz) if abs(tilt) > 0.5 else sy
+        c, s_ = abs(math.cos(rz)), abs(math.sin(rz)); ex, ey = (sx * c + dy_ * s_) / 2, (sx * s_ + dy_ * c) / 2
+        x, y = fit_in(x, ex), fit_in(y, ey)
+        if s_ < 0.01 and ex > 30.0 + EDGE_TOL: sx = 60.0
+        if c < 0.01 and ex > 30.0 + EDGE_TOL: sy = 60.0
         self.items.setdefault((tpl, m), []).append((x, y, z, sx, sy, sz, rz, tilt))
     def box(self, m, x, y, z, sx, sy, sz, rz=0.0, tilt=0.0): self.put('box', m, x, y, z, sx, sy, sz, rz, tilt)
     def cyl(self, m, x, y, z, d, hgt, rz=0.0): self.put('cyl', m, x, y, z, d, d, hgt, rz)
     def tube(self, m, x, y, z, length, d, rz=0.0, tilt=0.0): self.put('tube', m, x, y, z, length, d, d, rz, tilt)
     def roof(self, m, x, y, z, sx, sy, sz, rz=0.0): self.put('gable', m, x, y, z, sx, sy, sz, rz)
     def rock(self, m, x, y, s, flat=0.6, sink=0.25, z=None):
+        x, y = fit_in(x, s / 2, most=4.0), fit_in(y, s / 2, most=4.0)    # a rock can always roll in
         L = self.rocks.setdefault((m, flat), ([], [], []))
         L[0].append((x, y)); L[1].append(s); L[2].append((self.z(x, y) if z is None else z) - s * flat * sink)
     def scatter(self, m, x0, x1, y0, y1, n, lo, hi, flat=0.6):
@@ -716,6 +760,9 @@ class Kit:
     def model(self, mid, x, y, quarter=0, z=None):
         """one of COOK PROPS' models (records/target/fight_props/manifest.json): its .glb, origin at its ground centre, facing south,
         turned in quarters on the board (their rule), set on the ground here"""
+        sx, sy = model_size(mid)
+        if quarter % 2: sx, sy = sy, sx
+        x, y = fit_in(x, sx / 2), fit_in(y, sy / 2)
         self.models.append((mid, x, y, quarter, self.z(x, y) if z is None else z))
     def line(self, m, x0, y0, x1, y1, w, hgt, z=0.0):
         """a straight bar from one point to another (a rail, a hose, a strap), w wide and hgt tall"""
@@ -907,7 +954,7 @@ def things_lab(k, bid):
         for v in (-1, 1): k.box('reefer', tx - 8.4, ty + v * 1.6, 1.25, 1.2, 0.05, 2.7, v * 1.15)
         k.box('frost', tx - 7.8, ty, 3.9, 0.06, 2.4, 0.18)        # rime on the open doors' head, years after the power died
         k.rgb('pallet', (150, 124, 90), 'clay_bone')
-        for i in range(4): k.box('pallet', tx - 10.5 - (i % 2) * 1.4, ty - 2.2 + (i // 2) * 1.4, 0.0, 1.2, 1.0, 0.15 + 0.6 * (i == 1))
+        for i in range(4): k.box('pallet', tx - 6.0 - (i % 2) * 1.4, ty - 3.4 - (i // 2) * 1.2, 0.0, 1.2, 1.0, 0.15 + 0.6 * (i == 1))   # beside its doors, inside the block
         gurneys(k, 1, 1)
         # the decon line (row 1, c3): two shower frames over the drain pad, curtains, the hose
         k.rgb('pipe', (198, 160, 64), 'clay_mustard'); k.rgb('curtain', (196, 204, 200), 'tape_grey', alpha=0.55)
@@ -1073,7 +1120,7 @@ def things_apron(k, bid):
         luggage(k, 30.0, 26.0, 5.0, 14)
     elif bid == 'apron.3':
         k.rgb('mull', (92, 96, 98), 'tape_grey'); k.rgb('tglass', (66, 84, 92), 'glass_eye'); k.rgb('tconc', (176, 172, 162), 'clay_bone')
-        k.box('tconc', 30.0, 55.0, 0.0, 60.2, 10.0, 8.4)            # the terminal (row 0): two storeys of glass and concrete
+        k.box('tconc', 30.0, 55.0, 0.0, 60.0, 10.0, 8.4)            # the terminal (row 0): two storeys of glass and concrete, edge to edge
         k.box('tglass', 30.0, 49.96, 1.0, 58.0, 0.05, 6.4)
         for i in range(21): k.box('mull', 1.5 + i * 2.85, 49.92, 0.8, 0.18, 0.06, 6.8)
         k.box('mull', 30.0, 49.92, 4.2, 58.0, 0.06, 0.2); k.box('tconc', 30.0, 55.0, 8.4, 60.4, 10.4, 0.4)
@@ -1744,20 +1791,19 @@ def things_fremont(k, bid):
         k.rgb('back', (132, 84, 64), 'clay_rust'); k.rgb('back_d', (104, 70, 56), 'clay_rust')
         tars = [(214, 208, 196), (96, 92, 88), (156, 100, 70), (190, 176, 150), (120, 128, 126)]
         k.rgb('win', (40, 44, 48), 'glass_eye'); k.rgb('rdoor', (150, 146, 136), 'chrome')
-        for c in range(5):                                                   # rows 2-3: the casinos' backs, three storeys
-            nm = 'back' if c % 2 else 'back_d'; x = c * 12.0 + 6.0
-            k.rgb('tar_%d' % c, tars[c], 'tape_grey')
-            k.box(nm, x, 24.0, 0.0, 11.9, 23.6, 9.0); k.box('tar_%d' % c, x, 24.0, 9.0, 12.0, 23.8, 0.25)
-            k.rgb('hvac', (160, 162, 160), 'chrome'); k.box('hvac', x + k.rng.uniform(-3, 3), 28.0 + k.rng.uniform(-4, 6), 9.25, 2.4, 1.8, 1.1)
+        for c in range(5):                                                   # rows 2-3: the casinos' backs, their roofs walked roof to roof
+            nm = 'back' if c % 2 else 'back_d'; x = c * 12.0 + 6.0; hb = BACKS[c] * 3.0   # (rule 356(e): his roof-to-roof, kept, each
+            k.rgb('tar_%d' % c, tars[c], 'tape_grey')                                      #  roof at its own storey)
+            k.box(nm, x, 24.0, 0.0, 11.9, 23.6, hb); k.box('tar_%d' % c, x, 24.0, hb, 12.0, 23.8, 0.25)
+            k.rgb('parapet', (96, 70, 58), 'clay_rust'); k.box('parapet', x, 12.3, hb, 11.9, 0.3, 0.7)   # the parapet on the alley side
+            k.rgb('hvac', (160, 162, 160), 'chrome'); k.box('hvac', x + k.rng.uniform(-3, 3), 31.0 + k.rng.uniform(-2, 3), hb + 0.25, 2.0, 1.6, 0.9)
             if c != 2:
-                for i in range(3): k.box('win', x - 3.6 + i * 3.6, 12.13, 4.6, 1.4, 0.06, 1.6)
+                for i in range(3): k.box('win', x - 3.6 + i * 3.6, 12.13, 2.0 + hb * 0.3, 1.4, 0.06, 1.6)
                 k.box('rdoor', x, 12.12, 0.0, 4.2, 0.06, 3.2)                # a roller door, shut
-        k.model('downtown.fire_escape', 30.0, 11.0, 0)                       # the only way up: the fire escape over the alley (c2)
-        k.rgb('tank', (120, 96, 72), 'clay_rust')
-        for (x, y) in ((8.0, 30.0), (46.0, 20.0)): k.cyl('tank', x, y, 9.2, 3.2, 3.2); k.roof('tank', x, y, 12.4, 3.4, 3.4, 1.0)
-        k.rgb('rsign', (214, 178, 96), 'clay_mustard'); k.rgb('rframe', (90, 90, 92), 'rubber')   # an old rooftop sign over the backs, dead
-        k.box('rframe', 24.0, 16.0, 9.2, 14.0, 0.4, 0.4)
-        for i in range(6): k.box('rsign', 18.0 + i * 2.4, 16.0, 9.6, 1.8, 0.3, 3.0)
+        k.model('downtown.fire_escape', 30.0, 11.0, 0)                       # the way up from the alley: the fire escape (c2)
+        k.rgb('plank', (150, 124, 90), 'clay_bone')                           # planks laid where a roof steps down to the next
+        for c in range(4):
+            if BACKS[c] != BACKS[c + 1]: k.box('plank', (c + 1) * 12.0, 24.0 + k.rng.uniform(-6, 6), max(BACKS[c], BACKS[c + 1]) * 3.0 - 1.4, 2.6, 0.5, 0.08, 0.0, 0.55)
         k.rgb('spray', (190, 70, 52), 'clay_rust'); k.box('spray', 44.0, 12.15, 0.6, 5.0, 0.04, 1.4)   # the alley's paint
     if bid in ('fremont.3', 'fremont.4'):                                   # COOK PROPS' canopy, bay after bay down the street's middle,
         for bx in (7.5, 22.5, 37.5, 52.5): k.model('downtown.canopy', bx, 26.0, 0)   # its screens to the camera (columns pair at 0/15/30/45),
@@ -1769,8 +1815,43 @@ def things_fremont(k, bid):
     if bid == 'fremont.4':                                                   # the zipline's landing tower, its line running off east
         x, y = centre(0, 1); k.rgb('zip', (60, 62, 66), 'rubber')
         for (u, v) in ((-4, -4), (4, -4), (-4, 4), (4, 4)): k.cyl('zip', x + u, y + v, 0.0, 0.4, 6.0)
-        k.box('zip', x, y, 6.0, 9.0, 9.0, 0.5); k.line('steel', x, y, 60.0, y + 1.0, 0.06, 0.06, 6.5)
+        k.box('zip', x, y, 6.0, 9.0, 9.0, 0.5); k.line('steel', x, y, 52.0, y + 1.0, 0.06, 0.06, 6.5)   # its cable to its own far pole
+        k.cyl('zip', 52.0, y + 1.0, 0.0, 0.5, 7.0)
         for i in range(6): k.box('zip', x - 4.5 + i * 0.6, y - 4.5, 0.3 + i * 0.95, 1.2, 1.2, 0.15)
+
+
+class DryKit(Kit):
+    """the things of one block without Blender: what stands where, for the edge leg (rule 356(c),(f))"""
+    def rgb(self, name, c, role='clay_bone', alpha=None): self.M.setdefault(name, None); return name
+    def mat(self, name, role, step, mul=1.0): self.M.setdefault(name, None); return name
+
+
+def edge_clips(bid, tol=0.15):
+    """every thing of a block that reaches past its picture's edge (the picture stops there, so the thing is cut: rule 356(c)
+    'no asset cut at a cell edge'): boxes, cylinders, tubes, gables by their turned footprint, COOK PROPS' models by the
+    manifest's size and their quarter turn, rocks by their size"""
+    NB, EG, NF, F = rig()
+    k = DryKit(None, NF, F, np.zeros((8, 8), np.uint8), np.zeros((8, 8), np.float32), 1)
+    THINGS[bid.split('.')[0]](k, bid)
+    man = json.load(open(os.path.join(R, 'records/target/fight_props/manifest.json')))
+    man = man.get('models') or man.get('props') or man
+    size = {m['id']: m['size_m'] for m in (man if isinstance(man, list) else man.values())}
+    out = []
+    def check(what, x, y, ex, ey):
+        if x - ex < -tol or x + ex > 60.0 + tol or y - ey < -tol or y + ey > 60.0 + tol:
+            out.append('%s at (%.1f, %.1f) reaches %.1f-%.1f, %.1f-%.1f' % (what, x, y, x - ex, x + ex, y - ey, y + ey))
+    for (tpl, m), items in k.items.items():
+        for (x, y, z, sx, sy, sz, rz, tilt) in items:
+            if abs(tilt) > 0.5: sy = max(sy, sz)                          # lying on its side: its height is now its depth
+            c, s_ = abs(math.cos(rz)), abs(math.sin(rz))
+            check('%s %s' % (tpl, m), x, y, (sx * c + sy * s_) / 2, (sx * s_ + sy * c) / 2)
+    for (mid, x, y, q, z) in k.models:
+        sx, sy = size[mid][0], size[mid][1]
+        if q % 2: sx, sy = sy, sx
+        check('model ' + mid, x, y, sx / 2, sy / 2)
+    for (m, flat), (pts, sizes, zs) in k.rocks.items():
+        for (x, y), s_ in zip(pts, sizes): check('rock ' + m, x, y, s_ / 2, s_ / 2)
+    return out
 
 
 THINGS = {'lab': things_lab, 'apron': things_apron, 'golf': things_golf, 'trailer': things_trailer, 'desert': things_desert,
@@ -2000,8 +2081,14 @@ EVERY_GROUND_346 = ('Needs way more work watch out for atraight lines at grid bo
 CARD_SAYS_346 = {
     'strip': ('The Strip is rebuilt as the showcase: the Boulevard down the middle with its cabs and wrecks, the bridge you can '
               'climb, the Welcome sign in the median, a gold tower and a pink tower on either side with their drives and porte-cocheres.'),
-    'downtown': ('Downtown is rebuilt as Fremont Street: the casino fronts face you, the canopy\'s arches run down the middle as '
-                 'cover, the cowboy and the burnt Deuce in the street, the alley behind the south side at the bottom.'),
+    'downtown': ('Downtown is rebuilt as Fremont Street: the casino fronts face you, the canopy\'s arches run down the middle, the '
+                 'cowboy and the burnt Deuce in the street, and your roof-to-roof is back along the south side, up the fire escape.'),
+    'airport': ('The airport is warm desert-dusted slab now, not a grey card, with a third block of stands (a fuel truck, a baggage '
+                'train), and its taxi line runs whole across the board.'),
+    'shore': ('The shore is Lake Mead\'s tan cracked bed now, not grey, and its gravel bars are soft shapes that meet bar to bar '
+              'across every block, so the firm way through the mud never ends at a line.'),
+    'pass': ('The pass is buff rock with iron red in it now, not grey, and each road runs whole across the board with its verges '
+             'off the grid lines.'),
     'lab': ('The lab yard keeps its pens but its lot is the yard\'s own floor now, and every edge where two pictures meet is the '
             'same sealed floor, so no line runs where the grid is.'),
 }
@@ -2054,6 +2141,7 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     if a[0] == '--data': data(tuple(a[a.index('--hold') + 1].split(',')) if '--hold' in a else ())
     elif a[0] == '--cards': cards(a[1:] or None)
+    elif a[0] == '--clips': print(json.dumps({b: (edge_clips(b) if b in BLOCKS else ['not this tool\'s block']) for b in (a[1:] or list(BLOCKS))}))
     elif a[0] == '--register': register(a[1], [x for x in a[2:] if not x.startswith('--')], '346' if '--346' in a else None)
     elif a[0] == '--swap':
         for b in a[1:]: swap(b)
