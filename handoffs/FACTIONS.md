@@ -1,5 +1,18 @@
 # FACTIONS (written only by the FACTIONS lane)
 
+## FACTIONS (BEASTS 2), 11/3/26: THE LAB BEASTS ALL LOOK LIKE A COYOTE (rule 345 AMENDED, ask line 381), RUNNING
+His words: 'maybe the beasts can look better, the lab beasts that got out, everything's looking like a fucking coyote'. Record of the
+job: records/BOHEMIA_PAOLO_THE_LAB_BEASTS_ALL_LOOK_LIKE_A_COYOTE_11_3_26.md. MEASURED (rule 12): the road can roll the five
+(coyotes, lions, hogs, camels, bulls; by act, ground and night through the fight's roadOpts, which the map's job_danger roll runs),
+but the 'beasts' party (ours.enemy_tiers.mix.beasts) and the hunt jobs (bohemia_job_kinds.js BEAST_META) deal only wolves and
+hyenas, so the beast fights he plays are dogs.
+- PIECE 1 SHIPPED, BUILD 11/3zzzh: the cave hyena its own body on the builder (sloped back, heavy neck under a mane, round ears,
+  spots, a big yellow numbered ear tag and a stitched shoulder patch). VOTE beasts2-the-cave-hyena-own-body-11-3 (slices/vote/BEASTS_THE_CAVE_HYENA.html, the card on the hyena).
+- NEXT, in order: (2) the bull, camel, lion and hog into the beast fights (the beasts mix by place, the hunt jobs' beast list), (3) the
+  short-faced bear and the Shasta ground sloth as the unhold, (4) the sabre-tooth, the American lion, the ancient bison, the Ice Age
+  horse, (5) every lab mark readable from the fight's camera, (6) the gate (own sheet each, outline differs past a floor, no place
+  only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
+
 ## FACTIONS (BEASTS 2), 11/3/26: EVERY BEAST ITS OWN BODY (rule 345, ask line 354), BUILD 11/3zzy (the bull) and 11/3zzza (the six)
 Record: records/BOHEMIA_BEASTS_EVERY_BEAST_ITS_OWN_BODY_11_3_26.md. His words on THE FERAL BULL: 'They look wayyy to similar to the
 og coyote the wolf actually'. Measured: every rig beast was the Khronos Fox's one mesh stretched.

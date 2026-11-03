@@ -17574,7 +17574,8 @@
    "after": "this round: YOU goes to the man stabbing RAUL",
    "scale": "his phone upright, 390 x 844, the fight's own camera, AUTO on, the same fight and dice"
   }
- }
+ },
+  {"id": "beasts2-the-cave-hyena-own-body-11-3", "kind": "animation", "lane": "factions", "sha": "8462549c", "made": "11/3", "draft": true, "title": "THE CAVE HYENA: ITS OWN BODY, NOT THE FOX", "said": "maybe the beasts can look better, the lab beasts that got out, everything's looking like a fucking coyote", "why": "The cave hyena was the last beast still drawn on the fox; now it has the hyena's sloped back, heavy neck, round ears, spots and a lab tag you can see. You see it in the VOTE tab, the old one beside the new one with your man for scale.", "options": ["A, yes, that is a hyena", "B, closer, but it needs work (say what)", "C, no, start it over"], "show": {"how": "page", "src": "vote/BEASTS_THE_CAVE_HYENA.html"}, "twin": {"src": "vote/beasts_was/cave_hyena.webp", "diffs": ["the slope: long front legs and the back falling to a low rump, where the old one stood level like a wolf", "a hyena's head and neck: big, blunt, round-eared, on a heavy neck under a mane, where the old one had the fox's pointed head and ears", "the lab mark reads from the fight's camera: a big yellow numbered ear tag and a shaved, stitched shoulder patch"]}, "before_after": {"before": "the Khronos Fox reshaped: a spotted wolf", "after": "its own body from the cave hyena's measures, through the master rig", "scale": "his phone, 390 x 844, the fight's camera, one image pixel to one point, a man of ours on the same ground line"}}
  ],
  "verdicts": [
   {
