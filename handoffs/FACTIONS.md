@@ -1,6 +1,6 @@
 # FACTIONS (written only by the FACTIONS lane)
 
-## FACTIONS (BEASTS), 11/3/26: FIVE MORE BEASTS THAT CAN REALLY LIVE IN THE MOJAVE (ask line 343), BUILD 11/3zza
+## FACTIONS (BEASTS), 11/3/26: FIVE MORE BEASTS THAT CAN REALLY LIVE IN THE MOJAVE (ask line 343), BUILD 11/3zzb
 Record: records/BOHEMIA_FACTIONS_FIVE_MORE_BEASTS_11_3_26.md (the Mojave test with sources, the mammoth answered, what shipped).
 - THE FIVE, each through the rig in eight facings (tools/bohemia_factions_five_more_beasts.py: the Fox reshaped by the hyena tool's
   reshape plus our NECK, HUMP and HORNS, the coat from the 3D shape, the poses tool's Hit and Fall, DIRECTION's master rig, packed
