@@ -10186,7 +10186,7 @@ GATES = [
     ('NOTHING TAPPABLE UNDER THE PHONE', ['node', 'gates/nothing_tappable_under_the_phone_gate.js'],
      "RUN TWO gate, 11/3, THE TOWN JOB (ask lines 226 'the most important', 219, 241, 106, 142, 253, 244, with 173, 174, 195 and 248 'TOP PRIORITY'; rule 292(b), Paolo 10/27: 'nothing I need to click cannot be behind the phone... no people nothing behind it'). "
      "MEASURED before on the demo, 14 towns x upright and on its side x the phone left and right: Reds on its side drew the old shared town_1 (its smith's door on the picture's bottom edge); a man you can tap stood under the phone in 9 of 28 upright views (your men in Caravans 90%, Church 87%, Network 100%; the post and the crowd in the five fortresses with the phone left); on its side Caravans' post rail stood on the bottom edge, its men's feet off the glass; the arrival card's opinion bar ran under the phone; a failed town picture stayed brown for the visit while its shops answered blind taps. "
-     "HOLDS, every town the map has, both orientations, both sides: every town draws its own picture; every building's tap box clear of the phone's rectangle with a finger of it on the glass; every keeper, man at the post, man of the crowd and man of your crew clear of the phone and on the glass; the arrival card's words clear of the phone; no tap answers while no picture is drawn and a failed picture is asked for again (source)."),
+     "HOLDS, every town the map has, both orientations, both sides: every town draws its own picture; every building's tap box clear of the phone's rectangle with a finger of it on the glass; every keeper, man at the post, man of the crowd and man of your crew clear of the phone and on the glass; the arrival card's words clear of the phone; no tap answers while no picture is drawn and a failed picture is asked for again (source).", True),
     ('PINCH OUT TO THE MAP', ['node', 'gates/pinch_out_to_the_map_gate.js'],
      "RUN TWO gate, 10/26, row [pinch out to the map] (rules 211(c), 220(d), Paolo 10/26: 'when you're in the settlement and you just wanna get back to the map you zoom out with your two thumbs... press escape on keyboard'). "
      "MEASURED before: two fingers did nothing in a town. HOLDS on the demo, REAL two-finger touches: spread zooms the town in up to its zoom_max with the point between the fingers held; a finger pans it zoomed; a small pinch-out springs back; a one-finger tap still opens a building; "
@@ -10449,6 +10449,13 @@ GATES = [
      "the fight, the spoils, the phone; the dev tabs not followed) and every data file they load. Vegas in any case fails in a page's text and "
      "attributes, in a script's strings, in a data file's values and keys, and in a VOTE card still waiting; only code comments, .bq comment lines, "
      "code names and named machine-note fields pass (his own words quoted back in VOTE are never rewritten). Four plants bite. Node only, seconds", True),
+    ('THE DEAD ARE MADE', ['python3', 'gates/the_dead_are_made_gate.py'],
+     "COOK DEAD gate, 11/3, rule 360 and its amendment (ask lines 384, 394; PAOLO 11/3: 'we don't see enough corpses even throughout the world or in the "
+     "combat map... make things as realistic as possible... billions of people have died'; then 'keep the bodies lore friendly... the gameplay should "
+     "be very simplified'). Reads records/target/dead/manifest.json: twelve or more pieces, each a real glTF with its picture at the board's ruler and its "
+     "ground pixel; the fight's own words only (cover or a blocker at most); who touched them last (moved, robbed, buried, nobody) told for each; no blood "
+     "in any model; every pit inside its piece; COMBAT MAPS 3's fifteen places each with a count and a floor; graves only where people live; the one VOTE "
+     "card with a real sha. Files only, seconds", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

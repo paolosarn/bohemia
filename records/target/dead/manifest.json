@@ -1,0 +1,927 @@
+{
+ "about": "COOK DEAD 11/3 (rule 360 THE DEAD ARE EVERYWHERE, rule 337): the dead as real models through the master rig, for COMBAT MAPS 3 to place on its boards after its roads and WORLD on the map. tools/bohemia_cook_dead_the_dead_are_everywhere_11_3_26.py (models), tools/bohemia_cook_dead_card_11_3_26.py (this file, the card)",
+ "px_per_metre": 42.917,
+ "cell_m": 12.0,
+ "storey_m": 3.0,
+ "camera": "orthographic, tilted 45 from straight down, facing north, never turned; heights drawn full (x 1/cos45); one sun upper left",
+ "front": "every model faces -Y (south, the camera); turn it on a board in quarters; its origin is its ground centre, metres, z up",
+ "anchor": "anchor_px is the model's ground centre (its origin) in its picture, from the top-left pixel",
+ "role_key": {
+  "cover": "stops a shot, a man stands behind it",
+  "blocking": "nobody walks through it",
+  "none": "stands there, the fight walks past it"
+ },
+ "tile_key": {
+  "#": "blocked (BB impassable)",
+  "H": "height (+1 level)",
+  "r": "rough (3 AP)",
+  ".": "flat; the thing is a piece on it"
+ },
+ "who_key": {
+  "moved": "the living carried, wrapped or laid them",
+  "robbed": "the living took from them and left them",
+  "buried": "the living buried them",
+  "nobody": "nobody has touched them since"
+ },
+ "holes_key": "holes_m: rectangles [cx, cy, half_x, half_y] in the model's own metres; the board cuts its ground inside each, the model carries the pit's walls and floor below z 0 (depth_m)",
+ "scale_on_his_phone": {
+  "body_m": 1.8,
+  "at_open_css_px": 6.5,
+  "at_near_stop_css_px": 18.2,
+  "the_fights_man_rows": 1.8,
+  "note": "the board is drawn at the world's size (a 12 m house a tile) and the fight's men at 1.8 rows; a body on the ground is the world's size, about a sixth of a tile; the clusters (the bag row, the graves, the pit) carry a place"
+ },
+ "places": [
+  {
+   "id": "downtown",
+   "why": "Fremont, the oldest camps: the doorways and the sidewalks",
+   "count": {
+    "doorway": 3,
+    "sidewalk": 2,
+    "cart": 2,
+    "tarp": 2,
+    "bench": 1,
+    "coat_fence": 1
+   },
+   "pieces": 11,
+   "floor": 8
+  },
+  {
+   "id": "wash",
+   "why": "the flood channels, the tunnel camps",
+   "count": {
+    "cart": 2,
+    "tarp": 2,
+    "bones": 1,
+    "sidewalk": 1
+   },
+   "pieces": 6,
+   "floor": 4
+  },
+  {
+   "id": "trailer",
+   "why": "the poorest park in the valley",
+   "count": {
+    "tarp": 2,
+    "sidewalk": 1,
+    "cart": 1,
+    "grave_cross": 2,
+    "car_driver": 1,
+    "coat_fence": 1
+   },
+   "pieces": 8,
+   "floor": 6
+  },
+  {
+   "id": "strip",
+   "why": "the casinos were the morgues; the tourists never left (where a faction holds a casino, its door is swept: graves only)",
+   "count": {
+    "sidewalk": 1,
+    "doorway": 1,
+    "bench": 1,
+    "bag_row": 1
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "works",
+   "why": "the rail yard's camps along the tracks",
+   "count": {
+    "tarp": 1,
+    "car_driver": 1,
+    "bones": 1,
+    "sidewalk": 1,
+    "coat_fence": 1
+   },
+   "pieces": 5,
+   "floor": 4
+  },
+  {
+   "id": "pass",
+   "why": "the road out: the exodus died in its cars",
+   "count": {
+    "car_driver": 2,
+    "desert_skeleton": 1,
+    "bones": 1,
+    "tarp": 1
+   },
+   "pieces": 5,
+   "floor": 4
+  },
+  {
+   "id": "landfill",
+   "why": "where the trucks took them",
+   "count": {
+    "mass_grave": 1,
+    "tarp": 2,
+    "cart": 1
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "lab",
+   "why": "the staff who stayed with the animals",
+   "count": {
+    "bag_row": 1,
+    "tarp": 2,
+    "sidewalk": 1
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "airport",
+   "why": "the last flights that never came; the terminal was a clinic",
+   "count": {
+    "bag_row": 1,
+    "car_driver": 1,
+    "tarp": 2
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "desert",
+   "why": "the ones who walked out",
+   "count": {
+    "desert_skeleton": 1,
+    "bones": 2,
+    "grave_cross": 1
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "shore",
+   "why": "the falling lake gives up its dead (it did, in 2022)",
+   "count": {
+    "bones": 2,
+    "tarp": 1,
+    "grave_cross": 1
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "marina",
+   "why": "the boats people lived on",
+   "count": {
+    "bones": 1,
+    "car_driver": 1,
+    "tarp": 1
+   },
+   "pieces": 3,
+   "floor": 2
+  },
+  {
+   "id": "redrock",
+   "why": "the scenic loop, its cars still parked",
+   "count": {
+    "bones": 1,
+    "desert_skeleton": 1,
+    "grave_cross": 1
+   },
+   "pieces": 3,
+   "floor": 2
+  },
+  {
+   "id": "golf",
+   "why": "where they bury: the fairways became the cemetery; graves only",
+   "count": {
+    "grave_row": 1,
+    "grave_cross": 2
+   },
+   "pieces": 3,
+   "floor": 2
+  },
+  {
+   "id": "suburbs",
+   "why": "where people still live: they buried their own in the yards; graves only, and the coat",
+   "count": {
+    "grave_cross": 2,
+    "coat_fence": 1
+   },
+   "pieces": 3,
+   "floor": 2
+  },
+  {
+   "id": "ruin",
+   "why": "a dead street, nobody left to bury",
+   "count": {
+    "tarp": 3,
+    "sidewalk": 2,
+    "cart": 1,
+    "doorway": 1,
+    "car_driver": 1
+   },
+   "pieces": 8,
+   "floor": 6
+  },
+  {
+   "id": "main",
+   "why": "a town's main street: a clinic, a bench",
+   "count": {
+    "doorway": 2,
+    "sidewalk": 1,
+    "bench": 1,
+    "bag_row": 1
+   },
+   "pieces": 5,
+   "floor": 4
+  },
+  {
+   "id": "corner",
+   "why": "a corner shop and its stop",
+   "count": {
+    "doorway": 1,
+    "sidewalk": 1,
+    "bench": 1,
+    "tarp": 1
+   },
+   "pieces": 4,
+   "floor": 3
+  },
+  {
+   "id": "freeway",
+   "why": "the jam that never moved",
+   "count": {
+    "car_driver": 3,
+    "tarp": 1,
+    "desert_skeleton": 1
+   },
+   "pieces": 5,
+   "floor": 4
+  },
+  {
+   "id": "casino",
+   "why": "a casino's doors and its curb",
+   "count": {
+    "bag_row": 1,
+    "sidewalk": 1,
+    "doorway": 1
+   },
+   "pieces": 3,
+   "floor": 2
+  },
+  {
+   "id": "scrub",
+   "why": "the city's edge, the overflow",
+   "count": {
+    "bones": 2,
+    "desert_skeleton": 1,
+    "grave_cross": 1,
+    "grave_row": 1
+   },
+   "pieces": 5,
+   "floor": 4
+  },
+  {
+   "id": "subs",
+   "why": "where people live and bury (subs, culdesac, suburb_stem): graves only, and the coat",
+   "count": {
+    "grave_cross": 2,
+    "coat_fence": 1
+   },
+   "pieces": 3,
+   "floor": 2
+  },
+  {
+   "id": "lots",
+   "why": "a stadium's lots and the big aprons: the pit",
+   "count": {
+    "mass_grave": 1,
+    "grave_row": 1,
+    "tarp": 1
+   },
+   "pieces": 3,
+   "floor": 2
+  }
+ ],
+ "lived_in": "RULE 360 AMENDED (Paolo 11/3, lore-friendly): where people live and keep order, NO BODIES: a home base, a settlement screen's own block, a faction town, any board whose future is reclaimed. There the dead are graves only (grave_cross, grave_row; the pit stays, fenced). The counts above are for the boards nobody holds: the empty blocks, the old camps, the roads between, the desert, the fallen towns.",
+ "bodies": [
+  "dead.tarp",
+  "dead.doorway",
+  "dead.bag_row",
+  "dead.car_driver",
+  "dead.desert_skeleton",
+  "dead.bones",
+  "dead.sidewalk",
+  "dead.cart",
+  "dead.bench"
+ ],
+ "graves": [
+  "dead.grave_cross",
+  "dead.grave_row",
+  "dead.mass_grave"
+ ],
+ "simple": "rule 360 amended (b): every piece is scenery, at most what the board already does with a thing on a tile (cover, a blocker); no new system",
+ "futures": "raided: half again (round up), the bodies uncovered (a tarp becomes a sidewalk body); reclaimed: every body becomes a grave (grave_cross, or the grave_row where there are three or more), the mass grave stays and is fenced; the game starts in the ruin and the future gets better (his second votes)",
+ "map": "WORLD on the map: at the near stop (14.25 px a metre) a body is about 26 px long, the bag row 130 px, the trench 400 px. The pit at each stadium (the big lots) and the landfill, the grave rows on the parks, the golf courses and the school fields, a clinic's bag row at the hospitals; the single bodies on the blocks the counts above name.",
+ "models": [
+  {
+   "id": "dead.tarp",
+   "name": "A BODY UNDER A TARP",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/tarp.glb",
+   "picture": "records/target/dead/tarp.webp",
+   "picture_px": [
+    113,
+    78
+   ],
+   "anchor_px": [
+    10.7,
+    47.5
+   ],
+   "size_m": [
+    2.23,
+    2.22,
+    0.52
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.034,
+   "height_m": 0.5,
+   "height_storeys": 0.17,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "moved",
+   "what": "a man on his back under a sun-rotted tarp held down at the corners with cinder blocks and a tyre; his boots stick out at one end, toes up, and one hand at the side, palm up",
+   "tells": "the living covered him: somebody found the blocks and the tyre and weighed the corners down against the wind",
+   "wrong": null,
+   "flies": true,
+   "against": null,
+   "verts": 3491,
+   "glb_kb": 444
+  },
+  {
+   "id": "dead.doorway",
+   "name": "A BODY IN A SLEEPING BAG IN A DOORWAY",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/doorway.glb",
+   "picture": "records/target/dead/doorway.webp",
+   "picture_px": [
+    319,
+    214
+   ],
+   "anchor_px": [
+    117.2,
+    158.0
+   ],
+   "size_m": [
+    4.42,
+    2.25,
+    3.45
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.069,
+   "height_m": 3.4,
+   "height_storeys": 1.13,
+   "role": "blocking",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "robbed",
+   "what": "a shop's deep doorway, its steel door shut and its shutter box over it; a man zipped into a mummy bag on a flattened box across the step, the hood pulled shut, his feet out of the end in grey socks; his pack pulled open and emptied onto the sidewalk",
+   "tells": "the living robbed him: his shoes are gone, his pack is turned out, and nobody closed the bag over his feet",
+   "wrong": null,
+   "flies": true,
+   "against": "a building's street face: its back (+y) flush on the wall",
+   "verts": 970,
+   "glb_kb": 141
+  },
+  {
+   "id": "dead.bag_row",
+   "name": "A ROW OF BODY BAGS AT A CLINIC",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/bag_row.glb",
+   "picture": "records/target/dead/bag_row.webp",
+   "picture_px": [
+    430,
+    236
+   ],
+   "anchor_px": [
+    218.3,
+    141.7
+   ],
+   "size_m": [
+    9.24,
+    3.24,
+    2.76
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.208,
+   "height_m": 2.75,
+   "height_storeys": 0.92,
+   "role": "none",
+   "sees_through": true,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "who": "moved",
+   "what": "a clinic's pop-up canopy with a faded cross on its roof, a folding table and a cooler under it; six body bags laid feet-first in a row beside it, a paper tag on every foot, and the seventh only a sheet tied at the neck and the ankles",
+   "tells": "the living moved them: carried out one at a time and laid straight, tagged, the row longer than the bags",
+   "wrong": null,
+   "flies": true,
+   "against": null,
+   "verts": 1707,
+   "glb_kb": 228
+  },
+  {
+   "id": "dead.car_driver",
+   "name": "A BODY SLUMPED OUT OF A CAR'S DRIVER SEAT",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/car_driver.glb",
+   "picture": "records/target/dead/car_driver.webp",
+   "picture_px": [
+    275,
+    169
+   ],
+   "anchor_px": [
+    130.5,
+    89.4
+   ],
+   "size_m": [
+    4.84,
+    2.78,
+    1.61
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.093,
+   "height_m": 1.58,
+   "height_storeys": 0.53,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": true,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "robbed",
+   "what": "the kit's dead sedan, the driver's door hanging open; the driver slumped sideways out of his seat, his head and one arm hanging out of the door toward the road, one foot out on the ground; the bonnet up and the battery gone",
+   "tells": "the living robbed him: they took the battery out of the car and left the man in it",
+   "wrong": null,
+   "flies": true,
+   "against": null,
+   "verts": 4774,
+   "glb_kb": 369
+  },
+  {
+   "id": "dead.desert_skeleton",
+   "name": "A SKELETON BY A DEAD CAR IN THE DESERT",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/desert_skeleton.glb",
+   "picture": "records/target/dead/desert_skeleton.webp",
+   "picture_px": [
+    301,
+    163
+   ],
+   "anchor_px": [
+    129.8,
+    93.2
+   ],
+   "size_m": [
+    6.34,
+    4.5,
+    1.67
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.198,
+   "height_m": 1.63,
+   "height_storeys": 0.54,
+   "role": "cover",
+   "sees_through": false,
+   "fight": {
+    "kind": "LOW_COVER",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "nobody",
+   "what": "the kit's dead sedan sunk to its sills in the drift, its bonnet up where the radiator boiled; in its shade a man's bones sit against the driver's door, his skull tipped to one shoulder, his boots still on, an empty water jug on its side",
+   "tells": "nobody moved him: the car died on the way out, he sat down in its shade, and he never got up",
+   "wrong": null,
+   "flies": false,
+   "against": null,
+   "verts": 5652,
+   "glb_kb": 462
+  },
+  {
+   "id": "dead.bones",
+   "name": "BONES IN THE SAND, HALF BURIED",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/bones.glb",
+   "picture": "records/target/dead/bones.webp",
+   "picture_px": [
+    178,
+    111
+   ],
+   "anchor_px": [
+    90.7,
+    70.5
+   ],
+   "size_m": [
+    4.06,
+    2.71,
+    0.86
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.076,
+   "height_m": 0.84,
+   "height_storeys": 0.28,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "moved",
+   "what": "a low drift of sand with a man's bones coming out of it: the skull half sunk, the ribs' arc, a femur dragged clear, one boot on its side with the shin still in it, a rag of his coat caught on a dead creosote",
+   "tells": "the beasts moved him: the bones are dragged apart over four metres, the way coyotes leave them",
+   "wrong": null,
+   "flies": false,
+   "against": null,
+   "verts": 1332,
+   "glb_kb": 185
+  },
+  {
+   "id": "dead.grave_cross",
+   "name": "A GRAVE WITH A REBAR CROSS",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/grave_cross.glb",
+   "picture": "records/target/dead/grave_cross.webp",
+   "picture_px": [
+    76,
+    134
+   ],
+   "anchor_px": [
+    31.5,
+    94.7
+   ],
+   "size_m": [
+    1.43,
+    2.61,
+    1.28
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.026,
+   "height_m": 1.25,
+   "height_storeys": 0.42,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "buried",
+   "what": "a long mound of turned desert soil ringed with stones laid one by one, a cross of two rebar bars wired together, his cap hung on it, a faded plastic flower, a water bottle left full",
+   "tells": "the living buried him and took their time: every stone of the ring was carried, and the bottle is full",
+   "wrong": null,
+   "flies": false,
+   "against": null,
+   "verts": 772,
+   "glb_kb": 123
+  },
+  {
+   "id": "dead.grave_row",
+   "name": "A ROW OF FRESH GRAVES",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/grave_row.glb",
+   "picture": "records/target/dead/grave_row.webp",
+   "picture_px": [
+    538,
+    116
+   ],
+   "anchor_px": [
+    259.9,
+    74.9
+   ],
+   "size_m": [
+    11.88,
+    2.61,
+    1.58
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.215,
+   "height_m": 1.55,
+   "height_storeys": 0.52,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "buried",
+   "what": "six graves in a row on a field: four plain mounds of dark turned soil with survey stakes and their tape, two with a photo and a jar (the graveyard's own fresh graves), and the last one open: dug, empty, its spoil beside it and the shovel standing in it",
+   "tells": "the living buried them, one a day by the soil's colour, the newest darkest",
+   "wrong": "there is always one more grave dug than there are dead",
+   "flies": false,
+   "against": null,
+   "verts": 5255,
+   "glb_kb": 275,
+   "holes_m": [
+    [
+     4.2,
+     0.0,
+     0.48,
+     1.08
+    ]
+   ],
+   "depth_m": 1.52
+  },
+  {
+   "id": "dead.sidewalk",
+   "name": "A BODY FACE DOWN ON THE SIDEWALK, ONE SHOE OFF",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/sidewalk.glb",
+   "picture": "records/target/dead/sidewalk.webp",
+   "picture_px": [
+    138,
+    64
+   ],
+   "anchor_px": [
+    73.6,
+    37.1
+   ],
+   "size_m": [
+    3.12,
+    1.88,
+    0.5
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.041,
+   "height_m": 0.49,
+   "height_storeys": 0.16,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "robbed",
+   "what": "a man face down where he fell, one arm out past his head, his long black coat gone grey in the sun; one shoe off a metre away, his sock to the sky, his hat rolled into the gutter, his coat pockets pulled inside out",
+   "tells": "the living robbed him: the pockets are out and the lining shows; nobody moved him after that",
+   "wrong": null,
+   "flies": true,
+   "against": null,
+   "verts": 2220,
+   "glb_kb": 311
+  },
+  {
+   "id": "dead.cart",
+   "name": "REMAINS IN A SHOPPING CART",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/cart.glb",
+   "picture": "records/target/dead/cart.webp",
+   "picture_px": [
+    112,
+    98
+   ],
+   "anchor_px": [
+    44.9,
+    65.7
+   ],
+   "size_m": [
+    1.55,
+    0.76,
+    1.46
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.008,
+   "height_m": 1.41,
+   "height_storeys": 0.47,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "moved",
+   "what": "the kit's shopping cart with a body folded into the basket, wrapped in a striped blanket tied with rope, the legs over the front in work trousers and boots; pushed this far and left",
+   "tells": "the living moved him: somebody was wheeling him to the pit and stopped here",
+   "wrong": null,
+   "flies": true,
+   "against": null,
+   "verts": 3685,
+   "glb_kb": 260
+  },
+  {
+   "id": "dead.mass_grave",
+   "name": "THE PIT: A MASS GRAVE'S EDGE",
+   "landmark": true,
+   "model": "reference/models/bohemia/dead/mass_grave.glb",
+   "picture": "records/target/dead/mass_grave.webp",
+   "picture_px": [
+    1260,
+    384
+   ],
+   "anchor_px": [
+    550.5,
+    254.3
+   ],
+   "size_m": [
+    28.29,
+    10.26,
+    7.92
+   ],
+   "footprint_cells": [
+    3,
+    1
+   ],
+   "fills_cell": 1.0,
+   "height_m": 7.9,
+   "height_storeys": 2.63,
+   "role": "blocking",
+   "sees_through": true,
+   "fight": {
+    "kind": "NONE",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "who": "moved",
+   "what": "a trench cut by a dozer's blade, eighteen metres by three and a half, a metre and a half deep: the dead laid crosswise in it in bags and sheets, the west end under a tarp, the middle under a white crust of lime with the shapes showing through, the east end the newest, not yet limed; the spoil heaped along the north lip, the lime in sacks, three more in sheets waiting on the south lip, the dozer parked at the end and a light tower for the night shift",
+   "tells": "the living moved them: by the truckload, at night, under the light tower; nobody wrote the names down",
+   "wrong": null,
+   "flies": false,
+   "against": null,
+   "verts": 24529,
+   "glb_kb": 2201,
+   "holes_m": [
+    [
+     0.0,
+     0.0,
+     9.0,
+     1.8
+    ]
+   ],
+   "depth_m": 1.62
+  },
+  {
+   "id": "dead.coat_fence",
+   "name": "A COAT ON A FENCE",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/coat_fence.glb",
+   "picture": "records/target/dead/coat_fence.webp",
+   "picture_px": [
+    320,
+    184
+   ],
+   "anchor_px": [
+    139.7,
+    97.7
+   ],
+   "size_m": [
+    5.54,
+    0.95,
+    2.29
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.037,
+   "height_m": 2.29,
+   "height_storeys": 0.76,
+   "role": "blocking",
+   "sees_through": true,
+   "fight": {
+    "kind": "COVER",
+    "tile": "#",
+    "blocks_move": true,
+    "blocks_sight": false,
+    "see_through": true,
+    "burns": false
+   },
+   "who": "nobody",
+   "what": "the kit's chain-link run, and on it a long black coat hung by its collar at a man's shoulder height, its sleeves pinned out along the wire, a wide hat on a stick pushed through the mesh where the head would be, and a pair of boots standing on the ground under the hem, toes out",
+   "tells": "nobody explains it: somebody hung it there, and nobody has taken it down",
+   "wrong": "it is almost a man: the boots are laced, and there is nobody in them",
+   "flies": false,
+   "against": null,
+   "verts": 8956,
+   "glb_kb": 441
+  },
+  {
+   "id": "dead.bench",
+   "name": "A MAN ON A BUS BENCH",
+   "landmark": false,
+   "model": "reference/models/bohemia/dead/bench.glb",
+   "picture": "records/target/dead/bench.webp",
+   "picture_px": [
+    251,
+    203
+   ],
+   "anchor_px": [
+    79.8,
+    136.9
+   ],
+   "size_m": [
+    3.85,
+    1.88,
+    2.61
+   ],
+   "footprint_cells": [
+    1,
+    1
+   ],
+   "fills_cell": 0.05,
+   "height_m": 2.61,
+   "height_storeys": 0.87,
+   "role": "none",
+   "sees_through": false,
+   "fight": {
+    "kind": "NONE",
+    "tile": ".",
+    "blocks_move": false,
+    "blocks_sight": false,
+    "see_through": false,
+    "burns": false
+   },
+   "who": "nobody",
+   "what": "a bus stop on a street nobody is left on: its bench, its shelter's roof and its dead ad panel; a man sitting on the bench as if waiting for a bus that stopped running, chin on his chest, his hat tipped over his face, his hands in his lap",
+   "tells": "nobody moved him: nobody is left on this street to",
+   "wrong": null,
+   "flies": true,
+   "against": null,
+   "verts": 2000,
+   "glb_kb": 282
+  }
+ ]
+}
