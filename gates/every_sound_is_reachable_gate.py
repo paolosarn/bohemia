@@ -146,6 +146,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   await p.goto('file://'+path.join(process.argv[2],'slices','BOHEMIA_ALPHA_0_9.html'));
   await p.waitForTimeout(1500);
   await p.click('#front',{force:true}).catch(()=>{});
+  await p.evaluate(()=>{ window.__PLAY_BEGAN=true; });   /* FIXES 11/3 (rule 361, __THE_MENU_HEARS_ONLY_ITS_FEED__): the start screen is silent now; this checks the game's sounds, so play begins the way BEGIN begins it */
   await p.waitForTimeout(12000);
   const cf=p.frames().find(x=>x.url().includes('CITY_WORLD'));
   out.cityFrame=!!cf;

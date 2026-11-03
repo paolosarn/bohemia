@@ -550,6 +550,8 @@ function restock(){
   var gone = ((S.sold||{})[soldKey()] || []).slice();
   for(var sk2 in S.stock) S.stock[sk2] = S.stock[sk2].filter(function(it){ var j = gone.indexOf(sk2 + ':' + it.id); if(j >= 0){ gone.splice(j, 1); return false; } return true; });
   soldToHere().forEach(function(r){ if(S.stock[r.k]) S.stock[r.k].unshift(soldToItem(r)); });   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__: his, first */
+  /* FIXES (rule 364): the piece his finger chose is the new roll's copy of it, so the strip buys what the shelf shows */
+  try{ if(S.shopSel && S.shopSel.from === 'shelf' && S.shopSel.it){ var nl = shelfLive(S.shopSel.k, S.shopSel.it); if(nl) S.shopSel.it = nl; else S.shopSel = null; } }catch(e){}
 }
 /* ==== __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ (RUN TWO [what you sell sits on their shelf], rule 248, Paolo 10/26: 'when I sell my junk I
    should be able to see it on their shelf... just in case something accidentally fucked up... I can just re-buy it back at the sell
@@ -648,13 +650,26 @@ function shopDo(k){ var sl = shopSelIt(k); if(!sl) return;
 /* the sheet drawn again after an action, where it was (the shelf and the bag at the same scroll), the result in the strip */
 function shopRedo(k, said){ var sh = document.getElementById('sheet'), sc = sh ? sh.scrollTop : 0;
   S.shopSel = null; S.shopSaid = said || null; openB(k); if(sh) sh.scrollTop = sc; }
+/* FIXES (rule 364, ask line 388; Paolo 11/3: 'when I buy helmets or armor it makes other armor unavailable to purchase or
+   disappears'). MEASURED: the shelf is rolled again while a piece is up (restock: the town's ground arriving late, a camp turning,
+   the bar's price), so the piece his finger chose was the old roll's copy; the buy took S.stock[k].indexOf(it), which was -1, and
+   splice(-1, 1) took the LAST piece on the shelf: the piece he paid for stayed on the shelf (and went in his bag), another one
+   vanished, and the next roll put it back. NOW a purchase finds the piece on the shelf as it stands (the same object, else the
+   same kind, id and his-own mark), takes that one only, and a piece no longer there is said and not sold */
+function shelfLive(k, it){
+  var L = S.stock[k] || [], i = L.indexOf(it); if(i >= 0 || !it) return i >= 0 ? it : null;
+  for(var j = 0; j < L.length; j++){ var x = L[j]; if(x && x.kind === it.kind && x.id === it.id && !!x.yours === !!it.yours && (x.soldRow || null) === (it.soldRow || null)) return x; }
+  return null;
+}
 function shopBuy(k, it, onHim){
+  var live = shelfLive(k, it); if(!live){ shopRedo(k, 'That one is not on the shelf any more.'); return; }   /* draft:true */
+  it = live;
   if(bats() < it.price){ S.shopSaid = 'You are short. ' + it.price + ', and you have ' + bats() + '.'; shopStripFill(k); return; }
   if(it.yours){   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ (rule 248(b)(c)): back for what they paid, back where it was */
     if(S.stash.length >= BAG_SLOTS){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; }
     var r = soldToTake(it.soldRow); if(!r) return shopStripFill(k);
     P.debit(S.purse, 'electricity', it.price, 'buyback:' + it.id, S.place.name, S.day);
-    S.stock[k].splice(S.stock[k].indexOf(it), 1);
+    var ix0 = S.stock[k].indexOf(it); if(ix0 >= 0) S.stock[k].splice(ix0, 1);
     var was = JSON.parse(JSON.stringify(r.it)); S.stash.splice(Math.max(0, Math.min(r.slot | 0, S.stash.length)), 0, was); bagSave();
     window.__BOUGHT_BACK = {id:was.id, paid:it.price, slot:S.stash.indexOf(was), keep:was.keep, n:((window.__BOUGHT_BACK || {}).n | 0) + 1};
     post('buyBack', {item:was, cost:it.price}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, 'Back in your bag where it was, for the ' + moneyWord(it.price) + ' they paid you.'); return;
@@ -665,7 +680,7 @@ function shopBuy(k, it, onHim){
   if(wm){ var need = (wm.w.was ? 1 : 0) + (wm.w.drops ? 1 : 0); if(BAG_SLOTS - S.stash.length < need){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; } }
   else if(full){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; }
   P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
-  S.stock[k].splice(S.stock[k].indexOf(it), 1);
+  var ix1 = S.stock[k].indexOf(it); if(ix1 >= 0) S.stock[k].splice(ix1, 1);   /* that one piece, never another (rule 364) */
   if(!fromHim){ S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id); }   /* [the shelf restocks] */
   if(wm){ var said = wearBought(it, wm.m, wm.w); bagSave(); post('buyArms', {item:it, wornBy:wm.m.name, slot:wm.w.slot}); sfx('equip', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, said); return; }
   S.stash.push(it); bagSave();
@@ -4542,7 +4557,8 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
+window.BohemiaSettlement = {restock:function(){ restock(); },   /* FIXES (rule 364): the shelf rolled again (the town's ground arriving, a camp turning), for the gate */
+  tradeSell:function(id){ return tradeSellHere(id); },   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
    /* __HIS_MAP__ WORLD TWO: this stall's price for one of a trade good today */
   _ground:function(x, y){ var G = walkGrid(), n = G && walkNearest(G, x, y, false); return n ? {x:n.x, y:n.y} : null; },   /* the nearest ground a man can stand on (the gate) */
   _walkAll:function(){   /* RUN TWO [the walk-up, on the ground]: every way between every place he can be sent, for the gate */

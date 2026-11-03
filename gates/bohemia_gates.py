@@ -10295,6 +10295,15 @@ GATES = [
      "on its sheet with a body; every piece rendered with the master rig's light, film and source pass, no setting moved, its fullest view 100 colours "
      "or more; the riot helmet and the police vest carry their own art; the riot visor is glass his face shows through, the welder's lens is not; every "
      "facing's piece where CHARACTER's placeholder put it, within 4 px. Under 1 s", False),
+    ("THE MENU HEARS ONLY ITS FEED", ['node', 'gates/the_menu_hears_only_its_feed_gate.js'],
+     "FIXES, rule 361, ask line 385 (Paolo 11/3: 'that day speed sound effect playing on the loading menu... vibe killer... very loud even in "
+     "the regular game'): on his phone, 40 s on the start screen with a real touch, every sound started is the camera feed's own; each approved "
+     "hour strike (time_pass, the day's speed sound) peaks at or under 0.06 through its own bus, a fifth of itself; the four sound sources ask the "
+     "one start-screen test. About 1 minute", False),
+    ("THE SHOP KEEPS ITS ARMOUR", ['node', 'gates/the_shop_keeps_its_armour_gate.js'],
+     "FIXES, rule 364, ask line 388 (Paolo 11/3: 'when I buy helmets or armor it makes other armor unavailable to purchase or disappears'): "
+     "on his phone, a fortress armourer, real taps: each armour piece bought in turn takes only itself, every other piece drawn and its Buy lit; "
+     "and with the shelf rolled again between his pick and his Buy (the measured cause: the last piece vanished), only his piece goes. About 1 minute", False),
     ("NO TWO MEN SHARE A NAME", ['node', 'gates/no_two_men_share_a_name_gate.js'],
      "FIXES item 10, rule 351(b), ask line 362 (Paolo 11/3: 'I think three of them are named the same thing in my company'): 200 hires into one "
      "company, no two names alike (a number is no new name: TOMAS REYES II is TOMAS REYES); never YOUR name or a living man's; a save with twins "

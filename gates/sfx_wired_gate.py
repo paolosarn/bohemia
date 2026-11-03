@@ -144,6 +144,7 @@ const METER=`(function(){
      leave the context running, or every later sound is asking a dead context. */
   await p.evaluate(METER);
   await p.click('#front',{force:true}).catch(()=>{});
+  await p.evaluate(()=>{ window.__PLAY_BEGAN=true; });   /* FIXES 11/3 (rule 361, __THE_MENU_HEARS_ONLY_ITS_FEED__): the start screen is silent now; this checks the game's sounds, so play begins the way BEGIN begins it */
   await p.waitForTimeout(700);
   out.afterSplash=await p.evaluate(()=>({
     wired: !!window.__SFX_WIRE && typeof window.playSFX==='function',

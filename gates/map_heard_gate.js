@@ -62,6 +62,7 @@ function block(src) {
   await p.waitForFunction(() => !!window.__MAPDESERT && typeof MUS !== 'undefined', null, { timeout: 30000 });
   await p.evaluate(() => {
     try { MUS.audio(); } catch (e) {}
+    window.__PLAY_BEGAN = true;   /* FIXES 11/3 (rule 361): the start screen is silent now; the map's desert is heard once play begins */
     /* the gate is the only poster: a live city frame would race its own map state against the probe */
     document.querySelectorAll('#cityFrame,#mapFrame').forEach(f => { try { f.remove(); } catch (e) {} });
     window.__tabOn = function (k) { document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x.dataset.p === k)); };

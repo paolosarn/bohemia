@@ -1,5 +1,14 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+FIXES 11/3 (round 3) -- the coordinator's A and B (rules 361, 364; asks 385, 388). BOTH BUILT, NOT YET SEEN (BUILD 11/3zzzw THE QUIET MENU, THE SHOP KEEPS ITS ARMOUR).
+Record: records/BOHEMIA_FIXES_THE_MENUS_SILENCE_AND_THE_SHOPS_ARMOUR_11_3_26.md.
+A: the day's speed sound is the hour strike (time_pass): travel strikes 2 to 7 times every 4 s now. The start screen hears only its
+camera feed (window.__FRONT_QUIET gates the effects, the strike, the desert bed, the ambience); in play the strike is a whisper
+(own bus at 0.12, peak 0.033). Gate THE MENU HEARS ONLY ITS FEED 4/0. Four sound gates now begin play before they listen; they read
+main's own reds again (17/0, 30/2, 1052/4, 19/4).
+B: reproduced: a shelf rolled again between his pick and his Buy took the shelf's last piece (splice at -1). A buy takes only its own
+piece now. Gate THE SHOP KEEPS ITS ARMOUR 3/0 (red on main).
+
 FIXES 11/3 (round 2) -- the coordinator's items 9, 10, 11. ALL THREE BUILT, NOT YET SEEN (BUILD 11/3zzzj THE WHOLE POST, ONE NAME EACH).
 9 (rule 350, ask 360): the strip is the coordinator's fitStrip (d3f1cb29), not touched; this round the words: every
 feed line 120 or under with its longest real names (87 lines rewritten at the WORDS sources, then the bank and the game's file rebuilt),

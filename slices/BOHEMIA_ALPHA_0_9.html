@@ -1582,7 +1582,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zzzv - THE RADIO LIVES IN THE FEED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zzzw - THE QUIET MENU, THE SHOP KEEPS ITS ARMOUR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -26298,7 +26298,17 @@ try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PAR
      slider and his mix hold for them) and count where they render, like everything here */
   window.__sfxOut = function(){ try{ MUS.audio(); var AC=MUS.AC; return AC ? { AC: AC, bus: (window.__SFXSNAP ? window.__SFXSNAP.route(sfxBus() || MUS.OUT || MUS.MAST || AC.destination) : (sfxBus() || MUS.OUT || MUS.MAST || AC.destination)) } : null;   /* __ONE_BEAT_FOR_EVERYTHING__ 10/26 */ }catch(e){ return null; } };
   window.__sfxCounted = function(n){ SFX_COUNT += (n|0); };
+  /* ==== __THE_MENU_HEARS_ONLY_ITS_FEED__ (FIXES, rule 361, ask line 385; Paolo 11/3: 'that day speed sound effect playing on the
+     loading menu... vibe killer... it should not be anywhere near the loading menus'). MEASURED on the demo's start screen, 20 s,
+     no tap: the game behind the menu struck the hours twelve times (time_pass, the map's first clock report after the load reading
+     as a jump), laid the map's desert bed and fired the map's ambience. While the start screen is up (the loading screen, the title,
+     the new company's door; until BEGIN or CONTINUE takes him in) the game's own effects, the hour strike, the desert bed and the
+     ambience say nothing; the camera feed's own sound (UI 6's, its own loop) is the one thing heard. ==== */
+  window.__FRONT_QUIET=function(){
+    try{ if(window.__PLAY_BEGAN) return false; var f=document.getElementById('front'); return !!(f && f.style.display!=='none' && getComputedStyle(f).display!=='none'); }catch(e){ return false; }
+  };
   window.playSFX=function(ev,when,mul){
+    if(window.__FRONT_QUIET()){ window.__FRONT_HUSHED=(window.__FRONT_HUSHED|0)+1; return null; }   /* __THE_MENU_HEARS_ONLY_ITS_FEED__ */
     try{
       /* THE BAR'S GLASS (10/10): a synthesized live object, not a sample-bank entry,
          same special case AMB.tick() already uses for 'valley_broadcast' -- one
@@ -27356,14 +27366,24 @@ try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PAR
      CAPPED AT 12. Past twelve strikes it stops being countable and starts being
      noise, and twelve is where a clock face stops too. */
   var STRIKE_MAX=12;
+  /* __THE_HOURS_WHISPER__ (FIXES, rule 361; Paolo 11/3: 'very loud even in the regular game... the volume has to go really down'):
+     MEASURED, this is the day's speed sound: the map reports its clock every four seconds and an hour of travel now passes in 2.3 s
+     on dirt, so the 'only a real skip' floor below is met by ordinary travel, two strikes a report at the regular speed and six or
+     seven at four times (7 to 21 strikes in ten seconds, measured). The strike stays (his 8/7 ruling: 'the amount of time that goes
+     by'), at a whisper under the game's mix: its own gain, TIME_PASS_LEVEL of what it was; and never on the start screen */
+  var TIME_PASS_LEVEL=0.12, TP_BUS=null;
+  window.__TIME_PASS_LEVEL=TIME_PASS_LEVEL;
   function strikeHours(h){
     h=Math.max(1,Math.min(STRIKE_MAX, h|0));
     try{
+      if(window.__FRONT_QUIET && window.__FRONT_QUIET()){ window.__FRONT_HUSHED=(window.__FRONT_HUSHED|0)+1; return 0; }   /* __THE_MENU_HEARS_ONLY_ITS_FEED__ */
       var set=(window.__SFX_APPROVED&&window.__SFX_APPROVED.time_pass)||[];
       if(!set.length) return 0;            /* unjudged is silent, always */
       if(typeof BOH_SFX==='undefined'||typeof MUS==='undefined') return 0;
       MUS.audio(); var AC=MUS.AC; if(!AC) return 0;
-      var dest=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
+      var out0=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
+      if(!TP_BUS || TP_BUS.context!==AC){ TP_BUS=AC.createGain(); TP_BUS.gain.value=TIME_PASS_LEVEL; TP_BUS.connect(out0); window.__TP_BUS=TP_BUS; }   /* __THE_HOURS_WHISPER__ */
+      var dest=TP_BUS;
       var gap=(BOH_SFX.BEAT||0.5);
       var t0=AC.currentTime+0.06, fired=0;
       for(var i=0;i<h;i++){
@@ -27816,6 +27836,7 @@ try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PAR
     },
     tick:function(){
       if(!this.kind) return;
+      if(window.__FRONT_QUIET && window.__FRONT_QUIET()) return;   /* __THE_MENU_HEARS_ONLY_ITS_FEED__ */
       /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
          a hidden iframe keeps its timers running, so the run keeps reporting
          from the MUSIC tab and the ambience would play over him judging
@@ -27960,6 +27981,7 @@ try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PAR
     id:null, g:null, timer:null, farT:null, buf:{}, loading:{}, at:0, last:null, log:[],
     want:function(){
       var d=this.last; if(!d || Date.now()-this.at > 1500 || d.settlement || document.hidden) return false;
+      if(window.__FRONT_QUIET && window.__FRONT_QUIET()) return false;   /* __THE_MENU_HEARS_ONLY_ITS_FEED__ */
       var t=document.querySelector('.tab[data-p="run"]'), m=document.querySelector('.tab[data-p="map"]');
       return !!((t && t.classList.contains('on')) || (m && m.classList.contains('on')));
     },
