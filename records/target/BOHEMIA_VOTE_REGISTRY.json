@@ -16909,7 +16909,106 @@
 {"id": "ui-the-start-screen-one-look-11-3", "kind": "redo", "redoOf": "ui-the-first-minute-start-screen-11-2", "lane": "ui", "sha": "e11c0ca8", "made": "11/3", "draft": true, "title": "THE START SCREEN, ONE LOOK WITH THE LOADING SCREEN: THE CAMERA'S OWN BUTTONS", "said": "The start menu for demo is not final ... I don't like what you did to the menu", "why": "The rusty tin, rivets and tape are gone: the picks are the camera's own black buttons lit from above, the one you picked lit gold, and the same camera keeps rolling in a small window beside BEGIN. You see it on the demo's first screen after NEW GAME, the old one on the left and the new one on the right.", "before_after": {"before": "BUILD 11/3k: the picks on rusty tin plates with rivets, the name on masking tape, the tin robot by the bar", "after": "the camera's own buttons, the picked one lit gold, the feed in a small window by the load's row", "scale": "his phone upright, 390 by 844"}, "options": ["A, better, keep it", "B, close, fix something (say what)", "C, wrong, again"], "show": {"how": "image", "src": "vote/UI_THE_START_SCREEN_BEFORE_AFTER_11_3.webp"}},
 {"id": "cook-props-downtown-11-3", "kind": "tile", "lane": "cook props", "sha": "21099f00", "made": "11/3", "draft": true, "title": "DOWNTOWN'S OWN THINGS: A BAY OF THE CANOPY, ALLEY DUMPSTERS, AN ALLEY WALL AND ITS FIRE ESCAPE, THE DEUCE BURNT", "why": "Downtown gets its own things as real models on Fremont's asphalt: a bay of the canopy over the street (its columns, its lattice rib, its dead screen), the brick back of a hotel with its fire escape up to the roof, a double-decker bus burnt to its shell, and the alley's dumpsters. You see it here in the VOTE tab, and in the fight downtown when COMBAT MAPS 3's new board lands.", "options": ["A, yes, that's downtown", "B, no, not like this"], "said": "everything just looked exactly the same as the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety, recycled hogwash", "show": {"how": "image", "src": "../records/target/fight_props/CARD_DOWNTOWN.webp"}, "twin": {"src": "fight_ground/block_main_0.webp", "diffs": ["THE LANDMARK: last round shopfronts in rows; now the canopy over the street, and under it no shot from a roof.", "THE THINGS: last round cars and junk; now a fire escape up to height, a burnt Deuce for a wall, the alley's dumpsters.", "THE WRONG THING: one panel of the dead canopy screen is still showing a few squares of colour."]}, "before_after": {"before": "downtown's old board (fight_ground/block_main_0.webp)", "after": "its own things on its own ground, from the fight camera"}},
 {"id": "cook-props-works-11-3", "kind": "tile", "lane": "cook props", "sha": "21099f00", "made": "11/3", "draft": true, "title": "THE WORKS' OWN THINGS: A BOXCAR, A TANK CAR, THE GANTRY CRANE, THE MACHINES, A STACK OF PIPE", "why": "The works get their own things as real models on the yard's oil-black slab and its ballast: a boxcar and a tank car on their track (walls you fight along), a yellow gantry crane you fight between the legs of, a shop's machines dragged out, and a stack of steel pipe. You see it here in the VOTE tab, and in the fight at the works when COMBAT MAPS 3's new board lands.", "options": ["A, yes, that's the works", "B, no, not like this"], "said": "everything just looked exactly the same as the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety, recycled hogwash", "show": {"how": "image", "src": "../records/target/fight_props/CARD_WORKS.webp"}, "twin": {"src": "fight_ground/block_works_0.webp", "diffs": ["THE LANDMARK: last round sheds; now rail cars in lines, walls of cover with lanes between.", "THE THINGS: last round a slab; now a gantry crane, the machines, the pipe stack; the tank car burns.", "THE WRONG THING: a car hangs from the gantry's hook over your head, and nobody is at the controls."]}, "before_after": {"before": "the works's old board (fight_ground/block_works_0.webp)", "after": "its own things on its own ground, from the fight camera"}},
-{"id": "cook-props-marina-11-3", "kind": "tile", "lane": "cook props", "sha": "21099f00", "made": "11/3", "draft": true, "title": "THE MARINA'S OWN THINGS: A HOUSEBOAT ON THE DRY BED, A CRUISER ON ITS KEEL, A BASS BOAT ON ITS TRAILER", "why": "The marina gets its own things as real models on Lake Mead's cracked bed: a Lake Mead houseboat sat down on its pontoons with its top deck you take and its water slide, a cabin cruiser heeled over on its keel, a bass boat stuck on its trailer, and a dock with no water. You see it here in the VOTE tab, and in the fight at the marina when COMBAT MAPS 3's new board lands.", "options": ["A, yes, that's the marina", "B, no, not like this"], "said": "everything just looked exactly the same as the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety, recycled hogwash", "show": {"how": "image", "src": "../records/target/fight_props/CARD_MARINA.webp"}, "twin": {"src": "fight_ground/block_marina_0.webp", "diffs": ["THE LANDMARK: last round small boats on mud; now a houseboat at its true 18 m, height you climb.", "THE THINGS: last round docks; now a cruiser and a bass boat for cover on open mud.", "THE WRONG THING: a fresh towel lies at the foot of the slide, and every boat points the same way."]}, "before_after": {"before": "the marina's old board (fight_ground/block_marina_0.webp)", "after": "its own things on its own ground, from the fight camera"}}
+{"id": "cook-props-marina-11-3", "kind": "tile", "lane": "cook props", "sha": "21099f00", "made": "11/3", "draft": true, "title": "THE MARINA'S OWN THINGS: A HOUSEBOAT ON THE DRY BED, A CRUISER ON ITS KEEL, A BASS BOAT ON ITS TRAILER", "why": "The marina gets its own things as real models on Lake Mead's cracked bed: a Lake Mead houseboat sat down on its pontoons with its top deck you take and its water slide, a cabin cruiser heeled over on its keel, a bass boat stuck on its trailer, and a dock with no water. You see it here in the VOTE tab, and in the fight at the marina when COMBAT MAPS 3's new board lands.", "options": ["A, yes, that's the marina", "B, no, not like this"], "said": "everything just looked exactly the same as the main suburb shit we have... nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety, recycled hogwash", "show": {"how": "image", "src": "../records/target/fight_props/CARD_MARINA.webp"}, "twin": {"src": "fight_ground/block_marina_0.webp", "diffs": ["THE LANDMARK: last round small boats on mud; now a houseboat at its true 18 m, height you climb.", "THE THINGS: last round docks; now a cruiser and a bass boat for cover on open mud.", "THE WRONG THING: a fresh towel lies at the foot of the slide, and every boat points the same way."]}, "before_after": {"before": "the marina's old board (fight_ground/block_marina_0.webp)", "after": "its own things on its own ground, from the fight camera"}},
+  {
+   "id": "combat-place-lab-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-medical-11-2",
+   "lane": "combat",
+   "sha": "fe5fa9e0",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE LAB YARD: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The lab yard is its own board now, rows of chain-link beast pens (one burst open from inside), decon showers, gurneys and the cold-store truck, and you can shoot through the fences but not walk through them, so the fight is lanes and gates. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_lab.webp",
+    "first": "../records/target/combat_maps_11_3/first_lab.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the pens",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-airport-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-airport-11-2",
+   "lane": "combat",
+   "sha": "fe5fa9e0",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE AIRPORT: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The airport is its own board now, open slab with a commuter plane wrecked on its belly in the middle, a hangar roof three storeys up and the cart trains, and their line usually starts far off, so the wreck is the cover everybody runs for. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_airport.webp",
+    "first": "../records/target/combat_maps_11_3/first_airport.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the wreck",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-golf-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-golf-11-2",
+   "lane": "combat",
+   "sha": "fe5fa9e0",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE GOLF COURSE: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The golf course is its own board now and dead, the clubhouse with a roof you can climb, the carts, a brown 18th green with its flag, bunkers and a dry pond that slow you, no green anywhere, and sometimes they come at you from both flanks. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_golf.webp",
+    "first": "../records/target/combat_maps_11_3/first_golf.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the clubhouse and the 18th",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  }
  ],
  "verdicts": [
   {

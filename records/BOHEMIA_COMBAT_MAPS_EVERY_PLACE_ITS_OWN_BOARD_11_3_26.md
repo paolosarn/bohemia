@@ -42,8 +42,11 @@ in front of your front column. The cell seeds it (rule 46a). A built board is ne
 envelope (it is designed). A piece modelled into its block's picture has no sprite of its own (baked).
 
 ## THE MODELS (rule 337)
-COOK PROPS' manifest (records/target/fight_props/manifest.json) did not exist when these places were ready, so this lane modelled
-each place's own things itself, through the master rig, in the same render as the ground (the floor tool's ground and stones with
+COOK PROPS' manifest (records/target/fight_props/manifest.json) did not exist when these three were ready (checked 01:20; this
+lane modelled them from 01:35); its first three places landed on main at 01:55 (cc33b0fd) while these were rendering, so push 1
+ships this lane's own models for the lab yard, the airport and the golf course, and the places after it are built on COOK
+PROPS' models (their .glb imported into the same render, on the tile their manifest names). This lane modelled each of the
+first three places' own things itself, through the master rig, in the same render as the ground (the floor tool's ground and stones with
 COMBAT MAPS 2's grounds, the not-final tool's junk and grime, the rig's source pass, dents, one sun and film, the block camera):
 tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py. Each block's tile map is written first and every 'X', 'C', 'c',
 '#' and 'H' has its thing drawn on it (the honest grid). Only the present is rendered: the fight reads no futures picture.

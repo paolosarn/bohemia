@@ -1356,15 +1356,12 @@ def old_cover(G, bid, bx, by):
 
 
 CARD_SAYS = {
-    'lab': ('The lab yard is its own board now: rows of chain-link beast pens with lanes between, one pen burst open from inside, '
-            'the decon showers, gurneys and the cold-store truck at the dock. You can shoot through the fences but not walk through '
-            'them, so the fight is lanes and gates, and they often start inside the pens, a camp you walk into.'),
-    'airport': ('The airport is its own board now: wide open slab with a commuter plane wrecked on its belly in the middle, its tail '
-                'torn off and its cargo cans thrown round it, a hangar you can climb three storeys, a fuel truck, the cart trains '
-                'and the terminal glass. Their line usually starts far off, so the wreck is the one cover everybody runs for.'),
-    'golf': ('The golf course is its own board now, and dead: the clubhouse with its torn awning and a roof you can climb, a row of '
-             'carts, the 18th green gone brown with its flag still standing out, bunkers and a dry pond that slow you, a stand of '
-             'dead pines. No green anywhere. Sometimes they come at you from both flanks.'),
+    'lab': ('The lab yard is its own board now, rows of chain-link beast pens (one burst open from inside), decon showers, gurneys '
+            'and the cold-store truck, and you can shoot through the fences but not walk through them, so the fight is lanes and gates.'),
+    'airport': ('The airport is its own board now, open slab with a commuter plane wrecked on its belly in the middle, a hangar roof '
+                'three storeys up and the cart trains, and their line usually starts far off, so the wreck is the cover everybody runs for.'),
+    'golf': ('The golf course is its own board now and dead, the clubhouse with a roof you can climb, the carts, a brown 18th green '
+             'with its flag, bunkers and a dry pond that slow you, no green anywhere, and sometimes they come at you from both flanks.'),
 }
 
 
@@ -1387,6 +1384,13 @@ def cards():
     return out
 
 
+def first_of(pid):
+    """the card's FIRST picture (the VOTE tab's rule 89: one thing, one phone screen): the AFTER panel of its card"""
+    fn = os.path.join(BASE, 'first_%s.webp' % pid)
+    Image.open(os.path.join(BASE, 'card_%s.webp' % pid)).convert('RGB').crop((398, 40, 788, 884)).save(fn, quality=82, method=6)
+    return '../' + os.path.relpath(fn, R)
+
+
 def register(sha, ids):
     rp = os.path.join(R, 'records/target/BOHEMIA_VOTE_REGISTRY.json')
     L = json.load(open(os.path.join(BASE, 'shots', 'shots.json')))
@@ -1401,7 +1405,8 @@ def register(sha, ids):
                         why=CARD_SAYS[pid] + ' You see it here before, after and in play on the phone, and in every fight there on the map.',
                         options=['A, yes, that is the place and it plays different', 'B, the place reads but push the twist further',
                                  'C, no, still too much like the others'],
-                        show=dict(how='image', src='../records/target/combat_maps_11_3/card_%s.webp' % pid),
+                        show=dict(how='image', src='../records/target/combat_maps_11_3/card_%s.webp' % pid,
+                                  first=first_of(pid), firstAt=[398, 40, 390, 844]),
                         before_after=dict(before='the old board (COMBAT MAPS 2: its own floor under the shared plan)',
                                           after='its own board: %s' % P['landmark'].split(':')[0].lower(), scale='his phone, 390 x 844, by day, the fight\'s opening view and a few rounds in')))
     txt = open(rp).read()
