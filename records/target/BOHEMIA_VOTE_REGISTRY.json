@@ -18497,7 +18497,8 @@
     "after": "rethought from real downtown, roads first (rule 356)",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
-  }
+  },
+  {"id": "arena-the-tournament-11-3", "kind": "ui", "lane": "arena", "sha": "e5aff31ea", "made": "11/3", "draft": true, "title": "THE STRIP'S TOURNAMENT: FIVE DAYS, FIVE MEN, THREE ROUNDS PAID AS YOU WIN THEM, QUIT AND KEEP IT, THE HELM FOR ALL THREE", "said": "if it's a tournament then it'll be like you can bring five people or something", "why": "Every few weeks the Mob runs a five-day tournament that its account posts on your feed: five of your men, three rounds that get tougher and pay as you win them, quit any time and keep it, and 300 batteries and the pit-fighter helm for winning all three. You see it in the Mob's town on the RUN tab that week: tap THE PIT and the tournament sits under tonight's card.", "options": ["A, yes, that's the tournament", "B, closer, but change it (say what)", "C, no, a different tournament"], "show": {"how": "page", "src": "vote/ARENA_THE_TOURNAMENT_11_3.html"}, "before_after": {"before": "the pit had one card a night and no tournament", "after": "a five-day tournament every few weeks, posted on the feed, five men, three rounds, quit and keep it", "scale": "his phone, 390 x 844, the real demo"}}
  ],
  "verdicts": [
   {
