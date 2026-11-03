@@ -1,3 +1,15 @@
+COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzg EVERY PLACE ITS OWN THINGS. BUILT, NOT YET SEEN (rule 179):
+- [every place its own things] the first three SHIPPED cc33b0fd: the lab yard (6), the airport (5), the golf course (7): 18 real
+  models through the master rig, each reference/models/bohemia/fight_props/<id>.glb + its picture from the fight camera with its
+  ground pixel, and THE CONTRACT records/target/fight_props/manifest.json (footprint in 12 m cells, storeys, cover/blocking/none,
+  sees-through, the fight's own kind/tile/flags) for COMBAT MAPS 3 to place. VOTE: one card a place, its things on its own ground.
+  tools/bohemia_cook_props_every_place_its_own_11_3_26.py (models <place|id> / card <place> / manifest).
+  Record records/BOHEMIA_COOK_PROPS_EVERY_PLACE_ITS_OWN_THINGS_11_3_26.md.
+NEXT: the other twelve in the record's order (trailer park, desert, Red Rock, the pass, the shore, the wash, the suburbs, the
+landfill, the Strip, downtown, the works, the marina), pushed as they land; the manifest grows, nothing in it changes shape.
+[bb Battle Brothers' blockers read at a glance as what they are; every place's things here do.]
+[analog horror: one wrong thing a place: the reefer still running, the same suitcase, the flag in no wind.]
+
 COOK WEAPONS (rule 337, ask line 344, 11/3): EVERY WEAPON ITS OWN (first push BUILD 11/3zzd). BUILT, NOT YET SEEN (rule 179):
 - [every weapon its own] SHIPPED (this push): the pool pole spear, the extension cord, the live wire, the barbed wire and the rodeo
   bullwhip each its own glb (reference/models/bohemia/item_<name>.glb, COOK's every-item kit) rendered in YOU's hands by ANIMATION's
