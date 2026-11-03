@@ -71,21 +71,21 @@
   "bar": "golf",
   "blocks": [
    [
-    "golf.0|h",
+    "golf.2|h",
     "golf.2",
-    "golf.0|h",
+    "golf.2|h",
     "golf.2"
    ],
    [
     "golf.2|h",
     "golf.1",
     "golf.2|h",
-    "golf.0"
+    "golf.2"
    ],
    [
-    "golf.0|h",
+    "golf.2|h",
     "golf.2",
-    "golf.0|h",
+    "golf.2|h",
     "golf.2|h"
    ]
   ],
@@ -103,21 +103,21 @@
   "blocks": [
    [
     "trailer.2",
-    "trailer.0|h",
+    "trailer.2|h",
     "trailer.2",
-    "trailer.0|h"
+    "trailer.2|h"
    ],
    [
-    "trailer.0",
+    "trailer.2",
     "trailer.1",
-    "trailer.0",
+    "trailer.2",
     "trailer.2|h"
    ],
    [
     "trailer.2|h",
-    "trailer.0",
+    "trailer.2",
     "trailer.2|h",
-    "trailer.0"
+    "trailer.2"
    ]
   ],
   "start": "camp",
@@ -164,21 +164,21 @@
   "bar": "canyon",
   "blocks": [
    [
-    "canyon.0|h",
+    "canyon.2|h",
     "canyon.2",
-    "canyon.0|h",
+    "canyon.2|h",
     "canyon.2"
    ],
    [
     "canyon.2|h",
     "canyon.1",
     "canyon.2|h",
-    "canyon.0"
+    "canyon.2"
    ],
    [
-    "canyon.0|h",
+    "canyon.2|h",
     "canyon.2",
-    "canyon.0|h",
+    "canyon.2|h",
     "canyon.2|h"
    ]
   ],
@@ -285,25 +285,25 @@
   "round": 3,
   "after": "records/target/combat_maps_11_3/shots/landfill_after.png",
   "play": "records/target/combat_maps_11_3/shots/landfill_play.png",
-  "bar": "dump + landfill",
+  "bar": "dump",
   "blocks": [
    [
     "dump.2",
-    "landfill.0|h",
+    "dump.2|h",
     "dump.2",
-    "landfill.0|h"
+    "dump.2|h"
    ],
    [
-    "landfill.0",
+    "dump.2",
     "dump.1",
-    "landfill.0",
+    "dump.2",
     "dump.2|h"
    ],
    [
     "dump.2|h",
-    "landfill.0",
+    "dump.2",
     "dump.2|h",
-    "landfill.0"
+    "dump.2"
    ]
   ],
   "start": "line",
@@ -316,25 +316,25 @@
   "round": 3,
   "after": "records/target/combat_maps_11_3/shots/suburb_after.png",
   "play": "records/target/combat_maps_11_3/shots/suburb_play.png",
-  "bar": "suburb + yards + culdesac",
+  "bar": "yards",
   "blocks": [
    [
-    "corner.0|h",
-    "subs.0",
     "yards.2|h",
-    "subs.0"
+    "yards.2",
+    "yards.2|h",
+    "yards.2"
    ],
    [
     "yards.2|h",
     "yards.1",
-    "corner.0|h",
-    "culdesac.0"
+    "yards.2|h",
+    "yards.2"
    ],
    [
-    "culdesac.0|h",
-    "subs.0",
-    "culdesac.0|h",
-    "subs.0|h"
+    "yards.2|h",
+    "yards.2",
+    "yards.2|h",
+    "yards.2|h"
    ]
   ],
   "start": "pincer",
@@ -409,24 +409,24 @@
   "round": 3,
   "after": "records/target/combat_maps_11_3/shots/works_after.png",
   "play": "records/target/combat_maps_11_3/shots/works_play.png",
-  "bar": "works + rail",
+  "bar": "rail",
   "blocks": [
    [
-    "works.0|h",
+    "rail.2|h",
     "rail.2",
-    "works.0|h",
+    "rail.2|h",
     "rail.2"
    ],
    [
     "rail.2|h",
     "rail.1",
     "rail.2|h",
-    "works.0"
+    "rail.2"
    ],
    [
-    "works.0|h",
+    "rail.2|h",
     "rail.2",
-    "works.0|h",
+    "rail.2|h",
     "rail.2|h"
    ]
   ],
@@ -440,25 +440,25 @@
   "round": 3,
   "after": "records/target/combat_maps_11_3/shots/marina_after.png",
   "play": "records/target/combat_maps_11_3/shots/marina_play.png",
-  "bar": "basin + marina",
+  "bar": "basin",
   "blocks": [
    [
     "basin.2",
-    "marina.0|h",
+    "basin.2|h",
     "basin.2",
-    "marina.0|h"
+    "basin.2|h"
    ],
    [
-    "marina.0",
+    "basin.2",
     "basin.1",
-    "marina.0",
+    "basin.2",
     "basin.2|h"
    ],
    [
     "basin.2|h",
-    "marina.0",
+    "basin.2",
     "basin.2|h",
-    "marina.0"
+    "basin.2"
    ]
   ],
   "start": "wide",

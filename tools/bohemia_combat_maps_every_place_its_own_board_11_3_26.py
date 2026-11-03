@@ -232,6 +232,7 @@ PIECES = {
     'landfill_fire': dict(kind='FIRE', h=0.0, burning=True, name='THE GAS, BURNING'),
     'landfill_wells': dict(kind='COVER', h=1.3, name='GAS WELLS AND THEIR PIPE', by_props='landfill.wells'),
     'yards_wall':   dict(kind='COVER', h=1.8, name='BLOCK WALL', by_props='suburbs.yard_wall'),
+    'yards_car':    dict(kind='COVER', h=1.5, name='A CAR LEFT AT THE KERB'),
     'strip_fountain': dict(kind='COVER', h=0.6, name='THE FOUNTAIN\'S RIM', by_props='strip.fountain'),
     'strip_planter': dict(kind='LOW_COVER', h=0.9, name='MARBLE PLANTER'),
     'downtown_canopy': dict(kind='COVER', h=1.4, name='THE CANOPY\'S COLUMN', by_props='downtown.canopy'),
@@ -335,10 +336,15 @@ BLOCKS = {
     'dump.2': dict(name='THE CELLS', tiles=['.H.H.', '.....', 'H....', '..H.H', '.....'],
                    marks=['----C', '-----', '--C--', '-----', 'C----'], pieces={'C': 'landfill_wells'}, props=True),
     # THE SUBURBS -------------------------------------------------------------------------------------------------------
-    'yards.1': dict(name='THE BACKYARDS', tiles=['.....', '.r..r', '.....', 'r..r.', '.....'],
-                    marks=['C-C-C', '-----', 'CC-CC', '-----', '-C-C-'], pieces={'C': 'yards_wall'}, props=True),
-    'yards.2': dict(name='THE YARDS', tiles=['r....', '...r.', '.....', '.r...', '....r'],
-                    marks=['-C-C-', 'C---C', '--C--', 'C---C', '-C-C-'], pieces={'C': 'yards_wall'}, props=True),
+    # rule 346 (the plan gate: no landmark in the middle once the old street blocks left): every yard block is a row of houses on
+    # top (their roofs walked: 'the houses are roofs'), their backyards behind them (walls, empty pools), and the street at the
+    # bottom that the next block's houses face; the street runs whole through every block of its row
+    'yards.1': dict(name='THE BACKYARDS', tiles=['HHHHH', '.r..r', '.....', 'r..r.', '.....'],
+                    marks=['-----', 'C-C--', 'CC-CC', '-C--C', '--C--'], pieces={'C': 'yards_wall'},
+                    piece_at={(4, 2): 'yards_car'}, props=True),
+    'yards.2': dict(name='THE YARDS', tiles=['HH.HH', '...r.', '.....', '.r...', '.....'],
+                    marks=['-----', 'C---C', '--C--', 'C---C', '-C-C-'], pieces={'C': 'yards_wall'},
+                    piece_at={(4, 1): 'yards_car', (4, 3): 'yards_car'}, props=True),
     # THE STRIP (rule 346: the showcase; the Boulevard down the middle, the casino frontages either side). Every frontage reads
     # from the Boulevard out (cb 0 its sidewalk, cb 1 the drop-off under the porte-cochere, cb 2 the forecourt, cb 3-4 the casino),
     # its two drives at the same two rows as the Boulevard's aprons (DRIVES), so every road meets a road. No open tile has a mass
@@ -385,7 +391,7 @@ BLOCKS = {
     'rail.2': dict(name='THE SLAB', tiles=['.....', '.#...', '..##.', '.....', '...#.'],
                    marks=['--C--', '----C', '-----', 'C---C', '-----'], pieces={'C': 'works_pipes'}, props=True),
     # THE MARINA --------------------------------------------------------------------------------------------------------
-    'basin.1': dict(name='THE HOUSEBOAT', tiles=['.....', '....#', '.HH..', '#....', '.....'],
+    'basin.1': dict(name='THE HOUSEBOAT', tiles=['.....', '....#', '.HHHH', '#....', '.....'],
                     marks=['-C---', '-----', '-----', '---C-', '-----'], pieces={'C': 'marina_bass'}, props=True),
     'basin.2': dict(name='THE DRY BED', tiles=['..#..', '.....', '.....', '.#...', '.....'],
                     marks=['-----', 'C---C', '--C--', '-----', 'C--C-'], pieces={'C': 'marina_bass'}, props=True),
@@ -584,6 +590,9 @@ def plan(bid, F):
     elif kind == 'yards':
         gid[:] = ID['deadlawn']                                             # dead brown lawns, yard by yard
         gid[n3 > 0.72] = ID['deadlawn_b']
+        gid[band(2.6, 10.0)] = ID['asphalt']                                 # the street the next block's houses face, edge to edge
+        gid[band(10.0, 11.0) | band(1.4, 2.6)] = ID['concrete']             # its kerbs and sidewalks, off the grid's lines
+        gid[band(6.2, 6.4) & ((xm % 6.0) < 3.0)] = ID['paint']
         for r_ in range(5):
             for c_ in range(5):
                 if T[r_][c_] == 'r':                                        # the pool's deck round the pit
@@ -672,7 +681,7 @@ DRIVES = (18.0, 42.0)                                                  # the Str
 MARGIN = {'lab': 'epoxy', 'apron': 'dustslab', 'golf': 'fairway', 'trailer': 'gravel', 'desert': 'pavement', 'canyon': 'redsand',
           'pass': 'passtan', 'lakebed': 'lakemud', 'dump': 'coversoil', 'yards': 'deadlawn', 'rail': 'oilcrete', 'basin': 'lakemud'}
 THROUGH = {'golf': ['concrete'], 'rail': ['ballast', 'tie'], 'lakebed': ['ring', 'pavement'], 'desert': ['silt', 'cobble', 'calcrete'],
-           'pass': ['pavement', 'tie'], 'trailer': [], 'apron': ['hazard'], 'dump': ['gravel']}
+           'pass': ['pavement', 'tie'], 'trailer': [], 'apron': ['hazard'], 'dump': ['gravel'], 'yards': ['concrete']}
 
 
 # ---- templates (every face a quad, as the not-final tool's instancer wants) ------------------------------------------
@@ -1538,8 +1547,18 @@ def things_yards(k, bid):
                 k.model('suburbs.yard_wall', x + k.rng.uniform(-2, 2), y + k.rng.uniform(-2, 2), int(k.rng.randint(4)))
                 k.box('block', x, y, 0.0, 12.0, 0.22, 1.8); k.box('cap', x, y, 1.8, 12.1, 0.3, 0.06)   # the lot line's run, east to west
                 for px_ in (x - 5.9, x + 5.9): k.box('cap', px_, y, 0.0, 0.45, 0.45, 2.0)                # its pilasters
+            if pc == 'yards_car': car(k, x + k.rng.uniform(-2, 2), 7.6 if (c % 2) else 5.0, k.rng.uniform(-0.1, 0.1),
+                                      ((150, 146, 140), (96, 104, 112), (150, 40, 36), (206, 204, 196))[c % 4], wreck=c == 3)
+    # the houses on row 0, their backs to the yards and the camera: stucco, a sliding door and a patio slab, the roof walked
+    k.rgb('stucco', (196, 178, 150), 'clay_bone'); k.rgb('stucco2', (176, 160, 140), 'clay_bone'); k.rgb('tile', (150, 96, 70), 'clay_rust')
+    k.rgb('glass', (40, 48, 52), 'glass_eye'); k.rgb('patio', (170, 164, 150), 'tape_grey')
+    for c in range(5):
+        if T[0][c] != 'H': continue
+        x = c * 12.0 + 6.0
+        k.box('stucco' if c % 2 else 'stucco2', x, 54.0, 0.0, 11.4, 11.0, 3.0); k.roof('tile', x, 54.0, 3.0, 11.8, 11.4, 1.0)
+        k.box('glass', x - 1.5, 48.46, 0.2, 3.0, 0.05, 2.1); k.box('patio', x - 1.5, 47.0, 0.0, 6.0, 2.8, 0.08)
     if bid == 'yards.1': k.model('suburbs.swing', *centre(2, 1), quarter=0); k.model('suburbs.trampoline', *centre(2, 3))
-    else: k.model('suburbs.swing', *centre(2, 4), quarter=0); k.model('suburbs.trampoline', *centre(0, 2))
+    else: k.model('suburbs.swing', *centre(2, 2), quarter=0); k.model('suburbs.trampoline', *centre(0, 2))
 
 
 def things_rail(k, bid):
@@ -1565,7 +1584,8 @@ def things_basin(k, bid):
             x, y = centre(c, r); pc = piece_of(bid, c, r)
             if T[r][c] == '#': k.model('marina.cruiser', x, y, int(k.rng.randint(4)))
             elif pc == 'marina_bass': k.model('marina.bass_boat', x, y, int(k.rng.randint(4)))
-    if bid == 'basin.1': k.model('marina.houseboat', 24.0, 30.0, 0)
+    if bid == 'basin.1': k.model('marina.houseboat', 24.0, 30.0, 0); k.model('shore.dock', 46.0, 30.0, 0)   # moored to its dock, both
+    # come to rest on the dry bed (rule 346: the landmark a group of four cells between the lines)
     k.rgb('mudrock', (140, 132, 118), 'tape_grey'); k.scatter('mudrock', 0, 60, 0, 60, 30, 0.2, 0.6, 0.5)
 
 
@@ -2089,6 +2109,23 @@ CARD_SAYS_346 = {
               'across every block, so the firm way through the mud never ends at a line.'),
     'pass': ('The pass is buff rock with iron red in it now, not grey, and each road runs whole across the board with its verges '
              'off the grid lines.'),
+    'trailer': ('The trailer park\'s lane runs whole through every block now, the office lot sits inside its block with a drive to the '
+                'lane, and the mailboxes stand on the verge, not in the road.'),
+    'works': ('The works\' rail spur runs at the same row in every block now, so the tracks run on across the yard, and the old town '
+              'block whose streets met nothing is gone.'),
+    'landfill': ('The landfill\'s haul road runs whole across the board now, the scorch and the gas wells are soft shapes, not squares, '
+                 'and no mound is cut at a picture\'s edge.'),
+    'golf': ('The golf course\'s cart path runs whole across every block now, past the clubhouse patio, and the old block that did not '
+             'match is gone.'),
+    'marina': ('The marina is Lake Mead\'s tan dry bed now, the same at every edge, its houseboat moored to a dock on the dry bed, and '
+               'the old town block whose streets met nothing is gone.'),
+    'redrock': ('Red Rock\'s slickrock sheets are soft shapes now, never along the grid\'s lines, and its ledges sit whole inside their '
+                'blocks.'),
+    'suburb': ('The suburb is rows of houses now, their roofs walked, their walled yards and empty pools behind them and a street below '
+               'each row that runs whole, in place of the old street blocks whose roads met nothing.'),
+    'wash': ('The wash\'s silt floor lies a metre in from the channel\'s slopes now, so no line runs on the grid, and its gravel and '
+             'stains stay off the block edges.'),
+    'desert': ('The desert already held at its seams, and now its one boulder cut at a picture\'s edge sits whole inside it too.'),
     'lab': ('The lab yard keeps its pens but its lot is the yard\'s own floor now, and every edge where two pictures meet is the '
             'same sealed floor, so no line runs where the grid is.'),
 }

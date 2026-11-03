@@ -213,3 +213,14 @@ standing green: at the source, in the models.
   stops and cuts it), read without a render (--clips). Measured: 16 blocks had something cut (rocks, mounds, pools, ledges, the
   lab's sheds and pallets by 0.2 to 2.5 m); now 0 of 46 (Kit.put/model/rock move a thing in when it reaches past by a little;
   the pallets and the terminal fixed by hand). The Strip's and downtown's blocks had none.
+
+## PUSH 3: THE SUBURB, THE TRAILER PARK, THE WORKS (every street, lane and spur runs whole; the old town blocks out)
+- THE SUBURB: its own blocks only now (subs.0, corner.0, culdesac.0 left: their streets met nothing across the seams); each yard
+  block is a row of houses on top (their roofs walked: 'the houses are roofs', the landmark group the plan gate wants between the
+  lines), their walled backyards and empty pools behind them, and the street at the bottom that the next block's houses face,
+  running whole through every block of its row. Seams 65% -> 5%, cell lines 26% -> 0%, cut-offs 14% -> 0%, roads not met 50 -> 0.
+- THE TRAILER PARK: the lane edge to edge through both its blocks (the laundry off it, mailboxes and bins on its verges, the
+  office lot inside its block with a drive to the lane); trailer.0 out. 72% -> 0%, 10% -> 0%, 6.5% -> 0%, 49 -> 0. (Measured
+  first: against the old suburb its plan came within 0.548 of it, under the plan gate's 0.6; with the rebuilt suburb, 1.6.)
+- THE WORKS: rail.2's spur moved to the yard's one row, so the tracks run on block to block; works.0 out. 39% -> 0%, 13% -> 0%,
+  4.6% -> 0%, 38 -> 0.

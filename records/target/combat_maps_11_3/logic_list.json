@@ -206,5 +206,208 @@
     "how": "the AFTER shot against BEFORE"
    }
   ]
+ },
+ "trailer": {
+  "sha": "a36cfc14181a",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the single-wides stand end to end on their own pads, the burnt one on its own; the lane runs edge to edge through every block of its row",
+    "ok": true,
+    "how": "trailer.1, trailer.2 pictures"
+   },
+   {
+    "what": "the mailboxes stand on the lane's north verge and the bins on its south verge, never in the lane; the car under its tarp is parked in the lane",
+    "ok": true,
+    "how": "trailer.2, trailer.1 pictures"
+   },
+   {
+    "what": "the office's lot is inside the block with its drive down to the lane; the laundry stands on its own blocked tile",
+    "ok": true,
+    "how": "trailer.2 picture"
+   }
+  ]
+ },
+ "works": {
+  "sha": "2f2988c8b105",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "every block's spur runs at the same row, so the tracks run on block to block; the boxcar and the tank car stand on the rails, the crossing open between them",
+    "ok": true,
+    "how": "rail.1, rail.2 pictures and the road leg"
+   },
+   {
+    "what": "the gantry crane stands south of the spur on its own two tiles, the car hanging from its hook over open slab, not over a building",
+    "ok": true,
+    "how": "rail.1 picture and its tiles"
+   },
+   {
+    "what": "the stacked pipe and the shop's machines stand on the slab, none on the ballast",
+    "ok": true,
+    "how": "the pictures"
+   }
+  ]
+ },
+ "landfill": {
+  "sha": "f9445275cb26",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the haul road runs edge to edge through both cells' blocks at one row; the flare burns on its own pad",
+    "ok": true,
+    "how": "dump.1, dump.2 pictures"
+   },
+   {
+    "what": "the trash mounds stand on their own height tiles, inside their blocks; the gas wells stand on open cover soil beside them",
+    "ok": true,
+    "how": "the pictures and the edge leg"
+   },
+   {
+    "what": "the scorch where the gas burns is a soft shape inside its tiles, never a square",
+    "ok": true,
+    "how": "dump.1 picture"
+   }
+  ]
+ },
+ "golf": {
+  "sha": "b6acf3d03197",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the cart path runs edge to edge through every block, past the clubhouse patio, never into a bunker",
+    "ok": true,
+    "how": "golf.1, golf.2 pictures"
+   },
+   {
+    "what": "the bunkers are sand shapes inside their tiles; the dry water hazard is a cracked bed with its torn liner",
+    "ok": true,
+    "how": "golf.2 picture"
+   },
+   {
+    "what": "the clubhouse stands on its own height tiles with the awning over the patio; the carts on the path and the patio",
+    "ok": true,
+    "how": "golf.1 picture"
+   }
+  ]
+ },
+ "marina": {
+  "sha": "eafef7345787",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the houseboat lies moored to its dock, both come to rest on the dry bed as one group of height tiles between the lines",
+    "ok": true,
+    "how": "basin.1 picture"
+   },
+   {
+    "what": "the cruisers stand on their blocked tiles, the bass boats on their trailers on the bed, none on the dock",
+    "ok": true,
+    "how": "basin.1, basin.2 pictures"
+   },
+   {
+    "what": "the bed is Lake Mead's tan, the same at every block edge; no boat or dock reaches past its block's side",
+    "ok": true,
+    "how": "the seams and edge legs"
+   }
+  ]
+ },
+ "redrock": {
+  "sha": "f99eb46a7df9",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the sandstone fins stand on their own height and blocked tiles, the slot between them open",
+    "ok": true,
+    "how": "canyon.1 picture"
+   },
+   {
+    "what": "the slickrock sheets on open ground are soft shapes inside the open tiles, never along the grid's line",
+    "ok": true,
+    "how": "canyon.1, canyon.2 pictures"
+   },
+   {
+    "what": "the ledges and boulders stand inside their blocks; the junipers grow from the sand, not from the rock's face",
+    "ok": true,
+    "how": "the pictures and the edge leg"
+   }
+  ]
+ },
+ "suburb": {
+  "sha": "647068be2ba5",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "every yard block is a row of houses on top (their roofs walked), their backyards behind them, and the street at the bottom that the next block's houses face; the street runs whole through every block of its row",
+    "ok": true,
+    "how": "yards.1, yards.2 pictures and the road leg"
+   },
+   {
+    "what": "the houses' sliding doors and patios open onto their own yards; the yard walls run along the lots' lines; the empty pools sit inside their decks a metre in from the tiles' edges",
+    "ok": true,
+    "how": "the pictures"
+   },
+   {
+    "what": "the cars stand at the kerb on the street, never in a yard; the swings and trampolines stand on the dead lawns, never in a pool or across a wall",
+    "ok": true,
+    "how": "the pictures"
+   },
+   {
+    "what": "no house, pool or wall reaches past its block's side",
+    "ok": true,
+    "how": "the edge leg"
+   }
+  ]
+ },
+ "wash": {
+  "sha": "f105471ba3a2",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the concrete channel runs on block to block down its column, its silt floor a metre in from the slopes' feet; the banks either side are height",
+    "ok": true,
+    "how": "wash.2, wash.3 pictures"
+   },
+   {
+    "what": "the culvert's box barrels pass under the road embankment, the one way through it; the sofa and the carts lie in the silt",
+    "ok": true,
+    "how": "wash.2 picture"
+   },
+   {
+    "what": "the camp's tents and tarps stand on the bank, never in the channel; the fence lines' gravel is a soft strip",
+    "ok": true,
+    "how": "wash.4 picture"
+   }
+  ]
+ },
+ "desert": {
+  "sha": "154ed7ad27a6",
+  "when": "11/3",
+  "by": "COMBAT MAPS 3, by eye on the live fight's shots",
+  "checks": [
+   {
+    "what": "the wash's pale silt runs down its own column block to block; the pavement either side is the same at every edge",
+    "ok": true,
+    "how": "desert.1-3 pictures and the seams leg"
+   },
+   {
+    "what": "the boulders and the dead brush stand inside their blocks; the perfect bare circle stands alone",
+    "ok": true,
+    "how": "the pictures and the edge leg"
+   },
+   {
+    "what": "nothing stands in the wash's channel that could not have washed there",
+    "ok": true,
+    "how": "the pictures"
+   }
+  ]
  }
 }

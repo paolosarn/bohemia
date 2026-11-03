@@ -770,6 +770,13 @@
    "name": "THE BRIDGE'S STAIRS",
    "baked": true,
    "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
+  },
+  "yards_car": {
+   "kind": "COVER",
+   "h": 1.5,
+   "name": "A CAR LEFT AT THE KERB",
+   "baked": true,
+   "by": "tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py"
   }
  },
  "blocks": {
@@ -25348,21 +25355,21 @@
    "blocks": [
     [
      "trailer.2",
-     "trailer.0",
      "trailer.2",
-     "trailer.0"
-    ],
-    [
-     "trailer.0",
-     "trailer.1",
-     "trailer.0",
+     "trailer.2",
      "trailer.2"
     ],
     [
      "trailer.2",
-     "trailer.0",
+     "trailer.1",
      "trailer.2",
-     "trailer.0"
+     "trailer.2"
+    ],
+    [
+     "trailer.2",
+     "trailer.2",
+     "trailer.2",
+     "trailer.2"
     ]
    ],
    "terrain": [
@@ -25372,8 +25379,8 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat",
@@ -25382,8 +25389,8 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat"
@@ -25392,34 +25399,7 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
      "blocked",
-     "blocked",
-     "rough",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "rough",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
      "flat",
      "flat",
      "flat",
@@ -25429,30 +25409,13 @@
      "flat",
      "flat",
      "flat",
+     "blocked",
      "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
      "flat"
-    ],
-    [
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "height",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "height",
-     "blocked",
-     "blocked"
     ],
     [
      "flat",
@@ -25478,17 +25441,8 @@
     ],
     [
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
      "blocked",
-     "flat",
      "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
      "flat",
      "flat",
      "flat",
@@ -25496,68 +25450,11 @@
      "blocked",
      "flat",
      "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "rough",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
      "flat",
      "blocked",
      "blocked",
-     "blocked",
-     "rough",
-     "blocked",
-     "blocked",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "height",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "height",
-     "blocked",
-     "blocked",
      "flat",
      "blocked",
      "blocked",
@@ -25571,9 +25468,9 @@
      "flat",
      "flat",
      "flat",
-     "blocked",
      "flat",
-     "blocked",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -25592,13 +25489,57 @@
      "flat",
      "flat",
      "flat",
+     "blocked",
      "flat",
+     "blocked",
      "flat",
+     "blocked",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat",
      "blocked",
      "blocked",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -25610,25 +25551,69 @@
     ],
     [
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "rough",
      "blocked",
      "blocked",
      "flat",
      "flat",
      "flat",
+     "blocked",
+     "flat",
+     "blocked",
      "flat",
      "flat",
      "blocked",
      "blocked",
-     "rough",
+     "flat",
+     "flat",
+     "flat",
      "blocked",
-     "blocked"
+     "blocked",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat"
     ],
     [
      "flat",
@@ -25639,12 +25624,34 @@
      "flat",
      "flat",
      "flat",
-     "flat",
+     "blocked",
      "flat",
      "flat",
      "flat",
      "flat",
      "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -25658,21 +25665,21 @@
      "blocked",
      "flat",
      "flat",
-     "blocked",
-     "blocked",
-     "height",
-     "blocked",
-     "blocked",
      "flat",
      "blocked",
      "blocked",
      "flat",
      "flat",
+     "flat",
      "blocked",
      "blocked",
-     "height",
+     "flat",
+     "flat",
+     "flat",
      "blocked",
-     "blocked"
+     "blocked",
+     "flat",
+     "flat"
     ],
     [
      "flat",
@@ -25729,39 +25736,34 @@
      "y_m": 54.0
     },
     {
-     "piece": "trailer",
-     "x_m": 87.0,
+     "piece": "trailer_propane",
+     "x_m": 90.0,
      "y_m": 18.0
     },
     {
-     "piece": "dumpster",
+     "piece": "trailer_propane",
+     "x_m": 114.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "trailer_bins",
      "x_m": 66.0,
-     "y_m": 26.0
+     "y_m": 30.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 100.0,
-     "y_m": 27.5
+     "piece": "trailer_mail",
+     "x_m": 78.0,
+     "y_m": 30.0
     },
     {
-     "piece": "fence",
-     "x_m": 73.0,
-     "y_m": 55.0
+     "piece": "trailer_junk",
+     "x_m": 114.0,
+     "y_m": 42.0
     },
     {
-     "piece": "fence",
-     "x_m": 80.0,
-     "y_m": 55.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 110.0,
-     "y_m": 52.0
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 66.0,
-     "y_m": 3.0
+     "piece": "trailer_junk",
+     "x_m": 78.0,
+     "y_m": 54.0
     },
     {
      "piece": "trailer_propane",
@@ -25794,74 +25796,64 @@
      "y_m": 54.0
     },
     {
-     "piece": "trailer",
-     "x_m": 207.0,
+     "piece": "trailer_propane",
+     "x_m": 210.0,
      "y_m": 18.0
     },
     {
-     "piece": "dumpster",
+     "piece": "trailer_propane",
+     "x_m": 234.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "trailer_bins",
      "x_m": 186.0,
-     "y_m": 26.0
+     "y_m": 30.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 220.0,
-     "y_m": 27.5
+     "piece": "trailer_mail",
+     "x_m": 198.0,
+     "y_m": 30.0
     },
     {
-     "piece": "fence",
-     "x_m": 193.0,
-     "y_m": 55.0
+     "piece": "trailer_junk",
+     "x_m": 234.0,
+     "y_m": 42.0
     },
     {
-     "piece": "fence",
-     "x_m": 200.0,
-     "y_m": 55.0
+     "piece": "trailer_junk",
+     "x_m": 198.0,
+     "y_m": 54.0
     },
     {
-     "piece": "shed",
-     "x_m": 230.0,
-     "y_m": 52.0
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 186.0,
-     "y_m": 3.0
-    },
-    {
-     "piece": "trailer",
-     "x_m": 27.0,
+     "piece": "trailer_propane",
+     "x_m": 30.0,
      "y_m": 78.0
     },
     {
-     "piece": "dumpster",
+     "piece": "trailer_propane",
+     "x_m": 54.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "trailer_bins",
      "x_m": 6.0,
-     "y_m": 86.0
+     "y_m": 90.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 40.0,
-     "y_m": 87.5
+     "piece": "trailer_mail",
+     "x_m": 18.0,
+     "y_m": 90.0
     },
     {
-     "piece": "fence",
-     "x_m": 13.0,
-     "y_m": 115.0
+     "piece": "trailer_junk",
+     "x_m": 54.0,
+     "y_m": 102.0
     },
     {
-     "piece": "fence",
-     "x_m": 20.0,
-     "y_m": 115.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 50.0,
-     "y_m": 112.0
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 6.0,
-     "y_m": 63.0
+     "piece": "trailer_junk",
+     "x_m": 18.0,
+     "y_m": 114.0
     },
     {
      "piece": "trailer_propane",
@@ -25894,39 +25886,34 @@
      "y_m": 114.0
     },
     {
-     "piece": "trailer",
-     "x_m": 147.0,
+     "piece": "trailer_propane",
+     "x_m": 150.0,
      "y_m": 78.0
     },
     {
-     "piece": "dumpster",
+     "piece": "trailer_propane",
+     "x_m": 174.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "trailer_bins",
      "x_m": 126.0,
-     "y_m": 86.0
+     "y_m": 90.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 160.0,
-     "y_m": 87.5
+     "piece": "trailer_mail",
+     "x_m": 138.0,
+     "y_m": 90.0
     },
     {
-     "piece": "fence",
-     "x_m": 133.0,
-     "y_m": 115.0
+     "piece": "trailer_junk",
+     "x_m": 174.0,
+     "y_m": 102.0
     },
     {
-     "piece": "fence",
-     "x_m": 140.0,
-     "y_m": 115.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 170.0,
-     "y_m": 112.0
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 126.0,
-     "y_m": 63.0
+     "piece": "trailer_junk",
+     "x_m": 138.0,
+     "y_m": 114.0
     },
     {
      "piece": "trailer_propane",
@@ -25989,39 +25976,34 @@
      "y_m": 174.0
     },
     {
-     "piece": "trailer",
-     "x_m": 87.0,
+     "piece": "trailer_propane",
+     "x_m": 90.0,
      "y_m": 138.0
     },
     {
-     "piece": "dumpster",
+     "piece": "trailer_propane",
+     "x_m": 114.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "trailer_bins",
      "x_m": 66.0,
-     "y_m": 146.0
+     "y_m": 150.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 100.0,
-     "y_m": 147.5
+     "piece": "trailer_mail",
+     "x_m": 78.0,
+     "y_m": 150.0
     },
     {
-     "piece": "fence",
-     "x_m": 73.0,
-     "y_m": 175.0
+     "piece": "trailer_junk",
+     "x_m": 114.0,
+     "y_m": 162.0
     },
     {
-     "piece": "fence",
-     "x_m": 80.0,
-     "y_m": 175.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 110.0,
-     "y_m": 172.0
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 66.0,
-     "y_m": 123.0
+     "piece": "trailer_junk",
+     "x_m": 78.0,
+     "y_m": 174.0
     },
     {
      "piece": "trailer_propane",
@@ -26054,39 +26036,34 @@
      "y_m": 174.0
     },
     {
-     "piece": "trailer",
-     "x_m": 207.0,
+     "piece": "trailer_propane",
+     "x_m": 210.0,
      "y_m": 138.0
     },
     {
-     "piece": "dumpster",
+     "piece": "trailer_propane",
+     "x_m": 234.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "trailer_bins",
      "x_m": 186.0,
-     "y_m": 146.0
+     "y_m": 150.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 220.0,
-     "y_m": 147.5
+     "piece": "trailer_mail",
+     "x_m": 198.0,
+     "y_m": 150.0
     },
     {
-     "piece": "fence",
-     "x_m": 193.0,
-     "y_m": 175.0
+     "piece": "trailer_junk",
+     "x_m": 234.0,
+     "y_m": 162.0
     },
     {
-     "piece": "fence",
-     "x_m": 200.0,
-     "y_m": 175.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 230.0,
-     "y_m": 172.0
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 186.0,
-     "y_m": 123.0
+     "piece": "trailer_junk",
+     "x_m": 198.0,
+     "y_m": 174.0
     }
    ],
    "lights": []
@@ -29892,330 +29869,66 @@
    "blocks": [
     [
      "yards.2",
-     "subs.0",
-     "corner.0",
-     "culdesac.0"
-    ],
-    [
-     "subs.0",
-     "yards.1",
-     "culdesac.0",
+     "yards.2",
+     "yards.2",
      "yards.2"
     ],
     [
-     "corner.0",
-     "culdesac.0",
      "yards.2",
-     "subs.0"
+     "yards.1",
+     "yards.2",
+     "yards.2"
+    ],
+    [
+     "yards.2",
+     "yards.2",
+     "yards.2",
+     "yards.2"
     ]
    ],
    "terrain": [
     [
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
+     "height",
      "height",
      "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
      "height",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
+     "height",
+     "height",
      "height",
      "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "rough"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "blocked",
-     "flat",
+     "height",
+     "height",
+     "height",
+     "height",
      "flat",
      "height",
-     "blocked",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height"
+    ],
+    [
      "flat",
      "flat",
-     "flat",
-     "blocked",
      "flat",
      "rough",
      "flat",
      "flat",
      "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "height",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
      "flat"
     ],
     [
@@ -30233,7 +29946,271 @@
      "flat",
      "flat",
      "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
      "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "height",
+     "height",
+     "flat",
+     "height",
+     "height"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -30242,16 +30219,6 @@
     ]
    ],
    "cover": [
-    {
-     "piece": "yards_wall",
-     "x_m": 18.0,
-     "y_m": 6.0
-    },
-    {
-     "piece": "yards_wall",
-     "x_m": 42.0,
-     "y_m": 6.0
-    },
     {
      "piece": "yards_wall",
      "x_m": 6.0,
@@ -30278,109 +30245,164 @@
      "y_m": 42.0
     },
     {
-     "piece": "yards_wall",
+     "piece": "yards_car",
      "x_m": 18.0,
      "y_m": 54.0
     },
     {
-     "piece": "yards_wall",
+     "piece": "yards_car",
      "x_m": 42.0,
      "y_m": 54.0
     },
     {
-     "piece": "wall",
-     "x_m": 63.0,
-     "y_m": 11.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 112.0,
-     "y_m": 50.0
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 91.9,
-     "y_m": 30.1
-    },
-    {
-     "piece": "shed",
-     "x_m": 124.0,
-     "y_m": 50.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 125.2,
-     "y_m": 30.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 132.8,
-     "y_m": 29.6
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 207.8,
-     "y_m": 20.5
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 221.0,
-     "y_m": 13.0
-    },
-    {
-     "piece": "wall",
-     "x_m": 181.0,
-     "y_m": 28.8
-    },
-    {
-     "piece": "wall",
-     "x_m": 233.0,
-     "y_m": 28.8
-    },
-    {
-     "piece": "wall_corner",
-     "x_m": 182.4,
-     "y_m": 49.2
-    },
-    {
-     "piece": "wall_broken",
-     "x_m": 223.2,
-     "y_m": 50.4
-    },
-    {
-     "piece": "shed",
-     "x_m": 231.6,
-     "y_m": 1.2
-    },
-    {
-     "piece": "wall",
-     "x_m": 3.0,
-     "y_m": 71.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 52.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 31.9,
-     "y_m": 90.1
+     "piece": "yards_wall",
+     "x_m": 66.0,
+     "y_m": 18.0
     },
     {
      "piece": "yards_wall",
-     "x_m": 66.0,
-     "y_m": 66.0
+     "x_m": 114.0,
+     "y_m": 18.0
     },
     {
      "piece": "yards_wall",
      "x_m": 90.0,
-     "y_m": 66.0
+     "y_m": 30.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 66.0,
+     "y_m": 42.0
     },
     {
      "piece": "yards_wall",
      "x_m": 114.0,
-     "y_m": 66.0
+     "y_m": 42.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 78.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 102.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 126.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 174.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 150.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 126.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 174.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 138.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 162.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 186.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 234.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 210.0,
+     "y_m": 30.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 186.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 234.0,
+     "y_m": 42.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 198.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 222.0,
+     "y_m": 54.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 6.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 54.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 30.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 6.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 54.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 18.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 42.0,
+     "y_m": 114.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 66.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 90.0,
+     "y_m": 78.0
     },
     {
      "piece": "yards_wall",
@@ -30405,57 +30427,52 @@
     {
      "piece": "yards_wall",
      "x_m": 78.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 114.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 90.0,
      "y_m": 114.0
     },
     {
      "piece": "yards_wall",
-     "x_m": 102.0,
+     "x_m": 126.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 174.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 150.0,
+     "y_m": 90.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 126.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 174.0,
+     "y_m": 102.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 138.0,
      "y_m": 114.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 147.8,
-     "y_m": 80.5
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 161.0,
-     "y_m": 73.0
-    },
-    {
-     "piece": "wall",
-     "x_m": 121.0,
-     "y_m": 88.8
-    },
-    {
-     "piece": "wall",
-     "x_m": 173.0,
-     "y_m": 88.8
-    },
-    {
-     "piece": "wall_corner",
-     "x_m": 122.4,
-     "y_m": 109.2
-    },
-    {
-     "piece": "wall_broken",
-     "x_m": 163.2,
-     "y_m": 110.4
-    },
-    {
-     "piece": "shed",
-     "x_m": 171.6,
-     "y_m": 61.2
-    },
-    {
-     "piece": "yards_wall",
-     "x_m": 198.0,
-     "y_m": 66.0
-    },
-    {
-     "piece": "yards_wall",
-     "x_m": 222.0,
-     "y_m": 66.0
+     "piece": "yards_car",
+     "x_m": 162.0,
+     "y_m": 114.0
     },
     {
      "piece": "yards_wall",
@@ -30483,74 +30500,84 @@
      "y_m": 102.0
     },
     {
-     "piece": "yards_wall",
+     "piece": "yards_car",
      "x_m": 198.0,
      "y_m": 114.0
     },
     {
-     "piece": "yards_wall",
+     "piece": "yards_car",
      "x_m": 222.0,
      "y_m": 114.0
     },
     {
-     "piece": "shed",
-     "x_m": 4.0,
-     "y_m": 170.0
+     "piece": "yards_wall",
+     "x_m": 6.0,
+     "y_m": 138.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 5.2,
+     "piece": "yards_wall",
+     "x_m": 54.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 30.0,
      "y_m": 150.0
     },
     {
-     "piece": "car_kerb",
-     "x_m": 12.8,
-     "y_m": 149.6
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 87.8,
-     "y_m": 140.5
-    },
-    {
-     "piece": "car_drive",
-     "x_m": 101.0,
-     "y_m": 133.0
-    },
-    {
-     "piece": "wall",
-     "x_m": 61.0,
-     "y_m": 148.8
-    },
-    {
-     "piece": "wall",
-     "x_m": 113.0,
-     "y_m": 148.8
-    },
-    {
-     "piece": "wall_corner",
-     "x_m": 62.4,
-     "y_m": 169.2
-    },
-    {
-     "piece": "wall_broken",
-     "x_m": 103.2,
-     "y_m": 170.4
-    },
-    {
-     "piece": "shed",
-     "x_m": 111.6,
-     "y_m": 121.2
+     "piece": "yards_wall",
+     "x_m": 6.0,
+     "y_m": 162.0
     },
     {
      "piece": "yards_wall",
-     "x_m": 138.0,
-     "y_m": 126.0
+     "x_m": 54.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 18.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 42.0,
+     "y_m": 174.0
     },
     {
      "piece": "yards_wall",
-     "x_m": 162.0,
-     "y_m": 126.0
+     "x_m": 66.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 114.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 90.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 66.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 114.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 78.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 102.0,
+     "y_m": 174.0
     },
     {
      "piece": "yards_wall",
@@ -30578,29 +30605,49 @@
      "y_m": 162.0
     },
     {
-     "piece": "yards_wall",
+     "piece": "yards_car",
      "x_m": 138.0,
      "y_m": 174.0
     },
     {
-     "piece": "yards_wall",
+     "piece": "yards_car",
      "x_m": 162.0,
      "y_m": 174.0
     },
     {
-     "piece": "wall",
-     "x_m": 183.0,
-     "y_m": 131.0
+     "piece": "yards_wall",
+     "x_m": 186.0,
+     "y_m": 138.0
     },
     {
-     "piece": "shed",
-     "x_m": 232.0,
-     "y_m": 170.0
+     "piece": "yards_wall",
+     "x_m": 234.0,
+     "y_m": 138.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 211.9,
-     "y_m": 150.1
+     "piece": "yards_wall",
+     "x_m": 210.0,
+     "y_m": 150.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 186.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "yards_wall",
+     "x_m": 234.0,
+     "y_m": 162.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 198.0,
+     "y_m": 174.0
+    },
+    {
+     "piece": "yards_car",
+     "x_m": 222.0,
+     "y_m": 174.0
     }
    ],
    "lights": []
@@ -31903,21 +31950,21 @@
    "blocks": [
     [
      "rail.2",
-     "works.0",
      "rail.2",
-     "works.0"
-    ],
-    [
-     "works.0",
-     "rail.1",
-     "works.0",
+     "rail.2",
      "rail.2"
     ],
     [
      "rail.2",
-     "works.0",
+     "rail.1",
      "rail.2",
-     "works.0"
+     "rail.2"
+    ],
+    [
+     "rail.2",
+     "rail.2",
+     "rail.2",
+     "rail.2"
     ]
    ],
    "terrain": [
@@ -31949,94 +31996,8 @@
      "flat",
      "flat",
      "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "height",
-     "height",
      "flat",
      "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "height",
-     "height"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "height",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "height",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
      "flat",
      "flat",
      "flat",
@@ -32045,30 +32006,6 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
-     "height",
-     "height",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "height",
-     "height",
      "flat",
      "blocked",
      "flat",
@@ -32078,62 +32015,18 @@
     [
      "flat",
      "flat",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat",
      "blocked",
      "blocked",
      "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
      "flat",
      "flat",
      "blocked",
      "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "flat"
-    ],
-    [
-     "flat",
-     "height",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "height",
-     "flat",
-     "flat",
      "flat",
      "flat",
      "flat",
@@ -32165,25 +32058,91 @@
     ],
     [
      "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
      "blocked",
      "flat",
      "flat",
      "flat",
      "blocked",
      "blocked",
-     "blocked",
-     "height",
-     "height",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "height",
-     "height"
+     "flat"
     ],
     [
      "flat",
@@ -32213,19 +32172,63 @@
      "flat",
      "blocked",
      "flat",
-     "blocked",
-     "blocked",
-     "blocked",
      "flat",
      "flat",
      "flat",
      "flat",
      "flat",
-     "blocked",
+     "flat",
+     "flat",
      "flat",
      "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
      "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
      "flat",
      "flat"
     ],
@@ -32236,9 +32239,9 @@
      "blocked",
      "flat",
      "flat",
-     "height",
      "flat",
-     "flat",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat",
@@ -32246,9 +32249,53 @@
      "blocked",
      "flat",
      "flat",
-     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat"
+    ],
+    [
      "flat",
      "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
      "flat"
     ]
    ],
@@ -32260,48 +32307,38 @@
     },
     {
      "piece": "works_pipes",
+     "x_m": 54.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "works_pipes",
      "x_m": 6.0,
-     "y_m": 30.0
+     "y_m": 42.0
     },
     {
      "piece": "works_pipes",
      "x_m": 54.0,
-     "y_m": 30.0
+     "y_m": 42.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 100.0,
-     "y_m": 27.0
+     "piece": "works_pipes",
+     "x_m": 90.0,
+     "y_m": 6.0
     },
     {
-     "piece": "wall",
-     "x_m": 100.0,
-     "y_m": 50.0
+     "piece": "works_pipes",
+     "x_m": 114.0,
+     "y_m": 18.0
     },
     {
-     "piece": "shed",
-     "x_m": 110.0,
-     "y_m": 40.0
+     "piece": "works_pipes",
+     "x_m": 66.0,
+     "y_m": 42.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 64.0,
-     "y_m": 24.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 74.0,
-     "y_m": 24.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 86.0,
-     "y_m": 24.4
-    },
-    {
-     "piece": "dock",
-     "x_m": 70.0,
-     "y_m": 48.4
+     "piece": "works_pipes",
+     "x_m": 114.0,
+     "y_m": 42.0
     },
     {
      "piece": "works_pipes",
@@ -32310,83 +32347,58 @@
     },
     {
      "piece": "works_pipes",
+     "x_m": 174.0,
+     "y_m": 18.0
+    },
+    {
+     "piece": "works_pipes",
      "x_m": 126.0,
-     "y_m": 30.0
+     "y_m": 42.0
     },
     {
      "piece": "works_pipes",
      "x_m": 174.0,
-     "y_m": 30.0
+     "y_m": 42.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 220.0,
-     "y_m": 27.0
+     "piece": "works_pipes",
+     "x_m": 210.0,
+     "y_m": 6.0
     },
     {
-     "piece": "wall",
-     "x_m": 220.0,
-     "y_m": 50.0
+     "piece": "works_pipes",
+     "x_m": 234.0,
+     "y_m": 18.0
     },
     {
-     "piece": "shed",
-     "x_m": 230.0,
-     "y_m": 40.0
+     "piece": "works_pipes",
+     "x_m": 186.0,
+     "y_m": 42.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 184.0,
-     "y_m": 24.4
+     "piece": "works_pipes",
+     "x_m": 234.0,
+     "y_m": 42.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 194.0,
-     "y_m": 24.4
+     "piece": "works_pipes",
+     "x_m": 30.0,
+     "y_m": 66.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 206.0,
-     "y_m": 24.4
+     "piece": "works_pipes",
+     "x_m": 54.0,
+     "y_m": 78.0
     },
     {
-     "piece": "dock",
-     "x_m": 190.0,
-     "y_m": 48.4
+     "piece": "works_pipes",
+     "x_m": 6.0,
+     "y_m": 102.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 40.0,
-     "y_m": 87.0
-    },
-    {
-     "piece": "wall",
-     "x_m": 40.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 50.0,
-     "y_m": 100.0
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 4.0,
-     "y_m": 84.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 14.0,
-     "y_m": 84.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 26.0,
-     "y_m": 84.4
-    },
-    {
-     "piece": "dock",
-     "x_m": 10.0,
-     "y_m": 108.4
+     "piece": "works_pipes",
+     "x_m": 54.0,
+     "y_m": 102.0
     },
     {
      "piece": "works_gantry",
@@ -32409,39 +32421,24 @@
      "y_m": 114.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 160.0,
-     "y_m": 87.0
+     "piece": "works_pipes",
+     "x_m": 150.0,
+     "y_m": 66.0
     },
     {
-     "piece": "wall",
-     "x_m": 160.0,
-     "y_m": 110.0
+     "piece": "works_pipes",
+     "x_m": 174.0,
+     "y_m": 78.0
     },
     {
-     "piece": "shed",
-     "x_m": 170.0,
-     "y_m": 100.0
+     "piece": "works_pipes",
+     "x_m": 126.0,
+     "y_m": 102.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 124.0,
-     "y_m": 84.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 134.0,
-     "y_m": 84.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 146.0,
-     "y_m": 84.4
-    },
-    {
-     "piece": "dock",
-     "x_m": 130.0,
-     "y_m": 108.4
+     "piece": "works_pipes",
+     "x_m": 174.0,
+     "y_m": 102.0
     },
     {
      "piece": "works_pipes",
@@ -32450,13 +32447,18 @@
     },
     {
      "piece": "works_pipes",
+     "x_m": 234.0,
+     "y_m": 78.0
+    },
+    {
+     "piece": "works_pipes",
      "x_m": 186.0,
-     "y_m": 90.0
+     "y_m": 102.0
     },
     {
      "piece": "works_pipes",
      "x_m": 234.0,
-     "y_m": 90.0
+     "y_m": 102.0
     },
     {
      "piece": "works_pipes",
@@ -32465,48 +32467,38 @@
     },
     {
      "piece": "works_pipes",
+     "x_m": 54.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "works_pipes",
      "x_m": 6.0,
-     "y_m": 150.0
+     "y_m": 162.0
     },
     {
      "piece": "works_pipes",
      "x_m": 54.0,
-     "y_m": 150.0
+     "y_m": 162.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 100.0,
-     "y_m": 147.0
+     "piece": "works_pipes",
+     "x_m": 90.0,
+     "y_m": 126.0
     },
     {
-     "piece": "wall",
-     "x_m": 100.0,
-     "y_m": 170.0
+     "piece": "works_pipes",
+     "x_m": 114.0,
+     "y_m": 138.0
     },
     {
-     "piece": "shed",
-     "x_m": 110.0,
-     "y_m": 160.0
+     "piece": "works_pipes",
+     "x_m": 66.0,
+     "y_m": 162.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 64.0,
-     "y_m": 144.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 74.0,
-     "y_m": 144.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 86.0,
-     "y_m": 144.4
-    },
-    {
-     "piece": "dock",
-     "x_m": 70.0,
-     "y_m": 168.4
+     "piece": "works_pipes",
+     "x_m": 114.0,
+     "y_m": 162.0
     },
     {
      "piece": "works_pipes",
@@ -32515,48 +32507,38 @@
     },
     {
      "piece": "works_pipes",
+     "x_m": 174.0,
+     "y_m": 138.0
+    },
+    {
+     "piece": "works_pipes",
      "x_m": 126.0,
-     "y_m": 150.0
+     "y_m": 162.0
     },
     {
      "piece": "works_pipes",
      "x_m": 174.0,
-     "y_m": 150.0
+     "y_m": 162.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 220.0,
-     "y_m": 147.0
+     "piece": "works_pipes",
+     "x_m": 210.0,
+     "y_m": 126.0
     },
     {
-     "piece": "wall",
-     "x_m": 220.0,
-     "y_m": 170.0
+     "piece": "works_pipes",
+     "x_m": 234.0,
+     "y_m": 138.0
     },
     {
-     "piece": "shed",
-     "x_m": 230.0,
-     "y_m": 160.0
+     "piece": "works_pipes",
+     "x_m": 186.0,
+     "y_m": 162.0
     },
     {
-     "piece": "dumpster",
-     "x_m": 184.0,
-     "y_m": 144.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 194.0,
-     "y_m": 144.4
-    },
-    {
-     "piece": "dumpster",
-     "x_m": 206.0,
-     "y_m": 144.4
-    },
-    {
-     "piece": "dock",
-     "x_m": 190.0,
-     "y_m": 168.4
+     "piece": "works_pipes",
+     "x_m": 234.0,
+     "y_m": 162.0
     }
    ],
    "lights": []

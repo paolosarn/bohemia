@@ -25,7 +25,7 @@ const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? proces
 const BEFORE = process.argv.includes('--before'), OUT = arg('--json', null), ONLY = arg('--only', null);
 const K = 3;
 const FLOOR = { block_seen: 0.12, cell_seen: 0.04, cut: 0.04, road_bad: 0 };   /* shares of the borders read (roads: none) */
-const OWED_SEAMS = ['golf', 'trailer', 'desert', 'redrock', 'wash', 'landfill', 'suburb', 'works', 'marina'];
+const OWED_SEAMS = ['golf', 'desert', 'redrock', 'wash', 'landfill', 'marina'];
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.css': 'text/css', '.wasm': 'application/wasm', '.glb': 'model/gltf-binary' };
 
 function blocksSha(place, P, G) {

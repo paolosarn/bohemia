@@ -3032,8 +3032,7 @@
      "horror": "the washing on the line is spotless white, pegged out fresh, the only clean thing in the park (COOK PROPS' wrong thing)",
      "landmark_block": "trailer.1",
      "field": [
-      "trailer.2",
-      "trailer.0"
+      "trailer.2"
      ],
      "mirror": true,
      "landmark_col": 1,
@@ -3286,10 +3285,7 @@
      "horror": "two fingers of perfectly clear water in the deep end of one empty pool (COOK PROPS' wrong thing)",
      "landmark_block": "yards.1",
      "field": [
-      "yards.2",
-      "subs.0",
-      "corner.0",
-      "culdesac.0"
+      "yards.2"
      ],
      "mirror": true,
      "landmark_col": 1,
@@ -3422,8 +3418,7 @@
      "horror": "a car hangs from the gantry's hook over your heads (COOK PROPS' wrong thing)",
      "landmark_block": "rail.1",
      "field": [
-      "rail.2",
-      "works.0"
+      "rail.2"
      ],
      "mirror": true,
      "landmark_col": 1,
