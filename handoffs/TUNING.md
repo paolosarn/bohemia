@@ -1,6 +1,13 @@
 # TUNING (the numbers; and DIFFICULTY, the lane the coordinator started 11/3 for rule 351(c)(d)) -- written only by these lanes, newest first
 
 TUNING 2 (session_01GKDyuv8sejYGSXYyFMacNf): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE (rule 370, ask line 396). BUILT, NOT YET SEEN.
+DIFFICULTY FINE-TUNED (rule 380, ask line 409, BUILD 11/3zzzzat): records/BOHEMIA_TUNING_DIFFICULTY_FINE_TUNED_11_3_26.md: Battle Brothers'
+steps (Beginner: aim 5 each way, +10% experience, crisis later, easier groups later; Expert: no aim, harder groups sooner; economy 90% pay and
+prices on the top level) beside ours; ours are small in crews (1 / 1 / 1.15) but SEEN IT -> OUTLIVED IT is a cliff (the same nine men, day 20,
+hardest job: 19 / 18 / 13 of 20 won) where the aim, 15% more men and 8 tier days land at once. The spread (SEEN IT at aim 0, OUTLIVED IT's tier
+days down) waits on WORLD's tool climbing its men; experience / pay / prices per level need code (ROUTED). Gate leg D1 (closeness_bands.steps).
+VOTE tuning-the-same-fight-three-levels-11-3. CORRECTED my own claim that Battle Brothers' Beginner never shrinks a crew (record, table note,
+handoff, START line, the first card's why).
 THE BIG BEASTS (rule 370(9), the coordinator's 09:30 note): the bull, the bear, the sloth and the camel now strike with wiki rows that go half
 through armour (Gore, Bite, Uproot, Size 2 Headbutt; bohemia_enemies.json beast.attack): 17 -> 48 in 100 of their landed blows take half a man
 (1 -> 15 on the armoured company), still won 98 in 100; gate legs O2 and B5 (THE FIGHT IS CLOSE 14/0); record s9. The lion keeps the cat's bite.
@@ -14,7 +21,7 @@ tough job, three levels, 20 fights a cell. Banks: banks/BOHEMIA_TUNING_THE_FIGHT
 FOUND (records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s3): the walk is ARMOUR, not cheap gear. Battle Brothers' damage rule (ours
 exactly) lets 210 armour soak a two-hander to 3 or 4 health a blow until three blows break it, and our enemy spreads its blows over twelve
 men, so an armoured company won with 96 to 98% health from day 10 on every level; rare men in the post's own kit (mail) the same; rare men in
-the cheapest kit lost about two men a fight at day 20. NEW HERE was easier than Battle Brothers' easiest (Beginner's aim AND 15% off every
+the cheapest kit lost about two men a fight at day 20. NEW HERE gave Beginner's aim AND 15% off every
 crew); the Lone Wolf's door kit is Battle Brothers' endgame on day one (his day 1: every blow 1 health); the knife-pistol is a 3-battery
 gun firing 15-battery javelins; 30 armour pieces cost more than a better piece of their slot.
 SHIPPED (data only): party_math difficulty_count_mult NEW HERE 0.85 -> 1; job_bb.dress_ahead [2.5, 3, 4] -> [2.5, 3.5, 4.5] (late men about
@@ -50,8 +57,8 @@ fight side shipped a19b52b30) and 380 (difficulty as small Battle Brothers steps
 count past the table's step; this round already took NEW HERE's crew cut away, so the three levels' counts are 1 / 1 / 1.15).
 NEXT IF REOPENED: rule 380's research and steps, rule 377's weight classes, SEEN IT's tough band back to 96 / 1.0; when WORLD's tool climbs its men, ship s4(a) (SEEN IT's aim, the brigand mix) and widen the bands; when COMBAT 7's target
 choice lands, re-run the gate and tighten NEW HERE's routine band; his verdict on the card.
-[bb the ramp: Battle Brothers' easiest level keeps its full crews and only gives five points of aim; ours took both and more; now it does what
-Battle Brothers does, so the easiest level bites the way his did]
+[bb the step: Battle Brothers' easiest level gives five points of aim and easier groups later; ours gave the aim and 15% off every crew; now it
+gives the aim and the full crew, a small step past Battle Brothers' easiest, so it bites the way his did]
 [analog horror: the men on the road get better because you did; nobody says so, there are just more of the ones with a name on their blade]
 
 DIFFICULTY (session_01GKDyutpwcv9PzqapTwa4Pq): 11/3 LATEST -- BUILD 11/3zzzn - THREE DIFFICULTIES, BUILT, NOT YET SEEN (rule 351(c)(d), ask line 363).

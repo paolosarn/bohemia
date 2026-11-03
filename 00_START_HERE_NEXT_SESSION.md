@@ -6,11 +6,12 @@ helm; the Strip's tournament (five men, three rounds). Gate THE ARENA 34/0. The 
 [bb Battle Brothers' arena is the floor: the card before you sign, one a day, paid on a win, no retreat, no loot, the crowd, the ranks, the tournament.]
 [analog horror: the pit is a pool nobody filled again, and the crowd comes through a PA that cuts out.]
 
-TUNING TWO (tuning-2-the-fight-is-close): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE, BUILT, NOT YET SEEN (rule 370, ask line 396): the
-fight measured by closeness (won, men down, health left, near-deaths, big hits); the walk was armour, and NEW HERE was easier than Battle
-Brothers' easiest; NEW HERE now sends Battle Brothers' own crews, more late champions, rare men in the top half, price is power on the shelf;
+TUNING TWO (tuning-2-the-fight-is-close): 11/3 LATEST -- BUILD 11/3zzzzat - THE FIGHT IS CLOSE, THE BIG BEASTS BITE, THE SAME FIGHT ON THREE
+LEVELS, BUILT, NOT YET SEEN (rules 370, 370(9), 380; ask lines 396, 409): the
+fight measured by closeness (won, men down, health left, near-deaths, big hits); the walk was armour, and NEW HERE gave Battle
+Brothers' easiest aim and 15% fewer men on top; NEW HERE now sends Battle Brothers' own crews, more late champions, rare men in the top half, price is power on the shelf;
 NEW HERE's hardest job 91 in 100 with a man down a fight (98 on main's numbers). Gate THE FIGHT IS CLOSE 12/0. The whole block: handoffs/TUNING.md.
-[bb the ramp: Battle Brothers' easiest level keeps its full crews and only gives five points of aim; now ours does too.]
+[bb the step: Battle Brothers' easiest level gives five points of aim; ours now gives the aim and the full crew, a small step past it.]
 [analog horror: the men on the road get better because you did; there are just more of the ones with a name on their blade.]
 
 DIFFICULTY (difficulty-the-curve): 11/3 LATEST -- BUILD 11/3zzzn - THREE DIFFICULTIES, BUILT, NOT YET SEEN (rule 351(c)(d), ask line 363): the FIGHTS
