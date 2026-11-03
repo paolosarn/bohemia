@@ -817,8 +817,13 @@ def do_vote(names, tag, sha, n_):
                                 after='each its own glb through the master rig, in YOU\'s hands on every key, every man borrows those pictures',
                                 scale='his phone, 390 x 844 at 3x, the fight zoomed on the man'),
               draft=True)
-    R['items'] = [x for x in R['items'] if x.get('id') != iid] + [it]
-    json.dump(R, open(rp, 'w'), indent=1)
+    # appended as text, the file's own layout kept byte for byte (a whole-file dump re-indents other lanes' rows: 17c4b71d)
+    txt = open(rp).read(); anchor = '\n ],\n "verdicts"'
+    if any(x.get('id') == iid for x in R['items']): print('VOTE', iid, 'already registered: left as it is'); return
+    blk = '\n'.join('  ' + l for l in json.dumps(it, indent=1).split('\n'))
+    i = txt.index(anchor); txt = txt[:i] + ',\n' + blk + txt[i:]
+    assert json.loads(txt)['items'][-1]['id'] == iid
+    open(rp, 'w').write(txt)
     print('VOTE', iid)
 
 
