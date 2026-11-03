@@ -1,5 +1,38 @@
 # WORDS -- the handoff block (written only by WORDS; newest on top; older rounds in handoffs/WORDS_ARCHIVE.md)
 
+WORDS 2 (session_01GKDyustRw6zQJryWDopg81): 11/3 LATEST -- [the radio in the feed] (rule 371, ask 397) and [tweets like people]
+(rule 372, ask 398) BUILT, NOT YET SEEN. The coordinator's routine queued both after the Bohemia sweep; both on main and deployed.
+RULE 371 (83d24273c the work, 2fd055bc4 the stamp BUILD 11/3zzzv; pages run 4223 SUCCESS):
+- A town's fall is posts in the feed's own format: a handle and the words, each voice as itself (@church_gate, @church_tower,
+  @church_nurse, @mob_doc; the relay @ch4_church), no time stamp, no label (slices/bohemia_radio.js; handles in radio_lines.json).
+- PRIORITY: while the fall plays its posts carry priority; the phone's strip (slices/bohemia_phone.js stripPaint, the coordinator's:
+  only stripHold and a read-time hold added) shows nothing else, and an important post (priority, or one of the feed's 8 big kinds)
+  keeps the strip its whole read time. The feed engine marks a big post (engine/bohemia_feedstream.js, the map's copy byte for byte).
+- THE SOUNDS, MORE: the fall's own recording sliced under the big posts (a man dead or a wipe: the carrier lost; a town falling: the
+  open mic; a raid, a war, a lost fight: the static; a closed road, a won fight: a key-up and its squelch), on the beat, never in the
+  first minute, over a fall or twice in 20 s (radio_lines.json under_posts, segments; engine/bohemia_radio_heard.js under(), the
+  alpha byte for byte, the glue in tools/bohemia_radio_patch.py). Every RADIO asset kept.
+- GATE THE RADIO LIVES IN THE FEED (in the suite, --live) 6/0: on the demo, a newer ordinary post shows when nothing plays and never
+  while the Church falls (48 of 48 samples). RADIO's gate re-aimed 19/0 live. VOTE words2-the-radio-lives-in-the-feed-11-3 (three
+  pictures from the real demo, the fall played with its sound, the four sounds). Record records/BOHEMIA_WORDS_THE_RADIO_LIVES_IN_THE_FEED_11_3_26.md.
+RULE 372 (b7481896d the work, daaf55c60 the stamp BUILD 11/3zzzy; pages run 4227 SUCCESS):
+- Read all 716 lines the feed can post. 145 rewritten the way a person types on a phone, none cut: 51 world posts (the riddles were
+  there: 'the moon does not know what country it is in', 'that is the phone call now'), 30 of the valley's (23 riddles in
+  tools/words_feed, 2 in FEED's rows, 5 with no verb), all 64 of a falling town (scared people posting, 'the roof isn't answering.',
+  'lost the signal.'). A rewritten line drops its old Spanglish twin (217 to 210; rule 355). Bank and feed_kinds rebuilt from source.
+- GATE A TWEET SOUNDS LIKE A HUMAN (in the suite, node) 4/0: seven named cryptic tells, a verb in every person's post, plants.
+  VOTE words2-a-tweet-sounds-like-a-human-11-3 (ten posts, old struck through over new). Record
+  records/BOHEMIA_WORDS_A_TWEET_SOUNDS_LIKE_A_HUMAN_11_3_26.md.
+GATES (rule 13, pre-push): the two new ones, THE TOWN YOU DID NOT DEFEND 16/0 (19/0 with --live before the words), THE FEED HAS A MAX
+LENGTH 7/0, THE FEED IS ALIVE 29/0, THE WORLD FEED 8/0, LANGUAGE 107/0, IT IS CALLED BOHEMIA 6/0, DEMO BUILD 25/0. RED, NOT MINE:
+VOTE TAB's four old reds (my three cards fit); THE PHONE 267/1 once, a drawImage TypeError inside a fight's drawing in the upright
+profile, nothing this round draws (the coordinator's run after it read 91/0).
+WEAK, SAID: the sounds under the feed are proven in a sandbox and in the shell's code, not heard on this box; a regex catches a riddle's
+shape, not its meaning; the verb test is a closed list plus -ed, -ing and contractions.
+[bb] Battle Brothers tells you a town fell in one event window; ours, its people post it while it happens and nothing talks over them.
+ANALOG HORROR: 'the roof isn't answering.' then 'lost the signal.' with the carrier dying under it; and that same sound under a man dead.
+NEXT: nothing owed on these rows.
+
 WORDS 2 (IT IS CALLED BOHEMIA, session_01GKDyustRw6zQJryWDopg81): 11/3 LATEST -- [it is called bohemia] (rule 362, ask line 386)
 BUILT, NOT YET SEEN (BUILD 11/3zzzr, 7f8612641 the work, f22e44021 the stamp and cut; pages run 4217 for f22e44021 SUCCESS).
 WHAT IS IN THE DEMO NOW:
