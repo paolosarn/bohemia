@@ -143,7 +143,8 @@ note stands, TUNING's question). Nothing threw (C1).
 Pictures (half size, eight a boss): records/target/bosses_act_one/4_burn_*, 5_surveyor_*, 6_climb_* (who asks, the clue, his place
 and his card, his fight, what it does, his place after, the held finger, the verb used).
 
-THE SUITE (--fast, 582 gates, once, on the rebased tree): SUITE_LINE Every red read for this round's files: two were (ART PIPE A2,
+THE SUITE (--fast, 582 gates, once, on the rebased tree; about 90 minutes for the pack): 95 red in the pack, the same lanes' reds main
+carries (its re-run-alone phase, which can only clear a red, stopped after 2 to save the clock). Every red read for this round's files: two were (ART PIPE A2,
 my VOTE card maker drew one line by number: removed; THE EIGHT FACINGS R1, the three things' 3-view icon renders: not kept, as
 models and icons only); after the fix both count nothing from this lane. THE VOTE TAB GATE: the same 4 as last round (a dynasty
 card's why, the alpha's landing on VOTE, 3 checks); this round's three cards pass the two-sentence, where and twin checks. THE ONE
