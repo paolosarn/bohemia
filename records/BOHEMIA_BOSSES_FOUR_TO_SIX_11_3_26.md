@@ -109,6 +109,19 @@ hush. On the map after, his changed place is the mark (no skull, no door, no pla
 - NENA: "The hoist runs for anybody now. The top floors are open, and the lights are on up there." HIS HOOK: "GO UP: next to a tower
   (a casino, a resort, a high-rise). Your men climb to the floors nobody reached and bring down 12 batteries. Once a tower."
 
+### 7. NOTES FOR HOME'S RESEARCH (the coordinator's notes for rules 343 and 347, held by rule 349: nothing built, notes only)
+His prize in YOUR settlement, and whether he can be talked down (realism first: a hold that is a service can be bargained with, a
+hold that is cruelty dies). Draft, for the research; HOME builds whatever is picked.
+- THE BURN: his fuel could become A FUEL SHED AND A FIRE THAT STAYS LIT on your lot (drums by the gate, a barrel ring), your
+  settlement the one place lit at night. NOT NEGOTIABLE: his hold is cruelty, not a price: he let the cold take the old ones
+  first so his people stayed warm, and a man who rations heat to the dying does not change for a deal.
+- THE SURVEYOR: his map could become A MAP ROOM: the county map on a board in your settlement where what you have found is pinned.
+  NEGOTIABLE: his hold is a service at a robber's price (the map sold a piece at a time); spared, he lives in your settlement as
+  its map-maker, keeps the board and copies it for anybody you send.
+- THE CLIMB: his hook could become A HOIST AND A LOOKOUT on your lot (a block and tackle up to a roof, a man on watch). NEGOTIABLE:
+  his hold is a gate, not a slaughter (the last machine that goes up, kept for his crew); spared, he runs your hoist and your
+  rope crew and takes your men up the towers.
+
 ## PROOF
 
 PROOF_PENDING

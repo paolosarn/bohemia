@@ -17429,6 +17429,99 @@
     "after": "three mocks of your own one screen, the bosses' prizes on it, the daily bill on top",
     "scale": "his phone upright, 390 x 844 in shape, cut from the town pictures; MOCK on every picture, nothing new modelled"
    }
+  },
+  {
+   "id": "bosses-the-burn-11-3",
+   "kind": "outfit",
+   "lane": "bosses",
+   "sha": "pending",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE BURN, WHOLE: A FIREMAN'S COAT BLACK WITH SOOT, A LEATHER FIRE HELMET, A JERRYCAN, A LIT FLARE, THE FIRE AXE; HIS FUEL YARD BEFORE AND AFTER; HIS FUEL IS YOURS",
+   "said": "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing... we still don't know what killing them does",
+   "why": "THE BURN is the 4th boss, his own model with the fire axe in his hand; he keeps one big fire in his fuel yard, and when he falls there are fires for everybody and his fuel can is yours (LIGHT A FIRE: at night, near your fire you see like in the day). You see it moving here and at his fuel yard from the MAP.",
+   "options": [
+    "A, yes, that's him",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/bosses_four_to_six/VOTE_BOSS_BURN.webp"
+   },
+   "twin": {
+    "src": "records/target/cook_bosses_dressed/COOK_BOSS_POT.webp",
+    "diffs": [
+     "THE MAN: THE POT is a cook in whites with a lid and a cleaver; THE BURN is a fireman gone bad: tan turnout coat with lime and silver bands, a black leather fire helmet, a red jerrycan on his back, the fire axe.",
+     "HIS PLACE: the kitchen is one building; the fuel yard is two tanks behind a berm with ONE fire in the yard, then four burn barrels lit for anybody after.",
+     "WHAT HE HANDS YOU: THE POT gives a pot that heals; THE BURN gives his fuel, a fire that stays lit and lets you see at night."
+    ]
+   },
+   "before_after": {
+    "before": "not in the game before this round (his row was a name on WORLD TWO's map, no man, no place, no verb)",
+    "after": "his own model in the fight moving (left), his face talking, the thing he hands you and the mark it leaves (top right), his place before, the tape, after (bottom right)"
+   }
+  },
+  {
+   "id": "bosses-the-surveyor-11-3",
+   "kind": "outfit",
+   "lane": "bosses",
+   "sha": "pending",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE SURVEYOR, WHOLE: A HI-VIS VEST, A WHITE HARD HAT, THE MAP TUBE ON HIS BACK, A PLUMB BOB, THE RANGE POLE; HIS SURVEY OFFICE BEFORE AND AFTER; HIS MAP IS YOURS",
+   "said": "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing... we still don't know what killing them does",
+   "why": "THE SURVEYOR is the 5th boss, his own model with the red and white range pole in his hand; he sells the last real map a piece at a time, and when he falls the map goes up on a board for anybody and every town shows (FILL IN THE MAP: on a road, the fog lifts 10 blocks round you). You see it moving here and at his survey office from the MAP.",
+   "options": [
+    "A, yes, that's him",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/bosses_four_to_six/VOTE_BOSS_SURVEYOR.webp"
+   },
+   "twin": {
+    "src": "records/target/cook_bosses_dressed/COOK_BOSS_POT.webp",
+    "diffs": [
+     "THE MAN: THE POT is a big cook; THE SURVEYOR is a thin old county man in a faded hi-vis vest, a white hard hat, a map tube slung across his back, the range pole.",
+     "HIS PLACE: the kitchen smokes; the survey office is dark with one window flickering and the gate shut, then every window lit and the map on a board out front.",
+     "WHAT HE HANDS YOU: a pot that heals against his map: the fog lifts round you once a day on any road."
+    ]
+   },
+   "before_after": {
+    "before": "not in the game before this round (his row was a name on WORLD TWO's map, no man, no place, no verb)",
+    "after": "his own model in the fight moving (left), his face talking, the thing he hands you and the mark it leaves (top right), his place before, the tape, after (bottom right)"
+   }
+  },
+  {
+   "id": "bosses-the-climb-11-3",
+   "kind": "outfit",
+   "lane": "bosses",
+   "sha": "pending",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE CLIMB, WHOLE: AN OXBLOOD BELLHOP JACKET UNDER A CLIMBING HARNESS, A COIL OF ROPE, A PILLBOX CAP, THE HOIST'S HOOK ON A CHAIN; HIS HOIST BEFORE AND AFTER; HIS HOOK IS YOURS",
+   "said": "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing... we still don't know what killing them does",
+   "why": "THE CLIMB is the 6th boss, the hotel's old elevator man with the crane hook swinging on a chain in his fist; he keeps the hoist's cage at the top of a dead casino tower, and when he falls it comes down for anybody and the top floors light up (GO UP: next to a tower, 12 batteries from the floors nobody reached). You see it moving here and at his hoist from the MAP.",
+   "options": [
+    "A, yes, that's him",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/bosses_four_to_six/VOTE_BOSS_CLIMB.webp"
+   },
+   "twin": {
+    "src": "records/target/cook_bosses_dressed/COOK_BOSS_POT.webp",
+    "diffs": [
+     "THE MAN: THE POT is a cook in whites; THE CLIMB is a wiry bellhop in an oxblood jacket with brass buttons under an orange harness, rope over his shoulder, a pillbox cap, the hook.",
+     "HIS PLACE: the kitchen is low; the hoist is a dark tower with the cage parked at the top and a red lamp blinking, then the cage down and the top floors lit.",
+     "WHAT HE HANDS YOU: a pot that heals against his hook: batteries from every tower you climb, once each."
+    ]
+   },
+   "before_after": {
+    "before": "not in the game before this round (his row was a name on WORLD TWO's map, no man, no place, no verb)",
+    "after": "his own model in the fight moving (left), his face talking, the thing he hands you and the mark it leaves (top right), his place before, the tape, after (bottom right)"
+   }
   }
  ],
  "verdicts": [

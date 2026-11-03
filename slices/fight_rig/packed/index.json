@@ -55,6 +55,12 @@
 "fill": 0.268,
 "packedMB": 5.21
 },
+"boss_climb_0.webp": {
+"bytes": 313582,
+"decodedMB": 17.2,
+"fill": 0.247,
+"packedMB": 4.78
+},
 "boss_filter_0.webp": {
 "bytes": 325080,
 "decodedMB": 18.86,
@@ -66,6 +72,12 @@
 "decodedMB": 18.86,
 "fill": 0.233,
 "packedMB": 4.98
+},
+"boss_surveyor_0.webp": {
+"bytes": 293304,
+"decodedMB": 18.86,
+"fill": 0.235,
+"packedMB": 5.08
 },
 "boss_tap_0.webp": {
 "bytes": 301574,
@@ -849,8 +861,8 @@
 }
 },
 "totals": {
-"decodedMB": 2881.4,
-"packedMB": 493.3,
-"sheets": 141
+"decodedMB": 2917.4,
+"packedMB": 503.2,
+"sheets": 143
 }
 }

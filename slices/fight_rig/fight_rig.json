@@ -2025,6 +2025,40 @@
    "rig": "records/target/combat/rig/boss_burn_0/rig.json",
    "own_kit": true,
    "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
+  },
+  "boss_surveyor_0": {
+   "file": "boss_surveyor_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.713,
+   "kind": "boss",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "boss": "THE SURVEYOR",
+   "rig": "records/target/combat/rig/boss_surveyor_0/rig.json",
+   "own_kit": true,
+   "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
+  },
+  "boss_climb_0": {
+   "file": "boss_climb_0.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.737,
+   "kind": "boss",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "boss": "THE CLIMB",
+   "rig": "records/target/combat/rig/boss_climb_0/rig.json",
+   "own_kit": true,
+   "dressed": "BOSSES 4 [four to six] 11/3: his own pieces on his model (tools/bohemia_bosses_four_to_six_11_3_26.py)"
   }
  },
  "faces": {
@@ -2135,7 +2169,9 @@
    "boss_pot_0",
    "boss_tap_0",
    "boss_filter_0",
-   "boss_burn_0"
+   "boss_burn_0",
+   "boss_surveyor_0",
+   "boss_climb_0"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
