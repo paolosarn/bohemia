@@ -19,28 +19,27 @@ function pool(bank, level, job) {
 }
 /* a fight as he would see it, in his words: won, men down, somebody badly hurt */
 function words(c) {
-  const d = c.down < 0.15 ? 'nobody goes down' : c.down < 0.8 ? 'a man goes down about every ' + (c.down < 0.4 ? 'third' : 'other') + ' fight' : c.down < 1.5 ? 'about one man goes down a fight' : 'about ' + Math.round(c.down) + ' men go down a fight';
-  return 'You win ' + c.won + ' in 100; ' + d + '; somebody ends under half his health in ' + c.hurt + ' fights of 100.';
+  const d = c.down < 0.15 ? 'nobody down' : c.down < 0.8 ? 'a man down every ' + (c.down < 0.4 ? 'third' : 'other') + ' fight' : c.down < 1.5 ? 'about a man down a fight' : 'about ' + Math.round(c.down) + ' men down a fight';
+  return 'Won ' + c.won + ' in 100 · ' + d + ' · somebody under half health in ' + c.hurt + ' of 100.';
 }
-const JOBS = [['routine', 'THE JOB A TOWN HANDS YOU MOST'], ['tough', 'THE HARDEST JOB ON THE BOARD']];
+const JOBS = [['routine', 'THE EVERYDAY JOB'], ['tough', 'THE HARDEST JOB ON THE BOARD']];
 const blocks = LV.map(l => '<section><h2>' + l.name + '</h2>' + JOBS.map(([j, name]) => {
   const b = pool(B, l.id, j), a = pool(A, l.id, j), same = Math.abs(b.won - a.won) <= 3 && Math.abs(b.down - a.down) < 0.1 && Math.abs(b.hurt - a.hurt) < 4;
-  return '<div class="co"><div class="cn">' + name + '</div><div class="ln bef"><b>BEFORE</b> ' + words(b) + '</div><div class="ln aft"><b>NOW</b> ' + (same ? 'About the same. ' : '') + words(a) + '</div></div>';
+  return '<div class="co"><div class="cn">' + name + '</div><div class="ln bef"><b>BEFORE</b> ' + words(b) + '</div><div class="ln aft"><b>NOW</b> ' + (same ? 'Same. ' : '') + words(a) + '</div></div>';
 }).join('') + '</section>').join('');
 const html = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
   + '<title>The Fight Is Close</title><style>'
   + ':root{--bg:#0d0b09;--ink:#e9dcc2;--dim:#9a8d78;--amber:#e8b85e;--grey:#7d766c;--line:#3a3025}'
-  + 'body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.4 ui-monospace,Menlo,monospace}'
-  + '.wrap{width:390px;box-sizing:border-box;padding:14px 12px 16px}'
-  + 'h1{font-size:16px;letter-spacing:2px;margin:0 0 4px}.sub{color:var(--dim);font-size:10.5px;margin:0 0 10px}'
-  + 'section{border-top:2px solid var(--line);padding:7px 0 4px}h2{font-size:13px;letter-spacing:1.5px;margin:0 0 6px;color:var(--amber)}'
-  + '.co{margin:0 0 8px}.cn{font-size:9.5px;letter-spacing:1px;color:var(--dim);margin:0 0 3px}'
-  + '.ln{font-size:11px;margin:0 0 3px;padding-left:6px;border-left:2px solid var(--grey)}.ln b{font-size:9.5px;letter-spacing:1px;margin-right:4px}'
+  + 'body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.3 ui-monospace,Menlo,monospace}'
+  + '.wrap{width:390px;box-sizing:border-box;padding:10px 10px 10px}'
+  + 'h1{font-size:15px;letter-spacing:2px;margin:0 0 3px}.sub{color:var(--dim);font-size:10px;margin:0 0 5px;line-height:1.3}'
+  + 'section{border-top:2px solid var(--line);padding:5px 0 2px}h2{font-size:12px;letter-spacing:1.5px;margin:0 0 3px;color:var(--amber)}'
+  + '.co{margin:0 0 5px}.cn{font-size:9px;letter-spacing:1px;color:var(--dim);margin:0 0 2px}'
+  + '.ln{font-size:10.5px;margin:0 0 2px;padding-left:6px;border-left:2px solid var(--grey)}.ln b{font-size:9px;letter-spacing:1px;margin-right:4px}'
   + '.bef{color:var(--grey)}.aft{border-left-color:var(--amber)}.aft b{color:var(--amber)}'
   + '</style></head><body><div class="wrap"><h1>THE FIGHT IS CLOSE</h1>'
-  + '<p class="sub">The real fight on AUTO, days ' + DAYS.join(' and ') + ', a Lone Wolf, a new crew and rare men in cheap gear, ' + (A.n * 6) + ' fights a line. Before is the game you played; now is this round\'s numbers.</p>'
-  + '<p class="sub">Still a walk, said: twelve men in the city\'s armour on NEW HERE. Their blows are spread thin, so no armour ever breaks; the enemy picking a target (the fight\'s next brain) is the fix.</p>'
-  + '<p class="sub">SEEN IT\'s hardest job got a bit easier this hour from the fight\'s new enemy that runs when it is losing, not from these numbers; pulling it back is next.</p>'
+  + '<p class="sub">The real fight on AUTO, days ' + DAYS.join(' and ') + ', a Lone Wolf, a new crew and rare men in cheap gear, ' + (A.n * 6) + ' fights a line. Before: the game you played. Now: this round.</p>'
+  + '<p class="sub">Still a walk: twelve men in the city\'s armour on NEW HERE (their blows spread thin, no armour breaks; the enemy picking a target is the fix). SEEN IT\'s hardest job got easier this hour from the fight\'s new enemy that runs when losing, not these numbers.</p>'
   + blocks + '</div></body></html>';
 const page = path.join(ROOT, 'slices/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.html');
 fs.writeFileSync(page, html);

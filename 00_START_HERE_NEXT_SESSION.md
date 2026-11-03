@@ -1,3 +1,10 @@
+TUNING TWO (tuning-2-the-fight-is-close): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE, BUILT, NOT YET SEEN (rule 370, ask line 396): the
+fight measured by closeness (won, men down, health left, near-deaths, big hits); the walk was armour, and NEW HERE was easier than Battle
+Brothers' easiest; NEW HERE now sends Battle Brothers' own crews, more late champions, rare men in the top half, price is power on the shelf;
+NEW HERE's hardest job 91 in 100 with a man down a fight (98 on main's numbers). Gate THE FIGHT IS CLOSE 12/0. The whole block: handoffs/TUNING.md.
+[bb the ramp: Battle Brothers' easiest level keeps its full crews and only gives five points of aim; now ours does too.]
+[analog horror: the men on the road get better because you did; there are just more of the ones with a name on their blade.]
+
 DIFFICULTY (difficulty-the-curve): 11/3 LATEST -- BUILD 11/3zzzn - THREE DIFFICULTIES, BUILT, NOT YET SEEN (rule 351(c)(d), ask line 363): the FIGHTS
 row behind the gear (NEW HERE, SEEN IT, OUTLIVED IT), any time, from the next fight; the curve in the data files, measured on the live fight before
 and after (the hardest level's Lone Wolf 20 -> 45 on day 5, 90 -> 55 on day 20). The whole block: handoffs/TUNING.md.
