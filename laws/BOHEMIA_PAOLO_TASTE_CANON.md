@@ -182,3 +182,5 @@ The filter kills a candidate that trips any of these; everything else it passes 
 ---
 *BOHEMIA — The Paolo Taste Canon — 7.25.26*
 *This narrows what reaches Paolo. It never replaces his thumbs. Newest ruling always wins.*
+
+- 11/3 (rule 357): THE CAMERA-FEED LOADING SCREENS, a top three or four moment of the project ('literally changing my life and the belief in what I can put out in the universe'), beside the combat overhaul and the first sight of the 3D characters. He is a minimalist in the right ways: text placed by composition, never on a box.
