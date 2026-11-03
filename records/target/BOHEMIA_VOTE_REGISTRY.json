@@ -17008,6 +17008,204 @@
     "after": "its own board: the clubhouse and the 18th",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
+  },
+  {
+   "id": "combat-place-trailer-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-trailer-11-2",
+   "lane": "combat",
+   "sha": "778ab15e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE TRAILER PARK: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The trailer park is its own board now, single-wides end to end on their blocks with one burnt out, propane tanks, a carport and the washing on the line, and the lanes between them are one man wide, so it is close fighting and they are often already in among the rows. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_trailer.webp",
+    "first": "../records/target/combat_maps_11_3/first_trailer.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the rows",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-desert-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-desert-11-2",
+   "lane": "combat",
+   "sha": "778ab15e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE DESERT: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The desert is its own board now, open dark desert pavement cut by a dry wash with a power pylon fallen across it, Joshua trees, boulders and a car half buried, and the wash is soft and slow while its banks are a step up. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_desert.webp",
+    "first": "../records/target/combat_maps_11_3/first_desert.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the pylon",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-redrock-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-springs-11-2",
+   "lane": "combat",
+   "sha": "778ab15e",
+   "made": "11/3",
+   "draft": true,
+   "title": "RED ROCK: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "Red Rock is its own board now, a sandstone fin split by a slot canyon one man wide with ledges one, two and three storeys up on both sides, so height wins the shot and the climb costs your attack. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_redrock.webp",
+    "first": "../records/target/combat_maps_11_3/first_redrock.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the fin and the slot",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-pass-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-mountain-11-2",
+   "lane": "combat",
+   "sha": "778ab15e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE PASS: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The pass is its own board now, a mountain road with a jackknifed semi across it, a rockfall you climb over the other lane, scree and ledges above and the drop below that nobody walks, and they often come at you from above and below the road. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_pass.webp",
+    "first": "../records/target/combat_maps_11_3/first_pass.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the jackknife",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-shore-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-reservoir-11-2",
+   "lane": "combat",
+   "sha": "778ab15e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE SHORE: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The shore is its own board now, the lake's intake tower standing on the dry bed with docks and boats left on the mud, and the mud is slow and you fight worse in it, so the one gravel bar and the white bathtub ring's step are what you hold. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_shore.webp",
+    "first": "../records/target/combat_maps_11_3/first_shore.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the intake tower",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-wash-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-wash-11-2",
+   "lane": "combat",
+   "sha": "778ab15e",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE WASH: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The wash is its own board now, a concrete flood channel between two high banks running between the lines with a twin culvert under the road, a sofa and the flood's junk in the silt, and the culvert is the one covered way through. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_wash.webp",
+    "first": "../records/target/combat_maps_11_3/first_wash.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the culvert",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
   }
  ],
  "verdicts": [

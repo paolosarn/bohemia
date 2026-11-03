@@ -16,10 +16,12 @@ PLACE ITS OWN BOARD), NOT YET SEEN:
    rig (tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py --render/--swap/--data; venv python3.11 + bpy 4.2.0; ~5 min a
    block). COOK PROPS' manifest landed 20 minutes after these were modelled; its first three places' models are not on these boards.
    VOTE: combat-place-lab-11-3, -airport-, -golf- (cards records/target/combat_maps_11_3/card_<place>.webp).
-NEXT (push 2): the trailer park, the desert, Red Rock on COOK PROPS' .glb models (import into the same render on their tiles); the
-pass, the shore, the wash on theirs if landed, else this lane's (the tile maps and things for all six are already written in the
-tool; trailer.1 was rendered with this lane's own models and is NOT swapped). Push 3: the landfill, the suburbs, the Strip,
-downtown, the works, the marina. Record: records/BOHEMIA_COMBAT_MAPS_EVERY_PLACE_ITS_OWN_BOARD_11_3_26.md.
+PUSH 2 SHIPPED (BUILD 11/3zzr): the trailer park, the desert, Red Rock, the pass, the shore, the wash on COOK PROPS' .glb models
+(Kit.model + import_model: imported into the same render, turned in quarters, centred on the footprint); the ring never repeats a
+landmark; a place may pin blocks to a row/column (ours.place_boards cols/rows). VOTE: combat-place-<place>-11-3, nine cards.
+NEXT (push 3): the landfill (burning ground: a piece with burning: true is On Fire from round one, the fight's own rule 305), the
+suburbs, the Strip, downtown, the works, the marina: the tile maps, grounds and things are written in the tool; their 12 blocks
+render next. Record: records/BOHEMIA_COMBAT_MAPS_EVERY_PLACE_ITS_OWN_BOARD_11_3_26.md.
 
 COMBAT MAPS 2 11/2 (brief from the coordinator: rule 336, ask line 337; his NO on the six maps: 'still this yellow brown sand dirt
 as the main ground, not enough unique shit going on'). SHIPPED (BUILD 11/3zx - EVERY GROUND ITS OWN), NOT YET SEEN:
