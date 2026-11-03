@@ -1,12 +1,30 @@
 # TUNING (the numbers; and DIFFICULTY, the lane the coordinator started 11/3 for rule 351(c)(d)) -- written only by these lanes, newest first
 
-TUNING 2 (session_01GKDyuv8sejYGSXYyFMacNf): 11/3 LATEST -- BUILD 11/3zzzzam - THE FIGHT IS CLOSE (rule 370, ask line 396). BUILT, NOT YET SEEN.
+TUNING 2 (session_01GKDyuv8sejYGSXYyFMacNf): 11/3 LATEST -- HEAVY ARMOUR COSTS A TILE, THE NUMBERS (rule 377, ask line 406). BUILT, NOT YET SEEN
+(no card of mine: the shop and the crew card already name the class, COMBAT 7's; the numbers his meet there are now TUNING's, sourced).
+HEAVY ARMOUR (records/BOHEMIA_TUNING_HEAVY_ARMOUR_COSTS_A_TILE_11_3_26.md; tools/bohemia_tuning_armour_weight.py writes it): ours.armour_weight
+tuned and sourced, the keys the fight reads UNCHANGED (classes: light under 15, Battle Brothers' Nimble line; medium under 30; heavy under 45,
+walk_ap 1, 'a little under a tile': four flat tiles still, one rough tile less; heaviest walk_ap 2, three flat tiles not four). NEW KEYS FOR
+COMBAT 7 (session_01GKDyuuNDooEjTDprXTHNiT): row_below.body/.head (one piece's class, body two thirds and helmet one third, all 174 rows;
+computed, never stored on a row); endgame_light.pieces (four LIGHT champion drops, never the shelf, Battle Brothers' named MEDIUM protection at
+its named LIGHT weight: Aramid Vest 209/8, Ceramic Plate Carrier 231/8, Ballistic Helmet 220/4, Visored Ballistic Helmet 231/4; the best body
+beats 13 of 15 heavy body rows, the best helmet all 13 heavy helmets, the pair weighs 12, light; names draft); breath_floor.strikes 1 (FOUND:
+a sellsword in the heaviest with a two-handed hammer has 13 breath for a 15-breath strike, never swings; fatMax should floor at his dearest
+strike or ability once: COMBAT 7's code, not read yet); bb_named (Battle Brothers' named armour and helmets with their own Light/Medium/Heavy
+labels, parsed from the library: 27 of 30 land one step up in our four, so the walk is free through its light armour, 1 AP in its medium, a
+tile in its heavy). CLOSENESS (the curve tool's new --walk-free and --kit): with and without the walk cost, 15 of 54 cells move, no job's win
+more than 5 in 100; whole companies in the heaviest 21 of 24 move, all small (about 0.2 rounds longer). Banks banks/BOHEMIA_TUNING_HEAVY_ARMOUR_
+{CAP,WALK_FREE,HEAVIEST_CAP,HEAVIEST_WALK_FREE}_11_3_26.json. GATE: THE FIGHT IS CLOSE W1 (every row has a class; two pieces of a class make a
+man of it; the walk costs; Battle Brothers' labels 4 in 5 one step up) and W2 (a light endgame piece of each slot beats most heavy rows, a pair
+makes a light man), four bites caught; 17/0 on main's newest (HIRES' fourteen rare men in it); COMBAT 7's HEAVY ARMOUR COSTS A TILE 8/0 on these
+numbers. ROUTED: COMBAT 7 (fatMax reads breath_floor; a champion drops a named item, the endgame light pieces the light ones), WORDS (the four
+names), ECONOMY (their prices off the shelf).
 DIFFICULTY FINE-TUNED (rule 380, ask line 409, BUILD 11/3zzzzat): records/BOHEMIA_TUNING_DIFFICULTY_FINE_TUNED_11_3_26.md: Battle Brothers'
 steps (Beginner: aim 5 each way, +10% experience, crisis later, easier groups later; Expert: no aim, harder groups sooner; economy 90% pay and
 prices on the top level) beside ours; ours are small in crews (1 / 1 / 1.15) but SEEN IT -> OUTLIVED IT is a cliff (the same nine men, day 20,
 hardest job: 19 / 18 / 13 of 20 won) where the aim, 15% more men and 8 tier days land at once. The spread (SEEN IT at aim 0, OUTLIVED IT's tier
 days down) waits on WORLD's tool climbing its men; experience / pay / prices per level need code (ROUTED). Gate leg D1 (closeness_bands.steps).
-VOTE tuning-the-same-fight-three-levels-11-3. CORRECTED my own claim that Battle Brothers' Beginner never shrinks a crew (record, table note,
+VOTE tuning-the-same-fight-three-levels-11-3. LIVE: 315764049, pages run 4257 (41645136534) SUCCESS. CORRECTED my own claim that Battle Brothers' Beginner never shrinks a crew (record, table note,
 handoff, START line, the first card's why).
 THE BIG BEASTS (rule 370(9), the coordinator's 09:30 note): the bull, the bear, the sloth and the camel now strike with wiki rows that go half
 through armour (Gore, Bite, Uproot, Size 2 Headbutt; bohemia_enemies.json beast.attack): 17 -> 48 in 100 of their landed blows take half a man
@@ -52,10 +70,9 @@ THE ARMOUR HE WEARS SHOWS, EVERY ORIGIN STARTS LIKE ITSELF, THE SHOP KEEPS ITS A
 28/0 green; GUNS FROM THE FIRST FIGHT 13/0 (after the first-week change was taken back); UNMEASURED: THE JOB TELLS THE TRUTH drives the demo and did not finish inside 20 minutes twice; RED ON MAIN TOO, IDENTICAL, NOT THIS LANE'S: GHOSTS (act weights for FACTIONS' kinds), AUTO KILLS ONE AT A
 TIME F5 (the champions' lessons), A FEW NOT TWELVE P3/P4, THE JOBS' PART N2 (27/4 on main), THE NEW ENEMIES 8/4, THE RARE MAN R5, THE SHOP SAYS
 W1, THE REBUILT FIGHT PLAYS (4 here, 6 on main), THE FIGHT READS ONLY SOURCED NUMBERS (dealHash).
-NEW RULES FOR THIS LANE THAT LANDED MID-ROUND, NOT STARTED: 377 (armour weight classes, TUNING's numbers through the closeness sim; COMBAT 7's
-fight side shipped a19b52b30) and 380 (difficulty as small Battle Brothers steps on many numbers, research first, a gate that no level moves the
-count past the table's step; this round already took NEW HERE's crew cut away, so the three levels' counts are 1 / 1 / 1.15).
-NEXT IF REOPENED: rule 380's research and steps, rule 377's weight classes, SEEN IT's tough band back to 96 / 1.0; when WORLD's tool climbs its men, ship s4(a) (SEEN IT's aim, the brigand mix) and widen the bands; when COMBAT 7's target
+THE RULES THAT LANDED MID-ROUND, BOTH DONE: 380 (BUILD 11/3zzzzat, the research, the steps, gate leg D1, the same-fight card) and 377 (the
+armour numbers above, gate legs W1 and W2).
+NEXT IF REOPENED: when COMBAT 7 reads breath_floor, re-run COMBAT 7's A2 on real breath (the 5 of 23 should be 0) and the closeness gate; SEEN IT's tough band back to 96 / 1.0; when WORLD's tool climbs its men, ship s4(a) (SEEN IT's aim, the brigand mix) and widen the bands; when COMBAT 7's target
 choice lands, re-run the gate and tighten NEW HERE's routine band; his verdict on the card.
 [bb the step: Battle Brothers' easiest level gives five points of aim and easier groups later; ours gave the aim and 15% off every crew; now it
 gives the aim and the full crew, a small step past Battle Brothers' easiest, so it bites the way his did]

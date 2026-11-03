@@ -14,8 +14,11 @@ helm; the Strip's tournament (five men, three rounds). Gate THE ARENA 34/0. The 
 [bb Battle Brothers' arena is the floor: the card before you sign, one a day, paid on a win, no retreat, no loot, the crowd, the ranks, the tournament.]
 [analog horror: the pit is a pool nobody filled again, and the crowd comes through a PA that cuts out.]
 
-TUNING TWO (tuning-2-the-fight-is-close): 11/3 LATEST -- BUILD 11/3zzzzat - THE FIGHT IS CLOSE, THE BIG BEASTS BITE, THE SAME FIGHT ON THREE
-LEVELS, BUILT, NOT YET SEEN (rules 370, 370(9), 380; ask lines 396, 409): the
+TUNING TWO (tuning-2-the-fight-is-close): 11/3 LATEST -- HEAVY ARMOUR COSTS A TILE, THE NUMBERS (rule 377, ask line 406): four classes from
+Battle Brothers' own labels (light under 15, medium under 30, heavy under 45 at 1 AP of walking, heaviest 2), every one of the 174 armour rows
+classed, four endgame light pieces (champion drops) that beat most heavy, breath_floor for COMBAT 7 (the heaviest must never make a swing
+impossible); the walk cost moves no job's win more than 5 in 100; gate legs W1 and W2. BEFORE THAT, BUILD 11/3zzzzat - THE FIGHT IS CLOSE, THE
+BIG BEASTS BITE, THE SAME FIGHT ON THREE LEVELS, BUILT, NOT YET SEEN (rules 370, 370(9), 380; ask lines 396, 409): the
 fight measured by closeness (won, men down, health left, near-deaths, big hits); the walk was armour, and NEW HERE gave Battle
 Brothers' easiest aim and 15% fewer men on top; NEW HERE now sends Battle Brothers' own crews, more late champions, rare men in the top half, price is power on the shelf;
 NEW HERE's hardest job 91 in 100 with a man down a fight (98 on main's numbers). Gate THE FIGHT IS CLOSE 12/0. The whole block: handoffs/TUNING.md.
