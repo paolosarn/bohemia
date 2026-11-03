@@ -18,8 +18,10 @@ hyenas, so the beast fights he plays are dogs.
   VOTE beasts2-the-bear-and-the-sloth-11-3.
 - PIECE 4 SHIPPED (f02618757, BUILD 11/3zzzo): the sabre-tooth, the American lion, the ancient bison, the Ice Age horse, each its own
   body and rule set (brains ambusher and pride; the bull's charge; the camel's kick). VOTE beasts2-the-ice-age-four-11-3.
-- NEXT, in order: (4 done) the sabre-tooth, the American lion, the ancient bison, the Ice Age
-  horse, (5) every lab mark readable from the fight's camera, (6) the gate (own sheet each, outline differs past a floor, no place
+- PIECE 5 SHIPPED (d001cbe1c, BUILD 11/3zzzs): the lab's hi-vis collar plate on the nape of every lab beast and the farm's lime tag on
+  the bull and the hog, read from the fight's camera (6+ px in 5 to 8 of 8 facings, was 0); the pack keeps the mark's colour; rule 359
+  folded in (the batch is one sheet: one face; bohemia_enemies.json 'water' for WORLD). VOTE beasts2-the-lab-marks-11-3.
+- NEXT: (6) the gate (own sheet each, outline differs past a floor, no place
   only canids). COMBAT 7 owns BOHEMIA_FIGHT.html: this lane works in the data and the sheets.
 
 ## FACTIONS (BEASTS 2), 11/3/26: EVERY BEAST ITS OWN BODY (rule 345, ask line 354), BUILD 11/3zzy (the bull) and 11/3zzza (the six)
