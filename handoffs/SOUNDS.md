@@ -30,7 +30,7 @@ WHAT IS BUILT:
   file's tails, silence and quieting, no voice, licences, the wiring byte for byte, the card in a browser, the real demo.
 - THE WRITING GUIDE (ask 370, rule 353(h)(i)): section 7 of records/BOHEMIA_RADIO_ROUND_1_HOW_A_LAST_TRANSMISSION_READS_11_3_26.md,
   eight rules and ten of our own lines before and after. Not applied by RADIO (other lanes' files): routed to WORDS, FEED,
-  LIFE+CITY (raidSay lines 1 to 5), COMBAT (an item line), UI (the relations page), CONTENT and BOSSES.
+  LIFE+CITY (raidSay lines 1 to 5), CONTENT (a road event, line 9), BOSSES, COMBAT and UI.
 
 SAID OUT LOUD:
 - No CC0 recording of a real handheld's static was reachable (this box reaches GitHub, npm and PyPI only); the static is the

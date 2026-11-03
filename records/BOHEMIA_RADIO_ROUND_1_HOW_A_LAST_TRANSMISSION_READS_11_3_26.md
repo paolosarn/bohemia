@@ -137,16 +137,19 @@ TEN OF OUR OWN LINES, BEFORE AND AFTER (examples for the lanes that own them; no
  8. A man is hired (FEED and WORDS, feed kind man_hired)
     BEFORE  {man} signed on in {town}. Welcome.
     AFTER   {man} signed on in {town}. He asked which side of the fire is his.
- 9. A weapon's line, the fact kept (W7; COMBAT and WORDS, records/target/bb/weapons.json)
-    BEFORE  Fence wire on a stick. Opens them up. They bleed the longest.
-    AFTER   Fence wire on a stick. The grip is wrapped twice. What it opens bleeds the longest.
-10. Nobody yet (UI, the phone's RELATIONS page)
-    BEFORE  You have met nobody yet.
-    AFTER   Nobody has your number yet.
+ 9. A stranger on the road (CONTENT and WORDS, records/target/BOHEMIA_ROAD_EVENTS.json, ev_the_hungry_kid; the old line's
+    Spanish stays where it is, rule 355: a new line is English)
+    BEFORE  Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns,
+            they got food.
+    AFTER   Two days no food. I don't want batteries. I kept the can clean in case somebody puts something in it.
+10. The survivor's word after a win where one of yours fell (WORDS, records/target/bb/crew_voices.json, the hothead's lost_one;
+    rule 315 keeps the survivor's word morbid and funny, so this is the quiet one among them, W8)
+    BEFORE  They took {name}. I want more of them.
+    AFTER   They took {name}. His cup is still on the crate. Nobody move it.
 ALREADY IN THE VOICE, KEEP AS MODELS: the feed's memorial ('rest easy Mrs. Alvarado. she fed half the block through the first
 winter and never wrote any of it down.') and the scanner's ('{town}: man down near the pump, per traffic. no name given.
 please don't go stand there.'). WORDS has been writing toward this for weeks; the guide names it.
 
 ROUTED (rule 353(i)): WORDS (the feed's bank, the people's lines, item lines) and FEED read section 7 before their next line;
-LIFE+CITY owns lines 1 to 5 (raidSay, raidFought in slices/BOHEMIA_CITY_WORLD.html); COMBAT owns 9; UI owns 10; CONTENT (the
-road's events) and BOSSES read it before their next words. RADIO applies none of them: they are other lanes' files.
+LIFE+CITY owns lines 1 to 5 (raidSay, raidFought in slices/BOHEMIA_CITY_WORLD.html); CONTENT owns 9 (the road's events); WORDS
+owns 6 to 8 and 10; BOSSES, COMBAT (item lines: keep the fact, W7) and UI read it before their next words. RADIO applies none of them: they are other lanes' files.
