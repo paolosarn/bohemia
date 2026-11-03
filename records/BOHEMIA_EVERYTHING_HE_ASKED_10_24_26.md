@@ -432,3 +432,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 408 | The kill cams are ugly: a switch to turn them on or off, off while they are reworked | 379 | COMBAT 7 | QUEUED 11/3 (first) |
 | 409 | Difficulty: research every number against Battle Brothers; small fine-tuned steps, not twice the enemies | 380 (amends 351(c)(d)) | TUNING 2 session_01GKDyuv8sejYGSXYyFMacNf | QUEUED 11/3 |
 | 410 | More rare melee men; every rare he saw was a shooter | 351(a) amended | HIRES session_01GKDyuvFuZosW51V4g2K5wr | QUEUED 11/3 |
+| 411 | He cannot get into a town while a crew he fell back from is on his heels (a bug, the second time) | 381 (with 273) | WORLD 8 session_01GKDyuwH34PpUPZcJFG3Fs1 | QUEUED 11/3 (first after the road cap) |

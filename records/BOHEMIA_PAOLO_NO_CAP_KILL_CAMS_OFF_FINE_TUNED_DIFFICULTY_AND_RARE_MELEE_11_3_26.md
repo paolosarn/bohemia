@@ -53,3 +53,15 @@ tweaked the numbers tiny so slightly to make it harder and it was awesome u can 
   beast slayer's kin in Bohemia's skins (the cage fighter from the Mob's pit, the ex-casino head of security with a baton, the lineman
   with a splitting maul, the rodeo hand with a bullwhip), each starting with his melee weapon and an edge a player can read.
 - LANE: HIRES (opened this round).
+
+## RULE 381. A TOWN IS ALWAYS A DOOR, EVEN WITH THEM ON YOUR HEELS (his next message, the same round; ask line 411)
+HIS WORDS: "I'm trying to enter a city but [an] enemy I fell back from [is] trying to crawl up my asshole. I should still be able to do
+that. Right now I'm not able to get into a city when [one I] fell back [from is] trying to crawl up my ass."
+- The second time: EYES found it 10/25z (the hyenas' card on every step toward Colorful) and RUN's __FALL_BACK_HOLDS__ (10/26) did not
+  close it. The coordinator's read of meetBackHolds(): a walk that ENDS within one block of them counts as aimed at them, so with the
+  crew right behind him at the town's edge his walk into the town reads as a chase and the card comes back; the ten-block hold also
+  runs out.
+- THE RULE: a walk or tap that ends in a town is never aimed at anybody; arriving opens the town even with them one block behind; a
+  town is safe in it and right outside (rule 273); the hunters stop at the edge and give up after a while (Battle Brothers).
+- GATE: fall back from a crew hunting him, walk to the nearest town with them on his heels, the town opens, from three sides.
+- LANE: WORLD 8, first after the road-fight cap.
