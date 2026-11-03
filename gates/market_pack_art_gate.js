@@ -44,7 +44,10 @@ const srv = http.createServer((rq, rs) => {
   /* AMENDED 11/2 (ARMORY, rule 302, Paolo 11/2: 'more weapons'): the valley's own pieces (records/target/bb/armory.json) are not in his
      packs, so each wears its own drawn icon (bohemia_ui_materials.js); every OTHER weapon is a pack tile, as before */
   const own = await p.evaluate(() => { const sl = [].slice.call(document.querySelectorAll('#sbody .slot.full')).filter(s => s.__it && s.__it.own);
-    return { n: sl.length, drawn: sl.filter(s => s.querySelector('canvas') && !s.querySelector('img.pk')).length }; });
+    /* AMENDED 11/3 (COOK GUNS, rule 337, ask line 344): or its own 3D model's render (slices/market_icons/own_<row>.png, COOK WEAPONS'
+       shelf, the __EVERY_WEAPON_ITS_OWN__ block): a picture of the piece itself, never a pack tile */
+    return { n: sl.length, drawn: sl.filter(s => { const i = s.querySelector('img.pk');
+      return i ? /market_icons\/own_[a-z_]+\.png$/.test(i.getAttribute('src') || '') : !!s.querySelector('canvas'); }).length }; });
   const sm = await p.evaluate(() => { const sl = [].slice.call(document.querySelectorAll('#sbody .slot.full')).filter(s => !(s.__it && s.__it.own));
     return { n: sl.length, pk: sl.filter(s => { const i = s.querySelector('img.pk'); return i && i.complete && Math.max(i.naturalWidth, i.naturalHeight) > 40; }).length, glyph: sl.filter(s => s.querySelector('i')).map(s => s.getAttribute('aria-label')).join(','), open: BohemiaSettlement.state.open }; });
   ok('the smith\'s shelf: every weapon is a pack tile at its own pixels', sm.open === 'smith' && sm.n > 0 && sm.pk === sm.n, sm.pk + ' of ' + sm.n + ' ' + sm.glyph);

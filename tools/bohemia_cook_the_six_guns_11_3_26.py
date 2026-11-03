@@ -503,9 +503,7 @@ def do_vote(sha):
     it = dict(id=iid, kind='animation', lane='cook', sha=sha, made='11/3',
               title='THE SIX GUNS: ZIP GUN, SNUB, LEVER RIFLE, SCOPED DEER RIFLE, SAWED-OFF, PUMP, EACH ITS OWN 3D MODEL IN HIS HANDS',
               said="you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons, armor, the vibe, nothing",
-              why=('These six were drawn in his hands as the plain pistol, rifle and shotgun; now each is its own model made the clay way, held in '
-                   'all eight facings and fired on the beat, by him and by the man across from him. Old one left, new one right. Same in every '
-                   'fight and on the shop shelf.'),
+              why='These six were drawn in his hands as the plain pistol, rifle and shotgun, and now each is its own model, held in all eight facings and fired on the beat by him and by the man across from him. Old one left, new one right: you see it in every fight and on the shop shelf.',
               options=['A, yes, these are the guns', 'B, close, push the look further', 'C, no, not like this'],
               show=dict(how='image', src='../' + os.path.relpath(sp, ROOT), first='../' + os.path.relpath(fp, ROOT), firstAt=fa),
               twin=dict(src='slices/fight_rig/you_guns.webp',
