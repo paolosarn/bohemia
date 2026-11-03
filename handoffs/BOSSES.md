@@ -1,6 +1,6 @@
 # BOSSES (written only by the BOSSES lane)
 
-## BOSSES FIX, 11/3/26: WHAT A KILL DOES (rule 338, ask line 346), BUILD 11/3zzd
+## BOSSES FIX, 11/3/26: WHAT A KILL DOES (rule 338, ask line 346), BUILD 11/3zzf
 Record: records/BOHEMIA_BOSSES_WHAT_A_KILL_DOES_11_3_26.md. Gate: gates/bosses_act_one_gate.js (A5m, A5b, A5f, A5i, A6c; BOSSES_EVERY_SECOND=<dir>
 takes a picture a second after the win).
 - MEASURED: a stranger never saw the change (the map came back dark and a six-line card covered his place in a second); the map

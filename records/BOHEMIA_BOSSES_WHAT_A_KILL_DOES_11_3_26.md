@@ -118,6 +118,10 @@ its pin box (gates/his_map_gate.js:216, a held finger's menu undefined), on both
 (the boss marked on the map) passes and shows the new 'quiet' flag false for a live boss. Its B4 counts a painted place as drawn
 (the place counter still counts it, by the painter). The crash is not this round's; it is left for WORLD's row.
 
+SHIPPED AS BUILD 11/3zzf (11/3zzd, the stamp first cut, was taken by COOK's weapons while this round ran). Rebased last onto
+origin/main 1f6ff8ba (COOK's weapons, FINISHER's open-asks audit, the coordinator): the conflicts were the stamp files only (main's
+taken, re-stamped, the demo re-cut); the boss gate was NOT re-run after that last rebase (its 55/0 stands on 05587781).
+
 ## NOT DONE / NEXT
 - The other sixteen of act one take a row each the same way (valley, hand, rise) and a model each in the hand tool.
 - The pipe wrench reads at 44 points on the flight, less well at 20 on the button; a sharper jaw is a ten-minute rig rerun.
