@@ -711,7 +711,7 @@ def cards():
                 cut = int(bh * u); im.alpha_composite(bi, (x0, y0))
                 if cut > 0: im.alpha_composite(ai.crop((0, 0, bw, cut)), (x0, y0))
                 band = ai.crop((0, min(bh - 4, cut), bw, min(bh, cut + 4))); im.alpha_composite(band, (x0 + (3 if i % 2 else -3), y0 + cut))
-                g.line((x0 - 4, y0 + cut, x0 + bw + 4, y0 + cut), fill=(216, 208, 188), width=1); tag = 'HE FALLS'
+                tag = 'HE FALLS'   # the tracking line is the after picture's own rows slipped sideways (no line drawn by number: rule 108)
             g.text((372, 526), tag, font=ROMs, fill=(160, 150, 130))
             frames.append(im.convert('RGB'))
         fn = os.path.join(CARDS, 'VOTE_BOSS_%s.webp' % key.upper())
