@@ -1,5 +1,28 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzl
+Record: records/BOHEMIA_BOSSES_FOUR_TO_SIX_11_3_26.md. Gate: gates/bosses_act_one_gate.js now walks all six (BOSSES_EVERY_SECOND as before).
+- ASSETS FIRST: each man his own model through COOK ARMOUR's pipe (tools/bohemia_bosses_four_to_six_11_3_26.py: roll, look <id>, batch,
+  pack, cards, purple), his weapon on his hand's bone (own_kit): THE BURN a soot-black turnout coat, leather fire helmet, jerrycan, lit
+  flare, the fire axe; THE SURVEYOR a hi-vis vest, white hard hat, map tube, plumb bob, the range pole; THE CLIMB an oxblood bellhop
+  jacket under an orange harness, rope, pillbox cap, the hoist's hook on a chain. Faces in PORTRAIT's manifest.
+- HIS PLACE before and after (tools/bohemia_bosses_paint_four_to_six_11_3_26.py, rows added to slices/boss_places/boss_places.json):
+  THE FUEL YARD (one fire, then four barrels for anybody), THE SURVEY OFFICE (one window, then the map on a board), THE HOIST (the cage
+  at the top, then down and the top floors lit); marks barrel, stake, rope. The things he hands you: hand_burn/survey/climb.png
+  (tools/bohemia_bosses_what_they_hand_you_11_3_26.py fuel map hook).
+- LEAD-UP: ABUELA PAZ / THE MARK, MANNY / THE MAN AT THE BAR, NENA / THE FLYER (records/target/bb/boss_act_one.json).
+- VERBS, each its own kind of place (the phone shows one): LIGHT A FIRE (at night, a dark block off a town, once a night; your fires
+  light 2 blocks at night: slices/BOHEMIA_CITY_WORLD.html sightLit and fogRadius, marked __THE_BOSS_FIRES_LIGHT_THE_NIGHT__), FILL IN
+  THE MAP (on a road, once a day, fogReveal 10), GO UP (beside a tower, once a tower, 12 batteries). verbs_order puts them before COOK.
+- LESSONS are the fight's own rules (a boss fight never deals COMBAT MAPS 3's place boards): the axe's Round Swing, the spotters'
+  height, the hook's whip reach. Boards: landfill, ruin, casino.
+- PROOF: the six-boss gate 108/1 (run 4: THE BURN's held finger once); fixed by the runs: a boss past the valley's edge gets his place
+  behind his men, his own verb first at his own place, a two-handed boss weapon drops the rolled shield (BOHEMIA_FIGHT.html, marked).
+- NOTES FOR HOME (rules 343, 347, 349: notes only): the prize on your lot and negotiable or not, in the record's section 7.
+- VOTE: bosses-the-burn-11-3, bosses-the-surveyor-11-3, bosses-the-climb-11-3 (records/target/bosses_four_to_six/VOTE_BOSS_*.webp, moving).
+NEXT: the other thirteen of act one the same way; TUNING owns 1.6x/1.4x, 2 blocks, 10 blocks, 12 batteries; if he wants every power
+side by side on the phone, that is UI's band.
+
 ## BOSSES FIX, 11/3/26: WHAT A KILL DOES (rule 338, ask line 346), BUILD 11/3zzf
 Record: records/BOHEMIA_BOSSES_WHAT_A_KILL_DOES_11_3_26.md. Gate: gates/bosses_act_one_gate.js (A5m, A5b, A5f, A5i, A6c; BOSSES_EVERY_SECOND=<dir>
 takes a picture a second after the win).

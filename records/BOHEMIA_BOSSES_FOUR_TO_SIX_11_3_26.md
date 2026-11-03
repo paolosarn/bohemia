@@ -1,4 +1,4 @@
-# BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341)
+# BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzl
 
 PAOLO 11/3, angry and right: "you build the bosses like shit, we don't have enough assets, and you're not creating assets, weapons,
 armor, the vibe, nothing" and "we still don't know what killing them does, and the map effects where his shit is." BOSSES 3 tried
@@ -130,7 +130,24 @@ to nine at night, his verb's rule). THE FIRST RUN (on 5a6b04d8 plus this round, 
 20 minutes. The one: A5i THE FILTER (not this round's boss): WORLD TWO stood him past the valley's edge (51,-6), no building beside
 him, and his place was painted under his own men; fixed in placeAt (the block behind him). Also seen in it and fixed: THE SURVEYOR
 held his two-handed range pole AND the heater shield his kind rolled (slices/BOHEMIA_FIGHT.html, the boss's own marked line: a
-two-handed boss weapon drops the shield). FINAL_RUN
+two-handed boss weapon drops the shield).
+
+THEN, after each fix, THREE MORE FULL RUNS (main kept moving under them):
+- RUN 2 (a new valley): THE FILTER's thing flew onto TURN THE WATER ON (his place was a main too, and OPEN showed first): FIXED, at a
+  fallen boss's own place his verb comes first (verbHere); then THE BURN stood past the edge (-1,108), the party stayed there and
+  WORLD TWO's next sign could not be placed near it: the gate now walks on to a street when no sign turns up (a stranger walks on).
+- RUN 3 (on main 1382af10+, the ship candidate): **108 passed, 1 failed**: every boss check green (THE FILTER's thing on CLEAN THE
+  WATER, his place behind his men at -5,14); C1: a canvas drawImage was handed a non-image three times somewhere in the 20 minutes.
+  Not found in a standalone boss fight (THE BURN and THE CLIMB, AUTO won both, nothing threw) nor in the demo's first minutes; this
+  round's drawing code only ever draws a picture once it has loaded. The gate now prints where a page error threw.
+- RUN 4 (the same tree, the stack printed): **108 passed, 1 failed**, nothing threw (C1 green). The one: A6a THE BURN's held
+  finger did not open his tip that once (it opened in runs 1, 2 and 3; UI 4's long press shares the gesture, the 11/3 note stands).
+- After the last rebase (main's 11/3zzzk: only the stamp, the demo, the VOTE list and the fight's sheet index met; main's taken,
+  re-packed, re-stamped 11/3zzzl, re-cut): the smoke on the cut demo, six bosses loaded, the three verbs' places counted (LIGHT A
+  FIRE 4,748 dark blocks at night and none by day, FILL IN THE MAP 3,473 road blocks, GO UP 133 blocks beside a tower), nothing
+  threw. The 20-minute walk was not re-run after that last rebase.
+
+THE FIRST RUN'S MEASURES:
 
 | | who asks, the clue | his place | his fight (measured on the board) | the moment | his verb, one real tap |
 |---|---|---|---|---|---|
