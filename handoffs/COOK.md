@@ -1,4 +1,4 @@
-COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzo EVERY PLACE ITS OWN THINGS. ALL FIFTEEN PLACES BUILT, NOT YET SEEN (rule 179):
+COOK PROPS (rule 341, rule 337, ask line 350, 11/3): BUILD 11/3zzp EVERY PLACE ITS OWN THINGS. ALL FIFTEEN PLACES BUILT, NOT YET SEEN (rule 179):
 - [every place its own things] SHIPPED in threes, worst first: the lab yard, the airport, the golf course (cc33b0fd); the trailer
   park, the desert, Red Rock (8aa791af); the pass, the shore, the wash (5bbf99a0); the suburbs, the landfill, the Strip (ab2cc24e);
   downtown, the works, the marina (21099f00). 69 real models through the master rig: reference/models/bohemia/fight_props/<id>.glb
