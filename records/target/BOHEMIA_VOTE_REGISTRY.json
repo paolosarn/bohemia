@@ -17404,6 +17404,31 @@
     "after": "its own board: the houseboat",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
+  },
+  {
+   "id": "home-one-screen-abc-11-3",
+   "kind": "ui",
+   "lane": "home",
+   "sha": "7515fe5e",
+   "made": "11/3",
+   "draft": true,
+   "title": "YOUR OWN SETTLEMENT IS ONE SCREEN: WHICH ONE? A, B OR C",
+   "said": "before you build anything for the custom settlement... rounds of big brain research... it's literally just gonna be one screen... one screen to extremely customize... maybe an indoor system... two screens as an upgrade, maybe when act two starts... I want this to be AAA and premium",
+   "why": "Three ways your own settlement could be one screen, drawn as mocks from town pictures we already have: A a real place with about twelve lots you tap, B one building cut open floor by floor, C one heart with lots in rings round it. Pick one letter and the build starts from it; you see it here in the VOTE tab.",
+   "options": [
+    "A, the block you took: a real place, about twelve lots, grows in place, an inside screen in act two",
+    "B, the cutaway: one building open floor by floor",
+    "C, the ring: one heart, lots in rings"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/home_research/vote_one_screen_abc.webp"
+   },
+   "before_after": {
+    "before": "today: a held place shows one lot and one build box; nothing a boss gave you stands anywhere",
+    "after": "three mocks of your own one screen, the bosses' prizes on it, the daily bill on top",
+    "scale": "his phone upright, 390 x 844 in shape, cut from the town pictures; MOCK on every picture, nothing new modelled"
+   }
   }
  ],
  "verdicts": [
