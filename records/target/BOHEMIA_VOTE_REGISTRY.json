@@ -17206,6 +17206,204 @@
     "after": "its own board: the culvert",
     "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
    }
+  },
+  {
+   "id": "combat-place-landfill-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-landfill-11-2",
+   "lane": "combat",
+   "sha": "fdd53c7d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE LANDFILL: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The landfill is its own board now, trash mounds you climb for the shot, the gas flare still burning on its pad with the ground round it on fire from the first round, a dozer stopped mid-push and the gas wells for cover. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_landfill.webp",
+    "first": "../records/target/combat_maps_11_3/first_landfill.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the flare",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-suburb-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-suburb-11-2",
+   "lane": "combat",
+   "sha": "fdd53c7d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE SUBURBS: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The suburbs are their own board now and dead brown, a row of backyards with the block walls you fight along and over, empty pools that are pits to cross, a swing set and a trampoline frame between the ranch houses. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_suburb.webp",
+    "first": "../records/target/combat_maps_11_3/first_suburb.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the backyards",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-strip-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-strip-11-2",
+   "lane": "combat",
+   "sha": "fdd53c7d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE STRIP: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The Strip is its own board now, an open marble casino plaza with a dry fountain whose rim is the cover, a giant arrow sign fallen on it, a stretch limo at the valet and the pedestrian bridge two storeys over the Boulevard. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_strip.webp",
+    "first": "../records/target/combat_maps_11_3/first_strip.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the fountain",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-downtown-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-downtown-11-2",
+   "lane": "combat",
+   "sha": "fdd53c7d",
+   "made": "11/3",
+   "draft": true,
+   "title": "DOWNTOWN: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "Downtown is its own board now, a bay of the Fremont canopy over the street with the burnt double-decker under it, and brick hotel backs with fire escapes to their roofs and alleys between them one man wide. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_downtown.webp",
+    "first": "../records/target/combat_maps_11_3/first_downtown.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: under the canopy",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-works-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-industrial-11-2",
+   "lane": "combat",
+   "sha": "fdd53c7d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE WORKS: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The works is its own board now, a boxcar and a black tank car on the spur making a wall across the yard with one crossing, a gantry crane with a car hanging off its hook, the shop's machines and stacked pipe for cover. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_works.webp",
+    "first": "../records/target/combat_maps_11_3/first_works.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the cars and the gantry",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
+  },
+  {
+   "id": "combat-place-marina-11-3",
+   "kind": "redo",
+   "redoOf": "combat-ground-water-11-2",
+   "lane": "combat",
+   "sha": "fdd53c7d",
+   "made": "11/3",
+   "draft": true,
+   "title": "THE MARINA: ITS OWN BOARD",
+   "said": "everything just looked exactly the same as the main suburb shit we have and then you gave a bunch of greenery to the suburb, bro this is an economic apocalypse, nothing made them uniquely unique, nothing made them fun to do, no variety, like true variety... you're not done",
+   "why": "The marina is its own board now, the dry marina bed open on all sides with a houseboat sat on its pontoons, cabin cruisers on their keels and bass boats on their trailers as the only cover, the houseboat's deck the one height. You see it here before, after and in play on the phone, and in every fight there on the map.",
+   "options": [
+    "A, yes, that is the place and it plays different",
+    "B, the place reads but push the twist further",
+    "C, no, still too much like the others"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_3/card_marina.webp",
+    "first": "../records/target/combat_maps_11_3/first_marina.webp",
+    "firstAt": [
+     398,
+     40,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the old board (COMBAT MAPS 2: its own floor under the shared plan)",
+    "after": "its own board: the houseboat",
+    "scale": "his phone, 390 x 844, by day, the fight's opening view and a few rounds in"
+   }
   }
  ],
  "verdicts": [

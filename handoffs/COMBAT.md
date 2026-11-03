@@ -1,27 +1,22 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
 COMBAT MAPS 3 11/3 (brief from the coordinator, re-briefed mid-round: rule 341, ask line 350; his 'everything just looked exactly
-the same as the main suburb shit... no variety, like true variety... you're not done'). PUSH 1 OF 3 SHIPPED (BUILD 11/3zzo - EVERY
-PLACE ITS OWN BOARD), NOT YET SEEN:
-1. THE PLAN GATE (gates/every_place_its_own_board_gate.js, suite row EVERY PLACE ITS OWN BOARD): 10 live deals a place, the plan
-   measured in the fight window (open, cover, blocked, fence, height, slow, lanes, the middle, the start); a built place must be
-   0.6 from all fifteen and the suburb, 10 boards in 10 fights, its landmark between the lines, at most 60% plain lines, named in
-   ours.place_boards; suburb and golf under 1% green-or-olive; OWED (unbuilt) may only shrink. Before: records/target/combat_maps_11_3/gate_before.json.
-2. THE GREEN KILLED: COMBAT MAPS 2's dead lawn and fairway materials grey-brown (its tool), plates re-rendered, the 12 suburb blocks
-   and golf.0 re-laid from c7f7ce05^ (put them in /tmp/claude-0/cm2/orig first; the tool copies from slices/ only if orig is missing).
-3. THE FIGHT DEALS A BUILT PLACE ITS OWN BOARD (BOHEMIA_FIGHT.html placeOwn/dealOwn/placeOwnStart; ours.place_boards): landmark in
-   column 1 (between the lines) in a picked row, field round it, cols/rows pins, starts line/wide/camp/pincer; built boards skip
-   fitCover; baked pieces (cover_extra baked: true) have no sprite.
-4. THE LAB YARD, THE AIRPORT, THE GOLF COURSE: 8 blocks (lab.1-3, apron.1-3, golf.1-2) modelled by this lane through the master
-   rig (tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py --render/--swap/--data; venv python3.11 + bpy 4.2.0; ~5 min a
-   block). COOK PROPS' manifest landed 20 minutes after these were modelled; its first three places' models are not on these boards.
-   VOTE: combat-place-lab-11-3, -airport-, -golf- (cards records/target/combat_maps_11_3/card_<place>.webp).
-PUSH 2 SHIPPED (BUILD 11/3zzr): the trailer park, the desert, Red Rock, the pass, the shore, the wash on COOK PROPS' .glb models
-(Kit.model + import_model: imported into the same render, turned in quarters, centred on the footprint); the ring never repeats a
-landmark; a place may pin blocks to a row/column (ours.place_boards cols/rows). VOTE: combat-place-<place>-11-3, nine cards.
-NEXT (push 3): the landfill (burning ground: a piece with burning: true is On Fire from round one, the fight's own rule 305), the
-suburbs, the Strip, downtown, the works, the marina: the tile maps, grounds and things are written in the tool; their 12 blocks
-render next. Record: records/BOHEMIA_COMBAT_MAPS_EVERY_PLACE_ITS_OWN_BOARD_11_3_26.md.
+the same as the main suburb shit... no variety, like true variety... you're not done'). DONE, ALL THREE PUSHES SHIPPED (BUILD 11/3zzq,
+11/3zzr, 11/3zzs - EVERY PLACE ITS OWN BOARD), NOT YET SEEN:
+1. THE PLAN GATE (gates/every_place_its_own_board_gate.js, suite row EVERY PLACE ITS OWN BOARD): 10 live deals a place measured on the
+   plan; PASS 15 of 15, OWED empty. Before/after: records/target/combat_maps_11_3/gate_before.json, gate_after.json.
+2. THE GREEN KILLED: COMBAT MAPS 2's dead lawn/fairway grey-brown, the 12 suburb blocks and golf.0 re-laid from c7f7ce05^ (put them in
+   /tmp/claude-0/cm2/orig first; the tool copies from slices/ only if orig is missing).
+3. THE FIGHT (BOHEMIA_FIGHT.html): placeOwn/dealOwn (ours.place_boards: landmark in column 1 in a picked row, field round it, cols/rows
+   pins), placeOwnStart (line/wide/camp/pincer), built boards skip fitCover, baked pieces have no sprite, a piece with burning: true is
+   On Fire all fight (the landfill), the ring never repeats a place's landmark.
+4. FIFTEEN PLACES, 36 blocks (lab.1-3, apron.1-3, golf.1-2, trailer.1-2, desert.1-3, canyon.1-2, pass.1-3, lakebed.1-3, wash.2-4,
+   dump.1-2, yards.1-2, plaza.1-2, fremont.1-2, rail.1-2, basin.1-2) through the master rig by
+   tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py (--render/--swap/--data/--cards/--register; venv python3.11 + bpy
+   4.2.0; ~4 min a block); twelve places on COOK PROPS' .glb models (Kit.model), the first three on this lane's own (made before
+   COOK PROPS' first batch landed). VOTE: combat-place-<place>-11-3, fifteen cards.
+NEXT (not asked, for whoever picks it up): COOK PROPS' lab/airport/golf models onto those three boards; 'burns if hit' (propane, the
+tank car) and 'no shot from a roof under the canopy' are new rules, not built. Record: records/BOHEMIA_COMBAT_MAPS_EVERY_PLACE_ITS_OWN_BOARD_11_3_26.md.
 
 COMBAT MAPS 2 11/2 (brief from the coordinator: rule 336, ask line 337; his NO on the six maps: 'still this yellow brown sand dirt
 as the main ground, not enough unique shit going on'). SHIPPED (BUILD 11/3zx - EVERY GROUND ITS OWN), NOT YET SEEN:
