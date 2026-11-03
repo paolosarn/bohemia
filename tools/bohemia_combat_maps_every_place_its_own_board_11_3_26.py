@@ -2020,7 +2020,7 @@ def register(sha, ids, tag=None):
             new.append(dict(id='combat-place-%s-11-3b' % pid, kind='redo', redoOf='combat-place-%s-11-3' % pid, lane='combat', sha=sha,
                             made='11/3', draft=True, title='%s: %s' % (P['name'], 'REBUILT' if pid in REBUILT_346 else 'NO SEAMS'),
                             said=SAID_346.get(pid, EVERY_GROUND_346),
-                            why=CARD_SAYS_346[pid] + ' Before is the board on main now, then after and in play on the phone.',
+                            why=CARD_SAYS_346[pid] + ' You see it in every fight there on the map.',
                             options=['A, yes, that is the place and nothing breaks the picture', 'B, better, push it further',
                                      'C, no, still wrong'],
                             show=dict(how='image', src='../records/target/combat_maps_11_3/card_%s.webp' % pid,

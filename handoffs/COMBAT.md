@@ -1,5 +1,19 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT MAPS 3, RULE 346 11/3 (scheduled brief from the coordinator: ask line 355; his VOTE: the Strip 'The worst, this needs to be
+THE BEST', downtown 'Looks like shit', every ground 'straight lines at grid borders... colors that end abruptly... roads that dont
+connect... things that dont visually and logically make sense'). PUSH 1 SHIPPED (BUILD 11/3zzzl - NO BOARD BREAKS ITS OWN PICTURE),
+NOT YET SEEN; pushes 2-5 IN FLIGHT in the same session:
+1. THE LEGS: gates/every_place_no_seams_gate.js (suite row NO BOARD BREAKS ITS OWN PICTURE; reads in
+   tools/bohemia_combat_maps_seams_read_11_3_26.py): seams (block seams, cell borders), cut-offs, roads met across every block
+   seam, logic list by eye (records/target/combat_maps_11_3/logic_list.json, tied to the pictures' sha1). OWED_SEAMS only shrinks;
+   before = records/target/combat_maps_11_3/seams_before.json, after push 1 = seams_after_push1.json.
+2. THE STRIP (blvd.1-2, stripw.1-3, stripe.1-2) and DOWNTOWN (fremont.3-7) rebuilt; the lab re-rendered; the old plaza/fremont
+   blocks graveyarded (graveyard/the_strip_and_downtown_11_3_26/POSTMORTEM.txt: the camera rule). FEATHER_KINDS: every place's own kinds.
+3. THE TOOL (tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py) already carries pushes 2-5 (warm grounds dustslab/lakemud/
+   passtan, apron.4, the old town blocks out of every place, every road/track/path at fixed rows, margins); --data --hold <places>
+   keeps a place as on main until its pictures are rendered and swapped. VOTE: combat-place-<place>-11-3b.
+
 COMBAT 7 11/3 (brief from the coordinator, check-in 10: EYES 11/3 broken items 1 and 2, the open asks page's 139, 152, 229).
 SHIPPED (BUILD 11/3zzzc item 1 alone 0de54ccb, then BUILD 11/3zzze), NOT YET SEEN:
 1. AUTO NEVER LEAVES A MAN (rows 96, 109, 319, 331): the cause was a man of theirs who had BROKEN and was running, counted by AUTO
