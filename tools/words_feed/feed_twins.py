@@ -3,32 +3,32 @@
 # Keyed by the English line exactly; the build refuses a key that matches no line or a line that
 # already has a twin, so this file cannot rot.
 TWINS = {
-    "{town}: the {company} did what they said they'd do and got paid for it. first time in a while i've seen that.":
-        "{town}: the {company} did what they said they'd do and got paid. yo lo vi, first time in a while.",
+    "{town}: the {company} did what they said they'd do and got paid. first time in a while.":
+        "{town}: the {company} did what they said and got paid. yo lo vi, first time in a while.",
     "heard the {company} got it done for {town}. my sister says they took their pay and left the same hour.":
         "heard the {company} got it done for {town}. mi hermana says they took their pay and left the same hour.",
-    "{town} board has the same paper up again. the {company} let it go. the pay was low but that family needed it.":
-        "{town} board has the same paper up again. the {company} let it go. the pay was low pero esa familia needed it.",
+    "{town} board has the same paper up again. the {company} let it go. low pay, but that family needed it.":
+        "{town} board has the same paper up again. the {company} let it go. low pay, pero esa familia needed it.",
     "{company}, if you read this: the {town} job is still open and the family is still holding your cells.":
         "{company}, si lees esto: the {town} job is still open and the family is still holding your cells.",
-    "heard shooting from {place} for maybe ten minutes. then the {company} came back past our house with {enemy}'s gear in the truck.":
-        "heard shooting from {place} like diez minutos. then the {company} came back past our house with {enemy}'s gear in the truck.",
-    "if you drive {place} today, thank the {company}. {enemy} had been set up out there all week.":
-        "si you drive {place} today, thank the {company}. {enemy} had been set up out there toda la semana.",
-    "saw the {company} come back up the road from {place} carrying two of their own. whatever {enemy} had, it was more.":
-        "saw the {company} come back up the road from {place} carrying dos of their own. whatever {enemy} had, it was more.",
-    "the {company} took a beating from {enemy}. doesn't make them weak. it makes {enemy} strong, and that's worse news for all of us.":
-        "the {company} took a beating from {enemy}. no los hace weak. it makes {enemy} strong, and that's worse news for all of us.",
-    "not every fight has to be won. the {company} backed off {enemy} at {place} and they're alive. that counts.":
-        "not every fight has to be won. the {company} backed off {enemy} at {place} and they're alive. eso cuenta.",
-    "the {company} came back from {place} with nothing to show and nobody missing. i'll take that trade every time.":
-        "the {company} came back from {place} with nada to show and nobody missing. i'll take that trade siempre.",
+    "shooting at {place}, ten minutes. then the {company} came by with {enemy}'s guns.":
+        "diez minutos of shots at {place}. then the {company} came by with {enemy}'s guns.",
+    "drive {place} today? thank the {company}. {enemy} sat out there all week.":
+        "drive {place} today? thank the {company}. {enemy} sat out there toda la semana.",
+    "the {company} came back from {place} carrying two of their own. {enemy} had more.":
+        "the {company} came back from {place} carrying dos of their own. {enemy} had more.",
+    "{enemy} beat the {company}. doesn't make them weak. makes {enemy} strong.":
+        "{enemy} beat the {company}. no los hace weak. makes {enemy} strong.",
+    "the {company} backed off {enemy} at {place} and they're alive. that counts.":
+        "the {company} backed off {enemy} at {place} and they're alive. eso cuenta.",
+    "the {company} came back from {place} with nothing and nobody missing. i'll take that trade.":
+        "the {company} came back from {place} with nada and nobody missing. that trade, siempre.",
     "{company} in {town} right now. saw them at the barber. they tip in cells.":
         "{company} in {town} ahorita. saw them at the barber. they tip in cells.",
     "saw {rare} walk into {town} from the south. says he's looking for a company that pays on time.":
         "saw {rare} walk into {town} from the south. dice que he's looking for a company that pays on time.",
-    "found the {company} truck at {place}. nobody in it. people are saying {enemy} have their gear now.":
-        "found the {company} truck at {place}. nadie in it. people are saying {enemy} have their gear now.",
+    "found the {company} truck at {place}. empty. word is {enemy} have their gear.":
+        "found the {company} truck at {place}. nadie. word is {enemy} have their gear.",
     "{faction} came through {town} just now. took the generator off the church and the dog didn't even bark.":
         "{faction} came through {town} just now. took the generator off the church y el perro didn't even bark.",
     "{faction} raid in {town}. they knew which houses had cells. think about that.":
@@ -39,8 +39,8 @@ TWINS = {
         "heard {town} fell. {faction} put their own people on the board. no tomen trabajo off that board.",
     "{town} is a real town now. walls, a board, a barber. they built it with their hands.":
         "{town} is a real town now. walls, a board, a barber. they built it con sus manos.",
-    "{good} is {now} now. it was {was}. i'm not mad at the guy selling it, i'm mad at the guy selling it to him.":
-        "{good} is {now} now. it was {was}. no estoy mad at the guy selling it, i'm mad at the guy selling it to him.",
+    "{good} is {now}. it was {was}. not mad at the guy selling it. mad at the guy selling to him.":
+        "{good} is {now}. it was {was}. no estoy mad at the guy selling it. mad at who sells to him.",
     "anyone else paying {now} for {good}? it was {was}. trying to figure out who's moving it.":
         "alguien más paying {now} for {good}? it was {was}. trying to figure out who's moving it.",
     "{good} came down to {now}. first good number all month. go before it's {was} again.":
@@ -55,10 +55,10 @@ TWINS = {
         "{faction} walking {road} toward {town}. like diez of them. not in a hurry.",
     "{faction} went by our place. didn't stop. one of them waved. i didn't wave back.":
         "{faction} went by our place. didn't stop. one of them waved. yo no.",
-    "heard {faction} hit {enemy} at {place}. if you owe either one, keep your head down this week.":
-        "heard {faction} hit {enemy} at {place}. si you owe either one, keep your head down this week.",
+    "{faction} hit {enemy} at {place}. owe either one? keep your head down this week.":
+        "{faction} hit {enemy} at {place}. si you owe either one, head down this week.",
     "{faction} against {enemy} again. my roof shakes and i don't even know whose shells those are.":
-        "{faction} against {enemy} otra vez. my roof shakes and i don't even know whose shells those are.",
+        "{faction} against {enemy} otra vez. my roof shakes and i don't know whose shells.",
     "anybody near {place} still have light? we lost {count} blocks and i'm trying to find where it stops.":
         "alguien near {place} still have light? we lost {count} blocks and i'm trying to find where it stops.",
     "{count} blocks back on. don't run everything at once or we're all dark again.":
@@ -88,7 +88,7 @@ TWINS = {
     "the man who sells batteries by the overpass isn't from here. his cells are good. i still don't like it.":
         "the man who sells batteries by the overpass no es de aquí. his cells are good. i still don't like it.",
     "we buried our neighbor Doug out back of the school. he'd want you to know the tomatoes are his. take some.":
-        "we buried our neighbor Doug out back of the school. he'd want you to know the tomatoes are his. llévense unos, por favor.",
+        "we buried our neighbor Doug behind the school. he'd want you to know the tomatoes are his. llévense unos, por favor.",
     "same on our street. they took the hose off the side of the house. the hose.":
         "same on our street. they took the hose off the side of the house. la manguera, ya.",
     "don't post which houses got hit. you're making a list for the next ones.":

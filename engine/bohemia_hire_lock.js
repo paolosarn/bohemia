@@ -31,9 +31,17 @@
     (ls(HK, []) || []).forEach(function (m) { if (m && m.name) t[up(m.name)] = 1; });
     (ls(WK, []) || []).forEach(function (m) { if (m && m.name) t[up(m.name)] = 1; });
     (ls('bohemia.fight.after.v1', []) || []).forEach(function (f) { ((f && f.rows) || []).forEach(function (r) { if (r && r.name) t[up(r.name)] = 1; }); });
+    try { var me = ls('bohemia.main.v1', null); if (me && me.name) t[up(me.name)] = 1; } catch (e) {}   /* and YOUR name (FIXES item 10) */
     return t;
   }
   function free(name, taken) {
+    /* FIXES item 10 (rule 351(b), ask line 362; Paolo 11/3: 'I think three of them are named the same thing in my company'):
+       MEASURED: a town's post rolls its names off the place and the week, so the same man's name stood there visit after visit, and
+       a number made him 'unique': TOMAS REYES, TOMAS REYES II, TOMAS REYES III, three men with one name to the man reading the roster.
+       Now a taken name keeps its first name and gets another surname off the names engine (a nickname when they run dry), and a
+       name and the same name with a number count as one (engine/bohemia_unique_name.js); the number below is only the fallback
+       for a page without the engine */
+    try { var U = root.BohemiaUniqueName; if (U && U.unique) return up(U.unique(name, taken, { seed: up(name) + ':' + Object.keys(taken).length })); } catch (e) {}
     var base = stem(name) || 'MAN';
     if (!taken[up(name)]) return up(name);
     for (var k = 2; k < 100; k++) { var n = base + ' ' + (ROMAN[k] || k); if (!taken[n]) return n; }
@@ -63,6 +71,9 @@
         if (moved) put(HK, h);
       }
     } catch (e) {}
+    /* FIXES item 10: twins across the whole company (the crew screen's company and the hired), a number counting as no new name:
+       the first keeps it, every later twin is renamed, his face his own (engine/bohemia_unique_name.js fixSaved) */
+    try { var U = root.BohemiaUniqueName; if (U && U.fixSaved) U.fixSaved().forEach(function (r) { out.renamed.push({ from: r.from, to: r.to }); }); } catch (e) {}
     root.__HIRE_LOCK = { at: Date.now(), back: out.back, renamed: out.renamed };
     return out;
   }

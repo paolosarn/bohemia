@@ -729,6 +729,7 @@ head('H. TEN TO FIFTEEN PERCENT, ROLLED PER LINE, NEVER THE PLAYER (Paolo 10/24)
       share.toFixed(1) + '% of ' + c.n + ' lines');
   });
   var all = tot.es / tot.n * 100;
+  global.__SPOKEN_SHARE = { es: tot.es, n: tot.n };   /* for I: what he meets, spoken and posted */
   ok('*** OVER THE LONG PLAY, 10 TO 15 PERCENT OF EVERY SPOKEN LINE IS SPANGLISH (Paolo 10/24) ***',
     all >= 10 && all <= 15 && tot.n > 50000, all.toFixed(1) + '% of ' + tot.n + ' lines, ' + Object.keys(mouths).length + ' mouths');
 
@@ -752,6 +753,51 @@ head('H. TEN TO FIFTEEN PERCENT, ROLLED PER LINE, NEVER THE PLAYER (Paolo 10/24)
   var pl2 = SPG.say({ player: true }, 'Walk up and hit it.', 'p');
   ok('the player never says it, however a line was written', !carries(pl1) && !carries(pl2) && SPG.regFor('player', 'x', 'spanglish') === 'en',
     pl1 + ' / ' + pl2);
+})();
+
+head('I. THE FREEZE: NO MORE SPANGLISH IS WRITTEN, 15 PERCENT IS THE CEILING (Paolo 11/3, rule 355; FIXES item 11, ask line 372)');
+/* 'I just don't wanna see more of it... whatever is there just leave it alone... at ship it should be like 15% of the human
+   conversation... do not cook a single more Spanglish line.' The register corpus is held at 532 above (REGISTER_LINE_CAP); here the
+   feed: its twins frozen at their 11/3 count, no Spanish twin in any other feed file (the world feed writes in English, 355(d)),
+   and what he meets, spoken and posted, at or under 15 percent. */
+(function () {
+  var FEED_TWIN_CAP = 171;         /* the feed's kind lines with a Spanglish twin on 11/3 (records/target/bb/feed_kinds.json). DO NOT RAISE: 355(a) */
+  var FEED_REPLY_TWIN_CAP = 46;    /* the replies' and follow-ups' twins the same day (38 and 8). DO NOT RAISE */
+  var BB = ROOT + '/records/target/bb/';
+  var FK = JSON.parse(fs.readFileSync(BB + 'feed_kinds.json', 'utf8'));
+  var es = function (o) { var n = 0; (function w(x) { if (Array.isArray(x)) return x.forEach(w); if (!x || typeof x !== 'object') return;
+    if (typeof x.es === 'string' && x.es.trim()) n++; Object.keys(x).forEach(function (k) { if (k !== 'es') w(x[k]); }); })(o); return n; };
+  var ks = Array.isArray(FK.kinds) ? FK.kinds : Object.keys(FK.kinds || {}).map(function (k) { return FK.kinds[k]; });
+  var tw = 0; ks.forEach(function (k) { (k.words || []).forEach(function (w) { if (w && typeof w.es === 'string' && w.es.trim()) tw++; }); });
+  ok('*** THE FEED\'S SPANGLISH TWINS ARE FROZEN: ' + FEED_TWIN_CAP + ' ON ITS LINES, ' + FEED_REPLY_TWIN_CAP + ' ON ITS REPLIES, NEVER ONE MORE (355(a)) ***',
+    tw <= FEED_TWIN_CAP && es([FK.replies, FK.followups]) <= FEED_REPLY_TWIN_CAP, tw + ' and ' + es([FK.replies, FK.followups]));
+  var others = fs.readdirSync(BB).filter(function (f) { return /^feed_.*\.json$/.test(f) && f !== 'feed_kinds.json'; });
+  var withEs = others.filter(function (f) { try { return es(JSON.parse(fs.readFileSync(BB + f, 'utf8'))) > 0; } catch (e) { return true; } });
+  ok('no Spanish twin in any other feed file (' + (others.join(', ') || 'none') + ')', !withEs.length, withEs.join(', ') || 'none');
+  /* WHAT HE MEETS: the feed paced through the real dial, exactly as THE FEED'S WORDS W13 plays it (the bank's kinds, their pace, each
+     post from an account in its pool, the form picked by how_to_speak), beside the spoken long play above */
+  var Bk = JSON.parse(fs.readFileSync(ROOT + '/banks/BOHEMIA_WORDS_THE_FEED_BANK.json', 'utf8'));
+  var S2 = require(ROOT + '/engine/bohemia_spanglish.js');
+  var accts = Bk.accounts || [], byId = {}; accts.forEach(function (a) { byId[a.id] = a; });
+  var people = accts.filter(function (a) { return a.kind === 'person'; }), strip = function (t) { return String(t).replace(/\{[a-z]+\}/g, ' '); };
+  var poolOf = function (w) { if (w === 'company' || w === 'scanner' || w === 'stranger') return accts.filter(function (a) { return a.kind === w; });
+    if (w === 'town' || w === 'valley') return people; if (/^faction:/.test(w)) return accts.filter(function (a) { return a.kind === 'page' && a.faction === w.slice(8); });
+    return byId[w] ? [byId[w]] : []; };
+  S2.setSeed('language-I-feed');
+  var kinds = Bk.kinds || [], wt = kinds.map(function (k) { return [k, 60 / (k.suggest && k.suggest.every_min ? k.suggest.every_min : 60)]; });
+  var total = wt.reduce(function (s, x) { return s + x[1]; }, 0), h = 11, posts = 0, pes = 0;
+  var rnd = function () { h = (Math.imul(h, 1103515245) + 12345) >>> 0; return h / 4294967296; };
+  for (var i = 0; i < 40000; i++) {
+    var t = rnd() * total, k = wt[0][0]; for (var j = 0; j < wt.length; j++) { t -= wt[j][1]; if (t <= 0) { k = wt[j][0]; break; } }
+    var pool = [].concat.apply([], (k.who || []).map(poolOf)); if (!pool.length || !(k.words || []).length) continue;
+    var a = pool[Math.floor(rnd() * pool.length)], w = k.words[Math.floor(rnd() * k.words.length)], out = w.en;
+    if (!a.player && !a.machine) { var who = { key: a.id, lang: a.lean || undefined }; if (S2.regFor(who, k.id + ':' + i, a.lean || undefined) !== 'en') out = w.es !== undefined ? w.es : S2.flavour(w.en, who); }
+    posts++; if (P.esWordsIn(strip(out)).length) pes++;
+  }
+  var sp = global.__SPOKEN_SHARE || { es: 0, n: 0 }, sShare = sp.n ? sp.es / sp.n * 100 : NaN, fShare = posts ? pes / posts * 100 : NaN;
+  ok('*** WHAT HE MEETS IS AT OR UNDER 15 PERCENT SPANGLISH (355(b)): the spoken lines and the feed\'s posts each at or under 15, so together at any mix ***',
+    sp.n > 50000 && posts > 30000 && sShare <= 15 && fShare <= 15,
+    'spoken ' + sShare.toFixed(1) + '% of ' + sp.n + ', the feed ' + fShare.toFixed(1) + '% of ' + posts + ' posts; together at most ' + Math.max(sShare, fShare).toFixed(1) + '%');
 })();
 
 head('F. THE SHIPPED FRAMES CARRY THE CURRENT MODULE');

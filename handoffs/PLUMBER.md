@@ -1,13 +1,19 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
-FIXES 11/3 -- EYES' broken items 3 to 8 (rows 17, 311, 315, 294, 292, 300). ALL SIX FIXED (BUILD 11/3zzzf SIX SMALL FIXES).
-Record: records/BOHEMIA_FIXES_SIX_SMALL_THINGS_11_3_26.md. Each tested on the upright phone with tools/bohemia_eyes_live_session.js.
-17: the down do not talk (a man on his feet, else no line; a wipe's first to wake only). 311: the held finger opens his kills card in
-the CREW SCREEN only (his 11/2 vote 'Only in the crew menu'; the fight stays clear). 315: ANOTHER/typed code now kill the door's
-background day-1 save, so the next boot rolls a code (reproduced and measured). 294: our own scar line for all 11 marks, no penalty.
-292: the injury card stands beside the phone. 300: PAID THERE words; a new gate check WORDS FOLLOW THE CARD.
-NOT DONE HERE (rule 297): the coordinator's later 'FIXES the unique names' (1382af10) was not in this brief; it waits for the next
-FIXES round. Seen while walking, not fixed: the title offers CONTINUE DAY 1 for a door's background save never begun.
+FIXES 11/3 (round 2) -- the coordinator's items 9, 10, 11. ALL THREE BUILT, NOT YET SEEN (BUILD 11/3zzzj THE WHOLE POST, ONE NAME EACH).
+9 (rule 350, ask 360): the strip is the coordinator's fitStrip (d3f1cb29), not touched; this round the words: every
+feed line 120 or under with its longest real names (87 lines rewritten at the WORDS sources, then the bank and the game's file rebuilt),
+40 handles to 16; gate THE FEED HAS A MAX LENGTH (six longest posts at 6 px or more, none cut). records/BOHEMIA_FIXES_THE_FEED_HAS_A_MAX_LENGTH_11_3_26.md
+10 (rule 351(b), ask 362): the cause was the hire lock's number (TOMAS REYES II, III); now a new surname, the post shows the final
+name, twins mended at load (engine/bohemia_unique_name.js); gate NO TWO MEN SHARE A NAME 9/0.
+11 (rule 355, ask 372): language gate section I: the feed's twins frozen at 171 and 46, no Spanish twin in other feed files, what he
+meets at most 13.6%. records/BOHEMIA_FIXES_NO_TWO_NAMES_AND_THE_SPANGLISH_FREEZE_11_3_26.md
+Reds seen and measured as main's own: THE PHONE's fight-pulse timing (on a loaded box), THE COMPANY SCREEN's computer path (one
+scroll, the same before my change), THE SETTLEMENT SCREEN's gun-name casing, THE LONG INJURY's 'penalties list both parts'.
+Seen, not fixed: the title offers CONTINUE DAY 1 for the new-game door's background save, a game never begun.
+
+FIXES 11/3 -- EYES' broken items 3 to 8 (rows 17, 311, 315, 294, 292, 300). ALL SIX FIXED AND LIVE (BUILD 11/3zzzf SIX SMALL FIXES,
+35568211, deployed in 7393fc39). Record: records/BOHEMIA_FIXES_SIX_SMALL_THINGS_11_3_26.md.
 
 PLUMBER 3 11/2 -- ask line 335 (rule 335), THE BOARDS ALWAYS HAVE WORK. FIXED, NOT YET SEEN (BUILD 11/3zz THE JOBS ARE BACK).
 Record: records/BOHEMIA_PLUMBER_NO_TOWN_HAD_ANY_JOBS_11_2_26.md.

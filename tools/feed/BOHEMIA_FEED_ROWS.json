@@ -884,7 +884,7 @@
   },
   {
    "id": "pg_blues",
-   "handle": "blues_general_assembly",
+   "handle": "blues_assembly",
    "kind": "page",
    "faction": "Blues",
    "town": "Blues",
@@ -901,7 +901,7 @@
    "story": "the Blues decide everything together, in public, slowly",
    "draft": true,
    "acts": {
-    "1": "blues_general_assembly"
+    "1": "blues_assembly"
    }
   },
   {
@@ -928,7 +928,7 @@
   },
   {
    "id": "pg_colorful",
-   "handle": "colorful_mutual_aid",
+   "handle": "colorful_mutual",
    "kind": "page",
    "faction": "Colorful",
    "town": "Colorful",
@@ -945,12 +945,12 @@
    "story": "the smallest crew, mutual aid, members in every friendly town",
    "draft": true,
    "acts": {
-    "1": "colorful_mutual_aid"
+    "1": "colorful_mutual"
    }
   },
   {
    "id": "pg_church",
-   "handle": "church_relief_line",
+   "handle": "church_relief",
    "kind": "page",
    "faction": "Church",
    "town": "Church",
@@ -967,12 +967,12 @@
    "story": "the Church's relief line: the best crisis kitchen in the valley",
    "draft": true,
    "acts": {
-    "1": "church_relief_line"
+    "1": "church_relief"
    }
   },
   {
    "id": "pg_network",
-   "handle": "the_network_official",
+   "handle": "network_official",
    "kind": "page",
    "faction": "Network",
    "town": "Network",
@@ -989,7 +989,7 @@
    "story": "the Network's official page; everything is fine, everything is handled",
    "draft": true,
    "acts": {
-    "1": "the_network_official"
+    "1": "network_official"
    }
   },
   {
@@ -1038,7 +1038,7 @@
   },
   {
    "id": "pg_volunteers",
-   "handle": "volunteers_soup_line",
+   "handle": "soup_line_vols",
    "kind": "page",
    "faction": "Volunteers",
    "town": "Volunteers",
@@ -1055,12 +1055,12 @@
    "story": "the Volunteers' soup line and clinic hours",
    "draft": true,
    "acts": {
-    "1": "volunteers_soup_line"
+    "1": "soup_line_vols"
    }
   },
   {
    "id": "pg_remnants",
-   "handle": "remnants_nellis_ops",
+   "handle": "remnants_nellis",
    "kind": "page",
    "faction": "Remnants",
    "town": "Remnants",
@@ -1077,7 +1077,7 @@
    "story": "what is left of the base at Nellis, posting like a duty log",
    "draft": true,
    "acts": {
-    "1": "remnants_nellis_ops"
+    "1": "remnants_nellis"
    }
   },
   {
@@ -1104,7 +1104,7 @@
   },
   {
    "id": "pg_homeless",
-   "handle": "kinghobo_rarely_posts",
+   "handle": "kinghobo_rarely",
    "kind": "page",
    "faction": "Homeless",
    "town": "Homeless",
@@ -1121,12 +1121,12 @@
    "story": "the tunnels barely use the feed; when the King posts, people read it",
    "draft": true,
    "acts": {
-    "1": "kinghobo_rarely_posts"
+    "1": "kinghobo_rarely"
    }
   },
   {
    "id": "nw_mom",
-   "handle": "summerlin_mom_of_3",
+   "handle": "summerlin_mom3",
    "kind": "stranger",
    "faction": "Network",
    "tags": [
@@ -1140,7 +1140,7 @@
    "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a mother in Summerlin, created eleven days ago, grateful",
    "draft": true,
    "acts": {
-    "1": "summerlin_mom_of_3"
+    "1": "summerlin_mom3"
    }
   },
   {
@@ -1164,7 +1164,7 @@
   },
   {
    "id": "nw_biz",
-   "handle": "small_biz_owner_lv",
+   "handle": "smallbiz_lv",
    "kind": "stranger",
    "faction": "Network",
    "tags": [
@@ -1178,7 +1178,7 @@
    "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a small business owner with no business",
    "draft": true,
    "acts": {
-    "1": "small_biz_owner_lv"
+    "1": "smallbiz_lv"
    }
   },
   {

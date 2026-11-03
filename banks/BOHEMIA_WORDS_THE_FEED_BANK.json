@@ -58,7 +58,7 @@
  "accounts": [
   {
    "id": "dolores",
-   "handle": "doloresy_eggs4cells",
+   "handle": "doloresy_eggs4",
    "name": "Dolores Ybarra",
    "kind": "person",
    "home": "henderson",
@@ -71,7 +71,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "doloresy_eggs4cells",
+    "1": "doloresy_eggs4",
     "2": "ybarra.eggs",
     "3": "ybarrafarms"
    },
@@ -93,14 +93,14 @@
    },
    "acts": {
     "1": "mbell2020_welds",
-    "2": "marcus.bell.welding",
+    "2": "marcus.welding",
     "3": "bellmetal"
    },
    "draft": true
   },
   {
    "id": "tran",
-   "handle": "tran.eth.radiofix",
+   "handle": "tran.eth.radio",
    "name": "Tran Nguyen",
    "kind": "person",
    "home": "henderson",
@@ -113,15 +113,15 @@
     "portrait": null
    },
    "acts": {
-    "1": "tran.eth.radiofix",
-    "2": "tran.nguyen.radios",
+    "1": "tran.eth.radio",
+    "2": "tran.n.radios",
     "3": "nguyen.signal"
    },
    "draft": true
   },
   {
    "id": "ruthann",
-   "handle": "ruthann_prayerline",
+   "handle": "ruthann_prayer",
    "name": "Ruth Ann Kessler",
    "kind": "person",
    "home": "boulder_city",
@@ -134,8 +134,8 @@
     "portrait": null
    },
    "acts": {
-    "1": "ruthann_prayerline",
-    "2": "bc.chapel.ruthann",
+    "1": "ruthann_prayer",
+    "2": "bc.chapel",
     "3": "kessler.memorial"
    },
    "draft": true
@@ -205,7 +205,7 @@
   },
   {
    "id": "jimmy",
-   "handle": "ex_guard_jimmy_jean",
+   "handle": "ex_guard_jimmy",
    "name": "Jimmy Ruiz",
    "kind": "person",
    "home": "jean",
@@ -218,7 +218,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "ex_guard_jimmy_jean",
+    "1": "ex_guard_jimmy",
     "2": "jruiz.jean.watch",
     "3": "ruiz.jean"
    },
@@ -226,7 +226,7 @@
   },
   {
    "id": "kayla",
-   "handle": "kayla_forklift_primm",
+   "handle": "kayla_forklift",
    "name": "Kayla Moss",
    "kind": "person",
    "home": "primm",
@@ -239,7 +239,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "kayla_forklift_primm",
+    "1": "kayla_forklift",
     "2": "kmoss.logistics",
     "3": "kaylamoss"
    },
@@ -247,7 +247,7 @@
   },
   {
    "id": "bud",
-   "handle": "bud_searchlight_mine",
+   "handle": "bud_searchlight",
    "name": "Bud Haskins",
    "kind": "person",
    "home": "searchlight",
@@ -260,7 +260,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "bud_searchlight_mine",
+    "1": "bud_searchlight",
     "2": "haskins.mineral",
     "3": null
    },
@@ -268,7 +268,7 @@
   },
   {
    "id": "corinne",
-   "handle": "corinne_old_dispatch",
+   "handle": "corinne_dispatch",
    "name": "Corinne Watts",
    "kind": "person",
    "home": "indian_springs",
@@ -281,7 +281,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "corinne_old_dispatch",
+    "1": "corinne_dispatch",
     "2": "cwatts.dispatch",
     "3": "watts.relay"
    },
@@ -289,7 +289,7 @@
   },
   {
    "id": "hal",
-   "handle": "hal_lodge_firewood",
+   "handle": "hal_firewood",
    "name": "Hal Bjornstad",
    "kind": "person",
    "home": "mt_charleston_lodge",
@@ -302,7 +302,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "hal_lodge_firewood",
+    "1": "hal_firewood",
     "2": "bjornstad.wood",
     "3": "hal.lodge"
    },
@@ -310,7 +310,7 @@
   },
   {
    "id": "shawna",
-   "handle": "shawna_pahrump_nails",
+   "handle": "shawna_nails",
    "name": "Shawna Teller",
    "kind": "person",
    "home": "pahrump",
@@ -323,15 +323,15 @@
     "portrait": null
    },
    "acts": {
-    "1": "shawna_pahrump_nails",
-    "2": "shawna.teller.salon",
+    "1": "shawna_nails",
+    "2": "shawna.salon",
     "3": "tellerbeauty"
    },
    "draft": true
   },
   {
    "id": "esteban",
-   "handle": "esteban_pahrump_goats",
+   "handle": "esteban_goats",
    "name": "Esteban Mora",
    "kind": "person",
    "home": "pahrump",
@@ -344,7 +344,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "esteban_pahrump_goats",
+    "1": "esteban_goats",
     "2": "mora.goats",
     "3": "moraranch"
    },
@@ -373,7 +373,7 @@
   },
   {
    "id": "gary",
-   "handle": "gary_mesquite_carts",
+   "handle": "gary_mesq_carts",
    "name": "Gary Lindqvist",
    "kind": "person",
    "home": "mesquite",
@@ -386,7 +386,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "gary_mesquite_carts",
+    "1": "gary_mesq_carts",
     "2": "lindqvist.carts",
     "3": null
    },
@@ -408,7 +408,7 @@
    },
    "acts": {
     "1": "marisol_v",
-    "2": "marisol.vega.kitchen",
+    "2": "marisol.kitchen",
     "3": "vegakitchen"
    },
    "draft": true
@@ -429,7 +429,7 @@
    },
    "acts": {
     "1": "eastwardEve",
-    "2": "eve.castaneda.build",
+    "2": "eve.castaneda",
     "3": "eastward"
    },
    "draft": true
@@ -492,7 +492,7 @@
    },
    "acts": {
     "1": "thevalley",
-    "2": "valley.group.terri",
+    "2": "valley.terri",
     "3": "thevalley"
    },
    "draft": true
@@ -562,7 +562,7 @@
   },
   {
    "id": "dre",
-   "handle": "coachdre_northtown27",
+   "handle": "coachdre_ntown27",
    "name": "Andre Little",
    "kind": "person",
    "home": "valley",
@@ -575,7 +575,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "coachdre_northtown27",
+    "1": "coachdre_ntown27",
     "2": "coach.dre.little",
     "3": "coachdre"
    },
@@ -639,14 +639,14 @@
    },
    "acts": {
     "1": "yesi_cuts_31",
-    "2": "yesi.flores.barber",
+    "2": "yesi.barber",
     "3": "yesicuts"
    },
    "draft": true
   },
   {
    "id": "darnell",
-   "handle": "darnell_used2drive109",
+   "handle": "darnell_drove109",
    "name": "Darnell Price",
    "kind": "person",
    "home": "valley",
@@ -659,7 +659,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "darnell_used2drive109",
+    "1": "darnell_drove109",
     "2": "dprice.route109",
     "3": null
    },
@@ -703,7 +703,7 @@
    "acts": {
     "1": "roadcrew_toll15",
     "2": "roadcrew_toll15",
-    "3": "i15.toll.authority"
+    "3": "i15.toll"
    },
    "draft": true
   },
@@ -751,7 +751,7 @@
   },
   {
    "id": "pg_water",
-   "handle": "agua.por.baterias",
+   "handle": "agua.x.baterias",
    "name": "THE WATER PEOPLE",
    "kind": "page",
    "home": null,
@@ -764,7 +764,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "agua.por.baterias",
+    "1": "agua.x.baterias",
     "2": "agua.coop",
     "3": "aguacoop"
    },
@@ -793,7 +793,7 @@
   },
   {
    "id": "pg_heads",
-   "handle": "headtakers_bounties",
+   "handle": "headtaker_bounty",
    "name": "THE HEAD TAKERS",
    "kind": "page",
    "home": null,
@@ -806,8 +806,8 @@
     "portrait": null
    },
    "acts": {
-    "1": "headtakers_bounties",
-    "2": "headtakers_bounties",
+    "1": "headtaker_bounty",
+    "2": "headtaker_bounty",
     "3": "recovery.agents"
    },
    "draft": true
@@ -835,7 +835,7 @@
   },
   {
    "id": "pg_keepers",
-   "handle": "keepers_of_the_herd",
+   "handle": "keepers_herd",
    "name": "THE KEEPERS",
    "kind": "page",
    "home": null,
@@ -848,15 +848,15 @@
     "portrait": null
    },
    "acts": {
-    "1": "keepers_of_the_herd",
+    "1": "keepers_herd",
     "2": "herd.keepers",
-    "3": "keepers_of_the_herd"
+    "3": "keepers_herd"
    },
    "draft": true
   },
   {
    "id": "pg_eye",
-   "handle": "eyeinthesky_floor",
+   "handle": "eyesky_floor",
    "name": "THE EYE IN THE SKY",
    "kind": "page",
    "home": null,
@@ -869,7 +869,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "eyeinthesky_floor",
+    "1": "eyesky_floor",
     "2": "eyeinthesky",
     "3": "eye"
    },
@@ -892,13 +892,13 @@
    "acts": {
     "1": "blockwatch_702",
     "2": "blockwatch_702",
-    "3": "neighborhood.safety"
+    "3": "hood.safety"
    },
    "draft": true
   },
   {
    "id": "pg_runners",
-   "handle": "runners_by_sundown",
+   "handle": "runners_sundown",
    "name": "THE RUNNERS",
    "kind": "page",
    "home": null,
@@ -911,8 +911,8 @@
     "portrait": null
    },
    "acts": {
-    "1": "runners_by_sundown",
-    "2": "runners_by_sundown",
+    "1": "runners_sundown",
+    "2": "runners_sundown",
     "3": "sundown.delivery"
    },
    "draft": true
@@ -1046,7 +1046,7 @@
   },
   {
    "id": "bot_happyhour",
-   "handle": "CoralLounge_HappyHour",
+   "handle": "CoralLounge_HH",
    "name": "Coral Lounge (scheduled)",
    "kind": "bot",
    "home": null,
@@ -1059,7 +1059,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "CoralLounge_HappyHour",
+    "1": "CoralLounge_HH",
     "2": null,
     "3": null
    },
@@ -1068,7 +1068,7 @@
   },
   {
    "id": "bot_power",
-   "handle": "ValleyPowerAlerts",
+   "handle": "ValleyPowerAlert",
    "name": "Valley Power Alerts",
    "kind": "bot",
    "home": null,
@@ -1081,7 +1081,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "ValleyPowerAlerts",
+    "1": "ValleyPowerAlert",
     "2": null,
     "3": null
    },
@@ -1112,7 +1112,7 @@
   },
   {
    "id": "bot_bus",
-   "handle": "Route109_Arrivals",
+   "handle": "Route109Arrivals",
    "name": "Route 109 Arrivals",
    "kind": "bot",
    "home": null,
@@ -1125,7 +1125,7 @@
     "portrait": null
    },
    "acts": {
-    "1": "Route109_Arrivals",
+    "1": "Route109Arrivals",
     "2": null,
     "3": null
    },
@@ -1203,7 +1203,7 @@
     },
     {
      "en": "{company} truck is parked by the {town} board. they took work. stay out of their way while they load.",
-     "es": "{company} truck is parked by the {town} board. they took work. stay out of their way, mijo, they're loading.",
+     "es": "{company} truck is parked by the {town} board. they took work. stay out of their way, mijo.",
      "tags": [
       "saw"
      ],
@@ -1247,15 +1247,15 @@
      "draft": true
     },
     {
-     "en": "{town}: the {company} did what they said they'd do and got paid for it. first time in a while i've seen that.",
-     "es": "{town}: the {company} did what they said they'd do and got paid. yo lo vi, first time in a while.",
+     "en": "{town}: the {company} did what they said they'd do and got paid. first time in a while.",
+     "es": "{town}: the {company} did what they said and got paid. yo lo vi, first time in a while.",
      "tags": [
       "saw"
      ],
      "draft": true
     },
     {
-     "en": "my neighbor says the {company} finished the {town} job and didn't ask for a cell more. who does that anymore.",
+     "en": "neighbor says the {company} did the {town} job and didn't ask a cell more. who does that anymore.",
      "es": "my neighbor says the {company} finished the {town} job and didn't ask for más. who does that anymore.",
      "tags": [
       "heard"
@@ -1279,8 +1279,8 @@
      "draft": true
     },
     {
-     "en": "whatever the {company} did for {town}, the man at the board is smiling. i haven't seen him smile since the bank closed.",
-     "es": "whatever the {company} did for {town}, the man at the board is smiling. no lo había visto smile since the bank closed.",
+     "en": "whatever the {company} did for {town}, the board man is smiling. first time since the bank closed.",
+     "es": "whatever the {company} did for {town}, the board man is smiling. no lo había visto since the bank.",
      "tags": [
       "ah"
      ],
@@ -1313,33 +1313,33 @@
    },
    "words": [
     {
-     "en": "the {company} took the {town} job and never came back for it. the family that posted it is still waiting.",
+     "en": "the {company} took the {town} job and never came back for it. the family is still waiting.",
      "es": "the {company} took the {town} job and never came back. la familia is still waiting.",
      "draft": true
     },
     {
-     "en": "{town} board has the same paper up again. the {company} let it go. the pay was low but that family needed it.",
-     "es": "{town} board has the same paper up again. the {company} let it go. the pay was low pero esa familia needed it.",
+     "en": "{town} board has the same paper up again. the {company} let it go. low pay, but that family needed it.",
+     "es": "{town} board has the same paper up again. the {company} let it go. low pay, pero esa familia needed it.",
      "tags": [
       "saw"
      ],
      "draft": true
     },
     {
-     "en": "heard the {company} walked off a job for {town}. could be they had a reason. still, that paper's been up since winter.",
-     "es": "heard the {company} walked off a job for {town}. puede ser they had a reason. still, that paper's been up since winter.",
+     "en": "the {company} walked off a {town} job. maybe they had a reason. that paper's been up since winter.",
+     "es": "heard the {company} walked off a {town} job. puede ser they had a reason. paper's up since winter.",
      "tags": [
       "heard"
      ],
      "draft": true
     },
     {
-     "en": "not saying anything bad about the {company}. just saying the {town} job is back on the board and nobody's taking it now.",
+     "en": "not saying anything about the {company}. just saying the {town} job is back up and nobody's taking it.",
      "draft": true
     },
     {
-     "en": "my uncle put cells up for that {town} job. the {company} took it and let it sit. he's asking around for another crew.",
-     "es": "mi tío put cells up for that {town} job. the {company} took it and let it sit. he's asking around for another crew.",
+     "en": "my uncle put cells up for that {town} job. the {company} let it sit. he's asking for another crew.",
+     "es": "mi tío put cells up for that {town} job. the {company} let it sit. he's asking for another crew.",
      "draft": true
     },
     {
@@ -1371,24 +1371,24 @@
    },
    "words": [
     {
-     "en": "the {company} ran into {enemy} out on {place} and walked away from it. that's a road we can use again.",
-     "es": "the {company} ran into {enemy} out on {place} and walked away. that camino is ours again.",
+     "en": "the {company} met {enemy} on {place} and walked away. that road is ours again.",
+     "es": "the {company} met {enemy} on {place} and walked away. that camino is ours again.",
      "tags": [
       "saw"
      ],
      "draft": true
     },
     {
-     "en": "heard shooting from {place} for maybe ten minutes. then the {company} came back past our house with {enemy}'s gear in the truck.",
-     "es": "heard shooting from {place} like diez minutos. then the {company} came back past our house with {enemy}'s gear in the truck.",
+     "en": "shooting at {place}, ten minutes. then the {company} came by with {enemy}'s guns.",
+     "es": "diez minutos of shots at {place}. then the {company} came by with {enemy}'s guns.",
      "tags": [
       "saw"
      ],
      "draft": true
     },
     {
-     "en": "{enemy} won't be on {place} for a while. the {company} saw to it. i counted them going out and coming back. same number.",
-     "es": "{enemy} won't be on {place} for a while. the {company} saw to it. los conté going out and coming back. same number.",
+     "en": "no {enemy} on {place} now. the {company} saw to it. same number out and back.",
+     "es": "no {enemy} on {place} now. the {company} saw to it. los conté, same number back.",
      "tags": [
       "saw",
       "ah"
@@ -1396,15 +1396,15 @@
      "draft": true
     },
     {
-     "en": "my kid watched the {company} fight {enemy} from the roof. i told him get down. he says they never broke their line.",
-     "es": "my kid watched the {company} fight {enemy} from the roof. le dije que get down. he says they never broke their line.",
+     "en": "my kid watched the {company} fight {enemy} from the roof. says they never broke.",
+     "es": "my kid saw the {company} fight {enemy} from the roof. le dije que get down. they never broke.",
      "tags": [
       "heard"
      ],
      "draft": true
     },
     {
-     "en": "they're saying {enemy} lost at {place} and the {company} won. the dogs started barking again after. they hadn't all week.",
+     "en": "{enemy} lost at {place}, the {company} won. the dogs bark again.",
      "tags": [
       "heard",
       "ah"
@@ -1412,13 +1412,13 @@
      "draft": true
     },
     {
-     "en": "the {company} beat {enemy} at {place}. i don't love more guns on the road but i love fewer of theirs.",
-     "es": "the {company} beat {enemy} at {place}. no me gustan more guns on the road, pero fewer of theirs, sí.",
+     "en": "the {company} beat {enemy} at {place}. more guns out, fewer of theirs.",
+     "es": "the {company} beat {enemy} at {place}. more guns, pero fewer of theirs.",
      "draft": true
     },
     {
-     "en": "if you drive {place} today, thank the {company}. {enemy} had been set up out there all week.",
-     "es": "si you drive {place} today, thank the {company}. {enemy} had been set up out there toda la semana.",
+     "en": "drive {place} today? thank the {company}. {enemy} sat out there all week.",
+     "es": "drive {place} today? thank the {company}. {enemy} sat out there toda la semana.",
      "draft": true
     }
    ]
@@ -1446,8 +1446,8 @@
    },
    "words": [
     {
-     "en": "saw the {company} come back up the road from {place} carrying two of their own. whatever {enemy} had, it was more.",
-     "es": "saw the {company} come back up the road from {place} carrying dos of their own. whatever {enemy} had, it was more.",
+     "en": "the {company} came back from {place} carrying two of their own. {enemy} had more.",
+     "es": "the {company} came back from {place} carrying dos of their own. {enemy} had more.",
      "tags": [
       "saw"
      ],
@@ -1455,19 +1455,19 @@
     },
     {
      "en": "the {company} lost at {place}. {enemy} still hold the road. stay off it, please.",
-     "es": "the {company} lost at {place}. {enemy} still hold the road. por favor stay off it.",
+     "es": "the {company} lost at {place}. {enemy} hold the road. por favor stay off it.",
      "draft": true
     },
     {
-     "en": "heard it went bad for the {company} against {enemy}. pray for them if you do that. i still do.",
-     "es": "heard it went bad for the {company} against {enemy}. pray for them si you do that. yo todavía lo hago.",
+     "en": "it went bad for the {company} against {enemy}. pray for them if you do that. i still do.",
+     "es": "it went bad for the {company} against {enemy}. pray for them si you do. yo todavía lo hago.",
      "tags": [
       "heard"
      ],
      "draft": true
     },
     {
-     "en": "{enemy} won at {place}. the {company} pulled back to {town} slow, with the truck lights off.",
+     "en": "{enemy} won at {place}. the {company} rolled back to {town} slow, lights off.",
      "tags": [
       "saw",
       "ah"
@@ -1475,16 +1475,16 @@
      "draft": true
     },
     {
-     "en": "my brother was at {place} when the {company} got pushed off it. he says {enemy} had more men than anyone thought.",
-     "es": "mi hermano was at {place} when the {company} got pushed off it. dice {enemy} had more men than anyone thought.",
+     "en": "my brother saw the {company} pushed off {place}. {enemy} had more men.",
+     "es": "mi hermano saw the {company} pushed off {place}. dice {enemy} had more men.",
      "tags": [
       "heard"
      ],
      "draft": true
     },
     {
-     "en": "the {company} took a beating from {enemy}. doesn't make them weak. it makes {enemy} strong, and that's worse news for all of us.",
-     "es": "the {company} took a beating from {enemy}. no los hace weak. it makes {enemy} strong, and that's worse news for all of us.",
+     "en": "{enemy} beat the {company}. doesn't make them weak. makes {enemy} strong.",
+     "es": "{enemy} beat the {company}. no los hace weak. makes {enemy} strong.",
      "draft": true
     }
    ]
@@ -1511,41 +1511,41 @@
    },
    "words": [
     {
-     "en": "the {company} pulled out of {place} before it got bad. {enemy} let them go. everybody came home, that's what i heard.",
-     "es": "the {company} pulled out of {place} before it got bad. {enemy} let them go. todos came home, that's what i heard.",
+     "en": "the {company} left {place} before it got bad. {enemy} let them go. all came home.",
+     "es": "the {company} left {place} before it got bad. {enemy} let them go. todos home.",
      "tags": [
       "heard"
      ],
      "draft": true
     },
     {
-     "en": "saw the {company} turn around at {place} and come back fast. whatever they saw out there, i'm not driving that way.",
-     "es": "saw the {company} turn around at {place} and come back fast. whatever they saw out there, yo no voy that way.",
+     "en": "saw the {company} turn around at {place} and come back fast. i'm not driving that way.",
+     "es": "saw the {company} turn around at {place} and come back fast. yo no voy that way.",
      "tags": [
       "saw"
      ],
      "draft": true
     },
     {
-     "en": "not every fight has to be won. the {company} backed off {enemy} at {place} and they're alive. that counts.",
-     "es": "not every fight has to be won. the {company} backed off {enemy} at {place} and they're alive. eso cuenta.",
+     "en": "the {company} backed off {enemy} at {place} and they're alive. that counts.",
+     "es": "the {company} backed off {enemy} at {place} and they're alive. eso cuenta.",
      "draft": true
     },
     {
-     "en": "{enemy} chased the {company} off {place}. they didn't chase far. they didn't have to.",
+     "en": "{enemy} chased the {company} off {place}. not far. they didn't have to.",
      "tags": [
       "ah"
      ],
      "draft": true
     },
     {
-     "en": "the {company} ran from {place}. good. my husband never ran from anything and i'm writing this alone.",
-     "es": "the {company} ran from {place}. bien. my husband never ran from anything y aquí estoy, writing this alone.",
+     "en": "the {company} ran from {place}. good. my husband never ran and i'm writing this alone.",
+     "es": "the {company} ran from {place}. bien. my husband never ran y aquí estoy, alone.",
      "draft": true
     },
     {
-     "en": "the {company} came back from {place} with nothing to show and nobody missing. i'll take that trade every time.",
-     "es": "the {company} came back from {place} with nada to show and nobody missing. i'll take that trade siempre.",
+     "en": "the {company} came back from {place} with nothing and nobody missing. i'll take that trade.",
+     "es": "the {company} came back from {place} with nada and nobody missing. that trade, siempre.",
      "tags": [
       "saw"
      ],
@@ -1720,7 +1720,7 @@
      "draft": true
     },
     {
-     "en": "Buried {man} outside {town}. {enemy} killed him at {place}. We keep the name.",
+     "en": "Buried {man} by {town}. {enemy} killed him at {place}. We keep the name.",
      "draft": true
     },
     {
@@ -1783,7 +1783,7 @@
     },
     {
      "en": "the {company} came into {town} off {road}. the kids followed them all the way to the board.",
-     "es": "the {company} came into {town} off {road}. los niños followed them all the way to the board.",
+     "es": "the {company} came into {town} off {road}. los niños followed them to the board.",
      "tags": [
       "saw"
      ],
@@ -1891,8 +1891,8 @@
    },
    "words": [
     {
-     "en": "found the {company} truck at {place}. nobody in it. people are saying {enemy} have their gear now.",
-     "es": "found the {company} truck at {place}. nadie in it. people are saying {enemy} have their gear now.",
+     "en": "found the {company} truck at {place}. empty. word is {enemy} have their gear.",
+     "es": "found the {company} truck at {place}. nadie. word is {enemy} have their gear.",
      "tags": [
       "saw",
       "ah"
@@ -1900,7 +1900,7 @@
      "draft": true
     },
     {
-     "en": "the {company} went down at {place}. all of them. they're alive, i think. they woke up in {town} with nothing.",
+     "en": "the {company} went down at {place}. all of them. alive. woke in {town} with nothing.",
      "es": "the {company} went down at {place}. todos. alive, creo. they woke up in {town} with nada.",
      "tags": [
       "heard"
@@ -1908,7 +1908,7 @@
      "draft": true
     },
     {
-     "en": "{enemy} have the {company}'s guns. saw them carry them up {road} like it was a parade.",
+     "en": "{enemy} have the {company}'s guns. carried them up {road} like a parade.",
      "tags": [
       "saw"
      ],
@@ -1920,11 +1920,11 @@
      "draft": true
     },
     {
-     "en": "the {company} lost it all at {place}. their downed men are with {enemy} now. go get them back, {company}.",
+     "en": "the {company} lost it all at {place}. {enemy} hold their men. go get them back.",
      "draft": true
     },
     {
-     "en": "the {company}'s captain walked into {town} alone from {place}. went to the clinic. didn't say a word.",
+     "en": "the {company}'s captain walked into {town} alone from {place}. clinic. not a word.",
      "tags": [
       "saw",
       "ah"
@@ -2139,8 +2139,8 @@
    },
    "words": [
     {
-     "en": "{good} is {now} now. it was {was}. i'm not mad at the guy selling it, i'm mad at the guy selling it to him.",
-     "es": "{good} is {now} now. it was {was}. no estoy mad at the guy selling it, i'm mad at the guy selling it to him.",
+     "en": "{good} is {now}. it was {was}. not mad at the guy selling it. mad at the guy selling to him.",
+     "es": "{good} is {now}. it was {was}. no estoy mad at the guy selling it. mad at who sells to him.",
      "draft": true
     },
     {
@@ -2153,8 +2153,8 @@
      "draft": true
     },
     {
-     "en": "{good} at {now} at the market. the lady said {was} to me last week and looked away when i reminded her.",
-     "es": "{good} at {now} at the market. la señora said {was} to me last week y se volteó when i reminded her.",
+     "en": "{good} at {now} at the market. the lady said {was} last week and looked away when i reminded her.",
+     "es": "{good} at {now} at the market. la señora said {was} last week y se volteó when i reminded her.",
      "tags": [
       "ah"
      ],
@@ -2211,7 +2211,7 @@
      "draft": true
     },
     {
-     "en": "price on {good} dropped to {now} from {was}. the sellers must have had a good week. good for them, i guess.",
+     "en": "{good} dropped to {now} from {was}. the sellers had a good week. good for them, i guess.",
      "draft": true
     }
    ]
@@ -2268,7 +2268,7 @@
      "draft": true
     },
     {
-     "en": "{faction} have {road} closed at {place}. there's a sign. it's handwritten and spelled right, which scares me more.",
+     "en": "{faction} closed {road} at {place}. a handwritten sign, spelled right. scarier.",
      "tags": [
       "saw",
       "ah"
@@ -2428,13 +2428,13 @@
    },
    "words": [
     {
-     "en": "{faction} and {enemy} are shooting at each other out by {place}. let them. stay home.",
-     "es": "{faction} and {enemy} are shooting at each other out by {place}. déjalos. stay home, en serio.",
+     "en": "{faction} and {enemy} are shooting it out by {place}. let them. stay home.",
+     "es": "{faction} and {enemy} are shooting by {place}. déjalos. stay home, en serio.",
      "draft": true
     },
     {
-     "en": "heard {faction} hit {enemy} at {place}. if you owe either one, keep your head down this week.",
-     "es": "heard {faction} hit {enemy} at {place}. si you owe either one, keep your head down this week.",
+     "en": "{faction} hit {enemy} at {place}. owe either one? keep your head down this week.",
+     "es": "{faction} hit {enemy} at {place}. si you owe either one, head down this week.",
      "tags": [
       "heard"
      ],
@@ -2442,16 +2442,16 @@
     },
     {
      "en": "{faction} against {enemy} again. my roof shakes and i don't even know whose shells those are.",
-     "es": "{faction} against {enemy} otra vez. my roof shakes and i don't even know whose shells those are.",
+     "es": "{faction} against {enemy} otra vez. my roof shakes and i don't know whose shells.",
      "draft": true
     },
     {
-     "en": "the smoke over {place} is {faction} and {enemy}. whoever wins raises the price of something.",
-     "es": "the smoke over {place} is {faction} and {enemy}. whoever wins sube el precio of something.",
+     "en": "smoke over {place} is {faction} and {enemy}. whoever wins, something costs more.",
+     "es": "smoke over {place} is {faction} and {enemy}. whoever wins, sube el precio.",
      "draft": true
     },
     {
-     "en": "{enemy} and {faction} are at it at {place}. the scanner's full of men saying the same three words.",
+     "en": "{enemy} and {faction} at {place}. the scanner's men all saying three words.",
      "tags": [
       "ah"
      ],
@@ -2595,7 +2595,7 @@
      "draft": true
     },
     {
-     "en": "{faction} trucks came in to {town}. guards on every one. the prices are on a board, and the board doesn't move.",
+     "en": "{faction} trucks came into {town}. guards on every one. prices on a board. the board doesn't move.",
      "tags": [
       "saw"
      ],
@@ -2822,7 +2822,7 @@
      "draft": true
     },
     {
-     "en": "found a little girl's backpack by the bus bench on {road}. pink. there's a phone inside that still has charge. it keeps getting texts.",
+     "en": "a girl's pink backpack by the bus bench on {road}. the phone inside has charge. it keeps getting texts.",
      "tags": [
       "ah"
      ],
@@ -2991,7 +2991,7 @@
      "draft": true
     },
     {
-     "en": "the emergency tone came on the radio at four again. no message after it. just the tone, then the old station. anyone else?",
+     "en": "the emergency tone came on the radio at four again. no message. just the tone, then the old station. anyone else?",
      "tags": [
       "ah"
      ],
@@ -3006,7 +3006,7 @@
      "draft": true
     },
     {
-     "en": "the casino sign on {road} lit up for about a minute. i saw the price of a steak dinner from before. then dark.",
+     "en": "the casino sign on {road} lit up for a minute. i saw a steak dinner at the old price. then dark.",
      "tags": [
       "ah"
      ],
@@ -3050,7 +3050,7 @@
    },
    "words": [
     {
-     "en": "{town}: per traffic, a fire at a storage yard off {road}. block watch on the way. unconfirmed. avoid the area.",
+     "en": "{town}: per traffic, a fire at a storage yard off {road}. block watch rolling. unconfirmed. avoid.",
      "draft": true
     },
     {
@@ -3058,7 +3058,7 @@
      "draft": true
     },
     {
-     "en": "{road}: two vehicles stopped across both lanes. could be {faction}, could be a breakdown. nobody's saying on the air.",
+     "en": "{road}: two vehicles across both lanes. {faction}, or a breakdown. nothing on the air.",
      "draft": true
     },
     {
@@ -3151,7 +3151,7 @@
      "draft": true
     },
     {
-     "en": "there's a man at the {town} post says his name is Curtis and he's from Pahrump. nobody in Pahrump knows a Curtis. just saying.",
+     "en": "a man at the {town} post says he's Curtis from Pahrump. nobody in Pahrump knows a Curtis. just saying.",
      "draft": true
     },
     {
@@ -3174,8 +3174,8 @@
      "draft": true
     },
     {
-     "en": "careful with the woman going door to door in {town} asking about water rights. she has a clipboard. nobody has a clipboard anymore.",
-     "es": "cuidado with the woman going door to door in {town} asking about water rights. she has a clipboard. nadie has a clipboard anymore.",
+     "en": "careful, a woman going door to door in {town} about water rights. she has a clipboard. nobody has those now.",
+     "es": "cuidado, a woman going door to door in {town} about water rights. she has a clipboard. nadie has those now.",
      "tags": [
       "ah"
      ],
@@ -3206,7 +3206,7 @@
      "draft": true
     },
     {
-     "en": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who's going to wind it now.",
+     "en": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now.",
      "es": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. quién lo va a hacer ahora.",
      "tags": [
       "ah"
@@ -3215,7 +3215,7 @@
     },
     {
      "en": "we buried our neighbor Doug out back of the school. he'd want you to know the tomatoes are his. take some.",
-     "es": "we buried our neighbor Doug out back of the school. he'd want you to know the tomatoes are his. llévense unos, por favor.",
+     "es": "we buried our neighbor Doug behind the school. he'd want you to know the tomatoes are his. llévense unos, por favor.",
      "draft": true
     },
     {
@@ -4309,7 +4309,7 @@
    "words": [
     {
      "en": "The floor is open to members. Cameras are on. Keep your hands where they can be seen.",
-     "es": "The floor is open to members. Cameras are on. Cameras are on, siempre. Keep your hands where the camera sees them, vecino.",
+     "es": "The floor is open to members. Cameras are on, siempre. Keep your hands where the camera sees them, vecino.",
      "draft": true
     },
     {
@@ -4467,7 +4467,7 @@
      "draft": true
     },
     {
-     "en": "Caught two of {enemy}'s men in the backyards. Walked them to the edge of the block. Next time we won't walk.",
+     "en": "Caught two of {enemy}'s men in the yards. Walked them to the edge of the block. Next time we won't walk.",
      "draft": true
     },
     {
@@ -5118,7 +5118,7 @@
    "teaches": "the valley keeps watching after the fight; what you do next is the second half of the story",
    "words": [
     {
-     "en": "the {company} buried {man} outside {town}. a few of us went. they didn't say much. they said his name.",
+     "en": "the {company} buried {man} outside {town}. a few of us went. they said his name.",
      "tags": [
       "saw"
      ],

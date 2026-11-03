@@ -286,6 +286,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__ (rule 241): the wound, its debuff, its days -->
 <script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: who is hurt, from the company's own condition -->
+<script src="../engine/bohemia_unique_name.js"></script>  <!-- FIXES item 10 (rule 351(b)): no two men in the company share a name; the hire lock below names a taken man with a new surname -->
 <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295): his name is his own in the company -->
 <script src="bohemia_injury_card.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: the one card the clinic and the crew card both draw -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
@@ -3482,10 +3483,14 @@ function recruitsHere(){
     var deal = function(L, salt){ return L.map(function(r){ return {r:r, k:seedOf(key + salt + ':deal:' + r.backgroundId)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.r; }); };
     var six = deal(BohemiaGoodBros.sixAtThePost(key), ''), more = n > 6 ? deal(BohemiaGoodBros.sixAtThePost(key + ':more'), ':more') : [];
     var looks = recruitLooks(key, n);
+    var postTaken = {}; try{ if(window.BohemiaHireLock && BohemiaHireLock.names) postTaken = BohemiaHireLock.names(); else if(window.BohemiaUniqueName) postTaken = BohemiaUniqueName.taken(); }catch(e){}
     S.recruits = six.concat(more).slice(0, n).map(function(r, i){
       r.id = 'rc' + i; r.look = looks[i]; r.name = hireName(key, i, r.look);
       var wl = womanAt(key, i); if(wl){ r.look = wl; r.woman = true; r.name = hireName(key, i, r.look); }   /* __A_FEW_WOMEN_AT_THE_POST__: her own body, her own name */
-      var rm = rareAt(key, i); if(rm){ rm.id = r.id; rm.look = r.look; rm.name = r.name; return rm; }   /* __THE_RARE_MAN_AT_THE_POST__ */
+      var rm = rareAt(key, i); if(rm){ rm.id = r.id; rm.look = r.look; rm.name = r.name; r = rm; }   /* __THE_RARE_MAN_AT_THE_POST__ */
+      /* FIXES item 10 (rule 351(b)): the name on his card is the name he is hired under: never one alive in the company (a number
+         counts as no new name) and never one of the other men at this post; a taken one keeps his first name, a new surname */
+      if(window.BohemiaUniqueName){ r.name = BohemiaUniqueName.unique(r.name, postTaken, {seed: key + ':' + i, look: r.look, sex: r.woman ? 'f' : null}); postTaken[BohemiaUniqueName.key(r.name)] = 1; }
       return r; });
   }
   return (S.recruits||[]).filter(function(r){ return !S.taken[r.id]; });

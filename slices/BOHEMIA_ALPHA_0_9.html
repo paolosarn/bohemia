@@ -10,6 +10,8 @@
 <script src="bohemia_settings.js"></script>
 <!-- __DAMAGE_STAYS__ (CAMP, rule 226): what each man of the company is missing between fights, for the fight's door (nfOpts) and its end (nfOverIn) -->
 <script src="../engine/bohemia_condition.js"></script>
+<script src="../engine/bohemia_names.js"></script>  <!-- FIXES item 10: the one names engine, so a renamed man gets a real surname -->
+<script src="../engine/bohemia_unique_name.js"></script>  <!-- FIXES item 10 (rule 351(b)): no two men in the company share a name; the hire lock below names a taken man with a new surname -->
 <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (Paolo 10/27, rule 295): the old bill's walks undone, every hire one name, before any screen reads the crew -->
 <!-- __STRUCK_DOWN_HE_STILL_FIGHTS__ (CAMP, rule 234): a struck-down man's mark for life and his fresh wound, handed to the fight as a debuff, never a bench -->
 <script src="../engine/bohemia_long_injury.js"></script>
@@ -1578,7 +1580,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zzzi - NO BEAST FIGHT IS ALWAYS DOGS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zzzj - THE WHOLE POST, ONE NAME EACH</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash

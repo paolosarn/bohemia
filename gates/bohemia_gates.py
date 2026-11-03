@@ -10287,6 +10287,15 @@ GATES = [
      "on its sheet with a body; every piece rendered with the master rig's light, film and source pass, no setting moved, its fullest view 100 colours "
      "or more; the riot helmet and the police vest carry their own art; the riot visor is glass his face shows through, the welder's lens is not; every "
      "facing's piece where CHARACTER's placeholder put it, within 4 px. Under 1 s", False),
+    ("NO TWO MEN SHARE A NAME", ['node', 'gates/no_two_men_share_a_name_gate.js'],
+     "FIXES item 10, rule 351(b), ask line 362 (Paolo 11/3: 'I think three of them are named the same thing in my company'): 200 hires into one "
+     "company, no two names alike (a number is no new name: TOMAS REYES II is TOMAS REYES); never YOUR name or a living man's; a save with twins "
+     "fixed on load, the first keeps it, faces kept; the hire lock names a taken man with a new surname; the post shows the final name. Under 1 s", False),
+    ("THE FEED HAS A MAX LENGTH", ['node', 'gates/the_feed_has_a_max_length_gate.js'],
+     "FIXES item 9, rule 350, ask line 360 (Paolo 11/3: 'the feed is broken right now... the tweets are too fat... they're like loading half the time'): "
+     "every feed line (the game's file, WORDS' bank, the world feed) at 120 or under with every fill at its longest real value, every handle at 16 or under, "
+     "no line cut with dots; on the upright phone a 120-letter post shows its last word whole in the strip (6 px on 7 px lines), and in the three-jobs strip "
+     "it steps up a line a beat until its last word is seen. Opens the demo: about 2 minutes", False),
     ("THE FEED'S WORDS", ['node', 'gates/feed_words_gate.js'],
      "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
      "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "

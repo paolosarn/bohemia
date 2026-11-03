@@ -38,5 +38,5 @@ with tools/bohemia_eyes_live_session.js, served from disk at the real address. N
    the generator tools too (tools/bohemia_run2_board_shelf.py, tools/words_feed/*), so a re-bake keeps them. New check in THE
    BOARD'S QUESTS ARE PEOPLE: WORDS FOLLOW THE CARD (17/0). THE FEED'S WORDS 5018/0; THE FEED GATE's 8 fails are main's own.
 
-Proof line: BUILD 11/3zzze; gates THE SURVIVOR'S WORD 6/0, THE LONG INJURY 56/1 (main's), THE BOARD'S QUESTS ARE PEOPLE 17/0,
+Proof line: BUILD 11/3zzzf; gates THE SURVIVOR'S WORD 6/0, THE LONG INJURY 56/1 (main's), THE BOARD'S QUESTS ARE PEOPLE 17/0,
 THE FEED'S WORDS 5018/0; phone walk steps 1 to 16 in the FIXES session (no page error).
