@@ -10,7 +10,8 @@
        kills and his best foe off the fight) count on top until it does, exactly the way the end screen counts his XP.
      * A FOE'S WORTH is his experience value (the fight's t.xp, Battle Brothers' own XPValue); a tie goes to the higher level.
      * OLD SAVES start at 0 and count from the first fight after this shipped (nothing before it was kept).
-   THE CARD (a long press on one of his men, on the phone, in the fight, the camp and the map; the end screen too): his face, his
+   THE CARD (a long press on one of his men in the crew screen's line, the one place: his vote 11/2, 'Only in the crew menu not any
+   other menu'; FIXES 11/3): his face, his
    name, 'n KILLS · n FIGHTS', 'BEST: the strongest foe'. A finger held HOLD_MS without moving opens it; the next touch anywhere
    closes it; it never covers what it is about longer than it is held up.
      BohemiaKillTally.of(name, was?) -> {fights, kills, best:{name, kind, xp, boss}|null}

@@ -3,8 +3,8 @@
    UI, to replace the you won... for the enemy type that you just vanquished, or enemy camp, whatever group... I want it to be funny,
    I want my characters to say funny things, like morbid funny, like real killers').
    One man of his says one line with his face and his name (A QUEST IS PEOPLE, PLACES AND THINGS: text comes from a mouth with a
-   portrait, never a card). WHO: a man still on his feet (never YOU, never a beast, never the dead); none standing, one alive on the
-   ground (a struck-down man wakes up for it); nobody, nothing is said and the screen keeps its word. HIS VOICE: his personality type
+   portrait, never a card). WHO: a man still on his feet (never YOU, never a beast, never the dead); none standing, nothing is said and
+   the screen keeps its word (THE DOWN DO NOT TALK, rule 143(d)); only a wipe hears from the ground, the first man to wake in town. HIS VOICE: his personality type
    out of WORDS' bank (records/target/bb/crew_voices.json), picked exactly the way the fight picks it (off his look, FNV-1a, the
    types sorted), so the man who called the shots in the fight is the same voice here. WHAT: how it went (the bank's after.how, the
    first that holds: a man lost for good, a boss, a man struck down, outnumbered, close, flawless, else the plain win), the kind they
@@ -63,7 +63,9 @@
   }
   function speakerOf(ctx, rnd, B) {
     var men = crew(ctx).filter(function (m) { return !m.main && !m.dead; });
-    var up = men.filter(function (m) { return !m.down; }), pool = up.length ? up : men;
+    /* THE DOWN DO NOT TALK (rule 143(d); EYES row 17, 11/3: DESI at one hit point said the win line while only YOU stood). A man
+       on his feet, else nobody and the screen keeps its word; only a wipe hears from the ground, the first man to wake in town (143(e)) */
+    var up = men.filter(function (m) { return !m.down; }), pool = up.length ? up : (ctx.result === 'wipe' ? men : []);
     if (!pool.length) return null;
     /* every man with a voice in the bank, the same man for the same fight (a reload of the screen is the same line) */
     pool = pool.filter(function (m) { return !!typeOf(B, m); });

@@ -58,7 +58,7 @@ CUTS = {
     'QD-AR10': ('Bring the Salcedo family home', T, None, "the co-op's list keeper", 'cast_cape',
                 "Five names, the Salcedos, at the cousin's farm since spring, and the vote is in ten days. Bring them or bring me why not, either is an answer, and the co-op pays {pay} batteries."),
     'QD-AR08': ('Carry the sealed letter over the pass', T, None, "the tower's clerk", 'cast_shortcoat',
-                "A sealed letter goes to the council over the pass, signed for and back here in six days. Do not read it, the seal is the receipt, and the tower pays {pay} batteries."),
+                "A sealed letter goes to the council over the pass, signed for inside six days. Do not read it, the seal is the receipt, and {pay} batteries wait for you when they sign."),
     'QD-AA01': ('Clear the dogs off the back wall', T, None, 'who counts the chickens', 'cast_apron',
                 "Eleven dogs come over the back wall after dark, always the same wall. Some of them were ours, do it anyway, and {pay} batteries are yours."),
     # ---- fortresses ----
@@ -106,7 +106,7 @@ CUTS = {
     'QD-AR05': ('Ride with three carts to Primm', ANY, 'market_day', "the yards' bookkeeper", 'cast_longcoat',
                 "Three carts go to Primm for the fair, and you do not look under the tarps. Primm's market pays you {pay} batteries at the far end, I pay you to be strangers."),
     'QD-A02': ('Ride shotgun to the salt camp', ANY, 'market_day', 'the welder', 'cast_shorts',
-               "The salt goes out to the camp while the fair is buying. Ride shotgun with me there and back, and {pay} batteries are yours."),
+               "The salt goes out to the camp while the fair is buying. Ride shotgun with me as far as the camp, and {pay} batteries are yours when the sacks are down."),
 }
 # where the design's CLIENT PORTRAIT leads with a role, not the name ('the tire shop owner, Senora Garza, ...'): the name
 # as the design gives it further on (the bake still checks it is in the design's own text)

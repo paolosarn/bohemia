@@ -353,7 +353,7 @@
     "look": "cast_shortcoat",
     "draft": true
    },
-   "says": "A sealed letter goes to the council over the pass, signed for and back here in six days. Do not read it, the seal is the receipt, and the tower pays {pay} batteries.",
+   "says": "A sealed letter goes to the council over the pass, signed for inside six days. Do not read it, the seal is the receipt, and {pay} batteries wait for you when they sign.",
    "draft": true
   },
   {
@@ -815,7 +815,7 @@
     "look": "cast_shorts",
     "draft": true
    },
-   "says": "The salt goes out to the camp while the fair is buying. Ride shotgun with me there and back, and {pay} batteries are yours.",
+   "says": "The salt goes out to the camp while the fair is buying. Ride shotgun with me as far as the camp, and {pay} batteries are yours when the sacks are down.",
    "draft": true
   }
  ]

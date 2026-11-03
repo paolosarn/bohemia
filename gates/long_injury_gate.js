@@ -88,11 +88,14 @@ head('C. GENERATION IS DETERMINISTIC: SAME KEY, SAME MAN, EVERY TIME');
 ok('the same key rolls the identical fact every time', JSON.stringify(L.injuryFact('det:1')) === JSON.stringify(L.injuryFact('det:1')));
 ok('a different key rolls a different fact', JSON.stringify(L.injuryFact('det:1')) !== JSON.stringify(L.injuryFact('det:2')));
 
-head('D. THE PAIN LINE AND THE BODY-PART PENALTY ARE THE MARK’S OWN REAL WORDS, NEVER REWORDED');
+head('D. THE SCAR LINE IS OURS AND COSTS NOTHING (rule 304(b); FIXES 11/3, EYES row 294); THE PENALTY TEXT IS THE WIKI’S, NEVER REWORDED');
+ok('the scar lines are an attempt, draft:true', L.SCAR_LINES && L.SCAR_LINES.draft === true);
 L.PERMANENT_MARKS.forEach(function (m) {
-  var real = realPermanent.filter(function (r) { return r.id === m.id; })[0];
-  ok(m.id + ': the pain line is the real flavor’s own first sentence, not a rewrite',
-    real.flavor.indexOf(L.painLine(m.id).replace(/\.$/, '')) === 0, L.painLine(m.id));
+  var real = realPermanent.filter(function (r) { return r.id === m.id; })[0], pl = L.painLine(m.id) || '';
+  var first = real.flavor.split('. ')[0].replace(/\.$/, '');
+  ok(m.id + ': the scar line is our own, never Battle Brothers’ flavor, short, and names no penalty (harder, difficult, hard to, hindrance, limits, lowering, weak)',
+    pl.length > 0 && real.flavor.indexOf(pl.replace(/\.$/, '')) < 0 && pl.indexOf(first) < 0 && pl.split(/\s+/).length <= 12
+      && !/\b(harder|difficult|hard to|hindrance|limits?|lowering|weak\w*|penalt\w*|grip|grab)\b/i.test(pl) && !/\b(he|she|his|her)\b/i.test(pl), pl);
   ok(m.id + ': the body-part penalty is the real effects_text, joined, nothing added',
     L.bodyPartPenalty(m.id) === real.effects_text.join(', '));
 });

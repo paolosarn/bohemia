@@ -154,13 +154,30 @@
   function rollDays(key) { return rollInt(LAID_UP_DAYS_MIN, LAID_UP_DAYS_MAX, key + '|days'); }
   function rollMarkId(key) { var i = Math.floor(unit(key + '|mark') * PERMANENT_MARKS.length); return PERMANENT_MARKS[i].id; }
 
-  // ONE PAIN LINE: the mark's own real flavor text, its first sentence only
-  // (most are already one sentence; a couple run two, and the row asks for
-  // ONE line, so the first is kept and the rest dropped, nothing reworded).
+  // ONE SCAR LINE, OURS (FIXES 11/3, EYES row 294; rule 304(b), Paolo 11/2:
+  // 'not even a fan of the permanent debuff', the mark is a scar on his face,
+  // a story with no penalty). The wiki's flavor said what the mark takes from
+  // him (DESI's was Battle Brothers' Missing Finger line near word for word,
+  // 'harder to firmly grab a weapon'), which is no longer true here. Each
+  // mark is his own line in his own mouth, a story that costs nothing in a
+  // fight; the wiki's name stays the scar's name. draft:true, every line
+  // (ALWAYS MAKE AN ATTEMPT, 8/11); never a he or a she, any man or woman says it.
+  var SCAR_LINES = { draft: true,
+    brain_damage: "Got my skull rung like a bell. Still ringing, still here.",
+    broken_elbow_joint: "Elbow healed crooked. Swings the same, looks wrong doing it.",
+    broken_knee: "Knee clicks when it rains. It never rains here.",
+    partly_collapsed_lung: "Lung got popped once. Breathes fine, whistles a little.",
+    maimed_foot: "Foot's ugly as sin. Walks fine. Don't look at it.",
+    missing_ear: "Lost an ear. I hear you fine with the other one.",
+    missing_eye: "One eye left. It's the good one.",
+    missing_finger: "Nine fingers now. They didn't take the trigger one.",
+    missing_nose: "Nose is gone. Out here, that's a blessing.",
+    traumatized: "Died for a minute out there. Nothing to see. Back to work.",
+    weakened_heart: "Heart stopped once. Started again out of spite."
+  };
   function painLine(markId) {
     var m = byId(markId); if (!m) return null;
-    var dot = m.flavor.indexOf('. ');
-    return dot === -1 ? m.flavor : m.flavor.slice(0, dot + 1);
+    return SCAR_LINES[markId] || null;   // never the wiki's penalty words again; no line of ours, his own line stands
   }
 
   // WHAT HE CANNOT DO: the mark's own real effects_text, joined plain --
@@ -255,7 +272,7 @@
     FRESH_DAYS_MIN: FRESH_DAYS_MIN, FRESH_DAYS_MAX: FRESH_DAYS_MAX, FRESH: FRESH, FRESH_FULL_SHARE: FRESH_FULL_SHARE,
     PERMANENT_MARKS: PERMANENT_MARKS, byId: byId,
     rollDays: rollDays, rollMarkId: rollMarkId,
-    painLine: painLine, bodyPartPenalty: bodyPartPenalty,
+    painLine: painLine, SCAR_LINES: SCAR_LINES, bodyPartPenalty: bodyPartPenalty,
     injuryFact: injuryFact, healDay: healDay,
     freshOf: freshOf, freshShare: freshShare, freshNow: freshNow, penalties: penalties, look: look, scar: scar, SCARS_BITE: false
   };

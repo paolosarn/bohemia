@@ -13940,6 +13940,12 @@ window.BOH_START = BOH_START;
   }
   function go(code){
     try { if (code) localStorage.setItem(NEXT, code); else localStorage.removeItem(NEXT); localStorage.removeItem(KEY); } catch (_e) {}
+    /* FIXES [the valley code] (EYES row 315, 11/3; measured on the upright phone): the map behind this door writes the new valley's
+       day-1 save before BEGIN, so a reload with the code taken away read it as a game saved before codes ('old_save'), rolled
+       none, and the box sat on BUILDING... for good, ANOTHER after ANOTHER. Nothing is played on this door: its background save
+       goes the way NEW GAME's does (the slots marked dead, the page's last snapshot held back), so the next boot rolls or takes
+       the code. The company's picks on the door stay */
+    try { window.__BOH_FORGET = true; ['bohemia_city_save.a', 'bohemia_city_save.b', 'bohemia_city_save'].forEach(function(k){ localStorage.setItem(k, '{"bohemia":"DEAD"}'); }); } catch (_e) {}
     try { sessionStorage.setItem('bohemia.title', 'new'); } catch (_e) {}   /* back to this door, as NEW GAME comes back to it */
     window.__WORLD_RELOADING = code || 'another';
     location.reload();

@@ -8,14 +8,14 @@
    1. THE BANK: every type has six plain wins or more, two lines for every way it went (a man lost, a boss, a man struck down,
       outnumbered, close, flawless), two for a loss and two for pulling out; every line under 12 words; a man lost and a man down
       named, a boss named; every kind has its own win lines (raiders, robots, kids, heavies, a beast, wolves, the dead, a boss, a camp);
-   2. *** NEVER YOU, NEVER THE DEAD ***: 3,000 end screens, the speaker is always one of his men alive, a man on his feet first;
+   2. *** NEVER YOU, NEVER THE DEAD ***: 3,000 end screens, the speaker is always one of his men on his feet (the down do not talk, 143(d); a wipe hears its first to wake);
    3. HOW IT WENT IS SAID: a man lost names him; a boss names the boss; wolves never hear about boots or pockets;
    4. SPANGLISH ON THE DIAL: the end screen's lines come out Spanglish 6 to 20 in 100;
    5. *** HIS RECORD ***: a fight's row adds one fight, his kills and the stronger of two foes (Battle Brothers' experience value);
       a renamed man reads his old name's record; the fights still queued count on top; the line reads 'n KILLS, BEST: A ...';
    6. THE WIRES: the fight keeps the best foe at every kill and sends kills and best home; the shell's queue keeps them; the crew
       screen saves the tally in his record and shows the line; the end screen puts the survivor's word in the bar; a hold on one of
-      his men opens the card in the fight, the camp, the map and the end screen.
+      his men in the crew screen opens his card there and nowhere else (Paolo's vote 11/2: 'Only in the crew menu not any other menu').
    Run: node gates/the_survivors_word_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -49,16 +49,16 @@ for (let i = 0; i < 3000; i++) {
   const wolves = i % 5 === 0, boss = i % 7 === 0 ? "THE POT'S FOREMAN" : null, result = ['won', 'won', 'won', 'lost', 'ran', 'wipe'][i % 6];
   const ctx = { id: 'g' + i, result, men, theirs: 2 + (r0 % 9), boss, faction: wolves ? 'beasts' : 'brigands', by: 'The road crew',
     bodies: wolves ? [{ kind: 'direwolf', beast: true, dead: true }, { kind: 'direwolf', beast: true, dead: true }] : [{ kind: 'brigand_thug', dead: true }] };
-  const r = W.pick(B, ctx); if (!r) { if (men.some(m => !m.main && !m.dead)) bad.push('silent with a man alive #' + i); continue; }
+  const r = W.pick(B, ctx); if (!r) { if (men.some(m => !m.main && !m.dead && (!m.down || result === 'wipe'))) bad.push('silent with a man up #' + i); continue; }
   n++; if (r.sp) sp++; hows[r.how] = (hows[r.how] || 0) + 1;
   const who = men.filter(m => m.name === r.who)[0];
   if (!who || who.main || who.dead) bad.push(r.who + ' spoke #' + i);
-  else if (who.down && men.some(m => !m.main && !m.dead && !m.down)) bad.push(r.who + ' spoke from the ground with a man up #' + i);
+  else if (who.down && (result !== 'wipe' || men.some(m => !m.main && !m.dead && !m.down))) bad.push(r.who + ' spoke from the ground #' + i);   /* the down do not talk (143(d)); a wipe's first to wake */
   if (r.how === 'lost_one') { lostN++; const dead = men.filter(m => m.dead && !m.main).map(m => W.callName(m)); if (dead.some(d => r.line.indexOf(d) >= 0)) lostNamed++; }
   if (r.how === 'boss' && result === 'won') { bossN++; if (/Pot's Foreman/.test(r.line)) bossNamed++; }
   if (wolves && result === 'won' && people.test(r.line)) wolfPeople.push(r.line);
 }
-ok(!bad.length && n > 2000, '*** NEVER YOU, NEVER THE DEAD ***: ' + n + ' end screens, every word from one of his men alive, a man on his feet first', bad.slice(0, 3).join(' | ') || JSON.stringify(hows));
+ok(!bad.length && n > 2000, '*** NEVER YOU, NEVER THE DEAD ***: ' + n + ' end screens, every word from one of his men on his feet, the down never (a wipe\'s first to wake)', bad.slice(0, 3).join(' | ') || JSON.stringify(hows));
 ok(lostN > 50 && lostNamed === lostN && bossN > 20 && bossNamed >= bossN * 0.9 && !wolfPeople.length, 'HOW IT WENT IS SAID: a man lost is named (' + lostNamed + '/' + lostN + '), the boss is named (' + bossNamed + '/' + bossN + '), wolves never hear about boots', wolfPeople.slice(0, 2).join(' | '));
 ok(sp / n >= 0.06 && sp / n <= 0.20, 'SPANGLISH ON THE DIAL: ' + (100 * sp / n).toFixed(1) + '% of the end screen\'s lines (6 to 20), never YOU');
 /* 5 */
@@ -87,11 +87,13 @@ const wires = {
   'shell: the queue keeps kills and best': /kills: r\.kills \| 0, best: r\.best \|\| null/.test(A),
   'crew screen: the tally in his record': /tally:m\.tally\|\|null/.test(RS) && /m\.tally = c\.tally/.test(RS) && /BohemiaKillTally\.add\(m\.tally, r\)/.test(RS) && /BohemiaKillTally\.line\(/.test(RS),
   'end screen: the survivor\'s word in the bar': /function survivorWord\(f, kind\)/.test(SPS) && /BohemiaSurvivorWord/.test(SPS) && /crew_voices\.json/.test(SPS),
+  /* FIXES 11/3 (EYES row 311): the held finger on a man in the crew screen's line opens his card, the one menu he named */
+  'crew screen: a held finger opens his card': /function holdMan\(d, at\)/.test(RS) && /BohemiaKillTally\.card\(document, \[\{ name: m\.name/.test(RS) && /if\(heldMan\)\{ heldMan = false; return; \}/.test(RS),
   'end screen: no hold card': !/BohemiaKillTally\./.test(SPS),
   'camp: no hold card': !/BohemiaKillTally\./.test(ST),
   'map: no hold card': !/BohemiaKillTally\./.test(CW)
 };
 const off = Object.keys(wires).filter(k => !wires[k]);
-ok(!off.length, 'THE WIRES: fight, shell and crew screen carry it; the tally shows in the crew screen only (no hold card in the fight, end screen, camp or map)', off.join(' | ') || Object.keys(wires).length + ' wires');
+ok(!off.length, 'THE WIRES: fight, shell and crew screen carry it; the tally and its held card show in the crew screen only (no hold card in the fight, end screen, camp or map)', off.join(' | ') || Object.keys(wires).length + ' wires');
 console.log('=== THE SURVIVOR\'S WORD GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);

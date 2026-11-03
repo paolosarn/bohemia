@@ -533,6 +533,21 @@ function faceCanvas(m){
   x.fillStyle = '#1a1410'; x.fillRect(0,0,64,64); x.fillStyle = '#3b3026'; x.fillRect(22,12,20,24); x.fillRect(14,40,36,18);
   return c;
 }
+/* FIXES [the card beside the phone] (EYES row 292, 11/3; the phone's own ground, rule 292): on the upright phone the phone sat over
+   the injury card's right third (the clinic's days, the end of the scar line). The phone stays where it is, it runs this screen
+   (DONE, the stash's tabs); the card stands beside it, its edge 6 px short of the phone's, whatever the scroll. A computer or a
+   tablet 700 wide and up is untouched (the card is clear there) */
+function besidePhone(){
+  var h = document.querySelector('#card .hurtbox'); if(!h) return; h.style.marginRight = ''; h.style.marginLeft = '';
+  var R = document.documentElement; if(!R.classList.contains('boh-phone-on') || innerWidth >= 700) return;
+  var cs = getComputedStyle(R), pl = parseFloat(cs.getPropertyValue('--boh-phone-left')), pw = parseFloat(cs.getPropertyValue('--boh-phone-w'));
+  if(!(pw > 0)) return;
+  var r = h.getBoundingClientRect();
+  if(R.classList.contains('boh-phone-left')){ var nl = pl + pw + 6 - r.left; if(nl > 0) h.style.marginLeft = Math.ceil(nl) + 'px'; }
+  else { var nr = r.right - (pl - 6); if(nr > 0) h.style.marginRight = Math.ceil(nr) + 'px'; }
+  h.dataset.beside = h.style.marginRight || h.style.marginLeft || '0';
+}
+window.addEventListener('bohemia-phone', besidePhone); window.addEventListener('resize', besidePhone);
 /* the men in the strip's own order, front left to right, then back, then the laid-up: what a swipe and Tab step through */
 function order(){ var o = []; S.front.concat(S.back).forEach(function(i){ if(i != null && o.indexOf(i) < 0) o.push(i); });
   S.crew.forEach(function(m, i){ if(laid(m) && !m.dead && o.indexOf(i) < 0) o.push(i); }); return o; }
@@ -567,7 +582,7 @@ function draw(){
     var dd = document.createElement('i'); dd.className = 'days'; dd.textContent = m.hurt.days + 'd'; d.appendChild(dd);   /* his name and his days, both on the glass */
     d.setAttribute('aria-label', m.name + ', laid up ' + m.hurt.days + ' days'); hu.appendChild(d); });
   document.getElementById('hurtrow').classList.toggle('on', any);
-  drawCard(); drawBag(); talkOnLine();
+  drawCard(); drawBag(); talkOnLine(); besidePhone();
 }
 /* ==== __ONE_CREW_SCREEN__ (RUN TWO, rule 147(b), Paolo 10/24: 'why is it showing me the crew twice? It should be simplified:
    one face, all the inventory'): each man once, his face on the line and nowhere else; tap him and the screen is him. ==== */
@@ -960,14 +975,25 @@ function moveMan(fromRow, fromI, toRow, toI){
 }
 /* ONE DRAG for everything: a man between the lines, an item from the stash onto a slot */
 (function(){
-  var src = null, x0 = 0, y0 = 0, ghost = document.getElementById('ghost'), over = null;
+  var src = null, x0 = 0, y0 = 0, ghost = document.getElementById('ghost'), over = null, holdT = null, heldMan = false;
+  /* FIXES [the held finger] (EYES row 311, 11/3; Paolo 11/2 rule 316 'on my phone, maybe when I just hold on him... the amount of
+     kills', and his vote 11/2 'Only in the crew menu not any other menu'): a finger held still on one of his men in the line opens
+     his card, his face, his kills and fights, the strongest foe he put down (engine/bohemia_kill_tally.js card); the next touch
+     closes it, and the lift does not pick him. The crew screen only: never the fight, the end screen, the camp or the map */
+  function holdMan(d, at){
+    var p = d.split(':'), m = p[0] === 'man' ? S.crew[p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]] : null; if(!m || !window.BohemiaKillTally) return;
+    heldMan = true; BohemiaKillTally.card(document, [{ name: m.name, was: m.was, look: m.look, main: !!m.main, tally: m.tally || null }], at);
+  }
   document.addEventListener('pointerdown', function(e){
-    var d = e.target.closest('[data-drag]'); S.dragged = false; if(!d) return;
+    var d = e.target.closest('[data-drag]'); S.dragged = false; heldMan = false; clearTimeout(holdT); if(!d) return;
     src = d.dataset.drag; x0 = e.clientX; y0 = e.clientY;
+    if(/^man:/.test(src)){ var s0 = src, at = { x: e.clientX, y: e.clientY }; holdT = setTimeout(function(){ if(src === s0 && !S.dragged) holdMan(s0, at); }, (window.BohemiaKillTally && BohemiaKillTally.HOLD_MS) || 450); }
   });
+  document.addEventListener('contextmenu', function(e){ if(e.target.closest && e.target.closest('[data-drag^="man:"]')) e.preventDefault(); });   /* a phone's long press is the card, never the browser's menu */
   document.addEventListener('pointermove', function(e){
     if(!src) return;
-    if(!S.dragged && Math.hypot(e.clientX-x0, e.clientY-y0) > 8){ S.dragged = true; ghost.style.display = 'block';
+    if(heldMan){ e.preventDefault(); return; }   /* the card is up: the finger is reading, not dragging */
+    if(!S.dragged && Math.hypot(e.clientX-x0, e.clientY-y0) > 8){ clearTimeout(holdT); S.dragged = true; ghost.style.display = 'block';
       var p = src.split(':'); ghost.textContent = p[0]==='man' ? S.crew[p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]].name : p[0]==='bag' ? S.bag[+p[1]].name : S.crew[S.sel].gear[p[1]].name; }
     if(!S.dragged) return;
     e.preventDefault();
@@ -976,7 +1002,8 @@ function moveMan(fromRow, fromI, toRow, toI){
     if(over && over !== dz) over.classList.remove('over'); over = dz; if(dz) dz.classList.add('over');
   }, {passive:false});
   document.addEventListener('pointerup', function(e){
-    if(!src) return; var s = src; src = null; ghost.style.display = 'none'; if(over) over.classList.remove('over');
+    clearTimeout(holdT); if(!src) return; var s = src; src = null; ghost.style.display = 'none'; if(over) over.classList.remove('over');
+    if(heldMan){ heldMan = false; return; }   /* the held finger read his card; the lift picks nobody */
     var p = s.split(':');
     if(!S.dragged){
       if(p[0] === 'man') choose(p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]);

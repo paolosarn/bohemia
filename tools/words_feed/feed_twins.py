@@ -3,8 +3,8 @@
 # Keyed by the English line exactly; the build refuses a key that matches no line or a line that
 # already has a twin, so this file cannot rot.
 TWINS = {
-    "{town}: the {company} did what they said they'd do. got paid at the board, i watched it. first time in a while i've seen that.":
-        "{town}: the {company} did what they said they'd do. got paid at the board, yo lo vi. first time in a while.",
+    "{town}: the {company} did what they said they'd do and got paid for it. first time in a while i've seen that.":
+        "{town}: the {company} did what they said they'd do and got paid. yo lo vi, first time in a while.",
     "heard the {company} got it done for {town}. my sister says they took their pay and left the same hour.":
         "heard the {company} got it done for {town}. mi hermana says they took their pay and left the same hour.",
     "{town} board has the same paper up again. the {company} let it go. the pay was low but that family needed it.":

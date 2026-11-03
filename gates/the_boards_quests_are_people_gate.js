@@ -55,6 +55,22 @@ const deep = { camp: pool(r => !r.when && r.tiers.includes('camp')), town: pool(
   raided: pool(r => r.when === 'raided'), sickness: pool(r => r.when === 'sickness'), market_day: pool(r => r.when === 'market_day') };
 ok('  each pool is deep enough for boards to differ (three times its count; two of each kind of trouble)', deep.camp >= 3 && deep.town >= 6 && deep.fortress >= 9 && deep.raided >= 2 && deep.sickness >= 2 && deep.market_day >= 2, JSON.stringify(deep));
 
+/* FIXES 11/3 (EYES row 300): WORDS FOLLOW THE CARD. A job the card calls PAID THERE (its kind not in the job kinds' BACK list) has a
+   client who never promises 'there and back', 'back here' or 'at the board'; a job done in the feed never says the crew came back
+   or got paid at the board (a PAID THERE job is paid where it ends) */
+const JKS = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_kinds.js'), 'utf8');
+const BACKK = Object.keys(JSON.parse(((JKS.match(/var BACK = (\{[^}]+\})/) || [, '{}'])[1]).replace(/'/g, '"')));
+const JK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_JOB_KINDS.json'), 'utf8'));
+const kindOf = r => { const o = JK.offers && JK.offers[r.id]; if (o && o.kind) return o.kind; const g = (JK.guess || []).filter(x => new RegExp(x.re, 'i').test(r.title || ''))[0]; return g ? g.kind : JK.default; };
+const RETURN = /there and back|back here|at the board|come back to (me|us|the board)|bring (it|them) back/i;
+const lies = rows.filter(r => BACKK.indexOf(kindOf(r)) < 0 && RETURN.test(r.says)).map(r => r.id + ' (' + kindOf(r) + '): ' + r.says.slice(0, 60));
+const FK = fs.readFileSync(path.join(ROOT, 'records/target/bb/feed_kinds.json'), 'utf8');
+const doneW = []; (function walk(o) { if (Array.isArray(o)) return o.forEach(walk); if (!o || typeof o !== 'object') return;
+  if (o.trigger === 'job.done') (o.words || []).forEach(w => { [w.en, w.es].forEach(t => { if (t && /at the board,|paid at the board|came back (in)?to \{town\}|walked back into|brought it back/i.test(t)) doneW.push(t.slice(0, 60)); }); });
+  Object.keys(o).forEach(k => walk(o[k])); })(JSON.parse(FK));
+ok('WORDS FOLLOW THE CARD: no PAID THERE client says there and back, back here or at the board (' + BACKK.length + ' kinds come back); no job-done post says they came back or got paid at the board',
+  BACKK.length >= 3 && !lies.length && !doneW.length, lies.concat(doneW).slice(0, 3).join(' | ') || 'clean');
+
 /* ---------- LIVE ---------- */
 const PHONE_PAGE = '<!doctype html><meta charset=utf-8><body><div id=cityfeed class=on><div id=cityfeedlist></div></div>' +
   '<script>var T={day:4,min:600}; var city={x:0,y:0}; var LOOP={held:[]}; var PL={"COPPER SHEDS":{x:10,y:0,tier:"camp"},"THE WASH, NORTH LAS VEGAS":{x:0,y:5,tier:"town"},"THE FORT":{x:20,y:20,tier:"fortress"}};' +
