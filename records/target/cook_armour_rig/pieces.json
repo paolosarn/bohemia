@@ -23,10 +23,16 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 26276,
-  "parts": 1,
+  "faces": 28660,
+  "parts": 3,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "moving blanket",
+   "diamond quilting",
+   "bound edges",
+   "cargo strap",
+   "ratchet"
+  ],
   "cell_px": 0.5
  },
  "padded_vest+chain": {
@@ -38,10 +44,16 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 36304,
-  "parts": 2,
+  "faces": 38688,
+  "parts": 4,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "moving blanket",
+   "diamond quilting",
+   "bound edges",
+   "cargo strap",
+   "ratchet"
+  ],
   "cell_px": 0.5
  },
  "plated_jacket": {
@@ -53,10 +65,15 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 34980,
+  "faces": 39268,
   "parts": 3,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "can scales",
+   "red and gold cans",
+   "rivets",
+   "scaled shoulders"
+  ],
   "cell_px": 0.5
  },
  "police_vest": {
@@ -138,10 +155,16 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 42476,
-  "parts": 6,
+  "faces": 44916,
+  "parts": 8,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "duck canvas",
+   "corduroy collar",
+   "chest pockets and flaps",
+   "reflective strip",
+   "zip"
+  ],
   "cell_px": 0.5
  },
  "bandana": {
@@ -258,10 +281,17 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 46920,
-  "parts": 3,
+  "faces": 51196,
+  "parts": 6,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "yellow dome",
+   "ridge",
+   "brim",
+   "union sticker",
+   "red sticker",
+   "headlamp"
+  ],
   "cell_px": 0.5
  },
  "moto_helmet": {
@@ -273,10 +303,17 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 50772,
-  "parts": 3,
+  "faces": 51994,
+  "parts": 6,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "oxblood shell",
+   "smoke visor",
+   "duct-taped crack",
+   "chin vent",
+   "pivot plates",
+   "hanging chin strap"
+  ],
   "cell_px": 0.5
  },
  "moto_helmet+chain": {
@@ -288,10 +325,17 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 64088,
-  "parts": 4,
+  "faces": 65310,
+  "parts": 7,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "oxblood shell",
+   "smoke visor",
+   "duct-taped crack",
+   "chin vent",
+   "pivot plates",
+   "hanging chin strap"
+  ],
   "cell_px": 0.5
  },
  "moto_helmet+chain_closed": {
@@ -303,10 +347,17 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 72348,
-  "parts": 4,
+  "faces": 73570,
+  "parts": 7,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "oxblood shell",
+   "smoke visor",
+   "duct-taped crack",
+   "chin vent",
+   "pivot plates",
+   "hanging chin strap"
+  ],
   "cell_px": 0.5
  },
  "moto_helmet+horns": {
@@ -318,10 +369,17 @@
   "wear_by_material": {
    "armour_": 0.15
   },
-  "faces": 54708,
-  "parts": 5,
+  "faces": 55930,
+  "parts": 8,
   "glass": false,
-  "own_art": [],
+  "own_art": [
+   "oxblood shell",
+   "smoke visor",
+   "duct-taped crack",
+   "chin vent",
+   "pivot plates",
+   "hanging chin strap"
+  ],
   "cell_px": 0.5
  },
  "rag_hood": {
@@ -430,6 +488,212 @@
   "parts": 4,
   "glass": false,
   "own_art": [],
+  "cell_px": 0.5
+ },
+ "own_goalie_mask": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 47276,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "goalie mask",
+   "eye holes",
+   "breathing holes",
+   "crack",
+   "brow stripes",
+   "elastic straps",
+   "padded cap"
+  ],
+  "cell_px": 0.5
+ },
+ "own_football_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 52352,
+  "parts": 12,
+  "glass": false,
+  "own_art": [
+   "shell",
+   "centre stripes",
+   "ear holes",
+   "face cage",
+   "chin cup",
+   "chin straps",
+   "neck bumper"
+  ],
+  "cell_px": 0.5
+ },
+ "own_welding_mask": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 61552,
+  "parts": 7,
+  "glass": false,
+  "own_art": [
+   "black riot dome",
+   "safety-orange stripe",
+   "welding hood",
+   "gold-mirror lens",
+   "lens frame",
+   "skull sticker",
+   "flame decal",
+   "pivot knobs"
+  ],
+  "cell_px": 0.5
+ },
+ "own_riot_gas_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 90604,
+  "parts": 13,
+  "glass": true,
+  "own_art": [
+   "olive-black shell",
+   "smoked visor",
+   "gas mask under it",
+   "filter canister",
+   "stencil band",
+   "neck curtain"
+  ],
+  "cell_px": 0.5
+ },
+ "own_football_pads": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 72304,
+  "parts": 12,
+  "glass": false,
+  "own_art": [
+   "grey hoodie",
+   "hood",
+   "shoulder caps",
+   "epaulets",
+   "maroon stripe",
+   "laced front plate",
+   "back plate",
+   "arm straps"
+  ],
+  "cell_px": 0.5
+ },
+ "own_carpet_coat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 31036,
+  "parts": 1,
+  "glass": false,
+  "own_art": [
+   "casino carpet",
+   "gold swirls",
+   "pile",
+   "duct tape cross",
+   "taped seams",
+   "taped hem"
+  ],
+  "cell_px": 0.5
+ },
+ "own_licence_plate_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 41036,
+  "parts": 2,
+  "glass": false,
+  "own_art": [
+   "canvas vest",
+   "plates in rows",
+   "sunset bands",
+   "letters",
+   "bolt holes",
+   "rust",
+   "shoulder plates"
+  ],
+  "cell_px": 0.5
+ },
+ "own_riot_gear_jacket": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 90424,
+  "parts": 14,
+  "glass": false,
+  "own_art": [
+   "carrier",
+   "segmented shoulder guards",
+   "rivets",
+   "collar guard",
+   "ribbed chest plate",
+   "belly flap number",
+   "back band"
+  ],
+  "cell_px": 0.5
+ },
+ "own_road_sign_cuirass": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 49372,
+  "parts": 8,
+  "glass": false,
+  "own_art": [
+   "curve-ahead sign",
+   "bullet holes",
+   "street sign on the back",
+   "stop sign shoulder",
+   "seat-belt webbing",
+   "buckle"
+  ],
   "cell_px": 0.5
  }
 }

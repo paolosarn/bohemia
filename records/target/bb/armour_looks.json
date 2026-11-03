@@ -420,19 +420,23 @@
   },
   "goalie_mask": {
    "name": "a goalie-mask hard hat",
-   "class": "gas_mask"
+   "class": "gas_mask",
+   "own": "own_goalie_mask"
   },
   "football_helmet": {
    "name": "a football riot helmet",
-   "class": "moto_helmet"
+   "class": "moto_helmet",
+   "own": "own_football_helmet"
   },
   "welding_mask": {
    "name": "a welding-mask riot helmet",
-   "class": "welder_mask"
+   "class": "welder_mask",
+   "own": "own_welding_mask"
   },
   "riot_gas_helmet": {
    "name": "a gas-visor full riot helm",
-   "class": "riot_helmet"
+   "class": "riot_helmet",
+   "own": "own_riot_gas_helmet"
   }
  },
  "body": {
@@ -774,23 +778,28 @@
   },
   "football_pads": {
    "name": "a football-pad padded vest",
-   "class": "padded_vest"
+   "class": "padded_vest",
+   "own": "own_football_pads"
   },
   "carpet_coat": {
    "name": "a duct-taped carpet padded vest",
-   "class": "padded_vest"
+   "class": "padded_vest",
+   "own": "own_carpet_coat"
   },
   "licence_plate_vest": {
    "name": "a licence-plate padded vest",
-   "class": "plated_jacket"
+   "class": "plated_jacket",
+   "own": "own_licence_plate_vest"
   },
   "riot_gear_jacket": {
    "name": "a riot-gear plate carrier",
-   "class": "riot_armour"
+   "class": "riot_armour",
+   "own": "own_riot_gear_jacket"
   },
   "road_sign_cuirass": {
    "name": "road-sign full riot armour",
-   "class": "car_door"
+   "class": "car_door",
+   "own": "own_road_sign_cuirass"
   }
  },
  "_counts": {
@@ -811,5 +820,6 @@
   "police_vest": 15,
   "plated_jacket": 14,
   "riot_armour": 10
- }
+ },
+ "_own": "COOK [every armour its own] 11/3 (rule 337): a row with 'own' draws that piece off slices/wear (its own model), else its class's (engine/bohemia_wear.js piece())"
 }

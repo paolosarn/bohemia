@@ -75,6 +75,7 @@
     var r = LOOKS[slot] && LOOKS[slot][id]; if (!r) return null;
     var key = r['class'] + (r.feats || []).slice().sort().map(function (f) { return '+' + f; }).join('');
     if (!META.pieces[key]) key = r['class'];
+    if (r.own && META.pieces[r.own]) key = r.own;   /* COOK [every armour its own] 11/3 (rule 337): the piece's own model, where it has one */
     return META.pieces[key] ? { slot: slot, id: id, cls: r['class'], key: key } : null;
   }
   function of(m) {
