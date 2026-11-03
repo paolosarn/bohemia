@@ -215,3 +215,33 @@ NEXT, behind the switch (rule 379, the rest): what made them ugly, from this lan
 composited glass, so every pixel of the 112 px art is blown up and smeared by the browser's filter, and the tags stepping aside leave
 the man bare for a beat; the rework draws the close-up at the art's own pixel size like the starred loading-screen camera feeds, with
 a before and after card; OFF until he says they are good.
+
+## 10. RULE 378, NO CAP ON HOW MANY FIGHT (ask line 407; the coordinator's second item)
+His words: 'make sure there's not a cap on the amount of players on screen, enemy and my company... it feels like there's a cap...
+make sure there's no coded cap'.
+MEASURED (headless, the live fight): rowsOf put his men in two rows of nine (ours.formation.slots_per_row) and centred() wrote the
+spill at negative slots: 19 of his left 1 with no tile, 24 left 3, 30 left 6 (x and y undefined). ON HIS PHONE that was worse than a
+missing man: 30 against 40 opened on a BLACK SCREEN, because the first man to act had no tile and the camera took his NaN (the card's
+before frame). A company handed with no cap was also cut to twelve (ours.field_size).
+NOW (slices/BOHEMIA_FIGHT.html):
+- rowsOf: up to eighteen the rows are exactly what they were (measured: the same boards and the same tiles as main for 6, 12, 16 and
+  18 men on three grounds); past them the rest go to rows.more, never a negative slot; a roster's handed line with both rows full
+  sends the men it left out to more.
+- deployCrew: rows.more takes a third column behind the back row and more, each filled from the middle out on open ground; anybody
+  with no tile there takes the nearest open one (nearest, then anyOpen); nobody stays off the board.
+- place (their side): a man with no column left takes the open tile nearest their line (anyOpen).
+- setup: the deal is dealBoard(); when the open ground on his side (columns 0 to his front) or theirs (their front to the edge) cannot
+  hold the men, the board is dealt again a block taller, the same deal and seed, until both fit (S.grown); every block dealt, never a
+  black margin; a named board is what it is.
+- the crew: a company handed with no cap fights whole (opts.cap || the company); a cap the caller hands still picks.
+GATE: NO CAP ON HOW MANY FIGHT (new) 6/0: N1 30 against 40 on three grounds and three seeds, all 70 on the board, nobody off or
+stacked, each on his side (the rows before: 6 of his off); N2 60 against 100, the board grew to 20 x 20 and 20 x 25, every block dealt;
+N3 a handed line of eighteen and six more, all 24 stand; N4 14 handed with no cap, 14 fight; N5 on the upright phone, 30 against 40,
+all 70 on the board, nothing threw. THE FRAMES, MEASURED HONESTLY: in this container's software renderer (no graphics card) the page's
+own draw is 40 ms a frame at twelve a side and 61 ms at 30 against 40 on the same board and seed, 1.5 times for nearly three times the
+men; the leg holds it under 1.6 times. On a phone's graphics chip both are lower; the ratio is the claim.
+NOT THIS LANE'S, FLAGGED: (1) the road's cap of 8 is WORLD 8's (BOHEMIA_CITY_WORLD.html roadFightRoster). (2) THE ORIGIN'S FIELD CAP:
+the start screen hands the fight cap = origins.json field_cap (12, or 16 for two origins; rule 63b: 'twelve on the field in a normal
+fight, the roster twenty'), so a company of more than twelve still fights twelve at the game's door. Rule 378(a) says no code caps how
+many stand; that number is RUN's and the coordinator's to rule on (drop the cap at the door, or keep twelve as Battle Brothers does).
+VOTE: combat-7-no-cap-on-how-many-fight-11-3 (30 against 40 on his phone: before, the black screen; now, all 70).

@@ -1522,7 +1522,7 @@ const FIGHT = (function () {
     opts = opts || {};
     ownEnemies();
     const G = DB.ground;
-    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = startCols(); S.crop = null;
+    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = startCols(); S.crop = null; S.grown = 0;   /* rule 378: blocks the board grew by to fit */
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
     S.volley = {};   /* THE CROSSBOWS (FACTIONS 11/3): the man their first bolt went at, by side */
     S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
@@ -1539,6 +1539,7 @@ const FIGHT = (function () {
     /* the cell as the map's door hands it: {x, y}, a road's {gx, gy}, or [x, y] */
     const cl = opts.cell, cx = cl ? (cl.x !== undefined ? cl.x : cl.gx !== undefined ? cl.gx : cl[0]) : undefined, cy = cl ? (cl.y !== undefined ? cl.y : cl.gy !== undefined ? cl.gy : cl[1]) : undefined;
     const dice = SEED, seeded = fromMap && cx !== undefined && cy !== undefined && opts.seed === undefined;
+    function dealBoard() {
     if (seeded) SEED = seedOf(cx + ',' + cy + ':' + S.ground.ground);
     if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
@@ -1550,12 +1551,14 @@ const FIGHT = (function () {
       if (fromMap && !opts.flat && !S.boardDef.own) S.boardDef.groundFit = fitCover(S.ground.ground);   /* a place's own board is built, never thinned or filled */
     }
     if (seeded) SEED = dice;
-    const dealt = S.boardDef;
     S.fire = []; S.smoke = []; S.sparkSeen = {};   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
     /* GROUND THAT IS ALREADY BURNING (COMBAT MAPS 3, rule 341: the landfill's gas): a piece whose def says burning stands on a
        tile that is On Fire from the first round to the last (the cell vest's own rule 305: 15 to 30 to a man who ends his turn
        on it, walking through is free); nobody set it */
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const d = S.cover[y][x] ? pieceDef(S.cover[y][x]) : null; if (d && d.burning) S.fire.push({ x: x, y: y, until: 1e9, by: null }); }
+    }
+    dealBoard();
+    let dealt = S.boardDef;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     S.arena = (opts && opts.arena) || null;   /* __THE_ARENA__ (ARENA, rule 375; bb_all/0620: 'you can't retreat once a battle has started... you won't be able to loot'): the Mob's pit, the shell's o.arena */
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
@@ -1572,7 +1575,9 @@ const FIGHT = (function () {
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
           if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (m.arenaRank) t.arenaRank = m.arenaRank; /* __THE_ARENA__: his pit rank */ if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && (i > 0 || (MADE && m.name === MADE))) t.name = m.name;   /* RUN THREE [make your main guy] (rule 263(b)): YOU first, by the name he gave him (bohemia.main.v1); any other first man keeps the place's name, as before */ if (m.cond) t.cond = m.cond; if (Array.isArray(m.fresh)) t.fresh = m.fresh; return t; })
       : base);
-    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
+    /* NO CAP ON HOW MANY FIGHT (COMBAT 7, rule 378(a), ask line 407): a company handed with no cap fights whole (was: twelve,
+       ours.field_size); a cap the caller hands (the origin's door, a test bench) still picks its men */
+    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || roster.length, roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
     const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
@@ -1591,6 +1596,16 @@ const FIGHT = (function () {
         if (bw && u.weapon === bw && bw.hands === 2) u.shield = null;   /* BOSSES 4 11/3: a two-handed boss weapon (THE SURVEYOR's range pole) leaves no hand for the shield his kind rolled */
         S.boss = { name: u.name, id: u.id, kind: B.kind, look: u.look || null, lesson: B.lesson || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
+    /* THE BOARD GROWS TO FIT (COMBAT 7, rule 378(b), ask line 407; Paolo 11/3: 'make sure there's not a cap on the amount of players
+       on screen, enemy and my company... make sure there's no coded cap'): when the open ground behind his front column (his rows
+       stand there) or from their front column to the edge (theirs) cannot hold a side's men, the board is dealt again a block
+       taller, the same deal and its seed, until both fit: a board of blocks, never a black margin. A named board is what it is. */
+    if (!opts.board && !isGraveyard(opts)) {
+      const roomFor = function (x0, x1) { let n = 0; for (let x = x0; x <= x1; x++) for (let y = 0; y < S.h; y++) if (passable(x, y) && !(level(x, y) > 0)) n++; return n; };
+      for (let g = 0; g < 40 && (roomFor(0, S.cols[0]) < crewUnits.length || roomFor(S.cols[1], S.w - 1) < bandUnits.length); g++) {
+        S.h += G.block_tiles; S.grown = (S.grown || 0) + 1; dealBoard(); dealt = S.boardDef;
+      }
+    }
     /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
        for the endgame or three parties at once */
     const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;
@@ -1692,6 +1707,8 @@ const FIGHT = (function () {
     fill(front, col);
     fill(rear, col + back);
     if (front.length) fill(front, col + back);
+    /* NO CAP (COMBAT 7, rule 378(c)): a man with no column left on his side still stands, on the open tile nearest his line */
+    front.concat(rear).forEach(function (u) { const at = anyOpen(col, Math.round(mid)); if (at) { u.x = at.x; u.y = at.y; } });
   }
 
   /* YOUR FORMATION (COMBAT [your formation]; ours.formation from Battle Brothers' own two rows of nine): the front row's
@@ -1712,14 +1729,19 @@ const FIGHT = (function () {
       const pick = function (row) { const r = []; for (let i = 0; i < n; i++) { const k = row && row[i]; r.push(k === null || k === undefined ? null : units[k] || null); } return r; };
       const rows = { front: pick(formation.front), back: pick(formation.back) };
       /* anybody the roster left out still fights: he takes the first empty slot, front row first */
+      rows.more = [];
       units.forEach(function (u) { if (rows.front.indexOf(u) >= 0 || rows.back.indexOf(u) >= 0) return;
-        const r = rows.front.indexOf(null) >= 0 ? rows.front : rows.back, i = r.indexOf(null); if (i >= 0) r[i] = u; });
+        const r = rows.front.indexOf(null) >= 0 ? rows.front : rows.back, i = r.indexOf(null); if (i >= 0) r[i] = u; else rows.more.push(u); });   /* rule 378: both rows full, a third */
       return rows;
     }
+    /* NO CAP (COMBAT 7, rule 378(b)): measured, a 19th man was written at a negative slot and left off the board. The front row's
+       nine are clubs, the back row's shooters; a club past nine fills the back row, a shooter past nine the front; past both rows
+       of nine he goes to the rows behind (more), never off the board */
     let fr = units.filter(function (u) { return !isRanged(u.weapon); }), bk = units.filter(function (u) { return isRanged(u.weapon); });
     if (fr.length > n) { bk = fr.slice(n).concat(bk); fr = fr.slice(0, n); }
     if (bk.length > n) { fr = fr.concat(bk.slice(n)); bk = bk.slice(0, n); }
-    return { front: centred(fr), back: centred(bk) };
+    const more = fr.slice(n); fr = fr.slice(0, n);   /* up to eighteen the rows are what they always were; past them, behind */
+    return { front: centred(fr), back: centred(bk), more: more };
   }
   function deployCrew(units, col, back, formation) {
     const n = R('ours.formation').slots_per_row, mid = (S.h - 1) / (1 + 1), midR = Math.round(mid);
@@ -1765,7 +1787,23 @@ const FIGHT = (function () {
         if (free(rw[1], y)) { u.x = rw[1]; u.y = y; } else { u.x = -1; u.y = -1; later.push({ u: u, x: rw[1], y: y }); }
       });
     });
-    later.forEach(function (l) { const at = nearest(l.x, l.y); if (at) { l.u.x = at.x; l.u.y = at.y; if (l.u.slot === 'kept') S.formationKept = true; } });
+    /* NO CAP (COMBAT 7, rule 378(b)): past his two rows of nine, a third row and more behind the back row, each filled from the
+       middle out on open ground; a man with no tile there takes the nearest open one; nobody stays off the board */
+    const more = (rows.more || []).slice();
+    for (let x = col + back + back; more.length && x >= 0 && x < S.w; x += back) {
+      const ys = []; for (let y = 0; y < S.h; y++) if (free(x, y)) ys.push(y);
+      ys.sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
+      while (more.length && ys.length) { const u = more.shift(); u.x = x; u.y = ys.shift(); u.slot = 'more'; }
+    }
+    more.forEach(function (u) { u.x = -1; u.y = -1; u.slot = 'more'; later.push({ u: u, x: col, y: midR }); });
+    later.forEach(function (l) { const at = nearest(l.x, l.y) || anyOpen(l.x, l.y); if (at) { l.u.x = at.x; l.u.y = at.y; if (l.u.slot === 'kept') S.formationKept = true; } });
+  }
+  /* rule 378: the last resort for a man with no tile on his side, the open tile nearest x,y anywhere on the board */
+  function anyOpen(x, y) {
+    let best = null, bd = Infinity;
+    for (let yy = 0; yy < S.h; yy++) for (let xx = 0; xx < S.w; xx++) { if (!passable(xx, yy) || unitAt(xx, yy)) continue;
+      const d = Math.abs(xx - x) * S.h + Math.abs(yy - y); if (d < bd) { bd = d; best = { x: xx, y: yy }; } }
+    return best;
   }
   /* THE MEMORY OF THE LINE (rule 110b): where each of your men stands in your two columns, by name, as his line (0 the front
      column, 1 the one behind) and his row counted from the board's middle, so the same line comes back on a board of another

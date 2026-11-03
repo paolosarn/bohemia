@@ -10296,6 +10296,11 @@ GATES = [
      "COMBAT 7 gate, 11/3, rule 367, ask line 391 (Paolo 11/3: 'did you seriously just walk around with a cardboard cutout... you can set it "
      "down, enemy can as well'): the perk is data; headless his cutout is struck, takes no turn, never swings, holds no zone, never counts as "
      "his man; a kid of theirs sets his own; on his upright phone the DECOY square then a tile; never among his men at the end. About 2 minutes", False),
+    ("NO CAP ON HOW MANY FIGHT", ['node', 'gates/no_cap_on_how_many_fight_gate.js'],
+     "COMBAT 7 gate, 11/3, rule 378, ask line 407 (Paolo 11/3: 'make sure there's no coded cap'): headless, 30 against 40 on three grounds all "
+     "70 stand, nobody off the board or stacked, each on his side (the rows before left 6 off); 60 against 100 the board grows by whole blocks; "
+     "a handed line of 18 and 6 more all stand; a company with no cap fights whole; on his upright phone 30 against 40 all on the board, the "
+     "draw within 1.6 times twelve a side. About 1 minute", False),
     ("HEAVY ARMOUR COSTS A TILE", ['node', 'gates/heavy_armour_costs_a_tile_gate.js'],
      "COMBAT 7 gate, 11/3, rule 377, ask line 406 (Paolo 11/3: 'you can only walk one time less... make sure that this does not make it "
      "impossible to do any sort of attack or abilities'): ours.armour_weight is data; standing still in the heaviest every weapon kind and "

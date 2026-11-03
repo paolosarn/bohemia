@@ -43,6 +43,10 @@ COMBAT 7 11/3 (brief from the coordinator, check-in 10, then its carry-on list: 
    localStorage 'bohemia.killcams.v1' ('on' or nothing = OFF, the default); the fight's killCamsOn reads it at every kill. Gate THE
    KILL CAMS K7. NEXT, behind the switch: the rework (the CSS scale of the whole glass smears the 112 px art; draw the close-up at the
    art's own pixel size like the loading screen's camera feeds; the tags stepping aside), a before/after card, OFF until he says good.
+9. NO CAP ON HOW MANY FIGHT (rule 378, ask line 407): rowsOf's spill past 18 goes to rows.more (identical rows up to 18), deployCrew
+   puts them in a third column and more, place and anyOpen leave nobody off the board, setup's dealBoard deals again a block taller
+   when a side's open ground cannot hold its men (S.grown). Gate NO CAP ON HOW MANY FIGHT 6/0. FLAGGED: the origin's field cap (12/16)
+   handed at the game's door (RUN's; rule 63b against 378(a)); the road's 8 is WORLD 8's.
 THE SUITE: COMBAT 7's six gates are now rows in gates/bohemia_gates.py (they were run by hand before; COMBAT 6's AUTO PLAYS THE BEST
 TURN and CLIMB OR ATTACK still are not rows: both green on this tree, add them when you next touch them).
 VOTE cards: combat-7-auto-never-leaves-a-man, -retreat-is-a-run, -the-enemy-wants-to-live, -the-kill-cams (with sound), -the-decoy,

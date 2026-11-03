@@ -18117,7 +18117,7 @@
   "id": "combat-7-the-kill-cams-switch-11-3",
   "kind": "ui",
   "lane": "combat",
-  "sha": "PENDING",
+  "sha": "00aaf2fd",
   "made": "11/3",
   "draft": true,
   "title": "KILL CAMS: A SWITCH, OFF FOR NOW",
@@ -18136,6 +18136,31 @@
    "before": "a kill cam on every kill he saw, no way to stop them",
    "after": "OFF by default, one tap on the settings card",
    "scale": "his phone upright, 390 x 844, the game's own settings card"
+  }
+ },
+ {
+  "id": "combat-7-no-cap-on-how-many-fight-11-3",
+  "kind": "animation",
+  "lane": "combat",
+  "sha": "PENDING",
+  "made": "11/3",
+  "draft": true,
+  "title": "NO CAP ON HOW MANY FIGHT",
+  "said": "make sure there's not a cap on the amount of players on screen, enemy and my company... it feels like there's a cap... make sure there's no coded cap",
+  "why": "There was a cap: past 18 of his men the rest had nowhere to stand and the screen went black; now every man stands in a third row and more, and the board grows when a side runs out of room. You see it in any fight with more than 18 of your men.",
+  "options": [
+   "A, yes, no cap",
+   "B, good, but the big fights need a wider view",
+   "C, no, keep a cap on the field"
+  ],
+  "show": {
+   "how": "page",
+   "src": "vote/COMBAT_7_NO_CAP_ON_HOW_MANY_FIGHT.html"
+  },
+  "before_after": {
+   "before": "30 against 40: 6 of his nowhere, the screen black",
+   "after": "all 70 on the board",
+   "scale": "his phone upright, 390 x 844, the fight's own camera, the whole board fitted"
   }
  },
   {
