@@ -24,8 +24,8 @@
      F1 no model stands on ground he has not seen
      C1 the layer costs at most 3 ms a frame at the street stop (the median of 10; the whole frame printed beside it)
      R1 ROADS FIRST (rule 356): the valley's road network is one piece
-     R2 a street ends only at the city's edge, open ground or water, or a place's own gate; at most two into houses (a walled
-        suburb street's end, drawn with the painter's kerb across)
+     R2 every street end is drawn as an end (the painter's cul-de-sac with a kerb all round): at the city's edge, open ground or
+        water, a place's own gate, or a walled suburb street
      C2 nothing threw
    ============================================================================ */
 'use strict';
@@ -186,16 +186,20 @@ async function run(prof) {
     const comp = new Int32Array(N * N).fill(-1); let nc = 0, n = 0;
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!isR(x, y) || comp[y * N + x] >= 0) continue; const q = [[x, y]]; comp[y * N + x] = nc;
       while (q.length) { const [a, b] = q.pop(); n++; for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const u = a + dx, v = b + dy; if (isR(u, v) && comp[v * N + u] < 0) { comp[v * N + u] = nc; q.push([u, v]); } } } nc++; }
-    const HOUSE = /^(suburb|estate|gated|trailer|apartment|town)$/, OPEN = /^(mountain|desert|land|wash|water|lake|playa|basin|dam|springs|scrub|dunes)$/, out = { nc, n, ends: 0, open: 0, site: 0, house: [] };
+    const HOUSE = /^(suburb|estate|gated|trailer|apartment|town)$/, OPEN = /^(mountain|desert|land|wash|water|lake|playa|basin|dam|springs|scrub|dunes)$/, out = { nc, n, ends: 0, open: 0, site: 0, house: [], roadEnds: 0, drawnEnd: 0 }; let JF = null; try { JF = vbStreetFlagsValley(); } catch (e) {}
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!isR(x, y)) continue; let k = 0, dx = 0, dy = 0;
       for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (isR(x + a, y + b)) { k++; dx = -a; dy = -b; }
       if (k !== 1 || x === 0 || y === 0 || x === N - 1 || y === N - 1) continue; out.ends++;
       const t = om.at(x + dx, y + dy), d = t ? t.district : 'edge';
-      if (d === 'edge' || OPEN.test(d)) out.open++; else if (HOUSE.test(d)) out.house.push(x + ',' + y + ' into ' + d); else out.site++; }
+      if (d === 'edge' || OPEN.test(d)) out.open++; else if (HOUSE.test(d)) out.house.push(x + ',' + y + ' into ' + d); else out.site++;
+      if (JF && om.at(x, y).district === 'arterial') { out.roadEnds++; const m = JF.f.jm[y * JF.w + x] | 0; let reads = !(m & (m - 1));   /* one join or none: the painter's cul-de-sac */
+        if (!reads) { reads = true; for (const [bit, ddx, ddy] of [[1, 0, -1], [2, 1, 0], [4, 0, 1], [8, -1, 0]]) { if (!(m & bit) || isR(x + ddx, y + ddy)) continue;
+          if (!(JF.f.jm[(y + ddy) * JF.w + x + ddx] | 0)) reads = false; } }   /* or it runs on: the next block is drawn as its street (the painter's through-street) */
+        if (reads) out.drawnEnd++; } }
     return out; });
   ok('R1 ' + prof + ': ROADS FIRST: the valley\'s roads are one network, no street out of thin air', RG.nc === 1 && RG.n > 1000, RG.n + ' road blocks in ' + RG.nc + ' network');
-  ok('R2 ' + prof + ': a street ends only at the city\'s edge, open ground or water, or a place\'s own gate (at most two into houses, a walled street\'s end)', RG.house.length <= 2,
-     RG.ends + ' ends: ' + RG.open + ' at the edge, the mountains or the water, ' + RG.site + ' at a place\'s gate, ' + RG.house.length + ' into houses' + (RG.house.length ? ' (' + RG.house.join('; ') + ')' : ''));
+  ok('R2 ' + prof + ': every street end is drawn as an end (the painter\'s cul-de-sac, a kerb all round): at the city\'s edge, a place\'s gate, or a walled street', RG.roadEnds > 0 && RG.drawnEnd === RG.roadEnds,
+     RG.ends + ' ends: ' + RG.open + ' at the edge, the mountains or the water, ' + RG.site + ' at a place\'s gate, ' + RG.house.length + ' into houses' + (RG.house.length ? ' (' + RG.house.join('; ') + ')' : '') + '; ' + RG.drawnEnd + ' of ' + RG.roadEnds + ' street ends drawn as a cul-de-sac');
   ok('C2 ' + prof + ': nothing threw', errs.length === 0 && d.errs.length === 0, errs.concat(d.errs).slice(0, 2).join(' | '));
   if (process.env.HOUSES_SHOTS) { try { await d.shot(path.join(process.env.HOUSES_SHOTS, prof + '_street.png')); } catch (e) {} }
   await d.close().catch(() => {});

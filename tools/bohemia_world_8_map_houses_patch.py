@@ -98,6 +98,36 @@ function mapGoingBeatsLand(x,y){
     # H11b his glide across a watched block takes the whole of its beats
     ("""    const E=(journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT))) * (journey ? mapGoingBeats(city.x, city.y) : 1);""",
      """    const E=(journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT))) * (journey ? mapGoingBeats(city.x, city.y) : 1) * (journey && window.BohemiaMapHouses ? BohemiaMapHouses.glideK() : 1);   /* %s: up close he walks the whole wait */""" % M),
+    # H14 THE MAP CAN TURN (rule 344): the campaign code flips the valley before it is built (engine/bohemia_overmap.js reads it)
+    ("""<!-- __A_NEW_VALLEY_EVERY_GAME__ END -->
+""",
+     """<!-- __A_NEW_VALLEY_EVERY_GAME__ END -->
+<script>
+/* ==== __THE_MAP_CAN_TURN__ (WORLD 8, 11/3/26, rule 344, ask line 353; Paolo 11/2: 'Dont forget u can flip the map 90 degrees fuck it!
+   While changing the locations and shit'). A NEW game's code flips the valley north to south, east to west, both (a half turn) or
+   neither, two bits of the code's own hash, before the valley is built (engine/bohemia_overmap.js VALLEY_TURN, on top of the land's
+   own rolls, so everything built from the valley agrees: the roads, the painting, the travel, the towns on their real blocks). It
+   is kept with the code (bohemia.world.turn.v1), so the same game opens the same way; a game begun before this keeps its valley,
+   and the checkers' bench keeps it too unless it asks (bohemia.world.bench.turn). The places keep their names and their looks. ==== */
+(function(){
+  var KEY = 'bohemia.world.turn.v1', T = null, ls = function(k){ try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var code = (typeof WORLD_SEED === 'string') ? WORLD_SEED : '', from = (typeof WORLD_SEED_FROM === 'string') ? WORLD_SEED_FROM : '';
+  var bits = function(c){ var h = 2166136261; c = String(c) + ':turn'; for (var i = 0; i < c.length; i++) { h ^= c.charCodeAt(i); h = Math.imul(h, 16777619); }
+    h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15; return (h >>> 0) & 3; };
+  var of = function(c){ var b = bits(c); return { ns: !!(b & 1), ew: !!(b & 2), code: c }; };
+  if (code && (from === 'typed' || from === 'rolled')) { T = of(code); try { localStorage.setItem(KEY, JSON.stringify(T)); } catch (e) {} }
+  else if (code && from === 'saved') { try { var s = JSON.parse(ls(KEY) || 'null'); if (s && s.code === code) T = { ns: !!s.ns, ew: !!s.ew, code: code }; } catch (e) {} }
+  else if (code && from === 'bench' && ls('bohemia.world.bench.turn') === '1') T = of(code);
+  try { globalThis.VALLEY_TURN = (T && (T.ns || T.ew)) ? T : null; window.__VALLEY_TURN = T || { ns: false, ew: false, code: code }; } catch (e) {}
+})();
+</script>
+"""),
+    # H15 THE MAP CAN TURN: the compass reads the valley's own north (a valley flipped north to south has its north at the far edge),
+    #     so the real land round it, its passes and its roads, follow the flip
+    ("""    L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit } };""",
+     """    L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit, axisFlip: !!L.axisFlip } };   /* __THE_MAP_CAN_TURN__ */"""),
+    ("""  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: 'y0', s: 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {};""",
+     """  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: L.axisFlip ? 'y1' : 'y0', s: L.axisFlip ? 'y0' : 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {};   /* __THE_MAP_CAN_TURN__: the valley's own north */"""),
     # H12 the module
     ('<script src="bohemia_his_map.js"></script>',
      '<script src="bohemia_map_houses.js"></script>  <script src="bohemia_map_sight.js"></script>  <!-- %s WORLD 8 (ask lines 117, 185, 39): the real house models past the old closest stop; what he sees now -->  <script src="bohemia_his_map.js"></script>' % M),

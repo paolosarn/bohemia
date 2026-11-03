@@ -53,8 +53,14 @@ function inRect(x,y,R){return x>=R.x&&x<R.x+R.w&&y>=R.y&&y<R.y+R.h;}
 function layoutFromSeed(seed){
   const r=rng((seed^0xA5C3D7)>>>0);
   const N=OVER_N, cx=N/2, cy=N/2;
-  const axisFlip=r()<0.5;
-  const stripMirror=r()<0.5;              // [PENDING Paolo confirm]
+  /* THE MAP CAN TURN (WORLD 8, 11/3, rule 344, Paolo 11/2: 'Dont forget u can flip the map 90 degrees fuck it! While changing the
+     locations and shit'): a new game's code may flip the valley north to south, east to west, or both (a half turn), on top of
+     the land's own two rolls (VALLEY_TURN, set by the page from the campaign code before the valley is built; none = the land's
+     own valley, so an old save and every checker's bench stay the same). The rolls are still drawn, so the rest of the land's
+     stream, and so everything else about the valley, is unchanged. */
+  const TURN=(typeof globalThis!=='undefined'&&globalThis.VALLEY_TURN)||null;
+  const axisFlip=(r()<0.5)!==!!(TURN&&TURN.ns);
+  const stripMirror=(r()<0.5)!==!!(TURN&&TURN.ew);              // [PENDING Paolo confirm]
   const stripX=Math.round(cx+(stripMirror?-4:4));
   const fwySide=stripMirror?1:-1;
   const fwyX=stripX+fwySide*7;            // pushed out past the 2-cell resort buffer

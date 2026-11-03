@@ -27,6 +27,12 @@ WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (t
   models (toned to the map at load). Roads first: ONE network of 3,628 road blocks; 95 ends: 49 at the city's edge, 45 at a
   place's gate, 1 into a walled suburb (41,23); gate legs R1, R2; nothing to fix. STILL WEAK: the shops, works, slabs and towers
   are the painter's boxes at the street stop (the next job: their models).
+- 344 THE MAP CAN TURN (BUILD 11/3zzzzad; the coordinator's step 4): a NEW game's code flips the valley north to south, east to west,
+  both or neither (engine/bohemia_overmap.js VALLEY_TURN on top of the land's own rolls, resynced into the page; the boot hook
+  __THE_MAP_CAN_TURN__ H14 keeps it with the code in bohemia.world.turn.v1; old games and the bench keep their valley; the bench
+  asks with bohemia.world.bench.turn). The painter's compass reads the valley's own north (H15), so the land round it, its passes
+  and roads turn too. NOT BUILT: a quarter turn (the generator assumes the I-15 runs north to south). Gate
+  gates/the_map_can_turn_gate.js 24/0. VOTE world-the-map-can-turn-11-3. Engine touched: RUN slice rebuilt, demo re-cut.
 - MAIN'S REDS I MET, NOT MINE (measured with my two layers switched off, same numbers): THE MAP STANDS TALLER W1 (5,879 pixels
   neither him nor the building at the near stop) and W3b (one frame sunk on the freeway berm).
 - OWED: models for the shops, works, towers and casinos (COOK's warehouse, motel, pawn shop, gas station, casino, tower casino

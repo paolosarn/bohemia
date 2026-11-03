@@ -86,6 +86,26 @@ STILL WEAK, SAID PLAINLY: at the street stop the shops, works, apartment slabs a
 times bigger than before, flat walls and stair-stepped edges. The next job on this map is their models (COOK's warehouse, motel,
 pawn shop, gas station, casino and tower casino are built), on the lots the painter already rolls.
 
+## 5. THE MAP CAN TURN (rule 344, ask line 353, the coordinator's step 4; BUILD 11/3zzzzad)
+His words (11/2, the VOTE tab, on FOUR CODES, FOUR VALLEYS): 'Dont forget u can flip the map 90 degrees fuck it! While changing the
+locations and shit.'
+MEASURED FIRST: the valley's generator (engine/bohemia_overmap.js, inlined in the map page by tools/bohemia_city_overmap_resync.py)
+already has two switches, a north-south flip (axisFlip: the dam, the solar fields, the landfill at the other end) and an east-west
+mirror (stripMirror: the Strip and the 15 change sides), both rolled from the LAND seed, which is fixed in the demo: so every game
+was the same one of the four. The campaign code is known before the valley is built (WORLD 6's boot), so the flip can be dealt at
+the source and everything built from the valley agrees by construction.
+WHAT SHIPPED (__THE_MAP_CAN_TURN__): a NEW game's code flips the valley north to south, east to west, both (a half turn) or neither,
+two bits of the code's own hash, on top of the land's own two rolls (the rolls still drawn, so the rest of the land is the same). It
+is kept with the code (bohemia.world.turn.v1): the same game opens the same way; a game begun before this keeps its own valley; the
+checkers' bench keeps it unless it asks (bohemia.world.bench.turn). The painter's compass now reads the valley's own north, so the
+real land round the valley, its passes and its roads, turn with it (before, north was nailed to the top edge). The places keep
+their real names and their own looks; the fourteen bases stand on real blocks of their kind on every valley.
+NOT BUILT, SAID PLAINLY: a QUARTER turn (the I-15 running east to west). The generator and the map's drawing assume the spine runs
+north to south; a quarter turn is a rebuild of the generator's layout, not a switch. The four flips are what a switch can deal.
+WORLD 7's four codes land on all four ways: DUST42 as the land lies, NEVADA flipped north to south, VEGAS7 mirrored east to west,
+K7QM9X turned half way. VOTE: world-the-map-can-turn-11-3 (records/target/world_8/THE_MAP_CAN_TURN.jpg).
+Gate gates/the_map_can_turn_gate.js (the table below). Engine touched: the RUN slice rebuilt (rule 8), the demo re-cut.
+
 ## THE GATES (this round, this box: software drawing in a headless browser, never a phone's numbers)
 - THE HOUSES STAND UP CLOSE (new): 12/0 upright phone, 12/0 sideways, 12/0 computer; with the one hand-over and the roads legs
   (BUILD 11/3zzzu) 14/0 on the upright phone. Z1 one real pinch to a block 380 on the
@@ -97,13 +117,21 @@ pawn shop, gas station, casino and tower casino are built), on the lots the pain
   C1 the models paint 0.4 to 1.2 glasses of pixels a frame (on this software box the layer is up to 113 ms of a 192 ms frame;
   a phone's GPU is PLUMBER's to measure); C2 nothing threw.
 - WHAT HE SEES NOW (new): 8/0 upright phone, 8/0 sideways, 8/0 computer: S1 the blocks in sight at their own light (0 to 4 off); S2 the remembered ground at 0.65 to 0.66 of its light, its shape following; S3 a party 3 blocks down his street drawn, round the corner not, 6 down not; S4 15 blocks in sight by day, 9 at night in the dark; S5 it moves with him; S6 the mutation (the layer off: 1.00); C1; C2.
+- THE MAP CAN TURN (new): 24/0 on his phone, the four codes: T1 each its own flip on the land's own valley; T2 four ways, three
+  turned from the land's own, four paintings; T3 one road network on each (3,628 to 3,685 road blocks) and every street end drawn
+  as an end (the painter's cul-de-sac with a kerb all round, or a street the painter carries on); T4 every one of the 14 bases
+  reached; T5 the land round the valley turns with it (its north the valley's own north, its east the town side of the 15; the
+  pass roads cut); T6 the same 14 names on all four; T7 WORLD 7's state on the turned valley's own blocks, a fight carries its
+  block's own district; T8 a game begun before this keeps its own valley; C1 nothing threw.
 - ONE ZOOM, NO SECOND MAP MODE (this lane's 11/2 gate, updated: the pinch's top is the street stop; the old stop's one-to-one
   art still read where it was): 12/0.
 - HIS MAP: 42/0 at the crash's ship (11/3zzt). With this round's layers, on main's newest map: 41/1, the one red F6 on the
   computer at 88% against its 90% bar, the same 88% the very first run of this round read on the phone before any change of
   mine. The cause: the fog-lifted frame draws every roaming party, his frame only those in his sight, so a passing party flips a
   patch. Fixed in the gate: the walkers set aside for the seen-ground legs (the game's own MAP_DEPTH.hide), the unseen legs read as
-  before. Then 42/0 on main's newest map (phone 21, computer 21).
+  before. Then 42/0 on main's newest map (phone 21, computer 21). With the map turning (any new game may now be flipped): 41/1,
+  the one red F2's mutation at the whole-valley stop (3.2 against a bar of 3.05, half of 6.1) on one game; the same leg reads 2.9 to
+  3.7 against 3.4 to 3.95 on other games (seed by seed, close to its bar); the phone run again: 21/0.
 - A FRESH START AND A FOG OF WAR 8/0; SIGHT DOWN THE STREET 6/0; A DIFFERENT VALLEY EVERY GAME 60/0 (at 11/3zzt).
 - THE MAP STANDS TALLER: 11/2 with two reds that are MAIN'S, NOT THIS ROUND'S: run again with this round's two layers switched
   off at runtime they fail the same way (W1: 5,879 of 34,361 pixels are neither him nor the building at the old near stop; W3b:

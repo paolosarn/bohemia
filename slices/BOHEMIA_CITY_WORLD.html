@@ -1642,6 +1642,25 @@ function worldBases(){
 }
 </script>
 <!-- __A_NEW_VALLEY_EVERY_GAME__ END -->
+<script>
+/* ==== __THE_MAP_CAN_TURN__ (WORLD 8, 11/3/26, rule 344, ask line 353; Paolo 11/2: 'Dont forget u can flip the map 90 degrees fuck it!
+   While changing the locations and shit'). A NEW game's code flips the valley north to south, east to west, both (a half turn) or
+   neither, two bits of the code's own hash, before the valley is built (engine/bohemia_overmap.js VALLEY_TURN, on top of the land's
+   own rolls, so everything built from the valley agrees: the roads, the painting, the travel, the towns on their real blocks). It
+   is kept with the code (bohemia.world.turn.v1), so the same game opens the same way; a game begun before this keeps its valley,
+   and the checkers' bench keeps it too unless it asks (bohemia.world.bench.turn). The places keep their names and their looks. ==== */
+(function(){
+  var KEY = 'bohemia.world.turn.v1', T = null, ls = function(k){ try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var code = (typeof WORLD_SEED === 'string') ? WORLD_SEED : '', from = (typeof WORLD_SEED_FROM === 'string') ? WORLD_SEED_FROM : '';
+  var bits = function(c){ var h = 2166136261; c = String(c) + ':turn'; for (var i = 0; i < c.length; i++) { h ^= c.charCodeAt(i); h = Math.imul(h, 16777619); }
+    h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15; return (h >>> 0) & 3; };
+  var of = function(c){ var b = bits(c); return { ns: !!(b & 1), ew: !!(b & 2), code: c }; };
+  if (code && (from === 'typed' || from === 'rolled')) { T = of(code); try { localStorage.setItem(KEY, JSON.stringify(T)); } catch (e) {} }
+  else if (code && from === 'saved') { try { var s = JSON.parse(ls(KEY) || 'null'); if (s && s.code === code) T = { ns: !!s.ns, ew: !!s.ew, code: code }; } catch (e) {} }
+  else if (code && from === 'bench' && ls('bohemia.world.bench.turn') === '1') T = of(code);
+  try { globalThis.VALLEY_TURN = (T && (T.ns || T.ew)) ? T : null; window.__VALLEY_TURN = T || { ns: false, ew: false, code: code }; } catch (e) {}
+})();
+</script>
 <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ BEGIN (tools/bohemia_world_state_patch.py writes this block; edit the two sources, not here) -->
 <script>
 /* ==== __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7, 11/3/26, rule 339, ask line 347): the campaign's state of the real valley. Sources: records/target/bb/world_state.json and engine/bohemia_world_state.js. ==== */
@@ -1997,8 +2016,14 @@ function inRect(x,y,R){return x>=R.x&&x<R.x+R.w&&y>=R.y&&y<R.y+R.h;}
 function layoutFromSeed(seed){
   const r=rng((seed^0xA5C3D7)>>>0);
   const N=OVER_N, cx=N/2, cy=N/2;
-  const axisFlip=r()<0.5;
-  const stripMirror=r()<0.5;              // [PENDING Paolo confirm]
+  /* THE MAP CAN TURN (WORLD 8, 11/3, rule 344, Paolo 11/2: 'Dont forget u can flip the map 90 degrees fuck it! While changing the
+     locations and shit'): a new game's code may flip the valley north to south, east to west, or both (a half turn), on top of
+     the land's own two rolls (VALLEY_TURN, set by the page from the campaign code before the valley is built; none = the land's
+     own valley, so an old save and every checker's bench stay the same). The rolls are still drawn, so the rest of the land's
+     stream, and so everything else about the valley, is unchanged. */
+  const TURN=(typeof globalThis!=='undefined'&&globalThis.VALLEY_TURN)||null;
+  const axisFlip=(r()<0.5)!==!!(TURN&&TURN.ns);
+  const stripMirror=(r()<0.5)!==!!(TURN&&TURN.ew);              // [PENDING Paolo confirm]
   const stripX=Math.round(cx+(stripMirror?-4:4));
   const fwySide=stripMirror?1:-1;
   const fwyX=stripX+fwySide*7;            // pushed out past the 2-cell resort buffer
@@ -50255,7 +50280,7 @@ function vbCore(inp){
   var t0 = performance.now();
   var N = inp.N, K = inp.K, S = inp.S, D = N + 2 * K, P = D * S, L = inp.L || {}, sd = ((inp.seed | 0) ^ 0x51a7) >>> 0;
   /* the compass, from the map itself: north is y = 0, east is the town's side of the 15 */
-  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: 'y0', s: 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {}; side[C.w] = 1.55; side[C.n] = 1.25; side[C.e] = 1.0; side[C.s] = 1.05;
+  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: L.axisFlip ? 'y1' : 'y0', s: L.axisFlip ? 'y0' : 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {};   /* __THE_MAP_CAN_TURN__: the valley's own north */ side[C.w] = 1.55; side[C.n] = 1.25; side[C.e] = 1.0; side[C.s] = 1.05;
   /* how much of the map's own rim is mountain near each edge spot (a 9 x 9 box, from a prefix sum) */
   var PS = new Int32Array((N + 1) * (N + 1));
   for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
@@ -51536,7 +51561,7 @@ function vbInput(m){
     mtn[y * N + x] = d === 'mountain' ? 1 : 0; road[y * N + x] = /^(freeway|beltway|interchange)$/.test(d || '') ? 1 : 0;
     soft[y * N + x] = /^(mountain|desert|wash)$/.test(d || '') ? 1 : 0; }
   return { N: N, K: VB_K, S: VB_S, seed: V.seed, mtn: mtn, road: road, soft: soft,
-    L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit } };
+    L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit, axisFlip: !!L.axisFlip } };   /* __THE_MAP_CAN_TURN__ */
 }
 function vbLand(r){
   VB.busy = false;
