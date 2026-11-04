@@ -448,3 +448,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 424 | The mystery meat is more accepted than taboo (most of the world took part; creepy, not shameful), the Fallout: New Vegas attitude | 388 (amended) | DYNASTY or WORLD, WORDS | QUEUED (QUIET DAYS, rule 382) |
 | 425 | The stew is how people survived (no farming, all dying); the shakes: never the head (kuru), and it shows in the later acts | 388 (amended again) | DYNASTY, WORLD, WORDS | QUEUED (QUIET DAYS, rule 382) |
 | 426 | The long game: are the Amalgamation and the Network behind the drug on the streets (like the CIA abroad)? An open question to discover together, clues only | 391 | DYNASTY, WORLD, WORDS | QUEUED (QUIET DAYS, rule 382) |
+| 427 | The carcass after a beast fight: haul it in the shopping cart, tell a hungry town for batteries, or leave it; it rots on a clock you can see | 392 | WORLD, CAMP, ECONOMY, TUNING, UI, ANIMATION | QUEUED (QUIET DAYS, rule 382) |
