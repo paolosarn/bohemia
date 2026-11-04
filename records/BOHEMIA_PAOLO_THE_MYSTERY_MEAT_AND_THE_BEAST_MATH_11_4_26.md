@@ -53,3 +53,16 @@ have actually like participated in it across the whole world type shit potential
 - The line people still feel is HOW the meat was got: the dead are food, a man killed for it is murder. Factions differ (the Church may
   bless the dead's gift, the Mob sells it, some will not touch it). Quests live on that line.
 - Reference: FALLOUT: NEW VEGAS for this attitude only (added to CLAUDE.md's reference line); nothing of its content, our own way.
+
+## RULE 388 AMENDED AGAIN: IT IS HOW PEOPLE SURVIVED, AND THE SHAKES (ask line 425)
+HIS WORDS: "Cause to be honest, it is perfectly good meat that could go to waste bro and if I have to feed my family personally bro,
+I'm cooking that human good as fuck... I'll do what I have to do so we don't get the shakes or whatever but yeah like if I have nothing
+left... that's how a lot of people survived even today because they were like we gotta eat these people. We gotta put them in a stew
+with other meat to be honest because there's no farming and we're all dying."
+- The stew is survival, said plainly: the people alive in the valley lived through the famine years on it.
+- THE SHAKES ARE REAL (the coordinator's hole, draft:true, his to keep): kuru, among the Fore people of Papua New Guinea, spread through
+  eating the brains of their dead at funerals: a prion disease (mad cow's family) that shows five to twenty years or more later, with
+  trembling and fits of laughing, and kills. So the survivors' one rule: NEVER THE HEAD. The ones who broke it shake years later, and in
+  act two and act three (the future computed from the past) the shaking shows in whoever ate wrong: a mark a player can read on a face.
+- 'No farming' holds for act one: the Mojave gets about four inches of rain, and without power nothing pumps the lake; his settlement's
+  garden bed and water tank (his 10/1 picks) are how farming comes back.
