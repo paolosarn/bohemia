@@ -465,3 +465,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 441 | Every UI transition at 60 frames a second, never a slideshow | 400 (amended) | UI, PLUMBER | QUEUED (QUIET DAYS, rule 382) |
 | 442 | The way into a fight dives from the map through the clouds over the real city (no brown or black backdrop), and climbs back out | 401 | UI, WORLD, COMBAT | QUEUED (QUIET DAYS, rule 382) |
 | 443 | When a crew engages him his party stops dead (no slide after the card is up); more polish, more content; his thanks for the new buildings | 401 | WORLD | QUEUED (QUIET DAYS, rule 382) |
+| 444 | Scrolling is illegal: no screen with anything to press ever scrolls, phone or laptop; pages and tabs instead | 402 | UI | QUEUED (QUIET DAYS, rule 382) |
+| 445 | A UI size setting (four sizes, the whole interface scales), not just a text size | 403 | UI | QUEUED (QUIET DAYS, rule 382) |
