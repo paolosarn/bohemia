@@ -461,3 +461,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 437 | Tap a weapon and its card says the combat abilities it gives (Battle Brothers' skill list, plain words, the numbers) | 397 | UI, COMBAT, WORDS | QUEUED (QUIET DAYS, rule 382) |
 | 438 | Pop-up events drop his 4x back to regular; after an event his speed comes back, and a no-choice event never stops the map (a feed post) | 398 (amends 311, 396) | WORLD, UI | QUEUED (QUIET DAYS, rule 382) |
 | 439 | Way more quests, not all hunts; the sabre-tooths are everywhere (they should be rare) | 399 (with 389) | QUESTS, WORLD, RUN, WORDS | QUEUED (QUIET DAYS, rule 382) |
+| 440 | The whole game feels like a slideshow; 60 frames a second always: a frame budget kept from now, more poses a second, glides not steps | 400 | PLUMBER, ANIMATION, DIRECTION, WORLD, COMBAT | QUEUED (QUIET DAYS, rule 382) |
