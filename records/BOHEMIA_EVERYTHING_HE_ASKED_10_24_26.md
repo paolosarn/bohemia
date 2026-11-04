@@ -458,3 +458,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 434 | Carry the save to another screen without a cloud, a Game Boy style code no longer than a phone number (measured: the save is about 4,500 bytes at best, a number holds 4; the tape file, the QR in static, or a parked save with a number) | 395 | UI or PLUMBER | ASKED 11/4 (default: the tape, then the QR) |
 | 435 | Hold PLAY to go four times as fast while held | 396 (amends 311) | WORLD, UI | QUEUED (QUIET DAYS, rule 382) |
 | 436 | Zoomed in on his men time still slows (again): the pacing half, and the plumbing half (60 frames a second at every zoom, the clock on real time) | 384 (amended) | PLUMBER, WORLD | QUEUED (QUIET DAYS, rule 382) |
+| 437 | Tap a weapon and its card says the combat abilities it gives (Battle Brothers' skill list, plain words, the numbers) | 397 | UI, COMBAT, WORDS | QUEUED (QUIET DAYS, rule 382) |
