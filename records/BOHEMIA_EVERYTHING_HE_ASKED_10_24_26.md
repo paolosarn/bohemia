@@ -452,3 +452,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 428 | The map's red specks (the burned blocks' embers) look like red sand up close, and the yellow dot lights do not read as lights | 393 | WORLD | QUEUED (QUIET DAYS, rule 382) |
 | 429 | AUTO keeps drawing his Lone Wolf melee man's pistol; it should switch weapons like it knows its man (close in with the club; a man good at both switches when it pays) | 394 | COMBAT | QUEUED (QUIET DAYS, rule 382) |
 | 430 | He likes the burned parts of town: make them smaller (a street or two), and a fight there is black and burnt down | 393 (amended) | WORLD, COMBAT MAPS | QUEUED (QUIET DAYS, rule 382) |
+| 431 | Surrounded, a man with a good gun and a good melee weapon should pull the melee weapon (measured: yes for one-handed, no for two-handed; he reloads instead) | 394 (amended) | COMBAT | QUEUED (QUIET DAYS, rule 382) |
