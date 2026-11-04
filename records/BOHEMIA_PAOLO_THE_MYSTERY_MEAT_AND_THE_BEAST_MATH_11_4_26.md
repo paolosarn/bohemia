@@ -42,3 +42,14 @@ THE DEFAULT (realism first):
    the beasts, the beasts feed the people, the people feed the stew (rule 388).
 - QUEUED (QUIET DAYS): BEASTS and WORLD (which beast, how often, by place), TUNING (the rates in the one table). No number is changed
   until he says.
+
+## RULE 388 AMENDED THE SAME ROUND: MORE ACCEPTED THAN TABOO (ask line 424)
+HIS WORDS: "Just keep in mind like I want it kind of like that more people think positively of it like in fallout new Vegas like I feel
+like most people still thought it was kind of creepy but like because the food situation was so fucked up like I feel like more people
+have actually like participated in it across the whole world type shit potentially like"
+- Most of the world ate it in the famine years and most still do. It is creepy, not shameful.
+- Real floor for the feeling: the 1972 Andes crash survivors (Uruguayan Air Force Flight 571) lived 72 days by eating the dead; they
+  spoke of it as a gift from their friends, and some likened it to communion. Ours speak the same way: 'they fed us'.
+- The line people still feel is HOW the meat was got: the dead are food, a man killed for it is murder. Factions differ (the Church may
+  bless the dead's gift, the Mob sells it, some will not touch it). Quests live on that line.
+- Reference: FALLOUT: NEW VEGAS for this attitude only (added to CLAUDE.md's reference line); nothing of its content, our own way.

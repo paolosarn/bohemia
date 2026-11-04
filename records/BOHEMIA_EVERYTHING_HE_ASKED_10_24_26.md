@@ -445,3 +445,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 421 | Mystery meat: cannibalism common and never said (don't ask don't tell), with quests | 388 | DYNASTY or WORLD, WORDS, QUESTS | QUEUED (QUIET DAYS, rule 382) |
 | 422 | The beast math: is the number of beasts he kills realistic; the answer and the default (no number changed yet) | 389 | BEASTS, WORLD, TUNING | QUEUED (QUIET DAYS, rule 382) |
 | 423 | The crawl: a scary, sad, dying crawl on the floor, with many uses | 390 | ANIMATION | QUEUED (QUIET DAYS, rule 382) |
+| 424 | The mystery meat is more accepted than taboo (most of the world took part; creepy, not shameful), the Fallout: New Vegas attitude | 388 (amended) | DYNASTY or WORLD, WORDS | QUEUED (QUIET DAYS, rule 382) |
