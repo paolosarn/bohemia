@@ -2098,6 +2098,7 @@ const FIGHT = (function () {
   }
   function moveTo(u, x, y, through, along) {
     if (S.over || current() !== u) return false;
+    if (AI_DEPTH > 0 && holdsRoof(u, x, y)) return false;   /* AUTO HOLDS THE ROOF: no AUTO walk takes his shooter down off it early */
     /* along: the drawn way (rule 206: he walks the path he was shown), else the cheapest one this turn */
     const p = along && along.length && along[along.length - 1].x === x && along[along.length - 1].y === y ? along : pathTo(u, x, y, through ? reach(u, null, true) : null); if (!p || !p.length) return false;
     let back = { x: u.x, y: u.y };
@@ -3718,6 +3719,39 @@ const FIGHT = (function () {
   }
   /* he has a shot left to fire this fight: a ranged weapon with rounds or throws left (an empty one-shot gun loads again) */
   function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
+  /* AUTO HOLDS THE ROOF (the coordinator 11/4, rule 385 and its amendment, ask lines 416 and 417; Paolo: 'why am I watching my people
+     climb on top of a roof and then climb off to get a shot... just stick on the roof... I'm losing battles because the auto keeps
+     wanting my men to get off the roof'; 'they have enemies in range of a shot and they're still getting off the roof... why can't they
+     just post up for one turn, especially when it's a tight battle'). MEASURED before (tools/bohemia_combat_auto_holds_the_roof_probe_
+     11_4_26.js, 120 fights): of 692 turns a shooter of his opened a storey or more up, 24 ended lower while he had a shot from up there
+     (every one the best turn's walk-then-shoot), 16 came down before posting up, 24 climbed and came straight back down. NOW: his
+     shooter on AUTO up there never takes a lower tile while he can shoot from where he stands; with no shot he posts up, holding the
+     roof hold_turns turns from the first turn he opened up there (hold_turns_tight in a tight fight: his standing men no more than
+     theirs, or one of his down), and lets them come; then he may come down. A retreat, a man who runs, his clubs, his own taps and
+     theirs are untouched. Numbers: ours.auto_holds_the_roof. */
+  function roofOn() { const H = R('ours.auto_holds_the_roof'); return H && H.on ? H : null; }
+  function tightFight(u) {
+    const mine = S.units.filter(function (v) { return v.side === u.side; }), up = mine.filter(function (v) { return onField(v) && v.morale !== 'Fleeing'; }).length;
+    const them = S.units.filter(function (v) { return v.side !== u.side && onField(v) && v.morale !== 'Fleeing'; }).length;
+    return up <= them || up < mine.length;
+  }
+  function shotFromHere(u) { return foes(u).some(function (t) { return canStrike(u, t) && sideSees(u.side, t); }); }
+  /* the turn he first opened on this storey (kept at the first step of each of his turns) */
+  function roofSeen(u) {
+    if (u.side !== 'you' || u.roofTurn === u.turnLog) return;
+    u.roofTurn = u.turnLog; const lv = level(u.x, u.y);
+    if (lv >= 1) { if (!u.roofAt || u.roofAt.lv !== lv) u.roofAt = { lv: lv, since: S.round }; } else u.roofAt = null;
+  }
+  /* true: AUTO's shooter keeps his storey this step (no lower tile): he has a shot from it, or he is still posting up */
+  function keepsRoof(u) {
+    const H = roofOn();
+    if (!H || u.side !== 'you' || S.retreat || u.morale === 'Fleeing' || !isRanged(u.weapon) || !hasShot(u) || level(u.x, u.y) < 1) return false;
+    if (shotFromHere(u)) return true;
+    const since = u.roofAt && u.roofAt.lv === level(u.x, u.y) ? u.roofAt.since : S.round;
+    return S.round - since < (tightFight(u) ? H.hold_turns_tight : H.hold_turns);
+  }
+  function holdsRoof(u, x, y) { return level(x, y) < level(u.x, u.y) && keepsRoof(u); }
+  let AI_DEPTH = 0;   /* AUTO is moving a man (aiStep), so moveTo asks holdsRoof; his own taps never do */
   function climb(u, A) {
     if (u.climbed === S.round) return false;
     if (u.side === 'you' && isGun(u.weapon) && zocOn(u, u.x, u.y).length) return false;   /* AUTO never climbs out of a ring through the free swings: his gun shoots the man beside him (rule 185; measured 10/25) */
@@ -3748,7 +3782,7 @@ const FIGHT = (function () {
       /* rule 322: AUTO's man takes the roof tile fewest of their clubs can stand beside next turn (a wolf cannot climb, so the
          middle of a roof is out of its reach), then the shortest climb */
       const sc = -f.best[k] - (u.side === 'you' && A.finds_a_shot ? dangerAt(u, x, y) * R('ours.auto_finds_a_shot').danger_per_foe : 0)
-        + (u.side !== 'you' ? level(x, y) * R('ours.enemy_wants_to_live').storey_weight * R('ap.move_cost.flat') : 0);   /* rule 366: theirs take the highest roof they can reach, not the nearest */
+        + (u.side !== 'you' || roofOn() ? level(x, y) * R('ours.enemy_wants_to_live').storey_weight * R('ap.move_cost.flat') : 0);   /* rule 366: theirs take the highest roof they can reach, not the nearest; rule 385: his too */
       if (ok && sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     return !!(best && moveTo(u, best.x, best.y));
@@ -3803,10 +3837,11 @@ const FIGHT = (function () {
     const V = R('ours.auto_finds_a_shot'), w = u.weapon, strikeAP = skillAP(w, strikeSkill(w), u), L = R('board.height_levels');
     const f = reach(u), struck = S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && e.t === 'attack' && !e.free; });
     const fs = foes(u), far = rangeMax(w.range) + L[L.length - 1] * R('hit_chance.height.ranged_range_per_level');
-    const tiles = [];
+    const tiles = [], keepUp = keepsRoof(u), lvHere = level(u.x, u.y);   /* AUTO HOLDS THE ROOF: while he posts up, only tiles on his storey or above */
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       if ((x === u.x && y === u.y) || !fs.some(function (t) { return Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) <= far; })) return;
+      if (keepUp && level(x, y) < lvHere) return;
       tiles.push({ x: x, y: y, cost: f.best[k], up: !!f.up[k] });
     });
     const done = function (v, full) { u._vantage = { key: key, v: v, full: full }; return v; };
@@ -4052,9 +4087,11 @@ const FIGHT = (function () {
          unless the blow there is a kill on offer (finishing a runner this turn; measured: the walk for a non-kill was EYES' three
          lost turns, the walk for a kill won a wolf fight) */
       const offRun = u.side === 'you' && huntField(u).keepOffRunners, runOnly = function (o) { return offRun && Object.keys(o.gone || {}).every(function (id) { const m = byId(id); return !m || m.morale === 'Fleeing'; }); };
+      const keepUp = keepsRoof(u), lvHere = level(u.x, u.y);   /* AUTO HOLDS THE ROOF: no walk down for a shot while he has one up here, or posts up */
       Object.keys(fld.best).forEach(function (k) {
         k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
         if (x === u.x && y === u.y) return;
+        if (keepUp && level(x, y) < lvHere) return;
         const lf = far + (isRanged(w) ? R('hit_chance.height.ranged_range_per_level') * Math.max(0, level(x, y)) : 0);
         if (!foes(u).some(function (t) { return dist({ x: x, y: y }, t) <= lf; })) return;
         const chase = u.side === 'you' && longChase(u, x, y, fld.best[k]);
@@ -4229,6 +4266,11 @@ const FIGHT = (function () {
   /* one action per call; false when the man is done for this turn */
   function aiStep(u) {
     if (S.over || current() !== u) return false;
+    roofSeen(u);   /* AUTO HOLDS THE ROOF: the turn he first opened on this storey */
+    AI_DEPTH++;
+    try { return aiStepAuto(u); } finally { AI_DEPTH--; }
+  }
+  function aiStepAuto(u) {
     if (S.retreat && u.side === 'you') return retreatStep(u);
     if (u.side === 'you' && allFleeing() && !S.byHand && !S.runDown && !chaseRun() && !S.arena) { endFight(); return false; }   /* __THE_ARENA__: in the pit AUTO hunts them down */   /* rule 198(h): by hand the choice is his; on AUTO his RUN THEM DOWN holds (COMBAT 7, row 139) */
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
@@ -4342,9 +4384,11 @@ const FIGHT = (function () {
     const hunt = huntField(u), hl = huntField(u, true);   /* the walk round houses and his own men; the line on the ground alone */
     const line = (A.keep_formation || A.shield_the_backline || A.long_weapon_waits || A.stays_back) ? lineOf(u, hl) : null;
     const depth = R('ours.formation_depth_lines');
+    const keepUpW = keepsRoof(u), lvHereW = level(u.x, u.y);
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       if (x === u.x && y === u.y && u.side !== 'you') return;   /* to AUTO, staying where he stands is a plan like any other */
+      if (keepUpW && level(x, y) < lvHereW) return;   /* AUTO HOLDS THE ROOF: the walk on keeps his storey while he has a shot or posts up */
       const left = u.ap - f.best[k];
       const ghost = { x: x, y: y, side: u.side, weapon: w };
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
@@ -4488,7 +4532,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();

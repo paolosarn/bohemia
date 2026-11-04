@@ -4333,5 +4333,16 @@
   "quote": "I'm at day 20 with like 10 super soldiers damn near I only hired like when I saw it was rare first off. We need more more rare characters, bro",
   "why": "HIRES 11/3 (rule 351(a)): the chance a post slot holds a rare man (records/target/bb/rare_recruits.json, fourteen men, each his own look; which man is his weight among the men that place may hold). Battle Brothers keeps each rare background between 2.2 and 8.3 in 100 a slot; we keep the whole rare share inside that band at 6 in 100 so a careful player meets one every few towns: a town's four slots hold one about 1 week in 4.5 (1 - 0.94^4 = 22%), a fortress's six about 1 in 3.2 (31%), a camp's two about 1 in 8.6 (12%, only the village kinds: lab hunter, old guard, static hunter, dune rider, desert wild); market day's two more and the recruiter's two to four more raise it. Was 0.03 in the rare man's own file (RUN TWO 10/25, TUNING s3), when there were three. Levels 2 to 3 kept (TUNING's). The settlement screen reads this row first (__THE_RARE_MAN_AT_THE_POST__), the file's chance_per_slot only if this row is missing. TUNING 2 owns the number.",
   "draft": true
+ },
+ "auto_holds_the_roof": {
+  "value": {
+   "on": true,
+   "hold_turns": 1,
+   "hold_turns_tight": 2
+  },
+  "source": "VAMILY rule 385 and its amendment (ask lines 416, 417); records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md; measured by tools/bohemia_combat_auto_holds_the_roof_probe_11_4_26.js",
+  "quote": "why am I watching my people climb on top of a roof and then climb off to get a shot... just stick on the roof, you're gonna get a better defence bonus and the whole enchilada... I'm losing battles because the auto run keeps wanting my men to get off the roof / I'm seeing them have other enemies in range of a shot and they're still getting off the roof... why can't they just post up for just one turn to see if enemies start getting closer, especially when it's a tight battle",
+  "why": "AUTO HOLDS THE ROOF (the coordinator 11/4, by his leave: 'I give you permission to only fix this roof bug right now'). A shooter of his on AUTO who stands a storey or more up never walks to a lower tile while he can shoot from where he stands (the best turn's walk-then-shoot was taking him down for a shot a few points likelier: 24 of 692 roof turns in 120 probe fights); with no shot from up there he POSTS UP: he holds the roof hold_turns turns from the first turn he opens up there (hold_turns_tight when the fight is tight: his standing men no more than theirs, or one of his down), and lets them come (Battle Brothers: the archer on the hill holds and waits); after that he may come down. A retreat, a man who runs, his clubs and his own taps are untouched; his side's climb scores the storeys as theirs does (rule 366's storey_weight). Battle Brothers' ranged AI (ai_engage_ranged) keeps a ranged unit on its tile while a target is in range and weighs high ground in its tile score; ours does the same for his men.",
+  "draft": true
  }
 }

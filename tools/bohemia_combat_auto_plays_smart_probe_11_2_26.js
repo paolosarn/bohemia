@@ -57,6 +57,9 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
   function opening(u) {
     const S = F.S, rec = { id: u.id, name: u.name, round: S.round, ranged: F.isRanged(u.weapon), x: u.x, y: u.y, lv: F.level(u.x, u.y),
       winded: !!F.winded(u), fleeing: u.morale === 'Fleeing', netted: !!u.netted };
+    /* AUTO HOLDS THE ROOF (the coordinator 11/4, rule 385 amended): a shooter of his posting up on his roof (no shot from it, the turns
+       the rule asks not yet held) is the rule working, counted apart (posted_up), never a failure */
+    try { if (F._t.roofSeen) F._t.roofSeen(u); rec.posting = !!(F._t.keepsRoof && F._t.keepsRoof(u)); } catch (e) { rec.posting = false; }
     rec.shot_now = shotFrom(u, u.x, u.y, u.ap);
     const back = ctx.DB.rules.fatigue.recovery_per_turn.value;
     rec.next_turn_home = rec.shot_now || shotFrom(u, u.x, u.y, u.apTurn, Math.max(0, u.fat - back));
@@ -128,13 +131,15 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
             if (!r.shot_now) T.shooter_no_shot_at_open++;
             if (!r.shot_now && r.moved && r.struck) T.shooter_moved_to_a_shot++;
             if (!r.struck && r.shot_by_move && !r.winded && !r.breath && r.chose) { T.shooter_chose_other++; T.chose_by[r.chose] = (T.chose_by[r.chose] || 0) + 1; }
-            if (!r.struck && r.shot_by_move && !r.winded && !r.breath && !r.chose) { T.shooter_ended_no_shot_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'shooter, no shot, a tile gave one' }, r, { L0: undefined })); }
+            if (!r.struck && r.shot_by_move && !r.winded && !r.breath && !r.chose && r.posting) T.posted_up = (T.posted_up || 0) + 1;
+            else if (!r.struck && r.shot_by_move && !r.winded && !r.breath && !r.chose) { T.shooter_ended_no_shot_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'shooter, no shot, a tile gave one' }, r, { L0: undefined })); }
             if (r.idle && !r.winded && !r.breath && !r.next_turn_home && r.next_turn && !r.shot_by_move) T.shooter_idle_when_a_move_gave_a_shot_next_turn++;
           } else {
             T.club_turns++;
             if (!r.struck && r.shot_by_move && !r.winded && !r.breath && !r.chose) { T.club_ended_no_blow_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'club, no blow, a tile gave one' }, r, { L0: undefined })); }
           }
-          if (r.idle && !r.winded && !r.breath && !r.next_turn_home && r.next_turn) { T.idle_when_a_move_gave_a_hit_next_turn++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'idle, a move gave a hit next turn' }, r, { L0: undefined })); }
+          if (r.idle && r.posting) T.posted_up = (T.posted_up || 0) + 1;
+          else if (r.idle && !r.winded && !r.breath && !r.next_turn_home && r.next_turn) { T.idle_when_a_move_gave_a_hit_next_turn++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'idle, a move gave a hit next turn' }, r, { L0: undefined })); }
           if (TURNS) (out.turns = out.turns || []).push(Object.assign({ kind: K.id, fight: k }, r, { L0: undefined }));
         };
         while (!S.over && g < 200000) {
@@ -175,7 +180,7 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
       shooter_idle_when_a_move_gave_a_shot_next_turn: T.shooter_idle_when_a_move_gave_a_shot_next_turn,
       club_turns: T.club_turns, club_ended_no_blow_when_a_tile_gave_one: T.club_ended_no_blow_when_a_tile_gave_one,
       idle_when_a_move_gave_a_hit_next_turn: T.idle_when_a_move_gave_a_hit_next_turn,
-      height_walled_turns: T.height_walled_turns, melee_blows_across_2_storeys: T.hits_across_2_storeys, their_blows_up_2_storeys: T.theirs_up_2, of_them_landed: T.theirs_up_2_hit,
+      height_walled_turns: T.height_walled_turns, posted_up: T.posted_up || 0, melee_blows_across_2_storeys: T.hits_across_2_storeys, their_blows_up_2_storeys: T.theirs_up_2, of_them_landed: T.theirs_up_2_hit,
       his_men_down_on_high_ground: T.his_down_on_high, his_men_down_on_the_ground: T.his_down_on_ground,
       beast_on_roof_fights: T.beast_on_roof_fights, beast_on_roof_steps: T.beast_on_roof_steps, beast_climbed_a_roof: T.beast_climbed_a_roof, beast_dealt_on_a_roof: T.beast_dealt_on_a_roof,
       errors: T.errs.slice(0, 5), fails: T.fails };
