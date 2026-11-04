@@ -439,3 +439,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 415 | Zooming in slows time down; it must never (people won't zoom) | 384 (amends THE WALK READS) | WORLD | QUEUED (QUIET DAYS, rule 382) |
 | 416 | AUTO climbs his men up a roof and then down for a shot; keep them on the roof (he is losing fights to it) | 385 | COMBAT | SHIPPED 11/4 by the coordinator (his leave), BUILT NOT YET SEEN: BUILD 11/4a AUTO HOLDS THE ROOF (records/BOHEMIA_COORDINATOR_AUTO_HOLDS_THE_ROOF_11_4_26.md) |
 | 417 | Even with enemies in reach they leave the roof; in a tight fight they should post up a turn and let them come | 385 (amended) | COMBAT | SHIPPED 11/4 by the coordinator (his leave), BUILT NOT YET SEEN: BUILD 11/4a AUTO HOLDS THE ROOF (records/BOHEMIA_COORDINATOR_AUTO_HOLDS_THE_ROOF_11_4_26.md) |
+| 418 | Vultures (his sister's idea): circling the dead and following a company that kills | 386 | BEASTS, WORLD, WORDS, SOUNDS | QUEUED (QUIET DAYS, rule 382) |
+| 419 | An idea: 'fentanyl homeless zombies' as an enemy; three ways asked (people on the real drug, a lab-made drug horde, or scenery only) | 386 (recorded, not locked) | COORDINATOR | ASKED 11/4 |
+| 420 | Justify why so many fight him (100 men down in under 30 days); keep the fighting, explain it in the lore | 387 | DYNASTY or WORLD, WORDS, TUNING | QUEUED (QUIET DAYS, rule 382) |
