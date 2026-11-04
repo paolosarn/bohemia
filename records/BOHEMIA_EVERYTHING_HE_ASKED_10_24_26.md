@@ -462,3 +462,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 438 | Pop-up events drop his 4x back to regular; after an event his speed comes back, and a no-choice event never stops the map (a feed post) | 398 (amends 311, 396) | WORLD, UI | QUEUED (QUIET DAYS, rule 382) |
 | 439 | Way more quests, not all hunts; the sabre-tooths are everywhere (they should be rare) | 399 (with 389) | QUESTS, WORLD, RUN, WORDS | QUEUED (QUIET DAYS, rule 382) |
 | 440 | The whole game feels like a slideshow; 60 frames a second always: a frame budget kept from now, more poses a second, glides not steps | 400 | PLUMBER, ANIMATION, DIRECTION, WORLD, COMBAT | QUEUED (QUIET DAYS, rule 382) |
+| 441 | Every UI transition at 60 frames a second, never a slideshow | 400 (amended) | UI, PLUMBER | QUEUED (QUIET DAYS, rule 382) |
+| 442 | The way into a fight dives from the map through the clouds over the real city (no brown or black backdrop), and climbs back out | 401 | UI, WORLD, COMBAT | QUEUED (QUIET DAYS, rule 382) |
+| 443 | When a crew engages him his party stops dead (no slide after the card is up); more polish, more content; his thanks for the new buildings | 401 | WORLD | QUEUED (QUIET DAYS, rule 382) |

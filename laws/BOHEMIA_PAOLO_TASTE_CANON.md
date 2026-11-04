@@ -185,3 +185,4 @@ The filter kills a candidate that trips any of these; everything else it passes 
 
 - 11/3 (rule 357): THE CAMERA-FEED LOADING SCREENS, a top three or four moment of the project ('literally changing my life and the belief in what I can put out in the universe'), beside the combat overhaul and the first sight of the 3D characters. He is a minimalist in the right ways: text placed by composition, never on a box.
 - 11/3 (rule 358): THE LOADING MENU, praised a second time in one stretch: 'I can already see a lot of this being final final final... I don't say it lightly, good fucking job.' The first piece he calls near final. Protect it; the bar for every screen after.
+- 11/4 THE NEW BUILDINGS ON THE MAP: 'I'm seeing additions you've made to the city, some buildings, I really appreciate that' (rule 401(d)). More of the city's own buildings on the map is the right direction.
