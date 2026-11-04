@@ -454,3 +454,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 430 | He likes the burned parts of town: make them smaller (a street or two), and a fight there is black and burnt down | 393 (amended) | WORLD, COMBAT MAPS | QUEUED (QUIET DAYS, rule 382) |
 | 431 | Surrounded, a man with a good gun and a good melee weapon should pull the melee weapon (measured: yes for one-handed, no for two-handed; he reloads instead) | 394 (amended) | COMBAT | QUEUED (QUIET DAYS, rule 382) |
 | 432 | Shields: by hand it is already Battle Brothers' cost (two swaps, 8 of 9 AP, Quick Hands never covers a shield); AUTO never puts a shield on and should when the clubs pile on | 394 (amended again) | COMBAT | QUEUED (QUIET DAYS, rule 382) |
+| 433 | The crew screen after a fight shows the battlefield with his men scavenging, not the camp (it shows wherever they are) | 369 (amended) | UI | QUEUED (QUIET DAYS, rule 382) |
