@@ -469,3 +469,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 445 | A UI size setting (four sizes, the whole interface scales), not just a text size | 403 | UI | QUEUED (QUIET DAYS, rule 382) |
 | 446 | Token efficient: never polish what is not final; the queue sorted into NOW (rules and logic) and AT FINAL (looks and motion) | 404 | COORDINATOR | IN FORCE 11/4 |
 | 447 | Where the UI sits over the world is NOW, not polish; never a cheap workaround (fill, tape, cut, fade, bars); every settlement drawn whole first | 404 (amended), 383 moved to NOW | UI, RUN | QUEUED (QUIET DAYS, rule 382), first among the looks |
+| 448 | Old screens and transitions still play before the new ones; one moment, one screen; the end-of-fight receipt merged into the victory screen, hanging off the edge like a till roll | 405 | PLUMBER, UI, COMBAT | QUEUED (QUIET DAYS, rule 382) |
