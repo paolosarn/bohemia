@@ -438,3 +438,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 414 | The town screen is cut by a straight line where the phone sits (a round object sliced, a mirrored band); draw every town whole and let the phone float over it | 383 | RUN | QUEUED (QUIET DAYS, rule 382) |
 | 415 | Zooming in slows time down; it must never (people won't zoom) | 384 (amends THE WALK READS) | WORLD | QUEUED (QUIET DAYS, rule 382) |
 | 416 | AUTO climbs his men up a roof and then down for a shot; keep them on the roof (he is losing fights to it) | 385 | COMBAT | QUEUED (QUIET DAYS, rule 382) |
+| 417 | Even with enemies in reach they leave the roof; in a tight fight they should post up a turn and let them come | 385 (amended) | COMBAT | QUEUED (QUIET DAYS, rule 382) |
