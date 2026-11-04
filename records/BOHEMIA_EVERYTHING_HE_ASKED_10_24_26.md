@@ -442,3 +442,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 418 | Vultures (his sister's idea): circling the dead and following a company that kills | 386 | BEASTS, WORLD, WORDS, SOUNDS | QUEUED (QUIET DAYS, rule 382) |
 | 419 | An idea: 'fentanyl homeless zombies' as an enemy; three ways asked (people on the real drug, a lab-made drug horde, or scenery only) | 386 (recorded, not locked) | COORDINATOR | ASKED 11/4 |
 | 420 | Justify why so many fight him (100 men down in under 30 days); keep the fighting, explain it in the lore | 387 | DYNASTY or WORLD, WORDS, TUNING | QUEUED (QUIET DAYS, rule 382) |
+| 421 | Mystery meat: cannibalism common and never said (don't ask don't tell), with quests | 388 | DYNASTY or WORLD, WORDS, QUESTS | QUEUED (QUIET DAYS, rule 382) |
+| 422 | The beast math: is the number of beasts he kills realistic; the answer and the default (no number changed yet) | 389 | BEASTS, WORLD, TUNING | QUEUED (QUIET DAYS, rule 382) |
