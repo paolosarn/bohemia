@@ -34,7 +34,7 @@ ones that you can implement? I'll let you run some tasks and use some tokens if 
   the state, the walk all green).
 - THE PAD IS TRAVEL SPEED 9/10: stale before this change (it looks for the old speed pad on the glass, which the phone gate proves is
   gone by rule; its 3x and 5x steps are not the clock's steps 1, 2, 4).
-- THE PHONE: rerun alone (the first run, three browsers at once, missed one beat pulse, 4 in 3.2 s).
+- THE PHONE 91/0 rerun alone (the first run, three browsers at once, missed one beat pulse, 4 in 3.2 s).
 
 ## AND A FOURTH: HOLD PLAY FOR 4x (rule 396, ask 435)
 - slices/bohemia_phone.js __HOLD_FOR_FOUR_TIMES__: when the hold opens the slider, the map runs at the fastest step (4x) while the
