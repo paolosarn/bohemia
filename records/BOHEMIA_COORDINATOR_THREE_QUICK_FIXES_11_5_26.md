@@ -29,3 +29,16 @@ ones that you can implement? I'll let you run some tasks and use some tokens if 
 - AUTO's weapons and shields (394): a real AI change with its gates; a round of COMBAT's.
 
 ## GATES (run on this tree; the results are in the commit)
+- THE HOUSES STAND UP CLOSE 28/0 (W3 re-aimed to rule 384).
+- A DIFFERENT VALLEY EVERY GAME 59/1 (the one red leg is this box's broken PIL, 'V4 the four pictures compared'; the burned board,
+  the state, the walk all green).
+- THE PAD IS TRAVEL SPEED 9/10: stale before this change (it looks for the old speed pad on the glass, which the phone gate proves is
+  gone by rule; its 3x and 5x steps are not the clock's steps 1, 2, 4).
+- THE PHONE: rerun alone (the first run, three browsers at once, missed one beat pulse, 4 in 3.2 s).
+
+## AND A FOURTH: HOLD PLAY FOR 4x (rule 396, ask 435)
+- slices/bohemia_phone.js __HOLD_FOR_FOUR_TIMES__: when the hold opens the slider, the map runs at the fastest step (4x) while the
+  finger holds; on let go his speed comes back (a pause stays a pause), his kept speed untouched; a slide still sets the speed he
+  keeps (rule 311); a card that comes up during the hold keeps the map held and gives his own speed back after.
+- MEASURED (the demo, the computer profile, tools in the scratchpad): 2x before, 4x while held (his kept speed still 2), 2x after.
+- Not done: the space bar on a computer.
