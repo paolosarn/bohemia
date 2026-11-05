@@ -977,7 +977,7 @@
       var t = 0;
       b.addEventListener('pointerdown', function (e) {
         clearTimeout(t); try { b.setPointerCapture(e.pointerId); } catch (x) {}   /* the finger stays this button's while it slides off it */
-        H.slideY = e.clientY; t = setTimeout(function () { if (slideOpen(H.slideY)) H.holdFired = b; }, slideHoldMs());
+        H.slideY = e.clientY; t = setTimeout(function () { if (slideOpen(H.slideY)) { H.holdFired = b; holdFast(); } }, slideHoldMs());
       });
       b.addEventListener('pointermove', function (e) { H.slideY = e.clientY; if (H.slide) slideMove(e.clientY); });
       b.addEventListener('pointerup', function (e) { clearTimeout(t); if (H.slide) slideLetGo(e.clientY); });
@@ -1022,13 +1022,34 @@
     var i = Math.max(0, Math.min(S.st.length - 1, S.i0 + Math.round((S.y0 - y) / S.px)));
     if (i !== S.i) { S.i = i; slidePaint(); }
   }
+  /* __HOLD_FOR_FOUR_TIMES__ (the coordinator 11/5, rule 396, Paolo 11/4: 'when I hold, I want it to go four times as fast'): while the
+     finger holds PLAY the map runs at the fastest step (4x), the clock and the march; let go and it is the speed he had (a pause stays
+     a pause), unless he slid the knob, which sets his speed as rule 311 always did. A card that comes up while he holds (a party, an
+     event) keeps the map held and gives back his own speed after it, never the 4x */
+  function holdFast() {
+    var cw = cityWin(); if (!cw || typeof cw.travelSpeedSet !== 'function') return;
+    var st = (H.slide && H.slide.st) || [1, 2, 4], top = st[st.length - 1];
+    H.hold4 = { prev: +cw.__TRAVEL_SPEED || 0, last: cw.TRAVEL_SPEED_LAST, at: performance.now(), top: top };
+    try { cw.travelSpeedSet(top); cw.TRAVEL_SPEED_LAST = H.hold4.last; } catch (e) {}
+    window.__PHONE_HOLD4 = { on: true, from: H.hold4.prev, top: top };
+  }
+  function holdEnd() {
+    var h = H.hold4; H.hold4 = null; if (!h) return;
+    var cw = cityWin(); if (!cw || typeof cw.travelSpeedSet !== 'function') return;
+    var hit = cw.__TRAVEL_INTERRUPT && cw.__TRAVEL_INTERRUPT.at > h.at;   /* a card came up while he held: it holds the map */
+    try { if (!hit) cw.travelSpeedSet(h.prev); cw.TRAVEL_SPEED_LAST = h.last; } catch (e) {}
+    window.__PHONE_HOLD4 = { on: false, back: hit ? 'held by a card' : h.prev };
+  }
   function slideLetGo(y) {
     var S = H.slide; if (!S) return; slideMove(y);
+    holdEnd();   /* __HOLD_FOR_FOUR_TIMES__: his own speed back first; a slide then sets the one he keeps */
+    if (S.i === S.i0) { window.__PHONE_SLID = { n: S.st[S.i], from: S.st[S.i0], got: false, held4: true, heldMs: Math.round(performance.now() - S.at), n_slid: window.__PHONE_SLID ? window.__PHONE_SLID.n_slid : 0 }; slideClose(); paintHome(true); return; }
     var n = S.st[S.i], got = S.L.pick(n);
     window.__PHONE_SLID = { n: n, from: S.st[S.i0], got: got, heldMs: Math.round(performance.now() - S.at), n_slid: (window.__PHONE_SLID ? window.__PHONE_SLID.n_slid : 0) + 1 };
     slideClose(); paintHome(true);
   }
   function slideClose() {
+    if (H.hold4) holdEnd();   /* __HOLD_FOR_FOUR_TIMES__: a lost finger gives his speed back too */
     var S = H.slide; H.slide = null; if (!S) return;
     var sl = S.el; sl.classList.remove('on'); sl.classList.add('was'); clearTimeout(sl.__was); sl.__was = setTimeout(function () { sl.classList.remove('was'); }, 260);
     window.__PHONE_SLIDE = { open: false };
