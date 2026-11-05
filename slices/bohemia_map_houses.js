@@ -24,7 +24,7 @@
    ============================================================================ */
 (function (root) {
   'use strict';
-  var H = { on: true, from: 96, full: 96, tone: [0.70, 0.67, 0.62], grey: 0.3, streetTW: 380, walkPx: 80, walkFrom: 90, B: 36, eps: 0.08,
+  var H = { on: true, from: 96, full: 96, tone: [0.70, 0.67, 0.62], grey: 0.3, streetTW: 380, walkPx: 80, walkFrom: 90, walkReads: false, B: 36, eps: 0.08,
             houses: ['ranch_plain', 'ranch_porch', 'ranch_wing', 'ranch_garage', 'ranch_carport'], trailer: 'trailer' };
   var MAN = null, IMG = {}, AL = {}, ASKED = false, READY = false, FR = [], GRID = null, GC = 64;
   var LAST = { drew: 0, tiles: 0, lots: 0, culled: 0, unseen: 0, a: 0, ms: 0, covered: 0 };
@@ -122,6 +122,10 @@
   /* THE WALK READS up close: how many of the walk's beats a block takes, so the crew crosses the glass at about H.walkPx a
      second (a block along a street is half a diamond, 0.56 of TW on the glass); one below H.walkFrom, as everywhere */
   function watchBeats() {
+    /* ZOOMING NEVER SLOWS TIME (rule 384, Paolo 11/4: 'when I zoom in why does time slow down... that makes people not want to use it';
+       'I'm tired of when I'm zoomed in on my characters and it wants to slow down time'): a block takes one beat at every zoom, the pace
+       his speed sets; up close the crew simply covers more of the glass. THE WALK READS below is kept only behind H.walkReads (off) */
+    if (!H.walkReads) return 1;
     try { if (!on() || TW <= H.walkFrom) return 1;
       /* a waited step is a whole beat (the walk steps once a beat while a block is being crossed, at any speed) */
       return Math.max(1, Math.round(0.559 * TW / H.walkPx / (BEAT / 1000))); } catch (e) { return 1; }

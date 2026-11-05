@@ -6,8 +6,8 @@
   "regular": 1,
   "pick": 2,
   "pickWhy": "Measured on the demo, upright phone (records/BOHEMIA_WORLD_HOLD_PLAY_SLIDE_THE_SPEED_11_2_26.md): see the record for the crossing times at each step and why this one.",
-  "dropToRegularOn": ["meet", "fight", "chase", "event"],
-  "dropWhy": "A party met on the road, a fight, a chase that ends, a road event: the card holds the map (PAUSE, rule 44a), and the march after it goes on at regular time, the Battle Brothers way. Making camp, healing and a wipe keep his pick.",
+  "dropToRegularOn": [],
+  "dropWhy": "AMENDED 11/4 (rule 398, Paolo: 'these little pop-up events are fucking with my fast speed vibe, if I make it four I have to make it again, it is annoying as fuck'): nothing drops the march to regular time any more. A party met, a fight, a chase, a road event still holds the map while its card is up (PAUSE, rule 44a), and when it closes the march goes on at the speed he had (4x stays 4x). The list is kept, empty, so a modder can put a kind back.",
   "saveKey": "bohemia.travel.speed.v1",
   "holdMs": 350,
   "holdWhy": "How long a finger stays on PLAY before the slider comes up. A tap is shorter than this and still plays or pauses."

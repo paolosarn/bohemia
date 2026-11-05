@@ -32,7 +32,7 @@
       "name": "BURNED",
       "what": "a fire's scar: the roofs gone to char, the street black with soot, an ember or two at night",
       "count": [3, 6],
-      "radius": [2, 4],
+      "radius": [1, 2],
       "apart": 9,
       "on": ["suburb", "apartment", "commercial", "estate", "gated", "trailer", "strip", "downtown", "town", "industrial", "storage", "warehouse", "school", "campus", "medical", "mall", "swapmeet", "arterial", "park", "farm", "desert", "solar"],
       "seat_on": ["suburb", "apartment", "commercial", "estate", "gated", "trailer", "strip", "downtown", "town", "industrial", "storage", "warehouse"],

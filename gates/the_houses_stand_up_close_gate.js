@@ -166,7 +166,9 @@ async function run(prof) {
   ok('W2 ' + prof + ': his crew goes behind the models: on the walk up close, or stood on a road beside the houses at a block 105 px', (!!trip && W2.cov > 0) || !!(W2b && W2b.cov > 0),
      'on the walk ' + (trip ? W2.cov + ' of his pixels covered (to ' + trip.to.join(',') + ')' : 'no walk') + '; stood at ' + (W2b && W2b.at ? W2b.at.join(',') + ' (a block 105 px): ' + W2b.cov + ' of his pixels behind a model' : 'none of ' + (W2b ? W2b.tried : 0) + ' road blocks near him'));
   const wb1 = await fr.evaluate(() => { const t = TW; setZoomAt(1); const w = BohemiaMapHouses.watchBeats(); setZoomAt(t / TW0); return w; });
-  ok('W3 ' + prof + ': THE WALK READS: up close a block takes several beats and the crew crosses the glass at a walk; at the opening stop one beat', !!trip && trip.wb >= 3 && v > 5 && v <= 130 && wb1 === 1,
+  /* RE-AIMED 11/4 by rule 384 (Paolo: 'when I zoom in why does time slow down... that makes people not want to use it'): THE WALK READS
+     is off; up close a block takes ONE beat at his speed, as at the opening stop, so zooming never slows the day */
+  ok('W3 ' + prof + ': ZOOMING NEVER SLOWS TIME: up close a block takes one beat, as at the opening stop (rule 384)', !!trip && trip.wb === 1 && v > 5 && wb1 === 1,
      trip ? 'a block ' + trip.wb + ' beats at ' + trip.sp + 'x, the crew at ' + v.toFixed(0) + ' CSS px a second over ' + secs.toFixed(1) + ' s; the opening stop ' + wb1 + ' beat' : 'no trip');
   await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
 
