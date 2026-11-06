@@ -1836,22 +1836,31 @@ function padOf(W, H, P, sc){
   return {r:r, col:col, side:side};
 }
 function inPad(x, y){ var P = FIT.pad; return !!P && x >= P.r[0] && x <= P.r[2] && y >= P.r[1] && y <= P.r[3]; }
+/* ==== __THE_TOWN_IS_ONE_PICTURE__ (RUN FIVE, VAMILY rule 383, Paolo 11/3, NOW by rule 404 amended 11/4: 'the straight line cutting off
+   bullshit, it looks so bad just to optimize for the phone, you got to be smarter than this... a circular object... cut in half';
+   11/4: 'I don't like any cheap alternative ways you've tried to do the UI with the settlement'). MEASURED 11/6 on the demo, all
+   fourteen towns: on its side the town was fitted to the glass LESS the phone's strip (Network 708 of 844 points) and a 120 px
+   square of its own ground, mirrored four ways and tiled, was laid over the 136 left (padDraw): a hard line top to bottom, a flat
+   tiled fill, a mirrored gravel band, the two round tanks sliced. Upright the same square was laid over the phone's corner as a
+   rectangle on a drawing that already had the town's own ground there. NOW the picture covers the WHOLE glass, every town, every
+   way, and the phone floats over it: the room is made in the drawing (tools/bohemia_run5_the_town_drawn_whole_11_6_26.py: the wide
+   towns opened 600 px each side onto their own ground, comp.whole; the upright ones cleared in the corner, their ground continued,
+   never mirrored), and the fit stands the taps where the phone is not. padDraw, padGround and the mirrored square are deleted. ==== */
 function frameFit(o){
   var W = view.W, H = view.H, pw = picW(), ph = picH(), sc = document.getElementById('scene').getBoundingClientRect();
-  var P = FIT.phone, pad = FIT.pad = padOf(W, H, P, sc), pr = pad ? pad.r : null;   /* his 10/27, said again: 'I don't want anything behind the phone, just the ground': every town, every way, now */
-  var oldDraw = !!pad && !S.camp && W <= H && !(VAR && VAR.comp && VAR.comp.phone_ground);   /* an upright drawing made before the phone's ground: it rides up so its shops stand above the ground laid over its corner */
-  var R = [0, 0, W, H]; if(pad && pad.col){ if(pad.side === 'left') R[0] = pad.r[2]; else R[2] = pad.r[0]; }   /* the town's own part of the glass */
+  var P = FIT.phone, pad = FIT.pad = padOf(W, H, P, sc), pr = pad ? pad.r : null;   /* the phone and its gap: nothing tapped under it */
+  var R = [0, 0, W, H]; if(pad && pad.col){ if(pad.side === 'left') R[0] = pad.r[2]; else R[2] = pad.r[0]; }   /* where the town's taps stand: what the phone leaves */
   FIT.area = {x0:R[0], x1:R[2], y0:R[1], y1:R[3]};
   var T = frameTargets(), ux0 = 1e9, uy0 = 1e9, ux1 = -1e9, uy1 = -1e9;
   T.forEach(function(t){ ux0 = Math.min(ux0, t.b[0]); uy0 = Math.min(uy0, t.b[1]); ux1 = Math.max(ux1, t.b[2]); uy1 = Math.max(uy1, t.b[3]); });
-  var s0 = Math.max((R[2] - R[0])/pw, (R[3] - R[1])/ph), steps = [s0];   /* the town covers its whole part of the glass, always: never a box, never a mirror round it */
+  var WH = VAR && VAR.comp && VAR.comp.whole, tw = WH && WH.town ? WH.town[2] - WH.town[0] : pw;   /* the town's own width inside a drawing opened onto its ground */
+  var cover = Math.max(W/pw, H/ph);   /* the picture covers the whole glass, always: never a strip, a band, a mirror or a fade round it */
+  var s0 = Math.max(cover, (R[2] - R[0])/tw, (R[3] - R[1])/ph), steps = [s0];   /* the town itself fills what the phone leaves; its ground goes on under the phone */
   if(S.camp && ux1 > ux0){ var want = Math.min((o.x1 - o.x0)*.78/(ux1 - ux0), (o.y1 - o.y0)*.78/(uy1 - uy0)); if(want > s0) steps = [Math.min(want, s0*3), s0]; }
-  else if(oldDraw){ steps = []; for(var k0 = 0; k0 <= 6; k0++) steps.push(s0*(1 - k0*.06)); }   /* the drawing made before the phone's ground: step back a little if it must */
   else steps.push(s0*1.05, s0*1.1);
   var Rc = S.camp ? [(o.x0 + o.x1)/2, (o.y0 + o.y1)/2] : [(R[0] + R[2])/2, (R[1] + R[3])/2];   /* the camp gathers round the middle of what the phone leaves */
   var inter = function(a, b){ var w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); return w > 0 && h > 0 ? w*h : 0; };
   var BL = (function(){ try{ return walkBlocks() || []; }catch(e){ return []; } })(), prA = pr ? Math.max(1, (pr[2] - pr[0])*(pr[3] - pr[1])) : 1;
-  var old = oldDraw, glass = [0, 0, W, H];
   var score = function(s, ox, oy){ var hard = 0, things = 0;
     T.forEach(function(t){ var r = [ox + t.b[0]*s, oy + t.b[1]*s, ox + t.b[2]*s, oy + t.b[3]*s], a = Math.max(1, (r[2] - r[0])*(r[3] - r[1]));
       var vb = t.v || t.b, rv = [ox + vb[0]*s, oy + vb[1]*s, ox + vb[2]*s, oy + vb[3]*s], av = Math.max(1, (rv[2] - rv[0])*(rv[3] - rv[1]));
@@ -1859,20 +1868,18 @@ function frameFit(o){
       if(pr) hard += inter(r, pr)/a*t.w*1.5; });
     if(pr) BL.forEach(function(b){ var r = [ox + b[0]*s, oy + b[1]*s, ox + b[2]*s, oy + b[3]*s]; things += inter(r, pr); });   /* the plainer the ground under the phone the better */
     var mx = ox + (ux0 + ux1)/2*s, my = oy + (uy0 + uy1)/2*s;
-    var gap = 0; if(old){ var pic = [ox, oy, ox + pw*s, oy + ph*s], bare = W*H - inter(pic, glass), under = Math.max(0, inter(pr, glass) - inter(pic, pr)); gap = Math.max(0, bare - under)/(W*H)*25; }
-    return {hard:hard, soft:Math.hypot(mx - Rc[0], my - Rc[1])/Math.max(W, H) + things/prA*.8 + gap}; };
+    return {hard:hard, soft:Math.hypot(mx - Rc[0], my - Rc[1])/Math.max(W, H) + things/prA*.8}; };
   var best = null;
   for(var i = 0; i < steps.length; i++){ var s = steps[i], dw = pw*s, dh = ph*s, xs = [], ys = [], n = 28;
-    var xa = Math.min(R[0], R[2] - dw), xb = Math.max(R[0], R[2] - dw), ya = Math.min(R[1], R[3] - dh), yb = Math.max(R[1], R[3] - dh);
-    if(old){ var gx = (pr[2] - pr[0])*.9, gy = (pr[3] - pr[1])*.45; xa -= gx; xb += gx; ya -= gy; yb += gy; }   /* an upright drawing made before the phone's ground: it may ride up over a strip of plain ground under the phone */
-    if(dw <= R[2] - R[0] && !old) xs.push(R[0] + (R[2] - R[0] - dw)/2); else for(var a = 0; a <= n; a++) xs.push(xa + (xb - xa)*a/n);
-    if(dh <= R[3] - R[1] && !old) ys.push(R[1] + (R[3] - R[1] - dh)/2); else for(var b2 = 0; b2 <= n; b2++) ys.push(ya + (yb - ya)*b2/n);
+    if(dw <= W + 0.5) xs.push((W - dw)/2); else for(var a = 0; a <= n; a++) xs.push((W - dw)*a/n);   /* every placing keeps the glass covered: the picture's edge is never on it */
+    if(dh <= H + 0.5) ys.push((H - dh)/2); else for(var b2 = 0; b2 <= n; b2++) ys.push((H - dh)*b2/n);
     var bi = null; xs.forEach(function(ox){ ys.forEach(function(oy){ var q = score(s, ox, oy), v = q.hard*100 + q.soft; if(!bi || v < bi.v) bi = {s:s, ox:ox, oy:oy, v:v, hard:q.hard}; }); });
     if(!best || bi.v < best.v - 2) best = bi; }
-  window.__FOUR_LAYOUTS = {side:P ? P.side : 'none', shape:W > H ? 'wide' : 'tall', s:best.s, base:s0, hard:Math.round(best.hard*1000)/1000, col:!!(pad && pad.col), camp:!!S.camp};
+  window.__FOUR_LAYOUTS = {side:P ? P.side : 'none', shape:W > H ? 'wide' : 'tall', s:best.s, base:s0, cover:cover, hard:Math.round(best.hard*1000)/1000, col:!!(pad && pad.col), camp:!!S.camp, whole:!!WH};
   var Ac = [(R[0] + R[2])/2, (R[1] + R[3])/2];   /* pan() centres a picture point in the town's area: the point under its middle */
   return {s:best.s, cx:(Ac[0] - best.ox)/best.s, cy:(Ac[1] - best.oy)/best.s, hard:best.hard};
 }
+/* ==== end __THE_TOWN_IS_ONE_PICTURE__ (the fit) ==== */
 function layout(){
   var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
   view.W = W; view.H = H;
@@ -1905,21 +1912,20 @@ function campCompose(){
   panY(t.cy); pan(t.cx);
 }
 window.addEventListener('bohemia-phone', function(){ try{ campCompose(); }catch(e){} });
-/* a point of the picture to the open area's centre; a picture that fits stands centred in it and never moves */
+/* a point of the picture to the open area's centre; __THE_TOWN_IS_ONE_PICTURE__: the picture always covers the whole glass, its edge
+   never on it (was: held only over the town's part, the phone's strip left to a pasted fill) */
 function pan(cxPic){
-  var o = FIT.area || {x0:0, x1:view.W}, ow = o.x1 - o.x0, pw = picW()*view.s;   /* __FOUR_LAYOUTS__: the picture covers the town's whole part of the glass; the phone's ground is its own */
-  if(pw <= ow + 0.5){ view.cx = picW()/2; view.ox = Math.round(o.x0 + (ow - pw)/2); return; }
-  var half = ow/2/view.s;
-  cxPic = Math.max(half, Math.min(picW() - half, cxPic));
-  view.cx = cxPic; view.ox = Math.round(o.x0 + ow/2 - cxPic*view.s);
+  var o = FIT.area || {x0:0, x1:view.W}, ow = o.x1 - o.x0, W = view.W, pw = picW()*view.s;
+  if(pw <= W + 0.5){ view.cx = picW()/2; view.ox = Math.round((W - pw)/2); return; }
+  var ox = Math.max(W - pw, Math.min(0, o.x0 + ow/2 - cxPic*view.s));
+  view.ox = Math.round(ox); view.cx = (o.x0 + ow/2 - view.ox)/view.s;
 }
 function panY(cyPic){
   var up = Math.round((LEAD && LEAD.lift) || 0);   /* __THE_WALK_UP__: the town above the sheet while it is open */
-  var o = FIT.area || {y0:0, y1:view.H}, oh = o.y1 - o.y0, ph = picH()*view.s;   /* __FOUR_LAYOUTS__ */
-  if(ph <= oh + 0.5){ view.cy = picH()/2; view.oy = Math.round(o.y0 + (oh - ph)/2) - up; return; }
-  var half = oh/2/view.s;
-  cyPic = Math.max(half, Math.min(picH() - half, cyPic));
-  view.cy = cyPic; view.oy = Math.round(o.y0 + oh/2 - cyPic*view.s) - up;
+  var o = FIT.area || {y0:0, y1:view.H}, oh = o.y1 - o.y0, H = view.H, ph = picH()*view.s;
+  if(ph <= H + 0.5){ view.cy = picH()/2; view.oy = Math.round((H - ph)/2) - up; return; }
+  var oy = Math.max(H - ph, Math.min(0, o.y0 + oh/2 - cyPic*view.s));
+  view.oy = Math.round(oy); view.cy = (o.y0 + oh/2 - view.oy)/view.s; view.oy -= up;
 }
 window.addEventListener('bohemia-phone', function(){ layout(); });   /* UI TWO's phone flipped or the device turned */
 /* ==== end __THE_TOWN_FITS_THE_SCREEN__ ==== */
@@ -1990,7 +1996,8 @@ function flipPairs(F){
   var T = TOWNS && S.place ? TOWNS[S.place.name] : null, g = T && T.glide;
   if(!g || !F.shape || !VAR.comp || F.shape === VAR.shape) return null;
   var ob = {}, nb = {};
-  (g.pieces || []).forEach(function(p){ var a = p[F.shape], b = p[VAR.shape]; if(p.id && a && b && a.box && b.box){ ob[p.id] = a.box.slice(); nb[p.id] = b.box.slice(); } });
+  var ex = function(sh){ var c = T[sh]; return c && c.whole && c.whole.ext || 0; }, mv = function(b, d){ return [b[0] + d, b[1], b[2] + d, b[3]]; };   /* __THE_TOWN_IS_ONE_PICTURE__: COOK's pairs were measured on the 2060 frame; the opened wide drawing holds that frame EXT px in */
+  (g.pieces || []).forEach(function(p){ var a = p[F.shape], b = p[VAR.shape]; if(p.id && a && b && a.box && b.box){ ob[p.id] = mv(a.box, ex(F.shape)); nb[p.id] = mv(b.box, ex(VAR.shape)); } });
   return Object.keys(ob).length ? {ob:ob, nb:nb} : null;
 }
 function flipLead(L, od){
@@ -2351,7 +2358,9 @@ var BUSY_LANES = {
    x 1240, and two cars stand on the north walk) */
 var BUSY_LANES_BY_PIC = {'town_1.webp': [{y:606, x0:40, x1:1180, face:'S'}, {y:388, x0:1010, x1:1350, face:'N'}, {y:388, x0:40, x1:860, face:'N'}]};
 function busyLanes(){ var L = (VAR && BUSY_LANES_BY_PIC[VAR.src]) || BUSY_LANES[S.place.tier] || BUSY_LANES.town;
-  if(VAR && VAR.comp && (VAR.px[0] !== 2060 || VAR.px[1] !== 1092)){ var fx = VAR.px[0] / 2060, fy = VAR.px[1] / 1092; L = L.map(function(ln){ return {y:Math.round(ln.y * fy), x0:Math.round(ln.x0 * fx), x1:Math.round(ln.x1 * fx), face:ln.face}; }); }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: the tier's lanes laid into a tall picture, then on its own ground */
+  var wx = VAR && VAR.comp && VAR.comp.whole ? VAR.comp.whole.ext || 0 : 0;   /* __THE_TOWN_IS_ONE_PICTURE__: the opened wide drawing holds the 2060 frame wx px in */
+  if(wx) L = L.map(function(ln){ return {y:ln.y, x0:ln.x0 + wx, x1:ln.x1 + wx, face:ln.face}; });
+  else if(VAR && VAR.comp && (VAR.px[0] !== 2060 || VAR.px[1] !== 1092)){ var fx = VAR.px[0] / 2060, fy = VAR.px[1] / 1092; L = L.map(function(ln){ return {y:Math.round(ln.y * fy), x0:Math.round(ln.x0 * fx), x1:Math.round(ln.x1 * fx), face:ln.face}; }); }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: the tier's lanes laid into a tall picture, then on its own ground */
   return VAR && VAR.pic ? townLanes(L) : L; }   /* __EVERY_TOWN_ITS_OWN__: the lanes on the town's own ground */
 var WALK_PX_PER_STRIDE = 74, STRIDE_MS = 1000;   /* one stride (the walk's six keys, two beats at 120 BPM) on the rig's man is about 1.3 m at the render's 57 px a metre */
 function busyCount(){
@@ -2998,43 +3007,9 @@ function headBarsDraw(s, now){
 }
 /* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 
-/* the town's own plain ground, as a pattern in the picture's pixels: a square of its open ground (no thing of the walk's measure,
-   no tap on it), the one nearest where the phone stands, tiled mirrored so no seam shows (__FOUR_LAYOUTS__) */
-var PADG = {key:null, pat:null, fill:'#5a4f40'};
-function padGround(im){
-  if(!im || !im.naturalWidth || !VAR) return null;
-  var key = (im.currentSrc || im.src) + '|' + picW();
-  if(PADG.key !== key){
-    PADG.key = key; PADG.pat = null;
-    try{
-      var S0 = 120, pw = picW(), ph = picH(), BL = walkBlocks() || [], TB = [];
-      Object.keys(VAR.boxes || {}).forEach(function(k){ var b = VAR.boxes[k]; if(b && b.length >= 4) TB.push(b); });
-      var P = FIT.pad, want = P ? [((P.r[0] + P.r[2])/2 - view.ox)/view.s, ((P.r[1] + P.r[3])/2 - view.oy)/view.s] : [pw/2, ph*.85];
-      var hits = function(x, y){ var q = [x - 10, y - 10, x + S0 + 10, y + S0 + 10];
-        for(var i = 0; i < BL.length; i++){ var b = BL[i]; if(!(q[2] < b[0] || q[0] > b[2] || q[3] < b[1] || q[1] > b[3])) return true; }
-        for(var j = 0; j < TB.length; j++){ var t = TB[j]; if(!(q[2] < t[0] || q[0] > t[2] || q[3] < t[1] || q[1] > t[3])) return true; }
-        return false; };
-      var best = null;
-      for(var y = Math.round(ph*.25); y <= ph - S0 - 8; y += 24) for(var x = 24; x <= pw - S0 - 24; x += 24){
-        if(hits(x, y)) continue; var d = Math.hypot(x + S0/2 - want[0], y + S0/2 - want[1]); if(!best || d < best.d) best = {x:x, y:y, d:d}; }
-      if(!best) best = {x:Math.round(pw/2 - S0/2), y:Math.round(ph - S0 - 8)};
-      var c = document.createElement('canvas'); c.width = S0*2; c.height = S0*2; var g = c.getContext('2d');
-      [[0,0,1,1],[2*S0,0,-1,1],[0,2*S0,1,-1],[2*S0,2*S0,-1,-1]].forEach(function(m){ g.save(); g.translate(m[0], m[1]); g.scale(m[2], m[3]); g.drawImage(im, best.x, best.y, S0, S0, 0, 0, S0, S0); g.restore(); });
-      var d1 = g.getImageData(S0 - 20, S0 - 20, 40, 40).data, rr = 0, gg = 0, bb = 0, n = d1.length/4;
-      for(var k = 0; k < d1.length; k += 4){ rr += d1[k]; gg += d1[k+1]; bb += d1[k+2]; }
-      PADG.fill = 'rgb(' + Math.round(rr/n) + ',' + Math.round(gg/n) + ',' + Math.round(bb/n) + ')';
-      PADG.pat = cx.createPattern(c, 'repeat'); PADG.at = best;
-    }catch(e){ PADG.pat = null; }
-  }
-  if(PADG.pat && PADG.pat.setTransform) try{ PADG.pat.setTransform(new DOMMatrix([view.s, 0, 0, view.s, view.ox, view.oy])); }catch(e){}
-  return PADG.pat || PADG.fill;
-}
-function padDraw(im){
-  var P = FIT.pad; if(!P) return; var fillS = padGround(im) || PADG.fill, r = P.r;
-  /* __NO_TAPE_ROUND_THE_PHONE__ (rule 356(g), 'no AI slop fade transition'): the town's own ground, one hard edge (was six soft rings 18 px out over the picture) */
-  cx.save(); cx.fillStyle = fillS; cx.beginPath(); cx.rect(r[0], r[1], r[2] - r[0], r[3] - r[1]); cx.fill();
-  cx.restore();
-}
+/* padGround (the 120 px square of the picture's ground, mirrored four ways and tiled) and padDraw (that square laid over the phone's
+   corner or strip) are DELETED by __THE_TOWN_IS_ONE_PICTURE__ (rule 383): nothing is laid over the town; the graveyard is
+   records/BOHEMIA_RUN5_THE_TOWN_IS_ONE_PICTURE_11_6_26.md */
 function draw(){
   var dpr = window.devicePixelRatio||1, W = view.W, H = view.H;
   if(W < 40 || H < 40) return;
@@ -3045,10 +3020,6 @@ function draw(){
   if(!VAR || !im || !im.complete || !im.naturalWidth){ if(VAR && VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.holdFrame(cx, W, H); }catch(e){} return; }   /* __CAMP_TWO__ (rule 289(b)): a turn never shows a black frame: the last one holds while the new ground comes in */
   try{ leadTick(performance.now()); }catch(e){}   /* __THE_WALK_UP__: his step, and the town above an open sheet */
   var s = view.s;
-  /* the valley goes on past the edge of the place: the same picture, far bigger and sunk in dusk,
-     fills the glass behind it, so the town fades out instead of ending in a black band */
-  var sb = Math.max(H/picH(), W/picW()) * 1.15;
-  if(!going){ var gp0 = padGround(im); if(gp0){ cx.fillStyle = gp0; cx.fillRect(0,0,W,H); } }   /* __FOUR_LAYOUTS__: past the picture only its own plain ground, never the town mirrored and sunk (his 'no mirror extension') */   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town shows more of the valley round it, a little less sunk (.78 read as the page's own colour) */
   var sG = 0; try{ sG = flipDraw(im, s, W, H); }catch(e){ FLIP.on = false; sG = 0; }   /* __THE_FLIP_GLIDES__: the beat of a turn */
   if(sG){ var fa = FLIP.reduced ? 1 : flipEase(Math.min(1, FLIP.u || 0));
     cx.save(); cx.globalAlpha = fa; try{ if(window.BohemiaArenaTown) BohemiaArenaTown.draw(cx, view, s, view.night, VAR); drawTraitLooks(s); drawBenches(s); drawSigns(s, true); }catch(e){} cx.restore();
@@ -3066,15 +3037,8 @@ function draw(){
   try{ drawSigns(s); }catch(e){}   /* the post and the bar name themselves in pictures (TUNING's change 7, round 2), hung over their heads */
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   }
-  var fe = 18;   /* __NO_TAPE_ROUND_THE_PHONE__ (rule 356(g), 'no AI slop fade'): a picture that covers the glass has no edge on it, so no fade; measured 11/3, upright the bottom fade darkened the last 8 points of the glass under the phone */
-  if(view.oy > 0.5){ var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
-  cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe); }
-  if(view.oy + picH()*s < H - 0.5){ var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
-  cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe); }
-  if(view.ox > 0 && !(FIT.pad && FIT.pad.col)){   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town on a wide glass fades out at its sides too */
-    var gl = cx.createLinearGradient(view.ox, 0, view.ox+fe, 0); gl.addColorStop(0,'rgba(14,10,7,.8)'); gl.addColorStop(1,'rgba(14,10,7,0)'); cx.fillStyle = gl; cx.fillRect(view.ox, view.oy, fe, picH()*s);
-    var gr = cx.createLinearGradient(view.ox+picW()*s-fe, 0, view.ox+picW()*s, 0); gr.addColorStop(0,'rgba(14,10,7,0)'); gr.addColorStop(1,'rgba(14,10,7,.8)'); cx.fillStyle = gr; cx.fillRect(view.ox+picW()*s-fe, view.oy, fe, picH()*s); }
-  if(!going && !(VAR && VAR.comp && VAR.comp.phone_ground && VAR.comp.phone_ground.organic)) try{ padDraw(im); }catch(e){}   /* a town that keeps a tap in the phone's corner (6 of the 20 drawings: posts, a tent, the smith) still lays the pad until that tap is moved out of the corner (ask line 253, next) */   /* Paolo 11/2 (ask line 253, 'I wanted it to look organic'): a town drawn with its own old lot in the phone's corner shows that lot, never the plain pad laid over it */   /* __FOUR_LAYOUTS__: the phone's own plain ground, over everything of the town, under the phone */
+  /* __THE_TOWN_IS_ONE_PICTURE__ (rule 383 'no fade'): the picture covers the glass, so it has no edge on it and no fade (the four
+     edge fades are deleted with padDraw) */
   /* THE THREE DOORS THAT MATTER (TUNING's change 7, rule 133): work (the board), hands (the post) and a drink (the bar)
      catch the light on the beat until he has opened each once in this place; no words on the picture, the building's own
      pixels brightened, softer than the one under his finger */
@@ -3347,7 +3311,7 @@ function pinchMove(){
   var P0 = PINCH.on; if(!P0) return; var t = pinchTwo(), r = cv.getBoundingClientRect(), z = P0.z0 * t.d / P0.d0;
   if(z >= 1){
     FIT.zoom = Math.min(zoomMax(), z); view.s = FIT.fit * FIT.zoom;
-    var O = FIT.open || {x0:0, x1:view.W, y0:0, y1:view.H}, cxo = (O.x0 + O.x1)/2, cyo = (O.y0 + O.y1)/2;
+    var O = FIT.area || {x0:0, x1:view.W, y0:0, y1:view.H}, cxo = (O.x0 + O.x1)/2, cyo = (O.y0 + O.y1)/2;   /* RUN FIVE 11/6: the same centre pan() places by (it read FIT.open's, the band above the phone, and the point between his fingers drifted 137 points upright: red on main) */
     pan(P0.px + (cxo - (t.x - r.left))/view.s); panY(P0.py + (cyo - (t.y - r.top))/view.s);   /* the point between his fingers stays between them */
     if(PINCH.out < 1) pinchOut(1); P0.dAt1 = null;
   } else {
@@ -4670,7 +4634,7 @@ window.BohemiaSettlement = {restock:function(){ restock(); },   /* FIXES (rule 3
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  pinch:function(){ return {zoom:FIT.zoom, max:zoomMax(), out:PINCH.out, on:!!PINCH.on}; }, _box:function(k){ return VAR && VAR.boxes[k] ? tapBox(k) : null; }, _raw:function(k){ return VAR && VAR.boxes[k] ? VAR.boxes[k].slice() : null; }, padPic:function(){ return FIT.padPic ? FIT.padPic.slice() : null; }, picIn:function(){ return picIn(); },   /* __NOTHING_TAPPABLE_UNDER_THE_PHONE__: the drawn box, the phone's ground in the picture, the picture on the glass */ fit:function(){ return {open:FIT.open, phone:FIT.phone, fit:FIT.fit, zoom:FIT.zoom, s:view.s, ox:view.ox, oy:view.oy, pw:picW()*view.s, ph:picH()*view.s, W:view.W, H:view.H, n:FIT.n}; }, drawnSrc:function(){ return VAR ? (VAR.pic ? VAR.pic.src : VAR.src) : null; }, flip:function(){ return {on:FLIP.on, n:FLIP.n, frames:FLIP.frames, worst:Math.round(FLIP.worst), dur:FLIP.dur, reduced:!!FLIP.reduced, log:FLIP.log.slice(-6), trace:FLIP.trace || [], pairs:FLIP.pairs || 0, shape:VAR && VAR.shape || 'tier', src:VAR ? VAR.src : null, want:(townComp() || {}).src || null}; },   /* __THE_TOWN_FITS_THE_SCREEN__, __PINCH_OUT_TO_THE_MAP__, __THE_FLIP_GLIDES__ */ peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, shopMark:function(it){ var b = onMan(it); return b ? b.dataset.man : null; } /* ONE COMPANY (rule 327): the shop's green 'on him' mark for a piece, the man it names */, mend:function(){ return mendList(); }, tape:function(){ return tapeOn() ? {shelf:tapeShelfNow(), sold:tapeSold(), full:BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()), roll:tapeCost(1), stack:tapeCost(TAPE_STACK), period:tapePeriod()} : null; }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, showRare:function(kind){ S.forceRare = kind || null; S.postKey = null; if(S.open === 'hall') openB('hall'); return S.forceRare; }, rareMen:function(){ return RARE ? (RARE.men || []).map(function(m){ return {kind:m.kind, look:m.look, ready:rareLookReady(m.look), tiers:rareTiers(m)}; }) : null; }, rareChance:function(){ return rareChance(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewCall:function(fn){ CREW_CALL = typeof fn === 'function' ? fn : null; CREW_T.list = null; CREW_GEN++; return !!CREW_CALL; }, crewOver:function(fn){ if(fn === null) CREW_OVER = []; else if(typeof fn === 'function' && CREW_OVER.indexOf(fn) < 0) CREW_OVER.push(fn); return CREW_OVER.length; }, crewAgain:function(){ CREW_T.list = null; CREW_GEN++; return true; }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  pinch:function(){ return {zoom:FIT.zoom, max:zoomMax(), out:PINCH.out, on:!!PINCH.on}; }, _box:function(k){ return VAR && VAR.boxes[k] ? tapBox(k) : null; }, _raw:function(k){ return VAR && VAR.boxes[k] ? VAR.boxes[k].slice() : null; }, padPic:function(){ return FIT.padPic ? FIT.padPic.slice() : null; }, picIn:function(){ return picIn(); },   /* __NOTHING_TAPPABLE_UNDER_THE_PHONE__: the drawn box, the phone's ground in the picture, the picture on the glass */ fit:function(){ return {open:FIT.open, phone:FIT.phone, fit:FIT.fit, zoom:FIT.zoom, s:view.s, ox:view.ox, oy:view.oy, pw:picW()*view.s, ph:picH()*view.s, W:view.W, H:view.H, n:FIT.n}; }, drawnSrc:function(){ return VAR ? (VAR.pic ? VAR.pic.src : VAR.src) : null; }, night:function(){ return !!view.night; },   /* __THE_TOWN_IS_ONE_PICTURE__: which of the pair is drawn */ flip:function(){ return {on:FLIP.on, n:FLIP.n, frames:FLIP.frames, worst:Math.round(FLIP.worst), dur:FLIP.dur, reduced:!!FLIP.reduced, log:FLIP.log.slice(-6), trace:FLIP.trace || [], pairs:FLIP.pairs || 0, shape:VAR && VAR.shape || 'tier', src:VAR ? VAR.src : null, want:(townComp() || {}).src || null}; },   /* __THE_TOWN_FITS_THE_SCREEN__, __PINCH_OUT_TO_THE_MAP__, __THE_FLIP_GLIDES__ */ peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, shopMark:function(it){ var b = onMan(it); return b ? b.dataset.man : null; } /* ONE COMPANY (rule 327): the shop's green 'on him' mark for a piece, the man it names */, mend:function(){ return mendList(); }, tape:function(){ return tapeOn() ? {shelf:tapeShelfNow(), sold:tapeSold(), full:BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()), roll:tapeCost(1), stack:tapeCost(TAPE_STACK), period:tapePeriod()} : null; }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, showRare:function(kind){ S.forceRare = kind || null; S.postKey = null; if(S.open === 'hall') openB('hall'); return S.forceRare; }, rareMen:function(){ return RARE ? (RARE.men || []).map(function(m){ return {kind:m.kind, look:m.look, ready:rareLookReady(m.look), tiers:rareTiers(m)}; }) : null; }, rareChance:function(){ return rareChance(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewCall:function(fn){ CREW_CALL = typeof fn === 'function' ? fn : null; CREW_T.list = null; CREW_GEN++; return !!CREW_CALL; }, crewOver:function(fn){ if(fn === null) CREW_OVER = []; else if(typeof fn === 'function' && CREW_OVER.indexOf(fn) < 0) CREW_OVER.push(fn); return CREW_OVER.length; }, crewAgain:function(){ CREW_T.list = null; CREW_GEN++; return true; }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

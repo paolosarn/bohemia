@@ -111,9 +111,11 @@ async function run(profile) {
   const TW = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/settlement_ground_towns/settlement_ground.json'), 'utf8')).towns;
   const notOwn = []; Object.keys(TW).forEach(n => ['tall_left', 'tall_right'].forEach(sh => { const c = TW[n][sh]; const g = c && c.phone_ground;
     if (!c || c.lot || (g && !g.own_ground) || (c.night_src || '') === (c.src || '') || c.night_drawn !== 'rendered') notOwn.push(n + ' ' + sh); }));
-  const padSrc = (src.match(/function padDraw\(im\)\{[\s\S]*?\n\}/) || [''])[0];
-  ok('N7 *** THE PHONE\'S GROUND IS THE TOWN\'S OWN ***: every upright drawing\'s phone ground the town\'s own (no lot), day and night drawn; the side strip one hard edge (' + (Object.keys(TW).length * 2 - notOwn.length) + ' of ' + Object.keys(TW).length * 2 + ' drawings)',
-    Object.keys(TW).length >= 14 && !notOwn.length && !!padSrc && !/globalAlpha/.test(padSrc) && !/roundRect/.test(padSrc), notOwn.slice(0, 6).join(', ') || 'all');
+  /* RE-AIMED 11/6 (RUN FIVE, rule 383, gates/the_town_is_one_picture_gate.js): the side strip and the corner are no longer laid at all:
+     padDraw is deleted and the town's own drawing goes on under the phone, every way */
+  const padGone = !/function padDraw\(/.test(src) && /__THE_TOWN_IS_ONE_PICTURE__/.test(src);
+  ok('N7 *** THE PHONE\'S GROUND IS THE TOWN\'S OWN ***: every upright drawing\'s phone ground the town\'s own (no lot), day and night drawn; nothing laid over the town (' + (Object.keys(TW).length * 2 - notOwn.length) + ' of ' + Object.keys(TW).length * 2 + ' drawings)',
+    Object.keys(TW).length >= 14 && !notOwn.length && padGone, notOwn.slice(0, 6).join(', ') || 'all');
   for (const profile of ['phone_portrait', 'phone_landscape']) {
     const d = await run(profile);
     ok('Z ' + profile + ': nothing threw', d.errs.length === 0, d.errs.slice(0, 2).join(' | '));

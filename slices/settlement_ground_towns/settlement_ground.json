@@ -10,51 +10,51 @@
    "src": "anarchists.webp",
    "night_src": "anarchists_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "barber": {
      "box": [
-      519,
+      1119,
       0,
-      1026,
+      1626,
       364
      ],
      "kind": "barber"
     },
     "clinic": {
      "box": [
-      1034,
+      1634,
       82,
-      1549,
+      2149,
       391
      ],
      "kind": "clinic"
     },
     "stall": {
      "box": [
-      1115,
+      1715,
       402,
-      1288,
+      1888,
       583
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      639,
+      1239,
       582,
-      930,
+      1530,
       639
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      729,
+      1329,
       801,
-      816,
+      1416,
       904
      ],
      "kind": "board"
@@ -68,51 +68,51 @@
     "src": "anarchists.webp",
     "night_src": "anarchists_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "barber": {
       "box": [
-       519,
+       1119,
        0,
-       1026,
+       1626,
        364
       ],
       "kind": "barber"
      },
      "clinic": {
       "box": [
-       1034,
+       1634,
        82,
-       1549,
+       2149,
        391
       ],
       "kind": "clinic"
      },
      "stall": {
       "box": [
-       1115,
+       1715,
        402,
-       1288,
+       1888,
        583
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       639,
+       1239,
        582,
-       930,
+       1530,
        639
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       729,
+       1329,
        801,
-       816,
+       1416,
        904
       ],
       "kind": "board"
@@ -120,101 +120,111 @@
     },
     "boxes": {
      "bar": [
-      42,
+      642,
       0,
-      490,
+      1090,
       364
      ],
      "smith": [
-      1072,
+      1672,
       739,
-      1463,
+      2063,
       1023
      ],
      "armourer": [
-      1649,
+      2249,
       460,
-      1913,
+      2513,
       653
      ],
      "lot": [
-      763,
+      1363,
       910,
-      1048,
+      1648,
       1092
      ],
      "build": [
-      420,
+      1020,
       399,
-      1081,
+      1681,
       530
      ],
      "look": [
-      1034,
+      1634,
       82,
-      1549,
+      2149,
       391
      ]
     },
     "doors": {
      "barber": [
-      772,
+      1372,
       364
      ],
      "clinic": [
-      1291,
+      1891,
       391
      ],
      "stall": [
-      1201,
+      1801,
       583
      ],
      "posts": [
-      784,
+      1384,
       639
      ],
      "board": [
-      772,
+      1372,
       904
      ],
      "bar": [
-      266,
+      866,
       364
      ],
      "smith": [
-      1267,
+      1867,
       1023
      ],
      "armourer": [
-      1781,
+      2381,
       653
      ],
      "lot": [
-      905,
+      1505,
       1001
      ],
      "build": [
-      750,
+      1350,
       464
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       491
      ],
      "left": [
-      25,
+      625,
       491
      ],
      "right": [
-      2034,
+      2634,
       491
      ]
     },
     "zoom_max": 2.0,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "anarchists_tall.webp",
@@ -369,39 +379,39 @@
    },
    "boxes": {
     "bar": [
-     42,
+     642,
      0,
-     490,
+     1090,
      364
     ],
     "smith": [
-     1072,
+     1672,
      739,
-     1463,
+     2063,
      1023
     ],
     "armourer": [
-     1649,
+     2249,
      460,
-     1913,
+     2513,
      653
     ],
     "lot": [
-     763,
+     1363,
      910,
-     1048,
+     1648,
      1092
     ],
     "build": [
-     420,
+     1020,
      399,
-     1081,
+     1681,
      530
     ],
     "look": [
-     1034,
+     1634,
      82,
-     1549,
+     2149,
      391
     ]
    },
@@ -1817,51 +1827,51 @@
    "src": "blues.webp",
    "night_src": "blues_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "barber": {
      "box": [
-      510,
+      1110,
       0,
-      1030,
+      1630,
       364
      ],
      "kind": "barber"
     },
     "clinic": {
      "box": [
-      1030,
+      1630,
       0,
-      1550,
+      2150,
       364
      ],
      "kind": "clinic"
     },
     "stall": {
      "box": [
-      1115,
+      1715,
       402,
-      1288,
+      1888,
       583
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      317,
+      917,
       581,
-      609,
+      1209,
       639
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      729,
+      1329,
       801,
-      816,
+      1416,
       904
      ],
      "kind": "board"
@@ -1875,51 +1885,51 @@
     "src": "blues.webp",
     "night_src": "blues_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "barber": {
       "box": [
-       510,
+       1110,
        0,
-       1030,
+       1630,
        364
       ],
       "kind": "barber"
      },
      "clinic": {
       "box": [
-       1030,
+       1630,
        0,
-       1550,
+       2150,
        364
       ],
       "kind": "clinic"
      },
      "stall": {
       "box": [
-       1115,
+       1715,
        402,
-       1288,
+       1888,
        583
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       317,
+       917,
        581,
-       609,
+       1209,
        639
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       729,
+       1329,
        801,
-       816,
+       1416,
        904
       ],
       "kind": "board"
@@ -1927,101 +1937,111 @@
     },
     "boxes": {
      "bar": [
-      80,
+      680,
       0,
-      487,
+      1087,
       359
      ],
      "smith": [
-      1081,
+      1681,
       785,
-      1240,
+      1840,
       1029
      ],
      "armourer": [
-      1639,
+      2239,
       408,
-      1935,
+      2535,
       680
      ],
      "lot": [
-      469,
+      1069,
       879,
-      761,
+      1361,
       1092
      ],
      "build": [
-      420,
+      1020,
       399,
-      1081,
+      1681,
       530
      ],
      "look": [
-      1030,
+      1630,
       0,
-      1550,
+      2150,
       364
      ]
     },
     "doors": {
      "barber": [
-      770,
+      1370,
       364
      ],
      "clinic": [
-      1290,
+      1890,
       364
      ],
      "stall": [
-      1201,
+      1801,
       583
      ],
      "posts": [
-      463,
+      1063,
       639
      ],
      "board": [
-      772,
+      1372,
       904
      ],
      "bar": [
-      283,
+      883,
       359
      ],
      "smith": [
-      1160,
+      1760,
       1029
      ],
      "armourer": [
-      1787,
+      2387,
       680
      ],
      "lot": [
-      615,
+      1215,
       985
      ],
      "build": [
-      750,
+      1350,
       464
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       491
      ],
      "left": [
-      25,
+      625,
       491
      ],
      "right": [
-      2034,
+      2634,
       491
      ]
     },
     "zoom_max": 2.0,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "blues_tall.webp",
@@ -2176,39 +2196,39 @@
    },
    "boxes": {
     "bar": [
-     80,
+     680,
      0,
-     487,
+     1087,
      359
     ],
     "smith": [
-     1081,
+     1681,
      785,
-     1240,
+     1840,
      1029
     ],
     "armourer": [
-     1639,
+     2239,
      408,
-     1935,
+     2535,
      680
     ],
     "lot": [
-     469,
+     1069,
      879,
-     761,
+     1361,
      1092
     ],
     "build": [
-     420,
+     1020,
      399,
-     1081,
+     1681,
      530
     ],
     "look": [
-     1030,
+     1630,
      0,
-     1550,
+     2150,
      364
     ]
    },
@@ -3469,51 +3489,51 @@
    "src": "caravans.webp",
    "night_src": "caravans_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       532
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      0,
+      600,
       108,
-      475,
+      1075,
       653
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      686,
+      1286,
       539,
-      1030,
+      1630,
       746
      ],
      "kind": "stall"
     },
     "board": {
      "box": [
-      1201,
+      1801,
       625,
-      1288,
+      1888,
       728
      ],
      "kind": "board"
     },
     "posts": {
      "box": [
-      1326,
+      1926,
       990,
-      1617,
+      2217,
       1047
      ],
      "kind": "posts"
@@ -3527,51 +3547,51 @@
     "src": "caravans.webp",
     "night_src": "caravans_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       1113,
+       1713,
        0,
-       1633,
+       2233,
        532
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       0,
+       600,
        108,
-       475,
+       1075,
        653
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       686,
+       1286,
        539,
-       1030,
+       1630,
        746
       ],
       "kind": "stall"
      },
      "board": {
       "box": [
-       1201,
+       1801,
        625,
-       1288,
+       1888,
        728
       ],
       "kind": "board"
      },
      "posts": {
       "box": [
-       1326,
+       1926,
        990,
-       1617,
+       2217,
        1047
       ],
       "kind": "posts"
@@ -3579,101 +3599,111 @@
     },
     "boxes": {
      "smith": [
-      0,
+      600,
       479,
-      475,
+      1075,
       653
      ],
      "armourer": [
-      1373,
+      1973,
       362,
-      1633,
+      2233,
       532
      ],
      "bar": [
-      1051,
+      1651,
       765,
-      1267,
+      1867,
       971
      ],
      "lot": [
-      1329,
+      1929,
       699,
-      1481,
+      2081,
       830
      ],
      "build": [
-      1502,
+      2102,
       530,
-      1889,
+      2489,
       668
      ],
      "look": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       532
      ]
     },
     "doors": {
      "clinic": [
-      1373,
+      1973,
       532
      ],
      "barber": [
-      237,
+      837,
       653
      ],
      "stall": [
-      858,
+      1458,
       746
      ],
      "board": [
-      1244,
+      1844,
       728
      ],
      "posts": [
-      1471,
+      2071,
       1047
      ],
      "smith": [
-      237,
+      837,
       653
      ],
      "armourer": [
-      1503,
+      2103,
       532
      ],
      "bar": [
-      1159,
+      1759,
       868
      ],
      "lot": [
-      1405,
+      2005,
       764
      ],
      "build": [
-      1695,
+      2295,
       599
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       272
      ],
      "left": [
-      25,
+      625,
       272
      ],
      "right": [
-      2034,
+      2634,
       272
      ]
     },
     "zoom_max": 2.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "caravans_tall.webp",
@@ -3828,39 +3858,39 @@
    },
    "boxes": {
     "smith": [
-     0,
+     600,
      479,
-     475,
+     1075,
      653
     ],
     "armourer": [
-     1373,
+     1973,
      362,
-     1633,
+     2233,
      532
     ],
     "bar": [
-     1051,
+     1651,
      765,
-     1267,
+     1867,
      971
     ],
     "lot": [
-     1329,
+     1929,
      699,
-     1481,
+     2081,
      830
     ],
     "build": [
-     1502,
+     2102,
      530,
-     1889,
+     2489,
      668
     ],
     "look": [
-     1113,
+     1713,
      0,
-     1633,
+     2233,
      532
     ]
    },
@@ -5242,51 +5272,51 @@
    "src": "cartel.webp",
    "night_src": "cartel_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      1113,
+      1713,
       171,
-      1633,
+      2233,
       489
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
+      657,
       57,
-      57,
-      543,
+      1143,
       671
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      686,
+      1286,
       539,
-      1030,
+      1630,
       746
      ],
      "kind": "stall"
     },
     "board": {
      "box": [
-      1201,
+      1801,
       625,
-      1288,
+      1888,
       728
      ],
      "kind": "board"
     },
     "posts": {
      "box": [
-      1326,
+      1926,
       989,
-      1617,
+      2217,
       1047
      ],
      "kind": "posts"
@@ -5300,51 +5330,51 @@
     "src": "cartel.webp",
     "night_src": "cartel_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       1113,
+       1713,
        171,
-       1633,
+       2233,
        489
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
+       657,
        57,
-       57,
-       543,
+       1143,
        671
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       686,
+       1286,
        539,
-       1030,
+       1630,
        746
       ],
       "kind": "stall"
      },
      "board": {
       "box": [
-       1201,
+       1801,
        625,
-       1288,
+       1888,
        728
       ],
       "kind": "board"
      },
      "posts": {
       "box": [
-       1326,
+       1926,
        989,
-       1617,
+       2217,
        1047
       ],
       "kind": "posts"
@@ -5352,101 +5382,111 @@
     },
     "boxes": {
      "smith": [
-      57,
+      657,
       475,
-      543,
+      1143,
       671
      ],
      "armourer": [
-      1373,
+      1973,
       388,
-      1633,
+      2233,
       489
      ],
      "bar": [
-      1051,
+      1651,
       765,
-      1267,
+      1867,
       971
      ],
      "lot": [
-      1329,
+      1929,
       699,
-      1481,
+      2081,
       830
      ],
      "build": [
-      1502,
+      2102,
       530,
-      1889,
+      2489,
       668
      ],
      "look": [
-      1113,
+      1713,
       171,
-      1633,
+      2233,
       489
      ]
     },
     "doors": {
      "clinic": [
-      1373,
+      1973,
       489
      ],
      "barber": [
-      300,
+      900,
       671
      ],
      "stall": [
-      858,
+      1458,
       746
      ],
      "board": [
-      1244,
+      1844,
       728
      ],
      "posts": [
-      1471,
+      2071,
       1047
      ],
      "smith": [
-      300,
+      900,
       671
      ],
      "armourer": [
-      1503,
+      2103,
       489
      ],
      "bar": [
-      1159,
+      1759,
       868
      ],
      "lot": [
-      1405,
+      2005,
       764
      ],
      "build": [
-      1695,
+      2295,
       599
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       272
      ],
      "left": [
-      25,
+      625,
       272
      ],
      "right": [
-      2034,
+      2634,
       272
      ]
     },
     "zoom_max": 2.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "cartel_tall.webp",
@@ -5601,39 +5641,39 @@
    },
    "boxes": {
     "smith": [
-     57,
+     657,
      475,
-     543,
+     1143,
      671
     ],
     "armourer": [
-     1373,
+     1973,
      388,
-     1633,
+     2233,
      489
     ],
     "bar": [
-     1051,
+     1651,
      765,
-     1267,
+     1867,
      971
     ],
     "lot": [
-     1329,
+     1929,
      699,
-     1481,
+     2081,
      830
     ],
     "build": [
-     1502,
+     2102,
      530,
-     1889,
+     2489,
      668
     ],
     "look": [
-     1113,
+     1713,
      171,
-     1633,
+     2233,
      489
     ]
    },
@@ -7092,51 +7132,51 @@
    "src": "church.webp",
    "night_src": "church_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "barber": {
      "box": [
-      512,
+      1112,
       0,
-      1033,
+      1633,
       411
      ],
      "kind": "barber"
     },
     "clinic": {
      "box": [
-      1032,
+      1632,
       0,
-      1548,
+      2148,
       415
      ],
      "kind": "clinic"
     },
     "stall": {
      "box": [
-      1115,
+      1715,
       402,
-      1288,
+      1888,
       583
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      747,
+      1347,
       581,
-      1038,
+      1638,
       639
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      729,
+      1329,
       801,
-      816,
+      1416,
       904
      ],
      "kind": "board"
@@ -7150,51 +7190,51 @@
     "src": "church.webp",
     "night_src": "church_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "barber": {
       "box": [
-       512,
+       1112,
        0,
-       1033,
+       1633,
        411
       ],
       "kind": "barber"
      },
      "clinic": {
       "box": [
-       1032,
+       1632,
        0,
-       1548,
+       2148,
        415
       ],
       "kind": "clinic"
      },
      "stall": {
       "box": [
-       1115,
+       1715,
        402,
-       1288,
+       1888,
        583
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       747,
+       1347,
        581,
-       1038,
+       1638,
        639
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       729,
+       1329,
        801,
-       816,
+       1416,
        904
       ],
       "kind": "board"
@@ -7202,101 +7242,111 @@
     },
     "boxes": {
      "bar": [
-      40,
+      640,
       0,
-      500,
+      1100,
       421
      ],
      "smith": [
-      1070,
+      1670,
       624,
-      1488,
+      2088,
       1078
      ],
      "armourer": [
-      1645,
+      2245,
       163,
-      1977,
+      2577,
       685
      ],
      "lot": [
-      469,
+      1069,
       879,
-      761,
+      1361,
       1092
      ],
      "build": [
-      420,
+      1020,
       399,
-      1081,
+      1681,
       530
      ],
      "look": [
-      1032,
+      1632,
       0,
-      1548,
+      2148,
       415
      ]
     },
     "doors": {
      "barber": [
-      772,
+      1372,
       411
      ],
      "clinic": [
-      1290,
+      1890,
       415
      ],
      "stall": [
-      1201,
+      1801,
       583
      ],
      "posts": [
-      892,
+      1492,
       639
      ],
      "board": [
-      772,
+      1372,
       904
      ],
      "bar": [
-      270,
+      870,
       421
      ],
      "smith": [
-      1279,
+      1879,
       1078
      ],
      "armourer": [
-      1811,
+      2411,
       685
      ],
      "lot": [
-      615,
+      1215,
       985
      ],
      "build": [
-      750,
+      1350,
       464
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       491
      ],
      "left": [
-      25,
+      625,
       491
      ],
      "right": [
-      2034,
+      2634,
       491
      ]
     },
     "zoom_max": 2.0,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "church_tall.webp",
@@ -7451,39 +7501,39 @@
    },
    "boxes": {
     "bar": [
-     40,
+     640,
      0,
-     500,
+     1100,
      421
     ],
     "smith": [
-     1070,
+     1670,
      624,
-     1488,
+     2088,
      1078
     ],
     "armourer": [
-     1645,
+     2245,
      163,
-     1977,
+     2577,
      685
     ],
     "lot": [
-     469,
+     1069,
      879,
-     761,
+     1361,
      1092
     ],
     "build": [
-     420,
+     1020,
      399,
-     1081,
+     1681,
      530
     ],
     "look": [
-     1032,
+     1632,
      0,
-     1548,
+     2148,
      415
     ]
    },
@@ -9086,51 +9136,51 @@
    "src": "colorful.webp",
    "night_src": "colorful_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      600,
+      1200,
       0,
-      859,
+      1459,
       258
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      1114,
+      1714,
       465,
-      1304,
+      1904,
       679
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      493,
+      1093,
       504,
-      665,
+      1265,
       685
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      468,
+      1068,
       912,
-      992,
+      1592,
       971
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      1479,
+      2079,
       776,
-      1566,
+      2166,
       879
      ],
      "kind": "board"
@@ -9144,51 +9194,51 @@
     "src": "colorful.webp",
     "night_src": "colorful_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       600,
+       1200,
        0,
-       859,
+       1459,
        258
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       1114,
+       1714,
        465,
-       1304,
+       1904,
        679
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       493,
+       1093,
        504,
-       665,
+       1265,
        685
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       468,
+       1068,
        912,
-       992,
+       1592,
        971
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       1479,
+       2079,
        776,
-       1566,
+       2166,
        879
       ],
       "kind": "board"
@@ -9196,91 +9246,101 @@
     },
     "boxes": {
      "arms": [
-      599,
+      1199,
       321,
-      770,
+      1370,
       580
      ],
      "bar": [
-      1099,
+      1699,
       151,
-      1261,
+      1861,
       410
      ],
      "lot": [
-      1290,
+      1890,
       679,
-      1570,
+      2170,
       800
      ],
      "build": [
-      1599,
+      2199,
       439,
-      2010,
+      2610,
       600
      ],
      "look": [
-      600,
+      1200,
       0,
-      859,
+      1459,
       258
      ]
     },
     "doors": {
      "clinic": [
-      729,
+      1329,
       258
      ],
      "barber": [
-      1209,
+      1809,
       679
      ],
      "stall": [
-      579,
+      1179,
       685
      ],
      "posts": [
-      730,
+      1330,
       971
      ],
      "board": [
-      1522,
+      2122,
       879
      ],
      "arms": [
-      684,
+      1284,
       450
      ],
      "bar": [
-      1180,
+      1780,
       280
      ],
      "lot": [
-      1430,
+      2030,
       739
      ],
      "build": [
-      1804,
+      2404,
       519
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       561
      ],
      "left": [
-      25,
+      625,
       561
      ],
      "right": [
-      2034,
+      2634,
       561
      ]
     },
     "zoom_max": 1.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "colorful_tall.webp",
@@ -9425,33 +9485,33 @@
    },
    "boxes": {
     "arms": [
-     599,
+     1199,
      321,
-     770,
+     1370,
      580
     ],
     "bar": [
-     1099,
+     1699,
      151,
-     1261,
+     1861,
      410
     ],
     "lot": [
-     1290,
+     1890,
      679,
-     1570,
+     2170,
      800
     ],
     "build": [
-     1599,
+     2199,
      439,
-     2010,
+     2610,
      600
     ],
     "look": [
-     600,
+     1200,
      0,
-     859,
+     1459,
      258
     ]
    },
@@ -11065,51 +11125,51 @@
    "src": "custom.webp",
    "night_src": "custom_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      626,
+      1226,
       0,
-      833,
+      1433,
       258
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      1124,
+      1724,
       490,
-      1305,
+      1905,
       688
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      493,
+      1093,
       504,
-      665,
+      1265,
       685
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      468,
+      1068,
       913,
-      992,
+      1592,
       971
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      1479,
+      2079,
       776,
-      1566,
+      2166,
       879
      ],
      "kind": "board"
@@ -11123,51 +11183,51 @@
     "src": "custom.webp",
     "night_src": "custom_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       626,
+       1226,
        0,
-       833,
+       1433,
        258
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       1124,
+       1724,
        490,
-       1305,
+       1905,
        688
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       493,
+       1093,
        504,
-       665,
+       1265,
        685
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       468,
+       1068,
        913,
-       992,
+       1592,
        971
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       1479,
+       2079,
        776,
-       1566,
+       2166,
        879
       ],
       "kind": "board"
@@ -11175,91 +11235,101 @@
     },
     "boxes": {
      "arms": [
-      599,
+      1199,
       321,
-      770,
+      1370,
       580
      ],
      "bar": [
-      1099,
+      1699,
       151,
-      1261,
+      1861,
       410
      ],
      "lot": [
-      1290,
+      1890,
       679,
-      1570,
+      2170,
       800
      ],
      "build": [
-      1599,
+      2199,
       439,
-      2010,
+      2610,
       600
      ],
      "look": [
-      626,
+      1226,
       0,
-      833,
+      1433,
       258
      ]
     },
     "doors": {
      "clinic": [
-      729,
+      1329,
       258
      ],
      "barber": [
-      1214,
+      1814,
       688
      ],
      "stall": [
-      579,
+      1179,
       685
      ],
      "posts": [
-      730,
+      1330,
       971
      ],
      "board": [
-      1522,
+      2122,
       879
      ],
      "arms": [
-      684,
+      1284,
       450
      ],
      "bar": [
-      1180,
+      1780,
       280
      ],
      "lot": [
-      1430,
+      2030,
       739
      ],
      "build": [
-      1804,
+      2404,
       519
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       561
      ],
      "left": [
-      25,
+      625,
       561
      ],
      "right": [
-      2034,
+      2634,
       561
      ]
     },
     "zoom_max": 1.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "custom_tall.webp",
@@ -11404,33 +11474,33 @@
    },
    "boxes": {
     "arms": [
-     599,
+     1199,
      321,
-     770,
+     1370,
      580
     ],
     "bar": [
-     1099,
+     1699,
      151,
-     1261,
+     1861,
      410
     ],
     "lot": [
-     1290,
+     1890,
      679,
-     1570,
+     2170,
      800
     ],
     "build": [
-     1599,
+     2199,
      439,
-     2010,
+     2610,
      600
     ],
     "look": [
-     626,
+     1226,
      0,
-     833,
+     1433,
      258
     ]
    },
@@ -12934,51 +13004,51 @@
    "src": "homeless.webp",
    "night_src": "homeless_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      587,
+      1187,
       0,
-      872,
+      1472,
       267
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      1101,
+      1701,
       473,
-      1318,
+      1918,
       688
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      493,
+      1093,
       504,
-      665,
+      1265,
       685
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      468,
+      1068,
       912,
-      991,
+      1591,
       971
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      1479,
+      2079,
       776,
-      1566,
+      2166,
       879
      ],
      "kind": "board"
@@ -12992,51 +13062,51 @@
     "src": "homeless.webp",
     "night_src": "homeless_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       587,
+       1187,
        0,
-       872,
+       1472,
        267
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       1101,
+       1701,
        473,
-       1318,
+       1918,
        688
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       493,
+       1093,
        504,
-       665,
+       1265,
        685
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       468,
+       1068,
        912,
-       991,
+       1591,
        971
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       1479,
+       2079,
        776,
-       1566,
+       2166,
        879
       ],
       "kind": "board"
@@ -13044,91 +13114,101 @@
     },
     "boxes": {
      "arms": [
-      599,
+      1199,
       321,
-      770,
+      1370,
       580
      ],
      "bar": [
-      1099,
+      1699,
       151,
-      1261,
+      1861,
       410
      ],
      "lot": [
-      1290,
+      1890,
       679,
-      1570,
+      2170,
       800
      ],
      "build": [
-      1599,
+      2199,
       439,
-      2010,
+      2610,
       600
      ],
      "look": [
-      587,
+      1187,
       0,
-      872,
+      1472,
       267
      ]
     },
     "doors": {
      "clinic": [
-      729,
+      1329,
       267
      ],
      "barber": [
-      1209,
+      1809,
       688
      ],
      "stall": [
-      579,
+      1179,
       685
      ],
      "posts": [
-      729,
+      1329,
       971
      ],
      "board": [
-      1522,
+      2122,
       879
      ],
      "arms": [
-      684,
+      1284,
       450
      ],
      "bar": [
-      1180,
+      1780,
       280
      ],
      "lot": [
-      1430,
+      2030,
       739
      ],
      "build": [
-      1804,
+      2404,
       519
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       561
      ],
      "left": [
-      25,
+      625,
       561
      ],
      "right": [
-      2034,
+      2634,
       561
      ]
     },
     "zoom_max": 1.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "homeless_tall.webp",
@@ -13273,33 +13353,33 @@
    },
    "boxes": {
     "arms": [
-     599,
+     1199,
      321,
-     770,
+     1370,
      580
     ],
     "bar": [
-     1099,
+     1699,
      151,
-     1261,
+     1861,
      410
     ],
     "lot": [
-     1290,
+     1890,
      679,
-     1570,
+     2170,
      800
     ],
     "build": [
-     1599,
+     2199,
      439,
-     2010,
+     2610,
      600
     ],
     "look": [
-     587,
+     1187,
      0,
-     872,
+     1472,
      267
     ]
    },
@@ -14953,51 +15033,51 @@
    "src": "mob.webp",
    "night_src": "mob_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       532
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      40,
+      640,
       0,
-      561,
+      1161,
       688
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      686,
+      1286,
       540,
-      1030,
+      1630,
       746
      ],
      "kind": "stall"
     },
     "board": {
      "box": [
-      1201,
+      1801,
       625,
-      1288,
+      1888,
       728
      ],
      "kind": "board"
     },
     "posts": {
      "box": [
-      1323,
+      1923,
       989,
-      1620,
+      2220,
       1047
      ],
      "kind": "posts"
@@ -15011,51 +15091,51 @@
     "src": "mob.webp",
     "night_src": "mob_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       1113,
+       1713,
        0,
-       1633,
+       2233,
        532
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       40,
+       640,
        0,
-       561,
+       1161,
        688
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       686,
+       1286,
        540,
-       1030,
+       1630,
        746
       ],
       "kind": "stall"
      },
      "board": {
       "box": [
-       1201,
+       1801,
        625,
-       1288,
+       1888,
        728
       ],
       "kind": "board"
      },
      "posts": {
       "box": [
-       1323,
+       1923,
        989,
-       1620,
+       2220,
        1047
       ],
       "kind": "posts"
@@ -15063,101 +15143,111 @@
     },
     "boxes": {
      "smith": [
-      40,
+      640,
       468,
-      561,
+      1161,
       688
      ],
      "armourer": [
-      1373,
+      1973,
       362,
-      1633,
+      2233,
       532
      ],
      "bar": [
-      1051,
+      1651,
       765,
-      1267,
+      1867,
       971
      ],
      "lot": [
-      1329,
+      1929,
       699,
-      1481,
+      2081,
       830
      ],
      "build": [
-      1502,
+      2102,
       530,
-      1889,
+      2489,
       668
      ],
      "look": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       532
      ]
     },
     "doors": {
      "clinic": [
-      1373,
+      1973,
       532
      ],
      "barber": [
-      300,
+      900,
       688
      ],
      "stall": [
-      858,
+      1458,
       746
      ],
      "board": [
-      1244,
+      1844,
       728
      ],
      "posts": [
-      1471,
+      2071,
       1047
      ],
      "smith": [
-      300,
+      900,
       688
      ],
      "armourer": [
-      1503,
+      2103,
       532
      ],
      "bar": [
-      1159,
+      1759,
       868
      ],
      "lot": [
-      1405,
+      2005,
       764
      ],
      "build": [
-      1695,
+      2295,
       599
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       272
      ],
      "left": [
-      25,
+      625,
       272
      ],
      "right": [
-      2034,
+      2634,
       272
      ]
     },
     "zoom_max": 2.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "mob_tall.webp",
@@ -15312,39 +15402,39 @@
    },
    "boxes": {
     "smith": [
-     40,
+     640,
      468,
-     561,
+     1161,
      688
     ],
     "armourer": [
-     1373,
+     1973,
      362,
-     1633,
+     2233,
      532
     ],
     "bar": [
-     1051,
+     1651,
      765,
-     1267,
+     1867,
      971
     ],
     "lot": [
-     1329,
+     1929,
      699,
-     1481,
+     2081,
      830
     ],
     "build": [
-     1502,
+     2102,
      530,
-     1889,
+     2489,
      668
     ],
     "look": [
-     1113,
+     1713,
      0,
-     1633,
+     2233,
      532
     ]
    },
@@ -16648,51 +16738,51 @@
    "src": "network.webp",
    "night_src": "network_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       488
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      40,
+      640,
       27,
-      561,
+      1161,
       670
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      686,
+      1286,
       539,
-      1030,
+      1630,
       746
      ],
      "kind": "stall"
     },
     "board": {
      "box": [
-      1201,
+      1801,
       625,
-      1288,
+      1888,
       728
      ],
      "kind": "board"
     },
     "posts": {
      "box": [
-      1323,
+      1923,
       989,
-      1620,
+      2220,
       1047
      ],
      "kind": "posts"
@@ -16706,51 +16796,51 @@
     "src": "network.webp",
     "night_src": "network_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       1113,
+       1713,
        0,
-       1633,
+       2233,
        488
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       40,
+       640,
        27,
-       561,
+       1161,
        670
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       686,
+       1286,
        539,
-       1030,
+       1630,
        746
       ],
       "kind": "stall"
      },
      "board": {
       "box": [
-       1201,
+       1801,
        625,
-       1288,
+       1888,
        728
       ],
       "kind": "board"
      },
      "posts": {
       "box": [
-       1323,
+       1923,
        989,
-       1620,
+       2220,
        1047
       ],
       "kind": "posts"
@@ -16758,101 +16848,111 @@
     },
     "boxes": {
      "smith": [
-      40,
+      640,
       465,
-      561,
+      1161,
       670
      ],
      "armourer": [
-      1373,
+      1973,
       332,
-      1633,
+      2233,
       488
      ],
      "bar": [
-      1051,
+      1651,
       765,
-      1267,
+      1867,
       971
      ],
      "lot": [
-      1329,
+      1929,
       699,
-      1481,
+      2081,
       830
      ],
      "build": [
-      1502,
+      2102,
       530,
-      1889,
+      2489,
       668
      ],
      "look": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       488
      ]
     },
     "doors": {
      "clinic": [
-      1373,
+      1973,
       488
      ],
      "barber": [
-      300,
+      900,
       670
      ],
      "stall": [
-      858,
+      1458,
       746
      ],
      "board": [
-      1244,
+      1844,
       728
      ],
      "posts": [
-      1471,
+      2071,
       1047
      ],
      "smith": [
-      300,
+      900,
       670
      ],
      "armourer": [
-      1503,
+      2103,
       488
      ],
      "bar": [
-      1159,
+      1759,
       868
      ],
      "lot": [
-      1405,
+      2005,
       764
      ],
      "build": [
-      1695,
+      2295,
       599
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       272
      ],
      "left": [
-      25,
+      625,
       272
      ],
      "right": [
-      2034,
+      2634,
       272
      ]
     },
     "zoom_max": 2.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "network_tall.webp",
@@ -17007,39 +17107,39 @@
    },
    "boxes": {
     "smith": [
-     40,
+     640,
      465,
-     561,
+     1161,
      670
     ],
     "armourer": [
-     1373,
+     1973,
      332,
-     1633,
+     2233,
      488
     ],
     "bar": [
-     1051,
+     1651,
      765,
-     1267,
+     1867,
      971
     ],
     "lot": [
-     1329,
+     1929,
      699,
-     1481,
+     2081,
      830
     ],
     "build": [
-     1502,
+     2102,
      530,
-     1889,
+     2489,
      668
     ],
     "look": [
-     1113,
+     1713,
      0,
-     1633,
+     2233,
      488
     ]
    },
@@ -18676,51 +18776,51 @@
    "src": "reds.webp",
    "night_src": "reds_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "barber": {
      "box": [
-      512,
+      1112,
       0,
-      1024,
+      1624,
       411
      ],
      "kind": "barber"
     },
     "clinic": {
      "box": [
-      1004,
+      1604,
       0,
-      1580,
+      2180,
       419
      ],
      "kind": "clinic"
     },
     "stall": {
      "box": [
-      1115,
+      1715,
       403,
-      1288,
+      1888,
       583
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      339,
+      939,
       581,
-      630,
+      1230,
       639
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      729,
+      1329,
       801,
-      816,
+      1416,
       904
      ],
      "kind": "board"
@@ -18734,51 +18834,51 @@
     "src": "reds.webp",
     "night_src": "reds_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "barber": {
       "box": [
-       512,
+       1112,
        0,
-       1024,
+       1624,
        411
       ],
       "kind": "barber"
      },
      "clinic": {
       "box": [
-       1004,
+       1604,
        0,
-       1580,
+       2180,
        419
       ],
       "kind": "clinic"
      },
      "stall": {
       "box": [
-       1115,
+       1715,
        403,
-       1288,
+       1888,
        583
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       339,
+       939,
        581,
-       630,
+       1230,
        639
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       729,
+       1329,
        801,
-       816,
+       1416,
        904
       ],
       "kind": "board"
@@ -18786,101 +18886,111 @@
     },
     "boxes": {
      "bar": [
-      34,
+      634,
       0,
-      498,
+      1098,
       372
      ],
      "smith": [
-      1070,
+      1670,
       633,
-      1488,
+      2088,
       1087
      ],
      "armourer": [
-      1645,
+      2245,
       163,
-      1977,
+      2577,
       689
      ],
      "lot": [
-      469,
+      1069,
       879,
-      761,
+      1361,
       1092
      ],
      "build": [
-      420,
+      1020,
       399,
-      1081,
+      1681,
       530
      ],
      "look": [
-      1004,
+      1604,
       0,
-      1580,
+      2180,
       419
      ]
     },
     "doors": {
      "barber": [
-      768,
+      1368,
       411
      ],
      "clinic": [
-      1292,
+      1892,
       419
      ],
      "stall": [
-      1201,
+      1801,
       583
      ],
      "posts": [
-      484,
+      1084,
       639
      ],
      "board": [
-      772,
+      1372,
       904
      ],
      "bar": [
-      266,
+      866,
       372
      ],
      "smith": [
-      1044,
+      1644,
       1062
      ],
      "armourer": [
-      1811,
+      2411,
       689
      ],
      "lot": [
-      615,
+      1215,
       985
      ],
      "build": [
-      750,
+      1350,
       464
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       491
      ],
      "left": [
-      25,
+      625,
       491
      ],
      "right": [
-      2034,
+      2634,
       491
      ]
     },
     "zoom_max": 2.0,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "reds_tall.webp",
@@ -19035,39 +19145,39 @@
    },
    "boxes": {
     "bar": [
-     34,
+     634,
      0,
-     498,
+     1098,
      372
     ],
     "smith": [
-     1070,
+     1670,
      633,
-     1488,
+     2088,
      1087
     ],
     "armourer": [
-     1645,
+     2245,
      163,
-     1977,
+     2577,
      689
     ],
     "lot": [
-     469,
+     1069,
      879,
-     761,
+     1361,
      1092
     ],
     "build": [
-     420,
+     1020,
      399,
-     1081,
+     1681,
      530
     ],
     "look": [
-     1004,
+     1604,
      0,
-     1580,
+     2180,
      419
     ]
    },
@@ -20257,51 +20367,51 @@
    "src": "remnants.webp",
    "night_src": "remnants_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       489
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      40,
+      640,
       168,
-      561,
+      1161,
       672
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      686,
+      1286,
       539,
-      1030,
+      1630,
       746
      ],
      "kind": "stall"
     },
     "board": {
      "box": [
-      1201,
+      1801,
       625,
-      1288,
+      1888,
       728
      ],
      "kind": "board"
     },
     "posts": {
      "box": [
-      1325,
+      1925,
       868,
-      1618,
+      2218,
       926
      ],
      "kind": "posts"
@@ -20315,51 +20425,51 @@
     "src": "remnants.webp",
     "night_src": "remnants_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       1113,
+       1713,
        0,
-       1633,
+       2233,
        489
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       40,
+       640,
        168,
-       561,
+       1161,
        672
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       686,
+       1286,
        539,
-       1030,
+       1630,
        746
       ],
       "kind": "stall"
      },
      "board": {
       "box": [
-       1201,
+       1801,
        625,
-       1288,
+       1888,
        728
       ],
       "kind": "board"
      },
      "posts": {
       "box": [
-       1325,
+       1925,
        868,
-       1618,
+       2218,
        926
       ],
       "kind": "posts"
@@ -20367,101 +20477,111 @@
     },
     "boxes": {
      "smith": [
-      40,
+      640,
       511,
-      561,
+      1161,
       672
      ],
      "armourer": [
-      1373,
+      1973,
       333,
-      1633,
+      2233,
       489
      ],
      "bar": [
-      1051,
+      1651,
       765,
-      1267,
+      1867,
       971
      ],
      "lot": [
-      1329,
+      1929,
       699,
-      1481,
+      2081,
       830
      ],
      "build": [
-      1502,
+      2102,
       530,
-      1889,
+      2489,
       668
      ],
      "look": [
-      1113,
+      1713,
       0,
-      1633,
+      2233,
       489
      ]
     },
     "doors": {
      "clinic": [
-      1373,
+      1973,
       489
      ],
      "barber": [
-      300,
+      900,
       672
      ],
      "stall": [
-      858,
+      1458,
       746
      ],
      "board": [
-      1244,
+      1844,
       728
      ],
      "posts": [
-      1471,
+      2071,
       926
      ],
      "smith": [
-      300,
+      900,
       672
      ],
      "armourer": [
-      1503,
+      2103,
       489
      ],
      "bar": [
-      1159,
+      1759,
       868
      ],
      "lot": [
-      1405,
+      2005,
       764
      ],
      "build": [
-      1695,
+      2295,
       599
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       272
      ],
      "left": [
-      25,
+      625,
       272
      ],
      "right": [
-      2034,
+      2634,
       272
      ]
     },
     "zoom_max": 2.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "remnants_tall.webp",
@@ -20616,39 +20736,39 @@
    },
    "boxes": {
     "smith": [
-     40,
+     640,
      511,
-     561,
+     1161,
      672
     ],
     "armourer": [
-     1373,
+     1973,
      333,
-     1633,
+     2233,
      489
     ],
     "bar": [
-     1051,
+     1651,
      765,
-     1267,
+     1867,
      971
     ],
     "lot": [
-     1329,
+     1929,
      699,
-     1481,
+     2081,
      830
     ],
     "build": [
-     1502,
+     2102,
      530,
-     1889,
+     2489,
      668
     ],
     "look": [
-     1113,
+     1713,
      0,
-     1633,
+     2233,
      489
     ]
    },
@@ -21916,51 +22036,51 @@
    "src": "trades.webp",
    "night_src": "trades_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      600,
+      1200,
       0,
-      859,
+      1459,
       258
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      1116,
+      1716,
       407,
-      1303,
+      1903,
       679
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      493,
+      1093,
       505,
-      665,
+      1265,
       685
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      466,
+      1066,
       913,
-      994,
+      1594,
       971
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      1479,
+      2079,
       776,
-      1566,
+      2166,
       879
      ],
      "kind": "board"
@@ -21974,51 +22094,51 @@
     "src": "trades.webp",
     "night_src": "trades_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       600,
+       1200,
        0,
-       859,
+       1459,
        258
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       1116,
+       1716,
        407,
-       1303,
+       1903,
        679
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       493,
+       1093,
        505,
-       665,
+       1265,
        685
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       466,
+       1066,
        913,
-       994,
+       1594,
        971
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       1479,
+       2079,
        776,
-       1566,
+       2166,
        879
       ],
       "kind": "board"
@@ -22026,91 +22146,101 @@
     },
     "boxes": {
      "arms": [
-      599,
+      1199,
       321,
-      770,
+      1370,
       580
      ],
      "bar": [
-      1099,
+      1699,
       151,
-      1261,
+      1861,
       410
      ],
      "lot": [
-      1290,
+      1890,
       679,
-      1570,
+      2170,
       800
      ],
      "build": [
-      1599,
+      2199,
       439,
-      2010,
+      2610,
       600
      ],
      "look": [
-      600,
+      1200,
       0,
-      859,
+      1459,
       258
      ]
     },
     "doors": {
      "clinic": [
-      729,
+      1329,
       258
      ],
      "barber": [
-      1209,
+      1809,
       679
      ],
      "stall": [
-      579,
+      1179,
       685
      ],
      "posts": [
-      730,
+      1330,
       971
      ],
      "board": [
-      1522,
+      2122,
       879
      ],
      "arms": [
-      684,
+      1284,
       450
      ],
      "bar": [
-      1180,
+      1780,
       280
      ],
      "lot": [
-      1430,
+      2030,
       739
      ],
      "build": [
-      1804,
+      2404,
       519
      ]
     },
     "entrance": {
      "side": "right",
      "at": [
-      2034,
+      2634,
       561
      ],
      "left": [
-      25,
+      625,
       561
      ],
      "right": [
-      2034,
+      2634,
       561
      ]
     },
     "zoom_max": 1.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "trades_tall.webp",
@@ -22255,33 +22385,33 @@
    },
    "boxes": {
     "arms": [
-     599,
+     1199,
      321,
-     770,
+     1370,
      580
     ],
     "bar": [
-     1099,
+     1699,
      151,
-     1261,
+     1861,
      410
     ],
     "lot": [
-     1290,
+     1890,
      679,
-     1570,
+     2170,
      800
     ],
     "build": [
-     1599,
+     2199,
      439,
-     2010,
+     2610,
      600
     ],
     "look": [
-     600,
+     1200,
      0,
-     859,
+     1459,
      258
     ]
    },
@@ -23707,51 +23837,51 @@
    "src": "volunteers.webp",
    "night_src": "volunteers_night.webp",
    "px": [
-    2060,
+    3260,
     1092
    ],
    "hotspots": {
     "clinic": {
      "box": [
-      600,
+      1200,
       0,
-      859,
+      1459,
       258
      ],
      "kind": "clinic"
     },
     "barber": {
      "box": [
-      1114,
+      1714,
       476,
-      1305,
+      1905,
       679
      ],
      "kind": "barber"
     },
     "stall": {
      "box": [
-      493,
+      1093,
       504,
-      665,
+      1265,
       685
      ],
      "kind": "stall"
     },
     "posts": {
      "box": [
-      468,
+      1068,
       913,
-      992,
+      1592,
       971
      ],
      "kind": "posts"
     },
     "board": {
      "box": [
-      1479,
+      2079,
       776,
-      1566,
+      2166,
       879
      ],
      "kind": "board"
@@ -23765,51 +23895,51 @@
     "src": "volunteers.webp",
     "night_src": "volunteers_night.webp",
     "px": [
-     2060,
+     3260,
      1092
     ],
     "hotspots": {
      "clinic": {
       "box": [
-       600,
+       1200,
        0,
-       859,
+       1459,
        258
       ],
       "kind": "clinic"
      },
      "barber": {
       "box": [
-       1114,
+       1714,
        476,
-       1305,
+       1905,
        679
       ],
       "kind": "barber"
      },
      "stall": {
       "box": [
-       493,
+       1093,
        504,
-       665,
+       1265,
        685
       ],
       "kind": "stall"
      },
      "posts": {
       "box": [
-       468,
+       1068,
        913,
-       992,
+       1592,
        971
       ],
       "kind": "posts"
      },
      "board": {
       "box": [
-       1479,
+       2079,
        776,
-       1566,
+       2166,
        879
       ],
       "kind": "board"
@@ -23817,91 +23947,101 @@
     },
     "boxes": {
      "arms": [
-      599,
+      1199,
       321,
-      770,
+      1370,
       580
      ],
      "bar": [
-      1099,
+      1699,
       151,
-      1261,
+      1861,
       410
      ],
      "lot": [
-      1290,
+      1890,
       679,
-      1570,
+      2170,
       800
      ],
      "build": [
-      1599,
+      2199,
       439,
-      2010,
+      2610,
       600
      ],
      "look": [
-      600,
+      1200,
       0,
-      859,
+      1459,
       258
      ]
     },
     "doors": {
      "clinic": [
-      729,
+      1329,
       258
      ],
      "barber": [
-      1209,
+      1809,
       679
      ],
      "stall": [
-      579,
+      1179,
       685
      ],
      "posts": [
-      730,
+      1330,
       971
      ],
      "board": [
-      1522,
+      2122,
       879
      ],
      "arms": [
-      684,
+      1284,
       450
      ],
      "bar": [
-      1180,
+      1780,
       280
      ],
      "lot": [
-      1430,
+      2030,
       739
      ],
      "build": [
-      1804,
+      2404,
       519
      ]
     },
     "entrance": {
      "side": "left",
      "at": [
-      25,
+      625,
       561
      ],
      "left": [
-      25,
+      625,
       561
      ],
      "right": [
-      2034,
+      2634,
       561
      ]
     },
     "zoom_max": 1.5,
-    "relaid": true
+    "relaid": true,
+    "whole": {
+     "ext": 600,
+     "town": [
+      600,
+      0,
+      2660,
+      1092
+     ],
+     "note": "rule 383 (11/6, RUN FIVE): the re-laid wide town with its own ground opened EXT px on both sides (the plan, then the plan continued, never mirrored); the phone floats over the town's own ground on either side; every tap, door and walk block moved by EXT, measured"
+    }
    },
    "tall": {
     "src": "volunteers_tall.webp",
@@ -24046,33 +24186,33 @@
    },
    "boxes": {
     "arms": [
-     599,
+     1199,
      321,
-     770,
+     1370,
      580
     ],
     "bar": [
-     1099,
+     1699,
      151,
-     1261,
+     1861,
      410
     ],
     "lot": [
-     1290,
+     1890,
      679,
-     1570,
+     2170,
      800
     ],
     "build": [
-     1599,
+     2199,
      439,
-     2010,
+     2610,
      600
     ],
     "look": [
-     600,
+     1200,
      0,
-     859,
+     1459,
      258
     ]
    },

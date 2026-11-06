@@ -2,7 +2,7 @@
  "_what": "WHERE THE PIT STANDS IN THE MOB'S TOWN (ARENA, rule 375): per composition picture, the ground point in that picture's pixels where the pool's centre sits (slices/arena/pit.json's anchor). Each spot is the town's own drained plaza in the foreground, kept off the phone's corner (rule 213) and off every other tap; measured by laying slices/arena/pit_day.webp on the picture (tools/bohemia_arena_the_pit.py renders it in the towns' camera).",
  "town": "Mob",
  "pictures": {
-  "mob.webp": {"at": [820, 935]},
+  "mob.webp": {"at": [1420, 935], "whole_ext": 600},
   "mob_tall.webp": {"at": [496, 1495]},
   "mob_tall_left.webp": {"at": [610, 1495]},
   "mob_tall_right.webp": {"at": [412, 1495]}
