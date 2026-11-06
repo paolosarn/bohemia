@@ -10544,6 +10544,13 @@ GATES = [
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "
      "against 1x, every block paying its clock, the plates off the glass, and HOLD PLAY FOR 4X with a real finger on the phone. About 2 min", True),
+    ('THE BOARD IS THE CITY AT THAT SPOT', ['node', 'gates/the_board_is_the_city_at_that_spot_gate.js'],
+     "COMBAT TWO gate, 11/6, rule 407(g) step one (ask line 450; PAOLO 11/4: 'imagine if you made a combat map whose street layout was exactly like the city... "
+     "the sizing is the same... use all the same assets, right now it's two different maps'). Three valleys (the demo's and two rebuilt as a save rebuilds them), "
+     "six spots each (suburb, Strip, downtown, industrial, a town, the desert): the map's own houses (its tiles' lots, its own model pick) and streets (its districts) "
+     "against the board the fight deals from the map's plan, tile for tile: H1/H2 every house on the same tile and the same model both ways, T1 trailers, S1/S2 streets 97%, "
+     "R1 the ring round the board holds the map's houses, B1 a house blocks or is a roof, P1 AUTO plays two rounds on each district's laid board with no page error, "
+     "W1 the demo's own door opens a fight that asks the map itself. Mutations: the plan moved a tile, one model swapped, the old template deal: each caught. About 1.5 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

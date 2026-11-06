@@ -1,0 +1,1496 @@
+{
+ "version": "street-board-11-6",
+ "lane": "combat 2",
+ "rule": "407(g) step one, ask line 450",
+ "made_by": "tools/bohemia_combat_two_the_street_board_kit_11_6_26.py",
+ "tile_px": [
+  515,
+  364
+ ],
+ "tile_metres": 12.0,
+ "px_per_metre": 42.9,
+ "streets": {
+  "dir": "kit_street/",
+  "pieces": {
+   "road_ew": {
+    "src": "road_ew.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ns": {
+    "src": "road_ns.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ew_walk_n": {
+    "src": "road_ew_walk_n.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ew_walk_s": {
+    "src": "road_ew_walk_s.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ns_walk_w": {
+    "src": "road_ns_walk_w.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ns_walk_e": {
+    "src": "road_ns_walk_e.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ew_both": {
+    "src": "road_ew_both.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ns_both": {
+    "src": "road_ns_both.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "junction": {
+    "src": "junction.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "junction_walks": {
+    "src": "junction_walks.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "crossing_ew": {
+    "src": "crossing_ew.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "crossing_ns": {
+    "src": "crossing_ns.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "corner_nw": {
+    "src": "corner_nw.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "corner_ne": {
+    "src": "corner_ne.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "corner_sw": {
+    "src": "corner_sw.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "corner_se": {
+    "src": "corner_se.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "walk": {
+    "src": "walk.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ew_median": {
+    "src": "road_ew_median.webp",
+    "edges": {
+     "N": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "road",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "walk_wallfoot": {
+    "src": "walk_wallfoot.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ew_arrow": {
+    "src": "road_ew_arrow.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ]
+    }
+   },
+   "road_ns_arrow": {
+    "src": "road_ns_arrow.webp",
+    "edges": {
+     "N": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "S": [
+      [
+       "walk",
+       0,
+       1.5
+      ],
+      [
+       "road",
+       1.5,
+       10.5
+      ],
+      [
+       "walk",
+       10.5,
+       12.0
+      ]
+     ],
+     "E": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ],
+     "W": [
+      [
+       "walk",
+       0,
+       12.0
+      ]
+     ]
+    }
+   }
+  },
+  "note": "COOK TWO's street kit, read where it lies"
+ },
+ "ground": {
+  "dirt": [
+   {
+    "src": "ground_dirt_0.webp",
+    "from_block": "desert.3",
+    "tile": [
+     0,
+     0
+    ],
+    "energy": 13.71
+   },
+   {
+    "src": "ground_dirt_1.webp",
+    "from_block": "desert.3",
+    "tile": [
+     1,
+     1
+    ],
+    "energy": 14.7
+   },
+   {
+    "src": "ground_dirt_2.webp",
+    "from_block": "desert.3",
+    "tile": [
+     1,
+     2
+    ],
+    "energy": 14.7
+   }
+  ],
+  "plaza": [
+   {
+    "src": "ground_plaza_0.webp",
+    "from_block": "fremont.11",
+    "tile": [
+     2,
+     4
+    ],
+    "energy": 4.69
+   },
+   {
+    "src": "ground_plaza_1.webp",
+    "from_block": "fremont.10",
+    "tile": [
+     2,
+     4
+    ],
+    "energy": 5.78
+   }
+  ],
+  "water": [
+   {
+    "src": "ground_water_0.webp",
+    "from_block": "shore.0",
+    "tile": [
+     2,
+     1
+    ],
+    "energy": 5.05
+   },
+   {
+    "src": "ground_water_1.webp",
+    "from_block": "shore.1",
+    "tile": [
+     2,
+     1
+    ],
+    "energy": 5.13
+   },
+   {
+    "src": "ground_water_2.webp",
+    "from_block": "shore.1",
+    "tile": [
+     3,
+     1
+    ],
+    "energy": 5.91
+   }
+  ],
+  "rubble": [
+   {
+    "src": "ground_rubble_0.webp",
+    "from_block": "landfill.0",
+    "tile": [
+     4,
+     0
+    ],
+    "energy": 9.59
+   },
+   {
+    "src": "ground_rubble_1.webp",
+    "from_block": "landfill.1",
+    "tile": [
+     3,
+     0
+    ],
+    "energy": 9.91
+   },
+   {
+    "src": "ground_rubble_2.webp",
+    "from_block": "landfill.1",
+    "tile": [
+     3,
+     1
+    ],
+    "energy": 10.02
+   }
+  ],
+  "apron": [
+   {
+    "src": "ground_apron_0.webp",
+    "from_block": "apron.4",
+    "tile": [
+     0,
+     0
+    ],
+    "energy": 2.66
+   },
+   {
+    "src": "ground_apron_1.webp",
+    "from_block": "apron.3",
+    "tile": [
+     4,
+     3
+    ],
+    "energy": 2.74
+   },
+   {
+    "src": "ground_apron_2.webp",
+    "from_block": "apron.1",
+    "tile": [
+     4,
+     0
+    ],
+    "energy": 2.75
+   }
+  ]
+ },
+ "houses": {
+  "ranch_plain": {
+   "src": "bld_ranch_plain.webp",
+   "w": 804,
+   "h": 630,
+   "foot": [
+    371.8,
+    547.9
+   ],
+   "body": [
+    104.6,
+    63.2,
+    639.0,
+    547.9
+   ],
+   "dims_m": [
+    12.46,
+    12.05,
+    5.13
+   ],
+   "kind": "house",
+   "model": "reference/models/bohemia/bld_ranch_plain.glb",
+   "rig": "records/target/master_rig/cook_bld_ranch_plain/rig_S.png",
+   "ppm_from": 57.0,
+   "map_foot_m": {
+    "0": [
+     11.03,
+     9.02
+    ],
+    "90": [
+     9.02,
+     11.03
+    ],
+    "180": [
+     11.03,
+     9.02
+    ],
+    "270": [
+     9.02,
+     11.03
+    ]
+   }
+  },
+  "ranch_porch": {
+   "src": "bld_ranch_porch.webp",
+   "w": 789,
+   "h": 589,
+   "foot": [
+    359.8,
+    523.1
+   ],
+   "body": [
+    102.4,
+    72.3,
+    617.2,
+    523.1
+   ],
+   "dims_m": [
+    12.0,
+    10.85,
+    5.13
+   ],
+   "kind": "house",
+   "model": "reference/models/bohemia/bld_ranch_porch.glb",
+   "rig": "records/target/master_rig/cook_bld_ranch_porch/rig_S.png",
+   "ppm_from": 57.0,
+   "map_foot_m": {
+    "0": [
+     12.03,
+     10.86
+    ],
+    "90": [
+     10.86,
+     12.03
+    ],
+    "180": [
+     12.03,
+     10.86
+    ],
+    "270": [
+     10.86,
+     12.03
+    ]
+   }
+  },
+  "ranch_wing": {
+   "src": "bld_ranch_wing.webp",
+   "w": 877,
+   "h": 670,
+   "foot": [
+    400.0,
+    564.5
+   ],
+   "body": [
+    91.1,
+    93.3,
+    709.0,
+    564.5
+   ],
+   "dims_m": [
+    14.4,
+    11.9,
+    5.13
+   ],
+   "kind": "house",
+   "model": "reference/models/bohemia/bld_ranch_wing.glb",
+   "rig": "records/target/master_rig/cook_bld_ranch_wing/rig_S.png",
+   "ppm_from": 57.0,
+   "map_foot_m": {
+    "0": [
+     14.42,
+     11.92
+    ],
+    "90": [
+     11.92,
+     14.42
+    ],
+    "180": [
+     14.42,
+     11.92
+    ],
+    "270": [
+     11.92,
+     14.42
+    ]
+   }
+  },
+  "ranch_garage": {
+   "src": "bld_ranch_garage.webp",
+   "w": 1020,
+   "h": 780,
+   "foot": [
+    488.5,
+    662.3
+   ],
+   "body": [
+    94.1,
+    128.7,
+    882.8,
+    662.3
+   ],
+   "dims_m": [
+    18.4,
+    13.5,
+    5.13
+   ],
+   "kind": "house",
+   "model": "reference/models/bohemia/bld_ranch_garage.glb",
+   "rig": "records/target/master_rig/cook_bld_ranch_garage/rig_S.png",
+   "ppm_from": 57.0,
+   "map_foot_m": {
+    "0": [
+     18.42,
+     13.52
+    ],
+    "90": [
+     13.52,
+     18.42
+    ],
+    "180": [
+     18.42,
+     13.52
+    ],
+    "270": [
+     13.52,
+     18.42
+    ]
+   }
+  },
+  "ranch_carport": {
+   "src": "bld_ranch_carport.webp",
+   "w": 873,
+   "h": 699,
+   "foot": [
+    416.2,
+    612.6
+   ],
+   "body": [
+    123.4,
+    74.5,
+    709.0,
+    612.6
+   ],
+   "dims_m": [
+    13.65,
+    13.5,
+    5.13
+   ],
+   "kind": "house",
+   "model": "reference/models/bohemia/bld_ranch_carport.glb",
+   "rig": "records/target/master_rig/cook_bld_ranch_carport/rig_S.png",
+   "ppm_from": 57.0,
+   "map_foot_m": {
+    "0": [
+     13.67,
+     13.51
+    ],
+    "90": [
+     13.51,
+     13.67
+    ],
+    "180": [
+     13.67,
+     13.51
+    ],
+    "270": [
+     13.51,
+     13.67
+    ]
+   }
+  }
+ },
+ "buildings": {
+  "warehouse": {
+   "src": "bld_warehouse.webp",
+   "w": 1417,
+   "h": 790,
+   "foot": [
+    662.7,
+    760.2
+   ],
+   "body": [
+    1.5,
+    0.8,
+    1323.9,
+    760.2
+   ],
+   "dims_m": [
+    30.83,
+    16.58,
+    7.494
+   ],
+   "kind": "works",
+   "model": "reference/models/bohemia/bld_warehouse.glb",
+   "rig": "records/target/master_rig/cook_bld_warehouse/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "pawn_shop": {
+   "src": "bld_pawn_shop.webp",
+   "w": 810,
+   "h": 670,
+   "foot": [
+    323.3,
+    666.8
+   ],
+   "body": [
+    1.5,
+    1.5,
+    645.0,
+    666.8
+   ],
+   "dims_m": [
+    15.0,
+    16.54,
+    5.307
+   ],
+   "kind": "shop",
+   "model": "reference/models/bohemia/bld_pawn_shop.glb",
+   "rig": "records/target/master_rig/cook_bld_pawn_shop/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "gas_station": {
+   "src": "bld_gas_station.webp",
+   "w": 1314,
+   "h": 558,
+   "foot": [
+    654.8,
+    495.2
+   ],
+   "body": [
+    52.7,
+    1.5,
+    1256.9,
+    495.2
+   ],
+   "dims_m": [
+    28.08,
+    10.95,
+    5.424
+   ],
+   "kind": "shop",
+   "model": "reference/models/bohemia/bld_gas_station.glb",
+   "rig": "records/target/master_rig/cook_bld_gas_station/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "motel": {
+   "src": "bld_motel.webp",
+   "w": 1317,
+   "h": 510,
+   "foot": [
+    591.6,
+    451.6
+   ],
+   "body": [
+    1.5,
+    1.5,
+    1181.6,
+    451.6
+   ],
+   "dims_m": [
+    27.5,
+    10.5,
+    4.791
+   ],
+   "kind": "shop",
+   "model": "reference/models/bohemia/bld_motel.glb",
+   "rig": "records/target/master_rig/cook_bld_motel/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "school": {
+   "src": "bld_school.webp",
+   "w": 1907,
+   "h": 674,
+   "foot": [
+    882.5,
+    619.4
+   ],
+   "body": [
+    48.2,
+    1.5,
+    1716.8,
+    619.4
+   ],
+   "dims_m": [
+    38.9,
+    13.0,
+    6.417
+   ],
+   "kind": "civic",
+   "model": "reference/models/bohemia/bld_school.glb",
+   "rig": "records/target/master_rig/cook_bld_school/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "church": {
+   "src": "bld_church.webp",
+   "w": 1650,
+   "h": 841,
+   "foot": [
+    649.1,
+    817.4
+   ],
+   "body": [
+    1.5,
+    1.5,
+    1296.8,
+    817.4
+   ],
+   "dims_m": [
+    30.2,
+    15.52,
+    14.022
+   ],
+   "kind": "civic",
+   "model": "reference/models/bohemia/bld_church.glb",
+   "rig": "records/target/master_rig/cook_bld_church/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "chapel": {
+   "src": "bld_chapel.webp",
+   "w": 747,
+   "h": 482,
+   "foot": [
+    277.0,
+    451.6
+   ],
+   "body": [
+    1.5,
+    0.8,
+    552.4,
+    451.6
+   ],
+   "dims_m": [
+    12.85,
+    10.1,
+    8.449
+   ],
+   "kind": "civic",
+   "model": "reference/models/bohemia/bld_chapel.glb",
+   "rig": "records/target/master_rig/cook_bld_chapel/rig_S.png",
+   "ppm_from": 57.0
+  },
+  "casino": {
+   "src": "bld_casino.webp",
+   "w": 1438,
+   "h": 887,
+   "foot": [
+    602.5,
+    796.3
+   ],
+   "body": [
+    18.8,
+    1.5,
+    1186.1,
+    796.3
+   ],
+   "dims_m": [
+    27.2,
+    21.05,
+    10.347
+   ],
+   "kind": "casino",
+   "model": "reference/models/bohemia/bld_casino.glb",
+   "rig": "records/target/master_rig/cook_bld_casino/rig_S.png",
+   "ppm_from": 57.0
+  }
+ },
+ "house_from_map": "the map's own model key (slices/bohemia_map_houses.js pick()), drawn from the same model through the rig at the fight's camera"
+}

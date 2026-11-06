@@ -135,5 +135,6 @@
   function glideK() { try { return watchBeats() > 1 && typeof TRAVEL_SPEED === 'number' && TRAVEL_SPEED > 1 ? TRAVEL_SPEED : 1; } catch (e) { return 1; } }
   function streetTW() { return H.streetTW; }   /* the street stop, a block this many CSS px wide (the pinch's own clamp, setZoomAt) */
   root.BohemiaMapHouses = { draw: draw, covers: covers, flat: flat, fade: fade, on: on, watchBeats: watchBeats, glideK: glideK, streetTW: streetTW,
-    frame: function () { return FR; }, last: LAST, H: H, ready: function () { return READY; }, load: load };
+    frame: function () { return FR; }, last: LAST, H: H, ready: function () { return READY; }, load: load,
+    pick: pick };   /* the model a lot stands (COMBAT TWO 11/6, rule 407(g): the fight's board stands the same house, slices/bohemia_street_board.js) */
 })(typeof window !== 'undefined' ? window : this);
