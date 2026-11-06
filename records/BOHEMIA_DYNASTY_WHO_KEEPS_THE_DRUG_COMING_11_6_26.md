@@ -81,6 +81,11 @@ e. WRITE AROUND IT. The Remnants veteran with the torn notebook. Line, draft:tru
 f. NOBODY WE KNOW LIVES THERE (act two, the derived future). A feed post, draft:true:
    "charleston's got lights again. nobody we know lives there."
 
+## 4b. WHAT THE GRANDKIDS HEAR (rule 412, Paolo 11/6; added the same round)
+The places remember (412(a)): in act two a settlement tells a grandson what his granddad did about the drug on its block (stood with
+the nurse, sold the bags, held the corner, or walked by), from a mouth with a face. It never tells him who kept it coming, because
+nobody there knew. The family's part is remembered; the answer is not.
+
 ## 5. THE GUARDS (what this page forbids, so the question stays open)
 - Never the word Amalgamation in act one; never a machine, a server or a signal behind the drug.
 - NO PURPLE ON THE DRUG. Purple is the Amalgamation's wordless tell (the purple reservation); a purple bag, crate or user would be the

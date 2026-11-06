@@ -23,6 +23,10 @@ WHAT SHIPPED (each page: his words, the real floor with sources, the clues the p
   clues in a table with all three readings; act two shows who benefited, never who did it. Guards: no purple on the drug, nobody who
   knows says it, users stay people, no real agency named in the game. Six seeds.
 
+RULE 412 (landed on main mid-round, 412(d): 'this rule goes into DYNASTY TWO's pages now'): each page carries a 4b or 5b section.
+  The fight page: the tracked numbers become the story a town tells the grandson, the teller's relation decides how, unseen fights
+  fade. The stew page: the stew is FOUND IN PIECES, NEVER TOLD (the register's line, the chapel rows, a cook who will not take his
+  batteries). The drug page: the family's part is remembered, the answer never.
 QUESTIONS FOR PAOLO: none on any page (each has a realistic default; the drug's answer is a story hole, never asked, 9/11).
 ASK LIST: lines 420, 421, 424, 425, 426 marked PAGE WRITTEN with the commit.
 NOT DONE, ROUTED (the coordinator adds jobs): WORDS (the board's why line, the count's words, menu boards, feed lines), COMBAT and

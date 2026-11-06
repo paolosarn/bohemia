@@ -144,6 +144,16 @@ f. HE'D HAVE SAID YES (his own camp, the draft default in section 2). The camp i
    The company's cook asks him, not the men. Line, draft:true:
    "He'd have said yes. He said yes to everything."
 
+## 5b. WHAT THE GRANDKIDS FIND (rule 412, Paolo 11/6; added the same round)
+- 412(c), the coordinator's read built unless he corrects it: what nobody saw stays buried (the witness rule, engine/bohemia_memory.js),
+  so THE STEW IS FOUND IN PIECES, NEVER TOLD. Nobody at a bar tells a grandson that his granddad gave a man to the pot. He finds it:
+  the Church's register with his family's yes on a line; the short rows in the chapel yard; an old cook who will not take his
+  batteries; a hand that shakes in act two.
+- The places remember the rest (412(a)): the town whose pot he filled in a hungry month remembers him kindly and does not say why.
+- Draft lines, draft:true, act two:
+    "Your granddad ate with us the first winter. Everybody did. Eat."
+    "The book has your family in it. Page forty. I'd rather you didn't read it here."
+
 ## 6. WHAT IT NEVER DOES
 - No gore: no body cut on screen, no person cooking, no meat that reads as a person. The horror is the bucket, the board, the cup.
 - No lecture and no card; no character explains cannibalism or kuru to the player.

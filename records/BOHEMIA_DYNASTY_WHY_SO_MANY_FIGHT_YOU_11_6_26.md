@@ -119,6 +119,18 @@ f. THE CHURCH'S BOOK (not every man down is dead). A deacon comes to the camp wi
    meet. His count says 14; her book says 9. Line, draft:true:
    "The book says nine. The clinic says five more are sleeping. Your number is wrong in a good way."
 
+## 4b. WHAT THE GRANDKIDS HEAR (rule 412, Paolo 11/6, 'they'll tell a story about your granddad'; added the same round)
+- THE NUMBERS BECOME THE STORY (412(b)). What the game already keeps on a man (the kill tally's kills and his BEST foe, the deeds and
+  who saw them, engine/bohemia_deeds.js) is what a settlement tells his grandson in act two and act three, from a mouth with a face at
+  the bar, never a pop-up. The DOWN / DEAD / HURT / RAN split of section 3 is what makes the telling honest: a town can say he spared
+  men as well as that he killed them.
+- WHO TELLS IT DECIDES HOW (412(c)): the town that hired him tells the jobs; the town he robbed or the crew whose friend he dropped
+  tells the dead. The same hundred men, two stories, by the relation each place kept.
+- WHAT NOBODY SAW STAYS BURIED (the witness rule, engine/bohemia_memory.js): a fight with no survivor and no watcher fades; only the
+  vultures saw it. Draft lines, draft:true, act two:
+    "Your granddad? He cleared the narrows for the Caravans. Six men on the overpass. My father was the kid with the notebook."
+    "Ask at the swap meet, not here. Here we just remember the box."
+
 ## 5. WHAT THIS DOES NOT CHANGE
 - He fights a lot and keeps fighting a lot; no rate is lowered (his words: 'I want that').
 - No new faction (rule 374): every crew that comes for him is a faction we have or a crew off the road.
