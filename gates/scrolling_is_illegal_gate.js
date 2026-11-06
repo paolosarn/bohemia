@@ -58,8 +58,11 @@ async function everyPage(P, frame, prof, boxSel) {
   const seen = new Set(), bad = [];
   const st0 = await frame.evaluate(s => { const b = document.querySelector(s); return b && window.BohemiaNoScroll ? BohemiaNoScroll.state(b) : null; }, boxSel);
   const n = st0 ? Math.max(1, st0.pages) : 1;
+  const file = frame.url().split('/').pop().split('?')[0];
   for (let i = 0; i < n; i++) {
-    const c = await crimesOn(P); if (c.length) bad.push('page ' + (i + 1) + ': ' + say(c));
+    const rows = await NS.sweepAll(P), c = NS.crimes(rows); if (c.length) bad.push('page ' + (i + 1) + ': ' + say(c));
+    /* a frame that is not on his glass is not a pass: the sweep must have seen it */
+    if (!rows.some(r => r.url === file)) bad.push('page ' + (i + 1) + ': ' + file + ' was not on the glass (swept ' + rows.map(r => r.url).join(' ') + ')');
     (await frame.evaluate(s => { const b = document.querySelector(s); if (!b) return [];
       return [...b.querySelectorAll('button,[role=button],.slot,.act,input')].filter(e => !e.matches('.slot:not(.full)')).filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; })
         .map(e => (e.getAttribute('aria-label') || e.textContent || e.className || '').replace(/\s+/g, ' ').trim().slice(0, 40) + '#' + [...e.parentNode.children].indexOf(e)); }, boxSel)).forEach(k => seen.add(k));
@@ -104,13 +107,18 @@ async function demoLegs(prof) {
       !!t1 && !t1.length && !t1b.crimes.length && !!t1b.before && /hidden|clip/.test(t1b.before.ov) && !!t1b.after && t1b.after !== t1b.before.on);
     await P.waitForTimeout(3000); await d.clearCards().catch(() => {}); await P.waitForTimeout(1500);
     const c2 = await crimesOn(P);
-    ok('N2 ' + prof + ' the town he starts in, at rest: nothing scrolls', !c2.length, say(c2));
+    ok('N2 ' + prof + ' where the game starts (the map, or the town on an older cut), at rest: nothing scrolls', !c2.length, say(c2));
     /* N3 every building */
     /* the town he stands in (the map's own door when the crew screen took him off it) */
-    const townUp = async () => { for (const x of P.frames().filter(f => /SETTLEMENT_SCREEN/.test(f.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !BohemiaSettlement.camp().camp && !document.getElementById('arrive'); } catch (e) { return false; } }).catch(() => false)) return x; return null; };
-    let sf = await townUp();
+    /* a town ON THE GLASS (the town's frame waits invisible over the map between visits: a tap there is no town of his) */
+    const townUp = async () => { for (const x of P.frames().filter(f => /SETTLEMENT_SCREEN/.test(f.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !BohemiaSettlement.camp().camp && !document.getElementById('arrive'); } catch (e) { return false; } }).catch(() => false) && await NS.frameShown(x)) return x; return null; };
+    let stuck = false, sf = await townUp();
     if (!sf) { await d.fr.evaluate(() => { const bs = ctBases(), n = Object.keys(bs).find(k => /church/i.test(k)) || Object.keys(bs)[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); }).catch(() => {});
-      for (let i = 0; i < 60 && !sf; i++) { await P.waitForTimeout(400); sf = await townUp(); } await P.waitForTimeout(1200); }
+      for (let i = 0; i < 60 && !sf; i++) { await P.waitForTimeout(400); sf = await townUp();
+        /* 11/6 MAIN'S OWN BUG, NAMED (not this gate's to fix): the town's frame stays at opacity 0 after its door (the map's camp
+           fade-in, btwCampIn, never finishes); after 6 s the game's own rest (btwFrameRest) is called and the leg says so */
+        if (!sf && i === 15) { stuck = true; await d.fr.evaluate(() => { try { btwFrameRest(); } catch (e) {} }).catch(() => {}); } }
+      await P.waitForTimeout(1200); }
     const keys = sf ? await sf.evaluate(() => BohemiaSettlement.order()) : [];
     const s3 = [];
     for (const k of keys) {
@@ -124,13 +132,15 @@ async function demoLegs(prof) {
     }
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }).catch(() => {});
     const bad3 = s3.filter(x => x.bad.length || x.missed.length);
-    ok('N3 ' + prof + ' *** EVERY BUILDING\'S SHEET *** (' + s3.map(x => x.k + ' ' + x.pages).join(', ') + '): nothing scrolls on any page, every press on a page'
+    ok('N3 ' + prof + ' *** EVERY BUILDING\'S SHEET *** ' + (stuck ? '(the town needed the game\'s own rest to show: main\'s fade bug) ' : '') + '(' + s3.map(x => x.k + ' ' + x.pages).join(', ') + '): nothing scrolls on any page, every press on a page'
       + (bad3.length ? '; ' + bad3.slice(0, 2).map(x => x.k + ': ' + (x.bad[0] || 'missed ' + x.missed.slice(0, 2).join(', '))).join(' | ') : ''),
       keys.length >= 8 && !bad3.length);
     /* M: the checker bites (upright only) */
     if (prof === 'phone_portrait' && sf) {
-      let w = await sf.evaluate(() => BohemiaSettlement.where('hall')), fb = await (await sf.frameElement()).boundingBox();
-      await press(P, prof, fb.x + w.x, fb.y + w.y); await P.waitForTimeout(1800);
+      let hallUp = null;
+      for (let i = 0; i < 4 && hallUp !== 'hall'; i++) { const w = await sf.evaluate(() => BohemiaSettlement.where('hall')), fb = await (await sf.frameElement()).boundingBox();
+        if (w) await press(P, prof, fb.x + w.x, fb.y + w.y); await P.waitForTimeout(1800); hallUp = await sf.evaluate(() => BohemiaSettlement.state.open); }
+      await P.waitForTimeout(800);
       await sf.evaluate(() => BohemiaNoScroll.off(true)); await P.waitForTimeout(500);
       const m1 = await crimesOn(P);
       await sf.evaluate(() => BohemiaNoScroll.off(false)); await P.waitForTimeout(500);
@@ -145,8 +155,8 @@ async function demoLegs(prof) {
         d.innerHTML = '<div style="height:60px"></div><button style="width:80px;height:44px">BELOW</button>'; document.body.appendChild(d); });
       const m4 = await crimesOn(P); await P.evaluate(() => document.getElementById('ns-cut').remove());
       const has = (c, what, re) => c.some(x => x.what === what && re.test(NS.line(x)));
-      ok('M *** THE CHECKER BITES *** the pager off: the hall scrolls again (' + say(m1) + '), on again: clean (' + m1b.length + '); a planted scrolling box with a button (' + m2.length + '), a page taller than the glass (' + m3.length + '), a button below a locked edge (' + m4.length + ') each caught',
-        has(m1, 'box', /#sheet/) && !m1b.length && has(m2, 'box', /ns-plant/) && has(m3, 'page', /SETTLEMENT/) && has(m4, 'off', /BELOW/));
+      ok('M *** THE CHECKER BITES *** the hall (' + hallUp + ') with the pager off scrolls again (' + say(m1) + '), on again: clean (' + m1b.length + '); a planted scrolling box with a button (' + m2.length + '), a page taller than the glass (' + m3.length + '), a button below a locked edge (' + m4.length + ') each caught',
+        hallUp === 'hall' && has(m1, 'box', /#sheet/) && !m1b.length && has(m2, 'box', /ns-plant/) && has(m3, 'page', /SETTLEMENT/) && has(m4, 'off', /BELOW/));
     }
     /* N4 THE SETTINGS CARD, each tab */
     await P.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=settings]'); if (b) b.click(); else if (window.BohemiaSettings) BohemiaSettings.open(); }); await P.waitForTimeout(1500);

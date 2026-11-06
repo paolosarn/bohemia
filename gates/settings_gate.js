@@ -115,14 +115,21 @@ const MIN = 44;
 
   await p.evaluate(() => document.getElementById('gearbtn').click());
   await p.waitForTimeout(450);
+  /* RE-AIMED 11/6 (UI 8, rule 402: nothing scrolls, so the card is four tabs, SOUND / SCREEN / PLAY / GAME): every control and
+     every word is read on the tab that holds it, the way he turns to it (a control on a tab not shown measures 0x0, not small) */
   const panel = await p.evaluate(() => {
-    const w = document.getElementById('setwrap');
-    const ctrls = [...document.querySelectorAll('#setcard [role=button],#setcard .vb,#setcard .setbtn')]
-      .map(n => { const r = n.getBoundingClientRect();
-        return { id: n.id || String(n.className), w: Math.round(r.width), h: Math.round(r.height) }; });
+    const w = document.getElementById('setwrap'), NS = window.BohemiaNoScroll, T = NS && NS.TABS ? NS.TABS.length : 1;
+    const ctrls = [], seen = new Set(); let text = '';
+    for (let t = 0; t < T; t++) {
+      if (NS) NS.settingsTab(t);
+      [...document.querySelectorAll('#setcard [role=button],#setcard .vb,#setcard .setbtn')].forEach(n => { const r = n.getBoundingClientRect();
+        if (!(r.width > 0 && r.height > 0) || seen.has(n)) return; seen.add(n); ctrls.push({ id: n.id || String(n.className), w: Math.round(r.width), h: Math.round(r.height) }); });
+      text += ' ' + (document.getElementById('setcard').innerText || '');
+    }
+    if (NS) NS.settingsTab(0);
     return { shown: getComputedStyle(w).display !== 'none', ctrls,
              small: ctrls.filter(c => c.w < 44 || c.h < 44),
-             text: (document.getElementById('setcard').innerText || '').replace(/\s+/g,' ').trim() };
+             text: text.replace(/\s+/g,' ').trim() };
   });
   ok('the screen opens', panel.shown);
   ok('and every control on it clears the thumb (' + panel.ctrls.length + ' controls)'

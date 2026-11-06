@@ -31,6 +31,7 @@ const T = require(path.join(ROOT, 'tools/bohemia_ui_company_screen_count.js'));
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const NS = require(path.join(ROOT, 'tools/bohemia_no_scroll.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('A WEAPON TELLS YOU WHAT IT CAN DO: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -109,7 +110,13 @@ async function wholeTable(page, plant) {
     try {
       d = await drive.open({ profile: 'phone_portrait', keepCards: true, beforeTap: async (p) => { await throughTheTitle(p); } });
       const P = d.page; await P.waitForTimeout(3000); await d.clearCards().catch(() => {});
-      let sf = null; for (let i = 0; i < 60 && !sf; i++) { for (const x of P.frames().filter(f => /SETTLEMENT_SCREEN/.test(f.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !document.getElementById('arrive'); } catch (e) { return false; } }).catch(() => false)) sf = x; if (!sf) await P.waitForTimeout(400); }
+      /* a town ON THE GLASS (its frame waits invisible over the map between visits) */
+      const seen = async () => { for (const x of P.frames().filter(f => /SETTLEMENT_SCREEN/.test(f.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !document.getElementById('arrive'); } catch (e) { return false; } }).catch(() => false) && await NS.frameShown(x)) return x; return null; };
+      let sf = null; for (let i = 0; i < 10 && !sf; i++) { sf = await seen(); if (!sf) await P.waitForTimeout(400); }
+      if (!sf) { await d.fr.evaluate(() => { const bs = ctBases(), n = Object.keys(bs).find(k => /church/i.test(k)) || Object.keys(bs)[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); }).catch(() => {});
+        for (let i = 0; i < 60 && !sf; i++) { await P.waitForTimeout(400); sf = await seen();
+          if (!sf && i === 15) await d.fr.evaluate(() => { try { btwFrameRest(); } catch (e) {} }).catch(() => {}); } }   /* main's fade bug, named in the scroll gate */
+      if (!sf) throw new Error('no town on the glass after the map\'s own door');
       for (let i = 0; i < 30 && sf; i++) { if (await sf.evaluate(() => !!window.BohemiaWeaponCard && BohemiaWeaponCard.rows().length > 100).catch(() => false)) break; await P.waitForTimeout(400); }
       let opened = null;
       for (let i = 0; i < 3 && opened !== 'smith'; i++) { const w = await sf.evaluate(() => BohemiaSettlement.where('smith')), fb = await (await sf.frameElement()).boundingBox(); if (w) await P.touchscreen.tap(fb.x + w.x, fb.y + w.y); await P.waitForTimeout(1600); opened = await sf.evaluate(() => BohemiaSettlement.state.open); }
@@ -120,8 +127,9 @@ async function wholeTable(page, plant) {
       const s4 = await sf.evaluate(() => { const c = document.getElementById('bwcard'); return { card: c && c.style.display !== 'none' ? c.dataset.weapon : null, blows: c ? [...c.querySelectorAll('.bwc-r b')].map(b => b.firstChild.textContent.trim()) : [],
         strip: (document.querySelector('#shopstrip .ss-title b') || {}).textContent || '', sel: document.querySelectorAll('#sheet .slot.sel').length }; });
       const want = id ? fightBlows(BY[id]).map(wordOf) : [];
-      ok('W4 *** THE SHOP *** the smith (' + opened + '), one tap on ' + id + ': its card (' + s4.blows.join(', ') + '), the strip still names it ("' + s4.strip + '"), one piece lit (' + s4.sel + ')',
-        opened === 'smith' && !!id && s4.card === id && want.every(w => s4.blows.indexOf(w) >= 0) && s4.strip.length > 2 && s4.sel === 1);
+      const onGlass = await NS.frameShown(sf);
+      ok('W4 *** THE SHOP *** the smith (' + opened + ', the town on the glass ' + onGlass + '), one tap on ' + id + ': its card (' + s4.blows.join(', ') + '), the strip still names it ("' + s4.strip + '"), one piece lit (' + s4.sel + ')',
+        onGlass && opened === 'smith' && !!id && s4.card === id && want.every(w => s4.blows.indexOf(w) >= 0) && s4.strip.length > 2 && s4.sel === 1);
       ok('Z nothing threw on the demo', !d.errs.length, d.errs.slice(0, 2).join(' | ') || 'none');
     } catch (e) { ok('W4 the shop on the demo', false, String(e.stack).slice(0, 300)); }
     if (d) await d.close();

@@ -63,9 +63,13 @@ async function beforeBegin(page) {
   const a = await p.evaluate(() => {
     const card = document.getElementById('setcard');
     const labs = Array.from(card.querySelectorAll('.setrow .setlab')).map(l => l.textContent.trim());
-    const ctrls = Array.from(card.querySelectorAll('.vb, .setbtn')).filter(e => e.offsetParent !== null).map(e => { const r = e.getBoundingClientRect(); return { t: (e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 14), w: r.width, h: r.height }; });
-    const btns = Array.from(card.querySelectorAll('.setbtn')).filter(e => e.offsetParent !== null && e.textContent.trim()).map(e => { const r = e.getBoundingClientRect(), rg = document.createRange(); rg.selectNodeContents(e); const tr = rg.getBoundingClientRect();
-      return { t: e.textContent.trim(), tx: Math.round(tr.left - r.left), slack: Math.round(r.width - tr.width), sh: getComputedStyle(e).boxShadow, fam: getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, '') }; });
+    /* RE-AIMED 11/6 (UI 8, rule 402: the card is four tabs): every control and button is read on the tab that holds it */
+    const NS = window.BohemiaNoScroll, T = NS && NS.TABS ? NS.TABS.length : 1, seen = new Set(), ctrls = [], btns = [];
+    for (let tb = 0; tb < T; tb++) { if (NS) NS.settingsTab(tb);
+      Array.from(card.querySelectorAll('.vb, .setbtn')).filter(e => e.offsetParent !== null && !seen.has(e)).forEach(e => { seen.add(e); const r = e.getBoundingClientRect(); ctrls.push({ t: (e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 14), w: r.width, h: r.height });
+        if (!e.classList.contains('setbtn') || !e.textContent.trim()) return; const rg = document.createRange(); rg.selectNodeContents(e); const tr = rg.getBoundingClientRect();
+        btns.push({ t: e.textContent.trim(), tx: Math.round(tr.left - r.left), slack: Math.round(r.width - tr.width), sh: getComputedStyle(e).boxShadow, fam: getComputedStyle(e).fontFamily.split(',')[0].replace(/["']/g, '') }); }); }
+    if (NS) NS.settingsTab(0);
     const cs = getComputedStyle(card);
     const casing = Array.from(document.fonts).some(f => f.family.replace(/["']/g, '') === 'BohemiaCasing' && f.status === 'loaded');
     const lab = card.querySelector('.setlab'), lr = lab.getBoundingClientRect();
@@ -109,7 +113,7 @@ async function beforeBegin(page) {
   ok('MUSIC, AMBIENCE AND EFFECTS ARE SLIDERS THAT MOVE THE MIX\'S OWN KNOBS, and are saved',
     near(m.mix.music, 0.25) && near(m.mix.amb, 0.5) && near(m.mix.sfx, 0.75) && m.vals[0] === Math.round(m.mix.music * 100) && m.vals[1] === Math.round(m.mix.amb * 100)
       && m.vals[2] === Math.round(m.mix.sfx * 100) && m.saved.music === m.mix.music && m.saved.amb === m.mix.amb && m.saved.sfx === m.mix.sfx, JSON.stringify(m));
-  const tapIn = async (id, k) => { const b = await p.evaluate(({ id, k }) => { const v = document.querySelectorAll('#' + id + ' .vb')[k].getBoundingClientRect(); return [v.x + v.width / 2, v.y + v.height / 2]; }, { id, k });
+  const tapIn = async (id, k) => { const b = await p.evaluate(({ id, k }) => { const e0 = document.querySelectorAll('#' + id + ' .vb')[k]; if (window.BohemiaNoScroll) BohemiaNoScroll.reveal(e0); const v = e0.getBoundingClientRect();   /* rule 402: turned to its tab first */ return [v.x + v.width / 2, v.y + v.height / 2]; }, { id, k });
     await p.touchscreen.tap(b[0], b[1]); await p.waitForTimeout(300); };
 
   /* BRIGHT */

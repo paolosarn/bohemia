@@ -1,6 +1,6 @@
 # UI 8 -- NOTHING SCROLLS, AND A WEAPON TELLS YOU WHAT IT CAN DO (11/6/26)
 
-Rules 402 (ask line 444) and 397 (ask line 437). BUILD 11/6f - NOTHING SCROLLS.
+Rules 402 (ask line 444) and 397 (ask line 437). BUILD 11/6g - NOTHING SCROLLS.
 
 ## Rule 402: scrolling is illegal
 
@@ -83,6 +83,27 @@ Paolo 11/4: 'when I click a weapon, it should tell me what sort of extra combat 
 Gate: gates/a_weapon_tells_you_what_it_can_do_gate.js (W1 every row's blows on its card with its own AP and breath; W2
 the plain lines are words; W3 the crew screen phone and laptop; W4 the smith on the demo; M a card that drops a blow
 turns W1 red).
+
+## Gates run this round (one at a time where the box allowed; rule 13)
+
+- SCROLLING IS ILLEGAL (new): on the merged tree, phone upright 9/0 (with the alone legs), on its side 8/0, laptop 8/0.
+- A WEAPON TELLS YOU WHAT IT CAN DO (new): 7/0 on the merged tree (W4 the smith on the demo: the halberd's STRIKE and HOOK).
+- Re-aimed for the pages and tabs, each one line, marked RE-AIMED 11/6: THE SHOP TAPS 9/0 (its tap turns to the piece's page
+  first; S2 caught a real thing, the sheet changing height on the first tap: a paged box now keeps one height), SETTINGS AND
+  PAUSE 17/1 (reads every tab; the one red, the door after QUIT, is the red UI 5 recorded on main), SETTINGS IN OUR
+  MATERIALS 15/0 (reads every tab, taps BRIGHT on its own tab), THE BEST RECRUIT AT THE TOP 11/1 (C8 reads every recruit with
+  the pager's checker switch; C7, the computer on the town's page alone where the pager is not loaded, is red on main's own
+  two files too: not mine), THE COMPANY SCREEN, BATTLE BROTHERS SIMPLE 48/0 (untouched).
+- tap_picks_gate (the city builder's taps) drove 0 of 0 taps: its own environment, nothing of mine.
+
+## Found on main, not mine (for the coordinator)
+
+- THE TOWN STAYS INVISIBLE AFTER ITS DOOR on the merged main (e6c7a93f): the game now opens on the map, and after
+  loopOpenTown (the map's own door) the town's frame keeps opacity 0 (the camp fade-in of the moments between, btwCampIn in
+  slices/BOHEMIA_CITY_WORLD.html, never finishes under the demo driver); the phone turns to the town's face (LEAVE) over the
+  map. It is the same with this lane's two files blanked out (measured). Taps reach the invisible town (its frame keeps
+  pointer events), so a checker that taps a town and reads its sheet passes while the player sees the map. Both of this
+  lane's gates now refuse a town that is not on the glass, and call the game's own rest (btwFrameRest) after 6 s, saying so.
 
 [bb Battle Brothers: none of its screens scroll (the options are four tabs, the stash and the market fixed grids), and
 an item's tooltip lists each skill with its AP, fatigue and a line.]

@@ -115,10 +115,14 @@
       var all = box.querySelectorAll('.ns-off'); for (var i = 0; i < all.length; i++) all[i].classList.remove('ns-off');
       var zs = box.querySelectorAll('[data-ns-zoom]'); for (var z = 0; z < zs.length; z++) { zs[z].style.zoom = ''; zs[z].removeAttribute('data-ns-zoom'); }
       if (B.bar) B.bar.classList.add('ns-off');
+      /* A PAGED BOX KEEPS ONE SIZE (rule 250's 'nothing moves while he browses'): its height is the height it had holding
+         everything (its own ceiling), held while it has pages, so a page turn or a tap never moves what is under the finger */
+      if (B.held) { box.style.height = ''; B.held = false; }
       var key = B.opts.key ? String(B.opts.key()) : '';
       if (key !== B.key) { B.key = key; B.at = 0; }
       B.lim = 0;
       if (!shown(box) || !over(box)) { B.pages = [[]]; B.atoms = []; B.at = 0; paintBar(B); return; }
+      var fullH = box.getBoundingClientRect().height;
       if (B.bar) B.bar.classList.remove('ns-off');
       ensureBar(B);
       var A = atomsOf(B); B.atoms = A;
@@ -151,6 +155,7 @@
       /* a page of nothing but empty slots after the last thing he owns is not a page (the bag's empty places) */
       if (B.opts.blank) while (pages.length > 1 && pages[pages.length - 1].every(function (a) { return a.matches(B.opts.blank); })) pages.pop();
       B.pages = pages;
+      if (pages.length > 1 && fullH > 0 && !B.opts.barSibling) { box.style.height = Math.round(fullH) + 'px'; B.held = true; }
       if (B.at >= pages.length) B.at = pages.length - 1;
       show(B, false);
     } catch (e) { (window.__NS_LOG = window.__NS_LOG || []).push(String(e)); }
@@ -335,7 +340,8 @@
   var TOWN_CSS = ''
     + 'html body #sheet>.ns-bar{margin:8px 0 0}'
     /* the hall is a hiring screen (Battle Brothers' own is the whole screen): the glass's height, so the keeper and a recruit share a page */
-    + 'html body #sheet:has(#sbody>.acts>.hire){max-height:calc(100% - 8px)!important}'
+    + 'html body #sheet:has(#sbody>.acts>.hire),html body #sheet.shopping,html body #sheet.stalling{max-height:calc(100% - 8px)!important}'
+    /* (the phone steps aside while a sheet is open, so its 72 percent was of the whole glass: a shop's first page held the keeper and no shelf) */
     + '@media ' + WIDE + '{html body #sheet{max-height:calc(100% - 8px)!important}'
     + 'html body #sbody:has(> .who){grid-template-columns:200px minmax(0,1fr)!important}'
     + 'html body #sbody:has(> .who) > .who{flex-direction:column;padding-right:0}'

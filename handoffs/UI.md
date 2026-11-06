@@ -1,5 +1,42 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
+UI (ui-8, nothing scrolls + the weapon card): 11/6 LATEST -- [scrolling is illegal] + [the weapon card] BUILT, NOT YET SEEN (rules 402 and
+397, ask lines 444 and 437; BUILD 11/6g - NOTHING SCROLLS), IN THE DEMO. Record records/BOHEMIA_UI8_NOTHING_SCROLLS_AND_THE_WEAPON_CARD_11_6_26.md.
+- THE PAGER (slices/bohemia_ui_no_scroll.js, BohemiaNoScroll, UI's): page(box, {keep, key, atoms, barEnd, barSibling, blank}) locks a box and
+  cuts what it holds into pages (atoms: whole blocks, a container taller than 55% of the box is cut into its children; a heading never ends a
+  page; trailing pages of empty slots dropped; an atom too tall alone gets zoom, never under .75). The strip: prev, numbers (8 at most),
+  next, PAGE n OF m (a narrow strip drops the words, then the numbers). A swipe across turns a page. element.scrollIntoView() inside a
+  paged box turns to its page (patched in that frame). Re-cut on childList changes and resize; a new key starts on page 1.
+  BohemiaNoScroll.off(true) is a checker's switch only. Loaded once in the shell; plant() puts itself AND the weapon card into the
+  town's, the crew's and the spoils' frames every 700 ms (the town's file untouched but one data attribute).
+- THE SETTINGS CARD: TABS SOUND / SCREEN / PLAY / GAME by the control ids (TABS); an unnamed row goes to PLAY. A short wide glass lays the
+  card in two columns, the bar and BACK TO THE GAME on one row. The brightness picture is kept under its row (the phone's box landed
+  between them).
+- THE TOWN: #sheet paged (key: BohemiaSettlement.state.open; keep #close, #shopstrip, .hsort, and .who on a short wide glass). The hall's
+  sheet is the glass's height. Short wide glass: UI's own two columns (bohemia_ui_materials SETTLE_CSS) narrowed to a 200 px keeper column
+  with the page strip under him, a recruit's stats beside his lines, the shop's strip absolute in a 300 px right column with the page strip
+  under it (the sheet floored at the strip's height, --ns-strip-h).
+- THE ORIGINS (bohemia_ui_crashbox.js turnWire): the strip overflow hidden, the out cards hidden whole; swipe, wheel notch, arrow = one card.
+- THE CREW SCREEN (BOHEMIA_ROSTER_SCREEN.html loads both files): crewFit() sizes #bag to what is left of the glass and pages it (the strip
+  is the bag's next sibling); a wide glass zooms #man to fit (floor .66); upright, when no stash row fits, #man gives up height (floor .8).
+- THE WEAPON CARD (slices/bohemia_ui_weapon_card.js, BohemiaWeaponCard): a click on data-item="weapon:<id>" (the shop's iconTile) or a kit
+  icon's data-id (bohemia_ui_materials itemIcon now stamps it) shows #bwcard: every blow in the fight's words (name in capitals, STRIKE on the
+  first, RELOAD), AP, BREATH, REACH (ours.melee_reach, the whip's, a ranged row's range; a pistol rides ours.pistol_shot's row and the light
+  crossbow's reload, as the fight's weaponRow), a plain line from PHRASES (draft:true for WORDS), NO SPECIAL ABILITY when one blow. It stands
+  in the half the finger is not in; the next touch hides it; the tap still does its own work.
+- GATES: gates/scrolling_is_illegal_gate.js (new; 24/0 at the first full run, the one red fixed and its leg 8/0; re-run on the merged tree
+  this round), gates/a_weapon_tells_you_what_it_can_do_gate.js (new; W1-W3 and M 5/0, W4 the shop re-aimed to open the town itself).
+  tools/bohemia_no_scroll.js is the sweep any lane can call (NS.sweepAll(page), NS.crimes(rows)).
+NEXT (named): THE END OF THE FIGHT (RUN FIVE's spoils/receipt screen) ran 1.83 screens upright, 1.85 on its side, 43 presses below the glass:
+the gate prints it OWED; BohemiaNoScroll.page() is ready for RUN FIVE to call on its box. The road fight could not be started by a script
+this round (the map's meet-and-dive); the fight's page alone fits. Rule 403 (the UI's size) should reuse the pager: at a larger size the
+same boxes simply get more pages. The hall at full height covers the town picture while hiring (Battle Brothers' own is a whole screen);
+RUN FIVE may want the picture behind it. Gates that tap a hire button or a bag slot by scrollIntoViewIfNeeded must call
+BohemiaNoScroll.reveal(el) first (the shop gate's S6 scrolls the sheet to the bag: it turns pages now).
+[bb Battle Brothers: no screen scrolls; the options are four tabs; the stash and the market are fixed grids; an item's tooltip lists each
+skill with its AP, fatigue and a line.]
+[analog horror: a page turns like a monitor's channel switch, one hold of black; a weapon's card is a pawn ticket stapled to it.]
+
 UI (ui-7, tap a quest on the phone): 11/3 LATEST -- [tap a quest, your people go: the phone's half] BUILT, NOT YET SEEN (rule 376, ask
 line 404; BUILD 11/3zzzzaz - TAP A QUEST ON THE PHONE, code 3b77e4afc + f5ac27e5a, on main 2a3511db0; LIVE: pages run 4265 SUCCESS for 2a3511db0), IN THE DEMO, VOTE card
 ui7-tap-a-quest-on-the-phone-11-3 WAS beside NOW. Record records/BOHEMIA_UI7_TAP_A_QUEST_ON_THE_PHONE_11_3_26.md.
