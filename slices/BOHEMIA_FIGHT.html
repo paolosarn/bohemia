@@ -983,9 +983,17 @@ const FIGHT = (function () {
      his own place that nobody on the board wears yet, so nobody stands beside himself; only a pool smaller than the board
      repeats, and only then */
   let LOOKS_TAKEN = null;
-  function freeLook(pool, i) {
-    for (let t = 0; t < pool.length; t++) { const l = pool[(i + t) % pool.length]; if (!LOOKS_TAKEN || !LOOKS_TAKEN.has(l)) { if (LOOKS_TAKEN) LOOKS_TAKEN.add(l); return l; } }
-    return pool[i % pool.length];
+  /* __WHAT_HE_CARRIES_IS_DRAWN__ (COMBAT 8, rule 408: 'the two weapons, it's just all fucked up'): a look whose own model carries a
+     weapon (the thug's pipe, the poacher's hatchet; ours.model_carries) is dealt only to a man whose weapon is that kind, so a man with
+     a bow, a gun, a two-hander or a blade never stands in a body holding a pipe as well (two weapons, the wrong one in his fist) */
+  function modelFits(l, w) {
+    const mc = DB.ours.model_carries && DB.ours.model_carries.value, m = mc && mc.looks && mc.looks[l]; if (!m || !w) return true;
+    return !isRanged(w) && !pistolShot(w) && (w.hands || 1) === 1 && m.classes.indexOf(w.class) >= 0;
+  }
+  function freeLook(pool, i, w) {
+    for (let t = 0; t < pool.length; t++) { const l = pool[(i + t) % pool.length]; if (!modelFits(l, w)) continue; if (!LOOKS_TAKEN || !LOOKS_TAKEN.has(l)) { if (LOOKS_TAKEN) LOOKS_TAKEN.add(l); return l; } }
+    const fit = pool.filter(function (l) { return modelFits(l, w); });
+    return fit.length ? fit[i % fit.length] : pool[i % pool.length];
   }
   /* THE ROBOTS FIGHT (ROBOT [the robots fight], ask 277, Paolo 11/2: 'you made a robot and you didn't even implement it, where did
      that robot go'): THE MECHANIC's machines are his rebuilt robots, DIRECTION's master-rig robot; their own row (ours.robot) is laid
@@ -1060,7 +1068,7 @@ const FIGHT = (function () {
     let side = null; if (Ak.throws) gear.forEach(function (n) { const x = weaponByName(n); if (notNet(x) && !side && strikeSkill(x) && !isRanged(x) && !pistolShot(x)) side = x; });
     const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
     const lp = R('ours.bestiary').look_pools[id], pl = R('ours.people_looks').band, pool = (lp && pl[lp]) || pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
-    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
+    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i, w), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
       racial: (DB.racial && DB.racial.by_enemy[id]) || [], traits: (r.traits || []).slice(), ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: (R('ours.decoy').enemy_archetypes.indexOf(kind) >= 0 ? ['decoy'] : []).concat(perksByName(r.perks, S.days)),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
@@ -1575,9 +1583,24 @@ const FIGHT = (function () {
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
           if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (m.arenaRank) t.arenaRank = m.arenaRank; /* __THE_ARENA__: his pit rank */ if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && (i > 0 || (MADE && m.name === MADE))) t.name = m.name;   /* RUN THREE [make your main guy] (rule 263(b)): YOU first, by the name he gave him (bohemia.main.v1); any other first man keeps the place's name, as before */ if (m.cond) t.cond = m.cond; if (Array.isArray(m.fresh)) t.fresh = m.fresh; return t; })
       : base);
-    /* NO CAP ON HOW MANY FIGHT (COMBAT 7, rule 378(a), ask line 407): a company handed with no cap fights whole (was: twelve,
-       ours.field_size); a cap the caller hands (the origin's door, a test bench) still picks its men */
-    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || roster.length, roster.length))).map(function (c) { return Object.assign({}, c); });
+    /* NO CAP ON HOW MANY FIGHT (COMBAT 7, rule 378(a), ask line 407): no code caps how many stand on the board; AMENDED 11/3 (below):
+       his company takes Battle Brothers' field cap, the enemy none */
+    /* __THE_COMPANY_TAKES_BATTLE_BROTHERS_CAP__ (COMBAT 8, rule 378 AMENDED 11/3, ask line 413; Paolo: 'there is a 12 man cap in our
+       game bro! Could be 14 with a certain origin, how Battle Brothers does it? I think it's called like peasant militia'): HIS COMPANY
+       TAKES BATTLE BROTHERS' FIELD CAP, THE ENEMY DOES NOT (bb_all/1533_Peasant Militia.txt: 12 into a fight, 16 for the militia
+       origin). The cap is the caller's (the game's door hands the origin's, origins.json field_cap), else the origin's by its id, else
+       Battle Brothers' twelve (origins.json defaults.field_cap). The men past it WAIT IN THE RESERVE (Battle Brothers' third row of
+       the formation): never on the board, never silently gone (named in S.reserve, said at the open, never in the hand-back's crew,
+       so the map keeps them as they were); the main man always stands. Their side keeps no cap (rule 378(c)). The origin's number
+       comes in with opts.cap (the alpha's door: BOH_START.picks().cap, origins.json field_cap); with none handed, ours.field_size */
+    const fieldCap = opts.cap > 0 ? opts.cap | 0 : R('ours.field_size');
+    const capN = Math.max(1, Math.min(fieldCap, roster.length));
+    let pickI = roster.map(function (c, i) { return i; }).slice(0, capN);
+    const mainI = roster.findIndex(function (c) { return c && c.main; });
+    if (mainI >= capN) pickI = [mainI].concat(pickI.slice(0, capN - 1)).sort(function (a, b) { return a - b; });   /* YOU always stands */
+    const crew = pickI.map(function (i) { return Object.assign({}, roster[i]); });
+    S.reserve = roster.filter(function (c, i) { return pickI.indexOf(i) < 0; }).map(function (c) { return { name: c.name, look: c.look || null, background: c.background || null, level: c.level || null }; });
+    S.fieldCap = fieldCap;
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
     const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
@@ -4077,7 +4100,7 @@ const FIGHT = (function () {
     blowsHere(u, B, dw).forEach(function (o) { add(o, here, 1, 0, o.kind === 'strike' ? function () { return !!strike(u, o.t); } : function () { return !!sweep(u, o.t, null, o.name); }); });
     /* 2. a walk, then a blow or a sweep (the climb rule: a tile his way climbs a roof to gives none; a whip's lash from the second
        tile is a blow from that tile) */
-    const ring = zocOn(u, u.x, u.y);
+    const ring = zocOn(u, u.x, u.y), closeTiles = [];   /* __AUTO_KNOWS_ITS_MAN__: the tiles a club man could close in on */
     let zone = 0, pass = 1;
     ring.forEach(function (f) { const b = hurtOn(f, u, strikeSkill(f.weapon)); zone += b.v; pass *= 1 - b.p; });
     /* a man in a ring of theirs does not walk out of it through the free swings (Battle Brothers' own; Footwork is how he leaves) */
@@ -4093,7 +4116,15 @@ const FIGHT = (function () {
         if (x === u.x && y === u.y) return;
         if (keepUp && level(x, y) < lvHere) return;
         const lf = far + (isRanged(w) ? R('hit_chance.height.ranged_range_per_level') * Math.max(0, level(x, y)) : 0);
-        if (!foes(u).some(function (t) { return dist({ x: x, y: y }, t) <= lf; })) return;
+        if (!foes(u).some(function (t) { return dist({ x: x, y: y }, t) <= lf; })) {
+          /* __AUTO_KNOWS_ITS_MAN__ (rule 394(a)): no blow from it this turn; a club man with something to change to may close in on it
+             (no long chase, no roof, nearer a man of theirs who stands than he is now) */
+          if (u.side === 'you' && (u.bag || []).some(function (b) { return b && !isShield(b) && b !== w; }) && !isRanged(w) && !(fld.up && fld.up[k]) && !longChase(u, x, y, fld.best[k])) {
+            const near = function (q) { return foes(u).filter(function (t) { return t.morale !== 'Fleeing' && sideSees(u.side, t); }).reduce(function (m, t) { return Math.min(m, dist(q, t)); }, Infinity); };
+            if (near({ x: x, y: y }) < near(u)) closeTiles.push({ x: x, y: y });
+          }
+          return;
+        }
         const chase = u.side === 'you' && longChase(u, x, y, fld.best[k]);
         /* WHERE TO CLIMB (rule 332 amended, ask line 334): a roof his walk climbs onto gives no blow this turn (rule 328); it is
            worth what his next turn can do from it (its storeys' hit and range), against what he takes up there */
@@ -4132,16 +4163,95 @@ const FIGHT = (function () {
       const st = i === null ? { ammo: u.ammo, ammoMax: u.ammoMax } : u.bagState && u.bagState[i], am = b.ammo ? String(b.ammo).match(/\d+/) : null;
       return { w: b, ammo: st ? st.ammo : b.mag || (am ? Number(am[0]) : null), ammoMax: st ? st.ammoMax : b.mag || (am ? Number(am[0]) : null), loaded: true };
     };
+    /* ==== __AUTO_KNOWS_ITS_MAN__ (COMBAT 8, rule 394, Paolo 11/4: 'how good is auto at switching weapons... my Lone Wolf melee guy
+       to pull out his pistol... if I give a guy a really good gun and a really good melee weapon, will he start pulling out the melee
+       weapon if he's surrounded... does this also work with shields?'). MEASURED BEFORE (the coordinator, e0356a002, and the gate
+       gates/auto_knows_its_man_gate.js): the worth of a weapon next turn was ONE blow on the men where they stand now, so (a) a club
+       man saw nothing for his club next turn when they were still walking at him, and the pistol shot now looked free; (b) the swap
+       back next turn cost him nothing, though it is 4 of his 9 AP and so his second blow; (c) a two-hander was worth one blow, never
+       its sweep on every man beside him; and (d) a shield in the bag was never put on. NOW, for a man with a second weapon or a shield
+       to change to (Battle Brothers' bag: every swap 4 AP, Quick Hands the first one a turn free except a shield): his NEXT TURN with a
+       weapon in his hands is worth his best action there as many times as his AP and his breath carry it, against the men beside him
+       then: the men in his reach now, for a club the men of theirs walking at him who will be beside him by then and the men his own
+       walk reaches, a sweep on all it strikes; the other weapons he carries count at his AP less the swap; a one-hander with a shield
+       to put on counts the hurt the shield saves him there. A swap is weighed by that difference (what he gives up holding the other
+       one next turn is in it), closing in is scored like the climb (next turn's worth from the tile he walks to against what he takes
+       there), and the shield goes on when the hurt it saves over this round and the next beats the blows the 4 AP cost him, never
+       in a turn a kill is on offer. A man with nothing to change to is weighed exactly as before. ==== */
+    const kitW = [u.weapon].concat((u.bag || []).filter(function (b) { return b && !isShield(b) && b !== u.weapon; }));
+    const kitMan = kitW.length > 1, qhK = PK(u, 'quick_hands');
+    const bagShI = u.shield || !u.bag ? -1 : u.bag.findIndex(function (b) { return isShield(b); });
+    const bagSh = u.shield ? null : u.shieldBack || (bagShI >= 0 ? u.bag[bagShI] : null);
+    const swapNext = function () { return qhK ? qhK.swap_ap_cost : R('ap.swap_item'); };
+    const loadedOf = function (x) { if (x === u.weapon) return u.loaded; const i = u.bag ? u.bag.indexOf(x) : -1, st = i >= 0 && u.bagState && u.bagState[i]; return st ? st.loaded !== false : true; };
+    const kitFor = function (x, loaded, fat) {
+      if (x === u.weapon) return { w: x, ammo: u.ammo, ammoMax: u.ammoMax, loaded: loaded, fat: fat };
+      return Object.assign(kitOf(x, u.bag ? u.bag.indexOf(x) : null), { loaded: loaded, fat: fat });
+    };
+    /* a man of theirs who will be beside E when his next turn opens: a club of theirs, standing and free, his walk within his AP */
+    const comesTo = function (f, E) {
+      if (!onField(f) || f.decoy || f.morale === 'Fleeing' || f.disarmed || f.stunned || f.netted || !f.weapon || isRanged(f.weapon)) return false;
+      if (foes(f).some(function (o) { return o !== u && dist(o, f) === 1; })) return false;   /* held by another man of ours */
+      const walk = Math.max(0, dist(f, E) - reachOf(f.weapon)) * R('ap.move_cost.flat');
+      return walk <= f.apTurn && walk <= walkCap(f);
+    };
+    const SAVE = {};
+    const savedAt = function (E) {   /* the hurt a shield on his arm takes off what they put on him at E before his next turn */
+      if (!bagSh) return 0; const k = E.x + ',' + E.y; if (SAVE[k] !== undefined) return SAVE[k];
+      const keep = u.shield, bare = dangerOn(u, E.x, E.y, P, null);
+      u.shield = bagSh; let withS; try { withS = dangerOn(u, E.x, E.y, { parts: {}, rn: P.rn }, null); } finally { u.shield = keep; }
+      SAVE[k] = Math.max(0, bare - withS); return SAVE[k];
+    };
+    const TWC = {};
+    /* his whole turn from E with x in his hands on ap (no swap): the best action as many times as the AP and his breath carry it */
+    const turnCore = function (E, x, ap, loaded, fat) {
+      const key = E.x + ',' + E.y + ':' + (x.id || x.name) + ':' + ap + ':' + (loaded ? 1 : 0) + ':' + Math.round(fat);
+      if (TWC[key] !== undefined) return TWC[key];
+      const rs = reloadSkill(x), sk = strikeSkill(x);
+      let a = ap, ld = loaded;
+      if (isRanged(x) && rs && !x.mag && !loaded) { a -= skillAP(x, rs, u); ld = true; }
+      const room = fatMax(u) - Math.max(0, fat);
+      let best = 0;
+      if (a > 0) best = standIn(u, E.x, E.y, a, function () {
+        let b0 = 0;
+        const times = function (sAP, sFat, left) { let n = Math.floor(left / Math.max(1, sAP)); if (sFat > 0) n = Math.min(n, Math.floor(room / sFat)); return Math.max(0, n); };
+        blowsHere(u, B, dw, true).forEach(function (o) { const s = o.kind === 'sweep' ? sweepSkill(x, o.name) || sk : sk; b0 = Math.max(b0, o.deal * times(skillAP(x, s, u), o.fat, a)); });
+        if (!isRanged(x)) {
+          const sAP = skillAP(x, sk, u), sF = skillFat(u, sk), rch = reachOf(x), flat = R('ap.move_cost.flat');
+          foes(u).forEach(function (t) {
+            if (!onField(t) || t.morale === 'Fleeing' || !sideSees(u.side, t) || canStrike(u, t)) return;
+            const walk = comesTo(t, E) ? 0 : Math.max(0, dist(E, t) - rch) * flat;
+            if (walk > walkCap(u) || walk + sAP > a) return;
+            b0 = Math.max(b0, blowDeal(u, t, hurtOn(u, t, sk), B, dw) * (walk ? 1 : times(sAP, sF, a)));
+          });
+        }
+        return b0;
+      }, kitFor(x, ld, fat));
+      TWC[key] = best; return best;
+    };
+    /* the same with the shield he could have on: on his back it comes on free with a one-hander, from the bag for 4 AP; once on it
+       keeps saving, so its worth is that round's and the next's (next_turn of it), as the shield's own choice below counts it */
+    const turnWith = function (E, x, ap, loaded, fat) {
+      const core = turnCore(E, x, ap, loaded, fat);
+      if (!bagSh || bothHands(x)) return core;
+      const keeps = savedAt(E) * (1 + B.next_turn);
+      if (u.shieldBack) return core + keeps;
+      return Math.max(core, turnCore(E, x, ap - R('ap.swap_item'), loaded, fat) + keeps);
+    };
+    /* his next turn from E holding w: w (and the shield he could put on), or a swap to any other weapon he carries, its AP off (AUTO
+       makes one swap a turn: the shield then waits, unless it is on his back and comes to his arm with the one-hander) */
+    const turnWorth = function (E, w, loaded, fat) {
+      return kitW.concat(kitW.indexOf(w) < 0 ? [w] : []).reduce(function (m, x) {
+        if (x === w) return Math.max(m, turnWith(E, x, u.apTurn, loaded, fat));
+        return Math.max(m, turnCore(E, x, u.apTurn - swapNext(), loadedOf(x), fat) + (u.shieldBack && !bothHands(x) ? savedAt(E) * (1 + B.next_turn) : 0));
+      }, 0);
+    };
     const kitWorth = function (b, i) {
       const key = (b.id || b.name) + ':' + i; if (KW[key] !== undefined) return KW[key];
-      const kit = kitOf(b, i);
-      KW[key] = standIn(u, u.x, u.y, u.apTurn, function () {
-        if (isRanged(b)) return blowsHere(u, B, dw).reduce(function (m, o) { return Math.max(m, o.deal); }, 0);
-        return foes(u).filter(function (f) { return sideSees(u.side, f) && (canStrike(u, f) || (!isRanged(f.weapon) && !!threatReach(f, u))); })
-          .reduce(function (m, f) { return Math.max(m, hurtOn(u, f, strikeSkill(b)).v); }, 0);
-      }, kit);
+      KW[key] = turnWith(here, b, u.apTurn, i === null ? u.loaded : loadedOf(b), u.fat);   /* COMBAT 8: his whole next turn with it (was one blow) */
       return KW[key];
     };
+    /* ==== end __AUTO_KNOWS_ITS_MAN__ (the rest of it below: the swap's next turn, closing in, the shield) ==== */
     if (u.bag && u.btSwaps < B.swaps_a_turn) u.bag.forEach(function (b, i) {
       if (!b || isShield(b) || !canSwap(u, i)) return;
       const go = function () { u.btSwaps++; return swap(u, i); };
@@ -4209,21 +4319,44 @@ const FIGHT = (function () {
       finally { u.upRound = up; u.disarmed = dis; }
       return NB[key];
     };
+    /* __AUTO_KNOWS_ITS_MAN__ (COMBAT 8, rule 394(a)): CLOSING IN, for a club man who carries something to change to: a walk that
+       gives no blow this turn, worth next turn's from the tile he walks to (the men walking at him, his walk then) against what he
+       takes there, scored like the climb; the brain below walks him in when it is the best (the line as before) */
+    if (kitMan && !isRanged(u.weapon) && closeTiles.length) closeTiles.forEach(function (E) {
+      opts.push({ kind: 'close', deal: 0, gone: {}, pk: 0, fat: 0, E: E, value: -dangerOn(u, E.x, E.y, P, null), act: function () { u.btMoves++; return moveTo(u, E.x, E.y); } });
+    });
     opts.forEach(function (o) {
       if (o.kind === 'squeeze' || !o.E) return;
       const w = o.w || u.weapon, shot = (o.kind === 'strike' || o.kind === 'swap' || o.kind === 'footwork' || o.kind === 'reload') && o.t && isRanged(w) && reloadSkill(w) && !w.mag;
       const loaded = o.loadedAfter !== undefined ? o.loadedAfter : shot ? false : w === u.weapon ? u.loaded : true;
-      o.next = nextBest(o.E, w, loaded, u.fat + o.fat - fatBack + fromThem(o.E));
+      const fat = u.fat + o.fat - fatBack + fromThem(o.E);
+      o.next = nextBest(o.E, w, loaded, fat);
+      /* __AUTO_KNOWS_ITS_MAN__ (rule 394(b)(c)(f)): a swap, or a walk in, of a man who carries two: next turn is what holding his
+         weapon is worth from here, plus how much more (or less) his whole next turn is worth with what this leaves in his hands
+         where it leaves him (the swap back, the second blow, the sweep, the men walking at him all in it) */
+      if (kitMan && (w !== u.weapon || o.kind === 'close')) o.next = nextBest(here, u.weapon, u.loaded, fat) + turnWorth(o.E, w, loaded, fat) - turnWorth(here, u.weapon, u.loaded, fat);
       o.value += D * o.next;
     });
     /* holding: a turn with nothing spent is the rest (30 back, not 15), and next turn from here on that breath */
     const rests = u.ap >= u.apTurn, restNext = nextBest(here, u.weapon, u.loaded, u.fat - (rests ? R('ours.rest_recovery') : fatBack) + fromThem(here)), restV = holdV + D * restNext;
+    /* __AUTO_KNOWS_ITS_MAN__ (rule 394(i)): THE SHIELD IN HIS BAG goes on his arm (4 AP, never Quick Hands') when the hurt it saves
+       him here over this round and the next beats the blows those 4 AP cost him this turn; never in a turn a kill is on offer; over a
+       two-hander it cannot (the swap to the one-hander comes first, weighed above with the shield it lets him put on) */
+    if (u.side === 'you' && bagShI >= 0 && u.btSwaps < B.swaps_a_turn && canSwap(u, bagShI) && !opts.some(function (o) { return o.pk >= B.kill_on_offer; })) {
+      const sk = strikeSkill(u.weapon), sAP = skillAP(u.weapon, sk, u), sF = skillFat(u, sk), room = fatMax(u) - u.fat;
+      const hereOpts = opts.filter(function (o) { return (o.kind === 'strike' || o.kind === 'sweep') && o.E === here; });
+      const bestHere = hereOpts.reduce(function (m, o) { return Math.max(m, o.deal); }, 0), baseV = hereOpts.reduce(function (m, o) { return Math.max(m, o.value); }, restV);
+      const nOf = function (ap) { let n = Math.floor(ap / Math.max(1, sAP)); if (sF > 0) n = Math.min(n, Math.floor(room / sF)); return Math.max(0, n); };
+      const lost = bestHere > 0 ? (nOf(u.ap) - nOf(u.ap - R('ap.swap_item'))) * bestHere : 0, gain = savedAt(here) * (1 + D) - lost;
+      if (gain > 0) opts.push({ kind: 'shield', deal: gain, value: baseV + gain, gone: {}, pk: 0, fat: 0, E: here, next: 0, w: u.weapon, act: function () { u.btSwaps++; return swap(u, bagShI); } });
+    }
     const hits = opts.some(function (o) { return o.deal > 0 && o.kind !== 'climb'; });
     if (!hits && !opts.some(function (o) { return o.kind === 'climb' && o.value > restV; })) return null;
     /* OUT OF STAMINA: an action that would leave him unable to swing next turn is dropped unless it drops a man at kill_on_offer or
        better; nothing useful left, he holds (a turn with nothing spent is the rest; Recover in its place when it gives more back) */
     const fit = opts.filter(function (o) {
       if (o.kind === 'climb') return o.next > 0 && o.value > restV;   /* a roof is taken only for a shot from it next turn that beats holding */
+      if (o.kind === 'close') return o.value > restV;   /* __AUTO_KNOWS_ITS_MAN__: closing in, only when it beats holding */
       if (o.deal <= 0) return false;
       const w = o.w || u.weapon;
       return o.kind === 'squeeze' || o.pk >= B.kill_on_offer || u.fat + o.fat - fatBack + fromThem(o.E || here) + skillFat(u, strikeSkill(w)) <= fatMax(u);
@@ -7478,6 +7611,7 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
   wearOver(v, c, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER): his helmet and his body armour, under his gun */
+  laidDraw(v, 'under', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__ */
   if (!(gs && ownGunDraw(ownGun(v, L), 'idle', c.pose, 0, f, ox, oy, s, im)) && g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);   /* __THE_SIX_GUNS__ */
   UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
   return true;
@@ -7583,6 +7717,7 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
   wearOver(v, { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
+  laidDraw(v, 'under', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__: a shield under his gun on this facing */
   if (!(kind && ownGunDraw(ownGun(v, L), 'hold', hc[0], hc[1], f, ox, oy, s, im)) && gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }   /* __THE_SIX_GUNS__: his row's own gun first */
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
   punchTint(v, now, img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s);   /* THE PUNCH, on the held picture */
@@ -7713,8 +7848,9 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const b = meleeBody(src, f, L, e, d); if (!b || !b[0]) return null;
   /* what he holds on this key: the thing in his fist (never a second one on a man whose own model carries his) and his shield */
   const lay = [];   /* [sheet, cell]: each thing off its layer's sheet (a man decodes only the layers he holds) */
+  const heldW = modelCarries(L._key, e);   /* __WHAT_HE_CARRIES_IS_DRAWN__: his model's own weapon (the thug's pipe), never the Heavy's battery */
   [prop, sh && !e.own_shield ? sh : null].forEach(function (q) {
-    if (!q || (q === prop && e.held)) return;
+    if (!q || (q === prop && heldW)) return;
     const tg = thing(q, src[0]), pk = tg && tg[1], ix = pk && pk.k && pk.k[src[1]] && pk.k[src[1]][f], ps = pk && tg[0].props.sheets && tg[0].props.sheets[pk.l];
     if (!pk || !ps || !pk.k || !pk.k[src[1]]) { lay.push(false); return; }
     /* __THE_SIX_GUNS__: the shield arm's pistol is his row's own (the zip gun, the snub) where his pistol is YOU's picture */
@@ -7729,6 +7865,9 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
     lay.push([im_, ps.cells[ix], fo ? L.foot[0] - fo.foot[0] : 0, fo ? L.foot[1] - fo.foot[1] : 0]);
   });
   if (lay.indexOf(false) >= 0) return null;   /* never a man without what he holds: as before until it is in */
+  /* __WHAT_HE_CARRIES_IS_DRAWN__ (COMBAT 8, rule 408): a shield his own shield keys cannot hold is laid on him off the donor's layer */
+  const shL = shield && !sh && !e.own_shield && !two && !bow ? laidCell(v, p, L, 'S', shield, kind, now) : null;
+  if (Array.isArray(shL)) lay.push(shL);
   if (lay.length === 2 && !M.shield_over[DIR8[f]]) lay.reverse();   /* the weapon over the shield where his right side is toward the glass */
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; }, bc = b[1];
@@ -7739,10 +7878,79 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   punchTint(v, now, b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s);   /* THE PUNCH, on his idle */
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
   if (sh) UI.clipSeen['shield:' + sh] = (UI.clipSeen['shield:' + sh] || 0) + 1;
-  if (prop && !e.held) UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;   /* only a thing drawn: a man whose model carries his own (the thug's pipe) counts as held */
+  if (Array.isArray(shL)) { UI.clipSeen['shield:' + shield] = (UI.clipSeen['shield:' + shield] || 0) + 1; UI.clipSeen['laid:S'] = (UI.clipSeen['laid:S'] || 0) + 1; }
+  if (prop && !heldW) UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;   /* only a thing drawn: a man whose model carries his own (the thug's pipe) counts as held */
   else if (prop) UI.clipSeen['held:' + prop] = (UI.clipSeen['held:' + prop] || 0) + 1;
+  v._md = { at: now, sh: !!(sh || e.own_shield || shL !== null), prop: !!prop };   /* what his own keys drew this frame: the rest is laid on him (laidDraw) */
   return true;
 }
+/* ==== __WHAT_HE_CARRIES_IS_DRAWN__ (COMBAT 8, rule 408 and ask line 456, Paolo 11/4: 'the shields were disappearing recently, I
+   can't see the shields... the two weapons, it's just all fucked up'). MEASURED BEFORE (tools/bohemia_combat_what_he_carries_is_drawn_
+   probe_11_5_26.js and the gate's P4): the shield, the two-hander and the bow were drawn ONLY through a look's own posed keys (the
+   shield arm, the two-handed grip, the bow hand), and a look without them drew the man WITHOUT the thing, 'as before until it is in':
+   the car door on 25 of 121 human looks with a pistol and 44 with a pipe, the sledge in two hands on 40; every rolled man of nine
+   gangs (the cartel, the remnants, the blues, the church, the volunteers, the caravans, the trades, the network, the colorful), the
+   cast looks, and the thug and the poacher (their shield layer held back) went into the fight with a shield on his arm and none on
+   the glass, and a two-hander or a bow swung from empty hands. NOW, Battle Brothers' way (a shield and a weapon are their own
+   sprites laid on the body, whatever the body's pose): what his own keys cannot draw is LAID on his body off the layer of the man
+   who has it (his own look's sheet, then his gang's, then YOU's, the cell moved by the difference of their feet, as a rolled man's
+   things already are), on the key of the pose he is in (standing, walking, the blow, the shot, the hit, on one knee in cover), the
+   shield over or under his weapon by the facing (shield_over), behind him where the layer is behind; never while he lies down, never
+   on a machine, a ghost, a beast or a man whose own model wears his (the Heavy's crash bar, a boss's own kit). ==== */
+/* his model carries a WEAPON of its own (ours.model_carries: the thug's pipe, the poacher's hatchet), so nothing is drawn in his fist;
+   a model that carries something else (the Heavy's exo battery on its strap) still has his weapon drawn in his hand */
+function modelCarries(key, e) {
+  if (!e || !e.held) return false;
+  let m = null; try { m = R('ours.model_carries').looks; } catch (x) { return true; }   /* no row: as before */
+  return !!(m && m[key]);
+}
+function laidCell(v, p, L, how, q, kind, now) {
+  const M = MELEE.meta, Y = M && meleeLook('you'); if (!Y || !q) return null;
+  if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
+  const e0 = meleeLook(L._key), gk = e0 ? (e0.ref || e0.props_ref) : L.ref, r1 = gk ? meleeLook(gk) : null;
+  const donors = [[e0, L._key], [r1, gk], [Y, 'you']].filter(function (x, i, a) { return x[0] && x[0].props && a.findIndex(function (y) { return y[0] === x[0]; }) === i; });
+  const mc = meleeClip(v, p, L, Y, how, q, kind, now); if (!mc) return null;   /* the pose read on YOU's keys: he has every one */
+  const src = M.composite[mc[0]] && M.composite[mc[0]][mc[1]]; if (!src) return null;
+  const f = v._face || 0;
+  for (let i = 0; i < donors.length; i++) {
+    const D = donors[i][0], by = D.props.by[q], pk = by && by[src[0]], ps = pk && D.props.sheets[pk.l];
+    if (!pk || !ps || !pk.k || !pk.k[src[1]]) continue;
+    const ix = pk.k[src[1]][f]; if (ix === null || ix === undefined) return 'behind';
+    const im_ = holdImg(ps.file, 'rig_melee/'); if (!im_) return false;
+    const fo = DB.rig.looks[donors[i][1]] || DB.rig.looks.you;
+    return [im_, ps.cells[ix], L.foot[0] - fo.foot[0], L.foot[1] - fo.foot[1]];
+  }
+  return null;
+}
+/* what is laid on him this frame, worked out once (after his own keys have had their go): { under: [], over: [] }, 'under' his gun
+   (drawn between his body and his gun), 'over' everything */
+function laidOf(v, p, L, gs, now) {
+  if (v._laidAt === now) return v._laid;
+  v._laidAt = now; v._laid = null;
+  if (v.machine || v.ghost || v.beast || L.kind === 'beast' || L.own_kit || v._fallAt !== undefined || p.clip === 'fall' || !MELEE.meta) return null;
+  const md = v._md && v._md.at === now ? v._md : null, e0 = meleeLook(L._key), kind = gs ? DB.rig.guns.order[gs.row] : null;
+  const mp = gs ? null : meleeProp(v), two = mp && mp[1], bow = mp && mp[2];
+  const out = { under: [], over: [] }, f = v._face || 0, over = !!MELEE.meta.shield_over[DIR8[f]];
+  let thing = null, shield = null;
+  if (mp && !(md && md.prop) && !modelCarries(L._key, e0)) { const c = laidCell(v, p, L, bow ? 'B' : two ? 'T' : 'M', mp[0], kind, now); if (Array.isArray(c)) thing = [c, mp[0], bow ? 'B' : two ? 'T' : 'M']; }
+  const sq = !two && !bow ? shieldProp(v) : null;
+  if (sq && !(md && md.sh) && !(e0 && e0.own_shield) && !(kind === 'pistol' && holdReload(v, kind, holdCovered(v), now))) {   /* the reload: his left hand leaves the shield */
+    const c = laidCell(v, p, L, 'S', sq, kind === 'pistol' ? 'pistol' : null, now); if (Array.isArray(c)) shield = [c, sq, 'S'];
+  }
+  if (!thing && !shield) return null;
+  if (gs) { if (shield) out[over ? 'over' : 'under'].push(shield); }
+  else { const two_ = [thing, shield].filter(Boolean); if (two_.length === 2 && !over) two_.reverse(); out.over = two_; }
+  v._laid = out; return out;
+}
+function laidDraw(v, which, p, L, gs, ox, oy, s, now) {
+  const o = laidOf(v, p, L, gs, now), list = o && o[which]; if (!list || !list.length) return;
+  const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  list.forEach(function (t) { const q = t[0], g = q[1];
+    cx.drawImage(dark ? nightSheet(q[0], moonOf(x, y)) : q[0], g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s);
+    UI.clipSeen[(t[2] === 'S' ? 'shield:' : 'prop:') + t[1]] = (UI.clipSeen[(t[2] === 'S' ? 'shield:' : 'prop:') + t[1]] || 0) + 1;
+    UI.clipSeen['laid:' + t[2]] = (UI.clipSeen['laid:' + t[2]] || 0) + 1; });
+}
+/* ==== end __WHAT_HE_CARRIES_IS_DRAWN__ ==== */
 /* ==== end __WHAT_A_MAN_HOLDS__ ==== */
 /* ==== __THE_SIX_GUNS__ (COOK GUNS, rule 337, ask line 344, Paolo 11/3: 'we don't have enough assets... weapons'). The zip gun,
    the snub revolver, the lever rifle, the scoped deer rifle, the sawed-off and the pump shotgun each drawn as its own model in
@@ -7811,7 +8019,8 @@ function blitMan(v, X, feet, now, alpha) {
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   if (!idled) { const dx_ = Math.round(dx(v)), dy_ = Math.round(dy(v));   /* __THE_ARMOUR_HE_WEARS_SHOWS__: read off his day sheet, the night laid on the piece */
-    wearOver(v, { img: UI.imgs['fight_rig/' + L.file] || img, x: p.col * L.w, y: (v._face || 0) * L.h, w: L.w, h: L.h, dx: 0, dy: 0 }, ox, oy, s, FIGHT.S.night && !FIGHT._t.litAt(dx_, dy_), dx_, dy_); }
+    wearOver(v, { img: UI.imgs['fight_rig/' + L.file] || img, x: p.col * L.w, y: (v._face || 0) * L.h, w: L.w, h: L.h, dx: 0, dy: 0 }, ox, oy, s, FIGHT.S.night && !FIGHT._t.litAt(dx_, dy_), dx_, dy_);
+    laidDraw(v, 'under', p, L, gs, ox, oy, s, now); }   /* __WHAT_HE_CARRIES_IS_DRAWN__ */
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
      him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him; only in the fall
@@ -7823,6 +8032,7 @@ function blitMan(v, X, feet, now, alpha) {
   const fl = hitFlash(v, now); if (fl > 0 && !idled) tintOver(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, fl, '#d42a1a');
   if (!idled) { const gk = gs && DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     punchTint(v, now, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, gc !== undefined && gc !== null && gs && !own_ ? [gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h] : null); }   /* THE PUNCH */
+  laidDraw(v, 'over', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__: the shield, the two-hander, the bow his own keys could not hold */
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
      map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
@@ -8496,6 +8706,13 @@ function slungSay() {
   const m = FIGHT.alive('you').filter(function (v) { return v.shieldBack && !v.shield && FIGHT._t.bothHands(v.weapon); });
   return m.map(function (v) { return wfill(BAG_SAYS.slung, Object.assign({ what: armName(v, v.weapon) }, doorWords(v))); }).join(' ');
 }
+/* __THE_COMPANY_TAKES_BATTLE_BROTHERS_CAP__ (COMBAT 8, rule 378 amended): the men past the fight's cap are said at the open, never
+   left to be missed ('no man in a fight is ever silently left off the board') */
+const RESERVE_SAYS = { one: '{name} waits in the reserve.', many: '{n} wait in the reserve: {cap} is the most that fight.' };   /* draft:true */
+function reserveSay() {
+  const R0 = FIGHT.S.reserve || []; if (!R0.length) return '';
+  return R0.length === 1 ? wfill(RESERVE_SAYS.one, { name: R0[0].name }) : wfill(RESERVE_SAYS.many, { n: R0.length, cap: FIGHT.S.fieldCap });
+}
 /* a bag item's name in his words: a weapon by its line ('rifle', 'pipe'), any shield the car door (the fight's word for one) */
 function bagName(u, w) { return !w ? '' : FIGHT.isShield(w) ? 'car door' : armName(u, w); }
 function bagTap(i) {
@@ -9085,7 +9302,7 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, arena: S.arena ? (S.arena.id || true) : null,   /* __THE_ARENA__ */ cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, reserve: (S.reserve || []).map(function (m) { return m.name; }),   /* rule 378 amended: who waited it out (never in crew) */ arena: S.arena ? (S.arena.id || true) : null,   /* __THE_ARENA__ */ cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null, kills: v.kills | 0, best: v.best || null,   /* WORDS rule 316: his kills and his best foe, for his record */
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
@@ -9688,7 +9905,8 @@ function start() {
        under a wolf's turn tells him to do something he cannot (COMBAT [the fight holds the grid]) */
     const first = FIGHT.current();
     const sls = UI.resumed ? '' : slungSay();   /* rule 191(b): a car door on a man's back is said, never left to be found */
-    say([UI.resumed ? 'Back where you left it. Round ' + FIGHT.S.round + '.' : dep ? deploySay() : first && first.side === 'them' && !UI.auto ? theirsSay() : walkSay(), sls].filter(Boolean).join(' ')); hud();
+    const rsv = UI.resumed ? '' : reserveSay();   /* rule 378 amended: the men who wait this one out */
+    say([UI.resumed ? 'Back where you left it. Round ' + FIGHT.S.round + '.' : dep ? deploySay() : first && first.side === 'them' && !UI.auto ? theirsSay() : walkSay(), sls, rsv].filter(Boolean).join(' ')); hud();
     if (dep) teachSoon('deploy');
   });
 }

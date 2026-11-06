@@ -12,7 +12,9 @@
    N2 THE BOARD GROWS, NOTHING BLACK (headless): 60 against 100: everyone stands; the board grew by whole blocks and every block of
       it is dealt (no empty block, no black margin)
    N3 A HANDED LINE OF EIGHTEEN AND SIX MORE: a roster's front and back rows full and six men the roster left out: all 24 stand
-   N4 A COMPANY HANDED WITH NO CAP FIGHTS WHOLE: 14 handed, 14 on the board (was: twelve, ours.field_size)
+   N4 AMENDED (rule 378 amended, COMBAT 8): 14 handed with no cap, 12 stand (Battle Brothers' field cap, ours.field_size), 2 named in
+      the reserve; N6 the Block Watch's door cap of 16 (origins.json): 20 handed, 16 stand, 4 in the reserve; N7 their side no cap
+      (12 against 40, all 52 stand); N8 the reserve is the rest of his line by name
    N5 ON HIS PHONE (upright 390 x 844, the fight page, AUTO): 30 against 40, all 70 on the board; the page's draw stays inside a
       60 fps frame (mean under 16.7 ms) or within 1.6 times a fight of twelve a side on the same board and seed; nothing threw
    Run: node gates/no_cap_on_how_many_fight_gate.js [--headless-only] */
@@ -65,12 +67,39 @@ function setup(ctx, nm, nb, sd, kind) { const F = ctx.FIGHT, P = mk(nm, nb); ctx
   leg(r.his === 24 && !r.off && !r.stacked && !r.wrongSide, '*** N3 A HANDED LINE OF EIGHTEEN AND SIX MORE ***: the roster\'s two rows full, six left out: all 24 stand', JSON.stringify(r));
 }
 
-/* N4 */
+/* N4 AMENDED (COMBAT 8, rule 378 amended 11/3, ask line 413: 'there is a 12 man cap in our game bro! Could be 14 with a certain
+   origin, how Battle Brothers does it?'): HIS COMPANY TAKES BATTLE BROTHERS' CAP, THE ENEMY DOES NOT. Measured before (main 7889d375):
+   14 handed with no cap, 14 on the board (COMBAT 7's no-cap reading); a 20-man Block Watch at its door's 16, the four past it gone
+   without a word. */
 {
   const ctx = engine(), F = ctx.FIGHT, P = mk(14, 6); ctx.setSeed(5);
   F.setup({ kind: 'suburb', formation: null, deploy: false, company: P.company, band: P.band });
+  const r = stood(F), rs = F.S.reserve || [];
+  leg(r.his === 12 && !r.off && rs.length === 2 && rs.every(m => m && m.name),
+    '*** N4 HIS COMPANY TAKES BATTLE BROTHERS\' CAP *** (rule 378 amended): 14 handed with no cap, 12 on the board (ours.field_size), the 2 past it named in the reserve, nobody off the board',
+    JSON.stringify(r) + '; reserve ' + rs.map(m => m.name).join(', '));
+}
+/* N6: the Block Watch (origins.json 'watch', field_cap 16, the door hands it as cap) */
+{
+  const ctx = engine(), F = ctx.FIGHT, OG = require(path.join(ROOT, 'records/target/bb/origins.json'));
+  const watch = OG.origins.filter(o => o.id === 'watch')[0], P = mk(20, 10); ctx.setSeed(6);
+  F.setup({ kind: 'suburb', formation: null, deploy: false, company: P.company, cap: watch.field_cap, band: P.band });
+  const r = stood(F), rs = F.S.reserve || [];
+  leg(watch.field_cap === 16 && watch.roster_cap === 25 && r.his === 16 && rs.length === 4 && !r.off,
+    '*** N6 THE BLOCK WATCH TAKES SIXTEEN *** (Battle Brothers\' Peasant Militia, bb_all/1533: 16 into a fight, 25 kept): 20 handed at its door\'s cap, 16 stand, 4 in the reserve',
+    'origins.json watch ' + watch.field_cap + '/' + watch.roster_cap + '; ' + JSON.stringify(r) + '; reserve ' + rs.length);
+}
+/* N7: the enemy keeps no cap; N8: YOU always stands */
+{
+  const ctx = engine(), F = ctx.FIGHT, P = mk(14, 40); ctx.setSeed(7);
+  F.setup({ kind: 'suburb', formation: null, deploy: false, company: P.company, band: P.band, party: { band: P.band, count: 40, rolled: true } });
   const r = stood(F);
-  leg(r.his === 14 && !r.off, '*** N4 A COMPANY HANDED WITH NO CAP FIGHTS WHOLE ***: 14 handed, 14 on the board', JSON.stringify(r));
+  leg(r.his === 12 && r.theirs === 40 && !r.off && !r.stacked, '  N7 their side keeps no cap: 12 of his against 40 of theirs, all 52 on the board', JSON.stringify(r));
+  const Q = mk(14, 6); Q.company.forEach((m, i) => { m.name = 'M' + i; }); ctx.setSeed(8);
+  const base = ctx.DB.ours.crew.value; Q.company = Q.company.map((m, i) => Object.assign({}, m));
+  F.setup({ kind: 'suburb', formation: null, deploy: false, company: Q.company, band: Q.band });
+  const mains = F.S.units.filter(u => u.side === 'you' && u.main).length, rs = F.S.reserve || [];
+  leg(F.S.units.filter(u => u.side === 'you').length === 12 && rs.length === 2, '  N8 the cap picks the first twelve of his line, and the reserve is the rest by name', 'on the board ' + F.S.units.filter(u => u.side === 'you').length + ', reserve ' + rs.map(m => m.name).join(', ') + ', mains ' + mains + ' (ours.crew ' + base.length + ')');
 }
 
 (async () => {

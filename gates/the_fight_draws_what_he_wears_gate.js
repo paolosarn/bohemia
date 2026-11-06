@@ -29,7 +29,14 @@
       Measured 10/25: the car door in all eight facings on 5 of 96 looks (YOU and four town men; the cast and the rolled men draw
       the pistol or the pipe in every facing and no door), the sledge in two hands on 0 (its keys are in on five looks, the
       sledge's layer on them is not).
-   Run: node gates/the_fight_draws_what_he_wears_gate.js [--quick: H1 only] */
+   AMENDED COMBAT 8 11/5 (rule 408, ask line 456: 'the shields were disappearing recently, I can't see the shields... the two
+   weapons, it's just all fucked up'; records/BOHEMIA_COMBAT_8_THE_SHIELDS_SHOW_AND_AUTO_KNOWS_ITS_MAN_11_5_26.md): a look with no
+   keys for what he holds now has it LAID on his body (laidDraw), so:
+   H2 a body whose own model carries a weapon (ours.model_carries) goes only to a man who holds that kind (main: 47 of 60 wrong);
+   P4's floors raised to what is drawn now (main 25, 44, 40 of 121), and the instrument counts laidDraw too;
+   P5 WHAT HE CARRIES IS DRAWN: the door with a pipe, with a pistol, and the sledge, all eight facings, on EVERY human look but those
+      whose own model carries its own.
+   Run: node gates/the_fight_draws_what_he_wears_gate.js [--quick: H1 and H2 only] */
 'use strict';
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
@@ -37,7 +44,7 @@ let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 const done = () => { console.log('=== THE FIGHT DRAWS WHAT HE WEARS GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
 /* the floor of P4, measured 10/25 (the looks drawn with each kit in all eight facings, of the human looks the fight deals) */
-const FLOOR = { door_pistol: 5, door_pipe: 5, sledge: 0 };
+const FLOOR = { door_pistol: 114, door_pipe: 110, sledge: 113 };   /* COMBAT 8 11/5 (rule 408): raised to what the laid layers draw (was 5, 5, 0) */
 
 (async () => {
   /* H1: the rules */
@@ -67,6 +74,17 @@ const FLOOR = { door_pistol: 5, door_pipe: 5, sledge: 0 };
     ids.forEach((id, k) => { try { ctx.setSeed(100 + k); F.setup({ company: crew.slice(2), cap: 12, deploy: false, formation: null, flat: true, band: [id, id, id] });
       F.S.units.filter(u => u.side === 'them').forEach(u => { men++; if (u.shield && u.weapon && F._t.bothHands(u.weapon)) both++; }); } catch (e) { /* a band the board cannot field */ } });
     leg(both === 0 && men > 0, '  no man of theirs holds a shield with a two-hander', both + ' of ' + men + ' men over ' + ids.length + ' bands');
+    /* H2 (COMBAT 8, rule 408, 'the two weapons'): a look whose own model carries a weapon (ours.model_carries: the thug's pipe, the
+       poacher's hatchet) is dealt only to a man whose weapon is a one-hander of that class; measured 11/5 before: the thug's body went
+       to men with a woodcutter's axe, a pitchfork, a shortsword, and the poacher's to men with a bow (a hatchet drawn, a bow shot) */
+    const MC = D.ours.model_carries.value.looks;
+    let inModel = 0, wrong = 0; const ex = [];
+    for (let k = 0; k < 60; k++) { try { ctx.setSeed(500 + k); F.setup({ company: crew.slice(2), cap: 12, deploy: false, formation: null, flat: true, band: ['brigand_thug', 'brigand_thug', 'brigand_poacher', 'brigand_poacher', 'brigand_thug'] });
+      F.S.units.filter(u => u.side === 'them' && MC[u.look]).forEach(u => { inModel++; const w = u.weapon;
+        const fits = w && !F.isRanged(w) && (w.hands || 1) === 1 && MC[u.look].classes.indexOf(w.class) >= 0;
+        if (!fits) { wrong++; if (ex.length < 3) ex.push(u.look + ' with ' + (w && w.id)); } }); } catch (e) { /* a band the board cannot field */ } }
+    leg(wrong === 0 && inModel > 0, '  H2 a body that carries its own weapon goes only to a man who holds that kind (no bow, gun, two-hander or blade out of the thug\'s pipe)',
+      wrong + ' wrong of ' + inModel + ' men dealt such a body over 60 deals' + (ex.length ? ' (' + ex.join('; ') + ')' : ''));
   }
   if (process.argv.indexOf('--quick') >= 0) return done();
 
@@ -95,14 +113,17 @@ const FLOOR = { door_pistol: 5, door_pipe: 5, sledge: 0 };
     const shOf = v => { const m = M(); return m && v.shield ? m.shield_by_row[(v.shield.of || v.shield).id] || null : null; };
     W.propOf = propOf; W.shOf = shOf;
     const rec = (v, k) => { const r = W.men[v.id] = W.men[v.id] || {}; r[k] = (r[k] || 0) + 1; };
-    const md = window.meleeDraw; window.meleeDraw = function (v) {
+    const wrapDraw = name => { const md = window[name]; if (typeof md !== 'function') return; window[name] = function (v) {
       const b = Object.assign({}, FIGHT_UI.clipSeen), out = md.apply(this, arguments);
       Object.keys(FIGHT_UI.clipSeen).forEach(k => { if ((FIGHT_UI.clipSeen[k] || 0) <= (b[k] || 0)) return;
         const L = lookOf(v), e = L && MELEE.looks[L._key] && MELEE.looks[L._key].d;
         if (/^shield:/.test(k)) { rec(v, k + '@' + v._face); if (k.slice(7) !== shOf(v)) W.bad.push(v.id + ' ' + k + ' with ' + shOf(v)); }
         if (/^prop:/.test(k)) { rec(v, k + '@' + v._face); if (k.slice(5) !== propOf(v)) W.bad.push(v.id + ' ' + k + ' with ' + propOf(v));
-          else if (e && e.held) W.debt.push(v.id + ' ' + L._key + ' holds his model\'s ' + e.held.join('/') + ' for ' + k.slice(5)); } });
-      return out; };
+          else if (e && e.held) W.debt.push(v.id + ' ' + L._key + ' holds his model\'s ' + e.held.join('/') + ' for ' + k.slice(5)); }
+        if (/^laid:/.test(k)) rec(v, k + '@' + v._face); });
+      return out; }; };
+    /* COMBAT 8 (rule 408): what his own keys cannot hold is laid on him (laidDraw, __WHAT_HE_CARRIES_IS_DRAWN__), counted the same */
+    wrapDraw('meleeDraw'); wrapDraw('laidDraw');
     const gs = window.gunSheet; window.gunSheet = function (v, L) { const o = gs.apply(this, arguments);
       if (o) { const kd = DB.rig.guns.order[o.row]; rec(v, 'gun:' + kd + '@' + v._face);
         const want = v.weapon && FIGHT.isGun(v.weapon) ? DB.rig.guns.by_class[(v.weapon.of && v.weapon.of.class) || v.weapon.class] : null;
@@ -168,7 +189,7 @@ const FLOOR = { door_pistol: 5, door_pipe: 5, sledge: 0 };
     const Y = FIGHT.S.units.filter(v => v.name === 'YOU')[0], pistol = Y.weapon;
     const row = id => DB.weapons.rows.filter(r => r.id === id)[0], door = DB.armor.shields.filter(r => r.id === 'wooden_shield')[0];
     const kits = { door_pistol: [pistol, door], door_pipe: [row('bludgeon'), door], sledge: [row('two_handed_mallet'), null] };
-    const res = {}, missing = {};
+    const res = {}, missing = {}, thing = {};
     for (const kit of Object.keys(kits)) {
       res[kit] = 0; missing[kit] = [];
       for (let b = 0; b < looks.length; b += mine.length) {
@@ -181,14 +202,29 @@ const FLOOR = { door_pistol: 5, door_pipe: 5, sledge: 0 };
           const sh = W.shOf(v), pr = W.propOf(v), gun = FIGHT.isGun(v.weapon);
           const ok = (gun ? all('gun:pistol') : all('prop:' + pr)) && (!sh || all('shield:' + sh));
           const n = k => [0, 1, 2, 3, 4, 5, 6, 7].filter(f => r[k + '@' + f]).length;
-          if (ok) res[kit]++; else missing[kit].push(v._wl + ' ' + (gun ? n('gun:pistol') : n('prop:' + pr)) + (sh ? '+' + n('shield:' + sh) : '') + '/8'); });
+          if (ok) res[kit]++; else missing[kit].push(v._wl + ' ' + (gun ? n('gun:pistol') : n('prop:' + pr)) + (sh ? '+' + n('shield:' + sh) : '') + '/8');
+          /* P5's count: the thing that went missing for rule 408, the shield on his arm, the two-hander in his hands */
+          const L = lookOf(v), e = MELEE.looks[L._key] && MELEE.looks[L._key].d, mc = DB.ours.model_carries && DB.ours.model_carries.value.looks;
+          const own = !!(L.own_kit || L.kind === 'robot' || (mc && mc[v._wl]) || (e && e.own_shield));
+          (thing[kit] = thing[kit] || { ok: 0, of: 0, bare: [] }); if (own) return; thing[kit].of++;
+          const got = sh ? n('shield:' + sh) : n('prop:' + pr); if (got === 8) thing[kit].ok++; else thing[kit].bare.push(v._wl + ' ' + got + '/8'); });
       }
     }
     mine.forEach(v => { v._turnAt = 0; });
     const armour = FIGHT.S.units.filter(v => v.bodyRow || v.headRow).length;
-    return { looks: looks.length, res, missing, armour }; });
+    return { looks: looks.length, res, missing, armour, thing }; });
   Object.keys(FLOOR).forEach(k => leg(p4.res[k] >= FLOOR[k], '  P4 THE DEBT (ANIMATION [gear as layers on the rig], COOK [a model for every item]): looks drawn with ' + k.replace('_', ' and ') + ' in all eight facings, never fewer than ' + FLOOR[k],
-    p4.res[k] + ' of ' + p4.looks + ' human looks; not yet: ' + p4.missing[k].slice(0, 6).join(' ') + (p4.missing[k].length > 6 ? ' and ' + (p4.missing[k].length - 6) + ' more' : '')));
+    p4.res[k] + ' of ' + p4.looks + ' human looks; not yet: ' + p4.missing[k].slice(0, process.env.WEAR_ALL ? 999 : 6).join(' ') + (p4.missing[k].length > 6 && !process.env.WEAR_ALL ? ' and ' + (p4.missing[k].length - 6) + ' more' : '')));
+  /* P5 (COMBAT 8, rule 408 and ask line 456: 'the shields were disappearing... the two weapons, it's just all fucked up'): EVERY human
+     look the fight deals draws the shield on his arm (with a pipe, with a pistol) and the two-hander in his hands, in all eight facings;
+     the only looks apart are those whose own model wears or carries its own (a boss's kit, the robot, the Heavy's crash bar, the thug's
+     pipe and the poacher's hatchet, ours.model_carries). Measured 11/5 before the fix: the door with a pipe on 44 of 121, with a pistol
+     25, the sledge 40 (the rest drew him WITHOUT it). The bug is a check that stays (rule 408(d)). */
+  [['door_pipe', 'the car door on his arm, a pipe in his fist'], ['door_pistol', 'the car door on his arm, a pistol in his hand'], ['sledge', 'the sledge in both hands']].forEach(q => {
+    const t = p4.thing[q[0]] || { ok: 0, of: 0, bare: [] };
+    leg(t.of > 100 && t.ok === t.of, '*** P5 WHAT HE CARRIES IS DRAWN *** (rule 408) ' + q[1] + ', all eight facings, on every look but those whose own model carries its own',
+      t.ok + ' of ' + t.of + (t.bare.length ? '; bare: ' + t.bare.slice(0, 8).join(' ') : ''));
+  });
   console.log('  info THE ARMOUR AND HEAD GEAR AS LAYERS: 0 drawn (no layer yet; the look is his body; ' + p4.armour + ' men in this fight wear a body or head row)');
   leg(errs.length === 0, 'no page error', errs.slice(0, 2).join(' | '));
   await d.close();
