@@ -1,7 +1,7 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
 COMBAT 9 11/6 (rule 415 YOU SEE THEM RUN, ask line 467, opened by the coordinator for one round; with rules 256 and 365). DONE,
-SHIPPED (__SHA__), BUILD 11/6p - YOU SEE THEM RUN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md.
+SHIPPED (05dc7ed7), BUILD 11/6p - YOU SEE THEM RUN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md.
 MEASURED FIRST (main 7d9c2883): his back line stood 2 tiles from his own edge in 299 of 300 rolled fights; on the glass (every frame
 drawMan drew, tools/bohemia_combat_you_see_them_run_probe_11_6_26.js) every man of a lineup retreat was drawn on ONE tile, his own, and
 never again. Cause: retreatStep walks him onto the edge and getOut marks him fled in the same act, and the board drew only men the

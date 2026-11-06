@@ -18715,7 +18715,8 @@
     "by": "an independent reviewer briefed only with DIRECTION's bar page and recipe and these pictures (not DIRECTION's chat); DIRECTION's own eye owed"
    },
    "record": "records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_11_6_26.md"
-  }
+  },
+  {"id": "combat-9-you-see-them-run-11-6", "kind": "animation", "lane": "combat", "sha": "05dc7ed7", "made": "11/6", "draft": true, "title": "YOU SEE THEM RUN: A RETREAT YOU WATCH, TILE TO TILE", "said": "while retreating, I don't see my people actually run, they kind of just disappear... the retreat edge of the screen less than four tiles away from our back line", "why": "On top the fight as it was, RETREAT pressed on the lineup: his men blink off the board where they stand; below now, the same six men four tiles from his edge, each running tile to tile on the beat and off the board into the dark (the men are the art you have, the run is what changed). You see it every time you retreat in a fight, from the lineup or mid-fight.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/COMBAT_9_YOU_SEE_THEM_RUN.webp"}, "before_after": {"before": "main 7d9c2883: each man drawn on 1 tile, his own; back line 2 tiles from his edge", "after": "each man drawn on 3 tiles or more between where he stood and the edge, the edge his last tile, 15 to 22 frames running off the board; back line 4 tiles back", "scale": "the fight on a computer, the fight's own camera, by day"}, "record": "records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md"}
  ],
  "verdicts": [
   {
