@@ -1,6 +1,6 @@
 # WORLD TEN (one file per lane, written only by WORLD TEN; newest block on top)
 
-WORLD TEN (11/6, chat 02b, the map's places; VAMILY rules 409(c) and 411; ask line 458). BUILD 11/6b - THE MISSING REAL PLACES.
+WORLD TEN (11/6, chat 02b, the map's places; VAMILY rules 409(c) and 411; ask line 458). BUILD 11/6c - THE MISSING REAL PLACES.
 BUILT, NOT YET SEEN.
 - WHAT: Pocket City 2's missing building kinds as REAL Las Vegas places at their real spots, each with a use. Twelve places, one
   list a modder edits (records/target/bb/real_places.json). ON THE VALLEY, nine new map kinds the generator seats on every seed:

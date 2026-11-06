@@ -495,7 +495,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"d5c3fda39d3c581e",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"7169e656dd28b46c",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1599,7 +1599,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/6b - CONTACT STOPS HIM DEAD, SPACE HOLDS 4X</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/6c - THE MISSING REAL PLACES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12454,15 +12454,15 @@ window.NF = NF;
    its family, and re-deals until the two lines can reach each other. The map's district says the kind. */
 function nfKind(district){
   var d = String(district || '');
-  if (/^(strip|resort|casino|commercial|mall|downtown|convention|luxor|sphere|highroller|strat|sign|truckstop|swapmeet|drivein)$/.test(d)) return 'strip';
+  if (/^(strip|resort|casino|commercial|mall|downtown|convention|luxor|sphere|highroller|strat|sign|truckstop|swapmeet|drivein|bank|hardware|aquarium|mobmuseum)$/.test(d)) return 'strip';
   if (/^(freeway|beltway|interchange)$/.test(d)) return 'freeway';
   if (/^(water|reservoir|intake|dam|springs|waterpark)$/.test(d)) return 'shore';
-  if (/^(landfill|quarry|gypsum|industrial|warehouse|robofactory|boneyard|fueldepot|storage|rail|railyard)$/.test(d)) return 'landfill';
+  if (/^(landfill|quarry|gypsum|industrial|warehouse|robofactory|boneyard|fueldepot|storage|rail|railyard|powerplant|shelter)$/.test(d)) return 'landfill';
   if (/^(wash|basin)$/.test(d)) return 'wash';
   if (/^(desert|mountain|solar|farm|park|golf)$/.test(d)) return 'scrub';
   if (/^(estate|gated|trailer)$/.test(d)) return 'culdesac';
   if (d === 'arterial') return 'suburb_stem';   /* a mile road with the suburb on both sides */
-  if (/^(suburb|apartment|town|school|campus|library|chapel|cemetery)$/.test(d)) return 'suburb';
+  if (/^(suburb|apartment|town|school|campus|library|chapel|cemetery|jobsoffice|natmuseum|tvstation)$/.test(d)) return 'suburb';   /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6): the nine new kinds, each the board of the kind it is like */
   return 'ruin';   /* everything else is act one: the ruin */
 }
 function nfOpts(d){
