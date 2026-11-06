@@ -1,5 +1,24 @@
-RUN TWO (run-two, the town screen, the shop, the stall, the crew's gear): 11/3 LATEST -- NO TAPE ROUND THE PHONE (rule 356(g)), BUILD 11/3zzzx.
+RUN TWO (run-two, the VOTE tab, the town screen, the shop, the stall, the crew's gear): 11/6 LATEST -- THE VOTE MARKS (rule 408(c), 417(b)), BUILD 11/6q.
 All BUILT, NOT YET SEEN (rule 179) unless said.
+
+11/6 THE VOTE MARKS (the coordinator's VAMILY, rule 417(b); ask line 463; record records/BOHEMIA_RUN_TWO_THE_MARKS_11_6_26.md):
+- SHIPPED 4fc6983c (slices/BOHEMIA_VOTE_TAB.html): every art card wears its own registry "stage": GOLDEN (chip, gold frame,
+  'THE FIRST <KIND> MADE TO THE BAR. ONE QUESTION: IS THIS THE LOOK?' + DIRECTION's beside-the-bar line), MADE FROM (chip +
+  'MADE THE WAY OF <golden title>, THE PIECE YOU PASSED.') or STAND-IN (a striped band first on the card, STAND-IN, NOT THE LOOK,
+  the card and its picture grey, grey at full size too). AN ART CARD WITH NO STAGE IS NOT DRAWN, old or new (DIRECTION's art card:
+  tile, animation, outfit, face, haircut, a ui image/page, a redo of one); the tab counts it in one #held line (window.__voteHeld).
+  plainTitle keeps PLACEHOLDER. #fold[hidden] (an empty fold read 'MORE 0').
+- MEASURED (main 55df870a, his phone, nothing voted): BEFORE 39 on his list (12 + 27 behind MORE), 38 art, none drawn with a mark;
+  NOW 4 (3 stand-ins + 1 sound), 35 unmarked art held (combat 19, arena 4, ui 7 3, world 3, hires 2, tuning 2, home 1, ui 1);
+  no sort file 181 -> 53 drawn, 128 held (= PLUMBER's baseline waiting art). Plus this round's own card run2-the-marks-11-6 (stand_in).
+- GATES: VOTE TAB 62/4 (was 57/6): F6, F7 green, F1-F5 green, F8 NOT ARMED; new legs: held count (35), THE MARKS (planted golden +
+  made_from), THE WORD STAYS; queue legs re-aimed to what the tab draws; NEW CARDS SHOW FIRST's plants and the redo probe carry
+  stage stand_in. The 4 reds are main's (two DYNASTY whys, the alpha landing x2, the gear door). THE CARD I NAME 24/2 as main (T0
+  green). ALPHA LOADS 20/0. Demo not re-cut: it frames the tab by file.
+- NEXT / LEFT: DIRECTION's F8 list must ALSO put the stage on each card in the registry (the list file is under records/, which the
+  site never publishes; NOTE on DIRECTION's VAMILY line). Until then the 128 old waiting art cards stay held. Six are RUN TWO's
+  own (10/4 to 10/9: settlement like Battle Brothers, one painted place, the market, the bag, settlement traits, the roster); the
+  sort already keeps all six off his list, so they are held only with no sort file; left for DIRECTION's list, not self-marked.
 
 11/3 NO TAPE ROUND THE PHONE (his YES on the town job, one fix, ask line 376; record records/BOHEMIA_RUN_TWO_NO_TAPE_ROUND_THE_PHONE_11_3_26.md):
 - The tape was UI's empty LEAVE holder #bmcorner over the phone's corner: hidden in the town screen while the phone carries LEAVE.
