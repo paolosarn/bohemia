@@ -82,6 +82,34 @@
  .quote{ margin:7px 0 0; padding:7px 9px; font-size:13px; background:var(--paper);
          border-left:4px solid var(--hot) }
 
+ /* THE MARK (RUN TWO 11/6, rule 408(c), Paolo 11/4: 'every time I see you make art a lot of times it's just placeholder
+    shit... I just want the first time you make art to be the final'). DIRECTION's PART 4
+    (records/BOHEMIA_DIRECTION_THE_FIRST_TIME_IS_THE_FINAL_TIME_11_6_26.md): every art card says what it is. GOLDEN, the
+    first of its kind made to the bar, asks one thing (is this the look?); MADE FROM names the golden piece he passed; a
+    STAND-IN is drawn grey under a loud band, STAND-IN, NOT THE LOOK, so nobody takes it for the real thing. An art card
+    with no mark is not drawn at all (draw() below); it stays in the registry. */
+ .mark{ display:inline-block; font-size:11px; letter-spacing:1.5px; font-weight:700; border-radius:3px; padding:3px 7px;
+        vertical-align:2px; margin-left:6px; color:var(--paper) }
+ .mark.golden{ background:var(--gold) }
+ .mark.made{ background:var(--cool) }
+ .markline{ margin:6px 0 0; font-size:13px; font-weight:700; letter-spacing:.4px }
+ .markline.golden{ color:var(--gold) }
+ .markline.made{ color:var(--cool) }
+ .markline .dl{ display:block; font-weight:400; color:var(--dim); letter-spacing:0 }
+ .row.golden{ border-color:var(--gold); border-width:3px }
+ .band{ display:block; padding:9px 12px 10px; color:#f2ece1; border-bottom:3px solid #141210;
+        background:repeating-linear-gradient(-45deg, #24221f 0 12px, #4b4842 12px 24px) }
+ .band b{ display:block; font-size:19px; line-height:1.2; letter-spacing:2.5px; font-weight:800; text-shadow:0 1px 0 #000 }
+ .band span{ display:block; margin-top:3px; font-size:13px; line-height:1.35; color:#ddd6c8; text-shadow:0 1px 0 #000 }
+ .row.standin{ border-color:#6e6a62; background:#e6e3dd }
+ html.night .row.standin{ border-color:#55525a; background:#1d1d22 }
+ .row.standin .kind{ background:#6e6a62 }
+ .row.standin .stage img, .row.standin .stage iframe, .row.standin .stage video{ filter:grayscale(1) }
+ #full.standin img{ filter:grayscale(1) }
+ #held{ margin:14px 0 0; padding:10px 12px; font-size:13px; color:var(--dim); border:2px dashed var(--rule); border-radius:5px }
+ #held b{ color:var(--ink) }
+ #held[hidden]{ display:none }
+
  .stage{ padding:0 12px 10px }
  .stage[hidden]{ display:none }
  .stage img{ max-width:100%; display:block; border:1px solid var(--rule); background:#0c0a07 }
@@ -119,6 +147,9 @@
         border-style:dashed }
  #fold b{ font-size:15px; color:var(--gold) }
  #more[hidden]{ display:none }
+ /* the button rule above sets display, which beat the hidden flag: with nothing behind it the fold read 'MORE 0' (RUN TWO
+    11/6, first seen once 408(c) held the old art back and nothing was left behind the fold) */
+ #fold[hidden]{ display:none }
  /* A CARD'S PICTURE, FULL SIZE (RUN TWO, rule 89: what he cannot see he cannot judge). A tap on the picture lays it over
     the whole screen at one image pixel to one point, crisp; one finger drags, two pinch, a tap closes. Nothing new on the
     card's face: the picture itself is the door. */
@@ -159,11 +190,11 @@
 <div class="wrap"><div id="list"></div>
 <button id="fold" type="button" hidden><span>MORE</span><b id="foldn"></b></button>
 <div id="more" hidden></div>
+<p id="held" hidden></p>
 
 <div id="empty" hidden>
   <b>NOTHING IS WAITING ON YOU.</b>
-  Every new thing the chats made has already been voted on. When a lane finishes something
-  fresh it shows up here on its own.
+  When a lane finishes something fresh it shows up here on its own.
 </div>
 
 <div id="foot">
@@ -236,7 +267,7 @@
   /* ---------- SHOWING THE THING ----------
      Nothing heavy is built until he taps LOOK. A sheet is a whole page and there are
      seven of them; building all seven iframes at open would cost him the open. */
-  function build(show, box){
+  function build(show, box, grey){   /* grey: a STAND-IN's picture, grey on the card and grey at full size (408(c)) */
     var how = (show && show.how) || 'text';
     var src = (show && show.src) || '';
     if(how === 'image'){
@@ -251,8 +282,8 @@
         var r = im.getBoundingClientRect();
         var fx = r.width ? (e.clientX - r.left) / r.width : 0.5, fy = r.height ? (e.clientY - r.top) / r.height : 0.5;
         fx = Math.max(0, Math.min(1, fx)); fy = Math.max(0, Math.min(1, fy));
-        if(at && at.length === 4) openFull(src, { x: at[0] + fx * at[2], y: at[1] + fy * at[3] });
-        else openFull(one, { fx: fx, fy: fy });
+        if(at && at.length === 4) openFull(src, { x: at[0] + fx * at[2], y: at[1] + fy * at[3] }, grey);
+        else openFull(one, { fx: fx, fy: fy }, grey);
       });
       box.appendChild(im);
     } else if(how === 'audio' || how === 'clip' && /\.(mp3|wav|ogg|m4a)$/i.test(src)){
@@ -365,9 +396,12 @@
     return el;
   }
   /* at: {x, y} a point on the image in its own pixels, or {fx, fy} a fraction of it; that point opens in the middle */
-  function openFull(src, at){
+  function openFull(src, at, grey){
     var el = fvEl(), im = FV.im;
     FV.pts = {}; FV.g = null;
+    el.classList.toggle('standin', !!grey);   /* a stand-in stays grey and says so at full size too */
+    var hn = el.querySelector && el.querySelector('.hint');
+    if(hn) hn.textContent = (grey ? 'STAND-IN, NOT THE LOOK · ' : '') + 'FULL SIZE · DRAG · PINCH · TAP TO CLOSE';
     im.onload = function(){
       FV.nw = im.naturalWidth; FV.nh = im.naturalHeight;
       im.style.width = FV.nw + 'px'; im.style.height = FV.nh + 'px';
@@ -389,17 +423,58 @@
   }
   window.__voteFull = { open: openFull, close: closeFull, state: function(){ return { s: FV.s, x: FV.x, y: FV.y, nw: FV.nw, nh: FV.nh, open: !!(FV.el && !FV.el.hidden) }; } };
 
+  /* ---------- THE MARK (rule 408(c)) ----------
+     AN ART CARD is DIRECTION's: a tile, an animation, an outfit, a face or a haircut; a ui card shown as a picture or a
+     page; or a redo of one of those (gates/vote_tab_gate.js ftfArt reads the same). Its mark is its own "stage" in the
+     registry: golden, made_from or stand_in. THE WORD PLACEHOLDER IN A TITLE IS NOT A MARK (68 cards wore it, his first
+     star among them); only the stage counts. An art card with no stage is held back, never drawn, and stays in the file:
+     the old waiting ones come back when DIRECTION's list (F8) puts their stage on them. */
+  var byId = {};
+  var STAGE = { golden: 1, made_from: 1, stand_in: 1 };
+  function isArt(it, depth){
+    if(!it) return false;
+    var how = it.show && it.show.how, k = it.kind;
+    if(k === 'tile' || k === 'animation' || k === 'outfit' || k === 'face' || k === 'haircut') return true;
+    if(k === 'ui') return how === 'image' || how === 'page';
+    if(k === 'redo'){
+      var o = byId[it.redoOf];
+      return o && (depth || 0) < 5 ? isArt(o, (depth || 0) + 1) : (how === 'image' || how === 'page');
+    }
+    return false;
+  }
+  function markOf(it){ var s = it && it.stage; return typeof s === 'string' && STAGE.hasOwnProperty(s) ? s : null; }
+  function shown(it){ return !isArt(it) || !!markOf(it); }
+  window.__voteMark = { isArt: isArt, markOf: markOf, shown: shown };
+
   /* ---------- A ROW ---------- */
   function row(it){
     var r = document.createElement('div');
     r.className = 'row';
     r.setAttribute('data-id', it.id);
+    var mk = markOf(it);
+    if(mk === 'stand_in'){
+      /* THE LOUD BAND, on top of the card, before anything else he reads */
+      r.classList.add('standin');
+      var band = document.createElement('div');
+      band.className = 'band';
+      var bw = document.createElement('b'); bw.textContent = 'STAND-IN, NOT THE LOOK';
+      var bs = document.createElement('span');
+      bs.textContent = 'It is here to show how a thing works, where it goes or how big it is. Vote on that, not on how it looks.';
+      band.appendChild(bw); band.appendChild(bs);
+      r.appendChild(band);
+    } else if(mk === 'golden') r.classList.add('golden');
 
     var h = document.createElement('div');
     h.className = 'head';
     var k = document.createElement('span');
     k.className = 'kind'; k.textContent = String(it.kind || 'new').toUpperCase();
     h.appendChild(k);
+    if(mk === 'golden' || mk === 'made_from'){
+      var mc = document.createElement('span');
+      mc.className = 'mark ' + (mk === 'golden' ? 'golden' : 'made');
+      mc.textContent = mk === 'golden' ? 'GOLDEN' : 'MADE FROM';
+      h.appendChild(mc);
+    }
     var wq = document.createElement('span');
     wq.className = 'who';
     wq.textContent = String(it.lane || '').toUpperCase() + '  ' + (it.made || '');
@@ -407,6 +482,20 @@
     var t = document.createElement('div');
     t.className = 'ttl'; t.textContent = it.title || it.id;
     h.appendChild(t);
+    if(mk === 'golden' || mk === 'made_from'){
+      var ml = document.createElement('div');
+      ml.className = 'markline ' + (mk === 'golden' ? 'golden' : 'made');
+      if(mk === 'golden'){
+        var ak = String(it.art_kind || 'piece').toUpperCase();
+        ml.textContent = 'THE FIRST ' + ak + ' MADE TO THE BAR. ONE QUESTION: IS THIS THE LOOK?';
+        var dline = it.direction && it.direction.line;
+        if(dline){ var dl = document.createElement('span'); dl.className = 'dl'; dl.textContent = 'DIRECTION: ' + dline; ml.appendChild(dl); }
+      } else {
+        var g = byId[it.golden];
+        ml.textContent = 'MADE THE WAY OF ' + plainTitle((g && g.title) || it.golden || 'a golden piece') + ', THE PIECE YOU PASSED.';
+      }
+      h.appendChild(ml);
+    }
     if(it.why){
       var y = document.createElement('div');
       y.className = 'why'; y.textContent = it.why;
@@ -447,7 +536,7 @@
 
     lk.addEventListener('click', function(){
       if(st.hidden){
-        if(!st.childElementCount) build(it.show, st);
+        if(!st.childElementCount) build(it.show, st, mk === 'stand_in');
         st.hidden = false; lk.textContent = 'HIDE IT';
       } else {
         st.hidden = true; lk.textContent = 'LOOK AT IT';
@@ -517,15 +606,31 @@
   function draw(){
     var list = document.getElementById('list'), more = document.getElementById('more'), fold = document.getElementById('fold');
     list.textContent = ''; more.textContent = '';
-    var cap = (TRI && TRI.cap) || 12, reds = [], fresh = [], rest = [];
+    var cap = (TRI && TRI.cap) || 12, reds = [], fresh = [], rest = [], held = 0;
     newestFirst().forEach(function(it){
       if(!it || !it.id) return;
       if(judged(it.id)) return;        /* A VOTE CONSUMES. This line is the whole law. */
-      if(!TRI){ list.appendChild(row(it)); return; }
-      var tg = tagOf(it.id);
+      var tg = TRI ? tagOf(it.id) : null;
       if(tg === 'green' || tg === 'gray' || tg === 'grey') return;      /* the team already has it: never on his screen */
+      if(!shown(it)){ held++; return; }   /* 408(c): AN ART CARD WITH NO MARK IS NOT SHOWN (it stays in the registry) */
+      if(!TRI){ list.appendChild(row(it)); return; }
       if(tg === 'red') reds.push(it); else if(!tg) fresh.push(it); else rest.push(it);   /* red, not sorted yet, yellow */
     });
+    /* what is held back is counted, never drawn: he sees why the list is short, not the pieces */
+    var hd = document.getElementById('held');
+    if(hd){
+      hd.textContent = '';
+      hd.hidden = !held;
+      if(held){
+        var hb = document.createElement('b');
+        hb.textContent = held + (held === 1 ? ' ART PIECE IS' : ' ART PIECES ARE') + ' HELD BACK.';
+        hd.appendChild(hb);
+        hd.appendChild(document.createTextNode(' ' + (held === 1 ? 'Its maker has' : 'Their makers have') +
+          ' not said yet if ' + (held === 1 ? 'it is' : 'each is') + ' the real look or a stand-in, so ' +
+          (held === 1 ? 'it waits' : 'they wait') + ' off your list until ' + (held === 1 ? 'it is' : 'they are') + ' marked.'));
+      }
+    }
+    window.__voteHeld = held;
     var front = reds.concat(fresh), later = front.slice(cap).concat(rest);   /* red first, then the new; a tag only demotes */
     front.slice(0, cap).forEach(function(it){ list.appendChild(row(it)); });
     fold.hidden = !TRI || !later.length;
@@ -639,8 +744,10 @@
      machine has not read yet says NOT YET: it never says IN on a guess. */
   var YES_URL = '../records/target/BOHEMIA_YES_IN_THE_DEMO.json', STAMP_URL = 'BOHEMIA_DEMO_STAMP.txt', YES_SINCE = 1016;
   function getText(u){ return fetch(u, { cache: 'no-store' }).then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }).catch(function(){ return null; }); }
+  /* PLACEHOLDER IS NO LONGER STRIPPED (408(c), DIRECTION's measure: this line hid the word on 68 cards, so a stand-in
+     read as a real piece in his YES list). CANDIDATE, REDO and NEW still go: they say nothing about what the thing is. */
   function plainTitle(t){
-    t = String(t || '').replace(/^(CANDIDATE|PLACEHOLDER|REDO(NE)?|NEW)\b[^:]{0,30}:\s*/i, '');
+    t = String(t || '').replace(/^(CANDIDATE|REDO(NE)?|NEW)\b[^:]{0,30}:\s*/i, '');
     return t.length > 72 ? t.slice(0, 70).replace(/\s+\S*$/, '') + '…' : t;
   }
   function drawYes(reg){
@@ -692,6 +799,7 @@
     .then(function(d){ return triage.then(function(){ return d; }); })
     .then(function(d){
       items = (d && d.items) || [];
+      byId = {}; items.forEach(function(it){ if(it && it.id) byId[it.id] = it; });   /* a redo's art, a MADE FROM's golden */
       ((d && d.verdicts) || []).forEach(function(v){ if(v && v.id) theirs[v.id] = v; });
       draw();
       window.__voteReady = true;

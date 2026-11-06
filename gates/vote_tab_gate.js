@@ -406,8 +406,14 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      the newest, as before. */
   const madeOf = i => { const m = String(i.made || '').match(/^(\d{1,2})\/(\d{1,2})/); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
   const byNew = items => items.map((it, k) => ({ it, k, d: madeOf(it) })).sort((a, b) => (b.d - a.d) || (b.k - a.k)).map(x => x.it);
-  const want = byNew((reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id)))
+  /* 408(c) (RUN TWO 11/6): AN ART CARD WITH NO MARK IS NOT SHOWN, old or new; it stays in the registry and comes back
+     the day its stage is on it (its maker's, or DIRECTION's F8 list folded onto the card). The queue legs below count
+     what the tab draws: every unjudged card the sort keeps, less the unmarked art (DIRECTION's art card, ftfArt above). */
+  const regById = new Map((reg.items || []).map(i => [i && i.id, i]));
+  const drawn = it => !ftfArt(it, regById) || STAGES.includes(it.stage);
+  const want = byNew((reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id) && drawn(i)))
                                 .map(i => i.id).filter(kept).reverse();
+  const heldWant = (reg.items || []).filter(i => i && i.id && !judgedIds.has(i.id) && kept(i.id) && !drawn(i)).length;
   const cap = (TRI && TRI.cap) || 12;
   const newest = want.slice().reverse();
   const redsWanted = newest.filter(id => tagOf(id) === 'red');
@@ -418,9 +424,12 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   const foldN = await p.evaluate(() => { const f = document.getElementById('fold'); return f && !f.hidden ? +document.getElementById('foldn').textContent : 0; });
   ok('  the rest wait behind one fold that says MORE with its count', !TRI || foldN === want.length - frontWanted.length, foldN + ' behind MORE, ' + (want.length - frontWanted.length) + ' wanted');
   const all = await queue();
-  ok('every unjudged candidate the sort keeps is in the queue, and no green or gray one is',
+  ok('every unjudged candidate the sort keeps is in the queue, and no green or gray one is (an unmarked art card is held back, 408(c))',
      all.length === want.length && want.every(id => all.indexOf(id) >= 0),
-     all.length + ' drawn, ' + want.length + ' waiting' + (TRI ? ' (' + ((reg.items || []).length - want.length) + ' judged, green or gray)' : ''));
+     all.length + ' drawn, ' + want.length + ' waiting' + (TRI ? ' (' + ((reg.items || []).length - want.length - heldWant) + ' judged, green or gray; ' + heldWant + ' unmarked art held back)' : ''));
+  { const said = await p.evaluate(() => ({ n: window.__voteHeld, el: !document.getElementById('held').hidden, t: document.getElementById('held').textContent }));
+    ok('  the tab says how many art pieces it holds back, and holds back exactly the unmarked ones (' + heldWant + ')',
+       said.n === heldWant && (heldWant ? said.el && said.t.indexOf(String(heldWant)) === 0 : !said.el), said.n + ' held: "' + String(said.t).slice(0, 60) + '"'); }
   /* NEWEST FIRST. The registry is appended to, so the LAST item in the file is the
      newest thing anybody made, and it has to be the first thing he sees (the newest red, once sorted). */
   /* RUN TWO 10/18: when nothing is red (his votes consumed every red) the front is empty by design and the newest
@@ -441,7 +450,8 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
        leg went red on the calendar, not on the tab) */
     const today = (() => { let best = '10/18', bn = 0; (reg.items || []).forEach(i => { const m = String((i && i.made) || '').match(/^(\d{1,2})\/(\d{1,2})/);
       if (m && +m[1] * 100 + +m[2] > bn && +m[1] * 100 + +m[2] < 1231) { bn = +m[1] * 100 + +m[2]; best = m[1] + '/' + m[2]; } }); return best; })();
-    const mk = (id, made) => ({ id, kind: 'ui', lane: 'run 2', sha: 'gate', made, title: 'PLANTED BY THE GATE', why: 'Planted. You see it nowhere but this check.', show: { how: 'image', src: 'vote/none.png' } });
+    /* marked stand_in (408(c), RUN TWO 11/6): a ui picture is an art card, and an unmarked one is never drawn (F7) */
+    const mk = (id, made) => ({ id, kind: 'ui', lane: 'run 2', sha: 'gate', made, title: 'PLANTED BY THE GATE', why: 'Planted. You see it nowhere but this check.', show: { how: 'image', src: 'vote/none.png' }, stage: 'stand_in' });
     const reg2 = JSON.parse(JSON.stringify(reg));
     reg2.items.unshift(mk('gate-planted-at-the-head', '12/31')); reg2.items.push(mk('gate-planted-appended', today));
     plant = JSON.stringify(reg2);
@@ -470,8 +480,8 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   /* AND WITHOUT THE SORT FILE THE TAB SHOWS EVERYTHING, NEVER NOTHING (the row's done-test) */
   noSort = true; await open();
   const bare = await p.evaluate(() => ({ n: document.querySelectorAll('#list .row').length, fold: !document.getElementById('fold').hidden }));
-  const unsorted = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id)).length;
-  ok('  and with the sort file missing, every waiting thing shows, no fold', bare.n === unsorted && !bare.fold, bare.n + ' shown of ' + unsorted + (bare.fold ? ', a fold' : ''));
+  const unsorted = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id) && drawn(i)).length;
+  ok('  and with the sort file missing, every waiting thing shows (less the unmarked art, 408(c)), no fold', bare.n === unsorted && !bare.fold, bare.n + ' shown of ' + unsorted + (bare.fold ? ', a fold' : ''));
   noSort = false;
   await open(); rows = await live();
 
@@ -586,7 +596,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
        screens, every thing on it a thumbnail). Every image card on his first screen, and every card made from 10/19. */
     const madeN = i => { const m = String(i.made || '').match(/^(\d{1,2})\/(\d{1,2})/); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
     const judgedIds = new Set((reg.verdicts || []).map(v => v.id));
-    const bound = regItems.filter(i => i && i.show && i.show.how === 'image' && !judgedIds.has(i.id) && kept(i.id) && (onFront.indexOf(i.id) >= 0 || madeN(i) >= 1019));
+    const bound = regItems.filter(i => i && i.show && i.show.how === 'image' && !judgedIds.has(i.id) && kept(i.id) && drawn(i) && (onFront.indexOf(i.id) >= 0 || madeN(i) >= 1019));
     const tall = [];
     for (const it of bound) {
       const st = await lookAt(it.id);
@@ -705,7 +715,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   redo.items.push({ id: 'gate-redo-probe', kind: 'redo', lane: 'ui', sha: 'deadbee',
                     made: '9/15', title: 'THE PROBE, REDONE',
                     why: 'the gate planted this', redoOf: want[0],
-                    said: 'it looked like a spreadsheet',
+                    said: 'it looked like a spreadsheet', stage: 'stand_in',   /* a redo of an art card is an art card (408(c)) */
                     show: { how: 'text', src: 'the words' } });
   plant = JSON.stringify(redo);
   const fr2 = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
@@ -727,22 +737,37 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   /* ---- 9b. FIRST TIME FINAL ON THE GLASS (F6 the band, F7 no mark, not shown; rule 408(c)). Two art cards made after the
      leg landed are planted at the head of a copy of the registry with nothing sorted: a stand_in card, which must be drawn
      with the words STAND-IN, NOT THE LOOK on it, and a card with no stage, which must not be drawn at all. The tab's half
-     (the marks, the band, the skip) is RUN TWO's; these two legs read red until it lands, and name RUN TWO. */
+     (the marks, the band, the skip) is RUN TWO's; these two legs read red until it landed (RUN TWO 11/6: the marks drawn,
+     the band first on a stand-in, an unmarked art card held back and counted, PLACEHOLDER no longer stripped). */
   { const ftfReg = JSON.parse(JSON.stringify(reg));
     const card = (id, x) => Object.assign({ id, kind: 'tile', lane: 'cook 4', sha: 'gate', made: '12/31', title: 'PLANTED BY THE GATE',
       why: 'Planted. You see it nowhere but this check.', show: { how: 'image', src: 'vote/none.png' } }, x);
     ftfReg.items.unshift(card('gate-ftf-stand-in', { stage: 'stand_in', title: 'THE LAYOUT, PLANTED' }), card('gate-ftf-no-mark', { title: 'NO MARK, PLANTED' }));
+    /* RUN TWO 11/6, the tab's other two marks and the word: a golden card (its kind and DIRECTION's line on it), a card
+       made from it, and a YES on a card titled PLACEHOLDER (his YES list keeps the word, DIRECTION's measure: 68 hidden) */
+    ftfReg.items.unshift(card('gate-ftf-golden', { stage: 'golden', art_kind: 'weapon', title: 'THE GOLDEN PLANT', direction: { verdict: 'PASS', line: 'beside the bar: same, because the planted light' } }),
+      card('gate-ftf-made', { stage: 'made_from', golden: 'gate-ftf-golden', title: 'MADE FROM THE PLANT' }));
+    ftfReg.items.push(card('gate-ftf-word', { kind: 'line', title: 'PLACEHOLDER: THE WORD STAYS', show: { how: 'text', src: 'planted' } }));
+    ftfReg.verdicts.push({ id: 'gate-ftf-word', vote: 'up', said: 'planted by the gate', when: '12/30' });
     plant = JSON.stringify(ftfReg); triPlant = JSON.stringify({ made: 'gate', cap: 12, tags: {} });
     const fx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const pf = await fx.newPage();
     await pf.goto(url('slices/BOHEMIA_VOTE_TAB.html'), { waitUntil: 'load', timeout: 60000 });
     await pf.waitForFunction('window.__voteReady === true', null, { timeout: 20000 });
+    await pf.waitForFunction('window.__yesReady === true', null, { timeout: 20000 }).catch(() => {});
     await queue(pf);
     const seen = await pf.evaluate(() => {
       const r = id => document.querySelector('#list .row[data-id="' + id + '"], #more .row[data-id="' + id + '"]');
-      const s = r('gate-ftf-stand-in');
-      return { standIn: !!s, band: !!(s && /STAND-IN,?\s+NOT THE LOOK/i.test(s.textContent || '')), noMark: !!r('gate-ftf-no-mark') };
+      const s = r('gate-ftf-stand-in'), g = r('gate-ftf-golden'), m = r('gate-ftf-made'), y = document.querySelector('#yeses .yl[data-id="gate-ftf-word"]');
+      const bandFirst = !!(s && s.firstElementChild && s.firstElementChild.classList.contains('band'));
+      return { standIn: !!s, band: !!(s && /STAND-IN,?\s+NOT THE LOOK/i.test(s.textContent || '')), bandFirst, noMark: !!r('gate-ftf-no-mark'),
+        golden: g ? g.textContent : null, made: m ? m.textContent : null, word: y ? y.textContent : null };
     });
+    ok('  THE MARKS: a golden card says GOLDEN with its kind and DIRECTION\'s line; a card made from it says MADE FROM and names it; the band is the stand-in\'s first line',
+       !!seen.golden && /GOLDEN/.test(seen.golden) && /THE FIRST WEAPON MADE TO THE BAR/.test(seen.golden) && seen.golden.indexOf('beside the bar: same, because the planted light') >= 0
+       && !!seen.made && /MADE FROM/.test(seen.made) && seen.made.indexOf('THE GOLDEN PLANT') >= 0 && seen.bandFirst,
+       'golden ' + (seen.golden ? 'drawn' : 'missing') + ', made from ' + (seen.made ? (seen.made.indexOf('THE GOLDEN PLANT') >= 0 ? 'names it' : 'does not name it') : 'missing') + ', band first ' + seen.bandFirst);
+    ok('  THE WORD STAYS: his YES list keeps PLACEHOLDER in a title (the tab no longer strips it)', !!seen.word && seen.word.indexOf('PLACEHOLDER: THE WORD STAYS') >= 0, String(seen.word).slice(0, 60));
     ok('FIRST TIME FINAL F6 THE BAND: a planted stand-in card is drawn with STAND-IN, NOT THE LOOK on it', seen.standIn && seen.band,
        seen.standIn ? (seen.band ? 'the band is there' : 'drawn with no band: RUN TWO draws the three marks and the STAND-IN band (408(c))') : 'not drawn at all');
     ok('FIRST TIME FINAL F7 NO MARK, NOT SHOWN: a planted art card made after the leg landed, with no stage, is not drawn', !seen.noMark,
