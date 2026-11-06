@@ -73,8 +73,38 @@ button{font-family:var(--rom)}
 #bar.lost .word.said .swho{color:var(--red)}
 #bar .word.said q{display:block;font:19px/1.18 var(--casing);letter-spacing:.4px;color:var(--ink);text-shadow:0 1px 0 #000}
 @media (max-width:699px){ #bar .word.said q{font-size:16px} #bar .word.said canvas{width:48px;height:48px;flex-basis:48px} }
-#tally{display:flex;gap:14px;align-items:baseline;padding:7px 12px 9px;color:var(--paper);font-size:11px;letter-spacing:.5px}
-#tally b{font:16px/1 var(--casing);letter-spacing:1px}
+/* __THE_RECEIPT__ (RUN FIVE, rule 405(c), Paolo 11/4: 'the gambling receipt at the end of the fight populates, but it's only there for
+   one second before the victory screen appears... why don't we combine this, maybe make the receipt look like it's hanging off the
+   edge of the screen a little bit, incorporate it in a fun way'). The fight's own receipt (its recap card: the head, the rounds, who
+   killed and bled what, the XP) is printed INTO this screen: a till roll fed out from under the bar, hanging off the glass's right
+   edge, curled at its foot; a line every quarter beat, then a line for every piece taken and the pay as it is counted, a VOID for a
+   piece put back, the TOTAL as he leaves, and it is torn off. A tap unrolls it; a second rolls it back. The fight's card is never
+   seen first (slices/BOHEMIA_FIGHT.html __ONE_END_SCREEN__). The look itself is at final (rule 404); the merge is now. */
+/* it hangs past the glass's edge inside a box that ends AT the edge, so the glass cuts it and the page is never wider than the glass */
+#tillclip{position:absolute;z-index:4;right:0;top:var(--till-top,60px);width:320px;max-width:100vw;height:82vh;overflow:hidden;pointer-events:none}
+#tillclip:has(#till.open){z-index:7}
+#till{position:absolute;right:-18px;top:0;transform:rotate(2deg);pointer-events:auto;transform-origin:100% 0;cursor:pointer;
+  filter:drop-shadow(-3px 5px 4px rgba(0,0,0,.55));-webkit-tap-highlight-color:transparent}
+#till .paper{position:relative;max-height:calc(20vh - 6px);min-height:40px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+  width:calc(20ch + 40px);padding:8px 30px 20px 10px;background:#e4dac2;color:#231a12;font:10px/1.34 var(--rom);letter-spacing:0;transition:max-height 220ms ease-out}   /* twenty characters a line, sized to the face */
+#till .paper::before{content:'';position:absolute;left:0;right:0;top:0;height:10px;background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,0));pointer-events:none}   /* where it comes out from under the bar */
+#till .paper::after{content:'';position:absolute;left:-2px;right:-2px;bottom:-1px;height:22px;border-radius:0 0 60% 40%/0 0 100% 100%;
+  background:linear-gradient(rgba(255,250,236,0),rgba(120,104,80,.55) 70%,rgba(40,30,20,.75));pointer-events:none}   /* the curl at its foot */
+#till.open .paper{max-height:min(74vh,640px)}
+#till .tl{white-space:pre;overflow:hidden;min-height:13px}
+#till .tl.big{white-space:normal}
+#till .tl.rule{opacity:.55;white-space:nowrap;overflow:hidden}
+#till .tl.big{font:13px/1.2 var(--casing);letter-spacing:1px;margin:2px 0}
+#till .tl.void{text-decoration:line-through;opacity:.7}
+#till .tl.new{animation:tprint 125ms steps(4,end)}
+@keyframes tprint{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+#till.torn{animation:ttear 300ms ease-in forwards;pointer-events:none}
+@keyframes ttear{0%{translate:0 0}30%{translate:-2px 7px}100%{translate:60px -120vh;rotate:16deg}}
+#tally{display:block}
+#tally b{font-weight:400}
+@media (min-width:700px){ #till{right:-20px} #till .paper{max-height:46vh;font-size:11px} }
+@media (min-width:1100px){ html body #cols{max-width:min(1240px,calc(100vw - 440px))} }   /* a computer: the receipt hangs in a margin of its own, over nothing he presses */
+@media (prefers-reduced-motion:reduce){ #till .tl.new{animation:none} #till.torn{animation:none;opacity:0} }
 .lines{margin:10px 14px 0}
 .lines p{margin:0 0 4px;font:13px/1.35 var(--casing);letter-spacing:1px;color:var(--ink)}
 .quote{display:flex;gap:10px;align-items:center;margin:10px 14px 0;padding:8px 12px 10px;color:var(--paper);font-size:12px}
@@ -195,7 +225,8 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 </head>
 <body>
 <canvas id="after" aria-hidden="true"></canvas>
-<div id="bar"><span class="word" id="word"></span><span class="sub" id="head"></span><span id="tally"><span id="rounds"></span></span></div>
+<div id="bar"><span class="word" id="word"></span><span class="sub" id="head"></span></div>
+<div id="tillclip"><div id="till" role="button" aria-label="the receipt: tap to unroll it"><div class="paper" id="tillpaper"></div></div></div>
 <div id="field" aria-hidden="true"></div>
 <div id="lines" class="lines"></div>
 <div id="cols">
@@ -295,10 +326,7 @@ function drawCrew(){
       w.appendChild(bar);
       var xp = document.createElement('div'); xp.className = 'xp'; xp.innerHTML = '<b>+' + m.gained + ' XP</b>  ' + (m.xpTo - m.base) + ' of ' + span + ' to level ' + (m.to + 1); w.appendChild(xp);
     }
-    var fn = S.nums[m.name];   /* what he did in it, off the fight's own recap card: kills, blood drawn, blood taken */
-    if(fn){ var nu = document.createElement('div'); nu.className = 'nums';
-      nu.innerHTML = '<span><b>' + fn.kills + '</b> ' + (fn.kills === 1 ? 'KILL' : 'KILLS') + '</span><span><b>' + fn.dealt + '</b> BLOOD DRAWN</span><span><b>' + fn.taken + '</b> TAKEN</span>';
-      w.appendChild(nu); }
+    /* what he did in it (kills, blood drawn, blood taken) is printed on the receipt (__THE_RECEIPT__), one line a man, never twice */
     var st = null;
     if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; st.textContent = 'FELL. HE IS DEAD.'; }
     else if(m.down && m.main){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'WENT DOWN. UP AGAIN AFTER.'; }
@@ -418,6 +446,7 @@ function drawCounts(){
     var cap = (k[0] === 'tape' && S.scav && S.scav.tape > 0) ? 'MENDS ARMOUR, ' + S.scav.tape + ' FROM THE SCAVENGER' : k[2];   /* FINISHER 11/2: whose tape */
     b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : cap) + '</span>';
     b.addEventListener('click', function(){ takeCounts(); }); el.appendChild(b); });
+  try{ tillSync(); }catch(e){}   /* __THE_RECEIPT__: the pay prints when it is taken */
 }
 function drawGround(){
   var el = document.getElementById('ground'); el.textContent = '';
@@ -451,6 +480,7 @@ function drawStash(){
   var el = document.getElementById('stash'); el.textContent = '';
   for(var i = 0; i < S.cap; i++) el.appendChild(slotFor(S.stash[i] || null, 'stash', i));
   document.getElementById('stashn').textContent = S.stash.length + ' / ' + S.cap;
+  try{ tillSync(); }catch(e){}   /* __THE_RECEIPT__: what was taken prints as it is counted */
 }
 function draw(){ drawCrew(); drawCounts(); drawGround(); drawStash(); }
 /* one tap: the cheapest pieces he did not choose go back on the ground for the most valuable left (engine/bohemia_spoils.js
@@ -526,11 +556,82 @@ function titled(s){ return String(s || '').toLowerCase().replace(/\b[a-z]/g, fun
    BohemiaMapCamp.make, the slices/BOHEMIA_ALPHA_0_9.html __THE_SPOILS__ block hands it over) */
 function makeCamp(){ return leave(true); }
 function leave(camp){
+  if(S.leaving === S.seq) return;   /* one leave a screen (a second tap during the tear does nothing) */
   try{ if(window.BohemiaAftermath) BohemiaAftermath.stop(); }catch(e){}   /* lets go of the fight's board and sheets before the frame is taken down */
   takeCounts();   /* the counts take no room: they always ride home */
   S.stash.forEach(function(it){ delete it.fresh; }); saveStash();
-  post('leave', {left:S.ground.length, stash:S.stash.length, camp:camp === true});
+  var m = {left:S.ground.length, stash:S.stash.length, camp:camp === true}, seq = S.seq; S.leaving = seq;
+  var go = function(){ if(S.seq !== seq) return; post('leave', m); };
+  if(!tillTear()) go(); else setTimeout(go, TILL_TEAR_MS);   /* __THE_RECEIPT__: the total, the receipt torn off, then home */
 }
+
+/* ---------- __THE_RECEIPT__ (RUN FIVE, rule 405(c)): the fight's receipt, printed into the one end screen ---------- */
+var TILL = {q:[], t:null, got:[], cash:false, total:0, n:0}, TILL_BEAT = 125, TILL_TEAR_MS = 320, TILL_W = 20;   /* a line every quarter beat at 120 BPM; 20 characters a line */
+function pad(v, w, right){ v = String(v); if(v.length > w) v = v.slice(0, w); var sp = new Array(w - v.length + 1).join(' '); return right ? sp + v : v + sp; }
+function two(l, r){ l = String(l); r = String(r); var n = Math.max(1, TILL_W - l.length - r.length); return (l + new Array(n + 1).join(' ') + r).slice(0, Math.max(TILL_W, l.length + r.length + 1)); }
+function tillLine(text, cls, data){ TILL.q.push({text:text, cls:cls || '', data:data || null}); if(!TILL.t) TILL.t = setTimeout(tillTick, 0); }
+function tillTick(){
+  TILL.t = null; var L = TILL.q.shift(); if(!L) return;
+  var el = document.getElementById('tillpaper'); if(!el) return;
+  var d = document.createElement('div'); d.className = 'tl new' + (L.cls ? ' ' + L.cls : ''); d.textContent = L.text;
+  if(L.data) for(var k in L.data) d.dataset[k] = L.data[k];
+  if(L.id){ d.id = L.id; } el.appendChild(d); TILL.n++; if(!(window.scrollY > 0)) tillTop();
+  setTimeout(function(){ d.classList.remove('new'); }, TILL_BEAT + 20);
+  if(TILL.q.length) TILL.t = setTimeout(tillTick, TILL_BEAT);
+}
+function tillFlush(){ while(TILL.q.length) tillTick(); if(TILL.t){ clearTimeout(TILL.t); TILL.t = null; } }   /* the tear prints what is left at once */
+function tillTop(){ var b = document.getElementById('bar'), t = document.getElementById('tillclip'); if(!b || !t) return;   /* from under the bar's foot, wherever the bar stands (in the game the map's own bar is over it) */
+  var y = Math.round(b.getBoundingClientRect().bottom + (window.scrollY || 0) - 8); if(t.dataset.y !== String(y)){ t.dataset.y = y; t.style.setProperty('--till-top', Math.max(0, y) + 'px'); } }
+function tillStart(f, rc, head){
+  var el = document.getElementById('tillpaper'), t = document.getElementById('till'); if(!el || !t) return;
+  if(TILL.t) clearTimeout(TILL.t); TILL = {q:[], t:null, got:[], cash:false, total:0, n:0};
+  el.textContent = ''; t.className = ''; tillTop();
+  var rule = new Array(TILL_W + 1).join('-');
+  tillLine(two('BOHEMIA', 'NO.' + ('0000' + Math.floor(Math.abs(+S.seq || 0)) % 10000).slice(-4)));   /* draft:true */
+  if(head) tillLine(head, 'big');
+  var tally = [];
+  if(f.rounds) tally.push(two(f.rounds + (f.rounds === 1 ? ' ROUND' : ' ROUNDS'), rc.secs ? mmss(rc.secs) : ''));
+  if(rc.theirs) tally.push(two('DOWN ' + (rc.down | 0) + ' OF ' + rc.theirs, rc.ran ? 'RAN ' + rc.ran : ''));
+  /* #tally and #rounds keep their names: the fight's numbers, now on the receipt */
+  if(tally.length){ var tq = {text:tally.join('\n'), cls:'', data:null}; tq.id = 'tally'; TILL.q.push(tq); if(!TILL.t) TILL.t = setTimeout(tillTick, 0); }
+  (rc.lines || []).forEach(function(x){ tillLine(x); });
+  var men = (rc.men || []);
+  if(men.length){
+    tillLine(rule, 'rule');
+    tillLine(pad('WHO', 6) + pad('K', 2, true) + pad('BLD', 4, true) + pad('TKN', 4, true) + pad('XP', 4, true));
+    men.forEach(function(n){ var m = S.men.filter(function(x){ return x.name === n.name; })[0] || {};
+      tillLine(pad(m.main ? 'YOU' : n.name, 6) + pad(n.kills | 0, 2, true) + pad(n.dealt | 0, 4, true) + pad(n.taken | 0, 4, true) + pad(m.gained | 0, 4, true), '',
+        {man:m.main ? 'YOU' : n.name, kills:n.kills | 0, dealt:n.dealt | 0, taken:n.taken | 0}); });
+  }
+  tillLine(rule, 'rule');
+  if(!S.won) tillLine(f.arena ? 'THE PURSE IS PAID AT THE ROPE' : 'NOTHING TAKEN');   /* draft:true */
+  t.onclick = function(){ if(!t.classList.contains('torn')) t.classList.toggle('open'); };
+  window.__TILL = TILL;
+}
+/* the loot counted onto it: every piece in the stash that came off them prints once with what a town pays for it; a piece put back
+   prints VOID; the counts print when they are taken */
+function tillSync(){
+  if(!S.fight || !document.getElementById('tillpaper')) return;
+  var now = S.stash.filter(function(it){ return it && it.looted && it.fresh; });
+  now.forEach(function(it){ if(TILL.got.indexOf(it) >= 0) return; TILL.got.push(it); var v = SP.sellBack(it, S.at) | 0; TILL.total += v;
+    tillLine(two('+ ' + shortName(it).toUpperCase(), String(v)), '', {item:it.id}); });
+  TILL.got.slice().forEach(function(it){ if(now.indexOf(it) >= 0) return; TILL.got.splice(TILL.got.indexOf(it), 1); var v = SP.sellBack(it, S.at) | 0; TILL.total -= v;
+    tillLine(two('VOID ' + shortName(it).toUpperCase(), '-' + v), 'void', {item:it.id}); });
+  if(S.countsTaken && !TILL.cash){ TILL.cash = true; var c = S.counts || {};
+    if(c.batteries > 0){ TILL.total += c.batteries | 0; tillLine(two('+' + c.batteries + (c.batteries === 1 ? ' BATTERY' : ' BATTERIES'), String(c.batteries))); }
+    if(c.rounds > 0) tillLine('+' + c.rounds + (c.rounds === 1 ? ' ROUND' : ' ROUNDS'));
+    if(c.tape > 0) tillLine('+' + c.tape + ' TAPE'); }
+}
+/* LEAVE tears it off: the total prints, then the roll goes; false when there is nothing to tear (no receipt on the page) */
+function tillTear(){
+  var t = document.getElementById('till'); if(!t || !S.fight) return false;
+  tillSync();
+  if(S.won){ tillLine(new Array(TILL_W + 1).join('='), 'rule'); tillLine(two('TOTAL', String(TILL.total)), 'big'); }
+  tillFlush(); t.classList.remove('open');
+  void t.offsetWidth; t.classList.add('torn');
+  return true;
+}
+window.addEventListener('resize', tillTop);
 
 /* ---------- THE RESULT: the word, the fight's own head, its numbers, what it said ---------- */
 var WORDS = { won: 'YOU WON', lost: 'YOU LOST', ran: 'YOU PULLED OUT', wipe: 'WIPED OUT',   /* draft:true */
@@ -593,14 +694,7 @@ function head(f){
   if(said && hd === 'THE FIGHT IS WON') hd = '';   /* rule 315: the generic banner is gone; a head that names who they were stays */
   var same = !said && (hd.replace(/\W+/g, ' ').trim() === WORDS[kind].replace(/\W+/g, ' ').trim() || hd.indexOf(WORDS[kind]) >= 0);
   document.getElementById('head').textContent = same ? '' : hd;
-  var t = document.getElementById('tally'); t.textContent = '';
-  var bits = [];
-  if(f.rounds) bits.push([f.rounds, f.rounds === 1 ? 'ROUND' : 'ROUNDS']);
-  if(rc.secs) bits.push([mmss(rc.secs), 'OF FIGHTING']);
-  if(rc.theirs) bits.push([rc.down + ' OF ' + rc.theirs, 'OF THEIRS DOWN']);
-  if(rc.ran) bits.push([rc.ran, 'RAN']);
-  bits.forEach(function(b, i){ var sp = document.createElement('span'); if(i === 0) sp.id = 'rounds'; sp.innerHTML = '<b>' + b[0] + '</b> ' + b[1]; t.appendChild(sp); });
-  t.hidden = !bits.length;
+  tillStart(f, rc, hd || WORDS[kind]);   /* __THE_RECEIPT__: the fight's own receipt, printed into this screen */
   var ln = document.getElementById('lines'); ln.textContent = '';
   (rc.lines || []).forEach(function(x){ var p = document.createElement('p'); p.textContent = x; ln.appendChild(p); });
   var cw = document.getElementById('callw'); cw.textContent = '';
@@ -615,7 +709,7 @@ function head(f){
 /* the kit (UI's rendered pieces, the crew screen's own): laid on once the materials file is here */
 function dress(){
   var M = window.BohemiaMaterials; if(!M || !M.kit || document.getElementById('sp-kit')) return false;
-  var pre = 'html[data-kit] body ', R = [['board_plain', 1, ['#bar', '#foot', '.man', '#nothing']], ['tray', 1, ['.man .face']], ['receipt', 1, ['#tally', '.quote', '.count']],
+  var pre = 'html[data-kit] body ', R = [['board_plain', 1, ['#bar', '#foot', '.man', '#nothing']], ['tray', 1, ['.man .face']], ['receipt', 1, ['#till .paper', '.quote', '.count']],
     ['tin_amber', .75, ['.perk', '#lootall:not(:disabled)', '#optimize:not(.undo):not(:disabled)']], ['tin_dark', .75, ['#lootall:disabled', '#optimize:disabled']], ['tin', .75, ['#leave', '#camp', '#optimize.undo']], ['well', 1, ['.slot']], ['well_full', 1, ['.slot.full']], ['receipt', 1, ['#said']]];
   var css = R.map(function(r){ return r[2].map(function(x){ return pre + x; }).join(',') + '{' + M.kit(r[0], r[1]) + (/^tin/.test(r[0]) ? 'filter:drop-shadow(2px 1px 0 rgba(10,6,3,.6));' : '') + '}'; });
   /* a grid of pockets: every slot's floor is cut from another part of the same glass (the crew screen's own trick) */

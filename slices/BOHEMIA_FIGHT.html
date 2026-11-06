@@ -234,6 +234,9 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #over .what{font-weight:700}
 body.wiped #cv{filter:grayscale(1) contrast(1.25) brightness(.55)}
 #over{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,6,4,.78);z-index:6}
+/* __ONE_END_SCREEN__ (RUN FIVE, rule 405(a)(c)): in the game a won or lost fight ends on ONE screen, the game's end screen with this
+   receipt printed into it; the card is still written (the end screen reads its words) and never seen */
+#over.handed{visibility:hidden;pointer-events:none}
 #over .box{width:min(92vw,420px);color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;
   box-shadow:0 8px 24px rgba(0,0,0,.7);padding:16px 14px 14px;transform:rotate(-.5deg)}
 #over h2{margin:0 0 8px;font-size:15px;letter-spacing:.06em;text-align:center;border-bottom:2px dashed rgba(42,34,26,.4);padding-bottom:6px}
@@ -9237,6 +9240,11 @@ function showOver(result) {
   html += '</table>';
   if (result === 'won') html += callWin();   /* rule 143(c): a man of his still standing calls the win */
   document.getElementById('ob').innerHTML = html;
+  /* __ONE_END_SCREEN__ (RUN FIVE, rule 405(a)(c), Paolo 11/4: 'the gambling receipt at the end of the fight populates, but it's only
+     there for one second before the victory screen appears... why don't we combine this'): when the game's end screen takes this
+     fight (the shell's SPOILS, a won or a lost fight), the card is handed to it, never shown first; the bench and a pull-back keep it */
+  const handed = (function () { try { return window.parent !== window && !!window.parent.SPOILS && (result === 'won' || result === 'lost'); } catch (_e) { return false; } })();
+  o.classList.toggle('handed', handed);
   o.style.display = 'flex';
   /* THE RECAP VOICE IS PULLED (SOUNDS, row [a desert, not a rainforest], 10/18). PAOLO
      10/17, voting the narrator DOWN: "this voice was so fucking bad, I don't know if

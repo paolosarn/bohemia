@@ -102,7 +102,16 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   p.on('pageerror', e => errs.push(e.message));
   const fightFrame = async () => { for (let i = 0; i < 200; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();
     if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) return c; } await p.waitForTimeout(150); } return null; };
-  const roadFight = async (seq) => { await fr.evaluate((seq) => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }); }, seq); return fightFrame(); };
+  /* RE-AIMED 11/6 (RUN FIVE): the map's 'a town is always a door' holds a road fight back while the party stands on a town's ground,
+     and the two steps no longer take it off the town it started in, so D1 never started a fight (red on main); the nearest cell off
+     any town's ground first, then the road fight, asked again each second while the map's parties load */
+  const roadFight = async (seq) => {
+    await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {}
+      const free = (x, y) => { try { return !townGround(x, y) && !townSafeAt(x, y); } catch (_e) { return true; } };
+      if (free(city.x, city.y)) return;
+      for (let r = 1; r < 60; r++) for (let a = 0; a < 16; a++) { const x = Math.round(city.x + Math.cos(a * Math.PI / 8) * r), y = Math.round(city.y + Math.sin(a * Math.PI / 8) * r); if (free(x, y)) { city.x = x; city.y = y; return; } } });
+    for (let i = 0; i < 60; i++) { if (await fr.evaluate((seq) => { try { return !!roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }); } catch (_e) { return false; } }, seq).catch(() => false)) break; await p.waitForTimeout(1000); }
+    return fightFrame(); };
   /* a town on the map, the map's own way in (loopOpenTown), and its screen once it stands; the same frame every visit */
   const town = async () => {
     const n = await fr.evaluate(() => { const bs = ctBases(), n = Object.keys(bs)[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); return n; });
@@ -146,8 +155,11 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
        they were (the pack when every one is a beast), RAN only when some ran; every other head of the fight's stands as it is */
     const named = h => fh.head !== 'THE ROAD CREW RAN' ? h === fh.head
       : /^THE [A-Z]+ (IS DOWN|ARE DOWN|RAN|BROKE AND RAN)$/.test(h) && (/RAN$/.test(h) === fh.ran > 0) && (/^THE (PACK|BEAST) /.test(h) === fh.beasts);
+    /* RE-AIMED 11/6 (RUN FIVE, rule 405(c), __THE_RECEIPT__): the fight's numbers are printed on the end screen's receipt, a line a
+       quarter beat; read once it has printed, YOUR kills off your line on it (data-kills), the rounds off its tally (#tally) */
+    for (let i = 0; i < 40 && !(await SF().evaluate(() => !!window.__TILL && !window.__TILL.q.length && !!document.getElementById('tally')).catch(() => false)); i++) await p.waitForTimeout(150);
     const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, kind: document.getElementById('word').dataset.kind, who: document.getElementById('word').dataset.who || '', line: ((document.querySelector('#word q') || {}).textContent || ''), head: document.getElementById('head').textContent, tally: document.getElementById('tally').textContent,
-      you: ((document.querySelector('#crew .man[data-man="YOU"] .nums') || document.querySelector('#crew .man .nums')) || {}).textContent || '', loot: getComputedStyle(document.getElementById('loot')).display }));
+      you: (function () { const r = document.querySelector('#till .tl[data-man="YOU"]') || document.querySelector('#till .tl[data-man]'); return r ? r.dataset.kills + (r.dataset.kills === '1' ? ' KILL' : ' KILLS') : ''; })(), loot: getComputedStyle(document.getElementById('loot')).display }));
     /* RE-AIMED 11/2 (WORDS, rule 315, Paolo 11/2: 'to replace the you won'): a man of his still standing says how it went, his face,
        his name, his line, where YOU WON stood; never YOU */
     ok('E1 *** ONE END SCREEN *** WON: one of his men says how it went, the fight\'s own head, its rounds, and what YOU did in it, all on the one screen that waits',
@@ -259,7 +271,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
       ok('    LEAVE (a real tap) takes him home from a loss', home2);
     } else ok('E2 a lost fight waits too', false, 'no second fight');
     ok('D8 nothing threw', errs.length === 0 && serrs.length === 0, errs.concat(serrs).slice(0, 3).join(' | '));
-  } catch (e) { ok('the walk ran to the end [' + String(e && e.message).slice(0, 200) + ']', false); }
+  } catch (e) { const m = String(e && e.message); ok('the walk ran to the end [' + m.slice(0, 200) + ((/waiting for (.*)/.exec(m) || [])[1] ? ' ... ' + /waiting for (.*)/.exec(m)[1].slice(0, 160) : '') + ']', false); }
   try { await d.close(); } catch (_e) {}
   done();
 })();
