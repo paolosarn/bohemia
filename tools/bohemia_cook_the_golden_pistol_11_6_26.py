@@ -385,11 +385,12 @@ def do_sheet():
     from PIL import Image, ImageDraw
     D = os.path.join(OUTD, 'proof'); k = 2 / 3.0; BG = (24, 22, 20)
     def fr(n): im = Image.open(os.path.join(D, n)).convert('RGB'); return im.resize((round(im.width * k), round(im.height * k)), Image.BOX)
-    def pair(a, b, label):
-        A, B = fr(a), fr(b); W = A.width * 2 + 18; H = A.height + 22
+    def pair(a, b, label):   # WAS above NOW: an upright card for his upright phone (taller than the glass, so it pans both ways)
+        A, B = fr(a), fr(b); W = max(A.width + 12, 480); H = A.height * 2 + 52; x = (W - A.width) // 2
         S = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(S)
-        d.text((6, 5), 'WAS: the class pistol', fill=(200, 190, 170)); d.text((A.width + 12, 5), 'NOW: the new pistol, a STAND-IN (not yet the bar)  ' + label, fill=(240, 200, 120))
-        S.paste(A, (6, 22)); S.paste(B, (A.width + 12, 22)); return S
+        d.text((6, 5), 'WAS: the class pistol  ' + label, fill=(200, 190, 170)); S.paste(A, (x, 22))
+        d.text((6, A.height + 31), 'NOW: the new pistol, a STAND-IN (not yet the bar)', fill=(240, 200, 120)); S.paste(B, (x, A.height + 48))
+        S.info['now'] = [x, A.height + 48, B.width, B.height]; return S
     seq, dur = [], []
     for kit, lab in (('door', 'with his car door'), ('bare', 'one hand')):
         for f in range(8): seq.append(pair('%s_before_turn%d.png' % (kit, f), '%s_after_turn%d.png' % (kit, f), lab)); dur.append(300)
@@ -398,16 +399,18 @@ def do_sheet():
     # the card and the bar, held: his pack tile and the new card at 3x, the gun beside the bar at 2x
     C = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(C)
     old = Image.open(os.path.join(OUTD, 'card', 'w_pistol_pack.png')).convert('RGBA'); new = Image.open(os.path.join(OUTD, 'card', 'w_pistol.png')).convert('RGBA')
-    d.text((6, 5), 'THE CARD: his pack tile (was)', fill=(200, 190, 170)); d.text((6 + 3 * 96 + 20, 5), 'the new card (NOT shipped: his tile stays)', fill=(240, 200, 120))
+    d.text((6, 5), 'THE CARD: his pack tile (kept)', fill=(200, 190, 170)); d.text((6 + 2 * 96 + 20, 5), 'the new card (NOT shipped)', fill=(240, 200, 120))
     for i, im in enumerate((old, new)):
-        im = im.resize((im.width * 3, im.height * 3), Image.NEAREST); C.paste(im, (6 + i * (3 * 96 + 20), 24), im)
-    bar = Image.open(os.path.join(OUTD, 'beside_the_bar_1x.png')).convert('RGB'); kb = max(1, min(2, (W - 12) // bar.width, (H - 24 - 3 * 78 - 30) // bar.height))
+        im = im.resize((im.width * 2, im.height * 2), Image.NEAREST); C.paste(im, (6 + i * (2 * 96 + 20), 24), im)
+    bar = Image.open(os.path.join(OUTD, 'beside_the_bar_1x.png')).convert('RGB'); kb = max(1, min(2, (W - 12) // bar.width, (H - 24 - 2 * 78 - 30) // bar.height))
     bar = bar.resize((bar.width * kb, bar.height * kb), Image.NEAREST)
-    d.text((6, 24 + 3 * 78 + 10), 'BESIDE THE BAR, the fight\'s pixels at %dx: the thug, the robot, YOU holding it, the card' % kb, fill=(240, 200, 120))
-    C.paste(bar, (6, 24 + 3 * 78 + 26)); seq.append(C); dur.append(2200)
+    d.text((6, 24 + 2 * 78 + 10), 'BESIDE THE BAR at %dx: the thug, the robot, YOU holding it' % kb, fill=(240, 200, 120))
+    C.paste(bar, (6, 24 + 2 * 78 + 26)); seq.append(C); dur.append(2200)
     seq = [s if s.size == (W, H) else (lambda c: (c.paste(s, (0, 0)), c)[1])(Image.new('RGB', (W, H), BG)) for s in seq]
     sp = os.path.join(OUTD, 'CARD_THE_PISTOL_STAND_IN.webp'); seq[0].save(sp, 'WEBP', save_all=True, append_images=seq[1:], duration=dur, loop=0, quality=82, method=6)
-    first = seq[1]; fp = os.path.join(OUTD, 'first.webp'); first.save(fp, 'WEBP', quality=85, method=6)
+    na = seq[1].info.get('now') or [0, 0, W, H]
+    first = seq[1].crop((na[0], na[1], na[0] + na[2], na[1] + na[3])); fp = os.path.join(OUTD, 'first.webp'); first.save(fp, 'WEBP', quality=85, method=6)
+    json.dump(dict(firstAt=na, size=[W, H]), open(os.path.join(OUTD, 'card_first_at.json'), 'w'))
     seq[1].save(os.path.join(OUTD, 'card_still_turn_SE.png')); seq[16].save(os.path.join(OUTD, 'card_still_group.png')); C.save(os.path.join(OUTD, 'card_still_bar.png'))
     print('SHEET', sp, (W, H), len(seq), os.path.getsize(sp))
 

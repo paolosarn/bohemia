@@ -1,3 +1,41 @@
+COOK GOLDEN PISTOL (rule 408(b), DIRECTION's routing: a weapon first; ask line 464, 11/6): BUILD 11/6i THE PISTOL IN HIS HAND.
+SHIPPED AS A STAND-IN, NOT GOLDEN, NOT YET SEEN (rule 179). Record records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_11_6_26.md.
+- THE WEAPON: THE PISTOL (YOU's jobs pistol + car_door; ours.weapon_rows pistol -> 'dagger'; the first origin hands it to two of
+  three men). Every PISTOL row (class dagger: knife, dagger, notched_blade, rondel_dagger, qatal_dagger, estoc) was COOK's 10/18
+  class pistol, a gunmetal 1911 of eight boxes: a dark smear on his black clothes.
+- THE COMMON RECIPE, EVERY STEP: the real object first, WPN-01 (NEW in the reference library, which had 0 weapons): the Colt
+  Government Model in stainless, 216 x 140 x 32 mm, 1.0-1.1 kg. ONE SOURCE reference/models/bohemia/gun_service_pistol.glb
+  (218 x 138 x 32 mm; side profiles, the 18-degree grip, a band guard, checkered walnut with the double diamond as geometry,
+  five palette materials, origin at the firing hand's grip; the one wrong thing: the serial ground off). Master rig --class prop
+  at its real length, seeds 0 and 1 (records/target/cook_golden_pistol/master_true_seed0/1: proportions OK, prop card BACK on
+  size, 18 px alone, as every gun since 10/18). 21 look cycles, twin the thug (cook_golden_pistol/loop.jsonl). In YOU's hands in
+  all four systems (832 frames, 118 s); the class pistol re-rendered through the same pipe: 0 of 2,045 px off the shipped sheet.
+- JUDGED WHERE HE MEETS IT (tools/bohemia_cook_the_golden_pistol_proof_11_6_26.js, phone 390x844@3x, eight facings, his car door,
+  the pistol alone, beside the thug and RAUL, the opening zoom, night): 1,102-1,132 draws of the new pistol a run, 0 before,
+  0 page errors, the car door in every frame. Better than the smear it replaces.
+- IT DID NOT REACH THE BAR: an independent reviewer on DIRECTION's bar page and recipe (pictures only, not my conclusion): BACK,
+  'beside the bar: WORSE' (hidden in 5 of 8 door facings; a pale blade held low, not the L of a pistol; WAS and NOW alike at the
+  opening zoom; the card lighter and weaker than his own pack tile). So: VOTE cook-the-pistol-stand-in-11-6 is stage stand_in
+  (art_kind weapon, bar none:weapon, nearest body_thug_S, real WPN-01, the BACK line on it); HIS PACK TILE w_pistol.png STAYS on
+  the item cards; the fight takes the new pistol.
+- IN THE GAME: slices/fight_rig/own_guns.json gun 'dagger' (own_guns/dagger.webp) + every PISTOL row on it; the six guns
+  untouched, the 309 shift tables identical, 17 newer looks gained theirs. items.json service_pistol owns the six rows. No fight
+  code changed. Not touched: the settlement screens (RUN FIVE), the save/road/retreat (RUN SIX), the camp (CAMP THREE).
+- GATES: THE FIGHT DRAWS WHAT HE WEARS (COMBAT 8's check) 19/0; every item has a model 286/0; THE VOTE TAB 57/6 with the card,
+  the same 6 reds as main without it (the dynasty pair's why, F6 band and F7 for RUN TWO, the alpha landing, the vote box, the
+  gear tap); REFERENCE CHECK and REUSE-FIRST pass both new tools (their 2 and 19 reds are older tools); purity 0 purple, 0 strict
+  lava. PIL works on this box in both pythons. Full suite unmeasured since fac0e457.
+- BLENDER ON THIS BOX: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow (2 minutes); bpy dies at exit
+  now and then after writing, every step checks its files. NEVER name a master rig output folder rig_...: the rig names its
+  shadows by replacing '/rig_' in the path and crashes (cost a round's guess this time).
+NEXT (the golden pass, still ONE pistol): the reviewer's four faults: (1) the hold that shows it in all eight facings with a door on
+the other arm, with ANIMATION (the low ready's PLACE); (2) the L of slide over grip at 12 px held low (the grip out of the fist, or
+a two-value gun the L reads inside); (3) the card with the robot's dirt and a dark rim, weight equal to his tile; (4) the opening
+zoom. Then DIRECTION's own eye, then GOLDEN. NOTE for COMBAT/ANIMATION: from the back the car door draws as two wing-like panels
+behind his shoulders (proof door_after_turn2-4).
+[bb Battle Brothers draws every weapon its own sprite in the man's hand on every pose; ours now does for the pistol, at its real size.]
+[analog horror: the serial ground off; somebody owned this gun before you and made sure nobody would know who.]
+
 COOK DEAD (rule 360 and its amendment the same round, rule 337, ask lines 384 and 394, 11/3): THE DEAD ARE EVERYWHERE. BUILT, NOT YET
 SEEN (rule 179); nothing in the alpha or the demo changed, so no build stamp (the VOTE tab reads the registry live):
 - [the dead are everywhere] SHIPPED (24b80e688): thirteen dead as real models through the master rig at the fight's camera and scale,

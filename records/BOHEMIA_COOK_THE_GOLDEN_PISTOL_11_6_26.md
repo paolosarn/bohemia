@@ -96,7 +96,12 @@ shoulders (proof door_after_turn2/3/4); NOTE for COMBAT and ANIMATION.
   read 18/1, a timing flake; run again alone, 19/0). P5: the car door on his arm and a pistol in his hand, all eight facings,
   106 of 106 looks.
 - every item has a model (gates/every_item_has_a_model_gate.py): 286/0, the new entry's M2 and M3 green.
-- the VOTE tab, REFERENCE CHECK, REUSE-FIRST and purity: in the commit's proof line.
+- THE VOTE TAB (gates/vote_tab_gate.js): 57/6 with the card, the same 6 reds as main without it (the dynasty pair's why, F6's band
+  and F7 for RUN TWO, the alpha landing, the vote box, the gear tap). The card first went 56/7: laid side by side it was 530
+  points tall, shorter than the phone, and the tab and the gate disagree on how a short sheet pans; it is upright now (WAS above
+  NOW, 480 x 1068) and that leg is green. F1 to F6 green with the card as stand_in.
+- REFERENCE CHECK 514/2 and REUSE-FIRST 389/19: both new tools pass; every red names another lane's older tool, unchanged.
+- purity (gates/bohemia_purity_gate.py check_png): 0 purple, 0 strict lava on the gun's sheet, the card and its frames.
 - PIL works on this box in both pythons (python3 and the bpy venv); no image-comparing leg failed for that reason this round.
 - Blender: bpy 4.2.0 in a python3.11 venv (/tmp/v) runs on this box; it dies at exit now and then after writing (a known
   bpy 4.2 trait), every step checks its files. A master rig crash this round was mine: an output folder named rig_... is
