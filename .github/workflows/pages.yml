@@ -33,6 +33,10 @@
 # plays the game on a server that answers only the list, and goes red on any file it asks
 # for that the list left out.
 #
+# AND FROM 11/6 (PLUMBER 6, rule 418(e)) A DEPLOY THAT TIMES OUT ON GITHUB'S SIDE TRIES AGAIN BY ITSELF: three fresh
+# deployments of the same upload in one run, then one fresh run sent by the workflow itself, then a red that says THE SITE IS
+# BEHIND and which build is live. The live check reads the site's own BOHEMIA_SITE_SHA.txt, so it knows WHICH build answers.
+#
 # THE ONE-LINK LAW is unaffected: slices/ lands at the same path, so
 # https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html never changes.
 name: pages
@@ -73,13 +77,28 @@ on:
       - 'tools/bohemia_cut_the_demo.js'   # the demo is cut AT DEPLOY by this
       - 'tools/bohemia_bake_the_demo_cast.js'   # and the cut bakes the demo's six map people with this
       - 'tools/bohemia_publish_list.js'   # the list of what is published (11/6): a change to it changes the site
+  # *** 11/6 PLUMBER 6, rule 418(e), THE PUBLISH NEVER BREAKS HIS FLOW (Paolo 11/6: 'I need to be able to play it too, and you're
+  # fucking with the flow'). Two inputs, both empty on a push. retry_of: set ONLY by this workflow when every deploy try of a run
+  # timed out and it sends itself again; a run that carries it never sends another (one fresh run per failure, never a loop).
+  # rehearse_timeouts: the first N deploy tries give up after one second, so the retry and the re-send are proven on a real run
+  # on demand (records/BOHEMIA_PLUMBER_THE_PUBLISH_NEVER_BREAKS_HIS_FLOW_11_6_26.md). ***
   workflow_dispatch:
+    inputs:
+      retry_of:
+        description: 'set by the deploy itself: the run whose three tries all timed out (a run that carries this never re-sends)'
+        required: false
+        default: ''
+      rehearse_timeouts:
+        description: 'PLUMBER rehearsal: how many of the first deploy tries are made to time out after one second (0 to 3)'
+        required: false
+        default: '0'
 
 permissions:
   contents: read
   pages: write
   id-token: write
-  actions: read   # 9/22: to see GitHub's own "pages build and deployment" run and wait it out (below)
+  actions: write  # 9/22: to see GitHub's own "pages build and deployment" run and wait it out (below); 11/6: and to send this
+                  # workflow again, once, when every deploy try timed out on GitHub's side (a GITHUB_TOKEN dispatch starts a run)
 
 # THE DEADLOCK FIX. Queue, never cancel.
 concurrency:
@@ -90,8 +109,10 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.pages.outputs.base_url }}
     runs-on: ubuntu-latest
+    # three deploy tries of at most 10 minutes each, the build before them about 3 minutes, the live check about 2
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
 
@@ -137,15 +158,23 @@ jobs:
           set -e
           node tools/bohemia_publish_list.js --copy _site
           touch _site/.nojekyll
+          # 11/6 (rule 418(e)): the commit this site was built from, so the live check (and anyone) can read WHICH build is live,
+          # not only that a page answers 200. Never in the repo; written here, at the site's root.
+          echo "$GITHUB_SHA" > _site/BOHEMIA_SITE_SHA.txt
           echo "published $(du -sh _site | cut -f1) in $(find _site -type f | wc -l) files, out of a $(du -sh --exclude=.git . | cut -f1) tree"
 
-      - uses: actions/configure-pages@v5
+      - id: pages
+        uses: actions/configure-pages@v5
         with:
           enablement: true
 
+      # 11/6: THE UPLOAD IS NAMED FOR ITS ATTEMPT. A re-run of a failed run kept the first attempt's upload and added its own, and
+      # deploy-pages refused both: 'Multiple artifacts named "github-pages" were unexpectedly found for this workflow run. Artifact
+      # count is 2.' (run 42209558695, attempt 2). One name per attempt, and every deploy try below asks for that name.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+          name: github-pages-${{ github.run_attempt }}
 
       # TWO BUILDERS RACE (coordinator 9/22, records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md).
       # GitHub's own "pages build and deployment" (workflow 314926822, Jekyll, reading
@@ -168,19 +197,126 @@ jobs:
             sleep 10
           done
 
-      - id: deployment
+      # *** THE DEPLOY TRIES THREE TIMES, THEN SENDS ITSELF AGAIN (PLUMBER 6, 11/6, rule 418(e)). ***
+      # MEASURED: actions/deploy-pages timed out at its 10-minute limit on runs 4270, 4272, 4274, 4287 and 4288, every one
+      # stuck at 'Current status: syncing_files' on GitHub's side (the upload took 20-25 s; 4288's 823 MB was the same size,
+      # to 0.02%, as 4286's that landed in under a minute). The 10 minutes cannot be raised: the action caps its own timeout
+      # input at MAX_TIMEOUT = 600000 (src/internal/deployment.js), and at the limit it CANCELS the deployment itself. A
+      # cancelled deployment can be made again for the same commit, so each try below is a FRESH deployment of the same upload.
+      # Every try may fail without failing the job (continue-on-error); the step after them decides, and says so plainly.
+      - id: try1
+        name: deploy, try 1 of 3
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
+          timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 1 && '1000' || '600000' }}
+          reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 1 && '1000' || '5000' }}
+
+      - name: try 1 did not land; a breath before a fresh deployment
+        if: steps.try1.outcome == 'failure'
+        run: |
+          echo "::warning title=DEPLOY TRY 1 DID NOT LAND::GitHub's deploy step gave up (its own 10-minute limit, or an error on its side). Trying again with a fresh deployment."
+          sleep 30
+
+      - id: try2
+        name: deploy, try 2 of 3
+        if: steps.try1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
+          timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 2 && '1000' || '600000' }}
+          reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 2 && '1000' || '5000' }}
+
+      - name: try 2 did not land; a longer breath before the last try
+        if: steps.try1.outcome == 'failure' && steps.try2.outcome == 'failure'
+        run: |
+          echo "::warning title=DEPLOY TRY 2 DID NOT LAND::Second time GitHub's deploy step gave up. One more fresh deployment in 90 seconds."
+          sleep 90
+
+      - id: try3
+        name: deploy, try 3 of 3
+        if: steps.try1.outcome == 'failure' && steps.try2.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
+          timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 3 && '1000' || '600000' }}
+          reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 3 && '1000' || '5000' }}
+
+      - id: landed
+        name: did a try land
+        env:
+          T1: ${{ steps.try1.outcome }}
+          T2: ${{ steps.try2.outcome }}
+          T3: ${{ steps.try3.outcome }}
+        run: |
+          n=0
+          for t in "$T1" "$T2" "$T3"; do
+            n=$((n+1))
+            if [ "$t" = "success" ]; then
+              echo "landed=yes" >> "$GITHUB_OUTPUT"; echo "try=$n" >> "$GITHUB_OUTPUT"
+              echo "THE DEPLOY LANDED on try $n of 3 (tries: $T1 / ${T2:-not needed} / ${T3:-not needed})"
+              echo "### The deploy landed on try $n of 3" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+          done
+          echo "landed=no" >> "$GITHUB_OUTPUT"
+          echo "NO TRY LANDED (tries: $T1 / $T2 / $T3)"
 
       # THE DEPLOY IS ONLY TRUE IF THE LIVE SITE SERVES WHAT HE TAPS (9/22). A 404 goes
       # red here instead of on his phone. 11/6: the map, the fight and the town pages, and the
       # fight's two indexes, are asked too, now that the site is a list and not three whole folders.
-      - name: the live site serves the vote list, the alpha and the demo
+      # 11/6 (rule 418(e)): AND IT IS THIS BUILD. A 200 says a page answers, not which build answers; the site's own
+      # BOHEMIA_SITE_SHA.txt must read this run's commit (asked past the CDN's 10-minute copy, up to three minutes).
+      - name: the live site serves the vote list, the alpha and the demo, and it is this build
+        if: steps.landed.outputs.landed == 'yes'
         run: |
-          base="${{ steps.deployment.outputs.page_url }}"
+          base="${{ steps.pages.outputs.base_url }}"
           base="${base%/}"
           sleep 20
           for p in records/target/BOHEMIA_VOTE_REGISTRY.json records/target/BOHEMIA_VOTE_TRIAGE.json slices/BOHEMIA_ALPHA_0_9.html slices/BOHEMIA_DEMO.html slices/BOHEMIA_VOTE_TAB.html slices/sw.js slices/BOHEMIA_CITY_WORLD.html slices/BOHEMIA_FIGHT.html slices/BOHEMIA_SETTLEMENT_SCREEN.html slices/fight_rig/fight_rig.json slices/fight_ground/fight_ground.json; do
             code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "$base/$p")
             echo "$code  $p"
-            [ "$code" = "200" ] || { echo "LIVE SITE DOES NOT SERVE $p (HTTP $code)"; exit 1; }
+            [ "$code" = "200" ] || { echo "::error title=THE LIVE SITE IS MISSING A PAGE::$p answers HTTP $code"; exit 1; }
           done
+          live=""
+          for i in $(seq 1 18); do
+            live=$(curl -s -H 'Cache-Control: no-cache' "$base/BOHEMIA_SITE_SHA.txt?check=$GITHUB_RUN_ID-$i" | tr -dc '0-9a-f' | head -c 40)
+            [ "$live" = "$GITHUB_SHA" ] && break
+            sleep 10
+          done
+          echo "the live site says it is $live; this run built $GITHUB_SHA"
+          [ "$live" = "$GITHUB_SHA" ] || { echo "::error title=THE SITE IS BEHIND::the deploy said it landed, but three minutes later the live site still says it is ${live:-nothing}, not ${GITHUB_SHA}"; exit 1; }
+          echo "### LIVE: the site is ${GITHUB_SHA:0:8} (try ${{ steps.landed.outputs.try }} of 3)" >> "$GITHUB_STEP_SUMMARY"
+
+      # *** NO TRY LANDED: SEND A FRESH RUN ONCE, OR SAY THE SITE IS BEHIND, IN THOSE WORDS. *** A fresh run is a new runner, a
+      # new upload and a new deployment, on main's newest commit (so it also carries anything pushed while these tries waited).
+      # It queues in the 'pages' group behind this run; a push that lands meanwhile takes its place, which deploys newer work.
+      - name: no try landed - send a fresh run once, or say plainly the site is behind
+        if: steps.landed.outputs.landed == 'no'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RETRY_OF: ${{ inputs.retry_of }}
+          BASE: ${{ steps.pages.outputs.base_url }}
+        run: |
+          base="${BASE%/}"
+          live=$(curl -s -H 'Cache-Control: no-cache' "$base/BOHEMIA_SITE_SHA.txt?check=$GITHUB_RUN_ID-behind" | tr -dc '0-9a-f' | head -c 40)
+          live="${live:-an older build that does not say its commit}"
+          if [ -z "$RETRY_OF" ]; then
+            code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/dispatches" \
+              -d "{\"ref\":\"main\",\"inputs\":{\"retry_of\":\"$GITHUB_RUN_ID\"}}")
+            if [ "$code" = "204" ]; then
+              msg="THE SITE IS BEHIND FOR NOW. GitHub's deploy step gave up 3 times on its own side. A FRESH RUN WAS SENT (it deploys main's newest commit). The live site is still ${live}; this run built ${GITHUB_SHA}."
+            else
+              msg="THE SITE IS BEHIND. GitHub's deploy step gave up 3 times, and sending a fresh run failed (HTTP ${code}). The live site is still ${live}; this run built ${GITHUB_SHA}. Run the pages workflow again by hand."
+            fi
+          else
+            msg="THE SITE IS BEHIND. Six tries over two runs (this one and run ${RETRY_OF}) all timed out on GitHub's side. The live site is still ${live}; main is ${GITHUB_SHA}. Check githubstatus.com, then run the pages workflow again."
+          fi
+          echo "::error title=THE SITE IS BEHIND::$msg"
+          echo "## $msg" >> "$GITHUB_STEP_SUMMARY"
+          exit 1
