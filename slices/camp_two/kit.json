@@ -708,28 +708,6 @@
   "slain_many": false,
   "fire_0": false
  },
- "plate": {
-  "src": "plate.webp",
-  "night_src": "plate_night.webp",
-  "px": [
-   2060,
-   1092
-  ],
-  "ppm": 42.916666666666664,
-  "day_ground_median": 0.588,
-  "night_ground_median": 0.215,
-  "from": "slices/settlement_ground_packs/camp_0.webp, quilted from its clean sand (CLEAN boxes in the tool)"
- },
- "plate_tall": {
-  "src": "plate_tall.webp",
-  "night_src": "plate_tall_night.webp",
-  "px": [
-   1092,
-   1940
-  ],
-  "ppm": 42.916666666666664,
-  "why": "rule 289: the camp good tall first; the same sand quilted upright, the camp laid out for it (BohemiaCampLife.layout tall)"
- },
  "made": "COOK 10/26 (tools/bohemia_cook_the_camp_through_the_rig_10_26_26.py): CAMP TWO's same shapes through DIRECTION's master rig (Cycles, the guide's camera, sun, source pass, snap, ring and contact shadow), facing S; the numpy recipe stands as the source of the shapes",
  "rig_runs": "records/target/cook_camp_rig/rig_json.json (each piece's rig.json: its box, ground, colours, card, settings)",
  "camp_trailer_rig": {
@@ -749,5 +727,6 @@
    0.43
   ],
   "why": "the last carrier step (pickup_trailer): a 4 x 7 ft utility trailer, 3.3 m with its tongue; drawn behind the pickup in the same facing; hitch_m is the coupler from the ground centre in metres (x east, y north, tongue to -y)"
- }
+ },
+ "ground": "RETIRED 11/6 (CAMP THREE, rule 406(b)): the camp has no ground of its own any more; it is pitched on the fight board of the block he camps on (slices/bohemia_camp_board.js). The four sand plates are in graveyard/the_camp_sand_11_6_26/."
 }

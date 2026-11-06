@@ -22,14 +22,23 @@
    MAP (a plate left of HEAL), a pinch out or the wheel out shows the live map with the camp at its spot and the hours running.
      BohemiaCampLook.ready() / variant() / open(info, S) / boxes(VAR, personH) / names() / folk() / hideLead()
      BohemiaCampLook.items(items, ctx) / lit(cx, key, ctx) / under(cx, ctx) / over(cx, ctx) / tap() / reads(d) / state()
-   Words are attempts, draft:true. */
+   Words are attempts, draft:true.
+   AMENDED 11/6 BY CAMP THREE (rule 406(a)(b), Paolo 11/4, LOCKED: 'the camp only takes place on combat grid maps... anytime you camp
+   it's on the combat grid'): HIS GROUND IS THE FIGHT BOARD OF THE BLOCK HE STANDS ON. The quilted sand (plate, plate_night,
+   plate_tall, plate_tall_night) is retired, deleted in the same push (rule 405(a)); slices/bohemia_camp_board.js asks the fight for
+   the board a fight on that block would deal, pitches the camp's square on it (one house tile, then 2 by 2, bigger with the company)
+   and lays this camp on the square. Until the board is in, nothing of the camp is drawn and the pitch waits (the glass stays dark,
+   never the old picture). Every door, act, the pitch, the compass, the ghosts and the turn below are CAMP TWO's, unchanged. */
 (function (root) {
   'use strict';
   var CL = root.BohemiaCampLife;
+  /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE): the board's module, beside this file */
+  if (!root.BohemiaCampBoard) { try { var bs = document.createElement('script'); bs.src = 'bohemia_camp_board.js'; bs.async = false; (document.head || document.documentElement).appendChild(bs); } catch (e) {} }
+  function CB() { return root.BohemiaCampBoard || null; }
   var K = { kit: null, img: null, rig: {}, ready: false, st: null, info: null, compass: null, threats: null, pitch: null, lastMade: null,
     men: null, folkKey: null, folk: [], hide: false, peekBtn: null, reads: 0, ghost: null };
   var BASE = 'camp_two/';
-  try { fetch(BASE + 'kit.json').then(function (r) { return r.json(); }).then(function (j) { K.kit = j;
+  try { fetch(BASE + 'kit.json').then(function (r) { return r.json(); }).then(function (j) { K.kit = j; try { if (K.st) boardWant(); } catch (e) {}   /* CAMP THREE: a camp opened before the kit asks for its board now */
     var im = new Image(); im.onload = function () { K.img = im; K.ready = true; }; im.src = BASE + 'kit.png'; }).catch(function () {}); } catch (e) {}
   try { fetch('../records/target/bb/ours.json').then(function (r) { return r.json(); }).then(function (j) { var c = j && j.odds_colour; if (c && CL) CL.setOdds(c.value || c); }).catch(function () {}); } catch (e) {}
   /* the carriers DIRECTION's master rig rendered (the cart his law names first, and the truck), at the rig's own 57 ppm */
@@ -61,6 +70,7 @@
     var men = companyOf(info), cond = up('BohemiaCondition');
     var block = info && info.block ? info.block : [0, 0];
     var LO = { men: men.length, level: cart, smart: smart(), followers: ret, kills: (info && info.kills) | 0, seed: block[0] * 7 + block[1] * 13, tall: wantTall() };
+    K.plan = { men: LO.men, level: LO.level, smart: LO.smart, followers: LO.followers.slice(), kills: LO.kills, seed: LO.seed };   /* __THE_CAMP_ON_THE_BOARD__: the square is the company's, never the glass's */
     var L = CL.layout(LO);
     if (L.tall) { var lift = liftFor(L, men.length); if (lift) { LO.lift = lift; L = CL.layout(LO); } }
     var M = men.map(function (m) {
@@ -83,9 +93,10 @@
   function open(info, S) {
     K.info = info || {};
     K.st = build(K.info);
+    boardWant();   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(a)): the board of the block he stands on, asked once a camp */
     /* the pitch plays when the map made a new camp (its own count of camps made), never on a reopen or a peek back */
     var made = null; try { made = root.parent && root.parent.__CAMP ? root.parent.__CAMP.made | 0 : null; } catch (e) {}
-    if (made != null && made !== K.lastMade && K.st) { K.lastMade = made; pitchNow(); }
+    if (made != null && made !== K.lastMade && K.st) { K.lastMade = made; if (boardIn()) pitchNow(); else K.pitchDue = true; }   /* the pitch waits for its ground */
     else if (made == null && !K.pitch) K.lastMade = made;
     K.folkKey = null;
     peekPlate(true);
@@ -97,6 +108,7 @@
     var changed = !K.st || s.key !== K.st.key;
     K.st = s; if (changed) K.folkKey = null;
     ghostHour();
+    if (changed) { boardWant(); boardTell(); }   /* __THE_CAMP_ON_THE_BOARD__: a hire by the fire or a cart bought up can change the square or its picture */
   }
   /* THE SHAPE OF THE GLASS (rule 289): a glass taller than wide gets the tall camp on the tall ground, a wide one the wide camp; a
      turn GLIDES between them (flip below) */
@@ -134,20 +146,50 @@
     });
     return out;
   }
-  function wantTall() { try { var W = root.innerWidth, H = root.innerHeight; return !!(K.kit && K.kit.plate_tall) && H > W * 1.15; } catch (e) { return false; } }
-  function variant() {
-    if (!K.kit) return null;
-    var tall = wantTall(), p = tall ? K.kit.plate_tall : K.kit.plate;
-    return { src: p.src, night_src: p.night_src, dir: BASE, px: p.px.slice(), hotspots: {}, lights: 1, camp2: true, tall: tall };
+  function wantTall() { try { var W = root.innerWidth, H = root.innerHeight; return !!CL && H > W * 1.15; } catch (e) { return false; } }
+  /* ==== __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(a)(b)): the ground is the board's picture under this camp's layout; until it
+     is in, a dark glass of the camp's shape (the fight's own ground colour), with nothing drawn on it and no door on it ==== */
+  var WAIT = 'image/gif;base64,R0lGODlhAQABAIAAAA0LCQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';   /* one pixel of #0d0b09 */
+  function boardAsk() {
+    var M = null; try { M = root.parent && root.parent !== root ? root.parent.BohemiaMapCamp : null; } catch (e) { M = null; }
+    /* in the game the map asks, and only while a camp stands (a late hour after the camp broke never asks again: measured 11/6, a
+       tick after BREAK CAMP re-asked with no block and dealt a board of nowhere) */
+    if (M) { try { return M.boardAsk ? M.boardAsk() : null; } catch (e) { return null; } }
+    if (K.info && K.info.block) return { type: 'BOHEMIA_CITY_ENCOUNTER', why: 'camp', at: K.info.block.slice(), district: K.info.district || null, world: { night: !!K.info.night } };   /* a bench with no map: the block alone */
+    return null;
   }
-  /* the plates fetched once, so a turn never waits on the network (a frame with no ground is a black frame) */
-  var PLATES = {}; function platesWarm() { if (!K.kit) return; ['plate', 'plate_tall'].forEach(function (k) { var p = K.kit[k]; if (!p) return; [p.src, p.night_src].forEach(function (f) { if (!PLATES[f]) { var im = new Image(); im.src = BASE + f; PLATES[f] = im; } }); }); }
+  function boardWant() { var C = CB(); if (!C || !K.kit || !K.plan) return null; var a = boardAsk(); if (!a) return null; return C.want(a, K.plan, K.kit); }
+  function boardIn() { var C = CB(); return !!(C && C.state().state === 'in'); }
+  function boardWait() { var C = CB(); if (!C) return true; var st = C.state().state; return st !== 'in' && st !== 'failed'; }
+  function boardPlate() { var C = CB(); return C && K.st && boardIn() ? C.plate(K.st.layout) : null; }
+  function variant() {
+    var tall = wantTall(), G = CL ? (tall ? CL.GEO.tall : CL.GEO.wide) : { w: 2060, h: 1092 }, P = boardPlate();
+    if (P) return CB().variantOf(P);
+    return { src: WAIT, night_src: WAIT, dir: 'data:', px: [G.w, G.h], hotspots: {}, lights: 1, camp2: true, tall: tall, wait: true };
+  }
+  /* the board landed or a picture of it did: the screen picks its ground again (its own turn path), the pitch that waited plays, and
+     the map is told where the camp stands, for the fight that finds it there (rule 406(c)) */
+  function boardLanded() {
+    if (!K.st) return;
+    if (K.pitchDue && boardIn()) { K.pitchDue = false; pitchNow(); }
+    boardTell();
+    K.boardRepick = true;
+    try { root.dispatchEvent(new Event('bohemia-phone')); } catch (e) {}   /* the settlement's campCompose: wantsFlip below says yes, flip re-picks */
+  }
+  function boardTell() { try { var C = CB(), M = root.parent && root.parent !== root ? root.parent.BohemiaMapCamp : null; if (C && M && M.pitched && K.st && boardIn()) M.pitched(C.handOver(K.st.layout), C.state()); } catch (e) {} }
+  function boardStale(VAR) { if (!VAR || !VAR.camp2 || !K.st) return false; var P = boardPlate(); if (!P) return false; return !VAR.board || VAR.boardKey !== P.key; }
+  try { (function hook(n) { var C = CB(); if (C) { C.onChange(boardLanded); return; } if (n < 200) setTimeout(function () { hook(n + 1); }, 25); })(0); } catch (e) {}
+  /* ==== /__THE_CAMP_ON_THE_BOARD__ ==== */
+  function platesWarm() {}   /* the sand is retired (rule 406(b)); the board's pictures are made once, in slices/bohemia_camp_board.js */
   /* A TURN GLIDES (rule 289(b)(c), the coordinator's default: the shared-element move): the camp's pieces and his men slide from where
      they stood on the old glass to their new spots in one beat (500 ms at 120 BPM, eased), each man keeping his act; the ground
      swaps under them (the same sand both ways); the last frame holds while the new ground comes in, never a black frame */
   var GLIDE_MS = 500;   /* one beat at 120 BPM (a capture for the VOTE tab may slow it with window.__CAMP2_GLIDE_MS) */
-  function wantsFlip(VAR) { return !!(K.st && VAR && VAR.camp2 && !!VAR.tall !== wantTall()); }
+  function wantsFlip(VAR) { return !!(K.st && VAR && VAR.camp2 && (!!VAR.tall !== wantTall() || boardStale(VAR))); }   /* CAMP THREE: or the board's picture came in */
   function flip(cv, view) {
+    if (K.boardRepick && K.st && !!K.st.tall === wantTall()) {   /* __THE_CAMP_ON_THE_BOARD__: the same glass, its ground came in: no glide, nothing moves */
+      K.boardRepick = false; K.composed = null; K.folkKey = null; return true; }
+    K.boardRepick = false;
     var snap = K.lastSnap || null;   /* the glass is cleared by its own resize before this runs: the last beat's copy is the frame to hold */
     K.lastSnap = null;
     /* the beat starts on the first frame the new ground is drawn (a slow phone's first frame after a turn can be late; the glide is
@@ -157,6 +199,7 @@
     K.composed = null;
     if (K.info) K.st = build(K.info);
     K.folkKey = null;
+    boardTell();   /* CAMP THREE: the camp the fight would find is the one on the glass */
     return true;
   }
   /* ON MOTION'S CURVE (the coordinator's 289 brief: 'one beat at 120 BPM, on MOTION's curve'): the beat from MOTION's clock (the
@@ -182,7 +225,7 @@
     try { var c = cx.canvas, sw = G.snap.width, sh = G.snap.height, k = Math.max(c.width / sw, c.height / sh);   /* the old glass, covering the new one (no stretch) */
       cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(G.snap, (c.width - sw * k) / 2, (c.height - sh * k) / 2, sw * k, sh * k); cx.restore(); } catch (e) { return false; } return true; }
   /* the camp has drawn a frame (MOTION's grow hands over to the real screen on it) */
-  function drawn() { var n = root.performance ? performance.now() : Date.now(); return !!(K.st && K.lastDraw && n - K.lastDraw < 1500); }
+  function drawn() { var n = root.performance ? performance.now() : Date.now(); return !!(K.st && !boardWait() && K.lastDraw && n - K.lastDraw < 1500); }   /* CAMP THREE: the camp has drawn on its board */
   function pieceRect(p, z) {
     var e = sprite(p); if (!e) return null;
     return [p.x - e.foot[0] * z, p.y - e.foot[1] * z, p.x + (e.w - e.foot[0]) * z, p.y + (e.h - e.foot[1]) * z];
@@ -197,7 +240,7 @@
   function boxes(VAR, personH) {
     var z = personH / ZK, order = [];
     VAR.boxes = {};
-    if (!K.st) return order;
+    if (!K.st || VAR.wait) return order;   /* CAMP THREE: no door on a camp not yet on its board */
     K.st.layout.pieces.forEach(function (p) {
       if (!p.tap) return; var r = pieceRect(p, z); if (!r) return;
       VAR.boxes[p.key] = r.map(Math.round); order.push(p.key);
@@ -231,7 +274,7 @@
 
   /* ---------------------------------------------------------------- his men, by what they do */
   function folk() {
-    if (!K.st) return [];
+    if (!K.st || boardWait()) return [];   /* CAMP THREE: his men come out with the board */
     var key = K.st.key + '|' + K.st.hour;
     if (K.folkKey === key) return K.folk;
     var out = [], hide = false;
@@ -301,7 +344,7 @@
     return t < pl.unload[1] ? { show: false } : { show: true };
   }
   function items(list, ctx) {
-    if (!K.ready || !K.st) return;
+    if (!K.ready || !K.st || boardWait()) return;   /* CAMP THREE: nothing of the camp before its board */
     platesWarm();
     if (K.drawnNext) { K.drawnAt = K.drawnNext; } K.drawnNext = {};
     var s = ctx.s, z = ctx.personH / ZK, view = ctx.view, cx = ctx.cx, now = ctx.now;
@@ -398,7 +441,7 @@
   }
   /* the fire's light on the ground: at night a warm pool that breathes with the flames; by day nothing */
   function under(cx, ctx) {
-    if (!K.st || !K.ready) return;
+    if (!K.st || !K.ready || boardWait()) return;
     K.lastDraw = ctx.now;
     if (K.glide) K.glide.frames++;
     else if (!K.snapAt || ctx.now - K.snapAt > 500) {   /* a quarter-size copy of the ground once a beat, held if a turn ever outruns the new ground */
@@ -567,7 +610,7 @@
     root.addEventListener('touchend', function () { t0 = null; }, { passive: true });
     root.addEventListener('wheel', function (e) { if (!on()) return; var n = performance.now(); if (n - wt > 600) wheel = 0; wt = n; wheel += e.deltaY; if (wheel > 260) { wheel = 0; peek(); } }, { passive: true });
   })();
-  function close() { peekPlate(false); K.pitch = null; K.compass = null; K.ghost = null; K.st = null; K.composed = null; placePlates(); }
+  function close() { peekPlate(false); K.pitch = null; K.compass = null; K.ghost = null; K.st = null; K.composed = null; K.pitchDue = false; placePlates(); try { if (CB()) CB().drop(); } catch (e) {} }   /* CAMP THREE: a town opened, the board's pictures let go */
   root.addEventListener('message', function (ev) { var d = ev && ev.data; if (d && d.type === 'BOHEMIA_CAMP_LOOK') { reads(d); if (K.st && K.info) { var was = K.st.key; time(K.info); } } });
   function state() {
     return { ready: K.ready, open: !!K.st, tents: K.st ? K.st.layout.tents : null, men: K.st ? K.st.men.length : 0, carrier: K.st ? K.st.layout.carrier.id : null,
@@ -576,6 +619,6 @@
       hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, drawnBy: K.drawnBy || {}, rose: Object.keys(K.rise || {}), gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
       compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
-  root.BohemiaCampLook = { ready: function () { return K.ready && !!CL; }, variant: variant, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
+  root.BohemiaCampLook = { ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
     folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);

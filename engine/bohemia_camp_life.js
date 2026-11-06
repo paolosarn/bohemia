@@ -243,6 +243,48 @@
 
   function setOdds(c) { if (c && typeof c.turn === 'number') for (var k in ODDS) if (typeof c[k] === 'number') ODDS[k] = c[k]; }
 
+  /* ==== __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(a), Paolo 11/4, LOCKED: 'the camp only takes place on combat grid maps...
+     the camp could take up one tile or four tiles in a square and keep getting bigger... anytime you camp it's on the combat grid').
+     THE SQUARE: how many house tiles the camp takes on the fight board and their shape, from the company alone (never the glass's
+     shape, so the camp stands on the same tiles whether the phone is up or on its side, and the fight that finds it finds it there):
+     one house tile while the company is three or fewer (one or two tents, the fire, the cart), two tiles side by side to eight, a 2 by
+     2 square past that, NEVER MORE THAN FOUR CONNECTED TILES (rule 406(h), AMENDED 11/6, Paolo: 'the camp I told you, one through
+     four tiles that are connected to each other'); the pickup is five metres of steel and never fits one tile, so it takes two at
+     least. Three tiles (an L) is not used yet: CAMP TWO's camp would stand a piece on the missing corner.
+     THE PITCH: where on the board it stands, from the board the fight's own dealer dealt: every tile of it open ground (no wall, no
+     water, no roof, no raised tile), clear of cover where it can be, on his side of the board at his own line (his men sleep where
+     they would stand), its middle near the board's middle row, and with enough board round it that the camp's picture never runs off
+     the board's edge (need: the tiles the picture shows past the camp's middle each way). Pure: the board is read, never dealt. */
+  var SQUARE = [{ upTo: 3, w: 1, h: 1 }, { upTo: 8, w: 2, h: 1 }, { upTo: 1e9, w: 2, h: 2 }];
+  function square(o) {
+    o = o || {};
+    var men = Math.max(1, o.men | 0), q = SQUARE[SQUARE.length - 1];
+    for (var i = 0; i < SQUARE.length; i++) if (men <= SQUARE[i].upTo) { q = SQUARE[i]; break; }
+    if (carrier(o.level, o.smart).sprite === 'truck' && q.w * q.h < 2) q = SQUARE[1];
+    return { w: q.w, h: q.h, n: q.w * q.h };
+  }
+  /* board = { w, h, cols: [his front column, theirs], ok: [[2 clear ground, 1 passable with cover on it, 0 never]] };
+     sq = square(); need = { l, r, t, b } tiles from the camp's middle */
+  function pitchOn(board, sq, need) {
+    if (typeof sq === 'number') sq = { w: sq, h: sq };
+    var cw = Math.max(1, sq.w | 0), ch = Math.max(1, sq.h | 0); need = need || {};
+    var W = board.w | 0, H = board.h | 0, ok = board.ok || [], best = null;
+    var front = board.cols && board.cols.length ? board.cols[0] | 0 : Math.floor(W / 4);
+    for (var y = 0; y + ch <= H; y++) for (var x = 0; x + cw <= W; x++) {
+      var bad = 0, rough = 0;
+      for (var j = 0; j < ch && !bad; j++) for (var i = 0; i < cw; i++) { var v = ok[y + j] ? ok[y + j][x + i] : 0; if (!v) { bad = 1; break; } if (v === 1) rough++; }
+      if (bad) continue;
+      var cx = x + cw / 2, cy = y + ch / 2, short = 0;
+      short += Math.max(0, (need.l || 0) - cx) + Math.max(0, (need.r || 0) - (W - cx)) + Math.max(0, (need.t || 0) - cy) + Math.max(0, (need.b || 0) - (H - cy));
+      /* his line is his front column and the one behind it: the camp's right edge on his front column */
+      var score = rough * 6 + short * 20 + Math.abs((x + cw) - (front + 1)) * 1.5 + Math.abs(cy - H / 2) * 0.8;
+      if (!best || score < best.score) best = { x: x, y: y, w: cw, h: ch, n: cw * ch, score: Math.round(score * 100) / 100, rough: rough, short: Math.round(short * 100) / 100 };
+    }
+    return best;
+  }
+  /* ==== /__THE_CAMP_ON_THE_BOARD__ ==== */
+
   root.BohemiaCampLife = { PIC: PIC, FIRE: FIRE, GEO: GEO, MINY: MINY, HURT: HURT, BAD: BAD, CARRIERS: CARRIERS, FOLLOWER_AT: FOLLOWER_AT, tents: tents, carrier: carrier, layout: layout,
+    square: square, pitchOn: pitchOn, SQUARE: SQUARE,
     manOf: manOf, acts: acts, spots: spots, octant: octant, tint: tint, compass: compass, pitch: pitch, setOdds: setOdds, odds: function () { return ODDS; }, seedOf: seedOf };
 })(typeof window !== 'undefined' ? window : this);

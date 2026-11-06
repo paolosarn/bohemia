@@ -46793,6 +46793,7 @@ function campMake(){
   if (!inTown) { if (!campOnMap()) return false; edge = townSafeAt(city.x, city.y); }
   try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
   CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null;
+  CAMP.deal = campDie(CAMP.at); CAMP.pitch = null; CAMP.brokeAt = null;   /* CAMP THREE __THE_CAMP_ON_THE_BOARD__: the block's own die, the square pitched when the board is in */
   try{ var __c0 = campCondition(); CAMP.mending = !!(__c0 && !__c0.done); }catch(_e){ CAMP.mending = false; }   /* CAMP __HEALING_STOPS_ITSELF__ */
   campStale();   /* CAMP __CAMP_HOLDS__: the last fight's contact flag is not an enemy */
   CAMP.town = inTown || edge || null;
@@ -46812,7 +46813,7 @@ function campMake(){
 }
 function campBreak(why, say){
   if (!CAMP.on) return;
-  CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null;
+  CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null; CAMP.brokeAt = Date.now();   /* CAMP THREE: a crew that broke it fights him on its board */
   var wasTown = CAMP.town ? CAMP.town.name : null; CAMP.town = null;   /* __A_TOWN_IS_SAFE__: a rest in a town leaves him in the town */
   try { if (typeof meetCampBroke === 'function') meetCampBroke(why || 'left'); } catch (_e) {}   /* RUN __MAKE_CAMP_NEARBY__: camped before a still enemy, he walks back into them and the card asks */
   var __btw = !!(LOOP.open && LOOP.open.camp && LOOP.frame && LOOP.frame.style.display === 'block');   /* __THE_MOMENTS_BETWEEN__ */
@@ -46953,7 +46954,38 @@ window.addEventListener('keydown', function(e){
   var tg = e.target && e.target.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA') return;
   if (CAMP.on) { campBreak('left'); e.preventDefault(); } else if (campMake()) e.preventDefault();
 });
-window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
+/* ==== __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406, Paolo 11/4, LOCKED: 'the camp only takes place on combat grid maps... anytime you
+   camp it's on the combat grid'). (a) THE BOARD HE CAMPS ON is the board a fight on his block would deal: campBoardAsk is the hand-over
+   this map's one door (cityHandOver) would send from that block (its district, its spot, its world, the world state's burned board
+   and power), with the camp's own die (campDie: the block's, so a camp made there again, and a fight that finds it, are dealt the
+   same board); the camp screen (slices/bohemia_camp_look.js, slices/bohemia_camp_board.js) asks the fight's own page for it through
+   the shell's own door. (c) A CREW THAT FINDS HIM AT CAMP fights him there: while the camp stands, or for a few minutes after a crew
+   broke it if he has not moved off the block, the hand-over carries the camp's block, its die and the camp as it stood
+   (campFightAt), so the fight deals the camp's board and stands the camp on it. A town's rest never asks (rule 273, 406(d)). ==== */
+function campDie(at){ var h = 2166136261, k = 'camp:' + (at ? at[0] + ',' + at[1] : '0,0'); for (var i = 0; i < k.length; i++){ h ^= k.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function campBoardAsk(){
+  if (!CAMP.on || CAMP.town || !CAMP.at) return null;
+  var x = CAMP.at[0], y = CAMP.at[1], msg = { type: 'BOHEMIA_CITY_ENCOUNTER', why: 'camp', at: [x, y], __deal: CAMP.deal != null ? CAMP.deal : campDie(CAMP.at) };
+  try{ msg.world = cityWorldNow([x, y]); }catch(_e){}
+  try{ var c = om.at(x, y); msg.district = c ? c.district : null; }catch(_e){}
+  try{ if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}
+  return msg;
+}
+function campFightAt(msg){
+  if (!msg || msg.type !== 'BOHEMIA_CITY_ENCOUNTER' || msg.arena || msg.boss || msg.camp) return false;
+  var P = CAMP.pitch, at = CAMP.at; if (!P || !at || CAMP.town) return false;
+  var here = (city.x | 0) === at[0] && (city.y | 0) === at[1];
+  var fresh = CAMP.on || (CAMP.why === 'contact' && CAMP.brokeAt && Date.now() - CAMP.brokeAt < 300000);
+  if (!here || !fresh) return false;
+  msg.at = at.slice(); msg.__deal = CAMP.deal != null ? CAMP.deal : campDie(at); msg.camp = P;
+  try{ var c = om.at(at[0], at[1]); msg.district = c ? c.district : msg.district; }catch(_e){}
+  CAMP.pitch = null;   /* one fight takes the camp; a camp made again pitches again */
+  window.__CAMP_FOUGHT = { at: at.slice(), die: msg.__deal, n: P.n, x: P.x, y: P.y, pieces: (P.pieces || []).length, board: P.board || null, sig: P.sig || null, t: Date.now() };
+  return true;
+}
+/* ==== /__THE_CAMP_ON_THE_BOARD__ ==== */
+window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, boardAsk: function(){ return campBoardAsk(); },
+  pitched: function(p, st){ if (CAMP.on && p) { CAMP.pitch = p; window.__CAMP_PITCH = { x: p.x, y: p.y, n: p.n, pieces: (p.pieces || []).length, board: p.board || null, sig: p.sig || null, state: st ? st.state : null, ms: st ? st.ms : null }; } return !!CAMP.pitch; }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
 /* ==== /__THE_CAMP__ ==== */
 /* ==== __THE_MOMENTS_BETWEEN__ (WORLD round 2, ask line 273, Paolo 11/2: 'The transition of the camp to when time passes by and an
    enemy wants to attack you, it's just like sloppy quick bullshit... I want things to look less choppy... less AI slop'). MEASURED
@@ -68555,6 +68587,7 @@ function cityHandOver(msg, skin){
       return meetShow(msg, skin);
     }
   } catch (_e) {}
+  try{ campFightAt(msg); }catch(_e){}   /* CAMP THREE __THE_CAMP_ON_THE_BOARD__ (rule 406(c)): a crew that found him at camp fights him on the camp's board, the camp standing */
   /* ===== V215 __SAVE_BEFORE_THE_BELL__ -- A SAVE EXISTS AT THE BELL ==========
      BB-SAVE-BEFORE-THE-BELL. The game he named autosaves before EVERY battle, on
      purpose. Ours was covered by accident: CITYSAVE.save only fires when the city

@@ -7282,6 +7282,7 @@ function draw(now) {
     if (rk) { cx.imageSmoothingEnabled = true; cx.drawImage(rk, sx(-R * bt * UI.tw), sy(-R * bt * UI.th), rk.width / RING_K * UI.zoom, rk.height / RING_K * UI.zoom); }
     cx.imageSmoothingEnabled = UI.zoom < 1; cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom); UI.groundMode = 'baked';
   }
+  try { campOnBoard(now); } catch (_e) {}   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(c)): a fight at camp, the camp standing on its tiles */
   if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
@@ -10024,11 +10025,134 @@ function start() {
     if (dep) teachSoon('deploy');
   });
 }
+/* ==== __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406, Paolo 11/4, AN EXECUTIVE DECISION, LOCKED: 'the camp only takes place on combat
+   grid maps... the camp could take up one tile or four tiles in a square and keep getting bigger... so you don't have to make two
+   different types of camps... anytime you camp it's on the combat grid'). CAMP THREE's block in COMBAT's file; THE DEALER IS NOT
+   TOUCHED (how a board is dealt is COMBAT TWO's, rule 407(g)): this block only USES the board the dealer hands it. Two jobs:
+   (1) THE CAMP'S BOARD (FIGHT_OPTS.campBoard: the camp screen's hidden copy of this page, slices/bohemia_camp_board.js). The board
+       is dealt by FIGHT.setup with the very options and the very die a fight on that block is handed (the shell's own nfOpts), so it
+       IS the board a fight there would deal; the camp's square is pitched on it by the camp's own rule (campBoard.pick, the host's
+       engine/bohemia_camp_life.js pitchOn); then the whole board is baked by this file's own bakeBoard (any kind of board: a
+       template's, a place's own, one laid from the map's block) and the ground round the square cut out of it, by day and by
+       night. The page sits beside the map, where a fight's page sits (the shell), so the board laid from the map's block is the one
+       a fight there lays. Nothing else of a fight starts: no band on the glass, no clock, no
+       song, no deploy, and the count of fights (bohemia.fight.met.v1) is never moved. window.__CAMP_BOARD holds the pictures.
+   (2) THE FIGHT AT CAMP (FIGHT_OPTS.camp: a crew that found him at camp, rule 406(c), Battle Brothers' ambush at night): the camp he
+       pitched stands on its tiles under the men, every frame, the fire burning on the beat, each piece where it stood at camp
+       against the same houses (its k: tiles to the rig's pixel), each drawn CAMP_FIGHT_GROW times its camp size about its own foot
+       (this board draws its men far over the houses' scale; at the camp's own size a tent was a third of a man's boot, measured 11/6
+       on the phone on its side: 25 px under a 160 px man); none moves off its spot. It is drawn, it does not rule: a tent is not
+       cover (a hook for COMBAT TWO if it should be, NOTE). ==== */
+const CAMP_FIGHT_GROW = 1.6, CAMP_BAKE_PX = 12e6;
+const CAMPB = { baking: false, kit: null, img: null, rig: {}, drawn: 0, nightKit: null, err: null };
+function campBoardWanted() { const o = window.FIGHT_OPTS; return !!(o && o.campBoard); }
+/* the board as the camp reads it: 2 open ground, 1 open with cover on it, 0 never (a wall, water, a roof, a raised tile) */
+function campBoardGrid() {
+  const S = FIGHT.S, ok = [];
+  for (let y = 0; y < S.h; y++) { const r = []; for (let x = 0; x < S.w; x++) {
+    let v = 2;
+    try { if (!FIGHT._t.passable(x, y) || FIGHT.level(x, y) > 0 || FIGHT.rowAt(x, y) === 'obstacles') v = 0; else if (S.cover[y][x]) v = 1; } catch (_e) { v = 0; }
+    r.push(v); } ok.push(r); }
+  return { w: S.w, h: S.h, cols: S.cols.slice(), ok: ok };
+}
+/* the ground of a window of the dealt board (tiles x, y, w, h): the WHOLE board baked by this file's own bakeBoard at tw css px a tile
+   (whatever kind of board it is: a template's blocks, a place's own, or a board laid from the map's block, COMBAT TWO's
+   __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__), then the window cut out of it and the whole let go */
+function campWindowBake(win, tw) {
+  FIGHT.S.units = []; UI.tw = tw; CAMPB.baking = true;
+  return bakeBoard().then(function () {
+    CAMPB.baking = false;
+    const full = UI.board, c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(win.w * UI.tw)); c.height = Math.max(1, Math.round(win.h * UI.th));
+    c.getContext('2d').drawImage(full, -Math.round(win.x * UI.tw), -Math.round(win.y * UI.th));
+    full.width = 0; full.height = 0; UI.board = null;
+    return c;
+  });
+}
+/* THE BOARD'S FINGERPRINT: its blocks, every tile's ground, every cover piece where it lies, and a laid board's own pieces; two boards
+   with one fingerprint are one board (the camp's gate compares the camp's board with the fight's this way) */
+function campBoardSig() {
+  const S = FIGHT.S, D = S.boardDef || {}; let txt = '';
+  try { txt = JSON.stringify([D.blocks, S.terrain, (D.cover || []).map(function (c) { return [c.piece, Math.round(c.x_m * 10), Math.round(c.y_m * 10)]; }),
+    D.laid ? JSON.stringify(D.laid.sprites || D.laid.tiles || null) : null]); } catch (_e) { txt = String(D.name); }
+  let h = 2166136261; for (let i = 0; i < txt.length; i++) { h ^= txt.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return (h >>> 0).toString(16) + ':' + S.w + 'x' + S.h + ':' + (D.laid ? 'laid' : 'dealt');
+}
+window.campBoardSig = campBoardSig;
+function campBoardBake() {
+  const o = window.FIGHT_OPTS || {}, A = o.campBoard || {}, art = DB.ground.tile_px[0];
+  const tw = Math.max(160, Math.min(art, (A.tw | 0) || art));
+  const die = (o.deal !== undefined ? o.deal : 1) >>> 0;   /* the die a fight there is dealt from (the shell's d.__deal), kept with the camp */
+  const deal = function (night) { SEED = die; FIGHT.setup(Object.assign({}, o, { night: night, odds: false, deploy: false })); };
+  const say = function (m) { try { if (window.parent && window.parent !== window) window.parent.postMessage(Object.assign({ type: 'BOHEMIA_CAMP_BOARD' }, m), '*'); } catch (_e) {} };
+  const t = { loaded: Math.round(performance.now()) };   /* the page's own clock: loaded (its data in), dealt, day, night */
+  try {
+    deal(!!o.night); t.dealt = Math.round(performance.now());
+    const S = FIGHT.S, D = S.boardDef;
+    const dealt = { blocks: JSON.stringify(D.blocks), sig: campBoardSig(), laid: !!D.laid, name: D.name, kinds: (D.kinds || []).slice(), w: S.w, h: S.h, cols: S.cols.slice(), ground: S.ground ? S.ground.ground : null,
+      from: S.ground ? S.ground.from : null, cover: (D.cover || []).length, district: o.district || null, kind: o.kind || null, cell: o.cell || null, die: die };
+    const grid = campBoardGrid();
+    const pitch = typeof A.pick === 'function' ? A.pick(grid, dealt) : null;
+    if (!pitch || !pitch.win) { window.__CAMP_BOARD = { err: 'no square', dealt: dealt }; say({ ok: false, err: 'no square' }); return Promise.resolve(null); }
+    /* the whole board is baked, so its size is held under CAMP_BAKE_PX (a phone's canvas; the fight's own bake is 160 a tile) */
+    const twB = Math.max(120, Math.min(tw, Math.floor(Math.sqrt(CAMP_BAKE_PX / (S.w * S.h * DB.ground.tile_px[1] / DB.ground.tile_px[0])))));
+    const out = { pitch: pitch, dealt: dealt, grid: grid, tw: twB, win: pitch.win, tile_px: DB.ground.tile_px.slice(), tile_metres: DB.ground.tile_metres, t: t };
+    /* the board he camps on, by the light it has now, then the same board by the other light (the camp's clock turns the night) */
+    return campWindowBake(pitch.win, twB).then(function (c) {
+      out[o.night ? 'night' : 'day'] = c; out.th = UI.th; t.first = Math.round(performance.now());
+      deal(!o.night); out.sameBoth = campBoardSig() === dealt.sig;
+      return campWindowBake(pitch.win, twB);
+    }).then(function (c) {
+      out[o.night ? 'day' : 'night'] = c; t.second = Math.round(performance.now());
+      window.__CAMP_BOARD = out; say({ ok: true, name: dealt.name, pitch: { x: pitch.x, y: pitch.y, n: pitch.n } }); return out;
+    }).catch(function (e) { CAMPB.err = String(e && e.message || e); window.__CAMP_BOARD = { err: CAMPB.err, dealt: dealt }; say({ ok: false, err: CAMPB.err }); return null; });
+  } catch (e) { CAMPB.err = String(e && e.message || e); window.__CAMP_BOARD = { err: CAMPB.err }; say({ ok: false, err: CAMPB.err }); return Promise.resolve(null); }
+}
+/* (2) THE FIGHT AT CAMP: CAMP TWO's kit (slices/camp_two), the carriers through the master rig, as the camp screen draws them */
+const CAMP_RIG = { cart: { dir: '../records/target/master_rig/cook_cart/', ground: [34, 53] }, truck: { dir: '../records/target/master_rig/truck/', ground: [158, 124] } };
+function campKit() {
+  if (CAMPB.kit !== null) return CAMPB.kit && CAMPB.img ? CAMPB.kit : null;
+  CAMPB.kit = false;
+  fetch('camp_two/kit.json').then(function (r) { return r.json(); }).then(function (j) { const im = new Image();
+    im.onload = function () { CAMPB.img = im; CAMPB.kit = j; }; im.src = 'camp_two/kit.png'; }).catch(function () {});
+  return null;
+}
+function campRig(id) {
+  const R = CAMP_RIG[id]; if (!R) return null;
+  if (!CAMPB.rig[id]) { const im = new Image(); im.src = R.dir + 'rig_SE.png'; CAMPB.rig[id] = im; }
+  const m = CAMPB.rig[id]; return m.complete && m.naturalWidth ? m : null;
+}
+function campKitNight() {
+  if (CAMPB.nightKit) return CAMPB.nightKit;
+  const im = CAMPB.img, c = document.createElement('canvas'), keep = document.createElement('canvas');
+  c.width = keep.width = im.naturalWidth; c.height = keep.height = im.naturalHeight;
+  c.getContext('2d').drawImage(im, 0, 0); keep.getContext('2d').drawImage(im, 0, 0);
+  nightPass(c.getContext('2d'), c.width, c.height, keep, MAN_MOON);   /* the night's colour on a figure, its own outline kept */
+  return (CAMPB.nightKit = c);
+}
+function campOnBoard(now) {
+  const o = window.FIGHT_OPTS, C = o && o.camp; if (!C || !Array.isArray(C.pieces) || !C.pieces.length || !UI.board) return;
+  const kit = campKit(); if (!kit) return;
+  const k = (+C.k || 0) * UI.tw * UI.zoom * CAMP_FIGHT_GROW; if (!(k > 0)) return;   /* css px to one of the rig's pixels: the piece's size against a tile, as it stood at camp */
+  const src = FIGHT.S.night ? campKitNight() : CAMPB.img, key = Math.floor(now / (500 / 3)) % 6;   /* the fire: three keys a beat, 120 BPM */
+  cx.save(); cx.imageSmoothingEnabled = true;
+  C.pieces.forEach(function (p) {
+    const X = sx(p.u * UI.tw), Y = sy(p.v * UI.th);
+    if (p.sprite === 'cart' || p.sprite === 'truck') { const im = campRig(p.sprite), g = CAMP_RIG[p.sprite].ground; if (!im) return;
+      cx.drawImage(im, X - g[0] * k, Y - g[1] * k, im.naturalWidth * k, im.naturalHeight * k); return; }
+    const e = kit.pieces[p.sprite === 'fire' ? 'fire_' + key : p.sprite]; if (!e) return; const r = e.rect;
+    cx.drawImage(src, r[0], r[1], r[2], r[3], X - e.foot[0] * k, Y - e.foot[1] * k, r[2] * k, r[3] * k);
+  });
+  cx.restore();
+  CAMPB.drawn++;
+}
+window.CAMP_ON_THE_BOARD = CAMPB;
+/* ==== /__THE_CAMP_ON_THE_BOARD__ ==== */
 window.addEventListener('resize', resize);
 try { BohemiaMaterials.apply(); } catch (_e) {}
 actMarks();
 try { BohemiaScreen.watch(function () { resize(); }); } catch (_e) {}
-loadAll().then(function () { resize(); return start(); }).then(function () { requestAnimationFrame(frame); })
+loadAll().then(function () { resize(); return campBoardWanted() ? campBoardBake() : start(); }).then(function () { if (!campBoardWanted()) requestAnimationFrame(frame); })   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406): the camp's board is baked, never fought */
   .catch(function (e) { document.getElementById('load').textContent = 'THE GROUND DID NOT LOAD: ' + e.message; });
 window.FIGHT_UI = UI;
 </script>

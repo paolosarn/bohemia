@@ -1000,17 +1000,11 @@ def main():
            'fire_keys': 6, 'fire_keys_per_beat': GUIDE['keys_per_beat'],
            'pieces': {n: {'rect': list(rects[n]), 'foot': meta[n]['foot_px'], 'footprint_m': meta[n]['footprint_m'], 'height_m': meta[n]['height_m']} for n in rects},
            'card': {n: c['back'] for n, c in cards.items()}}
-    day, night, med = plate()
-    tday, tnight, _ = plate(1092, 1940, 289)   # THE TALL GROUND (rule 289: every camp good tall first): a phone held upright fills with it
-    tday.save(os.path.join(OUT, 'plate_tall.webp'), quality=88, method=6)
-    tnight.save(os.path.join(OUT, 'plate_tall_night.webp'), quality=88, method=6)
-    day.save(os.path.join(OUT, 'plate.webp'), quality=88, method=6)
-    night.save(os.path.join(OUT, 'plate_night.webp'), quality=88, method=6)
-    kit['plate'] = {'src': 'plate.webp', 'night_src': 'plate_night.webp', 'px': [2060, 1092], 'ppm': 515 / 12.0,
-                    'day_ground_median': round(med, 3), 'night_ground_median': 0.215,
-                    'from': 'slices/settlement_ground_packs/camp_0.webp, quilted from its clean sand (CLEAN boxes in the tool)'}
-    kit['plate_tall'] = {'src': 'plate_tall.webp', 'night_src': 'plate_tall_night.webp', 'px': [1092, 1940], 'ppm': 515 / 12.0,
-                         'why': 'rule 289: the camp good tall first; the same sand quilted upright, the camp laid out for it (BohemiaCampLife.layout tall)'}
+    # THE SAND IS RETIRED (CAMP THREE 11/6, rule 406(b), Paolo 11/4: 'anytime you camp it's on the combat grid'): the camp is pitched
+    # on the fight board of the block he camps on (slices/bohemia_camp_board.js), so this tool no longer quilts or writes a ground
+    # plate; the four it made are in graveyard/the_camp_sand_11_6_26/ and plate() below stays only as the record of how they were made.
+    kit['ground'] = ('RETIRED 11/6 (CAMP THREE, rule 406(b)): the camp has no ground of its own any more; it is pitched on the fight board '
+                     'of the block he camps on (slices/bohemia_camp_board.js). The four sand plates are in graveyard/the_camp_sand_11_6_26/.')
     json.dump(kit, open(os.path.join(OUT, 'kit.json'), 'w'), indent=1)
     backs = [n for n, c in cards.items() if c['back']]
     print('sheet %d x %d; card BACK on %d of %d: %s' % (sheet.size[0], sheet.size[1], len(backs), len(cards), ', '.join(backs) or 'none'))

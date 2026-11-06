@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6l - THE TOWN IS ONE PICTURE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6m - THE CAMP ON THE BOARD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12560,6 +12560,9 @@ function nfOpts(d){
     window.__NF_ARENA = { men: o.arena.men, asked: d.arena.men.slice(), acc: picked.map(function(m){ return m.accOut || null; }) };
   } }catch(_e){}
   /* ==== end __THE_ARENA__ ==== */
+  /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(c), a marked line in RUN's door): a crew that found him at camp: the camp he pitched,
+     each piece on its tile, goes to the fight, which stands it on the same board (the map's campFightAt sent the camp's block and die) */
+  try{ if(d && d.camp && Array.isArray(d.camp.pieces)) o.camp = JSON.parse(JSON.stringify(d.camp)); }catch(_e){}
   return o;
 }
 function nfOpen(d){

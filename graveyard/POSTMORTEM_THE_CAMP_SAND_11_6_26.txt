@@ -1,0 +1,14 @@
+POSTMORTEM: THE CAMP'S SAND (CAMP THREE, 11/6/26; VAMILY rule 406(b), rule 405(a))
+
+WHAT DIED: slices/camp_two/plate.webp, plate_night.webp, plate_tall.webp, plate_tall_night.webp (now in graveyard/the_camp_sand_11_6_26/).
+CAMP TWO's ground for the camp screen (10/26): 2060 x 1092 and 1092 x 1940 of the rig's own desert, quilted from the clean sand of
+COOK FOUR's camp render, the same picture on every block of the valley.
+
+WHY: Paolo 11/4, an executive decision, LOCKED: 'it's not feeling natural at all... the camp only takes place on combat grid maps...
+so you don't have to make two different types of camps... anytime you camp it's on the combat grid'. The camp is pitched on the fight
+board of the block he stands on (slices/bohemia_camp_board.js); the sand was a second camp, a place that existed nowhere on the map.
+
+THE LESSON: a screen's ground that is not a place in the world reads as a menu, however well it is painted. A camp, a rest, a stop:
+each is a spot on the map, and its picture is that spot.
+
+NOT TO COME BACK UNDER A NEW NAME: no camp ground of its own, quilted or painted, for any block of the map. A town keeps its town.
