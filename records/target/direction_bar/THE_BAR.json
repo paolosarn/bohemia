@@ -1,0 +1,229 @@
+{
+ "what": "THE BAR ON THE WALL (DIRECTION 11/6, rule 408(a)): his starred and loved pieces, the twin every new piece of its kind is put beside. Record: records/BOHEMIA_DIRECTION_THE_BAR_ON_THE_WALL_11_6_26.md",
+ "sheet": "records/target/direction_bar/THE_BAR_ON_THE_WALL.webp",
+ "size": [
+  2072,
+  2516
+ ],
+ "pieces": [
+  {
+   "key": "screen_feed_a",
+   "row": "A",
+   "label": "STAR 2  the loading screen: the camp on tape",
+   "words": "'I'm really impressed. This is one of the few things you did on your own... This is getting a star.' (11/2)",
+   "src": "slices/crashbox/feed_a.webp",
+   "box": [
+    0,
+    0,
+    390,
+    520
+   ],
+   "scale": 1
+  },
+  {
+   "key": "screen_feed_b",
+   "row": "A",
+   "label": "STAR 2  the loading screen: the pawn lot, CCTV",
+   "words": "",
+   "src": "slices/crashbox/feed_b.webp",
+   "box": [
+    0,
+    0,
+    390,
+    520
+   ],
+   "scale": 1
+  },
+  {
+   "key": "screen_feed_c",
+   "row": "A",
+   "label": "STAR 2  the loading screen: the road in, dash cam",
+   "words": "",
+   "src": "slices/crashbox/feed_c.webp",
+   "box": [
+    0,
+    0,
+    390,
+    520
+   ],
+   "scale": 1
+  },
+  {
+   "key": "face_poacher",
+   "row": "A",
+   "label": "STAR 1  the poacher's face, 1x and 2x",
+   "words": "'You might change the game with this one... the first star I've handed out.' (10/18)",
+   "src": "records/target/portrait/rig/poacher/rig_portrait_S.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "face_poacher_2x",
+   "row": "A",
+   "label": "",
+   "words": "",
+   "src": "records/target/portrait/rig/poacher/rig_portrait_S.png",
+   "box": null,
+   "scale": 2
+  },
+  {
+   "key": "robot_S",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_S.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_SE",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_SE.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_E",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_E.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_NE",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_NE.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_N",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_N.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_NW",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_NW.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_W",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_W.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_SW",
+   "row": "A2",
+   "label": "",
+   "words": "",
+   "src": "records/target/master_rig/robot/rig_SW.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "robot_S_2x",
+   "row": "A2",
+   "label": "THE CLAY ROBOT, 8 ways at 1x, then 2x",
+   "words": "'I saw a robot and honestly I fell in love... analog 3-D, HBO early kids show' (10/17)",
+   "src": "records/target/master_rig/robot/rig_S.png",
+   "box": null,
+   "scale": 2
+  },
+  {
+   "key": "truck_S",
+   "row": "A2",
+   "label": "the truck, turned up",
+   "words": "'a truck and a robot and I fell in love' (10/17)",
+   "src": "records/target/direction_the_truck_turned_up/truck/rig_S.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "body_thug_S",
+   "row": "B",
+   "label": "",
+   "words": "",
+   "src": "records/target/cook3/rig/thug/rig_S.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "body_thug_S_2x",
+   "row": "B",
+   "label": "the thug through the rig, 1x then 2x",
+   "words": "'so bad I actually kinda like it... analog horror AI slop and I love it' (10/18)",
+   "src": "records/target/cook3/rig/thug/rig_S.png",
+   "box": null,
+   "scale": 2
+  },
+  {
+   "key": "face_thug",
+   "row": "B",
+   "label": "the thug's face",
+   "words": "'i love this direction ai slop gore horror analog amazing vibes' (10/18)",
+   "src": "records/target/portrait/rig/thug/rig_portrait_S.png",
+   "box": null,
+   "scale": 1
+  },
+  {
+   "key": "ui_front_screen",
+   "row": "B",
+   "label": "his letters, no card",
+   "words": "'Not final but fucking amazing direction' (10/18)",
+   "src": "records/target/ui_front_screen/after_upright_title.png",
+   "box": [
+    0,
+    120,
+    390,
+    560
+   ],
+   "scale": 1
+  },
+  {
+   "key": "ground_one_real_street",
+   "row": "C",
+   "label": "one real street (his YES, now the floor bar)",
+   "words": "his YES, no words (10/18)",
+   "src": "records/target/COOK2_ONE_REAL_STREET.webp",
+   "box": [
+    0,
+    120,
+    1000,
+    700
+   ],
+   "scale": 1
+  },
+  {
+   "key": "house_plain_ranch",
+   "row": "C",
+   "label": "the plain ranch in the valley tans",
+   "words": "'That's way better holy shit' (10/18)",
+   "src": "records/target/COOK4_THE_FAMILY_IN_THE_VALLEY_TANS.png",
+   "box": [
+    60,
+    290,
+    860,
+    740
+   ],
+   "scale": 1
+  }
+ ]
+}
