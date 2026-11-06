@@ -10540,7 +10540,14 @@ GATES = [
      "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "
      "victory and its LEAVE, a save, the link opened again and CONTINUE to the same day and company; real touches where there is something "
      "to press; it stops at the first step that breaks and names it. About 4 min", True),
-    ('THE PAD IS TRAVEL SPEED', ['node', 'gates/the_pad_is_travel_speed_gate.js'],
+    ('THE SAVE COMES BACK THE SAME', ['node', 'gates/the_save_comes_back_the_same_gate.js'],
+     "RUN SIX gate, 11/6 (the finish line's stage 1 item 1, 'nothing breaks a run, the saves included'; PLUMBER 4's smoke loop saw a save "
+     "come back 5.5 hours later, twice in four: a second finger on CONTINUE or the door fell through the door switching off onto the map "
+     "and marched the party). One stranger's game on the demo, the tab closed and the link opened again in a town, mid-travel, one second "
+     "after a fight's LEAVE and at camp, every reload through the title with a double tap and a third tap on the door; back is what the "
+     "save held, the save is the glass when the tab went, the batteries and crew as they were, nothing moves for four seconds after "
+     "CONTINUE, the fight never comes back; S5 the leg can fail with the door's hold off. About 10 min", True),
+    ('THE PAD IS TRAVEL SPEED',['node', 'gates/the_pad_is_travel_speed_gate.js'],
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "
      "against 1x, every block paying its clock, the plates off the glass, and HOLD PLAY FOR 4X with a real finger on the phone. About 2 min", True),

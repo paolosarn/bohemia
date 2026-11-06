@@ -1,3 +1,9 @@
+RUN SIX (run-six-01gkdyut): 11/6 LATEST -- BUILD 11/6k - THE SAVE COMES BACK THE SAME, BUILT, NOT YET
+SEEN (ask lines 471, 472): the save that came back hours later was a second finger on CONTINUE or the door falling through onto the map
+while the door switched off (a march of 32 blocks, 353 game minutes); the map's frame now takes no touch until a beat after the door is
+gone (__THE_DOOR_KEEPS_ITS_TAPS__), and a won fight's bell record goes when the map has saved, not 2.5 s later. New gate THE SAVE COMES
+BACK THE SAME (a town, mid-travel, after a fight, at camp, the leg can fail). The road fight opens; its two gates RE-AIMED off a town's
+ground. NEXT: rule 413 (a retreat gets him away; measured: a mid-fight retreat reloads the save). The whole block: handoffs/RUN_SIX.md.
 HIRES (hires-01gkdyuv): 11/3 LATEST -- BUILD 11/3zzzzav - FOURTEEN RARE MEN, EACH HIS OWN LOOK, BUILT, NOT YET
 SEEN (rule 351(a) and amended, ask lines 361 and 410; b340bc144): Battle Brothers' rare backgrounds in the valley's skins, each one person
 built on the rig (his face, his clothes, the same man and name at every post), eleven melee with their own weapon on the card, his

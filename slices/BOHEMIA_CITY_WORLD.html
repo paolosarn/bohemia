@@ -69489,6 +69489,11 @@ function saveNow(why){
 }
 setInterval(function(){ if(typeof RESTORE_ANSWERED === 'undefined' || !RESTORE_ANSWERED) return; var s = saveSig(); if(s && s !== SAVE_SIG) saveNow('changed'); }, 1500);
 window.saveNow = saveNow;
+/* __THE_BELL_GOES_WHEN_THE_MAP_HAS_SAVED__ (RUN SIX 11/6): the shell asks for the save the moment a fight is home, behind the fight's
+   end in this page's own queue, so what the fight's end changed is in it; the answer comes back after the save itself */
+window.addEventListener('message', function(ev){ var d = ev && ev.data; if(!d || d.bohemiaSaveNow === undefined) return;
+  var ok = false; try{ ok = saveNow(String((d.bohemiaSaveNow && d.bohemiaSaveNow.why) || 'asked')); }catch(_e){ ok = false; }
+  try{ if(window.parent && window.parent !== window) window.parent.postMessage({ bohemiaCitySaved: { token: d.bohemiaSaveNow && d.bohemiaSaveNow.token, ok: !!ok } }, '*'); }catch(_e){} });
 /* ==== /__THE_SAVE_REMEMBERS__ ==== */
 window.addEventListener('freeze',flushState);
 window.addEventListener('blur',flushState);

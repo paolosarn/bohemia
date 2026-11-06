@@ -359,7 +359,10 @@ async function side(profile) {
     await settle();
     /* ---- M8 THE MAP TO A FIGHT AND BACK ---- */
     await rec.start(); await p.waitForTimeout(150); t0 = await now();
-    await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); });
+    /* RE-AIMED 11/6 BY RUN SIX (the gate was red 34/14 on main's files: roadContactFight answered false, measured, because the bench's
+       start is on a town's painted ground and a crew never starts a fight there, rule 381 __A_TOWN_IS_ALWAYS_A_DOOR__; the game was right).
+       The real way in, as his walk meets one: off any town's ground, the crew on a walked step (the meet card first, the driver's ENGAGE) */
+    await fr.evaluate(() => { try { (function(){ var N = om.n, best = null, bd = 1e9; for (var y = 4; y < N - 4; y++) for (var x = 4; x < N - 4; x++) { if (!cityWalkable(x, y)) continue; var near = false; for (var a = -3; a <= 3 && !near; a++) for (var b = -3; b <= 3 && !near; b++) if (townGround(x + a, y + b) || townSafeAt(x + a, y + b)) near = true; if (near) continue; var dd = Math.max(Math.abs(x - city.x), Math.abs(y - city.y)); if (dd < bd) { bd = dd; best = [x, y]; } } if (best) { city.x = best[0]; city.y = best[1]; } })(); stepOnce(0); stepOnce(4); } catch (_e) {} meetWalk(() => roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 })); });
     let fw = null;
     for (let i = 0; i < 150 && !fw; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board).catch(() => false)) fw = c; } if (!fw) await p.waitForTimeout(200); }
     for (let i = 0; i < 60; i++) { if (await M(() => !window.NFC || NFC.state === 'off')) break; await p.waitForTimeout(200); }

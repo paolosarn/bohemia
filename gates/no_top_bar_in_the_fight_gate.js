@@ -74,7 +74,9 @@ async function side(profile) {
       await p.waitForTimeout(1200);
       const MB = await fr.evaluate('(' + BAR + ')()');
       const t0 = await p.evaluate(() => performance.timeOrigin + performance.now());
-      await fr.evaluate((s) => roadContactFight({ id: s === 1 ? 'toll_crew' : 'patrols_collide', name: s === 1 ? 'the toll crew' : 'two patrols', seq: 40 + s }), seq);
+      /* RE-AIMED 11/6 BY RUN SIX (6/6 red on main's files: roadContactFight answered false on a town's painted ground, rule 381; the game was
+         right): off any town's ground first, then the crew on a walked step, the meet card first and the driver's ENGAGE, the way he meets one */
+      await fr.evaluate((s) => { try { (function(){ var N = om.n, best = null, bd = 1e9; for (var y = 4; y < N - 4; y++) for (var x = 4; x < N - 4; x++) { if (!cityWalkable(x, y)) continue; var near = false; for (var a = -3; a <= 3 && !near; a++) for (var b = -3; b <= 3 && !near; b++) if (townGround(x + a, y + b) || townSafeAt(x + a, y + b)) near = true; if (near) continue; var dd = Math.max(Math.abs(x - city.x), Math.abs(y - city.y)); if (dd < bd) { bd = dd; best = [x, y]; } } if (best) { city.x = best[0]; city.y = best[1]; } })(); stepOnce(0); stepOnce(4); } catch (_e) {} return meetWalk(() => roadContactFight({ id: s === 1 ? 'toll_crew' : 'patrols_collide', name: s === 1 ? 'the toll crew' : 'two patrols', seq: 40 + s })); }, seq);
       let f = null;
       for (let i = 0; i < 150; i++) { const h = await p.$('#fightFrame'); if (h) { f = await h.contentFrame();
         if (f && await f.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && typeof FIGHT !== 'undefined' && !!FIGHT.S && !FIGHT.S.over).catch(() => false)) break; } f = null; await p.waitForTimeout(200); }

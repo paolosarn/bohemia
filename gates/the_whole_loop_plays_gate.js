@@ -132,7 +132,8 @@ const cityOf = (dd) => dd.page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.ur
     /* the game as it stands the moment the tab goes (the way home can set the journey going again, and the game saves itself as he walks) */
     saved = await fr.evaluate(() => { try { travelStop(); } catch (e) {} saveNow('the-whole-loop'); return { day: T.day, min: T.min, men: (function () { try { return BohemiaHireLock.count(); } catch (e) { return crewCount(); } })() }; });
     await sleep(1200);
-    const slots = await d.page.evaluate(() => ['bohemia_city_save.a', 'bohemia_city_save.b'].map(k => { try { const j = JSON.parse(localStorage.getItem(k) || 'null'); const s = j && (j.state || j.data || j); return k.slice(-1) + ' day ' + (s && s.day) + ' ' + (s && s.min) + ' min'; } catch (e) { return k + ' unreadable'; } }).join(', '));
+    /* RUN SIX 11/6: a slot is BohemiaSave's envelope ({ v, gen, t, len, ck, p }), the game inside p as a string; it read 'day undefined' */
+    const slots = await d.page.evaluate(() => ['bohemia_city_save.a', 'bohemia_city_save.b'].map(k => { try { const j = JSON.parse(localStorage.getItem(k) || 'null'); const s = j && j.p ? (JSON.parse(j.p) || {}).data : (j && (j.state || j.data || j)); return k.slice(-1) + ' (gen ' + (j && j.gen) + ') day ' + (s && s.day) + ' ' + (s && s.min) + ' min'; } catch (e) { return k + ' unreadable'; } }).join(', '));
     await d.page.close().catch(() => {});
     d2 = await D.open({ again: d, profile, alpha, fog: true });
     d2.page.on('pageerror', e => errs.push('again: ' + String(e).slice(0, 140)));

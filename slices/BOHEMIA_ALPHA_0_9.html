@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6j - THE TOWN SHOWS AGAIN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6k - THE SAVE COMES BACK THE SAME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12810,6 +12810,12 @@ function nfHome(){
   /* __THE_FIGHT_SAVES_AT_ITS_START__: back on the map; the results are the game's once the map has saved them (its save beats a
      fight's end at once), so the record goes a moment later, and only this fight's */
   try{ var sa = NF.startAt; NF.startAt = null; if(window.BohemiaFightStart && sa) setTimeout(function(){ try{ BohemiaFightStart.clear(sa); }catch(_e){} }, 2500); }catch(_e){}
+  /* __THE_BELL_GOES_WHEN_THE_MAP_HAS_SAVED__ (RUN SIX 11/6, THE SAVE COMES BACK THE SAME S3): the 2.5 s above was a guess at when
+     the map has saved; a tab closed inside it put the won fight back at its bell (the loot gone, turn one again). The map is asked
+     to save NOW, behind the fight's end in its own queue, and says so; the record goes the moment that save has landed here (the
+     2.5 s stays as the fall-back for a map that cannot save yet) */
+  try{ var cfS = document.getElementById('cityFrame'); if(window.BohemiaFightStart && sa && cfS && cfS.contentWindow){ var tokS = 'home:' + sa + ':' + Date.now(); NF.clearOn = { token: tokS, at: sa };
+    cfS.contentWindow.postMessage({ bohemiaSaveNow: { why: 'fight:home', token: tokS } }, '*'); } }catch(_e){}
   try{ if (fr && fr.contentWindow && fr.contentWindow.__fightLetGo) fr.contentWindow.__fightLetGo(); }catch(_e){}   /* RUN 10/25 __THE_FIGHT_LETS_GO__ (rule 173): its bitmaps closed, its canvases emptied, now */
   try{ if (fr) { fr.src = 'about:blank'; fr.remove(); } }catch(_e){}
   return ok;
@@ -13189,6 +13195,10 @@ function combatMsgIn(d){
       cf.contentWindow.postMessage((sv&&sv.data)?{bohemiaCityRestore:sv.data}
                                                :{bohemiaCityRestoreNone:1},'*');
     }catch(e){}
+    return true;
+  }
+  if(d.bohemiaCitySaved!==undefined){   /* __THE_BELL_GOES_WHEN_THE_MAP_HAS_SAVED__: the map's save posted just before this has been kept */
+    try{ var cs = d.bohemiaCitySaved || {}; if(NF.clearOn && cs.token === NF.clearOn.token){ if(cs.ok && window.BohemiaFightStart){ BohemiaFightStart.clear(NF.clearOn.at); window.__FIGHT_BELL_CLEARED = { at: Date.now(), why: 'the map saved' }; } NF.clearOn = null; } }catch(_e){}
     return true;
   }
   if(d.bohemiaCityState!==undefined){
@@ -14052,10 +14062,27 @@ document.getElementById('front').addEventListener('click',(ev)=>{
       try{ _cf0.contentWindow.postMessage({type:'BOHEMIA_START', picks:BOH_START.picks()},'*'); }catch(_e){}   /* __THE_FRONT_DOOR__ */
     }
   }catch(_e){}
+  /* ==== __THE_DOOR_KEEPS_ITS_TAPS__ (RUN SIX 11/6/26; the finish line's stage 1 item 1, 'nothing breaks a run, the saves
+     included'; PLUMBER 4's smoke loop: a save made after a fight came back about 5.5 hours later, twice in four loops).
+     MEASURED (the demo at 390 x 844, the clock traced on both pages): the save held the right minute and the reload put it back
+     (06:37 saved, 06:37 restored). Then a second finger on the door while it switches off (UI's old set is pointer-events none
+     for its beat, so a finger already on the barber's GO is not kept waiting) fell THROUGH it onto the map in the frame under
+     it, and on the map a tap is where you are going: the party marched off on its own, 32 blocks and 353 game minutes in one
+     run, 10 in another. A double tap, or a tap repeated while the door seems slow, is all it takes. The shell never hears a
+     touch over the frame, so the set's own hurry never saw it either.
+     NOW from BEGIN until a beat after the door is off the glass, the map's frame takes no touch: a finger over it lands on the
+     shell, which hurries the set off (UI's listener) and is spent there. The barber's chair, the tape and the rest of the
+     shell keep their touches. A second BEGIN extends the hold; it is let go five seconds after the last BEGIN if the door never
+     lifts. Gate: THE SAVE COMES BACK THE SAME (S1, a double tap on the door after CONTINUE). ==== */
+  var __DH = window.__DOOR_HOLD || (window.__DOOR_HOLD = { on: false, held: 0, let: 0, t: 0 });
+  var __dhLet = function(ms){ clearTimeout(__DH.t); __DH.t = setTimeout(function(){ try{ var c = document.getElementById('cityFrame'); if(c) c.style.pointerEvents = ''; }catch(_e){} __DH.on = false; __DH.let++; }, ms); };
+  try{ var __dhC = document.getElementById('cityFrame'); if(__dhC && !window.__DOOR_HOLD_OFF){ __dhC.style.pointerEvents = 'none'; __DH.on = true; __DH.held++; __dhLet(5000); } }catch(_e){}   /* __DOOR_HOLD_OFF: the gate's mutation (the before), never set by the game */
+  /* ==== /__THE_DOOR_KEEPS_ITS_TAPS__ ==== */
   /* __ONLY_THE_FINAL_LOOK__ (RUN 10/25, rule 174(b)): in the demo the screen lifts two frames later, once the map's own posts
      (the batteries, the place) have reached the bar: measured, the first frame read 0 batteries and the bench's SUBURB */
   var __lift = function(){
   document.getElementById('front').style.display='none';
+  if(__DH.on) __dhLet(500);   /* __THE_DOOR_KEEPS_ITS_TAPS__: the map takes touches again a beat after the door is off the glass */
   /* AND THE TERMINAL GOES AWAY WITH IT. UI's QUIT brings this door back mid
      session, and what should be behind it then is his ordinary front door with the
      wordmark on it -- not a utility still counting a load that finished an hour
