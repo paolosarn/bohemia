@@ -23,6 +23,15 @@
 # folders a slice actually loads from — the same set `_config.yml` declares, and
 # `gates/pages_publish_gate.js` fails if the two ever disagree. NOTHING IS DELETED from
 # the repo; it is simply not copied into the published site.
+# AND FROM 11/6 ONLY WHAT THE PAGES LOAD INSIDE THEM (PLUMBER 5, rule 411's round). Those
+# three folders, copied whole, had grown to 1,858 MB in 32,040 files, over GitHub Pages'
+# 1 GB limit, and 3 of the last 8 deploys died at actions/deploy-pages' 10-minute timeout.
+# The copy is now tools/bohemia_publish_list.js's list, computed HERE from the committed
+# tree after the demo is cut: what the alpha, the demo and the VOTE tab name, followed to
+# the end; every folder the code builds names in, whole; the cards the VOTE tab can draw.
+# Measured 11/6: 831 MB in 16,198 files. gates/the_site_serves_what_the_game_loads_gate.js
+# plays the game on a server that answers only the list, and goes red on any file it asks
+# for that the list left out.
 #
 # THE ONE-LINK LAW is unaffected: slices/ lands at the same path, so
 # https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html never changes.
@@ -63,6 +72,7 @@ on:
       - '.github/workflows/pages.yml'
       - 'tools/bohemia_cut_the_demo.js'   # the demo is cut AT DEPLOY by this
       - 'tools/bohemia_bake_the_demo_cast.js'   # and the cut bakes the demo's six map people with this
+      - 'tools/bohemia_publish_list.js'   # the list of what is published (11/6): a change to it changes the site
   workflow_dispatch:
 
 permissions:
@@ -85,10 +95,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # PUBLISHED SET — kept in step with _config.yml's exclude list by the gate.
+      # PUBLISHED SET — the publish list, drawn from three roots (kept in step with _config.yml by the gate):
       #   slices/          the product: the alpha and every tab it opens
-      #   engine/          four un-inlined dev slices load ../engine/*.js as script tags
-      #   records/target/  the ART tab loads its target screens from there
+      #   engine/          the scripts the pages load as ../engine/*.js
+      #   records/target/  the VOTE registry, the ART tab's target screens, the game's data
       # THE DEMO IS CUT AT DEPLOY, SO IT CAN NEVER BE STALE IN PRODUCTION (8/26).
       # slices/BOHEMIA_DEMO.html is generated FROM the alpha by
       # tools/bohemia_cut_the_demo.js -- the law says the demo is cut from the
@@ -120,15 +130,14 @@ jobs:
         continue-on-error: true
         run: node tools/bohemia_run2_yes_in_the_demo.js status
 
-      - name: assemble the published site
+      # ONLY WHAT THE PAGES LOAD (11/6). Runs after the cut and the yes-list, so the fresh demo and the fresh
+      # list are what it reads. It never deletes a file from the repo; it copies the list into _site.
+      - name: assemble the published site (only what the pages load)
         run: |
           set -e
-          mkdir -p _site/records
-          cp -r slices _site/slices
-          cp -r engine _site/engine
-          cp -r records/target _site/records/target
+          node tools/bohemia_publish_list.js --copy _site
           touch _site/.nojekyll
-          echo "published $(du -sh _site | cut -f1) out of a $(du -sh --exclude=.git . | cut -f1) tree"
+          echo "published $(du -sh _site | cut -f1) in $(find _site -type f | wc -l) files, out of a $(du -sh --exclude=.git . | cut -f1) tree"
 
       - uses: actions/configure-pages@v5
         with:
@@ -163,13 +172,14 @@ jobs:
         uses: actions/deploy-pages@v4
 
       # THE DEPLOY IS ONLY TRUE IF THE LIVE SITE SERVES WHAT HE TAPS (9/22). A 404 goes
-      # red here instead of on his phone.
+      # red here instead of on his phone. 11/6: the map, the fight and the town pages, and the
+      # fight's two indexes, are asked too, now that the site is a list and not three whole folders.
       - name: the live site serves the vote list, the alpha and the demo
         run: |
           base="${{ steps.deployment.outputs.page_url }}"
           base="${base%/}"
           sleep 20
-          for p in records/target/BOHEMIA_VOTE_REGISTRY.json slices/BOHEMIA_ALPHA_0_9.html slices/BOHEMIA_DEMO.html slices/BOHEMIA_VOTE_TAB.html; do
+          for p in records/target/BOHEMIA_VOTE_REGISTRY.json records/target/BOHEMIA_VOTE_TRIAGE.json slices/BOHEMIA_ALPHA_0_9.html slices/BOHEMIA_DEMO.html slices/BOHEMIA_VOTE_TAB.html slices/sw.js slices/BOHEMIA_CITY_WORLD.html slices/BOHEMIA_FIGHT.html slices/BOHEMIA_SETTLEMENT_SCREEN.html slices/fight_rig/fight_rig.json slices/fight_ground/fight_ground.json; do
             code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "$base/$p")
             echo "$code  $p"
             [ "$code" = "200" ] || { echo "LIVE SITE DOES NOT SERVE $p (HTTP $code)"; exit 1; }

@@ -1,5 +1,28 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 5 (chat 18b) 11/6 -- rule 411's third wave: THE SITE IS TOO BIG, then 408(c)'s F1-F8. BOTH SHIPPED (pipe and gates; nothing
+in the game changed, so no build stamp). Record: records/BOHEMIA_PLUMBER_THE_SITE_IS_WHAT_THE_GAME_LOADS_11_6_26.md. Ask lines 462, 463.
+BEFORE: pages.yml copied slices/ + engine/ + records/target whole: 1,858 MB, 32,040 files; 3 of the last 8 pages runs died at
+deploy-pages' 10-minute timeout (4270, 4272, 4274), the good ones 4-5 min; PAGES PUBLISH red at its 260 MB cap.
+NOW: the deploy copies tools/bohemia_publish_list.js's list, computed at deploy: the doors (alpha, demo, VOTE tab, sw.js), everything
+a published text file names (followed to the end; 2b a bare name + its extension), every folder the CODE builds names in whole (or a
+data value that is a folder and nothing else), the VOTE registry read as the tab reads it (36 drawable cards of 938). 831 MB, 16,198
+files. 260 MB is not reachable losslessly: the game's own art is ~530 MB; the boards are lossy WebP already, lossless re-encode 0-4%,
+PNG 2% (measured, PIL works here; left). Budget CAP_MB 900 (GitHub's limit is 1 GB). _config.yml names the list and now excludes
+handoffs/, skills/, tickets/ (kept, never copied: the half-published red).
+GATES: PAGES PUBLISH re-aimed 28/0 (red on main). NEW THE SITE SERVES WHAT THE GAME LOADS (a server that answers only the list) 7/0 on
+the full run: the alpha's 18 tabs 303 files, the VOTE tab's 36 cards 200, all 61 published pages 1,238, PLUMBER 4's THE WHOLE LOOP
+PLAYS run as it is through the list 11/0 (767 files), a mutation; none off the list. Its first run caught BOHEMIA_RIG_CAST/PEOPLE/YOU
+.json (rule 2b). In the suite as two entries (--quick, --loop: one run is over the 10-minute cap). VOTE TAB 57/6: the FIRST TIME
+FINAL leg F1-F8 (DIRECTION's PART 4, as written; baseline frozen in records/BOHEMIA_FIRST_TIME_FINAL_BASELINE_11_6_26.json, 938 ids,
+128 waiting art cards; 12 plants all named); F6 THE BAND and F7 NO MARK red ON PURPOSE until RUN TWO draws the marks and skips an
+unmarked card; F8 not armed until DIRECTION writes records/BOHEMIA_FIRST_TIME_FINAL_STAGES.json; the other 4 reds are main's (two
+DYNASTY whys, the alpha's landing x2, the gear door). The rule-82 twin leg no longer asks a stand-in for a twin.
+DEPLOY: see the ask line 462 for the run that carried this and its time.
+NEXT FOR WHOEVER: if a page builds a name the list cannot see, THE SITE SERVES WHAT THE GAME LOADS names the file and who asked;
+teach tools/bohemia_publish_list.js the pattern (a rule, never a hand list). The budget is 831 of 900: the next cut is a look call
+(old tabs' pictures, a lossy pass), not the pipe's.
+
 PLUMBER 4 11/5-11/6 -- rule 409's first wave: the brother's three glitches (ask 454, rule 400(e)), SMOOTH IS A BUDGET (400(a)), 384(f),
 the stale pad gate, the whole-loop smoke test (408(d)), the 405(b) sweep. BUILT, NOT YET SEEN (BUILD 11/6f THE THREE GLITCHES).
 Record: records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md.

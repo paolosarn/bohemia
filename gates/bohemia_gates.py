@@ -3400,7 +3400,17 @@ GATES = [
      'the link stopped being true and no gate looked: Pages failed THREE commits running because the '
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
-     'under what the builder can finish', False),
+     'under what the builder can finish. RE-AIMED 11/6 (PLUMBER 5): the three folders whole were 1,858 MB and 3 deploys in 8 '
+     'died at the 10-minute timeout; the deploy copies tools/bohemia_publish_list.js now (831 MB), this binds the list to the '
+     'workflow and _config.yml and holds it under 900 MB', False),
+    ('THE SITE SERVES WHAT THE GAME LOADS', ['node', 'gates/the_site_serves_what_the_game_loads_gate.js', '--quick'],
+     "PLUMBER 5 gate, 11/6 (rule 411's round: the site is too big): a server that answers ONLY the publish list, as the live "
+     "site does; the alpha with its 18 tabs pressed, the VOTE tab with every card opened, every published page opened by itself; "
+     "red on any file asked for that the list left out, and a mutation proves the reader sees one. About 6 min", True),
+    ('THE LOOP PLAYS ON THE PUBLISHED SITE', ['node', 'gates/the_site_serves_what_the_game_loads_gate.js', '--loop'],
+     "PLUMBER 5 gate, 11/6: PLUMBER 4's THE WHOLE LOOP PLAYS, run as it is, with the driver's server answering only the publish "
+     "list: the loop passes and nothing it asked for (title, map, town, travel, an event, a fight, the end, a save, a reload) is "
+     "off the list. About 5 min", True),
     ('BROWNOUT',      ['node', 'gates/brownout_gate.js'],
      "GDD v3 LOCKED, act-1 power instability, routed off the 8/4 mechanics ledger where it sat in "
      "nobody's queue. The grid had no TIME axis: a valley whose lit 12% never flickers is one where "

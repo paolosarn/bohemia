@@ -208,6 +208,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   const noTwin = [], oldNoTwin = [];
   (reg.items || []).forEach(it => {
     if (!it || !it.id || judgedIds.has(it.id) || !isArt(it)) return;
+    if (it.stage === 'stand_in') return;   /* rule 408(c) F6: a stand-in asks nothing about the look, so it carries no twin */
     const w = twinWhy(it); if (!w) return;
     (madeOn(it) >= 1010 ? noTwin : oldNoTwin).push(it.id + ' (' + w + ')'); });
   ok('every art sheet registered since rule 82 carries its reference twin and three differences (' + noTwin.length + ' without)',
@@ -226,6 +227,132 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   }).map(it => it.id + ' -> ' + (it.show.src || '(none)'));
   ok('every registered thing is actually there to be looked at',
      missing.length === 0, missing.slice(0, 3).join(', '));
+
+  /* ---- 1b. FIRST TIME FINAL: A PLACEHOLDER IS MARKED OR NOT SHOWN (PLUMBER 5, 11/6; rule 408(c), Paolo 11/4: 'every
+     time I see you make art a lot of times it's just placeholder shit... I just want the first time you make art to be the
+     final'). DIRECTION wrote the leg, F1 to F8 (records/BOHEMIA_DIRECTION_THE_FIRST_TIME_IS_THE_FINAL_TIME_11_6_26.md PART 4);
+     this is it, as written. Every art card says what it is: "stage": "golden" (the first of its kind, to the bar), "made_from"
+     (a passed golden piece's recipe; "golden": its id) or "stand_in" (not the look; the tab draws it grey under STAND-IN,
+     NOT THE LOOK and asks nothing about the look). A card made AFTER the leg landed with no stage is not shown (F7: the
+     tab's half is RUN TWO's). WHAT IS NEW AND WHAT IS OLD is frozen in records/BOHEMIA_FIRST_TIME_FINAL_BASELINE_11_6_26.json
+     (every id in the registry the moment the leg landed); the old waiting art cards get a stage once from DIRECTION's list
+     records/BOHEMIA_FIRST_TIME_FINAL_STAGES.json (F8). Every check below is planted wrong first and must go red. */
+  const FTF = (() => {
+    const read = p => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8')); } catch (e) { return null; } };
+    const base = read('records/BOHEMIA_FIRST_TIME_FINAL_BASELINE_11_6_26.json');
+    const bar = read('records/target/direction_bar/THE_BAR.json');
+    const refs = ((read('records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json') || {}).refs) || {};
+    const list = read('records/BOHEMIA_FIRST_TIME_FINAL_STAGES.json');
+    return { base, barKeys: new Set(((bar && bar.pieces) || []).map(x => x && x.key).filter(Boolean)), refs, list };
+  })();
+  const STAGES = ['golden', 'made_from', 'stand_in'];
+  const ART_KINDS = ['screen', 'face', 'body', 'vehicle', 'house', 'landmark', 'ground', 'motion', 'weapon', 'beast', 'prop', 'icon'];
+  const NOT_FINAL = /not final|work in progress|\bwip\b|keep going|good progress|more work|dogshit|like shit/i;
+  const onDisk = p => { p = String(p || ''); return !!p && (fs.existsSync(path.join(ROOT, p)) || fs.existsSync(path.join(SLICES, p))); };
+  /* AN ART CARD (DIRECTION's words): a kind tile, a ui card with an image or a page, an animation, an outfit, a face, a
+     haircut, or a redo of one of those */
+  function ftfArt(it, byId, depth) {
+    if (!it) return false;
+    if (['tile', 'animation', 'outfit', 'face', 'haircut'].includes(it.kind)) return true;
+    const how = it.show && it.show.how;
+    if (it.kind === 'ui') return how === 'image' || how === 'page';
+    if (it.kind === 'redo') { const o = byId.get(it.redoOf); return o && (depth || 0) < 5 ? ftfArt(o, byId, (depth || 0) + 1) : (how === 'image' || how === 'page'); }
+    return false;
+  }
+  /* one pass over a registry (the real one, or a planted copy): each leg's reds, by leg */
+  function ftfCheck(R, base, list) {
+    const items = (R && R.items) || [], verdicts = (R && R.verdicts) || [];
+    const byId = new Map(items.map(i => [i && i.id, i]));
+    const vOf = new Map(verdicts.filter(Boolean).map(v => [v.id, v]));
+    const old = new Set((base && base.ids) || []);
+    const listed = (list && list.stages) || {};
+    const stageOf = it => it.stage || (old.has(it.id) && listed[it.id]) || null;
+    const red = { F1: [], F2: [], F3: [], F4: [], F5: [], F6: [], F8: [] };
+    const goldenWaiting = {};
+    for (const it of items) {
+      if (!it || !it.id || !ftfArt(it, byId)) continue;
+      const isNew = !old.has(it.id), st = stageOf(it), waiting = !vOf.has(it.id);
+      if (isNew && !STAGES.includes(st)) red.F1.push(it.id + ' (' + (st ? 'stage "' + st + '"' : 'no stage') + ')');
+      if (!isNew && it.stage && !STAGES.includes(it.stage)) red.F1.push(it.id + ' (stage "' + it.stage + '")');
+      if (isNew || st) {
+        const t = String(it.title || '');
+        if (/^\s*(PLACEHOLDER|STAND-IN)\b/i.test(t) && st !== 'stand_in') red.F2.push(it.id + ' (titled ' + t.split(/[\s:]/)[0] + ', stage ' + (st || 'none') + ')');
+        if (/^\s*CANDIDATE\b/i.test(t) && st === 'stand_in') red.F2.push(it.id + ' (titled CANDIDATE, stage stand_in)');
+      }
+      if (st === 'golden') {
+        const why = [];
+        if (!ART_KINDS.includes(it.art_kind)) why.push('art_kind');
+        const b = String(it.bar || '');
+        if (/^none:/.test(b)) { if (b.slice(5) !== it.art_kind || !FTF.barKeys.has(it.nearest)) why.push('bar none: needs its own art_kind and a nearest bar key'); }
+        else if (!FTF.barKeys.has(b)) why.push('bar');
+        const rl = String(it.real || '');
+        if (!(Object.prototype.hasOwnProperty.call(FTF.refs, rl) || onDisk(rl))) why.push('real');
+        if (!onDisk(it.surface)) why.push('surface');
+        const d = it.direction || {};
+        if (d.verdict !== 'PASS' || !/^\s*beside the bar:/i.test(String(d.line || ''))) why.push('direction PASS');
+        if (why.length) red.F3.push(it.id + ' (' + why.join(', ') + ')');
+        if (waiting) (goldenWaiting[it.art_kind || '?'] = goldenWaiting[it.art_kind || '?'] || []).push(it.id);
+      }
+      if (st === 'made_from') {
+        const g = vOf.get(it.golden);
+        const passed = g && g.vote === 'up' && (g.star || !NOT_FINAL.test(String(g.said || '')));
+        if (!passed) red.F5.push(it.id + ' (golden ' + (it.golden ? it.golden + (g ? ' not passed: ' + g.vote + (g.said ? ' "' + String(g.said).slice(0, 30) + '"' : '') : ' has no verdict') : 'names no card') + ')');
+      }
+      if (st === 'stand_in' && (it.options || it.twin)) red.F6.push(it.id + ' (a stand-in carries ' + (it.options ? 'options' : 'a twin') + ')');
+    }
+    for (const k in goldenWaiting) if (goldenWaiting[k].length > 1) red.F4.push(k + ': ' + goldenWaiting[k].join(', '));
+    if (list) {
+      const wa = new Set((base && base.waiting_art) || []);
+      for (const id of Object.keys(listed)) { if (!wa.has(id)) red.F8.push(id + ' (the list names a card that was not waiting art when the leg landed: the list only shrinks)');
+        else if (!STAGES.includes(listed[id])) red.F8.push(id + ' (list stage "' + listed[id] + '")'); }
+      for (const id of wa) { const it = byId.get(id); if (it && !vOf.has(id) && !STAGES.includes(stageOf(it))) red.F8.push(id + ' (waiting, no stage)'); }
+    }
+    return red;
+  }
+  ok('FIRST TIME FINAL: the baseline (every card when the leg landed) and the bar are there',
+     !!(FTF.base && Array.isArray(FTF.base.ids) && FTF.base.ids.length && FTF.barKeys.size),
+     FTF.base ? FTF.base.ids.length + ' cards then, ' + (FTF.base.waiting_art || []).length + ' waiting art, ' + FTF.barKeys.size + ' bar pieces' : 'no baseline');
+  { /* THE PLANTS: each leg handed one wrong row on a copy, and each must name it */
+    const k0 = (FTF.base && FTF.base.ids || [])[0], bk = [...FTF.barKeys][0], realRef = Object.keys(FTF.refs)[0] || 'slices/BOHEMIA_ALPHA_0_9.html';
+    const gold = (id, x) => Object.assign({ id, kind: 'tile', lane: 'cook 4', show: { how: 'image', src: 'x.png' }, title: 'THE CASINO', stage: 'golden', art_kind: 'house',
+      bar: bk, real: realRef, surface: 'slices/BOHEMIA_ALPHA_0_9.html', direction: { verdict: 'PASS', line: 'beside the bar: same, because the light' } }, x || {});
+    const P = [
+      ['F1', { id: 'ftf-p1', kind: 'tile', show: { how: 'image' }, title: 'A NEW TILE' }],
+      ['F1', { id: 'ftf-p1b', kind: 'ui', show: { how: 'page' }, title: 'A NEW SCREEN', stage: 'final' }],
+      ['F2', { id: 'ftf-p2', kind: 'tile', show: { how: 'image' }, title: 'PLACEHOLDER: THE CASINO', stage: 'made_from', golden: 'ftf-gold-ok' }],
+      ['F3', gold('ftf-p3', { real: 'NOPE-99' })],
+      ['F3', gold('ftf-p3b', { direction: { verdict: 'PASS', line: 'looks good' } })],
+      ['F3', gold('ftf-p3c', { bar: 'none:house' })],
+      ['F4', gold('ftf-p4', { art_kind: 'weapon' })], ['F4', gold('ftf-p4b', { art_kind: 'weapon' })],
+      ['F5', { id: 'ftf-p5', kind: 'tile', show: { how: 'image' }, title: 'MORE CASINOS', stage: 'made_from', golden: 'ftf-gold-wip' }],
+      ['F6', { id: 'ftf-p6', kind: 'tile', show: { how: 'image' }, title: 'THE LAYOUT', stage: 'stand_in', options: ['A', 'B'] }]];
+    const R = { items: [gold('ftf-gold-ok'), gold('ftf-gold-wip', { art_kind: 'beast' }), ...P.map(x => x[1])],
+      verdicts: [{ id: 'ftf-gold-ok', vote: 'up', said: 'yes', star: true }, { id: 'ftf-gold-wip', vote: 'up', said: 'good progress, keep going' }] };
+    const base = { ids: k0 ? [k0, 'ftf-old-1', 'ftf-old-2'] : ['ftf-old-1', 'ftf-old-2'], waiting_art: ['ftf-old-1', 'ftf-old-2'] };
+    R.items.push({ id: 'ftf-old-1', kind: 'tile', show: { how: 'image' }, title: 'AN OLD TILE' }, { id: 'ftf-old-2', kind: 'tile', show: { how: 'image' }, title: 'ANOTHER' });
+    const red = ftfCheck(R, base, { stages: { 'ftf-old-1': 'stand_in', 'ftf-p1': 'golden' } });
+    const said = (leg, id) => red[leg].some(s => s.startsWith(id + ' ') || s.includes(' ' + id));
+    const miss = P.filter(([leg, it]) => !said(leg, it.id)).map(([leg, it]) => leg + ' ' + it.id);
+    if (!said('F8', 'ftf-old-2')) miss.push('F8 ftf-old-2 (waiting, no stage)');
+    if (!said('F8', 'ftf-p1')) miss.push('F8 ftf-p1 (the list grew)');
+    const clean = ftfCheck({ items: [gold('ftf-gold-ok')], verdicts: [] }, base, null);
+    const falseRed = Object.keys(clean).filter(k => clean[k].length);
+    ok('FIRST TIME FINAL: every leg names its planted wrong row (' + (P.length + 2) + ' plants: no stage, a wrong word, PLACEHOLDER on made_from, a REF that does not resolve, a line not beside the bar, bar none with no nearest, two golden weapons waiting, made from a work-in-progress yes, a stand-in with options, an old card the list missed, a list that grew) and a whole golden card reads clean',
+       !miss.length && !falseRed.length, miss.length ? 'not named: ' + miss.join(', ') : falseRed.length ? 'a clean golden card read red on ' + falseRed.join(', ') : '');
+  }
+  { const red = ftfCheck(reg, FTF.base, FTF.list);
+    const line = (leg, what) => ok('FIRST TIME FINAL ' + leg + ' ' + what + (red[leg].length ? ' (' + red[leg].length + ' red)' : ''), !red[leg].length, red[leg].slice(0, 5).join(', '));
+    line('F1', 'THE MARK: every art card made since the leg landed carries stage golden, made_from or stand_in');
+    line('F2', 'THE WORD IS NOT THE MARK: a PLACEHOLDER, STAND-IN or CANDIDATE title agrees with its stage');
+    line('F3', 'GOLDEN CARRIES ITS PROOF: art_kind, bar, real, surface, DIRECTION\'s PASS beside the bar');
+    line('F4', 'ONE GOLDEN AT A TIME: at most one golden card of a kind waiting');
+    line('F5', 'NO VOLUME BEFORE THE PASS: a made_from card names a golden card he passed');
+    line('F6', 'THE STAND-IN ASKS NOTHING ABOUT THE LOOK: no options, no twin (the band on the glass is read below)');
+    if (FTF.list) line('F8', 'THE RATCHET: every art card waiting when the leg landed has its stage once, and the list only shrinks');
+    else ok('FIRST TIME FINAL F8 THE RATCHET: NOT ARMED YET, DIRECTION\'s list (records/BOHEMIA_FIRST_TIME_FINAL_STAGES.json) is not written; '
+            + ((FTF.base && FTF.base.waiting_art) || []).filter(id => !judgedIds.has(id)).length + ' of the ' + ((FTF.base && FTF.base.waiting_art) || []).length
+            + ' art cards waiting when the leg landed still wait (the planted list above went red both ways)', true);
+  }
 
   /* ---- 2. THE PAGE ITSELF -------------------------------------------------- */
   if (!fs.existsSync(TAB)) { ok('the vote tab page exists', false); return done(); }
@@ -596,6 +723,33 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      quoted.slice(0, 60));
   await fr2.close();
   plant = null;
+
+  /* ---- 9b. FIRST TIME FINAL ON THE GLASS (F6 the band, F7 no mark, not shown; rule 408(c)). Two art cards made after the
+     leg landed are planted at the head of a copy of the registry with nothing sorted: a stand_in card, which must be drawn
+     with the words STAND-IN, NOT THE LOOK on it, and a card with no stage, which must not be drawn at all. The tab's half
+     (the marks, the band, the skip) is RUN TWO's; these two legs read red until it lands, and name RUN TWO. */
+  { const ftfReg = JSON.parse(JSON.stringify(reg));
+    const card = (id, x) => Object.assign({ id, kind: 'tile', lane: 'cook 4', sha: 'gate', made: '12/31', title: 'PLANTED BY THE GATE',
+      why: 'Planted. You see it nowhere but this check.', show: { how: 'image', src: 'vote/none.png' } }, x);
+    ftfReg.items.unshift(card('gate-ftf-stand-in', { stage: 'stand_in', title: 'THE LAYOUT, PLANTED' }), card('gate-ftf-no-mark', { title: 'NO MARK, PLANTED' }));
+    plant = JSON.stringify(ftfReg); triPlant = JSON.stringify({ made: 'gate', cap: 12, tags: {} });
+    const fx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const pf = await fx.newPage();
+    await pf.goto(url('slices/BOHEMIA_VOTE_TAB.html'), { waitUntil: 'load', timeout: 60000 });
+    await pf.waitForFunction('window.__voteReady === true', null, { timeout: 20000 });
+    await queue(pf);
+    const seen = await pf.evaluate(() => {
+      const r = id => document.querySelector('#list .row[data-id="' + id + '"], #more .row[data-id="' + id + '"]');
+      const s = r('gate-ftf-stand-in');
+      return { standIn: !!s, band: !!(s && /STAND-IN,?\s+NOT THE LOOK/i.test(s.textContent || '')), noMark: !!r('gate-ftf-no-mark') };
+    });
+    ok('FIRST TIME FINAL F6 THE BAND: a planted stand-in card is drawn with STAND-IN, NOT THE LOOK on it', seen.standIn && seen.band,
+       seen.standIn ? (seen.band ? 'the band is there' : 'drawn with no band: RUN TWO draws the three marks and the STAND-IN band (408(c))') : 'not drawn at all');
+    ok('FIRST TIME FINAL F7 NO MARK, NOT SHOWN: a planted art card made after the leg landed, with no stage, is not drawn', !seen.noMark,
+       seen.noMark ? 'it is drawn: RUN TWO skips an unmarked art card in the tab (408(c))' : 'skipped');
+    await fx.close();
+    plant = null; triPlant = null;
+  }
 
   /* ---- 10. THE ALPHA POINTS AT THE QUEUE, NOT AT THE OLD JUDGE PAGE -------- */
   const alpha = fs.readFileSync(ALPHA, 'utf8');

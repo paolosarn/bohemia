@@ -87,19 +87,37 @@ ok('slices/ itself is never excluded', !excluded('slices/BOHEMIA_ALPHA_0_9.html'
    (a ref now has to land inside a copied folder, which is the production question, not
    just survive an exclude list that no longer runs), and the drift binding below now
    names a partial copy instead of accepting it. */
+/* ---- WHAT SHIPS IS THE PUBLISH LIST (PLUMBER 5, 11/6, rule 411's round: the site is too big) -------------------
+   The workflow copied slices/, engine/ and records/target WHOLE: 1,858 MB in 32,040 files on 11/6, against GitHub
+   Pages' 1 GB limit and its 10-minute deploy timeout, and 3 of the last 8 deploys died at that timeout. It now copies
+   ONLY tools/bohemia_publish_list.js's list (what the pages name, the folders the code builds names in, the cards the
+   VOTE tab can draw), computed at deploy from the committed tree. The ROOTS the list draws from are the folders this
+   gate used to read off the workflow's `cp -r` lines; a `cp -r` of a whole folder into _site is now a red, because it
+   would publish around the list. gates/the_site_serves_what_the_game_loads_gate.js PLAYS the game on a server that
+   answers only the list; this gate reads the files. */
 const WFP = '.github/workflows/pages.yml';
 const wfSrc = fs.existsSync(WFP) ? fs.readFileSync(WFP, 'utf8') : '';
-const COPIED = [...wfSrc.matchAll(/cp -r\s+([A-Za-z0-9_/.-]+)\s+_site\//g)].map(m => m[1].replace(/\/$/, ''));
-ok('the workflow names what it publishes (' + (COPIED.join(', ') || 'NOTHING') + ')', COPIED.length > 0);
+const LISTER = 'tools/bohemia_publish_list.js';
+let PL = null; try { PL = require(path.join(ROOT, LISTER)); } catch (e) { PL = null; }
+ok('the publish list exists and loads (' + LISTER + ')', !!(PL && PL.compute && PL.ROOTS));
+const COPIED = PL ? PL.ROOTS.slice() : [];
+const LIST = PL ? PL.compute() : { files: [], size: 0 };
+const LISTED = new Set(LIST.files);
+ok('the workflow publishes through the list (node ' + LISTER + ' --copy _site)', new RegExp('node\\s+' + LISTER.replace(/[.\/]/g, '\\$&') + '\\s+--copy\\s+_site\\b').test(wfSrc));
+const wholeCopies = [...wfSrc.matchAll(/cp -r\s+([A-Za-z0-9_/.-]+)\s+_site\//g)].map(m => m[1]);
+ok('the workflow copies no folder whole around the list' + (wholeCopies.length ? ' — cp -r ' + wholeCopies.join(', ') : ''), wholeCopies.length === 0);
+ok('a push that changes the list deploys (the workflow\'s paths name ' + LISTER + ')', wfSrc.indexOf("'" + LISTER + "'") >= 0);
+ok('_config.yml names the list as what is published (bohemia_publish_list: ' + LISTER + ')', new RegExp('^bohemia_publish_list:\\s*' + LISTER.replace(/[.\/]/g, '\\$&') + '\\s*$', 'm').test(cfg));
 const missingSrc = COPIED.filter(c => !fs.existsSync(c));
-ok('every folder the workflow copies exists on disk' +
-   (missingSrc.length ? ' — ' + missingSrc.join(', ') : ''), missingSrc.length === 0);
-/* a path ships iff it sits inside one of those copies */
-function shipped(p) { return COPIED.some(c => p === c || p.startsWith(c + '/')); }
+ok('every folder the list draws from exists on disk (' + COPIED.join(', ') + ')' +
+   (missingSrc.length ? ' — ' + missingSrc.join(', ') : ''), COPIED.length > 0 && missingSrc.length === 0);
+/* a path ships iff the list carries it */
+function shipped(p) { return LISTED.has(p); }
 
 // ---- 1 + 2: every outward reference from a slice still resolves AND still ships -----
-const slices = fs.readdirSync('slices').filter(f => f.endsWith('.html'));
-ok('slices/ has pages in it (' + slices.length + ')', slices.length > 0);
+/* the pages the site serves: every published .html directly in slices/ (a page deeper down is read by the serve-only gate) */
+const slices = LIST.files.filter(f => /^slices\/[^/]+\.html$/.test(f)).map(f => f.slice(7));
+ok('the list publishes pages (' + slices.length + ' in slices/)', slices.length > 0);
 
 const REF = /(?:src|href)\s*=\s*"(\.\.\/[^"?#]+)/g;
 let refs = 0, dropped = [], missing = [];
@@ -114,10 +132,10 @@ for (const f of slices) {
        subfolder underneath it -- records/ is excluded and records/target is copied by
        name, so the ART tab's screens do ship. Reading the exclude list first reported
        36 live references as dropped. */
-    if (shipped(rel)) { if (!fs.existsSync(rel)) missing.push(f + ' -> ' + rel); }
-    else { const hit = excluded(rel);
+    if (!fs.existsSync(rel)) { missing.push(f + ' -> ' + rel); continue; }
+    if (!shipped(rel)) { const hit = excluded(rel);
       dropped.push(f + ' -> ' + rel + (hit ? '  (excluded by "' + hit + '")'
-                                            : '  (the workflow copies no folder containing it)')); }
+                                            : '  (not on the publish list: outside ' + COPIED.join(', ') + ', or the list did not read it)')); }
   }
 }
 ok('every outward reference from a slice is still PUBLISHED (' + refs + ' checked)' +
@@ -128,24 +146,28 @@ ok('every outward reference from a slice EXISTS on disk' +
    missing.length === 0);
 
 // ---- 3: the published surface stays inside what the builder can finish -------------
-// RATCHET. The build that timed out was copying ~496 MB. This is the measured size of
-// what Pages will actually publish now, and it may not creep back up to that.
-const CAP_MB = 260;   // the published tree may not exceed this; b09f3ab died at ~496
-function dirSize(p) {
-  let n = 0;
-  let st; try { st = fs.statSync(p); } catch (_) { return 0; }
-  if (st.isFile()) return st.size;
-  for (const e of fs.readdirSync(p, { withFileTypes: true })) {
-    const full = path.posix.join(p, e.name);
-    if (e.name === '.git') continue;
-    if (e.isDirectory()) n += dirSize(full);
-    else if (e.isFile()) { try { n += fs.statSync(full).size; } catch (_) {} }
-  }
-  return n;
+/* THE BUDGET (PLUMBER 5, 11/6). The old cap, 260 MB, was set 8/6 when the 30-minute Jekyll build died at ~496 MB; the
+   copies it measured had grown to 1,858 MB and it had been red for weeks while the deploy failed 3 runs in 8 at the
+   10-minute timeout. Publishing the list, measured on ce14b189: 831 MB, 16,198 files. 260 MB is not reachable without
+   cutting what the game loads: the fight's boards (92 MB), its sheets (79), the idles (77), the barber's people (88),
+   the faces (46), the holds (40), the towns (30) are the game. Lossless shrinking was measured and is not worth it:
+   the boards are already lossy WebP, a lossless re-encode of the sheets saves 0 to 4%, the PNGs 2%.
+   THE CAP IS 900 MB: under GitHub Pages' documented 1 GB limit with room to spare, about 8% over today. A lane whose
+   art takes the list past it finds out here, the moment it does, and makes room (a stand-in out, an old tab's picture
+   out of what a page names), rather than the deploy finding out at minute ten. */
+const CAP_MB = 900;   /* the publish list may not exceed this; GitHub Pages' limit is 1 GB */
+const mb = LIST.size / (1024 * 1024);
+ok('the published surface is under ' + CAP_MB + ' MB (measured ' + mb.toFixed(0) + ' MB, ' + LIST.files.length + ' files)', mb > 0 && mb <= CAP_MB);
+for (const door of (PL ? PL.ENTRIES : [])) ok('a door is published: ' + door, shipped(door));
+ok('the VOTE tab\'s registry and sort are published', shipped('records/target/BOHEMIA_VOTE_REGISTRY.json') && shipped('records/target/BOHEMIA_VOTE_TRIAGE.json'));
+{ /* every card the tab can draw ships what it shows */
+  let shown = []; try { shown = PL.shownCards(fs.readFileSync(path.join(ROOT, PL.REGISTRY), 'utf8')) || []; } catch (e) {}
+  const off = [];
+  for (const it of shown) for (const k of ['src', 'first']) { const v = it.show && it.show[k];
+    if (!v || /^(https?:|data:)/.test(v) || !/\.[A-Za-z0-9]+$/.test(v)) continue;
+    const rel = path.posix.normalize(path.posix.join('slices', v)); if (fs.existsSync(rel) && !shipped(rel)) off.push(it.id + ' -> ' + rel); }
+  ok('every card the VOTE tab can draw (' + shown.length + ') has what it shows on the list' + (off.length ? ' — ' + off.slice(0, 4).join(', ') : ''), off.length === 0);
 }
-/* MEASURE THE COPIES. This is the byte count the deploy step actually moves. */
-const mb = COPIED.reduce((a, c) => a + dirSize(c), 0) / (1024 * 1024);
-ok('the published surface is under ' + CAP_MB + ' MB (measured ' + mb.toFixed(0) + ' MB)', mb <= CAP_MB);
 
 // ---- 4: the ONE-LINK LAW's own page is in the published set ------------------------
 const LINK = 'slices/BOHEMIA_ALPHA_0_9.html';
@@ -208,8 +230,8 @@ if (fs.existsSync(WF)) {
      (contradicted.length ? ' — ' + contradicted.join(', ') : ''), contradicted.length === 0);
 
   // and the alpha has to land at the exact path the ONE-LINK LAW pins, or the link is dead
-  ok('the workflow lands slices/ where the one link points',
-     /cp -r\s+slices\s+_site\/slices/.test(wf));
+  ok('the workflow lands slices/ where the one link points (the list copies each file to _site/<its path>)',
+     /--copy\s+_site\b/.test(wf) && shipped('slices/BOHEMIA_ALPHA_0_9.html'));
 }
 
 /* "THE DEPLOY QUEUES, NEVER CANCELS" WAS PRINTED ON EVERY RUN OF THIS GATE AND IT IS
@@ -224,7 +246,7 @@ if (fs.existsSync(WF)) {
    simply carried it from the 8/6 commit message. It now says what it actually holds, and
    points at the gate that does measure the deploy. */
 console.log('PAGES PUBLISH GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
-            refs + ' outward refs · published surface ' + mb.toFixed(0) + ' MB / ' + CAP_MB +
+            refs + ' outward refs · the publish list ' + mb.toFixed(0) + ' MB in ' + LIST.files.length + ' files / ' + CAP_MB +
             ' MB cap · whether a deploy actually LANDS is not checked here: see ' +
             'gates/the_live_site_is_current_gate.js)');
 process.exit(fail ? 1 : 0);

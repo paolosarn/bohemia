@@ -139,10 +139,13 @@ if (E(PAGE) && E('slices/BOHEMIA_CITY_WORLD.html') && shots.length) {
    workflow, so slices/look/ ships -- but if a lane ever moves them, the tab goes
    404 in production while working perfectly on disk, which is exactly how the
    link stopped being true for three commits on 8/6. */
+/* RE-AIMED 11/6 (PLUMBER 5, rule 411's round): the workflow no longer copies slices/ wholesale; it publishes
+   tools/bohemia_publish_list.js's list (what the pages load). The question is the same one, asked of the list. */
 if (E('.github/workflows/pages.yml')) {
-  ok('the pictures live under slices/, which Pages actually publishes',
-    shots.every(s => (s.file || '').indexOf('..') < 0) &&
-    /cp -r slices _site\/slices/.test(R('.github/workflows/pages.yml')));
+  let listed = null; try { listed = new Set(require(path.join(ROOT, 'tools/bohemia_publish_list.js')).compute().files); } catch (e) {}
+  const off = shots.filter(s => !s.file || s.file.indexOf('..') >= 0 || !listed || !listed.has(path.posix.join('slices', s.file)));
+  ok('the pictures live under slices/ and are on the publish list Pages actually publishes',
+    !!listed && off.length === 0, off.slice(0, 3).map(s => s.file || s.id).join(', '));
 }
 
 /* THE MACHINE THAT TAKES THEM MUST NOT LIE ABOUT A MISS. Its first run reported

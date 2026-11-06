@@ -35,6 +35,16 @@
 # IF A NEW SLICE EVER REACHES OUTSIDE THESE THREE FOLDERS, add that folder here or
 # the page will 404 in production while working perfectly on disk. That is the one
 # way this file can bite, so it is written down at the top of it.
+#
+# AND INSIDE THEM, ONLY WHAT THE PAGES LOAD (PLUMBER 5, 11/6, rule 411's round). The three
+# folders copied whole had grown to 1,858 MB in 32,040 files, over GitHub Pages' 1 GB limit,
+# and 3 of the last 8 deploys died at the 10-minute timeout. The deploy now copies the
+# PUBLISH LIST, tools/bohemia_publish_list.js (named on the key below, which Jekyll ignores
+# and gates/pages_publish_gate.js reads): what the alpha, the demo and the VOTE tab name,
+# the folders the code builds names in, the cards the tab can draw. 831 MB, 16,198 files.
+# The three roots are still the only folders a page may load from; this exclude list still
+# says so, and the list never reaches outside them. Since 9/23 the Pages source is GitHub
+# Actions, so Jekyll does not run; this file is the record the gate binds to the workflow.
 
 # TWO BUILDERS PUBLISH THIS SITE AND THEY RACE (coordinator 9/22, records/BOHEMIA_TWO_DEPLOYS_RACE_9_22_26.md).
 # GitHub's own "pages build and deployment" (Jekyll, reading THIS file) fires on every push
@@ -83,6 +93,10 @@ exclude:
                     # is wrong is THIS one, not the workflow's, so the fix adds a line
                     # here rather than a megabyte to a published surface already at
                     # 255 MB of a 260 MB cap. (COOK 9/20, cleaning up after itself.)
+  - handoffs/       # each lane's handoff block (9/13); read by people and the handoff gate, never by a page
+  - skills/         # session skills; never loaded by a page
+  - tickets/        # work tickets; never loaded by a page (these three were kept here and never copied: the
+                    # half-published state pages_publish_gate.js refuses; PLUMBER 5, 11/6)
   - reference/      # third-party study corpora (Rogue Fable school, 8/17) — reference
                     # only, cited by records/, and NEVER published: not ours to serve
   - "*.md"          # CLAUDE.md, the handoff, the backlog, the masters
@@ -91,3 +105,6 @@ exclude:
 
 # Pages serves files verbatim; nothing here is a Jekyll site in the blogging sense.
 plugins: []
+
+# What the deploy publishes inside slices/, engine/ and records/target (11/6): this list, computed at deploy.
+bohemia_publish_list: tools/bohemia_publish_list.js
