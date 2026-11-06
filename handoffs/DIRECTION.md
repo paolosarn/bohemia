@@ -1,7 +1,7 @@
 DIRECTION (direction-first-time): 11/6 LATEST -- [first time final] SHIPPED (rule 408(e), rule 411, ask line 455; a RESEARCH
 round: nothing drawn, nothing on the play surface, no lane's code touched).
 MADE: records/BOHEMIA_DIRECTION_THE_FIRST_TIME_IS_THE_FINAL_TIME_11_6_26.md (part 1 how studios get art right the first time,
-sourced, IN FLIGHT: it lands in this round's second commit; 1B the finding measured on our registry; 2 the bar; 3 the nine-step common recipe and 14 kinds in demo order; 4 the
+sourced: about 35 facts from studios' own pages and talks, by search excerpt (full pages blocked by the network), 3 marked UNVERIFIED; 1B the finding measured on our registry; 2 the bar; 3 the nine-step common recipe and 14 kinds in demo order; 4 the
 placeholder rule and the gate leg F1-F8). records/BOHEMIA_DIRECTION_THE_BAR_ON_THE_WALL_11_6_26.md (the bar page: each starred and
 loved piece, why it works in plain words, what it teaches, the other wall of what he hated). records/target/direction_bar/
 THE_BAR_ON_THE_WALL.webp (2072 x 2516 lossless, cut from committed renders only; purity 0 purple 0 lava) + THE_BAR.json (keys,

@@ -21,8 +21,146 @@ renders (records/target/direction_bar/THE_BAR_ON_THE_WALL.webp, THE_BAR.json).
 
 ## PART 1: HOW THE BEST STUDIOS DO IT
 
-(IN FLIGHT: the sourced studio research lands in this section in the next commit of this same round. Parts 1B to 4
-stand on the repo's own numbers and do not wait on it.)
+HOW THIS WAS FOUND: web search this round. This session's network refused full pages from battlebrothersgame.com,
+gamedeveloper.com and jikguard.com, so every fact below comes from the search engine's excerpt of the named page; a fact
+seen only second-hand, or whose exact words or speaker could not be confirmed, is marked [UNVERIFIED]. No URL is made up.
+None of these studios is a reference game: they are sources on HOW a studio works, never a look to copy.
+
+### 1.1 THEY WRITE THE LOOK DOWN FIRST, SHORT, WITH PICTURES OF DO AND DON'T
+
+- Valve's Dota 2 character art guide is a short rule list: the silhouette reads at first glance; value darkest at the feet
+  and lightest at the head; busy areas balanced by plain "areas of rest". Dota 2 Character Art Guide, Valve, 2012,
+  https://help.steampowered.com/faqs/view/0688-7692-4D5A-1935
+- Riot's League of Legends VFX style guide is five sections (gameplay, value, colour, shapes, timing), with rules like
+  "never pure black or pure white". "/Dev: League's VFX Style Guide", Riot Games, 2017,
+  https://nexus.leagueoflegends.com/en-us/2017/10/dev-leagues-vfx-style-guide/
+- Riot's Summoner's Rift remake wrote down a loudness order (interface, then spells, then champions, then the world last),
+  so every new asset knows how loud it may be. PCGamesN, 2014,
+  https://www.pcgamesn.com/how-riots-summoners-rift-update-is-improving-clarity-in-league-of-legends
+- Valve tied Team Fortress 2's whole look to ONE reference family (Leyendecker, Cornwell, Rockwell) and made the nine
+  silhouettes "very distinct from one another". Mitchell, Francke, Eng, "Illustrative Rendering in Team Fortress 2",
+  NPAR 2007, https://www.cs.princeton.edu/courses/archive/fall07/cos597B/papers/mitchell-team-fortress.pdf
+- Blizzard set Overwatch's art principles before mass production. Petras and Tsang, "The Art of Overwatch: Evolving",
+  GDC 2017, https://gdcvault.com/play/1024268/The-Art-of-Overwatch-Evolving
+
+FOR US: we have the rules written (the analog horror bible, the style guide's twenty fields, the card of numbers) and ONE
+reference family (Crashbox, rule 115(d)). What we did not have was the PICTURE of good beside the rules: that is the bar.
+
+### 1.2 THEY MAKE ONE FINISHED SAMPLE BEFORE ANYTHING ELSE, AND IT BECOMES THE RULER
+
+- The "beautiful corner": one screen of the game polished to exactly how it will look and sound at launch; it sets the
+  production-value target. Richard Lemarchand, A Playful Production Process, MIT Press, 2021 (quoted at
+  https://mycours.es/interactivity/?p=130)
+- Tim Cain (Fallout): the beautiful corner also tests whether the artists can actually make final in-game art; it comes
+  after the prototype and before the vertical slice. Game World Observer, 2023, https://gameworldobserver.com/?p=21895
+- Blizzard used ONE finished hero, Torbjorn, as the bridge to Overwatch's style; Arnold Tsang credits him with how the
+  team "developed our art style". Kotaku, 2017,
+  https://kotaku.com/without-torbjorn-overwatch-wouldnt-be-overwatch-1792919785
+- Campo Santo's small Firewatch team worked from one poster, the game's key art, and carried it into 3D. Jane Ng, "The
+  Art of Firewatch", GDC 2015, https://gdcvault.com/play/1022295/The-Art-of
+- Naughty Dog treats the concept as the target and fixes each engine shortcoming until the game image matches it. John
+  Sweeney, Cook and Becker, 2020, https://www.cookandbecker.com/en/article/250/art-directing-the-last-of-us-part-ii.html
+  [UNVERIFIED wording]
+- And the warning: Guerrilla's 2005 Killzone 2 trailer was "an internal target render"; the harm came from showing it as
+  if it were the game. A target is an inside ruler, never a promise. Push Square, 2017,
+  https://www.pushsquare.com/news/2017/12/guerrilla_finally_admits_that_killzone_2s_ps3_reveal_trailer_was_a_big_fat_fake
+
+FOR US: his two stars are our Torbjorn. Each kind of art gets ONE golden piece made to them before any volume (part 3).
+
+### 1.3 EVERY PIECE PASSES A CHECK AT EVERY STEP, AND FAKE ART LOOKS FAKE ON PURPOSE
+
+- "A premature art pass locks-in early design mistakes" because it becomes expensive to change. Robert Yang, The Level
+  Design Book, "Environment art"
+- Bethesda's kits start with a greybox phase of 1 to 4 weeks on "function, not aesthetics" before anything goes to art.
+  Burgess and Purkeypile, GDC 2013, https://www.slideshare.net/JoelBurgess/gdc2013-kit-buildingfinal
+- Naughty Dog runs an environment through fixed stages "from initial sketch to finishing touches", each reviewed.
+  Nakata and Pangilinan, GDC 2017,
+  https://www.gamedeveloper.com/art/video-behind-i-uncharted-4-s-i-environment-production-pipeline
+- Riot's placeholder splash art ("Feeney art") is crude ON PURPOSE so nobody can take it for final; it began around 2012
+  after Riot shipped unfinished art players took as final. It doubles as a test: a rough piece that does not read gets
+  changed early. "Before There's Splash Art, There's Feeney Art", Riot Games, 2017,
+  https://www.leagueoflegends.com/en-us/news/dev/before-there-s-splash-art-there-s-feeney-art/
+- Valve draws missing art as a loud black and magenta checkerboard because plain black was too easy to miss. PC Gamer,
+  2024, https://developer.valvesoftware.com/wiki/Missing_content
+- When a placeholder does not LOOK like one, it ships: Ubisoft said an AI-made loading screen in Anno 117 was a
+  placeholder that "unintentionally slipped through our review process". Video Games Chronicle, November 2025,
+  https://www.videogameschronicle.com/news/ubisoft-says-ai-generated-art-in-anno-117-was-a-placeholder-which-slipped-through-our-review-process
+
+FOR US, THE SHARPEST ONE: our placeholders were the opposite of Feeney art. They looked like candidates, carried a vote
+button and asked "is this the look?", and the only mark was a word in the title (68 cards, his first star among them).
+Part 4 makes the mark loud, drawn by the tab, and takes the look question away from a stand-in.
+
+### 1.4 THEY MAKE NEW THINGS FROM AN APPROVED KIT
+
+- Bethesda: a kit is "a contextual system snapped to grids that is more than a sum of its parts"; Skyrim built 400+
+  interiors with 8 level designers from kits. Burgess and Purkeypile, GDC 2013,
+  https://www.gamedeveloper.com/design/skyrim-s-modular-approach-to-level-design
+- The cost is repetition; for Fallout 4 Bethesda cut pieces smaller to reduce it. GDC 2016,
+  https://gdcvault.com/play/1022930/-Fallout-4-s-Modular
+- Insomniac kept a big world consistent with shared trim sheets, one UV script and one shader. Morten Olsen, GDC 2015,
+  https://gdcvault.com/play/1022323/The-Ultimate-Trim-Texturing-Techniques
+- Supergiant: almost every Hades NPC starts from one of two base models. Game Developer,
+  https://gamedeveloper.com/art/learn-how-supergiant-brought-i-hades-i-hand-painted-characters-to-life
+- Overhype split Battle Brothers' heads into swappable hair, face and beard (80,640 combinations then) and painted armour
+  as its own layer. Dev Blog #33, https://battlebrothersgame.com/?p=1345
+
+FOR US: the kit is the master rig, the one palette, the style guide's classes and his packs. A golden piece that passes
+freezes its recipe INTO the kit (step 9 of the recipe), and the rest of its kind is made from it.
+
+### 1.5 SMALL TEAMS: ONE OWNER OF THE LOOK, RULES THAT LET HIM CHECK HIMSELF
+
+- OVERHYPE (Battle Brothers, the floor for our scale, rule 408(e)): three people at the start; Paul Taaks "takes care of
+  everything visual", art direction, UI, illustration and concept art. https://en.bilbaogamesconference.com/paul-taaks/
+  When they upgraded the look they did it ONE WHOLE CATEGORY AT A TIME so nothing stayed in the old style: the brothers and
+  faces (Dev Blog #47), then "all armors in the game" (#48), then the helmets "in line with the new body armors" (#49).
+  https://battlebrothersgame.com/?p=5655
+- SUPERGIANT: one art director's paintings (Jen Zee) are the source; the 3D artist sculpts from them to keep "all the
+  nuance and personality of the 2D model". Game Developer (above).
+- MOTION TWIN (Dead Cells), THE CLOSEST TO OUR PIPE: one artist, Thomas Vasseur, did art direction, characters, monsters,
+  animation and most backgrounds for about a year, by modelling in 3D and rendering every frame to pixel art. He animated
+  on key poses first and added in-betweens only once the timing worked with the fewest frames; the big gain he names is
+  reusing old models for new characters. "Art Design Deep Dive: Using a 3D pipeline for 2D animation in Dead Cells",
+  Game Developer, 2018 (repost: https://www.jikguard.com/news/art-design-deep-dive-using-a-3d-pipeline-for-2d-animation-in-dead-cells)
+- SUBSET (Into the Breach): "we would sacrifice cool ideas for the sake of clarity every time." Justin Ma, 2018
+  (already our CGRD-02).
+- RED HOOK (Darkest Dungeon): "Building a style that had a set of rules I could externalize allowed me to essentially art
+  direct myself." Chris Bourassa, GameSpot [UNVERIFIED: excerpt only]. His one-line target: "I wanted the game to feel
+  old and worn." Road to the IGF, Game Developer.
+
+FOR US: DIRECTION is the one owner of the look and the bar plus the machine checks are the "rules I can externalize".
+Overhype's category passes are the second half of the golden piece: when a kind's golden piece passes, that WHOLE kind
+is redone from it in one pass and the old pieces go (rule 405, one moment one screen), never half old, half new.
+Dead Cells is the proof our rig is the right road (rule 115): key poses first, fewest frames, reuse the models.
+
+### 1.6 THE VERTICAL SLICE: ONE SMALL PIECE OF THE GAME AT FINAL QUALITY
+
+- A vertical slice "shows you a small piece of everything that is core: art, gameplay, systems", with art "close to
+  final, or at least representative of it". Game Production Lab, Game Developer, 2022,
+  https://www.gamedeveloper.com/game-platforms/what-you-should-take-out-of-pre-production
+- Rami Ismail: a prototype answers whether you SHOULD make the game; a vertical slice answers whether you CAN.
+  https://ltpf.ramiismail.com/prototypes-and-vertical-slice/
+- Mark Cerny's Method ends preproduction with a "publishable first playable"; production will not fix a project that
+  cannot reach it. D.I.C.E. 2002 [summary deck unofficial]
+- The honest limit: a slice proves the look in one place, not the whole game. Game Developer, "Building Simulations
+  Part 4"
+
+FOR US: the demo is our vertical slice, and the order of part 3's table is the order he walks it. The golden pieces get
+made in that order, so the first minutes he plays turn final first.
+
+### 1.7 WHAT THE BEST DO, IN ORDER, AND WHERE WE STAND
+
+| # | what the best do | us |
+|---|---|---|
+| 1 | write the look down, short, with do and don't pictures | HAVE (the bible, the style guide, the card); the do and don't now has his pieces: the bar page |
+| 2 | pick one reference family and keep it | HAVE (Crashbox for the look, his packs for the ground) |
+| 3 | make one finished sample per kind before anything else | DID NOT: 69 cards of four kinds in two rounds; NOW part 3 |
+| 4 | that sample is the ruler every new piece is held beside | DID NOT: no bar sheet existed; NOW the bar |
+| 5 | test layout with grey boxes; final art waits until the layout stops moving | HALF: we showed layouts as look candidates (the fight places); NOW a layout is a STAND-IN |
+| 6 | a check at every step, ending in the game itself | HALF: many gates, but pieces judged on black sheets, not in the game (the weapons); NOW recipe step 7 |
+| 7 | fake art looks fake on purpose | DID NOT: our stand-ins looked like candidates; NOW part 4 |
+| 8 | build from an approved kit | HAVE the kit (the rig, the palette, the packs); NOW a pass freezes its recipe into it |
+| 9 | one owner of the look, with rules he can check himself by | HAVE (DIRECTION, the gates); NOW the bar line on every card |
+| 10 | one slice at final quality first | NOW: the golden pieces in demo order |
 
 ## PART 1B: ONE FINDING THAT PROVES US WRONG, MEASURED AGAINST OUR REPO
 
