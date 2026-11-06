@@ -1,7 +1,7 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
 COMBAT 8 11/5 (rule 409's first wave, opened by the coordinator: rule 408's two bugs, ask line 456; rule 394 and its amendments,
-ask lines 429, 431, 432; rule 378 as amended, ask line 413). DONE, ALL THREE SHIPPED (91cca87e), BUILD 11/6b - THE SHIELDS SHOW, AUTO
+ask lines 429, 431, 432; rule 378 as amended, ask line 413). DONE, ALL THREE SHIPPED (200c1b57), BUILD 11/6d - THE SHIELDS SHOW, AUTO
 KNOWS ITS MAN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_8_THE_SHIELDS_SHOW_AND_AUTO_KNOWS_ITS_MAN_11_5_26.md.
 1. THE SHIELDS SHOW, THE TWO WEAPONS RIGHT (rule 408): the root cause was ONE: the shield, the two-hander and the bow were drawn only
    through a look's own posed keys, and a look with none drew the man without the thing (every rolled man of nine gangs, the cast,
