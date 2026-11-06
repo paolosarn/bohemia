@@ -2434,11 +2434,12 @@
  },
  "early_retreat": {
   "value": {
-   "edge_margin_tiles": 1
+   "edge_margin_tiles": 1,
+   "room_to_run_tiles": 4
   },
-  "source": "VAMILY.md rule 256 (Paolo 10/26, LOCKED: 'if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... in Battle Brothers every time I retreated I watched my people run tile to tile and they always made it, they got that head start'); records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md",
-  "quote": "they got that head start",
-  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: his front column stands a man's run on flat ground (ap.per_turn over ap.move_cost.flat, four tiles) LESS this many tiles from his edge, so rough ground still lets a first-turn retreat reach it; ours.start_cols stays the farthest it may be. Measured on 300 rolled fights, RETREAT on his first turn: margin 0 put 98.8% of his men out, 1 put 99.9% (beasts 100%), 2 the same as 1."
+  "source": "VAMILY.md rule 256 (Paolo 10/26, LOCKED: 'if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... in Battle Brothers every time I retreated I watched my people run tile to tile and they always made it, they got that head start'); records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md; AMENDED by VAMILY.md rule 415 (Paolo 11/6: 'while retreating, I don't see my people actually run, they kind of just disappear. I think it's because you have the retreat edge of the screen less than four tiles away from our back line'); records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md",
+  "quote": "you have the retreat edge of the screen less than four tiles away from our back line",
+  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune. room_to_run_tiles (rule 415(b), his number): his BACK line stands at least this many tiles from his own edge, so his front column stands that plus the line's depth less one (five), and the run is seen over a turn or two; it wins over edge_margin_tiles, the older rule 256(b) reading (his front column a man's flat run, four tiles, less the margin), which stays the floor when the room is set lower. The head start grows with it: a man of theirs who runs farther in a turn than a man does starts back his extra run times the turns his front column needs to reach his edge (placeBack), on every start, the camp and the pincer too. Measured on 1,000 rolled fights, RETREAT on his first turn: back line 2 (main) 97.7% of his men out, beasts 92.6%; back line 4 with the head start 99.2%, beasts 99.3% (COMBAT 9, tools/bohemia_combat_early_retreat.js)."
  },
  "rest_recovery": {
   "value": 30,

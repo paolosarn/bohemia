@@ -8,6 +8,7 @@
      out        his men off the board of all his men
      allOut     fights where every man of his got out
      inReach    his men who stood within a turn's run (his AP over a flat step) of the nearest edge at the bell
+     inTwo      the same within two turns' run (rule 415(b), COMBAT 9 11/6: his back line four tiles from his edge, 'seen over a turn or two')
      firstHit   fights where a man of theirs struck one of his on that man's own first turn (a shot or a blow)
      firstBlow  the same, a blow (a man who closed to melee on his first turn: the wiki's 'cannot close within 1 round')
      byKind     the same, by faction
@@ -21,7 +22,7 @@ const FACTIONS = ['brigands', 'beasts', 'kids', 'machines', 'heavies'], SIZES = 
 function measure(n) {
   const ctx = engine(), F = ctx.FIGHT, DB = ctx.DB, districts = DB.boardKinds.districts;
   const flat = require('vm').runInContext("R('ap.move_cost.flat')", ctx);
-  const T = { fights: 0, men: 0, out: 0, allOut: 0, inReach: 0, firstHit: 0, firstBlow: 0, broke: 0, byKind: {}, worst: [] };
+  const T = { fights: 0, men: 0, out: 0, allOut: 0, inReach: 0, inTwo: 0, firstHit: 0, firstBlow: 0, broke: 0, byKind: {}, worst: [] };
   for (let k = 0; k < n; k++) {
     const fac = FACTIONS[k % 5], size = SIZES[Math.floor(k / 5) % 3], count = 2 + ((k * 7) % 9), days = 1 + ((k * 13) % 90);
     const d = districts[(k * 11 + 3) % districts.length], seed = 7000 + k;
@@ -34,7 +35,7 @@ function measure(n) {
       if (S.deploy) F.startFight();
       const mine0 = S.units.filter(v => v.side === 'you' && F.onField(v));
       const edge = v => Math.min(v.x, v.y, S.w - 1 - v.x, S.h - 1 - v.y);
-      mine0.forEach(v => { if (edge(v) <= Math.floor(v.apTurn / flat)) T.inReach++; });
+      mine0.forEach(v => { if (edge(v) <= Math.floor(v.apTurn / flat)) T.inReach++; if (edge(v) <= 2 * Math.floor(v.apTurn / flat)) T.inTwo++; });
       const firstOf = {}; let ordered = false, hitFirst = false, blowFirst = false;
       for (let g = 0; g < 6000 && !S.over; g++) {
         const u = F.current(); if (!u) break;

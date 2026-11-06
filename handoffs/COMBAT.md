@@ -1,5 +1,41 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 9 11/6 (rule 415 YOU SEE THEM RUN, ask line 467, opened by the coordinator for one round; with rules 256 and 365). DONE,
+SHIPPED (__SHA__), BUILD 11/6p - YOU SEE THEM RUN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md.
+MEASURED FIRST (main 7d9c2883): his back line stood 2 tiles from his own edge in 299 of 300 rolled fights; on the glass (every frame
+drawMan drew, tools/bohemia_combat_you_see_them_run_probe_11_6_26.js) every man of a lineup retreat was drawn on ONE tile, his own, and
+never again. Cause: retreatStep walks him onto the edge and getOut marks him fled in the same act, and the board drew only men the
+rules still have (onField), so he left the glass the moment his last walk was asked; at 2 tiles that walk was his only one.
+1. __YOU_SEE_THEM_RUN__ (the drawing only; the rules untouched): outStart/outRun/stillRunning/outAlpha beside walkOf. A man the rules
+   took off stays drawn while his walk to the edge and his get-out play (bars on, the camera framing him: framedMen); from the edge tile
+   he runs OUT_TILES (2) off the board at the walk's pace (TILE_BEATS), the second tile fading, then gone. endAnim starts the run off
+   at his walk's end (no stop on the edge tile); the 'fled' note starts it for a man who was on the edge at the order. A broken man of
+   theirs who leaves from the edge does the same if he was seen. Decoys and endFight's ranOff never.
+2. __ROOM_TO_RUN__: ours.early_retreat.room_to_run_tiles 4 (his number; tuned:false, TUNING's): startCols puts his BACK line 4 from his
+   edge, front 5 (their front 11); placeBack's head start is extra run x the turns his front needs (2), capped at the board; it now
+   runs after placeOwnStart too (camp and pincer boards never had it).
+3. THE RUN FROM THE LINEUP STAYS SURE (rule 253 'no matter what'): with the run two turns long, on the map's own board their marksman
+   shot a man between his two turns (LOST). Now while a run ordered on the lineup lasts, theirs hold: newRound keeps only his men in
+   the order and freeShot answers nothing, for lineHold() rounds (the turns his front needs + 1 = 3), so nothing stalls. 300 rolled
+   lineup runs: 300 WITHDREW, 0 acts of theirs; the lineup gate's strict 'none of theirs moved' holds as written.
+NUMBERS: rule 256 (1,000 fights) 97.7% -> 99.2% out, beasts 92.6% -> 99.3%, first-turn melee blows 9 -> 0. Drawn, lineup, phone: 0 ->
+3 tiles between for every man, the edge his last tile, 15-22 frames off the glass, walk clip 100%, in the open area 100%.
+GATES: YOU SEE THEM RUN 7/0 (new, in the suite: Y1 room, Y7 the lineup run sure, Y2 lineup phone, Y3 mid-fight computer, Y6 the map's
+own street board through the demo, Y4 rule 256's number, Y5); AN EARLY RETREAT GETS OUT 5/0 (E2 amended to two turns by 415(b); E3, E4
+were red on main); RETREAT IS A RUN FOR THE EDGE 5/0; RETREAT FROM THE LINEUP L1 phone green as written, L2 red here AND on clean main
+(its 'engage' demo boot crashes this box's page before any fight; Y6 reaches the same fight through the title); NO CAP 9/0; EVERY
+PLACE ITS OWN BOARD PASS; CAMP THREE's THE CAMP IS PITCHED ON THE BOARD green (it reads his front column); DEMO BUILD 25/0; THE MAP HANDS
+THE BOARD 5/3 and GHOSTS' THE ACTS, the same on main; THE REBUILT FIGHT PLAYS 143/12 against main's 145/10, then two legs set right and
+re-run green (the formation leg counted a roof as an open slot; THE HEAD UNDER THE STRIP judged a broken thug's last step after he had
+left; now where his act ended); left differing: the art-pixels pair flips by the centre tile (main red by day, here by night) and
+'both teams on the glass' on the sideways phone, red in 2 of 3 runs on clean main too.
+VOTE card: combat-9-you-see-them-run-11-6 (records/target/COMBAT_9_YOU_SEE_THEM_RUN.webp, before and after, the same six men).
+NOT DONE / NEXT: a sweep of many street blocks (Y6 is one); a run off the glass for endFight's runners (they leave with the fight, as
+before); TUNING's: room_to_run_tiles, the hold's length and the head start's turns.
+[bb] Battle Brothers: men on an edge leave; the rest 'attempt to speedily move to the edges of the map' (rules.json); its deployment
+gap is what makes the early retreat near-sure, kept here for the whole two-turn run. [analog horror] he walks off the lit board into
+the dark ring and fades over the last tile, a figure leaving a camcorder's light, never a deleted file.
+
 COMBAT 8 11/5 (rule 409's first wave, opened by the coordinator: rule 408's two bugs, ask line 456; rule 394 and its amendments,
 ask lines 429, 431, 432; rule 378 as amended, ask line 413). DONE, ALL THREE SHIPPED (200c1b57), BUILD 11/6d - THE SHIELDS SHOW, AUTO
 KNOWS ITS MAN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_8_THE_SHIELDS_SHOW_AND_AUTO_KNOWS_ITS_MAN_11_5_26.md.

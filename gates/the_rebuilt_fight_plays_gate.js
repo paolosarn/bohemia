@@ -650,7 +650,7 @@ async function formation() {
       return { deploy: S.deploy, cols: c, crew: S.units.filter(u => u.side === 'you').map(u => ({ x: u.x, y: u.y, slot: u.slot, ranged: FIGHT.isRanged(u.weapon) })),
         them: S.units.filter(u => u.side === 'them').map(u => ({ x: u.x, back: u.arche === 'backline' })), h: S.h,
         free: (x, y) => 0 }; });
-    const tiles = await d.page.evaluate((cols) => { const S = FIGHT.S, o = {}; for (let y = 0; y < S.h; y++) cols.forEach(x => { o[x + ',' + y] = FIGHT._t.passable(x, y); }); return o; }, r.cols);
+    const tiles = await d.page.evaluate((cols) => { const S = FIGHT.S, o = {}; for (let y = 0; y < S.h; y++) cols.forEach(x => { o[x + ',' + y] = FIGHT._t.passable(x, y) && !(FIGHT._t.level(x, y) > 0); }); return o; }, r.cols);   /* an open slot is ground, as the lineup reads it (rule 256: nobody is dealt onto a roof); COMBAT 9 11/6: his line moved to columns 5 and 4 (rule 415(b)), where seed 7 has a roof on two slots */
     r.tiles = tiles; r.err = d.errs[0]; await d.close(); return r; };
   const want = { front: [11, 10, 9, null, 0, null, 1, 2, 3], back: [4, 5, 6, 7, 8] };
   const handed = await at(',formation:' + JSON.stringify(want));
@@ -1139,9 +1139,14 @@ async function actFramed() {
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:11,speed:4,kind:"strip",deploy:false};window.__hd=[];' });
     await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
     await d.page.evaluate(() => { FIGHT_UI.auto = true; let cur = null;
-      const look = a => { const u = FIGHT.byId(a.e.id); if (!u) return; const x0 = a.k === 'step' ? a.e.x : u.x, y0 = a.k === 'step' ? a.e.y : u.y;
+      const boxOf = a => { const u = FIGHT.byId(a.e.id); if (!u) return null; const x0 = a.k === 'step' ? a.e.x : u.x, y0 = a.k === 'step' ? a.e.y : u.y;
         const tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near, feet = sy((y0 + .9) * FIGHT_UI.th), head = feet - tall, x = sx((x0 + .5) * FIGHT_UI.tw);
-        window.__hd.push({ off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2, all: allFramed() }); };
+        return { off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2 }; };
+      /* AMENDED 11/6 (COMBAT 9, rule 415(a)): a man who has left the board by the time the camera rests (a broken man who stepped onto
+         the edge and is out, running off the glass) is judged where his act ENDED: the camera owes nothing to a man who is gone, and
+         the one red this leg ever read there was a thug at 373 of 390 points when his step ended, judged after the camera let him go */
+      const look = a => { const u = FIGHT.byId(a.e.id); if (!u) return; const b = u.fled && a._end ? a._end : boxOf(a); if (!b) return;
+        window.__hd.push({ off: b.off, cut: b.cut, all: allFramed() }); };
       /* an act is judged when it ends with the camera at rest: an act that ends mid-glide (the camera catching up, a frame or
          three under load) is judged the frame the glide lands */
       let pend = [];
@@ -1150,7 +1155,7 @@ async function actFramed() {
          seed 11 is won in round 2 once a club stops waiting under a two-storey roof) */
       const again = () => { if (FIGHT.S.over && !window.__again && document.getElementById('over').style.display === 'flex') { window.__again = true; cur = null; pend = [];
         document.getElementById('over').style.display = 'none'; Promise.resolve(start()).then(() => { FIGHT_UI.auto = true; window.__again = false; }); } };
-      const loop = () => { again(); if (window.__again) { requestAnimationFrame(loop); return; } const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { pend.push(cur); cur = null; } if (pend.length && !FIGHT_UI.glide) { pend.forEach(look); pend = []; }
+      const loop = () => { again(); if (window.__again) { requestAnimationFrame(loop); return; } const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { cur._end = boxOf(cur); pend.push(cur); cur = null; } if (pend.length && !FIGHT_UI.glide) { pend.forEach(look); pend = []; }
         if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
       requestAnimationFrame(loop); });
     await d.page.waitForTimeout(30000);

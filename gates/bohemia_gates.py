@@ -10301,7 +10301,13 @@ GATES = [
      "COMBAT 7 gate, 11/3, rule 365 (Paolo 11/3: 'if you press the flee button... you have to reach the edge of the map... it just auto ends "
      "the fight'): the real button pressed on his upright phone and sideways on AUTO: the fight goes on, his men run for the edges and get "
      "out one by one, it ends only when all are out or down, never won; broken enemies run for the edge too. About 2 minutes", False),
-    ("THE ENEMY WANTS TO LIVE", ['node', 'gates/the_enemy_wants_to_live_gate.js'],
+    ("YOU SEE THEM RUN", ['node', 'gates/you_see_them_run_gate.js'],
+     "COMBAT 9 gate, 11/6, rule 415, ask line 467 (Paolo 11/6: 'while retreating, I don't see my people actually run, they kind of just "
+     "disappear... the retreat edge of the screen less than four tiles away from our back line'): his back line four tiles or more from his "
+     "edge in 300 rolled fights; every frame drawn, from the lineup on his upright phone and mid-fight on his computer: every man who gets "
+     "out is drawn on three tiles or more between where he stood and the edge, his last tile the edge, a short run off the glass, his own "
+     "walk, the camera holding him; rule 256's early retreat still gets out at least as often as before. About 4 minutes", True),
+    ("THE ENEMY WANTS TO LIVE",['node', 'gates/the_enemy_wants_to_live_gate.js'],
      "COMBAT 7 gate, 11/3, rule 366 (Paolo 11/3: 'they try to preserve their [lives]... climbing on tops as high as they can... the enemy can "
      "have abilities'): headless, a lone man of theirs never walks into three of ours (the brain before did), a shooter with no shot takes "
      "the highest roof that gives him one, a captain rallies his breaking men. About 1 minute", False),

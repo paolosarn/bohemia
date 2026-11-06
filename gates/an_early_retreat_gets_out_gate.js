@@ -9,7 +9,9 @@
    Legs (tools/bohemia_combat_early_retreat.js on the live fight's rules: 1,000 fights, his company of 3, 6 or 12, the five road
    factions with beasts among them, two to ten of them, days 1 to 90, every district's board):
    E1 95 in 100 or more of his men out;
-   E2 every man of his within a turn's run (his AP over a flat step) of an edge at the bell;
+   E2 every man of his within a turn's run (his AP over a flat step) of an edge at the bell; AMENDED 11/6 by rule 415(b) (COMBAT 9,
+      Paolo: 'you have the retreat edge of the screen less than four tiles away from our back line'): his back line now stands four
+      tiles from his edge so the run is seen 'over a turn or two', newest wins: every man within TWO turns' run of an edge;
    E3 no man of theirs closes and strikes in melee on his own first turn (the wiki's 'cannot close to melee distance within 1
       round'; a fast kind starts back by its extra run);
    E4 against beasts, 95 in 100 or more of his men out;
@@ -24,7 +26,7 @@ const n = Number(process.argv[process.argv.indexOf('--n') + 1]) || 1000;
 const T = require(path.join(ROOT, 'tools/bohemia_combat_early_retreat.js')).measure(n);
 const pct = (a, b) => (100 * a / Math.max(1, b)).toFixed(1) + '%';
 leg(T.outShare >= 0.95, '*** E1 AN EARLY RETREAT GETS HIS MEN OUT: 95 IN 100 OR MORE *** (rule 256(a))', T.out + ' of ' + T.men + ' (' + pct(T.out, T.men) + '), every man out in ' + T.allOut + ' of ' + T.fights);
-leg(T.inReach === T.men, '*** E2 HIS LINE STANDS WITHIN A TURN\'S RUN OF HIS EDGE *** (rule 256(b))', T.inReach + ' of ' + T.men);
+leg(T.inTwo === T.men, '*** E2 HIS LINE STANDS WITHIN TWO TURNS\' RUN OF HIS EDGE *** (rule 256(b) as rule 415(b) amends it: a turn or two)', T.inTwo + ' of ' + T.men + ' (within one turn ' + T.inReach + ')');
 leg(T.firstBlow === 0, '*** E3 NOBODY CLOSES TO MELEE ON HIS FIRST TURN, THE FAST ONES START BACK *** (rule 256(a); rules.json deployment)', 'a blow in ' + T.firstBlow + ' fights; shots on a first turn in ' + (T.firstHit - T.firstBlow) + ' (allowed: the gap is for melee)');
 const B = T.byKind.beasts || { out: 0, men: 1 };
 leg(B.out / B.men >= 0.95, '*** E4 AGAINST BEASTS TOO *** (rule 256(a): \'things that can traverse farther than a human\')', B.out + ' of ' + B.men + ' (' + pct(B.out, B.men) + ')');

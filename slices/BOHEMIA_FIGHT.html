@@ -1544,9 +1544,17 @@ const FIGHT = (function () {
      five tiles stand between the fronts (the wiki's gap, so nobody closes to melee in round one); (a) placeBack: a man of theirs
      who runs farther in a turn than a man does starts that many tiles farther back. After: 99.9% out, beasts 100%, no melee blow
      on anyone's first turn (records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md) */
+  /* __ROOM_TO_RUN__ (COMBAT 9, rule 415(b), Paolo 11/6: 'I don't see my people actually run, they kind of just disappear. I think
+     it's because you have the retreat edge of the screen less than four tiles away from our back line'). MEASURED BEFORE (300
+     rolled fights): his back line stood 2 tiles from his own edge in 299 (his front 3, a man's flat run less the margin), so a
+     retreat was over in one short walk. NOW his back line stands ours.early_retreat.room_to_run_tiles (4) from his edge, his front
+     one further (the line's depth), and the run is seen over a turn or two; the head start for their fast ones grows with it
+     (placeBack), so the early retreat still gets out (rule 256's number went 97.7% to 99.2%, beasts 92.6% to 99.3%) */
+  function lineHold() { return Math.ceil(S.cols[0] / Math.floor(R('ap.per_turn') / R('ap.move_cost.flat'))) + 1; }   /* the rounds theirs hold for a run from the lineup */
+  function roomToRun() { const er = R('ours.early_retreat'); return er.room_to_run_tiles > 0 ? er.room_to_run_tiles + R('ours.formation_depth_lines') - 1 : 0; }
   function startCols() {
     const c = R('ours.start_cols'), run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat'));
-    const ours = Math.max(1, Math.min(c[0], run - R('ours.early_retreat').edge_margin_tiles));
+    const ours = Math.max(1, roomToRun(), Math.min(c[0], run - R('ours.early_retreat').edge_margin_tiles));
     return [ours, ours + Math.max(c[1] - c[0], R('deployment.min_gap_between_lines_hexes') + 1)];   /* five tiles BETWEEN the fronts, as the wiki's 'at least 5 hexes between parties' */
   }
   /* THEIR CAMP, OR BOTH FLANKS (COMBAT MAPS 3, rule 341): Battle Brothers' camp you walk into (they stand round the landmark,
@@ -1570,15 +1578,22 @@ const FIGHT = (function () {
   }
   function placeBack(units) {
     const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat')), front = S.cols[1];
+    /* __ROOM_TO_RUN__ (rule 415(b)): his front column now needs more than one turn to reach his edge, and a fast one gains his
+       extra run on him every one of those turns, so he starts back his extra run times them (Battle Brothers' head start kept for
+       the whole run, not only its first turn). MEASURED (1,000 rolled fights): with the old one turn's head start the dire wolves
+       and hyenas caught his front column in round 2 (beasts 79.3% out); with this 99.3% */
+    const turns = Math.max(1, Math.ceil(S.cols[0] / run));
     /* only a man nearer than his own extra run allows moves, to the nearest open tile at that column or past it (the ranks behind
-       him are far enough already, so the line stays as deep as it was dealt and the board as framed) */
+       him are far enough already, so the line stays as deep as it was dealt and the board as framed); a head start past the
+       board's far side takes the farthest open column there is */
     units.slice().sort(function (a, b) { return b.x - a.x; }).forEach(function (u) {
-      const extra = Math.floor(u.apTurn / R('ap.move_cost.flat')) - run, want = front + extra; if (extra <= 0 || u.x >= want) return;
+      const extra = Math.floor(u.apTurn / R('ap.move_cost.flat')) - run, want = Math.min(S.w - 1, front + extra * turns); if (extra <= 0 || u.x >= want) return;
+      const open = function (x, y) { return passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0); };
       let best = null, bd = Infinity;
-      for (let x = want; x < S.w && !best; x++) for (let y = 0; y < S.h; y++) {
-        if (!passable(x, y) || unitAt(x, y) || level(x, y) > 0) continue;
-        const d = Math.abs(y - u.y); if (d < bd) { bd = d; best = { x: x, y: y }; }
-      }
+      for (let x = want; x < S.w && !best; x++) for (let y = 0; y < S.h; y++) { if (!open(x, y)) continue;
+        const d = Math.abs(y - u.y); if (d < bd) { bd = d; best = { x: x, y: y }; } }
+      for (let x = want - 1; x > u.x && !best; x--) for (let y = 0; y < S.h; y++) { if (!open(x, y)) continue;
+        const d = Math.abs(y - u.y); if (d < bd) { bd = d; best = { x: x, y: y }; } }
       if (best) { u.x = best.x; u.y = best.y; }
     });
   }
@@ -1709,7 +1724,7 @@ const FIGHT = (function () {
     if (st === 'wide') S.cols = [cols[0], Math.min(S.w - 2, cols[1] + R('ours.place_boards').wide_extra)];
     deployCrew(crewUnits, S.cols[0], -1, kept);
     S.formation = formationNow();
-    if ((st === 'camp' || st === 'pincer') && S.boardDef.camp) placeOwnStart(bandUnits, st, S.boardDef.camp);
+    if ((st === 'camp' || st === 'pincer') && S.boardDef.camp) { placeOwnStart(bandUnits, st, S.boardDef.camp); placeBack(bandUnits); }   /* __ROOM_TO_RUN__: the camp and the pincer keep the head start too (measured: 145 of 753 dire wolves in 200 beast fights stood on the gap's line, columns 11 and 12) */
     else { place(bandUnits, S.cols[1], 1); placeBack(bandUnits); }   /* rule 256(a): the fast ones start back by their extra run */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
@@ -1958,6 +1973,12 @@ const FIGHT = (function () {
       u.turnIni = ini;
     });
     S.order = live.sort(function (a, b) { return b.turnIni - a.turnIni; }).map(function (u) { return u.id; });
+    /* __ROOM_TO_RUN__ (rule 415(b): 'his men run first'; rule 253: 'I should be able to retreat from the lineup, before the enemy, no
+       matter what, end of story'): his line now stands two turns from his edge, so a run ordered on the lineup lasts into round 2;
+       measured on the map's own board, their marksman shot a man of his between his two turns (the run ended LOST, never WITHDREW).
+       So while a run from the lineup lasts, theirs hold: no man of theirs takes a turn (the fight never began for them, as when his
+       men all got out in round one); the hold ends after the turns his front column needs and one more, so nothing can stall it */
+    if (S.retreat && S.fromLine && S.round <= lineHold()) S.order = S.order.filter(function (id) { return byId(id).side === 'you'; });
     S.idx = 0;
     emit({ t: 'round' });
     settle();
@@ -3262,7 +3283,7 @@ const FIGHT = (function () {
     S.units.forEach(function (v) { if (v.side === 'you') v.hpIn = v.hp; });
     startFight(); S.fromLine = true;
     const head = S.order.slice(0, S.idx), tail = S.order.slice(S.idx);
-    S.order = head.concat(tail.filter(function (id) { const v = byId(id); return v && v.side === 'you'; }), tail.filter(function (id) { const v = byId(id); return !v || v.side !== 'you'; }));
+    S.order = head.concat(tail.filter(function (id) { const v = byId(id); return v && v.side === 'you'; }));   /* __ROOM_TO_RUN__: theirs hold while the run from the lineup lasts (newRound) */
     return retreat();
   }
   function retreat() {
@@ -3375,6 +3396,7 @@ const FIGHT = (function () {
   function readyShot(g) { const w = g.weapon; return isRanged(w) && !(w.ammo && g.ammo !== null && g.ammo <= 0) && !(reloadSkill(w) && !w.mag && !g.loaded); }
   function freeShot(u) {
     if (u.shotAt === S.round || !onField(u)) return null;
+    if (S.retreat && S.fromLine && S.round <= lineHold()) return null;   /* __ROOM_TO_RUN__ (rule 253 'no matter what'): theirs hold while a run from the lineup lasts, their guns too (measured: 9 free shots in 300 lineup runs) */
     let g = null, gc = -1;
     foes(u).forEach(function (f) {
       if (f.decoy || f.morale === 'Fleeing' || f.stunned || f.freeShotAt === S.round || !readyShot(f) || !inRange(f, u)) return;
@@ -5719,7 +5741,11 @@ function endAnim(a) {
   if (a.k === 'step') {
     const u = FIGHT.byId(a.e.id), end = a.path[a.path.length - 1]; if (!u) return;
     /* the next walk of his still waiting starts where this one ended; with none, he is where the rules have him */
-    u._at = UI.anim.some(function (b) { return b.k === 'step' && b.e.id === u.id; }) ? { x: end.x, y: end.y } : undefined;
+    const more = UI.anim.some(function (b) { return b.k === 'step' && b.e.id === u.id; });
+    u._at = more ? { x: end.x, y: end.y } : undefined;
+    /* __YOU_SEE_THEM_RUN__: his walk to the edge done, he runs on off the board from the moment it ends (no stop on the edge tile) */
+    if (!more && u.fled && !u.dead && !u.down && !u.decoy && end.x === u.x && end.y === u.y) { const pv = a.path[a.path.length - 2] || end;
+      outStart(u, a.at + a.dur, [Math.sign(end.x - pv.x), Math.sign(end.y - pv.y)]); }
   }
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
@@ -6400,7 +6426,8 @@ function startAnim(a) {
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side, victim: 'machine' }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
     else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
-    if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
+    if (e.t === 'fled') { SND.flee(); if (u && !u.decoy && !u.ranOff) outStart(u, a.at);   /* __YOU_SEE_THEM_RUN__: off the glass from the edge, never a blink */
+      if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
     if (FIGHT.S.arena && u && (e.t === 'fled' || (e.t === 'morale' && e.to === 'Fleeing'))) sfx('arena_ran', { side: u.side });   /* __THE_ARENA__: the crowd boos a man who runs */
     if (e.t === 'allflee' && !FIGHT.S.over) routUp();   /* rule 198(h): they are breaking: his lead says it, and the choice is his */
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
@@ -7450,7 +7477,7 @@ function draw(now) {
   /* THE LAYERS (ask line 251): the glass under every man who stands behind a roof, a car, a wall or a lamp, kept before
      anybody is drawn, to lay back over him after his body */
   const fallen = S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall) && !(v.ghost && now - v._fallAt > beatMs()); });
-  const standing = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen)) && !(UI.drag && UI.drag.u === v); });
+  const standing = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen) || stillRunning(v, now)) && !(UI.drag && UI.drag.u === v); });   /* __YOU_SEE_THEM_RUN__ */
   keepLayers(fallen, standing);
   /* rule 145: the floor keeps every hit, under the fallen and the standing */
   goreTick(now); drawStains();
@@ -7461,7 +7488,7 @@ function draw(now) {
   /* THE ENEMY'S LINE IS VISIBLE WHILE HE SETS HIS (rule 110b): FIGHT.shown draws every man of theirs before FIGHT; the man he is
      dragging is drawn last, at his finger */
   /* a man the rules have already felled stands, and takes the blow, until his fall plays */
-  const live = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen)) && !(UI.drag && UI.drag.u === v); })
+  const live = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen) || stillRunning(v, now)) && !(UI.drag && UI.drag.u === v); })   /* __YOU_SEE_THEM_RUN__: he runs to the edge and off it */
     .sort(function (a, b) { return dy(a) - dy(b); });
   live.forEach(function (v) { drawMan(v, tw, th); });
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
@@ -7603,6 +7630,41 @@ function rigScale(z) {
 const TILE_BEATS = 0.5;
 function ease(k) { return (1 - Math.cos(Math.PI * Math.max(0, Math.min(1, k)))) / 2; }
 function walkOf(v) { const a = UI.anim[0]; return a && a.k === 'step' && a.e.id === v.id && a.at ? a : null; }
+/* ==== __YOU_SEE_THEM_RUN__ (COMBAT 9, rule 415(a), Paolo 11/6: 'while retreating, I don't see my people actually run, they kind of
+   just disappear'; rule 256: 'in Battle Brothers every time I retreated I watched my people run tile to tile'). MEASURED BEFORE on
+   the fight page (every frame drawMan drew, tools/bohemia_combat_you_see_them_run_probe_11_6_26.js): from the lineup all four of his
+   men were drawn on ONE tile, the one they stood on, and never again. The rules take a man off in the same act as his last walk (he
+   steps onto the edge and getOut marks him fled), and the board drew only the men the rules have on the field, so the man went from
+   the glass the moment his walk to the edge was asked, before a step of it played. NOW a man the rules have taken off stays on the
+   board while his walk to the edge and his get-out still play (his own walk, on the beat, the camera framing him as any walker), and
+   from the edge tile he runs on OUT_TILES tiles off the board at the walk's own pace, the second of them fading, and only then is he
+   gone: a short run off the glass, never a blink out. A broken man of theirs who leaves from the edge runs off the same way, if his
+   side can see him. The rules are untouched: he is out the moment they say so; only the picture finishes his run. ==== */
+const OUT_TILES = 2;
+function outStart(v, at, dir) {
+  if (!v || v._outAt !== undefined) return;
+  const S = FIGHT.S, x = v.x, y = v.y;
+  const off = function (d) { if (!d || !(d[0] || d[1])) return false; const X = x + d[0], Y = y + d[1]; return X < 0 || Y < 0 || X >= S.w || Y >= S.h; };
+  const n = x === 0 ? [-1, 0] : x === S.w - 1 ? [1, 0] : y === 0 ? [0, -1] : y === S.h - 1 ? [0, 1] : [-1, 0];
+  const d = off(dir) ? dir : n;   /* on the way he was going, when that way leaves the board; else straight out over the edge */
+  v._outAt = at; v._outFrom = { x: x, y: y }; v._outDir = d; v._outFace = dirOf(d[0], d[1]); v._outMs = beatMs() * TILE_BEATS * OUT_TILES;
+}
+/* where he is on his run off the glass (k 0 at the edge tile, 1 two tiles past it), or null when he is not on it */
+function outRun(v, now) {
+  if (v._outAt === undefined || !v.fled) return null;
+  const k = Math.max(0, (now - v._outAt) / v._outMs); if (k >= 1) return null;
+  return { x: v._outFrom.x + v._outDir[0] * OUT_TILES * k, y: v._outFrom.y + v._outDir[1] * OUT_TILES * k, k: k, face: v._outFace };
+}
+/* a man the rules have taken off who is still on the glass: his walk to the edge or his get-out still to play, or his run off */
+function stillRunning(v, now) {
+  if (!v.fled || v.dead || v.down || v.decoy || v.ranOff || v.side === 'prop') return false;
+  if (v.side !== 'you' && !v._seen) return false;   /* a man of theirs he never saw leaves unseen */
+  if (v._outAt === undefined) return UI.anim.some(function (a) { return a.e && a.e.id === v.id; });
+  return !!outRun(v, now === undefined ? performance.now() : now);
+}
+/* his picture fades over the last of the two tiles past the edge (into the dark round the board) */
+function outAlpha(v, now) { const o = outRun(v, now); return o ? Math.max(0, Math.min(1, (1 - o.k) * OUT_TILES)) : 1; }
+/* ==== end __YOU_SEE_THEM_RUN__ ==== */
 function walkAt(a, now) {
   const n = a.path.length - 1, s = ease((now - a.at) / a.dur) * n, i = Math.min(n - 1, Math.floor(s)), f = s - i, p = a.path[i], q = a.path[i + 1];
   return { x: p.x + (q.x - p.x) * f, y: p.y + (q.y - p.y) * f, seg: i, face: dirOf(q.x - p.x, q.y - p.y) };
@@ -7611,6 +7673,7 @@ function walkAt(a, now) {
 function shownAt(v) {
   if (UI.drag && UI.drag.u === v) return { x: wx(UI.drag.px) / UI.tw - .5, y: wy(UI.drag.py) / UI.th - .9 - DRAG_LIFT };
   const a = walkOf(v); if (a) return walkAt(a, performance.now());
+  const o = v._outAt !== undefined ? outRun(v, performance.now()) : null; if (o) return o;   /* __YOU_SEE_THEM_RUN__ */
   return v._at || v;
 }
 /* THE LINE STANDS STAGGERED (COMBAT [eyes: men on men], his first votes: 'nobody stands on anybody'; rule 164 item 13, 'more
@@ -7642,6 +7705,8 @@ function poseOf(v, now) {
   const w = walkOf(v);
   if (w) { const p = walkAt(w, now); turnTo(v, p.face, now); v._face = p.face;
     return { col: clipCol('walk', Math.floor(Math.max(0, now - w.at) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
+  const o = v._outAt !== undefined ? outRun(v, now) : null;   /* __YOU_SEE_THEM_RUN__: his own walk off the board, on the beat */
+  if (o) { v._face = o.face; return { col: clipCol('walk', Math.floor(Math.max(0, now - v._outAt) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
   if (a && a.at && a.k === 'attack') {
     const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
     if (a.e.id === v.id) {
@@ -7764,7 +7829,7 @@ function holdImg(file, dir) {
 /* in cover: his tile carries cover by the rules' own test, or he is in a building (a roof); never on a bare rise of ground or a
    rock he stands on (rule 170(a), COMBAT 10/25), never while he walks */
 function holdCovered(v) {
-  if (walkOf(v) || (UI.drag && UI.drag.u === v)) return false;
+  if (walkOf(v) || (v._outAt !== undefined && outRun(v, performance.now())) || (UI.drag && UI.drag.u === v)) return false;
   const x = Math.round(v.x), y = Math.round(v.y);
   return FIGHT.hides(x, y) || FIGHT.isRoof(x, y);
 }
@@ -8544,21 +8609,22 @@ function drawMan(v, tw, th) {
   const lvl = th * riseAt(v.x, v.y);
   const Y = feet - lvl;
   v._seen = true;
-  lampShadow(v, X, Y, h);
+  const fade = v._outAt !== undefined ? outAlpha(v, now) : 1, past = fade < 1;   /* __YOU_SEE_THEM_RUN__: past the edge, fading; no shadow off the board */
+  if (!past) lampShadow(v, X, Y, h);
   /* THE RING IS HIS SHADOW (COMBAT [the marks on the board]; DIRECTION's F3 owner line, verdict 23: 'the gold rings to a thin dark
      contact shadow'; rule 46f: no ovals painted on the board; his 10/17 NO on the coloured outline): the contact shadow laid in
      cells, nothing in a side's colour round him. Whose turn it is and whom you can hit are on the tiles (tape, rust corners).
      The man you are about to swing at stands on a painted X; the chance is in the bar. */
   const base = Math.max(4, Math.min(tw * .4, h * RING_W));
   mkOn();
-  mkEllipse(X, Y, base, base * .36, MK.shade, 'fill');
+  if (!past) mkEllipse(X, Y, base, base * .36, MK.shade, 'fill');
   if (UI.pend && UI.pend.target === v && crewControlled(FIGHT.current())) {
     const a = base * 1.6, b = a * .36;   /* flat on the ground, its arms out past his body so all four read */
     [[MK.ink, 1 / DPR * MKU], [MK.rustLit, 0]].forEach(function (q) {
       mkLine(X - a, Y - b + q[1], X + a, Y + b + q[1], q[0], 2); mkLine(X - a, Y + b + q[1], X + a, Y - b + q[1], q[0], 2); });
   }
   mkOff();
-  blitMan(v, X, Y, now, v.morale === 'Fleeing' ? .7 : 1);
+  blitMan(v, X, Y, now, (v.morale === 'Fleeing' ? .7 : 1) * fade);
   if (v.netted) netOver(X, Y, h);
   layOver(v, X, Y);   /* THE LAYERS (ask line 251): whatever stands south of him covers him where its picture is; his bars stay over it */
   /* WHO IS MINE AT A GLANCE (COMBAT [the PC playtest: the fight's part] (2), rule 164 item 17, Paolo 10/24: 'it's hard to tell
@@ -8566,7 +8632,7 @@ function drawMan(v, tw, th) {
      he acts or is picked' (Battle Brothers' habit, the research's, not his words): every man on the field wears his bars over
      his head, as wide as the man, three points tall; his men's on a gold rim with green health, theirs on a rust rim with red;
      the one acting and the one picked a rim brighter. Nothing on the ground (rule 46f). */
-  if (h > 26 && FIGHT.onField(v) && (!UI.barsOff || FIGHT.current() === v)) {
+  if (h > 26 && (FIGHT.onField(v) || (v.fled && v._outAt === undefined && stillRunning(v, now))) && (!UI.barsOff || FIGHT.current() === v)) {   /* __YOU_SEE_THEM_RUN__: his bars ride his walk to the edge */
     const bw = Math.round(Math.max(18, h * .42)), bx = Math.round(X - bw / 2), by = Math.round(Y - h - 9);   /* on whole pixels: no soft edge */
     const lit = FIGHT.current() === v || (UI.pend && UI.pend.target === v);
     cx.fillStyle = you ? (lit ? '#f0d296' : SIDE_RIM.you) : (lit ? '#f07a5e' : SIDE_RIM.them); cx.fillRect(bx - 2, by - 2, bw + 4, BAR_PT * 2 + 5);
@@ -9647,6 +9713,7 @@ function framedMen(now) {
   const t = now === undefined ? performance.now() : now, hold = beatMs() * FALL_HOLD_BEATS;
   return FIGHT.S.units.filter(function (v) {
     if (FIGHT.onField(v)) return FIGHT.shown(v);
+    if (v.fled) return v._outAt === undefined && stillRunning(v, t);   /* __YOU_SEE_THEM_RUN__: held through his walk to the edge (rule 415(a)), a broken man of theirs he saw too; not on the run off the glass */
     if (!(v.dead || v.down)) return false;
     if (v._fallAt === undefined) return !!v._seen && UI.anim.some(function (a) { return a.e && a.e.id === v.id; });   /* his fall still to play */
     return (v.side === 'you' || v.seenFall) && t - v._fallAt < hold;
