@@ -8,6 +8,8 @@
 <!-- UI round 3 (11/2, asks 280 261 262): THE FIRST MINUTE in the Crashbox hand: the machine on the loading screen, the picks on tin, the hints switch, the door switching off like an old set -->
 <script src="bohemia_ui_crashbox.js"></script>
 <script src="bohemia_settings.js"></script>
+<!-- __SCROLLING_IS_ILLEGAL__ (UI 8 11/6, rule 402, ask line 444): nothing he can press ever scrolls; what does not fit is pages he taps, the settings card is four tabs; it plants itself in the town's frame -->
+<script src="bohemia_ui_no_scroll.js"></script>
 <!-- __THE_DIFFICULTY_SWITCH__ (DIFFICULTY 11/3, rule 351(c), ask line 363): three levels on the settings card, changed any time, from the next fight -->
 <script src="bohemia_difficulty.js"></script>
 <!-- __THE_KILL_CAMS_SWITCH__ (COMBAT 7 11/3, rule 379, ask line 408): KILL CAMS ON / OFF on the settings card, OFF until he says they are good -->
@@ -1586,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6f - THE THREE GLITCHES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6g - NOTHING SCROLLS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash

@@ -506,7 +506,10 @@
     black: [44, 42, 40], olive: [96, 104, 60], khaki: [150, 130, 88], glass: [128, 170, 186], tape: [206, 188, 140], rag: [214, 206, 186],
     leather: [96, 60, 36], green: [70, 120, 70], flame: [240, 140, 40], white: [236, 232, 222], brass: [190, 150, 70] };
   var ICON_CACHE = {};
-  function itemIcon(item, cssPx) {
+  /* RULE 397 (UI 8, 11/6): every icon carries the piece's own id (data-id), so a tap on it anywhere can open its card
+     (slices/bohemia_ui_weapon_card.js reads it); the screens that set it themselves keep doing so */
+  function itemIcon(item, cssPx) { var c = itemIcon0(item, cssPx); try { if (item && item.id && c && c.dataset && !c.dataset.id) c.dataset.id = item.id; } catch (e) {} return c; }
+  function itemIcon0(item, cssPx) {
     cssPx = cssPx || 44;
     var key = item.id + '|' + item.name + '|' + cssPx;
     if (ICON_CACHE[key]) { var cc = document.createElement('canvas'); cc.width = ICON_CACHE[key].width; cc.height = ICON_CACHE[key].height; cc.getContext('2d').drawImage(ICON_CACHE[key], 0, 0);

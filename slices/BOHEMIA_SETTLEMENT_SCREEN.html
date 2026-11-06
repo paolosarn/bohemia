@@ -619,6 +619,7 @@ function iconTile(it, onTap, sub, money){
     var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);
     if(sub != null){ var c = document.createElement('em'); c.textContent = sub; if(money) c.className = 'money'; b.appendChild(c); }
     b.setAttribute('aria-label', it.name);
+    if(it.kind === 'weapon' && it.id) b.dataset.item = 'weapon:' + it.id;   /* UI 8 (rule 397): the piece's row, so a tap opens its card (bohemia_ui_weapon_card.js) */
     b.addEventListener('click', onTap);
   } else b.disabled = true;
   return b;

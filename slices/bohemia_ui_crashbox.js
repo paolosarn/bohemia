@@ -480,7 +480,28 @@
   }
   /* WHAT YOU LAND ON IS YOURS: a swipe that comes to rest on an origin picks it (RUN's pick, the card's own click) */
   var SWIPE = { t: 0, st: null };
+  /* __SCROLLING_IS_ILLEGAL__ (UI 8 11/6, rule 402): the origins are one card a page, never a strip he scrolls. The strip is locked
+     (overflow hidden in the look below), and a swipe across it, a wheel notch or an arrow turns ONE card, the way the arrows
+     always did. A card off the glass is hidden whole, so nothing he can press waits beyond the edge. */
+  var TURN = { x: null, y: 0, t: 0, eat: 0, wheel: 0, wt: 0 };
+  function turnWire() {
+    if (TURN.on) return; TURN.on = true;
+    var inStrip = function (e) { return e.target && e.target.closest && e.target.closest('#newcostrip'); };
+    document.addEventListener('pointerdown', function (e) { if (!inStrip(e) || e.pointerType === 'mouse') return; TURN.x = e.clientX; TURN.y = e.clientY; TURN.t = Date.now(); }, true);
+    document.addEventListener('pointerup', function (e) {
+      if (TURN.x === null) return; var dx = e.clientX - TURN.x, dy = e.clientY - TURN.y; TURN.x = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4 && Date.now() - TURN.t < 900) { TURN.eat = Date.now() + 450; stepOrigin(dx < 0 ? 1 : -1); LOG.push({ k: 'origin', by: 'swipe' }); }
+    }, true);
+    document.addEventListener('click', function (e) { if (Date.now() < TURN.eat && inStrip(e)) { e.stopPropagation(); e.preventDefault(); } }, true);
+    window.addEventListener('wheel', function (e) {
+      if (!inStrip(e)) return; e.preventDefault(); e.stopImmediatePropagation();
+      var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if (!d) return;
+      if (Date.now() - TURN.wt > 400) TURN.wheel = 0; TURN.wheel += d;
+      if (Math.abs(TURN.wheel) >= 40 && Date.now() - TURN.wt > 260) { TURN.wt = Date.now(); stepOrigin(TURN.wheel > 0 ? 1 : -1); TURN.wheel = 0; LOG.push({ k: 'origin', by: 'wheel' }); }
+    }, { capture: true, passive: false });
+  }
   function watchStrip() {
+    turnWire();
     var st = $('newcostrip'); if (!st || SWIPE.st === st) return; SWIPE.st = st;
     st.addEventListener('scroll', function () {
       markOut();
@@ -506,7 +527,9 @@
       kids.forEach(function (el) {
         if (el.tagName === 'H4') { var tx = String(el.textContent || '').toUpperCase(); sec = 90;
           ORDER.forEach(function (o, i) { if (tx.indexOf(o[0]) === 0) sec = (i + 1) * 10; });
-          if (sec === 20) { originNav(el); el.classList.add('cbxorigin'); } }
+          if (sec === 20) { originNav(el); el.classList.add('cbxorigin');
+            /* rule 402: nothing scrolls, so the heading never says SCROLL (a computer's words; the arrows turn it) */
+            var t0 = el.firstChild; if (t0 && t0.nodeType === 3 && /SCROLL/.test(t0.nodeValue)) t0.nodeValue = t0.nodeValue.replace('SCROLL', 'ARROWS'); } }   /* draft:true */
         el.setAttribute('data-sec', String(sec)); el.__cbxKey = sec * 100 + kids.indexOf(el);
       });
       /* the nodes themselves in that order (a stable sort; moved only when they are not already so, so the watcher never loops) */
@@ -616,6 +639,8 @@
     JD + ' #newco .org em{color:#bfe3ae}' + JD + ' #newco .org em.d2{color:#ead98f}' + JD + ' #newco .org em.d3{color:#f8c8a6}' + JD + ' #newco .org em.d4{color:#ffc2b8}',
     /* a card resting off the strip keeps its plate and drops its print, so nothing of it reads through another screen's plate */
     JD + ' #newco .org.cbx-out>*{visibility:hidden}',
+    /* __SCROLLING_IS_ILLEGAL__ (rule 402): the strip never moves under a finger; a card off the glass is not there to press */
+    JD + ' #newco .strip{overflow:hidden!important;touch-action:pan-y}' + JD + ' #newco .org.cbx-out{visibility:hidden}',
     /* the facts on the camera's little screen: sunk into the plastic (the shadow on top, the light under), cream on black */
     JD + ' #newco .org i:last-child{margin-top:6px;padding:4px 8px;background:#0a0b0b;color:#e7dcc6;line-height:14px;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40}',
     /* the name: the camera's title screen, sunk the same, his letters at 20; ANOTHER a button beside it */
