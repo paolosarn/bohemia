@@ -70,7 +70,8 @@ exactly as before, gate leg K1):
 - a swap's next turn = holding his weapon's next turn + the difference his whole next turn makes with what the swap leaves in his
   hands (394 (b)(c)(f)); kitWorth is that whole turn (was one blow).
 - closing in (394 (a)): a club man who carries something to change to may walk to a tile that gives no blow this turn, scored like
-  the climb (next turn from it against what he takes there).
+  the climb (next turn from it against what he takes there); before the lines meet only up TO his line, never past the middle of his
+  melee men (AUTO HOLDS THE FORMATION, rule 70b: measured, a free close-in walked 3 of 16 walks past the line).
 - the shield (394 (i)): it goes on when the hurt it saves him over this round and the next beats the blows its 4 AP cost him this
   turn, never in a turn a kill is on offer; over a two-hander it cannot, so the one-hander comes first, weighed with the shield it
   lets him put on.
@@ -89,11 +90,14 @@ MEASURED, gates/auto_knows_its_man_gate.js (new, 11 legs), main 7889d375 -> this
      turn one and the door on turn two (Battle Brothers' two swaps).
   K1 a man with nothing to change to: the same pick and the same scores as before.
 IN THE FIGHTS, tools/bohemia_combat_auto_plays_smart_probe_11_2_26.js, 120 fights (wolves, raiders, robots, the bosses), main ->
-now: won 75 -> 75, lost 44 -> 44; turns with a club in hand 995 -> 1,275 and with a gun 2,899 -> 2,501 (the bench companies'
-melee men carry the kit's pistol); idle when a walk gave a hit next turn 8 -> 1; idle not resting 357 -> 284; his men down on the
-ground 191 -> 193, on high ground 45 -> 41; 'chose another' swaps 9 -> 40.
-GATES: AUTO HOLDS THE ROOF 3/0, AUTO PLAYS SMART 7/0, AUTO PLAYS THE BEST TURN 7/0 (B3 the bag both ways still green), and the
-rest in the commit's list.
+now (the shipped brain): won 75 -> 75, lost 44 -> 44; turns with a club in hand 995 -> 1,271 and with a gun 2,899 -> 2,517 (the
+bench companies' melee men carry the kit's pistol); idle when a walk gave a hit next turn 8 -> 1; idle not resting 357 -> 289; his men
+down on the ground 191 -> 190, on high ground 45 -> 44; 'chose another' swaps 9 -> 40; one club turn of 1,271 ended with no blow when
+a tile gave one (0 before), the probe's own count, AUTO PLAYS SMART's legs green. About 4% more time per AUTO step (4.7 -> 4.9 ms).
+GATES: in the commit's list. THE REBUILT FIGHT PLAYS 145/10, the same ten red on clean main 7889d375; its AUTO HOLDS THE FORMATION leg
+AMENDED: a walk is his club's only when he walked with it (measured: NENA walked up with throwing axes, threw, then swapped to her
+club for next turn, rule 394(c)'s 'the throwing weapons then the axe', and the leg read the end-of-turn club as a club man's walk past
+the line: 1 of 14).
 (d) 'what he carries is his': the game's company always hands his bag (engine/bohemia_roster.js bag1, bag2), so the fight's
 stand-in kit (ours.bag) is never his in the game; AUTO draws only what is in it.
 

@@ -4101,6 +4101,7 @@ const FIGHT = (function () {
     /* 2. a walk, then a blow or a sweep (the climb rule: a tile his way climbs a roof to gives none; a whip's lash from the second
        tile is a blow from that tile) */
     const ring = zocOn(u, u.x, u.y), closeTiles = [];   /* __AUTO_KNOWS_ITS_MAN__: the tiles a club man could close in on */
+    let closeLine = null;
     let zone = 0, pass = 1;
     ring.forEach(function (f) { const b = hurtOn(f, u, strikeSkill(f.weapon)); zone += b.v; pass *= 1 - b.p; });
     /* a man in a ring of theirs does not walk out of it through the free swings (Battle Brothers' own; Footwork is how he leaves) */
@@ -4121,7 +4122,10 @@ const FIGHT = (function () {
              (no long chase, no roof, nearer a man of theirs who stands than he is now) */
           if (u.side === 'you' && (u.bag || []).some(function (b) { return b && !isShield(b) && b !== w; }) && !isRanged(w) && !(fld.up && fld.up[k]) && !longChase(u, x, y, fld.best[k])) {
             const near = function (q) { return foes(u).filter(function (t) { return t.morale !== 'Fleeing' && sideSees(u.side, t); }).reduce(function (m, t) { return Math.min(m, dist(q, t)); }, Infinity); };
-            if (near({ x: x, y: y }) < near(u)) closeTiles.push({ x: x, y: y });
+            /* AUTO HOLDS THE FORMATION (rule 70b): before the lines meet he closes up TO his line, never past the middle of his melee men */
+            if (!closeLine) { const hl = huntField(u, true); closeLine = { h: hl, L: lineOf(u, hl) }; }
+            const inLine = S.contact || closeLine.L.mid === null || closeLine.h(x, y) >= closeLine.L.mid;
+            if (inLine && near({ x: x, y: y }) < near(u)) closeTiles.push({ x: x, y: y });
           }
           return;
         }

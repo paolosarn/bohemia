@@ -394,7 +394,7 @@ async function sweep() {
       const dd = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
       const from = {};
       FIGHT.aiStep = function (u) {
-        const k = u.id + ':' + S.round; if (!from[k]) { from[k] = [u.x, u.y]; const h0 = T.huntField(u, true); from[k].h = h0; from[k].L = T.lineOf(u, h0); }   /* the line as it stood when his turn began: the field starts from the men his side sees, and his walk changes who that is */
+        const k = u.id + ':' + S.round; if (!from[k]) { from[k] = [u.x, u.y]; const h0 = T.huntField(u, true); from[k].h = h0; from[k].L = T.lineOf(u, h0); from[k].w = u.weapon; }   /* the line as it stood when his turn began: the field starts from the men his side sees, and his walk changes who that is */
         const r = orig(u);
         if (r === false && u.side === 'you' && FIGHT.onField(u) && u.morale !== 'Fleeing') {
           const mates = FIGHT.alive('you').filter(f => f !== u && FIGHT.onField(f)), h = T.huntField(u, true), L = T.lineOf(u, h);   /* the line on the ground alone, as the brain reads it */
@@ -406,8 +406,11 @@ async function sweep() {
              contact, a melee man of theirs coming (a shooter stepping up to a tile he shoots from is rule 188's job for him, and
              AUTO SHIELDS THE BACKLINE below holds him behind his front man). The line's middle is his melee men's (lineOf; with
              three men it had been the rifleman). The line is the one he walked against, read when his turn began (the field starts
-             from the men his side sees, and a walk changes who that is: a club man's line read 4 as he stepped and 5 after it). */
-          else if ((from[k][0] !== u.x || from[k][1] !== u.y) && !FIGHT.isRanged(u.weapon) && !S.contact && FIGHT.alive('them').some(f => !FIGHT.isRanged(f.weapon) && f.morale !== 'Fleeing')) { m.walks++; const L0 = from[k].L, h0 = from[k].h; if (L0.mid !== null && h0(u.x, u.y) < L0.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
+             from the men his side sees, and a walk changes who that is: a club man's line read 4 as he stepped and 5 after it).
+             AMENDED COMBAT 8 11/5 (rule 394(c), 'the throwing weapons then the axe'): a walk is his club's only when he walked with
+             it; a thrower who stepped up, threw, and swapped to his club for next turn walked as a shooter (measured: NENA, throwing
+             axes 2,10 -> 4,11, the throw, then the bludgeon from the bag, was read as a club man's walk past the line). */
+          else if ((from[k][0] !== u.x || from[k][1] !== u.y) && !FIGHT.isRanged(from[k].w) && !FIGHT.isRanged(u.weapon) && !S.contact && FIGHT.alive('them').some(f => !FIGHT.isRanged(f.weapon) && f.morale !== 'Fleeing')) { m.walks++; const L0 = from[k].L, h0 = from[k].h; if (L0.mid !== null && h0(u.x, u.y) < L0.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
           if (FIGHT.isRanged(u.weapon)) { m.shots++; if (/^height/.test(S.terrain[u.y][u.x])) m.roof++; if (L.front !== null && h(u.x, u.y) < L.front) m.breach++; }
         }
         return r;

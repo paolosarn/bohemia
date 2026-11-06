@@ -1,5 +1,38 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 8 11/5 (rule 409's first wave, opened by the coordinator: rule 408's two bugs, ask line 456; rule 394 and its amendments,
+ask lines 429, 431, 432; rule 378 as amended, ask line 413). DONE, ALL THREE SHIPPED (91cca87e), BUILD 11/6b - THE SHIELDS SHOW, AUTO
+KNOWS ITS MAN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_8_THE_SHIELDS_SHOW_AND_AUTO_KNOWS_ITS_MAN_11_5_26.md.
+1. THE SHIELDS SHOW, THE TWO WEAPONS RIGHT (rule 408): the root cause was ONE: the shield, the two-hander and the bow were drawn only
+   through a look's own posed keys, and a look with none drew the man without the thing (every rolled man of nine gangs, the cast,
+   the thug and the poacher). __WHAT_HE_CARRIES_IS_DRAWN__ (laidCell/laidOf/laidDraw) lays the donor's layer (his sheet, his gang's,
+   YOU's) on his body in the pose he is in, over or under his gun by facing. 'The two weapons': the thug's and poacher's models carry a
+   weapon baked in; ours.model_carries + modelFits deal those bodies only to a man with that kind; modelCarries stops the Heavy's
+   battery from hiding his weapon. Over 121 looks: door+pistol 25 -> 114, door+pipe 44 -> 110, sledge 40 -> 113; the deal 47 of 60
+   wrong -> 0 of 13. Gate THE FIGHT DRAWS WHAT HE WEARS 19/0 (P5 and H2 new, P4's floors raised). What it is not: YOU's thing in YOU's
+   pose laid on another body; each look's own keys (ANIMATION, COOK THREE) replace it look by look with no change here.
+2. AUTO KNOWS ITS MAN (rule 394): __AUTO_KNOWS_ITS_MAN__ in planTurn, only for a man with something to change to: his whole next turn
+   with a weapon (the blows his AP buys, the club men walking at him, his walk, the sweep, the swap back's AP, Quick Hands, the shield he
+   could put on, two rounds of it); a swap weighed by that difference; closing in scored like the climb, only up to his line before
+   contact (rule 70b); THE REBUILT FIGHT PLAYS' formation leg now reads the weapon he walked with; the bag's shield goes on when
+   the hurt it saves beats the blows its 4 AP cost, never with a kill on offer. Gate AUTO KNOWS ITS MAN 11/0 (main 8/3). 120 probe
+   fights: won 75 -> 75, club-in-hand turns 995 -> 1,271, gun turns 2,899 -> 2,517, idle with a hit a walk away 8 -> 1. Gates: AUTO
+   HOLDS THE ROOF 3/0, AUTO PLAYS SMART 7/0, AUTO PLAYS THE BEST TURN 7/0, AUTO NEVER WASTES A TURN 9/0, AUTO NEVER LEAVES A MAN 8/0, THE ENEMY WANTS TO LIVE 4/0, HEAVY ARMOUR COSTS A TILE 8/0, CLIMB OR ATTACK 6/6. About 4% more per AUTO step.
+3. HIS COMPANY TAKES BATTLE BROTHERS' CAP (rule 378 amended): __THE_COMPANY_TAKES_BATTLE_BROTHERS_CAP__ in setup: the caller's cap (the
+   door hands the origin's: 12, the Block Watch 16), else ours.field_size; the rest WAIT IN THE RESERVE (S.reserve, said at the open,
+   BOHEMIA_FIGHT_OVER.reserve, never in crew, so the map keeps them); YOU always stands; their side no cap. Gate NO CAP ON HOW MANY
+   FIGHT 9/0 with the phone leg (N4 re-aimed, N6-N8 new).
+VOTE card: combat-8-the-shields-show-11-6 (records/target/COMBAT_8_THE_SHIELDS_SHOW.webp, before and after on the same eight men).
+Probes: tools/bohemia_combat_what_he_carries_is_drawn_probe_11_5_26.js; the AUTO numbers on tools/bohemia_combat_auto_plays_smart_probe_11_2_26.js.
+RED, THE SAME ON CLEAN MAIN 7889d375 (not this round's): THE THING IN HIS HAND 27/2 (its demo legs never reach a fight frame); THE PISTOL
+IS NEVER A CLUB 6/4 (ARMORY 2's whip names, the card's reach words); THE FIGHT READS ONLY SOURCED NUMBERS 8/2 (16 typed, the deal's
+hash); THE FIGHT HOLDS THE WHOLE GRID 16/1 (beasts early 12v3 seed 2 never bite); THE REBUILT FIGHT PLAYS 145/10 (the same ten).
+NEXT: the reserve row on the lineup screen as men you can see and swap in (Battle Brothers' third row; RUN's line screen); the
+company's 20/25 kept is RUN's hire screen; TUNING's table for the shield's two rounds and the close-in tiles.
+[bb] Battle Brothers draws a shield and a weapon as their own sprites on the body; its AI weighs a swap by the turn it buys and a
+shield by the hits it turns; the formation's third row is the reserve that does not fight. [analog horror] the laid car door takes his
+own moonlight at night, the same tape-worn door.
+
 COMBAT MAPS 3, RULE 346 11/3 (scheduled brief from the coordinator: ask line 355; his VOTE: the Strip 'The worst, this needs to be
 THE BEST', downtown 'Looks like shit', every ground 'straight lines at grid borders... colors that end abruptly... roads that dont
 connect... things that dont visually and logically make sense'). PUSH 1 SHIPPED (BUILD 11/3zzzl - NO BOARD BREAKS ITS OWN PICTURE),
