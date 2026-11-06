@@ -97,6 +97,9 @@
   }
   function pick(grid) {
     var C = CL(); if (!C) return null;
+    var D = B.ask && B.ask.dead && B.ask.dead.length ? B.ask.dead : null;   /* rule 406(f)(g): the camp beside the dead of the fight just won */
+    if (D) { grid.near = { x: D.reduce(function (t, d) { return t + d.x + 0.5; }, 0) / D.length, y: D.reduce(function (t, d) { return t + d.y + 0.5; }, 0) / D.length };
+      grid.dead = D.map(function (d) { return [d.x, d.y]; }); }
     var p = C.pitchOn(grid, B.sq, B.need); if (!p) return null;
     var N = B.need, cx = p.x + p.w / 2, cy = p.y + p.h / 2;
     var x0 = Math.max(0, Math.floor(cx - N.l - 0.5)), x1 = Math.min(grid.w, Math.ceil(cx + N.r + 0.5));
@@ -106,7 +109,7 @@
   }
 
   /* ---------------------------------------------------------------- the bake, in a hidden copy of the fight page */
-  function keyOf(ask, sq) { return JSON.stringify([ask && ask.at, ask && ask.district, ask && ask.__deal, sq.w, sq.h]); }   /* never the hour: the board is baked by day and by night at once */
+  function keyOf(ask, sq) { return JSON.stringify([ask && ask.at, ask && ask.district, ask && ask.__deal, sq.w, sq.h, ask && ask.sig || null, ask && ask.dead ? ask.dead.length : 0]); }   /* never the hour: the board is baked by day and by night at once */
   function want(ask, plan, kit) {
     var C = CL(); if (!C || !ask || !plan || !kit) return B.state;
     B.kit = kit; B.plan = plan;
@@ -116,7 +119,12 @@
     B.key = key; B.ask = ask; B.sq = sq; B.n = sq.n; B.need = reach(plans(plan, kit, sq));
     B.state = 'baking'; B.t0 = Date.now(); B.err = null; B.bakes++;
     var fits = plans(plan, kit, sq), tmin = Math.min.apply(null, fits.map(function (f) { return f.T; }));
-    var opts = shellOpts(ask); opts.campBoard = { pick: pick, tw: Math.round(Math.max(200, Math.min(515, tmin))) };
+    /* rule 406(f): a camp made from the end screen takes the fight's own options whole (the very board it was fought on), and its dead */
+    var opts = ask.fightOpts ? JSON.parse(JSON.stringify(ask.fightOpts)) : shellOpts(ask);
+    if (ask.fightOpts) { if (ask.__deal != null) opts.deal = ask.__deal >>> 0; opts.keep = false; opts.resume = false; opts.odds = false; opts.teach = false; }
+    var wide = fits.filter(function (f) { return !f.tall; })[0] || fits[0];
+    opts.campBoard = { pick: pick, tw: Math.round(Math.max(200, Math.min(515, tmin))), dead: ask.dead || [], manPx: wide ? Math.round(PERSON / wide.T * 1e4) / 1e4 : 0 };
+    B.fromFight = !!ask.fightOpts; B.wantSig = ask.sig || null;
     B.opts = { kind: opts.kind || null, district: opts.district || null, cell: opts.cell || null, night: !!opts.night, deal: opts.deal != null ? opts.deal : null };
     var f = document.createElement('iframe'); f.title = 'the camp\'s board'; f.setAttribute('aria-hidden', 'true'); f.tabIndex = -1; f.id = 'campboardframe';
     f.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5';
@@ -134,13 +142,14 @@
     B.frame = f;
     return B.state;
   }
+  function ask0(key) { return B.key === key && B.ask ? B.ask.dead : null; }
   function copy(c) { if (!c || !c.width) return null; var d = document.createElement('canvas'); d.width = c.width; d.height = c.height; d.getContext('2d').drawImage(c, 0, 0); return d; }
   function landed(f, key, d) {
     if (B.key !== key) return;
     var cw = f.contentWindow, R = null; try { R = cw.__CAMP_BOARD; } catch (e) { R = null; }
     if (!d.ok || !R || R.err || !R.day || !R.night) { fail((R && R.err) || d.err || 'no board'); return; }
-    B.out = { day: copy(R.day), night: copy(R.night), win: R.win, tw: R.tw, th: R.th, dealt: R.dealt, grid: R.grid, sameBoth: R.sameBoth, t: R.t || null };
-    B.pitch = { x: R.pitch.x, y: R.pitch.y, w: R.pitch.w, h: R.pitch.h, n: R.pitch.n, score: R.pitch.score, rough: R.pitch.rough, short: R.pitch.short };
+    B.out = { day: copy(R.day), night: copy(R.night), win: R.win, tw: R.tw, th: R.th, dealt: R.dealt, grid: R.grid, sameBoth: R.sameBoth, t: R.t || null, bodies: R.bodies | 0, dead: (ask0(key) || []).map(function (d) { return { x: d.x, y: d.y, st: d.st || 0, side: d.side }; }) };
+    B.pitch = { x: R.pitch.x, y: R.pitch.y, w: R.pitch.w, h: R.pitch.h, n: R.pitch.n, score: R.pitch.score, rough: R.pitch.rough, short: R.pitch.short, dead: R.pitch.dead | 0 };
     AR = R.th / R.tw || AR;
     unframe(cw);
     B.state = 'in'; B.ms = Date.now() - B.t0; B.made++;
@@ -215,13 +224,22 @@
         .sort(function (a, b) { return a.v - b.v; }),
       board: B.out.dealt ? B.out.dealt.name : null, sig: B.out.dealt ? B.out.dealt.sig : null, die: B.ask ? B.ask.__deal : null };
   }
+  /* rule 406(g): the bodies where they fell, on the camp's picture for one of its layouts (picture px), for the men who go through them */
+  function bodies(L) {
+    if (B.state !== 'in' || !B.out || !L || !B.out.dead || !B.out.dead.length) return [];
+    var f = fit(L, B.kit, B.sq); if (!f) return [];
+    var cx = B.pitch.x + B.pitch.w / 2, cy = B.pitch.y + B.pitch.h / 2, th = f.T * AR;
+    return B.out.dead.map(function (d, i) { return { i: i, side: d.side, x: Math.round(f.c[0] + (d.x + 0.5 + d.st - cx) * f.T), y: Math.round(f.c[1] + (d.y + 0.9 - cy) * th) }; })
+      .filter(function (q) { return q.x > 40 && q.x < f.PW - 40 && q.y > 60 && q.y < f.PH - 20; });
+  }
   function state() {
     return { state: B.state, key: B.key, n: B.n, sq: B.sq || null, need: B.need, pitch: B.pitch, ms: B.ms, err: B.err, bakes: B.bakes, made: B.made, opts: B.opts || null,
       board: B.out && B.out.dealt ? { name: B.out.dealt.name, kinds: B.out.dealt.kinds, w: B.out.dealt.w, h: B.out.dealt.h, cols: B.out.dealt.cols, ground: B.out.dealt.ground,
         from: B.out.dealt.from, district: B.out.dealt.district, kind: B.out.dealt.kind, sig: B.out.dealt.sig, laid: !!B.out.dealt.laid, die: B.out.dealt.die } : null,
       win: B.out ? B.out.win : null, tw: B.out ? B.out.tw : null, sameBoth: B.out ? B.out.sameBoth : null, t: B.out ? B.out.t : null,
+      fromFight: !!B.fromFight, wantSig: B.wantSig || null, bodies: B.out ? B.out.bodies : 0, dead: B.out && B.out.dead ? B.out.dead.length : 0,
       plates: Object.keys(B.plates).map(function (k) { var P = B.plates[k]; return { key: k, ready: !!P.ready, T: P.T, w: P.w, h: P.h, ms: P.ms }; }) };
   }
-  root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
+  root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
     onChange: function (fn) { if (typeof fn === 'function' && B.fns.indexOf(fn) < 0) B.fns.push(fn); }, _B: B };
 })(typeof window !== 'undefined' ? window : this);

@@ -46807,6 +46807,8 @@ function campMake(){
   try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
   CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null;
   CAMP.deal = campDie(CAMP.at); CAMP.pitch = null; CAMP.brokeAt = null;   /* CAMP THREE __THE_CAMP_ON_THE_BOARD__: the block's own die, the square pitched when the board is in */
+  CAMP.fight = null;   /* rule 406(f): a camp made from the end screen stands on the fight's own board, its dead where they fell */
+  try{ var FF = CAMP.fromFight; CAMP.fromFight = null; if (FF && !inTown && !edge && Date.now() - FF.t < 60000 && FF.r && FF.r.opts) { CAMP.fight = FF.r; if (FF.r.opts.deal != null) CAMP.deal = FF.r.opts.deal >>> 0; } }catch(_e){}
   try{ var __c0 = campCondition(); CAMP.mending = !!(__c0 && !__c0.done); }catch(_e){ CAMP.mending = false; }   /* CAMP __HEALING_STOPS_ITSELF__ */
   campStale();   /* CAMP __CAMP_HOLDS__: the last fight's contact flag is not an enemy */
   CAMP.town = inTown || edge || null;
@@ -46978,6 +46980,8 @@ window.addEventListener('keydown', function(e){
 function campDie(at){ var h = 2166136261, k = 'camp:' + (at ? at[0] + ',' + at[1] : '0,0'); for (var i = 0; i < k.length; i++){ h ^= k.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 function campBoardAsk(){
   if (!CAMP.on || CAMP.town || !CAMP.at) return null;
+  if (CAMP.fight) return { type: 'BOHEMIA_CITY_ENCOUNTER', why: 'camp:fight', at: CAMP.at.slice(), __deal: CAMP.deal, district: CAMP.fight.opts.district || null,
+    fightOpts: CAMP.fight.opts, dead: CAMP.fight.dead || [], sig: CAMP.fight.sig || null };   /* rule 406(f): the fight's own options: the very board it was fought on */
   var x = CAMP.at[0], y = CAMP.at[1], msg = { type: 'BOHEMIA_CITY_ENCOUNTER', why: 'camp', at: [x, y], __deal: CAMP.deal != null ? CAMP.deal : campDie(CAMP.at) };
   try{ msg.world = cityWorldNow([x, y]); }catch(_e){}
   try{ var c = om.at(x, y); msg.district = c ? c.district : null; }catch(_e){}
@@ -46992,12 +46996,16 @@ function campFightAt(msg){
   if (!here || !fresh) return false;
   msg.at = at.slice(); msg.__deal = CAMP.deal != null ? CAMP.deal : campDie(at); msg.camp = P;
   try{ var c = om.at(at[0], at[1]); msg.district = c ? c.district : msg.district; }catch(_e){}
+  try{ if (CAMP.fight && CAMP.fight.opts) { var fo = CAMP.fight.opts; if (fo.cell) msg.at = fo.cell; if (fo.district) msg.district = fo.district; } }catch(_e){}   /* rule 406(f): a camp on a fight's board is attacked on that board */
   CAMP.pitch = null;   /* one fight takes the camp; a camp made again pitches again */
   window.__CAMP_FOUGHT = { at: at.slice(), die: msg.__deal, n: P.n, x: P.x, y: P.y, pieces: (P.pieces || []).length, board: P.board || null, sig: P.sig || null, t: Date.now() };
   return true;
 }
 /* ==== /__THE_CAMP_ON_THE_BOARD__ ==== */
 window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, boardAsk: function(){ return campBoardAsk(); },
+  fromFight: function(r){ CAMP.fromFight = r ? { r: r, t: Date.now() } : null;   /* CAMP THREE rule 406(f): the shell's campFromFightKeep */
+    try{ if (CAMP.fromFight && CAMP.on && !CAMP.town) campBreak('contact'); }catch(_e){}   /* a camp left standing through a fight (one started with no card) is over: the new one stands on the fight's board */
+    return !!CAMP.fromFight; },
   pitched: function(p, st){ if (CAMP.on && p) { CAMP.pitch = p; window.__CAMP_PITCH = { x: p.x, y: p.y, n: p.n, pieces: (p.pieces || []).length, board: p.board || null, sig: p.sig || null, state: st ? st.state : null, ms: st ? st.ms : null }; } return !!CAMP.pitch; }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
 /* ==== /__THE_CAMP__ ==== */
 /* ==== __THE_MOMENTS_BETWEEN__ (WORLD round 2, ask line 273, Paolo 11/2: 'The transition of the camp to when time passes by and an

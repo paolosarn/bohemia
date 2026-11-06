@@ -254,7 +254,9 @@
      THE PITCH: where on the board it stands, from the board the fight's own dealer dealt: every tile of it open ground (no wall, no
      water, no roof, no raised tile), clear of cover where it can be, on his side of the board at his own line (his men sleep where
      they would stand), its middle near the board's middle row, and with enough board round it that the camp's picture never runs off
-     the board's edge (need: the tiles the picture shows past the camp's middle each way). Pure: the board is read, never dealt. */
+     the board's edge (need: the tiles the picture shows past the camp's middle each way). Made where a fight was just won (board.dead,
+     the tiles its dead lie on, board.near their middle; rule 406(f)(g)): on the tiles where most of them lie. Pure: the board is read,
+     never dealt. */
   var SQUARE = [{ upTo: 3, w: 1, h: 1 }, { upTo: 8, w: 2, h: 1 }, { upTo: 1e9, w: 2, h: 2 }];
   function square(o) {
     o = o || {};
@@ -276,9 +278,14 @@
       if (bad) continue;
       var cx = x + cw / 2, cy = y + ch / 2, short = 0;
       short += Math.max(0, (need.l || 0) - cx) + Math.max(0, (need.r || 0) - (W - cx)) + Math.max(0, (need.t || 0) - cy) + Math.max(0, (need.b || 0) - (H - cy));
-      /* his line is his front column and the one behind it: the camp's right edge on his front column */
-      var score = rough * 6 + short * 20 + Math.abs((x + cw) - (front + 1)) * 1.5 + Math.abs(cy - H / 2) * 0.8;
-      if (!best || score < best.score) best = { x: x, y: y, w: cw, h: ch, n: cw * ch, score: Math.round(score * 100) / 100, rough: rough, short: Math.round(short * 100) / 100 };
+      /* his line is his front column and the one behind it: the camp's right edge on his front column; a camp made where a fight was
+         just won (rule 406(f)(g)) is pitched where its dead lie instead, the most of them on its own tiles (the camp's picture shows
+         little past its tiles: measured 11/6, one of four bodies a tile and a half off fell inside it, at its top edge), then nearest
+         the middle of them */
+      var inside = 0; (board.dead || []).forEach(function (d) { if (d[0] >= x && d[0] < x + cw && d[1] >= y && d[1] < y + ch) inside++; });
+      var place = board.dead && board.dead.length ? -inside * 4 + Math.hypot(cx - board.near.x, cy - board.near.y) * 0.5 : Math.abs((x + cw) - (front + 1)) * 1.5 + Math.abs(cy - H / 2) * 0.8;
+      var score = rough * 6 + short * 20 + place;
+      if (!best || score < best.score) best = { x: x, y: y, w: cw, h: ch, n: cw * ch, score: Math.round(score * 100) / 100, rough: rough, short: Math.round(short * 100) / 100, dead: inside };
     }
     return best;
   }

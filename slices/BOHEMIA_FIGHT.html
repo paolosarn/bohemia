@@ -10063,6 +10063,7 @@ function campWindowBake(win, tw) {
   return bakeBoard().then(function () {
     CAMPB.baking = false;
     const full = UI.board, c = document.createElement('canvas');
+    try { campBodies(full); } catch (_e) { CAMPB.bodyErr = String(_e && _e.message || _e); }   /* rule 406(f): the dead where they fell */
     c.width = Math.max(1, Math.round(win.w * UI.tw)); c.height = Math.max(1, Math.round(win.h * UI.th));
     c.getContext('2d').drawImage(full, -Math.round(win.x * UI.tw), -Math.round(win.y * UI.th));
     full.width = 0; full.height = 0; UI.board = null;
@@ -10098,8 +10099,9 @@ function campBoardBake() {
     const twB = Math.max(120, Math.min(tw, Math.floor(Math.sqrt(CAMP_BAKE_PX / (S.w * S.h * DB.ground.tile_px[1] / DB.ground.tile_px[0])))));
     const out = { pitch: pitch, dealt: dealt, grid: grid, tw: twB, win: pitch.win, tile_px: DB.ground.tile_px.slice(), tile_metres: DB.ground.tile_metres, t: t };
     /* the board he camps on, by the light it has now, then the same board by the other light (the camp's clock turns the night) */
-    return campWindowBake(pitch.win, twB).then(function (c) {
-      out[o.night ? 'night' : 'day'] = c; out.th = UI.th; t.first = Math.round(performance.now());
+    const sheets = Promise.all((Array.isArray(A.dead) ? A.dead : []).map(function (d) { return campSheet(d.file).catch(function () { return null; }); }));
+    return sheets.then(function () { return campWindowBake(pitch.win, twB); }).then(function (c) {
+      out[o.night ? 'night' : 'day'] = c; out.bodies = CAMPB.bodies | 0; out.th = UI.th; t.first = Math.round(performance.now());
       deal(!o.night); out.sameBoth = campBoardSig() === dealt.sig;
       return campWindowBake(pitch.win, twB);
     }).then(function (c) {
@@ -10107,6 +10109,53 @@ function campBoardBake() {
       window.__CAMP_BOARD = out; say({ ok: true, name: dealt.name, pitch: { x: pitch.x, y: pitch.y, n: pitch.n } }); return out;
     }).catch(function (e) { CAMPB.err = String(e && e.message || e); window.__CAMP_BOARD = { err: CAMPB.err, dealt: dealt }; say({ ok: false, err: CAMPB.err }); return null; });
   } catch (e) { CAMPB.err = String(e && e.message || e); window.__CAMP_BOARD = { err: CAMPB.err }; say({ ok: false, err: CAMPB.err }); return Promise.resolve(null); }
+}
+/* (1b) CAMP HERE FROM THE VICTORY SCREEN (rule 406(f), AMENDED 11/6, Paolo: 'once you finish a battle and you're in the victory
+   screen and you camp there, you actually camp on the combat tiles that you just were on, and your company's interacting with their
+   kills'). campFromFight (asked by the shell the moment MAKE CAMP is pressed on the end screen, before this page goes): the fight's
+   own options and die (so the camp's page deals this very board), its fingerprint, and every body where it fell (its tile, the way
+   it faced, its sheet, the fall's last key, as RUN FOUR's aftermath draws it behind the end screen). The camp's page draws them on
+   the baked board at the camp's own man size (campBoard.manPx, the tiles a man of the camp stands), a pool under each. */
+function campFromFight() {
+  const S = FIGHT.S; if (!S || !S.boardDef) return null;
+  let o = null; try { o = JSON.parse(JSON.stringify(window.FIGHT_OPTS || {})); } catch (_e) { o = {}; }
+  delete o.camp; delete o.campBoard; delete o.keep; delete o.resume;
+  const dead = [];
+  (S.units || []).forEach(function (v) {
+    if (!v || !v.dead || v.fled || v.ghost) return;
+    let L = null; try { L = lookOf(v); } catch (_e) { L = null; } if (!L || !L.file) return;
+    const fc = (L.clips && L.clips.fall) || [15, 16, 17];
+    dead.push({ x: v.x, y: v.y, face: v._face || 0, side: v.side, machine: !!v.machine, file: L.file, w: L.w, h: L.h, foot: L.foot, fall: fc[fc.length - 1], st: stagger(v.y) });
+  });
+  return { opts: o, sig: campBoardSig(), night: !!S.night, w: S.w, h: S.h, dead: dead, board: S.boardDef.name || null };
+}
+window.campFromFight = campFromFight;
+const CAMP_SHEETS = {};
+function campSheet(file) {
+  const s = 'fight_rig/' + file;
+  if (UI.imgs[s]) return Promise.resolve(UI.imgs[s]);
+  if (!CAMP_SHEETS[s]) CAMP_SHEETS[s] = packedLoad(s).then(function (q) { if (q) { UI.imgs[s] = q; return q; } return load(s).then(function (i) { UI.imgs[s] = i; return i; }); });
+  return CAMP_SHEETS[s];
+}
+function campBodies(full) {
+  const A = (window.FIGHT_OPTS || {}).campBoard || {}, D = Array.isArray(A.dead) ? A.dead : [];
+  if (!D.length || !(A.manPx > 0)) return 0;
+  const g = full.getContext('2d'), tw = UI.tw, th = UI.th, s = A.manPx * tw / 98;   /* the rig's ruler: 98 sheet px a man */
+  const lay = document.createElement('canvas'); lay.width = full.width; lay.height = full.height; const q = lay.getContext('2d');
+  let n = 0;
+  D.slice().sort(function (a, b) { return a.y - b.y; }).forEach(function (d) {
+    const sh = UI.imgs['fight_rig/' + d.file]; if (!sh) return;
+    const X = (d.x + 0.5 + (d.st || 0)) * tw, Y = (d.y + 0.9) * th, rx = 98 * s * 0.32;
+    q.fillStyle = d.machine ? 'rgba(12,11,10,.8)' : 'rgba(92,13,8,.72)'; q.beginPath(); q.ellipse(X, Y - 98 * s * 0.05, rx, rx * 0.3, 0, 0, Math.PI * 2); q.fill();
+    const x0 = X - d.foot[0] * s, y0 = Y - d.foot[1] * s, col = d.fall, row = d.face || 0;
+    if (sh.atlas && sh.t) { const i = (row * sh.cols + col) * 6, t = sh.t, cw = t[i + 4], ch = t[i + 5]; if (cw) q.drawImage(sh.atlas, t[i], t[i + 1], cw, ch, x0 + t[i + 2] * s, y0 + t[i + 3] * s, cw * s, ch * s); }
+    else q.drawImage(sh, col * d.w, row * d.h, d.w, d.h, x0, y0, d.w * s, d.h * s);
+    n++;
+  });
+  if (FIGHT.S.night) { const k2 = document.createElement('canvas'); k2.width = lay.width; k2.height = lay.height; k2.getContext('2d').drawImage(lay, 0, 0); nightPass(q, lay.width, lay.height, k2, MAN_MOON); }
+  g.drawImage(lay, 0, 0); lay.width = 0;
+  CAMPB.bodies = n;
+  return n;
 }
 /* (2) THE FIGHT AT CAMP: CAMP TWO's kit (slices/camp_two), the carriers through the master rig, as the camp screen draws them */
 const CAMP_RIG = { cart: { dir: '../records/target/master_rig/cook_cart/', ground: [34, 53] }, truck: { dir: '../records/target/master_rig/truck/', ground: [158, 124] } };

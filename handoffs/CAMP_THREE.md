@@ -12,13 +12,18 @@ WHAT MAKING CAMP LOOKS LIKE NOW (the demo: LEAVE the start town, step off its do
 - A crew that finds him at camp (while it stands, or five minutes after it broke if he has not moved): the fight deals the camp's board
   (byte for byte) and the camp stands on its square under his men, the fire burning; each piece 1.6 times its camp size there.
 - In a town, or on its doorstep: the town's own screen, no board asked (rule 273, unchanged).
+- RULE 406 AMENDED 11/6 (f)(g), ask line 469: win a fight, press MAKE CAMP on the end screen: the camp stands on that fight's own board
+  (the fight's options and die handed over before its page goes; the same fingerprint), the dead drawn where they fell at the camp's
+  size with a pool under each, the camp pitched on the tiles where most of them lie; by day his men with an easy job go through them
+  (act 'loot'), never more than half the company. A crew that finds that camp fights him on that same board.
 
 RETIRED (rule 405(a)): CAMP TWO's sand, slices/camp_two/plate*.webp, in graveyard/the_camp_sand_11_6_26/ (POSTMORTEM_THE_CAMP_SAND_11_6_26.txt);
 kit.json's plate entries gone; tools/bohemia_camp2_cook_the_camp.py no longer writes them. DIRECTION's 11/2 wrongness tool
 (tools/bohemia_direction_the_wrongness_11_2_26.py) read plate.webp and plate_tall*.webp as a twin; it is a finished round's tool, it
 would need the graveyard path if run again.
 
-FILES: slices/bohemia_camp_board.js (new: the bake host, the square's picture, the hand-over to the fight); engine/bohemia_camp_life.js
+FILES (406(f)(g) too: campFromFight and campBodies in the fight's block, campFromFightKeep in the shell's __THE_SPOILS__ door, one marked
+call; BohemiaMapCamp.fromFight and CAMP.fight in the map; the loot act in the camp look): slices/bohemia_camp_board.js (new: the bake host, the square's picture, the hand-over to the fight); engine/bohemia_camp_life.js
 (square, pitchOn, marked); slices/bohemia_camp_look.js (marked: the ground is the board, nothing drawn before it, the pitch waits; ready()
 no longer waits on the kit, so the settlement's own camp pictures never stand in); slices/BOHEMIA_FIGHT.html (__THE_CAMP_ON_THE_BOARD__:
 campBoardBake, campOnBoard; the boot line and one line in draw(); THE DEALER IS NOT TOUCHED); slices/BOHEMIA_CITY_WORLD.html
@@ -48,11 +53,10 @@ HOOKS ASKED:
 
 GATES (each run alone, on the cut from this tree): see the commit message for the numbers.
 
-NOT DONE, NEXT, IN ORDER: (1) rule 406 AMENDED 11/6 (f)(g), ask line 469: CAMP HERE FROM THE VICTORY SCREEN on the very board the fight
-was on, the bodies and wreck where they fell, his men going through the kills (rule 392) and leaning on the buildings by the camp: today
-the end screen's MAKE CAMP opens the camp on the block's board (the same streets) but not the fight's own last state; hand the camp the
-fight's picture and its dead (FIGHT.S.units, dead, x, y) at MAKE CAMP; (2) 406(h)'s three tiles (an L: the camp's layout must leave
-the missing corner empty); (3) the board's first bake costs the fight page's data download (about 1 s on a free line, up to 10 s measured while the
+NOT DONE, NEXT, IN ORDER: (1) 406(g)'s rest: his men leaning on the buildings next to the camp's tiles; the carcass haul (rule 392) as its
+own act at a beast's body; the wreck as it lay (the camp re-deals the fight's board, so cover blown up in the fight comes back whole;
+a hook for COMBAT TWO: the fight's boardDef.cover at the end, handed with the dead); the bodies in a fight at that camp later (it gets
+the board, not the dead); (2) 406(h)'s three tiles (an L: the camp's layout must leave the missing corner empty); (3) the board's first bake costs the fight page's data download (about 1 s on a free line, up to 10 s measured while the
 map fetched new blocks' pictures); a warm hidden fight page kept between camps would take it to the deal and bake alone (about 1 s).
 [bb Battle Brothers: camping is the party's state on the world map, and a night attack on it is a battle on the ground where it stood;
 ours is that ground from the first hour.]

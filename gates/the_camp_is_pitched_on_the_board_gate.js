@@ -21,6 +21,10 @@
      B4 *** A CREW AT CAMP FIGHTS HIM THERE *** a crew that reaches the camp opens the fight on the same board, block for block, with the
         camp standing on its square: every piece handed, drawn on the fight's glass
      B5 *** IN A TOWN, THE TOWN'S SCREEN *** HEAL in a town rests in the town's own screen (rule 273): no camp screen, no board asked
+     B7 *** CAMP HERE FROM THE VICTORY SCREEN *** (rule 406(f)(g), AMENDED 11/6) B4's fight won (its band struck dead, as the
+        make-camp-from-the-fight gate wins its fight), MAKE CAMP pressed on the end screen: the camp stands on that fight's own board
+        (its fingerprint at the win), every body drawn where it fell, the camp on the tiles where they lie, and by day his men with an
+        easy job go through them
      B6 nothing threw
    node gates/the_camp_is_pitched_on_the_board_gate.js [--profile phone_landscape|phone_portrait|computer]   (no flag: the phone both ways) */
 'use strict';
@@ -166,6 +170,30 @@ async function run(profile) {
     ok(P + 'B4 *** A CREW AT CAMP FIGHTS HIM THERE *** the fight opens on the camp\'s board, block for block, the camp on its square, every piece drawn on the glass',
       !!pitch && handed.r && !!handed.fought && !!f4 && f4.board && !!f4.camp && f4.camp.x === pitch.x && f4.camp.y === pitch.y && f4.camp.n === pitch.n && f4.camp.pieces === pitch.pieces && !!f4.sig && f4.sig === pitch.sig && f4.drawn > 3,
       JSON.stringify({ pitch, fought: handed.fought, fight: f4 && Object.assign({}, f4, { same: f4.sig === (pitch && pitch.sig) }) }));
+    /* ---- B7: the victory path (rule 406(f)(g)): that fight won, MAKE CAMP on the end screen (a real press) ---- */
+    const ff = p.frames().find(x => /BOHEMIA_FIGHT\.html/.test(x.url()) && x.parentFrame() === p.mainFrame());
+    const won = ff ? await ff.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; });
+      const r = { sig: campBoardSig(), dead: S.units.filter(u => u.dead && !u.fled && !u.ghost).length }; S.over = true; S.result = 'won'; showOver('won'); return r; }).catch(() => null) : null;
+    const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
+    for (let i = 0; i < 100 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
+    await p.waitForTimeout(1000);
+    const campBtn = p.frameLocator('#spoilsdoor iframe').locator('#camp');
+    try { if (profile === 'computer') await campBtn.click({ timeout: 5000 }); else await campBtn.tap({ timeout: 5000 }); } catch (e) {}
+    let v7 = null, srcs7 = [];
+    for (let k = 0; k < 160; k++) { await p.waitForTimeout(250); const sf = settle(); if (!sf) continue;
+      v7 = await sf.evaluate(() => { try { const C = BohemiaCampBoard.state(), L = BohemiaCampLook.state(); return { st: C.state, fromFight: C.fromFight, sig: C.board && C.board.sig, bodies: C.bodies, dead: C.dead, pitch: C.pitch,
+        src: BohemiaSettlement.camp().camp && BohemiaSettlement.camp2().camp2 ? (BohemiaSettlement.camp2().src || '') : null, inView: L.bodies.length, night: L.night, acts: L.acts.map(a => a.act) }; } catch (e) { return null; } }).catch(() => null);
+      if (v7 && v7.src != null) srcs7.push(v7.src.slice(0, 22));
+      if (v7 && v7.st === 'in' && v7.fromFight && BOARD_SRC.test(v7.src || '')) break; }
+    /* by day his men with an easy job go through the dead (the camp's clock runs an hour a beat: day comes within a few seconds) */
+    let looted = null;
+    for (let k = 0; k < 80; k++) { const a = await settle().evaluate(() => { const L = BohemiaCampLook.state(); return { night: L.night, acts: L.acts.map(x => x.act), on: !!(window.parent && parent.BohemiaMapCamp && parent.BohemiaMapCamp.on()) }; }).catch(() => null);
+      if (a && !a.night) { looted = a; if (a.acts.indexOf('loot') >= 0) break; } if (a && !a.on) { looted = a; break; } await p.waitForTimeout(250); }
+    if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp3_victory_' + profile + '.png') });
+    ok(P + 'B7 *** CAMP HERE FROM THE VICTORY SCREEN *** that fight won, MAKE CAMP on the end screen: the camp stands on that fight\'s own board (its fingerprint), every body drawn where it fell, the camp pitched on the tiles where they lie, and by day his men go through them (rule 406(f)(g))',
+      !!won && won.dead > 0 && !!v7 && v7.st === 'in' && v7.fromFight && v7.sig === won.sig && v7.bodies === won.dead && v7.dead === won.dead && v7.pitch && v7.pitch.dead >= 1 && v7.inView >= 1
+        && srcs7.every(x => /^data:image\/gif/.test(x) || BOARD_SRC.test(x)) && !!looted && looted.acts.indexOf('loot') >= 0,
+      JSON.stringify({ won, camp: v7 && Object.assign({}, v7, { src: undefined }), srcs: srcs7.length, looted }));
   } catch (e) { ok(P + 'the gate ran to its end [' + String(e && e.message || e).slice(0, 300) + ']', false); }
   ok(P + 'B6 nothing threw', errs.length === 0, errs.slice(0, 3).join(' | '));
   try { await d.close(); } catch (e) {}

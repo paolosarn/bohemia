@@ -88,6 +88,18 @@
       A.forEach(function (e) { var kk = e.name || e.look; if (was[kk] === 'lie' && e.act !== 'lie' && e.act !== 'sleep') (K.rise || (K.rise = {}))[kk] = tn; });
     }
     var P = CL.spots(A, L);
+    /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(g), AMENDED 11/6, Paolo: 'your company's interacting with their kills'): a camp
+       made on the board just fought on has its dead where they fell; by day the men with an easy job go through them, the nearest body
+       first, a man to a body, never more than half the company (the rest keep the fire, the watch and the hurt) */
+    try { var BD = CB() && boardIn() ? CB().bodies(L) : []; K.bodiesNow = BD;
+      if (BD.length && !night) {
+        var free = A.filter(function (e) { return (e.act === 'cook' || e.act === 'clean' || e.act === 'rest') && e.blood >= CL.HURT; }).sort(function (a, b) { return (a.main ? 1 : 0) - (b.main ? 1 : 0); });
+        var cap = Math.min(BD.length, Math.ceil(A.length / 2)), left = BD.slice();
+        free.slice(0, cap).forEach(function (e) { var sp = P[e.i]; if (!sp || !left.length) return;
+          left.sort(function (a, b) { return Math.hypot(a.x - sp.x, a.y - sp.y) - Math.hypot(b.x - sp.x, b.y - sp.y); });
+          var b = left.shift(), side = b.x > L.fire.x ? -1 : 1, px = b.x + side * 46, py = b.y + 6;
+          e.act = 'loot'; e.body = b.i; P[e.i] = { x: Math.round(px), y: Math.round(py), face: side > 0 ? 'W' : 'E', act: 'loot' }; });
+      } } catch (e) {}
     return { layout: L, men: M, acts: A, spots: P, hour: hour, night: night, cart: cart, retinue: ret, tall: !!L.tall, key: (L.tall ? 'T|' : 'W|') + A.map(function (e) { return e.act; }).join(',') + '|' + L.pieces.length + '|' + cart + '|' + ret.join(',') };
   }
   function open(info, S) {
@@ -171,6 +183,7 @@
      the map is told where the camp stands, for the fight that finds it there (rule 406(c)) */
   function boardLanded() {
     if (!K.st) return;
+    try { if (K.info) { K.st = build(K.info); K.folkKey = null; } } catch (e) {}   /* rule 406(g): the bodies the board brought, for the men's jobs */
     if (K.pitchDue && boardIn()) { K.pitchDue = false; pitchNow(); }
     boardTell();
     K.boardRepick = true;
@@ -266,7 +279,7 @@
     var p = K.st.layout.pieces.filter(function (q) { return q.key === k; })[0]; if (!p || !p.sleeps) return [];
     return p.sleeps.map(function (i) { var m = K.st.men[i]; return m ? (m.main ? 'YOU' : m.name || 'ONE OF YOURS') : null; }).filter(Boolean);
   }
-  var SAYS = { lie: 'is down, bandaged', rest: 'binds a cut by the fire', mend: 'mends his armour', tend: 'sits with the hurt', cook: 'cooks', clean: 'cleans a gun', watch: 'keeps watch', sleep: 'sleeps' };
+  var SAYS = { loot: 'goes through the dead', lie: 'is down, bandaged', rest: 'binds a cut by the fire', mend: 'mends his armour', tend: 'sits with the hurt', cook: 'cooks', clean: 'cleans a gun', watch: 'keeps watch', sleep: 'sleeps' };
   function doing() {
     if (!K.st) return [];
     return K.st.acts.map(function (e) { return (e.main ? 'YOU' : (e.name || 'ONE OF YOURS')) + ' ' + (SAYS[e.act] || 'rests'); });
@@ -307,7 +320,7 @@
     });
     return out;
   }
-  var ACT_PIC = { rest: 'sit', clean: 'sit', tend: 'sit', mend: 'stall', cook: 'stall', watch: 'smoke' };
+  var ACT_PIC = { rest: 'sit', clean: 'sit', tend: 'sit', mend: 'stall', cook: 'stall', watch: 'smoke', loot: 'stall' };
   var TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 
   /* ---------------------------------------------------------------- drawing */
@@ -375,7 +388,7 @@
      own words for an act are in its pictures. 'rest' is binding a cut on a crate (its 'mend'), 'mend' is the armour at the cart
      (its 'repair', the car door and the hammer); a man who was lying and is healed gets up ONCE ('rise', from the moment he
      healed), then does his job */
-  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean' };
+  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot' };   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
   var RISE_MS = 4000;   /* its one slot: 24 keys, two bars at 120 BPM */
   function animCell(m, now, face, I) {
     if (!I || !I.activity) return null;
@@ -617,7 +630,7 @@
       pieces: K.st ? K.st.layout.pieces.map(function (p) { return { key: p.key, kind: p.kind, sprite: p.sprite, x: p.x, y: p.y, follower: p.follower || null }; }) : [],
       acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
       hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, drawnBy: K.drawnBy || {}, rose: Object.keys(K.rise || {}), gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
-      compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
+      bodies: K.bodiesNow || [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
     folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };

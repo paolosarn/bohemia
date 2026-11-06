@@ -74,13 +74,21 @@ never asks for a board there (campBoardAsk is null while CAMP.town).
 ## GATES (each run alone; PIL is broken on this kind of box, no image-comparing leg here)
 See the commit and handoffs/CAMP_THREE.md for the numbers of this ship.
 
-## NOT DONE (rule 406 AMENDED 11/6, ask line 469, CAMP THREE's next)
-- (f) CAMP HERE FROM THE VICTORY SCREEN on the very board the fight was on, the bodies and the wreck where they fell: the end screen's
-  MAKE CAMP (RUN FOUR's rule 267, the shell's door) opens today's camp on the block's board (the same deal, so the same streets), but
-  without the fight's own last state (its bodies, its burned tiles, his men where they stood). Next: hand the camp the fight's board
-  and its dead (FIGHT.S.units dead with x, y) at MAKE CAMP, and pitch the camp on the fight's own picture.
-- (g) the men living on it (going through the kills, rule 392's carcass haul; leaning on the buildings next to the camp's tiles).
-- (h)'s three tiles (an L).
+## RULE 406 AMENDED 11/6 (ask line 469, sent to CAMP THREE by the coordinator's routine mid-round)
+(f) CAMP HERE FROM THE VICTORY SCREEN, SHIPPED: MAKE CAMP on the end screen (RUN FOUR's rule 267 button) camps on the very board just
+fought on. The moment it is pressed, before the fight's page is taken down, the shell asks it (campFromFightKeep in RUN's file ->
+campFromFight in the fight's block): its own options and die, its fingerprint, every body where it fell (tile, facing, sheet, the
+fall's last key, as RUN FOUR's aftermath draws it). The map keeps it (BohemiaMapCamp.fromFight) for the camp spoilsCamp makes there
+(within a minute); the camp's page deals with the fight's own options whole, so the board is the fight's (the fingerprint the same),
+draws each body on it where it fell, at the camp's own man size, a pool under each, in the fight's light; and the camp is pitched on the
+tiles where most of the dead lie (a one-tile camp's picture shows little past its tile: measured, one of four bodies a tile and a half
+off fell inside it, at its top edge). A crew that later finds that camp is fought on that same board.
+(g) THE MEN GO THROUGH THE KILLS, SHIPPED IN PART: by day the men with an easy job (cooking, cleaning a gun, resting; never the hurt)
+go to the dead in the camp's picture, the nearest first, a man to a body, never more than half the company (act 'loot': ANIMATION's
+loot where his look has it, else his still facing the body; 'goes through the dead' at the fire). NOT DONE: leaning on the buildings
+next to the camp's tiles; the carcass haul (rule 392) as an act of its own; the wreck as it lay (cover blown up in the fight comes
+back whole: the camp re-deals the board, it does not copy it).
+(h) one to four connected tiles, SHIPPED (above); the three-tile L not used yet.
 
 ## HOOKS ASKED (handoffs/CAMP_THREE.md)
 - COMBAT TWO (407(g)): the camp asks for its board through campBoardAsk, a copy of what cityHandOver adds to choose a board. When a
