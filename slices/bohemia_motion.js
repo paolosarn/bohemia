@@ -313,7 +313,7 @@
     var tgt = m.how === 'grow' ? o.el : null;
     if (typeof o.to === 'function') { try { tgt = o.to(); } catch (e) { tgt = null; } }
     var b = topBox(tgt); if (b) m.b = b;
-    if (isEl(tgt) && m.how === 'fly' && o.hideTo !== false && tgt !== m.real) { if (m.real) setOp(m.real, m.realOp); m.real = tgt; m.realOp = tgt.style.opacity; if (!m.done) setOp(tgt, '0'); }
+    if (isEl(tgt) && m.how === 'fly' && o.hideTo !== false && tgt !== m.real) { if (m.real) giveBack(m.real, m.realOp); m.real = tgt; m.realOp = restOp(tgt); if (!m.done) setOp(tgt, '0'); }
   }
   function pose(m, t) {
     var k = holdIndex(m, t);
@@ -379,6 +379,10 @@
     if (m.s) m.s.style.setProperty('opacity', String(Math.max(0, 1 - (k + 1) / (n + 1)).toFixed(2)), 'important');
   }
   function setOp(el, v) { try { if (v === null || v === undefined || v === '') el.style.removeProperty('opacity'); else el.style.setProperty('opacity', v); } catch (e) {} }
+  /* __ONE_MORPH_A_DOOR__: what the real element's own opacity was before ANY morph hid it. A morph that starts while another has the
+     element at 0 takes the saved one, never the 0; the last morph to give it back clears the save. */
+  function restOp(el) { try { if (el.__bmHid) return el.__bmRest; el.__bmHid = 1; el.__bmRest = el.style.opacity; return el.__bmRest; } catch (e) { return ''; } }
+  function giveBack(el, v) { setOp(el, v); try { if (el.__bmHid) { el.__bmHid = 0; el.__bmRest = undefined; } } catch (e) {} }
   function rivets(box) {
     if (!box || box.w < 12 || box.h < 12) return;
     var L = layer(), out = [], i = Math.min(6, box.w / 6, box.h / 6);
@@ -394,7 +398,7 @@
   function land(m, skipped) {
     if (m.done) return;
     m.done = true; m.skipped = skipped;
-    if (m.real) setOp(m.real, m.realOp);
+    if (m.real) giveBack(m.real, m.realOp);
     /* __A_STALL_HOLDS__ (UI 11/2 round 2): a grown screen's stand-in dissolves into the real one over three holds (.67, .33, gone),
        never the whole screen's content in one frame (the company screen measured 26% of the glass in one frame) */
     if (!skipped && m.how === 'grow' && m.s && !m.reduced) { var s0 = m.s; s0.style.setProperty('opacity', '.33', 'important'); setTimeout(function () { drop(s0); }, holdMs()); }
@@ -492,7 +496,7 @@
       put('left', b.x + 'px'); put('top', b.y + 'px'); put('width', b.w + 'px'); put('height', b.h + 'px'); put('transform', 'none');
     }
     var tgt = typeof m.o.to === 'function' ? (function () { try { return m.o.to(); } catch (e) { return null; } })() : m.o.to;
-    if (isEl(tgt) && m.o.hideTo !== false) { m.real = tgt; m.realOp = tgt.style.opacity; setOp(tgt, '0'); }
+    if (isEl(tgt) && m.o.hideTo !== false) { m.real = tgt; m.realOp = restOp(tgt); setOp(tgt, '0'); }
     var t = epochNow(); if (m.waitFrom) m.row.waited = Math.round(t - m.waitFrom);
     plan(m, t);
   }
@@ -510,7 +514,7 @@
     var el = o.el; if (!isEl(el)) return null;
     var b = topBox(el) || { x: 0, y: 0, w: W.innerWidth, h: W.innerHeight }, a = topBox(o.from) || { x: b.x + b.w / 2 - 20, y: b.y + b.h / 2 - 20, w: 40, h: 40 };
     var m = begin(o, 'grow'); m.a = m.reduced ? b : a; m.b = b; m.base = b;
-    m.real = el; m.realOp = el.style.opacity; setOp(el, '0');
+    m.real = el; m.realOp = restOp(el); setOp(el, '0');
     m.s = standIn(o, b, null, o.holes);
     if (!m.reduced) m.s.style.setProperty('transform', 'translate(' + (a.x - b.x).toFixed(1) + 'px,' + (a.y - b.y).toFixed(1) + 'px) scale(' + (a.w / b.w).toFixed(4) + ',' + (a.h / b.h).toFixed(4) + ')', 'important');
     return start(m);
@@ -566,8 +570,15 @@
     if (typeof f !== 'function') return false;
     if (f.__bmWrapped) return true;
     /* once a call: if something else wraps the door after us and we wrap it again, the inner one only passes through */
-    var inner = make(f), busy = false;
-    var w = function () { if (busy) return f.apply(this, arguments); busy = true; try { return inner.apply(this, arguments); } finally { busy = false; } };
+    /* __ONE_MORPH_A_DOOR__ (the coordinator 11/6, Paolo: 'when I click on the settlement... it doesn't display the settlement'): the
+       busy flag was this wrapper's own, so a door wrapped twice by us with another lane's wrapper between (bohemia_real_places.js,
+       11/6c, wraps loopOpenTown; the city's adapter is installed again after it) ran inner twice: two grows of the town, the second
+       saving the first's opacity 0 as the screen's own and landing on it, the town invisible for good (measured on the demo: three
+       setOp 0 from grow, handOff and land; the frame's style opacity 0 with no moment running). Now the flag is the window's, per
+       door: the outer wrapper morphs, every wrapper inside it only passes through. */
+    var inner = make(f), key = '__bmBusy_' + name;
+    var w = function () { var busy = false; try { busy = !!win[key]; } catch (e) {} if (busy) return f.apply(this, arguments);
+      try { win[key] = true; } catch (e) {} try { return inner.apply(this, arguments); } finally { try { win[key] = false; } catch (e) {} } };
     w.__bmWrapped = true; w.__bmOrig = f;
     try { win[name] = w; } catch (e) { return false; }
     return win[name] === w;
