@@ -480,3 +480,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 456 | Bugs: the shields are not showing on the men who carry them; a man's two weapons are drawn wrong | 408 | CHARACTER, COMBAT | QUEUED (QUIET DAYS, rule 382; a bug, the NOW pile) |
 | 457 | A full round of work: the quiet days end, the lanes open again on the NOW pile | 409(a) | the coordinator, COMBAT, PLUMBER, WORLD (first wave) | IN FLIGHT |
 | 458 | Research every building type in Pocket City 2's eight groups and see which we are missing | 409(b)(c) | the coordinator (research), WORLD, COOK FOUR | RESEARCHED 11/5 (the record); the adds QUEUED for WORLD's next round |
+| 459 | Seven Magic Mountains (the real painted-boulder art piece by Jean) in the game | 410 | the coordinator (built), COOK FOUR (its final picture) | BUILT, NOT YET SEEN (BUILD 11/6a) |

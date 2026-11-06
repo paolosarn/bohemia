@@ -374,6 +374,7 @@
   R.landAfterPlaces = true;   /* RUN 10/26 (__NO_NAME_COVERS_ANOTHER__, [eyes: names on names]): the land's names are painted after these places */
   renderCity = function(){
     var out = _rc.apply(this, arguments);
+    try { if (R.ready && typeof MODE !== 'undefined' && MODE === 'city') { landmarkTick(); drawLandmarks(); } } catch(_e){ LM.err = String(_e && _e.message || _e); }   /* __SEVEN_MAGIC_MOUNTAINS__: under the places' names */
     try { if (R.ready && typeof MODE !== 'undefined' && MODE === 'city') drawPlaces(); } catch(_e){}
     try { if (window.mapNamesLate) window.mapNamesLate(); } catch(_e){}   /* RUN 10/26: then the land's names, which step aside for every place */
     return out;
@@ -431,6 +432,148 @@
     g.restore();
     R.drawn = drawn; R.named = named; R.jobNamed = jobNamed; R.nameBoxes = boxes;
   }
+
+  /* ==== __SEVEN_MAGIC_MOUNTAINS__ (the coordinator 11/5, VAMILY rule 410, ask line 459; Paolo 11/5: 'Las Vegas actually has an
+     art exhibit like the seven magic mountains... definitely implement this in the game'). The real piece (Ugo Rondinone, 2016):
+     seven stacks of 33 painted limestone boulders, 25 to 35 feet tall, beside Las Vegas Boulevard between Sloan and Jean, at
+     35.839 N, 115.271 W. THE FIRST LANDMARK: not a settlement (no screen, no parties, never on the jobs, never in R.places); a
+     thing in the desert he sees from far off and walks to. The data is records/target/bb/landmarks.json (a modder adds the next).
+       SEEN FROM FAR: once he is within seeBlocks (16, about 6 km) it stands through the fog for the rest of the game (the fog's
+         own memory keeps it: its block is cleared like a town's under REVEAL THE TOWNS).
+       CLIMB IT AND LOOK: on the stack the horizon is about 12 km out on the flat, so arriving lifts the fog lookBlocks (30) round
+         it, once a game (Battle Brothers' high place that shows the land round it, at the real distance).
+       A POST ON THE FEED the first time he stands on it (draft words).
+     THE LOOK: drawn from its own boulders, the real count (7 stacks, 33 stones), the day-glo paint a third of the way to the
+     playa's dust because nobody repaints it now, a shadow on the sand, darker at night. Its final picture is COOK FOUR's golden
+     piece (rule 408); the stacks, the count, the spot and what it does stay. ==== */
+  var LM = R.landmarks = { list: [], loaded: false, drawn: 0, named: 0, posts: 0, st: { seen: {}, climbed: {} }, key: 'bohemia.landmarks.v1' };
+  try { var lmSt = JSON.parse(localStorage.getItem(LM.key) || 'null'); if (lmSt && lmSt.seen && lmSt.climbed) LM.st = lmSt; } catch(_e){}
+  function lmSave(){ try { localStorage.setItem(LM.key, JSON.stringify(LM.st)); } catch(_e){} }
+  R.landmarksUse = function(list){ LM.list = (list || []).slice(); LM.loaded = true; };   /* the check's door, and the loader's */
+  (function loadLandmarks(){
+    try {
+      if (typeof fetch !== 'function') return;
+      fetch('../records/target/bb/landmarks.json').then(function(r){ return r.json(); }).then(function(j){
+        R.landmarksUse((j && j.landmarks) || []);
+        try { if (typeof render === 'function') render(); } catch(_e){}
+      }).catch(function(){});
+    } catch(_e){}
+  })();
+  /* a new game's map has seen nothing and climbed nothing (the fog's own new game) */
+  try {
+    if (typeof fogNewGame === 'function') { var _fng = fogNewGame;
+      fogNewGame = function(){ LM.st = { seen: {}, climbed: {} }; lmSave(); return _fng.apply(this, arguments); }; }
+  } catch(_e){}
+  function lmXY(m){ var C = R.compass || { e: 'x1' }; return { x: C.e === 'x0' ? om.n - 1 - m.x : m.x, y: m.y }; }
+  R.landmarkAt = function(id){ for (var i = 0; i < LM.list.length; i++) if (LM.list[i].id === id) { var p = lmXY(LM.list[i]); return { id: id, name: LM.list[i].name, x: p.x, y: p.y }; } return null; };
+  function landmarkTick(){
+    if (!LM.list.length || typeof city === 'undefined') return;
+    var cx = city.x, cy = city.y;
+    LM.list.forEach(function(m){
+      var p = lmXY(m), d = Math.sqrt((p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy));
+      if (d <= (m.seeBlocks || 16) && !LM.st.seen[m.id]) { LM.st.seen[m.id] = 1; lmSave(); }
+      if (LM.st.seen[m.id]) { try { if (window.fogHides && window.fogHides(p.x, p.y) && typeof fogReveal === 'function') fogReveal(p.x, p.y, 1.6); } catch(_e){} }
+      if (d <= 1.5 && !LM.st.climbed[m.id]) {
+        LM.st.climbed[m.id] = 1; lmSave();
+        try { if (typeof fogReveal === 'function') fogReveal(p.x, p.y, m.lookBlocks || 30); } catch(_e){}
+        var f = m.feed;
+        if (f) { try { if (window.BOHEMIA_FEED) { window.BOHEMIA_FEED.push({ who: f.who, txt: f.txt, kind: f.kind || 'world', draft: true }); LM.posts++; } } catch(_e){} }
+      }
+    });
+  }
+  R.landmarkTick = landmarkTick;
+  function lmMix(a, b, t){
+    var pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16), o = [16, 8, 0].map(function(s){
+      return Math.round(((pa >> s) & 255) * (1 - t) + ((pb >> s) & 255) * t); });
+    return 'rgb(' + o.join(',') + ')';
+  }
+  function lmShade(c, k){   /* k < 0 darker, k > 0 toward white */
+    var m = /rgb\((\d+),(\d+),(\d+)\)/.exec(c); if (!m) return c;
+    var v = [1, 2, 3].map(function(i){ var x = +m[i]; return Math.max(0, Math.min(255, Math.round(k < 0 ? x * (1 + k) : x + (255 - x) * k))); });
+    return 'rgb(' + v.join(',') + ')';
+  }
+  function lmHash(i){ var h = (i * 2654435761) >>> 0; h ^= h >>> 13; h = (h * 1274126177) >>> 0; return (h >>> 8) / 16777216; }
+  function drawLandmarks(){
+    LM.drawn = 0; LM.named = 0;
+    if (!LM.list.length) return;
+    var ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY);
+    var night = false; try { night = typeof isNight === 'function' && isNight(); } catch(_e){}
+    g.save();
+    LM.list.forEach(function(m){
+      var p = lmXY(m);
+      if (window.fogHides && window.fogHides(p.x, p.y) && !LM.st.seen[m.id]) return;
+      /* HOW BIG: glass pixels a metre. Up close, THE HOUSES' OWN SCALE (slices/bohemia_map_houses.js: TW / (sqrt 2 x 36)), so a
+         stack of ten metres stands over a house the way the real ones stand over a car. Under that, a floor tied to his men (the
+         person never shrinks with the zoom, the 9/21 law): from the middle zooms in, the tallest stack is about one and a third
+         of a man and more (about 100 px), so they read as mountains beside the crew, never pebbles (the real ones are five men
+         tall); far out it shrinks with the land to a mark about the size of a town's picture (24 px). */
+      var q = iso(p.x, p.y, ox, oy), u = Math.max(Math.max(2.4, Math.min(10, TW * 0.24)), TW / (Math.SQRT2 * 36));
+      var stacks = m.stacks || [6, 5, 4, 5, 4, 5, 4], n = stacks.length, gap = 4.3 * u;
+      if (q.sx < -n * gap - 60 || q.sx > CVW + n * gap + 60 || q.sy < -16 * u || q.sy > CVH + 8 * u) return;
+      var foot = q.sy + TH / 2, cols = m.colours || ['#ff4fb0', '#fff01e', '#2f8cff'], fade = m.fade == null ? 0.36 : m.fade, dust = m.dust || '#cdb99a';
+      var lime = night ? '#4a463f' : '#9d958a';   /* the grey limestone where the paint has gone */
+      /* the shadow on the sand, the sun high and to the left (the land's own north-west sun) */
+      g.fillStyle = night ? 'rgba(6,5,4,0.35)' : 'rgba(30,22,14,0.30)';
+      g.beginPath(); g.ellipse(q.sx + 2.5 * u, foot + 0.5 * u, (n * gap) / 2 + 2.5 * u, 2.4 * u, -0.22, 0, 7); g.fill();
+      /* one stone: a lumpy outline from ten radii (a real boulder, not a disc), resting flatter top and bottom */
+      function stoneAt(cx, cy, rw, rh, seed){
+        var pts = [];
+        for (var i = 0; i < 10; i++) {
+          var a = i / 10 * Math.PI * 2, j = 0.86 + lmHash(seed * 10 + i) * 0.22, flat = Math.abs(Math.sin(a)) > 0.8 ? 0.93 : 1;
+          pts.push([cx + Math.cos(a) * rw * j, cy + Math.sin(a) * rh * j * flat]);
+        }
+        g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+        for (var t = 0; t < 10; t++) { var a2 = pts[t], b2 = pts[(t + 1) % 10]; g.quadraticCurveTo(a2[0], a2[1], (a2[0] + b2[0]) / 2, (a2[1] + b2[1]) / 2); }
+        g.closePath();
+      }
+      var k = 0, top = foot;
+      for (var s = 0; s < n; s++) {
+        /* the seven stand in a loose line across the iso ground, the back ones higher on the glass */
+        var bx = q.sx + (s - (n - 1) / 2) * gap, by = foot - (s - (n - 1) / 2) * gap * 0.24 + (lmHash(s + 91) - 0.5) * u * 1.5, y = by;
+        for (var b = 0; b < stacks[s]; b++, k++) {
+          /* a chunky stone, nearly as tall as it is wide (the real ones are about 2 to 3 m), the upper ones a little smaller */
+          var rw = (0.95 + lmHash(k + 7) * 0.4) * u * (1 - b * 0.05), rh = (0.78 + lmHash(k + 31) * 0.3) * u,
+              col = lmMix(cols[Math.floor(lmHash(k + 3) * cols.length)], dust, fade);
+          if (night) col = lmShade(col, -0.55);
+          var cy2 = y - rh, cx2 = bx + (lmHash(k + 57) - 0.5) * u * 0.6;
+          stoneAt(cx2 + 0.12 * u, cy2 + 0.1 * u, rw, rh, k); g.fillStyle = lmShade(col, -0.45); g.fill();   /* the side away from the sun */
+          g.save(); stoneAt(cx2, cy2, rw * 0.97, rh * 0.95, k); g.clip();
+          g.fillStyle = col; g.fillRect(cx2 - rw * 1.2, cy2 - rh * 1.2, rw * 2.4, rh * 2.4);
+          if (lmHash(k + 13) < 0.22) {   /* a striped stone, as some of the real ones are */
+            var sc = lmMix(cols[Math.floor(lmHash(k + 77) * cols.length)], dust, fade);
+            g.fillStyle = night ? lmShade(sc, -0.55) : sc; g.fillRect(cx2 - rw * 1.2, cy2 - rh * 0.22, rw * 2.4, rh * 0.44);
+          }
+          g.fillStyle = lmShade(col, -0.3); g.globalAlpha = 0.55;   /* the round of it turning away, right and under */
+          g.beginPath(); g.ellipse(cx2 + rw * 0.55, cy2 + rh * 0.35, rw * 0.75, rh * 0.8, 0, 0, 7); g.fill(); g.globalAlpha = 1;
+          if (lmHash(k + 41) < 0.55) {   /* where the paint has gone and the grey stone shows (nobody repaints it now) */
+            var px2 = cx2 + (lmHash(k + 43) - 0.5) * rw, py2 = cy2 + (lmHash(k + 47) - 0.3) * rh, pr = (0.18 + lmHash(k + 49) * 0.22) * rw;
+            stoneAt(px2, py2, pr, pr * 0.6, k + 500); g.fillStyle = lime; g.fill();
+          }
+          g.fillStyle = lmShade(col, 0.35); g.globalAlpha = 0.7;   /* the sun on its top-left */
+          g.beginPath(); g.ellipse(cx2 - rw * 0.35, cy2 - rh * 0.42, rw * 0.32, rh * 0.22, -0.3, 0, 7); g.fill(); g.globalAlpha = 1;
+          g.restore();
+          stoneAt(cx2, cy2, rw * 0.97, rh * 0.95, k); g.strokeStyle = 'rgba(20,14,10,0.45)'; g.lineWidth = 1; g.stroke();
+          y -= rh * 1.78;   /* the next stone sits down into this one */
+        }
+        top = Math.min(top, y);
+      }
+      LM.drawn++;
+      /* the name, after the stones, never over another name (the map's own list) */
+      g.font = 'bold 10px ui-monospace, monospace'; g.textAlign = 'center';
+      var tw = g.measureText(m.name).width + 8, tx = Math.round(q.sx - tw / 2), ty = Math.round(top - 8), free = false;
+      for (var tries = 0; tries < 4 && !free; tries++) {
+        free = !window.mapNameFree || window.mapNameFree([tx, ty - 10, tw, 13]);
+        if (!free) ty -= 14;
+      }
+      if (free) {
+        try { if (window.mapNameTake) window.mapNameTake([tx, ty - 10, tw, 13], m.name, 'place'); } catch(_e){}
+        g.fillStyle = 'rgba(14,11,8,0.82)'; g.fillRect(tx, ty - 10, Math.round(tw), 13);
+        g.fillStyle = '#e8dcc0'; g.fillText(m.name, Math.round(q.sx), ty); LM.named++;
+      }
+    });
+    g.restore();
+  }
+  /* ==== /__SEVEN_MAGIC_MOUNTAINS__ ==== */
 
   /* ---- what the map says out loud while he is out there ---- */
   R.where = function(){

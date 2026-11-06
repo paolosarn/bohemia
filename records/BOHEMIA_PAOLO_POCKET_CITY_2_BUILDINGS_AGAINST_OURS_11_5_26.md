@@ -81,7 +81,7 @@ ZONES: residential, commercial, industrial.
 ## WHAT WE LEAVE OUT, AND WHY
 - Snowplow depot (no snow in the valley), nuclear, fusion, wind (the valley has none), lumber mill (no forest; Mt Charleston's
   lodge stands for it), space center, space elevator, pyramid city, igloo: not in a real Las Vegas.
-- The obelisk and the alien monolith: fantasy, not our world.
+- The obelisk and the alien monolith: fantasy, not our world. (Paolo 11/5 straight after: the valley has REAL magic stones, Seven Magic Mountains by Jean; rule 410 put it on the map.)
 - A zoo or petting zoo: the beasts are lab-made by law, never zoo animals that got out; a zoo would muddy that. Left out unless he
   wants it.
 - Their castle, colosseum, pirate ship, steel tower and sphinx are the real Strip's casino themes; they belong on our casinos as

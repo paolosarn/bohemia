@@ -1,0 +1,40 @@
+{
+  "_about": "THE LANDMARKS: real things in the desert you can see from far off and walk to. Not settlements (no screen, no parties, no jobs). Read by slices/bohemia_region.js (__SEVEN_MAGIC_MOUNTAINS__); a modder adds the next one here. x and y are region blocks on the east-is-x1 compass (the valley's middle block is 47.5, 47.5 at 36.135 N, 115.17 W; a block is 384 m of real ground, engine/BOHEMIA_REGION_LAND.json's own scale). VAMILY rule 410, ask line 459.",
+  "draft": true,
+  "landmarks": [
+    {
+      "id": "seven_magic_mountains",
+      "name": "SEVEN MAGIC MOUNTAINS",
+      "lat": 35.839,
+      "lon": -115.271,
+      "x": 22,
+      "y": 133,
+      "xy_why": "35.839 N, 115.271 W on the region's own formula is block 23.9, 133.1; it is set at 22 (1.4 blocks off, inside the region gate's 2.5) because the real piece stands beside Las Vegas Boulevard a few hundred metres off the I-15, and the region draws the I-15 about 1.5 km west of where it runs, so 22 keeps it near the road the way it really is",
+      "real": "Ugo Rondinone's Seven Magic Mountains (2016): seven stacks of 33 locally quarried limestone boulders, three to six a stack, about 25 to 35 feet tall, painted in day-glo colours, on the desert beside Las Vegas Boulevard south of Sloan and north of Jean, near Jean Dry Lake; free, open sunrise to sunset; meant for two years and kept on view since",
+      "sources": [
+        "https://www.clarkcountynv.gov/government/departments/parks___recreation/services/public_art/las-vegas-cultural-landscape/ugorondinone-sevenmagicmountains",
+        "https://www.nevadaart.org/exhibition/ugo-rondinone-seven-magic-mountains/",
+        "https://travelnevada.com/discover/37536/seven-magic-mountains",
+        "https://csginger.com/seven-magic-mountains/"
+      ],
+      "licence": "a real public artwork by a living artist: its name and its look go on the stage-4 licence list with the game's other real names before a sale (records/BOHEMIA_THE_FINISH_LINE_AND_THE_ROAD_11_2_26.md, stage 4)",
+      "stacks": [6, 5, 4, 5, 4, 5, 4],
+      "stacks_why": "the real count: 33 boulders in seven stacks of three to six",
+      "colours": ["#ff4fb0", "#ff8a1c", "#fff01e", "#b4f02a", "#22d07a", "#2f8cff", "#9a4dff", "#ff3b3b", "#ececec"],
+      "colours_why": "the real piece's day-glo pink, orange, yellow, lime, green, blue, violet, red and a silver-white",
+      "fade": 0.36,
+      "dust": "#cdb99a",
+      "fade_why": "the real paint is redone every few years because the sun takes it; after the dollar died nobody repaints it, so every colour is a third of the way to the playa's dust: chalky, and still the brightest thing for kilometres (analog horror: a colour from before, going)",
+      "seeBlocks": 16,
+      "see_why": "day-glo rock ten metres tall on a flat dry lake reads for kilometres: about 6 km (16 blocks of 384 m) as a coloured mark; once he has been that close it shows through the fog for the rest of the game",
+      "lookBlocks": 30,
+      "look_why": "on top of a ten-metre stack, eyes about 11.7 m up, the horizon on the flat is sqrt(2 x 6371 km x 0.0117 km) = 12.2 km, 31.8 blocks; 30 kept, the hills cut some of it. Arriving lifts the fog that far round it, once a game",
+      "feed": {
+        "who": "@the15south",
+        "txt": "seven stacks of painted rock off the 15 by Jean. nobody repaints them now. from the top you can see the whole dry lake, and anybody crossing it",
+        "kind": "world",
+        "draft": true
+      }
+    }
+  ]
+}
