@@ -399,7 +399,17 @@
     if (day <= a) return Math.min(size, CFG.ramp_reds_calm); if (day >= b) return size; return Math.max(CFG.ramp_reds_calm, Math.min(size, Math.round(size * (day - a) / Math.max(1, b - a)))); }
   /* is this offer fit to post on a board at a place on a day, beside the ones the board already holds (have) of its size?
      true, false (under the floor, or a red past the board's share), or null (not read yet: it is posted reading, and asked for) */
+  /* __THE_GIANTS_ARE_RARE__ (WORLD 9, 11/5, rules 389 and 399(c)): a RARE row (a named giant's hunt, its 'rare' 0..1 in the job kinds'
+     board people) is up on a place's board only that share of the board windows, rolled by the place and the window, so a hunt for one
+     is an event. MEASURED: dealt like any job, the three big-game rows were 7 in 100 offers and the sabre-tooth the second beast he met
+     in a month (10 fights against the dogs' 43). Kept back, never lost: a board with nothing else still posts it (rule 335) */
+  function rareUp(o, place, day) {
+    var r = o && o.rare; if (r == null || !(r < 1)) return true;
+    var win = Math.floor((day | 0) / 3), h = seedOf(o.id + ':rare:' + place + ':' + win);
+    return ((h % 10000) / 10000) < +r;
+  }
   function fits(o, place, day, have, size) {
+    if (o && !rareUp(o, place, day)) return false;
     if (!o || !o.id || !(CFG.ramp_floor > 0)) return true;
     if (!MAIN) { engine(); return null; }
     var R = read(o, place, true); if (!R || R.state !== 'read') return null;

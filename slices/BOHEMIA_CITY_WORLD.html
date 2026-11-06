@@ -45128,6 +45128,7 @@ function travelInterrupt(why){
   var was = TRAVEL_SPEED;
   if (TRAVEL_SPEED > 0) TRAVEL_SPEED_LAST = TRAVEL_SPEED;
   TRAVEL_SPEED = 0;
+  try{ if (typeof glideDead === 'function') glideDead(why); }catch(_e){}   /* __CONTACT_STOPS_HIM_DEAD__ (rule 401(b)): a crew's card or a road event's: he stops where he stands */
   /* __HOLD_PLAY_SLIDE_THE_SPEED__: a road happening drops a fast march back to regular time for what comes after the card (BB's
      way); it lands on the block that met it, which is on the beat or its split, and the extra blocks still owed this beat stop
      (each checks the speed it was set at) */
@@ -47063,7 +47064,7 @@ function btwCampOut(why){
 /* the card: up at once for the logic, eased for the eye */
 function btwCome(el, at){
   var f = btwFrame(), fromCamp = !!(CAMP.on && LOOP.open && LOOP.open.camp && f && f.style.display === 'block');
-  var me = btwAt(city.x, city.y), them = btwAt(at[0], at[1]);
+  var me = (CONTACT_DEAD.on && CITY_GLIDE.tx !== null) ? btwAt(CITY_GLIDE.px, CITY_GLIDE.py) : btwAt(city.x, city.y), them = btwAt(at[0], at[1]);   /* __CONTACT_STOPS_HIM_DEAD__: the dark closes on where he stands on the glass */
   el.style.opacity = '0';
   btwStart('come', { cx: (me.x + them.x) / 2, cy: (me.y + them.y) / 2, them: them, card: el, fromCamp: fromCamp }).o.snap = fromCamp ? btwSnap() : null;
 }
@@ -48661,7 +48662,7 @@ function cityGlidePos(now){
   const G=CITY_GLIDE;
   if(G.tx===null){ G.px=G.sx=G.tx=city.x; G.py=G.sy=G.ty=city.y; G.tl=now; G.q=[]; G.v=0; G.u=1; G.last=-1e9; }   /* tx null is a reset (a cut, a load): nothing left to walk */
   const journey=!!(typeof TRAVEL!=='undefined' && TRAVEL && TRAVEL_SPEED>0);
-  if(city.x!==G.tx||city.y!==G.ty){
+  if((city.x!==G.tx||city.y!==G.ty)&&!glideHeld()){   /* __CONTACT_STOPS_HIM_DEAD__: under the card that stopped him, the picture stands */
     const gap=now-G.last; if(gap>0 && gap<2*BEAT) G.gap=G.gap?G.gap*0.6+gap*0.4:gap;
     const E=(journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT))) * (journey ? mapGoingBeats(city.x, city.y) : 1) * (journey && window.BohemiaMapHouses ? BohemiaMapHouses.glideK() : 1);   /* __THE_HOUSES_STAND_UP_CLOSE__: up close he walks the whole wait */   /* __OVER_THE_MOUNTAIN__: a mountain block glides at its own slow pace */
     glideStep(G, city.x, city.y, now, E, 3, journey);
@@ -48671,7 +48672,7 @@ function cityGlidePos(now){
   const p=cityGlideAt(G,now);
   /* keep drawing until it lands: the city otherwise redraws on the beat, and a
      glide drawn twice a second is the block again */
-  if(G.q.length&&!G.raf){ G.raf=requestAnimationFrame(function(){ G.raf=0;
+  if((G.q.length||G.land)&&!G.raf){   /* __CONTACT_STOPS_HIM_DEAD__: and while the hop sets down */ G.raf=requestAnimationFrame(function(){ G.raf=0;
     try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); }
   return p;
 }
@@ -48684,12 +48685,64 @@ var PARTY_GLIDE = {};
 function partyGlidePos(key, x, y, now){
   var G = PARTY_GLIDE[key];
   if (!G) { G = PARTY_GLIDE[key] = { tx: x, ty: y, px: x, py: y, q: [], sx: x, sy: y, v: 0, cr: 0, E: BEAT, tl: now, last: -1e9, gap: 0, n: 0, u: 1, end: false, jumps: 0, steps: 0 }; }
-  if (x !== G.tx || y !== G.ty) {
+  if ((x !== G.tx || y !== G.ty) && !glideHeld()) {   /* __CONTACT_STOPS_HIM_DEAD__: they stand under the card too */
     var gap = now - G.last; if (gap > 0 && gap < 4 * BEAT) G.gap = G.gap ? G.gap * 0.6 + gap * 0.4 : gap;
     glideStep(G, x, y, now, Math.max(60, Math.min(4 * BEAT, G.gap || BEAT)), 3, true);
   }
   var p = cityGlideAt(G, now); p.n = G.n; return p;
 }
+/* ==== __CONTACT_STOPS_HIM_DEAD__ (WORLD 9, 11/5, rule 401(b), ask line 443; Paolo 11/4: 'you still kind of slightly walking after
+   someone wants to attack you'). MEASURED BEFORE on the demo (phone, the default 2x, a chase into the nearest roaming party, every
+   drawn frame sampled; records/BOHEMIA_WORLD_9_CONTACT_STOPS_HIM_DEAD_AND_THE_QUIET_EVENTS_11_5_26.md): the logic stops on the block
+   that met them, but the picture rides about six tenths of a block behind the logic (THE MAP GLIDES ALONG THE ROAD, above), so when
+   the card came up the picture was 0.73 of a block behind and walked on 0.73 of a block for 268 ms under the card. NOW THE PICTURE
+   STOPS WHERE IT STANDS, on the frame the card comes up (a crew's meet card, or a road event that asks him something): the glide's
+   queue is dropped where the picture IS (never a snap forward to the logic's block), every roaming party's picture stops the same
+   way, and while that card stands no new block is walked by any picture. The hop sets down over a quarter beat (never a drop in one
+   frame); the legs stand. When the card goes, the next block he walks starts from where the picture stands (FALL BACK, CAMP NEARBY,
+   GO ON): no snap either way. The logic is untouched: the fight, the fall back and every rule that asks where he is still read his
+   whole block. CONTACT_DEAD.on false is the before (the gate's mutation). ==== */
+var CONTACT_DEAD = { on: true, why: ['meet', 'event'], holding: false, n: 0, last: null, landMs: 0.25 };
+function glideCardUp(){
+  try{ if (typeof MEET !== 'undefined' && MEET.up) return true; }catch(_e){}
+  try{ if (window.BohemiaRoadEvents && BohemiaRoadEvents.up && BohemiaRoadEvents.up()) return true; }catch(_e){}
+  return false;
+}
+/* the picture holds while the card that stopped him stands */
+function glideHeld(){
+  if (!CONTACT_DEAD.on || !CONTACT_DEAD.holding) return false;
+  if (glideCardUp()) { CONTACT_DEAD.seenUp = true; return true; }
+  if (!CONTACT_DEAD.seenUp && CONTACT_DEAD.last && performance.now() - CONTACT_DEAD.last.t < 1000) return true;   /* the card is being built: it stands in a moment */
+  CONTACT_DEAD.holding = false; return false;
+}
+function glideStopHere(G, now){
+  try{ glideAdvance(G, now); }catch(_e){}
+  var lift = (G.u < 1) ? Math.sin(Math.PI * G.u) : 0;
+  G.q.length = 0; G.v = 0; G.cr = 0; G.u = 1; G.sx = G.px; G.sy = G.py; G.last = -1e9;
+  return lift;
+}
+function glideDead(why){
+  if (!CONTACT_DEAD.on || CONTACT_DEAD.why.indexOf(String(why || '')) < 0) return false;
+  var now = performance.now(), G = CITY_GLIDE;
+  if (G.tx === null) return false;
+  if (String(why) === 'event' && !(typeof TRAVEL !== 'undefined' && TRAVEL)) return false;   /* a job's talk on arrival: he was arriving, not stopped, so he walks in */
+  var lift = glideStopHere(G, now);
+  G.tx = city.x; G.ty = city.y;   /* a block the logic took on this very tick is not walked by the picture */
+  G.land = { t: now, lift: lift };
+  for (var k in PARTY_GLIDE) { try{ glideStopHere(PARTY_GLIDE[k], now); }catch(_e){} }
+  CONTACT_DEAD.holding = true; CONTACT_DEAD.seenUp = false; CONTACT_DEAD.n++;
+  CONTACT_DEAD.last = { why: String(why), t: now, pic: [G.px, G.py], logic: [city.x, city.y], lag: Math.max(Math.abs(G.px - city.x), Math.abs(G.py - city.y)), lift: lift };
+  try{ window.__CONTACT_DEAD = CONTACT_DEAD.last; }catch(_e){}
+  return true;
+}
+/* the hop setting down after a dead stop: its share of the hop, eased to nothing over a quarter beat */
+function glideLandLift(){
+  var L = CITY_GLIDE.land; if (!L || !(L.lift > 0)) return 0;
+  var k = (performance.now() - L.t) / (CONTACT_DEAD.landMs * BEAT); if (k >= 1) { CITY_GLIDE.land = null; return 0; }
+  return L.lift * (1 - btwE(k));
+}
+try{ window.CONTACT_DEAD = CONTACT_DEAD; window.glideDead = glideDead; }catch(_e){}
+/* ==== /__CONTACT_STOPS_HIM_DEAD__ ==== */
 /* the stride: ANIMBEATS.walk is 2, so one walk cycle is two steps; half of it per step, carried across */
 function strideOf(p){ return (p && p.u < 1) ? (((p.n | 0) % 2) * 0.5 + p.u * 0.5) : null; }
 /* ==== __THE_MAP_HAS_ITS_PEOPLE__ (RUN, 9/29/26, VAMILY [bb map] + [map pixels], rule 40f) ====
@@ -53051,7 +53104,7 @@ function renderCity(){
     const __gx=p.sx, __gy=p.sy+TH*0.5-mapStandLift(__G.x,__G.y);   /* where his feet are (__YOU_WALK_BEHIND_IT__: on the berm on the freeway) */
     MAP_DEPTH.ox=ox; MAP_DEPTH.oy=oy; MAP_DEPTH.ref=mapDepthRef(__G.x,__G.y);   /* __YOU_WALK_BEHIND_IT__: him and his two, in depth with the city */
     try{ if(window.BohemiaCampMap) BohemiaCampMap.drawAt(g,__gx,__gy); }catch(_e){}   /* __CAMP_TWO__ (rule 257(a)): camped, his tents, his cart and his fire stand round him */
-    const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*Math.max(2,TW*0.07):0;   /* the glide's hop, one per beat (ANIMATION's number) */
+    const __lift=((__G.u<1)?Math.sin(Math.PI*__G.u):glideLandLift())*Math.max(2,TW*0.07);   /* the glide's hop, one per beat (ANIMATION's number); __CONTACT_STOPS_HIM_DEAD__: a dead stop sets it down over a quarter beat */
     const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
     /* PLANTED: a dark ellipse under the feet, so he stands on the map, not over it */
@@ -72515,13 +72568,69 @@ function spacePause(){
   return true;
 }
 try { window.spacePause = spacePause; } catch(_e){}
+/* ==== __SPACE_HOLDS_FOUR_TIMES__ (WORLD 9, 11/5, rule 396's computer half, ask line 435; Paolo 11/4: 'when I hold, I want it to go
+   four times as fast... on a computer the same hold, with the mouse or the space bar'). The phone's PLAY already holds for 4x
+   (slices/bohemia_phone.js __HOLD_FOR_FOUR_TIMES__); the space bar is the same hold. A TAP (let go before TRAVEL_CLOCK.holdMs, the
+   phone's own 350 ms) is the pause and the play it always was (rule 163(a), spacePause, on the key's release so a hold is never first
+   a pause); a HOLD runs the map at the fastest step for as long as the key is down, and letting go gives back the speed he had (a
+   pause stays a pause). His kept speed (TRAVEL_SPEED_LAST, the slider's, saved) is never changed by the hold. A card that comes up
+   while he holds keeps the map held (398) and gives his own speed back when it goes, never the 4x. The shell hands the key here
+   when its own page has the focus (bohemia_phone.js, the same block's name). ==== */
+var SPACE_HOLD = { t: null, down: 0, four: null, taps: 0, holds: 0 };
+function spaceCan(){
+  if (typeof MODE === 'undefined' || MODE !== 'city' || SKY) return false;
+  if (MEET.up) return false;
+  try { if (window.BohemiaRoadEvents && BohemiaRoadEvents.up && BohemiaRoadEvents.up()) return false; } catch(_e){}
+  try { if (LOOP.frame && LOOP.frame.style.display === 'block') return false; } catch(_e){}
+  return true;
+}
+function spaceFour(){
+  SPACE_HOLD.t = null;
+  if (!SPACE_HOLD.down || !spaceCan()) return;
+  var st = TRAVEL_CLOCK.steps || [1, 2, 4], top = st[st.length - 1];
+  SPACE_HOLD.four = { prev: TRAVEL_SPEED, last: TRAVEL_SPEED_LAST, at: performance.now(), top: top }; SPACE_HOLD.holds++;
+  travelSpeedSet(top); TRAVEL_SPEED_LAST = SPACE_HOLD.four.last;
+  if (TRAVEL) { try { camHold(); } catch(_e){} }
+  window.__SPACE_HOLD4 = { on: true, from: SPACE_HOLD.four.prev, top: top, kept: TRAVEL_SPEED_LAST };
+}
+function spaceFourEnd(){
+  var h = SPACE_HOLD.four; SPACE_HOLD.four = null; if (!h) return;
+  var hit = !!(window.__TRAVEL_INTERRUPT && window.__TRAVEL_INTERRUPT.at > h.at);   /* a card came up while he held: it holds the map */
+  if (!hit) travelSpeedSet(h.prev);
+  TRAVEL_SPEED_LAST = h.last;
+  try { if (typeof speedPadPaint === 'function') speedPadPaint(); } catch(_e){}
+  window.__SPACE_HOLD4 = { on: false, back: hit ? 'held by a card' : h.prev, kept: TRAVEL_SPEED_LAST };
+}
+/* the one door for the key, from this page or the shell: down / up (repeat: the key's own auto-repeat; lost: the window lost the key) */
+function spaceKey(down, repeat, lost){
+  if (down) {
+    if (repeat) return SPACE_HOLD.down > 0;
+    if (!spaceCan()) return false;
+    SPACE_HOLD.down = performance.now(); clearTimeout(SPACE_HOLD.t);
+    SPACE_HOLD.t = setTimeout(spaceFour, +TRAVEL_CLOCK.holdMs || 350);
+    return true;
+  }
+  if (!SPACE_HOLD.down) return false;
+  SPACE_HOLD.down = 0; clearTimeout(SPACE_HOLD.t); SPACE_HOLD.t = null;
+  if (SPACE_HOLD.four) { spaceFourEnd(); return true; }
+  if (lost) return false;
+  SPACE_HOLD.taps++;
+  return spacePause();   /* a tap: rule 163(a) */
+}
+try { window.spaceKey = spaceKey; window.SPACE_HOLD = SPACE_HOLD; } catch(_e){}
+function spaceTyping(ev){ var t = ev.target, tag = t && t.tagName; return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || !!(t && t.isContentEditable); }
 document.addEventListener('keydown', function(ev){
   if (ev.code !== 'Space' && ev.key !== ' ') return;
-  var t = ev.target, tag = t && t.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
-  if (ev.repeat) { ev.preventDefault(); return; }
-  if (spacePause()) ev.preventDefault();
+  if (spaceTyping(ev)) return;
+  if (spaceKey(true, ev.repeat) || ev.repeat) ev.preventDefault();
 });
+document.addEventListener('keyup', function(ev){
+  if (ev.code !== 'Space' && ev.key !== ' ') return;
+  if (spaceTyping(ev)) return;
+  if (spaceKey(false)) ev.preventDefault();
+});
+window.addEventListener('blur', function(){ try { spaceKey(false, false, true); } catch(_e){} });   /* a key let go in another window: his speed back, never a tap */
+/* ==== /__SPACE_HOLDS_FOUR_TIMES__ ==== */
 
 
 /* __ONE_ZOOM_TO_THE_MOON__ -- THE THIRD BAND, and then two more.
@@ -91734,6 +91843,35 @@ window.BOHEMIA_FEED = (function(){
     pace: function(){ return E ? E.pace : null; }
   };
 })();
+/* ==== __A_QUIET_EVENT_IS_A_POST__, THE FEED'S MOUTH (WORLD 9, 11/5, rule 398(b) and rule 371's way). A person on the map who says
+   something that asks nothing (the road's answer after his choice, a side quest's ending, bohemia_road_events.js) says it on the
+   phone's feed, as a post in the feed's own shape ({ id, at, handle, text, kind }), merged into BohemiaFeed.read() newest first by the
+   game minute, so the FEED app and the strip under the phone show it like any other post. FEED's engine is untouched (its rows, its
+   pace, its gates): these are the map's own words, said verbatim, the most recent twelve kept. MEASURED before: the road's posts went
+   only to the old stream (BOHEMIA_FEED.push), which the phone stops reading once the FEED engine has posts, so not one reached him. ==== */
+(function(){
+  var F = window.BohemiaFeed; if (!F || F.mouth) return;
+  var SAID = [], n = 0, read0 = F.read;
+  function minuteNow(){ try { return ((DAY.day | 0) * 1440) + Math.floor(DAY.min); } catch(_e){ return 0; } }
+  F.mouth = function(p){
+    if (!p || !p.txt) return null;
+    var h = String(p.who || '@theroad'); if (h.charAt(0) !== '@') h = '@' + h;
+    var post = { id: 'w' + (++n), at: minuteNow(), handle: h, text: String(p.txt), kind: p.kind || 'mine', type: 'map.said', draft: true, reply_to: null, mouth: true };
+    SAID.push(post); if (SAID.length > 12) SAID.shift();
+    try { if (window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: h, txt: post.text, kind: post.kind, draft: true }); } catch(_e){}   /* the old stream too, for a page without the engine */
+    window.__FEED_MOUTH = SAID.slice();
+    return post;
+  };
+  F.read = function(q){
+    var r = []; try { r = read0(q) || []; } catch(_e){ r = []; }
+    if (!SAID.length || (q && q.account)) return r;
+    var all = r.concat(SAID.slice().reverse());
+    all.sort(function(a, b){ return ((b.at == null ? 0 : b.at) - (a.at == null ? 0 : a.at)) || ((b.mouth ? 1 : 0) - (a.mouth ? 1 : 0)); });
+    var lim = q && q.limit ? +q.limit : 0;
+    return lim > 0 ? all.slice(0, lim) : all;
+  };
+})();
+/* ==== /__A_QUIET_EVENT_IS_A_POST__ ==== */
 
 /* ============================================================================
    __FIRST_RUN_TEACHING__  (9/6, UI lane 11, VAMILY [first teaching])

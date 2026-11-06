@@ -63,9 +63,19 @@
     var c = null; try { c = om.at(x | 0, y | 0); } catch (e) {} if (!c) return null;
     var r = D.boardKinds.districts.filter(function (d) { return d.district === c.district; })[0]; return r ? r.ground : null;
   }
+  /* __THE_GIANTS_ARE_RARE__ (WORLD 9, 11/5, rules 389 and 399(c), ask lines 422 and 439; Paolo 11/4: 'I keep going all around the city
+     just killing the sabre-tooth tigers'). MEASURED (records/BOHEMIA_WORLD_9_CONTACT_STOPS_HIM_DEAD_AND_THE_QUIET_EVENTS_11_5_26.md): the
+     board was not the cause (hunts 7 in 100 offers over a month of boards); the HUNT was. Every pack of a 'beasts' hunt drew its animal
+     from the ground it stood on, packs that were cleared came back four blocks farther out, toward the rim, and the hills' mix was four
+     parts in nine slow giants (sabre-tooth, bear, sloth, the American lion). So one hunt walked him in rings round the town killing
+     packs of sabre-tooths, up to ten. NOW, rule 389's default: the slow giants (DATA.giants.kinds: they cannot breed back, a clone farm
+     makes tens a year) are never drawn for a pack, a hunt or a job's guards; each is ONE animal, a named rare hunt on a board (big
+     game, its own row's legs), so a hunt for one is an event. A giant named as a foe anywhere is one beast, never a pack */
+  function giant(f) { var G = DATA && DATA.giants && DATA.giants.kinds; return !!(G && G.indexOf(String(f)) >= 0); }
   function beastFor(x, y, R) {
     var T = DATA && DATA.beasts_by_ground; if (!T) return 'beasts';
-    var w = T[groundAt(x, y)] || T['default'], ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_'; });
+    var w = T[groundAt(x, y)] || T['default'], ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_' && !giant(k) && w[k] > 0; });   /* __THE_GIANTS_ARE_RARE__ */
+    if (!ks.length) { w = T['default']; ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_' && !giant(k) && w[k] > 0; }); }
     var r = (R || Math.random)() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
     return ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
   }
@@ -588,8 +598,10 @@
     var sk = clamp(job.skulls, 1, 3);
     job.need = row.need || (k.need_by_skulls || [4, 7, 10])[sk - 1]; job.got = 0;
     job.foe = row.foe || k.foe || 'beasts'; job.what = row.what || 'them';
+    job.packSize = row.pack_size || null;   /* __THE_GIANTS_ARE_RARE__: the row says how many stand (the show's two tigers are two) */
+    if (giant(job.foe)) { job.need = 1; job.packSize = [1, 1]; }   /* a giant is one animal, never a pack */
     job.packs = []; job.packN = 0; job.ring2 = 0;
-    for (var i = 0; i < (k.packs || 3); i++) spawnPack(job, k, town, R);
+    for (var i = 0; i < (row.packs || (giant(job.foe) ? 1 : k.packs) || 3); i++) spawnPack(job, k, town, R);
     if (!job.packs.length) return false;
     backTo(job); job.target = { x: job.packs[0].x, y: job.packs[0].y };
     job.stage = 'hunt';
@@ -605,6 +617,10 @@
     var base = 3; try { base = partyMath('job', { skulls: sk }).count; } catch (e) {}
     var n = clamp(Math.round(base * 0.8) + (R() < 0.2 ? 1 : 0), ps[0], ps[1] + sk);
     var fac = job.foe && job.foe !== 'beasts' ? job.foe : beastFor(s[0], s[1], R);
+    /* __THE_GIANTS_ARE_RARE__: the row's own count, an animal's own most (a lion hunts alone), a giant one */
+    if (job.packSize) n = clamp(n, job.packSize[0], job.packSize[1]);
+    var BLm = DATA && DATA.beast_looks && DATA.beast_looks[fac]; if (BLm && BLm.pack_max) n = Math.min(n, BLm.pack_max);
+    if (giant(fac)) n = 1;
     var p = { id: ++job.packN, x: s[0], y: s[1], n: n, faction: fac, look: fac, home: [town.x, town.y] };
     job.packs.push(p); return p;
   }
@@ -962,7 +978,7 @@
     return null;
   }
   function makeLegs(job, k, row, town, R) {
-    var legs = k.legs.map(function (L) { return JSON.parse(JSON.stringify(L)); });
+    var legs = ((row && Array.isArray(row.legs) && row.legs.length) ? row.legs : k.legs).map(function (L) { return JSON.parse(JSON.stringify(L)); });   /* WORLD 9: a board row may carry its own legs (a named giant's hunt is big game with its own animal) */
     if (k.twist && k.twist.leg && R() < (+k.twist.rate || 0)) { legs.splice(clamp(k.twist.at | 0, 0, legs.length - 1), 0, JSON.parse(JSON.stringify(k.twist.leg))); job.twist = k.twist.id || 'twist'; }
     var prev = { x: town.x, y: town.y };
     for (var i = 0; i < legs.length; i++) { var L = legs[i], p = legSpot(L, town, prev, R); if (!p) return false;

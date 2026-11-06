@@ -56,7 +56,13 @@
   function at() { try { return [city.x | 0, city.y | 0]; } catch (e) { return [0, 0]; } }
   function esc2(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function say(line) { if (!line) return; try { if (typeof loopSay === 'function') loopSay(line); } catch (e) {} }
-  function feed(who, txt) { try { if (root.BOHEMIA_FEED) root.BOHEMIA_FEED.push({ who: who, txt: txt, kind: 'mine', draft: true }); } catch (e) {} }
+  /* __A_QUIET_EVENT_IS_A_POST__ (WORLD 9, rule 398(b)): the road's posts go to the phone's own feed (BohemiaFeed.mouth, the city
+     page's door into the FEED app and its strip); the old stream keeps them too, for a page without the FEED engine. MEASURED before:
+     they went only to the old stream, which the phone stops reading once the FEED engine speaks, so none of them reached his screen */
+  function feed(who, txt) {
+    try { if (root.BohemiaFeed && root.BohemiaFeed.mouth) { root.BohemiaFeed.mouth({ who: who, txt: txt, kind: 'mine', draft: true }); return; } } catch (e) {}
+    try { if (root.BOHEMIA_FEED) root.BOHEMIA_FEED.push({ who: who, txt: txt, kind: 'mine', draft: true }); } catch (e) {}
+  }
   function happened(txt) { try { if (typeof DAY !== 'undefined' && DAY.happened) DAY.happened(txt, 'road'); } catch (e) {} }
   function save(why) { try { setTimeout(function () { try { saveNow(why); } catch (e) {} }, 0); } catch (e) {} }
   function bar() { try { if (typeof updHud === 'function') updHud(); } catch (e) {} try { if (typeof root.__barPaintRead === 'function') root.__barPaintRead(); } catch (e) {} }
@@ -254,7 +260,31 @@
     if (resume !== false && !FIGHT) { try { if (typeof TRAVEL !== 'undefined' && TRAVEL && typeof travelGoes === 'function') travelGoes(); } catch (e) {} }
     try { render(); } catch (e) {}
   }
+  /* ==== __A_QUIET_EVENT_IS_A_POST__ (WORLD 9, 11/5, rule 398(b), ask line 438; Paolo 11/4: 'these little pop-up events are fucking
+     with my fast speed vibe'). MEASURED BEFORE: every road event's choice was followed by a SECOND card, the person's answer with one
+     button (GO ON), and every side quest ended on one too; the map stayed on PAUSE under it until he pressed it, then went on. A card
+     with nothing to decide is not a question. NOW a quiet card (o.quiet, one way on or none) is never shown and never stops the map: its
+     words are a post on the phone's feed (rule 371's way: '@theroad', the speaker's name and the line, what it gave him in brackets),
+     its one way on runs at once, and if a march was set it goes on at THE SPEED HE HAD (398(a)). Only a card that asks him something
+     stands (the event's two or three choices, the talk of a quest he chose to have). QUIET.on false is the before (the gate's
+     mutation). ==== */
+  var QUIET = { on: true, n: 0, last: null };
+  function quiet(o) {
+    if (UP) close(false);
+    var got = (o.got && o.got.length) ? ' (' + o.got.join(', ') + ')' : '', said = String(o.text || '').replace(/\s+/g, ' ').trim();
+    if (said === '...') said = '';
+    var p = o.post !== undefined ? o.post : ((said || got) ? { who: '@theroad', txt: (o.name ? o.name + ': ' : '') + (said || 'Done.') + got } : null);   /* draft:true */
+    if (p && p.txt) feed(p.who, p.txt);
+    QUIET.n++; QUIET.last = { name: o.name || null, head: o.head || null, post: p ? p.txt : null, at: Date.now() };
+    root.__ROADEV_QUIET = QUIET.last;
+    var op = (o.opts || [])[0];
+    if (op && !op.off && typeof op.fn === 'function') { try { op.fn(); } catch (e) { root.__ROADEV_ERR = String(e && e.message || e); } }
+    if (!UP && !FIGHT) { try { if (typeof TRAVEL !== 'undefined' && TRAVEL && typeof travelGoes === 'function') travelGoes(); } catch (e) {} }
+    try { render(); } catch (e) {}
+    return null;
+  }
   function card(o) {
+    if (QUIET.on && o && o.quiet && (o.opts || []).length <= 1) return quiet(o);   /* __A_QUIET_EVENT_IS_A_POST__ */
     if (UP) close(false);
     try { if (typeof travelInterrupt === 'function') travelInterrupt('event'); } catch (e) {}
     var M = root.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (e) { return ''; } };
@@ -382,10 +412,10 @@
     var s = st(); s.log.push({ id: e.id, chose: o.t, day: day() }); s.log = s.log.slice(-60); put(s);
     root.__ROADEV_CHOSE = (root.__ROADEV_CHOSE || []).concat([{ id: e.id, t: o.t, got: r.got }]);
     happened((who.name || 'Someone') + ' on the road: ' + o.t);
-    if (r.say) feed('@theroad', (who.name ? who.name + ': ' : '') + r.say);
+    if (r.say && (r.fight || r.quest || !QUIET.on)) feed('@theroad', (who.name ? who.name + ': ' : '') + r.say);   /* the quiet card below posts its own line */
     if (r.fight) { close(false); return; }
     if (r.quest) { close(false); questBegin(r.quest); return; }
-    card({ look: who.look, name: who.name, from: who.from, text: r.say || '...', got: r.got, head: 'ON THE ROAD', opts: [{ t: 'GO ON', fn: function () { close(); } }] });
+    card({ quiet: true, look: who.look, name: who.name, from: who.from, text: r.say || '...', got: r.got, head: 'ON THE ROAD', opts: [{ t: 'GO ON', fn: function () { close(); } }] });   /* __A_QUIET_EVENT_IS_A_POST__: his answer, nothing to decide */
   }
 
   /* ======================= THE SIDE QUESTS ======================= */
@@ -473,7 +503,9 @@
     happened(Q.title + ': ' + (S.log || 'done.'));
     feed('@thecrew', S.log || (Q.title + ', done.'));   /* the quest's own @LOG line, the journal on the phone */
     if (r.fight) { close(false); return; }   /* CONTENT 2: an ending that is a fight (their blood is in its pay): the fight's own end says what it paid */
-    card({ look: P.look, name: P.name, from: P.from, text: (S.log || '...') + (r.say ? '\n\n' + r.say : ''), got: r.got, head: String(Q.title || '').toUpperCase() + (S.end === 'FAIL' ? ' · OVER' : ' · DONE'), opts: [{ t: 'GO ON', fn: function () { close(); } }] });
+    var qgot = (r.got && r.got.length) ? ' (' + r.got.join(', ') + ')' : '';
+    card({ quiet: true, post: (r.say || qgot) ? { who: '@theroad', txt: P.name + ': ' + (r.say || String(Q.title || '') + (S.end === 'FAIL' ? ', over.' : ', done.')) + qgot } : null,   /* __A_QUIET_EVENT_IS_A_POST__: the ending, nothing to decide; its log line is already @thecrew's post above */
+      look: P.look, name: P.name, from: P.from, text: (S.log || '...') + (r.say ? '\n\n' + r.say : ''), got: r.got, head: String(Q.title || '').toUpperCase() + (S.end === 'FAIL' ? ' · OVER' : ' · DONE'), opts: [{ t: 'GO ON', fn: function () { close(); } }] });
   }
   function places() {
     var s = st(), out = []; if (!SQ) return out;
@@ -494,7 +526,7 @@
     return { ready: !!EV && !!SQ, events: EV ? EV.events.length : 0, quests: SQ ? Object.keys(SQ.quests).length : 0, walked: s.walked, last: s.last, met: s.met,
       seen: Object.keys(s.seen), flags: s.flags, held: places(), questState: s.quests, card: !!UP, fighting: !!FIGHT };
   }
-  root.BohemiaRoadEvents = { load: load, ready: function () { return !!EV && !!SQ; }, step: step, fire: fire, card: card, close: close, apply: apply, tagOf: tagOf,
+  root.BohemiaRoadEvents = { QUIET: QUIET, load: load, ready: function () { return !!EV && !!SQ; }, step: step, fire: fire, card: card, close: close, apply: apply, tagOf: tagOf,
     places: places, here: here, arrived: arrived, status: status, questBegin: questBegin, data: function () { return { events: EV, quests: SQ }; }, up: function () { return !!UP; },
     fighting: function () { return !!FIGHT; } };
   load();

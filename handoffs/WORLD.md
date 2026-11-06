@@ -1,5 +1,45 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 9 (11/5-11/6; rule 409's first wave; ask lines 443, 438, 435, 439, 422). BUILD 11/6b - CONTACT STOPS HIM DEAD, SPACE HOLDS 4X.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_9_CONTACT_STOPS_HIM_DEAD_AND_THE_QUIET_EVENTS_11_5_26.md.
+- 401(b) CONTACT STOPS HIM DEAD (BOHEMIA_CITY_WORLD.html __CONTACT_STOPS_HIM_DEAD__): measured, the picture rode 0.73 of a block behind the
+  logic and walked on 268 ms under the meet card. Now travelInterrupt('meet'|'event') calls glideDead(): the glide's queue is dropped
+  where the picture IS (no snap), the block the logic took that tick is never walked, every party's picture stops too, nothing walks
+  while the card stands (glideHeld), the hop sets down over a quarter beat (glideLandLift), the card's dark closes on the picture. The
+  logic is untouched. CONTACT_DEAD.on false is the before. After: 0 blocks of slide (it stands about a block short of the logic's block).
+- 398(b) A QUIET EVENT IS A POST (bohemia_road_events.js __A_QUIET_EVENT_IS_A_POST__): all 45 road events ask; the quiet cards were the
+  ANSWER after his choice (GO ON) and a side quest's ending. A card with o.quiet and one way on is never shown: a post '@theroad', NAME:
+  line (what it gave), its one way runs, the march goes on at his speed. QUIET.on false is the before. The 26 one-button talk lines inside
+  side quests stay cards (a conversation he chose). FOUND ON THE WAY: the road's posts went only to the old stream, which the phone stops
+  reading once the FEED engine speaks; now BohemiaFeed.mouth (my block after FEED's, BOHEMIA_CITY_WORLD.html) merges the map's verbatim
+  lines into BohemiaFeed.read(), FEED's engine untouched. By the code (not run), bosses' and his map's posts (bohemia_bosses.js,
+  bohemia_his_map.js) still go only to the old stream, so the phone would not show them either: one line each to call BohemiaFeed.mouth
+  first (his map is ours, next round; bosses is BOSSES').
+- 396 THE SPACE BAR (BOHEMIA_CITY_WORLD.html __SPACE_HOLDS_FOUR_TIMES__ spaceKey, bohemia_phone.js the shell's half): a tap (under
+  TRAVEL_CLOCK.holdMs) pauses and plays on release; a hold runs 4x while held, his speed back on let go, his kept speed never moves; a
+  card during the hold gives his own speed back. Both doors (the shell's focus, the map's).
+- 399 + 389 NOT ALL HUNTS (bohemia_job_kinds.js __THE_GIANTS_ARE_RARE__, bohemia_job_danger.js rareUp, BOHEMIA_JOB_KINDS.json): measured,
+  the board was 7% hunts; the cause was each hunt pack drawing its animal from its ground and respawning farther out, and the hills
+  were 4/9 giants. Now giants (giants.kinds) never in a pack, hunt or guard, always one animal; the hills and desert get burros, horses,
+  coyotes; lions pack_max 2; the show's two tigers one pack of two; big game rows may carry their own legs: the old lion is the
+  American lion, plus THE SABRE-TOOTH IN THE RED ROCKS and THE SLOTH AT TULE SPRINGS, each 'rare' 0.2 (up one board window in five).
+  FIVE NEW KINDS as data legs: lair (the den), investigate (the stew, 388), carcass (the vultures' kill, 392), follow (the courier, a
+  Network man, 391), farm (the Mob's grow house). Pays baked by tools/bohemia_economy_job_pay.js. 24 kinds, 60 offer rows.
+- NEW GATES: gates/contact_stops_him_dead_gate.js 18/0 (C1-C6 the stop, Q1-Q5 the quiet events, S1-S4 the space bar; computer);
+  gates/way_more_quests_not_all_hunts_gate.js 7/0 (a month of boards: top kind 25% in a window, hunts 7%, giants 3.5% of fights).
+- RAN: a job pays 23/0, DEMO BUILD 25/0, THE MAP GLIDES 14/0, EVERY JOB KIND 37/0, THE FEED IS ALIVE 29/0, THE RADIO LIVES IN THE FEED 5/0,
+  NOTHING POPS 38/0, THE BOARDS ALWAYS HAVE WORK 24/0, THE BOARD'S QUESTS ARE PEOPLE 17/0. THE PHONE 159/5: one leg ('PLAY alone sets off')
+  took the new den job, 6 blocks out, which the card's own walk reaches before PLAY (a gate timing for UI); the rest of that run's reds
+  are the fight's phone strike and its follow-on throws, green in the other hand's run.
+- OWED: 399(a) a town's own faction's jobs first (the deal is RUN TWO's slices/bohemia_board_shelf.js; a row needs a 'faction');
+  409(c) the Pocket City 2 places (next round). SEEN, NOT EXPLAINED: in the contact gate a march set right after a REAL chase's FALL BACK
+  did not start in two runs of three (the gate now runs the chase last); a hand on a phone has not reported it, worth one look.
+- MAIN'S REDS I MET, NOT MINE (main's files swapped in, same numbers): THE PARTIES WALK 6/4 (walking people drawn on 0 frames, a party
+  moving 7.299 blocks in a frame, his two at his shoulders 0, nobody walking after the clock stops 0); MEET BEFORE YOU FIGHT 9/6 (M6, M9,
+  M11, M13 to M15: the second chase never engages, a beast pack read as MEN, no still enemy found; identical on main).
+- LATE: a road card's dead stop only on a march in progress (a job's talk on arrival lets him walk in); contact gate rerun 18/0.
+[bb Battle Brothers stops the company the instant a party engages it; its event screen pauses only to ask; its giants are rare named hunts.]
+
 WORLD 8 (11/3; ask lines 117, 185, 39; BOSSES FIX's pin crash). BUILD 11/3zzt (the crash) and BUILD 11/3zzzq (the rest). BUILT, NOT YET SEEN.
 - THE PIN CRASH (11/3zzt, 41843539, live): the game was right. The walk to the boss's sign can end inside a town; the town's
   screen stands over the map and a held finger lands on the town (THE CLINIC's line), never the map. The gate now leaves the

@@ -3,8 +3,9 @@
   "version": "job-kinds-10-24c+content-11-2",
   "draft": true,
   "source": "questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md (THE TABLE and THE ROWS); Battle Brothers' numbers quoted there from the wiki dump",
-  "beasts_by_ground": {"_why": "BEASTS 2 11/3 (rule 345 amended (b), Paolo 11/3: 'everything's looking like a fucking coyote'; ask line 381): a job whose foe is 'beasts' meets the beasts of the ground its fight is on, by weight; a canid is one choice among many, never the default. The ground is WORLD's (records/target/BOHEMIA_BOARD_KINDS.json districts); the habitats are the animals' own (records/target/bb/bohemia_enemies.json rows: the coyote the suburbs' edges and the parks, the hog the water, the camel and the bull the open desert, the lion the hills). A job that names its animal (foe 'wolves', 'dogs', 'lions' ...) meets that animal. draft: TUNING owns the weights.", "suburb_block": {"coyotes": 2, "dogs": 2, "bulls": 1, "hyenas": 1, "hogs": 1}, "trailer_park": {"dogs": 2, "coyotes": 2, "hogs": 1, "bulls": 1}, "lot_and_bigbox": {"hyenas": 2, "dogs": 2, "coyotes": 1, "bulls": 1, "hogs": 1}, "the_strip": {"lions": 2, "hyenas": 1, "dogs": 1}, "industrial": {"hyenas": 2, "dogs": 1, "wolves": 1, "hogs": 1}, "landfill": {"hyenas": 3, "dogs": 2, "coyotes": 1}, "golf_and_park": {"bulls": 2, "coyotes": 2, "hogs": 1, "wolves": 1, "bison": 1}, "wash_and_shore": {"hogs": 4, "coyotes": 1, "bulls": 1}, "solar_and_pumps": {"camels": 2, "coyotes": 2, "wolves": 1, "horses": 2}, "freeway": {"wolves": 2, "hyenas": 2, "camels": 1, "dogs": 1, "coyotes": 1}, "airport": {"wolves": 2, "camels": 1, "dogs": 1, "horses": 1}, "open_desert": {"camels": 3, "bulls": 2, "wolves": 1, "hyenas": 1, "bears": 1, "bison": 2, "horses": 2, "prides": 1}, "hills": {"lions": 3, "wolves": 1, "bulls": 1, "sloths": 1, "bears": 1, "sabres": 1, "prides": 1}, "default": {"wolves": 1, "hyenas": 1, "dogs": 1, "coyotes": 1, "bulls": 1, "hogs": 1, "camels": 1, "lions": 1}},
-  "beast_looks": {"_why": "BEASTS 2 11/3: the map draws each beast party from that animal's own fight sheet (slices/fight_rig/fight_rig.json looks, sizes read from the index the fight reads), and the job's words name it.", "wolves": {"look": "beast_dire_wolf", "label": "dire wolves"}, "hyenas": {"look": "beast_cave_hyena", "label": "hyenas"}, "dogs": {"look": "beast_feral_dog_shepherd", "label": "dogs"}, "coyotes": {"look": "beast_coyote", "label": "coyotes"}, "bulls": {"look": "beast_feral_bull", "label": "a wild bull"}, "hogs": {"look": "beast_feral_hog", "label": "hogs"}, "camels": {"look": "beast_camelops", "label": "camels"}, "lions": {"look": "beast_mountain_lion", "label": "a lion"}, "bears": {"look": "beast_short_faced_bear", "label": "a giant bear"}, "sloths": {"look": "beast_ground_sloth", "label": "a ground sloth"}, "sabres": {"look": "beast_sabre_tooth", "label": "a sabre-tooth"}, "prides": {"look": "beast_american_lion", "label": "giant lions"}, "bison": {"look": "beast_ancient_bison", "label": "bison"}, "horses": {"look": "beast_ice_age_horse", "label": "wild horses"}},
+  "beasts_by_ground": {"_why": "BEASTS 2 11/3 (rule 345 amended (b), Paolo 11/3: 'everything's looking like a fucking coyote'; ask line 381): a job whose foe is 'beasts' meets the beasts of the ground its fight is on, by weight; a canid is one choice among many, never the default. The ground is WORLD's (records/target/BOHEMIA_BOARD_KINDS.json districts); the habitats are the animals' own (records/target/bb/bohemia_enemies.json rows: the coyote the suburbs' edges and the parks, the hog the water, the camel and the bull the open desert, the lion the hills). A job that names its animal (foe 'wolves', 'dogs', 'lions' ...) meets that animal. draft: TUNING owns the weights. WORLD 9 11/5 (rules 389 and 399(c), __THE_GIANTS_ARE_RARE__): the slow lab giants (giants.kinds: the sabre-tooth, the short-faced bear, the ground sloth, the American lion, Camelops) are out of every ground's mix, so no pack, hunt or guard is ever one; each is a named rare hunt of its own (big game). The hills and the open desert are the real Mojave's in their place: wild burros and horses (Red Rock's burros), coyotes, a mountain lion now and then (a lion hunts alone: beast_looks pack_max).", "suburb_block": {"coyotes": 2, "dogs": 2, "bulls": 1, "hyenas": 1, "hogs": 1}, "trailer_park": {"dogs": 2, "coyotes": 2, "hogs": 1, "bulls": 1}, "lot_and_bigbox": {"hyenas": 2, "dogs": 2, "coyotes": 1, "bulls": 1, "hogs": 1}, "the_strip": {"lions": 1, "hyenas": 1, "dogs": 2}, "industrial": {"hyenas": 2, "dogs": 1, "wolves": 1, "hogs": 1}, "landfill": {"hyenas": 3, "dogs": 2, "coyotes": 1}, "golf_and_park": {"bulls": 2, "coyotes": 2, "hogs": 1, "wolves": 1, "bison": 1}, "wash_and_shore": {"hogs": 4, "coyotes": 1, "bulls": 1}, "solar_and_pumps": {"coyotes": 2, "wolves": 1, "horses": 2}, "freeway": {"wolves": 2, "hyenas": 2, "dogs": 1, "coyotes": 1}, "airport": {"wolves": 2, "dogs": 1, "horses": 1}, "open_desert": {"bulls": 2, "wolves": 1, "hyenas": 1, "bison": 2, "horses": 3, "coyotes": 1}, "hills": {"lions": 1, "wolves": 2, "coyotes": 2, "bulls": 1, "horses": 2}, "default": {"wolves": 1, "hyenas": 1, "dogs": 1, "coyotes": 1, "bulls": 1, "hogs": 1, "lions": 1}},
+  "beast_looks": {"_why": "BEASTS 2 11/3: the map draws each beast party from that animal's own fight sheet (slices/fight_rig/fight_rig.json looks, sizes read from the index the fight reads), and the job's words name it. WORLD 9 11/5: pack_max is the most of that animal that stand together (a mountain lion hunts alone or with one more; a giant is always one).", "wolves": {"look": "beast_dire_wolf", "label": "dire wolves"}, "hyenas": {"look": "beast_cave_hyena", "label": "hyenas"}, "dogs": {"look": "beast_feral_dog_shepherd", "label": "dogs"}, "coyotes": {"look": "beast_coyote", "label": "coyotes"}, "bulls": {"look": "beast_feral_bull", "label": "a wild bull"}, "hogs": {"look": "beast_feral_hog", "label": "hogs"}, "camels": {"look": "beast_camelops", "label": "camels", "pack_max": 1}, "lions": {"look": "beast_mountain_lion", "label": "a lion", "pack_max": 2}, "bears": {"look": "beast_short_faced_bear", "label": "a giant bear", "pack_max": 1}, "sloths": {"look": "beast_ground_sloth", "label": "a ground sloth", "pack_max": 1}, "sabres": {"look": "beast_sabre_tooth", "label": "a sabre-tooth", "pack_max": 1}, "prides": {"look": "beast_american_lion", "label": "giant lions", "pack_max": 1}, "bison": {"look": "beast_ancient_bison", "label": "bison"}, "horses": {"look": "beast_ice_age_horse", "label": "wild horses"}},
+  "giants": {"_why": "WORLD 9 11/5 (rule 389's default, rule 399(c); Paolo 11/4: 'the amount of beasts I'm slaying, I feel like that's not realistic... I keep going all around the city just killing the sabre-tooth tigers'). The slow lab giants: a clone farm makes tens a year and these cannot breed back (Dolly had six lambs; a sabre-tooth's surrogate is a lion with one cub a year), so they are never a pack, never a hunt's quarry, never a job's guard; each is ONE animal, a named rare hunt on a board (big game, its own row's legs), so a hunt for one is an event. The fast lab lines (dire wolves, bison, hogs) and the ferals the dead feed (dogs, coyotes, cattle, burros) are the packs. max_share is the gate's line: across a seeded month of boards, giant fights at most this share of all the jobs' fights.", "kinds": ["sabres", "bears", "sloths", "prides", "camels"], "max_share": 0.05, "draft": true},
   "kinds": {
     "clear-crew": {
       "verb": "CLEAR",
@@ -501,7 +502,7 @@
           "act": "BIG GAME",
           "name": "THE OLD LION",
           "fight": {
-            "foe": "lions",
+            "foe": "prides",
             "n": 1,
             "label": "the lab lion"
           },
@@ -629,6 +630,267 @@
         }
       ],
       "draft": true
+    },
+    "lair": {
+      "verb": "ROOT OUT",
+      "word": "THE DEN",
+      "bb": "Destroy the lair (Battle Brothers: root out the beasts where they sleep, not where they roam)",
+      "blocks": [
+        6,
+        13
+      ],
+      "plays": "one den out there; what sleeps in it is the fight, all at once, in its own yard; back to the client to be paid",
+      "legs": [
+        {
+          "go": "spot",
+          "blocks": [
+            6,
+            13
+          ],
+          "act": "THE DEN",
+          "name": "THE DEN",
+          "dark": false,
+          "fight": {
+            "foe": "beasts",
+            "n": "party",
+            "label": "what sleeps in the den"
+          },
+          "say": "The den is quiet now. Goat bones, a dog collar with a name on it, and a nest of old blankets."
+        },
+        {
+          "go": "client"
+        }
+      ],
+      "draft": true,
+      "by": "WORLD 9 11/5"
+    },
+    "investigate": {
+      "verb": "FIND OUT",
+      "word": "FIND OUT",
+      "bb": "none in the list by that name: Battle Brothers sends you to look into a thing (the Cultists' rumour, the missing villagers); ours is rule 388's stew, do not ask, do not tell",
+      "blocks": [
+        4,
+        10
+      ],
+      "plays": "ask the one who knows, look where he says, come back and say what you found or keep it to yourself; nothing to fight unless you make it one",
+      "legs": [
+        {
+          "go": "spot",
+          "blocks": [
+            4,
+            9
+          ],
+          "act": "ASK",
+          "name": "THE BUTCHER'S CART",
+          "talk": {
+            "name": "HERMANO LUPE",
+            "look": "cast_apron",
+            "from": "who sells the stew by the cup",
+            "says": "Meat is meat, jefe. Two batteries a cup, and the cup is hot. You want to know what is in it, you go look at the back of the old Albertsons. You want to eat, you stop asking.",
+            "opts": [
+              {
+                "t": "Go look at the back of the Albertsons.",
+                "go": "next",
+                "fx": {
+                  "say": "Then go. I did not tell you nothing."
+                }
+              },
+              {
+                "t": "Eat a cup and leave it.",
+                "go": "lost",
+                "fx": {
+                  "food": 1,
+                  "say": "Smart man. Hot cup, no questions. Go with God."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "go": "spot",
+          "blocks": [
+            3,
+            6
+          ],
+          "act": "LOOK",
+          "name": "THE BACK OF THE ALBERTSONS",
+          "wait": 20,
+          "say": "A walk-in freezer with no power and a padlock somebody cut. Bones in a feed sack. Not all of them are dog.",
+          "talk": {
+            "name": "HERMANO LUPE",
+            "look": "cast_apron",
+            "from": "who followed you to the back",
+            "says": "So now you know. Everybody eats, nobody asks, and the kids stop crying at night. What are you going to tell the old lady?",
+            "opts": [
+              {
+                "t": "The truth.",
+                "go": "next",
+                "fx": {
+                  "mood": {
+                    "act": "civilian_contract_poor",
+                    "place": "near"
+                  },
+                  "say": "Then tell her. She will still be hungry tomorrow."
+                }
+              },
+              {
+                "t": "Dog and goat. Nothing else.",
+                "go": "next",
+                "pay": 1.2,
+                "fx": {
+                  "food": 1,
+                  "say": "Good man. A cup for the road, on the house."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "go": "client",
+          "say": "She listens to all of it and does not say anything for a long time. Then she pays."
+        }
+      ],
+      "draft": true,
+      "by": "WORLD 9 11/5"
+    },
+    "carcass": {
+      "verb": "FIND THE MEAT",
+      "word": "THE MEAT",
+      "bb": "none: ours (rule 392, the carcass: haul it, tell somebody, or leave it; the vultures show you where, rule 386)",
+      "blocks": [
+        6,
+        14
+      ],
+      "plays": "a big kill lies out there under the vultures; go and see it, then tell the client where it is and their carts go for it; paid in batteries and a share of the meat",
+      "legs": [
+        {
+          "go": "spot",
+          "blocks": [
+            6,
+            14
+          ],
+          "act": "THE KILL",
+          "name": "UNDER THE VULTURES",
+          "wait": 15,
+          "say": "Three vultures on it already and more coming. Still more meat than the camp eats in a week, if the carts go now."
+        },
+        {
+          "go": "client",
+          "fx": {
+            "food": 2,
+            "say": "The carts are already rolling. You eat tonight, same as us."
+          }
+        }
+      ],
+      "draft": true,
+      "by": "WORLD 9 11/5"
+    },
+    "follow": {
+      "verb": "FOLLOW",
+      "word": "FOLLOW",
+      "bb": "none by that name: Battle Brothers' Investigate leads; ours is rule 391, the long game (who keeps the drug coming), told through the factions we have (rule 374)",
+      "blocks": [
+        6,
+        16
+      ],
+      "plays": "follow the man who brings the drug down the road after dark, see who he meets, and choose: take what he carries, or let it go and tell the client who it was",
+      "legs": [
+        {
+          "go": "road",
+          "blocks": [
+            5,
+            10
+          ],
+          "act": "FOLLOW",
+          "name": "THE COURIER",
+          "dark": true,
+          "say": "He walks like a man who has done this a hundred times. He never looks back."
+        },
+        {
+          "go": "spot",
+          "blocks": [
+            3,
+            6
+          ],
+          "act": "WATCH",
+          "name": "WHERE HE STOPS",
+          "fight": {
+            "foe": "brigands",
+            "n": 2,
+            "label": "the courier and the man he meets"
+          },
+          "talk": {
+            "name": "A MAN IN A CLEAN JACKET",
+            "look": "faction_network",
+            "from": "who was waiting for the courier",
+            "says": "You followed him all the way out here? Okay. Here is how it goes. You never saw me, I never saw you, and your crew eats this week. Or you try something and we see how good you are in the dark.",
+            "opts": [
+              {
+                "t": "Take the bag.",
+                "go": "fight",
+                "fx": {
+                  "say": "Bad choice, amigo."
+                }
+              },
+              {
+                "t": "Let him go. Tell the client.",
+                "go": "next",
+                "fx": {
+                  "say": "Smart. Tell them whatever you want. Nobody is going to believe you."
+                }
+              },
+              {
+                "t": "Take his batteries and forget it.",
+                "go": "next",
+                "pay": 0,
+                "fx": {
+                  "bats": 15,
+                  "say": "Fifteen. That is what forgetting costs today."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "go": "client",
+          "say": "A clean jacket and a Network pin, way out there. She writes it down in a notebook she keeps under the floor."
+        }
+      ],
+      "draft": true,
+      "by": "WORLD 9 11/5"
+    },
+    "farm": {
+      "verb": "HOLD",
+      "word": "THE FARM",
+      "bb": "Defend the settlement (Battle Brothers), on one farm: ours is the Mob's grow house when the power fails",
+      "blocks": [
+        5,
+        12
+      ],
+      "plays": "the farm's pumps are down and the lights are off; get there, wait for dark with them, and hold off the ones who come for the crop; back to be paid",
+      "legs": [
+        {
+          "go": "spot",
+          "blocks": [
+            5,
+            12
+          ],
+          "act": "HOLD",
+          "name": "THE GROW HOUSE",
+          "dark": true,
+          "fight": {
+            "foe": "brigands",
+            "n": "party",
+            "label": "the ones who came for the crop"
+          },
+          "say": "They ran when the generator coughed back on. The crop is still in the dirt."
+        },
+        {
+          "go": "client"
+        }
+      ],
+      "draft": true,
+      "by": "WORLD 9 11/5"
     }
   },
   "offers": {
@@ -789,7 +1051,12 @@
       "kind": "hunt-kind",
       "what": "the show's cats",
       "foe": "lions",
-      "need": 2
+      "need": 2,
+      "packs": 1,
+      "pack_size": [
+        2,
+        2
+      ]
     },
     "qd-ap03": {
       "kind": "hunt-kind",
@@ -996,6 +1263,68 @@
     },
     "jk-free-pen": {
       "kind": "free"
+    },
+    "jk-lair-waterpark": {
+      "kind": "lair",
+      "foe": "beasts"
+    },
+    "jk-find-out-stew": {
+      "kind": "investigate"
+    },
+    "jk-meat-vultures": {
+      "kind": "carcass"
+    },
+    "jk-follow-courier": {
+      "kind": "follow"
+    },
+    "jk-farm-mob": {
+      "kind": "farm"
+    },
+    "jk-biggame-sabre": {
+      "kind": "big-game",
+      "legs": [
+        {
+          "go": "far",
+          "blocks": [
+            12,
+            20
+          ],
+          "act": "BIG GAME",
+          "name": "THE RED ROCKS",
+          "fight": {
+            "foe": "sabres",
+            "n": 1,
+            "label": "the sabre-tooth"
+          },
+          "say": "The sabre-tooth is down. Its teeth are longer than your hand. Nobody wants to touch them."
+        },
+        {
+          "go": "client"
+        }
+      ]
+    },
+    "jk-biggame-sloth": {
+      "kind": "big-game",
+      "legs": [
+        {
+          "go": "far",
+          "blocks": [
+            10,
+            18
+          ],
+          "act": "BIG GAME",
+          "name": "TULE SPRINGS",
+          "fight": {
+            "foe": "sloths",
+            "n": 1,
+            "label": "the ground sloth"
+          },
+          "say": "The sloth is down in the fossil beds, right where its grandparents' bones are. It took all of you to roll it."
+        },
+        {
+          "go": "client"
+        }
+      ]
     }
   },
   "guess": [
@@ -1218,6 +1547,8 @@
         "id": "jk-biggame-lion",
         "title": "Kill the old lion of the golf course",
         "skulls": 3,
+        "rare": 0.2,
+        "rare_why": "WORLD 9 11/5 (rules 389, 399(c)): a slow giant is a named rare hunt, up on a place's board one window in five (bohemia_job_danger.js rareUp)",
         "pay": 90,
         "tiers": [
           "fortress",
@@ -1274,6 +1605,150 @@
         "says": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring one of them home to me, and it pays {pay} batteries.",
         "draft": true,
         "by": "CONTENT 11/2"
+      },
+      {
+        "id": "jk-lair-waterpark",
+        "title": "Clear the den in the old water park",
+        "skulls": 2,
+        "pay": 60,
+        "tiers": [
+          "camp",
+          "town"
+        ],
+        "when": null,
+        "client": {
+          "name": "Gordo Ruiz",
+          "from": "who keeps the goats on Lake Mead Boulevard",
+          "look": "cast_barearms",
+          "draft": true
+        },
+        "says": "Something sleeps in the old water park and takes a goat every night. Find where it sleeps and clear it out, and it pays {pay} batteries.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
+      },
+      {
+        "id": "jk-find-out-stew",
+        "title": "Find out what is in the stew",
+        "skulls": 1,
+        "pay": 10,
+        "tiers": [
+          "camp",
+          "town"
+        ],
+        "when": null,
+        "client": {
+          "name": "Doña Chelo",
+          "from": "whose grandson eats at the stew cart",
+          "look": "cast_poncho",
+          "draft": true
+        },
+        "says": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays {pay} batteries.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
+      },
+      {
+        "id": "jk-meat-vultures",
+        "title": "Find what the vultures found",
+        "skulls": 1,
+        "pay": 10,
+        "tiers": [
+          "camp",
+          "town",
+          "fortress"
+        ],
+        "when": null,
+        "client": {
+          "name": "Rafa Quintero",
+          "from": "who runs the camp kitchen",
+          "look": "cast_widebrim",
+          "draft": true
+        },
+        "says": "The vultures have circled past the wash since morning, so something big is dead out there. Go see what it is and tell me where, and it pays {pay} batteries and a share.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
+      },
+      {
+        "id": "jk-follow-courier",
+        "title": "Follow the man who brings the drug",
+        "skulls": 2,
+        "pay": 78,
+        "tiers": [
+          "town",
+          "fortress"
+        ],
+        "when": null,
+        "client": {
+          "name": "Sor Inés",
+          "from": "who runs the clinic and counts the overdoses",
+          "look": "faction_church",
+          "draft": true
+        },
+        "says": "Every Thursday a man walks the drug down Boulder Highway and the clinic fills up. Follow him and tell me who he answers to, and it pays {pay} batteries.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
+      },
+      {
+        "id": "jk-farm-mob",
+        "title": "Hold the grow house when the power is out",
+        "skulls": 2,
+        "pay": 76,
+        "tiers": [
+          "town",
+          "fortress"
+        ],
+        "when": null,
+        "client": {
+          "name": "Sal Benedetti",
+          "from": "who runs the Mob's farms",
+          "look": "faction_mob",
+          "draft": true
+        },
+        "says": "The power to the grow house is out and every crew in the valley knows it. Sit on it with my people until the lights come back, and the Family pays {pay} batteries.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
+      },
+      {
+        "id": "jk-biggame-sabre",
+        "title": "Kill the sabre-tooth in the red rocks",
+        "skulls": 3,
+        "rare": 0.2,
+        "rare_why": "WORLD 9 11/5 (rules 389, 399(c)): a slow giant is a named rare hunt, up on a place's board one window in five (bohemia_job_danger.js rareUp)",
+        "pay": 110,
+        "tiers": [
+          "fortress"
+        ],
+        "when": null,
+        "client": {
+          "name": "Dr. Halvorsen",
+          "from": "who used to feed it at the lab",
+          "look": "cast_longcoat",
+          "draft": true
+        },
+        "says": "One of my sabre-tooths has lived in the red rocks since the fences went down, and it is very good at killing. Bring me proof it is dead and it pays {pay} batteries.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
+      },
+      {
+        "id": "jk-biggame-sloth",
+        "title": "Bring down the sloth at Tule Springs",
+        "skulls": 3,
+        "rare": 0.2,
+        "rare_why": "WORLD 9 11/5 (rules 389, 399(c)): a slow giant is a named rare hunt, up on a place's board one window in five (bohemia_job_danger.js rareUp)",
+        "pay": 95,
+        "tiers": [
+          "fortress",
+          "town"
+        ],
+        "when": null,
+        "client": {
+          "name": "Professor Dade",
+          "from": "who dug the fossil beds before the crash",
+          "look": "cast_satchel",
+          "draft": true
+        },
+        "says": "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays {pay} batteries.",
+        "draft": true,
+        "by": "WORLD 9 11/5"
       }
     ]
   }

@@ -1040,6 +1040,23 @@
     try { if (!hit) cw.travelSpeedSet(h.prev); cw.TRAVEL_SPEED_LAST = h.last; } catch (e) {}
     window.__PHONE_HOLD4 = { on: false, back: hit ? 'held by a card' : h.prev };
   }
+  /* __SPACE_HOLDS_FOUR_TIMES__ (WORLD 9, 11/5, rule 396's computer half): when the SHELL's page has the key (a tap on the top bar, the
+     gear), the space bar's down and up go to the map's one door (BOHEMIA_CITY_WORLD.html spaceKey: a tap pauses and plays, rule 163(a);
+     a hold runs 4x while held, his kept speed untouched), and the shell's own keydown (which paused on the press) does not also answer.
+     The map's own page answers its own keys. Never while he types, never while a fight is on the glass */
+  function spaceShell(ev, down) {
+    if (ev.code !== 'Space' && ev.key !== ' ') return;
+    var cw = cityWin(); if (!cw || cw === window || typeof cw.spaceKey !== 'function') return;
+    var t = ev.target, tag = t && t.tagName; if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
+    try { var ff = document.getElementById('fightFrame'); if (ff) { var fb = ff.getBoundingClientRect(); if (fb.width > 0 && fb.height > 0 && getComputedStyle(ff).visibility !== 'hidden') return; } } catch (e) {}
+    var got = false; try { got = !!cw.spaceKey(down, !!ev.repeat); } catch (e) {}
+    if (got || (down && ev.repeat)) { ev.preventDefault(); ev.stopImmediatePropagation(); window.__SPACE_HANDED = (window.__SPACE_HANDED | 0) + 1; }
+  }
+  try {
+    document.addEventListener('keydown', function (ev) { spaceShell(ev, true); }, true);
+    document.addEventListener('keyup', function (ev) { spaceShell(ev, false); }, true);
+    window.addEventListener('blur', function () { try { var cw = cityWin(); if (cw && cw !== window && cw.spaceKey) cw.spaceKey(false, false, true); } catch (e) {} });
+  } catch (e) {}
   function slideLetGo(y) {
     var S = H.slide; if (!S) return; slideMove(y);
     holdEnd();   /* __HOLD_FOR_FOUR_TIMES__: his own speed back first; a slide then sets the one he keeps */

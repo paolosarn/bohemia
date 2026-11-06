@@ -140,6 +140,26 @@
       "fights": 1,
       "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 3, the floor 90"
     },
+    "jk-biggame-sabre": {
+      "pay": 110,
+      "before": 110,
+      "violent": true,
+      "kind": "big-game",
+      "skulls": 3,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 3, the floor 110"
+    },
+    "jk-biggame-sloth": {
+      "pay": 95,
+      "before": 95,
+      "violent": true,
+      "kind": "big-game",
+      "skulls": 3,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 3, the floor 95"
+    },
     "jk-bounty-chuy": {
       "pay": 78,
       "before": 70,
@@ -180,6 +200,36 @@
       "fights": 0.4,
       "why": "no killing: 2.6 h x 2.06 + 0.4 fights (the chance) x 26 x 1"
     },
+    "jk-farm-mob": {
+      "pay": 76,
+      "before": 55,
+      "violent": true,
+      "kind": "farm",
+      "skulls": 2,
+      "hours": 8.4,
+      "fights": 1,
+      "why": "killing work: 8.4 h x 2.75 + 1 fight x 26 x 2"
+    },
+    "jk-find-out-stew": {
+      "pay": 10,
+      "before": 20,
+      "violent": false,
+      "kind": "investigate",
+      "skulls": 1,
+      "hours": 2.9,
+      "fights": 0,
+      "why": "no killing: 2.9 h x 2.06 + 0 fights x 26 x 1, the quiet floor 10"
+    },
+    "jk-follow-courier": {
+      "pay": 78,
+      "before": 40,
+      "violent": true,
+      "kind": "follow",
+      "skulls": 2,
+      "hours": 9.3,
+      "fights": 1,
+      "why": "killing work: 9.3 h x 2.75 + 1 fight x 26 x 2"
+    },
     "jk-free-pen": {
       "pay": 65,
       "before": 65,
@@ -189,6 +239,26 @@
       "hours": 3,
       "fights": 1,
       "why": "killing work: 3 h x 2.75 + 1 fight x 26 x 2, the floor 65"
+    },
+    "jk-lair-waterpark": {
+      "pay": 60,
+      "before": 45,
+      "violent": true,
+      "kind": "lair",
+      "skulls": 2,
+      "hours": 2.7,
+      "fights": 1,
+      "why": "killing work: 2.7 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "jk-meat-vultures": {
+      "pay": 10,
+      "before": 14,
+      "violent": false,
+      "kind": "carcass",
+      "skulls": 1,
+      "hours": 3.1,
+      "fights": 0,
+      "why": "no killing: 3.1 h x 2.06 + 0 fights x 26 x 1, the quiet floor 10"
     },
     "jk-patrol-dam": {
       "pay": 119,
