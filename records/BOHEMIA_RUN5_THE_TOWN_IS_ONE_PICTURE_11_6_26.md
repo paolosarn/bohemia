@@ -68,9 +68,11 @@ gate reads each drawing's own record that its ground under the town was continue
   fortresses' layouts take ten minutes a side, so the 28 strips are about two and a half hours of rendering.
 - THE LOOK, FOR DIRECTION/COOK FOUR at final: the three worn patches go_on lays near each seam have stepped edges; seen only off the
   glass or under the phone in the views measured.
-- SEEN, NOT MINE (NOTE for the map's camp and travel owners): through the map's own door in the demo, a camp is made over a town a
-  second after it opens (campMake, then btwCampIn sets the town frame's opacity to 0) with a patrol's warning up; the town is still
-  open behind it (its phone says town). Started this round, after the map's lanes shipped.
+- THE INVISIBLE TOWN, CORRECTED: this lane first read the town fading out after its door as the camp's fade-in (btwCampIn). The
+  coordinator found and fixed the real cause on main (0e6e1cebe, BUILD 11/6j, rule 414): slices/bohemia_motion.js ran the town's grow
+  twice and landed on the first grow's opacity 0. THE TOWN SHOWS 10/0 on this lane's build. This gate now carries P0 (the frame's
+  computed opacity after every door: 24 of 24; planted invisible, 0 of 24), because every pixel leg reads the town's canvas, which
+  draws on behind an invisible frame.
 
 ## GATES (one at a time, nothing else on the box)
 - NEW gates/the_town_is_one_picture_gate.js, the full run (14 towns, upright and on its side, phone right and left, day and night,

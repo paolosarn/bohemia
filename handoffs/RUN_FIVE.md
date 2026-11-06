@@ -32,10 +32,13 @@ NEXT (this lane):
   sees after the rig pass. Cartel needs --simplify --no-denoise (the denoiser's load took it past 14 GB). Worker restarts kill
   background jobs: start renders with setsid nohup, one town a process (scratchpad wide_batch.sh's pattern), skip what is done.
 - THE LOOK at final (DIRECTION / COOK FOUR): the three worn patches near each seam have stepped edges.
-NOTES FOR OTHERS: the map's camp fades a town out a second after it opens through the map's door with a patrol's warning up (campMake
--> btwCampIn sets settleFrame's opacity 0; the town is still open behind it): the map's camp and travel owners. gates/no_top_bar_in_the_
-fight_gate.js and gates/make_camp_from_the_fight_gate.js start road fights on town ground, where a town is always a door: their fights
-never start (red on main); THE SPOILS' roadFight helper shows the fix.
+THE INVISIBLE TOWN (the coordinator's job to this lane, then DONE by the coordinator, 0e6e1cebe BUILD 11/6j, rule 414): the town's
+frame stood at opacity 0 after its door. CORRECTION to what this lane first wrote: the cause was slices/bohemia_motion.js running the
+town's grow twice (two wrappers on loopOpenTown), not the camp fade-in; __ONE_MORPH_A_DOOR__ and gates/the_town_shows_gate.js (10/0 on
+11/6l) hold it. THE TOWN IS ONE PICTURE now carries P0: the frame's computed opacity after every door, never a tap (24/24; planted
+invisible, 0/24), because the town's canvas draws on behind an invisible frame and every pixel leg would pass over it.
+NOTES FOR OTHERS: gates/make_camp_from_the_fight_gate.js starts its road fight on town ground, where a town is always a door, so its
+fight never starts (red on main); THE SPOILS' roadFight helper and RUN SIX's re-aims (4d5b812a) show the fix.
 
 [bb Battle Brothers' town screen is one painted scene with its menus laid over it, and its after-battle loot is one panel after one
 report; ours lays the phone over a town drawn whole and prints the report on a receipt that keeps counting what he takes.]

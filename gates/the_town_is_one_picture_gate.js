@@ -12,6 +12,8 @@
 
    LEGS (the demo, the map's own door, every town the map has; the phone upright 390 x 844 and on its side 844 x 390, on the
    right and on the left, by day and by night):
+     P0 <view> the town is ON THE GLASS: its frame's computed opacity 1 and shown after its door, read never by a tap (rule 414: a
+        town's canvas draws on behind an invisible frame, so the legs below need this one to mean anything)
      P1 <view> *** THE PICTURE COVERS THE WHOLE GLASS *** the town's drawing reaches every edge of the glass: no strip, no band,
         no bar, no fade has anywhere to be
      P2 <view> *** UNDER AND ROUND THE PHONE, THE TOWN'S OWN PICTURE *** the phone hidden, its rectangle and 24 points round it
@@ -26,7 +28,7 @@
      P5 nothing is laid over the town: the settlement screen draws the picture and the town on it, never a tiled, mirrored or
         pasted square of ground (source: padDraw, padGround and the pattern of the picture are gone)
      Z  nothing threw
-   node gates/the_town_is_one_picture_gate.js [--quick: Network, Church and Mob only] [--pictures-only: P3 and P5, no demo] [--plant: P2 must fail]
+   node gates/the_town_is_one_picture_gate.js [--quick: Network, Church and Mob only] [--pictures-only: P3 and P5, no demo] [--plant: P0 and P2 must fail]
    ========================================================================== */
 'use strict';
 const path = require('path');
@@ -89,7 +91,7 @@ const night = (sf, on) => sf.evaluate((on) => { window.postMessage({ type: 'BOHE
 
 async function run(profile) {
   const d = await drive.open({ profile, keepCards: true, beforeTap: async (pg) => { await throughTheTitle(pg); } });
-  const P = d.page, fr = d.fr, tag = profile === 'phone_portrait' ? 'UPRIGHT' : 'ON ITS SIDE', bad = { cover: [], edge: [], cut: [], miss: [] };
+  const P = d.page, fr = d.fr, tag = profile === 'phone_portrait' ? 'UPRIGHT' : 'ON ITS SIDE', bad = { cover: [], edge: [], cut: [], miss: [], shown: [] };
   let views = 0, worst = { r: 0 };
   try {
     await P.waitForTimeout(3000);
@@ -109,6 +111,12 @@ async function run(profile) {
           await P.waitForTimeout(2500);
           await P.evaluate(() => { const b = document.getElementById('bohphone'); if (b) b.style.visibility = 'hidden'; });
           await P.waitForTimeout(300);
+          /* P0: the town is ON THE GLASS, read by the frame's own computed opacity and display after its door, never by a tap (the
+             coordinator 11/6, rule 414: the town's canvas draws on while its frame stands at opacity 0, so every pixel leg below
+             would pass over a town the player cannot see) */
+          if (WALK.__plant) await fr.evaluate(() => { const f = document.getElementById('settleFrame'); if (f) f.style.opacity = '0'; });   /* --plant: the invisible town, P0 must fail */
+          const vis = await fr.evaluate(() => { const f = document.getElementById('settleFrame'); if (!f) return null; const cs = getComputedStyle(f); return { op: +cs.opacity, disp: cs.display, vis: cs.visibility }; }).catch(() => null);
+          if (!vis || vis.disp === 'none' || vis.vis === 'hidden' || vis.op < 0.99) bad.shown.push(w + ' ' + side + (nt ? ' night' : ' day') + ' ' + JSON.stringify(vis));
           const m = await sf.evaluate(MEASURE, WALK);
           await P.evaluate(() => { const b = document.getElementById('bohphone'); if (b) b.style.visibility = ''; });
           views++;
@@ -121,6 +129,7 @@ async function run(profile) {
         await leaveTown(P);
       }
     }
+    ok('P0 ' + tag + ': the town is on the glass after its door (its frame\'s computed opacity 1, shown: ' + (views - bad.shown.length) + ' of ' + views + ')', views > 0 && !bad.shown.length, bad.shown.slice(0, 4).join('; ') || 'all');
     ok('P1 ' + tag + ': *** THE PICTURE COVERS THE WHOLE GLASS *** (' + (views - bad.cover.length) + ' of ' + views + ' views, every town, both sides, day and night)', views >= (ONLY.length ? ONLY.length * 4 : QUICK ? 12 : 56) && !bad.cover.length && !bad.miss.length, bad.cover.concat(bad.miss).slice(0, 4).join('; ') || 'all');
     ok('P2 ' + tag + ': *** UNDER AND ROUND THE PHONE, THE TOWN\'S OWN PICTURE *** (no cut, no laid ground, no mirror, no fade: ' + (views - bad.edge.length) + ' of ' + views + ' views; the least ' + (worst.id || '-') + ' ' + (worst.e ? Math.round(worst.e.share * 100) + '%' : '') + ')', views > 0 && !bad.edge.length && !bad.miss.length, bad.edge.slice(0, 4).join('; ') || 'none');
     ok('P4 ' + tag + ': *** NOTHING CUT *** no thing on the glass sliced by a line inside it (the drawing\'s edge never stands on the glass)', views > 0 && !bad.cut.length && !bad.miss.length, bad.cut.slice(0, 4).join('; ') || 'none');
