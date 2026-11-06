@@ -785,6 +785,14 @@
    "where": "book (ISBN 978-0571238347)",
    "kind": "real",
    "teaches": "the walk is a controlled fall; the body is always leaving balance and catching it, so a cycle where the torso never leans is a treadmill, not a walk."
+  },
+  "WPN-01": {
+   "name": "Colt Government Model 1911, stainless, .45 ACP (the real object)",
+   "folder": "weapon",
+   "file": "reference/library/weapon/INDEX.md",
+   "where": "dealers' listings of the Colt O1911C-SS and 1911C (blackstoneshooting.com, kygunco.com); the numbers in reference/library/weapon/INDEX.md",
+   "kind": "real",
+   "teaches": "a pistol is two readable masses, the slide over the grip leaning back 18 degrees, joined by the guard; 216 mm long, 140 mm tall, 32 mm across, about 1.1 kg; at a dozen pixels the slide's value against what is behind it is what makes the L read."
   }
  }
 }

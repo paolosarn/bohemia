@@ -1,0 +1,19 @@
+{
+ "ref": "WPN-01",
+ "what": "Colt Government Model 1911, stainless, .45 ACP",
+ "length_m": 0.216,
+ "height_m": 0.14,
+ "width_m": 0.032,
+ "barrel_m": 0.127,
+ "mass_kg": [
+  1.0,
+  1.1
+ ],
+ "rounds": "7+1",
+ "sources": [
+  "https://blackstoneshooting.com/colt-1911-government-45-acp-5-00-barrel-7-1-rds-stainless-098289042989",
+  "https://kygunco.com/product/colt-o1911c-ss-government-model-1911-5-45acp-71-stainless",
+  "https://bosque-cat.demo-store.papathemes.com/colt-1911c-government-45acp-5-two-tone"
+ ],
+ "note": "overall 8.5 in and 39 oz (Blackstone), 8.5 in and 35 oz (KY Gun Co, O1911C-SS), height 5.5 in (140 mm) and width 1.25 in (the 1911C listing); no Colt spec sheet was reachable this round, so the numbers are dealers' listings"
+}

@@ -159,14 +159,7 @@
    "name": "pistol",
    "say": "",
    "made": "COOK 10/18 (the rig's first guns)",
-   "rows": [
-    "knife",
-    "dagger",
-    "notched_blade",
-    "rondel_dagger",
-    "qatal_dagger",
-    "estoc"
-   ],
+   "rows": [],
    "sha1": "6a0626d3d113d16f3d0299d36d2a10c2133c41c1",
    "hands": 1
   },
@@ -1895,6 +1888,25 @@
    "sha1": "bfbe8bc47d24fab48e041387cbf3e2a3eccc6b32",
    "hands": 2,
    "was": "shotgun"
+  },
+  "service_pistol": {
+   "glb": "gun_service_pistol.glb",
+   "kind": "held",
+   "name": "pistol",
+   "say": "a stainless Government Model 1911, .45, five-inch barrel, walnut grips, the serial ground off the frame",
+   "made": "COOK 11/6 the golden pistol (tools/bohemia_cook_the_golden_pistol_11_6_26.py), rule 408(b)",
+   "rows": [
+    "knife",
+    "dagger",
+    "notched_blade",
+    "rondel_dagger",
+    "qatal_dagger",
+    "estoc"
+   ],
+   "sha1": "ade6f0f225cb2b6d31b474f650ce6f30e908c0d5",
+   "hands": 1,
+   "was": "pistol",
+   "real": "WPN-01"
   }
  }
 }

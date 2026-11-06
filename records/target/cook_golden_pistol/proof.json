@@ -1,0 +1,518 @@
+{
+ "door": {
+  "at": "2026-11-06T07:48:07.509Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "at": {
+     "you": [
+      2,
+      5
+     ],
+     "raul": [
+      1,
+      5
+     ],
+     "thug": [
+      3,
+      5
+     ]
+    },
+    "can": true,
+    "row": "dagger",
+    "off": "shield",
+    "raul": "another look",
+    "thug": "tier_thug",
+    "zoom": 0.6710361067503924,
+    "open": 0.29081317067294327
+   },
+   "frames": [
+    "door_before_turn0.png",
+    "door_before_turn1.png",
+    "door_before_turn2.png",
+    "door_before_turn3.png",
+    "door_before_turn4.png",
+    "door_before_turn5.png",
+    "door_before_turn6.png",
+    "door_before_turn7.png",
+    "door_before_group.png",
+    "door_before_phone.png",
+    "door_before_phone_open.png",
+    "door_before_group_open.png",
+    "door_before_shot0.png",
+    "door_before_shot1.png",
+    "door_before_shot2.png",
+    "door_before_shot3.png",
+    "door_before_shot4.png",
+    "door_before_shot5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254,
+    "manH": 134
+   },
+   "me": {
+    "x": 122,
+    "y": 205,
+    "width": 201,
+    "height": 254,
+    "manH": 134
+   },
+   "openBox": {
+    "zoom": 0.29081317067294327,
+    "manH": 59
+   },
+   "openGroup": {
+    "x": 116,
+    "y": 276,
+    "width": 182,
+    "height": 112,
+    "manH": 59
+   },
+   "strike": {
+    "hit": null
+   },
+   "seen": {
+    "melee:MCover": 556,
+    "carry": 1112,
+    "melee:SIdle": 1112,
+    "shield:car_door": 1662,
+    "laid:S": 550,
+    "idle:breatheR4": 1,
+    "melee:MIdle": 545
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "at": {
+     "you": [
+      2,
+      5
+     ],
+     "raul": [
+      1,
+      5
+     ],
+     "thug": [
+      3,
+      5
+     ]
+    },
+    "can": true,
+    "row": "dagger",
+    "off": "shield",
+    "raul": "another look",
+    "thug": "tier_thug",
+    "zoom": 0.6710361067503924,
+    "open": 0.29081317067294327
+   },
+   "frames": [
+    "door_after_turn0.png",
+    "door_after_turn1.png",
+    "door_after_turn2.png",
+    "door_after_turn3.png",
+    "door_after_turn4.png",
+    "door_after_turn5.png",
+    "door_after_turn6.png",
+    "door_after_turn7.png",
+    "door_after_group.png",
+    "door_after_phone.png",
+    "door_after_phone_open.png",
+    "door_after_group_open.png",
+    "door_after_shot0.png",
+    "door_after_shot1.png",
+    "door_after_shot2.png",
+    "door_after_shot3.png",
+    "door_after_shot4.png",
+    "door_after_shot5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254,
+    "manH": 134
+   },
+   "me": {
+    "x": 122,
+    "y": 205,
+    "width": 201,
+    "height": 254,
+    "manH": 134
+   },
+   "openBox": {
+    "zoom": 0.29081317067294327,
+    "manH": 59
+   },
+   "openGroup": {
+    "x": 116,
+    "y": 276,
+    "width": 182,
+    "height": 112,
+    "manH": 59
+   },
+   "strike": {
+    "hit": null
+   },
+   "seen": {
+    "melee:MCover": 566,
+    "carry": 1132,
+    "gun:dagger": 1132,
+    "melee:SIdle": 1132,
+    "shield:car_door": 1693,
+    "laid:S": 561,
+    "idle:breatheR4": 1,
+    "melee:MIdle": 557
+   },
+   "errs": []
+  }
+ },
+ "bare": {
+  "at": "2026-11-06T07:48:37.085Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "at": {
+     "you": [
+      2,
+      5
+     ],
+     "raul": [
+      1,
+      5
+     ],
+     "thug": [
+      3,
+      5
+     ]
+    },
+    "can": true,
+    "row": "dagger",
+    "off": null,
+    "raul": "another look",
+    "thug": "tier_thug",
+    "zoom": 0.6710361067503924,
+    "open": 0.29081317067294327
+   },
+   "frames": [
+    "bare_before_turn0.png",
+    "bare_before_turn1.png",
+    "bare_before_turn2.png",
+    "bare_before_turn3.png",
+    "bare_before_turn4.png",
+    "bare_before_turn5.png",
+    "bare_before_turn6.png",
+    "bare_before_turn7.png",
+    "bare_before_group.png",
+    "bare_before_phone.png",
+    "bare_before_phone_open.png",
+    "bare_before_group_open.png",
+    "bare_before_shot0.png",
+    "bare_before_shot1.png",
+    "bare_before_shot2.png",
+    "bare_before_shot3.png",
+    "bare_before_shot4.png",
+    "bare_before_shot5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254,
+    "manH": 134
+   },
+   "me": {
+    "x": 122,
+    "y": 205,
+    "width": 201,
+    "height": 254,
+    "manH": 134
+   },
+   "openBox": {
+    "zoom": 0.29081317067294327,
+    "manH": 59
+   },
+   "openGroup": {
+    "x": 116,
+    "y": 276,
+    "width": 182,
+    "height": 112,
+    "manH": 59
+   },
+   "strike": {
+    "hit": null
+   },
+   "seen": {
+    "melee:MCover": 558,
+    "carry": 1116,
+    "hold:PIdle": 1116,
+    "shield:car_door": 553,
+    "laid:S": 553,
+    "idle:breatheR4": 1,
+    "melee:MIdle": 549
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "at": {
+     "you": [
+      2,
+      5
+     ],
+     "raul": [
+      1,
+      5
+     ],
+     "thug": [
+      3,
+      5
+     ]
+    },
+    "can": true,
+    "row": "dagger",
+    "off": null,
+    "raul": "another look",
+    "thug": "tier_thug",
+    "zoom": 0.6710361067503924,
+    "open": 0.29081317067294327
+   },
+   "frames": [
+    "bare_after_turn0.png",
+    "bare_after_turn1.png",
+    "bare_after_turn2.png",
+    "bare_after_turn3.png",
+    "bare_after_turn4.png",
+    "bare_after_turn5.png",
+    "bare_after_turn6.png",
+    "bare_after_turn7.png",
+    "bare_after_group.png",
+    "bare_after_phone.png",
+    "bare_after_phone_open.png",
+    "bare_after_group_open.png",
+    "bare_after_shot0.png",
+    "bare_after_shot1.png",
+    "bare_after_shot2.png",
+    "bare_after_shot3.png",
+    "bare_after_shot4.png",
+    "bare_after_shot5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254,
+    "manH": 134
+   },
+   "me": {
+    "x": 122,
+    "y": 205,
+    "width": 201,
+    "height": 254,
+    "manH": 134
+   },
+   "openBox": {
+    "zoom": 0.29081317067294327,
+    "manH": 59
+   },
+   "openGroup": {
+    "x": 116,
+    "y": 276,
+    "width": 182,
+    "height": 112,
+    "manH": 59
+   },
+   "strike": {
+    "hit": null
+   },
+   "seen": {
+    "melee:MCover": 558,
+    "carry": 1116,
+    "gun:dagger": 1116,
+    "hold:PIdle": 1116,
+    "shield:car_door": 553,
+    "laid:S": 553,
+    "idle:breatheR4": 1,
+    "melee:MIdle": 549
+   },
+   "errs": []
+  }
+ },
+ "night": {
+  "at": "2026-11-06T07:55:14.680Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "at": {
+     "you": [
+      2,
+      5
+     ],
+     "raul": [
+      1,
+      5
+     ],
+     "thug": [
+      3,
+      5
+     ]
+    },
+    "can": true,
+    "row": "dagger",
+    "off": "shield",
+    "raul": "another look",
+    "thug": "tier_thug",
+    "zoom": 0.6710361067503924,
+    "open": 0.29081317067294327
+   },
+   "frames": [
+    "night_before_turn0.png",
+    "night_before_turn1.png",
+    "night_before_turn2.png",
+    "night_before_turn3.png",
+    "night_before_turn4.png",
+    "night_before_turn5.png",
+    "night_before_turn6.png",
+    "night_before_turn7.png",
+    "night_before_group.png",
+    "night_before_phone.png",
+    "night_before_phone_open.png",
+    "night_before_group_open.png",
+    "night_before_shot0.png",
+    "night_before_shot1.png",
+    "night_before_shot2.png",
+    "night_before_shot3.png",
+    "night_before_shot4.png",
+    "night_before_shot5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254,
+    "manH": 134
+   },
+   "me": {
+    "x": 122,
+    "y": 205,
+    "width": 201,
+    "height": 254,
+    "manH": 134
+   },
+   "openBox": {
+    "zoom": 0.29081317067294327,
+    "manH": 59
+   },
+   "openGroup": {
+    "x": 116,
+    "y": 276,
+    "width": 182,
+    "height": 112,
+    "manH": 59
+   },
+   "strike": {
+    "hit": null
+   },
+   "seen": {
+    "melee:MCover": 545,
+    "carry": 1090,
+    "melee:SIdle": 1090,
+    "shield:car_door": 1629,
+    "laid:S": 539,
+    "idle:breatheR4": 1,
+    "melee:MIdle": 534
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "at": {
+     "you": [
+      2,
+      5
+     ],
+     "raul": [
+      1,
+      5
+     ],
+     "thug": [
+      3,
+      5
+     ]
+    },
+    "can": true,
+    "row": "dagger",
+    "off": "shield",
+    "raul": "another look",
+    "thug": "tier_thug",
+    "zoom": 0.6710361067503924,
+    "open": 0.29081317067294327
+   },
+   "frames": [
+    "night_after_turn0.png",
+    "night_after_turn1.png",
+    "night_after_turn2.png",
+    "night_after_turn3.png",
+    "night_after_turn4.png",
+    "night_after_turn5.png",
+    "night_after_turn6.png",
+    "night_after_turn7.png",
+    "night_after_group.png",
+    "night_after_phone.png",
+    "night_after_phone_open.png",
+    "night_after_group_open.png",
+    "night_after_shot0.png",
+    "night_after_shot1.png",
+    "night_after_shot2.png",
+    "night_after_shot3.png",
+    "night_after_shot4.png",
+    "night_after_shot5.png"
+   ],
+   "box": {
+    "x": 14,
+    "y": 205,
+    "width": 376,
+    "height": 254,
+    "manH": 134
+   },
+   "me": {
+    "x": 122,
+    "y": 205,
+    "width": 201,
+    "height": 254,
+    "manH": 134
+   },
+   "openBox": {
+    "zoom": 0.29081317067294327,
+    "manH": 59
+   },
+   "openGroup": {
+    "x": 116,
+    "y": 276,
+    "width": 182,
+    "height": 112,
+    "manH": 59
+   },
+   "strike": {
+    "hit": null
+   },
+   "seen": {
+    "melee:MCover": 551,
+    "carry": 1102,
+    "gun:dagger": 1102,
+    "melee:SIdle": 1102,
+    "shield:car_door": 1647,
+    "laid:S": 545,
+    "idle:breatheR4": 1,
+    "melee:MIdle": 540
+   },
+   "errs": []
+  }
+ }
+}
