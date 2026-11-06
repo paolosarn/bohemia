@@ -96,25 +96,28 @@
   var FROM = {
     suburb_block: ['suburb', 'estate', 'gated', 'town', 'school', 'chapel',
                    'medical', 'courthouse', 'cityhall', 'policestation',
-                   'firestation', 'jail', 'prison', 'radio', 'library'],
+                   'firestation', 'jail', 'prison', 'radio', 'library',
+                   'jobsoffice', 'natmuseum', 'tvstation'],   /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6) */
     the_strip: ['strip', 'resort', 'casino', 'sphere', 'luxor', 'highroller',
-                'strat', 'sign', 'convention', 'downtown'],
+                'strat', 'sign', 'convention', 'downtown',
+                'bank', 'aquarium', 'mobmuseum'],   /* __THE_MISSING_REAL_PLACES__ */
     industrial: ['industrial', 'warehouse', 'railyard', 'rail', 'storage',
                  'boneyard', 'fueldepot', 'granary', 'robofactory', 'truckstop',
-                 'quarry', 'arsenal', 'datafort', 'swapmeet', 'fort'],
+                 'quarry', 'arsenal', 'datafort', 'swapmeet', 'fort',
+                 'shelter'],   /* __THE_MISSING_REAL_PLACES__ */
     open_desert: ['desert', 'gypsum', 'springs'],
     wash_and_shore: ['wash', 'water', 'basin', 'reservoir', 'intake', 'dam',
                      'watertreat'],
     hills: ['mountain'],
     freeway: ['freeway', 'interchange', 'speedway', 'minigp'],
-    lot_and_bigbox: ['arterial', 'commercial', 'mall', 'apartment', 'drivein'],
+    lot_and_bigbox: ['arterial', 'commercial', 'mall', 'apartment', 'drivein', 'hardware'],   /* __THE_MISSING_REAL_PLACES__: hardware */
     trailer_park: ['trailer'],
     golf_and_park: ['golf', 'park', 'ballpark', 'stadium', 'waterpark', 'campus',
                     'farm', 'cemetery'],
     ruin: [],            /* a condition; see NOT_ON_THE_MAP */
     airport: ['airport', 'airbase', 'terminal'],
     casino_floor: [],    /* an interior; see NOT_ON_THE_MAP */
-    solar_and_pumps: ['solar', 'battery', 'substation', 'pumpstation', 'reclaim'],
+    solar_and_pumps: ['solar', 'battery', 'substation', 'pumpstation', 'reclaim', 'powerplant'],   /* __THE_MISSING_REAL_PLACES__: powerplant */
     landfill: ['landfill']
   };
 

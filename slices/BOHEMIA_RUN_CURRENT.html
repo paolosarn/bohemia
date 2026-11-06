@@ -5411,7 +5411,10 @@ root.BQRuntime=API;
     battery:'infrastructure', datafort:'infrastructure', radio:'infrastructure', reclaim:'infrastructure',
     landfill:'infrastructure', gypsum:'infrastructure', quarry:'infrastructure', farm:'infrastructure',
     // TERRAIN — the raw land itself (not built)
-    mountain:'terrain', desert:'terrain', wash:'terrain', water:'terrain'
+    mountain:'terrain', desert:'terrain', wash:'terrain', water:'terrain',
+    /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, rule 409(c)): records/target/bb/real_places.json */
+    bank:'commercial', hardware:'commercial', jobsoffice:'civic', shelter:'civic', mobmuseum:'civic', natmuseum:'civic',
+    aquarium:'gaming_resort', powerplant:'infrastructure', tvstation:'infrastructure'
   };
   function category(type){ return TAXONOMY[type]||null; }
   function inCategory(cat){ var out=[]; for(var t in TAXONOMY) if(TAXONOMY[t]===cat) out.push(t); return out; }
@@ -12904,7 +12907,10 @@ root.BQRuntime=API;
 const OVER_N=96, TILE_FINE=128, SLOT_FINE=128, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
-SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
+SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment',
+// __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, VAMILY rule 409(c), ask line 458): Pocket City 2's building kinds we did not have, each a
+// real Las Vegas place seated at its real spot; the seats and the data are records/target/bb/real_places.json (REAL_PLACES below).
+BANK:'bank',JOBSOFFICE:'jobsoffice',HARDWARE:'hardware',POWERPLANT:'powerplant',AQUARIUM:'aquarium',SHELTER:'shelter',MOBMUSEUM:'mobmuseum',NATMUSEUM:'natmuseum',TVSTATION:'tvstation'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
 // BIG ARCHITECTURE (Paolo 7/18/26): "even monuments... would just be in their big ass plots not
 // breaking any city streets" — the ONLY district types allowed to sit without touching the
@@ -12923,6 +12929,83 @@ function hash2(seed,x,y){let h=(seed^Math.imul(x,73856093)^Math.imul(y,19349663)
 function segDist(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay;const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy)));return Math.hypot(px-(ax+t*dx),py-(ay+t*dy));}
 function inRect(x,y,R){return x>=R.x&&x<R.x+R.w&&y>=R.y&&y<R.y+R.h;}
 
+/* ==== __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, VAMILY rules 409(c) and 411, ask line 458; Paolo 11/5: 'research every building
+   type in Pocket City 2... and see if you're missing any of those buildings'). Pocket City 2 is a CHECKLIST of building kinds only (rule
+   409(b)); every place here is a REAL Las Vegas place in the collapse at its real spot: the bank (Valley Bank Plaza, 300 S 4th), the
+   unemployment office (JobConnect, Maryland Pkwy), two home centres (the big-box hardware stores on the mile-street corners), Clark
+   Station (the valley's own gas plant at Whitney, 1954), Shark Reef (under Mandalay Bay), the animal shelter (Mojave Rd), the Mob
+   Museum (the 1933 courthouse), the natural history museum (by Cashman Field) and Channel 8. The DATA is records/target/bb/
+   real_places.json; the block between the two DATA lines is that file's valley seats WORD FOR WORD, written by
+   tools/bohemia_world_ten_real_places_sync.js (never by hand; gates/the_missing_real_places_gate.js holds the two together).
+   SEATED LAST, after every other piece has been nudged, so nothing that was already on the valley moves: each takes the nearest
+   clear block to its real spot (the FACTORY LAW nudger's own clear test) that FRONTS A MILE STREET and is never on a half-mile
+   collector (the grid re-assert below would pave it), so every one is reachable and none sits on another. ==== */
+/* __THE_MISSING_REAL_PLACES__ DATA BEGIN */
+const REAL_PLACES=[
+  {id:"the_bank",kind:"bank",seat:{x:{from:"courthouse",east:3},y:{from:"courthouse",south:1}}},
+  {id:"the_unemployment_office",kind:"jobsoffice",seat:{x:{from:"strip",east:9},y:{of:0.42}}},
+  {id:"the_home_center_east",kind:"hardware",seat:{x:{from:"strip",east:14},y:{of:0.56}}},
+  {id:"the_home_center_west",kind:"hardware",seat:{x:{from:"strip",east:-16},y:{of:0.4}}},
+  {id:"clark_station",kind:"powerplant",seat:{x:{from:"strip",east:16},y:{of:0.57}}},
+  {id:"shark_reef",kind:"aquarium",seat:{x:{from:"luxor",east:0},y:{from:"luxor",south:2}}},
+  {id:"the_animal_shelter",kind:"shelter",seat:{x:{from:"strip",east:12},y:{of:0.27}}},
+  {id:"the_mob_museum",kind:"mobmuseum",seat:{x:{from:"courthouse",east:-1},y:{from:"courthouse",south:-2}}},
+  {id:"the_natural_history_museum",kind:"natmuseum",seat:{x:{from:"cashman",east:3},y:{from:"cashman",south:0}}},
+  {id:"the_tv_station",kind:"tvstation",seat:{x:{from:"strip",east:5},y:{of:0.46}}}
+];
+/* __THE_MISSING_REAL_PLACES__ DATA END */
+function seatRealPlaces(A, clearOf){
+  /* the layout's half: for each place, its real spot and the clear blocks round it nearest first (the FACTORY LAW nudger's own
+     clear test, off the rim, never on a half-mile collector). Nothing is pushed into the layout: the valley is built exactly as it
+     was, and stampRealPlaces puts each place on the FINISHED valley, on the first of these that fronts a street there. */
+  const out=[], OFF=[[0,0]];
+  for(let rr=1;rr<=14;rr++)for(let dy=-rr;dy<=rr;dy++)for(let dx=-rr;dx<=rr;dx++){ if(Math.max(Math.abs(dx),Math.abs(dy))===rr)OFF.push([dx,dy]); }
+  const offCollector=(x,y)=>!(x%9===4||x%9===5||y%9===4||y%9===5);    /* never where the half-mile collector may run */
+  const inland=(x,y)=>x>=11&&x<=84&&y>=8&&y<=88;                       /* off the rim's mountains and their foothill estates */
+  for(const p of REAL_PLACES){
+    const sx=p.seat.x, sy=p.seat.y;
+    const bx=sx.from==='strip'?A.stripX:(A[sx.from]?A[sx.from].x:A.stripX);
+    const by=sy.of!=null?Math.round(A.N*sy.of):(A[sy.from]?A[sy.from].y:Math.round(A.N/2));
+    const x0=bx+A.dirE*(sx.east||0), y0=by+(sy.south||0), cands=[];
+    for(const [ox,oy] of OFF){ const x=x0+ox, y=y0+oy;
+      if(inland(x,y)&&offCollector(x,y)&&clearOf(x,y))cands.push([x,y]); }
+    out.push({id:p.id,kind:p.kind,x:null,y:null,w:1,h:1,want:[x0,y0],cands});
+  }
+  return out;
+}
+/* the finished valley's half: the first candidate that is ordinary ground (a home, a shop, a lot, downtown, the Strip's resort
+   row, never a street, a mass or another landmark) with a street beside it, two blocks from any place already stamped. The block
+   keeps what it was (t.was), so the faction seats are chosen from the same valley as before (engine/bohemia_towns.js reads it). */
+const REAL_GROUND={suburb:1,commercial:1,apartment:1,desert:1,downtown:1,resort:1,trailer:1,industrial:1,storage:1};
+function placeRealPlace(R, at, others, keepOut){
+  for(const [x,y] of R.cands){
+    const t=at(x,y); if(!t||!REAL_GROUND[t.district])continue;
+    if(keepOut&&keepOut(x,y))continue;
+    if(!REAL_ROAD_NEIGHBOUR(at,x,y))continue;
+    if(others.some(D=>D.x!=null&&Math.max(Math.abs(D.x-x),Math.abs(D.y-y))<=1))continue;
+    t.was=t.district; t.wasFixed=t.fixed; t.district=R.kind; t.fixed=true; t.real=R.id; R.x=x; R.y=y; return true;
+  }
+  R.x=null; R.y=null; return false;
+}
+function stampRealPlaces(L, at){
+  const done=[];
+  for(const R of (L.realPlaces||[])){ if(placeRealPlace(R, at, done))done.push(R); }
+}
+/* A TOWN WAS BUILT FIRST. The faction seats are chosen after the valley (engine/bohemia_towns.js, from what each block WAS, so
+   they never move), and a seat's painted ground can cover a place (measured: 101 of 1,200 across 120 valleys). The page hands
+   in the towns' ground and every place standing on it moves to its next candidate clear of all of them; the block it leaves is
+   what it was. Deterministic: the same valley and the same towns put every place on the same block. */
+function restampRealPlaces(m, keepOut){
+  const L=m&&m.layout, at=m&&m.at, moved=[]; if(!L||!at||typeof keepOut!=='function')return moved;
+  const all=L.realPlaces||[];
+  for(const R of all){
+    if(R.x!=null&&!keepOut(R.x,R.y))continue;
+    if(R.x!=null){ const t=at(R.x,R.y); if(t&&t.real===R.id){ t.district=t.was; t.fixed=t.wasFixed; delete t.was; delete t.wasFixed; delete t.real; } }
+    placeRealPlace(R, at, all.filter(o=>o!==R), keepOut); moved.push(R.id);
+  }
+  return moved;
+}
+function REAL_ROAD_NEIGHBOUR(at,x,y){ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const n=at(x+dx,y+dy); if(n&&ROAD[n.district])return true; } return false; }
 function layoutFromSeed(seed){
   const r=rng((seed^0xA5C3D7)>>>0);
   const N=OVER_N, cx=N/2, cy=N/2;
@@ -13291,6 +13374,7 @@ function layoutFromSeed(seed){
       return false; };
     let g6=0; while(bad()&&g6++<12){ datafort.x+=dxs*2; datafort.y+=dys*2; }
   }
+  let realPlaces=[];   /* __THE_MISSING_REAL_PLACES__ */
   // ===== GENERIC CLEAR-SPOT NUDGER (FACTORY LAW, 7/5/26) =====
   // One mechanism for every small piece: forbidden = all freeway geometry +
   // every placed rect. Spiral-search offsets until clear. No more ad-hoc dodges.
@@ -13337,6 +13421,7 @@ function layoutFromSeed(seed){
     for(const p of fueldepots)nudge(p);
     nudge(granary); nudge(library); nudge(radiostation); nudge(robofactory);
     for(const p of reservoirs)nudge(p);
+    realPlaces=seatRealPlaces({stripX,dirE,N,courthouse,cashman,luxor}, clearOf);   /* __THE_MISSING_REAL_PLACES__: the spots and their clear blocks; stamped on the finished valley */
   }
   return {axisFlip, stripX, fwyX, beltInset, beltVarW, beltVarH, beltRect,
           ind1, ind2, exits, hri, apSE, apNW, airbase, unlv, csn,
@@ -13348,7 +13433,7 @@ function layoutFromSeed(seed){
           cashman, boneyard, fort, ballparkS, chapels, basins, swapmeet, drivein, highroller,
           watertreat, reservoirs, pumpstation, vegassign, strat, datafort, arsenal,
           firestations, policestations, jail, courthouse, cityhall, warehouse, truckstop,
-          battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, seed};
+          battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, realPlaces, seed};
 }
 
 function skeleton(x,y,L){
@@ -13997,6 +14082,7 @@ function buildOvermap(seed){
       }
     }
   }
+  stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
 }
@@ -14141,7 +14227,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
@@ -22492,7 +22578,18 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
     datafort:   { mod:UTL.datafort,    foot:function(r){return r.footprints;}, zone:'office', cluster:true },
     basin:      { mod:UTL.basin,       foot:function(r){return r.footprints;}, zone:'default', cluster:true },
     reclaim:    { mod:UTL.reclaim,     foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
-    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office', cluster:true }
+    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office', cluster:true },
+    /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, rule 409(c)): records/target/bb/real_places.json */
+    /* each place borrows the kit plot of the kind it is like (its 'like' in the file) until COOK FOUR's golden piece (rule 408) */
+    bank:       { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
+    jobsoffice: { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
+    hardware:   { mod:COM, foot:function(r){return COM.storeFootprints(r);}, zone:'retail' },
+    powerplant: { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    aquarium:   { mod:RES, foot:function(r){return r.footprints;},           zone:'leisure' },
+    shelter:    { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    mobmuseum:  { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
+    natmuseum:  { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
+    tvstation:  { mod:UTL.radio, foot:function(r){return r.footprints;},     zone:'office' }
   };
   /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
      world"). A road cell is NOT a district: it never becomes faction territory, an

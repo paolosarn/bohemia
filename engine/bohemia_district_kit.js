@@ -286,7 +286,10 @@
     battery:'infrastructure', datafort:'infrastructure', radio:'infrastructure', reclaim:'infrastructure',
     landfill:'infrastructure', gypsum:'infrastructure', quarry:'infrastructure', farm:'infrastructure',
     // TERRAIN — the raw land itself (not built)
-    mountain:'terrain', desert:'terrain', wash:'terrain', water:'terrain'
+    mountain:'terrain', desert:'terrain', wash:'terrain', water:'terrain',
+    /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, rule 409(c)): records/target/bb/real_places.json */
+    bank:'commercial', hardware:'commercial', jobsoffice:'civic', shelter:'civic', mobmuseum:'civic', natmuseum:'civic',
+    aquarium:'gaming_resort', powerplant:'infrastructure', tvstation:'infrastructure'
   };
   function category(type){ return TAXONOMY[type]||null; }
   function inCategory(cat){ var out=[]; for(var t in TAXONOMY) if(TAXONOMY[t]===cat) out.push(t); return out; }

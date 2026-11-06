@@ -105,7 +105,9 @@ section('B. the game\'s seed: the row\'s check', () => {
   const C = compassOf(seed), t = Date.now();
   W = RN.world(land, C, seed); EV = yearOf(W);
   const ms = Date.now() - t;
-  ok('B1 the region\'s 35 places, every one', W.places.length === 35 && W.places.every(p => NAMES.has(p.name)), W.places.length + ' places, compass east ' + C.e + ', seed ' + seed);
+  /* WORLD TEN 11/6 (__THE_MISSING_REAL_PLACES__): the count is the land file's own (its places and the one in the valley), never a typed 35: rule 409(c) added the lab and the Apex gas plant */
+  const WANT = NAMES.size;
+  ok('B1 the region\'s ' + WANT + ' places, every one', W.places.length === WANT && W.places.every(p => NAMES.has(p.name)), W.places.length + ' places, compass east ' + C.e + ', seed ' + seed);
   let empty = [], emptyND = 0;
   for (let d = 7; d <= 371; d++) for (const p of W.places) { const it = RN.items(W, p.name, d, 7, { traits: TRAITS }); if (!it.length) empty.push(p.name + '@' + d); if (!it.some(e => !e.dice)) emptyND++; }
   ok('B2 every place has something to say on every day after a week of play (35 places x 365 days)', empty.length === 0, empty.length ? empty.slice(0, 6).join(', ') : '0 quiet place-days; ' + emptyND + ' without the dice');

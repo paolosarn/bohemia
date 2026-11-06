@@ -26,6 +26,13 @@
    "family": null
   },
   {
+   "district": "aquarium",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
    "district": "arsenal",
    "ground": "industrial",
    "boardKind": "ruin",
@@ -45,6 +52,13 @@
    "boardKind": "ruin",
    "isCatchAll": true,
    "family": "infrastructure"
+  },
+  {
+   "district": "bank",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
   },
   {
    "district": "basin",
@@ -229,6 +243,13 @@
    "family": null
   },
   {
+   "district": "hardware",
+   "ground": "lot_and_bigbox",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
    "district": "highroller",
    "ground": "the_strip",
    "boardKind": "strip",
@@ -262,6 +283,13 @@
    "boardKind": "ruin",
    "isCatchAll": true,
    "family": "civic"
+  },
+  {
+   "district": "jobsoffice",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
   },
   {
    "district": "landfill",
@@ -306,9 +334,23 @@
    "family": "infrastructure"
   },
   {
+   "district": "mobmuseum",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
    "district": "mountain",
    "ground": "hills",
    "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "natmuseum",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
    "isCatchAll": false,
    "family": null
   },
@@ -325,6 +367,13 @@
    "boardKind": "ruin",
    "isCatchAll": true,
    "family": "civic"
+  },
+  {
+   "district": "powerplant",
+   "ground": "solar_and_pumps",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
   },
   {
    "district": "prison",
@@ -400,6 +449,13 @@
    "district": "school",
    "ground": "suburb_block",
    "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "shelter",
+   "ground": "industrial",
+   "boardKind": "landfill",
    "isCatchAll": false,
    "family": null
   },
@@ -516,6 +572,13 @@
    "family": null
   },
   {
+   "district": "tvstation",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
    "district": "warehouse",
    "ground": "industrial",
    "boardKind": "landfill",
@@ -617,7 +680,7 @@
   "beltway"
  ],
  "measured": {
-  "districts": 78,
+  "districts": 87,
   "fallThrough": 24,
   "seedsSwept": 20,
   "cellsAValley": 154.2,

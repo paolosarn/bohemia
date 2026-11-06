@@ -123,7 +123,39 @@
      from the same districts bohemia_place reads. A district absent here answers
      "nothing to search", which is an ANSWER and not a gap. */
   var SEARCHABLE = ['commercial', 'industrial', 'warehouse', 'suburb', 'apartment',
-                    'downtown', 'casino', 'strip', 'motel', 'trailer'];
+                    'downtown', 'casino', 'strip', 'motel', 'trailer',
+                    /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, rule 409(c)): every new real place can be searched */
+                    'bank', 'jobsoffice', 'hardware', 'powerplant', 'aquarium', 'shelter', 'mobmuseum', 'natmuseum', 'tvstation'];
+
+  /* __THE_MISSING_REAL_PLACES__: a real place's OWN finds (records/target/bb/real_places.json 'finds', draft words, each one of
+     the six goods). The page hands the file in (slices/bohemia_real_places.js calls useFinds); findsOf(kind or id) answers a
+     list or null. The settlement screen deals the six evenly until it reads this (a NOTE to RUN TWO): one marked line there. */
+  var FINDS = {};
+  function useFinds(places) {
+    FINDS = {};
+    (places || []).forEach(function (p) {
+      if (!p || !p.finds || !p.finds.length) return;
+      var ok = p.finds.filter(function (f) { return f && KINDS.indexOf(f.good === 'meds' ? 'medicine' : f.good) >= 0; });
+      if (!ok.length) return;
+      FINDS[p.id] = ok;
+      if (p.kind) FINDS[p.kind] = (FINDS[p.kind] || []).concat(ok);
+    });
+    return Object.keys(FINDS).length;
+  }
+  function findsOf(k) { return FINDS[k] ? FINDS[k].slice() : null; }
+  /* the file loads itself where it can: in node beside the repo (the gates), in a page from slices/ (the settlement screen, the map) */
+  (function loadFinds() {
+    try {
+      if (HASREQ) {
+        var fs = require('fs'), pth = require('path');
+        var j = JSON.parse(fs.readFileSync(pth.join(__dirname, '..', 'records', 'target', 'bb', 'real_places.json'), 'utf8'));
+        useFinds(j.places);
+      } else if (typeof fetch === 'function' && typeof document !== 'undefined') {
+        fetch('../records/target/bb/real_places.json').then(function (r) { return r.json(); })
+          .then(function (j) { useFinds(j && j.places); }).catch(function () {});
+      }
+    } catch (e) { /* no file: findsOf answers null, the screen deals the six */ }
+  })();
 
   function clampInt(n) { n = n | 0; return n < 0 ? 0 : n; }
 
@@ -281,7 +313,8 @@
     NO_RULING: NO_RULING, NOT_A_PLACE: NOT_A_PLACE,
     PICKED_CLEAN: PICKED_CLEAN, UNREAD: UNREAD,
     create: create, findableOn: findableOn, leftOn: leftOn,
-    search: search, yieldOf: yieldOf, bonus: bonus, census: census
+    search: search, yieldOf: yieldOf, bonus: bonus, census: census,
+    useFinds: useFinds, findsOf: findsOf   /* __THE_MISSING_REAL_PLACES__ */
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   else root.BohemiaScavenge = API;

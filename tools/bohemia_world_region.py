@@ -268,6 +268,13 @@ PLACES = [
     ('GLENDALE',           36.720, -114.550, 'camp',     'base',  'the junction where the 93 leaves the 15 for the north'),
     ('OVERTON',            36.540, -114.440, 'camp',     'base',  'the town at the top of the arm; the Lost City museum; the farms the lake drowned'),
     ('GASS PEAK',          36.400, -115.180, 'camp',     'fight', 'the towers on the peak north of the city; the whole valley under you'),
+    # __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, VAMILY rule 409(c), ask line 458): Pocket City 2's eco research lab and its large
+    # power plant, as the real valley has them (records/target/bb/real_places.json carries their real story, sources, finds, feed).
+    # THE LAB: the beasts law s3 puts it on the fossil beds; the ground is real (the monument's south-east edge, where the city meets
+    # it), the building is ours. LENZIE STATION: NV Energy's Chuck Lenzie gas plant at Apex (36.383719 N, 114.9218 W, GEM), the mint
+    # past the city if batteries are the money.
+    ('TULE SPRINGS LAB',   36.305, -115.235, 'fortress', 'fight', 'the lab on the fossil beds; the pens the dire wolf and the mammoth calf walked out of when the dollar died'),
+    ('LENZIE STATION',     36.3837, -114.9218, 'fortress', 'fight', 'the big gas plant at Apex; three turbines and no gas; whoever gets one turning prints money'),
 ]
 # beyond the rim: real places the roads go on to, named at the edge with their distance
 BEYOND = [

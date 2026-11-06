@@ -45,7 +45,10 @@
    "jail",
    "prison",
    "radio",
-   "library"
+   "library",
+   "jobsoffice",
+   "natmuseum",
+   "tvstation"
   ],
   "the_strip": [
    "strip",
@@ -57,7 +60,10 @@
    "strat",
    "sign",
    "convention",
-   "downtown"
+   "downtown",
+   "bank",
+   "aquarium",
+   "mobmuseum"
   ],
   "industrial": [
    "industrial",
@@ -74,7 +80,8 @@
    "arsenal",
    "datafort",
    "swapmeet",
-   "fort"
+   "fort",
+   "shelter"
   ],
   "open_desert": [
    "desert",
@@ -104,7 +111,8 @@
    "commercial",
    "mall",
    "apartment",
-   "drivein"
+   "drivein",
+   "hardware"
   ],
   "trailer_park": [
    "trailer"
@@ -131,7 +139,8 @@
    "battery",
    "substation",
    "pumpstation",
-   "reclaim"
+   "reclaim",
+   "powerplant"
   ],
   "landfill": [
    "landfill"
@@ -139,28 +148,28 @@
  },
  "measured": {
   "seedsSwept": 100,
-  "distinctDistricts": 78,
+  "distinctDistricts": 87,
   "unmappedDistricts": 0,
-  "cityPct": 80.8,
-  "naturePct": 19.2,
+  "cityPct": 80.9,
+  "naturePct": 19.1,
   "onSeed1337": {
    "cells": 9216,
    "mapped": 9216,
    "byKind": {
-    "suburb_block": 2667,
-    "the_strip": 250,
-    "industrial": 126,
+    "suburb_block": 2665,
+    "the_strip": 253,
+    "industrial": 127,
     "open_desert": 611,
     "wash_and_shore": 142,
     "hills": 902,
     "freeway": 942,
-    "lot_and_bigbox": 2980,
+    "lot_and_bigbox": 2977,
     "trailer_park": 15,
     "golf_and_park": 171,
     "ruin": 0,
     "airport": 95,
     "casino_floor": 0,
-    "solar_and_pumps": 311,
+    "solar_and_pumps": 312,
     "landfill": 4
    }
   }

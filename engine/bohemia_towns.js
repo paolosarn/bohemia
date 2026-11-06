@@ -190,10 +190,13 @@
       for (var x = 0; x < n; x++) {
         var c = m.at(x, y);
         if (!c || !c.district) continue;
-        if (cat(c.district) !== 'sand') continue;
-        if (NOT_A_TOWN[c.district]) continue;
+        /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6): a real place stamped on the finished valley keeps what its block was
+           (t.was), and the seats are chosen from that, so no faction moves and an old save's towns stand where they stood */
+        var dk = c.was || c.district;
+        if (cat(dk) !== 'sand') continue;
+        if (NOT_A_TOWN[dk]) continue;
         if (!frontsRoad(m, cat, x, y)) continue;
-        out.push({ x: x, y: y, kind: c.district });
+        out.push({ x: x, y: y, kind: dk });
       }
     }
     return out;

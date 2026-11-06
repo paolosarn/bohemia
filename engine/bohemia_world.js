@@ -206,7 +206,18 @@
     datafort:   { mod:UTL.datafort,    foot:function(r){return r.footprints;}, zone:'office', cluster:true },
     basin:      { mod:UTL.basin,       foot:function(r){return r.footprints;}, zone:'default', cluster:true },
     reclaim:    { mod:UTL.reclaim,     foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
-    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office', cluster:true }
+    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office', cluster:true },
+    /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, rule 409(c)): records/target/bb/real_places.json */
+    /* each place borrows the kit plot of the kind it is like (its 'like' in the file) until COOK FOUR's golden piece (rule 408) */
+    bank:       { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
+    jobsoffice: { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
+    hardware:   { mod:COM, foot:function(r){return COM.storeFootprints(r);}, zone:'retail' },
+    powerplant: { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    aquarium:   { mod:RES, foot:function(r){return r.footprints;},           zone:'leisure' },
+    shelter:    { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    mobmuseum:  { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
+    natmuseum:  { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
+    tvstation:  { mod:UTL.radio, foot:function(r){return r.footprints;},     zone:'office' }
   };
   /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
      world"). A road cell is NOT a district: it never becomes faction territory, an

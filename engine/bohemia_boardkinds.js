@@ -107,18 +107,18 @@
   var RULES = [
     { kind: 'strip',       names: ['strip', 'resort', 'casino', 'commercial', 'mall', 'downtown',
                                    'convention', 'luxor', 'sphere', 'highroller', 'strat', 'sign',
-                                   'truckstop', 'swapmeet', 'drivein'] },
+                                   'truckstop', 'swapmeet', 'drivein', 'bank', 'hardware', 'aquarium', 'mobmuseum'] },
     { kind: 'freeway',     names: ['freeway', 'beltway', 'interchange'] },
     { kind: 'shore',       names: ['water', 'reservoir', 'intake', 'dam', 'springs', 'waterpark'] },
     { kind: 'landfill',    names: ['landfill', 'quarry', 'gypsum', 'industrial', 'warehouse',
-                                   'robofactory', 'boneyard', 'fueldepot', 'storage', 'rail', 'railyard'] },
+                                   'robofactory', 'boneyard', 'fueldepot', 'storage', 'rail', 'railyard', 'powerplant', 'shelter'] },
     { kind: 'wash',        names: ['wash', 'basin'] },
     { kind: 'scrub',       names: ['desert', 'mountain', 'solar', 'farm', 'park', 'golf'] },
     { kind: 'culdesac',    names: ['estate', 'gated', 'trailer'] },
     { kind: 'suburb_stem', names: ['arterial'] },
     { kind: 'suburb',      names: ['suburb', 'apartment', 'town', 'school', 'campus',
-                                   'library', 'chapel', 'cemetery'] }
-  ];
+                                   'library', 'chapel', 'cemetery', 'jobsoffice', 'natmuseum', 'tvstation'] }
+  ];   /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6): nine kinds, each on the board of the kind it is like; the shell's nfKind carries the same */
 
   /* THE THREE FAMILIES THE FALL-THROUGHS ARE, AND THE BLOCK EACH ONE WANTS.
      *** THIS GROUPING IS A READING AND IT IS MINE. *** It is what the real

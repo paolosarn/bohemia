@@ -1,0 +1,373 @@
+{
+  "_about": "THE MISSING REAL PLACES (WORLD TEN 11/6, VAMILY rules 409(c) and 411, ask line 458; Paolo 11/5: 'research every building type in Pocket City 2... and see if you're missing any of those buildings'). Each is a REAL Las Vegas place in the collapse, at its real spot, with a use. Two kinds of spot: 'valley' places are new map kinds the valley's generator seats on every seed (engine/bohemia_overmap.js __THE_MISSING_REAL_PLACES__ carries this file's 'seat' rules word for word, written there by tools/bohemia_world_ten_real_places_sync.js; the valley is the real city at 1:4 and rolls its east-west mirror, so a seat is said against the valley's own real pieces: the Strip, the courthouse, Cashman Field, Luxor), and 'region' places are on the real land round the valley (tools/bohemia_world_region.py's PLACES, the region's own lat/lon). A modder adds the next place here, runs the sync tool, and the generator seats it. 'like' is the kind whose kit art, plot and paint the place borrows until COOK FOUR's golden piece (rule 408): the final picture is his, the spot, the kind and the use stay. 'ground' is the fight board's ground (engine/bohemia_boardterrain.js FROM). 'finds' are the place's own scavenge, each one of the six goods (rule 47), draft words; the settlement screen deals the six evenly until it reads BohemiaScavenge.findsOf(kind). Pocket City 2 is a checklist of building kinds only, never its look, rules or fantasy pieces (rule 409(b)).",
+  "draft": true,
+  "lane": "WORLD TEN",
+  "record": "records/BOHEMIA_WORLD_TEN_THE_MISSING_REAL_PLACES_11_6_26.md",
+  "checklist": "records/BOHEMIA_PAOLO_POCKET_CITY_2_BUILDINGS_AGAINST_OURS_11_5_26.md",
+  "seat_grammar": "x: {from: strip | courthouse | cashman | luxor, east: n} (east is the valley's own 'town east', which flips with the mirror); y: {of: f} is round(96 x f), or {from: <piece>, south: n}. The generator then takes the nearest clear block (the FACTORY LAW nudger: never on a freeway, the ring, the rail, a mile street or a half-mile collector, never touching another placed piece) that fronts a mile street, so every place is on a street and none covers another.",
+  "places": [
+    {
+      "id": "the_lab",
+      "kind": "lab",
+      "name": "TULE SPRINGS LAB",
+      "where": "region",
+      "pocket_city": "eco research lab",
+      "lat": 36.305,
+      "lon": -115.235,
+      "latlon_from": "the fossil beds' south-east edge, where the city meets the monument (the beasts law s3 puts the lab at the fossil beds; the building is ours, the ground is real)",
+      "real": "Tule Springs Fossil Beds National Monument (2014): 22,650 acres of the upper Las Vegas Wash where Columbian mammoth, camel, horse, American lion and dire wolf bones lie in the washes; the 1962-63 'Big Dig' trenched it. No de-extinction lab stands there in our world; in Bohemia's the lab was built on the bones (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md s1, s3), and when the dollar died nobody fed what was in the pens",
+      "sources": [
+        "https://www.nps.gov/tusk/index.htm",
+        "laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md"
+      ],
+      "tier": "fortress",
+      "role": "fight",
+      "what": "the lab on the fossil beds; the pens the dire wolf and the mammoth calf walked out of when the dollar died",
+      "use": {
+        "screen": "a fortress settlement screen on arrival (the region's own place machinery): held ground, the beasts' first home",
+        "fight": "role fight: the beasts' den is two blocks off (records/target/bb/region_bases.json tule_springs_den); the lab is where they came from",
+        "scavenge": "the lab's own finds below",
+        "learn": "the place a beast's story starts: WORLD 9's quest mix and DYNASTY's lore read this id (a NOTE, nothing of theirs touched)"
+      },
+      "finds": [
+        { "says": "A cryo tray, the seal cracked. Whatever was in it is long gone; the coolant cell still holds a charge.", "good": "battery" },
+        { "says": "A box of tranquilliser darts from the pens. The vet's kit under it, one dose sealed.", "good": "medicine" },
+        { "says": "Feed pellets in a drum, ten years old, dry. People eat these now.", "good": "food" },
+        { "says": "Lab tape, the yellow kind, a whole roll in a drawer.", "good": "tape" }
+      ],
+      "feed": { "who": "@northedge", "txt": "the lab on the fossil beds has no fence left. the pens are open from the inside. mira the size of those prints", "kind": "world", "draft": true }
+    },
+    {
+      "id": "the_bank",
+      "kind": "bank",
+      "name": "THE BANK",
+      "where": "valley",
+      "pocket_city": "bank, investment bank, financial tower",
+      "lat": 36.1667,
+      "lon": -115.1450,
+      "latlon_from": "300 S 4th St at Bridger Ave, downtown (to a block)",
+      "real": "Valley Bank Plaza, 300 South Fourth Street at Bridger, downtown Las Vegas: opened 13 December 1975 as the Valley Bank of Nevada's headquarters, 16 floors, the state's tallest office building when it opened; later Bank of America Plaza, now Tower 300. Two blocks from the courts. In the collapse it is a tower of paper nobody wants over the strongest room in town",
+      "sources": [
+        "https://vintagelasvegas.com/post/744484869959270400/1975/amp",
+        "https://skyscraperpage.com/b5125"
+      ],
+      "seat": { "x": { "from": "courthouse", "east": 3 }, "y": { "from": "courthouse", "south": 1 } },
+      "seat_why": "the real tower stands two blocks from the courts in the downtown civic core; the generator's courthouse is that core",
+      "like": "courthouse",
+      "category": "commercial",
+      "ground": "the_strip",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the squatters on the banking floor, the vault under them",
+        "fight": "a board on downtown's ground; the vault is the strongest room in town, a held door",
+        "scavenge": "the safe deposit boxes (finds below); the paper money is worth nothing and burns well"
+      },
+      "finds": [
+        { "says": "A safe deposit box somebody drilled and quit on. Inside: a ring, and five rounds in a sock.", "good": "ammo" },
+        { "says": "The vault's alarm battery, still in its case. The alarm went off for a week and then it stopped.", "good": "battery" },
+        { "says": "A bundle of hundreds, still banded. Nobody takes it. Under it, the tellers' first-aid kit.", "good": "medicine" },
+        { "says": "The water cooler's spare jug behind the counter. Four litres.", "good": "water" }
+      ],
+      "feed": { "who": "@fremontfloor", "txt": "they keep cash in the bank still. walls of it. we burn it for heat, the vault door is the only thing nobody has opened", "kind": "world", "draft": true },
+      "licence": "a real building: its old name (Valley Bank Plaza) and look go on the stage-4 licence list; the map says THE BANK"
+    },
+    {
+      "id": "the_unemployment_office",
+      "kind": "jobsoffice",
+      "name": "UNEMPLOYMENT OFFICE",
+      "where": "valley",
+      "pocket_city": "employment center",
+      "lat": 36.1265,
+      "lon": -115.1357,
+      "latlon_from": "3405 S Maryland Pkwy (to a block)",
+      "real": "Nevada JobConnect, 3405 South Maryland Parkway, the state's job office east of the Strip (the Department of Employment, Training and Rehabilitation; its Las Vegas office is at 2800 East St Louis Avenue). In 2020 Nevada had the worst unemployment in the country and the lines for these offices ran round the block. In the collapse the line never went home: it is where a company finds men who need work",
+      "sources": [
+        "https://www.legalconsumer.com/unemploymentlaw/unemployment-office.php?FIPS=32003",
+        "https://news3lv.com/news/local/nevada-jobconnect-to-hold-job-fair"
+      ],
+      "seat": { "x": { "from": "strip", "east": 9 }, "y": { "of": 0.42 } },
+      "seat_why": "Maryland Parkway, about 3 km east of the Strip at its middle (the valley's 1:4 makes it nine blocks)",
+      "like": "library",
+      "category": "civic",
+      "ground": "suburb_block",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the line round the block, men who will work for food",
+        "hire": "Battle Brothers hires in towns; here the hiring is the whole place (the screen's own recruits, a NOTE to RUN TWO for a longer list here)",
+        "scavenge": "the office's own finds below"
+      },
+      "finds": [
+        { "says": "A vending machine on its face. One can of beans rolled under it.", "good": "food" },
+        { "says": "The front desk's tape gun, a roll still in it.", "good": "tape" },
+        { "says": "A man in the line traded you a gallon for a place nearer the door.", "good": "water" }
+      ],
+      "feed": { "who": "@maryland.pkwy", "txt": "the line at the unemployment office is still there. nobody is hiring inside, it's just where you stand if you'll work. ten years of standing", "kind": "world", "draft": true }
+    },
+    {
+      "id": "the_home_center_east",
+      "kind": "hardware",
+      "name": "HOME CENTER",
+      "where": "valley",
+      "pocket_city": "home improvement center",
+      "real": "the valley's big-box home improvement stores sit on the mile-street corners of every side of town (lumber, wire, sheet metal, seeds, propane, generators). In every real collapse and every hurricane the hardware store is looted first, before the jewellers. This is the east side's",
+      "sources": [],
+      "sources_why": "no one address: the valley has many of these stores; the spot is the kind's (a mile-street corner), never one brand's",
+      "seat": { "x": { "from": "strip", "east": 14 }, "y": { "of": 0.56 } },
+      "seat_why": "a mile-street corner on the east side, where the real stores are",
+      "like": "commercial",
+      "category": "commercial",
+      "ground": "lot_and_bigbox",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: whoever holds the aisles",
+        "scavenge": "picked over first and hardest; what is left is below",
+        "base": "a home base's supply (wire, sheet, seed): LIFE+CITY's build list may read this id (a NOTE)"
+      },
+      "finds": [
+        { "says": "Duct tape, a whole flat of it under a fallen shelf.", "good": "tape" },
+        { "says": "A garden-centre seed packet. Beans. A man in the lot swapped you a ration for it.", "good": "food" },
+        { "says": "A lantern battery in the camping aisle, the blister pack still sealed.", "good": "battery" }
+      ],
+      "feed": { "who": "@eastsidecrew", "txt": "hardware store went first, before the gold shops. you can't eat gold. you can build with wire", "kind": "world", "draft": true }
+    },
+    {
+      "id": "the_home_center_west",
+      "kind": "hardware",
+      "name": "HOME CENTER",
+      "where": "valley",
+      "pocket_city": "home improvement center",
+      "real": "the west side's big-box home improvement store, on a mile-street corner like the real ones",
+      "sources": [],
+      "seat": { "x": { "from": "strip", "east": -16 }, "y": { "of": 0.4 } },
+      "seat_why": "a mile-street corner on the west side",
+      "like": "commercial",
+      "category": "commercial",
+      "ground": "lot_and_bigbox",
+      "tier": "camp",
+      "use": { "screen": "a settlement screen on arrival", "scavenge": "the finds below" },
+      "finds": [
+        { "says": "Contractor bags and a roll of tape somebody dropped running.", "good": "tape" },
+        { "says": "A case of bottled water behind the paint counter.", "good": "water" }
+      ],
+      "feed": null
+    },
+    {
+      "id": "clark_station",
+      "kind": "powerplant",
+      "name": "CLARK STATION",
+      "where": "valley",
+      "pocket_city": "power plant",
+      "lat": 36.1106,
+      "lon": -115.0987,
+      "latlon_from": "Wikipedia's coordinates for the plant at Whitney (one listing has it 5 km off; this one sits by Boulder Highway where the plant is)",
+      "real": "Edward W. Clark Generating Station, NV Energy, at Whitney in the east valley: gas, 1,102 megawatts in 19 units, its first steam unit 1954, the oldest steam power plant in Nevada. If batteries are the money, the plant that charges them is the mint, and the gas stopped coming down the pipe the year the dollar died",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Edward_W._Clark_Generating_Station",
+        "https://www.nvenergy.com/company/energytopics/images/Clark_Fact_Sheet.pdf"
+      ],
+      "seat": { "x": { "from": "strip", "east": 16 }, "y": { "of": 0.57 } },
+      "seat_why": "6.4 km east and 2.7 km south of the valley's middle; at 1:4 about sixteen blocks east of the Strip, a little south of its middle",
+      "like": "battery",
+      "category": "infrastructure",
+      "ground": "solar_and_pumps",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the crew that keeps one turbine turning on whatever burns",
+        "fight": "a compound on the plant ground; whoever holds it holds the money supply",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "A control-room battery bank, one cell still good.", "good": "battery" },
+        { "says": "The plant's emergency shower tank. Warm, but it's water.", "good": "water" },
+        { "says": "Insulating tape, the electricians' kind, a whole bag.", "good": "tape" }
+      ],
+      "feed": { "who": "@boulderhwy", "txt": "clark station ran one turbine all winter on old tires. the whole east side smelled like it. charged batteries for anybody who paid in batteries", "kind": "world", "draft": true },
+      "licence": "a real plant named for a real man: the name goes on the stage-4 licence list"
+    },
+    {
+      "id": "lenzie_station",
+      "kind": "powerplant",
+      "name": "LENZIE STATION",
+      "where": "region",
+      "pocket_city": "large power plant",
+      "lat": 36.3837,
+      "lon": -114.9218,
+      "latlon_from": "Global Energy Monitor's coordinates for the plant (36.383719 N, 114.9218 W)",
+      "real": "Chuck Lenzie Generating Station, NV Energy, at Apex on US-93 by the 15: gas, combined cycle, about 1,100 megawatts, the biggest of the three gas plants out at Apex (Harry Allen and Silverhawk the others)",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Chuck_Lenzie_Generating_Station",
+        "https://www.gem.wiki/Chuck_Lenzie_generating_station"
+      ],
+      "tier": "fortress",
+      "role": "fight",
+      "what": "the big gas plant at Apex; three turbines and no gas; whoever gets one turning prints money",
+      "use": {
+        "screen": "a fortress settlement screen on arrival (the region's machinery): held ground",
+        "fight": "role fight: the mint out past the city",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "A turbine hall battery, a forklift's, half charged.", "good": "battery" },
+        { "says": "Rounds in a guard's locker. Somebody held this place a long time.", "good": "ammo" }
+      ],
+      "feed": { "who": "@the15north", "txt": "out at apex the big plant has guards again. they say one turbine works if you feed it. batteries for sale, cash no", "kind": "world", "draft": true },
+      "licence": "a real plant named for a real man: the name goes on the stage-4 licence list"
+    },
+    {
+      "id": "shark_reef",
+      "kind": "aquarium",
+      "name": "SHARK REEF",
+      "where": "valley",
+      "pocket_city": "aquarium",
+      "lat": 36.0909,
+      "lon": -115.1764,
+      "latlon_from": "Mandalay Bay, 3950 S on the Boulevard (to a block)",
+      "real": "Shark Reef Aquarium at Mandalay Bay, the Strip's south end: about 1.6 million gallons, sharks, rays, a sawfish and a crocodile, a tunnel under the tanks. Nobody feeds a tank when the power goes; a few things in the big tank lived on each other, in the dark, under a dead casino",
+      "sources": [
+        "https://mandalaybay.mgmresorts.com/en/entertainment/shark-reef-aquarium.html"
+      ],
+      "seat": { "x": { "from": "luxor", "east": 0 }, "y": { "from": "luxor", "south": 2 } },
+      "seat_why": "Mandalay Bay is the next resort south of Luxor on the Strip",
+      "like": "resort",
+      "category": "gaming_resort",
+      "ground": "the_strip",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the casino over it, people who will not go downstairs",
+        "fight": "the Strip's ground; the tank tunnel is a beast fight in a place nobody else has (COMBAT 8 may cut it, a NOTE)",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "A diver's bag in the keepers' room. A first-aid kit, sealed.", "good": "medicine" },
+        { "says": "Salt-water pumps' backup battery, dry and good.", "good": "battery" },
+        { "says": "The gift shop's bottled water, three left on the floor.", "good": "water" }
+      ],
+      "feed": { "who": "@southstrip", "txt": "something is still alive in the big tank under the bay. we heard it hit the glass. nobody goes down the tunnel, nadie", "kind": "world", "draft": true },
+      "licence": "a real attraction in a real casino: the name goes on the stage-4 licence list"
+    },
+    {
+      "id": "the_animal_shelter",
+      "kind": "shelter",
+      "name": "ANIMAL SHELTER",
+      "where": "valley",
+      "pocket_city": "animal shelter",
+      "lat": 36.1732,
+      "lon": -115.1053,
+      "latlon_from": "655 N Mojave Rd at Bonanza (to a block)",
+      "real": "The Animal Foundation, 655 North Mojave Road, east of downtown: Nevada's largest animal shelter, tens of thousands of animals a year. The valley's feral dogs came from somewhere; the kennels opened the week the staff stopped coming",
+      "sources": [
+        "https://animalfoundation.com/"
+      ],
+      "seat": { "x": { "from": "strip", "east": 12 }, "y": { "of": 0.27 } },
+      "seat_why": "Mojave Road is about 4 km east of downtown's core, at downtown's latitude",
+      "like": "warehouse",
+      "category": "civic",
+      "ground": "industrial",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the woman who kept feeding the dogs, and the dogs",
+        "dog": "a dog in the company starts here (a NOTE to HIRES and PEOPLE; nothing built)",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "A sack of kibble the dogs never got to. People eat worse.", "good": "food" },
+        { "says": "The vet room's cabinet: one sealed course of antibiotics.", "good": "medicine" },
+        { "says": "A hose bib that still drips. You filled two jugs.", "good": "water" }
+      ],
+      "feed": { "who": "@mojaverd", "txt": "the shelter on mojave let the dogs out when the food ran out. the packs on the east side are those dogs, their kids, sus nietos", "kind": "world", "draft": true }
+    },
+    {
+      "id": "the_mob_museum",
+      "kind": "mobmuseum",
+      "name": "THE MOB MUSEUM",
+      "where": "valley",
+      "pocket_city": "museum",
+      "lat": 36.1728,
+      "lon": -115.1411,
+      "latlon_from": "300 Stewart Ave (to a block)",
+      "real": "The Mob Museum, 300 Stewart Avenue, downtown: the 1933 federal courthouse and post office where the Kefauver hearings sat in 1950, a museum of organized crime and law enforcement since 2012 (the electric chair, the St Valentine's Day wall). In the collapse the Mob faction keeps it: their own temple",
+      "sources": [
+        "https://themobmuseum.org/"
+      ],
+      "seat": { "x": { "from": "courthouse", "east": -1 }, "y": { "from": "courthouse", "south": -2 } },
+      "seat_why": "the old federal courthouse is a block north of the civic core",
+      "like": "courthouse",
+      "category": "civic",
+      "ground": "the_strip",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the Mob's museum of itself",
+        "faction": "the Mob's own temple (FACTIONS may read this id; the Mob's seat is unchanged)",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "A display case of tommy gun rounds, real ones, behind cracked glass.", "good": "ammo" },
+        { "says": "The museum cafe's storeroom: one tin of coffee and a can of soup.", "good": "food" }
+      ],
+      "feed": { "who": "@downtownwatch", "txt": "the mob museum has guards again. same families as the pictures on the walls, some of them. they say it's theirs, always was", "kind": "world", "draft": true },
+      "licence": "a real museum: the name goes on the stage-4 licence list"
+    },
+    {
+      "id": "the_natural_history_museum",
+      "kind": "natmuseum",
+      "name": "NATURAL HISTORY MUSEUM",
+      "where": "valley",
+      "pocket_city": "museum",
+      "lat": 36.1825,
+      "lon": -115.1427,
+      "latlon_from": "900 on the Boulevard North (to a block)",
+      "real": "The Las Vegas Natural History Museum, 900 Las Vegas Boulevard North, beside Cashman Field: the animatronic T. rex, the Nevada fossils, the wildlife halls. The lab's people came here for the bones before they went to the fossil beds; the dinosaur is the one thing in the valley the labs could never bring back (the beasts law s2: Ice Age and after only)",
+      "sources": [
+        "https://www.lvnhm.org/"
+      ],
+      "seat": { "x": { "from": "cashman", "east": 3 }, "y": { "from": "cashman", "south": 0 } },
+      "seat_why": "across the Boulevard North from Cashman Field, by the Neon Boneyard and the Mormon fort",
+      "like": "library",
+      "category": "civic",
+      "ground": "suburb_block",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the keeper of the bones",
+        "learn": "where the lab's science is written on the walls: what DNA can bring back and what it never can (DYNASTY's lore may read this id)",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "The T. rex's motor battery, under the plinth. It roared on it for thirty years.", "good": "battery" },
+        { "says": "Preparation-room tape and glue, for mending bones.", "good": "tape" }
+      ],
+      "feed": { "who": "@cashmanside", "txt": "the robot dinosaur at the museum moved last week. somebody found its battery. the kids lost their minds", "kind": "world", "draft": true },
+      "licence": "a real museum: the name goes on the stage-4 licence list"
+    },
+    {
+      "id": "the_tv_station",
+      "kind": "tvstation",
+      "name": "CHANNEL 8",
+      "where": "valley",
+      "pocket_city": "news station",
+      "lat": 36.1299,
+      "lon": -115.1519,
+      "latlon_from": "3228 Channel 8 Dr off Desert Inn Rd (to a block)",
+      "real": "KLAS-TV Channel 8, 3228 Channel 8 Drive, Las Vegas's first television station (on the air 1953), east of the Strip off Desert Inn. Beside the radio station it is the feed's other voice; the mast still stands and on some nights somebody puts a picture on it",
+      "sources": [
+        "https://www.8newsnow.com/"
+      ],
+      "seat": { "x": { "from": "strip", "east": 5 }, "y": { "of": 0.46 } },
+      "seat_why": "about 1.5 km east of the Strip at Desert Inn, the Strip's middle",
+      "like": "radio",
+      "category": "infrastructure",
+      "ground": "suburb_block",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the night crew and the camera",
+        "feed": "the feed's other voice (FEED may read this id for its posts)",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        { "says": "A camera battery on a charger that has not charged anything in years. It still holds.", "good": "battery" },
+        { "says": "Gaffer tape. Studios run on it. Three rolls.", "good": "tape" }
+      ],
+      "feed": { "who": "@channel8nights", "txt": "channel 8 was on again last night. no sound. just the old weather map and a man standing in front of it", "kind": "world", "draft": true },
+      "licence": "a real station: its call sign and channel go on the stage-4 licence list"
+    }
+  ]
+}
