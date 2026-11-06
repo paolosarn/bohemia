@@ -101,6 +101,11 @@ any town's ground), then the crew on a walked step (meetWalk: the meet card firs
   camp this round, rule 406), the phone folding into the fight's abilities and back, and the settings card's MOTION button (absent).
   Routed to UI and MOTION.
 
+LATER THE SAME ROUND (on the 413 tree, over CAMP THREE's camp on the board): 20/2, S4 at camp only: back 12:37 against the glass's
+last read 10:37, the save a moment before 10:37. The camp's clock runs an hour a beat and kept running the second the tab took to come
+down; what came back is the game at the moment the tab went, later than the gate's last read, never later than the tab. The camp's
+slack is now its own pace (half a save beat of camp hours), walking keeps one block; the exact moments (a town, after a fight) keep none.
+
 ## GATES RUN THIS ROUND (one at a time, on this box; it draws with a software GPU and no image-comparing leg was involved)
 
 THE SAVE COMES BACK THE SAME 22/0 (new). THE WHOLE LOOP PLAYS 11/0 (main's files, before the change). NO TOP BAR IN THE FIGHT 61/1

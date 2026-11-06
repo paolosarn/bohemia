@@ -40559,6 +40559,7 @@ function advance(mins){
      faster with the cook and the blacksmith; the camp is __THE_CAMP__ below, and it is this clock running an hour a beat */
   try{ if(window.BohemiaCondition) BohemiaCondition.elapse(mins / 60, { camped: !!(typeof CAMP !== 'undefined' && CAMP && CAMP.on) }); }catch(_e){}
   daySync();
+  try{ huntHoldTick(); }catch(_e){}   /* __A_RETREAT_GETS_HIM_AWAY__: a crew holding its field, on the clock */
   if(was==='awake'&&DAY.phase==='ended'){
     /* __THE_DAY_ENDS_ON_YOU__ (9/5, SOUNDS lane) -- THE DOOR THAT CLOSES ON YOU.
        MEASURED: driving the clock from 06:00 to nightfall on the real surface
@@ -45763,7 +45764,7 @@ function partyById(id){ var ps = null; try{ ps = partiesAll(); }catch(_e){} if(!
 function partyTap(h){
   if(PARTY_SEL !== h.id){
     PARTY_SEL = h.id; window.__PARTY_LOOKS = (window.__PARTY_LOOKS | 0) + 1;
-    var info = h.hunt ? { id: HUNT.id, count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }
+    var info = h.hunt ? { id: HUNT.id, count: HUNT.count, skulls: partySkulls(HUNT.count), going: HUNT.hold ? 'HOLDING THE FIELD' : 'COMING FOR YOU', hunt: true }   /* draft:true; __A_RETREAT_GETS_HIM_AWAY__ */
                       : (function(){ var p = h.p || partyById(h.id); if(!p) return null; var n = partySizeOf(p); return { id: h.id, count: n, skulls: partySkulls(n), going: partyGoing(p), faction: p.from && p.from.faction }; })();
     window.__PARTY_PLATE = info;
     try{ render(); }catch(_e){}
@@ -45839,12 +45840,23 @@ function huntFleeRoad(){
   HUNT_FLEE = path;
 }
 function huntDist(){ return HUNT ? Math.max(Math.abs(HUNT.at[0] - city.x), Math.abs(HUNT.at[1] - city.y)) : 99; }
+/* __A_RETREAT_GETS_HIM_AWAY__: the crew holding its field goes back to its own business when its half day is spent, read on the clock
+   itself (advance() calls this), so however the time passes (a walk, a camp, a day's work, a night) half a day is half a day */
+function huntHoldTick(){
+  if(!HUNT || !HUNT.hold) return false;
+  var now = (T.day | 0) * 1440 + (T.min | 0); if(now < HUNT.hold.till) return false;
+  if(PARTY_SEL === HUNT.id) PARTY_SEL = null; if(PARTY_CHASE === HUNT.id) PARTY_CHASE = null;
+  window.__HUNT_HELD = { id: HUNT.id, done: now }; HUNT = null; HUNT_FLEE = null;
+  try{ render(); }catch(_e){}
+  return true;
+}
 /* one of his steps: they close in (a road is his), the chase re-aims, and contact is the fight */
 function mapStepWorld(){
   if(LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block' && !(CAMP && CAMP.on))) return;   /* __THE_CAMP__: a camp is the world moving while he rests */
   try{ if(CITY_CONTACT_POSTED) return; }catch(_e){}
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.step()) return; }catch(_e){}   /* __EVERY_JOB_KIND__: the cargo follows, the packs and the raiders move */
-  if(HUNT){
+  if(HUNT && HUNT.hold){ huntHoldTick();   /* __A_RETREAT_GETS_HIM_AWAY__ (rule 413(a)): the field held, never a step toward him; then back to its own business */
+  } else if(HUNT){
     HUNT.steps++;
     var paved = false; try{ var t = om.at(city.x, city.y); paved = !!(t && CITY_PAVED[t.district]); }catch(_e){}
     /* ON FOOT THEY ARE SLOWER THAN HIM: two blocks for his three on dirt, one for his two on a road. Walking on, he gets
@@ -45892,10 +45904,11 @@ function mapStepWorld(){
   mapContact();
 }
 function mapContact(){
-  var __safe = (HUNT && huntDist() <= 1) ? (townSafeNow() || townGround(city.x, city.y)) : null;   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (b) */   /* CAMP __A_TOWN_IS_SAFE__: a hunter at a town's edge waits off it */
+  var __held = !!(HUNT && HUNT.hold && PARTY_CHASE !== HUNT.id);   /* __A_RETREAT_GETS_HIM_AWAY__: a crew holding the field never comes to him; his own chase does */
+  var __safe = (HUNT && !__held && huntDist() <= 1) ? (townSafeNow() || townGround(city.x, city.y)) : null;   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (b) */   /* CAMP __A_TOWN_IS_SAFE__: a hunter at a town's edge waits off it */
   if(__safe){ window.__TOWN_KEPT = { n: ((window.__TOWN_KEPT && window.__TOWN_KEPT.n) | 0) + 1, town: __safe.name, who: HUNT.name, at: [city.x, city.y] }; }
-  else if(HUNT && huntDist() <= 1){
-    var H = HUNT; HUNT = null; HUNT_FLEE = null; PARTY_SEL = null; PARTY_CHASE = null;
+  else if(HUNT && !__held && huntDist() <= 1){
+    var H = HUNT; HUNT = null; HUNT_FLEE = null; PARTY_SEL = null; PARTY_CHASE = null; try{ delete H.hold; }catch(_e){}
     var roster = []; for(var i = 0; i < H.count; i++) roster.push({ arch: H.arch });
     var w = [city.x, city.y]; try{ w = roadWhere(); }catch(_e){}
     var party = null; try{ party = partyMath('roaming', { x: city.x, y: city.y }); party.count = H.count; party.word = partyWord(H.count); }catch(_e){}
@@ -46844,7 +46857,7 @@ function campSpeaker(){
 }
 var CAMP_BLOCKS = ['Right on us.', 'One block off.', 'Two blocks off.', 'Three blocks off.', 'Four blocks off.', 'Five blocks off.', 'Six blocks off.'];
 function campWarn(lim){
-  if (!HUNT || CAMP.town || townSafeAt(city.x, city.y)) return null;   /* __A_TOWN_IS_SAFE__: no warning on a town's ground */
+  if (!HUNT || HUNT.hold || CAMP.town || townSafeAt(city.x, city.y)) return null;   /* __A_TOWN_IS_SAFE__: no warning on a town's ground; __A_RETREAT_GETS_HIM_AWAY__: nor from a crew holding its field */
   var d = huntDist(); if (d > lim) return null;
   if (CAMP.warned && CAMP.warned.id === HUNT.id && CAMP.warned.dist <= d) return null;   /* said once; again only when they come closer */
   var line = HUNT.name + ', coming our way. ' + (CAMP_BLOCKS[d] || (d + ' blocks off.')) + ' We hold the fire.';   /* draft:true */
@@ -47352,7 +47365,7 @@ window.addEventListener('message', function(ev){
   var o = d.outcome || {}, won = !!(o.victory || o.result === 'win');
   /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b), a marked line; CAMP's door, NOTEd): a lineup left is no fight:
      the job stays held, its clock running */
-  if(o.withdrew){ var lb = 'You pulled back before anyone moved. The job is still yours: ' + LOOP.held[i].title + '.';   /* draft:true */
+  if(o.withdrew || o.retreated){ var lb = (o.retreated ? 'You got out. ' : 'You pulled back before anyone moved. ') + 'The job is still yours: ' + LOOP.held[i].title + '.';   /* draft:true */   /* __A_RETREAT_GETS_HIM_AWAY__: a run for the edge leaves the job held, as a pull-back does */
     setTimeout(function(){ try{ loopSay(lb); render(); }catch(_e){} }, 600); return; }
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])){ BohemiaJobKinds.fightEnd(LOOP.held[i], o); return; } }catch(_e){}   /* __EVERY_JOB_KIND__ */
   var line;
@@ -68385,7 +68398,7 @@ function meetShow(msg, skin){
     try { btwCardGone(el, go); } catch (_e) { try { el.remove(); } catch (_e2) {} }   /* __THE_MOMENTS_BETWEEN__: ENGAGE closes the dark, the rest open it; the card goes in a beat */
     window.__MEET_LAST = { go: !!go, why: msg.why || null, n: n, stars: stars, ground: gr.kind, at: performance.now() };
     if (go === 'camp') { meetCampNearby(msg); return; }   /* __MAKE_CAMP_NEARBY__ */
-    if (go) { msg.__met = true; delete msg.__hunt; try { cityHandOver(msg, skin); } catch (_e) {} }   /* the hunters' object does not cross to the shell */
+    if (go) { msg.__met = true; try { window.__MEET_HUNT_KEPT = msg.__hunt || null; } catch (_e) {} delete msg.__hunt; try { cityHandOver(msg, skin); } catch (_e) {} }   /* the hunters' object does not cross to the shell; __A_RETREAT_GETS_HIM_AWAY__: the map keeps it for the fight's length, so a crew he retreats from can hold its field */
     else meetFallBack(msg);
   };
   var key = function (ev) {
@@ -68421,19 +68434,33 @@ function meetShow(msg, skin){
   return true;
 }
 /* FALL BACK: what the contact had already set is undone, and he steps two blocks away from them */
-function meetFallBack(msg){
+/* __A_RETREAT_GETS_HIM_AWAY__ (RUN SIX 11/6, rule 413 and its amendment, ask line 465; Paolo 11/6: 'if I retreat from an enemy and I
+   retreat the battle, I should be able to run away from them on the map... they're gonna be crawling up my ass as I'm running away on
+   the map, it's so creepy'; 'I should be fully able to get away'). MEASURED: the fall-back's hold lasted ten of his blocks and a crew
+   that hunted him was put straight back on his heels (HUNT restored, the road away lit). NOW every retreat (the card's FALL BACK, the
+   lineup's RETREAT, a run for the edge mid-fight) gets him away FULLY: the crew or pack he got away from never starts a fight with him
+   again on its own (the hold never runs out); a hunting crew HOLDS THE FIELD where the fight was for half a game day (RETREAT_HOLD_MIN,
+   the winners see to their wounded and strip what was left; Edgehill, 1642, Rupert's horse riding off to loot the baggage), never
+   moving on him, then goes back to its own business; a pack has its kill and its wounded and stays shy. Only his own walk aimed at
+   them brings them back, and that asks (the meet card). MEET_BACK.steps 0 (the meet gate's mutation) still gives the before. */
+var RETREAT_HOLD_MIN = 720;   /* half a game day on the field (rule 413(a)); TUNING's to move */
+function meetFallBack(msg, how){
   var why = String(msg.why || ''), from = null, pack = null, key = meetKey(msg);   /* the key before the job's fight is undone (it names the pack) */
+  var away = !(how && how.away === false) && !window.__RETREAT_AWAY_OFF && (MEET_BACK.steps | 0) > 0;   /* __A_RETREAT_GETS_HIM_AWAY__ */
   try { CITY_CONTACT_POSTED = false; } catch (_e) {}
   var mc = /^contract:([^:]+)/.exec(why);
   /* __FALL_BACK_HOLDS__: a pack steps him away from the PACK (it was the job's nearest pack, or its target, before) and loses his scent */
   if (mc) { try { LOOP.fighting = null; LOOP.held.forEach(function (j) { if (String(j.id) !== mc[1]) return;
     if (j.fight && j.fight.pack != null) (j.packs || []).forEach(function (p) { if (p.id === j.fight.pack) pack = p; });
     from = pack ? [pack.x | 0, pack.y | 0] : [j.target.x | 0, j.target.y | 0];
-    if (pack) { pack.smelt = false; pack.shy = (MEET_BACK.steps | 0); }   /* WORLD's pack: it does not follow him while shy (bohemia_job_kinds.js, marked) */
+    if (pack) { pack.smelt = false; pack.shy = away ? 1e9 : (MEET_BACK.steps | 0); }   /* WORLD's pack: it does not follow him while shy (bohemia_job_kinds.js, marked); __A_RETREAT_GETS_HIM_AWAY__: for good */
     j.fight = null; }); } catch (_e) {} }
   var mp = /^party:(.+)$/.exec(why);
   if (mp) { try { delete PARTY_FOUGHT[mp[1]]; var p = partyById(mp[1]); if (p) from = [p.at.x | 0, p.at.y | 0]; } catch (_e) {} }
-  if (msg.__hunt) { try { HUNT = msg.__hunt; from = HUNT.at.slice(); } catch (_e) {} }
+  if (msg.__hunt) { try { HUNT = msg.__hunt; from = HUNT.at.slice();
+    if (away) { HUNT.hold = { till: (T.day | 0) * 1440 + (T.min | 0) + RETREAT_HOLD_MIN, at: HUNT.at.slice() }; window.__HUNT_HELD = { id: HUNT.id, till: HUNT.hold.till, at: HUNT.hold.at };   /* __A_RETREAT_GETS_HIM_AWAY__: they hold the field */
+      if (window.__PARTY_PLATE && window.__PARTY_PLATE.id === HUNT.id) window.__PARTY_PLATE.going = 'HOLDING THE FIELD'; }   /* draft:true */
+  } catch (_e) {} }
   if (!from && msg.at && msg.at.gx != null) from = [msg.at.gx | 0, msg.at.gy | 0];
   if (!from) from = [city.x, city.y];
   /* two blocks, each to the walkable neighbour farthest from them (a tie keeps the road) */
@@ -68448,9 +68475,9 @@ function meetFallBack(msg){
     if (!best) break;
     city.x = best[0]; city.y = best[1];
   }
-  try { if (HUNT) huntFleeRoad(); } catch (_e) {}
+  try { if (HUNT && !HUNT.hold) huntFleeRoad(); else if (HUNT) HUNT_FLEE = null; } catch (_e) {}   /* __A_RETREAT_GETS_HIM_AWAY__: no road away from a crew that is not coming */
   MEET_BACK.list = MEET_BACK.list.filter(function (b) { return b.key !== key; });
-  MEET_BACK.list.push({ key: key, from: from.slice(), d0: Math.max(Math.abs(city.x - from[0]), Math.abs(city.y - from[1])), left: MEET_BACK.steps, pack: pack ? pack.id : null });
+  MEET_BACK.list.push({ key: key, from: from.slice(), d0: Math.max(Math.abs(city.x - from[0]), Math.abs(city.y - from[1])), left: away ? 1e9 : MEET_BACK.steps, away: away, pack: pack ? pack.id : null });
   try { camHold(); } catch (_e) {}
   try { travelSay('You fell back.'); } catch (_e) {}   /* draft:true */
   window.__MEET_FELL_BACK = (window.__MEET_FELL_BACK | 0) + 1;
@@ -68486,7 +68513,7 @@ function meetBackHolds(msg){
     var th = meetThem(msg) || b.from, aimed = false;
     try { if (/^party:/.test(String(msg.why || ''))) aimed = true; } catch (_e) {}   /* a roaming party is only ever met by his chase */
     try { if (TRAVEL && TRAVEL.to && !(TRAVEL.town && TOWN_DOOR.on) && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (a): a walk that ends in a town is never aimed at anybody */
-    try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && b.left >= MEET_BACK.steps) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
+    try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && (b.away ? b.left >= 1e9 : b.left >= MEET_BACK.steps)) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
     if (!aimed) return b; }
   return null;
 }
@@ -69388,7 +69415,8 @@ function citySnapshot(){
     /* __THE_SAVE_REMEMBERS__ (RUN 10/24, rule 141(c)): THE MAP'S OWN GAME. The jobs he holds (where each one waits, its pay,
        its crew), the jobs done and the ones finished (the phone leaves them off), and last night's bill were in memory only,
        so a reload gave back the morning with no job on the map */
-    run:(function(){ try{ return { held: LOOP.held, done: LOOP.done | 0, doneIds: LOOP.doneIds || [], bill: BILL.last || null, nights: window.__BILL_NIGHTS | 0 }; }catch(_e){ return null; } })() };
+    run:(function(){ try{ return { held: LOOP.held, done: LOOP.done | 0, doneIds: LOOP.doneIds || [], bill: BILL.last || null, nights: window.__BILL_NIGHTS | 0,
+      back: (MEET_BACK.list || []).filter(function(b){ return b && b.away; }).slice(-40) }; }catch(_e){ return null; } })() };   /* __A_RETREAT_GETS_HIM_AWAY__: who he got away from, across a reload */
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
@@ -73292,6 +73320,7 @@ window.addEventListener('message',function(ev){
      screen, so this starts pulled back and eases in with the cloud clearing. */
   try{ fightZoomIn(); }catch(_e){}
   var o=d.outcome||{};
+  var __kh = null; try{ __kh = window.__MEET_HUNT_KEPT || null; window.__MEET_HUNT_KEPT = null; }catch(_e){}   /* __A_RETREAT_GETS_HIM_AWAY__: the crew he met, kept while he fought */
   /* WON is the explicit flag the shell sends; anything else is not a win. A
      fight that ended some third way is still a thing that HAPPENED to him. */
   var won = !!(o.victory||o.result==='win');
@@ -73301,8 +73330,15 @@ window.addEventListener('message',function(ev){
     /* rule 275(c) (Paolo 10/26: 'if I retreat, it bounces me a couple tiles away to get a head start'): the party steps back two
        blocks from them, the way FALL BACK on the meet card does (the hunters keep hunting, a party he chased stays, a job stays
        held), so the same contact is not touched again on the next step */
-    var hb = null; try{ hb = window.__HANDED || null; window.__HANDED = null; meetFallBack(hb || { at: d.at || null }); }catch(_e){}
+    var hb = null; try{ hb = window.__HANDED || null; window.__HANDED = null; meetFallBack(Object.assign({}, hb || { at: d.at || null }, __kh ? { __hunt: __kh } : {}), { away: true }); }catch(_e){}
     try{ window.__FIGHT_CAME_HOME={won:false,withdrew:true,at:d.at||null,bounced:{x:city.x,y:city.y}}; }catch(_e){} return; }
+  /* __A_RETREAT_GETS_HIM_AWAY__ (RUN SIX 11/6, rule 413(d)): a run for the edge in the middle of the fight is no loss and never the reload.
+     The fight happened (its wounds, its dead, the plate spent); the crew he ran from holds the field and has lost him (meetFallBack, away) */
+  if(o.retreated){ var lnR = 'You got out.'; try{ var qr=document.getElementById('qline'); if(qr) qr.textContent=lnR; }catch(_e){}   /* draft:true */
+    try{ if(typeof DAY!=='undefined'&&DAY.happened) DAY.happened(lnR,'fight'); }catch(_e){}
+    var hr = null; try{ hr = window.__HANDED || null; window.__HANDED = null; meetFallBack(Object.assign({}, hr || { at: d.at || null }, __kh ? { __hunt: __kh } : {}), { away: true }); }catch(_e){}
+    try{ upkeepPost('fight:plate', (d.at||null)); }catch(_e){}
+    try{ window.__FIGHT_CAME_HOME={won:false,retreated:true,at:d.at||null,bounced:{x:city.x,y:city.y}}; }catch(_e){} return; }
   /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
      ship, his to overwrite. */
   /* __DEATH_IS_A_RELOAD__ (8/22). Yesterday this said "It went badly in there.
@@ -75017,7 +75053,8 @@ function applyRestore(st){
   /* __THE_SAVE_REMEMBERS__: the map's own game comes back with him */
   if(st.run){ try{ if(Array.isArray(st.run.held)) LOOP.held = st.run.held.filter(function(j){ return j && j.id && j.target; }).slice(0, LOOP_MAX);
     LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-500) : [];
-    if(st.run.bill) BILL.last = st.run.bill; window.__BILL_NIGHTS = st.run.nights | 0; LOOP.fighting = null; }catch(_e){} }
+    if(st.run.bill) BILL.last = st.run.bill; window.__BILL_NIGHTS = st.run.nights | 0; LOOP.fighting = null;
+    if(Array.isArray(st.run.back)) MEET_BACK.list = st.run.back.filter(function(b){ return b && b.key && b.away && Array.isArray(b.from); }).slice(-40); }catch(_e){} }   /* __A_RETREAT_GETS_HIM_AWAY__ */
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
   if(st.mode==='human'){ MODE='human'; hx=st.hx; hy=st.hy; HC=HZOOM; }
@@ -91943,7 +91980,7 @@ window.BOHEMIA_FEED = (function(){
       var cx = ctx(), e = { enemy: fname(fac) || (h.label ? String(h.label).toLowerCase() : null), enemy_faction: fac,
                 count: (h.party && h.party.count) || (((o.dead | 0) + (o.fled | 0) + (o.alive | 0)) || null), town: cx.town,
                 district: h.district || cx.district || null };
-      var how = ((won && (o.alive | 0) > 0) || o.withdrew) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* __PULLED_BACK__ (COMBAT, rule 253): a lineup left is the way out */   /* the way out is fleeing; a wipe is its own story */
+      var how = ((won && (o.alive | 0) > 0) || o.withdrew || o.retreated) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* __PULLED_BACK__ (COMBAT, rule 253): a lineup left is the way out */   /* the way out is fleeing; a wipe is its own story */
       fire(how, e);
       /* the crew that beat him, or watched him run, says so on its own page */
       if (how !== 'fight.won' && fac) fire('faction.claim', { faction_id: fac, enemy: cx.company ? 'the ' + cx.company : null, town: cx.town, district: e.district });

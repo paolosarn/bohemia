@@ -62,7 +62,9 @@ async function run(prof) {
     window.__DL0 = 1; w('cityHandOver', (a, r) => 'door ' + (a[0] && a[0].why) + ' -> ' + r + ' at ' + city.x + ',' + city.y); w('loopOpenTown', (a) => 'open ' + (a[0] && a[0].name)); w('travelSay', (a) => 'say ' + a[0]); w('meetShow', (a) => 'card ' + (a[0] && a[0].why)); });
   /* one walk in: caught, FALL BACK, then the town walk with them one block behind every step */
   const walkIn = async (p, tag, on) => {
-    await fr.evaluate((a) => { TOWN_DOOR.on = a.on; try { loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} try { CITY_CONTACT_POSTED = false; } catch (e) {}
+    /* RE-AIMED 11/6 BY RUN SIX (rule 413): after FALL BACK a crew now holds the field and never follows him, so THE BEFORE switches that off too
+       (window.__RETREAT_AWAY_OFF), or the before could never show the card at the gate; the after legs run with both on, as the game does */
+    await fr.evaluate((a) => { TOWN_DOOR.on = a.on; window.__RETREAT_AWAY_OFF = !a.on; try { loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} try { CITY_CONTACT_POSTED = false; } catch (e) {}
       if (typeof MEET !== 'undefined' && MEET && MEET.up) { try { MEET.up.el && MEET.up.el.remove(); } catch (e) {} MEET.up = null; }
       window.__DL = []; MEET_BACK.list = []; city.x = a.p.at[0]; city.y = a.p.at[1]; CITY_GLIDE.tx = null; try { fogClear(city.x, city.y, 6); } catch (e) {}
       HUNT = { id: 'hunt:door:' + a.tag, ev: { id: 'toll_crew', name: 'the toll crew', seq: 1 }, name: 'THE TOLL CREW', arch: 'human', count: 4, at: a.p.behind.slice(), steps: 0, made: performance.now() };

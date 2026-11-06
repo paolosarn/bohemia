@@ -74,12 +74,13 @@ const same = (p, q) => !!p && !!q && p.day === q.day && p.min === q.min && p.x =
 function judge(tag, G, S, R, lag) {
   /* S is the save read a moment before the tab went, G the glass at the moment it went; the page lives on for that moment (the save
      beat, pagehide's flush), so a moving game may come back anywhere between the two, never before S and never after G */
-  /* moving, the page lives on for the instant between reading the glass and the tab going: one block's minutes (about 11) of slack */
-  const back = abs(R.a), behind = abs(G) - back, slack = lag ? 12 : 0;
+  /* moving, the page lives on for the instant between reading the glass and the tab going (a heavy page takes about a second to come
+     down, measured): walking that is about one block (12 game min), camped it is the camp's own pace, an hour a beat (lag/2 of slack) */
+  const back = abs(R.a), behind = abs(G) - back, slack = !lag ? 0 : lag > 60 ? lag / 2 : 12;
   const between = lag ? (abs(S) <= back && back <= abs(G) + slack) : (same(R.a, G) && same(S, G));
   ok(tag + ': back is the game when the tab went' + (lag ? ' (between the save a moment before and the glass)' : ', the same day, minute and block'), between,
     'the save ' + fmt(S) + '; the glass ' + fmt(G) + '; back ' + fmt(R.a));
-  ok(tag + ': never later than the glass' + (lag ? ' (one block of slack), and at most one save beat behind it (' + lag + ' game min)' : ', to the minute'), behind >= -slack && behind <= lag,
+  ok(tag + ': never later than the glass' + (lag ? ' (' + slack + ' game min of slack for the tab coming down), and at most one save beat behind it (' + lag + ' game min)' : ', to the minute'), behind >= -slack && behind <= lag,
     behind >= 0 ? behind + ' min behind the glass' : (-behind) + ' MIN AHEAD OF THE GLASS');
   ok(tag + ': the batteries and the crew come back as they were', R.a.bats === G.bats && R.a.crew === G.crew, 'had ' + G.bats + ' batteries, ' + G.crew + ' men; back ' + R.a.bats + ', ' + R.a.crew);
   ok(tag + ': for four seconds after CONTINUE (a double tap, a third tap on the door) nothing moves', still(R) && R.title.via !== 'new', fmt(R.a) + ' -> ' + fmt(R.b) + (R.b.trav ? ', A JOURNEY RUNNING' : '') + (R.fight ? ', A FIGHT' : ''));

@@ -244,7 +244,7 @@
     var F = FIGHT; FIGHT = null;
     var o = d.outcome || {}, won = !!(o.victory || o.result === 'win') && !((o.alive | 0) > 0 && o.withdrew);
     var fx = won ? (F.f.win || {}) : (F.f.lose || {});
-    if (o.withdrew) fx = {};
+    if (o.withdrew || o.retreated) fx = {};   /* RUN SIX __A_RETREAT_GETS_HIM_AWAY__ (rule 413(d)): a run for the edge is no loss: the losing end does not run */
     var r = apply(fx, F.ctx);
     root.__ROADEV_FOUGHT = (root.__ROADEV_FOUGHT || []).concat([{ id: F.id, won: won }]).slice(-20);
     var line = (F.ctx.name ? F.ctx.name + ': ' : '') + (r.say || (won ? 'They are down.' : 'You got out of it.')) + (r.got.length ? ' (' + r.got.join(', ') + ')' : '');

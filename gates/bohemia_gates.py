@@ -10549,6 +10549,13 @@ GATES = [
      "after a fight's LEAVE and at camp, every reload through the title with a double tap and a third tap on the door; back is what the "
      "save held, the save is the glass when the tab went, the batteries and crew as they were, nothing moves for four seconds after "
      "CONTINUE, the fight never comes back; S5 the leg can fail with the door's hold off. About 10 min", True),
+    ('A RETREAT GETS HIM AWAY', ['node', 'gates/a_retreat_gets_him_away_gate.js'],
+     "RUN SIX gate, 11/6, rule 413 and its amendment (PAOLO 11/6: 'if I retreat and run away, I should be fully able to get away from a "
+     "battle'): on the demo, a crew hunting him catches him on his own step, the meet card, ENGAGE; RETREAT at the lineup, then again in the "
+     "middle of a fight: it comes home as its own outcome (never a loss, never 'back to your last save'), the crew holds the field where "
+     "the fight was, he walks away with no card and the distance never shrinking, two game days camped three blocks off with no card, the "
+     "crew back at its business after half a day, and only his own walk aimed at them lifts the hold. On main's files before: 8/6 (the "
+     "mid-fight retreat reloaded the save). About 4 min", True),
     ('THE PAD IS TRAVEL SPEED',['node', 'gates/the_pad_is_travel_speed_gate.js'],
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "

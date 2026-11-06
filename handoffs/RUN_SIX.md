@@ -28,7 +28,15 @@ DECISIONS WRITTEN DOWN (no questions asked):
 - At camp the save lags the glass by up to one save beat (1.5 s, three camp hours): back is never LATER than what he saw. Saving every
   camp hour would post the whole run twice a second; not done.
 
-NEXT for this lane: RULE 413 (a retreat gets him away on the map, FULLY), addressed to RUN SIX by the coordinator after this round's
+11/6 LATER -- BUILD 11/6n A RETREAT GETS HIM AWAY, BUILT, NOT YET SEEN (rule 413 and its amendment, ask line 465): a run for the
+edge mid-fight comes home as its own outcome (never a loss, never 'back to your last save'); every retreat (the card's FALL BACK, the
+lineup's RETREAT, the run mid-fight) gets him away FULLY: the hold on that crew or pack never runs out (MEET_BACK away, it rides the save),
+a hunting crew holds the field half a game day (RETREAT_HOLD_MIN 720, read on the clock) and goes back to its business, only his own
+aimed walk lifts it and that asks. Gate A RETREAT GETS HIM AWAY 14/0 (main's files 8/6). Record:
+records/BOHEMIA_RUN6_A_RETREAT_GETS_HIM_AWAY_11_6_26.md. NOTE for COMBAT: a real tap on the fight's RETREAT box on the phone did not
+reach the button in the gate's runs (the button's own handler did); worth a look with rule 415.
+
+WHAT WAS NEXT (now done above): RULE 413 (a retreat gets him away on the map, FULLY), addressed to RUN SIX by the coordinator after this round's
 dispatch. MEASURED, not built yet: a mid-fight retreat comes home as result 'lost' (BOHEMIA_FIGHT.html afterAction: every man of his
 out reads as !you.length), the shell's nfOverIn makes it a loss, and the map's __THE_FIGHT_COMES_HOME__ answers a loss with 'Back to
 your last save' (bohemiaCityNeedRestore): a retreat reloads the save. The fight's message already carries retreat: true. The fall-back

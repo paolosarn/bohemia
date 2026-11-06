@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6m - THE CAMP ON THE BOARD</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/6n - A RETREAT GETS HIM AWAY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12769,7 +12769,13 @@ function nfOverIn(d, src){
     NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));
     return true;
   }
-  var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
+  /* __A_RETREAT_GETS_HIM_AWAY__ (RUN SIX 11/6, rule 413(d), Paolo 11/6: 'if I retreat and run away, I should be fully able to get away
+     from a battle'). MEASURED: a run for the edge in the middle of a fight came home as 'lost' (every man of his out reads as none of
+     his standing) and the map answers a loss with 'back to your last save'. A retreat that got anyone out is its own outcome: the
+     fight's wounds and dead kept, never a loss, never the reload. The fight says it (retreat: true, never on a wipe).
+     window.__RETREAT_AWAY_OFF is the gate's mutation (the before), never set by the game. */
+  var outRan = !won && !!(d && d.retreat) && d.result !== 'withdrew' && !window.__RETREAT_AWAY_OFF;
+  var outcome = { result: won ? 'win' : outRan ? 'retreat' : 'loss', retreated: outRan, victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
   try{ if(NF.opts && NF.opts.arena && d && Array.isArray(d.crew)) outcome.arena = { id: NF.opts.arena.id, men: d.crew.map(function(r){ return { name: r.name, dead: !!r.dead, down: !!r.down }; }) }; }catch(_e){}   /* __THE_ARENA__: who stood in the pit, for the ranks */
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
