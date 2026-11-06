@@ -54,7 +54,7 @@ the shallow one read a roof's parapet (a short symmetric stripe) as one (0.71). 
 is NOT a pixel mirror (its stones, wear and light are its own; it scores 0.3 at row 1820), so the pixel leg cannot catch that kind; the
 gate reads each drawing's own record that its ground under the town was continued, and the tool's own paste measures the seam.
 
-## RESULT (11/6, BUILD 11/6j)
+## RESULT (11/6, BUILD 11/6l)
 - All 14 wide towns re-drawn whole (3260 x 1092, the town 600 px in each side): records/target/cook_town_screens/whole/wide/*.json.
   Ten of them 16 samples with the denoiser (as the four layouts' upright towns); Cartel 32 samples, no denoiser, the rig's dents cut
   once (--simplify --no-denoise): measured, the denoiser's load at the first sample took Cartel past the box's 14 GB at any size, and

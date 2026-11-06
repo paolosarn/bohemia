@@ -1,6 +1,6 @@
 RUN FIVE (chat 01e, the screens you arrive at: the town drawn whole, the end of the fight's receipt; opened 11/6 by the coordinator, rule 411):
 11/6 LATEST -- both jobs shipped: the receipt (rule 405(c), BUILD 11/6e) and every town drawn whole sideways with nothing laid over
-any town (rule 383, BUILD 11/6j). OWED next round: the upright towns' bottom strip continued (the render is built). All BUILT, NOT YET
+any town (rule 383, BUILD 11/6l). OWED next round: the upright towns' bottom strip continued (the render is built). All BUILT, NOT YET
 SEEN (rule 179) unless said.
 
 SHIPPED 11/6 [the town drawn whole] (rule 383, NOW by rule 404 amended; ask lines 414, 447; record
