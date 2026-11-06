@@ -10515,6 +10515,25 @@ GATES = [
      "takes the big clones off; the tournament five days in eighteen); then the Mob's real town screen on his phone: THE PIT last in the "
      "order and nowhere else, drawn by day and night, the bookie under his face with tonight's card (every foe in his own body, the count, "
      "the purse, the house rules), nobody walking into the pool; then the demo driven by a finger: the pick (the best three picked, every accessory crossed out), FIGHT takes only them in without their accessories against every foe on the card on a small board; in the pit no retreat and nobody spared, the crowd answering the fight's own sounds (cheer, gasp, boo, the long cheer), nothing off the dead, home paid the purse with the bookie saying so; the crowd made of real recordings", True),
+    ('SMOOTH IS A BUDGET', ['node', 'gates/smooth_is_a_budget_gate.js'],
+     "PLUMBER 4 gate, 11/5, rule 400(a)(e) and 384(f), ask lines 436, 440, 454 (his brother: 'zooming in and out seems to glitch out a "
+     "little, and when you start a battle it glitches out a little too; some of the fight scenes seem to glitch out in the middle'): the "
+     "one frame meter (slices/bohemia_frame_meter.js) off by default on every screen; the three glitches' causes held: no frame of a pinch "
+     "draws the map twice (a landed tile asks for the next frame's draw), the ground's picture the glass's size while nobody slides it, the "
+     "sky's pixel discs one picture and pixel-identical, the fight's door copies the phone once, no picture decoded on the main thread for "
+     "100 ms in a fight's start (a trace), nothing in the map's hidden frame reads the boards while a fight stands; ratchets on the pinch, "
+     "the fight's start and AUTO; the median frame inside 16.7 ms on the town, the map at three stops and at night, the fight (the far stop "
+     "OVER BUDGET, known, WORLD's); the march the same blocks a second at every zoom; beats a slow frame held up owed and paid. Solo: it "
+     "measures time. About 10 min", True),
+    ('THE WHOLE LOOP PLAYS', ['node', 'gates/the_whole_loop_plays_gate.js'],
+     "PLUMBER 4 gate, 11/5, rule 408(d) ('one smoke test of the whole loop runs every build'): one stranger's game on the demo at phone "
+     "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "
+     "victory and its LEAVE, a save, the link opened again and CONTINUE to the same day and company; real touches where there is something "
+     "to press; it stops at the first step that breaks and names it. About 4 min", True),
+    ('THE PAD IS TRAVEL SPEED', ['node', 'gates/the_pad_is_travel_speed_gate.js'],
+     "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
+     "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "
+     "against 1x, every block paying its clock, the plates off the glass, and HOLD PLAY FOR 4X with a real finger on the phone. About 2 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

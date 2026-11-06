@@ -1,139 +1,121 @@
-/* THE PAD IS TRAVEL SPEED  (UI lane 11, VAMILY [speed pad], 9/30/26)
+/* THE PAD IS TRAVEL SPEED  (UI lane 11, VAMILY [speed pad], 9/30/26; RE-AIMED BY PLUMBER 4, 11/5/26)
 
-   RULE 44(a), PAOLO 9/29: "bring the trackpad back but instead of controlling your directions...
-   how Battle Brothers does it when you travel on the map, you control how fast: 1x, 2x, 3x, 4x,
-   maybe 5x." The board's default: PAUSE 1x 2x 3x 5x; a road event drops it to PAUSE.
+   RULE 44(a), PAOLO 9/29: "bring the trackpad back but instead of controlling your directions... how Battle Brothers does it when
+   you travel on the map, you control how fast." The pad of plates (PAUSE 1x 2x 3x 5x) was that answer on 9/30.
 
-   WHAT THIS HOLDS, on the DEMO (what a friend gets), through the one driver, each speed on a FRESH
-   game because a road party can start a fight inside a few seconds of travel and a fight ends the
-   journey (measured: the fourth run on one page could not set a journey at all). It REFUSES TO
-   REPORT a speed it could not measure, and says which.
-     - on the map: five plates PAUSE 1x 2x 3x 5x, each a thumb (44 x 44), bottom right, 1x lit
-     - a tap on a plate sets the speed and lights it, and does NOT set a journey
-     - PAUSE holds a journey: over 4 s, 0 blocks and 0 game minutes, and the journey is still set
-     - 3x crosses at least 2.5 times the blocks of 1x in the same 4 s, and every block still pays
-       its own clock (game minutes go up with the blocks, never a skip)
-     - 5x is REPORTED, not asserted: it is bound by how heavy one map step is on the machine
-       running this (measured 55 ms a step on the gate box; one beat in four dropped at 5x)
-     - the one door every fight comes through drops it to PAUSE (source), and the hook lights II
-     - no text is under the pad (clipping ancestors respected: a post clipped inside the phone is
-       not "under" anything)
-     - no page error
+   RE-AIMED 11/5 (PLUMBER 4, the coordinator's job 4 of rule 409): this gate looked for the old plates on the glass and the old 3x and
+   5x steps and failed ten legs on a build that does exactly what was asked, because the speed moved. The plates are gone BY RULE (the
+   phone is the one control: THE PHONE gate proves the pad is off the glass) and the clock's steps are TRAVEL_CLOCK.steps, 1 2 4, with
+   PAUSE before them (rule 384 and 396: the speed is his, at every zoom; HOLD PLAY for 4x, the coordinator's BUILD 11/5a). A gate that
+   fails on the right build teaches everybody to ignore it, so it now holds what the game does:
+     S1 the speeds are PAUSE and TRAVEL_CLOCK's steps, 1 2 4 (source and live)
+     S2 PAUSE holds a journey without ending it (the route is not consulted; source)
+     S3 every extra block of a fast beat is a real stepOnce that pays its own clock, spread one every BEAT/N (source)
+     S4 the one door every fight comes through stops the journey (source)
+     S5 the plates are not on the glass (no #speedpad shown); the phone's PLAY is the control, a thumb tall
+     L1 PAUSE: 0 blocks and 0 game minutes in 4 s, and the journey is still set
+     L2 1x travels; 2x crosses at least 1.7 times the blocks of 1x; 4x at least 3 times (whole beats, so not exactly 2 and 4)
+     L3 every block paid its own clock: the game minutes grow with the blocks at every speed (never a skip)
+     L4 HOLD PLAY FOR 4X (bohemia_phone.js __HOLD_FOR_FOUR_TIMES__): a real finger held on PLAY runs the map at 4x while it is down;
+        let go and it is his speed again
+     L5 no page error
+   A speed window a road party interrupted (a card came up) is measured again on a new journey, once, and says so.
 
-   node gates/the_pad_is_travel_speed_gate.js */
+   node gates/the_pad_is_travel_speed_gate.js [--profile phone_portrait|computer] */
+'use strict';
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
 const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const CITY = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+const PHONE = fs.readFileSync(path.join(ROOT, 'slices/bohemia_phone.js'), 'utf8');
+const ai = process.argv.indexOf('--profile'), profile = ai > 0 ? process.argv[ai + 1] : 'phone_portrait';
 
-let pass = 0, fail = 0, errs = [];
-const ok = (m, g, extra) => {
-  if (g) { pass++; console.log('  ok   ' + m + (extra ? '  [' + extra + ']' : '')); }
-  else { fail++; console.log('  FAIL ' + m + (extra ? '  [' + extra + ']' : '')); }
-};
-const done = () => { console.log('\nTHE PAD IS TRAVEL SPEED: ' + pass + ' ok, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
-
-async function fresh() {
-  const d = await open({ door: 120000 });
-  if (!d.doorIsBehindUs()) { await d.close(); return null; }
-  await d.page.waitForTimeout(1200);
-  d.off = await d.page.evaluate(() => { const r = document.getElementById('cityFrame').getBoundingClientRect(); return { x: r.x, y: r.y }; });
-  d.st = () => d.fr.evaluate(() => ({ x: city.x, y: city.y, t: T.day * 1440 + T.min, speed: TRAVEL_SPEED, trav: !!TRAVEL,
-    left: TRAVEL ? TRAVEL.path.length - TRAVEL.i : 0, lit: (document.querySelector('#speedpad .sp.now') || {}).textContent || null }));
-  d.plate = async (label) => { const c = await d.fr.evaluate((l) => { const b = Array.from(document.querySelectorAll('#speedpad .sp')).find(x => x.textContent === l);
-    if (!b) return null; const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, label);
-    if (!c) return false; await d.tapAt(c[0] + d.off.x, c[1] + d.off.y); await d.page.waitForTimeout(250); return true; };
-  d.setOut = async () => {
-    for (const [x, y] of [[60, 650], [60, 700], [195, 650], [330, 700], [60, 180]]) {
-      await d.tapAt(x, y); await d.page.waitForTimeout(350);
-      const s = await d.st(); if (s.trav && s.left >= 28) return s;
-      if (s.trav) await d.fr.evaluate(() => travelStop());
-    }
-    return null;
-  };
-  return d;
-}
-async function measure(label) {
-  const d = await fresh(); if (!d) return { label, refused: 'the door never opened' };
-  try {
-    await d.plate('1x');
-    if (!(await d.setOut())) return { label, refused: 'no long journey could be set by a tap' };
-    await d.plate(label);
-    /* FOUR SECONDS, NOT TWO, AND THIS IS THE INSTRUMENT, NOT THE BAR: travel moves on whole beats
-       (500 ms), so a 2 s window catches 4 OR 5 beats depending on where it starts. Measured: 3x
-       crossed 12 blocks (exactly 3 a beat for 4 beats) while its 1x control caught a fifth beat
-       and crossed 5 -- 2.4x, red, for a pad doing precisely its job. Over 8 beats the edge error is
-       one beat in eight, and the 2.5x bar is unchanged. */
-    const a = await d.st(); await d.page.waitForTimeout(4000); const b = await d.st();
-    errs = errs.concat(d.errs || []);
-    return { label, speed: a.speed, lit: a.lit, blocks: a.left - b.left, minutes: b.t - a.t, stillSet: b.trav };
-  } finally { await d.close(); }
-}
+let pass = 0, fail = 0;
+const ok = (m, g, extra) => { if (g) pass++; else fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (extra != null ? '  [' + extra + ']' : '')); };
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 (async () => {
-  console.log('\nTHE PAD IS TRAVEL SPEED  (UI [speed pad], rule 44a)\n');
-  ok('the speeds are PAUSE 1x 2x 3x 5x', /var TRAVEL_SPEEDS = \[0, 1, 2, 3, 5\];/.test(CITY));
-  ok('PAUSE holds the journey without ending it (the route is not consulted)', /!\(TRAVEL && TRAVEL_SPEED===0\)\) \? travelNext\(\)/.test(CITY));
-  ok('every extra block is a real stepOnce that pays its own clock', /const m2=stepOnce\(d2\); travelStepped\(m2\);/.test(CITY));
-  ok('  and the extra blocks are spread one every BEAT/N, never burst in one tick (the map glide snaps past 2.5 blocks)',
-     /setTimeout\(function\(\)\{\s*if\(!TRAVEL \|\| TRAVEL_SPEED!==N\) return;[\s\S]{0,300}const m2=stepOnce\(d2\)[\s\S]{0,1200}Math\.round\(k\*BEAT\/N\)/.test(CITY));
-  ok('the one door every fight comes through drops it to PAUSE', /travelStop\(\); \}catch\(_e\)\{\}\n[\s\S]{0,300}travelInterrupt\('fight'\)/.test(CITY));
+  console.log('\nTHE PAD IS TRAVEL SPEED  (rule 44a; re-aimed at the travel clock, rules 384 and 396)  ' + profile + '\n');
+  ok('S1 the clock\'s steps are 1 2 4, with PAUSE before them', /var TRAVEL_CLOCK = \{ steps: \[1, 2, 4\]/.test(CITY) && /var TRAVEL_SPEEDS_ALL = \[0\]\.concat\(TRAVEL_CLOCK\.steps\);/.test(CITY));
+  ok('S2 PAUSE holds the journey without ending it (the route is not consulted)', /!\(TRAVEL && TRAVEL_SPEED===0\)\) \? travelNext\(\)/.test(CITY));
+  ok('S3 every extra block is a real stepOnce that pays its own clock, one every BEAT/N', /const m2=stepOnce\(d2\); travelStepped\(m2\);/.test(CITY)
+     && /k\*BEAT\/\(XTRA\+1\)/.test(CITY));   /* timed from the beat (WORLD 5, __HOLD_PLAY_SLIDE_THE_SPEED__): slot k of XTRA+1 */
+  ok('S4 the one door every fight comes through stops the journey', /travelInterrupt\('fight'\)/.test(CITY));
+  ok('S4b the phone holds PLAY for the fastest step and gives his speed back', /function holdFast\(\)/.test(PHONE) && /__HOLD_FOR_FOUR_TIMES__/.test(PHONE) && /function holdEnd\(\)/.test(PHONE));
 
-  /* THE OBJECT, on a fresh demo */
-  const d = await fresh();
-  if (!d) { ok('REFUSING TO REPORT: the driver never got past the door', false); return done(); }
-  const pad = await d.fr.evaluate(() => {
-    const p = document.getElementById('speedpad'); if (!p) return null;
-    const btns = Array.from(p.querySelectorAll('.sp')).map(b => { const r = b.getBoundingClientRect(); return { t: b.textContent, w: r.width, h: r.height, x: r.x, y: r.y, lit: b.classList.contains('now') }; });
-    const R = p.getBoundingClientRect();
-    /* text boxes that are really painted under the pad: intersect each with every clipping ancestor */
-    const under = [];
-    for (const el of Array.from(document.querySelectorAll('body *'))) {
-      if (el.closest('#speedpad')) continue;
-      if (!Array.from(el.childNodes).some(n => n.nodeType === 3 && n.textContent.trim())) continue;
-      const st = getComputedStyle(el); if (st.display === 'none' || st.visibility === 'hidden' || +st.opacity < .05) continue;
-      let r = el.getBoundingClientRect(); let L = r.left, T0 = r.top, Rt = r.right, B = r.bottom;
-      for (let a = el.parentElement; a; a = a.parentElement) { const s = getComputedStyle(a);
-        if (s.overflow !== 'visible' || s.overflowX !== 'visible' || s.overflowY !== 'visible') { const q = a.getBoundingClientRect();
-          L = Math.max(L, q.left); T0 = Math.max(T0, q.top); Rt = Math.min(Rt, q.right); B = Math.min(B, q.bottom); } }
-      if (Rt - L < 1 || B - T0 < 1) continue;
-      if (Rt > R.left && L < R.right && B > R.top && T0 < R.bottom) under.push((el.id || el.className) + ':' + el.textContent.trim().slice(0, 24));
+  const d = await open({ profile, fog: false });
+  const errs = [];
+  d.page.on('pageerror', e => errs.push(String(e).slice(0, 140)));
+  try {
+    await sleep(2500);
+    if (await d.fr.evaluate(() => !!(window.LOOP && LOOP.open)).catch(() => false)) {
+      await d.page.evaluate(() => { try { document.getElementById('cityFrame').contentWindow.BohemiaPhone.P.leave(); } catch (e) {} });
+      await d.fr.evaluate(() => { try { if (LOOP.open && typeof loopLeave === 'function') loopLeave(); } catch (e) {} });
+      await sleep(2500);
     }
-    return { shown: getComputedStyle(p).display !== 'none', btns, R: [R.x, R.y, R.right, R.bottom], vw: innerWidth, vh: innerHeight, under, mode: MODE };
-  });
-  ok('the demo opens on the map with the pad on it', pad && pad.shown && pad.mode === 'city', pad && (pad.mode + ' shown=' + pad.shown));
-  ok('five plates, PAUSE 1x 2x 3x 5x', pad && pad.btns.map(b => b.t).join(' ') === 'II 1x 2x 3x 5x', pad && pad.btns.map(b => b.t).join(' '));
-  ok('  every plate is a thumb, 44 x 44 or more', pad && pad.btns.every(b => b.w >= 44 && b.h >= 44), pad && pad.btns.map(b => Math.round(b.w) + 'x' + Math.round(b.h)).join(' '));
-  ok('  bottom right, on the glass', pad && pad.R[2] <= pad.vw && pad.R[3] <= pad.vh && pad.R[0] > pad.vw * 0.25, pad && pad.R.map(Math.round).join(','));
-  ok('  1x is lit at the start', pad && (pad.btns.find(b => b.lit) || {}).t === '1x');
-  ok('no text is painted under the pad', pad && pad.under.length === 0, pad && pad.under.join(' | '));
-  const s0 = await d.st(); await d.plate('3x'); const s1 = await d.st();
-  ok('a tap on a plate sets the speed and lights it', s1.speed === 3 && s1.lit === '3x', s1.speed + ' lit ' + s1.lit);
-  ok('  and it does not set a journey or move him', !s1.trav && s1.x === s0.x && s1.y === s0.y);
-  const hk = await d.fr.evaluate(() => { travelInterrupt('gate'); return { speed: TRAVEL_SPEED, lit: document.querySelector('#speedpad .sp.now').textContent }; });
-  await d.page.waitForTimeout(600);
-  const hk2 = await d.st();
-  ok('an interrupt drops it to PAUSE and lights II', hk.speed === 0 && hk2.lit === 'II', JSON.stringify(hk) + ' then lit ' + hk2.lit);
-  errs = errs.concat(d.errs || []);
-  await d.close();
+    const live = await d.fr.evaluate(() => ({ speeds: TRAVEL_SPEEDS.slice(), mode: MODE,
+      pad: (function () { const p = document.getElementById('speedpad'); return !!(p && getComputedStyle(p).display !== 'none' && p.getBoundingClientRect().width > 0); })() }));
+    ok('S1 live: TRAVEL_SPEEDS is PAUSE 1 2 4', live.speeds.join(' ') === '0 1 2 4', live.speeds.join(' '));
+    const play = await d.page.evaluate(() => { const b = document.querySelector('#bohphone .home button[data-app=play]'); if (!b) return null; const r = b.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: Math.round(r.width), h: Math.round(r.height) }; });
+    ok('S5 the old plates are not on the glass; the phone\'s PLAY is the control, a thumb tall', !live.pad && !!play && play.h >= 40 && play.w >= 40,
+       'plates ' + (live.pad ? 'SHOWN' : 'gone') + '; PLAY ' + (play ? play.w + 'x' + play.h : 'NOT FOUND') + '; MODE ' + live.mode);
 
-  /* THE SPEEDS, each on a fresh game */
-  const r = {};
-  for (const label of ['1x', '3x', 'II', '5x']) {
-    r[label] = await measure(label);
-    const m = r[label];
-    console.log('       ' + label.padEnd(3) + (m.refused ? 'NOT MEASURED: ' + m.refused : ('crossed ' + m.blocks + ' blocks, +' + m.minutes + ' game minutes in 4 s, journey still set ' + m.stillSet)));
-  }
-  const measured = (l) => r[l] && !r[l].refused;
-  ok('PAUSE HOLDS: 0 blocks and 0 game minutes, and the journey is still set', measured('II') && r.II.blocks === 0 && r.II.minutes === 0 && r.II.stillSet, measured('II') ? JSON.stringify(r.II) : 'not measured');
-  ok('1x TRAVELS', measured('1x') && r['1x'].blocks >= 2, measured('1x') ? r['1x'].blocks + ' blocks' : 'not measured');
-  ok('3x CROSSES AT LEAST 2.5 TIMES THE BLOCKS OF 1x', measured('1x') && measured('3x') && r['3x'].blocks >= 2.5 * r['1x'].blocks,
-     measured('1x') && measured('3x') ? r['1x'].blocks + ' -> ' + r['3x'].blocks : 'not measured');
-  ok('  and every block paid its own clock (minutes grow with blocks)', measured('3x') && r['3x'].minutes >= r['3x'].blocks * 3,
-     measured('3x') ? r['3x'].minutes + ' min for ' + r['3x'].blocks + ' blocks' : 'not measured');
-  if (measured('5x') && measured('1x')) console.log('       REPORTED, NOT ASSERTED: 5x crossed ' + r['5x'].blocks + ' blocks against 1x\'s ' + r['1x'].blocks
-    + ' (ideal ' + 5 * r['1x'].blocks + '); the gap is the cost of a map step on this machine, not the pad.');
-  ok('no page error while doing any of it', errs.length === 0, errs.slice(0, 2).join(' | '));
-  done();
+    /* a long journey that never passes through a town (a town's screen would end it), the game's own route read */
+    const setOut = () => d.fr.evaluate(() => { try { travelStop(); } catch (e) {} const N = om.n, C = [];
+      for (let y = 2; y < N - 2; y += 2) for (let x = 2; x < N - 2; x += 2) { const dd = Math.abs(x - city.x) + Math.abs(y - city.y); if (dd >= 44 && dd <= 80 && cityWalkable(x, y) && !loopTownAt(x, y, 2)) C.push([x, y, dd]); }
+      C.sort((a, b) => a[2] - b[2]);
+      for (const c of C.slice(0, 40)) { const r = travelTo(0, 0, [c[0], c[1]]);
+        if (r && TRAVEL && TRAVEL.path && TRAVEL.path.length >= 42 && !TRAVEL.path.slice(1).some(q => loopTownAt(q[0], q[1], 0))) return { to: [c[0], c[1]], n: TRAVEL.path.length };
+        try { travelStop(); } catch (e) {} }
+      return null; });
+    const st = () => d.fr.evaluate(() => ({ t: T.day * 1440 + T.min, speed: TRAVEL_SPEED, trav: !!TRAVEL, left: TRAVEL ? TRAVEL.path.length - TRAVEL.i : 0,
+      intr: (window.__TRAVEL_INTERRUPT && window.__TRAVEL_INTERRUPT.at) || 0, meet: !!(window.MEET && MEET.up) }));
+    const clearCard = () => d.fr.evaluate(() => { try { if (window.MEET && MEET.up && window.MEET_DONE) MEET_DONE(false); } catch (e) {} });
+    async function measure(n) {
+      for (let tryN = 0; tryN < 2; tryN++) {
+        await clearCard(); await sleep(400);
+        const j = await setOut(); if (!j) return { refused: 'no long journey could be set' };
+        await d.fr.evaluate((n) => { travelSpeedSet(n); }, n);
+        await sleep(300);
+        const a = await st(); await sleep(4000); const b = await st();
+        if (b.intr !== a.intr || b.meet) { console.log('       ' + n + 'x: a road party came in the window; measured again on a new journey'); continue; }
+        return { speed: a.speed, blocks: a.left - b.left, minutes: b.t - a.t, stillSet: b.trav, retried: tryN > 0 };
+      }
+      return { refused: 'a road party came in both windows' };
+    }
+    const R = {};
+    for (const n of [0, 1, 2, 4]) { R[n] = await measure(n); const m = R[n];
+      console.log('       ' + (n ? n + 'x' : 'PAUSE').padEnd(6) + (m.refused ? 'NOT MEASURED: ' + m.refused : 'crossed ' + m.blocks + ' blocks, +' + m.minutes + ' game minutes in 4 s, journey still set ' + m.stillSet)); }
+    const got = (n) => R[n] && !R[n].refused;
+    ok('L1 PAUSE HOLDS: 0 blocks and 0 game minutes, and the journey is still set', got(0) && R[0].blocks === 0 && R[0].minutes === 0 && R[0].stillSet, got(0) ? JSON.stringify(R[0]) : R[0].refused);
+    ok('L2 1x travels', got(1) && R[1].blocks >= 2, got(1) ? R[1].blocks + ' blocks' : R[1].refused);
+    ok('L2 2x crosses at least 1.7 times the blocks of 1x', got(1) && got(2) && R[2].blocks >= 1.7 * R[1].blocks, got(1) && got(2) ? R[1].blocks + ' -> ' + R[2].blocks : 'not measured');
+    ok('L2 4x crosses at least 3 times the blocks of 1x', got(1) && got(4) && R[4].blocks >= 3 * R[1].blocks, got(1) && got(4) ? R[1].blocks + ' -> ' + R[4].blocks : 'not measured');
+    ok('L3 every block paid its own clock (game minutes grow with the blocks at every speed)', [1, 2, 4].every(n => got(n) && R[n].blocks > 0 && R[n].minutes >= R[n].blocks * 3),
+       [1, 2, 4].map(n => got(n) ? n + 'x ' + R[n].minutes + ' min / ' + R[n].blocks + ' blocks' : n + 'x not measured').join('; '));
+
+    /* L4: HOLD PLAY FOR 4X, a real finger on the phone's PLAY */
+    await clearCard(); await setOut(); await d.fr.evaluate(() => travelSpeedSet(1)); await sleep(500);
+    const p = await d.page.evaluate(() => { const b = document.querySelector('#bohphone .home button[data-app=play]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    let held = null, after = null;
+    if (p) {
+      if (profile === 'computer') { await d.page.mouse.move(p.x, p.y); await d.page.mouse.down(); }
+      else await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: p.x, y: p.y, id: 7 }] });
+      await sleep(1200);
+      held = await d.fr.evaluate(() => TRAVEL_SPEED);
+      const h4 = await d.page.evaluate(() => window.__PHONE_HOLD4 || null);
+      if (profile === 'computer') await d.page.mouse.up(); else await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      await sleep(800);
+      after = await d.fr.evaluate(() => TRAVEL_SPEED);
+      held = { speed: held, phone: h4 };
+    }
+    ok('L4 HOLD PLAY FOR 4X: while the finger holds PLAY the map runs at 4x; let go and it is his 1x again', !!held && held.speed === 4 && after === 1,
+       held ? 'held ' + held.speed + 'x (' + JSON.stringify(held.phone) + '), let go ' + after + 'x' : 'no PLAY on the phone');
+    await d.fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+  } finally { await d.close(); }
+  ok('L5 no page error', errs.length === 0, errs.slice(0, 2).join(' | '));
+  console.log('\nTHE PAD IS TRAVEL SPEED: ' + pass + ' ok, ' + fail + ' failed');
+  process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(1); });

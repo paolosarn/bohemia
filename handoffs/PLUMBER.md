@@ -1,5 +1,25 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 4 11/5-11/6 -- rule 409's first wave: the brother's three glitches (ask 454, rule 400(e)), SMOOTH IS A BUDGET (400(a)), 384(f),
+the stale pad gate, the whole-loop smoke test (408(d)), the 405(b) sweep. BUILT, NOT YET SEEN (BUILD 11/6f THE THREE GLITCHES).
+Record: records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md.
+THE ZOOM: the ground painted 3.3x the glass every frame (__A_PICTURE_NOBODY_SLIDES_HAS_NO_MARGIN__), every landed tile drew the map at
+once (__ONE_DRAW_FOR_WHAT_LANDS__), the sky's earth 45,000 fillRects a frame (__ONE_PICTURE_FOR_A_PIXEL_DISC__, pixel-identical): a pinch
+draw 56 -> 30 ms, frames over 33 ms pinching in 86 -> 16. THE FIGHT'S START: the phone copied twice at the door (bohemia_motion.js
+__A_COPY_COSTS_WHAT_SHOWS__, door 219/68/60 -> 120/23/30 ms), a 238 ms main-thread decode (BOHEMIA_FIGHT.html load(),
+__NO_PICTURE_DECODED_MID_PLAY__). THE MIDDLE OF A FIGHT: the hidden map's phone board re-read every job's danger, 276 ms in one piece
+(bohemia_phone_board.js __NOTHING_WORKS_UNDER_THE_FIGHT__, 0 reads now). THE CLOCK: a beat a slow frame swallowed is owed and paid
+(__THE_DAY_KEEPS_REAL_TIME__, BEAT_DEBT, capped 4); the march 4.05/4.05/4.15 blocks a second at the far, middle and street stops.
+THE METER: slices/bohemia_frame_meter.js (off unless Shift+F / BohemiaFrameMeter.show()), loaded by the alpha.
+GATES: SMOOTH IS A BUDGET (new, solo, ~6 min) 19/0 on the merged tree; THE WHOLE LOOP PLAYS (new) 11/0; THE PAD IS TRAVEL
+SPEED re-aimed 14/0 (was failing 10 legs looking for the dead plates); all three now in the suite.
+OVER BUDGET, ROUTED: the map's far and opening stops while travelling (WORLD: __YOU_WALK_BEHIND_IT__ reads 66 to 105 walkers back off
+the GPU every draw; 83 and up to 66 ms medians here; held as known debt in the gate's OVER_BUDGET table, delete the line when fixed).
+FOR RUN: after a fight, a save and a reload came back hours later twice in four loops (+337, +208 game minutes), exact the other two and
+with no fight; not found; the smoke test fails loud with both clocks when it recurs. FOR UI: the 405(b) list in the record (the fight's
+own end card 160 ms before the end screen, its loading veil in the dive, a road card that outlives a fight, the crew screen in three steps).
+THIS BOX: software GPU (SwiftShader); a frame's drawing costs it what a phone's GPU does off the thread; ratchets are this box's truth.
+
 FIXES 11/3 (round 3) -- the coordinator's A and B (rules 361, 364; asks 385, 388). BOTH BUILT, NOT YET SEEN (BUILD 11/3zzzw THE QUIET MENU, THE SHOP KEEPS ITS ARMOUR).
 Record: records/BOHEMIA_FIXES_THE_MENUS_SILENCE_AND_THE_SHOPS_ARMOUR_11_3_26.md.
 A: the day's speed sound is the hour strike (time_pass): travel strikes 2 to 7 times every 4 s now. The start screen hears only its

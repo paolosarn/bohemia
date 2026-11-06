@@ -4890,8 +4890,15 @@ function packedLoad(s) {
   };
 })();
 /* ==== /__THE_SHEETS_ARE_PACKED__ ==== */
+/* __NO_PICTURE_DECODED_MID_PLAY__ (PLUMBER 4, 11/5/26, ask line 454, rule 400(a) and (e), his brother: 'when you start a battle it glitches
+   out a little'). MEASURED with a trace of the demo's fight start at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md):
+   the board's pictures arrived, the bake drew them in the same task, and the browser decoded them there, on the main thread: 238 ms in one
+   piece while the clouds were up. A picture is now decoded off the main thread (img.decode) before the fight is handed it; a browser
+   without decode, or a picture it cannot decode that way, is handed over as before. */
 function load(src) {
-  return new Promise(function (ok) { const i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; });
+  return new Promise(function (ok) { const i = new Image();
+    i.onload = function () { if (typeof i.decode !== 'function') return ok(i); i.decode().then(function () { ok(i); }, function () { ok(i); }); };
+    i.onerror = function () { ok(null); }; i.src = src; });
 }
 /* a rig sheet the fight's start did not load (a gun he picks up or swaps in, rule 177(a): measured 10/25, a man who swapped a pistol
    out of his bag stood bare-handed for good): fetched once, as an ImageBitmap like the rest, drawn the frame it lands */

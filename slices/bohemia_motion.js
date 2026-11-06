@@ -189,6 +189,9 @@
     var walk = function (a, b) {
       if (!a || !b || a.nodeType !== 1 || b.nodeType !== 1) return b;
       var cs = win.getComputedStyle(a), txt = '';
+      /* __A_COPY_COSTS_WHAT_SHOWS__ (PLUMBER 4, ask line 454): a branch that is not drawn (display none) is copied as not drawn, its
+         548 computed styles and its children's never read; it looks the same, because none of it was on the glass */
+      if (cs.getPropertyValue('display') === 'none') { b.setAttribute('style', 'display:none'); ['id', 'data-morph', 'onclick', 'tabindex', 'role', 'aria-label', 'name', 'for'].forEach(function (k) { b.removeAttribute(k); }); while (b.firstChild) b.removeChild(b.firstChild); return b; }
       for (var i = 0; i < cs.length; i++) { var p = cs[i]; if (p.indexOf('transition') === 0 || p.indexOf('animation') === 0 || p === 'pointer-events') continue; txt += p + ':' + cs.getPropertyValue(p) + ';'; }
       b.setAttribute('style', txt + 'transition:none;animation:none;');
       ['id', 'data-morph', 'onclick', 'tabindex', 'role', 'aria-label', 'name', 'for'].forEach(function (k) { b.removeAttribute(k); });
@@ -199,6 +202,17 @@
       return b;
     };
     var host = D.createElement('div'); host.appendChild(c); walk(src, c); c = host.firstChild; host.removeChild(c);
+    return c;
+  }
+  /* __A_COPY_COSTS_WHAT_SHOWS__ (PLUMBER 4, 11/5/26, ask line 454, rule 400(e), his brother: 'when you start a battle it glitches out a
+     little'). MEASURED on the demo at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md): the fight's door
+     copied the phone (111 elements, every one of its 548 computed styles read) TWICE in the same instant, 104 ms a copy on this box
+     at full speed and about four times that on a phone-shaped CPU, while the clouds were starting: the clouds stood still. A second
+     copy of a copy is the same copy: it is cloned (its inline styles ride along) with its canvases' pixels drawn across. */
+  function twinOf(n) {
+    var c = n.cloneNode(true);
+    var a = n.tagName === 'CANVAS' ? [n] : n.querySelectorAll('canvas'), b = c.tagName === 'CANVAS' ? [c] : c.querySelectorAll('canvas');
+    for (var i = 0; i < a.length && i < b.length; i++) { try { b[i].getContext('2d').drawImage(a[i], 0, 0); } catch (e) {} }
     return c;
   }
   /* the picture inside a container: its biggest canvas (a frame's, when it is a frame), drawn as it is now */
@@ -700,7 +714,7 @@
         var bb = bar ? topBox(bar) : null, bn = null; try { if (bb) bn = copyOf(bar); } catch (e) { bn = null; }
         if (bb && bn) { setOp(bar, '0'); bar.setAttribute('data-bm-fight-gone', '1'); fly({ id: 'bar', kind: 'piece', from: bb, node: bn, to: { x: bb.x, y: -bb.h - 12, w: bb.w, h: bb.h }, hideTo: false, rivets: false, leave: true }); }
         /* ==== end __NO_TOP_BAR_IN_THE_FIGHT__ ==== */
-        var pbox = phone ? topBox(phone) : null, pnode = null, phold = null; try { if (phone) { pnode = copyOf(phone); phold = copyOf(phone); } } catch (e) {}
+        var pbox = phone ? topBox(phone) : null, pnode = null, phold = null; try { if (phone) { pnode = copyOf(phone); phold = twinOf(pnode); } } catch (e) {}   /* __A_COPY_COSTS_WHAT_SHOWS__: one copy, its twin cloned */
         var ph = phold ? hold({ id: 'phone', node: phold, box: pbox, maxMs: 12000,
           until: function () { var fw = fightWin(); return !!(fw && abilities(fw)) && !(W.NFC && W.NFC.state === 'in'); },
           onLand: function (sk, hm) {

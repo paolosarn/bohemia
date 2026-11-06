@@ -44977,7 +44977,16 @@ function animate(kind){
 }
 // the metronome: the ONE clock movement answers to
 setInterval(()=>{
-  { const _nb=performance.now(); if(MAP_BEAT_AT && TRAVEL && TRAVEL_SPEED>0) travelLate(TRAVEL_SPEED, 0, _nb-MAP_BEAT_AT-BEAT); MAP_BEAT_AT=_nb; try{ window.__MAP_BEAT_AT=MAP_BEAT_AT; }catch(_e){} }   /* __HOLD_PLAY_SLIDE_THE_SPEED__: where the beat fell, and how late against the one before */
+  { const _nb=performance.now(); if(MAP_BEAT_AT && TRAVEL && TRAVEL_SPEED>0) travelLate(TRAVEL_SPEED, 0, _nb-MAP_BEAT_AT-BEAT); MAP_BEAT_AT=_nb; try{ window.__MAP_BEAT_AT=MAP_BEAT_AT; }catch(_e){} }
+  /* __THE_DAY_KEEPS_REAL_TIME__ (PLUMBER 4, 11/5/26, rule 384(f), Paolo 11/4: 'this game is not graphics intensive enough to be having
+     some of the problems it does'; the coordinator's row: 'the clock runs on real elapsed time, never on frames drawn (a slow frame must
+     never slow the day)'). MEASURED on the demo at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md): the day
+     is paid a block at a time and a block is taken on this beat's timer, so a frame that held the thread past a whole beat swallowed
+     that beat: on a CPU slowed four times the day ran 5.9 game minutes a real second where the same journey ran 21.4. A swallowed
+     beat is now OWED, and paid as one more real block (its own stepOnce, its own clock) on each of the next beats, spread on the
+     beat's own slots like any fast block, never a dash; the debt is capped at four beats, so a box that can never keep up never
+     piles up a sprint. */
+  { const _nb2=MAP_BEAT_AT; if(BEAT_DEBT.at && TRAVEL && TRAVEL_SPEED>0){ const _ow=Math.floor((_nb2-BEAT_DEBT.at)/BEAT-0.75); if(_ow>0){ BEAT_DEBT.n=Math.min(4, BEAT_DEBT.n+_ow); BEAT_DEBT.owed+=_ow; } } else if(!TRAVEL || TRAVEL_SPEED===0) BEAT_DEBT.n=0; BEAT_DEBT.at=_nb2; }   /* __HOLD_PLAY_SLIDE_THE_SPEED__: where the beat fell, and how late against the one before */
   /* __THE_TIME_NOT_THE_TAPS__: a latched direction is the last thing consulted, so a
      real press always wins over one he let go of. */
   if(LATCH_DIR !== null && latchShouldStop()) latchStop();
@@ -45016,11 +45025,12 @@ setInterval(()=>{
      Spread, each piece is one step's cost, and the pin hops on the music's own subdivision.
      A pending step does nothing if the journey ended, the speed changed, or he left the map. */
   let travDone=false;
-  if(TRAV!==null && moved && TRAVEL_SPEED>1 && !(typeof streetSlow==='function' && streetSlow())){   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: no extra blocks while he watches the street */
+  if(TRAV!==null && moved && (TRAVEL_SPEED>1 || BEAT_DEBT.n>=1) && !(typeof streetSlow==='function' && streetSlow())){   /* __THE_DAY_KEEPS_REAL_TIME__: an owed beat is a fast beat's block */   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: no extra blocks while he watches the street */
     travelStepped(moved); travDone=true;
     const N=TRAVEL_SPEED;
     /* __ONE_POINT_TWO_TWO__: a speed that is not a whole number carries its fraction from beat to beat */
-    TRAVEL_ACC += N - 1; const XTRA = Math.floor(TRAVEL_ACC + 1e-9); TRAVEL_ACC -= XTRA;
+    TRAVEL_ACC += N - 1; if(BEAT_DEBT.n>=1){ BEAT_DEBT.n--; BEAT_DEBT.paid++; TRAVEL_ACC += N; }   /* __THE_DAY_KEEPS_REAL_TIME__: one owed beat paid on this one */
+    const XTRA = Math.floor(TRAVEL_ACC + 1e-9); TRAVEL_ACC -= XTRA;
     /* __HOLD_PLAY_SLIDE_THE_SPEED__: timed FROM THE BEAT, not from after the first block's step. Measured (WORLD 5): counted
        from after it, every extra block landed late by what that step cost (2x: 25 ms median, 86 ms worst, off the split) */
     const B0 = MAP_BEAT_AT || performance.now();
@@ -45276,7 +45286,8 @@ function travelClockBoot(){
 }
 travelClockBoot();
 try{ if (typeof fetch === 'function') fetch('../engine/bohemia_travel_speeds.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (j) travelClockApply(j, 'file'); }).catch(function(){}); }catch(_e){}
-var MAP_BEAT_AT = 0, TRAVEL_STEP_T0 = 0, TRAVEL_STEP_SLOT = null;   /* the metronome's last beat, and when the journey's last block started (the drop's phase) */
+var MAP_BEAT_AT = 0, TRAVEL_STEP_T0 = 0, TRAVEL_STEP_SLOT = null;
+var BEAT_DEBT = { at: 0, n: 0, owed: 0, paid: 0 }; window.BEAT_DEBT = BEAT_DEBT;   /* __THE_DAY_KEEPS_REAL_TIME__: beats a slow frame swallowed, owed to the day */   /* the metronome's last beat, and when the journey's last block started (the drop's phase) */
 /* how late each block of a journey starts against its slot on the beat (k of N; k 0 is the beat itself, against the beat before):
    the last 256, [speed, k, ms]. What the machine costs shows here; the schedule itself is the beat and its even split. */
 var TRAVEL_LATE = [];
@@ -50351,6 +50362,15 @@ function mapGroundBegin(ox,oy,night,G){
           : now-MG.t>=MAP_GROUND_FRESH_MS ? 'age' : 'margin';
   MG.why=MG.why||{}; MG.why[why]=(MG.why[why]||0)+1;
   var M=Math.min(220, Math.max(64, Math.ceil(TW*4)));   /* capped: at the near stop TW*4 would make the picture 14 million px */
+  /* __A_PICTURE_NOBODY_SLIDES_HAS_NO_MARGIN__ (PLUMBER 4, 11/5/26, ask line 454 and rule 384(f), his brother: 'zooming in and out seems to
+     glitch out a little'; Paolo: 60 at every zoom). The margin is for sliding the picture under him while he moves; a picture painted
+     while the map stands still, or while the zoom is changing (the zoom is in the key, so the next frame paints a new one anyway), is
+     never slid. MEASURED on the demo at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md): every frame of a
+     pinch painted the ground into 2,490 x 3,663 device px and copied all of it to a glass of 1,170 x 2,343, 3.3 times the pixels the
+     glass shows, twice over. Such a picture is now the glass's own size; the pixels on the glass are the same pixels. */
+  if(MG.lastTW!==undefined && MG.lastTW!==TW) MG.twAt=now;
+  MG.lastTW=TW;
+  if(!mapGroundMoving(G) || (MG.twAt && now-MG.twAt<400)){ M=0; MG.lean=(MG.lean|0)+1; }
   var W=Math.round((CVW+2*M)*CV_DPR), H=Math.round((CVH+2*M)*CV_DPR);
   if(!MG.cv) MG.cv=document.createElement('canvas');
   if(MG.cv.width!==W || MG.cv.height!==H || !MG.x){ MG.cv.width=W; MG.cv.height=H; MG.x=MG.cv.getContext('2d'); }
@@ -51709,6 +51729,19 @@ function vbInput(m){
   return { N: N, K: VB_K, S: VB_S, seed: V.seed, mtn: mtn, road: road, soft: soft,
     L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit, axisFlip: !!L.axisFlip } };   /* __THE_MAP_CAN_TURN__ */
 }
+/* ==== __ONE_DRAW_FOR_WHAT_LANDS__ (PLUMBER 4, 11/5/26, ask line 454, rule 400(e), his brother: 'zooming in and out seems to glitch out
+   a little'). MEASURED on the demo at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md): one pinch out from the
+   street to the far stop landed 52 of the painter's tiles, and EACH landing drew the whole map at once, outside the frame (52 extra
+   full draws, 45 ms each on this box), on top of the frame's own draw, so a frame drew the map twice and the zoom hitched. A landing
+   now marks the map stale and asks for ONE draw on the next frame; everything that landed in between is in that one draw (the
+   frame's own one-draw rule, __ONE_RENDER_A_FRAME__, folds it into the pinch's draw when both ask in the same frame). ==== */
+var VB_SOON = { pend: false, asked: 0, drawn: 0 };
+window.VB_SOON = VB_SOON;
+function vbDrawSoon(){
+  VB_SOON.asked++; if (VB_SOON.pend) return; VB_SOON.pend = true;
+  requestAnimationFrame(function(){ VB_SOON.pend = false; VB_SOON.drawn++; try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {} });
+}
+/* ==== end __ONE_DRAW_FOR_WHAT_LANDS__ ==== */
 function vbLand(r){
   VB.busy = false;
   if (!r || r.seed !== om.seed) return;   /* a valley rolled since it was asked for */
@@ -51718,7 +51751,7 @@ function vbLand(r){
   VB.labels = r.labels; try { VB.labels = VB.labels.concat(vbFreewayNames()); } catch (_e) {}   /* __THE_STREETS_JOIN__: the city's own freeways by their real names */
   VB.peak = r.peak; VB.lake = r.lake; VB.compass = r.compass; VB.roads = r.roads; VB.ms = r.ms;
   VB.landMs = Math.round(performance.now() - t); VB.waitMs = Math.round(performance.now() - VB.asked);
-  try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {}
+  vbDrawSoon();   /* __ONE_DRAW_FOR_WHAT_LANDS__ */
 }
 function vbAsk(){
   VB.busy = true; VB.asked = performance.now(); VB.day = null; VB.night = null;
@@ -51778,7 +51811,7 @@ function vbCityLand(r){
   if (!r || r.seed !== om.seed) return;
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
   VBC.day = cv(r.day); VBC.night = null; VBC.lights = r.lights ? cv(r.lights) : null; VBC.dep = r.dep || null; VBC.blk = r.blk || null; VBC.S = r.S; VBC.PAD = r.PAD;   /* __YOU_WALK_BEHIND_IT__ */   /* __ONE_MAP_AT_EVERY_ZOOM__: the night picture was a 2,400-square canvas (22 MB) nothing draws: the night pass lights the day picture */ VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
-  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; vbDrawSoon(); } } catch (_e) {}   /* __ONE_DRAW_FOR_WHAT_LANDS__ */
 }
 function vbCityReady(){
   var now = performance.now();
@@ -51894,7 +51927,7 @@ function vbTileLand(r){
   for (var it = VBT.tiles.keys(), k = it.next(); VBT.bytes > VBT.budget && !k.done; k = it.next()) {
     var T0 = VBT.tiles.get(k.value); if (T0.seen === VBT.frame) continue;
     VBT.tiles.delete(k.value); VBT.bytes -= T0.bytes; }
-  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; vbDrawSoon(); } } catch (_e) {}   /* __ONE_DRAW_FOR_WHAT_LANDS__ */
 }
 /* __THE_MAP_SHARPENS_TO_ITS_OWN_PIXELS__: does every tile the glass needs stand ready at this detail, with the glass (and the
    two blocks above it a tower may stand into) inside the valley? Then nothing of the whole painting under them can show. */
@@ -52047,7 +52080,7 @@ function vbViewLand(r){
   if (!VBV.x) VBV.x = VBV.cv.getContext('2d');
   VBV.x.putImageData(new ImageData(r.px, r.W, r.H), 0, 0);
   VBV.key = r.key; VBV.ox = r.ox; VBV.oy = r.oy; VBV.M = r.M; VBV.ms = r.ms; VBV.samples = r.samples; VBV.lands++;
-  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; vbDrawSoon(); } } catch (_e) {}   /* __ONE_DRAW_FOR_WHAT_LANDS__ */
 }
 /* drawn into the ground picture right after the bake's land, in the glass's own pixels (1:1, unsmoothed) */
 function vbViewDraw(ox, oy){
@@ -72889,10 +72922,52 @@ var EARTH_PALE=["#383026", "#9f845e", "#a88b62", "#c8a471", "#deb576"];     /* s
    blur this lane measured on the 16 px yard tiles. A procedural grid is crisp at any size
    because it is never scaled, only re-stepped. The grid is snapped to absolute screen
    coordinates so the pixels do not crawl while the disc grows. */
+/* ==== __ONE_PICTURE_FOR_A_PIXEL_DISC__ (PLUMBER 4, 11/5/26, ask line 454 and rule 384(f); his brother: 'zooming in and out seems to
+   glitch out a little... when you start a battle it glitches out a little too'). MEASURED with a trace on the demo at 390 x 844
+   (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md): the earth seen from the sky is a disc of about 45,000 cells, and
+   it was laid one fillRect a cell with its colour set each time, every frame it shows (the pinch out past the far stop, and the
+   fight's dive): 118 ms of a 184 ms frame on this box at full speed. The SAME cells in the SAME colours are now written into one
+   small picture, one pixel a cell, and that picture is drawn once, scaled up cell for cell with no smoothing, so every cell lands
+   on the same pixels in the same colour. Any surprise (a colour the reader cannot parse, no canvas) draws the old way. ==== */
+var SKYPIX = { cv: null, x: null, pc: null, col: Object.create(null), on: true, fast: 0, slow: 0 };
+window.SKYPIX = SKYPIX;
+function skyPixRGBA(c){
+  var m = SKYPIX.col[c]; if (m !== undefined) return m;
+  if (!SKYPIX.pc) SKYPIX.pc = document.createElement('canvas').getContext('2d');
+  var p = SKYPIX.pc, v; p.fillStyle = '#010203'; p.fillStyle = c; v = p.fillStyle;
+  if (v === '#010203' && c !== '#010203') { m = null; }
+  else if (v[0] === '#' && v.length === 7) { m = [parseInt(v.slice(1, 3), 16), parseInt(v.slice(3, 5), 16), parseInt(v.slice(5, 7), 16), 255]; }
+  else { var q = /^rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)$/.exec(v); m = q ? [+q[1], +q[2], +q[3], q[4] === undefined ? 255 : Math.round(+q[4] * 255)] : null; }
+  SKYPIX.col[c] = m; return m;
+}
+function skyPixDiscFast(x0,y0,x1,y1,cx,cy,r,px,shade){
+  var W = (x1 - x0) / px, H = (y1 - y0) / px;
+  if (W < 1 || H < 1 || W !== Math.round(W) || H !== Math.round(H) || W * H > 4e6) return false;
+  if (!SKYPIX.cv) { SKYPIX.cv = document.createElement('canvas'); }
+  if (SKYPIX.cv.width < W || SKYPIX.cv.height < H) { SKYPIX.cv.width = Math.max(W, SKYPIX.cv.width); SKYPIX.cv.height = Math.max(H, SKYPIX.cv.height); SKYPIX.x = null; }
+  if (!SKYPIX.x) SKYPIX.x = SKYPIX.cv.getContext('2d');
+  var im = SKYPIX.x.createImageData(W, H), d = im.data;
+  for (var j = 0; j < H; j++) { var y = y0 + j * px;
+    for (var i = 0; i < W; i++) { var x = x0 + i * px;
+      var dx = (x + px * 0.5 - cx) / r, dy = (y + px * 0.5 - cy) / r;
+      var d2 = dx * dx + dy * dy; if (d2 > 1) continue;
+      var col = shade(dx, dy, Math.sqrt(d2));
+      if (!col) continue;
+      var c = skyPixRGBA(col); if (!c) return false;
+      var k = (j * W + i) * 4; d[k] = c[0]; d[k + 1] = c[1]; d[k + 2] = c[2]; d[k + 3] = c[3]; } }
+  SKYPIX.x.clearRect(0, 0, W, H); SKYPIX.x.putImageData(im, 0, 0);
+  var sm = g.imageSmoothingEnabled; g.imageSmoothingEnabled = false;
+  g.drawImage(SKYPIX.cv, 0, 0, W, H, x0, y0, W * px, H * px);
+  g.imageSmoothingEnabled = sm; SKYPIX.fast++;
+  return true;
+}
+/* ==== end __ONE_PICTURE_FOR_A_PIXEL_DISC__ ==== */
 function skyPixDisc(cx,cy,r,px,shade){
   if(r<=0) return;
   var x0=Math.floor((cx-r)/px)*px, x1=Math.ceil((cx+r)/px)*px;
   var y0=Math.floor((cy-r)/px)*px, y1=Math.ceil((cy+r)/px)*px;
+  try{ if(SKYPIX.on && skyPixDiscFast(x0,y0,x1,y1,cx,cy,r,px,shade)) return; }catch(_e){ SKYPIX.err=String(_e&&_e.message||_e); }   /* __ONE_PICTURE_FOR_A_PIXEL_DISC__ */
+  SKYPIX.slow++;
   for(var y=y0;y<y1;y+=px){
     for(var x=x0;x<x1;x+=px){
       var dx=(x+px*0.5-cx)/r, dy=(y+px*0.5-cy)/r;

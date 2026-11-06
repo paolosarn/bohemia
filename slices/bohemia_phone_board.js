@@ -207,6 +207,13 @@
   function paint() {
     var feed = document.getElementById('cityfeed'), list = document.getElementById('cityfeedlist');
     if (!feed || !list || !feed.classList.contains('on')) return;
+    /* __NOTHING_WORKS_UNDER_THE_FIGHT__ (PLUMBER 4, 11/5/26, ask line 454, rule 400(e), his brother: 'some of the fight scenes seem to
+       glitch out in the middle of it'). MEASURED on the demo at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md):
+       five seconds into a fight this board, on its one-second timer in the map's hidden frame, read every job's danger again for the
+       crew the fight had just changed: 276 ms in one piece on this box at full speed, about 1.1 s on a phone-shaped CPU, the fight
+       frozen. Nobody can see this board while the map's frame is off the glass, so it waits; the next tick after the map is back
+       paints it (a second at most). A checker that asks for it by hand still gets it. */
+    if (!paint.__forced) { try { var fe = window.frameElement; if (fe && !fe.getClientRects().length) return; } catch (e) {} }
     paintHeld(list);
     if (!BOX || !BOX.parentNode) {
       BOX = document.createElement('div'); BOX.id = 'bmboard'; BOX.setAttribute('role', 'list'); BOX.setAttribute('aria-label', 'the two best paid jobs in the valley');
@@ -234,5 +241,5 @@
   }
   load();
   setInterval(paint, 1000);
-  window.BohemiaPhoneBoard = { asks: asks, paint: paint, held: heldJobs, loaded: function () { return !!OFFERS; }, what: function () { return WHAT; } };
+  window.BohemiaPhoneBoard = { asks: asks, paint: function () { paint.__forced = true; try { return paint(); } finally { paint.__forced = false; } }, held: heldJobs, loaded: function () { return !!OFFERS; }, what: function () { return WHAT; } };
 })();
