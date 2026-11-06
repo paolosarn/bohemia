@@ -497,3 +497,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 473 | The game crashes when the fight is on AUTO at 4x with 11 of his against 16 of theirs | 417(a), 378 | COMBAT 10 | IN FLIGHT 11/6 (the top of the sweep) |
 | 474 | A full sweep, the whole enchilada, token efficient | 417(b) | the coordinator; COMBAT 10, WORLD 11, RUN TWO, MOTION | IN FLIGHT 11/6 |
 | 475 | Light as a Flash game: never taxing, any kid on a little laptop anywhere; the publish must never break his flow | 418 | PLUMBER 6 | IN FLIGHT 11/6 (measured: 47.5 MB first play, 212 MB heap) |
+| 476 | Retreated and the enemies are still all on him, he cannot even enter a settlement (on the live build with 11/6n) | 413(h)-(k), 381 | RUN SEVEN | IN FLIGHT 11/6 (urgent) |
