@@ -28,6 +28,11 @@ Nothing is deleted from the repo. The three roots stay the only folders a page m
 - THE BUDGET: CAP_MB 900 in gates/pages_publish_gate.js (about 8% over today, under GitHub's 1 GB). 260 MB cannot be reached losslessly: the game's own art is about 530 MB of it.
 - THE SHRINK, MEASURED AND LEFT: PIL works on this box (12.3.0). The fight boards are already lossy WebP (VP8); a lossless re-encode of the packed sheets saves 0 to 4%; PNG optimize saves 2% (3,471,432 -> 3,395,942 on the biggest). Not worth a round. A lossy pass or dropping old tabs would be a look decision, not the pipe's.
 
+## THE DEPLOY (the proof on the real surface)
+- pages run 4278 on 00000127: SUCCESS, 3 min 25 s from push to done (the good runs before were 4 to 5 min; three of eight died at 12 to 13).
+- On the runner the list copied 16,199 files, 831.4 MB (one more than this box: the deploy's own baked file); the artifact was 798 MB; actions/deploy-pages took 28 s.
+- The live check, widened to 11 URLs (the registry, the sort, the alpha, the demo, the VOTE tab, sw.js, the map, the fight, the town, the fight's two indexes): all 200 on https://paolosarn.github.io/bohemia/.
+
 ## THE GATES
 - PAGES PUBLISH (re-aimed): 28/0, was red on main (16/2). It reads the list, binds it to the workflow (the copy step runs the list, no `cp -r` of a whole folder, the paths filter names the tool) and to _config.yml (the key, the exclude list), the doors and the registry published, every card the tab can draw has what it shows, every outward ref of a published page published, the 900 MB cap.
 - THE SITE SERVES WHAT THE GAME LOADS (new, gates/the_site_serves_what_the_game_loads_gate.js): a server that answers ONLY the list. L2 the alpha and its 18 tabs pressed: 303 files asked, none off the list. L3 the VOTE tab, 36 cards opened: 200 files, none off. L5 every one of the 61 published pages opened by itself: 1,238 files, none off. M1 a file the alpha loads taken off the list is named. L4 PLUMBER 4's THE WHOLE LOOP PLAYS, run as it is, with the driver's server answering only the list (a preload wraps the driver's open(); the loop's file is not touched). The first run caught slices/BOHEMIA_RIG_CAST.json, _PEOPLE.json and _YOU.json, asked by the map, which the reader had missed: rule 2b.

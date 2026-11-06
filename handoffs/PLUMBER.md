@@ -18,7 +18,9 @@ FINAL leg F1-F8 (DIRECTION's PART 4, as written; baseline frozen in records/BOHE
 128 waiting art cards; 12 plants all named); F6 THE BAND and F7 NO MARK red ON PURPOSE until RUN TWO draws the marks and skips an
 unmarked card; F8 not armed until DIRECTION writes records/BOHEMIA_FIRST_TIME_FINAL_STAGES.json; the other 4 reds are main's (two
 DYNASTY whys, the alpha's landing x2, the gear door). The rule-82 twin leg no longer asks a stand-in for a twin.
-DEPLOY: see the ask line 462 for the run that carried this and its time.
+DEPLOY: pages run 4278 (00000127) SUCCESS in 3 min 25 s; the list on the runner 16,199 files, 831.4 MB; artifact 798 MB; deploy-pages
+28 s (it died at 10 min three times in eight before); the live check, now 11 URLs (registry, sort, alpha, demo, VOTE tab, sw.js, map,
+fight, town, the fight's two indexes), all 200.
 NEXT FOR WHOEVER: if a page builds a name the list cannot see, THE SITE SERVES WHAT THE GAME LOADS names the file and who asked;
 teach tools/bohemia_publish_list.js the pattern (a rule, never a hand list). The budget is 831 of 900: the next cut is a look call
 (old tabs' pictures, a lossy pass), not the pipe's.
