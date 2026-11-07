@@ -1,5 +1,52 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
+UI (ui-9, smaller never pages + the UI's size): 11/7 LATEST -- [smaller, never pages] + [the UI's size] BUILT, NOT YET SEEN (rule 402 amended,
+ask line 481; rule 403, ask line 445, the coordinator's routine; BUILD 11/7i - SMALLER, NEVER PAGES), IN THE DEMO, VOTE card
+ui9-smaller-never-pages-11-7 (STAND-IN). Corrects UI 8's 11/6g block below: its pager and tabs are OUT.
+Record records/BOHEMIA_UI9_SMALLER_NEVER_PAGES_11_7_26.md.
+- THE MACHINE (slices/bohemia_ui_no_scroll.js, BohemiaNoScroll, UI's, rewritten): no pages, no tabs. fit(box, {levels, before}) dresses a box
+  dense (class ns-d1 on the host) and steps ns-d2, ns-d3 while it still runs past the glass; a box that cannot fit is left locked and said in
+  state(box).over (state().pages is always 1). reveal() says yes; off(true) is the checker's switch (all dense looks off). FLOOR 11, TAP 44.
+  Planted in the town's and the crew's frames from the shell every 700 ms, as UI 8's was.
+- THE HALL: a man is a ROW (grid: face / name and trade / ns-hl: rare, ceiling, trait, gun / his eight in eight equal columns, one x per stat
+  down the list / HIRE + price + night).
+  hallRows() moves .hrare .hceil .htrait .hgun into div.ns-hl inside .hiret and wraps HIRE's money words in spans (textContent unchanged);
+  his figure, trait words, why-pricier and quote are the row's data-tip. Step 2: face spans the row, reach and trait numbers to the tip
+  (rows 50 px); step 3 on a short glass: three columns, his eight in two lines of four. Every class and data attribute the gates read kept.
+- THE SHOPS: 44 px cells (icon + price), the name on the piece's card; the strip's man box one height while he browses (manHeight(), --ns-man-h,
+  from the company's faces; rule 250); shopCols() wraps ns-shelf / ns-bag on every open; on its side
+  shelf | bag | strip side by side (140 / 1fr / 172). The strip's faces wrap (44 wide), never slide.
+- THE SETTINGS CARD: one grid (minmax 150), a row of 3+ choices spans two places (ns-span, set by mark()), #setphone is display:contents,
+  step 2 packs with grid-auto-flow dense. The watcher fires only when the card OPENS (a class watcher that reacted to its own classes
+  hung the page: measured, fixed).
+- THE CREW SCREEN (BOHEMIA_ROSTER_SCREEN.html): fitBody() on body, steps 1-4 (his eight ALWAYS one column, rule 247(c); step 4 placeStats()
+  stands them in the doll's open middle at its foot, the camp doll's middle read off its grid's second column); every word >= 11; KEPT row __THE_WHOLE_COMPANY_ON_THE_GLASS__ (the line
+  holds 18, the company 20: two men were drawn nowhere): every living man off the line and not laid up, man:kept:i (tap picks, a drag onto
+  the line puts him in, the man there comes down). On a short glass at step 2 KEPT/LAID UP stand right of the line in columns; step 3 the
+  stash's buttons stand beside the bag (74 px), #said speaks over the card's foot.
+- THE ORIGINS (bohemia_ui_crashbox.js __SMALLER_NEVER_PAGES__): 15 plates (5 across upright, 4 on its side), the picked one's name and
+  difficulty in the heading's .cbxcap, its words in #cbxorgfacts; turnWire, originNav, stepOrigin and the arrows' look are gone. The frozen
+  menu (rule 358, F2's block) untouched: THE LOADING MENU IS FROZEN 10/0.
+- THE UI'S SIZE (rule 403): SIZES SMALL / NORMAL / LARGE / LARGEST in bohemia.uisize.v1 (BohemiaNoScroll.size(n)); the UI SIZE row
+  (#setuirow, #setui [data-size]) replaces the TEXT row (.ns-gone; carryText() moves an old text size over once). cut() tries zooms
+  from his size down to 1 in 0.05 steps (zoomsFor), each with the density steps (SMALL starts at step 2), the first that fits wins;
+  opts.zoomEl (the town: #sbody, never the absolutely placed sheet, whose own width would grow past the glass), opts.sized (the card
+  sets its width and max-height in its own units), opts.cap (a small sheet under half the glass at every size); fitBody zooms the
+  crew's body; picksFit (#newco) and chromeFit (#bohphone, #bmtb) in the shell, each only while it stays on the glass. A fit runs
+  only when the shape changes (B.sig: size, glass, the pieces, the building via opts.key): a card fitted 40 times a second kept
+  its opening animation pending at LARGEST (measured, fixed). Frames refit on the storage event and on applySize's visit.
+- GATES: gates/scrolling_is_illegal_gate.js RE-AIMED (lists whole on the glass at once, no pager, the floors, small sheets under half the glass;
+  N6 twenty men and 36, N8 the fullest hall, N9 every leg at all four sizes, N4b the UI SIZE row kept; M bites on a planted strip, PAGE 1 OF 3, a 9 px word, a 30 px press, a 70% sheet). Results in
+  the record. tools/bohemia_no_scroll.js: SMALL_SRC / small() / faults() for any lane (two named tap exceptions: a stat's row; the line's
+  nine across a glass under 412, >= 36 wide, 44 tall). Re-aimed one line each: settings_gate, settings_in_our_materials_gate,
+  the_best_recruit_at_the_top_gate, the_shop_taps_gate.
+NEXT: RUN FIVE's spoils screen is still OWED (printed by the gate, not counted). The phone and the bar grow only where they stay on the glass (on a
+phone held up they mostly stay at NORMAL); their own layouts (bohemia_phone.js, the bar) could make room for a true LARGEST. The town's hall row hides the whole figure (the card's
+figure is a held finger away): if he wants the figure on the row, it is a 34 x 44 canvas in the face's place.
+[bb Battle Brothers: the hiring list shows every recruit with his face and price; the market and the stash are fixed grids of small cells;
+the options are one panel; the company screen keeps a reserve row under the formation.]
+[analog horror: the hall's list reads like a parole board's clipboard, a row a man, a photo stapled to each.]
+
 UI (ui-8, nothing scrolls + the weapon card): 11/6 LATEST -- [scrolling is illegal] + [the weapon card] BUILT, NOT YET SEEN (rules 402 and
 397, ask lines 444 and 437; BUILD 11/6g - NOTHING SCROLLS), IN THE DEMO. Record records/BOHEMIA_UI8_NOTHING_SCROLLS_AND_THE_WEAPON_CARD_11_6_26.md.
 - THE PAGER (slices/bohemia_ui_no_scroll.js, BohemiaNoScroll, UI's): page(box, {keep, key, atoms, barEnd, barSibling, blank}) locks a box and

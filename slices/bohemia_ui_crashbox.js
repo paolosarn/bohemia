@@ -452,25 +452,9 @@
       b.addEventListener('click', function (e) { e.stopPropagation(); e.preventDefault(); setHints(b.getAttribute('data-h') === '1'); }); });
     return [h, row];
   }
-  function originNav(h4) {
-    if (h4.querySelector('.cbxnav')) return;
-    var nav = document.createElement('span'); nav.className = 'cbxnav';
-    nav.innerHTML = '<button type="button" class="cbxprev" aria-label="the origin before">&#9664;</button><em class="cbxof"></em><button type="button" class="cbxnext" aria-label="the next origin">&#9654;</button>';
-    nav.querySelectorAll('button').forEach(function (b) {
-      var stop = function (e) { e.stopPropagation(); };
-      b.addEventListener('pointerdown', stop); b.addEventListener('mousedown', stop); b.addEventListener('touchstart', stop, { passive: true });
-      b.addEventListener('click', function (e) { e.stopPropagation(); e.preventDefault(); stepOrigin(b.classList.contains('cbxnext') ? 1 : -1); }); });
-    h4.appendChild(nav);
-  }
   function cards() { var st = $('newcostrip'); return st ? Array.prototype.slice.call(st.querySelectorAll('.org')) : []; }
-  function stepOrigin(d) {
-    var cs = cards(); if (!cs.length) return; var i = 0; cs.forEach(function (c, j) { if (c.classList.contains('on')) i = j; });
-    var n = (i + d + cs.length) % cs.length; cs[n].click();   /* RUN's own pick: its onTap picks, saves and rebuilds */
-    LOG.push({ k: 'origin', by: 'arrow', to: cs[n].getAttribute('data-v') });
-  }
-  function markOut() {
-    var st = $('newcostrip'); if (!st) return; var L = st.scrollLeft, R = L + st.clientWidth;
-    cards().forEach(function (c) { var a = c.offsetLeft - st.offsetLeft, b = a + c.offsetWidth; c.classList.toggle('cbx-out', b <= L + 1 || a >= R - 1); });
+  function markOut() {   /* every plate is on the glass now (rule 402 amended): none is ever out */
+    cards().forEach(function (c) { c.classList.remove('cbx-out'); });
   }
   function snapToPicked(smooth) {
     var st = $('newcostrip'), on = st && st.querySelector('.org.on'); if (!on) return;
@@ -480,28 +464,27 @@
   }
   /* WHAT YOU LAND ON IS YOURS: a swipe that comes to rest on an origin picks it (RUN's pick, the card's own click) */
   var SWIPE = { t: 0, st: null };
-  /* __SCROLLING_IS_ILLEGAL__ (UI 8 11/6, rule 402): the origins are one card a page, never a strip he scrolls. The strip is locked
-     (overflow hidden in the look below), and a swipe across it, a wheel notch or an arrow turns ONE card, the way the arrows
-     always did. A card off the glass is hidden whole, so nothing he can press waits beyond the edge. */
-  var TURN = { x: null, y: 0, t: 0, eat: 0, wheel: 0, wt: 0 };
-  function turnWire() {
-    if (TURN.on) return; TURN.on = true;
-    var inStrip = function (e) { return e.target && e.target.closest && e.target.closest('#newcostrip'); };
-    document.addEventListener('pointerdown', function (e) { if (!inStrip(e) || e.pointerType === 'mouse') return; TURN.x = e.clientX; TURN.y = e.clientY; TURN.t = Date.now(); }, true);
-    document.addEventListener('pointerup', function (e) {
-      if (TURN.x === null) return; var dx = e.clientX - TURN.x, dy = e.clientY - TURN.y; TURN.x = null;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4 && Date.now() - TURN.t < 900) { TURN.eat = Date.now() + 450; stepOrigin(dx < 0 ? 1 : -1); LOG.push({ k: 'origin', by: 'swipe' }); }
-    }, true);
-    document.addEventListener('click', function (e) { if (Date.now() < TURN.eat && inStrip(e)) { e.stopPropagation(); e.preventDefault(); } }, true);
-    window.addEventListener('wheel', function (e) {
-      if (!inStrip(e)) return; e.preventDefault(); e.stopImmediatePropagation();
-      var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if (!d) return;
-      if (Date.now() - TURN.wt > 400) TURN.wheel = 0; TURN.wheel += d;
-      if (Math.abs(TURN.wheel) >= 40 && Date.now() - TURN.wt > 260) { TURN.wt = Date.now(); stepOrigin(TURN.wheel > 0 ? 1 : -1); TURN.wheel = 0; LOG.push({ k: 'origin', by: 'wheel' }); }
-    }, { capture: true, passive: false });
+  /* __SMALLER_NEVER_PAGES__ (UI 9 11/7, rule 402 amended, ask line 481; UI 8's one-card-a-turn and its swipe and wheel are out):
+     the fifteen origins are small plates on the glass all at once, the picked one lit, its facts in one box under them (ORGFACTS).
+     Nothing turns, nothing slides: a tap on a plate is RUN's own pick. */
+  var ORGFACTS = {};
+  function orgFacts() {
+    var st = $('newcostrip'); if (!st) return; var box = $('cbxorgfacts');
+    if (!box) { box = document.createElement('div'); box.id = 'cbxorgfacts'; box.setAttribute('aria-live', 'polite'); }
+    /* upright under the plates; on a wide glass (the picks in two columns) at the foot of the second column, so the plates'
+       column is not pushed past the glass */
+    var wide = false; try { wide = matchMedia('(min-aspect-ratio: 4/3)').matches; } catch (e) {}
+    if (!ORGFACTS.mq) { ORGFACTS.mq = 1; try { matchMedia('(min-aspect-ratio: 4/3)').addEventListener('change', function () { orgFacts(); }); } catch (e) {} }
+    if (wide) { if (box.parentNode !== st.parentNode || box.nextElementSibling) st.parentNode.appendChild(box); }
+    else if (box.previousElementSibling !== st) st.parentNode.insertBefore(box, st.nextSibling);
+    var on = st.querySelector('.org.on'); box.textContent = ''; if (!on) return;
+    var em = on.querySelector('em'), b = on.querySelector('b'), is = on.querySelectorAll('i');
+    /* the picked one's name and how hard, in the heading's own small line (as every other row says its pick) */
+    var h4 = st.previousElementSibling; if (h4 && h4.tagName === 'H4') { var cap = h4.querySelector('.cbxcap'); if (!cap) { cap = document.createElement('span'); cap.className = 'cbxcap'; h4.appendChild(cap); }
+      cap.textContent = (b ? b.textContent : '') + (em ? '  \u00b7  ' + em.textContent : ''); }
+    for (var i = 0; i < is.length; i++) { var x = document.createElement('i'); x.textContent = is[i].textContent; box.appendChild(x); }
   }
   function watchStrip() {
-    turnWire();
     var st = $('newcostrip'); if (!st || SWIPE.st === st) return; SWIPE.st = st;
     st.addEventListener('scroll', function () {
       markOut();
@@ -527,9 +510,9 @@
       kids.forEach(function (el) {
         if (el.tagName === 'H4') { var tx = String(el.textContent || '').toUpperCase(); sec = 90;
           ORDER.forEach(function (o, i) { if (tx.indexOf(o[0]) === 0) sec = (i + 1) * 10; });
-          if (sec === 20) { originNav(el); el.classList.add('cbxorigin');
-            /* rule 402: nothing scrolls, so the heading never says SCROLL (a computer's words; the arrows turn it) */
-            var t0 = el.firstChild; if (t0 && t0.nodeType === 3 && /SCROLL/.test(t0.nodeValue)) t0.nodeValue = t0.nodeValue.replace('SCROLL', 'ARROWS'); } }   /* draft:true */
+          if (sec === 20) { el.classList.add('cbxorigin'); var nv = el.querySelector('.cbxnav'); if (nv) nv.parentNode.removeChild(nv);
+            /* rule 402 amended: every origin is on the glass, so the heading never says SWIPE or SCROLL */
+            var t0 = el.firstChild; if (t0 && t0.nodeType === 3 && /\u00b7\s*(SWIPE|SCROLL|ARROWS)/.test(t0.nodeValue)) t0.nodeValue = t0.nodeValue.replace(/\s*\u00b7\s*(SWIPE|SCROLL|ARROWS)\s*/, ''); } }
         el.setAttribute('data-sec', String(sec)); el.__cbxKey = sec * 100 + kids.indexOf(el);
       });
       /* the nodes themselves in that order (a stable sort; moved only when they are not already so, so the watcher never loops) */
@@ -543,8 +526,7 @@
         if (!cap) { cap = document.createElement('span'); cap.className = 'cbxcap'; el.appendChild(cap); }
         cap.textContent = String(pk.textContent || '').trim(); });
       var cs = cards(), on = 0; cs.forEach(function (c, j) { if (c.classList.contains('on')) on = j; });
-      var of = nc.querySelector('.cbxof'); if (of) of.textContent = (on + 1) + ' OF ' + cs.length;
-      watchStrip(); snapToPicked(false);
+      watchStrip(); markOut(); orgFacts();
       ensureMini();
     } catch (e) { LOG.push({ k: 'dress threw', e: String(e) }); }
     DRESSING = false;
@@ -622,12 +604,9 @@
     JD + ' #newco .row button small{display:none}',
     JD + ' #newco .row button.on{background:#e2bd6a;color:#140e05;border-color:#e2bd6a;box-shadow:inset 0 1px 0 #f6dc9a,inset 0 -1px 0 #cba650}',   /* lit edge to edge: no dark pixel under his words, in the sun too (J5) */
     JD + ' #newco .row button.on small{display:none}',
-    JD + ' #newco .row button:active,' + JD + ' #newco .cbxnav button:active{box-shadow:inset 0 2px 0 #050505,inset 0 -1px 0 #4a4c51;transform:translateY(1px)}',
+    JD + ' #newco .row button:active,' + JD + ' #newco .strip .org:active{box-shadow:inset 0 2px 0 #050505,inset 0 -1px 0 #4a4c51;transform:translateY(1px)}',
     /* WHO YOU WERE: one big card at a time, the arrows and the count in its heading */
     JD + ' #newco h4.cbxorigin{color:#e7dcc6;display:flex;align-items:center;justify-content:space-between;min-height:44px;margin-top:6px;margin-bottom:4px}',
-    JD + ' #newco .cbxnav{display:flex;align-items:center;gap:6px}',
-    JD + ' #newco .cbxnav button{width:44px;height:44px;padding:0;border:1px solid #050505;background:#1d1e20;color:#e7dcc6;font-family:"BohemiaCasing",monospace;font-size:10px;line-height:10px;box-shadow:inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
-    JD + ' #newco .cbxof{min-width:60px;text-align:center;font-style:normal;font-family:"BohemiaROM",monospace;font-size:10px;letter-spacing:1px;color:#e7dcc6}',
     JD + ' #newco .strip{gap:0;padding:0;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}',
     JD + ' #newco .strip::-webkit-scrollbar{display:none}',
     JD + ' #newco .org{flex:0 0 100%;box-sizing:border-box;scroll-snap-align:center;min-height:96px;padding:10px 14px 8px;gap:5px;border:1px solid #050505;'
@@ -640,7 +619,20 @@
     /* a card resting off the strip keeps its plate and drops its print, so nothing of it reads through another screen's plate */
     JD + ' #newco .org.cbx-out>*{visibility:hidden}',
     /* __SCROLLING_IS_ILLEGAL__ (rule 402): the strip never moves under a finger; a card off the glass is not there to press */
-    JD + ' #newco .strip{overflow:hidden!important;touch-action:pan-y}' + JD + ' #newco .org.cbx-out{visibility:hidden}',
+    /* __SMALLER_NEVER_PAGES__ (UI 9, rule 402 amended): the fifteen as plates in a grid, a thumb tall, the name only; the difficulty a
+       stripe on the plate's left in its own colour; the picked one lit gold; its facts in the box under them */
+    JD + ' #newco .strip{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;overflow:visible!important;scroll-snap-type:none!important}',
+    JD + ' #newco .strip .org{flex:none!important;min-height:44px!important;height:44px;padding:2px 3px 2px 6px!important;gap:0!important;display:flex;align-items:center;justify-content:flex-start;text-align:left;overflow:hidden}',
+    JD + ' #newco .strip .org>em,' + JD + ' #newco .strip .org i{display:none!important}',
+    JD + ' #newco .strip .org>span{display:block;min-width:0}',
+    JD + ' #newco .strip .org b{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:11px!important;line-height:12px!important;letter-spacing:0!important;white-space:normal;overflow-wrap:break-word}',
+    JD + ' #newco .strip .org:has(>em.d1){box-shadow:inset 3px 0 0 #7fae6a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}' + JD + ' #newco .strip .org:has(>em.d2){box-shadow:inset 3px 0 0 #c9b45e,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
+    JD + ' #newco .strip .org:has(>em.d3){box-shadow:inset 3px 0 0 #d08a5a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}' + JD + ' #newco .strip .org:has(>em.d4){box-shadow:inset 3px 0 0 #c9584a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
+    JD + ' #newco .strip .org.on{background:#e2bd6a!important;outline:2px solid #e2bd6a;outline-offset:-1px}' + JD + ' #newco .strip .org.on b{color:#140e05!important}',
+    JD + ' #newco #cbxorgfacts{display:flex;flex-direction:column;gap:1px;margin:3px 0 0;padding:4px 8px;background:#0a0b0b;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40;font-family:"BohemiaROM",monospace;font-size:11px;line-height:13px;color:#e7dcc6}',
+    JD + ' #newco #cbxorgfacts i{font-style:normal}' + JD + ' #newco h4.cbxorigin{min-height:0!important;margin:5px 0 3px!important;justify-content:flex-start!important}',
+    /* the floor (rule 402 (b)): no word on the picks under 11 px */
+    JD + ' #newco h4,' + JD + ' #newco h4 .cbxcap,' + JD + ' #newco .row button,' + JD + ' #newco .name button{font-size:11px!important}' + JD + ' #newco h4{line-height:12px!important}',
     /* the facts on the camera's little screen: sunk into the plastic (the shadow on top, the light under), cream on black */
     JD + ' #newco .org i:last-child{margin-top:6px;padding:4px 8px;background:#0a0b0b;color:#e7dcc6;line-height:14px;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40}',
     /* the name: the camera's title screen, sunk the same, his letters at 20; ANOTHER a button beside it */
@@ -660,8 +652,8 @@
       + JD + ' #newco h4 .cbxcap{display:none}'
       + JD + ' #newco h4{margin:6px 0 4px}'
       + JD + ' #newco h4.cbxorigin{margin-top:2px}'
-      + JD + ' #newco .org{min-height:0;padding:8px 10px 6px;gap:4px}'
-      + JD + ' #newco .org b{font-size:10px;line-height:10px}'
+      + JD + ' #newco .strip{grid-template-columns:repeat(4,minmax(0,1fr))}'
+      + JD + ' #newco #cbxorgfacts i{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
       + JD + ' #newco .row button{padding:4px 4px;letter-spacing:0}'
     + '}',
     /* THE HINT: a tin plate beside the phone, his face and his mouth, the line typed on the beat */

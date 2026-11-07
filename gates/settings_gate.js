@@ -115,10 +115,10 @@ const MIN = 44;
 
   await p.evaluate(() => document.getElementById('gearbtn').click());
   await p.waitForTimeout(450);
-  /* RE-AIMED 11/6 (UI 8, rule 402: nothing scrolls, so the card is four tabs, SOUND / SCREEN / PLAY / GAME): every control and
-     every word is read on the tab that holds it, the way he turns to it (a control on a tab not shown measures 0x0, not small) */
+  /* RE-AIMED 11/7 (UI 9, rule 402 amended: 'not just do a next page bullshit'): the card is ONE card again, every row on the glass
+     at once (UI 8's four tabs are gone); every control and word is read in one pass (the loop stays for one tab: T is 1) */
   const panel = await p.evaluate(() => {
-    const w = document.getElementById('setwrap'), NS = window.BohemiaNoScroll, T = NS && NS.TABS ? NS.TABS.length : 1;
+    const w = document.getElementById('setwrap'), NS = window.BohemiaNoScroll && window.BohemiaNoScroll.settingsTab ? window.BohemiaNoScroll : null, T = NS && NS.TABS ? NS.TABS.length : 1;
     const ctrls = [], seen = new Set(); let text = '';
     for (let t = 0; t < T; t++) {
       if (NS) NS.settingsTab(t);

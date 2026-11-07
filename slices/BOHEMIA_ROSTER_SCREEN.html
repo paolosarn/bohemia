@@ -71,6 +71,7 @@ button{font:inherit;color:inherit}
 .cell.wounded i.days{right:auto;left:1px}
 #hurtrow{display:none;grid-template-columns:auto 1fr;column-gap:4px;align-items:center;margin-top:3px}
 #hurtrow.on{display:grid}
+#keptrow{display:none;grid-template-columns:auto 1fr;column-gap:4px;align-items:center;margin-top:3px}#keptrow.on{display:grid}   /* __THE_WHOLE_COMPANY_ON_THE_GLASS__ */
 #hurt.line{justify-content:flex-start}
 /* HIM */
 #man{grid-area:man;touch-action:pan-y}
@@ -299,6 +300,7 @@ html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body .who{justify-cont
 <div id="strip">
 <div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
 <div id="hurtrow"><div class="ln" id="hurth">LAID UP</div><div class="line" id="hurt"></div></div>
+<div id="keptrow"><div class="ln" id="kepth">KEPT</div><div class="line" id="kept"></div></div>  <!-- __THE_WHOLE_COMPANY_ON_THE_GLASS__ (UI 9, rule 402 amended): the men past the line's eighteen places, Battle Brothers' reserve row; draft:true -->
 </div>
 <div id="man"><div id="card"></div></div>
 <div id="said"></div>
@@ -662,6 +664,18 @@ function draw(){
     var dd = document.createElement('i'); dd.className = 'days'; dd.textContent = m.hurt.days + 'd'; d.appendChild(dd);   /* his name and his days, both on the glass */
     d.setAttribute('aria-label', m.name + ', laid up ' + m.hurt.days + ' days'); hu.appendChild(d); });
   document.getElementById('hurtrow').classList.toggle('on', any);
+  /* __THE_WHOLE_COMPANY_ON_THE_GLASS__ (UI 9 11/7, rule 402 amended, ask line 481: 'a full company of 12 with 20 kept' fits whole):
+     the line holds eighteen places, the company twenty, so a nineteenth man stood nowhere on the screen. Every living man who is not
+     in the line and not laid up stands in the KEPT row under it (Battle Brothers' reserve row): a tap picks him, a drag onto a place
+     in the line puts him there and the man who stood there comes down to KEPT */
+  var kp = document.getElementById('kept'), kany = false;
+  if(kp){ kp.textContent = ''; var inLine = {}; S.front.concat(S.back).forEach(function(ix){ if(ix != null) inLine[ix] = 1; });
+    S.crew.forEach(function(m, i){ if(m.dead || inLine[i] || laid(m)) return; kany = true;
+      var d = document.createElement('div'); d.className = 'cell full kept' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:kept:' + i; d.dataset.man = i;
+      d.appendChild(headCanvas(m)); scarTag(d, m); var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b);
+      if(waiting(m)){ var up = document.createElement('i'); up.className = 'up'; up.textContent = '+'; up.setAttribute('aria-hidden', 'true'); d.appendChild(up); }
+      d.setAttribute('aria-label', m.name + ', kept out of the line'); kp.appendChild(d); });
+    document.getElementById('keptrow').classList.toggle('on', kany); }
   drawCard(); drawBag(); talkOnLine(); besidePhone();
 }
 /* ==== __ONE_CREW_SCREEN__ (RUN TWO, rule 147(b), Paolo 10/24: 'why is it showing me the crew twice? It should be simplified:
@@ -1053,7 +1067,8 @@ function dismiss(i){
 }
 /* ==== end __A_DISMISS_BUTTON__ ==== */
 function moveMan(fromRow, fromI, toRow, toI){
-  if(fromRow === 'hurt'){ var hm = S.crew[fromI]; choose(fromI); return; }   /* rule 234: nobody is refused the line for a wound (no strip holds anybody now) */
+  if(fromRow === 'hurt'){ var hm = S.crew[fromI]; choose(fromI); return; }
+  if(fromRow === 'kept'){ if(toRow !== 'front' && toRow !== 'back') return; var out = S[toRow][toI]; S[toRow][toI] = fromI; saveForm(); say(S.crew[fromI].name + ' moves to the ' + toRow + '.' + (out != null ? ' ' + S.crew[out].name + ' is kept out.' : '')); draw(); return; }   /* __THE_WHOLE_COMPANY_ON_THE_GLASS__ */   /* rule 234: nobody is refused the line for a wound (no strip holds anybody now) */
   var a = S[fromRow][fromI], b = S[toRow][toI];
   S[toRow][toI] = a; S[fromRow][fromI] = b; saveForm(); say(S.crew[a].name + ' moves to the ' + toRow + '.'); draw();
 }
@@ -1065,7 +1080,7 @@ function moveMan(fromRow, fromI, toRow, toI){
      his card, his face, his kills and fights, the strongest foe he put down (engine/bohemia_kill_tally.js card); the next touch
      closes it, and the lift does not pick him. The crew screen only: never the fight, the end screen, the camp or the map */
   function holdMan(d, at){
-    var p = d.split(':'), m = p[0] === 'man' ? S.crew[p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]] : null; if(!m || !window.BohemiaKillTally) return;
+    var p = d.split(':'), m = p[0] === 'man' ? S.crew[(p[1] === 'hurt' || p[1] === 'kept') ? +p[2] : S[p[1]][+p[2]]] : null; if(!m || !window.BohemiaKillTally) return;
     heldMan = true; BohemiaKillTally.card(document, [{ name: m.name, was: m.was, look: m.look, main: !!m.main, tally: m.tally || null }], at);
   }
   document.addEventListener('pointerdown', function(e){
@@ -1078,7 +1093,7 @@ function moveMan(fromRow, fromI, toRow, toI){
     if(!src) return;
     if(heldMan){ e.preventDefault(); return; }   /* the card is up: the finger is reading, not dragging */
     if(!S.dragged && Math.hypot(e.clientX-x0, e.clientY-y0) > 8){ clearTimeout(holdT); S.dragged = true; ghost.style.display = 'block';
-      var p = src.split(':'); ghost.textContent = p[0]==='man' ? S.crew[p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]].name : p[0]==='bag' ? S.bag[+p[1]].name : S.crew[S.sel].gear[p[1]].name; }
+      var p = src.split(':'); ghost.textContent = p[0]==='man' ? S.crew[(p[1] === 'hurt' || p[1] === 'kept') ? +p[2] : S[p[1]][+p[2]]].name : p[0]==='bag' ? S.bag[+p[1]].name : S.crew[S.sel].gear[p[1]].name; }
     if(!S.dragged) return;
     e.preventDefault();
     ghost.style.left = (e.clientX + 8) + 'px'; ghost.style.top = (e.clientY + 8) + 'px';
@@ -1090,7 +1105,7 @@ function moveMan(fromRow, fromI, toRow, toI){
     if(heldMan){ heldMan = false; return; }   /* the held finger read his card; the lift picks nobody */
     var p = s.split(':');
     if(!S.dragged){
-      if(p[0] === 'man') choose(p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]);
+      if(p[0] === 'man') choose((p[1] === 'hurt' || p[1] === 'kept') ? +p[2] : S[p[1]][+p[2]]);
       return;
     }
     var t = document.elementFromPoint(e.clientX, e.clientY), dz = t && t.closest('[data-drop]');
