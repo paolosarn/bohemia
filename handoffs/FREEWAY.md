@@ -1,6 +1,6 @@
 # FREEWAY (one file per lane, written only by FREEWAY; newest block on top)
 
-FREEWAY (11/7, rule 432, ask lines 513 and 514): 11/7 LATEST -- BUILD 11/7k - THE FREEWAY FIGHT, BUILT, NOT YET SEEN.
+FREEWAY (11/7, rule 432, ask lines 513 and 514): 11/7 LATEST -- BUILD 11/7p - THE FREEWAY FIGHT (e03bad2e, the stamp b70b1fd4), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_FREEWAY_THE_FREEWAY_FIGHT_11_7_26.md. VOTE freeway-the-freeway-fight-11-7 (stage stand_in).
 - THE BUG, MEASURED THEN FIXED: a fight on a freeway cell laid the suburb round the band: 96 of 96 freeway spots over 24 valleys stood
   among houses (47 house tiles a board; the freeway 42% of the board). NOW 96 of 96 deal a freeway board with no house.
@@ -14,11 +14,14 @@ Record: records/BOHEMIA_FREEWAY_THE_FREEWAY_FIGHT_11_7_26.md. VOTE freeway-the-f
 - THE KIT: tools/bohemia_freeway_kit_11_7_26.py -> slices/fight_ground/freeway/ (56 pictures, 1.7 MB; freeway.json). Reuse first:
   COMBAT TWO's street kit, the Jersey barrier, the street board's ground and houses, COOK's gantry and wreck through the rig. Every
   new picture a STAND-IN; golden candidate fw_face_col.webp (the deck's face with its column) to DIRECTION first.
-- GATE: THE FREEWAY FIGHT 22/0 (A 264 boards, M six planted fails, H the headless fight still loads, B 24 valleys / 96 spots, B3
-  AUTO plays each, W1 the demo's own door lays THE OVERPASS at [51,45]). Pre-push: THE BOARD IS THE CITY AT THAT SPOT 194/0, MELEE
-  IS ONE TILE 10/0 (it went red on the way in: the headless engine reads the fight's 'DB.x = a[i]' lines and my loader's line read
-  as one; fixed, and leg H holds it), THE REBUILT FIGHT PLAYS and EVERY WEAPON HAS ITS RANGE BANDS (see the commit).
-
+- GATE: THE FREEWAY FIGHT 22/0 on the tree that shipped (A 264 boards, M six planted fails, H the headless fight still loads, B 24
+  valleys / 96 spots, B3 AUTO plays each, W1 the demo's own door lays THE OVERPASS at [51,45]). Pre-push on the same tree: THE BOARD IS
+  THE CITY AT THAT SPOT 194/0; MELEE IS ONE TILE 10/0 (it went red on the way in: the headless engine reads the fight's 'DB.x = a[i]'
+  lines and the loader's line read as one; fixed, and leg H holds it); VOTE TAB the same four reds as main (dynasty's two whys, the
+  alpha's landing, the gear's VOTE), none mine; EVERY WEAPON HAS ITS RANGE BANDS 6/1 on main and on mine (B4, the same); THE REBUILT
+  FIGHT PLAYS: clean main 144/11 (lit tiles, the rifleman, the marksman, AUTO shields, mixed kinds, one man a wall, walk through
+  your own men); mine the same eleven on boards dealt by kind (the freeway branch never runs there), plus one camera leg in a run
+  killed mid-way under load: re-run it alone if it shows again.
 ## FOR COMBAT TWO: THE SEAM (you own the fight's board code; this is all of mine in it, each marked __THE_FREEWAY_FIGHT__)
 1. slices/BOHEMIA_FIGHT.html head: `<script src="bohemia_freeway_boards.js">` beside your street board's.
 2. loadAll(): two fetches after your dressing.json, into DB.freeway = { boards, kit } (null if missing: the fight deals as before).

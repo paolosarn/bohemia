@@ -1,3 +1,10 @@
+FREEWAY (freeway-01gkdyur): 11/7 LATEST -- BUILD 11/7p - THE FREEWAY FIGHT, BUILT, NOT YET SEEN (rule 432, ask lines 513, 514): a fight on a
+freeway cell laid the suburb round the band (96 of 96 freeway spots over 24 valleys stood among houses); now it deals a FREEWAY BOARD: THE DECK
+(the party on the viaduct, the city 10 m down both sides, no stepping off), THE OVERPASS or THE UNDERPASS where a street crosses, THE
+INTERCHANGE (flyovers to level three) at the stack. Layouts are data a modder edits; seeded; stand-in pieces. Gate THE FREEWAY FIGHT 22/0.
+VOTE freeway-the-freeway-fight-11-7. The seam for COMBAT TWO and the template format for WORLD 13: handoffs/FREEWAY.md.
+[bb Battle Brothers cuts a tactical map from the world tile's terrain; a road tile there is still a field. Ours is the road on its viaduct.]
+[analog horror: ten lanes, every car where it died, one lamp still burning over the median for nobody, and the drop past the wall.]
 WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/7 LATEST -- BUILD 11/7o - EVERY HOUSE ON A STREET, BUILT, NOT YET SEEN (rule 429(b)(d),
 426(a); asks 492, 505): (1) ONE TABLE records/target/bb/map_fight_kinds.json, every kind the map draws (88 block kinds, the town's 38
 pieces, your lot's 10, the 6 house models) with its fight answer (storeys 1/2/3, in or on the roof, no ladder, cover, what blocks, a street
