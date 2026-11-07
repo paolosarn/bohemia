@@ -525,3 +525,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 501 | One story: slight defence, no range; two stories: more defence and range; three stories rare but real | 428(b) | COMBAT TWO | IN FLIGHT 11/7 |
 | 502 | Both sides may start in the open street (the company was walking down it); on AUTO their first moves scramble off the street onto houses and cover (corrected by him at once) | 428(c) | COMBAT TWO | IN FLIGHT 11/7 |
 | 503 | The enemy knows when our company outclasses it: it does not rush, it digs into houses and cover and even falls back to better ground | 428(d) | COMBAT TWO | IN FLIGHT 11/7 |
+| 504 | One map: the fight is fought on the map itself, cut at the spot it starts; the 15 boards' layouts written into the map at their places | 429(a)(c) | WORLD 13, then COMBAT TWO | IN FLIGHT 11/7 |
+| 505 | Every building kind on the map has its fight answer (stories, in or on the roof, cover, blocking) in one table; streets in front of every house in the world's generation | 429(b)(d) | WORLD 13 | IN FLIGHT 11/7 |
