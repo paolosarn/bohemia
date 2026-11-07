@@ -10588,6 +10588,15 @@ GATES = [
      "it, TELL a town from far off (paid when it comes in), LEAVE IT (a den, the next hunt starts there); the vultures circle the dead, "
      "follow a company that kills, one stays on the dead, never attack, a stand-in picture on its own small layer; a beast pack he fell "
      "back from never starts a fight on its own and his chase asks; THE BEFORE (the pack's hold off): 8 cards in 12. About 6 min", True),
+    ('EVERYONE IN THE FIGHT HOLDS', ['node', 'gates/everyone_in_the_fight_holds_gate.js'],
+     "RUN SEVEN gate, 11/7, rule 413(h)-(k) and rule 381 (PAOLO 11/6: 'I retreated from this battle and the enemies are still on my ass... "
+     "they're all on my ass, to the point I can't even enter a settlement'; his clue: 'this red number... it's underneath me as I walk'): "
+     "on the demo, every contact kind (a job's raiders, the thieves, a crew on the patrol road, a beast pack with the job's other pack near, "
+     "a job's crew, the hunters, a roaming party he chased, a street crew), the hunters near the fight too, both retreats with real taps, "
+     "then ten blocks walking away reading every enemy count drawn and every enemy with a count on the map (none within a block of him, "
+     "none drawn on his marker, nobody steps toward him, no card), then the walk into the nearest settlement (no card, it opens on its own "
+     "arrival); THE BEFORE (__RETREAT_ALL_OFF: the raiders keep coming and the town stays shut), the quiet half day, two game days camped "
+     "near the raiders' field, the save opened again. --quick runs three kinds. About 15 min", True),
     ('THE PAD IS TRAVEL SPEED',['node', 'gates/the_pad_is_travel_speed_gate.js'],
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "

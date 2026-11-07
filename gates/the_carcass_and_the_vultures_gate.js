@@ -259,7 +259,9 @@ async function tapWhat(match, label) {
   ok('P1 a pack of beasts he fell back from has lost him for good', pk.up && pk.shy >= 1e8, JSON.stringify(pk));
   /* him beside the pack, standing still, then the world's own steps (a camp's, a rest's): the exact way it used to come back */
   const besideIt = (id, steps, wander) => fr.evaluate((a) => { const j = LOOP.held.filter(x => x.id === a.id)[0], pk = j.packs[0]; pk.home = [pk.x, pk.y]; let best = null;
-    for (const q of [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) if (cityWalkable(pk.x + q[0], pk.y + q[1]) && !townGround(pk.x + q[0], pk.y + q[1])) { best = [pk.x + q[0], pk.y + q[1]]; break; }
+    /* RE-AIMED 11/7 BY RUN SEVEN (413(c) is RUN SEVEN's): beside it on a side where the ground behind it is open, so giving ground is a step it can take (a pack against a wall has nowhere to go) */
+    for (const q of [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) if (cityWalkable(pk.x + q[0], pk.y + q[1]) && !townGround(pk.x + q[0], pk.y + q[1]) && cityWalkable(pk.x - q[0], pk.y - q[1]) && cityWalkable(pk.x - 2 * q[0], pk.y - 2 * q[1])) { best = [pk.x + q[0], pk.y + q[1]]; break; }
+    if (!best) for (const q of [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) if (cityWalkable(pk.x + q[0], pk.y + q[1]) && !townGround(pk.x + q[0], pk.y + q[1])) { best = [pk.x + q[0], pk.y + q[1]]; break; }
     if (best) { city.x = best[0]; city.y = best[1]; } try { travelStop(); } catch (e) {}
     let cards = 0, fights = 0, dist = []; for (let i = 0; i < a.steps; i++) { if (a.wander) { pk.x = city.x + 1; pk.y = city.y; if (!cityWalkable(pk.x, pk.y)) { pk.x = city.x; pk.y = city.y + 1; } }   /* its wander ends beside him */
       meetWalk(() => mapStepWorld()); dist.push(Math.max(Math.abs(pk.x - city.x), Math.abs(pk.y - city.y)));

@@ -33,7 +33,9 @@ const OFF_TOWN = () => { const N = om.n; let best = null, bd = 1e9;
     if (near) continue; let open = 0; for (const q of DIRS) if (cityWalkable(x + q[0], y + q[1])) open++; if (open < 4) continue;
     const dd = Math.max(Math.abs(x - city.x), Math.abs(y - city.y)); if (dd < bd) { bd = dd; best = [x, y]; } }
   if (best) { try { travelStop(); } catch (e) {} city.x = best[0]; city.y = best[1]; try { camHold(); render(); } catch (e) {} } return best; };
-const NOW = () => T.day * 1440 + T.min;
+/* RE-AIMED 11/7 BY RUN SEVEN (rule 413(h)-(k)): game minutes are read on the map's retreatNow(), the day loop's own minute; day * 1440 +
+   the clock's minute jumps a day ahead at 22:00 (a new day starts at 22:00 of the evening before) and the holds are read on the forward clock now */
+const NOW = () => retreatNow();
 
 async function oneRetreat(kind) {
   const p = d.page, fr = d.fr, tag = kind === 'lineup' ? 'the lineup' : 'mid-fight';
@@ -44,7 +46,7 @@ async function oneRetreat(kind) {
   /* the crew that hunts him, one block off: caught on his own step (mapContact inside his walk, the meet card first) */
   const h = await fr.evaluate(() => { let c = null; for (const q of DIRS) { const x = city.x + q[0], y = city.y + q[1]; if (cityWalkable(x, y) && !townGround(x, y)) { c = [x, y]; break; } }
     if (!c) return null; HUNT = { id: 'hunt:gate' + Date.now(), ev: { id: 'toll_crew', name: 'the toll crew', seq: 7 }, name: 'The toll crew', arch: 'human', count: 3, at: c, steps: 0, made: performance.now() };
-    const id = HUNT.id; window.__GATE_BELL = (T.day * 1440 + T.min); window.__GATE_RST = window.__RESTORE_OK | 0; window.__WENT_DOWN = null; window.__FIGHT_CAME_HOME = null;
+    const id = HUNT.id; window.__GATE_BELL = retreatNow(); window.__GATE_RST = window.__RESTORE_OK | 0; window.__WENT_DOWN = null; window.__FIGHT_CAME_HOME = null;
     meetWalk(() => mapContact()); return { id, at: c.slice(), bell: window.__GATE_BELL }; });
   const eng = await waitFor(() => fr.evaluate(() => { const m = document.getElementById('meetcard'); if (!m || +getComputedStyle(m).opacity < 0.9) return null;
     const x = m.querySelector('[data-meet="go"]'); if (!x) return null; const r = x.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }), 15000);
@@ -81,7 +83,7 @@ async function oneRetreat(kind) {
     if (lb) { await lb.evaluate(x => x.scrollIntoView({ block: 'center' })).catch(() => {}); const b = await lb.boundingBox(); if (b && b.width >= 2) await p.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); await sleep(1200); }
     return (await gone()) || null; }, 90000, 600);
   await waitFor(() => fr.evaluate(() => MODE === 'city' && !(window.MEET && MEET.up)), 15000); await sleep(1500);
-  const home = await fr.evaluate(() => ({ came: window.__FIGHT_CAME_HOME || null, down: window.__WENT_DOWN || null, rst: (window.__RESTORE_OK | 0) - (window.__GATE_RST | 0), now: (T.day * 1440 + T.min), bell: window.__GATE_BELL, hunt: HUNT ? { id: HUNT.id, at: HUNT.at.slice(), hold: HUNT.hold || null } : null, flee: !!HUNT_FLEE, at: [city.x, city.y] }));
+  const home = await fr.evaluate(() => ({ came: window.__FIGHT_CAME_HOME || null, down: window.__WENT_DOWN || null, rst: (window.__RESTORE_OK | 0) - (window.__GATE_RST | 0), now: retreatNow(), bell: window.__GATE_BELL, hunt: HUNT ? { id: HUNT.id, at: HUNT.at.slice(), hold: HUNT.hold || null } : null, flee: !!HUNT_FLEE, at: [city.x, city.y] }));
   console.log('  the fight ended ' + JSON.stringify(res) + (over ? '' : ' (FINISHED BY THE GATE after two minutes)') + '; home ' + JSON.stringify(home.came));
   ok(tag + ' R1: it comes home as its own outcome, never a loss, never the reload', !!home.came && !home.came.won && (home.came.retreated || home.came.withdrew) && !home.down && !home.rst && home.now >= home.bell,
     'came home ' + JSON.stringify(home.came) + (home.down ? '; WENT DOWN: BACK TO THE LAST SAVE' : '') + (home.rst ? '; THE SAVE WAS RELOADED' : '') + '; the clock ' + home.bell + ' -> ' + home.now);
@@ -92,7 +94,7 @@ async function oneRetreat(kind) {
     C.sort((p, q) => q[2] - p[2]); for (const c of C.slice(0, 60)) { if (travelTo(0, 0, [c[0], c[1]]) && TRAVEL && TRAVEL.path && TRAVEL.path.length >= 12) { travelSpeedSet(4); return c; } try { travelStop(); } catch (e) {} } return null; });
   let shrank = 0, cards = 0, last = null, t0 = await fr.evaluate(NOW), hunts = [];
   for (let i = 0; i < 60; i++) { await sleep(500);
-    const s = await fr.evaluate((id) => ({ t: (T.day * 1440 + T.min), d: HUNT && HUNT.id === id ? huntDist() : null, meet: !!(window.MEET && MEET.up), trav: !!TRAVEL, hold: !!(HUNT && HUNT.hold) }), h.id);
+    const s = await fr.evaluate((id) => ({ t: retreatNow(), d: HUNT && HUNT.id === id ? huntDist() : null, meet: !!(window.MEET && MEET.up), trav: !!TRAVEL, hold: !!(HUNT && HUNT.hold) }), h.id);
     if (s.meet) { cards++; await fr.evaluate(() => { try { MEET_DONE(false); } catch (e) {} }); }
     if (last !== null && s.d !== null && s.d < last) shrank++; if (s.d !== null) last = s.d; hunts.push(s.d);
     if (!s.trav || s.t - t0 >= 720) break; }
@@ -102,7 +104,7 @@ async function oneRetreat(kind) {
   const camp = await fr.evaluate(() => { try { return !!BohemiaMapCamp.make(); } catch (e) { return false; } });
   const t1 = await fr.evaluate(NOW); let cards2 = 0, broke = null, back = null;
   for (let i = 0; i < 120; i++) { await sleep(500);
-    const s = await fr.evaluate((id) => ({ t: (T.day * 1440 + T.min), meet: !!(window.MEET && MEET.up), camp: !!(window.CAMP && CAMP.on), why: window.CAMP ? CAMP.why : null, hunt: HUNT ? { id: HUNT.id, hold: !!HUNT.hold, at: HUNT.at.slice() } : null, fought: !!LOOP.fighting || !!window.parent.document.getElementById('fightFrame') }), h.id);
+    const s = await fr.evaluate((id) => ({ t: retreatNow(), meet: !!(window.MEET && MEET.up), camp: !!(window.CAMP && CAMP.on), why: window.CAMP ? CAMP.why : null, hunt: HUNT ? { id: HUNT.id, hold: !!HUNT.hold, at: HUNT.at.slice() } : null, fought: !!LOOP.fighting || !!window.parent.document.getElementById('fightFrame') }), h.id);
     if (s.meet || s.fought) { cards2++; await fr.evaluate(() => { try { MEET_DONE(false); } catch (e) {} }); }
     if (back === null && (!s.hunt || s.hunt.id !== h.id || !s.hunt.hold)) back = s.t - home.bell;
     if (!s.camp) { broke = s.why; await fr.evaluate(() => { try { BohemiaMapCamp.make(); } catch (e) {} }); }

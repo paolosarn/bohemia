@@ -43570,6 +43570,7 @@ function contactClear(){ CITY_CONTACT_POSTED = false; }
 function roadContactFight(ev){
   var P=roadPartyOf(ev&&ev.id); if(!P) return false;
   if(CITY_CONTACT_POSTED) return false;
+  try{ if(retreatQuiet()){ window.__QUIET_KEPT = (window.__QUIET_KEPT | 0) + 1; return false; } }catch(_e){}   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i) */
   try{ if(townSafeAt(city.x, city.y)){ window.__TOWN_KEPT_ROAD = (window.__TOWN_KEPT_ROAD | 0) + 1; return false; } }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__ */
   if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */
   if(!(window.parent&&window.parent!==window)) return false;
@@ -45787,6 +45788,7 @@ function partyTap(h){
 window.addEventListener('message', function(ev){ var d = ev && ev.data; if(d && d.type === 'BOHEMIA_START' && !HUNT_T0) HUNT_T0 = performance.now(); });
 function huntSpawn(got){
   if(HUNT) return true;                                                   /* one at a time: the one coming is the one coming */
+  try{ if(retreatQuiet()){ window.__QUIET_KEPT = (window.__QUIET_KEPT | 0) + 1; return true; } }catch(_e){}   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i): the fight he ran from draws no new hunters for half a day */
   if(!HUNT_T0 || performance.now() - HUNT_T0 < 60000) return true;        /* nothing in the first sixty seconds (the second votes) */
   var P = null; try{ P = roadPartyOf(got && got.id); }catch(_e){}
   if(!P) return false;   /* the animals are not road parties (CREATURES is open): they never fought here and do not start now */
@@ -45847,7 +45849,7 @@ function huntDist(){ return HUNT ? Math.max(Math.abs(HUNT.at[0] - city.x), Math.
    itself (advance() calls this), so however the time passes (a walk, a camp, a day's work, a night) half a day is half a day */
 function huntHoldTick(){
   if(!HUNT || !HUNT.hold) return false;
-  var now = (T.day | 0) * 1440 + (T.min | 0); if(now < HUNT.hold.till) return false;
+  var now = retreatNow(); if(now < HUNT.hold.till) return false;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: the clock that only goes forward */
   if(PARTY_SEL === HUNT.id) PARTY_SEL = null; if(PARTY_CHASE === HUNT.id) PARTY_CHASE = null;
   window.__HUNT_HELD = { id: HUNT.id, done: now }; HUNT = null; HUNT_FLEE = null;
   try{ render(); }catch(_e){}
@@ -47329,7 +47331,18 @@ function loopArrived(to, town){
   if(LOOP.fighting) return;
   try{ if(typeof raidDefend === 'function' && raidDefend()) return; }catch(_e){}   /* __BUILT_ON_THE_MAP__ a raid at your gate (LIFE+CITY 10/9) */
   try{ if(window.BohemiaCarcass && BohemiaCarcass.arrived) BohemiaCarcass.arrived(x, y); }catch(_e){}   /* __THE_CARCASS__ (WORLD 11, rule 392): the cart's meat to the butcher, or the Mob's stew, at the town he reached */
-  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.arrived(x, y)) return; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, a camp, a ring, a cargo home */
+  /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN, rule 413(j), rule 381): a walk into a settlement is never stopped by a crew he got away
+     from. MEASURED: the raiders he retreated from stood on his block, and arriving at Mob asked the caravan job first; a band within a
+     block 'is a fight' (raidFight || true), the hold refused the fight, and the arrival ended there: the town never opened. NOW the
+     arrival into a town is aimed at nobody (MEET_INTO_TOWN), and when a held job's fight was refused (held, or kept off the town's
+     ground) and nothing else came of it, the town opens. A fight or a card that really came still comes first. */
+  var __into = (town && town.name) ? town : null;   /* the walk or the tap was AT the town (townTap, a town walk's end); a tap on them where he stands is not */
+  try{ window.__JOB_REFUSED = 0; MEET_INTO_TOWN = !!__into && !window.__RETREAT_ALL_OFF;
+    if(window.BohemiaJobKinds && BohemiaJobKinds.arrived(x, y)){
+      var __came = !!LOOP.fighting || !!(typeof MEET !== 'undefined' && MEET && MEET.up) || CITY_CONTACT_POSTED || !!(window.BohemiaRoadEvents && BohemiaRoadEvents.up && BohemiaRoadEvents.up());
+      if(!(__into && !window.__RETREAT_ALL_OFF && (window.__JOB_REFUSED | 0) > 0 && !__came)){ MEET_INTO_TOWN = false; return; }
+      window.__TOWN_OPENED_PAST_A_HOLD = { n: ((window.__TOWN_OPENED_PAST_A_HOLD && window.__TOWN_OPENED_PAST_A_HOLD.n) | 0) + 1, town: __into.name, at: [x, y] };
+    } }catch(_e){} MEET_INTO_TOWN = false;   /* __EVERY_JOB_KIND__: a pack, a camp, a ring, a cargo home */
   var job = loopJobAt(x, y);
   if(job){
     LOOP.fighting = job.id;
@@ -48069,7 +48082,7 @@ function streetRender(ox, oy, G, night){
         if (PARTY_SEL === pid) { var n2 = partySizeOf(p); ph.plateBox = partyPlatePush(pid, sp.x, sp.y - 44 * kq, { count: n2, skulls: partySkulls(n2), going: partyGoing(p) }); }
         MAP_PARTY_HIT.push(ph); } } catch (_e) {}
     try { if (HUNT) { var ho = streetOxy(HUNT.at[0], HUNT.at[1]); huntDraw(ho.ox, ho.oy); var hq = streetTo(HUNT.at[0], HUNT.at[1]);
-      HUNT.plateBox = partyPlatePush(HUNT.id, hq.x, (HUNT.box ? HUNT.box.y : hq.y - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }); } } catch (_e) {}
+      HUNT.plateBox = (HUNT.hold && PARTY_SEL !== HUNT.id && !window.__RETREAT_ALL_OFF) ? null : partyPlatePush(HUNT.id, hq.x, (HUNT.box ? HUNT.box.y : hq.y - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: HUNT.hold ? 'HOLDING THE FIELD' : 'COMING FOR YOU', hunt: true }); } } catch (_e) {}   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: a crew holding its field is not coming: its red plate (the count, the blocks to him counting up as he walks off) is down unless he taps them; the words say it (draft:true) */
     /* where he stops: the thin ring */
     try { if (TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length) { var e = TRAVEL.path[TRAVEL.path.length - 1], rp = streetTo(e[0], e[1]);
       g.save(); g.strokeStyle = 'rgba(255,255,255,0.85)'; g.lineWidth = 2; g.beginPath(); g.ellipse(rp.x, rp.y, 26, 9, 0, 0, 7); g.stroke(); g.restore(); } } catch (_e) {}
@@ -49104,6 +49117,11 @@ function mapPlatesDraw(){
   try { var Y = MAP_DREW && MAP_DREW.you; if (Y && isFinite(Y.x) && isFinite(Y.y)) {
     var cb = { x: Y.x - 44, y: Y.y - (Y.h || 72) - 8, w: 88, h: (Y.h || 72) + 20 };
     for (var ci = 0; ci < MAP_PLATES.length; ci++) { var Pc = MAP_PLATES[ci], pb = { x: Pc.lx, y: Pc.ly, w: Pc.w + 6, h: 11 };
+      /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN, Paolo's clue 11/6: 'this red number... it's underneath me as I walk'). MEASURED on the
+         demo, the map pulled out (a block 6 px): the thieves he ran from held their field three blocks off and their plate, THIEVES · 4,
+         was stepped under HIS feet by this rule, so an enemy's count read as his own and walked with him. An enemy's count is never
+         stepped under him: it stays over the enemy, where they are */
+      if (Pc.foe || (Pc.party && Pc.info && Pc.info.hunt)) { try { MAP_DREW.foeKept = (MAP_DREW.foeKept | 0) + 1; } catch (_e) {} continue; }
       if (Pc.party && Pc.info) { pb.x = Pc.sx - 40; pb.y = Pc.cy - 38; pb.w = 80; pb.h = 34; }
       if (pb.x < cb.x + cb.w && pb.x + pb.w > cb.x && pb.y < cb.y + cb.h && pb.y + pb.h > cb.y) {
         var ny = cb.y + cb.h + 2 + (MAP_DREW.platesUnder | 0) * 12, oy0 = Pc.ly;
@@ -53249,7 +53267,7 @@ function renderCity(){
   window.__MAP_OXY = { ox: ox, oy: oy };   /* __THE_MOMENTS_BETWEEN__: where this frame put the valley, so the fire and the dark sit on him */
   /* __LOOK_BEFORE_YOU_FIGHT__: the party coming for him, its plate always up (they are coming), and the road away */
   try { if (HUNT) { huntDraw(ox, oy); var __hq = iso(HUNT.at[0], HUNT.at[1], ox, oy);
-    HUNT.plateBox = partyPlatePush(HUNT.id, __hq.sx, (HUNT.box ? HUNT.box.y : __hq.sy - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }); } } catch (_e) {}
+    HUNT.plateBox = (HUNT.hold && PARTY_SEL !== HUNT.id && !window.__RETREAT_ALL_OFF) ? null : partyPlatePush(HUNT.id, __hq.sx, (HUNT.box ? HUNT.box.y : __hq.sy - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: HUNT.hold ? 'HOLDING THE FIELD' : 'COMING FOR YOU', hunt: true }); } } catch (_e) {}   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: the plate says it (draft:true) */
   try { phoneRouteDraw(ox, oy); } catch (_e) {}   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: the phone's job, its road to the town */
   /* a party mid-glide keeps the map drawing until it lands, the same rule as his own glide */
   if (__partyMoving && !CITY_GLIDE.raf) CITY_GLIDE.raf = requestAnimationFrame(function(){ CITY_GLIDE.raf = 0;
@@ -68499,7 +68517,7 @@ function meetFallBack(msg, how){
   var mp = /^party:(.+)$/.exec(why);
   if (mp) { try { delete PARTY_FOUGHT[mp[1]]; var p = partyById(mp[1]); if (p) from = [p.at.x | 0, p.at.y | 0]; } catch (_e) {} }
   if (msg.__hunt) { try { HUNT = msg.__hunt; from = HUNT.at.slice();
-    if (away) { HUNT.hold = { till: (T.day | 0) * 1440 + (T.min | 0) + RETREAT_HOLD_MIN, at: HUNT.at.slice() }; window.__HUNT_HELD = { id: HUNT.id, till: HUNT.hold.till, at: HUNT.hold.at };   /* __A_RETREAT_GETS_HIM_AWAY__: they hold the field */
+    if (away) { HUNT.hold = { till: retreatNow() + RETREAT_HOLD_MIN, at: HUNT.at.slice() }; window.__HUNT_HELD = { id: HUNT.id, till: HUNT.hold.till, at: HUNT.hold.at };   /* __A_RETREAT_GETS_HIM_AWAY__: they hold the field */
       if (window.__PARTY_PLATE && window.__PARTY_PLATE.id === HUNT.id) window.__PARTY_PLATE.going = 'HOLDING THE FIELD'; }   /* draft:true */
   } catch (_e) {} }
   if (!from && msg.at && msg.at.gx != null) from = [msg.at.gx | 0, msg.at.gy | 0];
@@ -68519,6 +68537,7 @@ function meetFallBack(msg, how){
   try { if (HUNT && !HUNT.hold) huntFleeRoad(); else if (HUNT) HUNT_FLEE = null; } catch (_e) {}   /* __A_RETREAT_GETS_HIM_AWAY__: no road away from a crew that is not coming */
   MEET_BACK.list = MEET_BACK.list.filter(function (b) { return b.key !== key; });
   MEET_BACK.list.push({ key: key, from: from.slice(), d0: Math.max(Math.abs(city.x - from[0]), Math.abs(city.y - from[1])), left: away ? 1e9 : MEET_BACK.steps, away: away, pack: pack ? pack.id : null });
+  if (away) { try { window.__RETREAT_HOLD = retreatHoldAll(from, key); } catch (_e) {} }   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (rule 413(h)(i)): everyone in or near it, not only the one that opened it */
   try { camHold(); } catch (_e) {}
   try { travelSay('You fell back.'); } catch (_e) {}   /* draft:true */
   window.__MEET_FELL_BACK = (window.__MEET_FELL_BACK | 0) + 1;
@@ -68535,6 +68554,60 @@ function meetFallBack(msg, how){
    asks); a walk past them to the town he was heading for is not a fight. A pack loses his scent for those blocks (WORLD's pack, one
    marked line), a crew that hunts him stays slower than him (the hunters' own rule). ==== */
 var MEET_BACK = { list: [], steps: 10, held: 0 };
+/* ==== __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN 11/7, rule 413(h)(i)(j)(k), ask line 476; Paolo 11/6, on the build with RUN SIX's
+   11/6n: 'I retreated from this battle and the enemies are still on my ass. I think they're all on my ass, to the point I can't even
+   enter a settlement'; and his clue: 'the enemy number... this red number... it's underneath me as I walk, even throughout the whole
+   city, I can't enter any settlements'). MEASURED on the demo with real taps (a caravan job's raiders, ENGAGE, RETREAT at the lineup):
+   RAIDERS · 5 stood ON HIS BLOCK every step of the walk to Mob (distance 0, their red plate under his feet) and the town never opened.
+   THE CAUSE, three parts. (1) A retreat never ends a job's fight (the job's own end is not run, the job stays held), so the band that
+   came at him (a caravan's raiders, the thieves after the package, a crew on the patrol road) stayed on the map, and on every block of
+   his it closes one block (closeIn): it walked onto him and rode under him across the map. RUN SIX's hold matched only the contact's
+   CARD, so their card never came and they never stopped coming. (2) Arriving at a town asks the held jobs first, and a band within a
+   block 'is a fight' (raidFight || true): the hold refused the fight and the town stayed shut. (3) Only the one crew or pack whose card
+   opened the fight was held: the job's other packs, the hunters, and the job's next ambush kept coming.
+   NOW every retreat (the card's FALL BACK, the lineup's RETREAT, the run for the edge) holds EVERYONE in or near the fight: every band a
+   held job has on the map (raiders, thieves, a patrol crew, the ones holding the job's thing), every pack within RETREAT_NEAR blocks of
+   the fight or of him, the hunters wherever they stand. Each holds the field where it stands (not a step toward him) for half a game day,
+   then goes back to its own business (a band leaves the job, a pack roams and never smells him again), and none of them starts a fight
+   with him on its own, ever (MEET_BACK away, each by its own key). For the same half day nothing new is drawn to him by the fight
+   (RETREAT_QUIET: no hunters spawn, no job's ambush comes, no pack picks up his scent, no road card, no street crew). A walk that ends
+   in a town is never aimed at anybody, and the town opens even when a held job had something at its door (loopArrived). His own walk
+   aimed at any of them still asks (the meet card). window.__RETREAT_ALL_OFF is the gate's mutation (the before). ==== */
+var RETREAT_NEAR = 8;   /* blocks from the fight or from him: a pack this close heard it (TUNING's to move) */
+var RETREAT_QUIET = { till: 0, at: null, n: 0 };
+var MEET_INTO_TOWN = false;   /* the arrival being asked is a walk that ends in a town: never aimed at anybody (rule 381(a)) */
+/* THE CLOCK A HOLD IS READ ON: the day loop's own minute, which only goes forward. MEASURED: day * 1440 + the clock's minute JUMPS A DAY
+   AHEAD at 22:00 (the night is played: a new day starts at 22:00 of the evening before, __THE_NIGHT_IS_PLAYED__) and comes back at
+   midnight, so a half-day hold set in the afternoon ended at the night's start, and RUN SIX's hunters' hold with it */
+function retreatNow(){ try { return (DAY.day | 0) * 1440 + Math.floor(DAY.min); } catch (_e) { try { return (T.day | 0) * 1440 + (T.min | 0); } catch (_e2) { return 0; } } }
+function retreatQuiet(){ return !window.__RETREAT_ALL_OFF && retreatNow() < (RETREAT_QUIET.till | 0); }
+function retreatHoldKey(key, at){
+  if (!key || !at) return;
+  for (var i = 0; i < MEET_BACK.list.length; i++) if (MEET_BACK.list[i].key === key && MEET_BACK.list[i].away) return;
+  MEET_BACK.list.push({ key: key, from: [at[0] | 0, at[1] | 0], d0: Math.max(Math.abs(city.x - at[0]), Math.abs(city.y - at[1])), left: 1e9, away: true, pack: null });
+}
+function retreatForget(key){ MEET_BACK.list = MEET_BACK.list.filter(function (b) { return b.key !== key; }); }   /* that crew is gone; a new one on the same job is a new crew */
+function retreatHoldAll(from, key){
+  if (window.__RETREAT_ALL_OFF) return null;
+  from = from || [city.x, city.y];
+  var till = retreatNow() + RETREAT_HOLD_MIN, out = { bands: [], packs: [], hunt: null, till: till, at: from.slice(), you: [city.x, city.y] };
+  RETREAT_QUIET.till = Math.max(RETREAT_QUIET.till | 0, till); RETREAT_QUIET.at = from.slice(); RETREAT_QUIET.n++;
+  var near = function (x, y) { return Math.max(Math.abs(x - from[0]), Math.abs(y - from[1])) <= RETREAT_NEAR || Math.max(Math.abs(x - city.x), Math.abs(y - city.y)) <= RETREAT_NEAR; };
+  try { LOOP.held.forEach(function (j) {
+    ['raid', 'thief', 'band'].forEach(function (w) { var r = j[w]; if (!r) return;   /* a band that came at him is in the fight, wherever it stands now */
+      r.held = { till: till, at: [r.x | 0, r.y | 0] }; retreatHoldKey('contract:' + j.id + ':' + w, [r.x, r.y]); out.bands.push(w + '@' + r.x + ',' + r.y); });
+    if (j.holders) { retreatHoldKey('contract:' + j.id + ':' + j.holders.what, [j.holders.x, j.holders.y]); out.bands.push('holders@' + j.holders.x + ',' + j.holders.y); }   /* they never move; their card waits on his own walk */
+    (j.packs || []).forEach(function (p) { if (!near(p.x | 0, p.y | 0)) return;
+      p.shy = 1e9; p.smelt = false; p.held = { till: till, at: [p.x | 0, p.y | 0] }; retreatHoldKey('contract:' + j.id + ':pack:pack' + p.id, [p.x, p.y]); out.packs.push(p.id + '@' + p.x + ',' + p.y); });
+  }); } catch (_e) {}
+  try { if (HUNT && !HUNT.hold) { HUNT.hold = { till: till, at: HUNT.at.slice() }; HUNT_FLEE = null; retreatHoldKey('hunt:' + HUNT.id, HUNT.at); window.__HUNT_HELD = { id: HUNT.id, till: till, at: HUNT.hold.at }; }   /* the hunters, wherever they were */
+    if (HUNT) out.hunt = HUNT.id; } catch (_e) {}
+  try { if (PARTY_CHASE && !(HUNT && PARTY_CHASE === HUNT.id)) { PARTY_CHASE = null; PARTY_SEL = null; } } catch (_e) {}   /* his own chase ends with the retreat */
+  try { CITY_CONTACT_POSTED = false; } catch (_e) {}
+  return out;
+}
+try { window.retreatQuiet = retreatQuiet; window.retreatForget = retreatForget; window.retreatNow = retreatNow; window.RETREAT_QUIET = RETREAT_QUIET; } catch (_e) {}
+/* ==== /__EVERYONE_IN_THE_FIGHT_HOLDS__ ==== */
 function meetKey(msg){
   var why = String(msg && msg.why || ''), mc = /^contract:([^:]+)/.exec(why), k = why.replace(/:caught$/, '');
   if (mc) try { LOOP.held.forEach(function (j) { if (String(j.id) === mc[1] && j.fight && j.fight.pack != null) k += ':pack' + j.fight.pack; }); } catch (_e) {}
@@ -68554,6 +68627,7 @@ function meetBackHolds(msg){
     var th = meetThem(msg) || b.from, aimed = false;
     try { if (/^party:/.test(String(msg.why || ''))) aimed = true; } catch (_e) {}   /* a roaming party is only ever met by his chase */
     try { var __mcx = /^contract:([^:]+)/.exec(String(msg.why || '')); if (__mcx) LOOP.held.forEach(function (j) { if (String(j.id) === __mcx[1] && j.chase != null && j.fight && j.fight.pack === j.chase) aimed = true; }); } catch (_e) {}   /* WORLD 11 __A_PACK_HE_RAN_FROM_LETS_HIM_GO__ (rule 413(f)): a pack he tapped is his chase, wherever it stepped: it asks */
+    if (MEET_INTO_TOWN && !aimed) return b;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (j): arriving in a town is aimed at nobody, standing beside them or not */
     try { if (TRAVEL && TRAVEL.to && !(TRAVEL.town && TOWN_DOOR.on) && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (a): a walk that ends in a town is never aimed at anybody */
     try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && (b.away ? b.left >= 1e9 : b.left >= MEET_BACK.steps)) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
     if (!aimed) return b; }
@@ -69458,7 +69532,7 @@ function citySnapshot(){
        its crew), the jobs done and the ones finished (the phone leaves them off), and last night's bill were in memory only,
        so a reload gave back the morning with no job on the map */
     run:(function(){ try{ return { held: LOOP.held, done: LOOP.done | 0, doneIds: LOOP.doneIds || [], bill: BILL.last || null, nights: window.__BILL_NIGHTS | 0,
-      back: (MEET_BACK.list || []).filter(function(b){ return b && b.away; }).slice(-40) }; }catch(_e){ return null; } })() };   /* __A_RETREAT_GETS_HIM_AWAY__: who he got away from, across a reload */
+      back: (MEET_BACK.list || []).filter(function(b){ return b && b.away; }).slice(-40), quiet: (typeof RETREAT_QUIET !== 'undefined' ? RETREAT_QUIET.till | 0 : 0) }; }catch(_e){ return null; } })() };   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: the quiet half day too */   /* __A_RETREAT_GETS_HIM_AWAY__: who he got away from, across a reload */
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
@@ -75096,7 +75170,8 @@ function applyRestore(st){
   if(st.run){ try{ if(Array.isArray(st.run.held)) LOOP.held = st.run.held.filter(function(j){ return j && j.id && j.target; }).slice(0, LOOP_MAX);
     LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-500) : [];
     if(st.run.bill) BILL.last = st.run.bill; window.__BILL_NIGHTS = st.run.nights | 0; LOOP.fighting = null;
-    if(Array.isArray(st.run.back)) MEET_BACK.list = st.run.back.filter(function(b){ return b && b.key && b.away && Array.isArray(b.from); }).slice(-40); }catch(_e){} }   /* __A_RETREAT_GETS_HIM_AWAY__ */
+    if(Array.isArray(st.run.back)) MEET_BACK.list = st.run.back.filter(function(b){ return b && b.key && b.away && Array.isArray(b.from); }).slice(-40);
+    if(typeof RETREAT_QUIET !== 'undefined') RETREAT_QUIET.till = (st.run.quiet | 0) || 0; }catch(_e){} }   /* __A_RETREAT_GETS_HIM_AWAY__; __EVERYONE_IN_THE_FIGHT_HOLDS__ */
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
   if(st.mode==='human'){ MODE='human'; hx=st.hx; hy=st.hy; HC=HZOOM; }
@@ -78084,6 +78159,7 @@ function streetCrewOnYou(){
 }
 function streetFightOnStep(){
   try{ if(CITY_CONTACT_POSTED) return false; }catch(_e){}   /* V203 __CONTACT_FIGHT__ */
+  try{ if(retreatQuiet()){ window.__QUIET_KEPT = (window.__QUIET_KEPT | 0) + 1; return false; } }catch(_e){}   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i): no street crew comes at him for the half day after a retreat */
   try{ if(townSafeAt(city.x, city.y)){ window.__TOWN_KEPT_STREET = (window.__TOWN_KEPT_STREET | 0) + 1; return false; } }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__ */
   if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */
   if(!(window.parent&&window.parent!==window)) return false;

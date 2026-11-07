@@ -1,3 +1,11 @@
+RUN SEVEN (run-seven-01gkdyuv): 11/7 LATEST -- BUILD 11/7c - EVERYONE IN THE FIGHT HOLDS, BUILT, NOT YET SEEN (rule 413(h)-(k), rule
+381, ask line 476): after a retreat the job's band (raiders, thieves, a patrol crew) walked onto his block and rode under him across the
+map (its red count under his feet, his clue) and the town never opened. Now every retreat holds everyone in or near the fight (every band,
+every pack within 8 blocks, the hunters) where they stand for half a game day, never a fight from them on their own; nothing new comes at
+him that half day; a walk into a town opens it; an enemy's count is never laid under his feet; the holds read a clock that only goes
+forward. 413(c) is RUN SEVEN's (built on WORLD 11's pack). Gate EVERYONE IN THE FIGHT HOLDS. The whole block: handoffs/RUN_SEVEN.md.
+[bb Battle Brothers: the party you fled stays on the world map doing its own business; a town is always a place you can enter.]
+[analog horror: the crew you ran from is still standing where the fight was, small on the map, a calm plate over them, not moving.]
 RUN SIX (run-six-01gkdyut): 11/6 LATEST -- BUILD 11/6n - A RETREAT GETS HIM AWAY, BUILT, NOT YET SEEN (rule 413, ask line 465): a
 run for the edge mid-fight is no loss and never 'back to your last save'; every retreat gets him away fully (the crew holds the field half
 a game day, then goes about its business; its card never comes on its own; only his aimed walk asks). Gate A RETREAT GETS HIM AWAY 14/0

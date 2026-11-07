@@ -180,7 +180,7 @@
     try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
       why: 'contract:' + job.id + ':' + what, at: { gx: w[0] | 0, gy: w[1] | 0 } }); } catch (e) { ok = false; }
-    if (!ok) { LOOP.fighting = null; job.fight = null; return false; }
+    if (!ok) { LOOP.fighting = null; job.fight = null; root.__JOB_REFUSED = (root.__JOB_REFUSED | 0) + 1; return false; }   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (j): the town's arrival reads it */
     try { CITY_CONTACT_POSTED = true; } catch (e) {}
     window.__JOB_FIGHTS = (window.__JOB_FIGHTS | 0) + 1;
     return true;
@@ -403,10 +403,26 @@
   }
   /* a party closes a block for every block he walks (a caravan, a man carrying something, cannot outrun it) */
   function closeIn(r) {
+    if (r && r.held) return false;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN, rule 413(h)): a band he retreated from holds the field */
     var dx = Math.sign(city.x - r.x), dy = Math.sign(city.y - r.y), tries = [[dx, dy], [dx, 0], [0, dy]];
-    for (var i = 0; i < tries.length; i++) { var nx = r.x + tries[i][0], ny = r.y + tries[i][1]; if ((tries[i][0] || tries[i][1]) && walk(nx, ny)) { r.x = nx; r.y = ny; break; } }
+    for (var i = 0; i < tries.length; i++) { var nx = r.x + tries[i][0], ny = r.y + tries[i][1];
+      if (!root.__RETREAT_ALL_OFF && nx === city.x && ny === city.y) continue;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: never onto his block (measured: RAIDERS · 5 rode under him across the map) */
+      try { if (!root.__RETREAT_ALL_OFF && typeof root.townGround === 'function' && root.townGround(nx, ny)) continue; } catch (e) {}   /* rule 381(c): they stop at a town's edge */
+      if ((tries[i][0] || tries[i][1]) && walk(nx, ny)) { r.x = nx; r.y = ny; break; } }
     return cheb(r.x, r.y, city.x, city.y) <= 1;
   }
+  /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN 11/7, rule 413(h)(i)): a band he retreated from (the map's retreatHoldAll marks it held)
+     stands where it was for half a game day and never starts a fight with him on its own; then it goes back to its own business and
+     leaves the job. For the same half day the fight he ran from draws nothing new: a job's next ambush waits, no pack smells him. */
+  function nowMin() { try { return root.retreatNow ? root.retreatNow() : (T.day | 0) * 1440 + (T.min | 0); } catch (e) { return 0; } }
+  function quiet() { try { return !!(root.retreatQuiet && root.retreatQuiet()); } catch (e) { return false; } }
+  function heldBand(job, w) {
+    var r = job[w]; if (!r || !r.held) return false;
+    if (nowMin() >= (r.held.till | 0)) { job[w] = null; try { root.retreatForget && root.retreatForget('contract:' + job.id + ':' + w); } catch (e) {}
+      root.__BAND_WENT = (root.__BAND_WENT || []).concat([{ id: job.id, what: w, at: [r.x, r.y], t: nowMin() }]).slice(-20); try { render(); } catch (e) {} }
+    return true;
+  }
+  function newBand(job, w) { try { root.retreatForget && root.retreatForget('contract:' + job.id + ':' + w); } catch (e) {} }   /* a new crew on the job is not the one he got away from */
   MAKE['haul-caravan'] = function (job, k, row, town, R) {
     var sk = clamp(job.skulls, 1, 3), n = row.crates || k.crates_by_skulls[sk - 1] || 3;
     var path = pickDest(job, k, town, R), dest = job.dest;
@@ -430,17 +446,18 @@
     if (job.stage !== 'haul') return false;
     cargoStep(job);
     var r = job.raid;
+    if (r && heldBand(job, 'raid')) return false;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ */
     if (r) {   /* the caravan is slow: they close a block for every block he walks, and contact is the fight */
       if (closeIn(r)) return raidFight(job);
       return false;
     }
-    if (job.ambush && job.ambush.length && job.walked >= job.ambush[0]) {
+    if (job.ambush && job.ambush.length && job.walked >= job.ambush[0] && !quiet()) {   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i): it waits out the quiet half day */
       job.ambush.shift();
       /* AHEAD ON HIS ROAD (measured: raiders put behind a caravan walking away never closed, and the cargo reached the gate untouched) */
       var at = aheadOf(job.id + ':raid:' + job.walked);
       if (!at) return false;
       var base = 3; try { base = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-      job.raid = { x: at[0], y: at[1], n: Math.max(2, base + ((k.ambush_extra | 0) || 0)) };
+      job.raid = { x: at[0], y: at[1], n: Math.max(2, base + ((k.ambush_extra | 0) || 0)) }; newBand(job, 'raid');
       now('Raiders, ' + job.raid.n + ' of them, coming for ' + job.cargo.what + '. The caravan cannot outrun them.');   /* draft:true */
       window.__JOB_RAIDS = (window.__JOB_RAIDS | 0) + 1;
       try { render(); } catch (e) {}
@@ -637,6 +654,7 @@
     var R = rng(seedOf(job.id + ':walk:' + STEPS)), smell = 4, roam = (k.pack_blocks || [6, 15])[1] + 4 + (job.ring2 | 0);
     for (var i = 0; i < job.packs.length; i++) {
       var p = job.packs[i], d = cheb(p.x, p.y, city.x, city.y), mv = null;
+      var holding = PACK_LETS_GO.on && !!(p.held && nowMin() < (p.held.till | 0)); if (p.held && nowMin() >= (p.held.till | 0)) delete p.held;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (413(c)): it has its kill and its wounded, half a day where it stands (no wander; it still gives ground, WORLD 11's below); then it roams, and never smells him again (shy for good) */
       if (p.shy > 0) p.shy--;   /* RUN 10/26 (__FALL_BACK_HOLDS__, rule 198(g)): a pack he fell back from has lost his scent for his next blocks */
       /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__ (WORLD 11, 11/6, rule 413(c)(f), ask line 465; Paolo 11/6: 'if I retreat and run away, I should
          be fully able to get away from a battle'). MEASURED (gates/the_carcass_and_the_vultures_gate.js P1 to P4, PACK_LETS_GO.on false):
@@ -647,13 +665,14 @@
          from its own step; only his own chase (a tap on it) or a walk aimed at it meets it, and that asks (the map's arrival goes
          through the meet card). PACK_LETS_GO.on false is the before. */
       var letGo = PACK_LETS_GO.on && p.shy > 0 && job.chase !== p.id;
-      if (d <= smell && !(p.shy > 0)) { var dx = Math.sign(city.x - p.x), dy = Math.sign(city.y - p.y); mv = [[dx, dy], [dx, 0], [0, dy]]; p.smelt = true; }
-      else if (letGo && d <= 2) { var ax = Math.sign(p.x - city.x), ay = Math.sign(p.y - city.y); if (!ax && !ay) ax = 1; mv = [[ax, ay], [ax, 0], [0, ay], [ax, -ay], [-ax, ay]]; }   /* it gives ground */
-      else if ((STEPS + p.id) % 2 === 0) { var D = DIRS[Math.floor(R() * 8) % 8]; mv = [D]; }
+      var calm = PACK_LETS_GO.on && !letGo && job.chase !== p.id && quiet();   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (413(i)): in the quiet half day after a retreat no pack comes at him or starts a fight on its own; it keeps two blocks off */
+      if (d <= smell && !(p.shy > 0) && !quiet()) {   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i): no pack picks up his scent in the quiet half day */ var dx = Math.sign(city.x - p.x), dy = Math.sign(city.y - p.y); mv = [[dx, dy], [dx, 0], [0, dy]]; p.smelt = true; }
+      else if ((letGo || calm) && d <= 2) { var ax = Math.sign(p.x - city.x), ay = Math.sign(p.y - city.y); if (!ax && !ay) ax = 1; mv = [[ax, ay], [ax, 0], [0, ay], [ax, -ay], [-ax, ay]]; }   /* it gives ground */
+      else if (!holding && (STEPS + p.id) % 2 === 0) { var D = DIRS[Math.floor(R() * 8) % 8]; mv = [D]; }
       if (mv) for (var t = 0; t < mv.length; t++) { var nx = p.x + mv[t][0], ny = p.y + mv[t][1], nd = cheb(nx, ny, city.x, city.y);
-        if (letGo && nd <= 2 && nd <= d) continue;   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: never closer than two blocks, never nearer than it was */
+        if ((letGo || calm) && nd <= 2 && nd <= d) continue;   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: never closer than two blocks, never nearer than it was */
         if ((mv[t][0] || mv[t][1]) && walk(nx, ny) && !townNear(nx, ny, 1) && cheb(nx, ny, p.home[0], p.home[1]) <= roam) { p.x = nx; p.y = ny; break; } }
-      if (letGo) { PACK_LETS_GO.held++; continue; }   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: never a fight from its own step */
+      if (letGo || holding || calm) { PACK_LETS_GO.held++; continue; }   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: never a fight from its own step; __EVERYONE_IN_THE_FIGHT_HOLDS__: nor while it holds its field */
       if (cheb(p.x, p.y, city.x, city.y) <= 1) return packFight(job, p);
     }
     /* the chase: a pack he tapped, re-aimed every block (the parties' own way) */
@@ -743,12 +762,13 @@
   STEP['carry'] = function (job) {
     if (job.stage === 'carry') {
       job.walked = (job.walked | 0) + 1;
+      if (job.thief && heldBand(job, 'thief')) return false;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ */
       if (job.thief) { if (closeIn(job.thief)) return thiefFight(job); return false; }
-      if (job.thiefAt > 0 && job.walked >= job.thiefAt) {
+      if (job.thiefAt > 0 && job.walked >= job.thiefAt && !quiet()) {   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i) */
         job.thiefAt = -1;
         var at = aheadOf(job.id + ':thief'); if (!at) return false;
         var n = 2; try { n = Math.max(2, partyMath('job', { skulls: job.skulls }).count - 1); } catch (e) {}
-        job.thief = { x: at[0], y: at[1], n: n };
+        job.thief = { x: at[0], y: at[1], n: n }; newBand(job, 'thief');
         now(n + ' of them on the road ahead, and they know what you carry.');   /* draft:true */
         try { render(); } catch (e) {}
       }
@@ -938,12 +958,13 @@
   STEP['patrol'] = function (job) {
     if (job.stage !== 'patrol' && job.stage !== 'back') return false;
     job.walked = (job.walked | 0) + 1;
+    if (job.band && heldBand(job, 'band')) { if (job.stage === 'patrol') { var ph = null; job.posts.forEach(function (q) { if (!q.done && !ph && postAt(q, city.x, city.y)) ph = q; }); if (ph) postWalked(job, ph); } return false; }   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: the posts still count while they hold the field */
     if (job.band) { if (closeIn(job.band)) return bandFight(job); return false; }
-    if (job.bandDue && job.walked >= job.bandDue) {
+    if (job.bandDue && job.walked >= job.bandDue && !quiet()) {   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (i) */
       job.bandDue = 0;
       var at = aheadOf(job.id + ':band:' + job.walked);
       if (at) { var n = 2; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-        job.band = { x: at[0], y: at[1], n: n }; window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
+        job.band = { x: at[0], y: at[1], n: n }; newBand(job, 'band'); window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
         now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
     }
     if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && !p && postAt(q, city.x, city.y)) p = q; }); if (p) postWalked(job, p); }
@@ -1539,6 +1560,7 @@
   }
 
   /* ---------- DRAWN ON THE MAP (the map's own pen: its people, its flag, its plates, its truck) ---------- */
+  /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN): a band holding its field wears the calm plate, not the red one: it is not coming */
   /* BEASTS 2 11/3: every beast is drawn from its OWN fight sheet, its cell read from the index the fight reads (fight_rig.json, the
      danger engine's DB.rig), never a size typed here: MEASURED, the sizes typed here went stale the round the sheets were rebuilt
      (107x116 against 118x124) and the map cut the wolf across two cells. A look is a sheet (beast_coyote), a beast faction
@@ -1579,10 +1601,10 @@
     catch (e) { h.x = box.x; h.y = box.y; }
     h.w = box.w; h.h = box.h; return h;
   }
-  function plate(t, sx, cy, col, up) {
+  function plate(t, sx, cy, col, up, foe) {
     g.font = '700 9px ' + FACE('casing');
     var w = g.measureText(t).width, box = { x: sx - w / 2 - 3, y: cy - (up || 44), w: w + 6, h: 11 };
-    MAP_PLATES.push(mine({ t: t, lx: sx - w / 2 - 3, ly: cy - (up || 44), w: w, col: col, sx: sx, cy: cy, r: 33, box: box }));
+    MAP_PLATES.push(mine({ t: t, lx: sx - w / 2 - 3, ly: cy - (up || 44), w: w, col: col, sx: sx, cy: cy, r: 33, box: box, foe: !!foe }));   /* __EVERYONE_IN_THE_FIGHT_HOLDS__: foe, an enemy's count (the map never steps it under his feet) */
     return box;
   }
   function vis(p) { return !(p.sx < -60 || p.sx > CVW + 60 || p.sy < -80 || p.sy > CVH + 80); }
@@ -1732,7 +1754,7 @@
     if (vis(d)) hit(j, plate('ESCORT TO ' + String(j.dest.name).toUpperCase(), d.sx, d.sy + TH / 2 + 2, '#f0b44c', 30), [j.target.x, j.target.y]);
     if (j.raid) { var r = iso(j.raid.x, j.raid.y, ox, oy), fy = r.sy + TH / 2 + 2;
       if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 0);
-        hit(j, plate('RAIDERS · ' + j.raid.n, r.sx, fy, '#ff8f7a', hh + 14), [j.raid.x, j.raid.y]);
+        hit(j, plate('RAIDERS · ' + j.raid.n, r.sx, fy, j.raid.held ? '#f2d7a0' : '#ff8f7a', hh + 14, true), [j.raid.x, j.raid.y]);
         HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.raid.x, j.raid.y], pack: null }); } }
     holdersDraw(j, ox, oy, bt, kp);
   };
@@ -1752,7 +1774,7 @@
     var h = j.holders; if (!h) return false;
     var r = iso(h.x, h.y, ox, oy), fy = r.sy + TH / 2 + 2; if (!vis(r)) return true;
     var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 0);
-    hit(j, plate(h.what === 'gate' ? 'THEY HOLD THE GATE' : 'THEY HOLD IT', r.sx, fy, '#ff8f7a', hh + 14), [h.x, h.y]);   /* draft:true */
+    hit(j, plate(h.what === 'gate' ? 'THEY HOLD THE GATE' : 'THEY HOLD IT', r.sx, fy, '#ff8f7a', hh + 14, true), [h.x, h.y]);   /* draft:true */
     HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [h.x, h.y], pack: null });
     try { MAP_DREW.holders = (MAP_DREW.holders | 0) + 1; } catch (e) {}
     return true;
@@ -1783,7 +1805,7 @@
       var fy = q.sy + TH / 2 + 2, face = faceTo(city.x - p.x, city.y - p.y), fr = 1 + ((bt + p.id) % 6), show = Math.min(3, p.n);
       var spots = [[0, 0], [-9, -3], [9, -2]];
       for (var s = show - 1; s >= 0; s--) beastDraw(p.look, face, p.smelt ? fr : (s === 0 ? 0 : fr), q.sx + spots[s][0] * kp, fy + spots[s][1] * kp);
-      var box = plate(p.n + ' · HUNT ' + (j.got | 0) + '/' + j.need, q.sx, fy, p.smelt ? '#ff8f7a' : '#f2d7a0', 34);
+      var box = plate(p.n + ' · HUNT ' + (j.got | 0) + '/' + j.need, q.sx, fy, p.smelt ? '#ff8f7a' : '#f2d7a0', 34, true);
       hit(j, box, [p.x, p.y], p.id);
       HITS.push({ job: j.id, x: q.sx - 22 * kp, y: fy - 30 * kp, w: 44 * kp, h: 34 * kp, cell: [p.x, p.y], pack: p.id });
     });
@@ -1813,7 +1835,7 @@
       var d = iso(j.target.x, j.target.y, ox, oy);
       if (vis(d)) hit(j, plate('CARRY TO HERE', d.sx, d.sy + TH / 2 + 2, '#f0b44c', 30), [j.target.x, j.target.y]);
       if (j.thief) { var r = iso(j.thief.x, j.thief.y, ox, oy), fy = r.sy + TH / 2 + 2;
-        if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 3); hit(j, plate('THIEVES · ' + j.thief.n, r.sx, fy, '#ff8f7a', hh + 14), [j.thief.x, j.thief.y]);
+        if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 3); hit(j, plate('THIEVES · ' + j.thief.n, r.sx, fy, j.thief.held ? '#f2d7a0' : '#ff8f7a', hh + 14, true), [j.thief.x, j.thief.y]);
           HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.thief.x, j.thief.y], pack: null }); } }
       return;
     }
@@ -1841,7 +1863,7 @@
       hit(j, plate('POST ' + (i + 1), q.sx, q.sy + TH / 2 + 2, '#f0b44c', 30), [p.x, p.y]); });
     if (j.stage === 'back') { var b = iso(j.target.x, j.target.y, ox, oy); if (vis(b)) hit(j, plate('GET PAID', b.sx, b.sy + TH / 2 + 2, '#9fe08a', 30), [j.target.x, j.target.y]); }
     if (j.band) { var r = iso(j.band.x, j.band.y, ox, oy), fy = r.sy + TH / 2 + 2;
-      if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 5); hit(j, plate('CREW · ' + j.band.n, r.sx, fy, '#ff8f7a', hh + 14), [j.band.x, j.band.y]);
+      if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 5); hit(j, plate('CREW · ' + j.band.n, r.sx, fy, j.band.held ? '#f2d7a0' : '#ff8f7a', hh + 14, true), [j.band.x, j.band.y]);
         HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.band.x, j.band.y], pack: null }); } }
   };
 

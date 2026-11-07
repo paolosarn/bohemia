@@ -381,6 +381,8 @@
     try { if (root.navigator && root.navigator.webdriver && !root.__ROADEV_ON) return false; } catch (e) {}
     try { if (typeof MODE !== 'undefined' && MODE !== 'city') return false; } catch (e) {}
     if (busy()) return false;
+    try { if (root.retreatQuiet && root.retreatQuiet()) return false; } catch (e) {}   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (RUN SEVEN, rule 413(i)(j)): no road card in the half day after a retreat */
+    try { if (typeof root.townGround === 'function' && root.townGround(city.x, city.y)) return false; } catch (e) {}   /* rule 381, 273: a walk into a settlement is never stopped by a card on its ground */
     var s = st(), D = EV.director || {}; s.walked++;
     if (s.scav && !s.scav.used && scavMeet(s)) { s = st(); s.last = s.walked; put(s); return true; }
     var gate = Date.now() - T0 < (D.first_minute_s == null ? 60 : D.first_minute_s) * 1000 || day() < (D.first_day_min || 0)
