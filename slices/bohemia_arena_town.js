@@ -3,7 +3,7 @@
    barely able to.' Battle Brothers' way (bb_all/0620, bb_all/0131): the arena is a building in the town; you tap it and see the
    whole card before you sign: who, how many, the purse; a new card each day.
 
-   THE PICTURE: slices/arena/pit_day.webp and pit_night.webp, rendered in the towns' own camera by tools/bohemia_arena_the_pit.py
+   THE PICTURE: slices/arena/pit_day.webp and slices/arena/pit_night.webp, rendered in the towns' own camera by tools/bohemia_arena_the_pit.py
    (a hotel pool drained to its tiles, the dead casino's velvet-rope stands taped where they broke, two poles and a string of
    bulbs with three still working, a breaker panel held shut with a belt, a generator, two patched cages, the crowd's chairs, a
    plywood sign painted by hand), laid over the Mob's picture where that picture already sinks a drained plaza

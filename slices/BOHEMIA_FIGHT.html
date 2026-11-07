@@ -386,6 +386,10 @@ function loadAll() {
       DB.traits = a[20];
       DB.newEnemies = a[21];
     })
+    /* __THE_ARENA__ (ARENA 2, rule 426(f), ask line 497; Paolo 11/6: 'The arena map is so fucking ugly bro'): the pit's own board,
+       a laid board per pool size (tools/bohemia_arena_the_pit_board.py); a pit fight without it stands on the Strip's cut as before */
+    .then(function () { return fetch('arena/pit_board.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (k) { DB.arenaPit = k; })
     /* THE LAYERS (ask line 251): the outline of every building that stands up into the tile north of it; a board draws
        without it if it never comes (no man is then covered by a roof, as before) */
     .then(function () { return fetch('fight_ground/fight_stands.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
@@ -1756,6 +1760,7 @@ const FIGHT = (function () {
     /* HIS ELEVENTH VOTES (rule 104a re-spec): 'the map has to be big but then it's just zoomed into our purposes': the board
        is no longer cut to the party (rule 79's cut stands down; cropToParty is kept for a test that asks for it) */
     if (!big && opts.cut) cropToParty(dealt, crewUnits, bandUnits, opts);
+    if (S.arena) arenaPit(crewUnits, bandUnits, opts);   /* __THE_ARENA__ (ARENA 2, rule 426(f)): the pit stands on its own board */
     if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
     S.board = S.boardDef.name;
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
@@ -1825,6 +1830,37 @@ const FIGHT = (function () {
     S.w = w; S.h = h; S.cols = [cf, ftc]; S.crop = { ox: ox, oy: oy, w: w, h: h, from: [W0, H0] };
     applyBoard(Object.assign({}, B, { terrain: T0.slice(oy, oy + h).map(function (r) { return r.slice(ox, ox + w); }),
       cover: (B.cover || []).filter(inside).map(shift), lights: (B.lights || []).filter(inside).map(shift), crop: S.crop, kinds: kinds, name: shown.join(' + ') }));
+  }
+  /* __THE_ARENA__ (ARENA 2, VAMILY rule 426(f), ask line 497; Paolo 11/6, on the fight in the pit: YES to the rules and the crowd,
+     'The arena map is so fucking ugly bro'). MEASURED BEFORE: the pit fight stood on a window cut from a random Strip template (a
+     boulevard's lamps, a bus shelter, half a pool block, the seams between blocks). NOW the pit is its own board: the drained pool
+     the Mob fights in, its floor the board and its walls the edges, the crowd, the bookie and the dead resort round it, one render
+     (tools/bohemia_arena_the_pit_board.py) laid the way COMBAT TWO's laid boards are (slices/arena/pit_board.json). The size is
+     the cut's own sum (rule 79: a tile of room, his line, the gap, theirs, a tile), and the smallest pool that holds it is used;
+     the two lines are set in its middle. Nothing of the fight's rules changes: no retreat, nobody spared, no loot, the crowd. */
+  function arenaPit(crewUnits, bandUnits, opts) {
+    const P = DB.arenaPit && DB.arenaPit.variants; if (!P) return false;
+    const fit = R('ours.board_fit'), m = fit.margin, gap = R('deployment.min_gap_between_lines_hexes');
+    const rows = rowsOf(crewUnits, opts.formation);
+    const used = function (r) { const i = r.map(function (u, k) { return u ? k : -1; }).filter(function (k) { return k >= 0; }); return i.length ? i[i.length - 1] - i[0] + 1 : 0; };
+    const behind = function (u) { return isRanged(u.weapon) || u.arche === 'backline'; };
+    const ef = bandUnits.filter(function (u) { return !behind(u); }).length, eb = bandUnits.filter(behind).length;
+    const cDepth = rows.back.some(Boolean) ? 1 + 1 : 1, eDepth = eb ? 1 + 1 : 1;
+    const span = cDepth + gap + eDepth - 1, h = Math.max(used(rows.front), used(rows.back), ef, eb, 1) + m + m, w = span + m + m;
+    const ks = Object.keys(P).sort(function (a, b) { return P[a].H - P[b].H; });
+    const k = ks.filter(function (q) { return P[q].H >= h && P[q].W >= w; })[0] || ks[ks.length - 1], v = P[k];
+    if (!v || !Array.isArray(v.ground) || v.ground.length !== v.AW * v.AH) return false;
+    S.w = v.W; S.h = v.H; S.crop = null;
+    const cf = Math.max(0, Math.floor((v.W - span) / (1 + 1))) + cDepth - 1;
+    S.cols = [cf, cf + gap];
+    const bt = DB.ground.block_tiles, blocks = [];
+    for (let by = 0; by < Math.ceil(v.H / bt); by++) { const r = []; for (let bx = 0; bx < Math.ceil(v.W / bt); bx++) r.push('pit.0'); blocks.push(r); }
+    const L = { ground: v.ground.slice(), AW: v.AW, AH: v.AH, ring: v.ring, W: v.W, H: v.H, sprites: [], houses: [], start: null, camp: null };
+    applyBoard({ blocks: blocks, terrain: v.terrain.map(function (r) { return r.slice(); }), cover: [], lights: (v.lights || []).slice(), name: 'THE PIT',
+      kinds: ['pit'], family: 'arena', lead: 'pit', shape: null, place: 'strip', own: 'arena', start: null, camp: null, lm: null, laid: L,
+      roofs: v.terrain.map(function (r) { return r.map(function () { return 0; }); }), arena: { pool: k, need: [w, h] } });
+    S.arenaPool = k;
+    return true;
   }
   /* the two lines, melee in front, shooters behind; the lines are the board's start rows,
      which COMBAT TWO set five tiles apart (deployment.min_gap_between_lines_hexes) */

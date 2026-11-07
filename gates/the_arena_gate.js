@@ -32,6 +32,12 @@
       D3 the end: nothing comes off the dead (the spoils screen keeps its recap and drops nothing), the long cheer on the win
       D4 home: the card's purse paid on the win, the win counted, back in the Mob's town with the bookie saying so
       D5 the crowd is real recordings through the PA (tools/bohemia_arena_crowd.py --check)
+   G  THE PIT'S OWN BOARD (ARENA 2, rule 426(f), ask line 497; Paolo 11/6: 'The arena map is so fucking ugly bro')
+      G1 the board is whole (tools/bohemia_arena_the_pit_board.py --check): the pool (10 x 5), every picture there, the floor is the
+         pool, the terrain says what the picture shows, nothing blocked on a line's column, no seam where the fight cuts it, no
+         purple, no lava
+      G2 the fight loads the pit's file and a pit fight stands on it
+      G3 (the demo) the fight he walked into stands on the laid pool, its pictures all loaded, both lines on the floor
    E  THE PAY, THE RANKS, THE PIT GEAR
       E1 every arena number has its row in TUNING's one table (section X)
       E2 the pit gear is the game's own armour rows and no shop stocks it
@@ -89,6 +95,11 @@ ok('E1 every arena number has its row in TUNING\'s one table (section X), the fi
 const AR = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/armor.json'), 'utf8')), SET = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
 const gearOk = A.reserved().length >= 2 && A.reserved().every(id => { const g = A.V('pit_gear')[id], r = (AR[g.kind] || []).filter(x => x.id === id)[0]; return r && r.durability === g.durability && r.fatigue === g.fatigue; });
 ok('E2 the pit gear is the game\'s own armour rows (same numbers), and no shop stocks it (the restock leaves out what the pit holds)', gearOk && /BohemiaArena\.reserved\(\)[\s\S]{0,200}held\.indexOf\(r\.id\) < 0/.test(SET), A.reserved().join(','));
+console.log('G  THE PIT\'S OWN BOARD (ARENA 2, rule 426(f), ask line 497: \'The arena map is so fucking ugly bro\')');
+let gchk = ''; try { gchk = require('child_process').execFileSync('python3', [path.join(ROOT, 'tools/bohemia_arena_the_pit_board.py'), '--check'], { encoding: 'utf8' }).trim(); } catch (e) { gchk = String(e.stdout || e.message).trim(); }
+ok('G1 the pit is its own board: the pool, every picture there, the floor is the pool, the terrain says what the picture shows (the bar BLOCKED, the loungers DEBRIS, the black water WATER), nothing blocked on either line, no seam where the picture is cut, no purple, no lava', /(^|\n)ok$/.test(gchk), gchk.split('\n').join(' | '));
+const FSRC = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
+ok('G2 the fight reads it: the pit\'s file loads with the fight\'s data and a pit fight stands on it (arenaPit after the cut)', /fetch\('arena\/pit_board\.json'/.test(FSRC) && /if \(S\.arena\) arenaPit\(crewUnits, bandUnits, opts\);/.test(FSRC) && /function arenaPit\(/.test(FSRC));
 console.log('B  THE PIT ON THE MOB\'S TOWN');
 const TYPE = { '.html': 'text/html', '.js': 'application/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.mp3': 'audio/mpeg', '.glb': 'model/gltf-binary', '.css': 'text/css' };
 const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIComponent(rq.url.split('?')[0])); if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); } rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs); });
@@ -183,6 +194,15 @@ async function legC() {
     ok('C4 the fight has ONLY the picked men, in his order, none wearing his accessory', !!f && f.us.map(u => u.name).join() === chosen.join() && f.acc.every(a => !a) && f.us.every(u => !u.vest) && !!picked && picked.acc.some(a => a === 'cell_vest_scrap'), f ? f.us.map(u => u.name + (u.vest ? '+vest' : '')).join(' ') + ' | picked ' + chosen.join(' ') : 'no fight');
     const band = sent && sent.card ? sent.card.band.slice().sort().join() : '';
     ok('C5 the card\'s foes, every one, on a small board, the arena flag riding with it', !!f && f.them.slice().sort().join() === band && f.w * f.h < 20 * 15 / 2 && !!f.arena && f.arena.id === sent.card.id, f ? f.them.join(',') + ' on ' + f.w + 'x' + f.h + ' | card ' + band : '');
+    /* G3: the board he fights on IS the pit: the laid pool, its size one of the file's, both lines on the floor, every picture in */
+    /* the fight shows its board once every ground picture is in (bakeBoard: 'the board waits for its ground'); a player sees it then */
+    if (ff) for (let i = 0; i < 40; i++) { if (await ff.evaluate(() => { const L = FIGHT.S.boardDef && FIGHT.S.boardDef.laid; return !!L && [...new Set(L.ground.map(g => g.split('#')[0]))].every(q => UI.imgs['fight_ground/' + q]); }).catch(() => false)) break; await page.waitForTimeout(500); }
+    const pitB = ff ? await ff.evaluate(() => { const B = FIGHT.S.boardDef, L = B && B.laid, P = (typeof DB !== 'undefined' && DB.arenaPit && DB.arenaPit.variants) || {};
+      const srcs = L ? [...new Set(L.ground.map(g => g.split('#')[0]))] : [], held = srcs.filter(q => UI.imgs['fight_ground/' + q]).length;
+      const us = FIGHT.S.units.filter(u => u.side !== 'them'), them = FIGHT.S.units.filter(u => u.side === 'them');
+      return { family: B && B.family, name: B && B.name, pool: FIGHT.S.arenaPool || null, sizes: Object.keys(P).map(k => P[k].W + 'x' + P[k].H), w: FIGHT.S.w, h: FIGHT.S.h, srcs: srcs.length, held: held,
+        onFloor: FIGHT.S.units.every(u => u.x >= 0 && u.y >= 0 && u.x < FIGHT.S.w && u.y < FIGHT.S.h), left: Math.max.apply(null, us.map(u => u.x)) < Math.min.apply(null, them.map(u => u.x)) }; }).catch(e => ({ err: String(e) })) : null;
+    ok('G3 the fight in the pit stands on the pit\'s own board: the laid pool, one of the file\'s sizes, every picture loaded, both lines on the floor, his on the left', !!pitB && pitB.family === 'arena' && pitB.name === 'THE PIT' && pitB.sizes.indexOf(pitB.w + 'x' + pitB.h) >= 0 && pitB.srcs > 0 && pitB.held === pitB.srcs && pitB.onFloor && pitB.left, JSON.stringify(pitB));
     /* D: THE FIGHT IN THE PIT, then home */
     if (ff) {
       const bat0 = await fr.evaluate(() => loopBats()).catch(() => null);
