@@ -43,7 +43,7 @@
         70 percent are each caught; a planted scrolling box with a button, a page taller than the glass, a button below a
         locked edge are each caught
      Z  nothing threw
-   node gates/scrolling_is_illegal_gate.js [--only phone_portrait]
+   node gates/scrolling_is_illegal_gate.js [--only phone_portrait] [--alone]
    ========================================================================== */
 'use strict';
 const path = require('path'), fs = require('fs'), http = require('http');
@@ -204,8 +204,9 @@ async function fullHall(b, port, prof, PV, size) {
   const st = await p.evaluate(() => BohemiaNoScroll.state(document.getElementById('sheet')));
   if (size != null) {   /* N9: the same hall at this size, then the smith */
     const shop = await p.evaluate(() => ['smith', 'armourer', 'arms'].find(k => BohemiaSettlement.order().indexOf(k) >= 0) || null);
-    const x2 = shop ? await p.evaluate(k => BohemiaSettlement.where(k), shop) : null; let sm = null;
-    if (x2) { await p.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await p.waitForTimeout(400); await p.mouse.click(x2.x, x2.y); await p.waitForTimeout(2200);
+    await p.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await p.waitForTimeout(500);
+    const x2 = shop ? await p.evaluate(k => BohemiaSettlement.where(k), shop) : null; let sm = null;   /* where the shop is with the hall's sheet down */
+    if (x2) { await p.mouse.click(x2.x, x2.y); await p.waitForTimeout(2200);
       if (await p.evaluate(() => BohemiaSettlement.state.open) !== shop) { await p.mouse.click(x2.x, x2.y); await p.waitForTimeout(1800); }
       sm = { l: await onGlass(p.mainFrame(), '#sheet .grid .slot'), m: await NS.small(p.mainFrame(), '#sheet'), cr: NS.crimes(await NS.sweepAll(p)), st: await p.evaluate(() => BohemiaNoScroll.state(document.getElementById('sheet'))) }; }
     await ctx.close();
@@ -268,6 +269,6 @@ async function aloneLegs() {
 
 (async () => {
   try { await aloneLegs(); } catch (e) { ok('the crew, the hall and the fight pages', false, String(e.stack).slice(0, 300)); }
-  for (const p of PROFS) await demoLegs(p);
+  if (!process.argv.includes('--alone')) for (const p of PROFS) await demoLegs(p);   /* --alone: the crew, the halls, the sizes and the fight only (no demo walk) */
   done();
 })();

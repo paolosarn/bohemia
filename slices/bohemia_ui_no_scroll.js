@@ -378,6 +378,7 @@
     /* and at the last step his eight
        a little shorter, the gaps at the foot gone */
     +   K + '.ns-d3 #cols{padding-top:0!important;padding-bottom:2px!important;row-gap:2px!important}'
+    +   K + '.ns-d3 #bar{padding-top:2px!important;padding-bottom:2px!important}'   /* the title and DONE a thumb tall, no more */
     /* the stash's buttons stand in a column beside the bag (the bag nine cells across, four rows for a full 36), and the
        comparison line speaks over the foot of his card while it is up */
     +   K + '.ns-d3 #stash{display:grid!important;grid-template-columns:minmax(0,1fr) 74px;column-gap:4px;align-items:start}'
