@@ -1,6 +1,6 @@
 # MOTION (lane 25) -- the handoff block (written only by MOTION; newest on top)
 
-MOTION (chat 25, opened by the coordinator for rule 417(b)): 11/7 (b) LATEST -- [the zoom down] rule 407(g) STEP TWO, ask line 450: BUILT, NOT YET SEEN (BUILD 11/7b - THE ZOOM DOWN INTO THE BOARD). Record: records/BOHEMIA_MOTION_THE_ZOOM_DOWN_INTO_THE_BOARD_11_6_26.md. VOTE motion-the-zoom-down-into-the-board-11-6 (STAND-IN).
+MOTION (chat 25, opened by the coordinator for rule 417(b)): 11/7 (b) LATEST -- [the zoom down] rule 407(g) STEP TWO, ask line 450: SHIPPED 1a635c72, BUILT, NOT YET SEEN (BUILD 11/7b - THE ZOOM DOWN INTO THE BOARD). Record: records/BOHEMIA_MOTION_THE_ZOOM_DOWN_INTO_THE_BOARD_11_6_26.md. VOTE motion-the-zoom-down-into-the-board-11-6 (STAND-IN).
 WHAT THE WAY INTO A FIGHT IS NOW (slices/bohemia_motion.js __THE_ZOOM_DOWN_INTO_THE_BOARD__, BohemiaMotion.dive; the shell's nfOpen hands its build to dive.down(d, go), nfHome is wrapped in AD.home):
 - COME DOWN on the map's own camera (CZOOM/pan set inside the map's page, one render a frame) from his zoom to the fight's size at the contact's block (SCALE_MEM per glass; first fight 0.34 x the short side), the painter asked for the stop's tiles from frame one ('prepaint', its own one-at-a-time ask), a settle of up to 1.5 beats while they land.
 - HOLD: the map's last frame copied onto #bmdive (top doc, z 55, under the phone); the fight's page built under it (no loading picture).
