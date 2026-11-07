@@ -40560,6 +40560,7 @@ function advance(mins){
   try{ if(window.BohemiaCondition) BohemiaCondition.elapse(mins / 60, { camped: !!(typeof CAMP !== 'undefined' && CAMP && CAMP.on) }); }catch(_e){}
   daySync();
   try{ huntHoldTick(); }catch(_e){}   /* __A_RETREAT_GETS_HIM_AWAY__: a crew holding its field, on the clock */
+  try{ if(window.BohemiaCarcass && BohemiaCarcass.tick) BohemiaCarcass.tick(mins); }catch(_e){}   /* __THE_CARCASS__ (WORLD 11, rule 392): the dead rot on the valley's clock; a town's carts come in */
   if(was==='awake'&&DAY.phase==='ended'){
     /* __THE_DAY_ENDS_ON_YOU__ (9/5, SOUNDS lane) -- THE DOOR THAT CLOSES ON YOU.
        MEASURED: driving the clock from 06:00 to nightfall on the real surface
@@ -45316,6 +45317,7 @@ function cityStepMins(x,y){
   try{ if (typeof BohemiaFollowers!=='undefined' && typeof CT_FOLLOWERS!=='undefined')
        dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); }catch(_e){}
   try{ if (window.BohemiaJobKinds) dm *= BohemiaJobKinds.pace(); }catch(_e){}   /* __EVERY_JOB_KIND__: a caravan walks slow */
+  try{ if (window.BohemiaCarcass && BohemiaCarcass.pace) dm *= BohemiaCarcass.pace(); }catch(_e){}   /* __THE_CARCASS__ (WORLD 11, rule 392): the shopping cart full of meat walks slower */
   return base*f*dm;
 }
 
@@ -45652,6 +45654,7 @@ function mapTapWhat(sx, sy){
      now; a job's label answers only where no town's is under the finger */
   var r0 = null; try{ r0 = mapTapWhich(sx, sy); }catch(_e){}
   if(r0 && r0.what === 'town'){ try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: 'town', name: r0.name, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length, first: true }; }catch(_e){} return townTap(r0.t); }
+  try{ if(window.BohemiaCarcass && BohemiaCarcass.tap && BohemiaCarcass.tap(sx, sy)) return true; }catch(_e){}   /* __THE_CARCASS__ (WORLD 11, rule 392): a carcass's plate, its three ways, the cart */
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.tap(sx, sy)) return true; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, the raiders, a camp, a ring */
   var r = r0;
   try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: r ? r.what : 'ground', name: r ? r.name : null, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length }; }catch(_e){}
@@ -47325,6 +47328,7 @@ function loopArrived(to, town){
      into its fight called this again and handed the same job over twice; the pay never landed. A job in flight is in flight. */
   if(LOOP.fighting) return;
   try{ if(typeof raidDefend === 'function' && raidDefend()) return; }catch(_e){}   /* __BUILT_ON_THE_MAP__ a raid at your gate (LIFE+CITY 10/9) */
+  try{ if(window.BohemiaCarcass && BohemiaCarcass.arrived) BohemiaCarcass.arrived(x, y); }catch(_e){}   /* __THE_CARCASS__ (WORLD 11, rule 392): the cart's meat to the butcher, or the Mob's stew, at the town he reached */
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.arrived(x, y)) return; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, a camp, a ring, a cargo home */
   var job = loopJobAt(x, y);
   if(job){
@@ -47411,6 +47415,7 @@ window.addEventListener('message', function(ev){
 /* the JOB on the map: three of the cast under a red flag, named on a plate */
 function loopJobsDraw(ox, oy){
   try{ if(window.BohemiaJobKinds) BohemiaJobKinds.draw(ox, oy); }catch(_e){}   /* __EVERY_JOB_KIND__: the cargo, the ring, the packs, the camp */
+  try{ if(window.BohemiaCarcass && BohemiaCarcass.draw) BohemiaCarcass.draw(ox, oy); }catch(_e){ window.__CARCASS_ERR = String(_e && _e.message || _e); }   /* __THE_CARCASS__ __THE_VULTURES__ (WORLD 11, rules 392, 386): the dead where they fell, the birds over them */
   for(var i = 0; i < LOOP.held.length; i++){
     try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])) continue; }catch(_e){}
     var j = LOOP.held[i], p = iso(j.target.x, j.target.y, ox, oy);
@@ -68520,6 +68525,7 @@ function meetBackHolds(msg){
   for (var i = 0; i < MEET_BACK.list.length; i++) { var b = MEET_BACK.list[i]; if (b.key !== k) continue;
     var th = meetThem(msg) || b.from, aimed = false;
     try { if (/^party:/.test(String(msg.why || ''))) aimed = true; } catch (_e) {}   /* a roaming party is only ever met by his chase */
+    try { var __mcx = /^contract:([^:]+)/.exec(String(msg.why || '')); if (__mcx) LOOP.held.forEach(function (j) { if (String(j.id) === __mcx[1] && j.chase != null && j.fight && j.fight.pack === j.chase) aimed = true; }); } catch (_e) {}   /* WORLD 11 __A_PACK_HE_RAN_FROM_LETS_HIM_GO__ (rule 413(f)): a pack he tapped is his chase, wherever it stepped: it asks */
     try { if (TRAVEL && TRAVEL.to && !(TRAVEL.town && TOWN_DOOR.on) && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (a): a walk that ends in a town is never aimed at anybody */
     try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && (b.away ? b.left >= 1e9 : b.left >= MEET_BACK.steps)) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
     if (!aimed) return b; }
@@ -93805,6 +93811,7 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_real_places.js"></script>  <!-- __THE_MISSING_REAL_PLACES__ WORLD TEN (rule 409(c), ask line 458): the bank, the jobs office, the home centres, Clark Station, Shark Reef, the shelter, the two museums, Channel 8; named, tapped, opened (records/target/bb/real_places.json) -->
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_arena.js"></script>  <!-- __THE_ARENA__ (ARENA, rule 375): the pit's purse, ranks and prizes when the fight comes home -->  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
+<script src="bohemia_carcass.js"></script>  <!-- __THE_CARCASS__ __THE_VULTURES__ WORLD 11 (rules 392, 386; ask lines 427, 418): the dead lie where they fell and rot on the clock; haul it, tell a town, or leave it; the birds circle the dead and follow a company that leaves them (records/target/bb/carcass.json) -->
 <script src="bohemia_road_events.js"></script>  <script src="bohemia_radio.js"></script>  <!-- CONTENT [twenty-five things on the road] (11/2): the road's events with a face and two or three choices, and five side quests met on the road (records/target/BOHEMIA_ROAD_EVENTS.json, BOHEMIA_SIDE_QUESTS.json) -->
 <script src="bohemia_map_houses.js"></script>  <script src="bohemia_map_sight.js"></script>  <script src="bohemia_street_board.js"></script>  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ COMBAT TWO 11/6 (rule 407(g), ask line 450): the fight asks the map for the streets, lots and houses where it is -->  <!-- __THE_HOUSES_STAND_UP_CLOSE__ WORLD 8 (ask lines 117, 185, 39): the real house models past the old closest stop; what he sees now -->  <script src="bohemia_his_map.js"></script>  <script src="bohemia_world_state_map.js"></script>  <!-- __A_DIFFERENT_VALLEY_EVERY_GAME__ WORLD 7 (rule 339): the campaign's state of the valley drawn and made true: dark, burned, looted, rebuilt; camps, lairs, ruins, legendary places; shut roads and passes; the start's sky -->  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_bosses.js"></script>  <!-- __THE_BOSSES__ BOSSES (rule 302): act one's first three bosses, their places, their fights and their verbs (records/target/bb/boss_act_one.json) -->

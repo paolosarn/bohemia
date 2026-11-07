@@ -1,5 +1,41 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 11 (11/6-11/7; rule 417(b)'s sweep: rules 392, 386, 413(c); ask lines 427, 418, 465). BUILD 11/6s - THE CARCASS AND THE VULTURES.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_11_THE_CARCASS_THE_VULTURES_AND_THE_PACK_THAT_LETS_YOU_GO_11_6_26.md.
+- 392 THE CARCASS (slices/bohemia_carcass.js, new, WORLD's; numbers records/target/bb/carcass.json, the mods law): a beast fight's dead lie
+  on the block beside the fight (one heap, the beast's own sheet pressed flat, a pool), plate 'N KIND · KG · FRESH 6H' -> TURNING -> GONE
+  -> bones (fresh 6, gone 24, bones 48 of its own clock; nights x0.5; the cart x0.6). A tap on the plate: HAUL IT (beside it; an hour a
+  100 kg on the clock, a beat an hour, the world walks; cart 120 kg, x1.5 slower full; EAT IT from the cart's plate: two nights for the
+  company; any town reached buys it: butcher, or the Mob's stew), TELL <nearest town> (from anywhere; their carts walk out and back, drawn;
+  paid on the way in by freshness), LEAVE IT (at bones a den: coyotes, hyenas past 200 kg, wolves past 600; the next hunt from a town in
+  reach starts its first pack there). Clean kill: -12% a wound, floor half. State in localStorage 'bohemia.carcass.v1' (per valley seed).
+- HOOKS (all __THE_CARCASS__): BOHEMIA_CITY_WORLD.html the script tag, loopJobsDraw (draw), mapTapWhat (tap, before the job kinds), advance
+  (tick(mins)), cityStepMins (pace), loopArrived (sell); bohemia_job_kinds.js spawnPack (the den) and exports beastPic/letGo; the shell's
+  nfOverIn ONE marked line: outcome.bodies (kind, beast, wounds of every one of theirs dead), RUN's file.
+- 386 THE VULTURES (same file): circle a carcass (1 -> 7, land when it turns, 3 at most), a fight's dead men (24 h), a found boss still
+  standing and his sign (3 each); follow him (a bird per 4 killed in 2 game days, 5 most), a wing's shadow over the glass now and then;
+  beside the dead the rest lift and one stays still. Never attack. Real size (a wingspan about a man). THE PICTURE IS A STAND-IN, marked
+  (data vultures.stand_in; VOTE card world-11-the-carcass-and-the-vultures-11-6, stage stand_in). They turn on their own canvas
+  (#vulturesky, pointer-events none, the map's own transform): measured, redrawing the map for them was 33 ms x8 a second; now 0.1 ms a
+  frame and the map redraws only for its own reasons.
+- 413(c) THE PACK LETS HIM GO (bohemia_job_kinds.js __A_PACK_HE_RAN_FROM_LETS_HIM_GO__, PACK_LETS_GO.on false is the before): MEASURED, a
+  pack he fell back from (shy 1e9) still wandered and a wander ending beside him opened its card from its own step (8 in 12). Now it never
+  steps within two of him, gives ground when he comes near, never starts a fight from its step. His chase asks: one marked line in
+  meetBackHolds (a pack he tapped is aimed wherever it stepped; measured HELD before, no card).
+- NEW GATE gates/the_carcass_and_the_vultures_gate.js: 23/0 on the merged tree (C0 a real beast fight through the one door to the carcass,
+  C1-C8, V1-V5, P1-P5 with P2b-P2d, P4 the before, R). RAN: TOWN DOOR 7/0, CONTACT DEAD 18/0, DEMO BUILD 25/0, ATTEMPT 15/0, LANGUAGE 107/0,
+  PAGES PUBLISH 28/0; EVERY JOB KIND 36/1 (E5 on a LOST escort fight, main's run WON it; escort alone 10/0 after); RETREAT 13/1 and the
+  same 13/1 on main's files (mid-fight R5, 23 game hours: RUN SEVEN's area); VOTE TAB 62/4 the same on main; BUILD SIZE 14/7 the same on
+  main; INLINED FRESH 0/1 the same on main.
+- NOTE FOR RUN SEVEN (rule 413(h)-(k), ask line 476): the beast pack half is here and gated (P1-P5); meetBackHolds got one marked line
+  (__mcx, the chase); if you rework meetBackHolds keep a job's chased pack counted as aimed. A RETREAT GETS HIM AWAY's mid-fight R5 reads
+  23 game hours on main's own files (the crew should be gone after about 12).
+- OWED: CAMP (the dressing as the men's own act on the board, 406(g)); UI (TELL from the phone's own screen); ECONOMY/TUNING (pay.*,
+  clock.*, cart.*); SOUNDS (wings on a roof, the knives); BEASTS/DIRECTION (the golden vulture; a lying frame for the carcass); WORLD next:
+  a hunt that asks for the meat up front, a carcass left too long draws a pack or a crew to it.
+[bb Battle Brothers' beasts leave trophies for the taxidermist; nobody hauls the meat; a party you fled is one you choose to meet again.]
+[analog horror: the birds were there before you were; one does not move when you come.]
+
 WORLD 9 (11/5-11/6; rule 409's first wave; ask lines 443, 438, 435, 439, 422). BUILD 11/6b - CONTACT STOPS HIM DEAD, SPACE HOLDS 4X.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_9_CONTACT_STOPS_HIM_DEAD_AND_THE_QUIET_EVENTS_11_5_26.md.
 - 401(b) CONTACT STOPS HIM DEAD (BOHEMIA_CITY_WORLD.html __CONTACT_STOPS_HIM_DEAD__): measured, the picture rode 0.73 of a block behind the

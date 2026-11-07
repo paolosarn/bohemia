@@ -34,6 +34,7 @@
   var DATA = null, LOADING = false, WAIT = [];
   var BUILT = { 'haul-caravan': 1, 'find-place': 1, 'find-person': 1, 'hunt-kind': 1, 'clear-camp': 1, 'carry': 1, 'hold-defend': 1, 'recover-return': 1, 'patrol': 1 };
   var HITS = [], STEPS = 0;
+  var PACK_LETS_GO = { on: true, held: 0 };   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__ (WORLD 11, rule 413(c)): on false is the before, for the gate */
   function load(url, cb) {
     if (cb) { if (DATA) cb(DATA); else WAIT.push(cb); }
     if (DATA || LOADING || typeof fetch === 'undefined') return;
@@ -611,12 +612,14 @@
   function spawnPack(job, k, town, R) {
     var pb = k.pack_blocks || [6, 15], ps = k.pack_size || [2, 4], sk = clamp(job.skulls, 1, 3);
     var s = spotOut(town.x, town.y, pb[0] + (job.ring2 | 0), pb[1] + (job.ring2 | 0), R, job.packs.length === 0);
+    var den = null; try { if (job.packs.length === 0 && root.BohemiaCarcass && root.BohemiaCarcass.denFor) den = root.BohemiaCarcass.denFor(town.x, town.y, pb[0], pb[1] + (job.ring2 | 0) + 4); } catch (e) {}   /* __THE_CARCASS__ (WORLD 11, rule 392(3c)): a kill nobody claimed became a den; the hunt starts there */
+    if (den && walk(den.at[0], den.at[1])) s = den.at.slice();
     if (!s) return null;
     /* SIZED TO HIS CREW (the map's own job math, rule 75b; a beast fights harder than a man, so a pack is four fifths of a
        crew job's count, a fifth of the time one more): measured, packs of 3 to 5 dire wolves beat a new crew of three twice */
     var base = 3; try { base = partyMath('job', { skulls: sk }).count; } catch (e) {}
     var n = clamp(Math.round(base * 0.8) + (R() < 0.2 ? 1 : 0), ps[0], ps[1] + sk);
-    var fac = job.foe && job.foe !== 'beasts' ? job.foe : beastFor(s[0], s[1], R);
+    var fac = job.foe && job.foe !== 'beasts' ? job.foe : (den ? den.kind : beastFor(s[0], s[1], R));
     /* __THE_GIANTS_ARE_RARE__: the row's own count, an animal's own most (a lion hunts alone), a giant one */
     if (job.packSize) n = clamp(n, job.packSize[0], job.packSize[1]);
     var BLm = DATA && DATA.beast_looks && DATA.beast_looks[fac]; if (BLm && BLm.pack_max) n = Math.min(n, BLm.pack_max);
@@ -635,10 +638,22 @@
     for (var i = 0; i < job.packs.length; i++) {
       var p = job.packs[i], d = cheb(p.x, p.y, city.x, city.y), mv = null;
       if (p.shy > 0) p.shy--;   /* RUN 10/26 (__FALL_BACK_HOLDS__, rule 198(g)): a pack he fell back from has lost his scent for his next blocks */
+      /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__ (WORLD 11, 11/6, rule 413(c)(f), ask line 465; Paolo 11/6: 'if I retreat and run away, I should
+         be fully able to get away from a battle'). MEASURED (gates/the_carcass_and_the_vultures_gate.js P1 to P4, PACK_LETS_GO.on false):
+         RUN SIX's hold (shy 1e9, meetFallBack) stopped the pack SMELLING him, but it still wandered every second step, and a wander that
+         ended beside him opened its fight from here: walking off it held (the meet card's hold), camped near it the card came (standing
+         still beside them reads as aimed in meetBackHolds). NOW a pack he got away from has its kill and its wounded: it never steps
+         to within two blocks of him, and when he comes near it (a walk past) it gives ground, a block a step; it never starts a fight
+         from its own step; only his own chase (a tap on it) or a walk aimed at it meets it, and that asks (the map's arrival goes
+         through the meet card). PACK_LETS_GO.on false is the before. */
+      var letGo = PACK_LETS_GO.on && p.shy > 0 && job.chase !== p.id;
       if (d <= smell && !(p.shy > 0)) { var dx = Math.sign(city.x - p.x), dy = Math.sign(city.y - p.y); mv = [[dx, dy], [dx, 0], [0, dy]]; p.smelt = true; }
+      else if (letGo && d <= 2) { var ax = Math.sign(p.x - city.x), ay = Math.sign(p.y - city.y); if (!ax && !ay) ax = 1; mv = [[ax, ay], [ax, 0], [0, ay], [ax, -ay], [-ax, ay]]; }   /* it gives ground */
       else if ((STEPS + p.id) % 2 === 0) { var D = DIRS[Math.floor(R() * 8) % 8]; mv = [D]; }
-      if (mv) for (var t = 0; t < mv.length; t++) { var nx = p.x + mv[t][0], ny = p.y + mv[t][1];
+      if (mv) for (var t = 0; t < mv.length; t++) { var nx = p.x + mv[t][0], ny = p.y + mv[t][1], nd = cheb(nx, ny, city.x, city.y);
+        if (letGo && nd <= 2 && nd <= d) continue;   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: never closer than two blocks, never nearer than it was */
         if ((mv[t][0] || mv[t][1]) && walk(nx, ny) && !townNear(nx, ny, 1) && cheb(nx, ny, p.home[0], p.home[1]) <= roam) { p.x = nx; p.y = ny; break; } }
+      if (letGo) { PACK_LETS_GO.held++; continue; }   /* __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: never a fight from its own step */
       if (cheb(p.x, p.y, city.x, city.y) <= 1) return packFight(job, p);
     }
     /* the chase: a pack he tapped, re-aimed every block (the parties' own way) */
@@ -2075,7 +2090,8 @@
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
-    drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
+    drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap,
+    letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the carcass (slices/bohemia_carcass.js) */
   load();
   /* BEASTS 2 11/3: the ground under a job is read through the danger engine; ask for it as soon as the map is up, so the first
      job made already knows its ground (measured: asked only at the first job, every job made in that tick fell to the default) */

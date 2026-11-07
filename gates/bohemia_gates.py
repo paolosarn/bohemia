@@ -10568,6 +10568,13 @@ GATES = [
      "the fight was, he walks away with no card and the distance never shrinking, two game days camped three blocks off with no card, the "
      "crew back at its business after half a day, and only his own walk aimed at them lifts the hold. On main's files before: 8/6 (the "
      "mid-fight retreat reloaded the save). About 4 min", True),
+    ('THE CARCASS AND THE VULTURES', ['node', 'gates/the_carcass_and_the_vultures_gate.js'],
+     "WORLD 11 gate, 11/6, rules 392, 386, 413(c) (PAOLO 11/4: 'can we put it in a shopping cart and haul it back... letting them know the "
+     "location of the corpses'; 'my sister said vultures'): on the demo, a beast fight through the one door leaves its dead beside the fight "
+     "with a plate and a clock (FRESH, TURNING, GONE); real taps on HAUL IT (the hours on the clock, the cart, slower), EAT IT, a town buys "
+     "it, TELL a town from far off (paid when it comes in), LEAVE IT (a den, the next hunt starts there); the vultures circle the dead, "
+     "follow a company that kills, one stays on the dead, never attack, a stand-in picture on its own small layer; a beast pack he fell "
+     "back from never starts a fight on its own and his chase asks; THE BEFORE (the pack's hold off): 8 cards in 12. About 6 min", True),
     ('THE PAD IS TRAVEL SPEED',['node', 'gates/the_pad_is_travel_speed_gate.js'],
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "

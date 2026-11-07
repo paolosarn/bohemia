@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"c371e27428ac9d7a",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"165bddad3125176c",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/6r - AUTO AT 4X NEVER CRASHES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/6s - THE CARCASS AND THE VULTURES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12806,6 +12806,7 @@ function nfOverIn(d, src){
   var outRan = !won && !!(d && d.retreat) && d.result !== 'withdrew' && !window.__RETREAT_AWAY_OFF;
   var outcome = { result: won ? 'win' : outRan ? 'retreat' : 'loss', retreated: outRan, victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
+  try{ outcome.bodies = nfFight(NF.frame.contentWindow).S.units.filter(function(u){ return u.side === 'them' && u.dead; }).slice(0, 40).map(function(u){ return { kind: u.kind || null, beast: !!u.beast, hurt: (u.injuries || []).length }; }); }catch(_e){}   /* WORLD 11 __THE_CARCASS__ (rule 392): what of theirs died and how cleanly, for the map (the dead lie where they fell) */
   try{ if(NF.opts && NF.opts.arena && d && Array.isArray(d.crew)) outcome.arena = { id: NF.opts.arena.id, men: d.crew.map(function(r){ return { name: r.name, dead: !!r.dead, down: !!r.down }; }) }; }catch(_e){}   /* __THE_ARENA__: who stood in the pit, for the ranks */
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
   /* __DAMAGE_STAYS__ (CAMP, rule 226): what the fight left on every man is kept for the next one (the surgeon takes a day off a struck-down
