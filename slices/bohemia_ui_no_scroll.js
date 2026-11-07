@@ -72,7 +72,9 @@
     + S + ' .hsort{gap:4px}' + S + ' .hsort button{min-height:44px!important;font-size:11px!important}'
     + S + ' .hire{display:grid!important;grid-template-columns:40px minmax(0,1fr) 80px;grid-template-areas:"face nm act" "face info act" "st st st";'
     +   'column-gap:6px;row-gap:1px;align-items:center;padding:3px 6px!important;margin-top:0!important;min-height:0!important}'
-    + S + '.ns-d2 .hire{grid-template-areas:"face nm act" "face info act" "st st act"}'
+    + S + '.ns-d2 .hire{grid-template-areas:"face nm act" "face info act" "face st act"}'
+    + S + '.ns-d2 .hire .hhead canvas.face{align-self:center}'
+    + S + '.ns-d3 #sbody>.who .say p{-webkit-line-clamp:1}' + S + '.ns-d3 .acts:has(>.hire)>.gridh{display:none}'
     + S + ' .hire::before{display:none!important}'   /* the tape: one strip of it on every row is noise at a row's size */
     + S + ' .hire canvas.hfig{display:none!important}'   /* his whole figure is his card's, a held finger away; the row wears his face */
     + S + ' .hire .hiret,' + S + ' .hire .hhead{display:contents!important}'
@@ -94,7 +96,8 @@
     + S + ' .hire .hrare b{padding:0 4px!important;letter-spacing:1px!important}'
     + S + ' .hire .hwhy,' + S + ' .hire .hsays{display:none!important}'   /* why he costs more, and his own line: the held tip */
     + S + ' .hire .hedge{grid-column:2 / -1;font-size:11px!important;line-height:14px;margin:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}'
-    + S + '.ns-d2 .hire .hedge,' + S + '.ns-d2 .hire .hgun .arm,' + S + '.ns-d2 .hire .htrait em{display:none!important}'
+    + S + '.ns-d2 .hire .hedge,' + S + '.ns-d2 .hire .hgun .arm,' + S + '.ns-d2 .hire .hgun b,' + S + '.ns-d2 .hire .htrait em{display:none!important}'
+    + S + '.ns-d2 .hire .ns-hl>*{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}' + S + '.ns-d2 .hire .hgun{flex:none}'
     /* his eight on one line: the icon, the number, the stars as small marks; the bar a thin line under the number */
     + S + ' .hire .hstats{grid-area:st;display:flex!important;flex-wrap:nowrap;justify-content:space-between;gap:0 2px!important;margin:0!important;padding:1px 4px!important;min-width:0;filter:none!important}'
     + S + ' .hire .hstats span.bst-row{display:inline-flex!important;align-items:center;gap:1px!important;height:15px!important;min-height:0!important;flex:0 1 auto;min-width:0}'
@@ -155,6 +158,12 @@
     +   S + ' #sbody>.who .say p{-webkit-line-clamp:2}'
     +   S + ' #sbody>.who .say{display:flex;flex-wrap:wrap;gap:0 10px;align-items:baseline}' + S + ' #sbody>.who .say p{margin:0}'
     +   S + ' .acts:has(>.hire)>.hire{grid-column:auto}'
+    /* the last step on a short glass: three columns of men, each man his name and his eight in two lines of four */
+    +   S + '.ns-d3 .acts:has(>.hire){grid-template-columns:repeat(3,minmax(0,1fr));column-gap:6px}'
+    +   S + '.ns-d3 .hire{grid-template-columns:32px minmax(0,1fr) 70px;grid-template-areas:"face nm act" "face st act"}'
+    +   S + '.ns-d3 .hire .hhead canvas.face{width:32px!important;height:32px!important}'
+    +   S + '.ns-d3 .hire .ns-hl{display:none!important}'
+    +   S + '.ns-d3 .hire .hstats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));row-gap:0!important;padding:0 2px!important}'
     /* a shop on its side: the shelf, the bag and the strip side by side */
     +   S + '.shopping .acts{display:grid!important;grid-template-columns:140px minmax(0,1fr) 172px;column-gap:8px;align-items:start}'
     +   S + '.shopping .ns-bag{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) auto}' + S + '.shopping .ns-bag>.ns-bagh{grid-column:1;align-self:center}' + S + '.shopping .ns-bag>#selljunk{grid-column:2}' + S + '.shopping .ns-bag>#sortbag{grid-column:3}'
