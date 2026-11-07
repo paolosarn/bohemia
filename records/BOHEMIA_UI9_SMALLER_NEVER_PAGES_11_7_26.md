@@ -1,6 +1,7 @@
 # UI 9 -- SMALLER, NEVER PAGES (11/7/26)
 
-Rule 402 amended (ask line 481). BUILD 11/7g - SMALLER, NEVER PAGES. Corrects UI 8's 11/6g (NOTHING SCROLLS).
+Rule 402 amended (ask line 481) and rule 403 (ask line 445, the coordinator's routine 11/7: 'build it on top of your smaller,
+denser screens'). BUILD 11/7h - SMALLER, NEVER PAGES. Corrects UI 8's 11/6g (NOTHING SCROLLS).
 
 Paolo 11/7: 'I didn't want to scroll during any of the UI of the games. I meant find a way to make things TINIER, you don't
 have to make things half the screen, like displaying new hires or anything else; the purpose was to make the UI smaller,
@@ -67,6 +68,31 @@ Phone upright 390 x 844 / phone on its side 844 x 390 / laptop 1440 x 900. 'Glas
   the heading's own small line (as every row says its pick), its words and numbers in a box under the plates. UI 8's
   swipe and wheel turning and UI 3's arrows are gone; the heading no longer says SWIPE or SCROLL. The frozen menu (rule
   358) is untouched: THE LOADING MENU IS FROZEN 10/0.
+
+## Rule 403: the UI's size (four sizes, the whole interface)
+
+Paolo 11/4: 'what I wanted was not a text size update in the settings but the UI, so all the UI, maybe four or five
+different options'. The coordinator 11/7: the default is the size these dense screens are; the four sizes scale every
+screen's pieces together; each size still fits whole with no scroller and no pager; the floor holds at the smallest; the
+choice is kept.
+
+- UI SIZE on the settings card where the TEXT row stood (the TEXT row leaves the card; its code untouched; a text size
+  already set is carried over once, 2 -> LARGE, 3 -> LARGEST, and the text-only floor goes back to as authored).
+  SMALL, NORMAL, LARGE, LARGEST (draft:true). Kept in localStorage bohemia.uisize.v1, so it comes back with the game.
+- NORMAL is the dense screens. LARGE and LARGEST draw a screen's words, faces, rows and buttons together 1.15 and 1.3 times
+  (CSS zoom on what the screen holds: the town sheet's body, the settings card with its own size set again in its units,
+  the crew screen's page, the picks, the phone, the bar). A screen that cannot fit at his size is drawn as large as still
+  fits, in steps of 0.05, never under NORMAL, then takes its density steps: never a scroll, never a page. A small sheet
+  stays under half the glass at every size. SMALL cannot draw words under the floor, so it is the denser step from the
+  start: shorter rows, the side words in the held tip, every word still 11 px.
+- Measured (the town's sheets upright, the fullest hall, the crew screen with 20 men and 36 pieces, the settings card):
+  at LARGEST the laptop draws the hall, the smith, the board and the settings at 1.3 (words 14.3 px) and the crew screen at
+  1.2; upright the smith and the stall fit at 1.15 (words 12.65 px), the board at 1.2 under half the glass, the fullest hall
+  and the settings card at 1.0 (they fill the phone already).
+- A FIX ON THE WAY, MEASURED: the settings card was fitted 40 times a second (a number inside it redraws every frame and
+  each redraw woke the fit); at the larger sizes the trials kept the card's opening animation from ever starting (it
+  stood at 55% for seconds). The fit now runs only when the screen's shape changes (the size, the glass, the pieces, the
+  building): 3 fits for the whole open.
 
 ## The gate
 

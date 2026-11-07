@@ -250,31 +250,31 @@
   var C = 'html body #setwrap.ns-d1 #setcard';
   var SET_CSS = ''
     + C + '{width:min(calc(100% - 16px),920px)!important;max-height:calc(100% - 16px)!important;overflow:hidden!important;display:grid!important;'
-    +   'grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-flow:row;column-gap:10px;row-gap:2px;align-content:start;align-items:center;padding:12px 12px 10px!important;box-sizing:border-box}'
+    +   'grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-flow:row;column-gap:10px;row-gap:1px;align-content:start;align-items:center;padding:8px 12px 6px!important;box-sizing:border-box}'
     + C + '>*{margin:0!important;min-width:0}'
-    + C + '>.seth,' + C + ' #setphone>.seth{grid-column:1 / -1;justify-self:start;margin:0 0 2px!important;padding:2px 8px 3px!important;font-size:11px!important}'
+    + C + '>.seth,' + C + ' #setphone>.seth{grid-column:1 / -1;justify-self:start;margin:0!important;padding:1px 6px 2px!important;font-size:11px!important;line-height:13px!important}'
     + C + '>.seth{grid-column:auto}'   /* the card's own name takes one place; the rows pack beside it */
     + 'html body #setwrap.ns-d2 #setcard{grid-auto-flow:row dense}'   /* the next step: a short row fills the hole a wide one left */
     + C + '>#setphone{display:contents}'   /* the phone's rows are the card's rows: they take the grid's places like any other */
     + C + ' .setrow{gap:6px!important;min-height:44px;margin:0!important}'
     + C + ' .setrow:has(.pside) .setlab{flex-basis:48px!important}' + C + ' .pside button{min-width:44px}'
     + C + ' .setlab{flex:0 0 58px!important;font-size:11px!important;letter-spacing:.6px!important;line-height:1.1;overflow-wrap:anywhere}'
-    + C + ' .setbtn{padding:0 6px!important;font-size:11px!important;letter-spacing:.4px!important;line-height:1.15;text-align:center}'
+    + C + ' .setbtn{padding:0 6px!important;font-size:11px!important;letter-spacing:.4px!important;line-height:1.15}'   /* words read from the left (SETTINGS IN OUR MATERIALS) */
     + C + ' #setdiff .setbtn{font-size:11px!important;opacity:.8}'
     + C + ' .setbars{gap:3px!important;min-width:0}'
     + C + ' .setslide{min-width:0}' + C + ' .setslide input{min-width:0;width:100%}'
-    + C + ' .setnum,' + C + ' .setslide span{font-size:11px!important}'
-    + C + ' #setcalib{grid-column:span 2;min-height:40px;display:flex;align-items:center;gap:8px}' + C + ' #setcalib span{font-size:11px!important;line-height:1.2}' + C + ' #setcalib canvas{height:36px!important;width:auto!important}'
+    + C + ' .setnum,' + C + ' .setslide span{font-size:11px!important}' 
+    + C + ' #setcalib{grid-column:span 1;min-height:40px;max-height:44px;display:flex;align-items:center;gap:6px;overflow:hidden}' + C + ' #setcalib canvas{flex:none;height:32px!important}' + C + ' #setcalib span{line-height:1.1!important}' + C + ' #setcalib span{font-size:11px!important;line-height:1.2}' + C + ' #setcalib canvas{height:36px!important;width:auto!important}'
     + C + ' [id$=say]{font-size:11px!important;line-height:1.25}'
-    + C + ' #setdiffsay{grid-column:span 2;font-size:11px!important;line-height:1.3;margin:0 0 2px!important}'
+    + C + ' #setdiffsay{grid-column:span 2;font-size:11px!important;line-height:1.2;margin:0!important}'
     + C + ' .pa{grid-column:span 2;min-height:44px;margin:0!important;gap:4px}' + C + ' .pa span{font-size:11px!important}' + C + ' .pa img{height:36px!important;width:auto!important}'
-    + C + '>#setclose,' + C + '>.setbtn.wide{grid-column:span 2}'
+    + C + '>#setclose,' + C + '>.setbtn.wide{grid-column:span 1}'   /* BACK TO THE GAME takes one place: it stands beside the last row, not under it */
     + C + ' small,' + C + ' em{font-size:11px}'
     /* a row of three or more choices (the volume's bars, the text, the light, the difficulty) takes two places, so each choice
        keeps a thumb's width */
     + C + ' .ns-span{grid-column:span 2}'
     + C + ' .ns-gone{display:none!important}'
-    + C + ' #setui{display:flex;gap:3px}' + C + ' #setui .setbtn{flex:1 1 0;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;padding:0 2px!important}'
+    + C + ' #setui{display:flex;gap:3px}' + C + ' #setui .setbtn{flex:1 1 0;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:flex-start;padding:0 6px!important}'
     + C + ' #setui .setbtn.on{background:linear-gradient(#e8b85e,#a8752c)!important;color:#1f1710!important}';
   function settingsCard() {
     var w = document.getElementById('setwrap'), card = document.getElementById('setcard'); if (!w || !card) return false;
@@ -285,7 +285,7 @@
       if (bri && cal && bri.parentNode && bri.parentNode.parentNode === card && cal.parentNode === card && bri.parentNode.nextSibling !== cal) card.insertBefore(cal, bri.parentNode.nextSibling);
       var rows = [].slice.call(card.querySelectorAll('.setrow'));
       for (var i = 0; i < rows.length; i++) { var r = rows[i];
-        var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && ctl.children.length >= 3); }
+        var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && (ctl.children.length >= 3 || ctl.classList.contains('setslide'))); }   /* a slider needs a thumb's travel: two places */
     };
     sizeRow(card);
     fit(w, { box: card, levels: 2, before: mark, sized: function (z) {
@@ -360,7 +360,7 @@
     + K + ' #bag .slot{height:44px!important;min-height:44px;padding:1px!important;gap:0!important}'
     + K + ' #bag .slot canvas,' + K + ' #bag .slot img,' + K + ' #bag .slot .bm-icon{width:24px!important;height:24px!important}'
     + K + ' #bag .slot b{font-size:11px!important}' + K + ' #bag .slot.off{font-size:11px!important}' + K + ' #bag .none{font-size:11px!important}'
-    + K + ' #tabs .n{font-size:11px!important}' + K + ' #tabs button{font-size:11px!important}'
+    + K + ' #tabs .n{font-size:11px!important}' + K + ' #tabs button{font-size:11px!important;min-width:44px;justify-content:center;text-align:center}'
     /* when the bag needs the room: his eight in two short columns (Battle Brothers' character screen lays them in two), the
        comparison line two lines */
     + K + '.ns-d2 #card .stats{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:8px!important;row-gap:0!important}'

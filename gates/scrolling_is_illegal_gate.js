@@ -203,8 +203,10 @@ async function fullHall(b, port, prof, PV, size) {
   const l = await onGlass(p.mainFrame(), '#sheet .hire'), m = await NS.small(p.mainFrame(), '#sheet'), cr = NS.crimes(await NS.sweepAll(p)), f = NS.faults(m);
   const st = await p.evaluate(() => BohemiaNoScroll.state(document.getElementById('sheet')));
   if (size != null) {   /* N9: the same hall at this size, then the smith */
-    const x2 = await p.evaluate(() => BohemiaSettlement.where('smith')); let sm = null;
+    const shop = await p.evaluate(() => ['smith', 'armourer', 'arms'].find(k => BohemiaSettlement.order().indexOf(k) >= 0) || null);
+    const x2 = shop ? await p.evaluate(k => BohemiaSettlement.where(k), shop) : null; let sm = null;
     if (x2) { await p.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await p.waitForTimeout(400); await p.mouse.click(x2.x, x2.y); await p.waitForTimeout(2200);
+      if (await p.evaluate(() => BohemiaSettlement.state.open) !== shop) { await p.mouse.click(x2.x, x2.y); await p.waitForTimeout(1800); }
       sm = { l: await onGlass(p.mainFrame(), '#sheet .grid .slot'), m: await NS.small(p.mainFrame(), '#sheet'), cr: NS.crimes(await NS.sweepAll(p)), st: await p.evaluate(() => BohemiaNoScroll.state(document.getElementById('sheet'))) }; }
     await ctx.close();
     return { hall: { on: l.on, n: l.n, faults: f.concat(cr.map(NS.line)), zoom: st && st.zoom, level: st && st.level, min: m && m.minText },
@@ -253,10 +255,10 @@ async function aloneLegs() {
         await c3.close();
         const h = await fullHall(b, 8941, k, PV, n).catch(e => ({ err: String(e).slice(0, 160) }));
         const nm = ['SMALL', 'NORMAL', 'LARGE', 'LARGEST'][n];
-        rows9.push(nm + ': crew x' + (cs && cs.zoom) + ' ' + men.on + '/' + men.n + ' men ' + bag.on + '/' + bag.n + (h.hall ? ', hall x' + h.hall.zoom + ' ' + h.hall.on + '/' + h.hall.n : '') + (h.smith ? ', smith x' + h.smith.zoom + ' ' + h.smith.on + '/' + h.smith.n : '') + ', smallest ' + Math.min(m && m.minText || 99, h.hall && h.hall.min || 99, h.smith && h.smith.min || 99));
+        rows9.push(nm + ': crew x' + (cs && cs.zoom) + ' ' + men.on + '/' + men.n + ' men ' + bag.on + '/' + bag.n + (h.hall ? ', hall x' + h.hall.zoom + ' ' + h.hall.on + '/' + h.hall.n : '') + (h.smith ? ', the shop x' + h.smith.zoom + ' ' + h.smith.on + '/' + h.smith.n : '') + ', smallest ' + Math.min(m && m.minText || 99, h.hall && h.hall.min || 99, h.smith && h.smith.min || 99));
         if (men.on !== 20 || men.n !== 20 || bag.on !== 36 || cr.length || f.length) bad9.push(nm + ' crew: ' + (f.concat(cr.map(NS.line))[0] || men.on + '/' + men.n + ' men, ' + bag.on + '/36'));
         if (!h.hall || h.err || h.hall.on !== h.hall.n || h.hall.n < 10 || h.hall.faults.length) bad9.push(nm + ' hall: ' + (h.err || (h.hall && (h.hall.faults[0] || h.hall.on + '/' + h.hall.n))));
-        if (!h.smith || h.smith.on !== h.smith.n || h.smith.faults.length) bad9.push(nm + ' smith: ' + (h.smith ? h.smith.faults[0] || h.smith.on + '/' + h.smith.n : 'did not open'));
+        if (!h.smith || h.smith.n < 30 || h.smith.on !== h.smith.n || h.smith.faults.length) bad9.push(nm + ' the shop: ' + (h.smith ? h.smith.faults[0] || h.smith.on + '/' + h.smith.n : 'did not open'));
         if (n === 3 && k === 'computer' && !((cs && cs.zoom > 1) || (h.hall && h.hall.zoom > 1))) bad9.push('LARGEST on the laptop drew nothing larger');
       }
       ok('N9 ' + k + ' *** AT EVERY UI SIZE *** ' + rows9.join('; ') + (bad9.length ? ' || ' + bad9.slice(0, 3).join(' | ') : ''), !bad9.length);
