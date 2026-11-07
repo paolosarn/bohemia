@@ -44979,7 +44979,8 @@ function animate(kind){
   animRAF=requestAnimationFrame(loop);
 }
 // the metronome: the ONE clock movement answers to
-setInterval(()=>{
+setInterval(()=>{ return (window.ONE_RENDER && ONE_RENDER.soon) ? ONE_RENDER.soon(mapBeatTick) : mapBeatTick(); },BEAT);   /* __ONE_DRAW_A_FRAME_EVEN_FROM_THE_BEAT__ */
+function mapBeatTick(){
   { const _nb=performance.now(); if(MAP_BEAT_AT && TRAVEL && TRAVEL_SPEED>0) travelLate(TRAVEL_SPEED, 0, _nb-MAP_BEAT_AT-BEAT); MAP_BEAT_AT=_nb; try{ window.__MAP_BEAT_AT=MAP_BEAT_AT; }catch(_e){} }
   /* __THE_DAY_KEEPS_REAL_TIME__ (PLUMBER 4, 11/5/26, rule 384(f), Paolo 11/4: 'this game is not graphics intensive enough to be having
      some of the problems it does'; the coordinator's row: 'the clock runs on real elapsed time, never on frames drawn (a slow frame must
@@ -45038,7 +45039,7 @@ setInterval(()=>{
        from after it, every extra block landed late by what that step cost (2x: 25 ms median, 86 ms worst, off the split) */
     const B0 = MAP_BEAT_AT || performance.now();
     for(let k=1;k<=XTRA;k++){
-      setTimeout(function(){
+      const spread=function(){
         if(!TRAVEL || TRAVEL_SPEED!==N) return;
         travelLate(N, k, performance.now()-(B0+k*BEAT/(XTRA+1)));   /* __HOLD_PLAY_SLIDE_THE_SPEED__: this block against its own slot */
         try{ if(typeof MODE==='undefined' || MODE!=='city') return; }catch(_e){ return; }
@@ -45051,7 +45052,8 @@ setInterval(()=>{
            to 1x's 5. The map glide redraws itself every frame while it moves; it only has to
            NOTICE the new block, which asking it where the picture is does, for free. */
         try{ if(typeof cityGlidePos==='function') cityGlidePos(performance.now()); }catch(_e){}
-      }, Math.max(0, Math.round(B0 + k*BEAT/(XTRA+1) - performance.now())));
+      };
+      setTimeout(function(){ return (window.ONE_RENDER && ONE_RENDER.soon) ? ONE_RENDER.soon(spread) : spread(); }, Math.max(0, Math.round(B0 + k*BEAT/(XTRA+1) - performance.now())));   /* __ONE_DRAW_A_FRAME_EVEN_FROM_THE_BEAT__ */
     }
   }
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
@@ -45067,7 +45069,8 @@ setInterval(()=>{
     else if(++LATCH_STILL >= 2) latchStop();
   }
   render();
-},BEAT);
+}
+
 /* ==== __THE_TIME_NOT_THE_TAPS__ (9/6) : LET GO AND KEEP WALKING ================
    BB-THE-TIME-NOT-THE-TAPS. DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER'S
    ATTENTION. The long walk correctly costs in-game hours; it also cost him
@@ -49374,10 +49377,11 @@ function rigCanvas(fr){
 }
 /* the frame into its box on the glass (dx, dy, w, h), clipped to the box the canvas was */
 function rigBlit(fr, dx, dy, w, h){
-  if (!(fr instanceof RigFrame)) { g.drawImage(fr, dx, dy, w, h); return; }
+  if (!(fr instanceof RigFrame)) { if (window.MAP_DEPTH_CORE) window.MAP_DEPTH_CORE.push([dx, dy, w, h]); g.drawImage(fr, dx, dy, w, h); return; }
   var kx = w / fr.width, ky = h / fr.height;
   var x0 = Math.max(0, fr.ox), y0 = Math.max(0, fr.oy), x1 = Math.min(fr.width, fr.ox + fr.sw), y1 = Math.min(fr.height, fr.oy + fr.sh);
   if (x1 <= x0 || y1 <= y0) return;
+  if (window.MAP_DEPTH_CORE) window.MAP_DEPTH_CORE.push([dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky]);   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: where the frame's own box is */
   g.drawImage(fr.__sheet, fr.sx + (x0 - fr.ox), fr.sy + (y0 - fr.oy), x1 - x0, y1 - y0, dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky);
 }
 /* ==== /__THE_MAP_DRAWS_FROM_THE_SHEET__ ==== */
@@ -49714,6 +49718,21 @@ var MAP_INK = typeof WeakMap === 'function' ? new WeakMap() : null, MAP_INK_CV =
 function mapInkTop(im){
   if(!im || !MAP_INK) return 0;
   var c = MAP_INK.get(im), now = performance.now(); if(c && now - c.at < 1000) return c.top;
+  /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__ (PLUMBER 7, 11/7/26): his walk hands a NEW picture every frame, so 'once a second a picture'
+     was a read every frame, and where a GPU draws the canvas a read of a picture it holds is a wait for the GPU (4.4 s of an 8 s
+     reading at the street stop): a picture of the same size as the one read under a second ago carries that one's line */
+  var L0 = mapInkTop.last; if(L0 && now - L0.at < 1000 && L0.w === im.width && L0.h === im.height){ MAP_INK.set(im, { top: L0.top, at: L0.at }); return L0.top; }
+  /* and where a read-back waits on the GPU (MAP_DEPTH.readSlow), the read is made off the thread and lands a moment later */
+  if(typeof MAP_DEPTH !== 'undefined' && MAP_DEPTH.readSlow && typeof createImageBitmap === 'function'){
+    if(!mapInkTop.busy){ mapInkTop.busy = true; var __w = 24, __h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1)));
+      try { createImageBitmap(im, { resizeWidth: __w, resizeHeight: __h }).then(function(bm){ var t2 = 0;
+        try { MAP_INK_CV = MAP_INK_CV || document.createElement('canvas'); if(MAP_INK_CV.width !== __w || MAP_INK_CV.height !== __h){ MAP_INK_CV.width = __w; MAP_INK_CV.height = __h; }
+          var x2 = MAP_INK_CV.getContext('2d', { willReadFrequently: true }); x2.clearRect(0, 0, __w, __h); x2.drawImage(bm, 0, 0); var d2 = x2.getImageData(0, 0, __w, __h).data;
+          for(var y2 = 0; y2 < __h; y2++){ var hit2 = false; for(var i2 = 0; i2 < __w; i2++) if(d2[(y2 * __w + i2) * 4 + 3] > 40){ hit2 = true; break; } if(hit2){ t2 = y2 / __h; break; } } } catch(_e){ t2 = 0; }
+        try { bm.close(); } catch(_e){} var n2 = performance.now(); MAP_INK.set(im, { top: t2, at: n2 }); mapInkTop.last = { w: im.width, h: im.height, top: t2, at: n2 }; mapInkTop.busy = false; },
+        function(){ mapInkTop.busy = false; }); } catch(_e){ mapInkTop.busy = false; } }
+    return L0 ? L0.top : 0;
+  }
   var top = 0;
   try{ var w = 24, h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1))); MAP_INK_CV = MAP_INK_CV || document.createElement('canvas');
     if(MAP_INK_CV.width !== w || MAP_INK_CV.height !== h){ MAP_INK_CV.width = w; MAP_INK_CV.height = h; }
@@ -49721,7 +49740,7 @@ function mapInkTop(im){
     var d = x.getImageData(0, 0, w, h).data;
     for(var y = 0; y < h; y++){ var hit = false; for(var i = 0; i < w; i++) if(d[(y * w + i) * 4 + 3] > 40){ hit = true; break; } if(hit){ top = y / h; break; } }
   }catch(_e){ top = 0; }
-  MAP_INK.set(im, { top: top, at: now }); return top;
+  MAP_INK.set(im, { top: top, at: now }); mapInkTop.last = { w: im.width, h: im.height, top: top, at: now }; return top;
 }
 function mapHeadBarsQueue(who, x, bottom){
   if(!window.BohemiaCondition || !BohemiaCondition.bars) return;
@@ -49848,7 +49867,7 @@ var MAP_CREW_K = { on: true, body: 0.92, space: 1.4 }, MAP_CREW_DRAWING = false;
    stands on its berm (VBC.blk, each block's ground height at its middle). Cheap: a few points first (most frames, in the open,
    nothing is in front of him and he is drawn as before); only a man with something in front of him is drawn through a scratch
    canvas, read a CSS pixel at a time. ==== */
-var MAP_DEPTH = { on: true, eps: 0.08, ghost: 0.5, col: [232, 220, 192], edgeA: 170, fillA: 30, ox: 0, oy: 0, ref: null, sc: null,
+var MAP_DEPTH = { on: true, eps: 0.08, ghost: 0.5, ghostAt: 0.25, ghostEst: 0.4, readSlow: false, readSlowMs: 8, rowCut: true, frame: 0, youDrawing: false, exact: false, col: [232, 220, 192], edgeA: 170, fillA: 30, ox: 0, oy: 0, ref: null, sc: null,
   open: 0, masked: 0, covered: 0, ghosted: 0, last: null };
 window.MAP_DEPTH = MAP_DEPTH;
 /* what owns the picture at a CSS point of the glass: the ground point under it (bx, by, in blocks) and how far toward the camera
@@ -49892,6 +49911,89 @@ function mapStandLift(gx, gy){
   return h * TH / (VBC.S || VB_CS);
 }
 /* draw one walker's picture (draw() paints it on g at x, y, w, h in g's own units) in depth with the painting */
+/* ==== __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__ (PLUMBER 7, 11/7/26, rule 418(c), Paolo 11/6: 'my idea of this game was that it was always
+   not taxing on any system... any kid on a little laptop'; MOTION's measure: the zoom down at about 5 frames a second on the
+   phone-shaped CPU, the map's own draw 199 ms a frame). MEASURED (records/BOHEMIA_PLUMBER_THE_MAP_RUNS_ON_A_CHEAP_PHONE_11_7_26.md):
+   travelling, every man on the glass with anything in front of him (70 of them at the far stop, 52 at the opening) went through
+   one scratch canvas that is READ BACK: drawn, getImageData, a pixel loop, putImageData, copied onto the glass. Two costs:
+   (1) one scratch shared by all of them, so writing the next man into it while the glass still held the last copy made the
+       glass finish its whole picture so far, 70 times a frame (the shadow's fill and the read carried it: 66% of the map's draw);
+   (2) WHERE THE CANVAS IS DRAWN BY A GPU (every phone, every laptop with integrated graphics; this box only with the gpu
+       switch of tools/bohemia_drive_the_demo.js), a scratch the page reads is a CPU picture, and drawing a 2048-wide gang
+       sheet into it decodes the whole sheet in software (40 ms the first time, measured), more sheets than the decode cache
+       holds: 15.6 ms a man, 440 ms a draw, 0.3 frames a second at the far stop travelling.
+   NOW: each man has his own scratch for the frame (a small pool, let go under the fight), and the cut is made on the GPU: the
+   cells in front of him (one CSS pixel each, tested exactly as before, at the same points) are a small mask, and the mask cuts
+   them out of his picture ('destination-out'); nothing is read back. THE SAME PIXELS: an opaque pixel of his in a covered cell is
+   gone, as before; the only change is a covered pixel fainter than 8 in 255 (an edge of a shadow), cleared now, kept before.
+   HIS OUTLINE (the ghost) needs his pixels counted, so a man the cells say may be MOSTLY covered (on the share of his drawn
+   frame's own box: measured over 7,360 men at four stops, no man whose true share was half or more read under 0.31 of it; the
+   line is 0.25) is cut the old exact way, read back, from a scratch of his own; so is HE (MAP_DEPTH.you, his outline: exact,
+   every frame). MAP_DEPTH.exact = true (a checker's switch) cuts everybody the old way. ==== */
+var MAP_DEPTH_POOL = { a: [], i: 0, frame: -1, max: 96, cut: 0, exact: 0, maxPx: 160000 };
+/* the tallest lift anything painted on the glass has (blocks), kept per painting and per close tile, read once a draw */
+function mapDepthLiftOf(D, S){ var k = 0; for (var i = 0; i < D.length; i++) if (D[i] > k) k = D[i]; return k / S; }
+function mapDepthLmax(){
+  var C = MAP_DEPTH.lm || (MAP_DEPTH.lm = { frame: -1, vb: -1, tf: -1, L: null });
+  if (C.frame === MAP_DEPTH.frame && C.tf === VBT.frame) return C.L;
+  C.frame = MAP_DEPTH.frame; C.tf = VBT.frame;
+  var D = VBC.dep; if (!D) return (C.L = null);
+  if (C.dep !== D) { C.dep = D; C.vb = mapDepthLiftOf(D, VBC.S || VB_CS); }
+  var L = C.vb;
+  if (VBT.onGlass && VBT.NT && VBT.frame) for (var i = 0; i < VBT.onGlass.length; i++) { var T = VBT.onGlass[i]; if (!T || !T.dep) continue;
+    if (T.depL == null) T.depL = mapDepthLiftOf(T.dep, T.S); if (T.depL > L) L = T.depL; }
+  return (C.L = L);
+}
+/* the glass's CSS row at or above which the painting can stand in front of no point of a walker at R (-Infinity: ask every row) */
+function mapDepthOpenAbove(R){
+  try { if (!MAP_DEPTH.rowCut) return -Infinity;
+    if (window.BohemiaMapHouses && BohemiaMapHouses.last && BohemiaMapHouses.last.drew > 0) return -Infinity;   /* a house up close is asked at every point */
+    var L = mapDepthLmax(); if (L == null || !(TH > 0)) return -Infinity;
+    return MAP_DEPTH.oy + (R.d + MAP_DEPTH.eps - 2 * L) * (TH / 2) - 1e-6; } catch (_e) { return -Infinity; }
+}
+function mapDepthSlot(iw, ih, read){
+  var P = MAP_DEPTH_POOL;
+  if (P.frame !== MAP_DEPTH.frame) { P.frame = MAP_DEPTH.frame; P.i = 0; }
+  if (iw * ih > P.maxPx) return null;   /* a man that big (none on the map) shares the one scratch, the old way */
+  var k = P.i++ % P.max, s = P.a[k];
+  if (!s) { s = P.a[k] = { c: document.createElement('canvas'), m: document.createElement('canvas'), x: null, mx: null, r: null, rx: null, id: null }; s.x = s.c.getContext('2d'); }
+  if (read) { if (!s.r) { s.r = document.createElement('canvas'); s.rx = s.r.getContext('2d', { willReadFrequently: true }); } if (s.r.width < iw) s.r.width = iw; if (s.r.height < ih) s.r.height = ih; return { c: s.r, x: s.rx }; }
+  if (s.c.width < iw) s.c.width = iw; if (s.c.height < ih) s.c.height = ih;
+  return s;
+}
+/* the covered cells as a picture, one texel a cell (opaque where covered) */
+function mapDepthMask(slot, CC, cw, ch){
+  var mk = slot.m; if (mk.width !== cw || mk.height !== ch) { mk.width = cw; mk.height = ch; slot.mx = null; slot.id = null; }
+  var mx = slot.mx || (slot.mx = mk.getContext('2d')), ID = slot.id || (slot.id = mx.createImageData(cw, ch)), Dm = ID.data;
+  for (var q2 = 0; q2 < cw * ch; q2++) Dm[q2 * 4 + 3] = CC[q2] ? 255 : 0;
+  mx.putImageData(ID, 0, 0);
+  return mk;
+}
+function mapDepthPoolFree(){ var P = MAP_DEPTH_POOL; P.a.forEach(function (s){ if (!s) return; s.c.width = 0; s.c.height = 0; s.m.width = 0; s.m.height = 0; if (s.r) { s.r.width = 0; s.r.height = 0; } if (s.g) { s.g.width = 0; s.g.height = 0; s.gi.width = 0; s.gi.height = 0; } }); P.a = []; P.i = 0; }
+/* HIS OUTLINE ON THE GPU (where nothing is read back): his covered pixels in his ring's colour, the edge (a pixel with an empty
+   neighbour, or on the box's edge) at edgeA, the inside at fillA, as the exact way draws it, made with the canvas's own blends:
+   the inside is his picture kept only where his picture is also one pixel left, right, up and down of it */
+function mapDepthGhost(slot, iw, ih, mk, cw, ch, st){
+  try {
+    if (!slot.g) { slot.g = document.createElement('canvas'); slot.gi = document.createElement('canvas'); }
+    var G = slot.g, I = slot.gi; if (G.width < iw) G.width = iw; if (G.height < ih) G.height = ih; if (I.width < iw) I.width = iw; if (I.height < ih) I.height = ih;
+    var gx = G.getContext('2d'), ix = I.getContext('2d'), C3 = MAP_DEPTH.col, col = 'rgb(' + C3[0] + ',' + C3[1] + ',' + C3[2] + ')';
+    [gx, ix].forEach(function (x){ x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.imageSmoothingEnabled = false; x.clearRect(0, 0, iw, ih); });
+    ix.drawImage(slot.c, 0, 0, iw, ih, 0, 0, iw, ih); ix.globalCompositeOperation = 'destination-in';
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (d){ ix.drawImage(slot.c, 0, 0, iw, ih, d[0], d[1], iw, ih); });
+    gx.drawImage(slot.c, 0, 0, iw, ih, 0, 0, iw, ih);
+    gx.globalCompositeOperation = 'destination-out'; gx.drawImage(I, 0, 0, iw, ih, 0, 0, iw, ih);   /* the edge alone */
+    gx.globalCompositeOperation = 'source-in'; gx.globalAlpha = MAP_DEPTH.edgeA / 255; gx.fillStyle = col; gx.fillRect(0, 0, iw, ih);
+    ix.globalCompositeOperation = 'source-in'; ix.globalAlpha = MAP_DEPTH.fillA / 255; ix.fillStyle = col; ix.fillRect(0, 0, iw, ih);
+    gx.globalAlpha = 1; gx.globalCompositeOperation = 'source-over'; gx.drawImage(I, 0, 0, iw, ih, 0, 0, iw, ih);
+    gx.globalCompositeOperation = 'destination-in'; gx.drawImage(mk, 0, 0, cw, ch, 0, 0, cw * st, ch * st);   /* only where he is covered */
+    gx.globalCompositeOperation = 'source-over'; ix.globalCompositeOperation = 'source-over'; ix.globalAlpha = 1;
+    return G;
+  } catch (_e) { return null; }
+}
+/* the share of the drawn frame's own box the covered cells take (the body's rectangle on its sheet, laid by rigBlit), else the
+   whole box's: never read back, only to say whether his outline could be at stake */
+window.MAP_DEPTH_CORE = null;
 function mapDepthBlit(draw, x, y, w, h, noGhost){
   var R = MAP_DEPTH.ref;
   if (MAP_DEPTH.hide && R) return 0;   /* a checker's frame with the walkers not drawn (THE MAP STANDS TALLER W1) */
@@ -49903,30 +50005,118 @@ function mapDepthBlit(draw, x, y, w, h, noGhost){
   if (!any) { draw(); MAP_DEPTH.open++; return 0; }
   var ix = Math.floor(X0), iy = Math.floor(Y0), iw = Math.ceil(X0 + W) - ix + 1, ih = Math.ceil(Y0 + H) - iy + 1;
   if (iw <= 0 || ih <= 0 || iw > 2048 || ih > 2048) { draw(); return 0; }
-  var sc = MAP_DEPTH.sc || (MAP_DEPTH.sc = document.createElement('canvas'));
-  if (sc.width < iw) sc.width = iw; if (sc.height < ih) sc.height = ih;
-  var sx = sc.__ctx || (sc.__ctx = sc.getContext('2d', { willReadFrequently: true }));
-  sx.setTransform(1, 0, 0, 1, 0, 0); sx.clearRect(0, 0, iw, ih); sx.imageSmoothingEnabled = false;
-  sx.setTransform(m.a, 0, 0, m.d, m.e - ix, m.f - iy);
-  var g0 = g; g = sx; try { draw(); } finally { g = g0; }
-  var im = sx.getImageData(0, 0, iw, ih), A = im.data, cov = new Uint8Array(iw * ih), nOp = 0, nCov = 0;
-  /* read a CSS pixel at a time (dpr device pixels a side) */
-  var st = Math.max(1, Math.round(dpr));
+  /* read a CSS pixel at a time (dpr device pixels a side): which cells stand in front of him, tested at the same points as ever.
+     A ROW THE PAINTING CANNOT REACH IS NOT ASKED: a point is covered only where what is painted there stands nearer the camera
+     than his feet (its ground's b plus twice its lift past his depth), and nothing painted stands taller than the tallest lift in
+     the painting and the close tiles on the glass, so every row above that line is open; the houses up close are asked as ever */
+  var st = Math.max(1, Math.round(dpr)), cw = Math.ceil(iw / st), ch = Math.ceil(ih / st), nc = 0;
+  var CC = MAP_DEPTH.cells && MAP_DEPTH.cells.length >= cw * ch ? MAP_DEPTH.cells : (MAP_DEPTH.cells = new Uint8Array(Math.max(cw * ch, 4096)));
+  var yCut = mapDepthOpenAbove(R);
+  for (var cy = 0; cy < ch; cy++) {
+    if ((iy + cy * st + st / 2) / dpr <= yCut) { for (var cx0 = 0; cx0 < cw; cx0++) CC[cy * cw + cx0] = 0; MAP_DEPTH.rowsOpen = (MAP_DEPTH.rowsOpen | 0) + 1; continue; }
+    for (var cx = 0; cx < cw; cx++) { var cv = mapDepthCovers((ix + cx * st + st / 2) / dpr, (iy + cy * st + st / 2) / dpr, R) ? 1 : 0; CC[cy * cw + cx] = cv; nc += cv; } }
+  var you = MAP_DEPTH.youDrawing === true;
+  /* WHERE A READ-BACK IS SLOW (a GPU draws this canvas: every phone; measured on this box with the GPU on, 300 ms a frame for his
+     two reads on the phone-shaped CPU), NOTHING IS READ BACK: he and any man whose outline may show are cut like the rest, and the
+     outline is decided on the frame's own box and drawn on the GPU too (mapDepthGhost). Where a read is cheap (a CPU draws the
+     canvas, this box as it runs its checkers) he is still cut the exact way. MAP_DEPTH.readSlow says which this phone is (set by the
+     reads' own clock, sticky); MAP_DEPTH.exact = true reads everybody back, a checker's switch */
+  var exact = !!MAP_DEPTH.exact || (you && !noGhost && !MAP_DEPTH.readSlow);
+  var slot = null, core = null;
+  if (!exact && !nc) { draw(); MAP_DEPTH.open++; return 0; }   /* nothing in front of him after all: drawn as he is */
+  /* WHERE A READ-BACK IS SLOW, NOTHING IS COPIED EITHER: a man is drawn straight onto the glass under a clip of his own box
+     less the covered cells (whole device pixels, so a hard edge), the way a man with nothing in front of him is drawn; a scratch
+     a man was a draw, a flush and a copy a man, 70 a frame (the shadow's fill and the copy: 7 s of a 17 s reading with the GPU
+     on). His outline, when the box says it is at stake, is laid over his covered cells after (mapDepthGhost) */
+  if (!exact && MAP_DEPTH.readSlow && !MAP_DEPTH.noClip && g.globalAlpha === 1 && g.globalCompositeOperation === 'source-over') {
+    g.save();
+    var core2 = null;
+    try {
+      g.setTransform(1, 0, 0, 1, 0, 0); g.beginPath(); g.rect(ix, iy, iw, ih);
+      for (var ry = 0; ry < ch; ry++) { var y0 = iy + ry * st, hh = Math.min(ih, (ry + 1) * st) - ry * st;
+        for (var rx0 = 0; rx0 < cw; rx0++) { if (!CC[ry * cw + rx0]) continue; var rx1 = rx0; while (rx1 + 1 < cw && CC[ry * cw + rx1 + 1]) rx1++;
+          g.rect(ix + rx0 * st, y0, Math.min(iw, (rx1 + 1) * st) - rx0 * st, hh); rx0 = rx1; } }
+      g.clip('evenodd');
+      g.setTransform(m.a, m.b, m.c, m.d, m.e, m.f); g.imageSmoothingEnabled = false;
+      core2 = window.MAP_DEPTH_CORE = [];
+      draw();
+    } finally { window.MAP_DEPTH_CORE = null; g.restore(); }
+    var kc2 = 0, kv2 = 0, bx2 = core2.map(function (q){ return [Math.floor((m.a * q[0] + m.e - ix) / st), Math.floor((m.d * q[1] + m.f - iy) / st), Math.ceil((m.a * (q[0] + q[2]) + m.e - ix) / st), Math.ceil((m.d * (q[1] + q[3]) + m.f - iy) / st)]; });
+    for (var qy2 = 0; qy2 < ch; qy2++) for (var qx2 = 0; qx2 < cw; qx2++) { var in2 = !bx2.length; for (var b3 = 0; b3 < bx2.length && !in2; b3++) { var B3 = bx2[b3]; in2 = qx2 >= B3[0] && qx2 < B3[2] && qy2 >= B3[1] && qy2 < B3[3]; } if (in2) { kc2++; kv2 += CC[qy2 * cw + qx2]; } }
+    var sh2 = kc2 ? kv2 / kc2 : nc / (cw * ch), gh2 = false;
+    if (!noGhost && sh2 >= MAP_DEPTH.ghostEst) { var sl2 = mapDepthSlot(iw, ih, false);
+      if (sl2) { var x3 = sl2.x; x3.setTransform(1, 0, 0, 1, 0, 0); x3.globalCompositeOperation = 'source-over'; x3.globalAlpha = 1; x3.clearRect(0, 0, iw, ih); x3.imageSmoothingEnabled = false;
+        x3.setTransform(m.a, 0, 0, m.d, m.e - ix, m.f - iy); var g4 = g; g = x3; try { draw(); } finally { g = g4; }
+        var mk3 = mapDepthMask(sl2, CC, cw, ch), G3 = mapDepthGhost(sl2, iw, ih, mk3, cw, ch, st);
+        if (G3) { g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(G3, 0, 0, iw, ih, ix, iy, iw, ih); g.restore(); gh2 = true; MAP_DEPTH.ghosted++; } } }
+    MAP_DEPTH.masked++; MAP_DEPTH_POOL.cut++; MAP_DEPTH_POOL.clip = (MAP_DEPTH_POOL.clip | 0) + 1; MAP_DEPTH.covered += nc * st * st;
+    MAP_DEPTH.last = { n: cw * ch * st * st, cov: nc * st * st, ghost: gh2, at: [Math.round(X0 / dpr), Math.round(Y0 / dpr)], cut: true, clip: true };
+    return sh2;
+  }
+  if (!exact) {
+    slot = mapDepthSlot(iw, ih, false);
+    if (!slot) exact = true;
+    else {
+      var sx = slot.x;
+      sx.setTransform(1, 0, 0, 1, 0, 0); sx.globalCompositeOperation = 'source-over'; sx.globalAlpha = 1; sx.clearRect(0, 0, iw, ih); sx.imageSmoothingEnabled = false;
+      sx.setTransform(m.a, 0, 0, m.d, m.e - ix, m.f - iy);
+      core = window.MAP_DEPTH_CORE = [];
+      var g0 = g; g = sx; try { draw(); } finally { g = g0; window.MAP_DEPTH_CORE = null; }
+      /* could his outline be at stake? the covered share of the frame's own box (or of the whole box when no frame said where it was) */
+      var kc = 0, kv = 0;
+      if (!noGhost) {
+        var boxes = core.map(function (q){ return [Math.floor((m.a * q[0] + m.e - ix) / st), Math.floor((m.d * q[1] + m.f - iy) / st), Math.ceil((m.a * (q[0] + q[2]) + m.e - ix) / st), Math.ceil((m.d * (q[1] + q[3]) + m.f - iy) / st)]; });
+        for (var qy = 0; qy < ch; qy++) for (var qx = 0; qx < cw; qx++) {
+          var inb = !boxes.length; for (var b2 = 0; b2 < boxes.length && !inb; b2++) { var B = boxes[b2]; inb = qx >= B[0] && qx < B[2] && qy >= B[1] && qy < B[3]; }
+          if (inb) { kc++; kv += CC[qy * cw + qx]; } }
+        if (kc && kv / kc >= MAP_DEPTH.ghostAt && !MAP_DEPTH.readSlow) exact = true;
+      }
+      var gEst = !noGhost && MAP_DEPTH.readSlow && kc > 0 && kv / kc >= MAP_DEPTH.ghostEst;   /* his outline, decided on the box (no read-back) */
+      if (!exact) {
+        /* the cut: the covered cells, one texel each, laid over him at dpr times, take his pixels away there */
+        var mk = mapDepthMask(slot, CC, cw, ch);
+        sx.setTransform(1, 0, 0, 1, 0, 0); sx.imageSmoothingEnabled = false;
+        var gh = gEst ? mapDepthGhost(slot, iw, ih, mk, cw, ch, st) : null;
+        sx.globalCompositeOperation = 'destination-out';
+        sx.drawImage(mk, 0, 0, cw, ch, 0, 0, cw * st, ch * st);
+        sx.globalCompositeOperation = 'source-over';
+        if (gh) sx.drawImage(gh, 0, 0, iw, ih, 0, 0, iw, ih);
+        g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.drawImage(slot.c, 0, 0, iw, ih, ix, iy, iw, ih); g.restore();
+        var share = kc ? kv / kc : nc / (cw * ch);
+        MAP_DEPTH.masked++; MAP_DEPTH_POOL.cut++; MAP_DEPTH.covered += nc * st * st; if (gh) MAP_DEPTH.ghosted++;
+        MAP_DEPTH.last = { n: cw * ch * st * st, cov: nc * st * st, ghost: !!gh, at: [Math.round(X0 / dpr), Math.round(Y0 / dpr)], cut: true };
+        return share;
+      }
+    }
+  }
+  /* THE OLD EXACT WAY (him, a man whose outline may show, a checker's MAP_DEPTH.exact): read back, counted to the pixel */
+  MAP_DEPTH_POOL.exact++;
+  var rs = mapDepthSlot(iw, ih, true), sc, rx;
+  if (rs) { sc = rs.c; rx = rs.x; }
+  else { sc = MAP_DEPTH.sc || (MAP_DEPTH.sc = document.createElement('canvas')); if (sc.width < iw) sc.width = iw; if (sc.height < ih) sc.height = ih; rx = sc.__ctx || (sc.__ctx = sc.getContext('2d', { willReadFrequently: true })); }
+  rx.setTransform(1, 0, 0, 1, 0, 0); rx.globalCompositeOperation = 'source-over'; rx.globalAlpha = 1; rx.clearRect(0, 0, iw, ih); rx.imageSmoothingEnabled = false;
+  rx.setTransform(m.a, 0, 0, m.d, m.e - ix, m.f - iy);
+  var g1 = g; g = rx; try { draw(); } finally { g = g1; }
+  var __rt = performance.now(), im = rx.getImageData(0, 0, iw, ih), A = im.data, nOp = 0, nCov = 0, NN = iw * ih;
+  __rt = performance.now() - __rt; if (__rt > MAP_DEPTH.readSlowMs) { MAP_DEPTH.slowReads = (MAP_DEPTH.slowReads | 0) + 1; if (MAP_DEPTH.slowReads >= 2 && !MAP_DEPTH.exact) MAP_DEPTH.readSlow = true; }
+  var cov = MAP_DEPTH.cov && MAP_DEPTH.cov.length >= NN ? MAP_DEPTH.cov : (MAP_DEPTH.cov = new Uint8Array(Math.max(NN, 16384)));
+  cov.fill(0, 0, NN);
   for (var py = 0; py < ih; py += st) for (var px = 0; px < iw; px += st) {
-    var c = mapDepthCovers((ix + px + st / 2) / dpr, (iy + py + st / 2) / dpr, R) ? 1 : 0;
+    var c = CC[(py / st) * cw + (px / st)];
     for (var yy = py; yy < Math.min(ih, py + st); yy++) for (var xx = px; xx < Math.min(iw, px + st); xx++) { var kk = yy * iw + xx; if (A[kk * 4 + 3] < 8) continue; nOp++; if (c) { cov[kk] = 1; nCov++; } } }
   var ghost = !noGhost && nOp > 0 && nCov / nOp >= MAP_DEPTH.ghost, C3 = MAP_DEPTH.col;   /* his ring hides whole: his own outline is what shows */
-  for (var k2 = 0; k2 < cov.length; k2++) { if (!cov[k2]) continue; var o = k2 * 4;
+  for (var k2 = 0; k2 < NN; k2++) { if (!cov[k2]) continue; var o = k2 * 4;
     if (!ghost) { A[o + 3] = 0; continue; }
     var xq = k2 % iw, yq = (k2 / iw) | 0, edge = xq === 0 || yq === 0 || xq === iw - 1 || yq === ih - 1
       || A[o - 4 + 3] < 8 || A[o + 4 + 3] < 8 || A[o - iw * 4 + 3] < 8 || A[o + iw * 4 + 3] < 8;
     A[o] = C3[0]; A[o + 1] = C3[1]; A[o + 2] = C3[2]; A[o + 3] = edge ? MAP_DEPTH.edgeA : MAP_DEPTH.fillA; }
-  sx.putImageData(im, 0, 0);
+  rx.putImageData(im, 0, 0);
   g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(sc, 0, 0, iw, ih, ix, iy, iw, ih); g.restore();
   MAP_DEPTH.masked++; MAP_DEPTH.covered += nCov; if (ghost) MAP_DEPTH.ghosted++;
   MAP_DEPTH.last = { n: nOp, cov: nCov, ghost: ghost, at: [Math.round(X0 / dpr), Math.round(Y0 / dpr)] };
   return nOp ? nCov / nOp : 0;
 }
+/* ==== /__THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__ ==== */
 /* ==== /__YOU_WALK_BEHIND_IT__ ==== */
 function mapPartyShadow(gx, gy){
   if (!MAP_PARTY_AS_ONE.on) return false;
@@ -50381,16 +50571,30 @@ var MAP_DREW = null;
    number: at 4x CPU it repainted six times in eight seconds and the repaints were the cost.) This is PLUMBER [native map]'s shape (the map painted once,
    only movers redrawn), built on the map that is RUN's, and the row stays PLUMBER's. */
 var MAP_GROUND_FRESH_MS = 4000;   /* [DIAL] the oldest a sliding picture may be */
-var MAP_GROUND = { cv:null, x:null, key:'', ox:0, oy:0, M:0, t:0, cb:null, lamps:null, builds:0, reuses:0, on:true };
+var MAP_GROUND = { cv:null, x:null, key:'', ox:0, oy:0, M:0, t:0, cb:null, lamps:null, builds:0, reuses:0, on:true,
+  zoomSlide:true, zoomMs:400, zoomK:2.2, zoomKOut:1.45, zoomRunMax:2, zoomRun:0, tw:0 };   /* __THE_ZOOM_SLIDES_THE_LAST_PICTURE__: [DIAL] how old (ms), how far in and out (times) and for how many frames in a row a picture may be grown */
 window.MAP_GROUND = MAP_GROUND;
 function mapGroundMoving(G){
   if(G && G.u<1) return true;
+  /* PLUMBER 7 (rule 418(c), rule 400(e) 'when you start a battle it glitches out'): the two beats of the pull-back into a fight
+     (fightZoomOut, V205) draw the map every frame under the shade while nothing on the ground changes; standing still, each of
+     those draws painted the whole ground again (about 100 ms a frame on the phone-shaped CPU). The ground is slid under them */
+  try{ if(typeof FZOOMING!=='undefined' && FZOOMING) return true; }catch(_e){}
   return !!(typeof TRAVEL!=='undefined' && TRAVEL && TRAVEL.path && TRAVEL.i<TRAVEL.path.length);
 }
+/* __THE_GROUND_SLIDES_BY_WHOLE_PIXELS__ (PLUMBER 7, 11/7/26, rule 418(c)): the picture slid under him by a part of a pixel was
+   resampled whole, every frame (7.6 ms a frame on this box's CPU at the far stop, 4.4 at the street, against 0.07 when the slide
+   is a whole number of pixels). Unsmoothed, a part-pixel slide IS a whole-pixel one (each pixel of the glass takes the picture's
+   pixel under its middle: a shift of ceil(t - 1/2)), so the slide is laid on whole device pixels and copied straight. The same
+   pixels; MAP_GROUND.exactSlide = true slides it the old way (a checker's switch). */
 function mapGroundBlit(dx,dy){
   var MG=MAP_GROUND, sm=g.imageSmoothingEnabled;
   g.imageSmoothingEnabled=false;
-  g.drawImage(MG.cv, 0,0,MG.cv.width,MG.cv.height, dx-MG.M, dy-MG.M, CVW+2*MG.M, CVH+2*MG.M);
+  var m=(typeof g.getTransform==='function')?g.getTransform():null;
+  if(!MG.exactSlide && m && !m.b && !m.c && m.a>0 && m.d>0 && Math.abs(m.a*(CVW+2*MG.M)-MG.cv.width)<1e-6 && Math.abs(m.d*(CVH+2*MG.M)-MG.cv.height)<1e-6){
+    var X=m.a*(dx-MG.M)+m.e, Y=m.d*(dy-MG.M)+m.f, Xs=Math.ceil(X-0.5), Ys=Math.ceil(Y-0.5);
+    g.save(); g.setTransform(1,0,0,1,0,0); g.drawImage(MG.cv, Xs, Ys); g.restore(); MG.whole=(MG.whole|0)+1;
+  } else g.drawImage(MG.cv, 0,0,MG.cv.width,MG.cv.height, dx-MG.M, dy-MG.M, CVW+2*MG.M, CVH+2*MG.M);
   g.imageSmoothingEnabled=sm;
 }
 /* ==== __THE_STREETS_JOIN__ (RUN [the districts connect on the map], 10/18) ====
@@ -50461,6 +50665,37 @@ function mapGroundBegin(ox,oy,night,G){
     MG.reuses++;
     return { reused:true, M:MG.M };
   }
+  /* __THE_ZOOM_SLIDES_THE_LAST_PICTURE__ (PLUMBER 7, 11/7/26, rule 418(c), rule 407(b), ask line 478; MOTION's row: 'draw the map every
+     other frame and scale the last between'). MEASURED: the zoom down into a fight on the phone-shaped CPU, about 5 frames a second,
+     every frame of the come-down painting the whole ground again at its new size (the zoom is in the key). While the zoom MOVES
+     (its size changed since the last frame), the picture painted a moment ago (under MAP_GROUND.zoomMs) at a size near this one
+     (under zoomK times bigger, never smaller than 1/zoomK) is laid on the glass at the new size, about the same ground point, the
+     way a map on a phone grows under a pinch; the people, the plates and everything that moves are drawn fresh on it, at their own
+     size. It is painted for real the moment it is older than that, too far from the size, short of any edge of the glass, or the
+     zoom stops: a settled frame is the exact picture, every time. MAP_GROUND.zoomSlide = false paints every frame (the old way).
+     (MOTION 2's 11/7h zoom down plays its come-down on the compositor from photographs of the map, so it no longer draws the map a
+     frame; this serves the map's own eases: the camera coming back in from a fight, a zoom the map animates itself.) */
+  /* ONLY IN THIS MAP'S OWN ANIMATION FRAMES: a draw asked from outside (a tap, a checker, the shell's zoom down photographing the
+     map at its zooms, MOTION 2's compositor dive) is always the exact paint */
+  var __zk = MG.cv && MG.zoomSlide && MG.key && MG.tw > 0 && MG.lastTW!==undefined && MG.lastTW!==TW && now-MG.t < MG.zoomMs
+             && !!(window.ONE_RENDER && ONE_RENDER.inFrame && ONE_RENDER.inFrame())
+             && (MG.zoomRun|0) < MG.zoomRunMax && MG.key.split('|').slice(2).join('|')===key.split('|').slice(2).join('|');
+  if(__zk){
+    var k=TW/MG.tw, X0=ox+(-MG.M-MG.ox)*k, Y0=oy+(-MG.M-MG.oy)*k, Wk=(CVW+2*MG.M)*k, Hk=(CVH+2*MG.M)*k;
+    if(k < MG.zoomK && k > 1/MG.zoomKOut && X0<=0 && Y0<=0 && X0+Wk>=CVW && Y0+Hk>=CVH){
+      MG.zoomRun=(MG.zoomRun|0)+1;
+      MG.twAt=now; MG.lastTW=TW;
+      var sm0=g.imageSmoothingEnabled; g.imageSmoothingEnabled=false;
+      g.drawImage(MG.cv, 0,0,MG.cv.width,MG.cv.height, X0,Y0,Wk,Hk);
+      g.imageSmoothingEnabled=sm0;
+      var mp=function(x,y){ return [ox+(x-MG.ox)*k, oy+(y-MG.oy)*k]; };
+      MG.cb.forEach(function(v,kk){ var r=Object.assign({},v), a=mp(v.sx,v.sy); r.sx=a[0]; r.sy=a[1];
+        if(r.dx!==undefined){ var b2=mp(v.dx,v.dy); r.dx=b2[0]; r.dy=b2[1]; } if(r.w!==undefined) r.w*=k; if(r.h!==undefined) r.h*=k; CB_DREW.set(kk,r); });
+      window.__LAMPQ = MG.lamps ? MG.lamps.map(function(q){ var a=mp(q.sx,q.sy); return {sx:a[0], sy:a[1]}; }) : null;
+      MG.zoomReuses=(MG.zoomReuses|0)+1;
+      return { reused:true, M:MG.M, zoom:k };
+    }
+  }
   /* why it is painted fresh, counted, so the next person can see what the cache is losing to */
   var why = !MG.cv ? 'first' : MG.key!==key ? 'key' : !mapGroundMoving(G) ? 'still'
           : now-MG.t>=MAP_GROUND_FRESH_MS ? 'age' : 'margin';
@@ -50483,7 +50718,7 @@ function mapGroundBegin(ox,oy,night,G){
   x.globalAlpha=1; x.globalCompositeOperation='source-over';
   x.imageSmoothingEnabled=false;   /* pixel art, the map's steady state: the markers leave g unsmoothed after the first frame */
   x.clearRect(-M,-M,CVW+2*M,CVH+2*M);
-  var st={ reused:false, M:M, g0:g, ox:ox, oy:oy, key:key, t:now };
+  var st={ reused:false, M:M, g0:g, ox:ox, oy:oy, key:key, t:now, tw:TW };
   try{ STREETS_JOIN.drew=0; }catch(_e){}   /* __THE_STREETS_JOIN__: counted per paint */
   g=x;
   return st;
@@ -50491,7 +50726,7 @@ function mapGroundBegin(ox,oy,night,G){
 function mapGroundEnd(st){
   var MG=MAP_GROUND;
   g=st.g0;
-  MG.key=st.key; MG.ox=st.ox; MG.oy=st.oy; MG.M=st.M; MG.t=st.t; MG.builds++;
+  MG.key=st.key; MG.ox=st.ox; MG.oy=st.oy; MG.M=st.M; MG.t=st.t; MG.tw=st.tw; MG.zoomRun=0; MG.builds++;
   if(!st.done){ MG.key=''; MG.broken=(MG.broken||0)+1; }   /* a paint that threw half way is shown once, the way it always was, and never slid */
   MG.cb=new Map(); CB_DREW.forEach(function(v,k){ MG.cb.set(k,v); });
   MG.lamps=window.__LAMPQ ? window.__LAMPQ.slice() : null;
@@ -53380,9 +53615,9 @@ function renderCity(){
       __bw=__body.width/2; __bh=__body.height/2;
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
       const __yx=mapSnap(__gx-__bw/2), __yy=mapSnap(__gy-__bh*0.93);
-      MAP_DEPTH.you=mapDepthBlit(function(){ g.drawImage(__body, __yx, __yy, __bw, __bh);
+      MAP_DEPTH.youDrawing=true; try{ MAP_DEPTH.you=mapDepthBlit(function(){ g.drawImage(__body, __yx, __yy, __bw, __bh);
         if(__how==='rig3d') mapWearOn(__marchWalk||__body, __yx, __yy, __bw/__body.width, mapFaceNow(), (typeof mapMainLook === 'function' && mapMainLook()) || 'you', __march);
-        if(__march){ const __fb=spriteAt(__march.front,32); g.drawImage(__fb, __yx, __yy, __bw, __bh); } }, __yx, __yy, __bw, __bh);   /* __THEY_MEND_ON_THE_MARCH__: his plate found on his walk frame, his arms over it */   /* __YOU_WALK_BEHIND_IT__: the share of him covered; __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and body armour on him */
+        if(__march){ const __fb=spriteAt(__march.front,32); g.drawImage(__fb, __yx, __yy, __bw, __bh); } }, __yx, __yy, __bw, __bh); } finally { MAP_DEPTH.youDrawing=false; }   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: he is cut the exact way */   /* __THEY_MEND_ON_THE_MARCH__: his plate found on his walk frame, his arms over it */   /* __YOU_WALK_BEHIND_IT__: the share of him covered; __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and body armour on him */
     } else {
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
@@ -67847,9 +68082,11 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   try{ var __P = window.parent; if(__P && __P !== window && __P.CITYFIGHT && __P.NF && __P.NF.frame && !__P.NF.over){ window.__MAP_RESTED = (window.__MAP_RESTED|0) + 1;
     if(!window.__MAP_RESTING){ window.__MAP_RESTING = 1;
       try{ if(MAP_GROUND.cv){ MAP_GROUND.cv.width = 0; MAP_GROUND.cv.height = 0; MAP_GROUND.key = ''; MAP_GROUND.x = null; } }catch(_e){}
-      try{ if(VBV.cv){ VBV.cv.width = 0; VBV.cv.height = 0; VBV.W = 0; VBV.H = 0; VBV.key = ''; VBV.x = null; } }catch(_e){} }
+      try{ if(VBV.cv){ VBV.cv.width = 0; VBV.cv.height = 0; VBV.W = 0; VBV.H = 0; VBV.key = ''; VBV.x = null; } }catch(_e){}
+      try{ mapDepthPoolFree(); }catch(_e){} }   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: the men's scratches let go too */
     return; } }catch(_e){}
   window.__MAP_RESTING = 0;
+  try{ MAP_DEPTH.frame++; }catch(_e){}   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: a scratch each man, a new set each draw */
   cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__: the map at the phone's pixels, the street at one */
   if(SKY){ screenFilter('city'); renderSky(); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
   /* __YOUR_HOUSE__: you slept at home, so the day starts at your own door.
@@ -68191,7 +68428,11 @@ function fightZoomOut(then, skin){
          with the street and a second one would be drawn on top of it. */
       if(!snap){ try{ render(); }catch(_e){} try{ snap=fzSnap(); }catch(_e){} }
       const p=Math.min(1,(u-FZ_PULL0)/(FZ_PULL1-FZ_PULL0)), e=ease(p);
-      try{ fzPaint(snap, 1-(1-FZ_DEEP)*e, a, u, FZ_SKIN); }catch(_e){}
+      /* PLUMBER 7 (rule 407(b), rule 418(c)): once the shell's zoom down has the camera (it comes down on this map's own camera from
+         the hand-over), this photograph is no longer painted over it: it hid the zoom's first frames and cost two whole-glass copies
+         a frame on top of the zoom's own */
+      let __dive=false; try{ const __B=window.parent && window.parent.BohemiaMotion; __dive=!!(fired && __B && __B.dive && __B.dive.state && __B.dive.state()!=='off'); }catch(_e){}
+      if(!__dive){ try{ fzPaint(snap, 1-(1-FZ_DEEP)*e, a, u, FZ_SKIN); }catch(_e){} }
     }
     if(!fired && u>=FZ_HAND){ clearTimeout(onTime); fire(); }
     if(u<1) requestAnimationFrame(frame);
@@ -75633,13 +75874,21 @@ function spriteAt(spr,C){
   /* SIZE-AWARE (RUN 10/4): the ladder is in 56-px boxes -- 4x past 64, 2x past 32, half under 17, else 1x --
      and the body may arrive at 56 (the old bake) or 112 (the rig's own size, CAST_PX 112). The box it
      returns is the same either way; at 112 the 2x rung is the rig's real pixels instead of EPX's guess. */
+  /* PLUMBER 7, 11/7/26 (rule 418(c)): his outlined body was kept on the small cache's canvas, and that cache (48) turns over with
+     every man on the glass, so his outline was made again (two read-backs) most frames: 2.1 s of an 8 s reading where a GPU draws
+     the canvas. Kept now by his frame itself, in its own small cache of the last 64 */
+  var __rf = (spr instanceof RigFrame) ? spr : null, __wk = C>=64 ? 4 : C>=32 ? 2 : C<17 ? 0.5 : 1, __rk = __rf ? __rf.__id + ':' + (__wk*56/Math.max(1, __rf.width)) : null;
+  if(__rk && SPRITE_AT_LRU.has(__rk)){ var __hit = SPRITE_AT_LRU.get(__rk); SPRITE_AT_LRU.delete(__rk); SPRITE_AT_LRU.set(__rk, __hit); return __hit; }
   if(spr instanceof RigFrame) spr = rigCanvas(spr);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__: the outline needs a real canvas, from the small cache */
   var want = C>=64 ? 4 : C>=32 ? 2 : C<17 ? 0.5 : 1, k = want*56/Math.max(1, spr.width), key = '_k'+k;
-  if(spr[key]) return spr[key];
+  if(spr[key]){ if(__rk){ SPRITE_AT_LRU.set(__rk, spr[key]); while(SPRITE_AT_LRU.size > 64) SPRITE_AT_LRU.delete(SPRITE_AT_LRU.keys().next().value); } return spr[key]; }
   var c = spr;
   if(k>=4) c = epx2(epx2(spr)); else if(k>=2) c = epx2(spr); else if(k<=0.25) c = half2(half2(spr)); else if(k<=0.5) c = half2(spr);
-  return (spr[key] = outline1(c));      /* RAW NEEDS IT TOO -- the art arrives borderless */
+  spr[key] = outline1(c);      /* RAW NEEDS IT TOO -- the art arrives borderless */
+  if(__rk){ SPRITE_AT_LRU.set(__rk, spr[key]); while(SPRITE_AT_LRU.size > 64) SPRITE_AT_LRU.delete(SPRITE_AT_LRU.keys().next().value); }
+  return spr[key];
 }
+var SPRITE_AT_LRU = new Map();   /* PLUMBER 7: spriteAt's outlines of rig frames, by frame (see above) */
 function epx2(src){
   const w=src.width,h=src.height;
   const S=src.getContext('2d').getImageData(0,0,w,h).data;
@@ -90531,16 +90780,29 @@ render=function(){ var r=_ctRender.apply(this,arguments); try{ ctVerb(); }catch(
    NOW a draw asked for from inside an animation frame happens AT MOST ONCE IN THAT FRAME; another ask in the same frame
    is moved to the next frame (one draw there, for all of them). Every loop's state is time-based, so the one draw shows
    all of them. A draw asked for anywhere else (a tap, a timer, a message, a check reading the canvas) is untouched. */
+/* __ONE_DRAW_A_FRAME_EVEN_FROM_THE_BEAT__ (PLUMBER 7, 11/7/26, rule 418(c), ask line 478). MEASURED travelling on the phone-shaped CPU
+   (4x): 8.3 whole-map draws a second at 2 frames a second, so four draws a frame, and only one is ever seen. Two holes in the stop
+   above: (1) the beat's own timers (the step, the march's spread blocks) are not animation frames, so every block he took drew the
+   whole map at once inside the timer (the movers' tween draws on its first call, then the beat's last line draws again: 32% of
+   the map's draws, for a picture the glide redraws on the next frame anyway); (2) the moved draw ran even when the frame it landed
+   in had already drawn (the order of the frame's callbacks decides), so a frame could draw twice. NOW a draw asked for while the
+   beat's timers run (ONE_RENDER.soon, set round them) is moved to the next frame like any second ask, and a moved draw that finds
+   its frame already drawn is dropped: that frame's draw came after the ask, so it already shows it. A draw asked for anywhere else
+   (a tap, a message, a checker reading the canvas) is untouched. */
 (function(){
   var raf = window.requestAnimationFrame.bind(window), inRaf = 0, frameT = -1, drew = -2, pend = false;
-  var ONE = window.ONE_RENDER = { drawn: 0, skipped: 0, deferred: 0 };
+  var ONE = window.ONE_RENDER = { drawn: 0, skipped: 0, deferred: 0, merged: 0, soonN: 0, soonAsked: 0 };
   window.requestAnimationFrame = function(cb){
     return raf(function(t){ inRaf++; frameT = t; try { return cb(t); } finally { inRaf--; } }); };
   var inner = render;
+  function later(){ if(!pend){ pend = true; raf(function(t){ pend = false; if(drew === t){ ONE.merged++; return; } frameT = t; drew = t; ONE.deferred++; inRaf++; try { inner(); } catch(_e){} finally { inRaf--; } }); } }
+  ONE.soon = function(fn){ ONE.soonN++; try { return fn(); } finally { ONE.soonN--; } };
+  ONE.inFrame = function(){ return inRaf > 0; };   /* a draw of this map's own animation frame (__THE_ZOOM_SLIDES_THE_LAST_PICTURE__ grows a picture only there) */
   render = function(){
+    if(!inRaf && ONE.soonN > 0){ ONE.soonAsked++; later(); return; }
     if(inRaf && drew === frameT){
       ONE.skipped++;
-      if(!pend){ pend = true; raf(function(t){ pend = false; frameT = t; drew = t; ONE.deferred++; try { inner(); } catch(_e){} }); }
+      later();
       return;
     }
     if(inRaf) drew = frameT;

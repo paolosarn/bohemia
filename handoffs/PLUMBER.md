@@ -1,5 +1,39 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 7 (chat 18) 11/7 -- rule 418(c), ask line 478: THE MAP RUNS ON A CHEAP PHONE (the map at every stop travelling, and the zoom
+down, on the phone-shaped CPU). BUILT, NOT YET SEEN (BUILD 11/7j THE MAP RUNS ON A CHEAP PHONE). Record:
+records/BOHEMIA_PLUMBER_THE_MAP_RUNS_ON_A_CHEAP_PHONE_11_7_26.md.
+THIS BOX: Chromium paints every canvas in software on the page's thread (2d_canvas 'unavailable_software'), so 4x multiplies every pixel;
+tools/bohemia_drive_the_demo.js gpu: true (new) puts the canvas on a GPU process (SwiftShader, an emulated GPU: its frame rates are not a
+phone's and its read-back waits are worse; what it shows truly is what the page's thread waits on).
+WHERE THE 199 MS WENT: four whole-map draws a frame travelling (the beat's own timers drew inside them; a moved draw landed in a frame
+that had drawn); in a draw, the depth test (__YOU_WALK_BEHIND_IT__) 66%: 70 men a frame through ONE shared read-back scratch, each making
+the glass finish its picture so far; the ground's slid picture resampled at part pixels (7.6 ms a frame); with the GPU on, worse: a CPU
+scratch decodes the 2048-wide gang sheets in software (15.6 ms a man), his two read-backs, the armour anchor, the sun dial's PNG, mapInkTop.
+FIXED (slices/BOHEMIA_CITY_WORLD.html unless named): __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__ (a scratch per man, the cut a mask, never read
+back; rows nothing painted can reach not asked; where reads are slow (MAP_DEPTH.readSlow, by their own clock) a man is drawn straight on
+the glass under a clip of his open cells and his outline is made with blends; he and a man whose outline may show still read back where
+reads are cheap; MAP_DEPTH.exact = true reads everybody back); __ONE_DRAW_A_FRAME_EVEN_FROM_THE_BEAT__; __THE_GROUND_SLIDES_BY_WHOLE_PIXELS__;
+__THE_ZOOM_SLIDES_THE_LAST_PICTURE__ (only in the map's own animation frames: MOTION 2's photographs are exact paints); the old V205
+pull-back slides the ground and stops painting its photograph once the zoom down has the camera; engine/bohemia_wear.js anchor() and
+mapInkTop read off the thread where reads are slow; slices/bohemia_ui_materials.js tbDial keeps its PNG by its dots; spriteAt keeps his
+outline by his rig frame. THE SAME PIXELS: the ground exactly (slid frames too); the men on under 200 of 2.74 million pixels, at most 6.
+NUMBERS, frames a second, software canvas, before -> after: phone 4x travelling far 1.8 -> 8.1, opening 6.4 -> 24.4, street 2.1 -> 2.6;
+phone 1x far/opening/street 11.1/20.7/43.9 -> 50.7/55.6/48.6; computer 1x 20.3/23.4/54.8 -> 58.0/57.4/59.0; draws a frame 4 -> 1.
+The zoom down was rebuilt by MOTION 2 the same hour (11/7h, on the compositor): on the old one the come-down 5.4 -> 7 to 12 and the settle
+5.7 -> 34 to 56; the new one 6 to 7 at 4x here (MOTION's). The 30-a-second budget is NOT met at the far and street stops at 4x here.
+GATES (one at a time): SMOOTH IS A BUDGET extended (P1-P4, Z1; the map's OVER BUDGET lines deleted) 25/1 (the red F1 THE FIGHT'S START
+683 ms, main's: 700 on main's files); THE ZOOM DOWN INTO THE BOARD 28/0; FIRST PLAY IS LIGHT 7/0 (14.78 MB); DEMO BUILD 25/0; THE HOUSES
+STAND UP CLOSE 28/0; THE TOWN SHOWS 10/0; AUTO AT 4X NEVER CRASHES 7/0; THE MAP GLIDES 14/0; THE PAD IS TRAVEL SPEED 14/0; THE ARMOUR HE
+WEARS SHOWS 18/0; THE MAP STANDS TALLER 23/3, EVERYONE IN THE FIGHT HOLDS 54/1, THE PARTIES WALK 6/4, HIS MAP 40/2: all four the same on
+main's files.
+FOUND, NOT FIXED: (1) FOR WORLD + RUN TWO: the phone board's deal re-plans every job's fights once a game day (slices/bohemia_job_danger.js
+fits() -> read() -> fightsFor() for every offer of every place): 2.4 s in one piece at 4x, the map frozen. (2) FOR PLUMBER NEXT: the
+street stop travelling: the ground picture (3.3x the glass) painted whole every block (about 185 ms at 4x); paint only the strip the
+slide uncovers. (3) FOR MOTION: SMOOTH's F1 THE FIGHT'S START 683-700 ms worst on main (its 650 ratchet), the new dive at 6 to 7 a second
+at 4x. (4) the first download (FIRST LOAD's 10 MB ceiling): not reached this round; tools/bohemia_first_load.js lists the twenty biggest
+files NEW GAME waits behind (biggestBeforeReady).
+
 PLUMBER 6 (chat 18) 11/6-11/7 -- rule 418, ask line 475: (e) THE PUBLISH NEVER BREAKS HIS FLOW, then (a)(b) LIGHT AS A FLASH GAME.
 BUILT, NOT YET SEEN (BUILD 11/7a FIRST PLAY IS LIGHT). Record: records/BOHEMIA_PLUMBER_LIGHT_AS_A_FLASH_GAME_11_6_26.md.
 THE DEPLOY: deploy-pages died at 10 min on 4270/4272/4274/4287/4288, every one at 'syncing_files' on GitHub's side (4288's 823 MB

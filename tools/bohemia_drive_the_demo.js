@@ -84,7 +84,14 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 /* 'base' ADDED 11/6 BY PLUMBER 6 (rule 418(a), the live site's real weight): a site root to open instead of this little server,
    e.g. 'https://paolosarn.github.io/bohemia'. Only GitHub's runner can reach the live site (this box's proxy refuses github.io),
    so .github/workflows/weight.yml is its one caller. Unset, nothing changes. */
-const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'base', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'keepCards', 'maker',
+/* 'gpu' ADDED 11/7 BY PLUMBER 7 (rule 418(c), 'any kid on a little laptop'): THIS BOX DRAWS EVERY CANVAS IN SOFTWARE ON THE PAGE'S OWN
+   THREAD (Chromium reports 2d_canvas 'unavailable_software': SwiftShader is not trusted for it), so a 4x CPU throttle multiplies every
+   pixel the map paints, which no phone and no laptop with integrated graphics does: theirs is drawn by the GPU, off the page's thread.
+   gpu: true launches with the GPU's canvas on (SwiftShader as the GPU, in its own process, untouched by the throttle): the page's
+   thread records the drawing and the GPU process paints it, the shape of a cheap laptop's integrated graphics or a phone. Unset,
+   nothing changes. */
+const GPU_ARGS = ['--ignore-gpu-blocklist', '--enable-unsafe-swiftshader', '--enable-gpu-rasterization', '--use-angle=swiftshader', '--enable-accelerated-2d-canvas'];
+const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'base', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'gpu', 'keepCards', 'maker',
                     'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -159,7 +166,7 @@ async function open(opts) {
   if (!again) await new Promise(r => server.listen(0, '127.0.0.1', r));
   const port = server.address().port;
 
-  const browser = again ? again.browser : await chromium.launch();
+  const browser = again ? again.browser : await chromium.launch(opts.gpu ? { args: GPU_ARGS } : undefined);
   /* A PHONE, because that is the only surface rule 14 talks about. */
   /* opts.noWorker (PLUMBER 9/29, [one driver], UI's ask 9/24): the alpha registers an
      always-fresh service worker (slices/sw.js), and a worker answers requests itself, so a

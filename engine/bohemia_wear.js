@@ -102,6 +102,7 @@
   }
   /* ---- where his head is, read off the cell's own pixels (once a cell; a few new cells a frame) ---- */
   var CACHE = typeof WeakMap === 'function' ? new WeakMap() : null, SCR = null, BUDGET = { t: 0, n: 0 };
+  var ASYNC = { on: false, slow: 0, slowMs: 8, asked: 0, landed: 0, wait: typeof WeakMap === 'function' ? new WeakMap() : new Map() };   /* PLUMBER 7: see anchor() */
   function find(d, w, h, hw) {
     var t = -1, b = -1, l = w, r = -1, x, y;
     for (y = 0; y < h; y++) for (x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] >= 128) { if (t < 0) t = y; b = y; if (x < l) l = x; if (x > r) r = x; }
@@ -143,7 +144,28 @@
     if (now - BUDGET.t > 16) { BUDGET.t = now; BUDGET.n = 0; }
     if (BUDGET.n >= (root.BohemiaWear.BUDGET | 0)) return undefined;   /* the rest next frame: never a stall for reading pictures */
     BUDGET.n++;
-    var res = null;
+    /* PLUMBER 7, 11/7/26 (rule 418(c)): WHERE THE GPU DRAWS THE PICTURES (every phone), a read of a gang sheet's frame into this CPU
+       canvas decodes the whole 2048-wide sheet in software again (more sheets than the decode cache keeps): 2.7 s of an 8 s
+       reading at the far stop, the map at 2 frames a second. Two reads slower than 8 ms say this is such a phone, and from then a
+       frame is read the off-the-thread way (createImageBitmap of the frame's own rectangle), landing a moment later; until it
+       lands he wears it where he just was (on() below), as a frame over the read budget always has. The same pixels are read. */
+    if (ASYNC.on && typeof createImageBitmap === 'function') {
+      if (ASYNC.wait.has(per) && ASYNC.wait.get(per)[key]) return undefined;
+      var wk = ASYNC.wait.get(per) || {}; wk[key] = 1; ASYNC.wait.set(per, wk); ASYNC.asked++;
+      try {
+        createImageBitmap(img, x, y, w, h).then(function (bm) {
+          var r2 = null;
+          try { if (!SCR) SCR = document.createElement('canvas');
+            if (SCR.width < w || SCR.height < h) { SCR.width = Math.max(SCR.width, w); SCR.height = Math.max(SCR.height, h); }
+            var g2 = SCR.getContext('2d', { willReadFrequently: true }); g2.clearRect(0, 0, w, h); g2.drawImage(bm, 0, 0);
+            r2 = find(g2.getImageData(0, 0, w, h).data, w, h, hw || HW); } catch (e) { r2 = null; }
+          try { bm.close(); } catch (e) {}
+          per[key] = r2; delete wk[key]; ASYNC.landed++;
+        }, function () { per[key] = null; delete wk[key]; });
+      } catch (e) { per[key] = null; delete wk[key]; }
+      return undefined;
+    }
+    var res = null, t0 = typeof performance !== 'undefined' ? performance.now() : 0;
     try {
       if (!SCR) SCR = document.createElement('canvas');
       if (SCR.width < w || SCR.height < h) { SCR.width = Math.max(SCR.width, w); SCR.height = Math.max(SCR.height, h); }
@@ -151,6 +173,7 @@
       g.clearRect(0, 0, w, h); g.drawImage(img, x, y, w, h, 0, 0, w, h);
       res = find(g.getImageData(0, 0, w, h).data, w, h, hw || HW);
     } catch (e) { res = null; }
+    try { if (typeof performance !== 'undefined' && performance.now() - t0 > ASYNC.slowMs && ++ASYNC.slow >= 2 && !root.BohemiaWear.syncAnchor) ASYNC.on = true; } catch (e) {}
     per[key] = res;
     return res;
   }
@@ -231,6 +254,6 @@
     return true;
   }
   root.BohemiaWear = { DIRS: DIRS, HW: HW, load: load, ready: ready, piece: piece, of: of, know: know, fallback: fallback, wearOf: wearOf, on: on, face: face,
-    off: !!root.BOHEMIA_WEAR_OFF, BUDGET: 24, anchor: anchor, seen: seen, at: at, meta: function () { return META; }, looks: function () { return LOOKS; }, sheet: sheet };
+    off: !!root.BOHEMIA_WEAR_OFF, BUDGET: 24, anchor: anchor, readsOffThread: function () { return { on: ASYNC.on, slow: ASYNC.slow, asked: ASYNC.asked, landed: ASYNC.landed }; }, seen: seen, at: at, meta: function () { return META; }, looks: function () { return LOOKS; }, sheet: sheet };
   if (typeof fetch !== 'undefined') load();
 })(typeof window !== 'undefined' ? window : this);

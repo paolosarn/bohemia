@@ -29,6 +29,19 @@
         frame inside the 16.7 ms budget, each share printed
      K1 rule 384(f): the day's minutes per real second while travelling agree within 6% at the far stop, the middle and the street
         stop, on this box's CPU and on a phone-shaped one (4x): the clock runs on time, never on frames drawn
+     ---- EXTENDED 11/7 BY PLUMBER 7 (rule 418(c), ask line 478, Paolo 11/6: 'any kid on a little laptop'; MOTION's measure: the zoom
+     down at about 5 frames a second on the phone-shaped CPU, the map's own draw 199 ms a frame;
+     records/BOHEMIA_PLUMBER_THE_MAP_RUNS_ON_A_CHEAP_PHONE_11_7_26.md) ----
+     P1 THE TRAVELLING MAP AT EVERY STOP ON THE PHONE-SHAPED CPU (4x): frames a second at the far, opening and street stops at least
+        the ratchet (this build's measured truth; it may only rise) and the 30 a second budget's gap printed for each
+     P2 ONE WHOLE-MAP DRAW A FRAME while travelling at 4x: the map's draws a second at most the glass's frames a second (+10%); the
+        beat's own timers ask for the next frame (__ONE_DRAW_A_FRAME_EVEN_FROM_THE_BEAT__), they drew 4 a frame before
+     P3 THE MEN BEHIND ARE CUT ON THE GPU: travelling, the men with something in front of them are cut with a mask, never read back
+        (__THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__): the exact read-backs (him, a man whose outline may show) under a fifth of the cuts
+     P4 THE GROUND SLIDES BY WHOLE PIXELS: travelling, the slid picture is laid on whole device pixels (__THE_GROUND_SLIDES_BY_WHOLE_PIXELS__)
+     Z1 THE ZOOM DOWN ON THE PHONE-SHAPED CPU (4x): a fight met at the far stop, the come-down and the settle at least the ratchet's
+        frames a second (30 the budget, printed); MOTION 2's 11/7h dive plays the come-down on the compositor from photographs of the
+        map, so this reads the frames, not the map's draws
      E1 nothing threw
    WHAT THIS BOX IS, SAID OUT LOUD: it draws the canvas with a software GPU (SwiftShader), so a frame's drawing costs it what a
    phone's GPU does off the main thread. The F legs are therefore ratchets on this box's truth, and the structural legs (A, B, C)
@@ -50,8 +63,18 @@ async function waitFor(fn, ms) { const t = Date.now(); while (Date.now() - t < m
 const RATCHET = { pinchWorst: 320, pinchShare33: 0.18, startWorst: 650, startLong: 2000, autoWorst: 420, autoShare33: 0.08 };
 /* OVER BUDGET, KNOWN AND ROUTED (the debt may only shrink): a screen named here is held to its measured median, not to 16.7 ms, until its
    owner fixes it and deletes the line; every other screen is held to the budget */
-const OVER_BUDGET = { 'map far': { p50: 100, owner: 'WORLD: __YOU_WALK_BEHIND_IT__ reads 105 walkers back off the GPU every draw at the far stop (measured 83 ms median travelling, 11/5)' },
-  'map mid': { p50: 80, owner: 'WORLD: the same depth test, 66 walkers a draw at the opening stop when a crowd is on the glass (measured 16.7 and 66.7 ms medians on two runs, 11/6)' } };
+/* 'map far' and 'map mid' (WORLD's depth test reading 66 to 105 walkers back every draw, 83 and 66.7 ms medians) were fixed by PLUMBER 7
+   (__THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__, 11/7) and their lines deleted, as this table asks */
+const OVER_BUDGET = {};
+/* PLUMBER 7's ratchets on the phone-shaped CPU (4x), this box's software canvas (it paints every pixel on the page's own thread, which
+   the throttle slows four times; a phone's GPU paints off it): frames a second, the floor, may only RISE. Measured 11/7, before -> after
+   (records/BOHEMIA_PLUMBER_THE_MAP_RUNS_ON_A_CHEAP_PHONE_11_7_26.md): far 1.8 -> 7 to 8, opening 6.4 -> 24 to 25, street 2.1 -> 2.0 to
+   2.6 (still under: the ground painted again every block there, and the phone board's deal; routed); the zoom's come-down 7 to 12,
+   the settle 34 to 56 (the probe: a fresh game, by day). THIS GATE'S OWN READING IS HEAVIER, and the floors are its own: its 4x
+   journeys run at NIGHT (21:30, set for the street-at-night leg above: the city's lights on every paint) after a fight, and its
+   zoom down is the second fight, the fight's page built under the settle: far 4, opening 7.6, street 2.6; come-down 2.5, settle
+   3.5 with the map drawing twice in it (the fight's build, not the map). The budget is 30 (rule 418(c)); the gap is printed. */
+const PHONE4 = { 'map far': 3, 'map mid': 5.5, 'map street': 1.8, come: 1.8, settle: 2.5, budget: 30 };
 const say = (r) => r ? r.fps + ' fps, median ' + r.p50 + ' ms, worst ' + r.max + ' ms, ' + (100 * r.share17).toFixed(1) + '% over 16.7, ' + (100 * r.share33).toFixed(1) + '% over 33, longest task ' + r.longMax + ' ms' : 'not measured';
 
 (async () => {
@@ -188,17 +211,21 @@ const say = (r) => r ? r.fps + ' fps, median ' + r.p50 + ' ms, worst ' + r.max +
           const n = await setOut(); if (!n) break;
           await d.fr.evaluate(() => travelSpeedSet(2));
           await sleep(1500 * thr);
-          const s0 = await d.fr.evaluate(() => ({ t: T.day * 1440 + T.min, w: performance.now(), i: (window.__TRAVEL_INTERRUPT && __TRAVEL_INTERRUPT.at) || 0, tw: TW, left: TRAVEL ? TRAVEL.path.length - TRAVEL.i : 0 }));
+          const s0 = await d.fr.evaluate(() => ({ t: T.day * 1440 + T.min, w: performance.now(), i: (window.__TRAVEL_INTERRUPT && __TRAVEL_INTERRUPT.at) || 0, tw: TW, left: TRAVEL ? TRAVEL.path.length - TRAVEL.i : 0,
+            dr: ONE_RENDER.drawn + ONE_RENDER.deferred, cut: MAP_DEPTH_POOL.cut, ex: MAP_DEPTH_POOL.exact, wh: MAP_GROUND.whole | 0, ru: MAP_GROUND.reuses }));
           const m0 = await NOW();
           await sleep(thr > 1 ? 6000 : 10000);   /* 10 s at full speed: about 40 blocks, so one block is 2.5% of the reading, not 4 */
-          const s1 = await d.fr.evaluate(() => ({ t: T.day * 1440 + T.min, w: performance.now(), i: (window.__TRAVEL_INTERRUPT && __TRAVEL_INTERRUPT.at) || 0, still: !!TRAVEL, meet: !!(window.MEET && MEET.up), left: TRAVEL ? TRAVEL.path.length - TRAVEL.i : 0 }));
+          const s1 = await d.fr.evaluate(() => ({ t: T.day * 1440 + T.min, w: performance.now(), i: (window.__TRAVEL_INTERRUPT && __TRAVEL_INTERRUPT.at) || 0, still: !!TRAVEL, meet: !!(window.MEET && MEET.up), left: TRAVEL ? TRAVEL.path.length - TRAVEL.i : 0,
+            dr: ONE_RENDER.drawn + ONE_RENDER.deferred, cut: MAP_DEPTH_POOL.cut, ex: MAP_DEPTH_POOL.exact, wh: MAP_GROUND.whole | 0, ru: MAP_GROUND.reuses }));
           const fr = await READ(m0, await NOW());
           if (s1.i !== s0.i || s1.meet || !s1.still) continue;   /* a road party or the journey's end in the window: again, on a new journey */
-          row = { minPerSec: +((s1.t - s0.t) / ((s1.w - s0.w) / 1000)).toFixed(2), blocksPerSec: +((s0.left - s1.left) / ((s1.w - s0.w) / 1000)).toFixed(2), tw: +s0.tw.toFixed(1), frames: fr };
+          row = { minPerSec: +((s1.t - s0.t) / ((s1.w - s0.w) / 1000)).toFixed(2), blocksPerSec: +((s0.left - s1.left) / ((s1.w - s0.w) / 1000)).toFixed(2), tw: +s0.tw.toFixed(1), frames: fr,
+            drawsPerSec: +((s1.dr - s0.dr) / ((s1.w - s0.w) / 1000)).toFixed(1), cut: s1.cut - s0.cut, exact: s1.ex - s0.ex, whole: s1.wh - s0.wh, reuses: s1.ru - s0.ru };
         }
         pace[thr + 'x ' + k] = row;
         if (thr === 1 && row) out['map ' + k] = row.frames;
-        console.log('       ' + thr + 'x CPU, ' + k.padEnd(6) + (row ? 'a block ' + row.tw + ' px: ' + row.blocksPerSec + ' blocks and ' + row.minPerSec + ' game minutes a real second; ' + say(row.frames) : 'NOT MEASURED (no journey without a party)'));
+        if (thr === 4 && row) out['4x map ' + k] = row;
+        console.log('       ' + thr + 'x CPU, ' + k.padEnd(6) + (row ? 'a block ' + row.tw + ' px: ' + row.blocksPerSec + ' blocks and ' + row.minPerSec + ' game minutes a real second; ' + say(row.frames) + '; ' + row.drawsPerSec + ' map draws a second, ' + row.cut + ' men cut, ' + row.exact + ' read back, ' + row.whole + ' whole-pixel slides' : 'NOT MEASURED (no journey without a party)'));
       }
       if (thr === 1) {   /* the street stop at night, lit: the night PLAYED there by the game's own clock (advance), never a write to the glass's copy of it */
         const nt = await d.fr.evaluate((z) => { try { travelStop(); } catch (e) {} const want = 21 * 60 + 30; if (T.min < want) advance(want - T.min); setZoomAt(z); try { camHold(); } catch (e) {} MAP_GROUND.key = ''; render(); return { night: isNight(), at: T.min }; }, stops.street);
@@ -210,6 +237,28 @@ const say = (r) => r ? r.fps + ' fps, median ' + r.p50 + ' ms, worst ' + r.max +
         await d.fr.evaluate(() => { try { travelStop(); } catch (e) {} });
       }
     }
+    /* ---- Z1: the zoom down on the phone-shaped CPU, from the far stop (still at 4x) ---- */
+    let dive = null;
+    try {
+      await d.fr.evaluate((z) => { try { travelStop(); } catch (e) {} try { if (window.MEET) MEET.walk = 0; } catch (e) {} setZoomAt(z); try { camHold(); } catch (e) {} render(); }, stops.far);
+      await sleep(4000);
+      const n0 = await M(() => BohemiaMotion.dive.log.length), g0 = await d.fr.evaluate(() => ({ z: MAP_GROUND.zoomReuses | 0, c: [city.x, city.y] }));
+      await d.fr.evaluate((c) => { const pm = partyMath('job', { skulls: 1 }), roster = []; for (let i = 0; i < pm.count; i++) roster.push({ arch: 'human' });
+        cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'A road crew', faction: null, draft: true, roster, party: pm, street: true, why: 'party:smooth-gate-4x', at: { gx: c[0] + 2, gy: c[1] + 1 } }); }, g0.c);
+      const ffr2 = async () => { const h = await d.page.$('#fightFrame'); return h ? h.contentFrame() : null; };
+      await waitFor(async () => { const s2 = await M(() => ({ st: BohemiaMotion.dive.state(), n: BohemiaMotion.dive.log.length, ff: !!document.getElementById('fightFrame') })); return s2.ff && s2.st === 'off' && s2.n > n0; }, 120000);
+      const g1 = await d.fr.evaluate(() => MAP_GROUND.zoomReuses | 0);
+      dive = await M((n0) => { const r = BohemiaMotion.dive.log.slice(n0).filter(x => x.kind === 'down').pop(); if (!r || !r.phases) return null; const P = r.phases;
+        const cut = (a, b) => BohemiaFrameMeter.read(r.t0 + a, r.t0 + b);
+        const endC = P.settle != null ? P.settle : P.hold;   /* MOTION 2's dive (11/7h) goes from the come-down straight to the hold */
+        return { come: endC != null ? cut(0, endC) : null, settle: P.settle != null && P.hold != null ? cut(P.settle, P.hold) : null, hold: P.hold != null && P.turn != null ? cut(P.hold, P.turn) : null, comeMs: r.comeMs, z0: r.z0, z1: r.z1, settleDraws: r.settleDraws | 0 }; }, n0);
+      if (dive) dive.grown = g1 - g0.z;
+      const f2 = await ffr2();
+      if (f2) { await f2.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; try { showOver('won'); } catch (e) {} }).catch(() => {});
+        await waitFor(() => M(() => !!(window.SPOILS && SPOILS.frame)), 60000); await sleep(800); await M(() => { try { spoilsLeave(); } catch (e) {} });
+        await waitFor(() => M(() => !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on')), 90000); await sleep(3000); }
+    } catch (e) { dive = dive || { err: String(e && e.message || e).slice(0, 160) }; }
+    out.dive4 = dive;
     await d.cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
     await d.fr.evaluate(() => { try { travelStop(); } catch (e) {} setZoomAt(1); render(); });
     /* THE MARCH IS THE CLOCK: the day is paid by the block, and what a block costs is the ground's (a road is quicker than the desert),
@@ -224,6 +273,23 @@ const say = (r) => r ? r.fps + ' fps, median ' + r.p50 + ' ms, worst ' + r.max +
     ok('K2 rule 384(f): a slow frame never swallows the day: the beats a slow frame held up are owed and paid (__THE_DAY_KEEPS_REAL_TIME__)', !!debt && debt.owed > 0 && debt.paid > 0,
        'on the CPU slowed 4x: ' + (debt ? debt.owed + ' beats owed, ' + debt.paid + ' paid' : 'NO DEBT KEPT') + '; the day there ' + (v4.join(' / ') || '?') + ' game minutes a second against ' + (v1.join(' / ') || '?')
        + ' on this box\'s own CPU. REPORTED, NOT ASSERTED: at 4x this box draws 2 or 3 frames a second (its GPU is software), far under any phone, and the debt is capped at four beats so it never sprints');
+
+    /* ---- P1-P4 and Z1: the phone-shaped CPU (PLUMBER 7, rule 418(c)) ---- */
+    const four = ['far', 'mid', 'street'].map(k => [k, out['4x map ' + k]]);
+    four.forEach(([k, r]) => { const fl = PHONE4['map ' + k];
+      ok('P1 the map travelling at the ' + (k === 'mid' ? 'opening' : k) + ' stop on the phone-shaped CPU (4x): at least ' + fl + ' frames a second (the ratchet; the budget ' + PHONE4.budget + ')',
+        !!r && r.frames.fps >= fl, r ? say(r.frames) + '; ' + (r.frames.fps >= PHONE4.budget ? 'IN BUDGET' : (PHONE4.budget - r.frames.fps).toFixed(1) + ' frames a second short of the budget') : 'not measured'); });
+    const fourOk = four.filter(([, r]) => r);
+    ok('P2 one whole-map draw a frame while travelling at 4x: the map\'s draws a second at most the glass\'s frames a second (+10%)',
+      fourOk.length === 3 && fourOk.every(([, r]) => r.drawsPerSec <= r.frames.fps * 1.1 + 0.5), fourOk.map(([k, r]) => k + ' ' + r.drawsPerSec + ' draws / ' + r.frames.fps + ' frames a second').join('; '));
+    const cuts = fourOk.reduce((a, [, r]) => a + r.cut, 0), exs = fourOk.reduce((a, [, r]) => a + r.exact, 0);
+    ok('P3 the men behind are cut on the GPU: travelling at 4x, read-backs under a fifth of the cuts (none a man before)', cuts > 50 && exs < cuts / 5, cuts + ' men cut with a mask, ' + exs + ' read back (him, and a man whose outline may show)');
+    const wh = fourOk.reduce((a, [, r]) => a + r.whole, 0), ru = fourOk.reduce((a, [, r]) => a + r.reuses, 0);
+    ok('P4 the ground slides by whole pixels while travelling', ru > 10 && wh >= ru * 0.9, wh + ' whole-pixel slides of ' + ru + ' slid frames');
+    const dv = out.dive4;
+    ok('Z1 the zoom down on the phone-shaped CPU (4x) from the far stop: the come-down at least ' + PHONE4.come + ' and the settle at least ' + PHONE4.settle + ' frames a second (the ratchet; the budget ' + PHONE4.budget + ')',
+      !!dv && !!dv.come && dv.come.fps >= PHONE4.come && (!dv.settle || dv.settle.fps >= PHONE4.settle),
+      dv ? (dv.err ? dv.err : 'zoom ' + (+dv.z0).toFixed(2) + ' -> ' + (+dv.z1).toFixed(2) + ' in ' + dv.comeMs + ' ms: come-down ' + say(dv.come) + (dv.settle ? '; settle ' + say(dv.settle) : '; no settle (the hold follows the come-down)') + (dv.hold ? '; the hold (the fight built under it, COMBAT\'s and MOTION\'s) ' + say(dv.hold) : '')) : 'no zoom down measured');
 
     /* ---- F2 the budget on every screen ---- */
     const screens = ['town', 'map far', 'map mid', 'map street', 'map street, night', 'fightAuto'];   /* the night one, only when the clock held night through it */

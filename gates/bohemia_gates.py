@@ -10549,8 +10549,12 @@ GATES = [
      "sky's pixel discs one picture and pixel-identical, the fight's door copies the phone once, no picture decoded on the main thread for "
      "100 ms in a fight's start (a trace), nothing in the map's hidden frame reads the boards while a fight stands; ratchets on the pinch, "
      "the fight's start and AUTO; the median frame inside 16.7 ms on the town, the map at three stops and at night, the fight (the far stop "
-     "OVER BUDGET, known, WORLD's); the march the same blocks a second at every zoom; beats a slow frame held up owed and paid. Solo: it "
-     "measures time. About 10 min", True),
+     "OVER BUDGET line deleted 11/7: fixed); the march the same blocks a second at every zoom; beats a slow frame held up owed and paid. "
+     "EXTENDED 11/7 BY PLUMBER 7 (rule 418(c), ask line 478, 'any kid on a little laptop'): the map travelling at the far, opening and "
+     "street stops on the phone-shaped CPU (4x) at least the ratchet's frames a second with the 30 budget's gap printed; one whole-map draw "
+     "a frame while travelling (the beat's timers ask for the next frame); the men behind cut on the GPU, never read back a man; the "
+     "ground slid by whole pixels; the zoom down at 4x from the far stop, its come-down and settle at least the ratchet, the last picture "
+     "grown between paints. Solo: it measures time. About 12 min", True),
     ('THE WHOLE LOOP PLAYS', ['node', 'gates/the_whole_loop_plays_gate.js'],
      "PLUMBER 4 gate, 11/5, rule 408(d) ('one smoke test of the whole loop runs every build'): one stranger's game on the demo at phone "
      "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "

@@ -754,7 +754,10 @@
   function tbDial(min) {
     var h = (((min || 0) / 60) % 24 + 24) % 24, sun = h >= 6 && h < 19, t = sun ? (h - 6) / 13 : ((h - 19 + 24) % 24) / 11,
       NX = 18, NY = 11, S = 2, cx = 8.5, cy = 7.2, rx = 6, ry = 4.6, a = Math.PI * (1 - t), bx = cx + rx * Math.cos(a), by = cy - ry * Math.sin(a);
-    var cv = document.createElement('canvas'); cv.width = NX * S; cv.height = NY * S; var g = cv.getContext('2d');
+    /* PLUMBER 7, 11/7/26 (rule 418(c)): the bar repaints every half second and this made a new picture and a PNG of it each time
+       (where a GPU draws the canvas, toDataURL is a read-back and an encode: 1.7 s of an 8 s reading on the phone-shaped CPU); the
+       dots are worked out first and the same dots are the same PNG, kept */
+    var cs = [], key = '';
     for (var y = 0; y < NY; y++) for (var x = 0; x < NX; x++) {
       var dx = x - bx, dy = y - by, d = Math.sqrt(dx * dx + dy * dy), ex = (x - cx) / rx, ey = (y - cy) / ry,
         arc = Math.abs(Math.sqrt(ex * ex + ey * ey) - 1) * ry, c = null;
@@ -764,9 +767,13 @@
         c = bite ? '#1f1710' : (sun ? (dx + dy < -0.8 ? '#ffe7a6' : '#e8a43e') : (dx + dy < -0.8 ? '#f6f0dc' : '#b9b2a0'));
       } else if (d < 3.2) c = '#1f1710';
       else if (y <= cy && arc < 0.5 && (x + y) % 2 === 0) c = '#8a7658';
-      if (c) { g.fillStyle = c; g.fillRect(x * S, y * S, S, S); }
+      cs.push(c); key += (c || '.');
     }
-    return cv.toDataURL('image/png');
+    var DK = tbDial.kept || (tbDial.kept = new Map()); if (DK.has(key)) return DK.get(key);
+    var cv = document.createElement('canvas'); cv.width = NX * S; cv.height = NY * S; var g = cv.getContext('2d', { willReadFrequently: true });   /* a picture made to be encoded: kept off the GPU, so the PNG never waits on it */
+    for (var i = 0; i < cs.length; i++) if (cs[i]) { g.fillStyle = cs[i]; g.fillRect((i % NX) * S, Math.floor(i / NX) * S, S, S); }
+    var url = cv.toDataURL('image/png'); if (DK.size > 400) DK.clear(); DK.set(key, url);
+    return url;
   }
   /* UI [the ten changes] (10/24): the state of the moments the bar and the voice carry (filled in THE TEN CHANGES below) */
   var TEN = { count: null };

@@ -107,7 +107,10 @@ async function readOnce(open, o) {
       filesBeforeReady: before(T.ready) ? before(T.ready).filter(n => !/^data:/.test(n.url)).length : null,
       filesAll: net.filter(n => !/^data:/.test(n.url)).length,
       filesBeforeTitle: before(T.title) ? before(T.title).length : null,
-      biggestBeforeTitle: big(before(T.title)), twice, errs: d.errs.length };
+      biggestBeforeTitle: big(before(T.title)),
+      /* PLUMBER 7 11/7 (rule 418(a)): what NEW GAME waits behind, the biggest twenty */
+      biggestBeforeReady: before(T.ready) ? before(T.ready).slice().sort((x, y) => y.bytes - x.bytes).slice(0, 20).map(n => ({ url: n.url, kb: Math.round(n.bytes / 1024), endMs: n.endMs })) : [],
+      twice, errs: d.errs.length };
   } finally { await d.close(); }
 }
 

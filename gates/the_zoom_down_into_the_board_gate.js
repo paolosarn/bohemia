@@ -214,7 +214,7 @@ const fmt = (w) => w.frames + ' frames in ' + w.ms + ' ms, median ' + (w.med || 
 async function runTraced() {
   console.log('\n-- phone_portrait, the CPU at 4x, traced (rule 420) --');
   const d = await D.open({ profile: 'phone_portrait' });
-  const errs = []; d.page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
+  const errs = []; d.page.on('pageerror', e => errs.push(String(e).slice(0, 160) + ' @ ' + String((e && e.stack) || '').split('\n').slice(1, 3).map(l => l.trim().replace(/https?:\/\/[^/]+\//, '')).join(' < ')));   /* PLUMBER 7: where it threw, not only what */
   const p = 'P4 ';
   try {
     for (let i = 0; i < 160; i++) { if (await d.fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'city' && typeof cityHandOver === 'function' && !!(window.om && om.n)).catch(() => false)) break; await sleep(500); }
@@ -268,7 +268,7 @@ async function runTraced() {
 async function run(profile) {
   console.log('\n-- ' + profile + ' --');
   const d = await D.open({ profile });
-  const errs = []; d.page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
+  const errs = []; d.page.on('pageerror', e => errs.push(String(e).slice(0, 160) + ' @ ' + String((e && e.stack) || '').split('\n').slice(1, 3).map(l => l.trim().replace(/https?:\/\/[^/]+\//, '')).join(' < ')));   /* PLUMBER 7: where it threw, not only what */
   try {
     console.log('  ' + d.says());
     for (let i = 0; i < 160; i++) { if (await d.fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'city' && typeof cityHandOver === 'function' && !!(window.om && om.n)).catch(() => false)) break; await sleep(500); }
