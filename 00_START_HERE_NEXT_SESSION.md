@@ -1,10 +1,10 @@
-SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHING BUILT (rule 421(a), rules 326 and 331, ask line 324):
-his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
-board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
-Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- BUILD 11/7k SCAVENGE ON THE DIAL, BUILT, NOT YET SEEN (rule 426(b), his YES; rule 331; ask line 493):
+a town's junk lot, 'Search the lot' (4 hours) opens the minigame on the block's own fight board: up to six spots lit by what the board
+has (a house, open dirt, a dead car), the old Dead Shot Dial three ways (tap on the ONE, the detector by ear, the siphon hold and let go),
+one find a spot paid back in town out of YOUR mouth. Gate SCAVENGE ON THE DIAL 25/0. VOTE scavenge-on-the-dial-built-11-7.
 The whole block: handoffs/SCAVENGE.md.
 [bb Battle Brothers settles a search inside an event by a hidden roll; here the roll is his thumb on the beat.]
-[analog horror: the house's needle is one torch beam in a dark room; the detector's beep a real recorded tone, worn like tape.]
+[analog horror: the house's needle is one torch beam in a dark room; the detector a bare tone that fills in to a held note.]
 RUN SEVEN (run-seven-01gkdyuv): 11/7 LATEST -- BUILD 11/7c - EVERYONE IN THE FIGHT HOLDS, BUILT, NOT YET SEEN (rule 413(h)-(k), rule
 381, ask line 476): after a retreat the job's band (raiders, thieves, a patrol crew) walked onto his block and rode under him across the
 map (its red count under his feet, his clue) and the town never opened. Now every retreat holds everyone in or near the fight (every band,
