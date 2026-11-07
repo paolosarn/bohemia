@@ -1,7 +1,7 @@
 # THE BOARDS WEAR THEIR DRESSING (COMBAT TWO, 11/7/26)
 
 Rule 419, ask line 479. Paolo 11/7: "it feels like you got rid of the rest of the maps, we need more love and better shit."
-Reopened by the coordinator for one round. BUILD 11/7d - THE BOARDS WEAR THEIR DRESSING. BUILT, NOT YET SEEN. VOTE combat2-the-boards-wear-their-dressing-11-7 (stage
+Reopened by the coordinator for one round. BUILD 11/7g - THE BOARDS WEAR THEIR DRESSING. BUILT, NOT YET SEEN. VOTE combat2-the-boards-wear-their-dressing-11-7 (stage
 stand_in): records/target/COMBAT2_THE_BOARDS_WEAR_THEIR_DRESSING_11_7.webp, the fight's first frame on his phone upright, before
 (the bare 11/6h board) and after, one camera set by hand for both (tools/bohemia_combat_two_the_boards_dressed_bench_11_7_26.js,
 _sheet_11_7_26.py): the desert, the Strip, the suburb at the demo's door (its dressing mostly under the fight's fog: houses block sight).
@@ -94,7 +94,7 @@ then ran alone: over, won in 7 rounds, 0 errors, the pictures' peak 335 MB under
 the template's two or three block pictures the lifted tiles are drawn from: named for PLUMBER 7). THE CAMP IS PITCHED ON THE BOARD
 14/0 (the camp's board is the laid board, its fingerprint 'laid'). THE ZOOM DOWN INTO THE BOARD 22/0 (MOTION's way in, on the
 dressed board). THE WHOLE LOOP PLAYS 11/0. The kit's 28 pictures: purity 0 purple, 0 lava (gates/bohemia_purity_gate.py check_png).
-VOTE TAB after the card. PIL worked on this box (the kit, the lift table, the sheet).
+VOTE TAB 62/4 with the card registered, the same four red on main 13ca3774 (two DYNASTY cards with no where, the alpha landing on RUN not VOTE, the gear's VOTE): none this round's. PIL worked on this box (the kit, the lift table, the sheet).
 
 ## COST
 A laid board now loads the template's two or three block pictures it lifts from (each 2575 x 1820, 0.2 to 0.6 MB on the wire, about
