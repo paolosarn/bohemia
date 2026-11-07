@@ -1,0 +1,14 @@
+# SCAVENGE -- the handoff block (written only by SCAVENGE; newest on top)
+
+SCAVENGE (scavenge-session_01GKDyuuFBP9oUoBnQSqHSMQ): 11/7 LATEST -- [scavenge design] (rule 421(a), rules 326 and 331, ask lines 324, 330, 333) DESIGNED, WAITING ON HIS YES. NOTHING BUILT IN THE GAME.
+WHAT EXISTS NOW:
+- records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md (ac26d619): five plain lines for him, ONE question, the research (cited), the design in detail.
+- The look: records/target/SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7.webp (four phone frames on a real laid board, STAND-IN), first picture records/target/vote_first/scavenge-the-design-for-his-yes-11-7.webp.
+- VOTE card scavenge-the-design-for-his-yes-11-7 (stage stand_in, so no options: YES = the tab's YES, NO = its NO, CHANGE = the note box).
+- Sources to redo the look: records/scavenge_design_11_7/ (shoot_spots.js drives the demo's own door on cell [80,60] and shoots the board; mock.html + render.js draw the frames; count_cars.js measured the cars).
+THE DESIGN IN FIVE LINES: one game on the block's own fight board (COMBAT TWO's, no enemies, the whole crew on it); the map lights at most six spots from the board's own tiles (house -> SEARCH, open ground -> DETECTOR, a dead car -> SIPHON); the old Dead Shot Dial three ways (house: tap, bands shown; detector: tap, bands hidden, the beeps fill in on the 120 grid; siphon: hold and let go on the ONE, greed's input without greed); dead centre the best thing there, amber a thing, blue scraps, out nothing, always one thing or nothing; about 6 s a spot, under a minute a block, the fight's screen with the phone's plate saying SCAVENGE.
+THE ONE QUESTION (the coordinator asks him): what each of the three gives. A real holdings (house food/meds/tape; detector metal only: batteries/rounds/tools; car gas sold for batteries) / B the same five by luck / C one thing each.
+NOT IN IT (rule 331): noise, they come, hours per search, chain, greed, district loot. The clock is untouched: the shipped button's four hours stay until he rules.
+MEASURED, ROUTED TO COMBAT TWO: the map's plan for 784 blocks, zero boards carry a dead car (the plan's car flag never fires), so the siphon stands on no block today. ROUTED TO THE COORDINATOR: the stale-gas finding (untreated gas goes off in months; a 2050 car is likely electric) for DYNASTY and ECONOMY.
+GATES: vote_tab 62/4 with the card, the same four reds as main without it (two DYNASTY whys with no where, three legs of the alpha landing on VOTE: not mine); my card passes FIRST TIME FINAL F1-F8, NEW CARDS SHOW FIRST and FULL SIZE. Full suite unmeasured since 0db6b989 (rule 13).
+NEXT, ONLY ON HIS YES: lift the dial's engine block out of the stamped copy into one engine module, then the three ways on COMBAT TWO's board, props golden first (rule 408(b)). On NO: nothing. On CHANGE: redesign to his words, one picture again.
