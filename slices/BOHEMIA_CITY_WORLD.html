@@ -48998,6 +48998,9 @@ function mapArtBeat(){ return Math.floor(performance.now() / (typeof BEAT === 'n
 /* DRAW WITH THE FEET ON THE POINT, the way a body stands on a tile. */
 function mapArtDraw(mask, frame, banner, sx, footY){
   var s = mapArtSprite(mask, frame, banner);
+  /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): while the shell holds for first play the map is under the title or the first
+     town, and a held gang sheet is never replaced by COOK's old mark (rule 174(b): the demo draws no dead layer after GO) */
+  if (mapHeldForFirstPlay() || mapUnderATown()) return s;   /* and while a town covers the map, its sheets streaming in behind it */
   g.imageSmoothingEnabled = false;
   g.drawImage(s, Math.round(sx - s.width / 2), Math.round(footY - s.height));
   return s;
@@ -49177,6 +49180,7 @@ function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>>
    same man; a model whose rebuild no longer matched the map's picture keeps its still. ==== */
 var MAP_IDLE_CV = {};
 function mapIdleFrame(set, face, beat, still){
+  if (mapHeldForFirstPlay()) return null;   /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6): his still until first play; no idle sheet is fetched behind the title */
   var B = window.BohemiaIdles; if (!B || !B.ready() || !still) return null;
   if (set.__look === undefined) { set.__look = null; set.__mix = null;
     [RIG_CAST, RIG_PEOPLE].forEach(function(S){ for (var k in S.sets) if (S.sets[k] === set) set.__look = k; });
@@ -49359,8 +49363,26 @@ function rigBlit(fr, dx, dy, w, h){
   g.drawImage(fr.__sheet, fr.sx + (x0 - fr.ox), fr.sy + (y0 - fr.oy), x1 - x0, y1 - y0, dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky);
 }
 /* ==== /__THE_MAP_DRAWS_FROM_THE_SHEET__ ==== */
+/* ==== __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, 11/6/26; rule 418(a), ask line 475): THE TITLE COVERS THE MAP. Measured: behind the
+   title (its camera feed fills the glass) this map drew 72 standing people and fetched 15 gang sheets (rig_mix) and the idle
+   sheets (rig_idles), 22 MB of the 48.9 MB a stranger downloaded before he could play, for a valley nobody could see. Until the
+   shell says FIRST PLAY (bohemiaFirstPlayHeld, in the shell's __FIRST_PLAY_IS_LIGHT__) a gang's sheet waits and a standing man
+   stands as his still: the stand-ins this map already draws until a sheet is in. FIRST PLAY redraws once, so the sheets
+   stream in behind the town he starts in. A map opened on its own (no shell) is never held. ==== */
+function mapHeldForFirstPlay(){
+  try { var p = window.parent; if (!p || p === window || typeof p.bohemiaFirstPlayHeld !== 'function') return false; return !!p.bohemiaFirstPlayHeld(); }
+  catch (_e) { return false; }
+}
+/* a town's screen covers this map (the town he starts in, while the held sheets stream in behind it) */
+function mapUnderATown(){ try { return !!(LOOP && LOOP.open && LOOP.frame && LOOP.frame.style.display === 'block'); } catch (_e) { return false; } }
+window.addEventListener('message', function(ev){
+  try { if (ev && ev.data && ev.data.type === 'BOHEMIA_FIRST_PLAY') { try { MAP_GROUND.key = ''; } catch (_e) {} render(); } } catch (_e) {}
+});
+/* ==== /__FIRST_PLAY_IS_LIGHT__ ==== */
 function rigSheetLoad(S, name){
-  if (S.state) return; S.state = 1;
+  if (S.state) return;
+  if (/^rig_mix\//.test(name) && mapHeldForFirstPlay()) return;   /* __FIRST_PLAY_IS_LIGHT__: asked again on the first draw after it */
+  S.state = 1;
   try {
     fetch(name + '.json').then(function(r){ return r.json(); }).then(function(m){
       var im = new Image();
@@ -49471,11 +49493,17 @@ function mapFinalLook(){
     if (!vbCityReady()) { if (!dead) why.push('the painting'); }
     else { var B = null; try { B = typeof ctBases === 'function' ? ctBases() : null; } catch (_e) {}
       if (VB_TOWNS.on && B && Object.keys(B).length && String(VBC.key || '').indexOf(':t') < 0) why.push('the towns in the painting'); }
+    /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): while the shell holds for first play (a NEW GAME, which opens in a town
+       that covers this map) the people are not part of the look BEGIN waits for; they stream in behind the town. CONTINUE is
+       never held, so a saved game that opens here still waits for every person, as 174(b) says. */
+    var held = mapHeldForFirstPlay();
+    if (!held) {
     if (!rigFailed() && rigWaiting()) why.push('the 3D people');
     if (RIG_MIX.state === 1) why.push('the crowd index');
     for (var n in RIG_MIX.sheets) if (RIG_MIX.sheets[n].state === 1) { why.push('the people of ' + n); break; }
     try { if (window.BohemiaIdles && BohemiaIdles.ready && !BohemiaIdles.ready()) why.push('the idles'); } catch (_e) {}
     if (!(MAP_DREW && MAP_DREW.art && (MAP_DREW.art.rigPeople | 0) > 0) && !rigFailed()) why.push('a person on the glass');
+    }
   } catch (e) { why.push('error ' + (e && e.message)); }
   FINAL_LOOK.why = why.join(', ');
   if (!why.length && !FINAL_LOOK.readyAt) FINAL_LOOK.readyAt = Math.round(performance.now());

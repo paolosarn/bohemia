@@ -10554,6 +10554,17 @@ GATES = [
      "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "
      "victory and its LEAVE, a save, the link opened again and CONTINUE to the same day and company; real touches where there is something "
      "to press; it stops at the first step that breaks and names it. About 4 min", True),
+    ('FIRST PLAY IS LIGHT', ['node', 'gates/first_play_is_light_gate.js'],
+     "PLUMBER 6 gate, 11/6, rule 418(a), ask line 475 (PAOLO 11/6: 'make this work like a flash website... this is how the African kids "
+     "can play it, on a little laptop'): a stranger's first visit to the demo (fresh browser, NEW GAME with a finger, served like GitHub "
+     "Pages, CPU 4x): the bytes before the first frame he can play (the town he starts in DRAWN, LEAVE on the glass) under the 20 MB "
+     "budget with the 8 MB goal printed beside it, on the phone and a computer; under 700 files; nothing downloaded twice; no song "
+     "recording, gang sheet or map idle sheet before first play, and all of them in within 30 s after it; P7 the before: the hold "
+     "switched off carries 10 MB more. The budget only comes down. About 6 min", True),
+    ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
+     "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
+     "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "
+     "fight and across a reload, and 64 MB planted after the last step reads as at least 50 MB more (the reader sees a leak). About 5 min", True),
     ('THE SAVE COMES BACK THE SAME', ['node', 'gates/the_save_comes_back_the_same_gate.js'],
      "RUN SIX gate, 11/6 (the finish line's stage 1 item 1, 'nothing breaks a run, the saves included'; PLUMBER 4's smoke loop saw a save "
      "come back 5.5 hours later, twice in four: a second finger on CONTINUE or the door fell through the door switching off onto the map "

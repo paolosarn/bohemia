@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"165bddad3125176c",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"04327ccf7ec4df11",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/6s - THE CARCASS AND THE VULTURES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/7a - FIRST PLAY IS LIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -22433,7 +22433,8 @@ drawLogoBig();requestAnimationFrame(loop);
     load, four seconds on, so nothing is fetched before the door and nothing lands inside the opening's first beat. */
  MP.step=function(){
   var X=window.MACHINEPARTY;
-  if(MP.state==='idle'){ MP.state='waiting'; setTimeout(MP.load, 4000); return null; }
+  if(MP.state==='idle'){ if(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld()) return null;   /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6): the kit (six recordings, about 0.9 MB) is armed after first play */
+   MP.state='waiting'; setTimeout(MP.load, 4000); return null; }
   if(MP.state!=='ready' || !X) return null;
   if(!MP.isRepo()){ if(X.on) X.detach(); return null; }
   if(MP.ac!==MUS.AC){ if(X.on) X.detach(); MP.chain=null; MP.state='waiting'; setTimeout(MP.load, 0); return null; }  /* a rebuilt context */
@@ -22859,7 +22860,8 @@ drawLogoBig();requestAnimationFrame(loop);
   var since = 0, iv = setInterval(function () {
     try {
       if (B.ready() || B.loading) { clearInterval(iv); return; }
-      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running') { since = since || Date.now(); if (Date.now() - since > 25000) { B.load(); clearInterval(iv); } }
+      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running' && !(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld())) { since = since || Date.now();   /* __FIRST_PLAY_IS_LIGHT__: 'the music first runs' counts from first play (the title's own tap runs it now) */
+        if (Date.now() - since > 25000) { B.load(); clearInterval(iv); } }
     } catch (_e) {}
   }, 1000);
 })();
@@ -23021,7 +23023,8 @@ drawLogoBig();requestAnimationFrame(loop);
   var since = 0, iv = setInterval(function () {
     try {
       if (D.ready() || D.loading) { clearInterval(iv); return; }
-      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running') { since = since || Date.now(); if (Date.now() - since > 30000) { D.load(); clearInterval(iv); } }
+      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running' && !(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld())) { since = since || Date.now();   /* __FIRST_PLAY_IS_LIGHT__: 'the music first runs' counts from first play (the title's own tap runs it now) */
+        if (Date.now() - since > 30000) { D.load(); clearInterval(iv); } }
     } catch (_e) {}
   }, 1000);
 })();
@@ -23163,7 +23166,8 @@ drawLogoBig();requestAnimationFrame(loop);
   var since = 0, iv = setInterval(function () {
     try {
       if (P.ready() || P.loading) { clearInterval(iv); return; }
-      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running') { since = since || Date.now(); if (Date.now() - since > 6000) { P.load(); clearInterval(iv); } }
+      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running' && !(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld())) { since = since || Date.now();   /* __FIRST_PLAY_IS_LIGHT__: 'the music first runs' counts from first play (the title's own tap runs it now) */
+        if (Date.now() - since > 6000) { P.load(); clearInterval(iv); } }
     } catch (_e) {}
   }, 1000);
 })();
@@ -23381,6 +23385,58 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /__THE_ONE_BEAT__ -->
+<!-- __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6 11/6, rule 418(a), ask line 475) -->
+<script>
+/* ==== __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, 11/6/26; rule 418(a), Paolo 11/6: 'why can't we try to make this work like a flash
+   website... this is how the African kids can play it, on a little laptop'). Rule 418(a): the first play under 20 MB now,
+   8 MB the goal; nothing the first screen does not need loads before it, the rest streams in when it is needed.
+   MEASURED (tools/bohemia_first_play.js, the demo on the phone, served like GitHub Pages): 48.9 MB in 633 files arrived before
+   the first frame he can play. The title covers the whole glass (its camera feed over the valley) while the map boots behind
+   it, and the map was drawing 72 standing people and 15 gang sheets nobody could see (22 MB of people sheets); the songs'
+   three levels (5.5 MB), the voices (2 MB) and the fight's sounds (1.8 MB) waited for 'the music first runs', which since the
+   title is the title's own tap, not play.
+   NOW ONE SIGNAL: FIRST PLAY is reached when the town a NEW GAME starts in is drawn (its picture in) and up a moment (1.5 s), or the map is his first
+   screen (2.5 s after BEGIN with no town), or CONTINUE is pressed (a saved game can open on the map, and RUN's rule 174(b) holds
+   BEGIN until the map's 3-D people are in), or at the latest 45 s after BEGIN (120 s after the page opened if nobody begins).
+   While held, the map's final look (174(b)) asks for the land and the painting, not the people: a new game's first screen is
+   the town, which covers the map; the people come in behind it.
+   window.bohemiaFirstPlayHeld() is true until then; window.bohemiaAfterFirstPlay(fn) runs fn then. Everything held is
+   fetched the moment it is reached, behind the screen he is playing, so it is in before he leaves the town.
+   window.__FIRST_PLAY_OFF (the gate's mutation, the before) releases it at once. Gate: gates/first_play_is_light_gate.js. ==== */
+(function(){
+  if (window.bohemiaFirstPlayHeld) return;
+  var at = 0, began = 0, townUp = 0, born = Date.now(), Q = [];
+  function reach(why){
+    if (at) return; at = Date.now();
+    window.__FIRST_PLAY = { why: why, ms: Math.round(performance.now()) };
+    var q = Q; Q = []; q.forEach(function(f){ try{ f(); }catch(_e){} });
+    try{ var cf = document.getElementById('cityFrame'); if (cf && cf.contentWindow) cf.contentWindow.postMessage({ type: 'BOHEMIA_FIRST_PLAY' }, '*'); }catch(_e){}
+  }
+  function look(){
+    if (at) return;
+    if (window.__FIRST_PLAY_OFF) return reach('held off (the before)');
+    /* CONTINUE can open on the map, and RUN's rule 174(b) holds BEGIN until the map's 3-D people are in: a returning player
+       is never held (only a NEW GAME opens in a town that covers the map) */
+    try{ if (window.BOH_TITLE && BOH_TITLE.continues > 0) return reach('CONTINUE (the map may be his first screen)'); }catch(_e){}
+    var now = Date.now();
+    if (!window.__PLAY_BEGAN) { if (now - born >= 120000) reach('nobody began in 120 s'); return; }
+    began = began || now;
+    var town = false, ready = false, map = false;
+    try{ var w = document.getElementById('cityFrame').contentWindow, L = w.LOOP;
+      town = !!(L && L.open && L.frame && L.frame.style.display === 'block'); ready = town && !!L.ready;
+      /* and drawn: the town's own picture is in (its picIn), so nothing held races the picture he is looking at */
+      if (ready){ var sw = L.frame.contentWindow, BS = sw && sw.BohemiaSettlement; if (BS && typeof BS.picIn === 'function' && !BS.picIn()) ready = false; }
+      map = !town && w.MODE === 'city'; }catch(_e){}
+    if (ready){ townUp = townUp || now; if (now - townUp >= 1500) return reach('the town he starts in'); } else townUp = 0;
+    if (map && now - began >= 2500) return reach('the map, no town');
+    if (now - began >= 45000) reach('45 s after BEGIN');
+  }
+  var iv = setInterval(function(){ look(); if (at) clearInterval(iv); }, 250);
+  window.bohemiaFirstPlayHeld = function(){ return !at; };
+  window.bohemiaAfterFirstPlay = function(fn){ if (at){ try{ fn(); }catch(_e){} } else Q.push(fn); };
+})();
+</script>
+<!-- /__FIRST_PLAY_IS_LIGHT__ -->
 <!-- __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207) -->
 <script>
 /* ============================================================================
@@ -23497,6 +23553,7 @@ drawLogoBig();requestAnimationFrame(loop);
  /* WHAT IS HELD: the playing song's levels for where he is (on the map level 1 decoded and the fight's two levels as bytes,
     so a fight decodes without a fetch), the hit, the next song's level 1 (its bytes only in a fight) */
  function plan(){
+  if(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld()) return;   /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): no recording is fetched before first play; his engine plays live till then */
   var keep={}, n=entry();
   if(n){ var s=setOf(n), k=keep[n]={}; if(s.b.hit) k.hit=1;
    if(coming()){ k.level_2=1; k.level_3=1; if(!s.buf.level_2) k.level_1=1; }
@@ -25600,7 +25657,7 @@ try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PAR
   window.squiggleSay = function (text, v, AC, dest, when, mood, src) {
     var F = BOH_VOICE_RECORDED.floor;
     try { if (src && F.frameGone(src)) return null; } catch (_e) {}
-    try { if (S.ready()) { var h = S.say(text, v, AC, dest, when, mood, { src: src || window }); if (h) return h; } else if (!S.loading && AC) S.load(AC); } catch (_e) {}
+    try { if (S.ready()) { var h = S.say(text, v, AC, dest, when, mood, { src: src || window }); if (h) return h; } else if (!S.loading && AC && !(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld())) S.load(AC); } catch (_e) {}   /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6): the bank (2 MB) never loads before first play; his 8/11 voice says it till then, as on a slow line */
     var o = BOH_VOICE.say(text, v, AC, dest, when, mood);
     try { F.claim(o, AC, { src: src || window, lead: true }); } catch (_e) {}
     return o;
@@ -25609,7 +25666,8 @@ try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PAR
   var since = 0, iv = setInterval(function () {
     try {
       if (S.ready() || S.loading) { clearInterval(iv); return; }
-      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running') { since = since || Date.now(); if (Date.now() - since > 4000) { S.load(MUS.AC); clearInterval(iv); } }
+      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running' && !(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld())) { since = since || Date.now();   /* __FIRST_PLAY_IS_LIGHT__: 'the music first runs' counts from first play (the title's own tap runs it now) */
+        if (Date.now() - since > 4000) { S.load(MUS.AC); clearInterval(iv); } }
     } catch (_e) {}
   }, 1000);
 })();

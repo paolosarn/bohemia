@@ -1724,7 +1724,11 @@ function pickVariant(onlyPic){   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: onlyPic, 
   try{ var asp = window.BohemiaArenaTown && BohemiaArenaTown.spot(VAR); if(asp){ VAR.boxes.arena = asp.box; ORDER.push('arena'); if(VAR.pic && VAR.pic.blocks) VAR.pic.blocks = VAR.pic.blocks.concat([asp.block]); } }catch(e){}   /* __THE_ARENA__ (ARENA, rule 375): the Mob's pit, last in the order so every other door keeps its man; nobody walks into the pool */
   }
   if(!onlyPic){ placeTraits(); restock(); }
-  if(own) townPreload();   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: both shapes in hand before he turns */
+  if(own){ var __tp = null; try{ __tp = window.top && window.top !== window && typeof window.top.bohemiaAfterFirstPlay === 'function' ? window.top.bohemiaAfterFirstPlay : null; }catch(e){ __tp = null; }
+    /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): the shapes he is not holding (8 pictures, about 2 MB a town) come after first
+       play; the one on his glass is asked by pickVariant as before, and a turn before they are in keeps the town as it was until
+       its picture is (flipCheck) */
+    if(__tp) __tp(townPreload); else townPreload(); }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: both shapes in hand before he turns */
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
   if(!onlyPic && view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
     var bb2 = lookBox(); view.cx = (bb2[0] + bb2[2])/2 + 260; }
@@ -4651,6 +4655,9 @@ var q = new URLSearchParams(location.search);
 /* the page's own first open is the screen at rest; the arrival plays when the game sends a place (?arrival=1 plays it here) */
 open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined, arrival: q.get('arrival') === '1'});
 /* window.BohemiaSettlement.order() is the open buildings; where(k) is the middle of a building's own tappable pixels */
+/* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): read only. Is the town's own picture in (the glass is the town, not the brown
+   it waits on)? The shell's FIRST PLAY and gates/first_play_is_light_gate.js ask it. */
+try{ window.BohemiaSettlement.picIn = function(){ try{ return picIn(); }catch(e){ return false; } }; }catch(e){}
 requestAnimationFrame(loop);
 })();
 </script>

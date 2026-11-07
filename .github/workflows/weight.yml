@@ -1,0 +1,64 @@
+# BOHEMIA — THE LIVE SITE'S WEIGHT (PLUMBER 6, 11/6/26; rule 418(a), ask line 475)
+#
+# Paolo 11/6: 'why can't we try to make this work like a flash website... this is how the African kids can play it, on a little
+# laptop.' Rule 418(a): the first play under 20 MB now, 8 MB the goal. gates/first_play_is_light_gate.js measures a copy served
+# LIKE GitHub Pages; this measures GITHUB PAGES ITSELF (its own gzip, its own cache rules, its own CDN), which only GitHub's runner
+# can reach: the session boxes' proxy refuses github.io. After every deploy that lands, and by hand.
+# What a stranger downloads before he can play (tools/bohemia_first_play.js --base): the demo on a phone held upright and on a
+# computer, and the alpha on a phone. The numbers go in the run's summary and in the 'weight' artifact (JSON, 14 days).
+# It never fails a deploy: it runs after one, in its own workflow, and reports.
+name: weight
+
+on:
+  workflow_run:
+    workflows: [pages]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weight
+  cancel-in-progress: true
+
+jobs:
+  weigh:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools
+          sparse-checkout-cone-mode: true
+
+      - name: a browser
+        run: |
+          npm i --no-save --no-package-lock --silent playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: the live site's first play, weighed
+        run: |
+          set +e
+          base="https://paolosarn.github.io/bohemia"
+          live=$(curl -s -H 'Cache-Control: no-cache' "$base/BOHEMIA_SITE_SHA.txt?w=$GITHUB_RUN_ID" | tr -dc '0-9a-f' | head -c 40)
+          echo "## The live site's weight (build ${live:0:8})" >> "$GITHUB_STEP_SUMMARY"
+          echo "Budget 20 MB before first play, goal 8 MB (rule 418(a)); measured on GitHub's runner against the live site." >> "$GITHUB_STEP_SUMMARY"
+          mkdir -p weight
+          for run in "demo phone_portrait" "demo computer" "alpha phone_portrait"; do
+            set -- $run
+            flag=""; [ "$1" = "alpha" ] && flag="--alpha"
+            node tools/bohemia_first_play.js $flag --profile "$2" --throttle 1 --linger 20000 --base "$base" --json "weight/$1_$2.json" > "weight/$1_$2.txt" 2>&1
+            cat "weight/$1_$2.txt"
+            line=$(grep -E "BEFORE IT:" "weight/$1_$2.txt" | head -1 | sed 's/^ *//')
+            echo "- **$1, $2**: ${line:-no reading (see the log)}" >> "$GITHUB_STEP_SUMMARY"
+          done
+          exit 0
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: weight
+          path: weight/
+          retention-days: 14

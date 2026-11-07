@@ -26,10 +26,27 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 async function waitFor(fn, ms) { const t = Date.now(); while (Date.now() - t < ms) { try { const v = await fn(); if (v) return v; } catch (e) {} await sleep(250); } return null; }
 let pass = 0, d = null, d2 = null;
 const errs = [];
+/* THE HEAP, STEP BY STEP (PLUMBER 6, 11/6, rule 418(b): 'the heap flat and under 200 MB through the whole loop'). Only when
+   gates/the_heap_stays_flat_gate.js asks (BOHEMIA_HEAP_LOG=<file>): after every step that passed, the page's JavaScript heap
+   (every same-origin frame shares it) read twice by the browser's own debugger: LIVE as it stands, and HELD after a forced
+   garbage collection. The loop itself is not changed by it. BOHEMIA_HEAP_PLANT=<MB> plants that much in the page after the last
+   step and reads again (the heap gate's proof that its instrument sees growth). */
+const HEAP_LOG = process.env.BOHEMIA_HEAP_LOG || null, HEAP = [];
+async function heapAt(label) {
+  if (!HEAP_LOG) return;
+  const dd = d2 || d; if (!dd || !dd.cdp) return;
+  try {
+    const live = await dd.cdp.send('Runtime.getHeapUsage');
+    await dd.cdp.send('HeapProfiler.collectGarbage').catch(() => {});
+    const held = await dd.cdp.send('Runtime.getHeapUsage');
+    HEAP.push({ at: label, liveMb: +(live.usedSize / 1048576).toFixed(1), heldMb: +(held.usedSize / 1048576).toFixed(1), totalMb: +(held.totalSize / 1048576).toFixed(1), page: dd === d2 ? 'after the reload' : 'first boot' });
+  } catch (e) { HEAP.push({ at: label, err: String(e && e.message || e).slice(0, 120) }); }
+  try { require('fs').writeFileSync(HEAP_LOG, JSON.stringify({ profile, alpha, steps: HEAP, passed: pass }, null, 1)); } catch (e) {}
+}
 async function bye(code) { try { if (d2) await d2.page.close(); } catch (e) {} try { if (d) await d.close(); } catch (e) {} process.exit(code); }
 async function step(n, what, fn) {
   let r; try { r = await fn(); } catch (e) { r = { ok: false, why: 'THREW: ' + String(e && e.message || e).slice(0, 200) }; }
-  if (r && r.ok) { pass++; console.log('  ok   ' + n + ' ' + what + (r.why ? '  [' + r.why + ']' : '')); return r; }
+  if (r && r.ok) { pass++; console.log('  ok   ' + n + ' ' + what + (r.why ? '  [' + r.why + ']' : '')); await heapAt(n + ' ' + what.split(':')[0]); return r; }
   console.log('  FAIL ' + n + ' ' + what + '  [' + ((r && r.why) || 'no answer') + ']');
   console.log('\n*** THE LOOP BROKE AT STEP ' + n + ': ' + what + ' ***\nTHE WHOLE LOOP PLAYS: ' + pass + ' passed, 1 failed (the steps after it were not reached)');
   await bye(1);
@@ -145,6 +162,11 @@ const cityOf = (dd) => dd.page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.ur
     return { ok: d2.title.via === 'continue' && same, why: 'the title: ' + JSON.stringify(d2.title) + '; back on day ' + (now ? now.day + ' ' + now.min + ' min, ' + now.men + ' men' : '?') + ' (saved day ' + saved.day + ' ' + saved.min + ' min, ' + saved.men + ' men; the slots: ' + slots + '; the first read after CONTINUE ' + (first ? first.day + ' ' + first.min + ' min' : '?') + '; ' + (now ? 'travel ' + now.trav + ' at ' + now.sp + 'x, a fight ' + now.fight : '') + ')' };
   });
   await step(11, 'nothing threw on any page', async () => ({ ok: errs.length === 0, why: errs.slice(0, 3).join(' | ') }));
+  if (HEAP_LOG && +process.env.BOHEMIA_HEAP_PLANT > 0) {   /* the heap gate's plant: the instrument must see what is held */
+    const mb = +process.env.BOHEMIA_HEAP_PLANT;
+    await (d2 || d).page.evaluate((mb) => { window.__HEAP_PLANT = []; for (let i = 0; i < mb; i++) window.__HEAP_PLANT.push(new Array(131072).fill(i + 0.5)); }, mb).catch(() => {});
+    await heapAt('planted ' + mb + ' MB');
+  }
   console.log('\nTHE WHOLE LOOP PLAYS: ' + pass + ' passed, 0 failed');
   await bye(0);
 })().catch(async (e) => { console.error(e); await bye(1); });

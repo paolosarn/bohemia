@@ -25,7 +25,9 @@
   'use strict';
   var CL = root.BohemiaCampLife;
   var K = { kit: null, img: null, cart: null, peek: false, back: null, threats: [], men: {}, reads: {}, tick: null, drawn: 0, travelAt: null, lastPost: 0 };
-  try { fetch('camp_two/kit.json').then(function (r) { return r.json(); }).then(function (j) { K.kit = j; var im = new Image(); im.onload = function () { K.img = im; }; im.src = 'camp_two/kit.png'; }).catch(function () {}); } catch (e) {}
+  /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): the camp's kit (0.3 MB) comes after first play; no camp draws before K.img is in */
+  (function () { var go = function () { try { fetch('camp_two/kit.json').then(function (r) { return r.json(); }).then(function (j) { K.kit = j; var im = new Image(); im.onload = function () { K.img = im; }; im.src = 'camp_two/kit.png'; }).catch(function () {}); } catch (e) {} };
+    var af = (function(){ try{ var t = window.top; return t && t !== window && typeof t.bohemiaAfterFirstPlay === 'function' ? t.bohemiaAfterFirstPlay : null; }catch(e){ return null; } })(); if (af) af(go); else go(); })();
   (function () { var im = new Image(); im.onload = function () { K.cart = im; }; im.src = '../records/target/master_rig/cook_cart/rig_SE.png'; })();
   try { fetch('../records/target/bb/ours.json').then(function (r) { return r.json(); }).then(function (j) { var c = j && j.odds_colour; if (c && CL) CL.setOdds(c.value || c); }).catch(function () {}); } catch (e) {}
 

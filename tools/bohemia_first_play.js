@@ -21,7 +21,8 @@
    THE HEAP is the page's JavaScript heap (every same-origin frame shares it), read by CDP after a forced garbage collection, so the
    number is what is held, not what is waiting to be swept.
 
-     node tools/bohemia_first_play.js [--alpha] [--profile computer] [--throttle 4] [--linger 20000] [--json out.json]
+     node tools/bohemia_first_play.js [--alpha] [--profile computer] [--throttle 4] [--linger 20000] [--json out.json] [--off]
+       [--base https://paolosarn.github.io/bohemia]   THE LIVE SITE (GitHub's runner only: .github/workflows/weight.yml)
      require(...).measure({ alpha, profile, throttle, linger })
    ================================================================================ */
 'use strict';
@@ -38,6 +39,30 @@ async function heapNow(cdp) {
   try { const h = await cdp.send('Runtime.getHeapUsage'); return { used: h.usedSize, total: h.totalSize }; } catch (e) { return null; }
 }
 
+/* the page's own moments, on its own clock: the title up, BEGIN pressed (__PLAY_BEGAN), the shell's FIRST PLAY (__FIRST_PLAY) */
+const STAMP = `(() => { if (window.top !== window || window.__FP_T) return; const T = window.__FP_T = {};
+  const tick = () => { const n = Math.round(performance.now());
+    if (T.title == null) { const t = document.getElementById('title'); if (t && !t.classList.contains('gone')) T.title = n; }
+    if (T.begin == null && window.__PLAY_BEGAN) T.begin = n;
+    if (T.firstPlay == null && window.__FIRST_PLAY) { T.firstPlay = n; T.why = window.__FIRST_PLAY.why; }
+    /* PLAY: the first moment he can act in the game, by what is on the glass and nothing else (not the shell's own signal):
+       the town he starts in is shown and a LEAVE is on the glass (the phone's band, or the town's own), or the door is gone
+       and the map is his screen with no town */
+    if (T.play == null && window.__PLAY_BEGAN) { try {
+      const on = (el) => { if (!el) return false; const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 4 && r.height > 4 && s.visibility !== 'hidden' && s.display !== 'none'; };
+      const cf = document.getElementById('cityFrame'), w = cf && cf.contentWindow, L = w && w.LOOP;
+      const front = document.getElementById('front'), doorGone = !front || getComputedStyle(front).display === 'none';
+      const town = !!(L && L.open && L.frame && L.frame.style.display === 'block');
+      let leave = on(document.querySelector('#bohphone .bpctx button.lv'));
+      if (!leave && town) { try { leave = on(L.frame.contentDocument.getElementById('leave')); } catch (e) {} }
+      /* and the town is DRAWN: its picture is in (the town screen's own picIn), not a brown glass waiting for it */
+      let drawn = false; try { const BS = L.frame.contentWindow.BohemiaSettlement; drawn = !!(BS && typeof BS.picIn === 'function' && BS.picIn()); } catch (e) {}
+      if (doorGone && town && leave && drawn) { T.play = n; T.playWhere = 'the town he starts in, drawn, LEAVE on the glass'; }
+      else if (doorGone && !town && w && w.MODE === 'city' && T.begin != null && n - T.begin > 4000) { T.play = n; T.playWhere = 'the map'; }
+    } catch (e) {} }
+    if (T.firstPlay == null || T.play == null) setTimeout(tick, 50); };
+  tick(); })();`;
+
 async function measure(o) {
   o = o || {};
   const reqs = {};            /* requestId -> one response's record */
@@ -47,7 +72,8 @@ async function measure(o) {
     cdp.on('Network.requestWillBeSent', (e) => {
       if (base === null && e.type === 'Document') base = e.timestamp;
       const r = reqs[e.requestId] = reqs[e.requestId] || {};
-      Object.assign(r, { url: e.request.url.replace(/^https?:\/\/[^/]+/, '').split('?')[0], type: e.type, at: e.timestamp, frame: e.frameId });
+      /* the live site sits under /bohemia/; the same file reads the same on both */
+      Object.assign(r, { url: e.request.url.replace(/^https?:\/\/[^/]+/, '').split('?')[0].replace(/^\/bohemia\//, '/'), type: e.type, at: e.timestamp, frame: e.frameId });
     });
     cdp.on('Network.responseReceived', (e) => {
       const r = reqs[e.requestId] = reqs[e.requestId] || {};
@@ -61,8 +87,10 @@ async function measure(o) {
   const t0 = Date.now();
   /* world: the driver's own wait for the world is the DEAD WALK's (MODE 'human' and eight walk-pad buttons, which never come
      since 9/28), so it always runs its full ceiling; this reading waits for the first play itself instead */
-  const d = await D.open({ profile: o.profile || 'phone_portrait', alpha: !!o.alpha, pages: true, noWorker: true, fog: true,
-    throttle: o.throttle || 4, beforeGoto: arm, world: 1500 });
+  const d = await D.open(Object.assign(o.base ? { base: o.base } : {}, { profile: o.profile || 'phone_portrait', alpha: !!o.alpha, pages: true, noWorker: true, fog: true,
+    throttle: o.throttle || 4, beforeGoto: arm, world: 1500,
+    /* o.off: the shell's hold switched off before any page script runs (window.__FIRST_PLAY_OFF), the before of __FIRST_PLAY_IS_LIGHT__ */
+    arm: (o.off ? 'window.__FIRST_PLAY_OFF = true;\n' : '') + STAMP }));
   const heaps = [];
   o._doorMs = Date.now() - t0;
   let firstPlayMs = null, where = null;
@@ -81,20 +109,26 @@ async function measure(o) {
         if (!leave) { const sfr = d.page.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
           if (sfr) leave = await sfr.evaluate(() => { const b = document.getElementById('leave'); if (!b) return false; const r = b.getBoundingClientRect(); return r.width > 4; }).catch(() => false); }
       }
-      if (s && s.inTown && leave) { where = 'the town he starts in, LEAVE on the glass'; break; }
+      const drawn = s && s.inTown ? await fr.evaluate(() => { try { const BS = LOOP.frame.contentWindow.BohemiaSettlement; return !!(BS && typeof BS.picIn === 'function' && BS.picIn()); } catch (e) { return false; } }).catch(() => false) : false;
+      if (s && s.inTown && leave && drawn) { where = 'the town he starts in, drawn, LEAVE on the glass'; break; }
       if (s && !s.inTown && s.mode === 'city' && d.doorIsBehindUs() && Date.now() - t0 > 5000 && o.mapCounts) { where = 'the map'; break; }
       await sleep(250);
     }
     /* FIRST PLAY needs no shared clock: the files that had FINISHED the moment it was seen are the first play, exactly */
     firstPlayMs = where ? Date.now() - t0 : null;
+    o._stamps = await d.page.evaluate(() => window.__FP_T || null).catch(() => null);
     const doneAtPlay = new Set(Object.keys(reqs).filter(k => reqs[k].end != null));
     heaps.push(Object.assign({ at: 'first play' }, await heapNow(d.cdp)));
     if (o.linger) { await sleep(o.linger); heaps.push(Object.assign({ at: 'first play + ' + Math.round(o.linger / 1000) + ' s' }, await heapNow(d.cdp))); }
     /* a data: or blob: address is inline, never a download */
     const all = Object.keys(reqs).filter(k => reqs[k].url && reqs[k].end != null && !/^(data|blob):/.test(reqs[k].url))
       .map(k => Object.assign({ id: k }, reqs[k], { endMs: base == null ? null : Math.round((reqs[k].end - base) * 1000) }));
-    const before = all.filter(r => doneAtPlay.has(r.id));
-    const after = all.filter(r => !doneAtPlay.has(r.id));
+    /* the split: by the page's own PLAY stamp when it has one (the page's clock and the network's share their zero, the top
+       document's request), else by what had finished when this tool saw it */
+    const playMs = o._stamps && o._stamps.play != null ? o._stamps.play : null;
+    if (playMs != null) { firstPlayMs = playMs; where = o._stamps.playWhere; }
+    const before = playMs != null ? all.filter(r => r.endMs != null && r.endMs <= playMs) : all.filter(r => doneAtPlay.has(r.id));
+    const after = playMs != null ? all.filter(r => !(r.endMs != null && r.endMs <= playMs)) : all.filter(r => !doneAtPlay.has(r.id));
     return summarize({ d, before, after, all, firstPlayMs, where, heaps, o });
   } finally { try { await d.close(); } catch (e) {} }
 }
@@ -112,12 +146,13 @@ function summarize({ d, before, after, all, firstPlayMs, where, heaps, o }) {
     .map(r => ({ url: r.url, kb: Math.round((r.wire || 0) / 1024), unzippedKb: Math.round(body(r) / 1024), enc: r.enc || '', endMs: r.endMs }));
   const peak = heaps.reduce((m, h) => Math.max(m, (h && h.used) || 0), 0);
   return {
-    surface: d.openedFile(), profile: o.profile || 'phone_portrait', throttle: o.throttle || 4,
+    surface: d.openedFile() + (o.base ? ' at ' + o.base + ' (THE LIVE SITE)' : ''), profile: o.profile || 'phone_portrait', throttle: o.throttle || 4,
     firstPlayMs, where: where || 'NEVER (no town screen with its LEAVE, no map)',
     firstPlay: { mb: MB(sum(before)), files: files(before), unzippedMb: MB(before.reduce((s, r) => s + body(r), 0)) },
     afterFirstPlay: { lingerMs: o.linger || 0, mb: MB(sum(after)), files: files(after) },
     twice, biggest: big(before, o.top || 15), biggestAfter: big(after, 8), folders: folders(before),
-    doorMs: o._doorMs || null,
+    afterList: after.filter(r => (r.wire || 0) > 0).map(r => r.url), off: !!o.off,
+    doorMs: o._doorMs || null, stamps: o._stamps || null,
     heaps: heaps.map(h => ({ at: h.at, usedMb: h.used ? MB(h.used) : null, totalMb: h.total ? MB(h.total) : null })),
     heapPeakMb: MB(peak), errors: (d.errs || []).slice(0, 5),
     files: before.filter(r => (r.wire || 0) > 0).map(r => ({ url: r.url, kb: +((r.wire || 0) / 1024).toFixed(1), endMs: r.endMs, type: r.type }))
@@ -134,8 +169,9 @@ function folders(a) {
 }
 
 function print(r) {
-  console.log('\n  ' + r.surface + ', ' + r.profile + ', CPU ' + r.throttle + 'x, served like GitHub Pages (gzip on text)');
+  console.log('\n  ' + r.surface + ', ' + r.profile + ', CPU ' + r.throttle + 'x, ' + (/LIVE SITE/.test(r.surface) ? 'served by GitHub Pages itself' : 'served like GitHub Pages (gzip on text)') + (r.off ? ', THE HOLD SWITCHED OFF (the before)' : ''));
   console.log('  the driver was through the title and the door at ' + (r.doorMs / 1000).toFixed(1) + ' s');
+  if (r.stamps) console.log('  the page\'s own clock: title ' + r.stamps.title + ' ms, BEGIN ' + r.stamps.begin + ' ms, the shell\'s FIRST PLAY ' + r.stamps.firstPlay + ' ms (' + r.stamps.why + ')');
   console.log('  FIRST PLAY at ' + (r.firstPlayMs == null ? 'never' : (r.firstPlayMs / 1000).toFixed(1) + ' s') + ': ' + r.where);
   console.log('  BEFORE IT: ' + r.firstPlay.mb + ' MB on the wire in ' + r.firstPlay.files + ' files (' + r.firstPlay.unzippedMb + ' MB unzipped)');
   console.log('  IN THE ' + Math.round(r.afterFirstPlay.lingerMs / 1000) + ' s AFTER, doing nothing: ' + r.afterFirstPlay.mb + ' MB in ' + r.afterFirstPlay.files + ' files');
@@ -155,7 +191,7 @@ module.exports = { measure, print, MB };
 if (require.main === module) {
   const a = process.argv.slice(2), arg = (k, dflt) => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : dflt; };
   (async () => {
-    const r = await measure({ alpha: a.includes('--alpha'), profile: arg('--profile', 'phone_portrait'), throttle: +arg('--throttle', 4), linger: +arg('--linger', 20000), top: +arg('--top', 15) });
+    const r = await measure({ alpha: a.includes('--alpha'), profile: arg('--profile', 'phone_portrait'), throttle: +arg('--throttle', 4), linger: +arg('--linger', 20000), top: +arg('--top', 15), base: arg('--base', null), off: a.includes('--off') });
     print(r);
     const out = arg('--json', null); if (out) fs.writeFileSync(out, JSON.stringify(r, null, 1));
     process.exit(0);

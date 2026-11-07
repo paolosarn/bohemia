@@ -81,7 +81,9 @@
       try { fetch(DATA_URL, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { DATA = (j && j.bosses) ? j : null; }).catch(function () { loadData.busy = false; }); } catch (e) { loadData.busy = false; } }
     if (!PICS && !loadData.pics) { loadData.pics = true;
       try { fetch(PICS_URL).then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.pictures) return; PICS = j.pictures;
-        Object.keys(PICS).forEach(function (k) { PICS[k].frames.forEach(function (f) { var im = new Image(); im.src = 'boss_places/' + f; IMG[f] = im; }); }); }).catch(function () { loadData.pics = false; }); } catch (e) { loadData.pics = false; } }
+        /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): the 39 pictures (0.5 MB) come after first play; until one is in, pic() is null and the place draws as before */
+        var go = function () { Object.keys(PICS).forEach(function (k) { PICS[k].frames.forEach(function (f) { var im = new Image(); im.src = 'boss_places/' + f; IMG[f] = im; }); }); };
+        var af = (function(){ try{ var t = window.top; return t && t !== window && typeof t.bohemiaAfterFirstPlay === 'function' ? t.bohemiaAfterFirstPlay : null; }catch(e){ return null; } })(); if (af) af(go); else go(); }).catch(function () { loadData.pics = false; }); } catch (e) { loadData.pics = false; } }
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }

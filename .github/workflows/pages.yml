@@ -111,8 +111,8 @@ jobs:
       name: github-pages
       url: ${{ steps.pages.outputs.base_url }}
     runs-on: ubuntu-latest
-    # three deploy tries of at most 10 minutes each, the build before them about 3 minutes, the live check about 2
-    timeout-minutes: 55
+    # three deploy tries of at most 10 minutes each, two 2-minute pauses, the build before them about 3 minutes, the live check about 2
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -204,6 +204,7 @@ jobs:
       # input at MAX_TIMEOUT = 600000 (src/internal/deployment.js), and at the limit it CANCELS the deployment itself. A
       # cancelled deployment can be made again for the same commit, so each try below is a FRESH deployment of the same upload.
       # Every try may fail without failing the job (continue-on-error); the step after them decides, and says so plainly.
+      # (30 s, then 90 s, between tries at first; two minutes each since run 4292, below.)
       - id: try1
         name: deploy, try 1 of 3
         continue-on-error: true
@@ -213,11 +214,14 @@ jobs:
           timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 1 && '1000' || '600000' }}
           reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 1 && '1000' || '5000' }}
 
-      - name: try 1 did not land; a breath before a fresh deployment
+      # MEASURED 11/7 (run 4292, rehearsed): a try made 30 s after a cancel read the cancelled deployment back ('Deployment
+      # cancelled.' in 7 s; the deployment's id IS the commit, so the new one answered with the old one's state); the try made
+      # 90 s after the next cancel landed. So every retry waits two minutes first.
+      - name: try 1 did not land; two minutes before a fresh deployment
         if: steps.try1.outcome == 'failure'
         run: |
-          echo "::warning title=DEPLOY TRY 1 DID NOT LAND::GitHub's deploy step gave up (its own 10-minute limit, or an error on its side). Trying again with a fresh deployment."
-          sleep 30
+          echo "::warning title=DEPLOY TRY 1 DID NOT LAND::GitHub's deploy step gave up (its own 10-minute limit, or an error on its side). Trying again with a fresh deployment in two minutes."
+          sleep 120
 
       - id: try2
         name: deploy, try 2 of 3
@@ -229,11 +233,11 @@ jobs:
           timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 2 && '1000' || '600000' }}
           reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 2 && '1000' || '5000' }}
 
-      - name: try 2 did not land; a longer breath before the last try
+      - name: try 2 did not land; two minutes before the last try
         if: steps.try1.outcome == 'failure' && steps.try2.outcome == 'failure'
         run: |
-          echo "::warning title=DEPLOY TRY 2 DID NOT LAND::Second time GitHub's deploy step gave up. One more fresh deployment in 90 seconds."
-          sleep 90
+          echo "::warning title=DEPLOY TRY 2 DID NOT LAND::Second time GitHub's deploy step gave up. One more fresh deployment in two minutes."
+          sleep 120
 
       - id: try3
         name: deploy, try 3 of 3

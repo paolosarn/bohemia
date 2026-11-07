@@ -44,7 +44,8 @@
             await d.close();
    ========================================================================== */
 'use strict';
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+/* this box's Playwright first; a machine without it (GitHub's runner, .github/workflows/weight.yml) uses the one it installed */
+const { chromium } = (function () { try { return require('/opt/node22/lib/node_modules/playwright'); } catch (e) { return require('playwright'); } })();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -80,7 +81,10 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'keepCards', 'maker',
+/* 'base' ADDED 11/6 BY PLUMBER 6 (rule 418(a), the live site's real weight): a site root to open instead of this little server,
+   e.g. 'https://paolosarn.github.io/bohemia'. Only GitHub's runner can reach the live site (this box's proxy refuses github.io),
+   so .github/workflows/weight.yml is its one caller. Unset, nothing changes. */
+const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'base', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'keepCards', 'maker',
                     'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -281,7 +285,7 @@ async function open(opts) {
   console.log('  [driver] opening ' + WANT
     + (WANT === ALPHA_FILE ? '  (THE ALPHA, where every lane ships)'
        : WANT === DEMO_FILE ? '  (the baked demo, which only RUN re-cuts)' : ''));
-  await page.goto('http://127.0.0.1:' + port + '/slices/' + WANT,
+  await page.goto((opts.base ? String(opts.base).replace(/\/$/, '') : 'http://127.0.0.1:' + port) + '/slices/' + WANT,
     { waitUntil: 'load', timeout: 300000 });
   /* EXTENDED 10/2 (COMBAT, [rebuild], rule 14g: extend the one driver, never fork it).
      opts.bare: a ONE-FILE surface with no front door and no city frame (the rebuilt fight,
