@@ -25,7 +25,9 @@ concurrency:
 jobs:
   weigh:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
-    runs-on: ubuntu-latest
+    # ubuntu-latest is Ubuntu 26.04 since 11/2026 and Playwright 1.56 refuses it ("does not support chromium on ubuntu26.04-x64",
+    # weight run 2); 24.04 is the newest it installs on
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
