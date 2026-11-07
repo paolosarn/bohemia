@@ -12,6 +12,7 @@
      R2 THE DETECTOR BY EAR: one beep a beat, two, four, then one tone in the dead centre.
      R3 THE SIPHON: the middle on a beat (its package's count), early less, past the far edge a mouthful.
      R4 NOTHING HE DID NOT APPROVE (rule 331): no greed, no chain, no noise, no district table in the rules or the page.
+     R5 QUICK: a spot's dial is one of its package's own patterns whose middle comes round at least every two bars; he waits for two.
      B1 THE BLOCK'S OWN BOARD: on a phone the page's board is the very board the fight deals for those options.
      B2 THE MAP PICKS THE SPOTS: every lit spot is its kind on that board (a house's roof, a dead car, open dirt never the asphalt),
         its stand open, at most six, no two side by side, a kind only where the board has it.
@@ -101,6 +102,15 @@ function siphonRight(Rr) {
 }
 ok('R3 the siphon: the middle on a beat for every package, early is less, past the far edge is a mouthful', siphonRight(R), [0, 1, 2, 3, 4].map(p => R.siphonBeats(p)).join('/') + ' beats edge to middle');
 caught('R3, a siphon that is full the moment it is held', siphonRight(Object.assign({}, R, { siphonAngle: () => 0 })));
+
+function quickRight(Rr) {
+  return [0, 1, 2, 3, 4].every(pkg => { const G = D.defaultState(); G.pkgDiff = pkg; const q = Rr.quickPool(D, G);
+    return q.length > 0 && q.every(p => D.beatsForCycle(Object.assign({}, G, { pat: p })) <= Rr.MAX_CYCLE) && q.every(p => D.packagePool(G).indexOf(p) >= 0)
+      && q.every(p => { const H = Object.assign({}, G, { pat: p }); return Rr.giveUpBeats(D, H) >= 2 * D.beatsForCycle(H); }); });
+}
+ok('R5 quick: every dial a spot opens is one of its package\'s own patterns whose middle comes round at least every two bars, and he waits for two', quickRight(R),
+  [0, 1, 2, 3, 4].map(pkg => { const G = D.defaultState(); G.pkgDiff = pkg; return R.quickPool(D, G).length + ' of ' + D.packagePool(G).length; }).join(', '));
+caught('R5, a spot that can open a ten-second pattern', quickRight(Object.assign({}, R, { quickPool: (Dial, G) => Dial.packagePool(G) })));
 
 function noExtras(txt) {
   return !/greedHeld\s*=\s*true|greedMult\s*:\s*(?!1\b)[\d.]+|\bnoise\b|they come|BohemiaGroove|groove\s*=|\bchain\b\s*[:=]/i.test(txt);
@@ -216,10 +226,12 @@ async function playSpot(p, s, off) {
       caught('B2, a siphon lit on a house with no car', spotsRight(st, b).length === 0); }
 
     /* B3 + B4: the suburb board played to its end with real taps on the ONE; the strip's spots a beat off it */
-    const P1 = await bench(br, base, 'suburb'), on = [], onWhy = [];
+    const P1 = await bench(br, base, 'suburb'), on = [], onWhy = [], onOff = [];
     const shot = {};
     for (const s of P1.st.spots) {
-      const r = await playSpot(P1.p, s, false); on.push(s.kind + ':' + r.zone); onWhy.push(s.kind + ' ' + r.pat + ' ' + (r.angle * 180 / Math.PI).toFixed(1) + 'deg@' + r.beat);
+      const r = await playSpot(P1.p, s, false); on.push(s.kind + ':' + r.zone); onWhy.push(s.kind + ' ' + r.pat + ' ' + (r.angle == null ? '-' : (r.angle * 180 / Math.PI).toFixed(1)) + 'deg@' + r.beat + ' ' + r.why);
+      const cyc = s.kind === 'car' ? 1 : D.beatsForCycle(Object.assign(D.defaultState(), { pkgDiff: 1, pat: r.pat }));
+      onOff.push(r.why === 'press' || r.why === 'let go' ? Math.abs(r.beat - Math.round(r.beat / cyc) * cyc) : 9);
       if (SHOTS && !shot[s.kind]) { shot[s.kind] = 1; }
     }
     await P1.p.waitForFunction(() => !!window.__SCAV_DONE, null, { timeout: 15000 });
@@ -230,9 +242,11 @@ async function playSpot(p, s, off) {
     for (const s of P2.st.spots) { const r = await playSpot(P2.p, s, true); offz.push(s.kind + ':' + r.zone); }
     await P2.ctx.close();
     const sc = a => a.reduce((t, x) => t + SCORE[x.split(':')[1]], 0) / Math.max(1, a.length);
-    const onRight = (onz, offz2) => onz.length >= 3 && onz.every(x => /:(kill|vital)$/.test(x)) && sc(onz) > sc(offz2) + 0.5;
+    /* the harness's own lateness is not the game's: a tap the test delivered more than a tenth of a beat (50 ms) off the ONE is reported, not judged */
+    const timely = on.filter((x, i) => onOff[i] <= 0.1);
+    const onRight = (onz, offz2) => onz.length >= 4 && onz.every(x => /:(kill|vital)$/.test(x)) && sc(onz) > sc(offz2) + 0.5;
     ok('B3 played with real taps on a phone: every tap on the ONE (and every hold let go on it) pays dead centre or good, and a beat off grades worse',
-      onRight(on, offz), 'on the ONE ' + on.join(' ') + ' | a beat off ' + offz.join(' ') + (onRight(on, offz) ? '' : ' | ' + onWhy.join(', ')));
+      onRight(timely, offz), 'on the ONE ' + on.map((x, i) => x + (onOff[i] > 0.1 ? '(late ' + onOff[i].toFixed(2) + ' beat)' : '')).join(' ') + ' | a beat off ' + offz.join(' ') + (onRight(timely, offz) ? '' : ' | ' + onWhy.join(', ')));
     caught('B3, a dial that pays dead centre wherever the needle is', onRight(on, offz.map(x => x.split(':')[0] + ':kill')));
     const findsBack = (d, spots) => !!d && d.finds.length === spots && d.finds.every(f => f.greedMult === 1 && f.got === R.findOf(f.kind, f.zone)) && d.why === 'all searched';
     ok('B4 what comes back: one find a spot, each the table\'s, greedMult 1, handed back when the last spot is done', findsBack(done, P1.st.spots.length),

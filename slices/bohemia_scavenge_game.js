@@ -32,7 +32,9 @@
 (function (root) {
   'use strict';
   var MAX_SPOTS = 6;
-  var GIVE_UP_BEATS = 16;          /* four bars on the dial and no press: he gives up, nothing */
+  var GIVE_UP_BEATS = 16;          /* at least four bars on the dial and no press: he gives up, nothing (never before the middle came round twice) */
+  var MAX_CYCLE = 8;               /* QUICK (his 'fun quick minigame'): only the patterns whose middle comes round at least every two bars (4 s);
+                                      at NORMAL 25 of the 36 patterns take 12 to 20 beats, measured 11/7, too slow for a spot of about 6 s */
   var ARM_BEATS = 1;               /* the dial opens on a downbeat with the needle at rest in the middle; a press before one beat has
                                       passed is not taken (the middle comes round again on the next ONE) */
   var SIPHON_BEATS = { 0: 8, 1: 4, 2: 4, 3: 2, 4: 2 };     /* edge to middle, in beats, by package (EASY two bars ... BOHEMIAN half a bar) */
@@ -140,6 +142,16 @@
   }
   function siphonOver(b, pkg) { return siphonAngle(b, pkg) > dial().K.LIM; }   /* past the far edge: he let it run into his mouth */
   function siphonBeats(pkg) { return SIPHON_BEATS[pkg] != null ? SIPHON_BEATS[pkg] : 4; }
+  /* the dial's pattern for a spot: the package's own pool (the engine's), only the quick ones; the shortest if none is quick */
+  function quickPool(Dial, G) {
+    var pool = Dial.packagePool(G), keep = pool.filter(function (p) { var H = Object.assign({}, G, { pat: p, greedHeld: false }); return Dial.beatsForCycle(H) <= MAX_CYCLE; });
+    if (keep.length) return keep;
+    var best = null; pool.forEach(function (p) { var n = Dial.beatsForCycle(Object.assign({}, G, { pat: p, greedHeld: false })); if (!best || n < best.n) best = { p: p, n: n }; });
+    return best ? [best.p] : ['snap'];
+  }
+  function rollQuick(Dial, G, r) { var q = quickPool(Dial, G); G.pat = q[Math.floor((r || Math.random)() * q.length)] || q[0]; G.patT = 0; G.musicT = 0; G.angle = 0; G.dir = (r || Math.random)() < 0.5 ? 1 : -1; return G.pat; }
+  /* he waits for the middle to come round twice before he gives up */
+  function giveUpBeats(Dial, G) { return Math.max(GIVE_UP_BEATS, 2 * Dial.beatsForCycle(G) + 2); }
   function findOf(kind, zone) { return zone && zone !== 'miss' && FINDS[kind] ? FINDS[kind][zone] || null : null; }
   /* the resolution contract's row (engine/bohemia_engine.js CombatBridge: outcome killshot | hit | miss, zone, greedMult, patMeta) */
   function result(spot, zone, extra) {
@@ -148,7 +160,7 @@
   }
 
   var API = {
-    MAX_SPOTS: MAX_SPOTS, GIVE_UP_BEATS: GIVE_UP_BEATS, ARM_BEATS: ARM_BEATS, SIPHON_BEATS: SIPHON_BEATS, FINDS: FINDS, ZONE_WORD: ZONE_WORD,
+    MAX_SPOTS: MAX_SPOTS, GIVE_UP_BEATS: GIVE_UP_BEATS, MAX_CYCLE: MAX_CYCLE, quickPool: quickPool, rollQuick: rollQuick, giveUpBeats: giveUpBeats, ARM_BEATS: ARM_BEATS, SIPHON_BEATS: SIPHON_BEATS, FINDS: FINDS, ZONE_WORD: ZONE_WORD,
     candidates: candidates, spots: spots, dirt: dirt, houseAt: houseAt, LAND: LAND, ASPHALT: ASPHALT, centroid: centroid, zoneOf: zoneOf, beepsPerBeat: beepsPerBeat,
     siphonAngle: siphonAngle, siphonOver: siphonOver, siphonBeats: siphonBeats, findOf: findOf, result: result, carAt: carAt, openTile: openTile
   };

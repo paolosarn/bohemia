@@ -1,7 +1,7 @@
 SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- BUILD 11/7k SCAVENGE ON THE DIAL, BUILT, NOT YET SEEN (rule 426(b), his YES; rule 331; ask line 493):
 a town's junk lot, 'Search the lot' (4 hours) opens the minigame on the block's own fight board: up to six spots lit by what the board
 has (a house, open dirt, a dead car), the old Dead Shot Dial three ways (tap on the ONE, the detector by ear, the siphon hold and let go),
-one find a spot paid back in town out of YOUR mouth. Gate SCAVENGE ON THE DIAL 25/0. VOTE scavenge-on-the-dial-built-11-7.
+one find a spot paid back in town out of YOUR mouth. Gate SCAVENGE ON THE DIAL 27/0. VOTE scavenge-on-the-dial-built-11-7.
 The whole block: handoffs/SCAVENGE.md.
 [bb Battle Brothers settles a search inside an event by a hidden roll; here the roll is his thumb on the beat.]
 [analog horror: the house's needle is one torch beam in a dark room; the detector a bare tone that fills in to a held note.]

@@ -225,7 +225,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
     plate(); return true;
   }
   function openDial(A, b) {
-    var G = D.defaultState(); G.pkgDiff = S.pkg; D.rollPattern(G);
+    var G = D.defaultState(); G.pkgDiff = S.pkg; R.rollQuick(D, G);   /* the package's own patterns, only the quick ones (the middle every two bars at most) */
     if (A.spot.kind !== 'car') {
       /* the needle settles where its pattern has it now (never a free middle at the open): half a beat run invisibly */
       for (var i = 0; i < 30; i++) { G.beatClock = b - 0.5 + i / 60; D.tick(G, 1 / 60); }
@@ -291,7 +291,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
         if (per === Infinity) { if (!S.toneO) { tone(true); A.dial.flare = 1; } }
         else { if (S.toneO) tone(false); var slot = Math.floor(b * per); if (slot !== A.dial.lastBeep) { A.dial.lastBeep = slot; blip(1650, 45, 0.07); A.dial.flare = 1; } }
       } else if (Math.floor(b) !== A.dial.lastBeep) { A.dial.lastBeep = Math.floor(b); blip(Math.floor(b) % 4 === 0 ? 330 : 220, 40, 0.035, 'triangle'); }   /* the house: a soft tock a beat, the ONE lower */
-      if (b - A.dial.b0 > R.GIVE_UP_BEATS) resolve(A, 'miss', 'gave up');
+      if (b - A.dial.b0 > R.giveUpBeats(D, G)) resolve(A, 'miss', 'gave up');
       return;
     }
     if (A.phase === 'result' && b >= A.until) {

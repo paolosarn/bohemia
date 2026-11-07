@@ -19,7 +19,7 @@ Ask line 493 (and 324, 330).
 | slices/bohemia_scavenge_game.js (new) | THE RULES, node and browser: spots from the dealt board, the three ways, the finds. |
 | slices/BOHEMIA_SCAVENGE.html (new) | THE PAGE: the block's board, the crew, the lit spots, the dial, the plate. Bench: ?bench=suburb&seed=N. |
 | slices/BOHEMIA_SETTLEMENT_SCREEN.html | __SCAVENGE_ON_THE_DIAL__: 'Search the lot' (same words, same 4 hours) opens the page when the lot's dead are searched; each find comes back through the screen's own payout lines; YOU say what came back. |
-| gates/scavenge_on_the_dial_gate.js (new, in the suite as SCAVENGE ON THE DIAL) | 25 legs, 13 of them planted fails. |
+| gates/scavenge_on_the_dial_gate.js (new, in the suite as SCAVENGE ON THE DIAL) | 27 legs, 14 of them planted fails. |
 | gates/settlement_screen_gate.js | its scavenge legs re-aimed (the button opens the game; the handed-back finds paid one each until the lot runs out). |
 | slices/BOHEMIA_ALPHA_0_9.html, slices/BOHEMIA_DEMO.html | #buildstamp BUILD 11/7k - SCAVENGE ON THE DIAL; the demo re-cut by tools/bohemia_cut_the_demo.js. |
 
@@ -41,6 +41,10 @@ Ask line 493 (and 324, 330).
   car 2 (no dirt), desert ground 3 / car 3 (no houses).
 - THE DIAL, THREE WAYS, the engine unchanged: the needle on its pattern by the package (NORMAL by default), the middle on the downbeat
   (MEASURED: all 135 pattern x package pairs inside the dead centre on the ONE, worst 3.12 deg against the 3.18 deg band).
+  QUICK (his 'fun quick minigame'): a spot opens only the package's patterns whose middle comes round at least every two bars (4 s).
+  MEASURED 11/7: at NORMAL 25 of the 36 patterns take 12 to 20 beats (6 to 10 s) between middles; with them a press could wait 8 s and
+  the gate's first run lost a house to 'gave up'. Kept: EASY 4 of 9, NORMAL 11 of 36, HARD 31 of 43, VERY HARD 27 of 31, BOHEMIAN 15 of
+  16. He waits for the middle to come round twice before he gives up.
   SEARCH: one tap anywhere, the bands shown, the needle drawn as his torch beam. DETECTOR: one tap, the bands hidden; the detector's tone
   is a pure oscillator, as a real one's is: one beep a beat, two inside the blue, four inside the amber, one held tone in the dead centre,
   every beep on the 120 grid (the needle tip flares on each beep, for a muted phone). SIPHON: hold; the draw starts on the next beat and
@@ -62,9 +66,9 @@ Ask line 493 (and 324, 330).
   laptop (B5). The press is anywhere on the glass.
 
 ## PROOF (rule 13: the pre-push pass, by name)
-- SCAVENGE ON THE DIAL 25/0 (13 planted fails caught), twice in a row, about 1.5 min with the demo leg. B3 on the phone with real taps:
-  on the ONE ground:vital house:kill car:kill ground:kill house:vital car:kill; a beat off car:hit ground:miss house:vital car:hit
-  ground:hit car:hit. B6 IN THE DEMO: the town Anarchists, its own block (SUBURB, laid from the map), 6 spots, a detector spot played on
+- SCAVENGE ON THE DIAL 27/0 (14 planted fails caught), twice in a row after the rebase, about 1.5 min with the demo leg. B3 on the phone
+  with real taps: on the ONE all six dead centre (ground house car ground house car), both runs; a beat off car:hit ground:miss
+  house:miss car:hit ground:miss car:hit. (A tap the harness itself delivers more than 50 ms off the ONE is reported, not judged.) B6 IN THE DEMO: the town Anarchists, its own block (SUBURB, laid from the map), 6 spots, a detector spot played on
   the ONE -> GOOD, rounds; the town paid ammo and YOU said "Six rounds loose in a jacket pocket. 5 left on this lot."
 - THE SETTLEMENT SCREEN 74/1 (its re-aimed scavenge legs all green; the one red, "the strip says the price and shows the numbers", is a
   shop leg and red on main without this change). DEMO BUILD 25/0. HANDOFF (see the commit).
