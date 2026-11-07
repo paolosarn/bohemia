@@ -297,6 +297,16 @@
       out.push({ campMan: true, camp2: true, slot: e.i, look: e.look, name: e.main ? '' : e.name, main: e.main, act: e.act, by: e.by, face: sp.face, loop: [sp.face], beat: e.i % 4, x: sp.x, y: sp.y, ph: 0,
         clip: e.act === 'watch' ? 'smoke' : 'wait', blood: e.blood, armour: e.armour });
     });
+    /* __THE_RETINUE__ (RETINUE 11/7, rule 425(c), rule 270(b): 'each sits in the camp at his spot doing his work'): every follower with
+       you stands by his own piece as himself (records/target/bb/retinue.json's look: the body his face was made from), turned to the
+       fire; a tap on him opens the retinue. Not one of your company: no bars over him, never on the crew screen. */
+    try { var CC = up('BohemiaCamp'), FR = K.st.layout.fire, TN = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
+      if (CC && CC.row) K.st.layout.pieces.forEach(function (p, i) {
+        if (p.kind !== 'follower') return; var r = CC.row(p.follower); if (!r || !r.look) return;
+        var side = p.x >= FR.x ? 1 : -1, x = Math.round(p.x + side * 52), y = Math.round(p.y + 8);
+        var t = Math.atan2(FR.y - y, FR.x - x) * 180 / Math.PI, f = TN[(((Math.round((90 - t) / 45)) % 8) + 8) % 8];
+        out.push({ campFollower: true, follower: p.follower, look: r.look, name: r.name || '', act: 'watch', face: f, loop: [f], beat: i % 4, x: x, y: y, ph: 0, slot: 100 + i, clip: 'wait' });
+      }); } catch (e) {}
     out.sort(function (a, b) { return a.y - b.y; });
     K.folk = out; K.folkKey = key; K.hide = hide;
     return out;

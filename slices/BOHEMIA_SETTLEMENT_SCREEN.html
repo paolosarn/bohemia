@@ -102,6 +102,17 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 /* the shelf and the bag: square slots, Battle Brothers' stash grid */
 .gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
 .campf{margin:8px 0;padding:8px 8px 2px;border:1px solid var(--line);background:rgba(255,235,200,.03)}.campf b{display:block;font-size:12px;letter-spacing:1px;color:var(--gold)}.campf p{margin:4px 0 6px;font-size:11px;line-height:1.4;color:var(--ink)}.gridh.warn{color:#e2a35a}   /* __THE_CAMP__ */
+.retf{display:grid;grid-template-columns:40px minmax(0,1fr) 80px;grid-template-areas:"face nm act" "face does act" "more more more";gap:0 8px;padding:5px 6px;margin:4px 0;align-items:start}
+.retf .rface{grid-area:face;width:40px!important;height:40px!important;flex:none;cursor:pointer}.retf .rname{grid-area:nm;min-width:0;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;line-height:15px}.retf .rname b{display:inline!important;font-size:11px!important;letter-spacing:1px;color:var(--gold)}.retf .rname span{margin-left:6px;font-size:11px;letter-spacing:1px;opacity:.8}
+.retf .rdoes{grid-area:does;margin:0!important;font-size:11px!important;line-height:14px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.retf.open .rdoes{display:block}
+.retf>.act{grid-area:act;margin:0!important;min-height:44px;height:44px;padding:2px 4px!important;display:grid!important;grid-template-columns:1fr;justify-items:center;align-content:center;row-gap:1px}.retf>.act>span{font-size:11px;letter-spacing:1px;text-transform:uppercase;line-height:14px}.retf>.act>em{display:inline-flex;align-items:center;gap:2px;font-size:13px;line-height:15px;font-weight:bold;font-style:normal}.retf>.act>em:not(:empty)::after{content:"";display:inline-block;width:11px;height:11px;background:var(--bm-batt) center/contain no-repeat;image-rendering:pixelated}
+.retf .rmore{grid-area:more;display:none;grid-template-columns:80px minmax(0,1fr);gap:0 8px;align-items:center;margin-top:4px}.retf.open .rmore{display:grid}.retf .rfig{width:80px;height:124px;image-rendering:pixelated}.retf .rmore p{margin:2px 0;font-size:11px;line-height:15px}.retf .rwas{opacity:.75}.retf .rsays{font-style:italic}
+#sheet.ns-d1 .retf{padding:3px 6px;margin:2px 0}#sheet.ns-d3 .retf{padding:0 6px;margin:0;align-items:center}#sheet.ns-d2 .retf:not(.open) .rdoes{-webkit-line-clamp:1}#sheet.ns-d2 .retshut .gridh,#sheet.ns-d3 .acts>.gridh.retinueh{display:none}#sheet.ns-d2 .retsf{width:46px}#sheet.ns-d2 .retsf .face{width:34px!important;height:34px!important}
+.retgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:4px;margin:4px 0}.retgrid .rett{display:flex;flex-direction:column;align-items:center;gap:2px;margin:0;padding:3px 2px;border:1px solid var(--line);background:rgba(255,235,200,.03);min-width:0}
+.rett .rface{width:40px!important;height:40px!important;flex:none;cursor:pointer}.rett .rrole{font-size:11px;line-height:13px;letter-spacing:.5px;text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.rett>.act{margin:0!important;width:100%;min-height:44px;height:44px;padding:0 2px!important;display:flex!important;align-items:center;justify-content:center;gap:2px}.rett>.act>span{font-size:11px;letter-spacing:.5px;text-transform:uppercase}.rett>.act>span:empty{display:none}.rett>.act>em{display:inline-flex;align-items:center;gap:2px;font-size:13px;font-weight:bold;font-style:normal}.rett>.act>em:empty{display:none}.rett>.act>em:not(:empty)::after{content:"";display:inline-block;width:11px;height:11px;background:var(--bm-batt) center/contain no-repeat;image-rendering:pixelated}
+.rett.with{border-color:var(--gold)}.rett.sel{outline:2px solid var(--gold);outline-offset:-2px}.rett.shut .rface{opacity:.6}.retdetail.retf{grid-template-columns:40px minmax(0,1fr);grid-template-areas:"face nm" "face does" "more more";border:1px solid var(--line)}
+@media (min-aspect-ratio:4/3) and (max-height:620px){.retgrid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:3px}.retgrid .rett{flex-direction:row;padding:2px;gap:4px}.rett .rrole{display:none}.rett>.act{flex:1;width:auto}}   /* __THE_RETINUE__ (RETINUE 11/7): a row a person, the hall's own row (rule 402 amended) */
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
 .slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);
   font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
@@ -2968,6 +2979,114 @@ function campSay(body, line){
 }
 function tentKey(c){ c = c || {}; var b = c.bill || {}; return [c.night ? 1 : 0, b.perNight, b.daysLeft, c.cleared || ''].join('|'); }
 function campLine(acts, t, cls){ var d = document.createElement('div'); d.className = cls || 'gridh'; d.textContent = t; acts.appendChild(d); return d; }
+/* ==== __THE_RETINUE__ (RETINUE 11/7, rule 425(c), ask line 206; Paolo 10/26: 'do research on all the people in Battle Brothers who
+   can join your camp and what they do to help you'). Each of the eighteen is a person of the dead Las Vegas (records/target/bb/
+   retinue.json, a modder's file): his own face and his own body (one id, a person of the valley), who he was, his one effect, his
+   price, bought once (rule 56), one to a place by the fire (the slots by CLOUT, rule 151). Met in a town's hall (Battle Brothers
+   hires its retinue in a town), kept at the camp (rule 151(d)); one card for both, so the two never say different things.
+   Words are attempts, draft:true. ==== */
+function retinueWeek(){ return Math.floor(buildDay() / 7); }
+function retinueHere(){
+  var C = window.BohemiaCamp; if(!C || !C.inTown || !S.place) return [];
+  var all = C.offer(), by = {}; all.forEach(function(o){ by[o.id] = o; });
+  return C.inTown(S.place.name, retinueWeek()).map(function(id){ return by[id]; }).filter(Boolean);
+}
+function retinueSlotWords(){
+  var R = window.BohemiaRenown, C = window.BohemiaCamp, sl = R ? R.slots() : 0, mine = C ? C.retinue().length : 0, nx = R ? R.nextSlot() : null;
+  return mine + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at + ' ' + (R.WORD || 'CLOUT') : '');
+}
+function retinueHer(f){ var P = f && f.look && window.BohemiaRigBodies && BohemiaRigBodies.person ? BohemiaRigBodies.person(f.look) : null; return !!(P && P.sex === 'f'); }
+/* his whole body, standing three quarters to you: the same person as the face (ONE ID, ONE WHOLE PERSON), never a crop of it */
+function retinueFig(look){
+  var W = 80, H = 124;   /* THE PERSON MAY NOT ZOOM (rule 21): his body at its own pixels, one to one, as the street draws him */
+  var c = document.createElement('canvas'); c.width = W; c.height = H; c.style.width = W + 'px'; c.style.height = H + 'px'; c.className = 'rfig'; c.dataset.look = look || '';
+  var B = window.BohemiaRigBodies, n = 0;
+  (function draw(){
+    n++; var r = B && B.standing ? (B.standing(look, 'SE') || B.standing(look, 'S')) : null;
+    if(!r){ if(n < 80) setTimeout(draw, 120); return; }
+    var x = c.getContext('2d'), zf = Math.min((c.width - 2) / r.im.naturalWidth, (c.height - 2) / r.foot), z = zf >= 1 ? 1 : zf;
+    x.clearRect(0, 0, c.width, c.height); x.imageSmoothingEnabled = z < 1;
+    x.drawImage(r.im, Math.round(c.width / 2 - r.mid * z), Math.round(c.height - 2 - r.foot * z), Math.round(r.im.naturalWidth * z), Math.round(r.im.naturalHeight * z));
+    c.dataset.drawn = '1';
+  })();
+  return c;
+}
+/* his line, out of his own mouth: the face moves on the beat, the shell's one voice says it (THE FACE PERFORMS) */
+function retinueSay(fc, f, line){
+  if(!line) return;
+  if(window.BohemiaSpanglish) line = BohemiaSpanglish.say('keeper:retinue:' + f.id, line, 'settle:retinue');
+  try{ mouth(fc, line); }catch(e){}
+  heard((f.name || f.word) + ': ' + line);
+}
+function retinueTake(f, where){
+  var C = window.BohemiaCamp, R = window.BohemiaRenown, sl = R ? R.slots() : 0, mine = C ? C.retinue() : [];
+  if(!C) return false;
+  if(mine.length >= sl){ heard(sl ? 'No place left by the fire.' : 'Nobody follows a crew with no name.'); return false; }
+  var pr = C.price(f.id);
+  if(bats() < pr){ heard('Not enough batteries.'); return false; }
+  P.debit(S.purse, 'electricity', pr, 'the retinue: ' + f.id, 'follower:' + f.id, S.mapDay || 0);
+  if(where) C.meet(f.id, where);
+  C.hire(f.id); post('retinue', {retinue:C.retinue(), follower:f.id, price:pr, where:where || 'camp'}); shelf(); heard(f.hireSays || (f.word + ' is with you.'));
+  return true;
+}
+/* A ROW A PERSON (rule 402 amended, Paolo 11/7: 'make things TINIER, you don't have to make things half the screen, like displaying
+   new hires'): his face, his name and what he is, his one effect on one line, and the 44 px button at the right, the hall's own
+   row; a tap on his face or his name opens the rest of him in place (his whole body, who he was, his own words) and he says it */
+function retinueCard(f, o){
+  o = o || {};
+  var C = window.BohemiaCamp, R = window.BohemiaRenown, sl = R ? R.slots() : 0, mine = C ? C.retinue() : [];
+  var row = document.createElement('div'); row.className = (o.cls || 'campf') + ' retf' + (o.nobutton ? ' nobtn' : ''); row.dataset.id = f.id; if(f.look) row.dataset.look = f.look;
+  var fc = face(null, 'retinue:' + f.id, f.look || null); fc.classList.add('rface'); row.appendChild(fc);
+  var nm = document.createElement('div'); nm.className = 'rname';
+  var b = document.createElement('b'); b.textContent = (f.name || f.word).toUpperCase(); nm.appendChild(b);
+  var w = document.createElement('span'); w.textContent = f.word.replace(/^THE /, '') + (f.hired ? '  \u00b7  WITH YOU' : f.met && !o.town ? '  \u00b7  MET IN ' + String(f.met).toUpperCase() : ''); nm.appendChild(w);
+  row.appendChild(nm);
+  var d = document.createElement('p'); d.className = 'rdoes'; d.textContent = f.says; row.appendChild(d);   /* draft:true */
+  var more = document.createElement('div'); more.className = 'rmore';
+  var opened = false, open = function(){
+    if(!opened){ opened = true;
+      if(f.look) more.appendChild(retinueFig(f.look));
+      var tx = document.createElement('div');
+      if(f.was){ var wp = document.createElement('p'); wp.className = 'rwas'; wp.textContent = f.was; tx.appendChild(wp); }   /* draft:true */
+      if(f.line){ var q = document.createElement('p'); q.className = 'rsays'; q.textContent = '\u201C' + f.line + '\u201D'; tx.appendChild(q); }   /* draft:true */
+      more.appendChild(tx); }
+    var on = !row.classList.contains('open'); row.classList.toggle('open', on);
+    if(on) retinueSay(fc, f, f.hired ? f.hireSays : f.line);
+  };
+  fc.addEventListener('click', open); nm.addEventListener('click', open);
+  var again = o.again || function(){}, bt;
+  if(o.nobutton){ row.appendChild(more); return row; }
+  if(f.soon && !f.hired) bt = act('Not yet', String(f.price), function(){ heard((f.name || f.word) + ' is not with anybody yet.'); }, true);   /* his work waits on its screen: his hire stays shut, nobody pays for nothing; draft:true */
+  else if(f.hired) bt = act('Let go', '', function(){ C.letGo(f.id); post('retinue', {retinue:C.retinue()}); heard((f.name || f.word) + ' walks off.'); again(); });
+  else bt = act('Take on', String(f.price), function(){
+    if(retinueTake(f, o.town ? S.place.name : null)){ again(); var nw = document.querySelector('#sbody .retf[data-id="' + f.id + '"] .rface'); if(nw) retinueSay(nw, f, f.hireSays); } }, mine.length >= sl || bats() < f.price);
+  bt.dataset.price = f.price; bt.setAttribute('aria-label', bt.textContent + ' batteries, ' + (f.name || f.word));
+  row.appendChild(bt); row.appendChild(more);
+  return row;
+}
+/* THE CAMP'S LIST, ONE GLASS (rule 402): all eighteen as tiles, a face, what he is and his own 44 px button (TAKE ON with the price,
+   LET GO when he is with you, shut when his work waits on another screen); a tap on a face picks him and his line stands under the
+   tiles (a tap there opens the rest of him) */
+function retinueTile(f, o){
+  var C = window.BohemiaCamp, R = window.BohemiaRenown, sl = R ? R.slots() : 0, mine = C ? C.retinue() : [];
+  var t = document.createElement('div'); t.className = 'campf rett' + (f.hired ? ' with' : '') + (f.soon && !f.hired ? ' shut' : '') + (o.sel ? ' sel' : ''); t.dataset.id = f.id; if(f.look) t.dataset.look = f.look;
+  var fc = face(null, 'retinue:' + f.id, f.look || null); fc.classList.add('rface'); t.appendChild(fc);
+  var w = document.createElement('span'); w.className = 'rrole'; w.textContent = f.word.replace(/^THE /, ''); t.appendChild(w);
+  var pick = function(){ o.pick(f.id); }; fc.addEventListener('click', pick); w.addEventListener('click', pick);
+  var again = o.again || function(){}, bt;
+  if(f.soon && !f.hired) bt = act('Not yet', '', function(){ heard((f.name || f.word) + ' is not with anybody yet.'); }, true);   /* draft:true */
+  else if(f.hired) bt = act('Let go', '', function(){ C.letGo(f.id); post('retinue', {retinue:C.retinue()}); heard((f.name || f.word) + ' walks off.'); again(); });
+  else bt = act('', String(f.price), function(){ if(retinueTake(f, null)){ again(); var nw = document.querySelector('#sbody .retf[data-id="' + f.id + '"] .rface') || document.querySelector('#sbody .rett[data-id="' + f.id + '"] .rface'); if(nw) retinueSay(nw, f, f.hireSays); } }, mine.length >= sl || bats() < f.price);
+  bt.dataset.price = f.price; bt.setAttribute('aria-label', (f.hired ? 'Let go ' : f.soon ? 'Not yet ' : 'Take on for ' + f.price + ' batteries ') + (f.name || f.word));
+  t.appendChild(bt);
+  return t;
+}
+function retinueGrid(list, sel, pick, again){
+  var g = document.createElement('div'); g.className = 'retgrid';
+  list.forEach(function(f){ g.appendChild(retinueTile(f, { sel: f.id === sel, pick: pick, again: again })); });
+  return g;
+}
+/* ==== /__THE_RETINUE__ ==== */
 function campSheet(k){
   var tapped = k; if(window.BohemiaCampLook && VAR && VAR.camp2) k = BohemiaCampLook.sheetKey(k);   /* __CAMP_TWO__: every tent is a tent, the supplies are the cart, every follower the retinue */
   var body = document.getElementById('sbody'); body.textContent = '';
@@ -2996,19 +3115,13 @@ function campSheet(k){
     campSay(body, sl ? (mine.length < sl ? 'There\'s room for one more to travel with us. Pick who.' : 'Every place by the fire is taken. Let one go to take another.')
                     : 'Nobody follows a crew nobody\'s heard of. Get our name out there first.');   /* draft:true */
     campLine(acts, (R ? R.WORD : 'CLOUT') + ' ' + sc + '   ' + band.word + '   ' + mine.length + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at : ''));
-    (C ? C.offer() : []).forEach(function(f){
-      var row = document.createElement('div'); row.className = 'campf'; row.dataset.id = f.id;
-      var h = document.createElement('b'); h.textContent = f.word; row.appendChild(h);
-      var d = document.createElement('p'); d.textContent = f.says; row.appendChild(d);   /* draft:true */
-      if(f.who && f.who !== f.says){ var wp = document.createElement('p'); wp.textContent = f.who; wp.style.opacity = '.72'; row.appendChild(wp); }   /* __ALL_EIGHTEEN__ (CAMP TWO, rule 270): who he is in the valley, draft:true */
-      if(f.soon && !f.hired){ row.appendChild(act('Not yet', moneyWord(f.price).toUpperCase(), function(){ heard(f.word + ' is not with anybody yet.'); }, true)); acts.appendChild(row); return; }   /* his work waits on its screen: his hire stays shut, nobody pays for nothing; draft:true */
-      if(f.hired) row.appendChild(act('Let him go', '', function(){ C.letGo(f.id); post('retinue', {retinue:C.retinue()}); heard(f.word + ' walks off.'); campSheet('retinue'); }));
-      else row.appendChild(act('Take him on', moneyWord(f.price).toUpperCase(), function(){
-        if(mine.length >= sl){ heard(sl ? 'No place left by the fire.' : 'Nobody follows a crew with no name.'); return; }
-        if(bats() < f.price){ heard('Not enough batteries.'); return; }
-        P.debit(S.purse, 'electricity', f.price, 'the retinue: ' + f.id, 'follower:' + f.id, S.mapDay || 0);
-        C.hire(f.id); post('retinue', {retinue:C.retinue(), follower:f.id, price:f.price}); shelf(); heard(f.hireSays || (f.word + ' is with you.')); campSheet('retinue'); }, mine.length >= sl || bats() < f.price));
-      acts.appendChild(row); });
+    /* __THE_RETINUE__ (RETINUE 11/7): all eighteen, each his face and his own button, the ones with you first, the shut last; the
+       one picked (the follower whose piece was tapped, else the last picked, else the first with you) has his line under them */
+    var OF = C ? C.offer() : [], OS = OF.filter(function(f){ return f.hired; }).concat(OF.filter(function(f){ return !f.hired; }));
+    var pk = /^f_/.test(tapped || '') ? tapped.slice(2) : (S.retSel && OF.some(function(f){ return f.id === S.retSel; }) ? S.retSel : (OS[0] || {}).id);
+    S.retSel = pk;
+    acts.appendChild(retinueGrid(OS, pk, function(id){ S.retSel = id; campSheet('retinue'); }, function(){ campSheet('retinue'); }));
+    var FP = OF.filter(function(f){ return f.id === pk; })[0]; if(FP) acts.appendChild(retinueCard(FP, { cls: 'retdetail', nobutton: true }));
   } else if(k === 'cart'){
     var ca = C ? C.cart() : {level:0, next:null};
     campSay(body, ca.next ? 'Everything we own rides on this. More room, more we carry out of every fight.' : 'That\'s as much as we can drag around.');   /* draft:true */
@@ -3354,6 +3467,7 @@ function askCrowd(p){
 function openPerson(p, said){
   try{ leadToPerson(p); }catch(e){}   /* __THE_WALK_UP__: he walks up to the man you tapped while the talk opens */
   if(p.campMan || p.crewMan){ campMan(p); return; }   /* __THE_CAMP__ and __YOUR_CREW_LIVES_IN_THE_TOWN__: one of yours, on the crew screen */
+  if(p.campFollower){ openB('f_' + p.follower); return; }   /* __THE_RETINUE__ (RETINUE 11/7): a follower by his piece opens the retinue */
   if(p.keeper){ openB(p.k); return; }
   if(p.post){ openB('hall'); var hc = document.querySelector('#sbody .hire[data-id="' + p.rid + '"]'); if(hc){ hc.classList.add('picked'); try{ hc.scrollIntoView({block:'nearest'}); }catch(e){} } return; }
   S.open = 'person'; S.person = p;
@@ -3512,7 +3626,7 @@ function sub(k){
   if(k==='build') return buildMine() ? '1 battery, 1 day' : 'not your ground';   /* __BUILD_ON_THE_SCREEN__ */
   if(k==='lot'){ var l = left(); return l.left===0 ? 'picked clean' : l.left+' left'; }
   if(k==='arena' && window.BohemiaArenaTown) return BohemiaArenaTown.sub(S);   /* __THE_ARENA__: tonight's card under the finger */
-  if(k==='hall'){ var o = window.BohemiaFollowers && BohemiaFollowers.offerFor(S.hired,{}); return o ? o+' for hire' : 'nobody'; }
+  if(k==='hall'){ var rh = retinueHere(); return rh.length ? rh.length + ' would travel with you' : B[k].short; }   /* __THE_RETINUE__ (RETINUE 11/7): was 'cook for hire', a hire that never joined */
   return B[k].short;
 }
 
@@ -4340,30 +4454,25 @@ function openB(k, line){
   var body = document.getElementById('sbody'); body.textContent = '';
   var acts = document.createElement('div'); acts.className = 'acts';
   if(k==='hall'){
-    var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
-    if(traitMult().none) id = null;   /* sick: nobody signs on */
+    /* ==== __THE_RETINUE__ (RETINUE 11/7, rule 425(c), ask line 206): the old CAMP STAFF here (engine/bohemia_followers.js offerFor,
+       the 10/1 six) charged the purse and the map never heard who joined (it posted 'hire', which only the retired loop page reads,
+       and the map hands this screen hired:{} every visit): 200 batteries for a cook who never came. Now the few of the eighteen who
+       are in this town this week stand here as themselves (records/target/bb/retinue.json): his face and his body, who he was, what
+       he does, his price, and he joins your retinue for real (BohemiaCamp, the slots by CLOUT, the map's campSync) ==== */
+    var RT = traitMult().none ? [] : retinueHere();   /* sick: nobody signs on */
     var men = recruitsHere();
     hireLoad();   /* __THE_BEST_RECRUIT_AT_THE_TOP__: the calculator's files, before the first card */
     var calc = ceilReady() || HIRE.rosterFailed;
-    /* his line says the price the tap takes (a paymaster's cut included), never the list price */
-    var ask = id ? String(F.askLine(id) || '').replace(/for \d+ batteries/, 'for ' + (F.hirePrice ? F.hirePrice(id, S.hired) : 0) + ' batteries') : '';
-    body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : id ? ask : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : RT.length ? 'Nobody wants the posts today. A few by the door would travel with a crew, though. Talk to them.' : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
     /* THE POSTS (Battle Brothers' recruits, Grok's 'see the hire'): every man's card before you pay */
     /* __THE_BEST_RECRUIT_AT_THE_TOP__: the best at the absolute top, every visit; the header's one tap switches the order */
     if(men.length && calc){ S.hallMed = hallMedians(men); if(S.hallMed) acts.appendChild(hallSortBar()); hallSorted(men).forEach(function(r){ acts.appendChild(hireCard(r)); }); }
     else if(men.length){ var wt = document.createElement('div'); wt.className = 'gridh'; wt.textContent = 'LOOKING THEM OVER...'; acts.appendChild(wt); }
-    if(id){ var hs = document.createElement('div'); hs.className = 'gridh'; hs.textContent = 'CAMP STAFF'; acts.appendChild(hs); }
-    if(id){
-      /* the staff's price is what his line says, once, and the tap charges it (TUNING's screens seed: the button said
-         '1 battery a night', the line '200 batteries, once', the tap charged nothing); a paymaster's cut is in the price */
-      var sp = F.hirePrice ? F.hirePrice(id, S.hired) : 0;
-      acts.appendChild(act('Take the '+id+' on', moneyWord(sp) + ', once', function(){
-        if(bats() < sp) return openB('hall', F.cantAffordLine ? F.cantAffordLine(id) + ' ' + sp + ', and you have ' + bats() + '.' : 'You are short.');
-        P.debit(S.purse, 'electricity', sp, 'staff:' + id, S.place.name, S.day);
-        S.hired[id] = true; post('hire',{role:id, price:sp}); heard(F.hireLine(id)); shelf(); openB('hall');
-      }, bats() < sp));
-      acts.appendChild(act('Not now', '', function(){ S.asked[id] = true; openB('hall','Bueno. I will be around.'); }));
+    if(RT.length){
+      var hs = document.createElement('div'); hs.className = 'gridh retinueh'; hs.textContent = 'THEY WOULD TRAVEL WITH YOU   ' + retinueSlotWords(); acts.appendChild(hs);
+      RT.forEach(function(f){ try{ BohemiaCamp.meet(f.id, S.place.name); }catch(e){} acts.appendChild(retinueCard(f, { fig: true, town: true, again: function(){ openB('hall'); } })); });
     }
+    /* ==== /__THE_RETINUE__ ==== */
   }
   else if(k==='board'){
     /* THE OFFER IS A MOUTH (RUN TWO 10/17, rule 51c, rule 19): the elder keeps the board, he does not
@@ -4662,7 +4771,7 @@ function relMove(place, act){
 function relDawn(){
   if(!window.BohemiaRelations || !REL || typeof S.mapDay !== 'number') return;
   var R = relRec(), id = relId(), last = R.seen[id];
-  if(typeof last === 'number' && S.mapDay > last && id in R.bars){ var one = {bars:{}}; one.bars[id] = R.bars[id]; BohemiaRelations.dawn(one, S.mapDay - last); R.bars[id] = one.bars[id]; }
+  if(typeof last === 'number' && S.mapDay > last && id in R.bars){ var one = {bars:{}}; one.bars[id] = R.bars[id]; BohemiaRelations.dawn(one, S.mapDay - last, window.BohemiaCamp ? { fade: BohemiaCamp.mult('relFade'), mend: BohemiaCamp.mult('relMend') } : null); R.bars[id] = one.bars[id]; }   /* RETINUE 11/7: the Negotiator */
   R.seen[id] = S.mapDay; relSave();
 }
 function opinionNow(){

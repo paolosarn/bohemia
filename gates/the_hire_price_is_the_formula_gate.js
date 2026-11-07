@@ -106,24 +106,28 @@ const srv = http.createServer((rq, rs) => {
   const hm = log.find(m => m.act === 'hireMan'), after = log.length ? log[log.length - 1].batteries : null;
   ok('  Hire takes exactly the price on the button from the stash', !!hm && hm.price === pick.shown && after === 200 - pick.shown, pick.backgroundId + ' ' + pick.shown + ': 200 -> ' + after);
 
-  /* the camp staff: button, line and tap agree */
-  let staffOk = false, staffWhy = 'no staff offered';
-  await s.p.evaluate(() => { window.__goodbros = window.BohemiaGoodBros; window.BohemiaGoodBros = null; });   /* nobody at the post, so the keeper says the staff's own line */
+  /* the camp staff: button, line and tap agree. RE-AIMED 11/7 (RETINUE, rule 425(c), ask line 206): the old CAMP STAFF ('Take the cook
+     on', engine/bohemia_followers.js) took its price and nobody joined (it posted 'hire', which only the retired loop page reads); the
+     hall's staff are the retinue's people now (records/target/bb/retinue.json), each with his face; the paymaster with you, every
+     other's button, his tap and the purse all say the file's price less 15 percent, once */
+  let staffOk = false, staffWhy = 'no follower in the hall';
+  await s.p.evaluate(() => { window.__goodbros = window.BohemiaGoodBros; window.BohemiaGoodBros = null; localStorage.removeItem('bohemia.camp.v1');
+    BohemiaRenown.add(1000, 'the gate: two places by the fire', 'gate:staff'); BohemiaCamp.hire('paymaster'); });
   for (let d = 4; d < 60 && !staffOk; d += 7) {
-    const staffCards = await hall(s.p, 'STAFF ' + d, 'town', d, 600);
-    const st = await s.p.evaluate(() => { const btn = Array.from(document.querySelectorAll('#sheet button')).find(x => /Take the/.test(x.textContent)); if (!btn) return null;
-      const say = (document.querySelector('#sheet .say p') || {}).textContent || ''; const id = (btn.textContent.match(/Take the (\w+) on/) || [])[1];
-      return { id, btn: +((btn.textContent.match(/(\d+)\s*batt/) || [])[1]), said: +((say.match(/for (\d+) batteries/) || [])[1] || NaN), price: window.BohemiaFollowers ? BohemiaFollowers.hirePrice(id, BohemiaSettlement.state.hired || {}) : null }; });
+    await hall(s.p, 'STAFF ' + d, 'town', d, 600);
+    const st = await s.p.evaluate(() => { const c = Array.from(document.querySelectorAll('#sheet .retf')).find(x => { const b = x.querySelector('button.act'); return b && !b.disabled; }); if (!c) return null;
+      const btn = c.querySelector('button.act'); return { id: c.dataset.id, btn: +btn.dataset.price, price: BohemiaCamp.price(c.dataset.id), list: BohemiaCamp.row(c.dataset.id).price, face: !!c.querySelector('canvas.face') }; });
     if (!st) continue;
     const n0 = await s.p.evaluate(() => (window.__settleLog || []).length);
-    await s.p.evaluate(() => Array.from(document.querySelectorAll('#sheet button')).find(x => /Take the/.test(x.textContent)).click());
+    await s.p.evaluate(id => document.querySelector('#sheet .retf[data-id="' + id + '"] button.act').click(), st.id);
     await s.p.waitForTimeout(250);
     const lg = await s.p.evaluate(n => (window.__settleLog || []).slice(n), n0);
-    const hr = lg.find(m => m.act === 'hire'), bal = lg.length ? lg[lg.length - 1].batteries : null;
-    staffOk = st.btn === st.price && st.said === st.btn && !!hr && hr.price === st.btn && bal === 600 - st.btn;
-    staffWhy = st.id + ': button ' + st.btn + ', line ' + st.said + ', price ' + st.price + ', 600 -> ' + bal;
+    const hr = lg.find(m => m.act === 'retinue' && m.follower === st.id), bal = lg.length ? lg[lg.length - 1].batteries : null;
+    staffOk = st.face && st.btn === st.price && st.price === Math.round(st.list * 0.85) && !!hr && hr.price === st.btn && bal === 600 - st.btn;
+    staffWhy = st.id + ': button ' + st.btn + ', the file ' + st.list + ' less the paymaster\'s 15 = ' + st.price + ', tap ' + (hr && hr.price) + ', 600 -> ' + bal;
   }
-  ok('the camp staff: the button, his line and the tap agree, the price once, taken from the stash (a paymaster\'s cut in all three)', staffOk, staffWhy);
+  ok('the camp staff: the follower\'s button, the file\'s price and the tap agree, the price once, taken from the stash (the paymaster\'s cut in all three)', staffOk, staffWhy);
+  await s.p.evaluate(() => { localStorage.removeItem('bohemia.camp.v1'); });
   await s.p.evaluate(() => { window.BohemiaGoodBros = window.__goodbros; });
   await s.ctx.close();
 

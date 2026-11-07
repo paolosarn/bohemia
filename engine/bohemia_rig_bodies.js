@@ -82,7 +82,11 @@
   /* and the man he made (RUN THREE [make your main guy], rule 263(b): bohemia.main.v1): his body is dealt to nobody else either */
   var MAINQ = { at: 0, look: null };
   function mainLook() { var t = Date.now(); if (t - MAINQ.at > 1000) { MAINQ.at = t; try { var m = JSON.parse(root.localStorage.getItem('bohemia.main.v1') || 'null'); MAINQ.look = m && m.look || null; } catch (e) { MAINQ.look = null; } } return MAINQ.look; }
-  function isCompany(look) { var p = person(look); return !!(p && p.company) || (!!look && look === mainLook()); }
+  /* __THE_RETINUE__ (RETINUE 11/7): a follower with you (engine/bohemia_camp.js looks(), his row's look) is with you, so he is dealt to
+     nobody's street either */
+  var RETQ = { at: 0, o: {} };
+  function retinueLooks() { var t = Date.now(); if (t - RETQ.at > 1000) { RETQ.at = t; try { var C = root.BohemiaCamp || (root.parent && root.parent !== root && root.parent.BohemiaCamp); RETQ.o = C && C.looks ? C.looks() : {}; } catch (e) { RETQ.o = {}; } } return RETQ.o; }
+  function isCompany(look) { var p = person(look); return !!(p && p.company) || (!!look && look === mainLook()) || (!!look && !!retinueLooks()[look]); }
   function cast(n, seed, gangs) {
     var M = mix(), pool = [];
     if (M) (gangs && gangs.length ? gangs : Object.keys(M.by_gang)).forEach(function (g) { pool = pool.concat((M.by_gang[g] || []).filter(function (l) { return !isCompany(l); })); });

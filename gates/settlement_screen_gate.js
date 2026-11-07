@@ -388,11 +388,20 @@ const srv = http.createServer((rq, rs) => {
   ok('the board holds two contracts at most', held.n === 2, held.n + ' held');
   ok('  and tells the game each one it hands over', held.told === 2, held.told + ' posted');
 
-  /* the hall hires through a mouth */
-  await tapB('hall'); await p.waitForTimeout(200);
-  await p.click('#sbody .act:has-text("Take the")'); await p.waitForTimeout(200);
-  const hired = await p.evaluate(() => Object.keys(BohemiaSettlement.state.hired));
-  ok('the hall hires the one who asked', hired.length === 1, hired.join());
+  /* the hall hires through a mouth. RE-AIMED 11/7 (RETINUE, rule 425(c)): the old CAMP STAFF ('Take the cook on') took 200 batteries
+     and nobody joined (it posted 'hire', which only the retired loop page reads); the hall's followers are the retinue's now, a person
+     with his face (records/target/bb/retinue.json), and a hire is his for real: he is in BohemiaCamp's retinue, his price taken once */
+  await p.evaluate(() => { localStorage.removeItem('bohemia.camp.v1'); if (window.BohemiaRenown) BohemiaRenown.add(300, 'the gate: a first place', 'gate:hall');
+    const S = BohemiaSettlement.state; BohemiaSettlement.open({ batteries: BohemiaPurse.balance(S.purse, 'electricity') + 1000 }); });
+  await tapB('hall'); await p.waitForTimeout(300);
+  const hallCard = await p.evaluate(() => { const c = document.querySelector('#sbody .retf'); return c ? { id: c.dataset.id, price: BohemiaCamp.price(c.dataset.id), b0: BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity') } : null; });
+  if (hallCard) { await p.click('#sbody .retf[data-id="' + hallCard.id + '"] button.act'); await p.waitForTimeout(250); }
+  const hired = await p.evaluate(() => ({ ret: BohemiaCamp.retinue(), b1: BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity') }));
+  ok('the hall hires the one who asked: he joins the retinue, his price taken once', !!hallCard && hired.ret.length === 1 && hired.ret[0] === hallCard.id && hallCard.b0 - hired.b1 === hallCard.price,
+    JSON.stringify(hallCard) + ' -> ' + JSON.stringify(hired));
+  if (await p.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await p.click('#close'); await p.waitForTimeout(300); }
+  await p.evaluate(() => { localStorage.removeItem('bohemia.camp.v1'); const S = BohemiaSettlement.state; BohemiaSettlement.open({ batteries: Math.max(0, BohemiaPurse.balance(S.purse, 'electricity') - 1000) }); });
+  await p.waitForTimeout(400);
 
   /* scavenge: one thing or nothing, and the lot runs out.
      RE-AIMED BY SCAVENGE 11/7 (rule 426(b), Paolo's YES: 'I want it to be like a fun minigame'): with no dead in the lot, 'Search the

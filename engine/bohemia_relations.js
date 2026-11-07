@@ -2,7 +2,7 @@
 // One 0..100 bar per settlement from records/target/bb/relations.json (the wiki's Relations page).
 // Pure and deterministic. A record is { bars: {settlementId: score} }, a settlement with no bar is at 50.
 //   band(score) -> band id        apply(rec, id, act)    -> {applied, before, after, band}
-//   dawn(rec, days)               drift toward 50 by 0.25 a dawn, never past it
+//   dawn(rec, days, opts)         drift toward 50 by 0.25 a dawn, never past it (opts.fade / opts.mend: the Negotiator)
 //   guardsDraw(score)             true at or below the file's guard line (ours, draft)
 //   crime(rec, id, kind, seen)    a theft costs its mapped offence, only if somebody saw it
 'use strict';
@@ -25,11 +25,14 @@
     rec.bars[id] = after;
     return { applied: true, before: before, after: after, band: band(after), delta: row.value };
   }
-  function dawn(rec, days) {
+  /* RETINUE 11/7 (rule 425(c)): the Negotiator, Battle Brothers' 'relations decay slower and recover faster': opts.fade times the
+     step down to the middle (a good word fades slower), opts.mend times the step up to it (a grudge mends faster); 1 with nobody */
+  function dawn(rec, days, opts) {
     var n = Math.max(0, days | 0), step = D.drift.value.per_dawn, t = D.drift.value.toward;
+    var fade = opts && typeof opts.fade === 'number' ? opts.fade : 1, mend = opts && typeof opts.mend === 'number' ? opts.mend : 1;
     for (var id in rec.bars) {
       var s = rec.bars[id];
-      for (var i = 0; i < n && s !== t; i++) s = s < t ? Math.min(t, s + step) : Math.max(t, s - step);
+      for (var i = 0; i < n && s !== t; i++) s = s < t ? Math.min(t, s + step * mend) : Math.max(t, s - step * fade);
       rec.bars[id] = clamp(s);
     }
     return rec;
