@@ -179,7 +179,20 @@
     var g = tradeGood(file, id); if (!g) return null;
     ctx = ctx || {};
     var v = g.worth * (sizeOf(file, ctx.tier) + (ctx.relBase || 0)) * tradeSides(file, id, ctx).sell * (ctx.sellMult || 1);
-    return Math.max(0, Math.min(Math.floor(v + 1e-9), tradeBuy(file, id, ctx) - 1));
+    /* rule 265(b): a stall pays less, never nothing (trade.sold_floor, 1); where the stall's own price is the floor too, it pays
+       back exactly what it charges, so a buy and a sell at one stall can never make a battery */
+    return Math.max(num(file.trade.sold_floor, 0), Math.min(Math.floor(v + 1e-9), tradeBuy(file, id, ctx) - 1));
+  }
+  /* ECONOMY [trade goods carried] (rule 425(b), 266(a)): one unit of a good as the piece that rides in the stash, one slot
+     (trade.slot), Battle Brothers' one item a good. ctx: {place, paid, day}. The words are the file's (draft:true, WORDS) */
+  function tradeItem(file, id, ctx) {
+    var g = tradeGood(file, id); if (!g) return null;
+    ctx = ctx || {};
+    var nm = String(g.name || id).toLowerCase();
+    return { id: 'trade_' + id, trade: id, kind: 'trade', name: (g.unit || 'a sack') + ' of ' + nm, icon: g.icon || null,
+             from: ctx.place || null, paid: ctx.paid != null ? ctx.paid : null, day: ctx.day != null ? ctx.day : null, keep: true,
+             nums: 'TRADE GOOD. ' + (g.what || nm).toUpperCase() + '. MADE BY THE ' + String((g.made_by || [])[0] || '').toUpperCase(),
+             draft: true };
   }
   /* how many of its own good a maker's stall holds each restock (none of a good it does not make: that is carried in) */
   function tradeStock(file, id, ctx) {
@@ -203,7 +216,8 @@
   var API = { mendPrice: mendPrice, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
               handful: handful, line: line, needUnits: needUnits, needAt: needAt, warns: warns, cutOf: cutOf, sizeOf: sizeOf,
               tapeShelf: tapeShelf, tapePrice: tapePrice,
-              tradeGood: tradeGood, madeHere: madeHere, makes: makes, tradeBuy: tradeBuy, tradeSell: tradeSell, tradeStock: tradeStock };
+              tradeGood: tradeGood, madeHere: madeHere, makes: makes, tradeBuy: tradeBuy, tradeSell: tradeSell, tradeStock: tradeStock,
+              tradeItem: tradeItem };
   if (HASREQ) module.exports = API;
   if (typeof window !== 'undefined') window.BohemiaStallPrices = API;
 })(this);

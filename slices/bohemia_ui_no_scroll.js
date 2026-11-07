@@ -159,7 +159,7 @@
     + S + ' .onman.ss-man .fstrip button{width:44px!important;min-height:44px;padding:1px!important}'
     + S + ' .onman.ss-man .onwho,' + S + ' .onman.ss-man .lns .ln .k,' + S + ' .onman.ss-man .fstrip .dv,' + S + ' .fstrip button{font-size:11px!important}'
     + S + ' .ss-hint{padding-top:2px!important;font-size:11px!important}'
-    + S + ' .act.stline .stl small,' + S + ' .act.stline .sw,' + S + ' .act.stline .sb small{font-size:11px!important}'
+    + S + ' .act.stline .stl small,' + S + ' .act.stline .sw,' + S + ' .act.stline .sb small,' + S + ' .act.tgline .stl small,' + S + ' .act.tgline .sb small{font-size:11px!important}'   /* ECONOMY 11/7: the stall's trade goods lines, the same */
     + S + ' .ss-acts{height:44px!important}'
     + S + ' .onman .wcls .k{font-size:11px}' + S + ' .mbars{gap:2px}'
     /* ---- A WIDE GLASS (a computer, a tablet on its side): the keeper's column stays (UI's own two columns), the men in two
@@ -184,7 +184,7 @@
     /* a shop on its side: the shelf, the bag and the strip side by side */
     +   S + '.shopping .acts{display:grid!important;grid-template-columns:182px minmax(0,1fr) 172px;column-gap:8px;align-items:start}' + S + '.shopping .ns-shelf .grid{grid-template-columns:repeat(4,44px)!important}'
     +   S + '.shopping .ns-bag{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) auto}' + S + '.shopping .ns-bag>.ns-bagh{grid-column:1;align-self:center}' + S + '.shopping .ns-bag>#selljunk{grid-column:2}' + S + '.shopping .ns-bag>#sortbag{grid-column:3}'
-    +   S + '.stalling .act.stline{min-height:46px!important;padding:1px 4px!important}' + S + '.stalling .stallstrip .ss-facts{height:auto!important;max-height:30px}' + S + '.stalling .acts>.slots{margin:0!important}'
+    +   S + '.stalling .act.stline,' + S + '.stalling .act.tgline{min-height:46px!important;padding:1px 4px!important}' + S + '.stalling .stallstrip .ss-facts{height:auto!important;max-height:30px}' + S + '.stalling .acts>.slots{margin:0!important}'
     +   S + '.shopping .acts>#shopstrip{margin:0!important;padding:0!important;border:0!important}'
     +   S + ' #sbody:has(.hsort)>.who{padding-right:min(46%,420px)}'
     +   S + ' .acts>.hsort{position:absolute;top:6px;right:58px;width:min(40%,360px);margin:0!important}'

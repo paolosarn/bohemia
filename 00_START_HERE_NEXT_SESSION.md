@@ -1,3 +1,11 @@
+ECONOMY (economy-01gkdyuu): 11/7 LATEST -- BUILD 11/7m - TRADE GOODS, BUY LOW SELL HIGH, BUILT, NOT YET SEEN (rule 425(b), asks 196
+and 197): every stall sells the good its place makes (a batch a week) and buys every good he carries (the maker for 15 in 100,
+everywhere else 110, a small place less, never nothing); a good is one piece in one stash slot; the crew screen's tap names the two
+best towns he knows and lights the map's marks, the second tap closes onto the map. Twelve pack tiles, one data file a modder edits
+(records/target/bb/stall_prices.json trade.goods). Gate TRADE GOODS CARRIED (data 4/0, phone 11/0, computer 11/0, planted fails
+caught). Record records/BOHEMIA_ECONOMY_TRADE_GOODS_CARRIED_11_7_26.md. The whole block: handoffs/ECONOMY.md.
+[bb Battle Brothers: made here buys 100 / sells 15, elsewhere 150 / 110, size 95/102/110; it never told you who pays; ours does.]
+[analog horror: candles poured again, teeth melted to bars, copper pulled out of empty walls.]
 WEAPONS (weapons-01gkdyuv): 11/7 LATEST -- BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS, BUILT, NOT YET SEEN (rule 424, ask lines
 489, 490): twelve two-handers (every two-handed sword, flail and cleaver) swung from empty fists because no picture existed; now a
 gift-shop claymore, a tow chain and a ditch blade, one a class; the crew card drew only guns, now every weapon, bow and shield as the

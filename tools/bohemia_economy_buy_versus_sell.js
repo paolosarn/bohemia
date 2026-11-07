@@ -38,7 +38,8 @@ function load(over) {
   const board = J('records/target/BOHEMIA_BOARD_SHELF.json');
   const bill = J('records/target/bb/nightly_bill.json');
   const origins = J('records/target/bb/origins.json');
-  return { file, traits, arrival, places, tiers, board, bill, origins };
+  const jobPay = J('records/target/bb/job_pay.json');
+  return { file, traits, arrival, places, tiers, board, bill, origins, jobPay };
 }
 
 /* the settlement screen's traitMult(), line for line (slices/BOHEMIA_SETTLEMENT_SCREEN.html): a caused card reads the
@@ -111,7 +112,10 @@ function run(over) {
   /* the bar: a routine contract (the board's one-skull pay, the commonest), the crew's week of food */
   const pays = D.board.offers ? D.board.offers.map(o => o.pay) : [];
   const shelf = JSON.stringify(D.board).match(/"pay":\s*(\d+)/g).map(s => +s.split(':')[1]);
-  out.routineContract = Math.min.apply(null, shelf);
+  /* ECONOMY 11/7: since job pay (rule 323 amended) a walk with no killing pays only 10 a skull, so the board's lowest pay is a
+     walk, not a contract; the routine contract is the cheapest KILLING job, whose floor is job_pay.json's floor_per_skull (30) */
+  const floorK = (D.jobPay && D.jobPay.floor_per_skull && D.jobPay.floor_per_skull.value) || 30;
+  out.routineContract = Math.min.apply(null, shelf.filter(v => v >= floorK).concat([floorK]));
   out.weekBill = 3 * D.bill.per_man_per_night.value * 7;
 
   /* the calm valley, and the lines he sees at a calm stall and at a sick one */

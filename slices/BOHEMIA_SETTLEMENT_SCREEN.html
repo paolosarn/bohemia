@@ -161,17 +161,17 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 #sheet.stalling{scroll-padding-bottom:80px}
 .stallstrip .ss-facts{height:58px;gap:2px}.stallstrip .st-what{font-size:12px;line-height:1.35;color:#e8dcc4}.stallstrip .st-warn{font-size:12px;line-height:1.3;color:#e07a5f}
 .stallstrip .ss-said{white-space:normal}
-#sheet .act.stline{padding:4px 6px 4px 8px;gap:6px}
-#sheet .act.stline .stl{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.15}
-#sheet .act.stline .stl small{font-size:10px;letter-spacing:.8px;opacity:.75}
-#sheet .act.stline .sw{font-size:10px;letter-spacing:1px;color:#8a2f12}#sheet .act.stline .sw.plenty{color:#5d5446}
-#sheet .act.stline .sb{flex:0 0 66px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;border:1px solid rgba(42,34,26,.45);border-radius:3px;background:rgba(255,250,236,.45);color:#1f1710;font:inherit;cursor:pointer;box-shadow:inset 0 1px 3px rgba(42,34,26,.35)}
-#sheet .act.stline .sb small{font-size:9px;letter-spacing:1px;color:#5d5446}
-#sheet .act.stline .sb .sp{flex:none;display:inline-flex;align-items:center;gap:3px;font-size:15px;font-weight:bold}
-#sheet .act.stline .sb .sp img{width:14px;height:14px;image-rendering:pixelated}
-#sheet .act.stline .sb.sell .sp{color:#2f5a22}#sheet .act.stline .sb.back{border-style:dashed}
-#sheet .act.stline .sb.off{opacity:.45}
-#sheet .act.stline .sb.sel{outline:2px solid #f4cf7c;outline-offset:-1px;box-shadow:0 0 0 2px rgba(244,207,124,.35),inset 0 0 8px rgba(244,207,124,.3)}
+#sheet .act.stline,#sheet .act.tgline{padding:4px 6px 4px 8px;gap:6px}
+#sheet .act.stline .stl,#sheet .act.tgline .stl{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.15}
+#sheet .act.stline .stl small,#sheet .act.tgline .stl small{font-size:10px;letter-spacing:.8px;opacity:.75}
+#sheet .act.stline .sw,#sheet .act.tgline .sw{font-size:10px;letter-spacing:1px;color:#8a2f12}#sheet .act.stline .sw.plenty,#sheet .act.tgline .sw.plenty{color:#5d5446}
+#sheet .act.stline .sb,#sheet .act.tgline .sb{flex:0 0 66px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;border:1px solid rgba(42,34,26,.45);border-radius:3px;background:rgba(255,250,236,.45);color:#1f1710;font:inherit;cursor:pointer;box-shadow:inset 0 1px 3px rgba(42,34,26,.35)}
+#sheet .act.stline .sb small,#sheet .act.tgline .sb small{font-size:9px;letter-spacing:1px;color:#5d5446}
+#sheet .act.stline .sb .sp,#sheet .act.tgline .sb .sp{flex:none;display:inline-flex;align-items:center;gap:3px;font-size:15px;font-weight:bold}
+#sheet .act.stline .sb .sp img,#sheet .act.tgline .sb .sp img{width:14px;height:14px;image-rendering:pixelated}
+#sheet .act.stline .sb.sell .sp,#sheet .act.tgline .sb.sell .sp{color:#2f5a22}#sheet .act.stline .sb.back,#sheet .act.tgline .sb.back{border-style:dashed}
+#sheet .act.stline .sb.off,#sheet .act.tgline .sb.off{opacity:.45}
+#sheet .act.stline .sb.sel,#sheet .act.tgline .sb.sel{outline:2px solid #f4cf7c;outline-offset:-1px;box-shadow:0 0 0 2px rgba(244,207,124,.35),inset 0 0 8px rgba(244,207,124,.3)}
 #sheet .slot.yours{border-color:#9fc38f}
 #sheet .slot .ys{position:absolute;left:3px;top:2px;font-size:7px;letter-spacing:.4px;color:#9fc38f;text-shadow:0 1px 0 #000;line-height:1}
 .ss-facts .ss-title{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
@@ -613,7 +613,7 @@ function ownIcon(id){ if(!OWN_MODEL[id]) return null; var im = document.createEl
 function iconTile(it, onTap, sub, money){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
-    var pk = it.kind === 'weapon' && !it.own ? packIcon(it.cls) : it.kind === 'weapon' ? ownIcon(it.id) : null;   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
+    var pk = it.kind === 'weapon' && !it.own ? packIcon(it.cls) : it.kind === 'weapon' ? ownIcon(it.id) : it.trade && it.icon ? tradeIcon(it) : null;   /* __TRADE_GOODS_CARRIED__: a good wears its pack tile */   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
     if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
     /* EYES [eyes: three pistols] (rule 150): a tile says the name its card says ('good pistol', 'beat-up pistol'), two lines at most */
     var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);
@@ -721,7 +721,7 @@ function shopStripFill(k, el){
     f.appendChild(itemNums(it, al));   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(a)): its own numbers, UI's icons */
   }
   /* his men: each face with what this piece does to him; the man it suits marked; a tap on a face puts it on him (rule 250(c)) */
-  var om = it && it.kind ? onMan(it, function(){ shopStripFill(k); }) : null;
+  var om = it && it.kind && !it.trade ? onMan(it, function(){ shopStripFill(k); }) : null;   /* __TRADE_GOODS_CARRIED__: nobody wears a good */
   if(om){ om.classList.add('ss-man'); var lns = document.createElement('div'); lns.className = 'lns'; [].slice.call(om.children).forEach(function(c){ if(c.classList && (c.classList.contains('ln') || c.classList.contains('stop'))) lns.appendChild(c); }); om.appendChild(lns); st.appendChild(om); }   /* what changes on him, in one row */
   else { var ph = document.createElement('div'); ph.className = 'onman ss-man ss-empty'; st.appendChild(ph);   /* nothing lit: his men stand in the strip already, waiting to be shown a piece */
     var crew0 = shopCrew(), fs0 = document.createElement('div'); fs0.className = 'fstrip';
@@ -1015,6 +1015,7 @@ function shopArrows(box){
    bought or took off one of his men is kept unless he lets it go. Every piece sells for what the single sale pays (its worth,
    its wear, the town's cut, the standing, the place's trait), so one tap never pays more or less than tapping them one by one. */
 function sellBack(it){
+  if(it && it.trade){ var tv = tradeSellBack(it); if(tv != null) return tv; }   /* __TRADE_GOODS_CARRIED__: every stall and shop buys a good at the town's good price (rule 265(b)) */
   /* __THE_SPOILS__: a piece looted worn sells for what is left of it (Battle Brothers: an item is worth its value times its
      condition; the Game Guide's repair table weighs worth against wear) */
   var worn = it && it.condMax > 0 ? Math.max(0, Math.min(1, it.cond / it.condMax)) : 1;
@@ -1279,7 +1280,7 @@ function stallTap(key, side, now1){
   }
   stallMark(); stallStripFill();
 }
-function stallMark(){ [].forEach.call(document.querySelectorAll('#sbody .stline .sb'), function(b){ var ln = b.parentNode; b.classList.toggle('sel', !!S.stallSel && S.stallSel.key === ln.dataset.key && S.stallSel.side === b.dataset.side); }); }
+function stallMark(){ [].forEach.call(document.querySelectorAll('#sbody .stline .sb, #sbody .tgline .sb'), function(b){ var ln = b.parentNode; b.classList.toggle('sel', !!S.stallSel && S.stallSel.key === ln.dataset.key && S.stallSel.side === b.dataset.side); }); }
 function stallDo(row, side){
   var s = stallSides(row), x = s[side], lots = stallLots(row.key), units = x.k;
   if(x.off){ S.stallSaid = null; return stallStripFill(); }
@@ -1307,10 +1308,12 @@ function stallDo(row, side){
 function stallRefresh(){
   [].forEach.call(document.querySelectorAll('#sbody .stline'), function(ln){ var r = stallRowOf(ln.dataset.key); if(r) ln.replaceWith(stallLine(r)); });
   var tl = document.getElementById('tapeleft'); if(tl && tapeOn()) tl.textContent = tapeLeftText();
+  var tg = document.getElementById('stallgoods'); if(tg) tg.replaceWith(tradeLines());   /* __TRADE_GOODS_CARRIED__ */
   stallMark(); stallStripFill();
 }
 function stallStripFill(el){
   var st = el || document.getElementById('stallstrip'); if(!st) return; st.textContent = '';
+  if(S.stallSel && /^tg:/.test(S.stallSel.key)) return tradeStripFill(st);   /* __TRADE_GOODS_CARRIED__ */
   var f = document.createElement('div'); f.className = 'ss-facts'; st.appendChild(f);
   var sel = S.stallSel, row = sel ? stallRowOf(sel.key) : null;
   if(S.stallSaid){ var sd = document.createElement('div'); sd.className = 'ss-said'; sd.textContent = S.stallSaid; f.appendChild(sd); }
@@ -1334,6 +1337,7 @@ function stallSheet(k, body, acts, line){
   if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
   rows.forEach(function(r){ acts.appendChild(stallLine(r)); });
   if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
+  try{ acts.appendChild(tradeLines()); }catch(e){}   /* __TRADE_GOODS_CARRIED__ (rule 266(a)): the goods, made here and carried */
   try{ acts.appendChild(stallGearLines()); }catch(e){}   /* FINISHER 11/2 __EVERY_STALL_BUYS__ (rule 265(b)): his gear too */
   var strip = document.createElement('div'); strip.className = 'shopstrip stallstrip'; strip.id = 'stallstrip'; acts.appendChild(strip); stallStripFill(strip);
   setTimeout(stallMark, 0);
@@ -1349,7 +1353,7 @@ var STALLGEAR = {i:-1, t:0, sel:-1};
 function stallGearPays(it){ var f = 1;
   try{ if(STALLP && window.BohemiaStallPrices) f = BohemiaStallPrices.sizeOf(STALLP, S.place.tier) / Math.max(0.01, BohemiaStallPrices.sizeOf(STALLP, 'fortress')); }catch(e){}
   return Math.max(1, Math.floor(sellBack(it) * Math.min(1, f))); }
-function stallGearList(){ return (S.stash || []).map(function(it, i){ return {it:it, i:i}; }).filter(function(x){ return x.it && x.it.id && (x.it.base || x.it.price); }); }
+function stallGearList(){ return (S.stash || []).map(function(it, i){ return {it:it, i:i}; }).filter(function(x){ return x.it && x.it.id && !x.it.trade && (x.it.base || x.it.price); }); }   /* __TRADE_GOODS_CARRIED__: a good has its own line */
 function stallGearLines(){
   var w = document.createElement('div'); w.className = 'stgear'; w.id = 'stallgear';
   var L = stallGearList(), h = document.createElement('div'); h.className = 'slots';
@@ -1384,6 +1388,133 @@ function stallGearTap(i, it, now1){
   stallMark(); stallStripFill();
 }
 /* ==== end __EVERY_STALL_BUYS__ ==== */
+/* ==== __TRADE_GOODS_CARRIED__ (ECONOMY [trade goods carried], rule 425(b), asks 196 and 197, rules 265(b) and 266(a); Paolo 10/26:
+   'in battle Brothers, you can buy goods from whatever type of settlement it is... luxury goods that you can buy just to move them
+   around to different parts of the city and sell them off for higher income'; 'even if there's just a stall at a settlement, I can
+   still sell at it... you'll probably make less money'). MEASURED: the twelve goods, their makers and Battle Brothers' prices sat in
+   records/target/bb/stall_prices.json since ECONOMY's Day 83 and the map marked what a town pays (WORLD TWO), but no stall sold a
+   good, so nothing rode in the stash and no stall bought one. NOW every stall shows THE GOODS: the good this place makes (its batch
+   a week: tradeStock, a camp 1, a town or a fortress 2) at the plain price, and every good he carries, each one line with BUY and
+   SELL side by side; one tap lights a box and the strip says it, two quick taps (a right click) do it (rule 249). A good is one piece
+   in one stash slot (trade.slot, Battle Brothers' one item a good). Every stall buys every good: the maker for 15 in 100, anywhere
+   else 110 in 100, a small place less (95 / 102 / 110), never nothing (trade.sold_floor). What he sold here this visit sits on their
+   shelf and buys back at what it paid him; what he bought sells back at what it cost (rule 248). The strip names the best price he
+   KNOWS for it (his map's own knowledge: the towns he stood in and what he heard), never the valley for free. ==== */
+var TRADEKEY = 'bohemia.trade.bought.v1', TRADETAP = {key:null, t:0};
+function tradeOn(){ return !!(STALLP && STALLP.trade && window.BohemiaStallPrices && BohemiaStallPrices.tradeItem && !S.camp); }
+function tradeCtx(){ var m = traitMult(), r = relPrice(); return {place:S.place.name, tier:S.place.tier, buyMult:m.buy, sellMult:m.sell, relBase:r.buySub, stockMult:m.stock}; }
+function tradeWeek(){ var d = STALLP.trade.restock_days; return S.place.name + ':' + Math.floor(buildDay() / ((d && d.value) || 7)); }
+function tradeTakenAll(){ try{ var a = JSON.parse(localStorage.getItem(TRADEKEY) || '{}'); return a && typeof a === 'object' ? a : {}; }catch(e){ return {}; } }
+function tradeTaken(id){ var a = tradeTakenAll()[tradeWeek()]; return a ? (a[id] | 0) : 0; }
+function tradeTake(id, n){ var A = tradeTakenAll(), k = tradeWeek(); Object.keys(A).forEach(function(x){ if(x !== k && x.slice(0, x.lastIndexOf(':')) === S.place.name) delete A[x]; });   /* a new batch forgets the old */
+  var a = A[k] = A[k] || {}; a[id] = Math.max(0, (a[id] | 0) + n); try{ localStorage.setItem(TRADEKEY, JSON.stringify(A)); }catch(e){} }
+function tradeLeft(id){ return Math.max(0, BohemiaStallPrices.tradeStock(STALLP, id, tradeCtx()) - tradeTaken(id)); }
+function tradeCarried(id){ return (S.stash || []).filter(function(it){ return it && it.trade === id; }); }
+function tradeLots(id){ if(!S.tradeLots || S.tradeLots.visit !== S.visit || S.tradeLots.place !== S.place.name) S.tradeLots = {visit:S.visit, place:S.place.name, rows:{}}; return S.tradeLots.rows[id] = S.tradeLots.rows[id] || {sold:[], bought:[]}; }
+/* the goods' lines: what this place makes first, then what he carries, then what he sold here this visit (on their shelf) */
+function tradeRows(){ if(!tradeOn()) return [];
+  var ids = BohemiaStallPrices.makes(STALLP, S.place.name).slice();
+  (S.stash || []).forEach(function(it){ if(it && it.trade && ids.indexOf(it.trade) < 0) ids.push(it.trade); });
+  if(S.tradeLots && S.tradeLots.visit === S.visit && S.tradeLots.place === S.place.name) Object.keys(S.tradeLots.rows).forEach(function(id){ if(S.tradeLots.rows[id].sold.length && ids.indexOf(id) < 0) ids.push(id); });
+  return ids.map(function(id){ var g = BohemiaStallPrices.tradeGood(STALLP, id); return g ? {key:'tg:' + id, id:id, g:g, made:BohemiaStallPrices.madeHere(STALLP, id, S.place.name)} : null; }).filter(Boolean); }
+function tradeRowOf(key){ return tradeRows().filter(function(r){ return r.key === key; })[0] || null; }
+function tradeSides(row){
+  var c = tradeCtx(), lots = tradeLots(row.id), have = tradeCarried(row.id).length, left = row.made ? tradeLeft(row.id) : 0;
+  var sl = lots.sold[lots.sold.length - 1], bl = lots.bought[lots.bought.length - 1];
+  var buy = sl ? {p:sl.p, back:true} : {p:BohemiaStallPrices.tradeBuy(STALLP, row.id, c), back:false};
+  var sell = bl && S.stash.indexOf(bl.it) >= 0 ? {p:bl.p, back:true} : {p:BohemiaStallPrices.tradeSell(STALLP, row.id, c), back:false};
+  buy.off = buy.p == null || bats() < buy.p || S.stash.length >= BAG_SLOTS || (!buy.back && (!row.made || left <= 0));
+  sell.off = !have || !(sell.p >= 1);
+  return {buy:buy, sell:sell, have:have, left:left};
+}
+function tradeWord(g, n){ return n === 1 ? g.unit + ' of ' + String(g.name).toLowerCase() : n + ' ' + (g.units || 'sacks') + ' of ' + String(g.name).toLowerCase(); }   /* draft:true */
+function tradeIcon(g){ if(!g || !g.icon) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = g.icon; return im; }
+function tradeBox(row, side, x){
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : ''); b.dataset.side = side; b.dataset.p = x.p == null ? '' : x.p;
+  if(x.off) b.setAttribute('aria-disabled', 'true');
+  var nosale = side === 'buy' && !x.back && !row.made, cap = document.createElement('small');
+  cap.textContent = x.back ? 'BACK' : side === 'sell' ? 'SELL' : nosale ? 'NOT MADE HERE' : tradeLeft(row.id) > 0 ? 'BUY' : 'ALL GONE'; b.appendChild(cap);
+  var pr = document.createElement('span'); pr.className = 'sp';
+  if(x.p != null && !nosale){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
+  b.appendChild(pr);
+  b.setAttribute('aria-label', (side === 'buy' ? (x.back ? 'Buy back ' : 'Buy ') : (x.back ? 'Sell back ' : 'Sell ')) + tradeWord(row.g, 1) + (x.p != null && !nosale ? ', ' + moneyWord(x.p) : ''));
+  b.addEventListener('click', function(){ tradeTap(row.key, side, false); });
+  b.addEventListener('contextmenu', function(e){ e.preventDefault(); tradeTap(row.key, side, true); });   /* Battle Brothers' right click */
+  return b;
+}
+function tradeLine(row){
+  var s = tradeSides(row), ln = document.createElement('div'); ln.className = 'act tgline'; ln.dataset.key = row.key; ln.dataset.good = row.id; ln.dataset.made = row.made ? '1' : '0';
+  ln.dataset.buy = s.buy.p == null ? '' : s.buy.p; ln.dataset.sell = s.sell.p; ln.dataset.have = s.have; ln.dataset.left = s.left;
+  var ic = tradeIcon(row.g); if(ic) ln.appendChild(ic);
+  var l = document.createElement('span'); l.className = 'stl'; var nm = tradeWord(row.g, 1); l.textContent = nm.charAt(0).toUpperCase() + nm.slice(1);
+  var hv = document.createElement('small'); hv.textContent = (row.made ? 'MADE HERE, ' + s.left + ' LEFT' : 'NOT MADE HERE') + ' · YOU HAVE ' + s.have; l.appendChild(hv);   /* draft:true */
+  ln.appendChild(l); ln.appendChild(tradeBox(row, 'buy', s.buy)); ln.appendChild(tradeBox(row, 'sell', s.sell));
+  return ln;
+}
+function tradeLines(){
+  var w = document.createElement('div'); w.className = 'stgoods'; w.id = 'stallgoods'; var R = tradeRows(); if(!R.length) return w;
+  var h = document.createElement('div'); h.className = 'slots'; h.textContent = 'TRADE GOODS: BUY WHERE IT IS MADE, SELL WHERE IT IS NOT'; w.appendChild(h);   /* draft:true */
+  R.forEach(function(r){ w.appendChild(tradeLine(r)); });
+  return w;
+}
+function tradeTap(key, side, now1){
+  var row = tradeRowOf(key); if(!row) return;
+  var id = key + ':' + side, now = performance.now(), twice = now1 || (TRADETAP.key === id && now - TRADETAP.t < 450);
+  TRADETAP.key = id; TRADETAP.t = now; STALLGEAR.sel = -1;
+  if(!(S.stallSel && S.stallSel.id === id)){ S.stallSel = {id:id, key:key, side:side, at:now}; S.stallSaid = null; }
+  if(twice){ TRADETAP.key = null; return tradeDo(row, side); }
+  stallMark(); stallStripFill();
+}
+/* his map's knowledge of what a town pays for one (bohemia_his_map.js sellRank: the towns he stood in and what he heard) */
+function tradeMap(){ try{ for(var w = window.parent, k = 0; w && k < 4; k++, w = w.parent){ if(w.BohemiaHisMap && w.BohemiaHisMap.sellRank) return w; if(w === w.parent) break; } }catch(e){} return null; }
+function tradeBest(id){ var W = tradeMap(); if(!W) return null; try{ var R = W.BohemiaHisMap.sellRank(id).filter(function(o){ return !o.unknown && o.name !== S.place.name; }); return R[0] || null; }catch(e){ return null; } }
+function tradeDo(row, side){
+  var s = tradeSides(row), x = s[side], lots = tradeLots(row.id), g = row.g;
+  if(x.off){
+    S.stallSaid = side === 'sell' ? 'You carry no ' + String(g.name).toLowerCase() + '.' : S.stash.length >= BAG_SLOTS ? 'Your stash is full.' : !x.back && !row.made ? 'They do not make it here. They only buy it.' : !x.back && s.left <= 0 ? 'That was this week\'s batch. More next week.' : 'You are short. ' + x.p + ', and you have ' + bats() + '.';   /* draft:true */
+    return tradeRefresh();
+  }
+  if(side === 'buy'){
+    P.debit(S.purse, 'electricity', x.p, 'stall:trade:' + row.id, S.place.name, S.day);
+    if(x.back){ var r0 = lots.sold.pop(); S.stash.splice(Math.max(0, Math.min(r0.slot | 0, S.stash.length)), 0, r0.it); }
+    else { var it = BohemiaStallPrices.tradeItem(STALLP, row.id, {place:S.place.name, paid:x.p, day:buildDay()}); S.stash.push(it); tradeTake(row.id, 1); lots.bought.push({p:x.p, it:it}); }
+    bagSave(); post('buyTrade', {good:row.id, cost:x.p, back:!!x.back});
+    S.stallSaid = (x.back ? 'Back in your bag, for what they paid you.' : 'Bought. You carry ' + tradeWord(g, tradeCarried(row.id).length) + '.');   /* draft:true */
+    S.stallSel = null;   /* done: the strip says what happened, nothing else */
+  } else {
+    var bl = lots.bought[lots.bought.length - 1], L = tradeCarried(row.id), sold = x.back && bl && S.stash.indexOf(bl.it) >= 0 ? bl.it : L[L.length - 1], slot = S.stash.indexOf(sold);
+    if(slot < 0) return tradeRefresh();
+    P.credit(S.purse, 'electricity', x.p, 'stall:sell:trade:' + row.id, S.place.name, S.day);
+    S.stash.splice(slot, 1);
+    if(x.back){ lots.bought.pop(); tradeTake(row.id, -1); } else lots.sold.push({p:x.p, it:sold, slot:slot});   /* rule 248: on their shelf, back for the same */
+    bagSave(); post('sellTrade', {good:row.id, got:x.p, back:!!x.back, paid:sold.paid, from:sold.from});
+    var gain = !x.back && sold.paid != null ? x.p - sold.paid : null;
+    S.stallSel = null;
+    S.stallSaid = 'Sold. +' + moneyWord(x.p) + (gain != null && sold.from !== S.place.name ? (gain >= 0 ? ', ' + gain + ' over what you paid at ' + sold.from + '.' : ', ' + (-gain) + ' under what you paid at ' + sold.from + '.') : '.');   /* draft:true */
+    if(!tradeCarried(row.id).length){ var W = tradeMap(); try{ if(W && W.__HIS_MAP_SELL && W.__HIS_MAP_SELL.good === row.id) W.mapSellMarks(null); }catch(e){} }   /* none left: the map's marks for it go */
+  }
+  window.__TRADE_DID = {key:row.key, good:row.id, side:side, p:x.p, back:!!x.back, have:tradeCarried(row.id).length, n:((window.__TRADE_DID || {}).n | 0) + 1};
+  sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); tradeRefresh();
+}
+function tradeRefresh(){ var o = document.getElementById('stallgoods'); if(o) o.replaceWith(tradeLines()); var gr = document.getElementById('stallgear'); if(gr) gr.replaceWith(stallGearLines()); stallMark(); stallStripFill(); }
+function tradeStripFill(st){
+  var f = document.createElement('div'); f.className = 'ss-facts'; st.appendChild(f);
+  if(S.stallSaid){ var sd = document.createElement('div'); sd.className = 'ss-said'; sd.textContent = S.stallSaid; f.appendChild(sd); }
+  var sel = S.stallSel, row = sel ? tradeRowOf(sel.key) : null; if(!row) return;
+  var s = tradeSides(row), x = s[sel.side], g = row.g, w = document.createElement('div'), t, nm = String(g.name).toLowerCase(); w.className = 'st-what';
+  if(sel.side === 'buy') t = x.back ? 'Buy back the ' + nm + ' you sold: ' + moneyWord(x.p) + ', what they paid you.'
+    : !row.made ? 'They do not make ' + nm + ' here. They only buy it.'
+    : s.left <= 0 ? 'This week\'s ' + nm + ' is gone. More next week.'
+    : 'Buy ' + tradeWord(g, 1) + ': ' + moneyWord(x.p) + '. Made here, so it pays more anywhere else. One slot in your stash.';
+  else t = x.back ? 'Sell back the ' + nm + ' you bought: ' + moneyWord(x.p) + ', what it cost.'
+    : (!s.have ? 'You carry none. ' : '') + 'They pay +' + moneyWord(x.p) + ' for ' + tradeWord(g, 1) + (row.made ? ': they make it, so they pay little.' : '.');
+  var b = tradeBest(row.id);
+  if(sel.side === 'sell' && !x.back) t += b ? (b.v > x.p ? ' Best you know: ' + String(b.name).toUpperCase() + ', +' + b.v + (b.src === 'heard' ? ', heard.' : '.') : ' Nowhere you know pays more.') : ' You know no other town\'s price yet.';
+  w.textContent = t; f.appendChild(w);   /* draft:true */
+}
+/* any piece of his worth a battery in this town: a good is the town's good price wherever he sells it, the shops' bag too */
+function tradeSellBack(it){ if(!it || !it.trade || !STALLP || !window.BohemiaStallPrices) return null; return BohemiaStallPrices.tradeSell(STALLP, it.trade, tradeCtx()); }
+/* ==== end __TRADE_GOODS_CARRIED__ ==== */
 /* ECONOMY's keeper lines for a town short of a thing (banks/BOHEMIA_ECONOMY_THE_STALLS_WORDS_10_26_26.json, draft:true; banks/ is never
    published, so the two the stall says are carried here as they are written there) */
 var STALL_WORDS = {
@@ -4676,7 +4807,7 @@ function open(o){
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
 window.BohemiaSettlement = {restock:function(){ restock(); },   /* FIXES (rule 364): the shelf rolled again (the town's ground arriving, a camp turning), for the gate */
-  tradeSell:function(id){ return tradeSellHere(id); },   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
+  tradeSell:function(id){ return tradeSellHere(id); },   trade:function(){ return tradeRows().map(function(r){ var x = tradeSides(r); return {key:r.key, id:r.id, made:r.made, buy:x.buy, sell:x.sell, have:x.have, left:x.left, ctx:tradeCtx()}; }); }, tradeFile:function(){ return STALLP; },   /* __TRADE_GOODS_CARRIED__, for the gate */   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
    /* __HIS_MAP__ WORLD TWO: this stall's price for one of a trade good today */
   _ground:function(x, y){ var G = walkGrid(), n = G && walkNearest(G, x, y, false); return n ? {x:n.x, y:n.y} : null; },   /* the nearest ground a man can stand on (the gate) */
   _walkAll:function(){   /* RUN TWO [the walk-up, on the ground]: every way between every place he can be sent, for the gate */

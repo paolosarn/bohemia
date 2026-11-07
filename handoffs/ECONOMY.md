@@ -1,5 +1,30 @@
 # ECONOMY -- the handoff block (rule 215; written only by ECONOMY, newest first; older blocks in ECONOMY_ARCHIVE.md)
 
+ECONOMY: 11/7 LATEST -- ECONOMY [trade goods carried] SHIPPED, BUILD 11/7m - TRADE GOODS, BUY LOW SELL HIGH (rule 425(b),
+asks 196 and 197, rules 265(b) and 266). BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_ECONOMY_TRADE_GOODS_CARRIED_11_7_26.md
+MEASURED: the twelve goods and Battle Brothers' prices sat in stall_prices.json since Day 83 and the map's marks waited for a tap;
+no stall sold a good, nothing rode in the stash, nothing sold (asks 196 and 197 both HALF).
+BUILT: every stall's TRADE GOODS lines (slices/BOHEMIA_SETTLEMENT_SCREEN.html __TRADE_GOODS_CARRIED__): the maker's batch a week
+(camp 1, town or fortress 2) at the plain price, every good he carries, BUY and SELL side by side, one tap lights, two do it; one
+good = one stash slot (engine tradeItem, trade.slot 1); every stall buys (maker 15/100, elsewhere 110/100, size 95/102/110,
+trade.sold_floor 1 so never nothing), the shops' bags at the same price; sold-here buys back at what it paid (rule 248); the strip
+names the best price he KNOWS elsewhere. The crew screen (BOHEMIA_ROSTER_SCREEN.html): a good wears its pack tile, one tap lists
+the two best towns he knows and lights the map's marks, two taps close onto the map; nobody wears a good; the last sale clears the
+marks. Twelve pack tiles copied as-is (slices/market_icons/g_<good>.png). A modder edits one file: stall_prices.json trade.goods.
+WALKED: copper wire 21 at the Trades' camp, the Mob 26 calm (33 on market day), the Homeless' camp 22.
+GATE: gates/trade_goods_carried_gate.js (in the suite): data 4/0 with five planted fails, phone 11/0, computer 11/0 (L9 planted live).
+FIXED ON THE WAY: BUY VERSUS SELL 44/1 -> 45/0 (S1's bar read a 10-battery walk as 'a routine contract' since job pay; now the
+cheapest killing job, floor 30).
+MAIN'S OWN REDS, MEASURED ON CLEAN MAIN: NO RUN ENDS FOR TAPE 16/3 (N1), THE SMITH MENDS 6/2 (M1, M4), THE MARKET IN THE PACK'S
+ART 7/1 (w_pistol, COOK's golden piece).
+LEFT: a good sold where it is not made vanishes when he leaves (Battle Brothers keeps it on the shelf); no clear button on the
+map (WORLD TWO's screen); goods' names draft (WORDS); CAMP TWO's trader follower not wired.
+PENDING Paolo: nothing.
+[bb Battle Brothers: made here buys 100 / sells 15, elsewhere 150 / 110, size 95/102/110, one item a good, no map of who pays;
+ours keeps the numbers, a batch a week, and the map says who pays from what he saw and heard.]
+[analog horror: candles burned down and poured again, rings and teeth melted to bars, copper pulled out of empty walls.]
+
 ECONOMY: 11/2 LATEST -- ECONOMY 2 [a job pays for the time and the risk] SHIPPED, BUILD 11/3zc, the walk's smaller margin 11/3zd - THE WORK PAYS (rule 323 and
 its amendment the same round, ask lines 320 and 321). NOT YET SEEN.
 Record: records/BOHEMIA_ECONOMY_A_JOB_PAYS_FOR_THE_TIME_AND_THE_RISK_11_2_26.md

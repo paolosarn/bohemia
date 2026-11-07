@@ -787,6 +787,7 @@ function shortName(it){ return it.name.replace(/^(a|an) /,''); }
    his arm does in the fight, read the fight's way (BohemiaRoster.armOf) */
 function armLine(it, long){ return C.armLine ? C.armLine(it, long) : null; }   /* the words live in engine/bohemia_roster.js, so the hall's man reads the same line (10/24) */
 function itemPic(it, px){
+  if(it.trade && it.icon){ var gi = document.createElement('img'); gi.className = 'pk'; gi.alt = ''; gi.src = it.icon; return gi; }   /* __TRADE_GOODS_CARRIED__: a good wears its pack tile */
   var f = it.kind === 'weapon' && PACK_ICON[it.cls];
   if(f){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
   try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, px || 26); ic.dataset.id = it.id; return ic; } }catch(e){}
@@ -797,14 +798,14 @@ function itemPic(it, px){
 function numsText(it){ var al = it.kind === 'weapon' && armLine(it, true), t = String(it.nums || '').replace(/\s+2 hands/i, '');
   if(al){ t = t.replace(/\s+reach \d+/, '') + '. ' + al.reach + (al.rounds ? '. ' + al.rounds : ''); }
   return t + (C.twoHanded(it) ? '. TWO HANDS' : ''); }
-function fits(it, slot){ if(!it) return false; if(BAG_GEAR.indexOf(slot) >= 0) return it.kind === 'weapon' || it.kind === 'shield'; return C.slotFor(it) === slot; }
+function fits(it, slot){ if(!it || it.trade) return false;   /* __TRADE_GOODS_CARRIED__: a good goes on nobody */ if(BAG_GEAR.indexOf(slot) >= 0) return it.kind === 'weapon' || it.kind === 'shield'; return C.slotFor(it) === slot; }
 /* AN ITEM'S ONE NUMBER, and whether it beats what he wears there: a weapon its damage (the middle of its roll), armour, a head
    and a shield what it holds. Read from the item's own words (nums), the same the market prints. */
 function numsOf(it){ var s = String(it && it.nums || ''), d = s.match(/dmg\s+(\d+)\s*-\s*(\d+)/), h = s.match(/holds\s+(\d+)/), w = s.match(/weight\s+(\d+)/);
   return { lo: d ? +d[1] : null, hi: d ? +d[2] : null, holds: h ? +h[1] : null, weight: w ? +w[1] : 0 }; }
 function worth(it){ if(!it) return 0; var n = numsOf(it); return it.kind === 'weapon' ? ((n.lo || 0) + (n.hi || 0)) / 2 : (n.holds || 0); }
 function face(it){ var n = numsOf(it); return it.kind === 'weapon' ? (n.lo != null ? n.lo + '-' + n.hi : '') : (n.holds != null ? String(n.holds) : ''); }
-function slotOf(it){ return S.pick && S.pick.man === S.sel && fits(it, S.pick.slot) ? S.pick.slot : C.slotFor(it); }
+function slotOf(it){ if(it && it.trade) return null; return S.pick && S.pick.man === S.sel && fits(it, S.pick.slot) ? S.pick.slot : C.slotFor(it); }
 function delta(it, m){ var s = slotOf(it), cur = m && m.gear[s]; return Math.round(worth(it) - worth(cur)); }
 /* he says his line with the face on the line, once each time he is picked */
 function talkOnLine(){
@@ -1023,7 +1024,7 @@ function drawBag(){
     var ip = itemPic(it, 30); ip.classList.add('bm-icon'); ip.dataset.id = it.id; b.appendChild(ip); var v = document.createElement('b'); v.textContent = face(it); if(it.kind === 'weapon') v.dataset.dmg = '1';   /* __UI_THREE_STATS__ [a damage icon] (rule 275(b)): a weapon's number is its damage, and wears damage's picture */   /* the kit's own icon mark: the paint layer never adds a second */
     var dv = m ? delta(it, m) : 0; if(m && fits(it, slotOf(it))) v.className = dv > 0 ? 'up' : dv < 0 ? 'dn' : ''; b.appendChild(v);
     b.addEventListener('click', function(){ if(S.dragged) return; tapItem(i); });
-    b.addEventListener('contextmenu', function(e){ e.preventDefault(); S.cmp = null; equip(i, slotOf(it)); });   /* a computer: right-click puts it on, Battle Brothers' own */
+    b.addEventListener('contextmenu', function(e){ e.preventDefault(); if(it.trade){ S.cmp = i; return tapGood(i, it); } S.cmp = null; equip(i, slotOf(it)); });   /* a computer: right-click puts it on, Battle Brothers' own (a good: shown on the map) */
     b.addEventListener('mouseenter', function(e){ if(S.cmp != null || (e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents)) return; S.hover = i; compareLine(it); paintCmp(); });
     b.addEventListener('mouseleave', function(){ if(S.hover !== i) return; S.hover = null; if(S.cmp == null) say(''); paintCmp(); });
     el.appendChild(b);
@@ -1033,6 +1034,7 @@ function drawBag(){
 /* the comparison, in the one line: what it is, what he wears there now, the difference; and how to put it on */
 function compareLine(it){
   var m = S.crew[S.sel]; if(!m || !it) return;
+  if(it.trade) return goodLine(it);   /* __TRADE_GOODS_CARRIED__: nobody wears a good */
   var s = slotOf(it), cur = m.gear[s], dv = delta(it, m);
   var tw = s === 'main' && C.twoHanded(it) && m.gear.off ? ' The ' + shortName(it) + ' takes both hands: the ' + shortName(m.gear.off) + ' goes to the stash.' : s === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' The ' + shortName(m.gear.main) + ' takes both hands, so it goes to the stash.' : '';   /* RUN TWO rule 194(c): the weapon takes both hands, the shield is one */
   say('<b>' + esc(shortName(it).toUpperCase()) + '</b> ' + esc(numsText(it)) +
@@ -1068,9 +1070,36 @@ function paintStats(){ var m = S.crew[S.sel]; if(!m || !window.BohemiaStats) ret
 /* ONE TAP SHOWS THE COMPARISON, THE SECOND PUTS IT ON */
 function tapItem(i){
   var it = S.bag[i], m = S.crew[S.sel]; if(!it || !m) return; S.ask = null;
+  if(it.trade) return tapGood(i, it);   /* __TRADE_GOODS_CARRIED__ */
+  goodMarks(null);
   if(S.cmp === i){ S.cmp = null; equip(i, slotOf(it)); return; }
   S.cmp = i; S.hover = null; draw(); compareLine(it);
 }
+/* ==== __TRADE_GOODS_CARRIED__ (ECONOMY [trade goods carried], rule 266(b), ask 197; Paolo 10/26: 'is there a way we can visually
+   let people know from map mode... I didn't know off the bat which city has the best selling price of my goods'). A good in the bag:
+   ONE TAP lights it, says where it was bought and for what, and the towns he KNOWS by what they pay for one, best first (his map's
+   own knowledge, bohemia_his_map.js sellRank: towns he stood in and prices he heard; a town seen and never priced is a question
+   mark), and lights the marks on the map (mapSellMarks); TWO TAPS (a right click) close this screen onto the map, the towns
+   marked. A tap on anything else takes the marks away. Nobody wears a good: it never goes on a man. ==== */
+function goodMap(){ var hit = null; (function look(w, d){ if(hit || !w || d > 4) return; try{ if(w.mapSellMarks && w.BohemiaHisMap){ hit = w; return; } }catch(e){ return; }
+  try{ for(var i = 0; i < w.frames.length; i++) look(w.frames[i], d + 1); }catch(e){} })(window.top, 0); return hit; }
+function goodMarks(id){ var W = goodMap(); if(!W) return null; try{ if(!id && !(W.__HIS_MAP_SELL && W.__HIS_MAP_SELL.good)) return []; return W.mapSellMarks(id || null); }catch(e){ return null; } }
+function goodLine(it, rank){
+  var R = rank || (function(){ var W = goodMap(); try{ return W ? W.BohemiaHisMap.sellRank(it.trade) : null; }catch(e){ return null; } })();
+  var nm = String(it.name || '').replace(/^(a|an) [a-z]+ of /, '').replace(/^(a|an) /, ''), known = (R || []).filter(function(o){ return !o.unknown; });
+  /* three short lines: the phone stands over the right of this line's foot, so the second and third stay under 33 letters */
+  var where = known.slice(0, 2).map(function(o){ return esc(String(o.name).toUpperCase()) + ' <b class="up">+' + o.v + '</b>'; }).join(', ');
+  say('<b>' + esc(nm.toUpperCase()) + '</b>' + (it.from ? ' paid ' + (it.paid != null ? it.paid + ' ' : '') + 'at ' + esc(String(it.from).toUpperCase()) : '') +
+      '<br>' + (where ? 'BEST: ' + where : 'NO TOWN\'S PRICE KNOWN YET') +
+      '<br>' + (S.cmp != null ? 'TAP IT AGAIN: THE MAP' : where ? 'THE MAP MARKS WHO PAYS' : 'A STALL TELLS YOU ITS PRICE'), true);   /* draft:true */
+  return R;
+}
+function tapGood(i, it){
+  if(S.cmp === i){ S.cmp = null; goodMarks(it.trade); window.__GOOD_SHOWN = {id:it.trade, n:((window.__GOOD_SHOWN || {}).n | 0) + 1}; var dn = document.getElementById('done'); if(dn) dn.click(); return; }   /* his map, the towns marked */
+  S.cmp = i; S.hover = null; draw(); var R = goodMarks(it.trade); goodLine(it, R);
+  window.__GOOD_TAPPED = {id:it.trade, i:i, rank:(R || []).map(function(o){ return o.unknown ? {name:o.name, unknown:true} : {name:o.name, v:o.v, rank:o.rank, src:o.src}; })};
+}
+/* ==== end __TRADE_GOODS_CARRIED__ ==== */
 /* the perks he may take now, on the PERK tab beside him: one tap takes it (its words are on the button) */
 /* FINISHER 11/2 (ask line 179, rule 252(c): 'I don't want a single perk without an icon'): the perk's picture, COOK's fifty from the
    master rig (slices/perk_icons/<id>.png, one for every id of perks.json); a perk with no picture shows its words alone */
@@ -1091,6 +1120,7 @@ function doer(m, v){ return m.main ? 'You ' + v.replace(/s$/, '') : m.name + ' '
 /* he wears it; what he wore goes back in the stash */
 function equip(bi, slot){
   var m = S.crew[S.sel], it = S.bag[bi]; if(!m || !it) return;
+  if(it.trade){ say('Nobody wears ' + shortName(it) + '. It rides in the stash until a stall buys it.'); return; }   /* __TRADE_GOODS_CARRIED__ (draft:true) */
   var s = slot || C.slotFor(it);
   if(slot && !fits(it, slot)){ say(BAG_GEAR.indexOf(slot) >= 0 ? 'A bag slot holds a weapon or a shield.' : 'That does not go there.'); return; }
   /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): a long gun takes both hands, so the shield goes to the stash; a shield in a

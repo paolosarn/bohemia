@@ -46,3 +46,17 @@ own_bowie_knife (11/7, WEAPONS [more one-handers], rule 424(b)): not a pack tile
 own_pipe_wrench (11/7, WEAPONS [more one-handers], rule 424(b)): not a pack tile; reference/models/bohemia/item_pipe_wrench.glb through the master rig on the bag's diagonal (tools/bohemia_weapons_every_weapon_shows_11_7_26.py shelf)
 own_tomahawk (11/7, WEAPONS [more one-handers], rule 424(b)): not a pack tile; reference/models/bohemia/item_tomahawk.glb through the master rig on the bag's diagonal (tools/bohemia_weapons_every_weapon_shows_11_7_26.py shelf)
 own_slot_handle (11/7, WEAPONS [more one-handers], rule 424(b)): not a pack tile; reference/models/bohemia/item_slot_handle.glb through the master rig on the bag's diagonal (tools/bohemia_weapons_every_weapon_shows_11_7_26.py shelf)
+
+THE TRADE GOODS (11/7, ECONOMY [trade goods carried], rule 266(a), rule 425(b)): each good is a pack tile copied as-is from reference/art_bank/prop (no pixel changed); the file that names them is records/target/bb/stall_prices.json trade.goods[].icon
+g_charcoal <- pack_19_miscellaneous_1_016.png
+g_casino_linen <- pack_11_crates_barrels_and_supplies_025.png
+g_mountain_timber <- pack_11_survival_props_037.png
+g_copper_wire <- pack_jars_bottles_and_items_041.png
+g_turquoise <- pack_11_crates_barrels_and_supplies_019.png
+g_hides <- pack_16_loot_and_survival_props_030.png
+g_coffee <- pack_11_crates_barrels_and_supplies_018.png
+g_salt <- pack_11_crates_barrels_and_supplies_016.png
+g_candles <- pack_skeletons_and_bones_021.png
+g_pharmacy_stock <- pack_11_survival_props_047.png
+g_runway_cloth <- pack_11_crates_barrels_and_supplies_027.png
+g_pawn_gold <- pack_19_miscellaneous_1_015.png

@@ -251,6 +251,18 @@
    "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
    "bb_quote": "Shops resupply every 3 days"
   },
+  "slot": {
+   "value": 1,
+   "unit": "stash slots a single unit of a good takes",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+   "why": "Battle Brothers carries each trade good as one item in one stash slot, so carrying goods is paid in room (rule 266(a): 'goods take stash slots, so carrying them is a choice')"
+  },
+  "sold_floor": {
+   "value": 1,
+   "unit": "batteries, the least any stall pays for one unit of any good",
+   "source": "rule 265(b), Paolo 10/26",
+   "why": "'even if there's just a stall at a settlement, I can still sell at it... you'll probably make less money': a stall pays less, never nothing"
+  },
   "goods": [
    {
     "id": "charcoal",
@@ -265,7 +277,12 @@
      "Homeless"
     ],
     "why": "burned out of what the fires left; the tunnels' people make the cheapest good there is",
-    "draft": true
+    "draft": true,
+    "unit": "a sack",
+    "units": "sacks",
+    "what": "a heap of charcoal off the burned blocks",
+    "icon": "market_icons/g_charcoal.png",
+    "icon_source": "reference/art_bank/prop/pack_19_miscellaneous_1_016.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "casino_linen",
@@ -280,7 +297,12 @@
      "Mob"
     ],
     "why": "the Strip's casinos' linen stores; the Mob holds the Strip",
-    "draft": true
+    "draft": true,
+    "unit": "a crate",
+    "units": "crates",
+    "what": "rolled sheets and towels out of a casino's laundry",
+    "icon": "market_icons/g_casino_linen.png",
+    "icon_source": "reference/art_bank/prop/pack_11_crates_barrels_and_supplies_025.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "mountain_timber",
@@ -295,7 +317,12 @@
      "Anarchists"
     ],
     "why": "pine off the Spring Mountains' south slope, cut where nobody owns the trees; their place sits on that edge (x 24, y 82)",
-    "draft": true
+    "draft": true,
+    "unit": "a bundle",
+    "units": "bundles",
+    "what": "pine from the mountain, tied in a bundle",
+    "icon": "market_icons/g_mountain_timber.png",
+    "icon_source": "reference/art_bank/prop/pack_11_survival_props_037.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "copper_wire",
@@ -310,7 +337,12 @@
      "Trades"
     ],
     "why": "the skilled-workers' guild strips the dead grid; copper is the real crash's scrap trade (Detroit's and Johannesburg's wire thieves)",
-    "draft": true
+    "draft": true,
+    "unit": "a spool",
+    "units": "spools",
+    "what": "copper stripped out of the dead grid",
+    "icon": "market_icons/g_copper_wire.png",
+    "icon_source": "reference/art_bank/prop/pack_jars_bottles_and_items_041.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "turquoise",
@@ -325,7 +357,12 @@
      "Colorful"
     ],
     "why": "turquoise and petrified wood from the washes, cut and set by the community's makers",
-    "draft": true
+    "draft": true,
+    "unit": "a sack",
+    "units": "sacks",
+    "what": "blue stones picked out of the washes",
+    "icon": "market_icons/g_turquoise.png",
+    "icon_source": "reference/art_bank/prop/pack_11_crates_barrels_and_supplies_019.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "hides",
@@ -340,7 +377,12 @@
      "Remnants"
     ],
     "why": "the escaped lab beasts shot on the military range (the beasts law, 9/29); the Remnants hold the range",
-    "draft": true
+    "draft": true,
+    "unit": "a roll",
+    "units": "rolls",
+    "what": "hides off the escaped lab beasts, rolled",
+    "icon": "market_icons/g_hides.png",
+    "icon_source": "reference/art_bank/prop/pack_16_loot_and_survival_props_030.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "coffee",
@@ -355,7 +397,12 @@
      "Caravans"
     ],
     "why": "brought in from the outside world on the I-15; the Caravans are the valley's door",
-    "draft": true
+    "draft": true,
+    "unit": "a sack",
+    "units": "sacks",
+    "what": "beans and dried chile up the I-15",
+    "icon": "market_icons/g_coffee.png",
+    "icon_source": "reference/art_bank/prop/pack_11_crates_barrels_and_supplies_018.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "salt",
@@ -370,7 +417,12 @@
      "Blues"
     ],
     "why": "from evaporation ponds on Lake Mead's dropped shore; the environmentalists' sun does the work (their place sits east by the lake, x 71)",
-    "draft": true
+    "draft": true,
+    "unit": "a sack",
+    "units": "sacks",
+    "what": "salt dried out of the lake's dropped shore",
+    "icon": "market_icons/g_salt.png",
+    "icon_source": "reference/art_bank/prop/pack_11_crates_barrels_and_supplies_016.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "candles",
@@ -385,7 +437,12 @@
      "Church"
     ],
     "why": "the Church's own; Battle Brothers' incense is a temple good",
-    "draft": true
+    "draft": true,
+    "unit": "a box",
+    "units": "boxes",
+    "what": "church candles, burned down and poured again",
+    "icon": "market_icons/g_candles.png",
+    "icon_source": "reference/art_bank/prop/pack_skeletons_and_bones_021.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "pharmacy_stock",
@@ -400,7 +457,12 @@
      "Cartel"
     ],
     "why": "stolen and cut pharmacy stock, the black market's own good (the only faction the game frames as evil)",
-    "draft": true
+    "draft": true,
+    "unit": "a bottle",
+    "units": "bottles",
+    "what": "pills out of a dead pharmacy, cut",
+    "icon": "market_icons/g_pharmacy_stock.png",
+    "icon_source": "reference/art_bank/prop/pack_11_survival_props_047.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "runway_cloth",
@@ -415,7 +477,12 @@
      "Network"
     ],
     "why": "the runway's own cloth (everyone dresses like a runway, 9/4), brought in through the strongest outside ties in the valley",
-    "draft": true
+    "draft": true,
+    "unit": "a bale",
+    "units": "bales",
+    "what": "runway cloth, wrapped and sealed",
+    "icon": "market_icons/g_runway_cloth.png",
+    "icon_source": "reference/art_bank/prop/pack_11_crates_barrels_and_supplies_027.png (a pack tile copied as-is, no pixel changed)"
    },
    {
     "id": "pawn_gold",
@@ -430,7 +497,12 @@
      "Reds"
     ],
     "why": "rings, watches and teeth bought cheap at the pawn counter; the capitalists' compound interest (gold is what a crash runs to: Argentina 2001, Venezuela 2016)",
-    "draft": true
+    "draft": true,
+    "unit": "a bar",
+    "units": "bars",
+    "what": "rings, watches and teeth, melted down",
+    "icon": "market_icons/g_pawn_gold.png",
+    "icon_source": "reference/art_bank/prop/pack_19_miscellaneous_1_015.png (a pack tile copied as-is, no pixel changed)"
    }
   ]
  },

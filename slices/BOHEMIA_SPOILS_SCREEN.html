@@ -376,6 +376,7 @@ var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole'};
 var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
 function pic(it, px){
+  if(it.trade && it.icon){ var gi = document.createElement('img'); gi.className = 'pk'; gi.alt = ''; gi.src = it.icon; return gi; }   /* __TRADE_GOODS_CARRIED__ (ECONOMY 11/7): a good in the stash wears its pack tile */
   var f = it.kind === 'weapon' && PACK_ICON[it.cls];
   if(f){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
   try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon) return BohemiaMaterials.itemIcon(it, px || 26); }catch(e){}

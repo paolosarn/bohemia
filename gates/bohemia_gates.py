@@ -9872,6 +9872,16 @@ GATES = [
      "(BohemiaSettlement.tradeSell); a second town by a tap; the marks for a good best first with their prices, the best ringed, a "
      "question mark on a town seen and never priced, nothing under the static; a heard price marked HEARD and fading; null lets go; "
      "kept through a reopen. green at registration, 7/0 a profile, about 5 min a profile", True),
+    ('TRADE GOODS CARRIED', ['node', 'gates/trade_goods_carried_gate.js'],
+     "ECONOMY gate, 11/7, row [trade goods carried] (rule 425(b), asks 196 and 197, rules 265(b) and 266; Paolo 10/26: 'buy goods "
+     "from whatever type of settlement it is... move them around... sell them off for higher income... I didn't know which city has "
+     "the best selling price of my goods'): the data (every good a maker on the map, its pack tile byte for byte, one slot; Battle "
+     "Brothers' 100/15 and 150/110 at every size, a small place less, never nothing) with five planted fails; the live demo on the "
+     "phone and the computer: the maker's stall sells its batch at the engine's price, a double tap puts one piece in the stash, the "
+     "batch runs out, a fortress that does not make it pays more and buys it back at what it paid, a camp pays less and still buys, "
+     "the shop's bag prices it the same, the crew screen's tap lights the map best first and its second tap closes onto the marks, "
+     "nobody wears it, the last sale takes the marks away, and a planted stall without the engine reads red. green at registration, "
+     "4/0 data and 11/0 a profile, about 4 min a profile", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
