@@ -121,7 +121,7 @@ the red ball still on it. Pull it on a man."
   class's fallback taken out (the tire iron goes red).
 - M the map: counted, not judged (0 men with a weapon in hand); the leg lands with the map's render.
 
-## THE PISTOL, 'TOO TINY' (rule 426(c), ask line 494; his vote on COOK's pistol card; BUILD 11/7o)
+## THE PISTOL, 'TOO TINY' (rule 426(c), ask line 494; his vote on COOK's pistol card; BUILD 11/7q)
 
 The coordinator's reading: a weapon in the hand reads at its real size against the man (a pistol is about a forearm's length from
 the grip to the muzzle's end). MEASURED on the shipped sheets, every thing on its standing key, the longest of its eight facings,
@@ -155,7 +155,7 @@ next round, first. Battle Brothers' own world map shows a figure, not his kit; h
 
 Run one at a time on the rebased tree (main at 8106d196), never the whole suite (rule 13: pre-push pass; full suite unmeasured
 since 8106d196):
-- EVERY WEAPON SHOWS (new) 15/0 twice (after the pistol, on main at a8befa81 and the 11/7o cut): D 6/0 (with 424(c)), R 3/0 (the size legs: every weapon at its real size standing, the pistol a forearm, planted), and before it 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
+- EVERY WEAPON SHOWS (new) 15/0 twice (after the pistol, on main at a8befa81 and the 11/7o cut; the demo re-cut as 11/7q after FREEWAY took 11/7p): D 6/0 (with 424(c)), R 3/0 (the size legs: every weapon at its real size standing, the pistol a forearm, planted), and before it 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
 - THE THING IN HIS HAND --quick 24/0 (S, P, H legs: YOU's new layers on every key, touching his fist, swung; the planted faults bite).
 - every item has a model 322/0.
 - THE CREW FIGURE HOLDS HIS GUN (amended for rule 424: a melee man holds his thing now): H1, H2 and the planted leg green on the
