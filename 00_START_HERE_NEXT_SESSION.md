@@ -54,7 +54,12 @@ best towns he knows and lights the map's marks, the second tap closes onto the m
 caught). Record records/BOHEMIA_ECONOMY_TRADE_GOODS_CARRIED_11_7_26.md. The whole block: handoffs/ECONOMY.md.
 [bb Battle Brothers: made here buys 100 / sells 15, elsewhere 150 / 110, size 95/102/110; it never told you who pays; ours does.]
 [analog horror: candles poured again, teeth melted to bars, copper pulled out of empty walls.]
-WEAPONS (weapons-01gkdyuv): 11/7 LATEST -- BUILD 11/7q THE PISTOL A FOREARM LONG (rule 426(c), his 'Too tiny': the fist hid the grip, the pistol
+WEAPONS (weapons-01gkdyuv): 11/7 LATEST -- BUILD 11/7y EVERY WEAPON HAS ITS RANGE BANDS, BUILT, NOT YET SEEN (rule 187, ask line 108): TUNING's
+one table section N live (the rifle -10 point-blank, best 2 to 5; the shotgun whole to two, x0.6 at three, x0.35 past; the scoped deer rifle its
+own scope band to 8 tiles, best 3 to 8; the bow -10 point-blank, draft), every ranged weapon banded, the range card taped on the ground (weak
+rings hatched in his tape with the number on a strip), a roof's extra tile never whole again; THE STOREYS AGREED WITH COMBAT TWO (428(b)):
+reachUp is the one place the storeys' reach lives, the band reads the true distance, points add, only the band moves damage (handoffs/WEAPONS.md).
+Gate EVERY WEAPON HAS ITS RANGE BANDS, planted P1-P4. Before it BUILD 11/7q THE PISTOL A FOREARM LONG (rule 426(c), his 'Too tiny': the fist hid the grip, the pistol
 showed 10 px of its real 12; the three handguns built 1.35 over real about the grip, the pistol 15.5 px now, a forearm 14.3; gate R legs hold
 every weapon at its real size). Before it BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS, BUILT, NOT YET SEEN (rule 424, ask lines
 489, 490): twelve two-handers (every two-handed sword, flail and cleaver) swung from empty fists because no picture existed; now a
