@@ -1,3 +1,29 @@
+COOK GOLDEN PISTOL, PASS TWO (rule 408(b) and 421(c), ask line 464, 11/7): BUILD 11/7d THE PISTOL HELD LEVEL, ITS CARD IN THE DIRT.
+STILL A STAND-IN, NOT GOLDEN, NOT YET SEEN (rule 179). Record records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_PASS_TWO_11_7_26.md.
+- THE FOUR FAULTS: (3) THE CARD FIXED: the robot's dirt at the card's scale (card_dirt_k 4) and the fight's day rim, mean value
+  91 (his tile 56, the old card 128), all five look stages pass with his tile as twin; ON THE ITEM CARDS NOW (w_pistol.png), the
+  same stainless gun the fight draws. (2) HELD LOW: this gun's low ready 18 degrees down in the same fist (ANIMATION's 50, in
+  memory for this gun only), the slide a step down, the frame the 1911C's worn blued two-tone: a pistol from the side (E, NE,
+  NW, W), still end-on from S and a steel stroke SE/SW. (1) THE DOOR: unchanged, it shows at SE and E only (the door's carry,
+  ANIMATION's). (4) THE OPENING ZOOM: WAS and NOW now differ, but the man is 59 points and the pistol a 7-point fleck (COMBAT's).
+- 11 look cycles (22 to 32, loop.jsonl; held_<tag> views with a 6x gun window, a new `held` command). STOPPED on the tell: five
+  lines in the fist, each moving the read a pixel. At real size a pistol is 12 px on a 98 px man; the lever is beyond the gun.
+- A SECOND INDEPENDENT READ on DIRECTION's bar and recipe: BACK ('beside the bar: WORSE'; card BETTER, SAME as his tile; zoom
+  BETTER; held low SAME; door SAME). VOTE cook-the-pistol-stand-in-11-6 updated in place (unvoted, mine): stand_in, sha 24b30bef,
+  this round's line; the old sheet removed. Golden needs DIRECTION's own PASS (F3) and none was given; DIRECTION's eye still owed.
+- THE PROOF WAS LYING, FIXED: two of its eight facings were the same picture twice; the fight's turnTo stepped YOU one notch
+  toward the thug between the proof's writes. The proof holds the turn clock and retakes a repeat now (0 stale, 0 duplicates).
+- GATES: THE FIGHT DRAWS WHAT HE WEARS 19/0 alone (18/1 once under load, leg not kept); every item has a model 286/0; DEMO BUILD
+  25/0; THE VOTE TAB 62/4 (the 4 older: the dynasty pair's why, the alpha landing, the vote box, the gear tap); REFERENCE CHECK
+  514/2 and REUSE-FIRST 389/19 (both tools pass; older tools red); purity 0/0/0. Blender (bpy 4.2 venv) and PIL work on this box.
+  Full suite unmeasured since 24b30bef.
+ROUTED (in the record, for the coordinator to hand out): ANIMATION the shield arm's pistol outside the door's outline (the riot
+shield man's way) and the low ready's side to the camera; DIRECTION and the coordinator: a weapon's SIZE is his realism call
+(real size cannot read held low at 1x from every side; Battle Brothers draws weapons larger than life); COMBAT the opening zoom.
+NEXT: no more pistol cycles until one of those lands; then the golden pass reads again, DIRECTION's eye, then GOLDEN.
+[bb Battle Brothers draws a weapon larger than life on a side-on man, so it always reads; ours is real size on eight facings.]
+[analog horror: the blued frame worn grey at the edges, the serial ground off; carried, not bought.]
+
 COOK GOLDEN PISTOL (rule 408(b), DIRECTION's routing: a weapon first; ask line 464, 11/6): BUILD 11/6i THE PISTOL IN HIS HAND.
 SHIPPED AS A STAND-IN, NOT GOLDEN, NOT YET SEEN (rule 179). Record records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_11_6_26.md.
 - THE WEAPON: THE PISTOL (YOU's jobs pistol + car_door; ours.weapon_rows pistol -> 'dagger'; the first origin hands it to two of

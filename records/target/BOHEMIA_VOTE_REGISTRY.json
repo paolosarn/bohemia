@@ -18687,26 +18687,26 @@
    "id": "cook-the-pistol-stand-in-11-6",
    "kind": "animation",
    "lane": "cook",
-   "sha": "fac0e457",
-   "made": "11/6",
+   "sha": "24b30bef",
+   "made": "11/7",
    "draft": true,
-   "title": "STAND-IN: THE PISTOL IN HIS HAND, A REAL STAINLESS 1911 AT ITS REAL SIZE, NOT YET THE BAR",
+   "title": "STAND-IN: THE PISTOL IN HIS HAND, HELD LEVEL, ITS CARD IN THE DIRT, STILL NOT THE BAR",
    "said": "I just want the first time you make art to be the final... the shields were disappearing recently, I can't see the shields... the two weapons, it's just all fucked up",
-   "why": "His starting pistol is now a real stainless 1911 at its real size, so it shows at his hand where the old dark one vanished into his black clothes, but an independent check against the bar sent it back (hidden in five of eight turns, a pale blade when held low). You see it in his hand in every fight, beside his car door, old on the left and new on the right.",
+   "why": "His pistol now lies nearly level in his hand and reads as a gun from the side, and the item cards show the same worn stainless gun with a dark edge, but a second check against the bar still sent it back (a thin stroke from the front, hidden by his car door in most turns). You see it in his hand in every fight, old on top and new below.",
    "show": {
     "how": "image",
-    "src": "../records/target/cook_golden_pistol/CARD_THE_PISTOL_STAND_IN.webp",
+    "src": "../records/target/cook_golden_pistol/CARD_THE_PISTOL_STAND_IN_11_7.webp",
     "first": "../records/target/cook_golden_pistol/first.webp",
     "firstAt": [
-      39,
-      556,
-      402,
-      508
-     ]
+     39,
+     556,
+     402,
+     508
+    ]
    },
    "before_after": {
-    "before": "every PISTOL row drawn as COOK's 10/18 class pistol, a gunmetal 1911 of eight boxes: a dark smear at his hip on his black trousers",
-    "after": "gun_service_pistol.glb (WPN-01, the Colt Government Model in stainless, 216 mm) in YOU's hands in all four picture systems, every man holding it at his own hands; 1,102 to 1,132 draws a run in the shipped fight, 0 errors",
+    "before": "11/6's stand-in: the stainless 1911 held about 50 degrees down, a pale sliver that read as a knife; his pack tile on the item cards",
+    "after": "the same 1911 with the 1911C's worn blued frame, held about 18 degrees down in the same fist (this gun only), in all four picture systems; the item cards show its own picture with the robot's dirt and a dark rim; 1,502 to 1,510 draws a run in the shipped fight, 0 errors",
     "scale": "his phone, 390 x 844 at 3x shrunk to 2x, the fight's zoom and its opening zoom"
    },
    "stage": "stand_in",
@@ -18717,10 +18717,11 @@
    "surface": "records/target/cook_golden_pistol/card_still_turn_SE.png",
    "direction": {
     "verdict": "BACK",
-    "line": "beside the bar: WORSE, because the robot and the thug read as one real shape at 1x from every side, while this pistol shows in only 3 of the 8 door facings, reads as a pale blade rather than a pistol shape, and disappears behind the door or into the black suit in the rest.",
-    "by": "an independent reviewer briefed only with DIRECTION's bar page and recipe and these pictures (not DIRECTION's chat); DIRECTION's own eye owed"
+    "line": "beside the bar: WORSE, because in the fight's resting pose it reads at 1x as a pale knife or stick that changes shape in every facing and disappears in 5 of 8 with the door, while the thug reads as himself from every side.",
+    "by": "an independent reviewer briefed only with DIRECTION's bar page and recipe and these pictures (not DIRECTION's chat), round two; it found the card BETTER (SAME as his pack tile), the opening zoom BETTER, held low SAME, the door SAME; DIRECTION's own eye owed"
    },
-   "record": "records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_11_6_26.md"
+   "record": "records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_PASS_TWO_11_7_26.md",
+   "record_before": "records/BOHEMIA_COOK_THE_GOLDEN_PISTOL_11_6_26.md"
   },
   {"id": "combat-9-you-see-them-run-11-6", "kind": "animation", "lane": "combat", "sha": "05dc7ed7", "made": "11/6", "draft": true, "title": "YOU SEE THEM RUN: A RETREAT YOU WATCH, TILE TO TILE", "said": "while retreating, I don't see my people actually run, they kind of just disappear... the retreat edge of the screen less than four tiles away from our back line", "why": "On top the fight as it was, RETREAT pressed on the lineup: his men blink off the board where they stand; below now, the same six men four tiles from his edge, each running tile to tile on the beat and off the board into the dark (the men are the art you have, the run is what changed). You see it every time you retreat in a fight, from the lineup or mid-fight.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/COMBAT_9_YOU_SEE_THEM_RUN.webp"}, "before_after": {"before": "main 7d9c2883: each man drawn on 1 tile, his own; back line 2 tiles from his edge", "after": "each man drawn on 3 tiles or more between where he stood and the edge, the edge his last tile, 15 to 22 frames running off the board; back line 4 tiles back", "scale": "the fight on a computer, the fight's own camera, by day"}, "record": "records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md"},
   {"id":"run2-the-marks-11-6","kind":"ui","lane":"run 2","sha":"4fc6983c","made":"11/6","draft":true,"title":"THE VOTE TAB SAYS WHAT EACH ART PIECE IS","said":"every time I see you make art a lot of times it's just placeholder shit... I just want the first time you make art to be the final","why":"Every art card now wears its mark (GOLDEN, MADE FROM, or a loud grey band that says STAND-IN, NOT THE LOOK), and the 35 art cards that carry no mark are held back off your list until their makers mark them (before: 39 waiting, 38 of them art, none marked on the screen). You see it in the VOTE tab, before on the left and now on the right.","stage":"stand_in","show":{"how":"image","src":"../records/target/run2_the_marks_11_6/before_and_now.webp"},"before_after":{"before":"main 55df870a: 39 cards on his list (12 in front, 27 behind MORE), 38 of them art, no mark drawn on any","after":"4 cards (3 stand-ins under the band, 1 sound), nothing behind MORE, one line saying 35 art pieces are held back","scale":"the VOTE tab on a 390 x 844 phone, the tab's own screen, twice the pixels"},"record":"records/BOHEMIA_RUN_TWO_THE_MARKS_11_6_26.md"},
