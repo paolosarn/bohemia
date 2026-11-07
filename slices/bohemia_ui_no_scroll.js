@@ -258,7 +258,8 @@
         var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && ctl.scrollWidth > 150 && ctl.children.length > 3); }
     };
     fit(w, { box: card, levels: 1, before: mark });
-    try { new MutationObserver(function () { if (w.classList.contains('on')) refreshBox(w); }).observe(w, { attributes: true, attributeFilter: ['class'] }); } catch (e) {}
+    /* fitted again when the card OPENS (only then: the fit's own classes on #setwrap must never wake this, or it loops) */
+    var was = false; try { new MutationObserver(function () { var on = w.classList.contains('on'); if (on && !was) refreshBox(w); was = on; }).observe(w, { attributes: true, attributeFilter: ['class'] }); } catch (e) {}
     return true;
   }
 
