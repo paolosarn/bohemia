@@ -1,3 +1,12 @@
+CHARACTER (character-nine): 11/7 LATEST -- BUILD 11/7w NINE ENEMIES IN THEIR OWN CLOTHES (rule 427(b), asks 286 and 238): FACTIONS'
+nine human types stood in 36 borrowed people; now 30 men of their own on the 3D man, each type one shape nobody else wears (the House's
+carpet tabard with the hubcap kettle, the mail coif or the bolt case; the Watch's faded hi-vis, floor-mat greaves, the captain's sash and
+bullhorn; the Keepers' coyote pelt and strip cloak; the Water People's amber water jug and needle bandolier), every man 4 to 8 layers, 27 of
+30 in leather. The fight's face strip was full (WebP's 16,383 px): faces.more. VOTE character-the-nine-enemies-their-own-clothes-11-7
+(GOLDEN). Owed: their idles (ANIMATION). The whole block: handoffs/CHARACTER.md.
+[bb a Battle Brothers band reads by its kit: the noble house in its colours and helmets, the militia in what they had at home.]
+[analog horror: the lab's tag still clipped in a dead coyote's ear, worn as a man's face.]
+
 ARENA TWO (arena-two-01gkdyus): 11/7 LATEST -- BUILD 11/7t THE PIT IS A PIT (1e1fb5ec), BUILT, NOT YET SEEN (rule 426(f), ask line
 497; Paolo 11/6: 'The arena map is so fucking ugly bro'): the pit fight stands in the Mob's drained Strip pool, its floor the board and
 its walls the edges (the swim-up bar BLOCKED, loungers DEBRIS, black water WATER, sand ROUGH), the crowd, the bookie and the dead resort
@@ -814,13 +823,6 @@ Canon rot C3 red on main before this round (64 of 62, lab files from 7/26, not m
 SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict markers into the VOTE registry, so for a few minutes
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
-
-CHARACTER (character-armour, session_0184h2KYCB): 10/26 (aa) LATEST -- [the armour he wears shows] SHIPPED 7035d1c7 (rule 272): every
-helmet and body armour drawn on the man who wears it (17 placeholder classes in the rig's look, slices/wear; one player,
-engine/bohemia_wear.js) on the crew card, his portrait, in the fight, at camp and on the map; THE ARMOUR HE WEARS SHOWS 18/0
-phone and computer. The whole block: handoffs/CHARACTER.md.
-[bb Battle Brothers draws a brother as layers, body then armour then helmet; ours lays each piece on him the same way.]
-[analog horror: a riot helmet's clear shield over a clay face, a car door strapped on with belts: what is left of order, worn.]
 
 CHARACTER (character-enemies, opened by the coordinator 10/25 after the reset, rule 112): 10/25 (z) LATEST -- *** THE MECHANIC, THE KIDS AND RUNNERS AND THE HEAVY ARE IN THE FIGHT: SEVENTEEN ON THE 3D MAN, LAYERED, FADED, NO TWO ALIKE. ***
 TAB: the fight (COMBAT), in the demo, on any road fight after the first: a machines party brings the Mechanic, a kids'

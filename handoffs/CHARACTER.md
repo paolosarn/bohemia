@@ -1,5 +1,27 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, opened by the coordinator 11/7): 11/7 (ac) LATEST -- *** [the clothes look real] rule 427(b) SHIPPED BUILD 11/7w: NINE ENEMY TYPES IN THEIR OWN CLOTHES, 30 MEN. ***
+TAB: every fight against the House, the Block Watch, the Keepers and the Water People (the map's parties, the demo's doors); VOTE
+(character-the-nine-enemies-their-own-clothes-11-7, GOLDEN, a man's body). Record: records/BOHEMIA_CHARACTER_THE_NINE_ENEMIES_THEIR_OWN_CLOTHES_11_7_26.md.
+WHAT: FACTIONS' nine act-one types stood in 36 borrowed people; now 30 men of their own on the 3D man, eleven new pieces modelled on
+the body or the skull (the carpet tabard, the hubcap kettle, the mail coif, the bolt case, the hi-vis vest's bands, the floor-mat
+greaves, the bike helmet, the captain's sash, badge and bullhorn, the coyote pelt, the strip cloak, the water jug and robe, the needle
+bandolier) and one new garment (HI-VIS VEST, OUTER's plain vest cut, in memory). Every man 4 to 8 layers, 27 of 30 in leather.
+HOW: tools/bohemia_character_the_nine_enemies.py (roll | look <id> | batch 2 | pack | sheet), the three enemies' pipe (barber, body
+build, RUN TWO's render, COMBAT's poses), bpy 4.2 in a python3.11 venv (BOHEMIA_BPY=<venv>/bin/python); about 7 minutes a man on
+4 cores with 2 workers. tools/bohemia_character_the_nine_enemies_card.py (card | phone | register <sha>) makes the VOTE pictures.
+The rows' looks in records/target/bb/bohemia_enemies.json point at the new men (looks_borrowed keeps the old, by text edit only).
+THE FACE STRIP WAS FULL: 121 faces x 128 px = 15,488 of WebP's 16,383. The 30 faces ride slices/fight_rig/faces_more.webp
+(fight_rig.json faces.more), read by the fight's marked __THE_SECOND_FACE_STRIP__ (two small hooks in drawPortrait and the preload).
+GOLDEN LOOPS: four looks on one man of each type beside the bar's thug, every fix written in the tool where it was made.
+NAMED, NOT DONE: idles and held clips for the 30 (ANIMATION, NOTE left: the idles gate's P1 was red before, 18 missing, now 48);
+the shield, hook and crossbow in the hand are WEAPONS' (rule 424); no woman among the 30 ([eyes: her body] still the top row).
+GATES (rule 13): SHEETS ARE PACKED 4/0, DEMO BUILD 25/0 (both on the merged tree), TRENCHCOAT 12/0, ATTEMPT 15/0; NEW ENEMIES 8/4, REBUILT FIGHT 143/12, NO TWO PEOPLE ALIKE 22/1, FACE IS HIS OWN 17/1, WHAT A MAN HOLDS 16/1, THING IN HIS HAND 27/2 identical on clean main; EVERYBODY IDLES P1 red before and now also names the 30. Full suite unmeasured.
+NEXT FOR THIS LANE: the clothes' second half of 427(b) on the valley's own people (the 152 rolled and the crew): the layer
+measure from this round (4+ layers, leather on most) as a check over RUN TWO's roll, then the top OPEN row ([eyes: her body]).
+[bb a Battle Brothers band reads by its kit: the noble house in its colours and helmets, the militia in what they had at home.]
+[analog horror: the lab's tag still clipped in a dead coyote's ear, worn as a man's face; dregs in the syringes.]
+
 CHARACTER (character-hair-three, opened by the coordinator 11/3): 11/3 (ab) LATEST -- *** [hair three] SHIPPED BUILD 11/3w: TWELVE NEW HAIRCUTS, EIGHT NEW HEADS, THE CROWD WEARS THEM. ***
 TAB: the towns (tap a place on the MAP), the crew's faces; sheets NOT IN A TAB YET (records/target/character/CHARACTER_HAIR_THREE.png,
 CHARACTER_FACES_TWO_SHAPES.png, CHARACTER_HAIR_THREE_THE_CROWD.png). Record: records/BOHEMIA_CHARACTER_HAIR_THREE_AND_THE_CROWD_11_3_26.md.
