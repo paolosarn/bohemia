@@ -536,3 +536,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 512 | Ask him how a new creature or system he names should work before building it (the vultures first; he thought an enemy type) | 431(c) | the coordinator | ASKED 11/7 |
 | 513 | A fight that starts on the freeway puts him on a suburb board: it gets a freeway board | 432(a) | FREEWAY | IN FLIGHT 11/7 |
 | 514 | Freeway fight boards: the deck towering over the city you can't hop off, the overpass, the underpass, the interchange (his reference: Fallout New Vegas's Lonesome Road, the freeway fight only) | 432(b) | FREEWAY | IN FLIGHT 11/7 |
+| 515 | No cheap route: a one-handed and two-handed version of the same axe/pipe/sledge is not two weapons; new weapons are real distinct objects with their own art | 424(c) | WEAPONS | IN FLIGHT 11/7 |
