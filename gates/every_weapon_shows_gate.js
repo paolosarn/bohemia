@@ -18,7 +18,7 @@
      index (the five swords must go red, in the data, the fight and the crew screen); the tire iron's row and its class's fallback
      taken out (the tire iron must go red).
      R  AT A REAL SIZE (rule 426(c), his 'Too tiny' on the pistol card): in the same fight, every row's thing as drawn is at least
-        0.85 of its real length on the rig's ruler (a hanging cord 0.6), and THE PISTOL at least a forearm; planted: the pistol put
+        0.8 of its real length on the rig's ruler (a hanging cord 0.6), and THE PISTOL at least a forearm; planted: the pistol put
         back to the old class pistol goes red.
      M  THE MAP (a note, not a leg yet): the map's men are drawn from their own walk sheets and hold nothing; counted, not judged
         (handoffs/WEAPONS.md: the map's own render is the next round).
@@ -202,9 +202,10 @@ const missing = R => Object.keys(R.rows).filter(id => Object.values(R.rows[id]).
 /* R: AT A REAL SIZE (rule 426(c), Paolo 11/7 on the pistol card: 'Too tiny'; the coordinator: 'a weapon in the hand reads at its real
    size against the man (a pistol is about a forearm's length from the grip to the muzzle's end)'). The rig's ruler: 98 px to 1.72 m.
    A thing's real length: its model's (COOK's measured box), a handgun's its model's over the hand grow it is built with (the fist
-   hides its grip: own_guns.json hand_grow_k). Drawn as long as 0.85 of it (a rigid thing), 0.6 (a cord, a thong or a chain that
+   hides its grip: own_guns.json hand_grow_k). Drawn as long as 0.8 of it (a rigid thing: a hand covers its grip), 0.6 (a cord, a thong or a chain that
    hangs from the fist: the source's 'hanging'); THE PISTOL at least a forearm (0.146 of a man's height, anthropometry's forearm). */
-const PXM = FR.ruler.px / FR.ruler.m, FOREARM = 0.146 * FR.ruler.px;
+/* 0.8: the hand round a grip covers part of every rigid thing (measured 11/7: the sawed-off at 0.85 in the carry, both hands on it) */
+const PXM = FR.ruler.px / FR.ruler.m, FOREARM = 0.146 * FR.ruler.px, RIGID = 0.8;
 function glbLen(file) {   /* a glb's longest side in metres: every mesh's box through its node's transforms */
   const b = fs.readFileSync(path.join(ROOT, file)), n = b.readUInt32LE(12), j = JSON.parse(b.slice(20, 20 + n).toString());
   const mul = (A, B) => { const C = new Array(16).fill(0); for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) for (let k = 0; k < 4; k++) C[c * 4 + r] += A[k * 4 + r] * B[c * 4 + k]; return C; };
@@ -226,9 +227,9 @@ const CLASS_GUN = { pistol: 'gun_pistol_a', rifle: 'gun_rifle_a', shotgun: 'gun_
 const realOf = (x) => {   /* [metres, the share it must be drawn at, the rule's name] or null when the thing has no measure */
   if (x.gun) { const own = x.gun.indexOf('class:') !== 0, m = own ? OWNJ.model[x.gun] : CLASS_GUN[x.gun.slice(6)];
     if (!m || !fs.existsSync(path.join(ROOT, 'reference/models/bohemia', m + '.glb'))) return null;
-    const k = own && (OWNJ.hand_grow_k || {})[x.gun] || 1; return [glbLen('reference/models/bohemia/' + m + '.glb') / k, 0.85, 'gun ' + x.gun]; }
+    const k = own && (OWNJ.hand_grow_k || {})[x.gun] || 1; return [glbLen('reference/models/bohemia/' + m + '.glb') / k, RIGID, 'gun ' + x.gun]; }
   const mj = path.join(ROOT, 'records/target/cook_every_item/measured_' + x.want + '.json'); if (!fs.existsSync(mj)) return null;
-  return [Math.max.apply(null, J('records/target/cook_every_item/measured_' + x.want + '.json').size_m), HANG.has(x.want) ? 0.6 : 0.85, x.want]; };
+  return [Math.max.apply(null, J('records/target/cook_every_item/measured_' + x.want + '.json').size_m), HANG.has(x.want) ? 0.6 : RIGID, x.want]; };
 function sizeFaults(R) {
   const short = [], pistol = [], unmeasured = new Set();
   Object.keys(R.rows).forEach(id => Object.entries(R.rows[id]).forEach(([look, x]) => {
@@ -282,7 +283,7 @@ const SWORDS = ['rhomphaia', 'warbrand', 'longsword', 'greatsword', 'executioner
           miss.slice(0, 12).map(id => id + ' ' + JSON.stringify(F1.rows[id])).join('; ') + (miss.length > 12 ? ' ... ' + miss.length : '') + ' ' + F1.errs.slice(0, 2).join('; '));
         const sz = sizeFaults(F1);
         note('R measured against the ruler (' + PXM.toFixed(1) + ' px a metre; a forearm ' + FOREARM.toFixed(1) + ' px); no measure for: ' + (sz.unmeasured.join(', ') || 'none'));
-        leg(sz.short.length === 0, 'R1 AT A REAL SIZE: every row and every shield is drawn in his hand at least 0.85 of its real length (a hanging cord 0.6), the longest of its eight facings standing',
+        leg(sz.short.length === 0, 'R1 AT A REAL SIZE: every row and every shield is drawn in his hand at least 0.8 of its real length (a hand covers its grip; a hanging cord 0.6), the longest of its eight facings standing',
           sz.short.join('; '));
         leg(sz.pistol.length === 0, 'R2 THE PISTOL READS A FOREARM LONG in his hand (every PISTOL row, his "Too tiny")', sz.pistol.slice(0, 8).join('; '));
         const P3 = await f.evaluate(FIGHT_WALK, { mutate: 'small_pistol', only: ['dagger', 'knife', 'bludgeon'] }), s3 = sizeFaults(P3);

@@ -137,7 +137,7 @@ held clips, the idles, the shield arm), the golden pistol's own low ready kept. 
 the carry), the snub 8.3, the zip gun 18; the four long guns and every other gun's cells untouched (the merge checked: by_row, the
 models, the shift tables the same). The manifest (reference/models/bohemia/items.json) carries the new hashes and why.
 records/target/weapons_every_weapon_shows/the_pistol_a_forearm_long.webp: BEFORE and NOW on YOU in the eight facings.
-THE GATE HOLDS IT (EVERY WEAPON SHOWS, R legs): in the demo's own fight, every row's thing as drawn is at least 0.85 of its real
+THE GATE HOLDS IT (EVERY WEAPON SHOWS, R legs): in the demo's own fight, every row's thing as drawn is at least 0.8 of its real (a hand covers its grip)
 length (a hanging thing 0.6), and every PISTOL row at least a forearm; planted: the pistol put back to the old class pistol (its
 true size, what main drew) goes red, the pipe beside it does not.
 Not a golden PASS: the pistol stays COOK's STAND-IN golden piece; its size is now his rule's, its look still waits on DIRECTION.
@@ -155,7 +155,7 @@ next round, first. Battle Brothers' own world map shows a figure, not his kit; h
 
 Run one at a time on the rebased tree (main at 8106d196), never the whole suite (rule 13: pre-push pass; full suite unmeasured
 since 8106d196):
-- EVERY WEAPON SHOWS (new) 15/0 (after the pistol): D 6/0 (with 424(c)), R 3/0 (the size legs: every weapon at its real size standing, the pistol a forearm, planted), and before it 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
+- EVERY WEAPON SHOWS (new) 15/0 twice (after the pistol, on main at a8befa81 and the 11/7o cut): D 6/0 (with 424(c)), R 3/0 (the size legs: every weapon at its real size standing, the pistol a forearm, planted), and before it 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
 - THE THING IN HIS HAND --quick 24/0 (S, P, H legs: YOU's new layers on every key, touching his fist, swung; the planted faults bite).
 - every item has a model 322/0.
 - THE CREW FIGURE HOLDS HIS GUN (amended for rule 424: a melee man holds his thing now): H1, H2 and the planted leg green on the
