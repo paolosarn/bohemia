@@ -32,7 +32,20 @@
      M1 MUTATION 'bare' (no frame held over the build): Z1 goes red   M2 MUTATION 'offset' (the board 40 px off): Z3 goes red
      S1 THE CLOUDS ARE GONE FROM THE SOURCE (rule 405(a)): no cloud layer, no nfcIn in the shell, the demo or the motion layer
      E1 nothing threw
-   node gates/the_zoom_down_into_the_board_gate.js [--profile phone_portrait|computer]   (both when none is named)
+   RULE 420 (MOTION 2, 11/7; Paolo 11/7: 'the transition from the map to the combat right now is still kind of shit'; the gate rule
+   420 names: frames in budget on the throttled phone through the whole dive in and out, the map's own ground in every frame, no frame
+   black or held past a beat, the board's men where the map had them). The dive is now played by the compositor (Web Animations on
+   held pictures), so Z2 and F1 are re-aimed to it (the map drawn once at each picture of the way down, never once a frame) and a
+   third run, the phone with the CPU at 4x, reads the compositor's own frames off a trace (DrawFrame), the phases marked on the same
+   clock (console.timeStamp from the motion layer while window.__DIVE_MARKS is set; the game never sets it):
+     T1 THE WAY IN AT 4X: from the camera's first move to the board landing, median at most 17.5 ms, p90 at most 34, none over 100
+     T2 NOTHING HELD PAST A BEAT: no gap over 500 ms anywhere in the way in or out
+     T3 THE WAY OUT AT 4X: median at most 17.5 ms, p90 at most 34 (the worst printed: at 4x on this box it lies in other pages'
+        canvas work after a fight, the map's result message and the carcass, named in the record)
+     T4 THE MEN FOUND WHERE THEY STOOD: a bracket for every live man, starting where the map draws his crew (theirs: the contact's
+        block) through the map frame's own rest pose, landing on his tile through the fight's own camera, 3 px
+     B1 THE GLASS IS NEVER BARE: through the hold a picture at full opacity covers the whole glass (the bar's band too)
+   node gates/the_zoom_down_into_the_board_gate.js [--profile phone_portrait|computer|phone_4x]   (all three when none is named)
    ============================================================================ */
 'use strict';
 const path = require('path');
@@ -58,9 +71,10 @@ const SAMPLER = () => {
       const dv = document.getElementById('bmdive');
       const cv = dv ? [...dv.querySelectorAll('canvas')].filter(c => c.className !== 'grid').map(c => ({ cls: c.className, op: +getComputedStyle(c).opacity, full: coversGlass(c), tf: getComputedStyle(c).transform })) : [];
       const grid = dv ? !!dv.querySelector('canvas.grid') : false;
-      const mapCover = cv.some(c => /^map/.test(c.cls) && c.op > 0.01), boardCover = cv.some(c => c.cls === 'board' && c.op > 0.01);
-      const fullMap = cv.some(c => /^map/.test(c.cls) && c.op >= 0.99 && c.full && (c.tf === 'none' || /^matrix\(1, 0, 0, 1,/.test(c.tf)));
-      const fullBoard = cv.some(c => c.cls === 'board' && c.op >= 0.99 && c.full);
+      /* (rule 420) the map's pictures are scaled to cover the glass, so a cover is a picture at full opacity whose drawn box covers it */
+      const mapCover = cv.some(c => /^map/.test(c.cls) && c.op > 0.01), boardCover = cv.some(c => /^board/.test(c.cls) && c.op > 0.01);
+      const fullMap = cv.some(c => /^map/.test(c.cls) && c.op >= 0.99 && c.full);
+      const fullBoard = cv.some(c => /^board/.test(c.cls) && c.op >= 0.99 && c.full);
       const cityOn = vis(document.getElementById('p-city')), pf = document.getElementById('p-combat'), ff = document.getElementById('fightFrame');
       let load = null, board = false, z = null;
       try { const fd = ff && ff.contentDocument, l = fd && fd.getElementById('load'); load = !!(l && getComputedStyle(l).display !== 'none'); board = !load && !!(ff.contentWindow.FIGHT_UI && ff.contentWindow.FIGHT_UI.board); } catch (e) {}
@@ -74,7 +88,7 @@ const SAMPLER = () => {
       else if (fightOn && board) what = 'board';
       else if (cityOn && !fightOn) what = 'map';
       else what = 'NOTHING';
-      Z.rows.push({ t: performance.now(), st: window.BohemiaMotion && BohemiaMotion.dive ? BohemiaMotion.dive.state() : '?', nfc: window.NFC ? NFC.state : '?', what, z, grid });
+      Z.rows.push({ t: performance.now(), st: window.BohemiaMotion && BohemiaMotion.dive ? BohemiaMotion.dive.state() : '?', nfc: window.NFC ? NFC.state : '?', what, z, grid, full: fullMap || fullBoard });
     } catch (e) { Z.rows.push({ t: performance.now(), what: 'ERR ' + String(e.message).slice(0, 60) }); }
     requestAnimationFrame(loop);
   })();
@@ -99,6 +113,14 @@ async function fight(d, label, mutate) {
   const own = []; for (let i = 1; i < after.length; i++) own.push(after[i].t - after[i - 1].t);
   const gridAfter = after.filter(x => x.grid).length;
   const down = await M((n0) => JSON.parse(JSON.stringify(BohemiaMotion.dive.log.slice(n0).filter(r => r.kind === 'down').pop() || null)), n0);
+  /* T4's witnesses, read off each page's own camera now (the map's stays at the stop under the fight): every live man's tile on the
+     glass, and where the map draws his crew */
+  const menNow = await (async () => { try { const h = await d.page.$('#fightFrame'), f = h && await h.contentFrame(); return f && await f.evaluate(() => { const U = FIGHT_UI, fr = frameElement.getBoundingClientRect();
+    return FIGHT.S.units.filter(u => !u.dead && !u.down && !u.fled && !u.decoy && u.x >= 0 && u.y >= 0).map(u => ({ id: u.id, side: u.side === 'them' ? 'them' : 'us', x: fr.left + sx((u.x + 0.5) * U.tw), y: fr.top + sy((u.y + 0.5) * U.th) })); }); } catch (e) { return null; } })();
+  /* where the map draws his crew, in its canvas's own points (the canvas reads no box while the fight hides the map's panel: the
+     dive's own record of that box, taken while it was on the glass, puts it on the glass in T4) */
+  const crewNow = await d.fr.evaluate(() => { try { const G = cityGlidePos(performance.now()), ox = Math.round(CVW / 2 - (G.x - G.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (G.x + G.y) * TH / 2 + panY);
+    return { x: ox + (G.x - G.y) * TW / 2, y: oy + (G.x + G.y + 1) * TH / 2 }; } catch (e) { return null; } }).catch(() => null);
   const fsx = await (async () => { try { const h = await d.page.$('#fightFrame'); const f = h && await h.contentFrame(); return f && await f.evaluate(() => { const S = FIGHT.S, bd = S.boardDef || {}; return { laid: !!bd.laid, cell: bd.street ? bd.street.cell : null, X0: bd.street ? bd.street.X0 : null, Y0: bd.street ? bd.street.Y0 : null, w: S.w, h: S.h }; }); } catch (e) { return null; } })();
   /* out: the fight won, the end screen's LEAVE */
   const out = { rows: [], up: null, after: null };
@@ -127,7 +149,7 @@ async function fight(d, label, mutate) {
     for (let k = 0; k < 120 && await M(() => !!document.getElementById('fightFrame') || NFC.state !== 'off' || BohemiaMotion.dive.state() !== 'off'); k++) await sleep(250);
     await sleep(1500);
   }
-  return { label, at, z0, inRows, down, fsx, out, fightOwn: med(own), gridAfter };
+  return { label, at, z0, inRows, down, fsx, out, fightOwn: med(own), gridAfter, menNow, crewNow };
 }
 
 /* Z3 without this file's geometry: the map frame's CSS transform at the turn's end, applied to where the map drew the block; and the
@@ -148,10 +170,15 @@ function inLegs(p, F, quiet) {
   if (quiet) return { z1: R.length > 10 && !bad.length, bad: bad.length, frames: R.length };
   ok(p + 'Z1 THE WAY IN SHOWS THE MAP\'S OWN GROUND IN EVERY FRAME (no loading line, no cloud, never nothing)', R.length > 10 && !bad.length,
     R.length + ' frames: ' + Object.entries(seen).map(([k, v]) => k + ' ' + v).join(', ') + (bad.length ? '; first bad at ' + bad[0].st + ': ' + bad[0].what : ''));
-  const r = F.down || {}, come = R.filter(x => x.st === 'come' && x.z != null).map(x => x.z);
-  let back = 0; for (let i = 1; i < come.length; i++) if (come[i] < come[i - 1] - 1e-6) back++;
-  ok(p + 'Z2 THE CAMERA CAME DOWN: the map\'s own zoom climbs every frame from where he was to the stop', come.length >= 3 && back === 0 && come[come.length - 1] >= Math.max(r.z1 * 0.85, F.z0.z) && (r.z1 || 0) > F.z0.z,
-    'zoom ' + (F.z0.z).toFixed(2) + ' -> ' + (r.z1 || 0).toFixed(2) + ' over ' + come.length + ' frames, ' + back + ' frames back; come-down ' + r.comeMs + ' ms, the painter asked ahead ' + r.prepaint + ' tiles');
+  /* Z2 (rule 420): the camera comes down on the compositor through the map's own pictures, the map drawn once at each (never once a
+     frame): its zoom climbs from where he was to the stop, each picture drawn at a higher zoom than the last */
+  const r = F.down || {}, zs = R.filter(x => x.z != null).map(x => x.z), rz = (r.renders || []).map(x => x.z);
+  let back = 0; for (let i = 1; i < zs.length; i++) if (zs[i] < zs[i - 1] - 1e-6) back++;
+  let up = rz.length >= 1; for (let i = 1; i < rz.length; i++) if (rz[i] < rz[i - 1] - 1e-6) up = false;
+  const stop = (r.z1 || 0) / (r.kEnd || 1);
+  ok(p + 'Z2 THE CAMERA CAME DOWN: the map drawn once at each picture of the way down (at most five), each at a higher zoom, the last the stop; the map\'s zoom never back',
+    !!r.gpu && up && rz.length <= 5 && rz.length >= 1 && Math.abs(rz[rz.length - 1] - stop) <= stop * 0.01 && back === 0 && (r.z1 || 0) > F.z0.z,
+    'zoom ' + (F.z0.z).toFixed(2) + ' -> ' + (r.z1 || 0).toFixed(2) + ' on the glass (drawn ' + rz.join(', ') + ', the stop ' + stop.toFixed(3) + ' scaled ' + r.kEnd + 'x to cover the glass); ' + back + ' frames back; come-down ' + r.comeMs + ' ms, the painter asked ahead ' + r.prepaint + ' tiles');
   const t3 = landing(F), al = r.align || {};
   ok(p + 'Z3 THE TURN LANDS ON THE BOARD: where the map\'s frame ends its turn, the fight\'s own camera draws the same block (2 px)', t3.dx != null && t3.dx <= 2 && r.phases && r.phases.turn > 0,
     t3.dx != null ? 'the map frame\'s own transform puts the block at ' + t3.p1 + ', the fight\'s camera on COMBAT TWO\'s board at ' + t3.p2 + ' (' + t3.dx.toFixed(1) + ' px); the map\'s block ' + al.scale + 'x the board\'s, turned in ' + ((r.phases.grid || 0) - r.phases.turn) + ' ms' : 'no turn measured: ' + t3.why);
@@ -159,17 +186,11 @@ function inLegs(p, F, quiet) {
     F.fsx ? 'laid ' + F.fsx.laid + ', cell ' + F.fsx.cell + ' (contact ' + F.at.gx + ',' + F.at.gy + '), ' + F.fsx.w + ' x ' + F.fsx.h + ' tiles' : 'no fight');
   const gridTurn = R.filter(x => x.st === 'turn' && x.grid).length, gridAfter = F.gridAfter;
   ok(p + 'Z5 THE GRID LIGHTS UP: the board\'s own lines on through the turn and gone after it', gridTurn > 0 && gridAfter === 0 && r.phases && r.phases.grid > 0, gridTurn + ' turn frames with the grid, ' + gridAfter + ' after');
-  const gaps = (st) => { const a = []; for (let i = 1; i < R.length; i++) if (R[i].st === st && R[i - 1].st === st) a.push(R[i].t - R[i - 1].t); return a; };
-  const gc = gaps('come'), gt = gaps('turn');
-  const mc = med(gc), wc = gc.length ? Math.max(...gc) : null, mt = med(gt), wt = gt.length ? Math.max(...gt) : null;
-  /* THE RATCHET, this box's truth (11/6, three runs: own 3.8 to 4.2 ms; the turn's median 46 to 50 ms against the fight alone 20 to 22,
-     the difference the software GPU compositing the turned full-glass pictures, which a phone's GPU does for nothing; the computer's
-     glass 47 against 17 once the covered layers are skipped (106 before); the come-down
-     39 to 45 ms median, 120 to 142 worst, the map's own draw): it may only come down */
-  const fo = F.fightOwn || 0, turnCap = 60;
-  ok(p + 'F1 FRAMES: the zoom\'s own work under 5 ms a frame; the turn median under 60 ms, worst under 200 ms; the come-down median under 100 and worst under 320 ms (the map\'s own draw, the pinch\'s ratchet)',
-    r.ownMax != null && r.ownMax < 5 && mt != null && mt <= turnCap && wt < 200 && mc != null && mc < 100 && wc < 320,
-    'own ' + r.ownMax + ' ms at worst (the map\'s draw up to ' + r.drawMax + ' ms); turn median ' + (mt || 0).toFixed(1) + ' (the fight alone after it ' + fo.toFixed(1) + '), worst ' + (wt || 0).toFixed(1) + ' ms over ' + gt.length + '; come-down median ' + (mc || 0).toFixed(1) + ', worst ' + (wc || 0).toFixed(1) + ' ms over ' + gc.length + '; the fight built under the map\'s frame in ' + r.built + ' ms');
+  /* F1 (rule 420): nothing of the zoom is drawn by the main thread frame by frame any more; its frames are the compositor's and are
+     measured off a trace on the phone at 4x (T1-T3). Here: every picture the dive laid has a Web Animation, none is drawn twice */
+  ok(p + 'F1 THE DIVE IS THE COMPOSITOR\'S: every move a Web Animation on a held picture; the map drawn at most five times, the fight built under the stop',
+    !!r.gpu && (r.renders || []).length <= 5 && r.buildAt != null && r.built != null && !r.err,
+    'renders ' + JSON.stringify(r.renders) + '; the build asked at ' + r.buildAt + ' ms, the fight up ' + r.built + ' ms after; first frame ' + r.firstFrame + ' ms; ' + (r.err || 'no error'));
 }
 function outLegs(p, F) {
   const R = F.out.rows, bad = R.filter(r => /LOADING|CLOUDS|NOTHING|ERR/.test(r.what)), seen = {}; R.forEach(r => { seen[r.what] = (seen[r.what] || 0) + 1; });
@@ -178,6 +199,70 @@ function outLegs(p, F) {
   const a = F.out.after || {}, up = F.out.up || {};
   ok(p + 'O2 THE CLIMB BACK: the map\'s zoom where he had it, his crew held again, the bar on the glass, nothing left over', !!F.out.up && !up.plain && Math.abs(a.z - F.z0.z) <= F.z0.z * 0.02 && a.camf === F.z0.camf && a.bar >= 0.99 && !a.left,
     'zoom ' + (a.z || 0).toFixed(3) + ' (was ' + F.z0.z.toFixed(3) + '), held ' + a.camf + ', bar ' + a.bar + ', phases ' + JSON.stringify(up.phases) + ', ' + up.ms + ' ms');
+}
+
+/* RULE 420 (MOTION 2, 11/7; Paolo 11/7: 'the transition from the map to the combat right now is still kind of shit'): the phone
+   profile with the CPU at 4x (the phone-shaped CPU), a trace of the compositor's own frames (DrawFrame) through the whole way in and
+   out, the phases marked on the same clock (console.timeStamp from the motion layer when the gate asks) */
+function frameStats(ev, a, b) {
+  const xs = ev.filter(t => t >= a && t <= b), g = [];
+  for (let i = 1; i < xs.length; i++) g.push((xs[i] - xs[i - 1]) / 1000);
+  g.sort((p, q) => p - q); const q = (f) => g.length ? g[Math.min(g.length - 1, Math.floor(f * g.length))] : null;
+  return { ms: Math.round((b - a) / 1000), frames: xs.length, med: q(0.5), p90: q(0.9), worst: g.length ? g[g.length - 1] : null, over100: g.filter(x => x > 100).length };
+}
+const fmt = (w) => w.frames + ' frames in ' + w.ms + ' ms, median ' + (w.med || 0).toFixed(1) + ', p90 ' + (w.p90 || 0).toFixed(1) + ', worst ' + (w.worst || 0).toFixed(1) + ' ms, ' + w.over100 + ' over 100 ms';
+async function runTraced() {
+  console.log('\n-- phone_portrait, the CPU at 4x, traced (rule 420) --');
+  const d = await D.open({ profile: 'phone_portrait' });
+  const errs = []; d.page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
+  const p = 'P4 ';
+  try {
+    for (let i = 0; i < 160; i++) { if (await d.fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'city' && typeof cityHandOver === 'function' && !!(window.om && om.n)).catch(() => false)) break; await sleep(500); }
+    await sleep(2500);
+    await d.page.evaluate(() => { window.__DIVE_MARKS = true; });
+    await d.cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+    const tp = path.join(require('os').tmpdir(), 'zoom_down_trace_' + process.pid + '.json');
+    await d.browser.startTracing(d.page, { path: tp, categories: ['devtools.timeline', 'disabled-by-default-devtools.timeline.frame'] });
+    const F = await fight(d, 'traced', null);
+    await d.browser.stopTracing();
+    await d.cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+    const T = JSON.parse(fs.readFileSync(tp, 'utf8')); try { fs.unlinkSync(tp); } catch (e) {}
+    const ev = T.traceEvents || T, M = {};
+    ev.filter(e => e.name === 'TimeStamp' && e.args && e.args.data).forEach(e => { const m = e.args.data.message; if (!(m in M)) M[m] = e.ts; });
+    const df = ev.filter(e => e.name === 'DrawFrame').map(e => e.ts).sort((a, b) => a - b);
+    const has = (...k) => k.every(x => M[x] != null);
+    const wIn = has('dive:down:come', 'dive:down:grid') ? frameStats(df, M['dive:down:come'], M['dive:down:grid']) : null;
+    const wTurn = has('dive:down:turn', 'dive:down:grid') ? frameStats(df, M['dive:down:turn'], M['dive:down:grid']) : null;
+    const wGrid = has('dive:down:grid', 'dive:down:end') ? frameStats(df, M['dive:down:grid'], M['dive:down:end']) : null;
+    const wOut = has('dive:up:grid', 'dive:up:end') ? frameStats(df, M['dive:up:grid'], M['dive:up:end']) : null;
+    /* THE RATCHET, this box at 4x (11/7, MOTION 2; was about 5 frames a second, the map drawn on every step): the way in median 16.7,
+       p90 29.7, worst 48 ms; the turn worst 26 ms; it may only come down */
+    ok(p + 'T1 THE WAY IN AT 4X: the compositor\'s frames from the camera\'s first move to the board landing: median at most 17.5 ms, p90 at most 34, none over 100 ms',
+      !!wIn && wIn.med <= 17.5 && wIn.p90 <= 34 && wIn.over100 === 0, wIn ? fmt(wIn) + (wTurn ? '; the turn alone ' + fmt(wTurn) : '') + (wGrid ? '; the grid over the live fight ' + fmt(wGrid) : '') : 'no marks: ' + Object.keys(M).join(', '));
+    const worstAll = Math.max(wIn ? wIn.worst : 1e9, wOut ? wOut.worst : 1e9);
+    ok(p + 'T2 NOTHING HELD PAST A BEAT: no gap between the compositor\'s frames over 500 ms anywhere in the way in or out', !!wIn && !!wOut && worstAll <= 500,
+      'worst ' + worstAll.toFixed(1) + ' ms');
+    /* the way out's frames over 100 ms at 4x on this box lie inside other pages' canvas work after a fight (measured 11/7: the map's
+       result message 800 ms, the carcass 350 ms, the map's own frame 210 ms) starving the software GPU: printed, the median and p90 held */
+    ok(p + 'T3 THE WAY OUT AT 4X: the compositor\'s frames from the board\'s last frame to the live map: median at most 17.5 ms, p90 at most 34 (the worst printed)',
+      !!wOut && wOut.med <= 17.5 && wOut.p90 <= 34, wOut ? fmt(wOut) : 'no marks');
+    /* T4: every live man has a bracket; it starts where the map had his crew (theirs: the contact's block), through the map frame's own
+       rest pose, and lands on his tile through the fight's own camera */
+    const r = F.down || {}, men = r.men || [], live = F.menNow || [], kE = r.kEnd || 1, mc = r.mapC ? { x: r.mapC[0], y: r.mapC[1] } : null, tile = live.length ? null : null;
+    let bad = [], n = 0;
+    live.forEach(m => { const b = men.find(x => x.id === m.id); if (!b) { bad.push(m.id + ' no bracket'); return; } n++;
+      if (Math.hypot(b.to[0] - m.x, b.to[1] + (b.lift || 0) - m.y) > 3) bad.push(m.id + ' lands ' + b.to + ' not ' + [Math.round(m.x), Math.round(m.y)]);
+      const cb = r.cb || [0, 0], src = m.side === 'us' && F.crewNow ? { x: cb[0] + F.crewNow.x, y: cb[1] + F.crewNow.y } : mc;
+      if (src && mc) { const ex = { x: mc.x + kE * (src.x - mc.x), y: mc.y + kE * (src.y - mc.y) };
+        if (Math.abs(b.from[1] - ex.y) > 3 || Math.abs(b.from[0] - ex.x) > 40) bad.push(m.id + ' starts ' + b.from + ' not ' + [Math.round(ex.x), Math.round(ex.y)]); } });
+    ok(p + 'T4 THE MEN FOUND WHERE THEY STOOD: a bracket for every live man, from where the map had his crew (theirs at the contact) to his own tile', live.length > 0 && n === live.length && !bad.length,
+      n + ' of ' + live.length + ' men bracketed' + (bad.length ? '; ' + bad.slice(0, 3).join('; ') : '; every one from the map\'s own spot to his tile within 3 px'));
+    const hold = F.inRows.filter(x => x.st === 'hold'), bare = hold.filter(x => !x.full);
+    ok(p + 'B1 THE GLASS IS NEVER BARE: through the hold a picture at full opacity covers the whole glass (the bar\'s band under the map\'s canvas too)', hold.length > 3 && !bare.length,
+      hold.length + ' hold frames, ' + bare.length + ' bare; the stop scaled ' + kE + 'x about the block (the map\'s canvas ' + JSON.stringify(r.cb) + ')');
+    ok(p + 'E1 nothing threw', !errs.length, errs.slice(0, 3).join(' | ') || 'none');
+  } catch (e) { ok('the traced run ran to the end', false, String(e && e.stack || e).slice(0, 300)); }
+  await d.close();
 }
 
 async function run(profile) {
@@ -204,7 +289,7 @@ async function run(profile) {
       const rd = await fight(d, 'reduced', null);
       const r = rd.down || {}, zs = rd.inRows.filter(x => x.z != null).map(x => x.z), moved = zs.length ? Math.max(...zs) - Math.min(...zs) : 0;
       const badR = rd.inRows.filter(x => /LOADING|CLOUDS|NOTHING|ERR/.test(x.what)).length;
-      const fadeMs = r.phases && r.phases.fade != null ? (r.ms - r.phases.fade) : null;
+      const fadeMs = r.fadeMs != null ? r.fadeMs : (r.phases && r.phases.fade != null ? (r.ms - r.phases.fade) : null);   /* rule 420: the fade is a Web Animation, its own length (the cleanup after it can run late) */
       ok(p + 'R1 REDUCED MOTION: no zoom, no turn, the map\'s frame held over the build, a fade under 250 ms', !!r.reduced && !!r.plain && moved < 1e-6 && !badR && fadeMs != null && fadeMs < 250,
         'reduced ' + r.reduced + ', zoom moved ' + moved.toFixed(4) + ', ' + badR + ' bad frames, the fade ' + fadeMs + ' ms');
       await d.page.evaluate(() => BOHEMIA_SETTINGS.setMotion(false));
@@ -222,7 +307,7 @@ async function run(profile) {
   ok('S1 THE CLOUDS ARE GONE FROM THE SOURCE: no cloud layer, no nfcIn, in the shell, the demo or the motion layer; the dive hands the build',
     !dead.test(shell) && !dead.test(demo) && !/getElementById\('nfclouds'\)/.test(mo) && /BohemiaMotion\.dive\.down\(d, go\)/.test(shell) && /__THE_ZOOM_DOWN_INTO_THE_BOARD__/.test(mo),
     ['shell', 'demo', 'motion'].map((k, i) => k + ' ' + (dead.test([shell, demo, mo][i]) ? 'HAS CLOUDS' : 'clear')).join(', '));
-  for (const prof of only ? [only] : ['phone_portrait', 'computer']) await run(prof);
+  for (const prof of only ? [only] : ['phone_portrait', 'computer', 'phone_4x']) { if (prof === 'phone_4x') await runTraced(); else await run(prof); }
   console.log('\nTHE ZOOM DOWN INTO THE BOARD: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })();

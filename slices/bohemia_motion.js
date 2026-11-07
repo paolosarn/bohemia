@@ -924,6 +924,8 @@
     + "    var ox2 = CVW / 2 - (G.x - G.y) * TW / 2 + px, oy2 = CVH / 2 - (G.x + G.y) * TH / 2 + py; r = { x: ox2 + (a.u - a.v) * TW / 2, y: oy2 + (a.u + a.v) * TH / 2 }; } catch (e) { r = null; }"
     + "  CZOOM = kz; TW = TW0 * kz; TH = TH0 * kz; panX = kx; panY = ky; return r; }"
     + "if (op === 'draw') { render(); return true; }"
+    /* his crew where the map draws it now (the glide's own position), for the brackets that find his men (MOTION 2, rule 420) */
+    + "if (op === 'crew') { var ox3 = Math.round(CVW / 2 - (G.x - G.y) * TW / 2 + panX), oy3 = Math.round(CVH / 2 - (G.x + G.y) * TH / 2 + panY); return { x: ox3 + (G.x - G.y) * TW / 2, y: oy3 + (G.x + G.y + 1) * TH / 2 }; }"
     /* THE PAINTER ASKED FIRST FOR WHERE THE CAMERA IS GOING (WORLD's own painter, its own one-at-a-time ask): the tiles at the end
        zoom's detail round the fight's block, nearest first, so the street is painted while the camera comes down to it, never
        after. Returns how many of them are still missing (-1: no painter here). */
@@ -983,6 +985,32 @@
     var q = map2(L, box.x - from.x, box.y - from.y);
     return 'matrix(' + [L[0], L[2], L[1], L[3], q.x + to.x - box.x, q.y + to.y - box.y].map(function (v) { return (+v).toFixed(5); }).join(',') + ')';
   }
+  /* ======================================================================================================================
+     __THE_WAY_INTO_A_FIGHT__ (MOTION 2, 11/7, rule 420, ask line 480; Paolo 11/7: 'the transition from the map to the combat right
+     now is still kind of shit'). WATCHED FIRST, frame by frame (the demo, 390 x 844 at 3 with the CPU at 4x, and the computer; every
+     frame the compositor sent, screencast): the come-down was 5 frames (the map drawn on every step, 200 to 260 ms a draw there), the
+     hold ONE still picture for 5.8 s, the turn 4 frames with the map's edge a hard seam across the board, the way out's turn and climb
+     ONE frame each (two cuts), the bar's band left black over the held frame, his crew gone with the map and the board's men just there.
+     NOW THE DIVE IS PLAYED BY THE COMPOSITOR, never by the main thread: every move is a Web Animation of transform and opacity on a
+     held picture, which the browser plays on its compositor thread at the screen's rate while the main thread draws the map at its
+     next zoom, builds the fight and decodes its board (measured on this box at 4x: a frame every 17 ms through a 600 ms block).
+       1 COME DOWN: the map as it stands (A) is scaled down onto the fight's block; under it the map is drawn ONCE at the halfway zoom
+         (B) and ONCE at the stop (C), each laid in on the same clock where it is sharp (nothing drawn twice; C drawn once more only if
+         the stop's tiles, asked ahead from the first frame, land after it). The stop is scaled to cover the glass: the bar's band under
+         the map's canvas is never left bare. The fight's page is built as soon as C is held, a second sooner than before.
+       2 THE TAPE TRACKS OUT while it builds: the camera keeps lowering (a slow push-in), two tracking bands made of the frame's own
+         pixels roll down it, REC and a running timecode (the world's own hour) burn in at the corner, the music drops to its own hum.
+       3 THE TURN: the board's first frame (F) is held; C and F turn together (the affine marriage, 407(c)), the tape tracks back in,
+         the grid scans on line by line from the far edge like a surveillance overlay, and a bracket finds every man: it starts where
+         the map had his crew (or theirs, at the contact's block) and lands on his tile.
+       4 THE BOARD LANDS: its colours bleed (its own red and its green-blue a few pixels apart, closing), the music opens back up,
+         the grid holds a beat and fades, REC goes out. The fight is his from the end of the turn.
+       5 THE WAY OUT climbs back the same way: the grid scans on over the board's last frame and the tape tracks out while the map is
+         drawn under it at the halfway zoom and where he was; the board and the way-in's frame turn back together, and the camera
+         climbs through those pictures to the live map, his crew held, the music opening as it climbs.
+     REDUCED MOTION and a door with no map camera: as before (the frame held, a 167 ms fade). Gate: gates/the_zoom_down_into_the_board_gate.js
+     (its rule-420 legs read the compositor's own frames off a trace on the phone profile at 4x).
+     ====================================================================================================================== */
   function diveLayer() {
     if (DIVE.el && DIVE.el.isConnected) return DIVE.el;
     var el = D.createElement('div'); el.id = 'bmdive';
@@ -990,20 +1018,54 @@
     el.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:55;pointer-events:none;overflow:hidden;contain:strict;background:transparent';
     D.body.appendChild(el); DIVE.el = el; return el;
   }
-  function snapOf(cv, cls) {
-    var b = topBox(cv); if (!b || !cv.width || !cv.height) return null;
-    var c = D.createElement('canvas'); c.width = cv.width; c.height = cv.height; c.className = cls;
-    try { c.getContext('2d').drawImage(cv, 0, 0); } catch (e) { return null; }
-    c.style.cssText = 'position:absolute;left:' + b.x + 'px;top:' + b.y + 'px;width:' + b.w + 'px;height:' + b.h + 'px;transform-origin:0 0;will-change:transform,opacity';
-    diveLayer().appendChild(c);
-    return { c: c, box: b };
+  function divEl(cls, css, parent) { var g = D.createElement('div'); g.className = cls; g.style.cssText = css || ''; (parent || diveLayer()).appendChild(g); return g; }
+  function glassCSS() { return 'position:absolute;left:0;top:0;width:' + W.innerWidth + 'px;height:' + W.innerHeight + 'px;transform-origin:0 0'; }
+  /* a picture of src laid at box on the glass; k: pixels a point (none: the source's own pixels) */
+  function picOf(src, box, cls, k, parent) {
+    if (!src || !box || !src.width || !src.height) return null;
+    var w = src.width, h = src.height;
+    if (k) { w = Math.max(1, Math.round(box.w * k)); h = Math.max(1, Math.round(box.h * k)); }
+    var c = D.createElement('canvas'); c.width = w; c.height = h; c.className = cls;
+    try { c.getContext('2d').drawImage(src, 0, 0, w, h); } catch (e) { return null; }
+    c.style.cssText = 'position:absolute;left:' + box.x + 'px;top:' + box.y + 'px;width:' + box.w + 'px;height:' + box.h + 'px;transform-origin:0 0;will-change:transform,opacity';
+    (parent || diveLayer()).appendChild(c);
+    return { c: c, box: { x: box.x, y: box.y, w: box.w, h: box.h } };
   }
-  function gridCanvas() {
-    var c = D.createElement('canvas'), k = Math.min(2, W.devicePixelRatio || 1); c.className = 'grid';   /* two pixels a point at most: the clear of a full 3x glass cost a frame 4 ms */
-    c.width = Math.round(W.innerWidth * k); c.height = Math.round(W.innerHeight * k);
-    c.style.cssText = 'position:absolute;left:0;top:0;width:100vw;height:100vh';
-    diveLayer().appendChild(c); return c;
+  function snapOf(cv, cls) { var b = topBox(cv); return b ? picOf(cv, b, cls) : null; }
+  /* ONE WEB ANIMATION, played by the compositor (transform and opacity only) */
+  function play(el, frames, ms, o) {
+    o = o || {};
+    try {
+      var a = el.animate(frames, { duration: Math.max(1, ms * SLOW), delay: (o.delay || 0) * SLOW, fill: o.fill || 'both', easing: o.easing || 'linear', iterations: o.iter || 1, direction: o.dir || 'normal' });
+      if (o.start != null) a.startTime = o.start;
+      if (o.iter !== Infinity) DIVE.anims.push(a);
+      return a;
+    } catch (e) { try { if (DIVE.row) DIVE.row.err = (DIVE.row.err ? DIVE.row.err + ' | ' : '') + 'play: ' + String(e && e.message || e).slice(0, 120); } catch (_e) {} return null; }
   }
+  function keys(n, fn) { var out = []; for (var i = 0; i <= n; i++) { var u = i / n, f = fn(u); f.offset = u; out.push(f); } return out; }
+  /* after the frame that shows what was just laid has gone to the compositor: a long draw in fn never holds that frame back */
+  function afterPaint(fn) { W.requestAnimationFrame(function () { setTimeout(fn, 0); }); }
+  function later(fn, ms) { var o = { fn: fn, id: 0 }; o.id = setTimeout(function () { o.done = true; fn(); }, Math.max(0, ms * SLOW)); DIVE.timers.push(o); return o; }
+  /* the map's picture drawn at zoom zk with the block at sk (its canvas's own points), shown as the camera stands at P = { z, s } */
+  function poseOf(P, zk, sk) { var k = P.z / zk; return 'translate(' + (P.s.x - k * sk.x).toFixed(2) + 'px,' + (P.s.y - k * sk.y).toFixed(2) + 'px) scale(' + k.toFixed(5) + ')'; }
+  /* how much the stop's picture is scaled about the block so it covers the whole glass (the bar's band under the map's canvas) */
+  function coverK(cb, F) {
+    var Wg = W.innerWidth, Hg = W.innerHeight, k = 1;
+    if (F.x > 1) k = Math.max(k, (cb.x + F.x) / F.x);
+    if (cb.w - F.x > 1) k = Math.max(k, (Wg - cb.x - F.x) / (cb.w - F.x));
+    if (F.y > 1) k = Math.max(k, (cb.y + F.y) / F.y);
+    if (cb.h - F.y > 1) k = Math.max(k, (Hg - cb.y - F.y) / (cb.h - F.y));
+    return Math.min(1.6, k > 1 ? k + 0.004 : 1);
+  }
+  /* where the map puts map ground (u, v) on the glass and its two axes there (px per block), from its camera alone */
+  function mgOf(cam, cb, fx, fy, u, v) {
+    var p = cam('at', { u: u, v: v }); if (!p) return null;
+    var TWc = p.TW * fx, THc = p.TH * fy;
+    return { c: { x: cb.x + p.x * fx, y: cb.y + p.y * fy }, M: [TWc / 2, -TWc / 2, THc / 2, THc / 2], sm: TWc / Math.SQRT2, km: THc / TWc };
+  }
+  /* the world's own hour, for the tape's timecode */
+  function worldClock(cw) { try { if (!cw.__bmClock) cw.__bmClock = new cw.Function("try { return { d: T.day, m: T.min }; } catch (e) { return null; }"); return cw.__bmClock(); } catch (e) { return null; } }
+
   /* THE GRID LIGHTS UP: the board's own tile lines, the far edge first (scan 0..1), through the turn's map L about from -> to */
   function gridDraw(gc, fg, L, from, to, alpha, scan) {
     var x = gc.getContext('2d'), k = gc.width / Math.max(1, W.innerWidth), blank = !fg || alpha <= 0.01 || scan <= 0;
@@ -1022,81 +1084,140 @@
       var e0 = P(0, hy), e1 = P(fg.w, hy); x.beginPath(); x.moveTo(e0.x, e0.y); x.lineTo(e1.x, e1.y); x.stroke();
     }
   }
-  /* THE CORNERS OF THE TURN: a turned picture leaves the glass's corners; under the turning board (inside the fight's page, beneath
-     its own canvas, first in its page) lie the same two frames standing still, the map's fading as the map's does and the board's first frame, so a
-     corner shows this street, never black (rule 404: no black or brown bars) */
-  function underlays(fw, fc, pic) {
-    var out = { map: null, board: null, gone: function () { try { if (out.map) out.map.remove(); } catch (e) {} try { if (out.board) out.board.remove(); } catch (e) {} } };
+  /* ---- THE TAPE (rule 420(c); analog horror at the source: the drop is a camera on a mast and this is its recording) ---- */
+  var OSD_INK = '#ebe3cd', SHADOW = '#0b0907';
+  function osdOn(parent, clock, inMs, rew) {
+    var Wg = W.innerWidth, Hg = W.innerHeight, fs = Math.max(12, Math.min(17, Math.round(Math.min(Wg, Hg) / 29))), lh = fs + 3, pad = Math.round(fs * 1.1);
+    var o = divEl('osd', 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:' + Hg + 'px;pointer-events:none;opacity:0;will-change:opacity;font-family:"BohemiaROM",ui-monospace,monospace;font-size:' + fs + 'px;line-height:' + lh + 'px;color:' + OSD_INK + ';letter-spacing:1px;text-shadow:1px 0 0 ' + SHADOW + ',-1px 0 0 ' + SHADOW + ',0 1px 0 ' + SHADOW + ',0 -1px 0 ' + SHADOW, parent);
+    /* the camera's own frame: four corners */
+    var L = Math.round(fs * 1.3), t = 2, cs = 'position:absolute;width:' + L + 'px;height:' + L + 'px;border:0 solid ' + OSD_INK + ';filter:drop-shadow(1px 1px 0 ' + SHADOW + ')';
+    divEl('', cs + ';left:' + (pad - 6) + 'px;top:' + (pad - 6) + 'px;border-left-width:' + t + 'px;border-top-width:' + t + 'px', o);
+    divEl('', cs + ';right:' + (pad - 6) + 'px;top:' + (pad - 6) + 'px;border-right-width:' + t + 'px;border-top-width:' + t + 'px', o);
+    divEl('', cs + ';left:' + (pad - 6) + 'px;bottom:' + (pad - 6) + 'px;border-left-width:' + t + 'px;border-bottom-width:' + t + 'px', o);
+    divEl('', cs + ';right:' + (pad - 6) + 'px;bottom:' + (pad - 6) + 'px;border-right-width:' + t + 'px;border-bottom-width:' + t + 'px', o);
+    var box = divEl('', 'position:absolute;left:' + (pad + 4) + 'px;top:' + (pad + 2) + 'px;white-space:nowrap', o);
+    /* REC on the way down; on the way out the tape rewinds (the arrows, the timecode running back) */
+    var l1 = divEl('', '', box), dot = D.createElement('span'); dot.textContent = rew ? '\u25C0\u25C0' : '\u25CF'; dot.style.cssText = 'color:' + (rew ? OSD_INK : '#c8322a') + ';display:inline-block;will-change:opacity;margin-right:6px';
+    l1.appendChild(dot); l1.appendChild(D.createTextNode(rew ? 'REW' : 'REC'));
+    play(dot, [{ opacity: 1 }, { opacity: 0 }], 1000, { easing: 'steps(2)', iter: Infinity });
+    /* the timecode: the world's hour and minute, then seconds and frames running on the compositor (a column of digits each) */
+    var l2 = divEl('', '', box), two = function (n) { return (n < 10 ? '0' : '') + n; };
+    var h = clock ? Math.floor(clock.m / 60) % 24 : 0, mi = clock ? clock.m % 60 : 0;
+    l2.appendChild(D.createTextNode((clock ? 'D' + clock.d + ' ' : '') + two(h) + ':' + two(mi) + ':'));
+    var col = function (n, period) {
+      var wv = D.createElement('span'); wv.style.cssText = 'display:inline-block;height:' + lh + 'px;overflow:hidden;vertical-align:top';
+      var c = D.createElement('span'); c.style.cssText = 'display:block;will-change:transform'; var s = '';
+      for (var i = 0; i < n; i++) s += '<span style="display:block;height:' + lh + 'px">' + i + '</span>';
+      c.innerHTML = s; wv.appendChild(c); l2.appendChild(wv);
+      play(c, [{ transform: 'translateY(0px)' }, { transform: 'translateY(' + (-n * lh) + 'px)' }], period, { easing: 'steps(' + n + ')', iter: Infinity, dir: rew ? 'reverse' : 'normal' });
+    };
+    col(6, 60000); col(10, 10000); l2.appendChild(D.createTextNode(':')); col(3, 1000); col(10, 1000 / 3);
+    play(o, [{ opacity: 0 }, { opacity: 1 }], inMs || 200, { easing: 'steps(3)', fill: 'forwards' });
+    return o;
+  }
+  /* TRACKING: a strip of the held frame itself, slipped sideways, rolling down it with a head line; never a noise texture */
+  function bandsOn(parent, pic, pose, delay) {
+    var Wg = W.innerWidth, Hg = W.innerHeight, out = [];
+    [{ h: 10, dx: 4, period: 2300, at: 0 }, { h: 26, dx: 11, period: 3700, at: 1 }].forEach(function (sp, i) {
+      var band = divEl('band', 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:' + sp.h + 'px;overflow:hidden;opacity:0;will-change:transform,opacity', parent);
+      var inner = picOf(pic.c, pic.box, 'band', 0.5, band); if (!inner) { band.remove(); return; }
+      divEl('', 'position:absolute;left:0;top:0;width:100%;height:1px;background:rgba(236,228,206,.6)', band);
+      divEl('', 'position:absolute;left:0;bottom:0;width:100%;height:' + Math.max(2, sp.h >> 2) + 'px;background:rgba(236,228,206,.14)', band);
+      var n = 30, jit = []; for (var k = 0; k <= n; k++) jit.push((k % 2 ? 1 : -1) * sp.dx * (0.45 + 0.55 * Math.abs(Math.sin(k * 2.39 + i))));
+      var d = (delay || 0) + sp.at * beatNow();
+      var y = function (u) { return -sp.h + u * (Hg + sp.h); };
+      play(band, keys(n, function (u) { return { transform: 'translateY(' + y(u).toFixed(1) + 'px)' }; }), sp.period, { iter: Infinity, delay: d });
+      play(inner.c, keys(n, function (u, q) { return { transform: 'translate(' + jit[Math.round(u * n)].toFixed(1) + 'px,' + (-y(u)).toFixed(1) + 'px) ' + pose }; }), sp.period, { iter: Infinity, delay: d });
+      play(band, [{ opacity: 0 }, { opacity: 0.92 }], beatNow() / 3, { delay: d, fill: 'forwards' });
+      out.push(band);
+    });
+    return out;
+  }
+  /* the tape tracks back in: the bands go */
+  function bandsOff(bands, ms) {
+    (bands || []).forEach(function (b) { var o0 = 0; try { o0 = +getComputedStyle(b).opacity || 0; } catch (e) {} play(b, [{ opacity: o0 }, { opacity: 0 }], ms, { fill: 'forwards' }); });
+  }
+  /* THE HUM: the music, never a made-up tone, pulled down through a low-pass to its own low end while the camera is down and opened
+     back up as it lands (one node between his music slider and the master, the way the dialogue's duck sits between the music and
+     the slider) */
+  var HUM = null;
+  function humNode() {
     try {
-      var fd = fw.document, fr = fw.frameElement.getBoundingClientRect(), mk = function (src, b, cls) {
-        var c = fd.createElement('canvas'); c.width = Math.round(b.w); c.height = Math.round(b.h); c.className = 'bmdive-' + cls; c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);   /* a point a pixel: they are only the corners */
-        c.style.cssText = 'position:fixed;left:' + (b.x - fr.left) + 'px;top:' + (b.y - fr.top) + 'px;width:' + b.w + 'px;height:' + b.h + 'px;pointer-events:none';   /* positioned, first in the page: painted before its canvas, over its background */
-        fd.body.insertBefore(c, fd.body.firstChild); return c; };
-      out.board = mk(fc, topBox(fc), 'board');
-      out.map = mk(pic.c, pic.box, 'map');
+      var mv = W.__MUSVOL, out = W.__OUTBUS; if (!mv || !out || !mv.context) return null;
+      if (HUM && HUM.__mv === mv) return HUM;
+      var lp = mv.context.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 20000; lp.Q.value = 0.5;
+      try { mv.disconnect(out); } catch (e) {}
+      mv.connect(lp); lp.connect(out); lp.__mv = mv; HUM = lp; return lp;
+    } catch (e) { return null; }
+  }
+  function humTo(down, sec, after) {
+    var lp = humNode(); if (!lp) return;
+    try { var t = lp.context.currentTime + (after || 0), f = lp.frequency; f.cancelScheduledValues(t); f.setValueAtTime(Math.max(30, f.value), t); f.exponentialRampToValueAtTime(down ? 190 : 20000, t + Math.max(0.05, sec)); DIVE.hum = down ? 'down' : 'up'; } catch (e) {}
+  }
+
+  function diveRow(kind) {
+    var r = { n: ++DIVE.seq, kind: kind, t0: performance.now(), phases: {}, gpu: true, reduced: reduced(), at: DIVE.at ? [DIVE.at.gx, DIVE.at.gy] : null,
+      laid: null, z0: null, z1: null, align: null, renders: [], men: [], err: null, done: false };
+    DIVE.row = r; DIVE.log.push(r); if (DIVE.log.length > 12) DIVE.log.shift(); return r;
+  }
+  /* while nothing under the covers is his yet (the come-down, the hold) the layer takes a tap (it skips the motion, the stop cord)
+     so a finger never starts a journey on a map that is leaving or reaches a fight not yet shown */
+  var TAKES = { come: 1, settle: 1, hold: 1, grid: 0, turn: 0, fade: 0, climb: 0 };
+  function phase(r, name) { if (!r) return; var t = performance.now(); r.phases[name] = Math.round(t - r.t0); DIVE.state = name;
+    try { if (W.__DIVE_MARKS) console.timeStamp('dive:' + r.kind + ':' + name); } catch (e) {}   /* a gate's trace reads the phases off the same clock as the frames */
+    var take = r.kind === 'down' ? !!TAKES[name] : (name === 'grid' || name === 'turn');
+    try { diveLayer().style.pointerEvents = take ? 'auto' : 'none'; } catch (e) {} }
+  function diveEnd(r) {
+    (DIVE.timers || []).forEach(function (o) { try { clearTimeout(o.id); } catch (e) {} }); DIVE.timers = []; DIVE.anims = [];
+    try { if (DIVE.raf) W.cancelAnimationFrame(DIVE.raf); } catch (e) {} DIVE.raf = 0;
+    try { if (DIVE.el) DIVE.el.remove(); } catch (e) {} DIVE.el = null; DIVE.skip = false;
+    if (DIVE.hum === 'down') humTo(false, 0.5);
+    DIVE.state = 'off'; nfcSet('off');
+    try { if (W.__DIVE_MARKS && r) console.timeStamp('dive:' + r.kind + ':end'); } catch (e) {}
+    if (r) { r.done = true; r.ms = Math.round(performance.now() - r.t0); }
+  }
+  function beatNow() { return beat().bm; }
+  /* the fight's men, where its own camera stands them now (top glass), and the board's tile on the glass */
+  function menOf(fw, fg) {
+    var out = [];
+    try {
+      var F = fightOf(fw), U = fw.FIGHT_UI, S = F && F.S; if (!S || !U) return out;
+      (S.units || []).forEach(function (u) {
+        if (!u || u.dead || u.down || u.fled || u.decoy || !isFinite(u.x) || !isFinite(u.y) || u.x < 0 || u.y < 0) return;
+        var o = upFrom(fw.document, { x: fw.sx((u.x + 0.5) * U.tw), y: fw.sy((u.y + 0.5) * U.th), w: 1, h: 1 });
+        out.push({ side: u.side === 'them' ? 'them' : 'us', id: u.id, tile: [u.x, u.y], q: { x: o.x, y: o.y } });
+      });
     } catch (e) {}
     return out;
   }
-  function keepOf(pic, mg) {
-    try { var b = pic.box, c = D.createElement('canvas'); c.width = Math.round(b.w); c.height = Math.round(b.h); c.getContext('2d').drawImage(pic.c, 0, 0, c.width, c.height);
-      return { c: c, box: { x: b.x, y: b.y, w: b.w, h: b.h }, mg: mg, glass: Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight), at: DIVE.at }; } catch (e) { return null; }
+  var BRACKET = { us: '#ebe3cd', them: '#d2553f' };
+  function bracketEl(parent, side, s) {
+    var b = divEl('bracket ' + side, 'position:absolute;left:0;top:0;width:' + s + 'px;height:' + s + 'px;transform-origin:50% 50%;opacity:0;will-change:transform,opacity', parent);
+    b.innerHTML = '<svg width="' + s + '" height="' + s + '" viewBox="0 0 10 10" style="display:block;overflow:visible"><path d="M0 3.2V0H3.2M6.8 0H10V3.2M10 6.8V10H6.8M3.2 10H0V6.8" fill="none" stroke="' + SHADOW + '" stroke-width="3" vector-effect="non-scaling-stroke"/><path d="M0 3.2V0H3.2M6.8 0H10V3.2M10 6.8V10H6.8M3.2 10H0V6.8" fill="none" stroke="' + BRACKET[side] + '" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>';
+    return b;
   }
-  function keptSnap(k, cls) {
-    var c = D.createElement('canvas'); c.width = k.c.width; c.height = k.c.height; c.className = cls; c.getContext('2d').drawImage(k.c, 0, 0);
-    c.style.cssText = 'position:absolute;left:' + k.box.x + 'px;top:' + k.box.y + 'px;width:' + k.box.w + 'px;height:' + k.box.h + 'px;transform-origin:0 0;will-change:transform,opacity';
-    diveLayer().appendChild(c); return { c: c, box: k.box };
+  /* a red-only and a green-blue-only copy of a picture, half its pixels: together, screened over black, they are the picture */
+  function tintOf(src, w, h, rgb) {
+    var c = D.createElement('canvas'); c.width = w; c.height = h;
+    try { var x = c.getContext('2d'); x.drawImage(src, 0, 0, w, h); x.globalCompositeOperation = 'multiply'; x.fillStyle = rgb; x.fillRect(0, 0, w, h); } catch (e) { return null; }
+    c.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;will-change:transform'; return c;
   }
-  function diveRow(kind) {
-    var r = { n: ++DIVE.seq, kind: kind, t0: performance.now(), phases: {}, frames: 0, gaps: [], worst: 0, over33: 0, skipped: false, reduced: reduced(), at: DIVE.at ? [DIVE.at.gx, DIVE.at.gy] : null,
-      laid: null, z0: null, z1: null, align: null, covers: { map: 0, board: 0, none: 0 }, err: null, done: false };
-    DIVE.row = r; DIVE.log.push(r); if (DIVE.log.length > 12) DIVE.log.shift(); return r;
-  }
-  /* while nothing under the covers is his yet (the come-down, the hold, the way out's grid and turn) the layer takes a tap (it skips
-     the motion, the stop cord) so a finger never starts a journey on a map that is leaving or reaches a fight not yet shown */
-  var TAKES = { come: 1, settle: 1, hold: 1, grid: 0, turn: 0, fade: 0, climb: 0 };
-  function phase(r, name) { if (!r) return; var t = performance.now(); r.phases[name] = Math.round(t - r.t0); DIVE.state = name;
-    var take = r.kind === 'down' ? !!TAKES[name] : (name === 'grid' || name === 'turn');
-    try { diveLayer().style.pointerEvents = take ? 'auto' : 'none'; } catch (e) {} }
-  /* one frame loop for every phase: step(u, now) until u reaches 1 (a tap: at once) */
-  function run(r, ms, step, done) {
-    var t0 = performance.now(), last = t0;
-    var f = function () {
-      var now = performance.now(), gap = now - last; last = now;
-      if (r && gap > 0.5) { r.frames++; r.gaps.push(Math.round(gap)); if (r.gaps.length > 400) r.gaps.shift(); if (gap > r.worst) r.worst = Math.round(gap); if (gap > 33.4) r.over33++; }
-      var u = DIVE.skip ? 1 : Math.min(1, (now - t0) / Math.max(1, ms * SLOW));
-      var s0 = performance.now(), d0 = DRAWMS;
-      try { step(u, now); } catch (e) { if (r) r.err = String(e && e.message || e); u = 1; }
-      if (r) { var own = performance.now() - s0 - (DRAWMS - d0); if (own > (r.ownMax || 0)) r.ownMax = +own.toFixed(2); r.drawMax = Math.max(r.drawMax || 0, +(DRAWMS - d0).toFixed(1)); }
-      if (u < 1) DIVE.raf = W.requestAnimationFrame(f); else { DIVE.raf = 0; DIVE.skip = false; done(); }
-    };
-    DIVE.raf = W.requestAnimationFrame(f);
-  }
-  function diveEnd(r) {
-    try { if (DIVE.raf) W.cancelAnimationFrame(DIVE.raf); } catch (e) {} DIVE.raf = 0;
-    try { var fw = fightWin(), fc = fw && fw.document.getElementById('cv'); if (fc) { fc.style.removeProperty('transform'); fc.style.removeProperty('opacity'); } } catch (e) {}
-    try { if (DIVE.el) DIVE.el.remove(); } catch (e) {} DIVE.el = null; DIVE.skip = false;
-    DIVE.state = 'off'; nfcSet('off');
-    if (r) { r.done = true; r.ms = Math.round(performance.now() - r.t0); }
-  }
-  function fade(r, el, ms, then) {
-    run(r, ms, function (u) { el.style.opacity = String(1 - u); }, then);
-  }
-  function beatNow() { return beat().bm; }
 
   /* ---- THE WAY IN ---- */
   function diveDown(d, go) {
     if (DIVE.state !== 'off') diveEnd(DIVE.row);
+    DIVE.anims = []; DIVE.timers = [];
     var cw = cityWin(), cam = mapCam(cw), c = cam ? cam('read') : null;
     DIVE.at = cellOf(d && d.at) || (c ? { gx: Math.floor(c.city[0]), gy: Math.floor(c.city[1]) } : null);
     var r = diveRow('down'); nfcSet('in'); phase(r, 'come');
-    var built = false, build = function () { if (built) return; built = true; try { go(); } catch (e) { r.err = String(e && e.message || e); } };
+    var built = false, build = function () { if (built) return; built = true; r.buildAt = Math.round(performance.now() - r.t0); try { go(); } catch (e) { r.err = String(e && e.message || e); } };
     /* the fight's page is ready: its ground built, its board drawn */
     var fightUp = function () { var fw = fightWin(); try { var l = fw && fw.document.getElementById('load'); return !!(fw && l && l.style.display === 'none' && fw.FIGHT_UI && fw.FIGHT_UI.board); } catch (e) { return false; } };
     var waitFight = function (then) {
-      phase(r, 'hold'); var t0 = performance.now(), seen = 0;
+      var t0 = performance.now(), seen = 0;
       var f = function () {
         if (fightUp()) seen++;
-        if (seen >= 2 || performance.now() - t0 > 20000) { r.built = Math.round(performance.now() - t0); r.timedOut = seen < 2; then(); return; }
+        if (seen >= 2 || performance.now() - t0 > 20000) { r.built = Math.round(performance.now() - t0); r.timedOut = seen < 2; DIVE.raf = 0; then(); return; }
         DIVE.raf = W.requestAnimationFrame(f);
       };
       DIVE.raf = W.requestAnimationFrame(f);
@@ -1107,147 +1228,294 @@
       try { var tf = cw && cw.LOOP && cw.LOOP.frame; if (tf && tf.style.display === 'block' && tf.contentWindow) src = pictureOf(tf.contentDocument.body); } catch (e) {}
       try { if (!src && cw) src = mapCanvas(cw) || pictureOf(cw.document.body); } catch (e) {}
       if (src && src.tagName === 'CANVAS' && W.__DIVE_MUTATE !== 'bare') pic = snapOf(src, 'map');
-      r.plain = true; build();
-      waitFight(function () { phase(r, 'fade'); if (!pic) { diveEnd(r); return; } nfcSet('off'); fade(r, pic.c, reduced() ? 167 : 300, function () { diveEnd(r); }); });
+      r.plain = true; phase(r, 'hold'); build();
+      waitFight(function () { phase(r, 'fade'); if (!pic) { diveEnd(r); return; } nfcSet('off');
+        var ms = reduced() ? 167 : 300; r.fadeMs = ms; play(pic.c, [{ opacity: 1 }, { opacity: 0 }], ms, { fill: 'forwards' }); later(function () { diveEnd(r); }, ms + 20); });   /* the fade is the compositor's, its own length; the cleanup after it may run late behind the fight's first frames */
       return true;
     };
-    if (!c || !DIVE.at || reduced()) return plain();
+    var cv = mapCanvas(cw);
+    if (!c || !DIVE.at || reduced() || !cv) return plain();
     r.z0 = c.z; DIVE.z0 = { z: c.z, camf: c.camf, at: null };
     /* where the camera stops: at the fight's own size, so the turn has nothing left to zoom (the size the last fight on this glass
        opened at; the first fight: a block a third of the glass's short side, the phone's measured 132 px), never past the street
        stop nor short of the map's near stop */
     var gk = Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight), aGuess = SCALE_MEM[gk] || Math.max(100, Math.min(260, 0.34 * Math.min(W.innerWidth, W.innerHeight)));
-    var u0 = DIVE.at.gx + 0.5, v0 = DIVE.at.gy + 0.5, zEnd = Math.max(c.zmax || 0, Math.min(c.street, aGuess * Math.SQRT2 / c.TW0)), p0 = cam('at', { u: u0, v: v0 }) || c.F;
-    r.guess = Math.round(aGuess); r.prepaint = cam('prepaint', { z: zEnd, u: u0, v: v0, r: 3 });
+    var u0 = DIVE.at.gx + 0.5, v0 = DIVE.at.gy + 0.5, zEnd = Math.max(c.zmax || 0, Math.min(c.street, aGuess * Math.SQRT2 / c.TW0));
+    var p0 = cam('at', { u: u0, v: v0 }) || c.F, Fp = { x: c.F.x, y: c.F.y };
+    r.guess = Math.round(aGuess);
     DIVE.z0.at = { x: p0.x, y: p0.y }; r.z1 = zEnd;
-    /* 1 COME DOWN, on the map's own camera: the zoom on the log, the fight's block sliding to the focus; one beat for a short way,
-       two and a half for the whole valley down to the street */
-    var ratio = Math.abs(Math.log(zEnd / Math.max(1e-3, c.z))), ms = Math.max(beatNow(), Math.min(2.5 * beatNow(), 0.36 * beatNow() * ratio + beatNow() * 0.5));
+    var cb = topBox(cv); if (!cb) return plain();
+    var fx = c.CVW ? cb.w / c.CVW : 1, fy = c.CVH ? cb.h / c.CVH : 1, css = function (p) { return { x: p.x * fx, y: p.y * fy }; };
+    var P0 = css(p0), PF = css(Fp), kEnd = coverK(cb, PF);
+    r.prepaint = cam('prepaint', { z: zEnd / kEnd, u: u0, v: v0, r: 3 });   /* the stop's tiles asked from the first frame */
+    r.cb = [Math.round(cb.x), Math.round(cb.y), Math.round(cb.w), Math.round(cb.h)]; r.kEnd = +kEnd.toFixed(3);
+    /* 1 COME DOWN, on the compositor: the camera on the log from where he was to the stop; one beat for a short way, two and a half
+       for the whole valley down to the street */
+    var bm = beatNow(), ratio = Math.abs(Math.log(zEnd / Math.max(1e-3, c.z))), ms = Math.max(bm, Math.min(2.5 * bm, 0.6 * bm * ratio + 0.4 * bm));
     r.comeMs = Math.round(ms);
-    run(r, ms, function (u) {
-      var e = smoother(u), z = Math.exp(Math.log(c.z) + (Math.log(zEnd) - Math.log(c.z)) * e), s = lerpP(p0, c.F, smoother(Math.min(1, u * 1.15)));
-      cam('prepaint', { z: zEnd, u: u0, v: v0, r: 3 });
-      cam('aim', { z: z, u: u0, v: v0, sx: s.x, sy: s.y, camf: false });
-      r.covers.map++;
-    }, function () {
-      /* SETTLE: at the stop the map sharpens in place while the painter lands the fight's street (a beat and a half at most) */
-      phase(r, 'settle');
-      run(r, 1.5 * beatNow(), function (u) {
-        var m = cam('prepaint', { z: zEnd, u: u0, v: v0, r: 1 }); cam('draw'); r.covers.map++;
-        if (m <= 0 && u < 1) DIVE.skip = true;   /* sharp: on at once */
-        r.missing = m;
-      }, hold);
-    });
-    var hold = function () {
-      /* 2 HOLD: the map's last frame, laid on the glass; the fight's page is built under it */
-      var cv = W.__DIVE_MUTATE === 'bare' ? null : mapCanvas(cw), mg = mapGeo(cw, cam, u0, v0), pic = cv ? snapOf(cv, 'map') : null;   /* 'bare': the gate's mutation, no frame held */
-      if (!pic || !mg) { r.err = r.err || 'no map frame to hold'; return plain(); }
-      DIVE.mg = mg; DIVE.zEnd = zEnd; build();
-      waitFight(function () {
-        var fw = fightWin(), fc = fw && fw.document.getElementById('cv'), fg = fw ? fightGeo(fw, DIVE.at) : null;
-        if (!fw || !fc || !fg) { phase(r, 'fade'); nfcSet('off'); fade(r, pic.c, 300, function () { diveEnd(r); }); return; }
-        r.laid = fg.laid; r.cell = fg.cell; fc.style.removeProperty('transform'); SCALE_MEM[gk] = fg.a; r.a = Math.round(fg.a);
-        var fbox = topBox(fc), gc = gridCanvas(), under = underlays(fw, fc, pic);
-        DIVE.keep = keepOf(pic, mg);   /* a small copy of the map's frame for the way out (the painter lets its pictures go in a fight) */
-        /* 3 THE TURN, both pictures together; 4 the grid scans on through its second half */
-        phase(r, 'turn');
-        run(r, 2 * beatNow(), function (u) {
-          var g = fightGeo(fw, DIVE.at) || fg, e = smoother(u), A = turnA(mg, g, e), to = lerpP(mg.c, g.c, e);
-          pic.c.style.transform = cssM(mm(A, minv(mg.M)), pic.box, mg.c, to);
-          var Lf = mm(A, minv(g.M));
-          fc.style.transform = cssM(Lf, fbox, g.c, to);
-          var a = 1 - sstep(0.45, 0.85, u); pic.c.style.opacity = a.toFixed(3); if (under.map) under.map.style.opacity = a.toFixed(3);
-          /* while the map's frame still covers it, the board and its still copy are not composited at all (a layer at opacity 0 is
-             skipped): half the pictures for the first half of the turn */
-          var hid = u < 0.42 ? '0' : ''; if (fc.style.opacity !== hid) fc.style.opacity = hid; if (under.board && under.board.style.opacity !== hid) under.board.style.opacity = hid;
-          if (a > 0.5) r.covers.map++; else r.covers.board++;
-          gridDraw(gc, g, Lf, g.c, to, sstep(0.5, 0.7, u), sstep(0.5, 1, u));
-          if (u >= 1) {
-            r.align = { mapAt: [Math.round(to.x), Math.round(to.y)], boardAt: [Math.round(g.c.x), Math.round(g.c.y)], scale: +(mg.sm / g.a).toFixed(3) };
-            /* raw, for a check that does not go through this file's geometry: the map frame's own transform, where the map drew the
-               block before the turn, and the fight's own camera functions at this frame */
-            try { var Uf = fw.FIGHT_UI, fr0 = fw.frameElement.getBoundingClientRect();
-              r.end = { tf: pic.c.style.transform, box: pic.box, map0: mg.c, sx0: fw.sx(0), sy0: fw.sy(0), tw: Uf.tw * Uf.zoom, th: Uf.th * Uf.zoom, fx: fr0.left, fy: fr0.top }; } catch (e) {}
-          }
-        }, function () {
-          fc.style.removeProperty('transform'); fc.style.removeProperty('opacity'); try { pic.c.remove(); } catch (e) {} under.gone();
-          nfcSet('off'); phase(r, 'grid');   /* the fight is his from here; the grid holds a beat and fades to the board's own */
-          run(r, 2 * beatNow(), function (u) { var g = fightGeo(fw, DIVE.at) || fg; gridDraw(gc, g, [1, 0, 0, 1], g.c, g.c, 1 - sstep(0.5, 1, u), 1); }, function () { diveEnd(r); });
-        });
-      });
+    /* the camera's path (z: the zoom on the glass); each picture of it is drawn at its zoom over its own cover factor, so when it is
+       laid in it covers the glass and the block still lands at the board's own size */
+    var Lz = Math.log(zEnd / c.z), at = function (u) { var e = smoother(u); return { z: c.z * Math.exp(Lz * e), s: lerpP(P0, PF, smoother(Math.min(1, u * 1.15))) }; };
+    var zC = zEnd / kEnd;
+    var N = 36, root = diveLayer(), camG = divEl('cam', glassCSS() + ';will-change:transform', root);
+    var A = W.__DIVE_MUTATE === 'bare' ? null : picOf(cv, cb, 'map', null, camG);
+    if (!A) { try { root.remove(); } catch (e) {} DIVE.el = null; r.err = 'no map frame to hold'; return plain(); }
+    /* ONE CLOCK for every picture of the come-down: the first picture's own start, read once the compositor has started it (a start
+       set by hand before the first frame is shown would throw the camera ahead by however long that frame took to reach the glass,
+       and a picture laid on a start not yet known stands still) */
+    var comeA = play(A.c, keys(N, function (u) { return { transform: poseOf(at(u), c.z, P0) }; }), ms), T0 = null;
+    A.zk = c.z; A.sk = P0; A.layU = 0;
+    var since0 = function () { try { return T0 != null ? (D.timeline.currentTime - T0) / SLOW : 0; } catch (e) { return 0; } };
+    var clock = worldClock(cw), osd = osdOn(root, clock, bm / 2);
+    humTo(true, 0.45);
+    var pics = [A], C = null, mid = null, uMid = 0.5;
+    /* a map picture drawn at the camera's pose for u, laid in at u (or now, if the draw came late) */
+    var drawAt = function (u, zk, sk, name) {
+      var t = performance.now(), P = at(u), skm = { x: sk.x / fx, y: sk.y / fy };
+      cam('aim', { z: zk, u: u0, v: v0, sx: skm.x, sy: skm.y, camf: false });
+      var under = pics[pics.length - 1], p = picOf(cv, cb, 'map', /^B/.test(name) ? Math.min(2, W.devicePixelRatio || 1) : null, camG); if (!p) return null;
+      var a = play(p.c, keys(N, function (q) { return { transform: poseOf(at(q), zk, sk) }; }), ms);
+      try { if (T0 != null) a.startTime = T0; } catch (e) {}
+      var since = since0(), wait = Math.max(40, u * ms - since - 60);   /* its first two frames unseen: a new layer can reach the glass a frame before its animation does */
+      play(p.c, [{ opacity: 0 }, { opacity: 1 }], 130, { delay: wait });
+      if (under && under.c) play(under.c, [{ opacity: 1 }, { opacity: 0 }], 1, { delay: wait + 150, fill: 'forwards' });   /* covered: not composited */
+      p.inAt = performance.now() + wait + 130; p.zk = zk; p.sk = sk; p.layU = Math.min(1, Math.max(u, (since + wait) / ms));
+      r.renders.push({ name: name, z: +zk.toFixed(3), ms: Math.round(performance.now() - t), at: Math.round(performance.now() - r.t0), late: wait <= 0 });
+      return p;
     };
+    var finishCome = function () {
+      /* 2 HOLD: C covers the glass at the stop; the fight's page is built under it while the tape tracks out */
+      /* the pictures under the stop's go once it is fully in and the camera has stopped (it covers the glass from there) */
+      var top = DIVE.mapPic, gone = function () {
+        /* kept for the way out (two pixels a point at most): the way out rewinds these very pictures */
+        var kk = Math.min(2, W.devicePixelRatio || 1); DIVE.keptPics = [];
+        pics.forEach(function (p) { if (p !== top) { var q = picOf(p.c, p.box, 'kept', kk, D.createElement('div')); if (q) { q.zk = p.zk; q.sk = p.sk; q.layU = p.layU; DIVE.keptPics.push(q); } try { p.c.remove(); } catch (e) {} } }); };
+      later(gone, Math.max(0, ms - since0(), (top && top.inAt ? top.inAt - performance.now() : 0)) + 150);
+      DIVE.path = { z0: c.z, zEnd: zEnd, P0: P0, PF: PF, ms: ms, topU: top && top.layU != null ? top.layU : 0.94 };
+      DIVE.mg = mgOf(cam, cb, fx, fy, u0, v0); DIVE.zEnd = zC; DIVE.kEnd = kEnd; DIVE.PF = PF; DIVE.cb = cb; DIVE.cv = cv; DIVE.cam = camG;
+      DIVE.crew = (function () { var q = cam('crew'); return q ? { x: cb.x + q.x * fx, y: cb.y + q.y * fy } : null; })();
+      var pose = poseOf(at(1), zC, PF), restMs = Math.max(0, ms - since0());
+      camG.style.transformOrigin = (cb.x + PF.x).toFixed(1) + 'px ' + (cb.y + PF.y).toFixed(1) + 'px';
+      DIVE.push = play(camG, [{ transform: 'scale(1)' }, { transform: 'scale(1.035)' }], 9000, { delay: restMs, easing: 'cubic-bezier(.25,.6,.35,1)', fill: 'forwards' });
+      DIVE.bands = bandsOn(camG, DIVE.mapPic, pose, restMs);
+      DIVE.pose = pose;
+      later(function () { if (DIVE.state === 'come' || DIVE.state === 'settle') phase(r, 'hold'); }, restMs);
+    };
+    /* the pictures between: the camera's zoom split evenly on the log, so no picture is ever shown more than about 2.2 times its own
+       size (the map's own names swell no further) */
+    var uOf = function (e) { var lo = 0, hi = 1; for (var i = 0; i < 28; i++) { var m = (lo + hi) / 2; if (smoother(m) < e) lo = m; else hi = m; } return (lo + hi) / 2; };
+    var nStops = Math.max(0, Math.min(3, Math.ceil(ratio / Math.log(2.2)) - 1)), stops = [];   /* every step at most 2.2x where it can be (the phone 2, the computer 3) */
+    for (var si = 1; si <= nStops; si++) stops.push(si / (nStops + 1));
+    var drawStops = function (i, then) {
+      if (DIVE.row !== r) return;
+      if (i >= stops.length) { then(); return; }
+      var u = uOf(stops[i]), P = at(u), p = drawAt(u, P.z / coverK(cb, P.s), P.s, 'B' + (i + 1)); if (p) pics.push(p);
+      afterPaint(function () { drawStops(i + 1, then); });
+    };
+    var stopPic = function () {
+      if (DIVE.row !== r) return;
+      C = drawAt(0.94, zC, PF, 'C'); if (!C) { r.err = 'no stop picture'; C = A; } else pics.push(C);
+      DIVE.mapPic = C;
+      /* SETTLE: the stop's tiles were asked from the first frame; if the last of them land after C, C is drawn once more */
+      var missing0 = cam('prepaint', { z: zC, u: u0, v: v0, r: 1 }), t0 = performance.now();
+      r.missingAtC = missing0;
+      var poll = function () {
+        if (DIVE.row !== r) return;
+        var m = cam('prepaint', { z: zC, u: u0, v: v0, r: 1 });
+        if (m > 0 && performance.now() - t0 < Math.max(0, ms - since0()) + bm) { later(poll, 90); return; }
+        r.missing = m;
+        if (missing0 > 0 && m <= 0 && C !== A) {
+          phase(r, 'settle');
+          var C2 = drawAt(1, zC, PF, 'C again'); if (C2) { pics.push(C2); DIVE.mapPic = C2; C = C2; }
+        }
+        finishCome(); build(); waitFight(function () { turnIn(r); });
+      };
+      if (missing0 > 0) later(poll, 90); else { r.missing = missing0; finishCome(); build(); waitFight(function () { turnIn(r); }); }
+    };
+    var started = false, startClock = function () {
+      if (started) return; started = true;
+      try { T0 = comeA && comeA.startTime != null ? comeA.startTime : D.timeline.currentTime; } catch (e) { T0 = null; }
+      r.firstFrame = Math.round(performance.now() - r.t0);
+      afterPaint(function () { drawStops(0, function () { afterPaint(stopPic); }); });
+    };
+    try { comeA.ready.then(startClock, startClock); } catch (e) { startClock(); }
+    later(startClock, 1500);   /* never wait on a promise that never settles */
     return true;
+  }
+
+  /* 3 THE TURN and 4 THE BOARD LANDS, all handed to the compositor at once */
+  function turnIn(r) {
+    if (DIVE.row !== r) return;
+    var fw = fightWin(), fc = fw && fw.document.getElementById('cv'), fg = fw ? fightGeo(fw, DIVE.at) : null, C = DIVE.mapPic, mg = DIVE.mg, camG = DIVE.cam;
+    if (!fw || !fc || !fg || !C || !mg || !camG) { phase(r, 'fade'); nfcSet('off'); if (C) play(C.c, [{ opacity: 1 }, { opacity: 0 }], 300); bandsOff(DIVE.bands, 200); later(function () { diveEnd(r); }, 360); return; }
+    r.laid = fg.laid; r.cell = fg.cell; SCALE_MEM[Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight)] = fg.a; r.a = Math.round(fg.a);
+    var bm = beatNow(), T = 2 * bm, N = 36, Wg = W.innerWidth, Hg = W.innerHeight, glass = { x: 0, y: 0, w: Wg, h: Hg };
+    var kEnd = DIVE.kEnd || 1, mgT = { c: mg.c, M: mg.M, sm: mg.sm * kEnd, km: mg.km };
+    var fbox = topBox(fc); if (!fbox) { diveEnd(r); return; }
+    /* the board's first frame, full pixels, laid under the map's; a still copy of the map's frame for the corners of the turn */
+    var F = picOf(fc, fbox, 'board', null, camG), Cs = picOf(C.c, C.box, 'map-still', 1, camG);
+    if (!F) { diveEnd(r); return; }
+    camG.insertBefore(Cs ? Cs.c : F.c, C.c); if (Cs) camG.insertBefore(F.c, C.c);
+    if (Cs) Cs.c.style.transform = DIVE.pose;
+    var kq = picOf(C.c, C.box, 'kept', Math.min(2, W.devicePixelRatio || 1), D.createElement('div'));
+    DIVE.keep = { c: kq ? kq.c : null, box: C.box, mg: mg, kEnd: kEnd, PF: DIVE.PF, cb: DIVE.cb, pose: DIVE.pose, zEnd: DIVE.zEnd, path: DIVE.path, pics: DIVE.keptPics || [],
+      glass: Math.round(Wg) + 'x' + Math.round(Hg), at: DIVE.at };
+    var pathAt = function (u) { var e = smoother(u); return { e: e, A: turnA(mgT, fg, e), to: lerpP(mg.c, fg.c, e) }; };
+    var Lm = function (p) { return mm(p.A, minv(mg.M)); }, Lb = function (p) { return mm(p.A, minv(fg.M)); };
+    phase(r, 'turn');
+    /* the camera's push-in eases back to nothing over the turn's first half; the tape tracks back in */
+    var now0 = 'none'; try { now0 = getComputedStyle(camG).transform; } catch (e) {}
+    play(camG, [{ transform: now0 === 'none' ? 'scale(1)' : now0 }, { transform: 'scale(1)' }], bm, { easing: 'ease-in-out', fill: 'forwards' });
+    bandsOff(DIVE.bands, bm * 0.6);
+    play(C.c, keys(N, function (u) { var p = pathAt(u); return { transform: cssM(Lm(p), C.box, mg.c, p.to), opacity: 1 - sstep(0.45, 0.85, u) }; }), T);
+    if (Cs) play(Cs.c, keys(12, function (u) { return { opacity: 1 - sstep(0.45, 0.85, u) }; }), T);
+    play(F.c, keys(N, function (u) { var p = pathAt(u); return { transform: cssM(Lb(p), fbox, fg.c, p.to), opacity: sstep(0.36, 0.46, u) }; }), T);
+    /* THE BOARD LANDS: the colours bleed and close; the held board gives way to the live one under it */
+    var bw = Math.max(1, Math.round(fbox.w / 2)), bh = Math.max(1, Math.round(fbox.h / 2));
+    var bl = divEl('bleed', 'position:absolute;left:' + fbox.x + 'px;top:' + fbox.y + 'px;width:' + fbox.w + 'px;height:' + fbox.h + 'px;isolation:isolate;background:#000;opacity:0;will-change:opacity', camG);
+    var Rr = tintOf(F.c, bw, bh, 'rgb(255,0,0)'), Gb = tintOf(F.c, bw, bh, 'rgb(0,255,255)');
+    if (Rr && Gb) {
+      Rr.className = 'bleed'; Gb.className = 'bleed'; Gb.style.mixBlendMode = 'screen'; bl.appendChild(Rr); bl.appendChild(Gb);
+      var sp = Math.max(4, Math.round(Math.min(Wg, Hg) / 60));
+      play(Rr, [{ transform: 'translate(' + (-sp) + 'px,1px)' }, { transform: 'translate(0px,0px)' }], 0.7 * bm, { delay: T - 0.1 * bm, easing: 'cubic-bezier(.2,.7,.3,1)' });
+      play(Gb, [{ transform: 'translate(' + sp + 'px,-1px)' }, { transform: 'translate(0px,0px)' }], 0.7 * bm, { delay: T - 0.1 * bm, easing: 'cubic-bezier(.2,.7,.3,1)' });
+      play(bl, [{ opacity: 0 }, { opacity: 1, offset: 0.12 }, { opacity: 1, offset: 0.45 }, { opacity: 0 }], 0.9 * bm, { delay: T - 0.1 * bm, fill: 'forwards' });
+    } else bl.remove();
+    play(F.c, [{ opacity: 1 }, { opacity: 0 }], 0.25 * bm, { delay: T + 0.25 * bm, fill: 'forwards' });
+    /* THE GRID SCANS ON: the board's own tile lines, drawn once at rest, revealed from the far edge to the near through a window
+       that turns with the board (transform only: the window moves down while the lines inside it are held in place) */
+    var gw = divEl('gridwrap', glassCSS() + ';overflow:hidden;opacity:0;will-change:transform,opacity', camG);
+    var gi = divEl('gridin', glassCSS() + ';will-change:transform', gw);
+    var gk2 = Math.min(2, W.devicePixelRatio || 1), gc = D.createElement('canvas'); gc.className = 'grid'; gc.width = Math.round(Wg * gk2); gc.height = Math.round(Hg * gk2);
+    gc.style.cssText = 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:' + Hg + 'px'; gi.appendChild(gc);
+    gridDraw(gc, fg, [1, 0, 0, 1], fg.c, fg.c, 1.25, 1);
+    var line = divEl('scanline', 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:2px;background:rgba(246,236,204,.95);box-shadow:0 0 7px 1px rgba(246,236,204,.55);will-change:transform,opacity', gi);
+    var yTop = Math.max(0, fg.o0.y), yBot = Math.min(Hg, fg.o0.y + fg.h * fg.ty); if (!(yBot > yTop)) { yTop = 0; yBot = Hg; }
+    var scan = function (u) { return yTop + sstep(0.42, 0.96, u) * (yBot - yTop); };
+    play(gw, keys(N, function (u) { var p = pathAt(u), Y = scan(u); return { transform: cssM(Lb(p), glass, fg.c, p.to) + ' translate(0px,' + (-(Hg - Y)).toFixed(1) + 'px)', opacity: sstep(0.38, 0.5, u) }; }), T);
+    play(gi, keys(N, function (u) { return { transform: 'translate(0px,' + (Hg - scan(u)).toFixed(1) + 'px)' }; }), T);
+    play(line, keys(N, function (u) { return { transform: 'translate(0px,' + (scan(u) - 2).toFixed(1) + 'px)', opacity: sstep(0.4, 0.46, u) * (1 - sstep(0.93, 1, u)) }; }), T);
+    play(gi, [{ opacity: 1 }, { opacity: 0 }], bm, { delay: T + bm, fill: 'forwards' });
+    /* THE MEN, FOUND WHERE THEY STOOD: a bracket on his crew where the map had them (theirs at the contact's block), locking on as
+       the grid comes up and riding the turn to each man's own tile */
+    var men = menOf(fw, fg), tile = Math.max(14, Math.min(64, fg.tx * 0.92)), crew = DIVE.crew, them = { x: mg.c.x, y: mg.c.y };
+    var onMap = function (p, pt) { var L = Lm(p); var q = map2(L, pt.x - mg.c.x, pt.y - mg.c.y); return { x: p.to.x + q.x, y: p.to.y + q.y }; };
+    var onBoard = function (p, pt) { var L = Lb(p); var q = map2(L, pt.x - fg.c.x, pt.y - fg.c.y); return { x: p.to.x + q.x, y: p.to.y + q.y }; };
+    men.forEach(function (m, i) {
+      var from = m.side === 'us' && crew ? crew : them, b = bracketEl(camG, m.side, tile), lift = 0.32 * tile;
+      var spread = ((i % 5) - 2) * tile * 0.18;
+      var pos = function (u) { var p = pathAt(u), a = onMap(p, { x: from.x + spread, y: from.y }), q = onBoard(p, m.q), e = sstep(0.32, 0.92, u), x = lerpP(a, q, e); return { x: x.x, y: x.y - lift }; };
+      play(b, keys(N, function (u) { var x = pos(u), k = 1 + 0.7 * (1 - sstep(0.3, 0.48, u)); return { transform: 'translate(' + (x.x - tile / 2).toFixed(1) + 'px,' + (x.y - tile / 2).toFixed(1) + 'px) scale(' + k.toFixed(3) + ')', opacity: sstep(0.29, 0.36, u) }; }), T);
+      play(b, [{ opacity: 1 }, { opacity: 0 }], bm, { delay: T + bm, fill: 'forwards' });
+      var s0 = pos(0.36), s1 = pos(1);
+      r.men.push({ side: m.side, id: m.id, tile: m.tile, lift: Math.round(lift), from: [Math.round(onMap(pathAt(0), { x: from.x + spread, y: from.y }).x), Math.round(onMap(pathAt(0), { x: from.x + spread, y: from.y }).y)], lock: [Math.round(s0.x), Math.round(s0.y)], to: [Math.round(s1.x), Math.round(s1.y)], q: [Math.round(m.q.x), Math.round(m.q.y)] });
+    });
+    r.crewAt = crew ? [Math.round(crew.x), Math.round(crew.y)] : null; r.mapC = [Math.round(mg.c.x), Math.round(mg.c.y)];
+    /* REC goes out a beat after the board lands; the music opens back up as it lands */
+    var osd = DIVE.el && DIVE.el.querySelector('.osd'); if (osd) play(osd, [{ opacity: 1 }, { opacity: 0 }], bm * 0.5, { delay: T + 1.4 * bm, easing: 'steps(3)', fill: 'forwards' });
+    humTo(false, 0.9, (T - 0.2 * bm) / 1000);
+    /* the end of the turn, for a check that does not go through this file's geometry: the map frame's own last transform, where the
+       map drew the block, and the fight's own camera at this moment */
+    try { var p1 = pathAt(1), Uf = fw.FIGHT_UI, fr0 = fw.frameElement.getBoundingClientRect();
+      r.align = { mapAt: [Math.round(p1.to.x), Math.round(p1.to.y)], boardAt: [Math.round(fg.c.x), Math.round(fg.c.y)], scale: +(mgT.sm / fg.a).toFixed(3) };
+      r.end = { tf: cssM(Lm(p1), C.box, mg.c, p1.to), box: C.box, map0: mg.c, sx0: fw.sx(0), sy0: fw.sy(0), tw: Uf.tw * Uf.zoom, th: Uf.th * Uf.zoom, fx: fr0.left, fy: fr0.top }; } catch (e) {}
+    later(function () { nfcSet('off'); phase(r, 'grid');
+      try { var g2 = fightGeo(fw, DIVE.at); if (g2) r.glide = [Math.round(g2.c.x - fg.c.x), Math.round(g2.c.y - fg.c.y)]; } catch (e) {} }, T);
+    later(function () { diveEnd(r); }, T + 2.1 * bm);
   }
 
   /* ---- THE WAY OUT: before the fight's page goes (prep), then after (go) ---- */
   function diveUpPrep() {
     if (DIVE.state !== 'off') diveEnd(DIVE.row);
+    DIVE.anims = []; DIVE.timers = [];
     var fw = fightWin(), fc = fw && fw.document.getElementById('cv'); if (!fw || !fc) return null;
     if (!DIVE.at) { try { DIVE.at = cellOf(W.NF && W.NF.opts && W.NF.opts.cell); } catch (e) {} }
-    var fg = DIVE.at ? fightGeo(fw, DIVE.at) : null, pic = snapOf(fc, 'board');
-    if (!pic) return null;
+    var fbox = topBox(fc); if (!fbox) return null;
+    var fg = DIVE.at ? fightGeo(fw, DIVE.at) : null, camG = divEl('cam', glassCSS(), diveLayer()), pic = picOf(fc, fbox, 'board', null, camG);
+    if (!pic) { diveEnd(null); return null; }
     nfcSet('in');
-    return { pic: pic, fg: fg };
+    return { pic: pic, fg: fg, cam: camG };
   }
   function diveUp(prep, back) {
     if (!prep) { if (back) back(); return; }
-    var r = diveRow('up'), pic = prep.pic, fg = prep.fg, K = DIVE.keep, gc = fg ? gridCanvas() : null;
+    var r = diveRow('up'), pic = prep.pic, fg = prep.fg, K = DIVE.keep, camG = prep.cam;
     phase(r, 'grid');
-    var done = function () { DIVE.keep = null; diveEnd(r); }, landed = function () { try { if (back) back(); } catch (e) {} };
+    var landed = function () { try { if (back) back(); } catch (e) {} };
     var cw = cityWin(), cam = mapCam(cw), z0 = DIVE.z0, at = (K && K.at) || DIVE.at;
-    var u0 = at ? at.gx + 0.5 : null, v0 = at ? at.gy + 0.5 : null, c = cam ? cam('read') : null, zS = c ? (DIVE.zEnd || c.street) : 0;
-    var fits = !!(K && K.glass === Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight));
+    var u0 = at ? at.gx + 0.5 : null, v0 = at ? at.gy + 0.5 : null, c = cam ? cam('read') : null;
+    var fits = !!(K && K.c && K.path && K.glass === Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight));
     if (!c || u0 == null || reduced() || !fg || !fits) {
       r.plain = true;
       var k = 0, wait = function () { if (++k < 3) { W.requestAnimationFrame(wait); return; } phase(r, 'fade'); nfcSet('off'); landed();
-        fade(r, pic.c, reduced() ? 167 : 300, done); };
+        var ms = reduced() ? 167 : 300; play(pic.c, [{ opacity: 1 }, { opacity: 0 }], ms); later(function () { DIVE.keep = null; diveEnd(r); }, ms + 40); };
       W.requestAnimationFrame(wait); return;
     }
-    r.z1 = zS; r.z0 = z0 ? z0.z : null;
-    /* under the covers the map is laid back at the stop over the fight's block and asks its painter for that street again (it let
-       its pictures go while the fight stood); over it, the map's frame from the way in, standing still (the turn's corners) and
-       turning (the marriage), and over those the board's last frame */
-    var mg = K.mg, under = keptSnap(K, 'map-still'), mp = keptSnap(K, 'map');
-    try { DIVE.el.insertBefore(under.c, DIVE.el.firstChild); DIVE.el.insertBefore(mp.c, pic.c); } catch (e) {}
-    var live = function () { cam('prepaint', { z: zS, u: u0, v: v0, r: 2 }); cam('aim', { z: zS, u: u0, v: v0, sx: c.F.x, sy: c.F.y, camf: false, draw: true }); };
-    live();
-    mp.c.style.transform = cssM(mm(fg.M, minv(mg.M)), mp.box, mg.c, fg.c);
-    /* the grid lights over the board and starts to fade (a beat) */
-    run(r, beatNow(), function (u) { live(); if (gc) gridDraw(gc, fg, [1, 0, 0, 1], fg.c, fg.c, 1 - 0.5 * sstep(0.3, 1, u), 1); r.covers.board++; }, function () {
-      /* 5 THE TURN BACK: the board's frame to the map's angle, the map's frame with it, the board fading into the map */
-      phase(r, 'turn');
-      run(r, 2 * beatNow(), function (u) {
-        live();
-        var e = smoother(1 - u), A = turnA(mg, fg, e), to = lerpP(mg.c, fg.c, e), Lf = mm(A, minv(fg.M));
-        pic.c.style.transform = cssM(Lf, pic.box, fg.c, to);
-        mp.c.style.transform = cssM(mm(A, minv(mg.M)), mp.box, mg.c, to);
-        var a = sstep(0.45, 0.85, 1 - u); pic.c.style.opacity = a.toFixed(3);
-        if (a > 0.5) r.covers.board++; else r.covers.map++;
-        if (gc) gridDraw(gc, fg, Lf, fg.c, to, 0.5 * (1 - sstep(0, 0.6, u)), 1);
-      }, function () {
-        try { pic.c.remove(); mp.c.remove(); if (gc) gc.remove(); } catch (e) {}
-        nfcSet('off'); landed(); live();
-        /* the map's frame from the way in gives way to the live map in the same place, then 6 THE CLIMB: the map's own camera back to
-           the zoom he was at, his crew held as the map holds it */
-        phase(r, 'climb');
-        var zTo = z0 ? z0.z : c.z, held = !z0 || z0.camf, pTo = z0 && z0.at ? z0.at : null;
-        var ratio = Math.abs(Math.log(zS / Math.max(1e-3, zTo))), ms = Math.max(beatNow(), Math.min(2.5 * beatNow(), 0.36 * beatNow() * ratio + beatNow() * 0.5));
-        r.missing = cam('prepaint', { z: zS, u: u0, v: v0, r: 1 });
-        run(r, ms, function (u) {
-          under.c.style.opacity = (1 - sstep(0, 0.25, u)).toFixed(3);
-          var e = smoother(u), z = Math.exp(Math.log(zS) + (Math.log(zTo) - Math.log(zS)) * e);
-          var aim = held ? (cam('heldAt', { z: z, u: u0, v: v0 }) || c.F) : (pTo || c.F), s = lerpP(c.F, aim, smoother(Math.min(1, u * 1.15)));
-          cam('aim', { z: z, u: u0, v: v0, sx: s.x, sy: s.y, camf: false });
-          r.covers.map++;
-        }, function () {
-          if (held) { var h = cam('heldAt', { z: zTo, u: u0, v: v0 }); if (h) cam('aim', { z: zTo, u: u0, v: v0, sx: h.x, sy: h.y, camf: true }); }
-          else if (pTo) cam('aim', { z: zTo, u: u0, v: v0, sx: pTo.x, sy: pTo.y, camf: false });
-          DIVE.z0 = null; done();
-        });
-      });
+    var IP = K.path, bm = beatNow(), N = 36, Wg = W.innerWidth, Hg = W.innerHeight, glass = { x: 0, y: 0, w: Wg, h: Hg }, mg = K.mg, kEnd = K.kEnd || 1, mgT = { c: mg.c, M: mg.M, sm: mg.sm * kEnd, km: mg.km };
+    r.z1 = K.zEnd; r.z0 = z0 ? z0.z : null;
+    /* THE WAY OUT REWINDS THE WAY IN: the very pictures the camera came down through, played backwards on the compositor; the live map
+       is drawn ONCE where he was under all of it, and shows when the rewind lands. One timeline, laid down now: nothing in it waits for
+       the main thread (measured before: after a fight the main thread is the map's and the spoils' for up to 3 s at 4x) */
+    var Lz = Math.log(IP.zEnd / IP.z0), rewind = function (u) { var q = 1 - u, e = smoother(q); return { z: IP.z0 * Math.exp(Lz * e), s: lerpP(IP.P0, IP.PF, smoother(Math.min(1, q * 1.15))) }; };
+    var G = bm, T = 2 * bm, climbMs = IP.ms || 2 * bm, tC = G + T, tE = tC + climbMs;
+    /* 5 the grid scans on over the board's last frame, the tape tracks out (REW), the music drops to its hum */
+    var gw = divEl('gridwrap', glassCSS() + ';overflow:hidden;will-change:transform,opacity', camG), gi = divEl('gridin', glassCSS() + ';will-change:transform', gw);
+    var gk2 = Math.min(2, W.devicePixelRatio || 1), gc = D.createElement('canvas'); gc.className = 'grid'; gc.width = Math.round(Wg * gk2); gc.height = Math.round(Hg * gk2);
+    gc.style.cssText = 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:' + Hg + 'px'; gi.appendChild(gc);
+    gridDraw(gc, fg, [1, 0, 0, 1], fg.c, fg.c, 1.25, 1);
+    var yTop = Math.max(0, fg.o0.y), yBot = Math.min(Hg, fg.o0.y + fg.h * fg.ty); if (!(yBot > yTop)) { yTop = 0; yBot = Hg; }
+    var off = function (u) { return Hg - (yTop + sstep(0, 1, u) * (yBot - yTop)); };
+    play(gw, keys(12, function (u) { return { transform: 'translate(0px,' + (-off(u)).toFixed(1) + 'px)' }; }), 0.8 * bm, { fill: 'forwards' });
+    play(gi, keys(12, function (u) { return { transform: 'translate(0px,' + off(u).toFixed(1) + 'px)' }; }), 0.8 * bm, { fill: 'forwards' });
+    var osd = osdOn(DIVE.el, worldClock(cw), bm / 3, true);
+    var bands = bandsOn(camG, pic, 'translate(0px,0px)', 0.3 * bm);
+    humTo(true, 0.45);
+    /* the live map, drawn ONCE where he was (his crew held as the map holds it), under everything */
+    var zTo = z0 ? z0.z : c.z, held = !z0 || z0.camf, pTo = z0 && z0.at ? z0.at : null, F0 = { x: c.F.x, y: c.F.y }, liveDone = false;
+    afterPaint(function () {
+      if (DIVE.row !== r) return;
+      var t = performance.now(), h = held ? (cam('heldAt', { z: zTo, u: u0, v: v0 }) || F0) : (pTo || F0);
+      cam('aim', { z: zTo, u: u0, v: v0, sx: h.x, sy: h.y, camf: held });
+      liveDone = true; r.renders.push({ name: 'live', z: +zTo.toFixed(3), ms: Math.round(performance.now() - t), at: Math.round(performance.now() - r.t0) });
     });
+    /* the pictures, bottom to top: the way-in's own (his zoom first), the stop's still copy, the board's still copy, the stop turning
+       and rewinding, the board turning back; the grid and the tape over them */
+    var first = camG.firstChild, kept = (K.pics || []).map(function (q) { var p = picOf(q.c, q.box, 'map', null, camG); if (p) { p.zk = q.zk; p.sk = q.sk; p.layU = q.layU; camG.insertBefore(p.c, first); } return p; }).filter(Boolean);
+    var Ks = picOf(K.c, K.box, 'map-still', null, camG), Ps = picOf(pic.c, pic.box, 'board-still', 1, camG), Kp = picOf(K.c, K.box, 'map', null, camG);
+    [Ks, Ps, Kp].forEach(function (p) { if (p) camG.insertBefore(p.c, pic.c); });
+    var turnAt = function (u) { var e = smoother(1 - u); return { A: turnA(mgT, fg, e), to: lerpP(mg.c, fg.c, e) }; };
+    /* 5 THE TURN BACK, after the grid's beat */
+    phase(r, 'grid');
+    play(pic.c, keys(N, function (u) { var p = turnAt(u); return { transform: cssM(mm(p.A, minv(fg.M)), pic.box, fg.c, p.to), opacity: sstep(0.45, 0.85, 1 - u) }; }), T, { delay: G });
+    if (Ps) play(Ps.c, keys(12, function (u) { return { opacity: sstep(0.45, 0.85, 1 - u) }; }), T, { delay: G });
+    if (Ks) { Ks.c.style.transform = K.pose; play(Ks.c, [{ opacity: 1 }, { opacity: 0 }], 16, { delay: tC, fill: 'forwards' }); }
+    if (Kp) play(Kp.c, keys(N, function (u) { var p = turnAt(u); return { transform: cssM(mm(p.A, minv(mg.M)), Kp.box, mg.c, p.to) }; }), T, { delay: G });
+    play(gi, [{ opacity: 1 }, { opacity: 0 }], 0.3 * T, { delay: G, fill: 'forwards' });   /* the overlay signs off as the board starts to turn */
+    (bands || []).forEach(function (b) { play(b, [{ opacity: 0.92 }, { opacity: 0 }], 0.6 * bm, { delay: G + 0.2 * bm, fill: 'forwards' }); });
+    /* 6 THE CLIMB: the stop's picture, then each picture the camera came down through, each leaving where it was laid on the way in */
+    var topU = 1 - (IP.topU != null ? IP.topU : 0.94);
+    if (Kp) play(Kp.c, keys(N, function (u) { return { transform: poseOf(rewind(u), K.zEnd, K.PF), opacity: 1 - sstep(topU, topU + 0.05, u) }; }), climbMs, { delay: tC, fill: 'forwards' });
+    kept.forEach(function (p, i) {
+      var outU = i === 0 ? 2 : 1 - (p.layU || 0);   /* the lowest (his own zoom) stays to the end */
+      var above = i + 1 < kept.length ? 1 - (kept[i + 1].layU || 0) : topU;   /* shown only from just before the one over it leaves (never composited under it) */
+      play(p.c, keys(N, function (u) { return { transform: poseOf(rewind(u), p.zk, p.sk), opacity: sstep(above - 0.012, above - 0.002, u) * (1 - sstep(outU, outU + 0.05, u)) }; }), climbMs, { delay: tC });
+    });
+    if (osd) play(osd, [{ opacity: 1 }, { opacity: 0 }], bm * 0.5, { delay: tE - 0.25 * bm, easing: 'steps(3)', fill: 'forwards' });
+    humTo(false, (climbMs + 200) / 1000, tC / 1000);
+    later(function () { phase(r, 'turn'); }, G);
+    later(function () { nfcSet('off'); phase(r, 'climb'); landed(); }, tC);
+    /* the rewind lands on his own zoom; the live map (drawn where he was) shows through as the picture goes */
+    var end = function () {
+      if (DIVE.row !== r) return;
+      if (!liveDone && performance.now() - r.t0 < tE + 4000) { later(end, 60); return; }
+      var lo = kept[0] || Kp; if (lo) play(lo.c, [{ opacity: 1 }, { opacity: 0 }], 0.3 * bm, { fill: 'forwards' });
+      later(function () { DIVE.z0 = null; DIVE.keep = null; diveEnd(r); }, 0.3 * bm + 50);
+    };
+    later(end, tE);
   }
-  function diveSkip() { if (DIVE.state !== 'off' && DIVE.state !== 'hold') DIVE.skip = true; }
+  function diveSkip() {
+    if (DIVE.state === 'off' || DIVE.state === 'hold') return;
+    (DIVE.anims || []).forEach(function (a) { try { if (a.playState !== 'finished') a.finish(); } catch (e) {} });
+  }
 
   /* ---- THE WATCH: every document is armed for the stop cord, every shared piece wears its one id, every door is found ---- */
   function scan() {
