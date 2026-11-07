@@ -18760,7 +18760,8 @@
     "scale": "his phone, 390 x 844 at 3x, the shipped fight zoomed on the man, turned through the eight facings"
    },
    "record": "records/BOHEMIA_WEAPONS_EVERY_WEAPON_SHOWS_11_7_26.md"
-  }
+  },
+  {"id": "economy-trade-goods-carried-11-7", "kind": "ui", "lane": "economy", "sha": "173d8b97", "made": "11/7", "draft": true, "title": "TRADE GOODS: BUY IT WHERE IT IS MADE, CARRY IT, SELL IT WHERE IT PAYS", "said": "in Battle Brothers, you can buy goods from whatever type of settlement it is... luxury goods that you can buy just to move them around to different parts of the city and sell them off for higher income... I didn't know off the bat which city has the best selling price of my goods", "why": "Every town's stall now sells the good it makes (salt at the Blues for 35) and buys any good you carry, a small camp for less, and the Mob's fortress paid 51 for that salt on its market day. You see it at every STALL in the CITY, on the crew screen (tap the good: the best towns you know) and on the CITY map (tap it again: those towns marked, best first).", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/economy_trade_goods_carried_11_7/buy_carry_sell_map.webp"}, "before_after": {"before": "main 2c33e6b7: no stall sold a good, nothing rode in the bag, the map's price marks never lit", "after": "the Blues' stall sells its salt, the Mob's buys it dearer, the crew screen names who pays best, the map marks them", "scale": "the town's stall, the crew screen and the map on a 390 x 844 phone, the game's own camera"}, "record": "records/BOHEMIA_ECONOMY_TRADE_GOODS_CARRIED_11_7_26.md"}
  ],
  "verdicts": [
   {
