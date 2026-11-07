@@ -538,3 +538,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 514 | Freeway fight boards: the deck towering over the city you can't hop off, the overpass, the underpass, the interchange (his reference: Fallout New Vegas's Lonesome Road, the freeway fight only) | 432(b) | FREEWAY | IN FLIGHT 11/7 |
 | 515 | No cheap route: a one-handed and two-handed version of the same axe/pipe/sledge is not two weapons; new weapons are real distinct objects with their own art | 424(c) | WEAPONS | IN FLIGHT 11/7 |
 | 516 | Vultures, his B: an enemy, the lab-made Ice Age teratorn in flocks that hunt the weak, the wounded and the dead; real small vultures only a rare capped sign on the map | 431(e) | WORLD 12 | IN FLIGHT 11/7 |
+| 517 | The vulture is just another animal we can fight: one more beast fought like the others, no special systems, no map sign | 431(f) | WORLD 12 | IN FLIGHT 11/7 |
