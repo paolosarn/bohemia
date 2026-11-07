@@ -524,3 +524,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 500 | The old place boards come back with their own layouts (nothing thrown away, a work in progress is improved), each where its place is on the map, the new houses in them | 428(a) | COMBAT TWO | IN FLIGHT 11/7 |
 | 501 | One story: slight defence, no range; two stories: more defence and range; three stories rare but real | 428(b) | COMBAT TWO | IN FLIGHT 11/7 |
 | 502 | Both sides may start in the open street (the company was walking down it); on AUTO their first moves scramble off the street onto houses and cover (corrected by him at once) | 428(c) | COMBAT TWO | IN FLIGHT 11/7 |
+| 503 | The enemy knows when our company outclasses it: it does not rush, it digs into houses and cover and even falls back to better ground | 428(d) | COMBAT TWO | IN FLIGHT 11/7 |
