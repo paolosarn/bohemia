@@ -49,7 +49,10 @@ MEDIUM = {'a': 'vhs_warm', 'b': 'cctv', 'c': 'vhs_cold', 'd': 'cctv', 'e': 'ir',
 FRAMES = {k: (6 if MEDIUM[k] in ('cctv', 'ir', 'cctv_colour') else 12) for k in MEDIUM}
 # RULE 357 (f), Paolo 11/3: 'not everything has to be at night time': the feeds run through the whole day. Each feed's hour; the night
 # ones keep their own light (their identity is the dark: the dying lamp, the one lit block, the infrared flash)
-HOUR = {'a': 'dusk', 'b': 'night', 'c': 'night', 'd': 'noon', 'e': 'night', 'f': 'afternoon', 'g': 'dusk', 'h': 'dawn', 'i': 'dawn', 'j': 'dawn'}
+# NEW RULING, rule 422 (Paolo 11/7, on his phone at the intake's noon): 'The nighttime version of this was way better please make it
+# nighttime again, bro. It was so good. The water reflected so good.' THE INTAKE is night again: its night render (d8c8e2c4b), the
+# moon's path on the low lake, is the one in the game.
+HOUR = {'a': 'dusk', 'b': 'night', 'c': 'night', 'd': 'night', 'e': 'night', 'f': 'afternoon', 'g': 'dusk', 'h': 'dawn', 'i': 'dawn', 'j': 'dawn'}
 # the sun (energy, colour, elevation, azimuth from the camera's back), the sky's fill (colour, strength), the film's exposure
 DAYLIGHT = {
     'dawn':      dict(sun=1.6, col=(1.0, 0.72, 0.52), el=7, az=180, fill=(0.20, 0.23, 0.34), fs=0.9, exp=-0.7),
@@ -684,6 +687,9 @@ def place(out_json):
                     f = lambda ink, mcx=mcx, my=my: mbox(mcx, my * SH, ink); f.__inks__ = MINKS; MS[(mcx, my)] = best_ink(f)
             for tcx, tside in cols:
                 for ty in TY:
+                    # rule 422 (the coordinator 11/7, from his sideways phone): the title never sits on the camera's own readout
+                    # (CAM 07 / the place, top left, about 38 px deep on his glass); a column that reaches the left corner starts under it
+                    if tbox(tcx, ty * SH, BONE)[0][0] < 130 and ty * SH - 2 < 44: continue
                     ft = lambda ink, tcx=tcx, ty=ty: tbox(tcx, ty * SH, ink); ft.__inks__ = TINKS
                     tink, sT, rT = best_ink(ft)
                     for mcx, mside in cols:
