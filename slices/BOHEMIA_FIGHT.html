@@ -2080,14 +2080,21 @@ const FIGHT = (function () {
 
   /* ---------------- MOVING ---------------- */
   function zocOn(u, x, y) {
-    return foes(u).filter(function (f) {
+    /* __AUTO_AT_4X_NEVER_CRASHES__: inside one naming of the man (nameFocus) nobody of the other side moves, so the ring on a tile
+       for that side is asked once */
+    const Z = ZOC && ZOC.side === u.side ? ZOC : null, zk = Z ? x + ',' + y : null;
+    if (Z && Z.at[zk]) return Z.at[zk].slice();
+    const out = foes(u).filter(function (f) {
       if (f.decoy || f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)) return false;   /* rule 103: a gun in his hands holds no ring; a cutout none (rule 367) */
       /* HEIGHT IS ACCURACY, NEVER A WALL (COMBAT 4, rule 321, Paolo 11/2): the library's ring stops at two levels apart; his
          ruling holds it across any storey (ours.height_is_accuracy.zone_any_storey) */
       if (!R('ours.height_is_accuracy').zone_any_storey && Math.abs(level(f.x, f.y) - level(x, y)) >= R('zone_of_control.height_gap_breaks_zoc_levels')) return false;
       return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= R('zone_of_control.radius_hexes');
     });
+    if (Z) Z.at[zk] = out.slice();
+    return out;
   }
+  let ZOC = null;
   /* every tile u can reach on its AP this turn. through=false (the brains): a path stops on entering a
      zone of control. through=true (your finger): a path may walk on past a lone man, and each tile it
      leaves inside his reach costs his free swing, which moveTo rolls (the wiki's zone of control). */
@@ -3480,7 +3487,10 @@ const FIGHT = (function () {
      when no man is named) at the weapon's middle */
   function threatOf(t, m) {
     if (!onField(t)) return 0;   /* a runner counts his blows too: he rallies, and the fight ends only when he is down or gone (rule 198) */
-    const near = m || foes(t).sort(function (p, q) { return dist(p, t) - dist(q, t); })[0];
+    /* __AUTO_AT_4X_NEVER_CRASHES__: the nearest by one pass, the first of the nearest as the stable sort gave (sorting every foe to take
+       the first was 1.4 s of dist in a 16 against 30) */
+    let near = m;
+    if (!near) { let bd = Infinity; S.units.forEach(function (v) { if (v.side === t.side || !onField(v)) return; const dd = dist(v, t); if (dd < bd) { bd = dd; near = v; } }); }
     if (!near) return 0;
     const b = blowsOn(t, near, t.apTurn);
     const w = t.weapon, d = hitDamage(t, near, (w.damage_min + w.damage_max) / (1 + 1), false, near.armB);
@@ -3509,8 +3519,8 @@ const FIGHT = (function () {
     stands_them_up: function (t) {
       const r = racial(t, 'raise_undead'); if (!r) return 0;
       const up = S.units.filter(function (o) { return o.side === t.side && o.dead && !o.headGone && !o.unplugged && r.raises.indexOf(o.kind) >= 0; }).map(function (o) {
-        const d = o.dead, h = o.hp; o.dead = false; o.hp = Math.max(1, Math.round(o.hpMax * r.hp_pct / 100));
-        try { return threatOf(o); } finally { o.dead = d; o.hp = h; }
+        const d = o.dead, h = o.hp, zs = ZOC; o.dead = false; o.hp = Math.max(1, Math.round(o.hpMax * r.hp_pct / 100)); ZOC = null;   /* a man stood up for the sum: no ring kept from before */
+        try { return threatOf(o); } finally { o.dead = d; o.hp = h; ZOC = zs; }
       }).sort(function (p, q) { return q - p; });
       return up.slice(0, r.per_turn).reduce(function (v, x) { return v + x; }, 0);
     },
@@ -3565,12 +3575,14 @@ const FIGHT = (function () {
   function deathWorth(t) {
     let v = threatOf(t);
     lessonsOf(t).forEach(function (k) { if (LESSON[k]) v += LESSON[k](t); });
-    if (onField(t) && t.morale !== 'Fleeing') foes(t).forEach(function (m) {
-      const steps = Math.floor(walkCap(t) / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : reachOf(t.weapon);
+    if (onField(t) && t.morale !== 'Fleeing') {
+      const steps = Math.floor(walkCap(t) / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : reachOf(t.weapon);   /* his, once (__AUTO_AT_4X_NEVER_CRASHES__) */
+      foes(t).forEach(function (m) {
       if (dist(t, m) > steps + far) return;
       const b = blowsOn(t, m, t.apTurn), w = t.weapon, hp = hitDamage(t, m, (w.damage_min + w.damage_max) / (1 + 1), false, m.armB).hp;
       if (b.n * b.p * hp >= m.hp) v += threatOf(m);
-    });
+      });
+    }
     return v;
   }
   /* the health a man of his side is stood back up at (THE MECHANIC's Raise Undead, racial_skills.json raise_undead: 'raises' the kinds it can,
@@ -3649,6 +3661,10 @@ const FIGHT = (function () {
     return S.order.slice(S.idx).map(function (id, i) { const m = byId(id); return m && m.side === side && onField(m) && m.morale !== 'Fleeing' ? { m: m, first: at <= S.idx || S.idx + i < at } : null; }).filter(Boolean);
   }
   function nameFocus(side) {
+    const was = ZOC; ZOC = { side: side, at: {} };   /* __AUTO_AT_4X_NEVER_CRASHES__ (zocOn) */
+    try { return nameFocus0(side); } finally { ZOC = was; }
+  }
+  function nameFocus0(side) {
     const fields = {}, shots = {}, margin = brain().best_shot_margin;
     let best = null, next = null;
     S.units.filter(function (t) { return t.side !== side && onField(t) && sideSees(side, t); }).forEach(function (t) {
@@ -4947,6 +4963,7 @@ function packedLoad(s) {
 (function () {
   const P = CanvasRenderingContext2D.prototype, d0 = P.drawImage;
   P.drawImage = function (img) {
+    if (img instanceof NightSheet) return nightDraw(this, d0, img, arguments);   /* __AUTO_AT_4X_NEVER_CRASHES__: the night cell by cell */
     if (!(img instanceof PackedSheet)) return d0.apply(this, arguments);
     const a = arguments, n = a.length;
     let sx = 0, sy = 0, sw = img.width, sh = img.height, dx, dy, dw, dh;
@@ -5230,7 +5247,7 @@ function sheetLum(c) {   /* the middle light of a sheet's figure pixels (relativ
 function moonFor(img, x, y) {
   const L = UI.groundLum, S = FIGHT.S;
   if (!L || x < 0 || y < 0 || x >= S.w || y >= S.h) return moonOf(x, y);
-  const g = L[y * S.w + x], cr = function (lift) { nightSheet(img, lift); const a = UI.darkOf.get(img)['lum' + lift]; return (Math.max(a, g) + .05) / (Math.min(a, g) + .05); };
+  const g = L[y * S.w + x], cr = function (lift) { const a = nightLum(img, lift); return (Math.max(a, g) + .05) / (Math.min(a, g) + .05); };   /* __AUTO_AT_4X_NEVER_CRASHES__: the light off a small copy, no whole sheet made */
   const base = moonTile(x, y), order = [base, base === MOON_SHADE ? MAN_MOON : MOON_SHADE, MAN_MOONLIT, MAN_MOONLIT2];
   for (let i = 0; i < order.length; i++) if (cr(order[i]) >= MOON_ENOUGH) return order[i];   /* the night he knows where it reads, else the gentlest that does */
   return order.reduce(function (b, l) { return cr(l) > cr(b) ? l : b; });
@@ -5248,7 +5265,96 @@ function groundLums(c) {
   }
   return out;
 }
+/* ==== __AUTO_AT_4X_NEVER_CRASHES__ (COMBAT 10, rule 417(a), Paolo 11/6: 'when I put the combat on auto at four times speed and I
+   have like 11 people and they have like 16 people the game crashes, so you gotta do what you gotta do to handle that').
+   MEASURED FIRST (tools/bohemia_combat_auto_at_4x_probe_11_6_26.js, his upright phone, AUTO at 4x): no stacked turns or beats (1 to 5
+   timers alive, 0 to 4 motions queued), no page error, AUTO's longest think 41 ms in the demo's 11 against 16; the tab is what goes.
+   The demo sat at 1.5 GB on the map and 2.1 to 2.3 GB in that fight (this box's browser), and the fight's own decoded pictures were
+   329 MB by day and 847 MB AT NIGHT: every sheet a man was drawn from in the dark got a WHOLE darkened copy for each moon level the
+   pick tried (134 copies, 518 MB), made the first time and kept to the fight's end; 4x reaches them all in seconds. A phone kills a
+   tab at its peak. THE NIGHT IS NOW LAID CELL BY CELL: the night's colour is a per-pixel pass (nightPass: saturation, multiply, the
+   moon's screen over itself, the figure's own alpha), so the cell a man is drawn from, darkened alone, is the same pixels as that
+   cell cut from a darkened sheet. nightSheet answers a NightSheet (the sheet and the moon, no pixels); the canvas's drawImage (the
+   same hook the packed sheets use) darkens only the cell asked for, once, and keeps it in ONE cache with a ceiling (NIGHT_CELLS_MB,
+   the cell drawn longest ago let go first). The pick's light (lum, COOK [every enemy reads at night]) is read off a copy no wider
+   than the one it always sampled (192 px, nearest), darkened the same way: the same pixels it read before. */
+const NIGHT_CELLS_MB = 48, NIGHT_WHOLE_PX = 1024 * 1024;
+const NIGHT = { cells: new Map(), bytes: 0, made: 0, dropped: 0, peak: 0, ids: new WeakMap(), n: 0, lum: new WeakMap(), sheets: new WeakMap() };
+function NightSheet(base, lift) { this.base = base; this.lift = lift; this.width = base.width; this.height = base.height; this.src = base.src; this.night = true; }
+function nightCap() { const o = window.FIGHT_OPTS || {}; return (o.nightCellsMB > 0 ? o.nightCellsMB : NIGHT_CELLS_MB) * 1048576; }
+function nightIdOf(b) { let i = NIGHT.ids.get(b); if (i === undefined) { i = ++NIGHT.n; NIGHT.ids.set(b, i); } return i; }
+function nightFree(e) { const c = e.c; e.c = null; try { if (c && c.close) c.close(); else if (c) { c.width = 0; c.height = 0; } } catch (_e) {} }
+/* the cell of base at (sx, sy, sw, sh) in the night's colour of lift: a canvas, then its bitmap once made */
+function nightCell(N, sx, sy, sw, sh, keep) {
+  const W = Math.max(1, Math.ceil(sw)), H = Math.max(1, Math.ceil(sh));
+  const k = nightIdOf(N.base) + '|' + N.lift + '|' + sx + ',' + sy + ',' + sw + ',' + sh;
+  let e = NIGHT.cells.get(k);
+  if (e) { NIGHT.cells.delete(k); NIGHT.cells.set(k, e); return e.c; }   /* the newest at the end: the oldest is let go first */
+  const day = document.createElement('canvas'); day.width = W; day.height = H;
+  day.getContext('2d').drawImage(N.base, sx, sy, sw, sh, 0, 0, sw, sh);
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'); g.drawImage(day, 0, 0);
+  nightPass(g, W, H, day, N.lift);
+  day.width = 0; day.height = 0;
+  NIGHT.made++;
+  if (!keep) return c;   /* a whole sheet asked for at once (the machine's chip): drawn, never kept here (the chip keeps its own) */
+  e = { c: c, bytes: W * H * 4 };
+  NIGHT.cells.set(k, e); NIGHT.bytes += e.bytes;
+  if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) {
+    if (e.c !== c) { try { b.close(); } catch (_e) {} return; }   /* let go before its bitmap came */
+    e.c = b; c.width = 0; c.height = 0; }, function () {});
+  const cap = nightCap();
+  for (const q of NIGHT.cells) { if (NIGHT.bytes <= cap || q[1] === e) break; NIGHT.cells.delete(q[0]); NIGHT.bytes -= q[1].bytes; nightFree(q[1]); NIGHT.dropped++; }
+  if (NIGHT.bytes > NIGHT.peak) NIGHT.peak = NIGHT.bytes;
+  return c;
+}
+/* the hook's part: a NightSheet drawn by its source rectangle, the cell darkened alone */
+function nightDraw(ctx, d0, N, a) {
+  const n = a.length;
+  let sx = 0, sy = 0, sw = N.width, sh = N.height, dx, dy, dw, dh;
+  if (n >= 9) { sx = a[1]; sy = a[2]; sw = a[3]; sh = a[4]; dx = a[5]; dy = a[6]; dw = a[7]; dh = a[8]; }
+  else if (n >= 5) { dx = a[1]; dy = a[2]; dw = a[3]; dh = a[4]; }
+  else { dx = a[1]; dy = a[2]; dw = sw; dh = sh; }
+  if (!(sw > 0) || !(sh > 0)) return;
+  const c = nightCell(N, sx, sy, sw, sh, sw * sh <= NIGHT_WHOLE_PX);
+  d0.call(ctx, c, 0, 0, sw, sh, dx, dy, dw, dh);
+}
+/* the pick's light of img in lift's night: sheetLum on a copy no wider than its own sample, darkened the same way */
+function nightLum(img, lift) {
+  let m = NIGHT.lum.get(img); if (!m) { m = {}; NIGHT.lum.set(img, m); }
+  if (m[lift] !== undefined) return m[lift];
+  const src = img instanceof PackedSheet ? img.atlas : img, sw = Math.min(192, src.width), sh = Math.max(1, Math.round(src.height * sw / src.width));
+  const day = document.createElement('canvas'); day.width = sw; day.height = sh;
+  const dg = day.getContext('2d'); dg.imageSmoothingEnabled = false; dg.drawImage(src, 0, 0, src.width, src.height, 0, 0, sw, sh);
+  const c = document.createElement('canvas'); c.width = sw; c.height = sh;
+  const g = c.getContext('2d'); g.drawImage(day, 0, 0); nightPass(g, sw, sh, day, lift);
+  m[lift] = sheetLum(c); day.width = 0; c.width = 0;
+  return m[lift];
+}
+/* what the night holds now, for the gates */
+function nightHeld() { return { cells: NIGHT.cells.size, mb: +(NIGHT.bytes / 1048576).toFixed(1), peak: +(NIGHT.peak / 1048576).toFixed(1), made: NIGHT.made, dropped: NIGHT.dropped }; }
+/* THE PICTURES' METER (MB decoded): every sheet the fight holds, by kind: the men's look and gun sheets (body), the held, melee and
+   carried sheets (pose), the night's cells, the whole night sheets kept (the machine's chip only), and the ground's pictures */
+window.FIGHT_PICS = function () {
+  const px = function (b) { return !b ? 0 : b.atlas ? b.atlas.width * b.atlas.height : (b.width || 0) * (b.height || 0); }, mb = function (n) { return +(n * 4 / 1048576).toFixed(1); };
+  let body = 0, ground = 0, pose = 0, whole = 0, wholeN = 0;
+  Object.keys(UI.imgs || {}).forEach(function (k) { if (/^fight_rig\//.test(k)) body += px(UI.imgs[k]); else ground += px(UI.imgs[k]); });
+  Object.keys(HOLD.ims).forEach(function (k) { pose += px(HOLD.ims[k].b); });
+  if (UI.darkOf) UI.darkOf.forEach(function (m) { Object.keys(m).forEach(function (k) { if (!/^lum/.test(k)) { whole += px(m[k]); wholeN++; } }); });
+  const out = { body: mb(body), pose: mb(pose), poseSheets: Object.keys(HOLD.ims).length, poseLetGo: UI.poseLetGo || 0, night: +(NIGHT.bytes / 1048576).toFixed(1), nightCells: NIGHT.cells.size,
+    nightWhole: mb(whole), nightWholeN: wholeN, ground: mb(ground), faces: UI.facePool ? UI.facePool.size : 0 };
+  out.held = +(out.body + out.pose + out.night + out.nightWhole).toFixed(1);   /* the decoded bitmaps a phone cannot purge */
+  return out;
+};
 function nightSheet(img, lift) {
+  if (lift === undefined) lift = MAN_MOON;
+  if (img instanceof NightSheet) return img;
+  if ((window.FIGHT_OPTS || {}).nightWhole) return nightWhole(img, lift);   /* the way it was, for the gate's before */
+  let m = NIGHT.sheets.get(img); if (!m) { m = {}; NIGHT.sheets.set(img, m); }
+  return m[lift] || (m[lift] = new NightSheet(img, lift));
+}
+/* the whole sheet in the night's colour, the way it was made before (the machine's chip is laid on a whole sheet; machines are few) */
+function nightWhole(img, lift) {
   if (lift === undefined) lift = MAN_MOON;
   UI.darkOf = UI.darkOf || new Map();
   let m = UI.darkOf.get(img); if (!m) { m = {}; UI.darkOf.set(img, m); }
@@ -5271,6 +5377,7 @@ function nightSheet(img, lift) {
   }
   return c;
 }
+/* ==== end __AUTO_AT_4X_NEVER_CRASHES__ (the night's part) ==== */
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22: every board tile reads 0.038 edge density at its own pixels and
    0.002 on the glass; the art is sharp and the fight showed it soft). The baked board holds a tile at 160 px when the art
    is 515, and the glass at the man's stop wants about 513 device px: baked, the art was shrunk to a third and blown back up.
@@ -7821,10 +7928,27 @@ function holdLook(L) {
 function holdImg(file, dir) {
   dir = dir || 'rig_hold/';
   let e = HOLD.ims[dir + file];
-  if (!e) { e = HOLD.ims[dir + file] = { b: null }; load(dir + file).then(function (i) { if (!i) return;
+  if (!e) { const k = dir + file; e = HOLD.ims[k] = { b: null, at: 0 }; load(k).then(function (i) { if (!i || HOLD.ims[k] !== e) return;
     if (typeof createImageBitmap !== 'function') { e.b = i; return; }
-    createImageBitmap(i).then(function (b) { b.src = i.src; e.b = b; }, function () { e.b = i; }); }); }
+    createImageBitmap(i).then(function (b) { b.src = i.src; if (HOLD.ims[k] !== e) { try { b.close(); } catch (_e) {} return; } e.b = b; }, function () { e.b = i; }); }); }
+  e.at = performance.now();   /* __AUTO_AT_4X_NEVER_CRASHES__: drawn now (the clock, never the frame's: a draw outside the frames counts) */
   return e.b;
+}
+/* __AUTO_AT_4X_NEVER_CRASHES__ (COMBAT 10, rule 417(a)): A SHEET NOBODY IS DRAWN FROM IS LET GO. Measured: by day the cover, melee
+   and carried-thing sheets are nearly all in use at once (154 of 208 MB inside any 3 s of an 11 against 16 on AUTO at 4x), so no
+   ceiling is laid on them (a ceiling would stand a man up out of his cover); but the sheets of a man who is down, or of a look
+   nobody on the board wears any more, stayed decoded to the fight's end. Every POSE_IDLE_MS the sheets not drawn from in that long
+   are closed (the bitmap's memory goes at once) and forgotten; asked for again, a sheet comes back the way it came the first time
+   (fetched, decoded off the frames) and the man is drawn as before until it is in. */
+const POSE_IDLE_MS = 20000;
+function poseSweep(now) {
+  if (UI.poseSweptAt && now - UI.poseSweptAt < 2000) return; UI.poseSweptAt = now;
+  Object.keys(HOLD.ims).forEach(function (k) {
+    const e = HOLD.ims[k]; if (!e.b || now - e.at < POSE_IDLE_MS) return;
+    delete HOLD.ims[k]; UI.poseLetGo = (UI.poseLetGo || 0) + 1;
+    try { if (e.b.close) e.b.close(); } catch (_e) {}
+    e.b = null;
+  });
 }
 /* in cover: his tile carries cover by the rules' own test, or he is in a building (a roof); never on a bare rise of ground or a
    rock he stands on (rule 170(a), COMBAT 10/25), never while he walks */
@@ -8250,6 +8374,7 @@ function ghostBlit(v, img, sx0, sy0, sw, sh, ox, oy, s, now, alpha) {
    gone) the diode is dark. COOK and ANIMATION's own machine through the rig replaces the body under it the day it lands. */
 const CHIP_SHEETS = new WeakMap(), CHIP_LED = ['#ff3b2a', '#4a0d08'];
 function chipSheet(img) {
+  if (img instanceof NightSheet) img = nightWhole(img.base, img.lift);   /* __AUTO_AT_4X_NEVER_CRASHES__: the chip is laid on a whole sheet, as before */
   let c = CHIP_SHEETS.get(img); if (c) return c;
   const pk = img instanceof PackedSheet ? img : null, src = pk ? pk.atlas : img;   /* __THE_SHEETS_ARE_PACKED__ (RUN 10/25): the chip on the atlas */
   c = document.createElement('canvas'); c.width = src.width; c.height = src.height;
@@ -8736,6 +8861,17 @@ function faceCanvas(v, css, now) {
   c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
   drawPortrait(c.getContext('2d'), v, c.width); if (now) c.className = 'now'; return c;
 }
+/* __AUTO_AT_4X_NEVER_CRASHES__ (rule 417(a)): the turn strip made a new canvas for every face each time the order moved, nine a
+   turn (1,260 of the 1,986 canvases a 16 against 30 made, measured), drawn and thrown away four times as fast at 4x; a phone
+   frees a canvas only when its collector comes round. Each man's face on the strip is one canvas, kept and drawn again: the
+   same picture, nothing made twice */
+function stripFace(v, css, now) {
+  const P = UI.facePool || (UI.facePool = new Map()), k = v.id + '|' + css + '|' + (now ? 1 : 0);
+  let c = P.get(k);
+  if (!c) { c = document.createElement('canvas'); const d = Math.min(window.devicePixelRatio || 1, 3); c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px'; if (now) c.className = 'now'; P.set(k, c); }
+  const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';   /* as a fresh canvas starts */
+  drawPortrait(g, v, c.width); return c;
+}
 /* the weapon of his job on the STRIKE square, drawn with the mastery's glyph */
 const JOB_ICON = { pipe: 'mace_mastery', mace: 'mace_mastery', sledge: 'hammer_mastery', hammer: 'hammer_mastery', pistol: 'dagger_mastery', dagger: 'dagger_mastery',
   rifle: 'crossbow_mastery', crossbow: 'crossbow_mastery', shotgun: 'crossbow_mastery', firearm: 'crossbow_mastery', bottles: 'throwing_mastery', throwing: 'throwing_mastery',
@@ -8956,7 +9092,7 @@ function hud() {
   /* the turn strip: faces in initiative order on the tape, the one acting larger (rule 67a) */
   const ord = document.getElementById('order'), line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9);
   const okey = line.map(function (v) { return v.id + v.morale[0] + (FIGHT.shown(v) ? '' : '?'); }).join(',');
-  if (ord.dataset.key !== okey) { ord.dataset.key = okey; ord.textContent = ''; line.forEach(function (v, i) { ord.appendChild(faceCanvas(v, i ? 36 : 42, !i)); }); }
+  if (ord.dataset.key !== okey) { ord.dataset.key = okey; ord.textContent = ''; line.forEach(function (v, i) { ord.appendChild(stripFace(v, i ? 36 : 42, !i)); }); }
   const show = (UI.pend && UI.pend.target) || u || S.units[0];
   const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
   if (UI.faceKey !== fkey) { UI.faceKey = fkey; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }
@@ -10036,6 +10172,7 @@ function frame(now) {
   requestAnimationFrame(frame);
   /* the device's own frame (rule 274(c)): a choice inside one frame of its grid point is not late, it is the device */
   if (UI.lastFrameAt) UI.frameMs = Math.min(250, (UI.frameMs || 16.7) * .9 + (now - UI.lastFrameAt) * .1); UI.lastFrameAt = now;
+  try { poseSweep(performance.now()); } catch (e) { frameErr(e, now); }   /* __AUTO_AT_4X_NEVER_CRASHES__: a sheet nobody is drawn from is let go */
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }

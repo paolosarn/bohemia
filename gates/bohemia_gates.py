@@ -10307,6 +10307,12 @@ GATES = [
      "edge in 300 rolled fights; every frame drawn, from the lineup on his upright phone and mid-fight on his computer: every man who gets "
      "out is drawn on three tiles or more between where he stood and the edge, his last tile the edge, a short run off the glass, his own "
      "walk, the camera holding him; rule 256's early retreat still gets out at least as often as before. About 4 minutes", True),
+    ("AUTO AT 4X NEVER CRASHES", ['node', 'gates/auto_at_4x_never_crashes_gate.js'],
+     "COMBAT 10 gate, 11/6, rule 417(a), ask line 473 (Paolo 11/6: 'when I put the combat on auto at four times speed and I have like 11 "
+     "people and they have like 16 people the game crashes'): the brain's every event the same with this round's speed-ups; 16 against 30 "
+     "on his upright phone on AUTO at 4x, start to end, by day and at night: no error, nothing stacks, AUTO's think and the frames in budget, "
+     "no freeze, the heap flat, the decoded pictures under a ceiling and let go (the night laid cell by cell, the same pixels); 12 against "
+     "20 on his computer; 11 against 16 through the demo's own door. About 15 minutes", True),
     ("THE ENEMY WANTS TO LIVE",['node', 'gates/the_enemy_wants_to_live_gate.js'],
      "COMBAT 7 gate, 11/3, rule 366 (Paolo 11/3: 'they try to preserve their [lives]... climbing on tops as high as they can... the enemy can "
      "have abilities'): headless, a lone man of theirs never walks into three of ours (the brain before did), a shooter with no shot takes "
