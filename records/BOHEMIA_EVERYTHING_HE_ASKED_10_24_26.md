@@ -503,3 +503,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 479 | The fight boards got poorer: 'you got rid of the rest of the maps, we need more love and better shit' | 419 | COMBAT TWO | IN FLIGHT 11/7 |
 | 480 | The transition from the map into the fight is still bad: more love now | 420 | MOTION (with PLUMBER 7 on the speed) | IN FLIGHT 11/7 |
 | 481 | No scrolling meant make the UI SMALLER, never next pages; new hires and the rest never half the screen | 402 amended | UI 9 | IN FLIGHT 11/7 |
+| 482 | Push more: the jobs he has not seen implemented yet | 421 | the coordinator; SCAVENGE (design for his yes), ANIMATION (the crawl), COOK (the weapon golden), UI 9 (+445) | IN FLIGHT 11/7 |
