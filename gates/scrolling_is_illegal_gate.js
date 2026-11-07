@@ -160,7 +160,7 @@ async function demoLegs(prof) {
     /* N4 THE SETTINGS CARD: one card */
     await P.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=settings]'); if (b) b.click(); else if (window.BohemiaSettings) BohemiaSettings.open(); }); await P.waitForTimeout(1600);
     const c4 = await crimesOn(P), m4 = await NS.small(P.mainFrame(), '#setcard');
-    const rows4 = await onGlass(P.mainFrame(), '#setcard > :not(.seth):not(#setphone), #setcard > #setphone > *');
+    const rows4 = await onGlass(P.mainFrame(), '#setcard > :not(.seth):not(#setphone):not(.ns-gone), #setcard > #setphone > *');   /* the TEXT row left the card (rule 403's UI SIZE took its place) */
     const f4 = NS.faults(m4);
     ok('N4 ' + prof + ' *** THE SETTINGS CARD *** one card (' + (m4 && m4.box && m4.box.join('x')) + ', ' + Math.round((m4 && m4.area || 0) * 100) + '% of the glass): every row on the glass at once (' + rows4.on + ' of ' + rows4.n + '), nothing scrolls (' + say(c4) + '), no tabs, smallest word ' + (m4 && m4.minText) + ' px' + (f4.length ? '; ' + f4.join('; ') : ''),
       rows4.n >= 12 && rows4.on === rows4.n && !c4.length && !f4.length);
