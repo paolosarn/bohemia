@@ -1,0 +1,12 @@
+{
+  "_about": "WORLD 12, 11/7 (VAMILY rule 431(b), ask line 511; Paolo 11/7: 'there's too many vultures on screen on the map... you didn't even put any sort of checker... this shit is nonstop'). The cap on every thing that moves on the map on its own: how many may show at once ('at_once'), and for a thing that comes and goes, how many may appear in a minute ('per_minute'); a 'persistent' thing stays while its place is on the glass, so only 'at_once' holds it. A kind not in this file never shows. Towns, parties, jobs and his crew are game objects with their own counts and are not in here. Read by slices/bohemia_map_ambient.js; a modder edits these numbers; gates/the_map_lives_under_a_cap_gate.js holds them with a planted flood.",
+  "draft": true,
+  "kinds": {
+    "vulture": { "at_once": 0, "per_minute": 0, "about": "rule 431(a)(f): the map's vultures are off the map, every one; the vulture is a beast you meet and fight (the teratorn, 431(e)(f)), never a map sign" },
+    "lair_birds": { "at_once": 0, "per_minute": 0, "about": "the three birds that circled every lair (WORLD 7): a map sign of circling birds, dropped with the vultures (431(f): 'no map sign')" },
+    "camp_smoke": { "at_once": 5, "persistent": true, "about": "the camps' smoke columns (Battle Brothers' smoke on the horizon), the five nearest the middle of the glass; the camp itself still stands at every place" },
+    "mast_light": { "at_once": 6, "persistent": true, "about": "a radio mast's red light blinking on the beat, the six nearest the middle of the glass; the mast still stands" },
+    "camp_embers": { "at_once": 7, "persistent": true, "about": "his own fire's embers going up while he makes camp (three beats), never more than seven" },
+    "kill_rise": { "at_once": 2, "per_minute": 20, "about": "the meat and the hide rising off a kill he tapped (rule 426(e)), two at a time, never more than twenty in a minute" }
+  }
+}

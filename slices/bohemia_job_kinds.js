@@ -629,14 +629,12 @@
   function spawnPack(job, k, town, R) {
     var pb = k.pack_blocks || [6, 15], ps = k.pack_size || [2, 4], sk = clamp(job.skulls, 1, 3);
     var s = spotOut(town.x, town.y, pb[0] + (job.ring2 | 0), pb[1] + (job.ring2 | 0), R, job.packs.length === 0);
-    var den = null; try { if (job.packs.length === 0 && root.BohemiaCarcass && root.BohemiaCarcass.denFor) den = root.BohemiaCarcass.denFor(town.x, town.y, pb[0], pb[1] + (job.ring2 | 0) + 4); } catch (e) {}   /* __THE_CARCASS__ (WORLD 11, rule 392(3c)): a kill nobody claimed became a den; the hunt starts there */
-    if (den && walk(den.at[0], den.at[1])) s = den.at.slice();
     if (!s) return null;
     /* SIZED TO HIS CREW (the map's own job math, rule 75b; a beast fights harder than a man, so a pack is four fifths of a
        crew job's count, a fifth of the time one more): measured, packs of 3 to 5 dire wolves beat a new crew of three twice */
     var base = 3; try { base = partyMath('job', { skulls: sk }).count; } catch (e) {}
     var n = clamp(Math.round(base * 0.8) + (R() < 0.2 ? 1 : 0), ps[0], ps[1] + sk);
-    var fac = job.foe && job.foe !== 'beasts' ? job.foe : (den ? den.kind : beastFor(s[0], s[1], R));
+    var fac = job.foe && job.foe !== 'beasts' ? job.foe : beastFor(s[0], s[1], R);   /* WORLD 12 (rule 426(e)): the den a left carcass made is gone with the carcass's three ways */
     /* __THE_GIANTS_ARE_RARE__: the row's own count, an animal's own most (a lion hunts alone), a giant one */
     if (job.packSize) n = clamp(n, job.packSize[0], job.packSize[1]);
     var BLm = DATA && DATA.beast_looks && DATA.beast_looks[fac]; if (BLm && BLm.pack_max) n = Math.min(n, BLm.pack_max);
@@ -2113,7 +2111,7 @@
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap,
-    letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the carcass (slices/bohemia_carcass.js) */
+    letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the kill on the map (slices/bohemia_carcass.js, WORLD 12) */
   load();
   /* BEASTS 2 11/3: the ground under a job is read through the danger engine; ask for it as soon as the map is up, so the first
      job made already knows its ground (measured: asked only at the first job, every job made in that tick fell to the default) */

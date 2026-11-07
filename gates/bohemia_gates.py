@@ -10608,22 +10608,28 @@ GATES = [
      "the fight was, he walks away with no card and the distance never shrinking, two game days camped three blocks off with no card, the "
      "crew back at its business after half a day, and only his own walk aimed at them lifts the hold. On main's files before: 8/6 (the "
      "mid-fight retreat reloaded the save). About 4 min", True),
-    ('THE CARCASS AND THE VULTURES', ['node', 'gates/the_carcass_and_the_vultures_gate.js'],
-     "WORLD 11 gate, 11/6, rules 392, 386, 413(c) (PAOLO 11/4: 'can we put it in a shopping cart and haul it back... letting them know the "
-     "location of the corpses'; 'my sister said vultures'): on the demo, a beast fight through the one door leaves its dead beside the fight "
-     "with a plate and a clock (FRESH, TURNING, GONE); real taps on HAUL IT (the hours on the clock, the cart, slower), EAT IT, a town buys "
-     "it, TELL a town from far off (paid when it comes in), LEAVE IT (a den, the next hunt starts there); the vultures circle the dead, "
-     "follow a company that kills, one stays on the dead, never attack, a stand-in picture on its own small layer; a beast pack he fell "
-     "back from never starts a fight on its own and his chase asks; THE BEFORE (the pack's hold off): 8 cards in 12. About 6 min", True),
-    ('EVERYONE IN THE FIGHT HOLDS', ['node', 'gates/everyone_in_the_fight_holds_gate.js'],
-     "RUN SEVEN gate, 11/7, rule 413(h)-(k) and rule 381 (PAOLO 11/6: 'I retreated from this battle and the enemies are still on my ass... "
-     "they're all on my ass, to the point I can't even enter a settlement'; his clue: 'this red number... it's underneath me as I walk'): "
-     "on the demo, every contact kind (a job's raiders, the thieves, a crew on the patrol road, a beast pack with the job's other pack near, "
-     "a job's crew, the hunters, a roaming party he chased, a street crew), the hunters near the fight too, both retreats with real taps, "
-     "then ten blocks walking away reading every enemy count drawn and every enemy with a count on the map (none within a block of him, "
-     "none drawn on his marker, nobody steps toward him, no card), then the walk into the nearest settlement (no card, it opens on its own "
-     "arrival); THE BEFORE (__RETREAT_ALL_OFF: the raiders keep coming and the town stays shut), the quiet half day, two game days camped "
-     "near the raiders' field, the save opened again. --quick runs three kinds. About 15 min", True),
+    ('A PACK HE RAN FROM LETS HIM GO', ['node', 'gates/the_carcass_and_the_vultures_gate.js'],
+     "WORLD 11 gate, 11/6, rule 413(c)(f), re-aimed 11/7 by RUN SEVEN (PAOLO 11/6: 'if I retreat and run away, I should be fully able to "
+     "get away from a battle'): on the demo, a beast pack he fell back from never starts a fight on its own: camped two blocks off for two "
+     "game days, standing off it, walking past it, its wander ending beside him, no card; his own chase asks; THE BEFORE (the hold off) "
+     "brings its card back. The file's carcass and vulture legs went with the build he voted NO (rule 426(e)); THE KILL GOES IN THE STASH "
+     "holds what replaced it. About 5 min", True),
+    ('WHAT LIVES ON THE MAP HAS A CAP', ['node', 'gates/the_map_lives_under_a_cap_gate.js', '--plant'],
+     "WORLD 12 gate, 11/7, rule 431(a)(b), ask lines 510 and 511 (PAOLO 11/7: 'there's too many vultures on screen on the map... you "
+     "didn't even put any sort of checker... this shit is nonstop'): every thing that moves on the map on its own asks one cap "
+     "(slices/bohemia_map_ambient.js, records/target/bb/map_ambient.json) how many may show at once and how often; a kind not in the "
+     "table never shows; the vulture and the lair birds at nought; on the phone over the whole valley at three zooms by day and night "
+     "every kind within its cap; a planted flood (300 camps, 60 masts, 25 kills taken in a second, his fire made) held to 5 smoke columns, "
+     "6 lights, 2 rising icons, 20 rises a minute, 7 embers; PLANTED (--plant): the cap made to say yes to everything turns the flood leg "
+     "red. About 2 min", True),
+    ('THE KILL GOES IN THE STASH', ['node', 'gates/the_kill_goes_in_the_stash_gate.js', '--plant'],
+     "WORLD 12 gate, 11/7, rule 426(e), ask line 496 (PAOLO 11/6, his NO on the carcass: 'you're not simplifying... I just want easy, quick "
+     "interaction... maybe they end up in our storage... the shopping cart was an example'): on the demo, phone held up, real taps: a beast "
+     "fight through the one door leaves the kill beside the fight with no words and no birds; ONE tap puts its meat in the company's food "
+     "(two nights a man) and its hide in the stash as a roll of ECONOMY's HIDES, no clock moved, no card or screen; no cart and the walk no "
+     "slower; from three blocks off one tap walks there and takes it; a full stash takes the meat and says so; the crew screen puts a trade "
+     "good on nobody; the Church's armourer buys the roll; the map's cap holds the vulture at nought; gone after two game days. PLANTED "
+     "(--plant): words on the kill, a tap that leaves the stash empty, the cart's slow walk: each turns its leg red. About 3 min", True),
     ('THE PAD IS TRAVEL SPEED',['node', 'gates/the_pad_is_travel_speed_gate.js'],
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "

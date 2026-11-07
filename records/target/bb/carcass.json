@@ -1,13 +1,31 @@
 {
-  "_about": "WORLD 11, 11/6 (VAMILY rule 392, ask line 427; Paolo 11/4: 'I just killed some lions... their corpse has so much meat that could feed people... can we put it in a shopping cart and haul it back... all the games have them explode into bite-size meat pieces... this could help you get some extra batteries... letting them know the location of the corpses for immediate retrieval and then you get extra batteries'). THE CARCASS IS A THING ON THE MAP, AND IT ROTS. Read by slices/bohemia_carcass.js; nothing else types these numbers (the mods law, rule 38g). MECHANISM-MINE / CONTENTS-PAOLO'S: every number carries its source; ECONOMY (what it pays) and TUNING (how long it lasts, how slow the cart) tune this file, never the code. draft:true, his to change. Record: records/BOHEMIA_WORLD_11_THE_CARCASS_THE_VULTURES_AND_THE_PACK_THAT_LETS_YOU_GO_11_6_26.md.",
+  "_about": "WORLD 12, 11/7 (VAMILY rule 426(e), ask line 496; it replaces WORLD 11's carcass of 11/6, which Paolo voted NO: 'you're not simplifying... I just want easy, quick interaction... maybe they end up in our storage... the shopping cart was an example and you ran with it'). A won fight with beasts leaves the kill on the map beside the fight; ONE tap puts its meat in the company's food (two nights a man) and its hide in the stash as a roll of ECONOMY's HIDES; no vultures (rule 431). No cart, no plate, no clock on the screen, no new screen. Read by slices/bohemia_carcass.js; a modder edits the numbers here.",
   "draft": true,
   "meat_share": {
     "value": 0.45,
     "about": "the share of a beast's live weight that is meat a person eats, after the hide, the bones, the guts and the head",
-    "source": "records/BOHEMIA_PAOLO_THE_CARCASS_HAUL_IT_TELL_IT_OR_LEAVE_IT_11_4_26.md (about half a carcass is meat); a field-dressed deer gives about 40 percent of its live weight as boneless meat, a beef steer about 40 to 45 (extension service butchering yields)"
+    "source": "about half a carcass is meat (records/BOHEMIA_PAOLO_THE_CARCASS_HAUL_IT_TELL_IT_OR_LEAVE_IT_11_4_26.md); a field-dressed deer gives about 40 percent of its live weight"
+  },
+  "meat": {
+    "kg_a_night": { "value": 0.5, "about": "a man's night of food is half a kilo of meat", "source": "a working adult eats about half a kilo of meat a day when meat is the meal (WORLD 11's floor)" },
+    "nights_a_man": { "value": 2, "about": "the most a kill puts in the company's food: two nights a man, what the company eats before it turns in the Mojave heat; the rest is left", "source": "food left out above 32 C is unsafe after an hour (USDA); cooked and smoked over a fire it keeps a couple of days; draft, TUNING's to set" }
+  },
+  "hide": {
+    "good": "hides",
+    "rolls_a_kill": 1,
+    "about": "the kill's hide is ECONOMY's own trade good HIDES (records/target/bb/stall_prices.json trade, Battle Brothers' Furs, base worth 300 -> 30), one roll a kill, made by ECONOMY's tradeItem: every stall buys it at the town's price, the map marks where it sells best (rule 425(b))"
+  },
+  "keep_h": {
+    "value": 48,
+    "about": "game hours a kill nobody takes lies on the map; then the birds have had it and it is gone, quietly (no clock is shown)",
+    "source": "food left out above 32 C is unsafe after an hour (USDA); a carcass in the Mojave sun is to the bone in about two days"
+  },
+  "vultures": {
+    "on_the_map": false,
+    "about": "rule 431(a)(f) (Paolo 11/7: 'there's too many vultures on screen on the map. They don't even look like vultures... just another animal we can fight'): nothing circles a kill and nothing follows him; the vulture is a beast he meets and fights (the teratorn), never a map sign. The map's cap (records/target/bb/map_ambient.json) holds 'vulture' at 0."
   },
   "kinds": {
-    "_about": "keyed by the fight's own enemy id (records/target/bb/bohemia_enemies.json rows, and the wiki's beasts the fight already had); 'faction' is the map's beast party (records/target/BOHEMIA_JOB_KINDS.json beast_looks), so the map can draw the animal it was; kg is the live weight of one animal",
+    "_about": "keyed by the fight's own enemy id; 'faction' is the map's beast party; 'label' is the animal's name; 'kg' is the live weight (the meat is 45 in 100 of it)",
     "american_lion": { "faction": "prides", "label": "AMERICAN LION", "kg": 300, "source": "Panthera atrox, 250 to 350 kg (rule 392's own floor; rule 345)" },
     "sabre_tooth": { "faction": "sabres", "label": "SABRE-TOOTH", "kg": 220, "source": "Smilodon fatalis, 160 to 280 kg" },
     "mountain_lion": { "faction": "lions", "label": "LION", "kg": 65, "source": "a male mountain lion, 60 to 70 kg (rule 392's own floor)" },
@@ -34,74 +52,5 @@
     "prides": "american_lion", "sabres": "sabre_tooth", "lions": "mountain_lion", "bears": "short_faced_bear", "sloths": "ground_sloth",
     "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "bulls": "feral_bull", "hogs": "feral_hog",
     "coyotes": "coyote", "wolves": "direwolf", "hyenas": "hyena", "dogs": "wardog", "beasts": "default"
-  },
-  "clean": {
-    "per_wound": 0.12,
-    "floor": 0.5,
-    "about": "a clean kill keeps more meat (rule 392 (5)): every wound the animal took before it died spoils that share of its meat, never under the floor",
-    "source": "draft: a hunter's rule of thumb that a gut shot or a torn hindquarter loses most of that quarter; TUNING's to move"
-  },
-  "clock": {
-    "fresh_h": 6,
-    "turning_h": 14,
-    "gone_h": 24,
-    "bones_h": 48,
-    "night_rate": 0.5,
-    "cart_rate": 0.6,
-    "about": "game hours since it fell: FRESH until fresh_h, TURNING until gone_h (the stew still takes it), GONE after (only the birds want it), bones by bones_h and then the map lets it go. A cool desert night runs the clock at night_rate; meat dressed and in the cart at cart_rate",
-    "source": "rule 392's own floor: in Mojave heat a carcass has to be gutted within about an hour and cooled, or it turns in hours, not days ('about a day at most'); food left out above 32 C is unsafe after one hour (USDA); the open Mojave drops 15 to 20 C at night"
-  },
-  "dress": {
-    "h_per_100kg": 1,
-    "min_h": 1,
-    "max_h": 5,
-    "about": "dressing it takes hours on the clock at the kill (rule 392 (4)): gutting, skinning, quartering, an hour a hundred kilos of animal; the world goes on while the knives work (an hour a beat, the camp's way)",
-    "source": "a deer is field-dressed in under an hour by one man and butchered in two to four; a crew working together on a big animal, about an hour a hundred kilos"
-  },
-  "cart": {
-    "kg": 120,
-    "slow_at_full": 1.5,
-    "about": "the camp's shopping cart (his idea): what it holds of dressed meat, and how much slower the company walks with it full (straight in between); what does not fit stays for the birds",
-    "source": "a supermarket cart is built for about 100 to 150 kg; pushed over broken ground by hand, about walking pace and a half"
-  },
-  "pay": {
-    "butcher_per_kg": { "fresh": 0.45, "turning": 0.15, "gone": 0 },
-    "stew_per_kg": { "fresh": 0.35, "turning": 0.3, "gone": 0 },
-    "stew_towns": ["Mob"],
-    "tell_per_kg": { "fresh": 0.18, "turning": 0.06, "gone": 0 },
-    "about": "batteries a kilo when it comes in: the butcher pays most for fresh and little for turning; the Mob's stew (rule 388) pays a little less but takes turning meat nearly as well (it does not ask); a town told where it lies pays a finder's share when its own carts bring it in",
-    "source": "a ration at the counter is one battery and a man eats about half a kilo of meat a day (records/target/bb/nightly_bill.json; rule 392's floor), so a kilo sells across the counter for about two; the butcher buys at under a quarter of that (the cutting, the salt, the risk). WORKED: an American lion, 300 kg, about 135 kg of meat; one cart holds 120; fresh at the butcher 54 batteries, what a two-skull job pays (records/target/bb/job_pay.json); told to a town, about 24 with no hours lost"
-  },
-  "eat": {
-    "kg_per_food": 0.5,
-    "nights": 2,
-    "about": "EAT IT from the cart: the company eats what it can before it turns, cooked and smoked over the fire: a food (a man's night) for every half kilo, never more than the company eats in this many nights; the rest stays in the cart to sell",
-    "source": "half a kilo of meat a man a day (rule 392's floor); fresh meat does not keep three weeks in the Mojave, it keeps a night or two over smoke"
-  },
-  "hunters": {
-    "min_per_block": 12,
-    "about": "TELL SOMEBODY: the town's own hunters walk out with their carts at this pace and bring it in; he is paid when it comes in, at the state it was in when they got to it",
-    "source": "a loaded hand-cart crew on foot, a little slower than his company (the map's own block, about ten minutes)"
-  },
-  "leave": {
-    "den_after_h": 48,
-    "den_kind": "coyotes",
-    "den_kinds_by_size": { "200": "hyenas", "600": "wolves" },
-    "about": "LEAVE IT: the vultures and the coyotes take it; a few days later something hungry lives near there (a den the next hunt from a town in reach starts at); a big carcass draws bigger eaters",
-    "source": "rule 392 (3c); a large carcass in open country feeds scavengers for days and pulls them in from miles"
-  },
-  "vultures": {
-    "stand_in": true,
-    "about": "rule 386: the picture of a vulture is a STAND-IN, drawn in a few pixels on the map, marked as one (rule 408(c)), until a golden piece of it exists; the behaviour is real. They circle the dead (a carcass, a fight's dead men, a boss's yard), follow a company that leaves bodies behind, never attack the living",
-    "circle_per_h": 0.67,
-    "circle_max": 7,
-    "land_after_h": 10,
-    "perch_max": 3,
-    "dead_men_h": 24,
-    "follow_per_kills": 4,
-    "follow_max": 5,
-    "follow_hours": 48,
-    "boss_yard": 3,
-    "source": "the turkey vulture rides the Mojave's thermals today and finds a carcass by smell within hours; they gather over a kill, land when it is safe, and never take a living animal (rule 386's floor)"
   }
 }

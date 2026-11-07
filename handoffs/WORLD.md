@@ -1,5 +1,32 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 12 (11/7; rule 426(e), ask line 496: his NO on WORLD 11's carcass; rule 431(a)(b), asks 510 and 511: the vultures off the map,
+a cap on what lives on it). BUILD 11/7u - THE KILL GOES IN THE STASH, NO VULTURES. BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_WORLD_12_THE_KILL_GOES_IN_THE_STASH_11_7_26.md. VOTE: world-12-the-kill-goes-in-the-stash-11-7 (kind redo,
+redoOf world-11-the-carcass-and-the-vultures-11-6, stage stand_in: the dead animal is the beast's fight frame laid flat).
+- NOW (slices/bohemia_carcass.js, rewritten): a WON beast fight (outcome.victory or result 'win'; no kill on retreat, loss, withdraw, the
+  pit) leaves one kill on the block beside the fight, the beast's own sheet on its side and a pool, NO plate, no words, no birds. ONE TAP
+  (BohemiaCarcass.tap -> take): goods [{what:'meat', kg}, {what:'hide', good:'hides', n:1}]: the meat to wagon food (min(crew x
+  meat.nights_a_man 2, kg / meat.kg_a_night 0.5)), billPublish, the top bar; the hide as ECONOMY's own trade item
+  (BohemiaStallPrices.tradeItem(STALLP, 'hides'), from 'a kill'; engine/bohemia_stall_prices.js now loads in the map; STALLP fetched by
+  the carcass file) into bohemia.bag.v1 while there is room. A full stash: the meat goes, the hide stays on the kill, travelSay 'Your
+  stash is full.'. From afar the tap walks there (travelTo) and loopArrived -> arrived() takes it. Gone after keep_h 48 game hours
+  (tick). The rise: the food and hides icons on #killrise for 0.9 s from their FIRST drawn frame. State 'bohemia.carcass.v2' (v1 removed).
+- STRIPPED: the cart (cityStepMins' pace hook), the plate and the clock, HAUL/EAT/butcher/stew, TELL and the town's carts, LEAVE IT and
+  the den (bohemia_job_kinds.js spawnPack), the clean-kill share, the feed posts, the men's dead stains, every vulture.
+- THE VULTURES OFF THE MAP (431(a)(f)): none in bohemia_carcass.js; bohemia_world_state_map.js's birds() over every lair deleted.
+- THE CAP (431(b), new): slices/bohemia_map_ambient.js (BohemiaAmbient.frame/allow/appear/stats/cap) and records/target/bb/map_ambient.json
+  (vulture 0, lair_birds 0, camp_smoke 5, mast_light 6, camp_embers 7, kill_rise 2 at once / 20 a minute; the module's DEF must equal
+  the file, the gate checks). Askers: bohemia_world_state_map.js draw (smoke and mast lights, nearest the glass middle first; LAST.ok
+  read by after() for the night blink), BOHEMIA_CITY_WORLD.html btwDraw (embers), bohemia_carcass.js (the rise). Anything new that moves
+  on the map on its own goes in the table or it never shows.
+- GATES: THE KILL GOES IN THE STASH (--plant) 14/0, plants 3 of 3; WHAT LIVES ON THE MAP HAS A CAP (--plant) 6/0, the plant turns the
+  flood red (303 smoke columns); A PACK HE RAN FROM LETS HIM GO (the old file, pack legs only, RUN SEVEN's) 9/0.
+- NEXT ON THIS LANE (431(e)(f), asks 516 and 517): THE TERATORN, one more beast in the roster, fought like the others, no special
+  systems, no map sign, reads as a vulture at every size (golden-piece recipe) or it does not ship.
+- FOR THE COORDINATOR: WORLD 9's job 'FIND THE MEAT' (BOHEMIA_JOB_KINDS.json kind 'carcass') still names its leg UNDER THE VULTURES and
+  speaks of carts; NOTE on the WORLD board; not changed.
+
 WORLD 11 (11/6-11/7; rule 417(b)'s sweep: rules 392, 386, 413(c); ask lines 427, 418, 465). BUILD 11/6s - THE CARCASS AND THE VULTURES.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_11_THE_CARCASS_THE_VULTURES_AND_THE_PACK_THAT_LETS_YOU_GO_11_6_26.md.
 - 392 THE CARCASS (slices/bohemia_carcass.js, new, WORLD's; numbers records/target/bb/carcass.json, the mods law): a beast fight's dead lie

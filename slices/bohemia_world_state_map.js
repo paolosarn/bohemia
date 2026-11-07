@@ -7,7 +7,7 @@
          painting's own texels at every zoom. Which neighbourhoods are DARK is the power grid's own dark: the seeded circuits
          are put out with POWER.douse, so the painting, the lamps, the town and every 'is it black in here' reader agree.
      (2) WHAT STANDS OUT THERE. Camps (their smoke stands up over the valley by day, the fire glows at night), lairs (a wreck,
-         bones, the birds turning over it), ruins (a burned shell standing black), legendary places (a mast, its red light
+         bones; the birds that turned over it are gone, WORLD 12, rule 431), ruins (a burned shell standing black), legendary places (a mast, its red light
          blinking): drawn standing in the world at their blocks, scaled with the zoom, in the map's own palette; the tall
          parts rise out of the fog (Battle Brothers' smoke on the horizon), the ground and the name only where he has seen.
      (3) THE ROADS. A few freeway blocks are shut across their whole width (a jackknifed truck, a fallen overpass, a
@@ -135,13 +135,6 @@
       x.globalAlpha = 1;
     });
   }
-  function birds(gx, sx, sy, u, b, k0) {
-    gx.fillStyle = PAL.bird;
-    for (var k = 0; k < 3; k++) {
-      var a = b * 0.55 + k * 2.1 + k0, rx = 9 * u, ry = 4 * u, bx = Math.round(sx + Math.cos(a) * rx), by = Math.round(sy - 22 * u + Math.sin(a) * ry), fl = (b + k) % 2;
-      gx.fillRect(bx - u, by - fl * u, u, u); gx.fillRect(bx, by, u, u); gx.fillRect(bx + u, by - fl * u, u, u);
-    }
-  }
   function wreck(u) {
     return sprite('wreck:' + u, 12 * u, 7 * u, function (x) {
       for (var i = 0; i < 9; i++) for (var j = 0; j < 4; j++) px(x, u, i + 1 + (3 - j) * 0.5 | 0, j + 2, j === 0 ? PAL.rustHi : (i % 2 && j === 1) ? PAL.char : PAL.rust);
@@ -191,24 +184,33 @@
     var gx = null; try { gx = g; } catch (e) { return; }
     var u = unit(), b = beat(), dr = { camps: 0, lairs: 0, ruins: 0, masts: 0, roads: 0, passes: 0, names: 0 }, names = [];
     var lean = ((root.BohemiaWorldState.hash(WS.code + ':wind') % 3) - 1) || 1, tw = 0; try { tw = TW; } catch (e) {}
+    /* __WHAT_LIVES_ON_THE_MAP_HAS_A_CAP__ (WORLD 12, rule 431(b)): the smoke columns and the masts' blinking lights ask the map's cap
+       (slices/bohemia_map_ambient.js), the nearest the middle of the glass first; a camp past the cap keeps its fire on the ground, a
+       mast its pole */
+    var A = root.BohemiaAmbient, OK = {}, mw = 390, mh = 844; try { mw = CVW; mh = CVH; } catch (e) {}
+    if (A) { A.frame('camp_smoke'); A.frame('mast_light'); var cand = [];
+      WS.marks.forEach(function (m, i) { if (m.look !== 'smoke' && m.look !== 'mast') return; var p = ground(m.x, m.y, ox, oy); if (!onGlass(p, 60 * u)) return;
+        cand.push({ i: i, k: m.look === 'smoke' ? 'camp_smoke' : 'mast_light', d: Math.hypot(p.sx - mw / 2, p.sy - mh / 2) }); });
+      cand.sort(function (a, c) { return a.d - c.d; }); cand.forEach(function (c) { if (A.allow(c.k, 1)) OK[c.i] = 1; }); }
+    LAST.ok = OK; LAST.capped = !!A;
     gx.save(); gx.imageSmoothingEnabled = false;
     try {
-      WS.marks.forEach(function (m) {
+      WS.marks.forEach(function (m, mi) {
         var p = ground(m.x, m.y, ox, oy); if (!onGlass(p, 60 * u)) return;
-        var seen = !hidden(m.x, m.y);
+        var seen = !hidden(m.x, m.y), lit = !A || OK[mi];
         if (m.look === 'smoke') {
-          var sm = smoke(u, b % 4, lean); blitAt(gx, sm, p.sx, p.sy, sm.width / 2, sm.height - u, seen ? 0.95 : 0.8);
+          if (lit) { var sm = smoke(u, b % 4, lean); blitAt(gx, sm, p.sx, p.sy, sm.width / 2, sm.height - u, seen ? 0.95 : 0.8); dr.smoke = (dr.smoke | 0) + 1; }
           if (seen) { gx.fillStyle = PAL.fire; gx.fillRect(Math.round(p.sx - u), Math.round(p.sy - u), 2 * u, u); if (b % 2) { gx.fillStyle = PAL.fireHi; gx.fillRect(Math.round(p.sx), Math.round(p.sy - 2 * u), u, u); } }
           dr.camps++;
         } else if (m.look === 'wreck') {
           if (seen) { var wk = wreck(u); blitAt(gx, wk, p.sx, p.sy, wk.width / 2, wk.height - u); }
-          birds(gx, p.sx, p.sy, u, b, m.x * 0.3); dr.lairs++;
+          dr.lairs++;   /* WORLD 12 (rule 431(a)(f)): the three birds that circled every lair are gone with the map's vultures */
         } else if (m.look === 'shell') {
           var hg = 12 + (root.BohemiaWorldState.hash(m.name + m.x) % 7), sh = shell(u, hg, m.x * 31 + m.y);
           blitAt(gx, sh, p.sx, p.sy, sh.width / 2, sh.height - u, seen ? 1 : 0.85); dr.ruins++;
         } else if (m.look === 'mast') {
           var ms = mast(u); blitAt(gx, ms, p.sx, p.sy, ms.width / 2, ms.height - u);
-          gx.fillStyle = PAL.red; gx.globalAlpha = (b % 2) ? 1 : 0.45; gx.fillRect(Math.round(p.sx - u / 2), Math.round(p.sy - ms.height + u), u, u); gx.globalAlpha = 1;
+          if (lit) { gx.fillStyle = PAL.red; gx.globalAlpha = (b % 2) ? 1 : 0.45; gx.fillRect(Math.round(p.sx - u / 2), Math.round(p.sy - ms.height + u), u, u); gx.globalAlpha = 1; dr.lights = (dr.lights | 0) + 1; }
           dr.masts++;
         }
         if (seen && tw >= 14) names.push([m.name, p.sx, p.sy + 2, m.kind === 'legend' ? '#ffd27a' : m.kind === 'lair' ? '#ff8f7a' : '#efe6d2']);
@@ -237,8 +239,10 @@
     gx.save(); gx.imageSmoothingEnabled = false;
     try {
       if (night) {
-        WS.marks.forEach(function (m) {
+        var OK2 = LAST.capped ? (LAST.ok || {}) : null;
+        WS.marks.forEach(function (m, mi) {
           if (m.look !== 'smoke' && m.look !== 'mast') return;
+          if (m.look === 'mast' && OK2 && !OK2[mi]) return;   /* WORLD 12 (rule 431(b)): only the masts the cap lit blink at night */
           var p = ground(m.x, m.y, ox, oy); if (!onGlass(p, 60 * u)) return;
           if (m.look === 'smoke') {
             var fl = 0.8 + 0.2 * ((b + m.x) % 3) / 2, R = 7 * u;
