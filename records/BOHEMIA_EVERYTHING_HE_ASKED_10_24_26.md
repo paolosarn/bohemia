@@ -520,3 +520,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 496 | The carcass: simpler, one quick tap into storage, no cart (the cart was an example) | 426(e) | WORLD 12 | IN FLIGHT 11/7 |
 | 497 | The arena map is ugly: remake its look | 426(f) | ARENA 2 | IN FLIGHT 11/7 |
 | 498 | More: the kill cams on the beat | 426(h) | ANIMATION | IN FLIGHT 11/7 |
+| 499 | More: open the oldest asks (the fight's music and beat, more enemy types and the clothes, the origins personal, the map's embers and 60 fps changes) | 427 | SOUNDS 2, CHARACTER, ORIGINS, PLUMBER 7 | IN FLIGHT 11/7 |
