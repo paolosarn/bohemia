@@ -1,5 +1,38 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 10 11/6 (rule 417(a) AUTO AT 4X NEVER CRASHES, ask line 473, opened by the coordinator for one round; with rule 378). DONE,
+SHIPPED, BUILD 11/6r - AUTO AT 4X NEVER CRASHES, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_10_AUTO_AT_4X_NEVER_CRASHES_11_6_26.md.
+MEASURED FIRST (main 55df870a, tools/bohemia_combat_auto_at_4x_probe_11_6_26.js, phone upright and computer, bare and through the
+demo's door): at 4x nothing stacks (1-5 timers, 0-9 motions, bursts of zero-length morale notes drained the next sample), no page
+error, AUTO's longest think 41 ms in the demo's 11 v 16 (162 ms bare at 16 v 30). THE TAB IS WHAT GOES: the demo 1.5 GB on the map,
+2.1-2.3 GB in the 11 v 16; the fight's own decoded pictures 329 MB by day and 847 MB AT NIGHT (134 whole darkened sheet copies, one
+per sheet per moon the pick tried, 518 MB), nothing ever let go; the turn strip made 9 new face canvases every turn.
+1. __AUTO_AT_4X_NEVER_CRASHES__ THE NIGHT CELL BY CELL: nightSheet answers a NightSheet; the drawImage hook (the packed sheets' own)
+   darkens only the cell drawn, into one cache under NIGHT_CELLS_MB 48 (oldest let go, bitmap closed). Pixel-identical (gate A4: 24
+   cells, four moons, 0 channels differ; the pick's light the same number, nightLum off the 192-px copy). nightWhole keeps the old
+   whole sheet for the machine's chip only; FIGHT_OPTS.nightWhole puts the old way back for a gate.
+2. poseSweep: a held/melee/carried sheet (HOLD.ims) not drawn from in POSE_IDLE_MS 20 s is closed and forgotten; it comes back as the
+   first time. No ceiling by day on purpose (154 of 208 MB drawn from inside any 3 s of an 11 v 16).
+3. stripFace: one canvas per man per size on the turn strip, drawn again.
+4. The brain, every event the same (gate A1, 12 fights 6 v 8 to 16 v 30): zocOn kept per nameFocus for the side named (ZOC, dropped
+   while a raised man is stood up), threatOf's nearest by one pass (the stable sort's first), deathWorth's reach hoisted. Slow steps
+   in the 16 v 30 bench 18 -> 14, their time 2,358 -> 1,256 ms.
+5. window.FIGHT_PICS(): the fight's decoded pictures by kind and 'held' (what a phone cannot purge), for PLUMBER's rule 418.
+AFTER: 16 v 30 phone 4x: pictures 392 peak -> 271 end by day, 421 at night (the old way 721 on 11 v 16 at night, the cells 343),
+think 97 ms, frames 16.7 middle / 33.4 p95, heap 13 -> 16 MB; computer 12 v 20 think 40; the demo 11 v 16: tab 1,213 -> 2,036 MB,
+pictures 314 -> 238, think 29, heap 88 -> 92.
+GATES: AUTO AT 4X NEVER CRASHES 7/0 (new, in the suite: A1 the brain the same, A2 16 v 30 phone day, A3 night and the old way, A4 the
+same pixels, A5 computer, A6 the demo's door); YOU SEE THEM RUN 6/0 (--fast); EVERY ENEMY READS AT NIGHT 4/0; THE FIGHT DRAWS WHAT HE
+WEARS 19/0 (P4 read 113 on a first run: a sheet let go inside the gate's long draw; the idle clock reads real time now, 114); THE
+SHEETS ARE PACKED 4/0; NO CAP 9/0; DEMO BUILD 25/0. RED THE SAME ON CLEAN MAIN 55df870a (the same numbers, the brain proven the
+same): AUTO PLAYS SMART 6/1 (H4 raiders idle 1), AUTO HOLDS THE ROOF 2/1 (R3 left-posting 1, up-down 1).
+NOT DONE / NEXT: by day the fight still holds 290-380 MB of decoded art for 22-35 looks (each look's held sheet a whole 2048-px
+sheet): the next cut is the art's (ANIMATION's held sheets per clip or facing) and the map's own 1.2-1.5 GB (WORLD, PLUMBER 418); no
+iPhone here, his next 11 v 16 on AUTO 4x is the real test; long tasks 278-432 ms on this box are the software raster of 46 men
+(drawLadders' save carries the flush), the same as before. No VOTE card: a crash fix has nothing to look at.
+[bb] Battle Brothers fields its whole company against 30-plus at four times speed; the count was never ours to cap (rule 378), the
+pictures each man dragged in were. [analog horror] the night is the same tape-dark on every pixel, laid on the frame shown, not the reel.
+
 COMBAT 9 11/6 (rule 415 YOU SEE THEM RUN, ask line 467, opened by the coordinator for one round; with rules 256 and 365). DONE,
 SHIPPED (05dc7ed7), BUILD 11/6p - YOU SEE THEM RUN, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_9_YOU_SEE_THEM_RUN_11_6_26.md.
 MEASURED FIRST (main 7d9c2883): his back line stood 2 tiles from his own edge in 299 of 300 rolled fights; on the glass (every frame
