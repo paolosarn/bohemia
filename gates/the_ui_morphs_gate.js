@@ -77,10 +77,12 @@ async function offs(cmp, ref, frames, rect, masks, after) {
 }
 /* THE VERDICT, EVERY FRAME, IN THE PAGE: is the bar (the phone) on top at its own place? The browser's own hit test at three
    points across it, carried up through every frame it sits in (what lies over it in any page is what is on top), COMBAT's
-   clouds counted as a cover while they are thick (they take no finger, so a hit test cannot see them); the layer's held copy
+   the door's cover (the zoom's frame of the map, 11/6; the clouds before it) counted while it is up (it takes no finger, so a hit test cannot see it); the layer's held copy
    of a piece is the piece. In the fight the phone has become his abilities, so the ability tray counts as the phone. */
 const WATCH = () => {
-  const thick = () => { const c = document.getElementById('nfclouds'); return !!c && (parseFloat(getComputedStyle(c).opacity) || 0) >= 0.3; };
+  /* RE-AIMED 11/6 BY MOTION (__THE_ZOOM_DOWN_INTO_THE_BOARD__, rule 407(g) step two; the clouds are deleted, rule 405(a)): the cover
+     at a fight's door is now the zoom's own frame of the map (or the board), #bmdive, counted as the clouds were while it is up */
+  const thick = () => { const c = document.getElementById('bmdive'); return !!c && [...c.querySelectorAll('canvas')].some(k => k.className !== 'grid' && (parseFloat(getComputedStyle(k).opacity) || 0) >= 0.3); };
   const docs = () => { const out = []; const v = (w, d) => { if (d > 4) return; try { if (w.document) out.push(w.document); for (let i = 0; i < w.frames.length; i++) v(w.frames[i], d + 1); } catch (e) {} }; v(window, 0); return out; };
   const onTop = (el) => {
     if (!el || !el.isConnected) return false;
@@ -116,7 +118,7 @@ const WATCH = () => {
     const r = bar.getBoundingClientRect(); let w = bar.ownerDocument.defaultView; x = r.left + r.width * 0.5; y = r.top + r.height * 0.5; while (w.frameElement) { const fe = w.frameElement, fr = fe.getBoundingClientRect(); x += fr.left; y += fr.top; w = fe.ownerDocument.defaultView; }
     let h = document.elementFromPoint(x, y), path = [];
     for (let i = 0; i < 4 && h; i++) { path.push((h.id ? '#' + h.id : h.tagName.toLowerCase()) + (h.className && typeof h.className === 'string' ? '.' + h.className.split(' ')[0] : '')); if (h.tagName !== 'IFRAME' || !h.contentDocument) break; const fr = h.getBoundingClientRect(); x -= fr.left; y -= fr.top; h = h.contentDocument.elementFromPoint(x, y); }
-    return path.join(' > ') + (thick() ? ' (clouds thick)' : ''); } catch (e) { return String(e).slice(0, 60); } };
+    return path.join(' > ') + (thick() ? ' (the door covered)' : ''); } catch (e) { return String(e).slice(0, 60); } };
   const tick = () => { if (!window.__mw.on) return; const b = has.bar(), row = { t: performance.timeOrigin + performance.now(), bar: b, phone: has.phone() }; if (!b) row.over = whatIsOver(); window.__mw.rows.push(row); if (window.__mw.rows.length < 3000) requestAnimationFrame(tick); };
   requestAnimationFrame(tick);
 };
@@ -375,11 +377,11 @@ async function side(profile) {
     const fwNow = async () => { const h = await p.$('#fightFrame'); return h ? await h.contentFrame() : null; };
     fw = (await fwNow()) || fw;
     const tray = fw ? await fw.evaluate(() => { const e = document.getElementById('skills'); return !!e && e.getBoundingClientRect().width > 0; }).catch(() => false) : false;
-    ok('M8 the map to a fight: the bar lifts off the top as the clouds come in, in budget, never held waiting for a fight\'s bar (rule 280)', !!fw && !!lift && !hung && lift.gaps === 0 && inBudget(lift, 250, 500),
+    ok('M8 the map to a fight: the bar lifts off the top as the zoom comes down, in budget, never held waiting for a fight\'s bar (rule 280)', !!fw && !!lift && !hung && lift.gaps === 0 && inBudget(lift, 250, 500),
       lift ? 'lifted, planned ' + lift.planned + ' ms, ' + lift.gaps + ' frames without it' + (hung ? '; a hold timed out' : '') : (fw ? 'no lift logged' : 'no fight opened'));
     const barUp = fw ? await fw.evaluate(() => { const b = document.getElementById('bmtb'); return !!b && b.getBoundingClientRect().height > 0; }).catch(() => true) : true;
     ok('  in the fight no bar is on the glass (rule 280)', !barUp, barUp ? 'the fight wears a bar' : 'none');
-    ok('  the phone folds into his abilities as the clouds part (a screen change, in budget, onto the ability tray)', !!fold && inBudget(fold, 500, 1000) && fold.gaps === 0 && tray, fold ? 'planned ' + fold.planned + ' ms, waited ' + (fold.waited || 0) + ' ms' : 'no fold logged');
+    ok('  the phone folds into his abilities as the board comes up (a screen change, in budget, onto the ability tray)', !!fold && inBudget(fold, 500, 1000) && fold.gaps === 0 && tray, fold ? 'planned ' + fold.planned + ' ms, waited ' + (fold.waited || 0) + ' ms' : 'no fold logged');
     /* and home */
     if (fw) {
       fw = (await fwNow()) || fw;

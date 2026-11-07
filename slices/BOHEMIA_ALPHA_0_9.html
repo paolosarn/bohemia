@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/7a - FIRST PLAY IS LIGHT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/7b - THE ZOOM DOWN INTO THE BOARD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12568,7 +12568,6 @@ function nfOpts(d){
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
   fightVeil(true);
-  try { nfcIn(); } catch (_e) {}   /* __THE_ZOOM_GOES_THROUGH_CLOUDS__ */
   CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
   /* __THE_FIGHT_SAVES_AT_ITS_START__ (FINISHER 11/2, rule 233): the game as it stands at the bell, kept until the map is back;
      a fight the page died in opens again from here (engine/bohemia_fight_start.js), and nothing in the fight is saved but its start */
@@ -12591,12 +12590,13 @@ function nfOpen(d){
      it back on a phrase when the fight ends (nfOverIn already calls FIGHTMUS.leave()); it was
      just never told a fight here had begun. One call closes the loop both ways. */
   try{ if (window.FIGHTMUS) FIGHTMUS.enter(); }catch(_e){}
-  /* __THE_CLOUDS_COVER_FIRST__ (UI 11/2 round 2, ask 279: every screen change transforms, never a pop): measured on the demo at phone
-     size, frame by frame, the fight's page was built in the same task that started the clouds' 250 ms fade, its build held the glass
-     for 223 ms and the clouds landed in ONE shown frame (62% of the glass at once). The page is now built one eighth later (250 ms, on
-     the beat), once the clouds cover the glass, so the build's stall happens under them; the music, the veil and the clouds start now */
-  var tok = NF.tok = (NF.tok || 0) + 1;
-  setTimeout(function(){ if (NF.tok === tok && CITYFIGHT) nfBuild(d); }, 250);
+  /* __THE_ZOOM_DOWN_INTO_THE_BOARD__ (MOTION 11/6, rule 407(g) step two; replaces UI's __THE_CLOUDS_COVER_FIRST__ and the clouds,
+     rule 405(a)): the map's own camera comes down to the fight's block at the street stop, its last frame is held on the glass and
+     the fight's page is built under it (the build's stall never shows a loading picture), then the map turns into the board
+     (slices/bohemia_motion.js, BohemiaMotion.dive). Without the motion layer the page is built one eighth later, as before. */
+  var tok = NF.tok = (NF.tok || 0) + 1, go = function(){ if (NF.tok === tok && CITYFIGHT) nfBuild(d); };
+  try { if (window.BohemiaMotion && BohemiaMotion.dive && BohemiaMotion.dive.down(d, go)) return true; } catch (_e) {}
+  setTimeout(go, 250);
   return true;
 }
 function nfBuild(d){
@@ -12625,7 +12625,6 @@ function nfBuild(d){
     }catch(_e){}
   });
   fr.src = 'BOHEMIA_FIGHT.html';
-  try { nfcHoldUntilReady(fr); } catch (_e) {}
   showTabPanel('combat');
   document.body.classList.add('nf-on');
   /* __ONE_SONG__ (RUN 10/4, [one song], rule 64): AND THE FIGHT GETS ITS OWN SONG. SOUNDS' FIGHTMUS.enter()
@@ -12781,7 +12780,6 @@ function nfOverIn(d, src){
     G.combatLog.push({ t: Date.now(), outcome: 'encounter-withdrew', recorded: true, newFight: true }); if (G.combatLog.length > 40) G.combatLog.shift();
     SPOILS.d = null; SPOILS.left = false; spoilsClose();
     NF.homeAt = setTimeout(nfHome, nfReadMs());
-    NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));
     return true;
   }
   /* __A_RETREAT_GETS_HIM_AWAY__ (RUN SIX 11/6, rule 413(d), Paolo 11/6: 'if I retreat and run away, I should be fully able to get away
@@ -12818,7 +12816,6 @@ function nfOverIn(d, src){
   SPOILS.d = null; SPOILS.left = false; spoilsClose();
   if (spoilsWanted(d)) { SPOILS.d = d; spoilsOpen(); return true; }   /* rule 164 item 28: at once, and it waits for LEAVE */
   NF.homeAt = setTimeout(nfHome, nfReadMs());
-  NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));   /* the clouds close over the card in its last beat */
   return true;
 }
 function nfHome(){
@@ -12827,9 +12824,7 @@ function nfHome(){
   try{ if(window.BohemiaArenaCrowd && BohemiaArenaCrowd.on()) BohemiaArenaCrowd.stop(); }catch(_e){}   /* __THE_ARENA__: the crowd goes quiet on the way home */
   SPOILS.d = null;
   if (NF.homeAt) { clearTimeout(NF.homeAt); NF.homeAt = null; }
-  if (NF.cloudAt) { clearTimeout(NF.cloudAt); NF.cloudAt = null; }
-  try { if (NFC.state !== 'in') nfcIn(); setTimeout(nfcPart, 250); } catch (_e) {}   /* and part over the map */
-  var fr = NF.frame; NF.frame = null;
+  var fr = NF.frame; NF.frame = null;   /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the board turns back into the map and the map climbs (BohemiaMotion, wrapping this door) */
   document.body.classList.remove('nf-on');
   var ok = cityFightHome(NF.over); NF.homeWall = Date.now();
   /* __THE_FIGHT_SAVES_AT_ITS_START__: back on the map; the results are the game's once the map has saved them (its save beats a
@@ -12875,78 +12870,18 @@ window.addEventListener('message', function(ev){
 })();
 /* ==== /__THE_FIGHT_SAVES_AT_ITS_START__, THE WAY BACK IN ==== */
 /* ===== /__THE_NEW_FIGHT_IS_THE_FIGHT__ ===== */
-/* ===== __THE_ZOOM_GOES_THROUGH_CLOUDS__ (RUN 10/2, [map pixels now], rule 67 s3) =====
-   PAOLO 10/2 (the sixth votes): "the zoom into a fight goes through clouds as the loading screen
-   again." MEASURED: the door opens the rebuilt fight about 1.0 s after the bell, and its ground takes
-   another 1.7 s to build, all of it shown as the fight's own plain loading line.
-   NOW THE CLOUDS ARE THE LOADING SCREEN. Three layers of pixel cloud, drawn ONCE at a quarter of the
-   screen's pixels in the dust and ash of the valley's own palette, and MOVED BY THE COMPOSITOR (CSS
-   transforms): the fight builds on this same thread, so clouds drawn frame by frame would freeze
-   exactly when they are needed. They roll in at the door, hold until the fight's ground is built
-   (never a moment less), then part on two beats. Going home they close over the fight's card in its
-   last beat and part over the map. pointer-events none: they never eat a tap. */
-var NFC = { el: null, layers: [], state: 'off', since: 0, shown: 0, parts: 0 };
+/* ===== __THE_ZOOM_DOWN_INTO_THE_BOARD__ (MOTION 11/6, rule 407(g) step two, rule 417(b), ask line 450) =====
+   THE CLOUDS ARE GONE (rule 405(a): the old way in is deleted in the push that replaces it). RUN's __THE_ZOOM_GOES_THROUGH_CLOUDS__
+   (10/2, the sixth votes) put three layers of painted cloud over the whole glass while the fight built and parted them over it:
+   Paolo 11/4, 'I don't want even a real loading transition between combat, I low-key just wanna see it zoom in'. The way in and the
+   way out are now the map's own camera and the board it turns into (slices/bohemia_motion.js, BohemiaMotion.dive). NFC stays as
+   the door's state, 'in' while a cover is up and 'off' once the fight or the map is his, so everything that waits on the door
+   (the motion layer's held phone, the gates) waits on the zoom the same way. */
+var NFC = { state: 'off', since: 0 };
 window.NFC = NFC;
-function nfcBuild(){
-  if (NFC.el) return NFC.el;
-  var st = document.createElement('style');
-  st.textContent = '#nfclouds{position:fixed;inset:0;z-index:999990;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 250ms linear;background:transparent}'
-    + '#nfclouds.on{opacity:1}#nfclouds.part{opacity:0;transition:opacity 1000ms ease-in}'
-    + '#nfclouds canvas{position:absolute;left:-25%;top:-25%;width:150%;height:150%;image-rendering:auto;will-change:transform}'
-    + '#nfclouds.part canvas{transition:transform 1000ms ease-in}'
-    + '#nfclouds.part canvas.l0{transform:scale(1.25) translate(-6%,0) !important}#nfclouds.part canvas.l1{transform:scale(1.5) translate(8%,-4%) !important}#nfclouds.part canvas.l2{transform:scale(1.9) translate(-10%,6%) !important}'
-    + '@keyframes nfcd0{from{transform:translate(0,0)}to{transform:translate(-8%,2%)}}@keyframes nfcd1{from{transform:translate(0,0)}to{transform:translate(9%,-3%)}}@keyframes nfcd2{from{transform:translate(0,0)}to{transform:translate(-12%,4%)}}'
-    + '#nfclouds canvas.l0{animation:nfcd0 14s linear infinite alternate}#nfclouds canvas.l1{animation:nfcd1 9s linear infinite alternate}#nfclouds canvas.l2{animation:nfcd2 6s linear infinite alternate}';
-  document.head.appendChild(st);
-  var el = document.createElement('div'); el.id = 'nfclouds';
-  /* the valley's own dust and ash: far layer the darkest, near layer the lightest; a solid floor
-     under them so nothing of the cut shows through while they are up */
-  /* __THE_CLOUDS_HAVE_NO_BLOCKS__ (RUN 10/24, EYES [the blocks between], rule 142; Paolo: 'when the map blows up I see the
-     skeleton'). MEASURED: the clouds were drawn at a quarter of the screen and shown 150% wide, pixelated, then scaled to 1.9
-     as they part: texels of 6 to 11 CSS px, the 'giant brown blocks' over the whole glass for the second after every fight.
-     Now drawn at half the screen's CSS pixels (the same shapes, the scales doubled) and smoothed, so a cloud is a billow,
-     never a block you can count; the grain stays in the paint. */
-  var NFC_RES = 2;
-  var W = Math.max(128, Math.round(innerWidth / NFC_RES)), H = Math.max(128, Math.round(innerHeight / NFC_RES));
-  function hx(h){ return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
-  function hh(x, y, s){ var h = (s ^ Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263)) >>> 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
-  function nz(x, y, s){ var xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi, u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
-    var a = hh(xi, yi, s), b = hh(xi + 1, yi, s), c = hh(xi, yi + 1, s), d = hh(xi + 1, yi + 1, s); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
-  /* a billow field: big soft shapes, flattened like desert cloud, lit from above (the rim), dark beneath */
-  function field(xx, yy, sc, s){ return nz(xx / sc, yy / (sc * 0.55), s) * 0.62 + nz(xx / sc * 2.2, yy / (sc * 0.55) * 2.2, s + 3) * 0.26 + nz(xx / sc * 5, yy / (sc * 0.55) * 5, s + 5) * 0.12; }
-  var LAY = [ { sc: 60, cut: -1, body: hx('#211b15'), rim: hx('#2c241c'), under: hx('#17130f') },     /* the dusk floor, solid */
-              { sc: 34, cut: 0.53, body: hx('#4a3e31'), rim: hx('#6e5d47'), under: hx('#2f261d') },
-              { sc: 46, cut: 0.6, body: hx('#7a6850'), rim: hx('#a8936c'), under: hx('#54463a') } ];
-  for (var L = 0; L < 3; L++) {
-    var c = document.createElement('canvas'); c.width = W; c.height = H; c.className = 'l' + L;
-    var x = c.getContext('2d'), im = x.createImageData(W, H), dta = im.data, Ly = LAY[L];
-    for (var yy = 0; yy < H; yy++) for (var xx = 0; xx < W; xx++) {
-      var o = (yy * W + xx) * 4, n = field(xx, yy, Ly.sc * 4 / NFC_RES, 91 + L * 7), up = field(xx, yy - 8 / NFC_RES, Ly.sc * 4 / NFC_RES, 91 + L * 7), dn = field(xx, yy + 8 / NFC_RES, Ly.sc * 4 / NFC_RES, 91 + L * 7), col;
-      if (Ly.cut < 0) { var g2 = yy / H; col = n > 0.55 ? Ly.rim : (g2 > 0.6 ? Ly.under : Ly.body); }
-      else { if (n < Ly.cut) { dta[o + 3] = 0; continue; }
-        col = (up < Ly.cut + 0.03) ? Ly.rim : (dn < Ly.cut + 0.05) ? Ly.under : Ly.body; }
-      var gr = 1 + (hh(xx, yy, 7 + L) - 0.5) * 0.08;   /* grain, the bible's */
-      dta[o] = col[0] * gr; dta[o + 1] = col[1] * gr; dta[o + 2] = col[2] * gr; dta[o + 3] = 255;
-    }
-    x.putImageData(im, 0, 0); el.appendChild(c); NFC.layers.push(c);
-  }
-  document.body.appendChild(el); NFC.el = el; return el;
-}
-/* in: roll in at once; out: part (once the fight is ready, never sooner) */
-function nfcIn(){ var el = nfcBuild(); el.classList.remove('part'); void el.offsetWidth; el.classList.add('on'); NFC.state = 'in'; NFC.since = performance.now(); NFC.shown++; }
-function nfcPart(){ var el = NFC.el; if (!el || NFC.state === 'off') return; el.classList.add('part'); el.classList.remove('on'); NFC.state = 'parting'; NFC.parts++;
-  setTimeout(function(){ if (NFC.state === 'parting') { el.classList.remove('part'); NFC.state = 'off'; } }, 1100); }
 /* the fight is ready when its own loading line is gone (it hides it when the ground is built) */
 function nfReady(fr){ try{ var l = fr.contentDocument.getElementById('load'); return !!(l && l.style.display === 'none'); }catch(_e){ return false; } }
-function nfcHoldUntilReady(fr){
-  var t0 = performance.now(), MIN = 60000 / 120;   /* at least one beat of cloud, so it reads as clouds */
-  var iv = setInterval(function(){
-    if (!NF.frame || NF.frame !== fr) { clearInterval(iv); nfcPart(); return; }
-    if (nfReady(fr) && performance.now() - t0 >= MIN) { clearInterval(iv); NFC.readyAt = performance.now(); nfcPart(); }
-    else if (performance.now() - t0 > 20000) { clearInterval(iv); nfcPart(); }   /* a fight that never builds still leaves the clouds */
-  }, 50);
-}
-/* ===== /__THE_ZOOM_GOES_THROUGH_CLOUDS__ ===== */
+/* ===== /__THE_ZOOM_DOWN_INTO_THE_BOARD__ ===== */
 
 function cityEncounterIn(d){
   if(NEW_FIGHT_ON){ try{ if(nfOpen(d))return; }catch(_e){} }   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ */

@@ -2588,15 +2588,17 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
-    ('THE ZOOM GOES THROUGH CLOUDS', ['node', 'gates/the_zoom_goes_through_clouds_gate.js'],
-     'VAMILY [map pixels now], rule 67 s3 (PAOLO 10/2, the sixth votes: "the zoom into a fight goes through clouds '
-     'as the loading screen again"). MEASURED BEFORE: the rebuilt fight cut in after about 1.0 s and built its ground '
-     'for 1.7 s behind its own plain loading line. NOW three layers of pixel cloud, drawn once and moved by the '
-     'compositor, roll in at the door, hold until the ground is built, part on two beats; home goes through them '
-     'too. HOLDS, driven: up within 400 ms over the whole glass; never parting while the fight loads; gone within '
-     '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
-     'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
-     'none on the way home.', True),
+    ('THE ZOOM DOWN INTO THE BOARD', ['node', 'gates/the_zoom_down_into_the_board_gate.js'],
+     'MOTION 11/6, rule 407(g) STEP TWO, rule 417(b), ask line 450 (PAOLO 11/4: "I don\'t want even a real loading transition between '
+     'combat, I low-key just wanna see it zoom in... as you zoom in that\'s what starts to unfold"). REPLACES THE ZOOM GOES THROUGH '
+     'CLOUDS (rule 405(a): the clouds deleted in the same push). Driven on the demo, phone and computer, a sampler reading the glass '
+     'every animation frame: Z1 the way in shows the map\'s own ground in every frame (the live map, the zoom\'s held frame of it, '
+     'or the board; never the fight\'s loading line, a cloud or nothing); Z2 the map\'s own camera climbs to the stop every frame; Z3 '
+     'the map frame\'s own transform ends the turn where the fight\'s own camera draws the block on COMBAT TWO\'s board (2 px); Z4 the '
+     'board laid from the contact\'s block; Z5 the grid scans on and is gone; F1 the zoom\'s own work under 5 ms a frame, the turn and '
+     'the come-down under this box\'s ratchets; O1 the way out never shows a loading line; O2 the climb back to his zoom, the crew '
+     'held, the bar on; R1 reduced motion a fade; S1 no cloud code left. Mutations: no frame held -> Z1 red; the board 40 px off -> '
+     'Z3 red.', True),
     ('NOTHING COMES TWICE', ['node', 'gates/nothing_comes_twice_gate.js'],
      'VAMILY [ten seconds to play], rule 94 (the STOP block: "every city tile file downloaded twice ... the demo page reloading '
      'itself at 76, 196 and 316 s"). MEASURED with the browser\'s own network log served like Pages: each tile crossed the wire '

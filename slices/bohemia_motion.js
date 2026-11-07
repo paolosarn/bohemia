@@ -14,7 +14,7 @@
                                                             the camp, the crew door) grows out of a place on screen
      BohemiaMotion.shrink({ id, el, to, picture, remove })  and goes back into it the way it came
      BohemiaMotion.hold({ id, el | node+box, until })       a piece that must not blink while the screen under it changes
-                                                            (the bar and the phone while the fight's clouds are up)
+                                                            (the bar and the phone while the door to a fight is covered)
    from / to: an element in any same-origin frame, a box {x, y, w, h} in the top glass's points, or (to) a function that
    returns either, read again every hold (a piece that is still being drawn, a camera that is still moving).
    ONE ID ON BOTH SIDES: a piece that lives on two screens carries data-morph="<id>" on both (bar, phone, crew, camp,
@@ -24,7 +24,7 @@
    1. NOTHING CUTS, NOTHING BLINKS. The stand-in is put up in the same task that changes the screen, so it is painted in
       the same frame the old piece leaves; the real end state is laid out from the first frame and shown as the stand-in
       lands (the two overlap on the last hold, never a frame with neither). The bar and the phone stay on the glass
-      through every change: the growing plate is cut around them, and over the fight's clouds they are held.
+      through every change: the growing plate is cut around them, and over the fight's door (the zoom's held frame) they are held.
    2. A TAP IS NEVER LOST. Every stand-in has pointer-events none, and the real end state sits at its final place from
       the first frame (a growing frame waits at opacity 0, which still takes a finger), so a tap during a morph lands on
       the end state. The same tap SKIPS every morph in flight to its end in that frame (the stop cord): a capture
@@ -449,6 +449,7 @@
       if (!doc || doc.__bmotionArmed) return; doc.__bmotionArmed = true;
       var w = doc.defaultView;
       var onTap = function (e) {
+        if (DIVE.state !== 'off' && DIVE.state !== 'hold') { diveSkip(); TAPS.push({ t: Math.round(epochNow()), ids: ['dive:' + DIVE.state], frame: 'top', landed: e.target && e.target.id ? '#' + e.target.id : '?', type: e.type }); }
         if (!LIVE.length) return;
         var ids = LIVE.filter(function (m) { return m.how !== 'hold'; }).map(function (m) { return m.id; });
         if (!ids.length) return;
@@ -591,9 +592,8 @@
     ['bar', 'phone'].forEach(function (id) { var e = find(id); var b = e && topBox(e); if (b) out.push(b); });
     return out;
   }
-  function cloudsThin() {
-    try { var c = D.getElementById('nfclouds'); if (!c) return true; return (parseFloat(W.getComputedStyle(c).opacity) || 0) < 0.25; } catch (e) { return true; }
-  }
+  /* the door's covers are down (__THE_ZOOM_DOWN_INTO_THE_BOARD__: the clouds this used to read are gone, rule 405(a)) */
+  function cloudsThin() { return diveClear(); }
 
   /* ---- THE TOWN AND THE CAMP (the map's frame; RUN, RUN TWO) ---- */
   /* where the town stands on the map: its buildings' box as the map last drew them, then a piece of map around it in the
@@ -708,8 +708,9 @@
     });
   }
 
-  /* ---- THE FIGHT (the shell's door; COMBAT, RUN): the bar and the phone stay over the clouds, the phone folds into his
-     abilities as the clouds part, and on the way home the abilities fold back into the phone ---- */
+  /* ---- THE FIGHT (the shell's door; COMBAT, RUN): the bar lifts off, the phone is held over the zoom down into the board
+     (__THE_ZOOM_DOWN_INTO_THE_BOARD__, 11/6: the clouds are gone) and folds into his abilities as the board comes up; on the way home
+     the abilities fold back into the phone ---- */
   function abilities(fw) { try { var e = fw.document.getElementById('skills'); return e && shown(e) ? e : null; } catch (e2) { return null; } }
   /* __NO_TOP_BAR_IN_THE_FIGHT__ (UI): the map's bar back to itself; also whenever no fight stands (a fight closed by another door) */
   function barBack() { try { var cw = cityWin(), b = cw && cw.document.querySelector('[data-bm-fight-gone]'); if (b) { setOp(b, null); b.removeAttribute('data-bm-fight-gone'); } } catch (e) {} }
@@ -742,9 +743,20 @@
         var bbox = fbar && shown(fbar) ? topBox(fbar) : null, bnode = null, tbox = tray ? topBox(tray) : null, tnode = null;
         try { if (bbox) bnode = copyOf(fbar); } catch (e) {}
         try { if (tbox) tnode = copyOf(tray); } catch (e) {}
+        /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the board's last frame laid on the glass before the fight's page goes */
+        var going = false; try { going = !!(W.NF && W.NF.over && W.CITYFIGHT && !(W.SPOILS && W.SPOILS.d && !W.SPOILS.left)); } catch (e) {}
+        var prep = going ? diveUpPrep() : null;
         barBack();   /* __NO_TOP_BAR_IN_THE_FIGHT__: the map's bar, lifted off at the door, is laid back under the fight before it goes */
         var r = orig.apply(this, arguments);
-        if (fightWin()) return r;   /* not home yet (the spoils wait first) */
+        if (fightWin()) { if (prep) { try { prep.pic.c.remove(); } catch (e) {} diveEnd(null); } return r; }   /* not home yet (the spoils wait first) */
+        /* the map's bar comes back as the map does: out of sight under the covers, then down from the top as the climb starts */
+        var mbar = find('bar'), mbox = mbar ? topBox(mbar) : null, mnode = null; try { if (mbox) mnode = copyOf(mbar); } catch (e) { mnode = null; }
+        if (prep && mnode) setOp(mbar, '0');
+        diveUp(prep, function () {
+          if (!prep || !mnode || !mbar || !mbar.isConnected) return;
+          setOp(mbar, null);
+          fly({ id: 'bar', kind: 'piece', from: { x: mbox.x, y: -mbox.h - 12, w: mbox.w, h: mbox.h }, node: mnode, to: mbar, hideTo: true, rivets: false });
+        });
         if (bnode) hold({ id: 'bar', node: bnode, box: bbox, maxMs: 6000, until: function () { var b = find('bar'); return !!b && cloudsThin(); } });
         /* the phone stays put away until his abilities have folded back into it: it never shows and then hides again */
         var cw = cityWin(), pe = null; try { pe = cw && cw.document.getElementById('cityfeed'); } catch (e) {}
@@ -849,6 +861,394 @@
     fly(o);
   }
 
+  /* ======================================================================================================================
+     __THE_ZOOM_DOWN_INTO_THE_BOARD__ (MOTION 11/6, rule 407(g) STEP TWO, rule 417(b), ask line 450; Paolo 11/4: 'I don't want
+     even a real loading transition between combat, I low-key just wanna see it zoom in... as you zoom in that's what starts to
+     unfold'). MEASURED BEFORE (the demo, 390 x 844): the door put three layers of painted cloud over the whole glass for the
+     fight's build (the shell's __THE_ZOOM_GOES_THROUGH_CLOUDS__, rule 401(a)'s dive) and parted them over the fight: a loading
+     picture, and the map and the board never seen as one place. COMBAT TWO's step one (b6f4215c) lays the board from the map's
+     own block at one ruler (a map block 36 m is 3 x 3 fight tiles of 12 m), so the two can now be married on the glass.
+     NOW, the clouds deleted in the same push (rule 405(a)):
+       1 COME DOWN: on contact the MAP'S OWN CAMERA comes down from wherever he was to the street stop (WORLD 8's, a block 380
+         px, where a house stands to his men as in the fight), the fight's block sliding to the map's focus; the map paints
+         every frame of it (the same painter, the same houses as his pinch).
+       2 HOLD: one copy of that last frame is laid on the glass (the map's own ground, never a loading picture) and the fight's
+         page is built under it (its build holds the one thread for a beat or a few seconds on a phone; under the map's last
+         frame that reads as the camera arriving, never a black or a brown screen).
+       3 THE TURN (407(c), the coordinator's lead): the map is corner-on, a diamond; the fight is straight-on, a square grid. The
+         copy turns an eighth of a circle and stands up (half as tall as wide to the fight's own aspect) about the fight's block
+         over two beats, and the fight's board canvas is turned the SAME way backwards from where it will rest, so through
+         every frame of the turn the two put the same street on the same pixels (an affine marriage: map block u, v -> the
+         board's tiles 3u, 3v); the map fades into the board through the second half of the turn, where the angle is small.
+       4 THE GRID LIGHTS UP: the fight's own tile lines scan onto the street from the far edge to the near (the board's own
+         grid, through the turn's last half), hold a beat and fade to the board's own faint grid; the fight starts.
+       5 OUT: the grid lights again over the board and fades, the board's last frame turns back to the map's angle while the
+         map (drawn again at the street stop, same block) comes up under it, and the map's own camera climbs back to the zoom
+         and the place he was at (his crew held, as the map always holds it).
+     The look of it (the tape's roll, REC, a face; 407(h)) is for final (rule 404): this is the zoom that works.
+     A fight the map cannot place (a board that was not laid from the map: a boss's, the arena) turns to the board's middle;
+     a door that is not the map's (a town's raid) holds that screen's own last frame and fades. REDUCED MOTION: no zoom, no
+     turn: the last frame held while the fight builds, then a 167 ms fade, both ways.
+     window.NFC.state ('in' while a cover is up, 'off' once the fight or the map is his) is what the clouds' state was, so every
+     check that waits for the door keeps working. BohemiaMotion.dive: down(d, go) / up / state() / log.
+     Gate: gates/the_zoom_down_into_the_board_gate.js.
+     ====================================================================================================================== */
+  var TPB = 3;   /* a map block is 3 x 3 fight tiles: COMBAT TWO's one ruler (36 m / 12 m) */
+  var DIVE = { state: 'off', at: null, el: null, raf: 0, skip: false, log: [], seq: 0, row: null, z0: null };
+  var SCALE_MEM = {};   /* the fight's block size on the glass, px, the last time a fight opened on a glass this size */
+  function nfcSet(s) { try { if (!W.NFC) W.NFC = { state: 'off' }; W.NFC.state = s; W.NFC.since = performance.now(); } catch (e) {} }
+  function diveClear() { try { return !(W.NFC && W.NFC.state && W.NFC.state !== 'off'); } catch (e) { return true; } }
+  function smoother(u) { u = Math.max(0, Math.min(1, u)); return u * u * u * (u * (u * 6 - 15) + 10); }
+  function sstep(a, b, x) { var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+  function mm(A, B) { return [A[0] * B[0] + A[1] * B[2], A[0] * B[1] + A[1] * B[3], A[2] * B[0] + A[3] * B[2], A[2] * B[1] + A[3] * B[3]]; }
+  function minv(A) { var d = A[0] * A[3] - A[1] * A[2]; return [A[3] / d, -A[1] / d, -A[2] / d, A[0] / d]; }
+  function map2(A, x, y) { return { x: A[0] * x + A[1] * y, y: A[2] * x + A[3] * y }; }
+  function lerpP(a, b, e) { return { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e }; }
+  function cellOf(at) {
+    if (!at) return null;
+    var x = at.gx != null ? at.gx : at.x != null ? at.x : at[0], y = at.gy != null ? at.gy : at.y != null ? at.y : at[1];
+    x = +x; y = +y; return isFinite(x) && isFinite(y) ? { gx: Math.floor(x), gy: Math.floor(y) } : null;
+  }
+  /* THE MAP'S OWN CAMERA, asked inside the map's own page (its zoom, pan and the crew it holds are that page's) */
+  var CAM_BODY = "if (typeof CZOOM === 'undefined' || typeof MODE === 'undefined' || MODE !== 'city' || typeof cityGlidePos !== 'function') return null;"
+    + "var G = cityGlidePos(performance.now());"
+    + "if (op === 'read') { var zb = zoomBounds(), st = zb[1]; try { if (window.BohemiaMapHouses && BohemiaMapHouses.on()) st = Math.max(st, BohemiaMapHouses.streetTW() / TW0); } catch (e) {}"
+    + "  return { z: CZOOM, px: panX, py: panY, TW0: TW0, TH0: TH0, CVW: CVW, CVH: CVH, F: mapFocus(), camf: !!CAMF.on, street: st, zmax: zb[1], city: [city.x, city.y], want: (typeof VBT !== 'undefined' && VBT) ? (VBT.want | 0) : 0 }; }"
+    + "if (op === 'aim') { CZOOM = a.z; TW = TW0 * a.z; TH = TH0 * a.z;"
+    + "  panX = a.sx - CVW / 2 + (G.x - G.y) * TW / 2 - (a.u - a.v) * TW / 2; panY = a.sy - CVH / 2 + (G.x + G.y) * TH / 2 - (a.u + a.v) * TH / 2;"
+    + "  if (a.camf != null) { CAMF.on = !!a.camf; CAMF.from = null; } if (a.draw !== false) render(); return true; }"
+    + "if (op === 'at') { var ox = Math.round(CVW / 2 - (G.x - G.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (G.x + G.y) * TH / 2 + panY);"
+    + "  return { x: ox + (a.u - a.v) * TW / 2, y: oy + (a.u + a.v) * TH / 2, TW: TW, TH: TH }; }"
+    + "if (op === 'heldAt') { var kz = CZOOM, kx = panX, ky = panY, r = null; CZOOM = a.z; TW = TW0 * a.z; TH = TH0 * a.z;"
+    + "  try { var F = mapFocusRead(false).fo, p = camWorld(), c = camClampCentre(p), px = p.x - c.x + F.x, py = p.y - c.y + F.y;"
+    + "    var ox2 = CVW / 2 - (G.x - G.y) * TW / 2 + px, oy2 = CVH / 2 - (G.x + G.y) * TH / 2 + py; r = { x: ox2 + (a.u - a.v) * TW / 2, y: oy2 + (a.u + a.v) * TH / 2 }; } catch (e) { r = null; }"
+    + "  CZOOM = kz; TW = TW0 * kz; TH = TH0 * kz; panX = kx; panY = ky; return r; }"
+    + "if (op === 'draw') { render(); return true; }"
+    /* THE PAINTER ASKED FIRST FOR WHERE THE CAMERA IS GOING (WORLD's own painter, its own one-at-a-time ask): the tiles at the end
+       zoom's detail round the fight's block, nearest first, so the street is painted while the camera comes down to it, never
+       after. Returns how many of them are still missing (-1: no painter here). */
+    + "if (op === 'prepaint') { if (typeof VBT === 'undefined' || typeof vbTileInput !== 'function' || typeof vbTileKey !== 'function' || typeof VB === 'undefined' || !VB_ONE_MAP || !VBC.key) return -1;"
+    + "  var kz2 = CZOOM, kw = TW, kh = TH, miss = []; CZOOM = a.z; TW = TW0 * a.z; TH = TH0 * a.z;"
+    + "  try { var S = vbTileS(), NT = Math.ceil(om.n / VB_TILE), R = a.r || 3;"
+    + "    for (var ty = 0; ty < NT; ty++) for (var tx = 0; tx < NT; tx++) {"
+    + "      var x0 = tx * VB_TILE, y0 = ty * VB_TILE; if (x0 > a.u + R || x0 + VB_TILE < a.u - R || y0 > a.v + R || y0 + VB_TILE < a.v - R) continue;"
+    + "      if (VBT.tiles.has(vbTileKey(tx, ty, S))) continue; var dx = Math.max(x0 - a.u, 0, a.u - x0 - VB_TILE), dy = Math.max(y0 - a.v, 0, a.v - y0 - VB_TILE); miss.push({ tx: tx, ty: ty, d: dx * dx + dy * dy }); }"
+    + "    miss.sort(function (p, q) { return p.d - q.d; });"
+    + "    if (miss.length && !VBT.busy) { var inp = vbTileInput(miss[0].tx, miss[0].ty, S); VBT.busy = true; VBT.asked++; window.__DIVE_PREPAINT = (window.__DIVE_PREPAINT | 0) + 1;"
+    + "      try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); } catch (e) { VBT.busy = false; } }"
+    + "  } catch (e) { miss = null; }"
+    + "  CZOOM = kz2; TW = kw; TH = kh; return miss ? miss.length : -1; }"
+    + "return null;";
+  var DRAWMS = 0;   /* the map's own draw time inside the dive's steps (its own cost, WORLD's and PLUMBER's), kept apart from the dive's */
+  function mapCam(cw) {
+    if (!cw) return null;
+    try { if (!cw.__bmDiveCam) cw.__bmDiveCam = new cw.Function('op', 'a', CAM_BODY); } catch (e) { return null; }
+    var f = cw.__bmDiveCam;
+    return function (op, a) { var t = performance.now(), drew = op === 'draw' || (op === 'aim' && (!a || a.draw !== false));
+      try { return f(op, a || {}); } catch (e) { return null; } finally { if (drew) DRAWMS += performance.now() - t; } };
+  }
+  function mapCanvas(cw) { try { var c = cw.document.getElementById('cv'); return c && shown(c) ? c : null; } catch (e) { return null; } }
+  /* where the map puts map ground (u, v) on the top glass, and its two axes there (px per block) */
+  function mapGeo(cw, cam, u, v) {
+    var p = cam('at', { u: u, v: v }), cv = mapCanvas(cw); if (!p || !cv) return null;
+    var r = cv.getBoundingClientRect(), o = upFrom(cw.document, { x: r.left + p.x, y: r.top + p.y, w: 1, h: 1 });
+    return { c: { x: o.x, y: o.y }, M: [p.TW / 2, -p.TW / 2, p.TH / 2, p.TH / 2], sm: p.TW / Math.SQRT2, km: p.TH / p.TW };
+  }
+  /* the fight's own state (a const in its page, so asked inside it) */
+  function fightOf(fw) { try { if (!fw.__bmFight) fw.__bmFight = new fw.Function('return typeof FIGHT !== "undefined" ? FIGHT : null'); return fw.__bmFight(); } catch (e) { return null; } }
+  /* where the fight puts the same ground, read live off its own camera (sx, sy); the board's tile 0 is the valley's tile BX */
+  function fightGeo(fw, at) {
+    try {
+      var F = fightOf(fw), U = fw.FIGHT_UI, S = F && F.S; if (!S || !U || !U.board || typeof fw.sx !== 'function' || !at) return null;
+      var st = S.boardDef && S.boardDef.street, laid = !!(S.boardDef && S.boardDef.laid && st && st.cell), BX, BY;
+      if (laid) { var sh = st.shift || [0, 0]; BX = TPB * st.cell[0] + (TPB >> 1) - (S.w >> 1) + (sh[0] | 0); BY = TPB * st.cell[1] + (TPB >> 1) - (S.h >> 1) + (sh[1] | 0); }
+      else { BX = TPB * at.gx + TPB / 2 - S.w / 2; BY = TPB * at.gy + TPB / 2 - S.h / 2; }   /* not the map's own block: its middle stands for the fight's block */
+      var u = at.gx + 0.5, v = at.gy + 0.5, z = U.zoom;
+      var o = upFrom(fw.document, { x: fw.sx((TPB * u - BX) * U.tw), y: fw.sy((TPB * v - BY) * U.th), w: 1, h: 1 });
+      if (W.__DIVE_MUTATE === 'offset') o.x += 40;   /* the gate's mutation (the board turned onto the wrong street), never set by the game */
+      var o0 = upFrom(fw.document, { x: fw.sx(0), y: fw.sy(0), w: 1, h: 1 });
+      return { c: { x: o.x, y: o.y }, M: [TPB * U.tw * z, 0, 0, TPB * U.th * z], a: TPB * U.tw * z, b: TPB * U.th * z, laid: laid, cell: laid ? [st.cell[0], st.cell[1]] : null,
+        w: S.w, h: S.h, o0: o0, tx: U.tw * z, ty: U.th * z };
+    } catch (e) { return null; }
+  }
+  /* the turn: the map's corner-on axes (e = 0) to the fight's straight-on ones (e = 1): an eighth of a circle, the aspect from the
+     map's half to the fight's own, the size from one to the other on the log (streetCam's own path, RUN 10/26) */
+  function turnA(mg, fg, e) {
+    var phi = Math.PI / 4 * (1 - e), s = Math.exp(Math.log(mg.sm) + (Math.log(fg.a) - Math.log(mg.sm)) * e), k = mg.km + (fg.b / fg.a - mg.km) * e;
+    var c = Math.cos(phi), sn = Math.sin(phi);
+    return [s * c, -s * sn, k * s * sn, k * s * c];
+  }
+  /* an element whose layout box starts at box (top glass), carrying point 'from' to 'to' by L about it */
+  function cssM(L, box, from, to) {
+    var q = map2(L, box.x - from.x, box.y - from.y);
+    return 'matrix(' + [L[0], L[2], L[1], L[3], q.x + to.x - box.x, q.y + to.y - box.y].map(function (v) { return (+v).toFixed(5); }).join(',') + ')';
+  }
+  function diveLayer() {
+    if (DIVE.el && DIVE.el.isConnected) return DIVE.el;
+    var el = D.createElement('div'); el.id = 'bmdive';
+    /* over the map's and the fight's panels, under the phone (z 60 to 70) and the motion layer's pieces */
+    el.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:55;pointer-events:none;overflow:hidden;contain:strict;background:transparent';
+    D.body.appendChild(el); DIVE.el = el; return el;
+  }
+  function snapOf(cv, cls) {
+    var b = topBox(cv); if (!b || !cv.width || !cv.height) return null;
+    var c = D.createElement('canvas'); c.width = cv.width; c.height = cv.height; c.className = cls;
+    try { c.getContext('2d').drawImage(cv, 0, 0); } catch (e) { return null; }
+    c.style.cssText = 'position:absolute;left:' + b.x + 'px;top:' + b.y + 'px;width:' + b.w + 'px;height:' + b.h + 'px;transform-origin:0 0;will-change:transform,opacity';
+    diveLayer().appendChild(c);
+    return { c: c, box: b };
+  }
+  function gridCanvas() {
+    var c = D.createElement('canvas'), k = Math.min(2, W.devicePixelRatio || 1); c.className = 'grid';   /* two pixels a point at most: the clear of a full 3x glass cost a frame 4 ms */
+    c.width = Math.round(W.innerWidth * k); c.height = Math.round(W.innerHeight * k);
+    c.style.cssText = 'position:absolute;left:0;top:0;width:100vw;height:100vh';
+    diveLayer().appendChild(c); return c;
+  }
+  /* THE GRID LIGHTS UP: the board's own tile lines, the far edge first (scan 0..1), through the turn's map L about from -> to */
+  function gridDraw(gc, fg, L, from, to, alpha, scan) {
+    var x = gc.getContext('2d'), k = gc.width / Math.max(1, W.innerWidth), blank = !fg || alpha <= 0.01 || scan <= 0;
+    if (blank && gc.__bmBlank) return;   /* nothing to draw and nothing drawn: no clear */
+    x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, gc.width, gc.height); gc.__bmBlank = blank;
+    if (blank) return;
+    var P = function (i, j) { var q = map2(L, fg.o0.x + i * fg.tx - from.x, fg.o0.y + j * fg.ty - from.y); return { x: (q.x + to.x) * k, y: (q.y + to.y) * k }; };
+    var hy = fg.h * Math.min(1, scan), lw = Math.max(1, Math.round(k));
+    x.lineWidth = lw; x.strokeStyle = 'rgba(231,214,170,' + (0.5 * alpha).toFixed(3) + ')';
+    x.beginPath();
+    for (var i = 0; i <= fg.w; i++) { var a = P(i, 0), b = P(i, hy); x.moveTo(a.x, a.y); x.lineTo(b.x, b.y); }
+    for (var j = 0; j <= Math.floor(hy); j++) { var c = P(0, j), d = P(fg.w, j); x.moveTo(c.x, c.y); x.lineTo(d.x, d.y); }
+    x.stroke();
+    if (scan < 1) {   /* the scan's own line, brighter, where it is writing */
+      x.lineWidth = lw * 2; x.strokeStyle = 'rgba(244,232,196,' + (0.85 * alpha).toFixed(3) + ')';
+      var e0 = P(0, hy), e1 = P(fg.w, hy); x.beginPath(); x.moveTo(e0.x, e0.y); x.lineTo(e1.x, e1.y); x.stroke();
+    }
+  }
+  /* THE CORNERS OF THE TURN: a turned picture leaves the glass's corners; under the turning board (inside the fight's page, beneath
+     its own canvas, first in its page) lie the same two frames standing still, the map's fading as the map's does and the board's first frame, so a
+     corner shows this street, never black (rule 404: no black or brown bars) */
+  function underlays(fw, fc, pic) {
+    var out = { map: null, board: null, gone: function () { try { if (out.map) out.map.remove(); } catch (e) {} try { if (out.board) out.board.remove(); } catch (e) {} } };
+    try {
+      var fd = fw.document, fr = fw.frameElement.getBoundingClientRect(), mk = function (src, b, cls) {
+        var c = fd.createElement('canvas'); c.width = Math.round(b.w); c.height = Math.round(b.h); c.className = 'bmdive-' + cls; c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);   /* a point a pixel: they are only the corners */
+        c.style.cssText = 'position:fixed;left:' + (b.x - fr.left) + 'px;top:' + (b.y - fr.top) + 'px;width:' + b.w + 'px;height:' + b.h + 'px;pointer-events:none';   /* positioned, first in the page: painted before its canvas, over its background */
+        fd.body.insertBefore(c, fd.body.firstChild); return c; };
+      out.board = mk(fc, topBox(fc), 'board');
+      out.map = mk(pic.c, pic.box, 'map');
+    } catch (e) {}
+    return out;
+  }
+  function keepOf(pic, mg) {
+    try { var b = pic.box, c = D.createElement('canvas'); c.width = Math.round(b.w); c.height = Math.round(b.h); c.getContext('2d').drawImage(pic.c, 0, 0, c.width, c.height);
+      return { c: c, box: { x: b.x, y: b.y, w: b.w, h: b.h }, mg: mg, glass: Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight), at: DIVE.at }; } catch (e) { return null; }
+  }
+  function keptSnap(k, cls) {
+    var c = D.createElement('canvas'); c.width = k.c.width; c.height = k.c.height; c.className = cls; c.getContext('2d').drawImage(k.c, 0, 0);
+    c.style.cssText = 'position:absolute;left:' + k.box.x + 'px;top:' + k.box.y + 'px;width:' + k.box.w + 'px;height:' + k.box.h + 'px;transform-origin:0 0;will-change:transform,opacity';
+    diveLayer().appendChild(c); return { c: c, box: k.box };
+  }
+  function diveRow(kind) {
+    var r = { n: ++DIVE.seq, kind: kind, t0: performance.now(), phases: {}, frames: 0, gaps: [], worst: 0, over33: 0, skipped: false, reduced: reduced(), at: DIVE.at ? [DIVE.at.gx, DIVE.at.gy] : null,
+      laid: null, z0: null, z1: null, align: null, covers: { map: 0, board: 0, none: 0 }, err: null, done: false };
+    DIVE.row = r; DIVE.log.push(r); if (DIVE.log.length > 12) DIVE.log.shift(); return r;
+  }
+  /* while nothing under the covers is his yet (the come-down, the hold, the way out's grid and turn) the layer takes a tap (it skips
+     the motion, the stop cord) so a finger never starts a journey on a map that is leaving or reaches a fight not yet shown */
+  var TAKES = { come: 1, settle: 1, hold: 1, grid: 0, turn: 0, fade: 0, climb: 0 };
+  function phase(r, name) { if (!r) return; var t = performance.now(); r.phases[name] = Math.round(t - r.t0); DIVE.state = name;
+    var take = r.kind === 'down' ? !!TAKES[name] : (name === 'grid' || name === 'turn');
+    try { diveLayer().style.pointerEvents = take ? 'auto' : 'none'; } catch (e) {} }
+  /* one frame loop for every phase: step(u, now) until u reaches 1 (a tap: at once) */
+  function run(r, ms, step, done) {
+    var t0 = performance.now(), last = t0;
+    var f = function () {
+      var now = performance.now(), gap = now - last; last = now;
+      if (r && gap > 0.5) { r.frames++; r.gaps.push(Math.round(gap)); if (r.gaps.length > 400) r.gaps.shift(); if (gap > r.worst) r.worst = Math.round(gap); if (gap > 33.4) r.over33++; }
+      var u = DIVE.skip ? 1 : Math.min(1, (now - t0) / Math.max(1, ms * SLOW));
+      var s0 = performance.now(), d0 = DRAWMS;
+      try { step(u, now); } catch (e) { if (r) r.err = String(e && e.message || e); u = 1; }
+      if (r) { var own = performance.now() - s0 - (DRAWMS - d0); if (own > (r.ownMax || 0)) r.ownMax = +own.toFixed(2); r.drawMax = Math.max(r.drawMax || 0, +(DRAWMS - d0).toFixed(1)); }
+      if (u < 1) DIVE.raf = W.requestAnimationFrame(f); else { DIVE.raf = 0; DIVE.skip = false; done(); }
+    };
+    DIVE.raf = W.requestAnimationFrame(f);
+  }
+  function diveEnd(r) {
+    try { if (DIVE.raf) W.cancelAnimationFrame(DIVE.raf); } catch (e) {} DIVE.raf = 0;
+    try { var fw = fightWin(), fc = fw && fw.document.getElementById('cv'); if (fc) { fc.style.removeProperty('transform'); fc.style.removeProperty('opacity'); } } catch (e) {}
+    try { if (DIVE.el) DIVE.el.remove(); } catch (e) {} DIVE.el = null; DIVE.skip = false;
+    DIVE.state = 'off'; nfcSet('off');
+    if (r) { r.done = true; r.ms = Math.round(performance.now() - r.t0); }
+  }
+  function fade(r, el, ms, then) {
+    run(r, ms, function (u) { el.style.opacity = String(1 - u); }, then);
+  }
+  function beatNow() { return beat().bm; }
+
+  /* ---- THE WAY IN ---- */
+  function diveDown(d, go) {
+    if (DIVE.state !== 'off') diveEnd(DIVE.row);
+    var cw = cityWin(), cam = mapCam(cw), c = cam ? cam('read') : null;
+    DIVE.at = cellOf(d && d.at) || (c ? { gx: Math.floor(c.city[0]), gy: Math.floor(c.city[1]) } : null);
+    var r = diveRow('down'); nfcSet('in'); phase(r, 'come');
+    var built = false, build = function () { if (built) return; built = true; try { go(); } catch (e) { r.err = String(e && e.message || e); } };
+    /* the fight's page is ready: its ground built, its board drawn */
+    var fightUp = function () { var fw = fightWin(); try { var l = fw && fw.document.getElementById('load'); return !!(fw && l && l.style.display === 'none' && fw.FIGHT_UI && fw.FIGHT_UI.board); } catch (e) { return false; } };
+    var waitFight = function (then) {
+      phase(r, 'hold'); var t0 = performance.now(), seen = 0;
+      var f = function () {
+        if (fightUp()) seen++;
+        if (seen >= 2 || performance.now() - t0 > 20000) { r.built = Math.round(performance.now() - t0); r.timedOut = seen < 2; then(); return; }
+        DIVE.raf = W.requestAnimationFrame(f);
+      };
+      DIVE.raf = W.requestAnimationFrame(f);
+    };
+    /* no map camera here (a town's door, a page with no map): that screen's own last frame held, the fight built under it, a fade */
+    var plain = function () {
+      var pic = null, src = null;
+      try { var tf = cw && cw.LOOP && cw.LOOP.frame; if (tf && tf.style.display === 'block' && tf.contentWindow) src = pictureOf(tf.contentDocument.body); } catch (e) {}
+      try { if (!src && cw) src = mapCanvas(cw) || pictureOf(cw.document.body); } catch (e) {}
+      if (src && src.tagName === 'CANVAS' && W.__DIVE_MUTATE !== 'bare') pic = snapOf(src, 'map');
+      r.plain = true; build();
+      waitFight(function () { phase(r, 'fade'); if (!pic) { diveEnd(r); return; } nfcSet('off'); fade(r, pic.c, reduced() ? 167 : 300, function () { diveEnd(r); }); });
+      return true;
+    };
+    if (!c || !DIVE.at || reduced()) return plain();
+    r.z0 = c.z; DIVE.z0 = { z: c.z, camf: c.camf, at: null };
+    /* where the camera stops: at the fight's own size, so the turn has nothing left to zoom (the size the last fight on this glass
+       opened at; the first fight: a block a third of the glass's short side, the phone's measured 132 px), never past the street
+       stop nor short of the map's near stop */
+    var gk = Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight), aGuess = SCALE_MEM[gk] || Math.max(100, Math.min(260, 0.34 * Math.min(W.innerWidth, W.innerHeight)));
+    var u0 = DIVE.at.gx + 0.5, v0 = DIVE.at.gy + 0.5, zEnd = Math.max(c.zmax || 0, Math.min(c.street, aGuess * Math.SQRT2 / c.TW0)), p0 = cam('at', { u: u0, v: v0 }) || c.F;
+    r.guess = Math.round(aGuess); r.prepaint = cam('prepaint', { z: zEnd, u: u0, v: v0, r: 3 });
+    DIVE.z0.at = { x: p0.x, y: p0.y }; r.z1 = zEnd;
+    /* 1 COME DOWN, on the map's own camera: the zoom on the log, the fight's block sliding to the focus; one beat for a short way,
+       two and a half for the whole valley down to the street */
+    var ratio = Math.abs(Math.log(zEnd / Math.max(1e-3, c.z))), ms = Math.max(beatNow(), Math.min(2.5 * beatNow(), 0.36 * beatNow() * ratio + beatNow() * 0.5));
+    r.comeMs = Math.round(ms);
+    run(r, ms, function (u) {
+      var e = smoother(u), z = Math.exp(Math.log(c.z) + (Math.log(zEnd) - Math.log(c.z)) * e), s = lerpP(p0, c.F, smoother(Math.min(1, u * 1.15)));
+      cam('prepaint', { z: zEnd, u: u0, v: v0, r: 3 });
+      cam('aim', { z: z, u: u0, v: v0, sx: s.x, sy: s.y, camf: false });
+      r.covers.map++;
+    }, function () {
+      /* SETTLE: at the stop the map sharpens in place while the painter lands the fight's street (a beat and a half at most) */
+      phase(r, 'settle');
+      run(r, 1.5 * beatNow(), function (u) {
+        var m = cam('prepaint', { z: zEnd, u: u0, v: v0, r: 1 }); cam('draw'); r.covers.map++;
+        if (m <= 0 && u < 1) DIVE.skip = true;   /* sharp: on at once */
+        r.missing = m;
+      }, hold);
+    });
+    var hold = function () {
+      /* 2 HOLD: the map's last frame, laid on the glass; the fight's page is built under it */
+      var cv = W.__DIVE_MUTATE === 'bare' ? null : mapCanvas(cw), mg = mapGeo(cw, cam, u0, v0), pic = cv ? snapOf(cv, 'map') : null;   /* 'bare': the gate's mutation, no frame held */
+      if (!pic || !mg) { r.err = r.err || 'no map frame to hold'; return plain(); }
+      DIVE.mg = mg; DIVE.zEnd = zEnd; build();
+      waitFight(function () {
+        var fw = fightWin(), fc = fw && fw.document.getElementById('cv'), fg = fw ? fightGeo(fw, DIVE.at) : null;
+        if (!fw || !fc || !fg) { phase(r, 'fade'); nfcSet('off'); fade(r, pic.c, 300, function () { diveEnd(r); }); return; }
+        r.laid = fg.laid; r.cell = fg.cell; fc.style.removeProperty('transform'); SCALE_MEM[gk] = fg.a; r.a = Math.round(fg.a);
+        var fbox = topBox(fc), gc = gridCanvas(), under = underlays(fw, fc, pic);
+        DIVE.keep = keepOf(pic, mg);   /* a small copy of the map's frame for the way out (the painter lets its pictures go in a fight) */
+        /* 3 THE TURN, both pictures together; 4 the grid scans on through its second half */
+        phase(r, 'turn');
+        run(r, 2 * beatNow(), function (u) {
+          var g = fightGeo(fw, DIVE.at) || fg, e = smoother(u), A = turnA(mg, g, e), to = lerpP(mg.c, g.c, e);
+          pic.c.style.transform = cssM(mm(A, minv(mg.M)), pic.box, mg.c, to);
+          var Lf = mm(A, minv(g.M));
+          fc.style.transform = cssM(Lf, fbox, g.c, to);
+          var a = 1 - sstep(0.45, 0.85, u); pic.c.style.opacity = a.toFixed(3); if (under.map) under.map.style.opacity = a.toFixed(3);
+          /* while the map's frame still covers it, the board and its still copy are not composited at all (a layer at opacity 0 is
+             skipped): half the pictures for the first half of the turn */
+          var hid = u < 0.42 ? '0' : ''; if (fc.style.opacity !== hid) fc.style.opacity = hid; if (under.board && under.board.style.opacity !== hid) under.board.style.opacity = hid;
+          if (a > 0.5) r.covers.map++; else r.covers.board++;
+          gridDraw(gc, g, Lf, g.c, to, sstep(0.5, 0.7, u), sstep(0.5, 1, u));
+          if (u >= 1) {
+            r.align = { mapAt: [Math.round(to.x), Math.round(to.y)], boardAt: [Math.round(g.c.x), Math.round(g.c.y)], scale: +(mg.sm / g.a).toFixed(3) };
+            /* raw, for a check that does not go through this file's geometry: the map frame's own transform, where the map drew the
+               block before the turn, and the fight's own camera functions at this frame */
+            try { var Uf = fw.FIGHT_UI, fr0 = fw.frameElement.getBoundingClientRect();
+              r.end = { tf: pic.c.style.transform, box: pic.box, map0: mg.c, sx0: fw.sx(0), sy0: fw.sy(0), tw: Uf.tw * Uf.zoom, th: Uf.th * Uf.zoom, fx: fr0.left, fy: fr0.top }; } catch (e) {}
+          }
+        }, function () {
+          fc.style.removeProperty('transform'); fc.style.removeProperty('opacity'); try { pic.c.remove(); } catch (e) {} under.gone();
+          nfcSet('off'); phase(r, 'grid');   /* the fight is his from here; the grid holds a beat and fades to the board's own */
+          run(r, 2 * beatNow(), function (u) { var g = fightGeo(fw, DIVE.at) || fg; gridDraw(gc, g, [1, 0, 0, 1], g.c, g.c, 1 - sstep(0.5, 1, u), 1); }, function () { diveEnd(r); });
+        });
+      });
+    };
+    return true;
+  }
+
+  /* ---- THE WAY OUT: before the fight's page goes (prep), then after (go) ---- */
+  function diveUpPrep() {
+    if (DIVE.state !== 'off') diveEnd(DIVE.row);
+    var fw = fightWin(), fc = fw && fw.document.getElementById('cv'); if (!fw || !fc) return null;
+    if (!DIVE.at) { try { DIVE.at = cellOf(W.NF && W.NF.opts && W.NF.opts.cell); } catch (e) {} }
+    var fg = DIVE.at ? fightGeo(fw, DIVE.at) : null, pic = snapOf(fc, 'board');
+    if (!pic) return null;
+    nfcSet('in');
+    return { pic: pic, fg: fg };
+  }
+  function diveUp(prep, back) {
+    if (!prep) { if (back) back(); return; }
+    var r = diveRow('up'), pic = prep.pic, fg = prep.fg, K = DIVE.keep, gc = fg ? gridCanvas() : null;
+    phase(r, 'grid');
+    var done = function () { DIVE.keep = null; diveEnd(r); }, landed = function () { try { if (back) back(); } catch (e) {} };
+    var cw = cityWin(), cam = mapCam(cw), z0 = DIVE.z0, at = (K && K.at) || DIVE.at;
+    var u0 = at ? at.gx + 0.5 : null, v0 = at ? at.gy + 0.5 : null, c = cam ? cam('read') : null, zS = c ? (DIVE.zEnd || c.street) : 0;
+    var fits = !!(K && K.glass === Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight));
+    if (!c || u0 == null || reduced() || !fg || !fits) {
+      r.plain = true;
+      var k = 0, wait = function () { if (++k < 3) { W.requestAnimationFrame(wait); return; } phase(r, 'fade'); nfcSet('off'); landed();
+        fade(r, pic.c, reduced() ? 167 : 300, done); };
+      W.requestAnimationFrame(wait); return;
+    }
+    r.z1 = zS; r.z0 = z0 ? z0.z : null;
+    /* under the covers the map is laid back at the stop over the fight's block and asks its painter for that street again (it let
+       its pictures go while the fight stood); over it, the map's frame from the way in, standing still (the turn's corners) and
+       turning (the marriage), and over those the board's last frame */
+    var mg = K.mg, under = keptSnap(K, 'map-still'), mp = keptSnap(K, 'map');
+    try { DIVE.el.insertBefore(under.c, DIVE.el.firstChild); DIVE.el.insertBefore(mp.c, pic.c); } catch (e) {}
+    var live = function () { cam('prepaint', { z: zS, u: u0, v: v0, r: 2 }); cam('aim', { z: zS, u: u0, v: v0, sx: c.F.x, sy: c.F.y, camf: false, draw: true }); };
+    live();
+    mp.c.style.transform = cssM(mm(fg.M, minv(mg.M)), mp.box, mg.c, fg.c);
+    /* the grid lights over the board and starts to fade (a beat) */
+    run(r, beatNow(), function (u) { live(); if (gc) gridDraw(gc, fg, [1, 0, 0, 1], fg.c, fg.c, 1 - 0.5 * sstep(0.3, 1, u), 1); r.covers.board++; }, function () {
+      /* 5 THE TURN BACK: the board's frame to the map's angle, the map's frame with it, the board fading into the map */
+      phase(r, 'turn');
+      run(r, 2 * beatNow(), function (u) {
+        live();
+        var e = smoother(1 - u), A = turnA(mg, fg, e), to = lerpP(mg.c, fg.c, e), Lf = mm(A, minv(fg.M));
+        pic.c.style.transform = cssM(Lf, pic.box, fg.c, to);
+        mp.c.style.transform = cssM(mm(A, minv(mg.M)), mp.box, mg.c, to);
+        var a = sstep(0.45, 0.85, 1 - u); pic.c.style.opacity = a.toFixed(3);
+        if (a > 0.5) r.covers.board++; else r.covers.map++;
+        if (gc) gridDraw(gc, fg, Lf, fg.c, to, 0.5 * (1 - sstep(0, 0.6, u)), 1);
+      }, function () {
+        try { pic.c.remove(); mp.c.remove(); if (gc) gc.remove(); } catch (e) {}
+        nfcSet('off'); landed(); live();
+        /* the map's frame from the way in gives way to the live map in the same place, then 6 THE CLIMB: the map's own camera back to
+           the zoom he was at, his crew held as the map holds it */
+        phase(r, 'climb');
+        var zTo = z0 ? z0.z : c.z, held = !z0 || z0.camf, pTo = z0 && z0.at ? z0.at : null;
+        var ratio = Math.abs(Math.log(zS / Math.max(1e-3, zTo))), ms = Math.max(beatNow(), Math.min(2.5 * beatNow(), 0.36 * beatNow() * ratio + beatNow() * 0.5));
+        r.missing = cam('prepaint', { z: zS, u: u0, v: v0, r: 1 });
+        run(r, ms, function (u) {
+          under.c.style.opacity = (1 - sstep(0, 0.25, u)).toFixed(3);
+          var e = smoother(u), z = Math.exp(Math.log(zS) + (Math.log(zTo) - Math.log(zS)) * e);
+          var aim = held ? (cam('heldAt', { z: z, u: u0, v: v0 }) || c.F) : (pTo || c.F), s = lerpP(c.F, aim, smoother(Math.min(1, u * 1.15)));
+          cam('aim', { z: z, u: u0, v: v0, sx: s.x, sy: s.y, camf: false });
+          r.covers.map++;
+        }, function () {
+          if (held) { var h = cam('heldAt', { z: zTo, u: u0, v: v0 }); if (h) cam('aim', { z: zTo, u: u0, v: v0, sx: h.x, sy: h.y, camf: true }); }
+          else if (pTo) cam('aim', { z: zTo, u: u0, v: v0, sx: pTo.x, sy: pTo.y, camf: false });
+          DIVE.z0 = null; done();
+        });
+      });
+    });
+  }
+  function diveSkip() { if (DIVE.state !== 'off' && DIVE.state !== 'hold') DIVE.skip = true; }
+
   /* ---- THE WATCH: every document is armed for the stop cord, every shared piece wears its one id, every door is found ---- */
   function scan() {
     eachWin(function (w) {
@@ -878,6 +1278,8 @@
     busy: function () { return LIVE.length; },
     live: function () { return LIVE.map(function (m) { return { id: m.id, how: m.how, kind: m.kind, k: m.k, holds: m.holds ? m.holds.length : 0, waiting: m.waiting }; }); },
     log: LOG, taps: TAPS, adapters: AD,
+    /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the shell's nfOpen hands its build to down(d, go); nfHome is wrapped (AD.home) */
+    dive: { down: diveDown, state: function () { return DIVE.state; }, log: DIVE.log, at: function () { return DIVE.at; }, clear: diveClear },
     budget: { piece: [PIECE_MIN, 2 * PIECE_MIN], mode: [MODE_MIN, MODE_MIN + PIECE_MIN], ceiling: CEILING, fade: 200, wait: WAIT_MAX, ready: READY_MAX },
     clock: function () { var g = beat(); return { src: g.src, beatMs: g.bm, holdMs: g.bm / 6 }; },
     slowly: function (k) { SLOW = Math.max(1, +k || 1); return SLOW; }
