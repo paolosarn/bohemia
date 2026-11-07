@@ -531,3 +531,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 507 | It all works on a procedurally generated world: the board layouts are templates the generator places, every rule checked over many seeds | 429(f) | WORLD 13, COMBAT TWO | IN FLIGHT 11/7 |
 | 508 | A smart system: the town knows what each part is (desert, industrial, suburb, the Strip, downtown, trailer parks), a land-use layer first with rules for what sits next to what, then each zone its own templates and streets | 429(g) | WORLD 13 | IN FLIGHT 11/7 |
 | 509 | Every building (not only houses) fronts a road, on the old boards and the new; roads in sizes (alley to four-tile boulevard) and all one joined network | 429(h) | COMBAT TWO (the boards), WORLD 13 (the map) | IN FLIGHT 11/7 |
+| 510 | Too many vultures on the map, they don't look like vultures, nonstop: take them off the map | 431(a) | WORLD 12 | IN FLIGHT 11/7 |
+| 511 | A checker on anything living on the map: a cap on how many at once and how often | 431(b) | WORLD 12 | IN FLIGHT 11/7 |
+| 512 | Ask him how a new creature or system he names should work before building it (the vultures first; he thought an enemy type) | 431(c) | the coordinator | ASKED 11/7 |
