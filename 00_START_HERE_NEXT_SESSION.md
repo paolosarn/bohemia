@@ -1,3 +1,12 @@
+SOUNDS TWO (sounds-two-01gkdyuw): 11/7 LATEST -- BUILD 11/7za - THE FIGHT AS YOU HEAR IT, BUILT, NOT YET SEEN (rule 427(a), asks 47,
+88, 127, 212; row [the songs go in, his turn hits hard]): measured OFF THE AUDIO in the demo (four sample-exact ears on the game's own
+graph, the real road fight): his turn was 1 dB over theirs (once QUIETER), a beat lost at random between motions in 1 of 3 pairs, blows a
+sixteenth off their beat. Now: the thirteen re-rendered with level 3 about 8 dB over level 2 (his approved level 1 kept byte for byte),
+the hit on the beat into 3; no music duck in a fight; the music no longer doubled after the dive (MOTION's hum after the lift); level 2
+from the fight's first frame; the fight's grid point never lost to a tenth of a millisecond; every motion sound with its moment, sent
+ahead. Gate THE FIGHT AS HE HEARS IT (with a planted fail). The whole block: handoffs/SOUNDS_TWO.md.
+[bb Battle Brothers never changes its battle track on a turn; ours changes on every turn on the beat, so the beat must never slip.]
+[analog horror: his turn is the tape running hot; their turn the same tape with only the heartbeat and the ticking clock left on it.]
 ORIGINS (origins-01gkdyuu): 11/7 LATEST -- BUILD 11/7x - EACH ORIGIN ITS OWN, BUILT, NOT YET SEEN (rule 427(c), asks 103 and 233): every
 origin's crew walks in wearing its own gear (thirty pieces, each its own model off the master rig: the Lone Wolf in gilded riot plate, the water
 truck in hi-vis, the deserters with their patches torn off, the faithful in ash robes with the screen's test circle), only its home town's

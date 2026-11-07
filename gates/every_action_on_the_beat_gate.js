@@ -158,11 +158,13 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     /* WHAT THE FIGHT OWNS: every landing's sound is ASKED FOR at its place (the landing less the way to the ear), to the ms; WHEN it
        goes is a timer on the shell's thread (the fight's frame shares it): reported, held only loosely, because only the shell
        can book a sound at a time (the NOTE to SOUNDS) */
-    const asks = L.due.map(x => x.due - (x.land - x.lat - (x.lead || 0)));   /* each ask against its own place: the landing less the way to the ear as read then */
-    const askWorst = asks.length ? Math.max(...asks.map(Math.abs)) : 1e9;
+    /* SOUNDS TWO 11/7 (rule 427(a)): with the moment on it, an ask may come any time BEFORE its place (the landing less the way to
+       the ear), up to the lead early; what it may never be is later than that place. Signed: the latest ask, at most 2 ms after */
+    const asks = L.due.map(x => x.due - (x.land - x.lat));   /* each ask against its own place: the landing less the way to the ear as read then */
+    const askWorst = asks.length ? Math.max(...asks) : 1e9;
     leg(asks.length >= Math.min(3, blows.length) && askWorst <= 2 && pairs.length && Math.abs(med) <= 40,
       '*** THE SOUND MEETS THE KICK ***: every blow\'s landing sound is asked for ' + L.lat.toFixed(0) + ' ms (the way to the ear)' + (L.lead ? ' and ' + L.lead + ' ms more, with the moment it is heard,' : '') + ' ahead of its picture, so the ear hears it on the beat',
-      asks.length + ' landings asked for, the worst ' + askWorst.toFixed(1) + ' ms off its place; sent a middle ' + med.toFixed(1) + ' ms and a worst ' + worst.toFixed(1) + ' ms after (the shell\'s thread; the middle held under 40)');
+      asks.length + ' landings asked for, the latest ' + askWorst.toFixed(1) + ' ms after its place (the earliest ' + (asks.length ? Math.min(...asks).toFixed(1) : '-') + '); sent a middle ' + med.toFixed(1) + ' ms and a worst ' + worst.toFixed(1) + ' ms after (the shell\'s thread; the middle held under 40)');
     errs.push.apply(errs, d.errs);
   } catch (e) { leg(false, 'the demo with his music ran', String(e.message).slice(0, 200)); }
   await d.close();

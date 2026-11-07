@@ -1,6 +1,6 @@
 # SOUNDS TWO -- the handoff block (written only by SOUNDS TWO; chat 08b, opened 11/7 by the coordinator for rule 427(a))
 
-SOUNDS TWO (sounds-two-01gkdyuw, session_01GKDyuvGoQW16Ah4aF581f6): 11/7 LATEST -- BUILD 11/7q THE FIGHT AS YOU HEAR IT, BUILT, NOT
+SOUNDS TWO (sounds-two-01gkdyuw, session_01GKDyuvGoQW16Ah4aF581f6): 11/7 LATEST -- BUILD 11/7za THE FIGHT AS YOU HEAR IT, BUILT, NOT
 YET SEEN (rule 427(a), asks 47, 88, 127, 212; row [the songs go in, his turn hits hard]). Record:
 records/BOHEMIA_SOUNDS_TWO_THE_FIGHT_AS_HE_HEARS_IT_11_7_26.md.
 
