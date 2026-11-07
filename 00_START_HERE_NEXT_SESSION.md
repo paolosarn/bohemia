@@ -1,3 +1,17 @@
+ORIGINS (origins-01gkdyuu): 11/7 LATEST -- BUILD 11/7x - EACH ORIGIN ITS OWN, BUILT, NOT YET SEEN (rule 427(c), asks 103 and 233): every
+origin's crew walks in wearing its own gear (thirty pieces, each its own model off the master rig: the Lone Wolf in gilded riot plate, the water
+truck in hi-vis, the deserters with their patches torn off, the faithful in ash robes with the screen's test circle), only its home town's
+armourer sells it, and thirteen origins run one Battle Brothers rule of their own (the Trader, lowborn only, they count, first to act, strip the
+dead, not fighters, the faith holds, the standard, the whip, beast slayers; the gilded god: Lone Wolf, Fearsome, +10 resolve, golden named armour).
+The Lone Wolf: six thugs 16 -> 26 of 30, three dire wolves 14 -> 26 of 30, breath 53 -> about 61 (59 to 64 a roll), never winded. Gate EACH ORIGIN ITS OWN (each rule
+against its control; ORIGINS_PLANT=1 red). The whole block: handoffs/ORIGINS.md.
+[bb Battle Brothers makes an origin its own with six levers; thirteen of ours pull one that runs, the plain start none on purpose.]
+[analog horror: every crew walks in wearing the night the dollar died: gold rubbed through, patches torn off, a test circle on a robe.]
+
+SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHING BUILT (rule 421(a), rules 326 and 331, ask line 324):
+his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
+board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
+Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
 CHARACTER (character-nine): 11/7 LATEST -- BUILD 11/7w NINE ENEMIES IN THEIR OWN CLOTHES (rule 427(b), asks 286 and 238): FACTIONS'
 nine human types stood in 36 borrowed people; now 30 men of their own on the 3D man, each type one shape nobody else wears (the House's
 carpet tabard with the hubcap kettle, the mail coif or the bolt case; the Watch's faded hi-vis, floor-mat greaves, the captain's sash and

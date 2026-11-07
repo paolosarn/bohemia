@@ -437,6 +437,76 @@
    "name": "a gas-visor full riot helm",
    "class": "riot_helmet",
    "own": "own_riot_gas_helmet"
+  },
+  "rebuild_names_hard_hat": {
+   "name": "a names-taped hard hat",
+   "class": "hard_hat",
+   "own": "own_rebuild_names_hard_hat"
+  },
+  "newcrew_surplus_hard_hat": {
+   "name": "a surplus hard hat",
+   "class": "hard_hat",
+   "own": "own_newcrew_surplus_hard_hat"
+  },
+  "south_sun_wrap_hood": {
+   "name": "a sun-wrap rag hood",
+   "class": "rag_hood",
+   "own": "own_south_sun_wrap_hood"
+  },
+  "truck_hi_vis_hard_hat": {
+   "name": "a hi-vis hard hat",
+   "class": "hard_hat",
+   "own": "own_truck_hi_vis_hard_hat"
+  },
+  "watch_orange_bandana": {
+   "name": "an orange-bandana rag hood",
+   "class": "bandana",
+   "own": "own_watch_orange_bandana"
+  },
+  "scav_headlamp_hood": {
+   "name": "a headlamp rag hood",
+   "class": "rag_hood",
+   "own": "own_scav_headlamp_hood"
+  },
+  "promise_ribbon_riot_helmet": {
+   "name": "a black-ribbon riot helmet",
+   "class": "riot_helmet",
+   "own": "own_promise_ribbon_riot_helmet"
+  },
+  "desert_steel_pot_hard_hat": {
+   "name": "a steel-pot hard hat",
+   "class": "brim_helmet",
+   "own": "own_desert_steel_pot_hard_hat"
+  },
+  "raid_hand_print_riot_helmet": {
+   "name": "a hand-print riot helmet",
+   "class": "riot_helmet",
+   "own": "own_raid_hand_print_riot_helmet"
+  },
+  "lab_respirator_hood": {
+   "name": "a respirator rag hood",
+   "class": "gas_mask",
+   "own": "own_lab_respirator_hood"
+  },
+  "faith_bone_cowl": {
+   "name": "a bone-cowl rag hood",
+   "class": "rag_hood",
+   "own": "own_faith_bone_cowl"
+  },
+  "hunt_fur_ruff_hard_hat": {
+   "name": "a fur-ruff hard hat",
+   "class": "hard_hat",
+   "own": "own_hunt_fur_ruff_hard_hat"
+  },
+  "pit_sparring_riot_helmet": {
+   "name": "a sparring riot helmet",
+   "class": "riot_helmet",
+   "own": "own_pit_sparring_riot_helmet"
+  },
+  "wolf_gilded_riot_helm": {
+   "name": "a gilded full riot helm",
+   "class": "riot_helmet",
+   "own": "own_wolf_gilded_riot_helm"
   }
  },
  "body": {
@@ -800,6 +870,86 @@
    "name": "road-sign full riot armour",
    "class": "car_door",
    "own": "own_road_sign_cuirass"
+  },
+  "rebuild_black_band_vest": {
+   "name": "a black-band padded vest",
+   "class": "padded_vest",
+   "own": "own_rebuild_black_band_vest"
+  },
+  "newcrew_surplus_vest": {
+   "name": "a surplus padded vest",
+   "class": "padded_vest",
+   "own": "own_newcrew_surplus_vest"
+  },
+  "south_road_dust_vest": {
+   "name": "a road-dust padded vest",
+   "class": "padded_vest",
+   "own": "own_south_road_dust_vest"
+  },
+  "truck_hi_vis_vest": {
+   "name": "a hi-vis padded vest",
+   "class": "padded_vest",
+   "own": "own_truck_hi_vis_vest"
+  },
+  "watch_armband_jacket": {
+   "name": "an armband work jacket",
+   "class": "work_jacket",
+   "own": "own_watch_armband_jacket"
+  },
+  "scav_tool_belt_vest": {
+   "name": "a tool-belt padded vest",
+   "class": "padded_vest",
+   "own": "own_scav_tool_belt_vest"
+  },
+  "promise_funeral_carrier": {
+   "name": "a funeral-coat plate carrier",
+   "class": "police_vest",
+   "own": "own_promise_funeral_carrier"
+  },
+  "desert_torn_patch_carrier": {
+   "name": "a torn-patch plate carrier",
+   "class": "police_vest",
+   "own": "own_desert_torn_patch_carrier"
+  },
+  "raid_trophy_carrier": {
+   "name": "a trophy-hung plate carrier",
+   "class": "police_vest",
+   "own": "own_raid_trophy_carrier"
+  },
+  "lab_coat_vest": {
+   "name": "a lab-coat padded vest",
+   "class": "padded_vest",
+   "own": "own_lab_coat_vest"
+  },
+  "faith_ash_robe": {
+   "name": "an ash-robe work jacket",
+   "class": "work_jacket",
+   "own": "own_faith_ash_robe"
+  },
+  "debt_black_suit_vest": {
+   "name": "a black-suit padded vest",
+   "class": "padded_vest",
+   "own": "own_debt_black_suit_vest"
+  },
+  "debt_numbered_jacket": {
+   "name": "a numbered work jacket",
+   "class": "work_jacket",
+   "own": "own_debt_numbered_jacket"
+  },
+  "hunt_hide_patch_vest": {
+   "name": "a hide-patch padded vest",
+   "class": "padded_vest",
+   "own": "own_hunt_hide_patch_vest"
+  },
+  "pit_fight_robe_carrier": {
+   "name": "a fight-robe plate carrier",
+   "class": "police_vest",
+   "own": "own_pit_fight_robe_carrier"
+  },
+  "wolf_gilded_riot_armour": {
+   "name": "a gilded full riot armour",
+   "class": "riot_armour",
+   "own": "own_wolf_gilded_riot_armour"
   }
  },
  "_counts": {

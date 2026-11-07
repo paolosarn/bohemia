@@ -45,6 +45,8 @@ def main(mode):
     W = load(os.path.join(BB, 'weapons.json')); A = load(os.path.join(BB, 'armor.json'))
     N = load(os.path.join(BB, 'armour_names.json')); L = load(os.path.join(BB, 'armour_looks.json'))
     M = load(P('slices/rig_melee/rig_melee.json'))
+    L0 = copy.deepcopy(L)                                              # the looks as they were: an 'own' key a model gave a row is kept
+    W_PIECES = set(load(P('slices/wear/wear.json'))['pieces'])         # the pieces the wear sheet holds
     rec = spec['record']
     # WEAPONS 11/7 (rule 424): a rerun only ADDS. Measured: a second `write` put every own model back on its family prop
     # (rig_melee by_row: the crowbar drawn as the pipe again, all thirteen of COOK's and the two two-handers), took the rows off
@@ -111,8 +113,15 @@ def main(mode):
             if k == 'head': r['vision'] = mean(a.get('vision'), b.get('vision'), rint)
             r['value'] = mean(a.get('value'), b.get('value'), r10)
             r['source'] = rec + ' | ARMORY 11/2: the mean of ' + a['id'] + ' and ' + b['id'] + ' | A: ' + a['source'] + ' | B: ' + b['source']
+            # ORIGINS 11/7 (rule 427(c)): an armour piece may carry the weapons' 'tune' too (the Lone Wolf's golden named pieces)
+            t = s.get('tune') or {}
+            for kk, v in (t.get('add') or {}).items(): r[kk] = (r.get(kk) or 0) + v
+            for kk, v in (t.get('set') or {}).items(): r[kk] = v
+            if t: r['source'] += ' | tune: ' + json.dumps({kk: t[kk] for kk in ('add', 'set') if kk in t}) + ' (' + t['why'] + ')'
             r['armory'] = {'name': s['name'], 'class': s['class'], 'line': s['line'], 'tier': s['tier'], 'kind': s['kind'], 'between': s['between'], 'draft': True}
             r.update(later.get((k, r['id']), {}))
+            if s.get('origin'): r['armory']['origin'] = s['origin']   # ORIGINS 11/7: that origin's own (its crew wears it, only its home town sells it)
+            if s.get('own'): r['armory']['own'] = s['own']           # ORIGINS 11/7: its own model on the body (slices/wear)
             out_a[k].append(r)
     if bad: print('ARMORY: REFUSED\n  ' + '\n  '.join(bad)); return 1
     print('ARMORY: %d weapons, %d body, %d head' % (len(out_w), len(out_a['body']), len(out_a['head'])))
@@ -128,7 +137,8 @@ def main(mode):
             N[k][r['id']] = r['armory']['name']
             own = (L[k].get(r['id']) or {}).get('own')   # COOK's own look for the piece (rule 337), kept
             L[k][r['id']] = {'name': r['armory']['name'], 'class': r['armory']['class']}
-            if own: L[k][r['id']]['own'] = own
+            own = own or r['armory'].get('own')   # ORIGINS 11/7: an origin piece names its own model
+            if own and own in W_PIECES: L[k][r['id']]['own'] = own
     for r in out_w:
         a = r['armory']['between'][0]
         for key in ('by_row', 'two_by_row', 'bow_by_row'):

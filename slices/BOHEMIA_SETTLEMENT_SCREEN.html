@@ -431,8 +431,14 @@ function traitMult(){
     m.food *= (t.food_buy_mult||1); m.foodStock *= (t.food_stock_mult||1);   /* the Refugees card: food dearer and scarcer */
     if((t.recruits||0) < 0) m.none = true;
   });
+  /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own prices in every town (the water truck's Trader, 10% better;
+     the hunters' prejudice, 10% worse; records/target/bb/origins.json personal.rule.does buy_mult / sell_mult) */
+  var od = owDoes(); if(od.buy_mult > 0) m.buy *= od.buy_mult; if(od.sell_mult > 0) m.sell *= od.sell_mult;
   return m;
 }
+/* __EACH_ORIGIN_ITS_OWN__: the game's origin ways (engine/bohemia_origin_ways.js, loaded by the page this screen sits in) */
+function OWAY(){ try{ return (window.top && window.top.BohemiaOriginWays) || window.BohemiaOriginWays || null; }catch(e){ return window.BohemiaOriginWays || null; } }
+function owDoes(){ try{ var W = OWAY(); return (W && W.does()) || {}; }catch(e){ return {}; } }
 /* a card that came from somewhere says where: {from} the town the people came from, {by} the crew, {ago} when */
 function fillTrait(t, line){
   return String(line).replace(/\{from\}/g, t.from || 'a town up the road').replace(/\{by\}/g, t.by || 'crew').replace(/\{ago\}/g, t.ago || 'a few nights back');
@@ -553,6 +559,7 @@ function restock(){
   function pick(rows, n, key){
     var per = restockPeriod(), R0 = rng(seedOf(S.place.name + ':stock:' + key + (per ? ':' + per : '')));
     var held = (window.BohemiaArena && BohemiaArena.reserved) ? BohemiaArena.reserved() : [];   /* __THE_ARENA__: the pit's gear is found nowhere else (bb_all/0620) */
+    try{ var OWr = OWAY(); if(OWr) held = held.concat(OWr.reserved()); }catch(e){}   /* __EACH_ORIGIN_ITS_OWN__: an origin's own pieces are on no shelf the roll deals */
     var sorted = rows.filter(function(r){ return r.value != null && held.indexOf(r.id) < 0; }).sort(function(a,b){ return a.value-b.value; });
     var lo = Math.floor(sorted.length*band[0]), hi = Math.max(lo+1, Math.floor(sorted.length*band[1])), out = [], seen = {};
     for(var t=0; t<60 && out.length<n; t++){ var r = sorted[lo + Math.floor(R0()*(hi-lo))]; if(r && !seen[r.id]){ seen[r.id]=1; out.push(r); } }
@@ -567,6 +574,12 @@ function restock(){
      camp's smith shelf, the camp's junk, whatever the roll */
   if(tier === 'camp') BB.weapons.filter(function(r){ return r.armory && r.armory.starter && CLASSNAME[r['class']]; }).forEach(function(r){
     if(!S.stock.smith.some(function(it){ return it.id === r.id; })) S.stock.smith.push(weaponItem(r)); });
+  /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c), asks 103 and 233: 'things only it can buy'): the origin's own pieces on its HOME
+     town's armourer shelf, first, and on no other (engine/bohemia_origin_ways.js shelfFor; the home is the town the new game opened in,
+     else the first town this game opens); priced like every row, by the town's own sums below */
+  try{ var OWh = OWAY(); if(OWh){ OWh.homeOr(S.place.name); S.ownShelf = OWh.shelfFor(S.place.name);
+    S.ownShelf.slice().reverse().forEach(function(id){ var k = null, r = null; ['body', 'head', 'shields'].forEach(function(kk){ (BB.armor[kk] || []).forEach(function(x){ if(x.id === id){ k = kk; r = x; } }); });
+      if(r && !S.stock.armourer.some(function(it){ return it.id === id; })){ var it = armourItem(k, r); it.own = true; S.stock.armourer.unshift(it); } }); } }catch(e){}
   /* a trait moves every price on the shelves, never below one battery */
   var rp = relPrice();
   for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.base = it.price; it.price = Math.max(1, Math.round(it.price * (1 - rp.buySub) * tm.buy)); });
@@ -3762,7 +3775,8 @@ var RARE_OURS = {read:false, chance:null, levels:null};
 fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){ var v = j && j.rare_at_the_post && j.rare_at_the_post.value;
   if(v){ if(v.chance_per_slot != null) RARE_OURS.chance = +v.chance_per_slot; if(Array.isArray(v.levels)) RARE_OURS.levels = v.levels; }
   RARE_OURS.read = true; if(S.open === 'hall') openB('hall'); }).catch(function(){ RARE_OURS.read = true; });
-function rareChance(){ return RARE_OURS.chance != null ? RARE_OURS.chance : (+(RARE && RARE.chance_per_slot) || 0); }
+function rareChance(){ if(owDoes().no_rare_hires) return 0;   /* __EACH_ORIGIN_ITS_OWN__: the Block Watch hires lowborn only (bb_all/1533_Peasant Militia) */
+  return RARE_OURS.chance != null ? RARE_OURS.chance : (+(RARE && RARE.chance_per_slot) || 0); }
 function rareTiers(m){ return (m && m.tiers) || (RARE && RARE.tiers) || []; }
 /* the looks no post may deal a rare man in: your company, the men hired since it was saved, and the man he made */
 function rareTaken(){ var t = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).concat(JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'))

@@ -1693,6 +1693,10 @@ const FIGHT = (function () {
     dealBoard();
     let dealt = S.boardDef;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
+    /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own way, the fight keys of its rule (records/target/bb/origins.json
+       personal.rule.does; the shell hands them as opts.originWay, engine/bohemia_origin_ways.js fight()): first_round, never_confident,
+       never_flees, standard, whip. Read in roundStart's order, check()'s nerve and setup's bearer; nothing handed = as before */
+    S.way = (opts && opts.originWay && typeof opts.originWay === 'object') ? opts.originWay : null;
     S.arena = (opts && opts.arena) || null;   /* __THE_ARENA__ (ARENA, rule 375; bb_all/0620: 'you can't retreat once a battle has started... you won't be able to loot'): the Mob's pit, the shell's o.arena */
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
@@ -1728,6 +1732,8 @@ const FIGHT = (function () {
     S.fieldCap = fieldCap;
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
+    /* __EACH_ORIGIN_ITS_OWN__: the standard (the promise keepers' old one, Battle Brothers' Battle Standard) is carried by his main man */
+    if (S.way && S.way.standard) { const sb = crewUnits.filter(function (u) { return u.main; })[0] || crewUnits[0]; if (sb) sb.standard = S.way.standard; }
     const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
@@ -2054,6 +2060,7 @@ const FIGHT = (function () {
       if (u.waitedLast && !PK(u, 'relentless')) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
       if (u.adrenaline) { ini += R('initiative_and_turn_order.adrenaline'); u.adrenaline = false; }
       if (u.morale === 'Fleeing') ini += R('initiative_and_turn_order.fleeing_turn_order');
+      if (S.round === 1 && S.way && S.way.first_round && u.side === 'you') ini += 100000;   /* __EACH_ORIGIN_ITS_OWN__: the deserters act first in the first round (bb_all/0571_Deserters) */
       u.turnIni = ini;
     });
     S.order = live.sort(function (a, b) { return b.turnIni - a.turnIni; }).map(function (u) { return u.id; });
@@ -2790,6 +2797,10 @@ const FIGHT = (function () {
     const nl = PK(u, 'nine_lives');
     const cap0 = R('ours.captain_aura'), led = ledBy(u);
     let c = (u.resolve + (nl && u.nineUp ? nl.resolve_bonus : 0)) * moraleMult(u, 'resolve') * loneMult(u) * (led ? 1 + cap0.resolve_pct / 100 : 1) + mod;
+    /* __EACH_ORIGIN_ITS_OWN__: the standard lends a tenth of its bearer's resolve to his men within its tiles, never more than his whole
+       resolve (bb_all/0214_Battle Standard) */
+    const sb = u.side === 'you' && S.way && S.way.standard ? friends(u).filter(function (f) { return f !== u && f.standard && onField(f) && dist(f, u) <= f.standard.range_tiles; })[0] : null;
+    if (sb) c += Math.min(sb.resolve || 0, (sb.resolve || 0) * sb.standard.pct_of_bearer / 100);
     if (kind === 'neg') {
       c += R('morale.check_modifiers.allies_adjacent') * friends(u).filter(function (f) { return dist(f, u) === 1; }).length;
       c += R('morale.check_modifiers.enemies_adjacent') * foes(u).filter(function (f) { return dist(f, u) === 1; }).length;
@@ -2798,8 +2809,16 @@ const FIGHT = (function () {
     c = Math.max(cap.min, Math.min(cap.max, c));
     const ok = die() <= c;
     const st = STATES(), i = st.indexOf(u.morale), step = R('morale.check.step');
-    if (kind === 'pos' && ok && u.morale !== 'Fleeing' && !u.atEdge && i - step >= st.indexOf('Confident')) { u.morale = st[i - step]; if (!quiet) emit({ t: 'morale', id: u.id, to: u.morale }); }
-    if (kind === 'neg' && !ok && i + step <= st.indexOf('Fleeing')) {
+    /* __EACH_ORIGIN_ITS_OWN__: the lab rats never climb to confident (bb_all/0080_Anatomists); the faithful's nerve stops short of
+       fleeing; a debtor's stops at the whip's floor while a collector stands within its tiles (bb_all/0449_Crack the Whip) */
+    const W8 = u.side === 'you' && S.way ? S.way : null;
+    const topI = W8 && W8.never_confident ? st.indexOf('Confident') + 1 : st.indexOf('Confident');
+    let botI = st.indexOf('Fleeing');
+    if (W8 && W8.never_flees) botI = st.indexOf('Fleeing') - 1;
+    if (W8 && W8.whip && (W8.whip.men || []).indexOf(u.kind) >= 0 && st.indexOf(W8.whip.floor) >= 0
+      && friends(u).some(function (f) { return f !== u && onField(f) && (W8.whip.men || []).indexOf(f.kind) < 0 && f.morale !== 'Fleeing' && dist(f, u) <= W8.whip.range_tiles; })) botI = Math.min(botI, st.indexOf(W8.whip.floor));
+    if (kind === 'pos' && ok && u.morale !== 'Fleeing' && !u.atEdge && i - step >= topI) { u.morale = st[i - step]; if (!quiet) emit({ t: 'morale', id: u.id, to: u.morale }); }
+    if (kind === 'neg' && !ok && i + step <= botI) {
       u.morale = st[i + step]; emit({ t: 'morale', id: u.id, to: u.morale });
       if (u.morale === 'Fleeing') { u.roundsFleeing = 0; ripple(u, null, 'flees'); }
     }
@@ -4849,7 +4868,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();
@@ -9636,7 +9655,8 @@ const WIPE_SAYS = {   /* draft:true */
   dodged: '{name} dodged {n} of your {m} shots.',
   armoured: '{name} wore {a} armour. Your best arm needed {b} hits.',
   count: '{dead} of yours dead, {down} down.',
-  next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
+  next: 'Somebody drags you to the nearest town. {who} have your men and your gear.',
+  nextAlone: 'Somebody drags you to the nearest town. You wake up alone, your gear still on you.'
 };
 const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.', walk: 'Leaves {left} AP: {what} costs {need}.',
   climbed: '{name} climbed this turn: no blow and no shot until the next one.' };   /* draft:true */
@@ -9677,7 +9697,10 @@ function wipeInfo() {
   const dead = mine.filter(function (v) { return v.dead; }), down = mine.filter(function (v) { return v.down; }), fled = mine.filter(function (v) { return v.fled; });
   lines.push(wfill(WIPE_SAYS.count, { dead: dead.length, down: down.length }));
   const o = window.FIGHT_OPTS || {};
-  return { by: f, byName: who, lines: lines, next: wfill(WIPE_SAYS.next, { who: who }),
+  /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c); EYES [eyes: the god is too heavy] k09): a company of one man has no men to take and
+     keeps his gear, so the line says only what is true (the Lone Wolf's door: 'Lose a fight and you wake up in the nearest town') */
+  const alone = mine.length === 1 && !!mine[0].main;
+  return { by: f, byName: who, lines: lines, next: alone ? WIPE_SAYS.nextAlone : wfill(WIPE_SAYS.next, { who: who }),
     standout: st ? { name: st.t.name, kind: st.t.kind, lv: st.c.lv, outclass: st.c.outclass, dodged: st.t._dodged || 0, tried: st.t._tried || 0, armour: st.c.armourPts } : null,
     dead: dead.map(function (v) { return v.name; }), down: down.map(function (v) { return v.name; }), fled: fled.map(function (v) { return v.name; }),
     district: o.district || null, cell: o.cell || null, kind: o.kind || null };

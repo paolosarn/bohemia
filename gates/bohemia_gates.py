@@ -10151,6 +10151,12 @@ GATES = [
      "NOW origins.json's door block (TUNING's god3) rolled once a game by engine/bohemia_origin_start.js and handed by the door. HOLDS on the demo: the file is god3; 200 rolls match TUNING's measured spread exactly, 200 different men; "
      "the wolf picked by a real tap is the same man all game; the crew screen opened by the bar's chip reads LEVEL 4, three drawn three-star stats, his kit, his perks, his line; the fight fields him as rolled; NEW GAME forgets him; "
      "the same on the computer by mouse (where the crew screen's own boot used to save the default YOU over him); the other fourteen hand their plain men. about 4 min", True),
+    ('EACH ORIGIN ITS OWN', ['node', 'gates/each_origin_its_own_gate.js'],
+     "ORIGINS gate, 11/7, rule 427(c), asks 103 and 233 (Paolo: 'every origin starts like itself and gets personal: its own look, things only it can buy, its own way... the Lone Wolf a gilded god... really felt in the fight'). "
+     "MEASURED before: every origin's men in the same clothes, its start town selling what every town sells, nine of its Battle Brothers rules not running; the Lone Wolf at 53 of 117 breath, 16 of 30 won against six thugs, 14 of 30 against three dire wolves. "
+     "HOLDS: all fifteen carry a look, a home shelf and a rule in origins.json; thirty origin pieces each its own model off the master rig; every man walks in wearing his origin's own; every rule runs on the live fight, the spoils, the carcass, the map and the town against its control without it; "
+     "the gilded god wins 19 of 20 against two and three dire wolves, breath 64, never winded; on the demo the water truck opens in its home town selling its own pieces first at the Trader's price, no other town sells them, its men fight in them drawn as their own; "
+     "the Lone Wolf gilded with Lone Wolf, Fearsome and Recover on the computer. PLANTED FAIL: ORIGINS_PLANT=1 turns O1, O2 and O4a red. about 6 min", True),
     ('THE RARE MAN AT THE POST', ['node', 'gates/the_rare_man_at_the_post_gate.js'],
      "RUN TWO gate, 10/25, rule 183(a) (Paolo 10/25: 'there definitely isn't incentive for the first 50 days to grow your crew unless it's god-tier recruits'); TUNING's recruit.rare. "
      "MEASURED before: the post dealt six lowborn backgrounds at level 1, the god-tier man never existed. NOW records/target/bb/rare_recruits.json: a road knight, a gun for hire or a blade master, a town's or fortress's slot 3 in 100, "

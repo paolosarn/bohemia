@@ -46371,6 +46371,7 @@ function startInTown(p){
     var t = null; try { t = startTownPick(); } catch (_e) {}
     if (!t) { S.why = 'no settlement on the map'; return; }
     S.from = [city.x, city.y]; S.town = t.name; S.tier = t.tier; S.blocks = t.blocks;
+    try { var OWs = window.top && window.top.BohemiaOriginWays; if (OWs) OWs.setHome((p && p.origin) || null, t.name); } catch (_e) {}   /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the town the game opens in is the origin's home (its own shelf) */
     try { travelStop(); } catch (_e) {}
     city.x = t.x; city.y = t.y;   /* the company is in the town: leaving it, the map is the town's block (the dark clears round him there) */
     try { camHold(); } catch (_e) {}
@@ -46448,7 +46449,11 @@ function partyRosterStrength(){
   var top = (R.wide_origins || []).indexOf(st.origin) >= 0 ? R.strongest_wide : R.strongest;
   return lv.slice(0, top).reduce(function(t, l){ return t + R.per_man + R.per_level * (l - 1); }, 0);
 }
-function partyWord(n){ var W = partyV('count_words') || []; for(var i = 0; i < W.length; i++) if(n >= W[i].lo && n <= W[i].hi) return W[i].word; return n < 2 ? 'ONE' : 'A FEW'; }
+function partyWord(n){
+  /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the scavengers always know a crew's number before they meet it (Battle Brothers' Band of
+     Poachers: 'Can always see the enemy composition in wild locations'; records/target/bb/origins.json personal.rule.does.exact_count) */
+  try { var OWp = window.top && window.top.BohemiaOriginWays; if (OWp && OWp.does().exact_count && n > 0) return 'EXACTLY ' + n; } catch (_e) {}
+  var W = partyV('count_words') || []; for(var i = 0; i < W.length; i++) if(n >= W[i].lo && n <= W[i].hi) return W[i].word; return n < 2 ? 'ONE' : 'A FEW'; }
 function partyDays(){ return Math.max(1, Math.min(partyV('day_cap') || 100, loopDay() || 1)); }
 /* the day a typical company stands this strong (job_bb.dress, [strength, day] in order): what a job's enemies are dressed for */
 function partyDressDay(str, T){

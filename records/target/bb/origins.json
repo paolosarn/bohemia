@@ -71,8 +71,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "rebuild_black_band_vest",
+       "head": "rebuild_names_hard_hat",
        "bag": []
       }
      },
@@ -87,8 +87,8 @@
       "kit": {
        "main": "dagger",
        "off": "heater_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "rebuild_black_band_vest",
+       "head": "rebuild_names_hard_hat",
        "bag": []
       }
      },
@@ -103,15 +103,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "padded_surcoat",
-       "head": "aketon_cap",
+       "body": "rebuild_black_band_vest",
+       "head": "rebuild_names_hard_hat",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (rebuild)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (rebuild)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -131,6 +132,35 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "the dead crew's rust canvas, a black band each, the names on black tape",
+     "wears": {
+      "body": "rebuild_black_band_vest",
+      "head": "rebuild_names_hard_hat"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "rebuild_black_band_vest",
+      "rebuild_names_hard_hat"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "the_names",
+     "name": "THE NAMES ON THE TAPE",
+     "says": "No rule of its own yet. You start with the old crew's gear and their names on your hats.",
+     "bb": "Rebuilding a Company: the tutorial and the Hoggart hunt (the man who broke the old company); otherwise the plain start",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company",
+     "does": {},
+     "owed": "the man who broke the old crew on the map, his crew a job of its own (WORLD; Battle Brothers' Hoggart)",
+     "draft": true
+    }
    }
   },
   {
@@ -186,8 +216,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "newcrew_surplus_vest",
+       "head": "newcrew_surplus_hard_hat",
        "bag": []
       }
      },
@@ -202,8 +232,8 @@
       "kit": {
        "main": "dagger",
        "off": "heater_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "newcrew_surplus_vest",
+       "head": "newcrew_surplus_hard_hat",
        "bag": []
       }
      },
@@ -218,15 +248,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "padded_surcoat",
-       "head": "aketon_cap",
+       "body": "newcrew_surplus_vest",
+       "head": "newcrew_surplus_hard_hat",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (newcrew)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (newcrew)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -246,6 +277,34 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "olive surplus from one bin, tags still on",
+     "wears": {
+      "body": "newcrew_surplus_vest",
+      "head": "newcrew_surplus_hard_hat"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "newcrew_surplus_vest",
+      "newcrew_surplus_hard_hat"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "clean_start",
+     "name": "A CLEAN START",
+     "says": "No rule. Three of you, nothing owed. Every other origin is measured against this one.",
+     "bb": "A New Company: 'Impatient: a quick start into the world, without any particular advantages or disadvantages' (the control case)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company",
+     "does": {},
+     "draft": true
+    }
    }
   },
   {
@@ -301,8 +360,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "south_road_dust_vest",
+       "head": "south_sun_wrap_hood",
        "bag": []
       }
      },
@@ -317,8 +376,8 @@
       "kit": {
        "main": "dagger",
        "off": "heater_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "south_road_dust_vest",
+       "head": "south_sun_wrap_hood",
        "bag": []
       }
      },
@@ -333,15 +392,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "padded_surcoat",
-       "head": "aketon_cap",
+       "body": "south_road_dust_vest",
+       "head": "south_sun_wrap_hood",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (south)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (south)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -361,6 +421,36 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "sun-bleached tan and road dust, the 95's shield on the back",
+     "wears": {
+      "body": "south_road_dust_vest",
+      "head": "south_sun_wrap_hood"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "south_road_dust_vest",
+      "south_sun_wrap_hood"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "up_the_95",
+     "name": "UP THE 95",
+     "says": "You start in the south of the valley, where the freeway comes in.",
+     "bb": "Southern Mercenaries: 'You will spawn in the southern part of the map'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries",
+     "does": {
+      "start": "south"
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -417,8 +507,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
-       "head": "aketon_cap",
+       "body": "truck_hi_vis_vest",
+       "head": "truck_hi_vis_hard_hat",
        "bag": []
       }
      },
@@ -433,8 +523,8 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "padded_surcoat",
-       "head": "hood",
+       "body": "truck_hi_vis_vest",
+       "head": "truck_hi_vis_hard_hat",
        "bag": []
       }
      },
@@ -449,8 +539,8 @@
       "kit": {
        "main": "dagger",
        "off": "heater_shield",
-       "body": "leather_lamellar_armor",
-       "head": "aketon_cap",
+       "body": "truck_hi_vis_vest",
+       "head": "truck_hi_vis_hard_hat",
        "bag": []
       }
      }
@@ -459,7 +549,8 @@
     "food_days": 19,
     "wagon_goods_batteries": 134,
     "guard": "the third man, a militia at level 1 (a pistol, the heater car door, a leather vest), bought at the door for 37 out of the goods (TUNING s3 truck.door_guard: 43 -> 66 in 100 of the first thirty days)",
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (truck)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (truck)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -479,6 +570,37 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "the water district's hi-vis rubber and silver bands",
+     "wears": {
+      "body": "truck_hi_vis_vest",
+      "head": "truck_hi_vis_hard_hat"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "truck_hi_vis_vest",
+      "truck_hi_vis_hard_hat"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "trader",
+     "name": "TRADER",
+     "says": "You buy 10% cheaper and sell 10% dearer in every town. People need water.",
+     "bb": "Trading Caravan: 'Trader: Get 10% better prices'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan",
+     "does": {
+      "buy_mult": 0.9,
+      "sell_mult": 1.1
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -572,8 +694,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -588,8 +710,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -604,8 +726,8 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -620,8 +742,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -636,8 +758,8 @@
       "kit": {
        "main": "two_handed_mallet",
        "off": null,
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -652,8 +774,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -668,8 +790,8 @@
       "kit": {
        "main": "militia_spear",
        "off": null,
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -684,8 +806,8 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -700,8 +822,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -716,8 +838,8 @@
       "kit": {
        "main": "dagger",
        "off": null,
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -732,8 +854,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      },
@@ -748,15 +870,16 @@
       "kit": {
        "main": "butcher_s_cleaver",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "watch_armband_jacket",
+       "head": "watch_orange_bandana",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (watch)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (watch)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -776,6 +899,36 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Peasant Militia"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "their own jackets, an orange band and a house number",
+     "wears": {
+      "body": "watch_armband_jacket",
+      "head": "watch_orange_bandana"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "watch_armband_jacket",
+      "watch_orange_bandana"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "lowborn_only",
+     "name": "LOWBORN ONLY",
+     "says": "Only neighbours join. No rare fighter ever walks up to your post.",
+     "bb": "Peasant Militia: 'Can only hire Lowborn men'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Peasant Militia",
+     "does": {
+      "no_rare_hires": true
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -831,8 +984,8 @@
       "kit": {
        "main": "crossbow",
        "off": null,
-       "body": "padded_surcoat",
-       "head": "hood",
+       "body": "scav_tool_belt_vest",
+       "head": "scav_headlamp_hood",
        "bag": []
       }
      },
@@ -847,8 +1000,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
-       "head": "hood",
+       "body": "scav_tool_belt_vest",
+       "head": "scav_headlamp_hood",
        "bag": []
       }
      },
@@ -863,15 +1016,16 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
-       "head": "hood",
+       "body": "scav_tool_belt_vest",
+       "head": "scav_headlamp_hood",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (scav)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (scav)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -891,6 +1045,36 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "a hardware store's orange apron vest, a tool belt, a headlamp",
+     "wears": {
+      "body": "scav_tool_belt_vest",
+      "head": "scav_headlamp_hood"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "scav_tool_belt_vest",
+      "scav_headlamp_hood"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "they_count",
+     "name": "THEY COUNT",
+     "says": "You always know how many are in a crew before you meet it. Every crew on the map shows its number.",
+     "bb": "Band of Poachers: 'Can always see the enemy composition in wild locations'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers",
+     "does": {
+      "exact_count": true
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -943,7 +1127,7 @@
       "kit": {
        "main": "winged_mace",
        "off": "kite_shield",
-       "body": "mail_hauberk",
+       "body": "promise_funeral_carrier",
        "head": "nasal_helmet_with_mail",
        "bag": []
       }
@@ -959,15 +1143,16 @@
       "kit": {
        "main": "rondel_dagger",
        "off": "heater_shield",
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "promise_funeral_carrier",
+       "head": "promise_ribbon_riot_helmet",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (promise)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (promise)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -987,6 +1172,40 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "black funeral coats, a white flower, a black ribbon",
+     "wears": {
+      "body": "promise_funeral_carrier",
+      "head": "promise_ribbon_riot_helmet"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "promise_funeral_carrier",
+      "promise_ribbon_riot_helmet"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "the_standard",
+     "name": "THE STANDARD",
+     "says": "Your men near you stand firmer. Anyone within 4 tiles of you gets a tenth of your nerve on top of his own.",
+     "bb": "Oathtakers: the old one carries the Battle Standard: 'Allies at a range of 4 tiles or less receive 10% of the Resolve of the character holding this standard as a bonus, up to a maximum of the standard bearer's Resolve'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers; reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Battle Standard",
+     "does": {
+      "standard": {
+       "range_tiles": 4,
+       "pct_of_bearer": 10
+      }
+     },
+     "owed": "the oaths (a forced system, a row of its own)",
+     "draft": true
+    }
    }
   },
   {
@@ -1043,8 +1262,8 @@
       "kit": {
        "main": "dagger",
        "off": "heater_shield",
-       "body": "mail_hauberk",
-       "head": "aketon_cap",
+       "body": "desert_torn_patch_carrier",
+       "head": "desert_steel_pot_hard_hat",
        "bag": [
         "hatchet"
        ]
@@ -1061,8 +1280,8 @@
       "kit": {
        "main": "shortsword",
        "off": "heater_shield",
-       "body": "mail_hauberk",
-       "head": "aketon_cap",
+       "body": "desert_torn_patch_carrier",
+       "head": "desert_steel_pot_hard_hat",
        "bag": []
       }
      },
@@ -1077,15 +1296,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "mail_hauberk",
-       "head": "aketon_cap",
+       "body": "desert_torn_patch_carrier",
+       "head": "desert_steel_pot_hard_hat",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (desert)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (desert)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1105,6 +1325,36 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "the line's olive drab, clean squares where the patches were",
+     "wears": {
+      "body": "desert_torn_patch_carrier",
+      "head": "desert_steel_pot_hard_hat"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "desert_torn_patch_carrier",
+      "desert_steel_pot_hard_hat"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "first_to_act",
+     "name": "FIRST TO ACT",
+     "says": "In the first round of every fight, all your men move before anyone else.",
+     "bb": "Deserters: 'Your men always are first to act in the very first round of combat'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters",
+     "does": {
+      "first_round": true
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -1164,8 +1414,8 @@
       "kit": {
        "main": "crude_axe",
        "off": "heater_shield",
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "raid_trophy_carrier",
+       "head": "raid_hand_print_riot_helmet",
        "bag": []
       }
      },
@@ -1180,8 +1430,8 @@
       "kit": {
        "main": "two_handed_mallet",
        "off": null,
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "raid_trophy_carrier",
+       "head": "raid_hand_print_riot_helmet",
        "bag": []
       }
      },
@@ -1196,8 +1446,8 @@
       "kit": {
        "main": "handgonne",
        "off": null,
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "raid_trophy_carrier",
+       "head": "raid_hand_print_riot_helmet",
        "bag": []
       }
      },
@@ -1220,7 +1470,8 @@
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (raid)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (raid)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1240,6 +1491,36 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "dark leather hung with other people's keys and tags, a red hand",
+     "wears": {
+      "body": "raid_trophy_carrier",
+      "head": "raid_hand_print_riot_helmet"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "raid_trophy_carrier",
+      "raid_hand_print_riot_helmet"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "strip_the_dead",
+     "name": "STRIP THE DEAD",
+     "says": "You search bodies twice. A piece the first look missed gets a second look.",
+     "bb": "Northern Raiders: 'You have a higher chance to get items from slain enemies as loot'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders",
+     "does": {
+      "loot_second_look": true
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -1295,8 +1576,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
-       "head": "aketon_cap",
+       "body": "lab_coat_vest",
+       "head": "lab_respirator_hood",
        "bag": []
       }
      },
@@ -1311,8 +1592,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
-       "head": "aketon_cap",
+       "body": "lab_coat_vest",
+       "head": "lab_respirator_hood",
        "bag": []
       }
      },
@@ -1327,15 +1608,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "padded_surcoat",
-       "head": "hood",
+       "body": "lab_coat_vest",
+       "head": "lab_respirator_hood",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (lab)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (lab)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1355,6 +1637,37 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "lab coats gone brown, a badge, a respirator",
+     "wears": {
+      "body": "lab_coat_vest",
+      "head": "lab_respirator_hood"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "lab_coat_vest",
+      "lab_respirator_hood"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "not_fighters",
+     "name": "NOT FIGHTERS",
+     "says": "Your men are scientists. Their nerve never climbs to confident.",
+     "bb": "Anatomists: 'Not Fighters: Your men will never be of confident morale'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists",
+     "does": {
+      "never_confident": true
+     },
+     "owed": "the potions from each new kind of beast (Battle Brothers' Anatomists; a forced system, a row of its own)",
+     "draft": true
+    }
    }
   },
   {
@@ -1414,8 +1727,8 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "faith_ash_robe",
+       "head": "faith_bone_cowl",
        "bag": []
       }
      },
@@ -1430,8 +1743,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "faith_ash_robe",
+       "head": "faith_bone_cowl",
        "bag": []
       }
      },
@@ -1446,8 +1759,8 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "faith_ash_robe",
+       "head": "faith_bone_cowl",
        "bag": []
       }
      },
@@ -1462,15 +1775,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "thick_tunic",
-       "head": "hood",
+       "body": "faith_ash_robe",
+       "head": "faith_bone_cowl",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (faith)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (faith)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1490,6 +1804,37 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "ash-grey robes, bone cowls, the screen's test circle",
+     "wears": {
+      "body": "faith_ash_robe",
+      "head": "faith_bone_cowl"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "faith_ash_robe",
+      "faith_bone_cowl"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "the_faith_holds",
+     "name": "THE FAITH HOLDS",
+     "says": "Your men never run. Their nerve can break, but they do not flee.",
+     "bb": "Davkul Cultists: Davkul's boons to the loyal (the fanatics' resolve); ours: they stand",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists",
+     "does": {
+      "never_flees": true
+     },
+     "owed": "the sacrifice (a forced system, a row of its own)",
+     "draft": true
+    }
    }
   },
   {
@@ -1557,7 +1902,7 @@
       "kit": {
        "main": "dagger",
        "off": "wooden_shield",
-       "body": "padded_surcoat",
+       "body": "debt_black_suit_vest",
        "head": "aketon_cap",
        "bag": []
       }
@@ -1573,7 +1918,7 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "padded_surcoat",
+       "body": "debt_black_suit_vest",
        "head": "aketon_cap",
        "bag": []
       }
@@ -1589,7 +1934,7 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
+       "body": "debt_numbered_jacket",
        "head": "hood",
        "bag": []
       }
@@ -1605,7 +1950,7 @@
       "kit": {
        "main": "bludgeon",
        "off": "wooden_shield",
-       "body": "thick_tunic",
+       "body": "debt_numbered_jacket",
        "head": "hood",
        "bag": []
       }
@@ -1621,7 +1966,7 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "thick_tunic",
+       "body": "debt_numbered_jacket",
        "head": "hood",
        "bag": []
       }
@@ -1637,7 +1982,7 @@
       "kit": {
        "main": "two_handed_mallet",
        "off": null,
-       "body": "thick_tunic",
+       "body": "debt_numbered_jacket",
        "head": "hood",
        "bag": []
       }
@@ -1645,7 +1990,8 @@
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (debt)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (debt)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1665,6 +2011,43 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "the collectors in black suits, the debtors in numbered orange",
+     "wears": {
+      "body": "debt_black_suit_vest",
+      "head": null
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "debt_black_suit_vest",
+      "debt_numbered_jacket"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "the_whip",
+     "name": "THE WHIP",
+     "says": "A debtor near a collector does not panic. While a collector stands within 3 tiles, his nerve stops at wavering.",
+     "bb": "Manhunters: 'Non-Indebted brothers can use Crack the Whip on Indebted brothers to reset their morale back to steady'; the Indebted draw no wage (backgrounds.json daily_wage 0)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters; reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Crack the Whip (Manhunters)",
+     "does": {
+      "whip": {
+       "floor": "Wavering",
+       "range_tiles": 3,
+       "men": [
+        "indebted",
+        "southern_indebted"
+       ]
+      }
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -1720,8 +2103,8 @@
       "kit": {
        "main": "boar_spear",
        "off": "heater_shield",
-       "body": "leather_lamellar_armor",
-       "head": "closed_mail_coif",
+       "body": "hunt_hide_patch_vest",
+       "head": "hunt_fur_ruff_hard_hat",
        "bag": []
       }
      },
@@ -1736,8 +2119,8 @@
       "kit": {
        "main": "crossbow",
        "off": null,
-       "body": "leather_lamellar_armor",
-       "head": "closed_mail_coif",
+       "body": "hunt_hide_patch_vest",
+       "head": "hunt_fur_ruff_hard_hat",
        "bag": []
       }
      },
@@ -1752,15 +2135,16 @@
       "kit": {
        "main": "light_crossbow",
        "off": null,
-       "body": "leather_lamellar_armor",
-       "head": "closed_mail_coif",
+       "body": "hunt_hide_patch_vest",
+       "head": "hunt_fur_ruff_hard_hat",
        "bag": []
       }
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (hunt)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (hunt)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1780,6 +2164,38 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "the clones' hides and teeth, dire wolf fur",
+     "wears": {
+      "body": "hunt_hide_patch_vest",
+      "head": "hunt_fur_ruff_hard_hat"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "hunt_hide_patch_vest",
+      "hunt_fur_ruff_hard_hat"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "beast_slayers",
+     "name": "BEAST SLAYERS",
+     "says": "Towns charge you 10% more and pay you 10% less. But half the time a kill gives you an extra hide.",
+     "bb": "Beast Slayers: '10% increased buying prices, 10% lower selling prices... 50% chance to get additional beast trophies'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers",
+     "does": {
+      "buy_mult": 1.1,
+      "sell_mult": 0.9,
+      "trophy_extra_pct": 50
+     },
+     "draft": true
+    }
    }
   },
   {
@@ -1836,8 +2252,8 @@
       "kit": {
        "main": "falchion",
        "off": "kite_shield",
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "pit_fight_robe_carrier",
+       "head": "pit_sparring_riot_helmet",
        "bag": []
       }
      },
@@ -1852,8 +2268,8 @@
       "kit": {
        "main": "crude_axe",
        "off": "heater_shield",
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "pit_fight_robe_carrier",
+       "head": "pit_sparring_riot_helmet",
        "bag": []
       }
      },
@@ -1868,8 +2284,8 @@
       "kit": {
        "main": "handgonne",
        "off": null,
-       "body": "mail_hauberk",
-       "head": "nasal_helmet",
+       "body": "pit_fight_robe_carrier",
+       "head": "pit_sparring_riot_helmet",
        "bag": []
       }
      }
@@ -1878,7 +2294,8 @@
     "food_days": 7,
     "wage_per_man_per_night": 6,
     "wage_about": "a gladiator's 50 crowns base, x1.1 a level past 1, at ten to one: 6 batteries a man a night on top of the bill (TUNING s3 pit.wage_per_man)",
-    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (pit)"
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (pit)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -1898,13 +2315,43 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Gladiators"
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "the floor's oxblood satin and gold, red sparring leather",
+     "wears": {
+      "body": "pit_fight_robe_carrier",
+      "head": "pit_sparring_riot_helmet"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "pit_fight_robe_carrier",
+      "pit_sparring_riot_helmet"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "paid_fighters",
+     "name": "PAID FIGHTERS",
+     "says": "Your three are pros. Each costs 6 batteries a night, and the roster holds only 12.",
+     "bb": "Gladiators: 'wage 50 not 35; Has only 12 instead of 20 slots in the roster'",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Gladiators",
+     "does": {
+      "wage": 6
+     },
+     "draft": true
+    }
    }
   },
   {
    "id": "wolf",
    "bb": "Lone Wolf",
    "name": "THE LONE WOLF",
-   "line": "Just you. If you go down, it ends.",
+   "line": "Just you, in gold. Lose a fight and you wake up in the nearest town.",
    "draft": true,
    "difficulty": "Hard",
    "d": 3,
@@ -1938,7 +2385,8 @@
      {
       "levels_taken": true,
       "modifiers": {
-       "melee_defense": -2
+       "melee_defense": -2,
+       "resolve": 10
       },
       "stars": {
        "ranged_defense": 3,
@@ -1961,14 +2409,10 @@
         "kite_shield"
        ],
        "body": [
-        "reinforced_mail_hauberk",
-        "heavy_lamellar_armor",
-        "coat_of_scales",
-        "coat_of_plates"
+        "wolf_gilded_riot_armour"
        ],
        "head": [
-        "closed_flat_top_with_mail",
-        "full_helm"
+        "wolf_gilded_riot_helm"
        ],
        "bag": [
         "rondel_dagger"
@@ -1982,14 +2426,18 @@
       "line": "Every crew on the road has heard of you. Not one of them wants to be the crew that finds out.",
       "line_draft": true,
       "gift_perks": [
-       "recover"
+       "recover",
+       "lone_wolf",
+       "fearsome"
       ],
-      "gift_perks_why": "RUN TWO 10/26, rule 231(b): the door gives him Battle Brothers' Recover (tier one, 9 AP, half his fatigue; rules.json fatigue.recover_perk), on top of the three perks his levels bought; his button, never AUTO's (rule 180)"
+      "gift_perks_why": "RUN TWO 10/26 rule 231(b) Recover; ORIGINS 11/7 rule 427(c) 'really felt in the fight': Battle Brothers' own Lone Wolf perk (+15% to skills, defences and resolve with no ally within 3 tiles: he is always alone) and Fearsome (a hit that draws blood makes them check their nerve: 'every crew on the road has heard of you'); gifts on top of his levels' perks, never spending a point",
+      "modifiers_why": "the Lone Wolf page's melee defence -2; resolve +10 is Battle Brothers' Player Character trait, the Lone Wolf's own (bb_all/1567_Player Character.txt)"
      }
     ],
     "rolled_per_game": true,
     "food_days": 7,
-    "source": "banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json gods.god3; reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852 (great equipment, melee defence -2)"
+    "source": "banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json gods.god3; reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852 (great equipment, melee defence -2)",
+    "personal_kit": "ORIGINS 11/7: every man's body (and head, where it has one) is the origin's own piece (personal.look.wears), numbers the armory's mean of the two Battle Brothers rows around what he wore, so TUNING's measured start barely moves; the Lone Wolf's are Battle Brothers' golden named pieces."
    },
    "supplies": {
     "tape": {
@@ -2009,7 +2457,43 @@
     },
     "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Lone Wolf"
-   }
+   },
+   "personal": {
+    "about": "ORIGINS 11/7 (rule 427(c), asks 103 and 233): this origin's own look, the things only it can buy, its own way. Read by engine/bohemia_origin_ways.js; a modder edits it here. Its pieces are records/target/bb/armory.json rows with 'origin' (their own models, slices/wear).",
+    "look": {
+     "words": "gold leaf over riot plate, rubbed through where it was hit",
+     "wears": {
+      "body": "wolf_gilded_riot_armour",
+      "head": "wolf_gilded_riot_helm"
+     },
+     "draft": true
+    },
+    "shelf": {
+     "where": "home",
+     "pieces": [
+      "wolf_gilded_riot_armour",
+      "wolf_gilded_riot_helm"
+     ],
+     "why": "Only this origin's home town sells these (the town the new game opens in). No other shelf, no loot and no hire carries them."
+    },
+    "rule": {
+     "id": "the_gilded_god",
+     "name": "THE GILDED GOD",
+     "says": "Just you, in gold. You fight best alone: +15% to skill, defence and nerve with nobody near you, and a hit that draws blood can make them panic.",
+     "bb": "Lone Wolf: one hedge knight at level 4 with great equipment, the Player Character trait (+10 Resolve); Battle Brothers' own Lone Wolf perk (+15% with no ally within 3 tiles) and Fearsome; golden named armour",
+     "source": "reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852; reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1567_Player Character.txt; reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1195_Lone Wolf (Perk).txt; reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0754_Fearsome.txt; reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1337_Named Armors.txt",
+     "does": {
+      "gifts": [
+       "lone_wolf",
+       "fearsome",
+       "recover"
+      ],
+      "resolve_add": 10
+     },
+     "draft": true
+    }
+   },
+   "line_was": "Just you. If you go down, it ends. (EYES 10/25: the game went on, the main character never dies, third votes 9/27)"
   }
  ]
 }

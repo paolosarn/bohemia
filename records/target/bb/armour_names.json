@@ -106,7 +106,23 @@
   "carpet_coat": "a duct-taped carpet padded vest",
   "licence_plate_vest": "a licence-plate padded vest",
   "riot_gear_jacket": "a riot-gear plate carrier",
-  "road_sign_cuirass": "road-sign full riot armour"
+  "road_sign_cuirass": "road-sign full riot armour",
+  "rebuild_black_band_vest": "a black-band padded vest",
+  "newcrew_surplus_vest": "a surplus padded vest",
+  "south_road_dust_vest": "a road-dust padded vest",
+  "truck_hi_vis_vest": "a hi-vis padded vest",
+  "watch_armband_jacket": "an armband work jacket",
+  "scav_tool_belt_vest": "a tool-belt padded vest",
+  "promise_funeral_carrier": "a funeral-coat plate carrier",
+  "desert_torn_patch_carrier": "a torn-patch plate carrier",
+  "raid_trophy_carrier": "a trophy-hung plate carrier",
+  "lab_coat_vest": "a lab-coat padded vest",
+  "faith_ash_robe": "an ash-robe work jacket",
+  "debt_black_suit_vest": "a black-suit padded vest",
+  "debt_numbered_jacket": "a numbered work jacket",
+  "hunt_hide_patch_vest": "a hide-patch padded vest",
+  "pit_fight_robe_carrier": "a fight-robe plate carrier",
+  "wolf_gilded_riot_armour": "a gilded full riot armour"
  },
  "head": {
   "mouthpiece": "a dust-mask rag hood",
@@ -199,6 +215,20 @@
   "goalie_mask": "a goalie-mask hard hat",
   "football_helmet": "a football riot helmet",
   "welding_mask": "a welding-mask riot helmet",
-  "riot_gas_helmet": "a gas-visor full riot helm"
+  "riot_gas_helmet": "a gas-visor full riot helm",
+  "rebuild_names_hard_hat": "a names-taped hard hat",
+  "newcrew_surplus_hard_hat": "a surplus hard hat",
+  "south_sun_wrap_hood": "a sun-wrap rag hood",
+  "truck_hi_vis_hard_hat": "a hi-vis hard hat",
+  "watch_orange_bandana": "an orange-bandana rag hood",
+  "scav_headlamp_hood": "a headlamp rag hood",
+  "promise_ribbon_riot_helmet": "a black-ribbon riot helmet",
+  "desert_steel_pot_hard_hat": "a steel-pot hard hat",
+  "raid_hand_print_riot_helmet": "a hand-print riot helmet",
+  "lab_respirator_hood": "a respirator rag hood",
+  "faith_bone_cowl": "a bone-cowl rag hood",
+  "hunt_fur_ruff_hard_hat": "a fur-ruff hard hat",
+  "pit_sparring_riot_helmet": "a sparring riot helmet",
+  "wolf_gilded_riot_helm": "a gilded full riot helm"
  }
 }

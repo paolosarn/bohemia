@@ -970,6 +970,358 @@
     ],
     "draft": true
    }
+  },
+  {
+   "id": "rebuild_black_band_vest",
+   "name": "Black-Band Padded Vest",
+   "durability": 90,
+   "fatigue": -9,
+   "value": 250,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of padded_leather and leather_lamellar_armor | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1516_Padded Leather.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1152_Leather Lamellar Armor.txt",
+   "armory": {
+    "name": "a black-band padded vest",
+    "class": "padded_vest",
+    "line": "The old crew's vests. A black band sewn on for each one who is not here.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "padded_leather",
+     "leather_lamellar_armor"
+    ],
+    "origin": "rebuild",
+    "own": "own_rebuild_black_band_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "newcrew_surplus_vest",
+   "name": "Surplus Padded Vest",
+   "durability": 90,
+   "fatigue": -9,
+   "value": 250,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of padded_leather and leather_lamellar_armor | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1516_Padded Leather.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1152_Leather Lamellar Armor.txt",
+   "armory": {
+    "name": "a surplus padded vest",
+    "class": "padded_vest",
+    "line": "Bought the same day from the same bin. The tags are still on.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "padded_leather",
+     "leather_lamellar_armor"
+    ],
+    "origin": "newcrew",
+    "own": "own_newcrew_surplus_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "south_road_dust_vest",
+   "name": "Road-Dust Padded Vest",
+   "durability": 90,
+   "fatigue": -9,
+   "value": 250,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of padded_leather and leather_lamellar_armor | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1516_Padded Leather.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1152_Leather Lamellar Armor.txt",
+   "armory": {
+    "name": "a road-dust padded vest",
+    "class": "padded_vest",
+    "line": "Bleached by a hundred miles of the 95. The shield patch on the back says where you came up.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "padded_leather",
+     "leather_lamellar_armor"
+    ],
+    "origin": "south",
+    "own": "own_south_road_dust_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "truck_hi_vis_vest",
+   "name": "Hi-Vis Padded Vest",
+   "durability": 60,
+   "fatigue": -5,
+   "value": 120,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of padded_surcoat and gambeson | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1519_Padded Surcoat.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0824_Gambeson.txt",
+   "armory": {
+    "name": "a hi-vis padded vest",
+    "class": "padded_vest",
+    "line": "The water district's rubber vest. Silver bands so a pump crew can see you at night.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "padded_surcoat",
+     "gambeson"
+    ],
+    "origin": "truck",
+    "own": "own_truck_hi_vis_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "watch_armband_jacket",
+   "name": "Armband Work Jacket",
+   "durability": 35,
+   "fatigue": -3,
+   "value": 70,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of leather_tunic and thick_tunic | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1157_Leather Tunic.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt",
+   "armory": {
+    "name": "an armband work jacket",
+    "class": "work_jacket",
+    "line": "Your own jacket, an orange band on the arm, your house number on the back.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "leather_tunic",
+     "thick_tunic"
+    ],
+    "origin": "watch",
+    "own": "own_watch_armband_jacket",
+    "draft": true
+   }
+  },
+  {
+   "id": "scav_tool_belt_vest",
+   "name": "Tool-Belt Padded Vest",
+   "durability": 50,
+   "fatigue": -5,
+   "value": 110,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of thick_tunic and gambeson | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0824_Gambeson.txt",
+   "armory": {
+    "name": "a tool-belt padded vest",
+    "class": "padded_vest",
+    "line": "A hardware store's apron vest, every pocket full, the tool belt still on it.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "thick_tunic",
+     "gambeson"
+    ],
+    "origin": "scav",
+    "own": "own_scav_tool_belt_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "promise_funeral_carrier",
+   "name": "Funeral-Coat Plate Carrier",
+   "durability": 165,
+   "fatigue": -19,
+   "value": 1230,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of basic_mail_shirt and reinforced_mail_hauberk | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0200_Basic Mail Shirt.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1666_Reinforced Mail Hauberk.txt",
+   "armory": {
+    "name": "a funeral-coat plate carrier",
+    "class": "police_vest",
+    "line": "The black coat you wore at the grave, a plate carrier under it, the white flower still pinned on.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "basic_mail_shirt",
+     "reinforced_mail_hauberk"
+    ],
+    "origin": "promise",
+    "own": "own_promise_funeral_carrier",
+    "draft": true
+   }
+  },
+  {
+   "id": "desert_torn_patch_carrier",
+   "name": "Torn-Patch Plate Carrier",
+   "durability": 165,
+   "fatigue": -19,
+   "value": 1230,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of basic_mail_shirt and reinforced_mail_hauberk | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0200_Basic Mail Shirt.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1666_Reinforced Mail Hauberk.txt",
+   "armory": {
+    "name": "a torn-patch plate carrier",
+    "class": "police_vest",
+    "line": "The line's own carrier. Clean squares where the patches were torn off.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "basic_mail_shirt",
+     "reinforced_mail_hauberk"
+    ],
+    "origin": "desert",
+    "own": "own_desert_torn_patch_carrier",
+    "draft": true
+   }
+  },
+  {
+   "id": "raid_trophy_carrier",
+   "name": "Trophy-Hung Plate Carrier",
+   "durability": 165,
+   "fatigue": -19,
+   "value": 1230,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of basic_mail_shirt and reinforced_mail_hauberk | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0200_Basic Mail Shirt.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1666_Reinforced Mail Hauberk.txt",
+   "armory": {
+    "name": "a trophy-hung plate carrier",
+    "class": "police_vest",
+    "line": "Keys, tags and other crews' patches hung all over it. Everything on it was somebody's.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "basic_mail_shirt",
+     "reinforced_mail_hauberk"
+    ],
+    "origin": "raid",
+    "own": "own_raid_trophy_carrier",
+    "draft": true
+   }
+  },
+  {
+   "id": "lab_coat_vest",
+   "name": "Lab-Coat Padded Vest",
+   "durability": 50,
+   "fatigue": -5,
+   "value": 110,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of thick_tunic and gambeson | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0824_Gambeson.txt",
+   "armory": {
+    "name": "a lab-coat padded vest",
+    "class": "padded_vest",
+    "line": "The lab coat you ran out in, padded underneath, gone brown. Your badge still opens nothing.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "thick_tunic",
+     "gambeson"
+    ],
+    "origin": "lab",
+    "own": "own_lab_coat_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "faith_ash_robe",
+   "name": "Ash-Robe Work Jacket",
+   "durability": 35,
+   "fatigue": -3,
+   "value": 70,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of leather_tunic and thick_tunic | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1157_Leather Tunic.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt",
+   "armory": {
+    "name": "an ash-robe work jacket",
+    "class": "work_jacket",
+    "line": "A long grey coat rubbed with ash. The circle on the back is the picture the screen showed before it went dark.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "leather_tunic",
+     "thick_tunic"
+    ],
+    "origin": "faith",
+    "own": "own_faith_ash_robe",
+    "draft": true
+   }
+  },
+  {
+   "id": "debt_black_suit_vest",
+   "name": "Black-Suit Padded Vest",
+   "durability": 50,
+   "fatigue": -5,
+   "value": 110,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of thick_tunic and gambeson | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0824_Gambeson.txt",
+   "armory": {
+    "name": "a black-suit padded vest",
+    "class": "padded_vest",
+    "line": "The collector wears a suit. The padding is so it stays a suit.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "thick_tunic",
+     "gambeson"
+    ],
+    "origin": "debt",
+    "own": "own_debt_black_suit_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "debt_numbered_jacket",
+   "name": "Numbered Work Jacket",
+   "durability": 35,
+   "fatigue": -3,
+   "value": 70,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of leather_tunic and thick_tunic | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1157_Leather Tunic.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt",
+   "armory": {
+    "name": "a numbered work jacket",
+    "class": "work_jacket",
+    "line": "Orange, a number on the front and the back. The number is what you owe.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "leather_tunic",
+     "thick_tunic"
+    ],
+    "origin": "debt",
+    "own": "own_debt_numbered_jacket",
+    "draft": true
+   }
+  },
+  {
+   "id": "hunt_hide_patch_vest",
+   "name": "Hide-Patch Padded Vest",
+   "durability": 90,
+   "fatigue": -9,
+   "value": 250,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of padded_leather and leather_lamellar_armor | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1516_Padded Leather.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1152_Leather Lamellar Armor.txt",
+   "armory": {
+    "name": "a hide-patch padded vest",
+    "class": "padded_vest",
+    "line": "Patched with the hides of what came out of the lab. The teeth on the cord are theirs too.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "padded_leather",
+     "leather_lamellar_armor"
+    ],
+    "origin": "hunt",
+    "own": "own_hunt_hide_patch_vest",
+    "draft": true
+   }
+  },
+  {
+   "id": "pit_fight_robe_carrier",
+   "name": "Fight-Robe Plate Carrier",
+   "durability": 165,
+   "fatigue": -19,
+   "value": 1230,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of basic_mail_shirt and reinforced_mail_hauberk | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0200_Basic Mail Shirt.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1666_Reinforced Mail Hauberk.txt",
+   "armory": {
+    "name": "a fight-robe plate carrier",
+    "class": "police_vest",
+    "line": "The satin robe the floor sold tickets for, a carrier sewn in. Gold thread, oxblood, old blood.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "basic_mail_shirt",
+     "reinforced_mail_hauberk"
+    ],
+    "origin": "pit",
+    "own": "own_pit_fight_robe_carrier",
+    "draft": true
+   }
+  },
+  {
+   "id": "wolf_gilded_riot_armour",
+   "name": "Gilded Full Riot Armour",
+   "durability": 280,
+   "fatigue": -28,
+   "value": 8000,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of coat_of_scales and coat_of_plates | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0414_Coat of Scales.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0413_Coat of Plates.txt | tune: {\"durability\": 280, \"fatigue\": -28, \"value\": 8000} (Battle Brothers' own golden named body armour, Golden Scale Armor (bb_all/1337_Named Armors.txt: Medium, durability 264 to 300, weight 28, 8000 crowns): plate's hold at a medium weight, the way a famed piece is)",
+   "armory": {
+    "name": "a gilded full riot armour",
+    "class": "riot_armour",
+    "line": "Riot plate under gold leaf, made for one man. The gold is rubbed off wherever somebody hit it.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "coat_of_scales",
+     "coat_of_plates"
+    ],
+    "origin": "wolf",
+    "own": "own_wolf_gilded_riot_armour",
+    "draft": true
+   }
   }
  ],
  "head": [
@@ -2144,6 +2496,328 @@
     ],
     "draft": true
    }
+  },
+  {
+   "id": "rebuild_names_hard_hat",
+   "name": "Names-Taped Hard Hat",
+   "durability": 45,
+   "fatigue": -2,
+   "vision": null,
+   "value": 80,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of aketon_cap and full_aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0819_Full Aketon Cap.txt",
+   "armory": {
+    "name": "a names-taped hard hat",
+    "class": "hard_hat",
+    "line": "Black tape round the crown. The names of the dead are written on it in silver pen.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "aketon_cap",
+     "full_aketon_cap"
+    ],
+    "origin": "rebuild",
+    "own": "own_rebuild_names_hard_hat",
+    "draft": true
+   }
+  },
+  {
+   "id": "newcrew_surplus_hard_hat",
+   "name": "Surplus Hard Hat",
+   "durability": 45,
+   "fatigue": -2,
+   "vision": null,
+   "value": 80,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of aketon_cap and full_aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0819_Full Aketon Cap.txt",
+   "armory": {
+    "name": "a surplus hard hat",
+    "class": "hard_hat",
+    "line": "Olive, stencilled, never dropped yet.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "aketon_cap",
+     "full_aketon_cap"
+    ],
+    "origin": "newcrew",
+    "own": "own_newcrew_surplus_hard_hat",
+    "draft": true
+   }
+  },
+  {
+   "id": "south_sun_wrap_hood",
+   "name": "Sun-Wrap Rag Hood",
+   "durability": 35,
+   "fatigue": -1,
+   "vision": null,
+   "value": 50,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of hood and aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1020_Hood.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
+   "armory": {
+    "name": "a sun-wrap rag hood",
+    "class": "rag_hood",
+    "line": "A sand-coloured wrap for the miles of road with no shade.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "hood",
+     "aketon_cap"
+    ],
+    "origin": "south",
+    "own": "own_south_sun_wrap_hood",
+    "draft": true
+   }
+  },
+  {
+   "id": "truck_hi_vis_hard_hat",
+   "name": "Hi-Vis Hard Hat",
+   "durability": 45,
+   "fatigue": -2,
+   "vision": null,
+   "value": 80,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of aketon_cap and full_aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0819_Full Aketon Cap.txt",
+   "armory": {
+    "name": "a hi-vis hard hat",
+    "class": "hard_hat",
+    "line": "White, a silver band, the water district's drop on the front.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "aketon_cap",
+     "full_aketon_cap"
+    ],
+    "origin": "truck",
+    "own": "own_truck_hi_vis_hard_hat",
+    "draft": true
+   }
+  },
+  {
+   "id": "watch_orange_bandana",
+   "name": "Orange-Bandana Rag Hood",
+   "durability": 35,
+   "fatigue": -1,
+   "vision": null,
+   "value": 50,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of hood and aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1020_Hood.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
+   "armory": {
+    "name": "an orange-bandana rag hood",
+    "class": "bandana",
+    "line": "Orange so the block knows you at night. It is the only thing the twelve of you share.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "hood",
+     "aketon_cap"
+    ],
+    "origin": "watch",
+    "own": "own_watch_orange_bandana",
+    "draft": true
+   }
+  },
+  {
+   "id": "scav_headlamp_hood",
+   "name": "Headlamp Rag Hood",
+   "durability": 35,
+   "fatigue": -1,
+   "vision": null,
+   "value": 50,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of hood and aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1020_Hood.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
+   "armory": {
+    "name": "a headlamp rag hood",
+    "class": "rag_hood",
+    "line": "A hood with a headlamp strapped on. The dark aisles are where the good stuff is.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "hood",
+     "aketon_cap"
+    ],
+    "origin": "scav",
+    "own": "own_scav_headlamp_hood",
+    "draft": true
+   }
+  },
+  {
+   "id": "promise_ribbon_riot_helmet",
+   "name": "Black-Ribbon Riot Helmet",
+   "durability": 120,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 450,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of nasal_helmet and padded_nasal_helmet | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1405_Nasal Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1518_Padded Nasal Helmet.txt",
+   "armory": {
+    "name": "a black-ribbon riot helmet",
+    "class": "riot_helmet",
+    "line": "A riot helmet with a black ribbon tied round it. The ribbon is the promise.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "nasal_helmet",
+     "padded_nasal_helmet"
+    ],
+    "origin": "promise",
+    "own": "own_promise_ribbon_riot_helmet",
+    "draft": true
+   }
+  },
+  {
+   "id": "desert_steel_pot_hard_hat",
+   "name": "Steel-Pot Hard Hat",
+   "durability": 45,
+   "fatigue": -2,
+   "vision": null,
+   "value": 80,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of aketon_cap and full_aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0819_Full Aketon Cap.txt",
+   "armory": {
+    "name": "a steel-pot hard hat",
+    "class": "brim_helmet",
+    "line": "The line's steel pot. The band with the unit's number was cut off.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "aketon_cap",
+     "full_aketon_cap"
+    ],
+    "origin": "desert",
+    "own": "own_desert_steel_pot_hard_hat",
+    "draft": true
+   }
+  },
+  {
+   "id": "raid_hand_print_riot_helmet",
+   "name": "Hand-Print Riot Helmet",
+   "durability": 120,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 450,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of nasal_helmet and padded_nasal_helmet | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1405_Nasal Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1518_Padded Nasal Helmet.txt",
+   "armory": {
+    "name": "a hand-print riot helmet",
+    "class": "riot_helmet",
+    "line": "A red hand on the side. The valley knows what the hand means.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "nasal_helmet",
+     "padded_nasal_helmet"
+    ],
+    "origin": "raid",
+    "own": "own_raid_hand_print_riot_helmet",
+    "draft": true
+   }
+  },
+  {
+   "id": "lab_respirator_hood",
+   "name": "Respirator Rag Hood",
+   "durability": 35,
+   "fatigue": -1,
+   "vision": null,
+   "value": 50,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of hood and aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1020_Hood.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
+   "armory": {
+    "name": "a respirator rag hood",
+    "class": "gas_mask",
+    "line": "The lab issued them for the pens. Nobody knows what you breathe in a pen.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "hood",
+     "aketon_cap"
+    ],
+    "origin": "lab",
+    "own": "own_lab_respirator_hood",
+    "draft": true
+   }
+  },
+  {
+   "id": "faith_bone_cowl",
+   "name": "Bone-Cowl Rag Hood",
+   "durability": 35,
+   "fatigue": -1,
+   "vision": null,
+   "value": 50,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of hood and aketon_cap | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1020_Hood.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
+   "armory": {
+    "name": "a bone-cowl rag hood",
+    "class": "rag_hood",
+    "line": "Bone-white, the circle stitched on the brow.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "hood",
+     "aketon_cap"
+    ],
+    "origin": "faith",
+    "own": "own_faith_bone_cowl",
+    "draft": true
+   }
+  },
+  {
+   "id": "hunt_fur_ruff_hard_hat",
+   "name": "Fur-Ruff Hard Hat",
+   "durability": 85,
+   "fatigue": -4,
+   "vision": null,
+   "value": 230,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of mail_coif and closed_mail_coif | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1227_Mail Coif.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0406_Closed Mail Coif.txt",
+   "armory": {
+    "name": "a fur-ruff hard hat",
+    "class": "hard_hat",
+    "line": "A hard leather cap with a ruff of dire wolf fur. The wolf was not happy about it.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "mail_coif",
+     "closed_mail_coif"
+    ],
+    "origin": "hunt",
+    "own": "own_hunt_fur_ruff_hard_hat",
+    "draft": true
+   }
+  },
+  {
+   "id": "pit_sparring_riot_helmet",
+   "name": "Sparring Riot Helmet",
+   "durability": 120,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 450,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of nasal_helmet and padded_nasal_helmet | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1405_Nasal Helmet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1518_Padded Nasal Helmet.txt",
+   "armory": {
+    "name": "a sparring riot helmet",
+    "class": "riot_helmet",
+    "line": "Red leather headgear over a riot frame. The crowd liked to see your face.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "nasal_helmet",
+     "padded_nasal_helmet"
+    ],
+    "origin": "pit",
+    "own": "own_pit_sparring_riot_helmet",
+    "draft": true
+   }
+  },
+  {
+   "id": "wolf_gilded_riot_helm",
+   "name": "Gilded Full Riot Helm",
+   "durability": 280,
+   "fatigue": -16,
+   "vision": -3,
+   "value": 6000,
+   "source": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md | ORIGINS 11/7 (the armory's sum): the mean of closed_flat_top_with_mail and full_helm | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0405_Closed Flat Top with Mail.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0820_Full Helm.txt | tune: {\"durability\": 280, \"fatigue\": -16, \"value\": 6000} (Battle Brothers' own golden named helmet, Golden Feathered Helmet (bb_all/1337_Named Armors.txt: Medium, durability 264 to 300, weight 16, 6000 crowns))",
+   "armory": {
+    "name": "a gilded full riot helm",
+    "class": "riot_helmet",
+    "line": "A riot helm gilded to match, a gold crest down the crown. Everybody on the road knows the shape of it.",
+    "tier": "town",
+    "kind": "origin",
+    "between": [
+     "closed_flat_top_with_mail",
+     "full_helm"
+    ],
+    "origin": "wolf",
+    "own": "own_wolf_gilded_riot_helm",
+    "draft": true
+   }
   }
  ],
  "shields": [
@@ -2903,5 +3577,10 @@
   "head": 4,
   "by": "tools/bohemia_armory.py from armory.json",
   "record": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md"
+ },
+ "_origins": {
+  "count": 30,
+  "by": "tools/bohemia_origins_their_own_gear.py rows from armory.json (rows with origin)",
+  "record": "records/BOHEMIA_ORIGINS_EACH_ORIGIN_ITS_OWN_11_7_26.md"
  }
 }

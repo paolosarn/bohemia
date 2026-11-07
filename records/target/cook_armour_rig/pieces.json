@@ -695,5 +695,663 @@
    "buckle"
   ],
   "cell_px": 0.5
+ },
+ "own_wolf_gilded_riot_armour": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 73648,
+  "parts": 10,
+  "glass": false,
+  "own_art": [
+   "gold leaf over black plate",
+   "sunburst on the chest",
+   "engraved band",
+   "rub-through to black",
+   "a dent",
+   "gilded shoulder plates",
+   "black collar and binding",
+   "belly plate"
+  ],
+  "cell_px": 0.5,
+  "origin": "wolf"
+ },
+ "own_wolf_gilded_riot_helm": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 62804,
+  "parts": 8,
+  "glass": true,
+  "own_art": [
+   "gilded dome",
+   "engraved band",
+   "gold crest down the crown",
+   "smoked visor",
+   "gilded pivots",
+   "black neck guard"
+  ],
+  "cell_px": 0.5,
+  "origin": "wolf"
+ },
+ "own_rebuild_black_band_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 27132,
+  "parts": 1,
+  "glass": false,
+  "own_art": [
+   "rust canvas quilting",
+   "black band",
+   "the old crew ring stencilled",
+   "scraped",
+   "grime"
+  ],
+  "cell_px": 0.5,
+  "origin": "rebuild"
+ },
+ "own_rebuild_names_hard_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 46920,
+  "parts": 3,
+  "glass": false,
+  "own_art": [
+   "dirty white dome",
+   "black tape band",
+   "names in silver pen",
+   "ridge",
+   "brim"
+  ],
+  "cell_px": 0.5,
+  "origin": "rebuild"
+ },
+ "own_newcrew_surplus_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 31844,
+  "parts": 3,
+  "glass": false,
+  "own_art": [
+   "olive quilting",
+   "the white tag",
+   "black webbing straps",
+   "belt webbing"
+  ],
+  "cell_px": 0.5,
+  "origin": "newcrew"
+ },
+ "own_newcrew_surplus_hard_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 46920,
+  "parts": 3,
+  "glass": false,
+  "own_art": [
+   "olive dome",
+   "stencil",
+   "ridge",
+   "brim"
+  ],
+  "cell_px": 0.5,
+  "origin": "newcrew"
+ },
+ "own_south_road_dust_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 27132,
+  "parts": 1,
+  "glass": false,
+  "own_art": [
+   "sun-bleached tan",
+   "red dust at the hem",
+   "the interstate shield patch",
+   "its numbers"
+  ],
+  "cell_px": 0.5,
+  "origin": "south"
+ },
+ "own_south_sun_wrap_hood": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 44688,
+  "parts": 2,
+  "glass": false,
+  "own_art": [
+   "sand wrap",
+   "dark band",
+   "wrap folds",
+   "loose tail"
+  ],
+  "cell_px": 0.5,
+  "origin": "south"
+ },
+ "own_truck_hi_vis_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 25776,
+  "parts": 2,
+  "glass": false,
+  "own_art": [
+   "hi-vis rubber",
+   "silver bands",
+   "front braces",
+   "back cross",
+   "zip"
+  ],
+  "cell_px": 0.5,
+  "origin": "truck"
+ },
+ "own_truck_hi_vis_hard_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 46920,
+  "parts": 3,
+  "glass": false,
+  "own_art": [
+   "white dome",
+   "silver band",
+   "blue water drop"
+  ],
+  "cell_px": 0.5,
+  "origin": "truck"
+ },
+ "own_watch_armband_jacket": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 42828,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "faded denim jacket",
+   "orange armband",
+   "house number on the back",
+   "collar",
+   "placket"
+  ],
+  "cell_px": 0.5,
+  "origin": "watch"
+ },
+ "own_watch_orange_bandana": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 16228,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "orange bandana",
+   "paisley dots",
+   "knot",
+   "tails"
+  ],
+  "cell_px": 0.5,
+  "origin": "watch"
+ },
+ "own_scav_tool_belt_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 28088,
+  "parts": 6,
+  "glass": false,
+  "own_art": [
+   "orange apron vest",
+   "pockets",
+   "tool belt",
+   "hammer handle",
+   "pry bar",
+   "wrench",
+   "tape measure"
+  ],
+  "cell_px": 0.5,
+  "origin": "scav"
+ },
+ "own_scav_headlamp_hood": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 46960,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "grey hood",
+   "lamp band",
+   "headlamp",
+   "its glass"
+  ],
+  "cell_px": 0.5,
+  "origin": "scav"
+ },
+ "own_promise_funeral_carrier": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 29704,
+  "parts": 9,
+  "glass": false,
+  "own_art": [
+   "black funeral coat",
+   "lapels",
+   "white lily",
+   "stem",
+   "black ribbon",
+   "straps"
+  ],
+  "cell_px": 0.5,
+  "origin": "promise"
+ },
+ "own_promise_ribbon_riot_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 60472,
+  "parts": 8,
+  "glass": true,
+  "own_art": [
+   "riot shell",
+   "smoked visor",
+   "black ribbon",
+   "its knot and tails",
+   "name tag"
+  ],
+  "cell_px": 0.5,
+  "origin": "promise"
+ },
+ "own_desert_torn_patch_carrier": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 31384,
+  "parts": 6,
+  "glass": false,
+  "own_art": [
+   "olive drab carrier",
+   "clean squares where patches were",
+   "hanging threads",
+   "mag pouches",
+   "straps"
+  ],
+  "cell_px": 0.5,
+  "origin": "desert"
+ },
+ "own_desert_steel_pot_hard_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 53192,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "steel pot",
+   "cut band",
+   "brim",
+   "open chin strap"
+  ],
+  "cell_px": 0.5,
+  "origin": "desert"
+ },
+ "own_raid_trophy_carrier": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 30996,
+  "parts": 15,
+  "glass": false,
+  "own_art": [
+   "dark leather carrier",
+   "cord across the chest",
+   "keys",
+   "dog tags",
+   "other crews patches"
+  ],
+  "cell_px": 0.5,
+  "origin": "raid"
+ },
+ "own_raid_hand_print_riot_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 49208,
+  "parts": 4,
+  "glass": true,
+  "own_art": [
+   "riot shell",
+   "red hand print",
+   "smoked visor",
+   "rim"
+  ],
+  "cell_px": 0.5,
+  "origin": "raid"
+ },
+ "own_lab_coat_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 36152,
+  "parts": 5,
+  "glass": false,
+  "own_art": [
+   "lab coat gone brown",
+   "stains",
+   "lapels",
+   "collar",
+   "lanyard",
+   "badge",
+   "orange tag"
+  ],
+  "cell_px": 0.5,
+  "origin": "lab"
+ },
+ "own_lab_respirator_hood": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 50456,
+  "parts": 5,
+  "glass": false,
+  "own_art": [
+   "pale hood",
+   "half mask",
+   "two cartridges",
+   "strap"
+  ],
+  "cell_px": 0.5,
+  "origin": "lab"
+ },
+ "own_faith_ash_robe": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 51382,
+  "parts": 6,
+  "glass": false,
+  "own_art": [
+   "long grey robe",
+   "ash",
+   "test circle rings on the back",
+   "colour bars",
+   "rope belt",
+   "collar",
+   "sleeves"
+  ],
+  "cell_px": 0.5,
+  "origin": "faith"
+ },
+ "own_faith_bone_cowl": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 42572,
+  "parts": 1,
+  "glass": false,
+  "own_art": [
+   "bone-white cowl",
+   "the circle on the brow"
+  ],
+  "cell_px": 0.5,
+  "origin": "faith"
+ },
+ "own_debt_black_suit_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 25388,
+  "parts": 1,
+  "glass": false,
+  "own_art": [
+   "black suit",
+   "white shirt",
+   "thin dark tie",
+   "lapels",
+   "buttons"
+  ],
+  "cell_px": 0.5,
+  "origin": "debt"
+ },
+ "own_debt_numbered_jacket": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 42828,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "safety orange jacket",
+   "big number on the back",
+   "number on the front",
+   "barcode",
+   "collar",
+   "sleeves"
+  ],
+  "cell_px": 0.5,
+  "origin": "debt"
+ },
+ "own_hunt_hide_patch_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 28372,
+  "parts": 9,
+  "glass": false,
+  "own_art": [
+   "leather vest",
+   "hide patches",
+   "fur streaks",
+   "stitching",
+   "cord",
+   "teeth"
+  ],
+  "cell_px": 0.5,
+  "origin": "hunt"
+ },
+ "own_hunt_fur_ruff_hard_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 38010,
+  "parts": 2,
+  "glass": false,
+  "own_art": [
+   "hard leather cap",
+   "seam",
+   "dire wolf fur ruff"
+  ],
+  "cell_px": 0.5,
+  "origin": "hunt"
+ },
+ "own_pit_fight_robe_carrier": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 46788,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "oxblood satin robe",
+   "gold trim",
+   "sheen",
+   "gold name on the back",
+   "gold collar",
+   "sleeves"
+  ],
+  "cell_px": 0.5,
+  "origin": "pit"
+ },
+ "own_pit_sparring_riot_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 34720,
+  "parts": 4,
+  "glass": false,
+  "own_art": [
+   "red leather headgear",
+   "gold band",
+   "centre seam",
+   "cheek guards",
+   "chin strap"
+  ],
+  "cell_px": 0.5,
+  "origin": "pit"
  }
 }

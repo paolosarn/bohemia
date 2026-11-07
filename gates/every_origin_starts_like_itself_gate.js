@@ -103,8 +103,12 @@ async function crewScreen(d, mouse) {
   const dm = (W.door && W.door.men && W.door.men[0]) || {}, kit = dm.kit || {};
   const kitReal = (kit.main || []).every(id => has(WROWS, id)) && (kit.off || []).every(id => has(ARM.shields, id)) && (kit.body || []).every(id => has(ARM.body, id))
     && (kit.head || []).every(id => has(ARM.head, id)) && (kit.bag || []).every(id => has(WROWS, id));
+  /* RE-AIMED ORIGINS 11/7 (rule 427(c), [eyes: the god is too heavy]): his body and head are now the Lone Wolf's own gilded pieces
+     (origins.json personal.look.wears; Battle Brothers' golden named armour's numbers), his weapon and shield still god3's */
+  const WEARS = (W.personal && W.personal.look && W.personal.look.wears) || {};
   const sameAsGod = JSON.stringify(dm.stars) === JSON.stringify(GOD.stars) && JSON.stringify(dm.plan) === JSON.stringify(GOD.plan)
-    && ['main', 'off', 'body', 'head'].every(k => JSON.stringify(kit[k]) === JSON.stringify(GOD.kit[k]));
+    && ['main', 'off'].every(k => JSON.stringify(kit[k]) === JSON.stringify(GOD.kit[k]))
+    && JSON.stringify(kit.body) === JSON.stringify([WEARS.body]) && JSON.stringify(kit.head) === JSON.stringify([WEARS.head]);
   ok('W1 the file: the Lone Wolf\'s door block is TUNING\'s god3 (three stars each on ranged defence, melee skill, melee defence; four picks a level; the hedge knight\'s kit in real rows; the pistol in his bag; real perks)',
     !!W.door && W.men.length === 1 && W.men[0].level === 4 && sameAsGod && kitReal && (dm.modifiers || {}).melee_defense === -2 && kit.bag && kit.bag[0] === 'rondel_dagger'
     && (dm.perks || []).length === 3 && dm.perks.every(id => has(PERKS, id)) && dm.levels_taken === true,
@@ -132,9 +136,12 @@ async function crewScreen(d, mouse) {
     } });
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   try {
-    const want = BANK.wolf_spread.god3, off = STATS.filter(k => JSON.stringify(pre.spread.out[k]) !== JSON.stringify(want[k]));
+    /* RE-AIMED ORIGINS 11/7: Battle Brothers' Player Character trait (+10 resolve, the door's modifiers) moves the bench's resolve by ten */
+    const shift = k => ((dm.modifiers || {})[k] | 0) - (k === 'melee_defense' ? -2 : 0);
+    const want = {}; STATS.forEach(k => { want[k] = BANK.wolf_spread.god3[k].map(v => v + shift(k)); });
+    const off = STATS.filter(k => JSON.stringify(pre.spread.out[k]) !== JSON.stringify(want[k]));
     ok('*** W2 THE GAME ROLLS TUNING\'S MEASURED MAN *** (200 seeds: every stat\'s lowest, median and highest are the bench\'s exactly; ' + pre.spread.distinct + ' different men, ' + pre.spread.kits + ' different kits)',
-      off.length === 0 && pre.spread.distinct === 200 && pre.spread.kits >= 12,
+      off.length === 0 && pre.spread.distinct === 200 && pre.spread.kits >= 3,   /* RE-AIMED ORIGINS 11/7: one gilded suit and helm, his weapon rolled (three) */
       off.length ? 'off: ' + off.map(k => k + ' ' + JSON.stringify(pre.spread.out[k]) + ' vs ' + JSON.stringify(want[k])).join('; ') : 'melee skill ' + JSON.stringify(pre.spread.out.melee_skill) + ', ranged def ' + JSON.stringify(pre.spread.out.ranged_defense) + ', melee def ' + JSON.stringify(pre.spread.out.melee_defense));
 
     const c0 = (pre.picks.company || [])[0] || {};
@@ -196,7 +203,9 @@ async function crewScreen(d, mouse) {
       o.rolls.forEach((r, s) => r.forEach((m, i) => { const W0 = want[i], R = BGR[m.bg], g = W0.gear;
         if (!m.rolled || m.level !== W0.level) bad.push('level ' + i);
         const st = Object.keys(m.stars || {}); if (st.length !== 3 || st.some(k => !(m.stars[k] >= 1 && m.stars[k] <= 3))) bad.push('stars ' + i);
-        if (m.gear.main !== g.main || (m.gear.off || null) !== (g.off || null) || m.gear.body !== g.body || m.gear.head !== g.head) bad.push('kit ' + i);
+        /* RE-AIMED ORIGINS 11/7 (rule 427(c)): his body and head are his origin's own (the file's door kit), his arms the bank's */
+        const fk = (f.door && f.door.men && f.door.men[i] && f.door.men[i].kit) || {};
+        if (m.gear.main !== g.main || (m.gear.off || null) !== (g.off || null) || m.gear.body !== fk.body || m.gear.head !== fk.head) bad.push('kit ' + i);
         if (m.perks) bad.push('perks taken ' + i);
         STATS.forEach(k => { if (m.stats[k] < R.stats[k][0]) bad.push('under range ' + i + ' ' + k); if (W0.level === 1 && m.stats[k] > R.stats[k][R.stats[k].length - 1]) bad.push('over range ' + i + ' ' + k); }); }));
       /* a stated level is real: over twenty games a level-2+ man's levels lift him past his background's top somewhere */

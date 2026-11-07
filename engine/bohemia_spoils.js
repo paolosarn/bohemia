@@ -25,7 +25,10 @@
   function partFound(part, now, max, D, rnd) {
     var r = D.drop[part]; if (!r) return { found: false, wrecked: false };
     if (!(now > r.min_durability_over) || pct(now, max) < r.min_pct) return { found: false, wrecked: true };
-    if (rnd() * 100 >= r.roll_pct) return { found: false, wrecked: false };
+    /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the raiders strip the dead twice: a piece the roll missed gets one more look (Battle
+       Brothers' Northern Raiders: 'a higher chance to get items from slain enemies as loot'); D.way is the origin's rule (the spoils screen
+       hands engine/bohemia_origin_ways.js does()); the second die is thrown only then, so nobody else's dice move */
+    if (rnd() * 100 >= r.roll_pct && !(D.way && D.way.loot_second_look && rnd() * 100 < r.roll_pct)) return { found: false, wrecked: false };
     var cond = now, w = D.drop.wear;
     if (w && w.parts.indexOf(part) >= 0 && pct(now, max) > w.above_pct && rnd() * 100 < w.chance_pct) {
       var lo = Math.round(max * w.down_to_pct / 100); cond = lo + Math.floor(rnd() * (Math.max(lo, now) - lo + 1));

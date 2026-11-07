@@ -761,6 +761,7 @@ function open(o){
   /* ONE END SCREEN FOR EVERY FIGHT (rule 164 item 28): a won fight leaves its dead's gear; a loss, a retreat and a wipe leave nothing */
   S.won = f.result === 'won' && !f.retreat && !f.wipe && !f.arena;   /* __THE_ARENA__ (ARENA, rule 375; bb_all/0620: 'you won't be able to loot your victims'): the pit pays its purse, nothing comes off the dead */
   var seed = o.seed != null ? o.seed : hash(JSON.stringify((f.spoils && f.spoils.bodies) || []) + ':' + (f.rounds | 0));
+  try{ var OWl = window.top && window.top.BohemiaOriginWays; if(S.L) S.L.way = OWl ? OWl.does() : null; }catch(_e){}   /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS): the raiders' second look */
   S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;

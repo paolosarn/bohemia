@@ -54,9 +54,13 @@
      night a half kilo, as much as the company eats before it turns, two nights a man), and its HIDE is ECONOMY's own trade good,
      HIDES ('hides off the escaped lab beasts, rolled', records/target/bb/stall_prices.json trade): one roll a kill, in the stash, made
      by ECONOMY's own tradeItem so every stall buys it at the town's price and the map marks where it sells best (rule 425(b)) */
+  function owTrophy() { try { var W = root.top && root.top.BohemiaOriginWays; var x = W && W.does().trophy_extra_pct; return x > 0 ? +x : 0; } catch (e) { return 0; } }
   function goodsOf(by) {
     var kg = 0; Object.keys(by || {}).forEach(function (id) { kg += (kindRow(id).kg || 60) * Math.max(1, by[id] | 0); });
-    return [{ what: 'meat', kg: Math.round(kg * V('meat_share', 0.45)) }, { what: 'hide', good: V('hide.good', 'hides'), n: Math.max(1, V('hide.rolls_a_kill', 1) | 0) }];
+    /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the hunters take an extra hide half the time (Battle Brothers' Beast Slayers: '50% chance to
+       get additional beast trophies'; records/target/bb/origins.json personal.rule.does.trophy_extra_pct) */
+    var hides = Math.max(1, V('hide.rolls_a_kill', 1) | 0), xp = owTrophy(); if (xp > 0 && Math.random() * 100 < xp) hides++;
+    return [{ what: 'meat', kg: Math.round(kg * V('meat_share', 0.45)) }, { what: 'hide', good: V('hide.good', 'hides'), n: hides }];
   }
   var STALLP = null, PIC = {};
   fetch('../records/target/bb/stall_prices.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (j) { STALLP = j; }).catch(function () {});

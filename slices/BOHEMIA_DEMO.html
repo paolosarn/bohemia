@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"017ebd0a70bf3d5d",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"9422d1242892aaa8",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/7w - NINE ENEMIES IN THEIR OWN CLOTHES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/7x - EACH ORIGIN ITS OWN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12478,6 +12478,9 @@ function nfOpts(d){
   try{ if(d && d.boss && d.boss.kind){ o.boss = d.boss; if(d.boss.board) o.kind = d.boss.board; } }catch(_e){}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): the man and his own board (slices/bohemia_bosses.js) */
   /* __THE_ORIGIN_SETS_THE_COMPANY__ (rule 75a): the company the origin built, and its field cap, to the fight */
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
+  /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own way in the fight (its rule's fight keys: the deserters first to act,
+     the lab rats never confident, the faithful never flee, the promise keepers' standard, the collectors' whip), engine/bohemia_origin_ways.js */
+  try{ if(window.BohemiaOriginWays){ var ow = BohemiaOriginWays.fight(); if(ow) o.originWay = ow; } }catch(_e){}
   try{ if(window.BohemiaCrashbox && !BohemiaCrashbox.hintsOn()) o.teach = false; }catch(_e){}   /* UI round 3 (ask 262): HINTS OFF on the start screen: the veteran keeps his lessons to himself */
   /* __DAMAGE_STAYS__ (CAMP, rule 226; RUN's [eyes: the dead stand up]): an origin's men carry no names, so the fight named them by
      their place in the list and a man dropped from it moved every man behind him into the dead man's name; each is named once
@@ -13934,6 +13937,7 @@ var BOH_START = (function(){
   function showPicked(){ try{ var st = document.getElementById('newcostrip'), on = st && st.querySelector('.org.on'); if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 10); }catch(_e){} }
   function boot(){ build(); showPicked(); load();
     try{ var so = document.createElement('script'); so.src = '../engine/bohemia_origin_start.js'; so.async = true; document.head.appendChild(so); }catch(_e){}   /* RUN TWO [every origin starts like itself]: the door's roll, read after the door */
+    try{ var sw = document.createElement('script'); sw.src = '../engine/bohemia_origin_ways.js'; sw.async = true; document.head.appendChild(sw); }catch(_e){}   /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's look, its home shelf and its rule, read by every frame off this page */
     var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap); nameWire(el);
     /* RUN 10/25 (EYES new 11): on a computer the wheel moves the origins' row, so every origin is in a mouse's reach */
     el.addEventListener('wheel', function(e){ var st = document.getElementById('newcostrip'); if(!st || !(e.target.closest && e.target.closest('#newcostrip'))) return; var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if(!d) return; st.scrollLeft += d; e.preventDefault(); }, { passive: false }); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
@@ -14301,7 +14305,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1', 'bohemia.soldto.v1', 'bohemia.stall.need.v1', 'bohemia.fight.start.v1', 'bohemia.roadevents.v1', 'bohemia.arena.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__, __SELL_AT_THE_STALL__: what he sold and what a town has bought into its need are the old game's */   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1', 'bohemia.soldto.v1', 'bohemia.stall.need.v1', 'bohemia.fight.start.v1', 'bohemia.roadevents.v1', 'bohemia.arena.v1', 'bohemia.origin.home.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* __EACH_ORIGIN_ITS_OWN__: the old game's home town */   /* RUN TWO __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__, __SELL_AT_THE_STALL__: what he sold and what a town has bought into its need are the old game's */   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
