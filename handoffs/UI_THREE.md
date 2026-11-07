@@ -1,3 +1,11 @@
+UI THREE (ui-three-stats): rule 433, session ui-three-session_01GKDyuvPvmndtYsPNo59Yab -- 11/7 LATEST (round four, the coordinator's routine "UI THREE: shop shows on tap", ask line 518) -- [nothing shows until he taps] BUILT, NOT YET SEEN; BUILD 11/7v - NOTHING SHOWS UNTIL HE TAPS (e2469281); VOTE card ui3-nothing-shows-until-he-taps-11-7 (STAND-IN). Record records/BOHEMIA_UI_THREE_NOTHING_SHOWS_UNTIL_HE_TAPS_11_7_26.md.
+- slices/BOHEMIA_SETTLEMENT_SCREEN.html __NOTHING_SHOWS_UNTIL_HE_TAPS__ (after __UI_THREE_ITEMS__): .upm only on .sel; #shopstrip .onman.ss-empty hidden (visibility, nothing moves); openB drops a piece lit in another building; a click outside #shelfgrid, #baggrid, #shopstrip, #bwcard and every press puts it away (window.__UI3_433 counts). MEASURED BEFORE: a green arrow on 7 of 7 shelf pieces and his men's faces waiting, at rest; a piece lit on an earlier visit still lit.
+- GATE: THE ITEM CARD AND THE ITEM BOX legs R1 to R4 (at rest, one tap, a tap elsewhere, walking back in), phone and computer; plant: the comparison at rest turns R1 red. RUN TWO's THE SHOP TAPS reads the logic (.up), untouched.
+NAMED, NOT MINE: SCROLLING IS ILLEGAL N8/N9 red on clean main b0da49cd: the hall's new retinue rows (RETINUE, .campf.retf) run past the glass on the phone; RETINUE and UI 9 own it.
+NEXT for this lane, in order: (1) [an icon for every perk] (252); (2) [icons not numbers] round three, the count on the seven screens; (3) the fight's weapon card when COMBAT opens its file (BohemiaItemCard.card). Rule 433(b) on every screen this lane touches: the crew screen's comparison already waits for a tap.
+[bb Battle Brothers' market shows the shelf and the prices; how a piece sits on a man comes on the hover.]
+[analog horror: the pawnshop's counter is bare until he points at something; then the clerk's lamp comes on over it.]
+
 UI THREE (ui-three-stats): the item card and the item box, session ui-three-session_01GKDyuvPvmndtYsPNo59Yab -- 11/7 LATEST (round three, rule 425(a),
 asks 175 and 178; 145 and 146 moved on) -- [the weapon card] and [the item box] SHIPPED, BUILT, NOT YET SEEN (rule 179); BUILD 11/7s - THE ITEM CARD
 IS PICTURES; VOTE card ui3-the-item-card-and-the-item-box-11-7 (STAND-IN). Record records/BOHEMIA_UI_THREE_THE_ITEM_CARD_AND_THE_ITEM_BOX_11_7_26.md.
