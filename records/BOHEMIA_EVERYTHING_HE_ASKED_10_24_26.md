@@ -513,3 +513,10 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 489 | Some two-handed weapons don't show in the hands; every weapon shows | 424(a) | WEAPONS | IN FLIGHT 11/7 |
 | 490 | More one-handed weapons | 424(b) | WEAPONS | IN FLIGHT 11/7 |
 | 491 | More of the jobs he asked for months ago; everything recorded | 425 | the coordinator; UI THREE, ECONOMY, RETINUE opened | IN FLIGHT 11/7 |
+| 492 | Streets in the right places: a street in front of every house (only a trailer park otherwise), on the map's generation and so the board; the marriage of map and board stays | 426(a) | COMBAT TWO | IN FLIGHT 11/7 |
+| 493 | The scavenge design: YES, build it as a fun minigame | 426(b) | SCAVENGE | IN FLIGHT 11/7 |
+| 494 | The pistol is too tiny in the hand | 426(c) | WEAPONS | IN FLIGHT 11/7 |
+| 495 | The zoom down into the board needs more | 426(d) | MOTION 2 | IN FLIGHT 11/7 |
+| 496 | The carcass: simpler, one quick tap into storage, no cart (the cart was an example) | 426(e) | WORLD 12 | IN FLIGHT 11/7 |
+| 497 | The arena map is ugly: remake its look | 426(f) | ARENA 2 | IN FLIGHT 11/7 |
+| 498 | More: the kill cams on the beat | 426(h) | ANIMATION | IN FLIGHT 11/7 |
