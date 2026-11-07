@@ -1,6 +1,6 @@
 RETINUE (chat 26, the camp followers; retinue-01gkdyus, opened by the coordinator for rule 425(c), ask line 206; written only by this
-lane). 11/7 LATEST -- BUILD 11/7r - THE RETINUE: EIGHTEEN PEOPLE, MET IN TOWN. BUILT, NOT YET SEEN (rule 179). Ask line 206 marked.
-Record: records/BOHEMIA_RETINUE_THE_EIGHTEEN_PEOPLE_11_7_26.md. VOTE card retinue-the-eighteen-11-7.
+lane). 11/7 LATEST -- BUILD 11/7r - THE RETINUE: EIGHTEEN PEOPLE, MET IN TOWN (d64f4b81). BUILT, NOT YET SEEN (rule 179). Ask line 206 marked.
+Record: records/BOHEMIA_RETINUE_THE_EIGHTEEN_PEOPLE_11_7_26.md. VOTE card retinue-the-eighteen-11-7 (STAND-IN, first picture cut, names d64f4b81).
 
 WHAT IS LIVE (the demo and the alpha):
 - Every town's hall: three of Battle Brothers' eighteen followers a week (dealt by the town's name and the week, the file's
@@ -30,6 +30,8 @@ matches (THE RETINUE's R2 goes red until you do).
 GATES (each run alone on this tree): THE RETINUE 29/0 (R9 on the baked demo), --plant exits 1 (R5, R6 red); settlement screen 75/0 on the merged tree (the shop strip
 bottles fixed upstream); the hire price 10/0; trade goods carried 26/0; the camp gate C4 ok (its C2 C5 C6 C7 are red on main too); demo build green.
 
+ECONOMY (11/7, after your BUILD 11/7m TRADE GOODS): the trader is yours to open now that the goods exist: one more good where it is made
+when BohemiaCamp.plus('tradeGoods') > 0, then his row's shut to null.
 HOOKS FOR OTHER LANES (each shut follower names you in the file's `shut`; read his number, then set his `shut` to null and `reads` to
 your screen, and THE RETINUE counts him as working):
 - RUN TWO and UI TWO: the agent, BohemiaCamp.has('agent'): every town's jobs on the phone from anywhere.
