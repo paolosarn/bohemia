@@ -98,6 +98,7 @@
     + S + ' .hire .hedge{grid-column:2 / -1;font-size:11px!important;line-height:14px;margin:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}'
     + S + '.ns-d2 .hire .hedge,' + S + '.ns-d2 .hire .hgun .arm,' + S + '.ns-d2 .hire .hgun b,' + S + '.ns-d2 .hire .htrait em{display:none!important}'
     + S + '.ns-d2 .hire .ns-hl>*{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}' + S + '.ns-d2 .hire .hgun{flex:none}'
+    + S + '.ns-d2 .hire .ns-hl>.hceil{flex:none}' + S + '.ns-d2 .hire .hrare{font-size:0!important;flex:none}' + S + '.ns-d2 .hire .hrare b{font-size:11px!important}'   /* a rare man's kit in words: the held tip */
     /* his eight on one line: the icon, the number, the stars as small marks; the bar a thin line under the number */
     + S + ' .hire .hstats{grid-area:st;display:flex!important;flex-wrap:nowrap;justify-content:space-between;gap:0 2px!important;margin:0!important;padding:1px 4px!important;min-width:0;filter:none!important}'
     + S + ' .hire .hstats span.bst-row{display:inline-flex!important;align-items:center;gap:1px!important;height:15px!important;min-height:0!important;flex:0 1 auto;min-width:0}'
