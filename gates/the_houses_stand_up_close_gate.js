@@ -93,8 +93,15 @@ async function run(prof) {
   const M = await fr.evaluate(() => {
     const F = BohemiaMapHouses.frame(), L = BohemiaMapHouses.last, out = { n: F.length, a: L.a, kinds: {}, unseen: 0, flat: 0, flatN: 0, tall: [], keys: {} };
     F.forEach(e => { out.kinds[e.kind] = (out.kinds[e.kind] | 0) + 1; out.keys[e.k.replace(/_\d+$/, '')] = 1; if (!fogSeen(e.gx, e.gy)) out.unseen++; if (e.kind === 0) out.tall.push(e.rh); });
+    /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7): the yard is read as the painter's OWN height at the model's middle
+       (its tile painted again with the heights kept, inp.wantH), never the picture's depth there: with every house on its street
+       the rows stand at the blocks' edges, and a freeway's berm or a works block in front covers a yard's middle on the picture
+       (measured: 16 of 67 models beside a freeway; the depth is the berm's, the yard is flat). The depth is still printed. */
+    const HSof = {};
     F.filter(e => e.kind === 0).slice(0, 12).forEach(e => { const T = e.T; if (!T || !T.dep || !T.flat) return; out.flatN++;
-      const u = Math.floor((e.X - T.org[0]) * T.S), v = Math.floor((e.Y - T.org[1]) * T.S); const k = T.dep[v * T.P + u] | 0; (out.ks || (out.ks = [])).push(k); if (k < Math.max(1, T.S / 24)) out.flat++; });
+      const key = T.tx + ',' + T.ty + ':' + T.S; if (!HSof[key]) { const inp = vbTileInput(T.tx, T.ty, T.S); inp.wantH = true; const c = vbCityCore(inp); HSof[key] = { HS: c.stand.HS, P: c.P, S: c.S }; }
+      const H = HSof[key], u = Math.floor((e.X - T.org[0]) * T.S), v = Math.floor((e.Y - T.org[1]) * T.S), k = T.dep[v * T.P + u] | 0, h = H.HS[v * H.P + u] || 0;
+      (out.ks || (out.ks = [])).push(k + (h >= 1 ? '!' : '')); if (h < 1) out.flat++; });
     return out; });
   ok('M1 ' + prof + ': at the street stop the studio\'s models stand on the painter\'s lots', M.n >= 8 && M.a === 1 && (M.kinds[0] | 0) + (M.kinds[1] | 0) === M.n,
      M.n + ' drawn (' + (M.kinds[0] | 0) + ' houses, ' + (M.kinds[1] | 0) + ' trailers; models ' + Object.keys(M.keys).join(', ') + ')');
@@ -106,7 +113,7 @@ async function run(prof) {
     return { stand, n }; });
   /* a nearer tower can stand over a yard's middle on the picture (its depth is the tower's): four in five */
   ok('M2 ' + prof + ': under the models the painter lays the yard (and without the yards the box stands there)', M.flatN >= 4 && M.flat >= Math.ceil(M.flatN * 0.8) && !!mut && mut.n >= 1 && mut.stand >= Math.ceil(mut.n * 0.75),
-     M.flat + ' of ' + M.flatN + ' house grounds flat on their yard tiles (depth ' + (M.ks || []).join(',') + '); painted without the yards ' + (mut ? mut.stand + ' of ' + mut.n + ' stand' : 'no tile'));
+     M.flat + ' of ' + M.flatN + ' house grounds flat on their yard tiles (the painter\'s own height there under a texel; the picture\'s depth ' + (M.ks || []).join(',') + ', ! where the yard itself stands); painted without the yards ' + (mut ? mut.stand + ' of ' + mut.n + ' stand' : 'no tile'));
   const man = ph.length ? Math.max.apply(null, ph) : 0, tallMed = M.tall.length ? M.tall.slice().sort((a, b) => a - b)[M.tall.length >> 1] : 0;
   /* his men are the party at their one size (rule 21); a house grows with the zoom: at the street stop it stands over them */
   ok('M3 ' + prof + ': TALLER: at the street stop a house stands over his men (the median at least 1.6 times his height, the tallest twice)', man > 0 && tallMed >= 1.6 * man && Math.max.apply(null, M.tall) >= 2 * man,

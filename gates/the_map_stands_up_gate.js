@@ -55,15 +55,16 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 15, U3: L.fwy >= 5.5,
     /* the core run in the page, as written, and three times with one line of it broken */
     const MUT = {
       sun: ['SUN_DROP = 0.78', 'SUN_DROP = 1e9'],
-      flat: ['wall + 1.6 * T * (1 - dr)', 'Q'],
+      flat: ['wall + 1.6 * T * (1 - dr)', 'Q', 'lwall + 1.6 * T * (1 - ldr)', 'Q'],   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7): a house on its street stands by its own line; both laid flat */
       berm: ['lift = Math.min(top3, (dB + 0.5) * 1.1);', 'lift = 0;'],
     };
     const runs = await d.fr.evaluate((MUT) => {
       const inp = vbCityInput(), out = {}, src = vbCityCore.toString();
       out.real = vbCityCore(inp).stand;
       for (const k in MUT) {
-        if (src.indexOf(MUT[k][0]) < 0) { out[k] = { missing: MUT[k][0] }; continue; }
-        const f = (0, eval)('(' + src.replace(MUT[k][0], MUT[k][1]) + ')');
+        let ms = src, miss = null; for (let i = 0; i < MUT[k].length; i += 2) { if (ms.indexOf(MUT[k][i]) < 0) { miss = MUT[k][i]; break; } ms = ms.replace(MUT[k][i], MUT[k][i + 1]); }
+        if (miss) { out[k] = { missing: miss }; continue; }
+        const f = (0, eval)('(' + ms + ')');
         out[k] = f(inp).stand;
       }
       return out;
@@ -96,10 +97,14 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 15, U3: L.fwy >= 5.5,
          stands there, the painter's own depth: the owner is k texels toward the camera), never the ground under it: at three
          times the height a block's own ground is mostly the walls of the block in front of it, so a family read off its ground
          was its neighbours' walls (shop/trailer 4.7 apart that way, 11.2 by owner; by owner the old heights read 8.3) */
-      const read = (inp) => { const r = vbCityCore(inp), P = r.P, S = r.S, PAD = r.PAD, N = inp.N, acc = {}, FK = Object.keys(FAM), fam = new Int8Array(N * N).fill(-1);
+      /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7, rule 426(a)): a house block's own street down its middle is the
+         street's, not the family's: its texels (the painter's own class, road) are left out of the family's mean, as the mile
+         streets always were (they are no family) */
+      const read = (inp) => { inp = Object.assign({}, inp, { coli: true }); const r = vbCityCore(inp), P = r.P, S = r.S, PAD = r.PAD, N = inp.N, acc = {}, FK = Object.keys(FAM), fam = new Int8Array(N * N).fill(-1), CO = r.coli;
         for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const dd = om.at(x, y).district; for (let i = 0; i < FK.length; i++) if (FAM[FK[i]].test(dd)) fam[y * N + x] = i; }
         for (let v = 0; v < P; v += 2) for (let u = 0; u < P; u += 2) { const k = r.dep[v * P + u], bx = Math.floor((u + k) / S) - PAD, by = Math.floor((v + k) / S) - PAD;
           if (bx < 0 || by < 0 || bx >= N || by >= N) continue; const fi = fam[by * N + bx]; if (fi < 0) continue;
+          if (CO && v + k < P && u + k < P && ((CO[(v + k) * P + (u + k)] >> 4) & 31) === VB_CLASS.road) continue;   /* the texel the picture shows there (k toward the camera) */
           const a = acc[FK[fi]] || (acc[FK[fi]] = [0, 0, 0, 0]), o = (v * P + u) * 4; a[0] += r.day[o]; a[1] += r.day[o + 1]; a[2] += r.day[o + 2]; a[3]++; }
         const m = {}; for (const k in acc) m[k] = acc[k].slice(0, 3).map(v => v / acc[k][3]);
         let lo = 1e9, pair = ''; const ks = Object.keys(m);

@@ -1,0 +1,2094 @@
+{
+ "draft": true,
+ "about": "THE FIGHT ANSWER FOR EVERY BUILDING KIND ON THE MAP (WORLD THIRTEEN, VAMILY rule 429(b), ask line 505; Paolo 11/7: 'maybe the combat map is just the whole map itself... for every building that we have on the regular map we need to answer for that in the combat map'). ONE MAP: the fight is cut from the map where it starts, so every kind the map draws says here what a fight tile of it is. A modder's file: add a kind to the map and it needs a row here or gates/the_map_kinds_have_fight_answers_gate.js goes red. Words are draft:true. NO FELT NUMBER LIVES HERE: what a storey does (the defence, the range, the hit chance) is records/target/bb/ours.json roof_storeys, height_is_accuracy and cover_defence (TUNING's and COMBAT TWO's); this file only says which kind is which. The storeys mixes are a reading of the real Las Vegas building stock (a reading, not a census: tract houses mostly one or two storeys, three rare), his to correct.",
+ "source": "VAMILY.md rules 429(b), 428(b), 423(c)(d), 426(a); records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md lines 486, 487, 492, 505",
+ "quote": "'every house should be a tile that I can be on... if it's one story I can still be on top of it, that's a defense boost, but not a range offense boost... there's no ladder system' (11/7); 'more defence, more range offense bonus depending on whether it's a one or two-story house... three-story houses are rare, but not unheard of' (11/7); 'if there's a house there's a street in front' (11/7)",
+ "fields": {
+  "class": "the painter's family for the kind (vbClassOf in slices/BOHEMIA_CITY_WORLD.html); the gate holds the two together",
+  "is": "what stands there, in words (draft)",
+  "building": "what a built tile of the kind is: house, trailer, slab, shop, works, civic, tower, casino, hall, compound, tank, silo, shed, barn, clubhouse, stands, hangar, stall, car, deck, town; none = no building, open ground",
+  "storeys": "how high a man on its roof stands, as a mix that sums to 1: {\"1\": share, \"2\": share, \"3\": share}; empty for open ground. The fight reads its level from storeysOf(kind, roll) in engine/bohemia_fight_kinds.js so the map and the fight agree on the same roll",
+  "man": "in_or_roof: a man goes in it (its walls his cover) or on its roof (its storeys his height), no ladder; in: in at the street only; roof: on top only (a container, a tank, a boxcar, a deck); open: no building, the ground is walked; none: nobody stands there (open water)",
+  "cover": "what the building gives the man in it or on it: full, half, none",
+  "open_cover": "what the kind's open ground carries for a man (dead cars, block walls, rocks, stalls): full, half, none",
+  "blocks": "what stops a step or a shot: walls (a step and a shot, a man inside shoots out of its windows), fence (a step, never a shot), water (a step), cliff (a step and a shot), rows (a step across the rows, never a shot), barrier (a step, half cover), rail (rough ground, a step slower)",
+  "street_front": "true: every building of the kind fronts a street (426(a)); false: the one exception, the trailer park's lanes; absent for open ground",
+  "place": "the place board (ours.json place_boards) the kind fights on today; the 15 layouts are written into the map at their places (rule 429(c))",
+  "picture": "a debt on the picture: what the map draws there today when it is not yet what this row says"
+ },
+ "storeys_do": {
+  "1": "a slight defence bonus, NO range bonus (428(b))",
+  "2": "more defence AND a range bonus (428(b))",
+  "3": "rare, more again (428(b))",
+  "numbers": "ours.json roof_storeys (the level), height_is_accuracy (per storey), cover_defence (per piece): never typed here",
+  "ladders": "none: a man steps onto a roof from the next tile as Battle Brothers climbs a hill, no ladder piece (423(d))"
+ },
+ "districts": {
+  "suburb": {
+   "class": "houses",
+   "is": "a tract of ranch and two-storey houses on their own lots, a street in front of each, block walls between the back yards",
+   "building": "house",
+   "storeys": {
+    "1": 0.5,
+    "2": 0.45,
+    "3": 0.05
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
+   "place": "suburb"
+  },
+  "estate": {
+   "class": "houses",
+   "is": "big houses on big lots behind their own walls, most of the pools dry",
+   "building": "house",
+   "storeys": {
+    "1": 0.3,
+    "2": 0.6,
+    "3": 0.1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
+   "place": "suburb"
+  },
+  "gated": {
+   "class": "houses",
+   "is": "a walled tract, one gate in, the houses on their own streets inside the wall",
+   "building": "house",
+   "storeys": {
+    "1": 0.4,
+    "2": 0.55,
+    "3": 0.05
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
+   "place": "suburb"
+  },
+  "trailer": {
+   "class": "houses",
+   "is": "rows of trailers on gravel, a lane between the rows, no street in front of each: the one exception (426(a))",
+   "building": "trailer",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "half",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": false,
+   "place": "trailer"
+  },
+  "apartment": {
+   "class": "houses",
+   "is": "two or three slabs of garden apartments round a court and a parking lot",
+   "building": "slab",
+   "storeys": {
+    "2": 0.6,
+    "3": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "town": {
+   "class": "houses",
+   "is": "a home base on the map: its own walls, towers and lots (the town table below answers each piece)",
+   "building": "town",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.35,
+    "3": 0.05
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "suburb"
+  },
+  "downtown": {
+   "class": "tower",
+   "is": "Fremont: towers, casinos and two-storey shops on a grid of streets",
+   "building": "tower",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "downtown"
+  },
+  "strat": {
+   "class": "tower",
+   "is": "the tower on its base: the fight is at the podium, the pod is out of reach",
+   "building": "tower",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "strip"
+  },
+  "highroller": {
+   "class": "tower",
+   "is": "the wheel on its legs over its terminal building",
+   "building": "civic",
+   "storeys": {
+    "2": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "sign": {
+   "class": "tower",
+   "is": "the welcome sign in its median, the lot round it",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "place": "strip"
+  },
+  "stadium": {
+   "class": "tower",
+   "is": "the bowl: its stands are the high ground, the field is wide open",
+   "building": "stands",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "none",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "ballpark": {
+   "class": "tower",
+   "is": "the ballpark: low stands round an open diamond",
+   "building": "stands",
+   "storeys": {
+    "2": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "none",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "medical": {
+   "class": "tower",
+   "is": "the hospital and its labs, the pens out the back",
+   "building": "civic",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true,
+   "place": "lab"
+  },
+  "cityhall": {
+   "class": "tower",
+   "is": "city hall: offices over a public counter",
+   "building": "civic",
+   "storeys": {
+    "2": 0.5,
+    "3": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "courthouse": {
+   "class": "tower",
+   "is": "the courthouse: courtrooms, corridors, holding cells",
+   "building": "civic",
+   "storeys": {
+    "2": 0.5,
+    "3": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "resort": {
+   "class": "casino",
+   "is": "a resort: the tower over its podium, the porte-cochere, the pools behind",
+   "building": "casino",
+   "storeys": {
+    "2": 0.7,
+    "3": 0.3
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "casino": {
+   "class": "casino",
+   "is": "a casino on its podium, the sign on its pylon",
+   "building": "casino",
+   "storeys": {
+    "2": 0.7,
+    "3": 0.3
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "luxor": {
+   "class": "casino",
+   "is": "the pyramid on its podium",
+   "building": "casino",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "sphere": {
+   "class": "casino",
+   "is": "the dark sphere over its plaza",
+   "building": "casino",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "strip"
+  },
+  "aquarium": {
+   "class": "casino",
+   "is": "the shark reef under the resort row, its tanks gone green",
+   "building": "casino",
+   "storeys": {
+    "2": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "water"
+   ],
+   "street_front": true
+  },
+  "park": {
+   "class": "green",
+   "is": "a park: dead grass, a few trees, the restrooms",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "half",
+   "open_cover": "half",
+   "blocks": [],
+   "street_front": true,
+   "place": "golf"
+  },
+  "golf": {
+   "class": "green",
+   "is": "the course: open fairways, the rough and its trees, the clubhouse",
+   "building": "clubhouse",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [],
+   "street_front": true,
+   "place": "golf"
+  },
+  "cemetery": {
+   "class": "green",
+   "is": "the graves in rows behind a fence, the chapel of rest",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "farm": {
+   "class": "green",
+   "is": "a farm on the valley floor: fields, the barn, the pump",
+   "building": "barn",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "campus": {
+   "class": "green",
+   "is": "the university: its halls round dead lawns",
+   "building": "civic",
+   "storeys": {
+    "1": 0.3,
+    "2": 0.6,
+    "3": 0.1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "water": {
+   "class": "water",
+   "is": "open water: nobody stands on it, the shore round it",
+   "building": "none",
+   "storeys": {},
+   "man": "none",
+   "cover": "none",
+   "open_cover": "none",
+   "blocks": [
+    "water"
+   ],
+   "place": "marina"
+  },
+  "reservoir": {
+   "class": "water",
+   "is": "the reservoir: the dropped lake, its bathtub ring, the dead marina",
+   "building": "none",
+   "storeys": {},
+   "man": "none",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "water"
+   ],
+   "place": "shore"
+  },
+  "intake": {
+   "class": "water",
+   "is": "the intake towers standing out in the lake",
+   "building": "works",
+   "storeys": {
+    "2": 1
+   },
+   "man": "in",
+   "cover": "full",
+   "open_cover": "none",
+   "blocks": [
+    "water",
+    "walls"
+   ],
+   "place": "marina"
+  },
+  "waterpark": {
+   "class": "water",
+   "is": "the waterpark: dry pools, the slide towers",
+   "building": "tower",
+   "storeys": {
+    "2": 0.5,
+    "3": 0.5
+   },
+   "man": "roof",
+   "cover": "half",
+   "open_cover": "half",
+   "blocks": [
+    "water"
+   ],
+   "street_front": true
+  },
+  "desert": {
+   "class": "land",
+   "is": "open desert: creosote, rocks, the odd wash",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [],
+   "place": "desert"
+  },
+  "wash": {
+   "class": "land",
+   "is": "the wash: a dry channel, its banks, the culverts",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "cliff"
+   ],
+   "place": "wash"
+  },
+  "basin": {
+   "class": "land",
+   "is": "a flood basin: a bowl of bare dirt behind its berm",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "none",
+   "blocks": [],
+   "place": "wash"
+  },
+  "quarry": {
+   "class": "land",
+   "is": "the quarry: its benches and spoil heaps",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "full",
+   "blocks": [
+    "cliff"
+   ]
+  },
+  "gypsum": {
+   "class": "land",
+   "is": "the gypsum hills and their pits",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "cliff"
+   ]
+  },
+  "landfill": {
+   "class": "land",
+   "is": "the landfill: trash in mounds, the dozers left on it",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [],
+   "place": "landfill"
+  },
+  "boneyard": {
+   "class": "land",
+   "is": "the dead signs laid out in rows on gravel",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "full",
+   "blocks": [
+    "walls"
+   ]
+  },
+  "springs": {
+   "class": "land",
+   "is": "the fossil beds and Red Rock: washes, ledges, red stone",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "full",
+   "blocks": [
+    "cliff"
+   ],
+   "place": "redrock"
+  },
+  "mountain": {
+   "class": "mountain",
+   "is": "the rim: boulders, ledges, a pass between",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "full",
+   "blocks": [
+    "cliff"
+   ],
+   "place": "pass"
+  },
+  "solar": {
+   "class": "solar",
+   "is": "panel rows on stands behind a fence",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "rows",
+    "fence"
+   ]
+  },
+  "airport": {
+   "class": "field",
+   "is": "the apron, the hangars, the terminal and its jet bridges",
+   "building": "hangar",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true,
+   "place": "airport"
+  },
+  "airbase": {
+   "class": "field",
+   "is": "the airbase: aprons, hangars, the fence",
+   "building": "hangar",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true,
+   "place": "airport"
+  },
+  "speedway": {
+   "class": "field",
+   "is": "the speedway: its grandstands over the track",
+   "building": "stands",
+   "storeys": {
+    "3": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "none",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "minigp": {
+   "class": "field",
+   "is": "the go-kart track: tyre walls, a shed",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "half",
+   "open_cover": "half",
+   "blocks": [
+    "barrier"
+   ],
+   "street_front": true
+  },
+  "drivein": {
+   "class": "field",
+   "is": "the drive-in: the screen tower, the speaker posts, the snack bar",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "swapmeet": {
+   "class": "field",
+   "is": "the swap meet: stalls under canopies on a lot",
+   "building": "stall",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "half",
+   "open_cover": "half",
+   "blocks": [],
+   "street_front": true
+  },
+  "truckstop": {
+   "class": "field",
+   "is": "the truck stop: the canopy over the pumps, the store, semis in rows",
+   "building": "shop",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "full",
+   "blocks": [],
+   "street_front": true
+  },
+  "dam": {
+   "class": "dam",
+   "is": "the dam: the crest road, the intake towers, the drop",
+   "building": "works",
+   "storeys": {
+    "2": 1
+   },
+   "man": "in",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "cliff",
+    "water"
+   ],
+   "place": "shore"
+  },
+  "rail": {
+   "class": "rail",
+   "is": "the rail line on its bank",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "rail"
+   ],
+   "place": "works"
+  },
+  "railyard": {
+   "class": "rail",
+   "is": "the yard: tracks and boxcars, a man climbs onto a car",
+   "building": "car",
+   "storeys": {
+    "1": 1
+   },
+   "man": "roof",
+   "cover": "full",
+   "open_cover": "full",
+   "blocks": [
+    "rail",
+    "walls"
+   ],
+   "place": "works"
+  },
+  "freeway": {
+   "class": "freeway",
+   "is": "the freeway on its berm: lanes, dead cars, the Jersey barrier down the middle",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "barrier"
+   ]
+  },
+  "beltway": {
+   "class": "freeway",
+   "is": "the 215: lanes, dead cars, the barrier",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [
+    "barrier"
+   ]
+  },
+  "interchange": {
+   "class": "freeway",
+   "is": "the knot: the decks over the street, the ramps",
+   "building": "deck",
+   "storeys": {
+    "2": 1
+   },
+   "man": "roof",
+   "cover": "half",
+   "open_cover": "half",
+   "blocks": [
+    "barrier"
+   ]
+  },
+  "arterial": {
+   "class": "road",
+   "is": "a mile street: three lanes a way, sidewalks, dead cars at the kerb",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": []
+  },
+  "strip": {
+   "class": "blvd",
+   "is": "the Strip: the boulevard, its median palms, the dead cabs",
+   "building": "none",
+   "storeys": {},
+   "man": "open",
+   "cover": "none",
+   "open_cover": "half",
+   "blocks": [],
+   "place": "strip"
+  },
+  "commercial": {
+   "class": "roof",
+   "is": "a strip mall: the shops under one flat roof, the lot in front",
+   "building": "shop",
+   "storeys": {
+    "1": 0.8,
+    "2": 0.2
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "mall": {
+   "class": "roof",
+   "is": "the mall: two levels of shops over its parking",
+   "building": "shop",
+   "storeys": {
+    "2": 0.7,
+    "3": 0.3
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "convention": {
+   "class": "roof",
+   "is": "the convention halls: one huge flat roof",
+   "building": "hall",
+   "storeys": {
+    "2": 0.3,
+    "3": 0.7
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "strip"
+  },
+  "industrial": {
+   "class": "roof",
+   "is": "the works: sheds, yards, a crane, the scrap",
+   "building": "works",
+   "storeys": {
+    "1": 0.4,
+    "2": 0.4,
+    "3": 0.2
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "full",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true,
+   "place": "works"
+  },
+  "warehouse": {
+   "class": "roof",
+   "is": "the warehouses: tall sheds on their docks",
+   "building": "works",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "works"
+  },
+  "school": {
+   "class": "roof",
+   "is": "a school: its classrooms, the gym, the yard",
+   "building": "civic",
+   "storeys": {
+    "1": 0.5,
+    "2": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true,
+   "place": "suburb"
+  },
+  "prison": {
+   "class": "roof",
+   "is": "the prison: cell blocks, guard towers, the fence",
+   "building": "civic",
+   "storeys": {
+    "2": 0.6,
+    "3": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "jail": {
+   "class": "roof",
+   "is": "the jail tower downtown",
+   "building": "civic",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "library": {
+   "class": "roof",
+   "is": "the library",
+   "building": "civic",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "suburb"
+  },
+  "firestation": {
+   "class": "roof",
+   "is": "the fire station: the bay, the dorm over it",
+   "building": "civic",
+   "storeys": {
+    "1": 0.5,
+    "2": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "policestation": {
+   "class": "roof",
+   "is": "the police station: the counter, the cells, the lot",
+   "building": "civic",
+   "storeys": {
+    "1": 0.3,
+    "2": 0.7
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "robofactory": {
+   "class": "roof",
+   "is": "the robot works: tall sheds, the line inside",
+   "building": "works",
+   "storeys": {
+    "2": 0.5,
+    "3": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "datafort": {
+   "class": "roof",
+   "is": "the data fortress: blind halls behind a wall",
+   "building": "compound",
+   "storeys": {
+    "2": 0.6,
+    "3": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "arsenal": {
+   "class": "roof",
+   "is": "the arsenal: bunkers behind a wall",
+   "building": "compound",
+   "storeys": {
+    "1": 0.5,
+    "2": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "fueldepot": {
+   "class": "roof",
+   "is": "the fuel depot: tanks inside a berm and a fence",
+   "building": "tank",
+   "storeys": {
+    "1": 0.3,
+    "2": 0.4,
+    "3": 0.3
+   },
+   "man": "roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "granary": {
+   "class": "roof",
+   "is": "the granary: silos over the loading shed",
+   "building": "silo",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "storage": {
+   "class": "roof",
+   "is": "self storage: rows of units inside a high wall",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "works"
+  },
+  "substation": {
+   "class": "roof",
+   "is": "the substation: transformers in a fenced yard, a control shed",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "pumpstation": {
+   "class": "roof",
+   "is": "the pump station: its pump hall, the pipes",
+   "building": "works",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "watertreat": {
+   "class": "roof",
+   "is": "the water plant: clarifier tanks, the filter hall",
+   "building": "works",
+   "storeys": {
+    "1": 0.5,
+    "2": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence",
+    "water"
+   ],
+   "street_front": true
+  },
+  "radio": {
+   "class": "roof",
+   "is": "the radio station: its shed under the mast",
+   "building": "civic",
+   "storeys": {
+    "1": 0.7,
+    "2": 0.3
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "battery": {
+   "class": "roof",
+   "is": "the battery yard: rows of cell containers",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "reclaim": {
+   "class": "roof",
+   "is": "the reclaim yard: sorted scrap, the sorting shed",
+   "building": "works",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "full",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "terminal": {
+   "class": "roof",
+   "is": "the bus terminal: the hall, the bays",
+   "building": "shop",
+   "storeys": {
+    "2": 0.7,
+    "3": 0.3
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "airport"
+  },
+  "chapel": {
+   "class": "roof",
+   "is": "a wedding chapel and its parking",
+   "building": "civic",
+   "storeys": {
+    "1": 0.8,
+    "2": 0.2
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true,
+   "place": "suburb"
+  },
+  "fort": {
+   "class": "roof",
+   "is": "the old fort: adobe walls round a yard",
+   "building": "compound",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "bank": {
+   "class": "roof",
+   "is": "the bank tower over its banking hall, the vault under it",
+   "building": "tower",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "jobsoffice": {
+   "class": "roof",
+   "is": "the unemployment office: one low block, the line out the door",
+   "building": "civic",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "hardware": {
+   "class": "roof",
+   "is": "the home centre: one tall box, the garden yard, the lumber canopy",
+   "building": "shop",
+   "storeys": {
+    "1": 0.3,
+    "2": 0.7
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "powerplant": {
+   "class": "roof",
+   "is": "the gas plant: its turbine hall and stacks",
+   "building": "works",
+   "storeys": {
+    "2": 0.5,
+    "3": 0.5
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls",
+    "fence"
+   ],
+   "street_front": true
+  },
+  "shelter": {
+   "class": "roof",
+   "is": "the animal shelter: kennel runs, the office",
+   "building": "shed",
+   "storeys": {
+    "1": 1
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  },
+  "mobmuseum": {
+   "class": "roof",
+   "is": "the 1933 courthouse, three storeys of stone",
+   "building": "civic",
+   "storeys": {
+    "2": 0.4,
+    "3": 0.6
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "natmuseum": {
+   "class": "roof",
+   "is": "the natural history museum",
+   "building": "civic",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "walls"
+   ],
+   "street_front": true
+  },
+  "tvstation": {
+   "class": "roof",
+   "is": "Channel 8: the studios under the mast",
+   "building": "civic",
+   "storeys": {
+    "1": 0.6,
+    "2": 0.4
+   },
+   "man": "in_or_roof",
+   "cover": "full",
+   "open_cover": "half",
+   "blocks": [
+    "fence"
+   ],
+   "street_front": true
+  }
+ },
+ "town": {
+  "about": "the home bases the painter builds into the map (VB_TOWN_K lots, VB_TOWN_MARKS landmarks, the wall and its towers)",
+  "lots": {
+   "box": {
+    "is": "a shop box: flat roof, a parapet, an awning on the street",
+    "building": "shop",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "gable": {
+    "is": "a house or a shed under a gable",
+    "building": "house",
+    "storeys": {
+     "1": 0.7,
+     "2": 0.3
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "shacks": {
+    "is": "lean-tos of tin, rust and plywood, a lane between",
+    "building": "shack",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "half",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "trailers": {
+    "is": "trailers in rows, a lane between",
+    "building": "trailer",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "half",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "tents": {
+    "is": "tents round a fire: a man goes in one, never on it; cloth hides, it stops nothing",
+    "building": "tent",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in",
+    "cover": "none",
+    "open_cover": "none",
+    "blocks": []
+   },
+   "cont": {
+    "is": "shipping containers, some stacked two high",
+    "building": "container",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "roof",
+    "cover": "full",
+    "open_cover": "full",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "yard": {
+    "is": "a yard: a fence, junk, a car",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": [
+     "fence"
+    ]
+   },
+   "garden": {
+    "is": "beds in rows, the paths between",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": []
+   },
+   "plaza": {
+    "is": "a plaza: a fire in a drum, the stalls round it",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": []
+   },
+   "lot": {
+    "is": "a lot: parking lines, the cars left in it",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": []
+   },
+   "scrap": {
+    "is": "scrap: cars on cars",
+    "building": "heap",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "roof",
+    "cover": "full",
+    "open_cover": "full",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "watch": {
+    "is": "a watch post at the lot's corner",
+    "building": "post",
+    "storeys": {
+     "2": 0.5,
+     "3": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "none",
+    "blocks": [
+     "walls"
+    ]
+   }
+  },
+  "marks": {
+   "chapel": {
+    "is": "the nave, its steeple, the parish hall, the graves, the soup line",
+    "building": "civic",
+    "storeys": {
+     "2": 0.6,
+     "3": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "mast": {
+    "is": "the station, the mast, its anchors, the fence",
+    "building": "civic",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "fence"
+    ]
+   },
+   "prison": {
+    "is": "three cell blocks, guard towers at the corners, the fence",
+    "building": "civic",
+    "storeys": {
+     "2": 0.6,
+     "3": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "fence"
+    ]
+   },
+   "casino": {
+    "is": "the podium, the tower stepped in, the sign on its pylon",
+    "building": "casino",
+    "storeys": {
+     "2": 0.6,
+     "3": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "truckstop": {
+    "is": "the canopy over the pumps, the semis in rows, the fuel tank",
+    "building": "shop",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "full",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "storage": {
+    "is": "rows of units, the high wall, the watchtower",
+    "building": "shed",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "tank": {
+    "is": "the tank over the tunnels, its pipes, the tents round it",
+    "building": "tank",
+    "storeys": {
+     "2": 0.5,
+     "3": 0.5
+    },
+    "man": "roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "works": {
+    "is": "the sawtooth shop, the crane, the scrap; or a powerhouse and its stacks",
+    "building": "works",
+    "storeys": {
+     "1": 0.4,
+     "2": 0.4,
+     "3": 0.2
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "full",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "clinic": {
+    "is": "the clinic, a cross of two wings, its pad, the tents of the sick",
+    "building": "civic",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "bank": {
+    "is": "the bank's tower on its podium, an annex",
+    "building": "tower",
+    "storeys": {
+     "2": 0.4,
+     "3": 0.6
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "garden": {
+    "is": "the co-op's hall, two greenhouses, the rain tank, the beds",
+    "building": "civic",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "half",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "stage": {
+    "is": "the stage, its truss, the bonfire, the ring of burnt cars",
+    "building": "stage",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "half",
+    "open_cover": "full",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "hall": {
+    "is": "the hall, its painted walls, the tents",
+    "building": "hall",
+    "storeys": {
+     "1": 0.6,
+     "2": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "yard": {
+    "is": "a customs yard: the shed, the fence, the cars in line",
+    "building": "shed",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "fence"
+    ]
+   },
+   "trailers": {
+    "is": "the trailer park's office over its rows",
+    "building": "trailer",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "half",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "lodge": {
+    "is": "the lodge on the course, its porch",
+    "building": "house",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "bigbox": {
+    "is": "a big box store, the lot in front",
+    "building": "shop",
+    "storeys": {
+     "1": 0.3,
+     "2": 0.7
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "marina": {
+    "is": "the marina office, the dry docks, the boats on stands",
+    "building": "shed",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "water"
+    ]
+   },
+   "hilltown": {
+    "is": "houses up a slope, a wall of stone",
+    "building": "house",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "cliff"
+    ]
+   },
+   "solar": {
+    "is": "the control shed in the panel rows",
+    "building": "shed",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "rows",
+     "fence"
+    ]
+   },
+   "scrap": {
+    "is": "the scrap yard's crane and its heaps",
+    "building": "heap",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "roof",
+    "cover": "full",
+    "open_cover": "full",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "hangars": {
+    "is": "the hangars on the apron",
+    "building": "hangar",
+    "storeys": {
+     "3": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "suburbs": {
+    "is": "a street of houses taken back",
+    "building": "house",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.45,
+     "3": 0.05
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   }
+  },
+  "works": {
+   "wall": {
+    "is": "the town's wall: a man stands on its walk, nobody steps through it but at a gate",
+    "building": "wall",
+    "storeys": {
+     "2": 1
+    },
+    "man": "roof",
+    "cover": "full",
+    "open_cover": "none",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "corner_tower": {
+    "is": "a corner tower over the wall",
+    "building": "post",
+    "storeys": {
+     "3": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "none",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "gate_tower": {
+    "is": "a gate tower where a street runs in",
+    "building": "post",
+    "storeys": {
+     "3": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "none",
+    "blocks": [
+     "walls"
+    ]
+   }
+  }
+ },
+ "home": {
+  "about": "your own settlement's pieces (records/target/bb/home_lots.json pieces)",
+  "pieces": {
+   "house_plain": {
+    "is": "the tract's ranch house on your lot (one storey, home_lots.json)",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "house_garage": {
+    "is": "the ranch house with a garage",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "house_wing": {
+    "is": "the ranch house with a wing",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "house_carport": {
+    "is": "the ranch house with a carport",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "kitchen": {
+    "is": "the rocket hearth under its tin lean-to",
+    "building": "shack",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in",
+    "cover": "half",
+    "open_cover": "half",
+    "blocks": []
+   },
+   "main": {
+    "is": "the curb-stop box and its riser on a pad",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "none",
+    "blocks": []
+   },
+   "purifier": {
+    "is": "the drum on blocks over the sand bed",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": []
+   },
+   "garden_bed": {
+    "is": "three raised beds, the bean poles",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": []
+   },
+   "water_tank": {
+    "is": "the corrugated tank on its block stand",
+    "building": "tank",
+    "storeys": {
+     "1": 1
+    },
+    "man": "roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "solar_panel": {
+    "is": "three panels on a ground rack",
+    "building": "none",
+    "storeys": {},
+    "man": "open",
+    "cover": "none",
+    "open_cover": "half",
+    "blocks": [
+     "rows"
+    ]
+   }
+  }
+ },
+ "models": {
+  "about": "the house models the map stands on its lots (slices/bohemia_map_houses.js)",
+  "houses": {
+   "ranch_plain": {
+    "is": "the map's plain ranch model",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "ranch_porch": {
+    "is": "the ranch with a porch",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "ranch_wing": {
+    "is": "the ranch with a wing",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "ranch_garage": {
+    "is": "the ranch with a garage",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "ranch_carport": {
+    "is": "the ranch with a carport",
+    "building": "house",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   },
+   "trailer": {
+    "is": "the map's trailer model",
+    "building": "trailer",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "half",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ]
+   }
+  }
+ }
+}

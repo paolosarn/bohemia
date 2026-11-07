@@ -46,11 +46,14 @@ async function run(profile) {
 
   /* ---- H: the heights, the painter as it stands against the painter at 2165008f, on the same valley ---- */
   const H = await fr.evaluate((OLD) => {
+    /* __FIGHT_KINDS__ (WORLD THIRTEEN 11/7, rule 429(b)): H measures the TALL factor, so the storeys are held at the old roll here
+       (one in seven two storeys, an estate one); how many storeys a house is now comes from records/target/bb/map_fight_kinds.json
+       and is gates/the_map_kinds_have_fight_answers_gate.js's P2 and P3 */
     const KIND = { house: /^suburb$/, estate: /^(estate|gated)$/, trailer: /^trailer$/, apartment: /^apartment$/, works: /^(industrial|warehouse|storage)$/, shop: /^(commercial|mall|convention)$/,
       tower: /^(downtown|strat|highroller|medical|cityhall|courthouse)$/, casino: /^(resort|casino|luxor|sphere)$/, freeway: /^freeway$/, trees: /^(park|golf|cemetery)$/ };
     const oldCore = (0, eval)('(' + OLD.replace('return { seed: inp.seed', 'ST.HS = HS; return { seed: inp.seed') + ')');
     const inp = Object.assign({}, vbCityInput(), { wantH: true, towns: null, townPal: null });   /* the city's own blocks (a town's are COOK's) */
-    const a = oldCore(inp).stand.HS, b = vbCityCore(inp).stand.HS, N = inp.N, S = inp.S, PAD = inp.PAD, P = (N + 2 * PAD) * S, T = Math.max(1, Math.round(S / 12)) / 2;
+    window.__FIGHT_KINDS_OFF = 1; const a = oldCore(inp).stand.HS, b = vbCityCore(inp).stand.HS; window.__FIGHT_KINDS_OFF = 0; const N = inp.N, S = inp.S, PAD = inp.PAD, P = (N + 2 * PAD) * S, T = Math.max(1, Math.round(S / 12)) / 2;
     const out = {};
     for (const k in KIND) { const A = [], B = [];
       for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!KIND[k].test(om.at(x, y).district)) continue; let ma = 0, mb = 0;

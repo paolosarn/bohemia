@@ -1207,10 +1207,91 @@ function buildOvermap(seed){
     }
   }
   stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
+  { const LN=houseLanes({n:OVER_N,at}); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
 }
 function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
+
+/* ==== __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7, VAMILY rules 426(a), 429(d), 423(b); ask lines 492, 505).
+   Paolo 11/7: 'each house should be connected by road or mini road'; 'most houses are gonna have a street connecting them...
+   there's never really gonna be a house unless it's a trailer park... if there's a house there's a street in front... even on
+   the big map scale'. The coordinator: the map's generation is WORLD THIRTEEN's alone, and the fix is here, once, for the map and
+   the fight both (the fight is cut from the map).
+   MEASURED BEFORE on six seeds (1337, 7, 42, 2026, 99, 31337): of about 2,760 house blocks a valley (suburb, estate, gated,
+   apartment) 28 to 33 in 100 had NO street on any side, the biggest lump of houses with no street between them 26 to 33 blocks,
+   11 to 26 lumps with no street at all; and inside a block the painter stood two by two or three by three houses with no way
+   between them, so a three-by-three block's middle house never fronted anything (the fight's '4 x 4 of house tiles').
+   NOW every house block carries its own street: a residential street down its middle (one fight tile wide, 12 m, a sidewalk each
+   side), a row of houses each side of it, every one facing it. The street's way through the block is picked here so it JOINS:
+   straight on into the next house block's street or out onto a mile street, else as a T into a neighbour's street through one lot
+   of that neighbour's row (0-1 breadth first from every mile street: straight before a T, so streets run long). A pocket of houses
+   with no mile street anywhere it can reach (measured: one to four blocks out on the desert or the rim) gets a dirt track out
+   onto the open land; nothing is moved or thrown away. A trailer park keeps its own lanes (the one exception, 426(a)).
+   houseLanes(m) is a pure function of the finished valley (m.n, m.at), so the page recomputes it whenever the valley's districts
+   change; buildOvermap writes it on the tiles too (t.lane). One byte a block:
+     bits 1|2  the street's way: 1 east-west, 2 north-south
+     bit  4    its west (E-W) or north (N-S) end runs on (a mile street, the next block's street, a T, a dirt track); clear: it ends
+               in a turning bulb (a cul-de-sac)
+     bit  8    its east or south end runs on
+     bits 16, 32, 64, 128   a neighbour's street comes in from the north, east, south, west through one lot of this block's row
+   [bb] Battle Brothers' settlements are houses along a road; ours are tract streets, every house on one.
+   [analog horror] the same quiet street repeating block after block, each one a dead end you only see once you are in it.
+   Gate: gates/a_street_in_front_of_every_house_gate.js. ==== */
+const LANE_HOUSES={suburb:1,estate:1,gated:1,apartment:1};
+const LANE_WALK={arterial:1,strip:1};
+const LANE_LAND={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1};
+function houseLanes(m){
+  const N=m.n, LN=new Uint8Array(N*N), AX=new Uint8Array(N*N), D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
+  const isH=(x,y)=>!!LANE_HOUSES[D(x,y)], isW=(x,y)=>!!LANE_WALK[D(x,y)], isL=(x,y)=>!!LANE_LAND[D(x,y)];
+  const k=(x,y)=>y*N+x, hsh=(x,y)=>{ let h=(Math.imul(x,73856093)^Math.imul(y,19349663)^0x5f3a)>>>0; h=Math.imul(h^h>>>16,2246822507); return ((h^h>>>13)>>>0)/4294967296; };
+  const run=(x,y,dx,dy)=>{ let n=0; for(let i=1;i<40&&isH(x+dx*i,y+dy*i);i++)n++; return n; };   /* house blocks straight on that way */
+  const dq=[]; let head=0;   /* 0-1 breadth first: a straight step goes in at the front, a T at the back */
+  const front=[], back=[];
+  const set=(x,y,a)=>{ AX[k(x,y)]=a; };
+  /* every house block on a mile street is reached first: its street runs out onto it (the longer run of houses behind it wins, so
+     the street runs deep into the tract; a tie by the block's roll) */
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!isH(x,y))continue;
+    const ew=isW(x-1,y)||isW(x+1,y), ns=isW(x,y-1)||isW(x,y+1); if(!ew&&!ns)continue;
+    let a=ew&&!ns?1:ns&&!ew?2:0;
+    if(!a){ const re=run(x,y,1,0)+run(x,y,-1,0), rn=run(x,y,0,1)+run(x,y,0,-1); a=re>rn?1:rn>re?2:(hsh(x,y)<0.5?1:2); }
+    set(x,y,a); front.push([x,y]); }
+  const DIR=[[0,-1,16,64],[1,0,32,128],[0,1,64,16],[-1,0,128,32]];   /* dx, dy, the bit on the reached block's side, the bit on ours */
+  const tee=[];   /* [x, y, side bit on the block a T goes through] */
+  let q=front;
+  for(;;){
+    const nextFront=[];
+    while(q.length){ const [x,y]=q.pop(), a=AX[k(x,y)];
+      for(const [dx,dy] of a===1?[[1,0],[-1,0]]:[[0,1],[0,-1]]){ const nx=x+dx, ny=y+dy; if(!isH(nx,ny)||AX[k(nx,ny)])continue; set(nx,ny,a); q.push([nx,ny]); }
+      for(const [dx,dy,sb] of DIR){ if(a===1?dx!==0:dy!==0)continue; const nx=x+dx, ny=y+dy; if(!isH(nx,ny)||AX[k(nx,ny)])continue; back.push([nx,ny,x,y,sb]); } }
+    /* the straight ones are all in; now one round of T's, each its own street running on from there */
+    let any=false;
+    while(back.length){ const [nx,ny,x,y,sb]=back.shift(); if(AX[k(nx,ny)])continue; const a2=AX[k(x,y)]===1?2:1; set(nx,ny,a2); tee.push([x,y,sb]); nextFront.push([nx,ny]); any=true; }
+    if(!any)break; q=nextFront;
+  }
+  /* the pockets no mile street can reach: a dirt track out onto the open land on the longer side, else the longer run */
+  const POCKET=new Uint8Array(N*N);
+  /* a pocket's track runs out onto open land first; failing that onto any ground a man can cross (the rim's foot, a lot, the
+     freeway's shoulder): never into water, never into another house block's yards */
+  const POCKET_OUT=(ex,ey)=>{ const d=D(ex,ey); return !!d&&!isH(ex,ey)&&d!=='water'&&d!=='reservoir'&&d!=='intake'&&d!=='dam'; };
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!isH(x,y)||AX[k(x,y)])continue;
+    const le=isL(x-1,y)||isL(x+1,y), ln=isL(x,y-1)||isL(x,y+1);
+    let a=le&&!ln?1:ln&&!le?2:0;
+    if(!a){ const oe=POCKET_OUT(x-1,y)||POCKET_OUT(x+1,y), on2=POCKET_OUT(x,y-1)||POCKET_OUT(x,y+1);
+      if(oe&&!on2)a=1; else if(on2&&!oe)a=2; else { const re=run(x,y,1,0)+run(x,y,-1,0), rn=run(x,y,0,1)+run(x,y,0,-1); a=re>=rn?1:2; } }
+    const st=[[x,y]]; set(x,y,a); POCKET[k(x,y)]=1;
+    while(st.length){ const [cx,cy]=st.pop(); for(const [dx,dy] of a===1?[[1,0],[-1,0]]:[[0,1],[0,-1]]){ const nx=cx+dx, ny=cy+dy; if(isH(nx,ny)&&!AX[k(nx,ny)]){ set(nx,ny,a); POCKET[k(nx,ny)]=1; st.push([nx,ny]); } } } }
+  /* the ends and the T's */
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ const a=AX[k(x,y)]; if(!a)continue; let v=a;
+    const e0=a===1?[x-1,y]:[x,y-1], e1=a===1?[x+1,y]:[x,y+1];
+    const on=(ex,ey)=>isW(ex,ey)||(isH(ex,ey)&&AX[k(ex,ey)]===a)||(POCKET[k(x,y)]&&POCKET_OUT(ex,ey));   /* a pocket's street runs on out as a track */
+    if(on(e0[0],e0[1]))v|=4; if(on(e1[0],e1[1]))v|=8;
+    LN[k(x,y)]=v; }
+  for(const [x,y,sb] of tee){ LN[k(x,y)]|=sb; const d=DIR.find(r=>r[2]===sb), nx=x+d[0], ny=y+d[1], a=AX[k(nx,ny)];
+    /* the block the T comes from: its end toward us runs on */
+    if(a===1)LN[k(nx,ny)]|=(nx<x?8:4); else LN[k(nx,ny)]|=(ny<y?8:4); }
+  return LN;
+}
 
 
 /* ==========================================================================
@@ -1351,7 +1432,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,LANE_HOUSES,LANE_WALK};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);

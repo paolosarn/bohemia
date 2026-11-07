@@ -51,6 +51,9 @@ async function readTheMap() {
   const d = await drive.open({ keepCards: true, world: 1 });
   const fr = d.fr;
   for (let i = 0; i < 240; i++) { if (await fr.evaluate(() => !!(window.BohemiaStreetBoard && BohemiaStreetBoard.ready()))) break; await d.page.waitForTimeout(250); }
+  /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7): the home bases land a moment after the map and paint over the blocks
+     under them (and the house streets step aside there), so the boards are read once they are in, never half before and half after */
+  for (let i = 0; i < 120; i++) { if (await fr.evaluate(() => { try { vbCityInput(); } catch (e) {} return !!(window.VB_TOWNS && VB_TOWNS.list && VB_TOWNS.list.length); }).catch(() => false)) break; await d.page.waitForTimeout(250); }
   const boot = await fr.evaluate(() => om.seed);
   const out = [];
   for (const seed of [boot].concat(SEEDS_MORE)) {
@@ -89,7 +92,13 @@ async function readTheMap() {
         for (let ay = 0; ay < p.AH; ay++) for (let ax = 0; ax < p.AW; ax++) {
           const bx = Math.floor((AX0 + ax) / TPB), by = Math.floor((AY0 + ay) / TPB), c = cls(bx, by); if (c < 0) continue;
           const th = c === 1 || c === 2 || c === 3 ? 0 : vbThruOf(cls, bx, by);
-          street[ay * p.AW + ax] = (c === 1 || c === 2 || c === 3 || th) ? 1 : 0;
+          /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7, rule 426(a)): a house block's own street, read off the
+             generator's byte (houseLanes), never off the painter: its middle row (an east-west street) or column, and a T's lot */
+          let ln = 0; try { const LV = window.vbLanesValley && vbLanesValley(); ln = LV && c === 4 && !th ? LV[by * N + bx] : 0; } catch (e) { ln = 0; }
+          const ix = (AX0 + ax) - bx * TPB, iy = (AY0 + ay) - by * TPB, mid = TPB >> 1;
+          const lane = !!(ln & 3) && ((ln & 3) === 1 ? (iy === mid || (ix === mid && ((iy === 0 && (ln & 16)) || (iy === TPB - 1 && (ln & 64)))))
+                                                     : (ix === mid || (iy === mid && ((ix === 0 && (ln & 128)) || (ix === TPB - 1 && (ln & 32))))));
+          street[ay * p.AW + ax] = (c === 1 || c === 2 || c === 3 || th || lane) ? 1 : 0;
         }
         let pic = null;
         if (shots) {   /* the map's own block read top down: every texel the painter paints there (its kind and part), 4 a tile, in a plain key */

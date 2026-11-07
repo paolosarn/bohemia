@@ -64,6 +64,9 @@
   function pick(kind, along, roll, idx) {
     if (kind === 1) return H.trailer + '_' + (along ? (roll < 0.5 ? 0 : 180) : (roll < 0.5 ? 90 : 270));
     var m = H.houses[Math.floor(roll * 997) % H.houses.length];
+    /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7, rule 426(a)): a house on its block's own street (idx 32 and up) faces
+       that street, the way the painter laid it: 32 + face * 8 + its row and lot, face 0 south, 1 north, 2 east, 3 west */
+    if (idx >= 32) return m + '_' + [0, 180, 90, 270][((idx - 32) >> 3) & 3];
     /* its front to the nearer edge of the block on its long side: the south half faces south (grid +y), the north half north */
     var big = idx < 16, i = big ? idx : idx - 16, lgx = i % 3, lgy = (i / 3) | 0, n = big ? 2 : 3;
     var t;
