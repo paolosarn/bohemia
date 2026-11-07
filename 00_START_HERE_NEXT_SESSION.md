@@ -1,3 +1,12 @@
+WEAPONS (weapons-01gkdyuv): 11/7 LATEST -- BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS, BUILT, NOT YET SEEN (rule 424, ask lines
+489, 490): twelve two-handers (every two-handed sword, flail and cleaver) swung from empty fists because no picture existed; now a
+gift-shop claymore, a tow chain and a ditch blade, one a class; the crew card drew only guns, now every weapon, bow and shield as the
+fight draws them; six new one-handers each its own model (tire iron, golf club, Bowie knife, pipe wrench, tomahawk, slot machine handle);
+the armory tool's rerun no longer undoes COOK's own models; 424(c): the pipe one-handed only, the sledge two-handed only. Gate EVERY WEAPON SHOWS. THE MAP'S men hold nothing yet: next round, first.
+The whole block: handoffs/WEAPONS.md.
+[bb Battle Brothers draws every weapon its own sprite in the man's hand; ours now does in the fight and on the crew card.]
+[analog horror: a golf club off a course nobody waters, dead grass still in its grooves.]
+
 SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- BUILD 11/7k SCAVENGE ON THE DIAL, BUILT, NOT YET SEEN (rule 426(b), his YES; rule 331; ask line 493):
 a town's junk lot, 'Search the lot' (4 hours) opens the minigame on the block's own fight board: up to six spots lit by what the board
 has (a house, open dirt, a dead car), the old Dead Shot Dial three ways (tap on the ONE, the detector by ear, the siphon hold and let go),

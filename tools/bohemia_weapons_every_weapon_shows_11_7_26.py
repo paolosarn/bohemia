@@ -484,6 +484,34 @@ def do_manifest(names):
     print('MANIFEST', len(M['items']), 'items')
 
 
+# ------------------------------------------------------------------------------------------------ fold (python3): rule 424(c)
+FOLD = {   # rule 424(c), Paolo 11/7: 'a one-handed variation, a two-handed variation... a pretty cheap escape route'
+    'one': {'pickaxe': 'framing_hammer', 'military_pick': 'framing_hammer', 'warhammer': 'framing_hammer'},
+    'one_class': {'hammer': 'framing_hammer'},
+    'two': {'two_handed_spiked_mace': 'sledge', 'two_handed_mace': 'sledge', 'two_handed_flanged_mace': 'sledge', 'polemace': 'sledge', 'goedendag': 'sledge'},
+    'two_class': {'mace': 'sledge'},
+}
+
+
+def do_fold():
+    """424(c) NO CHEAP ROUTE: a picture held both one-handed and two-handed is one object at two sizes. MEASURED: two such pairs,
+    the pipe (every one-handed mace, and the five two-handed maces swung in both fists) and the sledge (the three one-handed
+    picks and war hammer swung in one fist, and every two-handed hammer). Folded each to the real object it is: the pipe stays
+    the one-handed club, the sledgehammer the two-handed one (a two-handed mace is a sledge in a dead city); a one-handed hammer
+    or pick is the framing hammer, a real one-handed hammer. The index and the source both."""
+    S = json.load(open(SRC)); I = json.load(open(os.path.join(RIGM, 'rig_melee.json')))
+    for D in (S, I):
+        D['by_row'].update(FOLD['one']); D['by_class'].update(FOLD['one_class'])
+        D['two_by_row'].update(FOLD['two']); D['two_by_class'].update(FOLD['two_class'])
+        D['no_cheap_route'] = ("WEAPONS 11/7 (rule 424(c), ask line 515): no picture is held both one-handed and two-handed; the pipe is one-handed "
+                               "only, the sledge two-handed only, a one-handed hammer or pick the framing hammer, a two-handed mace the sledge")
+    json.dump(S, open(SRC, 'w'), indent=1)
+    json.dump(I, open(os.path.join(RIGM, 'rig_melee.json'), 'w'), separators=(',', ':'))
+    one = set(I['by_row'].values()) | set(v for k, v in I['by_class'].items() if k != 'why') | set(I.get('sling_by_row', {}).values())
+    two = set(I['two_by_row'].values()) | set(v for k, v in I['two_by_class'].items() if k != 'why')
+    print('FOLDED; pictures held both ways now:', sorted(one & two) or 'none')
+
+
 # ------------------------------------------------------------------------------------------------ the VOTE card (python3)
 PROOF = os.path.join(ROOT, 'records/target/weapons_every_weapon_shows')
 
@@ -530,4 +558,5 @@ if __name__ == '__main__':
     elif cmd == 'shelf': register(); C.do_shelf([n for n in names_of(args) if NEW[n]['row']])
     elif cmd == 'manifest': do_manifest(names_of(args))
     elif cmd == 'sheet': do_sheet(names_of(args))
+    elif cmd == 'fold': do_fold()
     else: sys.exit(__doc__)

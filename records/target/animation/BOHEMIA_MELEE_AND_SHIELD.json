@@ -2020,9 +2020,9 @@
   "head_chopper": "cleaver",
   "thorned_whip": "cleaver",
   "battle_whip": "cleaver",
-  "pickaxe": "sledge",
-  "military_pick": "sledge",
-  "warhammer": "sledge",
+  "pickaxe": "framing_hammer",
+  "military_pick": "framing_hammer",
+  "warhammer": "framing_hammer",
   "bundle_of_spiked_bolas": "bottles",
   "bundle_of_crude_javelins": "bottles",
   "bundle_of_javelins": "bottles",
@@ -2064,7 +2064,7 @@
   "spear": "rebar_spear",
   "flail": "chain",
   "throwing": "bottles",
-  "hammer": "sledge",
+  "hammer": "framing_hammer",
   "why": "a row COOK's table does not name falls back on its class"
  },
  "layers": {
@@ -3445,11 +3445,11 @@
   }
  },
  "two_by_row": {
-  "two_handed_spiked_mace": "pipe",
-  "two_handed_mace": "pipe",
-  "two_handed_flanged_mace": "pipe",
-  "polemace": "pipe",
-  "goedendag": "pipe",
+  "two_handed_spiked_mace": "sledge",
+  "two_handed_mace": "sledge",
+  "two_handed_flanged_mace": "sledge",
+  "polemace": "sledge",
+  "goedendag": "sledge",
   "woodcutter_s_axe": "fire_axe",
   "heavy_rusty_axe": "fire_axe",
   "bardiche": "fire_axe",
@@ -3477,7 +3477,7 @@
  "two_by_class": {
   "hammer": "sledge",
   "axe": "fire_axe",
-  "mace": "pipe",
+  "mace": "sledge",
   "polearm": "pole_hook",
   "spear": "pole_hook",
   "why": "a two-handed row COOK's table does not name falls back on its class",
@@ -3589,5 +3589,6 @@
   "tow_chain"
  ],
  "every_weapon_its_own": "COOK 11/3 (rule 337, ask line 344, tools/bohemia_cook_every_weapon_its_own_11_3_26.py): the armory's pieces were drawn as their family's model; each is its own model now, rendered in YOU's hands on the new layers m4 and m5 (one hand), s4 and s5 (one hand with a shield) and t4 (two hands); m5/s5 hold the last armory round's six so no sheet passes 2048 x 1024 (rule 173), and every other man holds YOU's pictures moved by the difference of their feet (props_ref). 'hanging': the things whose cord, thong or chain hangs from the handle's end and trails the swing (build_prop).",
- "every_weapon_shows": "WEAPONS 11/7 (rule 424, ask lines 489 and 490, tools/bohemia_weapons_every_weapon_shows_11_7_26.py): the two-handed sword, flail and cleaver had no picture, so their twelve rows swung from empty hands; each class has its own model now (two_by_class), and six new one-handers are their own models; YOU's renders on layers m6, s6 and t5, every other man holding them moved by the difference of their feet."
+ "every_weapon_shows": "WEAPONS 11/7 (rule 424, ask lines 489 and 490, tools/bohemia_weapons_every_weapon_shows_11_7_26.py): the two-handed sword, flail and cleaver had no picture, so their twelve rows swung from empty hands; each class has its own model now (two_by_class), and six new one-handers are their own models; YOU's renders on layers m6, s6 and t5, every other man holding them moved by the difference of their feet.",
+ "no_cheap_route": "WEAPONS 11/7 (rule 424(c), ask line 515): no picture is held both one-handed and two-handed; the pipe is one-handed only, the sledge two-handed only, a one-handed hammer or pick the framing hammer, a two-handed mace the sledge"
 }

@@ -21,8 +21,8 @@ through the golden-piece recipe (rule 408(b)). A new lane, WEAPONS, COOK's famil
   on his card. NOW the card draws what the fight draws, from the fight's own sheets.
 - THE MAP: NOT DONE, MEASURED. The map's men walk from their own walk sheets and hold nothing, for any row. It needs its own
   render (below); it is the next round, first.
-- MORE ONE-HANDERS: SIX, each its own model, each a real thing. 84 one-handed rows and 22 different pictures in a fist before;
-  90 and 28 now.
+- MORE ONE-HANDERS: SIX, each its own model, each a real thing. 84 one-handed rows and 23 real one-handed objects in a fist before;
+  90 and 29 now (rule 424(c): the sledge swung in one fist no longer counts, it was a two-hander's picture).
 - A LATENT BUG FOUND AND FIXED ON THE WAY: rerunning the armory tool (the file a modder runs) silently put all fifteen of COOK's
   own models back on their family pictures (the crowbar drawn as the pipe again), took their rows off COOK's own entries in the
   models manifest, and undid TUNING's prices. A rerun now only adds.
@@ -34,15 +34,30 @@ through the golden-piece recipe (rule 408(b)). A new lane, WEAPONS, COOK's famil
 | weapon rows | 145 | 151 |
 | one-handed rows | 84 (77 not guns) | 90 (83 not guns) |
 | two-handed rows | 61 | 61 |
-| different one-handed pictures a man holds | 22 | 28 |
+| real one-handed objects in a fist (rule 424(c): real objects only, the guns each its own) | 23 | 29 |
 | two-handed rows with no picture | 12 | 0 |
+| one picture held one-handed by some rows and two-handed by others (424(c)'s cheap route) | 2 (the pipe, the sledge) | 0 |
 | rows of the valley's own (armory) | 19 | 25 |
 
-Of the 22 one-handed pictures before, nine were Battle Brothers families wearing one stand-in each (the pipe for every mace,
-the machete for every sword, the hatchet for every axe, the cleaver for every cleaver and both whips, the chain, the rebar
-spear, the sledge for the one-handed picks, the bottles, the sling), eleven were the armory's own, two were guns' own (the zip
-gun, the snub revolver). In a shop the player tells weapons apart by name: a Battle Brothers row wears its class word (BLADE,
-PIPE, AXE...), so before this round he could tell apart eight one-handed families and the armory's thirteen melee pieces.
+Before: 24 one-handed pictures in a fist, and one of them, the SLEDGE, was a two-hander's picture swung in one fist (the
+one-handed picks and war hammer), so 23 real objects: the pipe, the club, the bat, the machete, the hatchet, the cleaver, the
+chain, the rebar spear, the bottles (the Battle Brothers families' stand-ins), the armory's thirteen melee pieces, and the
+pistol, the snub revolver and the zip gun. Now 29: the sledge gone from one hand (below), the six new ones in. In a shop the
+player tells weapons apart by name: a Battle Brothers row wears its class word (BLADE, PIPE, AXE...).
+
+## NO CHEAP ROUTE (rule 424(c), ask line 515, added by the coordinator mid-round: 'you have like a one-handed variation, a
+## two-handed variation, and I think that's a pretty cheap escape route')
+
+MEASURED over the index: two pictures were held one-handed by some rows and two-handed by others, one object at two sizes:
+- THE PIPE: every one-handed mace, and the five two-handed maces (two-handed spiked mace, two-handed mace, flanged mace,
+  polemace, goedendag) swung in both fists.
+- THE SLEDGE: every two-handed hammer, and the pickaxe, the military pick and the war hammer swung in ONE fist.
+FOLDED, each to the real thing it is (tools/bohemia_weapons_every_weapon_shows_11_7_26.py fold; no new picture needed): the pipe
+is one-handed only; the sledgehammer two-handed only, and a two-handed mace is the sledgehammer (in a dead city the two-handed
+blunt weapon is the sledge); a one-handed hammer or pick is the framing hammer, a real one-handed hammer. The pairs that stay are
+real pairs of objects, each drawn as itself: the hatchet and the fire axe, the framing hammer and the sledge, the chain and the
+tow chain, the machete and the gift-shop claymore, the cleaver and the ditch blade, the rebar spear and the pole hook. The
+gate's D5 holds it (no picture held both ways), D6 plants a two-handed mace back on the pipe and catches it.
 
 ## THE SIX NEW ONE-HANDERS (armory round 3, records/target/bb/armory.json)
 
@@ -117,13 +132,28 @@ next round, first. Battle Brothers' own world map shows a figure, not his kit; h
 
 ## CHECKS RUN
 
-(filled at ship: the gate, THE THING IN HIS HAND, every item has a model, the vote tab, reference check, reuse-first, purity)
+Run one at a time on the rebased tree (main at 8106d196), never the whole suite (rule 13: pre-push pass; full suite unmeasured
+since 8106d196):
+- EVERY WEAPON SHOWS (new) 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
+- THE THING IN HIS HAND --quick 24/0 (S, P, H legs: YOU's new layers on every key, touching his fist, swung; the planted faults bite).
+- every item has a model 322/0.
+- THE CREW FIGURE HOLDS HIS GUN (amended for rule 424: a melee man holds his thing now): H1, H2 and the planted leg green on the
+  phone and the computer; F1 (the computer: the crew screen's fatigue against the fight's) RED, and red on main for the same reason
+  this gate's own fight leg was first: the demo's crew starts on its town's ground, and A TOWN IS ALWAYS A DOOR (rule 381) holds a
+  road crew off it, so roadContactFight returns false and no fight opens. Routed (below); not this lane's code.
+- THE MARKET IN THE PACK'S ART 7/1: the one red is COOK's w_pistol card (the golden pistol's), not touched here.
+- REFERENCE CHECK 514/2 and REUSE-FIRST: the reds are older tools already red on main; both new tools carry the blocks.
+- Proof (the shipped fight, both modes, nine weapons): AFTER each weapon's own prop drawn 402 to 424 times a run, BEFORE 0 for the
+  three families (empty hands) and the family picture for the six; 0 page errors in 18 runs (records/target/weapons_every_weapon_shows/proof_log.txt).
 
 ## ROUTED
 
 - ANIMATION: the map's held thing (the next round is WEAPONS', but the pose is ANIMATION's towns tool; one line if it should be
   theirs).
 - WORDS: the six lines are draft:true.
+- RUN SEVEN / CAMP (rule 381, A TOWN IS ALWAYS A DOOR): every gate that opens a road fight from the demo's first screen with
+  roadContactFight (THE THING IN HIS HAND's W3, THE CREW FIGURE HOLDS HIS GUN's F1, GEAR THROUGH THE SAVE) now gets false, because
+  the crew starts on its town's ground; a helper in the one driver that starts a road fight off the town would put them all back.
 - TUNING: the six prices are the mean of their two rows (the armory's rule); the pipe wrench at 160 sits with the warhammer's
   band because its blow is that band's; TUNING moves it if a plumber's wrench should cost less.
 

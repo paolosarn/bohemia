@@ -13,6 +13,7 @@
      C  THE CREW SCREEN, IN THE DEMO: the crew screen opened from the map the way the bar opens it; for every row and every
         shield the card's own figure (the same functions its loop draws with) holds that thing in at least three of eight turns;
         and on the glass: a man handed the golf club stands on his card with it in his fists.
+     D5 NO CHEAP ROUTE (rule 424(c)): no picture is held one-handed by one row and two-handed by another.
      MUTATIONS (the gate must bite, planted in the live pages and taken back): the sword's two-handed picture taken out of the
      index (the five swords must go red, in the data, the fight and the crew screen); the tire iron's row and its class's fallback
      taken out (the tire iron must go red).
@@ -71,9 +72,18 @@ leg(twoCls.every(c => (MI.two_by_class || {})[c] || two.filter(b => b.class === 
   leg(sw.every(id => m.some(x => x.startsWith(id + ' '))), 'D3 MUTATION: the sword\'s two-handed picture taken out of the index, the five two-handed swords go red', m.join('; ')); }
 { const M2 = JSON.parse(JSON.stringify(MI)); delete M2.by_row.tire_iron; delete M2.by_class.mace; const m = dataMisses(M2, YOU);
   leg(m.some(x => x.startsWith('tire_iron ')), 'D4 MUTATION: the tire iron\'s row and its class\'s fallback taken out, the tire iron goes red', m.slice(0, 3).join('; ')); }
-const ONE = W.filter(b => b.hands === 1), oneSeen = new Set(ONE.map(b => pictureOf(b, MI)[1] || '?'));
+/* D5 NO CHEAP ROUTE (rule 424(c), ask line 515, Paolo 11/7: 'you have like a one-handed variation, a two-handed variation, and I
+   think that's a pretty cheap escape route'): no picture is held one-handed by one row and two-handed by another */
+const bothWays = M => { const one = new Set(), two = new Set();
+  W.forEach(b => { const [kind, q] = pictureOf(b, M); if (!q || kind === 'gun' || kind === 'bow') return; (kind === 'two' ? two : one).add(q); });
+  return [...one].filter(q => two.has(q)); };
+leg(bothWays(MI).length === 0, 'D5 NO CHEAP ROUTE: no picture is held one-handed by one row and two-handed by another (one object at two sizes)', bothWays(MI).join(', '));
+{ const M2 = JSON.parse(JSON.stringify(MI)); M2.two_by_row.two_handed_mace = 'pipe';
+  leg(bothWays(M2).indexOf('pipe') >= 0, 'D6 MUTATION: a two-handed mace pointed back at the one-handed pipe is caught', bothWays(M2).join(', ')); }
+const OWNG = J('slices/fight_rig/own_guns.json').by_row || {};
+const ONE = W.filter(b => b.hands === 1), oneSeen = new Set(ONE.map(b => GUN_CLASSES.indexOf(b.class) >= 0 ? 'gun:' + (OWNG[b.id] || 'pistol') : pictureOf(b, MI)[1] || '?'));
 note('the weapons list: ' + W.length + ' rows, ' + ONE.length + ' one-handed (' + ONE.filter(b => GUN_CLASSES.indexOf(b.class) < 0).length + ' not guns), ' +
-  W.filter(b => bothHands(b)).length + ' two-handed; ' + oneSeen.size + ' different one-handed pictures in a man\'s fist; ' + W.filter(b => b.armory).length + ' rows of the valley\'s own');
+  W.filter(b => bothHands(b)).length + ' two-handed; ' + oneSeen.size + ' real one-handed objects in a man\'s fist (424(c): each its own picture, never a two-hander\'s); ' + W.filter(b => b.armory).length + ' rows of the valley\'s own');
 if (QUICK) done();
 
 /* ------------------------------------------------------------------------------------------------ F and C, in the demo */
@@ -96,11 +106,11 @@ const FIGHT_WALK = async (args) => {
   cx.drawImage = function (img) { if (LOG) LOG.push([String((img && (img.src || (img.base && img.base.src))) || ''), arguments[1], arguments[2]]); return orig.apply(this, arguments); };
   const base = s => s.split('?')[0].split('/').slice(-2).join('/');
   /* every props sheet's cells, by file and place: the prop it is (every melee look loaded so far) */
-  const CELL = {};
-  const index = () => { Object.keys(MELEE.looks).concat(['you']).forEach(k => { const d = k === 'you' ? meleeLook('you') : MELEE.looks[k] && MELEE.looks[k].d; if (!d || !d.props || d._indexed) return;
+  const CELL = {}, RUN_ = Math.random();   /* each walk indexes afresh (a second walk in the same page found every look marked done and an empty index) */
+  const index = () => { Object.keys(MELEE.looks).concat(['you']).forEach(k => { const d = k === 'you' ? meleeLook('you') : MELEE.looks[k] && MELEE.looks[k].d; if (!d || !d.props || d._indexed === RUN_) return;
     Object.keys(d.props.by).forEach(q => Object.keys(d.props.by[q]).forEach(c => { const pk = d.props.by[q][c], sh = d.props.sheets[pk.l]; if (!sh) return;
       (pk.k || []).forEach(row => (row || []).forEach(ix => { if (ix === null || ix === undefined) return; const cl = sh.cells[ix]; CELL['rig_melee/' + sh.file + '|' + cl[0] + '|' + cl[1]] = q; })); }));
-    d._indexed = true; }); };
+    d._indexed = RUN_; }); };
   const what = e => { const f = base(e[0]); if (/_guns\.webp$|own_guns\//.test(f)) return 'gun'; return CELL[f + '|' + e[1] + '|' + e[2]] || null; };
   const arm = (v, row, sh) => { v.weapon = row ? (FIGHT._t.pistolShot(row) || row) : null; v.shield = sh || null; v.shieldBack = null; };
   const drawOnce = (v, f) => { v._face = f; const b = manBox(v.x, v.y); LOG = []; try { blitMan(v, b.x, b.feet, performance.now(), 1); } catch (e) { LOG.push(['ERR ' + e.message, 0, 0]); } const l = LOG; LOG = null; return l; };
@@ -189,7 +199,10 @@ const SWORDS = ['rhomphaia', 'warbrand', 'longsword', 'greatsword', 'executioner
       for (let i = 0; i < 40 && typeof FZOOMING !== 'undefined' && FZOOMING; i++) await new Promise(r => setTimeout(r, 250));
       try { contactClear(); } catch (e) {}
       try { stepOnce(0); stepOnce(4); } catch (_e) {}
-      return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 });
+      /* the demo's crew starts on its town's ground, where A TOWN IS ALWAYS A DOOR holds a road crew off it and the meet card asks
+         first: both lifted for the one call that sets the test fight up, put back the same instant (this gate is about the hands) */
+      const kt = townDoorHolds, km = MEET.on; townDoorHolds = function () { return false; }; MEET.on = false;
+      try { return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }); } finally { townDoorHolds = kt; MEET.on = km; }
     });
     let f = null;
     await waitFor(d.page, async () => { const h = await d.page.$('#fightFrame'); if (!h) return false; const c = await h.contentFrame();
