@@ -1,3 +1,13 @@
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/7 LATEST -- BUILD 11/7o - EVERY HOUSE ON A STREET, BUILT, NOT YET SEEN (rule 429(b)(d),
+426(a); asks 492, 505): (1) ONE TABLE records/target/bb/map_fight_kinds.json, every kind the map draws (88 block kinds, the town's 38
+pieces, your lot's 10, the 6 house models) with its fight answer (storeys 1/2/3, in or on the roof, no ladder, cover, what blocks, a street
+in front); the map stands each house as tall as the table says (49/46/5). (2) THE STREETS in the generation (engine/bohemia_overmap.js
+houseLanes): every house block its own street down its middle, a row of houses each side facing it, joined to the mile streets; the fight
+cut from the map gets it (suburb boards: 27% -> 100% of house tiles beside a street). Gates EVERY MAP KIND HAS ITS FIGHT ANSWER 16/0, A
+STREET IN FRONT OF EVERY HOUSE 10/0 (22 seeds). VOTE world13-a-street-at-every-house-11-7 (STAND-IN). Next: 429(h), the 15 boards as
+templates (429(c)(f)), 429(g), the cut. The whole block: handoffs/WORLD_THIRTEEN.md.
+[bb Battle Brothers lays its battlefield from the world tile it is fought on; ours is the same street the map drew, every house on it.]
+
 ECONOMY (economy-01gkdyuu): 11/7 LATEST -- BUILD 11/7m - TRADE GOODS, BUY LOW SELL HIGH, BUILT, NOT YET SEEN (rule 425(b), asks 196
 and 197): every stall sells the good its place makes (a batch a week) and buys every good he carries (the maker for 15 in 100,
 everywhere else 110, a small place less, never nothing); a good is one piece in one stash slot; the crew screen's tap names the two
