@@ -86,7 +86,10 @@ def gp(s, t):
 GRIP_AT = gp(0.046, GRIP_DEEP / 2)
 
 # THE LOOP'S KNOBS (each cycle moves one; the values below are where the loop ended, records/target/cook_golden_pistol/loop.jsonl)
-TUNE = dict(slide=['tape_grey', 4], frame=['tape_grey', 2], wood=['clay_mustard', 1], seed=1, card_grain=10)
+# 11/7, the golden pass (cycles 22 to 27): the slide a step down (a bright thin stroke in a dark rim read as a knife), the frame
+# the 1911C's worn blued two-tone, and this gun's low ready about 18 degrees down instead of ANIMATION's 50 (rest_bar())
+TUNE = dict(slide=['tape_grey', 3], frame=['rubber', 3], wood=['clay_mustard', 1], seed=1, card_grain=10, rest=[1.0, 0.05, -0.25],
+            card_dirt_k=4.0, card_rim=True)   # the card (fault 3, cycles 28 to 30): the robot's dirt at the card's scale, the fight's day rim
 TUNE.update(json.loads(os.environ.get('BOHEMIA_PISTOL_TUNE', '{}')))
 
 
@@ -182,12 +185,50 @@ def do_model():
     json.dump(REAL, open(os.path.join(OUTD, 'real.json'), 'w'), indent=1)
 
 
+ANIM_REST = "return rw, fwd * 0.75 + fore * 0.35 - up * 0.55"   # ANIMATION's low ready (the hold tool's PLACE, the melee tool's 'rest')
+
+
+def rest_bar():
+    """the low ready's line for THIS gun (11/7, the golden pass, fault 2): ANIMATION's (fwd 0.75, fore 0.35, up -0.55) tips the
+    muzzle about 50 degrees down along a hanging arm, so at 12 px the slide is a pale sliver beside the fist that reads as a
+    knife. TUNE['rest'] = [fwd, fore, up] is this gun's own line in the same fist; the body's pose is never touched"""
+    r = list(TUNE.get('rest', [0.75, 0.35, -0.55])) + [0.0]; a, b, c, l = r[:4]; drop = float(TUNE.get('grip_drop', 0.0))
+    # l: across his body (+ toward his left, the 'muzzle to the ground in front of his other foot' low ready), so the camera sees
+    # the gun's side from the front; grip_drop (metres): the gun seated lower in his fist along its own grip, the heel below it
+    return ("_x = (fwd * %r + fore * %r + up * %r + up.cross(fwd).normalized() * %r).normalized()\n"
+            "        _y = up.cross(_x).normalized(); _z = _x.cross(_y)\n"
+            "        return rw + (_x * -0.309 + _z * -0.951) * %r, _x" % (float(a), float(b), float(c), float(l), drop))
+
+
 def six():
     """the six guns' tool, imported, with this one gun as its whole list (its renders, expected(), pack, alone read SIX)"""
     import bohemia_cook_the_six_guns_11_3_26 as SG
     SG.SIX = {ROW: GUN}
     SG.OUTD = OUTD
     SG.REND = os.environ.get('BOHEMIA_PISTOL_REND', 'records/target/cook_golden_pistol/renders')
+    # the loop renders only the clips it judges (BOHEMIA_PISTOL_CLIPS=PIdle,PAim); the ship renders every clip
+    only = [c for c in os.environ.get('BOHEMIA_PISTOL_CLIPS', '').split(',') if c]
+    if only and not getattr(SG, '_golden_only', False):
+        sc_ = SG.system_clips
+        SG.system_clips = lambda system, kind: [x for x in sc_(system, kind) if x[0] in only]
+        SG._golden_only = True
+    # this gun's low ready (TUNE['rest']) in the held clips (the hold tool's PLACE, in memory) and on the shield arm (the melee
+    # tool's place_pistol 'rest', in memory); nothing of ANIMATION's edited, every other gun keeps ANIMATION's line
+    if not getattr(SG, '_golden_rest', False):
+        H, _ = SG.hold_src(); assert H.PLACE.count(ANIM_REST) == 1, 'the hold tool changed its low ready: re-read it'
+        H.PLACE = H.PLACE.replace(ANIM_REST, rest_bar())
+        sp0 = SG.shield_prog
+        def shield_rest(gun, model):
+            r = list(TUNE.get('rest', [0.75, 0.35, -0.55])) + [0.0]; a, b, c, l = r[:4]; drop = float(TUNE.get('grip_drop', 0.0))
+            return sp0(gun, model).replace('A.render_props(', (
+                '_pp = A.place_pistol\n'
+                'def _mine_place(hold, rw, lw, re, fwd, up, left):\n'
+                '    if hold != "rest": return _pp(hold, rw, lw, re, fwd, up, left)\n'
+                '    fore = rw - re; fore = fore.normalized() if fore.length > 1e-4 else -up\n'
+                '    x = (fwd * %r + fore * %r + up * %r + left * %r).normalized(); y = up.cross(x).normalized(); z = x.cross(y)\n'
+                '    return rw + (x * -0.309 + z * -0.951) * %r, x\n'
+                'A.place_pistol = _mine_place\n' % (float(a), float(b), float(c), float(l), drop)) + 'A.render_props(', 1)
+        SG.shield_prog, SG._golden_rest = shield_rest, True
     # the loop's wear seed into every render (COMBAT's guns tool and ANIMATION's melee render_props call the source pass with 0)
     if not getattr(SG, '_golden_seeded', False):
         gp_, sp_ = SG.guns_prog, SG.shield_prog; sd = int(TUNE['seed'])
@@ -261,6 +302,70 @@ def do_hand(tag):
     print('HAND', os.path.join(OUTD, 'hand_%s.png' % tag), W.size, 'LOOP', os.path.join(OUTD, 'loop_%s.png' % tag))
 
 
+def do_held(tag, rend=None):
+    """THE LOOP'S CANDIDATE, 11/7 (the golden pass): the pistol where the fight shows it most, YOU's held clips (his shipped
+    rig_hold body) with this gun's hold renders laid on the fight's way (the guide's cut, the day rim), the low ready (PIdle
+    key 0) in all eight facings and the one-hand aim (PAim key 1) E and SE; the class pistol off the shipped hold sheet in
+    the row above; the thug (the bar piece) at the end of each row; one fight-floor tone under it. 1x, and 4x for the eye"""
+    import numpy as np
+    from PIL import Image
+    SG = six(); rd = os.path.join(ROOT, rend or SG.REND, 'hold_%s' % ROW, 'you')
+    B = {x['key']: x for x in json.load(open(os.path.join(ROOT, 'records/target/direction_bar/THE_BAR.json')))['pieces']}
+    FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json'))); Y = FR['looks']['you']; RIM = tuple(FR['rim']); W0, H0 = Y['w'], Y['h']
+    thr = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')))['rig']['alpha_threshold']
+    H = json.load(open(os.path.join(ROOT, 'slices/rig_hold/you.json')))
+    sheet = Image.open(os.path.join(ROOT, 'slices/rig_hold', H['sheet']['file'])).convert('RGBA')
+    gsheet = Image.open(os.path.join(ROOT, 'slices/rig_hold', H['guns']['file'])).convert('RGBA')
+    rj = json.load(open(rd + '/rig.json'))
+    fx0, fy0 = rj['crop_box_px'][0] + rj['ground_px'][0] - Y['foot'][0], rj['crop_box_px'][1] + rj['ground_px'][1] - Y['foot'][1]
+    def cut(a):
+        op = a[..., 3] > thr; a = a.copy(); a[..., 3] = np.where(op, 255, 0); a[~op] = 0
+        near = np.zeros_like(op); near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+        a[near & ~op] = RIM; return Image.fromarray(a, 'RGBA')
+    def lay(c, cells, ix, im):
+        if ix is None: return
+        x, y, w, h, dx, dy = cells[ix]; c.alpha_composite(im.crop((x, y, x + w, y + h)), (dx, dy))
+    def man(clip, k, fi, mine):
+        c = Image.new('RGBA', (W0, H0)); lay(c, H['sheet']['cells'], H['clips'][clip][k][fi], sheet)
+        if mine:
+            fn = '%s/guns/%s_%s_%s_k%02d.png' % (rd, ROW, clip, SG.FIGHT_DIRS[fi], k)
+            if os.path.exists(fn):
+                big = Image.new('RGBA', (W0 + 400, H0 + 400)); big.alpha_composite(cut(np.asarray(Image.open(fn).convert('RGBA'))), (int(200 - fx0), int(200 - fy0)))
+                c.alpha_composite(big.crop((200, 200, 200 + W0, 200 + H0)))
+        else: lay(c, H['guns']['cells'], H['guns']['clips']['pistol'][clip][k][fi], gsheet)
+        return c
+    shots = [('PIdle', 0, f) for f in range(8)] + [('PAim', 1, 1), ('PAim', 1, 2)]
+    thug = Image.open(os.path.join(ROOT, B['body_thug_S']['src'])).convert('RGBA')
+    cw = 46; CW = cw * len(shots) + thug.width + 8; ROWH = H0 - 18
+    out = Image.new('RGBA', (CW, ROWH * 2), (126, 112, 92, 255))   # the fight floor's dirt tone (the board under him, sampled)
+    tr = Image.new('RGBA', (CW, ROWH))   # NOW alone on no ground: the look tool's candidate (cycle 22 measured the floor, void)
+    for r, mine in enumerate((False, True)):
+        for i, (clip, k, fi) in enumerate(shots):
+            m = man(clip, k, fi, mine); bb = m.getbbox()
+            if not bb: continue
+            cx_ = (bb[0] + bb[2]) // 2; piece = m.crop((cx_ - cw // 2, 18, cx_ + cw // 2, H0)); out.alpha_composite(piece, (i * cw, r * ROWH))
+            if mine: tr.alpha_composite(piece, (i * cw, 0))
+        out.alpha_composite(thug, (cw * len(shots) + 4, r * ROWH + ROWH - thug.height - 4))
+    # the eye's close look: a 26 x 26 window on the gun in each shot (centred on both guns' pixels), WAS over NOW, at 6x
+    ZW = 26; Z = Image.new('RGBA', ((ZW + 2) * len(shots), (ZW + 2) * 2), (126, 112, 92, 255))
+    for i, (clip, k, fi) in enumerate(shots):
+        a0, a1 = man(clip, k, fi, False), man(clip, k, fi, True)
+        body = Image.new('RGBA', (W0, H0)); lay(body, H['sheet']['cells'], H['clips'][clip][k][fi], sheet)
+        diff = np.zeros((H0, W0), bool)
+        for g in (a0, a1): diff |= np.any(np.asarray(g) != np.asarray(body), axis=-1)
+        ys, xs = np.nonzero(diff)
+        if not len(xs): continue
+        cx_, cy_ = int(xs.mean()), int(ys.mean())
+        for r, g in enumerate((a0, a1)):
+            Z.alpha_composite(g.crop((cx_ - ZW // 2, cy_ - ZW // 2, cx_ + ZW // 2, cy_ + ZW // 2)), (i * (ZW + 2), r * (ZW + 2)))
+    os.makedirs(os.path.join(OUTD, 'cycles'), exist_ok=True)
+    Z.resize((Z.width * 6, Z.height * 6), Image.NEAREST).save(os.path.join(OUTD, 'cycles', 'held_%s_gun6x.png' % tag))
+    p1 = os.path.join(OUTD, 'cycles', 'held_%s.png' % tag); out.save(p1)
+    tr.save(os.path.join(OUTD, 'cycles', 'held_%s_now.png' % tag))   # the look tool's candidate: NOW alone, no ground
+    out.resize((out.width * 4, out.height * 4), Image.NEAREST).save(os.path.join(OUTD, 'cycles', 'held_%s_4x.png' % tag))
+    print('HELD', p1, out.size)
+
+
 def do_pack():
     """the six guns' own pack with this gun as its list, then the six put back beside it (their cells and files untouched);
     the shift tables are recomputed from the shipped sheets by the same code and serve every pistol row alike"""
@@ -299,9 +404,13 @@ def do_card_render(ppm=1200):
     # cycle 19: the guide's grain is sized for the fight's 57 px a metre; the card is shrunk from ppm to about 430 px a metre, so
     # its grain is scaled by the same ratio (card_grain) or a run of one colour is 3 px long where the fight's is 2 (DETAIL)
     # (cycle 21: on the steel only; the walnut keeps the guide's grain, or its checkering goes to noise, cycle 20)
+    # 11/7, fault 3 (the card flat and clean beside the robot's dirt): the source pass sizes its grime and dust masks in metres
+    # (drift 20 cm, dust 50 cm), so on a 22 cm gun they are one flat wash; the card is a close-up, so the masks are laid at
+    # the robot's share of the object (card_dirt_k: the gun read as card_dirt_k times its size by the masks only, never the light)
     g0 = MR.G['grain_per_m']; wood_ = [o for o in parts if any(sl.material and sl.material.name.startswith('walnut') for sl in o.material_slots)]
-    MR.G['grain_per_m'] = float(g0) * float(TUNE.get('card_grain', 1.0)); MR.source_pass([o for o in parts if o not in wood_], float(MR.G['wear']), 1.0, int(TUNE['seed']))
-    MR.G['grain_per_m'] = g0; MR.source_pass(wood_, float(MR.G['wear']), 1.0, int(TUNE['seed']))
+    kd = float(TUNE.get('card_dirt_k', 1.0))
+    MR.G['grain_per_m'] = float(g0) * float(TUNE.get('card_grain', 1.0)) / kd; MR.source_pass([o for o in parts if o not in wood_], float(MR.G['wear']), kd, int(TUNE['seed']))
+    MR.G['grain_per_m'] = float(g0) / kd; MR.source_pass(wood_, float(MR.G['wear']), kd, int(TUNE['seed'])); MR.G['grain_per_m'] = g0
     vs = [o.matrix_world @ v.co for o in parts for v in o.data.vertices]
     lo = mathutils.Vector([min(v[i] for v in vs) for i in range(3)]); hi = mathutils.Vector([max(v[i] for v in vs) for i in range(3)]); c = (lo + hi) / 2
     cd = bpy.data.cameras.new('cam'); cd.type = 'ORTHO'; cam = bpy.data.objects.new('cam', cd); sc.collection.objects.link(cam); sc.camera = cam
@@ -324,7 +433,14 @@ def do_card(box_from='slices/market_icons/w_pistol.png'):
     im = src.resize((max(1, round(src.width * k)), max(1, round(src.height * k))), Image.BOX)
     im.putalpha(im.split()[3].point(lambda v: 255 if v > 96 else 0))
     out = Image.new('RGBA', (W, H), (0, 0, 0, 0)); out.alpha_composite(im, ((W - im.width) // 2, (H - im.height) // 2))
-    out.save(os.path.join(ROOT, box_from), optimize=True); out.save(os.path.join(OUTD, 'card', 'w_pistol.png'))
+    if TUNE.get('card_rim'):   # 11/7, fault 3: his objects all carry a dark contour (COOK's study 10/10: 100% of his 784 props,
+        import numpy as np    # edge minus inside -49.9); the card takes the fight's own day rim, one pixel, outside the gun
+        a = np.asarray(out).copy(); op = a[..., 3] > 0
+        near = np.zeros_like(op); near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+        FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json'))); a[near & ~op] = tuple(FR['rim'][:3]) + (255,)
+        out = Image.fromarray(a, 'RGBA')
+    if os.environ.get('BOHEMIA_PISTOL_CARD_SHIP') == '1': out.save(os.path.join(ROOT, box_from), optimize=True)   # only once it beats his tile
+    out.save(os.path.join(OUTD, 'card', 'w_pistol.png'))
     print('CARD ICON', box_from, im.size)
 
 
@@ -369,7 +485,8 @@ def do_bar():
     items = [('thug (bar)', Image.open(os.path.join(ROOT, B['body_thug_S']['src'])).convert('RGBA')),
              ('robot (bar)', Image.open(os.path.join(ROOT, B['robot_S']['src'])).convert('RGBA')),
              ('YOU, low', man('PIdle', 0, 1, 'SE')), ('YOU, aim', man('PAim', 1, 2, 'E')),
-             ('the card', Image.open(os.path.join(ROOT, 'slices/market_icons/w_pistol.png')).convert('RGBA'))]
+             ('his pack tile', Image.open(os.path.join(OUTD, 'card', 'w_pistol_pack.png')).convert('RGBA')),
+             ('the card', Image.open(os.path.join(OUTD, 'card', 'w_pistol.png')).convert('RGBA'))]
     cols = [max(i.width, 6 * len(n)) for n, i in items]; Hh = max(i.height for _, i in items) + 16
     V = Image.new('RGBA', (sum(cols) + 10 * (len(items) + 1), Hh), (118, 104, 84, 255)); d = ImageDraw.Draw(V); x = 10
     for (n, i), cw in zip(items, cols):
@@ -377,7 +494,7 @@ def do_bar():
     V.save(os.path.join(OUTD, 'beside_the_bar_1x.png')); print('BAR', V.size)
 
 
-def do_sheet():
+def do_sheet(stage='stand_in', card_shipped=False):
     """the VOTE card: the shipped fight on his phone (the proof's frames, 3x, shrunk to 2x), WAS (the class pistol) beside NOW
     (the golden pistol), moving: YOU with his car door turned through the eight facings (300 ms each), the same with the pistol
     alone, then YOU, RAUL and the thug at the fight's opening zoom (held), then the card's picture beside his pack tile and the
@@ -389,7 +506,7 @@ def do_sheet():
         A, B = fr(a), fr(b); W = max(A.width + 12, 480); H = A.height * 2 + 52; x = (W - A.width) // 2
         S = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(S)
         d.text((6, 5), 'WAS: the class pistol  ' + label, fill=(200, 190, 170)); S.paste(A, (x, 22))
-        d.text((6, A.height + 31), 'NOW: the new pistol, a STAND-IN (not yet the bar)', fill=(240, 200, 120)); S.paste(B, (x, A.height + 48))
+        d.text((6, A.height + 31), 'NOW: the pistol, ' + ('GOLDEN' if stage == 'golden' else 'a STAND-IN (not yet the bar)'), fill=(240, 200, 120)); S.paste(B, (x, A.height + 48))
         S.info['now'] = [x, A.height + 48, B.width, B.height]; return S
     seq, dur = [], []
     for kit, lab in (('door', 'with his car door'), ('bare', 'one hand')):
@@ -399,15 +516,22 @@ def do_sheet():
     # the card and the bar, held: his pack tile and the new card at 3x, the gun beside the bar at 2x
     C = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(C)
     old = Image.open(os.path.join(OUTD, 'card', 'w_pistol_pack.png')).convert('RGBA'); new = Image.open(os.path.join(OUTD, 'card', 'w_pistol.png')).convert('RGBA')
-    d.text((6, 5), 'THE CARD: his pack tile (kept)', fill=(200, 190, 170)); d.text((6 + 2 * 96 + 20, 5), 'the new card (NOT shipped)', fill=(240, 200, 120))
+    d.text((6, 5), 'THE CARD: his pack tile' + ('' if card_shipped else ' (kept)'), fill=(200, 190, 170)); d.text((6 + 2 * 96 + 20, 5), 'the new card' + (' (on the item cards)' if card_shipped else ' (NOT shipped)'), fill=(240, 200, 120))
     for i, im in enumerate((old, new)):
         im = im.resize((im.width * 2, im.height * 2), Image.NEAREST); C.paste(im, (6 + i * (2 * 96 + 20), 24), im)
-    bar = Image.open(os.path.join(OUTD, 'beside_the_bar_1x.png')).convert('RGB'); kb = max(1, min(2, (W - 12) // bar.width, (H - 24 - 2 * 78 - 30) // bar.height))
+    bar = Image.open(os.path.join(OUTD, 'beside_the_bar_1x.png')).convert('RGB')
+    if bar.width > W - 12:   # 11/7: wider than the card (his tile and the card joined it): two rows, cut on a column of bare ground
+        import numpy as np
+        g = np.asarray(bar)[14:]; bare = np.all(np.all(g == g[0, 0], axis=-1), axis=0)
+        cols = [x for x in range(bar.width) if bare[x]]; cut_ = min(cols, key=lambda x: abs(x - bar.width // 2)) if cols else bar.width // 2
+        two = Image.new('RGB', (max(cut_, bar.width - cut_), bar.height * 2 + 4), tuple(int(v) for v in g[0, 0]))
+        two.paste(bar.crop((0, 0, cut_, bar.height)), (0, 0)); two.paste(bar.crop((cut_, 0, bar.width, bar.height)), (0, bar.height + 4)); bar = two
+    kb = max(1, min(2, (W - 12) // bar.width, (H - 24 - 2 * 78 - 30) // bar.height))
     bar = bar.resize((bar.width * kb, bar.height * kb), Image.NEAREST)
     d.text((6, 24 + 2 * 78 + 10), 'BESIDE THE BAR at %dx: the thug, the robot, YOU holding it' % kb, fill=(240, 200, 120))
     C.paste(bar, (6, 24 + 2 * 78 + 26)); seq.append(C); dur.append(2200)
     seq = [s if s.size == (W, H) else (lambda c: (c.paste(s, (0, 0)), c)[1])(Image.new('RGB', (W, H), BG)) for s in seq]
-    sp = os.path.join(OUTD, 'CARD_THE_PISTOL_STAND_IN.webp'); seq[0].save(sp, 'WEBP', save_all=True, append_images=seq[1:], duration=dur, loop=0, quality=82, method=6)
+    sp = os.path.join(OUTD, 'CARD_THE_PISTOL_%s_11_7.webp' % stage.upper()); seq[0].save(sp, 'WEBP', save_all=True, append_images=seq[1:], duration=dur, loop=0, quality=82, method=6)
     na = seq[1].info.get('now') or [0, 0, W, H]
     first = seq[1].crop((na[0], na[1], na[0] + na[2], na[1] + na[3])); fp = os.path.join(OUTD, 'first.webp'); first.save(fp, 'WEBP', quality=85, method=6)
     json.dump(dict(firstAt=na, size=[W, H]), open(os.path.join(OUTD, 'card_first_at.json'), 'w'))
@@ -423,6 +547,7 @@ if __name__ == '__main__':
         SG = six(); systems = [x for x in a if x in SG.SYSTEMS] or list(SG.SYSTEMS)
         SG.do_render([ROW], systems, int(os.environ.get('BOHEMIA_WORKERS', '4')))
     elif cmd == 'hand': do_hand(a[0] if a else 'now')
+    elif cmd == 'held': do_held(a[0] if a else 'now')
     elif cmd == 'pack': do_pack()
     elif cmd in ('icon', 'alone'):
         import bohemia_direction_master_rig as MR
@@ -430,7 +555,7 @@ if __name__ == '__main__':
         six().do_alone([ROW], icon=(cmd == 'icon'))
     elif cmd == 'card_render': do_card_render()
     elif cmd == 'card': do_card()
-    elif cmd == 'sheet': do_sheet()
+    elif cmd == 'sheet': do_sheet(a[0] if a else 'stand_in', len(a) > 1 and a[1] == 'card')
     elif cmd == 'bar': do_bar()
     elif cmd == 'manifest': do_manifest()
     else: sys.exit('model | rig <seed> | render [systems] | hand <tag> | pack | icon | alone | shelf | manifest')

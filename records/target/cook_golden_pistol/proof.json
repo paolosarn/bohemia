@@ -1,20 +1,20 @@
 {
  "door": {
-  "at": "2026-11-06T07:48:07.509Z",
+  "at": "2026-11-07T06:16:03.349Z",
   "before": {
    "set": {
     "ok": true,
     "at": {
      "you": [
-      2,
+      4,
       5
      ],
      "raul": [
-      1,
+      3,
       5
      ],
      "thug": [
-      3,
+      5,
       5
      ]
     },
@@ -60,6 +60,7 @@
     "height": 254,
     "manH": 134
    },
+   "stale": [],
    "openBox": {
     "zoom": 0.29081317067294327,
     "manH": 59
@@ -75,13 +76,14 @@
     "hit": null
    },
    "seen": {
-    "melee:MCover": 556,
-    "carry": 1112,
-    "melee:SIdle": 1112,
-    "shield:car_door": 1662,
-    "laid:S": 550,
-    "idle:breatheR4": 1,
-    "melee:MIdle": 545
+    "melee:SIdle": 2343,
+    "shield:car_door": 3117,
+    "carry": 1562,
+    "laid:M": 8,
+    "idle:breatheR": 1,
+    "melee:MCover": 1545,
+    "laid:S": 774,
+    "idle:breatheR4": 1
    },
    "errs": []
   },
@@ -90,15 +92,15 @@
     "ok": true,
     "at": {
      "you": [
-      2,
+      4,
       5
      ],
      "raul": [
-      1,
+      3,
       5
      ],
      "thug": [
-      3,
+      5,
       5
      ]
     },
@@ -144,6 +146,7 @@
     "height": 254,
     "manH": 134
    },
+   "stale": [],
    "openBox": {
     "zoom": 0.29081317067294327,
     "manH": 59
@@ -159,34 +162,35 @@
     "hit": null
    },
    "seen": {
-    "melee:MCover": 566,
-    "carry": 1132,
-    "gun:dagger": 1132,
-    "melee:SIdle": 1132,
-    "shield:car_door": 1693,
-    "laid:S": 561,
-    "idle:breatheR4": 1,
-    "melee:MIdle": 557
+    "melee:SIdle": 2265,
+    "shield:car_door": 3013,
+    "carry": 1510,
+    "gun:dagger": 1510,
+    "laid:M": 8,
+    "idle:breatheR": 1,
+    "melee:MCover": 1491,
+    "laid:S": 748,
+    "idle:breatheR4": 1
    },
    "errs": []
   }
  },
  "bare": {
-  "at": "2026-11-06T07:48:37.085Z",
+  "at": "2026-11-07T06:16:41.759Z",
   "before": {
    "set": {
     "ok": true,
     "at": {
      "you": [
-      2,
+      4,
       5
      ],
      "raul": [
-      1,
+      3,
       5
      ],
      "thug": [
-      3,
+      5,
       5
      ]
     },
@@ -232,6 +236,7 @@
     "height": 254,
     "manH": 134
    },
+   "stale": [],
    "openBox": {
     "zoom": 0.29081317067294327,
     "manH": 59
@@ -247,13 +252,15 @@
     "hit": null
    },
    "seen": {
-    "melee:MCover": 558,
-    "carry": 1116,
-    "hold:PIdle": 1116,
-    "shield:car_door": 553,
-    "laid:S": 553,
-    "idle:breatheR4": 1,
-    "melee:MIdle": 549
+    "melee:SIdle": 749,
+    "shield:car_door": 1492,
+    "carry": 1498,
+    "hold:PIdle": 1498,
+    "laid:M": 8,
+    "idle:breatheR": 1,
+    "melee:MCover": 1481,
+    "laid:S": 743,
+    "idle:breatheR4": 1
    },
    "errs": []
   },
@@ -262,15 +269,15 @@
     "ok": true,
     "at": {
      "you": [
-      2,
+      4,
       5
      ],
      "raul": [
-      1,
+      3,
       5
      ],
      "thug": [
-      3,
+      5,
       5
      ]
     },
@@ -316,6 +323,7 @@
     "height": 254,
     "manH": 134
    },
+   "stale": [],
    "openBox": {
     "zoom": 0.29081317067294327,
     "manH": 59
@@ -331,14 +339,16 @@
     "hit": null
    },
    "seen": {
-    "melee:MCover": 558,
-    "carry": 1116,
-    "gun:dagger": 1116,
-    "hold:PIdle": 1116,
-    "shield:car_door": 553,
-    "laid:S": 553,
-    "idle:breatheR4": 1,
-    "melee:MIdle": 549
+    "melee:SIdle": 751,
+    "shield:car_door": 1494,
+    "carry": 1502,
+    "gun:dagger": 1502,
+    "hold:PIdle": 1502,
+    "laid:M": 11,
+    "idle:breatheR": 1,
+    "melee:MCover": 1481,
+    "laid:S": 743,
+    "idle:breatheR4": 1
    },
    "errs": []
   }

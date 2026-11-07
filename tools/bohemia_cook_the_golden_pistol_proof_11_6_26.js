@@ -68,10 +68,18 @@ async function one(kit, mode) {
     const y0 = Math.max(0, Math.min(...Bx.map(B => B.head)) - h * .45), y1 = Math.min(innerHeight, Math.max(...Bx.map(B => B.head)) + h * 1.45);
     return { x: Math.round(x0), y: Math.round(y0), width: Math.round(x1 - x0), height: Math.round(y1 - y0), manH: Math.round(h) }; }, who);
   const me = await boxOf('me'), box = await boxOf('group'); out.box = box; out.me = me;
+  /* 11/7: the independent read found two facings that were the same picture twice (bare before SE = E; bare after N = NE): the
+     fight's turnTo stepped him one notch toward the thug between the proof's writes (now the turn clock is held). Each facing waits, and a shot byte-identical to the facing before it is
+     taken again (up to four more times, 700 ms apart); out.stale names any facing that never changed */
+  let prev = null; out.stale = [];
   for (let f = 0; f < 8; f++) {
-    await p.evaluate(f => { const S = FIGHT.S, a = S.units.find(u => u.side === 'you' && u.main) || S.units.find(u => u.side === 'you'); clearInterval(window.__face); window.__face = setInterval(() => { a._face = f; }, 4); }, f);
-    await sleep(300);
-    const fn = kit + '_' + mode + '_turn' + f + '.png'; await p.screenshot({ path: path.join(OUT, fn), clip: me }); out.frames.push(fn);
+    await p.evaluate(f => { const S = FIGHT.S, a = S.units.find(u => u.side === 'you' && u.main) || S.units.find(u => u.side === 'you'); clearInterval(window.__face); window.__face = setInterval(() => { a._face = f; a._turnAt = performance.now(); }, 4); }, f);   /* the turn clock held too: turnTo steps him one notch toward his enemy a beat after _turnAt, which is what made SE draw as E */
+    await sleep(700);
+    const fn = kit + '_' + mode + '_turn' + f + '.png';
+    let buf = await p.screenshot({ clip: me });
+    for (let t = 0; prev && t < 4 && buf.equals(prev); t++) { await sleep(700); buf = await p.screenshot({ clip: me }); }
+    if (prev && buf.equals(prev)) out.stale.push(f);
+    fs.writeFileSync(path.join(OUT, fn), buf); prev = buf; out.frames.push(fn);
   }
   await p.evaluate(() => clearInterval(window.__face));
   await sleep(300);
