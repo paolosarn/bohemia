@@ -263,17 +263,36 @@
   }
 
   /* ---------------- THE CREW SCREEN (UI's own, slices/BOHEMIA_ROSTER_SCREEN.html) ---------------- */
-  var K = 'html body.ns-d1';
+  var K = 'html:not(#ns-x):not(#ns-y) body.ns-d1';   /* two ids: over the camp's own look (UI 7's html.bm-camp-live ...:not(#bm-x)) */
   var CREW_CSS = ''
+    /* the floor on every word of the screen (the slots' names were 7 px, a man's name on the line 8, the levels 9 and 10) */
+    + K + ' #lines .ln,' + K + ' .cell b,' + K + ' .id .sub,' + K + ' .gslot>i,' + K + ' .gslot b.v,' + K + ' .gslot b.arm,' + K + ' .gslot em.d,' + K + ' #said,' + K + ' .cell i.days{font-size:11px!important;letter-spacing:0!important}'
+    + K + ' .cell b{line-height:12px!important}' + K + ' .gslot>i{line-height:12px!important;white-space:nowrap}'
+    + K + ' .doll{grid-template-columns:64px minmax(0,1fr) 64px!important}'
     + K + ' #bag{max-height:none!important;overflow:hidden!important;grid-template-columns:repeat(auto-fill,minmax(44px,1fr))!important;gap:2px!important}'
     + K + ' #bag .slot{height:44px!important;min-height:44px;padding:1px!important;gap:0!important}'
     + K + ' #bag .slot canvas,' + K + ' #bag .slot img,' + K + ' #bag .slot .bm-icon{width:24px!important;height:24px!important}'
     + K + ' #bag .slot b{font-size:11px!important}' + K + ' #bag .slot.off{font-size:11px!important}' + K + ' #bag .none{font-size:11px!important}'
     + K + ' #tabs .n{font-size:11px!important}' + K + ' #tabs button{font-size:11px!important}'
-    /* when the bag needs the room: his eight in two short columns (Battle Brothers' character screen lays them in two) */
+    /* when the bag needs the room: his eight in two short columns (Battle Brothers' character screen lays them in two), the
+       comparison line two lines */
     + K + '.ns-d2 #card .stats{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:8px!important;row-gap:0!important}'
     + K + '.ns-d2 #card .stats>*{min-height:15px!important;height:15px!important}'
-    + K + '.ns-d3 #card .gslot{min-height:44px!important;height:44px!important}';
+    + K + '.ns-d2 #said{height:30px!important}'
+    /* and then his slots a thumb tall, not more */
+    + K + '.ns-d3 .gslot,' + K + '.ns-d3 .doll .gslot,' + K + '.ns-d3 .bagrow .gslot{height:44px!important;min-height:44px!important;padding:1px 2px!important;gap:0!important}'
+    /* the last step anywhere: the comparison line stands in the stash's own heading (over STASH n/36 while it speaks), his name and
+       level on one line */
+    + K + '.ns-d3 #said{grid-area:stash!important;align-self:start;z-index:2;height:44px!important;width:calc(100% - 220px);background:rgba(10,8,6,.92);padding:2px 4px!important;box-sizing:border-box}'
+    + K + '.ns-d3 #said:empty{display:none}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
+    + K + '.ns-d3 .who .id{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}' + K + '.ns-d3 .who .id .xpbar{display:inline-block;width:60px;vertical-align:middle}'
+    /* a short wide glass: the bag's column the wider, so its cells make fewer rows */
+    + '@media (min-aspect-ratio:4/3) and (max-height:620px){' + K + '.ns-d2 #cols{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)!important;column-gap:10px!important}'
+    /* and at the last step his eight
+       a little shorter, the gaps at the foot gone */
+    +   K + '.ns-d3 #cols{padding-bottom:2px!important;row-gap:2px!important}'
+    +   K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}' + K + '.ns-d3 .doll{margin-top:2px!important}}'
+    + K + '.ns-d3 .gslot img.pk,' + K + '.ns-d3 .gslot canvas,' + K + '.ns-d3 .gslot .bm-icon{margin-top:0!important;height:18px!important;width:auto!important}';
   var CREW = { t: 0, log: [] };
   function crewScreen() {
     css(document, 'ns-crew', CREW_CSS);
@@ -288,11 +307,11 @@
     if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3'); return { level: 0, fits: true, over: 0 }; }
     var bag = document.getElementById('bag'); if (bag) { bag.style.maxHeight = ''; }
     b.classList.remove('ns-d2', 'ns-d3'); b.classList.add('ns-d1');
-    var over = function () { return Math.max(0, se.scrollHeight - innerHeight) + (bag ? Math.max(0, bag.scrollHeight - bag.clientHeight) : 0); };
+    var over = function () { return Math.max(0, se.scrollHeight - innerHeight - 1) + (bag ? Math.max(0, bag.scrollHeight - bag.clientHeight - 2) : 0); };
     var lv = 1;
-    if (over() > 1) { b.classList.add('ns-d2'); lv = 2; }
-    if (over() > 1) { b.classList.add('ns-d3'); lv = 3; }
-    var o = over(); CREW.state = { level: lv, fits: o <= 1, over: o };
+    if (over() > 0) { b.classList.add('ns-d2'); lv = 2; }
+    if (over() > 0) { b.classList.add('ns-d3'); lv = 3; }
+    var o = over(); CREW.state = { level: lv, fits: o <= 0, over: o };
     return CREW.state;
   }
 
