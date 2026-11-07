@@ -1,3 +1,11 @@
+ARENA TWO (arena-two-01gkdyus): 11/7 LATEST -- BUILD 11/7t THE PIT IS A PIT (1e1fb5ec), BUILT, NOT YET SEEN (rule 426(f), ask line
+497; Paolo 11/6: 'The arena map is so fucking ugly bro'): the pit fight stands in the Mob's drained Strip pool, its floor the board and
+its walls the edges (the swim-up bar BLOCKED, loungers DEBRIS, black water WATER, sand ROUGH), the crowd, the bookie and the dead resort
+round it; one render through the master rig, laid as COMBAT TWO's boards are; rules and crowd untouched. VOTE arena2-the-pit-is-a-pit-11-7
+(golden, ground). Record records/BOHEMIA_ARENA_TWO_THE_PIT_IS_A_PIT_11_7_26.md. F3-F5 of THE ARENA (the tournament's enter tap) red on
+clean main too: ARENA. The whole block: handoffs/ARENA_TWO.md.
+[bb Battle Brothers' arena is a small map before a crowd with no way out; ours is a drained pool, its walls the way out you do not have.]
+[analog horror: a resort pool by day, the rings the last water left, the chalk count of the dead, four gouges up the tile.]
 FREEWAY (freeway-01gkdyur): 11/7 LATEST -- BUILD 11/7p - THE FREEWAY FIGHT, BUILT, NOT YET SEEN (rule 432, ask lines 513, 514): a fight on a
 freeway cell laid the suburb round the band (96 of 96 freeway spots over 24 valleys stood among houses); now it deals a FREEWAY BOARD: THE DECK
 (the party on the viaduct, the city 10 m down both sides, no stepping off), THE OVERPASS or THE UNDERPASS where a street crosses, THE
