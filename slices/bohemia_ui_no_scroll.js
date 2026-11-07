@@ -284,13 +284,26 @@
     /* the last step anywhere: the comparison line stands in the stash's own heading (over STASH n/36 while it speaks), his name and
        level on one line */
     + K + '.ns-d3 #said{grid-area:stash!important;align-self:start;z-index:2;height:44px!important;width:calc(100% - 220px);background:rgba(10,8,6,.92);padding:2px 4px!important;box-sizing:border-box}'
-    + K + '.ns-d3 #said:empty{display:none}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
+    + K + '.ns-d3 #said:empty{display:none}' + K + '.ns-d3 #cols{padding-top:0!important;row-gap:2px!important}' + K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
     + K + '.ns-d3 .who .id{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}' + K + '.ns-d3 .who .id .xpbar{display:inline-block;width:60px;vertical-align:middle}'
     /* a short wide glass: the bag's column the wider, so its cells make fewer rows */
     + '@media (min-aspect-ratio:4/3) and (max-height:620px){' + K + '.ns-d2 #cols{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)!important;column-gap:10px!important}'
     /* and at the last step his eight
        a little shorter, the gaps at the foot gone */
-    +   K + '.ns-d3 #cols{padding-bottom:2px!important;row-gap:2px!important}'
+    +   K + '.ns-d3 #cols{padding-top:0!important;padding-bottom:2px!important;row-gap:2px!important}'
+    /* the stash's buttons stand in a column beside the bag (the bag nine cells across, four rows for a full 36), and the
+       comparison line speaks over the foot of his card while it is up */
+    +   K + '.ns-d3 #stash{display:grid!important;grid-template-columns:minmax(0,1fr) 74px;column-gap:4px;align-items:start}'
+    +   K + '.ns-d3 #stash>#tabs{grid-column:2;grid-row:1;flex-direction:column!important;align-items:stretch!important;gap:3px!important}'
+    +   K + '.ns-d3 #stash>#tabs .n{flex:none!important;white-space:normal!important}' + K + '.ns-d3 #stash>#tabs button{padding:0 4px!important}'
+    +   K + '.ns-d3 #stash>#bag{grid-column:1;grid-row:1;margin-top:0!important}'
+    +   K + '.ns-d3 #said{grid-area:man!important;align-self:end;width:100%}'
+    /* the KEPT and LAID UP men stand to the right of the line, a column each, not under it */
+    +   K + '.ns-d2 #strip{display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr);grid-auto-columns:auto;column-gap:4px;align-items:start}'
+    +   K + '.ns-d2 #keptrow.on,' + K + '.ns-d2 #hurtrow.on{grid-row:1;display:flex!important;flex-direction:column;align-items:center;gap:1px;margin-top:6px!important}'
+    +   K + '.ns-d2 #keptrow .ln,' + K + '.ns-d2 #hurtrow .ln{writing-mode:horizontal-tb;transform:none;line-height:12px}'
+    +   K + '.ns-d2 #keptrow .line,' + K + '.ns-d2 #hurtrow .line{flex-direction:column;flex-wrap:wrap;max-height:92px;align-content:flex-start}'
+    +   K + '.ns-d2 #keptrow .cell,' + K + '.ns-d2 #hurtrow .cell{flex:0 0 44px;width:44px;height:44px}'
     +   K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}' + K + '.ns-d3 .doll{margin-top:2px!important}}'
     + K + '.ns-d3 .gslot img.pk,' + K + '.ns-d3 .gslot canvas,' + K + '.ns-d3 .gslot .bm-icon{margin-top:0!important;height:18px!important;width:auto!important}';
   var CREW = { t: 0, log: [] };
