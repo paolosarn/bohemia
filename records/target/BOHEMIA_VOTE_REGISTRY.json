@@ -18738,7 +18738,29 @@
   {"id": "scavenge-on-the-dial-built-11-7", "kind": "animation", "lane": "scavenge", "sha": "808fa5f7", "made": "11/7", "draft": true, "title": "SCAVENGE IS IN: YOUR THREE ON THE DEAD SHOT DIAL, ON THE BLOCK'S OWN BOARD", "said": "I want it to be like a fun minigame", "why": "In a town tap the junk lot, then Search the lot (still 4 hours): your crew lands on that block's own fight board with up to six spots lit, and you tap a house on the ONE, tap the detector when its beeps become one tone, or hold on a car and let go on the beat, about 6 seconds a spot, dead centre the best thing there, a miss nothing. You see it in any town's junk lot in the demo, BUILD 11/7k; the board and the dial are the fight's own pictures, so vote on how it plays.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/SCAVENGE_ON_THE_DIAL_BUILT_11_7.webp",
     "first": "../records/target/vote_first/scavenge-on-the-dial-built-11-7.webp",
     "firstAt": [0, 0, 1170, 914]
-   }, "before_after": {"before": "main 0db6b989: Search the lot rolled one find at once, four hours a press, no game", "after": "Search the lot opens the minigame on the block's own board: up to six spots by what the board has, the old dial three ways, one find a spot, paid back in town out of YOUR mouth", "scale": "the demo on a phone held up (390 x 844), the fight's own board and men, by day"}, "record": "records/BOHEMIA_SCAVENGE_ON_THE_DIAL_BUILT_11_7_26.md"}
+   }, "before_after": {"before": "main 0db6b989: Search the lot rolled one find at once, four hours a press, no game", "after": "Search the lot opens the minigame on the block's own board: up to six spots by what the board has, the old dial three ways, one find a spot, paid back in town out of YOUR mouth", "scale": "the demo on a phone held up (390 x 844), the fight's own board and men, by day"}, "record": "records/BOHEMIA_SCAVENGE_ON_THE_DIAL_BUILT_11_7_26.md"},
+  {
+   "id": "weapons-every-weapon-shows-11-7",
+   "kind": "animation",
+   "lane": "weapons",
+   "sha": "f0f9c9ba",
+   "made": "11/7",
+   "draft": true,
+   "title": "EVERY WEAPON SHOWS: THE TWO-HANDERS THAT WERE EMPTY HANDS, AND SIX NEW ONE-HANDERS",
+   "said": "some two handed weapons aren't showing up... we need more one-handed weapons, I feel like there's not enough one-handed weapons",
+   "why": "Every two-handed sword, flail and cleaver used to swing from empty hands and the crew screen showed only guns; now every weapon and shield is in the hands, with six new one-handers (tire iron, golf club, Bowie knife, pipe wrench, tomahawk, slot machine handle) and the map's people next. You see it in every fight and on the crew screen in the CITY, and the six on the smith's shelf, left before and right now.",
+   "stage": "stand_in",
+   "show": {
+    "how": "image",
+    "src": "../records/target/weapons_every_weapon_shows/sheet.webp"
+   },
+   "before_after": {
+    "before": "main before this round: a two-handed sword, flail or cleaver in YOU's hands drawn as empty fists; a new one-hander drawn as the family picture its row falls to",
+    "after": "each its own model through the master rig in YOU's hands, every man borrowing those pictures",
+    "scale": "his phone, 390 x 844 at 3x, the shipped fight zoomed on the man, turned through the eight facings"
+   },
+   "record": "records/BOHEMIA_WEAPONS_EVERY_WEAPON_SHOWS_11_7_26.md"
+  }
  ],
  "verdicts": [
   {
