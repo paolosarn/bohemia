@@ -259,7 +259,240 @@
     return { W: W, H: H, ring: R, AW: AW, AH: AH, ground: ground, sprites: sprites, terrain: terrain, roofs: roofs, cover: cover, lights: lights, tiles: tiles,
       houses: houses, district: p.district, cell: p.cell, X0: p.X0, Y0: p.Y0, seed: p.seed, shift: p.shift };
   }
+  /* ------------------------------------------------------------------------------------------------------------------
+     THE BOARD WEARS ITS DRESSING (COMBAT TWO 11/7, rule 419, ask line 479; Paolo 11/7: 'it feels like you got rid of the rest
+     of the maps, we need more love and better shit'). MEASURED BEFORE (gates/the_board_is_the_city_at_that_spot_gate.js K1, 18
+     spots): every laid board was poorer than the template board the same spot dealt before 11/6h on two to six of the six
+     counts: the Strip 76 props to 0, the desert 39 to 0, downtown's roofs 94 to 0 to 5, the suburb's props 86 to 21 to 34.
+     NOW dress(L, p, T, D) keeps the map's layout tile for tile (no street, house, lot or building moves) and puts the template's
+     own dressing on it, where it fits, seeded by the spot so no two boards are the same (records/BOHEMIA_COMBAT_TWO_THE_BOARDS_
+     WEAR_THEIR_DRESSING_11_7_26.md):
+       1. LIFTED TILES: a template tile that carries something (a baked prop, a cover piece, rough, rubble or water, a rise, a lamp
+          or a drum) is lifted WHOLE (its own picture, a source rect of its block's picture, its terrain, its cover entry, its
+          light) onto a laid tile of the same ground; its own place first, elsewhere only a tile that holds its thing inside it
+          (its border the place's bare ground). Never asphalt, never a building's roof or wall, never a tile a building south of
+          it stands up into.
+       2. THE TEMPLATE'S OWN PIECES not lifted with a tile stand on the laid streets and open ground nearest where they stood; a
+          baked one with no picture of its own is the kit's nearest of its kind.
+       3. ROOFS AND HIGH GROUND: houses and low buildings become roofs you can get onto, never taking the blockers under the
+          template's; then the kit's masses you climb (a container, bales) or stand on (a rubble heap), against the buildings.
+       4. THE FLOOR'S EFFECTS, 5. BLOCKERS: more of the template's own tiles; else the kit's rubble on rubble ground, its masses.
+       6. THE KIT (dressing.json kit: the master rig's renders, every one a STAND-IN, 408(c)) by context until the board carries
+          the template's props, cover and distinct pieces, then a little more love on every board; the lanes last.
+       7. WHERE THE TWO SIDES START: the template's start and its camp, on the nearest open laid tile.
+       8. THE GROUND: bare yards, dirt and the ground under houses take the template's own bare ground; the ring too.
+     level 2 everything; 1 nothing new that blocks a step (the fight asks it when 2 cuts his line from theirs); 0 bare (last).
+     407(f) stands: nothing of the fight is torn down; the boards' dressing comes back.
+     ------------------------------------------------------------------------------------------------------------------ */
+  var OPEN_ACCEPT = { yard: 'ground', dirt: 'ground', park: 'ground', park_trees: 'ground', rough: 'ground', solar: 'ground', plaza: 'paved', apron: 'paved' };
+  var BUILT_K = { building: 1, tower: 1, podium: 1, slab: 1 }, STREET_K = { road: 1, walk: 1, freeway: 1 };
+  var CAR_RX = /car|wreck|patrol|ambulance|bus/;
+  function dress(L, p, T, D, opt) {
+    if (!L || !T || !D || !D.lift) return L;
+    var lv = opt && opt.level != null ? opt.level : 2; if (!lv) return L;
+    var W = L.W, H = L.H, R = L.ring, AW = L.AW, AH = L.AH, tm = (D.tile_metres || TILE_M), bt = D.block_tiles || 5, TP = D.tile_px || [515, 364];
+    var pxm = TP[0] / tm, pym = TP[1] / tm, def = D.def || function () { return null; }, KIT = D.kit || {};
+    var hz = function (salt, x, y) { return hash(x + p.X0 * 7, y + p.Y0 * 13, salt); };
+    var terr = L.terrain.map(function (r) { return r.slice(); }), roofs = L.roofs.map(function (r) { return r.slice(); });
+    var gi = function (x, y) { return (y + R) * AW + x + R; }, kindAt = function (x, y) { return p.kind[gi(x, y)]; };
+    var taken = new Uint8Array(W * H), solid = new Uint8Array(W * H), cover = L.cover.slice(), lights = L.lights.slice(), sprites = L.sprites.slice();
+    var tileOfC = function (c) { return { x: c.tx != null ? c.tx : Math.floor(c.x_m / tm), y: c.ty != null ? c.ty : Math.floor(c.y_m / tm) }; };
+    cover.forEach(function (c) { var t = tileOfC(c); if (t.x >= 0 && t.y >= 0 && t.x < W && t.y < H) { taken[t.y * W + t.x] = 1; var d = def(c.piece); if (d && d.blocks_move) solid[t.y * W + t.x] = 1; } });
+    var isH = function (t) { return /^height/.test(t); }, out = { lifted: 0, ground: 0, moved: 0, kit: 0, mass: 0, roofs: 0 };
+    /* the template, counted the way the gate counts it (props, cover tiles, blockers, roofs, effects, distinct pieces) */
+    var hide = function (d) { return !!d && (d.kind === 'COVER' || d.kind === 'LOW_COVER'); };
+    var count = function (Tr, C, so0) {
+      var c = { props: 0, cover: 0, blockers: 0, roofs: 0, effects: 0, distinct: 0 }, cv = {}, so = {}, names = {};
+      C.forEach(function (q) { var t = tileOfC(q); if (t.x < 0 || t.y < 0 || t.x >= W || t.y >= H) return; c.props++; names[q.piece] = 1; var d = def(q.piece);
+        if (hide(d)) cv[t.y * W + t.x] = 1; if (d && d.blocks_move) so[t.y * W + t.x] = 1; });
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) { var t = Tr[y][x], k = y * W + x;
+        if (t === 'blocked' || so[k]) c.blockers++; if (isH(t)) c.roofs++; if (t === 'rough' || t === 'debris' || t === 'water') c.effects++; if (cv[k]) c.cover++; }
+      c.distinct = Object.keys(names).length; return c;
+    };
+    var want = count(T.terrain, T.cover || []), have = function () { return count(terr, cover); };
+    /* the template's tiles: what each carries, its picture, its class */
+    var cat = [];
+    for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+      var row = T.blocks[Math.floor(y / bt)], n = row && row[Math.floor(x / bt)]; if (!n) continue;
+      var base = n.split('|')[0], fl = n.split('|')[1] || '', info = D.lift[base]; if (!info || fl.indexOf('v') >= 0) continue;
+      var lx = x % bt, ly = y % bt, sxT = fl.indexOf('h') >= 0 ? bt - 1 - lx : lx, idx = ly * bt + sxT, t = T.terrain[y][x];
+      var south = ly + 1 < bt && y + 1 < H ? T.terrain[y + 1][x] : 'flat';
+      /* a building's roof or wall is never lifted (its picture is cut through a building); nor asphalt (the map's own streets
+         keep COOK TWO's kit), nor a tile a building south of it stands up into */
+      var cls = info.dark[idx] >= 30 ? 'asphalt' : (isH(t) || t === 'blocked') ? (info.fam === 'nature' ? 'land' : 'built') : info.fam === 'paved' ? 'paved' : 'ground';
+      if (cls !== 'built' && info.fam !== 'nature' && (isH(south) || south === 'blocked')) cls = 'overhang';
+      var pcs = (T.cover || []).filter(function (c) { var q = tileOfC(c); return q.x === x && q.y === y; });
+      var lts = (T.lights || []).filter(function (l) { return Math.floor(l.x_m / tm) === x && Math.floor(l.y_m / tm) === y; });
+      cat.push({ x: x, y: y, src: info.src + '#' + sxT + ',' + ly + (fl.indexOf('h') >= 0 ? 'h' : ''), t: t, cls: cls, pcs: pcs, lts: lts, lum: info.lum[idx], edge: info.edge ? info.edge[idx] : info.lum[idx],
+        rich: pcs.length > 0 || t !== 'flat' || lts.length > 0 });
+    }
+    /* the place's own bare ground: the light of its bare tiles; a tile whose border is that ground holds its thing inside it */
+    var bare = cat.filter(function (s) { return !s.rich && (s.cls === 'ground' || s.cls === 'paved'); }), med = 0;
+    if (bare.length) { var ls = bare.map(function (s) { return s.edge; }).sort(function (a, b) { return a - b; }); med = ls[ls.length >> 1]; }
+    var inside = function (s) { return !bare.length || Math.abs(s.edge - med) <= 14; };
+    var accept = function (x, y, cls) {
+      if (taken[y * W + x]) return false; var k = kindAt(x, y), t = terr[y][x];
+      if (cls === 'ground' || cls === 'land') return OPEN_ACCEPT[k] === 'ground' && (t === 'flat' || t === 'rough');
+      if (cls === 'paved') return OPEN_ACCEPT[k] === 'paved' && t === 'flat';
+      return false;
+    };
+    var nearest = function (x0, y0, ok, salt, rmax) {
+      if (ok(x0, y0)) return { x: x0, y: y0 };
+      for (var r = 1; r <= (rmax || 8); r++) { var best = null, bv = 2;
+        for (var yy = y0 - r; yy <= y0 + r; yy++) for (var xx = x0 - r; xx <= x0 + r; xx++) {
+          if (Math.max(Math.abs(xx - x0), Math.abs(yy - y0)) !== r || xx < 0 || yy < 0 || xx >= W || yy >= H || !ok(xx, yy)) continue;
+          var v = hz(salt, xx, yy); if (v < bv) { bv = v; best = { x: xx, y: yy }; } }
+        if (best) return best; }
+      return null;
+    };
+    var blocksStep = function (t, pcs) { return t === 'blocked' || pcs.some(function (c) { var d = def(c.piece); return d && d.blocks_move; }); };
+    var lift = function (s, at) {
+      var k = at.y * W + at.x, dx = (at.x - s.x) * tm, dy = (at.y - s.y) * tm;
+      L.ground[gi(at.x, at.y)] = s.src; terr[at.y][at.x] = s.t; roofs[at.y][at.x] = false; taken[k] = 1;
+      s.pcs.forEach(function (c) { var q = { piece: c.piece, x_m: c.x_m + dx, y_m: c.y_m + dy, from: 'template' }; if (c.tx != null) { q.tx = at.x; q.ty = at.y; } cover.push(q); var d = def(c.piece); if (d && d.blocks_move) solid[k] = 1; });
+      s.lts.forEach(function (l) { var q = {}; for (var kk in l) q[kk] = l[kk]; q.x_m = l.x_m + dx; q.y_m = l.y_m + dy; q.from = 'template'; delete q.block; lights.push(q); });
+      out.lifted++;
+    };
+    /* 1. LIFTED TILES: each to its own place; elsewhere (the nearest that fits) only a tile that holds its thing inside it */
+    var placed = {};
+    cat.filter(function (s) { return s.rich && (s.cls === 'ground' || s.cls === 'land' || s.cls === 'paved') && (lv > 1 || !blocksStep(s.t, s.pcs)); })
+      .sort(function (a, b) { return hz(3, a.x, a.y) - hz(3, b.x, b.y); })
+      .forEach(function (s) { var ok = function (x, y) { return accept(x, y, s.cls); };
+        var at = ok(s.x, s.y) ? { x: s.x, y: s.y } : inside(s) ? nearest(s.x, s.y, ok, 5, 6) : null; if (at) { lift(s, at); placed[s.y * W + s.x] = 1; } });
+    /* 2. the template's pieces that did not come with their tile, on the laid streets and open ground nearest where they stood */
+    var streetFree = function (x, y) { return !taken[y * W + x] && !!STREET_K[kindAt(x, y)] && terr[y][x] === 'flat'; };
+    var openFree = function (x, y) { var k = kindAt(x, y); return !taken[y * W + x] && terr[y][x] !== 'blocked' && !isH(terr[y][x]) && terr[y][x] !== 'water' && (!!OPEN_ACCEPT[k] || k === 'lot' || (!!BUILT_K[k] && terr[y][x] === 'flat')); };
+    var runOf = function (x, y, dx, dy) { var n = 0; for (var i = 1; i < 6; i++) { var a = x + dx * i, b = y + dy * i; if (a < 0 || b < 0 || a >= W || b >= H || !STREET_K[kindAt(a, b)]) break; n++; } return n; };
+    var alongAt = function (x, y) { var w = p.walk[gi(x, y)], a = p.axis[gi(x, y)] & 3; if ((w & 5) && !(w & 10)) return 'ew'; if ((w & 10) && !(w & 5)) return 'ns'; if (a === 1) return 'ew'; if (a === 2) return 'ns';
+      var ew = runOf(x, y, 1, 0) + runOf(x, y, -1, 0), ns = runOf(x, y, 0, 1) + runOf(x, y, 0, -1); return ew > ns ? 'ew' : ns > ew ? 'ns' : hz(9, x, y) < 0.5 ? 'ew' : 'ns'; };
+    var kitFor = function (ctx, along, salt, x, y, need) {   /* a kit piece for this place, the ones not on the board yet first */
+      var on = {}; cover.forEach(function (c) { on[c.piece] = 1; });
+      var ks = Object.keys(KIT).filter(function (k) { var d = KIT[k]; return d.ctx.indexOf(ctx) >= 0 && !d.mass_only && (!need || need(d)) &&
+        (!along || d.along === along || !KIT[k.replace(/_[SE]$/, d.along === 'ew' ? '_E' : '_S')]); });   /* a car lies along its street */
+      if (!ks.length) return null; var fresh = ks.filter(function (k) { return !on[k]; }), pool = fresh.length ? fresh : ks;
+      return pool[Math.floor(hz(salt, x, y) * pool.length)];
+    };
+    var putKit = function (key, x, y, salt) {   /* a standing piece, its foot somewhere in the south half of its tile */
+      var d = KIT[key]; if (!d) return false;
+      var fx = x * tm + tm / 2 + (hz(salt + 1, x, y) - 0.5) * 6, fy = y * tm + tm * (0.6 + 0.32 * hz(salt + 2, x, y));
+      cover.push({ piece: key, x_m: Math.round((fx - d.foot[0] / pxm) * 100) / 100, y_m: Math.round((fy - d.foot[1] / pym) * 100) / 100, tx: x, ty: y, from: 'kit' });
+      taken[y * W + x] = 1; out.kit++; return true;
+    };
+    var putMass = function (key, x, y, as, salt) {   /* a whole tile: a roof you climb, a rise, or a blocker, drawn as the map's houses are */
+      var d = KIT[key]; if (!d) return false;
+      var ax = x + R, ay = y + R, fx = (ax + 0.5 + (hz(salt, x, y) - 0.5) * 0.2) * TP[0], fy = (ay + 0.9) * TP[1];
+      sprites.push({ src: d.src, x: fx - d.foot[0], y: fy - d.foot[1], w: d.w, h: d.h, line: ay + 0.5, kind: 'kit', name: key, mass: as, tiles: [ax, ay, 1, 1] });
+      terr[y][x] = as === 'block' ? 'blocked' : 'height'; roofs[y][x] = as === 'roof'; taken[y * W + x] = 1; out.mass++; return true;
+    };
+    var ctxOf = function (x, y) {
+      var k = kindAt(x, y), t = terr[y][x]; if (taken[y * W + x] || t === 'blocked' || isH(t) || t === 'water') return null;
+      if (k === 'ruin') return 'ruin';
+      if (k === 'walk') { for (var d2 = 0; d2 < 4; d2++) { var nx = x + [1, -1, 0, 0][d2], ny = y + [0, 0, 1, -1][d2]; if (nx >= 0 && ny >= 0 && nx < W && ny < H && (BUILT_K[kindAt(nx, ny)] || kindAt(nx, ny) === 'lot')) return 'alley'; } return 'walk'; }
+      if (k === 'road' || k === 'freeway') return 'street';
+      if (k === 'lot') return 'lot';
+      if (BUILT_K[k]) return (p.blocks[p.blk[gi(x, y)]] || {}).sub === 2 ? 'works' : 'front';
+      if (OPEN_ACCEPT[k] === 'paved') return 'plaza';
+      if (OPEN_ACCEPT[k] === 'ground') { for (var d3 = 0; d3 < 4; d3++) { var mx = x + [1, -1, 0, 0][d3], my = y + [0, 0, 1, -1][d3]; if (mx >= 0 && my >= 0 && mx < W && my < H && kindAt(mx, my) === 'ruin') return 'ruin'; } return 'yard'; }
+      return null;
+    };
+    (T.cover || []).forEach(function (c, i) {
+      var t = tileOfC(c); if (t.x < 0 || t.y < 0 || t.x >= W || t.y >= H || placed[t.y * W + t.x]) return;
+      var d = def(c.piece) || {}, street = /^car_|jersey/.test(c.piece) || (CAR_RX.test(c.piece) && !d.blocks_move);
+      if (d.blocks_move && lv < 2) return;
+      var at = nearest(t.x, t.y, street ? streetFree : openFree, 11 + i % 7, 6) || (street ? nearest(t.x, t.y, openFree, 13, 6) : null); if (!at) return;
+      if (d.src) {   /* its own picture, the same place inside its tile */
+        cover.push({ piece: c.piece, x_m: at.x * tm + (c.x_m - t.x * tm), y_m: at.y * tm + (c.y_m - t.y * tm), from: 'template' }); taken[at.y * W + at.x] = 1;
+        if (d.blocks_move) solid[at.y * W + at.x] = 1; out.moved++; return; }
+      /* a piece modelled into its block's picture: the kit's nearest of its kind */
+      var ctx = ctxOf(at.x, at.y) || 'yard';
+      var k = kitFor(ctx, ctx === 'street' ? alongAt(at.x, at.y) : null, 17, at.x, at.y, function (q) { return street ? CAR_RX.test(q.name.toLowerCase()) || q.ctx.indexOf('street') >= 0 : q.kind === (d.kind === 'LOW_COVER' ? 'LOW_COVER' : 'COVER'); })
+        || kitFor(ctx, ctx === 'street' ? alongAt(at.x, at.y) : null, 18, at.x, at.y, null);
+      if (k) { putKit(k, at.x, at.y, 19); out.moved++; }
+    });
+    /* the free tiles, in the spot's own order: never a street first, so the lanes stay the last to fill */
+    var spots = [];
+    for (var y3 = 0; y3 < H; y3++) for (var x3 = 0; x3 < W; x3++) spots.push({ x: x3, y: y3, v: hz(37, x3, y3) });
+    spots.sort(function (a, b) { return a.v - b.v; });
+    var MASS_CTX = { lot: 1, front: 1, works: 1, yard: 1, plaza: 1, ruin: 1 }, massN = {};
+    /* a mass stands against a building (the map's own block or house), never alone in the middle of a lot when it can */
+    var hugs = function (x, y) { for (var d4 = 0; d4 < 4; d4++) { var a = x + [1, -1, 0, 0][d4], b = y + [0, 0, 1, -1][d4];
+      if (a >= 0 && b >= 0 && a < W && b < H && (terr[b][a] === 'blocked' || isH(terr[b][a])) && (BUILT_K[kindAt(a, b)] || kindAt(a, b) === 'house' || massAt[b * W + a])) return true; } return false; };
+    var massAt = {};
+    var masses = function (as, enough) {
+      var order = spots.map(function (s) { return { x: s.x, y: s.y, v: s.v }; });
+      for (var pass = 0; pass < 2 && !enough(); pass++) {
+        order.forEach(function (s) { s.k = (hugs(s.x, s.y) ? 0 : 1) + s.v; }); order.sort(function (a, b) { return a.k - b.k; });
+        for (var si = 0; si < order.length && !enough(); si++) {
+          var s = order[si], cx = ctxOf(s.x, s.y); if (!cx || !MASS_CTX[cx]) continue;
+          if (!pass && cx !== 'lot' && cx !== 'front' && cx !== 'works' && cx !== 'ruin') continue;   /* the lots and the built blocks' bare ground first */
+          /* the kind with the fewest on the board so far (a container, the bales, a heap, a dozer; the sign twice at most) */
+          var bases = {}; Object.keys(KIT).forEach(function (k) { var d = KIT[k]; if (d.mass && as.split('|').some(function (a) { return d.mass.indexOf(a) >= 0; }) &&
+            !(d.mass_only && ((massN[k.replace(/_[SE]$/, '')] || 0) >= 2 || (cx !== 'front' && cx !== 'plaza')))) (bases[k.replace(/_[SE]$/, '')] = bases[k.replace(/_[SE]$/, '')] || []).push(k); });
+          var bn = Object.keys(bases).sort(function (a, b) { return (massN[a] || 0) - (massN[b] || 0) || hz(71, s.x + a.length, s.y) - hz(71, s.x + b.length, s.y); })[0]; if (!bn) continue;
+          var fk = bases[bn][Math.floor(hz(79, s.x, s.y) * bases[bn].length)];
+          if (putMass(fk, s.x, s.y, KIT[fk].mass.indexOf('roof') >= 0 && as.indexOf('roof') >= 0 ? 'roof' : KIT[fk].mass.indexOf('rise') >= 0 && as.indexOf('rise') >= 0 ? 'rise' : 'block', 73)) { massN[bn] = (massN[bn] || 0) + 1; massAt[s.y * W + s.x] = 1; }
+        }
+      }
+    };
+    /* 3. ROOFS AND HIGH GROUND: the map's houses, then its low buildings, become roofs you can get onto, never taking the board's
+       blockers under the template's; then the kit's masses you climb (a container, a stack of bales) and the rubble heaps you
+       stand on, where the board is still short */
+    var now = have(), extra = now.blockers - want.blockers;
+    if (now.roofs < want.roofs && extra > 0) {
+      var ups = [];
+      for (var yy = 0; yy < H; yy++) for (var xx = 0; xx < W; xx++) if (terr[yy][xx] === 'blocked' && !solid[yy * W + xx] && (kindAt(xx, yy) === 'house' || BUILT_K[kindAt(xx, yy)]) && kindAt(xx, yy) !== 'tower') ups.push({ x: xx, y: yy, v: (kindAt(xx, yy) === 'house' ? 0 : 1) + hz(23, xx, yy) });
+      ups.sort(function (a, b) { return a.v - b.v; });
+      for (var u = 0; u < ups.length && now.roofs < want.roofs && extra > 0; u++) { terr[ups[u].y][ups[u].x] = 'height'; roofs[ups[u].y][ups[u].x] = true; now.roofs++; extra--; out.roofs++; }
+    }
+    masses('roof|rise', function () { return have().roofs >= want.roofs || out.mass > 80; });
+    /* 4. THE FLOOR'S EFFECTS: more of the template's own rough, rubble and water, only tiles that hold it inside them */
+    var effectsPool = cat.filter(function (s) { return (s.t === 'rough' || s.t === 'debris' || s.t === 'water') && (s.cls === 'ground' || s.cls === 'land' || s.cls === 'paved') && inside(s) && (lv > 1 || !blocksStep(s.t, s.pcs)); });
+    for (var e = 0, ef = 0; e < spots.length && effectsPool.length && have().effects < want.effects; e++) {
+      var s4 = effectsPool[ef % effectsPool.length]; if (!accept(spots[e].x, spots[e].y, s4.cls)) continue; lift(s4, spots[e]); ef++; }
+    /* where none of the template's own fits, the kit's rubble pile on rubble ground (BB snow, slow: the map's burned houses' own) */
+    for (var e2 = 0; e2 < spots.length * 2 && have().effects < want.effects; e2++) {
+      var s5 = spots[e2 % spots.length], c5 = ctxOf(s5.x, s5.y); if (!c5 || (e2 < spots.length && (c5 === 'street' || c5 === 'walk'))) continue;
+      var rk = KIT['sb_rubble_' + (hz(83, s5.x, s5.y) < 0.5 ? 'S' : 'E')] ? 'sb_rubble_' + (hz(83, s5.x, s5.y) < 0.5 ? 'S' : 'E') : null;
+      if (rk && putKit(rk, s5.x, s5.y, 89)) terr[s5.y][s5.x] = 'debris';
+    }
+    /* 5. BLOCKERS: the kit's masses (a container, bales, a dead dozer, a sign), where the board is still short */
+    if (lv > 1) masses('block', function () { return have().blockers >= want.blockers || out.mass > 90; });
+    /* 6. THE KIT, by context, until the board carries the template's props, cover and distinct pieces, then a little more love */
+    var short = function () { var c = have(); return c.props < want.props || c.cover < want.cover || c.distinct < want.distinct; };
+    var love = 0, LOVE = 4 + Math.floor(hz(41, 0, 0) * 4);   /* a little more on every board, never the same count */
+    for (var pass2 = 0; pass2 < 2; pass2++) for (var si2 = 0; si2 < spots.length && (short() || love < LOVE); si2++) {
+      var s3 = spots[si2], cx3 = ctxOf(s3.x, s3.y); if (!cx3) continue;
+      if (!pass2 && cx3 === 'street') continue;   /* the lanes last */
+      if (cx3 === 'street' && !short()) continue;
+      var key = kitFor(cx3, cx3 === 'street' || cx3 === 'walk' || cx3 === 'alley' ? alongAt(s3.x, s3.y) : null, 47, s3.x, s3.y, null);
+      if (key && putKit(key, s3.x, s3.y, 53) && !short()) love++;
+    }
+    /* WHERE THE TWO SIDES START: the template's own (the line, wide, their camp, a pincer), its camp on the nearest open tile */
+    var camp = null;
+    if (T.camp && (T.start === 'camp' || T.start === 'pincer')) camp = nearest(Math.max(0, Math.min(W - 1, T.camp.x)), Math.max(0, Math.min(H - 1, T.camp.y)), function (x, y) { return terr[y][x] !== 'blocked' && !isH(terr[y][x]) && !solid[y * W + x]; }, 59, 8);
+    /* THE GROUND: the board's bare yards and dirt (and the ground under its houses) take the template's own bare ground, so a lifted
+       tile sits in its own ground; the ring round the board too, with a share of the template's dressed tiles that hold their
+       thing inside them (pictures only: the ring is seen, never walked). A bare tile darker or lighter than the place's own ground
+       (a wall's shadow cut at its edge) is left out */
+    var plain = bare.filter(function (s) { return s.cls === 'ground' && Math.abs(s.edge - med) <= 12 && Math.abs(s.lum - med) <= 14; });
+    var ringRich = cat.filter(function (s) { return s.rich && (s.cls === 'ground' || s.cls === 'land') && inside(s) && !blocksStep(s.t, s.pcs); });
+    if (plain.length) for (var ay = 0; ay < AH; ay++) for (var ax = 0; ax < AW; ax++) {
+      var inB = ax >= R && ay >= R && ax < R + W && ay < R + H, lk = p.kind[ay * AW + ax];
+      if (OPEN_ACCEPT[lk] !== 'ground' && lk !== 'house' && lk !== 'trailer') continue;
+      if (String(L.ground[ay * AW + ax]).indexOf('#') >= 0) continue;   /* a lifted tile keeps its own */
+      if (inB && terr[ay - R][ax - R] !== 'flat' && lk !== 'house' && lk !== 'trailer' && !taken[(ay - R) * W + ax - R]) continue;   /* the map's rough keeps its look */
+      var pool2 = !inB && hash(ax + p.X0, ay + p.Y0, 61) < 0.25 && ringRich.length ? ringRich : plain;
+      L.ground[ay * AW + ax] = pool2[Math.floor(hash(ax + p.X0, ay + p.Y0, 67) * pool2.length)].src; out.ground++;
+    }
+    sprites.sort(function (a, b) { return a.line - b.line || a.x - b.x; });
+    L.terrain = terr; L.roofs = roofs; L.cover = cover; L.lights = lights; L.sprites = sprites;
+    L.start = T.start || null; L.camp = camp;
+    L.dressed = { level: lv, lifted: out.lifted, moved: out.moved, kit: out.kit, mass: out.mass, roofs: out.roofs, ring: out.ground, from: T.name || null, want: want, have: have() };
+    return L;
+  }
+  /* a ground entry 'block_yards_1.webp#3,1h' is a tile of a block's picture (column 3, row 1, mirrored): the picture is the block's */
+  function picOf(g) { var i = g.indexOf('#'); return i < 0 ? g : g.slice(0, i); }
   /* every picture a laid board needs, once */
-  function srcs(L) { var s = {}; L.ground.forEach(function (g) { if (g) s[g] = 1; }); L.sprites.forEach(function (q) { s[q.src] = 1; }); return Object.keys(s); }
-  root.BohemiaStreetBoard = { plan: plan, lay: lay, srcs: srcs, streetPiece: streetPiece, ready: hostReady, TILE_M: TILE_M };
+  function srcs(L) { var s = {}; L.ground.forEach(function (g) { if (g) s[picOf(g)] = 1; }); L.sprites.forEach(function (q) { s[q.src] = 1; }); return Object.keys(s); }
+  root.BohemiaStreetBoard = { plan: plan, lay: lay, dress: dress, srcs: srcs, picOf: picOf, streetPiece: streetPiece, ready: hostReady, TILE_M: TILE_M };
 })(typeof window !== 'undefined' ? window : this);

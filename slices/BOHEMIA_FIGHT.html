@@ -393,7 +393,11 @@ function loadAll() {
     /* __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__: the pieces a board laid from the map's own block is drawn from (the street kit, the
        ground cut from the blocks, the map's five ranch houses and the shops through the rig); a fight without it deals as before */
     .then(function () { return fetch('fight_ground/street_board/street_board.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
-    .then(function (k) { DB.streetKit = k; });
+    .then(function (k) { DB.streetKit = k; })
+    /* __THE_BOARDS_WEAR_THEIR_DRESSING__ (COMBAT TWO 11/7, rule 419): which template tiles a laid board may lift whole, and the kit's
+       standing pieces (tools/bohemia_combat_two_the_boards_wear_their_dressing_11_7_26.py); a fight without it lays the board bare */
+    .then(function () { return fetch('fight_ground/street_board/dressing.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (k) { DB.streetDress = k; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -1257,22 +1261,37 @@ const FIGHT = (function () {
       S.streetMs = (S.streetMs || 0) + (performance.now() - t0); return p && !p.err ? p : null; }
     catch (e) { S.streetErr = String(e && e.message || e); return null; }
   }
-  function dealStreet(opts, p) {
-    const L = window.BohemiaStreetBoard.lay(p, DB.streetKit, DB.ground); if (!L) return null;
+  function dealStreet(opts, p, T, lv) {
+    let L = window.BohemiaStreetBoard.lay(p, DB.streetKit, DB.ground); if (!L) return null;
+    /* __THE_BOARDS_WEAR_THEIR_DRESSING__ (COMBAT TWO 11/7, rule 419, ask line 479; Paolo 11/7: 'it feels like you got rid of the
+       rest of the maps, we need more love and better shit'): the map's layout, tile for tile, wearing the template board the same
+       spot deals (its props, cover, blockers, roofs, the floor's effects, its set pieces, where the two sides start) and the kit */
+    if (T && lv && DB.streetDress && window.BohemiaStreetBoard.dress) L = window.BohemiaStreetBoard.dress(L, p, T, Object.assign({ def: pieceDef }, DB.streetDress), { level: lv }) || L;
     const bt = DB.ground.block_tiles, nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt), blocks = [];
     for (let by = 0; by < ny; by++) { const r = []; for (let bx = 0; bx < nx; bx++) r.push('street.0'); blocks.push(r); }
     const d = String(p.district || opts.district || 'street'), kinds = ['street', d].concat(opts.kind && opts.kind !== d ? [opts.kind] : []);
     return { blocks: blocks, terrain: L.terrain, cover: L.cover, lights: L.lights, name: d.toUpperCase(), kinds: kinds, family: 'street', lead: 'street',
-      shape: null, place: opts.district || p.district || null, own: 'street', start: null, camp: null, lm: null, laid: L, roofs: L.roofs,
+      shape: null, place: opts.district || p.district || null, own: 'street', start: L.start || null, camp: L.camp || null, lm: null, laid: L, roofs: L.roofs,
       street: { cell: p.cell, district: p.district, X0: p.X0, Y0: p.Y0, shift: p.shift, houses: L.houses, seed: p.seed, ms: p.ms } };
   }
   const STREET_SHIFTS = [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1], [2, 0], [-2, 0], [0, 2], [0, -2], [3, 0], [-3, 0], [1, 1], [-1, -1]];
-  function streetBoard(opts) {
-    S.streetMs = 0; S.streetErr = null;
+  /* the template board the same spot deals (the deal and its cover fitted, exactly the branch below), to dress the laid board with */
+  function templateDeal(ask, fromMap) {
+    for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
+    if (fromMap && !S.boardDef.own) S.boardDef.groundFit = fitCover(S.ground.ground);
+    return S.boardDef;
+  }
+  function streetBoard(opts, ask, fromMap) {
+    S.streetMs = 0; S.streetErr = null; S.streetDress = null;
+    const p0 = streetPlanFor(opts, null); if (!p0) return false;
+    /* __THE_BOARDS_WEAR_THEIR_DRESSING__: dressed in full (2), then with nothing new that blocks a step (1), then bare (0) */
+    let T = null; try { T = DB.streetDress && !opts.flat && opts.dress !== false ? templateDeal(ask || opts, fromMap) : null; }   /* opts.dress false: the bare board (a gate's mutation, a bench) */ catch (e) { S.streetErr = 'template: ' + String(e && e.message || e); T = null; }
     for (let i = 0; i < STREET_SHIFTS.length; i++) {
-      const p = streetPlanFor(opts, i ? STREET_SHIFTS[i] : null); if (!p) return false;
-      const B = dealStreet(opts, p); if (!B) return false;
-      applyBoard(B); if (connected()) { S.streetTries = i + 1; return true; }
+      const p = i ? streetPlanFor(opts, STREET_SHIFTS[i]) : p0; if (!p) return false;
+      for (let lv = T ? 2 : 0; lv >= 0; lv--) {
+        const B = dealStreet(opts, p, T, lv); if (!B) return false;
+        applyBoard(B); if (connected()) { S.streetTries = i + 1; S.streetDress = lv; return true; }
+      }
     }
     return false;
   }
@@ -1385,8 +1404,8 @@ const FIGHT = (function () {
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
-  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || null; }
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p); return d && d.src ? (G.cover[p] || G.cover_extra[p] ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too */
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -1470,7 +1489,7 @@ const FIGHT = (function () {
     S.solid = []; S.cover = []; S.coverCount = [];
     for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); S.coverCount.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); S.coverCount[y].push(0); } }
     (B.cover || []).forEach(function (c) {
-      const tx = Math.floor(c.x_m / G.tile_metres), ty = Math.floor(c.y_m / G.tile_metres);
+      const tx = c.tx != null ? c.tx : Math.floor(c.x_m / G.tile_metres), ty = c.ty != null ? c.ty : Math.floor(c.y_m / G.tile_metres);   /* a tall kit piece names its own tile (its picture starts in the tile north of it) */
       if (!inBoard(tx, ty)) return;
       const def = pieceDef(c.piece) || {};
       S.cover[ty][tx] = c.piece;
@@ -1627,7 +1646,7 @@ const FIGHT = (function () {
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else if (isGraveyard(opts)) {
       for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
-    } else if (streetBoard(opts)) {
+    } else if (streetBoard(opts, ask, fromMap)) {
       /* __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__: the map's own block, laid tile for tile (its cover is the map's own: never thinned or filled) */
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
@@ -5547,10 +5566,19 @@ function mipFor(im, w) {
    buildings standing on them in depth order; small on the glass, a piece is drawn from its quarter copy (mipFor). Returns how many
    pictures were missing (a ring with a hole is never kept). onTw: the tile's width on the glass for the copy's choice (null: full) */
 function laidPaint(g, L, X, Y, tw, th, ax0, ay0, ax1, ay1, onTw, one) {
-  const TP = DB.ground.tile_px, k = tw / TP[0], ky = th / TP[1]; let holes = 0;
+  const TP = DB.ground.tile_px, k = tw / TP[0], ky = th / TP[1], bt = DB.ground.block_tiles; let holes = 0;
   const pic = function (src, w) { const im = UI.imgs['fight_ground/' + src]; if (!im) { holes++; return null; } return one || onTw == null ? im : mipFor(im, w); };
   for (let ay = ay0; ay < ay1; ay++) for (let ax = ax0; ax < ax1; ax++) {
     const src = L.ground[ay * L.AW + ax]; if (!src) continue;
+    const cut = src.indexOf('#');
+    if (cut >= 0) {   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: a template tile lifted whole, drawn from its block's own picture */
+      const m = /#(\d+),(\d+)(h?)$/.exec(src), im0 = UI.imgs['fight_ground/' + src.slice(0, cut)];
+      if (!m || !im0) { holes++; g.fillStyle = GROUND_UNDER; g.fillRect(X + ax * tw, Y + ay * th, tw + .5, th + .5); continue; }
+      const im = one || onTw == null ? im0 : mipFor(im0, tw * bt), f = im.width / (im0.naturalWidth || im0.width), sw = (im0.naturalWidth || im0.width) / bt * f, sh = (im0.naturalHeight || im0.height) / bt * f;
+      if (m[3]) { g.save(); g.translate(X + ax * tw + tw + .35, Y + ay * th); g.scale(-1, 1); g.drawImage(im, +m[1] * sw, +m[2] * sh, sw, sh, 0, 0, tw + .35, th + .35); g.restore(); }   /* the column is the picture's own; mirrored as its block was dealt */
+      else g.drawImage(im, +m[1] * sw, +m[2] * sh, sw, sh, X + ax * tw, Y + ay * th, tw + .35, th + .35);
+      continue;
+    }
     const im = pic(src, tw); if (!im) { g.fillStyle = GROUND_UNDER; g.fillRect(X + ax * tw, Y + ay * th, tw + .5, th + .5); continue; }
     g.drawImage(im, X + ax * tw, Y + ay * th, tw + .35, th + .35);   /* a hair over, so two pieces never show the glass between them */
   }

@@ -24,8 +24,13 @@
      B1  the board's houses block or are a roof (never open ground under a house)
      P1  the fight plays: AUTO two rounds on a laid board from each district, no page error
      W1  the fight asks the map itself: the demo's own door opens a fight at a suburb block and its board is laid from the map
+     K1  THE BOARDS GOT POORER (rule 419, ask line 479): the laid board, dressed, is at least as rich as the template board the
+         same spot dealt before 11/6h (opts.street false, the same seed and cell) on every count: props (pieces standing on it),
+         cover tiles (a man hides there), blockers (no step), roofs and high ground, the floor's effects (rough, rubble, water,
+         fire), distinct pieces                                                                                        (every spot)
    THREE: MUTATIONS (each must turn a leg red, or the gate is blind): M1 the plan moved one tile east; M2 one house's model swapped;
-   M3 the old deal (opts.street false, the district's template) at the same spot.
+   M3 the old deal (opts.street false, the district's template) at the same spot; M4 the bare laid board (opts.dress false, the
+   11/6h board) is poorer than its template on some count.
      node gates/the_board_is_the_city_at_that_spot_gate.js [--json out.json] [--shots dir] [--plans plans.json]     (about a minute and a half)
    --shots writes, for each spot, the map's own painting of the board's window (its texels, top down, turned square) beside the
    board the fight dealt (its baked picture). */
@@ -149,8 +154,17 @@ function deal(page, o) {
   return page.evaluate(o => { const F = eval('FIGHT'); eval('SEED = ' + (o.seed >>> 0)); F.setup(o); const B = F.S.boardDef, L = B.laid;
     const houses = L ? L.sprites.filter(q => q.kind === 'house').map(q => ({ ax: q.tiles[0], ay: q.tiles[1], model: q.name })) : [];
     const trailers = (B.cover || []).filter(c => c.piece === 'trailer').map(c => ({ x: Math.floor(c.x_m / 12), y: Math.floor(c.y_m / 12) }));
+    /* RICHNESS (rule 419): what the board carries, counted the same way on a laid board and a template board, over the whole board */
+    const S = F.S, tm = 12, inB = c => c.x_m >= 0 && c.y_m >= 0 && c.x_m < S.w * tm && c.y_m < S.h * tm;
+    const pcs = (B.cover || []).filter(inB).map(c => c.piece), fire = {}; (S.fire || []).forEach(f => { fire[f.y * S.w + f.x] = 1; });
+    let cover = 0, block = 0, roof = 0, eff = 0;
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const r = F.rowAt(x, y);
+      if (S.coverCount[y][x] > 0) cover++; if (!F._t.passable(x, y)) block++; if (r === 'height') roof++;
+      if (r === 'rough' || r === 'swamp' || (fire[y * S.w + x] && r === 'flat')) eff++; }
+    const rich = { props: pcs.length, cover, blockers: block, roofs: roof, effects: eff, distinct: new Set(pcs).size, lights: (B.lights || []).length,
+      start: B.start || 'line', lifted: L && L.dressed ? L.dressed.lifted : 0, kit: L && L.dressed ? L.dressed.kit : 0 };
     return { laid: !!L, name: B.name, ring: L ? L.ring : 0, AW: L ? L.AW : 0, kinds: L ? L.tiles : null, houses, trailers, terrain: F.S.terrain,
-      blocks: B.blocks, w: F.S.w, h: F.S.h, shift: B.street ? B.street.shift : null }; }, o);
+      blocks: B.blocks, w: F.S.w, h: F.S.h, shift: B.street ? B.street.shift : null, rich }; }, o);
 }
 function compare(spot, tr, b, p) {
   const R = RING, inW = (ax, ay) => ax >= R && ay >= R && ax < R + W && ay < R + H, key = h => h.ax + ',' + h.ay;
@@ -199,7 +213,13 @@ function compare(spot, tr, b, p) {
     check(c.S2, 'S2', tag + ': board street tiles on map streets ' + c.s2 + '/' + c.s2n);
     check(c.R1, 'R1', tag + ': the ring holds the map\'s houses ' + c.r1 + '/' + c.ring);
     check(c.B1, 'B1', tag + ': a house blocks or is a roof ' + c.b1 + '/' + c.b1n);
-    report.spots.push({ seed: v.seed, spot: s.spot, cell: s.cell, district: s.district, planMs: s.planMs, shift: b.shift, cmp: c });
+    /* K1 THE BOARDS GOT POORER (rule 419, ask line 479): the template board the same spot dealt before 11/6h (opts.street false,
+       the same seed and cell) against the laid board, every count; the laid board is never poorer */
+    const bt = await deal(F.p, Object.assign({}, o, { street: false })), RICH = ['props', 'cover', 'blockers', 'roofs', 'effects', 'distinct'];
+    const poorer = RICH.filter(k => b.rich[k] < bt.rich[k]);
+    check(!bt.laid && poorer.length === 0, 'K1', tag + ': as rich as its old template (' + bt.name + ') ' + RICH.map(k => k + ' ' + bt.rich[k] + '->' + b.rich[k]).join(', ') +
+      (poorer.length ? '; POORER: ' + poorer.join(', ') : '') + '; lifted ' + b.rich.lifted + ', kit ' + b.rich.kit + ', start ' + bt.rich.start + '->' + b.rich.start);
+    report.spots.push({ seed: v.seed, spot: s.spot, cell: s.cell, district: s.district, planMs: s.planMs, shift: b.shift, cmp: c, rich: { template: bt.rich, laid: b.rich, templateName: bt.name } });
     /* THREE: the mutations, on the boot valley */
     if (v.seed === M.boot) {
       const m1 = JSON.parse(JSON.stringify(s.plan)); m1.X0 += 1;   /* the whole read moved a tile: the lay is the plan's, the truth is the map's */
@@ -214,6 +234,8 @@ function compare(spot, tr, b, p) {
           const c2 = compare(s.spot, s.truth, await deal(F.p, Object.assign({}, o, { street: m2 })), s.plan);
           check(!c2.H1, 'M2', tag + ': one house\'s model swapped is caught (H1 ' + c2.h1 + '/' + c2.mapH + ')'); }
       }
+      const b4 = await deal(F.p, Object.assign({}, o, { dress: false })), poor4 = ['props', 'cover', 'blockers', 'roofs', 'effects', 'distinct'].filter(k => b4.rich[k] < bt.rich[k]);
+      check(b4.laid && poor4.length > 0, 'M4', tag + ': the bare laid board (11/6h, undressed) is caught by K1 (poorer on ' + (poor4.join(', ') || 'nothing') + ')');
       const b3 = await deal(F.p, Object.assign({}, o, { street: false })), c3 = compare(s.spot, s.truth, b3, s.plan);
       check(!b3.laid && !(c3.H1 && c3.S1 && c3.S2), 'M3', tag + ': the old template deal at the same spot is caught (' + b3.name + '; H1 ' + c3.h1 + '/' + c3.mapH + ', S1 ' + c3.s1 + '/' + c3.s1n + ')');
     }
