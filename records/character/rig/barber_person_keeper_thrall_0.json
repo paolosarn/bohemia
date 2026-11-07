@@ -1,0 +1,40 @@
+{
+ "cut": "PERSON keeper_thrall_0",
+ "tag": "person_keeper_thrall_0",
+ "bank": {
+  "kind": "person",
+  "gang": "Keeper"
+ },
+ "worn_by": "Keeper, rolled",
+ "model": "records/character/rig/barber_person_keeper_thrall_0.glb",
+ "body": "records/character/rig/person_keeper_thrall_0.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  224,
+  189,
+  155
+ ],
+ "model_top_m": 1.5373,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7302,
+ "pieces": {
+  "barber_temple_taper_fade": 31945,
+  "barber_temple_taper": 159050,
+  "hat_desert_shemagh_hood": 249586,
+  "hat_desert_shemagh_wound": 4800,
+  "face_ash_face_wrap_turn_0": 352,
+  "face_ash_face_wrap_turn_1": 352,
+  "face_ash_face_wrap_turn_2": 352
+ }
+}

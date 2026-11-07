@@ -1,0 +1,419 @@
+{
+ "look": "PERSON_WATER_NEEDLE_1",
+ "shape": "person_water_needle_1: a Water poisoner: a leather bandolier of syringes across a wrap coat, the face hidden, his own skin skin_light 1, SAND HOODIE under LEATHER WRAP COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SAND HOODIE",
+  "outer": "LEATHER WRAP COAT",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "SANDWALKERS",
+  "hands": "HAND WRAPS",
+  "outfit": [
+   "ASH HOODIE read as one with LEATHER WRAP COAT (72 and 69 of 255): the same cut in SAND HOODIE (111)",
+   "the hood heaped over the coat's collar",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.1,
+  "belly": -0.4,
+  "shoulders": -0.2,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "hood_over": 0.022,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.006,
+   "collar": false,
+   "neck_top": 1.12,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_water_needle_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7286,
+ "real_height_for_rig": 1.7347,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_water_needle_1_shoe": 2508,
+  "person_water_needle_1_shirt": 68992,
+  "person_water_needle_1_collar": 1536,
+  "person_water_needle_1_hood": 14508,
+  "person_water_needle_1_drawstrings": 100,
+  "person_water_needle_1_pocket": 182,
+  "person_water_needle_1_waistband": 1792,
+  "person_water_needle_1_cuffs": 2048,
+  "person_water_needle_1_coat": 65184,
+  "person_water_needle_1_coat_skirt": 6048,
+  "person_water_needle_1_belt": 1792,
+  "person_water_needle_1_wrap_edge": 198,
+  "person_water_needle_1_knot": 68,
+  "person_water_needle_1_needle_band": 2048,
+  "person_water_needle_1_syr_dregs_0": 20,
+  "person_water_needle_1_syr_barrel_0": 20,
+  "person_water_needle_1_syr_cap_0": 16,
+  "person_water_needle_1_syr_plunger_0": 28,
+  "person_water_needle_1_syr_dregs_1": 20,
+  "person_water_needle_1_syr_barrel_1": 20,
+  "person_water_needle_1_syr_cap_1": 16,
+  "person_water_needle_1_syr_plunger_1": 28,
+  "person_water_needle_1_syr_dregs_2": 20,
+  "person_water_needle_1_syr_barrel_2": 20,
+  "person_water_needle_1_syr_cap_2": 16,
+  "person_water_needle_1_syr_plunger_2": 28,
+  "person_water_needle_1_syr_dregs_3": 20,
+  "person_water_needle_1_syr_barrel_3": 20,
+  "person_water_needle_1_syr_cap_3": 16,
+  "person_water_needle_1_syr_plunger_3": 28,
+  "person_water_needle_1_syr_dregs_4": 20,
+  "person_water_needle_1_syr_barrel_4": 20,
+  "person_water_needle_1_syr_cap_4": 16,
+  "person_water_needle_1_syr_plunger_4": 28,
+  "person_water_needle_1_syr_dregs_5": 20,
+  "person_water_needle_1_syr_barrel_5": 20,
+  "person_water_needle_1_syr_cap_5": 16,
+  "person_water_needle_1_syr_plunger_5": 28,
+  "person_water_needle_1_syr_dregs_6": 20,
+  "person_water_needle_1_syr_barrel_6": 20,
+  "person_water_needle_1_syr_cap_6": 16,
+  "person_water_needle_1_syr_plunger_6": 28,
+  "person_water_needle_1_trouser": 35674,
+  "person_water_needle_1_turn_up": 2048,
+  "person_water_needle_1_turn_up_edge": 2048,
+  "person_water_needle_1_sole_1": 242,
+  "person_water_needle_1_sole_0": 242,
+  "person_water_needle_1_strap_1_0": 90,
+  "person_water_needle_1_strap_1_1": 90,
+  "person_water_needle_1_strap_0_0": 90,
+  "person_water_needle_1_strap_0_1": 90,
+  "person_water_needle_1_ankle_strap": 2048,
+  "person_water_needle_1_hand_wraps_L": 392,
+  "person_water_needle_1_hand_wraps_R": 392,
+  "person_water_needle_1_hand_wraps_wrap_0": 2048,
+  "person_water_needle_1_hand_wraps_wrap_1": 2048,
+  "person_water_needle_1_hand_wraps_wrap_2": 2048,
+  "person_water_needle_1_hair": 17968,
+  "person_water_needle_1_hand_L": 392,
+  "person_water_needle_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_water_needle_1_ankle_strap": [
+   0.1356,
+   0.0704,
+   0.0203
+  ],
+  "person_water_needle_1_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_water_needle_1_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_water_needle_1_coat_skirt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_water_needle_1_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_needle_1_cuffs": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_needle_1_drawstrings": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_water_needle_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_water_needle_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_water_needle_1_hand_wraps": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_needle_1_hand_wraps_wrap_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_water_needle_1_hand_wraps_wrap_1": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_water_needle_1_hand_wraps_wrap_2": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_water_needle_1_hood": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_needle_1_knot": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_water_needle_1_needle_band": [
+   0.0452,
+   0.0252,
+   0.0144
+  ],
+  "person_water_needle_1_pocket": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_needle_1_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_needle_1_shoe": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_water_needle_1_shoes": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_water_needle_1_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_water_needle_1_sole_0": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_water_needle_1_sole_1": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_water_needle_1_strap_0_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_water_needle_1_strap_0_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_water_needle_1_strap_1_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_water_needle_1_strap_1_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_water_needle_1_syr_barrel_0": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_barrel_1": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_barrel_2": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_barrel_3": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_barrel_4": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_barrel_5": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_barrel_6": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_water_needle_1_syr_cap_0": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_cap_1": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_cap_2": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_cap_3": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_cap_4": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_cap_5": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_cap_6": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_water_needle_1_syr_dregs_0": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_dregs_1": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_dregs_2": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_dregs_3": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_dregs_4": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_dregs_5": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_dregs_6": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_water_needle_1_syr_plunger_0": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_syr_plunger_1": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_syr_plunger_2": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_syr_plunger_3": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_syr_plunger_4": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_syr_plunger_5": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_syr_plunger_6": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_water_needle_1_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_water_needle_1_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_water_needle_1_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_water_needle_1_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_water_needle_1_waistband": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_needle_1_wrap_edge": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

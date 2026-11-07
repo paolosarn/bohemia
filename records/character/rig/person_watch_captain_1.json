@@ -1,0 +1,308 @@
+{
+ "look": "PERSON_WATCH_CAPTAIN_1",
+ "shape": "person_watch_captain_1: the Watch's captain: the hi-vis vest under the Watch's green sash, a brass badge, the bullhorn on his hip, his own skin skin_light 1, STORM BUTTON-UP under HI-VIS VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STORM BUTTON-UP",
+  "outer": "HI-VIS VEST",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BROWN BOOTS",
+  "waist": "LEATHER BELT",
+  "outfit": [
+   "BONE BUTTON-UP read as one with HI-VIS VEST (154 and 160 of 255): the same cut in STORM BUTTON-UP (72)",
+   "HI-VIS VEST worn open to the neck",
+   "the button shirt's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.2,
+  "belly": 0.3,
+  "shoulders": 0.6,
+  "hips": 0.2
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_watch_captain_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7372,
+ "real_height_for_rig": 1.7433,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_watch_captain_1_shoe": 3716,
+  "person_watch_captain_1_shirt": 71276,
+  "person_watch_captain_1_collar": 1536,
+  "person_watch_captain_1_collar_points": 180,
+  "person_watch_captain_1_placket": 162,
+  "person_watch_captain_1_buttons": 204,
+  "person_watch_captain_1_cuffs": 2048,
+  "person_watch_captain_1_tail": 2912,
+  "person_watch_captain_1_coat": 21558,
+  "person_watch_captain_1_lapels": 396,
+  "person_watch_captain_1_hivis_band_80": 2640,
+  "person_watch_captain_1_hivis_band_88": 2640,
+  "person_watch_captain_1_hivis_brace_1": 234,
+  "person_watch_captain_1_hivis_brace_0": 234,
+  "person_watch_captain_1_hivis_patch": 8,
+  "person_watch_captain_1_sash": 2048,
+  "person_watch_captain_1_sash_knot": 52,
+  "person_watch_captain_1_sash_tail_0": 26,
+  "person_watch_captain_1_sash_tail_1": 26,
+  "person_watch_captain_1_badge": 26,
+  "person_watch_captain_1_bullhorn_bell": 36,
+  "person_watch_captain_1_bullhorn_body": 28,
+  "person_watch_captain_1_bullhorn_grip": 26,
+  "person_watch_captain_1_bullhorn_strap": 16,
+  "person_watch_captain_1_trouser": 43706,
+  "person_watch_captain_1_rolled_hem": 2048,
+  "person_watch_captain_1_crease": 180,
+  "person_watch_captain_1_sole_1": 242,
+  "person_watch_captain_1_midsole_1": 242,
+  "person_watch_captain_1_sole_0": 242,
+  "person_watch_captain_1_midsole_0": 242,
+  "person_watch_captain_1_boot_collar": 2048,
+  "person_watch_captain_1_boot_collar_line": 2048,
+  "person_watch_captain_1_eyelets_1": 120,
+  "person_watch_captain_1_eyelets_0": 120,
+  "person_watch_captain_1_leather_belt": 1792,
+  "person_watch_captain_1_leather_belt_buckle": 34,
+  "person_watch_captain_1_hair": 17968,
+  "person_watch_captain_1_hand_L": 392,
+  "person_watch_captain_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_watch_captain_1_badge": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_watch_captain_1_boot_collar": [
+   0.3278,
+   0.1413,
+   0.0529
+  ],
+  "person_watch_captain_1_boot_collar_line": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_watch_captain_1_bullhorn_bell": [
+   0.4125,
+   0.3813,
+   0.2961
+  ],
+  "person_watch_captain_1_bullhorn_body": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_watch_captain_1_bullhorn_grip": [
+   0.0212,
+   0.0194,
+   0.0176
+  ],
+  "person_watch_captain_1_bullhorn_strap": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_watch_captain_1_buttons": [
+   0.1248,
+   0.1384,
+   0.1651
+  ],
+  "person_watch_captain_1_coat": [
+   0.3864,
+   0.3864,
+   0.0742
+  ],
+  "person_watch_captain_1_collar": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_watch_captain_1_collar_points": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_watch_captain_1_crease": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_watch_captain_1_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_watch_captain_1_eyelets_0": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_watch_captain_1_eyelets_1": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_watch_captain_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_watch_captain_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_watch_captain_1_hivis_band_80": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_captain_1_hivis_band_88": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_captain_1_hivis_brace_0": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_captain_1_hivis_brace_1": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_captain_1_hivis_patch": [
+   0.0273,
+   0.0296,
+   0.0212
+  ],
+  "person_watch_captain_1_lapels": [
+   0.1981,
+   0.2086,
+   0.0232
+  ],
+  "person_watch_captain_1_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_watch_captain_1_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_watch_captain_1_midsole_0": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_watch_captain_1_midsole_1": [
+   0.0802,
+   0.0273,
+   0.0075
+  ],
+  "person_watch_captain_1_person_watch_captain_1_bullhorn_bell_m0": [
+   0.0212,
+   0.0194,
+   0.0176
+  ],
+  "person_watch_captain_1_placket": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_watch_captain_1_rolled_hem": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
+  "person_watch_captain_1_sash": [
+   0.0252,
+   0.0931,
+   0.0423
+  ],
+  "person_watch_captain_1_sash_knot": [
+   0.0252,
+   0.0931,
+   0.0423
+  ],
+  "person_watch_captain_1_sash_tail_0": [
+   0.0252,
+   0.0931,
+   0.0423
+  ],
+  "person_watch_captain_1_sash_tail_1": [
+   0.0252,
+   0.0931,
+   0.0423
+  ],
+  "person_watch_captain_1_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_watch_captain_1_shoe": [
+   0.1946,
+   0.0648,
+   0.0152
+  ],
+  "person_watch_captain_1_shoes": [
+   0.1946,
+   0.0648,
+   0.0152
+  ],
+  "person_watch_captain_1_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_watch_captain_1_sole_0": [
+   0.016,
+   0.0091,
+   0.0052
+  ],
+  "person_watch_captain_1_sole_1": [
+   0.016,
+   0.0091,
+   0.0052
+  ],
+  "person_watch_captain_1_tail": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_watch_captain_1_trouser": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_watch_captain_1_trousers": [
+   0.1413,
+   0.0742,
+   0.0273
+  ]
+ }
+}

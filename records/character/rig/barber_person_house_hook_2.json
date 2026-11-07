@@ -1,0 +1,39 @@
+{
+ "cut": "PERSON house_hook_2",
+ "tag": "person_house_hook_2",
+ "bank": {
+  "kind": "person",
+  "gang": "House Hook"
+ },
+ "worn_by": "House Hook, rolled",
+ "model": "records/character/rig/barber_person_house_hook_2.glb",
+ "body": "records/character/rig/person_house_hook_2.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  125,
+  88,
+  74
+ ],
+ "model_top_m": 1.557,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7523,
+ "pieces": {
+  "h2_razor_skull_shadow": 109461,
+  "h2_razor_skull_scabs": 78,
+  "coif": 11504,
+  "coif_crown": 4866,
+  "coif_edge": 576,
+  "f1_person_house_hook_2": 154
+ }
+}

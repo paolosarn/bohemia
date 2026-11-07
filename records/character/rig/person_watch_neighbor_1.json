@@ -1,0 +1,332 @@
+{
+ "look": "PERSON_WATCH_NEIGHBOR_1",
+ "shape": "person_watch_neighbor_1: a neighbour in his weekend clothes under a faded hi-vis vest, car floor mats bent round his shins, a bike helmet, his own skin skin_mid 3, SAND HOODIE under HI-VIS VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SAND HOODIE",
+  "outer": "HI-VIS VEST",
+  "legs": "GREY SWEATS",
+  "feet": "GREY SNEAKERS",
+  "gear": "WORK SUSPENDERS",
+  "outfit": [
+   "HI-VIS VEST worn open to the neck",
+   "the hood heaped over the coat's collar"
+  ]
+ },
+ "dials": {
+  "height": -0.2,
+  "belly": 0.2,
+  "shoulders": -0.1,
+  "hips": 0.2
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hood_over": 0.022
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.006,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.12
+  }
+ },
+ "model": "records/character/rig/person_watch_neighbor_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7028,
+ "real_height_for_rig": 1.7088,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_watch_neighbor_1_shoe": 3500,
+  "person_watch_neighbor_1_shirt": 69056,
+  "person_watch_neighbor_1_collar": 1536,
+  "person_watch_neighbor_1_hood": 14508,
+  "person_watch_neighbor_1_drawstrings": 100,
+  "person_watch_neighbor_1_pocket": 182,
+  "person_watch_neighbor_1_waistband": 1792,
+  "person_watch_neighbor_1_cuffs": 2048,
+  "person_watch_neighbor_1_coat": 22818,
+  "person_watch_neighbor_1_lapels": 396,
+  "person_watch_neighbor_1_hivis_band_80": 2640,
+  "person_watch_neighbor_1_hivis_band_88": 2640,
+  "person_watch_neighbor_1_hivis_brace_1": 234,
+  "person_watch_neighbor_1_hivis_brace_0": 234,
+  "person_watch_neighbor_1_hivis_patch": 8,
+  "person_watch_neighbor_1_floormat_L": 510,
+  "person_watch_neighbor_1_bungee_L_21": 768,
+  "person_watch_neighbor_1_bungee_hook_L_21": 50,
+  "person_watch_neighbor_1_bungee_L_39": 768,
+  "person_watch_neighbor_1_bungee_hook_L_39": 50,
+  "person_watch_neighbor_1_floormat_R": 510,
+  "person_watch_neighbor_1_bungee_R_21": 768,
+  "person_watch_neighbor_1_bungee_hook_R_21": 50,
+  "person_watch_neighbor_1_bungee_R_39": 768,
+  "person_watch_neighbor_1_bungee_hook_R_39": 50,
+  "person_watch_neighbor_1_trouser": 43706,
+  "person_watch_neighbor_1_cuff": 2048,
+  "person_watch_neighbor_1_sole_1": 242,
+  "person_watch_neighbor_1_midsole_1": 242,
+  "person_watch_neighbor_1_sole_0": 242,
+  "person_watch_neighbor_1_midsole_0": 242,
+  "person_watch_neighbor_1_tongue_1": 98,
+  "person_watch_neighbor_1_laces_1": 200,
+  "person_watch_neighbor_1_heel_1": 90,
+  "person_watch_neighbor_1_tongue_0": 98,
+  "person_watch_neighbor_1_laces_0": 200,
+  "person_watch_neighbor_1_heel_0": 90,
+  "person_watch_neighbor_1_work_suspenders": 308,
+  "person_watch_neighbor_1_work_suspenders_spine": 70,
+  "person_watch_neighbor_1_work_suspenders_buttons": 68,
+  "person_watch_neighbor_1_hair": 17968,
+  "person_watch_neighbor_1_hand_L": 392,
+  "person_watch_neighbor_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_watch_neighbor_1_bungee_hook_L_21": [
+   0.305,
+   0.2961,
+   0.2623
+  ],
+  "person_watch_neighbor_1_bungee_hook_L_39": [
+   0.305,
+   0.2961,
+   0.2623
+  ],
+  "person_watch_neighbor_1_bungee_hook_R_21": [
+   0.305,
+   0.2961,
+   0.2623
+  ],
+  "person_watch_neighbor_1_bungee_hook_R_39": [
+   0.305,
+   0.2961,
+   0.2623
+  ],
+  "person_watch_neighbor_1_bungee_L_21": [
+   0.2159,
+   0.0369,
+   0.0252
+  ],
+  "person_watch_neighbor_1_bungee_L_39": [
+   0.107,
+   0.117,
+   0.0343
+  ],
+  "person_watch_neighbor_1_bungee_R_21": [
+   0.2159,
+   0.0369,
+   0.0252
+  ],
+  "person_watch_neighbor_1_bungee_R_39": [
+   0.107,
+   0.117,
+   0.0343
+  ],
+  "person_watch_neighbor_1_coat": [
+   0.3864,
+   0.3864,
+   0.0742
+  ],
+  "person_watch_neighbor_1_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_watch_neighbor_1_cuff": [
+   0.1878,
+   0.1878,
+   0.2384
+  ],
+  "person_watch_neighbor_1_cuffs": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_watch_neighbor_1_drawstrings": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_watch_neighbor_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_watch_neighbor_1_floormat_L": [
+   0.016,
+   0.0152,
+   0.0144
+  ],
+  "person_watch_neighbor_1_floormat_R": [
+   0.016,
+   0.0152,
+   0.0144
+  ],
+  "person_watch_neighbor_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_watch_neighbor_1_heel_0": [
+   0.0595,
+   0.0648,
+   0.0762
+  ],
+  "person_watch_neighbor_1_heel_1": [
+   0.0595,
+   0.0648,
+   0.0762
+  ],
+  "person_watch_neighbor_1_hivis_band_80": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_neighbor_1_hivis_band_88": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_neighbor_1_hivis_brace_0": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_neighbor_1_hivis_brace_1": [
+   0.4342,
+   0.4342,
+   0.402
+  ],
+  "person_watch_neighbor_1_hivis_patch": [
+   0.0273,
+   0.0296,
+   0.0212
+  ],
+  "person_watch_neighbor_1_hood": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_watch_neighbor_1_laces_0": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_watch_neighbor_1_laces_1": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_watch_neighbor_1_lapels": [
+   0.1981,
+   0.2086,
+   0.0232
+  ],
+  "person_watch_neighbor_1_midsole_0": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_watch_neighbor_1_midsole_1": [
+   0.2582,
+   0.2705,
+   0.305
+  ],
+  "person_watch_neighbor_1_person_watch_neighbor_1_floormat_L_m0": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "person_watch_neighbor_1_person_watch_neighbor_1_floormat_R_m0": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "person_watch_neighbor_1_pocket": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_watch_neighbor_1_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_watch_neighbor_1_shoe": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_watch_neighbor_1_shoes": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_watch_neighbor_1_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_watch_neighbor_1_sole_0": [
+   0.016,
+   0.016,
+   0.0194
+  ],
+  "person_watch_neighbor_1_sole_1": [
+   0.016,
+   0.016,
+   0.0194
+  ],
+  "person_watch_neighbor_1_tongue_0": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_watch_neighbor_1_tongue_1": [
+   0.1356,
+   0.1441,
+   0.1683
+  ],
+  "person_watch_neighbor_1_trouser": [
+   0.1878,
+   0.1878,
+   0.2384
+  ],
+  "person_watch_neighbor_1_trousers": [
+   0.1878,
+   0.1878,
+   0.2384
+  ],
+  "person_watch_neighbor_1_waistband": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_watch_neighbor_1_work_suspenders": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_watch_neighbor_1_work_suspenders_buttons": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_watch_neighbor_1_work_suspenders_spine": [
+   0.0382,
+   0.0343,
+   0.0382
+  ]
+ }
+}

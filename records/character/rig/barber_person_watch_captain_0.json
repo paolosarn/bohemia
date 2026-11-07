@@ -1,0 +1,42 @@
+{
+ "cut": "PERSON watch_captain_0",
+ "tag": "person_watch_captain_0",
+ "bank": {
+  "kind": "person",
+  "gang": "Captain"
+ },
+ "worn_by": "Captain, rolled",
+ "model": "records/character/rig/barber_person_watch_captain_0.glb",
+ "body": "records/character/rig/person_watch_captain_0.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  1
+ ],
+ "hair_rgb": [
+  125,
+  77,
+  29
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5478,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.742,
+ "pieces": {
+  "barber_deep_taper_fade": 37661,
+  "barber_deep_taper": 152602,
+  "hat_dust_work_cap_crown": 164482,
+  "hat_dust_work_cap_brim": 406,
+  "hat_dust_work_cap_button": 52,
+  "face_wraparound_shades_lens": 2066,
+  "face_wraparound_shades_rim": 248,
+  "face_wraparound_shades_arm_l": 88,
+  "face_wraparound_shades_arm_r": 88
+ }
+}

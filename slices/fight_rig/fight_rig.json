@@ -2544,6 +2544,486 @@
    "gang": "rare",
    "rare": true,
    "rig": "records/target/combat/rig/person_rare_13/rig.json"
+  },
+  "enemy_house_shield_0": {
+   "file": "enemy_house_shield_0.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.786,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "house_shield",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_shield_0/rig.json"
+  },
+  "enemy_house_shield_1": {
+   "file": "enemy_house_shield_1.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.759,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "house_shield",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_shield_1/rig.json"
+  },
+  "enemy_house_shield_2": {
+   "file": "enemy_house_shield_2.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.766,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "house_shield",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_shield_2/rig.json"
+  },
+  "enemy_house_hook_0": {
+   "file": "enemy_house_hook_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.752,
+   "kind": "enemy",
+   "ref": "faction_blues",
+   "guns": "faction_blues_guns.webp",
+   "type": "house_hook",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_hook_0/rig.json"
+  },
+  "enemy_house_hook_1": {
+   "file": "enemy_house_hook_1.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.752,
+   "kind": "enemy",
+   "ref": "faction_blues",
+   "guns": "faction_blues_guns.webp",
+   "type": "house_hook",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_hook_1/rig.json"
+  },
+  "enemy_house_hook_2": {
+   "file": "enemy_house_hook_2.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.752,
+   "kind": "enemy",
+   "ref": "faction_blues",
+   "guns": "faction_blues_guns.webp",
+   "type": "house_hook",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_hook_2/rig.json"
+  },
+  "enemy_house_crossbow_0": {
+   "file": "enemy_house_crossbow_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.775,
+   "kind": "enemy",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "type": "house_crossbow",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_crossbow_0/rig.json"
+  },
+  "enemy_house_crossbow_1": {
+   "file": "enemy_house_crossbow_1.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.775,
+   "kind": "enemy",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "type": "house_crossbow",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_crossbow_1/rig.json"
+  },
+  "enemy_house_crossbow_2": {
+   "file": "enemy_house_crossbow_2.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.73,
+   "kind": "enemy",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "type": "house_crossbow",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_house_crossbow_2/rig.json"
+  },
+  "enemy_watch_neighbor_0": {
+   "file": "enemy_watch_neighbor_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.75,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "watch_neighbor",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_neighbor_0/rig.json"
+  },
+  "enemy_watch_neighbor_1": {
+   "file": "enemy_watch_neighbor_1.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.723,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "watch_neighbor",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_neighbor_1/rig.json"
+  },
+  "enemy_watch_neighbor_2": {
+   "file": "enemy_watch_neighbor_2.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.75,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "watch_neighbor",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_neighbor_2/rig.json"
+  },
+  "enemy_watch_neighbor_3": {
+   "file": "enemy_watch_neighbor_3.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.734,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "watch_neighbor",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_neighbor_3/rig.json"
+  },
+  "enemy_watch_neighbor_4": {
+   "file": "enemy_watch_neighbor_4.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.769,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "watch_neighbor",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_neighbor_4/rig.json"
+  },
+  "enemy_watch_neighbor_5": {
+   "file": "enemy_watch_neighbor_5.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.742,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "watch_neighbor",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_neighbor_5/rig.json"
+  },
+  "enemy_watch_captain_0": {
+   "file": "enemy_watch_captain_0.webp",
+   "w": 135,
+   "h": 160,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.742,
+   "kind": "enemy",
+   "ref": "faction_church",
+   "guns": "faction_church_guns.webp",
+   "type": "watch_captain",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_captain_0/rig.json"
+  },
+  "enemy_watch_captain_1": {
+   "file": "enemy_watch_captain_1.webp",
+   "w": 135,
+   "h": 160,
+   "foot": [
+    67,
+    109
+   ],
+   "height_m": 1.742,
+   "kind": "enemy",
+   "ref": "faction_church",
+   "guns": "faction_church_guns.webp",
+   "type": "watch_captain",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_watch_captain_1/rig.json"
+  },
+  "enemy_keeper_feral_0": {
+   "file": "enemy_keeper_feral_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.838,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "keeper_feral",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_keeper_feral_0/rig.json"
+  },
+  "enemy_keeper_feral_1": {
+   "file": "enemy_keeper_feral_1.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.838,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "keeper_feral",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_keeper_feral_1/rig.json"
+  },
+  "enemy_keeper_thrall_0": {
+   "file": "enemy_keeper_thrall_0.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.73,
+   "kind": "enemy",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "type": "keeper_thrall",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_keeper_thrall_0/rig.json"
+  },
+  "enemy_keeper_thrall_1": {
+   "file": "enemy_keeper_thrall_1.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.742,
+   "kind": "enemy",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "type": "keeper_thrall",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_keeper_thrall_1/rig.json"
+  },
+  "enemy_keeper_thrall_2": {
+   "file": "enemy_keeper_thrall_2.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.76,
+   "kind": "enemy",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "type": "keeper_thrall",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_keeper_thrall_2/rig.json"
+  },
+  "enemy_keeper_thrall_3": {
+   "file": "enemy_keeper_thrall_3.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.761,
+   "kind": "enemy",
+   "ref": "faction_anarchists",
+   "guns": "faction_anarchists_guns.webp",
+   "type": "keeper_thrall",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_keeper_thrall_3/rig.json"
+  },
+  "enemy_water_cutter_0": {
+   "file": "enemy_water_cutter_0.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.743,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "water_cutter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_cutter_0/rig.json"
+  },
+  "enemy_water_cutter_1": {
+   "file": "enemy_water_cutter_1.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.776,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "water_cutter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_cutter_1/rig.json"
+  },
+  "enemy_water_cutter_2": {
+   "file": "enemy_water_cutter_2.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.734,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "water_cutter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_cutter_2/rig.json"
+  },
+  "enemy_water_cutter_3": {
+   "file": "enemy_water_cutter_3.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.743,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "water_cutter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_cutter_3/rig.json"
+  },
+  "enemy_water_needle_0": {
+   "file": "enemy_water_needle_0.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.755,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "water_needle",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_needle_0/rig.json"
+  },
+  "enemy_water_needle_1": {
+   "file": "enemy_water_needle_1.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.716,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "water_needle",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_needle_1/rig.json"
+  },
+  "enemy_water_needle_2": {
+   "file": "enemy_water_needle_2.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.743,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "water_needle",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_water_needle_2/rig.json"
   }
  },
  "faces": {
@@ -2673,7 +3153,45 @@
    "person_rare_13"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
-  "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
+  "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)",
+  "more": [
+   {
+    "file": "faces_more.webp",
+    "order": [
+     "enemy_house_shield_0",
+     "enemy_house_shield_1",
+     "enemy_house_shield_2",
+     "enemy_house_hook_0",
+     "enemy_house_hook_1",
+     "enemy_house_hook_2",
+     "enemy_house_crossbow_0",
+     "enemy_house_crossbow_1",
+     "enemy_house_crossbow_2",
+     "enemy_watch_neighbor_0",
+     "enemy_watch_neighbor_1",
+     "enemy_watch_neighbor_2",
+     "enemy_watch_neighbor_3",
+     "enemy_watch_neighbor_4",
+     "enemy_watch_neighbor_5",
+     "enemy_watch_captain_0",
+     "enemy_watch_captain_1",
+     "enemy_keeper_feral_0",
+     "enemy_keeper_feral_1",
+     "enemy_keeper_thrall_0",
+     "enemy_keeper_thrall_1",
+     "enemy_keeper_thrall_2",
+     "enemy_keeper_thrall_3",
+     "enemy_water_cutter_0",
+     "enemy_water_cutter_1",
+     "enemy_water_cutter_2",
+     "enemy_water_cutter_3",
+     "enemy_water_needle_0",
+     "enemy_water_needle_1",
+     "enemy_water_needle_2"
+    ],
+    "by": "CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack"
+   }
+  ]
  },
  "guns": {
   "order": [
@@ -2735,5 +3253,6 @@
  "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them",
  "enemies": "CHARACTER [the three enemies' looks] 10/24: the Mechanic, the Kids and Runners and the Heavy (kind 'enemy'), packed by tools/bohemia_character_the_three_enemies.py pack into a reference gang's cell with its guns; their pools are ours.people_looks.band.mechanic / runner / heavy",
  "bosses": "BOSSES 11/2 and 11/3: THE POT, THE TAP, THE FILTER (tools/bohemia_bosses_the_three_men.py, dressed by tools/bohemia_cook_the_bosses_dressed_11_3_26.py), THE BURN, THE SURVEYOR, THE CLIMB (tools/bohemia_bosses_four_to_six_11_3_26.py), kind 'boss', each in a reference gang's cell; records/target/bb/boss_act_one.json names each",
- "rare": "HIRES [the rare men's looks] 11/3: the fourteen rare men (kind 'person', gang 'rare'), packed by tools/bohemia_hires_the_rare_men.py pack into the place's people's cell with their guns; RUN TWO's fight-pack drops 'person' rows it did not make, so run this pack after it (gates/more_rare_hires_gate.js H2 says so)"
+ "rare": "HIRES [the rare men's looks] 11/3: the fourteen rare men (kind 'person', gang 'rare'), packed by tools/bohemia_hires_the_rare_men.py pack into the place's people's cell with their guns; RUN TWO's fight-pack drops 'person' rows it did not make, so run this pack after it (gates/more_rare_hires_gate.js H2 says so)",
+ "enemies_nine": "CHARACTER [more enemy types, their own art] 11/7 (rule 427(b)): FACTIONS' nine act-one types in their own garments (kind 'enemy', set 'nine'), packed by tools/bohemia_character_the_nine_enemies.py pack into each type's old reference cell with its guns; each type's men are its row's 'looks' in records/target/bb/bohemia_enemies.json"
 }

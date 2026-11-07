@@ -5111,6 +5111,9 @@ function bakeBoard() {
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
   all.push('fight_rig/' + DB.rig.faces.file);
+  /* __THE_SECOND_FACE_STRIP__ (CHARACTER 11/7, rule 427(b)): the one strip is 121 faces of 128 px, 15,488 px wide, and a WebP
+     stops at 16,383; faces past it ride further strips (fight_rig.json faces.more), each read the same way */
+  (DB.rig.faces.more || []).forEach(function (M) { all.push('fight_rig/' + M.file); });
   /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and his gun's */
   const men = [], guns = [];
   FIGHT.S.units.forEach(function (v) { const L = lookOf(v), f = 'fight_rig/' + L.file; if (men.indexOf(f) < 0) men.push(f);
@@ -9001,7 +9004,10 @@ function drawPortrait(g, v, S) {
   const you = v.side === 'you', unseen = !FIGHT.shown(v);
   g.clearRect(0, 0, S, S);
   g.fillStyle = you ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S);
-  const F = DB.rig.faces, fi = F.order.indexOf(lookOf(v) === DB.rig.looks[v.look] ? v.look : F.order[0]), img = UI.imgs['fight_rig/' + F.file];
+  const F = DB.rig.faces, fk = lookOf(v) === DB.rig.looks[v.look] ? v.look : F.order[0];
+  let fi = F.order.indexOf(fk), img = UI.imgs['fight_rig/' + F.file];
+  /* __THE_SECOND_FACE_STRIP__: a face not on the first strip is looked for on the next ones */
+  if (fi < 0) (F.more || []).some(function (M) { const j = M.order.indexOf(fk); if (j < 0) return false; fi = j; img = UI.imgs['fight_rig/' + M.file]; return true; });
   if (beastOf(v)) {
     /* a beast has no face in the bank and a crop of its body is never a portrait (rule 115(h)): the turn strip shows the pen's
        wolf head (the Lone Wolf glyph's own shape) in their red */

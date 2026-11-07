@@ -301,6 +301,96 @@
 "fill": 0.264,
 "packedMB": 5.1
 },
+"enemy_house_crossbow_0.webp": {
+"bytes": 306764,
+"decodedMB": 18.86,
+"fill": 0.189,
+"packedMB": 4.12
+},
+"enemy_house_crossbow_1.webp": {
+"bytes": 319560,
+"decodedMB": 18.86,
+"fill": 0.191,
+"packedMB": 4.14
+},
+"enemy_house_crossbow_2.webp": {
+"bytes": 290772,
+"decodedMB": 18.86,
+"fill": 0.182,
+"packedMB": 4.01
+},
+"enemy_house_hook_0.webp": {
+"bytes": 303812,
+"decodedMB": 16.83,
+"fill": 0.204,
+"packedMB": 3.96
+},
+"enemy_house_hook_1.webp": {
+"bytes": 313152,
+"decodedMB": 16.83,
+"fill": 0.205,
+"packedMB": 4.02
+},
+"enemy_house_hook_2.webp": {
+"bytes": 313894,
+"decodedMB": 16.83,
+"fill": 0.205,
+"packedMB": 3.98
+},
+"enemy_house_shield_0.webp": {
+"bytes": 334638,
+"decodedMB": 17.32,
+"fill": 0.213,
+"packedMB": 4.25
+},
+"enemy_house_shield_1.webp": {
+"bytes": 335906,
+"decodedMB": 17.32,
+"fill": 0.212,
+"packedMB": 4.2
+},
+"enemy_house_shield_2.webp": {
+"bytes": 325554,
+"decodedMB": 17.32,
+"fill": 0.213,
+"packedMB": 4.18
+},
+"enemy_keeper_feral_0.webp": {
+"bytes": 293636,
+"decodedMB": 16.83,
+"fill": 0.22,
+"packedMB": 4.3
+},
+"enemy_keeper_feral_1.webp": {
+"bytes": 299752,
+"decodedMB": 16.83,
+"fill": 0.222,
+"packedMB": 4.26
+},
+"enemy_keeper_thrall_0.webp": {
+"bytes": 319332,
+"decodedMB": 17.07,
+"fill": 0.2,
+"packedMB": 3.97
+},
+"enemy_keeper_thrall_1.webp": {
+"bytes": 318888,
+"decodedMB": 17.07,
+"fill": 0.203,
+"packedMB": 4.02
+},
+"enemy_keeper_thrall_2.webp": {
+"bytes": 307602,
+"decodedMB": 17.07,
+"fill": 0.202,
+"packedMB": 4.04
+},
+"enemy_keeper_thrall_3.webp": {
+"bytes": 327500,
+"decodedMB": 17.07,
+"fill": 0.206,
+"packedMB": 4.11
+},
 "enemy_mechanic_0.webp": {
 "bytes": 344436,
 "decodedMB": 18.86,
@@ -366,6 +456,96 @@
 "decodedMB": 17.07,
 "fill": 0.222,
 "packedMB": 4.26
+},
+"enemy_watch_captain_0.webp": {
+"bytes": 288828,
+"decodedMB": 16.48,
+"fill": 0.212,
+"packedMB": 4.05
+},
+"enemy_watch_captain_1.webp": {
+"bytes": 279332,
+"decodedMB": 16.48,
+"fill": 0.211,
+"packedMB": 4.04
+},
+"enemy_watch_neighbor_0.webp": {
+"bytes": 289080,
+"decodedMB": 18.05,
+"fill": 0.19,
+"packedMB": 3.98
+},
+"enemy_watch_neighbor_1.webp": {
+"bytes": 278810,
+"decodedMB": 18.05,
+"fill": 0.186,
+"packedMB": 3.8
+},
+"enemy_watch_neighbor_2.webp": {
+"bytes": 277510,
+"decodedMB": 18.05,
+"fill": 0.189,
+"packedMB": 3.98
+},
+"enemy_watch_neighbor_3.webp": {
+"bytes": 289974,
+"decodedMB": 18.05,
+"fill": 0.187,
+"packedMB": 3.8
+},
+"enemy_watch_neighbor_4.webp": {
+"bytes": 278404,
+"decodedMB": 18.05,
+"fill": 0.19,
+"packedMB": 3.86
+},
+"enemy_watch_neighbor_5.webp": {
+"bytes": 264572,
+"decodedMB": 18.05,
+"fill": 0.185,
+"packedMB": 3.79
+},
+"enemy_water_cutter_0.webp": {
+"bytes": 337516,
+"decodedMB": 18.62,
+"fill": 0.199,
+"packedMB": 4.19
+},
+"enemy_water_cutter_1.webp": {
+"bytes": 324486,
+"decodedMB": 18.62,
+"fill": 0.2,
+"packedMB": 4.23
+},
+"enemy_water_cutter_2.webp": {
+"bytes": 340576,
+"decodedMB": 18.62,
+"fill": 0.199,
+"packedMB": 4.2
+},
+"enemy_water_cutter_3.webp": {
+"bytes": 323318,
+"decodedMB": 18.62,
+"fill": 0.197,
+"packedMB": 4.19
+},
+"enemy_water_needle_0.webp": {
+"bytes": 301748,
+"decodedMB": 17.07,
+"fill": 0.201,
+"packedMB": 4.0
+},
+"enemy_water_needle_1.webp": {
+"bytes": 305408,
+"decodedMB": 17.07,
+"fill": 0.198,
+"packedMB": 3.93
+},
+"enemy_water_needle_2.webp": {
+"bytes": 304888,
+"decodedMB": 17.07,
+"fill": 0.2,
+"packedMB": 3.98
 },
 "faction_anarchists.webp": {
 "bytes": 222166,
@@ -981,8 +1161,8 @@
 }
 },
 "totals": {
-"decodedMB": 3297.2,
-"packedMB": 603.0,
-"sheets": 163
+"decodedMB": 3825.2,
+"packedMB": 724.6,
+"sheets": 193
 }
 }

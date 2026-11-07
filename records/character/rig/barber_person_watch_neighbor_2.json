@@ -1,0 +1,38 @@
+{
+ "cut": "PERSON watch_neighbor_2",
+ "tag": "person_watch_neighbor_2",
+ "bank": {
+  "kind": "person",
+  "gang": "Neighbor"
+ },
+ "worn_by": "Neighbor, rolled",
+ "model": "records/character/rig/barber_person_watch_neighbor_2.glb",
+ "body": "records/character/rig/person_watch_neighbor_2.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  224,
+  189,
+  155
+ ],
+ "model_top_m": 1.5545,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7495,
+ "pieces": {
+  "barber_grease_back": 220578,
+  "barber_grease_back_ends": 2118,
+  "helmet_shell": 155930,
+  "helmet_visor": 168,
+  "helmet_straps": 192
+ }
+}

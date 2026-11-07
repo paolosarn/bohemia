@@ -1,0 +1,284 @@
+{
+ "look": "PERSON_HOUSE_SHIELD_0",
+ "shape": "person_house_shield_0: the House's front man: a casino-carpet tabard over leather, a hubcap kettle hat, a gorget, his own skin skin_deep 3, BONE TURTLENECK under LEATHER JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TURTLENECK",
+  "outer": "LEATHER JACKET",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SOOT GORGET",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "CHARCOAL TURTLENECK read as one with LEATHER JACKET (52 and 69 of 255): the same cut in BONE TURTLENECK (154)",
+   "LEATHER JACKET worn open to the neck",
+   "the turtleneck's hem below the jacket",
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.3,
+  "belly": 0.2,
+  "shoulders": 0.55,
+  "hips": 0.1
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "hem_drop": 0.05,
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_house_shield_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7458,
+ "real_height_for_rig": 1.7519,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_house_shield_0_shoe": 4484,
+  "person_house_shield_0_shirt": 79720,
+  "person_house_shield_0_cuffs": 2048,
+  "person_house_shield_0_tail": 2464,
+  "person_house_shield_0_coat": 57538,
+  "person_house_shield_0_collar": 1170,
+  "person_house_shield_0_lapels": 396,
+  "person_house_shield_0_zip": 324,
+  "person_house_shield_0_waistband": 1792,
+  "person_house_shield_0_pushed": 2048,
+  "person_house_shield_0_tabard": 28956,
+  "person_house_shield_0_tabard_shoulder_1": 198,
+  "person_house_shield_0_tabard_shoulder_0": 198,
+  "person_house_shield_0_tabard_belt": 2304,
+  "person_house_shield_0_tabard_buckle": 26,
+  "person_house_shield_0_trouser": 43706,
+  "person_house_shield_0_sole_1": 242,
+  "person_house_shield_0_midsole_1": 242,
+  "person_house_shield_0_sole_0": 242,
+  "person_house_shield_0_midsole_0": 242,
+  "person_house_shield_0_boot_collar": 2048,
+  "person_house_shield_0_boot_collar_line": 2048,
+  "person_house_shield_0_boot_strap": 2048,
+  "person_house_shield_0_soot_gorget": 1536,
+  "person_house_shield_0_soot_gorget_rim": 1536,
+  "person_house_shield_0_leather_gloves_L": 392,
+  "person_house_shield_0_leather_gloves_R": 392,
+  "person_house_shield_0_leather_gloves_cuff": 2048,
+  "person_house_shield_0_hair": 17968,
+  "person_house_shield_0_hand_L": 392,
+  "person_house_shield_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_house_shield_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_house_shield_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_house_shield_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_house_shield_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_shield_0_collar": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_shield_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_shield_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_house_shield_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_house_shield_0_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_shield_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_shield_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_shield_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_house_shield_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_house_shield_0_person_house_shield_0_tabard_m0": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_shield_0_person_house_shield_0_tabard_m1": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_shield_0_person_house_shield_0_tabard_m2": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_shield_0_person_house_shield_0_tabard_m3": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_shield_0_person_house_shield_0_tabard_m4": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_shield_0_person_house_shield_0_tabard_m5": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_shield_0_pushed": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_shield_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_shield_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_house_shield_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_house_shield_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_house_shield_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_house_shield_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_house_shield_0_soot_gorget": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_house_shield_0_soot_gorget_rim": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_house_shield_0_tabard": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_shield_0_tabard_belt": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_house_shield_0_tabard_buckle": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_shield_0_tabard_shoulder_0": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_shield_0_tabard_shoulder_1": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_shield_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_shield_0_trouser": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_shield_0_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_shield_0_trousers": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_shield_0_waistband": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_shield_0_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

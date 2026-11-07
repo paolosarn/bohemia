@@ -1,0 +1,242 @@
+{
+ "look": "PERSON_KEEPER_THRALL_2",
+ "shape": "person_keeper_thrall_2: a Keeper: a cloak of bleached strips from a rope yoke and a rope belt, a head wrap, the axe bandolier, his own skin skin_light 1, TATTERED TEE",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TATTERED TEE",
+  "legs": "BONE DROP TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "gear": "WORN BRACERS"
+ },
+ "dials": {
+  "height": 0.5,
+  "belly": -0.5,
+  "shoulders": 0.0,
+  "hips": -0.2
+ },
+ "model": "records/character/rig/person_keeper_thrall_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.763,
+ "real_height_for_rig": 1.7692,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_keeper_thrall_2_shoe": 3716,
+  "person_keeper_thrall_2_shirt": 38650,
+  "person_keeper_thrall_2_collar": 1536,
+  "person_keeper_thrall_2_sleeve_hem": 2048,
+  "person_keeper_thrall_2_tail": 2414,
+  "person_keeper_thrall_2_strips": 32084,
+  "person_keeper_thrall_2_strip_rope_100": 2304,
+  "person_keeper_thrall_2_strip_rope_74": 2304,
+  "person_keeper_thrall_2_trouser": 43706,
+  "person_keeper_thrall_2_drop_yoke": 5600,
+  "person_keeper_thrall_2_ankle": 2048,
+  "person_keeper_thrall_2_sole_1": 242,
+  "person_keeper_thrall_2_midsole_1": 242,
+  "person_keeper_thrall_2_sole_0": 242,
+  "person_keeper_thrall_2_midsole_0": 242,
+  "person_keeper_thrall_2_boot_collar": 2048,
+  "person_keeper_thrall_2_boot_collar_line": 2048,
+  "person_keeper_thrall_2_eyelets_1": 120,
+  "person_keeper_thrall_2_eyelets_0": 120,
+  "person_keeper_thrall_2_dust_brown_bandolier": 1792,
+  "person_keeper_thrall_2_dust_brown_bandolier_shells": 442,
+  "person_keeper_thrall_2_dust_brown_bandolier_pouch": 26,
+  "person_keeper_thrall_2_worn_bracers": 8852,
+  "person_keeper_thrall_2_worn_bracers_lace": 2048,
+  "person_keeper_thrall_2_worn_bracers_lace.001": 2048,
+  "person_keeper_thrall_2_worn_bracers_lace.002": 2048,
+  "person_keeper_thrall_2_hair": 17968,
+  "person_keeper_thrall_2_hand_L": 392,
+  "person_keeper_thrall_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_keeper_thrall_2_ankle": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_keeper_thrall_2_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_keeper_thrall_2_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_thrall_2_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_drop_yoke": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_dust_brown_bandolier": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_keeper_thrall_2_dust_brown_bandolier_pouch": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_keeper_thrall_2_dust_brown_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_keeper_thrall_2_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_thrall_2_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_thrall_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_keeper_thrall_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_keeper_thrall_2_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_thrall_2_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_thrall_2_person_keeper_thrall_2_strips_m0": [
+   0.1812,
+   0.0685,
+   0.0296
+  ],
+  "person_keeper_thrall_2_person_keeper_thrall_2_strips_m1": [
+   0.1946,
+   0.1746,
+   0.1441
+  ],
+  "person_keeper_thrall_2_person_keeper_thrall_2_strips_m2": [
+   0.2542,
+   0.2016,
+   0.1221
+  ],
+  "person_keeper_thrall_2_person_keeper_thrall_2_strips_m3": [
+   0.305,
+   0.2462,
+   0.15
+  ],
+  "person_keeper_thrall_2_person_keeper_thrall_2_strips_m4": [
+   0.3916,
+   0.3419,
+   0.2462
+  ],
+  "person_keeper_thrall_2_person_keeper_thrall_2_strips_m5": [
+   0.4452,
+   0.1878,
+   0.1384
+  ],
+  "person_keeper_thrall_2_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_keeper_thrall_2_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_keeper_thrall_2_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_keeper_thrall_2_sleeve_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_keeper_thrall_2_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_keeper_thrall_2_strip_rope_100": [
+   0.162,
+   0.117,
+   0.0612
+  ],
+  "person_keeper_thrall_2_strip_rope_74": [
+   0.162,
+   0.117,
+   0.0612
+  ],
+  "person_keeper_thrall_2_strips": [
+   0.2542,
+   0.2016,
+   0.1221
+  ],
+  "person_keeper_thrall_2_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_trouser": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_trousers": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_thrall_2_worn_bracers": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_keeper_thrall_2_worn_bracers_lace": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_keeper_thrall_2_yoke_drape": [
+   0.2122,
+   0.1746,
+   0.1046
+  ]
+ }
+}

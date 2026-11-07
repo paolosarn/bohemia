@@ -1,0 +1,252 @@
+{
+ "look": "PERSON_KEEPER_FERAL_1",
+ "shape": "person_keeper_feral_1: the Keepers' berserker: a lab coyote's pelt worn as his head and his cape, bare arms in wraps and bracers, his own skin skin_deep 3, TATTERED TEE",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TATTERED TEE",
+  "legs": "RUST CARGOS",
+  "feet": "SANDWALKERS",
+  "hands": "SOOT HAND WRAPS",
+  "gear": "WORN BRACERS",
+  "waist": "WIDE WAIST WRAP"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": 0.3,
+  "shoulders": 0.9,
+  "hips": 0.3
+ },
+ "model": "records/character/rig/person_keeper_feral_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7649,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_keeper_feral_1_shoe": 2508,
+  "person_keeper_feral_1_shirt": 37826,
+  "person_keeper_feral_1_collar": 1536,
+  "person_keeper_feral_1_sleeve_hem": 2048,
+  "person_keeper_feral_1_tail": 2414,
+  "person_keeper_feral_1_pelt_leg_1": 82,
+  "person_keeper_feral_1_pelt_shin_1": 16,
+  "person_keeper_feral_1_pelt_paw_1": 42,
+  "person_keeper_feral_1_pelt_leg_0": 82,
+  "person_keeper_feral_1_pelt_shin_0": 16,
+  "person_keeper_feral_1_pelt_paw_0": 42,
+  "person_keeper_feral_1_pelt_knot": 52,
+  "person_keeper_feral_1_trouser": 43706,
+  "person_keeper_feral_1_rolled_hem": 2048,
+  "person_keeper_feral_1_cargo_pockets": 252,
+  "person_keeper_feral_1_cargo_flaps": 108,
+  "person_keeper_feral_1_sole_1": 242,
+  "person_keeper_feral_1_sole_0": 242,
+  "person_keeper_feral_1_strap_1_0": 90,
+  "person_keeper_feral_1_strap_1_1": 90,
+  "person_keeper_feral_1_strap_0_0": 90,
+  "person_keeper_feral_1_strap_0_1": 90,
+  "person_keeper_feral_1_ankle_strap": 2048,
+  "person_keeper_feral_1_soot_hand_wraps_L": 392,
+  "person_keeper_feral_1_soot_hand_wraps_R": 392,
+  "person_keeper_feral_1_soot_hand_wraps_wrap_0": 2048,
+  "person_keeper_feral_1_soot_hand_wraps_wrap_1": 2048,
+  "person_keeper_feral_1_soot_hand_wraps_wrap_2": 2048,
+  "person_keeper_feral_1_worn_bracers": 9092,
+  "person_keeper_feral_1_worn_bracers_lace": 2048,
+  "person_keeper_feral_1_worn_bracers_lace.001": 2048,
+  "person_keeper_feral_1_worn_bracers_lace.002": 2048,
+  "person_keeper_feral_1_wide_waist_wrap": 1792,
+  "person_keeper_feral_1_wide_waist_wrap_edge": 1792,
+  "person_keeper_feral_1_hair": 17968,
+  "person_keeper_feral_1_hand_L": 392,
+  "person_keeper_feral_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_keeper_feral_1_ankle_strap": [
+   0.1356,
+   0.0704,
+   0.0203
+  ],
+  "person_keeper_feral_1_cargo_flaps": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_keeper_feral_1_cargo_pockets": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_keeper_feral_1_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_feral_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_keeper_feral_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_keeper_feral_1_pelt_knot": [
+   0.0513,
+   0.0343,
+   0.0232
+  ],
+  "person_keeper_feral_1_pelt_leg_0": [
+   0.1812,
+   0.1022,
+   0.0452
+  ],
+  "person_keeper_feral_1_pelt_leg_1": [
+   0.1812,
+   0.1022,
+   0.0452
+  ],
+  "person_keeper_feral_1_pelt_paw_0": [
+   0.0144,
+   0.0116,
+   0.0103
+  ],
+  "person_keeper_feral_1_pelt_paw_1": [
+   0.0144,
+   0.0116,
+   0.0103
+  ],
+  "person_keeper_feral_1_pelt_shin_0": [
+   0.0513,
+   0.0343,
+   0.0232
+  ],
+  "person_keeper_feral_1_pelt_shin_1": [
+   0.0513,
+   0.0343,
+   0.0232
+  ],
+  "person_keeper_feral_1_rolled_hem": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_keeper_feral_1_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_feral_1_shoe": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_keeper_feral_1_shoes": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_keeper_feral_1_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_keeper_feral_1_sleeve_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_feral_1_sole_0": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_keeper_feral_1_sole_1": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_keeper_feral_1_soot_hand_wraps": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_keeper_feral_1_soot_hand_wraps_wrap_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_feral_1_soot_hand_wraps_wrap_1": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_keeper_feral_1_soot_hand_wraps_wrap_2": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_feral_1_strap_0_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_keeper_feral_1_strap_0_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_keeper_feral_1_strap_1_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_keeper_feral_1_strap_1_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_keeper_feral_1_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_keeper_feral_1_trouser": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_keeper_feral_1_trousers": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_keeper_feral_1_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_keeper_feral_1_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_keeper_feral_1_worn_bracers": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_keeper_feral_1_worn_bracers_lace": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

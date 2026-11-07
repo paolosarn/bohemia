@@ -1,0 +1,39 @@
+{
+ "cut": "PERSON house_shield_2",
+ "tag": "person_house_shield_2",
+ "bank": {
+  "kind": "person",
+  "gang": "House Shield"
+ },
+ "worn_by": "House Shield, rolled",
+ "model": "records/character/rig/barber_person_house_shield_2.glb",
+ "body": "records/character/rig/person_house_shield_2.glb (the mannequin in None)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "tape_grey",
+  1
+ ],
+ "hair_rgb": [
+  102,
+  99,
+  96
+ ],
+ "skin_rgb": [
+  224,
+  189,
+  155
+ ],
+ "model_top_m": 1.569,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7658,
+ "pieces": {
+  "barber_temple_taper_fade": 31961,
+  "barber_temple_taper": 160746,
+  "kettle_dome": 170546,
+  "kettle_brim": 1168,
+  "kettle_rivets": 340,
+  "kettle_strap": 192
+ }
+}

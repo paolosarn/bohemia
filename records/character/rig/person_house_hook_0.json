@@ -1,0 +1,295 @@
+{
+ "look": "PERSON_HOUSE_HOOK_0",
+ "shape": "person_house_hook_0: the House's polearm man: a mail coif over head and throat, the carpet tabard over a leather jacket, his own skin skin_deep 4, FADED BLACK LONGSLEEVE under KHAKI JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "FADED BLACK LONGSLEEVE",
+  "outer": "KHAKI JACKET",
+  "legs": "SOOT CARGOS",
+  "feet": "FIELD BOOTS",
+  "hands": "LEATHER GLOVES",
+  "gear": "WORN BRACERS",
+  "outfit": [
+   "FADED BLACK LONGSLEEVE read as one with LEATHER JACKET (48 and 69 of 255) and no colour of that top reads apart: the same coat in KHAKI JACKET (111)",
+   "KHAKI JACKET worn open to the neck",
+   "the longsleeve's hem below the jacket",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.55,
+  "belly": -0.2,
+  "shoulders": 0.3,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "hem_drop": 0.05,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_house_hook_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7673,
+ "real_height_for_rig": 1.7735,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_house_hook_0_shoe": 3716,
+  "person_house_hook_0_shirt": 67520,
+  "person_house_hook_0_collar": 1536,
+  "person_house_hook_0_cuffs": 2048,
+  "person_house_hook_0_tail": 2464,
+  "person_house_hook_0_coat": 60250,
+  "person_house_hook_0_collar.001": 1170,
+  "person_house_hook_0_lapels": 396,
+  "person_house_hook_0_waistband": 1792,
+  "person_house_hook_0_cuffs.001": 2048,
+  "person_house_hook_0_tabard": 28956,
+  "person_house_hook_0_tabard_shoulder_1": 198,
+  "person_house_hook_0_tabard_shoulder_0": 198,
+  "person_house_hook_0_tabard_belt": 2304,
+  "person_house_hook_0_tabard_buckle": 26,
+  "person_house_hook_0_trouser": 43706,
+  "person_house_hook_0_rolled_hem": 2048,
+  "person_house_hook_0_cargo_pockets": 252,
+  "person_house_hook_0_cargo_flaps": 108,
+  "person_house_hook_0_sole_1": 242,
+  "person_house_hook_0_midsole_1": 242,
+  "person_house_hook_0_sole_0": 242,
+  "person_house_hook_0_midsole_0": 242,
+  "person_house_hook_0_boot_collar": 2048,
+  "person_house_hook_0_boot_collar_line": 2048,
+  "person_house_hook_0_eyelets_1": 120,
+  "person_house_hook_0_eyelets_0": 120,
+  "person_house_hook_0_leather_gloves_L": 392,
+  "person_house_hook_0_leather_gloves_R": 392,
+  "person_house_hook_0_leather_gloves_cuff": 2048,
+  "person_house_hook_0_worn_bracers": 8924,
+  "person_house_hook_0_worn_bracers_lace": 2048,
+  "person_house_hook_0_worn_bracers_lace.001": 2048,
+  "person_house_hook_0_worn_bracers_lace.002": 2048,
+  "person_house_hook_0_hair": 17968,
+  "person_house_hook_0_hand_L": 392,
+  "person_house_hook_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_house_hook_0_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_house_hook_0_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_house_hook_0_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_house_hook_0_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_house_hook_0_coat": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_house_hook_0_collar": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_house_hook_0_cuffs": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_house_hook_0_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_house_hook_0_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_house_hook_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_house_hook_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_house_hook_0_lapels": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_house_hook_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_hook_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_hook_0_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_house_hook_0_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_house_hook_0_person_house_hook_0_tabard_m0": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_hook_0_person_house_hook_0_tabard_m1": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_hook_0_person_house_hook_0_tabard_m2": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_hook_0_person_house_hook_0_tabard_m3": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_hook_0_person_house_hook_0_tabard_m4": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_hook_0_person_house_hook_0_tabard_m5": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_hook_0_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_house_hook_0_shirt": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_house_hook_0_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_house_hook_0_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_house_hook_0_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_house_hook_0_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_house_hook_0_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_house_hook_0_tabard": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_hook_0_tabard_belt": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_house_hook_0_tabard_buckle": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_hook_0_tabard_shoulder_0": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_hook_0_tabard_shoulder_1": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_hook_0_tail": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_house_hook_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_house_hook_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_house_hook_0_waistband": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_house_hook_0_worn_bracers": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_hook_0_worn_bracers_lace": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

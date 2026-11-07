@@ -1,0 +1,389 @@
+{
+ "look": "PERSON_HOUSE_CROSSBOW_0",
+ "shape": "person_house_crossbow_0: the House's crossbowman: a short carpet tabard over a leather vest, a bolt case on his hip, bracers, his own skin skin_deep 4, BONE BUTTON-UP under LEATHER VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE BUTTON-UP",
+  "outer": "LEATHER VEST",
+  "legs": "BLACK CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "gear": "OXBLOOD BRACERS",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "LEATHER VEST worn open to the neck",
+   "the button shirt's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": -0.2,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_house_crossbow_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_house_crossbow_0_shoe": 3716,
+  "person_house_crossbow_0_shirt": 71204,
+  "person_house_crossbow_0_collar": 1536,
+  "person_house_crossbow_0_collar_points": 180,
+  "person_house_crossbow_0_placket": 162,
+  "person_house_crossbow_0_buttons": 204,
+  "person_house_crossbow_0_cuffs": 2048,
+  "person_house_crossbow_0_tail": 2912,
+  "person_house_crossbow_0_coat": 23198,
+  "person_house_crossbow_0_lapels": 396,
+  "person_house_crossbow_0_zip": 324,
+  "person_house_crossbow_0_tabard": 22572,
+  "person_house_crossbow_0_tabard_shoulder_1": 198,
+  "person_house_crossbow_0_tabard_shoulder_0": 198,
+  "person_house_crossbow_0_tabard_belt": 2304,
+  "person_house_crossbow_0_tabard_buckle": 26,
+  "person_house_crossbow_0_boltcase": 98,
+  "person_house_crossbow_0_boltcase_lip": 32,
+  "person_house_crossbow_0_bolt_0": 12,
+  "person_house_crossbow_0_fletch_0": 8,
+  "person_house_crossbow_0_bolt_1": 12,
+  "person_house_crossbow_0_fletch_1": 8,
+  "person_house_crossbow_0_bolt_2": 12,
+  "person_house_crossbow_0_fletch_2": 8,
+  "person_house_crossbow_0_bolt_3": 12,
+  "person_house_crossbow_0_fletch_3": 8,
+  "person_house_crossbow_0_bolt_4": 12,
+  "person_house_crossbow_0_fletch_4": 8,
+  "person_house_crossbow_0_boltcase_strap": 16,
+  "person_house_crossbow_0_trouser": 43706,
+  "person_house_crossbow_0_rolled_hem": 2048,
+  "person_house_crossbow_0_cargo_pockets": 252,
+  "person_house_crossbow_0_cargo_flaps": 108,
+  "person_house_crossbow_0_sole_1": 242,
+  "person_house_crossbow_0_midsole_1": 242,
+  "person_house_crossbow_0_sole_0": 242,
+  "person_house_crossbow_0_midsole_0": 242,
+  "person_house_crossbow_0_boot_collar": 2048,
+  "person_house_crossbow_0_boot_collar_line": 2048,
+  "person_house_crossbow_0_eyelets_1": 120,
+  "person_house_crossbow_0_eyelets_0": 120,
+  "person_house_crossbow_0_oxblood_bracers": 8852,
+  "person_house_crossbow_0_oxblood_bracers_lace": 2048,
+  "person_house_crossbow_0_oxblood_bracers_lace.001": 2048,
+  "person_house_crossbow_0_oxblood_bracers_lace.002": 2048,
+  "person_house_crossbow_0_leather_gloves_L": 392,
+  "person_house_crossbow_0_leather_gloves_R": 392,
+  "person_house_crossbow_0_leather_gloves_cuff": 2048,
+  "person_house_crossbow_0_hair": 17968,
+  "person_house_crossbow_0_hand_L": 392,
+  "person_house_crossbow_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_house_crossbow_0_bolt_0": [
+   0.0612,
+   0.0452,
+   0.0296
+  ],
+  "person_house_crossbow_0_bolt_1": [
+   0.0612,
+   0.0452,
+   0.0296
+  ],
+  "person_house_crossbow_0_bolt_2": [
+   0.0612,
+   0.0452,
+   0.0296
+  ],
+  "person_house_crossbow_0_bolt_3": [
+   0.0612,
+   0.0452,
+   0.0296
+  ],
+  "person_house_crossbow_0_bolt_4": [
+   0.0612,
+   0.0452,
+   0.0296
+  ],
+  "person_house_crossbow_0_boltcase": [
+   0.2384,
+   0.2232,
+   0.1878
+  ],
+  "person_house_crossbow_0_boltcase_lip": [
+   0.1441,
+   0.0612,
+   0.0273
+  ],
+  "person_house_crossbow_0_boltcase_strap": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_house_crossbow_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_house_crossbow_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_house_crossbow_0_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_house_crossbow_0_cargo_flaps": [
+   0.011,
+   0.0152,
+   0.0091
+  ],
+  "person_house_crossbow_0_cargo_pockets": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_house_crossbow_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_crossbow_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_crossbow_0_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_crossbow_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_crossbow_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_house_crossbow_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_house_crossbow_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_house_crossbow_0_fletch_0": [
+   0.2016,
+   0.0319,
+   0.0252
+  ],
+  "person_house_crossbow_0_fletch_1": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_crossbow_0_fletch_2": [
+   0.2016,
+   0.0319,
+   0.0252
+  ],
+  "person_house_crossbow_0_fletch_3": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_crossbow_0_fletch_4": [
+   0.2016,
+   0.0319,
+   0.0252
+  ],
+  "person_house_crossbow_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_house_crossbow_0_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_crossbow_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_house_crossbow_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_house_crossbow_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_house_crossbow_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_house_crossbow_0_oxblood_bracers": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_house_crossbow_0_oxblood_bracers_lace": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_boltcase_m0": [
+   0.1441,
+   0.0612,
+   0.0273
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_tabard_m0": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_tabard_m1": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_tabard_m2": [
+   0.4452,
+   0.3916,
+   0.2705
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_tabard_m3": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_tabard_m4": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_crossbow_0_person_house_crossbow_0_tabard_m5": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_crossbow_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_crossbow_0_rolled_hem": [
+   0.0823,
+   0.0999,
+   0.0561
+  ],
+  "person_house_crossbow_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_crossbow_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_house_crossbow_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_house_crossbow_0_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_house_crossbow_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_house_crossbow_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_house_crossbow_0_tabard": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_crossbow_0_tabard_belt": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_house_crossbow_0_tabard_buckle": [
+   0.2874,
+   0.1683,
+   0.0423
+  ],
+  "person_house_crossbow_0_tabard_shoulder_0": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_crossbow_0_tabard_shoulder_1": [
+   0.016,
+   0.013,
+   0.013
+  ],
+  "person_house_crossbow_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_house_crossbow_0_trouser": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_house_crossbow_0_trousers": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_house_crossbow_0_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

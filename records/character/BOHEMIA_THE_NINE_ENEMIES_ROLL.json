@@ -1,0 +1,1393 @@
+[
+ {
+  "id": "house_shield_0",
+  "gang": "House Shield",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SOOT GORGET",
+   "LEATHER GLOVES"
+  ],
+  "type": "House Shield",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "LEATHER JACKET",
+  "hat": "HUBCAP KETTLE",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": 0.2,
+   "shoulders": 0.55,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "house_shield_1",
+  "gang": "House Shield",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "legs": "SOOT CARGOS",
+  "feet": "LEATHER STACK BOOT",
+  "kit": [
+   "RUST GORGET",
+   "SOOT GLOVES",
+   "SHIN GUARDS"
+  ],
+  "type": "House Shield",
+  "top": "BONE TURTLENECK",
+  "coat": "LEATHER VEST",
+  "hat": "HUBCAP KETTLE",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": 0.45,
+   "shoulders": 0.7,
+   "hips": 0.2
+  }
+ },
+ {
+  "id": "house_shield_2",
+  "gang": "House Shield",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  },
+  "face_name": "BOXER",
+  "legs": "BLACK DENIM",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "SOOT GORGET",
+   "LEATHER GLOVES"
+  ],
+  "type": "House Shield",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "LEATHER JACKET",
+  "hat": "HUBCAP KETTLE",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.45,
+   "belly": 0.05,
+   "shoulders": 0.6,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "house_hook_0",
+  "gang": "House Hook",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
+  },
+  "face_name": "PEAR",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "legs": "SOOT CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "LEATHER GLOVES",
+   "WORN BRACERS"
+  ],
+  "type": "House Hook",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "LEATHER JACKET",
+  "hat": "MAIL COIF",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.55,
+   "belly": -0.2,
+   "shoulders": 0.3,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "house_hook_1",
+  "gang": "House Hook",
+  "heritage": "mixed",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SOOT GLOVES"
+  ],
+  "type": "House Hook",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "WORK JACKET",
+  "hat": "MAIL COIF",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": 0.1,
+   "shoulders": 0.4,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "house_hook_2",
+  "gang": "House Hook",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  },
+  "face_name": "BOXER",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "mark_name": "BROKEN NOSE",
+  "mark": "broken_nose",
+  "legs": "BLACK CARGOS",
+  "feet": "STACKED SOLE BOOT",
+  "kit": [
+   "LEATHER GLOVES",
+   "SCAV KNEEPADS"
+  ],
+  "type": "House Hook",
+  "top": "ASH LONGLINE TEE",
+  "coat": "LEATHER JACKET",
+  "hat": "MAIL COIF",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.65,
+   "belly": -0.3,
+   "shoulders": 0.2,
+   "hips": -0.15
+  }
+ },
+ {
+  "id": "house_crossbow_0",
+  "gang": "House Crossbow",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
+   "face.jawW": 24,
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
+  },
+  "face_name": "BABY FACE",
+  "legs": "BLACK CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "OXBLOOD BRACERS",
+   "LEATHER GLOVES"
+  ],
+  "type": "House Crossbow",
+  "top": "BONE BUTTON-UP",
+  "coat": "LEATHER VEST",
+  "hat": "HAT CHARCOAL WATCH CAP",
+  "pieces": [
+   "tabard_short",
+   "boltcase"
+  ],
+  "dials": {
+   "height": 0.0,
+   "belly": -0.2,
+   "shoulders": 0.0,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "house_crossbow_1",
+  "gang": "House Crossbow",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "WORN BRACERS",
+   "SOOT GLOVES"
+  ],
+  "type": "House Crossbow",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "LEATHER JACKET",
+  "hat": "HAT DUST WORK CAP",
+  "eyewear": "FACE GREY WRAPAROUNDS",
+  "pieces": [
+   "tabard_short",
+   "boltcase"
+  ],
+  "dials": {
+   "height": -0.15,
+   "belly": 0.1,
+   "shoulders": 0.1,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "house_crossbow_2",
+  "gang": "House Crossbow",
+  "heritage": "white",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
+  },
+  "face_name": "PEAR",
+  "legs": "DUST TROUSERS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "OXBLOOD BRACERS",
+   "LEATHER BELT"
+  ],
+  "type": "House Crossbow",
+  "top": "KHAKI BUTTON-UP",
+  "coat": "QUILTED VEST",
+  "pieces": [
+   "tabard_short",
+   "boltcase"
+  ],
+  "dials": {
+   "height": 0.2,
+   "belly": -0.35,
+   "shoulders": -0.1,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "watch_neighbor_0",
+  "gang": "Neighbor",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "legs": "KHAKI CARGOS",
+  "feet": "WHITE SNEAKERS",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Neighbor",
+  "top": "DUST PLAID SHIRT",
+  "coat": "HI-VIS VEST",
+  "hat": "BIKE HELMET BONE",
+  "pieces": [
+   "hivis",
+   "floormats"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": 0.7,
+   "shoulders": 0.1,
+   "hips": 0.4
+  }
+ },
+ {
+  "id": "watch_neighbor_1",
+  "gang": "Neighbor",
+  "heritage": "mixed",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "facial_hair": "MOUSTACHE",
+  "beard": "moustache",
+  "legs": "GREY SWEATS",
+  "feet": "GREY SNEAKERS",
+  "kit": [
+   "WORK SUSPENDERS"
+  ],
+  "type": "Neighbor",
+  "top": "SAND HOODIE",
+  "coat": "HI-VIS VEST",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [
+   "hivis",
+   "floormats"
+  ],
+  "dials": {
+   "height": -0.2,
+   "belly": 0.2,
+   "shoulders": -0.1,
+   "hips": 0.2
+  }
+ },
+ {
+  "id": "watch_neighbor_2",
+  "gang": "Neighbor",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
+  },
+  "face_name": "BULLDOG",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BROWN BOOTS",
+  "kit": [
+   "DUST GLOVES",
+   "ELBOW PADS"
+  ],
+  "type": "Neighbor",
+  "top": "FOREST PLAID FLANNEL",
+  "coat": "HI-VIS VEST",
+  "hat": "BIKE HELMET RED",
+  "pieces": [
+   "hivis"
+  ],
+  "dials": {
+   "height": 0.4,
+   "belly": -0.2,
+   "shoulders": 0.1,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "watch_neighbor_3",
+  "gang": "Neighbor",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "legs": "KHAKI CARGOS",
+  "feet": "BONE SNEAKERS",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Neighbor",
+  "top": "OLIVE HOODIE",
+  "coat": "HI-VIS VEST",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [
+   "hivis",
+   "floormats"
+  ],
+  "dials": {
+   "height": -0.05,
+   "belly": 0.9,
+   "shoulders": 0.2,
+   "hips": 0.5
+  }
+ },
+ {
+  "id": "watch_neighbor_4",
+  "gang": "Neighbor",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "LEATHER GLOVES",
+   "SAND KNEEPADS"
+  ],
+  "type": "Neighbor",
+  "top": "BONE HENLEY",
+  "coat": "HI-VIS VEST",
+  "hat": "BIKE HELMET ASH",
+  "pieces": [
+   "hivis",
+   "floormats"
+  ],
+  "dials": {
+   "height": 0.25,
+   "belly": 0.4,
+   "shoulders": 0.3,
+   "hips": 0.2
+  }
+ },
+ {
+  "id": "watch_neighbor_5",
+  "gang": "Neighbor",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
+  },
+  "face_name": "SKULL",
+  "facial_hair": "CHIN STRAP",
+  "new_beard": "chin_strap",
+  "mark_name": "LIP SCAR",
+  "scar": "lip",
+  "legs": "BLACK DENIM",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "DUST GLOVES"
+  ],
+  "type": "Neighbor",
+  "top": "GREEN FLANNEL",
+  "coat": "HI-VIS VEST",
+  "hat": "HAT OLIVE KNIT CAP",
+  "pieces": [
+   "hivis"
+  ],
+  "dials": {
+   "height": -0.35,
+   "belly": 0.0,
+   "shoulders": -0.2,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "watch_captain_0",
+  "gang": "Captain",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "legs": "KHAKI CARGOS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "LEATHER GLOVES",
+   "LEATHER BELT"
+  ],
+  "type": "Captain",
+  "top": "KHAKI BUTTON-UP",
+  "coat": "HI-VIS VEST",
+  "hat": "HAT DUST WORK CAP",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [
+   "hivis",
+   "sash",
+   "badge",
+   "bullhorn"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": 0.5,
+   "shoulders": 0.5,
+   "hips": 0.3
+  }
+ },
+ {
+  "id": "watch_captain_1",
+  "gang": "Captain",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "mark_name": "CHEEK SCAR",
+  "scar": "cheek",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BROWN BOOTS",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Captain",
+  "top": "BONE BUTTON-UP",
+  "coat": "HI-VIS VEST",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [
+   "hivis",
+   "sash",
+   "badge",
+   "bullhorn"
+  ],
+  "dials": {
+   "height": 0.2,
+   "belly": 0.3,
+   "shoulders": 0.6,
+   "hips": 0.2
+  }
+ },
+ {
+  "id": "keeper_feral_0",
+  "gang": "Feral",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "legs": "LEATHER STACK PANT",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "HAND WRAPS",
+   "OXBLOOD BRACERS",
+   "LEAD WAIST WRAP"
+  ],
+  "type": "Feral",
+  "top": "BLACK TANK",
+  "hat": "COYOTE PELT",
+  "pieces": [
+   "pelt_legs"
+  ],
+  "dials": {
+   "height": 0.6,
+   "belly": 0.1,
+   "shoulders": 1.0,
+   "hips": 0.2
+  }
+ },
+ {
+  "id": "keeper_feral_1",
+  "gang": "Feral",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "legs": "RUST CARGOS",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "SOOT HAND WRAPS",
+   "WORN BRACERS",
+   "WIDE WAIST WRAP"
+  ],
+  "type": "Feral",
+  "top": "TATTERED TEE",
+  "hat": "COYOTE PELT",
+  "pieces": [
+   "pelt_legs"
+  ],
+  "dials": {
+   "height": 0.45,
+   "belly": 0.3,
+   "shoulders": 0.9,
+   "hips": 0.3
+  }
+ },
+ {
+  "id": "keeper_thrall_0",
+  "gang": "Keeper",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "facial_hair": "GOATEE",
+  "beard": "goatee",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "legs": "DUST TROUSERS",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "DUST BROWN BANDOLIER",
+   "HAND WRAPS",
+   "OXBLOOD BRACERS"
+  ],
+  "type": "Keeper",
+  "top": "SCAVENGER FLANNEL",
+  "hat": "HAT DESERT SHEMAGH",
+  "eyewear": "FACE ASH FACE WRAP",
+  "pieces": [
+   "strips"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": -0.4,
+   "shoulders": 0.1,
+   "hips": -0.2
+  }
+ },
+ {
+  "id": "keeper_thrall_1",
+  "gang": "Keeper",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "facial_hair": "MOUSTACHE",
+  "beard": "moustache",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "legs": "RUST CARGOS",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "SOOT HAND WRAPS",
+   "WORN BRACERS"
+  ],
+  "type": "Keeper",
+  "top": "ASH LAYERED TEE",
+  "hat": "HAT BONE HEAD WRAP",
+  "pieces": [
+   "strips"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": -0.2,
+   "shoulders": 0.3,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "keeper_thrall_2",
+  "gang": "Keeper",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "legs": "BONE DROP TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "DUST BROWN BANDOLIER",
+   "WORN BRACERS"
+  ],
+  "type": "Keeper",
+  "top": "TATTERED TEE",
+  "eyewear": "FACE BONE DUST MASK",
+  "pieces": [
+   "strips"
+  ],
+  "dials": {
+   "height": 0.5,
+   "belly": -0.5,
+   "shoulders": 0.0,
+   "hips": -0.2
+  }
+ },
+ {
+  "id": "keeper_thrall_3",
+  "gang": "Keeper",
+  "heritage": "white",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "SHORT ROPES",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
+   "face.jawW": 24,
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
+  },
+  "face_name": "BABY FACE",
+  "facial_hair": "GOATEE",
+  "beard": "goatee",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "ASH SLOUCH BOOT",
+  "kit": [
+   "SOOT HAND WRAPS",
+   "OXBLOOD BRACERS"
+  ],
+  "type": "Keeper",
+  "top": "SAND HOODIE",
+  "hat": "HAT SOOT HEAD WRAP",
+  "pieces": [
+   "strips"
+  ],
+  "dials": {
+   "height": -0.1,
+   "belly": -0.1,
+   "shoulders": 0.2,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "water_cutter_0",
+  "gang": "Cutter",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
+  },
+  "face_name": "SKULL",
+  "legs": "ANKLE WRAP SKIRT",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Cutter",
+  "top": "BONE TURTLENECK",
+  "coat": "LEATHER VEST",
+  "hat": "HAT DESERT SHEMAGH",
+  "eyewear": "FACE FACE WRAP",
+  "pieces": [
+   "jug"
+  ],
+  "dials": {
+   "height": 0.5,
+   "belly": -0.4,
+   "shoulders": 0.0,
+   "hips": -0.2
+  },
+  "robe": 0.26
+ },
+ {
+  "id": "water_cutter_1",
+  "gang": "Cutter",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "mark_name": "CHEEK SCAR",
+  "scar": "cheek",
+  "legs": "DUST TROUSERS",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "HAND WRAPS",
+   "HIP SASH"
+  ],
+  "type": "Cutter",
+  "top": "SAND HOODIE",
+  "coat": "RUST VEST",
+  "hat": "HAT DESERT SHEMAGH",
+  "eyewear": "FACE ASH FACE WRAP",
+  "pieces": [
+   "jug"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": -0.2,
+   "shoulders": 0.1,
+   "hips": -0.1
+  },
+  "robe": 0.3
+ },
+ {
+  "id": "water_cutter_2",
+  "gang": "Cutter",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "GOATEE",
+  "beard": "goatee",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "legs": "WRAP SKIRT",
+  "feet": "DUST BROWN BOOTS",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Cutter",
+  "top": "BONE HENLEY",
+  "coat": "LEATHER WRAP COAT",
+  "hat": "HAT BONE HEAD WRAP",
+  "eyewear": "FACE FACE WRAP",
+  "pieces": [
+   "jug"
+  ],
+  "dials": {
+   "height": 0.65,
+   "belly": -0.5,
+   "shoulders": -0.1,
+   "hips": -0.25
+  },
+  "robe": 0.26
+ },
+ {
+  "id": "water_cutter_3",
+  "gang": "Cutter",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "mouth.w": 15,
+   "face.mouthY": 2,
+   "face.jawW": 31,
+   "face.chinW": 14,
+   "face.len": 31,
+   "nose.w": 3,
+   "eyes.gap": 9,
+   "face.cheekW": 35
+  },
+  "face_name": "WIDE MOUTH",
+  "facial_hair": "MOUSTACHE",
+  "beard": "moustache",
+  "legs": "BONE WIDE TROUSER",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "SOOT HAND WRAPS",
+   "HIP SASH"
+  ],
+  "type": "Cutter",
+  "top": "ASH LAYERED TEE",
+  "coat": "LEATHER VEST",
+  "hat": "HAT DESERT SHEMAGH",
+  "eyewear": "FACE BONE DUST MASK",
+  "pieces": [
+   "jug"
+  ],
+  "dials": {
+   "height": 0.2,
+   "belly": -0.1,
+   "shoulders": 0.2,
+   "hips": 0.0
+  },
+  "robe": 0.28
+ },
+ {
+  "id": "water_needle_0",
+  "gang": "Needle",
+  "heritage": "mixed",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "mark_name": "CHEEK BURN",
+  "mark": "cheek_burn",
+  "legs": "DROP RISE TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "SOOT HAND WRAPS"
+  ],
+  "type": "Needle",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "ASH WRAP COAT",
+  "eyewear": "FACE CHARCOAL DUST MASK",
+  "pieces": [
+   "syringes"
+  ],
+  "dials": {
+   "height": -0.3,
+   "belly": -0.5,
+   "shoulders": -0.4,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "water_needle_1",
+  "gang": "Needle",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "SHORT ROPES",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "HAND WRAPS"
+  ],
+  "type": "Needle",
+  "top": "ASH HOODIE",
+  "coat": "LEATHER WRAP COAT",
+  "hat": "HAT SOOT HEAD WRAP",
+  "eyewear": "FACE OXBLOOD DUST MASK",
+  "pieces": [
+   "syringes"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": -0.4,
+   "shoulders": -0.2,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "water_needle_2",
+  "gang": "Needle",
+  "heritage": "asian",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "facial_hair": "CHIN STRAP",
+  "new_beard": "chin_strap",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "legs": "BONE DROP TROUSER",
+  "feet": "ASH SLOUCH BOOT",
+  "kit": [
+   "SOOT HAND WRAPS",
+   "OXBLOOD BRACERS"
+  ],
+  "type": "Needle",
+  "top": "BONE SHOULDER SHIRT",
+  "coat": "WRAP COAT",
+  "hat": "HAT DESERT SHEMAGH",
+  "eyewear": "FACE FACE WRAP",
+  "pieces": [
+   "syringes"
+  ],
+  "dials": {
+   "height": -0.1,
+   "belly": -0.55,
+   "shoulders": -0.3,
+   "hips": 0.05
+  }
+ }
+]

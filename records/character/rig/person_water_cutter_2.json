@@ -1,0 +1,308 @@
+{
+ "look": "PERSON_WATER_CUTTER_2",
+ "shape": "person_water_cutter_2: a Water man: robes to the shin under a leather vest, a five-gallon amber water jug on his back, a hose to his mouth, his own skin skin_deep 3, BONE HENLEY under LEATHER WRAP COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE HENLEY",
+  "outer": "LEATHER WRAP COAT",
+  "legs": "WRAP SKIRT",
+  "feet": "DUST BROWN BOOTS",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.65,
+  "belly": -0.5,
+  "shoulders": -0.1,
+  "hips": -0.25
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_water_cutter_2.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7759,
+ "real_height_for_rig": 1.7821,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_water_cutter_2_shoe": 3716,
+  "person_water_cutter_2_vestment": 7112,
+  "person_water_cutter_2_shirt": 67568,
+  "person_water_cutter_2_collar": 1536,
+  "person_water_cutter_2_placket": 126,
+  "person_water_cutter_2_buttons": 102,
+  "person_water_cutter_2_cuffs": 2048,
+  "person_water_cutter_2_hem": 1792,
+  "person_water_cutter_2_coat": 66372,
+  "person_water_cutter_2_coat_skirt": 6048,
+  "person_water_cutter_2_collar.001": 1536,
+  "person_water_cutter_2_pushed": 2048,
+  "person_water_cutter_2_belt": 1792,
+  "person_water_cutter_2_wrap_edge": 198,
+  "person_water_cutter_2_knot": 68,
+  "person_water_cutter_2_jug": 438,
+  "person_water_cutter_2_jug_cap": 32,
+  "person_water_cutter_2_jug_strap_0": 1280,
+  "person_water_cutter_2_jug_strap_1": 1280,
+  "person_water_cutter_2_jug_harness_1": 162,
+  "person_water_cutter_2_jug_harness_0": 162,
+  "person_water_cutter_2_jug_hose": 216,
+  "person_water_cutter_2_jug_valve": 20,
+  "person_water_cutter_2_skirt": 6944,
+  "person_water_cutter_2_skirt_tie": 1792,
+  "person_water_cutter_2_sole_1": 242,
+  "person_water_cutter_2_midsole_1": 242,
+  "person_water_cutter_2_sole_0": 242,
+  "person_water_cutter_2_midsole_0": 242,
+  "person_water_cutter_2_boot_collar": 2048,
+  "person_water_cutter_2_boot_collar_line": 2048,
+  "person_water_cutter_2_eyelets_1": 120,
+  "person_water_cutter_2_eyelets_0": 120,
+  "person_water_cutter_2_leather_gloves_L": 392,
+  "person_water_cutter_2_leather_gloves_R": 392,
+  "person_water_cutter_2_leather_gloves_cuff": 2048,
+  "person_water_cutter_2_hair": 17968,
+  "person_water_cutter_2_hand_L": 392,
+  "person_water_cutter_2_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_water_cutter_2_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_water_cutter_2_boot_collar": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
+  "person_water_cutter_2_boot_collar_line": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_water_cutter_2_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_water_cutter_2_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_water_cutter_2_coat_skirt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_water_cutter_2_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_cutter_2_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_cutter_2_eyelets_0": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_water_cutter_2_eyelets_1": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_water_cutter_2_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_water_cutter_2_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_water_cutter_2_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_cutter_2_jug": [
+   0.3515,
+   0.2159,
+   0.0802
+  ],
+  "person_water_cutter_2_jug_cap": [
+   0.0369,
+   0.0319,
+   0.0252
+  ],
+  "person_water_cutter_2_jug_harness_0": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_water_cutter_2_jug_harness_1": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_water_cutter_2_jug_hose": [
+   0.0844,
+   0.0612,
+   0.0319
+  ],
+  "person_water_cutter_2_jug_strap_0": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_water_cutter_2_jug_strap_1": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_water_cutter_2_jug_valve": [
+   0.2016,
+   0.0319,
+   0.0252
+  ],
+  "person_water_cutter_2_knot": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_water_cutter_2_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_water_cutter_2_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_water_cutter_2_midsole_0": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_water_cutter_2_midsole_1": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_water_cutter_2_person_water_cutter_2_jug_m0": [
+   0.0802,
+   0.0343,
+   0.0091
+  ],
+  "person_water_cutter_2_person_water_cutter_2_jug_m1": [
+   0.162,
+   0.0648,
+   0.0116
+  ],
+  "person_water_cutter_2_person_water_cutter_2_jug_m2": [
+   0.107,
+   0.0844,
+   0.0513
+  ],
+  "person_water_cutter_2_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_cutter_2_pushed": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_water_cutter_2_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_cutter_2_shoe": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_water_cutter_2_shoes": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_water_cutter_2_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_water_cutter_2_skirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_cutter_2_skirt_edge": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_water_cutter_2_skirt_fold": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_water_cutter_2_skirt_tie": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_water_cutter_2_sole_0": [
+   0.0513,
+   0.0319,
+   0.0176
+  ],
+  "person_water_cutter_2_sole_1": [
+   0.0513,
+   0.0319,
+   0.0176
+  ],
+  "person_water_cutter_2_trousers": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_water_cutter_2_vestment": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_water_cutter_2_wrap_edge": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}
