@@ -85,6 +85,12 @@
 "fill": 0.314,
 "packedMB": 8.17
 },
+"beast_teratorn.webp": {
+"bytes": 394986,
+"decodedMB": 41.69,
+"fill": 0.153,
+"packedMB": 7.57
+},
 "boss_burn_0.webp": {
 "bytes": 359364,
 "decodedMB": 17.2,
@@ -1161,8 +1167,8 @@
 }
 },
 "totals": {
-"decodedMB": 3825.2,
-"packedMB": 724.6,
-"sheets": 193
+"decodedMB": 3866.8,
+"packedMB": 732.2,
+"sheets": 194
 }
 }

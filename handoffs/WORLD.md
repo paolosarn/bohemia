@@ -1,5 +1,26 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 12, ROUND 2 (11/7; rule 431(e)(f), asks 516 and 517: his B, then 'just another animal we can fight'). BUILD 11/7z - THE TERATORN,
+ONE MORE BEAST. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_12_THE_TERATORN_11_7_26.md. VOTE: world-12-the-teratorn-11-7 (kind
+animation, art_kind beast, stage stand_in: a first cut, DIRECTION's golden check not run).
+- THE BEAST: Teratornis incredibilis (Howard 1952, Smith Creek Cave, Nevada), a condor surrogate, 4.0 m span, 0.87 m standing on the sheet,
+  15 to 25 kg; a numbered hi-vis wing tag and the green lab mark. Built by tools/bohemia_world12_the_teratorn.py (model, render, pack,
+  strip; bpy 4.2): reference/models/bohemia/own_body/teratorn.glb (26 bones, seven fingered primaries a wing; materials named *_hair/*_skin
+  so the rig's dust leaves the bird its colours), poses Walk 6 / Bite 6 (wings out to 3.4 m) / Hit 2 / Fall 3 (prone); the DIRECTION master
+  rig patched in memory for a bird's span -> slices/fight_rig/beast_teratorn.webp (8 x 18, 300 x 253 cells) and the fight_rig.json entry;
+  renders and rig.json made by the tool under records/target/combat/rig/beast_teratorn/ (git-ignored, as every beast's); audit records/target/world12_teratorn/teratorn_audit.json.
+- THE DATA (no code): bohemia_enemies.json faction teratorns + row teratorn (from the wolf, brain scavenger = the coyote's, no key the other
+  beasts lack, hp 70 init 125 melee 55 defs 15 resolve 30 xp 80, Pathfinder), mix, count_scale 0.6, road.by_act, water; BOHEMIA_JOB_KINDS
+  beast_looks.teratorns (pack_max 5) and beasts_by_ground (open desert 1, hills 1, landfill 2, Wash 1, freeway 1); carcass.json kind
+  teratorn (20 kg). roster.json regenerated. The only code that says teratorn: bohemia_job_danger.js's name table and BOHEMIA_FIGHT.html's
+  THEY_ARE line.
+- DROPPED BY 431(f): the hunt for the dead, camp attacks, flight rules, the map's sign. map_ambient.json holds vulture and lair_birds at 0.
+- GATE: THE TERATORN IS ONE MORE BEAST (gates/the_teratorn_is_one_more_beast_gate.py --plant, browser half _fight.js) 7/0, plants 3 of 3
+  (the head painted black, a new brain + 'flies' key, three vultures on the map's cap). Green with it: THE BESTIARY 10/0, EVERY BEAST ITS
+  OWN OUTLINE 11/0, THE ROSTER fresh.
+- FOR UI: the fight panel's beast icon is one fox head for every beast (the teratorn shows a fox). FOR TUNING: its numbers are draft.
+  FOR DIRECTION: the golden pass when its turn comes.
+
 WORLD 12 (11/7; rule 426(e), ask line 496: his NO on WORLD 11's carcass; rule 431(a)(b), asks 510 and 511: the vultures off the map,
 a cap on what lives on it). BUILD 11/7u - THE KILL GOES IN THE STASH, NO VULTURES. BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_WORLD_12_THE_KILL_GOES_IN_THE_STASH_11_7_26.md. VOTE: world-12-the-kill-goes-in-the-stash-11-7 (kind redo,

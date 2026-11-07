@@ -9780,7 +9780,8 @@ const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} d
   backHead: 'YOU PULLED BACK', back: 'Nobody moved. Nobody hurt, nothing spent, nothing taken. No pay.' };   /* draft:true */
 const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead',
   house: 'The House', watch: 'The block watch', keepers: 'The keepers', water: 'The water people',   /* FACTIONS 11/3 */
-  coyotes: 'The coyotes', lions: 'A mountain lion', hogs: 'The hogs', camels: 'The camels', bulls: 'A bull' };   /* FIVE MORE BEASTS; draft:true */
+  coyotes: 'The coyotes', lions: 'A mountain lion', hogs: 'The hogs', camels: 'The camels', bulls: 'A bull',   /* FIVE MORE BEASTS; draft:true */
+  teratorns: 'The teratorns' };   /* WORLD 12 (rule 431(f)): the giant vultures, one more beast; draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
   if (result !== 'lost') return false;

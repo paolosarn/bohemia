@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 151,
-  "types_in_the_fight": 41,
+  "types": 152,
+  "types_in_the_fight": 42,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -335,6 +335,7 @@
     "schrat",
     "serpent",
     "short_faced_bear",
+    "teratorn",
     "the_ijirok",
     "unhold",
     "wardog",
@@ -357,6 +358,7 @@
     "prides",
     "sabres",
     "sloths",
+    "teratorns",
     "wolves"
    ],
    "draft": true
@@ -3190,6 +3192,27 @@
    "champion": true,
    "boss": false,
    "page": "bb_all/1918_Swordmaster (Enemy).txt"
+  },
+  {
+   "type": "teratorn",
+   "bb_name": "Teratorn",
+   "bb_faction": "animals",
+   "family": "beasts",
+   "rows": [
+    "teratorn"
+   ],
+   "name": "TERATORN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "teratorns"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2230_Wolf.txt"
   },
   {
    "type": "the_conqueror",

@@ -10620,6 +10620,14 @@ GATES = [
      "game days, standing off it, walking past it, its wander ending beside him, no card; his own chase asks; THE BEFORE (the hold off) "
      "brings its card back. The file's carcass and vulture legs went with the build he voted NO (rule 426(e)); THE KILL GOES IN THE STASH "
      "holds what replaced it. About 5 min", True),
+    ('THE TERATORN IS ONE MORE BEAST', ['python3', 'gates/the_teratorn_is_one_more_beast_gate.py', '--plant'],
+     "WORLD 12 gate, 11/7, rule 431(e)(f), ask lines 516 and 517 (PAOLO 11/7: 'I thought they would be like an enemy type'; 'just another "
+     "animal we can fight'): the teratorn's sheet in the fight's index like every beast (8 facings, 18 frames, 0.87 m standing); it reads "
+     "as a vulture at every size (the bald red head and the pale ruff in most facings, still there at the map's fifth; a dark body; the "
+     "bite throws the wings out past twice its width); one more beast (an existing brain, no new key, its faction, mix, flock, waters, the "
+     "map's look and grounds, the kill, the roster); no code names it but the two name tables and the map's cap holds the vulture at 0; on "
+     "the demo a flock is fielded on its own sheet, the win leaves a teratorn kill, one tap: food and a roll of hides. PLANTED (--plant): the "
+     "head painted black, a new brain with a flies key, three vultures back on the map: each turns its leg red. About 2 min", True),
     ('WHAT LIVES ON THE MAP HAS A CAP', ['node', 'gates/the_map_lives_under_a_cap_gate.js', '--plant'],
      "WORLD 12 gate, 11/7, rule 431(a)(b), ask lines 510 and 511 (PAOLO 11/7: 'there's too many vultures on screen on the map... you "
      "didn't even put any sort of checker... this shit is nonstop'): every thing that moves on the map on its own asks one cap "

@@ -45,12 +45,13 @@
     "wardog": { "faction": "dogs", "label": "DOG", "kg": 32, "source": "a shepherd-sized feral dog, about 30 to 35 kg" },
     "armored_wardog": { "faction": "dogs", "label": "DOG", "kg": 32, "source": "as the dog" },
     "warhound": { "faction": "dogs", "label": "DOG", "kg": 40, "source": "a big guard dog, about 40 kg" },
+    "teratorn": { "faction": "teratorns", "label": "TERATORN", "kg": 20, "source": "Teratornis incredibilis (Smith Creek Cave, Nevada), a giant teratorn about 15 to 25 kg; T. merriami about 14 kg" },
     "default": { "faction": "beasts", "label": "BEAST", "kg": 60, "source": "a fall-back for a beast this file does not name yet" }
   },
   "by_faction": {
     "_about": "when the fight could not say which animal died, the map's party names it",
     "prides": "american_lion", "sabres": "sabre_tooth", "lions": "mountain_lion", "bears": "short_faced_bear", "sloths": "ground_sloth",
-    "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "bulls": "feral_bull", "hogs": "feral_hog",
+    "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "teratorns": "teratorn", "bulls": "feral_bull", "hogs": "feral_hog",
     "coyotes": "coyote", "wolves": "direwolf", "hyenas": "hyena", "dogs": "wardog", "beasts": "default"
   }
 }

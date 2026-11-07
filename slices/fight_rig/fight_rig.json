@@ -3024,6 +3024,49 @@
    "type": "water_needle",
    "set": "nine",
    "rig": "records/target/combat/rig/enemy_water_needle_2/rig.json"
+  },
+  "beast_teratorn": {
+   "file": "beast_teratorn.webp",
+   "w": 300,
+   "h": 253,
+   "foot": [
+    149,
+    175
+   ],
+   "height_m": 0.868,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_teratorn/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "WORLD 12 [the teratorn] 11/7, tools/bohemia_world12_the_teratorn.py"
   }
  },
  "faces": {

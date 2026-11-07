@@ -1,0 +1,34 @@
+{
+ "real": {
+  "span_m": 4.0,
+  "standing_m": 0.95,
+  "kg": 20,
+  "source": "Teratornis incredibilis, Howard 1952, Smith Creek Cave, Nevada; T. merriami (La Brea) about 75 cm standing, 3.5 to 3.8 m span, about 14 kg; the coordinator: about four metres of wing; a California condor surrogate"
+ },
+ "walk_passing": [
+  1.059,
+  1.42,
+  0.868,
+  -0.031
+ ],
+ "bite_spread": [
+  3.378,
+  1.142,
+  1.705,
+  0.121
+ ],
+ "fall_lying": [
+  3.909,
+  1.206,
+  0.794,
+  -0.199
+ ],
+ "bones": 26,
+ "verts": 6406,
+ "clips": [
+  "Bite",
+  "Fall",
+  "Hit",
+  "Walk"
+ ]
+}

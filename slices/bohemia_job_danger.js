@@ -172,7 +172,7 @@
     /* BEASTS 2 11/3 (rule 345 amended (b)): every beast the jobs now deal says what it is on the meet card */
     coyote: ['COYOTE', 'COYOTES'], mountain_lion: ['LION', 'LIONS'], feral_hog: ['HOG', 'HOGS'], camelops: ['CAMEL', 'CAMELS'], feral_bull: ['BULL', 'BULLS'],
     wardog: ['DOG', 'DOGS'], warhound: ['DOG', 'DOGS'], armored_wardog: ['DOG', 'DOGS'], short_faced_bear: ['BEAR', 'BEARS'], ground_sloth: ['GROUND SLOTH', 'GROUND SLOTHS'],
-    sabre_tooth: ['SABRE-TOOTH', 'SABRE-TOOTHS'], american_lion: ['GIANT LION', 'GIANT LIONS'], ancient_bison: ['BISON', 'BISON'], ice_age_horse: ['HORSE', 'HORSES'] };   /* draft:true */
+    sabre_tooth: ['SABRE-TOOTH', 'SABRE-TOOTHS'], american_lion: ['GIANT LION', 'GIANT LIONS'], ancient_bison: ['BISON', 'BISON'], ice_age_horse: ['HORSE', 'HORSES'], teratorn: ['TERATORN', 'TERATORNS'] };   /* draft:true */
   var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['ROBOT', 'ROBOTS'], kids: ['KID', 'KIDS'],
     house: ['HOUSE MAN', 'HOUSE MEN'], watch: ['NEIGHBOR', 'BLOCK WATCH'], keepers: ['KEEPER', 'KEEPERS'], water: ['WATER MAN', 'WATER PEOPLE'],
     wolves: ['DIRE WOLF', 'DIRE WOLVES'], hyenas: ['HYENA', 'HYENAS'], dogs: ['DOG', 'DOGS'], coyotes: ['COYOTE', 'COYOTES'], lions: ['LION', 'LIONS'],
