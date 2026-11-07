@@ -505,3 +505,11 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 481 | No scrolling meant make the UI SMALLER, never next pages; new hires and the rest never half the screen | 402 amended | UI 9 | SHIPPED 11/7 by UI 9 (BUILD 11/7i - SMALLER, NEVER PAGES, f81028d2), BUILT, NOT YET SEEN: every page, tab and next-page control UI 8 added is out (the origins' arrows too); a new hire is a row (69 px, was a 386 px card on a page of its own), all ten men of the fullest hall on one phone glass; the shops, the bag (40 of 40), the settings (one card), the crew screen (20 of 20 men, the new KEPT row) and the 15 origins fit whole on the phone both ways and the laptop; no word under 11 px, no press under 44; small sheets under half the glass; gate SCROLLING IS ILLEGAL re-aimed; VOTE card ui9-smaller-never-pages-11-7 (STAND-IN) |
 | 482 | Push more: the jobs he has not seen implemented yet | 421 | the coordinator; SCAVENGE (design for his yes), ANIMATION (the crawl), COOK (the weapon golden), UI 9 (+445) | IN FLIGHT 11/7 |
 | 483 | The lake camera on the title at night again, the water's reflection | 422 | the coordinator (built: night render back, words re-placed, title off the camera's label) | DONE 11/7e |
+| 484 | The fight's layout goes back to the boards before 11/6h; the new house pictures stay (layout and assets are two things) | 423(a) | COMBAT TWO | IN FLIGHT 11/7 |
+| 485 | Every house touches a road or an alley; no lump of houses with no way between | 423(b) | COMBAT TWO | IN FLIGHT 11/7 |
+| 486 | Every house is a tile you can be on (in it or on its roof) | 423(c) | COMBAT TWO | IN FLIGHT 11/7 |
+| 487 | No ladders: houses of one, two, three stories; one story gives defence, no range | 423(d) | COMBAT TWO | IN FLIGHT 11/7 |
+| 488 | AUTO never stands in the middle of the street; it goes for houses and cover; the map's blocks get the roads too | 423(e)(f) | COMBAT TWO | IN FLIGHT 11/7 |
+| 489 | Some two-handed weapons don't show in the hands; every weapon shows | 424(a) | WEAPONS | IN FLIGHT 11/7 |
+| 490 | More one-handed weapons | 424(b) | WEAPONS | IN FLIGHT 11/7 |
+| 491 | More of the jobs he asked for months ago; everything recorded | 425 | the coordinator; UI THREE, ECONOMY, RETINUE opened | IN FLIGHT 11/7 |
