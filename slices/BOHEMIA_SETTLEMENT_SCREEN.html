@@ -317,6 +317,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_lotbuild.js"></script>
 <!-- __/BUILD_ON_THE_SCREEN__ scripts -->
 <script src="bohemia_ui_materials.js"></script>
+<script src="bohemia_ui_three_items.js"></script>  <!-- UI THREE [the weapon card], [the item box] (rules 251(b), 249(d)): the card as pictures with bars, the boxes as lit wells framed by quality -->
 <script src="../engine/bohemia_settlement_heard.js"></script>
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every keeper line rolls; about 1 in 8 Spanglish, some lean more, never the player -->
 <script src="../engine/bohemia_voice.js"></script>  <!-- RUN TWO [the busy town talks] 10/24: a walker's voice is his face's voice (castVoice), the shell's own rule -->
@@ -1019,6 +1020,23 @@ function shopArrows(box){
     + '.onman .ln:not(.bst-row) b.bst-chg{margin-left:auto;font-size:13px}';
   (document.head || document.documentElement).appendChild(st); })();
 /* ==== end __UI_THREE_STATS__ ==== */
+/* ==== __UI_THREE_ITEMS__ (UI THREE [the weapon card], rule 251(b), Paolo 10/26: 'there's so many numbers, we don't need this
+   many numbers, it should just be an icon, a green arrow up, a red arrow down and a number... the way the weapon stats are
+   displayed is dog shit'). MEASURED on the phone: the strip's card was a line of word chips cut by its own box after the third.
+   NOW RUN TWO's itemNums still decides the card; this block lays each of its numbers as a picture with its bar or one number
+   (slices/bohemia_ui_three_items.js cells(): damage a bar low to high, what it does to armour and what goes through, the reach
+   as slabs, the blow's pips and breath, the weight, the rounds, to hit and the head as arrows; armour's ARMOUR a bar to the
+   most any piece holds, its weight and initiative as red arrows; a shield's defences as green arrows), one row, the least
+   read clipped first. RUN TWO's contract kept: every cell is span.ch with its data-stat, a stat_icons picture and its words
+   ('DAMAGE 30-40', 'HOLDS 32') in a screen reader's text; TWO HANDS keeps its words and wears its picture. ==== */
+(function(){ if(typeof itemNums !== 'function') return; var base = itemNums;
+  itemNums = function(it, al){ var d = base(it, al);
+    try{ var K = window.BohemiaItemCard; if(K && it && it.kind && it.id){ var cs = K.strip(it, {row: fightRowOf(it)}); if(cs && cs.length){ d.textContent = ''; cs.forEach(function(c){ d.appendChild(c); }); d.classList.add('bic-strip'); } } }catch(e){}
+    return d; }; })();
+(function(){ if(typeof shopStripFill !== 'function') return; var base = shopStripFill;
+  shopStripFill = function(k, el){ base(k, el);
+    try{ var st = el || document.getElementById('shopstrip'), th = st && st.querySelector('.twoh'); if(th && window.BohemiaItemCard && !th.querySelector('.bic-two')) th.insertBefore(BohemiaItemCard.twoIcon(), th.firstChild); }catch(e){} }; })();
+/* ==== end __UI_THREE_ITEMS__ ==== */
 /* ---------- SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18; Paolo 10/24 on his PC: 'every time selling shit was so
    painful, one of the things I hated most about Battle Brothers'; the row: 'selling my dog shit inventory for some batteries'):
    Battle Brothers sells one piece a click. Here the junk goes in ONE tap, the button says how many pieces and what they

@@ -137,6 +137,7 @@
     if (!document.getElementById('bwc-style')) { var st = document.createElement('style'); st.id = 'bwc-style'; st.textContent = CSS; (document.head || document.documentElement).appendChild(st); }
     var c = document.getElementById('bwcard'); if (!c) { c = document.createElement('div'); c.id = 'bwcard'; c.setAttribute('role', 'note'); document.body.appendChild(c); }
     c.innerHTML = html(id, name); c.dataset.weapon = id; c.style.display = 'block';
+    try { if (window.BohemiaItemCard) BohemiaItemCard.dressWeaponCard(c, id); } catch (e) {}   /* UI THREE [the weapon card] (rule 251(b)): its numbers as pictures with bars, slices/bohemia_ui_three_items.js */
     var W = innerWidth, H = innerHeight, w = c.offsetWidth, h = c.offsetHeight;
     var left = Math.max(8, Math.min(W - w - 8, x - w / 2)), top = y > H / 2 ? Math.max(8, y - h - 40) : Math.min(H - h - 8, y + 40);
     c.style.left = Math.round(left) + 'px'; c.style.top = Math.round(top) + 'px';

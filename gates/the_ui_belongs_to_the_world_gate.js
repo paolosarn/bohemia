@@ -130,7 +130,12 @@ function onDisk() {
 const WEAR = (list) => {
   const box = e => { const r = e.getBoundingClientRect(); return [Math.round(r.x * 10) / 10, Math.round(r.y * 10) / 10, Math.round(r.width * 10) / 10, Math.round(r.height * 10) / 10]; };
   const root = document.documentElement, out = [];
-  const on = list.map(([s, p]) => { const e = document.querySelector(s); return e ? { s, p, worn: getComputedStyle(e).backgroundImage.indexOf('ui_kit/' + p + '/tl.png') >= 0, box: box(e) } : { s, p, missing: true }; });
+  /* RE-AIMED UI THREE 11/7 ([the item box], rules 249(d) and 430): a piece's slot is the item box now (slices/bohemia_ui_three_items.js),
+     standing on the kit's own pocket floor (the well's c.png) under a frame whose metal is the piece's quality; the pocket's two walls
+     at 44 points were the black bracket he called dog shit. A slot wears the kit when it wears the pocket, or the box on the pocket's floor */
+  const wears = (e, p) => { const cs = getComputedStyle(e), bg = cs.backgroundImage; return bg.indexOf('ui_kit/' + p + '/tl.png') >= 0
+    || (/^well/.test(p) && e.classList.contains('bib') && bg.indexOf('ui_kit/' + p + '/c.png') >= 0 && /url\(/.test(cs.borderImageSource)); };
+  const on = list.map(([s, p]) => { const e = document.querySelector(s); return e ? { s, p, worn: wears(e, p), box: box(e) } : { s, p, missing: true }; });
   root.removeAttribute('data-kit');
   const off = list.map(([s]) => { const e = document.querySelector(s); return e ? box(e) : null; });
   root.setAttribute('data-kit', '1');
