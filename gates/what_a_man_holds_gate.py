@@ -268,7 +268,8 @@ ok('K2 MUTATION: a man in cover drawn standing is caught', any('CoverLong k0' in
 # ---------------------------------------------------------------------------------------------------- W wired
 t = open(os.path.join(ROOT, 'slices/BOHEMIA_FIGHT.html')).read()
 ok('W1 the fight (COMBAT\'s file) carries the marked block, draws through it, and stamps the reload on the man', '__WHAT_A_MAN_HOLDS__' in t and 'end __WHAT_A_MAN_HOLDS__' in t
-   and 'const held = holdDraw(v, p, L, gs, ox, oy, s, now);' in t and 'const idled = held || idleDraw(' in t
+   and any(x in t for x in ('const held = holdDraw(v, p, L, gs, ox, oy, s, now);', 'const held = crawlDraw(v, p, L, gs, ox, oy, s, now) || holdDraw(v, p, L, gs, ox, oy, s, now);'))   # __THE_CRAWL__ (11/7) asks first: a man struck down is never in a hold
+   and 'const idled = held || idleDraw(' in t
    and "u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__" in t)
 if not QUICK:
     drv = r'''

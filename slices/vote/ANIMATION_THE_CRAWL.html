@@ -1,0 +1,108 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Crawl</title>
+<!-- ANIMATION [the crawl], rule 390, ask line 423 (Paolo 11/4: 'make an animation of people crawling on the floor... a fucked
+     up scary sad murders type of crawl... plenty of ways we can use that'). GOLDEN (rule 408(b)): one man, one crawl, three
+     weights, eight facings. His own fight pictures (slices/fight_rig/cast_barearms.webp: the stand and COMBAT's fall) and the
+     crawl's (slices/rig_crawl, played by engine/bohemia_crawl.js exactly as the fight plays it), beside the thug (the bar's body,
+     slices/fight_rig/tier_thug.webp) on the beat at 120: three keys a beat, every key held. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:62ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  canvas{display:block;image-rendering:pixelated;background:#24221e;border-radius:3px;max-width:100%}
+  #big{width:100%}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .grid canvas{width:100%}
+  .grid div{font-size:10px;letter-spacing:1px;color:#8f8676;text-align:center}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#1d1c24;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 10px;margin:0 6px 8px 0}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  img{width:100%;display:block;border-radius:3px}
+  .note{margin-top:10px;color:#6f6862;max-width:62ch}
+</style>
+<h1>THE CRAWL</h1>
+<p>One of yours is struck down and lives. He falls on his back, lies there two bars, then rolls over and drags himself away from the man who dropped him, toward his own side. First the drag: legs dead, the right arm pulls, the left arm reaches ahead and never gets a grip. Then on his elbows, low and slow, his head down. Then the last: one weak reach, a few inches, a stop, and the hand opens. He stays there.</p>
+<div class="row"><div class="lab"><span>BESIDE THE THUG, YOUR PHONE'S SIZE</span><span class="tag" id="state">LOADING</span></div>
+<button data-face="2" class="on">RIGHT</button><button data-face="0">TOWARD YOU</button><button data-face="5">AWAY UP LEFT</button><button data-face="6">LEFT</button><button id="size">CLOSER</button><button id="again">AGAIN</button>
+<canvas id="big"></canvas></div>
+<div class="row"><div class="lab"><span>ALL EIGHT WAYS, IN STEP</span><span class="tag" id="weight"></span></div>
+<div class="grid" id="grid"></div></div>
+<div class="row"><div class="lab"><span>IN THE REAL FIGHT, ON A PHONE</span><span class="tag">THE DRAG</span></div>
+<img src="../../records/target/animation/crawl_shots/crawl_in_the_fight_phone.webp" alt="the crawl in the real fight on a phone"></div>
+<p class="note">In the game it happens by itself: any man of yours struck down who lives does it, crawling away from whoever dropped him. The dark mark behind him is where he dragged himself, never fresh blood. This is the first one, on one man; when you pass it, the same recipe makes it for every body.</p>
+<script src="../../engine/bohemia_crawl.js"></script>
+<script>
+(function () {
+  const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'], NAMES = ['TOWARD YOU', 'DOWN RIGHT', 'RIGHT', 'UP RIGHT', 'AWAY', 'UP LEFT', 'LEFT', 'DOWN LEFT'];
+  const LOOK = 'cast_barearms', THUG = 'tier_thug', KEY_MS = 500 / 3, WAIT = 24, STAND = 12, HOLD = 24;
+  const WEIGHT = { roll: 'THE ROLL', drag: 'THE DRAG', drag_breath: 'HIS BREATH', into_elbows: 'THE ELBOWS', elbows: 'THE ELBOWS', elbows_breath: 'HIS BREATH', last: 'THE LAST' };
+  let crawlFace = 2, scale = 2, t0 = performance.now();
+  const st = document.getElementById('state'), wt = document.getElementById('weight');
+  const img = function (u) { return new Promise(function (ok, no) { const i = new Image(); i.onload = function () { ok(i); }; i.onerror = no; i.src = u; }); };
+  const json = function (u) { return fetch(u, { cache: 'no-cache' }).then(function (r) { return r.json(); }); };
+  Promise.all([json('../fight_rig/fight_rig.json'), json('../rig_crawl/rig_crawl.json')]).then(function (a) {
+    const FR = a[0], I = a[1];
+    return Promise.all([img('../fight_rig/' + FR.looks[LOOK].file), img('../fight_rig/' + FR.looks[THUG].file), json('../rig_crawl/' + I.looks[LOOK].json)])
+      .then(function (b) { return img('../rig_crawl/' + b[2].file).then(function (ci) { BohemiaCrawl.feed(I, LOOK, b[2], ci); go(FR, b[0], b[1], b[2]); }); });
+  }).catch(function (e) { st.textContent = 'DID NOT LOAD'; console.error(e); });
+
+  function go(FR, man, thug, E) {
+    st.textContent = 'PLAYING, 120 BPM';
+    const N = BohemiaCrawl.length(), FALL = FR.clips.fall, L = FR.looks[LOOK], T = FR.looks[THUG], LOOP = STAND + 3 + WAIT + N + HOLD;
+    const big = document.getElementById('big'), grid = document.getElementById('grid'), cells = [];
+    DIRS.forEach(function (d, i) { const w = document.createElement('div'), c = document.createElement('canvas'); c.width = 170; c.height = 120;
+      w.appendChild(c); w.appendChild(document.createTextNode('CRAWLS ' + NAMES[i])); grid.appendChild(w); cells.push(c); });
+    document.querySelectorAll('button[data-face]').forEach(function (b) { b.onclick = function () {
+      document.querySelectorAll('button[data-face]').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); crawlFace = +b.dataset.face; t0 = performance.now(); }; });
+    document.getElementById('size').onclick = function () { scale = scale === 2 ? 4 : 2; this.textContent = scale === 2 ? 'CLOSER' : 'PHONE SIZE'; };
+    document.getElementById('again').onclick = function () { t0 = performance.now(); };
+    function ground(g, w, h) {   /* a plain street: asphalt, one crack; nothing to judge but the man */
+      g.fillStyle = '#2b2925'; g.fillRect(0, 0, w, h); g.fillStyle = '#26241f';
+      for (let y = 0; y < h; y += 7) for (let x = (y * 13) % 11; x < w; x += 11) g.fillRect(x, y, 2, 1);
+    }
+    function frame(g, k, face, fx, fy, s, withThug) {
+      const fallFace = (face + 4) % 8;
+      if (withThug) {   /* the thug over him, a tile toward where he fell from, facing him */
+        const th = fallFace * Math.PI / 4, tx = fx + Math.sin(th) * 72 * s, ty = fy + Math.cos(th) * 72 * s * Math.SQRT1_2, tf = (fallFace + 4) % 8;
+        if (ty < fy) g.drawImage(thug, 0, tf * T.h, T.w, T.h, tx - T.foot[0] * s, ty - T.foot[1] * s, T.w * s, T.h * s);
+        drawMan(); if (ty >= fy) g.drawImage(thug, 0, tf * T.h, T.w, T.h, tx - T.foot[0] * s, ty - T.foot[1] * s, T.w * s, T.h * s);
+      } else drawMan();
+      function drawMan() {
+        if (k < STAND) { g.drawImage(man, 0, fallFace * L.h, L.w, L.h, fx - L.foot[0] * s, fy - L.foot[1] * s, L.w * s, L.h * s); return; }
+        const kf = k - STAND;
+        if (kf < 3 + WAIT) { const col = FALL[Math.min(2, kf)];
+          if (kf >= 2) { g.fillStyle = 'rgba(92,13,8,.72)'; g.beginPath(); g.ellipse(fx, fy - 5 * s, 25 * s * Math.min(1, (kf - 1) / 8), 7.5 * s * Math.min(1, (kf - 1) / 8), 0, 0, Math.PI * 2); g.fill(); }
+          g.drawImage(man, col * L.w, fallFace * L.h, L.w, L.h, fx - L.foot[0] * s, fy - L.foot[1] * s, L.w * s, L.h * s); return 'fall'; }
+        const c = BohemiaCrawl.at(LOOK, kf - 3 - WAIT, face); if (!c) return;
+        /* the fight's pool where he fell (COMBAT's drawPool, its colours) and his drag mark from it to him (the fight's block) */
+        g.fillStyle = 'rgba(92,13,8,.72)'; g.beginPath(); g.ellipse(fx, fy - 5 * s, 25 * s, 7.5 * s, 0, 0, Math.PI * 2); g.fill();
+        if (c.smear) { const x0 = fx, y0 = fy, x1 = fx + c.sx * s, y1 = fy + c.sy * s, n = Math.max(1, Math.round(Math.hypot(x1 - x0, y1 - y0) / (1.5 * s)));
+          g.fillStyle = 'rgba(40,15,10,.55)'; let r = 7;
+          for (let i = 0; i <= n; i++) { r = (r * 16807) % 2147483647; const q = r / 2147483647; if (q < .18) continue;
+            g.beginPath(); g.ellipse(x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n, 2.6 * s * (.7 + q * .6), 3.2 * s * (.8 + q * .3), Math.atan2(y1 - y0, x1 - x0), 0, Math.PI * 2); g.fill(); } }
+        g.drawImage(c.img, c.x, c.y, c.w, c.h, fx - L.foot[0] * s + (c.dx + c.sx) * s, fy - L.foot[1] * s + (c.dy + c.sy) * s, c.w * s, c.h * s);
+        if (g === bg) wt.textContent = WEIGHT[c.clip] || '';
+      }
+    }
+    let bg = big.getContext('2d');
+    function tick(now) {
+      const k = Math.floor((now - t0) / KEY_MS) % LOOP;
+      const s = scale, W = 260 * s, H = 200 * s;
+      if (big.width !== W) { big.width = W; big.height = H; bg = big.getContext('2d'); }
+      bg.imageSmoothingEnabled = false; ground(bg, W, H);
+      const th = crawlFace * Math.PI / 4, fx = W / 2 - Math.sin(th) * 22 * s, fy = H * .66 - Math.cos(th) * 22 * s * Math.SQRT1_2;
+      frame(bg, k, crawlFace, fx, fy, s, true);
+      if (k < STAND + 3 + WAIT) wt.textContent = k < STAND ? 'STANDING' : 'STRUCK DOWN';
+      cells.forEach(function (c, i) { const g = c.getContext('2d'); g.imageSmoothingEnabled = false; ground(g, c.width, c.height);
+        const t = i * Math.PI / 4; frame(g, k, i, c.width / 2 - Math.sin(t) * 30, c.height * .58 - Math.cos(t) * 21, 1, false); });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+})();
+</script>

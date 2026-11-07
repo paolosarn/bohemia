@@ -786,13 +786,37 @@
    "kind": "real",
    "teaches": "the walk is a controlled fall; the body is always leaving balance and catching it, so a cycle where the torso never leans is a treadmill, not a walk."
   },
+  "WALK-04": {
+   "name": "The low crawl (US Army FM 21-75, Combat Skills of the Soldier, ch. 3; the ROTC tactics text that copies it)",
+   "folder": "walk-cycle",
+   "file": "reference/library/walk-cycle/INDEX.md",
+   "where": "US Army FM 21-75 (1984) chapter 3, Movement; University of Akron Army ROTC MS1 lesson 9 (uakron.edu/armyrotc/MS1/9.pdf); army.mil 'Introduction to the low crawl' (2015). Read from the search engine's excerpts (this box's network refused the pages), ANIMATION 11/7",
+   "kind": "real",
+   "teaches": "the slowest way a man moves: the body pressed flat, the arms pushed out ahead, the body PULLED up to the hands; the hand that pulls stays where it was put while the body comes to it, so a crawl is a planted hand and a sliding body, never a hand that skates."
+  },
+  "WALK-05": {
+   "name": "Care under fire (TCCC, Tactical Combat Casualty Care, module 3; the UN field medical assistants' skill cards)",
+   "folder": "walk-cycle",
+   "file": "reference/library/walk-cycle/INDEX.md",
+   "where": "TCCC 'Care Under Fire' instructor guide (mhs.osd.mil, 2011, web archive) and module 3 (tccc.org.ua); UN Field Medical Assistants Course skill cards (unsco.unmissions.org, 2026). Search excerpts, ANIMATION 11/7",
+   "kind": "real",
+   "teaches": "a wounded man who can is told to move himself to cover; one who cannot move lies flat and still. The wounded crawl AWAY from the fire toward cover and their own side, and the crawl ends in stillness, not in a pose."
+  },
+  "WALK-06": {
+   "name": "The belly ('commando' or 'army') crawl, as an infant first learns it",
+   "folder": "walk-cycle",
+   "file": "reference/library/walk-cycle/INDEX.md",
+   "where": "parentingscience.com 'When do babies crawl' (an illustrated guide); flintrehab.com 'Commando crawling and cerebral palsy'; pathways.org 'Types of baby crawls'. Search excerpts, ANIMATION 11/7",
+   "kind": "real",
+   "teaches": "on the stomach the arms do the work and the legs drag behind; the body swings side to side (fishtails) as each arm pulls. The first way a body crawls is the last way a broken one does: the drag is that crawl with dead legs and one good arm."
+  },
   "WPN-01": {
-   "name": "Colt Government Model 1911, stainless, .45 ACP (the real object)",
+   "name": "Colt Government Model 1911, stainless, .45 ACP (the real object: makers' and dealers' published numbers)",
    "folder": "weapon",
    "file": "reference/library/weapon/INDEX.md",
-   "where": "dealers' listings of the Colt O1911C-SS and 1911C (blackstoneshooting.com, kygunco.com); the numbers in reference/library/weapon/INDEX.md",
+   "where": "dealers' listings of the Colt O1911C-SS and the 1911C (https://blackstoneshooting.com/colt-1911-government-45-acp-5-00-barrel-7-1-rds-stainless-098289042989 , https://kygunco.com/product/colt-o1911c-ss-government-model-1911-5-45acp-71-stainless , https://bosque-cat.demo-store.papathemes.com/colt-1911c-government-45acp-5-two-tone); no Colt spec sheet was reachable from the session that wrote this",
    "kind": "real",
-   "teaches": "a pistol is two readable masses, the slide over the grip leaning back 18 degrees, joined by the guard; 216 mm long, 140 mm tall, 32 mm across, about 1.1 kg; at a dozen pixels the slide's value against what is behind it is what makes the L read."
+   "teaches": "a pistol is TWO readable masses at a glance, the slide (a long flat bar) and the grip (a block leaning back under it), joined by the trigger guard; at a dozen pixels the L of slide over grip IS the pistol, and it is the slide's value against what is behind it that makes the L read. Stainless has been sold beside blued since the 1980s; a valley pawn-shop gun of 2050 is as likely one as the other."
   }
  }
 }

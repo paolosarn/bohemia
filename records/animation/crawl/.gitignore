@@ -1,0 +1,3 @@
+# ANIMATION [the crawl]: the posed models, rebuilt by tools/bohemia_animation_the_crawl.py render
+*.glb
+*.json

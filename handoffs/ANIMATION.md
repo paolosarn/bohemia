@@ -1,6 +1,40 @@
 # ANIMATION -- the handoff block (written only by ANIMATION; newest on top; the old blocks are handoffs/ANIMATION_ARCHIVE.md)
 
-ANIMATION (session_01GKDyusavUZcodjCHmVnXRM): 11/2 (a) LATEST -- [they mend on the march] (ask line 314) SHIPPED (BUILD 11/3zj - THEY MEND ON THE MARCH),
+ANIMATION (session_01GKDyutPrWASvMYWVtMVPYL): 11/7 (a) LATEST -- [the crawl] (rule 390, ask line 423, opened by rule 421) SHIPPED
+(BUILD 11/7f - THE CRAWL), BUILT, NOT YET SEEN. ONE GOLDEN PIECE (408(b)) on ONE man, cast_barearms. TAB: the FIGHT (any man of
+his struck down who lives, in that look) and VOTE (animation-the-crawl-golden-11-7, GOLDEN: plays all eight ways beside the thug,
+and the phone picture from the real fight).
+WHAT IS IN THE GAME NOW:
+- A man of his struck down who lives (down, not dead), his fall played and two bars on his back, rolls over and drags himself
+  away from the man he faced (the crawl faces the fall + 4): the drag (legs dead, the right arm pulls, the left reaches), his
+  breath, the drag, the elbows (low, slow, head down), the last (a few inches, a stop, the hand opens), then he lies there.
+  162 keys, three a beat, 0.41 units (about half a metre, inside his tile). The fight's cloth_on plays as each hand comes down.
+- Real reference first: WALK-04 the low crawl (FM 21-75), WALK-05 care under fire (TCCC), WALK-06 the belly crawl, filed in
+  the reference library. Bar: body_thug_S and the town is alive; the card's line is SAME (the same rig, his colours) and says
+  what it does that they do not, and its two weak points (no finger bones; the pulling arm hidden on half the facings).
+- Code: tools/bohemia_animation_the_crawl.py (source, pose via the TOWN tool's pose step, render via COMBAT's render over the
+  master rig, pack, shots), engine/bohemia_crawl.js (the player, the slide), slices/BOHEMIA_FIGHT.html __THE_CRAWL__ (crawlDraw;
+  one changed line in blitMan: the crawl is asked before holdDraw), tools/bohemia_animation_the_crawl_capture.js (the real fight
+  on the phone). Source records/target/animation/BOHEMIA_THE_CRAWL.json; joints records/animation/crawl_joints/; pictures
+  slices/rig_crawl/; shots records/target/animation/crawl_shots/; loop log records/target/animation/crawl_look/.
+- Gate: gates/the_crawl_gate.py 21/0 (S H E P X W; E is the envelope over every drawn key of the whole arc, 8 facings; W4 runs
+  the real fight in a browser). what_a_man_holds_gate.py 15/0 (its W1 takes the changed line). Record:
+  records/BOHEMIA_ANIMATION_THE_CRAWL_11_7_26.md.
+FOUND: COMBAT's poses tool turns bones AFTER its ROOT tips the man (world axes); the town's LIE turns them BEFORE. To reuse a
+COMBAT key in the town's format carry the axes back: F d -> U -d, U d -> F d, L stays (the record shows it).
+WHAT IS LEFT (no Paolo needed):
+- After his pass (the recipe freezes): `python3 tools/bohemia_animation_the_crawl.py source`, add looks to LOOKS, then per man
+  `<venv>/bin/python tools/bohemia_animation_the_crawl.py render <look>` (about 1 min 20 s a man here) and `pack`; the gate's P1
+  says one man until then (408(b)); widen it with the volume.
+- COMBAT: letting a struck-down man crawl a TILE (the record lists the five things: a CRAWL action, zone of control, the AI's
+  choice, the base drop of a tile in crawlDraw, theirs who live). SOUNDS: a true cloth-on-concrete drag.
+- The fingers need a hand rig (CHARACTER/DIRECTION).
+- EVERYBODY IDLES is red 3 on main, not from this round: P1 the looks other lanes added have no idles (robot, the six bosses,
+  the new beasts: coyote, mountain lion, feral hog, camelops, feral bull, short-faced bear...), C3 the three old beasts' idles carry
+  +60 colours over their sheets, R5 a few rolled men's map idles sit 3 px off their map still. Lane debt: render and pack them.
+- bpy: `python3.11 -m venv v && v/bin/pip install bpy==4.2.0 numpy pillow` (it installed here in a few minutes).
+
+ANIMATION (session_01GKDyusavUZcodjCHmVnXRM): 11/2 (a) -- [they mend on the march] (ask line 314) SHIPPED (BUILD 11/3zj - THEY MEND ON THE MARCH),
 NOT YET SEEN. TAB: VOTE (four items, each playing on his three walking) and the MAP itself (it happens by itself on the march).
 WHAT IS IN THE GAME NOW:
 - On the map, a man healing or mending on the march does one of his four as he walks, the walk going on under it: binds a bandage

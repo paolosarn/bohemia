@@ -27,6 +27,8 @@
 <script src="vote/ANIMATION_THE_AURA.js"></script>
 <!-- __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... looking like a chess man'): a waiting man breathes and idles -->
 <script src="../engine/bohemia_idles.js"></script>
+<!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
+<script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="bohemia_street_board.js"></script>  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
@@ -7894,6 +7896,53 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   return true;
 }
 /* ==== end __EVERYBODY_IDLES__ ==== */
+/* ==== __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'make an animation of people crawling on the floor... a
+   fucked up scary sad murders type of crawl'; rule 408(b) one golden piece). ANIMATION's block, COMBAT's file: a man of his
+   STRUCK DOWN WHO LIVES (down, not dead), once his fall has played and he has lain there two bars, rolls off his back and
+   drags himself away along the ground on the beat: the drag (the legs dead, the right arm pulling, the left reaching), his
+   breath, the drag again, the elbows (low, slow, the head down), the last (a few inches, a stop, the hand that opens), then
+   he lies there. He crawls the way his head lies: AWAY from the man he faced when he fell (the crawl faces the fall + 4),
+   about half a metre in all, inside his tile; a dark drag mark follows him from where he began to pull (never red, never
+   gore: dirt and what is left of him). The pictures are his own model through the master rig (slices/rig_crawl, the player
+   engine/bohemia_crawl.js); a look with none keeps his fall's last key, as before. DRAWING ONLY: where he stands in the rules
+   (his tile) never changes; letting a struck-down man crawl a TILE is COMBAT's call (the record says what it needs). ==== */
+const CRAWL_WAIT_BARS = 2, CRAWL_MARK = 'rgba(40,15,10,.55)';
+/* the keys his hand or forearm comes down on (each on a beat): the fight's cloth on the ground (SOUNDS' cloth_on, already the
+   fight's 'tears free'); a true cloth-on-concrete drag is SOUNDS' to make */
+const CRAWL_DOWN = { D_plant: 1, EL_out: 1, ER_out: 1, LA2: 1 };
+function crawlDraw(v, p, L, gs, ox, oy, s, now) {
+  if (p.clip !== 'fall' || !v.down || v.dead || v.beast || v.machine || v.ghost || v._fallAt === undefined) return false;
+  const K = window.BohemiaCrawl; if (!K) return false;
+  if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
+  if (!L._key) return false;
+  if (!K.has(L._key)) { K.want(L._key); return false; }
+  const bm = beatMs(), keyMs = bm / 3;
+  if (v._crawlAt === undefined) {   /* the first bar line two bars after his fall ends, his own bar or the next (no two in step) */
+    let b = Math.ceil((v._fallAt + bm + CRAWL_WAIT_BARS * 4 * bm - SONG.at) / bm);
+    while ((((SONG.beat + b) % 4) + 4) % 4) b++;
+    v._crawlAt = SONG.at + (b + ((v.id || '').length % 2) * 4) * bm; v._crawlK = 0; v._crawlT = v._crawlAt;
+  }
+  if (now < v._crawlAt) return false;   /* stunned on his back: his fall's last key */
+  v._crawlK += Math.max(0, now - v._crawlT) / keyMs; v._crawlT = now;   /* keys counted at the beat he is drawn at, so a faster fight crawls faster */
+  const face = ((v._face || 0) + 4) % 8, c = K.at(L._key, Math.floor(v._crawlK), face); if (!c) return false;
+  const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  const fx = ox + L.foot[0] * s, fy = oy + L.foot[1] * s;
+  if (c.smear) {   /* the drag mark: as wide as his body, from his pool (where he fell) to where he is now, broken where his belly
+     lifted; it shows past his near side and behind his feet (his own legs drag over the middle of it) */
+    const x0 = fx, y0 = fy, x1 = fx + c.sx * s, y1 = fy + c.sy * s, len = Math.hypot(x1 - x0, y1 - y0);
+    const n = Math.max(1, Math.round(len / (1.5 * s))), r = mulberry(seedOf('crawl:' + v.id)), w = 2.6 * s, a = Math.atan2(y1 - y0, x1 - x0);
+    cx.fillStyle = CRAWL_MARK;
+    for (let i = 0; i <= n; i++) { const t = i / n, g = r(); if (g < .18) continue;
+      cx.beginPath(); cx.ellipse(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, w * (.7 + g * .6), 3.2 * s * (.8 + g * .3), a, 0, Math.PI * 2); cx.fill(); }
+  }
+  if (c.pose !== v._crawlPose) { if (CRAWL_DOWN[c.pose]) sfx('cloth_on', { side: v.side, crawl: true }); v._crawlPose = c.pose; }
+  const im = dark ? nightSheet(c.img, moonOf(x, y)) : c.img;
+  cx.drawImage(im, c.x, c.y, c.w, c.h, ox + (c.dx + c.sx) * s, oy + (c.dy + c.sy) * s, c.w * s, c.h * s);
+  UI.clipSeen['crawl:' + c.clip] = (UI.clipSeen['crawl:' + c.clip] || 0) + 1;
+  UI.crawlAt = UI.crawlAt || {}; UI.crawlAt[v.id] = { key: c.key, pose: c.pose, slide: c.slide, face: face, sx: c.sx, sy: c.sy };   /* for the gate */
+  return true;
+}
+/* ==== end __THE_CRAWL__ ==== */
 /* ==== __WHAT_A_MAN_HOLDS__ (ANIMATION [the PC playtest: the bodies' part], rule 164 items 21, 22, 31; Paolo 10/24 on his PC:
    'if they're using pistols they shouldn't look like they're holding rifles'; 'when they're in a building they get extra cover
    stats... they shouldn't be standing up, they should look like they're in cover'). ANIMATION's block, COMBAT's file.
@@ -8309,7 +8358,7 @@ function blitMan(v, X, feet, now, alpha) {
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
   if (v.machine) { chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha); cx.restore(); return; }
-  const held = holdDraw(v, p, L, gs, ox, oy, s, now);   /* __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
+  const held = crawlDraw(v, p, L, gs, ox, oy, s, now) || holdDraw(v, p, L, gs, ox, oy, s, now);   /* __THE_CRAWL__ (ANIMATION): struck down, he drags himself away; __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   if (!idled) { const dx_ = Math.round(dx(v)), dy_ = Math.round(dy(v));   /* __THE_ARMOUR_HE_WEARS_SHOWS__: read off his day sheet, the night laid on the piece */
