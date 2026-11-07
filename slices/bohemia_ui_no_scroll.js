@@ -242,7 +242,7 @@
     var sh = document.getElementById('sheet'); if (!sh) return false;
     css(document, 'ns-town', TOWN_CSS);
     var whole = function () { var o = ''; try { o = (window.BohemiaSettlement && BohemiaSettlement.state && BohemiaSettlement.state.open) || ''; } catch (e) {} return /^(hall|smith|armourer|arms|stall)$/.test(o) || !!sh.querySelector('.hire, #shelfgrid, #baggrid, #stallstrip'); };
-    fit(sh, { levels: 3, before: function () { hallRows(document); shopCols(document); sh.classList.toggle('ns-whole', whole()); } });
+    fit(sh, { levels: 3, key: function () { var o = ''; try { o = BohemiaSettlement.state.open || ''; } catch (e) {} var p = document.querySelector('#sbody .say p'); return o + '|' + (p ? p.textContent : ''); }, zoomEl: function () { return document.getElementById('sbody'); }, cap: function () { if (sh.classList.contains('ns-whole')) return true; var r = sh.getBoundingClientRect(); return r.width * r.height <= 0.5 * innerWidth * innerHeight; }, before: function () { hallRows(document); shopCols(document); sh.classList.toggle('ns-whole', whole()); } });
     return true;
   }
 
@@ -288,7 +288,10 @@
         var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && ctl.children.length >= 3); }
     };
     sizeRow(card);
-    fit(w, { box: card, levels: 2, before: mark });
+    fit(w, { box: card, levels: 2, before: mark, sized: function (z) {
+      if (z === 1) { card.style.removeProperty('width'); card.style.removeProperty('max-height'); return; }
+      card.style.setProperty('width', (Math.min(innerWidth - 16, 920) / z).toFixed(1) + 'px', 'important');
+      card.style.setProperty('max-height', ((innerHeight - 16) / z).toFixed(1) + 'px', 'important'); } });
     /* fitted again when the card OPENS (only then: the fit's own classes on #setwrap must never wake this, or it loops) */
     var was = false; try { new MutationObserver(function () { var on = w.classList.contains('on'); if (on && !was) refreshBox(w); was = on; }).observe(w, { attributes: true, attributeFilter: ['class'] }); } catch (e) {}
     return true;
@@ -319,7 +322,7 @@
     applySize(); return n;
   }
   function applySize() {
-    paintSize(); BOXES.forEach(cut); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); picksFit(true); chromeFit(true);
+    paintSize(); cutAll(); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); picksFit(true); chromeFit(true);
     var visit = function (w, d) { if (d > 4) return; try { if (w !== window && w.BohemiaNoScroll && w.BohemiaNoScroll.refresh) w.BohemiaNoScroll.refresh(); } catch (e) {} try { for (var i = 0; i < w.frames.length; i++) visit(w.frames[i], d + 1); } catch (e) {} };
     if (window === window.top) visit(window, 0);
   }
@@ -420,27 +423,38 @@
   function css(doc, id, text) { if (doc.getElementById(id)) return; var s = doc.createElement('style'); s.id = id; s.textContent = text; (doc.head || doc.documentElement).appendChild(s); }
   function overOf(el) { return Math.max(0, el.scrollHeight - el.clientHeight - 1) + Math.max(0, el.scrollWidth - el.clientWidth - 1); }
   function cut(B) {
-    if (B.busy) return; B.busy = true;
+    if (B.busy) return;
+    /* nothing about the screen's shape changed (the same size, the same glass, the same pieces; a number that ticks inside a row
+       is not a new shape): the last fit stands. Measured: a card whose words redraw every frame was fitted 40 times a second,
+       and at the larger sizes the trials kept its opening animation from ever starting */
+    var sig = [uiSize(), innerWidth, innerHeight, OFF, B.box.isConnected, B.box.querySelectorAll('*').length, B.host.classList.contains('on'), B.box.getBoundingClientRect().width > 1, B.opts.key ? B.opts.key() : ''].join('|');
+    if (sig === B.sig && !B.force) return; B.force = false;
+    B.busy = true; B.cuts = (B.cuts || 0) + 1;
     try {
       var host = B.host, box = B.box;
       host.classList.remove('ns-d1', 'ns-d2', 'ns-d3');
-      if (OFF) { setZoom(B.opts.zoomEl || box, 1); B.level = 0; B.zoom = 1; B.over = overOf(box); B.fits = B.over <= 0; return; }
+      if (OFF) { B.sig = null; setZoom(zoomElOf(B), 1); if (B.opts.sized) try { B.opts.sized(1); } catch (e) {} B.level = 0; B.zoom = 1; B.over = overOf(box); B.fits = B.over <= 0; return; }
       if (B.opts.before) try { B.opts.before(); } catch (e) {}
-      var n = uiSize(), zs = zoomsFor(n), max = B.opts.levels || 1, start = Math.min(max, SIZES[n].lv), zEl = B.opts.zoomEl || box, lv = 1, zi = 0;
+      var n = uiSize(), zs = zoomsFor(n), max = B.opts.levels || 1, start = Math.min(max, SIZES[n].lv), zEl = zoomElOf(B), lv = 1, zi = 0;
       for (zi = 0; zi < zs.length; zi++) {
-        setZoom(zEl, zs[zi]); host.classList.remove('ns-d2', 'ns-d3'); host.classList.add('ns-d1'); if (box.scrollTop) box.scrollTop = 0;
+        setZoom(zEl, zs[zi]); if (B.opts.sized) try { B.opts.sized(zs[zi]); } catch (e) {} host.classList.remove('ns-d2', 'ns-d3'); host.classList.add('ns-d1'); if (box.scrollTop) box.scrollTop = 0;
         lv = 1; while (lv < start) { lv++; host.classList.add('ns-d' + lv); }
         while (overOf(box) > 0 && lv < max) { lv++; host.classList.add('ns-d' + lv); }
-        if (overOf(box) <= 0) break;
+        if (overOf(box) <= 0 && (!B.opts.cap || zs[zi] === 1 || B.opts.cap())) break;   /* a larger size, too, keeps a small sheet under half the glass */
       }
       if (zi >= zs.length) zi = zs.length - 1;
       B.level = lv; B.zoom = zs[zi]; B.size = n; B.over = overOf(box); B.fits = B.over <= 0;
+      B.sig = [uiSize(), innerWidth, innerHeight, OFF, B.box.isConnected, B.box.querySelectorAll('*').length, B.host.classList.contains('on'), B.box.getBoundingClientRect().width > 1, B.opts.key ? B.opts.key() : ''].join('|');
       if (!B.fits) (window.__NS_LOG = window.__NS_LOG || []).push('does not fit: ' + (box.id || box.className) + ' over by ' + B.over + ' at level ' + lv);
     } catch (e) { (window.__NS_LOG = window.__NS_LOG || []).push(String(e)); }
     finally { B.busy = false; }
   }
+  /* what grows: the box's own contents (its insets and width stay the glass's; a zoomed box's own width would be in its own
+     larger units and stand past the edge), or the box itself with its geometry set again in its own units (sized) */
+  function zoomElOf(B) { var z = B.opts.zoomEl; return typeof z === 'function' ? z() : (z || B.box); }
   function soon(B) { if (B.t) return; B.t = (window.requestAnimationFrame || setTimeout)(function () { B.t = 0; cut(B); }); }
-  function refreshBox(el) { for (var i = 0; i < BOXES.length; i++) if (BOXES[i].host === el || BOXES[i].box === el) cut(BOXES[i]); }
+  function refreshBox(el) { for (var i = 0; i < BOXES.length; i++) if (BOXES[i].host === el || BOXES[i].box === el) { BOXES[i].force = true; cut(BOXES[i]); } }
+  function cutAll() { BOXES.forEach(function (B) { B.force = true; cut(B); }); }
   function fit(host, opts) {
     opts = opts || {}; var box = opts.box || host;
     for (var i = 0; i < BOXES.length; i++) if (BOXES[i].host === host) { BOXES[i].opts = opts; soon(BOXES[i]); return BOXES[i]; }
@@ -474,10 +488,10 @@
   window.BohemiaNoScroll = {
     FLOOR: FLOOR, TAP: TAP, fit: fit,
     state: function (el) { if (el === document.body && CREW.state) return { pages: 1, at: 0, level: CREW.state.level, fits: CREW.state.fits, over: CREW.state.over, zoom: CREW.state.zoom || 1, size: SIZES[uiSize()].say };
-      var B = boxOf(el); return B ? { pages: 1, at: 0, level: B.level, fits: B.fits, over: B.over, zoom: B.zoom || 1, size: SIZES[B.size || 0] ? SIZES[B.size].say : 'NORMAL' } : null; },
+      var B = boxOf(el); return B ? { pages: 1, at: 0, level: B.level, fits: B.fits, over: B.over, cuts: B.cuts || 0, zoom: B.zoom || 1, size: SIZES[B.size || 0] ? SIZES[B.size].say : 'NORMAL' } : null; },
     reveal: function () { return true; },   /* nothing is ever off the glass: there is nothing to turn to */
-    refresh: function () { BOXES.forEach(cut); if (CREW.state) fitBody(); },
-    off: function (on) { OFF = !!on; BOXES.forEach(cut); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); picksFit(true); chromeFit(true); return OFF; },
+    refresh: function () { cutAll(); if (CREW.state) fitBody(); },
+    off: function (on) { OFF = !!on; cutAll(); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); picksFit(true); chromeFit(true); return OFF; },
     crew: function () { return { log: CREW.log.slice(), state: CREW.state || null }; },
     SIZES: SIZES.map(function (z) { return z.say; }), size: function (n) { if (n != null) setSize(n); return uiSize(); },
     chrome: function () { return { phone: CHROME.bohphone || 1, bar: CHROME.bmtb || 1 }; }
