@@ -252,6 +252,44 @@
 
   /* ---------- THE READS: one job's fights, played ---------- */
   var READS = {}, FIGHTS = {}, Q = [], BUSY = null, JOBN = 0, PLAYED = {}, LAST = {};   /* LAST: the latest finished read of a job at a place, any crew */
+  /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__ (PLUMBER 7, 11/7/26, ask line 441, rule 418: every change at sixty frames a second).
+     MEASURED on the phone (records/BOHEMIA_PLUMBER_THE_MAP_S_LIGHTS_AND_EVERY_CHANGE_AT_SIXTY_11_7_26.md): opening the crew screen
+     the first time hands the fight's door the crew screen's own company (its names, its line), so the crew key turns, and the phone's
+     next deal planned every job in the valley again for it in one piece: 28 plans, 466 ms at full speed (about 1.9 s at 4x), the crew
+     screen's grow frozen at 13.6 frames a second, its worst frame 550 ms. A hire, a death, a new coat did the same on the map.
+     NOW: a board's own ask (later) for a crew nothing has been played for yet cannot be read before its plays come back whatever is
+     done now, so the deal gets 'reading' at once (what it got before: a deal posts a job that is reading) and the plans are made a
+     few at a time in the frames' gaps, never under a change that is playing (the top window's BohemiaMotion). What he looks at is
+     planned at once, as before. A checker's old way: window.__JOB_DANGER_SYNC = true. */
+  var PLANQ = [], PLAYED_CK = {}, PLANT = null, PLANST = { deferred: 0, planned: 0, dropped: 0, slices: 0, sliceMax: 0, planMax: 0, waited: 0 };
+  function motionBusy() { try { var T = root.top; return !!(T && T.BohemiaMotion && typeof T.BohemiaMotion.busy === 'function' && T.BohemiaMotion.busy()); } catch (e) { return false; } }
+  function planSoon(ms) { if (PLANT != null || !PLANQ.length) return;   /* a gap of frames, then the page's idle time (a slice is one job's plan at most past 6 ms) */
+    PLANT = setTimeout(function () { try { if (typeof root.requestIdleCallback === 'function') { root.requestIdleCallback(planSlice, { timeout: 400 }); return; } } catch (e) {} planSlice(); }, ms == null ? 100 : ms); }
+  function planSlice() {
+    PLANT = null; if (!PLANQ.length) return;
+    /* a change is playing: after it; a change takes 250 to 1,000 ms, so past 1.5 s of one (a piece held while a town is open) the
+       plans go on at their own pace until it ends */
+    if (motionBusy()) { if (!PLANST.waitFrom) PLANST.waitFrom = Date.now(); if (Date.now() - PLANST.waitFrom < 1500) { PLANST.waited++; return planSoon(120); } }
+    else PLANST.waitFrom = 0;
+    var t0 = performance.now(), ck = crewKey(), day = dayNow(), n = 0;
+    while (PLANQ.length && (n === 0 || performance.now() - t0 < CFG.slice_ms)) {
+      var rk = PLANQ.shift(), R = READS[rk]; if (!R || !R.plan) continue;
+      if (R.crew !== ck || R.plan.day !== day) { delete READS[rk]; PLANST.dropped++; continue; }   /* a crew or a day he no longer has: asked again, it reads afresh */
+      var t1 = performance.now(), pid = R.id, ppl = R.place; planOne(R, true); n++; var pm = performance.now() - t1; if (pm > PLANST.planMax) { PLANST.planMax = pm; PLANST.worst = pid + '@' + ppl; }
+      /* read the moment it was planned (its fights played meanwhile, or none): the deal asks again, as a read come back does */
+      if (READS[rk] === R && R.state === 'read') { paintAll(R); if (R.clean < CFG.cut_one) FITV++; say('bohemia-job-danger', { id: R.id, place: R.place, stars: R.stars, danger: R.danger }); }
+    }
+    PLANST.slices++; PLANST.sliceMax = Math.max(PLANST.sliceMax, performance.now() - t0);
+    planSoon(100);   /* the frames between: about one frame in six touched while plans are made */
+  }
+  function planOne(R, later) {
+    var P = R.plan; if (!P) return; delete R.plan;
+    var qi = PLANQ.indexOf(R.key); if (qi >= 0) PLANQ.splice(qi, 1);
+    var fs = null; try { fs = fightsFor(P.o, P.place); } catch (e) { fs = null; }
+    PLANST.planned++;
+    if (!fs) { if (READS[R.key] === R) delete READS[R.key]; return; }
+    fill(R, fs, later);
+  }
   function townOf(place) { try { return BohemiaJobKinds.realPlace(place); } catch (e) { return null; } }
   /* the fights a job (an offer at a place, or a job he holds) brings, each rolled: [{ what, p, band, faction, key }] */
   function fightsFor(o, place) {
@@ -278,6 +316,7 @@
   function fightKey(f, ck, sure) { var b = fightBase(f, ck); if (f.p >= 0.25) return b + '|full';
     return (sure && sure[b]) || (PLAYED[b + '|full'] && !PLAYED[b + '|full'].broke) || FIGHTS[b + '|full'] ? b + '|full' : b + '|light'; }
   function combine(R) {
+    if (R.plan) return false;   /* not planned yet: nothing to read */
     var clean = 1, n = 0, all = true, broke = null;
     R.fights.forEach(function (f) {
       var P = PLAYED[f.fk]; if (P && P.broke) broke = P.broke; if (!P || !P.runs) { all = false; return; }
@@ -301,12 +340,24 @@
     if (!MAIN) { engine(); return null; }
     var ck = crewKey(), rk = readKey(o, place) + '|' + ck + '|' + dayNow();
     var R = READS[rk];
-    if (R) { if (R.state !== 'read' && combine(R)) paintAll(R); return R; }
+    if (R) { if (R.plan && !later) planOne(R, false); if (READS[rk] !== R) return null; if (R.state !== 'read' && combine(R)) paintAll(R); return R; }
+    var base = readKey(o, place);
+    if (later && !o.__fights && !PLAYED_CK[ck] && !root.__JOB_DANGER_SYNC) {   /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__ */
+      R = READS[rk] = { key: rk, base: base, prev: LAST[base] || null, id: o.id, place: place || o.from || null, crew: ck, fights: [], state: 'reading', at: Date.now(), els: [], plan: { o: o, place: place, day: dayNow() } };
+      trimReads(); PLANQ.push(rk); PLANST.deferred++; planSoon(); return R;
+    }
     var fs = null; try { fs = o.__fights ? o.__fights.map(function (f) { return Object.assign({}, f, { band: f.band.slice() }); }) : fightsFor(o, place); } catch (e) { fs = null; }
     if (!fs) return null;
-    var base = readKey(o, place);
     R = READS[rk] = { key: rk, base: base, prev: LAST[base] || null, id: o.id, place: place || o.from || null, crew: ck, fights: fs, state: 'reading', at: Date.now(), els: [] };
-    var ks = Object.keys(READS); if (ks.length > 400) ks.sort(function (a, b) { return READS[a].at - READS[b].at; }).slice(0, ks.length - 400).forEach(function (k) { if (READS[k].state !== 'reading') delete READS[k]; });
+    trimReads();
+    fill(R, fs, later);
+    return R;
+  }
+  function trimReads() { var ks = Object.keys(READS); if (ks.length > 400) ks.sort(function (a, b) { return READS[a].at - READS[b].at; }).slice(0, ks.length - 400).forEach(function (k) { if (READS[k].state !== 'reading') delete READS[k]; }); }
+  /* a read's fights, planned: each fixed with its hand-over and put in the line to be played */
+  function fill(R, fs, later) {
+    var rk = R.key, ck = R.crew;
+    R.fights = fs;
     /* what he is looking at now goes first: a fight asked for again moves to the front of the line */
     fs.forEach(function (f) { f.opts = doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at); });   /* the hand-over each fight is played with, fixed with the read */
     /* a read the board asks for itself (rule 255: is it fit to post?) waits at the back of the line, behind what is on the glass */
@@ -373,6 +424,7 @@
   function done(J, d) {
     BUSY = null;
     var F = FIGHTS[J.fk]; delete FIGHTS[J.fk];
+    PLAYED_CK[String(J.fk).split('|')[0]] = 1;   /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__: this crew has plays now, its reads can come back at once */
     PLAYED[J.fk] = d.broke ? { runs: 0, broke: d.broke } : { runs: d.runs, sum: d.sum, clean: d.clean, won: d.won, down: d.down, dead: d.dead, hung: d.hung, ms: Date.now() - J.t0, worker: !!J.viaWorker };
     if (d.broke) WERR = d.broke;
     /* a checker's own setting (rule 192(c)): keep the hand-over and the dice each fight was played on, so the stars gate can replay the
@@ -531,7 +583,8 @@
   function state() {
     var rs = Object.keys(READS).map(function (k) { var R = READS[k]; return { id: R.id, place: R.place, state: R.state, stars: R.stars, danger: R.danger, clean: R.clean, blood: R.blood,
       fights: R.fights.map(function (f) { return { what: f.what, why: f.why, n: f.n, p: f.p, band: f.band.slice(), faction: f.faction, days: f.days, difficulty: f.difficulty, at: f.at, clean: f.clean, runs: f.runs, won: f.won, road: f.road }; }) }; });
-    return { engine: !!MAIN, worker: !!W, err: WERR, queue: Q.length, busy: !!BUSY, played: Object.keys(PLAYED).length, reads: rs, cfg: CFG };
+    return { engine: !!MAIN, worker: !!W, err: WERR, queue: Q.length + PLANQ.length, busy: !!BUSY,   /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__: a plan still to make is work in the line */
+       played: Object.keys(PLAYED).length, reads: rs, cfg: CFG, plans: Object.assign({ waiting: PLANQ.length }, PLANST) };
   }
   /* a checker's probe: the same hand-over played n times on this window's rules and in a fresh worker (the gate compares them) */
   function probe(opts, n, seed) {

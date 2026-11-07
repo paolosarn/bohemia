@@ -1,5 +1,49 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 7 (chat 18) 11/7 -- rule 427(d), rules 393 and 418, ask lines 428 and 441: THE MAP'S LIGHTS READ AS LIGHTS, AND EVERY CHANGE
+AT SIXTY. BUILT, NOT YET SEEN (BUILD 11/7zd EMBERS AND LAMPS, NO FREEZES). Record:
+records/BOHEMIA_PLUMBER_THE_MAP_S_LIGHTS_AND_EVERY_CHANGE_AT_SIXTY_11_7_26.md. VOTE card plumber-7-the-map-s-lights-11-7.
+LIGHTS (slices/BOHEMIA_CITY_WORLD.html, the painter vbCityCore, __THE_MAP_S_LIGHTS_READ_AS_LIGHTS__; the generation untouched): a
+burned block's embers were a roll on every roof texel (3.5 in 100: ~45 specks a block at 36 texels, ~570 at 128, the red sand); now a
+5 x 5 grid of the block's own size, one cell in 16 an ember (a hot core, a glow), the same few at every zoom. A lamp lit its whole strip
+of walk flat yellow (the dash); now its head burns on its post and a warm pool lies on the ground round it; every other lamp spot (WORLD
+THIRTEEN's house streets, landed the same hour, a lamp every other lot; a town's pad and ramp) gets the same pool from its spot, none
+left dark (the painter counts it). A lit window glows into the texels beside it (powered blocks only). The painter is in its worker: no frame cost (the gate holds its time within 15% of the old).
+inp.lightsOld = the old way.
+EVERY CHANGE AT SIXTY, measured on the phone (MOTION's morph gate with the driver's frame log: BOHEMIA_FRAME_LOG=<file>, then
+tools/bohemia_every_change_at_sixty.js <file>). FIXED: (1) slices/bohemia_job_danger.js __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__: the
+crew screen's first open hands the fight's door the crew screen's own company (names, looks, line), the crew key turns, and the
+phone's deal planned every job again in one piece (466 ms; the crew's grow 13.6 fps, worst 550 ms); now a board's own ask for a crew
+with no plays yet is planned a few at a time in the frames' gaps, not under a change that plays (past 1.5 s of one, a piece held in a
+town, they go on); a plan still to make counts in state().queue (41 to 50 fps, worst 83 to 100 ms; the same jobs posted).
+window.__JOB_DANGER_SYNC = the old way. (2) engine/bohemia_idles.js __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__:
+the first way out of a town unpacked the crowd's 14 idle sheets in one frame (367 to 450 ms); now each is unpacked in idle time into a
+one-pixel CPU canvas before it counts as in (the leave 50 to 54 fps, worst 67 to 83 ms). window.__IDLES_NO_WARM = the old way.
+GATES (rebased on f956e890, one at a time): THE MAP'S LIGHTS READ AS LIGHTS (new) 9/0, EVERY CHANGE AT SIXTY (new) 7/0, THE FAR
+END IS PAINTED 11/0, FIRST PLAY IS LIGHT 7/0, THE TOWN'S ACTIVITIES 22/0, THE ZOOM DOWN INTO THE BOARD 28/0, THE BOARDS ALWAYS HAVE
+WORK 24/0, THE ROSTER COUNTS WHO CAN FIGHT 6/0, SMOOTH IS A BUDGET 25/1 three runs, a different leg each (a page error once, the far median once: this round's background work, now spaced into idle time; the opening stop travelling at 4x 5.1 against the ratchet 5.5, and MAIN ALONE MEASURES THE SAME, 4.4 vs 4.5: main's new streets cost travel a third since round 1, routed), EVERYONE IN THE FIGHT HOLDS 54/1 (E2, red on main in round 1 too), DEMO BUILD 25/0,
+PAGES PUBLISH 28/0. Not this round's reds: DEMO IS CURRENT 15/1 (the walk pad), EVERYBODY IDLES 38/3 (art data), THE UI MORPHS 19/6
+(MOTION's camp grow and phone folds). THE DANGER RAMPS TO DAY FIFTY not run to its end (20 min a crew-day on this box; its first,
+the Lone Wolf on day 1, right).
+FOUND, NOT FIXED: (1) FOR UI / the settlement screen: the town's grow 13 to 19 fps on this box's software canvas: it repaints the whole
+town picture every frame at 3x (1170 x 2532); the cure if a phone shows it is the still picture on its own layer, only the people
+repainted. (2) FOR UI: the phone's own tick (bohemia_phone.js tick -> paintHere) 50 to 60 ms once a second on the map; on the emulated
+GPU its microtasks wait 300 to 500 ms on GetImageData read-backs. (3) FOR MOTION 2 (its files untouched): the way into a fight on the
+page's thread at full speed: the come-down 44 fps (worst 100 ms, the map still drawing under it), THE HOLD 20 fps with a worst frame of
+850 ms (the fight built under the tape; a tap waits that long), the turn 16 fps, the way out 33 (worst 250); the bar's fly off as a
+fight comes 20 and 7.8 fps. (4) FOR WORLD: one job's plan is one piece: a find on the region's land (qd-ar06) is 40 to 140 ms of
+bohemia_region.js regionRoute (A* over the whole region per call; the valley's 466 plans are 4.8 s): keep routes by their ends while
+the land is the same. (5) FOR RUN / CHARACTER: the fight's door hands two different companies before and after the crew screen first
+opens (before: xp, stars, plan, rolled; after: names, looks, the line, no stars): if the fight plays them differently, a job's stars
+read before the crew screen are read against the wrong men. (6) STILL FROM ROUND 1: the street stop's ground strip paint; the board's
+daily re-plan (a new day with the same crew is still planned in one piece: a read can come back at once there, so it was kept).
+(7) A PAGE ERROR SEEN ONCE in SMOOTH IS A BUDGET and EVERYONE IN THE FIGHT HOLDS (the same pass), 'drawImage: the provided value is not
+of type', never again in two runs each: run any checker with BOHEMIA_PAGEERROR_LOG=<file> (new in the driver) and every page error is
+kept with its stack. (8) FOR WORLD THIRTEEN / PLUMBER NEXT: the map travelling at 4x lost a third since round 1 on main itself (the
+opening stop 8.4 -> 4.4 to 5.6 fps; SMOOTH's ratchet 5.5 now sits on the line).
+NEXT FOR WHOEVER: the travel at 4x back over its ratchet; the town's still layer; the day's re-plan spread the same way once a day's
+reads are proved to wait; the download.
+
 PLUMBER 7 (chat 18) 11/7 -- rule 418(c), ask line 478: THE MAP RUNS ON A CHEAP PHONE (the map at every stop travelling, and the zoom
 down, on the phone-shaped CPU). BUILT, NOT YET SEEN (BUILD 11/7j THE MAP RUNS ON A CHEAP PHONE). Record:
 records/BOHEMIA_PLUMBER_THE_MAP_RUNS_ON_A_CHEAP_PHONE_11_7_26.md.

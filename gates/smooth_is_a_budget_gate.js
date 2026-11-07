@@ -81,7 +81,7 @@ const say = (r) => r ? r.fps + ' fps, median ' + r.p50 + ' ms, worst ' + r.max +
   console.log('\nSMOOTH IS A BUDGET (rule 400, rule 384(f), the brother\'s three glitches)  ' + profile + '\n');
   const d = await D.open({ profile, fog: false });
   const errs = [];
-  d.page.on('pageerror', e => errs.push(String(e).slice(0, 140)));
+  d.page.on('pageerror', e => errs.push(String(e).slice(0, 140) + ' @ ' + String(e && e.stack || '').split('\n').slice(1, 4).map(x => x.trim().replace(/^at /, '').replace(/https?:\/\/[^/]+\//g, '')).join(' < ').slice(0, 260)));   /* PLUMBER 7: where it threw */
   const M = (fn, a) => d.page.evaluate(fn, a);
   const READ = (a, b) => M(([a, b]) => BohemiaFrameMeter.read(a, b), [a, b]);
   const NOW = () => M(() => performance.now());

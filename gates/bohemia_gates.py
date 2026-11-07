@@ -10606,6 +10606,22 @@ GATES = [
      "budget with the 8 MB goal printed beside it, on the phone and a computer; under 700 files; nothing downloaded twice; no song "
      "recording, gang sheet or map idle sheet before first play, and all of them in within 30 s after it; P7 the before: the hold "
      "switched off carries 10 MB more. The budget only comes down. About 6 min", True),
+    ('THE MAP\'S LIGHTS READ AS LIGHTS', ['node', 'gates/the_map_s_lights_read_as_lights_gate.js'],
+     "PLUMBER 7 gate, 11/7, rule 393(a)(b)(c), rule 427(d), ask line 428 (PAOLO 11/4: 'wtf are the yellow lights and red lights looking "
+     "stuff, I zoomed in and when it didn't disappear it was looking like hella red sand, ugly'): the map's painter (vbCityCore) on a "
+     "stranger's valley, its burned blocks the campaign's, at 36, 60, 96 and 128 texels a block: a burned block's embers few and the same "
+     "at every zoom (at most 3, within a factor of 2), their light at most 2% of the char and each a core of 3 texels or more up close "
+     "(never a speck); a lit arterial's lamps light the ground (40+ texels of partial warm light a block) and no walk texel in the lamp's "
+     "flat yellow (the old dash), the head still on its post; a lit window glows into the texels round it; P1 the old way (inp.lightsOld) "
+     "turns the embers and the lamps red. About 2 min", True),
+    ('EVERY CHANGE AT SIXTY', ['node', 'gates/every_change_at_sixty_gate.js'],
+     "PLUMBER 7 gate, 11/7, rule 418, rule 427(d), ask line 441 ('every UI change at 60 frames a second, never a slideshow'): the demo "
+     "at 390 x 844, twice, the new way and the old: the crew screen opened the first time (the crew key turns) never freezes the screen "
+     "(the board's plans for a new crew made a few at a time in the frames' gaps, never under a change that is playing; the longest frame "
+     "until the last plan under 200 ms, before 400 to 550), the board posts the same jobs either way, the jobs on the phone still read; "
+     "the first way out of a town never freezes the map (the crowd's idle sheets unpacked in idle time before they are drawn; the leave's "
+     "longest frame under 150 ms, before 367 to 450); the town's grow and leave and the crew's grow and DONE measured against the sixty "
+     "budget; P1 the old way (window.__JOB_DANGER_SYNC, window.__IDLES_NO_WARM) turns both legs red. Solo: it measures time. About 5 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
      "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "

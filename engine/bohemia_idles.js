@@ -105,11 +105,39 @@
     var tl = timeline(kind); if (!tl) return null;
     return { slot: slot, kind: kind, pose: poseIn(tl, kin) };
   }
+  /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__ (PLUMBER 7, 11/7/26, a marked block in ANIMATION's file; ask line 441, rule 418:
+     every change at sixty frames a second). MEASURED on the demo at 390 x 844: the first time he leaves a town the map draws its
+     crowd from fourteen idle sheets it has never drawn (rig_idles/map_*.webp, 2048 wide, streamed in behind the town since
+     FIRST PLAY), and a picture is unpacked the first time a canvas draws it, on the page's own thread: the fourteen in one frame,
+     367 to 431 ms at full speed (about 1.7 s at 4x), the map frozen as the town shrinks into it. The browser's img.decode() does
+     not reach a canvas (measured: 8 sheets drawn after it still took 247 ms). NOW a sheet is in once it is unpacked: drawn once
+     into a one-pixel canvas in the page's idle time, one sheet a turn, 100 ms apart (26 to 57 ms each), so a canvas that draws it after takes
+     1 ms (the one-pixel canvas asks to be kept on the CPU, willReadFrequently: on a GPU canvas its read would wait on the GPU); until then the screen draws what it draws for a sheet not in yet (the man's still). A checker's old way:
+     window.__IDLES_NO_WARM = true. */
+  var WARM = [], WARMING = false, WARMC = null, WARMST = { n: 0, ms: 0, max: 0 };
+  function warmSoon() {
+    if (WARMING || !WARM.length) return; WARMING = true;
+    var go = function () { WARMING = false; warmOne(); warmSoon(); };
+    setTimeout(function () {   /* a gap of frames between two sheets, then the page's idle time */
+      try { if (typeof root.requestIdleCallback === 'function') { root.requestIdleCallback(go, { timeout: 600 }); return; } } catch (x) {}
+      go(); }, WARMST.n ? 100 : 16);
+  }
+  function warmOne() {
+    var e = WARM.shift(); if (!e) return; var t = (root.performance ? performance.now() : 0);
+    try { if (!WARMC) { WARMC = document.createElement('canvas'); WARMC.width = 1; WARMC.height = 1; }
+      var g = WARMC.getContext('2d', { willReadFrequently: true }); g.drawImage(e.im, 0, 0, 1, 1, 0, 0, 1, 1); g.getImageData(0, 0, 1, 1); } catch (x) {}   /* a canvas kept on the CPU: never a read back from a GPU */
+    e.ok = true;
+    var ms = (root.performance ? performance.now() : 0) - t; WARMST.n++; WARMST.ms += ms; WARMST.max = Math.max(WARMST.max, ms);
+  }
+  function loaded(e) {
+    if (root.__IDLES_NO_WARM || typeof document === 'undefined' || !e.im.naturalWidth) { e.ok = true; return; }
+    WARM.push(e); warmSoon();
+  }
   function sheet(file) {
     var u = BASE + file, e = IM[u];
     if (!e) {
       e = IM[u] = { im: new Image(), ok: false };
-      e.im.onload = function () { e.ok = true; };
+      e.im.onload = function () { loaded(e); };
       e.im.src = u;
     }
     return e.ok ? e.im : null;
@@ -245,7 +273,7 @@
   }
   function tsheet(file) {
     var u = TBASE + file, e = IM[u];
-    if (!e) { e = IM[u] = { im: new Image(), ok: false }; e.im.onload = function () { e.ok = true; }; e.im.src = u; }
+    if (!e) { e = IM[u] = { im: new Image(), ok: false }; e.im.onload = function () { loaded(e); }; e.im.src = u; }   /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__ */
     return e.ok ? e.im : null;
   }
   function activity(look, seed, now, f, o) {
@@ -265,6 +293,7 @@
     meta: function () { return META; },
     /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): a screen that is put away lets go of every sheet it drew from (the town's
        idles were 188 MB decoded across three places and none was ever let go); the next frame() fetches what it needs again */
-    release: function () { IM = {}; } };
+    release: function () { IM = {}; },
+    warmed: function () { return { n: WARMST.n, ms: Math.round(WARMST.ms), max: Math.round(WARMST.max), waiting: WARM.length }; } };   /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__ */
   if (typeof module !== 'undefined') module.exports = root.BohemiaIdles;
 })(typeof window !== 'undefined' ? window : this);

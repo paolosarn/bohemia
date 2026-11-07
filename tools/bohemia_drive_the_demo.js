@@ -636,6 +636,23 @@ async function open(opts) {
     await page.waitForTimeout(1500);
   };
 
+  /* BOHEMIA_FRAME_LOG (PLUMBER 7, 11/7, rule 400(d), ask line 441: 'every UI change at 60 frames a second'): set to a file path, the
+     frame meter records from here to close(), and close() writes every frame time and the motion layer's log of every change
+     (BohemiaMotion.log) to it, one JSON line a session; any checker that drives the demo can be read for its changes' frames that
+     way, unchanged (tools/bohemia_every_change_at_sixty.js reads it). Unset, nothing changes. */
+  const FRAME_LOG = process.env.BOHEMIA_FRAME_LOG || null;
+  /* BOHEMIA_PAGEERROR_LOG (PLUMBER 7, 11/7): set to a file path, every page error any checker's run meets is written there with its
+     stack, one JSON line each (a gate keeps only the message: a 'drawImage ... not of type' in SMOOTH IS A BUDGET and EVERYONE IN THE
+     FIGHT HOLDS came without a place). Unset, nothing changes. */
+  if (process.env.BOHEMIA_PAGEERROR_LOG) page.on('pageerror', e => { try { fs.appendFileSync(process.env.BOHEMIA_PAGEERROR_LOG, JSON.stringify({ at: Date.now(), script: (require.main && require.main.filename || '').split(/[\\/]/).pop(), msg: String(e).slice(0, 300), stack: String(e && e.stack || '').slice(0, 2000) }) + '\n'); } catch (x) {} });
+  if (FRAME_LOG) { try { await page.evaluate(() => { try { window.BohemiaFrameMeter && BohemiaFrameMeter.start(); } catch (e) {} }); } catch (e) {} }
+  const frameLogWrite = async () => { if (!FRAME_LOG) return; try {
+    const got = await page.evaluate(() => ({ origin: performance.timeOrigin, at: location.pathname, frames: window.BohemiaFrameMeter ? BohemiaFrameMeter.read(null, null) : null,
+      t: window.BohemiaFrameMeter && BohemiaFrameMeter.times ? BohemiaFrameMeter.times() : null,
+      log: window.BohemiaMotion && BohemiaMotion.log ? JSON.parse(JSON.stringify(BohemiaMotion.log)) : null,
+      dive: window.BohemiaMotion && BohemiaMotion.dive && BohemiaMotion.dive.log ? JSON.parse(JSON.stringify(BohemiaMotion.dive.log.map(r => ({ kind: r.kind, t0: r.t0, ms: r.ms, phases: r.phases, reduced: r.reduced })))) : null }));
+    got.script = (require.main && require.main.filename || '').split(/[\\/]/).pop(); got.profile = opts.profile || 'phone_portrait';
+    fs.appendFileSync(FRAME_LOG, JSON.stringify(got) + '\n'); } catch (e) {} };
   return {
     page, fr, ctx, browser, errs, server,
     /* what loaded, and where the door was in that list (PLUMBER 9/15) */
@@ -733,7 +750,7 @@ async function open(opts) {
       }
       return out; }),
     clearCards,
-    close: async () => { await ctx.close(); await browser.close(); server.close(); }
+    close: async () => { await frameLogWrite(); await ctx.close(); await browser.close(); server.close(); }
   };
 }
 

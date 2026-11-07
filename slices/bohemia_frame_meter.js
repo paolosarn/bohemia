@@ -73,6 +73,7 @@
   window.addEventListener('keydown', function (e) { if (e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey && (e.key === 'F' || e.key === 'f')) {
     var a = document.activeElement; if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return; M.on ? hide() : show(); } }, true);
   window.BohemiaFrameMeter = { start: start, stop: stop, read: read, show: show, hide: hide, mark: function () { return performance.now(); },
+    times: function () { return M.t.slice(); },   /* every frame's time, for a checker that cuts its own windows (PLUMBER 7) */
     on: function () { return M.on; }, recording: function () { return M.rec; }, budget: BUDGET };
   try { if (localStorage.getItem(KEY) === 'on') { if (document.body) show(); else document.addEventListener('DOMContentLoaded', show); } } catch (e) {}
 })();
