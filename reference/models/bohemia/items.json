@@ -1808,7 +1808,8 @@
    "rows": [
     "zip_gun"
    ],
-   "sha1": "f5c127e71efc611fe6e4b5eec42ae3294ebd1fe0",
+   "sha1": "4b74894cb351a2c9685f0f5fee6867367e536e33",
+   "hand_grow": "1.35 over real about the grip, WEAPONS 11/7 rule 426(c): what his fist leaves showing reads its real length (the pistol a forearm's)",
    "hands": 1,
    "was": "pistol"
   },
@@ -1821,7 +1822,8 @@
    "rows": [
     "snub_revolver"
    ],
-   "sha1": "27fb1b91213fad39090f231ec217fb9e56b7f7bd",
+   "sha1": "5d9b3acfdf3d1d4cb055d28844de0c446193c814",
+   "hand_grow": "1.35 over real about the grip, WEAPONS 11/7 rule 426(c): what his fist leaves showing reads its real length (the pistol a forearm's)",
    "hands": 1,
    "was": "pistol"
   },
@@ -1891,7 +1893,8 @@
     "qatal_dagger",
     "estoc"
    ],
-   "sha1": "60c9256935acb07b49fcd9aef6e8a397cb8d2e97",
+   "sha1": "6c879bb22832be3078f6ba1f7528002b53e05650",
+   "hand_grow": "1.35 over real about the grip, WEAPONS 11/7 rule 426(c): what his fist leaves showing reads its real length (the pistol a forearm's)",
    "hands": 1,
    "was": "pistol",
    "real": "WPN-01"

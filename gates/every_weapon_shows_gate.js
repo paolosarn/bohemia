@@ -17,6 +17,9 @@
      MUTATIONS (the gate must bite, planted in the live pages and taken back): the sword's two-handed picture taken out of the
      index (the five swords must go red, in the data, the fight and the crew screen); the tire iron's row and its class's fallback
      taken out (the tire iron must go red).
+     R  AT A REAL SIZE (rule 426(c), his 'Too tiny' on the pistol card): in the same fight, every row's thing as drawn is at least
+        0.85 of its real length on the rig's ruler (a hanging cord 0.6), and THE PISTOL at least a forearm; planted: the pistol put
+        back to the old class pistol goes red.
      M  THE MAP (a note, not a leg yet): the map's men are drawn from their own walk sheets and hold nothing; counted, not judged
         (handoffs/WEAPONS.md: the map's own render is the next round).
    node gates/every_weapon_shows_gate.js            (all legs)
@@ -94,6 +97,7 @@ async function waitFor(page, fn, ms) { const s = Date.now(); while (Date.now() -
 const FIGHT_WALK = async (args) => {
   const S = FIGHT.S, rows = DB.weapons.rows, shields = DB.armor.shields, sleep = ms => new Promise(r => setTimeout(r, ms));
   if (args.mutate === 'sword') delete MELEE.meta.two_by_class.sword;
+  if (args.mutate === 'small_pistol') { const M = ownGunMeta(); if (M) Object.keys(M.by_row).forEach(r => { if (M.by_row[r] === 'dagger') delete M.by_row[r]; }); }
   S.night = false; UI.anim = [];
   const ours = S.units.filter(v => v.side === 'you' && FIGHT.onField(v) && !v.beast && !v.machine && !v.ghost);
   let carries = {}; try { carries = R('ours.model_carries').looks || {}; } catch (e) {}
@@ -102,8 +106,11 @@ const FIGHT_WALK = async (args) => {
     const k = L._key || v.look; if (!seen[k] && !carries[k] && men.length < 2) { seen[k] = 1; men.push(v); } });
   if (!men.length) return { err: 'nobody of his on the field' };
   const keep = men.map(v => ({ w: v.weapon, s: v.shield, sb: v.shieldBack, f: v._face }));
+  /* his facing held while he is drawn: the fight turns a standing man a notch toward his nearest foe a beat after his last turn
+     (turnTo), which raced the facing this walk sets (COOK's pistol proof met the same) */
+  const keepTurn = turnTo; turnTo = function () {};
   const orig = cx.drawImage; let LOG = null;
-  cx.drawImage = function (img) { if (LOG) LOG.push([String((img && (img.src || (img.base && img.base.src))) || ''), arguments[1], arguments[2]]); return orig.apply(this, arguments); };
+  cx.drawImage = function (img) { if (LOG) LOG.push([String((img && (img.src || (img.base && img.base.src))) || ''), arguments[1], arguments[2], arguments[3], arguments[4], img]); return orig.apply(this, arguments); };
   const base = s => s.split('?')[0].split('/').slice(-2).join('/');
   /* every props sheet's cells, by file and place: the prop it is (every melee look loaded so far) */
   const CELL = {}, RUN_ = Math.random();   /* each walk indexes afresh (a second walk in the same page found every look marked done and an empty index) */
@@ -113,7 +120,7 @@ const FIGHT_WALK = async (args) => {
     d._indexed = RUN_; }); };
   const what = e => { const f = base(e[0]); if (/_guns\.webp$|own_guns\//.test(f)) return 'gun'; return CELL[f + '|' + e[1] + '|' + e[2]] || null; };
   const arm = (v, row, sh) => { v.weapon = row ? (FIGHT._t.pistolShot(row) || row) : null; v.shield = sh || null; v.shieldBack = null; };
-  const drawOnce = (v, f) => { v._face = f; const b = manBox(v.x, v.y); LOG = []; try { blitMan(v, b.x, b.feet, performance.now(), 1); } catch (e) { LOG.push(['ERR ' + e.message, 0, 0]); } const l = LOG; LOG = null; return l; };
+  const drawOnce = (v, f, dt) => { v._face = f; const b = manBox(v.x, v.y); LOG = []; try { blitMan(v, b.x, b.feet, performance.now() + (dt || 0), 1); } catch (e) { LOG.push(['ERR ' + e.message, 0, 0]); } const l = LOG; LOG = null; return l; };
   let job = [];
   rows.forEach(r => job.push({ id: r.id, row: r, sh: null }));
   const pipe = rows.find(r => r.id === 'bludgeon');
@@ -127,15 +134,31 @@ const FIGHT_WALK = async (args) => {
     for (let t = 0; t < 120 && !inn(); t++) await sleep(250);
     index(); const n = asked(); if (n === n0 && inn()) break; n0 = n; await sleep(1500);
   }
+  /* R: how long the thing is as drawn, in the sheet's art pixels (the rig's ruler: 98 px to 1.72 m), its opaque pixels' longest
+     span over 32 directions, less the cut's one-pixel rim each side; a gun's grid cell is the whole frame with only the gun on it */
+  const SPAN = {}, scratch = document.createElement('canvas'), sg = scratch.getContext('2d', { willReadFrequently: true });
+  const span = e => { const key = e[0] + '|' + e[1] + '|' + e[2] + '|' + e[3] + '|' + e[4]; if (SPAN[key] !== undefined) return SPAN[key];
+    let r = 0; try { const w = Math.max(1, e[3] | 0), h = Math.max(1, e[4] | 0); scratch.width = w; scratch.height = h; sg.clearRect(0, 0, w, h);
+      sg.drawImage(e[5], e[1], e[2], w, h, 0, 0, w, h); const d = sg.getImageData(0, 0, w, h).data, xs = [], ys = [];
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] > 0) { xs.push(x); ys.push(y); }
+      for (let t = 0; t < 32; t++) { const c = Math.cos(t * Math.PI / 32), sn = Math.sin(t * Math.PI / 32); let lo = 1e9, hi = -1e9;
+        for (let i = 0; i < xs.length; i++) { const p = xs[i] * c + ys[i] * sn; if (p < lo) lo = p; if (p > hi) hi = p; } if (hi - lo > r) r = hi - lo; }
+      r = Math.max(0, r - 2); } catch (x) { r = -1; }
+    return (SPAN[key] = r); };
+  const gunOf = v => { const w = v.weapon, b = w && (w.of || w); if (!b || !FIGHT.isGun(w)) return null; const M = ownGunMeta(); return (M && M.by_row[b.id]) || 'class:' + DB.rig.guns.by_class[b.class]; };
   const out = { men: men.map(v => lookOf(v)._key), rows: {}, errs: [] };
   for (const v of men) for (const j of job) {
-    arm(v, j.row, j.sh); const q = want(v, j); let n = 0;
+    arm(v, j.row, j.sh); const q = want(v, j); let n = 0, len = 0;
     for (let f = 0; f < 8; f++) { const l = drawOnce(v, f); l.forEach(e => { if (e[0].startsWith('ERR')) out.errs.push(j.id + ': ' + e[0]); });
-      if (q && l.some(e => what(e) === q)) n++; }
-    const k = lookOf(v)._key; (out.rows[j.id] = out.rows[j.id] || {})[k] = { want: q, facings: n };
+      const hit = q ? l.filter(e => what(e) === q) : []; if (hit.length) n++;
+      /* the length: the same standing man a few moments on (his idle's other keys: the fight draws one key a moment) */
+      /* standing in the open (a man on a cover tile kneels and holds it close: the size is read on the man standing) */
+      if (q) { const kc = holdCovered; holdCovered = function () { return false; };
+        try { [0, 700, 1900, 3700, 6100].forEach(dt => drawOnce(v, f, dt).filter(e => what(e) === q).forEach(e => { len = Math.max(len, span(e)); })); } finally { holdCovered = kc; } } }
+    const k = lookOf(v)._key; (out.rows[j.id] = out.rows[j.id] || {})[k] = { want: q, facings: n, len: Math.round(len * 10) / 10, gun: j.sh ? null : gunOf(v) };
   }
   men.forEach((v, i) => { v.weapon = keep[i].w; v.shield = keep[i].s; v.shieldBack = keep[i].sb; v._face = keep[i].f; });
-  cx.drawImage = orig;
+  cx.drawImage = orig; turnTo = keepTurn;
   return out;
 };
 
@@ -176,6 +199,46 @@ const CREW_WALK = async (args) => {
   return out;
 };
 const missing = R => Object.keys(R.rows).filter(id => Object.values(R.rows[id]).some(x => x.facings < MIN_FACINGS));
+/* R: AT A REAL SIZE (rule 426(c), Paolo 11/7 on the pistol card: 'Too tiny'; the coordinator: 'a weapon in the hand reads at its real
+   size against the man (a pistol is about a forearm's length from the grip to the muzzle's end)'). The rig's ruler: 98 px to 1.72 m.
+   A thing's real length: its model's (COOK's measured box), a handgun's its model's over the hand grow it is built with (the fist
+   hides its grip: own_guns.json hand_grow_k). Drawn as long as 0.85 of it (a rigid thing), 0.6 (a cord, a thong or a chain that
+   hangs from the fist: the source's 'hanging'); THE PISTOL at least a forearm (0.146 of a man's height, anthropometry's forearm). */
+const PXM = FR.ruler.px / FR.ruler.m, FOREARM = 0.146 * FR.ruler.px;
+function glbLen(file) {   /* a glb's longest side in metres: every mesh's box through its node's transforms */
+  const b = fs.readFileSync(path.join(ROOT, file)), n = b.readUInt32LE(12), j = JSON.parse(b.slice(20, 20 + n).toString());
+  const mul = (A, B) => { const C = new Array(16).fill(0); for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) for (let k = 0; k < 4; k++) C[c * 4 + r] += A[k * 4 + r] * B[c * 4 + k]; return C; };
+  const trs = nd => { if (nd.matrix) return nd.matrix; const t = nd.translation || [0, 0, 0], q = nd.rotation || [0, 0, 0, 1], sc = nd.scale || [1, 1, 1];
+    const [x, y, z, w] = q, R = [1 - 2 * (y * y + z * z), 2 * (x * y + z * w), 2 * (x * z - y * w), 0, 2 * (x * y - z * w), 1 - 2 * (x * x + z * z), 2 * (y * z + x * w), 0, 2 * (x * z + y * w), 2 * (y * z - x * w), 1 - 2 * (x * x + y * y), 0, 0, 0, 0, 1];
+    for (let c = 0; c < 3; c++) for (let r = 0; r < 3; r++) R[c * 4 + r] *= sc[c]; R[12] = t[0]; R[13] = t[1]; R[14] = t[2]; return R; };
+  const lo = [1e9, 1e9, 1e9], hi = [-1e9, -1e9, -1e9];
+  const walk = (i, M) => { const nd = j.nodes[i], W = mul(M, trs(nd));
+    if (nd.mesh !== undefined) j.meshes[nd.mesh].primitives.forEach(pr => { const a = j.accessors[pr.attributes.POSITION];
+      for (let k = 0; k < 8; k++) { const p = [k & 1 ? a.max[0] : a.min[0], k & 2 ? a.max[1] : a.min[1], k & 4 ? a.max[2] : a.min[2]];
+        for (let r = 0; r < 3; r++) { const v = W[r] * p[0] + W[4 + r] * p[1] + W[8 + r] * p[2] + W[12 + r]; lo[r] = Math.min(lo[r], v); hi[r] = Math.max(hi[r], v); } } });
+    (nd.children || []).forEach(c => walk(c, W)); };
+  const I = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+  (j.scenes[j.scene || 0].nodes).forEach(i => walk(i, I));
+  return Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]);
+}
+const OWNJ = J('slices/fight_rig/own_guns.json'), HANG = new Set(J('records/target/animation/BOHEMIA_MELEE_AND_SHIELD.json').hanging || ['chain']);
+const CLASS_GUN = { pistol: 'gun_pistol_a', rifle: 'gun_rifle_a', shotgun: 'gun_shotgun_a' };
+const realOf = (x) => {   /* [metres, the share it must be drawn at, the rule's name] or null when the thing has no measure */
+  if (x.gun) { const own = x.gun.indexOf('class:') !== 0, m = own ? OWNJ.model[x.gun] : CLASS_GUN[x.gun.slice(6)];
+    if (!m || !fs.existsSync(path.join(ROOT, 'reference/models/bohemia', m + '.glb'))) return null;
+    const k = own && (OWNJ.hand_grow_k || {})[x.gun] || 1; return [glbLen('reference/models/bohemia/' + m + '.glb') / k, 0.85, 'gun ' + x.gun]; }
+  const mj = path.join(ROOT, 'records/target/cook_every_item/measured_' + x.want + '.json'); if (!fs.existsSync(mj)) return null;
+  return [Math.max.apply(null, J('records/target/cook_every_item/measured_' + x.want + '.json').size_m), HANG.has(x.want) ? 0.6 : 0.85, x.want]; };
+function sizeFaults(R) {
+  const short = [], pistol = [], unmeasured = new Set();
+  Object.keys(R.rows).forEach(id => Object.entries(R.rows[id]).forEach(([look, x]) => {
+    if (!x.want || !x.facings) return;
+    const r = realOf(x); if (!r) { unmeasured.add(x.want); return; }
+    const need = r[0] * PXM * r[1]; if (x.len < need) short.push(id + '@' + look + ' ' + x.len + ' < ' + need.toFixed(1) + ' (' + r[2] + ')');
+    if ((x.gun === 'dagger' || x.gun === 'class:pistol') && x.len < FOREARM) pistol.push(id + '@' + look + ' ' + x.len + ' < ' + FOREARM.toFixed(1));
+  }));
+  return { short, pistol, unmeasured: [...unmeasured] };
+}
 const SWORDS = ['rhomphaia', 'warbrand', 'longsword', 'greatsword', 'executioner_s_sword'];
 
 (async () => {
@@ -217,6 +280,14 @@ const SWORDS = ['rhomphaia', 'warbrand', 'longsword', 'greatsword', 'executioner
         note('F the fight\'s men: ' + F1.men.join(', ') + '; ' + Object.keys(F1.rows).length + ' rows and shields each; errors ' + F1.errs.length);
         leg(miss.length === 0 && !F1.errs.length, 'F1 THE FIGHT (the demo\'s road fight): every row and every shield is DRAWN in his hands by the fight\'s own draw in at least ' + MIN_FACINGS + ' of 8 facings, for ' + F1.men.length + ' looks, no error',
           miss.slice(0, 12).map(id => id + ' ' + JSON.stringify(F1.rows[id])).join('; ') + (miss.length > 12 ? ' ... ' + miss.length : '') + ' ' + F1.errs.slice(0, 2).join('; '));
+        const sz = sizeFaults(F1);
+        note('R measured against the ruler (' + PXM.toFixed(1) + ' px a metre; a forearm ' + FOREARM.toFixed(1) + ' px); no measure for: ' + (sz.unmeasured.join(', ') || 'none'));
+        leg(sz.short.length === 0, 'R1 AT A REAL SIZE: every row and every shield is drawn in his hand at least 0.85 of its real length (a hanging cord 0.6), the longest of its eight facings standing',
+          sz.short.join('; '));
+        leg(sz.pistol.length === 0, 'R2 THE PISTOL READS A FOREARM LONG in his hand (every PISTOL row, his "Too tiny")', sz.pistol.slice(0, 8).join('; '));
+        const P3 = await f.evaluate(FIGHT_WALK, { mutate: 'small_pistol', only: ['dagger', 'knife', 'bludgeon'] }), s3 = sizeFaults(P3);
+        leg(s3.pistol.some(x => x.startsWith('dagger@')) && !s3.short.some(x => x.startsWith('bludgeon@')), 'R3 MUTATION: the pistol drawn as the old class pistol (its real size, the size main drew it) goes red on R2, the pipe beside it does not',
+          JSON.stringify(s3.pistol.slice(0, 3)));
         const F3 = await f.evaluate(FIGHT_WALK, { mutate: 'sword', only: SWORDS.concat(['bludgeon', 'tire_iron', 'two_handed_mallet']) }), m3 = missing(F3);
         leg(SWORDS.every(id => m3.indexOf(id) >= 0) && m3.indexOf('bludgeon') < 0 && m3.indexOf('two_handed_mallet') < 0, 'F2 MUTATION: the sword\'s two-handed picture taken out in the live fight, the five swords go red (and only they)', m3.join(', '));
       }

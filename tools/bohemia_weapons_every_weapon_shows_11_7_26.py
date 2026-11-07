@@ -512,6 +512,78 @@ def do_fold():
     print('FOLDED; pictures held both ways now:', sorted(one & two) or 'none')
 
 
+# ------------------------------------------------------------------------------------------------ the handguns' size (rule 426(c))
+# Paolo 11/7 on COOK's pistol card: 'Too tiny'. Rule 426(c): a weapon in the hand reads at its real size against the man (a pistol
+# is about a forearm's length from the grip to the muzzle's end). MEASURED (records/BOHEMIA_WEAPONS_EVERY_WEAPON_SHOWS_11_7_26.md):
+# every melee thing and every long gun is drawn at 82 to 112 per cent of its real length in his hand on its standing key; the
+# three handguns are not, because his fist hides their grip: the pistol at most 10.4 px of its real 12.4 (a forearm is 14.3 on
+# the 98 px ruler), the snub revolver 4.3 of its real 7.9. So the three are built HAND_GROW over their real size about the grip
+# (the origin, where his hand holds it): the part a fist leaves showing reads its real length, the pistol a forearm's.
+HAND_GROW = 1.35
+HANDGUNS = {'dagger': 'gun_service_pistol', 'snub_revolver': 'gun_snub', 'zip_gun': 'gun_zip'}
+
+
+def grown(fn, k):
+    """a gun builder whose parts are scaled k about the origin (the firing hand's grip) after it builds"""
+    def b(bpy, mathutils):
+        r = fn(bpy, mathutils); bpy.context.view_layer.update()
+        S = mathutils.Matrix.Scale(k, 4)
+        for o in [o for o in bpy.context.scene.objects if o.parent is None]: o.matrix_world = S @ o.matrix_world
+        bpy.context.view_layer.update(); return r
+    return b
+
+
+def do_grow_models():
+    """the three handgun glbs, HAND_GROW over real about the grip, by their own builders (COOK's golden pistol tool, COOK's six
+    guns tool), nothing of theirs edited"""
+    import bohemia_cook_model_guns as G
+    import bohemia_cook_the_golden_pistol_11_6_26 as GP
+    import bohemia_cook_the_six_guns_11_3_26 as SG
+    G.BUILDERS[GP.MODEL] = grown(GP.service_pistol, HAND_GROW)
+    print('MODEL', G.build(GP.MODEL, os.path.join(ROOT, 'reference/models/bohemia/%s.glb' % GP.MODEL)), flush=True)
+    for row, fn in (('snub_revolver', SG.snub_revolver), ('zip_gun', SG.zip_gun)):
+        m = SG.SIX[row]['model']; G.BUILDERS[m] = grown(fn, HAND_GROW)
+        print('MODEL', G.build(m, os.path.join(ROOT, 'reference/models/bohemia/%s.glb' % m)), flush=True)
+
+
+def handguns_six():
+    """the six guns' tool with the snub and the zip gun as its whole list (COOK's golden tool does the pistol the same way)"""
+    import bohemia_cook_the_six_guns_11_3_26 as SG
+    SG.SIX = {k: SG.SIX[k] for k in ('snub_revolver', 'zip_gun')}
+    return SG
+
+
+def do_grow_render(which, workers=4):
+    """'pistol': COOK's golden tool (its own low ready patched in memory); 'small': the snub and the zip gun on ANIMATION's low
+    ready (a separate run, so the golden patch never reaches them)"""
+    if which == 'pistol':
+        import bohemia_cook_the_golden_pistol_11_6_26 as GP
+        SG = GP.six(); SG.do_render([GP.ROW], list(SG.SYSTEMS), workers)
+    else:
+        SG = handguns_six(); SG.do_render(list(SG.SIX), list(SG.SYSTEMS), workers)
+
+
+def do_grow_pack():
+    """the snub and the zip gun through the six guns' pack, merged into own_guns.json the way COOK's golden pack merges the pistol
+    (every other gun's cells and file untouched); then the pistol through COOK's golden pack"""
+    p = os.path.join(ROOT, 'slices/fight_rig/own_guns.json'); old = json.load(open(p))
+    SG = handguns_six(); SG.do_pack(); new = json.load(open(p))
+    for k in ('by_row', 'kind', 'model'):
+        merged = dict(old.get(k, {})); merged.update(new[k]); new[k] = merged
+    guns = dict(old['guns']); guns.update(new['guns']); new['guns'] = guns
+    for k in ('version', 'lane', 'rule', 'record', 'record_golden'):
+        if k in old: new[k] = old[k]
+    new['hand_grow'] = ("WEAPONS 11/7 (rule 426(c), Paolo on the pistol card: 'Too tiny'): the pistol, the snub revolver and the zip gun "
+                        "are built %.2f over real about the grip, so what his fist leaves showing reads its real length (the pistol a "
+                        "forearm's); tools/bohemia_weapons_every_weapon_shows_11_7_26.py grow-model" % HAND_GROW)
+    json.dump(new, open(p, 'w'), separators=(',', ':'))
+    import bohemia_cook_the_golden_pistol_11_6_26 as GP
+    GP.do_pack()
+    o = json.load(open(p)); o['hand_grow'] = new['hand_grow']; o['hand_grow_k'] = {g: HAND_GROW for g in HANDGUNS}
+    json.dump(o, open(p, 'w'), separators=(',', ':'))
+    print('PACKED the three handguns', sorted(o['guns']))
+
+
 # ------------------------------------------------------------------------------------------------ the VOTE card (python3)
 PROOF = os.path.join(ROOT, 'records/target/weapons_every_weapon_shows')
 
@@ -547,8 +619,8 @@ def do_sheet(names):
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
-    args = [a for a in sys.argv[2:] if not (cmd == 'render' and a.isdigit())]
-    num = [int(a) for a in sys.argv[2:] if cmd == 'render' and a.isdigit()]
+    args = [a for a in sys.argv[2:] if not (cmd in ('render', 'grow-render') and a.isdigit())]
+    num = [int(a) for a in sys.argv[2:] if cmd in ('render', 'grow-render') and a.isdigit()]
     if cmd == 'model': do_model(names_of(args)); os._exit(0)
     elif cmd == 'wire': do_wire(names_of(args))
     elif cmd == 'render': do_render(names_of(args), num[0] if num else 4)
@@ -559,4 +631,7 @@ if __name__ == '__main__':
     elif cmd == 'manifest': do_manifest(names_of(args))
     elif cmd == 'sheet': do_sheet(names_of(args))
     elif cmd == 'fold': do_fold()
+    elif cmd == 'grow-model': do_grow_models(); os._exit(0)
+    elif cmd == 'grow-render': do_grow_render(args[0] if args else 'pistol', num[0] if num else 4)
+    elif cmd == 'grow-pack': do_grow_pack()
     else: sys.exit(__doc__)

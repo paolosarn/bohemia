@@ -121,6 +121,27 @@ the red ball still on it. Pull it on a man."
   class's fallback taken out (the tire iron goes red).
 - M the map: counted, not judged (0 men with a weapon in hand); the leg lands with the map's render.
 
+## THE PISTOL, 'TOO TINY' (rule 426(c), ask line 494; his vote on COOK's pistol card; BUILD 11/7o)
+
+The coordinator's reading: a weapon in the hand reads at its real size against the man (a pistol is about a forearm's length from
+the grip to the muzzle's end). MEASURED on the shipped sheets, every thing on its standing key, the longest of its eight facings,
+against its model's real length on the rig's ruler (98 px to 1.72 m, 57 px a metre):
+- every melee thing, shield, bow and long gun was already drawn at 82 to 141 per cent of real (the hanging cords and whips 68 to
+  89: a cord hangs, it is never held straight; the shields over 1.3: a car door is a big thing);
+- THE THREE HANDGUNS WERE NOT: the fist hides the grip. The pistol (the 1911, 0.216 m, 12.4 px real) showed at most 10.4 px in his
+  low ready; a forearm is 14.3 px (0.146 of a man's height). The snub revolver showed 4.3 of its real 7.9, the zip gun 11.0.
+FIXED: the three are built 1.35 over real about the grip (the origin, where his hand holds them), by their own builders (COOK's
+golden pistol tool and six guns tool, imported, nothing of theirs edited: tools/bohemia_weapons_every_weapon_shows_11_7_26.py
+grow-model, grow-render, grow-pack), and re-rendered in YOU's hands in all four of a gun's picture systems (the fight's grid, the
+held clips, the idles, the shield arm), the golden pistol's own low ready kept. NOW the pistol shows 15.5 px in the low ready (17 in
+the carry), the snub 8.3, the zip gun 18; the four long guns and every other gun's cells untouched (the merge checked: by_row, the
+models, the shift tables the same). The manifest (reference/models/bohemia/items.json) carries the new hashes and why.
+records/target/weapons_every_weapon_shows/the_pistol_a_forearm_long.webp: BEFORE and NOW on YOU in the eight facings.
+THE GATE HOLDS IT (EVERY WEAPON SHOWS, R legs): in the demo's own fight, every row's thing as drawn is at least 0.85 of its real
+length (a hanging thing 0.6), and every PISTOL row at least a forearm; planted: the pistol put back to the old class pistol (its
+true size, what main drew) goes red, the pipe beside it does not.
+Not a golden PASS: the pistol stays COOK's STAND-IN golden piece; its size is now his rule's, its look still waits on DIRECTION.
+
 ## THE MAP, THE NEXT ROUND (measured, not built)
 
 The map draws his crew from their own walk sheets (slices/rig_mix and RIG_CAST, 68 x 130 frames: still, breathe, six walk keys,
@@ -134,7 +155,7 @@ next round, first. Battle Brothers' own world map shows a figure, not his kit; h
 
 Run one at a time on the rebased tree (main at 8106d196), never the whole suite (rule 13: pre-push pass; full suite unmeasured
 since 8106d196):
-- EVERY WEAPON SHOWS (new) 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
+- EVERY WEAPON SHOWS (new) 15/0 (after the pistol): D 6/0 (with 424(c)), R 3/0 (the size legs: every weapon at its real size standing, the pistol a forearm, planted), and before it 10/0: D 4/0, the demo's road fight F 2/0 (170 rows and shields, two looks, every one drawn in 3 of 8 facings or more; the planted sword reds exactly the five), the demo's crew screen C 3/0, no page error.
 - THE THING IN HIS HAND --quick 24/0 (S, P, H legs: YOU's new layers on every key, touching his fist, swung; the planted faults bite).
 - every item has a model 322/0.
 - THE CREW FIGURE HOLDS HIS GUN (amended for rule 424: a melee man holds his thing now): H1, H2 and the planted leg green on the

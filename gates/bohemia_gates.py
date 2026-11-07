@@ -10116,7 +10116,9 @@ GATES = [
      "two-handed row has its own two-handed picture. F the demo's road fight: every row and every shield (on a pipe) DRAWN in his hands by the fight's own draw, watched "
      "call by call, in at least 3 of 8 facings, for two looks. C the demo's crew screen: the card's own figure holds every row and every shield in at least 3 of 8 turns, "
      "and a man handed the golf club stands with it on the glass. Planted fails: the sword's two-handed picture taken out (the five swords red in the data, the fight "
-     "and the crew screen), the tire iron's row and its class's fallback taken out. The map is counted, not judged yet (its men hold nothing: the next round).", True),
+     "and the crew screen), the tire iron's row and its class's fallback taken out. D5 NO CHEAP ROUTE (rule 424(c)): no picture held one-handed by some rows and two-handed by others. "
+     "R AT A REAL SIZE (rule 426(c), his 'Too tiny' on the pistol card): every row's thing as the fight draws it, the man standing, at least 0.85 of its real length on the rig's ruler "
+     "(a hanging cord 0.6), every PISTOL row at least a forearm; planted: the old class pistol goes red. The map is counted, not judged yet (its men hold nothing: the next round).", True),
     ('THE TOWNS ACTIVITIES', ['python3', 'gates/the_towns_activities_gate.py'],
      "ANIMATION [the town's activities] (rule 218(a), Paolo 10/26: 'everyone on your company... maybe flirting with a girl, maybe drinking some beer, maybe walking around, maybe talking to people... make it feel alive'). "
      "Six activities through the rig (drink, smoke, talk, flirt, sit, stall), each a loop of held keys with its own breaths and variants: the source's slots; AN ENVELOPE RAMPS SLOWER THAN THE GRID on the posed model's own joints (no joint out and back across a one-key hold, none past 24 px a drawn key, every slot into every next, eight facings); the feet stay put, sitting too; "

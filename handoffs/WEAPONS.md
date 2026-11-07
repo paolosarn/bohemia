@@ -1,4 +1,4 @@
-WEAPONS (weapons-01gkdyuv, COOK's family; rule 424, ask lines 489, 490 and 515, 11/7): BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS.
+WEAPONS (weapons-01gkdyuv, COOK's family; rule 424, 426(c); ask lines 489, 490, 494, 515; 11/7): LATEST BUILD 11/7o THE PISTOL A FOREARM LONG; before it BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS.
 BUILT, NOT YET SEEN (rule 179). Record records/BOHEMIA_WEAPONS_EVERY_WEAPON_SHOWS_11_7_26.md.
 - [weapons show] THE FIGHT AND THE CREW SCREEN DONE, THE MAP NOT YET (continuing, about 2 of 3).
   MEASURED BEFORE: of the 145 weapon rows the fight drew 12 from empty fists: the five two-handed swords (rhomphaia, warbrand,
@@ -22,6 +22,11 @@ BUILT, NOT YET SEEN (rule 179). Record records/BOHEMIA_WEAPONS_EVERY_WEAPON_SHOW
 - [no cheap route] (rule 424(c), ask line 515, added mid-round): the pipe (one-handed maces AND the five two-handed maces) and the
   sledge (two-handed hammers AND the one-handed picks and war hammer) were each one object at two sizes. FOLDED: the pipe one-handed
   only, the sledgehammer two-handed only (a two-handed mace is the sledge), a one-handed hammer or pick the framing hammer. Gate D5/D6.
+- [the pistol] 'Too tiny' (rule 426(c), ask line 494): BUILD 11/7o THE PISTOL A FOREARM LONG. Measured: every melee thing and long gun
+  already drew at about real size; the three handguns did not (the fist hides the grip): the pistol 10.4 px of its real 12.4 (a
+  forearm 14.3), the snub 4.3 of 7.9. Built 1.35 over real about the grip and re-rendered in all four gun systems (COOK's golden
+  and six guns tools, imported): the pistol 15.5 px now, the snub 8.3, the zip gun 18. Gate R1 to R3 (every weapon at real size,
+  the pistol a forearm, planted). YOU rebuilt for the grid, hold and idle systems in 43 s; renders about 5 minutes.
 - tools/bohemia_armory.py FIXED (a latent bug): a rerun put every own model back on its family prop (the crowbar drawn as the pipe
   again, all 15 of COOK's), took the rows off COOK's own items.json entries, and undid TUNING's prices and the armour's own looks.
   A rerun now only ADDS; what a later lane wrote is kept.
