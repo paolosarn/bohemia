@@ -6,7 +6,8 @@ was always not taxing on any system, international, this is how the African kids
 
 ## THE ANSWER IN SIX LINES (for him, eighth grade)
 - The website deploy kept dying on GitHub's side (stuck "syncing files" for its full 10 minutes). Now it tries three times by
-  itself, two minutes apart, then sends itself again once, and if it still fails it says so in plain words. Proven on real runs.
+  itself, then sends itself again once, and if that fails too it says so in plain words. It happened for real this round:
+  GitHub hung four times in a row, the deploy kept going by itself, and the site landed 54 minutes later with no one touching it.
 - Before he could play, a stranger downloaded 48.9 MB in 633 files. Now 15.3 MB in about 400-450 files (phone, phone speed).
 - Most of the waste was hidden: the map was loading 22 MB of people behind the title screen, which covers the whole glass.
 - Songs, voices, fight sounds and the map's people now load right after he can play, behind the town he starts in.
@@ -33,7 +34,8 @@ was always not taxing on any system, international, this is how the African kids
 
 ### WHAT THE WORKFLOW DOES NOW (.github/workflows/pages.yml)
 1. The upload is named for its attempt (`github-pages-<run_attempt>`), so a re-run of a failed run works.
-2. Three deploy tries in one run (continue-on-error), each a fresh deployment of the same upload, two minutes apart.
+2. Three deploy tries in one run (continue-on-error), each a fresh deployment of the same upload, four minutes apart (see the
+   proof: a try sooner than that after a cancel can read the cancelled deployment back).
 3. No try landed: the workflow sends itself again ONCE, on main's newest commit (`workflow_dispatch`, `retry_of=<run id>`; a run
    carrying `retry_of` never sends another, so it cannot loop), and the run goes red with `THE SITE IS BEHIND FOR NOW... A FRESH
    RUN WAS SENT`, which build is live and which it built. A sent run that also fails says `THE SITE IS BEHIND. Six tries over two
@@ -49,7 +51,22 @@ was always not taxing on any system, international, this is how the African kids
 - Run 4292 (dispatch, rehearse 1, on 06ca3ec2, not yet live): try 1 gave up at 1 s (`deployment_queued`) and cancelled; try 2,
   30 s later, read the cancelled deployment back (`Deployment cancelled.` in 7 s: the deployment's id IS the commit); try 3, 90 s
   later, landed; the live check read `06ca3ec2...`. THE PAUSE WAS TOO SHORT, so both pauses are two minutes now.
-- REHEARSAL OF THE WHOLE FAILURE (all three tries, then the re-send): see THE PROOF, PART 2 below (filled when it ran).
+- THE WHOLE FAILURE, FOR REAL (no rehearsal needed): run 4295 (push 2eb939b4, this round's ship). Try 1 02:22:03 -> 02:32:08
+  timed out at 'syncing_files'; two minutes; try 2 02:34:08 -> 02:44:12 timed out; two minutes; try 3 02:46:12 -> 02:56:18 timed
+  out. At 02:56:19 the run sent itself again (run 4298, started by github-actions[bot], workflow_dispatch on main's newest commit
+  5992a448, which also carried MOTION's 11/7b; MOTION's own pending run 4297 gave its place to it) and went red with:
+  'THE SITE IS BEHIND FOR NOW. GitHub's deploy step gave up 3 times on its own side. A FRESH RUN WAS SENT (it deploys main's newest
+  commit). The live site is still 9e2508336803...; this run built 2eb939b4b00e...'
+  RUN 4298 (the re-send, retry_of 4295): try 1 02:58:53 -> 03:08:58 hung and timed out; try 2 at 03:10:58 read the cancelled
+  deployment back in 6 s ('Deployment cancelled.', two minutes after the cancel); try 3 at 03:13:04 went deployment_in_progress ->
+  syncing_files -> 'Reported success!' in 33 s; the live check read 5992a448 back at 03:13:59. SUCCESS. The site is this round's
+  build (and MOTION's 11/7b with it). Four lane pushes in that hour waited in the queue; none was lost.
+  SO THE PAUSE IS FOUR MINUTES NOW: the read-back outlived two minutes (it cleared by 90 s in run 4292 and by 246 s here).
+- THE LIVE SITE'S OWN WEIGHT (weight run 3, GitHub's runner, CPU 1x, the live site was still 9e250833, the build BEFORE this round):
+  the demo on a phone 39.58 MB in 495 files before first play (17.2 s), on a computer 45.62 MB in 531 files (13.9 s), the alpha on a
+  phone 43.15 MB in 409 files (the workshop's eight extra tile banks, 22 MB of them); heap 77 MB (the demo), 108 MB (the alpha).
+  This box's served-like-Pages count of the same build read 48.9 MB: the real host's gzip and cache land within 20%.
+  (weight run 2 failed: ubuntu-latest is Ubuntu 26.04 and Playwright 1.56 will not install there; the workflow is pinned to 24.04.)
 
 ## PART 2, RULE 418(a)(b): LIGHT AS A FLASH GAME
 

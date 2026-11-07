@@ -4,13 +4,17 @@ PLUMBER 6 (chat 18) 11/6-11/7 -- rule 418, ask line 475: (e) THE PUBLISH NEVER B
 BUILT, NOT YET SEEN (BUILD 11/7a FIRST PLAY IS LIGHT). Record: records/BOHEMIA_PLUMBER_LIGHT_AS_A_FLASH_GAME_11_6_26.md.
 THE DEPLOY: deploy-pages died at 10 min on 4270/4272/4274/4287/4288, every one at 'syncing_files' on GitHub's side (4288's 823 MB
 was 4286's size to 0.02%); its timeout is capped at MAX_TIMEOUT 600000 and it cancels itself; a re-run failed on 'Multiple
-artifacts named github-pages'. pages.yml now: the upload named per attempt; three tries, TWO MINUTES apart (rehearsed, run 4292: a
-try 30 s after a cancel reads the cancelled deployment back, the deployment id IS the commit; 90 s later it landed); no try landed
+artifacts named github-pages'. pages.yml now: the upload named per attempt; three tries, FOUR MINUTES apart (runs 4292, 4298: a
+try soon after a cancel reads the cancelled deployment back, the deployment id IS the commit); no try landed
 -> it dispatches itself ONCE (retry_of; never loops) and goes red with THE SITE IS BEHIND + the live build; the site carries
 BOHEMIA_SITE_SHA.txt and the live check reads it back past the CDN. rehearse_timeouts=N (dispatch input) proves it on a NEW commit
 only (an already-live commit 'succeeds' in 1 s, run 4291). Proven: 4289 (b9f6e926 live, try 1, 22 s), 4292 (try 3 landed, live
-check read 06ca3ec2). THE WHOLE-FAILURE REHEARSAL (rehearse 3 -> the re-send): see the record's PART 1 for its run numbers.
-weight.yml (new): THE LIVE SITE's first play weighed on GitHub's runner after every deploy (tools/bohemia_first_play.js --base).
+check read 06ca3ec2). FOR REAL: 4295 (this round's push) hung on all three tries, sent 4298 by itself and went red with THE SITE
+IS BEHIND FOR NOW + the live build; 4298's try 1 hung, try 2 read the cancel back at 2 min, try 3 landed in 33 s, the live check
+read 5992a448. So the pauses are FOUR minutes now (one commit after). The live site is this round's build.
+weight.yml (new): THE LIVE SITE's first play weighed on GitHub's runner after every deploy (tools/bohemia_first_play.js --base;
+Ubuntu 24.04, Playwright 1.56 will not install on ubuntu-latest's 26.04). Run 3 weighed the live site BEFORE this round: the demo
+39.6 MB / 495 files (phone), 45.6 MB / 531 (computer), the alpha 43.2 MB (its eight extra tile banks). The next run is the after.
 LIGHT: before, 48.9 MB in 633 files before the town he starts in was playable (the map drew 22 MB of people behind a title that
 covers the glass; songs, voices, fight sounds, machine party, all eight town shapes). Now one signal in the shell
 (__FIRST_PLAY_IS_LIGHT__: bohemiaFirstPlayHeld / bohemiaAfterFirstPlay / __FIRST_PLAY_OFF) and every heavy loader waits for it,

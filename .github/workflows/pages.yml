@@ -36,6 +36,8 @@
 # AND FROM 11/6 (PLUMBER 6, rule 418(e)) A DEPLOY THAT TIMES OUT ON GITHUB'S SIDE TRIES AGAIN BY ITSELF: three fresh
 # deployments of the same upload in one run, then one fresh run sent by the workflow itself, then a red that says THE SITE IS
 # BEHIND and which build is live. The live check reads the site's own BOHEMIA_SITE_SHA.txt, so it knows WHICH build answers.
+# PROVEN FOR REAL 11/7: run 4295's three tries all hung at 'syncing_files'; it sent run 4298, whose third try landed and whose
+# live check read its commit back (records/BOHEMIA_PLUMBER_LIGHT_AS_A_FLASH_GAME_11_6_26.md).
 #
 # THE ONE-LINK LAW is unaffected: slices/ lands at the same path, so
 # https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html never changes.
@@ -111,7 +113,7 @@ jobs:
       name: github-pages
       url: ${{ steps.pages.outputs.base_url }}
     runs-on: ubuntu-latest
-    # three deploy tries of at most 10 minutes each, two 2-minute pauses, the build before them about 3 minutes, the live check about 2
+    # three deploy tries of at most 10 minutes each, two 4-minute pauses, the build before them about 3 minutes, the live check about 2
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -204,7 +206,7 @@ jobs:
       # input at MAX_TIMEOUT = 600000 (src/internal/deployment.js), and at the limit it CANCELS the deployment itself. A
       # cancelled deployment can be made again for the same commit, so each try below is a FRESH deployment of the same upload.
       # Every try may fail without failing the job (continue-on-error); the step after them decides, and says so plainly.
-      # (30 s, then 90 s, between tries at first; two minutes each since run 4292, below.)
+      # (30 s, then 90 s, between tries at first; two minutes after run 4292; four minutes after run 4298, below.)
       - id: try1
         name: deploy, try 1 of 3
         continue-on-error: true
@@ -214,14 +216,14 @@ jobs:
           timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 1 && '1000' || '600000' }}
           reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 1 && '1000' || '5000' }}
 
-      # MEASURED 11/7 (run 4292, rehearsed): a try made 30 s after a cancel read the cancelled deployment back ('Deployment
-      # cancelled.' in 7 s; the deployment's id IS the commit, so the new one answered with the old one's state); the try made
-      # 90 s after the next cancel landed. So every retry waits two minutes first.
-      - name: try 1 did not land; two minutes before a fresh deployment
+      # MEASURED 11/7: a try made soon after a cancel reads the cancelled deployment back ('Deployment cancelled.' within seconds;
+      # the deployment's id IS the commit, so the new one answers with the old one's state): 30 s after (run 4292, rehearsed) and
+      # 120 s after (run 4298, a real hang); cleared by 90 s once and by 246 s the other time. So every retry waits four minutes.
+      - name: try 1 did not land; four minutes before a fresh deployment
         if: steps.try1.outcome == 'failure'
         run: |
-          echo "::warning title=DEPLOY TRY 1 DID NOT LAND::GitHub's deploy step gave up (its own 10-minute limit, or an error on its side). Trying again with a fresh deployment in two minutes."
-          sleep 120
+          echo "::warning title=DEPLOY TRY 1 DID NOT LAND::GitHub's deploy step gave up (its own 10-minute limit, or an error on its side). Trying again with a fresh deployment in four minutes."
+          sleep 240
 
       - id: try2
         name: deploy, try 2 of 3
@@ -233,11 +235,11 @@ jobs:
           timeout: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 2 && '1000' || '600000' }}
           reporting_interval: ${{ fromJSON(inputs.rehearse_timeouts || '0') >= 2 && '1000' || '5000' }}
 
-      - name: try 2 did not land; two minutes before the last try
+      - name: try 2 did not land; four minutes before the last try
         if: steps.try1.outcome == 'failure' && steps.try2.outcome == 'failure'
         run: |
-          echo "::warning title=DEPLOY TRY 2 DID NOT LAND::Second time GitHub's deploy step gave up. One more fresh deployment in two minutes."
-          sleep 120
+          echo "::warning title=DEPLOY TRY 2 DID NOT LAND::Second time GitHub's deploy step gave up. One more fresh deployment in four minutes."
+          sleep 240
 
       - id: try3
         name: deploy, try 3 of 3
