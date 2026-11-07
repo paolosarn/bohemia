@@ -21,6 +21,15 @@
      BohemiaAftermath.fromSample(o)                 a scene with no fight behind it (the screen on its own): a ground block of the
                                                     fight's, his men's sheets and the bodies' (packed atlases); Promise
      BohemiaAftermath.start(canvas, scene, o)       plays it: o.dim (0..1 black over it), o.fps (12: twice the walk's six keys a second, on the beat), o.ratio (canvas px per css px)
+                                                    THE CREW SCREEN'S (ANIMATION [crew screen after a fight], rule 369 amended 11/4, ask line 433):
+                                                    o.follow() the name of the man the camera holds (the man picked on the crew
+                                                    screen): a new name glides the camera to him in o.glide ms (450, under a beat),
+                                                    eased in and out, drawn every frame while it glides, then held on him; o.feet
+                                                    puts his feet exactly on o.focus (else 48 px under it, the end screen's); o.man
+                                                    his height in css px (the figure's 98) and o.cover the ground's zoom in covers
+                                                    of the glass (1.5, the town's), or closer where the scene needs it to bring each
+                                                    place his men go to the focus, never past the near stop; o.over(g,
+                                                    W, H) draws the screen's own light over each frame (the crew screen's lamp)
      BohemiaAftermath.stop()                        lets go of the canvas and the clock
      BohemiaAftermath.state()                       for the gates: the men, what each is doing, frames drawn, the cost of a frame
    Gate: gates/the_aftermath_gate.js */
@@ -34,7 +43,8 @@
   /* WHERE ANIMATION'S AFTERMATH ACTS GO when they land: a stop's act ('loot' at a body, 'tend' by a friend down) plays
      BohemiaIdles.activity(look, seed, now, face, {act}) when his look has it; until then he stands there in his idles */
   var ACTS = { loot: 'loot', tend: 'tend', smoke: 'smoke', talk: 'talk' };
-  var A = { cv: null, g: null, scene: null, raf: 0, last: 0, frames: 0, ms: 0, worst: 0, t0: 0, cam: null, ratio: 1, dim: 0.58, fps: 12, on: false };
+  var A = { cv: null, g: null, scene: null, raf: 0, last: 0, frames: 0, ms: 0, worst: 0, t0: 0, cam: null, ratio: 1, dim: 0.58, fps: 12, on: false,
+    follow: null, feet: false, glideMs: 450, glide: null, glides: 0, glog: [], lay: null };
 
   function dirOf(ddx, ddy) { return (Math.round(Math.atan2(ddx, ddy) / (Math.PI / 4)) % 8 + 8) % 8; }
   function hash(s) { var h = 2166136261 >>> 0; s = String(s); for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h >>> 0; }
@@ -212,17 +222,32 @@
   }
 
   /* ---------- THE DRAW ---------- */
+  function held(sc, men) {   /* the man the crew screen picked, standing or lying where he fell; null when he is not on this board */
+    var who = null; try { who = A.follow ? A.follow() : null; } catch (e) { who = null; } if (who == null) return null;
+    return men.filter(function (q) { return q.name === who; })[0] || sc.men.filter(function (q) { return q.side === 'you' && q.state !== 'dead' && q.name === who; })[0] || null;
+  }
   function camTarget(sc, men, now) {
-    var up = men.length ? men : sc.men, n = up.length, i = Math.floor(now / (16 * BEAT)) % Math.max(1, n), m = up[i] || up[0];
+    var up = men.length ? men : sc.men, n = up.length, i = Math.floor(now / (16 * BEAT)) % Math.max(1, n), m = held(sc, men);
+    if (!m && A.follow && A.mid) return { x: A.mid.x, y: A.mid.y, m: null };   /* the man picked is not on this board (he ran, or sat it out): the scene's middle, nobody held under his figure */
+    m = m || up[i] || up[0];
     if (!m) return { x: sc.board.width / 2, y: sc.board.height / 2, m: null };
     var x = m.wx !== undefined ? m.wx : m.x, y = m.wy !== undefined ? m.wy : m.y;
     return { x: (x + 0.5 + sc.stagger(y)) * sc.tw, y: (y + 0.9) * sc.th, m: m };   /* his feet */
+  }
+  function reachK(sc, W, H, F) {
+    var x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    sc.men.forEach(function (m) { var px = (m.x + 0.5 + sc.stagger(m.y)) * sc.tw, py = (m.y + 0.9) * sc.th;
+      x0 = Math.min(x0, px - sc.tw); x1 = Math.max(x1, px + sc.tw); y0 = Math.min(y0, py - sc.th); y1 = Math.max(y1, py + sc.th); });
+    if (x0 > x1) return 0;
+    var X = W * F[0], Y = H * F[1], bw = sc.board.width, bh = sc.board.height, q = function (a, b) { return b > 1 ? a / b : 0; };
+    return Math.max(q(X, Math.max(0, x0)), q(W - X, bw - Math.min(bw, x1)), q(Y, Math.max(0, y0)), q(H - Y, bh - Math.min(bh, y1)));
   }
   function frame(now) {
     A.raf = root.requestAnimationFrame(frame);
     if (!A.on || !A.scene) return;
     if (root.document.hidden || A.hold || (A.paused && A.paused())) return;
-    if (now - A.last < 1000 / A.fps) return;
+    var moving = !!A.glide; if (!moving && A.follow && A.cam && A.scene) { var hm = held(A.scene, A.men || []); moving = (hm || null) !== (A.cam.m || null); }
+    if (now - A.last < 1000 / A.fps && !moving) return;   /* a glide is drawn every frame (the camera's own move, 60 a second); the scene's life at its twelve */
     A.last = now;
     var t0 = root.performance.now();
     /* one bad picture (a sheet not in yet, a frame torn down under it) costs that frame, never the scene, never the console */
@@ -238,10 +263,27 @@
     /* the camera: the near stop, his feet held where the screen leaves the scene open (o.focus: the phone's window over the
        crew, else the middle), easing after the man it is on (a hand-held follow, half a second behind, four bars a man) */
     var k = sc.near * r, T = camTarget(sc, up, now), F = (A.focus && A.focus()) || [0.5, 0.5];
-    if (!A.cam || A.cam.m !== T.m && !A.cam.m) A.cam = { x: T.x, y: T.y, m: T.m };
-    var e = 1 - Math.pow(0.5, (1000 / A.fps) / 600); A.cam.x += (T.x - A.cam.x) * e; A.cam.y += (T.y - A.cam.y) * e;
+    /* the crew screen's (o.cover): the ground at that many times the zoom that just covers the glass, never past the fight's near stop,
+       never under the cover (no band of black) */
+    if (A.cover) { var cov = Math.max(W / sc.board.width, H / sc.board.height);
+      /* and close enough that every place his men go (the dead, a friend down, each other: the scene's own ground, a tile round it) can
+         be brought to the focus; set once for the glass (a zoom that moved with each pick would breathe) */
+      if (!A.reach || A.reach.W !== W || A.reach.H !== H) A.reach = { W: W, H: H, k: reachK(sc, W, H, F) };
+      k = Math.max(cov, Math.min(k, Math.max(cov * A.cover, A.reach.k))); }
+    if (!A.cam || !A.follow && A.cam.m !== T.m && !A.cam.m) A.cam = { x: T.x, y: T.y, m: T.m };   /* the crew screen's camera glides from wherever it is, even from the scene's middle */
+    if (A.follow) {
+      /* the crew screen's camera: a new man picked glides to him (eased in and out, under a beat), then holds him at his sheet's
+         middle while he walks and kneels (the board moves under him, his size never changes) */
+      var pn = root.performance.now();
+      if (T.m !== A.cam.m) { A.glide = { who: T.m ? T.m.name : null, fx: A.cam.x, fy: A.cam.y, t0: pn, prev: pn, frames: 0, gap: 0, ms: null, plan: A.glideMs };
+        A.glides++; A.glog.push(A.glide); if (A.glog.length > 20) A.glog.shift(); A.cam.m = T.m; }
+      if (A.glide) { var G = A.glide, u = Math.min(1, (pn - G.t0) / A.glideMs), ez = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+        A.cam.x = G.fx + (T.x - G.fx) * ez; A.cam.y = G.fy + (T.y - G.fy) * ez; G.frames++; G.gap = Math.max(G.gap, Math.round(pn - G.prev)); G.prev = pn;
+        if (u >= 1) { G.ms = Math.round(pn - G.t0); A.glide = null; } }
+      else { A.cam.x = T.x; A.cam.y = T.y; }
+    } else { var e = 1 - Math.pow(0.5, (1000 / A.fps) / 600); A.cam.x += (T.x - A.cam.x) * e; A.cam.y += (T.y - A.cam.y) * e; }
     var bw = sc.board.width, bh = sc.board.height;
-    var ox = W * F[0] - A.cam.x * k, oy = H * F[1] + 48 * r - A.cam.y * k;
+    var ox = W * F[0] - A.cam.x * k, oy = H * F[1] + (A.feet ? 0 : 48 * r) - A.cam.y * k;
     ox = bw * k > W ? Math.max(W - bw * k, Math.min(0, ox)) : (W - bw * k) / 2;
     oy = bh * k > H ? Math.max(H - bh * k, Math.min(0, oy)) : (H - bh * k) / 2;
     g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
@@ -252,7 +294,9 @@
     g.imageSmoothingEnabled = k < 1;
     if (sw > 0 && sh > 0) g.drawImage(sc.board, sx0, sy0, sw, sh, ox + sx0 * k, oy + sy0 * k, sw * k, sh * k);
     g.imageSmoothingEnabled = false;
-    var s = sc.manDev > 0 ? Math.max(1, Math.round(sc.manDev / sc.dpr * r)) : Math.max(1, Math.round(MAN_IDLE * r / RULER));
+    /* the man's whole-pixel size: the fight's own at its near stop; given o.man (the crew screen's figure, 98 points, the rig's ruler),
+       that size, whatever the ground's zoom (rule 21: the ground may zoom, the person may not) */
+    var s = A.man ? Math.max(1, Math.round(A.man * r / RULER)) : sc.manDev > 0 ? Math.max(1, Math.round(sc.manDev / sc.dpr * r)) : Math.max(1, Math.round(MAN_IDLE * r / RULER));
     var X = function (x, y) { return ox + (x + 0.5 + sc.stagger(y)) * sc.tw * k; }, Y = function (y) { return oy + (y + 0.9) * sc.th * k; };
     var hman = RULER * s;
     /* the dead and the down: where they fell, the fall's last key, a pool under each */
@@ -278,6 +322,7 @@
     }
     g.globalAlpha = 1; g.drawImage(A.over, 0, 0);
     A.view = { ox: ox, oy: oy, k: k, s: s };
+    if (A.lay) try { A.lay(g, W, H); } catch (e) {}   /* the crew screen's own light over it (its lamp, measured to the words' floor) */
   }
   function drawUp(sc, g, m, x, y, x0, y0, s, now, clips) {
     var f = m.face || 0, B = sc.idles, gun = m.gun, dark = sc.night && !sc.lit(Math.round(m.wx), Math.round(m.wy)), fw = sc.fw;
@@ -326,6 +371,9 @@
     stop(); o = o || {};
     A.cv = cv; A.g = cv.getContext('2d'); A.scene = scene; A.dim = o.dim != null ? o.dim : A.dim; A.over = null; A.fps = o.fps || 12; A.paused = o.paused || null; A.focus = o.focus || null;
     A.frames = 0; A.ms = 0; A.worst = 0; A.times = []; A.errs = 0; A.err = null; A.cam = null; A.t0 = root.performance.now(); A.last = 0; A.on = true;
+    A.follow = o.follow || null; A.feet = !!o.feet; A.man = o.man || 0; A.cover = o.cover || 0; A.reach = null; A.mid = null;
+    if (A.follow && scene.men.length) { var mx = 0, my = 0; scene.men.forEach(function (m) { mx += (m.x + 0.5 + scene.stagger(m.y)) * scene.tw; my += (m.y + 0.9) * scene.th; });
+      A.mid = { x: mx / scene.men.length, y: my / scene.men.length }; } A.glideMs = o.glide || 450; A.lay = o.over || null; A.glide = null; A.glides = 0; A.glog = [];
     size(); A.men = plan(scene);
     try { draw(0); } catch (e) { A.errs = (A.errs | 0) + 1; A.err = A.err || String(e && e.message || e); }   /* drawn on open (rule 245(c)): the first picture before the first frame of the clock */
     if (!A.sized) { A.sized = true; root.addEventListener('resize', size); }
@@ -341,11 +389,12 @@
     return { on: A.on, from: A.scene && A.scene.from, errs: A.errs | 0, err: A.err || null, frames: A.frames, msAvg: A.frames ? A.ms / A.frames : 0, msWorst: A.worst, msP95: ts.length ? ts[Math.floor(ts.length * 0.95)] : 0, dim: A.dim, ratio: A.ratio,
       canvas: A.cv ? [A.cv.width, A.cv.height] : null, bytes: (A.cv ? A.cv.width * A.cv.height * 4 : 0) + (A.over ? A.over.width * A.over.height * 4 : 0), view: A.view || null,
       same: function (b) { return !!(A.scene && b && A.scene.board === b); },
+      glides: A.glides | 0, glide: A.glog.length ? Object.assign({}, A.glog[A.glog.length - 1]) : null, gliding: !!A.glide, held: A.cam && A.cam.m ? A.cam.m.name : null,
       board: A.scene ? { tw: A.scene.tw, th: A.scene.th, w: A.scene.w, h: A.scene.h, bw: A.scene.board && A.scene.board.width, bh: A.scene.board && A.scene.board.height, near: A.scene.near, manDev: A.scene.manDev, dpr: A.scene.dpr } : null,
       at: function (x, y) { var v = A.view, sc = A.scene; return v && sc ? [v.ox + (x + 0.5 + sc.stagger(y)) * sc.tw * v.k, v.oy + (y + 0.9) * sc.th * v.k] : null; },
       men: (A.men || []).map(function (m) { return { id: m.id, name: m.name, act: m.act, drawn: m.drawn, x: m.wx, y: m.wy, face: m.face, stops: m.stops.length, sheet: !!m.sheet, packed: !!(m.sheet && m.sheet.atlas), L: [m.L.w, m.L.h, m.L.foot],
         stop: m.stop ? (m.stop.to ? 'body:' + m.stop.to.id : m.stop.with ? 'with:' + m.stop.with.id : m.stop.act) : null }; }),
-      lying: A.scene ? A.scene.men.filter(function (m) { return m.state !== 'up'; }).map(function (m) { return { id: m.id, side: m.side, state: m.state, x: m.x, y: m.y }; }) : [] };
+      lying: A.scene ? A.scene.men.filter(function (m) { return m.state !== 'up'; }).map(function (m) { return { id: m.id, name: m.name, side: m.side, state: m.state, x: m.x, y: m.y }; }) : [] };
   }
   root.BohemiaAftermath = { fromFight: fromFight, fromSample: fromSample, start: start, stop: stop, state: state, ACTS: ACTS, cell: cell,
     hold: function (on) { A.hold = !!on; } };   /* the gates: the page measured with the scene's clock held, then running */

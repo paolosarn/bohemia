@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Crew Screen Sees the Fight</title>
+<!-- ANIMATION [crew screen after a fight], rule 369 amended 11/4, ask line 433 (Paolo 11/4: 'if I level up my character right after
+     [a fight], and it's doing the victory screen and they're scavenging the remains, if you bring up the crew screen it should be
+     showing them in that victory scavenging background, not just them at the camp'). BEFORE: the demo before this ship, a road fight
+     won, CHOOSE HIS LEVEL-UP tapped: the company screen on the camp picture (records/target/animation/crew_after_fight/before_phone).
+     NOW: the same, filmed on his phone's profile (390 x 844) after this ship (tools/bohemia_animation_crew_after_fight_capture.js):
+     the end screen, the tap, the company screen over the fight, his men going through the dead, a finger on YOU in the line and the
+     camera gliding to him: the browser's own screen recording packed into one moving webp at the game's own speed (every frame
+     through the glide). No sound: the screen has none of its own. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:62ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .two div{font-size:10px;letter-spacing:1px;color:#8f8676;text-align:center}
+  img{width:100%;display:block;border-radius:3px}
+  .note{color:#6f6862}
+</style>
+<h1>THE CREW SCREEN SEES THE FIGHT</h1>
+<p>Right after a fight, the crew screen now shows the fight itself, not the camp: the same street, the dead where they fell, and your men going through them, kneeling in their coats, checking on the one who went down. The man you picked stands in the middle of his sheet. Tap another man, in the line or on the ground, and the camera glides to him.</p>
+<div class="row"><div class="two"><div><img id="b" alt="before">BEFORE: THE CAMP</div><div><img id="a" alt="now">NOW: THE FIGHT</div></div></div>
+<p class="note">On your phone: win a fight, then tap CHOOSE HIS LEVEL-UP on the end screen. Leave the end screen and the crew screen is the camp again.</p>
+<script>
+(function () {
+  var D = '../../records/target/animation/crew_after_fight/';
+  document.getElementById('b').src = D + 'before_phone.webp';
+  document.getElementById('a').src = D + 'now.webp';   /* one moving picture: the end screen, the tap, the company screen over the fight, the glide */
+})();
+</script>

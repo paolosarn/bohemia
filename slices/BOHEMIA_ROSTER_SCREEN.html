@@ -1379,6 +1379,8 @@ function campBg(){
   CAMPBG.spot = campOpenSpot();
   var F = H.facts || {}, bx = F.at ? F.at[0] : 0, by = F.at ? F.at[1] : 0;
   CAMPBG.night = !!F.night; CAMPBG.at = [bx, by]; c.dataset.night = CAMPBG.night ? '1' : '0';
+  var FW = CAMPBG.noFight ? null : campFightHost();   /* __THE_CREW_SEES_THE_FIGHT__: right after a fight, its own board first */
+  if(FW){ campFightBg(c, FW, t0); return; }
   if(H.town){
     /* the town (or the camp) on its own glass: its biggest picture, live, its lit middle on the open patch */
     try{ var d = H.town.document, best = null, ba = 0;
@@ -1554,6 +1556,92 @@ function campPaint(bare){
 /* the men (and the town's own people) move on the beat, an eighth at 120; nothing is drawn while the screen is not on the glass */
 function campTick(){ if(!CAMPBG.c || !CAMPBG.c.isConnected) return; if(document.visibilityState !== 'hidden' && innerWidth > 0){ if(CAMPBG.live && !CAM.raf) campAim(false, true); if(!CAM.raf) campPaint(); } setTimeout(campTick, 500); }   /* in a town he walks: the camera follows him */
 /* ==== end __THEIR_CAMP_BEHIND__ ==== */
+/* ==== __THE_CREW_SEES_THE_FIGHT__ (ANIMATION [crew screen after a fight], rule 369 amended 11/4, ask line 433; PAOLO 11/4: 'if I
+   level up my character right after [a fight], and it's doing the victory screen and they're scavenging the remains, if you bring up
+   the crew screen it should be showing them in that victory scavenging background, not just them at the camp').
+   MEASURED FIRST (the demo, 390 x 844, a road fight won, the end screen's door to the company: records/target/animation/
+   crew_after_fight/before_phone.png): the end screen played the minutes after the fight behind it (RUN FOUR's aftermath, rule 245:
+   the fight's own board, the dead where they fell, his men going to a friend down, kneeling at the bodies and turning out their coats,
+   ANIMATION's loot and tend); a tap on CHOOSE HIS LEVEL-UP opened the company screen over it on COOK FOUR's camp picture, his three men
+   round a fire a road away from the fight.
+   NOW, while the fight that just ended still stands behind (its frame is up until he leaves the end screen): the company screen's
+   picture IS that fight. The same player plays it (slices/bohemia_aftermath.js, nothing new drawn: the fight's baked board, its
+   sheets, ANIMATION's town acts), on this screen's own canvas, its camera holding the man picked at his sheet's middle (his slots
+   round him, his feet where his figure's feet would be, rule 369's spot): tap another man, in the line or on the ground, and the
+   camera glides to him in under a beat, eased in and out, as at camp. A man who stood out of the fight (the bench) is not on its
+   board: he stands as his sheet's own figure at the middle, among them. The picture is lit (no dim over it, the tape's dark edges and
+   lines only); each word that sits on it carries its own soft shade, dark enough for the kit's 4.5 floor over a white wall, so it reads
+   wherever the moving board puts it. The end screen's own copy holds
+   still while the company screen is up (its paused: the door), so one scene plays at a time. Nothing is printed on it (rule 433).
+   Gate: gates/the_crew_screen_sees_the_fight_gate.js ==== */
+function campFightHost(){   /* the fight behind this screen, finished (its end screen is up): its window, or null */
+  var w = window.parent, n = 0, fw = null;
+  try{ while(w && n++ < 5 && !fw){
+      if(w.FIGHT_UI) fw = w;
+      else { var fe = w.document && w.document.getElementById('fightFrame'); if(fe && fe.contentWindow) fw = fe.contentWindow; }
+      if(w === w.parent) break; w = w.parent; }
+    if(!fw || !fw.FIGHT_UI || !fw.FIGHT_UI.board) return null;
+    var F = fw.FIGHT || fw.eval('typeof FIGHT!=="undefined"?FIGHT:null'); if(!F || !F.S || !F.S.over) return null;   /* mid-fight the company screen stays as it was */
+  }catch(e){ return null; }
+  return fw;
+}
+var CAMP_FIGHT_DIM = 0;   /* the aftermath's own black over the board: none (the tape's dark edges and its lines stay) */
+/* THE WORDS OVER A MOVING BOARD: the camera holds a man who walks, so the board slides under the words all the time; measured off the
+   picture (the camp's lamp, once) a word inside the lit pool round him went to 2.02 to 1 over a pale wall two seconds later, and the
+   pool is never shaded. So over the fight each word that sits on the picture has its own soft shade behind it, as dark as its ink needs
+   against a white wall (the worst the board can put there), so it reads at the kit's floor wherever the camera is; the rest of the
+   picture, him and the men round him, stays lit. Drawn once when his sheet is drawn, laid over each frame; nothing read off the glass */
+var CAMP_FIGHT_PAD = 8, CAMP_FIGHT_SOFT = 10;
+function campFightShade(){
+  var c = CAMPBG.c; if(!c) return null;
+  var key = c.width + 'x' + c.height + '|' + campWords().map(function(e){ var r = e.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height), getComputedStyle(e).color].join(','); }).join(';');
+  if(CAMPBG.shadeC && CAMPBG.shadeKey === key) return CAMPBG.shadeC;
+  var sc = CAMPBG.shadeC || document.createElement('canvas'); sc.width = c.width; sc.height = c.height; CAMPBG.shadeC = sc; CAMPBG.shadeKey = key;
+  var x = sc.getContext('2d'), d = CAMPBG.dpr || 1, rows = []; x.clearRect(0, 0, sc.width, sc.height);
+  campWords().forEach(function(e){ var r = e.getBoundingClientRect(), ink = (getComputedStyle(e).color.match(/[\d.]+/g) || [230, 220, 200]).map(Number), li = campLum(ink[0], ink[1], ink[2]), a = 0;
+    /* the least shade over white that keeps this ink at the floor (a light ink: the darker behind it the better) */
+    while(a < 0.95 && campRatio(li, campLum(255 * (1 - a) + CAMP_SHADE[0] * a, 255 * (1 - a) + CAMP_SHADE[1] * a, 255 * (1 - a) + CAMP_SHADE[2] * a)) < CAMP_FLOOR * 1.04) a += 0.02;
+    a = Math.round(a * 100) / 100; rows.push({ t: e.textContent.trim().slice(0, 32), a: a });
+    var P = CAMP_FIGHT_PAD, X = (r.left - P) * d, Y = (r.top - P * 0.6) * d, W = (r.width + 2 * P) * d, H = (r.height + 1.2 * P) * d, far = 20000;
+    x.save(); x.shadowColor = 'rgba(' + CAMP_SHADE.join(',') + ',' + a + ')'; x.shadowBlur = CAMP_FIGHT_SOFT * d; x.shadowOffsetX = far; x.fillStyle = '#000';
+    x.fillRect(X - far, Y, W, H); x.restore(); });   /* the shape drawn off the canvas, only its soft shadow on it (every browser's blur) */
+  CAMPBG.shades = rows; return sc;
+}
+function campFightBg(c, fw, t0){
+  var back = function(){ try{ c.remove(); }catch(e){} CAMPBG.c = null; CAMPBG.on = false; CAMPBG.noFight = true; campBg(); };   /* no scene to read: their camp, as before */
+  var go = function(){
+    var AM = window.BohemiaAftermath, sc = null; try{ sc = AM && AM.fromFight(fw); }catch(e){ sc = null; }
+    if(!sc) return back();
+    CAMPBG.fight = true; CAMPBG.am = AM; CAMPBG.kind = 'fight'; c.dataset.kind = 'fight'; CAMPBG.dpr = 1; c.style.imageRendering = 'pixelated';
+    CAMPBG.dim = 0; CAMPBG.shadeTop = 0; CAMPBG.shadeBot = 0; CAMPBG.shadeN = 0;   /* the camp's lamp stands down over the fight: the words carry their own shade */
+    document.documentElement.classList.add('bm-camp-live');
+    /* his people at the figure's size (98 points, the rig's ruler: rule 21, the ground may zoom, the person may not), the ground at
+       one and a half covers of the glass, as in a town (rule 369(e): enough to walk to a man and still see the men round him; the
+       end screen's near stop drew them at twice the figure, over his slots and his numbers) */
+    AM.start(c, sc, { dim: CAMP_FIGHT_DIM, fps: 12, feet: true, glide: CAM_MS, man: 98, cover: 1.5,
+      paused: function(){ return !c.isConnected; },
+      focus: function(){ var sp = campSpot(); return sp ? [sp.x / Math.max(1, innerWidth), sp.y / Math.max(1, innerHeight)] : [0.5, 0.5]; },
+      follow: function(){ var m = S.crew[S.sel]; return m ? m.name : null; },
+      over: function(g){ if(++CAMPBG.shadeN >= 36){ CAMPBG.shadeN = 0; campFightShade(); } var k = CAMPBG.shadeC; if(k) g.drawImage(k, 0, 0); } });   /* the words looked for again every three seconds (a sheet that moved without a redraw) */
+    campFightWho(); campFightShade(); c.getContext('2d').drawImage(CAMPBG.shadeC, 0, 0);   /* the words' shades on the first picture too */
+    CAMPBG.t.cost = performance.now() - t0; c.style.opacity = 1; CAMPBG.t.drawn = performance.timeOrigin + performance.now();
+  };
+  if(window.BohemiaAftermath) return go();
+  var sc2 = document.createElement('script'); sc2.src = 'bohemia_aftermath.js'; sc2.onload = go; sc2.onerror = back; document.head.appendChild(sc2);
+}
+/* is the man picked on this board (standing, or a friend down where he fell)? then the board draws him and his sheet's figure stands
+   down (as in a town); a man of the bench is the figure itself, at the middle */
+function campFightOn(name){ var st = CAMPBG.am && CAMPBG.am.state(); if(!st || !name) return false;
+  return st.men.some(function(m){ return m.name === name; }) || st.lying.some(function(m){ return m.side === 'you' && m.state !== 'dead' && m.name === name; }); }
+function campFightWho(){ var m = S.crew[S.sel], on = !!m && campFightOn(m.name);
+  document.documentElement.classList.toggle('bm-camp-town', on); CAMPBG.fightHeld = on; try{ campFigureShow(); }catch(e){} }
+/* where his men stand on the glass (the tap's and the gate's): the scene's own feet, its man's height */
+function campFightMen(){ var st = CAMPBG.am && CAMPBG.am.state(), out = []; if(!st || !st.view) return out;
+  var h = 98 * st.view.s / (st.ratio || 1), put = function(name, x, y){ var p = st.at(x, y); if(p && name) out.push({ name: name, x: p[0] / (st.ratio || 1), y: p[1] / (st.ratio || 1), h: h }); };
+  st.men.forEach(function(m){ put(m.name, m.x, m.y); });
+  st.lying.forEach(function(m){ if(m.side === 'you' && m.state !== 'dead') put(m.name, m.x, m.y); });
+  return out; }
+/* ==== end __THE_CREW_SEES_THE_FIGHT__ ==== */
 /* ==== __THE_CREW_SEES_THE_CAMP__ (UI 7, rule 369, Paolo 11/3: 'I'm tired of all that brown backdrop shit. I wanna see more of the
    camp, of the settlement, when you're in the crew screen... It's your people in the camp... right now it's hard to see them...
    especially in the crew menu, you click on a character, it centers the camera on that character, to make it that much more like
@@ -1571,7 +1659,7 @@ function campTick(){ if(!CAMPBG.c || !CAMPBG.c.isConnected) return; if(document.
 var CAM = { k: 0, ox: 0, oy: 0, raf: 0, aim: null, glides: 0, log: [] };
 var CAM_MS = 450;   /* under a beat at 120 (500 ms) */
 /* the figure on his sheet stands in the camp where the roster draws the camp (the map, the fight); in a town the town draws him */
-function campFigureOn(){ return !!CAMPBG.c && !CAMPBG.live; }
+function campFigureOn(){ return !!CAMPBG.c && !CAMPBG.live && !(CAMPBG.fight && CAMPBG.fightHeld); }
 function campFigure(){ return document.querySelector('#card .rbody') || document.querySelector('#card .face.big'); }
 /* where his feet go on the glass: the figure's own feet (idleCard stands him 5 px off the canvas's foot) */
 function campSpot(){ var f = campFigure(); if(!f) return null; var r = f.getBoundingClientRect(); if(r.width < 2 || r.height < 2) return null;
@@ -1635,6 +1723,7 @@ function campAim(now, follow){
 /* where each of his men stands on the glass right now (the gate's, and the tap's): his feet, his height */
 function campMenOnGlass(){
   var d = CAMPBG.dpr || 1, k = CAM.k || 1, h, out = [];
+  if(CAMPBG.fight) return campFightMen();   /* __THE_CREW_SEES_THE_FIGHT__ */
   if(CAMPBG.live){ h = (CAMPBG.townPerson || 60) * k / d; campTownMen().forEach(function(t){ out.push({ name: t.name, x: (CAM.ox + t.x * k) / d, y: (CAM.oy + t.y * k) / d, h: h }); }); }
   else { h = 1.72 * (CAMPBG.ppm || CAMP_PPM) * k / d; CAMPBG.men.forEach(function(m){ out.push({ name: m.name, x: (CAM.ox + m.x * k) / d, y: (CAM.oy + m.y * k) / d, h: h }); }); }
   return out;
@@ -1660,10 +1749,10 @@ function campTapOpen(t){ return !(t && t.closest && t.closest(CAMP_SHEET)); }
   }, true);
 })();
 /* every pick (the line, a swipe, Tab, the camp) glides the camera; every redraw keeps him under his figure */
-var campChoose0 = choose; choose = function(i){ CAM.picking = true; try{ campChoose0(i); }finally{ CAM.picking = false; } try{ if(CAMPBG.c && CAMPBG.base){ campFigureShow(); campAim(false); } }catch(e){} };
-var campDraw0 = draw; draw = function(){ campDraw0(); try{ if(CAMPBG.c && CAMPBG.base && !CAM.picking){ if(!CAMPBG.live && CAMPBG.menKey !== S.crew.filter(function(m){ return m && !m.dead && m.look; }).map(function(m){ return m.name; }).join('|')) campMen(); campFigureShow(); if(!CAM.raf) campAim(false); } }catch(e){} };
+var campChoose0 = choose; choose = function(i){ CAM.picking = true; try{ campChoose0(i); }finally{ CAM.picking = false; } try{ if(CAMPBG.c && CAMPBG.base){ campFigureShow(); campAim(false); } if(CAMPBG.c && CAMPBG.fight){ campFightWho(); campFightShade(); } }catch(e){} };
+var campDraw0 = draw; draw = function(){ campDraw0(); try{ if(CAMPBG.c && CAMPBG.base && !CAM.picking){ if(!CAMPBG.live && CAMPBG.menKey !== S.crew.filter(function(m){ return m && !m.dead && m.look; }).map(function(m){ return m.name; }).join('|')) campMen(); campFigureShow(); if(!CAM.raf) campAim(false); } if(CAMPBG.c && CAMPBG.fight && !CAM.picking){ campFightWho(); campFightShade(); } }catch(e){} };
 function campFigureShow(){ var f = campFigure(); if(f) f.dataset.inCamp = campFigureOn() ? '1' : '0'; }
-window.addEventListener('resize', function(){ try{ if(CAMPBG.c && CAMPBG.base){ var dpr = Math.min(2, window.devicePixelRatio || 1); CAMPBG.c.width = Math.round(innerWidth * dpr); CAMPBG.c.height = Math.round(innerHeight * dpr); CAMPBG.dpr = dpr; campAim(true); campFloor(); campPaint(); } }catch(e){} });
+window.addEventListener('resize', function(){ try{ if(CAMPBG.c && CAMPBG.fight) setTimeout(function(){ try{ campFightShade(); }catch(e){} }, 60); if(CAMPBG.c && CAMPBG.base){ var dpr = Math.min(2, window.devicePixelRatio || 1); CAMPBG.c.width = Math.round(innerWidth * dpr); CAMPBG.c.height = Math.round(innerHeight * dpr); CAMPBG.dpr = dpr; campAim(true); campFloor(); campPaint(); } }catch(e){} });
 /* ==== end __THE_CREW_SEES_THE_CAMP__ ==== */
 window.BohemiaRosterScreen = {open:open, state:S, held:HELD, camp:CAMPBG, cam:CAM, campMenOnGlass:campMenOnGlass, campManAtPoint:campManAtPoint, campTapOpen:function(x, y){ return campTapOpen(document.elementFromPoint(x, y)); }, campTarget:campTarget, campSpot:campSpot, campLampAt:campLampAt, campWords:campWords, campPick:campPick, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN'){ S.doorSpoke = true; open(d); } if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });

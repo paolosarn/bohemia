@@ -9746,6 +9746,16 @@ GATES = [
      "seen walking and stopped at a body, a friend or the watch, the friend down gone to; the window or open ground lit and full of detail; every word on the scene at "
      "4.5 to 1 or better with the words taken out; the back's draw under 6 percent of the thread and never a frame's budget at the 95th, the page's frames within 15 "
      "percent of the same page with the scene held, its two pictures under 12 MB (2.6 on a phone), nothing loaded for it but ANIMATION's act sheets. about 6 min", True),
+    ('THE CREW SCREEN SEES THE FIGHT', ['node', 'gates/the_crew_screen_sees_the_fight_gate.js'],
+     "ANIMATION gate, 11/7, [crew screen after a fight] (rule 369 amended 11/4, ask line 433, Paolo 11/4: 'if I level up my character right after [a fight]... "
+     "they're scavenging the remains, if you bring up the crew screen it should be showing them in that victory scavenging background, not just them at the camp'). "
+     "MEASURED before: CHOOSE HIS LEVEL-UP on the end screen opened the company screen on the camp picture (camp-0). HOLDS, on the live demo, upright and on its "
+     "side, a road fight won and a real tap: the picture is the fight's own baked board with the dead and the down where they fell and every man who can walk, the "
+     "end screen's copy held still; his men walk and kneel in the dead's coats, the friend down gone to; the man picked held at his sheet's middle at the figure's "
+     "98 points, his figure standing down; a finger on each man in the line or on the ground glides there in under 550 ms; a man who ran stands as his own figure "
+     "with nobody held under him; nothing printed on it; every word on it at 4.5 to 1 with the words taken out; its draw under 8 ms (12 at the 95th), every "
+     "glide frame drawn, the page within 15 percent; DONE on the phone back to the end screen. PLANTED: the camp put back, the camera frozen, the men held. "
+     "green at registration, 26/0, about 4 min", True),
     ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
      "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
      "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "
