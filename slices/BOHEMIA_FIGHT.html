@@ -5023,6 +5023,19 @@ function songRead(now) {
 }
 /* the first time at or after t on the song's grid cut every g ms (a fight beat, or a quarter of one for a hurried walk) */
 function songGrid(t, g) { return SONG.at + Math.ceil((t - SONG.at) / g - 1e-6) * g; }
+/* __SOUNDS_TWO_ON_THE_BEAT__ (SOUNDS TWO 11/7, rule 427(a), asks 47 and 212; tools/bohemia_sounds_two_the_fight_on_the_beat_patch.py):
+   GRID_SNAP_MS: a motion chained to the one before takes the grid point this close before its ask, so the anchor's tenth of a
+   millisecond of jitter never costs a whole beat (measured: two attacks back to back 1 beat apart, then 2, at random);
+   SFX_LEAD: a motion's timed sounds go this much before the way to the ear, carrying the moment they are heard (`at`), so the
+   shell books them on the beat to the sample (measured: 23 of 86 blows heard a whole sixteenth late) */
+const GRID_SNAP_MS = 8, SFX_LEAD = 80, SFX_LEAD_MAX = 300;   /* the lead grows to three of the device's frames on a slow one */
+/* the moment a sound is heard, on the song's nearest sixteenth (the shell used to put a sound that came early on the next
+   sixteenth, so a shot a tenth of a beat before its landing sounded on the beat with it: that stays, now to the sample) */
+function heardOn16(t) { const q = songBeat() / 4; return SONG.at + Math.round((t - SONG.at) / q) * q; }
+/* the facts a sound goes with, its moment on them; a gun's facts carried the target's tile as `at` ({x, y}), read by nothing
+   in the shell, and it clobbered the moment: the tile rides as `tile` */
+function heardFacts(facts) { const f = Object.assign({}, facts || {}); if (f.at && typeof f.at === 'object') { f.tile = f.at; delete f.at; }
+  if (UI.sfxAt != null && typeof f.at !== 'number') f.at = performance.timeOrigin + heardOn16(UI.sfxAt); return f; }
 /* where in the beat a time falls, 0 to 1, for everything that pulses (the reload's blink, AUTO's glow, the dead lamp) */
 function beatPh(now) { const b = beatMs(); return (((now - SONG.at) % b) + b) % b / b; }
 /* ===== /THE SONG IS THE CLOCK ===== */
@@ -5850,7 +5863,7 @@ function noise(d, v, f) {
    limiter) -- reusing that is the whole reason this is not a second sound system. */
 function sfx(ev, facts) { (UI.heard = UI.heard || []).push(ev); if (UI.heard.length > 40) UI.heard.shift();   /* what the fight asked to be heard, for the gates */
   (UI.sent = UI.sent || []).push([ev, performance.now()]); if (UI.sent.length > 240) UI.sent.shift();   /* and when (rule 158: the beat gate) */
-  try { if (window.parent && window.parent !== window) window.parent.postMessage(Object.assign({ type: 'BOHEMIA_SFX', ev: ev }, facts || {}), '*'); } catch (_e) {} }
+  try { if (window.parent && window.parent !== window) window.parent.postMessage(Object.assign({ type: 'BOHEMIA_SFX', ev: ev }, heardFacts(facts)), '*'); } catch (_e) {} }   /* __SOUNDS_TWO_ON_THE_BEAT__: `at`, when he hears it */
 const SND = {
   /* THE PUNCH HEARD (SOUNDS 11/3, ask 266): a machine's step is steel and servo; who swung */
   step: function () { tone(70, 0.05, 0.05, 'triangle'); },
@@ -6630,14 +6643,17 @@ function resultSay(e, also) {
   if (also && also.length) { const caught = also.filter(function (o) { return o.hit; }).length; s += ' The ' + (e.skill || 'sweep').toLowerCase() + ' caught ' + caught + ' of ' + also.length + ' more.'; }
   say(s, true);
 }
-function startAnim(a) {
+function startAnim(a) { const at0 = UI.sfxAt; UI.sfxAt = a.at === undefined ? performance.now() : a.at; try { return startAnimHeard(a); } finally { UI.sfxAt = at0; } }   /* __SOUNDS_TWO_ON_THE_BEAT__ */
+function startAnimHeard(a) {
   if (a.at === undefined) a.at = performance.now();   /* played straight, off the queue (a bench, a gate): from now */
   const e = a.e, B = a.b || beatMs();   /* the beat it was put on the song with (rule 158): its sounds go now, SONG.lat before a.at, its picture from a.at */
   /* a motion begun late (behind the last one's end, a frame, a busy timer) still sends its sounds on their place: SONG.lat
      before the picture's moment, never the late start's */
-  const D = a.at - SONG.lat - performance.now(), sd = function (ms) { return Math.max(0, ms + D); };
+  const D = a.at - SONG.lat - performance.now(), LEAD = Math.min(SFX_LEAD_MAX, Math.max(SFX_LEAD, 3 * (UI.frameMs || 0))), sd = function (ms) { return Math.max(0, ms + D - LEAD); },   /* __SOUNDS_TWO_ON_THE_BEAT__ */
+    later = function (fn, ms) { return setTimeout(function () { const p = UI.sfxAt; UI.sfxAt = a.at + ms; try { fn(); } finally { UI.sfxAt = p; } }, sd(ms)); },
+    onTime = function (fn, ms) { return setTimeout(fn, Math.max(0, ms + D)); };   /* what is SEEN or SAID at the landing keeps its moment */
   if (a.fat && a.k !== 'attack') a.fat.forEach(function (f) { windTag(f, a.at - performance.now()); });   /* a hook's, a shove's: as it moves him */
-  if (a.k === 'attack') { (UI.landDue = UI.landDue || []).push({ due: performance.now() + sd(B * 0.45), land: a.at + B * 0.45, lat: SONG.lat }); if (UI.landDue.length > 240) UI.landDue.shift(); }   /* when the landing's sound is asked for, against its place (the beat gate) */
+  if (a.k === 'attack') { (UI.landDue = UI.landDue || []).push({ due: performance.now() + sd(B * 0.45), land: a.at + B * 0.45, lat: SONG.lat, lead: LEAD }); if (UI.landDue.length > 240) UI.landDue.shift(); }   /* when the landing's sound is asked for, against its place (the beat gate) */
   if (a.k === 'step') { SND.step(); SND.metal(FIGHT.byId(e.id));
     const span = [a.path[0], a.path[a.path.length - 1]];   /* the walk's two ends, so the walk itself stays on the glass */
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
@@ -6649,19 +6665,20 @@ function startAnim(a) {
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
     const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
-    setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(u); }, sd(B * 0.35));
-    if (sling && e.hit) setTimeout(function () { sfx('stone_bite', { side: u.side }); }, sd(B * 0.45));
-    setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf, u, t) : SND.miss(bf, ranged ? null : u); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
+    later(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(u); }, B * 0.35);
+    if (sling && e.hit) later(function () { sfx('stone_bite', { side: u.side }); }, B * 0.45);
+    later(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf, u, t) : SND.miss(bf, ranged ? null : u); }, B * 0.45);
+    onTime(function () { if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
       /* THE CREW CALLS IT (rule 143(c)): his men's shots, a hit or a miss, the man of theirs who slips it */
-      if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, sd(B * 0.45));
+      if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, B * 0.45);
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
-    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, sd(B * 0.8));
+    if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) later(function () { sfx('dry_fire'); }, B * 0.8); onTime(function () { UI.dryAt = performance.now(); teach('reload'); }, B * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[t.id] = a.at + B * 0.45; goreHit(t, u, e.hp, a.at + B * 0.45); punchLand(u, t, e, a.at + B * 0.45, B, ranged); }
     else if (t && ranged) dustAt(u, t, a.at + B * 0.45, B);
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
       const ot = FIGHT.byId(o.to); if (!ot) return;
-      setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf, u, ot) : SND.miss(bf, ranged ? null : u); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, sd(B * (0.45 + 0.25 * (i + 1))));
+      later(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf, u, ot) : SND.miss(bf, ranged ? null : u); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, B * (0.45 + 0.25 * (i + 1)));
       if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[ot.id] = a.at + B * (0.45 + 0.25 * (i + 1)); goreHit(ot, u, o.hp, a.at + B * (0.45 + 0.25 * (i + 1))); punchLand(u, ot, o, a.at + B * (0.45 + 0.25 * (i + 1)), B, ranged); }
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
@@ -6738,12 +6755,12 @@ function startAnim(a) {
        out of its fall flickering for a beat; the first time, his veteran says who to shoot */
     /* THE NET (COMBAT [bestiary], THE KIDS): thrown with a whoosh, it lands as cloth; the man under it stays put till he tears free */
     else if (e.t === 'skill' && e.skill === 'throw_net') { const t = FIGHT.byId(e.to); sfx('swing_air');
-      setTimeout(function () { sfx('cloth_on', { side: t ? t.side : null }); }, sd(B * 0.3));
+      later(function () { sfx('cloth_on', { side: t ? t.side : null }); }, B * 0.3);
       if (t) { pop(t, '', '#c9b48a', true, u.name + ' nets ' + t.name + '. He cannot move.'); if (crewControlled(t)) say(t.name + ' is netted. He can shoot, not walk.'); }
       teachSoon('kids'); }
     /* THE SHOVE (COMBAT [bestiary], THE HEAVY): the crash-bar on him (block) and his boots dragged a tile (door_drag) */
     else if (e.t === 'skill' && e.skill === 'line_breaker') { const t = FIGHT.byId(e.to); sfx('block', { side: t ? t.side : null });
-      setTimeout(function () { sfx('door_drag'); }, sd(B * 0.2));
+      later(function () { sfx('door_drag'); }, B * 0.2);
       if (t) { pop(t, '', '#d0a070', true, u.name + ' shoves ' + t.name + ' off his tile.'); if (crewControlled(t)) say(t.name + ' got shoved back. A wall behind you stops it.'); }
       teachSoon('heavy'); }
     else if (e.t === 'skill' && e.skill === 'raise_undead') { const t = FIGHT.byId(e.to);
@@ -7037,7 +7054,7 @@ function onTheBeat(a, now) {
     a.b = beatMs();
     const land = landOf(a);
     const g = a.dur > 0 && !unseen ? (a.hurry ? a.b / 4 : a.b) : 0;
-    a.qAt = g ? songGrid(from + land, g) - land : from; a.g = g;
+    a.qAt = g ? songGrid(from + land - (from === UI.animEnd ? Math.min(GRID_SNAP_MS, g / 8) : 0), g) - land : from; a.g = g;   /* __SOUNDS_TWO_ON_THE_BEAT__ */
     a.log = { k: a.k, t: a.e && a.e.t, side: u ? u.side : null, asked: from, at: a.qAt, land: a.qAt + land, g: g, song: SONG.from, songAt: SONG.at, prevEnd: UI.animEnd || 0, glideEnd: UI.glideEnd || 0, finish: !!UI.finish, chose: a.askedAt, ahead: !!a.ahead };
     (UI.onBeat = UI.onBeat || []).push(a.log);
     if (UI.onBeat.length > REQ_LOG) UI.onBeat.shift();

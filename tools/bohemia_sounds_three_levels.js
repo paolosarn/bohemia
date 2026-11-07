@@ -46,10 +46,14 @@ const ROOT = path.dirname(__dirname);
 const H = require(path.join(ROOT, 'tools', 'bohemia_sounds_his_machine.js'));   /* REUSE-FIRST: the alpha, opened read only */
 const OUTD = path.join(ROOT, 'slices', 'vote', 'songs', 'three_levels');
 const HISM = path.join(ROOT, 'slices', 'vote', 'songs', 'his_night_songs', 'measured.json');
-const BARS = 64;
+/* SOUNDS TWO 11/7 (rule 427(a)): 32 bars, the length the game plays now and the cards he thumbed (64 doubled the published bytes,
+   +40 MB against the 900 MB cap, for a pass that loops anyway) */
+const BARS = +(process.env.BOHEMIA_BARS || 32);
 const SR = 44100;
 /* THE GAP (rule 207(b)), through a phone's speaker, over level 1 */
-const GAP = { 2: 3.6, 3: 10.4 };
+/* SOUNDS TWO 11/7 (rule 427(a)): level 3 at 7.8 dB over level 2 (was 6.8): a turn hears a few bars, and bar by bar the gap
+   ran 5.8 to 8.8 dB around its mean, so a fight could hear his turn under 6 (measured in the demo: 6.3 dB on his phone) */
+const GAP = { 2: 3.6, 3: 11.4 };
 const CEIL = 0.944;   /* -0.5 dBFS */
 /* the fight run: from the bar his beat has arrived (bar 9 on the map), four bars each: the map, their turn, your turn,
    their turn, your turn. The change lands on the bar line; into 3 the hit, out of 3 a drop. */
@@ -394,7 +398,10 @@ async function record(which) {
     const hq = i16(hit), hraw = path.join(tmp, sl + '_hit.raw'); fs.writeFileSync(hraw, Buffer.from(hq.buffer, hq.byteOffset, hq.byteLength));
     const run = i16(fightRun({ 1: F[1].y, 2: F[2].y, 3: F[3].y }, hit, R[1].sd)), runRaw = path.join(tmp, sl + '_run.raw');
     fs.writeFileSync(runRaw, Buffer.from(run.buffer, run.byteOffset, run.byteLength));
-    [[1, 'level_1'], [2, 'level_2'], [3, 'level_3']].forEach(([lv, f]) => { const o = path.join(dir, f + '.mp3'); toMp3(raws[lv - 1], o); files[f] = o; });
+    /* LEVEL 1 STAYS THE FILE HE APPROVED (SOUNDS TWO 11/7: a re-render of his engine is the same song to -39 dB, not the same
+       bytes): kept when it is there; BOHEMIA_NEW_LEVEL_1=1 writes it fresh */
+    [[1, 'level_1'], [2, 'level_2'], [3, 'level_3']].forEach(([lv, f]) => { const o = path.join(dir, f + '.mp3');
+      if (lv === 1 && fs.existsSync(o) && !process.env.BOHEMIA_NEW_LEVEL_1) { files[f] = o; return; } toMp3(raws[lv - 1], o); files[f] = o; });
     const ho = path.join(dir, 'hit.mp3'); toMp3(hraw, ho); files.hit = ho;
     const ro = path.join(dir, 'a_fight.mp3'); toMp3(runRaw, ro); files.a_fight = ro;
     const m = measure(raws.concat([runRaw, hraw]));

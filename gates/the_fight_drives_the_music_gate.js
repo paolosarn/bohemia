@@ -14,7 +14,8 @@
    3. A SKIPPED TURN IS HEARD: a skip with a hit on his man and one of theirs dead tells the ladder both and plays one of each
       sound, a quarter beat apart;
    and in the demo with his music on (the real surface; a road fight through the map's own door, AUTO, seeded):
-   4. THE SONG LIFTS WHEN THE FIGHT STARTS: MUS.layers 0 -> 2 or more inside a bar of the board coming up, on a beat;
+   4. THE SONG LIFTS WHEN THE FIGHT STARTS: MUS.layers 0 -> 2 or more inside a bar of the fight's frame coming in (SOUNDS TWO
+      11/7, ask 88: the first frame), on a beat, and no later than a bar after the board;
    5. THEIR TURN DROPS IT, HIS BRINGS IT BACK, ON THE BEAT (126(e)): every turn the shell hears moves the arrangement to the
       bottom (their turn) or back to the fight's level (his) at the next beat, never between two beats;
    6. KILLS ARE COUNTED (rule 207, SOUNDS 10/26: a kill moves nothing now, his turn is the top): the shell counts every
@@ -96,7 +97,9 @@ const TALLY = `(function(){
   try {
     await p.waitForFunction(() => typeof MUS !== 'undefined' && MUS.playing && MUS.AC && MUS.AC.state === 'running', null, { timeout: 30000 });
     await p.evaluate(() => {
-      const L = window.__ML = { sets: [], msgs: [], voices: {}, steps: {}, songs: {}, outside: 0, stopped: 0, live: false };
+      const L = window.__ML = { sets: [], msgs: [], voices: {}, steps: {}, songs: {}, outside: 0, stopped: 0, live: false, frameAt: null };
+      /* SOUNDS TWO 11/7 (rule 427(a), ask 88): the fight's level comes in when its frame is in the page, the fight's first frame */
+      const fo = setInterval(() => { if (L.frameAt == null && document.getElementById('fightFrame')) { L.frameAt = performance.now(); clearInterval(fo); } }, 20);
       /* the ladder commits a pending change when the scheduler reads MUS.layers for the step it books: log every change
          of what a read returns, with the step being booked */
       const D = Object.getOwnPropertyDescriptor(MUS, 'layers'); L.exact = !!(D && D.get) && KILLMUS.exact === true;
@@ -112,8 +115,10 @@ const TALLY = `(function(){
       const booked = [], sr = ac.sampleRate, sd = MUS.stepDur(); let bi = 0;
       L.e = {}; L.eN = {};
       const sp = ac.createScriptProcessor(4096, 1, 1), z = ac.createGain(); z.gain.value = 0; MUS.MAST.connect(sp); sp.connect(z); z.connect(ac.destination);
+      L.win = []; let wa = 0, wn = 0, wt = null;   /* SOUNDS TWO 11/7: the master in 100 ms windows, for leg 9 against the level really sounding */
       sp.onaudioprocess = ev => { const a = ev.inputBuffer.getChannelData(0), t0 = ev.playbackTime;
         for (let i = 0; i < a.length; i += 4) { const t = t0 + i / sr;
+          if (wt == null) wt = t; wa += a[i] * a[i]; wn++; if (t - wt >= 0.1) { if (L.live && L.win.length < 20000) L.win.push([wt, wa / wn]); wa = 0; wn = 0; wt = t; }
           while (bi < booked.length - 1 && booked[bi + 1].t <= t) bi++;
           const b = booked[bi]; if (!b || t < b.t || t >= b.t + sd) continue;
           L.e[b.k] = (L.e[b.k] || 0) + a[i] * a[i]; L.eN[b.k] = (L.eN[b.k] || 0) + 1; } };
@@ -130,6 +135,13 @@ const TALLY = `(function(){
         L.msgs.push({ t: performance.now(), type: m.type, side: m.side, outcome: m.outcome, step: MUS.step, kills: KILLMUS.kills });
         if (m.type === 'BOHEMIA_FIGHT_OVER') setTimeout(() => { L.homeAfterBeat = typeof CITYFIGHT !== 'undefined' && CITYFIGHT; }, 1000); });
     });
+    /* SOUNDS TWO 11/7: the open road first, as THE SONGS GO IN does (on main from 11/7o the demo's start spot is a Mob fortress
+    block, and a road fight there never comes up: measured, no fight frame in 120 s) */
+    await d.fr.evaluate(() => { if (typeof turfAt !== 'function') return null; const own = (x, y) => !!turfAt(x, y);
+    for (let x = 6; x < 110; x += 2) for (let y = 6; y < 110; y += 2) { let ok = true; for (let dx = -2; dx <= 2 && ok; dx++) for (let dy = -2; dy <= 2; dy++) if (own(x + dx, y + dy)) { ok = false; break; }
+    if (ok) { city.x = x; city.y = y; try { __ctWhere(); } catch (e) {} return [x, y]; } }
+    return null; }).catch(() => null);
+    await p.waitForFunction(() => !window.PARTOFTOWN || (PARTOFTOWN.faction === null && PARTOFTOWN.now() === null), null, { timeout: 30000 }).catch(() => {});
     await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 7 }); });
     let f = null;
     for (let i = 0; i < 300 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();
@@ -144,10 +156,12 @@ const TALLY = `(function(){
     const L = R.L, msgs = L.msgs, sets = L.sets, start = msgs.filter(m => m.type === 'BOHEMIA_COMBAT_STARTED')[0];
     const beatMs = 500, barMs = 2000, POLL = 130;   /* 120 BPM; the ladder looks every 60 ms and a step lasts 125 */
     /* 4: the lift */
-    const lift = start && sets.filter(s => s.t >= start.t && s.from === 0 && s.to >= 2)[0];
-    leg(!!lift && lift.t - start.t <= barMs + POLL && lift.step % 4 === 0,
-      '*** THE SONG LIFTS WHEN THE FIGHT STARTS ***: 0 -> 2 or more inside a bar, on a beat',
-      lift ? 'layers ' + lift.from + ' -> ' + lift.to + ' ' + Math.round(lift.t - start.t) + ' ms after the board, at step ' + lift.step : 'no lift');
+    /* RE-AIMED 11/7 by SOUNDS TWO (rule 427(a), ask 88: music in every fight from the first frame): the fight starts for the
+       ear when its frame is in the page, before the board (2.3 s on the computer, 6.5 to 9 s on his phone at 4x) */
+    const from0 = L.frameAt != null ? L.frameAt : start && start.t, lift = start && sets.filter(s => s.t >= from0 && s.from === 0 && s.to >= 2)[0];
+    leg(!!lift && lift.t - from0 <= barMs + POLL && lift.step % 4 === 0 && lift.t <= start.t + barMs + POLL,
+      '*** THE SONG LIFTS WHEN THE FIGHT STARTS ***: 0 -> 2 or more inside a bar of the fight\'s frame coming in, on a beat, by the board',
+      lift ? 'layers ' + lift.from + ' -> ' + lift.to + ' ' + Math.round(lift.t - from0) + ' ms after the frame came in (' + Math.round(lift.t - start.t) + ' ms from the board), at step ' + lift.step : 'no lift');
     /* 5: every turn moves it at the next beat (a turn shorter than a beat is not a change the music owes) */
     const turns = msgs.filter(m => m.type === 'BOHEMIA_FIGHT_TURN'), ends = msgs.filter(m => m.type === 'BOHEMIA_FIGHT_OVER');
     let owed = 0, landed = 0, late = [], offBeat = 0;
@@ -203,11 +217,21 @@ const TALLY = `(function(){
        are in the game (every song in the book carries its hit, rule 207(c)); until then the gap is printed */
     let rerendered = false; try { const bm = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html'), 'utf8').match(/\/\*BOOK\*\/(\{.*?\})\/\*\/BOOK\*\//);
       const B = bm && JSON.parse(bm[1]); rerendered = !!B && Object.keys(B.songs).every(k => B.songs[k].hit !== false); } catch (e) { rerendered = false; }
-    const d2 = db(2), d4 = db(4);
-    leg(d2 !== null && d4 !== null && (!rerendered || d4 - d2 >= 4),
+    /* RE-AIMED 11/7 by SOUNDS TWO (rule 427(a)): a level change now lands on the next beat not yet out of the speaker, a beat
+       before the transport books it (THE SONGS GO IN's turnNow), so binning by the booked step's arrangement put a turn's first
+       beat on the other side: with turns of one to three beats that halved the gap it read (measured 2.8 dB on a tree whose files
+       carry 6 to 7 dB full band). The ruler is now the level really sounding (SONGBOOK.switches, its own audio time), 0.3 s after
+       each change and never a window that holds one; the booked-step reading is still printed */
+    const SW = await p.evaluate(() => (window.SONGBOOK && SONGBOOK.switches || []).filter(x => x.t != null).map(x => [x.t, x.lv])).catch(() => []);
+    const lvAt = t => { let lv = null, at = -1; for (const [st, l] of SW) if (st <= t + 1e-6) { lv = l; at = st; } return { lv, since: t - at }; };
+    const eBy = l => (L.win || []).filter(w => { const a = lvAt(w[0]), b = lvAt(w[0] + 0.1); return a.lv === l && b.lv === l && a.since > 0.3 && b.since > a.since; }).map(w => w[1]);
+    const rms = a => a.length ? 10 * Math.log10(a.reduce((x, y) => x + y, 0) / a.length + 1e-12) : null;
+    const e2 = eBy(2), e3 = eBy(3), b2 = db(2), b4 = db(4), d2 = rms(e2), d4 = rms(e3);
+    leg(d2 !== null && d4 !== null && e2.length >= 10 && e3.length >= 10 && (!rerendered || d4 - d2 >= 4),
       '*** YOU HEAR IT ***: live, his turn is louder than theirs on the game\'s own master by at least 4 dB (rule 207: his turn hits hard)',
       'notes a bar: bottom ' + (v0 || 0).toFixed(1) + ', fight ' + (v2 === null ? '-' : v2.toFixed(1) + ' (+' + Math.round((v2 / v0 - 1) * 100) + '%)') + ', top ' + (v4 === null ? '-' : v4.toFixed(1) + ' (+' + Math.round((v4 / v0 - 1) * 100) + '%)')
-        + '; the master while each played (reported): ' + [0, 2, 4].map(k => db(k) === null ? '-' : db(k).toFixed(1) + ' dB').join(' / ') + (rerendered ? '' : '; the 4 dB counted when the re-renders land (rule 207)') + '; the commit on the read: ' + L.exact);
+        + '; the master, full band, while level 2 and level 3 really sounded: ' + (d2 === null ? '-' : d2.toFixed(1)) + ' / ' + (d4 === null ? '-' : d4.toFixed(1)) + ' dB (' + e2.length + ' and ' + e3.length + ' windows): ' + (d2 !== null && d4 !== null ? (d4 - d2).toFixed(1) + ' dB' : '-')
+        + '; by the booked step (reported): ' + [0, 2, 4].map(k => db(k) === null ? '-' : db(k).toFixed(1) + ' dB').join(' / ') + (rerendered ? '' : '; the 4 dB counted when the re-renders land (rule 207)') + '; the commit on the read: ' + L.exact);
     leg(d.errs.length === 0, 'nothing threw', d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 140) : ''));
   } catch (e) { leg(false, 'the demo leg ran', String(e.message).slice(0, 200)); }
   await d.close();

@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/7z - THE TERATORN, ONE MORE BEAST</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/7za - THE FIGHT AS YOU HEAR IT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -19520,7 +19520,7 @@ window.INTENSITY=KILLMUS;
    up, and both come back over a bar when the fight ends. His sliders still move both; the song's notes are untouched.
    tools/bohemia_sounds_the_sound_never_chops_patch.py, gates/the_fights_music_you_can_hear_gate.js. */
 (function(){
-  var LIFT = 2.0, TRIM = 0.63, /* __THE_SONGS_GO_IN__: 1.0 and 0.5 once the re-rendered levels carry the gap (rule 207), 2.0 and 0.63 until then */ mus = null, fx = null, ctx = null, on = false;
+  var LIFT = 1.0, TRIM = 0.5, /* __THE_SONGS_GO_IN__: 1.0 and 0.5 once the re-rendered levels carry the gap (rule 207), 2.0 and 0.63 until then */ mus = null, fx = null, ctx = null, on = false;
   function between(src, dst, g){ var n = ctx.createGain(); n.gain.value = g; src.disconnect(dst); src.connect(n); n.connect(dst); return n; }
   function ensure(){
     try{
@@ -23386,7 +23386,7 @@ drawLogoBig();requestAnimationFrame(loop);
  'use strict';
  if(window.SONGBOOK) return;
  if(typeof MUS==='undefined' || typeof KILLMUS==='undefined') return;
- var BOOK=/*BOOK*/{"made":"10/26","rule":[207,221],"probe":"vote/songs/probe.mp3?v=17c599b6","songs":{"THE VAULT":{"dir":"vote/songs/three_levels/the_vault/","steps":512,"gain_db":0.0,"hit":false,"v":"57080c63"},"GHOST IN THE GRID":{"dir":"vote/songs/three_levels/ghost_in_the_grid/","steps":512,"gain_db":0.0,"hit":false,"v":"238af79a"},"SLOW BLEED":{"dir":"vote/songs/three_levels/slow_bleed/","steps":512,"gain_db":0.0,"hit":false,"v":"78be8e4d"},"SATELLITE PRAYER":{"dir":"vote/songs/three_levels/satellite_prayer/","steps":512,"gain_db":0.0,"hit":false,"v":"9a2626fd"},"SLOW CREEP":{"dir":"vote/songs/three_levels/slow_creep/","steps":512,"gain_db":0.0,"hit":false,"v":"f3f658fb"},"THE PIT BOSS IS GONE":{"dir":"vote/songs/three_levels/the_pit_boss_is_gone/","steps":512,"gain_db":0.0,"hit":false,"v":"40453992"},"THE ORGAN IN THE DROWNED CHAPEL":{"dir":"vote/songs/three_levels/the_organ_in_the_drowned_chapel/","steps":512,"gain_db":0.0,"hit":false,"v":"ac845781"},"CAMPFIRE CONFESSION":{"dir":"vote/songs/three_levels/campfire_confession/","steps":512,"gain_db":0.0,"hit":false,"v":"47122140"},"REPO MAN":{"dir":"vote/songs/three_levels/repo_man/","steps":512,"gain_db":0.0,"hit":false,"v":"8082b910"},"THE CHURCH CLOCK STRIKES TWELVE":{"dir":"vote/songs/new_four/the_church_clock_strikes_twelve/","steps":512,"gain_db":0.0,"hit":false,"v":"7652aab8","row":{"root":36,"scale":[0,2,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE SODA MACHINE STILL TAKES COINS":{"dir":"vote/songs/new_four/the_soda_machine_still_takes_coins/","steps":512,"gain_db":0.0,"hit":false,"v":"f436d07a","row":{"root":38,"scale":[0,1,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE HELICOPTER THAT NEVER LANDS":{"dir":"vote/songs/new_four/the_helicopter_that_never_lands/","steps":512,"gain_db":0.0,"hit":false,"v":"93c1342e","row":{"root":43,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE PAWN COUNTER AT FOUR IN THE MORNING":{"dir":"vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/","steps":512,"gain_db":0.0,"hit":false,"v":"b6e846f2","row":{"root":34,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}}}}/*/BOOK*/;
+ var BOOK=/*BOOK*/{"made":"10/26","rule":[207,221],"probe":"vote/songs/probe.mp3?v=17c599b6","songs":{"THE VAULT":{"dir":"vote/songs/three_levels/the_vault/","steps":512,"gain_db":0.0,"hit":true,"v":"ee17e16c"},"GHOST IN THE GRID":{"dir":"vote/songs/three_levels/ghost_in_the_grid/","steps":512,"gain_db":0.0,"hit":true,"v":"dfb6deca"},"SLOW BLEED":{"dir":"vote/songs/three_levels/slow_bleed/","steps":512,"gain_db":6.02,"hit":true,"v":"d2f7ae5a"},"SATELLITE PRAYER":{"dir":"vote/songs/three_levels/satellite_prayer/","steps":512,"gain_db":0.0,"hit":true,"v":"e0cb8025"},"SLOW CREEP":{"dir":"vote/songs/three_levels/slow_creep/","steps":512,"gain_db":6.02,"hit":true,"v":"3ddb84f3"},"THE PIT BOSS IS GONE":{"dir":"vote/songs/three_levels/the_pit_boss_is_gone/","steps":512,"gain_db":0.0,"hit":true,"v":"71f360d8"},"THE ORGAN IN THE DROWNED CHAPEL":{"dir":"vote/songs/three_levels/the_organ_in_the_drowned_chapel/","steps":512,"gain_db":0.0,"hit":true,"v":"67757028"},"CAMPFIRE CONFESSION":{"dir":"vote/songs/three_levels/campfire_confession/","steps":512,"gain_db":0.0,"hit":true,"v":"aa065698"},"REPO MAN":{"dir":"vote/songs/three_levels/repo_man/","steps":512,"gain_db":0.0,"hit":true,"v":"5fa24203"},"THE CHURCH CLOCK STRIKES TWELVE":{"dir":"vote/songs/new_four/the_church_clock_strikes_twelve/","steps":512,"gain_db":0.0,"hit":true,"v":"8b55974a","row":{"root":36,"scale":[0,2,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE SODA MACHINE STILL TAKES COINS":{"dir":"vote/songs/new_four/the_soda_machine_still_takes_coins/","steps":512,"gain_db":0.0,"hit":true,"v":"0b6fdb32","row":{"root":38,"scale":[0,1,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE HELICOPTER THAT NEVER LANDS":{"dir":"vote/songs/new_four/the_helicopter_that_never_lands/","steps":512,"gain_db":0.0,"hit":true,"v":"07355c25","row":{"root":43,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE PAWN COUNTER AT FOUR IN THE MORNING":{"dir":"vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/","steps":512,"gain_db":0.0,"hit":true,"v":"65806639","row":{"root":34,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}}}}/*/BOOK*/;
  var SD=0.125, OFF=0.05, TOL=0.004;
  var R=window.SONGBOOK={ book:BOOK, sets:{}, src:null, ring:[], buses:{}, delay:null, queued:null, warm:[], switches:[], hits:0,
    fallback:0, steps:0, resync:0, errs:[], decoded:0, dropped:0, rate:null };
@@ -23419,12 +23419,29 @@ drawLogoBig();requestAnimationFrame(loop);
 
  /* ---- THE LADDER (207(a)): the map and the towns 1; a fight: their turn 2, his turn 3, the formation 2 ------------- */
  (function(){
-  var K=KILLMUS, side=null, turn0=K.turn, settle0=K.settle, reset0=K.reset;
-  K.level=function(){ if(!(this.threat || this.nf)) return 1; return side==='you' ? 3 : 2; };
+  var K=KILLMUS, side=null, turn0=K.turn, settle0=K.settle, reset0=K.reset, seen=null;
+  K.coming=null;
+  K.level=function(){ if(!(this.threat || this.nf || this.coming)) return 1; return side==='you' ? 3 : 2; };
   if(turn0) K.turn=function(s){ side=(s==='them')?'them':'you'; var r=turn0.apply(this, arguments); try{ turnNow(); }catch(e){} return r; };
-  if(settle0) K.settle=function(){ side=null; var r=settle0.apply(this, arguments); setTimeout(function(){ try{ plan(); }catch(e){} }, 0); return r; };
-  if(reset0) K.reset=function(){ side=null; return reset0.apply(this, arguments); };
+  if(settle0) K.settle=function(){ side=null; K.coming=null; var r=settle0.apply(this, arguments); setTimeout(function(){ try{ plan(); }catch(e){} }, 0); return r; };
+  if(reset0) K.reset=function(){ side=null; K.coming=null; return reset0.apply(this, arguments); };
   K.side=function(){ return side; };
+  /* THE FIGHT FROM ITS FIRST FRAME (SOUNDS TWO 11/7, rule 427(a), ask 88: 'music in every fight from the first frame'). MEASURED
+     in the demo off the audio: the ladder stayed at the map's 1 until the board was up (2.3 s on the computer, 6.5 to 9 s on
+     his phone at 4x) and a map song still in its quiet first bars played the fight's first frames at -65 dB, a phone's silence.
+     The fight's frame in the page is the fight coming: its level 2 (the heartbeat on every beat) comes in on the next beat,
+     once per frame; the end of the fight settles it as before (the end screen keeps the frame, never lifts it again). */
+  setInterval(function(){ try{ var f=document.getElementById('fightFrame');
+   if(f && f!==seen){ seen=f; if(!K.nf && !K.threat && !K.coming){ K.coming=f; K.quant=4; K.apply(); } }
+   if(!f && K.coming){ K.coming=null; K.apply(); } }catch(e){} }, 100);
+  /* THE FIGHT'S MUSIC NEVER BOWS TO A BARK (SOUNDS TWO 11/7, rule 427(a), ask 127: his turn hits much harder, at least 6 dB).
+     MEASURED in the demo off the audio, the gains read every 100 ms: the dialogue duck (8/15, -9 dB for as long as a line runs)
+     fired on every bark in the fight, and his crew calls his own shots on his turn (rule 143(c)), so his turn sat under the duck
+     more than theirs: level 3 read 8 to 17 dB under its file against level 2's 8 to 12, a 6.8 dB gap heard as 3.5. In a fight
+     (its frame in the page to its settle) the music does not duck; a line still ducks it everywhere else. */
+  (function wrap(){ var d0=window.duckMusic; if(typeof d0!=='function'){ setTimeout(wrap, 250); return; } if(d0.__fight) return;
+   var w=function(){ if(K.threat || K.nf || K.coming){ R.ducksHeld=(R.ducksHeld||0)+1; return null; } return d0.apply(this, arguments); };
+   w.__fight=true; window.duckMusic=w; })();
  })();
 
  /* ---- DECODING: on a phone at 24 kHz; the encoder's delay read once, off the hit (one onset, 0.05 s into its file) ---- */
@@ -23478,7 +23495,6 @@ drawLogoBig();requestAnimationFrame(loop);
  /* WHAT IS HELD: the playing song's levels for where he is (on the map level 1 decoded and the fight's two levels as bytes,
     so a fight decodes without a fetch), the hit, the next song's level 1 (its bytes only in a fight) */
  function plan(){
-  if(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld()) return;   /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): no recording is fetched before first play; his engine plays live till then */
   var keep={}, n=entry();
   if(n){ var s=setOf(n), k=keep[n]={}; if(s.b.hit) k.hit=1;
    if(coming()){ k.level_2=1; k.level_3=1; if(!s.buf.level_2) k.level_1=1; }

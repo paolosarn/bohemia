@@ -1143,7 +1143,11 @@
   var HUM = null;
   function humNode() {
     try {
-      var mv = W.__MUSVOL, out = W.__OUTBUS; if (!mv || !out || !mv.context) return null;
+      /* SOUNDS TWO 11/7 (rule 427(a)): the music's last node before the output is the fight's lift (__FIGHTLIFT, built with the
+         game's music, between his slider and the output), not his slider: the hum went in BESIDE it, the music reached the output
+         twice from the first dive on (+6 dB, measured: muting the lift took the output down 4.5 dB, not to silence) and the hum
+         never hummed (the full song still came the other way). It goes in after the lift, in series. */
+      var mv = W.__FIGHTLIFT || W.__MUSVOL, out = W.__OUTBUS; if (!mv || !out || !mv.context) return null;
       if (HUM && HUM.__mv === mv) return HUM;
       var lp = mv.context.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 20000; lp.Q.value = 0.5;
       try { mv.disconnect(out); } catch (e) {}

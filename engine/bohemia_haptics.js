@@ -242,7 +242,11 @@
     return function (e) {
       var d = e && e.data; if (!d || typeof d !== 'object') return;
       if (win !== root && e.source === win) return;                 /* a frame talking to itself */
-      if (d.type === 'BOHEMIA_SFX') fromSound(d.ev, d, 'msg:' + d.ev);
+      /* SOUNDS TWO 11/7 (rule 427(a)): a fight sound now comes ahead of its moment with `at`, the epoch ms it is heard
+         (the shell books it there); the buzz waits for the same moment, so the hand and the ear meet on the beat */
+      var dl = d.type === 'BOHEMIA_SFX' && typeof d.at === 'number' ? d.at - (performance.timeOrigin + performance.now()) : 0;
+      if (d.type === 'BOHEMIA_SFX' && dl > 1 && dl < (+T.settings.wait_for_at_ms || 0)) setTimeout(function () { fromSound(d.ev, d, 'msg:' + d.ev); }, dl);   /* the table's longest wait */
+      else if (d.type === 'BOHEMIA_SFX') fromSound(d.ev, d, 'msg:' + d.ev);
       else if (d.type === 'BOHEMIA_HAPTIC') haptic(d.kind, 'msg');
     };
   }

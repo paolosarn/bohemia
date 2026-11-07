@@ -73,6 +73,13 @@ async function one(profile, throttle) {
         if (m.type === 'BOHEMIA_FIGHT_OVER') { L.over = true; L.t1 = ac.currentTime; } });
     });
     await p.waitForTimeout(6000);   /* the map's own level, before the fight */
+    /* SOUNDS TWO 11/7: the open road first, as THE SONGS GO IN does (on main from 11/7o the demo's start spot is a Mob fortress
+    block, and a road fight there never comes up: measured, no fight frame in 120 s) */
+    await d.fr.evaluate(() => { if (typeof turfAt !== 'function') return null; const own = (x, y) => !!turfAt(x, y);
+    for (let x = 6; x < 110; x += 2) for (let y = 6; y < 110; y += 2) { let ok = true; for (let dx = -2; dx <= 2 && ok; dx++) for (let dy = -2; dy <= 2; dy++) if (own(x + dx, y + dy)) { ok = false; break; }
+    if (ok) { city.x = x; city.y = y; try { __ctWhere(); } catch (e) {} return [x, y]; } }
+    return null; }).catch(() => null);
+    await p.waitForFunction(() => !window.PARTOFTOWN || (PARTOFTOWN.faction === null && PARTOFTOWN.now() === null), null, { timeout: 30000 }).catch(() => {});
     await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 7 }); });
     let f = null;
     for (let i = 0; i < 400 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();

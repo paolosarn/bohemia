@@ -145,12 +145,29 @@ BLOCK = r'''<!-- __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207) -->
 
  /* ---- THE LADDER (207(a)): the map and the towns 1; a fight: their turn 2, his turn 3, the formation 2 ------------- */
  (function(){
-  var K=KILLMUS, side=null, turn0=K.turn, settle0=K.settle, reset0=K.reset;
-  K.level=function(){ if(!(this.threat || this.nf)) return 1; return side==='you' ? 3 : 2; };
+  var K=KILLMUS, side=null, turn0=K.turn, settle0=K.settle, reset0=K.reset, seen=null;
+  K.coming=null;
+  K.level=function(){ if(!(this.threat || this.nf || this.coming)) return 1; return side==='you' ? 3 : 2; };
   if(turn0) K.turn=function(s){ side=(s==='them')?'them':'you'; var r=turn0.apply(this, arguments); try{ turnNow(); }catch(e){} return r; };
-  if(settle0) K.settle=function(){ side=null; var r=settle0.apply(this, arguments); setTimeout(function(){ try{ plan(); }catch(e){} }, 0); return r; };
-  if(reset0) K.reset=function(){ side=null; return reset0.apply(this, arguments); };
+  if(settle0) K.settle=function(){ side=null; K.coming=null; var r=settle0.apply(this, arguments); setTimeout(function(){ try{ plan(); }catch(e){} }, 0); return r; };
+  if(reset0) K.reset=function(){ side=null; K.coming=null; return reset0.apply(this, arguments); };
   K.side=function(){ return side; };
+  /* THE FIGHT FROM ITS FIRST FRAME (SOUNDS TWO 11/7, rule 427(a), ask 88: 'music in every fight from the first frame'). MEASURED
+     in the demo off the audio: the ladder stayed at the map's 1 until the board was up (2.3 s on the computer, 6.5 to 9 s on
+     his phone at 4x) and a map song still in its quiet first bars played the fight's first frames at -65 dB, a phone's silence.
+     The fight's frame in the page is the fight coming: its level 2 (the heartbeat on every beat) comes in on the next beat,
+     once per frame; the end of the fight settles it as before (the end screen keeps the frame, never lifts it again). */
+  setInterval(function(){ try{ var f=document.getElementById('fightFrame');
+   if(f && f!==seen){ seen=f; if(!K.nf && !K.threat && !K.coming){ K.coming=f; K.quant=4; K.apply(); } }
+   if(!f && K.coming){ K.coming=null; K.apply(); } }catch(e){} }, 100);
+  /* THE FIGHT'S MUSIC NEVER BOWS TO A BARK (SOUNDS TWO 11/7, rule 427(a), ask 127: his turn hits much harder, at least 6 dB).
+     MEASURED in the demo off the audio, the gains read every 100 ms: the dialogue duck (8/15, -9 dB for as long as a line runs)
+     fired on every bark in the fight, and his crew calls his own shots on his turn (rule 143(c)), so his turn sat under the duck
+     more than theirs: level 3 read 8 to 17 dB under its file against level 2's 8 to 12, a 6.8 dB gap heard as 3.5. In a fight
+     (its frame in the page to its settle) the music does not duck; a line still ducks it everywhere else. */
+  (function wrap(){ var d0=window.duckMusic; if(typeof d0!=='function'){ setTimeout(wrap, 250); return; } if(d0.__fight) return;
+   var w=function(){ if(K.threat || K.nf || K.coming){ R.ducksHeld=(R.ducksHeld||0)+1; return null; } return d0.apply(this, arguments); };
+   w.__fight=true; window.duckMusic=w; })();
  })();
 
  /* ---- DECODING: on a phone at 24 kHz; the encoder's delay read once, off the hit (one onset, 0.05 s into its file) ---- */

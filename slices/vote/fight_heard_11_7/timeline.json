@@ -1,0 +1,80 @@
+{
+ "board": 9.613,
+ "over": 47.02,
+ "frameIn": 7.245,
+ "beat": 0.5,
+ "beat0": 0.4285,
+ "turns": [
+  [
+   11.749,
+   "you"
+  ],
+  [
+   13.444,
+   "them"
+  ],
+  [
+   16.509,
+   "you"
+  ],
+  [
+   17.926,
+   "them"
+  ],
+  [
+   19.017,
+   "you"
+  ],
+  [
+   20.805,
+   "them"
+  ],
+  [
+   24.799,
+   "you"
+  ],
+  [
+   28.932,
+   "them"
+  ],
+  [
+   30.929,
+   "you"
+  ],
+  [
+   34.296,
+   "them"
+  ],
+  [
+   37.291,
+   "you"
+  ],
+  [
+   38.429,
+   "them"
+  ],
+  [
+   39.938,
+   "you"
+  ],
+  [
+   42.934,
+   "them"
+  ],
+  [
+   44.304,
+   "you"
+  ]
+ ],
+ "song": "GHOST IN THE GRID",
+ "measured": {
+  "gap": "8.3",
+  "gapBefore": "0.8 on the computer, -1.6 on the phone",
+  "on16": "86 of 90",
+  "blows": "78 of 78",
+  "hitches": "0 of 32",
+  "hitchesBefore": "12 of 37",
+  "silent": 0
+ },
+ "made": "SOUNDS TWO 11/7, tools/bohemia_sounds_two_the_fight_heard.js --record (the demo, a road fight on AUTO, the computer, seed 11, REPO MAN)"
+}

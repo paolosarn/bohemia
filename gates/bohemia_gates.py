@@ -9974,12 +9974,22 @@ GATES = [
      "(written note by note, tools/bohemia_sounds_four_new_songs.js), each with a card: no two share more than one of lead, bass, drums, pad, key; the tune no more than 6 dB under the mix on a phone; "
      "a 120 BPM pulse at every level; level 2 and 3 climb and the beat alone climbs 6 dB to level 3; a pitch fingerprint of ten seconds tells each from the others and from his eight night songs (cosine under 0.95); "
      "never wired; no machine party (REPO MAN only); the card's page names the song and its list. green at registration 106/0, about 40 s", True),
-    ('THE MUSIC IN THE FIGHT NOW', ['node', 'gates/the_songs_go_in_gate.js', '--now'],
+    ('THE SONGS GO IN', ['node', 'gates/the_songs_go_in_gate.js'],   # SOUNDS TWO 11/7: the re-renders landed, every leg counts (was --now)
      "SOUNDS gate, 10/26, row [the music in the fight now] (rule 221(a), Paolo 10/26: 'when does the music get implemented in the combat? I'm tired of not everything being on the same BPM, not sounding good'): "
      "the thirteen voted-up songs (his nine at three levels, the four new) on disk and in the alpha's and the demo's book as the files are now; then the live demo on the phone profile at 4x and the computer: "
      "the map plays 1 from its recording, twelve seconds never silent, a road fight on AUTO where every turn changes the level on a beat within 1.2 s (their turn 2, his turn 3; EYES line 87 heard 1 and 2), "
      "a song from the fight's first frame (never silent from the fight's frame in the page to 3 s after the board), the song never jumps nor goes silent, every decoded level's beat (folded on the eighth) within 15 ms of the transport's, back to 1 after. "
-     "The gap (his turn 6 dB over theirs) and the hit are printed, counted by THE SONGS GO IN when the re-renders land (rule 207). green at registration: computer 9/0, phone 10/0, about 7 minutes", True),
+     "The gap (his turn 6 dB over theirs) and the hit are counted since the re-renders landed (SOUNDS TWO 11/7, rule 427(a): level 3 7.8 to 9.2 dB over level 2 in all thirteen; 86/0). green at registration: computer 9/0, phone 10/0, about 8 minutes", True),
+    ('THE FIGHT AS HE HEARS IT', ['node', 'gates/the_fight_as_he_hears_it_gate.js', '--fast'],
+     "SOUNDS TWO gate, 11/7, rule 427(a) (asks 47, 88, 127, 212: music in every fight from the first frame to the end screen; the songs at three levels; his turn at least 6 dB harder, the full drums and the lead only on his; every action on the beat by hand and on AUTO; one pace for every turn). "
+     "OFF THE AUDIO: four AudioWorklet ears on the demo's own graph (the music after his slider and the lift, the same through a phone, the effects bus, the end of the chain) in the real road fight: "
+     "the thirteen files' gap (level 3 at least 6 dB over 2 through a phone) and the kit and lead in 3 only; then his phone's profile on AUTO: A music never silent a quarter second from the fight's frame to the end screen, "
+     "B every turn heard as its level, C his turn 6 dB over theirs, D the sounds heard on the song's grid and every blow on a beat, E the song's beat held, one grid, no beat lost between motions; "
+     "THE PLANT: one more fight with four faults (his turn at 2, sounds 90 ms off, their turns at double pace, two seconds of silence), each leg must go red. "
+     "MEASURED BEFORE: his turn 0.8 dB over theirs (the phone -1.6), 12 of 37 pairs a beat lost, 23 of 86 blows a sixteenth late. green at registration 13/0, about 7 minutes", True),
+    ('THE FIGHT AS HE HEARS IT, THE REST', ['node', 'gates/the_fight_as_he_hears_it_gate.js', '--rest'],
+     "SOUNDS TWO gate, 11/7, rule 427(a): the same legs on his phone's profile with the CPU four times slower (the late sounds and the late choices are the page's thread: reported for PLUMBER, not held) "
+     "and on the computer BY HAND (every turn of his asked for at a random moment off the beat; his own moves and his turn's end are his thumb's). about 8 minutes", True),
     ('ONE BEAT FOR EVERYTHING', ['node', 'gates/one_beat_for_everything_gate.js'],
      "SOUNDS gate, 10/26, row [one beat for everything] (rule 221(b)(c), Paolo 10/26: 'I'm tired of not everything being on the same BPM, not sounding good'; EYES line 47: AUTO's actions about 100 ms after the quarter beats): "
      "the alpha and the demo carry the one clock (every effect asked for now starts on the song's next sixteenth of the same audio clock, a DelayNode between the one-shot player and its bus; `at` books a heard moment exactly); "

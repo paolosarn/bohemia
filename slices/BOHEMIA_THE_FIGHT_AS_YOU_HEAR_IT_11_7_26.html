@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Fight As You Hear It</title>
+<style>
+/* SOUNDS TWO 11/7 (rule 427(a); asks 47, 88, 127, 212). A VOTE card's page. It plays what came out of the game itself:
+   a road fight in the demo, on AUTO, recorded at the end of the game's own sound chain (everything he hears), with the
+   turns and the beat the fight really had; and one of his songs' fight run before and now (the gap between their turn
+   and his). Files: slices/vote/fight_heard_11_7/ (tools/bohemia_sounds_two_the_fight_heard.js --record). */
+@font-face{font-family:'BohemiaROM';src:url(fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:swap}
+:root{--bg:#0d0b09;--ink:#e8dcc4;--dim:#9a8b6e;--line:#3a3024;--hot:#e0432c;--btn:#1c1712;--gold:#f6cf74;--them:#b8452f;--you:#d9a85a}
+body.sun{--bg:#f4ecdc;--ink:#1b140c;--dim:#5a4a30;--line:#bba98a;--btn:#e6dac2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 ui-monospace,Menlo,monospace;padding:16px;max-width:680px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 6px;font-family:'BohemiaROM',ui-monospace,monospace}
+h2{font-size:14px;letter-spacing:2px;margin:22px 0 6px;color:var(--gold)}
+p{color:var(--dim);margin:0 0 12px}
+button{background:var(--btn);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font:inherit;cursor:pointer;letter-spacing:1px;margin:0 6px 8px 0}
+button.on{border-color:var(--hot)}
+.stage{display:flex;align-items:center;gap:14px;margin:8px 0 6px}
+.who{font:20px 'BohemiaROM',ui-monospace,monospace;letter-spacing:3px;min-width:170px}
+.who.them{color:var(--them)} .who.you{color:var(--you)}
+.beat{width:26px;height:26px;border-radius:50%;background:#2a221a;box-shadow:inset 0 0 0 2px var(--line)}
+.beat.k{background:var(--gold)}
+.t{color:var(--dim);font-size:12px}
+.nums{font-size:13px;color:var(--ink);border-left:2px solid var(--line);padding-left:10px;margin:10px 0}
+.nums b{color:var(--gold);font-weight:400}
+#sun{position:fixed;top:10px;right:10px;padding:8px 10px}
+</style></head><body>
+<button id="sun">SUN</button>
+<h1>THE FIGHT, AS YOU HEAR IT</h1>
+<p>A real road fight from the demo, on AUTO, recorded at the very end of the game's sound, the way your phone plays it. Watch whose turn it is and the beat light while it plays.</p>
+
+<h2>1. A FIGHT, NOW</h2>
+<div class="stage"><div class="beat" id="b1"></div><div class="who" id="who">-</div><div class="t" id="t1"></div></div>
+<button id="p1">PLAY THE FIGHT</button><button id="s1">STOP</button>
+<div class="nums" id="n1">loading the numbers...</div>
+
+<h2>2. ONE SONG'S FIGHT, BEFORE AND NOW</h2>
+<p>THE VAULT, the way its card plays a fight: the map, their turn, your turn, their turn, your turn, four bars each. Before, your turn was 2.4 dB over theirs. Now it is 9 dB, the full drums and the lead only on yours, with the hit on the beat your turn comes back.</p>
+<button id="pb">BEFORE</button><button id="pn">NOW</button><button id="s2">STOP</button>
+<div class="stage"><div class="beat" id="b2"></div><div class="who" id="who2">-</div></div>
+
+<script>
+'use strict';
+const DIR = 'vote/fight_heard_11_7/';
+let T = null, A = null, raf = 0;
+fetch(DIR + 'timeline.json').then(r => r.json()).then(j => { T = j; nums(); }).catch(() => { document.getElementById('n1').textContent = 'the numbers did not load'; });
+function nums() {
+  const m = T.measured || {};
+  document.getElementById('n1').innerHTML = [
+    'Your turn over theirs, through a phone: <b>' + m.gap + ' dB</b> (was ' + m.gapBefore + ').',
+    'Sounds booked on the song\'s beat grid: <b>' + m.on16 + '</b>; blows on a beat: <b>' + m.blows + '</b>.',
+    'Beats wasted between two moves: <b>' + m.hitches + '</b> (was ' + m.hitchesBefore + ').',
+    'Music from the fight\'s first frame to the end screen: <b>' + m.silent + ' silent quarter seconds</b>.'
+  ].join('<br>');
+}
+function stop() { if (A) { A.pause(); A = null; } cancelAnimationFrame(raf); document.querySelectorAll('button.on').forEach(b => b.classList.remove('on')); }
+function play(src, btn, onTick) { stop(); A = new Audio(src); A.play().catch(() => {}); btn.classList.add('on'); const loop = () => { if (!A) return; onTick(A.currentTime); raf = requestAnimationFrame(loop); }; loop(); A.onended = stop; }
+function whoAt(list, t) { let w = null; for (const x of list) if (x[0] <= t) w = x[1]; return w; }
+function light(el, t, beat0, beat) { const ph = (((t - beat0) % beat) + beat) % beat; el.classList.toggle('k', ph < 0.09); }
+document.getElementById('p1').onclick = e => { if (!T) return; play(DIR + 'a_fight_now.mp3', e.target, t => {
+  const w = whoAt(T.turns, t), el = document.getElementById('who');
+  el.textContent = t < T.board ? 'THE MAP' : w === 'them' ? 'THEIR TURN' : w === 'you' ? 'YOUR TURN' : 'THE FIGHT'; el.className = 'who ' + (w || '');
+  if (T.over != null && t >= T.over) { el.textContent = 'THE END SCREEN'; el.className = 'who'; }
+  document.getElementById('t1').textContent = t.toFixed(1) + ' s'; light(document.getElementById('b1'), t, T.beat0, T.beat); }); };
+const RUN = [['THE MAP', ''], ['THEIR TURN', 'them'], ['YOUR TURN', 'you'], ['THEIR TURN', 'them'], ['YOUR TURN', 'you']];
+function runTick(t) { const bar = 2, i = Math.max(0, Math.min(4, Math.floor(t / (4 * bar)))), el = document.getElementById('who2');
+  el.textContent = RUN[i][0]; el.className = 'who ' + RUN[i][1]; light(document.getElementById('b2'), t, 0, 0.5); }
+document.getElementById('pb').onclick = e => play(DIR + 'the_vault_before.mp3', e.target, runTick);
+document.getElementById('pn').onclick = e => play(DIR + 'the_vault_now.mp3', e.target, runTick);
+document.getElementById('s1').onclick = stop; document.getElementById('s2').onclick = stop;
+document.getElementById('sun').onclick = () => document.body.classList.toggle('sun');
+</script>
+</body></html>
