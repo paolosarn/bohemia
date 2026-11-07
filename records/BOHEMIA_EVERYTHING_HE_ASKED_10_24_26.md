@@ -539,3 +539,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 515 | No cheap route: a one-handed and two-handed version of the same axe/pipe/sledge is not two weapons; new weapons are real distinct objects with their own art | 424(c) | WEAPONS | IN FLIGHT 11/7 |
 | 516 | Vultures, his B: an enemy, the lab-made Ice Age teratorn in flocks that hunt the weak, the wounded and the dead; real small vultures only a rare capped sign on the map | 431(e) | WORLD 12 | IN FLIGHT 11/7 |
 | 517 | The vulture is just another animal we can fight: one more beast fought like the others, no special systems, no map sign | 431(f) | WORLD 12 | IN FLIGHT 11/7 |
+| 518 | In the shop, nothing about how an item compares on the company shows until he taps the item; on every screen a detail shows only on a tap | 433 | UI THREE (every UI lane) | IN FLIGHT 11/7 |
