@@ -1,5 +1,34 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 6 (chat 18) 11/6-11/7 -- rule 418, ask line 475: (e) THE PUBLISH NEVER BREAKS HIS FLOW, then (a)(b) LIGHT AS A FLASH GAME.
+BUILT, NOT YET SEEN (BUILD 11/7a FIRST PLAY IS LIGHT). Record: records/BOHEMIA_PLUMBER_LIGHT_AS_A_FLASH_GAME_11_6_26.md.
+THE DEPLOY: deploy-pages died at 10 min on 4270/4272/4274/4287/4288, every one at 'syncing_files' on GitHub's side (4288's 823 MB
+was 4286's size to 0.02%); its timeout is capped at MAX_TIMEOUT 600000 and it cancels itself; a re-run failed on 'Multiple
+artifacts named github-pages'. pages.yml now: the upload named per attempt; three tries, TWO MINUTES apart (rehearsed, run 4292: a
+try 30 s after a cancel reads the cancelled deployment back, the deployment id IS the commit; 90 s later it landed); no try landed
+-> it dispatches itself ONCE (retry_of; never loops) and goes red with THE SITE IS BEHIND + the live build; the site carries
+BOHEMIA_SITE_SHA.txt and the live check reads it back past the CDN. rehearse_timeouts=N (dispatch input) proves it on a NEW commit
+only (an already-live commit 'succeeds' in 1 s, run 4291). Proven: 4289 (b9f6e926 live, try 1, 22 s), 4292 (try 3 landed, live
+check read 06ca3ec2). THE WHOLE-FAILURE REHEARSAL (rehearse 3 -> the re-send): see the record's PART 1 for its run numbers.
+weight.yml (new): THE LIVE SITE's first play weighed on GitHub's runner after every deploy (tools/bohemia_first_play.js --base).
+LIGHT: before, 48.9 MB in 633 files before the town he starts in was playable (the map drew 22 MB of people behind a title that
+covers the glass; songs, voices, fight sounds, machine party, all eight town shapes). Now one signal in the shell
+(__FIRST_PLAY_IS_LIGHT__: bohemiaFirstPlayHeld / bohemiaAfterFirstPlay / __FIRST_PLAY_OFF) and every heavy loader waits for it,
+streaming in behind the town: 15.3 MB in 401-445 files on the phone at 4x, 16.3 MB on a computer; BEGIN about 5 s sooner.
+THE HEAP: peak 95.5 MB live through the whole loop (after a won fight), 78 MB at first play, 72 after a reload. The 212 MB was not
+reproduced by any reading; a per-frame read of one shared heap (three same-origin frames) is the likely count.
+GATES: FIRST PLAY IS LIGHT (new, P1-P7, ~6 min, budget 20 MB, goal 8 MB printed, only comes down) and THE HEAP STAYS FLAT (new,
+H1-H5, rides THE WHOLE LOOP PLAYS via BOHEMIA_HEAP_LOG, a 64 MB plant proves the reader), both in the suite. Results in the commit.
+FOUND, NOT FIXED: tools/bohemia_drive_the_demo.js waits for the DEAD WALK (MODE 'human' + eight .pb) after every door, so every
+open() without `world:` sits out its 120 s ceiling: ~290 gates x 2 min of nothing. A suite-wide timing change; a row for whoever.
+FIRST LOAD's R1 (bytes before NEW GAME lights, ceiling 10 MB): main 20.2 MB, now 11.1 MB, still red by 1.1.
+FOR SOUNDS: THE SONGS GO IN's THE BEAT ON THE GRID reads the song the run draws (SODA MACHINE -90 ms, REPO MAN 20 ms off the grid
+in their own recordings); its 14 'a file is missing' legs are measured.json files with no hit (on main too).
+FOR RUN: a NEW GAME's BEGIN no longer waits for the map's people (they come in behind the first town); CONTINUE still waits for
+every one (rule 174(b)). A player who LEAVEs that town within seconds on a slow line can meet a gang's stand-in look on the map.
+NEXT FOR WHOEVER: the 8 MB goal is 7.3 MB away and what is left is the first screen's own (the map's page 2.3 MB gzipped that the
+town never runs, the map's tiles 1.1 MB the door asks for 'the land', the cast sheet); that is a code split, not a hold.
+
 PLUMBER 5 (chat 18b) 11/6 -- rule 411's third wave: THE SITE IS TOO BIG, then 408(c)'s F1-F8. BOTH SHIPPED (pipe and gates; nothing
 in the game changed, so no build stamp). Record: records/BOHEMIA_PLUMBER_THE_SITE_IS_WHAT_THE_GAME_LOADS_11_6_26.md. Ask lines 462, 463.
 BEFORE: pages.yml copied slices/ + engine/ + records/target whole: 1,858 MB, 32,040 files; 3 of the last 8 pages runs died at
