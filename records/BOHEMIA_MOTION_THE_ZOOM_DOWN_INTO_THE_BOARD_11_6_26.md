@@ -54,6 +54,14 @@ median 36 to 47 ms (106 before the covered layers were skipped), own work 2.9 to
 worst frame 283 ms (ratchet 650), long tasks 645 ms in all (ratchet 2000). The turn's extra cost over the fight alone is the software
 GPU compositing turned full-glass pictures; a phone's GPU does that for nothing; the dive's own main-thread work stays under 5 ms a frame.
 
+ON THE PHONE-SHAPED CPU (the driver's 4x throttle, this box, one run on the demo after the push): it is NOT in budget. The way in
+took 10.1 s (come-down 1.0, settle 1.0, the fight built under the map's frame 5.8, turn 1.2, grid 1.1) at about 5 frames a second
+(median gap 207 ms, worst 566): the map's own draw is 199 ms a frame there and the fight's own draw the same order; the zoom's own work
+15 ms at worst. The way out 4.9 s at median gap 437 ms (worst 1,234 ms: the map's first draw after a fight, under the board's frame).
+The same costs are the map's and the fight's at every moment on that CPU (SMOOTH IS A BUDGET's OVER BUDGET map lines); the zoom adds
+the map drawn at a new zoom every frame for one second. Routed: PLUMBER (the map's draw per frame, rule 400) and the zoom's own next
+step, drawing the map every other frame and scaling the last one between (MOTION).
+
 ## GATES (rule 13a, the ones this change touches, one at a time)
 THE ZOOM DOWN INTO THE BOARD: phone 13/0 on two of its last three runs, computer 10/0 on three of its last four (every red on F1
 alone, a frame ratchet on this shared box, never a leg of what is on the glass); THE TOWN SHOWS 10/0; THE BOARD IS THE CITY AT THAT SPOT 170/0 (its demo door W1 through the zoom); SMOOTH IS A BUDGET
