@@ -533,7 +533,8 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 509 | Every building (not only houses) fronts a road, on the old boards and the new; roads in sizes (alley to four-tile boulevard) and all one joined network | 429(h) | COMBAT TWO (the boards), WORLD 13 (the map) | IN FLIGHT 11/7 |
 | 510 | Too many vultures on the map, they don't look like vultures, nonstop: take them off the map | 431(a) | WORLD 12 | IN FLIGHT 11/7 |
 | 511 | A checker on anything living on the map: a cap on how many at once and how often | 431(b) | WORLD 12 | IN FLIGHT 11/7 |
-| 512 | Ask him how a new creature or system he names should work before building it (the vultures first; he thought an enemy type) | 431(c) | the coordinator | ASKED 11/7 |
+| 512 | Ask him how a new creature or system he names should work before building it (the vultures first; he thought an enemy type) | 431(c) | the coordinator | ANSWERED 11/7: B |
 | 513 | A fight that starts on the freeway puts him on a suburb board: it gets a freeway board | 432(a) | FREEWAY | IN FLIGHT 11/7 |
 | 514 | Freeway fight boards: the deck towering over the city you can't hop off, the overpass, the underpass, the interchange (his reference: Fallout New Vegas's Lonesome Road, the freeway fight only) | 432(b) | FREEWAY | IN FLIGHT 11/7 |
 | 515 | No cheap route: a one-handed and two-handed version of the same axe/pipe/sledge is not two weapons; new weapons are real distinct objects with their own art | 424(c) | WEAPONS | IN FLIGHT 11/7 |
+| 516 | Vultures, his B: an enemy, the lab-made Ice Age teratorn in flocks that hunt the weak, the wounded and the dead; real small vultures only a rare capped sign on the map | 431(e) | WORLD 12 | IN FLIGHT 11/7 |
