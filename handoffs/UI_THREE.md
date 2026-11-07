@@ -1,3 +1,40 @@
+UI THREE (ui-three-stats): the item card and the item box, session ui-three-session_01GKDyuvPvmndtYsPNo59Yab -- 11/7 LATEST (round three, rule 425(a),
+asks 175 and 178; 145 and 146 moved on) -- [the weapon card] and [the item box] SHIPPED, BUILT, NOT YET SEEN (rule 179); BUILD 11/7s - THE ITEM CARD
+IS PICTURES; VOTE card ui3-the-item-card-and-the-item-box-11-7 (STAND-IN). Record records/BOHEMIA_UI_THREE_THE_ITEM_CARD_AND_THE_ITEM_BOX_11_7_26.md.
+- THE CARD (slices/bohemia_ui_three_items.js, BohemiaItemCard): cells(item, {row, arm}) from the rows (a pistol's shot via fightRow; reach and rounds
+  via BohemiaRoster.armOf when the page has it): damage a bar low to high (most 120), vs armour (225), through armour (60), reach as slabs, the main
+  blow's AP as the fight's pips, breath, weight and initiative red arrows, rounds, to hit and head green arrows, TWO HANDS its picture; armour (body
+  320, head 320) and a shield's HOLDS (72) bars, their defences green arrows. strip() for the shop's .inums (RUN TWO's chip contract kept: span.ch,
+  data-stat, a stat_icons img, 'DAMAGE 30-40' in the reader's text), card() for the big card, dressWeaponCard(c, id) for UI 8's ticket (one marked
+  line in bohemia_ui_weapon_card.js show(); its words and its gate kept). The maxima are worked from the rows on load (MAX).
+- THE BOX (dress(), a watcher on the screens that hold pieces: SETTLEMENT .grid .slot, ROSTER #bag .slot / .gslot / #picker .slot, SPOILS .slot):
+  data-bq = the quality (the shop's qualityWord for weapons; armour by value in its kind; armory 'own'), a frame drawn per quality as a border image
+  (rust, bone tin, brass with rivets, brass with red enamel, dark tin empty; a raised rim of three bands; the wall dithered in the sun's shadow), the
+  kit's own floor (ui_kit/well_full/c.png, well/c.png, cut per nth-child like the kit; rule 430), a lamp pool, the piece on a hard shadow. html.bib-on
+  and three ids beat the camp crew screen's two. Inside his gear: '1-4 TILES' and '5 RDS' drawn as the label's own background (words kept, size 0).
+- THE PICTURES: tools/bohemia_ui_three_item_icons.py (UI's renderer imported; --check runs UI's look-alike measure over the nine + six big ones):
+  armour (navy carrier), vs_armour (sledge on a rusted plate), through_armour, weight (anvil), two_hands, head (white range target), round, pip,
+  pip_off (a third of its ink), tile, tile_lit, tile_you. Sheet records/target/UI_THREE_THE_ITEM_CARD_PICTURES_11_7_26.png.
+- GATE: THE ITEM CARD AND THE ITEM BOX (gates/the_item_card_and_the_item_box_gate.js) 33/0 with --plant (28 legs on the phone and the computer,
+  five plants each caught; --plants-only runs the plants alone). A row with no damage in the wiki (bottles, nets) shows none (main printed
+  'DAMAGE null-null'). THE UI BELONGS TO THE WORLD re-aimed one line (a slot wears the kit as the item box on the kit's own floor). Green beside it, read on this tree: STATS ARE BARS 34/0, ROSTER 15/0, THE COMPANY SCREEN 48/0 (the count stays 104,
+  budget 105: a row of slabs is ONE picture on the label, never a span a slab), THE GUNS ON THE CREW SCREEN 7/0, THE CREW SCREEN READS THE STASH 23/0,
+  THE STAT ICONS 5/0; the rest in the commit.
+NOT DONE: the fight's own weapon card (COMBAT's drawer, BOHEMIA_FIGHT.html; NOTE on COMBAT's board with the one call); [icons not numbers] round three
+(count the map, the town's other sheets, the phone, the end screen, the meet and job cards); [an icon for every perk] (252) not started; the stall's
+BUY and SELL are RUN TWO's buttons, not a piece's box.
+NEXT for this lane, in order: (1) RULE 433, NOTHING SHOWS UNTIL HE TAPS IT (Paolo 11/7, ask line 518, named UI THREE; no board row yet when this
+round shipped). MEASURED this round on the smith at rest (no tap): a green upgrade arrow on 7 of 7 shelf pieces (RUN TWO's rule 282 mark) and his
+men's faces in the strip with 'WHAT IT DOES TO EACH OF THEM SHOWS HERE'. The job: at rest the shelf and the strip say nothing about his men; a tap
+shows each man's arrow and amount; a tap elsewhere puts it away; the strip keeps its place while hidden (rule 250, nothing moves); RUN TWO's
+rule-282 gate leg re-aimed (433 is newer than 282(a)). (2) [an icon for every perk] (252): the fight's fifty perkIcon pictures into one shared
+module, drawn on the crew screen, the level-up, the hall and the origin door; (3) [icons not numbers] round three, the count on the seven screens;
+(4) the fight's weapon card when COMBAT opens its file (BohemiaItemCard.card).
+FOR OTHER LANES: a piece's numbers anywhere: BohemiaItemCard.card({kind, id}) (or .strip for one row); a piece's box: put it under one of the
+selectors above (or tell me the screen) and it is dressed; never print 'X to Y' or a line of 'AP . BREATH . TILE'.
+[bb Battle Brothers' item tooltip puts a small picture beside every number; its stash is a grid of dark recessed slots, a named piece known by its look.]
+[analog horror: the box is a pawnshop's tray worn through to the tin, a cheap lamp over the one thing in it; the rust is what a beat-up thing has been through.]
+
 UI THREE (ui-three-stats): the stat component, session ui-three-session_018MTLRcHi -- 10/26 LATEST (round two) -- [the stat order] and
 [stats are bars and arrows] SHIPPED, BUILT, NOT YET SEEN (rule 179): the fight's card is in, the last screen with stats; [a damage icon]
 SHIPPED, BUILT, NOT YET SEEN (rule 275(b)). Record records/BOHEMIA_UI_THREE_THE_FIGHTS_CARD_AND_A_DAMAGE_ICON_10_26_26.md.
