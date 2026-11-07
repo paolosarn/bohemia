@@ -32,8 +32,11 @@
        'good' brass); a frame drawn (a border image), the pocket's walls gone (the black bracket) and the kit's own floor kept
        (rule 430: the Crashbox art stays and is improved); NO BOX CHANGED SIZE (every
        rectangle the same with the dress taken off, within a pixel); the lit box's outline inside its own rectangle
+   R   RULE 433, NOTHING SHOWS UNTIL HE TAPS IT (Paolo 11/7, ask line 518): R1 walking into the smith, no upgrade mark, no face
+       and no line about his men on the glass; R2 one tap: each man's arrow and amount, only that piece's own mark; R3 a tap on
+       the keeper's words puts it away; R4 walking back in starts at rest
    M   --plant (the phone): a bar's most possible halved, a frame that grows the box, a quality turned round, a word put back
-       on the strip, a pip short: each turns its leg red
+       on the strip, the comparison shown at rest, a pip short: each turns its leg red
    Z   nothing thrown
    node gates/the_item_card_and_the_item_box_gate.js [--plant] [--only phone|computer] [--plants-only] */
 'use strict';
@@ -175,12 +178,24 @@ async function shop(b, prof, plant, legs) {
       if (hx) { if (prof.ctx.hasTouch) await p.touchscreen.tap(hx.x, hx.y); else await p.mouse.click(hx.x, hx.y); }
       await p.waitForTimeout(1300); };
     await go('smith');
+    /* R rule 433: what shows about his men, read off the glass (a mark is shown when it is rendered, visible and has a size) */
+    const REST = () => p.evaluate(() => { const vis = e => { if (!e) return false; const r = e.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; for (let x = e; x && x.nodeType === 1; x = x.parentElement) { const c = getComputedStyle(x); if (c.display === 'none' || c.visibility === 'hidden' || +c.opacity === 0) return false; } return true; };
+      const tiles = [...document.querySelectorAll('#shelfgrid .slot')];
+      return { marks: tiles.filter(t => vis(t.querySelector('.upm'))).map(t => t.dataset.id), ups: tiles.filter(t => t.classList.contains('up')).length, sel: tiles.filter(t => t.classList.contains('sel')).map(t => t.dataset.id),
+        faces: [...document.querySelectorAll('#shopstrip .fstrip button')].filter(vis).map(b => ({ man: b.dataset.man, dv: (b.querySelector('.dv') || {}).textContent || null })),
+        lines: [...document.querySelectorAll('#shopstrip .onman .ln')].filter(vis).length, crew: BohemiaSettlement.shopCrew().length }; });
+    const q1 = await REST();
+    legs.R1 = ok(prof.name + ' R1 RULE 433 AT REST: walking into the smith, nothing about his men shows (' + q1.marks.length + ' upgrade marks of ' + q1.ups + ' the shelf knows, ' + q1.faces.length + ' faces, ' + q1.lines + ' lines on the glass)',
+      q1.marks.length === 0 && q1.faces.length === 0 && q1.lines === 0 && q1.sel.length === 0, JSON.stringify(q1));
     const stock = await p.evaluate(() => (BohemiaSettlement.state.stock.smith || []).map((i, n) => ({ n, id: i.id, kind: i.kind, name: i.name, hands: i.hands })));
     const wpn = stock.filter(i => i.kind === 'weapon');
     const pick = wpn.find(i => want('weapon', i.id).through_armour) || wpn[0], second = wpn.find(i => i !== pick);
     const boxRects = () => p.evaluate(() => [...document.querySelectorAll('#shelfgrid .slot, #baggrid .slot')].map(e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map(v => Math.round(v * 10) / 10); }));
     const stripRect = () => p.evaluate(() => { const e = document.getElementById('shopstrip'); const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map(v => Math.round(v * 10) / 10); });
     await tap('#shelfgrid .slot[data-id="' + pick.id + '"]'); await p.waitForTimeout(700);
+    const q2 = await REST(), upPick = await p.evaluate(id => { const t = document.querySelector('#shelfgrid .slot[data-id="' + id + '"]'); return !!t && t.classList.contains('up'); }, pick.id);
+    legs.R2 = ok(prof.name + ' R2 RULE 433 ONE TAP: the piece tapped shows how it compares with each of his men (' + q2.faces.map(f => f.man + ' ' + f.dv).join(', ') + '), and only its own upgrade mark (' + q2.marks.join(',') + ')',
+      q2.faces.length === q2.crew && q2.crew > 0 && q2.faces.every(f => f.dv) && q2.marks.length === (upPick ? 1 : 0) && (!upPick || q2.marks[0] === pick.id), JSON.stringify(q2));
     const S = await p.evaluate(rd => { const read = new Function('return (' + rd + ')')(); const inums = document.querySelector('#shopstrip .inums'), st = document.getElementById('shopstrip').getBoundingClientRect();
       return { strip: !!(inums && inums.classList.contains('bic-strip')), cells: read('#shopstrip .inums .bic'), box: inums ? (() => { const r = inums.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom }; })() : null, W: innerWidth, H: innerHeight,
         card: (() => { const c = document.getElementById('bwcard'); return c && c.style.display !== 'none' ? { id: c.dataset.weapon, dressed: c.dataset.dressed, cells: read('#bwcard .bic-card .bic'), two: !!c.querySelector('.bwc-t i.bic-two'),
@@ -225,6 +240,18 @@ async function shop(b, prof, plant, legs) {
     const r1 = await boxRects(), s1 = await stripRect();
     const moved = r0.map((r, i) => r1[i] && r.some((v, j) => Math.abs(v - r1[i][j]) > PX) ? i : -1).filter(i => i >= 0);
     legs.W5 = ok(prof.name + ' W5 NOTHING MOVES: a second weapon tapped (' + (second && second.id) + ') leaves the strip and all ' + r0.length + ' boxes where they were', !!second && r0.length === r1.length && !moved.length && s0.every((v, j) => Math.abs(v - s1[j]) <= PX), moved.length + ' moved; strip ' + s0 + ' -> ' + s1);
+    /* R3 a tap that is not a piece puts it away; R4 walking back in starts at rest */
+    const sayAt = await p.evaluate(() => { const e = document.querySelector('#sheet .say p') || document.querySelector('#sheet .gridh'); const r = e.getBoundingClientRect(); return { x: r.left + Math.min(20, r.width / 2), y: r.top + r.height / 2 }; });
+    if (prof.ctx.hasTouch) await p.touchscreen.tap(sayAt.x, sayAt.y); else await p.mouse.click(sayAt.x, sayAt.y);
+    await p.waitForTimeout(500);
+    const q3 = await REST();
+    legs.R3 = ok(prof.name + ' R3 RULE 433 A TAP ELSEWHERE (the keeper\'s words) PUTS IT AWAY: back to rest (' + q3.faces.length + ' faces, ' + q3.marks.length + ' marks, ' + q3.sel.length + ' lit)', q3.faces.length === 0 && q3.marks.length === 0 && q3.sel.length === 0, JSON.stringify(q3));
+    await tap('#shelfgrid .slot[data-id="' + pick.id + '"]'); await p.waitForTimeout(500);
+    await p.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await p.waitForTimeout(500);
+    const hx2 = await p.evaluate(() => BohemiaSettlement.where('smith')); if (hx2) { if (prof.ctx.hasTouch) await p.touchscreen.tap(hx2.x, hx2.y); else await p.mouse.click(hx2.x, hx2.y); }
+    await p.waitForTimeout(1200);
+    const q4 = await REST();
+    legs.R4 = ok(prof.name + ' R4 RULE 433 WALKING BACK IN: a piece lit before he left is not lit again by itself (' + q4.faces.length + ' faces, ' + q4.sel.length + ' lit)', q4.faces.length === 0 && q4.sel.length === 0 && q4.marks.length === 0, JSON.stringify(q4));
     /* B in the shop: the shelf's boxes */
     const B = await p.evaluate(() => [...document.querySelectorAll('#shelfgrid .slot')].map(e => ({ id: e.dataset.id, name: e.__it ? e.__it.name : null, kind: e.__it ? e.__it.kind : null, bib: e.classList.contains('bib'), bq: e.dataset.bq || null,
       img: getComputedStyle(e).borderImageSource, bg: getComputedStyle(e).backgroundImage, sel: e.classList.contains('sel'), out: getComputedStyle(e).outlineOffset, ow: getComputedStyle(e).outlineWidth })));
@@ -296,6 +323,7 @@ const PLANTS = [
   { name: 'a frame that grows the box', want: ['B2'], plant: { '/slices/bohemia_ui_three_items.js': [["border-image-outset:0!important;", "border-image-outset:0!important;min-height:58px!important;min-width:58px!important;"]] } },
   { name: 'a quality turned round', want: ['B1'], plant: { '/slices/bohemia_ui_three_items.js': [["return q < 0.34 ? 'worn' : q < 0.67 ? 'solid' : 'good';", "return q < 0.34 ? 'good' : q < 0.67 ? 'solid' : 'worn';"]] } },
   { name: 'a word put back on the strip', want: ['W1'], plant: { '/slices/bohemia_ui_three_items.js': [["s.appendChild(el('i', 'bic-sr', word + ' '));", "s.appendChild(el('i', 'bic-word', word + ' '));"]] } },
+  { name: 'the comparison shown at rest (rule 433)', want: ['R1'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["#sheet .slot .upm{visibility:hidden}#sheet .slot.sel .upm{visibility:visible}", ""], ["'#shopstrip .onman.ss-empty{visibility:hidden}'", "''"]] } },
   { name: 'a pip short', want: ['W3', 'C1'], plant: { '/slices/bohemia_ui_three_items.js': [["var lit = Math.max(0, Math.min(c.pips.of, c.pips.n | 0))", "var lit = Math.max(0, Math.min(c.pips.of, (c.pips.n | 0) - 1))"]] } }
 ];
 

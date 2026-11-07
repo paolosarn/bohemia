@@ -1037,6 +1037,35 @@ function shopArrows(box){
   shopStripFill = function(k, el){ base(k, el);
     try{ var st = el || document.getElementById('shopstrip'), th = st && st.querySelector('.twoh'); if(th && window.BohemiaItemCard && !th.querySelector('.bic-two')) th.insertBefore(BohemiaItemCard.twoIcon(), th.firstChild); }catch(e){} }; })();
 /* ==== end __UI_THREE_ITEMS__ ==== */
+/* ==== __NOTHING_SHOWS_UNTIL_HE_TAPS__ (UI THREE, rule 433, ask line 518, Paolo 11/7: 'when I'm in the shop, why do you feel the
+   need to show equipping items on our company before you click an item... this confusion you create yourself just creates
+   problems... how items compare to the company members' current equipment doesn't have to get displayed until after I click
+   the item'). MEASURED at rest (the smith, no tap): a green upgrade arrow on 7 of 7 shelf pieces, his men's faces standing in the
+   strip under 'WHAT IT DOES TO EACH OF THEM SHOWS HERE', and a piece lit on an earlier visit to the same shop still lit when he
+   came back. NOW at rest the shop shows only what he chooses from (the shelf, the prices, the hint); one tap on a piece shows how
+   it compares with each of his men (the strip's faces, each an arrow and how much, the man it suits marked, and that piece's own
+   green arrow); a tap anywhere that is not a piece, the strip or a button puts it away; walking into a shop starts at rest.
+   RUN TWO's logic is untouched (the shelf still knows which piece is an upgrade, data-up, for the tap to name him): only what
+   shows changes, by visibility, so nothing moves (rule 250) and nothing changes size (rule 402, UI 9). ==== */
+(function(){
+  var st = document.createElement('style'); st.id = 'ui3-433-css';
+  st.textContent = '#sheet .slot .upm{visibility:hidden}#sheet .slot.sel .upm{visibility:visible}'   /* a piece's own upgrade arrow: only once it is tapped */
+    + '#shopstrip .onman.ss-empty{visibility:hidden}';   /* his men wait off the glass (the strip keeps its place) until a piece is tapped */
+  (document.head || document.documentElement).appendChild(st);
+  /* walking into a shop starts at rest: a piece lit on an earlier visit is not lit again by itself */
+  if(typeof openB === 'function'){ var base = openB; openB = function(k, line){ try{ if(k !== S.open && S.shopSel){ S.shopSel = null; S.shopSaid = null; } }catch(e){} return base(k, line); }; }
+  /* a tap that is not a piece, the strip or a press puts the piece away (the shop's own handlers have run by now) */
+  document.addEventListener('click', function(e){
+    try{
+      if(!S.shopSel || !S.open || !document.getElementById('shopstrip')) return;
+      var t = e.target; if(!t || !t.closest) return;
+      if(t.closest('#shelfgrid, #baggrid, #shopstrip, #bwcard, button, a, input, select, [role=button], .act')) return;
+      var k = S.open; S.shopSel = null; S.shopSaid = null; shopMark(); shopStripFill(k);
+      window.__UI3_433 = (window.__UI3_433 | 0) + 1;
+    }catch(err){}
+  });
+})();
+/* ==== end __NOTHING_SHOWS_UNTIL_HE_TAPS__ ==== */
 /* ---------- SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18; Paolo 10/24 on his PC: 'every time selling shit was so
    painful, one of the things I hated most about Battle Brothers'; the row: 'selling my dog shit inventory for some batteries'):
    Battle Brothers sells one piece a click. Here the junk goes in ONE tap, the button says how many pieces and what they
