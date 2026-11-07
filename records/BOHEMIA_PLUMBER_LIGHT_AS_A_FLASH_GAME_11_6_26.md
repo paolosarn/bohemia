@@ -67,6 +67,13 @@ was always not taxing on any system, international, this is how the African kids
   phone 43.15 MB in 409 files (the workshop's eight extra tile banks, 22 MB of them); heap 77 MB (the demo), 108 MB (the alpha).
   This box's served-like-Pages count of the same build read 48.9 MB: the real host's gzip and cache land within 20%.
   (weight run 2 failed: ubuntu-latest is Ubuntu 26.04 and Playwright 1.56 will not install there; the workflow is pinned to 24.04.)
+- AND AFTER (weight run 7, after deploy 4299 of 3086885e, the live site this round's build): the demo on a phone 15.36 MB in 447
+  files before first play (19.7 s at 1x on the runner; was 39.58 MB in 495), on a computer 16.55 MB in 493 (was 45.62 MB in 531),
+  24 MB streaming in the 20 s after; the alpha on a phone 36.80 MB in 344 (was 43.15 MB in 409). Heap at first play 75.9 MB (the
+  demo), 114 MB (the alpha). Nothing downloaded twice on the real host either.
+- THE ALPHA IS HIS LINK AND STILL 36.8 MB: 22 MB of it is the old street tile banks BOHEMIA_CITY_TILES_02..09.js, which the workshop
+  loads at boot for the walk that died 9/28 and the demo cut already drops (RUN's rule 174). Holding or dropping them in the alpha is
+  the next cut (RUN's file and RUN's call: a workshop tab may still read them), not done here.
 
 ## PART 2, RULE 418(a)(b): LIGHT AS A FLASH GAME
 

@@ -14,7 +14,9 @@ IS BEHIND FOR NOW + the live build; 4298's try 1 hung, try 2 read the cancel bac
 read 5992a448. So the pauses are FOUR minutes now (one commit after). The live site is this round's build.
 weight.yml (new): THE LIVE SITE's first play weighed on GitHub's runner after every deploy (tools/bohemia_first_play.js --base;
 Ubuntu 24.04, Playwright 1.56 will not install on ubuntu-latest's 26.04). Run 3 weighed the live site BEFORE this round: the demo
-39.6 MB / 495 files (phone), 45.6 MB / 531 (computer), the alpha 43.2 MB (its eight extra tile banks). The next run is the after.
+39.6 MB / 495 files (phone), 45.6 MB / 531 (computer), the alpha 43.2 MB. Run 7 AFTER (live 3086885e): the demo 15.4 MB / 447
+(phone), 16.6 MB / 493 (computer); the alpha 36.8 MB / 344. A bot-started pages run does not chain weight (GitHub's rule): dispatch it.
+FOR RUN: the alpha is his link and 22 MB of its 36.8 is the dead walk's street tile banks 02..09, loaded at boot; the demo drops them.
 LIGHT: before, 48.9 MB in 633 files before the town he starts in was playable (the map drew 22 MB of people behind a title that
 covers the glass; songs, voices, fight sounds, machine party, all eight town shapes). Now one signal in the shell
 (__FIRST_PLAY_IS_LIGHT__: bohemiaFirstPlayHeld / bohemiaAfterFirstPlay / __FIRST_PLAY_OFF) and every heavy loader waits for it,
