@@ -229,24 +229,30 @@
   /* ---------------- THE SETTINGS CARD (#setcard, the shell's one card): one card, every row, a grid ---------------- */
   var C = 'html body #setwrap.ns-d1 #setcard';
   var SET_CSS = ''
-    + C + '{width:min(calc(100% - 16px),760px)!important;max-height:calc(100% - 16px);overflow:hidden!important;display:grid!important;'
-    +   'grid-template-columns:repeat(auto-fill,minmax(170px,1fr));column-gap:12px;row-gap:4px;align-content:start;padding:10px 12px!important;box-sizing:border-box}'
+    + C + '{width:min(calc(100% - 16px),920px)!important;max-height:calc(100% - 16px)!important;overflow:hidden!important;display:grid!important;'
+    +   'grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-flow:row;column-gap:10px;row-gap:2px;align-content:start;align-items:center;padding:12px 12px 10px!important;box-sizing:border-box}'
     + C + '>*{margin:0!important;min-width:0}'
-    + C + '>.seth{grid-column:1 / -1;margin:0 0 2px!important;font-size:11px!important}'
-    + C + ' .setrow{gap:6px!important;min-height:44px}'
-    + C + ' .setlab{flex:0 0 64px!important;font-size:11px!important;letter-spacing:1px!important;line-height:1.1;overflow-wrap:anywhere}'
-    + C + ' .setbtn{padding:0 8px!important;font-size:11px!important}'
-    + C + ' .setbars{gap:3px!important}'
+    + C + '>.seth,' + C + ' #setphone>.seth{grid-column:1 / -1;justify-self:start;margin:0 0 2px!important;padding:2px 8px 3px!important;font-size:11px!important}'
+    + C + '>.seth{grid-column:auto}'   /* the card's own name takes one place; the rows pack beside it */
+    + 'html body #setwrap.ns-d2 #setcard{grid-auto-flow:row dense}'   /* the next step: a short row fills the hole a wide one left */
+    + C + '>#setphone{display:contents}'   /* the phone's rows are the card's rows: they take the grid's places like any other */
+    + C + ' .setrow{gap:6px!important;min-height:44px;margin:0!important}'
+    + C + ' .setrow:has(.pside) .setlab{flex-basis:48px!important}' + C + ' .pside button{min-width:44px}'
+    + C + ' .setlab{flex:0 0 58px!important;font-size:11px!important;letter-spacing:.6px!important;line-height:1.1;overflow-wrap:anywhere}'
+    + C + ' .setbtn{padding:0 6px!important;font-size:11px!important;letter-spacing:.4px!important;line-height:1.15;text-align:center}'
+    + C + ' #setdiff .setbtn{font-size:11px!important;opacity:.8}'
+    + C + ' .setbars{gap:3px!important;min-width:0}'
+    + C + ' .setslide{min-width:0}' + C + ' .setslide input{min-width:0;width:100%}'
     + C + ' .setnum,' + C + ' .setslide span{font-size:11px!important}'
-    + C + ' #setcalib{min-height:44px;display:flex;align-items:center;gap:6px}' + C + ' #setcalib span{font-size:11px!important}' + C + ' #setcalib canvas{height:40px!important;width:auto!important}'
-    /* the phone's block: its own full-width part of the card, its three apps side by side when there is room */
-    + C + '>#setphone{grid-column:1 / -1;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));column-gap:12px;row-gap:4px}'
-    + C + '>#setphone>.seth{grid-column:1 / -1;font-size:11px!important;margin:2px 0 0!important}'
-    + C + '>#setphone .pa{min-height:44px;margin:0!important}' + C + '>#setphone .pa span{font-size:11px!important}' + C + '>#setphone .pa img{height:36px!important;width:auto!important}'
-    + C + '>#setclose,' + C + '>.setbtn.wide{grid-column:1 / -1}'
+    + C + ' #setcalib{grid-column:span 2;min-height:40px;display:flex;align-items:center;gap:8px}' + C + ' #setcalib span{font-size:11px!important;line-height:1.2}' + C + ' #setcalib canvas{height:36px!important;width:auto!important}'
+    + C + ' [id$=say]{font-size:11px!important;line-height:1.25}'
+    + C + ' #setdiffsay{grid-column:span 2;font-size:11px!important;line-height:1.3;margin:0 0 2px!important}'
+    + C + ' .pa{grid-column:span 2;min-height:44px;margin:0!important;gap:4px}' + C + ' .pa span{font-size:11px!important}' + C + ' .pa img{height:36px!important;width:auto!important}'
+    + C + '>#setclose,' + C + '>.setbtn.wide{grid-column:span 2}'
     + C + ' small,' + C + ' em{font-size:11px}'
-    /* a row wider than a cell (the difficulty, the events, the new game) takes the card's width */
-    + C + '>.ns-span{grid-column:1 / -1}';
+    /* a row of three or more choices (the volume's bars, the text, the light, the difficulty) takes two places, so each choice
+       keeps a thumb's width */
+    + C + ' .ns-span{grid-column:span 2}';
   function settingsCard() {
     var w = document.getElementById('setwrap'), card = document.getElementById('setcard'); if (!w || !card) return false;
     css(document, 'ns-set', SET_CSS);
@@ -254,10 +260,11 @@
     var bri = document.getElementById('setbright'), cal = document.getElementById('setcalib');
     var mark = function () {
       if (bri && cal && bri.parentNode && bri.parentNode.parentNode === card && cal.parentNode === card && bri.parentNode.nextSibling !== cal) card.insertBefore(cal, bri.parentNode.nextSibling);
-      for (var i = 0; i < card.children.length; i++) { var r = card.children[i]; if (!r.classList.contains('setrow')) continue;
-        var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && ctl.scrollWidth > 150 && ctl.children.length > 3); }
+      var rows = [].slice.call(card.querySelectorAll('.setrow'));
+      for (var i = 0; i < rows.length; i++) { var r = rows[i];
+        var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && ctl.children.length >= 3); }
     };
-    fit(w, { box: card, levels: 1, before: mark });
+    fit(w, { box: card, levels: 2, before: mark });
     /* fitted again when the card OPENS (only then: the fit's own classes on #setwrap must never wake this, or it loops) */
     var was = false; try { new MutationObserver(function () { var on = w.classList.contains('on'); if (on && !was) refreshBox(w); was = on; }).observe(w, { attributes: true, attributeFilter: ['class'] }); } catch (e) {}
     return true;

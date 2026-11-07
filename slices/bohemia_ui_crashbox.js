@@ -473,7 +473,9 @@
     if (box.previousElementSibling !== st) st.parentNode.insertBefore(box, st.nextSibling);
     var on = st.querySelector('.org.on'); box.textContent = ''; if (!on) return;
     var em = on.querySelector('em'), b = on.querySelector('b'), is = on.querySelectorAll('i');
-    var h = document.createElement('b'); h.textContent = (b ? b.textContent : '') + (em ? '  \u00b7  ' + em.textContent : ''); if (em) h.className = em.className; box.appendChild(h);
+    /* the picked one's name and how hard, in the heading's own small line (as every other row says its pick) */
+    var h4 = st.previousElementSibling; if (h4 && h4.tagName === 'H4') { var cap = h4.querySelector('.cbxcap'); if (!cap) { cap = document.createElement('span'); cap.className = 'cbxcap'; h4.appendChild(cap); }
+      cap.textContent = (b ? b.textContent : '') + (em ? '  \u00b7  ' + em.textContent : ''); }
     for (var i = 0; i < is.length; i++) { var x = document.createElement('i'); x.textContent = is[i].textContent; box.appendChild(x); }
   }
   function watchStrip() {
@@ -622,7 +624,7 @@
     JD + ' #newco .strip .org:has(>em.d3){box-shadow:inset 3px 0 0 #d08a5a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}' + JD + ' #newco .strip .org:has(>em.d4){box-shadow:inset 3px 0 0 #c9584a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
     JD + ' #newco .strip .org.on{background:#e2bd6a!important;outline:2px solid #e2bd6a;outline-offset:-1px}' + JD + ' #newco .strip .org.on b{color:#140e05!important}',
     JD + ' #newco #cbxorgfacts{display:flex;flex-direction:column;gap:1px;margin:3px 0 0;padding:4px 8px;background:#0a0b0b;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40;font-family:"BohemiaROM",monospace;font-size:11px;line-height:13px;color:#e7dcc6}',
-    JD + ' #newco #cbxorgfacts b{font-family:"BohemiaCasing",monospace;font-weight:400;font-size:11px;letter-spacing:1px;color:#e2bd6a}' + JD + ' #newco #cbxorgfacts i{font-style:normal}',
+    JD + ' #newco #cbxorgfacts i{font-style:normal}' + JD + ' #newco h4.cbxorigin{min-height:0!important;margin:5px 0 3px!important;justify-content:flex-start!important}',
     /* the floor (rule 402 (b)): no word on the picks under 11 px */
     JD + ' #newco h4,' + JD + ' #newco h4 .cbxcap,' + JD + ' #newco .row button,' + JD + ' #newco .name button{font-size:11px!important}' + JD + ' #newco h4{line-height:12px!important}',
     /* the facts on the camera's little screen: sunk into the plastic (the shadow on top, the light under), cream on black */
