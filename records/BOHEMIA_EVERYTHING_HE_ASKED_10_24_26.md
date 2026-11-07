@@ -528,3 +528,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 504 | One map: the fight is fought on the map itself, cut at the spot it starts; the 15 boards' layouts written into the map at their places | 429(a)(c) | WORLD 13, then COMBAT TWO | IN FLIGHT 11/7 |
 | 505 | Every building kind on the map has its fight answer (stories, in or on the roof, cover, blocking) in one table; streets in front of every house in the world's generation | 429(b)(d) | WORLD 13 | IN FLIGHT 11/7 |
 | 506 | Keep and use every asset of the deleted combat boards; the art since the Crashbox turn is at the bar, the layout was the problem; nothing thrown away | 430 | COMBAT TWO, WORLD 13, every lane | IN FLIGHT 11/7 |
+| 507 | It all works on a procedurally generated world: the board layouts are templates the generator places, every rule checked over many seeds | 429(f) | WORLD 13, COMBAT TWO | IN FLIGHT 11/7 |
