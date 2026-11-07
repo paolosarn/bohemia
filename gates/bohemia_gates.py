@@ -10641,6 +10641,15 @@ GATES = [
      "taps on the ONE pay dead centre or good and a beat off grades worse, B4 one find a spot back to the screen, B5 nothing scrolls upright, "
      "on its side and on a laptop, B6 in the demo a town's lot plays it on the block's board through the shell's door and the town pays the "
      "find out of YOUR mouth; each check run once on a planted wrong thing. About 2 min", True),
+    ('THE FREEWAY FIGHT', ['node', 'gates/the_freeway_fight_gate.js'],
+     "FREEWAY gate, 11/7, rule 432 (ask lines 513, 514; PAOLO 11/7: 'when combat starts on it, it just puts me on a suburb house... why can't it be an underpass "
+     "or a large overpass towering over the rest of the city, you can't quite hop off it'). A: every template (the deck, the overpass, the underpass, the "
+     "interchange), every layout in the data, every mirror, six seeds (264 boards): the edge holds (no two standable neighbours two levels apart), a drop is "
+     "never stood on, every tile reachable and his line reaches theirs, the roads one network, a parapet's cover at every edge, the heights of 423/428, the kit "
+     "on disk. M: a drop made standable, a ramp step taken out, the deck cut, a parapet taken off, a modder's bad layout, the old deal at a freeway spot: each red. "
+     "B: 24 valleys through the map's own frame, four freeway spots each (96): BEFORE measured (the old deal, houses on the board), every spot a freeway board "
+     "with no house, crossings the overpass or the underpass, interchanges the stack, AUTO plays each, W1 the demo's own door deals a freeway board asking "
+     "the map itself. About 2 min (--quick: A and M, under a second)", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

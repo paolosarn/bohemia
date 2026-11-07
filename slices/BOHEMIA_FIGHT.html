@@ -30,7 +30,7 @@
 <!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
-<script src="bohemia_street_board.js"></script>  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_street_board.js"></script>  <script src="bohemia_freeway_boards.js"></script>  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -397,7 +397,10 @@ function loadAll() {
     /* __THE_BOARDS_WEAR_THEIR_DRESSING__ (COMBAT TWO 11/7, rule 419): which template tiles a laid board may lift whole, and the kit's
        standing pieces (tools/bohemia_combat_two_the_boards_wear_their_dressing_11_7_26.py); a fight without it lays the board bare */
     .then(function () { return fetch('fight_ground/street_board/dressing.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
-    .then(function (k) { DB.streetDress = k; });
+    .then(function (k) { DB.streetDress = k; })
+    /* __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the freeway boards' layouts and their kit; a fight without them deals as before */
+    .then(function () { return Promise.all(['fight_ground/freeway/freeway_boards.json', 'fight_ground/freeway/freeway.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
+    .then(function (fw) { DB.freeway = fw[0] && fw[1] ? { boards: fw[0], kit: fw[1] } : null; });   /* never 'a': tools/bohemia_fight_headless.js reads the DB.x = a[i] lines above */
 }
 function R(path) {
   const parts = path.split('.');
@@ -573,7 +576,7 @@ const FIGHT = (function () {
   function attackAfter(u, field, k) { return !climbedNow(u) && !(field && field.up && field.up[k] && R('ours.climb_or_attack').on); }
   function sightBlock(x, y) { return rowAt(x, y) === 'obstacles'; }
   /* what standing on a tile does, in his words (ours.ground_rows' say; empty where nothing changes) */
-  function groundSay(x, y) { return inBoard(x, y) ? R('ours.ground_rows')[terrainAt(x, y)].say : ''; }
+  function groundSay(x, y) { return inBoard(x, y) ? (S.boardDef && S.boardDef.say && S.boardDef.say[terrainAt(x, y)]) || R('ours.ground_rows')[terrainAt(x, y)].say : ''; }   /* __THE_FREEWAY_FIGHT__: a board may name its own ground (the deck is never a roof) */
   /* THE GROUND THE BOARD STANDS ON, from WORLD's list (rule 59, never a second list of grounds): the district the map hands
      over names it in records/target/BOHEMIA_BOARD_KINDS.json; a board asked for by kind stands on the ground most of that
      kind's districts stand on; the bench's own deal names none */
@@ -1295,6 +1298,28 @@ const FIGHT = (function () {
     }
     return false;
   }
+  /* ---------------- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432, ask lines 513 and 514; Paolo 11/7: 'when combat starts on
+     [the freeway] it just puts me on a suburb house... why can't it be an underpass or a large overpass towering over the rest of
+     the city, you can't quite hop off it'). THE SEAM, agreed with COMBAT TWO in handoffs/FREEWAY.md: a fight the map hands from a
+     freeway, beltway or interchange cell is dealt a freeway board (slices/bohemia_freeway_boards.js: the deck, the overpass, the
+     underpass, the interchange; layouts in slices/fight_ground/freeway/freeway_boards.json), never the suburb round the band;
+     what the map is at the spot (a street crossing the band, the stack) is read off the street board's own plan. opts.freeway: a
+     spot handed whole (a gate, a bench); false: never. The board is the street board's laid format, so the fight draws it, the
+     camp pitches on it and AUTO plays it as any laid board. ---------------- */
+  function freewayBoard(opts) {
+    const FB = typeof window !== 'undefined' ? window.BohemiaFreewayBoards : null;   /* the headless fight (tools/bohemia_fight_headless.js) has no window */
+    if (!FB || !DB.freeway || opts.freeway === false || opts.flat || opts.boss || opts.arena || opts.cut) return false;
+    let sp = opts.freeway && opts.freeway.district ? opts.freeway : null;
+    if (!sp) { if (!FB.isFreeway(opts.district)) return false;
+      let at = null; try { const p = streetPlanFor(opts, null); at = p ? FB.atFromPlan(p) : null; } catch (e) { at = null; }
+      sp = FB.spot(at, opts.cell, opts.district); }
+    if (!sp) return false;
+    for (let t = 0; t < 8; t++) {
+      const B = FB.deal(sp, ((SEED >>> 0) + t * 7919) >>> 0, DB.freeway, DB.ground, S.w, S.h, opts.freewayAsk || null); if (!B) return false;
+      applyBoard(B); if (connected()) { S.freewayTries = t + 1; return true; }
+    }
+    return false;
+  }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
     const mine = placeOwn(opts);
@@ -1404,8 +1429,8 @@ const FIGHT = (function () {
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
-  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too */
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -1646,6 +1671,8 @@ const FIGHT = (function () {
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else if (isGraveyard(opts)) {
       for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
+    } else if (freewayBoard(opts)) {
+      /* __THE_FREEWAY_FIGHT__: a fight on the freeway is fought on the freeway (rule 432) */
     } else if (streetBoard(opts, ask, fromMap)) {
       /* __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__: the map's own block, laid tile for tile (its cover is the map's own: never thinned or filled) */
     } else {

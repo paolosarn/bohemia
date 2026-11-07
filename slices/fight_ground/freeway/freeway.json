@@ -1,0 +1,502 @@
+{
+ "version": "freeway-kit-11-7",
+ "lane": "freeway",
+ "rule": "VAMILY 432, 430 (reuse first), 408(c) (every new picture a stand-in)",
+ "made_by": "tools/bohemia_freeway_kit_11_7_26.py",
+ "tile_px": [
+  515,
+  364
+ ],
+ "golden_candidate": "freeway/fw_face_col.webp",
+ "tiles": {
+  "lane": [
+   "kit_street/road_ew.webp"
+  ],
+  "median": [
+   "kit_street/road_ew_median.webp"
+  ],
+  "lane_n": [
+   "freeway/fw_lane_n.webp"
+  ],
+  "lane_e": [
+   "freeway/fw_lane_e.webp"
+  ],
+  "lane_ne": [
+   "freeway/fw_lane_ne.webp"
+  ],
+  "lane_s": [
+   "freeway/fw_lane_s.webp"
+  ],
+  "lane_ns": [
+   "freeway/fw_lane_ns.webp"
+  ],
+  "lane_es": [
+   "freeway/fw_lane_es.webp"
+  ],
+  "lane_nes": [
+   "freeway/fw_lane_nes.webp"
+  ],
+  "lane_w": [
+   "freeway/fw_lane_w.webp"
+  ],
+  "lane_nw": [
+   "freeway/fw_lane_nw.webp"
+  ],
+  "lane_ew": [
+   "freeway/fw_lane_ew.webp"
+  ],
+  "lane_new": [
+   "freeway/fw_lane_new.webp"
+  ],
+  "lane_sw": [
+   "freeway/fw_lane_sw.webp"
+  ],
+  "lane_nsw": [
+   "freeway/fw_lane_nsw.webp"
+  ],
+  "lane_esw": [
+   "freeway/fw_lane_esw.webp"
+  ],
+  "lane_nesw": [
+   "freeway/fw_lane_nesw.webp"
+  ],
+  "lane_ns_e": [
+   "freeway/fw_lane_ns_e.webp"
+  ],
+  "lane_ns_w": [
+   "freeway/fw_lane_ns_w.webp"
+  ],
+  "lane_ns_ew": [
+   "freeway/fw_lane_ns_ew.webp"
+  ],
+  "slope_e": [
+   "freeway/fw_slope_e.webp"
+  ],
+  "slope_e_n": [
+   "freeway/fw_slope_e_n.webp"
+  ],
+  "slope_e_s": [
+   "freeway/fw_slope_e_s.webp"
+  ],
+  "slope_e_ns": [
+   "freeway/fw_slope_e_ns.webp"
+  ],
+  "slope_w": [
+   "freeway/fw_slope_w.webp"
+  ],
+  "slope_w_n": [
+   "freeway/fw_slope_w_n.webp"
+  ],
+  "slope_w_s": [
+   "freeway/fw_slope_w_s.webp"
+  ],
+  "slope_w_ns": [
+   "freeway/fw_slope_w_ns.webp"
+  ],
+  "face": [
+   "freeway/fw_face_col.webp",
+   "freeway/fw_face.webp",
+   "freeway/fw_face_b.webp"
+  ],
+  "below": [
+   "freeway/fw_below_0.webp",
+   "freeway/fw_below_1.webp"
+  ],
+  "below_road_ew": [
+   "freeway/fw_below_road_ew.webp"
+  ],
+  "below_road_ns": [
+   "freeway/fw_below_road_ns.webp"
+  ],
+  "below_junction": [
+   "freeway/fw_below_junction.webp"
+  ],
+  "below_house": [
+   "freeway/fw_below_house_0.webp",
+   "freeway/fw_below_house_1.webp",
+   "freeway/fw_below_house_2.webp"
+  ],
+  "below_fire": [
+   "freeway/fw_below_fire.webp"
+  ],
+  "broken_w": [
+   "freeway/fw_broken_w.webp"
+  ],
+  "broken_e": [
+   "freeway/fw_broken_e.webp"
+  ],
+  "shade_dirt": [
+   "freeway/fw_shade_dirt_0.webp",
+   "freeway/fw_shade_dirt_1.webp"
+  ],
+  "shade_road_ew": [
+   "freeway/fw_shade_road_ew.webp"
+  ],
+  "shade_road_ns": [
+   "freeway/fw_shade_road_ns.webp"
+  ],
+  "shade_walk": [
+   "freeway/fw_shade_walk.webp"
+  ],
+  "shade_junction": [
+   "freeway/fw_shade_junction.webp"
+  ],
+  "shade_rubble": [
+   "freeway/fw_shade_rubble.webp"
+  ],
+  "shade_dirt_lipw": [
+   "freeway/fw_shade_dirt_lipw.webp"
+  ],
+  "shade_dirt_lipe": [
+   "freeway/fw_shade_dirt_lipe.webp"
+  ],
+  "shade_walk_lipw": [
+   "freeway/fw_shade_walk_lipw.webp"
+  ],
+  "shade_walk_lipe": [
+   "freeway/fw_shade_walk_lipe.webp"
+  ],
+  "shade_road_ew_lipw": [
+   "freeway/fw_shade_road_ew_lipw.webp"
+  ],
+  "shade_road_ew_lipe": [
+   "freeway/fw_shade_road_ew_lipe.webp"
+  ],
+  "dirt": [
+   "street_board/ground_dirt_0.webp",
+   "street_board/ground_dirt_1.webp",
+   "street_board/ground_dirt_2.webp"
+  ],
+  "plaza": [
+   "street_board/ground_plaza_0.webp",
+   "street_board/ground_plaza_1.webp"
+  ],
+  "rubble": [
+   "street_board/ground_rubble_0.webp",
+   "street_board/ground_rubble_1.webp",
+   "street_board/ground_rubble_2.webp"
+  ],
+  "walk": [
+   "kit_street/walk.webp"
+  ],
+  "road_ew": [
+   "kit_street/road_ew.webp"
+  ],
+  "road_ns": [
+   "kit_street/road_ns.webp"
+  ],
+  "junction": [
+   "kit_street/junction.webp"
+  ]
+ },
+ "sizes": {
+  "trailer": [
+   541,
+   218,
+   270.5,
+   196.2
+  ],
+  "jersey": [
+   275,
+   60,
+   137.5,
+   54.0
+  ],
+  "pillar": [
+   77,
+   163,
+   38.5,
+   146.7
+  ],
+  "car_lane": [
+   218,
+   114,
+   109.0,
+   102.6
+  ],
+  "car_kerb": [
+   218,
+   111,
+   109.0,
+   99.9
+  ],
+  "fence": [
+   261,
+   62,
+   130.5,
+   55.8
+  ],
+  "dumpster": [
+   112,
+   102,
+   56.0,
+   91.8
+  ],
+  "sb_tyres_S": [
+   62,
+   68,
+   30.9,
+   62.5
+  ],
+  "sb_tyres_E": [
+   65,
+   62,
+   32.4,
+   56.4
+  ],
+  "sb_cart_S": [
+   50,
+   68,
+   25.6,
+   61.0
+  ],
+  "sb_cart_E": [
+   32,
+   70,
+   13.5,
+   66.2
+  ],
+  "sb_propane_S": [
+   144,
+   93,
+   73.4,
+   74.5
+  ],
+  "sb_propane_E": [
+   59,
+   134,
+   27.8,
+   125.7
+  ],
+  "sb_drums_S": [
+   206,
+   129,
+   103.1,
+   118.2
+  ],
+  "sb_drums_E": [
+   145,
+   186,
+   72.3,
+   178.4
+  ],
+  "sb_heap_S": [
+   242,
+   176,
+   121.2,
+   158.1
+  ],
+  "sb_heap_E": [
+   193,
+   207,
+   96.7,
+   188.9
+  ],
+  "sb_rubble_S": [
+   196,
+   144,
+   98.2,
+   121.9
+  ],
+  "sb_rubble_E": [
+   151,
+   157,
+   75.3,
+   147.5
+  ],
+  "sb_barrier_S": [
+   168,
+   68,
+   83.2,
+   45.9
+  ],
+  "sb_barrier_E": [
+   33,
+   127,
+   15.1,
+   122.7
+  ],
+  "sb_sandbags_S": [
+   114,
+   66,
+   56.8,
+   58.7
+  ],
+  "sb_sandbags_E": [
+   44,
+   102,
+   23.3,
+   96.3
+  ],
+  "sb_container_S": [
+   342,
+   235,
+   170.8,
+   190.4
+  ],
+  "sb_container_E": [
+   138,
+   311,
+   71.1,
+   292.8
+  ],
+  "sb_bales_S": [
+   231,
+   169,
+   114.4,
+   156.5
+  ],
+  "sb_rolled_S": [
+   291,
+   156,
+   148.6,
+   134.0
+  ],
+  "sb_rolled_E": [
+   140,
+   284,
+   67.4,
+   266.4
+  ],
+  "sb_corral_S": [
+   269,
+   138,
+   134.7,
+   130.2
+  ],
+  "sb_dozer_S": [
+   322,
+   261,
+   159.9,
+   219.8
+  ],
+  "sb_wreck_S": [
+   231,
+   131,
+   100.9,
+   101.6
+  ],
+  "sb_wreck_E": [
+   100,
+   167,
+   48.2,
+   154.3
+  ],
+  "sb_patrol_S": [
+   216,
+   145,
+   108.0,
+   142.2
+  ],
+  "sb_patrol_E": [
+   145,
+   179,
+   78.3,
+   165.6
+  ],
+  "sb_sign_S": [
+   512,
+   480,
+   119.3,
+   453.8
+  ],
+  "fw_gantry": [
+   350,
+   134,
+   175.0,
+   115.2
+  ],
+  "fw_bent": [
+   130,
+   277,
+   65.0,
+   263.1
+  ],
+  "fw_cab": [
+   191,
+   142,
+   95.5,
+   119.3
+  ]
+ },
+ "srcs": {
+  "sb_tyres_S": "street_board/kit/sb_tyres_S.webp",
+  "sb_tyres_E": "street_board/kit/sb_tyres_E.webp",
+  "sb_cart_S": "street_board/kit/sb_cart_S.webp",
+  "sb_cart_E": "street_board/kit/sb_cart_E.webp",
+  "sb_propane_S": "street_board/kit/sb_propane_S.webp",
+  "sb_propane_E": "street_board/kit/sb_propane_E.webp",
+  "sb_drums_S": "street_board/kit/sb_drums_S.webp",
+  "sb_drums_E": "street_board/kit/sb_drums_E.webp",
+  "sb_heap_S": "street_board/kit/sb_heap_S.webp",
+  "sb_heap_E": "street_board/kit/sb_heap_E.webp",
+  "sb_rubble_S": "street_board/kit/sb_rubble_S.webp",
+  "sb_rubble_E": "street_board/kit/sb_rubble_E.webp",
+  "sb_barrier_S": "street_board/kit/sb_barrier_S.webp",
+  "sb_barrier_E": "street_board/kit/sb_barrier_E.webp",
+  "sb_sandbags_S": "street_board/kit/sb_sandbags_S.webp",
+  "sb_sandbags_E": "street_board/kit/sb_sandbags_E.webp",
+  "sb_container_S": "street_board/kit/sb_container_S.webp",
+  "sb_container_E": "street_board/kit/sb_container_E.webp",
+  "sb_bales_S": "street_board/kit/sb_bales_S.webp",
+  "sb_rolled_S": "street_board/kit/sb_rolled_S.webp",
+  "sb_rolled_E": "street_board/kit/sb_rolled_E.webp",
+  "sb_corral_S": "street_board/kit/sb_corral_S.webp",
+  "sb_dozer_S": "street_board/kit/sb_dozer_S.webp",
+  "sb_wreck_S": "street_board/kit/sb_wreck_S.webp",
+  "sb_wreck_E": "street_board/kit/sb_wreck_E.webp",
+  "sb_patrol_S": "street_board/kit/sb_patrol_S.webp",
+  "sb_patrol_E": "street_board/kit/sb_patrol_E.webp",
+  "sb_sign_S": "street_board/kit/sb_sign_S.webp"
+ },
+ "kit": {
+  "fw_drop": {
+   "kind": "DROP",
+   "blocks_move": true,
+   "baked": true,
+   "name": "THE DROP",
+   "stage": "stand_in",
+   "why": "the city 10 m down past the wall: nobody stands here and nothing here stops a shot (a solid piece, never an obstacle tile)"
+  },
+  "fw_broken": {
+   "kind": "DROP",
+   "blocks_move": true,
+   "baked": true,
+   "name": "THE BROKEN END",
+   "stage": "stand_in"
+  },
+  "fw_parapet": {
+   "kind": "LOW_COVER",
+   "h": 0.8,
+   "baked": true,
+   "name": "THE PARAPET",
+   "stage": "stand_in",
+   "why": "the deck's edge wall: a man crouched behind it is in cover, the way the median's Jersey barrier is"
+  },
+  "fw_gantry": {
+   "src": "freeway/fw_gantry.webp",
+   "kind": "COVER",
+   "h": 1.4,
+   "name": "THE FALLEN SIGN",
+   "stage": "stand_in",
+   "from": "records/target/master_rig/cook_gantry (COOK 10/18)"
+  },
+  "fw_bent": {
+   "src": "freeway/fw_bent.webp",
+   "kind": "COVER",
+   "h": 9.0,
+   "blocks_move": true,
+   "name": "A BENT OF THE DECK",
+   "stage": "stand_in",
+   "from": "cover_pillar.webp at 1.7"
+  },
+  "fw_cab": {
+   "src": "freeway/fw_cab.webp",
+   "kind": "COVER",
+   "h": 1.5,
+   "name": "THE SEMI'S CAB",
+   "stage": "stand_in",
+   "from": "records/target/master_rig/cook_wreck rig_SE"
+  }
+ }
+}

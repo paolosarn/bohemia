@@ -1,0 +1,465 @@
+{
+  "version": "freeway-boards-11-7",
+  "lane": "freeway",
+  "rule": "VAMILY 432 (ask lines 513, 514); 423, 428, 429(f) and (h), 430",
+  "his_words": "you never made a freeway map, that would be so awesome... when combat starts on it, it just puts me on a suburb house... why can't it be an underpass or a large overpass towering over the rest of the city, you can't quite hop off it (Paolo 11/7; Fallout New Vegas's Lonesome Road for the freeway fight only)",
+  "how_to_mod": "Each template is a board of 20 x 15 tiles drawn as 15 strings of 20 characters, one character a 12 m tile (a house). The legend says what each character is. Add a layout to a template's 'layouts' and the fight deals it; the gate (gates/the_freeway_fight_gate.js) refuses a layout where a man could hop off a deck (two levels or more between neighbours), a drop a man can stand on, or a tile his line cannot walk to.",
+  "board": [
+    20,
+    15
+  ],
+  "legend": {
+    "~": {
+      "is": "drop",
+      "say": "the city far below the deck: nobody stands here, everybody sees across it"
+    },
+    "=": {
+      "is": "deck",
+      "say": "a lane of the deck, at the template's deck level"
+    },
+    "-": {
+      "is": "deck",
+      "median": true,
+      "say": "the median lane: a line of Jersey barriers, gaps where the cars broke through"
+    },
+    "0": {
+      "is": "deck",
+      "level": 0,
+      "say": "a ramp or flyover lane at level 0"
+    },
+    "1": {
+      "is": "deck",
+      "level": 1,
+      "say": "a ramp or flyover lane, one level up"
+    },
+    "2": {
+      "is": "deck",
+      "level": 2,
+      "say": "a ramp or flyover lane, two levels up"
+    },
+    "3": {
+      "is": "deck",
+      "level": 3,
+      "say": "a flyover lane, three levels up: the highest ground in the valley"
+    },
+    "x": {
+      "is": "broken",
+      "say": "the deck's broken end: rebar over the drop, nobody stands here"
+    },
+    "g": {
+      "is": "ground",
+      "pic": "dirt",
+      "say": "a lot or a yard under the freeway"
+    },
+    "p": {
+      "is": "ground",
+      "pic": "plaza",
+      "say": "a parking lot"
+    },
+    "w": {
+      "is": "ground",
+      "pic": "walk",
+      "say": "a sidewalk"
+    },
+    "h": {
+      "is": "ground",
+      "pic": "road_ew",
+      "say": "the street below, running east and west"
+    },
+    "v": {
+      "is": "ground",
+      "pic": "road_ns",
+      "say": "the street below, running north and south"
+    },
+    "+": {
+      "is": "ground",
+      "pic": "junction",
+      "say": "where the two streets cross"
+    },
+    "d": {
+      "is": "ground",
+      "pic": "rubble",
+      "terrain": "debris",
+      "say": "the fallen span on the street: rubble, slow",
+      "street": true
+    },
+    "G": {
+      "is": "ground",
+      "pic": "dirt",
+      "shade": true,
+      "say": "the ground under the deck, in its shade"
+    },
+    "H": {
+      "is": "ground",
+      "pic": "road_ew",
+      "shade": true,
+      "say": "the street under the deck"
+    },
+    "V": {
+      "is": "ground",
+      "pic": "road_ns",
+      "shade": true,
+      "say": "the cross street under the deck"
+    },
+    "W": {
+      "is": "ground",
+      "pic": "walk",
+      "shade": true,
+      "say": "the sidewalk under the deck"
+    },
+    "J": {
+      "is": "ground",
+      "pic": "junction",
+      "shade": true,
+      "say": "the crossing under the deck"
+    },
+    "D": {
+      "is": "ground",
+      "pic": "rubble",
+      "shade": true,
+      "terrain": "debris",
+      "say": "rubble under the deck"
+    },
+    "P": {
+      "is": "pillar",
+      "shade": true,
+      "say": "a bent of the deck: a concrete column, it stops a man and a bullet"
+    },
+    "C": {
+      "is": "ground",
+      "pic": "dirt",
+      "shade": true,
+      "camp": true,
+      "say": "the camp under the deck"
+    }
+  },
+  "templates": {
+    "deck": {
+      "name": "THE DECK",
+      "real": "I-15 and US-95 where they ride the viaducts over the valley (the Spaghetti Bowl's approaches, the stretch past the Strip, the 95 over Decatur): ten lanes and a median barrier, the city 10 m down on both sides",
+      "deck_level": 0,
+      "lonesome_road": "the broken highway as a battlefield: a corridor with walls on both sides, a long drop past them, the road the only way on and off",
+      "layouts": {
+        "two_ways": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "====================",
+          "====================",
+          "====================",
+          "--------------------",
+          "====================",
+          "====================",
+          "====================",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ],
+        "the_exit": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "======~~~~~~~~~~~~~~",
+          "====================",
+          "====================",
+          "====================",
+          "--------------------",
+          "====================",
+          "====================",
+          "====================",
+          "~~~~~~~~~~~~========",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ],
+        "the_split": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "====================",
+          "====================",
+          "====================",
+          "~~==~~~~~~~~~~~~==~~",
+          "====================",
+          "====================",
+          "====================",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ],
+        "the_hole": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "========~~~=========",
+          "========~~~~========",
+          "=========~~=========",
+          "--------------------",
+          "====================",
+          "====================",
+          "====================",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ]
+      },
+      "flip": {
+        "rows": true,
+        "cols": true
+      },
+      "dress": {
+        "cars": [
+          0.07,
+          0.12
+        ],
+        "semi": 1,
+        "gantry": [
+          0,
+          1
+        ],
+        "container": [
+          1,
+          2
+        ],
+        "checkpoint": 0.5,
+        "lamps_every": 4,
+        "lamps_live": 0.25
+      }
+    },
+    "overpass": {
+      "name": "THE OVERPASS",
+      "real": "I-15 crossing over Flamingo, Tropicana, Sahara; US-95 over Rancho: the deck 7 m above the street, a ramp down to it at each end",
+      "deck_level": 2,
+      "layouts": {
+        "standing": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "====================",
+          "====================",
+          "====================",
+          "====================",
+          "~2~~~~~~~~~~~~~~~~2~",
+          "~2110ggggvvgggg0112~",
+          "~~~~wwwwwvvwwwww~~~~",
+          "hhhhhhhhh++hhhhhhhhh",
+          "hhhhhhhhh++hhhhhhhhh",
+          "hhhhhhhhh++hhhhhhhhh",
+          "wwwwwwwwwvvwwwwwwwww",
+          "gggppppggvvggppppggg",
+          "gggppppggvvggppppggg",
+          "ggggggggwvvwgggggggg"
+        ],
+        "fallen": [
+          "~~~~~~~~~vv~~~~~~~~~",
+          "========xddx========",
+          "========xddx========",
+          "========xddx========",
+          "========xddx========",
+          "~2~~~~~~~vv~~~~~~~2~",
+          "~2110ggggvvgggg0112~",
+          "~~~~wwwwwvvwwwww~~~~",
+          "hhhhhhhhh++hhhhhhhhh",
+          "hhhhhhhhh++hhhhhhhhh",
+          "hhhhhhhhh++hhhhhhhhh",
+          "wwwwwwwwwvvwwwwwwwww",
+          "gggppppggvvggppppggg",
+          "gggppppggvvggppppggg",
+          "ggggggggwvvwgggggggg"
+        ]
+      },
+      "flip": {
+        "rows": true,
+        "cols": true
+      },
+      "dress": {
+        "cars": [
+          0.05,
+          0.09
+        ],
+        "below_cars": [
+          3,
+          6
+        ],
+        "gantry": [
+          0,
+          1
+        ],
+        "fences": [
+          2,
+          5
+        ],
+        "lamps_every": 4,
+        "lamps_live": 0.3
+      }
+    },
+    "underpass": {
+      "name": "THE UNDERPASS",
+      "real": "under I-15 at Charleston and at the Spaghetti Bowl: the deck's shade 100 m wide, bents of columns, the people who had nowhere else, the street's light at both ends",
+      "deck_level": 0,
+      "layouts": {
+        "the_camp": [
+          "ggggggGGGGGGGGgggggg",
+          "ggggggGGPGGPGGgggggg",
+          "ggggggGGCCCCGGgggggg",
+          "ggggggGGGCCGGGgggggg",
+          "wwwwwwWWPWWPWWwwwwww",
+          "hhhhhhHHHHHHHHhhhhhh",
+          "hhhhhhHHHHHHHHhhhhhh",
+          "hhhhhhHHHPPHHHhhhhhh",
+          "hhhhhhHHHHHHHHhhhhhh",
+          "hhhhhhHHHHHHHHhhhhhh",
+          "wwwwwwWWPWWPWWwwwwww",
+          "ggggggGGGGGGGGgggggg",
+          "ggggggGGDDGGGGgggggg",
+          "ggggggGGPGGPGGgggggg",
+          "ggggggGGGGGGGGgggggg"
+        ],
+        "the_crossing": [
+          "gggggwGGGVVGGGwggggg",
+          "gggggwGGPVVPGGwggggg",
+          "gggggwGCCVVGGGwggggg",
+          "gggggwGCCVVGGGwggggg",
+          "wwwwwwWWPVVPWWwwwwww",
+          "hhhhhhHHHJJHHHhhhhhh",
+          "hhhhhhHHHJJHHHhhhhhh",
+          "hhhhhhHHHJJHHHhhhhhh",
+          "hhhhhhHHHJJHHHhhhhhh",
+          "hhhhhhHHHJJHHHhhhhhh",
+          "wwwwwwWWPVVPWWwwwwww",
+          "gggggwGGGVVGGCwggggg",
+          "gggggwGDDVVGCCwggggg",
+          "gggggwGGPVVPGGwggggg",
+          "gggggwGGGVVGGGwggggg"
+        ]
+      },
+      "flip": {
+        "rows": true,
+        "cols": true
+      },
+      "dress": {
+        "cars": [
+          0.06,
+          0.1
+        ],
+        "camp": [
+          6,
+          10
+        ],
+        "lamps_every": 3,
+        "lamps_live": 0.6,
+        "drums": [
+          1,
+          2
+        ],
+        "fences": [
+          2,
+          4
+        ]
+      }
+    },
+    "interchange": {
+      "name": "THE INTERCHANGE",
+      "real": "the Spaghetti Bowl (I-15, US-95 and I-515 in one knot) and the 215's stacks at I-15 and US-95: flyovers on flyovers, the top one the highest ground in the valley",
+      "deck_level": 0,
+      "layouts": {
+        "the_stack": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~33333333~~~~~~",
+          "~112233333333332211~",
+          "~0~~~~~~~~~~~~~~~~0~",
+          "====================",
+          "====================",
+          "--------------------",
+          "====================",
+          "====================",
+          "~~~0~~~~~~~~~~~~0~~~",
+          "~~~11222222222211~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ],
+        "the_broken_crest": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~333xx333~~~~~~",
+          "~11223333xx33332211~",
+          "~0~~~~~~~~~~~~~~~~0~",
+          "====================",
+          "====================",
+          "--------------------",
+          "====================",
+          "====================",
+          "~~~0~~~~~~~~~~~~0~~~",
+          "~~~11222222222211~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ],
+        "one_flyover": [
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~33333333~~~~~~",
+          "~112233333333332211~",
+          "~0~~~~~~~~~~~~~~~~0~",
+          "====================",
+          "====================",
+          "--------------------",
+          "====================",
+          "====================",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~",
+          "~~~~~~~~~~~~~~~~~~~~"
+        ]
+      },
+      "flip": {
+        "rows": true,
+        "cols": true
+      },
+      "dress": {
+        "cars": [
+          0.06,
+          0.1
+        ],
+        "semi": 1,
+        "gantry": [
+          0,
+          1
+        ],
+        "container": [
+          0,
+          1
+        ],
+        "crest_cover": [
+          2,
+          4
+        ],
+        "lamps_every": 4,
+        "lamps_live": 0.25
+      }
+    }
+  },
+  "pick": {
+    "why": "realism first: where a street crosses the freeway band (the map draws a deck there, slices/BOHEMIA_CITY_WORLD.html overpassAt) the fight is at the overpass or under it; the interchange district is the stack; every other freeway, beltway or ramp cell is the deck",
+    "crossing": {
+      "overpass": 0.6,
+      "underpass": 0.4
+    },
+    "interchange": {
+      "interchange": 1
+    },
+    "freeway": {
+      "deck": 1
+    },
+    "beltway": {
+      "deck": 1
+    }
+  }
+}
