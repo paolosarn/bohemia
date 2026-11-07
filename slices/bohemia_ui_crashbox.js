@@ -467,10 +467,16 @@
   /* __SMALLER_NEVER_PAGES__ (UI 9 11/7, rule 402 amended, ask line 481; UI 8's one-card-a-turn and its swipe and wheel are out):
      the fifteen origins are small plates on the glass all at once, the picked one lit, its facts in one box under them (ORGFACTS).
      Nothing turns, nothing slides: a tap on a plate is RUN's own pick. */
+  var ORGFACTS = {};
   function orgFacts() {
     var st = $('newcostrip'); if (!st) return; var box = $('cbxorgfacts');
     if (!box) { box = document.createElement('div'); box.id = 'cbxorgfacts'; box.setAttribute('aria-live', 'polite'); }
-    if (box.previousElementSibling !== st) st.parentNode.insertBefore(box, st.nextSibling);
+    /* upright under the plates; on a wide glass (the picks in two columns) at the foot of the second column, so the plates'
+       column is not pushed past the glass */
+    var wide = false; try { wide = matchMedia('(min-aspect-ratio: 4/3)').matches; } catch (e) {}
+    if (!ORGFACTS.mq) { ORGFACTS.mq = 1; try { matchMedia('(min-aspect-ratio: 4/3)').addEventListener('change', function () { orgFacts(); }); } catch (e) {} }
+    if (wide) { if (box.parentNode !== st.parentNode || box.nextElementSibling) st.parentNode.appendChild(box); }
+    else if (box.previousElementSibling !== st) st.parentNode.insertBefore(box, st.nextSibling);
     var on = st.querySelector('.org.on'); box.textContent = ''; if (!on) return;
     var em = on.querySelector('em'), b = on.querySelector('b'), is = on.querySelectorAll('i');
     /* the picked one's name and how hard, in the heading's own small line (as every other row says its pick) */

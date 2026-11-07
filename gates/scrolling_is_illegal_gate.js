@@ -32,6 +32,10 @@
      N6 *** A FULL COMPANY *** (twenty men, twelve in a fight) and a FULL STASH (36), and the stranger's 40: every man and every
         piece on the glass at once, no pager, the floors
      N8 *** THE FULLEST HALL *** (a fortress on a fair day with the recruiter in camp: ten men or more): every man on the glass
+     N9 *** AT EVERY UI SIZE *** (rule 403: SMALL, NORMAL, LARGE, LARGEST): the full company and stash, the fullest hall and
+        the smith each whole on the glass, nothing scrolls, the floors; the size drawn (CSS zoom) said, never under NORMAL
+     N4b the settings card's UI SIZE row: four choices where the TEXT row stood; LARGEST is kept (bohemia.uisize.v1) and the
+        card still fits at it; back to NORMAL
      N7 the fight's page alone: nothing scrolls
      OWED (printed, not counted): the end of the fight (RUN FIVE's spoils screen)
      M  *** THE CHECKER BITES *** (the phone upright): the dense look off (BohemiaNoScroll.off) puts the hall back to running past
@@ -160,6 +164,18 @@ async function demoLegs(prof) {
     const f4 = NS.faults(m4);
     ok('N4 ' + prof + ' *** THE SETTINGS CARD *** one card (' + (m4 && m4.box && m4.box.join('x')) + ', ' + Math.round((m4 && m4.area || 0) * 100) + '% of the glass): every row on the glass at once (' + rows4.on + ' of ' + rows4.n + '), nothing scrolls (' + say(c4) + '), no tabs, smallest word ' + (m4 && m4.minText) + ' px' + (f4.length ? '; ' + f4.join('; ') : ''),
       rows4.n >= 12 && rows4.on === rows4.n && !c4.length && !f4.length);
+    /* N4b THE UI SIZE ROW (rule 403) */
+    const sz = await P.evaluate(() => { const row = document.getElementById('setuirow'), tx = document.getElementById('settext'); const txRow = tx && tx.closest('.setrow');
+      return { row: !!row, n: row ? row.querySelectorAll('[data-size]').length : 0, words: row ? [...row.querySelectorAll('[data-size]')].map(b => b.textContent).join(' ') : '', textGone: !txRow || getComputedStyle(txRow).display === 'none' }; });
+    const big = await P.evaluate(() => { const b = document.querySelector('#setui [data-size="3"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (big) { await press(P, prof, big.x, big.y); await P.waitForTimeout(900); }
+    const kept = await P.evaluate(() => localStorage.getItem('bohemia.uisize.v1')), c4b = await crimesOn(P), m4b = await NS.small(P.mainFrame(), '#setcard'), f4b = NS.faults(m4b);
+    const z4b = await P.evaluate(() => BohemiaNoScroll.state(document.getElementById('setwrap')));
+    const nb = await P.evaluate(() => { const b = document.querySelector('#setui [data-size="1"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (nb) { await press(P, prof, nb.x, nb.y); await P.waitForTimeout(700); }
+    const back = await P.evaluate(() => localStorage.getItem('bohemia.uisize.v1'));
+    ok('N4b ' + prof + ' THE UI SIZE ROW: ' + sz.n + ' choices (' + sz.words + '), the TEXT row gone (' + sz.textGone + '); LARGEST kept (' + kept + ') and the card drawn x' + (z4b && z4b.zoom) + ', every row on the glass (' + say(c4b) + ')' + (f4b.length ? '; ' + f4b.join('; ') : '') + '; back to NORMAL (' + back + ')',
+      sz.row && sz.n === 4 && sz.textGone && kept === '3' && !c4b.length && !f4b.length && back === '1');
     await P.evaluate(() => { const c = document.getElementById('setclose'); if (c) c.click(); }); await P.waitForTimeout(900);
     /* N5 the crew screen through the phone */
     const crew = await P.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=crew]'); if (b) { b.click(); return true; } return false; });
@@ -173,18 +189,27 @@ async function demoLegs(prof) {
 }
 
 /* the fullest hall the game deals: a fortress, the fair's card (+25% men), the recruiter in camp (two to four more) */
-async function fullHall(b, port, prof, PV) {
+async function fullHall(b, port, prof, PV, size) {
   const ctx = await b.newContext(PV[prof]), p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
   await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
   await p.addScriptTag({ url: 'bohemia_ui_materials.js' }); await p.addScriptTag({ url: 'bohemia_ui_no_scroll.js' });
-  await p.evaluate(() => { const o = JSON.parse(localStorage.getItem('bohemia.camp.v1') || '{}'); o.retinue = ['recruiter']; o.cart = o.cart || 0; localStorage.setItem('bohemia.camp.v1', JSON.stringify(o)); });
+  await p.evaluate((n) => { const o = JSON.parse(localStorage.getItem('bohemia.camp.v1') || '{}'); o.retinue = ['recruiter']; o.cart = o.cart || 0; localStorage.setItem('bohemia.camp.v1', JSON.stringify(o));
+    if (n == null) localStorage.removeItem('bohemia.uisize.v1'); else localStorage.setItem('bohemia.uisize.v1', String(n)); }, size == null ? null : size);
   const traits = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/settlement_traits.json'), 'utf8')).traits.filter(t => t && t.recruits_mult > 1);
   await p.evaluate(tr => BohemiaSettlement.open({ place: { name: 'NELLIS GATE', tier: 'fortress' }, traits: tr, day: 9, batteries: 400 }), traits);
   await p.waitForTimeout(1500);
   const xy = await p.evaluate(() => BohemiaSettlement.where('hall')); if (xy) await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(2500);
   const l = await onGlass(p.mainFrame(), '#sheet .hire'), m = await NS.small(p.mainFrame(), '#sheet'), cr = NS.crimes(await NS.sweepAll(p)), f = NS.faults(m);
   const st = await p.evaluate(() => BohemiaNoScroll.state(document.getElementById('sheet')));
+  if (size != null) {   /* N9: the same hall at this size, then the smith */
+    const x2 = await p.evaluate(() => BohemiaSettlement.where('smith')); let sm = null;
+    if (x2) { await p.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await p.waitForTimeout(400); await p.mouse.click(x2.x, x2.y); await p.waitForTimeout(2200);
+      sm = { l: await onGlass(p.mainFrame(), '#sheet .grid .slot'), m: await NS.small(p.mainFrame(), '#sheet'), cr: NS.crimes(await NS.sweepAll(p)), st: await p.evaluate(() => BohemiaNoScroll.state(document.getElementById('sheet'))) }; }
+    await ctx.close();
+    return { hall: { on: l.on, n: l.n, faults: f.concat(cr.map(NS.line)), zoom: st && st.zoom, level: st && st.level, min: m && m.minText },
+      smith: sm ? { on: sm.l.on, n: sm.l.n, faults: NS.faults(sm.m).concat(sm.cr.map(NS.line)), zoom: sm.st && sm.st.zoom, min: sm.m && sm.m.minText } : null, errs };
+  }
   ok('N8 ' + prof + ' *** THE FULLEST HALL *** (a fortress, the fair, the recruiter): ' + l.on + ' of ' + l.n + ' men on the glass at once (step ' + (st && st.level) + '), nothing scrolls (' + say(cr) + '), smallest word ' + (m && m.minText) + ' px' + (f.length ? '; ' + f.join('; ') : ''),
     l.n >= 10 && l.on === l.n && !cr.length && !f.length && !errs.length, errs.slice(0, 1).join('') || undefined);
   await ctx.close();
@@ -216,6 +241,25 @@ async function aloneLegs() {
       console.log('  OWED ' + k + ' the end of the fight (RUN FIVE\'s spoils screen; not counted): ' + (c8.length ? say(c8) : 'nothing scrolls'));
       await ctx2.close();
       await fullHall(b, 8941, k, PV).catch(e => ok('N8 ' + k + ' the fullest hall ran', false, String(e).slice(0, 200)));
+      /* N9 AT EVERY UI SIZE */
+      const rows9 = [], bad9 = [];
+      for (let n = 0; n < 4; n++) {
+        const c3 = await b.newContext(PV[k]), pg = await c3.newPage();
+        await pg.addInitScript(v => { try { localStorage.setItem('bohemia.uisize.v1', String(v)); } catch (e) {} }, n);
+        const fr = await T.openCrew(pg, 8941, { stash: full36, company: twenty });
+        await pg.waitForTimeout(1200);
+        const men = await onGlass(fr, '.cell.full'), bag = await onGlass(fr, '#bag .slot.full'), cr = NS.crimes(await NS.sweepAll(pg)), m = await NS.small(fr, 'body'), f = NS.faults(m);
+        const cs = await fr.evaluate(() => BohemiaNoScroll.state(document.body));
+        await c3.close();
+        const h = await fullHall(b, 8941, k, PV, n).catch(e => ({ err: String(e).slice(0, 160) }));
+        const nm = ['SMALL', 'NORMAL', 'LARGE', 'LARGEST'][n];
+        rows9.push(nm + ': crew x' + (cs && cs.zoom) + ' ' + men.on + '/' + men.n + ' men ' + bag.on + '/' + bag.n + (h.hall ? ', hall x' + h.hall.zoom + ' ' + h.hall.on + '/' + h.hall.n : '') + (h.smith ? ', smith x' + h.smith.zoom + ' ' + h.smith.on + '/' + h.smith.n : '') + ', smallest ' + Math.min(m && m.minText || 99, h.hall && h.hall.min || 99, h.smith && h.smith.min || 99));
+        if (men.on !== 20 || men.n !== 20 || bag.on !== 36 || cr.length || f.length) bad9.push(nm + ' crew: ' + (f.concat(cr.map(NS.line))[0] || men.on + '/' + men.n + ' men, ' + bag.on + '/36'));
+        if (!h.hall || h.err || h.hall.on !== h.hall.n || h.hall.n < 10 || h.hall.faults.length) bad9.push(nm + ' hall: ' + (h.err || (h.hall && (h.hall.faults[0] || h.hall.on + '/' + h.hall.n))));
+        if (!h.smith || h.smith.on !== h.smith.n || h.smith.faults.length) bad9.push(nm + ' smith: ' + (h.smith ? h.smith.faults[0] || h.smith.on + '/' + h.smith.n : 'did not open'));
+        if (n === 3 && k === 'computer' && !((cs && cs.zoom > 1) || (h.hall && h.hall.zoom > 1))) bad9.push('LARGEST on the laptop drew nothing larger');
+      }
+      ok('N9 ' + k + ' *** AT EVERY UI SIZE *** ' + rows9.join('; ') + (bad9.length ? ' || ' + bad9.slice(0, 3).join(' | ') : ''), !bad9.length);
     }
   } finally { await b.close(); srv.close(); }
 }

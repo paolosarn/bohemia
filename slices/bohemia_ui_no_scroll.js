@@ -46,6 +46,22 @@
   if (window.BohemiaNoScroll) return;
   var FLOOR = 11, TAP = 44, OFF = false, BOXES = [];
 
+  /* ---------------- THE UI'S SIZE (rule 403, ask line 445; the coordinator's routine 11/7: the four sizes on top of the dense
+     screens) ----------------
+     PAOLO 11/4: 'what I wanted was not a text size update in the settings but the UI, so all the UI, maybe four or five different
+     options'. Four sizes on the one settings card. NORMAL is the dense screens as they are; LARGE and LARGEST draw every piece
+     of a screen bigger together (its words, faces, rows and buttons: CSS zoom on the screen's own box); SMALL draws them smaller
+     the only way the floor allows, by starting each screen at its next step (rows shorter, the side words in the held tip) with
+     every word still at 11 px. A size is what he prefers, never a reason to scroll: a screen that cannot fit at his size is
+     drawn as large as still fits (in steps of 0.05, never under NORMAL), then takes its density steps. Kept in localStorage
+     (bohemia.uisize.v1), so it comes back with the game. It replaces the text-only size: the TEXT row leaves the card, and a
+     text size he had already set is carried over once (2 -> LARGE, 3 -> LARGEST). */
+  var SIZE_KEY = 'bohemia.uisize.v1';
+  var SIZES = [{ say: 'SMALL', z: 1, lv: 2 }, { say: 'NORMAL', z: 1, lv: 1 }, { say: 'LARGE', z: 1.15, lv: 1 }, { say: 'LARGEST', z: 1.3, lv: 1 }];   /* the words draft:true */
+  function uiSize() { try { var v = localStorage.getItem(SIZE_KEY); var n = v == null ? 1 : +v; return n >= 0 && n < SIZES.length && n === Math.floor(n) ? n : 1; } catch (e) { return 1; } }
+  function zoomsFor(n) { var out = [], z = SIZES[n].z; while (z > 1.001) { out.push(z); z = Math.round((z - 0.05) * 100) / 100; } out.push(1); return out; }
+  function setZoom(el, z) { if (!el) return; if (z === 1) el.style.removeProperty('zoom'); else el.style.setProperty('zoom', String(z)); }
+
   /* ---------------- THE TOWN'S SHEETS (RUN TWO's settlement file, untouched: this file plants itself in that frame) -------- */
   var WIDE = '(min-width:700px)', SHORT = '(min-aspect-ratio:4/3) and (max-height:620px)';
   var S = 'html body #sheet.ns-d1';   /* every dense rule waits on the class, so off() is one class away */
@@ -166,12 +182,15 @@
     +   S + '.ns-d3 .hire .ns-hl{display:none!important}'
     +   S + '.ns-d3 .hire .hstats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));row-gap:0!important;padding:0 2px!important}'
     /* a shop on its side: the shelf, the bag and the strip side by side */
-    +   S + '.shopping .acts{display:grid!important;grid-template-columns:140px minmax(0,1fr) 172px;column-gap:8px;align-items:start}'
+    +   S + '.shopping .acts{display:grid!important;grid-template-columns:182px minmax(0,1fr) 172px;column-gap:8px;align-items:start}' + S + '.shopping .ns-shelf .grid{grid-template-columns:repeat(4,44px)!important}'
     +   S + '.shopping .ns-bag{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) auto}' + S + '.shopping .ns-bag>.ns-bagh{grid-column:1;align-self:center}' + S + '.shopping .ns-bag>#selljunk{grid-column:2}' + S + '.shopping .ns-bag>#sortbag{grid-column:3}'
     +   S + '.stalling .act.stline{min-height:46px!important;padding:1px 4px!important}' + S + '.stalling .stallstrip .ss-facts{height:auto!important;max-height:30px}' + S + '.stalling .acts>.slots{margin:0!important}'
     +   S + '.shopping .acts>#shopstrip{margin:0!important;padding:0!important;border:0!important}'
     +   S + ' #sbody:has(.hsort)>.who{padding-right:min(46%,420px)}'
     +   S + ' .acts>.hsort{position:absolute;top:6px;right:58px;width:min(40%,360px);margin:0!important}'
+    /* the board's clients on a short glass: a thumb-tall row each, so the board stays under half the glass */
+    +   S + ' .act.client{min-height:44px!important;padding:2px 8px!important}' + S + ' .act.client .face.small{width:32px!important;height:32px!important;flex:0 0 32px!important}'
+    +   S + ' .acts:has(>.act.client){display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3px 6px}' + S + ' .acts:has(>.act.client)>:not(.act){grid-column:1 / -1}'
     +   S + '.stalling .acts{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:8px;row-gap:3px;align-content:start}'
     +   S + '.stalling .acts>:not(.act){grid-column:1 / -1}}';
 
@@ -253,7 +272,10 @@
     + C + ' small,' + C + ' em{font-size:11px}'
     /* a row of three or more choices (the volume's bars, the text, the light, the difficulty) takes two places, so each choice
        keeps a thumb's width */
-    + C + ' .ns-span{grid-column:span 2}';
+    + C + ' .ns-span{grid-column:span 2}'
+    + C + ' .ns-gone{display:none!important}'
+    + C + ' #setui{display:flex;gap:3px}' + C + ' #setui .setbtn{flex:1 1 0;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;padding:0 2px!important}'
+    + C + ' #setui .setbtn.on{background:linear-gradient(#e8b85e,#a8752c)!important;color:#1f1710!important}';
   function settingsCard() {
     var w = document.getElementById('setwrap'), card = document.getElementById('setcard'); if (!w || !card) return false;
     css(document, 'ns-set', SET_CSS);
@@ -265,11 +287,64 @@
       for (var i = 0; i < rows.length; i++) { var r = rows[i];
         var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && ctl.children.length >= 3); }
     };
+    sizeRow(card);
     fit(w, { box: card, levels: 2, before: mark });
     /* fitted again when the card OPENS (only then: the fit's own classes on #setwrap must never wake this, or it loops) */
     var was = false; try { new MutationObserver(function () { var on = w.classList.contains('on'); if (on && !was) refreshBox(w); was = on; }).observe(w, { attributes: true, attributeFilter: ['class'] }); } catch (e) {}
     return true;
   }
+
+  /* THE UI SIZE ROW (rule 403): four choices where the TEXT row stood; the TEXT row leaves the card (its own code untouched) */
+  function sizeRow(card) {
+    var row = document.getElementById('setuirow');
+    if (!row) {
+      row = document.createElement('div'); row.className = 'setrow'; row.id = 'setuirow';
+      var lab = document.createElement('span'); lab.className = 'setlab'; lab.textContent = 'UI SIZE'; row.appendChild(lab);   /* draft:true */
+      var bars = document.createElement('div'); bars.className = 'setbars'; bars.id = 'setui'; bars.setAttribute('role', 'radiogroup'); bars.setAttribute('aria-label', 'the size of everything on the screen');
+      SIZES.forEach(function (sz, i) { var b = document.createElement('div'); b.className = 'setbtn'; b.setAttribute('role', 'radio'); b.setAttribute('tabindex', '0'); b.dataset.size = String(i); b.textContent = sz.say;
+        b.addEventListener('click', function (e) { e.stopPropagation(); setSize(i); }); bars.appendChild(b); });
+      row.appendChild(bars);
+      var tx = document.getElementById('settext'), txRow = tx && tx.closest('.setrow');
+      if (txRow && txRow.parentNode) { txRow.parentNode.insertBefore(row, txRow); txRow.classList.add('ns-gone'); } else card.appendChild(row);
+    }
+    paintSize();
+  }
+  function paintSize() { var n = uiSize(), bs = document.querySelectorAll('#setui [data-size]');
+    for (var i = 0; i < bs.length; i++) { var on = +bs[i].dataset.size === n; bs[i].classList.toggle('on', on); bs[i].classList.toggle('lit', on); bs[i].setAttribute('aria-checked', on ? 'true' : 'false'); } }
+  /* set the size, and fit every screen of the game again: this window's, then every frame's (the town, the crew screen) */
+  function setSize(n) {
+    n = Math.max(0, Math.min(SIZES.length - 1, n | 0));
+    try { localStorage.setItem(SIZE_KEY, String(n)); } catch (e) {}
+    (window.__NS_SIZE_LOG = window.__NS_SIZE_LOG || []).push({ size: SIZES[n].say, t: Date.now() });
+    applySize(); return n;
+  }
+  function applySize() {
+    paintSize(); BOXES.forEach(cut); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); picksFit(true); chromeFit(true);
+    var visit = function (w, d) { if (d > 4) return; try { if (w !== window && w.BohemiaNoScroll && w.BohemiaNoScroll.refresh) w.BohemiaNoScroll.refresh(); } catch (e) {} try { for (var i = 0; i < w.frames.length; i++) visit(w.frames[i], d + 1); } catch (e) {} };
+    if (window === window.top) visit(window, 0);
+  }
+  /* a text size set before the UI size existed is carried over once, and the text-only floor goes back to as authored */
+  function carryText() {
+    try { if (localStorage.getItem(SIZE_KEY) != null) return; var S = window.BOHEMIA_SETTINGS; if (!S || !S.text) return; var t = S.text();
+      if (t > 1) { localStorage.setItem(SIZE_KEY, t >= 3 ? '3' : '2'); if (S.setText) S.setText(1); } } catch (e) {}
+  }
+  /* THE PICKS (the new game's screen, #newco, UI's Crashbox look): drawn at his size where the page still fits the glass */
+  function picksFit(force) {
+    var nc = document.getElementById('newco'); if (!nc) return; var r = nc.getBoundingClientRect(); if (r.width < 2) return;
+    var n = uiSize(); if (!force && nc.__nsSize === n) return; nc.__nsSize = n;
+    var se = document.scrollingElement || document.documentElement, zs = zoomsFor(n), zi = 0;
+    for (zi = 0; zi < zs.length; zi++) { setZoom(nc, OFF ? 1 : zs[zi]); if (se.scrollHeight <= innerHeight + 1 && overOf(nc) <= 0) break; }
+    nc.__nsZoom = zs[Math.min(zi, zs.length - 1)];
+  }
+  /* THE PHONE AND THE BAR (the whole interface, rule 403): drawn at his size while each stays whole on the glass */
+  function chromeFit(force) {
+    var n = uiSize(); if (!force && CHROME.n === n) return; CHROME.n = n;
+    ['bohphone', 'bmtb'].forEach(function (id) { var el = document.getElementById(id); if (!el) return;
+      var zs = zoomsFor(n), zi = 0;
+      for (zi = 0; zi < zs.length; zi++) { setZoom(el, OFF ? 1 : zs[zi]); var r = el.getBoundingClientRect(); if (r.width < 2 || (r.left >= -1 && r.top >= -1 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1)) break; }
+      CHROME[id] = zs[Math.min(zi, zs.length - 1)]; });
+  }
+  var CHROME = { n: null };
 
   /* ---------------- THE CREW SCREEN (UI's own, slices/BOHEMIA_ROSTER_SCREEN.html) ---------------- */
   var K = 'html:not(#ns-x):not(#ns-y) body.ns-d1';   /* two ids: over the camp's own look (UI 7's html.bm-camp-live ...:not(#bm-x)) */
@@ -326,14 +401,18 @@
   /* the crew screen is the whole glass: it fits when the page itself does not run past the glass */
   function fitBody() {
     var b = document.body, se = document.scrollingElement || document.documentElement;
-    if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3'); return { level: 0, fits: true, over: 0 }; }
+    if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3'); setZoom(b, 1); return { level: 0, fits: true, over: 0 }; }
     var bag = document.getElementById('bag'); if (bag) { bag.style.maxHeight = ''; }
-    b.classList.remove('ns-d2', 'ns-d3'); b.classList.add('ns-d1');
     var over = function () { return Math.max(0, se.scrollHeight - innerHeight - 1) + (bag ? Math.max(0, bag.scrollHeight - bag.clientHeight - 2) : 0); };
-    var lv = 1;
-    if (over() > 0) { b.classList.add('ns-d2'); lv = 2; }
-    if (over() > 0) { b.classList.add('ns-d3'); lv = 3; }
-    var o = over(); CREW.state = { level: lv, fits: o <= 0, over: o };
+    var n = uiSize(), zs = zoomsFor(n), lv = 1, zi = 0;
+    for (zi = 0; zi < zs.length; zi++) {
+      setZoom(b, zs[zi]); b.classList.remove('ns-d2', 'ns-d3'); b.classList.add('ns-d1'); lv = 1;
+      if (SIZES[n].lv >= 2 || over() > 0) { b.classList.add('ns-d2'); lv = 2; }
+      if (over() > 0) { b.classList.add('ns-d3'); lv = 3; }
+      if (over() <= 0) break;
+    }
+    if (zi >= zs.length) zi = zs.length - 1;
+    var o = over(); CREW.state = { level: lv, fits: o <= 0, over: o, zoom: zs[zi] };
     return CREW.state;
   }
 
@@ -345,12 +424,17 @@
     try {
       var host = B.host, box = B.box;
       host.classList.remove('ns-d1', 'ns-d2', 'ns-d3');
-      if (OFF) { B.level = 0; B.over = overOf(box); B.fits = B.over <= 0; return; }
+      if (OFF) { setZoom(B.opts.zoomEl || box, 1); B.level = 0; B.zoom = 1; B.over = overOf(box); B.fits = B.over <= 0; return; }
       if (B.opts.before) try { B.opts.before(); } catch (e) {}
-      host.classList.add('ns-d1'); if (box.scrollTop) box.scrollTop = 0;
-      var lv = 1;
-      while (overOf(box) > 0 && lv < (B.opts.levels || 1)) { lv++; host.classList.add('ns-d' + lv); }
-      B.level = lv; B.over = overOf(box); B.fits = B.over <= 0;
+      var n = uiSize(), zs = zoomsFor(n), max = B.opts.levels || 1, start = Math.min(max, SIZES[n].lv), zEl = B.opts.zoomEl || box, lv = 1, zi = 0;
+      for (zi = 0; zi < zs.length; zi++) {
+        setZoom(zEl, zs[zi]); host.classList.remove('ns-d2', 'ns-d3'); host.classList.add('ns-d1'); if (box.scrollTop) box.scrollTop = 0;
+        lv = 1; while (lv < start) { lv++; host.classList.add('ns-d' + lv); }
+        while (overOf(box) > 0 && lv < max) { lv++; host.classList.add('ns-d' + lv); }
+        if (overOf(box) <= 0) break;
+      }
+      if (zi >= zs.length) zi = zs.length - 1;
+      B.level = lv; B.zoom = zs[zi]; B.size = n; B.over = overOf(box); B.fits = B.over <= 0;
       if (!B.fits) (window.__NS_LOG = window.__NS_LOG || []).push('does not fit: ' + (box.id || box.className) + ' over by ' + B.over + ' at level ' + lv);
     } catch (e) { (window.__NS_LOG = window.__NS_LOG || []).push(String(e)); }
     finally { B.busy = false; }
@@ -389,20 +473,23 @@
   function boxOf(el) { for (var i = 0; i < BOXES.length; i++) if (BOXES[i].box === el || BOXES[i].host === el) return BOXES[i]; return null; }
   window.BohemiaNoScroll = {
     FLOOR: FLOOR, TAP: TAP, fit: fit,
-    state: function (el) { if (el === document.body && CREW.state) return { pages: 1, at: 0, level: CREW.state.level, fits: CREW.state.fits, over: CREW.state.over };
-      var B = boxOf(el); return B ? { pages: 1, at: 0, level: B.level, fits: B.fits, over: B.over } : null; },
+    state: function (el) { if (el === document.body && CREW.state) return { pages: 1, at: 0, level: CREW.state.level, fits: CREW.state.fits, over: CREW.state.over, zoom: CREW.state.zoom || 1, size: SIZES[uiSize()].say };
+      var B = boxOf(el); return B ? { pages: 1, at: 0, level: B.level, fits: B.fits, over: B.over, zoom: B.zoom || 1, size: SIZES[B.size || 0] ? SIZES[B.size].say : 'NORMAL' } : null; },
     reveal: function () { return true; },   /* nothing is ever off the glass: there is nothing to turn to */
     refresh: function () { BOXES.forEach(cut); if (CREW.state) fitBody(); },
-    off: function (on) { OFF = !!on; BOXES.forEach(cut); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); return OFF; },
-    crew: function () { return { log: CREW.log.slice(), state: CREW.state || null }; }
+    off: function (on) { OFF = !!on; BOXES.forEach(cut); if (/ROSTER_SCREEN/.test(location.pathname)) fitBody(); picksFit(true); chromeFit(true); return OFF; },
+    crew: function () { return { log: CREW.log.slice(), state: CREW.state || null }; },
+    SIZES: SIZES.map(function (z) { return z.say; }), size: function (n) { if (n != null) setSize(n); return uiSize(); },
+    chrome: function () { return { phone: CHROME.bohphone || 1, bar: CHROME.bmtb || 1 }; }
   };
   function boot() {
     var pg = location.pathname;
+    addEventListener('storage', function (e) { if (e.key === SIZE_KEY) applySize(); });   /* a size set in another frame of the game */
     if (/SETTLEMENT_SCREEN/.test(pg)) { townSheet(); return; }
     if (/ROSTER_SCREEN/.test(pg)) { crewScreen(); return; }
     if (/SPOILS_SCREEN|STASH_SCREEN/.test(pg)) return;   /* measured: their own layouts fit the glass (RUN's spoils) */
-    settingsCard();
-    if (window === window.top) { plant(); setInterval(plant, 700); }
+    carryText(); settingsCard();
+    if (window === window.top) { plant(); setInterval(function () { plant(); picksFit(false); chromeFit(false); }, 700); }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
