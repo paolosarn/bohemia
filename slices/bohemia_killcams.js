@@ -24,7 +24,7 @@
     var host = el('setcams'); if (!host) return;
     var v = on() ? 'on' : 'off';
     Array.prototype.forEach.call(host.children, function (b) { b.classList.toggle('on', b.getAttribute('data-k') === v); });
-    var s = el('setcamssay'); if (s) s.textContent = v === 'on' ? 'A KILL HOLDS THE PICTURE A BEAT OR TWO. STILL BEING REWORKED.' : 'NO KILL CAM. THE FIGHT NEVER STOPS FOR ONE.';
+    var s = el('setcamssay'); if (s) s.textContent = v === 'on' ? 'THE LAST ONE, A CHAMPION OR A BIG HIT, ON YOUR CREW\'S TAPE. TAP TO SKIP.' : 'NO KILL CAM. THE FIGHT NEVER STOPS FOR ONE.';
   }
   function row() {
     var card = el('setcard'); if (!card || el('setcams')) return !!card;

@@ -1,0 +1,56 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Kill Cams, Remade</title>
+<!-- ANIMATION [the kill cams], rule 426(h), ask lines 365 and 498 (Paolo 11/3: 'in the early combat you know we had kill cams... it will just
+     like fit into the timing of the game... I always just care about the frames per second'; rule 379: 'Kill cams came in like ugly dogshit').
+     BEFORE: COMBAT 7's frames of the first cut (records/target/combat7_11_3/cam_held_NN, cam_hammer_NN). AFTER: the remade cut filmed in the real
+     fight on his phone (390 x 844, AUTO, the switch ON; tools/bohemia_animation_the_kill_cams_capture.js), one picture a key, played here at
+     the game's own speed (three keys a beat at 120). Sound: the game's own recordings, the same as before. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:62ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;color:var(--gold)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .two div{font-size:10px;letter-spacing:1px;color:#8f8676;text-align:center}
+  img{width:100%;display:block;border-radius:3px;image-rendering:pixelated}
+  button{font:inherit;font-weight:700;letter-spacing:1px;color:#1a140c;background:var(--gold);border:0;border-radius:4px;padding:10px 14px;margin:0 0 12px}
+  .note{color:#6f6862}
+</style>
+<h1>THE KILL CAMS, REMADE</h1>
+<p>Only the kills that matter now: the last one of theirs, a champion or a boss, and a big hit (one blow that takes most of a man). A normal kill just plays on the board. The picture is your crew's camcorder: the fight itself, blown up with every pixel kept sharp, six pictures a second on the beat, warm tape, REC in the corner. Tap the fight to skip it. It costs no frames.</p>
+<button id="go">PLAY WITH SOUND</button>
+<div class="row"><div class="lab">THE LAST ONE: HELD BREATH (the fall, then the man who did it)</div>
+<div class="two"><div><img id="hb" alt="before">BEFORE</div><div><img id="ha" alt="after">NOW</div></div></div>
+<div class="row"><div class="lab">A BIG HIT: HAMMER (the tape tears on the blow)</div>
+<div class="two"><div><img id="mb" alt="before">BEFORE</div><div><img id="ma" alt="after">NOW</div></div></div>
+<p class="note">They are still OFF in the game until you say they are good: the KILL CAMS switch behind the gear, under FIGHTS.</p>
+<script>
+(function () {
+  var KEY = 500 / 3;   /* three keys a beat at 120 BPM */
+  function old(k, n) { return '../../records/target/combat7_11_3/cam_' + k + '_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  function now(k, n) { return '../../records/target/animation/kill_cams/after_' + k + '_' + (n < 10 ? '0' : '') + n + '.webp'; }
+  var R = [['hb', old, 'held', 10, 120], ['ha', now, 'held', 12, KEY], ['mb', old, 'hammer', 10, 120], ['ma', now, 'hammer', 3, KEY]], pre = [];
+  R.forEach(function (r) { for (var n = 0; n < r[3]; n++) { var x = new Image(); x.src = r[1](r[2], n); pre.push(x); }
+    var el = document.getElementById(r[0]), i = 0, hold = 0;
+    el.src = r[1](r[2], 0);
+    setInterval(function () { if (hold > 0) { hold--; return; } i = (i + 1) % r[3]; if (i === 0) hold = Math.round(1000 / r[4]); el.src = r[1](r[2], i); }, r[4]);   /* a second's rest before it plays again */
+  });
+  /* the sound: the game's own recordings, decoded from their sprites (the old card's way) */
+  var AC = null, BUF = {}, IDX = {};
+  function load(dir) { return fetch('../' + dir + '/index.json').then(function (r) { return r.json(); }).then(function (j) { IDX[dir] = j; return fetch('../' + dir + '/' + j.file); })
+    .then(function (r) { return r.arrayBuffer(); }).then(function (b) { return AC.decodeAudioData(b); }).then(function (a) { BUF[dir] = a; }); }
+  function play(dir, voice, when) { var j = IDX[dir], v = j && j.voices[voice]; if (!v || !BUF[dir]) return; var t = v.takes[Math.floor(Math.random() * v.takes.length)];
+    var s = AC.createBufferSource(), gn = AC.createGain(); gn.gain.value = Math.pow(10, (v.db || 0) / 20) * 0.6; s.buffer = BUF[dir]; s.connect(gn); gn.connect(AC.destination); s.start(AC.currentTime + (when || 0), t[0], t[1]); }
+  document.getElementById('go').onclick = function () {
+    if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)();
+    Promise.all([load('fight_death'), load('fight_punch')]).then(function () {
+      play('fight_death', 'blade_theirs', 0.12); play('fight_punch', 'thud', 0.3); play('fight_punch', 'thud', 0.8);
+      play('fight_death', 'blade_theirs', 2.6); play('fight_punch', 'blunt', 2.6);
+    });
+  };
+})();
+</script>

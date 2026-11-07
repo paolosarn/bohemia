@@ -1,6 +1,27 @@
 # ANIMATION -- the handoff block (written only by ANIMATION; newest on top; the old blocks are handoffs/ANIMATION_ARCHIVE.md)
 
-ANIMATION (session_01GKDyutPrWASvMYWVtMVPYL): 11/7 (a) LATEST -- [the crawl] (rule 390, ask line 423, opened by rule 421) SHIPPED
+ANIMATION (session_01GKDyutPrWASvMYWVtMVPYL): 11/7 (b) LATEST -- [the kill cams] (rule 426(h), ask lines 365 and 498, the coordinator's
+routine 'ANIMATION: kill cams') SHIPPED (BUILD 11/7n - THE KILL CAMS, REMADE), BUILT, NOT YET SEEN. Still OFF in the game until he says
+good (rule 379(b)). TAB: the FIGHT (turn KILL CAMS on behind the gear, under FIGHTS) and VOTE (animation-the-kill-cams-remade-11-7,
+GOLDEN, kind screen: before and now, with sound).
+WHAT IS IN THE GAME NOW (slices/BOHEMIA_FIGHT.html, the block THE KILL CAMS, REMADE; numbers ours.kill_cams):
+- Only the kills that matter (killStake, pure, off the fight's log): the last of theirs and a champion or boss (HELD BREATH, 4 beats,
+  the heartbeat; never halved on AUTO for the last one), a killing blow of 0.8 of his health or more (HAMMER, 2 beats, halved on AUTO).
+  Measured: 15 kills on six AUTO fights, 6 would cut; the gate's three fights 9 kills, 3 cuts.
+- The picture: on each new key (6 a second) the frame the fight just drew, cut and blown up by a WHOLE number with no smoothing (x2;
+  HELD BREATH x3 from beat two, on the man who did it), held inside the board's picture; washed, warm, lines, the head-switch band,
+  the cheap lens's corners, HAMMER's tear on the blow; REC, the counter, what it caught, the zoom, in the ROM letters. Its own canvas
+  (#killcam, z 2, pointer-events none) over the board and under the HUD. The board's marks guarded out of a cut (!UI.cut on the men's
+  bars, the outclass chevrons, the tape corners, the rounds mark, the kill's ripple: five one-token guards in COMBAT's draw code).
+- Old CSS punch-in (cutCss/cutClass/cutOrigin/cutBars) removed; SHARP, CINE-FOLLOW, ORBIT, X-RAY, CHAIN, LAST STAND retired with the
+  plain-kill cut. The switch's ON line in slices/bohemia_killcams.js says what they do now.
+- Gate: gates/the_kill_cams_gate.js rewritten (K1-K8, planted fails on the rule, the beat and the pixels; K7 frames 7.6 ms with vs 8.1
+  without). Capture: tools/bohemia_animation_the_kill_cams_capture.js (records/target/animation/kill_cams/). Record:
+  records/BOHEMIA_ANIMATION_THE_KILL_CAMS_REMADE_11_7_26.md.
+WHAT IS LEFT (no Paolo needed): ON by default the moment he says good (one line: rule 379(b) and the switch's default); SOUNDS may add a
+camcorder's own sound; a camera PLACED in the street would cost frames (said in the record, not done).
+
+ANIMATION (session_01GKDyutPrWASvMYWVtMVPYL): 11/7 (a) -- [the crawl] (HIS YES 11/7, no words: the recipe is FROZEN, 408(b) step 9; the rest of the bodies are next on this lane) (rule 390, ask line 423, opened by rule 421) SHIPPED
 (BUILD 11/7f - THE CRAWL), BUILT, NOT YET SEEN. ONE GOLDEN PIECE (408(b)) on ONE man, cast_barearms. TAB: the FIGHT (any man of
 his struck down who lives, in that look) and VOTE (animation-the-crawl-golden-11-7, GOLDEN: plays all eight ways beside the thug,
 and the phone picture from the real fight).
