@@ -176,8 +176,13 @@ const SMALL_SRC = `(sel) => {
   const all = sel === 'body' ? [...document.body.querySelectorAll('*')] : [b, ...b.querySelectorAll('*')];
   for (const e of all) { if (e.closest('#bohphone') || !vis(e)) continue; const r = e.getBoundingClientRect(); if (r.width < 2 || r.height < 2) continue;
     const lab = ((e.getAttribute('aria-label') || '') + ' ' + (e.children.length ? '' : e.textContent || '')).trim();
-    if (e.matches('.ns-bar,.ns-tabs,.cbxnav,[role=tablist]') || (e.matches('button,[role=button]') && (/next page|page before|the next origin|the origin before/i.test(lab) || /^[\\u25c0\\u25b6\\u2039\\u203a<>]$/.test(lab)))) { if (out.pagers.length < 8) out.pagers.push(nm(e) + (lab ? ' "' + lab.slice(0, 24) + '"' : '')); }
-    if (e.matches('button,[role=button],input:not([type=hidden]),select,.slot,.act,.cell.full,.org,[data-k],[data-raise],.vb,.gslot') && getComputedStyle(e).pointerEvents !== 'none' && !e.disabled) {
+    if (e.matches('.ns-bar,.ns-tabs,.cbxnav,[role=tablist]:not(:has([data-sort]))') || (e.matches('button,[role=button]') && (/next page|page before|the next origin|the origin before/i.test(lab) || /^[\\u25c0\\u25b6\\u2039\\u203a<>]$/.test(lab)))) { if (out.pagers.length < 8) out.pagers.push(nm(e) + (lab ? ' "' + lab.slice(0, 24) + '"' : '')); }
+    /* TWO NAMED EXCEPTIONS, each with its reason: a stat's row (.bst-row) is read, never pressed to act (a tap says what the
+       number is, the held finger's tip): it is a line of words, not a thumb target; and the line's nine places across a glass
+       under 412 px (nine 44s plus their gaps do not fit) may be narrower, never under 36 wide, while each stays 44 tall: WCAG
+       2.2's AA target floor is 24 px, its AAA 44, and the line of nine is the fight's own nine columns */
+    const line9 = e.matches('.cell.full') && W < 412 && r.height >= TAP - 0.5 && r.width >= 36;
+    if (e.matches('button,[role=button],input:not([type=hidden]),select,.slot,.act,.cell.full,.org,[data-k],[data-raise],.vb,.gslot') && !e.matches('.bst-row') && !line9 && getComputedStyle(e).pointerEvents !== 'none' && !e.disabled) {
       if (Math.min(r.width, r.height) < TAP - 0.5 && out.taps.length < 12) out.taps.push(nm(e) + ' ' + Math.round(r.width) + 'x' + Math.round(r.height) + (lab ? ' "' + lab.slice(0, 18) + '"' : '')); } }
   const r = b.getBoundingClientRect();
   const aw = Math.max(0, Math.min(r.right, W) - Math.max(r.left, 0)), ah = Math.max(0, Math.min(r.bottom, H) - Math.max(r.top, 0));

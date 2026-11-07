@@ -275,7 +275,7 @@
   var K = 'html:not(#ns-x):not(#ns-y) body.ns-d1';   /* two ids: over the camp's own look (UI 7's html.bm-camp-live ...:not(#bm-x)) */
   var CREW_CSS = ''
     /* the floor on every word of the screen (the slots' names were 7 px, a man's name on the line 8, the levels 9 and 10) */
-    + K + ' #lines .ln,' + K + ' .cell b,' + K + ' .id .sub,' + K + ' .gslot>i,' + K + ' .gslot b.v,' + K + ' .gslot b.arm,' + K + ' .gslot em.d,' + K + ' #said,' + K + ' .cell i.days{font-size:11px!important;letter-spacing:0!important}'
+    + K + ' #lines .ln,' + K + ' #keptrow .ln,' + K + ' #hurtrow .ln,' + K + ' #dismiss,' + K + ' #letgo,' + K + ' #keep,' + K + ' .cell b,' + K + ' .id .sub,' + K + ' .gslot>i,' + K + ' .gslot b.v,' + K + ' .gslot b.arm,' + K + ' .gslot em.d,' + K + ' #said,' + K + ' .cell i.days{font-size:11px!important;letter-spacing:0!important}'
     + K + ' .cell b{line-height:12px!important}' + K + ' .gslot>i{line-height:12px!important;white-space:nowrap}'
     + K + ' .doll{grid-template-columns:64px minmax(0,1fr) 64px!important}'
     + K + ' #bag{max-height:none!important;overflow:hidden!important;grid-template-columns:repeat(auto-fill,minmax(44px,1fr))!important;gap:2px!important}'
@@ -296,7 +296,7 @@
     + K + '.ns-d3 #said:empty{display:none}' + K + '.ns-d3 #cols{padding-top:0!important;row-gap:2px!important}' + K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
     + K + '.ns-d3 .who .id{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}' + K + '.ns-d3 .who .id .xpbar{display:inline-block;width:60px;vertical-align:middle}'
     /* a short wide glass: the bag's column the wider, so its cells make fewer rows */
-    + '@media (min-aspect-ratio:4/3) and (max-height:620px){' + K + '.ns-d2 #cols{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)!important;column-gap:10px!important}'
+    + '@media (min-aspect-ratio:4/3) and (max-height:620px){' + K + ' .line{--cw:46px!important}' + K + '.ns-d2 #cols{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)!important;column-gap:10px!important}'
     /* and at the last step his eight
        a little shorter, the gaps at the foot gone */
     +   K + '.ns-d3 #cols{padding-top:0!important;padding-bottom:2px!important;row-gap:2px!important}'
