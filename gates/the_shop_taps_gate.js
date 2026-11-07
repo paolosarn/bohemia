@@ -54,7 +54,7 @@ const layout = (sf) => sf.evaluate(() => {
 });
 async function tapTile(sf, P, sel, twice, mouse) {
   const h = await sf.$(sel); if (!h) return false;
-  /* RE-AIMED 11/6 (UI 8, rule 402: nothing scrolls): a piece on another page of the sheet is turned to, the way his finger would */
+  /* RE-AIMED 11/6 (UI 8) and 11/7 (UI 9, rule 402 amended): every piece is on the glass at once now; reveal() is kept and says yes */
   await sf.evaluate(e => { if (window.BohemiaNoScroll) BohemiaNoScroll.reveal(e); }, h).catch(() => {}); await P.waitForTimeout(250);
   await h.scrollIntoViewIfNeeded().catch(() => {}); await P.waitForTimeout(120);
   const b = await h.boundingBox(); if (!b) return false;

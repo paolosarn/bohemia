@@ -139,7 +139,7 @@
     + S + ' .shopstrip{position:static!important;margin:4px 0 0!important;padding:4px 0 0!important;box-shadow:none!important;gap:3px!important}'
     + S + ' .onman.ss-man{height:auto!important;max-height:none}'
     + S + ' .onman.ss-man .fstrip{flex-wrap:wrap!important;overflow:visible!important;gap:2px!important}'   /* every man's face on the glass: they wrap, never a strip that slides */
-    + S + ' .onman.ss-man .fstrip button{width:40px!important;min-height:44px;padding:1px!important}'
+    + S + ' .onman.ss-man .fstrip button{width:44px!important;min-height:44px;padding:1px!important}'
     + S + ' .onman.ss-man .onwho,' + S + ' .onman.ss-man .lns .ln .k,' + S + ' .onman.ss-man .fstrip .dv,' + S + ' .fstrip button{font-size:11px!important}'
     + S + ' .ss-hint{padding-top:2px!important;font-size:11px!important}'
     + S + ' .act.stline .stl small,' + S + ' .act.stline .sw,' + S + ' .act.stline .sb small{font-size:11px!important}'

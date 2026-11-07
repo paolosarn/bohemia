@@ -208,14 +208,12 @@ const HALL = () => { const S = BohemiaSettlement, R = S.recruits(), med = S.hall
     const box = await (await sf.frameElement()).boundingBox();
     for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'hall' && document.querySelectorAll('#sbody .hire .hceil').length > 0)) break;
       const w = await sf.evaluate(() => BohemiaSettlement.where('hall')); if (w) await P.touchscreen.tap(box.x + w.x, box.y + w.y); await P.waitForTimeout(1200); }
-    /* RE-AIMED 11/6 (UI 8, rule 402): the hall is pages of recruits now; this leg reads every man's order and bars, so it reads
-       them all laid out (the pager's checker switch), then puts the pages back */
-    await sf.evaluate(() => { if (window.BohemiaNoScroll) BohemiaNoScroll.off(true); }); await P.waitForTimeout(300);
+    /* RE-AIMED 11/7 (UI 9, rule 402 amended): the hall is every man on the glass at once, a row a man (UI 8's pages are gone);
+       this leg reads every man's order and bars as they stand */
     const h0 = await sf.evaluate(HALL);
     const sb = await sf.evaluate(() => { const e = document.querySelector('#sheet.on .hsort button[data-sort="price"]'); if (!e) return null; e.scrollIntoView({ block: 'center' }); const x = e.getBoundingClientRect(); return { x: x.x + x.width / 2, y: x.y + x.height / 2 }; });
     if (sb) await P.touchscreen.tap(box.x + sb.x, box.y + sb.y); await P.waitForTimeout(600);
     const h1 = await sf.evaluate(HALL);
-    await sf.evaluate(() => { if (window.BohemiaNoScroll) BohemiaNoScroll.off(false); });
     if (process.env.BOHEMIA_SHOT_DIR) await P.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'best_recruit_demo.png') });
     const ordered = h => h.cards.every((c, i) => !i || !(c.rank > h.cards[i - 1].rank + 1e-12 || (Math.abs(c.rank - h.cards[i - 1].rank) <= 1e-12 && c.ceil > h.cards[i - 1].ceil + 1e-9)));
     ok('*** C8 THE LIVE DEMO *** (' + town.name + ', a real tap on the hall): ' + h0.cards.length + ' men by the ceiling (' + h0.cards.map(c => c.score + ' ' + c.kind).join(', ') + '), one tap lists them for the price',

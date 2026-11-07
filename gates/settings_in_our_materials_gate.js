@@ -63,8 +63,8 @@ async function beforeBegin(page) {
   const a = await p.evaluate(() => {
     const card = document.getElementById('setcard');
     const labs = Array.from(card.querySelectorAll('.setrow .setlab')).map(l => l.textContent.trim());
-    /* RE-AIMED 11/6 (UI 8, rule 402: the card is four tabs): every control and button is read on the tab that holds it */
-    const NS = window.BohemiaNoScroll, T = NS && NS.TABS ? NS.TABS.length : 1, seen = new Set(), ctrls = [], btns = [];
+    /* RE-AIMED 11/7 (UI 9, rule 402 amended): one card again, no tabs: every control and button is read in one pass (T is 1) */
+    const NS = window.BohemiaNoScroll && window.BohemiaNoScroll.settingsTab ? window.BohemiaNoScroll : null, T = NS && NS.TABS ? NS.TABS.length : 1, seen = new Set(), ctrls = [], btns = [];
     for (let tb = 0; tb < T; tb++) { if (NS) NS.settingsTab(tb);
       Array.from(card.querySelectorAll('.vb, .setbtn')).filter(e => e.offsetParent !== null && !seen.has(e)).forEach(e => { seen.add(e); const r = e.getBoundingClientRect(); ctrls.push({ t: (e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 14), w: r.width, h: r.height });
         if (!e.classList.contains('setbtn') || !e.textContent.trim()) return; const rg = document.createRange(); rg.selectNodeContents(e); const tr = rg.getBoundingClientRect();
