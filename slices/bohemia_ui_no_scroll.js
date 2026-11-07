@@ -116,7 +116,7 @@
     + S + '.ns-d2 .hire .ns-hl>*{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}' + S + '.ns-d2 .hire .hgun{flex:none}'
     + S + '.ns-d2 .hire .ns-hl>.hceil{flex:none}' + S + '.ns-d2 .hire .hrare{font-size:0!important;flex:none}' + S + '.ns-d2 .hire .hrare b{font-size:11px!important}'   /* a rare man's kit in words: the held tip */
     /* his eight on one line: the icon, the number, the stars as small marks; the bar a thin line under the number */
-    + S + ' .hire .hstats{grid-area:st;display:flex!important;flex-wrap:nowrap;justify-content:space-between;gap:0 2px!important;margin:0!important;padding:1px 4px!important;min-width:0;filter:none!important}'
+    + S + ' .hire .hstats{grid-area:st;display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr));gap:0 2px!important;margin:0!important;padding:1px 4px!important;min-width:0;filter:none!important}'   /* eight equal columns: one stat's number and stars at one x down every man's row (rule 247(c) in a list) */
     + S + ' .hire .hstats span.bst-row{display:inline-flex!important;align-items:center;gap:1px!important;height:15px!important;min-height:0!important;flex:0 1 auto;min-width:0}'
     + S + ' .hire .hstats span[data-stat]::before{width:12px!important;height:12px!important;margin:0 1px 0 0!important;flex:none}'
     + S + ' .hire .hstats .bst-st{display:inline-flex;flex-direction:column;gap:0;width:5px;order:3}'
@@ -154,7 +154,7 @@
     + S + ' .ns-bag>*{grid-column:1 / -1;margin:0!important}' + S + ' .ns-bag>#selljunk:has(~#sortbag),' + S + ' .ns-bag>#sortbag{grid-column:auto}'
     + S + ' #selljunk{margin:2px 0!important;min-height:44px!important}' + S + ' #selljunk span,' + S + ' #selljunk em{font-size:11px!important}'
     + S + ' .shopstrip{position:static!important;margin:4px 0 0!important;padding:4px 0 0!important;box-shadow:none!important;gap:3px!important}'
-    + S + ' .onman.ss-man{height:auto!important;max-height:none}'
+    + S + ' .onman.ss-man{height:var(--ns-man-h,100px)!important;max-height:none}'   /* one height while he browses (rule 250): set by how many faces the company has (manHeight) */
     + S + ' .onman.ss-man .fstrip{flex-wrap:wrap!important;overflow:visible!important;gap:2px!important}'   /* every man's face on the glass: they wrap, never a strip that slides */
     + S + ' .onman.ss-man .fstrip button{width:44px!important;min-height:44px;padding:1px!important}'
     + S + ' .onman.ss-man .onwho,' + S + ' .onman.ss-man .lns .ln .k,' + S + ' .onman.ss-man .fstrip .dv,' + S + ' .fstrip button{font-size:11px!important}'
@@ -238,11 +238,19 @@
     kids.forEach(function (k, j) { if (k === strip) return; (j < at ? shelf : bg).appendChild(k); });
     acts.insertBefore(bg, strip || null); acts.insertBefore(shelf, bg);
   }
+  /* the shop strip's man box: room for every face of the company in rows of thumb-sized faces, and his lines; the same for every
+     piece he taps (the company does not change while he browses) */
+  function manHeight(doc) {
+    var sh = doc.getElementById('sheet'), m = sh && sh.querySelector('.onman.ss-man'); if (!m) return;
+    var fs = m.querySelector('.fstrip'), n = fs ? fs.children.length : 0, w = m.clientWidth || 300, per = Math.max(1, Math.floor((w - 10) / 46));
+    var h = 8 + (n ? Math.ceil(n / per) * 46 : 0) + 16 + 36;
+    if (sh.style.getPropertyValue('--ns-man-h') !== h + 'px') sh.style.setProperty('--ns-man-h', h + 'px');
+  }
   function townSheet() {
     var sh = document.getElementById('sheet'); if (!sh) return false;
     css(document, 'ns-town', TOWN_CSS);
     var whole = function () { var o = ''; try { o = (window.BohemiaSettlement && BohemiaSettlement.state && BohemiaSettlement.state.open) || ''; } catch (e) {} return /^(hall|smith|armourer|arms|stall)$/.test(o) || !!sh.querySelector('.hire, #shelfgrid, #baggrid, #stallstrip'); };
-    fit(sh, { levels: 3, key: function () { var o = ''; try { o = BohemiaSettlement.state.open || ''; } catch (e) {} var p = document.querySelector('#sbody .say p'); return o + '|' + (p ? p.textContent : ''); }, zoomEl: function () { return document.getElementById('sbody'); }, cap: function () { if (sh.classList.contains('ns-whole')) return true; var r = sh.getBoundingClientRect(); return r.width * r.height <= 0.5 * innerWidth * innerHeight; }, before: function () { hallRows(document); shopCols(document); sh.classList.toggle('ns-whole', whole()); } });
+    fit(sh, { levels: 3, key: function () { var o = ''; try { o = BohemiaSettlement.state.open || ''; } catch (e) {} var p = document.querySelector('#sbody .say p'); return o + '|' + (p ? p.textContent : ''); }, zoomEl: function () { return document.getElementById('sbody'); }, cap: function () { if (sh.classList.contains('ns-whole')) return true; var r = sh.getBoundingClientRect(); return r.width * r.height <= 0.5 * innerWidth * innerHeight; }, before: function () { hallRows(document); shopCols(document); manHeight(document); sh.classList.toggle('ns-whole', whole()); } });
     return true;
   }
 
@@ -361,17 +369,20 @@
     + K + ' #bag .slot canvas,' + K + ' #bag .slot img,' + K + ' #bag .slot .bm-icon{width:24px!important;height:24px!important}'
     + K + ' #bag .slot b{font-size:11px!important}' + K + ' #bag .slot.off{font-size:11px!important}' + K + ' #bag .none{font-size:11px!important}'
     + K + ' #tabs .n{font-size:11px!important}' + K + ' #tabs button{font-size:11px!important;min-width:44px;justify-content:center;text-align:center}'
-    /* when the bag needs the room: his eight in two short columns (Battle Brothers' character screen lays them in two), the
-       comparison line two lines */
-    + K + '.ns-d2 #card .stats{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:8px!important;row-gap:0!important}'
-    + K + '.ns-d2 #card .stats>*{min-height:15px!important;height:15px!important}'
+    /* when the bag needs the room: his slots a thumb tall, his eight a little shorter (still one column), the comparison line two lines */
+    + K + '.ns-d2 #card .stats>*{min-height:14px!important;height:14px!important}'   /* his eight stay ONE column, each stat's stars at one x (rule 247(c)): only shorter */
     + K + '.ns-d2 #said{height:30px!important}'
+    + K + '.ns-d2 .gslot,' + K + '.ns-d2 .doll .gslot,' + K + '.ns-d2 .bagrow .gslot{height:44px!important;min-height:44px!important;padding:1px 2px!important;gap:0!important}'
     /* and then his slots a thumb tall, not more */
     + K + '.ns-d3 .gslot,' + K + '.ns-d3 .doll .gslot,' + K + '.ns-d3 .bagrow .gslot{height:44px!important;min-height:44px!important;padding:1px 2px!important;gap:0!important}'
     /* the last step anywhere: the comparison line stands in the stash's own heading (over STASH n/36 while it speaks), his name and
        level on one line */
     + K + '.ns-d3 #said{grid-area:stash!important;align-self:start;z-index:2;height:44px!important;width:calc(100% - 220px);background:rgba(10,8,6,.92);padding:2px 4px!important;box-sizing:border-box}'
-    + K + '.ns-d3 #said:empty{display:none}' + K + '.ns-d3 #cols{padding-top:0!important;row-gap:2px!important}' + K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
+    + K + '.ns-d3 #said:empty{display:none}' + K + '.ns-d3 #cols{padding-top:0!important;row-gap:2px!important}' + K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}'
+    + K + '.ns-d3 #bar{padding-top:2px!important;padding-bottom:2px!important}' + K + '.ns-d3 #lines{margin-top:2px!important;row-gap:1px!important}' + K + '.ns-d3 #keptrow,' + K + '.ns-d3 #hurtrow{margin-top:1px!important}' + K + '.ns-d3 .doll{margin-top:2px!important}'
+    /* the last step: his eight (one column still) stand in the open middle of his paper doll, between his two columns of slots,
+       at its foot (placeStats sets where), instead of under it */
+    + K + '.ns-d4 #card{position:relative}' + K + '.ns-d4 #card .stats{position:absolute!important;z-index:2;margin:0!important;padding:2px 4px!important;background:rgba(10,8,6,.72);box-sizing:border-box}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
     + K + '.ns-d3 .who .id{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}' + K + '.ns-d3 .who .id .xpbar{display:inline-block;width:60px;vertical-align:middle}'
     /* a short wide glass: the bag's column the wider, so its cells make fewer rows */
     + '@media (min-aspect-ratio:4/3) and (max-height:620px){' + K + ' .line{--cw:46px!important}' + K + '.ns-d2 #cols{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)!important;column-gap:10px!important}'
@@ -402,17 +413,34 @@
     try { new MutationObserver(function (ms) { for (var i = 0; i < ms.length; i++) { var t = ms[i].target; if (t && t.closest && t.closest('.ns-tip')) continue; soon(); return; } }).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
     addEventListener('resize', soon); soon(); setTimeout(soon, 600); setTimeout(soon, 2000);
   }
+  /* his eight into the doll's open middle, at its foot: true when there is room for them there (ask), or set them there, or clear */
+  function placeStats(ask, clear) {
+    var st = document.querySelector('#card .stats'), doll = document.querySelector('#card .doll'), mid = doll && doll.querySelector('.mid'), card = document.getElementById('card');
+    if (clear) { if (st) { st.style.removeProperty('left'); st.style.removeProperty('top'); st.style.removeProperty('width'); } return false; }
+    if (!st || !mid || !card) return false;
+    var cr = card.getBoundingClientRect(), mr = mid.getBoundingClientRect(), sh = st.getBoundingClientRect().height;
+    if (mr.width < 2) {   /* the camp's doll lays its middle as the grid's second column (its .mid has no box of its own) */
+      var dr = doll.getBoundingClientRect(), dc = getComputedStyle(doll), cols = String(dc.gridTemplateColumns || '').split(' ').map(parseFloat).filter(function (v) { return v > 0; }), gap = parseFloat(dc.columnGap) || 0;
+      if (cols.length < 3) return false;
+      mr = { left: dr.left + cols[0] + gap, width: cols[1], bottom: dr.bottom, height: dr.height };
+    }
+    if (ask) return mr.width >= 150 && mr.height >= sh + 8;
+    st.style.setProperty('left', Math.round(mr.left - cr.left) + 'px', 'important'); st.style.setProperty('width', Math.round(mr.width) + 'px', 'important');
+    st.style.setProperty('top', Math.round(mr.bottom - cr.top - st.getBoundingClientRect().height) + 'px', 'important');
+    return true;
+  }
   /* the crew screen is the whole glass: it fits when the page itself does not run past the glass */
   function fitBody() {
     var b = document.body, se = document.scrollingElement || document.documentElement;
-    if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3'); setZoom(b, 1); return { level: 0, fits: true, over: 0 }; }
+    if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3', 'ns-d4'); placeStats(false, true); setZoom(b, 1); return { level: 0, fits: true, over: 0 }; }
     var bag = document.getElementById('bag'); if (bag) { bag.style.maxHeight = ''; }
     var over = function () { return Math.max(0, se.scrollHeight - innerHeight - 1) + (bag ? Math.max(0, bag.scrollHeight - bag.clientHeight - 2) : 0); };
     var n = uiSize(), zs = zoomsFor(n), lv = 1, zi = 0;
     for (zi = 0; zi < zs.length; zi++) {
-      setZoom(b, zs[zi]); b.classList.remove('ns-d2', 'ns-d3'); b.classList.add('ns-d1'); lv = 1;
+      setZoom(b, zs[zi]); b.classList.remove('ns-d2', 'ns-d3', 'ns-d4'); placeStats(false, true); b.classList.add('ns-d1'); lv = 1;
       if (SIZES[n].lv >= 2 || over() > 0) { b.classList.add('ns-d2'); lv = 2; }
       if (over() > 0) { b.classList.add('ns-d3'); lv = 3; }
+      if (over() > 0 && placeStats(true)) { b.classList.add('ns-d4'); lv = 4; placeStats(); }
       if (over() <= 0) break;
     }
     if (zi >= zs.length) zi = zs.length - 1;
