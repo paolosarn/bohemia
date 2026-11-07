@@ -10612,6 +10612,15 @@ GATES = [
      "against the board the fight deals from the map's plan, tile for tile: H1/H2 every house on the same tile and the same model both ways, T1 trailers, S1/S2 streets 97%, "
      "R1 the ring round the board holds the map's houses, B1 a house blocks or is a roof, P1 AUTO plays two rounds on each district's laid board with no page error, "
      "W1 the demo's own door opens a fight that asks the map itself. Mutations: the plan moved a tile, one model swapped, the old template deal: each caught. About 1.5 min", True),
+    ('SCAVENGE ON THE DIAL', ['node', 'gates/scavenge_on_the_dial_gate.js'],
+     "SCAVENGE gate, 11/7, rule 426(b) (PAOLO 11/7, YES on the design: 'I want it to be like a fun minigame') and rule 331 (his three, ONE "
+     "game on the Dead Shot Dial, picked by the map, nothing he did not approve): D1 the dial module is the alpha's stamped engine byte for "
+     "byte, D2 every pattern of the five packages in the dead centre on its downbeat, D3 the fight's zones, R1 one thing or nothing by spot "
+     "(never a pile, never by district), R2 the detector's ear, R3 the siphon on a beat, R4 no greed, chain or noise; on a phone: B1 the "
+     "page's board is the very board the fight deals, B2 every lit spot its kind (a house's roof, a dead car, dirt never asphalt), B3 real "
+     "taps on the ONE pay dead centre or good and a beat off grades worse, B4 one find a spot back to the screen, B5 nothing scrolls upright, "
+     "on its side and on a laptop, B6 in the demo a town's lot plays it on the block's board through the shell's door and the town pays the "
+     "find out of YOUR mouth; each check run once on a planted wrong thing. About 2 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Scavenge</title>
+<!-- ============================================================================
+   BOHEMIA -- SCAVENGE ON THE DIAL, THE PAGE (SCAVENGE 11/7/26; rule 426(b), Paolo 11/7 YES: 'I want it to be like a fun minigame';
+   the design: records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md; the rules: slices/bohemia_scavenge_game.js; the dial:
+   engine/bohemia_dial.js; the gate: gates/scavenge_on_the_dial_gate.js).
+   THE BLOCK'S OWN BOARD: the board is dealt and baked by the fight's own page, in the mode the camp already uses
+   (slices/BOHEMIA_FIGHT.html __THE_CAMP_ON_THE_BOARD__, FIGHT_OPTS.campBoard: the fight's dealer, the fight's bake, nothing of a fight
+   started), on the options a fight on this block is handed (the shell's nfOpts, asked and put back, as slices/bohemia_camp_board.js
+   asks). Nothing in the fight's file is changed. The crew are the men that board deals for the company, drawn from their own sheets
+   (slices/fight_rig/), at the fight's man size: the ground may zoom, the person may not.
+   ONE GAME, THREE WAYS: a lit house, a lit patch of ground, a lit car; tap one, the nearest man walks there on the beat, the old dial
+   opens over him. No noise, nobody comes, no chain, no greed (rule 331). LEAVE any time. Nothing scrolls (rule 402).
+   OPENED BY: the settlement screen's lot ('Search the lot', four hours, once), which pays each find through its own lines.
+   BENCH: BOHEMIA_SCAVENGE.html?bench=suburb (&seed=N, &night=1, &pkg=0..4): a template board of that kind, no map.
+   Hands back: parent.postMessage({type:'BOHEMIA_SCAVENGE_DONE', finds:[{kind, zone, got, outcome, greedMult}], ...}) and
+   window.__SCAV_DONE; window.SCAV.state() for the gate.
+   ============================================================================ -->
+<style>
+@font-face{font-family:BohemiaCasing;src:url(fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:swap}
+:root{--ink:#2a2520;--paper:#ece4d0;--ember:#ff965c;--amber:#e6a84a;--plate:#261e1a;--rim:#7a6a52;--dim:#a89c84}
+html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#g{position:fixed;inset:0;width:100%;height:100%;display:block}
+#plate{position:fixed;right:max(8px,env(safe-area-inset-right));bottom:max(8px,env(safe-area-inset-bottom));width:132px;background:rgba(38,30,26,.96);
+  border:2px solid var(--rim);border-radius:6px;padding:6px;font:13px/1 BohemiaCasing,ui-monospace,monospace;color:var(--paper);box-sizing:border-box}
+#plate .t{background:var(--paper);color:var(--ink);padding:6px 6px 5px;font-size:15px;letter-spacing:1px;border-radius:3px;margin-bottom:5px}
+#plate .r{display:flex;justify-content:space-between;padding:4px 5px;margin:2px 0;border-radius:3px;background:rgba(236,228,208,.08)}
+#plate .r.on{background:var(--amber);color:var(--ink)}
+#plate .r.none{opacity:.35}
+#plate .f{display:flex;flex-wrap:wrap;gap:3px;min-height:22px;margin:5px 0 4px}
+#plate .f i{font-style:normal;font-size:10px;background:var(--paper);color:var(--ink);border-radius:2px;padding:4px 3px 3px;line-height:1}
+#plate .f i.kill{background:var(--ember)}
+#leave{display:block;width:100%;min-height:44px;margin-top:2px;border:0;border-radius:4px;background:rgba(236,228,208,.16);color:var(--paper);
+  font:15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px}
+#wait{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#wait b{width:14px;height:14px;border-radius:50%;background:var(--amber);opacity:.25;animation:p .5s infinite alternate}
+@keyframes p{to{opacity:.9}}
+</style>
+</head>
+<body>
+<canvas id="g"></canvas>
+<div id="wait"><b></b></div>
+<div id="plate" hidden>
+  <div class="t">SCAVENGE</div>
+  <div class="r" data-k="house"><span>HOUSE</span><span>x0</span></div>
+  <div class="r" data-k="ground"><span>GROUND</span><span>x0</span></div>
+  <div class="r" data-k="car"><span>CAR</span><span>x0</span></div>
+  <div class="f" id="found"></div>
+  <button id="leave" type="button">LEAVE</button>
+</div>
+<script src="../engine/bohemia_dial.js"></script>
+<script src="bohemia_scavenge_game.js"></script>
+<script>
+(function () {
+  'use strict';
+  var D = window.BohemiaDial, R = window.BohemiaScavengeGame;
+  var cv = document.getElementById('g'), g = cv.getContext('2d');
+  var BEAT = 500, MAN = 100 / 98;                 /* 120 BPM; the man's sheet px to css px: 98 painted px = a 1.72 m man at ~100 css (the fight's) */
+  var GOOD = { medicine: 'MEDS', food: 'FOOD', battery: 'BATTERY', tape: 'TAPE', ammo: 'ROUNDS' };
+  var LABEL = { house: 'SEARCH', ground: 'DETECTOR', car: 'SIPHON' };
+  var DIRS = 8, CLIP = { stand: [0], walk: [1, 2, 3, 4, 5, 6], swing: [10, 11, 12], carry: [18] };
+  var S = { phase: 'none', o: null, t0: 0, board: null, img: null, tw: 0, th: 0, AR: 364 / 515, view: null, spots: [], men: [], act: null,
+    finds: [], log: [], err: null, done: null, sheets: {}, pkg: 1, audio: null, toneOn: false, bakeMs: 0 };
+  window.SCAV = S;
+  function beatNow() { return (performance.now() - S.t0) / BEAT; }
+
+  /* ------------------------------------------------------------------ the board: the fight's own dealer and bake (its camp mode) */
+  function topWin() { try { if (window.top && window.top !== window && window.top.document) return window.top; } catch (e) {} return null; }
+  function shellOpts(ask) {
+    var T = topWin(), o = null;
+    try { if (T && typeof T.nfOpts === 'function') {
+      var keep = { h: T.__NF_HANDED, c: T.__NF_COND, a: T.__NF_ARENA, d: T.NF ? T.NF.day : undefined };   /* the door is asked, never walked through */
+      try { o = T.nfOpts(JSON.parse(JSON.stringify(ask))); } finally { T.__NF_HANDED = keep.h; T.__NF_COND = keep.c; T.__NF_ARENA = keep.a; if (T.NF && keep.d !== undefined) T.NF.day = keep.d; } } } catch (e) { o = null; }
+    if (!o) o = { district: ask.district || 'suburb', kind: ask.kind || ask.district || 'suburb', cell: ask.at ? { gx: ask.at[0], gy: ask.at[1] } : null, night: !!(ask.world && ask.world.night) };
+    o = JSON.parse(JSON.stringify(o));
+    if (ask.__deal != null) o.deal = ask.__deal >>> 0;
+    if (ask.seed != null) o.seed = ask.seed >>> 0;
+    o.keep = false; o.resume = false; o.odds = false; o.teach = false; o.deploy = false;
+    return o;
+  }
+  /* what the board is, read off the dealt fight the moment it is dealt (before its men are cleared for the bake) */
+  function readFight(cw) {
+    var F = cw.eval('FIGHT'), FS = F.S, tiles = [], crew = [];
+    for (var y = 0; y < FS.h; y++) { var row = []; for (var x = 0; x < FS.w; x++) {
+      var c = FS.cover[y][x], pass = true, lvl = 0, roof = null; try { pass = !!F._t.passable(x, y); } catch (e) {} try { lvl = F.level(x, y) | 0; } catch (e) {}
+      try { roof = typeof F.isRoof === 'function' ? !!F.isRoof(x, y) : null; } catch (e) { roof = null; }   /* the fight's own test: a house's roof, never a dune or a rise */
+      var fam = null; try { var bn = typeof F.blockNameAt === 'function' ? F.blockNameAt(x, y) : null; fam = bn ? String(bn).split('.')[0] : null; } catch (e) { fam = null; }   /* the block it is cut from: built ground or land */
+      row.push({ lvl: lvl, roof: roof, fam: fam, laid: !!(FS.boardDef && FS.boardDef.laid), pass: pass, terr: FS.terrain[y][x], cover: c ? (typeof c === 'string' ? c : (c.piece || c.name || 'cover')) : '' }); } tiles.push(row); }   /* the fight keeps a tile's cover as the piece's name */
+    /* a board laid from the map draws its dead cars as pieces (car_kerb, car_lane), not cover: they are cars all the same */
+    try { var LD = FS.boardDef && FS.boardDef.laid; if (LD && Array.isArray(LD.sprites)) LD.sprites.forEach(function (q) {
+      if (!q || !/^car_/.test(q.name || '') || !q.tiles) return;   /* never a carport: that is a house */ var tx = (q.tiles[0] | 0) - (LD.ring | 0), ty = (q.tiles[1] | 0) - (LD.ring | 0);
+      if (tiles[ty] && tiles[ty][tx] && !tiles[ty][tx].cover) tiles[ty][tx].cover = q.name; }); } catch (e) {}
+    (FS.units || []).forEach(function (u) { if (!u || u.side !== 'you' || u.dead) return; var L = null; try { L = cw.lookOf(u); } catch (e) { L = null; } if (!L || !L.file) return;
+      crew.push({ name: u.name, x: u.x, y: u.y, file: L.file, w: L.w, h: L.h, foot: L.foot }); });
+    return { w: FS.w, h: FS.h, tiles: tiles, crew: crew, name: FS.boardDef ? FS.boardDef.name : null, laid: !!(FS.boardDef && FS.boardDef.laid), night: !!FS.night };
+  }
+  function bake(opts) {
+    return new Promise(function (ok, no) {
+      var f = document.createElement('iframe'), seen = null, t0 = performance.now();
+      f.title = 'the board'; f.setAttribute('aria-hidden', 'true'); f.tabIndex = -1;
+      f.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5';
+      opts.campBoard = { tw: 160, dead: [], pick: function (grid) {
+        try { seen = readFight(f.contentWindow); } catch (e) { seen = { err: String(e && e.message || e) }; }
+        return { x: 0, y: 0, w: 1, h: 1, n: 1, win: { x: 0, y: 0, w: grid.w, h: grid.h } }; } };
+      var set = function () { try { var cw = f.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = opts; } catch (e) {} };
+      var iv = setInterval(set, 4);
+      f.addEventListener('load', function () { set(); clearInterval(iv); });
+      /* beside the map, where a fight's page sits, when there is a map (a board laid from the map's block asks its parent for it) */
+      var home = document; try { var T = topWin(); if (T && T.document.getElementById('cityFrame')) home = T.document; } catch (e) {}
+      f.src = new URL('BOHEMIA_FIGHT.html', location.href).href;
+      (home.body || home.documentElement).appendChild(f);
+      var poll = setInterval(function () {
+        var R0 = null; try { R0 = f.contentWindow.__CAMP_BOARD; } catch (e) {}
+        if (!R0 && performance.now() - t0 < 45000) return;
+        clearInterval(poll);
+        if (!R0 || R0.err || !(R0.day || R0.night) || !seen || seen.err) { cleanup(); no(new Error((R0 && R0.err) || (seen && seen.err) || 'the board did not come')); return; }
+        var src = (seen.night && R0.night) || R0.day || R0.night, c = document.createElement('canvas');
+        c.width = src.width; c.height = src.height; c.getContext('2d').drawImage(src, 0, 0);
+        var out = { board: seen, img: c, tw: R0.tw, th: R0.th || R0.tw * 364 / 515, ms: Math.round(performance.now() - t0) };
+        cleanup(); ok(out);
+      }, 100);
+      function cleanup() { try { if (f.contentWindow && f.contentWindow.__fightLetGo) f.contentWindow.__fightLetGo(); } catch (e) {} try { f.remove(); } catch (e) {} }
+    });
+  }
+
+  /* how light each tile's own ground is on the baked board (its middle, averaged): the detector is for dirt and yards, never the
+     asphalt (the dealt board names one ground for the whole board, so the picture is the only place a road is written down) */
+  function lumaOf(B, img, tw, th) {
+    var c = document.createElement('canvas'); c.width = B.w * 4; c.height = B.h * 4; var x2 = c.getContext('2d'); x2.imageSmoothingEnabled = true;
+    x2.drawImage(img, 0, 0, B.w * tw, B.h * th, 0, 0, c.width, c.height);
+    var d = x2.getImageData(0, 0, c.width, c.height).data;
+    for (var y = 0; y < B.h; y++) for (var x = 0; x < B.w; x++) { var L = 0, n = 0;
+      for (var v = 1; v < 3; v++) for (var u = 1; u < 3; u++) { var i = ((y * 4 + v) * c.width + x * 4 + u) * 4; L += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]; n++; }
+      B.tiles[y][x].luma = Math.round(L / n); }
+  }
+
+  /* ------------------------------------------------------------------ the view: the ground may zoom, the person may not */
+  var W = 0, H = 0, DPR = 1;
+  function size() {
+    DPR = Math.min(3, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  }
+  function plateRect() { var p = document.getElementById('plate'); if (p.hidden) return null; var r = p.getBoundingClientRect(); return { l: r.left - 10, t: r.top - 10, r: r.right, b: r.bottom }; }
+  function makeView(B) {
+    /* upright, a phone: about six and a half tiles across, the board from the top of the glass and the plate in the strip under it;
+       on its side and on a laptop: about seventy tiles of ground on the glass. The man stays the fight's man at every size. */
+    var portrait = H > W * 1.15, T = portrait ? Math.max(44, Math.min(96, W / 6.4)) : Math.max(44, Math.min(96, Math.sqrt(W * H / (70 * S.AR))));
+    var cols = W / T, rows = H / (T * S.AR);
+    /* the crew at the left of the glass, the block opening out to the right of them (they stand on their line, as a fight deals them) */
+    var c = R.centroid(B.crew), x0 = Math.min.apply(null, B.crew.map(function (m) { return m.x; })), cy = c.y * 0.6 + B.h / 2 * 0.4;
+    var vx = Math.max(0, Math.min(B.w - cols, x0 - 0.35)), vy = rows >= B.h ? 0 : Math.max(0, Math.min(B.h - rows, cy + 0.5 - rows / 2));
+    if (cols > B.w) vx = (B.w - cols) / 2;
+    return { T: T, Th: T * S.AR, x: vx, y: vy, cols: cols, rows: rows };
+  }
+  function scr(x, y) { var V = S.view; return { x: (x - V.x) * V.T, y: (y - V.y) * V.Th }; }   /* board tiles (corner) -> css px */
+  function feetOf(x, y) { return scr(x + 0.5, y + 0.9); }
+  function onGlass(x, y, pad) { var p = scr(x + 0.5, y + 0.5), P = plateRect(); pad = pad || 0;
+    if (p.x < pad || p.y < pad + 30 || p.x > W - pad || p.y > H - pad) return false;
+    if (P && p.x > P.l - 20 && p.y > P.t - 40) return false; return true; }
+
+  /* ------------------------------------------------------------------ start */
+  S.start = function (o) {
+    o = o || {}; S.o = o; S.pkg = o.pkg != null ? Math.max(0, Math.min(4, o.pkg | 0)) : 1;
+    S.phase = 'baking'; size();
+    var opts = o.fightOpts ? JSON.parse(JSON.stringify(o.fightOpts)) : shellOpts(o.ask || {});
+    if (o.night != null) opts.night = !!o.night;
+    return bake(opts).then(function (b) {
+      S.board = b.board; S.img = b.img; S.tw = b.tw; S.th = b.th; S.AR = b.th / b.tw; S.bakeMs = b.ms;
+      lumaOf(S.board, S.img, S.tw, S.th);
+      document.getElementById('plate').hidden = false;
+      S.view = makeView(S.board);
+      var n = o.left == null ? R.MAX_SPOTS : Math.max(0, Math.min(R.MAX_SPOTS, o.left | 0));
+      S.spots = R.spots(S.board, { n: n, seed: (o.seed || opts.deal || opts.seed || 7) >>> 0,
+        keep: function (s) { return onGlass(s.x, s.y, 24) && onGlass(s.sx, s.sy, 24); } }).map(function (s) { s.state = 'open'; return s; });
+      S.men = S.board.crew.filter(function (c) { return onGlass(c.x, c.y, -40); }).map(function (c, i) {
+        return { i: i, name: c.name, x: c.x, y: c.y, file: c.file, w: c.w, h: c.h, foot: c.foot, dir: 0, pose: 'stand', busy: false }; });
+      if (!S.men.length) S.men = S.board.crew.slice(0, 1).map(function (c, i) { return { i: i, name: c.name, x: c.x, y: c.y, file: c.file, w: c.w, h: c.h, foot: c.foot, dir: 0, pose: 'stand', busy: false }; });
+      S.men.forEach(function (m) { sheet(m.file); });
+      document.getElementById('wait').style.display = 'none';
+      S.t0 = performance.now(); S.phase = S.spots.length ? 'play' : 'empty';
+      plate();
+      if (!S.spots.length) setTimeout(function () { finish('nothing to search'); }, BEAT * 4);
+      requestAnimationFrame(frame);
+      return S.state();
+    }).catch(function (e) { S.err = String(e && e.message || e); S.phase = 'failed'; finish('the board did not come'); return S.state(); });
+  };
+  function sheet(file) { if (S.sheets[file]) return S.sheets[file]; var im = new Image(); im.src = 'fight_rig/' + file; S.sheets[file] = im; return im; }
+
+  /* ------------------------------------------------------------------ the plate (the phone's frame says SCAVENGE) */
+  function plate() {
+    ['house', 'ground', 'car'].forEach(function (k) {
+      var row = document.querySelector('#plate .r[data-k="' + k + '"]'), n = S.spots.filter(function (s) { return s.kind === k && s.state === 'open'; }).length,
+        all = S.spots.filter(function (s) { return s.kind === k; }).length;
+      row.lastChild.textContent = 'x' + n; row.classList.toggle('on', !!(S.act && S.act.spot.kind === k)); row.classList.toggle('none', !all);
+    });
+    var f = document.getElementById('found'); f.innerHTML = '';
+    S.finds.forEach(function (r) { if (!r.got) return; var i = document.createElement('i'); i.textContent = GOOD[r.got] || r.got; if (r.zone === 'kill') i.className = 'kill'; f.appendChild(i); });
+  }
+
+  /* ------------------------------------------------------------------ sound: a detector's tone is an oscillator, as a real one is */
+  function ac() { if (!S.audio) { try { S.audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { S.audio = null; } } return S.audio; }
+  function blip(hz, ms, vol, type) { var A = ac(); if (!A) return; try { var o = A.createOscillator(), v = A.createGain(), t = A.currentTime;
+    o.type = type || 'sine'; o.frequency.value = hz; v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(vol, t + 0.004); v.gain.exponentialRampToValueAtTime(0.0001, t + ms / 1000);
+    o.connect(v); v.connect(A.destination); o.start(t); o.stop(t + ms / 1000 + 0.02); } catch (e) {} }
+  function tone(on) { var A = ac(); if (!A) return; try {
+    if (on && !S.toneO) { var o = A.createOscillator(), v = A.createGain(); o.frequency.value = 1900; v.gain.value = 0.0001; v.gain.linearRampToValueAtTime(0.09, A.currentTime + 0.02); o.connect(v); v.connect(A.destination); o.start(); S.toneO = o; S.toneV = v; }
+    if (!on && S.toneO) { var O = S.toneO, V = S.toneV; V.gain.linearRampToValueAtTime(0.0001, A.currentTime + 0.03); O.stop(A.currentTime + 0.05); S.toneO = null; S.toneV = null; } } catch (e) {} }
+
+  /* ------------------------------------------------------------------ the play */
+  function freeMan(s) {
+    var best = null; S.men.forEach(function (m) { if (m.busy) return; var d = Math.hypot(m.x - s.sx, m.y - s.sy); if (!best || d < best.d) best = { m: m, d: d }; });
+    return best ? best.m : null;
+  }
+  function dirOf(dx, dy) { var a = Math.atan2(dy, dx) * 180 / Math.PI; return ((Math.round((90 - a) / 45) % DIRS) + DIRS) % DIRS; }
+  function send(s) {
+    var m = freeMan(s); if (!m) return false;
+    var b = beatNow(), dist = Math.hypot(s.sx - m.x, s.sy - m.y);
+    s.state = 'busy'; m.busy = true; m.dir = dirOf(s.sx - m.x, s.sy - m.y); m.pose = 'walk';
+    S.act = { spot: s, man: m, phase: 'walk', from: { x: m.x, y: m.y }, b0: b, arrive: b + Math.max(0.5, dist), dial: null, hold: null, res: null };
+    S.log.push({ t: 'send', spot: s.id, man: m.name, beat: +b.toFixed(2) });
+    plate(); return true;
+  }
+  function openDial(A, b) {
+    var G = D.defaultState(); G.pkgDiff = S.pkg; D.rollPattern(G);
+    if (A.spot.kind !== 'car') {
+      /* the needle settles where its pattern has it now (never a free middle at the open): half a beat run invisibly */
+      for (var i = 0; i < 30; i++) { G.beatClock = b - 0.5 + i / 60; D.tick(G, 1 / 60); }
+    } else G.angle = -D.K.LIM;
+    A.dial = { G: G, b0: b, armed: b + R.ARM_BEATS, lastBeep: -1, flare: 0 };
+    A.phase = 'dial'; A.man.pose = A.spot.kind === 'house' ? 'swing' : 'carry';
+    A.man.dir = dirOf(A.spot.x - A.spot.sx || 0.001, A.spot.y - A.spot.sy);
+    S.log.push({ t: 'dial', spot: A.spot.id, pat: G.pat, pkg: S.pkg, beat: +b.toFixed(2) });
+  }
+  function resolve(A, zone, why) {
+    var r = R.result(A.spot, zone, { why: why || 'press', pat: A.dial ? A.dial.G.pat : null, beat: +beatNow().toFixed(3), angle: A.dial ? +A.dial.G.angle.toFixed(4) : null });
+    A.res = r; A.phase = 'result'; A.until = beatNow() + 2; tone(false);
+    A.man.pose = r.got ? 'carry' : 'stand';
+    S.finds.push(r); S.log.push({ t: 'result', spot: A.spot.id, zone: zone, got: r.got, why: r.why, angle: r.angle });
+    if (r.got) { blip(zone === 'kill' ? 1320 : 990, 140, 0.08); if (zone === 'kill') setTimeout(function () { blip(1760, 180, 0.07); }, 90); }
+    else blip(180, 160, 0.08, 'triangle');
+    plate();
+  }
+  function press(kind, px, py) {
+    if (S.phase !== 'play') return;
+    var A = S.act, b = beatNow();
+    if (A && A.phase === 'dial') {
+      if (A.spot.kind === 'car') {
+        if (kind === 'down' && !A.hold) { A.hold = { down: b, start: Math.ceil(b) }; S.log.push({ t: 'hold', beat: +b.toFixed(3) }); }
+        else if (kind === 'up' && A.hold) { var sa = A.dial.G.angle; resolve(A, b < A.hold.start ? 'miss' : D.zoneOf({ angle: sa }), b < A.hold.start ? 'let go before it came' : 'let go'); }
+        return;
+      }
+      if (kind === 'down' && b >= A.dial.armed) {
+        /* the needle where it is at the touch, not where the last frame drew it (a frame is 16 ms; the dead centre is about 50) */
+        var G = A.dial.G, gap = Math.min(0.05, Math.max(0, (performance.now() - (S.lastT || performance.now())) / 1000)); G.beatClock = b; if (gap > 0) D.tick(G, gap);
+        resolve(A, D.zoneOf(G), 'press');
+      }
+      return;
+    }
+    if (A || kind !== 'down') return;
+    /* a lit spot under the finger (its tiles, its stand tile, a tile of slack) */
+    var V = S.view, fx = V.x + px / V.T, fy = V.y + py / V.Th, best = null;
+    S.spots.forEach(function (s) { if (s.state !== 'open') return;
+      (s.tiles || [[s.x, s.y]]).concat([[s.sx, s.sy]]).forEach(function (t) { var d = Math.hypot(fx - (t[0] + 0.5), fy - (t[1] + 0.5)); if (d < 0.95 && (!best || d < best.d)) best = { s: s, d: d }; }); });
+    if (best) send(best.s);
+  }
+  function step(b, dt) {
+    var A = S.act; if (!A) return;
+    if (A.phase === 'walk') {
+      var k = Math.min(1, (b - A.b0) / Math.max(0.001, A.arrive - A.b0));
+      A.man.x = A.from.x + (A.spot.sx - A.from.x) * k; A.man.y = A.from.y + (A.spot.sy - A.from.y) * k;
+      if (k >= 1) { A.man.x = A.spot.sx; A.man.y = A.spot.sy; openDial(A, b); }
+      return;
+    }
+    if (A.phase === 'dial') {
+      var G = A.dial.G;
+      if (A.spot.kind === 'car') {
+        if (A.hold && b >= A.hold.start) {
+          var hb = b - A.hold.start; G.angle = R.siphonAngle(hb, S.pkg);
+          var whole = Math.floor(hb); if (whole !== A.dial.lastBeep && whole <= R.siphonBeats(S.pkg)) { A.dial.lastBeep = whole; blip(150 - whole * 8, 110, 0.12, 'sine'); A.dial.flare = 1; }   /* a gulp a beat */
+          if (R.siphonOver(hb, S.pkg)) resolve(A, 'miss', 'a mouthful');
+        } else if (!A.hold && b - A.dial.b0 > R.GIVE_UP_BEATS) resolve(A, 'miss', 'gave up');
+        return;
+      }
+      G.beatClock = b; D.tick(G, dt);
+      if (A.spot.kind === 'ground') {
+        var per = R.beepsPerBeat(G.angle);
+        if (per === Infinity) { if (!S.toneO) { tone(true); A.dial.flare = 1; } }
+        else { if (S.toneO) tone(false); var slot = Math.floor(b * per); if (slot !== A.dial.lastBeep) { A.dial.lastBeep = slot; blip(1650, 45, 0.07); A.dial.flare = 1; } }
+      } else if (Math.floor(b) !== A.dial.lastBeep) { A.dial.lastBeep = Math.floor(b); blip(Math.floor(b) % 4 === 0 ? 330 : 220, 40, 0.035, 'triangle'); }   /* the house: a soft tock a beat, the ONE lower */
+      if (b - A.dial.b0 > R.GIVE_UP_BEATS) resolve(A, 'miss', 'gave up');
+      return;
+    }
+    if (A.phase === 'result' && b >= A.until) {
+      A.spot.state = 'done'; A.spot.res = A.res; A.man.busy = false; A.man.pose = A.res.got ? 'carry' : 'stand'; S.act = null; plate();
+      if (!S.spots.some(function (s) { return s.state === 'open'; })) { S.phase = 'over'; setTimeout(function () { finish('all searched'); }, BEAT * 2); }
+    }
+  }
+
+  /* ------------------------------------------------------------------ drawing */
+  function frame(now) {
+    if (S.phase === 'closed') return;
+    requestAnimationFrame(frame);
+    var b = beatNow(), dt = Math.min(0.05, (now - (S.lastT || now)) / 1000); S.lastT = now;
+    try { step(b, dt); } catch (e) { S.err = String(e && e.message || e); }
+    try { draw(b); } catch (e) { S.err = String(e && e.message || e); }
+  }
+  function draw(b) {
+    var V = S.view; g.setTransform(DPR, 0, 0, DPR, 0, 0); g.fillStyle = '#2a2219'; g.fillRect(0, 0, W, H);
+    g.imageSmoothingEnabled = true;
+    var bx0 = Math.max(0, V.x), by0 = Math.max(0, V.y), bx1 = Math.min(S.board.w, V.x + V.cols), by1 = Math.min(S.board.h, V.y + V.rows), d0 = scr(bx0, by0), d1 = scr(bx1, by1);
+    g.drawImage(S.img, bx0 * S.tw, by0 * S.th, (bx1 - bx0) * S.tw, (by1 - by0) * S.th, d0.x, d0.y, d1.x - d0.x, d1.y - d0.y);
+    var pulse = 0.55 + 0.45 * Math.pow(1 - (b % 1), 2);
+    S.spots.forEach(function (s) { if (s.state !== 'open') return; mark(s, pulse); });
+    var men = S.men.slice().sort(function (a, c) { return a.y - c.y; });
+    men.forEach(function (m) { man(m, b); });
+    if (S.act && (S.act.phase === 'dial' || S.act.phase === 'result')) dialDraw(S.act, b);
+    S.spots.forEach(function (s) { if (s.state === 'open') tag(s); });
+    if (S.act && S.act.phase === 'result') resultTag(S.act);
+  }
+  function mark(s, a) {
+    g.save(); g.strokeStyle = 'rgba(255,207,122,' + a.toFixed(3) + ')'; g.lineWidth = 2.5; g.shadowBlur = 10; g.shadowColor = '#ffb050'; g.setLineDash([9, 5]);
+    var V = S.view;
+    if (s.kind === 'ground') { var p = scr(s.x + 0.5, s.y + 0.55); g.beginPath(); g.ellipse(p.x, p.y, V.T * 0.42, V.Th * 0.36, 0, 0, 7); g.stroke(); }
+    else { var ts = s.tiles || [[s.x, s.y]], x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      ts.forEach(function (t) { x0 = Math.min(x0, t[0]); y0 = Math.min(y0, t[1]); x1 = Math.max(x1, t[0] + 1); y1 = Math.max(y1, t[1] + 1); });
+      var A0 = scr(x0, y0), A1 = scr(x1, y1), inset = s.kind === 'car' ? 0.12 : 0.04; g.strokeRect(A0.x + V.T * inset, A0.y + V.Th * inset, A1.x - A0.x - 2 * V.T * inset, A1.y - A0.y - 2 * V.Th * inset); }
+    g.restore();
+  }
+  function plank(text, x, y, fill, ink) {
+    g.font = '12px BohemiaCasing, ui-monospace, monospace'; var w = g.measureText(text).width + 12;
+    g.fillStyle = fill || 'rgba(236,228,208,.94)'; g.fillRect(Math.round(x - w / 2), Math.round(y - 15), Math.round(w), 18);
+    g.strokeStyle = '#2a2520'; g.lineWidth = 1; g.strokeRect(Math.round(x - w / 2) + .5, Math.round(y - 15) + .5, Math.round(w) - 1, 17);
+    g.fillStyle = ink || '#2a2520'; g.textAlign = 'center'; g.fillText(text, x, y - 2);
+  }
+  function tag(s) { var top = s.kind === 'ground' ? s.y + 0.1 : Math.min.apply(null, (s.tiles || [[s.x, s.y]]).map(function (t) { return t[1]; })); var p = scr(s.x + 0.5, top); plank(LABEL[s.kind], p.x, p.y - 2); }
+  function resultTag(A) { var f = feetOf(A.man.x, A.man.y), r = A.res; plank(r.word + (r.got ? ' · ' + GOOD[r.got] : ''), f.x, f.y - 112, r.zone === 'kill' ? '#ff965c' : r.got ? 'rgba(236,228,208,.96)' : 'rgba(110,106,98,.95)', r.got ? '#2a2520' : '#f2ece1'); }
+  function man(m, b) {
+    var im = S.sheets[m.file], f = feetOf(m.x, m.y);
+    g.fillStyle = 'rgba(0,0,0,.32)'; g.beginPath(); g.ellipse(f.x, f.y, 17, 6, 0, 0, 7); g.fill();
+    if (!im || !im.complete || !im.naturalWidth) return;
+    var clip = CLIP[m.pose] || CLIP.stand, col = clip[Math.floor(b * 3) % clip.length], w = m.w || 144, h = m.h || 161, ft = m.foot || [66, 110];
+    if (m.pose === 'carry' || m.pose === 'stand') col = clip[0];
+    g.imageSmoothingEnabled = false;
+    g.drawImage(im, col * w, m.dir * h, w, h, Math.round(f.x - ft[0] * MAN), Math.round(f.y - ft[1] * MAN), Math.round(w * MAN), Math.round(h * MAN));
+    g.imageSmoothingEnabled = true;
+  }
+  /* THE OLD DIAL, as the fight drew it: the wedge, the track, 24 ticks, the blue / amber / ember bands, the centre line, the needle */
+  function dialDraw(A, b) {
+    var f = feetOf(A.man.x, A.man.y), cx = f.x, cy = f.y - 62, Rr = Math.min(96, W * 0.24), up = cy - Rr > 40, base = up ? -Math.PI / 2 : Math.PI / 2;
+    if (!up) cy = f.y - 20;
+    var K = D.K, span = K.LIM * K.ARC_MULT, W0 = D.defaultState().W, hidden = A.spot.kind === 'ground', fade = A.phase === 'result' ? Math.max(0, A.until - beatNow()) / 2 : 1;
+    g.save(); g.globalAlpha = fade;
+    g.fillStyle = 'rgba(12,10,8,.42)'; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, Rr * 1.04, base - span, base + span); g.closePath(); g.fill();
+    g.lineWidth = 3; g.strokeStyle = hidden ? 'rgba(186,170,132,.4)' : 'rgba(120,108,86,.6)'; if (hidden) g.setLineDash([7, 6]);
+    g.beginPath(); g.arc(cx, cy, Rr * 0.97, base - span, base + span); g.stroke(); g.setLineDash([]);
+    for (var i = 0; i <= 24; i++) { var a = base - span + 2 * span * i / 24, maj = i % 6 === 0, tl = maj ? 10 : 5;
+      g.strokeStyle = maj ? 'rgba(186,170,132,.75)' : 'rgba(140,128,100,.5)'; g.lineWidth = maj ? 1.6 : 1;
+      g.beginPath(); g.moveTo(cx + Math.cos(a) * (Rr * 0.97 - tl), cy + Math.sin(a) * (Rr * 0.97 - tl)); g.lineTo(cx + Math.cos(a) * Rr * 0.97, cy + Math.sin(a) * Rr * 0.97); g.stroke(); }
+    var band = function (half, col, w, glow) { g.save(); g.lineWidth = w; g.strokeStyle = col; if (glow) { g.shadowBlur = glow; g.shadowColor = col; } g.beginPath(); g.arc(cx, cy, Rr * 0.97, base - half, base + half); g.stroke(); g.restore(); };
+    if (!hidden) {
+      band(W0.hitZ * K.ARC_MULT, 'rgba(96,150,182,.85)', 4);
+      band(W0.vZ * K.ARC_MULT, 'rgba(230,168,74,.95)', 5);
+      band(W0.hZ * K.ARC_MULT, 'rgba(255,150,92,1)', 7, 10 + 8 * Math.pow(1 - (b % 1), 2));
+      g.strokeStyle = 'rgba(255,242,214,.9)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(cx + Math.cos(base) * Rr * 0.8, cy + Math.sin(base) * Rr * 0.8); g.lineTo(cx + Math.cos(base) * Rr * 1.02, cy + Math.sin(base) * Rr * 1.02); g.stroke();
+    }
+    var na = base + (up ? 1 : -1) * A.dial.G.angle, fl = A.dial.flare; A.dial.flare = Math.max(0, fl - 0.12);
+    if (A.spot.kind === 'house') { var bg = g.createRadialGradient(cx, cy, 4, cx, cy, Rr * 1.5); bg.addColorStop(0, 'rgba(255,236,190,.28)'); bg.addColorStop(1, 'rgba(255,236,190,0)');   /* the needle is his torch */
+      g.fillStyle = bg; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, Rr * 1.5, na - 0.07, na + 0.07); g.closePath(); g.fill(); }
+    g.save(); g.shadowBlur = 6 + fl * 22; g.shadowColor = 'rgba(255,230,180,.95)'; g.strokeStyle = '#fff4dc'; g.lineWidth = 2.6; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(na) * Rr, cy + Math.sin(na) * Rr); g.stroke(); g.restore();
+    if (fl > 0.05) { g.fillStyle = 'rgba(255,214,150,' + fl.toFixed(2) + ')'; g.beginPath(); g.arc(cx + Math.cos(na) * Rr, cy + Math.sin(na) * Rr, 3 + fl * 6, 0, 7); g.fill(); }
+    g.fillStyle = '#fff4dc'; g.beginPath(); g.arc(cx, cy, 3.5, 0, 7); g.fill();
+    /* the bar of four under it: the beat now, the ONE in ember (the siphon counts its gulps from the first) */
+    var by = up ? cy + 16 : cy - Rr - 14, cur = Math.floor(b) % 4, n = 4;
+    if (A.spot.kind === 'car' && A.hold) { n = Math.min(8, R.siphonBeats(S.pkg)); cur = Math.max(-1, Math.floor(b - A.hold.start)); }
+    for (var k = 0; k < n; k++) { var lit = A.spot.kind === 'car' ? (A.hold && k <= cur) : k === cur, one = A.spot.kind === 'car' ? k === n - 1 : k === 0;
+      g.fillStyle = lit ? (one ? '#ff965c' : '#e6a84a') : 'rgba(30,26,22,.85)'; g.strokeStyle = '#ece4d0'; g.lineWidth = 1.2;
+      g.beginPath(); g.arc(cx - (n - 1) * 8 + k * 16, by, one ? 5.5 : 4, 0, 7); g.fill(); g.stroke(); }
+    g.restore();
+  }
+
+  /* ------------------------------------------------------------------ the end: the finds go home through the screen that opened this */
+  function finish(why) {
+    if (S.done) return S.done;
+    tone(false);
+    var out = { type: 'BOHEMIA_SCAVENGE_DONE', why: why, finds: S.finds.map(function (r) { return { kind: r.kind, zone: r.zone, got: r.got, outcome: r.outcome, greedMult: r.greedMult, word: r.word }; }),
+      spots: S.spots.length, played: S.finds.length, board: S.board ? S.board.name : null, err: S.err };
+    S.done = out; window.__SCAV_DONE = out;
+    try { if (window.parent && window.parent !== window) { if (typeof window.parent.scavDone === 'function') window.parent.scavDone(out); else window.parent.postMessage(out, '*'); } } catch (e) {}
+    setTimeout(function () { S.phase = 'closed'; }, 0);
+    return out;
+  }
+  S.finish = finish;
+  S.state = function () {
+    var A = S.act;
+    return { phase: S.phase, err: S.err, pkg: S.pkg, beat: +beatNow().toFixed(3), board: S.board ? { name: S.board.name, w: S.board.w, h: S.board.h, laid: S.board.laid, crew: S.board.crew.length } : null,
+      view: S.view, tw: S.tw, bakeMs: S.bakeMs, men: S.men.map(function (m) { return { name: m.name, x: +m.x.toFixed(2), y: +m.y.toFixed(2), busy: m.busy, pose: m.pose }; }),
+      spots: S.spots.map(function (s) { var t = S.board.tiles[s.y][s.x], st = S.board.tiles[s.sy][s.sx], p = scr(s.x + 0.5, s.y + 0.5);
+        return { id: s.id, kind: s.kind, x: s.x, y: s.y, sx: s.sx, sy: s.sy, state: s.state, tile: t, stand: st, px: Math.round(p.x), py: Math.round(p.y), tiles: s.tiles || null }; }),
+      act: A ? { spot: A.spot.id, kind: A.spot.kind, phase: A.phase, angle: A.dial ? A.dial.G.angle : null, armed: A.dial ? A.dial.armed : null, pat: A.dial ? A.dial.G.pat : null,
+        hold: A.hold ? { start: A.hold.start } : null } : null,
+      finds: S.finds.slice(), log: S.log.slice(-40), done: S.done };
+  };
+
+  /* ------------------------------------------------------------------ input: anywhere on the glass */
+  cv.addEventListener('pointerdown', function (e) { e.preventDefault(); ac(); if (S.audio && S.audio.state === 'suspended') try { S.audio.resume(); } catch (_e) {} press('down', e.clientX, e.clientY); });
+  window.addEventListener('pointerup', function (e) { press('up', e.clientX, e.clientY); });
+  window.addEventListener('pointercancel', function (e) { press('up', e.clientX, e.clientY); });
+  document.getElementById('leave').addEventListener('click', function () { if (S.act && S.act.phase === 'result') { S.act.spot.state = 'done'; } finish('left'); });
+  window.addEventListener('resize', function () { size(); if (S.board) { var keep = S.view; S.view = makeView(S.board); if (!S.view) S.view = keep; } });
+  size();
+
+  /* the bench: a template board of that kind, no map */
+  var q = new URLSearchParams(location.search);
+  if (q.get('bench')) S.start({ fightOpts: { seed: +(q.get('seed') || 11), kind: q.get('bench'), district: q.get('bench'), night: q.get('night') === '1', deploy: false, odds: false, teach: false, keep: false, resume: false },
+    pkg: q.get('pkg') != null ? +q.get('pkg') : 1, seed: +(q.get('seed') || 11), left: q.get('left') != null ? +q.get('left') : null });
+})();
+</script>
+</body>
+</html>

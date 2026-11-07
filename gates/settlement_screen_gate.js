@@ -394,26 +394,31 @@ const srv = http.createServer((rq, rs) => {
   const hired = await p.evaluate(() => Object.keys(BohemiaSettlement.state.hired));
   ok('the hall hires the one who asked', hired.length === 1, hired.join());
 
-  /* scavenge: one thing or nothing, and the lot runs out */
-  const finds = [], kinds = [], says = [];
-  for (let i = 0; i < 40; i++) {
-    await tapB('lot'); await p.waitForTimeout(60);
-    const btn = await p.$('#sbody .act');
-    if (!btn || await btn.isDisabled()) break;
-    await btn.click(); await p.waitForTimeout(60);
-    finds.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return l.result.found ? 1 : 0; }));
-    kinds.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return l.kind || '-'; }));
-    says.push(await p.evaluate(() => document.querySelector('#sbody .say p').textContent));
-  }
-  const total = finds.reduce((a, c) => a + c, 0);
-  const clean = await p.evaluate(() => /took it all|picked clean/.test(document.getElementById('sbody').textContent) ? 'picked clean' : 'not');
-  ok('scavenge finds one thing or nothing, never a pile', finds.every(f => f === 0 || f === 1), finds.join(''));
-  ok('  and the lot runs out', clean === 'picked clean' && total === 6, total + ' found, shelf says ' + clean);
+  /* scavenge: one thing or nothing, and the lot runs out.
+     RE-AIMED BY SCAVENGE 11/7 (rule 426(b), Paolo's YES: 'I want it to be like a fun minigame'): with no dead in the lot, 'Search the
+     lot' (the same button, the same four hours, once) opens the minigame on the block's own board (slices/BOHEMIA_SCAVENGE.html; its
+     own gate plays it: gates/scavenge_on_the_dial_gate.js). What it hands back is paid HERE, one thing a find, one off the lot each,
+     until the lot is picked clean; the screen comes back and YOU say what came back. */
+  await tapB('lot'); await p.waitForTimeout(60);
+  { const b0 = await p.$('#sbody .act'); if (b0) await b0.click(); }
+  await p.waitForTimeout(150);
+  const opened = await p.evaluate(() => { const f = document.getElementById('scavgame'), o = (window.__settleLog || []).filter(m => m.act === 'scavenge-open');
+    return { frame: !!f, src: f ? f.getAttribute('src') : '', opens: o.length, left: o.length ? o[0].left : null }; });
+  ok('scavenge: the lot opens the minigame over the screen, once, with the lot\'s six to find', opened.frame && /BOHEMIA_SCAVENGE\.html$/.test(opened.src) && opened.opens === 1 && opened.left === 6, JSON.stringify(opened));
+  const handed = [{ kind: 'house', zone: 'kill', got: 'medicine' }, { kind: 'house', zone: 'vital', got: 'food' }, { kind: 'ground', zone: 'kill', got: 'battery' },
+    { kind: 'car', zone: 'miss', got: null }, { kind: 'ground', zone: 'vital', got: 'ammo' }, { kind: 'car', zone: 'kill', got: 'battery' },
+    { kind: 'car', zone: 'hit', got: 'tape' }, { kind: 'house', zone: 'hit', got: 'tape' }, { kind: 'ground', zone: 'kill', got: 'battery' }];
+  const paid = await p.evaluate((F) => { const r = window.scavDone({ why: 'all searched', played: F.length, finds: F });
+    return { n: r.length, kinds: r.map(x => x.got), frame: !!document.getElementById('scavgame'), say: document.querySelector('#sbody .say p').textContent,
+      logs: window.__settleLog.filter(m => m.act === 'scavenge').map(m => m.result.found ? 1 : 0), each: window.__settleLog.filter(m => m.act === 'scavenge').map(m => m.kind) }; }, handed);
+  await tapB('lot'); await p.waitForTimeout(60);
+  const clean = await p.evaluate(() => { const b = document.querySelector('#sbody .act'); return (/took it all|picked clean/.test(document.getElementById('sbody').textContent) ? 'picked clean' : 'not') + (b && b.disabled ? ', shut' : ', open'); });
+  ok('scavenge finds one thing or nothing, never a pile', paid.logs.length === paid.n && paid.logs.every(f => f === 1), paid.logs.join(''));
+  ok('  and the lot runs out', clean === 'picked clean, shut' && paid.n === 6 && !paid.frame, paid.n + ' paid of ' + handed.filter(h => h.got).length + ' handed back, shelf says ' + clean);
   /* RUN TWO [the scavenge button] 10/18: every find is ONE of the six supplies, named, out of YOUR mouth under your face */
   const SIX = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'];
-  const named = kinds.filter((k, i) => finds[i] === 1);
-  ok('  and every find is one of the six supplies, said out loud (never a card)', named.length === 6 && named.every(k => SIX.includes(k)) && kinds.every((k, i) => finds[i] === 1 || k === '-')
-     && says.every((t, i) => finds[i] === 0 || t.length > 12), named.join(',') + ' | ' + says.filter((t, i) => finds[i]).slice(0, 2).join(' / '));
+  ok('  and every find is one of the six supplies, said out loud (never a card)', paid.n === 6 && paid.kinds.every(k => SIX.includes(k)) && paid.each.join() === paid.kinds.join() && paid.say.length > 12,
+     paid.kinds.join(',') + ' | ' + paid.say.slice(0, 80));
   const kinds52 = await p.evaluate(() => { const c = {}; for (let i = 1; i <= 600; i++) { const k = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'][(function(str){ var h = 2166136261; for (var j = 0; j < str.length; j++) { h ^= str.charCodeAt(j); h = Math.imul(h, 16777619); } return h >>> 0; })('PLACE' + (i % 50) + ':find:' + ((i / 50) | 0)) % 6]; c[k] = (c[k] || 0) + 1; } return c; });
   ok('  and the six are each about as likely (600 finds, every kind 60 to 140)', SIX.every(k => kinds52[k] >= 60 && kinds52[k] <= 140), JSON.stringify(kinds52));
   /* his bonus: 'a recent battle: more ammo' -- every man who fell here is rounds, found for certain, until searched */

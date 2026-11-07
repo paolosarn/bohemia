@@ -4364,8 +4364,10 @@ function openB(k, line){
     var l = left();
     var dead = deadLeft();
     body.appendChild(speak(k, line || (dead ? 'There was a fight here. ' + dead + (dead === 1 ? ' body' : ' bodies') + ' still in the lot with their rounds on them.'
-      : l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
+      : l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours on the block. Houses, yards, the wrecks. Keep the beat.')));
     acts.appendChild(act('Search the lot', '4 hours', function(){
+      /* __SCAVENGE_ON_THE_DIAL__ (SCAVENGE 11/7, rule 426(b)): with the dead searched, the lot is the minigame on the block's own board */
+      if(!deadLeft() && scavGame()) return;
       var r = scavenge(); post('scavenge',{result:r, kind:r.got || null}); shelf();
       openB('lot', r.why==='PICKED_CLEAN' ? 'Nothing left on this lot. You took it all.'
                  : r.got ? FIND_SAYS[r.got] + (r.fromFight ? ' Off one of the dead.' : ' ' + r.left + ' left on this lot.')
@@ -4434,6 +4436,66 @@ function scavenge(){
   if(r && r.got) r.good = FIND_GOOD[r.got];
   return r;
 }
+/* ==== __SCAVENGE_ON_THE_DIAL__ (SCAVENGE 11/7/26; rule 426(b), Paolo 11/7 YES on the design: 'I want it to be like a fun minigame';
+   rule 331: his three, search houses, the detector, the siphon, ONE game on the Dead Shot Dial on the block's own board, picked by the
+   map; records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md). 'Search the lot' (the same button, the same four hours, once)
+   opens slices/BOHEMIA_SCAVENGE.html over this screen: the board a fight on this block deals, the crew on it, at most as many lit
+   spots as this lot still holds (WORLD's count). It hands back its finds and each is paid HERE through the same lines a search always
+   paid (food and batteries into the purse, the rest posted), ONE thing each (EVERYTHING COSTS ONE), one off the lot's count each.
+   YOU say what came back, under your face. The dead are still searched first, the old way (his bonus, certain rounds). ==== */
+function scavAsk(){
+  var PW = null; try{ PW = window.parent && window.parent !== window ? window.parent : null; }catch(e){ PW = null; }   /* the map around this screen (never P: P is the purse) */
+  var at = null, msg = { type:'BOHEMIA_CITY_ENCOUNTER', why:'scavenge', district: S.place.district || null };
+  try{ if(S.camp && Array.isArray(S.place.block)) at = S.place.block.slice(0, 2); }catch(e){}
+  try{ if(!at && PW && typeof PW.eval === 'function') at = PW.eval('typeof city !== "undefined" && city ? [city.x | 0, city.y | 0] : null'); }catch(e){}
+  if(at){ msg.at = at;
+    try{ var c = PW.eval('om.at(' + (at[0] | 0) + ',' + (at[1] | 0) + ')'); if(c && c.district) msg.district = c.district; }catch(e){}
+    try{ if(PW && typeof PW.cityWorldNow === 'function') msg.world = PW.cityWorldNow([at[0], at[1]]); }catch(e){} }
+  if(!msg.district) msg.district = 'suburb';
+  msg.__deal = seedOf(S.place.name + ':scavenge:' + (at ? at.join(',') : '-'));   /* the same block deals the same board every time */
+  return msg;
+}
+function scavGame(){
+  if(document.getElementById('scavgame')) return true;
+  var l = left(); if(!l.left) return false;
+  S.day++;   /* the four hours, once, as the button always spent them */
+  var f = document.createElement('iframe'); f.id = 'scavgame'; f.title = 'scavenge'; f.src = 'BOHEMIA_SCAVENGE.html';
+  f.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9500;background:#2a2219';
+  document.body.appendChild(f);
+  S.scavOpen = { left: l.left, at: Date.now() };
+  f.addEventListener('load', function(){
+    try{ f.contentWindow.SCAV.start({ ask: scavAsk(), left: l.left, seed: seedOf(S.place.name + ':scav:' + S.day), night: !!view.night }); }
+    catch(e){ scavDone({ why: 'failed', finds: [], err: String(e && e.message || e) }); }
+  });
+  post('scavenge-open', { left: l.left });
+  return true;
+}
+/* one find off the dial, paid as a search always paid; null when the lot has nothing left to give */
+function scavPay(fd){
+  if(!fd || !fd.got || FIND.indexOf(fd.got) < 0) return null;
+  var w = lotWorld(); if(left().left <= 0) return null;
+  S.scav.taken[w.block.i] = (S.scav.taken[w.block.i] | 0) + 1;   /* one thing off this lot's count (WORLD's state, its own field) */
+  var r = { ok:true, found:true, got:fd.got, zone:fd.zone || null, spot:fd.kind || null, game:true, left:left().left, spent:'time' };
+  if(r.got === 'food') P.credit(S.purse, 'resources', 1, 'scavenge:food', S.place.name, S.day);
+  if(r.got === 'food' || r.got === 'water') supplyAdd('food', 1);
+  if(r.got === 'battery') P.credit(S.purse, 'electricity', 1, 'scavenge:battery', S.place.name, S.day);
+  r.good = FIND_GOOD[r.got];
+  post('scavenge', { result:r, kind:r.got });
+  return r;
+}
+window.scavDone = function(out){
+  var f = document.getElementById('scavgame'); if(f) f.remove();
+  out = out || {}; var paid = [];
+  (out.finds || []).forEach(function(fd){ var r = scavPay(fd); if(r) paid.push(r); });
+  S.scavOpen = null; S.scavLast = { why: out.why || null, played: out.played | 0, paid: paid.map(function(r){ return r.got; }) };
+  post('scavenge-done', { why: out.why || null, played: out.played | 0, found: paid.length, kinds: paid.map(function(r){ return r.got; }) });
+  shelf();
+  var n = paid.length, l = left().left;
+  openB('lot', !n ? 'Four hours. Nothing.'
+    : FIND_SAYS[paid[0].got] + (n > 1 ? ' And ' + (n - 1) + (n === 2 ? ' more thing' : ' more things') + ' in the bag.' : '') + (l ? ' ' + l + ' left on this lot.' : ' Nothing left on this lot.'));
+  return paid;
+};
+/* ==== end __SCAVENGE_ON_THE_DIAL__ ==== */
 
 /* ---------- THE ARRIVAL (RUN TWO 10/18, [the arrival]) ----------
    THE OVERWORLD IS BATTLE BROTHERS: in its game you reach a town and its name, its size and what it thinks of you
