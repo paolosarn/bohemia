@@ -56,10 +56,17 @@ Phone upright 390 x 844 / phone on its side 844 x 390 / laptop 1440 x 900. 'Glas
   - EVERY SHEET: the keeper's face 40 px, his words three lines at most (the whole line on a held finger).
   - THE SETTINGS CARD: one grid, two columns upright, more on a wide card; a row of three or more choices takes two places
     so each keeps a thumb's width; the phone's rows are the card's rows; step two packs short rows into the holes.
-  - THE CREW SCREEN: every word to 11 (the slots' names were 7 px); the bag in 44 px cells; step two puts his eight in two
-    short columns; step three makes his slots a thumb tall, puts the comparison line over the stash's heading while it
-    speaks, his name and level on one line; on its side the KEPT and LAID UP men stand right of the line and the stash's
-    buttons beside the bag (nine across, four rows for 36).
+  - THE CREW SCREEN: every word to 11 (the slots' names were 7 px); the bag in 44 px cells; the stash's buttons a thumb
+    wide; step two makes his slots a thumb tall and his eight a little shorter (STILL ONE COLUMN: rule 247(c), each stat's
+    stars at one x; a two-column try was caught by STATS ARE BARS C2 and taken back); step three puts the comparison line
+    over the stash's heading while it speaks, his name and level on one line, the title bar a thumb tall; on its side the
+    KEPT and LAID UP men stand right of the line and the stash's buttons beside the bag (nine across, four rows for 36);
+    step four, only when still needed (twenty men and a full bag), stands his eight in the open middle of his paper doll,
+    between his two columns of slots, at its foot.
+  - THE HALL'S EIGHT: a grid of eight equal columns in every row, so one stat's number and stars stand at one x down the
+    whole list (rule 247(c) read in a list: a column per stat).
+  - THE SHOP'S STRIP keeps one height while he browses (rule 250, THE SHOP TAPS S2 caught it moving 26 px on a tap): its
+    man box is sized once by how many faces the company has.
 - slices/BOHEMIA_ROSTER_SCREEN.html (UI's): __THE_WHOLE_COMPANY_ON_THE_GLASS__: the KEPT row. The line holds eighteen
   places, the company twenty, so a nineteenth man stood nowhere. Every living man not in the line and not laid up stands
   in KEPT (draft:true); a tap picks him, a drag onto a place puts him in the line and the man there comes down to KEPT.

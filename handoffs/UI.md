@@ -8,16 +8,19 @@ Record records/BOHEMIA_UI9_SMALLER_NEVER_PAGES_11_7_26.md.
   dense (class ns-d1 on the host) and steps ns-d2, ns-d3 while it still runs past the glass; a box that cannot fit is left locked and said in
   state(box).over (state().pages is always 1). reveal() says yes; off(true) is the checker's switch (all dense looks off). FLOOR 11, TAP 44.
   Planted in the town's and the crew's frames from the shell every 700 ms, as UI 8's was.
-- THE HALL: a man is a ROW (grid: face / name and trade / ns-hl: rare, ceiling, trait, gun / his eight on one line / HIRE + price + night).
+- THE HALL: a man is a ROW (grid: face / name and trade / ns-hl: rare, ceiling, trait, gun / his eight in eight equal columns, one x per stat
+  down the list / HIRE + price + night).
   hallRows() moves .hrare .hceil .htrait .hgun into div.ns-hl inside .hiret and wraps HIRE's money words in spans (textContent unchanged);
   his figure, trait words, why-pricier and quote are the row's data-tip. Step 2: face spans the row, reach and trait numbers to the tip
   (rows 50 px); step 3 on a short glass: three columns, his eight in two lines of four. Every class and data attribute the gates read kept.
-- THE SHOPS: 44 px cells (icon + price), the name on the piece's card; shopCols() wraps ns-shelf / ns-bag on every open; on its side
+- THE SHOPS: 44 px cells (icon + price), the name on the piece's card; the strip's man box one height while he browses (manHeight(), --ns-man-h,
+  from the company's faces; rule 250); shopCols() wraps ns-shelf / ns-bag on every open; on its side
   shelf | bag | strip side by side (140 / 1fr / 172). The strip's faces wrap (44 wide), never slide.
 - THE SETTINGS CARD: one grid (minmax 150), a row of 3+ choices spans two places (ns-span, set by mark()), #setphone is display:contents,
   step 2 packs with grid-auto-flow dense. The watcher fires only when the card OPENS (a class watcher that reacted to its own classes
   hung the page: measured, fixed).
-- THE CREW SCREEN (BOHEMIA_ROSTER_SCREEN.html): fitBody() on body; every word >= 11; KEPT row __THE_WHOLE_COMPANY_ON_THE_GLASS__ (the line
+- THE CREW SCREEN (BOHEMIA_ROSTER_SCREEN.html): fitBody() on body, steps 1-4 (his eight ALWAYS one column, rule 247(c); step 4 placeStats()
+  stands them in the doll's open middle at its foot, the camp doll's middle read off its grid's second column); every word >= 11; KEPT row __THE_WHOLE_COMPANY_ON_THE_GLASS__ (the line
   holds 18, the company 20: two men were drawn nowhere): every living man off the line and not laid up, man:kept:i (tap picks, a drag onto
   the line puts him in, the man there comes down). On a short glass at step 2 KEPT/LAID UP stand right of the line in columns; step 3 the
   stash's buttons stand beside the bag (74 px), #said speaks over the card's foot.
