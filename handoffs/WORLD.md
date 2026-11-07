@@ -27,9 +27,18 @@ BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_11_THE_CARCASS_THE_VULTURES_A
   PAGES PUBLISH 28/0; EVERY JOB KIND 36/1 (E5 on a LOST escort fight, main's run WON it; escort alone 10/0 after); RETREAT 13/1 and the
   same 13/1 on main's files (mid-fight R5, 23 game hours: RUN SEVEN's area); VOTE TAB 62/4 the same on main; BUILD SIZE 14/7 the same on
   main; INLINED FRESH 0/1 the same on main.
-- NOTE FOR RUN SEVEN (rule 413(h)-(k), ask line 476): the beast pack half is here and gated (P1-P5); meetBackHolds got one marked line
-  (__mcx, the chase); if you rework meetBackHolds keep a job's chased pack counted as aimed. A RETREAT GETS HIM AWAY's mid-fight R5 reads
-  23 game hours on main's own files (the crew should be gone after about 12).
+- HANDED TO RUN SEVEN (the coordinator 11/6, routine '413(c) moves to RUN SEVEN': RUN SEVEN owns the whole get-away, beasts included;
+  WORLD stays out of meetFallBack, MEET_BACK, the retreat holds and the town door from here). The note reached this chat after the ship,
+  so these two changes are ON MAIN (2c860bc3) for RUN SEVEN to build on, keep, or replace; WORLD will not touch them again:
+  (1) slices/bohemia_job_kinds.js STEP['hunt-kind'], marker __A_PACK_HE_RAN_FROM_LETS_HIM_GO__: var PACK_LETS_GO = { on, held } (top of
+      the file, exported as BohemiaJobKinds.letGo); letGo = on && p.shy > 0 && job.chase !== p.id; a letGo pack within two blocks steps
+      away from him ('it gives ground'), never moves to a block within two of him that is not farther than it was, and 'continue's
+      before packFight, so it never opens a fight from its own step. PACK_LETS_GO.on = false is the before.
+  (2) slices/BOHEMIA_CITY_WORLD.html meetBackHolds, one marked line (__mcx): a contract contact whose job has j.chase === j.fight.pack
+      counts as aimed (measured: his chase on a pack that had stepped a block was HELD, no card, because TRAVEL.to lagged the pack).
+  The legs that prove them are P1-P5, P2b-P2d and P4 (the before) in gates/the_carcass_and_the_vultures_gate.js; RUN SEVEN may re-aim
+  or move them into its own gate. FOUND, not mine: A RETREAT GETS HIM AWAY's mid-fight R5 reads 23 game hours on main's own files (the
+  crew should be gone after about 12).
 - OWED: CAMP (the dressing as the men's own act on the board, 406(g)); UI (TELL from the phone's own screen); ECONOMY/TUNING (pay.*,
   clock.*, cart.*); SOUNDS (wings on a roof, the knives); BEASTS/DIRECTION (the golden vulture; a lying frame for the carcass); WORLD next:
   a hunt that asks for the meat up front, a carcass left too long draws a pack or a crew to it.

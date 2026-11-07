@@ -67,6 +67,12 @@ Brothers: its beasts leave trophies for the taxidermist and nobody hauls the mea
   meets it again, and that asks: one marked line in meetBackHolds (BOHEMIA_CITY_WORLD.html) makes his chase count as aimed wherever the
   pack stepped (measured: his chase on a pack that stepped a block reached it and was HELD, no card; now the card asks).
 
+## HANDED TO RUN SEVEN (after the ship)
+The coordinator's routine ('413(c) moves to RUN SEVEN', fired 11/6 23:50, read here after 2c860bc3 was on main): RUN SEVEN owns the
+whole get-away, beasts included (meetFallBack, MEET_BACK, the retreat holds, the town door). The two changes above (STEP['hunt-kind']'s
+__A_PACK_HE_RAN_FROM_LETS_HIM_GO__ and meetBackHolds' __mcx line) stay on main for RUN SEVEN to build on or replace, written out in
+handoffs/WORLD.md; WORLD does not touch them again. The P legs of this gate are RUN SEVEN's to keep or move.
+
 ## THE GATE: THE CARCASS AND THE VULTURES (gates/the_carcass_and_the_vultures_gate.js, the demo, phone held up)
 23 passed, 0 failed: C0 a beast fight through the one door (cityHandOver, the fight page, the shell's own nfOverIn, the spoils, home):
 1 American lion, 135 kg, on the block beside the fight; C1 clean 135 against torn 86; C2 drawn with its plate and a bird; C3 FRESH ->
