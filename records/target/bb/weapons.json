@@ -7895,10 +7895,417 @@
     "draft": true,
     "prop": "chain"
    }
+  },
+  {
+   "id": "tire_iron",
+   "name": "Tire Iron",
+   "class": "mace",
+   "hands": 1,
+   "damage_min": 25,
+   "damage_max": 35,
+   "armor_damage_pct": 85,
+   "armor_ignore_pct": 40,
+   "fatigue": -8,
+   "durability": 64,
+   "value": 100,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Bash",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Bash (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0199_Bash (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Knock Out",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "75% chance to stun target, does -50%Damage, target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Knock Out (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1131_Knock Out (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of bludgeon and nomad_mace, fought with bludgeon's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0260_Bludgeon.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1448_Nomad Mace.txt",
+   "class_page_section": "One-Handed Maces",
+   "hands_basis": "Maces page heading \"One-Handed Maces\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "tire iron",
+    "object": "tire iron",
+    "line": "The L-bar out of a dead car's trunk. One hand. Lug nuts and kneecaps.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' bludgeon: the plain club that knocks a man out (WEAPONS, rule 424(b))",
+    "between": [
+     "bludgeon",
+     "nomad_mace"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug",
+     "caravan_hand",
+     "militia"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "golf_club",
+   "name": "Golf Club",
+   "class": "mace",
+   "hands": 1,
+   "damage_min": 20,
+   "damage_max": 30,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 40,
+   "fatigue": -7,
+   "durability": 48,
+   "value": 60,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Bash",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Bash (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0199_Bash (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Knock Out",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "75% chance to stun target, does -50%Damage, target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Knock Out (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1131_Knock Out (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of wooden_stick and bludgeon, fought with wooden_stick's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2239_Wooden Stick.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0260_Bludgeon.txt",
+   "class_page_section": "One-Handed Maces",
+   "hands_basis": "Maces page heading \"One-Handed Maces\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "golf club",
+    "object": "golf club",
+    "line": "A seven iron off a golf course nobody waters. Long, light, and it rings a helmet.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' wooden stick, a step up: long, light, it rings a helmet (WEAPONS, rule 424(b))",
+    "between": [
+     "wooden_stick",
+     "bludgeon"
+    ],
+    "across": null,
+    "carried_by": [
+     "peasant",
+     "citizen",
+     "indebted"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "bowie_knife",
+   "name": "Bowie Knife",
+   "class": "sword",
+   "hands": 1,
+   "damage_min": 35,
+   "damage_max": 40,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 20,
+   "fatigue": -4,
+   "durability": 48,
+   "value": 350,
+   "range": null,
+   "range_min": null,
+   "range_max": null,
+   "skills": [
+    {
+     "name": "Slash",
+     "ap": 4,
+     "fatigue": 10,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, 20% Direct Damage",
+     "page": "Slash (10 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1807_Slash (10 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Riposte",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": -10,
+     "range": null,
+     "effect": "-10% chance to hit, counterattack missed or blocked melee attacks until next turn",
+     "page": "Riposte (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1696_Riposte (25 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of shortsword and saif, fought with shortsword's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1920_Swords.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1789_Shortsword.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1920_Swords.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1728_Saif.txt",
+   "class_page_section": "One-Handed Swords",
+   "hands_basis": "Swords page heading \"One-Handed Swords\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "bowie knife",
+    "object": "Bowie knife",
+    "line": "Ten inches of clip-point steel off a sporting-goods wall. Fast, and it comes back at them.",
+    "tier": "town",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' short sword: quick cuts, and the riposte (WEAPONS, rule 424(b))",
+    "between": [
+     "shortsword",
+     "saif"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_raider",
+     "caravan_guard",
+     "militia_veteran"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "pipe_wrench",
+   "name": "Pipe Wrench",
+   "class": "hammer",
+   "hands": 1,
+   "damage_min": 25,
+   "damage_max": 40,
+   "armor_damage_pct": 215,
+   "armor_ignore_pct": 50,
+   "fatigue": -8,
+   "durability": 90,
+   "value": 1600,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Batter",
+     "ap": 4,
+     "fatigue": 14,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Inflicts at least 10 Hitpoints damage, 50% Direct Damage (60% Direct Damage for Barbarian hammer)",
+     "page": "Batter (14 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0204_Batter (14 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Destroy Armor",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Does 50% more Armor Damage, inflicts exactly 10 Hitpoints damage",
+     "page": "Destroy Armor (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0573_Destroy Armor (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of military_pick and warhammer, fought with military_pick's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1283_Military Pick.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2181_Warhammer.txt",
+   "class_page_section": "One-Handed Hammers",
+   "hands_basis": "Hammers page heading \"One-Handed Hammers\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "pipe wrench",
+    "object": "pipe wrench",
+    "line": "Eighteen inches of red iron off a plumber's truck. Plate folds under it.",
+    "tier": "town",
+    "kind": "scavenged",
+    "role": "Battle Brothers' one-hand hammer: plate folds under it (WEAPONS, rule 424(b))",
+    "between": [
+     "military_pick",
+     "warhammer"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_raider",
+     "footman"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "tomahawk",
+   "name": "Tomahawk",
+   "class": "axe",
+   "hands": 1,
+   "damage_min": 30,
+   "damage_max": 45,
+   "armor_damage_pct": 115,
+   "armor_ignore_pct": 30,
+   "fatigue": -8,
+   "durability": 60,
+   "value": 560,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Chop",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Does +50% additional damage to Hitpoints on a hit to the head, 30% Direct Damage (40% Direct Damage for Barbarian axe)",
+     "page": "Chop (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0377_Chop (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Split Shield",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Direct damage to shield",
+     "page": "Split Shield (15 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1852_Split Shield (15 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of hatchet and handaxe, fought with hatchet's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0164_Axes.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0940_Hatchet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0164_Axes.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0934_Handaxe.txt",
+   "class_page_section": "One-Handed Axes",
+   "hands_basis": "Axes page heading \"One-Handed Axes\"",
+   "shield_damage": 8,
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "tomahawk",
+    "object": "tomahawk",
+    "line": "A sporting-goods tomahawk, the price tag still on the haft. It splits a car door.",
+    "tier": "town",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' hand axe: chops, and splits a shield (WEAPONS, rule 424(b))",
+    "between": [
+     "hatchet",
+     "handaxe"
+    ],
+    "across": null,
+    "carried_by": [
+     "brigand_thug",
+     "militia"
+    ],
+    "draft": true
+   }
+  },
+  {
+   "id": "slot_handle",
+   "name": "Slot Machine Handle",
+   "class": "mace",
+   "hands": 1,
+   "damage_min": 25,
+   "damage_max": 40,
+   "armor_damage_pct": 85,
+   "armor_ignore_pct": 45,
+   "fatigue": -15,
+   "durability": 72,
+   "value": 200,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Bash",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Bash (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0199_Bash (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Knock Out",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "75% chance to stun target, does -50%Damage, target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Knock Out (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1131_Knock Out (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of claw_club and cudgel, fought with claw_club's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0399_Claw Club.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0472_Cudgel.txt",
+   "class_page_section": "One-Handed Maces",
+   "hands_basis": "Maces page heading \"One-Handed Maces\"",
+   "skills_basis": "weapon page Skills section",
+   "armory": {
+    "name": "slot machine handle",
+    "object": "slot handle",
+    "line": "The arm off a one-armed bandit, the red ball still on it. Pull it on a man.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' club: a heavy end on a short arm (WEAPONS, rule 424(b))",
+    "between": [
+     "claw_club",
+     "cudgel"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true
+   }
   }
  ],
  "_armory": {
-  "count": 19,
+  "count": 25,
   "by": "tools/bohemia_armory.py from armory.json",
   "record": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md"
  }

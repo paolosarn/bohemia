@@ -26,7 +26,12 @@ const READ = () => {
   const cls = w ? ((w.of && w.of['class']) || w['class']) : null;
   let painted = 0; if (b) { const d = b.getContext('2d').getImageData(0, 0, b.width, b.height).data; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) painted++; }
   const fat = ([...document.querySelectorAll('[data-stat=fatigue]')][0] || { dataset: {} }).dataset.shown;
-  return { name: m.name, cls, holds: b ? b.dataset.holds : null, idle: b ? b.dataset.idle : null, painted, fat: +fat, look: m.look };
+  /* AMENDED 11/7 BY WEAPONS (rule 424(a)): the card draws every melee row, bow and shield as the fight does, so a man with no gun
+     holds his thing ('melee:<prop>', '+<shield>' with a shield on his arm, a pistol with a shield the shield arm's pistol), and a
+     man with nothing in his hands stands bare; the thing a row names is the card's own read (EVERY WEAPON SHOWS checks it against
+     the data and the fight) */
+  const X = window.BohemiaRosterWeapons, hm = X && X.heldMelee(m), wm = hm && (hm.prop || hm.shield) ? 'melee:' + [hm.prop, hm.shield].filter(Boolean).join('+') : null;
+  return { name: m.name, cls, holds: b ? b.dataset.holds : null, idle: b ? b.dataset.idle : null, painted, fat: +fat, look: m.look, wm };
 };
 
 async function side(profile) {
@@ -56,7 +61,7 @@ async function side(profile) {
       men.push(r);
       await cf.evaluate(() => BohemiaRosterScreen.step(1));
     }
-    const want = r => (r.cls && byClass[r.cls]) || '';
+    const want = r => r.wm || (r.cls && byClass[r.cls]) || '';
     ok('H1 ' + profile + ': every man\'s figure holds what his main hand holds, as the fight names it', men.length > 0 && men.every(r => r.holds === want(r)),
       men.map(r => r.name + ' ' + (r.cls || 'none') + ' -> ' + (r.holds || 'bare') + ' (wants ' + (want(r) || 'bare') + ')').join(', '));
     const armed = men.filter(r => want(r));
@@ -65,7 +70,7 @@ async function side(profile) {
     if (profile === 'phone_portrait') {
       await cf.evaluate(() => { const H = BohemiaRosterScreen.held; H.__keep = H.byClass; H.byClass = {}; }); await p.waitForTimeout(1500);
       const pl = await cf.evaluate('(' + READ + ')()');
-      ok('PLANTED: the class table emptied, H1 catches a gun man standing bare', !!pl.cls && !!byClass[pl.cls] ? pl.holds !== byClass[pl.cls] : true, pl.name + ' holds ' + (pl.holds || 'bare'));
+      ok('PLANTED: the class table emptied, H1 catches a gun man standing bare', !!pl.cls && !!byClass[pl.cls] && !pl.wm ? pl.holds !== byClass[pl.cls] : true, pl.name + ' holds ' + (pl.holds || 'bare'));
       await cf.evaluate(() => { const H = BohemiaRosterScreen.held; H.byClass = H.__keep; });
     }
     if (profile === 'computer') {

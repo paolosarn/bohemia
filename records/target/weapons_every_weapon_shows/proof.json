@@ -1,0 +1,950 @@
+{
+ "gift_shop_claymore": {
+  "at": "2026-11-07T20:00:31.187Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": null,
+    "row": "greatsword"
+   },
+   "frames": [
+    "gift_shop_claymore_before_turn0.png",
+    "gift_shop_claymore_before_turn1.png",
+    "gift_shop_claymore_before_turn2.png",
+    "gift_shop_claymore_before_turn3.png",
+    "gift_shop_claymore_before_turn4.png",
+    "gift_shop_claymore_before_turn5.png",
+    "gift_shop_claymore_before_turn6.png",
+    "gift_shop_claymore_before_turn7.png",
+    "gift_shop_claymore_before_blow0.png",
+    "gift_shop_claymore_before_blow1.png",
+    "gift_shop_claymore_before_blow2.png",
+    "gift_shop_claymore_before_blow3.png",
+    "gift_shop_claymore_before_blow4.png",
+    "gift_shop_claymore_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:T2Idle": 80,
+    "prop:gift_shop_claymore": 80,
+    "prop:chain": 437,
+    "melee:SCover": 359,
+    "prop:bike_lock_chain": 353,
+    "melee:SIdle": 346,
+    "melee:SCoverHit": 75
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "gift_shop_claymore",
+    "row": "greatsword"
+   },
+   "frames": [
+    "gift_shop_claymore_after_turn0.png",
+    "gift_shop_claymore_after_turn1.png",
+    "gift_shop_claymore_after_turn2.png",
+    "gift_shop_claymore_after_turn3.png",
+    "gift_shop_claymore_after_turn4.png",
+    "gift_shop_claymore_after_turn5.png",
+    "gift_shop_claymore_after_turn6.png",
+    "gift_shop_claymore_after_turn7.png",
+    "gift_shop_claymore_after_blow0.png",
+    "gift_shop_claymore_after_blow1.png",
+    "gift_shop_claymore_after_blow2.png",
+    "gift_shop_claymore_after_blow3.png",
+    "gift_shop_claymore_after_blow4.png",
+    "gift_shop_claymore_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:T2Idle": 304,
+    "prop:gift_shop_claymore": 422,
+    "prop:chain": 421,
+    "melee:SCover": 341,
+    "prop:bike_lock_chain": 346,
+    "melee:SIdle": 339,
+    "melee:T2Swing": 118,
+    "melee:SCoverHit": 77
+   },
+   "errs": []
+  }
+ },
+ "tow_chain": {
+  "at": "2026-11-07T20:00:55.423Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": null,
+    "row": "two_handed_flail"
+   },
+   "frames": [
+    "tow_chain_before_turn0.png",
+    "tow_chain_before_turn1.png",
+    "tow_chain_before_turn2.png",
+    "tow_chain_before_turn3.png",
+    "tow_chain_before_turn4.png",
+    "tow_chain_before_turn5.png",
+    "tow_chain_before_turn6.png",
+    "tow_chain_before_turn7.png",
+    "tow_chain_before_blow0.png",
+    "tow_chain_before_blow1.png",
+    "tow_chain_before_blow2.png",
+    "tow_chain_before_blow3.png",
+    "tow_chain_before_blow4.png",
+    "tow_chain_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:T2Idle": 68,
+    "prop:tow_chain": 68,
+    "prop:chain": 419,
+    "melee:SCover": 344,
+    "prop:bike_lock_chain": 348,
+    "melee:SIdle": 338,
+    "melee:SCoverHit": 73
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "tow_chain",
+    "row": "two_handed_flail"
+   },
+   "frames": [
+    "tow_chain_after_turn0.png",
+    "tow_chain_after_turn1.png",
+    "tow_chain_after_turn2.png",
+    "tow_chain_after_turn3.png",
+    "tow_chain_after_turn4.png",
+    "tow_chain_after_turn5.png",
+    "tow_chain_after_turn6.png",
+    "tow_chain_after_turn7.png",
+    "tow_chain_after_blow0.png",
+    "tow_chain_after_blow1.png",
+    "tow_chain_after_blow2.png",
+    "tow_chain_after_blow3.png",
+    "tow_chain_after_blow4.png",
+    "tow_chain_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:T2Idle": 302,
+    "prop:tow_chain": 423,
+    "prop:chain": 422,
+    "melee:SCover": 345,
+    "prop:bike_lock_chain": 347,
+    "melee:SIdle": 339,
+    "melee:T2Swing": 121,
+    "melee:SCoverHit": 75
+   },
+   "errs": []
+  }
+ },
+ "ditch_blade": {
+  "at": "2026-11-07T20:01:18.793Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": null,
+    "row": "crypt_cleaver"
+   },
+   "frames": [
+    "ditch_blade_before_turn0.png",
+    "ditch_blade_before_turn1.png",
+    "ditch_blade_before_turn2.png",
+    "ditch_blade_before_turn3.png",
+    "ditch_blade_before_turn4.png",
+    "ditch_blade_before_turn5.png",
+    "ditch_blade_before_turn6.png",
+    "ditch_blade_before_turn7.png",
+    "ditch_blade_before_blow0.png",
+    "ditch_blade_before_blow1.png",
+    "ditch_blade_before_blow2.png",
+    "ditch_blade_before_blow3.png",
+    "ditch_blade_before_blow4.png",
+    "ditch_blade_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:T2Idle": 77,
+    "prop:ditch_blade": 77,
+    "prop:chain": 432,
+    "melee:SCover": 357,
+    "prop:bike_lock_chain": 351,
+    "melee:SIdle": 344,
+    "melee:SCoverHit": 72
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "ditch_blade",
+    "row": "crypt_cleaver"
+   },
+   "frames": [
+    "ditch_blade_after_turn0.png",
+    "ditch_blade_after_turn1.png",
+    "ditch_blade_after_turn2.png",
+    "ditch_blade_after_turn3.png",
+    "ditch_blade_after_turn4.png",
+    "ditch_blade_after_turn5.png",
+    "ditch_blade_after_turn6.png",
+    "ditch_blade_after_turn7.png",
+    "ditch_blade_after_blow0.png",
+    "ditch_blade_after_blow1.png",
+    "ditch_blade_after_blow2.png",
+    "ditch_blade_after_blow3.png",
+    "ditch_blade_after_blow4.png",
+    "ditch_blade_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:T2Idle": 321,
+    "prop:ditch_blade": 424,
+    "prop:chain": 424,
+    "melee:SCover": 341,
+    "prop:bike_lock_chain": 349,
+    "melee:SIdle": 342,
+    "melee:T2Swing": 103,
+    "melee:SCoverHit": 78
+   },
+   "errs": []
+  }
+ },
+ "tire_iron": {
+  "at": "2026-11-07T20:01:42.824Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "pipe",
+    "row": "tire_iron"
+   },
+   "frames": [
+    "tire_iron_before_turn0.png",
+    "tire_iron_before_turn1.png",
+    "tire_iron_before_turn2.png",
+    "tire_iron_before_turn3.png",
+    "tire_iron_before_turn4.png",
+    "tire_iron_before_turn5.png",
+    "tire_iron_before_turn6.png",
+    "tire_iron_before_turn7.png",
+    "tire_iron_before_blow0.png",
+    "tire_iron_before_blow1.png",
+    "tire_iron_before_blow2.png",
+    "tire_iron_before_blow3.png",
+    "tire_iron_before_blow4.png",
+    "tire_iron_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 324,
+    "prop:tire_iron": 70,
+    "prop:chain": 428,
+    "melee:SCover": 350,
+    "prop:pipe": 354,
+    "prop:bike_lock_chain": 354,
+    "melee:SIdle": 345,
+    "melee:MSwing": 99,
+    "melee:SCoverHit": 75
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "tire_iron",
+    "row": "tire_iron"
+   },
+   "frames": [
+    "tire_iron_after_turn0.png",
+    "tire_iron_after_turn1.png",
+    "tire_iron_after_turn2.png",
+    "tire_iron_after_turn3.png",
+    "tire_iron_after_turn4.png",
+    "tire_iron_after_turn5.png",
+    "tire_iron_after_turn6.png",
+    "tire_iron_after_turn7.png",
+    "tire_iron_after_blow0.png",
+    "tire_iron_after_blow1.png",
+    "tire_iron_after_blow2.png",
+    "tire_iron_after_blow3.png",
+    "tire_iron_after_blow4.png",
+    "tire_iron_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 321,
+    "prop:tire_iron": 417,
+    "prop:chain": 417,
+    "melee:SCover": 339,
+    "prop:bike_lock_chain": 341,
+    "melee:SIdle": 333,
+    "melee:MSwing": 95,
+    "melee:SCoverHit": 74
+   },
+   "errs": []
+  }
+ },
+ "golf_club": {
+  "at": "2026-11-07T20:02:06.017Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "club",
+    "row": "golf_club"
+   },
+   "frames": [
+    "golf_club_before_turn0.png",
+    "golf_club_before_turn1.png",
+    "golf_club_before_turn2.png",
+    "golf_club_before_turn3.png",
+    "golf_club_before_turn4.png",
+    "golf_club_before_turn5.png",
+    "golf_club_before_turn6.png",
+    "golf_club_before_turn7.png",
+    "golf_club_before_blow0.png",
+    "golf_club_before_blow1.png",
+    "golf_club_before_blow2.png",
+    "golf_club_before_blow3.png",
+    "golf_club_before_blow4.png",
+    "golf_club_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 312,
+    "prop:golf_club": 66,
+    "prop:chain": 424,
+    "melee:SCover": 338,
+    "prop:club": 354,
+    "prop:bike_lock_chain": 354,
+    "melee:SIdle": 348,
+    "melee:MSwing": 107,
+    "melee:SCoverHit": 82
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "golf_club",
+    "row": "golf_club"
+   },
+   "frames": [
+    "golf_club_after_turn0.png",
+    "golf_club_after_turn1.png",
+    "golf_club_after_turn2.png",
+    "golf_club_after_turn3.png",
+    "golf_club_after_turn4.png",
+    "golf_club_after_turn5.png",
+    "golf_club_after_turn6.png",
+    "golf_club_after_turn7.png",
+    "golf_club_after_blow0.png",
+    "golf_club_after_blow1.png",
+    "golf_club_after_blow2.png",
+    "golf_club_after_blow3.png",
+    "golf_club_after_blow4.png",
+    "golf_club_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 319,
+    "prop:golf_club": 418,
+    "prop:chain": 418,
+    "melee:SCover": 337,
+    "prop:bike_lock_chain": 345,
+    "melee:SIdle": 340,
+    "melee:MSwing": 98,
+    "melee:SCoverHit": 77
+   },
+   "errs": []
+  }
+ },
+ "bowie_knife": {
+  "at": "2026-11-07T20:02:29.530Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "machete",
+    "row": "bowie_knife"
+   },
+   "frames": [
+    "bowie_knife_before_turn0.png",
+    "bowie_knife_before_turn1.png",
+    "bowie_knife_before_turn2.png",
+    "bowie_knife_before_turn3.png",
+    "bowie_knife_before_turn4.png",
+    "bowie_knife_before_turn5.png",
+    "bowie_knife_before_turn6.png",
+    "bowie_knife_before_turn7.png",
+    "bowie_knife_before_blow0.png",
+    "bowie_knife_before_blow1.png",
+    "bowie_knife_before_blow2.png",
+    "bowie_knife_before_blow3.png",
+    "bowie_knife_before_blow4.png",
+    "bowie_knife_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "prop:bowie_knife": 67,
+    "prop:chain": 419,
+    "melee:MIdle": 317,
+    "melee:SCover": 343,
+    "prop:machete": 348,
+    "prop:bike_lock_chain": 348,
+    "melee:SIdle": 338,
+    "melee:MSwing": 96,
+    "melee:SCoverHit": 71
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "bowie_knife",
+    "row": "bowie_knife"
+   },
+   "frames": [
+    "bowie_knife_after_turn0.png",
+    "bowie_knife_after_turn1.png",
+    "bowie_knife_after_turn2.png",
+    "bowie_knife_after_turn3.png",
+    "bowie_knife_after_turn4.png",
+    "bowie_knife_after_turn5.png",
+    "bowie_knife_after_turn6.png",
+    "bowie_knife_after_turn7.png",
+    "bowie_knife_after_blow0.png",
+    "bowie_knife_after_blow1.png",
+    "bowie_knife_after_blow2.png",
+    "bowie_knife_after_blow3.png",
+    "bowie_knife_after_blow4.png",
+    "bowie_knife_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 297,
+    "prop:bowie_knife": 409,
+    "prop:chain": 409,
+    "melee:SCover": 330,
+    "prop:bike_lock_chain": 333,
+    "melee:SIdle": 326,
+    "melee:MSwing": 111,
+    "melee:SCoverHit": 76
+   },
+   "errs": []
+  }
+ },
+ "pipe_wrench": {
+  "at": "2026-11-07T20:02:52.445Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "sledge",
+    "row": "pipe_wrench"
+   },
+   "frames": [
+    "pipe_wrench_before_turn0.png",
+    "pipe_wrench_before_turn1.png",
+    "pipe_wrench_before_turn2.png",
+    "pipe_wrench_before_turn3.png",
+    "pipe_wrench_before_turn4.png",
+    "pipe_wrench_before_turn5.png",
+    "pipe_wrench_before_turn6.png",
+    "pipe_wrench_before_turn7.png",
+    "pipe_wrench_before_blow0.png",
+    "pipe_wrench_before_blow1.png",
+    "pipe_wrench_before_blow2.png",
+    "pipe_wrench_before_blow3.png",
+    "pipe_wrench_before_blow4.png",
+    "pipe_wrench_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 304,
+    "prop:pipe_wrench": 76,
+    "prop:chain": 404,
+    "melee:SCover": 330,
+    "prop:sledge": 328,
+    "prop:bike_lock_chain": 325,
+    "melee:SIdle": 319,
+    "melee:MSwing": 100,
+    "melee:SCoverHit": 70
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "pipe_wrench",
+    "row": "pipe_wrench"
+   },
+   "frames": [
+    "pipe_wrench_after_turn0.png",
+    "pipe_wrench_after_turn1.png",
+    "pipe_wrench_after_turn2.png",
+    "pipe_wrench_after_turn3.png",
+    "pipe_wrench_after_turn4.png",
+    "pipe_wrench_after_turn5.png",
+    "pipe_wrench_after_turn6.png",
+    "pipe_wrench_after_turn7.png",
+    "pipe_wrench_after_blow0.png",
+    "pipe_wrench_after_blow1.png",
+    "pipe_wrench_after_blow2.png",
+    "pipe_wrench_after_blow3.png",
+    "pipe_wrench_after_blow4.png",
+    "pipe_wrench_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 300,
+    "prop:pipe_wrench": 402,
+    "prop:chain": 401,
+    "melee:SCover": 326,
+    "prop:bike_lock_chain": 322,
+    "melee:SIdle": 317,
+    "melee:MSwing": 102,
+    "melee:SCoverHit": 71
+   },
+   "errs": []
+  }
+ },
+ "tomahawk": {
+  "at": "2026-11-07T20:03:14.137Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "hatchet",
+    "row": "tomahawk"
+   },
+   "frames": [
+    "tomahawk_before_turn0.png",
+    "tomahawk_before_turn1.png",
+    "tomahawk_before_turn2.png",
+    "tomahawk_before_turn3.png",
+    "tomahawk_before_turn4.png",
+    "tomahawk_before_turn5.png",
+    "tomahawk_before_turn6.png",
+    "tomahawk_before_turn7.png",
+    "tomahawk_before_blow0.png",
+    "tomahawk_before_blow1.png",
+    "tomahawk_before_blow2.png",
+    "tomahawk_before_blow3.png",
+    "tomahawk_before_blow4.png",
+    "tomahawk_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "prop:tomahawk": 71,
+    "prop:chain": 393,
+    "melee:MIdle": 291,
+    "melee:SCover": 320,
+    "prop:hatchet": 318,
+    "prop:bike_lock_chain": 317,
+    "melee:SIdle": 311,
+    "melee:MSwing": 97,
+    "melee:SCoverHit": 70
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "tomahawk",
+    "row": "tomahawk"
+   },
+   "frames": [
+    "tomahawk_after_turn0.png",
+    "tomahawk_after_turn1.png",
+    "tomahawk_after_turn2.png",
+    "tomahawk_after_turn3.png",
+    "tomahawk_after_turn4.png",
+    "tomahawk_after_turn5.png",
+    "tomahawk_after_turn6.png",
+    "tomahawk_after_turn7.png",
+    "tomahawk_after_blow0.png",
+    "tomahawk_after_blow1.png",
+    "tomahawk_after_blow2.png",
+    "tomahawk_after_blow3.png",
+    "tomahawk_after_blow4.png",
+    "tomahawk_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 304,
+    "prop:tomahawk": 422,
+    "prop:chain": 421,
+    "melee:SCover": 336,
+    "prop:bike_lock_chain": 344,
+    "melee:SIdle": 339,
+    "melee:MSwing": 118,
+    "melee:SCoverHit": 82
+   },
+   "errs": []
+  }
+ },
+ "slot_handle": {
+  "at": "2026-11-07T20:04:30.862Z",
+  "before": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "pipe",
+    "row": "slot_handle"
+   },
+   "frames": [
+    "slot_handle_before_turn0.png",
+    "slot_handle_before_turn1.png",
+    "slot_handle_before_turn2.png",
+    "slot_handle_before_turn3.png",
+    "slot_handle_before_turn4.png",
+    "slot_handle_before_turn5.png",
+    "slot_handle_before_turn6.png",
+    "slot_handle_before_turn7.png",
+    "slot_handle_before_blow0.png",
+    "slot_handle_before_blow1.png",
+    "slot_handle_before_blow2.png",
+    "slot_handle_before_blow3.png",
+    "slot_handle_before_blow4.png",
+    "slot_handle_before_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 331,
+    "prop:slot_handle": 80,
+    "prop:chain": 434,
+    "melee:SCover": 359,
+    "prop:pipe": 350,
+    "prop:bike_lock_chain": 350,
+    "melee:SIdle": 346,
+    "melee:MSwing": 98,
+    "melee:SCoverHit": 71
+   },
+   "errs": []
+  },
+  "after": {
+   "set": {
+    "ok": true,
+    "can": true,
+    "d": 1,
+    "prop": "slot_handle",
+    "row": "slot_handle"
+   },
+   "frames": [
+    "slot_handle_after_turn0.png",
+    "slot_handle_after_turn1.png",
+    "slot_handle_after_turn2.png",
+    "slot_handle_after_turn3.png",
+    "slot_handle_after_turn4.png",
+    "slot_handle_after_turn5.png",
+    "slot_handle_after_turn6.png",
+    "slot_handle_after_turn7.png",
+    "slot_handle_after_blow0.png",
+    "slot_handle_after_blow1.png",
+    "slot_handle_after_blow2.png",
+    "slot_handle_after_blow3.png",
+    "slot_handle_after_blow4.png",
+    "slot_handle_after_blow5.png"
+   ],
+   "box": {
+    "x": 68,
+    "y": 205,
+    "width": 308,
+    "height": 254
+   },
+   "me": {
+    "x": 68,
+    "y": 205,
+    "width": 201,
+    "height": 254
+   },
+   "strike": {
+    "hit": true
+   },
+   "seen": {
+    "melee:MIdle": 297,
+    "prop:slot_handle": 421,
+    "prop:chain": 421,
+    "melee:SCover": 344,
+    "prop:bike_lock_chain": 337,
+    "melee:SIdle": 331,
+    "melee:MSwing": 123,
+    "melee:SCoverHit": 72
+   },
+   "errs": []
+  }
+ }
+}

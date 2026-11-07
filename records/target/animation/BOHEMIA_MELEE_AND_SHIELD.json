@@ -1924,6 +1924,54 @@
    "back": 0.65,
    "fore": 1.2,
    "two": true
+  },
+  "gift_shop_claymore": {
+   "say": "WEAPONS' the gift-shop claymore (rule 424): a castle casino's gift-shop hand-and-a-half sword: the cord-wrapped grip, the steel guard, one edge ground bright, the other still the shop's dull",
+   "back": 0.1,
+   "fore": 1.1,
+   "two": true
+  },
+  "tow_chain": {
+   "say": "WEAPONS' the tow chain (rule 424): a gold grade 70 transport chain through a drilled pipe handle, the grab hook still on its end",
+   "back": 0.06,
+   "fore": 0.55,
+   "two": true
+  },
+  "ditch_blade": {
+   "say": "WEAPONS' the ditch blade (rule 424): a public-works Kaiser blade: a curved double-edged brush blade on a long ash handle, the tool room's yellow band",
+   "back": 0.06,
+   "fore": 0.95,
+   "two": true
+  },
+  "tire_iron": {
+   "say": "WEAPONS' the tire iron (rule 424): a car kit's L-shaped lug wrench, the socket bent toward the blow, the pry end flat, a lug nut still stuck in the socket",
+   "back": 0.08,
+   "fore": 0.4
+  },
+  "golf_club": {
+   "say": "WEAPONS' the golf club (rule 424): a seven iron: the worn rubber grip, the steel shaft with a slight bend, the head with dead grass still in its grooves",
+   "back": 0.08,
+   "fore": 0.88
+  },
+  "bowie_knife": {
+   "say": "WEAPONS' the Bowie knife (rule 424): a ten-inch clip-point hunting knife, the brass guard, the stag handle, an orange cord through the lanyard hole",
+   "back": 0.07,
+   "fore": 0.38
+  },
+  "pipe_wrench": {
+   "say": "WEAPONS' the pipe wrench (rule 424): an eighteen-inch iron pipe wrench, the red I-beam handle chipped to iron, the hook jaw and the knurled nut, white thread tape wound on the grip",
+   "back": 0.08,
+   "fore": 0.38
+  },
+  "tomahawk": {
+   "say": "WEAPONS' the tomahawk (rule 424): a sporting-goods tomahawk: the hickory haft wrapped in black cord, the bearded head and its back spike, the store's price tag still on the haft",
+   "back": 0.08,
+   "fore": 0.42
+  },
+  "slot_handle": {
+   "say": "WEAPONS' the slot machine handle (rule 424): the pull arm torn off a slot machine: a chrome rod, the red ball on its end, the bent mount plate with its sheared bolts at the butt",
+   "back": 0.06,
+   "fore": 0.34
   }
  },
  "by_row": {
@@ -2000,7 +2048,13 @@
   "box_cutter": "box_cutter",
   "framing_hammer": "framing_hammer",
   "broom_bayonet": "broom_bayonet",
-  "pawn_katana": "pawn_shop_katana"
+  "pawn_katana": "pawn_shop_katana",
+  "tire_iron": "tire_iron",
+  "golf_club": "golf_club",
+  "bowie_knife": "bowie_knife",
+  "pipe_wrench": "pipe_wrench",
+  "tomahawk": "tomahawk",
+  "slot_handle": "slot_handle"
  },
  "by_class": {
   "mace": "pipe",
@@ -2606,6 +2660,207 @@
      "SCoverHit"
     ]
    }
+  },
+  "m6": {
+   "props": [
+    "tire_iron",
+    "golf_club",
+    "bowie_knife",
+    "pipe_wrench",
+    "tomahawk",
+    "slot_handle"
+   ],
+   "clips": [
+    "PIdle",
+    "MIdleX",
+    "PCarryWalk",
+    "Swing",
+    "PHit",
+    "CoverPistol",
+    "CoverHit",
+    "PAim"
+   ],
+   "keys": {
+    "PIdle": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   "only": {
+    "tire_iron": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "golf_club": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "bowie_knife": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "pipe_wrench": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "tomahawk": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "slot_handle": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ]
+   }
+  },
+  "s6": {
+   "props": [
+    "tire_iron",
+    "golf_club",
+    "bowie_knife",
+    "pipe_wrench",
+    "tomahawk",
+    "slot_handle"
+   ],
+   "clips": [
+    "SIdle",
+    "SWalk",
+    "SSwing",
+    "SAim",
+    "SBlock",
+    "SCover",
+    "SCoverHit"
+   ],
+   "keys": {},
+   "only": {
+    "tire_iron": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "golf_club": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "bowie_knife": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "pipe_wrench": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "tomahawk": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "slot_handle": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ]
+   }
+  },
+  "t5": {
+   "props": [
+    "gift_shop_claymore",
+    "tow_chain",
+    "ditch_blade"
+   ],
+   "clips": [
+    "T2Idle",
+    "Carry",
+    "CarryWalk",
+    "T2Swing",
+    "Aim",
+    "Hit",
+    "CoverLong",
+    "CoverHit"
+   ],
+   "keys": {},
+   "only": {
+    "gift_shop_claymore": [
+     "T2Idle",
+     "Carry",
+     "CarryWalk",
+     "T2Swing",
+     "Hit",
+     "CoverLong",
+     "CoverHit"
+    ],
+    "tow_chain": [
+     "T2Idle",
+     "Carry",
+     "CarryWalk",
+     "T2Swing",
+     "Hit",
+     "CoverLong",
+     "CoverHit"
+    ],
+    "ditch_blade": [
+     "T2Idle",
+     "Carry",
+     "CarryWalk",
+     "T2Swing",
+     "Hit",
+     "CoverLong",
+     "CoverHit"
+    ]
+   }
   }
  },
  "timelines": {
@@ -3052,7 +3307,10 @@
   "s4",
   "t4",
   "m5",
-  "s5"
+  "s5",
+  "m6",
+  "s6",
+  "t5"
  ],
  "hold_by_prop": {
   "cleaver": {
@@ -3161,6 +3419,29 @@
    "shoulder_half": "upright",
    "port": "upright",
    "aim": "thrust"
+  },
+  "tire_iron": {
+   "lean_half": "two",
+   "lean": "two"
+  },
+  "golf_club": {
+   "lean_half": "two",
+   "lean": "two"
+  },
+  "bowie_knife": {
+   "shoulder": "shoulder_up",
+   "tap": "tap_lift"
+  },
+  "pipe_wrench": {
+   "lean_half": "two",
+   "lean": "two"
+  },
+  "tomahawk": {
+   "shoulder": "shoulder_up"
+  },
+  "slot_handle": {
+   "lean_half": "two",
+   "lean": "two"
   }
  },
  "two_by_row": {
@@ -3199,7 +3480,10 @@
   "mace": "pipe",
   "polearm": "pole_hook",
   "spear": "pole_hook",
-  "why": "a two-handed row COOK's table does not name falls back on its class"
+  "why": "a two-handed row COOK's table does not name falls back on its class",
+  "sword": "gift_shop_claymore",
+  "flail": "tow_chain",
+  "cleaver": "ditch_blade"
  },
  "thrust": [
   "rebar_spear",
@@ -3301,7 +3585,9 @@
   "chain",
   "extension_cord",
   "live_wire",
-  "rodeo_bullwhip"
+  "rodeo_bullwhip",
+  "tow_chain"
  ],
- "every_weapon_its_own": "COOK 11/3 (rule 337, ask line 344, tools/bohemia_cook_every_weapon_its_own_11_3_26.py): the armory's pieces were drawn as their family's model; each is its own model now, rendered in YOU's hands on the new layers m4 and m5 (one hand), s4 and s5 (one hand with a shield) and t4 (two hands); m5/s5 hold the last armory round's six so no sheet passes 2048 x 1024 (rule 173), and every other man holds YOU's pictures moved by the difference of their feet (props_ref). 'hanging': the things whose cord, thong or chain hangs from the handle's end and trails the swing (build_prop)."
+ "every_weapon_its_own": "COOK 11/3 (rule 337, ask line 344, tools/bohemia_cook_every_weapon_its_own_11_3_26.py): the armory's pieces were drawn as their family's model; each is its own model now, rendered in YOU's hands on the new layers m4 and m5 (one hand), s4 and s5 (one hand with a shield) and t4 (two hands); m5/s5 hold the last armory round's six so no sheet passes 2048 x 1024 (rule 173), and every other man holds YOU's pictures moved by the difference of their feet (props_ref). 'hanging': the things whose cord, thong or chain hangs from the handle's end and trails the swing (build_prop).",
+ "every_weapon_shows": "WEAPONS 11/7 (rule 424, ask lines 489 and 490, tools/bohemia_weapons_every_weapon_shows_11_7_26.py): the two-handed sword, flail and cleaver had no picture, so their twelve rows swung from empty hands; each class has its own model now (two_by_class), and six new one-handers are their own models; YOU's renders on layers m6, s6 and t5, every other man holding them moved by the difference of their feet."
 }

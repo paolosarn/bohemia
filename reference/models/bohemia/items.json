@@ -355,12 +355,7 @@
     "arming_sword",
     "shamshir",
     "noble_sword",
-    "fencing_sword",
-    "rhomphaia",
-    "warbrand",
-    "longsword",
-    "greatsword",
-    "executioner_s_sword"
+    "fencing_sword"
    ],
    "sha1": "8be37a7f02b4defde45d768d58af98510e2954bb",
    "hands": 1,
@@ -500,11 +495,7 @@
     "military_cleaver",
     "head_chopper",
     "thorned_whip",
-    "battle_whip",
-    "two_handed_saif",
-    "rusty_warblade",
-    "crypt_cleaver",
-    "two_handed_scimitar"
+    "battle_whip"
    ],
    "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
    "hands": 1,
@@ -545,10 +536,7 @@
     "wooden_flail",
     "reinforced_wooden_flail",
     "flail",
-    "three_headed_flail",
-    "two_handed_wooden_flail",
-    "two_handed_flail",
-    "berserk_chain"
+    "three_headed_flail"
    ],
    "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
    "hands": 1,
@@ -1907,6 +1895,371 @@
    "hands": 1,
    "was": "pistol",
    "real": "WPN-01"
+  },
+  "gift_shop_claymore": {
+   "glb": "item_gift_shop_claymore.glb",
+   "kind": "held",
+   "name": "gift-shop claymore",
+   "say": "a castle casino's gift-shop hand-and-a-half sword: the cord-wrapped grip, the steel guard, one edge ground bright, the other still the shop's dull",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "rhomphaia",
+    "warbrand",
+    "longsword",
+    "greatsword",
+    "executioner_s_sword"
+   ],
+   "sha1": "3282e594d932b80a83a40cf70bfbc213f7f61975",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     1.23,
+     0.056,
+     0.3
+    ],
+    "lo": [
+     -0.13,
+     -0.028,
+     -0.15
+    ],
+    "hi": [
+     1.1,
+     0.028,
+     0.15
+    ],
+    "materials": [
+     "chrome 1",
+     "metal_painted 1",
+     "rubber 2",
+     "tape_grey 2",
+     "tape_masking 3"
+    ],
+    "verts": 464,
+    "parts": 20,
+    "left_x": 0.2
+   },
+   "was": "nothing (empty hands)",
+   "left_x": 0.2
+  },
+  "tow_chain": {
+   "glb": "item_tow_chain.glb",
+   "kind": "held",
+   "name": "tow chain",
+   "say": "a gold grade 70 transport chain through a drilled pipe handle, the grab hook still on its end",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "two_handed_wooden_flail",
+    "two_handed_flail",
+    "berserk_chain"
+   ],
+   "sha1": "7fb5c1a19fb79c3ee309932f8fea78c20b9efccd",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     1.463,
+     0.098,
+     0.176
+    ],
+    "lo": [
+     -0.06,
+     -0.049,
+     -0.104
+    ],
+    "hi": [
+     1.403,
+     0.049,
+     0.072
+    ],
+    "materials": [
+     "clay_mustard 3",
+     "clay_rust 1",
+     "metal_painted 1",
+     "metal_painted 2",
+     "rubber 1"
+    ],
+    "verts": 1458,
+    "parts": 33,
+    "left_x": 0.35
+   },
+   "was": "nothing (empty hands)",
+   "left_x": 0.35
+  },
+  "ditch_blade": {
+   "glb": "item_ditch_blade.glb",
+   "kind": "held",
+   "name": "ditch blade",
+   "say": "a public-works Kaiser blade: a curved double-edged brush blade on a long ash handle, the tool room's yellow band",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "two_handed_saif",
+    "rusty_warblade",
+    "crypt_cleaver",
+    "two_handed_scimitar"
+   ],
+   "sha1": "8756d9939f6e8ae57582ec7eb2a97192344c584c",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     1.24,
+     0.051,
+     0.131
+    ],
+    "lo": [
+     -0.06,
+     -0.026,
+     -0.036
+    ],
+    "hi": [
+     1.18,
+     0.026,
+     0.095
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "clay_mustard 3",
+     "metal_painted 0",
+     "rubber 1"
+    ],
+    "verts": 274,
+    "parts": 11,
+    "left_x": 0.45
+   },
+   "was": "nothing (empty hands)",
+   "left_x": 0.45
+  },
+  "tire_iron": {
+   "glb": "item_tire_iron.glb",
+   "kind": "held",
+   "name": "tire iron",
+   "say": "a car kit's L-shaped lug wrench, the socket bent toward the blow, the pry end flat, a lug nut still stuck in the socket",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "tire_iron"
+   ],
+   "sha1": "1e3e274f12f77a295e0adc638d9f58463e377e34",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.512,
+     0.033,
+     0.183
+    ],
+    "lo": [
+     -0.1,
+     -0.016,
+     -0.021
+    ],
+    "hi": [
+     0.412,
+     0.016,
+     0.162
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_rust 1",
+     "metal_painted 1",
+     "tape_grey 2"
+    ],
+    "verts": 152,
+    "parts": 10
+   },
+   "was": "pipe"
+  },
+  "golf_club": {
+   "glb": "item_golf_club.glb",
+   "kind": "held",
+   "name": "golf club",
+   "say": "a seven iron: the worn rubber grip, the steel shaft with a slight bend, the head with dead grass still in its grooves",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "golf_club"
+   ],
+   "sha1": "4236cd588e1893ade802b872a9770c22d0653541",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.979,
+     0.037,
+     0.118
+    ],
+    "lo": [
+     -0.08,
+     -0.019,
+     -0.02
+    ],
+    "hi": [
+     0.899,
+     0.019,
+     0.099
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_bone 2",
+     "rubber 0",
+     "rubber 2",
+     "tape_grey 3"
+    ],
+    "verts": 214,
+    "parts": 12
+   },
+   "was": "pipe"
+  },
+  "bowie_knife": {
+   "glb": "item_bowie_knife.glb",
+   "kind": "held",
+   "name": "Bowie knife",
+   "say": "a ten-inch clip-point hunting knife, the brass guard, the stag handle, an orange cord through the lanyard hole",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "bowie_knife"
+   ],
+   "sha1": "8e2e21cddfb08477d0e31b626236e6a906bf698c",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.572,
+     0.043,
+     0.086
+    ],
+    "lo": [
+     -0.179,
+     -0.021,
+     -0.039
+    ],
+    "hi": [
+     0.393,
+     0.021,
+     0.048
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "clay_mustard 3",
+     "sodium 2",
+     "tape_grey 2"
+    ],
+    "verts": 254,
+    "parts": 8
+   },
+   "was": "machete"
+  },
+  "pipe_wrench": {
+   "glb": "item_pipe_wrench.glb",
+   "kind": "held",
+   "name": "pipe wrench",
+   "say": "an eighteen-inch iron pipe wrench, the red I-beam handle chipped to iron, the hook jaw and the knurled nut, white thread tape wound on the grip",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "pipe_wrench"
+   ],
+   "sha1": "1a8e8664a8d9e617b28430c15443dbd6bd24b97f",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.512,
+     0.049,
+     0.098
+    ],
+    "lo": [
+     -0.08,
+     -0.024,
+     -0.028
+    ],
+    "hi": [
+     0.432,
+     0.025,
+     0.07
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_bone 4",
+     "clay_rust 2",
+     "metal_painted 1",
+     "rubber 0"
+    ],
+    "verts": 840,
+    "parts": 31
+   },
+   "was": "sledge"
+  },
+  "tomahawk": {
+   "glb": "item_tomahawk.glb",
+   "kind": "held",
+   "name": "tomahawk",
+   "say": "a sporting-goods tomahawk: the hickory haft wrapped in black cord, the bearded head and its back spike, the store's price tag still on the haft",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "tomahawk"
+   ],
+   "sha1": "73c0559f62bae0272d1bd59da7c06c4bbf874d3e",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.515,
+     0.049,
+     0.183
+    ],
+    "lo": [
+     -0.08,
+     -0.024,
+     -0.075
+    ],
+    "hi": [
+     0.435,
+     0.024,
+     0.108
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "cloth_black 2",
+     "metal_painted 1",
+     "sodium 3"
+    ],
+    "verts": 362,
+    "parts": 14
+   },
+   "was": "hatchet"
+  },
+  "slot_handle": {
+   "glb": "item_slot_handle.glb",
+   "kind": "held",
+   "name": "slot machine handle",
+   "say": "the pull arm torn off a slot machine: a chrome rod, the red ball on its end, the bent mount plate with its sheared bolts at the butt",
+   "made": "WEAPONS 11/7 (tools/bohemia_weapons_every_weapon_shows_11_7_26.py)",
+   "rows": [
+    "slot_handle"
+   ],
+   "sha1": "4915adaae2da38448983518e32cc273b065cb042",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.436,
+     0.058,
+     0.058
+    ],
+    "lo": [
+     -0.072,
+     -0.029,
+     -0.029
+    ],
+    "hi": [
+     0.364,
+     0.029,
+     0.029
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_rust 2",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_masking 2"
+    ],
+    "verts": 358,
+    "parts": 8
+   },
+   "was": "pipe"
   }
  }
 }

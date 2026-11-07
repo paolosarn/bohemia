@@ -46,6 +46,14 @@ def main(mode):
     N = load(os.path.join(BB, 'armour_names.json')); L = load(os.path.join(BB, 'armour_looks.json'))
     M = load(P('slices/rig_melee/rig_melee.json'))
     rec = spec['record']
+    # WEAPONS 11/7 (rule 424): a rerun only ADDS. Measured: a second `write` put every own model back on its family prop
+    # (rig_melee by_row: the crowbar drawn as the pipe again, all thirteen of COOK's and the two two-handers), took the rows off
+    # COOK's own entries in items.json, and undid TUNING's prices (value_by) and the armour's own looks ('own'). What a later lane
+    # wrote on a row this tool made is kept: LATER below, and the index and the manifest are only filled where they are empty.
+    LATER = ('value', 'wiki_value', 'value_by')
+    # a price, once written, is TUNING's (rule 21: one numbers table; TUNING 2 [price is power] moved them, and one moved with no note)
+    later = {('w', r['id']): {k: r[k] for k in LATER if k in r} for r in W['rows'] if 'armory' in r}
+    for k in ('body', 'head'): later.update({(k, r['id']): {x: r[x] for x in LATER if x in r} for r in A[k] if 'armory' in r})
     W['rows'] = [r for r in W['rows'] if 'armory' not in r]
     for k in ('body', 'head'): A[k] = [r for r in A[k] if 'armory' not in r]
     wid = {r['id']: r for r in W['rows']}
@@ -90,6 +98,7 @@ def main(mode):
         same = [x for x in W['rows'] if x['class'] == r['class'] and (x['damage_min'], x['damage_max'], x.get('armor_damage_pct'), x.get('value')) ==
                 (r['damage_min'], r['damage_max'], r.get('armor_damage_pct'), r['value'])]
         if same: bad.append(s['id'] + ': the same numbers as ' + same[0]['id'])
+        r.update(later.get(('w', r['id']), {}))
         out_w.append(r)
     aid = {k: {r['id']: r for r in A[k]} for k in ('body', 'head')}
     out_a = {'body': [], 'head': []}
@@ -103,6 +112,7 @@ def main(mode):
             r['value'] = mean(a.get('value'), b.get('value'), r10)
             r['source'] = rec + ' | ARMORY 11/2: the mean of ' + a['id'] + ' and ' + b['id'] + ' | A: ' + a['source'] + ' | B: ' + b['source']
             r['armory'] = {'name': s['name'], 'class': s['class'], 'line': s['line'], 'tier': s['tier'], 'kind': s['kind'], 'between': s['between'], 'draft': True}
+            r.update(later.get((k, r['id']), {}))
             out_a[k].append(r)
     if bad: print('ARMORY: REFUSED\n  ' + '\n  '.join(bad)); return 1
     print('ARMORY: %d weapons, %d body, %d head' % (len(out_w), len(out_a['body']), len(out_a['head'])))
@@ -116,23 +126,29 @@ def main(mode):
     for k in ('body', 'head'):
         for r in out_a[k]:
             N[k][r['id']] = r['armory']['name']
+            own = (L[k].get(r['id']) or {}).get('own')   # COOK's own look for the piece (rule 337), kept
             L[k][r['id']] = {'name': r['armory']['name'], 'class': r['armory']['class']}
+            if own: L[k][r['id']]['own'] = own
     for r in out_w:
         a = r['armory']['between'][0]
         for key in ('by_row', 'two_by_row', 'bow_by_row'):
-            if key in M and a in M[key]: M[key][r['id']] = r['armory'].get('prop') or M[key][a]
+            if key in M and a in M[key] and r['id'] not in M[key]: M[key][r['id']] = r['armory'].get('prop') or M[key][a]   # never over a model already named (COOK's own)
     # the 3D model that draws each piece today: its family's (A's) object in COOK's manifest, until COOK models it on its own
     IP = P('reference/models/bohemia/items.json'); I = load(IP); ids = set(r['id'] for r in out_w) | set(r['id'] for k in out_a for r in out_a[k])
+    mine = set(x for o in I['items'].values() if o.get('was') for x in o.get('rows', []))   # rows on a model of their own (COOK's 'was'): left there
+    ids = ids - mine
     for o in I['items'].values(): o['rows'] = [x for x in o.get('rows', []) if x not in ids]
     def bucket(k, d):   # the market's own object for an armour piece's weight (RUN TWO's armourName, the gate's M1)
         if k == 'head': return 'rag_hood' if d < 40 else 'hard_hat' if d < 100 else 'riot_helmet' if d < 180 else 'full_riot_helm'
         return 'work_jacket' if d < 40 else 'padded_vest' if d < 100 else 'plate_carrier' if d < 180 else 'full_riot_armour'
     for r in out_w:
+        if r['id'] in mine: continue
         a = r['armory']['between'][0]
         for o in I['items'].values():
             if a in o.get('rows', []): o['rows'].append(r['id']); break
     for k in ('body', 'head'):
-        for r in out_a[k]: I['items'][bucket(k, r['durability'])]['rows'].append(r['id'])
+        for r in out_a[k]:
+            if r['id'] not in mine: I['items'][bucket(k, r['durability'])]['rows'].append(r['id'])
     dump(IP, I)
     dump(os.path.join(BB, 'weapons.json'), W); dump(os.path.join(BB, 'armor.json'), A)
     dump(os.path.join(BB, 'armour_names.json'), N); dump(os.path.join(BB, 'armour_looks.json'), L)

@@ -534,7 +534,8 @@ var IDLE_CARD = { cards: [], on: false, idles: ['look', 'roll', 'scratch', 'smok
    on this screen redraws him at once. What the fight does not draw yet (a shield, armour, a helmet as layers: COOK's models,
    ANIMATION's layers, rule 177(b)(c)) this does not draw either: one picture, never a promise the fight does not keep. ==== */
 var HELD = { byClass: null, hold: null, holdLook: {}, ims: {} };
-(function(){ try{ fetch('fight_rig/fight_rig.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ HELD.byClass = (j && j.guns && j.guns.by_class) || {}; }, function(){ HELD.byClass = {}; });
+(function(){ try{ fetch('fight_rig/fight_rig.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ HELD.byClass = (j && j.guns && j.guns.by_class) || {};
+    HELD.looks = (j && j.looks) || {}; HELD.feet = {}; for(var k in HELD.looks) if(HELD.looks[k] && HELD.looks[k].foot) HELD.feet[k] = HELD.looks[k].foot; }, function(){ HELD.byClass = {}; });   /* __EVERY_WEAPON_SHOWS__: every look's feet, so a thing off another man's sheet sits in this man's fist */
   fetch('rig_hold/rig_hold.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ HELD.hold = j || {}; }, function(){ HELD.hold = {}; }); }catch(e){ HELD.byClass = {}; HELD.hold = {}; } })();
 function heldGun(m){
   var R = window.BohemiaRoster, g = m && m.gear, id = g && g.main ? (g.main.id || g.main) : null; if(!id || !R || !R.fightWeapon || !HELD.byClass) return null;
@@ -563,6 +564,91 @@ function holdFrame(look, seed, now, f){
   return out;
 }
 /* ==== end __HE_WEARS_WHAT_HE_WEARS__ ==== */
+/* ==== __EVERY_WEAPON_SHOWS__ (WEAPONS, rule 424(a), ask line 489, Paolo 11/7: 'some two handed weapons aren't showing up... every
+   weapon shows in the hand on the map's crew, in the fight and on the crew screen'). MEASURED: this card drew a gun or NOTHING: a
+   man with the pipe, the sledge, a blade, a bow, a car door, any of the 112 melee, thrown and shield rows stood here bare-handed
+   (the block above: 'what the fight does not draw yet this does not draw either', and the fight has drawn them since 10/25).
+   NOW the card draws what the fight draws: his melee idle (one hand: the held sheet's low ready, slices/rig_hold; with a shield,
+   his own shield keys; two hands, his own two-handed keys; the bow, its keys), and in his fists the thing's own picture from the
+   fight's own sheets (slices/rig_melee: his own layer, else his gang's, else YOU's moved by the difference of their feet, the
+   fight's laidCell), the shield over or under the weapon by the facing (shield_over). A look whose own model carries its weapon
+   (ours.model_carries: the thug's pipe) has nothing laid twice. A gun stays the gun's own picture (above); a pistol with a shield
+   is the shield arm's pistol, as the fight. Nothing found for a row: the bare idle, and the gate (EVERY WEAPON SHOWS) goes red. ==== */
+var WEAP = { meta: null, looks: {}, ims: {} };
+(function(){ try{ fetch('rig_melee/rig_melee.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ WEAP.meta = j || {}; }, function(){ WEAP.meta = {}; }); }catch(e){ WEAP.meta = {}; } })();
+function weapLook(key){   /* a look's melee json: undefined while it loads, null when it has none */
+  var M = WEAP.meta; if(!M || !M.looks) return undefined; var x = key && M.looks[key]; if(!x) return null;
+  var L = WEAP.looks[key]; if(!L){ L = WEAP.looks[key] = { d: undefined }; fetch('rig_melee/' + x.json).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ L.d = j; }, function(){ L.d = null; }); }
+  return L.d;
+}
+function weapImg(file){
+  var e = WEAP.ims[file]; if(!e){ e = WEAP.ims[file] = { im: new Image(), ok: false }; e.im.onload = function(){ e.ok = true; }; e.im.src = 'rig_melee/' + file; }
+  return e.ok ? e.im : null;
+}
+/* what is in his hands, read the fight's way (meleeProp, shieldProp): { how: M one hand | S with a shield | T two hands | B the bow, prop, shield } */
+function heldMelee(m){
+  var R = window.BohemiaRoster, M = WEAP.meta, g = m && m.gear; if(!R || !R.fightWeapon || !M || !M.looks || !g || !HELD.byClass) return null;
+  var idOf = function(x){ return x ? (x.id || x) : null; };
+  var w = g.main ? R.fightWeapon(idOf(g.main)) : null, b = w ? (w.of || w) : null;
+  var sh = g.off && R.rowOf ? R.rowOf('shield', idOf(g.off)) : null, shq = sh && M.shield_by_row ? M.shield_by_row[sh.id] || null : null;
+  var gun = b && HELD.byClass[(w.of && w.of['class']) || w['class']];
+  var two = b && (b.hands === 2 || ((b.hands === null || b.hands === undefined) && ['bow', 'crossbow', 'firearm'].indexOf(b['class']) >= 0));
+  if(gun) return gun === 'pistol' && shq ? { how: 'S', prop: 'pistol', shield: shq, row: b.id } : null;
+  if(!b) return shq ? { how: 'S', prop: null, shield: shq, row: null } : null;
+  var bq = (M.bow_by_row || {})[b.id] || (M.bow_by_class || {})[b['class']]; if(bq) return { how: 'B', prop: bq, row: b.id };
+  var sq = (M.sling_by_row || {})[b.id]; if(sq) return { how: 'M', prop: sq, row: b.id };
+  if(two){ var q2 = (M.two_by_row || {})[b.id] || (M.two_by_class || {})[b['class']]; return { how: 'T', prop: q2 || null, row: b.id }; }
+  var q = (M.by_row || {})[b.id] || (M.by_class || {})[b['class']];
+  return shq ? { how: 'S', prop: q || null, shield: shq, row: b.id } : { how: 'M', prop: q || null, row: b.id };
+}
+/* his body on the held sheet's low ready (rig_hold PIdle, the fight's MIdle first four keys), his hands empty */
+function holdBody(look, k, f){
+  var H = HELD.hold; if(!H || !H.looks || !H.looks[look]) return null;
+  var L = HELD.holdLook[look]; if(!L){ L = HELD.holdLook[look] = { d: null }; fetch('rig_hold/' + H.looks[look].json).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ L.d = j; }, function(){}); }
+  var d = L.d; if(!d || !d.clips || !d.clips.PIdle) return null;
+  var ci = (d.clips.PIdle[k] || d.clips.PIdle[0])[f]; if(ci == null) return null;
+  var im = heldImg(d.sheet.file); if(!im) return null;
+  return { img: im, c: d.sheet.cells[ci] };
+}
+/* the thing's cell on this key and facing: his own layer, his gang's, YOU's (moved by their feet); false: behind him here; null: none */
+function weapCell(look, e, q, src, f){
+  var Y = weapLook('you'); if(!Y) return null;
+  var refKey = (e && (e.ref || e.props_ref)) || (HELD.looks && HELD.looks[look] && HELD.looks[look].ref) || null, r1 = refKey ? weapLook(refKey) : null;
+  if(refKey && r1 === undefined) return null;
+  var wh = (e && e.withhold) || [], donors = [[e, look], [r1, refKey], [Y, 'you']], Lf = HELD.feet[look];
+  for(var i = 0; i < donors.length; i++){
+    var D = donors[i][0]; if(!D || !D.props || !D.props.by) continue;
+    var by = D.props.by[q], pk = by && by[src[0]]; if(!pk || wh.indexOf(pk.l) >= 0 || !pk.k || !pk.k[src[1]]) continue;
+    var ps = D.props.sheets && D.props.sheets[pk.l]; if(!ps) continue;
+    var ix = pk.k[src[1]][f]; if(ix === null || ix === undefined) return false;
+    var im = weapImg(ps.file); if(!im) return null;
+    var fo = HELD.feet[donors[i][1]] || HELD.feet.you;
+    return [im, ps.cells[ix], Lf[0] - fo[0], Lf[1] - fo[1], q];
+  }
+  return null;
+}
+function weapFrame(look, seed, now, f, hm){
+  var M = WEAP.meta, B = window.BohemiaIdles; if(!M || !M.composite || !B || !HELD.feet || !HELD.feet[look] || !(hm.prop || hm.shield)) return null;   /* nothing with a picture in his hands: never a melee idle with empty fists */
+  var clip = { M: 'MIdle', S: 'SIdle', T: 'T2Idle', B: 'BIdle' }[hm.how], comp = M.composite[clip], TL = M.timelines && M.timelines[clip]; if(!comp || !TL) return null;
+  var slots = clip === 'MIdle' ? TL.slice(0, 2) : TL;   /* the melee idle's own keys past the fourth are a look's own: the first two slots, as the fight for a look without them */
+  var keyMs = 500 / 3, off = B.hash(seed, 'weap') % 48, k = Math.floor(now / keyMs) + off, slot = Math.floor(k / 24);
+  var tl = slot % 2 && slots.length > 1 ? slots[1 + B.hash(seed, slot) % (slots.length - 1)] : slots[0], kin = k - slot * 24, key = 0;
+  for(var i = 0; i < tl.length; i++){ if(kin < tl[i][1]){ key = tl[i][0]; break; } kin -= tl[i][1]; }
+  var src = comp[key] || comp[0], e = weapLook(look); if(e === undefined) return null;
+  var body = null, own = e && e.clips && e.clips[src[0]];
+  if(own){ var sh = e.sheets && e.sheets[own.g], ci = own.k && own.k[src[1]] && own.k[src[1]][f];
+    if(sh && ci != null){ var bim = weapImg(sh.file); if(!bim) return null; body = { img: bim, c: sh.cells[ci] }; } }
+  if(!body) body = holdBody(look, src[0] === 'PIdle' ? src[1] : Math.min(src[1], 3), f);   /* no keys of his own for this hold: the low ready, the thing laid on it (the fight's laidCell) */
+  if(!body) return null;
+  var carries = null; try{ carries = window.BohemiaRoster.data.ours.model_carries.value.looks; }catch(x){ carries = null; }
+  var lay = [], list = [carries && carries[look] && hm.how !== 'T' ? null : hm.prop, hm.shield || null], laid = 0, behind = 0;
+  for(var j = 0; j < list.length; j++){ var q = list[j]; if(!q) continue; var c = weapCell(look, e, q, src, f); if(c === null) return null; if(c){ lay.push(c); laid++; } else behind++; }
+  if(lay.length === 2 && !M.shield_over[(M.dirs || B.DIRS)[f]]) lay.reverse();
+  var bc = body.c;
+  return { img: body.img, x: bc[0], y: bc[1], w: bc[2], h: bc[3], dx: bc[4], dy: bc[5], foot: HELD.feet[look], pose: 'w' + clip + key + ':' + laid, kind: 'weapon:' + hm.how, lay: lay, laid: laid, behind: behind };
+}
+window.BohemiaRosterWeapons = { state: WEAP, held: HELD, heldMelee: heldMelee, weapFrame: weapFrame, heldGun: heldGun, holdFrame: holdFrame };   /* the gate's door (EVERY WEAPON SHOWS): the card's own functions */
+/* ==== end __EVERY_WEAPON_SHOWS__ ==== */
 /* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the weapons and the shield
    show, but the good armour I have on me doesn't show, like a police helmet'). The figure on his card wears his helmet and his
    body armour as the fight does (engine/bohemia_wear.js: one player, the head found on the picture drawn, the piece he has on
@@ -587,17 +673,21 @@ function idleCard(c, m, i){
       var f = Math.max(0, B.DIRS.indexOf(e.c.dataset.turn || 'S'));
       /* __HE_WEARS_WHAT_HE_WEARS__: the gun in his hands, as the fight lays it (a rolled man's own fight cells first, as the fight) */
       var gun = heldGun(e.man), q = null, gl = null, lk = B.has('fight_' + e.look) ? 'fight_' + e.look : e.look;
-      if(gun === 'pistol') { q = holdFrame(e.look, e.seed, now, f); if(q) gl = q.gun; }
+      var hm = heldMelee(e.man), wq = hm ? weapFrame(e.look, e.seed, now, f, hm) : null;   /* __EVERY_WEAPON_SHOWS__: his melee thing, his shield, his bow */
+      if(wq){ q = wq; gun = null; }
+      else if(gun === 'pistol') { q = holdFrame(e.look, e.seed, now, f); if(q) gl = q.gun; }
       if(gun && !q){ q = B.frame(lk, e.seed, now, f, { set: 'carry' }); if(q && !q.person){ gl = B.gun(lk, gun, q.pose, f); if(!gl) q = null; } else q = null; }
       if(!q){ gun = null; q = B.frame(e.look, e.seed, now, f, { set: 'bare', idles: IDLE_CARD.idles }); }
       if(!q) return;
-      var wk = wearKey(e.man), key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : '') + wk; if(key === e.shown) return; e.shown = key;   /* a held key is drawn once (his armour in the key: a swap redraws him, __THE_ARMOUR_HE_WEARS_SHOWS__) */
+      var wk = wearKey(e.man), key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : '') + wk + (wq ? (hm.prop || '') + (hm.shield || '') : ''); if(key === e.shown) return; e.shown = key;   /* a held key is drawn once (his armour in the key: a swap redraws him, __THE_ARMOUR_HE_WEARS_SHOWS__) */
       var x = e.c.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, e.c.width, e.c.height);
       var ox = Math.round(e.c.width / 2 - q.foot[0]), oy = Math.round(e.c.height - 5 - q.foot[1]);
       x.drawImage(q.img, q.x, q.y, q.w, q.h, ox + q.dx, oy + q.dy, q.w, q.h);
       if(!wearCard(x, q, ox, oy, f, e.man) && wk) e.shown = '';   /* __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and his body armour, under his gun (not in yet: drawn again next frame) */
       if(gl && !gl.hidden) x.drawImage(gl.img, gl.x, gl.y, gl.w, gl.h, ox + gl.dx, oy + gl.dy, gl.w, gl.h);
-      e.c.dataset.idle = q.kind; e.c.dataset.holds = gun || '';
+      if(wq) wq.lay.forEach(function(t){ var g = t[1]; x.drawImage(t[0], g[0], g[1], g[2], g[3], ox + g[4] + t[2], oy + g[5] + t[3], g[2], g[3]); });   /* __EVERY_WEAPON_SHOWS__: in his fists, over his armour */
+      e.c.dataset.idle = q.kind; e.c.dataset.holds = wq ? 'melee:' + [hm.prop, hm.shield].filter(Boolean).join('+') : (gun || '');
+      e.c.dataset.weaponRow = hm && hm.row || ''; e.c.dataset.weaponLaid = wq ? String(wq.laid) : '';
     });
     requestAnimationFrame(tick);
   })();
