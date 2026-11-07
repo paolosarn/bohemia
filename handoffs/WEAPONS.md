@@ -1,4 +1,4 @@
-WEAPONS (weapons-01gkdyuv, COOK's family; rule 424, ask lines 489 and 490, 11/7): BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS.
+WEAPONS (weapons-01gkdyuv, COOK's family; rule 424, ask lines 489, 490 and 515, 11/7): BUILD 11/7l EVERY WEAPON SHOWS, SIX MORE ONE-HANDERS.
 BUILT, NOT YET SEEN (rule 179). Record records/BOHEMIA_WEAPONS_EVERY_WEAPON_SHOWS_11_7_26.md.
 - [weapons show] THE FIGHT AND THE CREW SCREEN DONE, THE MAP NOT YET (continuing, about 2 of 3).
   MEASURED BEFORE: of the 145 weapon rows the fight drew 12 from empty fists: the five two-handed swords (rhomphaia, warbrand,
