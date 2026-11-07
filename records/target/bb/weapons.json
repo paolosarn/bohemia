@@ -6874,9 +6874,9 @@
    "fatigue": -10,
    "durability": 56,
    "value": 1980,
-   "range": 6,
-   "range_min": 6,
-   "range_max": 6,
+   "range": 8,
+   "range_min": 8,
+   "range_max": 8,
    "skills": [
     {
      "name": "Shoot Bolt",
@@ -6906,8 +6906,9 @@
      ]
     }
    ],
-   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of crossbow and heavy_crossbow, fought with crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0458_Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0962_Heavy Crossbow.txt",
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of crossbow and heavy_crossbow, fought with crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0458_Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0962_Heavy Crossbow.txt | ARMORY 2 tune: {\"set\": {\"band\": \"scope\", \"range\": 8, \"range_min\": 8, \"range_max\": 8}} (WEAPONS 11/7 (VAMILY rule 187(a), ask line 108: a scoped rifle best far): the glass is its band, ours.range_bands.scope (TUNING s4, the one table section N: -20 at the next tile, -10 at two, -1 a tile past two, reach 8; magnification narrows the view close and holds the shot far))",
    "skills_basis": "weapon page Skills section",
+   "band": "scope",
    "armory": {
     "name": "scoped deer rifle",
     "object": "deer rifle",

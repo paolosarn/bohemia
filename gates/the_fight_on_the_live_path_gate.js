@@ -36,7 +36,7 @@ const STILL_MS = 8000, FIGHT_MS = 150000;
 
 /* the rules file one deploy behind: today's, with the newest rows the fight reads taken out and a mark that says so */
 const OURS = path.join(ROOT, 'records/target/bb/ours.json');
-const BEHIND = ['lessons', 'range_bands', 'range_bands_step_in'];
+const BEHIND = ['lessons', 'range_bands', 'range_bands_step_in', 'range_bands_card'];   /* WEAPONS 11/7: the range card's row is the newest */
 function behindFile() {
   const j = JSON.parse(fs.readFileSync(OURS, 'utf8'));
   BEHIND.forEach(k => { delete j[k]; });

@@ -2369,8 +2369,14 @@ const FIGHT = (function () {
          inaccurate'): the next tile is always in reach, whatever the storeys between; the storeys move the chance (hitChance) */
       return d <= reachOf(w) && (R('ours.height_is_accuracy').melee_any_storey || Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap'));
     }
-    const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
-    return d >= rangeLo(w) && d <= rangeMax(w.range) + up && sees(a, t);
+    return d >= rangeLo(w) && d <= rangeMax(w.range) + reachUp(a, t) && sees(a, t);
+  }
+  /* THE STOREYS' REACH, ONE PLACE (WEAPONS 11/7, the agreement with COMBAT TWO for rule 428(b), handoffs/WEAPONS.md): the tiles a
+     shot gains from where he stands over where the man stands (Battle Brothers' +1 a level today). inRange and the range card both
+     read it, so the storeys rule moves here and the tape on the ground follows. t null: over the street (the card's farthest ring) */
+  function reachUp(a, t) {
+    const lt = t ? level(t.x, t.y) : R('board.height_levels')[0];
+    return Math.max(0, level(a.x, a.y) - lt) * R('hit_chance.height.ranged_range_per_level');
   }
   /* EVERY WEAPON HAS ITS RANGE BANDS (COMBAT [every weapon's range bands], rule 187, Paolo 10/25: 'a rifle shooting one tile next
      to it might be a range debuff; a shotgun, the closer you are, after one or two tiles'): on top of Battle Brothers' own fall of
@@ -2378,13 +2384,55 @@ const FIGHT = (function () {
      takes at that many tiles, and the share of its damage that arrives there. Read by the chance, the damage, the aim line,
      AUTO's walk and the calculator alike. null for a weapon with no band (melee, the bottles) */
   function band(a, t, w) {
+    w = w || a.weapon; const b = rangeBandOf(w); if (!b) return null;
+    return bandAt(b, dist(a, t));
+  }
+  /* WEAPONS 11/7 (VAMILY rule 187, ask line 108; TUNING's one table, section N): EVERY RANGED WEAPON HAS ITS BAND. The band a
+     weapon fights by is its own row's when the row names one (weapons.json 'band': the scoped deer rifle's 'scope'), else its
+     job's (pistol, shotgun, rifle, bow, bottles), so a modder gives a new gun its band with one word on its row */
+  function rangeBandOf(w) {
+    if (!w || !isRanged(w)) return null;
+    const B = R('ours.range_bands'), b0 = w.of || w, k = w.band || b0.band;
+    return (k && B[k]) || B[jobOfWeapon(w)] || null;
+  }
+  /* the band at n tiles: the points it adds or takes at exactly that tile (hit_by_tile), and the share of the damage that arrives
+     (damage_by_tile, a step: past the last tile it lists the last share holds, so a roof's extra tile never makes buckshot whole
+     again; the storeys add reach and accuracy, never damage: rule 428(b), the agreement with COMBAT TWO in handoffs/WEAPONS.md) */
+  function bandAt(b, n) {
+    const h = (b.hit_by_tile || {})[String(n)], D = b.damage_by_tile || {};
+    let m = 1, at = 0;
+    Object.keys(D).forEach(function (s) { const i = Number(s); if (i <= n && i >= at) { at = i; m = D[s]; } });
+    return { hit: h || 0, dmg: m, tiles: n };
+  }
+  /* the shot's own fall a tile: Battle Brothers' line for the weapon's class (the crossbow's Shoot Bolt, the Handgonne, the
+     thrown line, the bow's Quick Shot), or the band's own line where it carries one (the scope: magnification, TUNING s4) */
+  function shotLineOf(w) {
+    const b = rangeBandOf(w);
+    if (b && b.line) return { per: b.line.per_tile, base: b.line.base, free: b.line.free, ignores: false };
+    if (w.class === 'crossbow') { const g = R('hit_chance.ranged.distance.crossbow_shoot_bolt'); return { per: g.per_hex, base: g.base_bonus, free: 1, ignores: false }; }
+    if (w.class === 'firearm') { const g = R('parsed.handgonne'); return { per: g.per_hex, base: g.base_bonus, free: 1, ignores: g.ignores_line_of_fire }; }
+    if (w.class === 'throwing') { const g = R('parsed.throw_axe'); return { per: g.per_hex, base: g.base_bonus, free: g.free_tiles, ignores: false }; }
+    const g = R('hit_chance.ranged.distance.bow_quick_shot'); return { per: g.per_hex, base: g.base_bonus, free: 1, ignores: false };
+  }
+  /* THE RANGE CARD (WEAPONS 11/7, rule 187(c)): every ring his weapon reaches from where he stands (a roof's storeys over the
+     street included, the reach inRange gives), what a shot there is worth beside his best ring: the line and the band's points
+     (the shooter's skill, the man's defence and the storeys are the same on every ring, so they cancel), and the share of the
+     damage that arrives. A ring worth less than ours.range_bands_card.weak_at points, or one the band cuts (point-blank, a
+     spread), is WEAK: the tiles hatch it and say by how much, and the sweet spot is what is left. Read by the board, the out of
+     reach words and the gate alike */
+  function bandCard(a, w) {
     w = w || a.weapon; if (!isRanged(w)) return null;
-    const b = R('ours.range_bands')[jobOfWeapon(w)]; if (!b) return null;
-    const d = String(dist(a, t)), h = (b.hit_by_tile || {})[d], m = (b.damage_by_tile || {})[d];
-    return { hit: h || 0, dmg: m === undefined ? 1 : m, tiles: Number(d) };
+    const b = rangeBandOf(w) || {}, L = shotLineOf(w), lo = rangeLo(w), top = rangeMax(w.range), C = R('ours.range_bands_card');
+    const hi = top + reachUp(a, null), rings = [];
+    for (let n = lo; n <= hi; n++) { const q = bandAt(b, n); rings.push({ d: n, pts: L.base + L.per * Math.max(0, n - L.free) + q.hit, close: q.hit, dmg: q.dmg, roof: n > top }); }
+    if (!rings.length) return null;
+    const best = Math.max.apply(null, rings.filter(function (r) { return r.dmg >= 1; }).map(function (r) { return r.pts; }).concat(rings.map(function (r) { return r.pts; })));
+    rings.forEach(function (r) { r.less = r.pts - best; r.weak = r.close < 0 || r.dmg < 1 || r.less <= C.weak_at; });
+    const sweet = rings.filter(function (r) { return !r.weak; });
+    return { rings: rings, lo: lo, hi: hi, top: top, best: sweet.length ? [sweet[0].d, sweet[sweet.length - 1].d] : null };
   }
   /* a gun whose damage falls off with the distance wants to be close (the shotgun), the others keep theirs */
-  function wantsClose(w) { const b = isRanged(w) ? R('ours.range_bands')[jobOfWeapon(w)] : null;
+  function wantsClose(w) { const b = rangeBandOf(w);
     return !!b && Object.keys(b.damage_by_tile || {}).some(function (k) { return b.damage_by_tile[k] < 1; }); }
   /* the nearest tile a ranged weapon reaches: a gun from the tile beside him (rule 185: 'all guns 2+' is the reach, never a minimum;
      the pistol's shot rides a javelin row whose own page says two), a bow or a thrown thing from its own row */
@@ -2437,11 +2485,7 @@ const FIGHT = (function () {
       if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
       df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightD * loneMult(t);
       if (inWater(t)) df *= R('hit_chance.terrain_swamp').ranged_defense;
-      let per, base, free = 1, ignores = false;
-      if (w.class === 'crossbow') { const g = R('hit_chance.ranged.distance.crossbow_shoot_bolt'); per = g.per_hex; base = g.base_bonus; }
-      else if (w.class === 'firearm') { const g = R('parsed.handgonne'); per = g.per_hex; base = g.base_bonus; ignores = g.ignores_line_of_fire; }
-      else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
-      else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
+      const SL = shotLineOf(w), per = SL.per, base = SL.base, free = SL.free, ignores = SL.ignores;   /* WEAPONS 11/7: one function, the band's own line where it has one */
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
       const bd = band(a, t); if (bd && bd.hit) { ch += bd.hit; parts.push(bd.hit < 0 ? 'point-blank' : 'in its range'); }
       if (bd && bd.dmg < 1) parts.push('spread');
@@ -4861,14 +4905,14 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, frontSwing: frontSwing, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, retreatFromLine: retreatFromLine, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, retreatFromLine: retreatFromLine, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, bandCard: bandCard, rangeBandOf: rangeBandOf, bandAt: bandAt, shotLineOf: shotLineOf, reachUp: reachUp, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();
@@ -6239,7 +6283,8 @@ function dodgeLean(v, h, now) {
   if (k < 0 || k > 1) return 0;
   return d.dir * h * .22 * Math.sin(Math.PI * k);
 }
-const BAND_SAYS = { close: 'Point-blank: your {arm} is a long gun, <b>-{n}%</b> this close.', spread: 'At {tiles} tiles the {arm}\'s shot spreads: <b>{pct}%</b> of its damage.' };   /* draft:true */
+const BAND_SAYS = { close: 'Point-blank: your {arm} is clumsy this close, <b>-{n}%</b>.', near: 'Too close for your {arm}: <b>-{n}%</b> at {tiles} tiles.',
+  spread: 'At {tiles} tiles the {arm}\'s shot spreads: <b>{pct}%</b> of its damage.', best: ', best at {a} to {b}', bestOne: ', best at {a}' };   /* draft:true (WEAPONS 11/7: 'near' is the scope's, the bow's point-blank is no gun) */
 function aimLines(u, t) {
   const p = FIGHT.preview(u, t), out = [];
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
@@ -6249,7 +6294,7 @@ function aimLines(u, t) {
   if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('ours.height_is_accuracy').below_per_storey * (lt - la) }));
   /* rule 187(c): the band's effect where he aims, the rules' own numbers */
   const bd = FIGHT.band(u, t);
-  if (bd && bd.hit < 0) out.push(wfill(BAND_SAYS.close, { arm: armName(u, u.weapon), n: -bd.hit }));
+  if (bd && bd.hit < 0) out.push(wfill(bd.tiles > 1 ? BAND_SAYS.near : BAND_SAYS.close, { arm: armName(u, u.weapon), n: -bd.hit, tiles: bd.tiles }));
   if (bd && bd.dmg < 1) out.push(wfill(BAND_SAYS.spread, { arm: armName(u, u.weapon), tiles: bd.tiles, pct: Math.round(bd.dmg * 100) }));
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
     const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
@@ -6263,7 +6308,12 @@ function aimLines(u, t) {
 /* out of reach: what his arm reaches, in tiles (a gun from the tile beside him, rule 185) */
 function reachWords(u) {
   const w = u.weapon, gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? FIGHT._t.rangeLo(w) : 1;
-  return gun ? ' Your ' + armName(u, w) + ': ' + lo + ' to ' + w.range_max + ' tiles.' : FIGHT.isRanged(w) ? ' Your ' + armName(u, w) + ': up to ' + w.range_max + ' tiles.' : ' Your ' + armName(u, w) + ' reaches the next tile.';
+  /* WEAPONS 11/7 (rule 187(c)): and where it is best, the range card's sweet spot from where he stands */
+  let card = null; try { card = FIGHT.isRanged(w) ? FIGHT.bandCard(u, w) : null; } catch (_e) {}
+  const b = card && card.best;
+  const best = b && (b[0] !== card.lo || b[1] !== card.hi) ? wfill(b[0] === b[1] ? BAND_SAYS.bestOne : BAND_SAYS.best, { a: b[0], b: b[1] }) : '';
+  const far = card && card.hi > card.top ? card.hi + ' tiles from up here' : w.range_max + ' tiles';   /* a roof's storeys reach further (rule 428(b)) */
+  return gun ? ' Your ' + armName(u, w) + ': ' + lo + ' to ' + far + best + '.' : FIGHT.isRanged(w) ? ' Your ' + armName(u, w) + ': up to ' + far + best + '.' : ' Your ' + armName(u, w) + ' reaches the next tile.';
 }
 function aimSay(u, t) {
   const e = document.getElementById('say'), L = aimLines(u, t), rl = roundsLine(u, t);
@@ -7548,6 +7598,53 @@ function mkHatch(x, y) {
   if (UI.hatch.pat.setTransform) UI.hatch.pat.setTransform(new DOMMatrix([1, 0, 0, 1, ox, oy]));
   cx.fillStyle = UI.hatch.pat; cx.fillRect(T.x0 * u, T.y0 * u, (T.x1 - T.x0) * u, (T.y1 - T.y0) * u);
 }
+/* HIS TAPE HATCHED over a tile (WEAPONS 11/7, the range card): where his own shot is worth less. One stroke every eight cells,
+   the other diagonal from their rust (so a ring of theirs over a weak ring of his reads as a cross, never one mark), fixed to the
+   ground */
+function mkHatchTape(x, y) {
+  const P = 8, u = MKU;
+  if (!UI.hatchTape || UI.hatchTape.u !== u) {
+    const c = document.createElement('canvas'); c.width = c.height = P * u; const g = c.getContext('2d');
+    for (let i = 0; i < P; i++) { g.fillStyle = MK.ink; g.fillRect(((i + 1) % P) * u, ((i + 1) % P) * u, u, u); g.fillStyle = MK.tape; g.fillRect(i * u, i * u, u, u); }
+    UI.hatchTape = { u: u, pat: cx.createPattern(c, 'repeat') };
+  }
+  const T = mkTile(x, y), ox = mc(sx(0)) * u, oy = mc(sy(0)) * u;
+  if (UI.hatchTape.pat.setTransform) UI.hatchTape.pat.setTransform(new DOMMatrix([1, 0, 0, 1, ox, oy]));
+  cx.fillStyle = UI.hatchTape.pat; cx.fillRect(T.x0 * u, T.y0 * u, (T.x1 - T.x0) * u, (T.y1 - T.y0) * u);
+}
+/* a strip of his tape with a number written on it in ink, the way a crew labels a line on the floor: three by five cells a
+   figure (digits, minus, plus, per cent), sized to the tile, laid on the cell grid with its ink shadow */
+const TAPE_GLYPH = { '0': '111101101101111', '1': '010110010010111', '2': '111001111100111', '3': '111001111001111', '4': '101101111001001',
+  '5': '111100111001111', '6': '111100111101111', '7': '111001001001001', '8': '111101111101111', '9': '111101111001111',
+  '-': '000000111000000', '+': '000010111010000', '%': '101001010100101' };
+function mkTapeLabel(x, y, text) {
+  const T = mkTile(x, y), tw = T.x1 - T.x0, n = text.length;
+  let k = Math.max(2, Math.min(3, Math.round(tw / 18))); while (k > 1 && n * 4 * k + 2 * k + 2 > tw - 4) k--;   /* a hand-written strip: two or three cells a stroke, never wider than the tile */
+  const gw = 3 * k, gap = k, pad = k + 1;
+  const w = text.length * gw + (text.length - 1) * gap + pad * 2, h = 5 * k + pad * 2;
+  const x0 = Math.round((T.x0 + T.x1 - w) / 2), y0 = Math.round((T.y0 + T.y1 - h) / 2);
+  mkCell(x0 + 1, y0 + 1, w, h, MK.ink); mkCell(x0, y0, w, h, MK.tape);
+  for (let i = 0; i < text.length; i++) {
+    const g = TAPE_GLYPH[text[i]]; if (!g) continue;
+    for (let j = 0; j < 15; j++) if (g[j] === '1') mkCell(x0 + pad + i * (gw + gap) + (j % 3) * k, y0 + pad + Math.floor(j / 3) * k, k, k, MK.ink);
+  }
+}
+/* where the strips go: one on each weak ring, on its tile along the line from him to the nearest man of theirs he can see (or
+   across the board when there is none), the nearest weak tile of that ring when the line's own is not his ground */
+function bandLabels(u, card, weak) {
+  if (!card) return [];
+  const S = FIGHT.S, seen = S.units.filter(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t); })
+    .sort(function (a, b) { return Math.max(Math.abs(a.x - u.x), Math.abs(a.y - u.y)) - Math.max(Math.abs(b.x - u.x), Math.abs(b.y - u.y)); })[0];
+  const tx = seen ? seen.x - u.x : (u.x < S.w / 2 ? 1 : -1), ty = seen ? seen.y - u.y : 0, m = Math.max(1, Math.abs(tx), Math.abs(ty)), out = [];
+  card.rings.forEach(function (r) {
+    if (!r.weak) return;
+    const want = { x: u.x + Math.round(tx * r.d / m), y: u.y + Math.round(ty * r.d / m) };
+    let at = null, bd = Infinity;
+    Object.keys(weak).forEach(function (k) { if (weak[k] !== r) return; k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), e = Math.abs(x - want.x) + Math.abs(y - want.y) + (FIGHT._t.unitAt(x, y) ? 3 : 0); if (e < bd) { bd = e; at = { x: x, y: y }; } });   /* never under a man: his body would hide it */
+    if (at) out.push({ x: at.x, y: at.y, d: r.d, text: r.dmg < 1 ? Math.round(r.dmg * 100) + '%' : String(r.less < 0 ? r.less : r.close) });
+  });
+  return out;
+}
 /* a chalk dot, two cells and its shadow, where he may stand */
 function mkDot(X, Y, col) { const c = mc(X) - 1, r = mc(Y) - 1; mkCell(c + 1, r + 1, 2, 2, MK.ink); mkCell(c, r, 2, 2, col || MK.chalk); }
 
@@ -7618,13 +7715,29 @@ function draw(now) {
     /* WHERE HIS GUN REACHES (rule 120(a): 'rule 83's ranges lit on the tiles'): a gunman's shooting ground from where he stands,
        two tiles out to his gun's last, every tile he can see, taped off in one unbroken line of gaffer tape (the man's own
        material: it is his) */
-    if (FIGHT.isGun(u.weapon) && FIGHT.isRanged(u.weapon) && !FIGHT.emptyGun(u)) {   /* an empty gun reaches nobody (rule 124) */
-      const gz = {}, w = u.weapon, lo = FIGHT._t.rangeLo(w), hi = w.range_max;
+    /* __THE_RANGE_CARD_ON_THE_GROUND__ (WEAPONS 11/7, VAMILY rule 187(c), ask line 108: every weapon's range bands 'shown on the
+       tiles the way reach is lit'). EVERY ranged weapon's ground is taped now (a bow's and a sling's too, not only a gun's), and it
+       is every tile his shot reaches by the rules' own inRange (a roof's storeys included: the tape stopped at the row's reach while
+       the shot went a tile further). Inside it his RANGE CARD (FIGHT.bandCard): a ring where his shot is worth less (the rifle and the
+       bow point-blank, the scope inside three tiles, the shotgun past one, the pistol past two, a roof's spread buckshot) is hatched in
+       his own tape the other way from their rust, and a strip of tape on the ring toward the nearest man of theirs says by how much
+       ('-10', or '60%' of the damage); the clean ground is his sweet spot. A shooting range paints its yard lines; his crew tapes them */
+    UI.bandLit = null;
+    if (FIGHT.isRanged(u.weapon) && !FIGHT.emptyGun(u) && !FIGHT.isWhip(u.weapon)) {   /* an empty gun reaches nobody (rule 124) */
+      const gz = {}, weak = {}, ring = {};
+      let card = null; try { card = FIGHT.bandCard(u); } catch (_e) {}   /* a rules file one deploy behind (rule: THE FIGHT ON THE LIVE PATH) loses the card, never the board */
+      const lo0 = FIGHT._t.rangeLo(u.weapon);
+      if (card) card.rings.forEach(function (r) { ring[r.d] = r; }); else for (let n = lo0; n <= 12; n++) ring[n] = { d: n, weak: false };
       for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
-        const d = Math.max(Math.abs(x - u.x), Math.abs(y - u.y));
-        if (d >= lo && d <= hi && FIGHT._t.passable(x, y) && FIGHT._t.sees(u, { x: x, y: y })) gz[y * S.w + x] = true;
+        const d = Math.max(Math.abs(x - u.x), Math.abs(y - u.y)), r = ring[d];
+        if (!r || !FIGHT._t.passable(x, y) || !FIGHT._t.inRange(u, { x: x, y: y })) continue;
+        gz[y * S.w + x] = true; if (r.weak) weak[y * S.w + x] = r;
       }
+      Object.keys(weak).forEach(function (k) { k = Number(k); mkHatchTape(k % S.w, Math.floor(k / S.w)); });
       mkOutline(gz, S.w, MK.tape, false);
+      mkOutline(weak, S.w, MK.tape, false);   /* the line between his sweet spot and the rings worth less */
+      UI.bandLit = { arm: u.weapon.id, tiles: Object.keys(gz).length, weak: Object.keys(weak).length, best: card && card.best, rings: card ? card.rings : [], labels: bandLabels(u, card, weak) };
+      UI.bandLit.labels.forEach(function (q) { mkTapeLabel(q.x, q.y, q.text); });
     }
     /* WHERE HIS WHIP REACHES (ARMORY 2, rule 320; rule 312: every skill shows where it lands): a whip man's two tiles round him, taped
        off like a gun's ground, so LASH's and DISARM's second tile is lit before he picks a man */

@@ -1,0 +1,168 @@
+{
+ "frames": [
+  {
+   "name": "light_crossbow",
+   "id": "light_crossbow",
+   "roof": false,
+   "at": {
+    "x": 2,
+    "y": 2,
+    "level": 0,
+    "words": "Your rifle: 1 to 6 tiles, best at 2 to 5.",
+    "card": "1 -7, 2 best, 3 best, 4 best, 5 best, 6 -12"
+   },
+   "lit": {
+    "tiles": 41,
+    "weak": 11,
+    "labels": [
+     "1:-7",
+     "6:-12"
+    ]
+   },
+   "crop": {
+    "x": 19.35735429793226,
+    "y": 223.3744026094979,
+    "w": 395.1959528296524,
+    "h": 217.2511947810042,
+    "zoom": 0.27444163390948084
+   }
+  },
+  {
+   "name": "scoped_deer_rifle",
+   "id": "scoped_deer_rifle",
+   "roof": false,
+   "at": {
+    "x": 2,
+    "y": 2,
+    "level": 0,
+    "words": "Your rifle: 1 to 8 tiles, best at 3 to 8.",
+    "card": "1 -19, 2 -9, 3 best, 4 best, 5 best, 6 best, 7 best, 8 best"
+   },
+   "lit": {
+    "tiles": 50,
+    "weak": 14,
+    "labels": [
+     "1:-19",
+     "2:-9"
+    ]
+   },
+   "crop": {
+    "x": 19.35735429793226,
+    "y": 223.3744026094979,
+    "w": 395.1959528296524,
+    "h": 217.2511947810042,
+    "zoom": 0.27444163390948084
+   }
+  },
+  {
+   "name": "dagger",
+   "id": "dagger",
+   "roof": false,
+   "at": {
+    "x": 2,
+    "y": 2,
+    "level": 0,
+    "words": "Your pistol: 1 to 4 tiles, best at 1 to 2.",
+    "card": "1 best, 2 best, 3 -10, 4 -20"
+   },
+   "lit": {
+    "tiles": 28,
+    "weak": 14,
+    "labels": [
+     "3:-10",
+     "4:-20"
+    ]
+   },
+   "crop": {
+    "x": 19.35735429793226,
+    "y": 223.3744026094979,
+    "w": 395.1959528296524,
+    "h": 217.2511947810042,
+    "zoom": 0.27444163390948084
+   }
+  },
+  {
+   "name": "pump_shotgun",
+   "id": "pump_shotgun",
+   "roof": false,
+   "at": {
+    "x": 2,
+    "y": 2,
+    "level": 0,
+    "words": "Your shotgun: 1 to 2 tiles, best at 1.",
+    "card": "1 best, 2 -10"
+   },
+   "lit": {
+    "tiles": 14,
+    "weak": 8,
+    "labels": [
+     "2:-10"
+    ]
+   },
+   "crop": {
+    "x": 19.35735429793226,
+    "y": 223.3744026094979,
+    "w": 395.1959528296524,
+    "h": 217.2511947810042,
+    "zoom": 0.27444163390948084
+   }
+  },
+  {
+   "name": "hunting_bow",
+   "id": "hunting_bow",
+   "roof": false,
+   "at": {
+    "x": 2,
+    "y": 2,
+    "level": 0,
+    "words": "Your bow: up to 7 tiles, best at 2 to 4.",
+    "card": "1 -6, 2 best, 3 best, 4 best, 5 -12, 6 -16, 7 -20"
+   },
+   "lit": {
+    "tiles": 45,
+    "weak": 23,
+    "labels": [
+     "1:-6",
+     "5:-12",
+     "6:-16",
+     "7:-20"
+    ]
+   },
+   "crop": {
+    "x": 19.35735429793226,
+    "y": 223.3744026094979,
+    "w": 395.1959528296524,
+    "h": 217.2511947810042,
+    "zoom": 0.27444163390948084
+   }
+  },
+  {
+   "name": "pump_shotgun_roof",
+   "id": "pump_shotgun",
+   "roof": true,
+   "at": {
+    "x": 4,
+    "y": 13,
+    "level": 1,
+    "words": "Your shotgun: 1 to 3 tiles from up here, best at 1.",
+    "card": "1 best, 2 -10, 3 x0.6"
+   },
+   "lit": {
+    "tiles": 29,
+    "weak": 22,
+    "labels": [
+     "2:-10",
+     "3:60%"
+    ]
+   },
+   "crop": {
+    "x": 19.35735429793226,
+    "y": 223.37440260949788,
+    "w": 395.1959528296524,
+    "h": 217.2511947810042,
+    "zoom": 0.27444163390948084
+   }
+  }
+ ],
+ "errs": []
+}

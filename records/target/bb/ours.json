@@ -2399,26 +2399,59 @@
  },
  "range_bands": {
   "value": {
-   "rifle": {
-    "hit_by_tile": {
-     "1": -15
-    },
+   "pistol": {
+    "hit_by_tile": {},
     "damage_by_tile": {}
    },
    "shotgun": {
     "hit_by_tile": {},
     "damage_by_tile": {
-     "2": 0.7
+     "3": 0.6,
+     "4": 0.35
     }
    },
-   "pistol": {
+   "rifle": {
+    "hit_by_tile": {
+     "1": -10
+    },
+    "damage_by_tile": {}
+   },
+   "scope": {
+    "line": {
+     "base": 10,
+     "per_tile": -1,
+     "free": 2
+    },
+    "hit_by_tile": {
+     "1": -20,
+     "2": -10
+    },
+    "damage_by_tile": {}
+   },
+   "bow": {
+    "hit_by_tile": {
+     "1": -10
+    },
+    "damage_by_tile": {}
+   },
+   "bottles": {
     "hit_by_tile": {},
     "damage_by_tile": {}
    }
   },
-  "source": "VAMILY.md rule 187 (Paolo 10/25, LOCKED); records/BOHEMIA_PAOLO_EVERY_WEAPON_HAS_ITS_RANGE_BANDS_10_25_26.md; COMBAT [every weapon's range bands] 10/26; reference/library/grok/GROK_03_RANGE_TRANSLATIONS_2026_09_30.md (Battle Brothers' long weapons are worse on the near tile; house-tile bands)",
+  "source": "VAMILY.md rule 187 (Paolo 10/25, LOCKED); records/BOHEMIA_PAOLO_EVERY_WEAPON_HAS_ITS_RANGE_BANDS_10_25_26.md; TUNING's one table section N (records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md: band.pistol, band.shotgun, band.shotgun_damage, band.rifle, band.rifle_close, band.scope, band.bow_close) from records/BOHEMIA_TUNING_EVERY_WEAPONS_RANGE_BANDS_10_26_26.md s4; WEAPONS 11/7 (ask line 108) put them live; COMBAT [every weapon's range bands] 10/26 seeded the first",
   "quote": "certain weapons will have their range accuracy; all weapons can shoot the tile next to them, depending on the type: a rifle shooting one tile next to it might be a range debuff; a shotgun, the closer you are, after one or two tiles",
-  "why": "OUR DEFAULT, seeded until TUNING's bands land in the one table (rule 187(b)(f)). Each gun job's band ON TOP of Battle Brothers' own fall of the shot a tile, which stays as the library gives it (the pistol rides the javelin row: +30, -10 a tile past the first, so it is already at home close: 75 75 65 55 for a 60-skill man at 1 to 4 tiles; the rifle the crossbow's +15, -3 a tile: 70 down to 55 at 6; the shotgun the handgonne's +10, -10 a tile: 65 55). hit_by_tile: points added to the chance at that many tiles; damage_by_tile: the share of the damage that arrives there (1 where none is written). rifle -15 at the next tile: his 'range debuff' point-blank, a long gun in a man's face (the size of Battle Brothers' near-tile penalty on its long weapons, by the library's reading, not a wiki number); shotgun 0.7 of its damage at 2 tiles: at a house a tile (about 15 m, about 30 m across the street) the pattern has opened (a buckshot load stays tight to about 15 to 25 m); the pistol none, Battle Brothers' row already falls off. A scoped rifle, 'best far', has no weapon row yet: its band comes with its row. TUNING may move every number.",
+  "why": "TUNING's numbers, live (WEAPONS 11/7; COMBAT's 10/26 seed was 'OUR DEFAULT until TUNING's bands land': the rifle -15, the shotgun 0.7 at two). Each band rides ON TOP of Battle Brothers' own fall of the shot a tile (the fight's shotLineOf), which stays as the library gives it. hit_by_tile: points added to the chance at exactly that many tiles; damage_by_tile: the share of the damage that arrives, a step (past the last tile listed the last share holds); line: a band's own fall a tile in place of the class's (base, per_tile, free tiles). PISTOL none: the thrown line already makes it best at one and two tiles (75 75 65 55 on a thug), NYPD hit rates fall the same way (RAND). SHOTGUN whole to two tiles, 0.6 at three, 0.35 at four: a cylinder bore's pattern opens about 0.6 inch a yard, every pellet on a torso to two tiles (a tile is a house, about 12 m), so the fall bites from a roof's extra tiles (rule 428(b)). RIFLE -10 at the next tile: handling, a long gun in a man's face (his 'range debuff'); best at two to five. SCOPE (weapons.json band 'scope', the scoped deer rifle; reach 8): its own line, +10 and -1 a tile past two, -20 at the next tile and -10 at two: the glass narrows the view close and holds the shot far (45 55 64 63 62 61 60 59 on a thug; TUNING's table words say +15, its own numbers are +10's). BOW -10 at the next tile: Battle Brothers lets no bow or crossbow shoot the next tile at all; rule 185 lets every weapon, so the bow takes the rifle's handling cut for the same reason (draft, a NOTE to TUNING). BOTTLES none: the thrown things start at two tiles (their rows' own minimum) on the thrown line. The storeys (COMBAT TWO, rule 428(b)) add reach and points and never multiply a band: the band reads the true distance in tiles.",
+  "draft": true,
+  "tuned": true
+ },
+ "range_bands_card": {
+  "value": {
+   "weak_at": -10
+  },
+  "source": "VAMILY.md rule 187(c) (Paolo 10/25: the tiles show the band's effect); WEAPONS 11/7 (ask line 108, the coordinator: 'shown on the tiles the way reach is lit')",
+  "quote": "certain weapons will have their range accuracy; all weapons can shoot the tile next to them",
+  "why": "OUR DEFAULT (draft): on his gun's taped ground a ring is hatched in tape, with how much it is worth less, when a shot there is weak_at points or more below his best ring, or the band cuts it (point-blank, a spread). -10 is one Battle Brothers step a tile on the Handgonne and the thrown line: the pistol best at one and two, the shotgun at one, the rifle at two to five, the scope at three to eight. TUNING may move it.",
   "draft": true,
   "tuned": false
  },
