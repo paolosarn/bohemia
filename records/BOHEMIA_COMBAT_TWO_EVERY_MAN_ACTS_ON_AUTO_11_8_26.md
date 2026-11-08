@@ -2,7 +2,7 @@
 
 VAMILY rule 435, ask line 520. Paolo 11/8: "not all my characters are moving and attacking on the auto combat mode now, I don't
 know why." A regression he played after 11/7za, 11/7zb and 11/7zc.
-BUILD 11/8d - EVERY MAN ACTS ON AUTO. BUILT, NOT YET SEEN.
+BUILD 11/8d - EVERY MAN ACTS ON AUTO. SHIPPED 145d48171, BUILT, NOT YET SEEN. VOTE combat2-every-man-acts-on-auto-11-8 (stand_in).
 
 ## THE CAUSE, MEASURED FIRST (headless, the live fight's rules, both sides on AUTO, the fifteen place boards and three towns, 36 fights)
 - His men stood (on the field, able, a tile nearer the fight open, nothing done) through 225 of 2,023 turns, 11.1%. On the code
