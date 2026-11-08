@@ -1,0 +1,221 @@
+BOHEMIA VOTE -- 11/8
+One tab, one queue. Paolo 9/14.
+
+YES  THE SHIELDS SHOW, AND THE SLEDGE IS IN HIS HANDS
+     id    combat-8-the-shields-show-11-6
+     kind  animation   lane combat   on 11/5
+
+YES  TAP A QUEST ON YOUR PHONE AND YOUR PEOPLE GO
+     id    ui7-tap-a-quest-on-the-phone-11-3
+     kind  ui   lane ui 7   on 11/5
+
+YES  THE LAB YARD: MORE LOVE
+     id    combat-place-lab-11-3c
+     kind  redo   lane combat   on 11/5
+
+YES  THE STRIP: MORE LOVE
+     id    combat-place-strip-11-3c
+     kind  redo   lane combat   on 11/5
+
+YES  THE RARE MAN'S CARD SAYS WHY YOU WANT HIM
+     id    hires-the-rare-card-on-the-phone-11-3
+     kind  ui   lane hires   on 11/5
+
+YES  FOURTEEN RARE MEN, EACH HIS OWN LOOK
+     id    hires-the-fourteen-rare-men-11-3
+     kind  outfit   lane hires   on 11/5
+
+YES  YOUR CREW IN THE CAMP: NO BROWN PANELS, TAP A MAN AND THE CAMERA GLIDES TO HIM
+     id    ui7-the-crew-sees-the-camp-11-3
+     kind  ui   lane ui 7   on 11/5
+
+YES  THE SAME FIGHT, THREE LEVELS
+     id    tuning-the-same-fight-three-levels-11-3
+     kind  tile   lane tuning   on 11/5
+
+YES  THE FIGHT'S BOARD IS NOW THE MAP'S OWN STREET WHERE THE FIGHT HAPPENS
+     id    combat2-the-board-is-the-city-11-6
+     kind  tile   lane combat 2   on 11/5
+     said  I love this bro, and hopefully by marrying the two no matter what we do moving forward in this regard like maybe you'll realize how fucked up your huge map world generation was and how fucked up your combat map generation was like bro like you gotta have streets in the right places, bro like damn your most houses are gonna have a street connecting them like there's never really gonna be House unless it's a fucking a trailer park you know but if there's a house there's a street in front of that type shit bro so hopefully that gives you something think about even on the big map scale cause that isn't final either so we do have time to edit that but yeah, I love it
+
+YES  SCAVENGE: YOUR THREE AS ONE GAME ON THE DEAD SHOT DIAL (A DESIGN, NOTHING BUILT)
+     id    scavenge-the-design-for-his-yes-11-7
+     kind  animation   lane scavenge   on 11/6
+     said  I want it to be like a fun minigame
+
+YES  STAND-IN: THE PISTOL IN HIS HAND, HELD LEVEL, ITS CARD IN THE DIRT, STILL NOT THE BAR
+     id    cook-the-pistol-stand-in-11-6
+     kind  animation   lane cook   on 11/6
+     said  Too tiny
+
+YES  THE ZOOM DOWN INTO THE BOARD: NO LOADING SCREEN, THE MAP TURNS INTO THE FIGHT
+     id    motion-the-zoom-down-into-the-board-11-6
+     kind  animation   lane motion   on 11/6
+     said  Needs more better
+
+NO   THE CARCASS AND THE VULTURES: A KILL STAYS WHERE IT FELL, AND THE BIRDS COME
+     id    world-11-the-carcass-and-the-vultures-11-6
+     kind  animation   lane world   on 11/6
+     said  Maybe you're not really making it like simplified bro you're adding information you're making some bullshit for some car shit like I just wanna easy. Quick interaction shit I don't know. Maybe they do end up in our storage I don't know. Like I just give you examples like I said something about like a shopping cart to pick up the bodies, but like that was an example and you just really ran with him, bro I don't know if I was the answer
+
+YES  THE VOTE TAB SAYS WHAT EACH ART PIECE IS
+     id    run2-the-marks-11-6
+     kind  ui   lane run 2   on 11/6
+
+YES  YOU SEE THEM RUN: A RETREAT YOU WATCH, TILE TO TILE
+     id    combat-9-you-see-them-run-11-6
+     kind  animation   lane combat   on 11/6
+
+YES  THE FIGHT IN THE PIT: NO RETREAT, NOBODY LEAVES, NOTHING OFF THE DEAD, AND THE CROWD THAT CHEERS, GASPS AND BOOS
+     id    arena-the-fight-in-the-pit-11-3
+     kind  sound   lane arena   on 11/6
+     said  The arena map is so fucking ugly bro
+
+YES  NO MORE NEXT PAGE: EVERY SCREEN FITS BY BEING SMALLER
+     id    ui9-smaller-never-pages-11-7
+     kind  ui   lane ui   on 11/7
+
+YES  THE WAY INTO A FIGHT: ONE CAMERA COMES DOWN, THE TAPE TRACKS, THE BOARD LANDS
+     id    motion-2-the-way-into-a-fight-11-7
+     kind  animation   lane motion   on 11/7
+
+YES  THE FIGHT'S BOARDS GOT THEIR OLD DRESSING BACK, ON THE MAP'S OWN STREETS
+     id    combat2-the-boards-wear-their-dressing-11-7
+     kind  tile   lane combat 2   on 11/7
+     said  Wip
+
+YES  THE CRAWL: A MAN OF YOURS STRUCK DOWN DRAGS HIMSELF AWAY
+     id    animation-the-crawl-golden-11-7
+     kind  animation   lane animation   on 11/7
+
+YES  THROUGH THE CLOUDS: THE CAMERA COMES DOWN THROUGH THE VALLEY'S DUST ONTO THE STREET
+     id    motion-2-through-the-clouds-11-8
+     kind  animation   lane motion   on 11/8
+
+YES  THE CREW SCREEN SEES THE FIGHT: RIGHT AFTER A FIGHT, YOUR MEN GOING THROUGH THE DEAD
+     id    animation-the-crew-sees-the-fight-11-7
+     kind  animation   lane animation   on 11/8
+
+YES  THE MAP AT NIGHT: EMBERS ARE EMBERS, LAMPS LIGHT THE GROUND
+     id    plumber-7-the-map-s-lights-11-7
+     kind  tile   lane plumber   on 11/8
+
+YES  THE ENEMY KNOWS WHEN IT IS OUTMATCHED: IT TAKES THE HOUSES AND WAITS
+     id    combat2-the-enemy-digs-in-11-7
+     kind  animation   lane combat 2   on 11/8
+
+YES  THE OLD FIGHT LAYOUTS ARE BACK, WITH THE NEW HOUSES IN THEM, AND YOU CAN STAND ON EVERY HOUSE
+     id    combat2-the-old-layout-the-new-houses-11-7
+     kind  tile   lane combat 2   on 11/8
+
+YES  YOUR TURN HITS 7 DB HARDER, ON THE BEAT, ONE PACE, MUSIC THE WHOLE FIGHT
+     id    sounds2-the-fight-as-you-hear-it-11-7
+     kind  sound   lane sounds 2   on 11/8
+
+YES  THE TERATORN: THE GIANT VULTURE IS ONE MORE BEAST YOU FIGHT
+     id    world-12-the-teratorn-11-7
+     kind  animation   lane world   on 11/8
+
+YES  EVERY WEAPON HAS ITS RANGE BANDS, TAPED ON THE GROUND
+     id    weapons-every-weapon-has-its-range-bands-11-7
+     kind  ui   lane weapons   on 11/8
+
+YES  EVERY ORIGIN ITS OWN GEAR, ITS OWN SHOP, ITS OWN RULE; THE LONE WOLF IN GOLD
+     id    origins-each-origin-its-own-11-7
+     kind  outfit   lane origins   on 11/8
+
+YES  NINE ENEMY TYPES IN THEIR OWN CLOTHES: THE HOUSE, THE BLOCK WATCH, THE KEEPERS, THE WATER PEOPLE
+     id    character-the-nine-enemies-their-own-clothes-11-7
+     kind  outfit   lane character   on 11/8
+
+YES  THE KILL GOES IN THE STASH: ONE TAP, NO CART, NO VULTURES
+     id    world-12-the-kill-goes-in-the-stash-11-7
+     kind  redo   lane world   on 11/8
+
+YES  THE SHOP SHOWS NOTHING ABOUT YOUR MEN UNTIL YOU TAP A PIECE
+     id    ui3-nothing-shows-until-he-taps-11-7
+     kind  ui   lane ui three   on 11/8
+
+YES  THE PIT FIGHT NOW HAPPENS IN THE PIT: A DRAINED VEGAS POOL, ITS WALLS THE EDGES, THE CROWD ROUND IT
+     id    arena2-the-pit-is-a-pit-11-7
+     kind  tile   lane arena 2   on 11/8
+
+YES  THE RETINUE: EIGHTEEN PEOPLE OF THE DEAD CITY, MET IN A TOWN'S HALL, STANDING BY YOUR FIRE
+     id    retinue-the-eighteen-11-7
+     kind  ui   lane retinue   on 11/8
+
+YES  THE WEAPON CARD IS PICTURES WITH BARS, THE BOXES ARE FRAMED BY QUALITY
+     id    ui3-the-item-card-and-the-item-box-11-7
+     kind  ui   lane ui three   on 11/8
+
+YES  THE PISTOL, NO LONGER TOO TINY: A FOREARM LONG IN HIS HAND
+     id    weapons-the-pistol-a-forearm-long-11-7
+     kind  animation   lane weapons   on 11/8
+
+YES  A FIGHT ON THE FREEWAY IS FOUGHT ON THE FREEWAY: THE DECK, THE OVERPASS, THE UNDERPASS, THE INTERCHANGE
+     id    freeway-the-freeway-fight-11-7
+     kind  tile   lane freeway   on 11/8
+
+YES  EVERY HOUSE NOW HAS A STREET IN FRONT OF IT, ON THE MAP AND IN THE FIGHT
+     id    world13-a-street-at-every-house-11-7
+     kind  tile   lane world 13   on 11/8
+
+YES  TRADE GOODS: BUY IT WHERE IT IS MADE, CARRY IT, SELL IT WHERE IT PAYS
+     id    economy-trade-goods-carried-11-7
+     kind  ui   lane economy   on 11/8
+
+YES  THE KILL CAMS, REMADE: ONLY THE KILLS THAT MATTER, ON YOUR CREW'S TAPE
+     id    animation-the-kill-cams-remade-11-7
+     kind  animation   lane animation   on 11/8
+
+YES  EVERY WEAPON SHOWS: THE TWO-HANDERS THAT WERE EMPTY HANDS, AND SIX NEW ONE-HANDERS
+     id    weapons-every-weapon-shows-11-7
+     kind  animation   lane weapons   on 11/8
+
+YES  SCAVENGE IS IN: YOUR THREE ON THE DEAD SHOT DIAL, ON THE BLOCK'S OWN BOARD
+     id    scavenge-on-the-dial-built-11-7
+     kind  animation   lane scavenge   on 11/8
+
+--- FOR THE REGISTRY (verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json) ---
+{"id":"combat-8-the-shields-show-11-6","vote":"up","said":"","when":"11/5"},
+{"id":"ui7-tap-a-quest-on-the-phone-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"combat-place-lab-11-3c","vote":"up","said":"","when":"11/5"},
+{"id":"combat-place-strip-11-3c","vote":"up","said":"","when":"11/5"},
+{"id":"hires-the-rare-card-on-the-phone-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"hires-the-fourteen-rare-men-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"ui7-the-crew-sees-the-camp-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"tuning-the-same-fight-three-levels-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"combat2-the-board-is-the-city-11-6","vote":"up","said":"I love this bro, and hopefully by marrying the two no matter what we do moving forward in this regard like maybe you'll realize how fucked up your huge map world generation was and how fucked up your combat map generation was like bro like you gotta have streets in the right places, bro like damn your most houses are gonna have a street connecting them like there's never really gonna be House unless it's a fucking a trailer park you know but if there's a house there's a street in front of that type shit bro so hopefully that gives you something think about even on the big map scale cause that isn't final either so we do have time to edit that but yeah, I love it","when":"11/5"},
+{"id":"scavenge-the-design-for-his-yes-11-7","vote":"up","said":"I want it to be like a fun minigame","when":"11/6"},
+{"id":"cook-the-pistol-stand-in-11-6","vote":"up","said":"Too tiny","when":"11/6"},
+{"id":"motion-the-zoom-down-into-the-board-11-6","vote":"up","said":"Needs more better","when":"11/6"},
+{"id":"world-11-the-carcass-and-the-vultures-11-6","vote":"down","said":"Maybe you're not really making it like simplified bro you're adding information you're making some bullshit for some car shit like I just wanna easy. Quick interaction shit I don't know. Maybe they do end up in our storage I don't know. Like I just give you examples like I said something about like a shopping cart to pick up the bodies, but like that was an example and you just really ran with him, bro I don't know if I was the answer","when":"11/6"},
+{"id":"run2-the-marks-11-6","vote":"up","said":"","when":"11/6"},
+{"id":"combat-9-you-see-them-run-11-6","vote":"up","said":"","when":"11/6"},
+{"id":"arena-the-fight-in-the-pit-11-3","vote":"up","said":"The arena map is so fucking ugly bro","when":"11/6"},
+{"id":"ui9-smaller-never-pages-11-7","vote":"up","said":"","when":"11/7"},
+{"id":"motion-2-the-way-into-a-fight-11-7","vote":"up","said":"","when":"11/7"},
+{"id":"combat2-the-boards-wear-their-dressing-11-7","vote":"up","said":"Wip","when":"11/7"},
+{"id":"animation-the-crawl-golden-11-7","vote":"up","said":"","when":"11/7"},
+{"id":"motion-2-through-the-clouds-11-8","vote":"up","said":"","when":"11/8"},
+{"id":"animation-the-crew-sees-the-fight-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"plumber-7-the-map-s-lights-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"combat2-the-enemy-digs-in-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"combat2-the-old-layout-the-new-houses-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"sounds2-the-fight-as-you-hear-it-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"world-12-the-teratorn-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"weapons-every-weapon-has-its-range-bands-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"origins-each-origin-its-own-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"character-the-nine-enemies-their-own-clothes-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"world-12-the-kill-goes-in-the-stash-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"ui3-nothing-shows-until-he-taps-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"arena2-the-pit-is-a-pit-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"retinue-the-eighteen-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"ui3-the-item-card-and-the-item-box-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"weapons-the-pistol-a-forearm-long-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"freeway-the-freeway-fight-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"world13-a-street-at-every-house-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"economy-trade-goods-carried-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"animation-the-kill-cams-remade-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"weapons-every-weapon-shows-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"scavenge-on-the-dial-built-11-7","vote":"up","said":"","when":"11/8"},
