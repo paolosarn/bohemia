@@ -7,7 +7,7 @@ three story houses... there's no ladder system, the ladder system is not realist
 street, that's how you get shot at the most... a 4 x 4 of house tiles... I can't even get on any of them... the map has to change
 too... you have to understand the difference between layouts and assets: I like the new assets for the houses, but the layout is
 dog shit, I prefer the previous layouts... use the layout of before and just swap the house assets."
-BUILD 11/7zb - THE OLD LAYOUT, THE NEW HOUSES. BUILT, NOT YET SEEN.
+BUILD 11/7zb - THE OLD LAYOUT, THE NEW HOUSES. SHIPPED deb130081, BUILT, NOT YET SEEN. VOTE combat2-the-old-layout-the-new-houses-11-7 (stand_in).
 
 ## WHAT CHANGED, BY HIS LETTERS
 (a) LAYOUT AND ASSETS ARE TWO THINGS. A fight from the map deals the seeded template board again (the boards before b6f4215c0: the
