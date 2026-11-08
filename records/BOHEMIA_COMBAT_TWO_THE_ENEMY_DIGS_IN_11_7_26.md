@@ -2,7 +2,7 @@
 
 VAMILY rule 428(d), ask line 503. Paolo 11/7: "the enemy AI, they know that our mercenary team will absolutely destroy them, they're
 definitely gonna try to get some defensive bonus and not rush us... maybe even go backwards to find some good defensive bonuses."
-BUILD 11/7zc - THE ENEMY DIGS IN. BUILT, NOT YET SEEN (on top of 11/7zb THE OLD LAYOUT, THE NEW HOUSES).
+BUILD 11/7zc - THE ENEMY DIGS IN. SHIPPED 0506dff2a, BUILT, NOT YET SEEN. VOTE combat2-the-enemy-digs-in-11-7 (stand_in) (on top of 11/7zb THE OLD LAYOUT, THE NEW HOUSES).
 
 ## WHAT
 - THE ODDS READ (slices/BOHEMIA_FIGHT.html sidePower, oddsOf): a side's strength is the sum over its men on the field of what keeps
