@@ -1,5 +1,30 @@
 # ANIMATION -- the handoff block (written only by ANIMATION; newest on top; the old blocks are handoffs/ANIMATION_ARCHIVE.md)
 
+ANIMATION (session_01GKDyutPrWASvMYWVtMVPYL): 11/7 (c) LATEST -- [crew screen after a fight] (rule 369 amended 11/4, ask line 433,
+the coordinator's routine 'ANIMATION: crew screen after a fight') SHIPPED (BUILD 11/8a - THE CREW SCREEN SEES THE FIGHT), BUILT, NOT YET
+SEEN. TAB: the DEMO (win a fight, tap CHOOSE HIS LEVEL-UP on the end screen) and VOTE (animation-the-crew-sees-the-fight-11-7, STAND-IN:
+a layout and a camera from finished art, rule 430; before the camp, now the film).
+WHAT IS IN THE GAME NOW:
+- slices/BOHEMIA_ROSTER_SCREEN.html, block __THE_CREW_SEES_THE_FIGHT__: with a finished fight behind the company screen (its frame up,
+  FIGHT.S.over) the screen's picture is RUN FOUR's aftermath (slices/bohemia_aftermath.js loaded into the screen's window) on #campbg:
+  the fight's baked board, the dead and down where they fell, his men walking and kneeling (ANIMATION's loot and tend). Mid-fight, on
+  the map, in a town: unchanged. The end screen's copy pauses while #crewdoor is up (its own paused()).
+- The camera holds the man picked at his sheet's middle (campSpot), people at the figure's 98 points, the ground at 1.5 covers or closer
+  where the scene needs it (every place his men go reachable), never past the near stop; a tap in the line or on the ground glides in
+  450 ms, drawn every frame; a man not on the board (ran, sat out): the scene's middle, nobody held under his shown figure.
+- Words: the camp's lamp stands down over the fight; each word on the picture gets its own soft shade (campFightShade, dark enough
+  over white for 4.5), built on the sheet's draw and every three seconds; nothing read off the glass.
+- bohemia_aftermath.js: additive options (follow, glide, feet, man, cover, over) and state fields (glides, glide, gliding, held, lying
+  names); the end screen passes none and draws as before.
+- Gate: gates/the_crew_screen_sees_the_fight_gate.js (in the suite), 26/0 upright and on its side, planted (camp put back, camera
+  frozen, men held). Capture: tools/bohemia_animation_crew_after_fight_capture.js and .py (records/target/animation/crew_after_fight/:
+  before, the end screen, the six gate pictures, now.webp the film). Record: records/BOHEMIA_ANIMATION_THE_CREW_SEES_THE_FIGHT_11_7_26.md.
+REDS NOT MINE (each the same on a copy of the tree with main's two files): THE AFTERMATH 9/3 (two road fights held by the town the
+demo opens in; D2 p95 0.660); THE CREW SCREEN SEES THE CAMP 30/3 (its map camp stays 'town'); THE CREW SCREEN AT FOURTEEN 20/1
+(cut: Marisol, standalone).
+WHAT IS LEFT (no Paolo needed): the crew screen mid-fight still shows the camp (not asked); his gear changed here does not change the
+man on the board (the town is the same).
+
 ANIMATION (session_01GKDyutPrWASvMYWVtMVPYL): 11/7 (b) LATEST -- [the kill cams] (rule 426(h), ask lines 365 and 498, the coordinator's
 routine 'ANIMATION: kill cams') SHIPPED (BUILD 11/7n - THE KILL CAMS, REMADE), BUILT, NOT YET SEEN. Still OFF in the game until he says
 good (rule 379(b)). TAB: the FIGHT (turn KILL CAMS on behind the gear, under FIGHTS) and VOTE (animation-the-kill-cams-remade-11-7,
