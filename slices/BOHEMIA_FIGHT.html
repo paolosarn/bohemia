@@ -1423,7 +1423,10 @@ const FIGHT = (function () {
   function housesIn(opts, cx, cy) {
     const T = S.boardDef, K = DB.streetKit, D = DB.streetDress, SB = typeof window !== 'undefined' ? window.BohemiaStreetBoard : null;   /* headless: no window, no houses */
     if (!K || !D || !SB || !SB.fromTemplate || !T || !T.blocks || T.laid) return false;
-    if (!T.blocks.some(function (r) { return r.some(function (n) { return !!SB.HOUSE_KINDS[kindOf(String(n).split('|')[0])]; }); })) return false;
+    /* __EVERY_BUILDING_ON_THE_ROAD__ (rule 429(h)): every board the old layouts deal is laid, so its roads are joined (a board with no
+       house as well: the Strip, downtown, the airport, the lab); ours.road_network.on false: only boards with houses, as before */
+    const RN = R('ours.road_network');
+    if (!(RN && RN.on) && !T.blocks.some(function (r) { return r.some(function (n) { return !!SB.HOUSE_KINDS[kindOf(String(n).split('|')[0])]; }); })) return false;
     const G = DB.ground, oldRoof = [], solid = S.solid.map(function (r) { return r.slice(); });
     for (let y = 0; y < S.h; y++) { oldRoof.push([]); for (let x = 0; x < S.w; x++) oldRoof[y].push(isRoof(x, y)); }
     const ST = R('ours.storeys');
@@ -1436,7 +1439,8 @@ const FIGHT = (function () {
     let L = null;
     try { L = SB.fromTemplate(T, D, K, { W: S.w, H: S.h, ring: STREET_RING, bt: G.block_tiles, tile_px: G.tile_px, tile_metres: G.tile_metres, def: pieceDef,
       seed: cx !== undefined ? (cx * 7919 + cy * 104729 + 1) >>> 0 : SEED, surround: function (bx, by) { return ringName(T, bx, by); }, libOf: libOf,
-      solidAt: function (x, y) { return solid[y][x]; }, storeyShare: mix || ST.share, storeyPics: DB.streetStoreys ? DB.streetStoreys.houses : null }); }
+      solidAt: function (x, y) { return solid[y][x]; }, storeyShare: mix || ST.share, storeyPics: DB.streetStoreys ? DB.streetStoreys.houses : null,
+      roads: opts.roads === false ? null : RN }); }
     catch (e) { S.housesErr = String(e && e.message || e); return false; }
     if (!L) return false;
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (oldRoof[y][x]) L.roofs[y][x] = true;   /* the template's own roofs stay roofs */

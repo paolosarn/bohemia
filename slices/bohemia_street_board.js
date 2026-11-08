@@ -585,10 +585,166 @@
         cover = cover.filter(function (c) { var keep = !(Math.floor(c.x_m / tm) === x2 && Math.floor(c.y_m / tm) === y2); if (!keep) dropped.push(c.piece); return keep; });
       }
     }
-    for (var y3 = 0; y3 < H; y3++) for (var x3 = 0; x3 < W; x3++) { var a3 = A[(y3 + R) * AW + x3 + R]; if (a3 && !a3.house && a3.dark >= 30 && terrain[y3][x3] === 'flat') tiles[y3][x3] = 'street'; }
+    var lights = (T.lights || []).slice(), RN = o.roads && o.roads.on ? o.roads : null, net = null;
+    if (RN) { net = roadsJoin(); }
+    else for (var y3 = 0; y3 < H; y3++) for (var x3 = 0; x3 < W; x3++) { var a3 = A[(y3 + R) * AW + x3 + R]; if (a3 && !a3.house && a3.dark >= 30 && terrain[y3][x3] === 'flat') tiles[y3][x3] = 'street'; }
     sprites.sort(function (p1, q1) { return p1.line - q1.line || p1.x - q1.x; });
-    return { W: W, H: H, ring: R, AW: AW, AH: AH, ground: ground, sprites: sprites, terrain: terrain, roofs: roofs, storeys: storeys, cover: cover, lights: (T.lights || []).slice(),
-      tiles: tiles, houses: made, yards: yards, dropped: dropped, template: true, X0: 0, Y0: 0, start: T.start || null, camp: T.camp || null };
+    return { W: W, H: H, ring: R, AW: AW, AH: AH, ground: ground, sprites: sprites, terrain: terrain, roofs: roofs, storeys: storeys, cover: cover, lights: lights,
+      tiles: tiles, houses: made, yards: yards, dropped: dropped, template: true, X0: 0, Y0: 0, start: T.start || null, camp: T.camp || null,
+      road: net ? net.road : null, roads: net ? net.say : null };
+    /* __EVERY_BUILDING_ON_THE_ROAD__ (COMBAT TWO 11/8, VAMILY rule 429(h), ask lines 504 and 505; Paolo 11/7: 'every building needs to
+       have a road on it, the road can be big, the road can be small, sometimes roads four tiles wide and that's OK, but a building
+       needs to be part of whatever road network you want there to be'). The roads of the board, read from its own pictures, then
+       joined, where and only where a building stood off them or a piece of road went nowhere (o.roads: ours.road_network):
+         THE ROAD: a tile of asphalt (its picture's dark share at asphalt_dark or more, on a kind that has asphalt: never the landfill's
+           trash, the canyon's shadow, the casino's carpet; never a roof, a house or water); every open
+           tile of a paved kind (the airport's apron, the lab's yard: their concrete is the road the trucks drove); the one tile
+           between two (a median, the middle lane); a wreck across a lane (up to wreck_gap blocked tiles in a line between two);
+           a piece too small to be a road (under min_piece tiles each way, the shadow of a wall, a parking pad alone) is no road.
+         A BUILDING: every house; else a lump of a built kind's walls and roofs that is no road, of two tiles or with a roof (one
+           blocked tile alone is a thing: a car, a sign, a bin).
+         THE DRIVE: a building with no road beside it gets the cheapest walk of open ground to the road (its front, south, first);
+         THE JOIN: every piece of road the main one can reach over open ground is joined to it the same way; a piece walled off
+           edge to edge (the Strip's casino wall, Fremont's canopy) runs off the board into the city and stays as it is; a piece that
+           can join none and reaches no edge runs on to the nearest edge (the warehouse street that ended where the desert began); a
+           road that ends at a casino's floor (the casino districts deal street blocks between them) ends at the casino it serves.
+         THE PAINT: a joined tile is the street kit's own road (north-south, east-west, the junction where it meets more), flat,
+           a street; what stood on it (a fence, a wall's piece, a lamp) is gone. Nothing else of the board moves. */
+    function roadsJoin() {
+      var set = function (l) { var s = {}; (l || []).forEach(function (k) { s[k] = 1; }); return s; };
+      var BUILT = set(RN.built), PAVED = set(RN.paved), ASPH = RN.asphalt ? set(RN.asphalt) : null, DK = RN.asphalt_dark || 30, GAP = RN.wreck_gap || 2, MINP = RN.min_piece || 3;
+      var PAINT = set(RN.paint_on || ['flat', 'rough', 'debris']), NOP = set(RN.no_paint), C = RN.cost || {}, D4 = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+      var aAt = function (x, y) { return A[(y + R) * AW + x + R]; }, inb = function (x, y) { return x >= 0 && y >= 0 && x < W && y < H; };
+      var road = new Uint8Array(W * H), say = { asphalt: 0, paved: 0, between: 0, wreck: 0, shadow: 0, drives: 0, joins: 0, painted: 0, walled: 0, cut: [] };
+      var houseAt = function (x, y) { return tiles[y][x] === 'house'; }, roofT = function (x, y) { return isH(terrain[y][x]); };
+      /* 1. the surface */
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+        var a = aAt(x, y), t = terrain[y][x]; if (!a || houseAt(x, y) || roofT(x, y) || t === 'water') continue;
+        if (PAVED[a.kind] && t !== 'blocked') { road[y * W + x] = 2; say.paved++; }
+        else if (t !== 'blocked' && a.dark >= DK && (!ASPH || ASPH[a.kind])) { road[y * W + x] = 1; say.asphalt++; }
+      }
+      var on = function (x, y) { return inb(x, y) && road[y * W + x] > 0; };
+      /* 2. between: the median, the middle lane (one open tile between two road tiles), a wreck across the lane */
+      var add = [], wreckT = function (x, y) { return inb(x, y) && !road[y * W + x] && terrain[y][x] === 'blocked' && !houseAt(x, y) && !!aAt(x, y); };
+      for (var y1 = 0; y1 < H; y1++) for (var x1 = 0; x1 < W; x1++) {
+        if (road[y1 * W + x1] || houseAt(x1, y1) || roofT(x1, y1) || terrain[y1][x1] === 'water' || !aAt(x1, y1)) continue;
+        var bl = terrain[y1][x1] === 'blocked';
+        for (var dd = 0; dd < 4; dd += 2) { var dx = D4[dd][0], dy = D4[dd][1];
+          if (!bl) { if (on(x1 - dx, y1 - dy) && on(x1 + dx, y1 + dy)) { add.push([x1, y1, false]); break; } continue; }
+          /* a wreck: the run of blocked tiles through this one along the line, GAP long at most, road at both ends */
+          var b = 0, f = 0; while (b < GAP && wreckT(x1 - (b + 1) * dx, y1 - (b + 1) * dy)) b++; while (f < GAP && wreckT(x1 + (f + 1) * dx, y1 + (f + 1) * dy)) f++;
+          var ax0 = x1 - (b + 1) * dx, ay0 = y1 - (b + 1) * dy, ax1 = x1 + (f + 1) * dx, ay1 = y1 + (f + 1) * dy;   /* asphalt at both ends: a paved yard's hut wall is no wreck */
+          if (b + f + 1 <= GAP && inb(ax0, ay0) && inb(ax1, ay1) && road[ay0 * W + ax0] === 1 && road[ay1 * W + ax1] === 1) { add.push([x1, y1, true]); break; }
+        }
+      }
+      add.forEach(function (q) { road[q[1] * W + q[0]] = 1; if (q[2]) say.wreck++; else say.between++; });
+      /* 3. a piece too small to be a road is a shadow, a pad, a lot alone */
+      var pieces = function () { var id = new Int32Array(W * H).fill(-1), out = [];
+        for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) { if (!road[y * W + x] || id[y * W + x] >= 0) continue;
+          var c = [], q = [[x, y]]; id[y * W + x] = out.length;
+          while (q.length) { var p = q.pop(); c.push(p); for (var d = 0; d < 4; d++) { var u = p[0] + D4[d][0], v = p[1] + D4[d][1]; if (on(u, v) && id[v * W + u] < 0) { id[v * W + u] = out.length; q.push([u, v]); } } }
+          out.push(c); }
+        return { id: id, list: out }; };
+      var P0 = pieces();
+      P0.list.forEach(function (c) { var x0 = 1e9, x1 = -1, y0 = 1e9, y1 = -1; c.forEach(function (p) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); });
+        if (x1 - x0 + 1 < MINP && y1 - y0 + 1 < MINP && !c.some(function (p) { return road[p[1] * W + p[0]] === 2; })) c.forEach(function (p) { road[p[1] * W + p[0]] = 0; say.shadow++; }); });
+      /* 4. the buildings: every house; a lump of a built kind's walls and roofs (two tiles or a roof) */
+      var bAt = function (x, y) { if (!inb(x, y) || road[y * W + x]) return false; if (houseAt(x, y)) return true; var a = aAt(x, y);
+        return !!a && !!BUILT[a.kind] && (terrain[y][x] === 'blocked' || roofT(x, y)); };
+      var seen = new Uint8Array(W * H), blds = [];
+      for (var y2 = 0; y2 < H; y2++) for (var x2 = 0; x2 < W; x2++) {
+        if (seen[y2 * W + x2] || !bAt(x2, y2)) continue;
+        if (houseAt(x2, y2)) { seen[y2 * W + x2] = 1; blds.push([[x2, y2]]); continue; }   /* a house is a building of its own */
+        var c = [], q = [[x2, y2]]; seen[y2 * W + x2] = 1;
+        while (q.length) { var p = q.pop(); c.push(p); for (var d = 0; d < 4; d++) { var u = p[0] + D4[d][0], v = p[1] + D4[d][1]; if (bAt(u, v) && !houseAt(u, v) && !seen[v * W + u]) { seen[v * W + u] = 1; q.push([u, v]); } } }
+        if (c.length >= 2 || c.some(function (p) { return roofT(p[0], p[1]); })) blds.push(c);
+      }
+      /* the walk of open ground: what a tile costs to pave (open ground 1, a busy picture more, rough ground, a piece on it) */
+      var tm2 = tm, pieceOn = {};
+      cover.forEach(function (c) { var tx = c.tx != null ? c.tx : Math.floor(c.x_m / tm2), ty = c.ty != null ? c.ty : Math.floor(c.y_m / tm2); pieceOn[ty * W + tx] = (pieceOn[ty * W + tx] || 0) + 1; });
+      var cost = function (x, y) { if (!inb(x, y) || houseAt(x, y) || roofT(x, y)) return Infinity; var t = terrain[y][x]; if (!PAINT[t]) return Infinity; var a = aAt(x, y); if (!a || NOP[a.kind]) return Infinity;   /* never through a casino's floor */
+        var v = C.step || 1; if (t !== 'flat') v += C.rough || 1; if (pieceOn[y * W + x]) v += C.piece || 2; if (o.solidAt && o.solidAt(x, y)) v += C.solid || 3;
+        v += (C.busy || 0.02) * (a.info.edge ? a.info.edge[a.sy * bt + a.sx] || 0 : 0); return v; };
+      /* the cheapest walk from the tiles in 'from' (cost each) to a tile 'to' says yes for, painting none of it yet */
+      /* the walk's states are a tile and the way it was entered, so a turn costs C.turn: a drive runs straight, one corner, never
+         a staircase */
+      var walk = function (from, to, incl) {
+        var NS = W * H * 5, dist = new Float64Array(NS).fill(Infinity), prev = new Int32Array(NS).fill(-1), open = [], TURN = C.turn != null ? C.turn : 0.6;
+        var hitEnd = function (st) { var path = [], n = st; while (n >= 0) { var t0 = Math.floor(n / 5); path.push([t0 % W, Math.floor(t0 / W)]); n = prev[n]; } return path; };
+        if (incl) { var best = null; from.forEach(function (f) { if (best === null && to(f[0], f[1]) && cost(f[0], f[1]) < Infinity) best = [[f[0], f[1]]]; }); if (best) return best; }
+        from.forEach(function (f) { var c0 = cost(f[0], f[1]); if (c0 === Infinity) return; var st = (f[1] * W + f[0]) * 5 + (f[3] != null ? f[3] : 4), v = c0 + (f[2] || 0);
+          if (v < dist[st]) { dist[st] = v; open.push(st); } });
+        var done = new Uint8Array(NS);
+        while (open.length) {
+          var bi = 0; for (var i = 1; i < open.length; i++) if (dist[open[i]] < dist[open[bi]]) bi = i;
+          var st = open[bi]; open.splice(bi, 1); if (done[st]) continue; done[st] = 1;
+          var cur = Math.floor(st / 5), dIn = st % 5, cx = cur % W, cy = (cur - cx) / W;
+          if (incl && to(cx, cy)) return hitEnd(st);   /* the end itself is paved too (the board's edge, where the road comes in) */
+          for (var d = 0; d < 4; d++) { var u = cx + D4[d][0], v = cy + D4[d][1]; if (!inb(u, v)) continue;
+            if (!incl && to(u, v)) return hitEnd(st);
+            var cc = cost(u, v); if (cc === Infinity) continue;
+            var ns = (v * W + u) * 5 + d, nv = dist[st] + cc + (dIn !== 4 && dIn !== d ? TURN : 0);
+            if (!done[ns] && nv < dist[ns]) { dist[ns] = nv; prev[ns] = st; open.push(ns); } }
+        }
+        return null; };
+      var paint = function (path) { path.forEach(function (p) { if (!road[p[1] * W + p[0]]) { road[p[1] * W + p[0]] = 3; say.painted++; } }); };
+      var edge = function (u, v) { return u === 0 || v === 0 || u === W - 1 || v === H - 1; };
+      /* a road that runs off the board, or into a casino's floor (the building it serves, its own drive): it goes somewhere */
+      var intoFloor = function (u, v) { var a = inb(u, v) ? aAt(u, v) : null; return !!a && !!NOP[a.kind]; };
+      var touchesEdge = function (c) { return c.some(function (p) { return edge(p[0], p[1]) || D4.some(function (d) { return intoFloor(p[0] + d[0], p[1] + d[1]); }); }); };
+      var fronts = function (c) { var from = [], mine = {}; c.forEach(function (p) { mine[p[1] * W + p[0]] = 1; });
+        c.forEach(function (p) { D4.forEach(function (d) { var u = p[0] + d[0], v = p[1] + d[1]; if (inb(u, v) && !mine[v * W + u]) from.push([u, v, d[1] === 1 ? 0 : (C.side || 0.5), D4.indexOf(d)]); }); });
+        return from; };
+      var around = function (c) { var from = []; c.forEach(function (p) { D4.forEach(function (d, di) { var u = p[0] + d[0], v = p[1] + d[1]; if (inb(u, v) && !on(u, v)) from.push([u, v, 0, di]); }); }); return from; };
+      var mainOf = function (Pn) { var m = 0; Pn.list.forEach(function (c, i) { if (c.length > Pn.list[m].length) m = i; }); return m; };
+      var hasB = blds.length > 0;
+      /* 5a. a board with buildings and no road at all (the golf course's clubhouse): the road comes in from the city, at the board's
+         edge, to the biggest building's front */
+      if (hasB && !pieces().list.length) {
+        var bigB = blds.reduce(function (p, q) { return q.length > p.length ? q : p; });
+        var fb = fronts(bigB), pe = walk(fb.filter(function (f) { return !f[2]; }), edge, true) || walk(fb, edge, true);   /* from its front first */
+        if (pe) { paint(pe); say.edge = (say.edge || 0) + 1; }
+      }
+      /* 5. the drives: a building with no road beside it, its front (south) first */
+      blds.forEach(function (c) {
+        if (c.some(function (p) { return D4.some(function (d) { return on(p[0] + d[0], p[1] + d[1]); }); })) return;
+        var path = walk(fronts(c), on); if (path) { paint(path); say.drives++; } else say.cut.push('building@' + c[0].join(','));
+      });
+      /* 6. one network: the biggest piece reaches out for every other it can (a board with no building, the pass, the wash: only a
+         piece that goes nowhere; a road that runs off the board both ways there is the highway going through, left as it is) */
+      for (var guard = 0; guard < 60; guard++) {
+        var Pn = pieces(); if (Pn.list.length < 2) break;
+        var order = Pn.list.map(function (c, i) { return i; }).sort(function (i, j) { return Pn.list[j].length - Pn.list[i].length; }), path2 = null;
+        /* the biggest piece that can reach another reaches out (a piece walled in by warehouses on both sides lets the next one try) */
+        for (var oi = 0; oi < order.length && !path2; oi++) { var me = order[oi], meOut = touchesEdge(Pn.list[me]);
+          path2 = walk(around(Pn.list[me]), function (u, v) { if (!on(u, v)) return false; var j = Pn.id[v * W + u]; return j !== me && (hasB || !meOut || !touchesEdge(Pn.list[j])); }); }
+        if (!path2) break;
+        paint(path2); say.joins++;
+      }
+      /* 6c. a piece that joined nothing and reaches no edge runs on to the nearest edge: never a stub that goes nowhere */
+      for (var guard3 = 0; guard3 < 20; guard3++) { var Ps = pieces(), stub = null;
+        Ps.list.forEach(function (c) { if (!stub && Ps.list.length > 1 && !touchesEdge(c)) stub = c; });
+        if (!stub) break; var pe3 = walk(around(stub), edge, true); if (!pe3) break; paint(pe3); say.edge = (say.edge || 0) + 1; }
+      /* 6b. the network reaches the city: on a board with buildings, the main piece runs off the board's edge somewhere */
+      if (hasB) { var Pm = pieces(); if (Pm.list.length) { var mm = mainOf(Pm);
+        if (!touchesEdge(Pm.list[mm])) { var pe2 = walk(around(Pm.list[mm]), edge, true); if (pe2) { paint(pe2); say.edge = (say.edge || 0) + 1; } } } }
+      var Pf = pieces(); say.pieces = Pf.list.length; say.walled = Math.max(0, Pf.list.length - 1);
+      /* 7. the paint: the street kit's own road on every joined tile; flat; a street; what stood on it gone */
+      var spc = function (k) { return K.streets && K.streets.pieces[k] ? K.streets.dir + K.streets.pieces[k].src : null; };
+      for (var y4 = 0; y4 < H; y4++) for (var x4 = 0; x4 < W; x4++) {
+        var r4 = road[y4 * W + x4]; if (!r4) continue;
+        if (r4 === 3) {
+          var nN = on(x4, y4 - 1), nS = on(x4, y4 + 1), nE = on(x4 + 1, y4), nW = on(x4 - 1, y4);
+          var pk = (nN || nS) && !(nE || nW) ? 'road_ns' : (nE || nW) && !(nN || nS) ? 'road_ew' : 'junction', src = spc(pk) || spc('junction');
+          if (src) ground[(y4 + R) * AW + x4 + R] = src;
+          terrain[y4][x4] = 'flat';
+          cover = cover.filter(function (c) { var tx = c.tx != null ? c.tx : Math.floor(c.x_m / tm2), ty = c.ty != null ? c.ty : Math.floor(c.y_m / tm2); var keep = !(tx === x4 && ty === y4); if (!keep) dropped.push(c.piece); return keep; });
+          lights = lights.filter(function (l) { return !(Math.floor(l.x_m / tm2) === x4 && Math.floor(l.y_m / tm2) === y4); });
+        }
+        if (terrain[y4][x4] === 'flat') tiles[y4][x4] = r4 === 2 ? 'paved' : 'street';
+      }
+      return { road: road, say: say };
+    }
   }
   /* a ground entry 'block_yards_1.webp#3,1h' is a tile of a block's picture (column 3, row 1, mirrored): the picture is the block's */
   function picOf(g) { var i = g.indexOf('#'); return i < 0 ? g : g.slice(0, i); }

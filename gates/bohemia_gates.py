@@ -10690,6 +10690,13 @@ GATES = [
      "who is able (on the field, not running, not held in a man's reach, the breath for a step, the fight within his walk) he moves or strikes; a shooter in "
      "cover with no man in reach may hold. The sides meet: every man of theirs starts on ground his line walks to (the Strip's casino wall). Planted: one man's "
      "AUTO turn skipped; a man of theirs behind the wall.", True),
+    ('EVERY BUILDING ON THE ROAD', ['node', 'gates/every_building_on_the_road_gate.js'],
+     "COMBAT TWO gate, 11/8, VAMILY rule 429(h) (ask lines 504 and 505; PAOLO 11/7: 'every building needs to have a road on it, the road can be big, the road can be small... "
+     "a building needs to be part of whatever road network you want there to be'). 600 boards of the live deal (the 15 place boards x 20 seeds, every other district x 6): "
+     "every building (every house; a built kind's walls and roofs) fronts a road (R1); the roads are one network, a piece apart only where a wall runs edge to edge "
+     "and it runs off the board (R2); every joined tile is the street kit's own road, never on a casino's floor, every other road tile the board's own asphalt, paved "
+     "kind or lane (R3); nothing changed but the tiles painted, against the join off (R4); roads one, two, three and four or more tiles wide (R5); enough boards (R6). "
+     "Planted: a house's road taken away; a stub of road apart; a painted tile showing a yard. About 20 s", True),
     ('THE OLD LAYOUT, THE NEW HOUSES', ['node', 'gates/the_old_layout_the_new_houses_gate.js'],
      "COMBAT TWO gate, 11/7, VAMILY rule 423 (ask lines 484 to 488; PAOLO 11/7: 'each house should be connected by road or mini road... every house should be a tile that I can be on... one story... a defense boost, but not a range offense boost... there's no ladder system... no one wants to be right in the middle of the street... use the layout of before and just swap the house assets'): 44 spots, the template's layout with the new houses (A1), every house touches a way and every floor tile joins his line (B1 B2), every house tile enterable at its storeys (C1), storeys 1 to 3 most two or three, one storey no reach (D1 D2), no climb into a house and no ladder drawn (D3), AUTO's open street cost and its moves (E1 E2); a planted fail for each. About 25 s", True),
     ('THE BOARD IS THE CITY AT THAT SPOT', ['node', 'gates/the_board_is_the_city_at_that_spot_gate.js'],

@@ -89,7 +89,9 @@ function deal(ctx, d, c, seed, extra) {
     const blocks = JSON.stringify(B.blocks), terr = S.terrain.map(r => r.slice()), hs = f.houses.map(h => h.join(','));
     const T = deal(ctx, d, c, seed, { houses: false });
     const sameBlocks = JSON.stringify(T.boardDef.blocks) === blocks;
-    let sameT = true; for (let y = 0; y < T.h; y++) for (let x = 0; x < T.w; x++) if (hs.indexOf(x + ',' + y) < 0 && terr[y][x] !== T.terrain[y][x]) sameT = false;
+    /* a tile the road join painted (rule 429(h), EVERY BUILDING ON THE ROAD R4 gates it) is the join's, not the layout's */
+    const painted = (x, y) => !!(L.road && L.road[y * T.w + x] === 3);
+    let sameT = true; for (let y = 0; y < T.h; y++) for (let x = 0; x < T.w; x++) if (hs.indexOf(x + ',' + y) < 0 && !painted(x, y) && terr[y][x] !== T.terrain[y][x]) sameT = false;
     const onHouse = hs.every(k => { const [x, y] = k.split(',').map(Number), t = T.terrain[y][x]; return t === 'blocked' || /^height/.test(t); });
     a1n++; if (sameBlocks && sameT && onHouse) a1++;
     if (ctx.FIGHT.S.storeyMix === 'table') tableMix++;

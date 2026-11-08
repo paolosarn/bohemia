@@ -4455,5 +4455,83 @@
   "quote": "the enemy AI, they know that our mercenary team will absolutely destroy them, they're definitely gonna try to get some defensive bonus and not rush us... maybe even go backwards to find some good defensive bonuses",
   "why": "COMBAT TWO 11/7: the odds read (a side's men: hit points and both armours times the weapon's middle damage times the skill with it, summed); a side of men under ratio of the other's digs in for its first max_rounds rounds: its walk weighs the ground ground_weight times (the open street worst, a house, roof or cover best) and approach_steps steps for every tile it closes on the nearest man of the other side (going back is free), it may hold, and it walks for a blow only where it does not close (or for a kill on offer); after max_rounds the fight comes to it either way.",
   "draft": true
+ },
+ "road_network": {
+  "value": {
+   "on": true,
+   "built": [
+    "subs",
+    "corner",
+    "culdesac",
+    "suburb_stem",
+    "yards",
+    "lots",
+    "strip",
+    "stripe",
+    "stripw",
+    "blvd",
+    "main",
+    "fremont",
+    "ruin",
+    "works",
+    "lab",
+    "trailer",
+    "apron",
+    "golf"
+   ],
+   "paved": [
+    "apron",
+    "lab"
+   ],
+   "asphalt": [
+    "subs",
+    "corner",
+    "culdesac",
+    "suburb_stem",
+    "yards",
+    "lots",
+    "strip",
+    "stripe",
+    "stripw",
+    "blvd",
+    "main",
+    "fremont",
+    "ruin",
+    "works",
+    "lab",
+    "trailer",
+    "apron",
+    "golf",
+    "marina",
+    "scrubroad",
+    "pass",
+    "freeway",
+    "freewayo"
+   ],
+   "no_paint": [
+    "casino"
+   ],
+   "asphalt_dark": 30,
+   "wreck_gap": 2,
+   "min_piece": 3,
+   "paint_on": [
+    "flat",
+    "rough",
+    "debris"
+   ],
+   "cost": {
+    "step": 1,
+    "rough": 1,
+    "piece": 2,
+    "solid": 3,
+    "busy": 0.02,
+    "side": 0.5,
+    "turn": 0.6
+   }
+  },
+  "source": "VAMILY.md rule 429(h) (Paolo 11/7, ask lines 504 and 505); records/BOHEMIA_COMBAT_TWO_EVERY_BUILDING_ON_THE_ROAD_11_8_26.md",
+  "quote": "my biggest problem with the combat maps, the old and the new, you still cannot recognize: every building needs to have a road on it, the road can be big, the road can be small, sometimes roads four tiles wide and that's OK, but a building needs to be part of whatever road network you want there to be",
+  "why": "COMBAT TWO 11/8: the roads of a board dealt from the old layouts, read from its own pictures (asphalt at asphalt_dark or more, only on a kind that has asphalt (asphalt: never the landfill's trash streams, the canyon's or the shore's shadows, the casino's carpet, the rail's ballast); every open tile of a paved kind, the airport's apron and the lab's yard; the one tile between two, the middle lane; a wreck of up to wreck_gap tiles across a lane; a piece under min_piece tiles each way is a shadow or a pad, no road). A building (every house; a lump of a built kind's walls and roofs, two tiles or with a roof) with no road beside it gets the cheapest drive over paint_on ground (never on a no_paint kind: a casino block is the floor inside a casino, no road runs through it) to the road (cost: step, rough ground, a piece on it, a piece that blocks, the picture's busy share, side for leaving other than from its front, turn for each corner, so a drive runs straight); every piece of road that can reach another that way is joined to it, and a piece that can join none runs on to the board's edge (into the city); the joins are the street kit's own road pieces. on false: the boards as dealt before.",
+  "draft": true
  }
 }
