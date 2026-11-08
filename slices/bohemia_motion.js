@@ -724,7 +724,7 @@
            would hang there to its 12 s timeout); it LIFTS OFF the top of the glass as the clouds roll in, a piece leaving, and the
            map's own is out of sight under the clouds and the fight until the fight goes home (nfHome below puts it back first) */
         var bb = bar ? topBox(bar) : null, bn = null; try { if (bb) bn = copyOf(bar); } catch (e) { bn = null; }
-        if (bb && bn) { setOp(bar, '0'); bar.setAttribute('data-bm-fight-gone', '1'); fly({ id: 'bar', kind: 'piece', from: bb, node: bn, to: { x: bb.x, y: -bb.h - 12, w: bb.w, h: bb.h }, hideTo: false, rivets: false, leave: true }); }
+        if (bb && bn) { setOp(bar, '0'); bar.setAttribute('data-bm-fight-gone', '1'); gpuFly('bar', bn, bb, { x: bb.x, y: -bb.h - 12, w: bb.w, h: bb.h }); }   /* MOTION 2 11/8: on the compositor (the page's thread is the dive's) */
         /* ==== end __NO_TOP_BAR_IN_THE_FIGHT__ ==== */
         var pbox = phone ? topBox(phone) : null, pnode = null, phold = null; try { if (phone) { pnode = copyOf(phone); phold = twinOf(pnode); } } catch (e) {}   /* __A_COPY_COSTS_WHAT_SHOWS__: one copy, its twin cloned */
         var ph = phold ? hold({ id: 'phone', node: phold, box: pbox, maxMs: 12000,
@@ -1063,6 +1063,16 @@
     var TWc = p.TW * fx, THc = p.TH * fy;
     return { c: { x: cb.x + p.x * fx, y: cb.y + p.y * fy }, M: [TWc / 2, -TWc / 2, THc / 2, THc / 2], sm: TWc / Math.SQRT2, km: THc / TWc };
   }
+  /* how far a picture drawn with the block at sk (its canvas's points) must be scaled to cover the glass when the camera puts the block
+     at s: the most any side asks */
+  function coverFor(cb, sk, s) {
+    var Wg = W.innerWidth, Hg = W.innerHeight, k = 1;
+    if (sk.x > 1) k = Math.max(k, (cb.x + s.x) / sk.x);
+    if (cb.w - sk.x > 1) k = Math.max(k, (Wg - cb.x - s.x) / (cb.w - sk.x));
+    if (sk.y > 1) k = Math.max(k, (cb.y + s.y) / sk.y);
+    if (cb.h - sk.y > 1) k = Math.max(k, (Hg - cb.y - s.y) / (cb.h - sk.y));
+    return Math.min(2, k + 0.004);
+  }
   /* the world's own hour, for the tape's timecode */
   function worldClock(cw) { try { if (!cw.__bmClock) cw.__bmClock = new cw.Function("try { return { d: T.day, m: T.min }; } catch (e) { return null; }"); return cw.__bmClock(); } catch (e) { return null; } }
 
@@ -1083,6 +1093,111 @@
       x.lineWidth = lw * 2; x.strokeStyle = 'rgba(244,232,196,' + (0.85 * alpha).toFixed(3) + ')';
       var e0 = P(0, hy), e1 = P(fg.w, hy); x.beginPath(); x.moveTo(e0.x, e0.y); x.lineTo(e1.x, e1.y); x.stroke();
     }
+  }
+  /* ---- __THE_DIVE_GOES_THROUGH_THE_CLOUDS__ (MOTION 2, 11/8, rule 401(a), ask line 442; his vote 11/6 on the zoom down: 'Needs more
+     better'; rule 430: the art stays, a piece improved, never thrown away). Paolo 11/4: 'when it's combat time the clouds aren't just on
+     a brown black background but zooming in from the city from how you have it zoomed in'. THE OLD CLOUDS' OWN ART (RUN 10/2,
+     __THE_ZOOM_GOES_THROUGH_CLOUDS__, deleted 11/6 with its loading look): the valley's dust and ash, a billow field lit from above (the
+     rim) and dark beneath, the bible's grain, smoothed so a cloud is a billow and never a block. KEPT: its two billow layers, the same
+     painter, the same palette, the same shapes. DROPPED: its third layer, the solid dusk floor, which WAS the brown backdrop he hated.
+     Painted ONCE, a few rows at a time in the page's idle time (never at the door), at half the glass's points and 1.4 times its size;
+     the dive scales them on the compositor: the deck seen from above, the camera coming down through it (the near layer growing faster,
+     both parting off the glass's edges round the block), the real city under and between the billows in every frame, clear below it
+     well before the stop. The way out climbs back up through the same deck. A dive too short to pass a deck has none. ---- */
+  var CLOUDS = { c: null, ready: false, key: '', busy: false, y: 0, L: 0, im: null, ms: 0 };
+  function cloudHash(x, y, s) { var h = (s ^ Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263)) >>> 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+  function cloudNoise(x, y, s) { var xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi, u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+    var a = cloudHash(xi, yi, s), b = cloudHash(xi + 1, yi, s), c = cloudHash(xi, yi + 1, s), d = cloudHash(xi + 1, yi + 1, s); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+  function cloudField(xx, yy, sc, s) { return cloudNoise(xx / sc, yy / (sc * 0.55), s) * 0.62 + cloudNoise(xx / sc * 2.2, yy / (sc * 0.55) * 2.2, s + 3) * 0.26 + cloudNoise(xx / sc * 5, yy / (sc * 0.55) * 5, s + 5) * 0.12; }
+  function hexRGB(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+  var CLOUD_LAY = [ { sc: 34, cut: 0.53, body: hexRGB('#4a3e31'), rim: hexRGB('#6e5d47'), under: hexRGB('#2f261d'), seed: 98 },     /* the old layer 1 */
+                    { sc: 46, cut: 0.6, body: hexRGB('#7a6850'), rim: hexRGB('#a8936c'), under: hexRGB('#54463a'), seed: 105 } ];   /* the old layer 2 */
+  var CLOUD_RES = 2;
+  function cloudsPrep() {
+    var key = Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight);
+    if (CLOUDS.busy || (CLOUDS.ready && CLOUDS.key === key) || reduced()) return;
+    var w = Math.max(128, Math.round(W.innerWidth * 1.4 / CLOUD_RES)), h = Math.max(128, Math.round(W.innerHeight * 1.4 / CLOUD_RES));
+    CLOUDS.busy = true; CLOUDS.ready = false; CLOUDS.key = key; CLOUDS.c = []; CLOUDS.L = 0; CLOUDS.y = 0; CLOUDS.ms = 0;
+    for (var L = 0; L < CLOUD_LAY.length; L++) { var c = D.createElement('canvas'); c.width = w; c.height = h; CLOUDS.c.push(c); }
+    var step = function (dl) {
+      var t0 = performance.now();
+      try {
+        while (CLOUDS.L < CLOUD_LAY.length) {
+          var c = CLOUDS.c[CLOUDS.L], x = c.getContext('2d'), Ly = CLOUD_LAY[CLOUDS.L], sc = Ly.sc * 4 / CLOUD_RES, off = 8 / CLOUD_RES;
+          if (!CLOUDS.im) CLOUDS.im = x.createImageData(w, h);
+          var dta = CLOUDS.im.data, rows = 0;
+          while (CLOUDS.y < h) {
+            var yy = CLOUDS.y;
+            for (var xx = 0; xx < w; xx++) {
+              var o = (yy * w + xx) * 4, n = cloudField(xx, yy, sc, Ly.seed);
+              if (n < Ly.cut - 0.07) { dta[o + 3] = 0; continue; }
+              var up = cloudField(xx, yy - off, sc, Ly.seed), dn = cloudField(xx, yy + off, sc, Ly.seed);
+              /* IMPROVED, never thrown away (rule 430): the old cut was a hard edge (a camouflage blob over the real city); the same
+                 billow now thins out at its edge, and its light is mixed, not switched */
+              var rl = sstep(0.06, -0.02, up - Ly.cut), dk = sstep(0.07, -0.01, dn - Ly.cut) * (1 - rl), bd = 1 - rl - dk;
+              var gr = 1 + (cloudHash(xx, yy, 8 + CLOUDS.L) - 0.5) * 0.08;   /* grain, the bible's */
+              for (var ch = 0; ch < 3; ch++) dta[o + ch] = (Ly.body[ch] * bd + Ly.rim[ch] * rl + Ly.under[ch] * dk) * gr;
+              dta[o + 3] = Math.round(255 * sstep(Ly.cut - 0.07, Ly.cut + 0.12, n));
+            }
+            CLOUDS.y++; rows++;
+            if (rows >= 6 && ((dl && dl.timeRemaining && dl.timeRemaining() < 2) || performance.now() - t0 > 8)) { CLOUDS.ms += performance.now() - t0; return again(); }
+          }
+          x.putImageData(CLOUDS.im, 0, 0); CLOUDS.im = null; CLOUDS.y = 0; CLOUDS.L++;
+        }
+        CLOUDS.ms += performance.now() - t0; CLOUDS.ready = true; CLOUDS.busy = false;
+      } catch (e) { CLOUDS.busy = false; CLOUDS.err = String(e && e.message || e); }
+    };
+    var again = function () { if (W.requestIdleCallback) W.requestIdleCallback(step, { timeout: 1500 }); else setTimeout(step, 30); };
+    again();
+  }
+  /* the deck on the glass for one dive: two layers over the map's pictures, under the tape; f(u) is the camera's path (z, s: the
+     block's point on the glass); one way down (u 0..1) or, with up, the same deck climbed back through */
+  function cloudsOn(parent, f, ms, Lz, delay, up) {
+    if (!CLOUDS.ready || reduced() || Math.abs(Lz) < Math.log(2.5)) return null;
+    var Wg = W.innerWidth, Hg = W.innerHeight, bx = -0.2 * Wg, by = -0.2 * Hg, N = 36, out = [];
+    /* thin enough that the real city reads through the thickest of it (seen at 0.78 / 0.7: a tan wash, the brown look he hated) */
+    var LAYS = [ { g: 1.45, k0: 0.85, a: 0.58, inA: 0.02, inB: 0.2, outA: 0.42, outB: 0.7, dx: -0.05 },     /* the far deck */
+                 { g: 2.1, k0: 0.75, a: 0.5, inA: 0.08, inB: 0.26, outA: 0.32, outB: 0.58, dx: 0.06 } ];   /* the near one, passed first */
+    var span = Math.min(1, Math.abs(Lz) / Math.log(8));   /* a shorter dive passes a thinner deck */
+    CLOUDS.c.forEach(function (src, i) {
+      var Ly = LAYS[i], c = D.createElement('canvas'); c.width = src.width; c.height = src.height; c.className = 'cloud';
+      try { c.getContext('2d').drawImage(src, 0, 0); } catch (e) { return; }
+      c.style.cssText = 'position:absolute;left:' + bx.toFixed(1) + 'px;top:' + by.toFixed(1) + 'px;width:' + (1.4 * Wg).toFixed(1) + 'px;height:' + (1.4 * Hg).toFixed(1) + 'px;transform-origin:0 0;opacity:0;will-change:transform,opacity';
+      parent.appendChild(c); out.push(c);
+      c.__kf = keys(N, function (u0) {
+        var u = up ? 1 - u0 : u0, P = f(u), e = smoother(u), k = Ly.k0 * Math.exp(Ly.g * Lz * e);
+        var ax = P.s.x + Ly.dx * Wg * e, ay = P.s.y, tx = (ax - bx) * (1 - k), ty = (ay - by) * (1 - k);
+        var op = Ly.a * span * sstep(Ly.inA, Ly.inB, u) * (1 - sstep(Ly.outA, Ly.outB, u));
+        return { transform: 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + k.toFixed(4) + ')', opacity: +op.toFixed(3) };
+      });
+      c.__anim = play(c, c.__kf, ms, { delay: delay || 0 });
+    });
+    /* the come-down re-times itself to the phone's pace: the deck on the same clock, the same progress */
+    out.retime = function (ms2, T0) { out.forEach(function (c) { try { if (c.__anim) c.__anim.cancel(); } catch (e) {} c.__anim = play(c, c.__kf, ms2, { start: T0 }); }); };
+    return out;
+  }
+
+  /* ---- THE BAR LEAVES ON THE COMPOSITOR (MOTION 2, 11/8; PLUMBER 7 measured the old lift at 20 and 7.8 frames a second, the page's
+     thread busy with the dive's own draws at the same moment): a copy of the bar rises off the top of the glass as a Web Animation,
+     landing on the beat's grid like every piece, logged as the piece's flight (BohemiaMotion.log, how 'fly') ---- */
+  function gpuFly(id, node, from, to, o) {
+    o = o || {};
+    var t0 = epochNow(), red = reduced(), ms = red ? 167 : Math.max(PIECE_MIN, landAt(t0, PIECE_MIN) - t0);
+    var row = { id: id, kind: 'piece', how: 'fly', t0: Math.round(t0), budget: red ? [0, 200] : [PIECE_MIN, CEILING], reduced: red, gpu: true, planned: Math.round(ms), gaps: 0, frames: 0 };
+    LOG.push(row); if (LOG.length > 300) LOG.splice(0, LOG.length - 300);
+    try {
+      var h = D.createElement('div');
+      h.style.cssText = 'position:fixed;left:' + from.x + 'px;top:' + from.y + 'px;width:' + from.w + 'px;height:' + from.h + 'px;z-index:2147483000;pointer-events:none;transform-origin:50% 50%;will-change:transform,opacity';
+      if (node.style) { node.style.position = 'absolute'; node.style.left = '0'; node.style.top = '0'; node.style.margin = '0'; }
+      h.appendChild(node); D.body.appendChild(h);
+      var dx = to.x - from.x, dy = to.y - from.y;
+      var a = h.animate(red ? [{ opacity: 1 }, { opacity: 0 }] : [{ transform: 'translate(0px,0px) rotate(0deg)' }, { transform: 'translate(' + (dx * 0.15).toFixed(1) + 'px,' + (dy * 0.12).toFixed(1) + 'px) rotate(-0.6deg)', offset: 0.35 }, { transform: 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) rotate(-1.2deg)' }],
+        { duration: ms * SLOW, easing: red ? 'linear' : 'cubic-bezier(.55,0,.8,.2)', fill: 'forwards' });
+      var done = function () { row.done = true; row.ms = Math.round(epochNow() - t0); row.flew = row.ms; try { h.remove(); } catch (e) {} if (o.onLand) { try { o.onLand(); } catch (e) {} } };
+      a.finished.then(done, done);
+      setTimeout(function () { if (!row.done) done(); }, ms * SLOW + 1500);
+    } catch (e) { row.err = String(e && e.message || e).slice(0, 120); row.done = true; }
+    return row;
   }
   /* ---- THE TAPE (rule 420(c); analog horror at the source: the drop is a camera on a mast and this is its recording) ---- */
   var OSD_INK = '#ebe3cd', SHADOW = '#0b0907';
@@ -1255,7 +1370,15 @@
     r.cb = [Math.round(cb.x), Math.round(cb.y), Math.round(cb.w), Math.round(cb.h)]; r.kEnd = +kEnd.toFixed(3);
     /* 1 COME DOWN, on the compositor: the camera on the log from where he was to the stop; one beat for a short way, two and a half
        for the whole valley down to the street */
-    var bm = beatNow(), ratio = Math.abs(Math.log(zEnd / Math.max(1e-3, c.z))), ms = Math.max(bm, Math.min(2.5 * bm, 0.6 * bm * ratio + 0.4 * bm));
+    /* the come-down takes the time this phone needs to draw its pictures (the map draws its people and names at one size, so a picture
+       shown long past its own zoom makes them giant and they snap back when the next lands: seen at 4x, a second of it): the step
+       between two pictures measured on the last dive (a cautious 300 ms before the first), never under the old curve, never past 3.5
+       beats */
+    var bm = beatNow(), ratio = Math.abs(Math.log(zEnd / Math.max(1e-3, c.z)));
+    var nStops0 = Math.max(0, Math.min(3, Math.ceil(ratio / Math.log(2.2)) - 1)), step = DIVE.stepMs || 300;
+    var msCurve = Math.max(bm, Math.min(2.5 * bm, 0.6 * bm * ratio + 0.4 * bm));   /* the camera's own pace, what the climb back uses (it draws nothing) */
+    var ms = Math.max(bm, Math.min(3.5 * bm, Math.max(msCurve, (nStops0 + 1) * step + 150)));
+    r.step = Math.round(step);
     r.comeMs = Math.round(ms);
     /* the camera's path (z: the zoom on the glass); each picture of it is drawn at its zoom over its own cover factor, so when it is
        laid in it covers the glass and the block still lands at the board's own size */
@@ -1268,8 +1391,35 @@
        set by hand before the first frame is shown would throw the camera ahead by however long that frame took to reach the glass,
        and a picture laid on a start not yet known stands still) */
     var comeA = play(A.c, keys(N, function (u) { return { transform: poseOf(at(u), c.z, P0) }; }), ms), T0 = null;
-    A.zk = c.z; A.sk = P0; A.layU = 0;
-    var since0 = function () { try { return T0 != null ? (D.timeline.currentTime - T0) / SLOW : 0; } catch (e) { return 0; } };
+    A.zk = c.z; A.sk = P0; A.layU = 0; A.anim = comeA;
+    /* the time since the clock's start NOW (performance.now, the timeline's own time base: the timeline's currentTime stands still
+       through a long task, measured: 133 ms read where 365 had passed, right after a map draw) */
+    var since0 = function () { try { return T0 != null ? (performance.now() - T0) / SLOW : 0; } catch (e) { return 0; } };
+    /* RE-TIMED IN FLIGHT: once the first picture is drawn the phone's pace is known; if the rest would be laid late (each would show
+       the map's people giant, then snap), the camera slows from where it is, on the same progress, every picture and the deck rebuilt
+       on the new clock (the curve unbroken: the progress at this moment is kept, only what is left is stretched) */
+    var retime = function (ms2) {
+      ms2 = Math.min(4 * bm, ms2); r.ask = Math.round(ms2); if (T0 == null || !(ms2 > ms + 30)) return;
+      var now = since0(), u = Math.min(1, now / ms); if (u >= 0.97) return;
+      T0 = T0 + (now - u * ms2) * SLOW; ms = ms2; r.comeMs = Math.round(ms); r.retimed = (r.retimed || 0) + 1;
+      pics.forEach(function (p) { poseAnim(p); });
+      if (deck && deck.retime) deck.retime(ms, T0);
+    };
+    /* ONE ANIMATION A PICTURE, its pose and its opacity together on the come-down's one clock (two animations, one pending and one set
+       on the clock, can reach the compositor a frame apart: seen once, a picture shown a frame without its pose). Rebuilt in place,
+       on the same clock, when the picture over it arrives (it hides then) */
+    var poseAnim = function (p) {
+      try { if (p.anim) p.anim.cancel(); } catch (e) {}
+      var Dur = Math.max(ms, (p.inEnd || 0) + 10, (p.hideT != null ? p.hideT + 10 : 0)), NN = 60;
+      var fr = keys(NN, function (q) { var t = q * Dur, uu = Math.min(1, t / ms), op = p.inT != null ? sstep(p.inT, p.inEnd, t) : 1;
+        if (p.hideT != null) op *= 1 - sstep(p.hideT, p.hideT + Dur / NN, t);
+        return { transform: poseOf(at(uu), p.zk, p.sk), opacity: +op.toFixed(3) }; });
+      p.anim = play(p.c, fr, Dur, { fill: 'forwards', start: T0 != null ? T0 : null });
+      if (T0 == null && p.anim) { try { p.anim.cancel(); } catch (e) {} p.anim = play(p.c, fr, Dur, { fill: 'forwards' }); }
+    };
+    var onGlass = function (u) { var P = at(u); return { z: P.z, s: { x: cb.x + P.s.x, y: cb.y + P.s.y } }; };
+    var deck = cloudsOn(root, onGlass, ms, Lz, 0, false);   /* __THE_DIVE_GOES_THROUGH_THE_CLOUDS__: on the same clock as the pictures */
+    r.clouds = deck ? deck.length : 0;
     var clock = worldClock(cw), osd = osdOn(root, clock, bm / 2);
     humTo(true, 0.45);
     var pics = [A], C = null, mid = null, uMid = 0.5;
@@ -1278,12 +1428,12 @@
       var t = performance.now(), P = at(u), skm = { x: sk.x / fx, y: sk.y / fy };
       cam('aim', { z: zk, u: u0, v: v0, sx: skm.x, sy: skm.y, camf: false });
       var under = pics[pics.length - 1], p = picOf(cv, cb, 'map', /^B/.test(name) ? Math.min(2, W.devicePixelRatio || 1) : null, camG); if (!p) return null;
-      var a = play(p.c, keys(N, function (q) { return { transform: poseOf(at(q), zk, sk) }; }), ms);
-      try { if (T0 != null) a.startTime = T0; } catch (e) {}
       var since = since0(), wait = Math.max(40, u * ms - since - 60);   /* its first two frames unseen: a new layer can reach the glass a frame before its animation does */
-      play(p.c, [{ opacity: 0 }, { opacity: 1 }], 130, { delay: wait });
-      if (under && under.c) play(under.c, [{ opacity: 1 }, { opacity: 0 }], 1, { delay: wait + 150, fill: 'forwards' });   /* covered: not composited */
-      p.inAt = performance.now() + wait + 130; p.zk = zk; p.sk = sk; p.layU = Math.min(1, Math.max(u, (since + wait) / ms));
+      p.zk = zk; p.sk = sk; p.inT = since + wait; p.inEnd = p.inT + 230; p.hideT = null;   /* a dissolve, so the map's own names and people settle rather than snap */
+      poseAnim(p);
+      /* covered: not composited (the one under it hides on the same clock, rebuilt in place) */
+      if (under && under.c) { under.hideT = p.inEnd + 20; poseAnim(under); }
+      p.inAt = performance.now() + wait + 230; p.layU = Math.min(1, Math.max(u, (since + wait) / ms));
       r.renders.push({ name: name, z: +zk.toFixed(3), ms: Math.round(performance.now() - t), at: Math.round(performance.now() - r.t0), late: wait <= 0 });
       return p;
     };
@@ -1295,7 +1445,8 @@
         var kk = Math.min(2, W.devicePixelRatio || 1); DIVE.keptPics = [];
         pics.forEach(function (p) { if (p !== top) { var q = picOf(p.c, p.box, 'kept', kk, D.createElement('div')); if (q) { q.zk = p.zk; q.sk = p.sk; q.layU = p.layU; DIVE.keptPics.push(q); } try { p.c.remove(); } catch (e) {} } }); };
       later(gone, Math.max(0, ms - since0(), (top && top.inAt ? top.inAt - performance.now() : 0)) + 150);
-      DIVE.path = { z0: c.z, zEnd: zEnd, P0: P0, PF: PF, ms: ms, topU: top && top.layU != null ? top.layU : 0.94 };
+      DIVE.path = { z0: c.z, zEnd: zEnd, P0: P0, PF: PF, ms: msCurve, topU: top && top.layU != null ? top.layU : 0.94 };
+      try { var rr = r.renders.filter(function (x) { return x.at != null; }); if (rr.length >= 2) DIVE.stepMs = Math.max(60, Math.min(700, (rr[rr.length - 1].at - (r.firstFrame || 0)) / rr.length)); } catch (e) {}
       DIVE.mg = mgOf(cam, cb, fx, fy, u0, v0); DIVE.zEnd = zC; DIVE.kEnd = kEnd; DIVE.PF = PF; DIVE.cb = cb; DIVE.cv = cv; DIVE.cam = camG;
       DIVE.crew = (function () { var q = cam('crew'); return q ? { x: cb.x + q.x * fx, y: cb.y + q.y * fy } : null; })();
       var pose = poseOf(at(1), zC, PF), restMs = Math.max(0, ms - since0());
@@ -1308,12 +1459,20 @@
     /* the pictures between: the camera's zoom split evenly on the log, so no picture is ever shown more than about 2.2 times its own
        size (the map's own names swell no further) */
     var uOf = function (e) { var lo = 0, hi = 1; for (var i = 0; i < 28; i++) { var m = (lo + hi) / 2; if (smoother(m) < e) lo = m; else hi = m; } return (lo + hi) / 2; };
-    var nStops = Math.max(0, Math.min(3, Math.ceil(ratio / Math.log(2.2)) - 1)), stops = [];   /* every step at most 2.2x where it can be (the phone 2, the computer 3) */
+    var nStops = nStops0, stops = [];   /* every step at most 2.2x where it can be (the phone 2, the computer 3) */
     for (var si = 1; si <= nStops; si++) stops.push(si / (nStops + 1));
     var drawStops = function (i, then) {
       if (DIVE.row !== r) return;
       if (i >= stops.length) { then(); return; }
-      var u = uOf(stops[i]), P = at(u), p = drawAt(u, P.z / coverK(cb, P.s), P.s, 'B' + (i + 1)); if (p) pics.push(p);
+      /* drawn at the zoom that keeps it covering the glass from the moment it is laid to the moment the next one is (the camera pans
+         as it comes down: a picture that only covers when it is laid leaves a band as the block moves) */
+      var u = uOf(stops[i]), u2 = i + 1 < stops.length ? uOf(stops[i + 1]) : 0.94, P = at(u), zk = 1e9;
+      for (var q = 0; q <= 8; q++) { var uq = u + (u2 - u) * q / 8, Pq = at(uq); zk = Math.min(zk, Pq.z / coverFor(cb, P.s, Pq.s)); }
+      var p = drawAt(u, zk, P.s, 'B' + (i + 1)); if (p) pics.push(p);
+      /* the pace: this picture ready this far into the come-down; the rest at the same pace; the stop laid at 0.94 */
+      var left = stops.length - i, pace = since0() / (i + 1);
+      (r.paces || (r.paces = [])).push(Math.round(pace));
+      retime(((i + 1 + left) * pace + 120) / 0.94);
       afterPaint(function () { drawStops(i + 1, then); });
     };
     var stopPic = function () {
@@ -1504,6 +1663,11 @@
       play(p.c, keys(N, function (u) { return { transform: poseOf(rewind(u), p.zk, p.sk), opacity: sstep(above - 0.012, above - 0.002, u) * (1 - sstep(outU, outU + 0.05, u)) }; }), climbMs, { delay: tC });
     });
     if (osd) play(osd, [{ opacity: 1 }, { opacity: 0 }], bm * 0.5, { delay: tE - 0.25 * bm, easing: 'steps(3)', fill: 'forwards' });
+    /* __THE_DIVE_GOES_THROUGH_THE_CLOUDS__: the climb goes back up through the same deck (the way down's own path, run backwards) */
+    var cbK = K.cb || [0, 0, 0, 0], cbx = cbK.x != null ? cbK.x : cbK[0], cby = cbK.y != null ? cbK.y : cbK[1];
+    var downPath = function (u) { var e = smoother(u); return { z: IP.z0 * Math.exp(Lz * e), s: { x: cbx + IP.P0.x + (IP.PF.x - IP.P0.x) * smoother(Math.min(1, u * 1.15)), y: cby + IP.P0.y + (IP.PF.y - IP.P0.y) * smoother(Math.min(1, u * 1.15)) } }; };
+    var deck = cloudsOn(DIVE.el, downPath, climbMs, Lz, tC, true); r.clouds = deck ? deck.length : 0;
+    if (deck && osd) DIVE.el.appendChild(osd);   /* the tape stays over the deck */
     humTo(false, (climbMs + 200) / 1000, tC / 1000);
     later(function () { phase(r, 'turn'); }, G);
     later(function () { nfcSet('off'); phase(r, 'climb'); landed(); }, tC);
@@ -1538,7 +1702,7 @@
       if (typeof w.loopOpenTown === 'function') installCity(w);
       if (w.BohemiaSettlement && doc.getElementById('sbody')) watchTown(w);
     });
-    if (typeof W.nfOpen === 'function') installTop();
+    if (typeof W.nfOpen === 'function') { installTop(); cloudsPrep(); }
   }
   setInterval(scan, 400);
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', scan); else scan();

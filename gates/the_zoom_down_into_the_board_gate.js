@@ -88,7 +88,9 @@ const SAMPLER = () => {
       else if (fightOn && board) what = 'board';
       else if (cityOn && !fightOn) what = 'map';
       else what = 'NOTHING';
-      Z.rows.push({ t: performance.now(), st: window.BohemiaMotion && BohemiaMotion.dive ? BohemiaMotion.dive.state() : '?', nfc: window.NFC ? NFC.state : '?', what, z, grid, full: fullMap || fullBoard });
+      /* (11/8, rule 401(a)) the deck the camera comes down through: its thickest layer this frame */
+      const cloud = dv ? Math.max(0, ...[...dv.querySelectorAll('canvas.cloud')].map(c => +getComputedStyle(c).opacity)) : 0;
+      Z.rows.push({ t: performance.now(), st: window.BohemiaMotion && BohemiaMotion.dive ? BohemiaMotion.dive.state() : '?', nfc: window.NFC ? NFC.state : '?', what, z, grid, full: fullMap || fullBoard, cloud });
     } catch (e) { Z.rows.push({ t: performance.now(), what: 'ERR ' + String(e.message).slice(0, 60) }); }
     requestAnimationFrame(loop);
   })();
@@ -185,6 +187,13 @@ function inLegs(p, F, quiet) {
   ok(p + 'Z4 THE BOARD IS THE MAP AT THAT SPOT: laid from the map\'s own block, the contact\'s', !!F.fsx && F.fsx.laid && !!F.fsx.cell && F.fsx.cell[0] === F.at.gx && F.fsx.cell[1] === F.at.gy,
     F.fsx ? 'laid ' + F.fsx.laid + ', cell ' + F.fsx.cell + ' (contact ' + F.at.gx + ',' + F.at.gy + '), ' + F.fsx.w + ' x ' + F.fsx.h + ' tiles' : 'no fight');
   const gridTurn = R.filter(x => x.st === 'turn' && x.grid).length, gridAfter = F.gridAfter;
+  /* C1 (MOTION 2 11/8, rule 401(a), ask line 442; Paolo 11/4: 'the clouds aren't just on a brown black background but zooming in from
+     the city'): a long dive comes down through the old clouds' own billows over the real city: the deck on the glass on the way down,
+     never thicker than 0.6, a map picture at full opacity covering the glass under it in every frame it shows, gone before the stop */
+  const cl = R.filter(x => x.cloud > 0.01), clBare = cl.filter(x => !x.full), clMax = cl.length ? Math.max(...cl.map(x => x.cloud)) : 0, clHold = R.filter(x => x.st === 'hold' && x.cloud > 0.01).length;
+  ok(p + 'C1 THROUGH THE CLOUDS OVER THE REAL CITY: the deck on the way down, at most 0.6 thick, the map\'s own picture under it in every frame, clear by the stop',
+    (r.clouds || 0) >= 1 && cl.length >= 2 && !clBare.length && clMax <= 0.6 && !clHold,
+    'the deck ' + (r.clouds || 0) + ' layers, on ' + cl.length + ' frames, thickest ' + clMax.toFixed(2) + ', ' + clBare.length + ' frames with no map picture under it, ' + clHold + ' in the hold');
   ok(p + 'Z5 THE GRID LIGHTS UP: the board\'s own lines on through the turn and gone after it', gridTurn > 0 && gridAfter === 0 && r.phases && r.phases.grid > 0, gridTurn + ' turn frames with the grid, ' + gridAfter + ' after');
   /* F1 (rule 420): nothing of the zoom is drawn by the main thread frame by frame any more; its frames are the compositor's and are
      measured off a trace on the phone at 4x (T1-T3). Here: every picture the dive laid has a Web Animation, none is drawn twice */
@@ -197,6 +206,10 @@ function outLegs(p, F) {
   ok(p + 'O1 THE WAY OUT: the board, the zoom\'s frames, the live map; never a loading line, a cloud or nothing', R.length > 10 && !bad.length,
     R.length + ' frames: ' + Object.entries(seen).map(([k, v]) => k + ' ' + v).join(', ') + (bad.length ? '; first bad at ' + bad[0].st + ': ' + bad[0].what : ''));
   const a = F.out.after || {}, up = F.out.up || {};
+  /* C2 (11/8): the climb goes back up through the same deck, the map's own pictures under it in every frame */
+  const oc = R.filter(x => x.cloud > 0.01), ocBare = oc.filter(x => !x.full && !/^(map|map frame)$/.test(x.what)), ocMax = oc.length ? Math.max(...oc.map(x => x.cloud)) : 0;
+  ok(p + 'C2 THE CLIMB GOES BACK UP THROUGH THE CLOUDS: the deck on the way out, at most 0.6 thick, the map\'s picture under it in every frame', (up.clouds || 0) >= 1 && oc.length >= 2 && !ocBare.length && ocMax <= 0.6,
+    'the deck ' + (up.clouds || 0) + ' layers on ' + oc.length + ' frames, thickest ' + ocMax.toFixed(2) + ', ' + ocBare.length + ' with nothing under it');
   ok(p + 'O2 THE CLIMB BACK: the map\'s zoom where he had it, his crew held again, the bar on the glass, nothing left over', !!F.out.up && !up.plain && Math.abs(a.z - F.z0.z) <= F.z0.z * 0.02 && a.camf === F.z0.camf && a.bar >= 0.99 && !a.left,
     'zoom ' + (a.z || 0).toFixed(3) + ' (was ' + F.z0.z.toFixed(3) + '), held ' + a.camf + ', bar ' + a.bar + ', phases ' + JSON.stringify(up.phases) + ', ' + up.ms + ' ms');
 }
@@ -304,7 +317,7 @@ async function run(profile) {
   /* S1, from the source */
   const shell = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8'), demo = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8'), mo = fs.readFileSync(path.join(ROOT, 'slices/bohemia_motion.js'), 'utf8');
   const dead = /nfclouds|function nfcIn|nfcIn\(|nfcPart\(|nfcHoldUntilReady/;
-  ok('S1 THE CLOUDS ARE GONE FROM THE SOURCE: no cloud layer, no nfcIn, in the shell, the demo or the motion layer; the dive hands the build',
+  ok('S1 THE OLD CLOUD COVER IS GONE FROM THE SOURCE (rule 405(a): the loading look; the deck now passes over the real city, C1): no nfclouds, no nfcIn, in the shell, the demo or the motion layer; the dive hands the build',
     !dead.test(shell) && !dead.test(demo) && !/getElementById\('nfclouds'\)/.test(mo) && /BohemiaMotion\.dive\.down\(d, go\)/.test(shell) && /__THE_ZOOM_DOWN_INTO_THE_BOARD__/.test(mo),
     ['shell', 'demo', 'motion'].map((k, i) => k + ' ' + (dead.test([shell, demo, mo][i]) ? 'HAS CLOUDS' : 'clear')).join(', '));
   for (const prof of only ? [only] : ['phone_portrait', 'computer', 'phone_4x']) { if (prof === 'phone_4x') await runTraced(); else await run(prof); }
