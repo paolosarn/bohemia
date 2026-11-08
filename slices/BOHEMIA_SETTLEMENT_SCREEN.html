@@ -3420,7 +3420,7 @@ function townLetGo(){
 function loop(){
   if(window.frameElement && townHidden()){ if(!TOWN_LET_GO){ TOWN_LET_GO = true; townLetGo(); } setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
   TOWN_LET_GO = false;
-  draw(); try{ crewOverDraw(); }catch(e){} try{ restTrails(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* CAMP's call in the town (RUN THREE) */
+  draw(); try{ crewOverDraw(); }catch(e){} try{ restTrails(); }catch(e){} try{ doorSigns(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* __EVERY_DOOR_HAS_A_SIGN__ */   /* CAMP's call in the town (RUN THREE) */
 }
 /* ==== __THE_LONG_EXPOSURE__ (FINISHER 11/2; rule 273(c), ask line 210; Paolo 10/26: 'HEAL/CAMP in the settlement screen: time
    passes, my men heal and repair, shown with 2 percent ghost trails, the long-exposure look'). MEASURED: HEAL in a town passed
@@ -3580,10 +3580,11 @@ function hitAt(x, y){
 /* where a building can be tapped: it pans the picture to it and gives its middle (the driver uses it) */
 /* a point of the picture brought to the middle of the glass, as his drag would (__EVERY_TOWN_IS_BUSY__: filled to the phone's
    height, a man by the post can be past the glass's edge until he drags) */
-function lookAt(px, py){ pan(px); panY(py); var r = document.getElementById('scene').getBoundingClientRect(); return {x: r.left + view.ox + px*view.s, y: r.top + view.oy + py*view.s}; }
+function lookAt(px, py){ pan(px); panY(py); try{ doorSigns(); }catch(e){} var r = document.getElementById('scene').getBoundingClientRect(); return {x: r.left + view.ox + px*view.s, y: r.top + view.oy + py*view.s}; }
 function where(k){
   if(!VAR || !VAR.boxes[k] || ORDER.indexOf(k) < 0) return null;
   var b = tapBox(k); pan((b[0]+b[2])/2); panY((b[1]+b[3])/2);
+  try{ doorSigns(); }catch(e){}   /* __EVERY_DOOR_HAS_A_SIGN__: the signs move with the picture now, not a frame later (a tap the same instant met a sign left where the last view had it) */
   var r = document.getElementById('scene').getBoundingClientRect();
   var x = view.ox + (b[0]+b[2])/2*view.s, y = view.oy + (b[1]+b[3])/2*view.s;
   return {x: r.left + x, y: r.top + y, px: Math.round((b[2]-b[0])*view.s*(b[3]-b[1])*view.s)};
@@ -4976,6 +4977,145 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
+/* ==== __EVERY_DOOR_HAS_A_SIGN__ (UI 9, VAMILY rule 434, ask line 519; Paolo 11/8: 'how do I scavenge'... 'I couldn't find where to
+   scavenge'). MEASURED by the coordinator on the demo, phone upright, the town Network: the town's buildings carried NO names at rest
+   (a building named itself only under the finger, rule 71a's torn tag, and the post and the bar showed a picture with no word), so
+   SCAVENGE was nowhere on the glass though the lot stands in every camp, town and fortress. NOW every door of a town carries a small
+   sign at rest, the way Battle Brothers' town shows its buildings: its icon and a short name in the game's letters, on UI's receipt
+   paper, sitting on the building's own roof (never on the keeper at its door), on the glass and off the phone, one tap opens that door
+   (openB, the same as the building's own pixels). Rule 433 does not hide it: it is what he needs to choose. The finger's torn tag still
+   names the building with its line (what is left on the lot). Sized inside rules 402/403: the word 11 px at least, the press 44 px tall,
+   the sign grows with his UI SIZE. A door the glass does not hold (a pinch in) keeps its sign on the glass's edge with an arrow that
+   points to it, and a tap there takes him to it. Not on his own camp (his tent, the retinue, the cart: CAMP TWO's own pieces).
+   Gate: gates/every_door_has_a_sign_gate.js. Read it with BohemiaSettlement.doorSigns() ==== */
+var DS = {el:null, css:false, sig:'', signs:{}, ims:{}, list:[]};
+var DS_NAME = {hall:'HALL', board:'BOARD', clinic:'CLINIC', stall:'STALL', barber:'BARBER', train:'YARD', bar:'BAR', arms:'GUNS', smith:'SMITH', armourer:'ARMOURER', lot:'SCAVENGE', build:'BUILD', arena:'THE PIT'};
+var DS_ICON = {hall:'market_icons/w_pistol.png', bar:'market_icons/w_bottles.png', stall:'market_icons/s_food_can.png', smith:'market_icons/b_smith.png',
+  armourer:'market_icons/b_armourer.png', arms:'market_icons/w_rifle.png', clinic:'supply_icons/meds.png', lot:'supply_icons/scrap.png',
+  build:'market_icons/own_framing_hammer.png', arena:'market_icons/w_chain.png', train:'market_icons/w_sledge.png'};
+/* two the game had no picture for, cut by hand on a 12 grid and lit from the top left: the board's pinned notice, the barber's pole */
+var DS_GRID = {
+  board:['....RR......','...RRRR.....','.PPPPRRPPPP.','.PPPPPPPPPP.','.PLLLLLLLLP.','.PPPPPPPPPP.','.PLLLLLLPPP.','.PPPPPPPPPP.','.PLLLLLLLLP.','.PPPPPPPPPP.','.PLLLLPPPPP.','.PPPPPPPPPP.'],
+  barber:(function(){ var g = ['...CCCCCC...', '....xCCx....']; for(var j = 2; j < 10; j++){ var r = '....'; for(var i = 4; i < 8; i++) r += (i + j) % 4 < 2 ? 'R' : 'P'; g.push(r + '....'); } return g.concat(['....xCCx....', '...CCCCCC...']); })()};   /* the barber's pole, his stripes turning */
+var DS_INK = {P:[232,226,210], L:[70,58,44], R:[176,38,30], C:[150,152,156], x:[40,34,30]};
+function dsGrid(k){
+  var g = DS_GRID[k], c = document.createElement('canvas'); c.width = 14; c.height = 14; var x = c.getContext('2d');
+  var at = function(i, j){ return j >= 0 && j < 12 && i >= 0 && i < 12 && g[j][i] !== '.'; };
+  for(var j = -1; j < 13; j++) for(var i = -1; i < 13; i++){ if(at(i, j)) continue;   /* the hard one-pixel outline */
+    if(at(i-1, j) || at(i+1, j) || at(i, j-1) || at(i, j+1)){ x.fillStyle = '#120d09'; x.fillRect(i + 1, j + 1, 1, 1); } }
+  for(j = 0; j < 12; j++) for(i = 0; i < 12; i++){ var ch = g[j][i]; if(ch === '.') continue; var m = DS_INK[ch] || [200, 200, 200];
+    var lit = (!at(i-1, j) || !at(i, j-1)) ? 1.12 : (!at(i+1, j) || !at(i, j+1)) ? .8 : 1;   /* light from the top left */
+    x.fillStyle = 'rgb(' + m.map(function(v){ return Math.min(255, Math.round(v * lit)); }).join(',') + ')'; x.fillRect(i + 1, j + 1, 1, 1); }
+  return c.toDataURL();
+}
+function dsZ(){ var n = 1; try{ n = parseInt(localStorage.getItem('bohemia.uisize.v1'), 10); }catch(e){} return [1, 1, 1.15, 1.3][isNaN(n) ? 1 : Math.max(0, Math.min(3, n))]; }   /* UI's four sizes (rule 403): SMALL keeps the floor */
+function dsCss(){
+  if(DS.css) return; DS.css = true;
+  var st = document.createElement('style'); st.id = 'doorsigns-css';
+  st.textContent = '#doorsigns{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:2}'
+    + '#doorsigns .doorsign{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;padding:0;margin:0;border:0;background:none;'
+    +   'min-height:44px;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}'
+    + '#doorsigns .doorsign .dsp{position:relative;z-index:1;display:flex;align-items:center;gap:4px;height:var(--ds-h,24px);padding:0 7px 0 4px;color:#1f1710;'
+    +   'background:#e2dac6 var(--bm-receipt,none) center/100% 100%;box-shadow:0 1px 0 rgba(0,0,0,.9),0 0 0 1px rgba(18,13,9,.55);'
+    +   'clip-path:polygon(0 0,100% 0,100% 18%,calc(100% - 1.5px) 34%,100% 52%,calc(100% - 1.5px) 70%,100% 86%,100% 100%,0 100%,1.5px 80%,0 62%,1.5px 44%,0 26%)}'
+    + '#doorsigns .doorsign img{width:var(--ds-i,18px);height:var(--ds-i,18px);object-fit:contain;image-rendering:pixelated;flex:none;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6))}'
+    + '#doorsigns .doorsign b{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;font-size:var(--ds-f,11px);letter-spacing:.9px;line-height:1;white-space:nowrap}'
+    + '#doorsigns .doorsign[data-door="lot"] .dsp{background-color:#efe2b0;box-shadow:0 1px 0 rgba(0,0,0,.9),0 0 0 1px #6b4a12}'   /* the one he could not find reads first */
+    + '#doorsigns .doorsign i{display:none;width:0;height:0;border:5px solid transparent;flex:none}'
+    + '#doorsigns .doorsign.off i{display:block}'
+    + '#doorsigns .doorsign.off[data-dir="l"] i{border-right-color:#1f1710;border-left-width:0}#doorsigns .doorsign.off[data-dir="r"] i{border-left-color:#1f1710;border-right-width:0;order:9}'
+    + '#doorsigns .doorsign.off[data-dir="u"] i{border-bottom-color:#1f1710;border-top-width:0}#doorsigns .doorsign.off[data-dir="d"] i{border-top-color:#1f1710;border-bottom-width:0;order:9}'
+    + '#doorsigns .doorsign:active .dsp,#doorsigns .doorsign.lit .dsp{background-color:#f4e7c0;box-shadow:0 1px 0 rgba(0,0,0,.9),0 0 0 1px #d9a85a}';
+  document.head.appendChild(st);
+}
+function dsDoors(){   /* the doors he can use here: every building of the place; BUILD only on his own ground */
+  if(!VAR || S.camp) return [];
+  return ORDER.filter(function(k){ return VAR.boxes[k] && DS_NAME[k] && !(k === 'build' && !buildMine()) && !(window.__DS_PLANT && window.__DS_PLANT.drop === k); });
+}
+function dsShow(){
+  return !!(VAR && S.place && !S.camp && !S.open && picIn() && view.outK >= .999 && !FLIP.on && !document.getElementById('arrive') && !document.getElementById('scavgame'));
+}
+function dsSign(k){
+  var b = DS.signs[k]; if(b) return b;
+  b = document.createElement('button'); b.type = 'button'; b.className = 'doorsign'; b.setAttribute('data-door', k); b.setAttribute('aria-label', (B[k] && B[k].name) || DS_NAME[k]);
+  var p = document.createElement('span'); p.className = 'dsp';
+  var ar = document.createElement('i'); p.appendChild(ar);
+  var im = document.createElement('img'); im.alt = ''; im.draggable = false; im.src = DS_GRID[k] ? dsGrid(k) : DS_ICON[k] || ''; if(!im.src) im.style.display = 'none'; p.appendChild(im);
+  var t = document.createElement('b'); t.textContent = DS_NAME[k]; p.appendChild(t); b.appendChild(p);
+  b.addEventListener('pointerdown', function(e){ e.stopPropagation(); view.lit = k; });
+  b.addEventListener('pointercancel', function(){ view.lit = null; });
+  b.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); view.lit = null;
+    if(!S.camp && !picIn()) return;
+    if(b.classList.contains('off')) try{ where(k); }catch(err){}   /* a door past the glass's edge: he is taken to it */
+    openB(k); });
+  DS.signs[k] = b; return b;
+}
+function doorSigns(){
+  var sc = document.getElementById('scene'); if(!sc) return;
+  if(!DS.el){ dsCss(); DS.el = document.createElement('div'); DS.el.id = 'doorsigns'; var sh = document.getElementById('sheet'); sc.insertBefore(DS.el, sh || null); }
+  var show = dsShow(), doors = show ? dsDoors() : [], z = dsZ(), W = view.W, H = view.H, s = view.s || 1, pad = FIT.pad && FIT.pad.r;
+  var sig = show + '|' + doors.join(',') + '|' + Math.round(view.ox) + ',' + Math.round(view.oy) + ',' + s.toFixed(4) + '|' + W + 'x' + H + '|' + z + '|' + (pad ? pad.map(Math.round).join(',') : '') + '|' + (VAR && VAR.src) + '|' + (window.__DS_PLANT ? JSON.stringify(window.__DS_PLANT) : '');
+  if(sig === DS.sig) return; DS.sig = sig;
+  DS.el.style.display = show ? '' : 'none';
+  Object.keys(DS.signs).forEach(function(k){ if(doors.indexOf(k) < 0){ DS.signs[k].remove(); delete DS.signs[k]; } });
+  DS.list = []; if(!show) return;
+  DS.el.style.setProperty('--ds-f', Math.max(11, Math.round(11 * z * 10) / 10) + 'px'); DS.el.style.setProperty('--ds-i', Math.round(18 * z) + 'px'); DS.el.style.setProperty('--ds-h', Math.round(24 * z) + 'px');
+  var M = 4, U = [M, M, W - M, H - M];   /* the glass this frame holds, a hair in from its edge */
+  var rx = function(a, c, g){ g = g || 0; return a[0] < c[2] + g && a[2] + g > c[0] && a[1] < c[3] + g && a[3] + g > c[1]; };
+  var block = [];   /* what a sign never lies on: the phone, the post's and the bar's own picture plates */
+  if(pad) block.push([pad[0] - 2, pad[1] - 2, pad[2] + 2, pad[3] + 2]);
+  try{ Object.keys(DOOR_SIGNS).forEach(function(k){ var r = signRect(k); if(r) block.push([view.ox + r[0]*s, view.oy + r[1]*s, view.ox + r[2]*s, view.oy + r[3]*s]); }); }catch(e){}
+  var bodies = [];   /* the people who stand still (the keepers at their doors, the crowd): a sign keeps off a body when it can, so the finger on a man is the man */
+  try{ var ph = personH(); folkList().forEach(function(q){ if(!q.keeper && !q.crowd) return; bodies.push([view.ox + (q.x - ph*.2)*s, view.oy + (q.y - ph)*s, view.ox + (q.x + ph*.2)*s, view.oy + q.y*s]); }); }catch(e){}
+  var mids = {};   /* every building's own middle (where a finger on the building lands, where(k)): no other door's sign lies on it */
+  ORDER.forEach(function(k){ if(!VAR.boxes[k]) return; var t = tapBox(k), mx = view.ox + (t[0]+t[2])/2*s, my = view.oy + (t[1]+t[3])/2*s; mids[k] = [mx - 24, my - 24, mx + 24, my + 24]; });
+  var placed = [], hits = [];
+  var order = doors.slice().sort(function(a, c){ return (a === 'lot' ? -1 : 0) - (c === 'lot' ? -1 : 0); });   /* the lot first: it is the one he could not find */
+  order.forEach(function(k){
+    var el = dsSign(k); if(el.parentNode !== DS.el) DS.el.appendChild(el);
+    el.classList.remove('off'); el.removeAttribute('data-dir');
+    var p = el.firstChild, w = Math.ceil(p.offsetWidth), h = Math.ceil(p.offsetHeight), hh = Math.max(44, h);
+    var t = tapBox(k), r = [view.ox + t[0]*s, view.oy + t[1]*s, view.ox + t[2]*s, view.oy + t[3]*s];
+    var vis = [Math.max(r[0], U[0]), Math.max(r[1], U[1]), Math.min(r[2], U[2]), Math.min(r[3], U[3])];
+    var seen = vis[2] - vis[0] >= 24 && vis[3] - vis[1] >= 24 && !(pad && vis[0] >= pad[0] && vis[2] <= pad[2] && vis[1] >= pad[1] && vis[3] <= pad[3]);
+    var bx = seen ? vis : r, cxm = (bx[0] + bx[2]) / 2, top = bx[1], bot = bx[3], bw = bx[2] - bx[0], bh = bot - top;
+    /* where it may sit, best first: on the roof, the middle, under the roof to either side, then just over or under the building */
+    var cand = [[cxm, top + h/2 + 3], [cxm, top + bh*.3], [cxm - bw*.25, top + h/2 + 3], [cxm + bw*.25, top + h/2 + 3], [cxm, top + bh*.5], [cxm - bw*.25, top + bh*.4], [cxm + bw*.25, top + bh*.4],
+      [cxm, top - h/2 - 2], [cxm, top + bh*.68], [cxm, bot + h/2 + 2], [cxm - bw*.3, top + bh*.6], [cxm + bw*.3, top + bh*.6]];
+    var best = null, bestCost = Infinity;
+    cand.forEach(function(c, i){
+      var x = Math.max(U[0] + w/2, Math.min(U[2] - w/2, c[0])), y = Math.max(hh/2, U[1] + h/2, Math.min(H - hh/2, U[3] - h/2, c[1]));   /* the finger's whole 44 on the glass too */
+      var pr = [x - w/2, y - h/2, x + w/2, y + h/2], ph2 = [pr[0], y - hh/2, pr[2], y + hh/2], cost = i;
+      block.forEach(function(q){ if(rx(pr, q, 1)) cost += 1000; });
+      placed.forEach(function(q, n){ if(rx(pr, q, 3)) cost += 500; else if(rx(ph2, hits[n], 0)) cost += 300; });   /* no two fingers' 44s share a point: a tap is always one sign's */
+      bodies.forEach(function(q){ if(rx(pr, q, 0)) cost += 30; });
+      Object.keys(mids).forEach(function(o){ if(o !== k && rx(ph2, mids[o], 0)) cost += 300; });   /* a finger on another building's middle opens that building */
+      if(pr[2] < r[0] - 12 || pr[0] > r[2] + 12 || pr[3] < r[1] - 12 || pr[1] > r[3] + 12) cost += 40;   /* away from its own building */
+      if(cost < bestCost){ bestCost = cost; best = pr; } });
+    if(bestCost >= 300){   /* nothing clear near its door: the nearest clear place on the glass */
+      for(var d = 8; d < 400 && bestCost >= 300; d += 8) for(var a = 0; a < 16 && bestCost >= 300; a++){ var th = a / 16 * Math.PI * 2;
+        var x2 = Math.max(U[0] + w/2, Math.min(U[2] - w/2, cxm + Math.cos(th) * d)), y2 = Math.max(hh/2, U[1] + h/2, Math.min(H - hh/2, U[3] - h/2, top + h/2 + Math.sin(th) * d));
+        var q2 = [x2 - w/2, y2 - h/2, x2 + w/2, y2 + h/2], h2b = [q2[0], y2 - hh/2, q2[2], y2 + hh/2], c2 = 0;
+        block.forEach(function(q){ if(rx(q2, q, 1)) c2 += 1000; }); placed.forEach(function(q, n){ if(rx(q2, q, 3)) c2 += 500; else if(rx(h2b, hits[n], 0)) c2 += 300; });
+        Object.keys(mids).forEach(function(o){ if(o !== k && rx(h2b, mids[o], 0)) c2 += 300; });
+        if(c2 < bestCost){ bestCost = c2; best = q2; } } }
+    if(!seen){   /* past the glass: on the edge nearest the door, its arrow pointing at it */
+      var dx = (r[0] + r[2]) / 2 - W / 2, dy = (r[1] + r[3]) / 2 - H / 2, dir = Math.abs(dx) / W > Math.abs(dy) / H ? (dx < 0 ? 'l' : 'r') : (dy < 0 ? 'u' : 'd');
+      el.classList.add('off'); el.setAttribute('data-dir', dir); w = Math.ceil(p.offsetWidth); h = Math.ceil(p.offsetHeight);
+      var ex = dir === 'l' ? U[0] + w/2 : dir === 'r' ? U[2] - w/2 : Math.max(U[0] + w/2, Math.min(U[2] - w/2, (r[0] + r[2]) / 2));
+      var ey = dir === 'u' ? hh/2 : dir === 'd' ? H - hh/2 : Math.max(hh/2, Math.min(H - hh/2, (r[1] + r[3]) / 2));
+      if(pad && rx([ex - w/2, ey - h/2, ex + w/2, ey + h/2], pad, 1)){ if(dir === 'd' || dir === 'r') ey = Math.min(ey, pad[1] - h/2 - 3); }
+      best = [ex - w/2, ey - h/2, ex + w/2, ey + h/2]; }
+    placed.push(best); hits.push([best[0], Math.min(best[1], (best[1] + best[3]) / 2 - hh/2), best[2], Math.max(best[3], (best[1] + best[3]) / 2 + hh/2)]);   /* the paper, and its finger's whole 44 */
+    var bt = Math.round(best[1] - (hh - h) / 2);
+    el.style.width = w + 'px'; el.style.height = hh + 'px';
+    el.style.left = Math.round(best[0]) + 'px'; el.style.top = bt + 'px';   /* left and top, never a transform: a transform would make each sign its own layer and a neighbour's clear margin could lie over this one's paper; as it is every paper (z 1) lies over every sign's margin */
+    DS.list.push({k:k, name:DS_NAME[k], off:!seen, r:[Math.round(best[0]), Math.round(best[1]), Math.round(best[2]), Math.round(best[3])], hit:[Math.round(best[0]), bt, Math.round(best[0]) + w, bt + hh]});
+  });
+}
+window.addEventListener('storage', function(e){ if(e.key === 'bohemia.uisize.v1') DS.sig = ''; });
+try{ document.fonts.ready.then(function(){ DS.sig = ''; }); document.fonts.addEventListener('loadingdone', function(){ DS.sig = ''; }); }catch(e){}   /* the letters arrive after the first layout: measure again */
+/* ==== end __EVERY_DOOR_HAS_A_SIGN__ ==== */
 window.BohemiaSettlement = {restock:function(){ restock(); },   /* FIXES (rule 364): the shelf rolled again (the town's ground arriving, a camp turning), for the gate */
   tradeSell:function(id){ return tradeSellHere(id); },   trade:function(){ return tradeRows().map(function(r){ var x = tradeSides(r); return {key:r.key, id:r.id, made:r.made, buy:x.buy, sell:x.sell, have:x.have, left:x.left, ctx:tradeCtx()}; }); }, tradeFile:function(){ return STALLP; },   /* __TRADE_GOODS_CARRIED__, for the gate */   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
    /* __HIS_MAP__ WORLD TWO: this stall's price for one of a trade good today */
@@ -5021,6 +5161,8 @@ open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier
 /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): read only. Is the town's own picture in (the glass is the town, not the brown
    it waits on)? The shell's FIRST PLAY and gates/first_play_is_light_gate.js ask it. */
 try{ window.BohemiaSettlement.picIn = function(){ try{ return picIn(); }catch(e){ return false; } }; }catch(e){}
+/* __EVERY_DOOR_HAS_A_SIGN__: read only, the signs on the glass now ({k, name, off, r: the plate, hit: the press}) and the doors that must carry one */
+try{ window.BohemiaSettlement.doorSigns = function(){ return {show:dsShow(), doors:dsDoors(), list:DS.list.slice()}; }; }catch(e){}   /* doorSigns, never signs: signs(on) is the post's and the bar's picture plates' switch (the pixel gates turn it off) */
 requestAnimationFrame(loop);
 })();
 </script>

@@ -1,5 +1,28 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
+UI (ui-9, every door has a sign): 11/8 LATEST -- [every door has a sign] BUILT, NOT YET SEEN (rule 434, ask line 519, the coordinator's
+routine; BUILD 11/8c - EVERY DOOR HAS A SIGN), IN THE DEMO, VOTE card ui9-every-door-has-a-sign-11-8 (STAND-IN).
+Record records/BOHEMIA_UI9_EVERY_DOOR_HAS_A_SIGN_11_8_26.md.
+- MEASURED BEFORE: six towns upright, every door on the glass (the lot whole in all six) but NONE named at rest; SCAVENGE nowhere.
+- THE SIGNS (slices/BOHEMIA_SETTLEMENT_SCREEN.html, block __EVERY_DOOR_HAS_A_SIGN__, a call in loop(), BohemiaSettlement.doorSigns()):
+  a DOM layer #doorsigns in #scene, button.doorsign[data-door=k] per door (ORDER, BUILD only when buildMine(), not on his own camp),
+  icon + short name (DS_NAME) in BohemiaCasing on UI's receipt paper; placed on the roof first, never on the phone (FIT.pad.r), the
+  post's/bar's picture plates (signRect) or another sign, off standing bodies (keepers, crowd) when it can; the lot laid first.
+  A tap = openB(k). Re-laid only when the shape changes (DS.sig: view, glass, pad, doors, UI size, fonts). Hidden with a sheet open,
+  the arrival, the flip, the pinch out, #scavgame. A door off the glass (pinched in): the sign on the edge with an arrow (.off,
+  data-dir), a tap pans there (where) and opens. UI size from bohemia.uisize.v1 (1, 1, 1.15, 1.3; the storage event re-lays).
+  Icons: the game's own (market_icons, supply_icons); the board's notice and the barber's pole cut on a 12 grid (DS_GRID).
+  window.__DS_PLANT is the gate's switch ({drop:k} drops one sign; any change re-lays). No sign on another building's middle (a finger
+  there opens that building), no two signs' 44 px presses share a point (the papers lie above every margin, left/top, no transform),
+  and the signs move the instant where()/lookAt() pan. The reader is doorSigns(): signs(on) stays the picture plates' switch.
+- GATE gates/every_door_has_a_sign_gate.js (EVERY DOOR HAS A SIGN): every place on the demo's map, both phone shapes, D1 to D5,
+  L (LARGEST), M1 to M3 planted: 70 passed, 0 failed. Results in the record.
+NEXT: MAIN'S RED, NOT THE SIGNS' (measured on clean 56fe0a59 too): SCROLLING IS ILLEGAL N8/N9 upright, the fullest hall's new RETINUE rows
+(.campf.retf, RETINUE 11/7) run past the glass (a face at y 836 of 844); the hall's fit has to fold them in. His own camp has no signs (the tent, the retinue, the cart are CAMP TWO's pieces; one call if he wants them). Rule 71a's finger
+tag still shows over a sign while the finger is down (it carries the line: what is left on the lot); if it reads double, drop it.
+[bb Battle Brothers: every building in the town answers with its name; on a phone with no cursor the name has to sit on it.]
+[analog horror: scraps of receipt paper taped to the roofs, the hand labels of a town that lost its signs.]
+
 UI (ui-9, smaller never pages + the UI's size): 11/7 LATEST -- [smaller, never pages] + [the UI's size] BUILT, NOT YET SEEN (rule 402 amended,
 ask line 481; rule 403, ask line 445, the coordinator's routine; BUILD 11/7i - SMALLER, NEVER PAGES), IN THE DEMO, VOTE card
 ui9-smaller-never-pages-11-7 (STAND-IN). Corrects UI 8's 11/6g block below: its pager and tabs are OUT.
