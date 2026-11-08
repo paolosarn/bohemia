@@ -4442,5 +4442,18 @@
   "quote": "no one wants to be right in the middle of the street, that's how you get shot at the most ... naturally if my company is walking in the middle of the street when combat starts, they're trying to get a defensive, range bonus... them being in the middle of the street and then, if it's on auto, they're trying to get out of there",
   "why": "COMBAT TWO 11/7: AUTO (his men's and theirs: one brain, planTurn) weighs where a turn ends by the hurt it can take there (dangerOn); a tile of open street (the board's asphalt, a lane or a walk, with nothing to hide behind on it) counts street more of that hurt, a house house (a pull toward it). Measured on the gate (gates/nobody_stands_in_the_open_street_gate.js E2). THE SCRAMBLE (428(c)): AUTO's walk toward the fight counts the open street walk_street steps farther and a house, a roof or cover walk_good steps nearer, full in the first first_rounds rounds and later_share of it after (so the fight still comes on), and the street's hurt first_share times over in those rounds (measured, 24 boards, every man started on the open street: after the first round on a house, a roof or cover his 55% and theirs 49% with the cost off, 69% and 78% with it; fights 4.4 rounds before, 4.6 after, all 24 over); a man who holds the line or a shooter who sees them still steps aside or one back onto better ground; of the tiles a man can strike from, strike points of the hit chance against the open street; a walk off the street onto better ground no farther from the fight is taken.",
   "draft": true
+ },
+ "outmatched": {
+  "value": {
+   "on": true,
+   "ratio": 0.6,
+   "max_rounds": 4,
+   "approach_steps": 1.5,
+   "ground_weight": 2
+  },
+  "source": "VAMILY.md rule 428(d) (Paolo 11/7, ask line 503); records/BOHEMIA_COMBAT_TWO_THE_ENEMY_DIGS_IN_11_7_26.md",
+  "quote": "the enemy AI, they know that our mercenary team will absolutely destroy them, they're definitely gonna try to get some defensive bonus and not rush us... maybe even go backwards to find some good defensive bonuses",
+  "why": "COMBAT TWO 11/7: the odds read (a side's men: hit points and both armours times the weapon's middle damage times the skill with it, summed); a side of men under ratio of the other's digs in for its first max_rounds rounds: its walk weighs the ground ground_weight times (the open street worst, a house, roof or cover best) and approach_steps steps for every tile it closes on the nearest man of the other side (going back is free), it may hold, and it walks for a blow only where it does not close (or for a kill on offer); after max_rounds the fight comes to it either way.",
+  "draft": true
  }
 }

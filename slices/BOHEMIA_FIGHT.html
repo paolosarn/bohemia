@@ -589,6 +589,36 @@ const FIGHT = (function () {
      and theirs) weighs the ground it ends on in steps of the walk: the open street ours.open_street.walk_street steps worse, a
      house, a roof or a tile with cover walk_good steps better; strongest in the first first_rounds rounds (the scramble off the
      street the fight opened in), later_share of it after (nobody stands in the street by choice, but the fight still comes on) */
+  /* THE ENEMY KNOWS WHEN IT IS OUTMATCHED (rule 428(d), Paolo 11/7: 'the enemy AI, they know that our mercenary team will
+     absolutely destroy them, they're definitely gonna try to get some defensive bonus and not rush us... maybe even go backwards
+     to find some good defensive bonuses'). THE ODDS READ: a side's strength is the sum over its men on the field of what keeps him
+     up (his hit points and both armours) times what he puts out (his weapon's middle damage times his skill with it): the
+     numbers, the gear and the levels in one figure. A side of men (never beasts or machines) under ours.outmatched.ratio of the
+     other's DIGS IN for its first max_rounds rounds: its walk weighs only the ground and every tile it closes on the nearest man
+     of the other side (approach_steps a tile), so it takes the houses and cover where it stands or behind it and does not come
+     on; its walk-then-blow only where it does not close, or for a kill on offer. After max_rounds the fight comes to it either
+     way (a side that never comes is never a fight that never ends). [bb] Battle Brothers' AI weighs every tile by the danger on it
+     (its PotentialDanger); the odds read on top is ours (the library pages hold no BB odds rule), our swag. */
+  function sidePower(side) {
+    return S.units.reduce(function (t, v) {
+      if (v.side !== side || !onField(v) || v.decoy || v.ghost) return t;
+      const w = v.weapon || {}, dmg = ((w.damage_min || 0) + (w.damage_max || 0)) / 2 || 10, sk = (isRanged(w) ? v.rskill : v.mskill) || 50;
+      return t + (Math.max(0, v.hp) + (v.armB || 0) + (v.armH || 0)) * dmg * sk;
+    }, 0);
+  }
+  function oddsOf(side) {
+    if (!S.oddsAt || S.oddsAt.round !== S.round || S.oddsAt.n !== S.log.length) {
+      const a = sidePower('you'), b = sidePower('them');
+      S.oddsAt = { round: S.round, n: S.log.length, you: b ? a / b : Infinity, them: a ? b / a : Infinity };
+    }
+    return S.oddsAt[side];
+  }
+  function digsIn(u) {
+    const O = R('ours.outmatched');
+    if (!O.on || u.side !== 'them' || u.beast || u.machine || S.round > O.max_rounds) return false;
+    return oddsOf('them') < O.ratio;
+  }
+  function nearFoe(u, x, y) { return foes(u).reduce(function (m, f) { return onField(f) && f.morale !== 'Fleeing' ? Math.min(m, dist({ x: x, y: y }, f)) : m; }, Infinity); }
   function goodGround(x, y) { return !!(storeysAt(x, y) || (S.coverCount[y] && S.coverCount[y][x]) || level(x, y) > 0); }
   function groundSteps(x, y) {
     if (!S.street || !inBoard(x, y)) return 0; const O = R('ours.open_street'), k = S.round <= O.first_rounds ? 1 : O.later_share;
@@ -4434,7 +4464,7 @@ const FIGHT = (function () {
     blowsHere(u, B, dw).forEach(function (o) { add(o, here, 1, 0, o.kind === 'strike' ? function () { return !!strike(u, o.t); } : function () { return !!sweep(u, o.t, null, o.name); }); });
     /* 2. a walk, then a blow or a sweep (the climb rule: a tile his way climbs a roof to gives none; a whip's lash from the second
        tile is a blow from that tile) */
-    const ring = zocOn(u, u.x, u.y), closeTiles = [];   /* __AUTO_KNOWS_ITS_MAN__: the tiles a club man could close in on */
+    const ring = zocOn(u, u.x, u.y), closeTiles = [], dig = digsIn(u);   /* __AUTO_KNOWS_ITS_MAN__: the tiles a club man could close in on; 428(d) */
     let closeLine = null;
     let zone = 0, pass = 1;
     ring.forEach(function (f) { const b = hurtOn(f, u, strikeSkill(f.weapon)); zone += b.v; pass *= 1 - b.p; });
@@ -4474,6 +4504,7 @@ const FIGHT = (function () {
         standIn(u, x, y, left, function () { return blowsHere(u, B, dw); }).forEach(function (o) {
           if (chase && o.pk < B.kill_on_offer) return;   /* NO LONG CHASE (rule 332): a far walk into their clubs only for a kill on offer */
           if (runOnly(o) && o.pk < B.kill_on_offer) return;   /* COMBAT 7: no walk for a blow on a runner while a man of theirs stands within reach, unless it drops him (a kill on offer, rule 332) */
+          if (dig && nearFoe(u, x, y) < nearFoe(u, u.x, u.y) && o.pk < B.kill_on_offer) return;   /* rule 428(d): outmatched, he does not close for a blow */
           o.walk = true; add(o, { x: x, y: y }, pass, zone, function () { u.btMoves++; return moveTo(u, x, y); });
         });
       });
@@ -4855,10 +4886,10 @@ const FIGHT = (function () {
     const hunt = huntField(u), hl = huntField(u, true);   /* the walk round houses and his own men; the line on the ground alone */
     const line = (A.keep_formation || A.shield_the_backline || A.long_weapon_waits || A.stays_back) ? lineOf(u, hl) : null;
     const depth = R('ours.formation_depth_lines');
-    const keepUpW = keepsRoof(u), lvHereW = level(u.x, u.y);
+    const keepUpW = keepsRoof(u), lvHereW = level(u.x, u.y), digW = digsIn(u), nf0 = digW ? nearFoe(u, u.x, u.y) : 0;
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-      if (x === u.x && y === u.y && u.side !== 'you') return;   /* to AUTO, staying where he stands is a plan like any other */
+      if (x === u.x && y === u.y && u.side !== 'you' && !digW) return;   /* to AUTO, staying where he stands is a plan like any other (428(d): to a man who digs in, too) */
       if (keepUpW && level(x, y) < lvHereW) return;   /* AUTO HOLDS THE ROOF: the walk on keeps his storey while he has a shot or posts up */
       const left = u.ap - f.best[k];
       const ghost = { x: x, y: y, side: u.side, weapon: w };
@@ -4892,6 +4923,8 @@ const FIGHT = (function () {
            steps off the open street onto better ground beside him or one step back, never nearer the fight */
         const gsX = groundSteps(x, y), aside = gsX < groundSteps(u.x, u.y) && hunt(x, y) >= hunt(u.x, u.y) && hunt(x, y) <= hunt(u.x, u.y) + 1;
         sc = holds && !aside ? -Infinity : -(hunt(x, y) + gsX) * R('hit_chance.cap').max + left;
+        /* rule 428(d): outmatched, the ground is all he weighs, and every tile he closes on the nearest man of ours (behind is free) */
+        if (digW) sc = -(gsX * R('ours.outmatched').ground_weight + Math.max(0, nf0 - nearFoe(u, x, y)) * R('ours.outmatched').approach_steps) * R('hit_chance.cap').max + left;
         /* rule 332: NO LONG CHASE (a walk of chase_tiles or more this turn ending where chase_reach of their clubs swing at him) */
         if (u.side === 'you' && A.best_turn && sc > -Infinity && longChase(u, x, y, f.best[k])) sc = -Infinity;
         if (ranged && !A.advance && !aside && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
@@ -4937,7 +4970,8 @@ const FIGHT = (function () {
     const here = hunt(u.x, u.y);
     /* rule 428(c): a walk off the open street onto better ground no farther from the fight is a walk too (the scramble) */
     const offStreet = best && groundSteps(best.x, best.y) < groundSteps(u.x, u.y) && hunt(best.x, best.y) <= here + 1;
-    if (best && !(u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || offStreet || bs >= R('hit_chance.cap').max)) {
+    if (digW && best && bs > -Infinity && !(best.x === u.x && best.y === u.y) && !(bs >= R('hit_chance.cap').max)) { if (moveTo(u, best.x, best.y)) return true; }   /* 428(d): he takes his ground */
+    else if (best && !(u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || offStreet || bs >= R('hit_chance.cap').max)) {
       if (moveTo(u, best.x, best.y)) return true;
     }
     if (aiLast(u)) return true;
@@ -5004,7 +5038,7 @@ const FIGHT = (function () {
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, retreatFromLine: retreatFromLine, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, bandCard: bandCard, rangeBandOf: rangeBandOf, bandAt: bandAt, shotLineOf: shotLineOf, reachUp: reachUp, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
-    level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,

@@ -21,6 +21,8 @@
      E1  (e) AUTO counts the open street worst: streetCost on an open street tile > 0 > on a house                    planted: the cost off
      E2  (e) AUTO, both sides, 4 rounds at 6 spots: of the turns a man moved, the share ending on the open street is under
          half the open street's share of the walkable board                                               planted: the cost off
+     E4  428(d) THE ENEMY DIGS IN: the same boards, theirs made weak, after two rounds on good ground (>85%), some of them farther
+         from us, the gap closing under 2.5 tiles; theirs made strong, the gap closing over 2                         planted: odds read off
      E3  428(c) THE SCRAMBLE: 24 seeds, every man of both sides put on the open street nearest his start; after their first moves
          on AUTO more than 60% of EACH side stands on a house, a roof or cover                                                 planted: the cost off
    Run: node gates/the_old_layout_the_new_houses_gate.js [--json out.json] [--nopage]       (about a minute) */
@@ -207,6 +209,35 @@ function deal(ctx, d, c, seed, extra) {
   check(ok3(s3), 'E3', '428(c) the scramble: ' + s3.boards + ' boards, every man started on the open street (' + s3.put + '); after their first moves on AUTO on a house, a roof or cover: his ' + pc(s3.you) + ', theirs ' + pc(s3.them));
   check(!ok3(s3off), 'E3p', 'planted: with the street cost off his ' + pc(s3off.you) + ', theirs ' + pc(s3off.them) + ', caught');
   R.E3 = { on: s3, off: s3off };
+  /* ---- E4 (rule 428(d), THE ENEMY KNOWS WHEN IT IS OUTMATCHED): the same 24 boards, every man on the open street; theirs made
+     weak (a third of their hit points and armour: the odds read under ours.outmatched.ratio) they end their first two rounds on
+     houses, roofs or cover, some of them farther from us than they started, and close on us far less than with the odds read off;
+     theirs made strong (three times) they still come on. Planted: the odds read off ---- */
+  const near = (S, u) => S.units.filter(v => v.side !== u.side && (v.side === 'you' || v.side === 'them') && !v.dead && !v.down && !v.fled).reduce((m, v) => Math.min(m, Math.max(Math.abs(v.x - u.x), Math.abs(v.y - u.y))), 99);
+  const digRun = function (k, on) {
+    const O = ctx.DB.ours.outmatched.value, keep = O.on; O.on = on;
+    let n = 0, good = 0, back = 0, dsum = 0, boards = 0, odds = 0;
+    SC.forEach(s => {
+      const S = deal(ctx, s[0], s[1], s[2]), T = F._t, street = [];
+      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (F.openStreet(x, y) && T.passable(x, y)) street.push([x, y]);
+      const men = S.units.filter(u => !u.dead && !u.down && !u.fled && (u.side === 'you' || u.side === 'them'));
+      if (street.length < men.length) return; boards++;
+      const taken = {}; men.forEach(u => { const q = street.filter(t => !taken[t]).sort((a, c) => (Math.abs(a[0] - u.x) + Math.abs(a[1] - u.y)) - (Math.abs(c[0] - u.x) + Math.abs(c[1] - u.y)))[0]; taken[q] = 1; u.x = q[0]; u.y = q[1]; });
+      S.units.filter(u => u.side === 'them').forEach(u => { u.hp = Math.max(1, Math.round(u.hp * k)); u.hpMax = Math.max(u.hp, Math.round(u.hpMax * k)); u.armB = Math.round(u.armB * k); u.armH = Math.round(u.armH * k); });
+      odds += F.oddsOf('them');
+      const d0 = {}; S.units.forEach(u => { if (u.side === 'them') d0[u.id] = near(S, u); });
+      let g = 0; while (!S.over && S.round <= 2 && g < 40000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; }
+      S.units.forEach(u => { if (u.side !== 'them' || u.dead || u.down || u.fled) return; n++; if (F.goodGround(u.x, u.y)) good++; const d1 = near(S, u); if (d1 > d0[u.id]) back++; dsum += d1 - d0[u.id]; });
+    });
+    O.on = keep;
+    return { boards, good: good / Math.max(1, n), back: back / Math.max(1, n), d: dsum / Math.max(1, n), odds: odds / Math.max(1, boards) };
+  };
+  const wk = digRun(0.35, true), wkOff = digRun(0.35, false), st4 = digRun(3, true);
+  const okDig = (w, s) => w.boards >= 20 && w.odds < ctx.DB.ours.outmatched.value.ratio && w.good > 0.85 && w.back > 0.05 && w.d > -2.5 && s.odds > 1 && s.d < -2;
+  const f2 = v => Math.round(v * 100) / 100;
+  check(okDig(wk, st4), 'E4', '428(d) outmatched (odds ' + f2(wk.odds) + '), from the street, after two rounds: theirs on a house, roof or cover ' + pc(wk.good) + ', farther from us than they began ' + pc(wk.back) + ', the gap closed by ' + f2(-wk.d) + ' tiles; stronger (odds ' + f2(st4.odds) + ') they come on, the gap closed by ' + f2(-st4.d));
+  check(!okDig(wkOff, st4), 'E4p', 'planted: the odds read off, outmatched they close by ' + f2(-wkOff.d) + ' tiles, ' + pc(wkOff.back) + ' farther, caught');
+  R.E4 = { weak: wk, weakOff: wkOff, strong: st4 };
   /* ---- D3 on the page: no ladder is drawn ---- */
   if (!NOPAGE && firstHouse) {
     const { chromium } = require('playwright');

@@ -31,6 +31,9 @@ leg(!!(ew && ew.value && ew.source && ew.quote && ew.why && ew.value.storey_weig
 /* W2: on a flat board, one thug of theirs, four of ours in a block ahead: count the turns he ends alone in reach of 3+ */
 function w2(ctx) {
   const F = ctx.FIGHT; let alone = 0, n = 0;
+  /* rule 428(d) (COMBAT TWO 11/7): one of theirs against four of ours is outmatched and digs in, never walking at all; this leg is the
+     walk of a man who comes on, so the odds read is off for it (THE OLD LAYOUT, THE NEW HOUSES E4 holds the digging) */
+  if (ctx.DB.ours.outmatched) ctx.DB.ours.outmatched.value.on = false;
   for (let sd = 1; sd <= 10; sd++) {
     ctx.setSeed(sd); F.setup({ kind: 'suburb', formation: null, deploy: false, flat: true, company: [{ background: 'companion_2hand' }, { background: 'companion_1hand' }, { background: 'companion_2hand' }, { background: 'companion_1hand' }], cap: 4, band: ['brigand_thug', 'brigand_thug'] });
     const S = F.S, mine = S.units.filter(u => u.side === 'you'), t = S.units.filter(u => u.side === 'them');
