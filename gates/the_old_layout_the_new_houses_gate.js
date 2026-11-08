@@ -225,9 +225,13 @@ function deal(ctx, d, c, seed, extra) {
       const taken = {}; men.forEach(u => { const q = street.filter(t => !taken[t]).sort((a, c) => (Math.abs(a[0] - u.x) + Math.abs(a[1] - u.y)) - (Math.abs(c[0] - u.x) + Math.abs(c[1] - u.y)))[0]; taken[q] = 1; u.x = q[0]; u.y = q[1]; });
       S.units.filter(u => u.side === 'them').forEach(u => { u.hp = Math.max(1, Math.round(u.hp * k)); u.hpMax = Math.max(u.hp, Math.round(u.hpMax * k)); u.armB = Math.round(u.armB * k); u.armH = Math.round(u.armH * k); });
       odds += F.oddsOf('them');
-      const d0 = {}; S.units.forEach(u => { if (u.side === 'them') d0[u.id] = near(S, u); });
+      /* their own ground: the distance from where his men STARTED (rule 435 brings his men on every turn, so a distance to his men
+         as they stand now would read his advance as theirs) */
+      const ours0 = S.units.filter(v => v.side === 'you' && !v.dead).map(v => ({ x: v.x, y: v.y }));
+      const from0 = u => ours0.reduce((m, v) => Math.min(m, Math.max(Math.abs(v.x - u.x), Math.abs(v.y - u.y))), 99);
+      const d0 = {}; S.units.forEach(u => { if (u.side === 'them') d0[u.id] = from0(u); });
       let g = 0; while (!S.over && S.round <= 2 && g < 40000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; }
-      S.units.forEach(u => { if (u.side !== 'them' || u.dead || u.down || u.fled) return; n++; if (F.goodGround(u.x, u.y)) good++; const d1 = near(S, u); if (d1 > d0[u.id]) back++; dsum += d1 - d0[u.id]; });
+      S.units.forEach(u => { if (u.side !== 'them' || u.dead || u.down || u.fled) return; n++; if (F.goodGround(u.x, u.y)) good++; const d1 = from0(u); if (d1 > d0[u.id]) back++; dsum += d1 - d0[u.id]; });
     });
     O.on = keep;
     return { boards, good: good / Math.max(1, n), back: back / Math.max(1, n), d: dsum / Math.max(1, n), odds: odds / Math.max(1, boards) };

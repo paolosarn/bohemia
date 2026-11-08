@@ -10684,6 +10684,12 @@ GATES = [
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "
      "against 1x, every block paying its clock, the plates off the glass, and HOLD PLAY FOR 4X with a real finger on the phone. About 2 min", True),
+    ('EVERY MAN ACTS ON AUTO', ['node', 'gates/every_man_acts_on_auto_gate.js'],
+     "COMBAT TWO gate, 11/8, VAMILY rule 435 (ask line 520; PAOLO 11/8: 'not all my characters are moving and attacking on the auto combat mode now'). "
+     "Both sides on AUTO over every place board's districts, three towns and the freeway, two seeds each (38 fights, 19 kinds): every turn of a man of his "
+     "who is able (on the field, not running, not held in a man's reach, the breath for a step, the fight within his walk) he moves or strikes; a shooter in "
+     "cover with no man in reach may hold. The sides meet: every man of theirs starts on ground his line walks to (the Strip's casino wall). Planted: one man's "
+     "AUTO turn skipped; a man of theirs behind the wall.", True),
     ('THE OLD LAYOUT, THE NEW HOUSES', ['node', 'gates/the_old_layout_the_new_houses_gate.js'],
      "COMBAT TWO gate, 11/7, VAMILY rule 423 (ask lines 484 to 488; PAOLO 11/7: 'each house should be connected by road or mini road... every house should be a tile that I can be on... one story... a defense boost, but not a range offense boost... there's no ladder system... no one wants to be right in the middle of the street... use the layout of before and just swap the house assets'): 44 spots, the template's layout with the new houses (A1), every house touches a way and every floor tile joins his line (B1 B2), every house tile enterable at its storeys (C1), storeys 1 to 3 most two or three, one storey no reach (D1 D2), no climb into a house and no ladder drawn (D3), AUTO's open street cost and its moves (E1 E2); a planted fail for each. About 25 s", True),
     ('THE BOARD IS THE CITY AT THAT SPOT', ['node', 'gates/the_board_is_the_city_at_that_spot_gate.js'],

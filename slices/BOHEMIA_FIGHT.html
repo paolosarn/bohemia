@@ -618,6 +618,30 @@ const FIGHT = (function () {
     if (!O.on || u.side !== 'them' || u.beast || u.machine || S.round > O.max_rounds) return false;
     return oddsOf('them') < O.ratio;
   }
+  function actedNow(u) {
+    return S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && (e.t === 'attack' || e.t === 'step' || e.t === 'move' || e.t === 'skill'); })
+      || !!(u.turnFrom && (u.x !== u.turnFrom.x || u.y !== u.turnFrom.y));
+  }
+  function neverIdle(u, f, hunt) {
+    if (u.ap < R('ap.move_cost.flat') || zocOn(u, u.x, u.y).length || u.netted) return null;
+    if (actedNow(u)) return null;
+    if (isRanged(u.weapon) && goodGround(u.x, u.y) && !foes(u).some(function (t) { return canStrike(u, t); })) return null;   /* in cover holding his shot */
+    const h0 = hunt(u.x, u.y); let best = null, bv = Infinity;
+    /* never a climb (a roof he climbs is no blow this turn: rule 328), never farther from the nearest man of theirs who stands (AUTO
+       NEVER LEAVES A MAN), never back onto the tile his last turn began on when that turn had no blow (rule 176(b): no dance) */
+    const stand = foes(u).filter(function (t) { return onField(t) && t.morale !== 'Fleeing'; }), near = function (x, y) { return stand.reduce(function (m, t) { return Math.min(m, dist({ x: x, y: y }, t)); }, Infinity); };
+    const n0 = near(u.x, u.y), lt = u.lastTurn && !u.lastTurn.acted ? u.lastTurn : null;
+    /* (the line first before contact, rule 70b, was tried and taken out: it cost AUTO PLAYS THE BEST TURN B6 two fights and eight men
+       down in 32; the step nearest the fight wins) */
+    Object.keys(f.best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w); if (x === u.x && y === u.y) return;
+      if (f.up && f.up[k]) return;
+      if (lt && x === lt.x && y === lt.y) return;
+      if (stand.length && near(x, y) > n0) return;
+      const h = hunt(x, y);
+      if (!(h < h0)) return;
+      const v = h + groundSteps(x, y) * 0.1 + f.best[k] * 1e-3; if (v < bv) { bv = v; best = { x: x, y: y }; } });
+    return best;
+  }
   function nearFoe(u, x, y) { return foes(u).reduce(function (m, f) { return onField(f) && f.morale !== 'Fleeing' ? Math.min(m, dist({ x: x, y: y }, f)) : m; }, Infinity); }
   function goodGround(x, y) { return !!(storeysAt(x, y) || (S.coverCount[y] && S.coverCount[y][x]) || level(x, y) > 0); }
   function groundSteps(x, y) {
@@ -1689,6 +1713,34 @@ const FIGHT = (function () {
     return { ground: ground, envelope: [lo, hi], was: was, now: coverShare() };
   }
   /* one field: some tile of your start row walks to some tile of theirs */
+  /* THE SIDES MEET (rule 435, Paolo 11/8: 'not all my characters are moving and attacking on the auto combat mode now'). MEASURED
+     (both sides on AUTO, the fifteen place boards and three town districts, 36 fights): his men stood through 225 of 2,023 turns
+     (11.1%; on the code before 11/7zb 283 of 1,756, 16.1%), 168 of them on THE STRIP, every turn there: its board pins two rows of
+     casinos back to back (stripe's east columns, stripw's west), a wall from edge to edge on their column 13, the deal's hundred
+     tries can never move it (it is the layout he liked), and their line was placed behind the wall at column 17 ('wide'): no man
+     of either side could reach the other, so nobody moved and the fight never ended (CLIMB OR ATTACK C6's endless wolf fight at the
+     convention spot is the same board). 11/7zb brought the place boards back, so the demo's door met it. NOW their line stands on
+     ground his line walks to: S.meet is every tile his front column reaches (connected()'s own walk); their start column comes in
+     toward his until enough of those tiles stand there and past it for every man of theirs; placing them (the line, the camp, the
+     pincer, the head start) takes only those tiles. The layout is untouched. */
+  function meetMap() {
+    const cols = S.cols || R('ours.start_cols'), seen = new Uint8Array(S.w * S.h), q = [];
+    for (let y = 0; y < S.h; y++) if (passable(cols[0], y)) { seen[y * S.w + cols[0]] = 1; q.push({ x: cols[0], y: y }); }
+    while (q.length) { const n = q.shift();
+      DIRS.forEach(function (d) { const x = n.x + d[0], y = n.y + d[1];
+        if (passable(x, y) && !squeezes(n.x, n.y, x, y) && !seen[y * S.w + x]) { seen[y * S.w + x] = 1; q.push({ x: x, y: y }); } }); }
+    return seen;
+  }
+  function meets(x, y) { return !S.meet || !!S.meet[y * S.w + x]; }
+  function sidesMeet(n) {
+    S.meet = meetMap(); S.metCol = null;
+    const open = function (x) { let k = 0; for (let y = 0; y < S.h; y++) if (S.meet[y * S.w + x] && !(level(x, y) > 0)) k++; return k; };
+    const room = function (c) { let k = 0; for (let x = c; x < S.w; x++) k += open(x); return k; };
+    let c = S.cols[1]; const minC = S.cols[0] + R('deployment.min_gap_between_lines_hexes') + 1;
+    if (room(c) >= n) return;
+    while (c > minC && room(c) < n) c--;
+    S.metCol = { from: S.cols[1], to: c }; S.cols = [S.cols[0], c];
+  }
   function connected() {
     const cols = S.cols || R('ours.start_cols'), seen = {}, q = [];
     for (let y = 0; y < S.h; y++) if (passable(cols[0], y)) { seen[y * S.w + cols[0]] = true; q.push({ x: cols[0], y: y }); }
@@ -1731,7 +1783,7 @@ const FIGHT = (function () {
   function placeOwnStart(units, mode, camp) {
     const minX = S.cols[0] + R('deployment.min_gap_between_lines_hexes') + 1, left = [];
     const centres = mode === 'camp' ? [camp] : [{ x: camp.x, y: 1 }, { x: camp.x, y: S.h - (1 + 1) }];
-    const free = function (x, y) { return passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0); };
+    const free = function (x, y) { return passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y); };
     units.forEach(function (u, i) {
       const c = centres[i % centres.length], back = isRanged(u.weapon) || u.arche === 'backline';
       let best = null, bd = Infinity;
@@ -1756,7 +1808,7 @@ const FIGHT = (function () {
        board's far side takes the farthest open column there is */
     units.slice().sort(function (a, b) { return b.x - a.x; }).forEach(function (u) {
       const extra = Math.floor(u.apTurn / R('ap.move_cost.flat')) - run, want = Math.min(S.w - 1, front + extra * turns); if (extra <= 0 || u.x >= want) return;
-      const open = function (x, y) { return passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0); };
+      const open = function (x, y) { return passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y); };
       let best = null, bd = Infinity;
       for (let x = want; x < S.w && !best; x++) for (let y = 0; y < S.h; y++) { if (!open(x, y)) continue;
         const d = Math.abs(y - u.y); if (d < bd) { bd = d; best = { x: x, y: y }; } }
@@ -1900,10 +1952,12 @@ const FIGHT = (function () {
        flanks (placeOwnStart); else the line as it always was */
     const st = S.boardDef && S.boardDef.start;
     if (st === 'wide') S.cols = [cols[0], Math.min(S.w - 2, cols[1] + R('ours.place_boards').wide_extra)];
+    sidesMeet(bandUnits.length);
     deployCrew(crewUnits, S.cols[0], -1, kept);
     S.formation = formationNow();
     if ((st === 'camp' || st === 'pincer') && S.boardDef.camp) { placeOwnStart(bandUnits, st, S.boardDef.camp); placeBack(bandUnits); }   /* __ROOM_TO_RUN__: the camp and the pincer keep the head start too (measured: 145 of 753 dire wolves in 200 beast fights stood on the gap's line, columns 11 and 12) */
     else { place(bandUnits, S.cols[1], 1); placeBack(bandUnits); }   /* rule 256(a): the fast ones start back by their extra run */
+    S.meet = null;   /* rule 435: the meet map is the start's only */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
     S.deploy = !opts.auto && opts.deploy !== false;
@@ -1998,7 +2052,7 @@ const FIGHT = (function () {
     const mid = (S.h - 1) / (1 + 1);
     function rowsIn(x) {
       const c = [];
-      for (let y = 0; y < S.h; y++) if (passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0)) c.push(y);   /* on the ground at the bell (rule 256) */
+      for (let y = 0; y < S.h; y++) if (passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y)) c.push(y);   /* on the ground at the bell (rule 256); rule 435: where his line can reach */
       return c.sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
     }
     function fill(list, x0) {
@@ -2106,7 +2160,7 @@ const FIGHT = (function () {
   /* rule 378: the last resort for a man with no tile on his side, the open tile nearest x,y anywhere on the board */
   function anyOpen(x, y) {
     let best = null, bd = Infinity;
-    for (let yy = 0; yy < S.h; yy++) for (let xx = 0; xx < S.w; xx++) { if (!passable(xx, yy) || unitAt(xx, yy)) continue;
+    for (let yy = 0; yy < S.h; yy++) for (let xx = 0; xx < S.w; xx++) { if (!passable(xx, yy) || unitAt(xx, yy) || !meets(xx, yy)) continue;
       const d = Math.abs(xx - x) * S.h + Math.abs(yy - y); if (d < bd) { bd = d; best = { x: xx, y: yy }; } }
     return best;
   }
@@ -4760,6 +4814,9 @@ const FIGHT = (function () {
     if (best.value < restV) {   /* holding beats every option: the rest for a bigger next turn, or every walk costs more than it deals */
       u.btSay = (rests ? 'rests' : 'holds') + ': next turn ' + r0(restNext) + ' x' + D + ' (' + r0(restV) + ') beats ' + best.kind + ' ' + r0(best.deal) + ' now (' + r0(best.value) + ')';
       if (u.side !== 'you' && !(hits && restNext > (best.next || 0))) return null;   /* theirs: only the rest for the bigger swing; else their own walk */
+      /* rule 435: a man of his who has done nothing this turn never holds here for a hold's sake (measured: holding on a house beat
+         every walk that ended on the street, and swordsmen with their whole turn stood); the brain below walks him (neverIdle) */
+      if (u.side === 'you' && !actedNow(u) && !(rests && hits && u.fat > 0 && restNext > 0 && restNext > (best.next || 0))) return null;   /* a rest that buys nothing (fresh, next turn 0) is no rest */
       if (endSpend(u, P)) return true;
       u.btWhy = rests && hits && restNext > (best.next || 0) ? 'rest' : 'hold'; endTurn(u); return false;
     }
@@ -4921,7 +4978,11 @@ const FIGHT = (function () {
       } else {
         /* rule 428(c): the ground he ends on, in steps; a man who holds (the line before contact, a shooter who sees them) still
            steps off the open street onto better ground beside him or one step back, never nearer the fight */
-        const gsX = groundSteps(x, y), aside = gsX < groundSteps(u.x, u.y) && hunt(x, y) >= hunt(u.x, u.y) && hunt(x, y) <= hunt(u.x, u.y) + 1;
+        /* rule 435: a man of his who stays where he stands gets no ground for it (a house he already holds kept him there against a
+           step toward the fight onto the street: measured, swordsmen on houses with nothing to hit stood a turn); staying is
+           weighed by the fight as before (the step he saves) */
+        const stays = u.side === 'you' && x === u.x && y === u.y;
+        const gsX = stays ? 0 : groundSteps(x, y), aside = gsX < groundSteps(u.x, u.y) && hunt(x, y) >= hunt(u.x, u.y) && hunt(x, y) <= hunt(u.x, u.y) + 1;
         sc = holds && !aside ? -Infinity : -(hunt(x, y) + gsX) * R('hit_chance.cap').max + left;
         /* rule 428(d): outmatched, the ground is all he weighs, and every tile he closes on the nearest man of ours (behind is free) */
         if (digW) sc = -(gsX * R('ours.outmatched').ground_weight + Math.max(0, nf0 - nearFoe(u, x, y)) * R('ours.outmatched').approach_steps) * R('hit_chance.cap').max + left;
@@ -4974,6 +5035,14 @@ const FIGHT = (function () {
     else if (best && !(u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || offStreet || bs >= R('hit_chance.cap').max)) {
       if (moveTo(u, best.x, best.y)) return true;
     }
+    /* EVERY MAN OF HIS ACTS (rule 435, Paolo 11/8: 'not all my characters are moving and attacking on the auto combat mode'): after
+       the Strip (above, THE SIDES MEET), MEASURED on the fifteen place boards and three towns (36 fights, both sides AUTO): 43 of
+       1,964 of his turns a man with his whole turn's AP, a tile nearer the fight open to him and nothing to hit stood: the line he
+       waits for before contact (rule 70b), the long walk into their clubs (rule 332), a thrower who sees them far off. The newest
+       ruling wins: a man of his who has neither moved nor struck this turn, is not held in a man's reach and is not a shooter in
+       cover with no target in reach, walks to the reachable tile nearest the fight (the better ground on a tie); only a man with
+       no tile nearer than where he stands stays (out of reach) */
+    if (u.side === 'you' && !digW) { const fb = neverIdle(u, f, hunt); if (fb && moveTo(u, fb.x, fb.y)) return true; }
     if (aiLast(u)) return true;
     endTurn(u); return false;
   }
