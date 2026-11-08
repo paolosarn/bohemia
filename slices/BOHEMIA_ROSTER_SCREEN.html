@@ -1593,8 +1593,9 @@ var CAMP_FIGHT_DIM = 0;   /* the aftermath's own black over the board: none (the
    picture, him and the men round him, stays lit. Drawn once when his sheet is drawn, laid over each frame; nothing read off the glass */
 var CAMP_FIGHT_PAD = 8, CAMP_FIGHT_SOFT = 10;
 function campFightShade(){
-  var c = CAMPBG.c; if(!c) return null;
+  var c = CAMPBG.c; if(!c) return null; var t0 = performance.now(); CAMPBG.shadeAt = t0;
   var key = c.width + 'x' + c.height + '|' + campWords().map(function(e){ var r = e.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height), getComputedStyle(e).color].join(','); }).join(';');
+  CAMPBG.shadeMs = Math.round((performance.now() - t0) * 10) / 10;   /* what looking for the words costs (kept for the gate) */
   if(CAMPBG.shadeC && CAMPBG.shadeKey === key) return CAMPBG.shadeC;
   var sc = CAMPBG.shadeC || document.createElement('canvas'); sc.width = c.width; sc.height = c.height; CAMPBG.shadeC = sc; CAMPBG.shadeKey = key;
   var x = sc.getContext('2d'), d = CAMPBG.dpr || 1, rows = []; x.clearRect(0, 0, sc.width, sc.height);
@@ -1613,7 +1614,7 @@ function campFightBg(c, fw, t0){
     var AM = window.BohemiaAftermath, sc = null; try{ sc = AM && AM.fromFight(fw); }catch(e){ sc = null; }
     if(!sc) return back();
     CAMPBG.fight = true; CAMPBG.am = AM; CAMPBG.kind = 'fight'; c.dataset.kind = 'fight'; CAMPBG.dpr = 1; c.style.imageRendering = 'pixelated';
-    CAMPBG.dim = 0; CAMPBG.shadeTop = 0; CAMPBG.shadeBot = 0; CAMPBG.shadeN = 0;   /* the camp's lamp stands down over the fight: the words carry their own shade */
+    CAMPBG.dim = 0; CAMPBG.shadeTop = 0; CAMPBG.shadeBot = 0; CAMPBG.shadeAt = 0;   /* the camp's lamp stands down over the fight: the words carry their own shade */
     document.documentElement.classList.add('bm-camp-live');
     /* his people at the figure's size (98 points, the rig's ruler: rule 21, the ground may zoom, the person may not), the ground at
        one and a half covers of the glass, as in a town (rule 369(e): enough to walk to a man and still see the men round him; the
@@ -1622,7 +1623,7 @@ function campFightBg(c, fw, t0){
       paused: function(){ return !c.isConnected; },
       focus: function(){ var sp = campSpot(); return sp ? [sp.x / Math.max(1, innerWidth), sp.y / Math.max(1, innerHeight)] : [0.5, 0.5]; },
       follow: function(){ var m = S.crew[S.sel]; return m ? m.name : null; },
-      over: function(g){ if(++CAMPBG.shadeN >= 36){ CAMPBG.shadeN = 0; campFightShade(); } var k = CAMPBG.shadeC; if(k) g.drawImage(k, 0, 0); } });   /* the words looked for again every three seconds (a sheet that moved without a redraw) */
+      over: function(g, W, H, gliding){ var t = performance.now(); if(!gliding && t - CAMPBG.shadeAt > 3000) campFightShade(); var k = CAMPBG.shadeC; if(k) g.drawImage(k, 0, 0); } });   /* the words looked for again every three seconds of the clock, never while the camera glides (a sheet that moved without a redraw) */
     campFightWho(); campFightShade(); c.getContext('2d').drawImage(CAMPBG.shadeC, 0, 0);   /* the words' shades on the first picture too */
     CAMPBG.t.cost = performance.now() - t0; c.style.opacity = 1; CAMPBG.t.drawn = performance.timeOrigin + performance.now();
   };

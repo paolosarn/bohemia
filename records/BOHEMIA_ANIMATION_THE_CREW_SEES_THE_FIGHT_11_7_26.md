@@ -43,8 +43,9 @@ back.
 - The words: over the fight the camp's lamp stands down. MEASURED: measured once off the picture (the camp's way), a word inside the lit
   pool round him ('LEVEL 3: PICK 4 TO RAISE') went to 2.02 to 1 two seconds later as a pale wall slid under it, and the pool is never
   shaded; re-measuring every two seconds still dipped to 4.38. Now each word on the picture carries its own soft shade (a blurred
-  rectangle, CAMP_SHADE, as dark as its ink needs over white: the worst the board can bring), built when his sheet is drawn and laid
-  over each frame: nothing is read off the glass. Worst measured after: 7.04 to 1.
+  rectangle, CAMP_SHADE, as dark as its ink needs over white: the worst the board can bring), built when his sheet is drawn (and looked for
+  again every three seconds of the clock, never while the camera glides: 0.7 to 0.9 ms) and laid over each frame: nothing is read off
+  the glass. Worst measured after: 7.04 to 1.
 - slices/bohemia_aftermath.js, additive options only (the end screen passes none and draws as before): o.follow, o.glide, o.feet, o.man,
   o.cover, o.over; state() adds glides, glide, gliding, held and the lying men's names. The old 're-centre when holding nobody' line
   now stands for the end screen's camera only (it made the crew screen's camera jump instead of glide from the scene's middle).

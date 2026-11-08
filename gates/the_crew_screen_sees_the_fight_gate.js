@@ -266,10 +266,10 @@ async function side(profile) {
     const rate = () => rf.evaluate(() => new Promise(res => { let n = 0; const t0 = performance.now(); const fr2 = () => { n++; if (performance.now() - t0 < 1500) requestAnimationFrame(fr2); else res(n / ((performance.now() - t0) / 1000)); }; requestAnimationFrame(fr2); }));
     const held = [], run = [], med = a => a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)];
     for (let k = 0; k < 4; k++) { await rf.evaluate(() => BohemiaAftermath.hold(true)); held.push(await rate()); await rf.evaluate(() => BohemiaAftermath.hold(false)); run.push(await rate()); }
-    const s9 = await rf.evaluate(() => BohemiaAftermath.state()), gaps = frames.map(x => x.gap), worstGap = Math.max(0, ...gaps);
+    const s9 = await rf.evaluate(() => Object.assign(BohemiaAftermath.state(), { shadeMs: window.BohemiaRosterScreen.camp.shadeMs })), gaps = frames.map(x => x.gap), worstGap = Math.max(0, ...gaps);
     ok(name + ' F9 60 ON A PHONE: the picture\'s draw ' + s9.msAvg.toFixed(2) + ' ms a frame on average, ' + s9.msP95.toFixed(1) + ' at the 95th; each glide drawn every frame; the page ' + med(run).toFixed(0) + ' frames a second with it, ' + med(held).toFixed(0) + ' held',
       s9.msAvg < 8 && s9.msP95 < 12 && frames.length > 0 && frames.every(x => x.frames >= 1.5 * x.ms / (1000 / 12)) && med(run) >= med(held) * 0.85 - 1 && s9.errs === 0,
-      frames.map(x => x.n + ' ' + x.frames + ' frames in ' + x.ms + ' ms').join(', ') + ' (this box has no phone\'s GPU: its latest frame ' + worstGap + ' ms is said, not judged); errors ' + s9.errs);
+      frames.map(x => x.n + ' ' + x.frames + ' frames in ' + x.ms + ' ms').join(', ') + ' (this box has no phone\'s GPU: its latest frame ' + worstGap + ' ms is said, not judged); looking for the words ' + s9.shadeMs + ' ms, every three seconds, never in a glide; errors ' + s9.errs);
     /* F10 */
     const a0 = await sf.evaluate(() => BohemiaAftermath.state().frames);
     const byPhone = await closeDoor(); await p.waitForTimeout(1500);

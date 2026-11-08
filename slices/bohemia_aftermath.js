@@ -29,7 +29,7 @@
                                                     his height in css px (the figure's 98) and o.cover the ground's zoom in covers
                                                     of the glass (1.5, the town's), or closer where the scene needs it to bring each
                                                     place his men go to the focus, never past the near stop; o.over(g,
-                                                    W, H) draws the screen's own light over each frame (the crew screen's lamp)
+                                                    W, H, gliding) draws the screen's own light over each frame (the crew screen's)
      BohemiaAftermath.stop()                        lets go of the canvas and the clock
      BohemiaAftermath.state()                       for the gates: the men, what each is doing, frames drawn, the cost of a frame
    Gate: gates/the_aftermath_gate.js */
@@ -322,7 +322,7 @@
     }
     g.globalAlpha = 1; g.drawImage(A.over, 0, 0);
     A.view = { ox: ox, oy: oy, k: k, s: s };
-    if (A.lay) try { A.lay(g, W, H); } catch (e) {}   /* the crew screen's own light over it (its lamp, measured to the words' floor) */
+    if (A.lay) try { A.lay(g, W, H, !!A.glide); } catch (e) {}   /* the crew screen's own light over it (its lamp, measured to the words' floor) */
   }
   function drawUp(sc, g, m, x, y, x0, y0, s, now, clips) {
     var f = m.face || 0, B = sc.idles, gun = m.gun, dark = sc.night && !sc.lit(Math.round(m.wx), Math.round(m.wy)), fw = sc.fw;
