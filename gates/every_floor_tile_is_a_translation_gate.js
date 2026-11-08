@@ -159,7 +159,11 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
     /* RE-AIMED 10/25 by rule 164 item 14 (COMBAT [the PC playtest: the fight's part], Paolo 10/24: 'one-story versus two-story or
        even a three-story building, I don't know how that helps me'): a finger on a roof names its storeys and what the height gives
        ('Roof, 1 storey up: +10% to hit anyone lower, ...'); a rise of ground 'High ground, 1 up: ...' */
-    const saysUp = t => t.indexOf(says.height) === 0 || /^(Roof, \d+ storeys? up|High ground, \d+ up): \+\d+% to hit anyone lower/.test(t);
+    /* RE-AIMED 11/7 by rule 423(c)(d) (COMBAT TWO; Paolo 11/7: 'every house should be a tile that I can be on... converted to two or
+       three story houses'): a suburb house is a tile of one to three storeys now, and its line names them ('Roof, 2 storeys up: +10%
+       to hit for each storey down, ...: walk in by its door'); his step into a two- or three-storey house rings gold with 'is n
+       storeys up' in the feed, a one-storey roof or a rise with 'takes the high ground' as before */
+    const saysUp = t => t.indexOf(says.height) === 0 || /^(Roof, \d+ storeys? up|High ground, \d+ up): \+\d+% to hit/.test(t);
     let rough = null, flat = null, up = null;
     for (let seed = 1; seed <= 30 && !(rough && flat); seed++) {
       await startOn({ seed, kind: 'wash', speed: 3, formation: null, night: false }); if (!await fightOn()) continue;
@@ -176,11 +180,11 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
       const s = await p.evaluate(q => ({ x: sx((q.x + .5) * FIGHT_UI.tw), y: sy((q.y + .5) * FIGHT_UI.th) }), t);
       await p.touchscreen.tap(s.x, s.y);
       const rang = await until(() => FIGHT_UI.pops.some(q => q.col === '#f0d296'), 6000);
-      const feed = await p.evaluate(() => (FIGHT_UI.feedLines || []).map(l => l.text).filter(x => /takes the high ground/.test(x)).slice(-1)[0] || '');
+      const feed = await p.evaluate(() => (FIGHT_UI.feedLines || []).map(l => l.text).filter(x => /takes the high ground|is \d+ storeys up/.test(x)).slice(-1)[0] || '');
       const on = await p.evaluate(id => { const u = FIGHT.byId(id); return FIGHT.rowAt(u.x, u.y); }, t.id);
       up = { first, rang, feed, on };
     }
-    leg(!!up && saysUp(up.first) && up.rang && /takes the high ground/.test(up.feed) && up.on === 'height',
+    leg(!!up && saysUp(up.first) && up.rang && /takes the high ground|is \d+ storeys up/.test(up.feed) && up.on === 'height',
       'a finger on a roof says high ground, and his step up rings gold at his feet with the line in the feed (rule 117c)', JSON.stringify(up));
 
     /* ---- 8. AGAIN draws the map, not dirt ---- */

@@ -23,7 +23,8 @@
      R1  the ring round the board (the map past its edge) holds the map's houses too                       (all of them)
      B1  the board's houses block or are a roof (never open ground under a house)
      P1  the fight plays: AUTO two rounds on a laid board from each district, no page error
-     W1  the fight asks the map itself: the demo's own door opens a fight at a suburb block and its board is laid from the map
+     W1  RE-AIMED by rule 423(a) (11/7): the demo's own door opens a fight at a suburb block on the TEMPLATE layout with the new
+         houses (the map's own block is now asked only by a handed plan or opts.street 'map'; legs H, S, R, K, M keep that path honest)
      K1  THE BOARDS GOT POORER (rule 419, ask line 479): the laid board, dressed, is at least as rich as the template board the
          same spot dealt before 11/6h (opts.street false, the same seed and cell) on every count: props (pieces standing on it),
          cover tiles (a man hides there), blockers (no step), roofs and high ground, the floor's effects (rough, rubble, water,
@@ -134,7 +135,7 @@ async function readTheMap() {
     for (let i = 0; i < 160 && !door; i++) {
       await d.page.waitForTimeout(500);
       door = await d.page.evaluate(() => { try { const f = document.getElementById('fightFrame'), w = f && f.contentWindow, F = w && w.eval('FIGHT'); const B = F && F.S && F.S.boardDef;
-        return B && F.S.board ? { laid: !!B.laid, cell: B.street && B.street.cell, district: B.street && B.street.district, ms: F.S.streetMs, err: F.S.streetErr || null, houses: B.laid ? B.laid.houses : 0 } : null; } catch (e) { return null; } });
+        return B && F.S.board ? { laid: !!B.laid, template: !!(B.laid && B.laid.template), cell: B.street && B.street.cell, district: B.street && B.street.district, ms: F.S.streetMs, err: F.S.streetErr || null, houses: B.laid ? B.laid.houses : 0 } : null; } catch (e) { return null; } });
     }
     door = Object.assign({ asked: cell }, door || {});
   } catch (e) { door = { err: String(e && e.message || e) }; }
@@ -172,7 +173,7 @@ function deal(page, o) {
       if (r === 'rough' || r === 'swamp' || (fire[y * S.w + x] && r === 'flat')) eff++; }
     const rich = { props: pcs.length, cover, blockers: block, roofs: roof, effects: eff, distinct: new Set(pcs).size, lights: (B.lights || []).length,
       start: B.start || 'line', lifted: L && L.dressed ? L.dressed.lifted : 0, kit: L && L.dressed ? L.dressed.kit : 0 };
-    return { laid: !!L, name: B.name, ring: L ? L.ring : 0, AW: L ? L.AW : 0, kinds: L ? L.tiles : null, houses, trailers, terrain: F.S.terrain,
+    return { laid: !!L && !L.template, tmpl: !!(L && L.template), name: B.name, ring: L ? L.ring : 0, AW: L ? L.AW : 0, kinds: L ? L.tiles : null, houses, trailers, terrain: F.S.terrain,
       blocks: B.blocks, w: F.S.w, h: F.S.h, shift: B.street ? B.street.shift : null, rich }; }, o);
 }
 function compare(spot, tr, b, p) {
@@ -224,7 +225,7 @@ function compare(spot, tr, b, p) {
     check(c.B1, 'B1', tag + ': a house blocks or is a roof ' + c.b1 + '/' + c.b1n);
     /* K1 THE BOARDS GOT POORER (rule 419, ask line 479): the template board the same spot dealt before 11/6h (opts.street false,
        the same seed and cell) against the laid board, every count; the laid board is never poorer */
-    const bt = await deal(F.p, Object.assign({}, o, { street: false })), RICH = ['props', 'cover', 'blockers', 'roofs', 'effects', 'distinct'];
+    const bt = await deal(F.p, Object.assign({}, o, { street: false, houses: false })), RICH = ['props', 'cover', 'blockers', 'roofs', 'effects', 'distinct'];
     const poorer = RICH.filter(k => b.rich[k] < bt.rich[k]);
     check(!bt.laid && poorer.length === 0, 'K1', tag + ': as rich as its old template (' + bt.name + ') ' + RICH.map(k => k + ' ' + bt.rich[k] + '->' + b.rich[k]).join(', ') +
       (poorer.length ? '; POORER: ' + poorer.join(', ') : '') + '; lifted ' + b.rich.lifted + ', kit ' + b.rich.kit + ', start ' + bt.rich.start + '->' + b.rich.start);
@@ -245,7 +246,7 @@ function compare(spot, tr, b, p) {
       }
       const b4 = await deal(F.p, Object.assign({}, o, { dress: false })), poor4 = ['props', 'cover', 'blockers', 'roofs', 'effects', 'distinct'].filter(k => b4.rich[k] < bt.rich[k]);
       check(b4.laid && poor4.length > 0, 'M4', tag + ': the bare laid board (11/6h, undressed) is caught by K1 (poorer on ' + (poor4.join(', ') || 'nothing') + ')');
-      const b3 = await deal(F.p, Object.assign({}, o, { street: false })), c3 = compare(s.spot, s.truth, b3, s.plan);
+      const b3 = await deal(F.p, Object.assign({}, o, { street: false, houses: false })), c3 = compare(s.spot, s.truth, b3, s.plan);
       check(!b3.laid && !(c3.H1 && c3.S1 && c3.S2), 'M3', tag + ': the old template deal at the same spot is caught (' + b3.name + '; H1 ' + c3.h1 + '/' + c3.mapH + ', S1 ' + c3.s1 + '/' + c3.s1n + ')');
     }
     /* P1: the fight plays on a laid board, once a district */
@@ -267,7 +268,9 @@ function compare(spot, tr, b, p) {
     }
   }
   const dr = M.door || {};
-  check(!!dr.laid && dr.cell && dr.asked && dr.cell[0] === dr.asked[0] && dr.cell[1] === dr.asked[1], 'W1', 'the demo\'s own door: a fight at ' + JSON.stringify(dr.asked) + ' asks the map, laid ' + !!dr.laid + ', cell ' + JSON.stringify(dr.cell) + ', ' + (dr.houses || 0) + ' houses, the map read in ' + (dr.ms != null ? Math.round(dr.ms) + ' ms' : '?') + (dr.err ? ', ' + dr.err : ''));
+  /* W1 RE-AIMED (the law moved: rule 423(a), Paolo 11/7, 'I prefer the previous layouts... use the layout of before and just swap the
+     house assets'): the demo's own door deals the TEMPLATE layout at that cell with the new houses in it, no longer the map's block */
+  check(!!dr.laid && !!dr.template && dr.cell && dr.asked && dr.cell[0] === dr.asked[0] && dr.cell[1] === dr.asked[1], 'W1', 'the demo\'s own door (rule 423(a)): a fight at ' + JSON.stringify(dr.asked) + ' deals the template layout with the new houses, template ' + !!dr.template + ', cell ' + JSON.stringify(dr.cell) + ', ' + (dr.houses || 0) + ' houses' + (dr.err ? ', ' + dr.err : ''));
   await F.close();
   console.log('\nTHE BOARD IS THE CITY AT THAT SPOT: ' + pass + ' passed, ' + fail + ' failed (' + Math.round((Date.now() - t0) / 1000) + ' s)');
   if (OUT) fs.writeFileSync(OUT, JSON.stringify(Object.assign(report, { pass, fail, lines }), null, 1));

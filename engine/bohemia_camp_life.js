@@ -282,10 +282,18 @@
          just won (rule 406(f)(g)) is pitched where its dead lie instead, the most of them on its own tiles (the camp's picture shows
          little past its tiles: measured 11/6, one of four bodies a tile and a half off fell inside it, at its top edge), then nearest
          the middle of them */
-      var inside = 0; (board.dead || []).forEach(function (d) { if (d[0] >= x && d[0] < x + cw && d[1] >= y && d[1] < y + ch) inside++; });
-      var place = board.dead && board.dead.length ? -inside * 4 + Math.hypot(cx - board.near.x, cy - board.near.y) * 0.5 : Math.abs((x + cw) - (front + 1)) * 1.5 + Math.abs(cy - H / 2) * 0.8;
+      /* a man who fell where the camp's own picture shows him lies at the camp too (COMBAT TWO 11/7: a man who fell in a house he
+         went into, rule 423(c), lies where no camp stands; on the upright phone the camp's picture is narrow, so a body a tile to the
+         side is off it and one a tile above or below is on it): need is what the picture shows past the camp's middle each way (a
+         margin of PIC_EDGE tiles kept, the look's own), else the tiles right beside the square; it counts a little less than on its tiles */
+      var hasNeed = need.l != null && need.r != null && need.t != null && need.b != null, E = 0.4;
+      var inside = 0, beside = 0; (board.dead || []).forEach(function (d) { if (d[0] >= x && d[0] < x + cw && d[1] >= y && d[1] < y + ch) { inside++; return; }
+        var px = d[0] + 0.5, py = d[1] + 0.9;
+        if (hasNeed ? (px > cx - need.l + E && px < cx + need.r - E && py > cy - need.t + E && py < cy + need.b - E / 2)
+          : (d[0] >= x - 1 && d[0] <= x + cw && d[1] >= y - 1 && d[1] <= y + ch)) beside++; });
+      var place = board.dead && board.dead.length ? -inside * 4 - beside * 3 + Math.hypot(cx - board.near.x, cy - board.near.y) * 0.5 : Math.abs((x + cw) - (front + 1)) * 1.5 + Math.abs(cy - H / 2) * 0.8;
       var score = rough * 6 + short * 20 + place;
-      if (!best || score < best.score) best = { x: x, y: y, w: cw, h: ch, n: cw * ch, score: Math.round(score * 100) / 100, rough: rough, short: Math.round(short * 100) / 100, dead: inside };
+      if (!best || score < best.score) best = { x: x, y: y, w: cw, h: ch, n: cw * ch, score: Math.round(score * 100) / 100, rough: rough, short: Math.round(short * 100) / 100, dead: inside + beside, on: inside };
     }
     return best;
   }

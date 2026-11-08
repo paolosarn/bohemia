@@ -4412,5 +4412,35 @@
   "source": "VAMILY.md rule 408 (Paolo 11/4, ask line 456); slices/rig_melee/tier_thug.json and tier_poacher.json 'held' (their models carry their own weapon)",
   "quote": "the shields were disappearing recently, I can't see the shields... the two weapons, it's just all fucked up",
   "why": "COMBAT 8: a look whose own model carries a weapon is dealt only to a man whose weapon is a one-hander of that class (Battle Brothers' classes, weapons.json), so nobody shoots a bow or a gun, or swings a two-hander or a blade, out of a body holding a pipe or a hatchet as well. A drawing fact, not a felt number."
+ },
+ "storeys": {
+  "value": {
+   "range_from": 2,
+   "share": [
+    0.45,
+    0.45,
+    0.1
+   ]
+  },
+  "source": "VAMILY.md rule 423(d) as amended by rule 428(b) (Paolo 11/7, ask lines 487 and 500); records/BOHEMIA_COMBAT_TWO_THE_OLD_LAYOUT_THE_NEW_HOUSES_11_7_26.md",
+  "quote": "if it's one story I can still be on top of it, that's a defense boost, but not a range offense boost... there's no ladder system, the ladder system is not realistic... more defence, more range offense bonus depending on whether it's a one or two-story house... three-story houses are rare, but not unheard of",
+  "why": "COMBAT TWO 11/7: a house is one, two or three storeys (share, rule 428(b) amending 423(d): most houses one or two storeys, 45% each, three storeys rare but real, one in ten); its storeys are its level (the hit chance up and down, the sight, as any height); what it adds to a gun's range is its storeys less range_from less one (one storey none, two one tile, three two: Battle Brothers' +1 range a level, counted from the second storey). The coordinator's reading of 'two and three give defence and range, more the higher', his to correct.",
+  "draft": true
+ },
+ "open_street": {
+  "value": {
+   "street": 6,
+   "house": -2,
+   "walk_street": 2,
+   "walk_good": 1.5,
+   "first_rounds": 2,
+   "later_share": 0.4,
+   "strike": 4,
+   "first_share": 4
+  },
+  "source": "VAMILY.md rule 423(e) and rule 428(c) (Paolo 11/7, ask lines 488 and 502); records/BOHEMIA_COMBAT_TWO_THE_OLD_LAYOUT_THE_NEW_HOUSES_11_7_26.md",
+  "quote": "no one wants to be right in the middle of the street, that's how you get shot at the most ... naturally if my company is walking in the middle of the street when combat starts, they're trying to get a defensive, range bonus... them being in the middle of the street and then, if it's on auto, they're trying to get out of there",
+  "why": "COMBAT TWO 11/7: AUTO (his men's and theirs: one brain, planTurn) weighs where a turn ends by the hurt it can take there (dangerOn); a tile of open street (the board's asphalt, a lane or a walk, with nothing to hide behind on it) counts street more of that hurt, a house house (a pull toward it). Measured on the gate (gates/nobody_stands_in_the_open_street_gate.js E2). THE SCRAMBLE (428(c)): AUTO's walk toward the fight counts the open street walk_street steps farther and a house, a roof or cover walk_good steps nearer, full in the first first_rounds rounds and later_share of it after (so the fight still comes on), and the street's hurt first_share times over in those rounds (measured, 24 boards, every man started on the open street: after the first round on a house, a roof or cover his 55% and theirs 49% with the cost off, 69% and 78% with it; fights 4.4 rounds before, 4.6 after, all 24 over); a man who holds the line or a shooter who sees them still steps aside or one back onto better ground; of the tiles a man can strike from, strike points of the hit chance against the open street; a walk off the street onto better ground no farther from the fight is taken.",
+  "draft": true
  }
 }

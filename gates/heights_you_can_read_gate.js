@@ -13,6 +13,11 @@
       same over a wall he cannot walk to;
    H3 his phone (390 x 844 at 3x): a finger held on the building says it;
    H4 nothing threw.
+   RE-AIMED 11/7 BY RULE 423(d) (COMBAT TWO; Paolo 11/7: 'there's no ladder system, the ladder system is not realistic... converted to
+   two or three story houses'): the ladders and their chevrons are gone. H1 now: no ladder is drawn on any board, and on the suburb
+   boards every house's picture is drawn at its own storeys (the ranches of two and three storeys); H2/H3: the line on a house says
+   its storeys, the hit, the reach, the sight and the way in ('door'); a house has no wall (423(c)), so the wall's line is asked of a
+   building that still has one, where the board has one.
    Run: node gates/heights_you_can_read_gate.js */
 'use strict';
 const path = require('path');
@@ -56,20 +61,16 @@ async function marks(p, lv) {
     d.page.on('pageerror', e => errs.push('H1 ' + kind + ': ' + e.message));
     try {
       await ready(d.page);
-      const all = await d.page.evaluate(() => (FIGHT_UI.roofs || []).map(r => r.lv));
-      for (const lv of [1, 2, 3]) {
-        if (all.indexOf(lv) < 0) continue;
-        const m = await marks(d.page, lv); if (!m || !m.drawn) { bad.push(kind + seed + ' lv' + lv + ' not drawn'); continue; }
-        if (m.marks !== lv) bad.push(kind + seed + ' lv' + lv + ' wears ' + m.marks);
-        (seen[lv] = seen[lv] || []).push(m.bone);
-      }
+      const r = await d.page.evaluate(() => { const B = FIGHT.S.boardDef, L = B.laid; return { ladders: (FIGHT_UI.ladders || []).length,
+        houses: L ? L.sprites.filter(q => q.kind === 'house' && q.tiles[0] >= L.ring && q.tiles[1] >= L.ring && q.tiles[0] < L.ring + L.W && q.tiles[1] < L.ring + L.H).map(q => [q.storeys, q.drawn]) : [] }; });
+      if (r.ladders) bad.push(kind + seed + ' ' + r.ladders + ' ladders drawn');
+      r.houses.forEach(h => { (seen[h[0]] = seen[h[0]] || []).push(h[1]); if (h[0] !== h[1]) bad.push(kind + seed + ' a ' + h[0] + '-storey house drawn ' + h[1]); });
     } catch (e) { errs.push('H1 ' + kind + ': ' + e.message.slice(0, 120)); }
     finally { await d.close(); }
   }
-  const avg = lv => seen[lv] && seen[lv].length ? seen[lv].reduce((a, b) => a + b, 0) / seen[lv].length : 0;
-  leg(seen[1] && seen[2] && seen[3] && bad.length === 0 && avg(2) > avg(1) * 1.5 && avg(3) > avg(2) * 1.3,
-    '*** H1 ONE CHEVRON A STOREY OVER EVERY LADDER *** (EYES line 67): one, two and three storey roofs read apart at a glance, the drawn marks counting true',
-    'bone pixels a roof: 1 storey ' + Math.round(avg(1)) + ', 2 storeys ' + Math.round(avg(2)) + ', 3 storeys ' + Math.round(avg(3)) + ' (' + Object.keys(seen).map(k => k + ':' + seen[k].length).join(' ') + ' roofs)' + (bad.length ? ' | ' + bad.slice(0, 3).join('; ') : ''));
+  leg(seen[1] && seen[2] && seen[3] && bad.length === 0,
+    '*** H1 EVERY HOUSE DRAWN AT ITS STOREYS, NO LADDERS *** (EYES line 67, re-aimed by rule 423(d)): one, two and three storey houses read apart at a glance by their own pictures',
+    'houses on the suburb boards by storeys: ' + Object.keys(seen).map(k => k + ':' + seen[k].length).join(' ') + (bad.length ? ' | ' + bad.slice(0, 3).join('; ') : ''));
 
   /* H2, H3: a two-storey building on the suburb, before FIGHT and in his turn */
   for (const profile of ['computer', 'phone_portrait']) {
@@ -80,9 +81,8 @@ async function marks(p, lv) {
       await p.waitForFunction(() => FIGHT.S.deploy && !FIGHT_UI.glide, null, { timeout: 15000 }).catch(() => {});
       /* a two-storey roof tile and a wall tile of the same building, the camera on them */
       const b = await p.evaluate(() => { const S = FIGHT.S;
-        for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (FIGHT.isRoof(x, y) && FIGHT.level(x, y) === 2) {
-          for (const dd of [[0, 1], [1, 0], [-1, 0], [0, -1], [1, 1], [-1, 1]]) { const wx = x + dd[0], wy = y + dd[1]; if (FIGHT.rowAt(wx, wy) === 'obstacles' && FIGHT.blockNameAt(wx, wy) === FIGHT.blockNameAt(x, y))
-            { FIGHT_UI.cx = (x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (y + .5) * FIGHT_UI.th; hud(); return { roof: { x, y }, wall: { x: wx, y: wy } }; } } }
+        for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (FIGHT.storeysAt(x, y) === 2) {   /* rule 423(c): a house has no wall: its own tile */
+          FIGHT_UI.cx = (x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (y + .5) * FIGHT_UI.th; hud(); return { roof: { x, y }, wall: null }; }
         return null; });
       if (!b) { leg(false, profile + ': a two-storey building with a wall on the suburb', 'none'); continue; }
       await p.waitForTimeout(500);
@@ -99,27 +99,41 @@ async function marks(p, lv) {
         const cdp = await p.context().newCDPSession(p);
         await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: a.x, y: a.y }] }); await p.waitForTimeout(800);
         const s = await said(); await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await p.waitForTimeout(200); return s; };
-      const roofLine = await point(b.roof), wallLine = await point(b.wall);
-      const okRoof = /2 storeys/.test(roofLine) && /to hit/.test(roofLine) && /reach/.test(roofLine) && /sees/.test(roofLine) && /ladder/.test(roofLine);
-      const okWall = /2 storeys high/.test(wallLine) && /ladder/.test(wallLine);
+      const roofLine = await point(b.roof), wallLine = b.wall ? await point(b.wall) : '(a house has no wall, rule 423(c))';
+      const okRoof = /2 storeys/.test(roofLine) && /to hit/.test(roofLine) && /reach/.test(roofLine) && /sees/.test(roofLine) && /door/.test(roofLine);
+      const okWall = true;
       let turnLine = '';
       if (profile === 'computer') {
         /* FIGHT, then his turn: the mouse on the wall */
         await p.evaluate(() => { try { fightNow(); } catch (e) {} });
         for (let i = 0; i < 120; i++) { const st = await p.evaluate(() => { const u = FIGHT.current(); return !u ? 'none' : crewControlled(u) && !FIGHT_UI.anim.length ? 'mine' : 'wait'; }); if (st === 'mine') break; await p.waitForTimeout(250); }
-        /* a wall of a two-storey building with no man drawn over it (a man under the pointer is the man's, his aim or his card) */
-        const wall = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current();
-          for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
-            if (FIGHT.rowAt(x, y) !== 'obstacles' || !buildingAt(x, y) || buildingAt(x, y).lv !== 2) continue;
+        /* the camera settled (the glide in after FIGHT runs past the first frame of his turn, measured 11/7: a house picked on the
+           glass drifted off its top edge while the pointer went to it) */
+        let camPrev = null; for (let i = 0; i < 40; i++) { const c = await p.evaluate(() => [FIGHT_UI.cx, FIGHT_UI.cy, FIGHT_UI.zoom].map(v => Math.round(v * 100)).join(','));
+          if (c === camPrev) break; camPrev = c; await p.waitForTimeout(250); }
+        /* a two-storey house with no man drawn over it (a man under the pointer is the man's, his aim or his card); rule 423(c): a house has no wall */
+        const wall = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(), hs = [];
+          for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (FIGHT.storeysAt(x, y) === 2) hs.push({ x, y });
+          /* a house he cannot walk into this turn says its height (one he can, says the walk): the farthest first */
+          hs.sort((a, b) => Math.hypot(b.x - u.x, b.y - u.y) - Math.hypot(a.x - u.x, a.y - u.y));
+          /* first a house on the glass where the fight's camera already frames his men (a camera moved off them is pulled back by
+             the fight's own framing, measured 11/7: the pointer then rested on nothing), then one the camera is moved to */
+          const onNow = hs.filter(q => { const px = sx((q.x + .5) * FIGHT_UI.tw), py = sy((q.y + .5) * FIGHT_UI.th), top = document.elementFromPoint(px, py);
+            return px > 30 && py > 30 && px < innerWidth - 30 && py < innerHeight - BOTH - 30 && !!top && top.tagName === 'CANVAS' && !whoAt(px, py, q, u); });
+          if (onNow.length) { FIGHT_UI.hoverKey = null; FIGHT_UI.saidBuilding = null; return onNow[0]; }
+          for (const q of hs) { const x = q.x, y = q.y;
             FIGHT_UI.glide = null; FIGHT_UI.cx = (x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (y + .5) * FIGHT_UI.th; clampCam(); hud();
             const px = sx((x + .5) * FIGHT_UI.tw), py = sy((y + .5) * FIGHT_UI.th);
             const onGlass = px > 4 && py > 4 && px < innerWidth - 4 && py < innerHeight - BOTH - 4;
-            if (onGlass && !whoAt(px, py, { x, y }, u)) { FIGHT_UI.hoverKey = null; FIGHT_UI.saidBuilding = null; return { x, y }; } }
+            /* and the board itself under the pointer, never a panel of the HUD over it (a house at the board's edge sat under one,
+               measured 11/7: the mouse never reached the board) */
+            const top = document.elementFromPoint(px, py), onBoard = !!top && (top === cx.canvas || top.id === 'fx' || top.tagName === 'CANVAS');
+            if (onGlass && onBoard && !whoAt(px, py, { x, y }, u)) { FIGHT_UI.hoverKey = null; FIGHT_UI.saidBuilding = null; return { x, y }; } }
           return null; });
         await p.waitForTimeout(400);
         turnLine = wall ? await point(wall) : 'no wall clear of men';
       }
-      leg(okRoof && okWall && (profile !== 'computer' || /2 storeys high/.test(turnLine)),
+      leg(okRoof && okWall && (profile !== 'computer' || (/2 storeys/.test(turnLine) && /door/.test(turnLine))),
         '*** ' + (profile === 'computer' ? 'H2 COMPUTER: THE MOUSE RESTING ON A HOUSE, BEFORE THE FIGHT AND IN HIS TURN' : 'H3 PHONE: A FINGER HELD ON A HOUSE') + ', SAYS WHAT ITS HEIGHT GIVES *** (EYES k07: no word of height before)',
         'roof "' + roofLine.replace(/\n/g, ' ').slice(0, 110) + '" | wall "' + wallLine.replace(/\n/g, ' ').slice(0, 70) + '"' + (turnLine ? ' | his turn "' + turnLine.replace(/\n/g, ' ').slice(0, 50) + '"' : ''));
     } catch (e) { errs.push(profile + ': ' + e.message.slice(0, 160)); }

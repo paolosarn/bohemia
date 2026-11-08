@@ -1,0 +1,165 @@
+{
+ "version": "storeys-11-7",
+ "lane": "combat 2",
+ "rule": "423(d) (ask line 487)",
+ "made_by": "tools/bohemia_combat_two_the_storeyed_houses_11_7_26.py",
+ "storey_m": 2.7,
+ "houses": {
+  "2": {
+   "ranch_plain": {
+    "src": "storeys/bld_ranch_plain_2s.webp",
+    "w": 721,
+    "h": 619,
+    "foot": [
+     268.3,
+     602.1
+    ],
+    "dims_m": [
+     12.46,
+     12.05,
+     7.83
+    ],
+    "storeys": 2,
+    "model": "reference/models/bohemia/bld_ranch_plain_2s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_plain_2s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_plain (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   },
+   "ranch_porch": {
+    "src": "storeys/bld_ranch_porch_2s.webp",
+    "w": 732,
+    "h": 622,
+    "foot": [
+     258.9,
+     568.2
+    ],
+    "dims_m": [
+     12.0,
+     10.85,
+     7.83
+    ],
+    "storeys": 2,
+    "model": "reference/models/bohemia/bld_ranch_porch_2s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_porch_2s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_porch (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   },
+   "ranch_garage": {
+    "src": "storeys/bld_ranch_garage_2s.webp",
+    "w": 910,
+    "h": 651,
+    "foot": [
+     396.3,
+     650.3
+    ],
+    "dims_m": [
+     18.4,
+     13.5,
+     7.83
+    ],
+    "storeys": 2,
+    "model": "reference/models/bohemia/bld_ranch_garage_2s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_garage_2s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_garage (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   },
+   "ranch_carport": {
+    "src": "storeys/bld_ranch_carport_2s.webp",
+    "w": 710,
+    "h": 657,
+    "foot": [
+     294.3,
+     655.5
+    ],
+    "dims_m": [
+     13.65,
+     13.5,
+     7.83
+    ],
+    "storeys": 2,
+    "model": "reference/models/bohemia/bld_ranch_carport_2s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_carport_2s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_carport (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   }
+  },
+  "3": {
+   "ranch_plain": {
+    "src": "storeys/bld_ranch_plain_3s.webp",
+    "w": 805,
+    "h": 730,
+    "foot": [
+     268.7,
+     718.0
+    ],
+    "dims_m": [
+     12.46,
+     12.05,
+     10.53
+    ],
+    "storeys": 3,
+    "model": "reference/models/bohemia/bld_ranch_plain_3s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_plain_3s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_plain (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   },
+   "ranch_porch": {
+    "src": "storeys/bld_ranch_porch_3s.webp",
+    "w": 795,
+    "h": 738,
+    "foot": [
+     258.9,
+     684.1
+    ],
+    "dims_m": [
+     12.0,
+     10.85,
+     10.53
+    ],
+    "storeys": 3,
+    "model": "reference/models/bohemia/bld_ranch_porch_3s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_porch_3s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_porch (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   },
+   "ranch_garage": {
+    "src": "storeys/bld_ranch_garage_3s.webp",
+    "w": 910,
+    "h": 767,
+    "foot": [
+     396.3,
+     766.2
+    ],
+    "dims_m": [
+     18.4,
+     13.5,
+     10.53
+    ],
+    "storeys": 3,
+    "model": "reference/models/bohemia/bld_ranch_garage_3s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_garage_3s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_garage (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   },
+   "ranch_carport": {
+    "src": "storeys/bld_ranch_carport_3s.webp",
+    "w": 751,
+    "h": 772,
+    "foot": [
+     293.5,
+     770.7
+    ],
+    "dims_m": [
+     13.65,
+     13.5,
+     10.53
+    ],
+    "storeys": 3,
+    "model": "reference/models/bohemia/bld_ranch_carport_3s.glb",
+    "rig": "records/target/master_rig/cook_bld_ranch_carport_3s/rig_S.png",
+    "stage": "stand_in",
+    "made_from": "COOK's ranch_carport (tools/bohemia_cook_model_buildings.py), a storey repeated"
+   }
+  }
+ }
+}

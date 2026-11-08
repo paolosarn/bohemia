@@ -490,9 +490,109 @@
     L.dressed = { level: lv, lifted: out.lifted, moved: out.moved, kit: out.kit, mass: out.mass, roofs: out.roofs, ring: out.ground, from: T.name || null, want: want, have: have() };
     return L;
   }
+  /* ------------------------------------------------------------------------------------------------------------------
+     THE OLD LAYOUT, THE NEW HOUSES (COMBAT TWO 11/7, VAMILY rule 423, ask lines 484 to 488; Paolo 11/7: 'the combat map is still
+     dogshit like each house should be connected by road or mini road... every house should be a tile that I can be on... you
+     have to understand the difference between layouts and assets: I like the new assets for the houses, but the layout is dog
+     shit, I prefer the previous layouts... use the layout of before and just swap the house assets').
+     fromTemplate(T, D, K, o): the board the fight dealt before 11/6h (T: the seeded template, its blocks, terrain, cover, lights,
+     start and camp, untouched) drawn tile for tile from its own blocks' pictures (a source rect a tile, as dress() lifts), the
+     ring round it from o.surround's blocks; and every HOUSE of a suburb block (subs, corner, culdesac, suburb_stem, yards: its
+     blocked or roofed tiles) swapped for the new houses he liked (COOK's five ranches through the master rig, street_board.json
+     houses; two and three storeys from tools/bohemia_combat_two_the_storeyed_houses_11_7_26.py, o.storeys): the house's tile
+     takes a bare tile of its own block (the old house gone), the tile north of it in the same block a clean tile of the same row
+     (the old roof that stood up into it gone), and the new house stands on it.
+       (b) a house with no way beside it (a tile a man walks on that is no house) is no house: a yard;
+       (c) every house tile is a tile a man can be on: in it, or on its roof (height, height2, height3; never blocked);
+       (d) its storeys: 1, 2 or 3 by the spot's own dice, most two or three (o.storeyShare); L.storeys says each house's;
+     L.tiles names every board tile (house, street: the template's asphalt, ground) for the fight's AUTO (423(e)).
+     ------------------------------------------------------------------------------------------------------------------ */
+  var HOUSE_KINDS = { subs: 1, corner: 1, culdesac: 1, suburb_stem: 1, yards: 1 };
+  var HOUSE_MODELS = ['ranch_plain', 'ranch_porch', 'ranch_wing', 'ranch_garage', 'ranch_carport'];
+  function fromTemplate(T, D, K, o) {
+    if (!T || !D || !D.lift || !K || !K.houses || !T.blocks || !T.terrain) return null;
+    var W = o.W, H = o.H, R = o.ring | 0, bt = o.bt || 5, AW = W + 2 * R, AH = H + 2 * R, TP = o.tile_px || [515, 364], tm = o.tile_metres || TILE_M;
+    var def = o.def || function () { return null; }, S0 = (o.seed | 0) || 1;
+    var hz = function (salt, x, y) { return hash(x * 31 + S0, y * 17 + (S0 >>> 7), salt); };
+    var mod = function (a, b) { return ((a % b) + b) % b; };
+    var isH = function (t) { return /^height/.test(t); };
+    var isHouseT = function (kind, t) { return !!HOUSE_KINDS[kind] && (t === 'blocked' || isH(t)); };
+    var A = new Array(AW * AH);
+    for (var ay = 0; ay < AH; ay++) for (var ax = 0; ax < AW; ax++) {
+      var x = ax - R, y = ay - R, bx = Math.floor(x / bt), by = Math.floor(y / bt), inB = x >= 0 && y >= 0 && x < W && y < H;
+      var name = inB ? (T.blocks[by] && T.blocks[by][bx]) : o.surround(bx, by);
+      if (!name) { A[ay * AW + ax] = null; continue; }
+      var base = name.split('|')[0], fl = name.split('|')[1] || '', info = D.lift[base], kind = base.split('.')[0];
+      if (!info) { A[ay * AW + ax] = null; continue; }
+      var lx = mod(x, bt), ly = mod(y, bt), lib = o.libOf(name), t = inB ? T.terrain[y][x] : (lib ? lib.terrain[ly][lx] : 'flat');
+      var hF = fl.indexOf('h') >= 0, vF = fl.indexOf('v') >= 0, sx = hF ? bt - 1 - lx : lx, sy = vF ? bt - 1 - ly : ly;
+      A[ay * AW + ax] = { name: name, base: base, fl: (hF ? 'h' : '') + (vF ? 'v' : ''), info: info, kind: kind, bx: bx, by: by, lx: lx, ly: ly, sx: sx, sy: sy, t: t, inB: inB,
+        house: isHouseT(kind, t), dark: info.dark[sy * bt + sx] };
+    }
+    var srcOf = function (info, cx, cy, fl) { return info.src + '#' + cx + ',' + cy + fl; };
+    /* a block's own tiles, in its picture: the bare ones (no house, no piece, not asphalt, no house south of it standing up into
+       it) and the clean ones a row (the same, any ground), from the block's unmirrored terrain and its pieces */
+    var CACHE = {};
+    var tilesOf = function (base) {
+      if (CACHE[base]) return CACHE[base];
+      var lib = o.libOf(base), info = D.lift[base], kind = base.split('.')[0], out = { bare: [], clean: {} };
+      if (!lib || !info) return (CACHE[base] = out);
+      var piece = {}; (lib.cover || []).forEach(function (c) { piece[Math.floor(c.y_m / tm) * bt + Math.floor(c.x_m / tm)] = 1; });
+      var flats = [];
+      for (var cy = 0; cy < bt; cy++) for (var cx = 0; cx < bt; cx++) {
+        var t = lib.terrain[cy][cx], i = cy * bt + cx, under = cy + 1 < bt && isHouseT(kind, lib.terrain[cy + 1][cx]);
+        if (isHouseT(kind, t) || under) continue;
+        (out.clean[cy] = out.clean[cy] || []).push({ cx: cx, cy: cy, dark: info.dark[i] >= 30, piece: !!piece[i] });
+        if (t === 'flat' && !piece[i] && info.dark[i] < 30) flats.push({ cx: cx, cy: cy, lum: info.lum[i] });
+      }
+      var ls = flats.map(function (f) { return f.lum; }).sort(function (a, b) { return a - b; }), med = ls.length ? ls[ls.length >> 1] : 0;
+      out.bare = flats.sort(function (a, b) { return Math.abs(a.lum - med) - Math.abs(b.lum - med); }).slice(0, 3);
+      return (CACHE[base] = out);
+    };
+    var ground = new Array(AW * AH), sprites = [], terrain = T.terrain.map(function (r) { return r.slice(); }), roofs = [], storeys = [], tiles = [];
+    for (var y0 = 0; y0 < H; y0++) { roofs.push(new Array(W).fill(false)); storeys.push(new Array(W).fill(0)); tiles.push(new Array(W).fill('ground')); }
+    for (var i0 = 0; i0 < AW * AH; i0++) { var a0 = A[i0]; ground[i0] = a0 ? srcOf(a0.info, a0.sx, a0.sy, a0.fl) : null; }
+    /* (b): a house tile with no way beside it (a tile in the board a man walks on that is no house) is a yard */
+    var wayAt = function (x, y) { if (x < 0 || y < 0 || x >= W || y >= H) return false; var a = A[(y + R) * AW + x + R], t = terrain[y][x];
+      return !!a && !a.house && t !== 'blocked' && !(o.solidAt && o.solidAt(x, y)); };
+    var cover = (T.cover || []).slice(), dropped = [];
+    var share = o.storeyShare || [0.45, 0.45, 0.1], made = 0, yards = 0;
+    for (var ay2 = 0; ay2 < AH; ay2++) for (var ax2 = 0; ax2 < AW; ax2++) {
+      var a = A[ay2 * AW + ax2]; if (!a || !a.house) continue;
+      var x2 = ax2 - R, y2 = ay2 - R;
+      if (a.inB && ![[1, 0], [-1, 0], [0, 1], [0, -1]].some(function (d) { return wayAt(x2 + d[0], y2 + d[1]); })) { a.house = false; a.lump = true; }
+      var tl = tilesOf(a.base);
+      if (tl.bare.length) ground[ay2 * AW + ax2] = srcOf(a.info, tl.bare[Math.floor(hz(3, ax2, ay2) * tl.bare.length)].cx, tl.bare[Math.floor(hz(3, ax2, ay2) * tl.bare.length)].cy, a.fl);
+      /* the old roof that stood up into the tile north of it, in the same block: a clean tile of that row, the same ground */
+      var nA = ay2 > 0 ? A[(ay2 - 1) * AW + ax2] : null;
+      if (nA && !nA.house && nA.name === a.name && nA.bx === a.bx && nA.by === a.by) {
+        var row = (tl.clean[nA.sy] || []).filter(function (c) { return c.dark === (nA.dark >= 30) && !c.piece; });
+        var baked = nA.inB && cover.some(function (c) { var d = def(c.piece); return d && !d.src && Math.floor(c.x_m / tm) === x2 && Math.floor(c.y_m / tm) === y2 - 1; });
+        if (row.length && !baked) ground[(ay2 - 1) * AW + ax2] = srcOf(a.info, row[Math.floor(hz(5, ax2, ay2) * row.length)].cx, nA.sy, a.fl);
+      }
+      if (!a.house) { if (a.inB) { terrain[y2][x2] = 'flat'; yards++; } continue; }
+      /* the new house: COOK's ranch, its storeys by the spot's own dice (rule 428(b): most one or two, three rare) */
+      var r3 = hz(7, ax2, ay2), n = r3 < share[0] ? 1 : r3 < share[0] + share[1] ? 2 : 3;
+      var pics = (o.storeyPics && o.storeyPics[n]) || null, models = pics ? HOUSE_MODELS.filter(function (k) { return !!pics[k]; }) : HOUSE_MODELS;
+      if (!models.length) models = HOUSE_MODELS;
+      var model = models[Math.floor(hz(11, ax2, ay2) * models.length)];
+      var m = (pics && pics[model]) || K.houses[model] || K.houses.ranch_plain, fit = m.storeys > 1 ? 0.9 : 0.9;
+      var footX = (ax2 + 0.5) * TP[0], footY = (ay2 + 0.94) * TP[1];
+      sprites.push({ src: 'street_board/' + m.src, x: footX - m.foot[0] * fit, y: footY - m.foot[1] * fit, w: m.w * fit, h: m.h * fit, line: ay2 + 0.5, kind: 'house',
+        name: model, storeys: n, drawn: m.storeys || 1, tiles: [ax2, ay2, 1, 1] });
+      if (a.inB) {
+        terrain[y2][x2] = n === 1 ? 'height' : 'height' + n; roofs[y2][x2] = true; storeys[y2][x2] = n; tiles[y2][x2] = 'house'; made++;
+        cover = cover.filter(function (c) { var keep = !(Math.floor(c.x_m / tm) === x2 && Math.floor(c.y_m / tm) === y2); if (!keep) dropped.push(c.piece); return keep; });
+      }
+    }
+    for (var y3 = 0; y3 < H; y3++) for (var x3 = 0; x3 < W; x3++) { var a3 = A[(y3 + R) * AW + x3 + R]; if (a3 && !a3.house && a3.dark >= 30 && terrain[y3][x3] === 'flat') tiles[y3][x3] = 'street'; }
+    sprites.sort(function (p1, q1) { return p1.line - q1.line || p1.x - q1.x; });
+    return { W: W, H: H, ring: R, AW: AW, AH: AH, ground: ground, sprites: sprites, terrain: terrain, roofs: roofs, storeys: storeys, cover: cover, lights: (T.lights || []).slice(),
+      tiles: tiles, houses: made, yards: yards, dropped: dropped, template: true, X0: 0, Y0: 0, start: T.start || null, camp: T.camp || null };
+  }
   /* a ground entry 'block_yards_1.webp#3,1h' is a tile of a block's picture (column 3, row 1, mirrored): the picture is the block's */
   function picOf(g) { var i = g.indexOf('#'); return i < 0 ? g : g.slice(0, i); }
   /* every picture a laid board needs, once */
   function srcs(L) { var s = {}; L.ground.forEach(function (g) { if (g) s[picOf(g)] = 1; }); L.sprites.forEach(function (q) { s[q.src] = 1; }); return Object.keys(s); }
-  root.BohemiaStreetBoard = { plan: plan, lay: lay, dress: dress, srcs: srcs, picOf: picOf, streetPiece: streetPiece, ready: hostReady, TILE_M: TILE_M };
+  root.BohemiaStreetBoard = { plan: plan, lay: lay, dress: dress, fromTemplate: fromTemplate, HOUSE_KINDS: HOUSE_KINDS, srcs: srcs, picOf: picOf, streetPiece: streetPiece, ready: hostReady, TILE_M: TILE_M };
 })(typeof window !== 'undefined' ? window : this);

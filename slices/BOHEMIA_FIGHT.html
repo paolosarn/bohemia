@@ -30,7 +30,7 @@
 <!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
-<script src="bohemia_street_board.js"></script>  <script src="bohemia_freeway_boards.js"></script>  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -404,7 +404,10 @@ function loadAll() {
     .then(function (k) { DB.streetDress = k; })
     /* __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the freeway boards' layouts and their kit; a fight without them deals as before */
     .then(function () { return Promise.all(['fight_ground/freeway/freeway_boards.json', 'fight_ground/freeway/freeway.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
-    .then(function (fw) { DB.freeway = fw[0] && fw[1] ? { boards: fw[0], kit: fw[1] } : null; });   /* never 'a': tools/bohemia_fight_headless.js reads the DB.x = a[i] lines above */
+    .then(function (fw) { DB.freeway = fw[0] && fw[1] ? { boards: fw[0], kit: fw[1] } : null; })   /* never 'a': tools/bohemia_fight_headless.js reads the DB.x = a[i] lines above */
+    /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 423(d)): the ranches of two and three storeys (tools/bohemia_combat_two_the_storeyed_houses_11_7_26.py) */
+    .then(function () { return fetch('fight_ground/street_board/storeys.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (k) { DB.streetStoreys = k; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -567,7 +570,30 @@ const FIGHT = (function () {
      Every side, every beast that can climb (rule 321: the wolves cannot). A free swing or free shot on somebody else's turn is
      the zone of control's, not his turn, and stands. MEASURED before (records/BOHEMIA_COMBAT_CLIMB_OR_ATTACK_11_2_26.md): AUTO's
      shooters climbed and shot the same turn, the climb's +1 AP a storey the whole price */
-  function climbsUp(ax, ay, bx, by) { return isRoof(bx, by) && level(bx, by) > level(ax, ay); }
+  function climbsUp(ax, ay, bx, by) { return isRoof(bx, by) && level(bx, by) > level(ax, ay) && !storeysAt(bx, by); }   /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (rule 423(d)): no ladders; a house is walked into by its door, never climbed */
+  /* ---- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, VAMILY rule 423, ask lines 484 to 488; Paolo 11/7: 'if it's one story I
+     can still be on top of it, that's a defense boost, but not a range offense boost... converted to two or three story houses...
+     there's no ladder system, the ladder system is not realistic... no one wants to be right in the middle of the street, that's how
+     you get shot at the most'). A HOUSE (S.house: its storeys, 1 to 3, from the board) is a tile a man is in or on: its level is
+     its storeys (the hit chance up and down and the sight as any height, rule 321); its REACH, what it adds to a gun's range, is its
+     storeys less ours.storeys.range_from less one: one storey none, two one tile, three two (423(d)); any other height as before.
+     THE OPEN STREET (S.street: the board's asphalt, a lane or a walk, with nothing a man hides behind on it) is where nobody stands by
+     choice: AUTO, his and theirs, counts it ours.open_street.street of hurt worse and a house ours.open_street.house (423(e)) ---- */
+  function storeysAt(x, y) { return inBoard(x, y) && S.house && S.house[y] ? S.house[y][x] | 0 : 0; }
+  function reachLevel(x, y) { const n = storeysAt(x, y); return n ? Math.max(0, n - R('ours.storeys').range_from + 1) : level(x, y); }
+  function rangeUp(a, t) { return Math.max(0, reachLevel(a.x, a.y) - reachLevel(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level'); }
+  function openStreet(x, y) { return inBoard(x, y) && !!(S.street && S.street[y] && S.street[y][x]) && !S.coverCount[y][x] && !storeysAt(x, y) && rowAt(x, y) === 'flat'; }
+  function streetCost(x, y) { if (!S.street) return 0; const O = R('ours.open_street'), k = S.round <= (O.first_rounds || 0) ? O.first_share || 1 : 1; return (openStreet(x, y) ? O.street : storeysAt(x, y) ? O.house : 0) * k; }
+  /* THE SCRAMBLE (rule 428(c), Paolo 11/7: 'if my company is walking in the middle of the street when combat starts, they're trying
+     to get a defensive, range bonus... if it's on auto, they're trying to get out of there'): AUTO's walk toward the fight (his men
+     and theirs) weighs the ground it ends on in steps of the walk: the open street ours.open_street.walk_street steps worse, a
+     house, a roof or a tile with cover walk_good steps better; strongest in the first first_rounds rounds (the scramble off the
+     street the fight opened in), later_share of it after (nobody stands in the street by choice, but the fight still comes on) */
+  function goodGround(x, y) { return !!(storeysAt(x, y) || (S.coverCount[y] && S.coverCount[y][x]) || level(x, y) > 0); }
+  function groundSteps(x, y) {
+    if (!S.street || !inBoard(x, y)) return 0; const O = R('ours.open_street'), k = S.round <= O.first_rounds ? 1 : O.later_share;
+    return (openStreet(x, y) ? O.walk_street : goodGround(x, y) ? -O.walk_good : 0) * k;
+  }
   function climbedNow(u) { return !!u && u.upRound === S.round && R('ours.climb_or_attack').on; }
   function markClimb(u, fx, fy) { if (climbsUp(fx, fy, u.x, u.y) && u.upRound !== S.round) { u.upRound = S.round; emit({ t: 'climbed', id: u.id, x: u.x, y: u.y }); } }
   /* a way (a path of tiles from where he stands) that climbs onto a roof */
@@ -1252,7 +1278,7 @@ const FIGHT = (function () {
      from (407(f)): the rules, the cover pieces, the lamps, the camp read the board as before. A boss's board, a named board,
      the graveyard, the arena and a test board keep theirs; a fight the map cannot say (no cell, off the valley, no map) deals
      as before. A cut that does not join his line to theirs is moved a tile or two along the same streets, never re-dealt. */
-  const STREET_RING = 10;   /* SURROUND_BLOCKS (2) x block_tiles (5): the ring the drawing shows round the board */
+  const STREET_RING = 10, TPB_MAP = 3;   /* a map block is 3 x 3 fight tiles (36 m, 12 m a tile) */   /* SURROUND_BLOCKS (2) x block_tiles (5): the ring the drawing shows round the board */
   function streetHost() {
     try { const P = window.parent; if (P && P !== window) { const f = P.document.getElementById('cityFrame'), w = f && f.contentWindow;
       if (w && w.BohemiaStreetBoard && w.BohemiaStreetBoard.ready()) return w; } } catch (e) {}
@@ -1263,6 +1289,9 @@ const FIGHT = (function () {
     if (!DB.streetKit || typeof window === 'undefined' || !window.BohemiaStreetBoard || opts.flat || opts.boss || opts.arena || opts.cut || opts.street === false) return null;
     if (opts.street && opts.street.kind) return !shift && opts.street.W === S.w && opts.street.H === S.h ? opts.street : null;   /* a plan handed whole (a gate, a bench) */
     if (!opts.cell) return null;
+    /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (rule 423(a), Paolo 11/7: 'I prefer the previous layouts... use the layout of before and just
+       swap the house assets'): a fight from the map deals the template again; the map's own block only when asked (opts.street 'map') */
+    if (opts.street !== 'map') return null;
     const host = streetHost(); if (!host) return null;
     try { const t0 = performance.now(), p = host.BohemiaStreetBoard.plan(opts.cell, S.w, S.h, STREET_RING, { shift: shift || null });
       S.streetMs = (S.streetMs || 0) + (performance.now() - t0); return p && !p.err ? p : null; }
@@ -1315,7 +1344,7 @@ const FIGHT = (function () {
     if (!FB || !DB.freeway || opts.freeway === false || opts.flat || opts.boss || opts.arena || opts.cut) return false;
     let sp = opts.freeway && opts.freeway.district ? opts.freeway : null;
     if (!sp) { if (!FB.isFreeway(opts.district)) return false;
-      let at = null; try { const p = streetPlanFor(opts, null); at = p ? FB.atFromPlan(p) : null; } catch (e) { at = null; }
+      let at = null; try { const p = streetPlanFor(Object.assign({}, opts, { street: 'map' }), null); at = p ? FB.atFromPlan(p) : null; } catch (e) { at = null; }   /* rule 423(a): the board no longer asks the map's block, the freeway still reads the map's own plan at the spot */
       sp = FB.spot(at, opts.cell, opts.district); }
     if (!sp) return false;
     for (let t = 0; t < 8; t++) {
@@ -1323,6 +1352,47 @@ const FIGHT = (function () {
       applyBoard(B); if (connected()) { S.freewayTries = t + 1; return true; }
     }
     return false;
+  }
+  /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 423(a)-(d), ask lines 484 to 487): the template board just dealt, drawn
+     tile for tile from its own blocks (slices/bohemia_street_board.js fromTemplate), every house of its suburb blocks the new house
+     (COOK's ranches, of one, two or three storeys), the tile it stood on and the roof it put into the tile north of it cleaned; a
+     house with no way beside it a yard; the template's roofs kept roofs; nothing else of the deal moves. A board that would not then
+     join his line to theirs keeps the template as dealt. opts.houses false: the template as it was (a gate's mutation, a bench) */
+  function ringName(B, bx, by) {
+    const grid = B.blocks, ny = grid.length, nx = grid[0].length;
+    const refl = function (i, n) { while (i < 0 || i >= n) i = i < 0 ? -1 - i : n + n - 1 - i; return i; };
+    const src = grid[refl(by, ny)][refl(bx, nx)], base = src.split('|')[0], k = kindOf(base);
+    const names = Object.keys(DB.ground.blocks).filter(function (m) { return kindOf(m) === k && m !== base && m !== B.lm && DB.streetDress.lift[m]; });
+    const h = Math.abs(Math.sin((bx * 374761 + by * 668265 + 9241) * 1e-3) * 1e4) % 1;
+    return k === 'shore' || !names.length ? base : names[Math.floor(h * names.length)];
+  }
+  function housesIn(opts, cx, cy) {
+    const T = S.boardDef, K = DB.streetKit, D = DB.streetDress, SB = typeof window !== 'undefined' ? window.BohemiaStreetBoard : null;   /* headless: no window, no houses */
+    if (!K || !D || !SB || !SB.fromTemplate || !T || !T.blocks || T.laid) return false;
+    if (!T.blocks.some(function (r) { return r.some(function (n) { return !!SB.HOUSE_KINDS[kindOf(String(n).split('|')[0])]; }); })) return false;
+    const G = DB.ground, oldRoof = [], solid = S.solid.map(function (r) { return r.slice(); });
+    for (let y = 0; y < S.h; y++) { oldRoof.push([]); for (let x = 0; x < S.w; x++) oldRoof[y].push(isRoof(x, y)); }
+    const ST = R('ours.storeys');
+    /* ONE LANGUAGE WITH THE MAP (rule 429(b), WORLD THIRTEEN's table records/target/bb/map_fight_kinds.json through
+       engine/bohemia_fight_kinds.js): a district the table answers stands its houses at the table's own storey mix (the suburb half
+       one storey, 45% two, 5% three); a district it does not, at ours.storeys.share */
+    const FK = typeof window !== 'undefined' ? window.BohemiaFightKinds : null, row = FK && opts.district ? FK.answer(opts.district) : null;
+    const mix = row && row.building === 'house' && row.storeys ? [+row.storeys['1'] || 0, +row.storeys['2'] || 0, +row.storeys['3'] || 0] : null;
+    S.storeyMix = mix ? 'table' : 'ours';
+    let L = null;
+    try { L = SB.fromTemplate(T, D, K, { W: S.w, H: S.h, ring: STREET_RING, bt: G.block_tiles, tile_px: G.tile_px, tile_metres: G.tile_metres, def: pieceDef,
+      seed: cx !== undefined ? (cx * 7919 + cy * 104729 + 1) >>> 0 : SEED, surround: function (bx, by) { return ringName(T, bx, by); }, libOf: libOf,
+      solidAt: function (x, y) { return solid[y][x]; }, storeyShare: mix || ST.share, storeyPics: DB.streetStoreys ? DB.streetStoreys.houses : null }); }
+    catch (e) { S.housesErr = String(e && e.message || e); return false; }
+    if (!L) return false;
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (oldRoof[y][x]) L.roofs[y][x] = true;   /* the template's own roofs stay roofs */
+    const B = Object.assign({}, T, { terrain: L.terrain, cover: L.cover, lights: L.lights, laid: L, roofs: L.roofs,
+      street: { cell: cx !== undefined ? [cx, cy] : null, district: opts.district || null, template: true, houses: L.houses, yards: L.yards, shift: [0, 0],
+        /* where the board stands over the map's block (the same origin the laid board gave MOTION's dive: the block's middle tile) */
+        X0: cx !== undefined ? cx * TPB_MAP + (TPB_MAP >> 1) - (S.w >> 1) - STREET_RING : null, Y0: cy !== undefined ? cy * TPB_MAP + (TPB_MAP >> 1) - (S.h >> 1) - STREET_RING : null } });
+    applyBoard(B);
+    if (connected()) return true;
+    applyBoard(T); S.housesErr = 'not joined'; return false;
   }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
@@ -1514,6 +1584,9 @@ const FIGHT = (function () {
   function applyBoard(B) {
     const G = DB.ground;
     S.terrain = B.terrain; S.boardDef = B;
+    /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (rule 423(d)(e)): a house's storeys and the board's open street, by tile */
+    S.house = B.laid && B.laid.storeys ? B.laid.storeys : null;
+    S.street = streetMap(B);
     B.terrain.forEach(function (r) { r.forEach(rowOf); });   /* a kind with no row stops the deal here, not mid-fight */
     S.solid = []; S.cover = []; S.coverCount = [];
     for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); S.coverCount.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); S.coverCount[y].push(0); } }
@@ -1534,6 +1607,21 @@ const FIGHT = (function () {
         if (Math.hypot((x + 1 / (1 + 1)) * tm - l.x_m, (y + 1 / (1 + 1)) * tm - l.y_m) < l.radius_m) S.lit[y][x] = true;
       }
     });
+  }
+  /* THE STREET (rule 423(e)): a laid board names its tiles (the map's road, walk, freeway; a template's asphalt, 'street'); a board
+     dealt from the template blocks reads its blocks' asphalt from the lift table (a tile three tenths or more asphalt) */
+  const STREET_TILES = { street: 1, road: 1, walk: 1, freeway: 1 };
+  function streetMap(B) {
+    const out = [], LT = B.laid && B.laid.tiles, D = DB.streetDress && DB.streetDress.lift, bt = DB.ground.block_tiles;
+    for (let y = 0; y < S.h; y++) { const r = []; for (let x = 0; x < S.w; x++) {
+      let st = false;
+      if (LT) st = !!(LT[y] && STREET_TILES[LT[y][x]]);
+      else if (D && B.blocks) { const row = B.blocks[Math.floor(y / bt)], n = row && row[Math.floor(x / bt)];
+        if (n) { const base = n.split('|')[0], f = n.split('|')[1] || '', info = D[base], lx = x % bt, ly = y % bt;
+          const sx = f.indexOf('h') >= 0 ? bt - 1 - lx : lx, sy = f.indexOf('v') >= 0 ? bt - 1 - ly : ly;
+          st = !!info && info.dark[sy * bt + sx] >= 30 && B.terrain[y][x] === 'flat'; } }
+      r.push(st); } out.push(r); }
+    return out;
   }
   /* the share of the board's tiles that carry cover (a dead car, a wall, a shed, a boulder): WORLD's 'cover' on the kits */
   function coverShare() { let n = 0; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.cover[y][x]) n++; return n / (S.w * S.h); }
@@ -1682,6 +1770,7 @@ const FIGHT = (function () {
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(ask)); if (connected()) break; }
       if (fromMap && !opts.flat && !S.boardDef.own) S.boardDef.groundFit = fitCover(S.ground.ground);   /* a place's own board is built, never thinned or filled */
+      if (!opts.flat && opts.houses !== false) housesIn(opts, cx, cy);   /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__: the template's layout, the new houses in it */
     }
     if (seeded) SEED = dice;
     S.fire = []; S.smoke = []; S.sparkSeen = {};   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
@@ -2375,8 +2464,10 @@ const FIGHT = (function () {
      shot gains from where he stands over where the man stands (Battle Brothers' +1 a level today). inRange and the range card both
      read it, so the storeys rule moves here and the tape on the ground follows. t null: over the street (the card's farthest ring) */
   function reachUp(a, t) {
-    const lt = t ? level(t.x, t.y) : R('board.height_levels')[0];
-    return Math.max(0, level(a.x, a.y) - lt) * R('hit_chance.height.ranged_range_per_level');
+    /* rule 423(d) and 428(b) (COMBAT TWO): a house's reach is its storeys less one (reachLevel: one storey none, two one, three two);
+       any other height as before */
+    const lt = t ? reachLevel(t.x, t.y) : R('board.height_levels')[0];
+    return Math.max(0, reachLevel(a.x, a.y) - lt) * R('hit_chance.height.ranged_range_per_level');
   }
   /* EVERY WEAPON HAS ITS RANGE BANDS (COMBAT [every weapon's range bands], rule 187, Paolo 10/25: 'a rifle shooting one tile next
      to it might be a range debuff; a shotgun, the closer you are, after one or two tiles'): on top of Battle Brothers' own fall of
@@ -3981,7 +4072,7 @@ const FIGHT = (function () {
   /* a foe within his gun's reach from a roof tile (the reach each storey up adds, rules.json) and one step more */
   function roofReach(u, x, y) {
     const per = R('hit_chance.height.ranged_range_per_level'), w = u.weapon;
-    return foes(u).some(function (f) { return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= rangeMax(w.range) + Math.max(0, level(x, y) - level(f.x, f.y)) * per + 1; });
+    return foes(u).some(function (f) { return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= rangeMax(w.range) + Math.max(0, reachLevel(x, y) - reachLevel(f.x, f.y)) * per + 1; });
   }
   /* he has a shot left to fire this fight: a ranged weapon with rounds or throws left (an empty one-shot gun loads again) */
   function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
@@ -4206,7 +4297,7 @@ const FIGHT = (function () {
     } finally { m.x = ox; m.y = oy; }
     P.parts[k] = out; return out;
   }
-  function dangerOn(m, x, y, P, gone) { return dangerParts(m, x, y, P).reduce(function (s, q) { return s + q.v * (1 - Math.min(1, (gone && gone[q.id]) || 0)); }, 0); }
+  function dangerOn(m, x, y, P, gone) { return dangerParts(m, x, y, P).reduce(function (s, q) { return s + q.v * (1 - Math.min(1, (gone && gone[q.id]) || 0)); }, 0) + streetCost(x, y); }   /* rule 423(e): the open street is the worst place to end a turn */
   /* one blow of a on t with skill s from where a stands: its chance and the hurt it is worth (at most all of him) */
   function hurtOn(a, t, s) {
     const p = hitChance(a, t, s).chance / 100, w = a.weapon, h = hitDamage(a, t, (w.damage_min + w.damage_max) * HALF, false, t.armB);
@@ -4304,7 +4395,7 @@ const FIGHT = (function () {
     const B = BT(); P = P || { parts: {}, rn: {} };
     let best = null, bv = B.end_spend_floor;
     const fresh = function (id) { const c = activeCost(u, id); return !c || u.fat + c.fat - R('fatigue.recovery_per_turn') + Math.min(R('ours.fatigue_from_them_between_turns'), dangerParts(u, u.x, u.y, P).reduce(function (t, q) { return t + q.fat; }, 0)) + skillFat(u, strikeSkill(u.weapon)) <= fatMax(u); };
-    if (canUse(u, 'indomitable') && fresh('indomitable')) { const v = PK(u, 'indomitable').damage_reduction_pct / 100 * dangerOn(u, u.x, u.y, P, null); if (v > bv) { bv = v; best = { id: 'indomitable' }; } }
+    if (canUse(u, 'indomitable') && fresh('indomitable')) { const v = PK(u, 'indomitable').damage_reduction_pct / 100 * (dangerOn(u, u.x, u.y, P, null) - streetCost(u.x, u.y)); if (v > bv) { bv = v; best = { id: 'indomitable' }; } }
     if (canUse(u, 'taunt') && fresh('taunt')) skillTargets(u, 'taunt').forEach(function (q) {
       const t = byId(q.id); if (!t) return;
       friends(u).forEach(function (m) { if (dist(m, t) !== 1) return; const v = threatOf(t, m) - threatOf(t, u); if (v > bv) { bv = v; best = { id: 'taunt', to: q }; } });
@@ -4359,7 +4450,7 @@ const FIGHT = (function () {
         k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
         if (x === u.x && y === u.y) return;
         if (keepUp && level(x, y) < lvHere) return;
-        const lf = far + (isRanged(w) ? R('hit_chance.height.ranged_range_per_level') * Math.max(0, level(x, y)) : 0);
+        const lf = far + (isRanged(w) ? R('hit_chance.height.ranged_range_per_level') * Math.max(0, reachLevel(x, y)) : 0);
         if (!foes(u).some(function (t) { return dist({ x: x, y: y }, t) <= lf; })) {
           /* __AUTO_KNOWS_ITS_MAN__ (rule 394(a)): no blow from it this turn; a club man with something to change to may close in on it
              (no long chase, no roof, nearer a man of theirs who stands than he is now) */
@@ -4791,15 +4882,19 @@ const FIGHT = (function () {
         }
         if (A.surround) sc += tgts.reduce(function (m, t2) { return Math.max(m, friends(u).filter(function (fr) { return dist(fr, t2) === 1; }).length); }, 0);
         if (tv) sc += R('ours.auto_finds_a_shot').club_target_weight * tv;
+        sc -= groundSteps(x, y) * R('ours.open_street').strike;   /* rule 428(c): of the tiles he can strike from, the one off the street */
         /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
         if (ranged) sc += (wantsClose(w) ? -1 : 1) * Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
         /* ARMORY 2 (rule 320): AUTO's whip lashes from the second tile, out of their swing (ours.whip.auto_second_tile) */
         if (!ranged && isWhip(w) && Math.min.apply(null, foes(u).filter(function (fo) { return onField(fo) && !isRanged(fo.weapon); }).map(function (fo) { return dist(ghost, fo); }).concat([Infinity])) >= R('ours.whip').reach) sc += R('ours.whip').auto_second_tile;
       } else {
-        sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
+        /* rule 428(c): the ground he ends on, in steps; a man who holds (the line before contact, a shooter who sees them) still
+           steps off the open street onto better ground beside him or one step back, never nearer the fight */
+        const gsX = groundSteps(x, y), aside = gsX < groundSteps(u.x, u.y) && hunt(x, y) >= hunt(u.x, u.y) && hunt(x, y) <= hunt(u.x, u.y) + 1;
+        sc = holds && !aside ? -Infinity : -(hunt(x, y) + gsX) * R('hit_chance.cap').max + left;
         /* rule 332: NO LONG CHASE (a walk of chase_tiles or more this turn ending where chase_reach of their clubs swing at him) */
         if (u.side === 'you' && A.best_turn && sc > -Infinity && longChase(u, x, y, f.best[k])) sc = -Infinity;
-        if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
+        if (ranged && !A.advance && !aside && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
         if (A.keep_formation && coming && !(u.side === 'you' && S.contact) && line && line.mid !== null && sc > -Infinity) {   /* the line is for the approach, against men who come to it (rule 188): once the lines meet his men close in, and a thrower or a gunman left alone is run down */
           if (hl(x, y) < line.mid - (depth - 1)) sc = -Infinity;           /* never run out ahead of the line */
           else sc += friends(u).filter(function (fr) { return fr !== u && dist(fr, ghost) === 1; }).length;
@@ -4840,7 +4935,9 @@ const FIGHT = (function () {
       if (sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     const here = hunt(u.x, u.y);
-    if (best && !(u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {
+    /* rule 428(c): a walk off the open street onto better ground no farther from the fight is a walk too (the scramble) */
+    const offStreet = best && groundSteps(best.x, best.y) < groundSteps(u.x, u.y) && hunt(best.x, best.y) <= here + 1;
+    if (best && !(u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || offStreet || bs >= R('hit_chance.cap').max)) {
       if (moveTo(u, best.x, best.y)) return true;
     }
     if (aiLast(u)) return true;
@@ -4907,7 +5004,7 @@ const FIGHT = (function () {
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, retreatFromLine: retreatFromLine, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, bandCard: bandCard, rangeBandOf: rangeBandOf, bandAt: bandAt, shotLineOf: shotLineOf, reachUp: reachUp, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
-    level: level, isRoof: isRoof, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
@@ -5559,7 +5656,7 @@ function drawGround() {
     if (c.width !== Math.round(W * DPR) || c.height !== Math.round(H * DPR)) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
     const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(DPR, 0, 0, DPR, 0, 0);
     groundOn(g);
-    UI.gsheet = c; UI.gkey = key; UI.gboard = UI.board; UI.gdraws = (UI.gdraws || 0) + 1;
+    UI.gsheet = c; UI.gkey = key; UI.gboard = UI.board; UI.bkey = null; UI.gdraws = (UI.gdraws || 0) + 1;
   }
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
 }
@@ -5714,10 +5811,10 @@ function laidPaint(g, L, X, Y, tw, th, ax0, ay0, ax1, ay1, onTw, one) {
     const src = L.ground[ay * L.AW + ax]; if (!src) continue;
     const cut = src.indexOf('#');
     if (cut >= 0) {   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: a template tile lifted whole, drawn from its block's own picture */
-      const m = /#(\d+),(\d+)(h?)$/.exec(src), im0 = UI.imgs['fight_ground/' + src.slice(0, cut)];
+      const m = /#(\d+),(\d+)(h?)(v?)$/.exec(src), im0 = UI.imgs['fight_ground/' + src.slice(0, cut)];
       if (!m || !im0) { holes++; g.fillStyle = GROUND_UNDER; g.fillRect(X + ax * tw, Y + ay * th, tw + .5, th + .5); continue; }
       const im = one || onTw == null ? im0 : mipFor(im0, tw * bt), f = im.width / (im0.naturalWidth || im0.width), sw = (im0.naturalWidth || im0.width) / bt * f, sh = (im0.naturalHeight || im0.height) / bt * f;
-      if (m[3]) { g.save(); g.translate(X + ax * tw + tw + .35, Y + ay * th); g.scale(-1, 1); g.drawImage(im, +m[1] * sw, +m[2] * sh, sw, sh, 0, 0, tw + .35, th + .35); g.restore(); }   /* the column is the picture's own; mirrored as its block was dealt */
+      if (m[3] || m[4]) { g.save(); g.translate(X + ax * tw + (m[3] ? tw + .35 : 0), Y + ay * th + (m[4] ? th + .35 : 0)); g.scale(m[3] ? -1 : 1, m[4] ? -1 : 1); g.drawImage(im, +m[1] * sw, +m[2] * sh, sw, sh, 0, 0, tw + .35, th + .35); g.restore(); }   /* the column and row are the picture's own; mirrored as its block was dealt */
       else g.drawImage(im, +m[1] * sw, +m[2] * sh, sw, sh, X + ax * tw, Y + ay * th, tw + .35, th + .35);
       continue;
     }
@@ -6080,12 +6177,12 @@ function armName(v, arm) {
 const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR' };   /* draft:true */
 /* WHAT A HEIGHT GIVES, IN WORDS (rule 164 item 14): on the tile he taps and in the aim; every number the rules' own */
 const HEIGHT_SAYS = { roof: 'Roof, {n} up: ', rise: 'High ground, {n} up: ', gives: '+{bonus}% to hit for each storey down, guns reach {reach} farther, sees {sight} farther',
-  noclub: ', no club reaches him from the street', club: ', a club beside him still swings, at -{pen}% a storey', wall: 'A wall. No way up: climb a roof with a ladder.', house: 'A building, {n} high: its roof is high ground.', ladder: 'Climb it by its ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
+  noclub: ', no club reaches him from the street', club: ', a club beside him still swings, at -{pen}% a storey', wall: 'A wall. No way through.', house: 'A building, {n} high: its roof is high ground.', ladder: 'Climb onto it.', door: 'Walk in by its door.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
 function heightSay(x, y) {
   const n = FIGHT.level(x, y); if (!n) return '';
   const st = n + (n > 1 ? ' storeys' : ' storey');
   return wfill(FIGHT.isRoof(x, y) ? HEIGHT_SAYS.roof : HEIGHT_SAYS.rise, { n: FIGHT.isRoof(x, y) ? st : n }) +
-    wfill(HEIGHT_SAYS.gives, { bonus: R('ours.height_is_accuracy').above_per_storey, reach: n * R('hit_chance.height.ranged_range_per_level') + (n * R('hit_chance.height.ranged_range_per_level') > 1 ? ' tiles' : ' tile'), sight: n * R('ours.sight').per_level + (n * R('ours.sight').per_level > 1 ? ' tiles' : ' tile') }) +
+    wfill(HEIGHT_SAYS.gives, { bonus: R('ours.height_is_accuracy').above_per_storey, reach: (function (r) { return r ? r + (r > 1 ? ' tiles' : ' tile') : 'no'; })(FIGHT.reachLevel(x, y) * R('hit_chance.height.ranged_range_per_level')), sight: n * R('ours.sight').per_level + (n * R('ours.sight').per_level > 1 ? ' tiles' : ' tile') }) +
     /* rule 321: a club always reaches the next tile, the storeys only cost it accuracy (the library's wall kept for a mod that turns it back on) */
     (R('ours.height_is_accuracy').melee_any_storey ? wfill(HEIGHT_SAYS.club, { pen: -R('ours.height_is_accuracy').below_per_storey }) : n > R('hit_chance.height.melee_max_height_gap') ? HEIGHT_SAYS.noclub : '') + '.';
 }
@@ -6303,7 +6400,7 @@ function aimLines(u, t) {
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
   out.push('<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
   const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
-  if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('ours.height_is_accuracy').above_per_storey * (la - lt), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
+  if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('ours.height_is_accuracy').above_per_storey * (la - lt), reach: FIGHT.isRanged(u.weapon) && FIGHT.rangeUp(u, t) ? ', reach +' + FIGHT.rangeUp(u, t) : '' }));
   if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('ours.height_is_accuracy').below_per_storey * (lt - la) }));
   /* rule 187(c): the band's effect where he aims, the rules' own numbers */
   const bd = FIGHT.band(u, t);
@@ -7677,14 +7774,33 @@ function draw(now) {
   if (UI.zoom * DPR > 1.02 && !UI.bakedOnly) drawGround();   /* close in: the art itself, and the ring's blocks around it */
   else {   /* zoomed out: the map's ring (baked once, half size, never black) and the baked board, two blits a frame */
     const rk = ringCanvas(), bt = DB.ground.block_tiles, R = SURROUND_BLOCKS;
-    if (rk) { cx.imageSmoothingEnabled = true; cx.drawImage(rk, sx(-R * bt * UI.tw), sy(-R * bt * UI.th), rk.width / RING_K * UI.zoom, rk.height / RING_K * UI.zoom); }
-    cx.imageSmoothingEnabled = UI.zoom < 1; cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom); UI.groundMode = 'baked';
+    const two = function (g) {
+      if (rk) { g.imageSmoothingEnabled = true; g.drawImage(rk, sx(-R * bt * UI.tw), sy(-R * bt * UI.th), rk.width / RING_K * UI.zoom, rk.height / RING_K * UI.zoom); }
+      g.imageSmoothingEnabled = UI.zoom < 1; g.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom);
+    };
+    /* THE TWO BLITS KEPT WHILE THE CAMERA HOLDS (COMBAT TWO 11/7, measured: the template board with the new houses frames its men
+       wider, zoom 0.25 to the old 0.38, so the fight sat on this path, and its two scaled blits of the ring and the board every frame
+       held the night fight on the phone at 4x CPU to 33 ms a frame, AUTO AT 4X A3): as drawGround keeps the close-in ground, the
+       two blits are drawn once to a glass-sized sheet and that sheet is blitted until the camera, the board or the ring changes;
+       while the camera moves they are drawn straight on the glass, as before */
+    const bkey = ['b', UI.cx, UI.cy, UI.zoom, KICK.x, KICK.y, W, H, DPR].join('|');
+    if (bkey !== UI.bprev || UI.bboard !== UI.board || UI.bring !== rk) { UI.bprev = bkey; UI.bboard = UI.board; UI.bring = rk; UI.bkey = null; two(cx); }
+    else {
+      if (UI.bkey !== bkey || !UI.gsheet) {
+        const c = UI.gsheet || document.createElement('canvas');
+        if (c.width !== Math.round(W * DPR) || c.height !== Math.round(H * DPR)) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+        const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+        two(g); UI.gsheet = c; UI.bkey = bkey; UI.gkey = null;   /* one sheet for both paths: drawGround's key is let go */
+      }
+      cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
+    }
+    UI.groundMode = 'baked';
   }
   try { campOnBoard(now); } catch (_e) {}   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(c)): a fight at camp, the camp standing on its tiles */
   if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
-  drawLadders();   /* rule 164 item 14: a roof you can climb has a ladder, as long as the roof is high */
+  UI.ladders = [];   /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (rule 423(d), Paolo 11/7: 'there's no ladder system, the ladder system is not realistic'): no ladders drawn (drawLadders kept for a mod) */
   drawFog(now);   /* rule 157: what none of his men can see reads dark, under the marks so the chalk still reads */
   mkOn();
   /* YOUR FORMATION: your two columns in one chalk line (where your men can go); once a man is picked, a chalk dot on every free
@@ -8872,6 +8988,7 @@ function buildingAt(x, y) {
 }
 /* what a building gives, in words: the roof's own line, and for its wall the way up */
 function buildingSay(x, y) {
+  const hs = FIGHT.storeysAt(x, y); if (hs) return heightSay(x, y) + ' ' + HEIGHT_SAYS.door;   /* rule 423(d): a house is walked into, its height said */
   const b = buildingAt(x, y); if (!b) return '';
   if (b.roof) return heightSay(x, y) + ' ' + HEIGHT_SAYS.ladder;
   return wfill(HEIGHT_SAYS.house, { n: b.lv + (b.lv > 1 ? ' storeys' : ' storey') }) + ' ' + HEIGHT_SAYS.ladder;
@@ -8939,8 +9056,12 @@ function standsNow() {
     const x = (q.x - R0 * G.tile_px[0]) * k, y = (q.y - R0 * G.tile_px[1]) * k, w = q.w * k, h = q.h * k;
     list.push({ kind: 'house', im: im, line: q.line - R0 - 0.06, x0: x, y0: y, x1: x + w, y1: y + h });
   });
+  /* rule 423(a): on a template board whose houses were swapped for the new ones, a suburb block's old roofs are no longer drawn, so
+     their outlines stand nothing (the new houses stand as their own pictures above) */
+  const SBK = B.laid && B.laid.template && typeof window !== 'undefined' && window.BohemiaStreetBoard ? window.BohemiaStreetBoard.HOUSE_KINDS : null;
   B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
     const f = blockFlip(n), L = P[(G.blocks[blockBase(n)] || {}).src]; if (!L || f.indexOf('v') >= 0) return;   /* a block stood on its head has no roofs to stand */
+    if (SBK && SBK[blockBase(n).split('.')[0]]) return;
     const X0 = (bx * bt - ox) * UI.tw, Y0 = (by * bt - oy) * UI.th, H = f.indexOf('h') >= 0;
     L.forEach(function (q) {
       const gy = Y0 + q.line * k, pts = q.poly.map(function (p) { return [X0 + (H ? AW - p[0] : p[0]) * k, Y0 + p[1] * k]; });
@@ -10368,8 +10489,9 @@ function hoverAt(px, py) {
   if (p.x === u.x && p.y === u.y) { clear(); return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) return;
-  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); hoverBuilding(px, py); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
+  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); hoverBuilding(px, py); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); if (FIGHT.storeysAt(p.x, p.y)) hoverBuilding(px, py); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
   walkPreview(u, p, f, path); UI.pend.hover = true; hud();
+  if (FIGHT.storeysAt(p.x, p.y)) hoverBuilding(px, py);   /* rule 423(d): a house he can walk into says its storeys and what they give while the way in is drawn */
 }
 function hoverBuilding(px, py) {
   const S = FIGHT.S, p = tileAt(px, py), line = p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h ? '' : buildingSay(p.x, p.y), key = 'b' + p.x + ',' + p.y;
