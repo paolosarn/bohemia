@@ -1749,12 +1749,28 @@ const FIGHT = (function () {
      ground his line walks to: S.meet is every tile his front column reaches (connected()'s own walk); their start column comes in
      toward his until enough of those tiles stand there and past it for every man of theirs; placing them (the line, the camp, the
      pincer, the head start) takes only those tiles. The layout is untouched. */
+  /* STILL ONE MAN (rule 435(c), ask line 540; Paolo 11/9 after 11/8d: 'one of my guys is still not doing anything on auto combat').
+     MEASURED (300 AUTO fights, every crew kind, every board kind): the man who stood the whole fight stood on ground cut off on foot
+     from every man of theirs: north of Fremont's canopy (a wall edge to edge) while the fight was south of it; in a pen of the lab's
+     chain link; his walk to them never existed, so AUTO's hunt read 'out of reach' every turn and 11/8d's gate called that his
+     right. The map read every tile his front column reached, and where a wall splits the board that column stands on both sides of
+     it, so the map was both halves and his men were dealt onto either. NOW the fight's ground is ONE piece: of the walkable pieces
+     his front column stands on, the one with the most room in his columns (then the bigger); his line, their line, the camp and
+     every fallback are placed only on it, so every man of either side starts with a walk to the other. */
   function meetMap() {
-    const cols = S.cols || R('ours.start_cols'), seen = new Uint8Array(S.w * S.h), q = [];
-    for (let y = 0; y < S.h; y++) if (passable(cols[0], y)) { seen[y * S.w + cols[0]] = 1; q.push({ x: cols[0], y: y }); }
-    while (q.length) { const n = q.shift();
-      DIRS.forEach(function (d) { const x = n.x + d[0], y = n.y + d[1];
-        if (passable(x, y) && !squeezes(n.x, n.y, x, y) && !seen[y * S.w + x]) { seen[y * S.w + x] = 1; q.push({ x: x, y: y }); } }); }
+    const cols = S.cols || R('ours.start_cols'), id = new Int32Array(S.w * S.h).fill(-1), size = [], room = [];
+    const mine = function (x) { return x <= cols[0] && x >= cols[0] - 2; };
+    for (let y0 = 0; y0 < S.h; y0++) for (let x0 = 0; x0 < S.w; x0++) {
+      if (!passable(x0, y0) || id[y0 * S.w + x0] >= 0) continue;
+      const k = size.length, q = [{ x: x0, y: y0 }]; id[y0 * S.w + x0] = k; size.push(0); room.push(0);
+      while (q.length) { const n = q.shift(); size[k]++; if (mine(n.x) && !(level(n.x, n.y) > 0)) room[k]++;
+        DIRS.forEach(function (d) { const x = n.x + d[0], y = n.y + d[1];
+          if (passable(x, y) && !squeezes(n.x, n.y, x, y) && id[y * S.w + x] < 0) { id[y * S.w + x] = k; q.push({ x: x, y: y }); } }); }
+    }
+    let best = -1; for (let y = 0; y < S.h; y++) if (passable(cols[0], y)) { const k = id[y * S.w + cols[0]]; if (best < 0 || room[k] > room[best] || room[k] === room[best] && size[k] > size[best]) best = k; }
+    const seen = new Uint8Array(S.w * S.h); if (best < 0) { for (let i = 0; i < seen.length; i++) seen[i] = id[i] >= 0 ? 1 : 0; return seen; }
+    for (let i = 0; i < seen.length; i++) if (id[i] === best) seen[i] = 1;
+    S.meetPieces = size.length;
     return seen;
   }
   function meets(x, y) { return !S.meet || !!S.meet[y * S.w + x]; }
@@ -2134,7 +2150,7 @@ const FIGHT = (function () {
     const n = R('ours.formation').slots_per_row, mid = (S.h - 1) / (1 + 1), midR = Math.round(mid);
     /* THE LINE STANDS ON THE GROUND AT THE BELL (rule 256: measured, his line moved nearer his edge put a lone man on a two storey
        roof the beasts could not climb; nobody is dealt onto a roof): a roof only when the board has no ground left for him */
-    const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0); };
+    const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y); };   /* rule 435(c): only on the fight's one piece of ground */
     const zone = zoneCols();
     function nearest(x, y) {
       let best = null, bd = Infinity;
@@ -2144,7 +2160,7 @@ const FIGHT = (function () {
         if (d < bd) { bd = d; best = { x: xx, y: yy }; }
       });
       for (let xx = zone[zone.length - 1] + back; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (free(xx, yy)) { best = { x: xx, y: yy }; break; }
-      for (let xx = zone[0]; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (inBoard(xx, yy) && passable(xx, yy) && !unitAt(xx, yy)) { best = { x: xx, y: yy }; break; }
+      for (let xx = zone[0]; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (inBoard(xx, yy) && passable(xx, yy) && !unitAt(xx, yy) && meets(xx, yy)) { best = { x: xx, y: yy }; break; }
       return best;
     }
     const later = [], rest = [];
