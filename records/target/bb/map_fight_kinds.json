@@ -2090,5 +2090,107 @@
     ]
    }
   }
+ },
+ "places": {
+  "about": "THE PLACES' OWN ROWS (WORLD 14 11/8, VAMILY rule 436(b), ask line 521): the missing real places of records/target/bb/real_places.json that have a visit, each with its fight answer in this table's own fields; 'kind' is the map kind it stands on (its district row above must agree on class, building and storeys), 'where' valley or region. The lab is on the region's land, not a valley kind: this row is its only answer. Written by tools/bohemia_world14_place_fight_answers.py; gates/the_places_get_their_use_gate.js holds it. Words draft:true.",
+  "rows": {
+   "the_lab": {
+    "kind": null,
+    "where": "region",
+    "is": "the lab on the fossil beds: one long block of labs and the freezer house, the pens in a row behind chain-link, the bone beds round it; a man goes in the labs (block walls, his cover) or up on the flat roofs (one storey mostly, the freezer house two); the pens' chain-link stops a step, never a shot",
+    "class": "roof",
+    "building": "compound",
+    "storeys": {
+     "1": 0.7,
+     "2": 0.3
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "fence"
+    ],
+    "street_front": true,
+    "picture": "the region paints it as any fortress (its trade reads 'hilltown': houses behind a wall); a compound of labs and pens is owed, COOK FOUR's golden piece (rule 408)",
+    "draft": true
+   },
+   "the_bank": {
+    "kind": "bank",
+    "where": "valley",
+    "is": "the bank tower over its banking hall; under it the vault, the strongest room in town: one door, no window, a man inside has full cover and no shot out; the boxes room beside it; the paper in the cages stops nothing",
+    "class": "roof",
+    "building": "tower",
+    "storeys": {
+     "2": 0.4,
+     "3": 0.6
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_unemployment_office": {
+    "kind": "jobsoffice",
+    "where": "valley",
+    "is": "one low office block and the line round it: the men in the line are people, never cover; the queue rails and the parked cars along the line are the open ground's half cover",
+    "class": "roof",
+    "building": "civic",
+    "storeys": {
+     "1": 0.6,
+     "2": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_home_center_east": {
+    "kind": "hardware",
+    "where": "valley",
+    "is": "the big box: one tall shed (a two-storey roof), the garden centre's fenced yard, the lumber canopy, pallets in the lot for half cover",
+    "class": "roof",
+    "building": "shop",
+    "storeys": {
+     "1": 0.3,
+     "2": 0.7
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_home_center_west": {
+    "kind": "hardware",
+    "where": "valley",
+    "is": "the west side's big box, the same as the east's: the tall shed, the garden yard, the receiving dock at the back",
+    "class": "roof",
+    "building": "shop",
+    "storeys": {
+     "1": 0.3,
+     "2": 0.7
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true
+   }
+  }
  }
 }

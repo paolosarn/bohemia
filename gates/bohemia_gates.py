@@ -10694,6 +10694,13 @@ GATES = [
      "UI gate 9/30, RE-AIMED BY PLUMBER 4 11/5 (rule 44a; rules 384 and 396): it failed ten legs on a correct build looking for the old "
      "plates and the old 3x and 5x; now the clock's steps 1 2 4 with PAUSE, PAUSE holds a journey with no block and no minute, 2x and 4x "
      "against 1x, every block paying its clock, the plates off the glass, and HOLD PLAY FOR 4X with a real finger on the phone. About 2 min", True),
+    ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],
+     "WORLD 14 gate, 11/8, VAMILY rule 436(b) (ask line 521; rules 409(c), 429(b)(h)): the lab, the bank, the unemployment office and the two "
+     "home centres each have a visit (records/target/bb/real_places.json visit; slices/bohemia_place_visits.js): the person there in Spanglish, two or three "
+     "choices in plain English with real costs, one WALK IN; each at its real spot and on the valley's one road network over 24 seeds and four turns; "
+     "each with its fight answer in WORLD 13's table (map_fight_kinds.json places). On the demo: the card on arrival, WALK IN opens the screen, the bank's "
+     "boxes take eight hours and pay, the lab's pens hand over the wolves as beasts (a loss keeps the pen, a win pays and closes it), the line hires its man "
+     "and four days on shows the next, the home centre's back room pays, the lab painted as a compound, every face drawn. Planted: seven. About 90 s", True),
     ('EVERY MAN ACTS ON AUTO', ['node', 'gates/every_man_acts_on_auto_gate.js'],
      "COMBAT TWO gate, 11/8, VAMILY rule 435 (ask line 520; PAOLO 11/8: 'not all my characters are moving and attacking on the auto combat mode now'). "
      "Both sides on AUTO over every place board's districts, three towns and the freeway, two seeds each (38 fights, 19 kinds): every turn of a man of his "

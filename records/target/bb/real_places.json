@@ -5,6 +5,7 @@
   "record": "records/BOHEMIA_WORLD_TEN_THE_MISSING_REAL_PLACES_11_6_26.md",
   "checklist": "records/BOHEMIA_PAOLO_POCKET_CITY_2_BUILDINGS_AGAINST_OURS_11_5_26.md",
   "seat_grammar": "x: {from: strip | courthouse | cashman | luxor, east: n} (east is the valley's own 'town east', which flips with the mirror); y: {of: f} is round(96 x f), or {from: <piece>, south: n}. The generator then takes the nearest clear block (the FACTORY LAW nudger: never on a freeway, the ring, the rail, a mile street or a half-mile collector, never touching another placed piece) that fronts a mile street, so every place is on a street and none covers another.",
+  "visit_about": "THE VISIT (WORLD 14 11/8, VAMILY rule 436(b), ask line 521): Battle Brothers' way of entering a location, a picture, a few lines, two or three choices. 'who' talks (a face from engine/bohemia_crew_faces.js, the road's own card, slices/bohemia_road_events.js), 'says' is their line, each of 'opts' is a choice: 't' the words on the button, 'need' what it asks you to have (food, bats, men), 'fx' what it does in the road's own words (bats, food, gear, man, mood, mins, flag, chance, say; 'fight' is a fight here: foe a faction of records/target/bb/bohemia_enemies.json or brigands, n a number or 'party' (the game's own party math), skulls, label, win and lose; 'post' a line on the feed), 'once' true (gone once chosen) or 'won' (gone once the fight is won), 'every_days' (back after that many days), 'in' true (walk in: the place's settlement screen). 'line' is a queue: the next one at the front every 'every_days', '{name}' '{says}' '{look}' '{bg}' '{yes}' read from him. The card shows on arriving while a choice is left; with only 'Walk in.' left it never shows. slices/bohemia_place_visits.js reads this.",
   "places": [
     {
       "id": "the_lab",
@@ -22,6 +23,8 @@
       ],
       "tier": "fortress",
       "role": "fight",
+      "region_trade": "prison",
+      "region_trade_why": "the region paints a place from its words and the lab's matched nothing (a hill town, houses behind a wall); it borrows the region's own compound look, long blind blocks and containers behind a fence, until COOK FOUR's golden piece (rule 408)",
       "what": "the lab on the fossil beds; the pens the dire wolf and the mammoth calf walked out of when the dollar died",
       "use": {
         "screen": "a fortress settlement screen on arrival (the region's own place machinery): held ground, the beasts' first home",
@@ -35,7 +38,61 @@
         { "says": "Feed pellets in a drum, ten years old, dry. People eat these now.", "good": "food" },
         { "says": "Lab tape, the yellow kind, a whole roll in a drawer.", "good": "tape" }
       ],
-      "feed": { "who": "@northedge", "txt": "the lab on the fossil beds has no fence left. the pens are open from the inside. mira the size of those prints", "kind": "world", "draft": true }
+      "feed": { "who": "@northedge", "txt": "the lab on the fossil beds has no fence left. the pens are open from the inside. mira the size of those prints", "kind": "world", "draft": true },
+      "visit": {
+        "head": "TULE SPRINGS LAB · THE FOSSIL BEDS",
+        "who": {
+          "name": "THE NIGHT TECH",
+          "look": "cast_apron",
+          "from": "at the gate of TULE SPRINGS LAB"
+        },
+        "says": "Payroll stopped, so I stopped going home. Nobody feeds them now, only me, and the feed ran out in the spring. Pen four still has the wolves. The big ones, from the tooth they dug out back. The doors ran on the grid, so now it's chain. Mira, the clock by the door still counts down to feeding time. It's late two thousand nine hundred days.",
+        "opts": [
+          {
+            "id": "pens",
+            "t": "Open pen four.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "wolves",
+                "n": "party",
+                "skulls": 2,
+                "label": "the wolves of pen four",
+                "win": {
+                  "bats": 6,
+                  "food": 3,
+                  "flag": "lab_pen_four",
+                  "say": "The coolant cells off the freezers, six still holding. Feed pellets in the pens, three nights for the company. The tech chains pen four shut behind you. Out of habit, the tech says."
+                },
+                "lose": {
+                  "food": -2,
+                  "say": "You got out. The tech chains the door again and does not look at you. Something in pen four is eating your two nights of food."
+                }
+              }
+            }
+          },
+          {
+            "id": "board",
+            "t": "Read the board by the door.",
+            "once": true,
+            "fx": {
+              "mins": 60,
+              "flag": "lab_board_read",
+              "say": "Okay, the board. DIRE WOLF: a tooth, thirteen thousand years, gray wolf cells, twenty edits, dog mothers. CAMEL. HORSE. AMERICAN LION. GROUND SLOTH: the dung in Gypsum Cave, dry for eleven thousand years. MAMMOTH: elephant mother. Somebody wrote LOOSE next to every one. In my writing. I don't remember writing it.",
+              "post": {
+                "who": "@northedge",
+                "txt": "read the board at the tule springs lab. every animal on it says LOOSE. the wolves came off a tooth. a TOOTH"
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_bank",
@@ -69,7 +126,67 @@
         { "says": "The water cooler's spare jug behind the counter. Four litres.", "good": "water" }
       ],
       "feed": { "who": "@fremontfloor", "txt": "they keep cash in the bank still. walls of it. we burn it for heat, the vault door is the only thing nobody has opened", "kind": "world", "draft": true },
-      "licence": "a real building: its old name (Valley Bank Plaza) and look go on the stage-4 licence list; the map says THE BANK"
+      "licence": "a real building: its old name (Valley Bank Plaza) and look go on the stage-4 licence list; the map says THE BANK",
+      "visit": {
+        "head": "THE BANK · 300 SOUTH FOURTH",
+        "who": {
+          "name": "THE LAST TELLER",
+          "look": "cast_shortcoat",
+          "from": "behind the counter of THE BANK"
+        },
+        "says": "Welcome to the bank, jefe. Everything is still here. Forty million in hundreds, in the cages, and nobody wants it. People come look and they laugh. The big vault has a wind-up time lock and nobody wound it. It stopped at ten past four on a Friday and that door has not opened since. The boxes room was open when it stopped. Some men sleep upstairs. They burn the twenties to cook.",
+        "opts": [
+          {
+            "id": "boxes",
+            "t": "Drill the safe deposit boxes.",
+            "once": true,
+            "fx": {
+              "mins": 480,
+              "flag": "bank_boxes",
+              "chance": {
+                "p": 0.55,
+                "yes": {
+                  "bats": 8,
+                  "say": "Box 1140: a lantern and four batteries still in the plastic. Box 1188, the same. People kept the real money in the boxes."
+                },
+                "no": {
+                  "bats": 2,
+                  "say": "Most of them were open already. Somebody had the same idea first. Two batteries in a box full of letters."
+                }
+              }
+            }
+          },
+          {
+            "id": "upstairs",
+            "t": "Run the men off the upper floors.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "brigands",
+                "n": "party",
+                "skulls": 1,
+                "label": "the men on the upper floors",
+                "win": {
+                  "bats": 4,
+                  "gear": "crowbar",
+                  "flag": "bank_upstairs",
+                  "say": "A stove on the fourth floor, fed with hundreds. Four batteries in a manager's desk and the crowbar they opened it with. The teller goes back to counting."
+                },
+                "lose": {
+                  "bats": -4,
+                  "say": "They threw you down the stairs and took four for the trouble. The teller never looked up."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_unemployment_office",
@@ -101,7 +218,96 @@
         { "says": "The front desk's tape gun, a roll still in it.", "good": "tape" },
         { "says": "A man in the line traded you a gallon for a place nearer the door.", "good": "water" }
       ],
-      "feed": { "who": "@maryland.pkwy", "txt": "the line at the unemployment office is still there. nobody is hiring inside, it's just where you stand if you'll work. ten years of standing", "kind": "world", "draft": true }
+      "feed": { "who": "@maryland.pkwy", "txt": "the line at the unemployment office is still there. nobody is hiring inside, it's just where you stand if you'll work. ten years of standing", "kind": "world", "draft": true },
+      "visit": {
+        "head": "UNEMPLOYMENT OFFICE · THE LINE",
+        "every_days": 4,
+        "who": {
+          "name": "{name}",
+          "look": "{look}",
+          "from": "in the line at the UNEMPLOYMENT OFFICE"
+        },
+        "says": "{says}",
+        "line": [
+          {
+            "name": "NUMBER 211",
+            "look": "cast_poncho",
+            "bg": "gambler",
+            "says": "Eleven years I dealt blackjack. I been in this line every morning since the dollar went. Nobody is behind the window. The screen says NOW SERVING 211 and I am 211, so. You hiring, jefe? I count fast and I don't flinch.",
+            "yes": "Two nights of food. That's more than the state ever paid me. Vámonos."
+          },
+          {
+            "name": "NUMBER 212",
+            "look": "cast_widebrim",
+            "bg": "mason",
+            "says": "I did roofs. Tile, twenty summers on the tile. Hot work, jefe, I don't mind hot. They say this line is for work. Six years nobody came out that door. The screen still says 211. It always says 211.",
+            "yes": "First job in six years. I'll carry whatever you got."
+          },
+          {
+            "name": "NUMBER 213",
+            "look": "cast_shortcoat",
+            "bg": "retired_soldier",
+            "says": "Two tours, then fourteen years security on a casino floor. I know how to stand in one place, I been practicing in this line. Give me something that shoots, hermano, and a place to stand.",
+            "yes": "Good. I was getting too good at standing."
+          },
+          {
+            "name": "NUMBER 214",
+            "look": "cast_apron",
+            "bg": "butcher",
+            "says": "Line cook. I can make dinner out of nothing, and nothing is what everybody has now, verdad? I'll cook for the whole crew for one bowl of it.",
+            "yes": "Show me the wagon. Whatever is in it, I can make it last."
+          },
+          {
+            "name": "NUMBER 215",
+            "look": "cast_pack",
+            "bg": "caravan_hand",
+            "says": "I drove a cab on the Strip, then a truck out to Primm. Every road in this valley, I know which ones are still roads, te lo juro. The screen in there flickers at night. Still 211.",
+            "yes": "Every road. You'll see. Vámonos."
+          }
+        ],
+        "opts": [
+          {
+            "id": "hire",
+            "t": "Take him on. Two nights of food, up front.",
+            "need": {
+              "food": 2
+            },
+            "per_man": true,
+            "fx": {
+              "food": -2,
+              "man": {
+                "n": 1,
+                "name": "{name}",
+                "bg": "{bg}",
+                "look": "{look}"
+              },
+              "say": "{yes}"
+            }
+          },
+          {
+            "id": "feed",
+            "t": "Hand out food down the line.",
+            "need": {
+              "food": 3
+            },
+            "every_days": 7,
+            "fx": {
+              "food": -3,
+              "mood": {
+                "act": "favor",
+                "place": "near"
+              },
+              "say": "Nobody pushes. They have been in line too long to push. Somebody at the back starts clapping, then stops."
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_home_center_east",
@@ -128,7 +334,67 @@
         { "says": "A garden-centre seed packet. Beans. A man in the lot swapped you a ration for it.", "good": "food" },
         { "says": "A lantern battery in the camping aisle, the blister pack still sealed.", "good": "battery" }
       ],
-      "feed": { "who": "@eastsidecrew", "txt": "hardware store went first, before the gold shops. you can't eat gold. you can build with wire", "kind": "world", "draft": true }
+      "feed": { "who": "@eastsidecrew", "txt": "hardware store went first, before the gold shops. you can't eat gold. you can build with wire", "kind": "world", "draft": true },
+      "visit": {
+        "head": "HOME CENTER · EAST SIDE",
+        "who": {
+          "name": "THE NIGHT MANAGER",
+          "look": "cast_widebrim",
+          "from": "in the garden centre of the HOME CENTER"
+        },
+        "says": "Everything with a plug went the first week, jefe. The generators, the propane, the chainsaws, the batteries off the end caps. Then the plywood for the windows, then the wire. What's left is paint and doorknobs. A crew sleeps in the lumber aisle now. Listen. The music. The back-up battery still plays it, the same eleven seconds, all night.",
+        "opts": [
+          {
+            "id": "back",
+            "t": "Search the back for what they missed.",
+            "once": true,
+            "fx": {
+              "mins": 240,
+              "flag": "home_center_east_back",
+              "chance": {
+                "p": 0.5,
+                "yes": {
+                  "bats": 3,
+                  "gear": "crowbar",
+                  "say": "Behind the returns desk: a crowbar still on its card and three lantern batteries in a return nobody ever processed."
+                },
+                "no": {
+                  "bats": 1,
+                  "say": "One battery, out of a smoke detector. Everybody forgets the smoke detectors."
+                }
+              }
+            }
+          },
+          {
+            "id": "aisle",
+            "t": "Run the crew out of the lumber aisle.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "brigands",
+                "n": "party",
+                "skulls": 1,
+                "label": "the crew in the lumber aisle",
+                "win": {
+                  "bats": 2,
+                  "gear": "framing_hammer",
+                  "flag": "home_center_east_aisle",
+                  "say": "They had the last framing hammer in the store and two batteries. The manager folds their blankets and puts them out on the curb."
+                },
+                "lose": {
+                  "say": "They know the aisles better than you. The music kept playing the whole time."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_home_center_west",
@@ -149,7 +415,45 @@
         { "says": "Contractor bags and a roll of tape somebody dropped running.", "good": "tape" },
         { "says": "A case of bottled water behind the paint counter.", "good": "water" }
       ],
-      "feed": null
+      "feed": null,
+      "visit": {
+        "head": "HOME CENTER · WEST SIDE",
+        "who": {
+          "name": "THE KEY CUTTER",
+          "look": "cast_satchel",
+          "from": "at the key counter of the HOME CENTER"
+        },
+        "says": "Thirty years I cut keys here. Nobody needs a key now, everything is open. Mira, all open. The west side went slower than the east. There's still some in receiving, if you know where the dock door is. I know where it is.",
+        "opts": [
+          {
+            "id": "dock",
+            "t": "Have him show you the receiving dock.",
+            "once": true,
+            "fx": {
+              "mins": 240,
+              "flag": "home_center_west_dock",
+              "chance": {
+                "p": 0.6,
+                "yes": {
+                  "bats": 3,
+                  "gear": "pipe_wrench",
+                  "say": "A pallet nobody unwrapped. A pipe wrench and three batteries in the shrink wrap. He cuts you a key for the dock door. Habit."
+                },
+                "no": {
+                  "bats": 1,
+                  "say": "Somebody found the dock first. One battery in a forklift's dash."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "clark_station",

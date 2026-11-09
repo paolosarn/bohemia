@@ -1,3 +1,14 @@
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9c - THE PLACES TALK, BUILT, NOT YET SEEN (rule 436(b), ask line 521):
+measured first, WORLD TEN had seated the lab, the bank, the jobs office and the home centres at their real spots, but each opened as any
+town. Now each place's person talks when you arrive, Battle Brothers' location way, two or three choices with real costs: THE NIGHT TECH at
+TULE SPRINGS LAB (open pen four: a fight with the lab's dire wolves; read the board: what broke out, from which bones), THE LAST TELLER at
+THE BANK (drill the boxes: 8 hours, a chance at 8 batteries; the men upstairs: a fight), THE LINE at the UNEMPLOYMENT OFFICE (a new man
+every four days; two nights of food and he joins with his trade), the two HOME CENTERs (the back room or the dock: 4 hours, batteries and a
+hand tool; the crew in the lumber aisle: a fight). The lab painted as a compound; five fight answers in WORLD 13's table ('places'). Gate
+THE PLACES GET THEIR USE 28/0 on the demo and the alpha, 24 seeds x four turns, 7 plants. VOTE world14-the-places-talk-11-8 (STAND-IN).
+How a new kind enters, for WORLD 13: handoffs/WORLD_FOURTEEN.md.
+[bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
+[analog horror: the lab's feeding clock is 2,900 days late, and LOOSE is written next to every animal in the tech's own hand.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town
