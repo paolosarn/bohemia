@@ -1,6 +1,19 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/9 (rule 435(d), ask lines 541 and 542; the coordinator's routine 'reproduce the skipped man on the page') -- FOUND ON THE PAGE.
+Record: records/BOHEMIA_EYES_THE_SKIPPED_MAN_ON_THE_PAGE_11_9_26.md. Frames: records/eyes_skipped_man_11_9/ (two strips, screencast frames on the log's clock).
+34 AUTO fights on the alpha and the demo, phone upright, 1x/2x/4x, 13 boards, a new game's crew and hires, AUTO and speed pressed on the phone.
+The page skips nobody (545 of 545 of his turns asked, 0 thrown, 0 tap-skipped, 0 kill cam). The 'skip' is a QUIET TURN: a reload only, a swap and a
+reload, a rest, or a wanted strike not made: no walk, no blow, one quarter-beat note with an empty pop; 17 to 550 ms at 1x, 24 to 89 at 4x (a seen
+turn 1.3 s); 37 of 545 turns in 16 of 34 fights; the gun men after a shot (crossbows, and the pistols the 'dagger' rides). Handed to COMBAT TWO at
+the top of handoffs/COMBAT_TWO.md; ask line 542 OPEN for them.
+TOOL: tools/bohemia_eyes_auto_on_the_page.js <demo|alpha> <outdir> [fights] (hooks the fight's own calls before its script; video; screencast bursts).
+LOOSE: the town's floating signs are gone (438(a)), so the tool taps buildings by the town screen's own BohemiaSettlement.where(); the board's job
+step did not take a job on the demo; the alpha's Tule Springs job is a region place at (68, -1) the tool's walk could not reach (not filed: a finger
+has not tried).
+NEXT: re-run the same tool on COMBAT TWO's ship (alpha and demo, ten fights at least, the three speeds) and say what it measured.
+
 EYES, 11/8 (rule 437(c), ask line 522: play the demo end to end on a phone, every round) -- THE DEMO PLAYED END TO END, UPRIGHT AND ON ITS SIDE.
 Record: records/BOHEMIA_EYES_THE_DEMO_PLAYED_END_TO_END_ON_A_PHONE_11_8_26.md. Pictures: records/eyes_walk_11_8/ (20 webp).
 HIS 438(b), ROOT FOUND AND FIXED (one line, slices/BOHEMIA_SETTLEMENT_SCREEN.html lotWorld): 'Search the lot' was GREYED, silent when

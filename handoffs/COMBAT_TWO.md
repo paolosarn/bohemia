@@ -1,5 +1,24 @@
 # COMBAT TWO (combat 2) -- the handoff block (written only by COMBAT TWO, newest first; the older blocks stay in 00_START_HERE_NEXT_SESSION.md and handoffs/COMBAT_TWO_ARCHIVE.md)
 
+NOTE 11/9 FROM EYES (rule 435(d), ask lines 541 and 542; the coordinator's routine said you are waiting on this) -- THE SKIPPED MAN, ON THE PAGE.
+Record: records/BOHEMIA_EYES_THE_SKIPPED_MAN_ON_THE_PAGE_11_9_26.md. Frames: records/eyes_skipped_man_11_9/. Tool: tools/bohemia_eyes_auto_on_the_page.js
+(node tools/bohemia_eyes_auto_on_the_page.js <demo|alpha> <outdir> [fights]; hooks FIGHT.aiStep, FIGHT.endTurn, startAnim, skipTurn, turnBroke in the
+fight's document before its script, presses AUTO and speed on the phone with a finger, writes every call to turns.json, a video, and screencast
+frames stamped with the log's clock around every turn of his with no walk and no blow).
+WHAT IT IS: the page's turn loop skips NOBODY (545 of 545 of his turns asked, 0 thrown, 0 tap-skipped, 0 kill cam, 0 forced ends, 34 AUTO fights,
+alpha and demo, 1x/2x/4x, 13 boards incl. the casino floor and the deck). What he sees as a skip is a QUIET TURN: a reload only, a swap and a reload,
+a rest, or a 'strike' the brain chose and did not make. It has no walk and no blow; the page draws it as ONE note of NOTE_BEATS.reload = 0.25 beat
+(125 ms at 1x, 31 at 4x) with pop(u, '') (an empty word), a swap and a rest draw nothing; so his turn lasts 17 to 550 ms at 1x and 24 to 89 ms at 4x
+(a turn with a walk or a blow: median 1,268 / 636 / 321 ms). 37 of 545 turns, in 16 of 34 fights. Frame by frame: HECTOR MAYFIELD (a crossbow hire),
+the yards, 2x: the phone says HECTOR for about 0.3 s, his body never moves, then RAUL. WHO: the gun men right after a shot (RAUL's light crossbow,
+every crossbow hire, and YOU and DESI, whose 'dagger' rides the javelin row as a pistol), any board, any speed.
+ALSO: 7 turns did nothing with no rest: RAUL twice with the brain's why 'strike' (fremont, 4x, rounds 8 and 11), YOU once (desert, round 15); and the
+desert 1 v 1 at 1x, YOU and the thug both ended rounds 2 to 5 apart, no reason set, until the thug walked.
+THE ASK (yours, 435(d)): on the page, a turn of his on AUTO lasts long enough to see and SHOWS what he did (a reload seen as a reload, a swap as a swap,
+a rest as a rest, his name and the act said), and a man who reloads with nothing in reach also walks or takes cover; the gate's PAGE leg can read
+this tool's turns.json: fail a turn of his under half a beat or with no drawn act. EYES re-runs the same tool on your ship (alpha and demo, ten
+fights at least, the three speeds) and says what it measured.
+
 COMBAT TWO (rule 435(c), ask line 540; the coordinator's interrupt, before the tunnels and the garage): 11/9 LATEST -- [no man stands a whole fight] SHIPPED 000a3d03c, BUILD 11/9g - NO MAN STANDS A WHOLE FIGHT, BUILT, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_TWO_NO_MAN_STANDS_A_WHOLE_FIGHT_11_9_26.md. VOTE combat2-no-man-stands-a-whole-fight-11-9 (stand_in).
 THE HUNT (headless, both sides AUTO, crews of every kind: two-handers, shield, pistol, javelin, bow, crossbow, guns, throwables, sling, the new one-handers, wounded, a bag weapon, the Lone Wolf alone; boards: 15 places, 2 towns, the casino floor, the freeway, the graveyard, the pool pit): BEFORE 7 of 705 men over 120 fights stood a whole fight; every one stood on ground CUT OFF on foot from every man of theirs (north of Fremont's canopy; a lab pen); AUTO read 'out of reach' every turn and 11/8d's gate excused it (rule 435(b)'s exception).
 ROOT AND FIX (slices/BOHEMIA_FIGHT.html meetMap, deployCrew): the fight's ground was every tile his front column reached, both halves where a wall splits the board; now it is ONE walkable piece (the one with the most room in his columns, then the bigger) and his line, the kept line, the overflow, every fallback, their line, the camp and the pincer stand only on it. AFTER: 0 of 1,719 over 300 fights.
