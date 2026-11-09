@@ -30,7 +30,7 @@
 <!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
-<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -412,7 +412,12 @@ function loadAll() {
     .then(function () { return Promise.all(['fight_ground/casino/casino_floor.json', 'fight_ground/casino/sizes.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
     .then(function (cf) { const d = cf[0], z = cf[1] || {}, kit = {};   /* the kit's pieces carry the pictures the rig made (sizes.json) */
       if (d && d.board && d.kit) Object.keys(d.kit).forEach(function (k) { const q = z[k.replace(/^casino_/, '')]; kit[k] = Object.assign({}, d.kit[k], q ? { src: q.src } : {}); });
-      DB.casino = d && d.board && d.kit ? { data: d, sizes: z, kit: kit } : null; });
+      DB.casino = d && d.board && d.kit ? { data: d, sizes: z, kit: kit } : null; })
+    /* __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): the tunnels' layout and their pieces (tools/bohemia_combat_two_the_flood_tunnels_11_9_26.py) */
+    .then(function () { return Promise.all(['fight_ground/tunnels/tunnels.json', 'fight_ground/tunnels/sizes.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
+    .then(function (tf) { const d = tf[0], z = tf[1] || {}, kit = {};
+      if (d && d.board && d.kit) Object.keys(d.kit).forEach(function (k) { const q = z[k.replace(/^tunnel_/, '')]; kit[k] = Object.assign({}, d.kit[k], q ? { src: q.src } : {}); });
+      DB.tunnels = d && d.board && d.kit ? { data: d, sizes: z, kit: kit } : null; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -1400,6 +1405,30 @@ const FIGHT = (function () {
      fought on its floor (slices/bohemia_casino_floor.js): the same camera, the roof cut away, house tiles; the slot banks, the pit,
      the cage and its strong room, the sportsbook's dead wall, the bar, the lounge stage. INSIDE IT IS NIGHT (no sun under a roof)
      and DARK unless the power is paid for (opts.casinoPower true; power_default false): the slot banks glow only then. */
+  /* ---------------- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a), ask line 539; rule 416's list). A fight at a wash or a
+     drain's mouth (tunnels.json districts, the share of them by the cell's own dice; opts.inside 'tunnels' anywhere; opts.inside
+     false never) is fought in the flood tunnels under the city (slices/bohemia_flood_tunnels.js): the main channel, the drains, the
+     camps on the walls, the day through the grates, the fires in drums. Under the ground it is night; the day's light and the
+     fires burn without the grid. THE FLASH FLOOD: the round the dice picked fills the main channel (floodTick, newRound). */
+  function floodTunnels(opts) {
+    const FT = typeof window !== 'undefined' ? window.BohemiaFloodTunnels : null, D = DB.tunnels;
+    if (!FT || !D || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    const share = D.data.share == null ? 1 : D.data.share, roll = ((SEED >>> 0) % 1000) / 1000;
+    if (opts.inside !== 'tunnels' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
+    const B = FT.deal(((SEED >>> 0) ^ 0x1b873593) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night }, opts.tunnelsAsk || {})); if (!B) return false;
+    const was = [S.night, S.power];
+    S.night = true; S.power = true;   /* under the ground it is night; the grates' day and the drums' fire need no grid */
+    applyBoard(B); if (!connected()) { S.tunnelsErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
+    S.tunnels = B.tunnels; S.flood = B.tunnels.flood; return true;
+  }
+  /* THE FLASH FLOOD, at the top of each round: the roar the round before, the main channel water for 'lasts' rounds, then the silt */
+  function floodTick() {
+    const f = S.flood; if (!f || !f.tiles || !f.tiles.length) return;
+    const D = DB.tunnels && DB.tunnels.data.flood || {}, r = S.round;
+    if (f.warn && r === f.round - f.warn && !f.said.warn) { f.said.warn = true; emit({ t: 'flood_warn', say: D.say_warn || 'A roar upstream.' }); }
+    if (r === f.round && !f.on) { f.on = true; f.tiles.forEach(function (q) { if (S.terrain[q[1]][q[0]] !== 'blocked') S.terrain[q[1]][q[0]] = 'water'; }); emit({ t: 'flood', say: D.say_flood || 'The water comes.', tiles: f.tiles.length }); }
+    if (f.on && r === f.round + f.lasts) { f.on = false; f.gone = true; f.tiles.forEach(function (q) { if (S.terrain[q[1]][q[0]] === 'water') S.terrain[q[1]][q[0]] = 'rough'; }); emit({ t: 'flood_gone', say: D.say_gone || 'The water drops.' }); }
+  }
   function casinoFloor(opts) {
     const CF = typeof window !== 'undefined' ? window.BohemiaCasinoFloor : null, D = DB.casino;
     if (!CF || !D || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
@@ -1587,8 +1616,8 @@ const FIGHT = (function () {
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
-  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -1891,6 +1920,8 @@ const FIGHT = (function () {
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else if (isGraveyard(opts)) {
       for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
+    } else if (floodTunnels(opts)) {
+      /* __THE_FLOOD_TUNNELS__: a fight at a wash or a drain's mouth may go under the city (rule 440(a)) */
     } else if (casinoFloor(opts)) {
       /* __THE_CASINO_FLOOR__: a fight at a casino with an inside is fought on its floor (rule 416) */
     } else if (freewayBoard(opts)) {
@@ -1911,6 +1942,7 @@ const FIGHT = (function () {
     }
     dealBoard();
     let dealt = S.boardDef;
+    if (!(S.boardDef && S.boardDef.interior === 'tunnels')) { S.flood = null; S.tunnels = null; }
     S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own way, the fight keys of its rule (records/target/bb/origins.json
        personal.rule.does; the shell hands them as opts.originWay, engine/bohemia_origin_ways.js fight()): first_round, never_confident,
@@ -2266,6 +2298,7 @@ const FIGHT = (function () {
   }
   function newRound() {
     S.round++; S.aimed = {};
+    floodTick();   /* __THE_FLOOD_TUNNELS__: the flash flood comes on its round */
     standoff();
     S.units.forEach(function (u) {
       if (!onField(u)) return;
@@ -5462,7 +5495,7 @@ function bakeBoard() {
   const all = (LAID ? BohemiaStreetBoard.srcs(LAID).map(function (s) { return 'fight_ground/' + s; }) : names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; }))
     .concat(covers.map(function (p) { return FIGHT.pieceSrc(p); }).filter(Boolean));
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
-  (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
+  (B.lights || []).forEach(function (l) { if (l.src && all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });   /* a light with no fixture (the tunnels' mouth: the wash's day) has no picture */
   all.push('fight_rig/' + DB.rig.faces.file);
   /* __THE_SECOND_FACE_STRIP__ (CHARACTER 11/7, rule 427(b)): the one strip is 121 faces of 128 px, 15,488 px wide, and a WebP
      stops at 16,383; faces past it ride further strips (fight_rig.json faces.more), each read the same way */
@@ -6273,7 +6306,7 @@ function bullet(moment, a, t, e) {
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
 const NOTE_BEATS = { idle: .75, decoy: .5, knocked: .5, spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
-  bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0 };   /* ARMORY 2: the whip's marks */
+  bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0, flood_warn: .5, flood: 1, flood_gone: .25 };   /* __THE_FLOOD_TUNNELS__: the flood's three notes */   /* ARMORY 2: the whip's marks */
 function take() {
   const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
@@ -7003,6 +7036,7 @@ function startAnimHeard(a) {
     /* THE CELL VEST (rule 305): the frame whites out on the beat the cells catch; the fire said over every man it touched */
     if (e.t === 'spark' && u) { UI.whiteAt = a.at; sfx('cell_vest', { side: u.side, cells: e.cells, of: e.of, how: e.how, wall: !!e.wall }); pop(u, e.how === 'switch' ? SPARK_SAYS.switchTag : SPARK_SAYS.tag, '#ff4a3a', true); }
     if (e.t === 'burn' && u) pop(u, '-' + e.hp, '#f08a3a', false);
+    if (e.t === 'flood_warn' || e.t === 'flood' || e.t === 'flood_gone') say(e.say, true);   /* __THE_FLOOD_TUNNELS__: the roar, the water, the silt */
     /* THE DECOY (rule 367): set down and knocked over, said on the board (draft:true) */
     if (e.t === 'decoy' && u) { const by = FIGHT.byId(e.by); pop(u, 'cutout', '#d8c8a0', true, (by ? by.name : 'Someone') + ' sets down a cardboard cutout.'); sfx('set_down', { side: u.side }); }
     if (e.t === 'knocked' && u) { pop(u, 'cardboard', '#c8b890', true, 'The cutout goes over. It was cardboard.'); sfx('body_land', { side: u.side }); }
@@ -8204,6 +8238,7 @@ function draw(now) {
   /* rule 145: the floor keeps every hit, under the fallen and the standing */
   goreTick(now); drawStains();
   drawFire(now);   /* THE CELL VEST (rule 305): the ground that burns, under the men */
+  drawFlood(now);   /* __THE_FLOOD_TUNNELS__: the flash flood in the main channel, under the men */
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
   S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
@@ -10427,6 +10462,21 @@ function vestIcon(css, cells) {
   const w = Math.max(1, Math.floor(8 / n)); for (let r = 0; r < 2; r++) for (let i = 0; i < n; i++) { const x = 2 * k + i * w * k + (i ? 0 : 0), y = 3 * k + r * 3 * k;
     g.fillStyle = L.cell; g.fillRect(x, y + k, Math.max(k, (w - 1) * k || k), 2 * k); g.fillStyle = L.cap; g.fillRect(x, y, Math.max(k, (w - 1) * k || k), k); }
   return c;
+}
+/* __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): the flash flood in the main channel: brown water in cells over every flooded
+   tile, the current's streaks moving downstream on the keys (three a beat), the silt it leaves a darker wash after */
+function drawFlood(now) {
+  const S = FIGHT.S, f = S.flood; if (!f || !f.tiles || !(f.on || f.gone)) return;
+  const key = Math.floor(now / (beatMs() / 3));
+  mkOn();
+  f.tiles.forEach(function (q) {
+    const T = mkTile(q[0], q[1]), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 16));
+    if (!f.on) { mkCell(T.x0, T.y0, w, h, 'rgba(58,44,30,.28)'); return; }   /* the silt */
+    mkCell(T.x0, T.y0, w, h, 'rgba(74,62,44,.78)');
+    for (let i = 0; i < 5; i++) { const r = mulberry(seedOf('flood:' + q[0] + ',' + q[1] + ':' + i))(), y = T.y0 + Math.floor(r * (h - k)), x = T.x0 + ((Math.floor(r * w) + key * k) % Math.max(1, w - 4 * k));
+      mkCell(x, y, 4 * k, k, 'rgba(150,132,98,.55)'); }
+  });
+  mkOff();
 }
 /* the burning ground: tongues of flame in cells, on the keys (three a beat), crimson at the root */
 function drawFire(now) {

@@ -55,7 +55,9 @@ function blocksSha(place, P, G) {
   const meta = [];
   for (const id of ids) {
     for (let k = 0; k < K; k++) {
-      const o = { seed: 11 + k * 7, speed: 1, kind: 'ruin', district: places[id].gate_district, cell: { x: 20 + k * 9, y: 30 + k * 5 }, night: false, teach: false, formation: null };
+      /* inside: false (COMBAT TWO 11/9, rule 440(a)): the place's OWN board; half the wash's fights go under the city into the flood
+         tunnels, whose culvert edges against the fill are meant to show (gates/the_flood_tunnels_gate.js reads them) */
+      const o = { seed: 11 + k * 7, speed: 1, kind: 'ruin', district: places[id].gate_district, cell: { x: 20 + k * 9, y: 30 + k * 5 }, night: false, teach: false, formation: null, inside: false };
       await p.evaluate(o => { eval('UI').auto = false; window.FIGHT_OPTS = o; start(); }, o);
       await p.waitForFunction(() => { try { return !!eval('UI').board; } catch (e) { return false; } }, null, { timeout: 90000 });
       const got = await p.evaluate(() => { const U = eval('UI'), F = eval('FIGHT'), S = F.S;

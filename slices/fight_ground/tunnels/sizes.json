@@ -1,0 +1,98 @@
+{
+ "wall_ew": {
+  "piece": "wall_ew",
+  "src": "tunnels/tunnel_wall_ew.webp",
+  "w": 516,
+  "h": 95,
+  "facing": "S",
+  "foot": [
+   258.0,
+   95
+  ],
+  "model": "reference/models/bohemia/tunnel_wall_ew.glb"
+ },
+ "wall_ns": {
+  "piece": "wall_ns",
+  "src": "tunnels/tunnel_wall_ns.webp",
+  "w": 24,
+  "h": 443,
+  "facing": "S",
+  "foot": [
+   12.0,
+   443
+  ],
+  "model": "reference/models/bohemia/tunnel_wall_ns.glb"
+ },
+ "ladder": {
+  "piece": "ladder",
+  "src": "tunnels/tunnel_ladder.webp",
+  "w": 44,
+  "h": 115,
+  "facing": "S",
+  "foot": [
+   22.0,
+   115
+  ],
+  "model": "reference/models/bohemia/tunnel_ladder.glb"
+ },
+ "mouth": {
+  "piece": "mouth",
+  "src": "tunnels/tunnel_mouth.webp",
+  "w": 43,
+  "h": 442,
+  "facing": "S",
+  "foot": [
+   21.5,
+   442
+  ],
+  "model": "reference/models/bohemia/tunnel_mouth.glb"
+ },
+ "camp_a": {
+  "piece": "camp_a",
+  "src": "tunnels/tunnel_camp_a.webp",
+  "w": 172,
+  "h": 90,
+  "facing": "S",
+  "foot": [
+   86.0,
+   86
+  ],
+  "model": "reference/models/bohemia/tunnel_camp_a.glb"
+ },
+ "camp_b": {
+  "piece": "camp_b",
+  "src": "tunnels/tunnel_camp_b.webp",
+  "w": 214,
+  "h": 157,
+  "facing": "S",
+  "foot": [
+   107.0,
+   129
+  ],
+  "model": "reference/models/bohemia/tunnel_camp_b.glb"
+ },
+ "jam": {
+  "piece": "jam",
+  "src": "tunnels/tunnel_jam.webp",
+  "w": 188,
+  "h": 100,
+  "facing": "S",
+  "foot": [
+   94.0,
+   96
+  ],
+  "model": "reference/models/bohemia/tunnel_jam.glb"
+ },
+ "rack": {
+  "piece": "rack",
+  "src": "tunnels/tunnel_rack.webp",
+  "w": 42,
+  "h": 442,
+  "facing": "S",
+  "foot": [
+   21.0,
+   442
+  ],
+  "model": "reference/models/bohemia/tunnel_rack.glb"
+ }
+}
