@@ -10689,6 +10689,16 @@ GATES = [
      "game days, standing off it, walking past it, its wander ending beside him, no card; his own chase asks; THE BEFORE (the hold off) "
      "brings its card back. The file's carcass and vulture legs went with the build he voted NO (rule 426(e)); THE KILL GOES IN THE STASH "
      "holds what replaced it. About 5 min", True),
+    ('THE BESTIARY FLOOR', ['python3', 'gates/the_bestiary_floor_gate.py', '--plant'],
+     "BESTIARY gate, 11/9, rule 440(f), ask line 539; the gate the beast law owed since 9/29 (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_"
+     "THE_BESTIARY_FLOOR_9_29_26.md s4, 'nothing ships under the floor'): the floor is his (12 factions, 75 types, 17 beasts, 3 bosses, "
+     "champions) and the data the game reads is counted against it: the factions in the roster data, the types in the roster and the "
+     "fight's own count (a ratchet), the beasts the fight FIELDS (each its own animal on its own sheet, met on the road, a ground or as a "
+     "giant), the LAB-MADE ones on a ratchet to 17 (each with its species, its fossil, its DNA read or readable, its surrogate mother, its "
+     "Mojave reason; the ones BESTIARY adds from Nevada's own fossils), no beast of unknown origin, each new beast reading as its animal "
+     "by outline at the fight's size and the map's fifth with its lab plate showing, no special systems, the bosses staged, a champion "
+     "dealt, the roster file fresh. PLANTED: one beast removed, a beast of unknown origin, a beast with no fossil, a new brain with a "
+     "flies key, the stilt-legged horse drawn on the Ice Age horse's sheet: each turns its leg red. About 1 min", True),
     ('THE TERATORN IS ONE MORE BEAST', ['python3', 'gates/the_teratorn_is_one_more_beast_gate.py', '--plant'],
      "WORLD 12 gate, 11/7, rule 431(e)(f), ask lines 516 and 517 (PAOLO 11/7: 'I thought they would be like an enemy type'; 'just another "
      "animal we can fight'): the teratorn's sheet in the fight's index like every beast (8 facings, 18 frames, 0.87 m standing); it reads "

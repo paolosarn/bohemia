@@ -1,0 +1,159 @@
+{
+ "cheetahs": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "american_cheetah",
+    "beast": true,
+    "look": "beast_american_cheetah",
+    "hp": 90,
+    "name": "CHEETAH"
+   }
+  ],
+  "drawn": [
+   "beast_american_cheetah"
+  ],
+  "says": "An American cheetah",
+  "close": {
+   "x": 194.99999992751975,
+   "y": 398.02129680095044,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6028206415835738,
+   "tw": 160
+  }
+ },
+ "goats": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "harringtons_goat",
+    "beast": true,
+    "look": "beast_harringtons_goat",
+    "hp": 80,
+    "name": "GOAT"
+   },
+   {
+    "kind": "harringtons_goat",
+    "beast": true,
+    "look": "beast_harringtons_goat",
+    "hp": 80,
+    "name": "GOAT"
+   }
+  ],
+  "drawn": [
+   "beast_harringtons_goat",
+   "beast_harringtons_goat"
+  ],
+  "says": "The goats",
+  "close": {
+   "x": 195.00000065179216,
+   "y": 446.32308723292533,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6028206415835738,
+   "tw": 160
+  }
+ },
+ "stilts": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "stilt_legged_horse",
+    "beast": true,
+    "look": "beast_stilt_legged_horse",
+    "hp": 170,
+    "name": "STILT HORSE"
+   },
+   {
+    "kind": "stilt_legged_horse",
+    "beast": true,
+    "look": "beast_stilt_legged_horse",
+    "hp": 170,
+    "name": "STILT HORSE"
+   },
+   {
+    "kind": "stilt_legged_horse",
+    "beast": true,
+    "look": "beast_stilt_legged_horse",
+    "hp": 170,
+    "name": "STILT HORSE"
+   }
+  ],
+  "drawn": [
+   "beast_stilt_legged_horse",
+   "beast_stilt_legged_horse",
+   "beast_stilt_legged_horse"
+  ],
+  "says": "The stilt-legged horses",
+  "close": {
+   "x": 194.99999527004027,
+   "y": 279.00000919357365,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6813368289198101,
+   "tw": 160
+  }
+ },
+ "jaguars": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "pleistocene_jaguar",
+    "beast": true,
+    "look": "beast_pleistocene_jaguar",
+    "hp": 200,
+    "name": "JAGUAR"
+   }
+  ],
+  "drawn": [
+   "beast_pleistocene_jaguar"
+  ],
+  "says": "A jaguar",
+  "close": {
+   "x": 194.99999978414672,
+   "y": 422.0000000000001,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6028206415835738,
+   "tw": 160
+  }
+ },
+ "llamas": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "large_headed_llama",
+    "beast": true,
+    "look": "beast_large_headed_llama",
+    "hp": 200,
+    "name": "LLAMA"
+   },
+   {
+    "kind": "large_headed_llama",
+    "beast": true,
+    "look": "beast_large_headed_llama",
+    "hp": 200,
+    "name": "LLAMA"
+   }
+  ],
+  "drawn": [
+   "beast_large_headed_llama",
+   "beast_large_headed_llama"
+  ],
+  "says": "The llamas",
+  "close": {
+   "x": 194.9999978902718,
+   "y": 356.1808999088516,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6973360735014802,
+   "tw": 160
+  }
+ }
+}

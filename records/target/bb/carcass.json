@@ -46,12 +46,17 @@
     "armored_wardog": { "faction": "dogs", "label": "DOG", "kg": 32, "source": "as the dog" },
     "warhound": { "faction": "dogs", "label": "DOG", "kg": 40, "source": "a big guard dog, about 40 kg" },
     "teratorn": { "faction": "teratorns", "label": "TERATORN", "kg": 20, "source": "Teratornis incredibilis (Smith Creek Cave, Nevada), a giant teratorn about 15 to 25 kg; T. merriami about 14 kg" },
+    "american_cheetah": { "faction": "cheetahs", "label": "CHEETAH", "kg": 75, "source": "Miracinonyx trumani, about a cougar's weight, 60 to 95 kg" },
+    "harringtons_goat": { "faction": "goats", "label": "GOAT", "kg": 70, "source": "Oreamnos harringtoni, smaller than a mountain goat, 60 to 80 kg" },
+    "stilt_legged_horse": { "faction": "stilts", "label": "HORSE", "kg": 200, "source": "Haringtonhippus, the size of an Asian wild ass, about 200 kg" },
+    "pleistocene_jaguar": { "faction": "jaguars", "label": "JAGUAR", "kg": 135, "source": "Panthera onca augusta, a fifth over a jaguar, 120 to 150 kg" },
+    "large_headed_llama": { "faction": "llamas", "label": "LLAMA", "kg": 250, "source": "Hemiauchenia, bigger than a llama, 200 to 300 kg" },
     "default": { "faction": "beasts", "label": "BEAST", "kg": 60, "source": "a fall-back for a beast this file does not name yet" }
   },
   "by_faction": {
     "_about": "when the fight could not say which animal died, the map's party names it",
     "prides": "american_lion", "sabres": "sabre_tooth", "lions": "mountain_lion", "bears": "short_faced_bear", "sloths": "ground_sloth",
-    "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "teratorns": "teratorn", "bulls": "feral_bull", "hogs": "feral_hog",
+    "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "teratorns": "teratorn", "cheetahs": "american_cheetah", "goats": "harringtons_goat", "stilts": "stilt_legged_horse", "jaguars": "pleistocene_jaguar", "llamas": "large_headed_llama", "bulls": "feral_bull", "hogs": "feral_hog",
     "coyotes": "coyote", "wolves": "direwolf", "hyenas": "hyena", "dogs": "wardog", "beasts": "default"
   }
 }

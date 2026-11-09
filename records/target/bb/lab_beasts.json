@@ -1,0 +1,382 @@
+{
+ "_about": "THE LAB'S BOOK (BESTIARY 11/9, VAMILY rule 440(f); laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md). Every LAB-MADE beast the fight fields: the animal (its fight sheet, slices/fight_rig/beast_<animal>), the beast party it comes in (records/target/bb/bohemia_enemies.json factions), the rows that are this animal, the species, the fossil it was grown from (site, state, the paper), whether its DNA has been read (law s2: Ice Age and after is readable; 'read' when a paper read it), the living mother of the right size that carried it, and why it lives in the Mojave (his 9/30 test). The floor (law s4: 17 beasts, at least) counts THIS list, and only animals the fight really fields (gates/the_bestiary_floor_gate.py). A modder adds a beast here, its party and row in bohemia_enemies.json and its sheet in slices/fight_rig/fight_rig.json. Never radiation, never a dinosaur (law s1, s2).",
+ "draft": true,
+ "floor": {
+  "beasts": 17,
+  "source": "laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md s4; records/target/bb/roster.json floor"
+ },
+ "not_lab_made": {
+  "_why": "living animals loose in the valley (law s3: 'Vegas's exotic escapees... feral dogs and cattle walk the same roads'): they fight, they are not lab-made, so they do not count toward the 17",
+  "coyote": "Canis latrans, the valley's own",
+  "mountain_lion": "Puma concolor, the Spring Mountains' own",
+  "feral_hog": "Sus scrofa, farm pigs gone wild",
+  "feral_bull": "Bos taurus, Gold Butte's loose range cattle",
+  "feral_dog_shepherd": "the city's dogs, pets gone wild"
+ },
+ "beasts": [
+  {
+   "animal": "dire_wolf",
+   "faction": "wolves",
+   "rows": [
+    "direwolf",
+    "frenzied_direwolf"
+   ],
+   "species": "Aenocyon dirus",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas",
+    "state": "Nevada",
+    "ref": "Scott and Springer 2016, PeerJ: first records of Canis dirus at Tule Springs"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Perri et al. 2021 genomes; Colossal Biosciences 2025 pups"
+   },
+   "surrogate": "a grey wolf",
+   "mojave": "a pack travels between waters; the I-15 corridor",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "cave_hyena",
+   "faction": "hyenas",
+   "rows": [
+    "hyena",
+    "frenzied_hyena"
+   ],
+   "species": "Crocuta crocuta spelaea",
+   "fossil": {
+    "site": "the caves of Ice Age Eurasia (no Nevada bone; the Arizona lab, round three)",
+    "state": "Eurasia",
+    "ref": "Westbury et al. 2020"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Westbury et al. 2020 genomes"
+   },
+   "surrogate": "a spotted hyena",
+   "mojave": "a hyena drinks when it can and goes days without",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "short_faced_bear",
+   "faction": "bears",
+   "rows": [
+    "short_faced_bear"
+   ],
+   "species": "Arctodus simus",
+   "fossil": {
+    "site": "Labor-of-Love Cave, White Pine County",
+    "state": "Nevada",
+    "ref": "Emslie and Czaplewski; dated 2020 (Western North American Naturalist)"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Mitchell et al. 2016 mitogenome"
+   },
+   "surrogate": "a brown bear",
+   "mojave": "it eats at the water's edge; the springs and the Wash",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "ground_sloth",
+   "faction": "sloths",
+   "rows": [
+    "ground_sloth"
+   ],
+   "species": "Nothrotheriops shastensis",
+   "fossil": {
+    "site": "Gypsum Cave, Las Vegas Valley",
+    "state": "Nevada",
+    "ref": "Harrington 1933; its dung"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Poinar et al. 1998, from Gypsum Cave dung; Delsuc et al. 2019 mitogenome"
+   },
+   "surrogate": "the lab's own womb (its living kin are 4 to 8 kg tree sloths)",
+   "mojave": "Gypsum Cave's sloth ate the desert's plants by the seeps",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "sabre_tooth",
+   "faction": "sabres",
+   "rows": [
+    "sabre_tooth"
+   ],
+   "species": "Smilodon fatalis",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas",
+    "state": "Nevada",
+    "ref": "Scott and Springer 2016, PeerJ: first records of Smilodon fatalis at Tule Springs"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Paijmans et al. 2017"
+   },
+   "surrogate": "a lion or a tiger",
+   "mojave": "an ambusher at the water",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "american_lion",
+   "faction": "prides",
+   "rows": [
+    "american_lion"
+   ],
+   "species": "Panthera atrox",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas",
+    "state": "Nevada",
+    "ref": "the monument's fauna (NPS)"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Barnett et al. 2009, 2016"
+   },
+   "surrogate": "an African lion",
+   "mojave": "a pride follows the herds to the water",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "camelops",
+   "faction": "camels",
+   "rows": [
+    "camelops"
+   ],
+   "species": "Camelops hesternus",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas",
+    "state": "Nevada",
+    "ref": "the monument's fauna (NPS): with the mammoth, most of its big bones"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Heintzman et al. 2015, from Yukon bone"
+   },
+   "surrogate": "a dromedary",
+   "mojave": "a camel goes a week without water",
+   "added_by": "FACTIONS 11/3",
+   "draft": true
+  },
+  {
+   "animal": "ancient_bison",
+   "faction": "bison",
+   "rows": [
+    "ancient_bison"
+   ],
+   "species": "Bison antiquus",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas",
+    "state": "Nevada",
+    "ref": "Springer et al.; the first sure Bison antiquus at Tule Springs (GSA 2010)"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "many bison mitogenomes (Froese et al. 2017)"
+   },
+   "surrogate": "a plains bison",
+   "mojave": "a herd drinks once a day at the shore",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "ice_age_horse",
+   "faction": "horses",
+   "rows": [
+    "ice_age_horse"
+   ],
+   "species": "Equus (the Ice Age horse)",
+   "fossil": {
+    "site": "Tule Springs and Gypsum Cave",
+    "state": "Nevada",
+    "ref": "the monument's fauna (NPS); Gypsum Cave's horse"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Orlando et al. 2013, the Yukon horse genome"
+   },
+   "surrogate": "a horse",
+   "mojave": "the wild horses already live here",
+   "added_by": "BEASTS 2 11/3",
+   "draft": true
+  },
+  {
+   "animal": "teratorn",
+   "faction": "teratorns",
+   "rows": [
+    "teratorn"
+   ],
+   "species": "Teratornis incredibilis",
+   "fossil": {
+    "site": "Smith Creek Cave, Snake Range",
+    "state": "Nevada",
+    "ref": "Howard 1952"
+   },
+   "dna": {
+    "status": "readable",
+    "ref": "Ice Age (no teratorn DNA published yet)"
+   },
+   "surrogate": "a California condor",
+   "mojave": "it drinks and bathes at open water and flies far between",
+   "added_by": "WORLD 12 11/7",
+   "draft": true
+  },
+  {
+   "animal": "american_cheetah",
+   "faction": "cheetahs",
+   "rows": [
+    "american_cheetah"
+   ],
+   "species": "Miracinonyx trumani",
+   "fossil": {
+    "site": "Crypt Cave, Lake Winnemucca",
+    "state": "Nevada",
+    "ref": "Orr 1969: the type skull"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "mitochondrial 2005; nuclear genomes 2026 (Current Biology): a puma's cousin"
+   },
+   "surrogate": "a puma",
+   "mojave": "the puma lives in the Spring Mountains today",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  },
+  {
+   "animal": "harringtons_goat",
+   "faction": "goats",
+   "rows": [
+    "harringtons_goat"
+   ],
+   "species": "Oreamnos harringtoni",
+   "fossil": {
+    "site": "Smith Creek Cave, Snake Range",
+    "state": "Nevada",
+    "ref": "Stock 1936: the type"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Campos et al. 2010, Boreas"
+   },
+   "surrogate": "a mountain goat",
+   "mojave": "it lived in the Grand Canyon's dry caves; the bighorn's cliffs and guzzlers today",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  },
+  {
+   "animal": "stilt_legged_horse",
+   "faction": "stilts",
+   "rows": [
+    "stilt_legged_horse"
+   ],
+   "species": "Haringtonhippus francisci",
+   "fossil": {
+    "site": "Gypsum Cave, Las Vegas Valley",
+    "state": "Nevada",
+    "ref": "Heintzman et al. 2017, eLife: the most complete skull, about 13,000 years old"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Heintzman et al. 2017, from the Gypsum Cave skull itself"
+   },
+   "surrogate": "a burro",
+   "mojave": "the Mojave's wild burros live here now",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  },
+  {
+   "animal": "pleistocene_jaguar",
+   "faction": "jaguars",
+   "rows": [
+    "pleistocene_jaguar"
+   ],
+   "species": "Panthera onca augusta",
+   "fossil": {
+    "site": "Nevada's Ice Age record",
+    "state": "Nevada",
+    "ref": "Kurten 1973 (the state among its late Pleistocene records)"
+   },
+   "dna": {
+    "status": "read",
+    "ref": "Ice Age jaguar mitogenomes (Kingston Saltpeter Cave, Georgia)"
+   },
+   "surrogate": "a jaguar",
+   "mojave": "the jaguars of the Arizona border live at the water",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  },
+  {
+   "animal": "large_headed_llama",
+   "faction": "llamas",
+   "rows": [
+    "large_headed_llama"
+   ],
+   "species": "Hemiauchenia (macrocephala)",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas",
+    "state": "Nevada",
+    "ref": "the monument: one forelimb bone (a radio-ulna)"
+   },
+   "dna": {
+    "status": "readable",
+    "ref": "Ice Age (no Hemiauchenia DNA published yet)"
+   },
+   "surrogate": "a llama",
+   "mojave": "llamas live in the Atacama, the driest desert there is",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  }
+ ],
+ "waiting": {
+  "_why": "built and ready, not in the fight yet: the published site sits at its 900 MB cap (gates/pages_publish_gate.js; 895.4 MB on main 83dac485 before this batch) and these animals' sheets are 2.1 MB (the long-horned bison) and 1.1 MB (the shrub-ox); main grew to 896.6 MB the same hour; it goes in the moment there is room (tools/bohemia_bestiary_the_lab_seven.py render/pack long_horned_bison, then its row, party and names back as the record lists). Not counted.",
+  "beasts": [
+   {
+    "animal": "long_horned_bison",
+    "faction": "longhorns",
+    "rows": [
+     "long_horned_bison"
+    ],
+    "species": "Bison latifrons",
+    "fossil": {
+     "site": "Tule Springs, Las Vegas (cf.)",
+     "state": "Nevada",
+     "ref": "the monument's species list: cf. Bison latifrons"
+    },
+    "dna": {
+     "status": "read",
+     "ref": "Froese et al. 2017, PNAS: the Snowmass mitogenome"
+    },
+    "surrogate": "a plains bison",
+    "mojave": "a herd drinks once a day at the shore",
+    "added_by": "BESTIARY 11/9",
+    "draft": true
+   },
+   {
+    "animal": "shrub_ox",
+    "faction": "shrub_oxen",
+    "rows": [
+     "shrub_ox"
+    ],
+    "species": "Euceratherium collinum",
+    "fossil": {
+     "site": "the Lake Winnemucca caves; a bovid its size at Tule Springs",
+     "state": "Nevada",
+     "ref": "the Winnemucca basin caves (Orr); Springer et al., GSA 2010"
+    },
+    "dna": {
+     "status": "readable",
+     "ref": "Ice Age (its dung kept in Bechan Cave, Utah; no DNA published yet)"
+    },
+    "surrogate": "a muskox",
+    "mojave": "a browser of the desert shrub at the seeps",
+    "added_by": "BESTIARY 11/9",
+    "draft": true
+   }
+  ]
+ }
+}

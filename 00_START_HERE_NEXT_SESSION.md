@@ -1,3 +1,13 @@
+BESTIARY (bestiary-01gkdyuu): 11/9 LATEST -- BUILD 11/9k - FIVE LAB BEASTS, BUILT, NOT YET SEEN (rule 440(f), ask line 539; the beast law's
+floor). THE COUNT: roster.json's '17 beasts' was Battle Brothers' names; the fight fielded 15 animals, 10 lab-made. THE GATE THE LAW OWED:
+THE BESTIARY FLOOR 10/0 (factions 12, types 157 in the roster but 47 in the fight against his 75, beasts on a lab-made ratchet, bosses 6,
+champions 3; five plants caught). FIVE NEW LAB BEASTS from Nevada's own fossils, fought like the others (existing brains, no new keys): the
+American cheetah (Crypt Cave), Harrington's goat (Smith Creek Cave; climbs), the stilt-legged horse (Gypsum Cave), the Ice Age jaguar, the
+large-headed llama (Tule Springs): 20 animals fielded, 15 lab-made. TWO WAIT: the long-horned bison and the shrub-ox are built, but the site
+is at 899 of its 900 MB cap: PLUMBER owes 3.3 MB of room. VOTE bestiary-five-lab-beasts-11-9. Record records/BOHEMIA_BESTIARY_THE_LAB_SEVEN_11_9_26.md.
+The whole block: handoffs/BESTIARY.md.
+[bb Battle Brothers' 17 beasts count its variants and its ghosts; ours count animals, each on its own sheet, lab-made by the law.]
+[analog horror: the hi-vis lab plate on a goat's nape, still lit on a roof at dusk.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9j - THE RANCH AND THE LAKE CAMP, BUILT, NOT YET SEEN (rule 440(c), ask
 line 539; after 11/9c THE PLACES TALK and 11/9f SEVEN MORE PLACES TALK). Fourteen of rule 409's missing places now talk when you arrive, two
 or three choices with real costs: the lab, the bank, the jobs line, the home centres (11/9c); the gas plants, Shark Reef, the shelter, the

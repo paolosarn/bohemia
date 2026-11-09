@@ -3067,6 +3067,221 @@
     ]
    },
    "by": "WORLD 12 [the teratorn] 11/7, tools/bohemia_world12_the_teratorn.py"
+  },
+  "beast_american_cheetah": {
+   "file": "beast_american_cheetah.webp",
+   "w": 151,
+   "h": 151,
+   "foot": [
+    75,
+    105
+   ],
+   "height_m": 0.921,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_american_cheetah/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
+  },
+  "beast_harringtons_goat": {
+   "file": "beast_harringtons_goat.webp",
+   "w": 102,
+   "h": 120,
+   "foot": [
+    51,
+    90
+   ],
+   "height_m": 1.128,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_harringtons_goat/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
+  },
+  "beast_stilt_legged_horse": {
+   "file": "beast_stilt_legged_horse.webp",
+   "w": 133,
+   "h": 164,
+   "foot": [
+    65,
+    123
+   ],
+   "height_m": 1.6,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_stilt_legged_horse/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
+  },
+  "beast_pleistocene_jaguar": {
+   "file": "beast_pleistocene_jaguar.webp",
+   "w": 150,
+   "h": 155,
+   "foot": [
+    75,
+    110
+   ],
+   "height_m": 0.907,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_pleistocene_jaguar/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
+  },
+  "beast_large_headed_llama": {
+   "file": "beast_large_headed_llama.webp",
+   "w": 142,
+   "h": 188,
+   "foot": [
+    71,
+    137
+   ],
+   "height_m": 1.976,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_large_headed_llama/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
   }
  },
  "faces": {

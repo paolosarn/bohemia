@@ -1,6 +1,12 @@
 {
 "about": "RUN 10/25 __THE_SHEETS_ARE_PACKED__ (rule 173): every fight look and gun sheet cut to the box its pixels fill; the fight uses an atlas only when the sheet's bytes on the server equal \"bytes\" here. tools/bohemia_run_the_sheets_packed.py",
 "sheets": {
+"beast_american_cheetah.webp": {
+"bytes": 216162,
+"decodedMB": 12.52,
+"fill": 0.228,
+"packedMB": 3.27
+},
 "beast_american_lion.webp": {
 "bytes": 498448,
 "decodedMB": 28.93,
@@ -61,17 +67,35 @@
 "fill": 0.308,
 "packedMB": 6.37
 },
+"beast_harringtons_goat.webp": {
+"bytes": 194138,
+"decodedMB": 6.72,
+"fill": 0.342,
+"packedMB": 2.79
+},
 "beast_ice_age_horse.webp": {
 "bytes": 427896,
 "decodedMB": 18.56,
 "fill": 0.361,
 "packedMB": 7.55
 },
+"beast_large_headed_llama.webp": {
+"bytes": 275482,
+"decodedMB": 14.66,
+"fill": 0.326,
+"packedMB": 5.43
+},
 "beast_mountain_lion.webp": {
 "bytes": 232768,
 "decodedMB": 11.79,
 "fill": 0.243,
 "packedMB": 3.43
+},
+"beast_pleistocene_jaguar.webp": {
+"bytes": 297770,
+"decodedMB": 12.77,
+"fill": 0.257,
+"packedMB": 3.83
 },
 "beast_sabre_tooth.webp": {
 "bytes": 317702,
@@ -84,6 +108,12 @@
 "decodedMB": 21.79,
 "fill": 0.314,
 "packedMB": 8.17
+},
+"beast_stilt_legged_horse.webp": {
+"bytes": 310102,
+"decodedMB": 11.98,
+"fill": 0.368,
+"packedMB": 5.05
 },
 "beast_teratorn.webp": {
 "bytes": 394986,
@@ -1167,8 +1197,8 @@
 }
 },
 "totals": {
-"decodedMB": 3866.8,
-"packedMB": 732.2,
-"sheets": 194
+"decodedMB": 3925.5,
+"packedMB": 752.5,
+"sheets": 199
 }
 }

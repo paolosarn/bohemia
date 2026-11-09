@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 152,
-  "types_in_the_fight": 42,
+  "types": 157,
+  "types_in_the_fight": 47,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -301,6 +301,7 @@
    "lesson": "Each beast its own lesson (below).",
    "types": [
     "alp",
+    "american_cheetah",
     "american_lion",
     "ancient_bison",
     "armored_frost_unhold",
@@ -315,6 +316,7 @@
     "frenzied_hyena",
     "frost_unhold",
     "ground_sloth",
+    "harringtons_goat",
     "hexe",
     "hyena",
     "ice_age_horse",
@@ -324,17 +326,20 @@
     "kraken",
     "kraken_tentacle",
     "kraken_tentacle_enraged",
+    "large_headed_llama",
     "lindwurm",
     "lindwurm_tail",
     "mountain_lion",
     "nachzehrer_large",
     "nachzehrer_medium",
     "nachzehrer_small",
+    "pleistocene_jaguar",
     "sabre_tooth",
     "sapling",
     "schrat",
     "serpent",
     "short_faced_bear",
+    "stilt_legged_horse",
     "teratorn",
     "the_ijirok",
     "unhold",
@@ -349,15 +354,20 @@
     "bison",
     "bulls",
     "camels",
+    "cheetahs",
     "coyotes",
     "dogs",
+    "goats",
     "hogs",
     "horses",
     "hyenas",
+    "jaguars",
     "lions",
+    "llamas",
     "prides",
     "sabres",
     "sloths",
+    "stilts",
     "teratorns",
     "wolves"
    ],
@@ -584,6 +594,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0046_Alp.txt"
+  },
+  {
+   "type": "american_cheetah",
+   "bb_name": "American Cheetah",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "american_cheetah"
+   ],
+   "name": "CHEETAH",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "cheetahs"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0629_Direwolf.txt"
   },
   {
    "type": "american_lion",
@@ -1993,6 +2024,27 @@
    "page": "bb_all/0926_Gunner.txt"
   },
   {
+   "type": "harringtons_goat",
+   "bb_name": "Harrington's Goat",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "harringtons_goat"
+   ],
+   "name": "GOAT",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "goats"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
    "type": "hedge_knight",
    "bb_name": "Hedge Knight",
    "bb_faction": "mercenaries",
@@ -2331,6 +2383,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/1134_Kraken.txt"
+  },
+  {
+   "type": "large_headed_llama",
+   "bb_name": "Large-Headed Llama",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "large_headed_llama"
+   ],
+   "name": "LLAMA",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "llamas"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
   },
   {
    "type": "lindwurm",
@@ -2980,6 +3053,27 @@
    "page": "bb_all/1546_Phylactery.txt"
   },
   {
+   "type": "pleistocene_jaguar",
+   "bb_name": "Ice Age Jaguar",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "pleistocene_jaguar"
+   ],
+   "name": "JAGUAR",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "jaguars"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1757_Serpent.txt"
+  },
+  {
    "type": "rachegeist",
    "bb_name": "Rachegeist",
    "bb_faction": "zombies",
@@ -3172,6 +3266,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/1869_Standard Bearer.txt"
+  },
+  {
+   "type": "stilt_legged_horse",
+   "bb_name": "Stilt-Legged Horse",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "stilt_legged_horse"
+   ],
+   "name": "STILT HORSE",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "stilts"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
   },
   {
    "type": "swordmaster",
