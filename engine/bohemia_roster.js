@@ -73,7 +73,9 @@
     Object.keys(seen).forEach(function (c) { if (seen[c][1] && seen[c][2]) MIXED[c] = true; });
     return MIXED;
   }
-  function classWord(cls, hands) { return (hands === 2 && mixedClasses()[cls] ? 'two-hand ' : '') + (CLASSNAME[cls] || cls); }
+  /* FIXES 11/9 (ask row 537, rule 424(c), EYES 11/8: a 'solid two-hand machete' on the one-hand machete's picture). A weapon is called by the OBJECT THE FIGHT DRAWS (slices/rig_melee/rig_melee.json by_class and two_by_class, WEAPONS 11/7): a two-handed sword is the claymore, a two-handed cleaver the ditch blade, a two-handed chain the tow chain, a two-handed mace or hammer the sledge, a two-handed spear the pole hook, a one-handed axe the hatchet, a one-handed hammer or pick the framing hammer. 'two-hand' is left only where no second object exists. The gate THE FOURTEEN EYES FOUND F537 holds every copy of this table to the fight's. */
+  var OBJ1 = { axe: 'hatchet', hammer: 'framing hammer' }, OBJ2 = { sword: 'claymore', cleaver: 'ditch blade', flail: 'tow chain', mace: 'sledge', hammer: 'sledge', axe: 'fire axe', spear: 'pole hook', polearm: 'pole hook' };
+  function classWord(cls, hands) { return hands === 2 ? (OBJ2[cls] || ((mixedClasses()[cls] ? 'two-hand ' : '') + (CLASSNAME[cls] || cls))) : (OBJ1[cls] || CLASSNAME[cls] || cls); }
   /* the shop's full name: the quality word by the row's rank by value among the rows of its class that take the same hands */
   function weaponName(r) {
     if (r.armory) return r.armory.name;   /* __THE_ARMORY__ (rule 302): the valley's own piece wears its own name, never ranked in its class */
@@ -119,8 +121,11 @@
       for (var i = 0; i < rows.length; i++) if (rows[i].id === id) r = rows[i];
       if (!r) return null;
       var c = r.armory ? r.armory.name : classWord(r['class'], handsOfRow(r));   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__; __THE_ARMORY__ its own name */
+      /* FIXES 11/9 (ask row 529, EYES 11/8: the pistol read 'dmg 15-35' on its line and 30-45 on its card): the line is the damage the
+         fight rolls (a pistol's is the shot it fires, ours.pistol_shot), never its unused dagger row's */
+      var f = fightWeapon(id) || r;
       return { id: r.id, kind: 'weapon', cls: r['class'], name: c, was: r.name, price: priceOf(r.value), hands: handsOfRow(r),
-        nums: 'dmg ' + r.damage_min + '-' + r.damage_max + (r.range_max ? '  reach ' + r.range_max : '') };
+        nums: 'dmg ' + f.damage_min + '-' + f.damage_max + (f.range_max ? '  reach ' + f.range_max : '') };
     }
     var list = kind === 'head' ? D.armor.head : kind === 'shield' ? D.armor.shields : D.armor.body, a = null;
     for (var k = 0; k < list.length; k++) if (list[k].id === id) a = list[k];

@@ -147,9 +147,11 @@
   function gearIn(id) {
     var put1 = function (rows) {
       var r = (rows || []).filter(function (x) { return x && x.id === id; })[0];
+      /* FIXES 11/9 (ask row 529): a pistol's line is the shot it fires (the crew screen's fightWeapon, ours.pistol_shot), never its dagger row */
+      var shot = function (x) { try { var C = root.BohemiaRoster || window.BohemiaRoster; return (C && C.fightWeapon && C.fightWeapon(x.id)) || x; } catch (e) { return x; } };
       var hands = r ? (r.hands || (/bow|crossbow|firearm/.test(r['class'] || '') ? 2 : 1)) : 1;
       var it = r ? { id: r.id, kind: 'weapon', cls: r['class'], name: String(r.name || id), was: r.name, price: Math.max(1, Math.round((r.value || 30) / 10)),
-        line: 'From the road.', hands: hands, nums: 'dmg ' + r.damage_min + '-' + r.damage_max + (r.range_max ? '  reach ' + r.range_max : ''), from: 'road' }
+        line: 'From the road.', hands: hands, nums: (function (f) { return 'dmg ' + f.damage_min + '-' + f.damage_max + (f.range_max ? '  reach ' + f.range_max : ''); })(shot(r)), from: 'road' }
         : { id: id, kind: 'weapon', cls: 'dagger', name: String(id), price: 3, line: 'From the road.', hands: 1, nums: '', from: 'road' };
       var b = bagGet(); b.push(it); bagPut(b); root.__ROADEV_GEAR = (root.__ROADEV_GEAR || []).concat([it.id]);
     };

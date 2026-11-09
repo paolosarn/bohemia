@@ -51,7 +51,7 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
   const sharedShop = byName('shop'), sharedCrew = byName('crew'), iconOff = names.filter(n => n.icon !== null && n.icon !== n.shop);
   const warfork = names.find(n => n.id === 'warfork'), boar = names.find(n => n.id === 'boar_spear');
   ok('*** T1 NO NAME IS SHARED ACROSS HANDS *** (' + W.length + ' rows through the shop\'s naming and the crew screen\'s; the warfork is "' + (warfork && warfork.shop) + '", the boar spear "' + (boar && boar.shop) + '")',
-    sharedShop.length === 0 && sharedCrew.length === 0 && /two-hand/.test(warfork.shop) && !/two-hand/.test(boar.shop) && /two-hand/.test(warfork.crew),
+    sharedShop.length === 0 && sharedCrew.length === 0 && /pole hook/.test(warfork.shop) && /rebar spear/.test(boar.shop) && /pole hook/.test(warfork.crew),   /* RE-AIMED 11/9 BY FIXES (row 537, rule 424(c), newer than 194): a two-hander is called by the object the fight draws (the warfork is a pole hook), never 'two-hand rebar spear' */
     'shared at the shop: ' + (sharedShop.join(', ') || 'none') + '; on the crew screen: ' + (sharedCrew.join(', ') || 'none'));
   ok('T1b UI\'s icon mirror names every row as the shop does', iconOff.length === 0 && names.every(n => n.icon !== null), iconOff.slice(0, 3).map(n => n.id + ' ' + n.icon + ' / ' + n.shop).join('; ') || W.length + ' of ' + W.length);
   /* ---- T2 a two-hander's card at the smith ---- */
@@ -119,8 +119,8 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
     const t4a = await rf.evaluate(() => (BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.main || {}).id);
     await tapBag('wooden_shield');
     const t4 = await rf.evaluate(() => ({ said: document.getElementById('said') ? document.getElementById('said').textContent : document.body.innerText.slice(0, 300), main: (BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.main || {}).id, off: (BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.off || {}).id }));
-    ok('T4 the words blame the weapon: the two-hand rebar spear in his hands, then a car door: "' + String(t4.said).replace(/\s+/g, ' ').slice(0, 140) + '"',
-      t4a === 'warfork' && /two-hand rebar spear takes both hands/i.test(t4.said) && !/shield (is|takes) both/i.test(t4.said), JSON.stringify({ first: t4a, then: { main: t4.main, off: t4.off } }));
+    ok('T4 the words blame the weapon: the pole hook (the warfork) in his hands, then a car door: "' + String(t4.said).replace(/\s+/g, ' ').slice(0, 140) + '"',
+      t4a === 'warfork' && /pole hook takes both hands/i.test(t4.said) && !/shield (is|takes) both/i.test(t4.said), JSON.stringify({ first: t4a, then: { main: t4.main, off: t4.off } }));
     /* T3: the one-handed spear and the car door on the same man */
     await tapBag('militia_spear'); await tapBag('wooden_shield');
     const man = await rf.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel]; return { name: m.name, main: (m.gear.main || {}).id, mainName: (m.gear.main || {}).name, off: (m.gear.off || {}).id }; });

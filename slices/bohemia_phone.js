@@ -877,6 +877,37 @@
       + '#bohphone .ab .sk[disabled]{opacity:.4;cursor:default}'
       + '#bohphone .frow{flex:0 0 28px;margin:0 0 6px;padding:0;gap:0;flex-wrap:nowrap;display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,.4)}'
       + '#bohphone .ab .none{grid-column:1 / span 4;padding:2px 3px;font-size:7px;line-height:9px;color:#cdbd98;text-align:center}'
+      /* __A_FINGERS_REACH__ (FIXES 11/9, ask row 527, rule 238(b), Paolo 10/26 LOCKED: 'tiny is fine... the phone never grows...
+         small icons, a finger's reach a little past each, never over another'). MEASURED by EYES on the demo (e16): the fight's
+         presses drawn 25 x 27 (WAIT, RETREAT, AUTO), the speed 25 x 22 in a row 28 tall, CREW and SETTINGS 26 x 28 in a row 108
+         wide with 56 px of dead glass between them, his face 32 x 32 in a header 108 x 37, the abilities 24 x 25 with dead gaps:
+         a thumb landing a pixel off an icon landed on nothing. A whole 44 is not the phone's (four commands across a phone 124 wide
+         need 176; 238(b) bans the bigger phone). NOW every press's reach is the whole of its share of its row, past its drawn
+         icon into the dead glass around it and never over another press: the drawing, the art and the phone's size untouched
+         (rule 430). The class 'reach' is the switch the gate plants off. */
+      + '#bohphone.reach .fight .fme::after,#bohphone.reach .fight .fgo::after,#bohphone.reach .fight .fc::after,#bohphone.reach .fight .abig .bg::after,'
+      +   '#bohphone.reach .fight .ab .sk::after{content:"";position:absolute;z-index:1}'
+      + '#bohphone.reach .fight .fgo{position:relative}'
+      /* his face: the whole header is his sheet (the name and the bars beside it are no press of their own) */
+      + '#bohphone.reach .fight .fme::after{left:-3px;top:-2.5px;bottom:-2.5px;width:108px}'
+      + '#bohphone.reach .fight .fgo::after{left:-3px;right:-3px;top:-3px;bottom:-1px}'
+      + '#bohphone.reach .fight .fc::after{left:-.33px;right:-.33px;top:-1.65px;bottom:-2.15px}'
+      + '#bohphone.reach .fight .fc:first-child::after{left:-3px}#bohphone.reach .fight .fc:last-child::after{right:-3px}'
+      + '#bohphone.reach .fight .fc.sp::after{top:-4px;bottom:-4.5px}'
+      + '#bohphone.reach .fight .abig .bg::after{left:-1.5px;right:-1.5px;top:-1.5px;bottom:-1px}'
+      + '#bohphone.reach .fight .abig .bg:first-child::after{left:-3px}#bohphone.reach .fight .abig .bg:last-child::after{right:-3px}'
+      /* the abilities were cut at the box's foot (EYES: 'the skill slots 22 to 24'): the box is 50 tall and two rows of 25 with a 2
+         gap and 2 above and below need 56, the words 'No skills' and a row of empty wells 62; NOW two rows of 24 with a 1 gap fit
+         in 49, and an empty well is not drawn under the words that already say there is none */
+      + '#bohphone.reach .fight .ab{padding:0;grid-auto-rows:24px;gap:1px 2px}#bohphone.reach .fight .ab .sk{height:24px}'
+      + '#bohphone.reach .fight .ab .none ~ .sk[aria-label=empty]{display:none}'
+      + '#bohphone.reach .fight .ab .sk::after{left:-1px;right:-1px;top:-.5px;bottom:-.5px}'
+      + '#bohphone.reach .fight .ab .sk:nth-of-type(4n+1)::after{left:-3px}#bohphone.reach .fight .ab .sk:nth-of-type(4n)::after{right:-3px}'
+      /* CREW and SETTINGS: each its half of the row (the icon where space-around drew it, its centre), and the row's foot */
+      + '#bohphone.reach .fight .frow{justify-content:stretch;align-items:stretch}'
+      + '#bohphone.reach .fight .frow .app.sm{flex:1 1 0;width:auto;height:28px}'
+      + '#bohphone.reach .fight .frow .app.sm img{left:calc(50% - 12px)}'
+      + '#bohphone.reach .fight .frow .app.sm::after{content:"";position:absolute;left:0;right:0;top:0;bottom:-6px}'
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
       + '#bohphone .cmb{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#2a0907}'
@@ -913,7 +944,7 @@
   function build() {
     if (H.el || !document.body) return H.el;
     var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS() + '#bohphone{transition:translate .5s cubic-bezier(.2,0,0,1),opacity .5s cubic-bezier(.2,0,0,1)}#bohphone.away{translate:0 calc(100% + 40px);opacity:0;pointer-events:none}'; document.head.appendChild(st);
-    var ph = el('div'); ph.id = 'bohphone'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');
+    var ph = el('div'); ph.id = 'bohphone'; ph.className = 'reach'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');   /* __A_FINGERS_REACH__ (ask row 527) */
     ph.innerHTML = '<div class="scr"><canvas class="wall" aria-hidden="true"></canvas><div class="dim"></div>'
       + '<div class="stat"><span class="wh"></span><span class="dt" aria-label="the day and the hour"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button><canvas class="ecg" width="108" height="27" aria-hidden="true"></canvas></div>'
       + '<div class="home"></div>'

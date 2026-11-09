@@ -5441,7 +5441,24 @@ function bakeBoard() {
     if (L.guns && armed && guns.indexOf('fight_rig/' + L.guns) < 0) guns.push('fight_rig/' + L.guns); });
   /* a rig sheet is held as an ImageBitmap (decoded once, drawn straight from the GPU's copy; measured 10/19: a man drawn from a
      canvas cost the frame 14 ms on the phone profile, the source copied every draw) */
-  const whole = function (s) { return load(s).then(function (i) {
+  /* __THE_BAKE_DOES_NOT_FREEZE__ (FIXES 11/9, ask row 538, FOUND BY EYES 11/8: 1.18 s opening the scavenge game, 1.37 s leaving a won
+     fight by MAKE CAMP). MEASURED (a CPU profile on the demo, phone upright): 849 of the 1,042 ms task was drawImage, the camp page's
+     bake drawing each ground picture (2575 x 1820 a block) for the first time: a picture an <img> decoded is decoded AGAIN, on the
+     main thread, the first time a canvas draws it (12 blocks: 549 ms the first draw, 34 ms the second). A picture decoded from its
+     file into an ImageBitmap is decoded off the main thread (12 blocks: the longest pause 22 ms) and its first draw is a plain copy
+     (35 ms). So the camp's and the scavenge game's hidden page (FIGHT_OPTS.campBoard, the only pages that bake a whole board and
+     go) take every ground picture that way; the page lets them go when it goes (__THE_FIGHT_LETS_GO__ counts every bitmap). The
+     fight itself is unchanged. */
+  /* a breath between the bake's two halves on the camp's page (a MessageChannel: never throttled in a hidden frame); none in a fight */
+  const campYield = function () { if (!(typeof campBoardWanted === 'function' && campBoardWanted()) || typeof MessageChannel !== 'function') return null;
+    return new Promise(function (r) { const m = new MessageChannel(); m.port1.onmessage = function () { m.port1.close(); r(); }; m.port2.postMessage(0); }); };
+  const offThread = function (s) { return fetch(s).then(function (r) { return r.ok ? r.blob() : null; })
+    .then(function (b) { return b ? createImageBitmap(b) : null; })
+    .then(function (bm) { if (!bm) throw new Error('no bitmap'); bm.src = new URL(s, location.href).href; UI.imgs[s] = bm; return bm; }); };
+  const whole = function (s) {
+    if (s.indexOf('fight_rig/') !== 0 && typeof campBoardWanted === 'function' && campBoardWanted() && typeof createImageBitmap === 'function' && typeof fetch === 'function')
+      return offThread(s).catch(function () { return load(s).then(function (i) { UI.imgs[s] = i; return i; }); });
+    return load(s).then(function (i) {
     if (!i || s.indexOf('fight_rig/') !== 0 || typeof createImageBitmap !== 'function') { UI.imgs[s] = i; return i; }
     return createImageBitmap(i).then(function (b) { b.src = i.src; UI.imgs[s] = b; return b; }, function () { UI.imgs[s] = i; return i; }); }); };
   /* __THE_SHEETS_ARE_PACKED__ (RUN 10/25, rule 173): a man's look and gun sheet come as their atlas when it is cut from the sheet that is there now */
@@ -5463,6 +5480,9 @@ function bakeBoard() {
         const im = UI.imgs['fight_ground/' + G.blocks[blockBase(n)].src];
         if (im) blockBlit(g, im, n, (bx * bt - ox) * UI.tw, (by * bt - oy) * UI.th, bt * UI.tw, bt * UI.th);
       }); });
+      return campYield();   /* __THE_BAKE_DOES_NOT_FREEZE__: on the camp's page the ground and the rest are two tasks, the phone breathes between */
+    }).then(function () {
+      const ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
       UI.feather = featherStrips(c, B);   /* THE GROUND RUNS ON: read off the blocks before anything stands on them */
       UI.feather.forEach(function (f) { g.drawImage(f.c, f.x, f.y, f.w, f.h); });
       const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
@@ -6306,9 +6326,12 @@ function mixedClass(c) {
   return !!MIXED_CLASSES[c];
 }
 function twoHandWord(own) { return FIGHT._t.bothHands(own) && mixedClass(own.class) ? 'two-hand ' : ''; }
+/* FIXES 11/9 (ask row 537, rule 424(c), EYES 11/8: a 'solid two-hand machete' on the one-hand machete's picture). A weapon is called by the OBJECT THE FIGHT DRAWS (slices/rig_melee/rig_melee.json by_class and two_by_class, WEAPONS 11/7): a two-handed sword is the claymore, a two-handed cleaver the ditch blade, a two-handed chain the tow chain, a two-handed mace or hammer the sledge, a two-handed spear the pole hook, a one-handed axe the hatchet, a one-handed hammer or pick the framing hammer. 'two-hand' is left only where no second object exists. The gate THE FOURTEEN EYES FOUND F537 holds every copy of this table to the fight's. */
+const OBJ1 = { axe: 'hatchet', hammer: 'framing hammer' }, OBJ2 = { sword: 'claymore', cleaver: 'ditch blade', flail: 'tow chain', mace: 'sledge', hammer: 'sledge', axe: 'fire axe', spear: 'pole hook', polearm: 'pole hook' };
+function objName(own) { const L = DB.wlines.rows[own.class] || {}, two = FIGHT._t.bothHands(own); return (two ? OBJ2[own.class] : OBJ1[own.class]) || (twoHandWord(own) + (L.name || own.class).toLowerCase()); }
 function armName(v, arm) {
-  const own = (arm.of || arm), L = DB.wlines.rows[own.class] || {};
-  return twoHandWord(own) + (L.name || own.class).toLowerCase();
+  const own = (arm.of || arm);
+  return objName(own);
 }
 /* ---------------- THE BETTER ENEMY READS (COMBAT [the loss is understood], rule 143(b), Paolo 10/24: 'an enemy just kept
    dodging all of my bullets, I don't know how we can make it clear visually that the enemy is superior') ----------------
@@ -9992,7 +10015,7 @@ function weaponCard(v) {
   const w = v.weapon, own = w.of || w, d = document.getElementById('drawer'), L = (DB.wlines.rows[own.class] || {}), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
-  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(twoHandWord(own).toUpperCase() + (L.name || own.class.toUpperCase())) + ' · ' + esc(v.name) + '</div>'
+  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(objName(own).toUpperCase()) + ' · ' + esc(v.name) + '</div>'
     + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || own.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || own.class) ? ', an ' : ', a ') + esc((L.base || own.class).toLowerCase()))
     + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';
@@ -10193,7 +10216,10 @@ function spoilsOf() {
     return { id: a.id, now: Math.max(0, Math.round(now || 0)), max: Math.round(max) };
   };
   const row = function (w) { return w ? DB.weapons.rows.filter(function (r) { return r.id === w.id; })[0] || null : null; };
-  return { faction: theirFaction(), bodies: S.units.filter(function (v) { return v.side === 'them'; }).map(function (t) {
+  /* FIXES 11/9 (ask row 530): the fight's own name for who they were rides home with them (the data's name, else the fight's own
+     word), so the end screen never has to guess a faction it has not met */
+  const fac = theirFaction(), nf = DB.newEnemies && DB.newEnemies.factions && DB.newEnemies.factions[fac];
+  return { faction: fac, theyAre: (nf && nf.name) || THEY_ARE[fac] || null, bodies: S.units.filter(function (v) { return v.side === 'them'; }).map(function (t) {
       return { name: t.name, kind: t.kind, boss: !!t.boss, xp: t.xp | 0, dead: !!t.dead, fled: !!t.fled, beast: !!t.beast, ghost: !!t.ghost, machine: !!t.machine,
         weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax } : null,
         shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,

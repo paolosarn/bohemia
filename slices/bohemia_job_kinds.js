@@ -179,6 +179,7 @@
     var ok = false;
     try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
+      foe: (extra && extra.foe) || null,   /* FIXES 11/9 (row 530): a leg's own name for its enemy, for the end screen */
       why: 'contract:' + job.id + ':' + what, at: { gx: w[0] | 0, gy: w[1] | 0 } }); } catch (e) { ok = false; }
     if (!ok) { LOOP.fighting = null; job.fight = null; root.__JOB_REFUSED = (root.__JOB_REFUSED | 0) + 1; return false; }   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (j): the town's arrival reads it */
     try { CITY_CONTACT_POSTED = true; } catch (e) {}
@@ -1038,7 +1039,7 @@
     save('contract:leg'); try { render(); } catch (e) {}
   }
   function legThere(L, x, y) { if (L.town) { var t = townNear(x, y, 1); return !!(t && t.name === L.townName); } return cheb(x, y, L.x, L.y) <= 1; }
-  function legFight(job, L) { return fight(job, 'leg' + (job.li | 0), L.fight.left, L.fight.foe || 'brigands', L.fight.label || 'trouble at ' + (L.name || 'the place')) || true; }
+  function legFight(job, L) { return fight(job, 'leg' + (job.li | 0), L.fight.left, L.fight.foe || 'brigands', L.fight.label || 'trouble at ' + (L.name || 'the place'), { foe: L.fight.label || null }) || true; }
   function legTalk(job, L) {
     var RE = root.BohemiaRoadEvents, T = L.talk; if (!RE || !RE.card) { L.talked = true; return legsArrive(job, L.x, L.y); }
     RE.card({ look: T.look, name: T.name, from: T.from, text: T.says, head: String(job.word || 'JOB') + ' · ' + String(job.title).toUpperCase(),

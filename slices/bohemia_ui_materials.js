@@ -478,7 +478,10 @@
       var mixed = rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 1; }) && rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 2; });
       var c = OBJ_CLASS[row['class']] || 'pipe', same = rows.filter(function (x) { return x['class'] === row['class'] && hd(x) === h; }).sort(function (a, b) { return a.value - b.value; });
       var q = same.indexOf(row) / Math.max(1, same.length - 1);
-      return { id: row.id, kind: 'weapon', name: (q < .34 ? 'beat-up ' : q < .67 ? 'solid ' : 'good ') + (h === 2 && mixed ? 'two-hand ' : '') + c };
+      /* FIXES 11/9 (ask row 537, rule 424(c), EYES 11/8: a 'solid two-hand machete' on the one-hand machete's picture). A weapon is called by the OBJECT THE FIGHT DRAWS (slices/rig_melee/rig_melee.json by_class and two_by_class, WEAPONS 11/7): a two-handed sword is the claymore, a two-handed cleaver the ditch blade, a two-handed chain the tow chain, a two-handed mace or hammer the sledge, a two-handed spear the pole hook, a one-handed axe the hatchet, a one-handed hammer or pick the framing hammer. 'two-hand' is left only where no second object exists. The gate THE FOURTEEN EYES FOUND F537 holds every copy of this table to the fight's. */
+      var O1 = { axe: 'hatchet', hammer: 'framing hammer' }, O2 = { sword: 'claymore', cleaver: 'ditch blade', flail: 'tow chain', mace: 'sledge', hammer: 'sledge', axe: 'fire axe', spear: 'pole hook', polearm: 'pole hook' };
+      var ow = h === 2 ? (O2[row['class']] || ((mixed ? 'two-hand ' : '') + c)) : (O1[row['class']] || c);
+      return { id: row.id, kind: 'weapon', name: (q < .34 ? 'beat-up ' : q < .67 ? 'solid ' : 'good ') + ow };
     }
     var k = kind === 'shields' ? 'shield' : kind;
     /* RUN TWO __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(d)): every shield, armour and helmet row its own name, the object word still in it

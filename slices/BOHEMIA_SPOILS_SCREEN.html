@@ -221,6 +221,82 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
   .grid{grid-template-columns:repeat(9,minmax(44px,60px));justify-content:start}
   #bar{padding-left:max(14px,calc((100vw - 1240px) / 2 + 14px));padding-right:max(14px,calc((100vw - 1240px) / 2 + 14px))}
 }
+
+/* ==== __THE_END_SCREEN_FITS__ (FIXES 11/9, ask row 525, rules 402 and 403; EYES 11/8 played it on a phone: after the Strip fight, 4 men
+   and 3 level-ups, 'TASHA STANTON: STRUCK DOWN, ONE HITPOINT: MAIMED FOOT' sat at y 859, WHAT THEY LEFT at 921 and YOUR STASH at
+   1131 on an 844 glass, and nothing moved under a finger; on its side 1 of 3 men showed and the loot ran under the buttons).
+   MEASURED with that fight: the page was 1,473 px on 844 upright and 779 on 390 sideways. NOW, the way UI 9 fits the town (smaller,
+   never pages): the screen steps down until the whole of it stands on the glass: sp-d1 smaller faces and plates, the loot and the
+   stash in thumb cells; sp-d2 each man's level-up button beside him, a smaller window on the field (the receipt still hangs in it);
+   sp-d3 his XP words into the bar's own tip, only the stash's filled pockets (its count says the room), the speaker smaller; sp-d4 the
+   men two to a row. Every word stays at 11 px or more, every press 44. ==== */
+@media (max-width:699px){ html.sp-d1 #field{height:10vh} html.sp-d2 #field{height:48px} }
+html.sp-d1 .h{margin:8px 14px 4px}
+html.sp-d1 .man{padding:6px 8px;gap:8px;margin-bottom:4px}
+html.sp-d1 .man .face{flex:0 0 40px;width:40px;height:40px;padding:2px}
+html.sp-d1 .man canvas{width:36px;height:36px}
+html.sp-d1 .man .nm span:first-child{font-size:13px}
+html.sp-d1 .perk{margin-top:4px}
+html.sp-d1 .grid,html.sp-d1 #ground.grid,html.sp-d1 #stash.grid{grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:3px}
+html.sp-d1 .slot{aspect-ratio:auto;height:44px}
+html.sp-d1 #counts{margin-bottom:4px;gap:6px}
+html.sp-d1 .count{padding-top:2px;padding-bottom:2px}
+html.sp-d1 #ground.empty{margin-top:0}
+html.sp-d2 .man:has(.perk){position:relative;padding-right:132px;min-height:52px}
+html.sp-d2 .man .perk{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:122px;margin:0;padding:2px 6px;font-size:11px;line-height:1.2;white-space:normal;min-height:44px}
+html.sp-d2 #till .paper{max-height:46px}
+.man .lv .lvup{font-style:normal}
+html.sp-d2 .man:has(.perk) .lv .lvup{display:none}
+html.sp-d2 .man:has(.perk) .nm{flex-wrap:wrap;justify-content:flex-start;column-gap:8px}
+html.sp-d2 .man:has(.perk) .nm .wait{margin-left:0;margin-right:0}
+html.sp-d3 .man .xp{display:none}
+html.sp-d3 #stash .slot:not(.full){display:none}
+html.sp-d3 #bar{padding-top:max(6px,env(safe-area-inset-top));padding-bottom:6px;gap:8px}
+html.sp-d3 #bar .word.said canvas{width:40px;height:40px;flex-basis:40px}
+html.sp-d3 #bar .word.said q{font-size:14px}
+html.sp-d3 #bar .word.said .swho{margin-bottom:2px}
+html.sp-d3 .lines{margin-top:4px}
+html.sp-d3 #said{height:44px}
+html.sp-d3 #counts{flex-wrap:nowrap}
+html.sp-d3 #counts .count{flex:1 1 0;min-width:0;padding-top:2px;padding-bottom:2px;padding-right:6px}
+html.sp-d3 #counts .count span{display:none}
+html.sp-d3 #counts .count b{font-size:16px;white-space:nowrap}
+html.sp-d3 #counts .count b i.cw{display:none}
+.count b i.cw{font-style:normal}
+html.sp-d4 #crew{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+html.sp-d4 .man{margin:0}
+html.sp-d4 .man:has(.perk){padding-right:96px}
+html.sp-d4 .man .perk{width:88px}
+html.sp-d4 .man .lv{font-size:11px}
+html.sp-d4 .man .nm{flex-wrap:wrap}
+#stash .slot.older{display:none;cursor:default;grid-column:span 2;aspect-ratio:auto}
+html.sp-d5 #stash .slot.full:not(.new){display:none}
+html.sp-d5 #stash .slot.older{display:flex}
+#stash .slot.older b{font:15px/1 var(--casing);color:var(--gold)}
+html.sp-d5 .man .perk{font-size:0}
+html.sp-d5 .man .perk::after{content:'LEVEL UP';font-size:11px;letter-spacing:1px}
+html.sp-d5 .man:has(.perk){padding-right:70px}
+html.sp-d5 .man .perk{width:60px}
+html.sp-d5 .man .nm .lv{display:none}
+html.sp-d5 .man:has(.perk) .nm .wait{display:none}
+html.sp-d5 .man .nm span:first-child{font-size:12px;letter-spacing:.5px}
+html.sp-d5 #bar .word.said canvas{width:32px;height:32px;flex-basis:32px}
+html.sp-d5 #bar .word.said q{font-size:13px}
+html.sp-d5 #bar .word.said .swho{display:none}
+html.sp-d3 .man .state .long{display:none}
+html .man .state .short{display:none}
+html.sp-d3 .man .state .short{display:inline}
+/* a wide glass: the screen's own two columns (the men; what they left and the stash), the men two to a row and the wider share,
+   the strip in the foot's own empty corner left of LOOT ALL (spFit places it), the speaker and the result on one line */
+@media (min-width:700px){
+  html.sp-d4 #cols{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+  html.sp-d4 #crew{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+  html.sp-d4 #bar .word.said{flex:1 1 auto}
+  html.sp-d4 #bar .sub{flex:0 1 auto;min-width:0}
+  html.sp-d4 #said{position:fixed;z-index:7;margin:0}
+  html.sp-d4 #foot .left{visibility:hidden}
+}
+/* ==== end __THE_END_SCREEN_FITS__ ==== */
 </style>
 </head>
 <body>
@@ -314,7 +390,8 @@ function drawCrew(){
     var w = document.createElement('div'); w.className = 'w';
     var nm = document.createElement('div'); nm.className = 'nm';
     var a = document.createElement('span'); a.textContent = m.main ? 'YOU' : m.name; nm.appendChild(a);
-    var lv = document.createElement('span'); lv.className = 'lv'; lv.textContent = m.up ? 'LEVEL ' + m.from + ' > ' + m.to + '  LEVEL UP!' : 'LEVEL ' + m.to; nm.appendChild(lv);
+    var lv = document.createElement('span'); lv.className = 'lv'; lv.textContent = m.up ? 'LEVEL ' + m.from + ' > ' + m.to : 'LEVEL ' + m.to; nm.appendChild(lv);
+    if(m.up){ var lvu = document.createElement('i'); lvu.className = 'lvup'; lvu.textContent = '  LEVEL UP!'; lv.appendChild(lvu); }   /* FIXES 11/9 (row 525): its own piece, so beside the level-up button (which says it) it steps aside instead of running under it */
     /* rule 281(b): a plus and the count of levels waiting to be spent, beside his level */
     if(m.waiting > 0 && !m.dead){ var wt = document.createElement('span'); wt.className = 'wait'; wt.dataset.waiting = m.waiting; wt.textContent = '+' + m.waiting;
       wt.title = m.waiting + (m.waiting === 1 ? ' level' : ' levels') + ' to spend'; wt.setAttribute('aria-label', wt.title); nm.insertBefore(wt, lv); }
@@ -331,7 +408,10 @@ function drawCrew(){
     var st = null;
     if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; st.textContent = 'FELL. HE IS DEAD.'; }
     else if(m.down && m.main){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'WENT DOWN. UP AGAIN AFTER.'; }
-    else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'STRUCK DOWN. ONE HITPOINT, STILL IN THE CREW: ' + String(m.injury.name || '').toUpperCase(); }   /* CAMP rule 234(f): never 'laid up' */
+    else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt';
+      /* FIXES 11/9 (row 525): the whole line, and its short form for a tight glass (the injury's name always on it) */
+      var lg = document.createElement('span'); lg.className = 'long'; lg.textContent = 'STRUCK DOWN. ONE HITPOINT, STILL IN THE CREW: ' + String(m.injury.name || '').toUpperCase(); st.appendChild(lg);
+      var sh = document.createElement('span'); sh.className = 'short'; sh.textContent = 'STRUCK DOWN, 1 HP: ' + String(m.injury.name || '').toUpperCase(); st.appendChild(sh); st.title = lg.textContent; }   /* CAMP rule 234(f): never 'laid up' */
     if(st) w.appendChild(st);
     if((m.up || m.waiting > 0) && !m.dead){ if(m.up) ups++;
       var b = document.createElement('button'); b.className = 'perk'; b.type = 'button'; b.dataset.perk = m.name;
@@ -446,7 +526,7 @@ function drawCounts(){
     if(!(c[k[0]] > 0)) return; if(c[k[0]] === 1) k[1] = k[3];
     var b = document.createElement('button'); b.type = 'button'; b.className = 'count' + (S.countsTaken ? ' taken' : ''); b.dataset.count = k[0];
     var cap = (k[0] === 'tape' && S.scav && S.scav.tape > 0) ? 'MENDS ARMOUR, ' + S.scav.tape + ' FROM THE SCAVENGER' : k[2];   /* FINISHER 11/2: whose tape */
-    b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : cap) + '</span>';
+    b.innerHTML = '<b>+' + c[k[0]] + '<i class="cw"> ' + k[1] + '</i></b><span>' + (S.countsTaken ? 'TAKEN' : cap) + '</span>'; b.setAttribute('aria-label', '+' + c[k[0]] + ' ' + k[1] + ', ' + (S.countsTaken ? 'taken' : cap)); b.title = b.getAttribute('aria-label');   /* FIXES 11/9 (row 525): the word in its own piece, so a tight glass shows the number by its picture and never half a word */
     b.addEventListener('click', function(){ takeCounts(); }); el.appendChild(b); });
   try{ tillSync(); }catch(e){}   /* __THE_RECEIPT__: the pay prints when it is taken */
 }
@@ -481,10 +561,35 @@ function drawOpt(){
 function drawStash(){
   var el = document.getElementById('stash'); el.textContent = '';
   for(var i = 0; i < S.cap; i++) el.appendChild(slotFor(S.stash[i] || null, 'stash', i));
+  /* FIXES 11/9 (row 525): the tightest step shows this fight's pieces and counts the rest of the bag in one tile (the crew screen holds
+     the whole bag); the tile is a count, never a press */
+  var older = S.stash.filter(function(it){ return it && !(it.looted && it.fresh); }).length;
+  if(older > 0){ var ot = document.createElement('div'); ot.className = 'slot older'; ot.dataset.older = older; ot.setAttribute('aria-label', older + ' more already in the bag'); ot.title = ot.getAttribute('aria-label');
+    var ob = document.createElement('b'); ob.textContent = '+' + older; ot.appendChild(ob); var os = document.createElement('span'); os.textContent = 'IN THE BAG'; ot.appendChild(os); el.appendChild(ot); }
   document.getElementById('stashn').textContent = S.stash.length + ' / ' + S.cap;
   try{ tillSync(); }catch(e){}   /* __THE_RECEIPT__: what was taken prints as it is counted */
 }
-function draw(){ drawCrew(); drawCounts(); drawGround(); drawStash(); }
+function draw(){ drawCrew(); drawCounts(); drawGround(); drawStash(); spFit(); }
+/* FIXES 11/9 (row 525): the end screen steps down until the page stands whole on the glass (the steps in the style above); a page that
+   still runs past it after the last step says so in SPFIT.over, never scrolls a press out of reach unsaid */
+var SPFIT = { level: 0, over: 0 };
+function spFit(){
+  var h = document.documentElement, se = document.scrollingElement || h, steps = ['sp-d1', 'sp-d2', 'sp-d3', 'sp-d4', 'sp-d5'];
+  steps.forEach(function(c){ h.classList.remove(c); });
+  var over = function(){ void se.offsetHeight; return Math.max(0, se.scrollHeight - innerHeight - 1); }, lv = 0;
+  if(!S.fight){ SPFIT = { level: 0, over: 0 }; return SPFIT; }
+  var said = document.getElementById('said'), left = document.querySelector('#foot .left');
+  ['left', 'bottom', 'width', 'height'].forEach(function(k){ said.style.removeProperty(k); });
+  for(var i = 0; i < steps.length && over() > 0; i++){ h.classList.add(steps[i]);
+    lv = i + 1;
+    /* a wide glass, the last step: the strip stands in the foot's own empty corner, left of LOOT ALL */
+    if(steps[i] === 'sp-d4' && innerWidth >= 700 && left){ var lr = left.getBoundingClientRect(), fr = document.getElementById('foot').getBoundingClientRect();
+      if(lr.width >= 160){ said.style.setProperty('left', Math.round(lr.left) + 'px'); said.style.setProperty('width', Math.round(lr.width) + 'px');
+        said.style.setProperty('bottom', Math.round(innerHeight - fr.bottom + 6) + 'px'); said.style.setProperty('height', Math.round(fr.height - 12) + 'px'); } } }
+  try{ tillTop(); }catch(e){}
+  SPFIT = { level: lv, over: over() }; return SPFIT;
+}
+window.addEventListener('resize', function(){ try{ spFit(); }catch(e){} });
 /* one tap: the cheapest pieces he did not choose go back on the ground for the most valuable left (engine/bohemia_spoils.js
    optimize, the shop's own price); the strip says it in pictures: down what it left, up what it took, a battery and by how much */
 function optimize(){
@@ -645,15 +750,34 @@ function mmss(t){ t = t | 0; return Math.floor(t / 60) + ':' + String(t % 60).pa
    over (all beasts: the pack; else their faction), and says RAN only when some ran. The fight's own other heads (pulled out, haunted,
    a wipe) stand as they are. draft:true */
 var THEY = { brigands: ['THE RAIDERS', 'THE RAIDER'], machines: ['THE MACHINES', 'THE MACHINE'], kids: ['THE KIDS', 'THE KID'], heavies: ['THE HEAVIES', 'THE HEAVY'],
-  beasts: ['THE PACK', 'THE BEAST'], ghosts: ['THE DEAD', 'THE DEAD'] };
+  beasts: ['THE PACK', 'THE BEAST'], ghosts: ['THE DEAD', 'THE DEAD'],
+  /* FIXES 11/9 (ask row 530, EYES 11/8: 'every win says THE RAIDERS ARE DOWN, whoever they were'). MEASURED: from his second fight
+     the fight deals a road party one of the valley's factions (ours.road_factions, FACTIONS 11/3: the House, the Block Watch, the
+     Keepers, the water people), and this table knew none of them, so all four came home as raiders. A collective name says IS. draft:true */
+  house: ['THE HOUSE', 'A HOUSE MAN', 'IS'], watch: ['THE BLOCK WATCH', 'A WATCHMAN', 'IS'], keepers: ['THE KEEPERS', 'A KEEPER'], water: ['THE WATER PEOPLE', 'A WATER MAN'],
+  mob: ['THE MOB', "THE MOB'S MAN", 'IS'] };
+/* who they were, in the words the job and the fight already used: a job's leg that names its own enemy ('the yard's watchmen',
+   WORDS' job kinds) names them here; else this table; else the fight's own name for the faction (it sends theyAre with the bodies,
+   read off the same data the meet card reads), so a faction this table has not met yet never falls to RAIDERS */
+function theyWere(sp, one){
+  var foe = ''; try{ var fn = window.parent.__FIGHT_NOW; foe = fn && fn.foe ? String(fn.foe) : ''; }catch(e){}   /* the shell's (window.parent is this page itself when it stands alone) */
+  if(foe) return { name: foe.toUpperCase(), are: true };
+  var b = (sp && sp.bodies) || [];
+  if(b.length && b.every(function(x){ return x.beast; })) return { name: THEY.beasts[one ? 1 : 0], are: false };
+  var w = THEY[sp && sp.faction];
+  if(w) return { name: w[one ? 1 : 0], are: !one && w[2] !== 'IS' };
+  var t = String((sp && sp.theyAre) || '').trim().toUpperCase();
+  if(t) return { name: /^(A|AN) /.test(t) || /^THE /.test(t) ? t : 'THE ' + t, are: !/^(A|AN) /.test(t) && /S$/.test(t) };
+  return { name: THEY.brigands[one ? 1 : 0], are: !one };
+}
 function wonHead(sp){
   var b = (sp && sp.bodies) || []; if(!b.length) return 'THE FIGHT IS WON';
-  var one = b.length === 1, who = b.every(function(x){ return x.beast; }) ? THEY.beasts : THEY[sp.faction] || THEY.brigands, name = who[one ? 1 : 0];
+  var one = b.length === 1, who = theyWere(sp, one), name = who.name;
   var ran = b.filter(function(x){ return x.fled; }).length, down = b.filter(function(x){ return x.dead; }).length;
   var boss = b.filter(function(x){ return x.boss && x.dead; })[0]; if(boss && boss.name) return String(boss.name).toUpperCase() + ' IS DOWN';   /* WORDS rule 315: a boss fell, the head names him */
   if(ran && !down) return name + ' RAN';
   if(ran) return name + ' BROKE AND RAN';
-  return name + (one || name === 'THE PACK' ? ' IS DOWN' : ' ARE DOWN');
+  return name + (who.are ? ' ARE DOWN' : ' IS DOWN');
 }
 /* ---------- THE SURVIVOR'S WORD (WORDS, rule 315, ask line 310, Paolo 11/2: 'one of your surviving characters provides commentary on
    how the battle went... to replace the you won... funny, morbid funny, like real killers') ----------
@@ -795,7 +919,7 @@ var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
       men:[{name:'YOU', kills:2, dealt:61, taken:12}, {name:'MARCO', kills:0, dealt:14, taken:38}, {name:'TERESA', kills:0, dealt:22, taken:4}],
       call:{who:'TERESA', line:'That one ran. Let him tell them.', look:'cast_skirt'} } } };
 dress(); document.addEventListener('DOMContentLoaded', dress);
-window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, wonHead:wonHead, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE,
+window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, fit:function(){ return spFit(); }, fitState:function(){ return SPFIT; }, wonHead:wonHead, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE,
   optimize:optimize, undo:undo, draw:draw, pick:pick, makeCamp:makeCamp };
 document.getElementById('lootall').addEventListener('click', lootAll);
 document.getElementById('optimize').addEventListener('click', optimize);

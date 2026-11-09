@@ -84,6 +84,15 @@
     /* the board's clients: a small face a row */
     + S + ' .act.client .face.small{width:36px!important;height:36px!important;flex:0 0 36px!important}'
     + S + ' .act.client .cn{font-size:11px}' + S + ' .say .trip{font-size:11px;margin-top:3px}'
+    /* FIXES 11/9 (ask row 533, EYES 11/8: the client's name ran off the card's bottom, 'COMANDANTE RIVAS, WHO KEEPS THE PEACE HERE,
+       BADLY' under the next card's blood edge; a PAID THERE badge squeezed the title into a corner). MEASURED: the job and its client
+       had a 150 px column beside the pay (148 px), so a title took three lines and a name two or three; and once the board's sheet met
+       its height cap the cards, flex items with a 44 px floor, were shrunk below their words. NOW a card never shrinks, and the pay and
+       the trip sit on their own line under the client, so the job's words and the client's name have the card's whole width */
+    + S + ' .act.client{flex-shrink:0!important;display:grid!important;grid-template-columns:36px minmax(0,1fr);grid-template-areas:"face cl" "face em";column-gap:8px;row-gap:2px;align-items:start;justify-content:stretch;text-align:left}'
+    + S + ' .act.client>.face{grid-area:face;align-self:center}' + S + ' .act.client>.cl{grid-area:cl;min-width:0}'
+    + S + ' .act.client>em{grid-area:em;margin:0!important;justify-self:start;text-align:left;border-left:0!important;padding-left:0!important;white-space:normal}'
+    + S + ' .act.client .cn{overflow-wrap:break-word}'
     /* ---- THE HALL: a man is a row ---- */
     + S + ' .hsort{gap:4px}' + S + ' .hsort button{min-height:44px!important;font-size:11px!important}'
     + S + ' .hire{display:grid!important;grid-template-columns:40px minmax(0,1fr) 80px;grid-template-areas:"face nm act" "face info act" "st st st";'
@@ -114,7 +123,15 @@
     + S + ' .hire .hedge{grid-column:2 / -1;font-size:11px!important;line-height:14px;margin:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}'
     + S + '.ns-d2 .hire .hedge,' + S + '.ns-d2 .hire .hgun .arm,' + S + '.ns-d2 .hire .hgun b,' + S + '.ns-d2 .hire .htrait em{display:none!important}'
     + S + '.ns-d2 .hire .ns-hl>*{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}' + S + '.ns-d2 .hire .hgun{flex:none}'
-    + S + '.ns-d2 .hire .ns-hl>.hceil{flex:none}' + S + '.ns-d2 .hire .hrare{font-size:0!important;flex:none}' + S + '.ns-d2 .hire .hrare b{font-size:11px!important}'   /* a rare man's kit in words: the held tip */
+    + S + '.ns-d2 .hire .ns-hl>.hceil{flex:none}'
+    /* FIXES 11/9 (ask row 532, EYES 11/8: BARGAIN pushed the trait word under the gun's icon, 'BARGAIN S...'): on the one line the
+       trait word and the arm never give way; the ceiling's bar does (its number stays on it), and with BARGAIN on the row the word
+       CEILING steps into the held tip */
+    + S + '.ns-d2 .hire .ns-hl>.htrait,' + S + '.ns-d2 .hire .ns-hl>.hgun{flex:none!important;overflow:visible!important}'
+    + S + '.ns-d2 .hire .ns-hl>.hceil{flex:0 1 auto!important;min-width:0!important;flex-wrap:nowrap!important}'
+    + S + '.ns-d2 .hire .hceil .cbar{min-width:30px!important;flex:1 1 30px!important}'
+    + S + '.ns-d2 .hire.isbargain .hceil>b{display:none!important}'
+    + 'html body #sheet.ns-d1:not(.ns-d2) .hire .ns-hl{max-height:none!important}'   /* nothing on the row is clipped out of sight: a row that needs a third line takes it, and a hall that then overflows steps to the one-line row */ + S + '.ns-d2 .hire .hrare{font-size:0!important;flex:none}' + S + '.ns-d2 .hire .hrare b{font-size:11px!important}'   /* a rare man's kit in words: the held tip */
     /* his eight on one line: the icon, the number, the stars as small marks; the bar a thin line under the number */
     + S + ' .hire .hstats{grid-area:st;display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr));gap:0 2px!important;margin:0!important;padding:1px 4px!important;min-width:0;filter:none!important}'   /* eight equal columns: one stat's number and stars at one x down every man's row (rule 247(c) in a list) */
     + S + ' .hire .hstats span.bst-row{display:inline-flex!important;align-items:center;gap:1px!important;height:15px!important;min-height:0!important;flex:0 1 auto;min-width:0}'
@@ -186,10 +203,17 @@
     +   S + '.shopping .ns-bag{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) auto}' + S + '.shopping .ns-bag>.ns-bagh{grid-column:1;align-self:center}' + S + '.shopping .ns-bag>#selljunk{grid-column:2}' + S + '.shopping .ns-bag>#sortbag{grid-column:3}'
     +   S + '.stalling .act.stline,' + S + '.stalling .act.tgline{min-height:46px!important;padding:1px 4px!important}' + S + '.stalling .stallstrip .ss-facts{height:auto!important;max-height:30px}' + S + '.stalling .acts>.slots{margin:0!important}'
     +   S + '.shopping .acts>#shopstrip{margin:0!important;padding:0!important;border:0!important}'
-    +   S + ' #sbody:has(.hsort)>.who{padding-right:min(46%,420px)}'
-    +   S + ' .acts>.hsort{position:absolute;top:6px;right:58px;width:min(40%,360px);margin:0!important}'
+    /* FIXES 11/9 (ask row 535, EYES 11/8: on its side BEST / BEST FOR THE PRICE was drawn over the keeper's sentence). MEASURED 844 x
+       390: the keeper's row kept 0 px for the switch, because the phone-on-the-right rule (bohemia_phone.js, the close X to the left)
+       sets that row's right padding to 0 !important, and even unbeaten min(46%,420px) was 368 px for a switch that took 386 (its
+       328 and its 58 from the edge). The switch is a fixed 300 px and the row keeps 300 + 58 + 10 px whichever side the phone is on */
+    +   'html:not(#ns-x) body #sheet.ns-d1 #sbody:has(.hsort)>.who{padding-right:368px!important}'   /* one id more than the phone's rule, whichever is planted last */
+    +   S + ' .acts>.hsort{position:absolute;top:6px;right:58px;width:300px;margin:0!important}'
     /* the board's clients on a short glass: a thumb-tall row each, so the board stays under half the glass */
     +   S + ' .act.client{min-height:44px!important;padding:2px 8px!important}' + S + ' .act.client .face.small{width:32px!important;height:32px!important;flex:0 0 32px!important}'
+    /* FIXES 11/9 (row 533): on a short wide glass a card is wide enough for the pay beside the job (two cards a row), so the pay keeps its
+       place on the right and the board stays under half the glass; the card still never shrinks under its words */
+    +   S + ' .act.client{grid-template-columns:32px minmax(0,1fr) auto!important;grid-template-areas:"face cl em"!important;align-items:center!important}' + S + ' .act.client>em{white-space:nowrap!important}'
     +   S + ' .acts:has(>.act.client){display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3px 6px}' + S + ' .acts:has(>.act.client)>:not(.act){grid-column:1 / -1}'
     +   S + '.stalling .acts{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:8px;row-gap:3px;align-content:start}'
     +   S + '.stalling .acts>:not(.act){grid-column:1 / -1}}';
@@ -382,7 +406,7 @@
     + K + '.ns-d3 #bar{padding-top:2px!important;padding-bottom:2px!important}' + K + '.ns-d3 #lines{margin-top:2px!important;row-gap:1px!important}' + K + '.ns-d3 #keptrow,' + K + '.ns-d3 #hurtrow{margin-top:1px!important}' + K + '.ns-d3 .doll{margin-top:2px!important}'
     /* the last step: his eight (one column still) stand in the open middle of his paper doll, between his two columns of slots,
        at its foot (placeStats sets where), instead of under it */
-    + K + '.ns-d4 #card{position:relative}' + K + '.ns-d4 #card .stats{position:absolute!important;z-index:2;margin:0!important;padding:2px 4px!important;background:rgba(10,8,6,.72);box-sizing:border-box}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
+    + K + '.ns-d4 #card{position:relative}' + K + '.ns-d4 #card .stats{position:absolute!important;z-index:2;margin:0!important;padding:2px 4px!important;background:rgba(10,8,6,.72);box-sizing:border-box}' + K + '.ns-d4 #card #levelup{position:absolute!important;z-index:3;margin:0!important;padding:2px 4px!important;background:rgba(10,8,6,.94);box-sizing:border-box}' + K + '.ns-d3 .doll .side,' + K + '.ns-d3 .doll .mid{gap:2px!important}'
     + K + '.ns-d3 .who .id{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}' + K + '.ns-d3 .who .id .xpbar{display:inline-block;width:60px;vertical-align:middle}'
     /* a short wide glass: the bag's column the wider, so its cells make fewer rows */
     + '@media (min-aspect-ratio:4/3) and (max-height:620px){' + K + ' .line{--cw:46px!important}' + K + '.ns-d2 #cols{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)!important;column-gap:10px!important}'
@@ -416,7 +440,19 @@
   /* his eight into the doll's open middle, at its foot: true when there is room for them there (ask), or set them there, or clear */
   function placeStats(ask, clear) {
     var st = document.querySelector('#card .stats'), doll = document.querySelector('#card .doll'), mid = doll && doll.querySelector('.mid'), card = document.getElementById('card');
-    if (clear) { if (st) { st.style.removeProperty('left'); st.style.removeProperty('top'); st.style.removeProperty('width'); } return false; }
+    /* FIXES 11/9 (ask row 536, on its side): a level waiting puts the eight picks where his numbers stand, and MEASURED on 844 x 390
+       with the company's own third man the last two picks (resolve, initiative) sat 6 and 25 px under the glass, 47 px over after the
+       third step; this step only moved the numbers. Now the level-up's picks and RAISE THEM stand over the whole paper doll (his slots
+       come back the moment he raises them, as Battle Brothers' level-up is its own moment) */
+    var lu = document.querySelector('#card #levelup');
+    if (clear) { [st, lu].forEach(function (e) { if (e) { e.style.removeProperty('left'); e.style.removeProperty('top'); e.style.removeProperty('width'); } }); return false; }
+    if (!st && lu && doll && card) {
+      var cr0 = card.getBoundingClientRect(), dr0 = doll.getBoundingClientRect(), lr0 = lu.getBoundingClientRect();
+      if (ask) return dr0.width >= 240 && dr0.height >= Math.min(lr0.height, 200) + 4;
+      lu.style.setProperty('left', Math.round(dr0.left - cr0.left) + 'px', 'important'); lu.style.setProperty('width', Math.round(dr0.width) + 'px', 'important');
+      lu.style.setProperty('top', Math.round(dr0.top - cr0.top) + 'px', 'important');
+      return true;
+    }
     if (!st || !mid || !card) return false;
     var cr = card.getBoundingClientRect(), mr = mid.getBoundingClientRect(), sh = st.getBoundingClientRect().height;
     if (mr.width < 2) {   /* the camp's doll lays its middle as the grid's second column (its .mid has no box of its own) */

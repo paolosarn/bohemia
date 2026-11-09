@@ -353,6 +353,7 @@
   function itemTip(it) {
     if (!it) return null;
     var s = String(it.nums || ''), out = [];
+    try { var RC = window.BohemiaRoster || (W && W.BohemiaRoster); if (it.kind === 'weapon' && RC && RC.itemOf) { var lv = RC.itemOf('weapon', it.id); if (lv && lv.nums) s = lv.nums; } } catch (e) {}   /* FIXES 11/9 (row 529): the fight's own numbers */
     var dm = s.match(/dmg\s+(\d+)\s*-\s*(\d+)/), h = s.match(/holds\s+(\d+)/), wt = s.match(/weight\s+(\d+)/), ap = s.match(/AP\s+(\d+)/i);
     if (dm) out.push('Hits for ' + dm[1] + ' to ' + dm[2] + '.');
     if (h) out.push('Stops ' + h[1] + ' damage before he bleeds.');

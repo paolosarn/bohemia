@@ -159,7 +159,24 @@
       + '#mainmaker .go:active{box-shadow:inset 0 2px 0 #8a6427,0 1px 0 #000}'
       /* the computer, the glass wider than tall: the mirror and his name on the left, the barber's parts on the right */
       + '@media (min-aspect-ratio:1/1){#mainmaker .wrap{flex-direction:row;gap:14px}#mainmaker .left{flex:0 0 40%}#mainmaker .right{flex:1 1 auto;justify-content:flex-end}'
-      + '#mainmaker .tile{flex-basis:66px;width:66px;height:84px}#mainmaker .tile canvas{width:58px;height:54px}}';
+      + '#mainmaker .tile{flex-basis:66px;width:66px;height:84px}#mainmaker .tile canvas{width:58px;height:54px}}'
+      /* FIXES 11/9 (ask row 528, rules 402 and 403, EYES 11/8: on its side the SKIN row sat at y -99 above the glass and nothing
+         scrolled, every row's sixth choice was cut at the right; upright the sixth of all four rows was behind a sideways scroll; the
+         names were 8 px). MEASURED 844 x 390: four strips of 6, 19, 9 and 12 choices, 66 x 84 tiles in strips 404 wide that scrolled
+         sideways (432, 1368, 648 and 864 px of tiles), the rows 368 px tall in 268. NOW every choice is a face a thumb wide (44 px,
+         the tap floor) and each row WRAPS, so all 46 are on the glass both ways and nothing scrolls; a choice's name is said in the
+         line under them when he taps it (rule 433: nothing shows until tapped), at 11 px; on its side the mirror takes a little less
+         room and that line stands under the mirror */
+      + '#mainmaker .rows{gap:4px}#mainmaker .row{padding:0;margin:0}'   /* a page-wide .row rule padded each row 8 px 12 px */
+      + '#mainmaker .strip{flex-wrap:wrap;align-content:flex-start;gap:2px;overflow:hidden;padding:1px;touch-action:manipulation}'
+      + '#mainmaker .tile,#mainmaker .tile[data-row="skin"]{flex:0 0 44px;width:44px;height:44px}'
+      + '#mainmaker .tile canvas,#mainmaker .tile[data-row="skin"] canvas{left:2px;top:2px;width:40px;height:40px}'
+      + '#mainmaker .tile span{display:none}'
+      + '#mainmaker .row b{font-size:11px;letter-spacing:1px}#mainmaker .namebar b{font-size:11px;letter-spacing:1px}#mainmaker .who .nm{font-size:11px}'
+      + '#mainmaker .facts{height:46px;white-space:normal;line-height:14px;padding:2px 10px;text-overflow:clip;align-items:center}'   /* a fixed three lines: what a tap says never moves a face (rule 250) */
+      + '@media (min-aspect-ratio:1/1){#mainmaker .left{flex:0 0 35%;padding-bottom:52px}#mainmaker .tile{flex-basis:44px;width:44px;height:44px}'
+      + '#mainmaker .tile canvas{width:40px;height:40px}#mainmaker .right>.facts{position:absolute;left:0;bottom:0;width:35%}'
+      + '#mainmaker .namebar input,#mainmaker .go{min-height:44px}}';
     (doc.head || doc.documentElement).appendChild(st);
   }
 
@@ -209,7 +226,7 @@
       values(P, r.id).forEach(function (v) {
         var t = doc.createElement('button'); t.type = 'button'; t.className = 'tile'; t.dataset.row = r.id; t.dataset.v = v === null ? '' : v;
         var c = doc.createElement('canvas'); c.width = 50; c.height = 48; t.appendChild(c);
-        var sp = doc.createElement('span'); sp.textContent = word(r.id, v); t.appendChild(sp);
+        var sp = doc.createElement('span'); sp.textContent = word(r.id, v); t.appendChild(sp); t.setAttribute('aria-label', word(r.id, v));   /* FIXES 11/9 (row 528): the name is said on a tap, in the line under the faces */
         var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
         if (r.id === 'skin') { var sw = SKINS.filter(function (s) { return s[0] === v; })[0]; x.fillStyle = sw ? sw[2] : '#777'; x.fillRect(4, 4, 42, 40);
           x.fillStyle = 'rgba(255,240,210,.12)'; x.fillRect(4, 4, 42, 3); x.fillStyle = 'rgba(0,0,0,.35)'; x.fillRect(4, 41, 42, 3); }

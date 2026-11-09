@@ -102,16 +102,19 @@
     var S = skillsOf(r), first = true;
     return S.list.map(function (s) {
       var main = !isReload(s) && first; if (main) first = false;
-      return { name: s.name, word: isReload(s) ? 'RELOAD' : s.name.toUpperCase(), main: main, ap: s.ap, breath: s.fatigue || 0, reach: reachOf(r, s, S.rides), says: plain(s) };
+      /* FIXES 11/9 (ask row 529, EYES 11/8: the pistol's card said 'THROW JAVELIN'): a gun that rides another row's blow (the pistol
+         fires as Battle Brothers' javelin, ours.pistol_shot) SHOOTS; the row it borrows is the fight's bookkeeping, never his word */
+      var word = isReload(s) ? 'RELOAD' : S.rides && main ? 'SHOOT' : s.name.toUpperCase();   /* draft:true */
+      return { name: s.name, word: word, main: main, ap: s.ap, breath: s.fatigue || 0, reach: reachOf(r, s, S.rides), says: plain(s) };
     });
   }
   function special(list) { return list.filter(function (b) { return !b.main && b.word !== 'RELOAD'; }).length > 0; }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function html(id, name) {
     var r = D.by[id]; if (!r) return '';
-    var L = blows(id), cls = (D.lines[r['class']] || {});
+    var L = blows(id), cls = (D.lines[r['class']] || {}), hit = skillsOf(r).rides || r;   /* FIXES 11/9 (row 529): the damage the fight rolls */
     var h = '<div class="bwc-t">' + esc(String(name || cls.name || r.name).toUpperCase()) + '</div>'
-      + '<div class="bwc-b">' + esc(cls.line || '') + (r.damage_min != null ? ' <i>Damage ' + r.damage_min + '-' + r.damage_max + '.</i>' : '') + '</div>'
+      + '<div class="bwc-b">' + esc(cls.line || '') + (hit.damage_min != null ? ' <i>Damage ' + hit.damage_min + '-' + hit.damage_max + '.</i>' : '') + '</div>'
       + '<div class="bwc-h">WHAT IT CAN DO</div>';   /* draft:true */
     L.forEach(function (b) {
       h += '<div class="bwc-r" data-skill="' + esc(b.name) + '"><b>' + esc(b.word) + (b.main ? ' <em>STRIKE</em>' : '') + '</b>'

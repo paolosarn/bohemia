@@ -59,7 +59,9 @@
     if (b.length && b.every(function (x) { return x.ghost; })) return 'ghost';
     if (b.length && b.every(function (x) { return x.beast; })) return b.every(function (x) { return /wolf/i.test(String(x.kind || x.name || '')); }) ? 'wolves' : 'beast';
     if (b.length && b.filter(function (x) { return x.machine; }).length * 2 > b.length) return 'machine';
-    return K[ctx.faction] || (ctx.faction && B && B.enemy && B.enemy[ctx.faction] ? ctx.faction : 'raiders');
+    /* FIXES 11/9 (ask row 530): a faction with no lines of its own (the House, the Block Watch, the Keepers, the water people) gets
+       the plain lines, never the raiders' ('Road crew's off the road' over the Block Watch); no faction at all is the road crew */
+    return K[ctx.faction] || (ctx.faction ? ctx.faction : 'raiders');
   }
   function speakerOf(ctx, rnd, B) {
     var men = crew(ctx).filter(function (m) { return !m.main && !m.dead; });

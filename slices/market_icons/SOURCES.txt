@@ -60,3 +60,6 @@ g_candles <- pack_skeletons_and_bones_021.png
 g_pharmacy_stock <- pack_11_survival_props_047.png
 g_runway_cloth <- pack_11_crates_barrels_and_supplies_027.png
 g_pawn_gold <- pack_19_miscellaneous_1_015.png
+w_claymore (11/9, FIXES [the smith's shelf], rule 424(c), ask row 537): not a pack tile; WEAPONS' own side render of reference/models/bohemia/item_gift_shop_claymore.glb (records/target/cook_every_weapon/alone_gift_shop_claymore/side.png) turned to the bag's diagonal (tools/bohemia_fixes_two_hand_shelf_icons_11_9_26.py)
+w_ditch_blade (11/9, FIXES [the smith's shelf], rule 424(c), ask row 537): not a pack tile; WEAPONS' own side render of reference/models/bohemia/item_ditch_blade.glb (records/target/cook_every_weapon/alone_ditch_blade/side.png) turned to the bag's diagonal (tools/bohemia_fixes_two_hand_shelf_icons_11_9_26.py)
+w_tow_chain (11/9, FIXES [the smith's shelf], rule 424(c), ask row 537): not a pack tile; WEAPONS' own side render of reference/models/bohemia/item_tow_chain.glb (records/target/cook_every_weapon/alone_tow_chain/side.png) turned to the bag's diagonal (tools/bohemia_fixes_two_hand_shelf_icons_11_9_26.py)

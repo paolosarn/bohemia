@@ -473,9 +473,13 @@
     if (!box) { box = document.createElement('div'); box.id = 'cbxorgfacts'; box.setAttribute('aria-live', 'polite'); }
     /* upright under the plates; on a wide glass (the picks in two columns) at the foot of the second column, so the plates'
        column is not pushed past the glass */
-    var wide = false; try { wide = matchMedia('(min-aspect-ratio: 4/3)').matches; } catch (e) {}
-    if (!ORGFACTS.mq) { ORGFACTS.mq = 1; try { matchMedia('(min-aspect-ratio: 4/3)').addEventListener('change', function () { orgFacts(); }); } catch (e) {} }
-    if (wide) { if (box.parentNode !== st.parentNode || box.nextElementSibling) st.parentNode.appendChild(box); }
+    var wide = isWide();
+    if (!ORGFACTS.mq) { ORGFACTS.mq = 1; try { matchMedia('(min-aspect-ratio: 4/3)').addEventListener('change', function () { dressPicks(); fitName(); }); } catch (e) {} }
+    /* FIXES 11/9 (ask row 534): on a wide glass the facts stand on the camera's empty screen under the log, beside the picks, where
+       they wrap whole (in the picks' second column they were cut with dots) */
+    var lw = $('loadwrap');
+    if (wide && lw) { if (box.parentNode !== lw) lw.appendChild(box); }
+    else if (wide) { if (box.parentNode !== st.parentNode || box.nextElementSibling) st.parentNode.appendChild(box); }
     else if (box.previousElementSibling !== st) st.parentNode.insertBefore(box, st.nextSibling);
     var on = st.querySelector('.org.on'); box.textContent = ''; if (!on) return;
     var em = on.querySelector('em'), b = on.querySelector('b'), is = on.querySelectorAll('i');
@@ -506,14 +510,17 @@
       if (!$('cbxhints')) hintsBlock().forEach(function (el) { nc.appendChild(el); });
       paintHints();
       /* the order, by each section's own heading (RUN's words), so a section RUN adds lands after these, never inside */
-      var kids = Array.prototype.slice.call(nc.children), sec = 0;
+      var kids = Array.prototype.slice.call(nc.children), sec = 0, wideNow = isWide();
       kids.forEach(function (el) {
         if (el.tagName === 'H4') { var tx = String(el.textContent || '').toUpperCase(); sec = 90;
           ORDER.forEach(function (o, i) { if (tx.indexOf(o[0]) === 0) sec = (i + 1) * 10; });
           if (sec === 20) { el.classList.add('cbxorigin'); var nv = el.querySelector('.cbxnav'); if (nv) nv.parentNode.removeChild(nv);
             /* rule 402 amended: every origin is on the glass, so the heading never says SWIPE or SCROLL */
             var t0 = el.firstChild; if (t0 && t0.nodeType === 3 && /\u00b7\s*(SWIPE|SCROLL|ARROWS)/.test(t0.nodeValue)) t0.nodeValue = t0.nodeValue.replace(/\s*\u00b7\s*(SWIPE|SCROLL|ARROWS)\s*/, ''); } }
-        el.setAttribute('data-sec', String(sec)); el.__cbxKey = sec * 100 + kids.indexOf(el);
+        /* FIXES 11/9 (ask row 534): the valley's code row (RUN's, after the name) stands under the name upright, and at the foot of
+           the second column on a wide glass, so the origins' five rows of three fit the first */
+        var s2 = el.id === 'newcoworldrow' ? (wideNow ? 99 : 10) : sec;
+        el.setAttribute('data-sec', String(s2)); el.__cbxKey = s2 * 100 + kids.indexOf(el);
       });
       /* the nodes themselves in that order (a stable sort; moved only when they are not already so, so the watcher never loops) */
       var want = kids.slice().sort(function (a, b) { return a.__cbxKey - b.__cbxKey; });
@@ -530,12 +537,29 @@
       ensureMini();
     } catch (e) { LOG.push({ k: 'dress threw', e: String(e) }); }
     DRESSING = false;
+    fitName();
+  }
+  function isWide() { try { return matchMedia('(min-aspect-ratio: 4/3)').matches; } catch (e) { return false; } }
+  /* FIXES 11/9 (ask row 534, EYES 11/8: the crew's name read 'THE NIGHT', its SHIFT past the box's edge): his letters at 20 while
+     the whole name fits the box, else one step smaller at a time (the spacing tighter under 16), never under the 11 px floor; on
+     every rebuild, every letter he types and every turn of the phone */
+  var NAME_STEPS = [20, 18, 16, 15, 14, 13, 12, 11];
+  function fitName() {
+    var i = $('newconame'); if (!i || !i.getClientRects().length) return;
+    for (var k = 0; k < NAME_STEPS.length; k++) {
+      var s = NAME_STEPS[k]; i.style.setProperty('font-size', s + 'px'); i.style.setProperty('letter-spacing', s >= 18 ? '2px' : s >= 16 ? '1px' : '0px');
+      if (i.scrollWidth <= i.clientWidth + 1) break;
+    }
+    i.__cbxFit = s;
   }
   var PICKS_WATCHED = null;
   function watchPicks() {
     var nc = $('newco'); if (!nc || PICKS_WATCHED === nc) return; PICKS_WATCHED = nc;
     style();
     try { new MutationObserver(function () { if (!DRESSING) dressPicks(); }).observe(nc, { childList: true }); } catch (e) {}
+    nc.addEventListener('input', function (e) { if (e.target && e.target.id === 'newconame') fitName(); });   /* FIXES 11/9 (row 534) */
+    window.addEventListener('resize', fitName);
+    try { new ResizeObserver(function () { fitName(); }).observe(nc); } catch (e) {}   /* the picks are drawn before the door shows them: fit when they get a size */
     dressPicks();
   }
 
@@ -629,8 +653,8 @@
     JD + ' #newco .strip .org:has(>em.d1){box-shadow:inset 3px 0 0 #7fae6a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}' + JD + ' #newco .strip .org:has(>em.d2){box-shadow:inset 3px 0 0 #c9b45e,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
     JD + ' #newco .strip .org:has(>em.d3){box-shadow:inset 3px 0 0 #d08a5a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}' + JD + ' #newco .strip .org:has(>em.d4){box-shadow:inset 3px 0 0 #c9584a,inset 0 1px 0 #4a4c51,inset 0 -2px 0 #0b0b0c}',
     JD + ' #newco .strip .org.on{background:#e2bd6a!important;outline:2px solid #e2bd6a;outline-offset:-1px}' + JD + ' #newco .strip .org.on b{color:#140e05!important}',
-    JD + ' #newco #cbxorgfacts{display:flex;flex-direction:column;gap:1px;margin:3px 0 0;padding:4px 8px;background:#0a0b0b;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40;font-family:"BohemiaROM",monospace;font-size:11px;line-height:13px;color:#e7dcc6}',
-    JD + ' #newco #cbxorgfacts i{font-style:normal}' + JD + ' #newco h4.cbxorigin{min-height:0!important;margin:5px 0 3px!important;justify-content:flex-start!important}',
+    JD + ' #newco #cbxorgfacts,' + JD + ' #loadwrap>#cbxorgfacts{display:flex;flex-direction:column;gap:1px;margin:3px 0 0;padding:4px 8px;background:#0a0b0b;box-shadow:inset 0 2px 0 #000,inset 0 -1px 0 #3a3c40;font-family:"BohemiaROM",monospace;font-size:11px;line-height:13px;color:#e7dcc6}',
+    JD + ' #newco #cbxorgfacts i,' + JD + ' #loadwrap>#cbxorgfacts i{font-style:normal}' + JD + ' #newco h4.cbxorigin{min-height:0!important;margin:5px 0 3px!important;justify-content:flex-start!important}',
     /* the floor (rule 402 (b)): no word on the picks under 11 px */
     JD + ' #newco h4,' + JD + ' #newco h4 .cbxcap,' + JD + ' #newco .row button,' + JD + ' #newco .name button{font-size:11px!important}' + JD + ' #newco h4{line-height:12px!important}',
     /* the facts on the camera's little screen: sunk into the plastic (the shadow on top, the light under), cream on black */
@@ -652,8 +676,16 @@
       + JD + ' #newco h4 .cbxcap{display:none}'
       + JD + ' #newco h4{margin:6px 0 4px}'
       + JD + ' #newco h4.cbxorigin{margin-top:2px}'
-      + JD + ' #newco .strip{grid-template-columns:repeat(4,minmax(0,1fr))}'
-      + JD + ' #newco #cbxorgfacts i{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+      /* FIXES 11/9 (ask row 534, EYES 11/8: 'THE NIGHT' with no SHIFT, 'THE CREW THAT IS...', SCAVENGERS and COLLECTORS cut at the
+         plate's edge, the origin's own line ended in dots). Measured on 844 x 390: four plates across were 54 px, 45 px inside them,
+         and SCAVENGERS and COLLECTORS are 55 px at the 11 px floor; the facts box needed 284 and 383 px in 205. Now three plates
+         across (72 px, 63 inside), five rows, and the valley's code goes to the foot of the second column so the five rows fit;
+         the facts leave the picks for the camera's empty screen under the log (#loadwrap, ORGFACTS) and wrap, never dots */
+      + JD + ' #newco .strip{grid-template-columns:repeat(3,minmax(0,1fr))}'
+      + JD + ' #newco #newcoworldrow{margin-top:6px!important}'
+      + JD + ' #newco .name button{min-width:64px;padding:0 6px}'
+      + JD + ' #newco .name input{padding:0 8px}'
+      + JD + ' #loadwrap>#cbxorgfacts{grid-column:2;grid-row:2;align-self:end;margin:0 0 6px;min-width:0}'
       + JD + ' #newco .row button{padding:4px 4px;letter-spacing:0}'
     + '}',
     /* THE HINT: a tin plate beside the phone, his face and his mouth, the line typed on the beat */

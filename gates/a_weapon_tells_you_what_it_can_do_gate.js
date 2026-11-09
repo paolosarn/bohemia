@@ -44,11 +44,13 @@ const PS = OURS.pistol_shot.value;
 function fightBlows(r) {
   if (r.class === PS.class && PS.by_row[r.id] && BY[PS.by_row[r.id]]) {
     const rl = (BY[PS.reload.rides].skills || []).filter(k => k.name === PS.reload.skill)[0];
-    return BY[PS.by_row[r.id]].skills.concat(rl ? [rl] : []);
+    /* RE-AIMED 11/9 BY FIXES (ask row 529, EYES 11/8: the pistol's card said 'THROW JAVELIN'): a gun that rides another row's blow
+       SHOOTS; the ridden row's skill name is the fight's bookkeeping, never his word (its AP and breath are still the ride's) */
+    return BY[PS.by_row[r.id]].skills.map((k, i) => i === 0 ? Object.assign({}, k, { shoots: true }) : k).concat(rl ? [rl] : []);
   }
   return r.skills || [];
 }
-const wordOf = s => /^Reload/.test(s.name) ? 'RELOAD' : s.name.toUpperCase();
+const wordOf = s => /^Reload/.test(s.name) ? 'RELOAD' : s.shoots ? 'SHOOT' : s.name.toUpperCase();
 
 async function wholeTable(page, plant) {
   return page.evaluate(([rows, plant]) => {

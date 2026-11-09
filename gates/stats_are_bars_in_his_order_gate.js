@@ -143,11 +143,11 @@ async function crew(b, prof, plant, legs) {
     if (orderOf(picks) !== ORDER.join(',')) b5.push('order ' + orderOf(picks));
     if (!oneColumn(picks)) b5.push('stars not one column');
     picks.forEach(r => { if (!g || r.chg !== '+' + g[r.k] || !r.chgUp || !r.arrow) b5.push(r.k + ' shows ' + r.chg + ' want +' + (g && g[r.k]));
-      barOk(r, tb.stats[r.k], null, ceilK(r.k, tb.stats[r.k], tb.level, tb.stars[r.k])).forEach(x => b5.push('before pick ' + x)); });
+      barOk(r, tb.shown[r.k], null, ceilK(r.k, tb.shown[r.k], tb.level, tb.stars[r.k])).forEach(x => b5.push('before pick ' + x)); });   /* RE-AIMED 11/9 BY FIXES (ask row 536): the picks show his numbers WITH what he wears, as his card does, so a raised stat never reads lower after RAISE THEM */
     const pk = ['hp', 'ranged_skill', 'melee_defense'];
     for (const k of pk) { await fr.click('#levelup [data-raise="' + k + '"]'); await page.waitForTimeout(150); }
     picks = await fr.evaluate(READ, '#levelup [data-raise]');
-    picks.filter(r => pk.indexOf(r.k) >= 0).forEach(r => barOk(r, tb.stats[r.k] + g[r.k], tb.stats[r.k], null).forEach(x => b5.push('picked ' + x)));
+    picks.filter(r => pk.indexOf(r.k) >= 0).forEach(r => barOk(r, tb.shown[r.k] + g[r.k], tb.shown[r.k], null).forEach(x => b5.push('picked ' + x)));
     legs.C5 = ok(prof.name + ' C5 THE LEVEL-UP: the eight in his order, each roll a green arrow and its amount, a pick lights its rise within a pixel', !b5.length, b5.slice(0, 5).join('; '));
     /* C6 the piece compared, on RAUL (no level waiting): the best armour in the stash */
     await fr.click(await man('RAUL')); await page.waitForTimeout(400);
