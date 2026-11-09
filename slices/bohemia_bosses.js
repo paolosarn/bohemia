@@ -87,7 +87,7 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -95,8 +95,10 @@
     if (!S || S.v !== 1 || S.seed !== h.seed) { S = fresh(h.seed); save(); SHUT_DIRTY = true; }
     if (!S.lead) S.lead = {};
     if (!S.ground) S.ground = {};
+    if (!S.pipe) S.pipe = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
+    pipeCatchUp();     /* (9) his pipe too */
     if (SHUT_DIRTY) shutGrid();
     return true;
   }
@@ -183,7 +185,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) return;
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) return;   /* (8) his ground, or (9) his pipe */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -295,7 +297,8 @@
   }
   /* his own place always works for his verb, right where he fell (WORLD TWO may stand him on a street when none of his kinds is in reach) */
   function hisPlace(id, x, y) { var r = verbRow(id), h = hs(); if (!r || !h) return false; var f = h.boss.found[r.n]; return !!(f && h.boss.fallen[r.n] && f.x === x && f.y === y); }
-  function isMain(x, y) { var V = verbRow('open'); return !!V && walk(x, y) && !nearTown(x, y, 1) && (hisPlace('open', x, y) || !!nearKind(x, y, V.verb.main_districts || [])); }
+  function isMain(x, y) { var V = verbRow('open'), pp = onPipe(x, y); if (V && pp && pp.open && walk(x, y)) return true;   /* (9) his pipe, once he is down, is a line of mains */
+    return !!V && walk(x, y) && !nearTown(x, y, 1) && (hisPlace('open', x, y) || !!nearKind(x, y, V.verb.main_districts || [])); }
   function mains() {   /* every main in the valley, counted once (the map does not move) */
     if (MAINS) return MAINS; var n = N(), V = verbRow('open'); if (!n || !V) return [];
     MAINS = []; for (var y = 1; y < n - 1; y++) for (var x = 1; x < n - 1; x++) if (isMain(x, y)) MAINS.push([x, y]);
@@ -556,6 +559,125 @@
     });
     return c;
   }
+  /* ---------- (9) HIS PIPE (BOSSES 11/9, rule 440(b): the next two of the ladder, each changing the map ITS OWN WAY; ask lines 167, 522;
+     records/BOHEMIA_BOSSES_THE_TAP_AND_THE_FILTER_CHANGE_THE_MAP_11_9_26.md). THE POT closed streets; THE TAP's way is his PIPE.
+     His rumour: 'His boys sit up on the pipes with crossbows, bro. Don't run at them in the open.' A boss whose row has 'pipe' runs a
+     water main from his door toward the nearest town ('length' street blocks of the map's own route), worked out once off his place
+     and kept with the game. WHILE HE STANDS his watchers sit on it: every pipe block his crew steps onto, a bolt takes 'bolt' blood
+     off one of his men (never the last of it; a man no fight has seen yet is missed), the number rising off the crew. The walk is NOT
+     refused (that was THE POT's); it costs. WHEN HE FALLS his watchers come down and the pipe is a line of taps: every pipe block is a
+     water main for his own verb (TURN THE WATER ON, his wrench: once each, the batteries the verb pays), painted with a standpipe and
+     a trough, and the street posts it. Kept after a reload; WORLD TWO's fallen flag is the truth. */
+  var PIPE_LAST = null, RISES = [];
+  function pipeRow(n) { var r = row(n); return r && r.pipe ? r : null; }
+  function onPipe(x, y) {
+    if (!S || !S.pipe) return null; var h = hs();
+    for (var k in S.pipe) { var P = S.pipe[k]; if (!P || !P.blocks) continue;
+      for (var i = 0; i < P.blocks.length; i++) { var b = P.blocks[i]; if (b.x === x && b.y === y) return { n: k, b: b, open: P.open != null || !!(h && h.boss.fallen[k]) }; } }
+    return null;
+  }
+  function makePipe(r, at) {
+    var G = r.pipe, len = Math.max(3, G.length | 0 || 7), bs = bases(), best = null;
+    var route = function (a, b) { try { return cityRoute(a[0], a[1], b[0], b[1]); } catch (e) { return null; } };
+    for (var tn in bs) { var tb = bs[tn]; if (!tb) continue; var d = null; try { d = townDoor(tb.x | 0, tb.y | 0); } catch (e) {} if (!d) continue;
+      if (cheb(d[0], d[1], at[0], at[1]) > 40) continue;
+      var p = route(at, d); if (p && (!best || p.length < best.p.length)) best = { tn: tn, p: p }; }
+    if (!best) return { at: at.slice(), town: null, blocks: [], open: null, hits: 0, made: day(), draft: true };
+    var blocks = [];
+    for (var i = 1; i < best.p.length && blocks.length < len; i++) {
+      var q = best.p[i]; if (nearTown(q[0], q[1], 1)) break;
+      var a = best.p[i - 1], c = best.p[Math.min(best.p.length - 1, i + 1)], dx = Math.abs(c[0] - a[0]), dy = Math.abs(c[1] - a[1]);
+      blocks.push({ x: q[0], y: q[1], along: dx >= dy ? 'x' : 'y' });
+    }
+    return { at: at.slice(), town: best.tn, blocks: blocks, open: null, hits: 0, made: day(), draft: true };
+  }
+  function pipeTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.pipe) S.pipe = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.pipe || S.pipe[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.pipe[r.n] = makePipe(r, [at.x, at.y]); save();
+      LAST.pipe = { n: r.n, blocks: S.pipe[r.n].blocks.length, town: S.pipe[r.n].town, at: Date.now() };
+    });
+    /* a bolt: the crew stepped onto a pipe block while he stands (each new block once; never at a reload, never in a town or a fight) */
+    var me = here(); if (!me) return;
+    var k = me[0] + ',' + me[1]; if (PIPE_LAST === null) { PIPE_LAST = k; return; } if (k === PIPE_LAST) return; PIPE_LAST = k;
+    var hit = onPipe(me[0], me[1]); if (!hit || hit.open || inTown() || fightUp()) return;
+    bolt(pipeRow(hit.n), hit, me);
+  }
+  function bolt(r, hit, at) {
+    if (!r) return null;
+    var G = r.pipe, P = S.pipe[hit.n], C = root.BohemiaCondition, hp = G.bolt | 0 || 6, who = null, took = 0;
+    try {
+      var c = C.get(), keys = Object.keys(c.men || {}).filter(function (k) { var m = c.men[k]; return m && m.hpMax > 0 && (m.hpMax - (m.lostHp || 0)) > hp + 1 && !(c.dead || []).some(function (d) { return d && d.name === k; }); });
+      if (keys.length) { var key = keys[(P.hits | 0) % keys.length], m = c.men[key]; took = Math.min(hp, m.hpMax - (m.lostHp || 0) - 1); m.lostHp = (m.lostHp || 0) + took; who = m.shown || key;
+        try { root.localStorage.setItem(C.KEY, JSON.stringify(c)); } catch (e) {}
+        try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { bolt: took } })); } catch (e) {} }
+    } catch (e) { LAST.err = String(e && e.message || e); }
+    var first = !(P.hits | 0); P.hits = (P.hits | 0) + 1; save();
+    var txt = took ? fill(G.rise || '-{hp} BLOOD', { hp: took }) : (G.rise_miss || 'A BOLT MISSES');
+    RISES.push({ x: at[0], y: at[1], t0: performance.now(), txt: txt, col: took ? '#e0705a' : '#e6dcc4' }); tick();
+    if (first && G.feed_hit) feed(G.feed_hit.who, fill(G.feed_hit.txt, { where: whereWord(at[0], at[1]) }), 'world');
+    if (first && G.say_hit) say(fill(G.say_hit, { hp: took, who: who || 'nobody' }));
+    LAST.bolts = (LAST.bolts || []).concat([{ n: hit.n, at: at.slice(), took: took, who: who, t: Date.now() }]).slice(-12);
+    root.__BOSS_BOLTS = LAST.bolts;
+    return took;
+  }
+  function say(t) { try { if (typeof travelSay === 'function') travelSay(t); } catch (e) {} }
+  function pipeFell(r, h) {
+    var G = r.pipe; if (!G || !S) return null;
+    if (!S.pipe) S.pipe = {};
+    var P = S.pipe[r.n]; if (!P) P = S.pipe[r.n] = { at: null, town: null, blocks: [], open: null, hits: 0, made: day(), draft: true };
+    if (P.open != null) return P;
+    P.open = day(); MAINS = null;
+    var n = P.blocks.length, V = verbRow('open'), pay = (V && V.verb.pay_batteries) | 0, o = { n: n, N: n, town: P.town || 'the town', TOWN: String(P.town || 'the town').toUpperCase(), pay: pay,
+      taps: n + (n === 1 ? ' tap' : ' taps'), where: P.at ? whereWord(P.at[0], P.at[1]) : 'that block' };
+    o.TAPS = o.taps.toUpperCase();
+    if (G.feed && n) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    P.said = n ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.pipeFell = { n: r.n, taps: n, said: P.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-pipe', { detail: { n: r.n, taps: n } })); } catch (e) {}
+    return P;
+  }
+  function pipeCatchUp() {
+    if (!DATA || !S || !S.pipe) return; var h = hs(); if (!h) return;
+    for (var k in S.pipe) { var P = S.pipe[k]; if (P && P.open == null && h.boss.fallen[k]) { var r = pipeRow(k); if (r) pipeFell(r, h); else { P.open = day(); save(); } } }
+  }
+  function pipeKey(r, b, open) { return ((r.pipe.pic || 'pipe') + '_' + (b.along === 'x' ? 'x' : 'y')) + (open ? '_after' : '_before'); }
+  function pipeDraw(gx, ox, oy, beat) {
+    if (!S || !S.pipe) return;
+    var h = hs(); LAST.drew.pipe = [];
+    for (var k in S.pipe) {
+      var P = S.pipe[k], r = pipeRow(k); if (!P || !r) continue;
+      var open = P.open != null || !!(h && h.boss.fallen[k]), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      (P.blocks || []).forEach(function (b) {
+        var vis = seen(b.x, b.y); if (!vis && !known) return;
+        if (inBeat && open) { LAST.drew.pipe.push({ n: k, at: [b.x, b.y], key: 'beat', open: open }); return; }
+        var key = pipeKey(r, b, open), q = paint(gx, key, b.x, b.y, ox, oy, beat, 1.0, 0, !vis);
+        if (q) { LAST.drew.pipe.push({ n: k, at: [b.x, b.y], key: key, open: open, w: q.w, dark: !vis }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function pipeBeat(x, ox, oy, beat, u, alpha) {
+    var P = S && S.pipe && BEAT && S.pipe[BEAT.n], r = BEAT && pipeRow(BEAT.n); if (!P || !r) return 0;
+    var c = 0;
+    (P.blocks || []).forEach(function (b) { var bb = rectOf(pipeKey(r, b, true), b.x, b.y, ox, oy, 1.0, 0); if (!bb) return; wipe(x, pipeKey(r, b, false), pipeKey(r, b, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+  function risesPaint(x, ox, oy) {   /* a bolt's number rises off his men where they stood under the pipe */
+    var now = performance.now(), k = ppc(), f = 'monospace'; try { if (typeof FACE === 'function') f = FACE('casing'); } catch (e) {}
+    RISES = RISES.filter(function (q) { return now - q.t0 < 1800; });
+    RISES.forEach(function (q) { var t = now - q.t0, p = iso(q.x, q.y, ox, oy), a = t < 1200 ? 1 : Math.max(0, (1800 - t) / 600), ty = Math.round(p.sy - TH * 0.6 - 18 * k - Math.min(1, t / 1400) * 30 * k);
+      x.save(); x.globalAlpha = a; x.font = '400 ' + Math.round(12 * k) + 'px ' + f; x.textAlign = 'center'; x.lineJoin = 'round'; x.lineWidth = Math.round(4 * k); x.strokeStyle = 'rgba(10,8,6,0.9)';
+      x.strokeText(q.txt, Math.round(p.sx), ty); x.fillStyle = q.col; x.fillText(q.txt, Math.round(p.sx), ty); x.restore(); q.drawn = [Math.round(p.sx), ty]; });
+    if (RISES.length) LAST.rise = RISES.map(function (q) { return { txt: q.txt, drawn: q.drawn || null }; });
+  }
+
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
@@ -663,7 +785,8 @@
       try { render(); } catch (e) {}
       if (BEAT && now - BEAT.t0 >= beatT()) beatEnd();
       if (UB && now - UB.t0 >= UB_MS) { UB = null; LAST.useBeat.done = Date.now(); }
-      if (BEAT || UB) RAF = requestAnimationFrame(step); else { ovOff(); try { render(); } catch (e) {} }
+      if (RISES.length && RISES.every(function (q) { return now - q.t0 >= 1800; })) RISES = [];
+      if (BEAT || UB || RISES.length) RAF = requestAnimationFrame(step); else { ovOff(); try { render(); } catch (e) {} }
     });
   }
   function ov() {
@@ -694,14 +817,16 @@
     x.restore();
   }
   function ovPaint(ox, oy, beat) {
-    if (!BEAT && !UB) return;
+    if (!BEAT && !UB && !RISES.length) return;
     var o = ov(); if (!o) return; var x = o.getContext('2d'); x.clearRect(0, 0, o.width, o.height);
     var now = performance.now();
+    try { if (RISES.length) risesPaint(x, ox, oy); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) a bolt's number */
     if (BEAT) {
       var t = now - BEAT.t0, M = BEAT_MS, r = BEAT.r, b = rectOf(paintKey(r, true), BEAT.x, BEAT.y, ox, oy, 1.3, 64);
       if (b) {
         var u = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)), fade = Math.max(0, Math.min(1, (beatT() - t) / 500));
-        try { LAST.beat.checkpoints = groundBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.checkpoints = groundBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }
+        try { LAST.beat.pipe = pipeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe rolls over to taps */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -743,7 +868,7 @@
       /* once THE TAP is down: the shut mains he has seen, near him only (the three nearest within eight blocks, a little faded: 11/3, six
          within twelve were more marks round him than the changed place itself), never the whole valley */
       if (S.verbs.open) { var me = here() || [0, 0]; gx.globalAlpha = 0.8;
-        mains().filter(function (m) { return !marked('open', m[0], m[1]) && seen(m[0], m[1]) && cheb(m[0], m[1], me[0], me[1]) <= 8; })
+        mains().filter(function (m) { return !marked('open', m[0], m[1]) && seen(m[0], m[1]) && cheb(m[0], m[1], me[0], me[1]) <= 8 && !onPipe(m[0], m[1]); })
           .sort(function (a, b) { return cheb(a[0], a[1], me[0], me[1]) - cheb(b[0], b[1], me[0], me[1]); }).slice(0, 3)
           .forEach(function (m) { if (paint(gx, 'main_before', m[0], m[1], ox, oy, 0, 0.32, 18, false, MARK_OFF[0], MARK_OFF[1])) LAST.drew.mains++; }); gx.globalAlpha = 1; }
       /* the blocks a verb was used on: the thing it left, off his men's feet (the old 9-second plate is gone: the number rises off them instead) */
@@ -752,6 +877,7 @@
         var b = paint(gx, PROP[m.k] || 'clean', m.x, m.y, ox, oy, beat, 0.36, 22, false, MARK_OFF[0], MARK_OFF[1]); if (!b) return; LAST.drew.marks++; LAST.drew.painted++;
       });
       try { groundTick(); groundDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (8) his checkpoints, under his place */
+      try { pipeTick(); pipeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -785,6 +911,7 @@
     var d = ev && ev.detail; if (!d || !sync()) return; var r = row(d.n), h = hs(); if (!r) return;
     grant(r, h && h.boss.found[d.n]);
     if (r.ground) groundFell(r, h);   /* (8) his ground: the checkpoints down, the till, the feed (sync() may already have done it) */
+    if (r.pipe) pipeFell(r, h);       /* (9) his pipe: the watchers down, the taps */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -803,6 +930,9 @@
     /* BOSSES 11/8 (rule 437(a)): his ground, for the gate (what is shut, what opened, what was paid) */
     ground: function (n) { sync(); return S && S.ground ? (n ? (S.ground[n] || null) : S.ground) : null; },
     shutAt: function (x, y) { sync(); return shutAt(x, y); },
-    regrid: function () { SHUT_DIRTY = true; shutGrid(); return root.__BOSS_SHUT || null; }
+    regrid: function () { SHUT_DIRTY = true; shutGrid(); return root.__BOSS_SHUT || null; },
+    /* BOSSES 11/9 (rule 440(b)): his pipe, for the gate */
+    pipe: function (n) { sync(); return S && S.pipe ? (n ? (S.pipe[n] || null) : S.pipe) : null; },
+    onPipe: function (x, y) { sync(); return onPipe(x, y); }
   };
 })(typeof window !== 'undefined' ? window : this);

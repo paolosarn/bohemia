@@ -9921,6 +9921,15 @@ GATES = [
      "way across is shorter, the kerb pictures, the till paid once in the purse's ledger, the strip and the radio on the feed (C1); the "
      "same phone opens the game again: still down, still COOK, still open, not paid twice (R1). Planted: a ground that shut nothing, a "
      "checkpoint shut again after the fall, the strip's post gone, a phone that forgot the save. green at registration, 18/0, about 9 min", True),
+    ('THE TAP CHANGES THE MAP', ['node', 'gates/the_tap_changes_the_map_gate.js'],
+     "BOSSES gate, 11/9, VAMILY rule 440(b), ask lines 167, 522 (Paolo 11/9: 'More everything pls'; the next two of the ladder, each "
+     "changing the map its own way): the stranger's game on the demo at phone size, THE POT first (the ladder's order), then THE TAP "
+     "end to end: his tag and rumour (T1), EL CHINO asks and one of yours reads the tag (T2); HIS PIPE, the map's own route from his "
+     "door toward a town, painted with his watcher and still walkable (P1); walking under it costs a bolt a block, the number rising "
+     "off the crew (P2); his card first (B0), his fight (B1), the beat rolls the pipe to taps and EL CHINO says the taps (B2); no bolt "
+     "after (C1a), every pipe block a main and a real tap pays (C1b), painted with taps (C1c), the feed (C1d); the same phone opens "
+     "the game again and it holds (R1). Planted: a walk with no bolt, the pipe guarded again after the fall, a phone that forgot "
+     "the save. green at registration, 17/0, about 14 min", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "
