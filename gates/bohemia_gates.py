@@ -9911,6 +9911,16 @@ GATES = [
      "named, his fight through the one door as the man himself with his crew and his board, won (AUTO, or the checker says it ended "
      "it), he falls and his place changes, his verb on the phone's band where it works on the grid, a real tap uses it and it did what "
      "it says (blood back, batteries, wound days). green at registration, 19/0, about 10 min", True),
+    ('THE FIRST BOSS CHANGES THE MAP', ['node', 'gates/the_first_boss_changes_the_map_gate.js'],
+     "BOSSES gate, 11/8, VAMILY rule 437(a), ask lines 167, 346, 522 (Paolo 10/26: 'bosses in this game where you're able to alter the "
+     "map and what's going on in the world around you, that's gonna be super important'): the stranger's game on the demo at phone size, "
+     "THE POT end to end: his flyer and his rumour (F1); she asks, one of yours reads the flyer, his place is marked (F2); before he falls "
+     "his line cooks hold his ground, the streets into it shut, the map's own walk refusing each, a way across going round, his front "
+     "open, every town reachable (G1), the checkpoints painted on exactly those blocks (G2); his card first (B0); his fight won (B1); "
+     "the beat opens the checkpoints with his kitchen and her card says the streets and his till (B2); every shut street walks, the "
+     "way across is shorter, the kerb pictures, the till paid once in the purse's ledger, the strip and the radio on the feed (C1); the "
+     "same phone opens the game again: still down, still COOK, still open, not paid twice (R1). Planted: a ground that shut nothing, a "
+     "checkpoint shut again after the fall, the strip's post gone, a phone that forgot the save. green at registration, 18/0, about 9 min", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

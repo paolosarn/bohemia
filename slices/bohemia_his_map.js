@@ -169,7 +169,11 @@
     var ok = false, msg = { type: 'BOHEMIA_CITY_ENCOUNTER', label: r.n, faction: null, draft: true, packageId: pkg, roster: roster, party: party,
       street: true, why: 'boss:' + r.n, at: { gx: w[0] | 0, gy: w[1] | 0 } };
     try { if (root.BohemiaBosses && root.BohemiaBosses.dress) root.BohemiaBosses.dress(msg, r); } catch (e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): the man, his crew, his board (slices/bohemia_bosses.js) */
-    try { ok = cityHandOver(msg); } catch (e) { ok = false; }
+    /* __THE_BOSSES__ (BOSSES 11/8, rule 437(a), marked): his card first, ENGAGE or FALL BACK (boss_map.json how_known.fight). Measured 11/8
+       (gates/bosses_act_one_gate.js A2, gates/the_first_boss_changes_the_map_gate.js B0): RUN's door shows the meet card only for what his
+       WALKING meets (MEET.walk), and this tick runs between steps, so THE POT's fight opened with no card, no face, no way to fall back.
+       RUN's own meetWalk says it is his walk that met him; without it (an older map) the door is as before. */
+    try { ok = (typeof meetWalk === 'function') ? meetWalk(function () { return cityHandOver(msg); }) : cityHandOver(msg); } catch (e) { ok = false; }
     if (!ok) { S.fighting = null; return false; }
     try { CITY_CONTACT_POSTED = true; } catch (e) {}
     root.__BOSS_FIGHTS = (root.__BOSS_FIGHTS | 0) + 1;

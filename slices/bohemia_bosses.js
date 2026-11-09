@@ -87,14 +87,17 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
-    if (!S) { try { S = JSON.parse(root.localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; } }
-    if (!S || S.v !== 1 || S.seed !== h.seed) { S = fresh(h.seed); save(); }
+    if (!S) { try { S = JSON.parse(root.localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; } SHUT_DIRTY = true; }
+    if (!S || S.v !== 1 || S.seed !== h.seed) { S = fresh(h.seed); save(); SHUT_DIRTY = true; }
     if (!S.lead) S.lead = {};
+    if (!S.ground) S.ground = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
+    groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
+    if (SHUT_DIRTY) shutGrid();
     return true;
   }
   function lead(n) { if (!S.lead[n]) S.lead[n] = {}; return S.lead[n]; }
@@ -161,6 +164,7 @@
     var ok = talk('after', r.n, { look: A.look, name: A.name, from: A.from, head: r.n + ' IS DOWN', text: A.valley || A.says, opts: [{ t: (Hd && A.take) || A.ok || 'GOT IT', tag: V.button || '',
       fn: function () { src = handBox(); HUSH = Date.now() + HUSH_MS; closeCard(); if (Hd) fly(r, src); else camBack(); } }] });   /* the hush before the close (the close redraws, and a redraw asks) */
     if (ok && Hd) handOnCard(r, Hd);
+    if (ok) groundOnCard(r);
     return ok;
   }
   /* (5) the thing he hands you, on her card: his pot, his wrench, his filter, and its one plain line (what, where, how often, the number) */
@@ -174,6 +178,18 @@
         + '<div style="margin-top:3px;font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.35;color:#ecdfc2">' + String(Hd.line).replace(/[<>&]/g, '') + '</div></div>';
       tx.parentNode.insertBefore(d, tx.nextSibling);
       if (root.__BOSS_CARD) root.__BOSS_CARD.hand = { name: Hd.name, line: Hd.line, pic: Hd.pic };
+    } catch (e) { LAST.err = String(e && e.message || e); }
+  }
+  /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
+  function groundOnCard(r) {
+    try {
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) return;
+      var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
+      var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
+      d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
+      d.textContent = String(g.said);
+      at.parentNode.insertBefore(d, at.nextSibling);
+      if (root.__BOSS_CARD) root.__BOSS_CARD.ground = String(g.said);
     } catch (e) { LAST.err = String(e && e.message || e); }
   }
   function handBox() { try { var im = document.querySelector('#roadcard .rchand img'); if (!im) return null; var b = im.getBoundingClientRect(); return { x: b.left, y: b.top, w: b.width, h: b.height }; } catch (e) { return null; } }
@@ -409,6 +425,143 @@
     return got || true;
   }
 
+  /* ---------- (8) HIS GROUND (BOSSES 11/8, rule 437(a), ask lines 167, 346, 522; records/BOHEMIA_BOSSES_THE_FIRST_BOSS_CHANGES_THE_MAP_11_8_26.md)
+     PAOLO 10/26: 'bosses... where you're able to alter the map and what's going on in the world around you'. MEASURED 11/8: THE POT's
+     fall changed one picture; his crew held no street and closed no road, so the map worked the same after him as before.
+     NOW: a boss whose row has 'ground' holds the streets round his place with his crew's CHECKPOINTS (carts, a burned car, his flag,
+     two of his men): every street block on the ring 'radius' blocks out from his door is shut but the one the sign points down (his
+     front), so the map's own route goes round his ground (Battle Brothers: a location's men hold the land round it until it falls).
+     Worked out once, the moment WORLD TWO stands him somewhere, off the game's seed and his place, and kept with the game.
+     The walk refuses a shut block through the map's own walk (cityWalkable wrapped here, the way WORLD 7's shut roads wrap it;
+     the bench gets none). WHEN HE FALLS: his crew is gone, every checkpoint is shoved to the kerb on the map (the after picture),
+     the walk goes through, his till pays (Battle Brothers pays a big fight with what the place held), the strip posts it on the feed.
+     All of it is in this file's state, so a reload keeps it; WORLD TWO's fallen flag is the truth if the two ever disagree. */
+  var SHUT = null, SHUT_N = 0, SHUT_OFF = false, SHUT_DIRTY = true, RAW_WALK = null;
+  function groundRow(n) { var r = row(n); return r && r.ground ? r : null; }
+  function shutGrid() {
+    SHUT_DIRTY = false; var n = N(); SHUT = null; SHUT_N = n;
+    if (!S || !S.ground || !n || bench()) return;
+    var h = hs(), a = null;
+    for (var k in S.ground) { var g = S.ground[k]; if (!g || g.open != null || (h && h.boss.fallen[k])) continue;
+      (g.shut || []).forEach(function (b) { if (b.x >= 0 && b.y >= 0 && b.x < n && b.y < n) { a = a || new Uint8Array(n * n); a[b.y * n + b.x] = 1; } }); }
+    SHUT = a; root.__BOSS_SHUT = a ? { n: n, count: a.reduce(function (s, v) { return s + v; }, 0) } : null;
+  }
+  function shutAt(x, y) { return !SHUT_OFF && !!SHUT && x >= 0 && y >= 0 && x < SHUT_N && y < SHUT_N && SHUT[y * SHUT_N + x] === 1; }
+  /* the ring 'radius' out from his door: which way a block's street runs (the barricade lies across it) */
+  function along(x, y, at) {
+    var dx = x - at[0], dy = y - at[1], R = Math.max(Math.abs(dx), Math.abs(dy));
+    var ex = Math.abs(dx) === R, ey = Math.abs(dy) === R;
+    if (ex && !ey) return 'x'; if (ey && !ex) return 'y';
+    return (walk(x - Math.sign(dx), y) && walk(x + Math.sign(dx), y)) ? 'x' : 'y';   /* a corner: the way the street goes through it */
+  }
+  function makeGround(r, at, from) {
+    var G = r.ground, n = N(), R = Math.max(2, G.radius | 0 || 3); if (!n) return null;
+    var rng = (function (s) { s = s >>> 0 || 1; return function () { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 100000) / 100000; }; })((S.seed ^ (at[0] * 73856093) ^ (at[1] * 19349663)) >>> 0);
+    var route = function (a, b) { try { return cityRoute(a[0], a[1], b[0], b[1]); } catch (e) { return null; } };
+    var ring = [];
+    SHUT_OFF = true;
+    try {
+      for (var dy = -R; dy <= R; dy++) for (var dx = -R; dx <= R; dx++) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) !== R) continue;
+        var x = at[0] + dx, y = at[1] + dy; if (x < 1 || y < 1 || x >= n - 1 || y >= n - 1 || !walk(x, y)) continue;
+        /* a way IN: a ring block with a street on the inside of it. A street that only runs past his ground stays open (measured 11/8:
+           without this the whole street along the east side, seven blocks, was shut and lined with carts that blocked nothing) */
+        var inn = false; for (var a2 = -1; a2 <= 1 && !inn; a2++) for (var c2 = -1; c2 <= 1 && !inn; c2++) {
+          var ix = x + a2, iy = y + c2; if (Math.max(Math.abs(ix - at[0]), Math.abs(iy - at[1])) === R - 1 && walk(ix, iy)) inn = true; }
+        if (!inn) continue;
+        ring.push({ x: x, y: y, along: along(x, y, at), town: !!nearTown(x, y, 2) });
+      }
+      /* his front: the ring blocks on the map's own way in from where the sign is (and the blocks beside them on the ring: a wide street is one way in) */
+      var p = from ? route(from, at) : null, front = {};
+      (p || []).forEach(function (q) { if (Math.max(Math.abs(q[0] - at[0]), Math.abs(q[1] - at[1])) === R) front[q[0] + ',' + q[1]] = 1; });
+      if (!Object.keys(front).length && ring.length) { var nb = ring.slice().sort(function (a, b) { return cheb(a.x, a.y, from ? from[0] : at[0], from ? from[1] : at[1]) - cheb(b.x, b.y, from ? from[0] : at[0], from ? from[1] : at[1]); })[0]; front[nb.x + ',' + nb.y] = 1; }
+      var grew = true; while (grew) { grew = false; ring.forEach(function (b) { var k = b.x + ',' + b.y; if (front[k]) return;
+        for (var a = -1; a <= 1; a++) for (var c = -1; c <= 1; c++) if ((a || c) && front[(b.x + a) + ',' + (b.y + c)] && ((a === 0) !== (c === 0))) { front[k] = 1; grew = true; return; } }); }
+      var shut = ring.filter(function (b) { return !front[b.x + ',' + b.y] && !b.town; });
+      /* never a shut that cuts him off: from where he stands, his door and every town he could reach must still be reachable */
+      var me = here() || from || at, bs = bases(), towns = [];
+      for (var tn in bs) { var tb = bs[tn]; if (!tb) continue; var d = null; try { d = townDoor(tb.x | 0, tb.y | 0); } catch (e) {} if (d && route(me, d)) towns.push(d); }
+      var ok = function () { SHUT_OFF = false; SHUT = new Uint8Array(n * n); SHUT_N = n; shut.forEach(function (b) { SHUT[b.y * n + b.x] = 1; });
+        var good = !!route(me, at) && (!from || !!route(from, at)) && towns.every(function (t) { return !!route(me, t); }); SHUT_OFF = true; return good; };
+      var tries = 0; while (shut.length && !ok() && tries++ < 40) shut.splice(Math.floor(rng() * shut.length) % shut.length, 1);
+      if (!shut.length || !ok()) shut = [];
+      var g = { at: at.slice(), from: from ? from.slice() : null, front: Object.keys(front), shut: shut.map(function (b) { return { x: b.x, y: b.y, along: b.along }; }),
+        ring: ring.length, open: null, paid: null, made: day(), draft: true };
+      return g;
+    } finally { SHUT_OFF = false; SHUT_DIRTY = true; }
+  }
+  function groundTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.ground) S.ground = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.ground || S.ground[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      var g = makeGround(r, [at.x, at.y], sg ? [sg.x, sg.y] : here());
+      if (g) { S.ground[r.n] = g; save(); LAST.ground = { n: r.n, shut: g.shut.length, ring: g.ring, at: Date.now() }; }
+    });
+    if (SHUT_DIRTY) shutGrid();
+  }
+  /* he fell: his crew is gone, the checkpoints come down, the till pays, the strip posts it */
+  function groundFell(r, h) {
+    var G = r.ground; if (!G || !S) return null;
+    if (!S.ground) S.ground = {};
+    var g = S.ground[r.n]; if (!g) { g = S.ground[r.n] = { at: null, from: null, front: [], shut: [], ring: 0, open: null, paid: null, made: day(), draft: true }; }
+    if (g.open != null) return g;
+    g.open = day();
+    var f = h && h.boss.found[r.n], w = f ? whereWord(f.x, f.y) : 'that block', nOpen = g.shut.length;
+    var till = G.till | 0;
+    if (till > 0 && g.paid == null) { g.paid = till; save();
+      try { BohemiaPurse.credit(purseGet(), 'electricity', till, (G.till_word || 'his till') + ' on ' + w, 'boss-till:' + r.n, day()); } catch (e) { g.paid = 0; } }
+    save(); SHUT_DIRTY = true; shutGrid();
+    var o = { where: w, n: nOpen, streets: nOpen + (nOpen === 1 ? ' street' : ' streets'), till: g.paid | 0, crew: G.crew || 'his crew' };
+    o.STREETS = o.streets.toUpperCase(); o.streets = o.streets.charAt(0).toUpperCase() + o.streets.slice(1);   /* '7 STREETS' on her card, '7 streets' on the feed */
+    if (G.feed) feed(G.feed.who, fill(nOpen ? G.feed.txt : (G.feed.txt_none || G.feed.txt), o), 'world');
+    if (G.mine && g.paid) feed('@yourcompany', fill(G.mine, o), 'mine');
+    g.said = fill(nOpen ? G.card : (G.card_none || G.card), o);
+    save();
+    LAST.groundFell = { n: r.n, open: nOpen, paid: g.paid | 0, said: g.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-ground', { detail: { n: r.n, open: nOpen, paid: g.paid | 0 } })); } catch (e) {}
+    return g;
+  }
+  /* a save from before this round, or a fall this file missed: WORLD TWO's fallen flag is the truth */
+  function groundCatchUp() {
+    if (!DATA || !S || !S.ground) return; var h = hs(); if (!h) return;
+    for (var k in S.ground) { var g = S.ground[k]; if (g && g.open == null && h.boss.fallen[k]) { var r = groundRow(k); if (r) groundFell(r, h); else { g.open = day(); save(); SHUT_DIRTY = true; } } }
+  }
+  /* the checkpoints on the map: closed (his men, the fire on the beat), or shoved to the kerb once he is down; one street block each */
+  function groundDraw(gx, ox, oy, beat) {
+    if (!S || !S.ground) return;
+    var h = hs(); LAST.drew.checkpoints = [];
+    for (var k in S.ground) {
+      var g = S.ground[k], r = groundRow(k); if (!g || !r) continue;
+      var open = g.open != null || !!(h && h.boss.fallen[k]), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      (g.shut || []).forEach(function (b) {
+        var vis = seen(b.x, b.y); if (!vis && !known) return;
+        if (inBeat && open) { LAST.drew.checkpoints.push({ n: k, at: [b.x, b.y], key: 'beat', open: open }); return; }   /* the beat's glass plays it */
+        var key = ((r.ground.pic || 'checkpoint') + '_' + (b.along === 'x' ? 'x' : 'y')) + (open ? '_after' : '_before');
+        var q = paint(gx, key, b.x, b.y, ox, oy, beat, 1.0, 0, !vis);
+        if (q) { LAST.drew.checkpoints.push({ n: k, at: [b.x, b.y], key: key, open: open, w: q.w, dark: !vis }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function groundBeat(x, ox, oy, beat, u, alpha) {   /* the moment he falls: his checkpoints roll open on the same tape as his place */
+    var g = S && S.ground && BEAT && S.ground[BEAT.n], r = BEAT && groundRow(BEAT.n); if (!g || !r) return 0;
+    var c = 0;
+    (g.shut || []).forEach(function (b) {
+      var base = (r.ground.pic || 'checkpoint') + '_' + (b.along === 'x' ? 'x' : 'y'), bb = rectOf(base + '_after', b.x, b.y, ox, oy, 1.0, 0); if (!bb) return;
+      wipe(x, base + '_before', base + '_after', bb, beat, u, alpha); c++;
+    });
+    return c;
+  }
+  /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
+  if (typeof root.cityWalkable === 'function') {
+    RAW_WALK = root.cityWalkable;
+    root.cityWalkable = function (x, y) { if (shutAt(x, y)) return false; return RAW_WALK(x, y); };
+  }
+
   /* ---------- (1) drawing: his place painted, what changed, the blocks you used a verb on ---------- */
   function ppc() { try { var r = cv.getBoundingClientRect(); return r.width ? CVW / r.width : 1; } catch (e) { return 1; } }   /* canvas px a CSS px */
   function pic(key, beat) { var P = PICS && PICS[key]; if (!P) return null; var im = IMG[P.frames[beat % P.frames.length]]; return im && im.complete && im.naturalWidth ? { P: P, im: im } : null; }
@@ -548,6 +701,7 @@
       var t = now - BEAT.t0, M = BEAT_MS, r = BEAT.r, b = rectOf(paintKey(r, true), BEAT.x, BEAT.y, ox, oy, 1.3, 64);
       if (b) {
         var u = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)), fade = Math.max(0, Math.min(1, (beatT() - t) / 500));
+        try { LAST.beat.checkpoints = groundBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -597,6 +751,7 @@
         if (UB && UB.x === m.x && UB.y === m.y && UB.to === (PROP[m.k] || 'clean')) return;   /* still playing on his glass */
         var b = paint(gx, PROP[m.k] || 'clean', m.x, m.y, ox, oy, beat, 0.36, 22, false, MARK_OFF[0], MARK_OFF[1]); if (!b) return; LAST.drew.marks++; LAST.drew.painted++;
       });
+      try { groundTick(); groundDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (8) his checkpoints, under his place */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -629,6 +784,7 @@
   root.addEventListener('bohemia:boss-fell', function (ev) {
     var d = ev && ev.detail; if (!d || !sync()) return; var r = row(d.n), h = hs(); if (!r) return;
     grant(r, h && h.boss.found[d.n]);
+    if (r.ground) groundFell(r, h);   /* (8) his ground: the checkpoints down, the till, the feed (sync() may already have done it) */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -643,6 +799,10 @@
     data: function () { return DATA; }, pictures: function () { return PICS; }, state: function () { sync(); return S; }, last: function () { return LAST; },
     mains: function () { return mains().slice(); }, applies: function (id, x, y) { sync(); return applies(id, x, y); }, isMain: isMain, talkTick: talkTick,
     /* BOSSES 4: the city's night sight asks if a fire he lit lights this block (__THE_BOSS_FIRES_LIGHT_THE_NIGHT__) */
-    lit: function (x, y) { try { if (!S) sync(); return lit(x, y); } catch (e) { return false; } }
+    lit: function (x, y) { try { if (!S) sync(); return lit(x, y); } catch (e) { return false; } },
+    /* BOSSES 11/8 (rule 437(a)): his ground, for the gate (what is shut, what opened, what was paid) */
+    ground: function (n) { sync(); return S && S.ground ? (n ? (S.ground[n] || null) : S.ground) : null; },
+    shutAt: function (x, y) { sync(); return shutAt(x, y); },
+    regrid: function () { SHUT_DIRTY = true; shutGrid(); return root.__BOSS_SHUT || null; }
   };
 })(typeof window !== 'undefined' ? window : this);

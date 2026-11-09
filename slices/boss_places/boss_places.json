@@ -1,5 +1,5 @@
 {
- "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block). BOSSES 4 11/3: THE FUEL YARD, THE SURVEY OFFICE, THE HOIST and the three small things their verbs leave (barrel, stake, rope), the same way (tools/bohemia_bosses_paint_four_to_six_11_3_26.py).",
+ "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block). BOSSES 4 11/3: THE FUEL YARD, THE SURVEY OFFICE, THE HOIST and the three small things their verbs leave (barrel, stake, rope), the same way (tools/bohemia_bosses_paint_four_to_six_11_3_26.py). BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground.",
  "draft": true,
  "pictures": {
   "kitchen_before": {
@@ -227,6 +227,54 @@
    "frames": [
     "rope_0.png",
     "rope_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "checkpoint_x_before": {
+   "w": 128,
+   "h": 98,
+   "bx": 64,
+   "by": 61,
+   "plate": 116,
+   "frames": [
+    "checkpoint_x_before_0.png",
+    "checkpoint_x_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "checkpoint_x_after": {
+   "w": 128,
+   "h": 98,
+   "bx": 64,
+   "by": 61,
+   "plate": 116,
+   "frames": [
+    "checkpoint_x_after_0.png",
+    "checkpoint_x_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "checkpoint_y_before": {
+   "w": 128,
+   "h": 98,
+   "bx": 64,
+   "by": 61,
+   "plate": 116,
+   "frames": [
+    "checkpoint_y_before_0.png",
+    "checkpoint_y_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "checkpoint_y_after": {
+   "w": 128,
+   "h": 98,
+   "bx": 64,
+   "by": 61,
+   "plate": 116,
+   "frames": [
+    "checkpoint_y_after_0.png",
+    "checkpoint_y_after_1.png"
    ],
    "through_the_rig": true
   }
