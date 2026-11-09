@@ -1,5 +1,32 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 437, 11/8/26: THE FIRST BOSS CHANGES THE MAP, END TO END (rule 437(a), ask lines 167, 346, 522), BUILD 11/9b
+Record: records/BOHEMIA_BOSSES_THE_FIRST_BOSS_CHANGES_THE_MAP_11_8_26.md. Gate: gates/the_first_boss_changes_the_map_gate.js (THE FIRST BOSS
+CHANGES THE MAP, registered; 18/0 on the phone with four plants; THE FIRST THREE BOSSES 108/1, its red C1 is the fight's chipBlit throw, named for COMBAT; HIS MAP 21/0). VOTE bosses-the-first-boss-changes-the-map-11-8 (stage stand_in).
+- MEASURED: THE POT's walk 17/2 on main a0182e99: at his place the fight opened with NO CARD (RUN's door shows the meet card only for what
+  his walking meets; WORLD TWO's tick starts the fight between steps); his fall changed one picture and a lights row; his crew held no
+  street, closed no road, the map routed the same after him.
+- HIS GROUND (slices/bohemia_bosses.js (8); data boss_act_one.json THE POT 'ground', a modder's row: crew, radius 3, till 30, the words):
+  the ring 3 blocks out from his door, every way IN shut by his line cooks' checkpoint except his front (the map's own route in from
+  the sign); never a shut that cuts you off from his door or a town; the map's walk refuses a shut block (cityWalkable wrapped here the
+  way WORLD 7's shut roads wrap it; the bench gets none).
+- THE ART: THE CHECKPOINT through the rig (tools/bohemia_bosses_the_pots_ground_11_8_26.py; carts, his speed rack, a burned car, a burn
+  barrel on the beat, a towel with his red band, two cooks in whites; after: shoved to the kerb), x and y, before and after, beat frames
+  (slices/boss_places/checkpoint_*). The rig needs a ground plate: an unpainted one the kitchen's size is carried (measured: without it
+  the camera sat inside 300 m carts).
+- THE FALL: the beat rolls his checkpoints open with his kitchen; every shut street walks; HIS TILL +30 (purse ledger 'boss-till:THE POT',
+  once); TÍA CARMEN's card under his pot: 'HIS LINE COOKS RAN. N STREETS OPEN ON THE MAP. HIS TILL: +30 BATTERIES.'; the feed: @strip_eats
+  beside the radio, and your company's till post. Kept after a reload (bohemia.bosses.v1; WORLD TWO's fallen flag is the truth).
+- HIS CARD FIRST AGAIN: one marked line in WORLD TWO's startFight (slices/bohemia_his_map.js, __THE_BOSSES__): cityHandOver inside RUN's
+  meetWalk, so the meet card shows (face, title, tip, ENGAGE, FALL BACK).
+- NOTES, AGREED HERE (nobody else's file edited but that one marked line): WORLD 13, the generator is untouched; the ground reads the map
+  at run time through cityWalkable, cityRoute, om.at, townDoor; to know where a crew holds streets: BohemiaBosses.ground(n),
+  BohemiaBosses.shutAt(x, y). COMBAT TWO, the boards are untouched; a board cut beside a shut block may stand his carts on its street
+  edge (shutAt says which; the pictures are slices/boss_places/checkpoint_*); nothing shipped needs it (nobody stands on a shut block).
+  TUNING: radius 3, till 30. FEED: the feed is a moment (14 in memory), so the strip's post is not there after a reload; the change is.
+NEXT: the other five take a 'ground' row each (THE TAP's crew holds the mains, THE FILTER's the water works...); his crew as a party on
+the map that stops when he falls (Battle Brothers' camps send parties); a camera glide to his ground when the flyer marks it.
+
 ## BOSSES 4, 11/3/26: THE BURN, THE SURVEYOR, THE CLIMB, EACH WHOLE, ASSETS FIRST (rules 330, 337, 338; ask line 341), BUILD 11/3zzzm
 Record: records/BOHEMIA_BOSSES_FOUR_TO_SIX_11_3_26.md. Gate: gates/bosses_act_one_gate.js now walks all six (BOSSES_EVERY_SECOND as before).
 - ASSETS FIRST: each man his own model through COOK ARMOUR's pipe (tools/bohemia_bosses_four_to_six_11_3_26.py: roll, look <id>, batch,
