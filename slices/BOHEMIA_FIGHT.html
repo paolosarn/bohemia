@@ -630,7 +630,10 @@ const FIGHT = (function () {
   function neverIdle(u, f, hunt) {
     if (u.ap < R('ap.move_cost.flat') || zocOn(u, u.x, u.y).length || u.netted) return null;
     if (actedNow(u)) return null;
-    if (isRanged(u.weapon) && goodGround(u.x, u.y) && !foes(u).some(function (t) { return canStrike(u, t); })) return null;   /* in cover holding his shot */
+    /* rule 435(d): a shooter of his in cover with nothing to shoot held here (measured on the real page: three turns running, passed
+       in one frame each, 'it skips him'); now he steps nearer like the rest, onto the tile the fewest of their clubs can reach next
+       turn (then the nearest the fight, then the better ground) */
+    const shooter = isRanged(u.weapon), dz = shooter ? function (x, y) { return dangerAt(u, x, y); } : function () { return 0; };
     const h0 = hunt(u.x, u.y); let best = null, bv = Infinity;
     /* never a climb (a roof he climbs is no blow this turn: rule 328), never farther from the nearest man of theirs who stands (AUTO
        NEVER LEAVES A MAN), never back onto the tile his last turn began on when that turn had no blow (rule 176(b): no dance) */
@@ -644,7 +647,8 @@ const FIGHT = (function () {
       if (stand.length && near(x, y) > n0) return;
       const h = hunt(x, y);
       if (!(h < h0)) return;
-      const v = h + groundSteps(x, y) * 0.1 + f.best[k] * 1e-3; if (v < bv) { bv = v; best = { x: x, y: y }; } });
+      if (shooter && zocOn(u, x, y).length) return;   /* a shooter never walks into a man's reach to get nearer */
+      const v = dz(x, y) * 1e3 + h + groundSteps(x, y) * 0.1 + f.best[k] * 1e-3; if (v < bv) { bv = v; best = { x: x, y: y }; } });
     return best;
   }
   function nearFoe(u, x, y) { return foes(u).reduce(function (m, f) { return onField(f) && f.morale !== 'Fleeing' ? Math.min(m, dist({ x: x, y: y }, f)) : m; }, Infinity); }
@@ -2377,8 +2381,19 @@ const FIGHT = (function () {
   function advance(u) { turnOver(u); u.begun = false; S.idx++; if (closedOut(u)) return; if (!S.over) settle(); }
   function endTurn(u) {
     if (S.over || current() !== u) return false;
+    /* EVERY TURN OF HIS IS SEEN (rule 435(d), ask line 541; Paolo 11/9: 'one of the guys, it skips him'): on the real page a turn of
+       his on AUTO that ended with nothing done passed in one frame, the strip jumping over him. It now says so, an event the page
+       shows over him for half a beat with its reason (u.btWhy: winded, rests, posts up on a roof, pinned, ...) */
+    if (u.side === 'you' && !S.byHand && onField(u) && !u.fled && u.morale !== 'Fleeing' && !walkOrBlow(u)) emit({ t: 'idle', id: u.id, why: quietWhy(u), x: u.x, y: u.y });
     turnOver(u); u.begun = false; S.idx++; emit({ t: 'end', id: u.id }); if (closedOut(u)) return true; settle(); return true;
   }
+  /* EYES 11/9 (ask line 542): the QUIET TURN looked skipped too: a turn that was only a reload, a swap and a reload, or a rest has no
+     walk and no blow, and the page drew it as a quarter-beat note with no word (a swap, nothing). So a turn of his on AUTO with no walk
+     and no blow says what it was (the reload, the swap, else the brain's reason), and the page shows it over him for three quarters
+     of a beat. A walk or a blow is seen on its own. */
+  function walkOrBlow(u) { return !!(u.turnFrom && (u.x !== u.turnFrom.x || u.y !== u.turnFrom.y)) || S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && /^(attack|step|move|sweep|throw|net|hook|shot)$/.test(e.t); }); }
+  function quietWhy(u) { const L = S.log.slice(u.turnLog || 0).filter(function (e) { return e.id === u.id; }), has = function (t) { return L.some(function (e) { return e.t === t; }); };
+    return has('reload') ? (has('swap') ? 'swap_reload' : 'reload') : has('swap') ? 'swap' : has('skill') || has('wall') || has('rally') ? 'skill' : (u.btWhy || 'holds'); }
   function wait(u) {
     if (S.over || current() !== u || u.waited) return false;
     u.waited = true; u.begun = false;
@@ -4341,7 +4356,23 @@ const FIGHT = (function () {
     });
     if (best || nowOnly || struck) return done(best, !nowOnly || !!best || struck);
     /* the second pass: a shot next turn; from where he stands, and he holds (no dance inside a turn) */
-    if (!zocOn(u, u.x, u.y).length && shotFrom(u, u.x, u.y, u.apTurn, true) >= 0) return done('stay', true);
+    /* NO MAN OF HIS WAITS FOR A SHOT THAT MAY NOT COME (rule 435(d), ask line 541; Paolo 11/9: 'the auto combat is not fixed... one
+       of the guys, it skips him'): measured on the real page, his gunman stood three rounds running on 'a shot next turn from here',
+       a shot that needs them to walk in, while their line dug in (rule 428(d)); the page passed each turn in one frame. Now, on
+       AUTO, a man of his who has done nothing this turn steps up to a tile NEARER the nearest of them that gives the shot next turn
+       (the best by the vantage's own worth: their clubs, his storeys, his cover, the walk); he stays only when no tile nearer does */
+    const mine = u.side === 'you' && !S.byHand && !actedNow(u), nearOf = function (x, y) { return nearFoe(u, x, y); }, n0 = nearOf(u.x, u.y);
+    if (!zocOn(u, u.x, u.y).length && shotFrom(u, u.x, u.y, u.apTurn, true) >= 0) {
+      if (!mine) return done('stay', true);
+      let up = null, uw = -Infinity;
+      tiles.forEach(function (q) {
+        if (zocOn(u, q.x, q.y).length || q.up || level(q.x, q.y) < lvHere || !(nearOf(q.x, q.y) < n0)) return;   /* a roof's shooter steps along it, never off it (AUTO HOLDS THE ROOF) */
+        if (u.lastTurn && !u.lastTurn.acted && q.x === u.lastTurn.x && q.y === u.lastTurn.y) return;
+        const later = shotFrom(u, q.x, q.y, u.apTurn, true); if (later < 0) return;
+        const wv = vantageWorth(u, q.x, q.y, q.cost, later); if (wv > uw) { uw = wv; up = { x: q.x, y: q.y, kind: 'shot_next_turn' }; }
+      });
+      return done(up || (lvHere >= 1 ? 'stay' : null), true);   /* a roof's shooter with no tile on it nearer posts up; on the ground he walks on (the walk below) */
+    }
     tiles.forEach(function (q) {
       if (zocOn(u, q.x, q.y).length) return;
       /* the undo veto (rule 176(b)): never back to where an idle turn began, nor to this turn's start, for a shot next turn */
@@ -4876,11 +4907,11 @@ const FIGHT = (function () {
   function aiStepAuto(u) {
     if (S.retreat && u.side === 'you') return retreatStep(u);
     if (u.side === 'you' && allFleeing() && !S.byHand && !S.runDown && !chaseRun() && !S.arena) { endFight(); return false; }   /* __THE_ARENA__: in the pit AUTO hunts them down */   /* rule 198(h): by hand the choice is his; on AUTO his RUN THEM DOWN holds (COMBAT 7, row 139) */
-    if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
+    if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { u.btWhy = 'fleeing'; endTurn(u); return false; } return true; }
     /* A WINDED MAN OF HIS RESTS (rules 283(d), 285(a)): on AUTO, a man of his too winded for his own blow ends his turn with nothing
        spent, a rest, so the next turn brings ours.rest_recovery and his swing (MEASURED BEFORE: in the heaviest kit AUTO kept him
        shuffling, 1,670 of 3,624 turns winded, one man 30 turns running) */
-    if (u.side === 'you' && u.ap >= u.apTurn && winded(u)) { endTurn(u); return false; }
+    if (u.side === 'you' && u.ap >= u.apTurn && winded(u)) { u.btWhy = 'winded'; endTurn(u); return false; }
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
@@ -4950,7 +4981,7 @@ const FIGHT = (function () {
     /* THE SHIELD (FACTIONS 11/3): having walked in with nothing to swing at, the wall goes up with what is left; a turn he swings he
        holds no wall (Battle Brothers' footmen hold the wall or fight, the lesson is 'make him swing') */
     /* rule 328: a shooter who climbed this turn for the shot next turn holds the roof (never down again the same turn) */
-    if (ranged && climbedNow(u) && foes(u).some(function (t4) { return inRange(u, t4) && sideSees(u.side, t4); })) { endTurn(u); return false; }
+    if (ranged && climbedNow(u) && foes(u).some(function (t4) { return inRange(u, t4) && sideSees(u.side, t4); })) { u.btWhy = 'climbed_holds'; endTurn(u); return false; }
     if (A.shield_wall && canWall(u) && !u.swung && u.ap < u.apTurn && foes(u).some(function (f) { return dist(f, u) <= NEW('shieldwall').near_tiles; })) return wall(u);
     /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
        who cannot strike this turn (out of breath, or nothing to shoot) stands when a foe is within near_tiles (farther off he
@@ -4962,16 +4993,16 @@ const FIGHT = (function () {
     const able = ranged ? shotOK : u.fat + skillFat(u, sk0) <= fatMax(u);
     if (u.side === 'you') {
       const ring = zocOn(u, u.x, u.y).length, near = ring || foes(u).some(function (f3) { return dist(f3, u) <= R('ours.auto_brain').near_tiles; });
-      if ((!able && near) || (ring && (isGun(w) || !ranged))) { endTurn(u); return false; }
+      if ((!able && near) || (ring && (isGun(w) || !ranged))) { u.btWhy = ring ? 'ring' : 'unable_near'; endTurn(u); return false; }
     }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
-    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; endTurn(u); return false; }
+    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; u.btWhy = 'in_reach_spent'; endTurn(u); return false; }
     /* AUTO FINDS A SHOT (COMBAT 4, rule 322): his shooter with no shot where he stands walks to the best tile that gives one (this
        turn first, else next turn), past the line's vetoes below (the line held his rifle back from the one step that gave a shot);
        a shot next turn from where he stands, and he holds */
     if (u.side === 'you' && ranged && A.finds_a_shot) {
       const vg = vantage(u);
-      if (vg === 'stay') { endTurn(u); return false; }
+      if (vg === 'stay') { u.btWhy = u.side === 'you' && level(u.x, u.y) >= 1 ? 'posts_up' : 'shot_next_turn_here'; endTurn(u); return false; }
       if (vg && moveTo(u, vg.x, vg.y)) return true;
     }
     if (ranged && (A.stand_and_shoot && !A.advance) && foes(u).some(function (f) { return sideSees(u.side, f) && dist(u, f) <= rangeMax(w.range); })) {
@@ -5086,8 +5117,10 @@ const FIGHT = (function () {
        ruling wins: a man of his who has neither moved nor struck this turn, is not held in a man's reach and is not a shooter in
        cover with no target in reach, walks to the reachable tile nearest the fight (the better ground on a tie); only a man with
        no tile nearer than where he stands stays (out of reach) */
-    if (u.side === 'you' && !digW) { const fb = neverIdle(u, f, hunt); if (fb && moveTo(u, fb.x, fb.y)) return true; }
+    let roofHeld = false;
+    if (u.side === 'you' && !digW) { const fb = neverIdle(u, f, hunt); if (fb && moveTo(u, fb.x, fb.y)) return true; roofHeld = !!(fb && holdsRoof(u, fb.x, fb.y)); }
     if (aiLast(u)) return true;
+    if (u.side === 'you' && !actedNow(u)) u.btWhy = roofHeld ? 'posts_up' : 'no_tile_nearer';   /* rule 435(d): every turn of his that ends with nothing says why */
     endTurn(u); return false;
   }
 
@@ -5156,7 +5189,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { neverIdle: neverIdle, reach: reach, nearFoe: nearFoe, actedNow: actedNow, expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();
@@ -6239,7 +6272,7 @@ function bullet(moment, a, t, e) {
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
-const NOTE_BEATS = { decoy: .5, knocked: .5, spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
+const NOTE_BEATS = { idle: .75, decoy: .5, knocked: .5, spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
   bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0 };   /* ARMORY 2: the whip's marks */
 function take() {
   const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
@@ -7011,6 +7044,7 @@ function startAnimHeard(a) {
     /* CLIMB OR ATTACK (rule 328): up on the roof, said over him, his attacks done for the turn */
     if (e.t === 'climbed' && u) pop(u, CLIMB_SAYS.tag, '#c9b48a', false, crewControlled(u) ? wfill(u.main ? CLIMB_SAYS.you : CLIMB_SAYS.him, { name: u.name }) : '');
     /* ZONE OF CONTROL (rule 314): the free swing landed and the walk failed: HELD over him, and the line says who held him */
+    if (e.t === 'idle' && u) { idleTag(u, e.why); pop(u, '', '#d8c8a0', false, wfill(IDLE_SAYS.feed[e.why] || IDLE_SAYS.feed.holds, { name: u.name })); }   /* rule 435(d) */
     if (e.t === 'held' && u) { const by = FIGHT.byId(e.by); heldTag(u); pop(u, '', '#e0a070', false, wfill(HELD_SAYS.feed, { by: by ? by.name : 'their man', name: u.name }));
       if (u.side === 'you' && crewControlled(u)) say(wfill(u.main ? HELD_SAYS.you : HELD_SAYS.him, { by: by ? by.name : 'their man', name: u.name }), true); }
     if (e.t === 'nine') pop(u, perkName('nine_lives'), '#f0d296', true);
@@ -7086,6 +7120,21 @@ function windTag(f, inMs) {
 /* HELD (rule 314): a free swing landed in the zone and the walk failed; the plate stays a beat and a half over him */
 const HELD_SAYS = { tag: 'HELD', you: '{by}\'s free swing lands. You are held here.', him: '{by}\'s free swing lands. {name} is held here.',
   feed: '{by}\'s free swing holds {name}.' };   /* draft:true */
+/* rule 435(d), ask line 542: a turn of his on AUTO with no walk and no blow (a hold, a rest, a reload, a swap) is shown, never
+   skipped: a word over his head for a beat and a half, the ripple on his tile, the line in the feed, three quarters of a beat on
+   the clock (the words draft:true) */
+const IDLE_SAYS = { tag: { reload: 'RELOADS', swap: 'SWAPS', swap_reload: 'SWAPS, RELOADS', skill: 'HOLDS', winded: 'WINDED', rest: 'RESTS', recover: 'RESTS', posts_up: 'POSTS UP', climbed_holds: 'POSTS UP', ring: 'PINNED', unable_near: 'NO SHOT',
+    in_reach_spent: 'HOLDS', shot_next_turn_here: 'AIMS', no_tile_nearer: 'HOLDS', hold: 'HOLDS', holds: 'HOLDS' },
+  feed: { reload: '{name} reloads.', swap: '{name} changes weapons.', swap_reload: '{name} changes weapons and reloads.', skill: '{name} holds.', winded: '{name} is winded and catches his breath.', rest: '{name} rests for a bigger swing.', recover: '{name} rests for a bigger swing.',
+    posts_up: '{name} holds the roof and waits for a shot.', climbed_holds: '{name} holds the roof and waits for a shot.', ring: '{name} is pinned and cannot fire.',
+    unable_near: '{name} has no shot and holds.', in_reach_spent: '{name} holds his ground.', shot_next_turn_here: '{name} aims and waits.',
+    no_tile_nearer: '{name} has nowhere nearer to go and holds.', hold: '{name} holds.', holds: '{name} holds.' } };   /* draft:true */
+function idleTag(u, why) {
+  const box = document.getElementById('winds'); if (!box) return;
+  const el = document.createElement('div'); el.className = 'wind held'; el.dataset.id = u.id; el.dataset.why = 'idle'; el.textContent = IDLE_SAYS.tag[why] || IDLE_SAYS.tag.holds;
+  el.dataset.until = String(performance.now() + beatMs() * 1.5); box.appendChild(el);
+  (UI.idles = UI.idles || []).push({ id: u.id, round: FIGHT.S.round, why: why });
+}
 function heldTag(u) {
   const box = document.getElementById('winds'); if (!box) return;
   const el = document.createElement('div'); el.className = 'wind held'; el.dataset.id = u.id; el.dataset.why = 'held'; el.textContent = HELD_SAYS.tag;

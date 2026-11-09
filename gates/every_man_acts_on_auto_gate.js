@@ -15,7 +15,12 @@
      M2  THE SIDES MEET: on every board dealt, every man of theirs starts on ground his line can walk to (the Strip's wall).
          planted: one man of theirs put behind a wall, red
      M3  enough: at least 20 fights over at least 15 board kinds, and at least 1,000 of his turns weighed
-   Run: node gates/every_man_acts_on_auto_gate.js [--json out.json]     (about a minute) */
+     M4, M5 (rule 435(c)) no man stands a whole fight; every man starts with a walk to the other side. Planted, red.
+     M6 (rule 435(d)) TURN BY TURN: every turn of his he moves, strikes, shoots, reloads or swaps, or the turn says why (shown over
+         him); never a wait for a shot that may not come. Planted: a turn that ends with nothing said, red.
+     M7 (rule 435(d)) THE PAGE: real fights on the fight's page, phone upright, AUTO at 1x, 2x and 4x; every turn of his has a
+         motion of his played on the glass. Planted: the page's runner drops one man's motions, red. (--no-page skips it)
+   Run: node gates/every_man_acts_on_auto_gate.js [--json out.json] [--no-page]     (about five minutes) */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..'), H = require(path.join(ROOT, 'tools/bohemia_fight_headless.js'));
@@ -117,9 +122,9 @@ function eng() {
     if (ctx.DB.arenaPit) BD.push({ tag: 'pit', o: { district: 'strip', arena: { pool: 3 } } });
     return { KIT, SH, BGS, KN, BD };
   })();
-  const whole = function (holdOne, NF) {
+  const whole = function (holdOne, NF, mute) {
     let sd = 1; const rnd = () => { sd = (sd * 1103515245 + 12345) >>> 0; return sd / 4294967296; }, pick = a => a[Math.floor(rnd() * a.length)];
-    const r = { fights: 0, men: 0, kinds: {}, boards: {}, never: [], cut: [], pairs: 0, held: null };
+    const r = { fights: 0, men: 0, kinds: {}, boards: {}, never: [], cut: [], pairs: 0, held: null, turns: 0, empty: 0, why: {}, unsaid: [] };
     for (let f = 0; f < NF; f++) {
       const b = WH.BD[f % WH.BD.length], n = rnd() < 0.12 ? 1 : 2 + Math.floor(rnd() * 11), company = [];
       for (let i = 0; i < n; i++) { const k = pick(WH.KN), m = { background: pick(WH.BGS), level: 1 + Math.floor(rnd() * 6), gear: { main: pick(WH.KIT[k]), off: null }, kind: k };
@@ -138,11 +143,16 @@ function eng() {
       const mine = S.units.filter(u => u.side === 'you'), acted = {}, able = {};
       const victim = holdOne ? mine.find(u => !u.main) || mine[0] : null; if (victim) r.held = victim.id;
       let cur = null, snap = null, g = 0;
-      const close = () => { if (!cur || !snap) return; const u = cur;
-        if (u.x !== snap.x || u.y !== snap.y || S.log.slice(snap.n).some(e => e.id === u.id && /^(attack|step|skill|reload|swap|wall|rally|shot|sweep|hook|net|throw)$/.test(e.t))) acted[u.id] = true; };
+      const close = () => { if (!cur || !snap) return; const u = cur, L = S.log.slice(snap.n).filter(e => e.id === u.id);
+        const did = u.x !== snap.x || u.y !== snap.y || L.some(e => /^(attack|step|skill|reload|swap|wall|rally|shot|sweep|hook|net|throw)$/.test(e.t));
+        if (did) acted[u.id] = true;
+        /* M6 (rule 435(d)): every turn of his, one at a time: he did something, or the turn says why (an 'idle' event the page shows) */
+        if (snap.able && !snap.fled && !(u.morale === 'Fleeing' || u.fled || u.dead || u.down) && L.some(e => e.t === 'end')) { r.turns++;
+          if (!did) { r.empty++; const idle = L.find(e => e.t === 'idle'); if (idle) r.why[idle.why] = (r.why[idle.why] || 0) + 1; else r.unsaid.push(b.tag + ' f' + f + ' r' + S.round + ' ' + u.id + ' ' + (u.weapon && u.weapon.id)); } } };
       while (!S.over && S.round <= 30 && g < 80000) { const u = F.current(); if (!u) break;
-        if (u !== cur) { close(); cur = u.side === 'you' ? u : null; snap = cur ? { x: u.x, y: u.y, n: S.log.length } : null; if (cur && F.onField(u) && u.morale !== 'Fleeing') able[u.id] = (able[u.id] || 0) + 1; }
-        if (victim && u === victim) { F.endTurn(u); g++; continue; }   /* planted: his AUTO brain answers 'hold' every turn */
+        if (u !== cur) { close(); cur = u.side === 'you' ? u : null; snap = cur ? { x: u.x, y: u.y, n: S.log.length, able: F.onField(u) && u.morale !== 'Fleeing' } : null; if (cur && F.onField(u) && u.morale !== 'Fleeing') able[u.id] = (able[u.id] || 0) + 1; }
+        if (snap && u === cur && u.morale === 'Fleeing') snap.fled = true;
+        if (victim && u === victim) { if (mute) S.byHand = true; F.endTurn(u); S.byHand = false; g++; continue; }   /* planted: his AUTO brain answers 'hold' every turn (mute: and says nothing) */
         F.aiStep(u); g++; }
       close();
       mine.forEach((u, i) => { r.men++; const k = company[i] ? company[i].kind : 'base'; r.kinds[k] = 1;
@@ -153,6 +163,15 @@ function eng() {
   const wh = whole(false, 200), whp = whole(true, 6);
   check(wh.never.length === 0 && wh.men >= 1000 && Object.keys(wh.boards).length >= 18, 'M4', 'NO MAN STANDS A WHOLE FIGHT: ' + (wh.men - wh.never.length) + ' of ' + wh.men + ' men of his over ' + wh.fights + ' fights (' + Object.keys(wh.kinds).length + ' kinds of man, ' + Object.keys(wh.boards).length + ' kinds of board) moved or struck before the fight ended; ' + wh.never.length + ' stood it out' + (wh.never.length ? ': ' + wh.never.slice(0, 4).join('; ') : ''));
   check(whp.never.length > 0, 'M4p', 'planted: one man\'s AUTO brain answers \'hold\' every turn, caught (' + whp.never.slice(0, 1).join('') + ')');
+  /* M6 (rule 435(d), ask line 541; Paolo 11/9: 'the auto combat is not fixed... one of the guys, it skips him'): TURN BY TURN. Measured
+     on the real page, his gunman stood three rounds running waiting for 'a shot next turn' that needed them to walk in while they dug
+     in, and the page passed each of those turns in one frame. Every turn of a man of his who is able (on the field, not running):
+     he moves, strikes, shoots, reloads, swaps or uses a skill, or the turn says why (an 'idle' event with its reason, which the page
+     shows over him for half a beat); never a wait for a shot that may not come; empty turns under 2% */
+  const why = Object.keys(wh.why).map(k => k + ' ' + wh.why[k]).join(', ');
+  check(wh.unsaid.length === 0 && !(wh.why.shot_next_turn_here > 0) && wh.turns >= 2000 && wh.empty / wh.turns < 0.02, 'M6', 'EVERY TURN OF HIS DOES SOMETHING OR SAYS WHY: ' + (wh.turns - wh.empty) + ' of ' + wh.turns + ' of his turns over ' + wh.fights + ' fights he moved, struck, shot, reloaded or swapped; ' + wh.empty + ' (' + (100 * wh.empty / Math.max(1, wh.turns)).toFixed(2) + '%) held, every one shown with its reason (' + (why || 'none') + '); ' + wh.unsaid.length + ' passed unsaid' + (wh.unsaid.length ? ': ' + wh.unsaid.slice(0, 3).join('; ') : '') + '; waiting for a shot next turn: ' + (wh.why.shot_next_turn_here || 0));
+  { const mp = whole(true, 6, true);
+    check(mp.unsaid.length > 0, 'M6p', 'planted: one man\'s turn ended with nothing and nothing said (the old skip) is caught (' + mp.unsaid.length + ' turns, ' + mp.unsaid.slice(0, 1).join('') + ')'); }
   check(wh.cut.length === 0 && wh.pairs > 2000, 'M5', 'EVERY MAN STARTS WITH A WALK TO THE OTHER SIDE: ' + (wh.pairs - wh.cut.length) + ' of ' + wh.pairs + ' men of both sides' + (wh.cut.length ? ': ' + wh.cut.slice(0, 4).join('; ') : ' (Fremont\'s canopy, the lab\'s pens: the fight\'s ground is one piece)'));
   /* M5 planted: a man of his put in a pocket cut off from them (north of Fremont's canopy) */
   { ctx.setSeed(3054); F.setup({ kind: 'suburb', district: 'downtown', cell: { gx: 7, gy: 3 }, night: false, auto: true, formation: null, deploy: false });
@@ -162,6 +181,55 @@ function eng() {
     for (let y = 0; y < S.h && !spot; y++) for (let x = 0; x < S.w; x++) if (T.passable(x, y) && !seen[y * S.w + x] && !T.unitAt(x, y)) { spot = [x, y]; break; }
     if (spot && u) { u.x = spot[0]; u.y = spot[1]; }
     check(!!spot && !seen[u.y * S.w + u.x], 'M5p', 'planted: a man of his put at ' + (spot ? spot.join(',') : '?') + ', north of the canopy with no walk to them, is caught'); }
+  /* M7 THE PAGE (rule 435(d): 'a fix is proven ONLY on the real page... every man's turn logged from the page's own events'): the
+     fight's page in a browser, phone upright (390 x 844), both sides on AUTO at 1x, 2x and 4x, his crew with a gun, a bow and clubs;
+     every motion the page really plays is logged (startAnim), and every turn the rules gave a man of his (an 'end' for him in a
+     round) must have motions of his played in that round, half a beat at least on the clock (EYES 11/9, ask line 542: the quiet
+     turn, a reload or a swap drawn as a quarter beat with no word, looked skipped): a step, a blow, a shot, or the reload, swap, rest
+     or hold shown over him with its word. A turn the page passes with nothing of his shown, or under half a beat, is the skip. M7p planted: the page's runner drops one man's motions
+     (his turn passes unseen), caught. */
+  if (!process.argv.includes('--no-page')) {
+    const http = require('http'), { chromium } = require('playwright');
+    const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.css': 'text/css', '.mp3': 'audio/mpeg' };
+    const srv = http.createServer((q, rs) => { const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.writeHead(404); return rs.end(); } rs.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(rs); }).listen(0);
+    const br = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+    const LOGGER = function () { var P = window.__P435 = { anims: [], hooked: false };
+      (function hook() { if (typeof window.startAnim === 'function' && typeof window.take === 'function' && !P.hooked) { P.hooked = true; var sa = window.startAnim;
+          window.startAnim = function (a) { try { P.anims.push({ k: a.k, id: a.e && a.e.id, et: a.e && a.e.t, r: a.e && a.e.round, dur: a.dur || 0, b: beatMs() }); } catch (e) {} return sa.apply(this, arguments); };
+          var tk = window.take; window.take = function () { try { if (window.__DROP435) FIGHT.S.events = FIGHT.S.events.filter(function (e) { return e.id !== window.__DROP435; }); } catch (e) {} return tk.apply(this, arguments); }; }
+        if (!P.hooked) setTimeout(hook, 20); })(); };
+    const crew = [{ background: 'apprentice', level: 3, gear: { main: 'handgonne' } }, { background: 'hunter', level: 3, gear: { main: 'short_bow' } }, { background: 'butcher', level: 3, gear: { main: 'crude_axe' } },
+      { background: 'brawler', level: 3, gear: { main: 'two_handed_mallet' } }, { background: 'messenger', level: 2, gear: { main: 'snub_revolver' } }, { background: 'daytaler', level: 2, gear: { main: 'dagger' } }];
+    const pageFight = async (o, drop) => {
+      const c = await br.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+      const p = await c.newPage(), errs = []; p.on('pageerror', e => errs.push(String(e).slice(0, 120)));
+      await p.addInitScript(LOGGER); await p.addInitScript(o => { window.FIGHT_OPTS = o; try { localStorage.clear(); } catch (e) {} }, o);
+      await p.goto('http://localhost:' + srv.address().port + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load' });
+      await p.waitForFunction(() => { try { return !!(FIGHT.S.board && UI.board && window.__P435 && __P435.hooked); } catch (e) { return false; } }, null, { timeout: 120000 });
+      if (drop) await p.evaluate(() => { const v = FIGHT.S.units.filter(u => u.side === 'you' && !u.main)[0]; window.__DROP435 = v && v.id; });
+      const t0 = Date.now(); while (Date.now() - t0 < 150000) { const ov = await p.evaluate(() => FIGHT.S.over).catch(() => true); if (ov) break; await p.waitForTimeout(1000); }
+      await p.waitForFunction(() => { try { return !UI.anim.length; } catch (e) { return true; } }, null, { timeout: 20000 }).catch(() => {});   /* the last blow played: the rules end the fight before the page shows it */
+      const res = await p.evaluate(() => { const S = FIGHT.S, A = __P435.anims, bad = [], seen = []; let turns = 0, held = 0;
+        const lastR = S.over ? S.round : S.round - 1;
+        S.units.filter(u => u.side === 'you').forEach(u => { for (let r = 1; r <= lastR; r++) {
+          const L = S.log.filter(e => e.id === u.id && e.round === r); if (!L.some(e => e.t === 'end')) continue;
+          if (L.some(e => e.t === 'morale' && e.to === 'Fleeing') || S.log.some(e => e.id === u.id && e.round < r && (e.t === 'fled' || (e.t === 'morale' && e.to === 'Fleeing')))) continue;
+          turns++; const mine = A.filter(a => a.id === u.id && a.r === r), seen = mine.reduce((m, a) => m + a.dur, 0), half = mine.length ? mine[0].b / 2 : 0;
+          if (mine.some(a => a.et === 'idle')) held++;
+          if (!mine.length) bad.push(u.name + ' (' + (u.weapon && u.weapon.id) + ') round ' + r + ': nothing shown');
+          else if (seen < half - 1) bad.push(u.name + ' (' + (u.weapon && u.weapon.id) + ') round ' + r + ': ' + Math.round(seen) + ' ms shown, under half a beat (' + mine.map(a => a.et).join(',') + ')'); } });
+        return { over: S.over, rounds: S.round, board: S.boardDef && S.boardDef.name, hand: UI.hand, auto: UI.auto, turns, held, bad, drop: window.__DROP435 || null, anims: A.length }; });
+      res.errs = errs.slice(0, 2); await c.close(); return res;
+    };
+    const runs = []; let PG = [];
+    for (const [i, sp, d] of [[0, 1, 'industrial'], [1, 2, 'wash'], [2, 4, 'downtown']]) runs.push(await pageFight({ district: d, cell: { gx: 20 + i * 13, gy: 31 + i * 7 }, seed: 4350 + i, night: false, auto: true, deploy: false, formation: null, hand: sp, company: crew }, false));
+    const turns = runs.reduce((m, x) => m + x.turns, 0), bad = [].concat.apply([], runs.map(x => x.bad)), held = runs.reduce((m, x) => m + x.held, 0);
+    check(bad.length === 0 && turns >= 30 && runs.every(x => x.auto && x.anims > 0) && runs.map(x => x.hand).join() === '1,2,4', 'M7', 'ON THE PAGE: ' + runs.length + ' fights on the fight\'s page, phone upright, AUTO at ' + runs.map(x => x.hand + 'x').join(', ') + ' (' + runs.map(x => x.board + ' ' + x.rounds + ' rounds' + (x.over ? '' : ' (cut at 150 s)')).join('; ') + '): ' + (turns - bad.length) + ' of ' + turns + ' turns of his played on the glass, each half a beat or more (' + held + ' of them a quiet turn shown with its word: a reload, a swap, a rest, a hold); ' + bad.length + ' passed with nothing of his shown' + (bad.length ? ': ' + bad.slice(0, 3).join('; ') : '') + (runs.some(x => x.errs.length) ? '; page errors: ' + runs.map(x => x.errs.join(' ')).join(' ') : ''));
+    const pl = await pageFight({ district: 'industrial', cell: { gx: 20, gy: 31 }, seed: 4350, night: false, auto: true, deploy: false, formation: null, hand: 4, company: crew }, true);
+    check(pl.bad.length > 0, 'M7p', 'planted: the page\'s runner drops one man\'s motions (' + pl.drop + '), caught: ' + pl.bad.length + ' of his turns passed unseen (' + pl.bad.slice(0, 2).join('; ') + ')');
+    R.page = { runs, plant: pl };
+    await br.close(); srv.close();
+  }
   check(now.fights >= 20 && Object.keys(now.kinds).length >= 15 && now.turns >= 1000, 'M3', now.fights + ' fights over ' + Object.keys(now.kinds).length + ' board kinds, ' + now.turns + ' of his turns weighed');
   R.whole = { fights: wh.fights, men: wh.men, never: wh.never, cut: wh.cut };
   R.now = { fights: now.fights, kinds: Object.keys(now.kinds), turns: now.turns, acted: now.acted, held: now.held, stalls: now.stalls, behind: now.behind };
