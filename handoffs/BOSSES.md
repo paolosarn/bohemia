@@ -1,5 +1,21 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 440, 11/9/26: THE TAP'S PIPE, HIS OWN WAY (rule 440(b), ask lines 167, 522), BUILD 11/9i
+Record: records/BOHEMIA_BOSSES_THE_TAP_AND_THE_FILTER_CHANGE_THE_MAP_11_9_26.md. Gate: gates/the_tap_changes_the_map_gate.js (THE TAP
+CHANGES THE MAP, registered; 17/0 on the phone, THE POT first, three plants). VOTE bosses-the-taps-pipe-11-9 (stage stand_in).
+- MEASURED: THE TAP held nothing on the map while he stood; his fall lit 2 blocks and handed a home base over (WORLD TWO's row, kept).
+- HIS PIPE (slices/bohemia_bosses.js (9); his 'pipe' row: length 7, bolt 6, the words): a main from his door along the map's own route
+  toward the nearest town. WHILE HE STANDS: his watchers on it with crossbows; the walk is NOT refused (THE POT's way), it costs a bolt
+  a block (6 blood off one man in turn, never his last; a man no fight has seen is missed), the number rising, El Chino's post.
+  WHEN HE FALLS: the beat rolls the pipe to taps; every pipe block a main for his own verb (TURN THE WATER ON, +6, once each); El
+  Chino's card under the wrench; @la_vecina's post. Kept after a reload.
+- ART: tools/bohemia_bosses_the_taps_pipe_11_9_26.py through COOK's rig, THE CHECKPOINT's frame (slices/boss_places/pipe_*).
+- THE VOTE PICTURES for any boss: tools/bohemia_bosses_vote_the_change_11_9_26.js "<BOSS>" <outdir> (the kill's own camera beat).
+- NOTES: TUNING, 7 blocks and 6 blood a bolt (walking the whole pipe is 42 blood across the crew); WORLD 13 and COMBAT TWO untouched
+  (the pipe reads the map at run time through cityRoute, townDoor, cityWalkable); BohemiaBosses.pipe(n) / onPipe(x, y) for anybody.
+NEXT: THE FILTER's machines (the plant's robots stand guard round his tanks and fight; when he falls they drop where they stand,
+wrecks to strip for tape), BUILT IN THE TREE, gate written (gates/the_filter_changes_the_map_gate.js), shipping next.
+
 ## BOSSES 437, 11/8/26: THE FIRST BOSS CHANGES THE MAP, END TO END (rule 437(a), ask lines 167, 346, 522), BUILD 11/9b
 Record: records/BOHEMIA_BOSSES_THE_FIRST_BOSS_CHANGES_THE_MAP_11_8_26.md. Gate: gates/the_first_boss_changes_the_map_gate.js (THE FIRST BOSS
 CHANGES THE MAP, registered; 18/0 on the phone with four plants; THE FIRST THREE BOSSES 108/1, its red C1 is the fight's chipBlit throw, named for COMBAT; HIS MAP 21/0). VOTE bosses-the-first-boss-changes-the-map-11-8 (stage stand_in).
