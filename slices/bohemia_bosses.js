@@ -87,7 +87,7 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -96,9 +96,11 @@
     if (!S.lead) S.lead = {};
     if (!S.ground) S.ground = {};
     if (!S.pipe) S.pipe = {};
+    if (!S.machines) S.machines = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
+    machinesCatchUp(); /* (10) and his machines */
     if (SHUT_DIRTY) shutGrid();
     return true;
   }
@@ -185,7 +187,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) return;   /* (8) his ground, or (9) his pipe */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe or (10) his machines */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -678,6 +680,145 @@
     if (RISES.length) LAST.rise = RISES.map(function (q) { return { txt: q.txt, drawn: q.drawn || null }; });
   }
 
+  /* ---------- (10) HIS MACHINES (BOSSES 11/9, rule 440(b): the next two of the ladder, each changing the map ITS OWN WAY; ask lines 167,
+     522; records/BOHEMIA_BOSSES_THE_TAP_AND_THE_FILTER_CHANGE_THE_MAP_11_9_26.md). THE POT closed streets, THE TAP's pipe costs blood;
+     THE FILTER's way is his MACHINES. His row's lesson: 'He keeps the plant's robots walking. Kill the keeper and every machine of his
+     drops where it stands.' A boss whose row has 'machines' stands 'count' of the plant's old robots on street blocks 'near' to 'far'
+     blocks round his door (never beside a town, never on the sign's block, at least 3 apart), worked out once off his place and kept.
+     WHILE HE STANDS a machine is a fight: the crew stepping beside one is met by it through RUN's one door, its card first (ENGAGE or
+     FALL BACK), the 'band' of his robots on the board; win and that one drops where it stood. WHEN HE FALLS every machine still
+     standing drops where it stands at once (his lesson, made true on the map). A dropped machine stays on the map as a wreck; the crew
+     stepping onto it strips it once for 'tape' (the company's supplies: tape is what mends armour). Kept after a reload. */
+  var MFIGHT = null, MLAST = null;
+  function machineRow(n) { var r = row(n); return r && r.machines ? r : null; }
+  function machineDownFor(k, q) { var h = hs(); return q.down != null || !!(h && h.boss.fallen[k]); }
+  function machineAt(x, y) {
+    if (!S || !S.machines) return null;
+    for (var k in S.machines) { var M = S.machines[k]; if (!M || !M.list) continue; for (var i = 0; i < M.list.length; i++) { var q = M.list[i]; if (q.x === x && q.y === y) return { n: k, i: i, q: q, down: machineDownFor(k, q) }; } }
+    return null;
+  }
+  function machineNear(x, y) {
+    if (!S || !S.machines) return null;
+    for (var k in S.machines) { var M = S.machines[k]; if (!M || !M.list) continue; for (var i = 0; i < M.list.length; i++) { var q = M.list[i]; if (!machineDownFor(k, q) && cheb(q.x, q.y, x, y) <= 1) return { n: k, i: i, q: q }; } }
+    return null;
+  }
+  function makeMachines(r, at, from) {
+    var G = r.machines, cnt = Math.max(1, G.count | 0 || 3), r0 = Math.max(2, G.near | 0 || 3), r1 = Math.max(r0, G.far | 0 || 6), c = [];
+    var rng = (function (s) { s = s >>> 0 || 1; return function () { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 100000) / 100000; }; })((S.seed ^ (at[0] * 2654435761) ^ (at[1] * 40503) ^ 0x5f3759df) >>> 0);
+    for (var dy = -r1; dy <= r1; dy++) for (var dx = -r1; dx <= r1; dx++) {
+      var d = Math.max(Math.abs(dx), Math.abs(dy)); if (d < r0 || d > r1) continue;
+      var x = at[0] + dx, y = at[1] + dy; if (!walk(x, y) || nearTown(x, y, 2) || shutAt(x, y) || onPipe(x, y)) continue;
+      if (from && cheb(x, y, from[0], from[1]) <= 1) continue;
+      c.push({ x: x, y: y, k: rng() });
+    }
+    c.sort(function (a, b) { return a.k - b.k; });
+    var list = [];
+    for (var i = 0; i < c.length && list.length < cnt; i++) { var p = c[i]; if (list.some(function (q) { return cheb(q.x, q.y, p.x, p.y) < 3; })) continue; list.push({ x: p.x, y: p.y, down: null, how: null, stripped: null }); }
+    return { at: at.slice(), list: list, made: day(), draft: true };
+  }
+  function machinesTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.machines) S.machines = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.machines || S.machines[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.machines[r.n] = makeMachines(r, [at.x, at.y], sg ? [sg.x, sg.y] : here()); save();
+      LAST.machines = { n: r.n, count: S.machines[r.n].list.length, at: Date.now() };
+    });
+    if (MFIGHT && (root.__MEET_FELL_BACK | 0) > MFIGHT.fb) MFIGHT = null;   /* FALL BACK: no fight, the machine still stands */
+    var me = here(); if (!me) return;
+    /* a machine stands its post again once the crew is well away from it */
+    for (var k in S.machines) { var M = S.machines[k]; if (M && M.list) M.list.forEach(function (q) { if (q.armed === false && cheb(q.x, q.y, me[0], me[1]) >= 3) q.armed = true; }); }
+    if (inTown() || fightUp() || MFIGHT) return;
+    try { if (MEET && MEET.up) return; } catch (e) {}
+    try { if (root.navigator && root.navigator.webdriver && !root.__BOSSES_TALK) return; } catch (e) {}   /* other lanes' walks never meet his machines */
+    /* the crew on a dropped machine strips it, once */
+    var w = machineAt(me[0], me[1]); if (w && w.down && !w.q.stripped) strip(w, me);
+    var near = machineNear(me[0], me[1]); if (near && near.q.armed !== false) { near.q.armed = false; machineFight(near); }
+  }
+  function machineFight(near) {
+    var r = machineRow(near.n), G = r.machines, band = (G.band || ['wiederganger', 'wiederganger']).slice(), at = here() || [near.q.x, near.q.y];
+    var party = { band: band, count: band.length, rolled: true, faction: 'brigands', what: G.crew_word || G.name || 'HIS MACHINES', days: 1, difficulty: 1 };
+    try { party.word = partyWord(band.length); } catch (e) {}
+    var pkg = 1; try { if (LOOP.start && LOOP.start.pkg != null) pkg = LOOP.start.pkg; } catch (e) {}
+    var msg = { type: 'BOHEMIA_CITY_ENCOUNTER', label: G.name || 'HIS MACHINE', faction: null, draft: true, packageId: pkg, roster: band.map(function () { return { arch: 'human' }; }),
+      party: party, street: true, why: 'machine:' + near.n + ':' + near.i, at: { gx: at[0] | 0, gy: at[1] | 0 } };
+    MFIGHT = { n: near.n, i: near.i, fb: root.__MEET_FELL_BACK | 0, t: Date.now() };
+    var ok = false; try { ok = (typeof meetWalk === 'function') ? meetWalk(function () { return cityHandOver(msg); }) : cityHandOver(msg); } catch (e) { ok = false; }
+    if (!ok) MFIGHT = null;
+    LAST.machineFight = { n: near.n, i: near.i, at: [near.q.x, near.q.y], handed: !!ok, t: Date.now() };
+    root.__BOSS_MACHINE_FIGHT = LAST.machineFight;
+    return ok;
+  }
+  function machineEnded(o) {
+    var F = MFIGHT; if (!F) return; MFIGHT = null;
+    var won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
+    LAST.machineEnd = { n: F.n, i: F.i, won: won, t: Date.now() };
+    if (!won) return;
+    var M = S.machines && S.machines[F.n], q = M && M.list[F.i]; if (!q || q.down != null) return;
+    q.down = day(); q.how = 'fight'; save();
+    try { if (typeof render === 'function') render(); } catch (e) {}
+  }
+  function strip(w, at) {
+    var r = machineRow(w.n), G = r.machines, n = G.tape | 0 || 4, got = 0;
+    w.q.stripped = day(); save();
+    try { var K = 'bohemia.supplies.v1', s = JSON.parse(root.localStorage.getItem(K) || 'null') || {}; s.tape = (s.tape | 0) + n; root.localStorage.setItem(K, JSON.stringify(s)); got = n; } catch (e) {}
+    var M = S.machines[w.n], first = M.list.filter(function (q) { return q.stripped != null; }).length === 1;
+    RISES.push({ x: at[0], y: at[1], t0: performance.now(), txt: fill(G.rise_strip || '+{tape} TAPE', { tape: got }), col: '#e6c46a' }); tick();
+    if (first && G.feed_strip) feed(G.feed_strip.who, fill(G.feed_strip.txt, { tape: got, where: whereWord(at[0], at[1]) }), 'mine');
+    LAST.strips = (LAST.strips || []).concat([{ n: w.n, i: w.i, at: at.slice(), tape: got, t: Date.now() }]).slice(-12);
+    root.__BOSS_STRIPS = LAST.strips;
+    return got;
+  }
+  function machinesFell(r, h) {
+    var G = r.machines; if (!G || !S) return null;
+    if (!S.machines) S.machines = {};
+    var M = S.machines[r.n]; if (!M) M = S.machines[r.n] = { at: null, list: [], made: day(), draft: true };
+    if (M.fell != null) return M;
+    M.fell = day(); var dropped = 0;
+    M.list.forEach(function (q) { if (q.down == null) { q.down = day(); q.how = 'keeper'; dropped++; } });
+    var n = M.list.length, o = { n: n, dropped: dropped, wrecks: n + (n === 1 ? ' wreck' : ' wrecks'), tape: G.tape | 0 || 4, where: M.at ? whereWord(M.at[0], M.at[1]) : 'that block' };
+    o.WRECKS = o.wrecks.toUpperCase();
+    if (G.feed && n) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    M.said = n ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.machinesFell = { n: r.n, dropped: dropped, wrecks: n, said: M.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-machines', { detail: { n: r.n, dropped: dropped } })); } catch (e) {}
+    return M;
+  }
+  function machinesCatchUp() {
+    if (!DATA || !S || !S.machines) return; var h = hs(); if (!h) return;
+    for (var k in S.machines) { var M = S.machines[k]; if (M && M.fell == null && h.boss.fallen[k]) { var r = machineRow(k); if (r) machinesFell(r, h); } }
+  }
+  function machineKey(r, down) { return (r.machines.pic || 'machine') + (down ? '_after' : '_before'); }
+  function machinesDraw(gx, ox, oy, beat) {
+    if (!S || !S.machines) return;
+    var h = hs(); LAST.drew.machines = [];
+    for (var k in S.machines) {
+      var M = S.machines[k], r = machineRow(k); if (!M || !r) continue;
+      var known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      M.list.forEach(function (q, i) {
+        var vis = seen(q.x, q.y); if (!vis && !known) return;
+        var down = machineDownFor(k, q);
+        if (inBeat && q.how === 'keeper') { LAST.drew.machines.push({ n: k, i: i, at: [q.x, q.y], key: 'beat', down: down }); return; }
+        var key = machineKey(r, down);
+        if (q.stripped != null) gx.globalAlpha = 0.72;
+        var b = paint(gx, key, q.x, q.y, ox, oy, beat, 0.9, 0, !vis);
+        gx.globalAlpha = 1;
+        if (b) { LAST.drew.machines.push({ n: k, i: i, at: [q.x, q.y], key: key, down: down, stripped: q.stripped != null, w: b.w, dark: !vis }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function machinesBeat(x, ox, oy, beat, u, alpha) {
+    var M = S && S.machines && BEAT && S.machines[BEAT.n], r = BEAT && machineRow(BEAT.n); if (!M || !r) return 0;
+    var c = 0;
+    M.list.forEach(function (q) { if (q.how !== 'keeper') return; var bb = rectOf(machineKey(r, true), q.x, q.y, ox, oy, 0.9, 0); if (!bb) return; wipe(x, machineKey(r, false), machineKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
@@ -826,7 +967,8 @@
       if (b) {
         var u = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)), fade = Math.max(0, Math.min(1, (beatT() - t) / 500));
         try { LAST.beat.checkpoints = groundBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }
-        try { LAST.beat.pipe = pipeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe rolls over to taps */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.pipe = pipeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe rolls over to taps */
+        try { LAST.beat.machines = machinesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines drop */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -878,6 +1020,7 @@
       });
       try { groundTick(); groundDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (8) his checkpoints, under his place */
       try { pipeTick(); pipeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe */
+      try { machinesTick(); machinesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -912,8 +1055,13 @@
     grant(r, h && h.boss.found[d.n]);
     if (r.ground) groundFell(r, h);   /* (8) his ground: the checkpoints down, the till, the feed (sync() may already have done it) */
     if (r.pipe) pipeFell(r, h);       /* (9) his pipe: the watchers down, the taps */
+    if (r.machines) machinesFell(r, h);   /* (10) his machines drop where they stand */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
+  });
+  root.addEventListener('message', function (ev) {   /* (10) a machine's fight came home (the one door's end, the way WORLD TWO's boss fight hears it) */
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !MFIGHT) return;
+    var o = d.outcome || {}; setTimeout(function () { try { machineEnded(o); } catch (e) { LAST.err = String(e && e.message || e); } }, 400);
   });
   setInterval(function () { try { talkTick(); } catch (e) {} }, 900);
   loadData();
@@ -933,6 +1081,9 @@
     regrid: function () { SHUT_DIRTY = true; shutGrid(); return root.__BOSS_SHUT || null; },
     /* BOSSES 11/9 (rule 440(b)): his pipe, for the gate */
     pipe: function (n) { sync(); return S && S.pipe ? (n ? (S.pipe[n] || null) : S.pipe) : null; },
-    onPipe: function (x, y) { sync(); return onPipe(x, y); }
+    onPipe: function (x, y) { sync(); return onPipe(x, y); },
+    /* and his machines */
+    machines: function (n) { sync(); return S && S.machines ? (n ? (S.machines[n] || null) : S.machines) : null; },
+    machineAt: function (x, y) { sync(); return machineAt(x, y); }
   };
 })(typeof window !== 'undefined' ? window : this);

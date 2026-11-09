@@ -9930,6 +9930,15 @@ GATES = [
      "after (C1a), every pipe block a main and a real tap pays (C1b), painted with taps (C1c), the feed (C1d); the same phone opens "
      "the game again and it holds (R1). Planted: a walk with no bolt, the pipe guarded again after the fall, a phone that forgot "
      "the save. green at registration, 17/0, about 14 min", True),
+    ('THE FILTER CHANGES THE MAP', ['node', 'gates/the_filter_changes_the_map_gate.js'],
+     "BOSSES gate, 11/9, VAMILY rule 440(b), ask lines 167, 522 (the ladder's third, changing the map his own way: his row's lesson, 'kill "
+     "the keeper and every machine of his drops where it stands'): the stranger's game on the demo at phone size, THE POT and THE TAP "
+     "first through the map's own fell() (each walked whole by his own gate), then THE FILTER end to end: his radio and rumour (T1), DOC "
+     "REYES asks and one of yours reads the radio (T2); HIS MACHINES stand round his door (M1); walking up to one, its card first, his "
+     "robots on the board, won, dropped where it stood (M2); the wreck stripped once for tape (M3); his card (B0), his fight (B1), the "
+     "beat drops the rest and DOC REYES says the wrecks (B2); every machine down and no fight beside one (C1a), a dropped one stripped "
+     "(C1b), painted as wrecks (C1c), the feed (C1d); the same phone opens the game again and it holds (R1). Planted: a wreck stripped "
+     "twice, a machine standing again after the fall, a phone that forgot the save. RESULT_FILTER, about 17 min", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "
