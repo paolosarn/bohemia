@@ -34,8 +34,10 @@ false, measured at city 31,69. THE FOURTEEN EYES FOUND's roadFight() steps him t
 gates want the same step. FOR PLUMBER: the publish list is at its cap (PAGES PUBLISH: 900 MB of 900 MB, 16,687 files, measured on this build; this round added
 0.5 MB); the next lane to add a picture will turn it red.
 NEXT: 538's other half, MAKE CAMP after a won fight: under 1 s on this box on main and here (its tasks 145 to 300 ms; the gap 896 to
-924 ms on main, 736 to 793 ms here; EYES' 1.37 s did not come back), the gap left is the map coming back (style, layout, paint of
-the map's page, outside any task); name it with the Long Animation Frames API and take it down; F538 prints it OWED until then.
+924 ms on main, 736 to 793 ms here; EYES' 1.37 s did not come back), the gap left is NAMED (the Long Animation Frames API, after this
+ship): one 577 ms frame at the tap with 8 ms of script, no style, 10 ms of render, nothing blocking: the fight's whole page going
+away (the shell's nfHome: fr.src = 'about:blank', fr.remove()). RUN's door; the fix is the page's unload off the press (let it go
+after the map is up, or keep the page and reuse it). F538 prints it OWED until then.
 Then EYES' next walk re-measures both on the phone.
 [bb] Battle Brothers' pre-battle screen names the terrain the battle is cut from; ours names the board the fight deals.
 [analog horror] a card that promised an open road and a board of houses with every upstairs window dark.
