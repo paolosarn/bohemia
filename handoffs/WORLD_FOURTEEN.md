@@ -1,7 +1,7 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
 WORLD FOURTEEN, BATCH TWO (11/9, rule 440(c), ask line 539: 'More everything pls'). BUILD 11/9f - SEVEN MORE PLACES TALK. BUILT, NOT
-YET SEEN. Record: records/BOHEMIA_WORLD_14_SEVEN_MORE_PLACES_TALK_11_9_26.md. VOTE world14-seven-more-places-talk-11-9 (ui, STAND-IN).
+YET SEEN. Record: records/BOHEMIA_WORLD_14_SEVEN_MORE_PLACES_TALK_11_9_26.md. VOTE world14-seven-more-places-talk-11-9 (ui, STAND-IN), names 7d1ec7f5.
 - The seven WORLD TEN seated get their person and choices (data only, the 11/9c machinery): CLARK STATION, THE MINT (pay the boiler
   crew in food to charge your batteries: -3 food, +6 batteries, every 3 days; take the racks from the men who hold it: a fight, 12),
   LENZIE STATION at Apex (strip the black-start battery room; the scrappers in the switchyard), SHARK REEF (the tunnel to the gift shop;
