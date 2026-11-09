@@ -310,6 +310,8 @@ async function demo(alpha) {
       /* U13: the lab's look and its track */
       const L = BOH_REGION.places.find(p => p.name === 'TULE SPRINGS LAB');
       out.look = { trade: vbRegionTrade(L), file: PV.tradeOf ? PV.tradeOf(L.name) : null };
+      out.looks = BOH_REAL_PLACES.list.filter(p => p.where === 'region' && p.region_trade).map(p => { const q = BOH_REGION.places.find(x => x.name === p.name);
+        return [p.name, q ? vbRegionTrade(q) : null, p.region_trade]; });
       try { if (BOH_REGION.drawRoads) { render(); } } catch (e) {}
       /* U14: the faces */
       const looks = []; BOH_REAL_PLACES.list.forEach(p => { if (!p.visit) return; if (p.visit.line) p.visit.line.forEach(m => looks.push(m.look)); else looks.push(p.visit.who.look); });
@@ -343,8 +345,8 @@ async function demo(alpha) {
         Object.keys(P).length >= 12 && bad.length === 0 && (!keeper || (keeper.joined === 1 && keeper.bg === 'houndmaster')), (bad.join(', ') || 'all pay') + '; keeper ' + JSON.stringify(keeper)); }
     ok(W + ' U12 THE HOME CENTRE\'S BACK ROOM pays batteries (3 or 1) and is searched once', (r.hw.paid === 3 || r.hw.paid === 1) && r.hw.left.indexOf('back') < 0, JSON.stringify(r.hw));
     const tracks = await fr.evaluate(() => { try { const L = BOH_REGION.places.find(p => p.name === 'TULE SPRINGS LAB'); const T = BOH_REGION.tracks ? BOH_REGION.tracks() : null; return { ro: BOH_REGION.roadsOut || null, road: BOH_REGION.passAt ? BOH_REGION.passAt(L.x, L.y) : null }; } catch (e) { return { err: e.message }; } });
-    ok(W + ' U13 THE LAB READS AS A LAB: painted from the file\'s compound look; it stands on a road or the region gives it a dirt track', r.look.trade === r.look.file && r.look.trade === 'prison' && tracks.ro && (tracks.road === 1 || tracks.ro.tracks >= 1),
-       JSON.stringify(r.look) + ' ' + JSON.stringify(tracks));
+    ok(W + ' U13 THE LAB READS AS A LAB, THE RANCH AS A FARM, THE RV PARK AS TRAILERS: each region place painted from the file\'s look; it stands on a road or the region gives it a dirt track', r.look.trade === r.look.file && r.look.trade === 'prison' && (r.looks || []).length >= 3 && r.looks.every(x => x[1] === x[2]) && tracks.ro && (tracks.road === 1 || tracks.ro.tracks >= 1),
+       JSON.stringify(r.look) + ' ' + JSON.stringify(r.looks) + ' ' + JSON.stringify(tracks));
     const noFace = r.faces.filter(f => !f[1]);
     ok(W + ' U14 every face the visits name is one the face engine draws', r.faces.length >= 9 && noFace.length === 0, noFace.map(f => f[0]).join(',') || r.faces.length + ' faces');
     ok(W + ' U15 MUTATION: the visits off, the bank opens straight away; a scripted browser that did not ask meets no card', !r.off.card && r.off.screen === 'THE BANK' && !r.scripted.card && r.scripted.screen === 'THE BANK',

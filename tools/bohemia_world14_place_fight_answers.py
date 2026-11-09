@@ -77,6 +77,19 @@ def build(J):
         D.get('natmuseum')),
       'the_tv_station': row('tvstation', 'valley',
         "Channel 8's low studios under the mast; the mast's fenced base and the satellite dishes in the lot (half cover)", D.get('tvstation')),
+      # ---- BATCH THREE (11/9, rule 440(c)): on the region's real land ----
+      'spring_mountain_ranch': row(None, 'region',
+        "the old ranch under the Red Rock cliffs: the ranch house (two storeys of block and wood), the long barn with its loft, the corrals "
+        "and the hay; corral rails stop a step, never a shot; the hay bales half cover", None,
+        **{'class': 'green', 'building': 'barn', 'storeys': {'1': 0.6, '2': 0.4}, 'man': 'in_or_roof', 'cover': 'full', 'open_cover': 'half',
+           'blocks': ['fence'], 'street_front': True,
+           'picture': "the region paints it with its garden look (fields and a farmhouse); the ranch house, the barn and the corrals are COOK FOUR's golden piece"}),
+      'callville_bay': row(None, 'region',
+        "the campground and RV park on the lake shore: motorhomes in rows on the campground's loop road (a man in one or on its roof, its "
+        "thin walls half cover), the marina's dock on the mud, the lake's water stopping a step", None,
+        **{'class': 'houses', 'building': 'trailer', 'storeys': {'1': 1}, 'man': 'in_or_roof', 'cover': 'half', 'open_cover': 'half',
+           'blocks': ['walls', 'water'], 'street_front': True,
+           'picture': "the region paints it with its trailer look; the motorhomes on their loops and the dry marina are COOK FOUR's golden piece"}),
     }
     for k in P: P[k]['draft'] = True
     J['places'] = {'about': ABOUT, 'rows': P}

@@ -130,7 +130,7 @@ VISITS = {
     'head': 'LENZIE STATION · APEX',
     'who': {'name': 'THE TURBINE WATCHER', 'look': 'faction_remnants', 'from': 'under the stacks of LENZIE STATION'},
     'says': ("Three turbines and not one cubic foot of gas, hermano. The pipe is dry since the dollar. Once a week I turn the shafts by hand so the "
-             "bearings don't seize, because the day the gas comes back, whoever has a turbine that turns owns Las Vegas. The stacks still have "
+             "bearings don't seize, because the day the gas comes back, whoever has a turbine that turns owns the whole valley. The stacks still have "
              "their lights. Red, every night, for airplanes that don't come."),
     'opts': [
       {'id': 'battery_room', 't': 'Strip the station battery room.', 'once': True,
@@ -226,6 +226,35 @@ VISITS = {
                          'yes': {'bats': 4, 'say': "The camera's battery packs, four of them, charged. Nobody at the desk. The red light on the camera stays on after you take its battery."},
                          'no': {'bats': 1, 'say': "One pack. The chair at the anchor desk was warm."}}}},
       {'id': 'in', 't': 'Walk in.', 'in': True}]},
+  # ---- BATCH THREE (11/9, rule 440(c)): the two on the region's real land ----
+  'spring_mountain_ranch': {
+    'head': 'SPRING MOUNTAIN RANCH · RED ROCK',
+    'who': {'name': 'THE FOREMAN', 'look': 'cast_barearms', 'from': 'at the corrals of SPRING MOUNTAIN RANCH'},
+    'says': ("Forty head left, jefe, out of four hundred. The springs still run, that is the only reason we are alive. Everybody in the valley "
+             "wants beef and nobody wants to herd. The rustlers come down from Blue Diamond on the full moon. Mira, the old ranch house, the "
+             "Hughes house. The phone in there still rings sometimes. The line has been cut since before I came."),
+    'opts': [
+      {'id': 'beef', 't': 'Buy a side of beef.', 'need': {'bats': 6}, 'every_days': 4,
+       'fx': {'bats': -6, 'food': 6, 'say': "A side of beef, salted, six nights for the company. Six batteries in the foreman's coffee can. One a night, he says, same as the stall."}},
+      {'id': 'rustlers', 't': 'Stand guard against the rustlers tonight.', 'once': 'won',
+       'fx': {'fight': {'foe': 'brigands', 'n': 'party', 'skulls': 1, 'label': 'the rustlers from Blue Diamond',
+                        'win': {'food': 4, 'bats': 4, 'mood': {'act': 'favor', 'place': 'near'}, 'flag': 'ranch_rustlers',
+                                'say': "The rustlers ran for the hills without the herd. The foreman pays in beef and batteries and tells the ranches up the road."},
+                        'lose': {'food': -2, 'say': "They took six head and two nights of your food off the wagon. The foreman counts the herd again."}}}},
+      {'id': 'in', 't': 'Walk in.', 'in': True}]},
+  'callville_bay': {
+    'head': 'CALLVILLE BAY · LAKE MEAD',
+    'who': {'name': 'THE HARBORMASTER', 'look': 'cast_poncho', 'from': 'on the dock at CALLVILLE BAY'},
+    'says': ("Forty motorhomes and not one with gas, hermano. Nobody here is going anywhere, so we fish. The lake went down a hundred feet, the "
+             "marina sits on the mud like a dead boat. Every winter the roaming people come in off the roads and stay till spring. Oye, the "
+             "camp host's sign still says THREE NIGHT LIMIT. Some of us have been here eleven years."),
+    'opts': [
+      {'id': 'bass', 't': 'Trade batteries for dried bass.', 'need': {'bats': 4}, 'every_days': 4,
+       'fx': {'bats': -4, 'food': 5, 'say': "Five nights of striped bass, dried on a line between two motorhomes. Fish is cheaper than beef out here. Everybody has a rod."}},
+      {'id': 'site31', 't': 'Take on the man from site 31.', 'need': {'food': 2}, 'once': True,
+       'fx': {'food': -2, 'man': {'n': 1, 'name': 'SITE 31', 'bg': 'fisherman', 'look': 'cast_poncho'},
+              'say': "Eleven years on site 31. I know every road to every water there is. Two nights of food and I'm yours, sí."}},
+      {'id': 'in', 't': 'Walk in.', 'in': True}]},
 }
 
 ABOUT = ("THE VISIT (WORLD 14 11/8, VAMILY rule 436(b), ask line 521): Battle Brothers' way of entering a location, a picture, a few "
@@ -242,7 +271,7 @@ def visit_text(v):
     t = json.dumps(dict(v, draft=True), indent=2, ensure_ascii=False)
     return '\n'.join(('      ' + l) if i else l for i, l in enumerate(t.split('\n')))
 
-LOOKS = {'the_lab': 'prison'}   # the region look a place borrows until COOK FOUR's golden piece (vbRegionTrade's own looks)
+LOOKS = {'the_lab': 'prison'}   # the ranch and the campground carry theirs in their own entries (11/9)   # the region look a place borrows until COOK FOUR's golden piece (vbRegionTrade's own looks)
 
 def build(s):
     for pid, tr in LOOKS.items():

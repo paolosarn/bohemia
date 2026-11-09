@@ -1,5 +1,24 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, BATCH THREE (11/9, rule 440(c), ask line 539). BUILD 11/9j - THE RANCH AND THE LAKE CAMP. BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_WORLD_14_THE_RANCH_AND_THE_LAKE_CAMP_11_9_26.md. VOTE world14-the-ranch-and-the-lake-camp-11-9 (ui, STAND-IN).
+- VERIFIED THE REAL SPOTS: the ranch is Spring Mountain Ranch (Red Rock, 36.0697 N 115.4506 W), the campground and RV park Callville Bay
+  (Lake Mead, 36.1433 N 114.7256 W): both OUTSIDE the valley. The bus yard is the RTC's Sunset Maintenance Facility, 5165 W Sunset Rd
+  (opened 2009, 36.6 acres): INSIDE the valley. A greenhouse farm: none verified yet, inside the valley.
+- BUILT, ON THE REGION (WORLD's own tools/bohemia_world_region.py, re-run; the land file gains exactly the two places, nothing else
+  moved; the valley's generation untouched): SPRING MOUNTAIN RANCH (-18,65, a road, 8.2 h): THE FOREMAN, BUY A SIDE OF BEEF (-6
+  batteries, +6 food, every 4 days), STAND GUARD AGAINST THE RUSTLERS (a fight); CALLVILLE BAY (151,45, a dirt track, 15.4 h): THE
+  HARBORMASTER, TRADE BATTERIES FOR DRIED BASS (-4, +5 food), TAKE ON THE MAN FROM SITE 31 (a fisherman joins). The ranch painted
+  with the region's garden look, the RV park its trailers look; two more fight rows (fourteen in all).
+- Lenzie's line said 'owns Las Vegas' (shipped in 11/9f): the city is called Bohemia (IT IS CALLED BOHEMIA); it says 'the whole valley' now.
+- GATES: THE PLACES GET THEIR USE 30/0 over fourteen places (demo and alpha; U13 now checks every region look); THE MISSING REAL PLACES
+  16/0; all ten region gates run: eight green, THE ONE RULER 30/3 and IT IS CALLED BOHEMIA 5/1 red on clean main too (not these files).
+- STILL OPEN ON THIS LANE: the bus yard (verified, inside the valley) and a greenhouse farm need a valley seat. FOR WORLD THIRTEEN, the
+  note of batch two stands: say in your block if your land-use layer should seat them; otherwise the next WORLD round seats them through
+  WORLD TEN's DATA block, as places of kinds the map already has.
+[bb Battle Brothers sells food and men in its towns; ours sells beef at the ranch and bass at the lake, and the roads' people winter at the camp.]
+[analog horror: the phone in the Hughes ranch house still rings; the line was cut before the foreman came.]
+
 WORLD FOURTEEN, BATCH TWO (11/9, rule 440(c), ask line 539: 'More everything pls'). BUILD 11/9f - SEVEN MORE PLACES TALK. BUILT, NOT
 YET SEEN. Record: records/BOHEMIA_WORLD_14_SEVEN_MORE_PLACES_TALK_11_9_26.md. VOTE world14-seven-more-places-talk-11-9 (ui, STAND-IN), names 7d1ec7f5.
 - The seven WORLD TEN seated get their person and choices (data only, the 11/9c machinery): CLARK STATION, THE MINT (pay the boiler

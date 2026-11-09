@@ -275,6 +275,12 @@ PLACES = [
     # past the city if batteries are the money.
     ('TULE SPRINGS LAB',   36.305, -115.235, 'fortress', 'fight', 'the lab on the fossil beds; the pens the dire wolf and the mammoth calf walked out of when the dollar died'),
     ('LENZIE STATION',     36.3837, -114.9218, 'fortress', 'fight', 'the big gas plant at Apex; three turbines and no gas; whoever gets one turning prints money'),
+    # WORLD 14 (11/9, VAMILY rule 440(c), rule 409(c)'s 'the ranch' and 'the campground and RV park'): two more missing places on the
+    # real land past the rim. SPRING MOUNTAIN RANCH: the state park's historic ranch in Red Rock (36.06972 N, 115.45056 W, Wikipedia's
+    # infobox; TopoZone 36.06969, -115.45667), a working ranch from the 1870s, owned by Howard Hughes in the 1960s. CALLVILLE BAY: the
+    # Lake Mead campground (52 sites, the NPS) and its concession RV park (36.143263 N, 114.725594 W, the listings agree).
+    ('SPRING MOUNTAIN RANCH', 36.0697, -115.4506, 'camp', 'fight', 'the old ranch in Red Rock: the corrals, the long barn, the last cattle in the valley, the hay under the cliffs'),
+    ('CALLVILLE BAY',      36.1433, -114.7256, 'camp',     'fight', 'the campground and the RV park on the lake: fifty-two sites, the motorhomes that never left, the marina on the mud'),
 ]
 # beyond the rim: real places the roads go on to, named at the edge with their distance
 BEYOND = [

@@ -1,13 +1,12 @@
-WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9f - SEVEN MORE PLACES TALK, BUILT, NOT YET SEEN (rule 440(c), ask
-line 539; after 11/9c THE PLACES TALK, rule 436(b), ask 521). Twelve of rule 409's missing places now talk when you arrive, Battle Brothers'
-location way, two or three choices with real costs: the lab's wolf pen, the bank's boxes, the jobs line's man, the home centres' back rooms
-(11/9c); now CLARK STATION the mint (food in, batteries out; or take its racks), LENZIE STATION's battery room, SHARK REEF (the tunnel, fish
-the tanks), the ANIMAL SHELTER (the keeper joins as a dog man with the brindle), THE MOB MUSEUM (the tour, a debt for the family), the
-NATURAL HISTORY MUSEUM (the cases, the T. rex's battery), CHANNEL 8 (a minute on the air, studio B). Twelve fight rows in WORLD 13's table.
-Gate THE PLACES GET THEIR USE 30/0 (demo and alpha, 96 valleys, 7 plants). Next: the ranch, greenhouse, bus yard, campground (seats; a
-note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9j - THE RANCH AND THE LAKE CAMP, BUILT, NOT YET SEEN (rule 440(c), ask
+line 539; after 11/9c THE PLACES TALK and 11/9f SEVEN MORE PLACES TALK). Fourteen of rule 409's missing places now talk when you arrive, two
+or three choices with real costs: the lab, the bank, the jobs line, the home centres (11/9c); the gas plants, Shark Reef, the shelter, the
+museums, Channel 8 (11/9f); now SPRING MOUNTAIN RANCH in Red Rock (beef for batteries; guard the herd from the rustlers) and CALLVILLE BAY on
+Lake Mead (dried bass; the man from site 31 joins), both on the region's real land at their real spots. Fourteen fight rows in WORLD 13's
+table. Gate THE PLACES GET THEIR USE 30/0 (demo and alpha). Still open: the bus yard (verified: RTC Sunset, 5165 W Sunset Rd) and a
+greenhouse farm need a valley seat (a note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
 [bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
-[analog horror: the T. rex roars on its backup battery every night until somebody takes the battery.]
+[analog horror: the phone in the Hughes ranch house still rings; the line was cut before the foreman came.]
 HOME BASE (home-base-01gkdyuv): 11/9 LATEST -- BUILD 11/9h - YOUR PLACE REMEMBERS, BUILT, NOT YET SEEN (rule 440(d), asks 356, 522;
 after 11/9d YOUR PLACE, PLANTED): the people who moved in stand in his place and talk, one thing a visit from the place's own record
 ('You let me go on day 4...'; two acts on, 'Your granddad put up the garden bed on day 7. We still use it.', rule 412); he picks the lot
