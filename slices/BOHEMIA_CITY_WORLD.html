@@ -68315,6 +68315,30 @@ function screenFilter(mode){
   });
 })();
 
+/* ==== __THE_MAP_RESTS_UNDER_A_PLACE__ (MOTION 3's block in the map's file, NOTE on RUN's and PLUMBER's boards; 11/9/26, rule 440(e):
+   the camp after a fight '60 frames on a cheap phone'; PLUMBER 7 11/7 FOUND, NOT FIXED (1): 'the town's grow 13 to 19 fps... it repaints'; MOTION 2:
+   'the map's own loop still draws under the cover'). MEASURED on the demo at 390 x 844 (gates/the_camp_after_a_fight_gate.js, a CPU profile
+   of the camp after a fight at rest): the camp ran 4 to 11 frames a second, and of 2.5 s the camp's own drawing was 14 ms while THE MAP,
+   drawing every frame behind a camp screen that covers the whole glass, spent 825 ms in vbCityDraw's restore, 206 ms in its fills and
+   97 ms in mapDepthBlit. RUN's __THE_MAP_RESTS_UNDER_THE_FIGHT__ already rests it under a fight; this rests it under a PLACE (a town, a
+   camp) the same way: while the place's frame is up, opaque, and covers the glass to the map's own bar, and nothing of the map can show
+   (no morph playing on the glass, no dive), the map's picture is not drawn; everything else of the frame runs (the day, the camera, the
+   clock), and its caches are kept (a place closes back onto the map). The first frame anything of the map can show, it draws.
+   window.__MAP_DRAW_UNDER = true is the old way. ==== */
+function mapUnderAPlace(){
+  try{
+    if(window.__MAP_DRAW_UNDER) return false;
+    var f = (typeof LOOP!=='undefined') && LOOP.frame; if(!f || f.style.display !== 'block') return false;
+    var cs = getComputedStyle(f); if((parseFloat(cs.opacity)||0) < 0.99 || cs.visibility === 'hidden') return false;
+    var r = f.getBoundingClientRect(), W = innerWidth, H = innerHeight, bar = document.getElementById('menubar') || document.getElementById('bmtb');
+    var top = bar ? bar.getBoundingClientRect().bottom : 0;
+    if(r.left > 1 || r.right < W - 1 || r.bottom < H - 1 || r.top > Math.max(1, top + 2)) return false;
+    var P = window.parent, BM = P && P !== window ? P.BohemiaMotion : window.BohemiaMotion;
+    if(BM && ((BM.busy && BM.busy()) || (BM.dive && BM.dive.state && BM.dive.state() !== 'off'))) return false;
+    return true;
+  }catch(_e){ return false; }
+}
+/* ==== end __THE_MAP_RESTS_UNDER_A_PLACE__ ==== */
 function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   /* __THE_MAP_RESTS_UNDER_THE_FIGHT__ (RUN 10/25, [the crash before the fight], rule 173(c)): MEASURED, the map drew about 108 times a
      second under every fight, in a panel the fight hides, so the phone paid for a picture nobody saw and every person and painting
@@ -68379,7 +68403,7 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__ (RUN 9/30): which view is up, said on the body, so a
      street-only hint can step out of the map's way in CSS rather than by hand in each caller. */
   try{ document.body.classList.toggle('onmap', MODE==='city'); }catch(_e){}
-  if(MODE==='city'){ screenFilter('city'); try{ camFollow(); }catch(_e){} renderCity(); } else { screenFilter('human'); renderHuman(); } }   /* __THE_CAMERA_KEEPS_THE_CREW__ */
+  if(MODE==='city'){ screenFilter('city'); try{ camFollow(); }catch(_e){} if(!mapUnderAPlace()) renderCity(); else window.__MAP_UNDER_A_PLACE = (window.__MAP_UNDER_A_PLACE|0) + 1; } else { screenFilter('human'); renderHuman(); } }   /* __THE_CAMERA_KEEPS_THE_CREW__ */   /* __THE_MAP_RESTS_UNDER_A_PLACE__ (MOTION 3, a marked call) */
 /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ (8/27) -- THE PAD LOOKS LIKE WHAT IT WILL DO.
    Paolo: "it's so confusing". The pad does not move or hide when he zooms out,
    so his thumb is already on it, and a press there is a marker cell (96 metres,

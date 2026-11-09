@@ -100,6 +100,30 @@
           var b = left.shift(), side = b.x > L.fire.x ? -1 : 1, px = b.x + side * 46, py = b.y + 6;
           e.act = 'loot'; e.body = b.i; P[e.i] = { x: Math.round(px), y: Math.round(py), face: side > 0 ? 'W' : 'E', act: 'loot' }; });
       } } catch (e) {}
+    /* __THE_CAMP_AFTER_A_FIGHT__ (MOTION 3, 11/9, rule 440(e), rule 406(g): 'your company is interacting with their kills or the buildings
+       nearby'): by day, on the board, a man with an easy job and no body to go through LEANS ON A WALL that touches the camp's tiles
+       (BohemiaCampBoard.walls: the board's own walls, the wall at his right hand, ANIMATION's flirt with o.wall, the hand up on it,
+       rule 430: the rig's own clip), never the hurt, never the watch, never YOU (he walks to your taps), a quarter of the company at
+       most and at least one when there is a wall; when the dead took every free man (a company of three: two of them), the second of
+       them leans instead, so the camp shows the dead gone through, a man at the wall and the fire kept. window.__CAMP_NO_LEAN = the old way. */
+    try { var WL = !root.__CAMP_NO_LEAN && !(root.parent && root.parent.__CAMP_NO_LEAN) && CB() && boardIn() && CB().walls ? CB().walls(L) : [];
+      /* only a wall he can be SEEN at: the picture is wider than an upright phone (measured: a man at a wall at the picture's left edge
+         stood half off the glass), and never under the phone (its columns from its top down) */
+      var GV = glassOf(L); if (GV) WL = WL.filter(function (q) { return q.x > GV.x0 + 40 && q.x < GV.x1 - 40 && !(GV.ph && q.x > GV.ph.l - 30 && q.x < GV.ph.r + 30 && q.y > GV.ph.t - 40); });
+      K.wallsNow = WL;
+      if (WL.length && !night) {
+        var ok2 = function (e) { return !e.main && e.blood >= CL.HURT; };
+        var pool = A.filter(function (e) { return ok2(e) && (e.act === 'cook' || e.act === 'clean'); });
+        var looters = A.filter(function (e) { return ok2(e) && e.act === 'loot'; });
+        if (!pool.length && looters.length >= 2) pool = [looters[looters.length - 1]];
+        var capL = Math.max(1, Math.floor(A.length / 4)), taken = [];
+        A.forEach(function (e) { if (P[e.i]) taken.push(P[e.i]); });
+        pool.slice(0, capL).forEach(function (e) {
+          var mine = P[e.i];
+          var w = WL.filter(function (q) { return Math.hypot(q.x - L.fire.x, q.y - L.fire.y) > 70 &&   /* clear of the fire by a man's width (a camp of three is one tile: every house it touches is near its fire) */ taken.every(function (t) { return t === mine || Math.hypot(t.x - q.x, t.y - q.y) > 64; }); })[0];
+          if (!w) return;
+          e.act = 'lean'; e.wall = w.side; delete e.body; P[e.i] = { x: w.x, y: w.y, face: w.face, act: 'lean', wall: w.side }; taken.push(P[e.i]); });
+      } } catch (e) {}
     return { layout: L, men: M, acts: A, spots: P, hour: hour, night: night, cart: cart, retinue: ret, tall: !!L.tall, key: (L.tall ? 'T|' : 'W|') + A.map(function (e) { return e.act; }).join(',') + '|' + L.pieces.length + '|' + cart + '|' + ret.join(',') };
   }
   function open(info, S) {
@@ -127,6 +151,17 @@
   /* THE PHONE AFTER (rule 289 then 286): an upright glass shows the tall ground's whole height (the screen cannot pan up or down), so
      when the phone stands in its bottom corner the camp itself rises: everything clear of the phone's top and, room allowing, centred
      in what is left; it rises and settles in one beat (the glide). With no phone it sits centred on the glass. */
+  /* __THE_CAMP_AFTER_A_FIGHT__ (MOTION 3): the part of the camp's picture on the glass (the settlement's own camera, view.ox and view.s,
+     as it stands), and the phone's columns on it */
+  function glassOf(L) {
+    try { var sc = document.getElementById('scene').getBoundingClientRect(); if (!sc || !sc.width || !sc.height) return null;
+      var k = L.pic.h / sc.height, V = K.view, s = V && V.s ? V.s : 1 / k, W0 = sc.width;
+      /* the camera as it stands (compose() puts the fire at the middle of what the phone leaves, so with the phone on the right the
+         camp sits left of the glass's middle: the composed guess put a man at a wall half off the left edge, measured on the phone strip) */
+      var ox = V && isFinite(V.ox) ? V.ox : Math.min(0, Math.max(W0 - L.pic.w * s, W0 / 2 - L.fire.x * s)), g = { x0: -ox / s, x1: (W0 - ox) / s, ph: null, live: !!(V && isFinite(V.ox)) };
+      var r = phone(); if (r) g.ph = { l: (r.left - sc.left - ox) / s, r: (r.right - sc.left - ox) / s, t: (r.top - sc.top) * k };
+      return g; } catch (e) { return null; }
+  }
   var PERSON = 134;   /* the settlement screen's man, picture px (its personH) */
   function liftFor(L, nMen) {
     var r = phone(); if (!r) return 0;
@@ -279,7 +314,7 @@
     var p = K.st.layout.pieces.filter(function (q) { return q.key === k; })[0]; if (!p || !p.sleeps) return [];
     return p.sleeps.map(function (i) { var m = K.st.men[i]; return m ? (m.main ? 'YOU' : m.name || 'ONE OF YOURS') : null; }).filter(Boolean);
   }
-  var SAYS = { loot: 'goes through the dead', lie: 'is down, bandaged', rest: 'binds a cut by the fire', mend: 'mends his armour', tend: 'sits with the hurt', cook: 'cooks', clean: 'cleans a gun', watch: 'keeps watch', sleep: 'sleeps' };
+  var SAYS = { lean: 'leans on the wall', loot: 'goes through the dead', lie: 'is down, bandaged', rest: 'binds a cut by the fire', mend: 'mends his armour', tend: 'sits with the hurt', cook: 'cooks', clean: 'cleans a gun', watch: 'keeps watch', sleep: 'sleeps' };
   function doing() {
     if (!K.st) return [];
     return K.st.acts.map(function (e) { return (e.main ? 'YOU' : (e.name || 'ONE OF YOURS')) + ' ' + (SAYS[e.act] || 'rests'); });
@@ -330,7 +365,7 @@
     });
     return out;
   }
-  var ACT_PIC = { rest: 'sit', clean: 'sit', tend: 'sit', mend: 'stall', cook: 'stall', watch: 'smoke', loot: 'stall' };
+  var ACT_PIC = { rest: 'sit', clean: 'sit', tend: 'sit', mend: 'stall', cook: 'stall', watch: 'smoke', loot: 'stall', lean: 'smoke' };
   var TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 
   /* ---------------------------------------------------------------- drawing */
@@ -398,14 +433,14 @@
      own words for an act are in its pictures. 'rest' is binding a cut on a crate (its 'mend'), 'mend' is the armour at the cart
      (its 'repair', the car door and the hammer); a man who was lying and is healed gets up ONCE ('rise', from the moment he
      healed), then does his job */
-  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot' };   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
+  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot', lean: 'flirt' };   /* __THE_CAMP_AFTER_A_FIGHT__: lean is the flirt's wall (the hand up on it) */   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
   var RISE_MS = 4000;   /* its one slot: 24 keys, two bars at 120 BPM */
   function animCell(m, now, face, I) {
     if (!I || !I.activity) return null;
     var key = m.name || m.look, seed = 'camp:' + key, r = K.rise && K.rise[key];
     if (r && now - r < RISE_MS) { var q0 = I.activity(m.look, seed, now, face, { act: 'rise', n: m.slot, since: r }); if (q0) return q0; }
     var a = ANIM_ACT[m.act]; if (!a) return null;
-    return I.activity(m.look, seed, now, face, { act: a, n: m.slot });
+    return I.activity(m.look, seed, now, face, { act: a, n: m.slot, wall: m.act === 'lean' });
   }
   function drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z) {
     var fx = ctx.view.ox + x * s, fy = ctx.view.oy + y * s, night = K.st.night;
@@ -640,8 +675,8 @@
       pieces: K.st ? K.st.layout.pieces.map(function (p) { return { key: p.key, kind: p.kind, sprite: p.sprite, x: p.x, y: p.y, follower: p.follower || null }; }) : [],
       acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
       hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, drawnBy: K.drawnBy || {}, rose: Object.keys(K.rise || {}), gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
-      bodies: K.bodiesNow || [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
+      bodies: K.bodiesNow || [], walls: K.wallsNow || [], drawnAt: K.drawnAt || {}, spots: K.st ? K.st.acts.map(function (e) { var sp = K.st.spots[e.i]; return sp ? { name: e.main ? 'YOU' : e.name, act: e.act, x: sp.x, y: sp.y, face: sp.face, wall: sp.wall || null } : null; }).filter(Boolean) : [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
-  root.BohemiaCampLook = { ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
+  root.BohemiaCampLook = { glass: function () { return K.st ? glassOf(K.st.layout) : null; }, ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
     folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);

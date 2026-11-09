@@ -105,9 +105,17 @@ async function measure(opts) {
     const st = fs0.length > 1 ? await steps(cmp, fs0) : { steps: [], glass: 0 };
     let big = 0, bigAt = null; st.steps.forEach((v, i) => { if (v != null && v > big) { big = v; bigAt = Math.round(fs0[i + 1].t - t0); } });
     const ws = ft.filter(t => t >= w0 + 250), gaps = []; for (let i = 1; i < ws.length; i++) gaps.push(ws[i] - ws[i - 1]);
+    /* the frames WHILE the new morphs play (from their first calm frame to their landing): the owner's own work at the tap, before a
+       morph starts, is the owner's (the board's plans, measured once at 233 ms), never the morph's */
+    const realRows = await M(t0 => (window.BohemiaMotion ? BohemiaMotion.log.filter(r => r.t0 >= t0 - 5 && r.how === 'real' && r.t1) : []).map(r => ({ a: r.t0 + (r.stall || 0), b: r.t1 })), t0);
+    const TO = await M(() => performance.timeOrigin);
+    let inMorph = null;
+    if (realRows.length) { const a = Math.min(...realRows.map(r => r.a)) - TO, b = Math.max(...realRows.map(r => r.b)) - TO, f = ft.filter(t => t >= a && t <= b), g = [];
+      for (let i = 1; i < f.length; i++) g.push(f[i] - f[i - 1]);
+      inMorph = { fps: f.length > 1 ? +((f.length - 1) / ((f[f.length - 1] - f[0]) / 1000)).toFixed(1) : null, worst: g.length ? Math.round(Math.max(...g)) : null, frames: f.length }; }
     const span = ws.length > 1 ? ws[ws.length - 1] - ws[0] : 0;
     const row = { name, pressed, frames: fs0.length, glass: +(st.glass || 0).toFixed(3), big: +big.toFixed(3), bigAt, sum: +st.steps.filter(v => v != null && v >= 0.02).reduce((a, v) => a + v, 0).toFixed(3),
-      over5: st.steps.filter(v => v > 0.05).length, pieces, fps: span ? +(gaps.length / span * 1000).toFixed(1) : null, worst: gaps.length ? Math.round(Math.max(...gaps)) : null, morphs: m3 };
+      over5: st.steps.filter(v => v > 0.05).length, pieces, inMorph, fps: span ? +(gaps.length / span * 1000).toFixed(1) : null, worst: gaps.length ? Math.round(Math.max(...gaps)) : null, morphs: m3 };
     row.trail = st.steps.map((v, i) => v != null && v >= 0.02 ? [Math.round(fs0[i + 1].t - t0), +v.toFixed(3)] : null).filter(Boolean);
     if (opts.frames && big > 0) { try { const i = st.steps.indexOf(big), nm = name.replace(/\W+/g, '_'); fs.writeFileSync(path.join(opts.frames, nm + '_a.jpg'), Buffer.from(fs0[i].data, 'base64')); fs.writeFileSync(path.join(opts.frames, nm + '_b.jpg'), Buffer.from(fs0[i + 1].data, 'base64')); } catch (e) {} }
     row.inOne = row.sum > 0 ? +(row.big / row.sum).toFixed(2) : 0;

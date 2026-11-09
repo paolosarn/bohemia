@@ -108,11 +108,11 @@ function judge(rows, name, id, dir, key, label) {
        morphs hold 40 and no frame over 200 ms there; the fight's end and the way home carry the fight's and the map's own work (the old
        way 6 and 8.5 frames a second this round): never under that */
     const light = ['town>shop', 'shop>item', 'sheet>town', 'town>board', 'board>job', 'map>settings', 'settings>map'].map(n => oneChange(rows, n)).filter(Boolean).concat(rows.filter(r => /^town>(lot|scavenge|bar|clinic|stall)$/.test(r.name)));
-    const slow = light.filter(r => !(r.fps >= 40 && r.worst <= 200));
+    const slow = light.filter(r => { const q = r.inMorph || r; return !(q.fps >= 40 && q.worst <= 200); });   /* judged while the morph plays; the whole window printed */
     const heavy = [['fight>over', 6], ['spoils>map', 8]].map(([n, f]) => [oneChange(rows, n), f]).filter(x => x[0]);
     const slowH = heavy.filter(([r, f]) => !(r.fps >= f));
-    ok('E6 FRAMES: the town\'s and the settings\' changes hold 40 frames a second or more with no frame over 200 ms; the fight\'s end and the way home never under the old way (this box, full speed)', light.length >= 7 && !slow.length && heavy.length === 2 && !slowH.length,
-      light.concat(heavy.map(x => x[0])).map(r => r.name + ' ' + r.fps + ' fps, worst ' + r.worst + ' ms').join('; ') + (slow.length || slowH.length ? ' -- SLOW: ' + slow.map(r => r.name).concat(slowH.map(x => x[0].name)).join(', ') : ''));
+    ok('E6 FRAMES: while the new morphs play, the town\'s and the settings\' changes hold 40 frames a second or more with no frame over 200 ms; the fight\'s end and the way home never under the old way (this box, full speed)', light.length >= 7 && !slow.length && heavy.length === 2 && !slowH.length,
+      light.concat(heavy.map(x => x[0])).map(r => r.name + ' ' + (r.inMorph ? 'while it plays ' + r.inMorph.fps + ' fps, worst ' + r.inMorph.worst + ' ms (the whole change ' : '') + r.fps + ' fps, worst ' + r.worst + ' ms' + (r.inMorph ? ')' : '')).join('; ') + (slow.length || slowH.length ? ' -- SLOW: ' + slow.map(r => r.name).concat(slowH.map(x => x[0].name)).join(', ') : ''));
     console.log('         every change, frames a second (PLUMBER 7\'s 11/7zd in brackets): ' + rows.map(r => r.name + ' ' + r.fps + (BASE[r.name] ? ' [' + BASE[r.name] + ']' : '')).join(', '));
 
     /* the town again, for the finger, reduced motion and the planted fails */

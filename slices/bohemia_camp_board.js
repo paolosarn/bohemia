@@ -232,6 +232,40 @@
     return B.out.dead.map(function (d, i) { return { i: i, side: d.side, x: Math.round(f.c[0] + (d.x + 0.5 + d.st - cx) * f.T), y: Math.round(f.c[1] + (d.y + 0.9 - cy) * th) }; })
       .filter(function (q) { return q.x > 40 && q.x < f.PW - 40 && q.y > 60 && q.y < f.PH - 20; });
   }
+  /* ==== __THE_CAMP_AFTER_A_FIGHT__ (MOTION 3, 11/9/26, rule 440(e), rule 406(g) AMENDED 11/6; Paolo: 'once you finish a battle and
+     you camp there, you actually camp on the combat tiles you were just on, and your company is interacting with their kills or the
+     buildings nearby'). The board already knew what stands on it (the fight's own grid, campBoardGrid: 0 a wall, a roof, water, a raised
+     tile); nothing used it but the pitch. THE WALLS A MAN CAN LEAN ON: every side of an open tile on the camp's square or the ring one
+     tile round it that touches a HOUSE, a 0 tile with 4 or more 0 tiles in the 3 by 3 round it (never a one-tile wall line or a kerb:
+     measured on the phone, a man at one read as a man standing in the open; never the board's edge), the more house the better, as the camp's picture shows it (the same mapping as the dead, bodies()
+     above), the spot just inside the open tile against that side, and the way he faces so the wall is at his RIGHT HAND (ANIMATION's
+     flirt o.wall, the hand up on it, rule 430: the rig's own clip). A wall behind him reads best (N, then W, then S, then E: his back
+     to the glass last). ==== */
+  var SIDE_COST = { N: 0, W: 0.25, S: 0.5, E: 0.9 }, WALL_FACE = { N: 'W', W: 'S', E: 'N', S: 'E' };
+  function walls(L) {
+    if (B.state !== 'in' || !B.out || !B.out.grid || !B.pitch || !L) return [];
+    var f = fit(L, B.kit, B.sq); if (!f) return [];
+    var G = B.out.grid, ok = G.ok || [], P = B.pitch, cx = P.x + P.w / 2, cy = P.y + P.h / 2, th = f.T * AR, out = [];
+    var at = function (x, y) { return ok[y] && ok[y][x] != null ? ok[y][x] : 0; };
+    var SIDES = [[0, -1, 'N'], [-1, 0, 'W'], [1, 0, 'E'], [0, 1, 'S']];
+    /* how much house stands behind a wall tile: its 0 tiles in the 3 by 3 round it (a block of a house 7 to 9, a one-tile wall line 3) */
+    var mass = function (x, y) { var n = 0; for (var j = -1; j <= 1; j++) for (var i = -1; i <= 1; i++) if (at(x + i, y + j) === 0 && x + i >= 0 && y + j >= 0 && x + i < G.w && y + j < G.h) n++; return n; };
+    for (var y = P.y - 1; y <= P.y + P.h; y++) for (var x = P.x - 1; x <= P.x + P.w; x++) {   /* the camp's tiles and the ring one tile round them */
+      if (x < 0 || y < 0 || x >= G.w || y >= G.h || !at(x, y)) continue;
+      for (var k = 0; k < 4; k++) {
+        var d = SIDES[k], wx = x + d[0], wy = y + d[1];
+        if (wx < 0 || wy < 0 || wx >= G.w || wy >= G.h || at(wx, wy) !== 0) continue;
+        var u = x + 0.5 + d[0] * 0.3, v = y + 0.62 + d[1] * 0.28;
+        var px = f.c[0] + (u - cx) * f.T, py = f.c[1] + (v - cy) * th;
+        if (px < 40 || px > f.PW - 40 || py < 80 || py > f.PH - 30) continue;   /* on the camp's picture, as the dead are */
+        var ms = mass(wx, wy); if (ms < 4) continue;   /* a house, never a one-tile wall line or a kerb (measured: a man at a 1-wide raised line read as a man standing in the open) */
+        out.push({ x: Math.round(px), y: Math.round(py), face: WALL_FACE[d[2]], side: d[2], tile: [x, y], wall: [wx, wy], mass: ms,
+          cost: Math.abs(x + 0.5 - cx) + Math.abs(y + 0.5 - cy) + SIDE_COST[d[2]] - 0.15 * ms });
+      }
+    }
+    return out.sort(function (a, b) { return a.cost - b.cost; });
+  }
+  /* ==== end __THE_CAMP_AFTER_A_FIGHT__ ==== */
   function state() {
     return { state: B.state, key: B.key, n: B.n, sq: B.sq || null, need: B.need, pitch: B.pitch, ms: B.ms, err: B.err, bakes: B.bakes, made: B.made, opts: B.opts || null,
       board: B.out && B.out.dealt ? { name: B.out.dealt.name, kinds: B.out.dealt.kinds, w: B.out.dealt.w, h: B.out.dealt.h, cols: B.out.dealt.cols, ground: B.out.dealt.ground,
@@ -240,6 +274,6 @@
       fromFight: !!B.fromFight, wantSig: B.wantSig || null, bodies: B.out ? B.out.bodies : 0, dead: B.out && B.out.dead ? B.out.dead.length : 0,
       plates: Object.keys(B.plates).map(function (k) { var P = B.plates[k]; return { key: k, ready: !!P.ready, T: P.T, w: P.w, h: P.h, ms: P.ms }; }) };
   }
-  root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
+  root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, walls: walls, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
     onChange: function (fn) { if (typeof fn === 'function' && B.fns.indexOf(fn) < 0) B.fns.push(fn); }, _B: B };
 })(typeof window !== 'undefined' ? window : this);

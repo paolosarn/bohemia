@@ -10665,6 +10665,16 @@ GATES = [
      "compositor, on the beat, in budget; HEAL is one morph that lands without the 2 s wait; MOTION 1 and 2's morphs still play; 40+ fps "
      "and no frame over 250 ms on every change the new morphs play; a tap on the growing sheet's close lands on the close; reduced motion a "
      "fade; P1 the old way (window.__MOTION_THREE_OFF) turns a weapon's card and the settings' close red (only when pressed and moved). Solo: it measures frames. About 8 min", True),
+    ('THE CAMP AFTER A FIGHT', ['node', 'gates/the_camp_after_a_fight_gate.js'],
+     "MOTION 3 gate, 11/9, rule 440(e), rule 406(f)(g)(h) (PAOLO 11/6: 'once you finish a battle and you're in the victory screen and you "
+     "camp there, you actually camp on the combat tiles that you just were on, and your company's interacting with their kills or the "
+     "buildings nearby'). MEASURED before: nothing used the board's walls (no man ever at a house) and the camp at rest ran 4 to 22 fps "
+     "with the map painting itself every wake under a camp that covers the glass. On the demo at 390 x 844: a road fight won, MAKE CAMP "
+     "tapped on the loot screen: the camp on that fight's own board with its dead; by day a man goes through the dead, a man LEANS on a "
+     "wall of that board touching the camp (the wall at his right hand, on the glass), the fire kept, three acts or more; the leaner drawn "
+     "by ANIMATION's flirt wall clip every frame once its sheet is in; the camp at rest 40+ fps, no frame over 150 ms, the map resting "
+     "under it (__THE_MAP_RESTS_UNDER_A_PLACE__, the old way printed beside it) and the camp's clock still running; P1 the old way "
+     "(window.__CAMP_NO_LEAN) goes red under the same check. Solo: it measures frames. About 3 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
      "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "
