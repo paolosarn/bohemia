@@ -4697,7 +4697,7 @@ function hide(){ S.sheetFor = null; try{ document.getElementById('sheet').classL
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
 function lotWorld(){
-  var d = S.place.district || 'commercial', cells = [];
+  var d = S.place.district || 'commercial', cells = []; if(!S.camp && window.BohemiaScavenge && BohemiaScavenge.SEARCHABLE.indexOf(d) < 0) d = 'commercial';   /* EYES 11/8 (rules 437(c), 438(b)): a TOWN's lot is its own junk lot, whatever map ground its gate stands on; 7 of 14 towns on valley MKH-7UJ (Caravans' terminal, Blues' park, Church's and Volunteers' school, Mob's resort, Network's substation, Remnants' prison) read 0 left, so 'Search the lot' was greyed and SILENT when pressed, and said 'You took it all.' on the first visit */
   for(var i=0;i<LOTN;i++){ cells.push(i,0); }
   var block = S.place.block && S.place.block.cells ? S.place.block : {i:0, cells:cells};
   return {m:{at:function(){ return {district:d}; }}, blocks:{blocks:[block]}, block:block};

@@ -1,6 +1,25 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/8 (rule 437(c), ask line 522: play the demo end to end on a phone, every round) -- THE DEMO PLAYED END TO END, UPRIGHT AND ON ITS SIDE.
+Record: records/BOHEMIA_EYES_THE_DEMO_PLAYED_END_TO_END_ON_A_PHONE_11_8_26.md. Pictures: records/eyes_walk_11_8/ (20 webp).
+HIS 438(b), ROOT FOUND AND FIXED (one line, slices/BOHEMIA_SETTLEMENT_SCREEN.html lotWorld): 'Search the lot' was GREYED, silent when
+pressed, in every town whose gate stands on map ground the scavenge engine leaves out (7 of 14 on MKH-7UJ, a start town among them;
+Volunteers said 'You took it all.' on the first visit). Now a town's lot is its own junk lot; proven sideways in Volunteers (open in
+356 ms, 6 spots). TOWN FIX keeps the other half (an emptied lot answers at once; the dial gate's demo leg opens only Anarchists).
+ASK ROWS 525 TO 538, FOUND BY EYES, EACH WITH ITS OWNER: UI THREE 525 (the end screen hides the struck-down man and the loot), 527 (the
+fight's 25 px presses, with COMBAT TWO), 528 (no skin row sideways, with CHARACTER), 529 (the pistol's THROW JAVELIN, with WEAPONS),
+533 (job cards cut), 535 (BEST over the words), 536 (a raised stat looks lower); UI TWO 526 (the phone's 6 to 7 px words); WORDS 530
+(every win 'THE RAIDERS ARE DOWN', with COMBAT TWO); COMBAT TWO 531 (the meet card's open road dealt houses, WORLD 13 the card);
+HIRES 532 (a melee man with a pistol, Tasha a he); RUN 534 (the new game sideways cuts the crew name); WEAPONS 537 (the two-hand
+machete on the one-hand picture); PLUMBER 538 (1.37 s and 1.18 s freezes; SCAVENGE the bake).
+SEEN WORKING: rule 435 holds, 61 of 61 AUTO turns acted over five fights (suburb, the pool pit, the Strip at 4x, the freeway deck
+at 4x, the road sideways); a job end to end and paid on touching the town; retreat; camp; the crew screen; save and reload both ways.
+TOOL: tools/bohemia_eyes_live_session.js gained 'phone_side' (844 x 390) and S.stalls (a freeze meter in every frame), and its tap
+helper no longer double-counts a frame two deep (that made the scavenge game's LEAVE look dead for a step: my bug, not filed).
+NEXT: re-walk after the next ships, the ALPHA link too (only the demo this round); a night fight; a board job that lands on the
+Strip or the freeway by its own road; sound.
+
 EYES, 11/3 (the coordinator's brief: FINISHER 2's section 9, the 70 rows built but never played) -- THE SEVENTY ROWS WALKED.
 Record: records/BOHEMIA_EYES_THE_SEVENTY_ROWS_WALKED_11_3_26.md (the broken list first, in hand-out order; then every row in one line).
 Pictures: records/eyes_seventy_rows_11_3/ (20 small webp). Each of the 75 rows on the ask list now leads with 'EYES 11/3' and one verdict.

@@ -31,6 +31,8 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/jav
   '.webmanifest': 'application/manifest+json', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ttf': 'font/ttf' };
 const PROFILES = {
   phone: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
+  /* EYES 11/8 (rule 437(c)): the phone on its side, the way he turns it; the same phone, held wide */
+  phone_side: { viewport: { width: 844, height: 390 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
   computer: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, hasTouch: false, isMobile: false } };
 
 fs.mkdirSync(DIR, { recursive: true });
@@ -42,6 +44,15 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
   const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
   const prof = PROFILES[PROFILE];
   const ctx = await browser.newContext(Object.assign({}, prof, { serviceWorkers: 'block' }));
+  /* EYES 11/8 (rule 437(c): 'every stall, freeze over 1 s'): THE STALL METER, armed in every document before any page script
+     (the page and every frame), so a freeze is a measured gap between two drawn frames, never a feeling. A gap over 250 ms is
+     kept with the moment it ended; the browser's own long tasks (over 50 ms) are counted beside it. S.stalls(sinceMs) reads them all. */
+  await ctx.addInitScript({ content: `(function(){ try {
+    var G = window.__EYES_GAPS = [], L = window.__EYES_LONG = [], last = 0;
+    function f(t){ if (last && t - last > 250 && !document.hidden) G.push({ at: Math.round(performance.timeOrigin + t), ms: Math.round(t - last) }); last = t; if (G.length > 400) G.splice(0, 200); requestAnimationFrame(f); }
+    requestAnimationFrame(f);
+    if (window.PerformanceObserver) new PerformanceObserver(function(l){ l.getEntries().forEach(function(e){ L.push({ at: Math.round(performance.timeOrigin + e.startTime + e.duration), ms: Math.round(e.duration) }); }); if (L.length > 800) L.splice(0, 400); }).observe({ entryTypes: ['longtask'] });
+  } catch (e) {} })();` });
   const served = { n: 0, bytes: 0, missing: [], refused: [] };
   await ctx.route('**/*', async (route) => {
     const u = route.request().url();
@@ -91,7 +102,10 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
         if (!on) e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2, scrolled: !on }; }, [sel, re || null]);
       if (!b) return null;
       let ox = 0, oy = 0;
-      if (f !== page && f.parentFrame && f.parentFrame()) { let g = f; while (g && g.parentFrame()) { const fb = await S.frameBox(g); if (fb) { ox += fb.x; oy += fb.y; } g = g.parentFrame(); } }
+      /* EYES 11/8: a frame's box from Playwright is ALREADY on the page's glass (it adds its parents' boxes itself), so only the frame's own
+         box is added; summing every parent's box double-counted a frame two deep (the scavenge game inside the town inside the map tapped
+         63 px below its LEAVE, and LEAVE read as dead for a round) */
+      if (f !== page && f.parentFrame && f.parentFrame()) { const fb = await S.frameBox(f); if (fb) { ox = fb.x; oy = fb.y; } }
       await S.tap(ox + b.x, oy + b.y); if (b.scrolled) S.scrolls++;
       return { x: ox + b.x, y: oy + b.y, scrolled: b.scrolled };
     },
@@ -99,6 +113,17 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
     key: async (k) => { await page.keyboard.press(k); },
     shot: async (name, opts) => { const p = path.join(SHOTS, name + '.png'); await page.screenshot(Object.assign({ path: p }, opts || {})); return p; },
     texts: async (f, sel) => (f || page).evaluate((sel) => [...document.querySelectorAll(sel || 'body')].filter(e => e.offsetParent !== null || e === document.body).map(e => e.innerText).join('\n---\n'), sel),
+    /* every frame's stalls since a moment (Date.now() ms), the frame's file named, worst first */
+    stalls: async (since) => { const out = { gaps: [], long: [] };
+      const seen = {};
+      for (const f of page.frames()) { if (!/^https?:/.test(f.url())) continue; try { const r = await f.evaluate((s) => ({ g: (window.__EYES_GAPS || []).filter(x => x.at >= s), l: (window.__EYES_LONG || []).filter(x => x.at >= s) }), since || 0);
+        const n = (f.url().split('/').pop() || 'page').split('?')[0].slice(0, 40);
+        /* one main thread: the same freeze is seen by every frame on it, so a gap is counted once (its end to 50 ms, its length to 50 ms) */
+        const once = (x, k) => { const key = k + Math.round(x.at / 50) + ':' + Math.round(x.ms / 50); if (seen[key]) return false; seen[key] = 1; return true; };
+        r.g.forEach(x => { if (once(x, 'g')) out.gaps.push(Object.assign({ f: n }, x)); }); r.l.forEach(x => { if (once(x, 'l')) out.long.push(Object.assign({ f: n }, x)); }); } catch (e) {} }
+      out.gaps.sort((a, b) => b.ms - a.ms); out.long.sort((a, b) => b.ms - a.ms);
+      out.over1s = out.gaps.filter(x => x.ms > 1000).length; out.worst = out.gaps[0] ? out.gaps[0].ms : 0;
+      out.gaps = out.gaps.slice(0, 8); out.long = out.long.slice(0, 5); return out; },
     heap: async () => { try { const r = await cdp.send('Runtime.getHeapUsage'); return Math.round(r.usedSize / 1048576); } catch (e) { return null; } },
     pinch: async (from, to, steps) => {
       steps = steps || 20; const vp = page.viewportSize(); const CX = vp.width / 2, CY = vp.height / 2;
