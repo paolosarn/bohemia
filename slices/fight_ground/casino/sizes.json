@@ -1,0 +1,122 @@
+{
+ "cage": {
+  "piece": "cage",
+  "src": "casino/casino_cage.webp",
+  "w": 678,
+  "h": 258,
+  "facing": "S",
+  "foot": [
+   337.0,
+   171
+  ],
+  "model": "reference/models/bohemia/casino_cage.glb"
+ },
+ "bar": {
+  "piece": "bar",
+  "src": "casino/casino_bar.webp",
+  "w": 564,
+  "h": 282,
+  "facing": "S",
+  "foot": [
+   280.0,
+   210
+  ],
+  "model": "reference/models/bohemia/casino_bar.glb"
+ },
+ "screens": {
+  "piece": "screens",
+  "src": "casino/casino_screens.webp",
+  "w": 516,
+  "h": 172,
+  "facing": "S",
+  "foot": [
+   258.0,
+   172
+  ],
+  "model": "reference/models/bohemia/casino_screens.glb"
+ },
+ "seats": {
+  "piece": "seats",
+  "src": "casino/casino_seats.webp",
+  "w": 484,
+  "h": 184,
+  "facing": "S",
+  "foot": [
+   238.0,
+   122
+  ],
+  "model": "reference/models/bohemia/casino_seats.glb"
+ },
+ "wall_ew": {
+  "piece": "wall_ew",
+  "src": "casino/casino_wall_ew.webp",
+  "w": 516,
+  "h": 83,
+  "facing": "S",
+  "foot": [
+   258.0,
+   83
+  ],
+  "model": "reference/models/bohemia/casino_wall_ew.glb"
+ },
+ "wall_ns": {
+  "piece": "wall_ns",
+  "src": "casino/casino_wall_ns.webp",
+  "w": 16,
+  "h": 433,
+  "facing": "S",
+  "foot": [
+   8.0,
+   433
+  ],
+  "model": "reference/models/bohemia/casino_wall_ns.glb"
+ },
+ "door": {
+  "piece": "door",
+  "src": "casino/casino_door.webp",
+  "w": 516,
+  "h": 143,
+  "facing": "S",
+  "foot": [
+   258.0,
+   143
+  ],
+  "model": "reference/models/bohemia/casino_door.glb"
+ },
+ "glass": {
+  "piece": "glass",
+  "src": "casino/casino_glass.webp",
+  "w": 516,
+  "h": 180,
+  "facing": "S",
+  "foot": [
+   258.0,
+   180
+  ],
+  "model": "reference/models/bohemia/casino_glass.glb"
+ },
+ "stage": {
+  "piece": "stage",
+  "src": "casino/casino_stage.webp",
+  "w": 516,
+  "h": 407,
+  "facing": "S",
+  "foot": [
+   258.0,
+   407
+  ],
+  "model": "reference/models/bohemia/casino_stage.glb"
+ },
+ "stage_steps": {
+  "piece": "stage_steps",
+  "src": "casino/casino_stage_steps.webp",
+  "w": 516,
+  "h": 154,
+  "facing": "S",
+  "foot": [
+   258.0,
+   154
+  ],
+  "model": "reference/models/bohemia/casino_stage_steps.glb"
+ }
+}

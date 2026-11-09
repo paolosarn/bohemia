@@ -1,0 +1,67 @@
+{
+ "version": "casino-floor-11-8",
+ "lane": "combat 2",
+ "rule": "VAMILY rule 416 (Paolo 11/6, ask line 468): THE BIG INTERIORS, the first one: a casino floor",
+ "his_words": "I don't think I'd want the interiors to be like human sized as the characters are for real, I still want like this is a block and turf war, I always want that feeling... some fights could be inside too",
+ "how_to_mod": "A layout is 15 strings of 20 characters, one a board row, north at the top; each character is a tile, read in the legend. The camera sees the south face of things, so a wall of screens or the cage goes on a north wall facing south. Both lines must stand on open floor: his at columns 4 and 5, theirs at column 11, rows 3 to 11. A layout may be mirrored east to west by the dice ('flip').",
+ "districts": ["casino", "highroller", "luxor", "resort"],
+ "power_default": false,
+ "board": {
+  "templates": {
+   "floor": {
+    "name": "THE CASINO FLOOR",
+    "flip": {"cols": true, "rows": false},
+    "layouts": {
+     "the_cage_and_the_book": [
+      "####dvvvvv#KKKKKK###",
+      ".....CCCCC.kkkkkk...",
+      "....................",
+      ".SS..........SS.SS..",
+      "............P.......",
+      ".SS....TTT...SS.SS..",
+      ".......T.T..........",
+      "..P....TTT....BBBB..",
+      "....................",
+      ".SS..........SS.SS..",
+      "............P...HHH.",
+      ".SS..........SS.HHH.",
+      "#####D#.........HHH.",
+      ".TT.T.#.............",
+      "......#..gggg......."
+     ]
+    }
+   }
+  },
+  "legend": {
+   ".": {"is": "floor", "say": "the gaming floor's carpet, worn to the backing in the aisles"},
+   "S": {"is": "floor", "piece": "slot_bank", "say": "a bank of dead slot machines: cover a man crouches behind"},
+   "T": {"is": "floor", "piece": "table", "say": "a table of the pit: low cover"},
+   "P": {"is": "floor", "piece": "pillar", "say": "a column: nobody walks through it"},
+   "C": {"is": "floor", "piece": "casino_cage", "say": "the cashier's cage: a counter under steel bars, no way through but its door"},
+   "v": {"is": "vault", "say": "the strong room behind the cage: its own floor, its one door"},
+   "d": {"is": "floor", "piece": "casino_door", "say": "the cage's door"},
+   "B": {"is": "floor", "piece": "casino_bar", "say": "the centre bar: a counter a man takes cover at"},
+   "K": {"is": "wall", "piece": "casino_screens", "say": "the sportsbook's wall of dead screens, one frozen on the last odds"},
+   "k": {"is": "floor", "piece": "casino_seats", "say": "the sportsbook's seats at their desk: low cover"},
+   "H": {"is": "stage", "piece": "casino_stage", "say": "the lounge stage: one step up, high ground"},
+   "#": {"is": "wall", "piece": "casino_wall", "say": "a wall, the roof and the floors above it cut away"},
+   "D": {"is": "floor", "piece": "casino_door", "say": "a door in a wall"},
+   "g": {"is": "floor", "piece": "casino_glass", "say": "the front doors, two leaves gone: the way in from the porte-cochere"}
+  },
+  "pick": {"floor": 1}
+ },
+ "kit": {
+  "casino_cage": {"kind": "COVER", "h": 1.1, "blocks_move": true, "name": "THE CASHIER'S CAGE", "stage": "stand_in"},
+  "casino_bar": {"kind": "LOW_COVER", "h": 1.1, "name": "THE BAR", "stage": "stand_in"},
+  "casino_seats": {"kind": "LOW_COVER", "h": 0.8, "name": "THE SPORTSBOOK SEATS", "stage": "stand_in"},
+  "casino_screens": {"kind": "WALL", "h": 3.6, "name": "THE SPORTSBOOK WALL", "stage": "stand_in"},
+  "casino_wall_ew": {"kind": "WALL", "h": 1.6, "name": "A WALL", "stage": "stand_in"},
+  "casino_wall_ns": {"kind": "WALL", "h": 1.6, "name": "A WALL", "stage": "stand_in"},
+  "casino_door": {"kind": "DOOR", "name": "A DOOR", "stage": "stand_in"},
+  "casino_glass": {"kind": "DOOR", "name": "THE FRONT DOORS", "stage": "stand_in"},
+  "casino_stage": {"kind": "HEIGHT", "h": 1.0, "name": "THE LOUNGE STAGE", "stage": "stand_in"},
+  "casino_stage_steps": {"kind": "HEIGHT", "h": 1.0, "name": "THE STAGE'S FRONT", "stage": "stand_in"}
+ },
+ "floor": {"carpet": ["block_casino_0.webp", "block_casino_1.webp", "block_casino_2.webp"], "vault": ["block_lab_3.webp#2,2", "block_lab_3.webp#2,0", "block_lab_3.webp#1,2"]},
+ "lights": {"slot_glow_every": 1, "radius_m": 4, "src": "light_slot_glow.webp"}
+}

@@ -8,7 +8,7 @@
    faced a yard), and 180 of 360 boards had their roads in pieces (the suburb's three streets never met, the Strip's boulevard cut by
    every dead car on it, downtown's in eleven).
    THE LEGS (the live fight's own deal, headless: the 15 place boards x 20 seeds and every other district of the map x 6, the freeway's
-   own boards aside, rule 432 is FREEWAY's; the graveyard's own deal counted apart: its crypts are pieces on its path, no building):
+   own boards aside, rule 432 is FREEWAY's; the graveyard's own deal counted apart: its crypts are pieces on its path, no building; and a fight inside a casino, the casino floor, rule 416):
      R1  every building fronts a road: every house, and every lump of a built kind's walls and roofs (two tiles or with a roof), has a
          road tile beside it                                                     planted: a house's road taken away, red
      R2  ONE NETWORK: every piece of road on a board with buildings is joined to the rest, unless no walk of open ground could join
@@ -35,6 +35,10 @@ const J = f => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'slices
 const ctx = HL.engine({ extra: { window: null } }); ctx.window = ctx;
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'slices/bohemia_street_board.js'), 'utf8'), ctx);
 try { vm.runInContext(fs.readFileSync(path.join(ROOT, 'engine/bohemia_fight_kinds.js'), 'utf8'), ctx); } catch (e) {}
+/* the casino floor as the live page loads it (rule 416): a fight at a casino with an inside is fought on its floor */
+try { vm.runInContext(fs.readFileSync(path.join(ROOT, 'slices/bohemia_casino_floor.js'), 'utf8'), ctx);
+  const cd = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/casino/casino_floor.json'), 'utf8')), cz = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/casino/sizes.json'), 'utf8')), ck = {};
+  Object.keys(cd.kit).forEach(k => { const z = cz[k.replace(/^casino_/, '')]; ck[k] = Object.assign({}, cd.kit[k], z ? { src: z.src } : {}); }); ctx.DB.casino = { data: cd, sizes: cz, kit: ck }; } catch (e) {}
 ctx.DB.streetKit = J('street_board.json'); ctx.DB.streetDress = J('dressing.json'); ctx.DB.streetStoreys = J('storeys.json');
 const F = ctx.FIGHT, P = ctx.DB.ours.place_boards.value.places, RNrow = ctx.DB.ours.road_network, RN = RNrow.value, LIFT = ctx.DB.streetDress.lift;
 const BUILT = {}, PAVED = {}, ASPH = {}; RN.built.forEach(k => BUILT[k] = 1); RN.paved.forEach(k => PAVED[k] = 1); (RN.asphalt || []).forEach(k => ASPH[k] = 1);
@@ -103,6 +107,7 @@ function read(S, L) {
   const t0 = Date.now(), tot = { floor: 0, boards: 0, laid: 0, blds: 0, off: [], stubs: [], joinable: [], fake: [], widths: {}, byTag: {}, painted: 0, drives: 0, joins: 0, edgeRoads: 0 };
   let sample = null;
   DEALS.forEach(q => { const S = deal(q), L = S.boardDef.laid; tot.boards++; if (S.boardDef.family === 'graveyard') { tot.graveyard = (tot.graveyard || 0) + 1; return; }
+    if (S.boardDef.interior) { tot.interior = (tot.interior || 0) + 1; return; }   /* an inside (the casino floor, rule 416): no road runs on a casino's floor */
     const bt = tot.byTag[q.tag] = tot.byTag[q.tag] || { boards: 0, blds: 0, widths: {} }; bt.boards++;
     if (!L || !L.road) return; tot.laid++;
     const r = read(S, L); tot.blds += r.blds; tot.floor += r.floor; bt.blds += r.blds; Object.keys(r.widths).forEach(w => { tot.widths[w] = (tot.widths[w] || 0) + 1; bt.widths[w] = 1; });
@@ -150,7 +155,7 @@ function read(S, L) {
   const wide = k => Object.keys(tot.byTag).filter(t => tot.byTag[t].widths[k]);
   check([1, 2, 3, 4].every(w => tot.widths[w]), 'R5', 'ROADS COME IN SIZES: widths on the boards ' + ws.map(w => (w === 4 ? '4+' : w) + ' tile' + (w > 1 ? 's' : '') + ' on ' + tot.widths[w] + ' boards').join(', ') + ' (3 wide: ' + wide(3).slice(0, 5).join(', ') + '; 4 and more: ' + wide(4).slice(0, 4).join(', ') + ')');
   const places = Object.keys(P).filter(p => tot.byTag[p] && tot.byTag[p].boards >= 20).length;
-  check(tot.boards >= 600 && Object.keys(tot.byTag).length >= 60 && places === Object.keys(P).length && tot.laid === tot.boards - (tot.graveyard || 0), 'R6', tot.boards + ' boards over ' + Object.keys(tot.byTag).length + ' districts and places, ' + places + ' places at 20 seeds, ' + tot.laid + ' laid with their roads read (' + (tot.graveyard || 0) + ' the graveyard\'s own deal)');
+  check(tot.boards >= 600 && Object.keys(tot.byTag).length >= 60 && places === Object.keys(P).length && tot.laid === tot.boards - (tot.graveyard || 0) - (tot.interior || 0), 'R6', tot.boards + ' boards over ' + Object.keys(tot.byTag).length + ' districts and places, ' + places + ' places at 20 seeds, ' + tot.laid + ' laid with their roads read (' + (tot.graveyard || 0) + ' the graveyard\'s own deal, ' + (tot.interior || 0) + ' inside a casino)');
   if (OUT) fs.writeFileSync(OUT, JSON.stringify({ boards: tot.boards, blds: tot.blds, painted: tot.painted, drives: tot.drives, joins: tot.joins, widths: tot.widths, off: tot.off, stubs: tot.stubs, joinable: tot.joinable, fake: tot.fake.slice(0, 50) }, null, 1));
   console.log('\nEVERY BUILDING ON THE ROAD: ' + pass + ' passed, ' + fail + ' failed (' + Math.round((Date.now() - t0) / 1000) + ' s)');
   process.exit(fail ? 1 : 0);

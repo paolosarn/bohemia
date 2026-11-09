@@ -30,7 +30,7 @@
 <!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
-<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -407,7 +407,12 @@ function loadAll() {
     .then(function (fw) { DB.freeway = fw[0] && fw[1] ? { boards: fw[0], kit: fw[1] } : null; })   /* never 'a': tools/bohemia_fight_headless.js reads the DB.x = a[i] lines above */
     /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 423(d)): the ranches of two and three storeys (tools/bohemia_combat_two_the_storeyed_houses_11_7_26.py) */
     .then(function () { return fetch('fight_ground/street_board/storeys.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
-    .then(function (k) { DB.streetStoreys = k; });
+    .then(function (k) { DB.streetStoreys = k; })
+    /* __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the casino floor's layout and its pieces (tools/bohemia_combat_two_the_casino_floor_11_8_26.py) */
+    .then(function () { return Promise.all(['fight_ground/casino/casino_floor.json', 'fight_ground/casino/sizes.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
+    .then(function (cf) { const d = cf[0], z = cf[1] || {}, kit = {};   /* the kit's pieces carry the pictures the rig made (sizes.json) */
+      if (d && d.board && d.kit) Object.keys(d.kit).forEach(function (k) { const q = z[k.replace(/^casino_/, '')]; kit[k] = Object.assign({}, d.kit[k], q ? { src: q.src } : {}); });
+      DB.casino = d && d.board && d.kit ? { data: d, sizes: z, kit: kit } : null; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -1385,6 +1390,23 @@ const FIGHT = (function () {
     }
     return false;
   }
+  /* ---------------- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416, ask line 468; Paolo 11/6: 'some fights could be inside too...
+     I still want like this is a block and turf war'). A fight the map hands from a casino with an inside (casino_floor.json
+     districts: the casino, the high roller, the Luxor, the resort; opts.inside 'casino' anywhere; opts.inside false: never) is
+     fought on its floor (slices/bohemia_casino_floor.js): the same camera, the roof cut away, house tiles; the slot banks, the pit,
+     the cage and its strong room, the sportsbook's dead wall, the bar, the lounge stage. INSIDE IT IS NIGHT (no sun under a roof)
+     and DARK unless the power is paid for (opts.casinoPower true; power_default false): the slot banks glow only then. */
+  function casinoFloor(opts) {
+    const CF = typeof window !== 'undefined' ? window.BohemiaCasinoFloor : null, D = DB.casino;
+    if (!CF || !D || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (opts.inside !== 'casino' && D.data.districts.indexOf(opts.district) < 0) return false;
+    const B = CF.deal(((SEED >>> 0) ^ 0x2545f491) >>> 0, D, DB.ground, S.w, S.h, opts.casinoAsk || null); if (!B) return false;
+    const was = [S.night, S.power];
+    S.night = true;                                                                  /* no sun under a roof */
+    S.power = opts.casinoPower === true || (D.data.power_default === true && opts.power !== false);   /* dark unless somebody pays */
+    applyBoard(B); if (!connected()) { S.casinoErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
+    S.casino = B.casino; return true;
+  }
   /* ---------------- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432, ask lines 513 and 514; Paolo 11/7: 'when combat starts on
      [the freeway] it just puts me on a suburb house... why can't it be an underpass or a large overpass towering over the rest of
      the city, you can't quite hop off it'). THE SEAM, agreed with COMBAT TWO in handoffs/FREEWAY.md: a fight the map hands from a
@@ -1561,8 +1583,8 @@ const FIGHT = (function () {
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
-  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -1849,6 +1871,8 @@ const FIGHT = (function () {
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else if (isGraveyard(opts)) {
       for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
+    } else if (casinoFloor(opts)) {
+      /* __THE_CASINO_FLOOR__: a fight at a casino with an inside is fought on its floor (rule 416) */
     } else if (freewayBoard(opts)) {
       /* __THE_FREEWAY_FIGHT__: a fight on the freeway is fought on the freeway (rule 432) */
     } else if (streetBoard(opts, ask, fromMap)) {

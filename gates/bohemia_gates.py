@@ -10697,6 +10697,12 @@ GATES = [
      "and it runs off the board (R2); every joined tile is the street kit's own road, never on a casino's floor, every other road tile the board's own asphalt, paved "
      "kind or lane (R3); nothing changed but the tiles painted, against the join off (R4); roads one, two, three and four or more tiles wide (R5); enough boards (R6). "
      "Planted: a house's road taken away; a stub of road apart; a painted tile showing a yard. About 20 s", True),
+    ('THE CASINO FLOOR', ['node', 'gates/the_casino_floor_gate.js'],
+     "COMBAT TWO gate, 11/8, VAMILY rule 416 (ask line 468; PAOLO 11/6: 'some fights could be inside too... I still want like this is a block and turf war'). "
+     "The first big interior: a fight at a casino with an inside (the casino, the high roller, the Luxor, the resort) is fought on its floor, the Strip's "
+     "boulevard is not (C1); the floor is joined (C2); the cage's strong room has one way in (C3); inside it is night and dark with no power, paid power "
+     "lights the slot banks (C4); every piece has its picture through the master rig, the cover is cover, the cage and columns block, the stage is high "
+     "ground (C5); a fight on AUTO ends inside 30 rounds (C6). Planted: a wall across the floor, a second way into the strong room, the power on. About 40 s", True),
     ('THE OLD LAYOUT, THE NEW HOUSES', ['node', 'gates/the_old_layout_the_new_houses_gate.js'],
      "COMBAT TWO gate, 11/7, VAMILY rule 423 (ask lines 484 to 488; PAOLO 11/7: 'each house should be connected by road or mini road... every house should be a tile that I can be on... one story... a defense boost, but not a range offense boost... there's no ladder system... no one wants to be right in the middle of the street... use the layout of before and just swap the house assets'): 44 spots, the template's layout with the new houses (A1), every house touches a way and every floor tile joins his line (B1 B2), every house tile enterable at its storeys (C1), storeys 1 to 3 most two or three, one storey no reach (D1 D2), no climb into a house and no ladder drawn (D3), AUTO's open street cost and its moves (E1 E2); a planted fail for each. About 25 s", True),
     ('THE BOARD IS THE CITY AT THAT SPOT', ['node', 'gates/the_board_is_the_city_at_that_spot_gate.js'],
