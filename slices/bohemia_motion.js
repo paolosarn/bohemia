@@ -333,7 +333,7 @@
       /* the container waits on its last pose for the real screen to be drawn (never past READY_MAX), then hands over */
       if (m.how === 'grow' && m.o.ready && !m.readyDone) {
         var ok = false; try { ok = !!m.o.ready(); } catch (e) { ok = true; }
-        if (!ok && t - m.t1 < READY_MAX) { if (!m.readyWait) { m.readyWait = true; m.row.waitedReady = 0; } m.row.waitedReady = Math.round(t - m.t1); boil(m); return; }
+        if (!ok && t - m.t1 < READY_MAX) { if (!m.readyWait) { m.readyWait = true; m.row.waitedReady = 0; } m.row.waitedReady = Math.round(t - m.t1); if (m.o.whyNot) { try { m.row.whyNot = m.o.whyNot(); } catch (e) {} } boil(m); return; }
         m.readyDone = true;
         if (m.readyWait) { m.holds.push(t + holdMs()); handOff(m); return; }
       }
@@ -371,7 +371,7 @@
   function handOff(m) {
     if (m.how === 'grow' && m.o.ready && !m.readyDone) return;   /* not before the real screen is drawn */
     if (m.real) setOp(m.real, m.realOp);
-    if (m.s) m.s.style.setProperty('opacity', m.how === 'grow' ? '.67' : (m.how === 'shrink' || m.o.leave) ? '.5' : '1', 'important');
+    if (m.s) m.s.style.setProperty('opacity', m.how === 'grow' ? '.75' : (m.how === 'shrink' || m.o.leave) ? '.5' : '1', 'important');
   }
   function fadePose(m, k, n) {
     /* REDUCED MOTION: nothing travels or grows. The stand-in, where it stands, dissolves; the real piece is there. */
@@ -396,12 +396,16 @@
     setTimeout(function () { out.forEach(function (r) { if (r.parentNode) r.parentNode.removeChild(r); }); }, hm * 3);
   }
   function land(m, skipped) {
+    if (m.how === 'real') { realLand(m, skipped); return; }   /* __THE_REST_OF_THE_STATES__: the real thing lands on itself */
     if (m.done) return;
     m.done = true; m.skipped = skipped;
     if (m.real) giveBack(m.real, m.realOp);
     /* __A_STALL_HOLDS__ (UI 11/2 round 2): a grown screen's stand-in dissolves into the real one over three holds (.67, .33, gone),
-       never the whole screen's content in one frame (the company screen measured 26% of the glass in one frame) */
-    if (!skipped && m.how === 'grow' && m.s && !m.reduced) { var s0 = m.s; s0.style.setProperty('opacity', '.33', 'important'); setTimeout(function () { drop(s0); }, holdMs()); }
+       never the whole screen's content in one frame (the company screen measured 26% of the glass in one frame).
+       __THE_REST_OF_THE_STATES__ (MOTION 3, 11/8): MEASURED on the demo, the crew screen's last step was still 38% of the glass in one
+       frame (the board plate at a third over the see-through company screen, then gone) and the town's 10%: now FOUR steps of a quarter
+       (.75 on the landing hold, .5, .25, gone), a hold each */
+    if (!skipped && m.how === 'grow' && m.s && !m.reduced) { var s0 = m.s, hm0 = holdMs(); s0.style.setProperty('opacity', '.5', 'important'); setTimeout(function () { s0.style.setProperty('opacity', '.25', 'important'); }, hm0); setTimeout(function () { drop(s0); }, 2 * hm0); }
     else drop(m.s);
     var i = LIVE.indexOf(m); if (i >= 0) LIVE.splice(i, 1);
     var t = epochNow();
@@ -411,6 +415,7 @@
     if (m.o.onLand) { try { m.o.onLand(skipped, m); } catch (e) {} }
   }
   function tickOne(m, t) {
+    if (m.how === 'real') { realTick(m, t); return; }   /* __THE_REST_OF_THE_STATES__ */
     if (m.how === 'hold') { holdTick(m, t); return; }
     if (m.waiting) { waitTick(m, t); return; }
     pose(m, t);
@@ -424,9 +429,10 @@
       m.frames++;
       /* THE CLOCK STARTS ON THE FIRST FRAME THAT IS DRAWN: a screen's own work in the same tap (the map redrawn on LEAVE, measured
          at half a second on a computer) would otherwise eat the poses and the morph would jump; a stall is logged, never hidden */
-      if (m.frames === 1 && m.how !== 'hold' && !m.waiting && !m.reduced && t - m.ts > holdMs()) { m.row.stall = Math.round(t - m.ts); plan(m, t); }
-      /* the honest count: is a form of this piece on the glass in this frame (the stand-in, or the real piece shown) */
-      var on = (m.s && m.s.isConnected) || (m.real && shown(m.real) && opacityOf(m.real) > 0.01);
+      if (m.frames === 1 && m.how !== 'hold' && m.how !== 'real' && !m.waiting && !m.reduced && t - m.ts > holdMs()) { m.row.stall = Math.round(t - m.ts); plan(m, t); }
+      /* the honest count: is a form of this piece on the glass in this frame (the stand-in, or the real piece shown); a real piece
+         (__THE_REST_OF_THE_STATES__) is on the glass while it is laid out, or waiting unseen for its page to be drawn */
+      var on = m.how === 'real' ? (m.waitReady || (m.el.isConnected && shown(m.el))) : ((m.s && m.s.isConnected) || (m.real && shown(m.real) && opacityOf(m.real) > 0.01));
       if (!on) m.gaps++;
       /* a morph that throws lands where it is going: the loop never dies, so no stand-in is ever left on the glass */
       try { tickOne(m, t); } catch (e) { m.row.err = String(e && e.message || e).slice(0, 120); try { land(m, true); } catch (_e) {} }
@@ -438,6 +444,9 @@
   function skip(why) {
     LIVE.slice().forEach(function (m) {
       if (m.how === 'hold') return;                         /* a held piece is not motion: it stays until the real one is back */
+      /* __THE_REST_OF_THE_STATES__: the real piece coming in is what his finger is on; it holds its pose until the tap is through
+         (the press and the lift land on the same button), then lands. One going out takes no finger: it lands now. */
+      if (m.how === 'real') { if (why === 'tap' && m.dir === 'in' && !m.reduced && !m.waitReady && m.anim) { if (!m.frozen) { m.frozen = epochNow(); m.row.frozen = 1; try { m.anim.pause(); } catch (e) {} } } else realLand(m, true); return; }
       if (m.waiting) { m.o.snap = true; return; }            /* a piece still looking for its place lands there the moment it exists */
       if (m.how === 'grow' && m.o.ready && !m.readyDone) { var ok = false; try { ok = !!m.o.ready(); } catch (e) { ok = true; }
         if (!ok) { m.holds = [epochNow()]; m.t1 = epochNow(); m.k = 0; if (m.s && !m.reduced) m.s.style.setProperty('transform', 'none', 'important'); return; } }
@@ -460,6 +469,13 @@
         if (TAPS.length > 100) TAPS.splice(0, TAPS.length - 100);
       };
       doc.addEventListener('pointerdown', onTap, true);
+      /* __THE_REST_OF_THE_STATES__: where the finger went down, on every page (what a detail grows out of), and a held piece let go
+         once the tap is through: on its click, or 350 ms after the lift when no click comes (a drag) */
+      doc.addEventListener('pointerdown', function (e) { try { lastTap(doc, e); } catch (_e) {} }, true);
+      var letGo = function () { setTimeout(function () { LIVE.slice().forEach(function (m) { if (m.how === 'real' && m.frozen) realLand(m, true); }); }, 0); };
+      doc.addEventListener('click', letGo, true);
+      doc.addEventListener('pointercancel', letGo, true);
+      doc.addEventListener('pointerup', function () { setTimeout(function () { LIVE.slice().forEach(function (m) { if (m.how === 'real' && m.frozen && epochNow() - m.frozen > 300) realLand(m, true); }); }, 350); }, true);
       doc.addEventListener('keydown', function () { if (LIVE.length) skip('key'); }, true);
     } catch (e) {}
   }
@@ -672,6 +688,9 @@
   function installCity(cw) {
     AD.town = wrapFn(cw, 'loopOpenTown', function (orig) {
       return function (t) {
+        /* __ONE_MORPH_A_DOOR__ (MOTION 3, 11/8): MEASURED on the demo, HEAL on the map logged TWO grows of the same frame (the town's,
+           from campMake opening its camp through this door, and the camp's): the camp's door is the camp's morph alone */
+        try { if (cw.__bmBusy_campMake) return orig.apply(this, arguments); } catch (_e) {}
         var was = townFrameShown(cw), cv = cw.document.getElementById('cv');
         var shape = { w: cw.innerWidth || 390, h: cw.innerHeight || 844 };
         var sp = was ? null : townSpot(cw, t, shape);
@@ -699,10 +718,16 @@
     AD.camp = wrapFn(cw, 'campMake', function (orig) {
       return function () {
         var was = townFrameShown(cw), from = campSpot(cw);
+        /* __ONE_MORPH_A_DOOR__ (MOTION 3, 11/8): the frame's own opacity BEFORE the camp's door runs is its rest. Inside the door
+           WORLD's moment between eases the camp screen up from 0 (BohemiaBetween), and a grow that saved that 0 as the rest gave it
+           back at its landing: the camp screen stood invisible for the whole camp (measured on the demo once the town's second grow
+           was taken off this door; the second grow had been saving the true rest first, by luck of order) */
+        var f0 = cw.LOOP && cw.LOOP.frame, op0 = null; try { if (f0 && !f0.__bmHid) op0 = f0.style.opacity; } catch (e) {}
         var r = orig.apply(this, arguments);
         var f = cw.LOOP && cw.LOOP.frame;
+        try { if (f && f === f0 && op0 !== null && !f.__bmHid) { f.__bmHid = 1; f.__bmRest = op0 === '0' ? '' : op0; } } catch (e) {}
         if (r && !was && f && townFrameShown(cw)) hudTownNow(cw, true);
-        if (r && !was && f && townFrameShown(cw)) grow({ id: 'camp', kind: 'mode', el: f, from: from, label: 'CAMP', plate: 'board_plain', holes: holes(), ready: (function (tr) { return function () { var ok = tr(); try { var L = f.contentWindow.BohemiaCampLook; if (!ok && cw.LOOP && cw.LOOP.ready && L && L.drawn && L.drawn()) ok = true; } catch (e) {} return ok; }; })(townReady(cw, 'YOUR CAMP')) });   /* __CAMP_TWO__: the camp's name is its clock ('DAY 1  14:00', never 'YOUR CAMP'), so the camp is ready when CAMP TWO's camp has drawn a frame; before, every camp waited out READY_MAX behind the plate, the pitch under it */
+        if (r && !was && f && townFrameShown(cw)) grow({ id: 'camp', kind: 'mode', el: f, from: from, label: 'CAMP', plate: 'board_plain', holes: holes(), whyNot: function () { try { var pn = f.contentDocument && f.contentDocument.getElementById('pname'); return 'hud ' + hudLaid(cw) + ', ready ' + !!(cw.LOOP && cw.LOOP.ready) + ', name ' + (pn ? JSON.stringify(pn.textContent) : 'none'); } catch (e) { return String(e).slice(0, 60); } }, ready: (function (tr) { return function () { var ok = tr(); try { var L = f.contentWindow.BohemiaCampLook; if (!ok && cw.LOOP && cw.LOOP.ready && L && L.drawn && L.drawn()) ok = true; if (!ok && cw.LOOP && cw.LOOP.ready && hudLaid(cw)) { var pn = f.contentDocument.getElementById('pname'); if (pn && /\bDAY\s+\d/i.test(pn.textContent || '')) ok = true; } if (!ok && hudLaid(cw)) { var BS = f.contentWindow.BohemiaSettlement; if (BS && BS.ready && BS.ready() && BS.state && BS.state.camp) ok = true; } if (!ok) { var on = cw.LOOP && cw.LOOP.open; if (on && on.name && !on.camp && townReady(cw, on.name)()) ok = true; } } catch (e) {} return ok; }; })(townReady(cw, 'YOUR CAMP')) });   /* __CAMP_TWO__: the camp's name is its clock ('DAY 1  14:00', never 'YOUR CAMP'), so the camp is ready when CAMP TWO's camp has drawn a frame; before, every camp waited out READY_MAX behind the plate, the pitch under it. MOTION 3 11/8: MEASURED, BohemiaCampLook.drawn() answers false on the demo now (the camp drawn by CAMP THREE's screen), so the wait was back to the full 2 s: the camp is also ready when its clock is on its name plate (the screen has laid it), or when the settlement screen says it is ready and it is a camp, or (HEAL in a town rests there, CAMP rule 273(b): measured, the plate read 'Cartel' and waited 2 s) when the place that opened is drawn under its own name */
         return r;
       };
     });
@@ -1685,6 +1710,320 @@
     (DIVE.anims || []).forEach(function (a) { try { if (a.playState !== 'finished') a.finish(); } catch (e) {} });
   }
 
+  /* ======================================================================================================================
+     __THE_REST_OF_THE_STATES__ (MOTION 3, 11/8/26, rule 436(a), asks 151, 257, 278; Paolo: 'the UI morphs: every big change (map, town,
+     fight, camp, shop, jobs, the crew) transforms the shared pieces into each other with quick, on-the-beat animation; never static,
+     never a cut; nothing just appears or vanishes').
+     MEASURED FIRST on the demo at 390 x 844 (tools/bohemia_motion_three_every_change.js, every frame the compositor sent, the biggest
+     share of the glass that changed in ONE frame against all the change the eye saw; records/BOHEMIA_MOTION_THREE_THE_REST_OF_THE_
+     STATES_11_8_26.md): of 19 changes, SIX STILL CUT and two more jumped: a building's sheet opened on CSS's ease (600 of its 739 px in
+     one frame: 60% of the glass) and closed with the town's signs popping back over it (72% in one frame); the shop's item card 31% in
+     one frame; a job's card on the board 36%; the settings closed in one frame (23%, 100% of it); the fight's end put a black box over
+     the whole glass for the loot screen's load (93%); the crew screen's hand-off 38%. The pieces were all there; nothing moved them.
+     NOW THE REAL THING MOVES (no copy: these are pages of DOM a copy would cost a tenth of a second each, and the real one is already
+     drawn): realMorph() holds the element's own styles, lays it at its own place with transition off, and drives its transform on the
+     layer's holds (six a beat, on the music's clock, the first eighth past 250 ms for a piece, 500 ms for a screen): IN, it grows out of
+     what he tapped (the building, the slot, the job's line, the phone's gear) with the tin's lean, squash and overshoot and the
+     rivets on landing; OUT, it goes back into the thing it came from, fading on its last poses, and only then is it gone (the owner's
+     hide is held off by its own style until the last pose). A FINGER HOLDS IT: a tap on a piece coming in freezes its pose until the tap
+     is through (the press and the lift land on the same button), then it lands; a piece going out takes no finger. REDUCED MOTION: a
+     fade in place over two holds. window.__MOTION_THREE_OFF = true is the old way (the checker's planted fail). Watched, never
+     rewritten: the town's #sheet (its 'on'), its #sbody's pages, the weapon card (#bwcard), the shop's man strip (#shopfaces), the
+     settings (#setwrap's 'on'), the loot screen's door (#spoilsdoor in, the shell's spoilsClose wrapped out).
+     ====================================================================================================================== */
+  function m3off() { try { return !!W.__MOTION_THREE_OFF; } catch (e) { return false; } }
+  var REAL_KEYS = ['transform', 'transform-origin', 'transition', 'filter', 'opacity', 'pointer-events', 'will-change', 'display'];
+  function realPut(el, k, v) { try { el.style.setProperty(k, v, 'important'); } catch (e) {} }
+  function realSave(el) {
+    var s = {}; REAL_KEYS.forEach(function (k) { s[k] = [el.style.getPropertyValue(k), el.style.getPropertyPriority(k)]; });
+    if (el.__bmTr) { s.transition = el.__bmTr; }   /* a landing a frame ago still has the owner's transition put away: that one is his */
+    el.__bmReal = s; el.__bmMine = {}; return s;
+  }
+  function realMine(el, k, v) { realPut(el, k, v); try { el.__bmMine[k] = v; } catch (e) {} }
+  /* the element goes back to its own styles with no transition between (a slide from the last pose to its own place is the very pop
+     this layer exists to stop), and the owner's own transition comes back two frames later. A style the owner wrote over ours while
+     it moved is his: it stays. */
+  function realRestore(el) {
+    var s = el.__bmReal, mine = el.__bmMine || {}; if (!s) return; el.__bmReal = null; el.__bmMine = null;
+    REAL_KEYS.forEach(function (k) {
+      if (k === 'transition') return;
+      if (mine[k] === undefined) return;   /* never ours */
+      if (el.style.getPropertyPriority(k) !== 'important') return;   /* the owner wrote it while it moved: his */
+      if (s[k][0]) el.style.setProperty(k, s[k][0], s[k][1]); else el.style.removeProperty(k);
+    });
+    realPut(el, 'transition', 'none');
+    var w = el.ownerDocument.defaultView, tr = s.transition; el.__bmTr = tr;
+    try { w.getComputedStyle(el).transform; } catch (e) {}
+    w.requestAnimationFrame(function () { w.requestAnimationFrame(function () {
+      if (el.__bmReal) return;   /* another morph has it: its landing brings the owner's back */
+      el.__bmTr = null; if (tr && tr[0]) el.style.setProperty('transition', tr[0], tr[1]); else el.style.removeProperty('transition'); }); });
+  }
+  /* boxes in the element's own page (the frames here are 1:1, but never assumed) */
+  function toDoc(doc, b) { if (!b) return null; var o = upFrom(doc, { x: 0, y: 0, w: 1000, h: 1000 }), k = (o.w / 1000) || 1; return { x: (b.x - o.x) / k, y: (b.y - o.y) / k, w: b.w / k, h: b.h / k }; }
+  var LASTTAP = null;
+  function lastTap(doc, e) {
+    var t = e.target, hit = t && t.closest ? t.closest('button,.act,.slot,.gslot,.app,[role=button],[data-item],[data-slot]') : null, r = null;
+    try { if (hit) { r = hit.getBoundingClientRect(); if (r.width < 2 || r.width * r.height > 0.25 * (doc.defaultView.innerWidth * doc.defaultView.innerHeight)) r = null; } } catch (_e) { r = null; }
+    var b = r ? { x: r.left, y: r.top, w: r.width, h: r.height } : { x: (e.clientX || 0) - 20, y: (e.clientY || 0) - 14, w: 40, h: 28 };
+    LASTTAP = { at: epochNow(), doc: doc, box: upFrom(doc, b), inSheet: !!(t && t.closest && t.closest('#sheet')) };
+  }
+  function recentTap(ms) { return LASTTAP && epochNow() - LASTTAP.at < (ms || 900) ? LASTTAP : null; }
+  /* its own place, read off the layout (no transform of anybody's, no style written to read it) */
+  function layoutBox(el) {
+    var op = el.offsetParent, x = el.offsetLeft, y = el.offsetTop;
+    if (op) { var r = op.getBoundingClientRect(); x += r.left + op.clientLeft - (op.scrollLeft || 0); y += r.top + op.clientTop - (op.scrollTop || 0); }
+    return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+  /* PLAYED BY THE COMPOSITOR (PLUMBER 7's 11/7zd numbers: what the page's thread draws a morph at is what a cheap phone shows): the
+     poses are laid as ONE Web Animation of transform and opacity, each pose a keyframe held with step-end until the next hold, so the
+     stop-motion grid is the animation's own and the page's thread writes no style a frame. A box laid again while it grows (a shop's
+     sheet laid taller) re-lays the keyframes on the same clock (a ResizeObserver). */
+  function realPoseOf(m, k, n) {
+    var x = n <= 1 ? 1 : Math.min(1, k / (n - 1)), last = k === n - 1, first = k === 0;
+    /* a piece that fills much of the glass travels on an even curve (the emphasized one put 80% of a whole-glass sheet's travel on its
+       first pose: a cut with extra steps, __A_STALL_HOLDS__'s own finding); a small one decelerates the way Material's does */
+    var p = first ? 0 : ((m.dir === 'out' || m.big) ? 0.5 - 0.5 * Math.cos(Math.PI * x) : emphasized(x)); if (last) p = 1;
+    var b = m.base, cur = lerp(m.a, m.end, p), prev = k > 0 ? lerp(m.a, m.end, m.ps[k - 1]) : m.a; m.ps[k] = p;
+    m.cover[k] = coverOf(cur, m.glass) * (m.dir === 'out' ? Math.max(0, Math.min(1, (1 - p) * 2.4)) : 1);
+    var vx = (cur.x + cur.w / 2) - (prev.x + prev.w / 2), vy = (cur.y + cur.h / 2) - (prev.y + prev.h / 2);
+    var sp = Math.sqrt(vx * vx + vy * vy), lean = first || last ? 0 : Math.max(-5, Math.min(5, -vx * 0.04)), sq = first ? 0 : Math.min(0.06, sp * 0.0005);
+    var over = last && m.dir === 'in' ? 1.025 : 1, horiz = Math.abs(vx) >= Math.abs(vy);
+    var sx = Math.max(0.01, cur.w / b.w) * over * (1 + (horiz ? sq : -sq * .5)), sy = Math.max(0.01, cur.h / b.h) * over * (1 + (horiz ? -sq * .5 : sq));
+    var jx = first ? 0 : (m.jit[k * 2] - .5) * .8, jy = first ? 0 : (m.jit[k * 2 + 1] - .5) * .8;   /* the boil, the same on a re-lay */
+    var ox = cur.x - b.x - (over - 1) * cur.w / 2 + jx, oy = cur.y - b.y - (over - 1) * cur.h / 2 + jy;
+    var f = { transform: 'translate(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px) skewX(' + lean.toFixed(2) + 'deg) scale(' + sx.toFixed(4) + ',' + sy.toFixed(4) + ')' };
+    /* going back, it fades on its last poses into the thing it came from; coming in, the first pose is the size of what was tapped */
+    f.opacity = m.dir === 'out' ? +Math.max(0, Math.min(1, (1 - p) * 2.4)).toFixed(2) : 1;
+    return f;
+  }
+  function realKeys(m) {
+    var n = m.holds.length, D = Math.max(1, m.t1 - m.ts), out = [];
+    m.ps = []; m.cover = []; if (!m.jit) { m.jit = []; for (var i = 0; i < 2 * n + 2; i++) m.jit.push(Math.random()); }
+    for (var k = 0; k < n; k++) {
+      var off = k === 0 ? 0 : Math.max(0, Math.min(1, (m.holds[k - 1] - m.ts) / D));
+      var f = m.reduced ? { transform: 'none', opacity: +(m.dir === 'out' ? Math.max(0, 1 - (k + 1) / (n + 1)) : Math.min(1, (k + 1) / (n + 1))).toFixed(2) } : realPoseOf(m, k, n);
+      f.offset = off; f.easing = 'step-end'; out.push(f);
+    }
+    out.push({ offset: 1, transform: m.dir === 'out' && !m.reduced ? out[n - 1].transform : 'none', opacity: m.dir === 'out' ? 0 : 1 });
+    /* the record: how much of the glass each pose covers, and the biggest step between two poses (the gate reads the drawn frames too) */
+    if (!m.reduced) { var cv = m.cover.slice(); cv.push(m.dir === 'out' ? 0 : coverOf(m.end, m.glass)); if (m.dir === 'out') cv.unshift(coverOf(m.a, m.glass));
+      var st = 0; for (var q = 1; q < cv.length; q++) st = Math.max(st, Math.abs(cv[q] - cv[q - 1])); m.row.poses = n; m.row.step = +st.toFixed(3); }
+    return out;
+  }
+  function realPlay(m) {
+    var el = m.el, win = el.ownerDocument.defaultView;
+    try {
+      m.anim = el.animate(realKeys(m), { duration: Math.max(1, m.t1 - m.ts), fill: 'both' });
+      m.row.compositor = true;
+    } catch (e) { m.row.err = 'no animate: ' + String(e && e.message || e).slice(0, 80); realLand(m, true); return; }
+    /* THE CLOCK STARTS ON THE FIRST FRAME THAT IS DRAWN (the layer's own rule): the first pose stands from this task, and the poses
+       run from the first of two frames the page draws quickly in a row (never later than calmMax, 400 ms; the loot screen's LEAVE
+       1,500), so the screen's own work around the tap (the way home after the loot screen's LEAVE: one 433 to 683 ms frame, measured)
+       never eats them; a stall is logged */
+    try { m.anim.pause(); m.anim.currentTime = 0; } catch (e) {}
+    var made = epochNow(), prev = null, calm = m.o.calmMax || 400;
+    var go = function () {
+      if (m.done || !m.anim) return;
+      var now = epochNow(), quick = prev !== null && now - prev < 40; prev = now;
+      if (!quick && now - made < calm) { win.requestAnimationFrame(go); return; }   /* two frames in a row drawn quickly: the page is drawing again */
+      var d = now - made; if (d > holdMs()) m.row.stall = Math.round(d);
+      m.ts += d; m.t1 += d; for (var i = 0; i < m.holds.length; i++) m.holds[i] += d;
+      if (!m.frozen) { try { m.anim.play(); } catch (e) {} }
+    };
+    win.requestAnimationFrame(go);
+    var RO = el.ownerDocument.defaultView.ResizeObserver;
+    if (m.dir === 'in' && RO) { try { m.ro = new RO(function () { if (m.done || !m.anim) return; var nb = layoutBox(el);
+      if (Math.abs(nb.w - m.base.w) + Math.abs(nb.h - m.base.h) + Math.abs(nb.x - m.base.x) + Math.abs(nb.y - m.base.y) > 1) { m.base = nb; m.end = nb; m.row.relaid = (m.row.relaid | 0) + 1; try { m.anim.effect.setKeyframes(realKeys(m)); } catch (e) {} } });
+      m.ro.observe(el); } catch (e) {} }
+    if (m.o.with) { try { m.with = m.o.with(m); } catch (e) {} }
+  }
+  function coverOf(b, g) { if (!b || !g) return 0; var w = Math.max(0, Math.min(b.x + b.w, g.w) - Math.max(b.x, 0)), h = Math.max(0, Math.min(b.y + b.h, g.h) - Math.max(b.y, 0)); return w * h / Math.max(1, g.w * g.h); }
+  function realMorph(o) {
+    var el = o.el; if (!isEl(el) || !el.isConnected || typeof el.animate !== 'function') return null;
+    LIVE.filter(function (x) { return x.how === 'real' && x.el === el; }).forEach(function (x) { realLand(x, true); });
+    var doc = el.ownerDocument, dir = o.dir === 'out' ? 'out' : 'in';
+    realSave(el);
+    realMine(el, 'transition', 'none'); realMine(el, 'transform-origin', '0 0'); realMine(el, 'will-change', 'transform, opacity');
+    if (o.keep) { try { o.keep(el); } catch (e) {} }
+    if (dir === 'out') realMine(el, 'pointer-events', 'none');   /* what is going takes no finger: a tap reaches what it uncovers */
+    var b = layoutBox(el), dw = doc.defaultView, glass = { w: dw.innerWidth || 1, h: dw.innerHeight || 1 };
+    if (b.w < 2 || b.h < 2) { realRestore(el); return null; }
+    /* a piece that covers a tenth of the glass or more (a sheet, the settings, the loot screen) is a change of screen: it takes a
+       screen's time (500 to 750 ms, six poses or more: four poses over 300 ms were swallowed whole by one of the board's own slow
+       frames, measured); a card or a strip takes a piece's (250 to 500 ms) */
+    var big = coverOf(b, glass);
+    var oo = {}; for (var kk in o) oo[kk] = o[kk]; if (big > 0.1 && !o.small) oo.kind = 'mode';
+    var m = begin(oo, 'real'); m.dir = dir; m.row.dir = dir; m.el = el; m.glass = glass; m.big = big > 0.25; m.row.cover = +big.toFixed(2);
+    var f = toDoc(doc, topBox(m.dir === 'out' ? o.to : o.from));
+    if (!f || !(f.w > 0)) f = { x: b.x + b.w / 2 - 24, y: b.y + b.h / 2 - 16, w: 48, h: 32 };
+    m.base = b; m.a = m.dir === 'out' ? b : f; m.end = m.dir === 'out' ? f : b;
+    if (o.ready) { var ok = false; try { ok = !!o.ready(); } catch (e) { ok = true; } if (!ok) { m.waitReady = true; m.waitFrom = m.t0; realMine(el, 'opacity', '0'); } }
+    if (!m.waitReady) realPlay(m);
+    return start(m);
+  }
+  function realTick(m, t) {
+    if (m.waitReady) {
+      var ok = false; try { ok = !!m.o.ready(); } catch (e) { ok = true; }
+      if (!ok && t - m.waitFrom < (m.o.waitMs || READY_MAX)) return;
+      m.waitReady = false; m.row.waitedReady = Math.round(t - m.waitFrom);
+      plan(m, t); realPlay(m);
+      try { var s0 = m.el.__bmReal && m.el.__bmReal.opacity; if (s0 && s0[0]) m.el.style.setProperty('opacity', s0[0], s0[1]); else m.el.style.removeProperty('opacity'); delete m.el.__bmMine.opacity; } catch (e) {}
+      return;
+    }
+    if (m.frozen) return;   /* his finger is on it */
+    if (!m.anim) return;
+    var ps = m.anim.playState;
+    if (ps === 'finished' || ps === 'idle' || t > m.t1 + 3000) realLand(m, false);
+  }
+  function realLand(m, skipped) {
+    if (m.done) return;
+    m.done = true; m.skipped = skipped;
+    var i = LIVE.indexOf(m); if (i >= 0) LIVE.splice(i, 1);
+    try { if (m.ro) m.ro.disconnect(); } catch (e) {}
+    try { if (m.anim) { m.row.posed = m.anim.currentTime != null ? Math.round(m.anim.currentTime) : null; m.anim.cancel(); } } catch (e) {}
+    try { if (m.with && m.with.cancel) m.with.cancel(); } catch (e) {}
+    realRestore(m.el);
+    var t = epochNow();
+    m.row.t1 = Math.round(t); m.row.ms = Math.round(t - m.t0); m.row.flew = Math.round(t - (m.ts || m.t0)); m.row.planned = Math.round(m.t1 - (m.ts || m.t0));
+    m.row.holds = m.holds ? m.holds.length : 0; m.row.frames = m.frames; m.row.gaps = m.gaps; m.row.skipped = skipped;
+    if (!m.reduced && !skipped && m.dir === 'in' && m.o.rivets !== false) rivets(topBox(m.el));
+    if (m.o.onLand) { try { m.o.onLand(skipped, m); } catch (e) {} }
+  }
+
+  /* ---- THE TOWN'S SHEET (RUN TWO's settlement screen): a building's sheet grows out of the building he tapped and goes back into it;
+     a page he turns inside it (the board to a job, a job to the board) grows out of the line he tapped; the shop's man strip out of
+     the slot he tapped ---- */
+  function sheetSig(body) {
+    var out = [];
+    for (var c = body.firstElementChild; c; c = c.nextElementSibling) { if (c.id === 'shopfaces' || (c.classList && c.classList.contains('fstrip'))) continue; out.push(c.tagName + '.' + (typeof c.className === 'string' ? c.className : '')); }
+    var nm = body.querySelector('.nm'); return out.join(',') + '|' + (nm ? nm.textContent : '');
+  }
+  function watchSheet(sw) {
+    var doc = sw.document, sh = doc.getElementById('sheet'), body = doc.getElementById('sbody');
+    if (!sh || !body || sh.__bmM3 || !W.MutationObserver) return;
+    sh.__bmM3 = true; AD.sheet = true;
+    var st = { on: sh.classList.contains('on'), k: null, from: null, sig: sheetSig(body), strip: doc.getElementById('shopfaces') };
+    var S = function () { try { return sw.BohemiaSettlement.state; } catch (e) { return null; } };
+    /* the building itself, as the town's picture draws it now (rule 438(a), Paolo 11/8: the floating signs come off, 'a building says
+       what it is when he taps it (its sheet)'): its box in the picture (the settlement's own VAR.boxes, view.s, view.ox/oy, read,
+       never panned), else its sign while UI 9's signs stand, else where his finger went down */
+    var signOf = function (k) {
+      try { var V = sw.VAR, vw = sw.view, sc = doc.getElementById('scene'), bx = k && V && V.boxes && V.boxes[k];
+        if (bx && vw && sc && vw.s > 0) { var r = sc.getBoundingClientRect(), b = { x: r.left + vw.ox + bx[0] * vw.s, y: r.top + vw.oy + bx[1] * vw.s, w: (bx[2] - bx[0]) * vw.s, h: (bx[3] - bx[1]) * vw.s };
+          if (b.w > 4 && b.h > 4 && b.x + b.w > 0 && b.y + b.h > 0 && b.x < (sw.innerWidth || 1e4) && b.y < (sw.innerHeight || 1e4)) return upFrom(doc, b); } } catch (e) {}
+      try { var s = k && sw.DS && sw.DS.signs && sw.DS.signs[k]; return s && shown(s) ? topBox(s) : null; } catch (e) { return null; } };
+    var signsEl = function () { try { return sw.DS && sw.DS.el; } catch (e) { return null; } };
+    /* the town's signs (while UI 9's stand: rule 438(a) takes them off) come back with the sheet going home: they fade up as it goes
+       into its building (they popped back over a closing sheet in one frame) */
+    var fadeSigns = function (comingIn) { return function (m) { var g = signsEl(); if (!g || typeof g.animate !== 'function') return null;
+      var n = Math.max(2, m.holds.length); return g.animate([{ opacity: comingIn ? 1 : 0 }, { opacity: comingIn ? 0 : 1 }], { duration: Math.max(1, m.t1 - m.ts), easing: 'steps(' + n + ', end)', fill: 'both' }); }; };
+    new W.MutationObserver(function () {
+      var on = sh.classList.contains('on'); if (on === st.on) return; st.on = on;
+      if (m3off()) return;
+      var s = S();
+      if (on) {
+        st.k = s && (s.open || s.sheetFor); st.sig = sheetSig(body); st.strip = doc.getElementById('shopfaces');
+        var tp = recentTap(1500), from = signOf(st.k) || (tp && !tp.inSheet ? tp.box : null); st.from = from;
+        realMorph({ id: 'sheet', kind: 'piece', el: sh, dir: 'in', from: from });
+      } else {
+        var to = signOf(st.k) || st.from;
+        realMorph({ id: 'sheet', kind: 'piece', el: sh, dir: 'out', to: to, rivets: false, with: fadeSigns(false) });
+      }
+    }).observe(sh, { attributes: true, attributeFilter: ['class'] });
+    new W.MutationObserver(function (list) {
+      if (m3off() || !sh.classList.contains('on')) { st.sig = sheetSig(body); st.strip = doc.getElementById('shopfaces'); return; }
+      /* a sheet still growing that his finger froze (he tapped a job before it landed): the tap is through, it lands now, and the page
+         he turned grows (measured on the phone strip: the job's card skipped its morph behind a frozen board) */
+      LIVE.filter(function (x) { return x.how === 'real' && x.el === sh && x.frozen; }).forEach(function (x) { realLand(x, true); });
+      var growing = LIVE.some(function (x) { return x.how === 'real' && x.el === sh && x.dir === 'in'; });
+      var tp = recentTap(900);
+      var sig = sheetSig(body);
+      if (sig !== st.sig) {
+        st.sig = sig;
+        if (!growing && tp && tp.inSheet) realMorph({ id: 'page', kind: 'piece', el: body, dir: 'in', from: tp.box });
+      }
+      var strip = doc.getElementById('shopfaces');
+      if (strip && strip !== st.strip && !growing && tp && tp.inSheet && shown(strip) && !LIVE.some(function (x) { return x.how === 'real' && x.el === body; }))
+        realMorph({ id: 'strip', kind: 'piece', small: true, el: strip, dir: 'in', from: tp.box });
+      st.strip = strip;
+    }).observe(body, { childList: true, subtree: true });
+  }
+  /* ---- THE WEAPON CARD (UI 8's #bwcard, rule 433: a detail shows when he taps for it): it grows out of the slot he tapped and goes
+     back into it when a tap puts it away ---- */
+  function watchCard(doc) {
+    if (doc.__bmM3card || !doc.body || !W.MutationObserver) return; doc.__bmM3card = true;
+    var hook = function (c) {
+      if (!c || c.__bmM3) return; c.__bmM3 = true; AD.card = true;
+      var was = false, from = null;
+      var look = function () {
+        if (c.style.getPropertyPriority('display') === 'important') return;   /* ours, holding it while it goes */
+        var now = c.isConnected && c.style.display !== 'none';
+        if (now === was) return; was = now;
+        if (m3off()) return;
+        if (now) { var tp = recentTap(900); from = tp ? tp.box : null; realMorph({ id: 'card', kind: 'piece', small: true, el: c, dir: 'in', from: from }); }
+        else realMorph({ id: 'card', kind: 'piece', small: true, el: c, dir: 'out', to: from, rivets: false, keep: function (el) { realMine(el, 'display', 'block'); } });
+      };
+      new W.MutationObserver(look).observe(c, { attributes: true, attributeFilter: ['style'] });
+      look();
+    };
+    hook(doc.getElementById('bwcard'));
+    new W.MutationObserver(function (list) { list.forEach(function (mu) { Array.prototype.forEach.call(mu.addedNodes, function (n) { if (n.nodeType === 1 && n.id === 'bwcard') hook(n); }); }); }).observe(doc.body, { childList: true });
+  }
+  /* ---- THE SETTINGS (#setwrap, the gear's): it grows out of the gear he pressed (the phone's SETTINGS, else the bar's) and goes back
+     into it ---- */
+  function gearBox() {
+    var a = Array.prototype.find.call(D.querySelectorAll('#bohphone .app[data-app=settings]'), function (e) { return shown(e); });
+    if (a) return topBox(a);
+    var g = D.getElementById('gearbtn'); if (g && shown(g)) return topBox(g);
+    return null;
+  }
+  function watchSettings() {
+    var w = D.getElementById('setwrap'); if (!w || w.__bmM3 || !W.MutationObserver) return; w.__bmM3 = true; AD.settings = true;
+    var on = w.classList.contains('on'), from = null;
+    new W.MutationObserver(function () {
+      var now = w.classList.contains('on'); if (now === on) return; on = now;
+      if (m3off()) return;
+      if (now) { var tp = recentTap(1500); from = gearBox() || (tp ? tp.box : null); realMorph({ id: 'settings', kind: 'piece', el: w, dir: 'in', from: from }); }
+      else realMorph({ id: 'settings', kind: 'piece', el: w, dir: 'out', to: gearBox() || from, rivets: false, keep: function (el) { realMine(el, 'display', 'flex'); } });
+    }).observe(w, { attributes: true, attributeFilter: ['class'] });
+  }
+  /* ---- THE LOOT SCREEN (RUN TWO's __THE_SPOILS__ in the shell): its door was a black box over the whole glass while its page loaded
+     (the board gone to black in one frame, then the spoils drawn into it); now the board stays on the glass under a door you cannot
+     see until the spoils are drawn, and they come up out of his phone; LEAVE folds them back into it while the way home starts ---- */
+  function trayBox() {
+    var e = find('abilities') || find('phone'); var b = e ? topBox(e) : null;
+    if (b) return b;
+    if (LASTPHONE) return LASTPHONE;
+    return { x: W.innerWidth / 2 - 40, y: W.innerHeight / 2 - 30, w: 80, h: 60 };
+  }
+  function watchSpoils() {
+    if (D.__bmM3spoils || !D.body || !W.MutationObserver) return; D.__bmM3spoils = true; AD.spoils = true;
+    new W.MutationObserver(function (list) {
+      list.forEach(function (mu) { Array.prototype.forEach.call(mu.addedNodes, function (n) {
+        if (n.nodeType !== 1 || n.id !== 'spoilsdoor' || m3off()) return;
+        var f = n.querySelector('iframe'), seen = 0;
+        realMorph({ id: 'spoils', kind: 'mode', el: n, dir: 'in', from: trayBox(), waitMs: 2500,
+          ready: function () { try { var d = f && f.contentDocument; if (!d || d.readyState !== 'complete' || !d.body) return false;
+            if (d.fonts && d.fonts.status !== 'loaded') return false;
+            if ((d.body.innerText || '').replace(/\s+/g, '').length < 40) return false;
+            return ++seen >= 2; } catch (e) { return true; } } });   /* drawn, and one frame more */
+      }); });
+    }).observe(D.body, { childList: true });
+    AD.spoilsOut = wrapFn(W, 'spoilsClose', function (orig) {
+      return function () {
+        var el = null; try { el = W.SPOILS && W.SPOILS.wrap; } catch (e) {}
+        if (!el || !el.isConnected || m3off()) return orig.apply(this, arguments);
+        el.remove = function () {};   /* the shell lets go of its door; the door leaves after it has gone back into the phone */
+        var r; try { r = orig.apply(this, arguments); } finally { try { delete el.remove; } catch (e) {} }
+        var gone = function () { try { el.remove(); } catch (e) {} };
+        var mm = realMorph({ id: 'spoils', kind: 'piece', el: el, dir: 'out', to: trayBox(), rivets: false, onLand: gone, calmMax: 1500 });
+        if (!mm) gone();
+        return r;
+      };
+    });
+  }
+  /* ==== end __THE_REST_OF_THE_STATES__ ==== */
+
   /* ---- THE WATCH: every document is armed for the stop cord, every shared piece wears its one id, every door is found ---- */
   function scan() {
     eachWin(function (w) {
@@ -1697,18 +2036,22 @@
         var cb = doc.getElementById('campbtn'); if (cb && !doc.querySelector('[data-morph="camp"]:not(#campbtn)')) tag(cb, 'camp');
         var sk = doc.getElementById('skills'); if (sk) tag(sk, 'abilities');
         var sf = doc.getElementById('settleFrame'); if (sf) tag(sf, 'town');
+        /* __THE_REST_OF_THE_STATES__: the phone's HEAL is the camp's door (rule 226): the camp grows out of it and goes back into it */
+        var ha = doc.querySelector('#bohphone .app[data-app=heal]'); if (ha) tag(ha, 'camp');
       } catch (e) {}
       watchCrew(doc);
       if (typeof w.loopOpenTown === 'function') installCity(w);
-      if (w.BohemiaSettlement && doc.getElementById('sbody')) watchTown(w);
+      if (w.BohemiaSettlement && doc.getElementById('sbody')) { watchTown(w); watchSheet(w); }
+      watchCard(doc);
     });
     if (typeof W.nfOpen === 'function') { installTop(); cloudsPrep(); }
+    watchSettings(); if (typeof W.spoilsClose === 'function') watchSpoils();
   }
   setInterval(scan, 400);
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', scan); else scan();
 
   W.BohemiaMotion = {
-    version: '10/26a',
+    version: '11/8m3',
     fly: fly, grow: grow, shrink: shrink, hold: hold, skip: skip, find: find, tag: tag,
     box: topBox, copyOf: copyOf, pictureOf: pictureOf, cropOf: cropOf, reduced: reduced,
     busy: function () { return LIVE.length; },

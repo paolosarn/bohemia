@@ -10642,6 +10642,20 @@ GATES = [
      "the first way out of a town never freezes the map (the crowd's idle sheets unpacked in idle time before they are drawn; the leave's "
      "longest frame under 150 ms, before 367 to 450); the town's grow and leave and the crew's grow and DONE measured against the sixty "
      "budget; P1 the old way (window.__JOB_DANGER_SYNC, window.__IDLES_NO_WARM) turns both legs red. Solo: it measures time. About 5 min", True),
+    ('THE UI MORPHS EVERYWHERE', ['node', 'gates/the_ui_morphs_everywhere_gate.js'],
+     "MOTION 3 gate, 11/8, rule 436(a), asks 151, 257, 278 (PAOLO: 'the UI morphs: every big change (map, town, fight, camp, shop, jobs, "
+     "the crew) transforms the shared pieces into each other with quick, on-the-beat animation; never static, never a cut; nothing just "
+     "appears or vanishes'). MEASURED before on the demo: the weapon card and the shop's man strip popped on in one frame, a job's card "
+     "replaced the board in one frame, the settings closed in one frame, the town's signs popped back over a closing sheet, the fight's "
+     "end put a black box over the whole glass while the loot screen loaded, a building's sheet slid up from the bottom never out of the "
+     "building, HEAL grew the camp twice. Every change pressed the way he presses it at 390 x 844, and EVERY FRAME THE PAGE DREW sampled "
+     "(each piece's share of the glass, its box times its opacity): a building's sheet grows out of the building and goes back into it, "
+     "the weapon card and the man strip out of the slot, a job's card out of its line, the settings out of the phone's gear and back, the "
+     "loot screen out of the phone once drawn (the board on the glass until then) and back as the way home starts; each piece that moves a "
+     "tenth of the glass spends 3+ drawn frames between and never steps more than 35% of the glass in one; the real element moves, on the "
+     "compositor, on the beat, in budget; HEAL is one morph that lands without the 2 s wait; MOTION 1 and 2's morphs still play; 40+ fps "
+     "and no frame over 250 ms on every change the new morphs play; a tap on the growing sheet's close lands on the close; reduced motion a "
+     "fade; P1 the old way (window.__MOTION_THREE_OFF) turns a weapon's card and the settings' close red (only when pressed and moved). Solo: it measures frames. About 8 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
      "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "
