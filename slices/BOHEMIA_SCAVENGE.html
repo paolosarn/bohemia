@@ -101,6 +101,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
   function bake(opts) {
     return new Promise(function (ok, no) {
       var f = document.createElement('iframe'), seen = null, t0 = performance.now();
+      S.bakeF = f;   /* __SEARCH_THE_LOT_ANSWERS__: the board's page sits in the TOP page; it goes when this page goes (pagehide below) */
       f.title = 'the board'; f.setAttribute('aria-hidden', 'true'); f.tabIndex = -1;
       f.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5';
       opts.campBoard = { tw: 160, dead: [], pick: function (grid) {
@@ -123,7 +124,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
         var out = { board: seen, img: c, tw: R0.tw, th: R0.th || R0.tw * 364 / 515, ms: Math.round(performance.now() - t0) };
         cleanup(); ok(out);
       }, 100);
-      function cleanup() { try { if (f.contentWindow && f.contentWindow.__fightLetGo) f.contentWindow.__fightLetGo(); } catch (e) {} try { f.remove(); } catch (e) {} }
+      function cleanup() { if (S.bakeF === f) S.bakeF = null; try { if (f.contentWindow && f.contentWindow.__fightLetGo) f.contentWindow.__fightLetGo(); } catch (e) {} try { f.remove(); } catch (e) {} }
     });
   }
 
@@ -166,6 +167,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
   S.start = function (o) {
     o = o || {}; S.o = o; S.pkg = o.pkg != null ? Math.max(0, Math.min(4, o.pkg | 0)) : 1;
     S.phase = 'baking'; size();
+    /* __SEARCH_THE_LOT_ANSWERS__ (TOWN FIX 11/9, rule 438(b)): while the block's board bakes (seconds on a phone) the plate is on the glass
+       already, saying SCAVENGE, and LEAVE works; a LEAVE before the board comes spends nothing (the town gives the four hours back) */
+    try { document.getElementById('plate').hidden = false; plate(); } catch (e) {}
     var opts = o.fightOpts ? JSON.parse(JSON.stringify(o.fightOpts)) : shellOpts(o.ask || {});
     if (o.night != null) opts.night = !!o.night;
     return bake(opts).then(function (b) {
@@ -410,7 +414,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
   cv.addEventListener('pointerdown', function (e) { e.preventDefault(); ac(); if (S.audio && S.audio.state === 'suspended') try { S.audio.resume(); } catch (_e) {} press('down', e.clientX, e.clientY); });
   window.addEventListener('pointerup', function (e) { press('up', e.clientX, e.clientY); });
   window.addEventListener('pointercancel', function (e) { press('up', e.clientX, e.clientY); });
-  document.getElementById('leave').addEventListener('click', function () { if (S.act && S.act.phase === 'result') { S.act.spot.state = 'done'; } finish('left'); });
+  document.getElementById('leave').addEventListener('click', function () { if (S.phase === 'baking') return finish('left early'); if (S.act && S.act.phase === 'result') { S.act.spot.state = 'done'; } finish('left'); });
+  /* a board still baking in the top page when this page goes (LEAVE, the town gave up on it) is let go with it, never left running there */
+  window.addEventListener('pagehide', function () { var f = S.bakeF; S.bakeF = null; if (!f) return; try { if (f.contentWindow && f.contentWindow.__fightLetGo) f.contentWindow.__fightLetGo(); } catch (e) {} try { f.remove(); } catch (e) {} });
   window.addEventListener('resize', function () { size(); if (S.board) { var keep = S.view; S.view = makeView(S.board); if (!S.view) S.view = keep; } });
   size();
 

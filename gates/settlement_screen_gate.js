@@ -421,9 +421,15 @@ const srv = http.createServer((rq, rs) => {
     return { n: r.length, kinds: r.map(x => x.got), frame: !!document.getElementById('scavgame'), say: document.querySelector('#sbody .say p').textContent,
       logs: window.__settleLog.filter(m => m.act === 'scavenge').map(m => m.result.found ? 1 : 0), each: window.__settleLog.filter(m => m.act === 'scavenge').map(m => m.kind) }; }, handed);
   await tapB('lot'); await p.waitForTimeout(60);
-  const clean = await p.evaluate(() => { const b = document.querySelector('#sbody .act'); return (/took it all|picked clean/.test(document.getElementById('sbody').textContent) ? 'picked clean' : 'not') + (b && b.disabled ? ', shut' : ', open'); });
+  /* RE-AIMED BY TOWN FIX 11/9 (rule 438(b), Paolo 11/8: 'I press it and nothing happens'): a picked-clean lot was a GREY button that
+     did nothing when pressed. Now the button stays live, says 'nothing left' on its face, and a press has YOU say so; no game opens */
+  const clean = await p.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /Search the lot/.test(x.textContent));
+    const face = b ? (b.querySelector('em') || {}).textContent : null, live = b && !b.disabled, n0 = (window.__settleLog || []).length;
+    if (b) b.click();
+    const said = document.querySelector('#sbody .say p') ? document.querySelector('#sbody .say p').textContent : '', no = (window.__settleLog || []).slice(n0).some(m => m.act === 'scavenge-no');
+    return (/took it all|picked clean/.test(said) && no ? 'picked clean' : 'not') + (live && face === 'nothing left' ? ', says so' : ', ' + (live ? 'face ' + face : 'shut')) + (document.getElementById('scavgame') ? ', A GAME OPENED' : ''); });
   ok('scavenge finds one thing or nothing, never a pile', paid.logs.length === paid.n && paid.logs.every(f => f === 1), paid.logs.join(''));
-  ok('  and the lot runs out', clean === 'picked clean, shut' && paid.n === 6 && !paid.frame, paid.n + ' paid of ' + handed.filter(h => h.got).length + ' handed back, shelf says ' + clean);
+  ok('  and the lot runs out, and a press says so (never a grey button)', clean === 'picked clean, says so' && paid.n === 6 && !paid.frame, paid.n + ' paid of ' + handed.filter(h => h.got).length + ' handed back, shelf says ' + clean);
   /* RUN TWO [the scavenge button] 10/18: every find is ONE of the six supplies, named, out of YOUR mouth under your face */
   const SIX = ['food', 'medicine', 'battery', 'tape', 'ammo', 'water'];
   ok('  and every find is one of the six supplies, said out loud (never a card)', paid.n === 6 && paid.kinds.every(k => SIX.includes(k)) && paid.each.join() === paid.kinds.join() && paid.say.length > 12,
@@ -439,15 +445,23 @@ const srv = http.createServer((rq, rs) => {
   for (let i = 0; i < 3; i++) {
     await tapB('lot'); await p.waitForTimeout(60);
     const btn = await p.$('#sbody .act'); if (!btn || await btn.isDisabled()) { fk.push('shut'); break; }
+    const n0 = await p.evaluate(() => window.__settleLog.length);
     await btn.click(); await p.waitForTimeout(60);
-    fk.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return (l.result.fromFight ? 'body:' : '') + (l.kind || '-'); }));
+    /* RE-AIMED BY TOWN FIX 11/9 (rule 438(b), Paolo 11/8: 'I press it and nothing happens'): THE WASH's lot was searched out above, so
+       with its two bodies searched the third press was a GREY button ('shut') that did nothing. The button stays live now and a press
+       has YOU say the lot is picked clean ('nothing left', a scavenge-no post); a game opening here would be wrong */
+    fk.push(await p.evaluate((n0) => { const nw = window.__settleLog.slice(n0);
+      if (nw.some(m => m.act === 'scavenge-open')) { try { window.scavDone({ why: 'left', played: 0, finds: [], board: 'test' }); } catch (e) {} return 'A GAME OPENED'; }
+      if (nw.some(m => m.act === 'scavenge-no') && /took it all/.test((document.querySelector('#sbody .say p') || {}).textContent || '')) return 'nothing left';
+      const l = nw.filter(m => m.act === 'scavenge').pop(); return l ? (l.result.fromFight ? 'body:' : '') + (l.kind || '-') : 'silence'; }, n0));
+    if (fk[fk.length - 1] === 'nothing left') break;
     if (i === 0) await p.screenshot({ path: SHOT4 });
   }
   await p.click('#close'); await p.waitForTimeout(200);
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], fights: [{ day: 3, fallen: 2 }] }));
   await tapB('lot'); await p.waitForTimeout(60);
   const again = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
-  ok('  and where two men fell, two searches find their rounds for certain, then the picked lot again (a searched body stays searched)', fk[0] === 'body:ammo' && fk[1] === 'body:ammo' && fk[2] === 'shut' && !/bodies|body/.test(again),
+  ok('  and where two men fell, two searches find their rounds for certain, then the picked lot again, said by YOU (a searched body stays searched)', fk[0] === 'body:ammo' && fk[1] === 'body:ammo' && fk[2] === 'nothing left' && !/bodies|body/.test(again),
      fk.join(',') + ' | ' + again.slice(0, 50));
   /* THE FRESH PORTRAITS (RUN TWO [the fresh portraits wired in], 10/18, rule 115(h) amended; his 'it has to be made fresh
      portrait'): YOU speak the lot under PORTRAIT's fresh portrait, drawn, never a crop of a body */

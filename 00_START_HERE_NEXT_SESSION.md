@@ -1,3 +1,13 @@
+TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
+ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
+took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town
+searched out greyed them all), the reason hidden under the town's line. Now each place its own six, the button never grey, YOU says
+'nothing left', the SCAVENGE plate on the glass the instant he presses, a page that will not load falls back with a line. The floating
+signs (11/8c) are off, their gate in graveyard/. Gate SEARCH THE LOT ANSWERS (alpha and demo, both shapes, fresh and saved, a missing page
+planted). The whole block: handoffs/TOWN_FIX.md.
+[bb Battle Brothers' town never lights a building that does nothing; ours: the lot always answers, the game or a line.]
+[analog horror: the cover is the game's own dead-institution plate, SCAVENGE on paper over the dark, the pulse a battery light.]
+
 SOUNDS TWO (sounds-two-01gkdyuw): 11/7 LATEST -- BUILD 11/7za - THE FIGHT AS YOU HEAR IT, BUILT, NOT YET SEEN (rule 427(a), asks 47,
 88, 127, 212; row [the songs go in, his turn hits hard]): measured OFF THE AUDIO in the demo (four sample-exact ears on the game's own
 graph, the real road fight): his turn was 1 dB over theirs (once QUIETER), a beat lost at random between motions in 1 of 3 pairs, blows a

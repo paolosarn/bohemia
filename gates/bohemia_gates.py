@@ -10722,6 +10722,15 @@ GATES = [
      "taps on the ONE pay dead centre or good and a beat off grades worse, B4 one find a spot back to the screen, B5 nothing scrolls upright, "
      "on its side and on a laptop, B6 in the demo a town's lot plays it on the block's board through the shell's door and the town pays the "
      "find out of YOUR mouth; each check run once on a planted wrong thing. About 2 min", True),
+    ('SEARCH THE LOT ANSWERS', ['node', 'gates/search_the_lot_answers_gate.js'],
+     "TOWN FIX gate, 11/9, VAMILY rule 438(b) (ask line 524; PAOLO 11/8: 'I pressed search the lot, it says it'll take four hours, I press it and "
+     "nothing happens'). MEASURED BEFORE: 8 of the demo's 14 places had a grey, dead lot from the first second (a park, a school, a prison under the "
+     "town), every place shared one count, the reason hidden under the town's line. On the ALPHA and the DEMO, upright and on its side, real "
+     "fingers through the frame chain: P every place's lot live with its six; A1 the cover in the page under 50 ms and on the glass's middle; A2 the "
+     "game on the block's board, LEAVE answers; A3 a second press; A4 a searched-out lot says so (button and YOU), the next town still whole; A5 a body "
+     "first, then the game; A6 a slow page (5 s planted) keeps the cover on the glass; A7 PLANTED the game's page missing: the game check goes red "
+     "with a line and the press still answers (YOU's fallback line); S a saved game, CONTINUE, the press opens the game. About 12 min for all four "
+     "(--only demo|alpha, --shape)", True),
     ('THE FREEWAY FIGHT', ['node', 'gates/the_freeway_fight_gate.js'],
      "FREEWAY gate, 11/7, rule 432 (ask lines 513, 514; PAOLO 11/7: 'when combat starts on it, it just puts me on a suburb house... why can't it be an underpass "
      "or a large overpass towering over the rest of the city, you can't quite hop off it'). A: every template (the deck, the overpass, the underpass, the "

@@ -1,0 +1,17 @@
+POSTMORTEM: EVERY DOOR HAS A SIGN (built 11/8 by UI 9 as BUILD 11/8c, f7f07e42, rule 434; taken off 11/9 by TOWN FIX, rule 438(a))
+
+His words, 11/8: "I clicked the scavenge button and then I pressed search the lot, it says it'll take four hours, I press it and
+nothing happens. I definitely did not need them floating city labels, your shit was fucked already."
+What it was: a paper sign floating on the roof of every building in a town at rest (an icon and a word: HALL, BOARD, STALL, BAR,
+GUNS, SMITH, ARMOURER, BARBER, CLINIC, YARD, THE PIT, BUILD, and SCAVENGE on the lot), laid every frame by the block
+__EVERY_DOOR_HAS_A_SIGN__ in slices/BOHEMIA_SETTLEMENT_SCREEN.html, read by BohemiaSettlement.doorSigns(), held by
+gates/every_door_has_a_sign_gate.js (here).
+Why it died: he asked HOW to scavenge, and the answer was built as a label. The real fault was under it: the button itself was dead
+in 8 of the demo's 14 places from the first second (a lot on a park, a school, a prison counted zero things), and one search
+anywhere emptied every town's lot. He found the lot, pressed it, and got silence; the sign only made the screen busier on top of a
+broken button. A building says what it is when he taps it (its sheet), never a label at rest.
+What went: the whole block and its three hooks (the draw loop, lookAt, where); the town screen is byte for byte what it was before
+11/8c. The gate is here. Its legs that still matter (the lot's door is on the glass and a tap opens it) live on in
+gates/search_the_lot_answers_gate.js, which presses the lot the way he does.
+Lesson (rule 438): when he cannot find or use a thing, first check the thing itself WORKS on his surface. Never pile new UI on a
+broken button. Green gates on the signs said nothing about whether the button under SCAVENGE did anything.
