@@ -2,7 +2,7 @@
 
 WORLD FOURTEEN (11/8-11/9, chat 02n, the places we are missing; VAMILY rule 436(b), ask line 521; rules 409(c), 429(b)(h), 430, 438).
 BUILD 11/9c - THE PLACES TALK. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_PLACES_GET_THEIR_USE_11_8_26.md.
-VOTE world14-the-places-talk-11-8 (ui, STAND-IN: the road's own card).
+VOTE world14-the-places-talk-11-8 (ui, STAND-IN: the road's own card), names 64380f14 (the ship).
 - MEASURED FIRST: WORLD TEN (11/6) had already seated all twelve of rule 409(c)'s first places at their real spots (its gate 16/0 on
   main). The hole was the USE: each opened the same screen as any town (the scavenge deals six goods evenly, the place's own finds have
   no reader), the lab was painted as any fortress (a hill town), the lab had no fight answer.
