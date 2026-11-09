@@ -1,7 +1,7 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
 WORLD FOURTEEN, BATCH THREE (11/9, rule 440(c), ask line 539). BUILD 11/9j - THE RANCH AND THE LAKE CAMP. BUILT, NOT YET SEEN.
-Record: records/BOHEMIA_WORLD_14_THE_RANCH_AND_THE_LAKE_CAMP_11_9_26.md. VOTE world14-the-ranch-and-the-lake-camp-11-9 (ui, STAND-IN).
+Record: records/BOHEMIA_WORLD_14_THE_RANCH_AND_THE_LAKE_CAMP_11_9_26.md. VOTE world14-the-ranch-and-the-lake-camp-11-9 (ui, STAND-IN), names 7adce071.
 - VERIFIED THE REAL SPOTS: the ranch is Spring Mountain Ranch (Red Rock, 36.0697 N 115.4506 W), the campground and RV park Callville Bay
   (Lake Mead, 36.1433 N 114.7256 W): both OUTSIDE the valley. The bus yard is the RTC's Sunset Maintenance Facility, 5165 W Sunset Rd
   (opened 2009, 36.6 acres): INSIDE the valley. A greenhouse farm: none verified yet, inside the valley.
