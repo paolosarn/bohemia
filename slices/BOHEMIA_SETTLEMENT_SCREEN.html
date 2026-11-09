@@ -88,11 +88,11 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .say .trip{margin:7px 0 0;color:var(--gold);font-size:11px;letter-spacing:.6px;line-height:1.4}   /* WORLD [a job says how far] */
 .acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): his own place's desk in BUILD: two columns so the sheet stays under half the glass (402) */
-.acts.two{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}.acts.two .act{min-height:44px;padding:5px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px}
+.acts.two{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:4px}.acts.two .act{min-height:44px;padding:2px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
 .acts.two .act em{font-size:10px}
-.hdesk{display:flex;gap:6px;align-items:stretch;margin-top:6px;font-size:11px;letter-spacing:.5px}.hdesk>div{flex:1;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:5px;padding:4px 6px;line-height:1.3}
+.hdesk{display:flex;gap:6px;align-items:stretch;margin-top:3px;font-size:11px;letter-spacing:.5px}.hdesk>div{flex:1;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:5px;padding:4px 6px;line-height:1.3}
 .hdesk b{display:block;color:var(--gold);font-weight:400;font-size:10px;letter-spacing:1px}.hdesk button{min-height:44px;font:inherit;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:0 8px}
-.hplan{display:block;width:100%;max-height:22vh;object-fit:contain;object-position:left center;margin-top:7px;image-rendering:pixelated;border-radius:4px;touch-action:manipulation}
+.hplan{display:block;width:100%;max-height:8vh;object-fit:contain;object-position:left center;margin-top:4px;image-rendering:pixelated;border-radius:4px;touch-action:manipulation}
 @media (orientation:landscape){.hplan{max-height:15vh}.acts.two{grid-template-columns:repeat(4,1fr)}.hdesk{margin-top:4px}}   /* on its side: the plan short, the list four across, everything on the glass */
 .hname{display:flex;gap:6px;margin-top:8px}.hname input{flex:1;min-height:44px;font:inherit;font-size:14px;background:#f1e8d2;color:#1f1710;border:1px solid var(--line);border-radius:5px;padding:0 8px;text-transform:uppercase}
 .act{min-height:48px;text-align:left;background:var(--plate);color:var(--ink);border:1px solid var(--line);
@@ -1722,7 +1722,9 @@ function buildTick(){
   var r = LB.tick(b.site, S.purse, b.century, buildDay(), buildHold()); buildSave(); return r;
 }
 function buildLots(){ return (S.home && S.home.planted && S.home.lotsOpen) ? S.home.lotsOpen : BUILD_LOTS; }   /* __HOME_BASE__: his place opens more lots as it grows */
-function buildFreeLot(){ var b = buildState(); for(var i=0;i<buildLots();i++) if(!b.site.lots[i+',0']) return {x:i, y:0}; return null; }
+function buildFreeLot(){ var b = buildState();
+  if(S.home && S.home.planted && S.homePick != null && S.homePick < buildLots() && !b.site.lots[S.homePick+',0']) return {x:S.homePick, y:0};   /* __HOME_BASE__: the lot he picked on the plan */
+  for(var i=0;i<buildLots();i++) if(!b.site.lots[i+',0']) return {x:i, y:0}; return null; }
 function buildDoes(e){
   if(e.houses) return 'a family';
   if(e.makes && e.makes.clout) return 'your name';
@@ -1756,7 +1758,10 @@ function buildSheet(body, acts, line){
   if(S.home && S.home.planted) acts.className = 'acts two';
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
   body.appendChild(speak('build', line || (free ? (S.home && S.home.planted ? S.home.name + '. One battery and a day for any of these. What goes up?' : 'One battery and a day for any of these. What goes up?') : 'Every lot here has something on it.')));
-  if(S.home && S.home.planted){ body.appendChild(homePlanCanvas()); homeDesk(body); }   /* the speaker first (the sheet's close sits by her), then the plan, then the desk */
+  if(S.home && S.home.planted){ body.appendChild(homePlanCanvas()); homeDesk(body);
+    var pk = S.homePick, pl = pk != null && b.site ? b.site.lots[pk+',0'] : null;
+    if(pl){ var dk = body.querySelector('.hdesk'), cl = document.createElement('button'); cl.type = 'button'; cl.textContent = 'CLEAR ' + (pk + 1); cl.dataset.home = 'clear';
+      cl.setAttribute('aria-label', 'clear lot ' + (pk + 1) + ': it comes down, nothing back'); cl.addEventListener('click', function(){ homeClear(pk); S.homePick = null; openB('build'); }); if(dk) dk.appendChild(cl); } }   /* in the desk row: the sheet stays under half the glass (402) */   /* the speaker first (the sheet's close sits by her), then the plan, then the desk */
   list.forEach(function(e){
     acts.appendChild(act(e.name, '1 battery  ' + buildDoes(e), function(){
       var lot = buildFreeLot(); if(!lot) return openB('build', 'Every lot here has something on it.');
@@ -1771,7 +1776,7 @@ function buildSheet(body, acts, line){
   for(var k in b.site.lots){ var L = b.site.lots[k], nm = (LB.markerOf(L.id) || {}).name || L.id; (L.done ? up : going).push(nm); }
   sl.textContent = 'Standing: ' + (up.length ? up.join(', ') : 'nothing yet') + (going.length ? '.  Going up: ' + going.join(', ') + '.' : '.')
                  + '  Lots: ' + Object.keys(b.site.lots).length + ' of ' + buildLots() + '.';
-  body.appendChild(acts); body.appendChild(sl); return show();
+  body.appendChild(acts); if(!(S.home && S.home.planted)) body.appendChild(sl); return show();   /* __HOME_BASE__: his plan says what stands; the sheet stays under half the glass */
 }
 /* ==== __HOME_BASE__ (HOME BASE 11/8/26, rule 437(b), ask lines 356, 522; rules 347, 429(h), 434). The map tells this screen
    when the place is HIS (a BOHEMIA_HOME message after the open, slices/BOHEMIA_CITY_WORLD.html __HOME_BASE__); then BUILD is the
@@ -1800,8 +1805,8 @@ function homePlanCanvas(){
   var c = document.createElement('canvas'), cs = 3, tw = 32, th = 18; c.className = 'hplan'; c.width = W * tw * cs; c.height = Hh * th * cs;
   c.setAttribute('role', 'img'); var g = c.getContext('2d'); g.scale(cs, cs);
   var b = buildState(), LB = window.BohemiaLotBuild, fill = [];
-  for(var i = 0; i < 12; i++){ var L = b.site && b.site.lots[i + ',0']; if(L) fill.push({ name: ((LB && LB.markerOf(L.id)) || {}).name || L.id, done: L.done }); }
-  (H.prizes || []).forEach(function(p){ fill.push({ name: p.name.replace(/^YOUR /, ''), done: true, prize: true }); });
+  for(var i = 0; i < 12; i++){ var L = b.site && b.site.lots[i + ',0']; fill[i] = L ? { name: String(L.id).toUpperCase(), done: L.done } : null; }   /* the short name fits its lot */
+  var pz = 11; (H.prizes || []).forEach(function(p){ while(pz >= 0 && fill[pz]) pz--; if(pz >= 0) fill[pz] = { name: p.name.replace(/^YOUR /, ''), done: true, prize: true }; });   /* a prize takes the back lots, never one he builds on */
   var lot = 0, open = H.lotsOpen || 4, signs = [];
   for(var y = 0; y < Hh; y++) for(var x = 0; x < W; x++){ var ch = rows[y].charAt(x), X = x * tw, Y = y * th;
     if(ch === 'R'){ g.fillStyle = '#4a463f'; g.fillRect(X, Y, tw, th); g.fillStyle = '#6a645a'; if(y === (P.front_row|0)) { g.fillRect(X, Y + th/2 - 0.5, tw*0.5, 1); } }
@@ -1813,9 +1818,56 @@ function homePlanCanvas(){
   g.font = '6px "BohemiaCasing", monospace'; g.textBaseline = 'top';
   signs.forEach(function(sg){ var w = Math.min(tw - 2, g.measureText(sg.t).width + 3); g.fillStyle = sg.prize ? '#e2b052' : '#efe4cc'; g.fillRect(sg.x + (tw - w)/2, sg.y + 1, w, 8);
     g.fillStyle = '#1f1710'; g.fillText(sg.t, sg.x + (tw - w)/2 + 1.5, sg.y + 2, w - 2); });
-  c.setAttribute('aria-label', 'the plan of ' + H.name + ': ' + lot + ' lots on the road, ' + open + ' open, ' + signs.length + ' standing');
+  if(S.homePick != null){ var pi = 0; for(var yy = 0; yy < Hh; yy++) for(var xx = 0; xx < W; xx++){ if(rows[yy].charAt(xx) !== 'L') continue;
+      if(pi === S.homePick){ g.strokeStyle = '#e2b052'; g.lineWidth = 2; g.strokeRect(xx * tw + 1.5, yy * th + 1.5, tw - 3, th - 3); } pi++; } }
+  c.addEventListener('click', function(ev){ homePlanTap(c, ev); });   /* he picks the lot */
+  c.setAttribute('aria-label', 'the plan of ' + H.name + ': ' + lot + ' lots on the road, ' + open + ' open, ' + signs.length + ' standing; tap a lot to pick it');
   window.__HOME_PLAN = { lots: lot, open: open, signs: signs.map(function(x){ return x.t; }), w: W, h: Hh };
   return c;
+}
+/* WHO MOVED IN STANDS THERE (rule 343/347(e)): each resident at his place, by the BUILD lots, his own look; a tap and he says
+   what the place remembers (rule 412), from his own mouth and face */
+function homeFolk(out, hand, R){
+  if(!S.home || !S.home.planted || !VAR || !VAR.boxes.build) return;
+  var b = VAR.boxes.build, rs = S.home.residents.slice(0, 8), lq = CROWD_LOOPS || [], B = window.BohemiaRigBodies;
+  rs.forEach(function(r, i){ var l = lq[(i + 1) % Math.max(1, lq.length)] || ['S'];
+    var look = (r.look && B && B.has && B.has(r.look)) ? r.look : hand[(ORDER.length + 12 + i) % hand.length];
+    /* a body's height below the BUILD building, so its door (the building's own pixels) is never under one of them */
+    var x = b[0] + (i + .5) * (b[2] - b[0]) / Math.max(4, rs.length), y = Math.min(picH() - 4, b[3] + personH() * 1.05 + 8 + (i % 2) * 22);
+    var g = VAR.pic ? groundNear(x, y) : {x:x, y:y}; if(g.y < b[3] + personH() * .9) g = {x:x, y:y};
+    out.push({resident:true, name:r.name, says:r.says, look:look, clip:'wait', face:l[0], loop:l, beat:i % 4, x:g.x, y:g.y, ph:0}); });
+  window.__HOME_FOLK = rs.map(function(r){ return r.name; });
+}
+/* read only, for the gate: where each resident stands on the glass now (his middle, where a finger lands) */
+window.__HOME_FOLK_AT = function(){ try{ var r = document.getElementById('scene').getBoundingClientRect(), H = personH() * view.s;
+  return (VAR && VAR.folk || []).filter(function(p){ return p.resident; }).map(function(p){ return { name: p.name, x: r.left + view.ox + p.x * view.s, y: r.top + view.oy + p.y * view.s - H * .45 }; }); }catch(e){ return []; } };
+function homeResidentTalk(p){
+  S.open = 'person'; S.person = p;
+  var body = document.getElementById('sbody'); body.textContent = '';
+  var line = p.says || 'I live here now.';   /* draft:true */
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, 'home-resident:' + p.name, p.look), line));
+  var sy = document.createElement('div'); sy.className = 'say';
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = String(p.name).toUpperCase() + '  ·  LIVES HERE'; sy.appendChild(n);
+  var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
+  window.__HOME_TALK = { name: p.name, line: line };
+  show();
+}
+/* HE PICKS THE LOT: a tap on a lot of the plan picks where the next thing goes up; a lot with something on it offers CLEAR */
+function homePlanTap(c, ev){
+  var P = S.homePlan, rows = (P && P.rows) || [], W = rows.length ? rows[0].length : 0, r = c.getBoundingClientRect(); if(!W) return;
+  var sc = Math.min(r.width / c.width, r.height / c.height), dw = c.width * sc, dh = c.height * sc, oy = r.top + (r.height - dh) / 2;
+  var tx = Math.floor((ev.clientX - r.left) / dw * W), ty = Math.floor((ev.clientY - oy) / dh * rows.length);
+  var i = homeLotIndex(tx, ty); if(i < 0) return;
+  S.homePick = i; window.__HOME_PICK = i; openB('build');
+}
+function homeLotIndex(tx, ty){ var rows = (S.homePlan && S.homePlan.rows) || [], n = 0;
+  for(var y = 0; y < rows.length; y++) for(var x = 0; x < rows[y].length; x++){ if(rows[y].charAt(x) !== 'L') continue; if(x === tx && y === ty) return n; n++; }
+  return -1; }
+function homeClear(i){
+  var b = buildState(); if(!b.site || !b.site.lots[i+',0']) return false;
+  var L = b.site.lots[i+',0'], nm = ((window.BohemiaLotBuild && BohemiaLotBuild.markerOf(L.id)) || {}).name || L.id;
+  delete b.site.lots[i+',0']; buildSave(); post('build_clear', {lot:{x:i, y:0}, id:L.id});
+  heard('The ' + String(nm).toLowerCase() + ' comes down. The lot is bare again.'); return true;
 }
 /* ==== /__HOME_BASE__ ==== */
 /* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
@@ -2572,6 +2624,7 @@ function folkList(){
   if(!VAR || !GANG_LOOKS.length) return [];
   var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',') + ':' + Math.round(view.s * 100) + ':' + crewKey() + ':' + !!walkBlocks();   /* __YOUR_CREW_LIVES_IN_THE_TOWN__ */
   var pk = S.open && VAR.padKey != null ? VAR.padKey : (FIT.padPic ? FIT.padPic.map(function(v){ return Math.round(v / 8); }).join(',') : '') + '/' + (FIT.glassPic ? FIT.glassPic.map(function(v){ return Math.round(v / 8); }).join(',') : ''); VAR.padKey = pk; key += ':' + pk;   /* __NOTHING_TAPPABLE_UNDER_THE_PHONE__: a new side of the phone stands everybody again (never while a sheet is open) */
+  key += ':home:' + (S.home && S.home.planted ? S.home.residents.map(function(r){ return r.name; }).join(',') : '');   /* __HOME_BASE__: a new face at home stands up at once */
   if(VAR.folkKey === key) return VAR.folk;
   if(FOLK_IN) return VAR.folk || [];   /* asked again while the place is being stood up (his arrival spot asks who stands where) */
   FOLK_IN = true; try{ return folkMake(pm, key); } finally { FOLK_IN = false; }
@@ -2597,6 +2650,7 @@ function folkMake(pm, key){
       x:hb[0] + (i + .5) * (hb[2] - hb[0]) / pm.length, y:Math.min(picH()-4, hb[3] + 16 + (i % 2) * 18), ph:0}); });
   if(VAR.pic) out.forEach(function(p){ if(p.keeper) return; var g = groundNear(p.x, p.y); p.x = g.x; p.y = g.y; });   /* __EVERY_TOWN_ITS_OWN__: the crowd and the post on the town's own ground */
   if(VAR.comp) spreadFolk(out);   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: nobody stands on anybody */
+  try{ homeFolk(out, hand, R); }catch(e){}   /* __HOME_BASE__: the people who moved in stand in his place */
   var cf = crewFolk(out); VAR.crewWalk = cf.walk; out = out.concat(cf.stand);   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: his company among them */
   offThePhone(out);   /* __NOTHING_TAPPABLE_UNDER_THE_PHONE__ */
   out.sort(function(a, c){ return a.y - c.y; });
@@ -3589,6 +3643,7 @@ function openPerson(p, said){
   if(p.campMan || p.crewMan){ campMan(p); return; }   /* __THE_CAMP__ and __YOUR_CREW_LIVES_IN_THE_TOWN__: one of yours, on the crew screen */
   if(p.campFollower){ openB('f_' + p.follower); return; }   /* __THE_RETINUE__ (RETINUE 11/7): a follower by his piece opens the retinue */
   if(p.keeper){ openB(p.k); return; }
+  if(p.resident){ homeResidentTalk(p); return; }   /* __HOME_BASE__: one of the people who live in his place, telling it */
   if(p.post){ openB('hall'); var hc = document.querySelector('#sbody .hire[data-id="' + p.rid + '"]'); if(hc){ hc.classList.add('picked'); try{ hc.scrollIntoView({block:'nearest'}); }catch(e){} } return; }
   S.open = 'person'; S.person = p;
   var body = document.getElementById('sbody'); body.textContent = '';

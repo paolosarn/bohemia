@@ -3,21 +3,108 @@
   "draft": true,
   "grade": {
     "_about": "THE SMART SYSTEM (his 'maybe it'll be a smart system'): every block he stands on is graded on four marks, 0 to 3, by how near the nearest block of each kind is (within near[0] blocks a 3, within near[1] a 2, within near[2] a 1, else 0). DANGER reads the other way: 3 is a rival's home or a crew right on top of you. A block is a map cell (om.at), about a quarter mile.",
-    "water": { "kinds": ["water", "wash", "reservoir", "watertreat", "pumpstation", "intake", "basin", "waterpark"], "near": [1, 3, 6], "word": "WATER" },
-    "power": { "kinds": ["solar", "substation", "powerplant", "battery"], "near": [1, 3, 6], "word": "POWER" },
-    "road":  { "kinds": ["arterial"], "near": [1, 2, 4], "word": "ROAD" },
-    "danger": { "near": [3, 6, 10], "word": "DANGER", "_about": "the nearest other faction's home base or roaming crew" },
-    "never_on": ["mountain", "water", "freeway", "arterial", "rail", "wash", "reservoir", "dam", "basin", "airbase", "prison", "intake", "quarry", "gypsum", "landfill"],
-    "needs": { "water": 1, "road": 1, "_about": "nothing is planted where no water reaches or no road comes in: the people die or nothing trades" },
+    "water": {
+      "kinds": [
+        "water",
+        "wash",
+        "reservoir",
+        "watertreat",
+        "pumpstation",
+        "intake",
+        "basin",
+        "waterpark"
+      ],
+      "near": [
+        1,
+        3,
+        6
+      ],
+      "word": "WATER"
+    },
+    "power": {
+      "kinds": [
+        "solar",
+        "substation",
+        "powerplant",
+        "battery"
+      ],
+      "near": [
+        1,
+        3,
+        6
+      ],
+      "word": "POWER"
+    },
+    "road": {
+      "kinds": [
+        "arterial"
+      ],
+      "near": [
+        1,
+        2,
+        4
+      ],
+      "word": "ROAD"
+    },
+    "danger": {
+      "near": [
+        3,
+        6,
+        10
+      ],
+      "word": "DANGER",
+      "_about": "the nearest other faction's home base or roaming crew"
+    },
+    "never_on": [
+      "mountain",
+      "water",
+      "freeway",
+      "arterial",
+      "rail",
+      "wash",
+      "reservoir",
+      "dam",
+      "basin",
+      "airbase",
+      "prison",
+      "intake",
+      "quarry",
+      "gypsum",
+      "landfill"
+    ],
+    "needs": {
+      "water": 1,
+      "road": 1,
+      "_about": "nothing is planted where no water reaches or no road comes in: the people die or nothing trades"
+    },
     "first_day": 2,
     "_first_day_about": "never in the first minute (the second votes, 9/23: nothing forced): the PLANT button is offered from the second day of a game"
   },
   "bill": {
     "_about": "YOU RUN IT, SO YOU PAY FOR IT (347(d)): taken at nightfall beside the crew's own bill. keep = the place's own lamp, gate and pump; each person who lives there eats and drinks what a crewman does (per_man_per_night is READ from records/target/bb/nightly_bill.json, never typed here); far water costs more (the vendor's premium, ECONOMY Day 47: water carried in costs a multiple of the pipe).",
     "keep": 1,
-    "water_cost_by_mark": { "3": 1, "2": 1, "1": 1.5 },
-    "power_cost_by_mark": { "3": 0, "2": 0, "1": 1, "0": 1 },
-    "prize_pays": { "cook": { "food": 1 }, "open": { "water": 1 }, "purify": { "water": 1 } },
+    "water_cost_by_mark": {
+      "3": 1,
+      "2": 1,
+      "1": 1.5
+    },
+    "power_cost_by_mark": {
+      "3": 0,
+      "2": 0,
+      "1": 1,
+      "0": 1
+    },
+    "prize_pays": {
+      "cook": {
+        "food": 1
+      },
+      "open": {
+        "water": 1
+      },
+      "purify": {
+        "water": 1
+      }
+    },
     "_prize_pays_about": "a boss's prize standing at home pays back a day: THE POT's kitchen feeds one, THE TAP's main and THE FILTER's purifier water one (343(b)); counted as batteries off the bill, one each"
   },
   "plan": {
@@ -34,9 +121,21 @@
   },
   "prizes": {
     "_about": "A BOSS'S PRIZE STANDS IN YOUR SETTLEMENT (343(b)): read from BohemiaBosses' own state (the verb his kill handed you); the piece is records/target/bb/home_lots.json's, never retyped here",
-    "cook": { "piece": "kitchen", "name": "YOUR KITCHEN", "from": "THE POT" },
-    "open": { "piece": "main", "name": "YOUR MAIN", "from": "THE TAP" },
-    "purify": { "piece": "purifier", "name": "YOUR PURIFIER", "from": "THE FILTER" }
+    "cook": {
+      "piece": "kitchen",
+      "name": "YOUR KITCHEN",
+      "from": "THE POT"
+    },
+    "open": {
+      "piece": "main",
+      "name": "YOUR MAIN",
+      "from": "THE TAP"
+    },
+    "purify": {
+      "piece": "purifier",
+      "name": "YOUR PURIFIER",
+      "from": "THE FILTER"
+    }
   },
   "residents": {
     "_about": "THE JOURNEY'S PEOPLE POST UP THERE (347(e)): once a place is planted, a man who leaves the company (let go, or walked when the batteries ran out) goes to live there instead of vanishing, with his face and his name; a spared boss (BOSSES' negotiable ones) and the retinue join the same list when those lanes call add(). Each one eats from the place's bill.",
@@ -54,5 +153,24 @@
     "plant_no": "NOT YET",
     "planted": "planted",
     "not_here": "NOT HERE"
+  },
+  "story": {
+    "_about": "THE PLACE REMEMBERS (rule 412: 'a lot of your relations and experience with the settlements and your custom settlement will be remembered... they'll tell a story about your granddad'). Every planting, move-in, finished build, prize and name is kept on the place's record; a person who lives there tells it from his own mouth and face (rule 9/20), 'you' in the act it happened, 'your father' one act on, 'your granddad' two on. Words draft:true, WORDS overwrites; the player does not speak Spanglish, the people who live there may.",
+    "max": 60,
+    "who": {
+      "zero": "you",
+      "one": "your father",
+      "two": "your granddad"
+    },
+    "lines": {
+      "me_let_go": "{Who} let me go on day {day}. I walked here because there was nowhere else.",
+      "me_came": "I came on day {day}. Somebody said this was a place.",
+      "planted": "{Who} planted this on day {day}. Everybody said it would never hold.",
+      "built": "{Who} put up the {what} on day {day}. We still use it.",
+      "prize": "That {what} came off {name}. {Who} carried it home on day {day}.",
+      "named": "{Who} named this place {WHAT}. Nobody calls it anything else now.",
+      "moved_in": "{name} moved in on day {day}. Ask {name} why, not me.",
+      "short": "Night {day} the batteries ran out. We sat in the dark and nobody left."
+    }
   }
 }

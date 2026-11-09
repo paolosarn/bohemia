@@ -94463,6 +94463,13 @@ function homeSave(){ try { if (HOME.rec) localStorage.setItem(HOME.key, BohemiaH
 try { fetch('../records/target/bb/home_base.json').then(function(r){ return r.json(); }).then(function(d){ HOME.data = d; BohemiaHome.setData(d); }).catch(function(){});
       fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(d){ HOME.bill = d; }).catch(function(){}); } catch (_e) {}
 function homeMine(){ try { return BohemiaBetween.mine(); } catch (_e) { return 'Custom'; } }
+function homeAct(){ try { return (window.BohemiaActs && BohemiaActs.current) ? (BohemiaActs.current() | 0 || 1) : 1; } catch (_e) { return 1; } }
+function homeDay(){ try { return DAY.day | 0; } catch (_e) { return 0; } }
+/* the place remembers (rule 412): what went up since the last look is written into its story once */
+function homeSeeBuilt(){ var r = homeRec(); if (!r || !r.planted) return 0; var n = 0; r.lotsSeen = r.lotsSeen || {};
+  try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) { var L = bk.lots[k]; if (L.done && !r.lotsSeen[k + ':' + L.id]) { r.lotsSeen[k + ':' + L.id] = 1;
+    var nm = ((BohemiaLotBuild.markerOf(L.id) || {}).name) || L.id; BohemiaHome.note(r, { kind: 'built', what: nm, day: L.doneDay != null ? L.doneDay : homeDay(), act: homeAct() }); n++; } } } catch (_e) {}
+  if (n) homeSave(); return n; }
 function homePlanted(){ var r = homeRec(); return !!(r && r.planted); }
 /* (c) the planted block stands in for his outfit's seat: copies, never the baked or seeded objects themselves */
 function homeMoveBases(b){
@@ -94528,7 +94535,7 @@ function homeBillNow(){
 /* (e) a man he let go goes home to his place, once it stands */
 function homeTakeIn(){
   var r = homeRec(); if (!r || !r.planted) return 0; var n = 0;
-  try { crewWalked().forEach(function(w){ if (w && w.name && (w.day | 0) >= (r.planted.day | 0) && BohemiaHome.addResident(r, { name: w.name, look: w.look, why: 'let go', day: w.day })) n++; }); } catch (_e) {}
+  try { crewWalked().forEach(function(w){ if (w && w.name && (w.day | 0) >= (r.planted.day | 0) && BohemiaHome.addResident(r, { name: w.name, look: w.look, why: 'let go', day: w.day, act: homeAct() })) n++; }); } catch (_e) {}
   if (n) homeSave(); return n;
 }
 function homeStanding(){ var n = 0; try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) if (bk.lots[k].done) n++; } catch (_e) {} return n; }
@@ -94539,15 +94546,20 @@ function homeState(){
     if (!HOME.here || HOME.here.k !== hk) { var p = homeProbe(x, y), hg = p ? BohemiaHome.grade(p) : null;
       HOME.here = { k: hk, here: { x: x, y: y, g: hg }, better: (hg && (!hg.ok || hg.score < 9)) ? homeBetter(x, y) : null }; }
     here = HOME.here.here; better = HOME.here.better; }
-  var B = homeBillNow(), standing = homeStanding();
+  try { homeSeeBuilt(); } catch (_e) {}
+  r.lastAct = homeAct(); r.lastDay = homeDay();
+  var B = homeBillNow(), standing = homeStanding(), actNow = homeAct(), dayNow = homeDay();
   return { planted: !!r.planted, at: r.planted ? [r.planted.x, r.planted.y] : null, day: r.planted ? r.planted.day : null, name: BohemiaHome.nameOf(r),
-           offer: homeOffer(), here: here, better: better, bill: B, residents: r.residents.slice(), prizes: homePrizes(),
+           offer: homeOffer(), here: here, better: better, bill: B, prizes: homePrizes(),
+           residents: r.residents.map(function(p){ return { name: p.name, look: p.look, why: p.why, day: p.day, says: BohemiaHome.tell(r, p.name, actNow, dayNow) }; }),
+           act: actNow, story: (r.story || []).slice(-8),
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null };
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
 function homePlant(){
   var r = homeRec(); if (!r || !HOME.data) return { ok: false, why: 'NOT_READY' };
   var x = city.x | 0, y = city.y | 0, g = BohemiaHome.grade(homeProbe(x, y)), day = 0; try { day = DAY.day | 0; } catch (_e) {}
+  if (g) g.act = homeAct();
   var res = BohemiaHome.plant(r, { x: x, y: y }, day, g); if (!res.ok) return res;
   homeSave(); HOME.cache = null; HOME.seatCache = null;
   try { VBC.checked = 0; } catch (_e) {}   /* the painter looks again now: the towns are in its key */
@@ -94557,7 +94569,7 @@ function homePlant(){
   window.__HOME_PLANTED = { at: [x, y], day: day, g: g };
   return res;
 }
-function homeRename(nm){ var r = homeRec(); var ok = !!r && BohemiaHome.rename(r, nm); if (ok) homeSave(); try { render(); } catch (_e) {} return ok; }
+function homeRename(nm){ var r = homeRec(); if (r) { r.lastDay = homeDay(); r.lastAct = homeAct(); } var ok = !!r && BohemiaHome.rename(r, nm); if (ok) homeSave(); try { render(); } catch (_e) {} return ok; }
 function homeGo(which){
   var s = homeState(); if (!s) return false; var c = which === 'better' ? (s.better && [s.better.x, s.better.y]) : s.at;
   if (!c) return false; try { return travelTo(null, null, c); } catch (_e) { return false; }
@@ -94574,6 +94586,7 @@ function homeBillNight(){
   var have = loopBats(), paid = Math.min(B.due, Math.max(0, have));
   if (paid > 0) { try { BohemiaPurse.debit(purseGet(), 'electricity', paid, 'your place: its keep' + (B.people ? ', ' + B.people + ' living there' : ''), 'home:' + day, day); } catch (_e) {} }
   r.nights = (r.nights | 0) + 1; r.lastBill = { day: day, due: B.due, paid: paid, short: B.due - paid, people: B.people, back: B.back };
+  if (B.due - paid > 0) BohemiaHome.note(r, { kind: 'short', day: day, act: homeAct() });   /* the place remembers the dark nights too */
   homeSave(); window.__HOME_BILL = r.lastBill;
   try { if (typeof window.__barPaintRead === 'function') window.__barPaintRead(); } catch (_e) {}
   return r.lastBill;

@@ -16,6 +16,8 @@
          per-man night typed differently in the engine's call is caught
      E6  progress you can see: 4 lots open, 8 when 4 stand, 12 when 8 stand
      E7  a new game is a new home (a record for another seed loads fresh)
+     E8  THE PLACE REMEMBERS (rule 412): planting, a move-in, a prize, a name, a build are kept; a resident tells one, 'you' in its act,
+         'your father' one on, 'your granddad' two on; planted: a story told in act 3 that still says 'you' is caught
    ON THE DEMO (phone upright and sideways; the game itself, never a bench page):
      D1  never in the first minute: no PLANT on day 1 in the town he wakes in, nor on the map
      D2  from day 2, on the map, PLANT is on the glass in the phone's band and the finger lands on it
@@ -28,6 +30,10 @@
      D7  a boss's prize (THE POT's verb) stands there and pays back
      D8  his place's BUILD building (a tap on it, rule 438(a): no floating sign) opens the desk: the plan with every lot on its road and 4 open, a sign on what stands, A NIGHT,
          LIVING HERE, NAME IT; a name typed there is the map's name for it; every press 44 px, the sheet inside the glass
+
+     D9  (round two, rule 440(d)) the people who moved in STAND in his place and a tap on one opens her face and a line of the
+         place's story, LIVES HERE; the BUILD door is never under one of them; planted: the residents taken off the message, none stands
+     D10 he picks the lot on the plan and the next build goes on it; CLEAR on the desk takes it down; the sheet stays under half the glass
 
    Run: node gates/home_base_gate.js [--engine] [--only phone_portrait]
    ========================================================================== */
@@ -77,6 +83,17 @@ ok('E5 planted: a per-man night not read from the file is caught (' + bWrong.due
 ok('E6 progress: 4 open, 8 when 4 stand, 12 when 8 stand', H.lotsOpen(rec, 0) === 4 && H.lotsOpen(rec, 4) === 8 && H.lotsOpen(rec, 8) === 12, [H.lotsOpen(rec, 0), H.lotsOpen(rec, 4), H.lotsOpen(rec, 8)]);
 const re = H.load(H.save(rec), 'ANOTHER');
 ok('E7 a new game is a new home (another seed loads unplanted)', !re.planted && H.load(H.save(rec), 'GATE').planted.x === 10);
+H.prizesFrom(rec, { cook: { from: 'THE POT', day: 4 } }); H.rename(rec, 'casa gate'); H.note(rec, { kind: 'built', what: 'GARDEN BED', day: 6, act: 1 });
+const kinds = rec.story.map(e => e.kind).join(',');
+ok('E8 the place remembers: ' + kinds, ['planted', 'moved_in', 'prize', 'named', 'built'].every(k => kinds.indexOf(k) >= 0));
+const linesAt = a => { const o = []; for (let dd = 1; dd <= 40; dd++) o.push(H.tell(rec, 'GATE MAN', a, dd)); return o.filter(Boolean); };
+const L1 = linesAt(1), L2 = linesAt(2), L3 = linesAt(3);
+const saysYou = l => /(^|\. )You |\byou (let|planted|named|put|carried)/.test(l);
+const actOk = (L, want, not) => L.some(l => want.test(l)) && !L.some(l => not(l));
+ok('E8 told from his mouth, in its own act: "' + L1.filter(saysYou)[0] + '"', actOk(L1, /(^|\. )You |\byou /, l => /father|granddad/i.test(l)));
+ok('E8 one act on: "' + L2.filter(l => /father/i.test(l))[0] + '"', actOk(L2, /your father/i, l => saysYou(l) || /granddad/i.test(l)));
+ok('E8 two acts on: "' + L3.filter(l => /granddad/i.test(l))[0] + '"', actOk(L3, /your granddad/i, l => saysYou(l) || /father/i.test(l)));
+ok('E8 planted: act one\'s lines held to act three\'s rule are caught', !actOk(L1, /your granddad/i, l => saysYou(l) || /father/i.test(l)));
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -160,8 +177,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */
         const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (!w) break;
         await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
-        let up = false; for (let i = 0; i < 16 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => BohemiaSettlement.state.open === 'build' && !!document.querySelector('#sbody .hdesk')).catch(() => false); }
-        if (up) break; }
+        let up = false; for (let i = 0; i < 24 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => BohemiaSettlement.state.open === 'build' && !!document.querySelector('#sbody .hdesk')).catch(() => false); }
+        if (up || await fr.evaluate(() => !!BohemiaSettlement.state.open).catch(() => false)) break; }   /* a sheet that opened late is never pressed through */
       await P.waitForTimeout(600);
       const dk = await fr.evaluate(() => { const b = document.getElementById('sbody'), t = b ? b.innerText : '', c = b && b.querySelector('canvas.hplan'), sh = b && b.closest('[id]');
         const press = [].slice.call(b ? b.querySelectorAll('button') : []).filter(x => x.offsetWidth).map(x => { const r = x.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height), r.bottom <= innerHeight + 0.5 && r.top >= -0.5]; });
@@ -177,6 +194,38 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const named = await F.evaluate(() => BohemiaHomeMap.label());
       ok('D8 a name typed at the desk is the map\'s name for it (' + named + ')', nm && named === 'CASA GATE', named);
       await P.screenshot({ path: path.join(require('os').tmpdir(), 'home_base_gate_desk_' + prof + '.png') }).catch(() => {});   /* the proof picture, never into the repo */
+      /* D10 pick lot 3 on the plan, build there, clear it */
+      const cv = await fr.evaluate(() => { const c = document.querySelector('#sbody canvas.hplan'); if (!c) return null; const r = c.getBoundingClientRect(); return { l: r.left, t: r.top, w: r.width, h: r.height, cw: c.width, ch: c.height }; });
+      if (cv) { const sc = Math.min(cv.w / cv.cw, cv.h / cv.ch), dw = cv.cw * sc, dh = cv.ch * sc, oy = cv.t + (cv.h - dh) / 2;
+        await P.touchscreen.tap(fb.x + cv.l + dw * (4.5 / 10), fb.y + oy + dh * (1.5 / 4)); await P.waitForTimeout(900); }
+      const pick = await fr.evaluate(() => window.__HOME_PICK);
+      await fr.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /GARDEN BED/.test(x.textContent)); if (b) b.click(); }); await P.waitForTimeout(1000);
+      const lots10 = await F.evaluate(() => Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots));
+      ok('D10 he picked lot ' + ((pick | 0) + 1) + ' on the plan and the garden went up there (' + lots10.join(' ') + ')', pick === 2 && lots10.indexOf('2,0') >= 0, JSON.stringify({ pick, lots10 }));
+      const half = await fr.evaluate(() => { const b = document.getElementById('sbody'), sh = b && b.parentElement; const t = Math.min.apply(null, [].slice.call(b.querySelectorAll('*')).filter(x => x.offsetWidth).map(x => x.getBoundingClientRect().top)); return { top: t, h: innerHeight }; });
+      const clr = await fr.evaluate(() => { const b = document.querySelector('#sbody .hdesk button[data-home="clear"]'); if (!b) return null; const r = b.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, r.height]; });
+      /* rule 402(c): a small sheet under half the glass; his place's desk is the screen's whole job (UI's own WHOLE list in
+         gates/scrolling_is_illegal_gate.js: the hall, the shops), so upright it is held under half anyway and sideways every press on the glass */
+      const upright = prof === 'phone_portrait';
+      ok('D10 CLEAR sits in the desk row, 44 px; ' + (upright ? 'upright the sheet stays under half the glass' : 'sideways, the whole job, every press on the glass') + ' (its top at ' + Math.round(100 * half.top / half.h) + '%)',
+         !!clr && clr[2] >= 44 && (upright ? half.top / half.h >= 0.5 : clr[1] + clr[2] / 2 <= half.h + 0.5), JSON.stringify({ clr, half }));
+      if (clr) await P.touchscreen.tap(fb.x + clr[0], fb.y + clr[1]); await P.waitForTimeout(900);
+      const lots10b = await F.evaluate(() => Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots));
+      ok('D10 CLEAR took it down (' + (lots10b.join(' ') || 'nothing') + ')', lots10b.indexOf('2,0') < 0);
+      /* D9 who moved in stands there, and talks */
+      await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); }); await P.waitForTimeout(1200);
+      const folk = await fr.evaluate(() => window.__HOME_FOLK_AT ? window.__HOME_FOLK_AT() : []);
+      ok('D9 the people who moved in stand in his place (' + folk.map(f => f.name).join(', ') + ')', folk.some(f => f.name === 'GATE RUIZ'), JSON.stringify(folk));
+      const bw = await fr.evaluate(() => { const w = BohemiaSettlement.where('build'); return w ? [w.x, w.y] : null; });
+      ok('D9 the BUILD door is under none of them (the nearest ' + (bw && folk.length ? Math.round(Math.min.apply(null, folk.map(f => Math.hypot(f.x - bw[0], f.y - bw[1])))) : '-') + ' px away)', !!bw && folk.every(f => Math.hypot(f.x - bw[0], f.y - bw[1]) > 30));
+      const gr = folk.filter(f => f.name === 'GATE RUIZ')[0];
+      if (gr) { await P.touchscreen.tap(fb.x + gr.x, fb.y + gr.y); await P.waitForTimeout(1300); }
+      const talk = await fr.evaluate(() => ({ t: window.__HOME_TALK || null, txt: (document.getElementById('sbody') || {}).innerText || '' }));
+      ok('D9 a tap on him: his face, LIVES HERE, a line of the place\'s story ("' + (talk.t && talk.t.line) + '")', !!talk.t && talk.t.name === 'GATE RUIZ' && /LIVES HERE/.test(talk.txt) && /day \d+/.test(talk.t.line), JSON.stringify(talk).slice(0, 300));
+      const planted9 = await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.residents = []; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); return true; });
+      await P.waitForTimeout(1200);
+      const folkGone = await fr.evaluate(() => window.__HOME_FOLK_AT ? window.__HOME_FOLK_AT() : []);
+      ok('D9 planted: with the residents taken off the message, none stands (the leg above would be red)', planted9 && !folkGone.some(f => f.name === 'GATE RUIZ'), JSON.stringify(folkGone));
     }
     await d.close();
   }

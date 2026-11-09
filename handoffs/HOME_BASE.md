@@ -1,3 +1,23 @@
+HOME BASE (home-base-01gkdyuv): 11/9 LATEST -- BUILD 11/9h - YOUR PLACE REMEMBERS, BUILT, NOT YET SEEN (rule 440(d), asks 356 and 522;
+rules 343, 347, 412, 402). Record: records/BOHEMIA_HOME_BASE_YOUR_PLACE_REMEMBERS_11_9_26.md.
+
+WHAT IS LEFT OF ASK 356 (the list first, as the coordinator asked): (4) what each building is made of and painted, its sign;
+(5) its own look (the cameras of rule 354 wait on his vote, or the plan made art, golden piece first); (6) a spared boss moving in
+(BOSSES: which are negotiable; BohemiaHome.addResident is the one call); (7) the acts (DYNASTY's derive reads the record);
+(8) a raid at his place walked end to end on the demo; (9) the main quest tie-in PARKED. DONE: planting (11/9d), where each build
+stands and clearing it, who moved in standing there and talking, the place remembering and telling it by act (11/9h).
+
+11/9 ROUND TWO, what changed:
+- engine/bohemia_home.js note/tell/whoFor and rec.story; home_base.json story{} (the lines, draft:true, WORDS').
+- the map's __HOME_BASE__: homeAct/homeDay/homeSeeBuilt (a finished build written once), the act on planting and move-ins,
+  a dark night written; homeState hands each resident his 'says' line, the act, the last 8 of the story.
+- the town screen: homeFolk (residents stand a body below the BUILD building), homeResidentTalk (face, LIVES HERE, his line),
+  homePlanTap/homeLotIndex (pick a lot, gold outline, the next build goes there), homeClear (CLEAR <n> in the desk row),
+  window.__HOME_FOLK_AT (read only, for the gate); the desk under half the glass upright.
+- gate YOUR PLACE, PLANTED: engine 22/0, upright 50/0, sideways 50/0 (E8, D9, D10 new, each with a planted fail).
+- VOTE home-base-your-place-remembers-11-9 (STAND-IN).
+
+11/8 ROUND ONE (BUILD 11/9d, YOUR PLACE, PLANTED), kept:
 HOME BASE (home-base-01gkdyuv): 11/8 LATEST -- BUILD 11/9d - YOUR PLACE, PLANTED, BUILT, NOT YET SEEN (rule 437(b), asks 356 and 522;
 rules 347, 343, 412, 429(h), 438(a)). Record: records/BOHEMIA_HOME_BASE_YOUR_PLACE_PLANTED_11_8_26.md.
 

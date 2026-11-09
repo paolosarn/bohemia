@@ -8,15 +8,13 @@ Gate THE PLACES GET THEIR USE 30/0 (demo and alpha, 96 valleys, 7 plants). Next:
 note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
 [bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
 [analog horror: the T. rex roars on its backup battery every night until somebody takes the battery.]
-HOME BASE (home-base-01gkdyuv): 11/8 LATEST -- BUILD 11/9d - YOUR PLACE, PLANTED, BUILT, NOT YET SEEN (rule 437(b), asks 356 and 522):
-measured first, the demo handed him his outfit's camp ('CUSTOM') at the first second, nothing asked where, nothing permanent, no bill,
-nobody living there. Now from day 2 the phone's band shows PLANT on the map: the block he stands on graded (water, power, road, danger),
-the better block near it, 'Are you sure? This is permanent.'; his camp moves to the block for good (bases, seats, the painting, the
-raids), YOUR PLACE on the map, its own nightly bill, the men he lets go live there, a boss's prize stands there, and its BUILD building
-is the desk (name it, the plan of 12 lots on their roads, 4 open and growing). Gate YOUR PLACE, PLANTED (17 engine legs, 38 a phone shape,
-planted fails). VOTE home-base-your-place-planted-11-8 (STAND-IN). The whole block: handoffs/HOME_BASE.md.
-[bb Battle Brothers has no home of its own; its retinue and its ambitions are the nearest pieces. Ours is the place you choose and pay for.]
-[analog horror: the bill comes at night whether anyone is home, and the men you let go are still there when you come back.]
+HOME BASE (home-base-01gkdyuv): 11/9 LATEST -- BUILD 11/9h - YOUR PLACE REMEMBERS, BUILT, NOT YET SEEN (rule 440(d), asks 356, 522;
+after 11/9d YOUR PLACE, PLANTED): the people who moved in stand in his place and talk, one thing a visit from the place's own record
+('You let me go on day 4...'; two acts on, 'Your granddad put up the garden bed on day 7. We still use it.', rule 412); he picks the lot
+on the plan and the build goes there, CLEAR takes it down; the desk under half the glass upright. Gate YOUR PLACE, PLANTED engine 22/0,
+upright 50/0, sideways 50/0. VOTE home-base-your-place-remembers-11-9 (STAND-IN). What is left of ask 356 and the whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers keeps a company's history only in its dead and its ledger; ours keeps it in a place, told by the people who stayed.]
+[analog horror: the woman you let go on day 4 is still there two generations later, and she tells your grandkid exactly what you did.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

@@ -58,7 +58,7 @@
   }
 
   /* ---------------- THE RECORD ---------------- */
-  function make(seed) { return { v: 1, seed: seed == null ? null : String(seed), planted: null, name: null, residents: [], prizes: {}, lots: {}, nights: 0, lastBill: null }; }
+  function make(seed) { return { v: 1, seed: seed == null ? null : String(seed), planted: null, name: null, residents: [], prizes: {}, lots: {}, nights: 0, lastBill: null, story: [] }; }
   function planted(rec) { return !!(rec && rec.planted); }
   /* PERMANENT: the first planting stands for the whole game; nothing in this file moves it or plants twice */
   function plant(rec, at, day, g) {
@@ -66,7 +66,8 @@
     if (rec.planted) return { ok: false, why: 'PERMANENT', at: [rec.planted.x, rec.planted.y] };
     if (!at || at.x == null || at.y == null) return { ok: false, why: 'NO_SPOT' };
     if (g && !g.ok) return { ok: false, why: 'NOT_HERE', because: g.why };
-    rec.planted = { x: at.x | 0, y: at.y | 0, day: day | 0, grade: g ? { water: g.water, power: g.power, road: g.road, danger: g.danger, district: g.district } : null };
+    rec.planted = { x: at.x | 0, y: at.y | 0, day: day | 0, act: (g && g.act) || 1, grade: g ? { water: g.water, power: g.power, road: g.road, danger: g.danger, district: g.district } : null };
+    note(rec, { kind: 'planted', day: day | 0, act: rec.planted.act, what: g && g.district || null });
     return { ok: true, at: [rec.planted.x, rec.planted.y] };
   }
   function nameOf(rec) {
@@ -77,7 +78,7 @@
   function rename(rec, nm) {
     if (!rec || !planted(rec)) return false;
     var s = String(nm == null ? '' : nm).replace(/[<>&"]/g, '').trim().slice(0, 22);
-    rec.name = s || null; return true;
+    rec.name = s || null; if (rec.name) note(rec, { kind: 'named', what: rec.name.toUpperCase(), day: rec.lastDay | 0 }); return true;
   }
 
   /* ---------------- WHO LIVES THERE ---------------- */
@@ -87,6 +88,7 @@
     if (rec.residents.some(function (r) { return r.name === nm; })) return false;
     if (D && rec.residents.length >= (D.residents.max | 0)) return false;
     rec.residents.push({ name: nm, look: who.look || null, why: who.why || 'came', day: who.day | 0 });
+    note(rec, { kind: 'moved_in', who: nm, why: who.why || 'came', day: who.day | 0, act: who.act || null });
     return true;
   }
 
@@ -96,7 +98,7 @@
     var out = [];
     if (!D || !rec || !planted(rec) || !verbs) return out;
     Object.keys(D.prizes).forEach(function (id) { if (id.charAt(0) === '_') return; var v = verbs[id]; if (!v) return;
-      if (!rec.prizes[id]) rec.prizes[id] = { day: v.day | 0, from: v.from || D.prizes[id].from };
+      if (!rec.prizes[id]) { rec.prizes[id] = { day: v.day | 0, from: v.from || D.prizes[id].from }; note(rec, { kind: 'prize', what: String(D.prizes[id].name).replace(/^YOUR /, ''), who: D.prizes[id].from, day: v.day | 0 }); }
       out.push({ id: id, piece: D.prizes[id].piece, name: D.prizes[id].name, from: D.prizes[id].from }); });
     return out;
   }
@@ -142,16 +144,49 @@
     return open;
   }
 
+  /* ---------------- THE PLACE REMEMBERS (rule 412) ----------------
+     what happened here, in order, kept on the record; a person who lives here tells it from his own mouth, to whoever
+     holds the family now: 'you' in the act it happened, 'your father' one act on, 'your granddad' two on */
+  function note(rec, ev) {
+    if (!rec || !ev || !ev.kind) return false;
+    if (!rec.story) rec.story = [];
+    var max = (D && D.story && D.story.max) | 0 || 60;
+    if (ev.act == null && rec.planted) ev.act = rec.lastAct || rec.planted.act || 1;
+    rec.story.push(ev); if (rec.story.length > max) rec.story.splice(0, rec.story.length - max);
+    return true;
+  }
+  function whoFor(evAct, actNow) {
+    var W = (D && D.story && D.story.who) || {}, d = Math.max(0, (actNow | 0 || 1) - (evAct | 0 || 1));
+    return d >= 2 ? (W.two || 'your granddad') : d === 1 ? (W.one || 'your father') : (W.zero || 'you');
+  }
+  function fill(t, ev, who) {
+    return String(t).replace(/\{who\}/g, who).replace(/\{Who\}/g, who.charAt(0).toUpperCase() + who.slice(1))
+      .replace(/\{day\}/g, String(ev.day | 0)).replace(/\{WHAT\}/g, String(ev.what || '')).replace(/\{what\}/g, String(ev.what || '').toLowerCase()).replace(/\{name\}/g, String(ev.who || ''))
+      .replace(/\{why\}/g, String(ev.why || ''));
+  }
+  /* the line a resident says: his own coming first, then what he saw after; the same resident on the same day says the same */
+  function tell(rec, name, actNow, day) {
+    if (!D || !rec || !rec.story || !rec.story.length) return null;
+    var T = (D.story && D.story.lines) || {}, mine = null, seen = [];
+    rec.story.forEach(function (ev) { if (ev.kind === 'moved_in' && ev.who === name) mine = ev; else if (ev.kind !== 'moved_in' || ev.who !== name) seen.push(ev); });
+    var pick = seen.filter(function (ev) { return T[ev.kind]; });
+    var h = 0, k = String(name) + ':' + (day | 0); for (var i = 0; i < k.length; i++) h = (h * 31 + k.charCodeAt(i)) >>> 0;
+    /* ONE THING A VISIT (it fits his talk box): his own coming, or one thing he saw, by the day */
+    var all = [];
+    if (mine && T['me_' + (mine.why === 'let go' ? 'let_go' : 'came')]) all.push(fill(T['me_' + (mine.why === 'let go' ? 'let_go' : 'came')], mine, whoFor(mine.act, actNow)));
+    pick.forEach(function (ev) { all.push(fill(T[ev.kind], ev, whoFor(ev.act, actNow))); });
+    return all.length ? all[h % all.length] : null;
+  }
   function save(rec) { try { return JSON.stringify(rec); } catch (e) { return null; } }
   function load(txt, seed) {
     var r = null; try { r = JSON.parse(txt || 'null'); } catch (e) { r = null; }
     if (!r || r.v !== 1 || (seed != null && r.seed !== String(seed))) return make(seed);   /* a new game is a new home */
-    if (!r.residents) r.residents = []; if (!r.prizes) r.prizes = {}; if (!r.lots) r.lots = {};
+    if (!r.residents) r.residents = []; if (!r.prizes) r.prizes = {}; if (!r.lots) r.lots = {}; if (!r.story) r.story = [];
     return r;
   }
 
   var API = { setData: setData, data: data, grade: grade, best: best, make: make, planted: planted, plant: plant, nameOf: nameOf, rename: rename,
-              addResident: addResident, prizesFrom: prizesFrom, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load };
+              addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaHome = API;
 })(typeof window !== 'undefined' ? window : this);
