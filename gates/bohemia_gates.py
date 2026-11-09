@@ -9938,7 +9938,7 @@ GATES = [
      "robots on the board, won, dropped where it stood (M2); the wreck stripped once for tape (M3); his card (B0), his fight (B1), the "
      "beat drops the rest and DOC REYES says the wrecks (B2); every machine down and no fight beside one (C1a), a dropped one stripped "
      "(C1b), painted as wrecks (C1c), the feed (C1d); the same phone opens the game again and it holds (R1). Planted: a wreck stripped "
-     "twice, a machine standing again after the fall, a phone that forgot the save. RESULT_FILTER, about 17 min", True),
+     "twice, a machine standing again after the fall, a phone that forgot the save. green at registration, 18/0, about 17 min", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

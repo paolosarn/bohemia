@@ -53,7 +53,35 @@ map's own route, so it can turn a corner, and its picture is a straight block ea
 
 ## THE FILTER: HIS MACHINES
 
-NEXT, this round, its own build: the plant's robots stand guard round his tanks and fight anybody who walks up; when he falls every one drops where it stands, the wrecks stay for the crew to strip for tape. This section is written when it ships.
+BUILD 11/9m THE FILTER'S MACHINES (abdcb3eb9). Code: slices/bohemia_bosses.js section (10); data: THE FILTER's 'machines' row in records/target/bb/boss_act_one.json
+(a modder's row: count 3, near 3, far 6, the band of two wiederganger, tape 4, the words); art: tools/bohemia_bosses_the_filters_machines_11_9_26.py.
+- HIS MACHINES: his own row's lesson made true on the map: "He keeps the plant's robots walking. Kill the keeper and every machine of his
+  drops where it stands." The moment WORLD TWO stands him somewhere, 3 of the water plant's old robots stand on street blocks 3 to 6
+  out from his door (never beside a town, never on the sign's block, at least 3 apart), worked out once and kept. Raul at the radio:
+  "His robots stand guard round the tanks: walk up to one and it fights."
+- WHILE HE STANDS: each is painted standing its post (a municipal plant robot taller than a man, the plant's stencil band, a valve key
+  for an arm, one lamp eye blinking the tanks' sick green on the beat, its cable trailing back toward the tanks). The crew stepping
+  beside one is met by it through RUN's one door, its card first ("ONE OF THE PLANT'S ROBOTS, STILL ON ITS POST", ENGAGE or FALL BACK),
+  two of his robots on the board; win and that one drops where it stood. Not THE POT's wall, not THE TAP's toll: a fight that stands
+  in the street.
+- WHEN HE FALLS: every machine still standing drops where it stands at once, on the same tape as his tanks; DOC REYES's card says it
+  under his filter: "HIS ROBOTS DROPPED WHERE THEY STOOD: 3 WRECKS ON THE MAP. STRIP EACH ONE FOR +4 TAPE."; @doc_reyes posts it
+  beside the radio. A dropped machine is a wreck on the map (on its back across the street, the head off beside it, coolant pooled);
+  the crew stepping onto it strips it once: +4 tape (the company's supplies, what mends armour), the number rising, your company's
+  post the first time.
+- KEPT AFTER A RELOAD: every wreck, which were stripped; no second strip, no fight beside a wreck.
+THE GATE: THE FILTER CHANGES THE MAP (gates/the_filter_changes_the_map_gate.js, registered), the stranger's game on an upright phone,
+THE POT and THE TAP first through the map's own fell() (each walked whole by his own gate). Run 1: 7/11, every red one cause: THE POT's
+asker came up while the gate felled him the quick way and nobody answered it, so every later card waited behind it (the gate now
+answers an earlier boss's cards the way a stranger would; the game was right to hold them). Run 2: 15/3, the three reds the gate
+reading the company's tape count, which the camp also spends mending armour while the crew walks (a +4 strip read +2; the gate now
+reads the strips themselves). In run 2: the radio at 47,36, his place 49,24; DOC REYES asked, Raul read the radio; his machines at
+54,20, 55,27, 50,19; walking up to the first: its card, two wiederganger on the board, won by AUTO, dropped (how: fight); stripped +4
+with the rise; his card first, his fight (the checker ended it: AUTO lost); the beat with 2 machines on the tape, the card's line; every
+machine down and no fight beside one; painted as wrecks; the feed; the reopen held (still down, 3 wrecks, the stripped ones stripped, no
+fight); planted P3 and P4 red. Run 3: the walk to the first robot passed another one, and that one fought (the game right, the gate reading the wrong robot; it now follows the one that met him). Run 4: 17/1, a read taken before the crew stood on the second wreck (the reopen showed it stripped; the gate now waits for him to arrive). Run 5: 18 passed, 0 failed (the radio at 63,65, his place 86,59, his machines 91,61, 90,56, 84,54; the first met, two wiederganger, won by AUTO, +4; his own fight won by AUTO; 2 dropped on the tape; a keeper-dropped wreck stripped +4; the reopen held). The VOTE card's picture is the kill's own camera beat (tools/bohemia_bosses_vote_the_change_11_9_26.js "THE FILTER"): records/target/bosses_vote_filter_11_9/. Phone pictures (webp): records/target/the_filter_changes_the_map/ (0 she asks, 1 the radio read out, 2 his machine and its card, 3 his card, 4 she says what changed, 5 the wrecks, 6 opened again).
+WEAK: a machine's fight is two wiederganger on the board the city cuts at that spot (COMBAT TWO's), not a robot's own arena; the wrecks
+stay for good (no scavengers come for them yet); the tape is TUNING's number.
 
 ## [bb] BATTLE BROTHERS FIRST
 

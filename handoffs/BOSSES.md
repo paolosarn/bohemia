@@ -1,5 +1,20 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 440, 11/9/26: THE FILTER'S MACHINES, HIS OWN WAY (rule 440(b), ask lines 167, 522), BUILD 11/9m
+Record: records/BOHEMIA_BOSSES_THE_TAP_AND_THE_FILTER_CHANGE_THE_MAP_11_9_26.md. Gate: gates/the_filter_changes_the_map_gate.js (THE FILTER
+CHANGES THE MAP, registered; 18/0 on the phone, THE POT and THE TAP first, three plants). VOTE bosses-the-filters-machines-11-9 (stand_in).
+- HIS MACHINES (slices/bohemia_bosses.js (10); his 'machines' row: count 3, near 3, far 6, two wiederganger, tape 4, the words): his row's
+  lesson made true on the map. WHILE HE STANDS 3 plant robots stand on street blocks round his door; the crew beside one is met by it
+  (its card first through RUN's one door, two of his robots on the board), a win drops it. WHEN HE FALLS every one still standing drops
+  where it stands on the beat's tape; DOC REYES's card says it; @doc_reyes posts it. A wreck stripped once: +4 tape. Kept after a reload.
+- ART: tools/bohemia_bosses_the_filters_machines_11_9_26.py (slices/boss_places/machine_*). The machine's fight hears the one door's end
+  ('message' BOHEMIA_CITY_COMBAT_END, WORLD TWO's way); FALL BACK leaves it standing, re-armed once the crew is 3 away.
+- NOTES: TUNING, 3 machines, two robots a fight, 4 tape; COMBAT TWO, a machine's fight is the board the city cuts at that spot (a robot's
+  own arena would be theirs); BohemiaBosses.machines(n) / machineAt(x, y) for anybody.
+THE THREE SO FAR: THE POT shuts streets (a wall), THE TAP's pipe costs blood then pays taps (a toll, then a verb's places), THE FILTER's
+robots fight then drop (danger, then salvage). NEXT on the ladder: THE BURN (night), THE SURVEYOR (the map itself), THE CLIMB (towers);
+each its own way, assets first.
+
 ## BOSSES 440, 11/9/26: THE TAP'S PIPE, HIS OWN WAY (rule 440(b), ask lines 167, 522), BUILD 11/9i
 Record: records/BOHEMIA_BOSSES_THE_TAP_AND_THE_FILTER_CHANGE_THE_MAP_11_9_26.md. Gate: gates/the_tap_changes_the_map_gate.js (THE TAP
 CHANGES THE MAP, registered; 17/0 on the phone, THE POT first, three plants). VOTE bosses-the-taps-pipe-11-9 (stage stand_in).
@@ -13,8 +28,7 @@ CHANGES THE MAP, registered; 17/0 on the phone, THE POT first, three plants). VO
 - THE VOTE PICTURES for any boss: tools/bohemia_bosses_vote_the_change_11_9_26.js "<BOSS>" <outdir> (the kill's own camera beat).
 - NOTES: TUNING, 7 blocks and 6 blood a bolt (walking the whole pipe is 42 blood across the crew); WORLD 13 and COMBAT TWO untouched
   (the pipe reads the map at run time through cityRoute, townDoor, cityWalkable); BohemiaBosses.pipe(n) / onPipe(x, y) for anybody.
-NEXT: THE FILTER's machines (the plant's robots stand guard round his tanks and fight; when he falls they drop where they stand,
-wrecks to strip for tape), BUILT IN THE TREE, gate written (gates/the_filter_changes_the_map_gate.js), shipping next.
+NEXT: THE FILTER's machines, shipped as 11/9m (the block above).
 
 ## BOSSES 437, 11/8/26: THE FIRST BOSS CHANGES THE MAP, END TO END (rule 437(a), ask lines 167, 346, 522), BUILD 11/9b
 Record: records/BOHEMIA_BOSSES_THE_FIRST_BOSS_CHANGES_THE_MAP_11_8_26.md. Gate: gates/the_first_boss_changes_the_map_gate.js (THE FIRST BOSS
