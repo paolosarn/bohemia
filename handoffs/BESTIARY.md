@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (rule 440(f), ask line 539): 11/9 LATEST -- BUILD 11/9k - FIVE LAB BEASTS, BUILT, NOT YET SEEN.
+BESTIARY (rule 440(f), ask line 539): 11/9 LATEST -- BUILD 11/9k - FIVE LAB BEASTS (77eebb02), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_LAB_SEVEN_11_9_26.md. VOTE bestiary-five-lab-beasts-11-9 (stage stand_in).
 - THE COUNT, MEASURED: roster.json's 'beasts: 17' counted Battle Brothers' archetype names (13 with no animal in the fight). The fight
   fielded 15 animals, 10 of them lab-made. Now: 20 animals fielded, 15 lab-made (14 from Nevada's own fossils), 5 living animals loose
