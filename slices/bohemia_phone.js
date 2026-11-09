@@ -68,7 +68,7 @@
   /* COORDINATOR 11/3 (rule 357(a), Paolo again: 'remove all notes buttons everywhere, even the phone... from the top right to the
      phone, anything with the Notes button, remove it from the game'): NOTES is gone from the phone's row. */
   var APPS = ['crew', 'relations', 'settings'];
-  var LABEL = { play: 'PLAY', heal: 'HEAL', crew: 'CREW', relations: 'RELATIONS', notes: 'NOTES', settings: 'SETTINGS', leave: 'LEAVE', feed: 'THE FEED' };   /* draft:true */
+  var LABEL = { play: 'PLAY', heal: 'HEAL', crew: 'CREW', relations: 'RELATIONS', notes: 'NOTES', settings: 'SETTINGS', leave: 'LEAVE', feed: 'THE FEED', home: 'YOUR PLACE' };   /* draft:true */
   var KEEP = ['settings', 'crew'];   /* UI 7 (rule 368): the bar carries no crew any more, so the phone's CREW is the one door and never hides */
   /* THE HEAL RING (rule 232(b), Paolo: 'a medical icon maybe in a circle'): where the rig struck the ring's track on app_heal.png,
      as fractions of the picture (tools/bohemia_ui2_phone_apps.py measures it into phone.json app_heal.ring; read at boot) */
@@ -650,6 +650,15 @@
       + '@keyframes bohVerbLit{0%{filter:brightness(1.6)}50%{filter:brightness(.8)}100%{filter:none}}#bohphone .bpctx.verb .vb{animation:bohVerbLit ' + BEAT + 'ms steps(2,end) 2}'   /* it lights where it works, a tube coming on */
       + '#bohphone .bpctx .vb.off{opacity:.55;cursor:default}'
       + '#bohphone .bpctx.verb .vb{display:flex}#bohphone .bpctx.verb .clk{display:none}'
+      /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): PLANT in the band on the map until his place is planted; beside the boss's verb it takes the right half */
+      + '#bohphone .bpctx .pl{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;justify-content:center;gap:5px;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.3px;color:#1f1710;background:#d9b867;box-shadow:inset 0 0 0 1px rgba(40,26,10,.55)}'
+      + '#bohphone .bpctx .pl i{width:9px;height:12px;flex:none;background:linear-gradient(#5a3c1c,#5a3c1c) 4px 3px/1px 9px no-repeat,linear-gradient(135deg,#a8341e 50%,transparent 50%) 5px 3px/4px 4px no-repeat}'
+      + '#bohphone .bpctx.plant .pl{display:flex}#bohphone .bpctx.plant .clk{display:none}#bohphone .bpctx.plant.verb .pl{left:50%;width:50%}#bohphone .bpctx.plant.verb .vb{width:50%}'
+      + '#bohphone .hb{display:flex;flex-direction:column;gap:2px}#bohphone .hb .hd{font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;color:#e2b052}'
+      + '#bohphone .hb .mk{display:flex;justify-content:space-between;gap:4px}#bohphone .hb .mk b{font-weight:400;color:#e8dec8}#bohphone .hb .mk s{text-decoration:none;letter-spacing:1px;color:#d9b867}#bohphone .hb .mk.dg s{color:#d0745c}'
+      + '#bohphone .hb .ln{color:#c9bda4}#bohphone .hb .no{color:#d0745c}#bohphone .hb .sure{color:#e2b052;margin-top:2px}'
+      + '#bohphone .hb button{font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;min-height:18px;margin-top:2px;border:0;padding:2px 4px;background:#3a3127;color:#e8dec8;cursor:pointer}'
+      + '#bohphone .hb button.go{background:#d9b867;color:#1f1710}#bohphone .hb button[disabled]{opacity:.45;cursor:default}#bohphone .hb .two{display:flex;gap:3px}#bohphone .hb .two button{flex:1}'
       + '#bohphone .bpfd{position:absolute;left:3px;right:3px;top:67px;height:46px;margin:0;overflow:hidden;cursor:pointer;padding:2px 3px;background:rgba(6,5,4,.66);box-shadow:inset 0 0 0 1px rgba(240,226,196,.14)}'
       /* COORDINATOR 11/3 (Paolo, his screenshot: 'the tweets are only taking up half the space they should'): the strip was cut for
          TWO posts (21 px each) and rule 329 made it ONE, so the one post sat in the top half and the bottom half was always empty.
@@ -1083,8 +1092,10 @@
     var ctx = el('div', 'bpctx');
     ctx.innerHTML = '<div class="clk" aria-hidden="true"><i class="g"></i></div>'   /* UI 7 (rule 368): the day and the hour are the phone's first line now (__THE_DAY_ON_THE_PHONE__), said once; the band keeps what the clock is doing */
       + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>'   /* draft:true */
-      + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>';   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
+      + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>'   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
+      + '<button type="button" class="pl" aria-label="plant your own place here"><i></i><span>PLANT</span></button>';   /* __HOME_BASE__ (HOME BASE 11/8): draft:true */
     ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
+    ctx.querySelector('.pl').addEventListener('click', function () { appPress('home'); });   /* __HOME_BASE__ */
     /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 330: 'I can put the fire down, I can purify the water, I'm so confused by what that
        means'): a held finger on it says what it does, in one plain line from the boss's file (verb.tip); a tap still uses it. UI 4's
        long-press tooltips take this over when they land (a minimal one until then) */
@@ -1128,6 +1139,7 @@
     if (a === 'verb') { var Bv = cw && cw.BohemiaBosses, v = H.verb; if (Bv && v && !v.off && scr === 'map') { Bv.use(v.id); H.homeSig = null; setTimeout(tick, 60); } return; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
     if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp' || scr === 'town')) { L.camp(); setTimeout(tick, 60); } return; }   /* CAMP [a town is safe] (rule 273(b)): HEAL in a town rests there */
     if (a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
+    if (a === 'home') { H.homeAsk = false; if (H.page === a) pageClose(); else pageOpen(a); return; }   /* __HOME_BASE__ */
   }
 
   /* ---- THE APPS' OWN PAGES, on the phone's own glass ---- */
@@ -1171,11 +1183,52 @@
       [].forEach.call(pb.querySelectorAll('.kf button'), function (b) { b.addEventListener('click', function () { H.feedKind = H.feedKind === b.dataset.kind ? null : b.dataset.kind; H.feedSig = null; pagePaint(true); }); });
       [].forEach.call(pb.querySelectorAll('.po.qp'), function (q) { var go = function () { questGo(q.dataset.quest, 'feed', q); };
         q.addEventListener('click', go); q.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); });
+    } else if (H.page === 'home') {   /* __HOME_BASE__ */
+      var hm = cw && cw.BohemiaHomeMap, hs = hm ? hm.state() : null, hsig = JSON.stringify([hs && hs.planted, hs && hs.here, hs && hs.name, hs && hs.bill, H.homeAsk, hs && hs.residents.length]);
+      if (!fresh && hsig === H.homeSig2) return; H.homeSig2 = hsig;
+      pb.innerHTML = homeHtml(hs); homeWire(pb, hm);
     } else if (H.page === 'relations') {
       if (!fresh && H.relAt && performance.now() - H.relAt < 2000) return; H.relAt = performance.now();
       pb.innerHTML = relationsHtml(L);
     }   /* the speeds page a hold used to open is the slider now (__HOLD_PLAY_SLIDE_THE_SPEED__, above) */
   }
+  /* ==== __HOME_BASE__ (HOME BASE 11/8/26, rule 437(b), ask lines 356, 522): YOUR PLACE on the phone. Unplanted: the smart system's
+     grade of the block he stands on (water, power, road, danger, as marks), the best block near it, PLANT HERE, then 'Are you sure?
+     This is permanent.' Planted: its name, its night's bill, who lives there, the bosses' prizes standing there, GO HOME. The map
+     (slices/BOHEMIA_CITY_WORLD.html __HOME_BASE__) owns every number; words draft:true. ==== */
+  function homeWord(cw, place) { try { var hm = cw && cw.BohemiaHomeMap; if (hm && String(place).toUpperCase() === 'CUSTOM') return hm.label() || place; } catch (e) {} return place; }
+  function homeMarks(n, ch) { var o = ''; for (var i = 0; i < 3; i++) o += i < n ? '\u25A0' : '\u25A1'; return o; }
+  function homeHtml(hs) {
+    if (!hs) return '<div class="hb"><div class="ln">Looking at the ground...</div></div>';
+    var h = '<div class="hb">', W = hs.words || {};
+    if (!hs.planted) {
+      var g = hs.here && hs.here.g;
+      h += '<div class="hd">THIS GROUND' + (g && g.district ? ' &middot; ' + esc(String(g.district).toUpperCase()) : '') + '</div>';
+      if (g) [['water', 'WATER'], ['power', 'POWER'], ['road', 'ROAD'], ['danger', 'DANGER']].forEach(function (m) {
+        h += '<div class="mk' + (m[0] === 'danger' ? ' dg' : '') + '"><b>' + m[1] + '</b><s>' + homeMarks(g[m[0]]) + '</s></div>'; });
+      var why = { ground: 'Nothing stands here. Find open ground.', town: 'Somebody already lives here.', boss: 'This is somebody\'s place. Not yours.', water: 'No water in reach. People die here.', road: 'No road comes in. Nothing trades here.', nothing: 'Nothing to stand on.' };
+      if (g && !g.ok) h += '<div class="no">' + esc((W.not_here || 'NOT HERE') + '. ' + (why[g.why] || '')) + '</div>';
+      if (hs.better) h += '<div class="ln">BETTER: ' + hs.better.d + ' ' + (hs.better.d === 1 ? 'BLOCK' : 'BLOCKS') + ' ' + esc(hs.better.dir) + '</div><button type="button" data-h="better">GO THERE</button>';
+      if (H.homeAsk && g && g.ok) h += '<div class="sure">' + esc(W.plant_sure || 'Are you sure? This is permanent.') + '</div><div class="two"><button type="button" class="go" data-h="yes">' + esc(W.plant_yes || 'PLANT HERE') + '</button><button type="button" data-h="no">' + esc(W.plant_no || 'NOT YET') + '</button></div>';
+      else h += '<button type="button" class="go" data-h="plant"' + (g && g.ok ? '' : ' disabled') + '>' + esc(W.plant_yes || 'PLANT HERE') + '</button>';
+    } else {
+      h += '<div class="hd">' + esc(hs.name) + '</div><div class="ln">PLANTED DAY ' + esc(hs.day) + '</div>';
+      if (hs.bill) h += '<div class="mk"><b>A NIGHT</b><s>-' + esc(hs.bill.due) + ' BATT</s></div><div class="ln">keep ' + hs.bill.keep + (hs.bill.power ? ' + lights ' + hs.bill.power : '') + (hs.bill.people ? ' + ' + hs.bill.people + ' living there ' + hs.bill.eat : '') + (hs.bill.back ? ' - prizes ' + hs.bill.back : '') + '</div>';
+      h += '<div class="mk"><b>LIVING THERE</b><s>' + hs.residents.length + '</s></div>';
+      if (hs.prizes.length) h += '<div class="ln">' + hs.prizes.map(function (p) { return esc(p.name); }).join(', ') + '</div>';
+      h += '<div class="mk"><b>STANDING</b><s>' + hs.standing + ' OF ' + hs.lotsOpen + '</s></div><button type="button" class="go" data-h="home">GO HOME</button>';
+    }
+    return h + '</div>';
+  }
+  function homeWire(pb, hm) {
+    [].forEach.call(pb.querySelectorAll('.hb button[data-h]'), function (b) { b.addEventListener('click', function () {
+      var k = b.dataset.h; H.presses++; window.__PHONE_PRESSES = H.presses;
+      if (k === 'plant') H.homeAsk = true; else if (k === 'no') H.homeAsk = false;
+      else if (k === 'yes') { var r = hm && hm.plant(); H.homeAsk = false; window.__HOME_PLANT_PRESSED = r; try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_tap' }, '*'); } catch (e) {} }
+      else if (k === 'better' || k === 'home') { if (hm) hm.go(k); pageClose(); return; }
+      H.homeSig2 = null; pagePaint(true); H.homeSig = null; setTimeout(tick, 60); }); });
+  }
+  /* ==== /__HOME_BASE__ ==== */
   function renameStart() {
     var nm = H.el.querySelector('.co .nm'); if (!nm) return;
     var inp = document.createElement('input'); inp.type = 'text'; inp.maxLength = 22; inp.value = nameGet(); inp.setAttribute('aria-label', 'your company\'s name');
@@ -1412,15 +1465,17 @@
     H.el.classList.toggle('tl', !!(L && L.timeline(false)));
     var cd = L ? L.condition() : null;
     var vh = null; try { vh = scr === 'map' && cw && cw.BohemiaBosses ? cw.BohemiaBosses.verbHere() : null; } catch (e) { vh = null; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
-    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join(), vh ? vh.id + vh.off : ''].join('|');
+    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join(), vh ? vh.id + vh.off : '', (function () { try { return cw && cw.BohemiaHomeMap ? (cw.BohemiaHomeMap.offer() ? 'p' : '') + (cw.BohemiaHomeMap.label() || '') : ''; } catch (e) { return ''; } })()].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
     H.verb = vh;
     var cxv = H.el.querySelector('.home .bpctx'), vb = cxv && cxv.querySelector('.vb');
     if (vb) { cxv.classList.toggle('verb', !!vh && scr === 'map'); vb.classList.toggle('off', !!(vh && vh.off)); vb.dataset.verb = vh ? vh.id : '';
       if (vh) { vb.querySelector('span').textContent = vh.button; vb.setAttribute('aria-label', vh.button.toLowerCase() + (vh.tip ? ': ' + vh.tip : '')); vb.title = vh.tip || '';
         var vi = ''; try { vi = cw.BohemiaBosses.icon ? cw.BohemiaBosses.icon(vh.id) : ''; } catch (e) {} var im0 = vb.querySelector('img'); if (vi && im0.getAttribute('src') !== vi) im0.setAttribute('src', vi); } }
+    try { var hmo = scr === 'map' && cw && cw.BohemiaHomeMap ? !!cw.BohemiaHomeMap.offer() : false; if (cxv) cxv.classList.toggle('plant', hmo);   /* __HOME_BASE__ */
+      if (H.page === 'home' && scr !== 'map') pageClose(); } catch (e) {}   /* YOUR PLACE is a map page: a town, a fight or camp closes it */
     var stW = H.el.querySelector('.stat .wh');
-    if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : (s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
+    if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : homeWord(cw, s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
     var stD = H.el.querySelector('.stat .dt');   /* __THE_DAY_ON_THE_PHONE__ (rule 368): the day and the hour, once, on the first line */
     if (stD && s) { var dtx = (s.day ? 'DAY ' + s.day : '') + (s.clock ? (s.day ? '  ' : '') + s.clock : ''); if (stD.textContent !== dtx) stD.textContent = dtx; }
     /* the place's whole name beside them: a long name steps down half a point at a time (to 5.5) before a letter is ever cut */

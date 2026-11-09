@@ -10757,6 +10757,15 @@ GATES = [
      "B: 24 valleys through the map's own frame, four freeway spots each (96): BEFORE measured (the old deal, houses on the board), every spot a freeway board "
      "with no house, crossings the overpass or the underpass, interchanges the stack, AUTO plays each, W1 the demo's own door deals a freeway board asking "
      "the map itself. About 2 min (--quick: A and M, under a second)", True),
+    ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
+     "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
+     "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "
+     "a stub split, each red; E3 the smart system refuses the freeway, a wash, a town, no water, no road; E4 PERMANENT, a second planting refused; E5 the night's bill reads "
+     "nightly_bill.json, a typed number caught; E6 lots open as it grows; E7 a new game a new home. ON THE DEMO, upright and sideways: D1 no PLANT in the first minute, "
+     "D2 PLANT in the phone's band from day 2, D3 the grade and NOT HERE on a road, D4 'Are you sure? This is permanent.', NOT YET, D5 his outfit's seat moves to the block "
+     "(bases, seats, the painter's key), the map names it his, PLANT gone, the save; D6 the night bills it, a let-go man lives there, planted: the hook taken out is caught; "
+     "D7 THE POT's prize stands there and pays back; D8 his place's BUILD opens the desk (the plan, A NIGHT, LIVING HERE, NAME IT, 44 px presses on the glass), the name "
+     "typed there is the map's. About 9 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

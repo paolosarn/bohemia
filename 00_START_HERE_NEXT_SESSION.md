@@ -1,3 +1,12 @@
+HOME BASE (home-base-01gkdyuv): 11/8 LATEST -- BUILD 11/9d - YOUR PLACE, PLANTED, BUILT, NOT YET SEEN (rule 437(b), asks 356 and 522):
+measured first, the demo handed him his outfit's camp ('CUSTOM') at the first second, nothing asked where, nothing permanent, no bill,
+nobody living there. Now from day 2 the phone's band shows PLANT on the map: the block he stands on graded (water, power, road, danger),
+the better block near it, 'Are you sure? This is permanent.'; his camp moves to the block for good (bases, seats, the painting, the
+raids), YOUR PLACE on the map, its own nightly bill, the men he lets go live there, a boss's prize stands there, and its BUILD building
+is the desk (name it, the plan of 12 lots on their roads, 4 open and growing). Gate YOUR PLACE, PLANTED (17 engine legs, 38 a phone shape,
+planted fails). VOTE home-base-your-place-planted-11-8 (STAND-IN). The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers has no home of its own; its retinue and its ambitions are the nearest pieces. Ours is the place you choose and pay for.]
+[analog horror: the bill comes at night whether anyone is home, and the men you let go are still there when you come back.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9c - THE PLACES TALK, BUILT, NOT YET SEEN (rule 436(b), ask line 521):
 measured first, WORLD TEN had seated the lab, the bank, the jobs office and the home centres at their real spots, but each opened as any
 town. Now each place's person talks when you arrive, Battle Brothers' location way, two or three choices with real costs: THE NIGHT TECH at
