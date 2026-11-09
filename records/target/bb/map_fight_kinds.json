@@ -2190,6 +2190,141 @@
     ],
     "street_front": true,
     "draft": true
+   },
+   "clark_station": {
+    "kind": "powerplant",
+    "where": "valley",
+    "is": "the gas plant at Whitney: the turbine hall and the 1954 boiler house (tall, two and three storeys), the stacks, the switchyard behind its fence; the charging racks inside the hall; whoever is in the hall has full cover and the windows",
+    "class": "roof",
+    "building": "works",
+    "storeys": {
+     "2": 0.5,
+     "3": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "fence"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "lenzie_station": {
+    "kind": null,
+    "where": "region",
+    "is": "the big gas plant at Apex: three turbine halls in a row, the stacks with their red lights, the switchyard's fence and breakers in the open; a man goes in a hall or up on its roof (two storeys, the stack decks three); the switchyard is half cover",
+    "class": "roof",
+    "building": "works",
+    "storeys": {
+     "2": 0.6,
+     "3": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "fence"
+    ],
+    "street_front": true,
+    "picture": "the region paints it as works (its land kind, industrial); the three halls and the stacks are COOK FOUR's golden piece",
+    "draft": true
+   },
+   "shark_reef": {
+    "kind": "aquarium",
+    "where": "valley",
+    "is": "the resort over it and the aquarium under it: the tunnel under the big tank (a step through, glass both sides), the touch pool, the tank's open water stops a step; the casino floor above is the fight's ground",
+    "class": "casino",
+    "building": "casino",
+    "storeys": {
+     "2": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "water"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_animal_shelter": {
+    "kind": "shelter",
+    "where": "valley",
+    "is": "one storey of office and kennel runs behind chain-link: the runs stop a step, never a shot; the dogs that never left are in them",
+    "class": "roof",
+    "building": "shed",
+    "storeys": {
+     "1": 1
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "fence"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_mob_museum": {
+    "kind": "mobmuseum",
+    "where": "valley",
+    "is": "the 1933 federal courthouse: three storeys of stone (the hearing room on the third), deep windows, the steps in front; the family's men inside have full cover and a shot down the street",
+    "class": "roof",
+    "building": "civic",
+    "storeys": {
+     "2": 0.4,
+     "3": 0.6
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_natural_history_museum": {
+    "kind": "natmuseum",
+    "where": "valley",
+    "is": "the museum's low halls by Cashman Field, the T. rex in the big hall under a high roof, the cases as half cover inside",
+    "class": "roof",
+    "building": "civic",
+    "storeys": {
+     "1": 0.6,
+     "2": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true
+   },
+   "the_tv_station": {
+    "kind": "tvstation",
+    "where": "valley",
+    "is": "Channel 8's low studios under the mast; the mast's fenced base and the satellite dishes in the lot (half cover)",
+    "class": "roof",
+    "building": "civic",
+    "storeys": {
+     "1": 0.6,
+     "2": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "fence"
+    ],
+    "street_front": true,
+    "draft": true
    }
   }
  }

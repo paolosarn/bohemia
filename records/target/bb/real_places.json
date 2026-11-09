@@ -486,7 +486,60 @@
         { "says": "Insulating tape, the electricians' kind, a whole bag.", "good": "tape" }
       ],
       "feed": { "who": "@boulderhwy", "txt": "clark station ran one turbine all winter on old tires. the whole east side smelled like it. charged batteries for anybody who paid in batteries", "kind": "world", "draft": true },
-      "licence": "a real plant named for a real man: the name goes on the stage-4 licence list"
+      "licence": "a real plant named for a real man: the name goes on the stage-4 licence list",
+      "visit": {
+        "head": "CLARK STATION · THE MINT",
+        "who": {
+          "name": "THE LAST OPERATOR",
+          "look": "cast_shortcoat",
+          "from": "in the control room of CLARK STATION"
+        },
+        "says": "The gas stopped coming down the pipe the year the dollar went, jefe. Nineteen units, and one still turns: they cut a hatch in the old 1954 boiler and feed it pallets and tires. That one unit charges every battery on this side of the valley. Whoever holds this plant prints the money. Listen. The control room still calls out the load every hour. Nobody here is reading it.",
+        "opts": [
+          {
+            "id": "charge",
+            "t": "Pay the boiler crew to charge your batteries.",
+            "need": {
+              "food": 3
+            },
+            "every_days": 3,
+            "fx": {
+              "food": -3,
+              "bats": 6,
+              "mins": 120,
+              "say": "Three nights of food for the crew, and two hours on the bus bar. Six batteries come off the rack warm. The load call says the same number it always says."
+            }
+          },
+          {
+            "id": "guards",
+            "t": "Take the racks from the men who hold the plant.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "brigands",
+                "n": "party",
+                "skulls": 2,
+                "label": "the men who hold the plant",
+                "win": {
+                  "bats": 12,
+                  "flag": "clark_racks",
+                  "say": "Their charging racks, twelve batteries full. The operator keeps feeding the boiler. Somebody always holds the mint, he says; today it was you."
+                },
+                "lose": {
+                  "bats": -6,
+                  "say": "They held. Six of yours went on their rack before you got out the gate."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "lenzie_station",
@@ -515,7 +568,66 @@
         { "says": "Rounds in a guard's locker. Somebody held this place a long time.", "good": "ammo" }
       ],
       "feed": { "who": "@the15north", "txt": "out at apex the big plant has guards again. they say one turbine works if you feed it. batteries for sale, cash no", "kind": "world", "draft": true },
-      "licence": "a real plant named for a real man: the name goes on the stage-4 licence list"
+      "licence": "a real plant named for a real man: the name goes on the stage-4 licence list",
+      "visit": {
+        "head": "LENZIE STATION · APEX",
+        "who": {
+          "name": "THE TURBINE WATCHER",
+          "look": "faction_remnants",
+          "from": "under the stacks of LENZIE STATION"
+        },
+        "says": "Three turbines and not one cubic foot of gas, hermano. The pipe is dry since the dollar. Once a week I turn the shafts by hand so the bearings don't seize, because the day the gas comes back, whoever has a turbine that turns owns Las Vegas. The stacks still have their lights. Red, every night, for airplanes that don't come.",
+        "opts": [
+          {
+            "id": "battery_room",
+            "t": "Strip the station battery room.",
+            "once": true,
+            "fx": {
+              "mins": 240,
+              "flag": "lenzie_battery_room",
+              "chance": {
+                "p": 0.5,
+                "yes": {
+                  "bats": 10,
+                  "say": "The plant kept a whole room of batteries to start the turbines with no grid. Ten still hold. The watcher says that was the only way to ever start them again."
+                },
+                "no": {
+                  "bats": 4,
+                  "say": "Most of the room was dead, the acid gone to crust. Four still hold."
+                }
+              }
+            }
+          },
+          {
+            "id": "switchyard",
+            "t": "Run the scrappers out of the switchyard.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "brigands",
+                "n": "party",
+                "skulls": 2,
+                "label": "the scrappers in the switchyard",
+                "win": {
+                  "bats": 6,
+                  "gear": "pickaxe",
+                  "flag": "lenzie_switchyard",
+                  "say": "Six batteries in their truck and the pick they were pulling copper with. The watcher counts the breakers they left. Most of them."
+                },
+                "lose": {
+                  "say": "They kept the switchyard. The copper goes out on their truck to somebody who pays."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "shark_reef",
@@ -547,7 +659,65 @@
         { "says": "The gift shop's bottled water, three left on the floor.", "good": "water" }
       ],
       "feed": { "who": "@southstrip", "txt": "something is still alive in the big tank under the bay. we heard it hit the glass. nobody goes down the tunnel, nadie", "kind": "world", "draft": true },
-      "licence": "a real attraction in a real casino: the name goes on the stage-4 licence list"
+      "licence": "a real attraction in a real casino: the name goes on the stage-4 licence list",
+      "visit": {
+        "head": "SHARK REEF · UNDER THE RESORT",
+        "who": {
+          "name": "THE AQUARIST",
+          "look": "cast_skirt",
+          "from": "at the top of the stairs to SHARK REEF"
+        },
+        "says": "Nobody fed the big tank since the power went, jefe. Fifteen kinds of shark, the rays, the sawfish. Now there are four sharks and they are very big. The tunnel under the tank still holds. Some nights the emergency lights come on by themselves and you can see them going round and round over your head. The glass is not my problem. The glass is what holds.",
+        "opts": [
+          {
+            "id": "tunnel",
+            "t": "Go through the tunnel to the gift shop.",
+            "once": true,
+            "fx": {
+              "mins": 120,
+              "flag": "reef_tunnel",
+              "chance": {
+                "p": 0.6,
+                "yes": {
+                  "bats": 4,
+                  "food": 2,
+                  "say": "The gift shop on the far side: flashlights still boxed, four good batteries, and a shelf of candy. Over your head, the whole way, something kept pace."
+                },
+                "no": {
+                  "bats": 1,
+                  "say": "Somebody cleared the gift shop first. One battery in a toy shark. Over your head, the whole way, something kept pace."
+                }
+              }
+            }
+          },
+          {
+            "id": "fish",
+            "t": "Fish the touch pool and the big tank.",
+            "every_days": 5,
+            "fx": {
+              "mins": 180,
+              "chance": {
+                "p": 0.7,
+                "yes": {
+                  "food": 4,
+                  "say": "Two rays and a grouper off the top of the big tank, four nights of food. The sharks watched the line the whole time."
+                },
+                "no": {
+                  "food": 1,
+                  "gear": -1,
+                  "say": "Something took the net and whatever you were holding it with. One small fish from the touch pool."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_animal_shelter",
@@ -578,7 +748,58 @@
         { "says": "The vet room's cabinet: one sealed course of antibiotics.", "good": "medicine" },
         { "says": "A hose bib that still drips. You filled two jugs.", "good": "water" }
       ],
-      "feed": { "who": "@mojaverd", "txt": "the shelter on mojave let the dogs out when the food ran out. the packs on the east side are those dogs, their kids, sus nietos", "kind": "world", "draft": true }
+      "feed": { "who": "@mojaverd", "txt": "the shelter on mojave let the dogs out when the food ran out. the packs on the east side are those dogs, their kids, sus nietos", "kind": "world", "draft": true },
+      "visit": {
+        "head": "ANIMAL SHELTER · MOJAVE ROAD",
+        "who": {
+          "name": "THE KENNEL KEEPER",
+          "look": "cast_bedroll",
+          "from": "in the kennel runs of the ANIMAL SHELTER"
+        },
+        "says": "When the staff stopped coming I opened every kennel, so they would have a chance. Most of them went to the washes, those are your wild dogs now. Some came back. These ones never left, and I feed them what I find. Mira, the brindle one. He picks people. Tonight he is sitting by your boots. The intake bell still rings at nine every morning. There is nobody at the door.",
+        "opts": [
+          {
+            "id": "keeper",
+            "t": "Take the keeper and the brindle dog with you.",
+            "need": {
+              "food": 2
+            },
+            "once": true,
+            "fx": {
+              "food": -2,
+              "man": {
+                "n": 1,
+                "name": "THE KENNEL KEEPER",
+                "bg": "houndmaster",
+                "look": "cast_bedroll"
+              },
+              "say": "Okay. The brindle comes, and I come with the brindle. The others know where the food is now. Two nights of food for the road, sí."
+            }
+          },
+          {
+            "id": "feed",
+            "t": "Leave food for the dogs.",
+            "need": {
+              "food": 2
+            },
+            "every_days": 7,
+            "fx": {
+              "food": -2,
+              "mood": {
+                "act": "favor",
+                "place": "near"
+              },
+              "say": "The dogs eat in a row, oldest first. People on Mojave Road hear a crew fed the shelter dogs."
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_mob_museum",
@@ -609,7 +830,67 @@
         { "says": "The museum cafe's storeroom: one tin of coffee and a can of soup.", "good": "food" }
       ],
       "feed": { "who": "@downtownwatch", "txt": "the mob museum has guards again. same families as the pictures on the walls, some of them. they say it's theirs, always was", "kind": "world", "draft": true },
-      "licence": "a real museum: the name goes on the stage-4 licence list"
+      "licence": "a real museum: the name goes on the stage-4 licence list",
+      "visit": {
+        "head": "THE MOB MUSEUM · 300 STEWART",
+        "who": {
+          "name": "THE DOCENT",
+          "look": "faction_mob",
+          "from": "on the courthouse steps of THE MOB MUSEUM"
+        },
+        "says": "Welcome to the museum, my friend. The family keeps it now. It's ours, it was always ours. The chair is downstairs, the wall from Chicago with the bullet holes. The tour is free. What you do after the tour, that has a price. Ask me about the Kefauver room. Everybody who testified in there is dead now, every single one, so the room is very quiet, sabes.",
+        "opts": [
+          {
+            "id": "tour",
+            "t": "Take the tour.",
+            "once": true,
+            "fx": {
+              "mins": 60,
+              "flag": "mob_tour",
+              "mood": {
+                "act": "favor",
+                "place": "faction:mob"
+              },
+              "say": "The chair, the wall, the hearing room. At the end the docent writes your company's name in a ledger. He says it is the guest book."
+            }
+          },
+          {
+            "id": "debt",
+            "t": "Collect a debt for the family.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "brigands",
+                "n": "party",
+                "skulls": 1,
+                "label": "the men who owe the family",
+                "win": {
+                  "bats": 10,
+                  "mood": {
+                    "act": "favor",
+                    "place": "faction:mob"
+                  },
+                  "flag": "mob_debt",
+                  "say": "Ten batteries, counted twice on the courthouse steps. The family remembers who collects."
+                },
+                "lose": {
+                  "mood": {
+                    "act": "negotiation_fail",
+                    "place": "faction:mob"
+                  },
+                  "say": "They did not pay, and now the family has two debts to collect."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_natural_history_museum",
@@ -640,7 +921,49 @@
         { "says": "Preparation-room tape and glue, for mending bones.", "good": "tape" }
       ],
       "feed": { "who": "@cashmanside", "txt": "the robot dinosaur at the museum moved last week. somebody found its battery. the kids lost their minds", "kind": "world", "draft": true },
-      "licence": "a real museum: the name goes on the stage-4 licence list"
+      "licence": "a real museum: the name goes on the stage-4 licence list",
+      "visit": {
+        "head": "NATURAL HISTORY MUSEUM · BY CASHMAN FIELD",
+        "who": {
+          "name": "THE KEEPER OF THE BONES",
+          "look": "cast_cape",
+          "from": "under the T. rex at the NATURAL HISTORY MUSEUM"
+        },
+        "says": "The lab people came here first, before the fossil beds. They took samples from everything: the mammoth tooth, the sloth hair in the case, the camel. They did not take the T. rex. You can't, mano, the DNA is gone after a million years. That's chemistry, not money. So he is the one thing in this valley that is never coming back. Some nights his motor still roars on the backup battery.",
+        "opts": [
+          {
+            "id": "cases",
+            "t": "Read the cases with the keeper.",
+            "once": true,
+            "fx": {
+              "mins": 60,
+              "flag": "museum_cases",
+              "say": "Here is the rule they worked by. Ice Age and after, a million years at the most, from frozen ground and dry caves. A living animal the right size to carry the baby. The wolf had a dog, the mammoth an elephant. The T. rex has nothing. Anybody who tells you they saw a dinosaur is lying to you.",
+              "post": {
+                "who": "@cashmanfield",
+                "txt": "the bone man at the museum says the labs could only bring back ice age stuff. nothing older than a million years. so whatever is in the washes is old but not THAT old"
+              }
+            }
+          },
+          {
+            "id": "battery",
+            "t": "Pull the backup battery out of the T. rex.",
+            "once": true,
+            "fx": {
+              "mins": 60,
+              "bats": 5,
+              "flag": "museum_rex_battery",
+              "say": "Five batteries out of the T. rex's backup bank. The keeper does not watch. That night, for the first time, the roaring stops."
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     },
     {
       "id": "the_tv_station",
@@ -671,7 +994,64 @@
         { "says": "Gaffer tape. Studios run on it. Three rolls.", "good": "tape" }
       ],
       "feed": { "who": "@channel8nights", "txt": "channel 8 was on again last night. no sound. just the old weather map and a man standing in front of it", "kind": "world", "draft": true },
-      "licence": "a real station: its call sign and channel go on the stage-4 licence list"
+      "licence": "a real station: its call sign and channel go on the stage-4 licence list",
+      "visit": {
+        "head": "CHANNEL 8 · DESERT INN",
+        "who": {
+          "name": "THE NIGHT PRODUCER",
+          "look": "faction_network",
+          "from": "in the newsroom of CHANNEL 8"
+        },
+        "says": "We're still on the air, jefe. Thursdays, if the generator starts. Nobody has a TV, so we put the picture on the mast, the lights, and people read it from across the valley. Mostly we read the names of who is missing. Sometimes the camera in studio B comes on by itself and there is somebody at the desk we don't know.",
+        "opts": [
+          {
+            "id": "air",
+            "t": "Buy a minute on the air for your company.",
+            "need": {
+              "bats": 5
+            },
+            "every_days": 7,
+            "fx": {
+              "bats": -5,
+              "mood": {
+                "act": "favor",
+                "place": "near"
+              },
+              "say": "One minute on the mast, Thursday: your company's name and that you take work. People three towns over read it in the lights.",
+              "post": {
+                "who": "@channel8",
+                "txt": "ON 8 THURSDAY: a crew with batteries came in and bought a minute. they say they take work. the names of the missing after"
+              }
+            }
+          },
+          {
+            "id": "studio_b",
+            "t": "Search studio B.",
+            "once": true,
+            "fx": {
+              "mins": 60,
+              "flag": "channel8_studio_b",
+              "chance": {
+                "p": 0.5,
+                "yes": {
+                  "bats": 4,
+                  "say": "The camera's battery packs, four of them, charged. Nobody at the desk. The red light on the camera stays on after you take its battery."
+                },
+                "no": {
+                  "bats": 1,
+                  "say": "One pack. The chair at the anchor desk was warm."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
     }
   ]
 }

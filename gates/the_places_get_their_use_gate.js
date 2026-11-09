@@ -32,7 +32,8 @@
      U10 THE LAB'S PENS: the fight is handed over with the lab's wolves as beasts; a loss keeps the pen, a win pays and closes it
      U11 THE LINE: the man at the front joins (his name, his trade), two nights of food spent; four days on, a different man and the
          card again
-     U12 THE HOME CENTRE'S BACK ROOM pays (batteries); U12b a choice he cannot pay for says what it needs (rule 438)
+     U12 THE HOME CENTRE'S BACK ROOM pays (batteries); U12b a choice he cannot pay for says what it needs (rule 438); U12c at every place
+         every choice that is not a fight pays something he sees (from 11/9: the two gas plants, Shark Reef, the shelter, the museums, Channel 8)
      U13 THE LAB READS AS A LAB: the region paints it from the file's compound look, and a dirt track joins it to a road
      U14 every face the visits name is a face the face engine draws
      U15 MUTATION: the visits off, arriving opens the town screen straight away; a scripted browser that did not ask meets no card
@@ -52,10 +53,14 @@ const FK = JSON.parse(read('records/target/bb/map_fight_kinds.json'));
 const EN = JSON.parse(read('records/target/bb/bohemia_enemies.json'));
 const WE = JSON.parse(read('records/target/bb/weapons.json'));
 const BG = JSON.parse(read('records/target/bb/backgrounds.json'));
-const FOUR = ['the_lab', 'the_bank', 'the_unemployment_office', 'the_home_center_east', 'the_home_center_west'];
-const VALLEY4 = FOUR.filter(id => id !== 'the_lab');
+/* every place with a visit (rule 436(b)'s five first, rule 440(c)'s seven from 11/9); the first five must always be there */
+const FIRST = ['the_lab', 'the_bank', 'the_unemployment_office', 'the_home_center_east', 'the_home_center_west'];
+const FOUR = (RP.places || []).filter(p => p.visit).map(p => p.id);
+FIRST.forEach(id => { if (FOUR.indexOf(id) < 0) FOUR.push(id); });
+const VALLEY4 = FOUR.filter(id => { const p = (RP.places || []).find(q => q.id === id); return !p || p.where === 'valley'; });
+const REGION4 = FOUR.filter(id => VALLEY4.indexOf(id) < 0);
 const ROAD = { freeway: 1, arterial: 1, strip: 1, beltway: 1, interchange: 1 };
-const SPANISH = /\b(jefe|mira|oye|verdad|v[aá]monos|hermano|te lo juro|gracias|s[ií]|mano|pues|ándale|andale|chingado|claro|bueno|nada|mijo|compa|amigo|por favor|qu[eé])\b/i;
+const SPANISH = /\b(jefe|mira|oye|verdad|v[aá]monos|hermano|te lo juro|gracias|s[ií]|mano|pues|ándale|andale|chingado|claro|bueno|nada|mijo|compa|amigo|sabes|por favor|qu[eé])\b/i;
 const MAN = ['in_or_roof', 'in', 'roof', 'open', 'none'], COVER = ['full', 'half', 'none'];
 const BLOCKS = ['walls', 'fence', 'water', 'cliff', 'rows', 'barrier', 'rail'];
 
@@ -98,7 +103,7 @@ function visitsBad(places) {
       }
       const gears = [fx.gear, fx.fight && fx.fight.win && fx.fight.win.gear, fx.chance && fx.chance.yes && fx.chance.yes.gear].filter(Boolean);
       gears.forEach(g => { if (g !== -1 && !weapons.has(g)) why.push(o.id + ' gear ' + g + ' is no weapon'); });
-      if (fx.man && fx.man.n > 0 && !(o.per_man && v.line)) why.push(o.id + ' a man from nowhere');
+      if (fx.man && fx.man.n > 0 && !(o.per_man && v.line) && !(fx.man.name && !/\{/.test(fx.man.name) && bgs.has(fx.man.bg))) why.push(o.id + ' a man from nowhere');
     });
     if (why.length) bad.push(id + ': ' + why.join(', '));
   });
@@ -122,7 +127,7 @@ function rowsBad(J) {
       if (!d) why.push('kind ' + r.kind + ' has no row');
       else ['class', 'building'].forEach(f => { if (d[f] !== r[f]) why.push(f + ' ' + r[f] + ' against its kind\'s ' + d[f]); });
       if (d && JSON.stringify(d.storeys) !== JSON.stringify(r.storeys)) why.push('storeys against its kind\'s'); }
-    else if (id !== 'the_lab') why.push('no kind');
+    else if (r.where !== 'region') why.push('no kind (only a region place stands without a valley kind)');
     if (why.length) bad.push(id + ': ' + why.join(', '));
   });
   return bad;
@@ -182,16 +187,18 @@ function nodeChecks() {
   ok('U3 on the one road network (429(h)): each fronts a road of the valley\'s biggest joined network on every valley (that network is at least ' + Math.round(minShare * 100) + '% of all road)', cut.length === 0 && minShare > 0.5, cut.slice(0, 6).join('; ') || 'all ' + VALLEY4.length * valleys);
 
   const LAND = JSON.parse(read('engine/BOHEMIA_REGION_LAND.json'));
-  const lab = places.find(p => p.id === 'the_lab'), q = LAND.places.find(x => x.name === lab.name);
-  let u4 = !!q, w4 = 'not on the land';
-  if (q) { const N = LAND.N, kmLon = 111.32 * Math.cos(LAND.origin.lat * Math.PI / 180);
+  let u4 = REGION4.indexOf('the_lab') >= 0; const w4 = [];
+  REGION4.forEach(id => { const lab = places.find(p => p.id === id), q = LAND.places.find(x => x.name === lab.name);
+    if (!q) { u4 = false; w4.push(lab.name + ' not on the land'); return; }
+    const N = LAND.N, kmLon = 111.32 * Math.cos(LAND.origin.lat * Math.PI / 180);
     const fx = (N - 1) / 2 + (lab.lon - LAND.origin.lon) * kmLon * 1000 / LAND.metresPerCell, fy = (N - 1) / 2 - (lab.lat - LAND.origin.lat) * 111.0 * 1000 / LAND.metresPerCell;
     const off = Math.max(Math.abs(fx - (q.x + 0.5)), Math.abs(fy - (q.y + 0.5)));
-    u4 = off <= 2.5 && q.hours != null; w4 = lab.name + ' at ' + q.x + ',' + q.y + ', ' + off.toFixed(1) + ' blocks off its real spot, ' + q.hours + ' h on foot'; }
-  ok('U4 the lab on its land: at the fossil beds\' real coordinates, reachable on foot', u4, w4);
+    if (!(off <= 2.5 && q.hours != null)) u4 = false;
+    w4.push(lab.name + ' at ' + q.x + ',' + q.y + ', ' + off.toFixed(1) + ' blocks off its real spot, ' + q.hours + ' h on foot'); });
+  ok('U4 the region\'s places on their land (' + REGION4.length + ': the lab first): at their real coordinates, reachable on foot', u4, w4.join('; '));
 
   const b5 = rowsBad(FK);
-  ok('U5 the fight answer: WORLD 13\'s table has a row for each of the five, well formed, a street in front, agreeing with its kind\'s row (the lab its own)', b5.length === 0, b5.join('; ') || 'all ' + FOUR.length);
+  ok('U5 the fight answer: WORLD 13\'s table has a row for each of the ' + FOUR.length + ', well formed, a street in front, agreeing with its kind\'s row (the lab its own)', b5.length === 0, b5.join('; ') || 'all ' + FOUR.length);
 
   /* U6: the plants */
   const clone = (o) => JSON.parse(JSON.stringify(o));
@@ -226,7 +233,7 @@ async function demo(alpha) {
     const r = await fr.evaluate(async (want) => {
       const PV = BohemiaPlaceVisits, RE = BohemiaRoadEvents, out = { arrive: {}, faces: [], errs: [] };
       const wait = (ms) => new Promise(z => setTimeout(z, ms));
-      const townOf = (id) => { if (id === 'the_lab') { const L = BOH_REGION.places.find(p => p.name === 'TULE SPRINGS LAB'); return L ? { x: L.x, y: L.y } : null; }
+      const townOf = (id) => { const P = BOH_REAL_PLACES.byId[id]; if (P && P.where === 'region') { const L = BOH_REGION.places.find(p => p.name === P.name); return L ? { x: L.x, y: L.y } : null; }
         const c = BOH_REAL_PLACES.cellsNow().find(c => c.id === id); return c ? { x: c.x, y: c.y } : null; };
       const arrive = (id) => { try { RE.close(false); } catch (e) {} try { loopClose(); } catch (e) {}
         const s = townOf(id); if (!s) return { none: true }; city.x = s.x; city.y = s.y;
@@ -282,6 +289,24 @@ async function demo(alpha) {
       PV.reset(); try { RE.close(false); } catch (e) {}
       arrive('the_home_center_east'); const hb = loopBats(); PV.choose('the_home_center_east', 'back'); out.hw = { paid: loopBats() - hb, left: PV.options('the_home_center_east').map(o => o.id) };
       try { RE.close(false); } catch (e) {}
+      /* U12c: at every place, every choice that is not a fight pays something he can see (batteries, food, a man, time, a town's mood) */
+      out.pays = {};
+      for (const id of Object.keys(out.arrive)) {
+        PV.reset(); try { RE.close(false); } catch (e) {} try { loopClose(); } catch (e) {}
+        const w3 = wagonGet() || {}; w3.food = Math.max(w3.food | 0, 20); wagonPut(w3);
+        try { if (loopBats() < 30) BohemiaPurse.credit(purseGet(), 'electricity', 30, 'gate', null, loopDay()); } catch (e) {}
+        const P = BOH_REAL_PLACES.byId[id];
+        for (const o of (P.visit.opts || [])) {
+          if (o['in'] || (o.fx && o.fx.fight)) continue;
+          arrive(id);
+          const h0 = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]').length;
+          const res = PV.choose(id, o.id); await wait(o.fx && o.fx.man ? 1500 : 50);
+          const H = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]');
+          out.pays[id + ':' + o.id] = { got: (res && res.got) || null, joined: H.length - h0, bg: H.length ? H[H.length - 1].background : null };
+          try { RE.close(false); } catch (e) {}
+          const s = PV.state(); s.seen = {}; localStorage.setItem('bohemia.placevisits.v1', JSON.stringify(s));
+        }
+      }
       /* U13: the lab's look and its track */
       const L = BOH_REGION.places.find(p => p.name === 'TULE SPRINGS LAB');
       out.look = { trade: vbRegionTrade(L), file: PV.tradeOf ? PV.tradeOf(L.name) : null };
@@ -299,7 +324,7 @@ async function demo(alpha) {
     }, want);
     const A = r.arrive;
     const badA = FOUR.filter(id => !(A[id] && A[id].card && !A[id].screen && A[id].btns.length >= 2 && A[id].btns.length <= 3 && A[id].btns.some(b => /^Walk in\./i.test(b))));
-    ok(W + ' U7 arriving at each of the five shows the person and their choices, never the town screen first', badA.length === 0, badA.map(id => id + ' ' + JSON.stringify(A[id])).join('; ') || FOUR.map(id => A[id].btns.length).join(','));
+    ok(W + ' U7 arriving at each of the ' + FOUR.length + ' shows the person and their choices, never the town screen first', badA.length === 0, badA.map(id => id + ' ' + JSON.stringify(A[id])).join('; ') || FOUR.map(id => A[id].btns.length).join(','));
     ok(W + ' U8 WALK IN opens the place\'s own screen', r.walkIn && r.walkIn.name === 'THE BANK', JSON.stringify(r.walkIn));
     const B = r.bank;
     ok(W + ' U9 THE BANK\'S BOXES: eight hours, batteries paid (8 or 2), the choice gone, the second arrival that day walks straight in', B.card && (B.paid === 8 || B.paid === 2) && B.left.indexOf('boxes') < 0 && !B.again.card && B.again.screen === 'THE BANK' && B.mins >= 470,
@@ -313,6 +338,9 @@ async function demo(alpha) {
        Ln.first.card && Ln.joined === 1 && Ln.who && /^NUMBER \d+/.test(Ln.who[0]) && Ln.who[1] && Ln.food === -2 && Ln.later.card && Ln.later.name && Ln.later.name !== Ln.who[0],
        JSON.stringify({ joined: Ln.joined, who: Ln.who, food: Ln.food, days: Ln.days, later: Ln.later.name, laterCard: Ln.later.card }));
     ok(W + ' U12b a choice he cannot pay for says what it needs, never a silent button (rule 438)', (r.poor || []).some(b => /Take him on.*NEED 2 FOOD/.test(b)), JSON.stringify(r.poor));
+    { const P = r.pays || {}, bad = Object.keys(P).filter(k => !(P[k].got && P[k].got.length)), keeper = P['the_animal_shelter:keeper'];
+      ok(W + ' U12c at every place every choice that is not a fight pays something he sees (' + Object.keys(P).length + ' choices); the shelter\'s keeper joins as a dog man',
+        Object.keys(P).length >= 12 && bad.length === 0 && (!keeper || (keeper.joined === 1 && keeper.bg === 'houndmaster')), (bad.join(', ') || 'all pay') + '; keeper ' + JSON.stringify(keeper)); }
     ok(W + ' U12 THE HOME CENTRE\'S BACK ROOM pays batteries (3 or 1) and is searched once', (r.hw.paid === 3 || r.hw.paid === 1) && r.hw.left.indexOf('back') < 0, JSON.stringify(r.hw));
     const tracks = await fr.evaluate(() => { try { const L = BOH_REGION.places.find(p => p.name === 'TULE SPRINGS LAB'); const T = BOH_REGION.tracks ? BOH_REGION.tracks() : null; return { ro: BOH_REGION.roadsOut || null, road: BOH_REGION.passAt ? BOH_REGION.passAt(L.x, L.y) : null }; } catch (e) { return { err: e.message }; } });
     ok(W + ' U13 THE LAB READS AS A LAB: painted from the file\'s compound look; it stands on a road or the region gives it a dirt track', r.look.trade === r.look.file && r.look.trade === 'prison' && tracks.ro && (tracks.road === 1 || tracks.ro.tracks >= 1),

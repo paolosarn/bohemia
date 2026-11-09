@@ -1,3 +1,13 @@
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9f - SEVEN MORE PLACES TALK, BUILT, NOT YET SEEN (rule 440(c), ask
+line 539; after 11/9c THE PLACES TALK, rule 436(b), ask 521). Twelve of rule 409's missing places now talk when you arrive, Battle Brothers'
+location way, two or three choices with real costs: the lab's wolf pen, the bank's boxes, the jobs line's man, the home centres' back rooms
+(11/9c); now CLARK STATION the mint (food in, batteries out; or take its racks), LENZIE STATION's battery room, SHARK REEF (the tunnel, fish
+the tanks), the ANIMAL SHELTER (the keeper joins as a dog man with the brindle), THE MOB MUSEUM (the tour, a debt for the family), the
+NATURAL HISTORY MUSEUM (the cases, the T. rex's battery), CHANNEL 8 (a minute on the air, studio B). Twelve fight rows in WORLD 13's table.
+Gate THE PLACES GET THEIR USE 30/0 (demo and alpha, 96 valleys, 7 plants). Next: the ranch, greenhouse, bus yard, campground (seats; a
+note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
+[bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
+[analog horror: the T. rex roars on its backup battery every night until somebody takes the battery.]
 HOME BASE (home-base-01gkdyuv): 11/8 LATEST -- BUILD 11/9d - YOUR PLACE, PLANTED, BUILT, NOT YET SEEN (rule 437(b), asks 356 and 522):
 measured first, the demo handed him his outfit's camp ('CUSTOM') at the first second, nothing asked where, nothing permanent, no bill,
 nobody living there. Now from day 2 the phone's band shows PLANT on the map: the block he stands on graded (water, power, road, danger),
@@ -7,17 +17,6 @@ is the desk (name it, the plan of 12 lots on their roads, 4 open and growing). G
 planted fails). VOTE home-base-your-place-planted-11-8 (STAND-IN). The whole block: handoffs/HOME_BASE.md.
 [bb Battle Brothers has no home of its own; its retinue and its ambitions are the nearest pieces. Ours is the place you choose and pay for.]
 [analog horror: the bill comes at night whether anyone is home, and the men you let go are still there when you come back.]
-WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9c - THE PLACES TALK, BUILT, NOT YET SEEN (rule 436(b), ask line 521):
-measured first, WORLD TEN had seated the lab, the bank, the jobs office and the home centres at their real spots, but each opened as any
-town. Now each place's person talks when you arrive, Battle Brothers' location way, two or three choices with real costs: THE NIGHT TECH at
-TULE SPRINGS LAB (open pen four: a fight with the lab's dire wolves; read the board: what broke out, from which bones), THE LAST TELLER at
-THE BANK (drill the boxes: 8 hours, a chance at 8 batteries; the men upstairs: a fight), THE LINE at the UNEMPLOYMENT OFFICE (a new man
-every four days; two nights of food and he joins with his trade), the two HOME CENTERs (the back room or the dock: 4 hours, batteries and a
-hand tool; the crew in the lumber aisle: a fight). The lab painted as a compound; five fight answers in WORLD 13's table ('places'). Gate
-THE PLACES GET THEIR USE 28/0 on the demo and the alpha, 24 seeds x four turns, 7 plants. VOTE world14-the-places-talk-11-8 (STAND-IN).
-How a new kind enters, for WORLD 13: handoffs/WORLD_FOURTEEN.md.
-[bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
-[analog horror: the lab's feeding clock is 2,900 days late, and LOOSE is written next to every animal in the tech's own hand.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

@@ -1,5 +1,28 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, BATCH TWO (11/9, rule 440(c), ask line 539: 'More everything pls'). BUILD 11/9f - SEVEN MORE PLACES TALK. BUILT, NOT
+YET SEEN. Record: records/BOHEMIA_WORLD_14_SEVEN_MORE_PLACES_TALK_11_9_26.md. VOTE world14-seven-more-places-talk-11-9 (ui, STAND-IN).
+- The seven WORLD TEN seated get their person and choices (data only, the 11/9c machinery): CLARK STATION, THE MINT (pay the boiler
+  crew in food to charge your batteries: -3 food, +6 batteries, every 3 days; take the racks from the men who hold it: a fight, 12),
+  LENZIE STATION at Apex (strip the black-start battery room; the scrappers in the switchyard), SHARK REEF (the tunnel to the gift shop;
+  fish the tanks for food, every 5 days), the ANIMAL SHELTER (the kennel keeper joins as a houndmaster with the brindle dog, Battle
+  Brothers' dog man; leave food for the dogs), THE MOB MUSEUM (the tour: the Mob likes you more; collect a debt for the family: a fight),
+  the NATURAL HISTORY MUSEUM (the cases: the beast law's science in the keeper's mouth; pull the T. rex's backup battery: 5, the roaring
+  stops), CHANNEL 8 (buy a minute on the air: 5 batteries, the town hears, a post; search studio B).
+- Seven more fight rows in WORLD 13's table 'places' (twelve in all; Lenzie's its only one, on the region).
+- The chip says what a choice costs first ('-3 FOOD · +6 BAT · 2 H'); before it hid the gas plant's food.
+- GATE THE PLACES GET THEIR USE now covers every place with a visit: 30/0 (twelve places, 96 valleys, 960/960 on the network, the
+  region's two at their coordinates, 7 plants; demo and alpha; NEW U12c: all 17 non-fight choices pay, the keeper joins as a dog man).
+- BATCH THREE, NEXT ON THIS LANE: the ranch and the greenhouse, the bus yard, the campground and RV park. Not on the map yet. Plan: the
+  ones whose real spot is outside the valley go on the region (WORLD's own tools/bohemia_world_region.py, as WORLD TEN put the lab and
+  Lenzie): a ranch in Red Rock (Spring Mountain Ranch), a campground at Lake Mead (Las Vegas Bay); the ones inside the valley (a bus yard,
+  a greenhouse farm) need a seat in the valley's generation. FOR WORLD THIRTEEN: unless you say otherwise in your block, the next WORLD
+  round seats them the way WORLD TEN did (real_places.json + its sync, which writes ONLY the DATA block of __THE_MISSING_REAL_PLACES__ in
+  engine/bohemia_overmap.js), as places of kinds the map already has (a farm, a trailer park, a terminal), so no new kind enters your
+  DISTRICT list and no table needs a new row. If your land-use layer (429(g)) should place them instead, say so and we wait for it.
+[bb Battle Brothers' locations hand you a fight or a find; ours hand you the money supply, a dog man, the Mob's ledger and a minute on the air.]
+[analog horror: the T. rex roars on its backup battery every night until somebody takes the battery.]
+
 WORLD FOURTEEN (11/8-11/9, chat 02n, the places we are missing; VAMILY rule 436(b), ask line 521; rules 409(c), 429(b)(h), 430, 438).
 BUILD 11/9c - THE PLACES TALK. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_PLACES_GET_THEIR_USE_11_8_26.md.
 VOTE world14-the-places-talk-11-8 (ui, STAND-IN: the road's own card), names 64380f14 (the ship).

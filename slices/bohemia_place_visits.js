@@ -119,17 +119,19 @@
     if (o['in']) return '';
     fx = fx || {};
     if (fx.fight) return 'A FIGHT';
-    var t = [];
-    if (fx.mins) t.push(fx.mins >= 60 ? Math.round(fx.mins / 60) + ' H' : fx.mins + ' MIN');
+    var t = [], cost = [];   /* what it costs first, then what it gives, then the hours: he never pays for a thing the chip hid */
+    if (fx.bats < 0) cost.push(fx.bats + ' BAT');
+    if (fx.food < 0) cost.push(fx.food + ' FOOD');
     if (fx.chance) t.push('A CHANCE');
     else if (fx.man && fx.man.n > 0) t.push('+1 MAN');
     else {
-      if (fx.bats) t.push((fx.bats > 0 ? '+' : '') + fx.bats + ' BAT');
-      if (fx.food) t.push((fx.food > 0 ? '+' : '') + fx.food + ' FOOD');
+      if (fx.bats > 0) t.push('+' + fx.bats + ' BAT');
+      if (fx.food > 0) t.push('+' + fx.food + ' FOOD');
       if (fx.gear && fx.gear !== -1) t.push('+GEAR');
       if (fx.mood && !t.length) t.push('THEY WILL HEAR');
     }
-    return t.slice(0, 2).join(' · ');
+    if (fx.mins) t.push(fx.mins >= 60 ? Math.round(fx.mins / 60) + ' H' : fx.mins + ' MIN');
+    return cost.concat(t).slice(0, 3).join(' · ');
   }
   function needSays(n) { var t = []; if (!n) return '';
     if (n.food && food() < n.food) t.push('NEED ' + n.food + ' FOOD'); if (n.bats && bats() < n.bats) t.push('NEED ' + n.bats + ' BAT'); if (n.men && men() < n.men) t.push('NEED ' + n.men + ' MEN');
