@@ -1299,6 +1299,20 @@ const LANE_HOUSES={suburb:1,estate:1,gated:1,apartment:1};
 const LANE_WORKS={industrial:1,warehouse:1,storage:1};   /* __THE_VALLEY_HAS_ITS_ZONES__ (429(g)(h)): a works block's truck drive, laid and joined the same way */
 const LANE_WALK={arterial:1,strip:1};
 const LANE_LAND={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1};
+/* __THE_CORNERS_JOIN__ (WORLD THIRTEEN 11/10, VAMILY rule 442(d); Paolo 11/9: 'you really need to make sure intersections, the sidewalk
+   and the streets continue looking good like they're supposed to'): where a house street or a works drive runs out onto a mile street
+   or the Strip, the mile street's block is told so, so its painter opens its kerb there (the side street's asphalt runs through, a
+   crosswalk across it, the two sidewalks turning the corner into each other). The mouth rides the mile street's own byte: bits 16, 32,
+   64, 128 a side street comes in from the north, east, south, west (a mile street has no house street of its own). Re-read after any
+   block's street is taken away (a home base's square), so a mouth never opens onto a street that is not there. */
+function laneMouths(m,LN){
+  const N=m.n, D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
+  for(let i=0;i<N*N;i++){ if(LANE_WALK[D(i%N,(i/N)|0)])LN[i]&=~240; }
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ const v=LN[y*N+x], d=D(x,y); if(!(v&3)||!(LANE_HOUSES[d]||LANE_WORKS[d]))continue;
+    const E=(v&3)===1?[[-1,0,4,32],[1,0,8,128]]:[[0,-1,4,64],[0,1,8,16]];   /* the end, and the side of the street it meets */
+    for(const [dx,dy,b,side] of E){ if(!(v&b))continue; const nx=x+dx, ny=y+dy; if(LANE_WALK[D(nx,ny)])LN[ny*N+nx]|=side; } }
+  return LN;
+}
 function houseLanes(m){
   const N=m.n, LN=new Uint8Array(N*N), AX=new Uint8Array(N*N), D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
   const isH=(x,y)=>!!(LANE_HOUSES[D(x,y)]||LANE_WORKS[D(x,y)]), isW=(x,y)=>!!LANE_WALK[D(x,y)], isL=(x,y)=>!!LANE_LAND[D(x,y)];
@@ -1356,6 +1370,7 @@ function houseLanes(m){
   for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!HO(x,y))continue; const a=AX[k(x,y)];
     if(a===1&&HO(x,y+1)&&AX[k(x,y+1)]===1&&((x+(hsh(0,y)*3|0))%3)===0){ LN[k(x,y)]|=64; LN[k(x,y+1)]|=16; }
     if(a===2&&HO(x+1,y)&&AX[k(x+1,y)]===2&&((y+(hsh(x,0)*3|0))%3)===0){ LN[k(x,y)]|=32; LN[k(x+1,y)]|=128; } }
+  laneMouths({n:N,at:m.at},LN);
   return LN;
 }
 
@@ -1498,7 +1513,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);

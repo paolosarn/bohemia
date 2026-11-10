@@ -9,7 +9,8 @@
    that holds a street (vbCityCore, the same painter the map draws with, asked for its parts) and looks at every edge of every
    street block, in the middle of the edge where the lanes are:
      - a side that JOINS something (another street, the Strip, the freeway it continues, a pass over or under the freeway) must be
-       OPEN there: lanes, not a kerb across the mouth;
+       OPEN there: lanes, not a kerb across the mouth (and from 11/10 a side where a house street or a works drive runs out onto
+       it, the generator's mouth bits: its walk opens as wide as that street's roadway, gates/the_corners_join_gate.js);
      - a side that meets ground, a building, water or a freeway with no pass must be CLOSED: a kerb and a sidewalk, never the lanes
        running into it.
    A side that disagrees is a BAD JOIN. And every pass (an arterial on both sides of the freeway) must paint the street in the
@@ -77,7 +78,8 @@ function count(old) {
       const SIDES = [[0, -1, 'N'], [1, 0, 'E'], [0, 1, 'S'], [-1, 0, 'W']];
       for (const [dx, dy, nm] of SIDES) {
         const nc = at(bx + dx, by + dy); if (nc === 255) continue;   /* the valley's edge */
-        const joins = vbJoinsTo(inp, bx, by, dx, dy, n);
+        const lmo = inp.lanes ? (inp.lanes[by * n + bx] & ({ N: 16, E: 32, S: 64, W: 128 })[nm]) : 0;   /* __THE_CORNERS_JOIN__ (WORLD THIRTEEN 11/10): a house street's or a works drive's mouth is a join too */
+        const joins = vbJoinsTo(inp, bx, by, dx, dy, n) || !!lmo;
         /* the edge's middle: from a quarter to three quarters along it, the first texel row in */
         let kerb = 0, tot = 0;
         for (let k = Math.floor(S * 0.3); k < Math.ceil(S * 0.7); k++) {
@@ -85,7 +87,7 @@ function count(old) {
           const q = pa(u, v); tot++; if (KERB.has(q.part) || q.cl !== cl) kerb++; }
         const closed = kerb / tot > 0.5; R.sides++;
         if (joins === closed) { R.bad++; blockBad = true; const key = (cl === BLVD ? 'strip ' : 'street ') + (joins ? 'kerb across a join' : 'lanes into ' + (nc === FW ? 'the freeway' : 'a block'));
-          R.badBy[key] = (R.badBy[key] || 0) + 1; if (R.ex.length < 12) R.ex.push(gx + ',' + gy + ' ' + nm + ' ' + key); }
+          R.badBy[key] = (R.badBy[key] || 0) + 1; if (R.ex.length < 12) R.ex.push(gx + ',' + gy + ' ' + nm + ' ' + key + ' [tile ' + tx + ',' + ty + ' at ' + bx + ',' + by + ' kerb ' + kerb + '/' + tot + ' mouth ' + (lmo ? 1 : 0) + ']'); }
       }
       if (blockBad) R.badBlocks++;
     }
@@ -101,6 +103,8 @@ function count(old) {
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   try {
     for (let i = 0; i < 160; i++) { if (await fr.evaluate(() => !!(window.om && om.n && typeof vbCityCore === 'function' && typeof vbTileInput === 'function'))) break; await page.waitForTimeout(250); }
+    /* the towns take their squares first (they own the streets under them, and the side streets' mouths onto them go: __THE_CORNERS_JOIN__) */
+    for (let i = 0; i < 120; i++) { if (await fr.evaluate(() => { try { vbCityInput(); } catch (e) {} return !!(window.VB_TOWNS && VB_TOWNS.list && VB_TOWNS.list.length); }).catch(() => false)) break; await page.waitForTimeout(250); }
     const has = await fr.evaluate(() => typeof vbJoinsTo === 'function');
     if (!has) { console.log('  the painter has no join reading yet (vbJoinsTo): nothing to count against'); }
     const now = has ? await fr.evaluate(count, false) : null;

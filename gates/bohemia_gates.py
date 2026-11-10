@@ -9859,6 +9859,25 @@ GATES = [
      "(0 bad; the old reading 496); every freeway pass paints the street under its deck, every ramp block descends to it; at the "
      "phone's closest stop 128 texels a block, a texel to a device pixel, under 90 MB of tile pictures, the hidden soft painting "
      "skipped. the demo, about 2 min", False),
+    # WORLD THIRTEEN (11/10, rule 442(d)): the map's own gates, three of them written 11/7 to 11/10 and never registered until now.
+    ('THE MAP KINDS HAVE FIGHT ANSWERS', ['node', 'gates/the_map_kinds_have_fight_answers_gate.js'],
+     "WORLD THIRTEEN gate, 11/7, rules 428, 429(b) (Paolo: 'for every building that we have on the regular map we need to answer for "
+     "that in the combat map'): every kind the map draws (the generator's districts, the town's lots and landmarks, the home lot) has "
+     "its row in the one table a modder edits (stories, in or on the roof, cover, blocks, its zone); the engine carries it word for "
+     "word; planted: a kind with no row, red. about 1 min", True),
+    ('A STREET IN FRONT OF EVERY HOUSE', ['node', 'gates/a_street_in_front_of_every_house_gate.js'],
+     "WORLD THIRTEEN gate, 11/7, rules 426(a), 429(d)(h) (Paolo: 'if there's a house there's a street in front'): on 22 valleys every "
+     "house block but a trailer park has its street, every house faces one, every lump of house streets joins a mile street; the "
+     "painter paints them; planted fails red. about 2 min", True),
+    ('THE VALLEY HAS ITS ZONES', ['node', 'gates/the_valley_has_its_zones_gate.js'],
+     "WORLD THIRTEEN gate, 11/10, rules 429(g)(h), 430 (Paolo 11/7: 'not every part of town is gonna be this suburb shit'): twelve "
+     "zones on 22 valleys, each share in its range, no house inside the works, no estate by them, every works block's drive joined; "
+     "the land-use file and the whole generator in the page word for word; planted fails red. about 3 min", True),
+    ('THE CORNERS JOIN', ['node', 'gates/the_corners_join_gate.js'],
+     "WORLD THIRTEEN gate, 11/10, rule 442(d) (Paolo 11/9: 'make sure intersections, the sidewalk and the streets continue looking "
+     "good'): every side street's mouth on a mile street marked on 22 valleys; on five valleys in the page at three zooms the asphalt "
+     "runs through every mouth and every T, the sidewalks turn every corner walk to walk, in the houses and the works; planted: a "
+     "mouth shut, a sidewalk cut at a corner, a kerb across a T, each red. about 4 min", True),
     ('THE MOMENTS BETWEEN', ['node', 'gates/the_moments_between_gate.js'],
      "WORLD gate, 11/2, ask line 273 (Paolo 11/2: 'The transition of the camp to when time passes by and an enemy wants to attack you, "
      "it's just like sloppy quick bullshit... less choppy... less AI slop'): on the demo at phone size, every drawn frame: making camp "

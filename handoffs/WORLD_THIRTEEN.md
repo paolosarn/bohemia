@@ -1,5 +1,29 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/10, round three): BUILD 11/10j - THE CORNERS JOIN, BUILT, NOT YET SEEN (rule 442(d), the map's half; ask line 547;
+COMBAT TWO shipped the boards' half as 11/10f). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_CORNERS_JOIN_11_10_26.md. VOTE
+world13-the-corners-join-11-10 (STAND-IN).
+- THE GENERATOR: laneMouths (engine/bohemia_overmap.js, inside houseLanes): a mile street's own byte carries the mouths (16/32/64/128 a
+  side street in from N/E/S/W). The page re-runs it after a home base's square takes its streets, then clears the squares again.
+- THE PAINTER (__THE_CORNERS_JOIN__, slices/BOHEMIA_CITY_WORLD.html road case): the mouth's walk, gutter, lamp and pylon open 4.55 to
+  7.45 q, a crosswalk across, the sidewalks turning the corner; the T's roadway runs through (houses and works); the works drives have
+  a sidewalk and gutter now.
+- GATES: NEW the_corners_join 7/0 (22 valleys node; 5 valleys x 6 tiles x 3 zooms in the page; planted shut / wide / kerb each red).
+  Registered in the suite with my three older ones (kinds 17/0, a street in front 10/0, zones 9/0), all marked slow. the_map_streets_join
+  J1 now reads a mouth as a join and waits for the towns (6/0). After the rebase: the board 193/0 alone, COMBAT TWO's the_streets_join
+  13/0, every_building_on_the_road 9/0, home_base 86/0.
+- NAMED FOR BOSSES (not hidden): the_first_boss_changes_the_map moves with where the boss lands, and the gate lands him somewhere new
+  every run (freshStart takes Date.now ^ Math.random when no campaign code is set). G1 measured: main (ebfefc6e) 3 of 3 green; main
+  f03752fd green G1 but red C1b once; this build with the corners switched off 2 of 2 green; this build 1 of 6 green (its C1b red too).
+  No input of his ground reads anything this round changed (bossPlace, makeGround, cityRoute, cityWalkable and its three wraps,
+  cityStepMins, freshStart: the map's kinds and the walk only; the street bytes reach only the painter's two inputs). Lopsided, not
+  explained: BOSSES, pin the gate's campaign code (WORLD_SEED) so G1 and C1b measure the same place every run, then it says which.
+- TOOLS: tools/bohemia_world_thirteen_corner_shots.js OUTDIR LABEL [X,Y,DX,DY] (the phone at a mouth, near and street stops).
+- NOTES OWED: COOK FOUR: an apartment block at the street stop is a tall grey striped stack (the painter's slab, no close-up model),
+  with the house models next door drawn over it; on main before this round too. The works models stay owed.
+- NEXT, IN THE COORDINATOR'S ORDER: (3) the 15 place boards (fight_ground.json boards place_*) as templates the generator places, every
+  asset kept (430), the template format first; then (4) the cut, with COMBAT TWO.
+
 WORLD THIRTEEN (11/10): BUILD 11/10c - THE VALLEY HAS ITS ZONES (ship adb18098), BUILT, NOT YET SEEN. Record:
 records/BOHEMIA_WORLD_THIRTEEN_THE_VALLEY_HAS_ITS_ZONES_11_10_26.md. VOTE world13-the-valley-has-its-zones-11-10 (STAND-IN). His vote 11/9 on
 world13-a-street-at-every-house-11-7: YES.
