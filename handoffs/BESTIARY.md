@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'enemy types and factions', rule 443(d), rule 441): 11/10 LATEST -- BUILD 11/10s FIVE NEW MEN, NAMED CHAMPIONS (SHA_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'enemy types and factions', rule 443(d), rule 441): 11/10 LATEST -- BUILD 11/10s FIVE NEW MEN, NAMED CHAMPIONS (edbb8581), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_MEN_AND_THE_CHAMPIONS_11_10_26.md. VOTE bestiary-five-new-men-11-10 (stage stand_in).
 - FIVE NEW ENEMY TYPES in their own clothes (CHARACTER's enemy sheets, each pool split so no two types share one) and their own way to fight:
   the watch's BOWMAN (shoots from behind the neighbors), the water people's SLINGER, the keepers' REAVER (two-handed mace, goes for the held
