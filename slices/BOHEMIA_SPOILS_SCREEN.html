@@ -780,7 +780,7 @@ var THEY = { brigands: ['THE RAIDERS', 'THE RAIDER'], machines: ['THE MACHINES',
    read off the same data the meet card reads), so a faction this table has not met yet never falls to RAIDERS */
 function theyWere(sp, one){
   var foe = ''; try{ var fn = window.parent.__FIGHT_NOW; foe = fn && fn.foe ? String(fn.foe) : ''; }catch(e){}   /* the shell's (window.parent is this page itself when it stands alone) */
-  if(foe) return { name: foe.toUpperCase(), are: true };
+  if(foe) return { name: foe.toUpperCase(), are: !/^(A|AN|ONE) /i.test(foe) };   /* JOBS 11/10 (__EVERY_JOB_NAMES_ITS_FOE__): 'a wild bull' IS DOWN, 'the dire wolves' ARE */
   var b = (sp && sp.bodies) || [];
   if(b.length && b.every(function(x){ return x.beast; })) return { name: THEY.beasts[one ? 1 : 0], are: false };
   var w = THEY[sp && sp.faction];

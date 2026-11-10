@@ -1,6 +1,34 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q, opened by the coordinator for VAMILY rule 436(c), asks 102 and 114, ask line 521): 11/10 LATEST --
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/10 LATEST -- BUILD 11/10o - THE SIX CONTRACTS, BUILT, NOT YET SEEN (rule 443(c), asks 567 and 102;
+the coordinator's routine 'JOBS: more contract kinds'). Record: records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md.
+- MEASURED FIRST: Battle Brothers' six contract kinds all existed (WORLD's job kinds) but the boards held 1 delivery, 1 debt, 2 places to
+  clear, 2 defences, 3 escorts among 46 ordinary offers; three fights were a fixed two men; a defence's waves, a caravan's raids and a
+  patrol's crews each took a whole contract; only a leg's fight named its enemy at the end.
+- FIFTEEN NEW CONTRACTS (records/target/BOHEMIA_JOB_KINDS.json board_people rows jb-*, offers jb-*; words draft:true), three each of
+  escort, defend, deliver, clear a place and collect a debt, each from a named person with a look, every tier and skull; the three debts
+  carry their own legs (debtor, talk, three ways). Pay is ECONOMY's bake (node tools/bohemia_economy_job_pay.js; --check green).
+- ONE CONTRACT FOR SEVERAL FIGHTS: party_math.json job_contract.split {2: 0.65, 3: 0.5}; the legs' fight.share (collect 0.67, burn 0.4,
+  follow 0.4, the new debts 0.67); TUNING's section Y rows. Measured over 20 valleys: all dealt jobs lost 11.6 -> 11.0 in 100 (days 1 and
+  20); defences on day 20 85 -> 35 of 144; BUT the fight's count is in the band's dice, so a smaller wave can come as other animals (the
+  market's second wave: two house men -> two bison, 0.86 -> 0.19). Routed (record s6).
+- EVERY FIGHT NAMES ITS FOE (__EVERY_JOB_NAMES_ITS_FOE__ in slices/bohemia_job_kinds.js; foe_says in the job kinds file; one marked line
+  in slices/bohemia_job_danger.js rollInto: animals named as themselves; one marked line in slices/BOHEMIA_SPOILS_SCREEN.html theyWere:
+  one IS). On the phone both ways (tools/bohemia_jobs_the_six_on_the_phone.js; records/target/jobs_11_10/): all six name who they were;
+  main said THE RAIDERS, A HOUSE MAN, THE PACK, THE HOUSE, THE PACK, DON BETO'S NEPHEWS.
+- ASK 102 OVER 20 VALLEYS: the Lone Wolf's boards 97/99 in 100 one-star (days 1/20), 68 batteries a man; with five ordinary hires 67/60,
+  65 jobs on his day-20 boards he loses more often than wins, 10 a man.
+GATE THE SIX CONTRACTS (new, in the suite): S1 to S4 the files (JOBS_PLANT=1 plants three copies, each caught), S5 the six on the phone
+both ways, S6 the names planted away in the page (the defence must lose its words), S7 nothing threw. JOBS THAT FIT THE COMPANY re-run.
+NEXT (the jump list):
+1. [the big beasts' cost] bison and bulls stand at the fight's own 0.4 and 0.2 of the count (FACTIONS'); for a crew of three two bison are
+   a wall: measure them with tools/bohemia_jobs_beast_cost.js and agree the cost with FACTIONS and TUNING (one count, never two).
+2. [obtain and restore] Battle Brothers' Obtain Item and Restore Location have no kind of ours (restore fits rule 445's settlement seam).
+3. [the survey repeats] (from 11/10d) two boots of one tree read the wolf and hyena jobs 14 and 34 in 100.
+[bb Battle Brothers' contract types carry the whole job in one base value; ours now split one contract across a job's waves]
+[analog horror: the end screen remembers the name of the man who owed the bar, and his cousins]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q, opened by the coordinator for VAMILY rule 436(c), asks 102 and 114, ask line 521): 11/10 --
 BUILD 11/10d - JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 179(a): DONE is EYES' mark). LIVE: content da588c127, card bd4e0e5f,
 pages run 4386 SUCCESS. VOTE jobs-jobs-that-fit-the-crew-11-10. Record: records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md.
 

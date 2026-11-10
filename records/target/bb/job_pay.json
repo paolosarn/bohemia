@@ -120,6 +120,156 @@
     "why": "RULE 323 AMENDED THE SAME ROUND (ask line 321, Paolo 11/2: 'quests that don't have any combat, you shouldn't be getting as much batteries... every time we had to pay for someone to get killed... imagine you order something today but you gotta pay an extra 5000 to have someone protect and kill for you'). A job is KILLING WORK when the fights it is for come to half a fight or more (min_fights; a twist's chance does not count): it pays every fight at per_fight times the skulls, the violence premium, and never under its old pay. A job with NO KILLING EXPECTED (a find, a carry, a scout, a walk with nobody guarding) pays its hours at the bar and the chance its twist turns into a fight at the fight's price times that chance, over only the quiet floor of 10 a skull, a third of a killing job's 30: so it pays clearly less, still over what the crew burns an hour. A long walk's hours still pay (a day on the road to the lodge is a day). The offer says which (the settlement's board, under the trip). THE TWO PARTS, APART (the coordinator's brief 11/2): the PEACEFUL BASE is the hours alone, at the crew's cost times one and a half (quiet_margin 0.5: 2.06 a map hour, still over the crew's 1.375); the VIOLENCE PREMIUM is per_fight x the skulls for every expected fight (a hunt per head), and killing work's hours carry the full margin (2.75 a map hour)"
   },
   "pays": {
+    "jb-carry-deed": {
+      "pay": 20,
+      "before": 60,
+      "violent": false,
+      "kind": "carry",
+      "skulls": 2,
+      "hours": 2.4,
+      "fights": 0.2,
+      "why": "no killing: 2.4 h x 2.06 + 0.2 fights (the chance) x 26 x 2, the quiet floor 20"
+    },
+    "jb-carry-fuses": {
+      "pay": 30,
+      "before": 90,
+      "violent": false,
+      "kind": "carry",
+      "skulls": 3,
+      "hours": 5.7,
+      "fights": 0.2,
+      "why": "no killing: 5.7 h x 2.06 + 0.2 fights (the chance) x 26 x 3, the quiet floor 30"
+    },
+    "jb-carry-insulin": {
+      "pay": 11,
+      "before": 30,
+      "violent": false,
+      "kind": "carry",
+      "skulls": 1,
+      "hours": 2.4,
+      "fights": 0.2,
+      "why": "no killing: 2.4 h x 2.06 + 0.2 fights (the chance) x 26 x 1"
+    },
+    "jb-clear-lot": {
+      "pay": 43,
+      "before": 40,
+      "violent": true,
+      "kind": "clear-camp",
+      "skulls": 1,
+      "hours": 1.1,
+      "fights": 1.5,
+      "why": "killing work: 1.1 h x 2.75 + 1.5 fights x 26 x 1"
+    },
+    "jb-clear-motel": {
+      "pay": 80,
+      "before": 80,
+      "violent": true,
+      "kind": "clear-camp",
+      "skulls": 2,
+      "hours": 1.1,
+      "fights": 1.33,
+      "why": "killing work: 1.1 h x 2.75 + 1.33 fights x 26 x 2, the floor 80"
+    },
+    "jb-clear-yard": {
+      "pay": 120,
+      "before": 120,
+      "violent": true,
+      "kind": "clear-camp",
+      "skulls": 3,
+      "hours": 1.1,
+      "fights": 1.25,
+      "why": "killing work: 1.1 h x 2.75 + 1.25 fights x 26 x 3, the floor 120"
+    },
+    "jb-collect-chips": {
+      "pay": 90,
+      "before": 90,
+      "violent": true,
+      "kind": "collect",
+      "skulls": 3,
+      "hours": 2.3,
+      "fights": 1,
+      "why": "killing work: 2.3 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
+    "jb-collect-rent": {
+      "pay": 60,
+      "before": 60,
+      "violent": true,
+      "kind": "collect",
+      "skulls": 2,
+      "hours": 2.3,
+      "fights": 1,
+      "why": "killing work: 2.3 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "jb-collect-tito": {
+      "pay": 33,
+      "before": 30,
+      "violent": true,
+      "kind": "collect",
+      "skulls": 1,
+      "hours": 2.3,
+      "fights": 1,
+      "why": "killing work: 2.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "jb-escort-clinic": {
+      "pay": 168,
+      "before": 120,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 3,
+      "hours": 4.3,
+      "fights": 2,
+      "why": "killing work: 4.3 h x 2.75 + 2 fights x 26 x 3"
+    },
+    "jb-escort-seed": {
+      "pay": 80,
+      "before": 80,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 2,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 2, the floor 80"
+    },
+    "jb-escort-tanks": {
+      "pay": 40,
+      "before": 40,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
+    },
+    "jb-hold-market": {
+      "pay": 121,
+      "before": 80,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 2,
+      "hours": 6,
+      "fights": 2,
+      "why": "killing work: 6 h x 2.75 + 2 fights x 26 x 2"
+    },
+    "jb-hold-pumps": {
+      "pay": 43,
+      "before": 40,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 1,
+      "hours": 6,
+      "fights": 1,
+      "why": "killing work: 6 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "jb-hold-substation": {
+      "pay": 251,
+      "before": 120,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 3,
+      "hours": 6,
+      "fights": 3,
+      "why": "killing work: 6 h x 2.75 + 3 fights x 26 x 3"
+    },
     "jk-ambush-cut": {
       "pay": 76,
       "before": 60,

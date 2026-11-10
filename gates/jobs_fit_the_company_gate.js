@@ -45,7 +45,7 @@ const J = f => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
 function filesLegs(PM, TABLE, KINDS_SRC, OURS, ENEM, tag) {
   const C = PM.job_contract, V = C && C.value;
   const Y = TABLE.indexOf('## Y. ') >= 0 ? TABLE.slice(TABLE.indexOf('## Y. ')) : '';
-  const rows = V ? [].concat(Object.keys(V.beast_cost || {}).map(k => ['job_contract.beast_cost.' + k, V.beast_cost[k]]), [['job_contract.hunt_scales', V.hunt_scales ? 'on' : 'off'], ['job_contract.pack_flat', V.pack_flat]]) : [];
+  const rows = V ? [].concat(Object.keys(V.beast_cost || {}).map(k => ['job_contract.beast_cost.' + k, V.beast_cost[k]]), [['job_contract.hunt_scales', V.hunt_scales ? 'on' : 'off'], ['job_contract.pack_flat', V.pack_flat]], Object.keys(V.split || {}).filter(k => k !== '1').map(k => ['job_contract.split.' + k, V.split[k]])) : [];
   const rowOf = id => { const m = Y.split('\n').filter(l => l.indexOf('| ' + id + ' |') === 0)[0]; return m ? m.split('|')[2].trim() : null; };
   const bad = rows.filter(([id, v]) => { const t = rowOf(id); return t == null || String(t).split(' ')[0] !== String(v); });
   ok('T1' + tag + ' every number of job_contract has its row in TUNING\'s one table section Y, the same value, the file named', !!(V && rows.length >= 4 && !bad.length && /party_math\.json job_contract/.test(Y) && C.source && C.why),

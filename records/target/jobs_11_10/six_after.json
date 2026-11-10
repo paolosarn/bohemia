@@ -1,0 +1,177 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_jobs_the_six_on_the_phone.js",
+ "tag": "after",
+ "walks": [
+  {
+   "shape": "phone_portrait",
+   "rows": [
+    {
+     "kind": "haul-caravan",
+     "word": "RAULNot a scratch. Tell everybody. Twice.",
+     "id": "jb-escort-tanks",
+     "head": "THE RAIDERS AFTER THE PROPANE TANKS ARE DOWN",
+     "foe": "the raiders after the propane tanks",
+     "n": 4,
+     "png": "records/target/jobs_11_10/after_upright_haul-caravan.png",
+     "fired": "raid",
+     "kinds": [
+      "brigand_thug"
+     ]
+    },
+    {
+     "kind": "hold-defend",
+     "word": "RAULNot one scratch, cabrón. Not one.",
+     "id": "jb-hold-pumps",
+     "head": "THE ONES WHO CAME FOR THE PUMP HOUSE ARE DOWN",
+     "foe": "the ones who came for the pump house",
+     "n": 3,
+     "png": "records/target/jobs_11_10/after_upright_hold-defend.png",
+     "fired": "wave",
+     "kinds": [
+      "brigand_thug"
+     ]
+    },
+    {
+     "kind": "hunt-kind",
+     "word": "DESINo doctor bill. That's pure profit.",
+     "id": "qd-ap03",
+     "head": "THE HYENAS ARE DOWN",
+     "foe": "the hyenas",
+     "n": 2,
+     "png": "records/target/jobs_11_10/after_upright_hunt-kind.png",
+     "fired": "pack",
+     "kinds": [
+      "hyena"
+     ]
+    },
+    {
+     "kind": "carry",
+     "word": "DESINo doctor bill. That's pure profit.",
+     "id": "jb-carry-insulin",
+     "head": "A HORSE IS DOWN",
+     "foe": "a horse",
+     "n": 1,
+     "png": "records/target/jobs_11_10/after_upright_carry.png",
+     "fired": "thief",
+     "kinds": [
+      "ice_age_horse"
+     ]
+    },
+    {
+     "kind": "clear-camp",
+     "word": "DESINo doctor bill. That's pure profit.",
+     "id": "jb-clear-lot",
+     "head": "THE SQUATTERS ON THE CAR LOT ARE DOWN",
+     "foe": "the squatters on the car lot",
+     "n": 2,
+     "png": "records/target/jobs_11_10/after_upright_clear-camp.png",
+     "fired": "camp",
+     "kinds": [
+      "house_hook",
+      "house_shield"
+     ]
+    },
+    {
+     "kind": "collect",
+     "word": "DESIThat's the toll. Paid in full.",
+     "id": "jb-collect-tito",
+     "head": "TITO'S COUSINS ARE DOWN",
+     "foe": "Tito's cousins",
+     "n": 2,
+     "png": "records/target/jobs_11_10/after_upright_collect.png",
+     "fired": "talk",
+     "kinds": [
+      "brigand_thug"
+     ]
+    }
+   ],
+   "errs": []
+  },
+  {
+   "shape": "phone_landscape",
+   "rows": [
+    {
+     "kind": "haul-caravan",
+     "word": "RAULNot a scratch. Tell everybody. Twice.",
+     "id": "jb-escort-tanks",
+     "head": "THE RAIDERS AFTER THE PROPANE TANKS ARE DOWN",
+     "foe": "the raiders after the propane tanks",
+     "n": 4,
+     "png": "records/target/jobs_11_10/after_sideways_haul-caravan.png",
+     "fired": "raid",
+     "kinds": [
+      "brigand_thug"
+     ]
+    },
+    {
+     "kind": "hold-defend",
+     "word": "RAULNot a scratch. Tell everybody. Twice.",
+     "id": "jb-hold-pumps",
+     "head": "THE ONES WHO CAME FOR THE PUMP HOUSE ARE DOWN",
+     "foe": "the ones who came for the pump house",
+     "n": 3,
+     "png": "records/target/jobs_11_10/after_sideways_hold-defend.png",
+     "fired": "wave",
+     "kinds": [
+      "brigand_thug"
+     ]
+    },
+    {
+     "kind": "hunt-kind",
+     "word": "DESINo doctor bill. That's pure profit.",
+     "id": "qd-ap03",
+     "head": "THE HYENAS ARE DOWN",
+     "foe": "the hyenas",
+     "n": 2,
+     "png": "records/target/jobs_11_10/after_sideways_hunt-kind.png",
+     "fired": "pack",
+     "kinds": [
+      "hyena"
+     ]
+    },
+    {
+     "kind": "carry",
+     "word": "RAULIt smelled like the lab. Still does.",
+     "id": "jb-carry-insulin",
+     "head": "A TERATORN IS DOWN",
+     "foe": "a teratorn",
+     "n": 1,
+     "png": "records/target/jobs_11_10/after_sideways_carry.png",
+     "fired": "thief",
+     "kinds": [
+      "teratorn"
+     ]
+    },
+    {
+     "kind": "clear-camp",
+     "word": "RAULRobots don't bleed. Saves on cleanup.",
+     "id": "jb-clear-lot",
+     "head": "THE SQUATTERS ON THE CAR LOT ARE DOWN",
+     "foe": "the squatters on the car lot",
+     "n": 3,
+     "png": "records/target/jobs_11_10/after_sideways_clear-camp.png",
+     "fired": "camp",
+     "kinds": [
+      "necromancer",
+      "wiederganger"
+     ]
+    },
+    {
+     "kind": "collect",
+     "word": "DESIThat's the toll. Paid in full.",
+     "id": "jb-collect-tito",
+     "head": "TITO'S COUSINS ARE DOWN",
+     "foe": "Tito's cousins",
+     "n": 2,
+     "png": "records/target/jobs_11_10/after_sideways_collect.png",
+     "fired": "talk",
+     "kinds": [
+      "brigand_thug"
+     ]
+    }
+   ],
+   "errs": []
+  }
+ ]
+}

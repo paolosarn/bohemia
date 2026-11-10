@@ -186,6 +186,33 @@
   function costed(n, fac) { var c = beastCost(fac); return c == null ? n : Math.max(1, Math.round(n * c)); }
   /* the flat four fifths a hunt's pack always was for a beast the table does not cost (job_contract.pack_flat; 0.8 until the file loads) */
   function packFlat() { var C = contractV(); return (C && C.pack_flat > 0) ? +C.pack_flat : 0.8; }
+  /* JOBS 11/10 (rule 443(c)): ONE CONTRACT FOR A JOB OF SEVERAL FIGHTS. Battle Brothers' contract type carries the whole job in one
+     base value (bb_all/0827), so a defence of two waves is not two contracts. MEASURED (the 11/10d survey): a defence's waves, a
+     caravan's raids and a patrol's bands each took the whole contract's count, so a three-wave defence was three contracts and the
+     new crew lost 19 in 100 of them. job_contract.split[N]: the share of the contract each of a job's N same fights carries (one
+     fight keeps the whole); a job with no file splits nothing, as before */
+  function split(nf) { var C = contractV(), S = C && C.split; nf = Math.max(1, nf | 0); var v = S && (S[String(nf)] != null ? S[String(nf)] : S[String(Math.min(nf, 3))]); return (v > 0) ? +v : 1; }
+  function shareOf(n, nf) { return Math.max(1, Math.round(n * split(nf))); }
+  /* a leg's own share of the contract (a leg row's fight.share: 'Don Beto's nephews' are a part of the job, not the whole of it),
+     so a fight a row once fixed at two men grows and shrinks with the company the way the contract does */
+  function legShare(n, f) { return (f && f.share > 0 && contractV()) ? Math.max(1, Math.round(n * f.share)) : n; }
+  /* ==== __EVERY_JOB_NAMES_ITS_FOE__ (JOBS 11/10, rule 443(c); EYES row 551: 'a place's fight comes home as RAIDERS'). MEASURED: only a
+     leg's fight (row 530) and a place's (row 551) handed the end screen their own name for the enemy; a defence's wave, a caravan's
+     raid, a hunt's pack, a camp, a thief, the ones holding a thing and a patrol's crew came home by the faction's table, so a wave at
+     the wall said THE RAIDERS ARE DOWN and a hunt of dire wolves THE PACK IS DOWN. NOW every job's fight hands over who they are, in
+     the job kinds' own words (records/target/BOHEMIA_JOB_KINDS.json foe_says, a row's own foe_says first; draft:true, WORDS' to
+     overwrite); a beast by its own name (beast_looks label). ==== */
+  function foeSays(job, what, faction, label) {
+    var row = null; try { row = DATA && DATA.offers && DATA.offers[job.id]; } catch (e) {}
+    if (row && row.foe_says) return String(row.foe_says);
+    var BL = DATA && DATA.beast_looks && DATA.beast_looks[faction];
+    if (BL && BL.label) { var bl = String(BL.label); return /^(a|an|the) /i.test(bl) ? bl : 'the ' + bl; }   /* a beast is named as itself, whatever the job calls the fight */
+    var T = (DATA && DATA.foe_says) || {}, t = T[what];
+    if (!t) return label ? String(label) : null;
+    return String(t).replace(/\{what\}/g, job.what || 'it').replace(/\{cargo\}/g, (job.cargo && job.cargo.what) || 'the cargo').replace(/\{item\}/g, job.item || 'it')
+      .replace(/\{place\}/g, job.placeName || job.what || 'the camp').replace(/\{from\}/g, job.from || 'the town').replace(/\{dest\}/g, (job.dest && job.dest.name) || 'the town').replace(/\{label\}/g, label || 'them');
+  }
+  root.__EVERY_JOB_NAMES_ITS_FOE__ = foeSays;
   /* the company's contract multiplier for a job of these skulls (the count partyMath deals over the skulls' base): what a hunt's kills scale by */
   function contractMult(sk) {
     var C = contractV(); if (!C || !C.hunt_scales) return 1;
@@ -207,7 +234,7 @@
     var ok = false;
     try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
-      foe: (extra && extra.foe) || null,   /* FIXES 11/9 (row 530): a leg's own name for its enemy, for the end screen */
+      foe: (extra && extra.foe) || foeSays(job, what, party.faction, label) || null,   /* FIXES 11/9 (row 530): a leg's own name for its enemy, for the end screen; __EVERY_JOB_NAMES_ITS_FOE__: every other fight's */
       why: 'contract:' + job.id + ':' + what, at: { gx: w[0] | 0, gy: w[1] | 0 } }); } catch (e) { ok = false; }
     if (!ok) { LOOP.fighting = null; job.fight = null; root.__JOB_REFUSED = (root.__JOB_REFUSED | 0) + 1; return false; }   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (j): the town's arrival reads it */
     try { CITY_CONTACT_POSTED = true; } catch (e) {}
@@ -459,6 +486,7 @@
     job.cargo = { what: row.cargo || 'the cargo', unit: row.unit || 'crate', n: n, of: n };
     job.perCrate = Math.max(1, Math.floor(job.pay / n));
     var na = (k.ambush_by_skulls || [1, 1, 2])[sk - 1] | 0, L = path.length;
+    job.raids = Math.max(1, na);   /* JOBS 11/10: the raids split one contract (split) */
     job.ambush = [];
     for (var a = 0; a < na; a++) job.ambush.push(Math.max(3, Math.round(L * (na === 1 ? 0.45 : 0.3 + 0.4 * a / (na - 1)) + (R() - 0.5) * 3)));
     job.walked = 0; job.trail = [[city.x, city.y]]; job.raid = null;
@@ -486,7 +514,7 @@
       var at = aheadOf(job.id + ':raid:' + job.walked);
       if (!at) return false;
       var base = 3; try { base = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-      job.raid = { x: at[0], y: at[1], n: Math.max(2, base + ((k.ambush_extra | 0) || 0)) }; newBand(job, 'raid');
+      job.raid = { x: at[0], y: at[1], n: Math.max(2, shareOf(base, job.raids) + ((k.ambush_extra | 0) || 0)) }; newBand(job, 'raid');   /* JOBS 11/10: a share of the contract */
       now('Raiders, ' + job.raid.n + ' of them, coming for ' + job.cargo.what + '. The caravan cannot outrun them.');   /* draft:true */
       window.__JOB_RAIDS = (window.__JOB_RAIDS | 0) + 1;
       try { render(); } catch (e) {}
@@ -862,6 +890,7 @@
   };
   function waveFight(job) {
     var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
+    n = shareOf(n, job.waves);   /* JOBS 11/10: the waves split one contract */
     var w = job.wave + 1;
     now('They come. Wave ' + w + ' of ' + job.waves + '.');   /* draft:true */
     return fight(job, 'wave', Math.max(2, n + (w > 1 ? 1 : 0) - (w === 1 && job.waves > 1 ? 1 : 0)), job.foe, 'wave ' + w + ' at ' + job.from);
@@ -1001,6 +1030,7 @@
       job.bandDue = 0;
       var at = aheadOf(job.id + ':band:' + job.walked);
       if (at) { var n = 2; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
+        n = shareOf(n, job.bands);   /* JOBS 11/10: the patrol's bands split one contract */
         job.band = { x: at[0], y: at[1], n: n }; newBand(job, 'band'); window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
         now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
     }
@@ -1056,7 +1086,7 @@
     var prev = { x: town.x, y: town.y };
     for (var i = 0; i < legs.length; i++) { var L = legs[i], p = legSpot(L, town, prev, R); if (!p) return false;
       L.x = p.x; L.y = p.y; L.town = !!p.town; L.townName = p.name || null; if (!L.name && p.name) L.name = p.name;
-      if (L.fight) { var n = L.fight.n; if (n === 'party' || !n) { try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) { n = 3; } } L.fight.left = Math.max(1, n | 0); }
+      if (L.fight) { var n = L.fight.n; if (n === 'party' || !n) { try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) { n = 3; } n = legShare(n, L.fight); } L.fight.left = Math.max(1, n | 0); }   /* JOBS 11/10: a leg's share */
       if (!p.town) prev = { x: p.x, y: p.y }; }
     job.legs = legs; job.li = 0; job.payMult = 1; job.stage = 'legs'; job.target = { x: legs[0].x, y: legs[0].y };
     var outs = legs.filter(function (L) { return L.go !== 'client'; }), last = legs[legs.length - 1];
@@ -2089,10 +2119,10 @@
     var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) { var fo = foeOf(job, faction || 'brigands', at || job.target);
       out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, (what === 'pack' ? n : costed(n, fo)) | 0), faction: fo, at: at || job.target || null }); } };   /* __THE_CONTRACT_IS_THE_BUDGET__: one count, the fight's and the stars' */
     var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
-    if (k.legs) (job.legs || k.legs).forEach(function (L, i) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? jm() : L.fight.n); add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target); });   /* CONTENT 11/2: LEGS */
+    if (k.legs) (job.legs || k.legs).forEach(function (L, i) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? legShare(jm(), L.fight) : L.fight.n); add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target); });   /* CONTENT 11/2: LEGS */
     else switch (job.plays) {
       case 'haul-caravan': {
-        var rn = Math.max(2, jm() + ((k.ambush_extra | 0) || 0));
+        var rn = Math.max(2, shareOf(jm(), job.raids || (job.ambush || []).length) + ((k.ambush_extra | 0) || 0));   /* JOBS 11/10: as the raid will be */
         if (job.raid) add(1, 'raid', job.raid.n, k.ambush_foe, job.raid);
         (job.ambush || []).forEach(function () { add(1, 'raid', rn, k.ambush_foe, job.target); });
         if (!job.twistDone) add(held ? (job.twist === 'T18' ? 1 : 0) : twistP(k, 'T18'), 'gate', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.target);
@@ -2116,7 +2146,7 @@
         if (job.stage === 'lair' && job.lair) add(1, 'lair', job.lair.n, 'brigands', job.lair);
         break;
       case 'hold-defend': {
-        var nw = job.waves | 0 || (k.waves_by_skulls || [1, 2, 3])[sk - 1], n0 = jm();
+        var nw = job.waves | 0 || (k.waves_by_skulls || [1, 2, 3])[sk - 1], n0 = shareOf(jm(), nw);   /* JOBS 11/10: as the waves will be */
         for (var w = (job.wave | 0) + 1; w <= nw; w++) add(1, 'wave', Math.max(2, n0 + (w > 1 ? 1 : 0) - (w === 1 && nw > 1 ? 1 : 0)), job.foe, job.target);
         break; }
       case 'recover-return':
@@ -2124,7 +2154,7 @@
         break;
       case 'patrol': {
         if (job.band) add(1, 'band', job.band.n, 'brigands', job.band);
-        for (var b = 0; b < (job.bands | 0); b++) add(1, 'band', jm(), 'brigands', (job.posts || [])[b] || job.target);
+        for (var b = 0; b < (job.bands | 0); b++) add(1, 'band', shareOf(jm(), job.bands), 'brigands', (job.posts || [])[b] || job.target);   /* JOBS 11/10: as the bands will be */
         break; }
       default:   /* today's crew job: the map's loop hands it 'contract:<id>' */
         if (job.target) add(1, 'crew', jm(), 'brigands', job.target, 'contract:' + job.id);

@@ -1,0 +1,91 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_jobs_the_six_on_the_phone.js",
+ "tag": "before",
+ "walks": [
+  {
+   "shape": "phone_portrait",
+   "rows": [
+    {
+     "kind": "haul-caravan",
+     "word": "RAULNot a scratch. Tell everybody. Twice.",
+     "id": "qd-ae09",
+     "head": "THE RAIDERS ARE DOWN",
+     "foe": null,
+     "n": 4,
+     "png": "records/target/jobs_11_10/before_upright_haul-caravan.png",
+     "fired": "raid",
+     "kinds": [
+      "brigand_thug"
+     ]
+    },
+    {
+     "kind": "hold-defend",
+     "word": "RAULNot a scratch. Tell everybody. Twice.",
+     "id": "qd-r01",
+     "head": "A HOUSE MAN IS DOWN",
+     "foe": null,
+     "n": 1,
+     "png": "records/target/jobs_11_10/before_upright_hold-defend.png",
+     "fired": "wave",
+     "kinds": [
+      "house_shield"
+     ]
+    },
+    {
+     "kind": "hunt-kind",
+     "word": "DESINo doctor bill. That's pure profit.",
+     "id": "qd-ap03",
+     "head": "THE PACK IS DOWN",
+     "foe": null,
+     "n": 2,
+     "png": "records/target/jobs_11_10/before_upright_hunt-kind.png",
+     "fired": "pack",
+     "kinds": [
+      "hyena"
+     ]
+    },
+    {
+     "kind": "carry",
+     "word": "DESIClean job. Best margins all week.",
+     "id": "qd-ar08",
+     "head": "THE HOUSE IS DOWN",
+     "foe": null,
+     "n": 2,
+     "png": "records/target/jobs_11_10/before_upright_carry.png",
+     "fired": "thief",
+     "kinds": [
+      "house_shield"
+     ]
+    },
+    {
+     "kind": "clear-camp",
+     "word": "DESINo doctor bill. That's pure profit.",
+     "id": "qd-s01",
+     "head": "THE PACK IS DOWN",
+     "foe": null,
+     "n": 4,
+     "png": "records/target/jobs_11_10/before_upright_clear-camp.png",
+     "fired": "camp",
+     "kinds": [
+      "coyote"
+     ]
+    },
+    {
+     "kind": "collect",
+     "word": "DESIThat's the toll. Paid in full.",
+     "id": "jk-collect-beto",
+     "head": "DON BETO'S NEPHEWS ARE DOWN",
+     "foe": "Don Beto's nephews",
+     "n": 2,
+     "png": "records/target/jobs_11_10/before_upright_collect.png",
+     "fired": "talk",
+     "kinds": [
+      "brigand_thug"
+     ]
+    }
+   ],
+   "errs": []
+  }
+ ]
+}

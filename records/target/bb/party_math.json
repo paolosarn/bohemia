@@ -348,14 +348,20 @@
     "hyenas": 0.55
    },
    "hunt_scales": true,
-   "pack_flat": 0.8
+   "pack_flat": 0.8,
+   "split": {
+    "1": 1,
+    "2": 0.65,
+    "3": 0.5
+   }
   },
   "source": "JOBS [jobs that fit] 11/8 (VAMILY rule 436(c), asks 102 and 114): Battle Brothers' contract is ONE budget spent on the enemy's own cost (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt: the contract's type base value 'is multiplied by the other variables'; 'The maximum number and type of enemies is limited by the spawn list used'), sized off the roster (levels, never gear: bb_all/0828_Game Mechanics.txt). The numbers are OURS, measured on the live fight by tools/bohemia_jobs_beast_cost.js (a new crew of three at level 2 in its own kit, AUTO both sides, 16 plays a cell, dress day 5): brigands 4 / 5 / 6 at 0.85 / 0.71 / 0.61 of the AUTO count; dire wolves 2 / 3 / 4 at 0.91 / 0.46 / 0.08; hyenas 2 / 3 / 4 at 0.96 / 0.74 / 0.16; war dogs as men (1.11, not costed); coyotes weaker than men (1.62, the fight's own 1.0 stands). TUNING's one table section Y holds every row.",
   "quote": "Each type of contract has a base value that ranges from 40 to 200. It's multiplied by the other variables. / The maximum number and type of enemies is limited by the spawn list used (the difficulty doesn't scale indefinitely). / From further testing, gear does not appear to have an impact on roster strength.",
   "ours": [
    "beast_cost",
    "hunt_scales",
-   "pack_flat"
+   "pack_flat",
+   "split"
   ],
   "why": "Rule 436(c) and 192 (Paolo: 'why is the game so in love with throwing overpowered enemies in like 75% of the quests I take... look how Battle Brothers does it'). MEASURED on the demo before (tools/bohemia_jobs_fit_the_company.js, 20 campaign seeds): a contract's count was spent one man for one beast, so a job whose ground dealt dire wolves read 0.1 to 0.2 where the same count of men read 0.7 to 0.9, and a hunt asked a fixed 4, 7 or 10 kills (its row's own 7 for the wolves at the water) whatever the company: a new crew of three met nine dire wolves on a three-skull hunt and lost every one. NOW (slices/bohemia_job_kinds.js __THE_CONTRACT_IS_THE_BUDGET__): beast_cost[kind] is how many of that beast stand for one man of the contract's count (a kind not here stands one for one; the fight's own count_scale for the kinds it already thins is not doubled: no kind is in both, a gate holds it); a hunt's pack is the contract's count at that cost (the flat four fifths for the others); hunt_scales: a hunt's kills grow and shrink with the company the way the contract's count does, in that beast's cost. Draft: TUNING owns the numbers and moves them.",
   "measured": {
@@ -432,6 +438,7 @@
     ]
    }
   },
-  "pack_flat_why": "the flat four fifths a hunt's pack was before (WORLD's 'a beast fights harder than a man, so a pack is four fifths of a crew job's count'), moved out of the code into this file: a beast the table does not cost keeps it, and a costed beast's kills are asked in its cost over this"
+  "pack_flat_why": "the flat four fifths a hunt's pack was before (WORLD's 'a beast fights harder than a man, so a pack is four fifths of a crew job's count'), moved out of the code into this file: a beast the table does not cost keeps it, and a costed beast's kills are asked in its cost over this",
+  "split_why": "JOBS 11/10 (rule 443(c)): Battle Brothers' contract type carries the whole job in one base value (bb_all/0827), so a job of N same fights (a defence's waves, a caravan's raids, a patrol's bands) splits one contract: each fight is this share of the contract's count (one fight keeps the whole; two 0.65 each, 1.3 in all; three 0.5 each, 1.5 in all: more fights stay a bigger job, never two or three jobs). MEASURED before (the 11/10d survey): each wave took the whole count and a new crew of three lost 19 in 100 of its defences; the after is in records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md"
  }
 }

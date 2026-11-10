@@ -116,7 +116,8 @@ const PAGE = function () {
       let plays = null; try { plays = BohemiaJobKinds.kindOf ? String(BohemiaJobKinds.kindOf(o)) : null; } catch (e) {}   /* the kind's id ('hunt-kind', 'lair' ...) */
       dealt.push({ id: o.id, place: p.name, tier: p.tier, skulls: o.skulls | 0, pay: o.pay | 0, plays,
         rare: !!(o.rare != null && o.rare < 1), clean: W.clean, stars: W.stars, sure: W.sure, sure_men: W.sure_men, most: W.most, won_sure: W.won_sure,
-        faction: (W.fights.filter(f => f.p >= 0.999 && !f.road)[0] || W.fights[0] || {}).faction || null }); }));
+        faction: (W.fights.filter(f => f.p >= 0.999 && !f.road)[0] || W.fights[0] || {}).faction || null,
+        f: W.fights.filter(f => !f.road).map(f => [f.what, f.faction, f.n, +f.clean.toFixed(2), +f.won.toFixed(2), +f.p.toFixed(2)]) }); }));   /* each fight: what, who, how many, worth, won, chance */
     const F0 = BohemiaJobDanger.fits; BohemiaJobDanger.fits = function (o, place, d2, have, size) { return J.fits(o, place, d2, have, size, runs); };
     try { P.forEach(p => { const L = BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, day, { traits: p.traits || [], held: [], places: P, crew: 'a crew ' + code }) || [];
       boards[p.name] = L.map(o => { const W = J.worth(o, p.name, runs) || {}; return { id: o.id, place: p.name, tier: p.tier, skulls: o.skulls | 0, pay: o.pay | 0, clean: W.clean, stars: W.stars, sure_men: W.sure_men, most: W.most, fights: W.fights }; }); }); }
@@ -141,6 +142,12 @@ async function one(origin) {
       localStorage.setItem('bohemia.hired.v1', JSON.stringify(H)); localStorage.setItem('bohemia.fight.met.v1', '3'); }, HIRES);
     await fr.evaluate('(' + PAGE.toString() + ')()');
     if (PLANT === 'old') await fr.evaluate(() => { try { delete PARTY_MATH.job_contract; } catch (e) {} window.__JOBS_PLANTED = 'old'; });
+    /* --plant nosplit: the 11/10d math (the beasts' cost, the hunts) without 11/10's one contract for a job of several fights (the
+       split and the legs' shares taken away in this page): the before of that change alone */
+    if (PLANT === 'nosplit') await fr.evaluate(() => { try { delete PARTY_MATH.job_contract.value.split; } catch (e) {}
+      try { const D = BohemiaJobKinds.data(); const off = L => (L || []).forEach(x => { if (x && x.fight && x.fight.share) { delete x.fight.share; x.fight.n = x.fight.n === 'party' ? 2 : x.fight.n; } });
+        Object.values(D.kinds || {}).forEach(k => k && off(k.legs)); Object.values(D.offers || {}).forEach(o => o && off(o.legs)); } catch (e) {}
+      window.__JOBS_PLANTED = 'nosplit'; });
     out.plant = PLANT || null;
     out.contract = await fr.evaluate(() => { try { return partyV('job_contract') || null; } catch (e) { return null; } });
     out.company = await fr.evaluate(() => (LOOP.start.company || []).map(m => ({ background: m.background, level: m.level, gear: m.gear || null })));

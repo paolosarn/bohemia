@@ -2404,6 +2404,11 @@ GATES = [
      'campaign seeds, a new crew and the Lone Wolf at days 1 and 20: most jobs fit, a dire wolf or a hyena stands at its cost, '
      'a hunt is one contract, the small strong crew loses almost nothing; the math before planted must fail '
      '(records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md).', True),
+    ('THE SIX CONTRACTS', ['node', 'gates/the_six_contracts_gate.js'],
+     'JOBS [more contract kinds], rule 443(c), EYES row 551: Battle Brothers\' six (escort, defend, hunt, deliver, clear, collect) '
+     'each four or more offers from a person with a face, sized by one contract (job_contract.split, the legs\' shares, TUNING\'s '
+     'section Y), every job\'s fight naming its foe; on the phone both ways each end screen says who they were, and with the '
+     'names planted away the defence\'s does not (records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md).', True),
     ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
      'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
      'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '
