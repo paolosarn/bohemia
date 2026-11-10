@@ -16,8 +16,8 @@
   "person_town_11"
  ],
  "w": 70,
- "h": 127,
- "foot": 118,
+ "h": 128,
+ "foot": 119,
  "cols": 7,
  "gangs": [
   "person_town_0",
@@ -97,15 +97,17 @@
    "beard": "CHIN STRAP",
    "mark": null,
    "top": "DUST PLAID SHIRT",
-   "coat": "SLATE CAR COAT",
+   "coat": "LEATHER JACKET",
    "heritage": "white",
    "skin": "light",
    "sex": "m",
    "wears": {
     "base": "DUST PLAID SHIRT",
-    "legs": "STACKED JERSEY PANT",
+    "legs": "SOOT CARGOS",
     "feet": "STACKED MID BOOT",
-    "outer": "SLATE CAR COAT"
+    "outer": "LEATHER JACKET",
+    "waist": "LEATHER BELT",
+    "hands": "LEATHER GLOVES"
    }
   },
   {
@@ -123,9 +125,11 @@
    "sex": "m",
    "wears": {
     "base": "ARC LAYERED SHIRT",
-    "legs": "DROP RISE TROUSER",
+    "legs": "DUST TROUSERS",
     "feet": "COAL MID BOOT",
-    "outer": "SAGE CAR COAT"
+    "outer": "SAGE CAR COAT",
+    "neck": "TRAILING SCARF",
+    "back": "SALVAGE SATCHEL"
    }
   },
   {
@@ -157,14 +161,17 @@
    "beard": null,
    "mark": null,
    "top": "SLATE SHORT-SLEEVE",
-   "coat": null,
+   "coat": "BONE VEST",
    "heritage": "white",
    "skin": "intermediate",
    "sex": null,
    "wears": {
     "base": "SLATE SHORT-SLEEVE",
-    "feet": "ASH COLUMN",
-    "back": "BONE SHOULDER DRAPE"
+    "legs": "LEATHER STACK PANT",
+    "feet": "LEATHER STACK BOOT",
+    "outer": "BONE VEST",
+    "back": "BONE SHOULDER DRAPE",
+    "gear": "WORN BRACERS"
    }
   },
   {

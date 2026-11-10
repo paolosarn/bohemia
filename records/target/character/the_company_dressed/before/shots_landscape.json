@@ -1,0 +1,71 @@
+[
+ {
+  "profile": "phone_landscape",
+  "town": true,
+  "openAtStart": "person",
+  "townCrew": [
+   "person_town_0",
+   "person_town_11",
+   "person_town_8",
+   "person_town_3",
+   "person_town_4",
+   "person_town_1",
+   "person_town_7",
+   "person_town_10",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6"
+  ],
+  "hall": [
+   "person_town_9",
+   "person_remnants_1",
+   "person_remnants_0"
+  ],
+  "crewScreen": true,
+  "crew": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "mapParty": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "fight": true,
+  "fightYou": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "errors": [],
+  "nErrors": 0
+ }
+]

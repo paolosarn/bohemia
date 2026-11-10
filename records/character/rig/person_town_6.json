@@ -7,6 +7,8 @@
   "legs": "DUST BROWN TROUSERS",
   "feet": "TALL MOTO BOOTS",
   "outer": "SAGE FIELD COAT",
+  "neck": "DUST SCARF",
+  "waist": "LEATHER BELT",
   "outfit": [
    "COAL HOODIE read as one with FIELD GREEN COAT (48 and 76 of 255) and no colour of that top reads apart: the same coat in SAGE FIELD COAT (99)",
    "SAGE FIELD COAT worn open to the neck",
@@ -72,6 +74,11 @@
   "person_town_6_boot_collar": 2048,
   "person_town_6_boot_collar_line": 2048,
   "person_town_6_boot_strap": 2048,
+  "person_town_6_dust_scarf": 3072,
+  "person_town_6_dust_scarf_tail": 162,
+  "person_town_6_dust_scarf_fringe": 54,
+  "person_town_6_leather_belt": 1792,
+  "person_town_6_leather_belt_buckle": 34,
   "person_town_6_hair": 17968,
   "person_town_6_hand_L": 392,
   "person_town_6_hand_R": 392
@@ -137,6 +144,21 @@
    0.0685,
    0.0844
   ],
+  "person_town_6_dust_scarf": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_6_dust_scarf_fringe": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_town_6_dust_scarf_tail": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
   "person_town_6_eyes": [
    0.0212,
    0.0103,
@@ -156,6 +178,16 @@
    0.0382,
    0.063,
    0.0343
+  ],
+  "person_town_6_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_6_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
   ],
   "person_town_6_midsole_0": [
    0.0116,

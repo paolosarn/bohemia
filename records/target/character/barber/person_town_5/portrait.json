@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_town_5/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  47,
   44,
-  175,
+  44,
+  172,
   218
  ],
  "model": "records/character/rig/barber_person_town_5.glb",
  "body_rig": "rig.json",
- "colours": 27351
+ "colours": 29986
 }

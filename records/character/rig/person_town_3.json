@@ -4,9 +4,11 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "ARC LAYERED SHIRT",
-  "legs": "DROP RISE TROUSER",
+  "legs": "DUST TROUSERS",
   "feet": "COAL MID BOOT",
   "outer": "SAGE CAR COAT",
+  "neck": "TRAILING SCARF",
+  "back": "SALVAGE SATCHEL",
   "outfit": [
    "ARC LAYERED SHIRT read as one with OLIVE CAR COAT (52 and 76 of 255) and no colour of that top reads apart: the same coat in SAGE CAR COAT (99)",
    "SAGE CAR COAT worn open to the neck",
@@ -57,14 +59,20 @@
   "person_town_3_pockets": 252,
   "person_town_3_pocket_flaps": 252,
   "person_town_3_trouser": 43706,
-  "person_town_3_drop_yoke": 5600,
-  "person_town_3_ankle": 2048,
+  "person_town_3_rolled_hem": 2048,
+  "person_town_3_crease": 180,
   "person_town_3_sole_1": 242,
   "person_town_3_midsole_1": 242,
   "person_town_3_sole_0": 242,
   "person_town_3_midsole_0": 242,
   "person_town_3_boot_collar": 2048,
   "person_town_3_boot_collar_line": 2048,
+  "person_town_3_trailing_scarf": 3072,
+  "person_town_3_trailing_scarf_tail": 162,
+  "person_town_3_trailing_scarf_fringe": 54,
+  "person_town_3_salvage_satchel_bag": 98,
+  "person_town_3_salvage_satchel_flap": 26,
+  "person_town_3_salvage_satchel_strap": 1792,
   "person_town_3_hair": 17968,
   "person_town_3_hand_L": 392,
   "person_town_3_hand_R": 392
@@ -74,11 +82,6 @@
    0.8,
    0.8,
    0.8
-  ],
-  "person_town_3_ankle": [
-   0.0152,
-   0.013,
-   0.0152
   ],
   "person_town_3_boot_collar": [
    0.0823,
@@ -105,12 +108,12 @@
    0.0343,
    0.0382
   ],
-  "person_town_3_cuffs": [
-   0.0382,
-   0.0343,
-   0.0382
+  "person_town_3_crease": [
+   0.2423,
+   0.1529,
+   0.0561
   ],
-  "person_town_3_drop_yoke": [
+  "person_town_3_cuffs": [
    0.0382,
    0.0343,
    0.0382
@@ -160,6 +163,26 @@
    0.1441,
    0.0823
   ],
+  "person_town_3_rolled_hem": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_town_3_salvage_satchel_bag": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_3_salvage_satchel_flap": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_town_3_salvage_satchel_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_town_3_shirt": [
    0.0382,
    0.0343,
@@ -190,22 +213,32 @@
    0.006,
    0.007
   ],
+  "person_town_3_trailing_scarf": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_town_3_trailing_scarf_fringe": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_town_3_trailing_scarf_tail": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
   "person_town_3_trouser": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_town_3_trousers": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_town_3_under": [
-   0.0152,
-   0.013,
-   0.0152
-  ],
-  "person_town_3_yoke_drape": [
    0.0152,
    0.013,
    0.0152

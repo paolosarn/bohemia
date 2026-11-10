@@ -1058,16 +1058,16 @@
 "packedMB": 3.76
 },
 "person_town_2.webp": {
-"bytes": 278790,
+"bytes": 274540,
 "decodedMB": 17.69,
-"fill": 0.195,
-"packedMB": 4.01
+"fill": 0.194,
+"packedMB": 4.02
 },
 "person_town_3.webp": {
-"bytes": 281548,
+"bytes": 281554,
 "decodedMB": 17.69,
-"fill": 0.189,
-"packedMB": 3.81
+"fill": 0.19,
+"packedMB": 3.92
 },
 "person_town_4.webp": {
 "bytes": 274848,
@@ -1210,7 +1210,7 @@
 },
 "totals": {
 "decodedMB": 3997.0,
-"packedMB": 779.9,
+"packedMB": 780.0,
 "sheets": 201
 }
 }

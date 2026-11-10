@@ -1,0 +1,69 @@
+[
+ {
+  "profile": "phone_portrait",
+  "town": true,
+  "townCrew": [
+   "person_town_5",
+   "person_town_2",
+   "person_town_0",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_3",
+   "person_town_10",
+   "person_town_7",
+   "person_town_11",
+   "person_town_1"
+  ],
+  "hall": [
+   "person_town_9",
+   "person_anarchists_2"
+  ],
+  "crewScreen": true,
+  "crew": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "mapParty": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "fight": true,
+  "fightYou": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "errors": [],
+  "nErrors": 0
+ }
+]
