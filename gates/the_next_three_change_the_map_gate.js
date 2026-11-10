@@ -265,9 +265,9 @@ const CLIMB = {
     const w0 = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n).kept[0])), NAME);
     const pl = await fr.evaluate(() => { const r = BohemiaHomeMap.plantAt(city.x, city.y); return r && r.ok; });
     await fr.evaluate(() => render()); await c.page.waitForTimeout(1500);
-    const r1 = await res(), w1 = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n).kept[0])), NAME);
-    ok('C1b ' + k0.name + ', with no place planted yet, waits for it (HOME BASE\'s one seam); the day he plants she moves in', !r0.planted && w0.asked != null && w0.waiting === true && r0.waiting.indexOf('climb:kept:' + k0.name) >= 0 && r0.names.indexOf(k0.name) < 0 && pl && r1.names.indexOf(k0.name) >= 0,
-      'before: planted ' + r0.planted + ', waiting ' + JSON.stringify(r0.waiting) + ', she ' + JSON.stringify(w0) + '; planted ' + pl + '; after: ' + JSON.stringify(w1) + ', residents ' + JSON.stringify(r1.names));
+    const r1 = await res(), w1 = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n).kept[0])), NAME), hook = await fr.evaluate(() => BohemiaBosses.prizeWhere('climb'));
+    ok('C1b ' + k0.name + ', with no place planted yet, waits for it (HOME BASE\'s one seam); the day he plants she moves in, and his hook stands there', !r0.planted && w0.asked != null && w0.waiting === true && r0.waiting.indexOf('climb:kept:' + k0.name) >= 0 && r0.names.indexOf(k0.name) < 0 && pl && r1.names.indexOf(k0.name) >= 0 && hook === 'placed',
+      'before: planted ' + r0.planted + ', waiting ' + JSON.stringify(r0.waiting) + ', she ' + JSON.stringify(w0) + '; planted ' + pl + ', his hook ' + hook + '; after: ' + JSON.stringify(w1) + ', residents ' + JSON.stringify(r1.names));
     /* the next is whoever has not come yet (measured 11/10, on its side: the walk to LUZ passed over DON ARTURO, and he came then, the game right) */
     const left = await fr.evaluate((n) => BohemiaBosses.riggers(n).kept.findIndex(q => q.asked == null), NAME);
     const kk = left >= 0 ? Q.kept[left] : k1;
@@ -434,6 +434,12 @@ async function run(prof, alpha) {
   ok('B2 he falls: the beat plays his change on the tape with his place, ' + row.after.name + ' says the valley\'s line, hands his ' + row.verb.hand.name.replace(/^HIS /, '').toLowerCase() + ', and says what changed on the map',
      !!s.boss.fallen[NAME] && !!s.verbs[row.verb.id] && !!bt && bt.n === NAME && onTape >= 1 && !!af && af.text === row.after.valley && !!af.hand && af.hand.name === row.verb.hand.name && af.ground === want,
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));
+  /* G1 (rule 445, ask line 571): what he gives stands in his settlement through HOME BASE's one seam; before he plants it waits, and her card says which */
+  const G1 = (gv, card) => !!gv && gv.name === row.verb.hand.name && gv.from === NAME && /^boss_places\//.test(gv.pic || '') && !!card && card.where === (gv.where === 'placed' ? 'IT STANDS AT YOUR PLACE' : gv.where === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : '?');
+  const gv = await fr.evaluate((id) => { const r = BohemiaHomeMap.rec(), k = 'prize:' + id; const t = ((r && r.things) || []).concat((r && r.waiting) || []).filter(x => x.id === k)[0];
+    return t ? { name: t.name, from: t.from, pic: t.pic, where: BohemiaBosses.prizeWhere(id), planted: !!(r && r.planted) } : null; }, row.verb.id).catch(() => null);
+  ok('G1 what he gives goes to your settlement through HOME BASE\'s seam: ' + row.verb.hand.name + ' from ' + NAME + ', with his picture, and her card says where it is', G1(gv, af && af.hand), JSON.stringify(gv) + ', her card: "' + (af && af.hand ? af.hand.where : 'none') + '"');
+  ok('P5 planted: a prize the seam never got turns G1 red', !G1(null, af && af.hand), 'no prize');
   /* the feed keeps its last 14 posts (BOHEMIA_FEED's MAX): read it at the fall too, so a busy alpha cannot scroll his post out before C1d */
   c.fallPosts = await posts().catch(() => []);
   if (L.atCard && af) { try { await L.atCard(c); } catch (e) {} }   /* while her card is up the camera is still on his place: what stands round it is on the screen */

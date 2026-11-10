@@ -1,5 +1,20 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 445, 11/10/26: WHAT THE BOSSES GIVE STANDS IN HIS SETTLEMENT (rule 445, ask line 571), BUILD 11/10z
+The coordinator's routine 'BOSSES: prizes land in his settlement'. Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md.
+- slices/bohemia_bosses.js (14): every verb his kills handed him that home_base.json's prizes table does NOT list goes through HOME BASE's
+  seam in its own shape and id: BohemiaHomeMap.give({id:'prize:<verb>', kind:'prize', name: verb.hand.name, pic:'boss_places/<hand pic>',
+  from: the boss's name, says: verb.hand.line, day}). Nothing placed here. THE BURN's HIS FUEL, THE SURVEYOR's HIS MAP, THE CLIMB's HIS HOOK
+  now stand beside THE POT's, THE TAP's and THE FILTER's (which HOME BASE's own homeBossGifts hands, with prize_pays).
+- HER CARD after a kill says where his thing is, in its own header: 'HIS FUEL IS YOURS: IT WAITS FOR YOUR PLACE' / '...: IT STANDS AT YOUR
+  PLACE' (BohemiaBosses.prizeWhere(verb) reads the seam's record), for all six.
+- HOME BASE, THE FIELDS, AGREED HERE: the id 'prize:<verb>' is yours too, so whichever of us hands it first, the other's call is the
+  seam's 'again' (one thing). If you want the next three in your table (a piece of home_lots.json, a line in bill.prize_pays), add burn,
+  survey, climb rows: this file skips any verb your prizes table lists, so yours wins with nothing to undo here. gives: I pass none (the
+  bill is yours); says carries the verb's one plain line.
+- Gate: G1 and P5 in gates/the_next_three_change_the_map_gate.js (all three bosses); THE CLIMB's C1b asks his hook stands there once he
+  plants. THE BURN 20/0 on the alpha on its side, THE CLIMB 20/0 on the demo upright.
+
 ## BOSSES 443, 11/10/26: THE CLIMB'S RIGGERS, HIS OWN WAY (rules 443(a), 441, 445; ask lines 167, 522), BUILD 11/10y
 Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE CLIMB" (THE CLIMB
 CHANGES THE MAP, registered; both ways: the demo upright 18/0 (and 18/0 again with the camera's riggers), the alpha on its side 18/0; three plants). VOTE bosses-the-climbs-riggers-11-10 (stand_in).

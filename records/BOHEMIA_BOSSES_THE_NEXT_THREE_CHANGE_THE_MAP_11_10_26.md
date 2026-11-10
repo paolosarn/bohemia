@@ -142,6 +142,24 @@ gates/bosses_act_one_gate.js on the shipped tree (677a61354): 108/1, the red its
 drums now light once he falls (this round's change), so 'dark before' could not hold there; it now lights the fire on a block nothing
 lights yet. Again: 109 passed, 0 failed (lit false -> true, the street beside lit, sight 3 -> 6).
 
+## WHAT THEY GIVE STANDS IN HIS SETTLEMENT (rule 445, ask line 571; the coordinator's routine 'BOSSES: prizes land in his settlement')
+
+PAOLO: "what the bosses give us after they die... everything will be in our own custom settlement that we build from the ground up."
+MEASURED: HOME BASE's seam (BUILD 11/10u) hands the prizes its own table lists (home_base.json prizes: cook, open, purify, with what they
+pay the bill), so THE POT's, THE TAP's and THE FILTER's stood there; THE BURN's fuel, THE SURVEYOR's map and THE CLIMB's hook did not
+(a gate run with all six down showed only prize:cook, prize:open, prize:purify waiting).
+NOW (slices/bohemia_bosses.js (14)): every verb his kills handed him that HOME BASE's table does not list goes through the same seam in
+the same shape and under the same id, BohemiaHomeMap.give({id: 'prize:<verb>', kind: 'prize', name: the hand's name, pic:
+'boss_places/hand_<verb>.png', from: the boss, says: the hand's one plain line}); nothing is placed here (HOME BASE places it: the back
+lots, a door on his town screen). Before he plants it waits and the seam says so; planting places it. Her card after the kill says where
+it is, in the thing's own header: "HIS FUEL IS YOURS: IT WAITS FOR YOUR PLACE" or "...: IT STANDS AT YOUR PLACE". THE CLIMB's three
+people go the same way (kind 'person').
+THE GATE: G1 in gates/the_next_three_change_the_map_gate.js (the prize in the seam's record with his name, his picture and his boss, and
+her card saying where; P5 planted: no prize turns it red); THE CLIMB's C1b also asks that his hook stands there once he plants.
+THE PASS (base 36d698f01): THE BURN on the alpha on its side 20 passed, 0 failed (HIS FUEL waiting, her card 'IT WAITS FOR YOUR
+PLACE', every card's buttons on the screen); THE CLIMB on the demo upright 20 passed, 0 failed (before he plants all six prizes wait:
+prize:cook, open, purify, burn, survey, climb, and LUZ; planting placed them, his hook stands there). BUILD 11/10z.
+
 ## [bb] BATTLE BROTHERS FIRST
 
 - Night on the Battle Brothers map shrinks what your company sees and lets things come at you unseen; a fire you make yourself is the

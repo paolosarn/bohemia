@@ -204,12 +204,14 @@
       var d = document.createElement('div'); d.className = 'rchand'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'display:flex;gap:10px;align-items:center;margin-top:8px;padding:6px 8px;background:rgba(10,8,6,.55);box-shadow:inset 0 0 0 1px #4a3a26';
       d.innerHTML = '<img alt="" src="boss_places/' + String(Hd.pic).replace(/[^\w.]/g, '') + '" style="width:56px;height:56px;flex:none">'
-        + '<div style="min-width:0"><div style="font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#e2b45a">' + String(Hd.name).replace(/[<>&]/g, '') + ' IS YOURS</div>'
+        + '<div style="min-width:0"><div style="font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#e2b45a">' + String(Hd.name).replace(/[<>&]/g, '') + ' IS YOURS' + (whereWords(r) ? ': ' + whereWords(r) : '') + '</div>'
         + '<div style="margin-top:3px;font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.35;color:#ecdfc2">' + String(Hd.line).replace(/[<>&]/g, '') + '</div></div>';
       tx.parentNode.insertBefore(d, tx.nextSibling);
-      if (root.__BOSS_CARD) root.__BOSS_CARD.hand = { name: Hd.name, line: Hd.line, pic: Hd.pic };
+      if (root.__BOSS_CARD) root.__BOSS_CARD.hand = { name: Hd.name, line: Hd.line, pic: Hd.pic, where: whereWords(r) || null };
     } catch (e) { LAST.err = String(e && e.message || e); }
   }
+  /* (14) where his thing went, in four words: it stands at your place, or it waits for one (rule 445) */
+  function whereWords(r) { try { prizes(); } catch (e) {} var w = r && r.verb ? prizeWhere(r.verb.id) : null; return w === 'placed' ? 'IT STANDS AT YOUR PLACE' : w === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : ''; }
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
@@ -1280,6 +1282,33 @@
     return c;
   }
 
+  /* ---------- (14) WHAT HE GIVES STANDS IN YOUR SETTLEMENT (BOSSES 11/10, VAMILY rule 445, ask line 571; Paolo: 'what the bosses give us
+     after they die... everything will be in our own custom settlement that we build from the ground up'). The boss still changes the map
+     his own way; the thing he hands you (his verb's hand: his fuel, his map, his hook) goes to the place you planted through HOME BASE's
+     ONE seam, BohemiaHomeMap.give({id: 'prize:<verb>', kind: 'prize', name, pic, from, says}), never placed here: before you plant it
+     waits and the seam says so, planting places it. HOME BASE hands the prizes its own table lists (records/target/bb/home_base.json
+     prizes: THE POT's, THE TAP's, THE FILTER's, with what they pay the bill) from this file's state; this hands the rest, in the same
+     shape and under the same id, so the two never make two of one thing (the seam's same id twice is one thing). */
+  function prizes() {
+    if (!DATA || !S || !S.verbs || bench()) return 0;
+    var M = root.BohemiaHomeMap, HD = null; try { HD = HOME.data; } catch (e) { HD = null; } if (!M || !M.give || !HD) return 0;
+    var theirs = HD.prizes || {}, n = 0;
+    for (var id in S.verbs) {
+      if (theirs[id]) continue;   /* HOME BASE's own table hands it */
+      var r = verbRow(id), Hd = r && r.verb && r.verb.hand; if (!Hd) continue;
+      var res = null; try { res = M.give({ id: 'prize:' + id, kind: 'prize', name: Hd.name, pic: Hd.pic ? 'boss_places/' + String(Hd.pic).replace(/[^\w.]/g, '') : null, from: r.n, says: Hd.line || null, day: S.verbs[id].day | 0 }); } catch (e) { res = null; }
+      if (res && res.ok && !res.again) { n++; LAST.given = (LAST.given || []).concat([{ id: id, from: r.n, waiting: !!res.waiting, t: Date.now() }]).slice(-12); root.__BOSS_GIVEN = LAST.given; }
+    }
+    return n;
+  }
+  /* where his thing is now, for her card: standing at your place, waiting for one, or not handed yet */
+  function prizeWhere(id) {
+    try { var rec = root.BohemiaHomeMap && BohemiaHomeMap.rec && BohemiaHomeMap.rec(); if (!rec) return null; var k = 'prize:' + id;
+      if ((rec.things || []).some(function (t) { return t.id === k; })) return 'placed';
+      if ((rec.waiting || []).some(function (t) { return t.id === k; })) return 'waiting'; } catch (e) {}
+    return null;
+  }
+
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
@@ -1538,7 +1567,7 @@
     if (!MFIGHT) return;
     var o = d.outcome || {}; setTimeout(function () { try { machineEnded(o); } catch (e) { LAST.err = String(e && e.message || e); } }, 400);
   });
-  setInterval(function () { try { talkTick(); } catch (e) {} }, 900);
+  setInterval(function () { try { talkTick(); } catch (e) {} try { prizes(); } catch (e) {} }, 900);   /* (14) what he gives goes to your place */
   loadData();
   root.BohemiaBosses = {
     /* RUN's and WORLD TWO's hooks (__THE_BOSSES__) */
@@ -1569,6 +1598,7 @@
     forget: function () { sync(); var me = here(); return me ? holeForget(me) : 0; },
     /* and his riggers, for the gate: the party, the people he kept, and whether a party is up */
     riggers: function (n) { sync(); return S && S.riggers ? (n ? (S.riggers[n] || null) : S.riggers) : null; },
+    prizes: function () { sync(); return prizes(); }, prizeWhere: function (id) { return prizeWhere(id); },
     partyUp: function (n) { sync(); var Q = S && S.riggers && S.riggers[n]; return !!Q && !riggersDown(n, Q) && !!Q.party && Q.party.down == null; }
   };
 })(typeof window !== 'undefined' ? window : this);
