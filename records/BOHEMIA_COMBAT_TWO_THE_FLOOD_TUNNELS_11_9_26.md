@@ -1,10 +1,12 @@
-# THE FLOOD TUNNELS (COMBAT TWO, 11/9/26)
+# THE FLOOD TUNNELS (COMBAT TWO, 11/9/26, shipped 11/10)
 
 VAMILY rule 440(a), rule 416's list (the second big interior), ask line 539. Paolo 11/9: "More everything pls." The coordinator:
 "a long chain of house-sized culvert tiles, camps on the walls, the street's light through the grates, dark unless lit, the flash
 flood as the event; a fight at a wash or a drain mouth can use it." The facts (records/BOHEMIA_PAOLO_THE_BIG_INTERIORS_11_6_26.md):
 600 to 700 miles of flood channels in the valley, about 200 underground, 300 to 1,500 people living in them, 31 flood deaths since 1960.
-BUILD 11/9j - THE FLOOD TUNNELS. BUILT, NOT YET SEEN. VOTE combat2-the-flood-tunnels-11-9 (stand_in).
+BUILD 11/10a - THE FLOOD TUNNELS. BUILT, NOT YET SEEN. VOTE combat2-the-flood-tunnels-11-10 (stand_in). Built 11/9, parked while rule
+435(d) was proven on the page (branch combat2-tunnels-parked), shipped 11/10 under rule 441 (fully baked: proven on the page he plays,
+upright and sideways).
 
 ## BEFORE (main 8a62befa7)
 A fight at the wash was dealt the wash's own place board, the open concrete channel in the sun, every time. Nothing under the city
@@ -37,6 +39,27 @@ existed: no culvert, no flood, no camp, no grate.
   came; the silt stays": the channel is rough ground for the rest of the fight. The drains and chambers stay dry: the way out of
   the water is up a drain.
 - Rule 435(c) held: the fight's ground is one walkable piece; 0 of 288 men of his stood a whole fight under the city.
+
+## ON THE PAGE HE PLAYS (rule 441(a), rule 435(d)'s way)
+The alpha upright (390 x 844) and the demo on its side (844 x 390), opened as a stranger opens them (the title, NEW GAME, a crew,
+BEGIN, the barber), each fight started by the map's own handover at a wash block, AUTO and the speed pressed with a finger on the
+phone's own buttons, 1x/2x/4x, recorded; the fight's own calls logged (startAnim, the rules' log):
+- 8 fights (4 upright on the alpha, 4 sideways on the demo): 8 of 8 dealt THE FLOOD TUNNELS at the wash (the main and its drains, the
+  jog and the box; both flips); the roar, the flood and the drop played as notes on the glass in every fight that lasted to them
+  (6 whole, 1 to the flood, 1 ended before the roar); 0 page errors on both; 141 of 141 turns of his drawn (rule 435(d)).
+- The flood seen on the glass at round 3 (the card's middle panel and its sideways strip: his men fighting in the brown water).
+- FOUND AND FIXED HERE (EYES' ask row 548): on the demo the fight's own canvas answers to the SHELL's classes, so the fight's
+  drawImage teaching (its packed and night sheets) never ran for it: a fallen man's packed sheet threw 'not of type' every ~2 s and the
+  rest of the frame went unpainted. The tunnels are always night, so it would have met them often. teachDraw now puts the same teaching
+  on the fight's own page canvases (the board, the faces) when their class is another window's, as an own property (no wrapper left
+  on the shell's prototype for every fight); and one man's cell can never stop the frame (manCell: a sheet the canvas refuses draws
+  from the day sheet under it, counted in UI.cellMisses). The demo sideways after it: 0 errors, 0 misses in 4 fights.
+- MEASURED, NOT THE TUNNELS' (for PLUMBER 8, rule 441(c)): the longest pause between two drawn frames was 721 to 992 ms, two or three
+  a fight over half a second, the same on a plain wash fight (943 and 701 ms, round 1 and round 3) as in the tunnels (992 and 875 ms);
+  this box draws every canvas in software (PLUMBER 7's note), a phone does not; the moments are the round's first steps and blows.
+- Row 555 (THE POT's quiet turns said nothing): not reproduced headless: 37 of 37 quiet turns of his in 16 act-one boss fights carry
+  their word; the word's only switch is S.byHand, which the page sets from AUTO before every AUTO step, so a turn ended by his finger
+  says nothing by design. EYES: THE POT's 8 turns' own 'auto' flags will say which.
 
 ## GATE
 gates/the_flood_tunnels_gate.js (THE FLOOD TUNNELS, registered) 9/0, 17 s:
