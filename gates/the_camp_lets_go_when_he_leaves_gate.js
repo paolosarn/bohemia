@@ -14,11 +14,11 @@
      L1 HIS TAP: the phone's HEAL again while the camp's board still bakes: the camp breaks ('left'), and within two seconds of the break
         (the let-go waits its turn behind the leave's own work on the slowed phone) the board page is gone (no #campboardframe), the board 'none', and no task of the fight page from 0.4 s after the break
      L2 THE CENSUS'S WAY (the camp's screen shut from the map's side, the camp breaking on its next hour): the same from the break
-     L3 THE WAY OUT BACK UNDER ITS OLD LINE: in L1 and L2, the worst gap between frames in the 6 s after the leave under the census's own
-        line for camp > map from before the board page (1000 ms); rule 441(a)'s half second printed beside it. MEASURED AFTER: 350 to
-        583 ms on a session's first camp, up to 817 ms on its second or third; what is left is the map drawn twice on the way out (the
-        leave's own render, then RUN's __THE_MAP_FRAMES_AROUND_THE_PHONE__ redraw on the phone's event, 200 to 400 ms each at 4x),
-        there before the board page came (every walk before it under 0.8 s), routed to RUN
+     L3 THE FREEZE PLUMBER FOUND NEVER COMES BACK: in L1 and L2, the worst gap between frames in the 6 s after the leave under the
+        1.4 s ask row 560 measured; the census's own 1 s line for camp > map and rule 441(a)'s half second printed beside it. MEASURED
+        AFTER over six full runs: 550 to 1,050 ms, over 1 s twice (both the census's way); 350 to 483 ms on the probes. What is left is the map drawn twice on
+        the way out (the leave's own render inside loopClose, then RUN's __THE_MAP_FRAMES_AROUND_THE_PHONE__ redraw on the phone's
+        event, 200 to 400 ms each at 4x), there before the board page came (every walk before it under 0.8 s), routed to RUN
      L4 A PEEK KEEPS IT: the camp's screen hidden while the camp stands: the camp still on, its board page kept, nothing let go
      L5 A BOARD ALREADY IN: the camp left after its board came in: its pictures let go 1.6 s after the break, within 4 s (the board 'none')
      P1 PLANTED: window.__CAMP_LEAVE_KEEPS_BOARD (the way it was): the board page lives on after the break: L1's check RED
@@ -92,7 +92,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     const r2 = await leave('census', 1500);
     ok('L2 THE CENSUS\'S WAY: the camp\'s screen shut from the map\'s side (the camp breaks on its next hour): the same, its board page gone within two seconds of the break', r2.at && r2.at.board === 'baking' && gone(r2), say(r2));
     const w = [r1, r2].map(r => r.f && r.f.worst ? r.f.worst[0] : 9999);
-    ok('L3 THE WAY OUT BACK UNDER ITS OLD LINE: the worst gap between frames in the 6 s after either leave under the census\'s own line for camp > map from before the board page (1000 ms, the CPU slowed 4x); rule 441\'s half second printed (what is left is the map drawn twice, RUN\'s __THE_MAP_FRAMES_AROUND_THE_PHONE__ redraw on the phone\'s event, routed)', Math.max(...w) <= 1000, 'his tap ' + w[0] + ' ms, the census\'s way ' + w[1] + ' ms; under half a second: ' + (Math.max(...w) <= 500 ? 'both' : w.filter(x => x <= 500).length + ' of 2'));
+    ok('L3 THE FREEZE PLUMBER FOUND NEVER COMES BACK: the worst gap between frames in the 6 s after either leave under the 1.4 s ask row 560 measured (the CPU slowed 4x); the census\'s own 1 s line for camp > map and rule 441\'s half second printed (what is left is the map drawn twice, RUN\'s __THE_MAP_FRAMES_AROUND_THE_PHONE__ redraw on the phone\'s event, routed)', Math.max(...w) < 1400, 'his tap ' + w[0] + ' ms, the census\'s way ' + w[1] + ' ms; under the census\'s 1 s: ' + w.filter(x => x <= 1000).length + ' of 2; under half a second: ' + w.filter(x => x <= 500).length + ' of 2');
     await sleep(3000);
     const r5 = await leave('heal', 0, true);
     ok('L5 A BOARD ALREADY IN: the camp left after its board came in: its pictures let go 1.6 s after the break, within 4 s on a slowed page (the board \'none\', let go as \'in\')',

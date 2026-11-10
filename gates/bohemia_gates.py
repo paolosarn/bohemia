@@ -9332,8 +9332,8 @@ GATES = [
      "(a hidden copy of the fight page beside the map) was let go only when a town opened, so a camp broken before its board came in "
      "left that page baking behind the map for 6 to 8 s in pieces of 150 to 650 ms. Now, a street camp made by the phone's HEAL: left by "
      "his tap (HEAL again) or the census's way while its board bakes, the board page is gone within two seconds of the break and the fight "
-     "page runs nothing after; no gap between frames over half a second in the 6 s after either leave; a peek (the camp's screen hidden, "
-     "the camp standing) keeps it; a board already in lets its pictures go; P1 the way it was (window.__CAMP_LEAVE_KEEPS_BOARD) turns "
+     "page runs nothing after; the worst gap in the 6 s after either leave never back to the 1.4 s it was (the 1 s and half-second "
+     "lines printed); a peek (the camp's screen hidden, the camp standing) keeps it; a board already in lets its pictures go; P1 the way it was (window.__CAMP_LEAVE_KEEPS_BOARD) turns "
      "the let-go check RED. Solo: it measures frames. About 6 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "

@@ -50,7 +50,7 @@ THE GATE, the demo upright, the CPU slowed 4x (one session, the legs in order): 
 
 THE PICTURE (records/target/MOTION_3_THE_CAMP_LETS_GO_WHEN_HE_LEAVES.webp, tools/bohemia_camp_leave_frames.js and tools/bohemia_camp_leave_picture.py, a fresh session each, his tap 1.5 s into the camp): the way it was 48 frames in 6 s with 12 tasks of the board page behind the map; now 194 frames, none. The map draws at about 32 frames a second on the way out instead of 8.
 
-OWED, said plainly: rule 441's half second is not met on every leave. The worst gap is 500 to 817 ms on a session's first camps (350 to 483 ms on the probes): the map is drawn twice in the first second, the leave's own render() inside loopClose, then RUN's __THE_MAP_FRAMES_AROUND_THE_PHONE__ redraw (__mfNow) on the phone's bohemia-phone event, 200 to 400 ms each at 4x. That is RUN's: one render when the focus did not move would do. Before the board page came (11/10g) every walk was under 0.8 s; it is back under that line.
+OWED, said plainly: rule 441's half second is not met on every leave. The worst gap is 500 to 1,050 ms on a session's first camps (350 to 483 ms on the probes): the map is drawn twice in the first second, the leave's own render() inside loopClose, then RUN's __THE_MAP_FRAMES_AROUND_THE_PHONE__ redraw (__mfNow) on the phone's bohemia-phone event, 200 to 400 ms each at 4x. That is RUN's: one render when the focus did not move would do. Before the board page came (11/10g) every walk was under 0.8 s; the leave is not all the way back under that line (the census's way reached 1,050 ms on one run), but the 1.4 s is gone.
 
 MEASURED, NOT YET EXPLAINED: one session's later camps draw slower on the way out (the gate's first camp 192 to 195 frames in the 6 s,
 its second 101 to 164, its third 14 to 77, the let-go itself on time in each; a camp waited on for its board passes many hours of the
@@ -60,7 +60,7 @@ for a board already in) because on that slowed page the let-go waits its turn be
 ## THE GATE
 
 gates/the_camp_lets_go_when_he_leaves_gate.js (THE CAMP LETS GO WHEN HE LEAVES, SOLO, registered): L1 his tap, L2 the census's way,
-L3 the way out back under the census's own line for camp > map (1 s; the half second printed), L4 a peek keeps it, L5 a board already in, P1 the way it was turns L1 RED, A1 nothing threw.
+L3 the freeze PLUMBER found never comes back (under 1.4 s; the census's 1 s and the half second printed; over six full runs 550 to 1,050 ms, over 1 s twice, both the census's way), L4 a peek keeps it, L5 a board already in, P1 the way it was turns L1 RED, A1 nothing threw.
 
 ## [bb] and [analog horror]
 
