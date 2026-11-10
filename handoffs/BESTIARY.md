@@ -13,7 +13,7 @@ Record: records/BOHEMIA_BESTIARY_THE_MEN_AND_THE_CHAMPIONS_11_10_26.md. VOTE bes
   the head takers 2, the eye in the sky 9 = 72 of 75 and the last 4 factions; COMBAT's old order's machines the rest).
 - THE GATE: THE BESTIARY FLOOR gains F7 champions named (live rules), F10 the new men (gates/the_bestiary_floor_men.js, headless) and the
   men and a champion on the phone in F9; ratchets TYPES 54, FACTIONS FIELDED 8. Plants: a man in another's clothes, a man no party deals, a
-  champion with no name.
+  champion with no name. 12/0 with the phone legs, upright and sideways (about 25 min; --no-browser for the data legs).
 - ROUTED: TUNING the champion rate and the drafts; COMBAT the gear pick (a volley brain is not 'backline', so wiki gear with a club hands an
   archer the club: the new rows name their gear) and the machines; WORDS the names and lines.
 [bb Battle Brothers' champions are named men, the band's toughest; ours carry a name and a title from the data.]

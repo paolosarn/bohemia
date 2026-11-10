@@ -73,3 +73,13 @@ bowman in the neighbor's), a new man no party deals, a champion with no name (pl
 - WORDS: every name, title, lesson and the champion's line.
 [bb Battle Brothers' champions are named men, the band's toughest, rarer early and common late; ours carry a name and a title from the data.]
 [analog horror: the champion's name comes up once, in the lower third, the way a caption names a man on a tape nobody should have kept.]
+
+## 7. PROOF
+records/target/BESTIARY_FIVE_NEW_MEN.jpg (the VOTE card bestiary-five-new-men-11-10, stage made_from character-the-nine-enemies-their-own-clothes-11-7:
+the people are that passed card's sheets): the demo on a phone held upright, each new man's party as its fight opens (his own name on the turn
+panel: BOWMAN, NEEDLE beside the slinger, KEEPER beside the reaver and the caller, SERGEANT) and a late road crew's champion held under a finger
+('FIRE AXE · MAMA LOCA / THE ROAD CREW'S CHAMPION'). THE BESTIARY FLOOR 12/0 with the phone legs (upright and sideways: the seven beasts end to
+end, the five men each in his own clothes, named and armed, home after the win; a champion named from his list with his title on his card;
+the page threw nothing), the eight plants caught. The page check asks the page's own dealer (slices/bohemia_job_danger.js rollInto, the same
+seed on the same encounter name) which of 120 encounters that day carries the man, then meets that one: the first runs retried one name four
+times and met the same band four times.
