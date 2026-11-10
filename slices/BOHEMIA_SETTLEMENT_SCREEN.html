@@ -1782,13 +1782,20 @@ function buildSheet(body, acts, line){
     if(pl){ var dk = body.querySelector('.hdesk'), cl = document.createElement('button'); cl.type = 'button'; cl.textContent = 'CLEAR ' + (pk + 1); cl.dataset.home = 'clear';
       cl.setAttribute('aria-label', 'clear lot ' + (pk + 1) + ': it comes down, nothing back'); cl.addEventListener('click', function(){ homeClear(pk); S.homePick = null; openB('build'); }); if(dk) dk.appendChild(cl); } }   /* in the desk row: the sheet stays under half the glass (402) */   /* the speaker first (the sheet's close sits by her), then the plan, then the desk */
   list.forEach(function(e){
-    acts.appendChild(act(e.name, '1 battery  ' + buildDoes(e), function(){
+    var hrow = (S.home && S.home.planted && S.home.builds) ? S.home.builds[e.id] : null;   /* __WHAT_HE_BUILDS__: his place's own costs and gives */
+    var short = hrow ? homeShort(hrow) : null;
+    var row = act(e.name, hrow ? homeCostLine(hrow) : '1 battery  ' + buildDoes(e), function(){
       var lot = buildFreeLot(); if(!lot) return openB('build', 'Every lot here has something on it.');
+      if(hrow){ var HM = homeMap(), pg = HM ? HM.payGoods(e.id) : { ok: false };   /* the goods first, out of the company's supplies */
+        if(!pg.ok) return openB('build', 'Not enough ' + Object.keys(pg.need || {}).join(' or ') + ' for that. ' + homeNeedLine(pg.need) + '.');
+        for(var gk in (hrow.cost || {})) S.home.supplies[gk] = (S.home.supplies[gk] | 0) - (hrow.cost[gk] | 0); }
       var r = LB.start(b.site, S.purse, lot, e.id, buildDay(), hold);
       if(!r.ok) return openB('build', BUILD_NO[r.why] || 'It will not go up.');
       buildSave(); post('build', {id:e.id, lot:lot, day:buildDay()}); shelf();
       heard('The ' + e.name.toLowerCase() + ' goes up. It stands tomorrow.'); openB('build', 'It goes up tonight. Tomorrow it stands.');
-    }, !free || !e.affordable));
+    }, !free || !e.affordable || !!short);
+    if(hrow){ row.dataset.build = e.id; if(short) row.dataset.short = Object.keys(short).join(','); }
+    acts.appendChild(row);
   });
   var sl = document.createElement('div'); sl.className = 'slots';
   var up = [], going = [];
@@ -1809,7 +1816,10 @@ window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type 
 function homeDesk(body){
   var H = S.home, B = H.bill || {}, d = document.createElement('div'); d.className = 'hdesk';
   var c1 = document.createElement('div'); c1.innerHTML = '<b>A NIGHT</b>-' + (B.due|0) + ' batteries';
-  var c2 = document.createElement('div'); c2.innerHTML = '<b>LIVING HERE</b>' + H.residents.length + (H.residents.length ? ': ' + H.residents.slice(0, 3).map(function(r){ return String(r.name).replace(/[<>&]/g, ''); }).join(', ') + (H.residents.length > 3 ? '...' : '') : ' yet');
+  var wk = H.workers || {}, wname = {}; for(var wkk in wk) wname[wk[wkk]] = wkk;
+  var c2 = document.createElement('div'); c2.innerHTML = '<b>LIVING HERE</b>' + H.residents.length + (H.residents.length ? ': ' + H.residents.slice(0, 2).map(function(r){ var at = wname[r.name], L = at ? (buildState().site || {lots:{}}).lots[at] : null;
+      return String(r.name).replace(/[<>&]/g, '') + (L ? ' (' + String(L.id).toUpperCase() + ')' : ''); }).join(', ') + (H.residents.length > 2 ? '...' : '') : ' yet');   /* who works what */
+  if(H.morning && H.morning.gave && Object.keys(H.morning.gave).length) c1.innerHTML += '<br>+' + homeGoodsWords(H.morning.gave).toLowerCase() + ' a day';
   var nm = document.createElement('button'); nm.type = 'button'; nm.textContent = 'NAME IT'; nm.setAttribute('aria-label', 'name your place');
   nm.addEventListener('click', function(){ var w = document.createElement('div'); w.className = 'hname'; var i = document.createElement('input'); i.maxLength = 22; i.value = H.name || ''; i.setAttribute('aria-label', 'your place\'s name');
     var ok = document.createElement('button'); ok.type = 'button'; ok.textContent = 'OK'; ok.className = 'act'; ok.style.minHeight = '44px';
@@ -1888,6 +1898,13 @@ function homeClear(i){
   delete b.site.lots[i+',0']; buildSave(); post('build_clear', {lot:{x:i, y:0}, id:L.id});
   heard('The ' + String(nm).toLowerCase() + ' comes down. The lot is bare again.'); return true;
 }
+/* WHAT EACH BUILD COSTS AND GIVES AT HIS PLACE (records/target/bb/home_base.json builds, the map's numbers) */
+function homeMap(){ try{ var w = window.parent; return (w && w !== window && w.BohemiaHomeMap) ? w.BohemiaHomeMap : null; }catch(e){ return null; } }
+function homeGoodsWords(o){ return Object.keys(o || {}).map(function(k){ return (o[k] | 0) + ' ' + String(k).toUpperCase(); }).join(' '); }
+function homeCostLine(row){ var c = '1 BATTERY' + (row.cost ? ' ' + homeGoodsWords(row.cost) : ''), g = row.gives ? '+' + homeGoodsWords(row.gives) + '/DAY' : String(row.line || '').toUpperCase();
+  return c + '  ' + g; }
+function homeShort(row){ var sp = (S.home && S.home.supplies) || {}, out = null; for(var k in (row.cost || {})) if((sp[k] | 0) < (row.cost[k] | 0)){ out = out || {}; out[k] = row.cost[k]; } return out; }
+function homeNeedLine(need){ return 'It needs ' + homeGoodsWords(need).toLowerCase(); }
 /* ==== /__HOME_BASE__ ==== */
 /* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
 function drawBuilt(s){

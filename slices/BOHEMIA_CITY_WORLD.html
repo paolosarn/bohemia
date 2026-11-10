@@ -94658,7 +94658,8 @@ function homeDay(){ try { return DAY.day | 0; } catch (_e) { return 0; } }
 /* the place remembers (rule 412): what went up since the last look is written into its story once */
 function homeSeeBuilt(){ var r = homeRec(); if (!r || !r.planted) return 0; var n = 0; r.lotsSeen = r.lotsSeen || {};
   try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) { var L = bk.lots[k]; if (L.done && !r.lotsSeen[k + ':' + L.id]) { r.lotsSeen[k + ':' + L.id] = 1;
-    var nm = ((BohemiaLotBuild.markerOf(L.id) || {}).name) || L.id; BohemiaHome.note(r, { kind: 'built', what: nm, day: L.doneDay != null ? L.doneDay : homeDay(), act: homeAct() }); n++; } } } catch (_e) {}
+    var nm = ((BohemiaLotBuild.markerOf(L.id) || {}).name) || L.id; BohemiaHome.note(r, { kind: 'built', what: nm, day: L.doneDay != null ? L.doneDay : homeDay(), act: homeAct() }); n++;
+    var row = homeBuildRow(L.id); if (row && row.family) { var fam = homeFamilyFor(L); if (fam) BohemiaHome.addResident(r, { name: fam, why: 'roof', day: homeDay(), act: homeAct() }); } } } } catch (_e) {}
   if (n) homeSave(); return n; }
 function homePlanted(){ var r = homeRec(); return !!(r && r.planted); }
 /* (c) the planted block stands in for his outfit's seat: copies, never the baked or seeded objects themselves */
@@ -94721,14 +94722,6 @@ function homeProbe(x, y){
   return { district: t.district, near: near, town: town, boss: boss };
 }
 var HOME_DIRS = ['EAST', 'SOUTH-EAST', 'SOUTH', 'SOUTH-WEST', 'WEST', 'NORTH-WEST', 'NORTH', 'NORTH-EAST'];
-function homeBetter(x, y){
-  var list = [], R = 6;
-  for (var dy = -R; dy <= R; dy++) for (var dx = -R; dx <= R; dx++) { if (!dx && !dy) continue;
-    var p = homeProbe(x + dx, y + dy); if (p) list.push({ x: x + dx, y: y + dy, d: Math.max(Math.abs(dx), Math.abs(dy)), probe: p }); }
-  var b = BohemiaHome.best(list); if (!b) return null;
-  var a = Math.atan2(b.y - y, b.x - x), i = ((Math.round(a / (Math.PI / 4)) % 8) + 8) % 8;
-  return { x: b.x, y: b.y, d: b.d, g: b.g, dir: HOME_DIRS[i] };
-}
 /* the phone's band: PLANT is offered on the map, unplanted, from the data's first day, never in a town, a fight or camp */
 function homeOffer(){
   var D = HOME.data, r = homeRec(); if (!D || !r || r.planted) return false;
@@ -94752,8 +94745,8 @@ function homeState(){
   var r = homeRec(), D = HOME.data; if (!r || !D) return null;
   var here = null, better = null, x = 0, y = 0; try { x = city.x | 0; y = city.y | 0; } catch (_e) {}
   if (!r.planted) { var hk = x + ',' + y;   /* measured once per block he stands on, not per frame */
-    if (!HOME.here || HOME.here.k !== hk) { var p = homeProbe(x, y), hg = p ? BohemiaHome.grade(p) : null;
-      HOME.here = { k: hk, here: { x: x, y: y, g: hg }, better: (hg && (!hg.ok || hg.score < 9)) ? homeBetter(x, y) : null }; }
+    if (!HOME.here || HOME.here.k !== hk) { var ch = homeChoose(x, y), hg = ch ? ch.g : null;   /* row 549: the block he stands on or the one beside it */
+      HOME.here = { k: hk, here: ch ? { x: ch.x, y: ch.y, g: hg, side: ch.side } : { x: x, y: y, g: null }, better: (hg && (!hg.ok || hg.score < 9)) ? homeBetter(x, y) : null }; }
     here = HOME.here.here; better = HOME.here.better; }
   try { homeSeeBuilt(); } catch (_e) {}
   r.lastAct = homeAct(); r.lastDay = homeDay();
@@ -94761,13 +94754,13 @@ function homeState(){
   return { planted: !!r.planted, at: r.planted ? [r.planted.x, r.planted.y] : null, day: r.planted ? r.planted.day : null, name: BohemiaHome.nameOf(r),
            offer: homeOffer(), here: here, better: better, bill: B, prizes: homePrizes(),
            residents: r.residents.map(function(p){ return { name: p.name, look: p.look, why: p.why, day: p.day, says: BohemiaHome.tell(r, p.name, actNow, dayNow) }; }),
-           act: actNow, story: (r.story || []).slice(-8),
+           act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null };
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
 function homePlant(){
   var r = homeRec(); if (!r || !HOME.data) return { ok: false, why: 'NOT_READY' };
-  var x = city.x | 0, y = city.y | 0, g = BohemiaHome.grade(homeProbe(x, y)), day = 0; try { day = DAY.day | 0; } catch (_e) {}
+  var ch = homeChoose(city.x | 0, city.y | 0), x = ch ? ch.x : city.x | 0, y = ch ? ch.y : city.y | 0, g = ch ? ch.g : null, day = 0; try { day = DAY.day | 0; } catch (_e) {}   /* row 549: the block beside him, if that is the best */
   if (g) g.act = homeAct();
   var res = BohemiaHome.plant(r, { x: x, y: y }, day, g); if (!res.ok) return res;
   homeSave(); HOME.cache = null; HOME.seatCache = null;
@@ -94826,6 +94819,83 @@ function homeLabel(){ var r = homeRec(); return r && HOME.data ? BohemiaHome.nam
 })();
 window.addEventListener('message', function(e){ var d = e.data || {};
   if (d.type === 'BOHEMIA_HOME_RENAME') { homeRename(d.name); try { LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_HOME', home: homeState(), plan: HOME.data && HOME.data.plan }, '*'); } catch (_e) {} } });
+/* ==== __WHAT_HE_BUILDS__ (HOME BASE 11/10, rule 443(f), rule 343, rule 441; and EYES row 549) ====
+   ROW 549, MEASURED BY EYES: 940 of 1,139 plantable blocks could never be stood on (a suburb block is not walkable; the crew stands on
+   the street beside it), so GO THERE parked him beside the block for ever. Measured again here: 1,293 plantable, 182 walkable, 1,173
+   with walkable ground beside them. NOW he plants the best block he stands on OR beside (a real settlement fronts its street), and
+   BETTER / GO THERE walk him to the street beside the block, searched out to twelve, so it points somewhere.
+   THE BUILDS, MEASURED: the garden, tank, pump and shed paid one 'resources' a day into a purse currency no screen shows while their
+   lines said food, water, tape. NOW, at his place, each build costs its goods out of the company's supplies (the top bar's counts,
+   bohemia.supplies.v1) beside lotbuild's battery, and every morning it stands it gives its goods into those supplies; each person
+   who lives there works one build in lot order and a worked build gives more; a roof finished brings a family to live there.
+   Every number in records/target/bb/home_base.json builds. Words draft:true. */
+var HOME_SIDES = { '1,0': 'EAST OF YOU', '-1,0': 'WEST OF YOU', '0,1': 'SOUTH OF YOU', '0,-1': 'NORTH OF YOU', '1,1': 'SOUTH-EAST', '-1,1': 'SOUTH-WEST', '1,-1': 'NORTH-EAST', '-1,-1': 'NORTH-WEST' };
+function homeChoose(x, y){
+  var best = null;
+  for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) {
+    var p = homeProbe(x + dx, y + dy), g = p ? BohemiaHome.grade(p) : null; if (!g) continue;
+    var c = { x: x + dx, y: y + dy, g: g, side: (dx || dy) ? HOME_SIDES[dx + ',' + dy] : null };
+    if (!best) { best = c; continue; }
+    if (g.ok && (!best.g.ok || g.score > best.g.score || (g.score === best.g.score && !dx && !dy))) best = c; }
+  return best;
+}
+function homeWalkBeside(bx, by, fx, fy){ var w = null, wd = 1e9;
+  for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var x = bx + dx, y = by + dy; try { if (!cityWalkable(x, y)) continue; } catch (_e) { continue; }
+    var d = Math.max(Math.abs(x - fx), Math.abs(y - fy)); if (d < wd) { wd = d; w = [x, y]; } }
+  return w; }
+function homeBetter(x, y){
+  var list = [], R = 12;
+  for (var dy = -R; dy <= R; dy++) for (var dx = -R; dx <= R; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) < 2) continue;
+    var bx = x + dx, by = y + dy, p = homeProbe(bx, by); if (!p) continue;
+    var w = homeWalkBeside(bx, by, x, y); if (!w) continue;   /* only ground he can reach: the block, or the street beside it */
+    list.push({ x: bx, y: by, d: Math.max(Math.abs(w[0] - x), Math.abs(w[1] - y)), probe: p, walk: w }); }
+  var b = BohemiaHome.best(list); if (!b) return null;
+  var a = Math.atan2(b.y - y, b.x - x), i = ((Math.round(a / (Math.PI / 4)) % 8) + 8) % 8;
+  return { x: b.walk[0], y: b.walk[1], block: [b.x, b.y], d: b.d, g: b.g, dir: HOME_DIRS[i] };
+}
+function homeBuildRow(id){ var B = HOME.data && HOME.data.builds; return B && B[id] ? B[id] : null; }
+function homeSupplies(){ try { return wagonGet() || {}; } catch (_e) { return {}; } }
+/* the goods a build at his place costs, out of the company's supplies; refused whole when short */
+function homePayGoods(id){
+  var row = homeBuildRow(id); if (!row || !row.cost) return { ok: true, paid: {} };
+  var w = wagonGet() || {}, need = {};
+  for (var k in row.cost) if ((w[k] | 0) < (row.cost[k] | 0)) need[k] = row.cost[k] | 0;
+  if (Object.keys(need).length) return { ok: false, need: need };
+  for (var k2 in row.cost) w[k2] = (w[k2] | 0) - (row.cost[k2] | 0);
+  wagonPut(w); try { if (typeof window.__barPaintRead === 'function') window.__barPaintRead(); } catch (_e) {}
+  window.__HOME_PAID = { id: id, paid: row.cost };
+  return { ok: true, paid: row.cost };
+}
+/* who works what: the people who live there, in the order they came, each to the next standing build that makes something */
+function homeWorkers(){
+  var r = homeRec(), out = {}; if (!r || !r.planted) return out;
+  var bk = null; try { bk = LOT_BOOK[homeMine()]; } catch (_e) {} if (!bk) return out;
+  var keys = Object.keys(bk.lots).sort(function(a, b){ return (parseInt(a, 10) | 0) - (parseInt(b, 10) | 0); }), i = 0;
+  keys.forEach(function(k){ var L = bk.lots[k], row = homeBuildRow(L.id); if (!L.done || !row || !row.worked) return;
+    var p = r.residents[i++]; if (p) out[k] = p.name; });
+  return out;
+}
+/* the morning: what stands at his place gives, into the company's supplies (and a worked solar panel, a battery) */
+function homeMorning(){
+  var r = homeRec(); if (!r || !r.planted || !HOME.data) return null;
+  var bk = null; try { bk = LOT_BOOK[homeMine()]; } catch (_e) {} if (!bk) return null;
+  var day = homeDay(); if (r.lastMorning && r.lastMorning.day === day) return r.lastMorning;
+  var wk = homeWorkers(), gave = {}, w = wagonGet() || {}, bats = 0;
+  for (var k in bk.lots) { var L = bk.lots[k], row = homeBuildRow(L.id); if (!L.done || !row) continue;
+    [row.gives, wk[k] ? row.worked : null].forEach(function(g){ if (!g) return; for (var q in g) { if (q === 'batteries') bats += g[q] | 0; else { w[q] = (w[q] | 0) + (g[q] | 0); } gave[q] = (gave[q] | 0) + (g[q] | 0); } }); }
+  wagonPut(w);
+  if (bats > 0) { try { BohemiaPurse.credit(purseGet(), 'electricity', bats, 'your place: worked panels', 'home-morning:' + day, day); } catch (_e) {} }
+  r.lastMorning = { day: day, gave: gave }; homeSave(); window.__HOME_MORNING = r.lastMorning;
+  var words = Object.keys(gave).map(function(q){ return gave[q] + ' ' + (q === 'batteries' ? 'batteries' : q); });
+  if (words.length) { try { if (window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(BohemiaHome.nameOf(r)).toLowerCase().replace(/[^a-z]/g, ''), txt: 'This morning we put by ' + words.join(', ') + '.', kind: 'mine', draft: true }); } catch (_e) {} }
+  try { if (typeof window.__barPaintRead === 'function') window.__barPaintRead(); } catch (_e) {}
+  return r.lastMorning;
+}
+(function(){ var lw = lotWake; lotWake = function(){ var out = lw.apply(this, arguments); try { homeSeeBuilt(); homeMorning(); } catch (_e) {} return out; }; })();
+/* a roof finished brings a family to live there */
+function homeFamilyFor(L){ var r = homeRec(), F = (HOME.data && HOME.data.builds && HOME.data.builds.families) || [];
+  var used = {}; r.residents.forEach(function(p){ used[p.name] = 1; });
+  for (var i = 0; i < F.length; i++) if (!used[F[i]]) return F[i]; return null; }
 /* for checkers only (the game plants through plant(), graded): the seed's own seat for his outfit, and planting at a given block */
 function homeRawSeat(){ try { var b = HOME.rawBases(), m = homeMine(); return b && b[m] ? { x: b[m].x | 0, y: b[m].y | 0 } : null; } catch (_e) { return null; } }
 function homePlantAt(x, y){ var cx = city.x, cy = city.y; city.x = x | 0; city.y = y | 0; var r = homeRec(), g = BohemiaHome.grade(homeProbe(x, y));
@@ -94834,7 +94904,7 @@ function homePlantAt(x, y){ var cx = city.x, cy = city.y; city.x = x | 0; city.y
       try { var HB = BohemiaHomeBases, hr = hbRec(); if (HB.heldBy(hr, homeMine(), hr.act) !== HB.YOU) HB.took(hr, { base: homeMine(), to: HB.YOU, day: homeDay(), by: 'deal', why: 'planted' }); } catch (_e) {}
       try { TURF_MAP_KEY = null; VBC.checked = 0; } catch (_e) {} } city.x = cx; city.y = cy; return res; } } catch (_e) {}
   var out = homePlant(); city.x = cx; city.y = cy; return out; }
-window.BohemiaHomeMap = { state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
+window.BohemiaHomeMap = { state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

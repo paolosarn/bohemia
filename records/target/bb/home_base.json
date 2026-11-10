@@ -172,5 +172,106 @@
       "moved_in": "{name} moved in on day {day}. Ask {name} why, not me.",
       "short": "Night {day} the batteries ran out. We sat in the dark and nobody left."
     }
+  },
+  "builds": {
+    "_about": "WHAT HE BUILDS AT HIS PLACE AND WHY IT MATTERS (rule 343: it changes because of him; rule 441: whole). Every build at his place costs the one battery and the day engine/bohemia_lotbuild.js already charges PLUS the goods below out of the company's supplies (the top bar's own counts, bohemia.supplies.v1), and every morning it stands it puts what it gives into those same supplies, so the top bar moves; a person who lives there works one build each, in lot order, and a worked build gives its 'worked' more. MEASURED FIRST (11/10, the demo): the garden, the tank, the pump and the shed paid one 'resources' a day, a purse currency no screen shows, while their lines said '+1 food/day', '+1 water/day', '+1 tape/day'. Food and water are one count (rule 209). Every number a default HOME BASE set, TUNING's to change; words draft:true.",
+    "wall": {
+      "cost": {
+        "tape": 2
+      },
+      "gives": null,
+      "worked": null,
+      "line": "keeps the hogs out"
+    },
+    "tank": {
+      "cost": {
+        "tape": 2
+      },
+      "gives": {
+        "food": 1
+      },
+      "worked": {
+        "food": 1
+      },
+      "line": "water, caught and kept"
+    },
+    "shed": {
+      "cost": {
+        "tape": 3
+      },
+      "gives": {
+        "tape": 1
+      },
+      "worked": {
+        "tape": 1
+      },
+      "line": "what you drag home, mended"
+    },
+    "pump": {
+      "cost": {
+        "tape": 3
+      },
+      "gives": {
+        "food": 1
+      },
+      "worked": {
+        "food": 1
+      },
+      "line": "water, lifted"
+    },
+    "garden": {
+      "cost": {
+        "tape": 1
+      },
+      "gives": {
+        "food": 1
+      },
+      "worked": {
+        "food": 1
+      },
+      "line": "food, slowly"
+    },
+    "solar": {
+      "cost": {
+        "tape": 4
+      },
+      "gives": null,
+      "worked": {
+        "batteries": 1
+      },
+      "line": "a battery a day off the sun",
+      "_note": "the battery itself is lotbuild's (POWER); a hand on it cleans the panel for one more"
+    },
+    "stall": {
+      "cost": {
+        "tape": 2
+      },
+      "gives": null,
+      "worked": {
+        "food": 1
+      },
+      "line": "people know your name",
+      "_note": "its clout is lotbuild's; a hand at it trades for food"
+    },
+    "roof": {
+      "cost": {
+        "tape": 4
+      },
+      "gives": null,
+      "worked": null,
+      "family": true,
+      "line": "a family moves in",
+      "_note": "a roof finished brings a family to live there (a resident), who works the next build"
+    },
+    "families": [
+      "THE ORTIZ FAMILY",
+      "THE NGUYEN FAMILY",
+      "THE BAKERS",
+      "THE SALCEDOS",
+      "THE YAZZIES",
+      "THE KOWALSKIS",
+      "THE OKAFORS",
+      "THE LUNAS"
+    ]
   }
 }

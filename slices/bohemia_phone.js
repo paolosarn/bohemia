@@ -1235,6 +1235,7 @@
     if (!hs.planted) {
       var g = hs.here && hs.here.g;
       h += '<div class="hd">THIS GROUND' + (g && g.district ? ' &middot; ' + esc(String(g.district).toUpperCase()) : '') + '</div>';
+      if (hs.here && hs.here.side) h += '<div class="ln">THE BLOCK ' + esc(hs.here.side) + '</div>';   /* __HOME_BASE__ row 549: he plants the block beside the street he stands on */
       if (g) [['water', 'WATER'], ['power', 'POWER'], ['road', 'ROAD'], ['danger', 'DANGER']].forEach(function (m) {
         h += '<div class="mk' + (m[0] === 'danger' ? ' dg' : '') + '"><b>' + m[1] + '</b><s>' + homeMarks(g[m[0]]) + '</s></div>'; });
       var why = { ground: 'Nothing stands here. Find open ground.', on_road: 'This is the road. Nobody builds where the trucks go through.',   /* draft:true, FIXES 11/10 (row 553): the reason true */

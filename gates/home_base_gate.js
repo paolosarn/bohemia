@@ -34,6 +34,12 @@
      D9  (round two, rule 440(d)) the people who moved in STAND in his place and a tap on one opens her face and a line of the
          place's story, LIVES HERE; the BUILD door is never under one of them; planted: the residents taken off the message, none stands
      D10 he picks the lot on the plan and the next build goes on it; CLEAR on the desk takes it down; the sheet stays under half the glass
+     D12 (row 549) BETTER / GO THERE points at a street he can stand on beside a block that can be planted, from where nothing can
+         be; planted: a target that is not walkable is caught
+     D13 EACH BUILD WHOLE at his place (rule 443(f)): its row says its battery and goods and what it gives; building it takes the goods
+         out of the company's supplies (the top bar's counts); a build short of its goods is greyed; the morning puts what stands into
+         the supplies (planted: the morning hook taken out gives nothing, caught); a resident works one and it gives more; a roof
+         finished brings a family to live there
      D11 ONLY THE PLANTED PLACE IS HIS (rule 442(c), his YES: 'The only place that will be mine on the map is where we decide the custom
          settlement is, that's it'): a fresh game, before planting, has NO place of his (his outfit's camp not on the map, not in the
          ledger, not named on it, no base answers his); a boss's fall handing him the nearest town is refused by the ledger; after
@@ -128,11 +134,14 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     const b1 = await box(P, '#bohphone .bpctx .pl');
     ok('D1 day ' + d1.day + ' where he wakes: no PLANT on the phone, unplanted, his camp reads ' + d1.label, d1.day <= 1 && !d1.offer && !b1 && !d1.planted && d1.label === 'YOUR CAMP', JSON.stringify(d1));
     /* a block that can take it, near him, that he can stand on */
-    const spot = await F.evaluate(() => { try { loopClose(); } catch (e) {} const x0 = city.x, y0 = city.y; let best = null;
+    const spot = await F.evaluate(() => { try { loopClose(); } catch (e) {} const x0 = city.x, y0 = city.y; let best = null, blk = null;
       for (let r = 2; r < 24 && !best; r++) for (let dy = -r; dy <= r && !best; dy++) for (let dx = -r; dx <= r; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
-        const g = BohemiaHome.grade(BohemiaHomeMap.probe(x0 + dx, y0 + dy)); if (g && g.ok && cityWalkable(x0 + dx, y0 + dy)) { best = [x0 + dx, y0 + dy, g.water, g.road]; break; } }
-      const bad = (function () { for (let r = 0; r < 30; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const c = om.at(x0 + dx, y0 + dy); if (c && c.district === 'arterial') return [x0 + dx, y0 + dy]; } return null; })();
-      city.x = bad[0]; city.y = bad[1]; try { render(); } catch (e) {} return { best, bad }; });
+        /* row 549: he stands on the STREET (walkable, not itself a place) and the block beside it is the place */
+        const x = x0 + dx, y = y0 + dy; if (!cityWalkable(x, y)) continue; const own = BohemiaHome.grade(BohemiaHomeMap.probe(x, y)); if (own && own.ok) continue;
+        const ch = BohemiaHomeMap.choose(x, y); if (ch && ch.g && ch.g.ok && ch.side) { best = [x, y, ch.g.water, ch.g.road]; blk = [ch.x, ch.y, ch.side]; break; } }
+      const bad = (function () { for (let r = 0; r < 40; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const x = x0 + dx, y = y0 + dy; if (!cityWalkable(x, y)) continue;
+        const ch = BohemiaHomeMap.choose(x, y); if (ch && ch.g && !ch.g.ok) return [x, y]; } return null; })();
+      city.x = bad[0]; city.y = bad[1]; try { render(); } catch (e) {} return { best, bad, blk }; });
     await P.waitForTimeout(900);
     const b1m = await box(P, '#bohphone .bpctx .pl');
     ok('D1 day 1 on the map: still no PLANT (never in the first minute)', !b1m);
@@ -147,10 +156,17 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     ok('D2 day 2 on the map: PLANT on the glass in the band, the finger lands on it', !!b2 && b2.hit && b2.on, JSON.stringify(b2));
     if (b2) await P.touchscreen.tap(b2.x, b2.y); await P.waitForTimeout(1100);
     const t3 = await phoneText(P), pb3 = await box(P, '#bohphone .hb button[data-h="plant"]');
-    ok('D3 on a road (arterial): the page grades it and PLANT HERE is off, NOT HERE said', /WATER/.test(t3) && /POWER/.test(t3) && /ROAD/.test(t3) && /DANGER/.test(t3) && pb3 && pb3.dis && /NOT HERE/.test(t3), t3.replace(/\n/g, ' '));
+    ok('D3 on ground he can stand on with nothing to plant on it or beside it: the page grades it and PLANT HERE is off, NOT HERE said', /WATER/.test(t3) && /POWER/.test(t3) && /ROAD/.test(t3) && /DANGER/.test(t3) && pb3 && pb3.dis && /NOT HERE/.test(t3), t3.replace(/\n/g, ' '));
+    const b12 = await F.evaluate(() => { const st = BohemiaHomeMap.state(), b = st.better; if (!b) return { none: true };
+      const ch = BohemiaHomeMap.choose(b.x, b.y); return { b, walk: cityWalkable(b.x, b.y), ok: !!(ch && ch.g && ch.g.ok), planted: ch ? [ch.x, ch.y] : null }; });
+    ok('D12 (row 549) from where nothing can be planted, BETTER points ' + (b12.b ? b12.b.d + ' ' + b12.b.dir : 'nowhere') + ' at a street he can stand on, and from there PLANT HERE works', !b12.none && b12.walk && b12.ok, JSON.stringify(b12));
+    /* planted: the leg's own test aimed at the OLD target (a plantable block he cannot stand on, what GO THERE used to park beside) */
+    const m12 = await F.evaluate(() => { for (let y = 0; y < om.n; y++) for (let x = 0; x < om.n; x++) { const g = BohemiaHome.grade(BohemiaHomeMap.probe(x, y));
+      if (g && g.ok && !cityWalkable(x, y)) { const ch = BohemiaHomeMap.choose(x, y); return { at: [x, y], pass: cityWalkable(x, y) && !!(ch && ch.g && ch.g.ok) }; } } return null; });
+    ok('D12 planted: the same test aimed at a plantable block he cannot stand on (' + (m12 && m12.at) + ', the old target) is red', !!m12 && m12.pass === false, JSON.stringify(m12));
     await F.evaluate(s => { city.x = s[0]; city.y = s[1]; try { render(); } catch (e) {} }, spot.best); await P.waitForTimeout(1500);
     const t3b = await phoneText(P), pb3b = await box(P, '#bohphone .hb button[data-h="plant"]');
-    ok('D3 on open ground with water ' + spot.best[2] + ' and road ' + spot.best[3] + ': PLANT HERE is on', !!pb3b && !pb3b.dis && pb3b.hit, t3b.replace(/\n/g, ' '));
+    ok('D3 (row 549) on the street beside a block with water ' + spot.best[2] + ' and road ' + spot.best[3] + ': THE BLOCK ' + spot.blk[2] + ', PLANT HERE is on', !!pb3b && !pb3b.dis && pb3b.hit && /THE BLOCK/.test(t3b), t3b.replace(/\n/g, ' '));
     await P.touchscreen.tap(pb3b.x, pb3b.y); await P.waitForTimeout(800);
     const t4 = await phoneText(P), no = await box(P, '#bohphone .hb button[data-h="no"]');
     ok('D4 it asks: Are you sure? This is permanent.', /Are you sure\? This is permanent\./.test(t4) && !!no, t4.replace(/\n/g, ' '));
@@ -161,16 +177,16 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     const a5 = await F.evaluate(s => { const bs = ctBases(), m = BohemiaBetween.mine(), seat = (turfSeats() || []).filter(x => x.faction === m)[0];
       const f = townFoot({ name: m, x: s[0], y: s[1] });
       return { st: BohemiaHomeMap.state(), base: [bs[m].x, bs[m].y], seat: seat ? [seat.x, seat.y] : null, key: VB_TOWNS.key || '', foot: f.x0 + ',' + f.y0 + ',' + f.n,
-               again: BohemiaHome.plant(BohemiaHomeMap.rec(), { x: 3, y: 3 }, 9).why, saved: JSON.parse(localStorage.getItem('bohemia.home.v1') || '{}').planted }; }, spot.best);
+               again: BohemiaHome.plant(BohemiaHomeMap.rec(), { x: 3, y: 3 }, 9).why, saved: JSON.parse(localStorage.getItem('bohemia.home.v1') || '{}').planted }; }, spot.blk);
     await P.waitForTimeout(6000);
     await F.evaluate(() => { try { render(); } catch (e) {} }); await P.waitForTimeout(600);
     const plates = await F.evaluate(() => (window.__MAP_PLATE_NAMES || []).filter(Boolean));
-    ok('D5 planted at ' + spot.best.slice(0, 2) + ': his outfit\'s seat IS the block (bases ' + a5.base + ', seat ' + a5.seat + ')', a5.st.planted && a5.base[0] === spot.best[0] && a5.base[1] === spot.best[1] && a5.seat && a5.seat[0] === spot.best[0], JSON.stringify(a5).slice(0, 300));
+    ok('D5 planted the block ' + spot.blk[2] + ', ' + spot.blk.slice(0, 2) + ': his outfit\'s seat IS the block (bases ' + a5.base + ', seat ' + a5.seat + ')', a5.st.planted && a5.base[0] === spot.blk[0] && a5.base[1] === spot.blk[1] && a5.seat && a5.seat[0] === spot.blk[0], JSON.stringify(a5).slice(0, 300));
     ok('D5 the painter is handed his place\'s foot (' + a5.foot + ' in the key)', (await F.evaluate(() => VB_TOWNS.key || '')).indexOf(a5.foot) >= 0);
     ok('D5 the map names it his (' + a5.st.name + '), never CUSTOM', plates.indexOf(a5.st.name) >= 0 && plates.indexOf('CUSTOM') < 0, plates.join('|'));
-    ok('D5 PLANT is gone; a second planting is refused ' + a5.again + '; the save holds it', !(await box(P, '#bohphone .bpctx .pl')) && a5.again === 'PERMANENT' && a5.saved && a5.saved.x === spot.best[0]);
+    ok('D5 PLANT is gone; a second planting is refused ' + a5.again + '; the save holds it', !(await box(P, '#bohphone .bpctx .pl')) && a5.again === 'PERMANENT' && a5.saved && a5.saved.x === spot.blk[0]);
     const h5 = await F.evaluate(HIS);
-    ok('D11 after planting: EXACTLY ONE place of his, the planted block (' + h5.mine.join(',') + ' at ' + h5.at + '; the ledger ' + h5.ledger.length + ')', h5.onMap && h5.mine.length === 1 && h5.ledger.length === 1 && h5.at[0] === spot.best[0] && h5.at[1] === spot.best[1], JSON.stringify(h5));
+    ok('D11 after planting: EXACTLY ONE place of his, the planted block (' + h5.mine.join(',') + ' at ' + h5.at + '; the ledger ' + h5.ledger.length + ')', h5.onMap && h5.mine.length === 1 && h5.ledger.length === 1 && h5.at[0] === spot.blk[0] && h5.at[1] === spot.blk[1], JSON.stringify(h5));
     /* D6 the night */
     const n6 = await F.evaluate(() => { const before = loopBats(), b = BohemiaHomeMap.state().bill.due; const r = BohemiaHomeMap.billNight(); return { before, after: loopBats(), due: b, r }; });
     ok('D6 the night bills his place from the purse (' + n6.before + ' -> ' + n6.after + ', due ' + n6.due + ')', n6.before - n6.after === n6.due && n6.due > 0, JSON.stringify(n6));
@@ -231,6 +247,35 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       if (clr) await P.touchscreen.tap(fb.x + clr[0], fb.y + clr[1]); await P.waitForTimeout(900);
       const lots10b = await F.evaluate(() => Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots));
       ok('D10 CLEAR took it down (' + (lots10b.join(' ') || 'nothing') + ')', lots10b.indexOf('2,0') < 0);
+      /* D13 each build whole */
+      const rows13 = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build]')].map(b => ({ id: b.dataset.build, t: b.textContent, off: b.disabled })));
+      const g13 = rows13.filter(r => r.id === 'garden')[0];
+      ok('D13 his place\'s rows say their battery, their goods and what they give (' + (g13 && g13.t) + ')', rows13.length >= 8 && g13 && /1 BATTERY/.test(g13.t) && /TAPE/.test(g13.t) && /\+1 FOOD\/DAY/.test(g13.t), JSON.stringify(rows13).slice(0, 300));
+      const before13 = await F.evaluate(() => (wagonGet() || {}).tape | 0);
+      await fr.evaluate(() => { const b = document.querySelector('#sbody .act[data-build="garden"]'); if (b && !b.disabled) b.click(); }); await P.waitForTimeout(1200);
+      const after13 = await F.evaluate(() => ({ tape: (wagonGet() || {}).tape | 0, cost: BohemiaHome.data().builds.garden.cost.tape, lots: Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots) }));
+      ok('D13 the garden went up and its tape came out of the company\'s supplies (' + before13 + ' -> ' + after13.tape + ')', before13 - after13.tape === after13.cost && after13.lots.length >= 1, JSON.stringify(after13));
+      const short13 = await F.evaluate(() => { const w = wagonGet() || {}; w.tape = 0; wagonPut(w); return true; });
+      await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); }); await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500);
+      for (let t = 0; t < 3; t++) { const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (w) await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
+        let up = false; for (let i = 0; i < 20 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => !!document.querySelector('#sbody .act[data-build]')); } if (up) break; }
+      const offs = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build]')].map(b => [b.dataset.build, b.disabled, b.dataset.short || '']));
+      ok('D13 with no tape in the supplies every build that needs tape is greyed (' + offs.filter(o => o[1]).length + ' of ' + offs.length + ')', offs.length >= 8 && offs.every(o => o[1] && /tape/.test(o[2])), JSON.stringify(offs));
+      const m13 = await F.evaluate(() => { const w = wagonGet() || {}; w.tape = 20; wagonPut(w); const r = BohemiaHomeMap.rec(), bk = LOT_BOOK[BohemiaBetween.mine()];
+        for (const k in bk.lots) bk.lots[k].done = true;   /* what went up stands */
+        const f0 = (wagonGet() || {}).food | 0; DAY.day = DAY.day + 1; lotWake(); const f1 = (wagonGet() || {}).food | 0;
+        const wk = BohemiaHomeMap.workers(), gave = (window.__HOME_MORNING || {}).gave || {};
+        /* planted: the morning hook taken out */
+        const keep = homeMorning; homeMorning = function () { return null; }; DAY.day = DAY.day + 1; const g0 = (wagonGet() || {}).food | 0; lotWake(); const g1 = (wagonGet() || {}).food | 0; homeMorning = keep;
+        /* a roof: it goes up, stands, and a family moves in */
+        const P0 = purseGet(); BohemiaPurse.credit(P0, 'electricity', 2, 'gate', 'gate', DAY.day);
+        const free = [0,1,2,3].find(i => !bk.lots[i + ',0']); const st = BohemiaLotBuild.start(bk, P0, { x: free, y: 0 }, 'roof', DAY.day, lotHoldFor(BohemiaBetween.mine()));
+        DAY.day = DAY.day + 1; lotWake(); bk.lots[free + ',0'] && (bk.lots[free + ',0'].done = true); DAY.day = DAY.day + 1; lotWake();
+        return { f0, f1, gave, wk, g0, g1, roof: st.ok, res: BohemiaHomeMap.state().residents.map(p => p.name + ':' + p.why) }; });
+      ok('D13 the morning puts what stands into the company\'s supplies (food ' + m13.f0 + ' -> ' + m13.f1 + ', gave ' + JSON.stringify(m13.gave) + ')', m13.f1 > m13.f0 && (m13.gave.food | 0) >= 1, JSON.stringify(m13));
+      ok('D13 a resident works a build and it gives more (' + JSON.stringify(m13.wk) + ')', Object.keys(m13.wk).length >= 1 && (m13.gave.food | 0) >= 2, JSON.stringify(m13));
+      ok('D13 planted: with the morning hook taken out nothing comes in (food ' + m13.g0 + ' -> ' + m13.g1 + ')', m13.g1 === m13.g0, JSON.stringify(m13));
+      ok('D13 a roof finished brings a family to live there (' + m13.res.filter(r => /roof/.test(r)).join(', ') + ')', m13.roof && m13.res.some(r => /FAMILY|THE /.test(r) && /roof/.test(r)), JSON.stringify(m13.res));
       /* D9 who moved in stands there, and talks */
       await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); }); await P.waitForTimeout(1200);
       const folk = await fr.evaluate(() => window.__HOME_FOLK_AT ? window.__HOME_FOLK_AT() : []);
@@ -256,7 +301,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       for (let i = 0; i < 40; i++) { if (await e.fr.evaluate(() => !!(window.BohemiaHome && BohemiaHome.data())).catch(() => false)) break; await e.page.waitForTimeout(250); }
       await e.fr.evaluate(() => { try { loopClose(); render(); } catch (x) {} }); await e.page.waitForTimeout(800);
       const hs = await e.fr.evaluate(HIS);
-      ok('D11 a saved game opened again: exactly one place of his, the same block (' + hs.at + ')', hs.onMap && hs.mine.length === 1 && hs.ledger.length === 1 && hs.at && hs.at[0] === spot.best[0] && hs.at[1] === spot.best[1], JSON.stringify(hs));
+      ok('D11 a saved game opened again: exactly one place of his, the same block (' + hs.at + ')', hs.onMap && hs.mine.length === 1 && hs.ledger.length === 1 && hs.at && hs.at[0] === spot.blk[0] && hs.at[1] === spot.blk[1], JSON.stringify(hs));
       const m11 = await e.fr.evaluate(() => { const H = BohemiaHomeBases, bs = ctBases(), m = BohemiaBetween.mine(), n = Object.keys(bs).filter(k => k !== m)[0];
         H.__tookRaw(hbRec(), { base: n, to: H.YOU, by: 'boss', why: 'PLANTED', day: 9 }); return n; });
       const hm = await e.fr.evaluate(HIS);

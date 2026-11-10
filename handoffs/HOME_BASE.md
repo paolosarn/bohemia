@@ -1,3 +1,18 @@
+HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10n - WHAT YOU BUILD PAYS, BUILT, NOT YET SEEN (rule 443(f), rules 343, 441;
+EYES row 549 fixed, 553 was FIXES'). Record: records/BOHEMIA_HOME_BASE_WHAT_YOU_BUILD_PAYS_11_10_26.md.
+- Map __WHAT_HE_BUILDS__: homeChoose (plant the block he stands on or beside), homeWalkBeside/homeBetter (GO THERE to the street beside a
+  plantable block, out to 12), homePayGoods (a build's goods out of bohemia.supplies.v1), homeWorkers (residents in order, one build
+  each), homeMorning (lotWake wrapped: what stands gives into the supplies, worked gives more, a feed post), a roof brings a family.
+- Town screen: his place's rows say battery + goods + gives (homeCostLine), greyed when short (data-short), goods paid first; the desk
+  says who works what and what the place gives a day. Phone: THE BLOCK <side>.
+- Data: home_base.json builds{} (cost, gives, worked, family, families[]), TUNING's numbers, draft:true.
+- Gate YOUR PLACE, PLANTED: engine 22/0, upright 64/0, sideways 62/0 (D3 re-aimed, D12 and D13 new, each with a planted fail).
+- VOTE home-base-what-you-build-pays-11-10 (STAND-IN for the pieces' look).
+- NOTE for FIXES: a second tap where BUILD stood lands on the sheet's first row (WALL) once the sheet is up.
+- Still owed of ask 356: the place's own look (the pieces stand small in the camp picture's BUILD corner; the cameras wait on his vote),
+  what each building is made of and painted, a spared boss moving in (BOSSES), the acts (DYNASTY), a raid at his place walked end to end.
+
+11/10 ROUND THREE (BUILD 11/10e, ONLY THE PLACE YOU PLANT IS YOURS), kept:
 HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10e - ONLY THE PLACE YOU PLANT IS YOURS, BUILT, NOT YET SEEN (rule 442(c), his
 YES on YOUR PLACE, PLANTED; ask line 546). Record: records/BOHEMIA_HOME_BASE_ONLY_THE_PLANTED_PLACE_11_10_26.md.
 - Before planting his outfit's seat is out of ctBases/turfSeats (nothing paints, names, colours, opens, raids or takes it); after, the

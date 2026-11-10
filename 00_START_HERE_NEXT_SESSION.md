@@ -51,13 +51,13 @@ table. Gate THE PLACES GET THEIR USE 30/0 (demo and alpha). Still open: the bus 
 greenhouse farm need a valley seat (a note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
 [bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
 [analog horror: the phone in the Hughes ranch house still rings; the line was cut before the foreman came.]
-HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10e - ONLY THE PLACE YOU PLANT IS YOURS, BUILT, NOT YET SEEN (rule 442(c),
-ask 546; after 11/9h YOUR PLACE REMEMBERS and 11/9d YOUR PLACE, PLANTED): a new game hands him no camp (his outfit's seat is off the
-map until he plants), the ledger refuses any other town being his (two bosses' falls used to give him one), after planting exactly one,
-a saved game the same. Gate YOUR PLACE, PLANTED D11. VOTE home-base-only-the-planted-place-11-10 (STAND-IN). The whole block and what is
-left of ask 356: handoffs/HOME_BASE.md.
-[bb Battle Brothers gives the company no town of its own at all; ours gives him exactly one, and only where he chose.]
-[analog horror: the block where his camp used to stand is just a block now; nobody there was ever his.]
+HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10n - WHAT YOU BUILD PAYS, BUILT, NOT YET SEEN (rule 443(f); EYES row 549):
+he plants the block beside his street (most plantable ground cannot be stood on) and GO THERE walks him to a street that works; each
+build at his place costs a battery and tape out of the supplies, gives food or tape into the top bar every morning, a resident works it
+for more, a roof brings a family. Gate YOUR PLACE, PLANTED D12, D13. VOTE home-base-what-you-build-pays-11-10 (STAND-IN). Earlier: 11/10e
+ONLY THE PLACE YOU PLANT IS YOURS, 11/9h YOUR PLACE REMEMBERS, 11/9d YOUR PLACE, PLANTED. The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers' town buildings cost crowns and sell you things; ours cost tape and give you food, and the people who live there work them.]
+[analog horror: the garden comes up whether anyone eats it; the family under the new roof waters it at night.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town
