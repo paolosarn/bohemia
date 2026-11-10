@@ -59,7 +59,7 @@
    "sex": null,
    "wears": {
     "base": "BONE HENLEY",
-    "legs": "SLATE STACK PANT",
+    "legs": "BRICK CROP TROUSER",
     "feet": "BONE STACK BOOT",
     "outer": "DUST BROWN TRENCH",
     "back": "SHOULDER MANTLE",
@@ -81,8 +81,8 @@
    "sex": "m",
    "wears": {
     "base": "OLIVE HENLEY",
-    "legs": "CHARCOAL SHORTS",
-    "feet": "SLOUCH BOOT",
+    "legs": "CROPPED WORK TROUSER",
+    "feet": "RUST BOOTS",
     "back": "GOLD SHOULDER MANTLE",
     "neck": "SAGE SCARF",
     "mid": "DUST PLAID SHIRT"
@@ -140,16 +140,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "ASH ARC SHIRT",
-   "coat": "BARN COAT",
+   "top": "BONE HENLEY",
+   "coat": "RUST WORK COAT",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "ASH ARC SHIRT",
-    "feet": "COAL COLUMN",
-    "outer": "BARN COAT",
-    "waist": "LEAD WAIST WRAP"
+    "base": "BONE HENLEY",
+    "legs": "KHAKI CARGOS",
+    "feet": "FIELD BOOTS",
+    "outer": "RUST WORK COAT",
+    "waist": "WIDE WAIST WRAP",
+    "hands": "LEATHER GLOVES"
    }
   },
   {
@@ -160,16 +162,16 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "SLATE SHORT-SLEEVE",
-   "coat": "BONE VEST",
+   "top": "KHAKI BUTTON-UP",
+   "coat": "LEATHER VEST",
    "heritage": "white",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "SLATE SHORT-SLEEVE",
+    "base": "KHAKI BUTTON-UP",
     "legs": "LEATHER STACK PANT",
     "feet": "LEATHER STACK BOOT",
-    "outer": "BONE VEST",
+    "outer": "LEATHER VEST",
     "back": "BONE SHOULDER DRAPE",
     "gear": "WORN BRACERS"
    }
@@ -182,16 +184,18 @@
    "face": null,
    "beard": "FULL BEARD",
    "mark": null,
-   "top": "COAL HOODIE",
-   "coat": "SAGE FIELD COAT",
+   "top": "SAND HOODIE",
+   "coat": "FIELD GREEN COAT",
    "heritage": "hispanic",
    "skin": "intermediate",
    "sex": "m",
    "wears": {
-    "base": "COAL HOODIE",
+    "base": "SAND HOODIE",
     "legs": "DUST BROWN TROUSERS",
-    "feet": "TALL MOTO BOOTS",
-    "outer": "SAGE FIELD COAT"
+    "feet": "BROWN BOOTS",
+    "outer": "FIELD GREEN COAT",
+    "neck": "OXBLOOD SCARF",
+    "waist": "LEATHER BELT"
    }
   },
   {
@@ -202,15 +206,18 @@
    "face": null,
    "beard": null,
    "mark": "BROKEN NOSE",
-   "top": "BLACK TANK",
-   "coat": null,
+   "top": "VESTMENT GOLD SHIRT",
+   "coat": "OXBLOOD JACKET",
    "heritage": "black",
    "skin": "brown",
    "sex": null,
    "wears": {
-    "base": "BLACK TANK",
-    "feet": "COAL COLUMN",
-    "mid": "VESTMENT GOLD SHIRT"
+    "base": "VESTMENT GOLD SHIRT",
+    "legs": "RUST CARGOS",
+    "feet": "RANCH BOOTS",
+    "outer": "OXBLOOD JACKET",
+    "waist": "LEATHER BELT",
+    "hands": "HAND WRAPS"
    }
   },
   {
@@ -228,8 +235,10 @@
    "sex": "m",
    "wears": {
     "base": "WORK COVERALLS",
-    "feet": "ASH COLUMN",
-    "outer": "BONE VEST"
+    "feet": "COLUMN PANT-BOOT",
+    "outer": "BONE VEST",
+    "waist": "SCAV TOOL BELT",
+    "hands": "LEATHER GLOVES"
    }
   },
   {
@@ -240,16 +249,18 @@
    "face": null,
    "beard": "GOATEE",
    "mark": null,
-   "top": "ROLLED WORK SHIRT",
+   "top": "BONE HENLEY",
    "coat": "SPLIT-TAIL WORK COAT",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "ROLLED WORK SHIRT",
-    "feet": "ASH COLUMN",
+    "base": "BONE HENLEY",
+    "legs": "DUST BROWN TROUSERS",
+    "feet": "FIELD BOOTS",
     "outer": "SPLIT-TAIL WORK COAT",
-    "gear": "FIELD LEG WRAPS"
+    "gear": "FIELD LEG WRAPS",
+    "neck": "CHARCOAL SCARF"
    }
   },
   {
@@ -267,10 +278,11 @@
    "sex": null,
    "wears": {
     "base": "BONE BUTTON-UP",
-    "legs": "SLATE WORK PANTS",
+    "legs": "DUST TROUSERS",
     "feet": "SANDWALKERS",
     "outer": "OLIVE ASYM COAT",
-    "back": "ONE-SHOULDER DRAPE"
+    "gear": "BRICK SHOULDER ROLL",
+    "waist": "LEATHER BELT"
    }
   },
   {
@@ -281,19 +293,19 @@
    "face": null,
    "beard": "LONG BEARD",
    "mark": null,
-   "top": "SAGE STRIPED HENLEY",
+   "top": "BONE HENLEY",
    "coat": null,
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
-    "base": "SAGE STRIPED HENLEY",
-    "legs": "BLACK DENIM",
+    "base": "BONE HENLEY",
+    "legs": "LEATHER STACK PANT",
     "feet": "BONE STACK BOOT",
-    "waist": "CHARCOAL BELT",
-    "neck": "CHARCOAL SCARF",
+    "waist": "LEATHER BELT",
+    "neck": "DUST SCARF",
     "gear": "SHELL BANDOLIER",
-    "mid": "BLACK TANK"
+    "mid": "RUST TANK"
    }
   }
  ]
