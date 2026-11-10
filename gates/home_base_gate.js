@@ -34,6 +34,11 @@
      D9  (round two, rule 440(d)) the people who moved in STAND in his place and a tap on one opens her face and a line of the
          place's story, LIVES HERE; the BUILD door is never under one of them; planted: the residents taken off the message, none stands
      D10 he picks the lot on the plan and the next build goes on it; CLEAR on the desk takes it down; the sheet stays under half the glass
+     D11 ONLY THE PLANTED PLACE IS HIS (rule 442(c), his YES: 'The only place that will be mine on the map is where we decide the custom
+         settlement is, that's it'): a fresh game, before planting, has NO place of his (his outfit's camp not on the map, not in the
+         ledger, not named on it, no base answers his); a boss's fall handing him the nearest town is refused by the ledger; after
+         planting EXACTLY ONE, the planted block; a saved game opened again (CONTINUE) still has exactly one, at the same block;
+         planted: a second place written his past the guard is counted, red
 
    Run: node gates/home_base_gate.js [--engine] [--only phone_portrait]
    ========================================================================== */
@@ -98,12 +103,18 @@ if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
-const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { throughTheTitle, continueThroughTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
 const ONLY = arg('--only');
 const PROFS = ['phone_portrait', 'phone_landscape'].filter(p => !ONLY || p === ONLY);
 async function box(P, sel) { return P.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') return null;
   const r = e.getBoundingClientRect(); if (r.width < 2) return null; const h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
   return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: r.width, h: r.height, hit: !!h && e.contains(h), dis: !!e.disabled, on: r.right <= innerWidth && r.bottom <= innerHeight && r.left >= 0 && r.top >= 0 }; }, sel).catch(() => null); }
+/* how many places are HIS, read from every place the map knows and the ledger itself (never from lotIsMine alone, which is the guard) */
+const HIS = () => { const H = BohemiaHomeBases, r = hbRec(), bs = ctBases() || {}, m = BohemiaBetween.mine(), names = Object.keys(bs);
+  (window.BOH_REGION && BOH_REGION.places || []).forEach(p => names.push(p.name));
+  const ledger = names.filter(n => { try { return H.heldBy(r, n, r.act) === H.YOU; } catch (e) { return false; } });
+  const mine = names.filter(n => { try { return lotIsMine(n); } catch (e) { return false; } });
+  return { onMap: !!bs[m], at: bs[m] ? [bs[m].x, bs[m].y] : null, ledger, mine, seats: (turfSeats() || []).filter(x => x.faction === m).length, plates: (window.__MAP_PLATE_NAMES || []).filter(Boolean) }; };
 async function phoneText(P) { return P.evaluate(() => { const e = document.querySelector('#bohphone .hb'); return e ? e.innerText : ''; }).catch(() => ''); }
 (async () => {
   for (const prof of PROFS) {
@@ -125,6 +136,12 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     await P.waitForTimeout(900);
     const b1m = await box(P, '#bohphone .bpctx .pl');
     ok('D1 day 1 on the map: still no PLANT (never in the first minute)', !b1m);
+    await F.evaluate(() => { try { render(); } catch (e) {} }); await P.waitForTimeout(500);
+    const h0 = await F.evaluate(HIS);
+    ok('D11 a fresh game, before planting: NO place of his (camp on the map ' + h0.onMap + ', ledger ' + h0.ledger.length + ', yours ' + h0.mine.length + ', seat ' + h0.seats + ', named CUSTOM/YOUR CAMP ' + h0.plates.some(t => /CUSTOM|YOUR CAMP/.test(t)) + ')',
+       !h0.onMap && !h0.ledger.length && !h0.mine.length && !h0.seats && !h0.plates.some(t => /CUSTOM|YOUR CAMP/.test(t)), JSON.stringify(h0));
+    const boss = await F.evaluate(() => { const H = BohemiaHomeBases, bs = ctBases(), n = Object.keys(bs)[0]; const r = H.took(hbRec(), { base: n, to: H.YOU, by: 'boss', why: 'THE TAP', day: 2 }); return { n, r, his: lotIsMine(n) }; });
+    ok('D11 a boss\'s fall handing him ' + boss.n + ' is refused by the ledger (' + (boss.r && boss.r.reason) + ')', boss.r && !boss.r.applied && boss.r.reason === 'ONLY_THE_PLANTED_PLACE' && !boss.his, JSON.stringify(boss));
     await F.evaluate(() => { DAY.day = 2; try { render(); } catch (e) {} }); await P.waitForTimeout(1200);
     const b2 = await box(P, '#bohphone .bpctx .pl');
     ok('D2 day 2 on the map: PLANT on the glass in the band, the finger lands on it', !!b2 && b2.hit && b2.on, JSON.stringify(b2));
@@ -152,6 +169,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     ok('D5 the painter is handed his place\'s foot (' + a5.foot + ' in the key)', (await F.evaluate(() => VB_TOWNS.key || '')).indexOf(a5.foot) >= 0);
     ok('D5 the map names it his (' + a5.st.name + '), never CUSTOM', plates.indexOf(a5.st.name) >= 0 && plates.indexOf('CUSTOM') < 0, plates.join('|'));
     ok('D5 PLANT is gone; a second planting is refused ' + a5.again + '; the save holds it', !(await box(P, '#bohphone .bpctx .pl')) && a5.again === 'PERMANENT' && a5.saved && a5.saved.x === spot.best[0]);
+    const h5 = await F.evaluate(HIS);
+    ok('D11 after planting: EXACTLY ONE place of his, the planted block (' + h5.mine.join(',') + ' at ' + h5.at + '; the ledger ' + h5.ledger.length + ')', h5.onMap && h5.mine.length === 1 && h5.ledger.length === 1 && h5.at[0] === spot.best[0] && h5.at[1] === spot.best[1], JSON.stringify(h5));
     /* D6 the night */
     const n6 = await F.evaluate(() => { const before = loopBats(), b = BohemiaHomeMap.state().bill.due; const r = BohemiaHomeMap.billNight(); return { before, after: loopBats(), due: b, r }; });
     ok('D6 the night bills his place from the purse (' + n6.before + ' -> ' + n6.after + ', due ' + n6.due + ')', n6.before - n6.after === n6.due && n6.due > 0, JSON.stringify(n6));
@@ -227,7 +246,23 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const folkGone = await fr.evaluate(() => window.__HOME_FOLK_AT ? window.__HOME_FOLK_AT() : []);
       ok('D9 planted: with the residents taken off the message, none stands (the leg above would be red)', planted9 && !folkGone.some(f => f.name === 'GATE RUIZ'), JSON.stringify(folkGone));
     }
-    await d.close();
+    /* D11 a saved game, opened again the way he does (CONTINUE): still exactly one, at the same block */
+    if (prof === 'phone_portrait') {
+      await F.evaluate(() => { try { saveNow('gate'); } catch (e) {} }); await P.waitForTimeout(1500);
+      await P.close().catch(() => {});
+      const e = await drive.open({ again: d, keepCards: true, beforeTap: async (pg) => {
+        for (let i = 0; i < 120; i++) { if (await pg.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await pg.waitForTimeout(250); }
+        await pg.waitForTimeout(1500); await continueThroughTitle(pg); await pg.waitForTimeout(1800); } });
+      for (let i = 0; i < 40; i++) { if (await e.fr.evaluate(() => !!(window.BohemiaHome && BohemiaHome.data())).catch(() => false)) break; await e.page.waitForTimeout(250); }
+      await e.fr.evaluate(() => { try { loopClose(); render(); } catch (x) {} }); await e.page.waitForTimeout(800);
+      const hs = await e.fr.evaluate(HIS);
+      ok('D11 a saved game opened again: exactly one place of his, the same block (' + hs.at + ')', hs.onMap && hs.mine.length === 1 && hs.ledger.length === 1 && hs.at && hs.at[0] === spot.best[0] && hs.at[1] === spot.best[1], JSON.stringify(hs));
+      const m11 = await e.fr.evaluate(() => { const H = BohemiaHomeBases, bs = ctBases(), m = BohemiaBetween.mine(), n = Object.keys(bs).filter(k => k !== m)[0];
+        H.__tookRaw(hbRec(), { base: n, to: H.YOU, by: 'boss', why: 'PLANTED', day: 9 }); return n; });
+      const hm = await e.fr.evaluate(HIS);
+      ok('D11 planted: ' + m11 + ' written his past the guard is counted, a second place, red (ledger ' + hm.ledger.join(',') + ')', hm.ledger.length === 2, JSON.stringify(hm));
+      await e.close();
+    } else await d.close();
   }
   done();
 })().catch(e => { console.error(e); fail++; done(); });

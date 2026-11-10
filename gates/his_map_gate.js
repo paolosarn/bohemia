@@ -314,8 +314,11 @@ async function run(prof) {
       if (kind === 'holds') { res.holds = { did, h: fl.holds, now: fl.holds ? BohemiaHomeBases.heldBy(hbRec(), fl.holds.base, hbRec().act) : null }; }
     }
     return res; });
-  const k5 = kinds.wall && kinds.wall.open && kinds.reveal && kinds.reveal.towns === kinds.reveal.of && kinds.holds && kinds.holds.h && kinds.holds.now === 'you';
-  ok('B5 ' + prof + ': every kind of change works: a wall down the walk goes through, the map opened, a base changing hands by boss (plus B4\'s lights and place)', !!k5, JSON.stringify(kinds));
+  /* RE-AIMED 11/10 by rule 442(c) (HOME BASE; Paolo: 'The only place that will be mine on the map is where we decide the custom settlement
+     is, that's it'): a boss's fall that would hand him the nearest town is REFUSED by the ledger (the map's __ONLY_THE_PLANTED_PLACE__),
+     so the holds kind now proves the town did NOT become his; the wall and the reveal legs are as before, nothing loosened */
+  const k5 = kinds.wall && kinds.wall.open && kinds.reveal && kinds.reveal.towns === kinds.reveal.of && kinds.holds && !kinds.holds.h && kinds.holds.now !== 'you';
+  ok('B5 ' + prof + ': every kind of change works: a wall down the walk goes through, the map opened, and a boss\'s fall never makes a town his (rule 442(c); plus B4\'s lights and place)', !!k5, JSON.stringify(kinds));
   /* B6: the next sign near where he fell */
   for (let i = 0; i < 16; i++) { await fr.evaluate(() => render()); await page.waitForTimeout(500); if ((await st()).boss.sign) break; }
   const s4 = await st();

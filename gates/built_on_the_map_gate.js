@@ -23,6 +23,9 @@ const ok = (n, c, d) => { if (c) pass++; else fail++; console.log((c ? '  ok   '
     await d.toMap();
     for (let i = 0; i < 3; i++) { await d.pinchIn(); await d.page.waitForTimeout(1500); if (await d.fr.evaluate(() => CZOOM) > 0.5) break; }
     const a = await d.fr.evaluate(() => {
+      /* RE-AIMED 11/10 by rule 442(c) (HOME BASE; Paolo: 'The only place that will be mine on the map is where we decide the custom
+         settlement is, that's it'): no base is his until he plants, so the gate plants his place first at the seed's own seat; every leg as before */
+      if (window.BohemiaHomeMap && !BohemiaHomeMap.state().planted) { const rs = BohemiaHomeMap.rawSeat(); if (rs) BohemiaHomeMap.plantAt(rs.x, rs.y); }
       const bases = ctBases(), names = Object.keys(bases), mine = names.find(n => lotIsMine(n)), other = names.find(n => !lotIsMine(n));
       const site = lotBookFor(mine), P = purseGet();
       BohemiaPurse.credit(P, 'electricity', 3, 'gate', 'gate', DAY.day);

@@ -1,3 +1,16 @@
+HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10e - ONLY THE PLACE YOU PLANT IS YOURS, BUILT, NOT YET SEEN (rule 442(c), his
+YES on YOUR PLACE, PLANTED; ask line 546). Record: records/BOHEMIA_HOME_BASE_ONLY_THE_PLANTED_PLACE_11_10_26.md.
+- Before planting his outfit's seat is out of ctBases/turfSeats (nothing paints, names, colours, opens, raids or takes it); after, the
+  planted block. BohemiaHomeBases.took is GUARDED in the map (__ONLY_THE_PLANTED_PLACE__): a taking to him of any base but his planted
+  place is refused (THE TAP's and THE MIDWIFE's 'holds: you' in boss_map.json land nowhere; BOSSES may re-aim them to 'free' or a
+  faction, their call); HB.__tookRaw is the unguarded one, for the gate's planted fail only. lotIsMine = the planted place only.
+- Gate YOUR PLACE, PLANTED D11 (fresh, boss refused, exactly one, a saved game via CONTINUE, planted second place red): engine 22/0,
+  upright 55/0, sideways 53/0. VOTE home-base-only-the-planted-place-11-10 (STAND-IN).
+- Kept, not a place: the camp he pitches to rest (HEAL) leaves nothing on the map.
+- Other lanes' gates re-aimed to 442(c): A RAID ON YOUR BASE (plants first, 18/0), BUILT ON THE MAP (plants first, 12/0), HIS MAP B5 (a boss's fall never makes a town his);
+  TAKE THE NEXT PART retired to graveyard/ with its post-mortem (its registry row removed).
+
+11/9 ROUND TWO (BUILD 11/9h), kept:
 
 
 NOTE 11/10 FROM EYES (rule 441(b), ask row 549) -- PLANTED END TO END ONCE, BUT GO THERE POINTS AT GROUND HE CANNOT STAND ON.

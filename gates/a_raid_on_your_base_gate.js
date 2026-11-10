@@ -1,7 +1,10 @@
 /* A RAID ON YOUR BASE — the gate for [a raid on your base] (10/9/26, LIFE + CITY; the ledger is FACTIONS')
  * On THE ALPHA, reached by the pinch, with the game's own SLEEP and clock:
- *   A  ONE LEDGER: your outfit's base is yours from the first day (FACTIONS' ledger, one 'deal' taking); the
- *      build lots and the raids read it; the save carries it.
+ *   A  ONE LEDGER: the place he PLANTED is his (FACTIONS' ledger, one 'deal' taking at planting); the build lots and
+ *      the raids read it; the save carries it. RE-AIMED 11/10 by rule 442(c) (Paolo: 'The only place that will be mine
+ *      on the map is where we decide the custom settlement is, that's it'): his outfit's base is no longer his from the
+ *      first day, so the gate plants it first, at the seed's own seat (BohemiaHomeMap.plantAt, HOME BASE), and every leg
+ *      runs on it as before; nothing loosened.
  *   B  WHAT YOU BUILD DRAWS A CREW: two things standing at your base, and the next morning a crew leaves the
  *      nearest seat that is not your friend, walking at your gate, and the phone says so (rule 68).
  *   C  AWAY: it reaches the gate, the raid opens with its days, and on the due morning the world settles it
@@ -19,6 +22,7 @@ let pass = 0, fail = 0;
 const ok = (n, c, d) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (d ? '  [' + d + ']' : '')); };
 const SETUP = `(async function(goHome){
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  if(window.BohemiaHomeMap && !BohemiaHomeMap.state().planted){ const rs=BohemiaHomeMap.rawSeat(); if(rs) BohemiaHomeMap.plantAt(rs.x,rs.y); }   /* rule 442(c): his place is the one he plants */
   window.__night=async()=>{ document.getElementById('sleepbtn').click(); await sleep(300); const go=document.querySelector('#daycardIn .dcgo'); if(go) go.click(); else DAY.wake(); await sleep(300); };
   const bs=ctBases(), mine=Object.keys(bs).find(n=>lotIsMine(n)), seat=turfSeats().find(s=>s.faction===mine);
   window.__mine=mine; window.__seat=seat;

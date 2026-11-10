@@ -94610,25 +94610,44 @@ function homeSeeBuilt(){ var r = homeRec(); if (!r || !r.planted) return 0; var 
   if (n) homeSave(); return n; }
 function homePlanted(){ var r = homeRec(); return !!(r && r.planted); }
 /* (c) the planted block stands in for his outfit's seat: copies, never the baked or seeded objects themselves */
+/* ==== __ONLY_THE_PLANTED_PLACE__ (HOME BASE 11/10, rule 442(c), his YES on YOUR PLACE, PLANTED: 'The only place that will be mine on
+   the map is where we decide the custom settlement is, that's it'). MEASURED BEFORE: the seed's camp for his outfit stood on the map
+   from the first second (painted, coloured his, named, opening with BUILD on it), and two bosses' falls (THE TAP, THE MIDWIFE:
+   records/target/bb/boss_map.json falls.holds 'you', slices/bohemia_his_map.js holds()) handed him the nearest town in the ledger.
+   NOW: before he plants he has NO place (his outfit's seat is out of ctBases and turfSeats, so nothing paints, names, colours or opens
+   it); after, exactly one, the block he planted. The ledger (engine/bohemia_homebases.js) refuses any taking to him but of his
+   planted place, and lotIsMine answers yes for that place alone. ==== */
+function homeIsHis(name){ var r = homeRec(); return !!(r && r.planted) && mapNorm(name) === mapNorm(homeMine()); }
 function homeMoveBases(b){
-  var r = homeRec(); if (!b || !r || !r.planted) return b;
-  var m = homeMine(), k = r.planted.x + ',' + r.planted.y;
+  var r = homeRec(); if (!b || !r) return b;
+  var m = homeMine(), k = r.planted ? r.planted.x + ',' + r.planted.y : 'none';
   if (!b[m]) return b;
+  if (!r.planted) {   /* before he plants he has no place: his outfit's seat is not on the map at all */
+    if (HOME.cache && HOME.cache.src === b && HOME.cache.k === k) return HOME.cache.out;
+    var o0 = {}; for (var n0 in b) if (n0 !== m) o0[n0] = b[n0];
+    HOME.cache = { src: b, k: k, out: o0 }; return o0; }
   if (HOME.cache && HOME.cache.src === b && HOME.cache.k === k) return HOME.cache.out;
   var o = {}; for (var n in b) o[n] = b[n];
   o[m] = Object.assign({}, b[m], { x: r.planted.x, y: r.planted.y, planted: true });
   HOME.cache = { src: b, k: k, out: o }; return o;
 }
 function homeMoveSeats(s){
-  var r = homeRec(); if (!s || !r || !r.planted) return s;
-  var m = homeMine(), k = r.planted.x + ',' + r.planted.y;
+  var r = homeRec(); if (!s || !r) return s;
+  var m = homeMine(), k = r.planted ? r.planted.x + ',' + r.planted.y : 'none';
   if (HOME.seatCache && HOME.seatCache.src === s && HOME.seatCache.k === k) return HOME.seatCache.out;
-  var o = s.map(function(x){ return (x && x.faction === m) ? Object.assign({}, x, { x: r.planted.x, y: r.planted.y }) : x; });
+  var o = !r.planted ? s.filter(function(x){ return !(x && x.faction === m); })   /* no seat, no raid at it, no ground of his */
+                     : s.map(function(x){ return (x && x.faction === m) ? Object.assign({}, x, { x: r.planted.x, y: r.planted.y }) : x; });
   HOME.seatCache = { src: s, k: k, out: o }; return o;
 }
 (function(){
-  var cb = ctBases; ctBases = function(){ return homeMoveBases(cb.apply(this, arguments)); };
+  var cb = ctBases; HOME.rawBases = cb; ctBases = function(){ return homeMoveBases(cb.apply(this, arguments)); };
   var ts = turfSeats; turfSeats = function(){ return homeMoveSeats(ts.apply(this, arguments)); };
+  /* the ledger gives him nothing but the place he planted (a boss's fall, a raid, a contract, a deal: refused, said in its answer) */
+  try { var HB = window.BohemiaHomeBases;
+    if (HB && !HB.__homeGuard) { var tk = HB.took; HB.__tookRaw = tk; HB.__homeGuard = true;
+      HB.took = function(rec, r){ if (r && r.to === HB.YOU && !homeIsHis(r.base)) { window.__HOME_REFUSED = (window.__HOME_REFUSED || 0) + 1;
+        return { applied: false, reason: 'ONLY_THE_PLANTED_PLACE', base: r.base }; } return tk.apply(this, arguments); }; } } catch (_e) {}
+  var lim = lotIsMine; lotIsMine = function(name){ return homeIsHis(name) && lim.apply(this, arguments); };
 })();
 /* (a) the smart system: what the block he stands on has near it, measured on the map */
 function homeProbe(x, y){
@@ -94700,6 +94719,8 @@ function homePlant(){
   if (g) g.act = homeAct();
   var res = BohemiaHome.plant(r, { x: x, y: y }, day, g); if (!res.ok) return res;
   homeSave(); HOME.cache = null; HOME.seatCache = null;
+  try { var HB = BohemiaHomeBases, hr = hbRec(); if (HB.heldBy(hr, homeMine(), hr.act) !== HB.YOU) HB.took(hr, { base: homeMine(), to: HB.YOU, day: day, by: 'deal', why: 'planted' }); } catch (_e) {}   /* the ledger: his, from today */
+  try { TURF_MAP_KEY = null; } catch (_e) {}   /* his ground drawn again, with his place in it */
   try { VBC.checked = 0; } catch (_e) {}   /* the painter looks again now: the towns are in its key */
   try { if (typeof render === 'function') render(); } catch (_e) {}
   try { if (window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thecrew', txt: 'We planted. This block is ours now, for good.', kind: 'mine', draft: true }); } catch (_e) {}
@@ -94753,7 +94774,15 @@ function homeLabel(){ var r = homeRec(); return r && HOME.data ? BohemiaHome.nam
 })();
 window.addEventListener('message', function(e){ var d = e.data || {};
   if (d.type === 'BOHEMIA_HOME_RENAME') { homeRename(d.name); try { LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_HOME', home: homeState(), plan: HOME.data && HOME.data.plan }, '*'); } catch (_e) {} } });
-window.BohemiaHomeMap = { state: homeState, plant: homePlant, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
+/* for checkers only (the game plants through plant(), graded): the seed's own seat for his outfit, and planting at a given block */
+function homeRawSeat(){ try { var b = HOME.rawBases(), m = homeMine(); return b && b[m] ? { x: b[m].x | 0, y: b[m].y | 0 } : null; } catch (_e) { return null; } }
+function homePlantAt(x, y){ var cx = city.x, cy = city.y; city.x = x | 0; city.y = y | 0; var r = homeRec(), g = BohemiaHome.grade(homeProbe(x, y));
+  if (g && !g.ok) g = null;   /* a checker's block need not pass the grade */
+  try { if (!g) { var res = BohemiaHome.plant(r, { x: x | 0, y: y | 0 }, homeDay(), null); if (res.ok) { r.planted.act = homeAct(); homeSave(); HOME.cache = null; HOME.seatCache = null;
+      try { var HB = BohemiaHomeBases, hr = hbRec(); if (HB.heldBy(hr, homeMine(), hr.act) !== HB.YOU) HB.took(hr, { base: homeMine(), to: HB.YOU, day: homeDay(), by: 'deal', why: 'planted' }); } catch (_e) {}
+      try { TURF_MAP_KEY = null; VBC.checked = 0; } catch (_e) {} } city.x = cx; city.y = cy; return res; } } catch (_e) {}
+  var out = homePlant(); city.x = cx; city.y = cy; return out; }
+window.BohemiaHomeMap = { state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

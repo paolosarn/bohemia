@@ -1,0 +1,15 @@
+POST-MORTEM: TAKE THE NEXT PART (gates/take_the_next_part_gate.js, LIFE + CITY 10/10/26), retired 11/10/26 by HOME BASE.
+
+WHAT IT WAS: the gate for [take the next part] (rule 43, 9/29: 'what you hold grows by taking'): at a town he does not hold, BUILD
+offered Take it, a fight at their gate, and a win made the town his in FACTIONS' ledger so he could build there. The button was
+already switched off in the game since 10/10 (rule 88, BUILD_TAKE_ON = false); only this gate switched it on.
+
+WHY IT DIED: rule 442(c), Paolo 11/10, his YES on YOUR PLACE, PLANTED: 'The only place that will be mine on the map is where we
+decide the custom settlement is, that's it.' Owning another settlement had already been made endgame-only (rule 56, 10/1: 'not even
+Battle Brothers lets you take over a city'); 442(c) closes it: no town becomes his. The map's ledger now refuses any taking to him
+but of his planted place (slices/BOHEMIA_CITY_WORLD.html __ONLY_THE_PLANTED_PLACE__), so leg A's 'Take it' leads to a refusal, and
+legs C and D (the town his after a win) are what the new rule forbids.
+
+WHAT STAYS: the raids ON his place (a_raid_on_your_base_gate.js, re-aimed to plant first), the switch BUILD_TAKE_ON in the settlement
+screen (off), and the ledger's own taking ways for the factions among themselves. A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME:
+a second place of his returns only by his word, and gates/home_base_gate.js D11 is red on a second place written his.
