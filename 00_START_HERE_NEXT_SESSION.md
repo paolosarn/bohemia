@@ -67,6 +67,11 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/10 LATEST -- BLOCKED, NOTHING SHIPPED: the clothes on the company and the hires (427(b)). Every rolled man is
+drawn from eight sheet sets made by RUN TWO's and ANIMATION's tools, whose packers rebuild from render caches only their boxes hold; a re-dress
+from one box is half baked or drops 68 fight men. Unblock: the five packers merge, or one coordinated round. The 11 company men's new layers
+are written ready to run. Before it: BUILD 11/7w NINE ENEMIES IN THEIR OWN CLOTHES, his YES 11/8. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/7 LATEST -- BUILD 11/7w NINE ENEMIES IN THEIR OWN CLOTHES (rule 427(b), asks 286 and 238): FACTIONS'
 nine human types stood in 36 borrowed people; now 30 men of their own on the 3D man, each type one shape nobody else wears (the House's
 carpet tabard with the hubcap kettle, the mail coif or the bolt case; the Watch's faded hi-vis, floor-mat greaves, the captain's sash and

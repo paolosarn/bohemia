@@ -1,5 +1,29 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/10 (ad) LATEST -- *** BLOCKED, NOTHING SHIPPED: the clothes on the company and the hires (rule 427(b)'s second half, asks 238). ***
+HIS VOTE: YES on character-the-nine-enemies-their-own-clothes-11-7 (11/8, no 'not final' words), so that recipe is frozen (408(b) step 9) and the company's clothes can be made from it.
+MEASURED: the company is YOU plus person_town_0..11 (ours.people_looks.crew); the hires are the same roll (records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json,
+156 people). Layers on the body (top, mid, outer, kit slots, from each man's build record): 156 people: 1 layer 2, 2 layers 28, 3 layers 58, 4 layers 53,
+5 layers 13, 6 layers 2 (the nine enemies he passed: 4 to 8, mean 5.0). The company's 11: town_2, 3, 5, 6, 7, 8 at 2; town_4, 9, 10 at 3; town_0, 1 at 4; town_11 at 5.
+WHY IT CANNOT SHIP WHOLE FROM ONE LANE (rule 441: a ship plays end to end, nothing left for later): a rolled man is drawn from eight sheet sets made by four
+lanes' tools: the street stills and faces and the walk (RUN TWO), the fight sheet (RUN TWO's fight_pack), the map sheet (RUN TWO's bake, rig_mix), idles,
+carry and work (ANIMATION, everybody_idles), the 20 town activities (ANIMATION, the_towns_activities), the held clips (what_a_man_holds) and melee
+(melee_in_hand). Their packers REBUILD the shared index from the renders on the box they run on: RUN TWO's fight_pack deletes every kind 'person' look
+and re-adds only men with a fight render on disk (bohemia_run2_no_two_people_alike.py fight_pack), and everybody_idles' people_pack deletes every
+fight_person_ entry the same way. Those render folders are .gitignore'd; this box holds 0 of them (idles 0, hold 0, melee 0, town 0). So re-dressing
+even one company man from here either leaves him in his old clothes on five screens (half baked) or, if their packers run here, takes the other 68
+fight men and 54 gun-held idles out of the game.
+THE UNBLOCK (either one): (1) the five packers MERGE (keep a man's entry when his render is not on this box) so any lane can re-make a few men whole:
+RUN TWO fight_pack, everybody_idles people_pack, the_towns_activities pack, what_a_man_holds pack, melee_in_hand pack (PLUMBER or each owner);
+or (2) one coordinated round: CHARACTER changes the 11 at the source, then RUN TWO and ANIMATION re-render the same 11 on their own boxes.
+READY TO RUN (made from the frozen recipe; every man to 4+ layers that read apart, no blue, no trench added; the source is RUN TWO's roll, so the change
+goes in with the re-render, not before it): town_2 + LEATHER BELT, LEATHER GLOVES; town_3 + TRAILING SCARF, SALVAGE SATCHEL; town_4 + LEATHER GLOVES;
+town_5 + LEATHER VEST, WORN BRACERS; town_6 + DUST SCARF, LEATHER BELT; town_7 + LEATHER BELT, HAND WRAPS; town_8 + SCAV TOOL BELT, LEATHER GLOVES;
+town_9 + CHARCOAL SCARF; town_10 + LEATHER BELT. The 145 hires after the company, the same rule (4+ layers), in the same pipe.
+ALSO OPEN FROM 11/7: the nine enemies' idles and held clips (NOTE at ANIMATION); the idles gate's P1 still names them.
+[bb Battle Brothers draws a hired man's kit from his background, so a hire reads as his old life the moment he joins.]
+[analog horror: the same eleven faces in the same shirts every day, as if nothing in the valley wears out.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, opened by the coordinator 11/7): 11/7 (ac) LATEST -- *** [the clothes look real] rule 427(b) SHIPPED BUILD 11/7w: NINE ENEMY TYPES IN THEIR OWN CLOTHES, 30 MEN. ***
 TAB: every fight against the House, the Block Watch, the Keepers and the Water People (the map's parties, the demo's doors); VOTE
 (character-the-nine-enemies-their-own-clothes-11-7, GOLDEN, a man's body). Record: records/BOHEMIA_CHARACTER_THE_NINE_ENEMIES_THEIR_OWN_CLOTHES_11_7_26.md.
