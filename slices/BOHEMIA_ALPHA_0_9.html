@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/10n - WHAT YOU BUILD PAYS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/10o - THE CAMP IS SET UP ON THE BOARD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12679,6 +12679,9 @@ window.SPOILS = SPOILS;
 function spoilsWanted(d){ return !!(d && (d.result === 'won' || d.result === 'lost')); }
 function spoilsOpen(){
   if(SPOILS.frame || !SPOILS.d) return false;
+  /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): on a won fight's loot screen the camp's hidden page is opened a beat
+     after the screen (its 3.7 s load spent while he loots, never after MAKE CAMP: slices/bohemia_camp_board.js warm); LEAVE lets it go */
+  try{ if(NF.over && NF.over.victory && !window.__CAMP_WARM_OFF) setTimeout(function(){ try{ var cw = document.getElementById('cityFrame').contentWindow, L = cw && cw.LOOP && cw.LOOP.frame && cw.LOOP.frame.contentWindow; if(SPOILS.frame && L && L.BohemiaCampBoard && L.BohemiaCampBoard.warm) L.BohemiaCampBoard.warm(); }catch(_e){} }, 1200); }catch(_e){}
   if(NF.spoilsAt){ clearTimeout(NF.spoilsAt); NF.spoilsAt = null; }
   var wrap = document.createElement('div'); wrap.id = 'spoilsdoor';
   wrap.style.cssText = 'position:fixed;inset:0;z-index:8000;background:#120e0a';
@@ -12739,6 +12742,8 @@ window.addEventListener('message', function(ev){
   var m = ev && ev.data; if(!m || m.type !== 'BOHEMIA_SPOILS' || !SPOILS.frame || ev.source !== SPOILS.frame.contentWindow) return;
   if(m.act === 'counts'){ spoilsPay(m); try{ spoilsScrapToTape(); }catch(_e){} }
   if(m.act === 'leave'){ SPOILS.left = true; if(m.camp) try{ campFromFightKeep(); }catch(_e){}   /* CAMP THREE __THE_CAMP_ON_THE_BOARD__ (rule 406(f)): before the fight's page goes */
+    if(m.camp) window.__CAMP_HOLD_BOARD = Date.now();
+    else try{ var cwW = document.getElementById('cityFrame').contentWindow, LW = cwW && cwW.LOOP && cwW.LOOP.frame && cwW.LOOP.frame.contentWindow; if(LW && LW.BohemiaCampBoard && LW.BohemiaCampBoard.warmDrop) LW.BohemiaCampBoard.warmDrop(); }catch(_e){}   /* LEAVE: the warmed camp page let go */   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the board stays on the glass while the camp is made under it (slices/bohemia_motion.js) */
     spoilsClose(); nfHome(); if(m.camp) spoilsCamp(); }
 });
 /* MAKE CAMP FROM THE FIGHT (RUN FOUR [make camp from the fight], rule 267(b), Paolo 10/26: 'after combat ends there should be a button

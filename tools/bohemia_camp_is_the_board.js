@@ -31,6 +31,20 @@ const camOf = (ff) => ff.evaluate(() => { const U = window.FIGHT_UI, S = FIGHT.S
   return { z: U.zoom, tw: U.tw, th: U.th, sx0: sx(0), sy0: sy(0), man: manH(), W: innerWidth, H: innerHeight, fx: fr.left, fy: fr.top, w: S.w, h: S.h, board: S.boardDef && S.boardDef.name, family: S.boardDef && S.boardDef.family, sig: window.campBoardSig ? campBoardSig() : null,
     units: S.units.filter(u => !u.fled && !u.ghost).map(u => ({ side: u.side, x: u.x, y: u.y, dead: !!u.dead, main: !!u.main, name: String(u.name || '').toUpperCase() })) }; });
 
+/* THE WATCH (MOTION 3, rule 444(a)): from the MAKE CAMP tap until the camp stands, every tenth of a second on the top page, what the glass
+   holds (the fight's page, the board's held picture, the map, the camp's screen and whether its first frame is drawn), the map's clock, and
+   the camp's set-up (its pitch); oneFight(d, { watch: true }) also shoots the glass every 150 ms (out.watch.shots) */
+const WATCH = function () {
+  const W = window.__CAMPWATCH = { s: [], t0: performance.now(), on: true };
+  const one = () => { if (!W.on) return; const q = { t: Math.round(performance.now() - W.t0) };
+    try { q.fight = !!document.getElementById('fightFrame'); q.spoils = !!(window.SPOILS && SPOILS.frame); } catch (e) {}
+    try { q.hold = !!(window.BohemiaMotion && BohemiaMotion.campHold && BohemiaMotion.campHold.on()); q.dive = window.BohemiaMotion ? BohemiaMotion.dive.state() : null; q.busy = window.BohemiaMotion ? BohemiaMotion.busy() : 0; } catch (e) {}
+    try { const cw = document.getElementById('cityFrame').contentWindow; q.clock = cw.eval('T.day * 1440 + T.min'); q.campOn = cw.eval('!!CAMP.on'); q.hours = cw.eval('CAMP.hours | 0');
+      const f = cw.LOOP && cw.LOOP.frame; q.campShown = !!(f && f.style.display === 'block'); q.campOp = f ? (f.style.opacity === '' ? 1 : +f.style.opacity) : 0;
+      const L = f && f.contentWindow && f.contentWindow.BohemiaCampLook; if (L) { q.setting = !!(L.settingUp && L.settingUp()); const st = L.state(); q.open = !!st.open; q.first = !!st.firstFv; q.pitch = st.pitch ? (st.pitch.on ? 'on' : st.pitch.skipped ? 'skipped' : 'done') : null; } } catch (e) { q.err = String(e).slice(0, 60); }
+    W.s.push(q); };
+  W.iv = setInterval(one, 100); one();
+};
 async function oneFight(d, o) {
   const p = d.page, fr = d.fr, out = { fam: o.fam, errs: [] };
   await fr.evaluate(() => { try { loopClose(); } catch (e) {} try { HUNT = null; } catch (_e) {} try { contactClear(); } catch (_e) {} });
@@ -73,7 +87,7 @@ async function oneFight(d, o) {
   out.fightShotPage = shot; out.camLoop = cam;
   const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
   for (let i = 0; i < 120 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
-  await p.waitForTimeout(1200);
+  await p.waitForTimeout(o.lootMs || 1200);   /* lootMs: he reads the loot first (a player's few seconds on the loot screen) */
   /* the camp held while it is measured: a camp made for mending ends itself the hour his men are whole (CAMP's rule 278(a), the
      game's own; measured: after a fight on AUTO the men were whole in about two seconds of the camp's clock and the camp closed before
      it could be read). The gate reads the camp's look, so the map's campDone is held off for this page (said in the gate) */
@@ -85,6 +99,9 @@ async function oneFight(d, o) {
   out.cam = await camOf(ff).catch(() => cam);
   out.fightShot = cvShot ? Buffer.from(cvShot.split(',')[1], 'base64') : shot;
   out.fightFromCanvas = !!cvShot;
+  let watch = null;
+  if (o.watch) { await p.evaluate(WATCH); watch = out.watch = { shots: [], stop: false };
+    watch.run = (async () => { const t0 = Date.now(); while (!watch.stop && Date.now() - t0 < 20000) { try { watch.shots.push({ t: Date.now() - t0, png: await p.screenshot() }); } catch (e) {} await p.waitForTimeout(150); } })(); }
   try { await p.frameLocator('#spoilsdoor iframe').locator('#camp').tap({ timeout: 8000 }); out.tapped = true; } catch (e) { out.err = 'no MAKE CAMP on the loot screen'; return out; }
   out.kept = await p.evaluate(() => window.__CAMP_FROM_FIGHT ? { sig: __CAMP_FROM_FIGHT.sig, view: __CAMP_FROM_FIGHT.view || null, dead: __CAMP_FROM_FIGHT.dead } : null).catch(() => null);
   /* the camp's first drawn frame: the camp on, its board in, drawn on the glass */
@@ -103,6 +120,15 @@ async function oneFight(d, o) {
   out.why = await p.evaluate(() => { try { const w = document.getElementById('cityFrame').contentWindow, e = (x) => { try { return w.eval(x); } catch (er) { return 'err'; } };
     return { camped: window.SPOILS && SPOILS.camped, mode: e('MODE'), fighting: e('LOOP.fighting'), loop: e('LOOP.frame && LOOP.frame.style.display'), meet: e('!!MEET.up'), meetWho: e('MEET.up && (MEET.up.name || MEET.up.id || true)'), cityfight: !!window.CITYFIGHT, campOn: e('CAMP.on'), at: e('[city.x, city.y]') }; } catch (er) { return String(er); } }).catch(() => null);
   out.camp = await campRead(p);
+  if (watch) {   /* the set-up: watched to its end (or tapped through, o.skip), then the hours seen to run */
+    const sf0 = settle(p), pitchOf = () => sf0 ? sf0.evaluate(() => { const P = BohemiaCampLook.state().pitch; return P ? (P.on ? 'on' : P.skipped ? 'skipped' : 'done') : null; }).catch(() => null) : null;
+    if (o.skip && sf0) { await p.waitForTimeout(o.skipAfter || 600); const box = await p.evaluate(() => { const f = document.getElementById('cityFrame'); const r = f.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height * 0.45]; });
+      out.skipAt = Date.now(); await p.touchscreen.tap(box[0], box[1]).catch(() => p.mouse.click(box[0], box[1])); }
+    for (let k = 0; k < 140; k++) { const ph = await pitchOf(); if (ph && ph !== 'on') break; await p.waitForTimeout(100); }
+    out.pitchEnd = Date.now(); await p.waitForTimeout(3500);
+    watch.stop = true; await watch.run;
+    watch.samples = await p.evaluate(() => { const W = window.__CAMPWATCH; if (!W) return []; W.on = false; clearInterval(W.iv); return W.s; });
+  }
   out.on = await p.evaluate(() => { try { const w = document.getElementById('cityFrame').contentWindow; return !!(w.BohemiaMapCamp && w.BohemiaMapCamp.on()); } catch (e) { return false; } }).catch(() => false);
   return out;
 }
@@ -149,4 +175,4 @@ async function breakCamp(d) {
   for (let i = 0; i < 60; i++) { const on = await p.evaluate(() => { try { return document.getElementById('cityFrame').contentWindow.BohemiaMapCamp.on(); } catch (e) { return false; } }); if (!on) break; await p.waitForTimeout(200); }
   await p.waitForTimeout(2500);
 }
-module.exports = { oneFight, campRead, atRest, same, breakCamp, cellOf, camOf, settle };
+module.exports = { oneFight, campRead, atRest, same, breakCamp, cellOf, camOf, settle, WATCH };

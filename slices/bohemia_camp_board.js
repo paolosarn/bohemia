@@ -112,6 +112,35 @@
 
   /* ---------------------------------------------------------------- the bake, in a hidden copy of the fight page */
   function keyOf(ask, sq) { return JSON.stringify([ask && ask.at, ask && ask.district, ask && ask.__deal, sq.w, sq.h, ask && ask.sig || null, ask && ask.dead ? ask.dead.length : 0]); }   /* never the hour: the board is baked by day and by night at once */
+  /* ==== MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): THE CAMP'S PAGE WARMED ON THE LOOT SCREEN. Measured on the demo
+     (MAKE CAMP after a won fight, the board held on the glass until the camp's first frame): 8.1 s from the camp made to its first frame,
+     3.7 s of it the hidden copy of the fight page loading. A won fight's loot screen (the shell) asks warm(): the hidden page is opened
+     then with a camp's options that bake nothing (campBoard.warm: its own campBoardBake finds no square and stops, the page loaded and
+     idle); the camp's want() takes it (warmTake) and hands it the real options (its boot reads them if it is still loading, or its own
+     campBoardBake is run again once it has stopped). A warm page nobody takes is let go (LEAVE, or WARM_MS). window.__CAMP_WARM_OFF = the
+     way it was. ==== */
+  var WARM_MS = 90000;
+  function warmHome() { var home = document; try { if (root.top && root.top !== root && root.top.document && root.top.document.getElementById('cityFrame')) home = root.top.document; } catch (e) { home = document; } return home; }
+  function warm() {
+    if (root.__CAMP_WARM_OFF || (root.top && root.top.__CAMP_WARM_OFF) || B.warm || B.frame) return false;
+    var home = warmHome(), f = home.createElement('iframe'); f.title = 'the camp\'s board'; f.setAttribute('aria-hidden', 'true'); f.tabIndex = -1; f.id = 'campboardframe';
+    f.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5';
+    var W0 = { campBoard: { warm: true }, odds: false, deploy: false }, set = function () { try { var cw = f.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = W0; } catch (e) {} };
+    var iv = setInterval(set, 4); f.addEventListener('load', function () { set(); clearInterval(iv); });
+    B.warm = { f: f, t0: Date.now(), timer: setTimeout(warmDrop, WARM_MS) }; B.warms = (B.warms | 0) + 1;
+    f.src = 'BOHEMIA_FIGHT.html'; (home.body || home.documentElement).appendChild(f);
+    return true;
+  }
+  function warmTake() { var w = B.warm; if (!w || !w.f || !w.f.isConnected) { B.warm = null; return null; } clearTimeout(w.timer); B.warm = null; B.warmTaken = (B.warmTaken | 0) + 1; B.warmAge = Date.now() - w.t0; return w.f; }
+  function warmGo(f, opts) {   /* the real options: read by its boot if it is still loading; else its own bake run again */
+    var cw = null; try { cw = f.contentWindow; } catch (e) { cw = null; } if (!cw) return;
+    var done = false; try { done = cw.__CAMP_BOARD !== undefined; } catch (e) { done = false; }
+    try { cw.FIGHT_OPTS = opts; } catch (e) {}
+    B.warmWas = done ? 'loaded' : 'loading';
+    if (done) { try { cw.__CAMP_BOARD = undefined; cw.campBoardBake(); } catch (e) { fail('the warmed page: ' + (e && e.message || e)); } }
+  }
+  function warmDrop() { var w = B.warm; B.warm = null; if (!w) return; clearTimeout(w.timer); try { var cw = w.f.contentWindow; if (cw && cw.__fightLetGo) cw.__fightLetGo(); } catch (e) {} try { w.f.remove(); } catch (e) {} B.warmDropped = (B.warmDropped | 0) + 1; }
+  /* ==== end (the warm page) ==== */
   function want(ask, plan, kit) {
     var C = CL(); if (!C || !ask || !plan || !kit) return B.state;
     B.kit = kit; B.plan = plan;
@@ -119,7 +148,7 @@
     var sq = C.square(plan), key = keyOf(ask, sq) + (fv ? '|F' + fv.sig : '');
     if (key === B.key && B.state !== 'failed') return B.state;
     drop();
-    B.fv = fv; B.fvLay = {}; B.fvSet = {}; B.fvShown = null;
+    B.fv = fv; B.fvLay = {}; B.fvSet = {}; B.fvShown = null; B.fvLeft = [];
     B.key = key; B.ask = ask; B.sq = sq; B.n = sq.n; B.need = fv ? {} : reach(plans(plan, kit, sq));
     B.state = 'baking'; B.t0 = Date.now(); B.err = null; B.bakes++;
     var fits = fv ? [] : plans(plan, kit, sq), tmin = fits.length ? Math.min.apply(null, fits.map(function (f) { return f.T; })) : 515;
@@ -134,20 +163,22 @@
       manPx: fv ? Math.round(fv.v.man / fv.gw * 1e4) / 1e4 : wide ? Math.round(PERSON / wide.T * 1e4) / 1e4 : 0 };   /* the dead at the fight's own man size */
     B.fromFight = !!ask.fightOpts; B.wantSig = ask.sig || null;
     B.opts = { kind: opts.kind || null, district: opts.district || null, cell: opts.cell || null, night: !!opts.night, deal: opts.deal != null ? opts.deal : null };
-    var f = document.createElement('iframe'); f.title = 'the camp\'s board'; f.setAttribute('aria-hidden', 'true'); f.tabIndex = -1; f.id = 'campboardframe';
-    f.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5';
-    var mine = key, set = function () { try { var cw = f.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = opts; } catch (e) {} };
-    var iv = setInterval(set, 4);
-    f.addEventListener('load', function () { set(); clearInterval(iv); });
+    var Wm = warmTake(), f = Wm || document.createElement('iframe');   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__: the page warmed on the loot screen, if there is one */
+    if (!Wm) { f.title = 'the camp\'s board'; f.setAttribute('aria-hidden', 'true'); f.tabIndex = -1; f.id = 'campboardframe';
+      f.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5'; }
+    var mine = key, set = function () { try { var cw = f.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && (!cw.FIGHT_OPTS || (cw.FIGHT_OPTS.campBoard && cw.FIGHT_OPTS.campBoard.warm))) cw.FIGHT_OPTS = opts; } catch (e) {} };
+    var iv = Wm ? 0 : setInterval(set, 4);
+    if (!Wm) f.addEventListener('load', function () { set(); clearInterval(iv); });
     B.heard = function (ev) { var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CAMP_BOARD' || ev.source !== f.contentWindow) return; landed(f, mine, d); };
     /* the page sits where a fight's page sits, beside the map (the shell): the fight finds the map there and lays the board from the
        map's own block (COMBAT TWO's __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ asks its parent for #cityFrame); its word comes to the shell */
     var home = document, hw = root; try { if (root.top && root.top !== root && root.top.document && root.top.document.getElementById('cityFrame')) { home = root.top.document; hw = root.top; } } catch (e) { home = document; hw = root; }
     B.hw = hw; hw.addEventListener('message', B.heard);
     B.timer = setTimeout(function () { if (B.key === mine && B.state === 'baking') fail('the board did not come in ' + (WAIT_MS / 1000) + ' s'); }, WAIT_MS);
+    B.frame = f;
+    if (Wm) { warmGo(f, opts); return B.state; }
     f.src = 'BOHEMIA_FIGHT.html';
     (home.body || home.documentElement).appendChild(f);
-    B.frame = f;
     return B.state;
   }
   function ask0(key) { return B.key === key && B.ask ? B.ask.dead : null; }
@@ -407,17 +438,33 @@
     F.rho = Math.min(F.rhoT, Math.max(1, R.tw / F.gw));
     B.state = 'composing';
     var pics = {}, rings = {};
-    step(function () { rings.day = fvRing(cw, false); pics.day = fvCompose(R.day, rings.day); if (rings.day) rings.day.c.width = 0;
-      step(function () { rings.night = fvRing(cw, true); pics.night = fvCompose(R.night, rings.night); if (rings.night) rings.night.c.width = 0;
-        F.ringed = !!(rings.day && rings.night); F.composeMs = Date.now() - t0;
-        unframe(cw);   /* the hidden page and every picture it made, let go */
-        fvBlob(pics.day, function (du) { fvBlob(pics.night, function (nu) {
-          if (B.key !== key) { try { URL.revokeObjectURL(du); URL.revokeObjectURL(nu); } catch (e) {} return; }
-          var n = pics.day.width; pics.day.width = 0; pics.night.width = 0;
-          var P = { key: 'F|W', ready: true, url: du, nurl: nu, px: [F.PW, F.PH], T: F.T, tall: false, lift: 0, w: n, h: n, ms: Date.now() - t0, fv: true };
-          B.plates['F|W'] = P; B.plates['F|T'] = Object.assign({}, P, { key: 'F|T', tall: true });
-          B.state = 'in'; B.ms = Date.now() - B.t0; B.made++; tell(); }); });
-      }); });
+    /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the light the camp stands in now first, its picture written and the
+       camp in on it (he watches the set-up while the other light is made); the other light after, laid on the same plate when written */
+    var nightNow = false; try { nightNow = !!(B.ask && B.ask.fightOpts && B.ask.fightOpts.night); } catch (e) {}
+    var A1 = nightNow ? 'night' : 'day', A2 = nightNow ? 'day' : 'night', first = root.__CAMP_BOTH_LIGHTS_FIRST ? null : A1;
+    var plate = function (u1, u2, both) {
+      var n = (pics[A1] || pics[A2]).width;
+      var P = { key: both ? 'F|W+' : 'F|W', ready: true, url: A1 === 'day' ? u1 : u2, nurl: A1 === 'day' ? u2 : u1, px: [F.PW, F.PH], T: F.T, tall: false, lift: 0, w: n, h: n, ms: Date.now() - t0, fv: true };
+      B.plates['F|W'] = P; B.plates['F|T'] = Object.assign({}, P, { key: both ? 'F|T+' : 'F|T', tall: true });   /* both lights: a new key, so the screen takes the night's own picture */
+    };
+    step(function () { rings[A1] = fvRing(cw, A1 === 'night'); pics[A1] = fvCompose(R[A1], rings[A1]); if (rings[A1]) rings[A1].c.width = 0;
+      var then = function (u1) {
+        step(function () { rings[A2] = fvRing(cw, A2 === 'night'); pics[A2] = fvCompose(R[A2], rings[A2]); if (rings[A2]) rings[A2].c.width = 0;
+          F.ringed = !!(rings.day && rings.night); F.composeMs = Date.now() - t0;
+          unframe(cw);   /* the hidden page and every picture it made, let go */
+          fvBlob(pics[A2], function (u2) {
+            if (B.key !== key) { try { URL.revokeObjectURL(u2); if (u1) URL.revokeObjectURL(u1); } catch (e) {} return; }
+            if (!u1) { fvBlob(pics[A1], function (u1b) { if (B.key !== key) return; plate(u1b, u2, false); pics[A1].width = 0; pics[A2].width = 0; B.state = 'in'; B.ms = Date.now() - B.t0; B.made++; tell(); }); return; }
+            plate(u1, u2, true); pics[A1].width = 0; pics[A2].width = 0; B.bothAt = Date.now() - B.t0; tell(); });
+        });
+      };
+      if (!first) { then(null); return; }
+      fvBlob(pics[A1], function (u1) {   /* the light he stands in, on the glass now; the other light's own picture stands in for it until written */
+        if (B.key !== key) { try { URL.revokeObjectURL(u1); } catch (e) {} return; }
+        plate(u1, u1, false); B.state = 'in'; B.ms = Date.now() - B.t0; B.firstLight = A1; B.made++; tell();
+        then(u1);
+      });
+    });
   }
   /* ---- the camp on the board's own ground: what stands where (the board's grid: 2 open, 1 cover on it, 0 never) */
   function fvR(u, w) { var Z = B.fv && B.fv.rise; return Z && Z[w] ? +Z[w][u] || 0 : 0; }
@@ -449,7 +496,7 @@
         for (var j = 0; j < n; j++) { var a = j / n * 2 * Math.PI, px = x + Math.cos(a) * rr, py = y + Math.sin(a) * rr * 0.75, r = at(px, py, tries[k][0], tries[k][1]); if (r) return { x: Math.round(px), y: Math.round(py), r: r }; }
       }
     }
-    return { x: Math.round(x), y: Math.round(y), r: [x + d[0], y + d[1], x + d[2], y + d[3]] };
+    return { x: Math.round(x), y: Math.round(y), r: [x + d[0], y + d[1], x + d[2], y + d[3]], none: true };   /* nowhere clear: said (none), never laid on a house */
   }
   function fvDeadRects() { return bodiesAll().map(function (q) { return [q.x - 44, q.y - 16, q.x + 44, q.y + 10]; }); }
   function bodiesAll() {
@@ -469,6 +516,11 @@
       pieces.sort(function (a, b) { return (rank[a.kind] || 6) - (rank[b.kind] || 6) || Math.hypot(a.x - f0.x, a.y - f0.y) - Math.hypot(b.x - f0.x, b.y - f0.y); });
       pieces.forEach(function (p) {
         var d = fvFoot(p), s = p.kind === 'fire' ? fvNear(fc[0], fc[1], d, taken, true, 380) : fvNear(fc[0] + (p.x - f0.x) * FV_PACK, fc[1] + (p.y - f0.y) * FV_PACK, d, taken, p.kind === 'tent' || p.kind === 'carrier');
+        /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(b), Paolo 11/10: 'never putting any of our camp shit on top of any
+           buildings'): a piece with no open ground clear for it is left out (counted in B.fvLeft), never laid on a house, a roof or a wall */
+        if (s.none) s = fvNear(s.x, s.y, p.kind === 'fire' ? [-8, -4, 8, 3] : d, taken, false, 1200);   /* farther out on the board before it is left out */
+        if (s.none && p.kind === 'fire') s = fvNear(fc[0], fc[1], [-4, -2, 4, 2], [], false, 2400);   /* the fire on open ground, wherever that is */
+        if (s.none) { B.fvLeft = (B.fvLeft || []).concat([p.key]); return; }
         p.x = s.x; p.y = s.y; taken.push(s.r); out.push(p); });
       var fire = out.filter(function (p) { return p.kind === 'fire'; })[0] || { x: fc[0], y: fc[1] };
       B.fvLay[k] = { pieces: out, fire: { x: fire.x, y: fire.y } };
@@ -487,7 +539,9 @@
       if (e.act === 'watch') { q.x = f.x + (q.x - f.x) * 0.42; q.y = f.y + (q.y - f.y) * 0.42; }
       var lying = e.act === 'lie' || e.act === 'sleep', d = lying ? [-62, -14, 62, 6] : [-18, -8, 18, 4];
       var t2 = e.act === 'loot' ? taken : taken.concat(dead);   /* a man going through a body kneels at it; nobody else stands on the dead */
-      var s = fvNear(q.x, q.y, d, t2, false, 300); q.x = s.x; q.y = s.y; out[e.i] = q; taken.push(s.r); });
+      var s = fvNear(q.x, q.y, d, t2, false, 300);
+      if (s.none) s = fvNear(q.x, q.y, [-6, -3, 6, 2], [], false, 900);   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(b)): crowded, he still stands on open ground, never on a house */
+      q.x = s.x; q.y = s.y; out[e.i] = q; taken.push(s.r); });
     return out;
   }
   /* what a man walks round on the fight's view: every house, wall and pool of the board on the picture, and the board's edge */
@@ -512,7 +566,21 @@
     if (!B.fv) return null; var F = B.fv;
     return { on: fvOn(), sig: F.sig, z: F.v.z, gw: Math.round(F.gw * 100) / 100, gh: Math.round(F.gh * 100) / 100, man: Math.round(F.v.man * 10) / 10, q: Math.round(F.q * 1e4) / 1e4, T: Math.round(F.T * 10) / 10,
       handed: !!B.handed, r0: F.r0 || 0, okS: F.okS || null, S: F.S, PW: F.PW, PH: F.PH, ox0: F.ox0, oy0: F.oy0, rho: Math.round(F.rho * 100) / 100, W: F.v.W, H: F.v.H, sx0: F.v.sx0, sy0: F.v.sy0, fx: F.v.fx, fy: F.v.fy, ringed: !!F.ringed, composeMs: F.composeMs || null,
-      glass: fvGlass(), men: fromFight() };
+      glass: fvGlass(), men: fromFight(), left: B.fvLeft || [], warm: { taken: B.warmTaken | 0, was: B.warmWas || null, age: B.warmAge || null, made: B.warms | 0, dropped: B.warmDropped | 0 }, bothAt: B.bothAt || null };
+  }
+  /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(b)): where the camp stands, tile by tile (the gate's read, nothing drawn):
+     every piece's footprint and every man's feet on the board's tiles, and what each tile is: open ground of the camp's height (the
+     fight's own grid: 2 open, 1 cover on it), or a house (a roof), a wall, water or a drop (0). pieces: [{ key, kind, sprite, x, y }],
+     men: [{ name, x, y, act }] in the camp's picture px */
+  function fvWhere(pieces, men) {
+    if (!B.fv || !B.out || !B.out.grid) return null; var F = B.fv, out = [];
+    var tileInfo = function (u, w) { var roof = !!(F.roof && F.roof[w] && F.roof[w][u]); return { t: [u, w], ok: fvOk(u, w), roof: roof }; };
+    (pieces || []).forEach(function (p) { if (p.kind === 'slain') return; var d = fvFoot(p), a = fvTileS(p.x + d[0], p.y + d[1]), b = fvTileS(p.x + d[2], p.y + d[3]), tiles = [];
+      for (var w = Math.floor(a[1]); w <= Math.floor(b[1] - 1e-6); w++) for (var u = Math.floor(a[0]); u <= Math.floor(b[0] - 1e-6); u++) tiles.push(tileInfo(u, w));
+      out.push({ what: 'piece', key: p.key, kind: p.kind, tiles: tiles, open: tiles.length > 0 && tiles.every(function (q) { return q.ok > 0 && !q.roof; }) }); });
+    (men || []).forEach(function (m) { if (m.act === 'lean') { var t0 = fvTileS(m.x, m.y + 4), q0 = tileInfo(Math.floor(t0[0]), Math.floor(t0[1])); out.push({ what: 'man', key: m.name, act: m.act, tiles: [q0], open: q0.ok > 0 && !q0.roof }); return; }
+      var t = fvTileS(m.x, m.y), q = tileInfo(Math.floor(t[0]), Math.floor(t[1])); out.push({ what: 'man', key: m.name, act: m.act, tiles: [q], open: q.ok > 0 && !q.roof }); });
+    return out;
   }
   /* ==== end __THE_CAMP_IS_THE_FIGHTS_BOARD__ ==== */
   function state() {
@@ -523,6 +591,6 @@
       fromFight: !!B.fromFight, wantSig: B.wantSig || null, bodies: B.out ? B.out.bodies : 0, dead: B.out && B.out.dead ? B.out.dead.length : 0,
       plates: Object.keys(B.plates).map(function (k) { var P = B.plates[k]; return { key: k, ready: !!P.ready, T: P.T, w: P.w, h: P.h, ms: P.ms }; }), fv: fvState() };
   }
-  root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, walls: walls, onBoard: onBoard, settle: settle, houses: houses, fromFight: fromFight, fvOn: fvOn, fvState: fvState, fvGlass: function () { return B.fv ? fvGlass() : null; }, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
+  root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, walls: walls, onBoard: onBoard, settle: settle, houses: houses, fromFight: fromFight, fvOn: fvOn, fvState: fvState, fvWhere: fvWhere, warm: warm, warmDrop: warmDrop, warmOn: function () { return !!B.warm; }, fvGlass: function () { return B.fv ? fvGlass() : null; }, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
     onChange: function (fn) { if (typeof fn === 'function' && B.fns.indexOf(fn) < 0) B.fns.push(fn); }, _B: B };
 })(typeof window !== 'undefined' ? window : this);
