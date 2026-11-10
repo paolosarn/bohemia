@@ -192,7 +192,108 @@ const SURVEYOR = {
 };
 
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR };
+/* ---------------- THE CLIMB: his riggers ---------------- */
+const CLIMB = {
+  K2: (q) => !!q && q.moved >= 1 && q.drawn >= 1 && q.meet && q.band && q.down,
+  C1a: (q) => !!q && !q.party && !q.fought,
+  R1: (q, b) => !!q && q.fallen && b.names.every(n => (q.residents || []).indexOf(n) >= 0) && q.count === b.count && !q.party && q.home === b.home,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null; for (let i = 0; i < 20 && !(Q && Q.party); i++) { Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n) || null)), NAME); if (!(Q && Q.party)) await c.page.waitForTimeout(500); }
+    ok('K1 his riggers: a party at the foot of his hoist, and the people he kept up top waiting on his towers', !!Q && !!Q.party && Q.party.down == null && Q.kept.length >= 2,
+      Q ? 'the party at ' + Q.party.x + ',' + Q.party.y + ' by his hoist ' + Q.at.join(',') + ', ' + Q.kept.length + ' kept: ' + Q.kept.map(k => k.name + ' ' + k.x + ',' + k.y).join(', ') : 'none');
+    if (!Q) return false; c.Q = Q;
+    /* walk into his sight, toward them: they come down the street */
+    const tgt = await fr.evaluate((a) => { const Q = a[0], f = a[1], G = a[2], h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -G.sight; dy <= G.sight; dy++) for (let dx = -G.sight; dx <= G.sight; dx++) { const x = Q.at[0] + dx, y = Q.at[1] + dy, d0 = Math.max(Math.abs(dx), Math.abs(dy));
+        if (d0 < G.sight - 2 || !cityWalkable(x, y) || loopTownAt(x, y, 1) || Math.max(Math.abs(x - f.x), Math.abs(y - f.y)) < 2) continue;
+        if (!cityRoute(h[0], h[1], x, y)) continue; const dd = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (dd < bd) { bd = dd; best = [x, y]; } } return best; }, [Q, c.f, G]);
+    c.tb = tgt;
+    await fr.evaluate(() => { window.__GATE_PARTY = true; });
+    let meet = null, drawn = 0, moved = 0; await c.go(tgt);
+    for (let i = 0; i < 240 && !meet; i++) { await c.page.waitForTimeout(500);
+      const r = await fr.evaluate((n) => ({ d: ((BohemiaBosses.last().drew || {}).riggers || []).length, m: ((BohemiaBosses.riggers(n) || {}).party || {}).moved | 0,
+        meet: (function () { try { return MEET.up && /^riggers:/.test((MEET.up.msg && MEET.up.msg.why) || '') ? { why: MEET.up.msg.why, what: (MEET.up.msg.party || {}).what } : null; } catch (e) { return null; } })() }), NAME).catch(() => ({}));
+      drawn = Math.max(drawn, r.d | 0); moved = Math.max(moved, r.m | 0); meet = r.meet || null;
+      if (!meet && i % 12 === 11) { const at = await fr.evaluate(() => [city.x, city.y]); const P = (await fr.evaluate((n) => BohemiaBosses.riggers(n).party, NAME));
+        /* he stands still in their sight: walk at them, the way a stranger who wants the fight does */
+        if (await fr.evaluate(() => !TRAVEL || TRAVEL.i >= TRAVEL.path.length)) await c.go([P.x, P.y]); } }
+    if (meet) { await c.page.waitForTimeout(1200); await c.shot('2_his_riggers_and_their_card'); }
+    const mcard = meet ? await fr.evaluate(() => { const g = document.querySelector('#meetcard button[data-meet="go"]'), b = document.querySelector('#meetcard button[data-meet="back"]'); return { go: !!g, back: !!b }; }) : null;
+    if (meet) await c.tapEl(await fr.$('#meetcard button[data-meet="go"]'));
+    let ff = null;
+    for (let i = 0; i < 120 && !ff && meet; i++) { await c.page.waitForTimeout(500); const h = await c.page.$('#fightFrame');
+      if (h) { const x = await h.contentFrame(); if (x && await x.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) ff = x; } }
+    let kinds = null, by = 'no fight';
+    if (ff) {
+      kinds = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').map(u => u.kind)).catch(() => null);
+      await c.tapEl(await ff.$('#bauto')); let res = null;
+      for (let i = 0; i < 240 && !res; i++) { await c.page.waitForTimeout(500); res = await ff.evaluate(() => FIGHT.S.over ? FIGHT.S.result : null).catch(() => null); if (!res && i % 30 === 29) await ff.evaluate(() => { try { if (!UI.auto) document.getElementById('bauto').click(); } catch (e) {} }).catch(() => {}); }
+      by = 'AUTO'; if (res !== 'won') { by = 'THE CHECKER (AUTO ' + (res || 'not done in 120 s') + ')'; await ff.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {}); }
+      for (let i = 0; i < 40; i++) { await c.page.waitForTimeout(500); if (await c.page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) break; }
+      await c.page.waitForTimeout(1200);
+      let left = false; try { const sf = c.page.frames().find(x => /SPOILS_SCREEN/.test(x.url())); if (sf) { await c.page.waitForTimeout(1200); left = await c.tapEl(await sf.$('#leave')); } } catch (e) {}
+      await c.page.waitForTimeout(600); if (!left || await c.page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) await c.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+      for (let i = 0; i < 30; i++) { await c.page.waitForTimeout(500); if ((await fr.evaluate((n) => BohemiaBosses.riggers(n).party.down, NAME)) != null) break; }
+    }
+    await fr.evaluate(() => { window.__GATE_PARTY = false; });
+    Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n))), NAME);
+    const q = { moved, drawn, meet: !!meet && !!mcard && mcard.go && mcard.back, band: !!kinds && kinds.length === G.band.length && kinds.every(k => G.band.indexOf(k) >= 0), down: Q.party.down != null };
+    ok('K2 his riggers come for the crew on the map: painted in its sight, walking ' + moved + ' blocks toward it, their card first, ' + G.band.length + ' of them on the board, beaten and down', CLIMB.K2(q),
+      (meet ? meet.why + ' "' + meet.what + '"' : 'no card') + ', board ' + JSON.stringify(kinds) + ', won by ' + by + ', the party ' + JSON.stringify(Q.party));
+    ok('P2 planted: a party that never left the hoist (0 blocks walked) turns K2 red', !CLIMB.K2(Object.assign({}, q, { moved: 0 })), 'moved 0');
+    return true;
+  },
+  card(G, c) { const n = c.Q.kept.length; return G.card.replace('{KEPT}', n + (n === 1 ? ' PERSON' : ' PEOPLE')); },
+  async atCard(c) { await c.fr.evaluate(() => render()); await c.page.waitForTimeout(300); c.kd = await c.fr.evaluate(() => ((BohemiaBosses.last().drew || {}).kept || []).map(q => q.key)); },
+  async after(c) {
+    const { fr, G } = c;
+    await fr.evaluate(() => render()); await c.page.waitForTimeout(400);
+    let Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n))), NAME);
+    /* C1a: back into his sight, no riggers come */
+    const f0 = await fr.evaluate(() => (window.__BOSS_PARTY_FIGHT || {}).t || 0);
+    await c.goTo(c.tb); await c.page.waitForTimeout(3000);
+    const f1 = await fr.evaluate(() => ({ t: (window.__BOSS_PARTY_FIGHT || {}).t || 0, drawn: ((BohemiaBosses.last().drew || {}).riggers || []).length }));
+    const qa = { party: f1.drawn > 0, fought: f1.t !== f0 };
+    ok('C1a his riggers are gone: walking back into his sight, nobody comes and none is painted', CLIMB.C1a(qa) && Q.fell != null, JSON.stringify(qa));
+    /* C1b: the first one, with no place planted: she says she will come the day he plants, and does */
+    const k0 = Q.kept[0], k1 = Q.kept[1];
+    const res = () => fr.evaluate(() => { const r = BohemiaHomeMap.rec(); return { planted: !!(r && r.planted), names: ((r && r.residents) || []).map(p => p.name), waiting: ((r && r.waiting) || []).map(x => x.id) }; });
+    await c.goTo([k0.x, k0.y]); await c.page.waitForTimeout(1500);
+    const kd = c.kd || [];   /* read while her card was up, the camera on his towers (measured 11/10: from LUZ's block the others were off the screen) */
+    const r0 = await res();
+    const w0 = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n).kept[0])), NAME);
+    const pl = await fr.evaluate(() => { const r = BohemiaHomeMap.plantAt(city.x, city.y); return r && r.ok; });
+    await fr.evaluate(() => render()); await c.page.waitForTimeout(1500);
+    const r1 = await res(), w1 = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(n).kept[0])), NAME);
+    ok('C1b ' + k0.name + ', with no place planted yet, waits for it (HOME BASE\'s one seam); the day he plants she moves in', !r0.planted && w0.asked != null && w0.waiting === true && r0.waiting.indexOf('climb:kept:' + k0.name) >= 0 && r0.names.indexOf(k0.name) < 0 && pl && r1.names.indexOf(k0.name) >= 0,
+      'before: planted ' + r0.planted + ', waiting ' + JSON.stringify(r0.waiting) + ', she ' + JSON.stringify(w0) + '; planted ' + pl + '; after: ' + JSON.stringify(w1) + ', residents ' + JSON.stringify(r1.names));
+    /* the next is whoever has not come yet (measured 11/10, on its side: the walk to LUZ passed over DON ARTURO, and he came then, the game right) */
+    const left = await fr.evaluate((n) => BohemiaBosses.riggers(n).kept.findIndex(q => q.asked == null), NAME);
+    const kk = left >= 0 ? Q.kept[left] : k1;
+    if (left >= 0) { await c.goTo([kk.x, kk.y]); await c.page.waitForTimeout(1500); }
+    const r2 = await res(), w2 = await fr.evaluate((a) => JSON.parse(JSON.stringify(BohemiaBosses.riggers(a[0]).kept[a[1]])), [NAME, left >= 0 ? left : 1]);
+    const moved = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_CAME_DOWN || [])));
+    ok('C1c ' + kk.name + ', with the place planted, moves in the moment the crew reaches her; they stood painted at the foot of his towers', left >= 0 && w2.home != null && !w2.waiting && r2.names.indexOf(kk.name) >= 0 && kd.length >= 1 && kd.every(k => k === 'riggers_after'),
+      JSON.stringify(w2) + ', residents ' + JSON.stringify(r2.names) + ', painted ' + kd.join(' ') + ', came down ' + JSON.stringify(moved.map(m => m.name + (m.home ? ' home' : ' waits'))));
+    await c.shot('5_they_came_down');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who + ', the company, and the radio', posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0) && posts.some(p => p.who === G.feed_home.who && p.txt.indexOf(kk.name) === 0) && posts.some(p => p.who === '@valleyradio' && /top floors/.test(p.txt)),
+      posts.filter(p => p.who === G.feed.who || p.who === '@valleyradio' || p.who === G.feed_home.who).map(p => p.who + ': ' + p.txt.slice(0, 60)).join(' | '));
+    const p3 = await fr.evaluate((n) => { const Qq = BohemiaBosses.riggers(n), Hm = BohemiaHisMap.state(), was = Qq.fell, f = Hm.boss.fallen[n]; Qq.fell = null; delete Hm.boss.fallen[n]; const pd = Qq.party.down; Qq.party.down = null;   /* a party standing at the hoist again */
+      const o = { party: !!BohemiaBosses.partyUp(n), fought: false }; Qq.fell = was; Hm.boss.fallen[n] = f; Qq.party.down = pd; return o; }, NAME);
+    ok('P3 planted: his riggers back after the fall turns C1a red', !CLIMB.C1a(p3), JSON.stringify(p3));
+    const names = [k0.name, kk.name];
+    return { names, count: r2.names.length, home: (await fr.evaluate((n) => BohemiaBosses.riggers(n).kept.filter(q => q.home != null).length, NAME)) };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.tb); await e.page.waitForTimeout(2500);
+    return e.fr.evaluate((n) => { const Q = BohemiaBosses.riggers(n) || { kept: [] }, r = BohemiaHomeMap.rec(); return { fallen: !!BohemiaHisMap.state().boss.fallen[n], residents: ((r && r.residents) || []).map(p => p.name), count: ((r && r.residents) || []).length,
+      party: !!BohemiaBosses.partyUp(n) || ((BohemiaBosses.last().drew || {}).riggers || []).length > 0, home: Q.kept.filter(q => q.home != null).length }; }, NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -335,6 +436,7 @@ async function run(prof, alpha) {
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));
   /* the feed keeps its last 14 posts (BOHEMIA_FEED's MAX): read it at the fall too, so a busy alpha cannot scroll his post out before C1d */
   c.fallPosts = await posts().catch(() => []);
+  if (L.atCard && af) { try { await L.atCard(c); } catch (e) {} }   /* while her card is up the camera is still on his place: what stands round it is on the screen */
   c.posts = async () => { const all = (c.fallPosts || []).concat(await posts().catch(() => [])), seenP = {}; return all.filter(p => { const k = p.who + '|' + p.txt; if (seenP[k]) return false; seenP[k] = 1; return true; }); };
   if (af) await pressCard(0);
   await page.waitForTimeout(2500);

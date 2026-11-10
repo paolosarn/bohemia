@@ -640,7 +640,7 @@
     "thing": {
      "head": "THE FLYER",
      "what": "a flyer taped to a light pole",
-     "says": "It says THE HOIST WORKS. THE CLIMB DECIDES WHO GOES UP. It shows the casino tower with the hoist up its side. He takes his own crew up and leaves everybody on the ground. I marked it."
+     "says": "It says THE HOIST WORKS. THE CLIMB DECIDES WHO GOES UP. It shows the casino tower with the hoist up its side. He keeps people up there who paid to go up and can't pay to come down, and his riggers come down the street for anybody who gets close. I marked it."
     }
    },
    "after": {
@@ -652,7 +652,54 @@
     "valley": "The hoist runs for anybody now. The top floors are open, and the lights are on up there.",
     "take": "TAKE IT"
    },
-   "tip": "CLOSE IN FAST: HIS HOOK REACHES TWO"
+   "tip": "CLOSE IN FAST: HIS HOOK REACHES TWO",
+   "riggers": {
+    "name": "HIS RIGGERS",
+    "crew_word": "THE CLIMB'S RIGGERS, DOWN OFF HIS HOIST",
+    "band": [
+     "brigand_raider",
+     "brigand_thug"
+    ],
+    "sight": 6,
+    "leash": 8,
+    "back_days": 1,
+    "near": 2,
+    "far": 5,
+    "pic": "riggers",
+    "say": "His riggers came down the hoist. They're coming for us.",
+    "feed_seen": {
+     "who": "@nena_scraps",
+     "txt": "His riggers are off the hoist on {where} and walking. Don't let them catch you in the street."
+    },
+    "kept": [
+     {
+      "name": "LUZ",
+      "look": "faction_network"
+     },
+     {
+      "name": "DON ARTURO",
+      "look": "faction_homeless"
+     },
+     {
+      "name": "MARISOL",
+      "look": "faction_caravans"
+     }
+    ],
+    "from": "THE CLIMB's tower",
+    "rise_home": "+1 AT YOUR PLACE: {name}",
+    "rise_wait": "{name} WAITS FOR YOUR PLACE",
+    "say_wait": "{name}: You don't have a place yet? The day you plant one, I'm coming.",
+    "feed_home": {
+     "who": "@yourcompany",
+     "txt": "{name} came down from the tower on {where} and moved in at our place."
+    },
+    "feed": {
+     "who": "@nena_scraps",
+     "txt": "The hoist came down on {where} and the people he kept up top came down with it. They need somewhere to live."
+    },
+    "card": "THE PEOPLE HE KEPT UP TOP CAME DOWN: {KEPT} AT THE FOOT OF HIS TOWERS. WALK UP AND THEY COME TO YOUR PLACE.",
+    "note": "draft:true. The sight, the leash, the band, the names and every word are first attempts; TUNING owns 6 blocks of sight, 8 of leash, two riggers a fight and a day before the next party."
+   }
   }
  ]
 }

@@ -1,5 +1,22 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 443, 11/10/26: THE CLIMB'S RIGGERS, HIS OWN WAY (rules 443(a), 441, 445; ask lines 167, 522), BUILD 11/10y
+Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE CLIMB" (THE CLIMB
+CHANGES THE MAP, registered; both ways: the demo upright 18/0 (and 18/0 again with the camera's riggers), the alpha on its side 18/0; three plants). VOTE bosses-the-climbs-riggers-11-10 (stand_in).
+- HIS RIGGERS (slices/bohemia_bosses.js (13); his 'riggers' row: sight 6, leash 8, two riggers, back in a day, three kept by name, the
+  words): Battle Brothers' location that sends parties. WHILE HE STANDS a party off his hoist comes down the street for the crew inside
+  his sight (a block a crew block, painted only where mapSees), their card first through RUN's one door (why 'riggers:<boss>', the end
+  heard on BOHEMIA_CITY_COMBAT_END like the machines), beaten they are down a day. WHEN HE FALLS the people he kept up top (LUZ, DON
+  ARTURO, MARISOL) stand at the foot of his towers; stepping onto one hands her to the settlement through HOME BASE's seam:
+  BohemiaHomeMap.give({id:'climb:kept:<name>', kind:'person', name, look, from:"THE CLIMB's tower"}): waiting before he plants,
+  placed by planting, a resident after. Kept after a reload, nobody twice.
+- HOME BASE: your give() feed line for a waiting PERSON reads "LUZ from THE CLIMB's tower is ours. It waits until we have a place to put
+  it." (a thing's words for a person); yours to word for kind 'person'. And the three boss prizes plus my people share rec.waiting fine.
+- NOTES: TUNING, 6 blocks of sight, 8 of leash, two riggers a fight, a day before the next party; COMBAT TWO, the riggers' fight is the
+  board the city cuts at that spot; WORDS, the three names and their lines are drafts.
+THE LADDER'S FIRST SIX NOW EACH CHANGE THE MAP THEIR OWN WAY: a wall (THE POT), a toll then taps (THE TAP), guards then wrecks (THE
+FILTER), the night then fires (THE BURN), the map's memory then its lines (THE SURVEYOR), a hunt then people at your place (THE CLIMB).
+
 ## BOSSES 443, 11/10/26: THE SURVEYOR'S HOLE IN THE MAP, HIS OWN WAY (rules 443(a), 441; ask lines 167, 522), BUILD 11/10v
 Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE SURVEYOR" (THE
 SURVEYOR CHANGES THE MAP, registered; both ways: the demo upright 18/0, the alpha on its side 18/0; three plants). VOTE bosses-the-surveyors-hole-11-10 (stand_in).

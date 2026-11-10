@@ -87,7 +87,7 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {}, riggers: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -99,12 +99,14 @@
     if (!S.machines) S.machines = {};
     if (!S.dark) S.dark = {};
     if (!S.hole) S.hole = {};
+    if (!S.riggers) S.riggers = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
     machinesCatchUp(); /* (10) and his machines */
     darkCatchUp();     /* (11) and his dark */
     holeCatchUp();     /* (12) and his hole */
+    riggersCatchUp();  /* (13) and his riggers */
     if (SHUT_DIRTY) shutGrid();
     return true;
   }
@@ -211,7 +213,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -1129,6 +1131,155 @@
   }
 
 
+  /* ---------- (13) HIS RIGGERS (BOSSES 11/10, rules 443(a), 441, 445; ask lines 167, 522; records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md).
+     THE CLIMB's way is HIS RIGGERS. His ladder row: he holds 'the last hoist that lifts' and decides who goes up, and who comes down.
+     A boss whose row has 'riggers' keeps a party of his riggers at the foot of his hoist (Battle Brothers: a location SENDS parties
+     because it holds). WHILE HE STANDS, the moment the crew is within 'sight' blocks of his hoist the party comes down the street for
+     it, a block for every block the crew walks, never past 'leash' from the hoist, painted only where the crew could see it (the map's
+     own sight, RUN's mapSees); when it reaches the crew, its card first (ENGAGE or FALL BACK, RUN's one door) and the 'band' on the
+     board; beat it and it is down until another comes off the hoist 'back_days' later. Not a wall, not a toll, not a man at a post:
+     the danger walks. WHEN HE FALLS his riggers are gone and the people he kept up top come down: 'kept' of them stand at the foot of
+     his towers; the crew stepping onto one takes her home: she moves into the place he planted (HOME BASE's one seam, rule 445:
+     BohemiaHomeMap.give, kind 'person'), or, with no place planted yet, she waits for it there and planting places her. Kept after a reload. */
+  var RFIGHT = null;
+  function riggersRow(n) { var r = row(n); return r && r.riggers ? r : null; }
+  function riggersDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
+  function makeRiggers(r, at, from) {
+    var G = r.riggers, V = verbRow('climb'), K = (V && V.verb.tower_districts) || [];
+    var home = spots(at, 1, 2, 1, from, 0x1b873593)[0] || { x: at[0], y: at[1] };
+    var all = spots(at, Math.max(1, G.near | 0 || 2), Math.max(2, G.far | 0 || 5), 12, from, 0x7feb352d);
+    var foot = all.filter(function (q) { return !!nearKind(q.x, q.y, K); }), kept = [];
+    (foot.concat(all.filter(function (q) { return foot.indexOf(q) < 0; }))).forEach(function (q) { if (kept.length < (G.kept || []).length && !kept.some(function (p) { return cheb(p.x, p.y, q.x, q.y) < 2; })) kept.push(q); });
+    return { at: at.slice(), party: { x: home.x, y: home.y, home: [home.x, home.y], down: null, fights: 0, moved: 0, armed: true },
+      kept: kept.map(function (q, i) { var P = G.kept[i]; return { x: q.x, y: q.y, name: P.name, look: P.look || null, asked: null, home: null }; }), fell: null, told: null, made: day(), draft: true };
+  }
+  function sees(x, y) { try { return typeof mapSees !== 'function' || mapSees(x, y); } catch (e) { return true; } }
+  /* rule 445: a person moving in goes through HOME BASE's one seam (BohemiaHomeMap.give, kind 'person'): before he plants she waits
+     there (the phone says so), planting places her; the same id twice is one person */
+  function moveIn(r, q, at) {
+    var M = root.BohemiaHomeMap; if (!M || !M.give) return null;
+    var res = null; try { res = M.give({ id: 'climb:kept:' + q.name, kind: 'person', name: q.name, look: q.look || null, from: r.riggers.from || "THE CLIMB's tower", says: r.riggers.says_home || null }); } catch (e) { res = null; }
+    if (!res || !res.ok) return null;
+    q.home = day(); q.waiting = !!res.waiting; save();
+    LAST.movedIn = (LAST.movedIn || []).concat([{ n: r.n, name: q.name, waiting: !!res.waiting, at: at ? at.slice() : null, t: Date.now() }]).slice(-8); root.__BOSS_MOVED_IN = LAST.movedIn;
+    return res;
+  }
+  function riggersTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.riggers) S.riggers = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.riggers || S.riggers[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.riggers[r.n] = makeRiggers(r, [at.x, at.y], sg ? [sg.x, sg.y] : here()); save();
+      LAST.riggers = { n: r.n, kept: S.riggers[r.n].kept.length, at: Date.now() };
+    });
+    if (RFIGHT && (root.__MEET_FELL_BACK | 0) > RFIGHT.fb) { var Qf = S.riggers[RFIGHT.n]; if (Qf) Qf.party.armed = false; RFIGHT = null; }   /* FALL BACK: they stand off */
+    var me = here(); if (!me) return;
+    if (inTown() || fightUp() || RFIGHT) return;
+    try { if (MEET && MEET.up) return; } catch (e) {}
+    try { if (root.navigator && root.navigator.webdriver && !root.__BOSSES_TALK) return; } catch (e) {}   /* other lanes' walks never meet his riggers */
+    for (var k in S.riggers) {
+      var Q = S.riggers[k], r = riggersRow(k); if (!Q || !r || !Q.at) continue;
+      var G = r.riggers;
+      if (riggersDown(k, Q)) {   /* after: the people he kept, at the foot of his towers */
+        try { var hrec = root.BohemiaHomeMap && BohemiaHomeMap.rec && BohemiaHomeMap.rec(); if (hrec && hrec.planted) Q.kept.forEach(function (q) { if (q.waiting && (hrec.residents || []).some(function (p) { return p.name === q.name; })) { q.waiting = false; save(); } }); } catch (e) {}   /* planting placed her */
+        Q.kept.forEach(function (q) { if (q.x !== me[0] || q.y !== me[1] || q.asked != null) return;
+          q.asked = day(); save();
+          var res = moveIn(r, q, me), home = !!(res && !res.waiting), o = { name: q.name, where: whereWord(me[0], me[1]) };
+          RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: fill(home ? (G.rise_home || '+1 AT YOUR PLACE') : (G.rise_wait || '{name} WAITS FOR YOUR PLACE'), o).toUpperCase(), col: '#e6c46a' }); tick();
+          if (home && G.feed_home) feed(G.feed_home.who, fill(G.feed_home.txt, o), 'mine');
+          if (!home && G.say_wait) say(fill(G.say_wait, o));
+          LAST.cameDown = (LAST.cameDown || []).concat([{ n: k, name: q.name, home: home, waiting: !!(res && res.waiting), at: me.slice(), t: Date.now() }]).slice(-8); root.__BOSS_CAME_DOWN = LAST.cameDown; });
+        continue;
+      }
+      var P = Q.party;
+      if (P.down != null) { if (day() - P.down >= (G.back_days | 0 || 1)) { P.down = null; P.x = P.home[0]; P.y = P.home[1]; P.armed = true; save(); } else continue; }   /* another comes off the hoist */
+      var mk = me[0] + ',' + me[1]; if (P.last === mk) continue; var first = P.last == null; P.last = mk; if (first) continue;   /* only on the crew's own steps, never at a load */
+      if (P.armed === false && cheb(P.x, P.y, me[0], me[1]) >= 3) P.armed = true;
+      if (cheb(Q.at[0], Q.at[1], me[0], me[1]) <= (G.sight | 0 || 6)) {   /* they come for the crew */
+        var p = null; try { p = cityRoute(P.x, P.y, me[0], me[1]); } catch (e) { p = null; }
+        var nx = p && p.length > 1 ? p[1] : null;
+        if (nx && cheb(nx[0], nx[1], Q.at[0], Q.at[1]) <= (G.leash | 0 || 8) && !(nx[0] === me[0] && nx[1] === me[1])) { P.x = nx[0]; P.y = nx[1]; P.moved = (P.moved | 0) + 1; save();
+          if (Q.told == null) { Q.told = day(); save(); if (G.say) say(G.say); if (G.feed_seen) feed(G.feed_seen.who, fill(G.feed_seen.txt, { where: whereWord(Q.at[0], Q.at[1]) }), 'world'); } }
+      } else if (P.x !== P.home[0] || P.y !== P.home[1]) {   /* out of sight they walk back to the hoist */
+        var b = null; try { b = cityRoute(P.x, P.y, P.home[0], P.home[1]); } catch (e) { b = null; } if (b && b.length > 1) { P.x = b[1][0]; P.y = b[1][1]; save(); }
+      }
+      LAST.party = { n: k, at: [P.x, P.y], moved: P.moved | 0, t: Date.now() }; root.__BOSS_PARTY = LAST.party;
+      if (P.armed !== false && cheb(P.x, P.y, me[0], me[1]) <= 1) { P.armed = false; riggersFight(k, r); return; }
+    }
+  }
+  function riggersFight(k, r) {
+    var G = r.riggers, band = (G.band || ['brigand_raider', 'brigand_thug']).slice(), at = here();
+    var party = { band: band, count: band.length, rolled: true, faction: 'brigands', what: G.crew_word || G.name || 'HIS RIGGERS', days: 1, difficulty: 1 };
+    try { party.word = partyWord(band.length); } catch (e) {}
+    var pkg = 1; try { if (LOOP.start && LOOP.start.pkg != null) pkg = LOOP.start.pkg; } catch (e) {}
+    var msg = { type: 'BOHEMIA_CITY_ENCOUNTER', label: G.name || 'HIS RIGGERS', faction: null, draft: true, packageId: pkg, roster: band.map(function () { return { arch: 'human' }; }),
+      party: party, street: true, why: 'riggers:' + k, at: { gx: at[0] | 0, gy: at[1] | 0 } };
+    RFIGHT = { n: k, fb: root.__MEET_FELL_BACK | 0, t: Date.now() };
+    var ok = false; try { ok = (typeof meetWalk === 'function') ? meetWalk(function () { return cityHandOver(msg); }) : cityHandOver(msg); } catch (e) { ok = false; }
+    if (!ok) RFIGHT = null;
+    LAST.partyFight = { n: k, at: at.slice(), handed: !!ok, t: Date.now() }; root.__BOSS_PARTY_FIGHT = LAST.partyFight;
+    return ok;
+  }
+  function riggersEnded(o) {
+    var F = RFIGHT; if (!F) return; RFIGHT = null;
+    var won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
+    LAST.partyEnd = { n: F.n, won: won, t: Date.now() };
+    var Q = S.riggers && S.riggers[F.n]; if (!Q || !won) return;
+    Q.party.down = day(); Q.party.fights = (Q.party.fights | 0) + 1; save();
+    try { if (typeof render === 'function') render(); } catch (e) {}
+  }
+  function riggersFell(r, h) {
+    var G = r.riggers; if (!G || !S) return null;
+    if (!S.riggers) S.riggers = {};
+    var Q = S.riggers[r.n]; if (!Q) Q = S.riggers[r.n] = { at: null, party: null, kept: [], fell: null, told: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day();
+    var n = Q.kept.length, o = { n: n, kept: n + (n === 1 ? ' person' : ' people'), where: Q.at ? whereWord(Q.at[0], Q.at[1]) : 'that block' };
+    o.KEPT = o.kept.toUpperCase();
+    if (G.feed && n) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    Q.said = n ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.riggersFell = { n: r.n, kept: n, said: Q.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-riggers', { detail: { n: r.n, kept: n } })); } catch (e) {}
+    return Q;
+  }
+  function riggersCatchUp() {
+    if (!DATA || !S || !S.riggers) return; var h = hs(); if (!h) return;
+    for (var k in S.riggers) { var Q = S.riggers[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = riggersRow(k); if (r) riggersFell(r, h); } }
+  }
+  function riggersKey(r, after) { return (r.riggers.pic || 'riggers') + (after ? '_after' : '_before'); }
+  function riggersDraw(gx, ox, oy, beat) {
+    if (!S || !S.riggers) return;
+    LAST.drew.riggers = []; LAST.drew.kept = [];
+    for (var k in S.riggers) {
+      var Q = S.riggers[k], r = riggersRow(k); if (!Q || !r || !Q.at) continue;
+      var down = riggersDown(k, Q), inBeat = !!(BEAT && BEAT.n === k);
+      if (down && Q.party && beatOwed(k)) {   /* the kill's camera, before its tape: his riggers stand at the hoist one last time (the VOTE card's BEFORE) */
+        var bo = paint(gx, riggersKey(r, false), Q.party.home[0], Q.party.home[1], ox, oy, beat, 0.95, 0, false); if (bo) LAST.drew.painted++;
+      }
+      if (!down && Q.party && Q.party.down == null && seen(Q.party.x, Q.party.y) && sees(Q.party.x, Q.party.y)) {   /* Battle Brothers draws a party only inside your sight */
+        var b = paint(gx, riggersKey(r, false), Q.party.x, Q.party.y, ox, oy, beat, 0.95, 0, false);
+        if (b) { LAST.drew.riggers.push({ n: k, at: [Q.party.x, Q.party.y], w: b.w }); LAST.drew.painted++; }
+      }
+      if (down) Q.kept.forEach(function (q, i) {
+        if (q.asked != null) return; var vis = seen(q.x, q.y); if (!vis) return;
+        if (inBeat) { LAST.drew.kept.push({ n: k, i: i, at: [q.x, q.y], key: 'beat' }); return; }
+        var b2 = paint(gx, riggersKey(r, true), q.x, q.y, ox, oy, beat, 0.95, 0, false);
+        if (b2) { LAST.drew.kept.push({ n: k, i: i, at: [q.x, q.y], key: riggersKey(r, true), w: b2.w }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function riggersBeat(x, ox, oy, beat, u, alpha) {   /* the moment he falls: the people he kept come down where they stand, on the tape */
+    var Q = S && S.riggers && BEAT && S.riggers[BEAT.n], r = BEAT && riggersRow(BEAT.n); if (!Q || !r) return 0;
+    var c = 0;
+    Q.kept.forEach(function (q) { var bb = rectOf(riggersKey(r, true), q.x, q.y, ox, oy, 0.95, 0); if (!bb) return; wipe(x, null, riggersKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
@@ -1283,7 +1434,8 @@
         try { LAST.beat.pipe = pipeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe rolls over to taps */
         try { LAST.beat.machines = machinesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines drop */
         try { LAST.beat.drums = darkBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his drums go to the neighbours */
-        try { LAST.beat.posts = holeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) the signs go back up */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.posts = holeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) the signs go back up */
+        try { LAST.beat.riggers = riggersBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -1338,6 +1490,7 @@
       try { machinesTick(); machinesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines */
       try { darkTick(); darkDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his dark and his drums */
       try { holeTick(); holeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) his hole and his sign poles */
+      try { riggersTick(); riggersDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (13) his riggers, then the people he kept */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -1375,11 +1528,14 @@
     if (r.machines) machinesFell(r, h);   /* (10) his machines drop where they stand */
     if (r.dark) darkFell(r, h);   /* (11) his dark lifts, his drums are yours */
     if (r.hole) holeFell(r, h);   /* (12) his side back on the map, his lines to every town */
+    if (r.riggers) riggersFell(r, h);   /* (13) his riggers gone, the people he kept come down */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
   root.addEventListener('message', function (ev) {   /* (10) a machine's fight came home (the one door's end, the way WORLD TWO's boss fight hears it) */
-    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !MFIGHT) return;
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
+    if (RFIGHT) { var o2 = d.outcome || {}; setTimeout(function () { try { riggersEnded(o2); } catch (e) { LAST.err = String(e && e.message || e); } }, 400); }   /* (13) his riggers' fight came home */
+    if (!MFIGHT) return;
     var o = d.outcome || {}; setTimeout(function () { try { machineEnded(o); } catch (e) { LAST.err = String(e && e.message || e); } }, 400);
   });
   setInterval(function () { try { talkTick(); } catch (e) {} }, 900);
@@ -1410,6 +1566,9 @@
     /* and his hole in the map, for the gate: his side, whether a block is in it, and the forgetting run once from where the crew stands */
     hole: function (n) { sync(); return S && S.hole ? (n ? (S.hole[n] || null) : S.hole) : null; },
     inHole: function (n, x, y) { sync(); var H = S && S.hole && S.hole[n]; return !!H && inHole(H, x, y); },
-    forget: function () { sync(); var me = here(); return me ? holeForget(me) : 0; }
+    forget: function () { sync(); var me = here(); return me ? holeForget(me) : 0; },
+    /* and his riggers, for the gate: the party, the people he kept, and whether a party is up */
+    riggers: function (n) { sync(); return S && S.riggers ? (n ? (S.riggers[n] || null) : S.riggers) : null; },
+    partyUp: function (n) { sync(); var Q = S && S.riggers && S.riggers[n]; return !!Q && !riggersDown(n, Q) && !!Q.party && Q.party.down == null; }
   };
 })(typeof window !== 'undefined' ? window : this);

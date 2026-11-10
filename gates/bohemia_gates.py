@@ -8529,6 +8529,15 @@ GATES = [
      "chain lines out of the fog to every town (C1b), painted after with no static left (C1c), the feed (C1d); the same phone opens the "
      "game again and it holds (R1). Planted: a map that keeps his side, his side forgotten again after the fall, a phone that forgot the "
      "save. about 25 min a way", True),
+    ('THE CLIMB CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE CLIMB'],
+     "BOSSES gate, 11/10, VAMILY rules 443(a), 441 and 445, ask lines 167, 522: the stranger's game on the DEMO UPRIGHT and the ALPHA ON ITS "
+     "SIDE, the five before him first through the map's own fell(), then THE CLIMB end to end: his flyer and rumour (T1), NENA asks and one "
+     "of yours reads it (T2); HIS RIGGERS at the foot of his hoist and the people he kept (K1); walk into his sight and they come down the "
+     "street for you, painted in sight, their card first, two on the board, beaten and down (K2); his card (B0), his fight (B1), the beat "
+     "brings the people he kept down and NENA says them (B2); no riggers in his sight after (C1a); the first one, with no place planted, waits "
+     "through HOME BASE's seam and moves in the day he plants (C1b); the next moves in at once (C1c); the feed (C1d); the same phone opens the "
+     "game again and it holds, nobody moving in twice (R1). Planted: a party that never left the hoist, his riggers back after the fall, a "
+     "phone that forgot the save. about 35 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

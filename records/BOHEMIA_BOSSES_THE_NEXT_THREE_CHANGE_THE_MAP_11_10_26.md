@@ -106,15 +106,51 @@ lines, 13 doors, 531 of 531 drawn blocks on the map after the reopen); THE ALPHA
 of the fog, the bosses file or their data). VOTE: records/target/bosses_vote_surveyor_11_10/ (BOSSES_AWAY=14). Phone pictures (webp):
 records/target/the_next_three_change_the_map/surveyor/ (2 in his side, 2b out of it, 5 his side after).
 
+## THE CLIMB: HIS RIGGERS
+
+Code: slices/bohemia_bosses.js section (13); data: THE CLIMB's 'riggers' row in records/target/bb/boss_act_one.json (a modder's row:
+sight 6, leash 8, two riggers a fight, back in a day, the three he kept up top by name and look, the words); art:
+tools/bohemia_bosses_the_next_three_11_10_26.py (RIGGERS). The people he kept go to your settlement through HOME BASE's one seam
+(rule 445: BohemiaHomeMap.give, kind 'person', shipped by HOME BASE as BUILD 11/10u): no line in anybody's file.
+- HIS RIGGERS: a party of two off his hoist waits at its foot (Battle Brothers: a location sends parties because it holds). The flyer
+  now says it: "He keeps people up there who paid to go up and can't pay to come down, and his riggers come down the street for
+  anybody who gets close."
+- WHILE HE STANDS: the moment the crew is within 6 blocks of his hoist, his riggers come down the street for it, a block for every block
+  the crew walks, never past 8 from the hoist, painted only where the crew could see them (the map's own sight, mapSees: Battle
+  Brothers draws a party only inside your sight); out of sight they walk back. When they reach the crew: their card first (ENGAGE or
+  FALL BACK, RUN's one door), two of them on the board; beaten, they are down until another party comes off the hoist a day later. One
+  of yours says it the first time ("His riggers came down the hoist. They're coming for us."), @nena_scraps posts it. Not a wall, not
+  a toll, not a man at a post, not the night, not the map: the danger walks.
+- WHEN HE FALLS: his riggers are gone, and the people he kept up top come down: LUZ, DON ARTURO and MARISOL stand at the foot of his
+  towers (painted: a woman with everything on her back, a case, the rope dropped). The crew stepping onto one takes her home: with his
+  place planted she moves in at once (+1 AT YOUR PLACE, the company posts it); with none planted yet she waits for it (the seam keeps her,
+  the phone says so) and planting places her. NENA's card says it under his hook.
+- KEPT AFTER A RELOAD: no party, the ones who came down live at his place, nobody moves in twice.
+THE GATE: gates/the_next_three_change_the_map_gate.js "THE CLIMB" (registered THE CLIMB CHANGES THE MAP), both ways. Run 1: the demo
+upright 16/2, the alpha on its side 15/3, the game right each time: the walk to LUZ passed over DON ARTURO and he came then (the gate
+now takes whoever has not come); the others' paint was read from LUZ's block with them off the screen (now read while NENA's card is
+up, the camera on his towers); the planted 'his riggers back' left them beaten (it now stands a party up). Run 2: the demo upright 18
+passed, 0 failed (the riggers walked 6 blocks at the crew, AUTO beat them; LUZ waited and moved in at the plant, MARISOL at once; 3 at
+his place after the reopen); the alpha on its side 18 passed, 0 failed (3 blocks, LUZ and DON ARTURO). Then the camera's BEFORE paints
+his riggers at the hoist (beatOwed; a party is otherwise painted only inside the crew's sight): the demo upright again 18 passed, 0 failed. VOTE:
+records/target/bosses_vote_climb_11_10/. Phone pictures (webp): records/target/the_next_three_change_the_map/climb/ (2 his riggers and
+their card, 5 they came down).
+
 ## [bb] BATTLE BROTHERS FIRST
 
 - Night on the Battle Brothers map shrinks what your company sees and lets things come at you unseen; a fire you make yourself is the
   game's own answer here (his verb). THE BURN's dark is that night made his: on his side it is darker than anywhere, because he took the
   fires. His drums after are the camp fires of the people he froze out.
 - A location's men hold the ground round it (dev blog #66, the home bases file): his stokers keep his drums, and leave them when he falls.
+- A location SENDS parties because it holds, and they come for you on the map inside your sight (the roaming parties): THE CLIMB's riggers
+  are that, a party off his hoist that walks at you; beaten, another comes a day later, until he falls.
+- Battle Brothers has no map of yours that forgets: its fog only ever lifts. THE SURVEYOR's hole is our own way (the map is a city whose
+  signs a man can take down), and his lines after are the roads the company walks.
 
 ## ANALOG HORROR
 
+THE CLIMB: two men coming down an empty street with a hook swinging, and lit windows high in a dead tower; after, a woman at the bottom of
+the tower with everything she owns on her back.
 THE SURVEYOR: a pole with no names on it and orange tape moving in the wind, and a map that un-draws behind you; after, a street with its
 name back and white chalk lines running off to every town.
 THE BURN: one fire in a black street and a man beside it who decides who stands near it; after, hands over a drum and a kid's face lit
