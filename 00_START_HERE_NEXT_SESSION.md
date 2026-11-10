@@ -1,3 +1,13 @@
+JOBS (jobs-01gkdyuv): 11/10 LATEST -- BUILD 11/10d - JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 436(c), asks 102, 114, 521). A job is now one Battle
+Brothers contract, one budget spent on each enemy's own cost: a dire wolf stands for 0.45 of a man of the count, a hyena 0.55 (measured on
+the live fight), a hunt's kills grow and shrink with the company; the hand-over and the stars cost it alike (party_math.json job_contract,
+TUNING's one table section Y). MEASURED on the demo over 20 campaign seeds, days 1/20/50: a new crew's wolf and hyena jobs lost 82/91/92 ->
+6/60/51 in 100, its hunts 51/59/65 -> 5/33/33, all its jobs 10/20/20 -> 7/16/15; the Lone Wolf's wolf and hyena jobs 0/63/61 -> 0/1/3,
+his day-50 boards 556 one-star of 560. The board on the phone, both ways. Gate JOBS THAT FIT THE COMPANY (the math before, planted, fails).
+VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md.
+The whole block: handoffs/JOBS.md.
+[bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
+[analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
 WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/10 LATEST -- BUILD 11/10c - THE VALLEY HAS ITS ZONES, BUILT, NOT YET SEEN (rule 429(g)(h);
 asks 508, 509): a land-use file and pass zone the valley the real way: the works along the rail and I-15 and in two parks (industry 0.6-0.8%
 -> 2.8-3.4%), trailer parks on the cheap edges (0.2-0.3% -> 0.7-1.0%), no house inside the works, no estate by it; every works block a truck
