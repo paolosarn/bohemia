@@ -78,6 +78,7 @@ const snapOf = f => f.evaluate(() => FIGHT.S.units.filter(v => v.side !== 'you')
         await page.waitForTimeout(2500);
         const keys = ['bohemia.company.v1', 'bohemia.condition.v1', 'bohemia.supplies.v1', 'bohemia.bag.v1'];
         const store = () => page.evaluate(k => k.map(x => { try { return localStorage.getItem(x); } catch (e) { return null; } }), keys);
+        await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
         await fr.evaluate(() => { try { contactClear(); } catch (e) {} LOOP.held.push({ id: 'lineup-gate-job', title: 'the lineup gate\'s job', pay: 3 }); LOOP.fighting = 'lineup-gate-job';
           try { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); } catch (e) {} });
         let f = null;

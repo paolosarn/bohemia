@@ -69,7 +69,8 @@ async function side(profile, phoneSide, planted) {
     else ok('N4 the phone\'s RELATIONS is on the glass', false);
     const g = await M(() => { const e = document.querySelector('#bohphone [data-app="settings"]'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width ? [r.x + r.width / 2, r.y + r.height / 2] : null; });
     if (g) { await p.touchscreen.tap(g[0], g[1]); await p.waitForTimeout(1200); await M(() => { const x = document.getElementById('setclose'); if (x) x.click(); }); await p.waitForTimeout(900); }
-    await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); });
+    await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+    await fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); });
     let fw = null;
     for (let i = 0; i < 200 && !fw; i++) { if (i === 40) await fr.evaluate(() => { const b = document.querySelector('#meetcard [data-meet="go"]'); if (b) b.click(); });
       const h = await p.$('#fightFrame'); if (h) { const cf = await h.contentFrame(); if (cf && await cf.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board).catch(() => false)) fw = cf; } if (!fw) await p.waitForTimeout(200); }

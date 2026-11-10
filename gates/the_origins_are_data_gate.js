@@ -52,7 +52,8 @@ const ARM = (mode) => `(function(){ var F = window.fetch; window.fetch = functio
     ok('A2 picking it builds its company and its start (' + p.originName + ': ' + (p.company ? p.company.map(m => m.background + ':' + (m.level || '')).join(',') : 'none') + ', start ' + p.start + ', cap ' + p.cap + ')',
       p.origin === 'mod_test' && !!p.company && p.company.length === 2 && p.company[0].background === 'thief' && p.company[0].level === 2 && p.start === MOD.batteries[p.econ] && p.cap === 12);   /* RE-AIMED 10/25 (RUN TWO): the start is the picked shelf's column; the door's default is FULL since RUN's __THE_EASY_END_IS_THE_DEFAULT__ (10/23) */
     await d.page.waitForTimeout(2500);
-    await d.fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 3 }); });
+    await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+    await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 3 }); });
     let f = null; for (let i = 0; i < 150 && !f; i++) { const h = await d.page.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await d.page.waitForTimeout(200); }
     const you = f ? await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you').map(u => u.kind + ':' + u.level)) : null;
     ok('A3 the fight fields its men (' + (you ? you.join(' ') : 'no fight') + ')', !!you && you.length === 2 && you[0] === 'thief:2' && /^monk:/.test(you[1]));

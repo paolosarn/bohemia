@@ -65,6 +65,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
       await p.waitForTimeout(2500);
       const where = await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} return [city.x | 0, city.y | 0]; });
       const tape0 = await p.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}).tape | 0);
+      await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
       await fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 91 }); });
       let f = null;
       for (let i = 0; i < 200 && !f; i++) { const hh = await p.$('#fightFrame'); if (hh) { const c = await hh.contentFrame();

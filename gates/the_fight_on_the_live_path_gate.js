@@ -51,6 +51,7 @@ const ARM = "window.__fe=[];addEventListener('error',function(e){try{window.__fe
 /* a fight through the game's one door: the road crew, sized as the map sizes them */
 async function openFight(d) {
   const page = d.page;
+  await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
   await d.fr.evaluate(() => { try { contactClear(); } catch (e) {} try { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); } catch (e) {} });
   let f = null;
   await waitFor(page, async () => { const h = await page.$('#fightFrame'); const c = h && await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0 && !!window.FIGHT_UI && !!FIGHT_UI.board)) { f = c; return true; } return false; }, 90000);

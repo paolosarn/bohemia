@@ -80,6 +80,7 @@ async function one(profile, throttle) {
     if (ok) { city.x = x; city.y = y; try { __ctWhere(); } catch (e) {} return [x, y]; } }
     return null; }).catch(() => null);
     await p.waitForFunction(() => !window.PARTOFTOWN || (PARTOFTOWN.faction === null && PARTOFTOWN.now() === null), null, { timeout: 30000 }).catch(() => {});
+    await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
     await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 7 }); });
     let f = null;
     for (let i = 0; i < 400 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();

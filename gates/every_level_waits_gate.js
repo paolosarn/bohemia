@@ -35,7 +35,8 @@ const done = () => { console.log('=== EVERY LEVEL WAITS GATE: ' + pass + ' passe
       await p.waitForTimeout(2500);
       /* YOU's level and xp as the game holds him before the first fight (the origin's door: newcrew, level 2) */
       const fight = async (seq, xp) => {
-        await fr.evaluate((seq) => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }); }, seq);
+        await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+        await fr.evaluate((seq) => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }); }, seq);
         let f = null;
         for (let i = 0; i < 200 && !f; i++) { const hh = await p.$('#fightFrame'); if (hh) { const c = await hh.contentFrame();
           if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await p.waitForTimeout(150); }

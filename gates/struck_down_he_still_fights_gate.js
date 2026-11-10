@@ -53,11 +53,11 @@ const DAYS = OURS.struck_down_laid_up_days.value;
 /* the module's own key (the gate reads the same rule, never a copy of the result) */
 function canon(n) { const SAME = { TITO: 'TINA', MARCOS: 'MARISOL', LALO: 'LUPE', NENO: 'NENA' }; const s = String(n || '').trim().toUpperCase(), m = s.match(/^(.*?)( II)?$/); return (SAME[m[1]] || m[1]) + (m[2] || ''); }
 
-const startRoadFight = (d, seq) => d.fr.evaluate(async (seq) => {
-  for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250));
-  try { stepOnce(0); stepOnce(4); } catch (_e) {}
-  return { started: roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }), at: [city.x, city.y] };
-}, seq);
+const startRoadFight = async (d, seq) => {
+  await d.fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); });
+  await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+  return d.fr.evaluate((seq) => ({ started: roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }), at: [city.x, city.y] }), seq);
+};
 const fightFrame = async (d) => {
   for (let i = 0; i < 150; i++) {
     const h = await d.page.$('#fightFrame');

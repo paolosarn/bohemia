@@ -1,3 +1,11 @@
+PLUMBER (plumber-8-01gkdyus): 11/10 LATEST -- PLUMBER 8: THE FULL SUITE LANDED (the first since the restore; THE SUITE LINE on VAMILY's front page):
+main d97cecd3, 1,203 gates, 8 hours on 4 cores: ran 1,079, green 588, red 491, never ran 124. THE QUARANTINE names 343 old reds with
+owners (gates/BOHEMIA_QUARANTINE.txt); 10 pipes green; a road fight must step off a town's ground now (a town is a door): the demo
+driver's roadFightOffTheTown, 23 checks moved onto it. THE PACKERS MERGE (CHARACTER UNBLOCKED, 9467201b). BUILD 11/10m A CLOSED TAB
+DOES NO WORK. Ask rows 562 to 566. Record records/BOHEMIA_PLUMBER_EIGHT_THE_FULL_SUITE_11_10_26.md. The whole block: handoffs/PLUMBER.md.
+[bb Battle Brothers' modders keep a known-issues list beside every release; ours is the quarantine, with a name on every line]
+[analog horror: a test that has failed for six weeks in a row is a light left on in an empty house]
+
 JOBS (jobs-01gkdyuv): 11/10 LATEST -- BUILD 11/10d - JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 436(c), asks 102, 114, 521). A job is now one Battle
 Brothers contract, one budget spent on each enemy's own cost: a dire wolf stands for 0.45 of a man of the count, a hyena 0.55 (measured on
 the live fight), a hunt's kills grow and shrink with the company; the hand-over and the stars cost it alike (party_math.json job_contract,

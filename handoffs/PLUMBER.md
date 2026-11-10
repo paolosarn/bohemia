@@ -1,5 +1,36 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/10, later the same round -- THE FULL SUITE LANDED, THE PACKERS MERGE, A ROAD FIGHT OFF THE TOWN, A CLOSED TAB.
+THE SUITE (record records/BOHEMIA_PLUMBER_EIGHT_THE_FULL_SUITE_11_10_26.md; THE SUITE LINE on the front page): main d97cecd3, 1,203 gates,
+8 hours on 4 cores: ran 1,079, green 588, red 491 in the pack, never ran 124 (the clock), flaked 2. THE QUARANTINE (gates/BOHEMIA_QUARANTINE.txt)
+names 343 reds of gates written before 10/1, each with its owner and first failing line (owners "(guessed from its words)" say no in
+their handoff if not theirs). Of the 143 reds from 10/1 on: 10 pipes green (below), 16 patched with the same stale road step (re-run
+one at a time, the record's table), the rest named by owner. The 124 never-ran and 9 added gates were still re-running on main
+55e3ad43, three at a time, at this writing (37 of 133: 16 green, 21 red): the record's table fills as they land.
+THE PACKERS MERGE (9467201b, the coordinator's routine; CHARACTER's block on ask 238, UNBLOCKED note in handoffs/CHARACTER.md):
+fight_pack and people_pack treat the committed sheets and indexes as the truth (a man rendered on the box added or replaced, every
+other entry kept, a shared map sheet keeps every other man's cells, nothing written when nothing changed; BOHEMIA_PACK_REBUILD=1 the
+old way). Gate THE PACKERS MERGE 4/0 (M1 empty cache loses nothing, M2 154/154 men and 12,320 cells kept, P1 the old way red).
+A ROAD FIGHT OFF THE TOWN (55e3ad43, d461b393, and the 16 after): since A TOWN IS ALWAYS A DOOR (11/6) no road fight starts on a town's
+ground; checks that stepped once from the start town met the crew there on some seeds. tools/bohemia_drive_the_demo.js offTheTown /
+roadFightOffTheTown is the one way off (any new gate that starts a road fight uses it). SCRAP IS TAPE 11/0, OPTIMIZE LOOT 22/0, ONE
+FIGHT 4/0, THE BULLET LANDS 14/0; THE ONE SONG 7/1, THE HEAL BUTTON 11/3, THE AFTERMATH 16/4 (their rest named). Also green: BUNDLE
+16/0 (two stale md5 lines), ONE ROOM TABLE 15/0 (re-written by its tool), THE FALL READS 12/0 (each route read on its own).
+EYES 548 = FIXES' 558, FIXED by FIXES a1a3a216; checked here against the exact case (a context of the shell's made in the fight):
+sheetDraw draws, the raw drawImage throws. NO FREEZE's KNOWN_ERRS is empty. The live case came in 1 of 3 road fights, 0 of 4 the next
+run; WHY a fight's page sometimes gets the shell's canvas class is NOT FOUND.
+BUILD 11/10m A CLOSED TAB DOES NO WORK (the MUSIC readout painted 640 dots 5x a second with its tab closed: 5% of the town at rest
+in a CPU profile; gate A CLOSED TAB DOES NO WORK 3/0 with its plant). THE DEPLOY: GitHub hung three tries on runs 4398 and 4402 (the
+site two builds behind for an hour); one fresh dispatch (4403) landed; every deploy since SUCCESS.
+NOTES FOR THE OWNERS (ask rows): PORTRAIT ask 564 (wound-face sheets asked for and 404); FIXES and CAMP ask 565 (the LEAVE tap on the
+end screen sometimes does not leave); RUN (the settlement screen), UI TWO, JOBS ask 566 (the town at rest: the people's shadows 23% on
+a software canvas, the nothing-pops watcher's layout on every style change, the job board's repaint). SOUNDS: THE ONE SONG S6, THE
+MACHINE PARTY (playStep wrapped since), DEATH SOUNDS, MAP HEARD, FIGHT STEPS, THE GUNS HEARD. RUN FOUR: THE AFTERMATH D2, D5. The
+rest by owner in the record.
+NEXT: the record's table when the re-runs land (strike a quarantine line for each gate green alone); the boot and the reload (ask 561:
+the map page's 6.5 MB inline script cannot use the browser's code cache; external files can; WORLD's file, so with WORLD); the site
+under its cap (563); a --names FILE for the runner, and a sharded suite so a full run fits a round.
+
 PLUMBER 8 (chat 18) 11/10 -- rule 441(c), rule 400, ask lines 543 and 558: THE FULL SUITE AND NO FREEZE OVER HALF A SECOND.
 TWO HALVES. SMOOTH: BUILT, NOT YET SEEN (BUILD 11/10h FEWER FREEZES). THE SUITE: STILL RUNNING on main d97cecd3 in a worktree
 (scratchpad suite_tree, BOHEMIA_SUITE_BUDGET=30000 so every gate runs; ~5 h in at this writing, about a third through; paused 31 min

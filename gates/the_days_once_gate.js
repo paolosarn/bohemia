@@ -234,6 +234,7 @@ async function side(profile) {
       ok('NOTES IS GONE, from the phone and the bar (rule 357)', nGone);
     }
     /* a road fight, the game's own */
+    await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
     const st = await fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); try { stepOnce(0); stepOnce(4); } catch (_e) {}
       return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }); });
     let f = null; for (let i = 0; i < 150; i++) { const h = await p.$('#fightFrame'); if (h) { f = await h.contentFrame();

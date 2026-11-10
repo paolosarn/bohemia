@@ -177,6 +177,7 @@ async function live(profile, throttle) {
     const mapSilent = mapR.w.filter(x => db(x) < -60).length;
     leg(mapR.w.length >= 60 && mapSilent === 0 && mapR.resync === 0 && mapR.st.level === 1, profile + ': *** THE MAP NEVER CHOPS ***, twelve seconds of the map at level 1, never silent, never a jump',
       mapR.w.length + ' windows, ' + mapSilent + ' silent, ' + mapR.resync + ' jumps; ' + mapR.st.song + ' at level ' + mapR.st.level);
+    await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
     await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 7 }); });
     let f = null;
     for (let i = 0; i < 400 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();

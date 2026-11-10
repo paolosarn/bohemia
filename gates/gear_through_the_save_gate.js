@@ -40,6 +40,7 @@ const company = (d, who) => d.fr.evaluate(n => { const co = JSON.parse(localStor
 /* a road fight through the game's one door; his man's hands read in the fight; the fight won, the spoils left */
 async function roadFight(d, who) {
   const page = d.page, fr = d.fr;
+  await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
   await fr.evaluate(() => { try { contactClear(); } catch (e) {} try { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); } catch (e) {} });
   let f = null;
   await waitFor(page, async () => { const h = await page.$('#fightFrame'); if (!h) return false; const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0)) { f = c; return true; } return false; }, 90000);

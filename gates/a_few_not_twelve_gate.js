@@ -61,7 +61,8 @@ const PM = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_m
     const road = async (day, combat) => {
       await fr.evaluate(([day, combat]) => { DAY.day = day; if (LOOP.start) LOOP.start.combat = combat; }, [day, combat]);
       /* read at the moment of the fight, where he stands: the two steps onto the road change the distance from town */
-      const want = await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} const w = partyMath('roaming', { x: city.x, y: city.y }); roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); return w; });
+      await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+      const want = await fr.evaluate(() => { const w = partyMath('roaming', { x: city.x, y: city.y }); roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); return w; });
       let f = null; for (let i = 0; i < 150 && !f; i++) { const h = await d.page.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await d.page.waitForTimeout(200); }
       const them = f ? await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').map(u => u.kind)) : null;
       if (f) await f.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });

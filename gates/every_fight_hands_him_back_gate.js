@@ -53,14 +53,15 @@ const shell = (d) => d.page.evaluate(() => {
     old: vis(document.getElementById('combatFrame')), map: vis(document.getElementById('cityFrame')),
     result: (G.lastEncounter && G.lastEncounter.result) || null, last: G.lastEncounter || null };
 });
-const startRoadFight = (d) => d.fr.evaluate(async () => {
+const startRoadFight = async (d) => {
   /* the camera comes back in over about a second after a fight, and the one door refuses a
      fight while it moves; the road just tries again next step. Wait for it, as the road does. */
-  for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250));
-  try { stepOnce(0); stepOnce(4); } catch (_e) {}   /* a step opens the one-fight latch, as a footfall does */
+  await d.fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); });
+  await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+  return d.fr.evaluate(() => {   /* offTheTown stepped first: a step opens the one-fight latch, as a footfall does */
   const t = om.at(city.x, city.y);
   return { started: roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }), at: [city.x, city.y], district: t ? t.district : null };
-});
+}); };
 /* the rebuilt fight's frame, once its ground has loaded */
 const fightFrame = async (d) => {
   for (let i = 0; i < 100; i++) {

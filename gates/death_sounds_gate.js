@@ -92,6 +92,7 @@ const ARM = (seed) => `(function(){
 const OFF = `window.__offOf = function (T) { const g = BOHEMIA_BEAT.grid(T - 0.0625); return g == null ? null : (T - g) * 1000; };`;
 
 async function fightUp(p, d, party) {
+  await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
   await d.fr.evaluate(pt => { CITY_CONTACT_POSTED = false; roadContactFight({ id: pt, name: pt, seq: 7 }); }, party);
   let f = null;
   for (let i = 0; i < 400 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();
