@@ -4,8 +4,8 @@
    as the teratorn's check does), the fight opens and fields it on its own sheet with its own words, the win sends him home, the kill lies
    on the map in its own picture, and one tap puts its meat in the food and a roll of hides in the bag. AND (rule 443(d)) for each enemy
    type BESTIARY added (bohemia_enemies.json rows, added_by BESTIARY): its faction's party through the same door at the first phase
-   that deals it (a party of 8, up to 6 parties, as the map would send them): it is fielded in its own clothes (its own sheet loads), named, armed,
-   the fight's words name the party, the win sends him home; and a late road crew until one carries a champion: named from his list,
+   that deals it (a party of 8; the page's own dealer is asked which of 120 encounters that day carries it, and that one is met): it is fielded in its own clothes (its own sheet loads), named, armed,
+   the fight's words name the party, the win sends him home; and the late road crew the page's dealer says carries a champion: named from his list,
    his title on him. Prints one JSON line: RESULT {"portrait": {<faction>: {...}, "men": {...}, "champion": {...}}, "landscape": {...}}. */
 'use strict';
 const path = require('path'), fs = require('fs');
@@ -79,6 +79,15 @@ const CH = (NE.champions && NE.champions.kinds) || {};
           return (await gone()) || null; }, 90000);
         return !!(await waitFor(() => fr.evaluate(() => MODE === 'city' && window.__FIGHT_CAME_HOME && window.__FIGHT_CAME_HOME.won === true), 15000));
       };
+      /* THE PAGE'S OWN DEALER, ASKED FIRST (slices/bohemia_job_danger.js rollInto: the same roll the one door makes, the same seed on the
+         same name): of N encounters met on that day, the first whose band carries one of these kinds, and how many of the N did */
+      const preRoll = (f, n, days, kinds, pre) => fr.evaluate((o) => {
+        try { if (typeof DAY !== 'undefined') { if (window.__GATE_DAY0 === undefined) window.__GATE_DAY0 = DAY.day; DAY.day = o.days; } } catch (e) {}
+        let first = null, carry = 0;
+        for (let i = 0; i < 120; i++) { const m = { type: 'BOHEMIA_CITY_ENCOUNTER', party: { count: o.n, faction: o.f, days: o.days, difficulty: 0 }, why: 'gate:bestiary men:' + o.pre + ':' + i, at: { gx: city.x, gy: city.y } };
+          try { BohemiaJobDanger.rollInto(m); } catch (e) {}
+          if (m.party.band && m.party.band.some(k => o.kinds.indexOf(k) >= 0)) { carry++; if (first === null) first = i; } }
+        return { first, carry, of: 120 }; }, { f, n, days, kinds, pre });
       const lookOk = (f, kind) => f.evaluate(async (k) => { const us = FIGHT.S.units.filter(u => u.side === 'them' && u.kind === k); if (!us.length) return null;
         const out = []; for (const u of us) { const L = DB.rig.looks[u.look], own = !!L && lookOf(u) === L; let drawn = false;
           if (L) { const im = new Image(); im.src = 'fight_rig/' + L.file; await new Promise(r => { im.onload = r; im.onerror = r; }); drawn = im.naturalWidth > 0; }
@@ -87,8 +96,9 @@ const CH = (NE.champions && NE.champions.kinds) || {};
       for (const m of MEN) {
         const o = { fight: false, tries: 0 };
         try {
-          for (let t = 0; t < 6 && !o.fielded; t++) {
-            o.tries = t + 1; await handOver(m.faction, 8, m.days, m.id + ':' + t); const f = await openFight(); if (!f) break; o.fight = true;
+          o.dealt = await preRoll(m.faction, 8, m.days, [m.id], m.id);
+          for (let t = 0; t < 2 && !o.fielded && o.dealt && o.dealt.first !== null; t++) {
+            o.tries = t + 1; await handOver(m.faction, 8, m.days, m.id + ':' + o.dealt.first); const f = await openFight(); if (!f) break; o.fight = true;
             await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(800);
             o.fielded = await lookOk(f, m.id); o.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
             if (process.env.SHOTS && o.fielded) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'men_' + m.id + '_' + profile + '.jpg'), quality: 80 }); }
@@ -99,8 +109,9 @@ const CH = (NE.champions && NE.champions.kinds) || {};
       }
       const ch = { tries: 0 };
       try {
-        for (let t = 0; t < 8 && !ch.named; t++) {
-          ch.tries = t + 1; await handOver('brigands', 8, 70, 'champion:' + t); const f = await openFight(); if (!f) break;
+        ch.dealt = await preRoll('brigands', 8, 70, Object.keys(CH), 'champion');
+        for (let t = 0; t < 2 && !ch.named && ch.dealt && ch.dealt.first !== null; t++) {
+          ch.tries = t + 1; await handOver('brigands', 8, 70, 'champion:' + ch.dealt.first); const f = await openFight(); if (!f) break;
           await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(800);
           const c = await f.evaluate(() => (FIGHT.S.champions || []).map(x => { const u = FIGHT.byId(x.id); return { kind: x.kind, name: x.name, title: x.title, onBoard: !!u && u.name === x.name && u.champion === true, look: u && u.look }; }));
           if (c.length) { ch.named = c; ch.inList = c.every(x => ((CH[x.kind] || {}).names || []).map(n => String(n).toUpperCase()).indexOf(x.name) >= 0 && x.title === (CH[x.kind] || {}).title);

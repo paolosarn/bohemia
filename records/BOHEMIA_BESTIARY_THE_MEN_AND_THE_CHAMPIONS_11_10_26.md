@@ -37,7 +37,9 @@ the data (the road crew's champion: El Tuerto, La Navaja, Diablo Ray, Big Chuy, 
 Little Saint, Flaco Jr; the heavies': The Fridge, El Tanque, Big Iron, Dona Concreto, Bulldozer; drafts for WORDS). His name is on every line he
 is in, his title on his card when a finger is held on him, a flash on him when he first shows and one line in the fight's recap ('BIG CHUY,
 the road crew's champion, is with them.'; rule 67: no combat log on the screen),
-and his fall is HELD BREATH when the kill cams are on. His numbers are his champion row's own; nothing new is rolled but his name.
+and his fall is HELD BREATH when the kill cams are on. ON THE PHONE (sideways, the demo): a late road crew met on the strip's ground came
+as kids, and their champion held under a finger reads 'BOTTLES · LITTLE SAINT / THE KIDS' CHAMPION'; the turn panel names him, and Raul, one
+of HIS men, says 'I don't care how good Little Saint is.' (the fight's own talk reads the name: nothing new was written for it). His numbers are his champion row's own; nothing new is rolled but his name.
 RARE: none before the late phase (0 in 100 bands at day 40, each faction); a band carries ONE at most (the deal draws no second champion kind
 once one is out; before, a late band of 8 kids carried up to 4). How often a late band carries one is TUNING's (the mix weights): late bands of
 12: the road crew 44 in 100, the heavies 61, the kids 73 -> TUNING (the routine's word is 'rare'; the weights are theirs).
