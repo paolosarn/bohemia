@@ -1,5 +1,30 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND FOUR (11/10, rule 443(b), ask line 567; rule 441 fully baked). BUILD 11/10x - TWELVE MORE ON THE ROAD. BUILT, NOT
+YET SEEN. Record: records/BOHEMIA_WORLD_14_EVENTS_ON_THE_ROAD_11_10_26.md. VOTE world14-twelve-more-on-the-road-11-10 (ui, STAND-IN).
+- MEASURED FIRST: the road had 45 events (CONTENT 11/2-11/3), every one a stranger met on the road (Battle Brothers' location events);
+  none of his own company's (theft, spoiled food, a brawl, a man called home), no injury event, no event could wound a man, send one
+  away or open a place. Sideways every card cut its last choice (478 px of card in a 348 px box).
+- BUILT: twelve rows in records/target/BOHEMIA_ROAD_EVENTS.json (lane 'WORLD 14'; tools/bohemia_world14_road_events_data.py): six IN
+  THE COMPANY spoken by his own man by name and face (the short battery box, the swollen cans, the old job's place under the fog, the
+  last canteen between two of his men, the word from home, the plasma van), six of the road (the rent crew, the green pool, the copper
+  men on the streetlights, the timeshare man, the picket line, the dead bank machine). Consequences: a man leaves (4), batteries, food,
+  a wound (5), a mood (6), a place opened, a fight. Plain English, draft:true, no new Spanglish.
+- THE SEAM (slices/bohemia_road_more.js, new; __THE_ROAD_MORE__ marked in slices/bohemia_road_events.js): needs.crew, needs.place;
+  fx.wound (BohemiaCondition's record), fx.leaves (BohemiaHireLock.dismiss), fx.open (fogReveal). The chance keeps its siblings now
+  (fixes CONTENT's ev_the_cairn's hour too). The card sideways is two columns (__THE_CARD_SIDEWAYS__); it does NOT dodge the phone
+  itself, UI FOUR's layer does (a first try that dodged in the card turned NOTHING POPS N1/N5 red; taken out, 38/0).
+- GATES: TWELVE MORE ON THE ROAD (new, two halves) demo 14/0, alpha 14/0 (the alpha brings the map up under the driver on main 158450da,
+  so its director step counts now); NOTHING POPS 38/0; THE PLACES GET THEIR USE 30/0; CONTACT STOPS HIM DEAD 18/0; DEMO BUILD 25/0;
+  LANGUAGE 107/0; PAGES PUBLISH 27/1 (908 MB over its 900 MB cap, the same on clean main).
+- FOR CONTENT (the road's module is yours): the seam is marked lines only; a new row of yours may use needs.crew / needs.place and the
+  three new fx the same way (the file header of bohemia_road_more.js lists the words). FOR UI FOUR: the road card sideways is the
+  two-column '.rc' with class 'wide' on #roadcard; your layer slides it, the card only leaves you the room. FOR TUNING: every number in
+  the twelve is draft. NOT CHECKED: a man wounded on the road walked into a fight (the engine's own condOf path carries it).
+- STILL OPEN ON THIS LANE (from batch three): the bus yard and a greenhouse farm need a valley seat (the note to WORLD 13 stands).
+[bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
+[analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
+
 WORLD FOURTEEN, BATCH THREE (11/9, rule 440(c), ask line 539). BUILD 11/9j - THE RANCH AND THE LAKE CAMP. BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_WORLD_14_THE_RANCH_AND_THE_LAKE_CAMP_11_9_26.md. VOTE world14-the-ranch-and-the-lake-camp-11-9 (ui, STAND-IN), names 7adce071.
 - VERIFIED THE REAL SPOTS: the ranch is Spring Mountain Ranch (Red Rock, 36.0697 N 115.4506 W), the campground and RV park Callville Bay
@@ -89,3 +114,14 @@ VOTE world14-the-places-talk-11-8 (ui, STAND-IN: the road's own card), names 643
   same on a clean copy of main: the harness, not this change).
 [bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
 [analog horror: the lab's feeding clock is 2,900 days late, and LOOSE is written next to every animal in the tech's own hand.]
+
+(The START file's WORLD FOURTEEN block of 11/9, moved here when the 11/10 block took its place.)
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9j - THE RANCH AND THE LAKE CAMP, BUILT, NOT YET SEEN (rule 440(c), ask
+line 539; after 11/9c THE PLACES TALK and 11/9f SEVEN MORE PLACES TALK). Fourteen of rule 409's missing places now talk when you arrive, two
+or three choices with real costs: the lab, the bank, the jobs line, the home centres (11/9c); the gas plants, Shark Reef, the shelter, the
+museums, Channel 8 (11/9f); now SPRING MOUNTAIN RANCH in Red Rock (beef for batteries; guard the herd from the rustlers) and CALLVILLE BAY on
+Lake Mead (dried bass; the man from site 31 joins), both on the region's real land at their real spots. Fourteen fight rows in WORLD 13's
+table. Gate THE PLACES GET THEIR USE 30/0 (demo and alpha). Still open: the bus yard (verified: RTC Sunset, 5165 W Sunset Rd) and a
+greenhouse farm need a valley seat (a note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
+[bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
+[analog horror: the phone in the Hughes ranch house still rings; the line was cut before the foreman came.]

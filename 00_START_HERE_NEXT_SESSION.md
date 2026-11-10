@@ -81,15 +81,16 @@ legs upright and sideways. VOTE bestiary-five-new-men-11-10. Record records/BOHE
 whole block: handoffs/BESTIARY.md.
 [bb Battle Brothers' champions are named men, the band's toughest; ours carry a name and a title from the data.]
 [analog horror: the champion's name comes up once, the way a caption names a man on a tape nobody should have kept.]
-WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9j - THE RANCH AND THE LAKE CAMP, BUILT, NOT YET SEEN (rule 440(c), ask
-line 539; after 11/9c THE PLACES TALK and 11/9f SEVEN MORE PLACES TALK). Fourteen of rule 409's missing places now talk when you arrive, two
-or three choices with real costs: the lab, the bank, the jobs line, the home centres (11/9c); the gas plants, Shark Reef, the shelter, the
-museums, Channel 8 (11/9f); now SPRING MOUNTAIN RANCH in Red Rock (beef for batteries; guard the herd from the rustlers) and CALLVILLE BAY on
-Lake Mead (dried bass; the man from site 31 joins), both on the region's real land at their real spots. Fourteen fight rows in WORLD 13's
-table. Gate THE PLACES GET THEIR USE 30/0 (demo and alpha). Still open: the bus yard (verified: RTC Sunset, 5165 W Sunset Rd) and a
-greenhouse farm need a valley seat (a note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
-[bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
-[analog horror: the phone in the Hughes ranch house still rings; the line was cut before the foreman came.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/10 LATEST -- BUILD 11/10x - TWELVE MORE ON THE ROAD, BUILT, NOT YET SEEN (rule 443(b), ask
+line 567). The road had 45 events, all strangers; now twelve more of the collapse: six IN THE COMPANY spoken by his own man by name and
+face (the short battery box, the swollen cans, the old job's place under the fog, the last canteen, the word from home, the plasma van)
+and six of the road (the rent crew, the green pool, the copper men, the timeshare man, the picket line, the dead bank machine). A choice
+can now wound his man, send one away, or open a place on the map; the chip says it first. Sideways the card is two columns and fits
+the glass. Gate TWELVE MORE ON THE ROAD 14/0 demo and alpha, NOTHING POPS 38/0. VOTE world14-twelve-more-on-the-road-11-10 (STAND-IN).
+Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yard and a greenhouse farm (a valley seat). The whole block:
+handoffs/WORLD_FOURTEEN.md.
+[bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
+[analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
 HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10u - EVERYTHING HIS LIVES THERE, BUILT, NOT YET SEEN (rule 445; ask line 571):
 THE SEAM, one call every lane uses to hand him a thing (a prize, a trophy, a build, a person: BohemiaHomeMap.give, written out in
 handoffs/HOME_BASE.md for BOSSES, JOBS, WORLD 14 and the RETINUE); before he plants it waits and the phone says so, planting places it;

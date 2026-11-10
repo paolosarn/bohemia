@@ -98,6 +98,10 @@
     if (n.party) { var p = partyNear(n.party); if (!p) return null; Object.keys(p).forEach(function (k) { c[k] = p[k]; }); }
     if (n.raided) { var r = raidNow(); if (!r) return null; Object.keys(r).forEach(function (k) { c[k] = r[k]; }); }
     if (n.boss_sign) { var b = bossSign(n.boss_sign); if (!b) return null; Object.keys(b).forEach(function (k) { c[k] = b[k]; }); }
+    /* __THE_ROAD_MORE__ (WORLD 14, 11/10, rule 443(b)): an event spoken by one of HIS men ({man}, {man2}, by trade) or one that opens a
+       place ({place}) asks slices/bohemia_road_more.js; with nobody to speak or nothing to open it is not a candidate */
+    if (n.crew || n.place) { var X = null; try { X = root.BohemiaRoadMore && root.BohemiaRoadMore.ctx ? root.BohemiaRoadMore.ctx(n) : null; } catch (e) { X = null; }
+      if (!X) return null; Object.keys(X).forEach(function (k) { c[k] = X[k]; }); }
     return c;
   }
   /* {word} or {word|what to say when the map has none}; a faction word for a mood's place is lower case ('faction:{party}') */
@@ -188,7 +192,13 @@
   }
   function apply(fx, ctx) {
     fx = fx || {}; ctx = ctx || {}; var id = ctx.id || 'road', out = { say: fx.say || '', fight: false, got: [] };
-    if (fx.chance) { var b = Math.random() < (+fx.chance.p || 0.5) ? fx.chance.yes : fx.chance.no; var o2 = apply(b, ctx); o2.got = out.got.concat(o2.got); return o2; }
+    if (fx.chance) { var b = Math.random() < (+fx.chance.p || 0.5) ? fx.chance.yes : fx.chance.no;
+      /* __THE_ROAD_MORE__ (WORLD 14, 11/10): what stands BESIDE the chance is paid too (its hours, its cost), the branch laid over it.
+         MEASURED: a choice of 'an hour, then a chance' took no hour, and 'three nights of water, then a chance of sickness' gave no
+         water; one row of CONTENT's had it too (ev_the_cairn's second choice: its 5 batteries, now taken as its words say) */
+      var m2 = {}; Object.keys(fx).forEach(function (k) { if (k !== 'chance') m2[k] = fx[k]; });
+      Object.keys(b || {}).forEach(function (k) { m2[k] = (typeof m2[k] === 'number' && typeof b[k] === 'number' && k !== 'mins') ? m2[k] + b[k] : b[k]; });
+      var o2 = apply(m2, ctx); o2.got = out.got.concat(o2.got); return o2; }
     var why = (ctx.why || ('the road: ' + (ctx.name || id))).toLowerCase();
     if (fx.bats > 0) { credit(fx.bats | 0, why); out.got.push('+' + (fx.bats | 0) + ' BATTERIES'); }
     if (fx.bats < 0) { var d = debit(-fx.bats | 0, why); if (d) out.got.push('-' + d + ' BATTERIES'); }
@@ -204,6 +214,8 @@
     if (fx.unflag) delete s.flags[fx.unflag];
     put(s);
     if (fx.quest) out.quest = fx.quest;
+    if ((fx.wound || fx.leaves || fx.open) && root.BohemiaRoadMore && root.BohemiaRoadMore.apply) {   /* __THE_ROAD_MORE__ */
+      try { root.BohemiaRoadMore.apply(fx, ctx, out); } catch (e) { root.__ROADEV_ERR = String(e && e.message || e); } }
     if (fx.fight) out.fight = fightFor(fx.fight, ctx);
     bar(); save('road:' + id);
     return out;
@@ -212,9 +224,10 @@
   function tagOf(o) {
     var fx = (o && o.fx) || {};
     if (fx.fight) return 'A FIGHT';
-    if (fx.chance) return 'A CHANCE';
+    if (fx.chance) return (fx.mins ? (fx.mins >= 60 ? Math.round(fx.mins / 60) + ' H' : fx.mins + ' MIN') + ' · ' : '') + 'A CHANCE';   /* __THE_ROAD_MORE__: the hours beside a chance show */
     if (fx.man && fx.man.n > 0) return '+1 MAN';
     var t = [];
+    if (fx.leaves) t.push('HE LEAVES'); if (fx.wound) t.push('A WOUND'); if (fx.open) t.push('A PLACE');   /* __THE_ROAD_MORE__ */
     if (fx.bats) t.push((fx.bats > 0 ? '+' : '') + fx.bats + ' BAT');
     if (fx.food) t.push((fx.food > 0 ? '+' : '') + fx.food + ' FOOD');
     if (fx.gear && fx.gear !== -1) t.push('+GEAR');
@@ -292,15 +305,31 @@
     var M = root.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (e) { return ''; } };
     var el = document.createElement('div'); el.id = 'roadcard'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', String(o.name || 'someone'));
     el.style.cssText = 'position:fixed;inset:0;z-index:72;display:flex;align-items:center;justify-content:center;background:rgba(8,6,4,.46);pointer-events:auto';
-    var W = Math.min(352, Math.max(260, (root.innerWidth || 360) - 32));
-    el.innerHTML = '<div class="rc" style="width:' + W + 'px;max-height:' + Math.round((root.innerHeight || 640) - 40) + 'px;overflow:auto;padding:14px 14px 12px;box-sizing:border-box;background:#2a2016;border:1px solid #4a3a26;border-radius:2px;' + kit('board', 1) + 'filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))">'
+    /* __THE_CARD_SIDEWAYS__ (WORLD 14, 11/10, rule 441(a): the phone both ways, no screen that cuts words). MEASURED on the demo at
+       844 x 390: every card ran taller than the glass (the bank's 478 px of card in 348 px of box, the sick man's 374) and the last
+       choice sat below the fold behind a scroll. NOW a wide, short glass lays the card in two columns: the face and the words on the
+       left, the choices on the right, so all of it stands in the glass; upright it is the card it always was. */
+    var VW = root.innerWidth || 360, VH = root.innerHeight || 640, WIDE = VW > VH && VH < 560;
+    /* and the phone (UI TWO's: BOH_PHONE_RECT) is never over a choice. The card does not dodge it itself: UI FOUR's layer
+       (bohemia_ui_nothing_pops.js) slides every voice clear of the phone. Sideways the card is only made narrow enough that the
+       layer has the room to slide it (measured: a 780 px card on an 844 px glass had nowhere to go and the phone sat on its third
+       choice); upright it is the card it always was. */
+    var PR = null; try { PR = root.BOH_PHONE_RECT ? root.BOH_PHONE_RECT() : null; } catch (e) { PR = null; }
+    if (!(PR && PR.on !== false && PR.width > 2 && PR.height > 2 && PR.width < VW / 2)) PR = null;
+    var W = WIDE ? Math.min(780, Math.max(420, VW - 32 - (PR ? Math.round(PR.width) + 24 : 0))) : Math.min(352, Math.max(260, VW - 32));
+    var MH = WIDE ? VH - 16 : VH - 40;
+    if (WIDE) el.className = 'wide';
+    root.__ROADCARD_ROOM = { wide: WIDE, w: W, h: MH, phone: PR ? { left: Math.round(PR.left), top: Math.round(PR.top), width: Math.round(PR.width), height: Math.round(PR.height) } : null };
+    el.innerHTML = '<div class="rc" style="width:' + W + 'px;max-height:' + Math.round(MH) + 'px;overflow:auto;' + (WIDE ? 'display:flex;gap:14px;align-items:center;padding:10px 12px 10px;' : 'padding:14px 14px 12px;') + 'box-sizing:border-box;background:#2a2016;border:1px solid #4a3a26;border-radius:2px;' + kit('board', 1) + 'filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))">'
+      + '<div class="rcl" style="' + (WIDE ? 'flex:1 1 0;min-width:0' : '') + '">'
       + (o.head ? '<div style="font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#9f8a64;margin-bottom:6px">' + esc2(o.head) + '</div>' : '')
       + '<div style="display:flex;gap:10px;align-items:center"><canvas class="rcface" width="128" height="128" style="width:76px;height:76px;flex:none;image-rendering:pixelated;background:#14100b;border:1px solid #4a3a26"></canvas>'
       + '<div style="min-width:0"><div style="font:400 15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;line-height:1.2">' + esc2(o.name) + '</div>'
       + (o.from ? '<div style="margin-top:3px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.6px;color:#cdb98e;line-height:1.25">' + esc2(o.from) + '</div>' : '') + '</div></div>'
       + '<div class="rctext" data-draft="true" style="margin-top:10px;padding:8px 10px 10px;background:#e6dcc4;color:#1f1710;' + kit('receipt', 1) + 'font:400 12px BohemiaROM,ui-monospace,monospace;line-height:1.45;white-space:pre-wrap">' + esc2(o.text) + '</div>'
       + (o.got && o.got.length ? '<div class="rcgot" style="margin-top:8px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a">' + esc2(o.got.join('  ·  ')) + '</div>' : '')
-      + '<div class="rcb" style="display:flex;flex-direction:column;gap:8px;margin-top:12px"></div></div>';
+      + '</div>'   /* .rcl */
+      + '<div class="rcb" style="display:flex;flex-direction:column;gap:8px;' + (WIDE ? 'flex:0 0 40%;min-width:0;margin-top:0' : 'margin-top:12px') + '"></div></div>';
     var box = el.querySelector('.rcb');
     (o.opts || []).forEach(function (op, i) {
       var b = document.createElement('button'); b.setAttribute('data-road', String(i));
@@ -338,7 +367,7 @@
       if (n.men && men() < n.men) return false; if (n.bats && bats() < n.bats) return false;
       if (s.seen[e.id] != null) { if (e.once) return false; if (dn - s.seen[e.id] < rep) return false; }
       if (e.on) return false;   /* CONTENT 2: met another way (on: 'scavenge', after a search in a town's lot), never by the director */
-      if ((n.party || n.raided || n.boss_sign) && !ctxOf(n, s)) return false;
+      if ((n.party || n.raided || n.boss_sign || n.crew || n.place) && !ctxOf(n, s)) return false;   /* __THE_ROAD_MORE__ */
       return true;
     };
     ((EV && EV.events) || []).forEach(function (e) { if (ok(e)) out.push(e); });
@@ -405,12 +434,12 @@
     try { if (typeof travelInterrupt === 'function') travelInterrupt('event'); } catch (e2) {}
     if (qid) { var Qm = SQ.quests[qid].meet || {}; questBegin(qid, ctxOf(Qm.needs, s) || { town: nearTown() || 'the next town' }); return true; }
     var who = e.who || {}, cx = ctxOf(e.needs, s) || { town: nearTown() || 'the next town' };
-    card({ look: who.look, name: fill(who.name, cx), from: fill(who.from, cx), text: fill(e.says, cx), head: 'ON THE ROAD', opts: (e.opts || []).slice(0, 3).map(function (o) {
+    card({ look: fill(who.look, cx), name: fill(who.name, cx), from: fill(who.from, cx), text: fill(e.says, cx), head: e.head ? fill(e.head, cx) : 'ON THE ROAD', opts: (e.opts || []).slice(0, 3).map(function (o) {
       return { t: fill(o.t, cx), tag: tagOf(o), off: !needOk(o.need), fn: function () { chose(e, o, cx); } }; }) });
     return true;
   }
   function chose(e, o, cx) {
-    var who = { name: fill((e.who || {}).name, cx), look: (e.who || {}).look, from: fill((e.who || {}).from, cx) }, fx = fillFx(o.fx, cx);
+    var who = { name: fill((e.who || {}).name, cx), look: fill((e.who || {}).look, cx), from: fill((e.who || {}).from, cx) }, fx = fillFx(o.fx, cx);   /* __THE_ROAD_MORE__: his man's own look */
     if (fx && fx.flag && cx) { var s0 = st(); s0.fctx = s0.fctx || {}; s0.fctx[fx.flag] = cx; put(s0); }   /* a chain remembers what the map said (the town, the faction) */
     var r = apply(fx, { id: e.id, name: who.name });
     var s = st(); s.log.push({ id: e.id, chose: o.t, day: day() }); s.log = s.log.slice(-60); put(s);
