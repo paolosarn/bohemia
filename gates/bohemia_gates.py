@@ -8511,6 +8511,15 @@ GATES = [
      "beat drops the rest and DOC REYES says the wrecks (B2); every machine down and no fight beside one (C1a), a dropped one stripped "
      "(C1b), painted as wrecks (C1c), the feed (C1d); the same phone opens the game again and it holds (R1). Planted: a wreck stripped "
      "twice, a machine standing again after the fall, a phone that forgot the save. green at registration, 18/0, about 17 min", True),
+    ('THE BURN CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE BURN'],
+     "BOSSES gate, 11/10, VAMILY rules 443(a) and 441, ask lines 167, 522 (the ladder's next three, each changing the map his own way, "
+     "proven on the real page on a phone both ways): the stranger's game on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, THE POT, THE TAP "
+     "and THE FILTER first through the map's own fell(), then THE BURN end to end: his burned door and rumour (T1), ABUELA PAZ asks and one "
+     "of yours reads the door (T2); HIS DRUMS on street blocks round his yard, painted (D1); at night on his side the crew sees 1 block (the "
+     "map's own fog asks), his side painted black, the rest of the valley the night's half, one of yours says it (D2); his card (B0), his "
+     "fight (B1), the beat rolls his drums to the neighbours' and ABUELA PAZ says them (B2); at night by his drums the crew sees like in the "
+     "day (C1a), every drum a fire of yours (C1b), painted warm, nothing black (C1c), the feed (C1d); the same phone opens the game again and "
+     "it holds (R1). Planted: his dark undone, his dark back after the fall, a phone that forgot the save. about 20 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

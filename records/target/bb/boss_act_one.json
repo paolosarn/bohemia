@@ -412,7 +412,7 @@
     "thing": {
      "head": "THE MARK",
      "what": "a door with words burned into it",
-     "says": "Burned into the door with a torch: WARM IS THE BURN'S. The marks go toward the fuel yard with the big fire. He keeps the last fuel and sells the heat. I marked it."
+     "says": "Burned into the door with a torch: WARM IS THE BURN'S. The marks go toward the fuel yard with the big fire. He took every fire on his side: at night it is black, only his stokers' drums burn. I marked it."
     }
    },
    "after": {
@@ -424,7 +424,28 @@
     "valley": "There are fires all down the street tonight. Nobody pays him to be warm anymore.",
     "take": "TAKE IT"
    },
-   "tip": "NEVER TWO IN FRONT OF HIS AXE"
+   "tip": "NEVER TWO IN FRONT OF HIS AXE",
+   "dark": {
+    "name": "HIS DARK",
+    "radius": 5,
+    "sight": 1,
+    "drums": 4,
+    "near": 2,
+    "far": 4,
+    "pic": "drum",
+    "say": "His side is black at night. He took every fire but his own. We can't see past our feet.",
+    "rise": "HIS DARK: 1 BLOCK SEEN",
+    "feed_dark": {
+     "who": "@abuela_paz",
+     "txt": "Night on {where} and not one fire but his. The old ones sit in the dark, mijo."
+    },
+    "feed": {
+     "who": "@abuela_paz",
+     "txt": "His stokers walked off and left the drums burning on {where}. Everybody is warming up, mijo, and nobody charged us."
+    },
+    "card": "HIS {DRUMS} BURN FOR YOU NOW: AT NIGHT, {light} BLOCKS ROUND EACH, YOU SEE LIKE IN THE DAY.",
+    "note": "draft:true. The radius, the sight, the drums and every word are first attempts; TUNING owns 5 blocks of dark, 1 block of sight and 4 drums."
+   }
   },
   {
    "n": "THE SURVEYOR",

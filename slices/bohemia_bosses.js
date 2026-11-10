@@ -83,11 +83,11 @@
       try { fetch(PICS_URL).then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.pictures) return; PICS = j.pictures;
         /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): the 39 pictures (0.5 MB) come after first play; until one is in, pic() is null and the place draws as before */
         var go = function () { Object.keys(PICS).forEach(function (k) { PICS[k].frames.forEach(function (f) { var im = new Image(); im.src = 'boss_places/' + f; IMG[f] = im; }); }); };
-        var af = (function(){ try{ var t = window.top; return t && t !== window && typeof t.bohemiaAfterFirstPlay === 'function' ? t.bohemiaAfterFirstPlay : null; }catch(e){ return null; } })(); if (af) af(go); else go(); }).catch(function () { loadData.pics = false; }); } catch (e) { loadData.pics = false; } }
+        var af = (function(){ try{ var t = window.top; return t && t !== window && typeof t.bohemiaAfterFirstPlay === 'function' ? t.bohemiaAfterFirstPlay : null; }catch(e){ return null; } })(); if (af) { loadData.held = true; af(function () { loadData.held = false; go(); }); } else go(); }).catch(function () { loadData.pics = false; }); } catch (e) { loadData.pics = false; } }
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -97,10 +97,12 @@
     if (!S.ground) S.ground = {};
     if (!S.pipe) S.pipe = {};
     if (!S.machines) S.machines = {};
+    if (!S.dark) S.dark = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
     machinesCatchUp(); /* (10) and his machines */
+    darkCatchUp();     /* (11) and his dark */
     if (SHUT_DIRTY) shutGrid();
     return true;
   }
@@ -131,9 +133,28 @@
     if (co && co.men[1]) return { name: String(co.men[1].name || 'ONE OF YOURS').toUpperCase(), look: co.looks[1] || 'cast_longcoat' };
     return { name: 'ONE OF YOURS', look: 'cast_longcoat' };
   }
+  /* BOSSES 11/10 (rule 441, measured on the alpha on its side: the frame 348 px tall, the card 308, RAUL's flyer card put LATER under its
+     bottom edge, a button the tap could not reach, and the card stood over every card after it): on a short screen his cards fit,
+     the face smaller, the words and the buttons tighter, so every button shows without a scroll (the card is CONTENT's; this dresses
+     only the cards this file asks for, the way handOnCard adds to them) */
+  function fitCard() {
+    try {
+      var el = document.getElementById('roadcard'), rc = el && el.querySelector('.rc'); if (!rc || (root.innerHeight || 800) >= 520) return false;
+      var fc = rc.querySelector('.rcface'); if (fc) { fc.style.width = '44px'; fc.style.height = '44px'; }
+      rc.style.padding = '10px 12px 9px';
+      var tx = rc.querySelector('.rctext'); if (tx) { tx.style.marginTop = '6px'; tx.style.padding = '6px 8px 7px'; tx.style.fontSize = '11px'; tx.style.lineHeight = '1.3'; }
+      var bx = rc.querySelector('.rcb'); if (bx) { bx.style.marginTop = '8px'; bx.style.gap = '6px'; }
+      Array.prototype.forEach.call(rc.querySelectorAll('.rcb button'), function (b) { b.style.minHeight = '40px'; b.style.padding = '4px 10px'; });
+      var hi = rc.querySelector('.rchand img'); if (hi) { hi.style.width = '36px'; hi.style.height = '36px'; }
+      var hd = rc.querySelector('.rchand'); if (hd) { hd.style.marginTop = '6px'; hd.style.padding = '4px 8px'; }
+      var gd = rc.querySelector('.rcground'); if (gd) { gd.style.marginTop = '5px'; gd.style.padding = '4px 8px'; }
+      LAST.fit = { h: rc.offsetHeight, max: root.innerHeight, scroll: rc.scrollHeight > rc.clientHeight + 1, at: Date.now() }; root.__BOSS_CARD_FIT = LAST.fit;
+      return true;
+    } catch (e) { return false; }
+  }
   function talk(kind, n, o) {
     var RE = card(); if (!RE) return false;
-    RE.card(o);
+    RE.card(o); fitCard();
     var c = { kind: kind, n: n, name: o.name, look: o.look, head: o.head || null, text: o.text, opts: (o.opts || []).map(function (x) { return x.t; }), at: Date.now(), draft: true };
     root.__BOSS_CARD = c; LAST.cards.push(c); if (LAST.cards.length > 24) LAST.cards.shift();
     return true;
@@ -169,6 +190,7 @@
       fn: function () { src = handBox(); HUSH = Date.now() + HUSH_MS; closeCard(); if (Hd) fly(r, src); else camBack(); } }] });   /* the hush before the close (the close redraws, and a redraw asks) */
     if (ok && Hd) handOnCard(r, Hd);
     if (ok) groundOnCard(r);
+    if (ok) fitCard();
     return ok;
   }
   /* (5) the thing he hands you, on her card: his pot, his wrench, his filter, and its one plain line (what, where, how often, the number) */
@@ -187,7 +209,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe or (10) his machines */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -227,7 +249,11 @@
     var h = hs(); if (!h) return;
     for (var i = 0; i < DATA.bosses.length; i++) {
       var r = DATA.bosses[i], L = lead(r.n);
-      if (L.afterDue && h.boss.fallen[r.n]) { if (BEAT) return; if (!L.beatDone && beatStart(r)) return; after(r); return; }   /* (5) the change first, then her line */
+      if (L.afterDue && h.boss.fallen[r.n]) { if (BEAT) return;
+        /* BOSSES 11/10 (measured on the alpha on its side: a fight can hand him back in the close view, where the map is not drawn and the
+           kill's camera cannot run, and her card came with no change shown): the change waits for the map, then her line */
+        if (!L.beatDone && PICS && PICS[paintKey(r, true)]) { try { if (MODE !== 'city') return; } catch (e) {} }
+        if (!L.beatDone && beatStart(r)) return; after(r); return; }   /* (5) the change first, then her line */
       if (L.thingDue && h.boss.found[r.n] && !h.boss.fallen[r.n]) { thing(r); return; }
       var s = h.boss.sign;
       if (s && s.n === r.n && !L.asked && !h.boss.found[r.n] && Date.now() - T0 > 60000 && Date.now() > HUSH) { asker(r, s); return; }   /* (5) never on top of the moment */
@@ -317,6 +343,7 @@
   /* (BURN) every fire he lit lights the blocks round it at night: the city's sight down a street and its fog ask (marked
      __THE_BOSS_FIRES_LIGHT_THE_NIGHT__ in slices/BOHEMIA_CITY_WORLD.html) */
   function lit(x, y) {
+    if (warmAt(x, y)) return true;   /* (11) his drums, once he is down, burn for you */
     if (!S || !S.verbs || !S.verbs.burn) return false;
     var V = verbRow('burn'), r = (V && V.verb.light_blocks) || 2;
     for (var i = 0; i < S.marks.length; i++) { var m = S.marks[i]; if (m.k === 'burn' && cheb(m.x, m.y, x, y) <= r) return true; }
@@ -819,6 +846,127 @@
     return c;
   }
 
+  /* ---------- (11) HIS DARK (BOSSES 11/10, rules 443(a), 441: the ladder's next three, each changing the map ITS OWN WAY; ask lines 167,
+     522; records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md). THE POT shut streets, THE TAP's pipe costs blood, THE
+     FILTER's machines fight; THE BURN's way is HIS DARK. His ladder row: he holds 'fuel, and who gets warm', and the lock is 'night ends
+     your day'. A boss whose row has 'dark' stands 'drums' of his stokers' fire drums on street blocks 'near' to 'far' round his door
+     (never beside a town, at least 3 apart), worked out once off his place and kept. WHILE HE STANDS his side of the valley ('radius'
+     blocks round his door) has no fire but his: at night the crew sees 'sight' block there (the map's own fog asks dark(), marked
+     __THE_BURNS_DARK__ in slices/BOHEMIA_CITY_WORLD.html, the way it asks lit()), the night halving everywhere else, and the map paints
+     his side black at night with only his drums burning. Not a wall, not a toll, not a fight: the night itself is his. WHEN HE FALLS
+     his stokers walk off and the drums burn for anybody: each is a fire of yours (lit(): at night, the verb's 'light_blocks' round it,
+     you see like in the day), painted with the neighbours warming their hands. Kept after a reload; WORLD TWO's fallen flag is the truth. */
+  var DARK_LAST = null;
+  function darkRow(n) { var r = row(n); return r && r.dark ? r : null; }
+  function darkDown(k, D) { var h = hs(); return D.fell != null || !!(h && h.boss.fallen[k]); }
+  function spots(at, r0, r1, cnt, from, salt) {   /* street blocks r0..r1 round his door, never by a town or on another boss's piece, 3 apart */
+    var rng = (function (s) { s = s >>> 0 || 1; return function () { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 100000) / 100000; }; })((S.seed ^ (at[0] * 2654435761) ^ (at[1] * 40503) ^ salt) >>> 0);
+    var c = [];
+    for (var dy = -r1; dy <= r1; dy++) for (var dx = -r1; dx <= r1; dx++) {
+      var d = Math.max(Math.abs(dx), Math.abs(dy)); if (d < r0 || d > r1) continue;
+      var x = at[0] + dx, y = at[1] + dy; if (!walk(x, y) || nearTown(x, y, 2) || shutAt(x, y) || onPipe(x, y) || machineAt(x, y)) continue;
+      if (from && cheb(x, y, from[0], from[1]) <= 1) continue;
+      c.push({ x: x, y: y, k: rng() });
+    }
+    c.sort(function (a, b) { return a.k - b.k; });
+    var list = [];
+    for (var i = 0; i < c.length && list.length < cnt; i++) { var p = c[i]; if (list.some(function (q) { return cheb(q.x, q.y, p.x, p.y) < 3; })) continue; list.push({ x: p.x, y: p.y }); }
+    return list;
+  }
+  function makeDark(r, at, from) {
+    var G = r.dark, R = Math.max(2, G.radius | 0 || 5);
+    return { at: at.slice(), radius: R, drums: spots(at, Math.max(1, G.near | 0 || 2), Math.max(2, G.far | 0 || 4), Math.max(1, G.drums | 0 || 4), from, 0x2545f491), fell: null, told: null, made: day(), draft: true };
+  }
+  /* his dark at (x, y): the sight the crew has there at night while he stands (0 where it is not his) */
+  function darkAt(x, y) {
+    if (!S || !S.dark || bench()) return 0;
+    for (var k in S.dark) { var D = S.dark[k], r = darkRow(k); if (!D || !D.at || darkDown(k, D)) continue;
+      if (cheb(D.at[0], D.at[1], x, y) <= D.radius && !nearTown(x, y, 1)) return Math.max(1, (r && r.dark.sight) | 0 || 1); }
+    return 0;
+  }
+  /* once he is down, his drums are fires of yours: the blocks round each are lit at night */
+  function warmAt(x, y) {
+    if (!S || !S.dark) return false; var V = verbRow('burn'), lb = (V && V.verb.light_blocks) || 2;
+    for (var k in S.dark) { var D = S.dark[k]; if (!D || !D.drums || !darkDown(k, D)) continue;
+      for (var i = 0; i < D.drums.length; i++) if (cheb(D.drums[i].x, D.drums[i].y, x, y) <= lb) return true; }
+    return false;
+  }
+  function darkTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.dark) S.dark = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.dark || S.dark[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.dark[r.n] = makeDark(r, [at.x, at.y], sg ? [sg.x, sg.y] : here()); save();
+      LAST.dark = { n: r.n, drums: S.dark[r.n].drums.length, at: Date.now() };
+    });
+    /* the first night the crew walks into his dark, one of yours says it and the old woman posts it (once) */
+    var me = here(); if (!me) return;
+    var k = me[0] + ',' + me[1] + (night() ? 'n' : 'd'); if (DARK_LAST === null) { DARK_LAST = k; return; } if (k === DARK_LAST) return; DARK_LAST = k;
+    if (!night() || inTown() || fightUp() || !darkAt(me[0], me[1])) return;
+    for (var n in S.dark) { var D = S.dark[n], r = darkRow(n); if (!D || !r || D.told != null || darkDown(n, D) || cheb(D.at[0], D.at[1], me[0], me[1]) > D.radius) continue;
+      D.told = day(); save();
+      if (r.dark.say) say(r.dark.say);
+      if (r.dark.feed_dark) feed(r.dark.feed_dark.who, fill(r.dark.feed_dark.txt, { where: whereWord(me[0], me[1]) }), 'world');
+      RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: r.dark.rise || 'HIS DARK', col: '#e6dcc4' }); tick();
+      LAST.darkTold = { n: n, at: me.slice(), sight: darkAt(me[0], me[1]), t: Date.now() }; root.__BOSS_DARK_TOLD = LAST.darkTold;
+    }
+  }
+  function darkFell(r, h) {
+    var G = r.dark; if (!G || !S) return null;
+    if (!S.dark) S.dark = {};
+    var D = S.dark[r.n]; if (!D) D = S.dark[r.n] = { at: null, radius: G.radius | 0 || 5, drums: [], fell: null, told: null, made: day(), draft: true };
+    if (D.fell != null) return D;
+    D.fell = day();
+    var n = D.drums.length, V = verbRow('burn'), o = { n: n, drums: n + (n === 1 ? ' drum' : ' drums'), light: (V && V.verb.light_blocks) || 2, where: D.at ? whereWord(D.at[0], D.at[1]) : 'that block' };
+    o.DRUMS = o.drums.toUpperCase();
+    if (G.feed && n) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    D.said = n ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.darkFell = { n: r.n, drums: n, said: D.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-dark', { detail: { n: r.n, drums: n } })); } catch (e) {}
+    return D;
+  }
+  function darkCatchUp() {
+    if (!DATA || !S || !S.dark) return; var h = hs(); if (!h) return;
+    for (var k in S.dark) { var D = S.dark[k]; if (D && D.fell == null && h.boss.fallen[k]) { var r = darkRow(k); if (r) darkFell(r, h); } }
+  }
+  function drumKey(r, down) { return (r.dark.pic || 'drum') + (down ? '_after' : '_before'); }
+  function diamond(gx, x, y, ox, oy) { var p = iso(x, y, ox, oy); gx.beginPath(); gx.moveTo(p.sx, p.sy); gx.lineTo(p.sx + TW / 2, p.sy + TH / 2); gx.lineTo(p.sx, p.sy + TH); gx.lineTo(p.sx - TW / 2, p.sy + TH / 2); gx.closePath(); }
+  function darkDraw(gx, ox, oy, beat) {
+    if (!S || !S.dark) return;
+    var h = hs(), nt = night(); LAST.drew.drums = []; LAST.drew.dark = 0; LAST.drew.warm = 0;
+    for (var k in S.dark) {
+      var D = S.dark[k], r = darkRow(k); if (!D || !r || !D.at) continue;
+      var down = darkDown(k, D), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      /* at night his side is black, only his drums burning (the blocks round a drum keep the drum's own light) */
+      /* the moment he falls the dark lifts on the kill's tape, not before it (the VOTE card's BEFORE showed no dark, measured 11/10) */
+      var lift = 0; if (inBeat && down && BEAT) { var M = BEAT_MS, t = performance.now() - BEAT.t0; lift = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)); }
+      if (nt && (!down || (inBeat && lift < 1))) { gx.save(); gx.fillStyle = 'rgba(3,2,2,' + (0.62 * (1 - lift)).toFixed(3) + ')';
+        for (var dy = -D.radius; dy <= D.radius; dy++) for (var dx = -D.radius; dx <= D.radius; dx++) { var x = D.at[0] + dx, y = D.at[1] + dy;
+          if (nearTown(x, y, 1) || D.drums.some(function (q) { return q.x === x && q.y === y; })) continue; diamond(gx, x, y, ox, oy); gx.fill(); LAST.drew.dark++; }
+        gx.restore(); }
+      D.drums.forEach(function (q, i) {
+        var vis = seen(q.x, q.y); if (!vis && !known && !nt) return;   /* at night a fire shows through the dark (the only light on his side) */
+        if (nt) { var p = iso(q.x, q.y, ox, oy), rr = TW * (down ? 1.6 : 0.8); gx.save(); var gr = gx.createRadialGradient(p.sx, p.sy + TH / 2, 0, p.sx, p.sy + TH / 2, rr);
+          gr.addColorStop(0, down ? 'rgba(255,170,80,0.42)' : 'rgba(255,140,50,0.34)'); gr.addColorStop(1, 'rgba(255,140,50,0)'); gx.fillStyle = gr; gx.fillRect(p.sx - rr, p.sy + TH / 2 - rr, rr * 2, rr * 2); gx.restore();
+          if (down) LAST.drew.warm++; }
+        if (inBeat && down) { LAST.drew.drums.push({ n: k, i: i, at: [q.x, q.y], key: 'beat', down: down }); return; }
+        var key = drumKey(r, down), b = paint(gx, key, q.x, q.y, ox, oy, beat, 0.95, 0, !vis && !nt);
+        if (b) { LAST.drew.drums.push({ n: k, i: i, at: [q.x, q.y], key: key, down: down, w: b.w, dark: !vis }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function darkBeat(x, ox, oy, beat, u, alpha) {
+    var D = S && S.dark && BEAT && S.dark[BEAT.n], r = BEAT && darkRow(BEAT.n); if (!D || !r) return 0;
+    var c = 0;
+    D.drums.forEach(function (q) { var bb = rectOf(drumKey(r, true), q.x, q.y, ox, oy, 0.95, 0); if (!bb) return; wipe(x, drumKey(r, false), drumKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
@@ -968,7 +1116,8 @@
         var u = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)), fade = Math.max(0, Math.min(1, (beatT() - t) / 500));
         try { LAST.beat.checkpoints = groundBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }
         try { LAST.beat.pipe = pipeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe rolls over to taps */
-        try { LAST.beat.machines = machinesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines drop */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.machines = machinesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines drop */
+        try { LAST.beat.drums = darkBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his drums go to the neighbours */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -1021,6 +1170,7 @@
       try { groundTick(); groundDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (8) his checkpoints, under his place */
       try { pipeTick(); pipeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe */
       try { machinesTick(); machinesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines */
+      try { darkTick(); darkDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his dark and his drums */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -1056,6 +1206,7 @@
     if (r.ground) groundFell(r, h);   /* (8) his ground: the checkpoints down, the till, the feed (sync() may already have done it) */
     if (r.pipe) pipeFell(r, h);       /* (9) his pipe: the watchers down, the taps */
     if (r.machines) machinesFell(r, h);   /* (10) his machines drop where they stand */
+    if (r.dark) darkFell(r, h);   /* (11) his dark lifts, his drums are yours */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -1071,7 +1222,7 @@
     /* the phone (UI's band, marked __THE_BOSS_VERB_ON_THE_PHONE__) */
     verbHere: verbHere, use: use, icon: icon,
     /* reading, for the gate */
-    data: function () { return DATA; }, pictures: function () { return PICS; }, state: function () { sync(); return S; }, last: function () { return LAST; },
+    data: function () { return DATA; }, pictures: function () { return PICS; }, loaded: function () { var k = Object.keys(IMG); return { asked: k.length, in: k.filter(function (f) { return IMG[f].complete && IMG[f].naturalWidth; }).length, held: !!loadData.held }; }, state: function () { sync(); return S; }, last: function () { return LAST; },
     mains: function () { return mains().slice(); }, applies: function (id, x, y) { sync(); return applies(id, x, y); }, isMain: isMain, talkTick: talkTick,
     /* BOSSES 4: the city's night sight asks if a fire he lit lights this block (__THE_BOSS_FIRES_LIGHT_THE_NIGHT__) */
     lit: function (x, y) { try { if (!S) sync(); return lit(x, y); } catch (e) { return false; } },
@@ -1084,6 +1235,9 @@
     onPipe: function (x, y) { sync(); return onPipe(x, y); },
     /* and his machines */
     machines: function (n) { sync(); return S && S.machines ? (n ? (S.machines[n] || null) : S.machines) : null; },
-    machineAt: function (x, y) { sync(); return machineAt(x, y); }
+    machineAt: function (x, y) { sync(); return machineAt(x, y); },
+    /* BOSSES 11/10 (rule 443(a)): the city's fog asks how far the crew sees in his dark at night (__THE_BURNS_DARK__); 0 where it is not his */
+    dark: function (x, y) { try { if (!S) sync(); return night() ? darkAt(x, y) : 0; } catch (e) { return 0; } },
+    darkness: function (n) { sync(); return S && S.dark ? (n ? (S.dark[n] || null) : S.dark) : null; }
   };
 })(typeof window !== 'undefined' ? window : this);

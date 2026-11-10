@@ -46333,6 +46333,7 @@ function fogContinue(){ if (!fogLoad()) { FOG.all = true; FOG.ready = true; } } 
 function fogRadius(){
   var inCity = city.x >= 0 && city.y >= 0 && city.x < FOG.N && city.y < FOG.N, r = inCity ? 6 : 9;
   try { if (isNight() && !(window.BohemiaBosses && BohemiaBosses.lit && BohemiaBosses.lit(city.x, city.y))) r = Math.max(2, Math.round(r * 0.5)); } catch (_e) {}   /* __THE_BOSS_FIRES_LIGHT_THE_NIGHT__: by your own fire the night does not halve what you see */
+  try { var dk = (window.BohemiaBosses && BohemiaBosses.dark) ? BohemiaBosses.dark(city.x, city.y) : 0; if (dk > 0) r = Math.min(r, dk); } catch (_e) {}   /* __THE_BURNS_DARK__ (BOSSES 11/10, rule 443(a)): at night on THE BURN's side, while he stands, no fire but his: the crew sees one block (slices/bohemia_bosses.js (11)) */
   return r;
 }
 /* each frame: where he stands clears; the region's places once the region is in (reveal-all) */
@@ -69960,6 +69961,7 @@ function fit(){ const st=document.getElementById('stage');
   cvSize(w,h);   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   render(); }
 window.addEventListener('resize',fit);
+try { if (window.ResizeObserver) new ResizeObserver(function(){ requestAnimationFrame(function(){ var st = document.getElementById('stage'); if (!st) return; var b = st.getBoundingClientRect(); if (b.width >= 2 && b.height >= 2 && (Math.round(b.width) !== CVW || Math.ceil(b.height) !== CVH)) fit(); }); }).observe(document.getElementById('stage')); } catch (_e) {}   /* __THE_MAP_SIZES_WHEN_ITS_STAGE_DOES__ (BOSSES 11/10, rule 441, measured on the alpha upright and on its side: fit() ran while #stage had no size, the map stayed 1 x 1 px, black, until a window resize; the stage's own size change now re-fits it, a no-op where it already fits) */
 const KEY=[
   ['#ffd21a','THE STRIP (Bohemia Blvd)',['strip']],
   ['#c8a848','RESORT ZONE',['resort']],

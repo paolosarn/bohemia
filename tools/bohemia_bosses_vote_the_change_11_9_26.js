@@ -42,6 +42,8 @@ const OUT = process.argv[3] || path.join(ROOT, 'records', 'target', 'bosses_vote
   /* the first minute's tips are done before he falls, the way a stranger meets him; then the screen is the beat's and the card's */
   await page.waitForTimeout(75000);
   await fr.evaluate(() => { window.__BOSSES_TALK = true; });
+  /* BOSSES_NIGHT=1 (THE BURN, 11/10): his change is the night's, so the beat is shot at night (his side black before, his drums after) */
+  if (process.env.BOSSES_NIGHT === '1') { await fr.evaluate(() => { try { T.min = 22 * 60; render(); } catch (e) {} }); await page.waitForTimeout(800); }
   await fr.evaluate((n) => { BohemiaHisMap.fell(n); }, N);
   const seq = [];
   for (let i = 0; i < 40; i++) {
@@ -52,7 +54,7 @@ const OUT = process.argv[3] || path.join(ROOT, 'records', 'target', 'bosses_vote
   }
   const mine = seq.filter(q => q.b && q.b.n === N && q.b2 && q.b2.n === N);
   const pre = mine.filter(q => (q.b.ph === 'hold' || q.b.ph === 'wipe') && (q.b2.u || 0) < 0.75).slice(-1)[0] || mine.filter(q => q.b.ph === 'glide').slice(-1)[0];
-  const post = mine.filter(q => q.b.ph === 'show' && q.b2.ph === 'show' && !q.b2.done)[0];
+  const post = mine.filter(q => q.b.ph === 'show' && q.b2.ph === 'show' && !q.b2.done)[0] || mine.filter(q => q.b.ph === 'show' && !q.b.done)[0];   /* 11/10: a slow frame can land the only 'show' shot as the beat ends */
   if (pre) fs.copyFileSync(pre.f, path.join(OUT, 'before.png'));
   if (post) fs.copyFileSync(post.f, path.join(OUT, 'after.png'));
   for (let i = 0; i < 60; i++) { await page.waitForTimeout(250); if (await fr.evaluate((n) => !!(window.__BOSS_CARD && window.__BOSS_CARD.kind === 'after' && window.__BOSS_CARD.n === n && document.getElementById('roadcard')), N).catch(() => false)) break; }

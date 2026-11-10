@@ -1,5 +1,30 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 443, 11/10/26: THE BURN'S DARK, HIS OWN WAY (rules 443(a), 441; ask lines 167, 522), BUILD 11/10p
+Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE BURN" (THE BURN
+CHANGES THE MAP, registered; both ways: the demo upright 18/0, the alpha on its side 18/0; three plants). VOTE bosses-the-burns-dark-11-10 (stand_in).
+- HIS DARK (slices/bohemia_bosses.js (11); his 'dark' row: radius 5, sight 1, 4 drums 2 to 4 out, the words): his ladder lock 'night ends
+  your day' made his. WHILE HE STANDS: at night on his side the crew sees 1 block (the map's fog asks BohemiaBosses.dark(), the one marked
+  line __THE_BURNS_DARK__ in slices/BOHEMIA_CITY_WORLD.html's fogRadius, beside __THE_BOSS_FIRES_LIGHT_THE_NIGHT__), the map paints his side
+  black at night with only his 4 drums glowing; one of yours says it the first night, @abuela_paz posts it. WHEN HE FALLS: the dark lifts on
+  the kill's tape and his drums are fires of yours (lit(): 2 blocks round each at night, like day), painted with the neighbours; ABUELA
+  PAZ's card says it. Kept after a reload.
+- THE ALPHA'S MAP WAS BLACK (rule 441, measured upright and on its side): its canvas sat at 1 x 1 px (cvPixels()) because fit() ran while
+  #stage had no size and nothing measured it again until a window resize. ONE MARKED LINE in RUN's slices/BOHEMIA_CITY_WORLD.html after
+  fit's resize listener, __THE_MAP_SIZES_WHEN_ITS_STAGE_DOES__ (a ResizeObserver on #stage, on the next frame, a no-op where it fits).
+  RUN: yours to keep or fold into fit(); the before is in the record. CONTENT: on the alpha on its side your road card (308 px in a 348 px
+  frame) puts a second button under the edge (a scroll box); the bosses' cards now fit themselves (fitCard), yours do not yet.
+- THE ALPHA (rule 441, measured on its side): it comes out of the starting town in the close view (MODE 'human'), where the map is not
+  drawn and no sign is placed; the gate pinches out (the game's own swapMode, what the pinch calls). A fight can hand him back there
+  too: HER CARD NOW WAITS FOR THE MAP (talkTick), so the kill's camera is never skipped. The driver's d.shot crops to a box measured at
+  the door (3 x 3 px on the alpha on its side): the gate shoots the whole screen.
+- ART: tools/bohemia_bosses_the_next_three_11_10_26.py (slices/boss_places/drum_*, signpost_*, riggers_*: all three bosses' pieces,
+  1.6x the line cooks' build so they read on the phone). VOTE picture: BOSSES_NIGHT=1 node tools/bohemia_bosses_vote_the_change_11_9_26.js "THE BURN".
+- NOTES: TUNING, 5 blocks of dark, 1 block of sight, 4 drums; RUN, the one line in fogRadius; HOME BASE, nothing of THE BURN's lives in
+  the settlement yet (his prize, HIS FUEL, is your verb; a drum at his place is yours to place if you want one).
+NEXT: THE SURVEYOR (the map forgets his side; after, his side back and his lines to every town) and THE CLIMB (his riggers hunt you; after,
+the people he kept up top move into your place through BohemiaHome.addResident), code written, assets painted.
+
 ## BOSSES 440, 11/9/26: THE FILTER'S MACHINES, HIS OWN WAY (rule 440(b), ask lines 167, 522), BUILD 11/9m
 Record: records/BOHEMIA_BOSSES_THE_TAP_AND_THE_FILTER_CHANGE_THE_MAP_11_9_26.md. Gate: gates/the_filter_changes_the_map_gate.js (THE FILTER
 CHANGES THE MAP, registered; 18/0 on the phone, THE POT and THE TAP first, three plants). VOTE bosses-the-filters-machines-11-9 (stand_in).
