@@ -1,5 +1,17 @@
 # FREEWAY (one file per lane, written only by FREEWAY; newest block on top)
 
+FREEWAY (11/10, the coordinator's routine 'FREEWAY: ship or report'): DONE, ALL FOUR IN, STOPPING. He voted YES on the card (VOTE
+freeway-the-freeway-fight-11-7, up, 11/8). Re-proved on today's main (d97cecd3, the fight file 628 lines newer than my ship; the seam's
+five touches all still in it): THE FREEWAY FIGHT 22/0 - 264 boards (the deck, the overpass, the underpass, the interchange; 11 layouts,
+4 mirrors, 6 seeds) hold the edge, the drops, reach, one road network, the parapet, the heights; six planted fails red; the headless
+fight loads; 24 valleys, 96 freeway spots, 96/96 a freeway board with no house (before: 96/96 among houses); all four templates dealt;
+AUTO plays each; the demo's own door at [51,45] lays THE OVERPASS asking the map itself. ON THE PAGE, rule 441(a): the phone upright
+(11/7) and now SIDEWAYS (844 x 390): all four boards deal, both lines on the board, the bar whole, no page error.
+OWED UNDER 441, NOT MINE TO DECIDE ALONE: every new freeway picture is a STAND-IN (the deck's face, the broken end, the ramp's slope,
+the shade's lip, the city below); the golden candidate fw_face_col.webp waits on DIRECTION's eye (rule 408(b)) before the rest are
+remade from its recipe. The guide's card ('Drag a man to wh...') is the fight's own typing hint caught mid-type on every board, not
+freeway's. NEXT if the coordinator opens it: the golden piece, then the city below from the map's real block under the deck.
+
 FREEWAY (11/7, rule 432, ask lines 513 and 514): 11/7 LATEST -- BUILD 11/7p - THE FREEWAY FIGHT (e03bad2e, the stamp b70b1fd4), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_FREEWAY_THE_FREEWAY_FIGHT_11_7_26.md. VOTE freeway-the-freeway-fight-11-7 (stage stand_in).
 - THE BUG, MEASURED THEN FIXED: a fight on a freeway cell laid the suburb round the band: 96 of 96 freeway spots over 24 valleys stood
