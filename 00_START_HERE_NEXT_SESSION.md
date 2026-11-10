@@ -7,7 +7,7 @@ matched by measure) as a worn surface, the lounge stage in black boards. ON THE 
 one lighter to load (the deck 2.54 -> 2.27 MB, the casino floor 3.80 -> 2.69); the speed the same as the stand-in's (37 against 38.6
 frames a second on a 4x slowed phone: not 60 before, not 60 now, PLUMBER's row). Gate NEW THE FREEWAY IS FINISHED 11/0 (four planted
 fails); THE FREEWAY FIGHT 22/0; THE CASINO FLOOR 9/0. VOTE cook5-the-freeway-finished-11-10 (GOLDEN) and
-cook5-the-casino-floor-finished-11-10 (MADE FROM the pit). Notes FOR FREEWAY and COMBAT TWO inside. The whole block: handoffs/COOK_FIVE.md.
+cook5-the-casino-floor-finished-11-10 (MADE FROM the pit), sha 9f0b36b27. Notes FOR FREEWAY and COMBAT TWO inside. The whole block: handoffs/COOK_FIVE.md.
 [bb Battle Brothers never ships a grey box where a tree should be: a board is whole or it is not in the game]
 [analog horror: two tyre lines into a wall that is not broken, and far below a few windows lit in a city where nothing moves]
 

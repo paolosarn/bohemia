@@ -1,7 +1,7 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
 COOK FIVE (cook-five-01gkdyus): 11/10 LATEST -- [freeway finished] SHIPPED and [casino finished] SHIPPED (rule 443(g), ask row 557).
-BUILD 11/10q - THE FREEWAY AND THE CASINO FLOOR, FINISHED, BUILT, NOT YET SEEN. Records: records/BOHEMIA_COOK_FIVE_THE_FREEWAY_FINISHED_11_10_26.md and
+BUILD 11/10q - THE FREEWAY AND THE CASINO FLOOR, FINISHED, BUILT, NOT YET SEEN (sha 9f0b36b27). Records: records/BOHEMIA_COOK_FIVE_THE_FREEWAY_FINISHED_11_10_26.md and
 records/BOHEMIA_COOK_FIVE_THE_CASINO_FLOOR_FINISHED_11_10_26.md. VOTE cook5-the-freeway-finished-11-10 (GOLDEN, a landmark) and
 cook5-the-casino-floor-finished-11-10 (MADE FROM the pit's passed ground).
 WHAT: every picture of the four freeway boards FREEWAY marked STAND-IN is remade through the master rig (the floor tool's ground and
