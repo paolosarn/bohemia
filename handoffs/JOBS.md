@@ -1,7 +1,8 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q, opened by the coordinator for VAMILY rule 436(c), asks 102 and 114, ask line 521): 11/10 LATEST --
-JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 179(a): DONE is EYES' mark). Record: records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md.
+BUILD 11/10d - JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 179(a): DONE is EYES' mark). LIVE: content da588c127, card bd4e0e5f,
+pages run 4386 SUCCESS. VOTE jobs-jobs-that-fit-the-crew-11-10. Record: records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md.
 
 WHAT IS LIVE (the demo and the alpha read it from the files, no re-cut needed for the math; the stamp is re-cut):
 - THE CONTRACT IS THE BUDGET (Battle Brothers: a contract is one budget, sized off the roster's levels, spent on each enemy's own cost;
