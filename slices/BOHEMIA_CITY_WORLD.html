@@ -46961,6 +46961,12 @@ function campCompany(){
   var names = {}, add = function(m){ if (m && m.look && m.name && !names[m.look]) names[m.look] = String(m.name); };
   try{ (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(add); }catch(_e){}
   try{ (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).forEach(add); }catch(_e){}
+  /* FIXES 11/10 (ask row 552, FOUND BY EYES 11/10: 'We're whole. Say the word and we move.' under a blank name tag). MEASURED on the
+     demo: with no company saved yet the marker draws the start's men by CREW_DEFS' looks (person_town_0, _1) and the crew screen
+     names them (DESI, RAUL) with no look on the name, so no look found its name. The i-th man is the marker's i-th look, as
+     mapCrewLooks pairs them */
+  try{ var on = crewOriginNamed() || [], dl = (CREW_DEFS && CREW_DEFS.looks) || [], dm = (CREW_DEFS && CREW_DEFS.men) || [];
+    for (var oi = 1; oi < Math.max(on.length, 1); oi++) add({ name: (on[oi] && on[oi].name) || (dm[oi] && dm[oi].name) || '', look: (on[oi] && on[oi].look) || dl[oi] || null }); }catch(_e){}
   var looks = []; try{ MAP_CREW_LOOKS.at = 0; looks = mapCrewLooks(); }catch(_e){}
   return looks.map(function(l){ return { look: l, name: names[l] || '' }; });
 }
@@ -47029,7 +47035,7 @@ function campStale(){ try{ if (!MEET.up && !LOOP.fighting && typeof contactClear
 function campSpeaker(){
   var who = { look: 'you', name: 'YOU' };
   try{ var c = campCompany(), dead = crewDead();
-    for (var i = 0; i < c.length; i++) if (c[i].look && c[i].look !== 'you' && (!c[i].name || dead.indexOf(c[i].name) < 0)) { who = { look: c[i].look, name: c[i].name || '' }; break; } }catch(_e){}
+    for (var i = 0; i < c.length; i++) if (c[i].look && c[i].look !== 'you' && c[i].name && dead.indexOf(c[i].name) < 0) { who = { look: c[i].look, name: c[i].name }; break; } }catch(_e){}   /* FIXES 11/10 (row 552): never a man with no name: no named man up, and YOU says it */
   return who;
 }
 var CAMP_BLOCKS = ['Right on us.', 'One block off.', 'Two blocks off.', 'Three blocks off.', 'Four blocks off.', 'Five blocks off.', 'Six blocks off.'];

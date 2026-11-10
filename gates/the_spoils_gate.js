@@ -71,7 +71,9 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     n.ground >= 2 && full.stash === n.cap && full.left === 1 && /full/i.test(full.said) && full.red === 'full', n.ground + ' on the ground, ' + n.stash + ' in the stash: ' + full.said);
   /* RE-AIMED RUN FOUR 10/26 (rule 249, Paolo 10/26: 'when I click something once... it should be highlighted... I just double
      click it'): one tap lights a piece, two taps put it back or take it */
-  await sp.tap('#stash .slot.full >> nth=0'); await sp.tap('#stash .slot.full >> nth=0'); await sp.waitForTimeout(150);
+  /* FIXES 11/10: the stash's first piece ON THE GLASS (a full stash fits by its last step, where the pieces already in the bag are one
+     +N tile and the ones just taken stand: the end screen re-fits after LOOT ALL now; it ran 44 px past the glass before) */
+  await sp.tap('#stash .slot.full:visible >> nth=0'); await sp.tap('#stash .slot.full:visible >> nth=0'); await sp.waitForTimeout(150);
   await sp.tap('#ground .slot.full >> nth=0'); await sp.tap('#ground .slot.full >> nth=0'); await sp.waitForTimeout(150);
   const after = await sp.evaluate(() => { const S = BohemiaSpoilsScreen.state; return { stash: S.stash.length, left: S.ground.length, kept: JSON.parse(localStorage.getItem('bohemia.bag.v1')).length }; });
   ok('    a piece put back makes room, and a tap takes one from the ground; the stash is kept', after.stash === n.cap && after.left === 1 && after.kept === n.cap, JSON.stringify(after));

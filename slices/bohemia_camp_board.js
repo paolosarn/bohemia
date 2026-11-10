@@ -516,7 +516,7 @@
   }
   /* ==== end __THE_CAMP_IS_THE_FIGHTS_BOARD__ ==== */
   function state() {
-    return { state: B.state, key: B.key, n: B.n, sq: B.sq || null, need: B.need, pitch: B.pitch, ms: B.ms, err: B.err, bakes: B.bakes, made: B.made, opts: B.opts || null,
+    return { state: B.state, key: B.key, n: B.n, sq: B.sq || null, need: B.need, pitch: B.pitch, ms: B.ms, err: B.err, bakes: B.bakes, made: B.made, opts: B.opts || null, t: B.out ? B.out.t : null,   /* FIXES 11/10: the bake page's own clock and its steps (read only) */
       board: B.out && B.out.dealt ? { name: B.out.dealt.name, kinds: B.out.dealt.kinds, w: B.out.dealt.w, h: B.out.dealt.h, cols: B.out.dealt.cols, ground: B.out.dealt.ground,
         from: B.out.dealt.from, district: B.out.dealt.district, kind: B.out.dealt.kind, sig: B.out.dealt.sig, laid: !!B.out.dealt.laid, die: B.out.dealt.die } : null,
       win: B.out ? B.out.win : null, tw: B.out ? B.out.tw : null, sameBoth: B.out ? B.out.sameBoth : null, t: B.out ? B.out.t : null,

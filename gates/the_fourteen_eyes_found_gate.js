@@ -51,9 +51,28 @@
           PLANT: the reader blind to the places and the district lists; the card on its old list.
      F538 THE TWO FREEZES (the camp's and the scavenge game's board page alone, then the demo both shapes): the page's every ground
           picture decoded off the main thread (an ImageBitmap, never an <img> decoded again at its first draw), its longest pause
-          read; on the demo the scavenge game from a town's lot under 1 s (the longest task and the longest gap); MAKE CAMP after a
-          won road fight measured and printed OWED (its own tasks are short; the map's redraw after the fight is next round's).
+          read; on the demo the scavenge game from a town's lot, its longest frame and task under half a second (rule 441); MAKE
+          CAMP after a won road fight (a town visited first): the camp's board baked in steps, each under half a second, and the whole
+          glass's longest frame printed with its scripts (the map's full paint after any fight, measured, not counted).
           PLANT: createImageBitmap taken away (the old <img> path).
+
+   THE FIVE EYES FOUND NEXT (FIXES 11/10; ask rows 550 to 554, FOUND BY EYES 11/10 on build 11/9o, rule 441(b)), one leg each, the same law:
+     F550 A THUMB ON BEGIN IS KEPT (demo, both shapes): a thumb on the button while the load is not in (WAIT, 5 OF 6) is kept: the
+          button says GOING IN and the door opens on its own within a second and a half of the load landing, no second press.
+          PLANT: the tap dropped, as the old door had it (the door stays shut).
+     F551 A PLACE'S FIGHT NAMES WHO THEY WERE (demo, both shapes, the Mob Museum's COLLECT A DEBT fought and won): the end screen says
+          THE MEN WHO OWE THE FAMILY, never THE RAIDERS; its speaker wears his name, at its tightest step too; the end screen in the
+          game stands at the least step that fits and the page never runs past the glass (the receipt's clip to the glass's foot).
+          PLANT: the visit's fight with no name for them; the tightest step without his name; the receipt's old 82% clip.
+     F552 NO BLANK NAME TAG ON THE MAP (demo, both shapes): after a camp the man who says it is one of his by name (the start's men
+          named on the map), the map's speaker box wears it; a line with a face and no name is never said.
+          PLANT: the old speaker (the start's men unnamed on the map).
+     F553 THE ROAD IS WHY (demo, both shapes): YOUR PLACE on an arterial says the road is the reason, never 'Nothing stands here'.
+          PLANT: the old reason ('ground') for a road.
+     F554 THE HALL ON ITS SIDE WHOLE (the town's page, both shapes, UI 9's dense rows planted): the keeper's words, every name and
+          trade, every retinue man's effect whole; every row and its press on the glass; each retinue man opened in turn, all of him
+          whole and every row under him on the glass.
+          PLANT: the old step (the keeper in one line, a name and trade in one, the retinue a man a row, the man opened in place).
 
    node gates/the_fourteen_eyes_found_gate.js [--only F534,F528,...] [--shape phone_portrait|phone_landscape|none]
    ========================================================================== */
@@ -67,6 +86,8 @@ const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  F
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
 const ONLY = (arg('--only') || '').split(',').filter(Boolean), SHAPE = arg('--shape');
 const want = k => !ONLY.length || ONLY.indexOf(k) >= 0;
+const SHOTS = process.env.FIXES_SHOTS || '';   /* a folder: the legs leave their pictures there (the VOTE card's), nothing else changes */
+const shot = async (p, name) => { if (!SHOTS) return; try { await p.screenshot({ path: path.join(SHOTS, name + '.png') }); } catch (e) {} };
 const SHAPES = { phone_portrait: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
   phone_landscape: { viewport: { width: 844, height: 390 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true } };
 const SH = Object.keys(SHAPES).filter(s => !SHAPE || s === SHAPE);
@@ -494,13 +515,16 @@ async function roadFight(p, fr, seq) {
 /* A: THE BAKE PAGE ALONE (the camp's and the scavenge game's hidden copy of the fight page, FIGHT_OPTS.campBoard): every ground picture it
    draws is an ImageBitmap decoded off the main thread, and the page's own longest pause while it bakes; PLANT: createImageBitmap taken
    away (the old <img> path: decoded again on the main thread at its first draw) */
+/* plant: 'bitmap' takes createImageBitmap away (the old <img> path); 'breath' takes the MessageChannel away (the bake as one run, no breaths).
+   The board: a lit main road at night at the camp's full size (the heaviest bake: the lamps over 12 megapixels) */
 async function f538bake(plant) {
   const ctx = await browser.newContext({ viewport: { width: 480, height: 320 }, deviceScaleFactor: 1, serviceWorkers: 'block' });
   const p = await ctx.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(String(e && e.stack || e).slice(0, 700)));
-  await p.addInitScript((plant) => { if (plant) { try { delete window.createImageBitmap; } catch (e) {} window.createImageBitmap = undefined; }
+  await p.addInitScript((plant) => { if (plant === 'bitmap') { try { delete window.createImageBitmap; } catch (e) {} window.createImageBitmap = undefined; }
+    if (plant === 'breath') { try { delete window.MessageChannel; } catch (e) {} window.MessageChannel = undefined; }
     window.__GAP = 0; let last = performance.now(); setInterval(() => { const n = performance.now(); if (window.__T0 != null) window.__GAP = Math.max(window.__GAP, n - last); last = n; }, 10);
-    window.FIGHT_OPTS = { district: 'suburb', kind: 'suburb', cell: { x: 31, y: 27 }, night: false, deal: 7,
-      campBoard: { tw: 200, dead: [], pick: function (grid) { window.__T0 = window.__T0 == null ? performance.now() : window.__T0; return { x: 0, y: 0, w: 1, h: 1, n: 1, win: { x: 0, y: 0, w: grid.w, h: grid.h } }; } } }; }, plant);
+    window.FIGHT_OPTS = { district: 'arterial', kind: 'arterial', cell: { x: 31, y: 27 }, night: true, power: true, deal: 7,
+      campBoard: { tw: 515, dead: [], pick: function (grid) { window.__T0 = window.__T0 == null ? performance.now() : window.__T0; return { x: 0, y: 0, w: 1, h: 1, n: 1, win: { x: 0, y: 0, w: grid.w, h: grid.h } }; } } }; }, plant || null);
   await p.goto(BASE + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load', timeout: 180000 });
   await p.waitForFunction(() => !!window.__CAMP_BOARD, null, { timeout: 120000 }).catch(() => {});
   const R = await p.evaluate(() => { const U = eval('UI'), ks = Object.keys(U.imgs || {}).filter(k => /^fight_ground\//.test(k));
@@ -522,30 +546,12 @@ async function f538(shape) {
   /* the measure: the longest task on the one main thread (every same-origin frame's work; the Long Tasks API, the game's own work)
      and, as EYES' meter reads it, the longest gap between two beats of a 10 ms timer (on a busy box the gap also counts the box) */
   const arm = () => p.evaluate(() => { window.__GAP8 = 0; window.__LT8 = 0; let last = performance.now(); clearInterval(window.__GT8); window.__GT8 = setInterval(() => { const n = performance.now(); window.__GAP8 = Math.max(window.__GAP8, n - last); last = n; }, 10);
-    try { if (window.__LTO8) window.__LTO8.disconnect(); window.__LTO8 = new PerformanceObserver(l => l.getEntries().forEach(e => { window.__LT8 = Math.max(window.__LT8, e.duration); })); window.__LTO8.observe({ entryTypes: ['longtask'] }); } catch (e) {} });
-  const read = () => p.evaluate(() => { clearInterval(window.__GT8); try { window.__LTO8.disconnect(); } catch (e) {} return { task: Math.round(window.__LT8), gap: Math.round(window.__GAP8) }; });
-  /* MAKE CAMP after a won road fight */
-  const f = await roadFight(p, fr, 538);
-  let camp = null;
-  if (f) {
-    await p.waitForTimeout(2500);
-    await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; }); S.over = true; S.result = 'won'; showOver('won'); });
-    const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
-    for (let i = 0; i < 120 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
-    await p.waitForTimeout(2500); await arm();
-    await p.frameLocator('#spoilsdoor iframe').locator('#camp').tap();
-    let st = null; for (let i = 0; i < 80; i++) { st = await p.evaluate(() => !CITYFIGHT && !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame')).catch(() => false);
-      const cm = await fr.evaluate(() => !!(window.BohemiaMapCamp && BohemiaMapCamp.on())).catch(() => false); if (st && cm) break; await p.waitForTimeout(250); }
-    await p.waitForTimeout(5000);
-    camp = Object.assign({ home: st }, await read());
-    try { await fr.evaluate(() => { try { if (BohemiaMapCamp.on()) BohemiaMapCamp.break(); } catch (e) {} }); } catch (e) {}
-  }
-  /* OWED, NOT COUNTED (FIXES 11/9): MAKE CAMP's own work is short (its longest task 145 to 300 ms, main and this build alike); the
-     longest gap reads 0.74 to 0.92 s on a quiet box (1.0 to 1.5 s on a busy one): the map coming back after the fight is drawn outside
-     any one task (style, layout and paint of the map's page), which the Long Tasks API does not see. Measured and printed here until
-     the next round names it */
-  console.log('  OWED F538 ' + shape + ': MAKE CAMP after a won fight (measured, not counted): from the press until the camp stands (and 5 s after) the longest task '
-    + (camp ? camp.task : '?') + ' ms, the longest gap ' + (camp ? camp.gap : '?') + ' ms  [' + JSON.stringify(camp) + ']');
+    try { if (window.__LTO8) window.__LTO8.disconnect(); window.__LTO8 = new PerformanceObserver(l => l.getEntries().forEach(e => { window.__LT8 = Math.max(window.__LT8, e.duration); })); window.__LTO8.observe({ entryTypes: ['longtask'] }); } catch (e) {}
+    /* THE FREEZE AS HE SEES IT (rule 441: 'no step that freezes over half a second'): the longest time the glass waited for its next
+       frame (the Long Animation Frames API: a frame's whole time, its scripts, its style, its paint, what blocked it) */
+    window.__LF8 = 0; window.__LF8W = null; window.__T8 = performance.now(); try { if (window.__LFO8) window.__LFO8.disconnect(); window.__LFO8 = new PerformanceObserver(l => l.getEntries().forEach(e => { if (e.duration > window.__LF8) { window.__LF8 = e.duration;
+      window.__LF8W = { at: Math.round(e.startTime - window.__T8), block: Math.round(e.blockingDuration || 0), render: Math.round(e.renderStart ? e.startTime + e.duration - e.renderStart : 0), scripts: [...(e.scripts || [])].sort((a, b) => b.duration - a.duration).slice(0, 3).map(x => Math.round(x.duration) + ' ' + (x.invokerType || '') + ' ' + (x.invoker || '') + ' ' + String(x.sourceURL || '').split('/').pop() + ':' + (x.sourceFunctionName || '') + '@' + (x.sourceCharPosition | 0)) }; } }));  window.__LFO8.observe({ type: 'long-animation-frame', buffered: false }); } catch (e) { window.__LF8 = -1; } });
+  const read = () => p.evaluate(() => { clearInterval(window.__GT8); try { window.__LTO8.disconnect(); } catch (e) {} try { window.__LFO8.disconnect(); } catch (e) {} return { frame: Math.round(window.__LF8), task: Math.round(window.__LT8), gap: Math.round(window.__GAP8), worst: window.__LF8W }; });
   /* the scavenge game from the first town's lot */
   const bases = await fr.evaluate(() => { const bs = ctBases(); return Object.keys(bs).map(n => ({ n, t: mapTierOf(n), x: bs[n].x, y: bs[n].y })); });
   const at = bases.find(b => b.n === 'Church') || bases[0];
@@ -566,8 +572,41 @@ async function f538(shape) {
       scav = Object.assign({ phase: ph, town: at.n }, await read());
     }
   }
-  ok('F538 ' + shape + ': the scavenge game opened from ' + at.n + '\'s lot: from the press until the game is up the longest task ' + (scav ? scav.task : '?') + ' ms, the longest gap ' + (scav ? scav.gap : '?') + ' ms, both under 1 s',
-    !!scav && scav.phase === 'play' && scav.task < 1000 && scav.gap < 1000, JSON.stringify(scav));
+  ok('F538 ' + shape + ': the scavenge game opened from ' + at.n + '\'s lot: from the press until the game is up the longest frame ' + (scav ? scav.frame : '?') + ' ms and the longest task ' + (scav ? scav.task : '?') + ' ms, both under half a second (the timer\'s gap ' + (scav ? scav.gap : '?') + ' ms)',
+    !!scav && scav.phase === 'play' && scav.frame >= 0 && scav.frame < 500 && scav.task < 500, JSON.stringify(scav));
+  /* out of the town again, the way he leaves it (its LEAVE), before the road fight: the town's screen is warm, as it is for him by
+     the time he has won a fight (EYES' walk visited towns first) */
+  if (sf) { await sf.evaluate(() => { const g = document.getElementById('scavgame'); try { const b = g && g.contentWindow.document.getElementById('leave'); if (b) b.click(); } catch (e) {} }).catch(() => {}); await p.waitForTimeout(1500);   /* the game's own LEAVE */
+    await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); const l = document.getElementById('leave'); if (l) l.click(); }).catch(() => {}); await p.waitForTimeout(3000); }
+  /* MAKE CAMP after a won road fight */
+  const f = await roadFight(p, fr, 538);
+  let camp = null;
+  if (f) {
+    await p.waitForTimeout(2500);
+    await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; }); S.over = true; S.result = 'won'; showOver('won'); });
+    const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
+    for (let i = 0; i < 120 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
+    await p.waitForTimeout(2500); await arm();
+    let prof = null; if (process.env.FIXES_PROFILE) { prof = await p.context().newCDPSession(p); await prof.send('Profiler.enable'); await prof.send('Profiler.setSamplingInterval', { interval: 200 }); await prof.send('Profiler.start'); }   /* a checker's look inside the press (FIXES_PROFILE: the file's folder) */
+    await p.frameLocator('#spoilsdoor iframe').locator('#camp').tap();
+    let st = null; for (let i = 0; i < 80; i++) { st = await p.evaluate(() => !CITYFIGHT && !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame')).catch(() => false);
+      const cm = await fr.evaluate(() => !!(window.BohemiaMapCamp && BohemiaMapCamp.on())).catch(() => false); if (st && cm) break; await p.waitForTimeout(250); }
+    await p.waitForTimeout(5000);
+    if (prof) { try { const r = await prof.send('Profiler.stop'); fs.writeFileSync(path.join(process.env.FIXES_PROFILE, 'camp_' + shape + '.cpuprofile'), JSON.stringify(r.profile)); } catch (e) {} }
+    camp = Object.assign({ home: st }, await read());
+    for (const x of p.frames()) { const t = await x.evaluate(() => { try { const s = window.BohemiaCampBoard && BohemiaCampBoard.state(); return s && s.t && s.t.steps ? s.t.steps : null; } catch (e) { return null; } }).catch(() => null); if (t) { camp.steps = t; break; } }   /* the camp's bake, step by step */
+    try { await fr.evaluate(() => { try { if (BohemiaMapCamp.on()) BohemiaMapCamp.break(); } catch (e) {} }); } catch (e) {}
+  }
+  /* MAKE CAMP (FIXES 11/10, rule 441: 'no step that freezes over half a second'). COUNTED: the camp's own board, baked in its hidden page
+     after the press (the step that froze: 515 ms laying the dead, 607 to 788 ms the night's lamps), every step under half a second; the
+     first step is not one task (it waits on the files), so it is the rest that count. MEASURED, NOT COUNTED: the whole glass's longest
+     frame, which is mostly the map's one full paint as the camera climbs back after any fight (bohemia_motion.js's 'live' render of
+     renderCity: 300 to 720 ms on this box, the map's and PLUMBER 8's, rule 441(c)) */
+  const steps = camp && Array.isArray(camp.steps) ? camp.steps.slice(1) : [], worstStep = steps.reduce((a, x) => x[1] > a[1] ? x : a, ['none', 0]);
+  ok('F538 ' + shape + ': MAKE CAMP after a won fight (a town visited first): the camp\'s board baked in ' + (steps.length + 1) + ' steps, the longest after its files came '
+    + worstStep[1] + ' ms (' + worstStep[0] + '), under half a second', !!camp && camp.home && steps.length >= 5 && worstStep[1] < 500, JSON.stringify(camp && camp.steps));
+  console.log('  INFO F538 ' + shape + ': MAKE CAMP, the whole glass (measured, not counted): the longest frame ' + (camp ? camp.frame : '?') + ' ms, the longest task '
+    + (camp ? camp.task : '?') + ' ms, the timer\'s gap ' + (camp ? camp.gap : '?') + ' ms; the worst frame\'s scripts ' + JSON.stringify(camp && camp.worst && camp.worst.scripts));
   ok('F538 ' + shape + ': nothing threw', p.__errs.length === 0, p.__errs.slice(0, 2).join(' | '));
   await p.context().close();
 }
@@ -659,6 +698,157 @@ async function f527(shape) {
   await p.context().close();
 }
 
+/* ==========================================================================
+   THE FIVE EYES FOUND NEXT (FIXES, 11/10; ask rows 550 to 554, FOUND BY EYES 11/10 on build 11/9o, rule 441(b))
+   ========================================================================== */
+/* ---------------- F550: a thumb on BEGIN before the game is in is kept ---------------- */
+async function f550(shape, plant) {
+  const p = await page(shape, 'BOHEMIA_DEMO.html');
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(100); }
+  await p.waitForTimeout(800); await throughTheTitle(p);
+  /* the moment the button still says the load is not in: his thumb on it, where it is drawn */
+  let b = null; for (let i = 0; i < 200 && !b; i++) { b = await p.evaluate(() => { const e = document.getElementById('fronttap'), f = document.getElementById('front');
+    if (!e || window.__LOAD_READY || !f || !f.classList.contains('load') || !e.offsetHeight) return null; const r = e.getBoundingClientRect();
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2, says: e.textContent, pct: (document.getElementById('loadpct') || {}).textContent || '' }; }).catch(() => null); if (!b) await p.waitForTimeout(50); }
+  if (!b) { ok('F550 ' + shape + (plant ? ' PLANTED' : '') + ': a moment before the game is in to press BEGIN in', false, 'the load was in before the leg could press'); await p.context().close(); return; }
+  await p.touchscreen.tap(b.x, b.y);
+  if (plant) await p.evaluate(() => { window.__BEGIN_HELD = 0; });   /* PLANT: the tap dropped, as the old door did */
+  await p.waitForTimeout(600);
+  if (!plant) await shot(p, 'f550_' + shape);
+  const said = await p.evaluate(() => (document.getElementById('fronttap') || {}).textContent || '');
+  let readyAt = null, inAt = null; const t0 = Date.now();
+  for (let i = 0; i < 1200 && inAt == null; i++) { const s = await p.evaluate(() => ({ ready: !!window.__LOAD_READY, began: !!window.__PLAY_BEGAN || !!document.querySelector('#mainmaker .go') || getComputedStyle(document.getElementById('front')).display === 'none' })).catch(() => ({}));
+    if (s.ready && readyAt == null) readyAt = Date.now(); if (s.began) inAt = Date.now(); if (readyAt != null && Date.now() - readyAt > 6000) break; await p.waitForTimeout(100); }
+  if (!plant) {
+    ok('F550 ' + shape + ': a thumb on the button while it read ' + JSON.stringify(b.says) + ' at ' + b.pct + ' is kept: it says ' + JSON.stringify(said) + ', and the door opens on its own ' + (readyAt != null && inAt != null ? (inAt - readyAt) + ' ms' : '?') + ' after the load is in, no second press',
+      /GOING IN/.test(said) && readyAt != null && inAt != null && inAt - readyAt < 1500, JSON.stringify({ said, ready: readyAt && readyAt - t0, in: inAt && inAt - t0 }));
+    ok('F550 ' + shape + ': nothing threw', p.__errs.length === 0, p.__errs.slice(0, 2).join(' | '));
+  } else ok('F550 ' + shape + ' PLANTED (the tap dropped, as the old door had it): the leg sees the door stay shut after the load is in', readyAt != null && inAt == null, JSON.stringify({ said, ready: readyAt && readyAt - t0, in: inAt && inAt - t0 }));
+  await p.context().close();
+}
+
+/* ---------------- F554: the hall on its side, closed and with a man opened ---------------- */
+const HALLWHOLE = () => { const sh = document.getElementById('sheet'), sb = sh.getBoundingClientRect(), H = innerHeight, bad = [];
+  const cut = (e, k) => { if (!e || !e.getClientRects().length) return; const cs = getComputedStyle(e);
+    if (e.scrollHeight > e.clientHeight + 1 && cs.overflow !== 'visible') bad.push(k + ' cut: ' + (e.textContent || '').trim().slice(0, 30));
+    else if (e.scrollWidth > e.clientWidth + 1 && cs.overflow !== 'visible') bad.push(k + ' cut: ' + (e.textContent || '').trim().slice(0, 30)); };
+  cut(document.querySelector('#sbody>.who .say p'), 'the keeper');
+  document.querySelectorAll('#sbody .hire .nm').forEach(e => cut(e, 'a hire'));
+  document.querySelectorAll('#sbody .retf .rname, #sbody .retf .rdoes, #sbody .retf.open .rmore p').forEach(e => cut(e, 'the retinue'));
+  document.querySelectorAll('#sbody .hire, #sbody .retf, #sbody .retf>.act, #sbody .hire>.act').forEach(e => { if (!e.getClientRects().length) return; const r = e.getBoundingClientRect();
+    if (r.bottom > Math.min(H, sb.bottom) + 0.5) bad.push('under the glass: ' + ((e.querySelector('.rname b, .nm') || e).textContent || '').trim().slice(0, 18) + ' ' + (e.classList.contains('act') ? (e.textContent || '').trim().slice(0, 12) + ' ' : '') + Math.round(r.top) + '-' + Math.round(r.bottom)); });
+  return { bad, hires: document.querySelectorAll('#sbody .hire').length, ret: document.querySelectorAll('#sbody .retf').length, open: document.querySelectorAll('#sbody .retf.open').length }; };
+async function f554(shape) {
+  const p = await hall(shape);
+  const c = await p.evaluate(HALLWHOLE); await shot(p, 'f554_' + shape);
+  ok('F554 ' + shape + ' (the hall: ' + c.hires + ' men to hire, ' + c.ret + ' who would travel with you): the keeper\'s words, every name and trade, every effect whole; every row and its press on the glass', c.ret > 0 && c.bad.length === 0, c.bad.slice(0, 4).join(' | ') || 'whole');
+  for (let k = 0; k < c.ret; k++) {   /* every man opened in turn (one at a time, as his finger has it) */
+    await p.evaluate(k => { document.querySelectorAll('#sbody .retf.open .rname').forEach(n => n.click()); const n = document.querySelectorAll('#sbody .retf .rname')[k]; if (n) n.click(); }, k); await p.waitForTimeout(500);
+    const o = await p.evaluate(HALLWHOLE); if (k === 0) await shot(p, 'f554open_' + shape);
+    ok('F554 ' + shape + ': the ' + ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'][k] + ' man who would travel opened (his figure, who he was, his words): all of him whole, every row under him and its TAKE ON on the glass', o.open === 1 && o.bad.length === 0, o.bad.slice(0, 4).join(' | ') || 'whole');
+  }
+  /* PLANT: the old step (the keeper in one line, a name and trade in one, the retinue a man a row at the whole width, the man opened in
+     place; upright, a man's effect held to two lines, one at the next step) */
+  await p.evaluate(() => { const s = document.createElement('style'); s.textContent = 'html body #sheet.ns-d1.ns-d3 #sbody>.who .say p{-webkit-line-clamp:1!important}html body #sheet.ns-d1.ns-d3 .hire .nm{white-space:nowrap!important;display:block!important}html body #sheet.ns-d1.ns-d3 .acts:has(>.hire)>.retf,html body #sheet.ns-d1.ns-d3 .acts:has(>.hire)>.retf.open{grid-column:1 / -1!important}html body #sheet.ns-d1.ns-d3 .acts:has(>.hire)>.retf.open .rmore{display:grid!important}html body #sheet.ns-d1.ns-d3 .acts:has(>.hire)>.retf.open .rfig{width:80px!important;height:124px!important}html body #sheet.ns-d1 .retf:not(.open) .rdoes{display:-webkit-box!important;-webkit-line-clamp:2!important}html body #sheet.ns-d1.ns-d2 .retf:not(.open) .rdoes{-webkit-line-clamp:1!important}'; document.head.appendChild(s); });
+  await p.waitForTimeout(300);
+  const pl = await p.evaluate(HALLWHOLE);
+  ok('F554 ' + shape + ' PLANTED (the old step): the leg sees words cut or a row under the glass', pl.bad.length > 0, pl.bad.slice(0, 3).join(' | ') || 'BLIND');
+  ok('F554 ' + shape + ': nothing threw', p.__errs.length === 0, p.__errs.slice(0, 2).join(' | '));
+  await p.context().close();
+}
+
+/* ---------------- F551, F552, F553: one game on the demo ---------------- */
+async function f55x(shape) {
+  const p = await picks(shape);
+  await p.evaluate(() => document.getElementById('fronttap').click());
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let fr = null; for (let i = 0; i < 240 && !fr; i++) { await p.waitForTimeout(250); const c = p.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url())); if (c && await c.evaluate(() => typeof campSpeaker === 'function' && !!window.BohemiaPlaceVisits && !!window.BohemiaHome && !!BohemiaHome.data()).catch(() => false)) fr = c; }
+  if (!fr) { ok('F55x ' + shape + ': the game opened on the map', false); await p.context().close(); return; }
+  await p.waitForTimeout(2500);
+  if (want('F552')) {
+    /* the camp's speaker: a man of his with his name, and the map's speaker box wears it */
+    /* on the map with the town shut: a new game walks to its first town and opens it (a mouth waits while a place is open), so he
+       arrives and leaves by its LEAVE, as he would */
+    for (let i = 0; i < 40; i++) { if (await fr.evaluate(() => !!LOOP.open && LOOP.frame && LOOP.frame.style.display === 'block').catch(() => false)) break; await p.waitForTimeout(250); }
+    await p.waitForTimeout(1500);
+    for (const x of p.frames().filter(q => /SETTLEMENT_SCREEN/.test(q.url()))) await x.evaluate(() => { const c = document.getElementById('close'); if (window.BohemiaSettlement && BohemiaSettlement.state.open && c) c.click(); const l = document.getElementById('leave'); if (l) l.click(); }).catch(() => {});
+    await p.waitForTimeout(2500);
+    const s = await fr.evaluate(() => { window.HUNT_T0 = performance.now() - 65000;   /* past the first minute */   /* past the first minute, when the map lets a mouth speak (voiceBlocked) */
+      const w = campSpeaker(); const T = window.BohemiaMaterials && BohemiaMaterials.ten;
+      if (T && T.say) { T.say({ id: 'f552:' + Date.now(), kind: 'camp', who: w, line: 'We\'re whole. Say the word and we move.', prio: 0, ttl: 30 }); }
+      return { who: w, said: !!T }; });
+    let tag = null; for (let i = 0; i < 60 && tag == null; i++) { await p.waitForTimeout(250); tag = await fr.evaluate(() => { const v = document.getElementById('bmvoice'); if (!v || !v.classList.contains('on') || !/We're/.test(v.textContent || '')) return null; return (v.querySelector('.who') || {}).textContent; }).catch(() => null); }
+    await shot(p, 'f552_' + shape);
+    ok('F552 ' + shape + ': after a camp the one who says it is a man of his by name (' + JSON.stringify(s.who) + '), and the map\'s speaker box wears his name (' + JSON.stringify(tag) + ')',
+      !!s.who && !!String(s.who.name || '').trim() && s.who.look !== '' && tag != null && !!String(tag).trim(), JSON.stringify(s) + ' ' + JSON.stringify(await fr.evaluate(() => { const V = BohemiaMaterials.ten.voice; return { blocked: V.blocked, q: V.q.map(x => x.id), on: V.on && V.on.id, shown: V.shown.slice(-3).map(x => x.id + ':' + x.who) }; }).catch(e => String(e))));
+    const blank = await fr.evaluate(() => { const T = BohemiaMaterials.ten; return T.say({ id: 'f552b:' + Date.now(), kind: 'camp', who: { look: 'cast_longcoat', name: '' }, line: 'A line with no name.', prio: 0, ttl: 30 }); });
+    ok('F552 ' + shape + ': a line with a face and no name is never said under a blank tag', blank === false, blank);
+    /* PLANT: the old speaker (the men he started with not named on the map: their names lived on the crew screen only) */
+    const old = await fr.evaluate(() => { const keep = window.crewOriginNamed; window.crewOriginNamed = () => null; let who = { look: 'you', name: 'YOU' };
+      try { const c = campCompany(), dead = crewDead(); for (let i = 0; i < c.length; i++) if (c[i].look && c[i].look !== 'you' && (!c[i].name || dead.indexOf(c[i].name) < 0)) { who = { look: c[i].look, name: c[i].name || '' }; break; } } catch (e) {}
+      window.crewOriginNamed = keep; return who; });
+    ok('F552 ' + shape + ' PLANTED (the old speaker, the start\'s men unnamed on the map): the leg sees the blank name', !String(old.name || '').trim(), JSON.stringify(old));
+  }
+  if (want('F553')) {
+    /* YOUR PLACE on a road: the reason is the road */
+    const at = await fr.evaluate(() => { try { loopClose(); } catch (e) {} const x0 = city.x | 0, y0 = city.y | 0;
+      for (let r = 0; r < 40; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const c = om.at(x0 + dx, y0 + dy); if (c && c.district === 'arterial') { city.x = x0 + dx; city.y = y0 + dy; DAY.day = Math.max(2, DAY.day | 0); try { render(); } catch (e) {} return [city.x, city.y, BohemiaHome.grade(BohemiaHomeMap.probe(city.x, city.y))]; } }
+      return null; });
+    const read = async () => { await p.evaluate(() => window.BohemiaPhone && BohemiaPhone.open('home')); await p.waitForTimeout(1200); return p.evaluate(() => { const e = document.querySelector('#bohphone .hb'); return e ? e.innerText.replace(/\s+/g, ' ') : ''; }); };
+    const t = await read(); await shot(p, 'f553_' + shape);
+    ok('F553 ' + shape + ': YOUR PLACE on a road (' + (at && at[2] && at[2].district) + ' at ' + (at && at[0]) + ',' + (at && at[1]) + ') says the road is why, never that nothing stands here ("' + t.slice(0, 140) + '")',
+      !!at && at[2] && at[2].why === 'on_road' && /NOT HERE/.test(t) && /This is the road/.test(t) && !/Nothing stands here/.test(t), JSON.stringify(at && at[2]));
+    /* PLANT: the old reason for every never-on ground */
+    await fr.evaluate(() => { const g0 = BohemiaHome.grade; window.__G553 = g0; BohemiaHome.grade = function () { const g = g0.apply(this, arguments); if (g && g.why === 'on_road') g.why = 'ground'; return g; }; try { HOME.here = null; } catch (e) {} });   /* the map grades a block once: asked again */
+    await p.evaluate(() => { try { BohemiaPhone.open('home'); } catch (e) {} }); await fr.evaluate(() => { city.x += 0; try { render(); } catch (e) {} });
+    await p.evaluate(() => window.BohemiaPhone && BohemiaPhone.open('relations')); await p.waitForTimeout(500);
+    const tp = await read();
+    ok('F553 ' + shape + ' PLANTED (the old reason, \'ground\', for a road): the leg sees \'Nothing stands here\'', /Nothing stands here/.test(tp), tp.slice(0, 140));
+    await fr.evaluate(() => { if (window.__G553) BohemiaHome.grade = window.__G553; try { HOME.here = null; } catch (e) {} });
+    await p.evaluate(() => { try { const c = document.querySelector('#bohphone .hb'); const x = document.querySelector('#bohphone .bpclose, #bohphone [data-a="back"]'); if (x) x.click(); } catch (e) {} });
+  }
+  if (want('F551')) {
+    /* the Mob Museum's debt, fought and won: the end screen names who they were, and its speaker wears his name */
+    const go = await fr.evaluate(() => { try { loopClose(); } catch (e) {} const r = BohemiaPlaceVisits.choose('the_mob_museum', 'debt'); return { r: r, err: BohemiaPlaceVisits.err || null, last: BohemiaPlaceVisits.lastFight || null }; });
+    let f = null; for (let i = 0; i < 120 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0 && typeof showOver === 'function').catch(() => false)) f = c; } if (!f) await p.waitForTimeout(250); }
+    const now = await p.evaluate(() => window.__FIGHT_NOW || null);
+    if (f) { await p.waitForTimeout(2000); await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; }); S.over = true; S.result = 'won'; showOver('won'); }); }
+    const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
+    for (let i = 0; i < 120 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
+    await p.waitForTimeout(2200);
+    /* the end screen in the game: it stands at the least step that fits the glass (never squeezed past it), and the page never runs past the glass */
+    const FITSTEPS = () => { const h = document.documentElement, keep = h.className, se = document.scrollingElement, steps = ['sp-d1', 'sp-d2', 'sp-d3', 'sp-d4', 'sp-d5'], L = [];
+      const level = steps.filter(c => h.classList.contains(c)).length; steps.forEach(c => h.classList.remove(c));
+      for (let i = 0; i <= 5; i++) { if (i) h.classList.add(steps[i - 1]); void h.offsetHeight; L.push(se.scrollHeight); }
+      h.className = keep; void h.offsetHeight; let least = L.findIndex(x => x <= innerHeight + 1); return { H: innerHeight, L, level, least, now: se.scrollHeight }; };
+    const fs1 = SF() ? await SF().evaluate(FITSTEPS) : null; await shot(p, 'f551_' + shape);
+    ok('F551 ' + shape + ': the end screen in the game stands at the least step that fits (step ' + (fs1 && fs1.level) + ', the page ' + (fs1 && fs1.now) + ' px on a ' + (fs1 && fs1.H) + ' px glass; each step ' + (fs1 && fs1.L.join(', ')) + ')',
+      !!fs1 && fs1.now <= fs1.H + 1 && fs1.least >= 0 && fs1.level === fs1.least, JSON.stringify(fs1));
+    /* PLANT: the receipt's clip at its old 82% of the glass, and the screen squeezed to its last step */
+    const fs2 = SF() ? await SF().evaluate((F) => { const st = document.createElement('style'); st.textContent = '#tillclip{bottom:auto!important;height:82vh!important;max-height:none!important}'; document.head.appendChild(st);
+      const h = document.documentElement; ['sp-d1', 'sp-d2', 'sp-d3', 'sp-d4', 'sp-d5'].forEach(c => h.classList.add(c)); const r = (0, eval)('(' + F + ')')(); st.remove(); return r; }, FITSTEPS.toString()) : null;
+    await p.waitForTimeout(400); if (SF()) await SF().evaluate(() => BohemiaSpoilsScreen.fit());
+    ok('F551 ' + shape + ' PLANTED (the receipt\'s old clip; the screen squeezed to its last step): the leg sees the page past the glass or the step past the one it needs', !!fs2 && (fs2.now > fs2.H + 1 || fs2.level !== fs2.least), JSON.stringify(fs2));
+    const sp = SF() ? await SF().evaluate(() => { const w = document.getElementById('word'), n = w && w.querySelector('.swho'); const vis = e => !!e && e.getClientRects().length > 0 && e.getBoundingClientRect().width > 4 && getComputedStyle(e).visibility !== 'hidden';
+      return { head: (document.getElementById('head') || {}).textContent || '', said: !!(w && w.classList.contains('said')), who: n ? n.textContent : null, whoOn: vis(n), fit: BohemiaSpoilsScreen.fitState(), wonHead: BohemiaSpoilsScreen.wonHead(BohemiaSpoilsScreen.state.fight && BohemiaSpoilsScreen.state.fight.spoils) }; }).catch(e => ({ err: String(e) })) : null;
+    ok('F551 ' + shape + ': the Mob Museum\'s COLLECT A DEBT, won: the end screen says ' + JSON.stringify(sp && (sp.head || sp.wonHead)) + ' (the place\'s own name for them, ' + JSON.stringify(now && now.foe) + '), never THE RAIDERS',
+      !!sp && /THE MEN WHO OWE THE FAMILY/.test(sp.head || sp.wonHead) && !/RAIDER/.test(sp.head), JSON.stringify({ go, sp }));
+    ok('F551 ' + shape + ': the man who speaks on the end screen wears his name (' + JSON.stringify(sp && sp.who) + ', the screen at step ' + (sp && sp.fit && sp.fit.level) + ')', !!sp && (!sp.said || (sp.whoOn && !!String(sp.who || '').trim())), JSON.stringify(sp));
+    /* every step of the end screen keeps his name: the tightest step forced */
+    const d5 = SF() ? await SF().evaluate(() => { const h = document.documentElement; const keep = h.className; ['sp-d1', 'sp-d2', 'sp-d3', 'sp-d4', 'sp-d5'].forEach(c => h.classList.add(c)); const n = document.querySelector('#word.said .swho'); const r = n && n.getClientRects().length ? n.getBoundingClientRect() : null;
+      const out = { who: n ? n.textContent : null, on: !!r && r.width > 4 && r.right <= innerWidth + 0.5 && r.top >= -0.5 }; h.className = keep; return out; }) : null;
+    ok('F551 ' + shape + ': at the end screen\'s tightest step his name still stands in front of his words (' + JSON.stringify(d5) + ')', !!d5 && (d5.who == null || d5.on), JSON.stringify(d5));
+    /* PLANT: the fight handed over with no name for them (the old visit), and the tightest step dropping the name */
+    const pl = SF() ? await SF().evaluate(() => { const P = window.parent; const keep = P.__FIGHT_NOW; P.__FIGHT_NOW = Object.assign({}, keep || {}, { foe: null }); const h = BohemiaSpoilsScreen.wonHead(BohemiaSpoilsScreen.state.fight && BohemiaSpoilsScreen.state.fight.spoils); P.__FIGHT_NOW = keep;
+      const s = document.createElement('style'); s.textContent = 'html.sp-d5 #bar .word.said .swho{display:none!important}'; document.head.appendChild(s); const H = document.documentElement, k2 = H.className; ['sp-d1', 'sp-d2', 'sp-d3', 'sp-d4', 'sp-d5'].forEach(c => H.classList.add(c));
+      const n = document.querySelector('#word.said .swho'); const on = !!n && n.getClientRects().length > 0; H.className = k2; s.remove(); return { head: h, nameOn: on, said: !!document.querySelector('#word.said') }; }) : null;
+    ok('F551 ' + shape + ' PLANTED (the visit\'s fight with no name for them; the tightest step without his name): the leg sees RAIDERS and the name gone', !!pl && /RAIDER/.test(pl.head) && (!pl.said || !pl.nameOn), JSON.stringify(pl));
+  }
+  ok('F55x ' + shape + ': nothing threw', p.__errs.length === 0, p.__errs.slice(0, 2).join(' | '));
+  await p.context().close();
+}
+
 (async () => {
   await new Promise(r => srv.listen(0, '127.0.0.1', r)); BASE = 'http://127.0.0.1:' + srv.address().port;
   browser = await chromium.launch();
@@ -668,11 +858,14 @@ async function f527(shape) {
     for (const s of SH) { if (want('F525')) await f525(s); if (want('F532')) await f532(s); if (want('F533')) await f533(s); if (want('F536')) await f536(s); }
     if (want('F535') && SH.indexOf('phone_landscape') >= 0) await f535();
     if (want('F531')) await f531fight();
-    if (want('F538')) { const A = await f538bake(false), B = await f538bake(true);
-      ok('F538 the camp\'s and the scavenge game\'s board page alone: ' + A.n + ' ground pictures, ' + A.bitmaps + ' decoded off the main thread (ImageBitmaps), ' + A.imgs + ' left as <img>; its longest pause while it baked ' + A.gap + ' ms',
-        A.ok && A.n >= 3 && A.bitmaps === A.n && A.imgs === 0, JSON.stringify(A));
-      ok('F538 PLANTED (createImageBitmap taken away: the old <img> path): the leg sees the pictures left as <img> (its longest pause ' + B.gap + ' ms)', B.ok && B.imgs === B.n && B.n >= 3, JSON.stringify(B)); }
+    if (want('F538')) { const A = await f538bake(null), B = await f538bake('bitmap'), C = await f538bake('breath');
+      ok('F538 the camp\'s and the scavenge game\'s board page alone (a lit main road at night, the camp\'s full size): ' + A.n + ' ground pictures, ' + A.bitmaps + ' decoded off the main thread (ImageBitmaps), '
+        + A.imgs + ' left as <img>; its longest pause while it baked ' + A.gap + ' ms, under a third of a second', A.ok && A.n >= 3 && A.bitmaps === A.n && A.imgs === 0 && A.gap < 340, JSON.stringify(A));
+      ok('F538 PLANTED (createImageBitmap taken away: the old <img> path): the leg sees the pictures left as <img> (its longest pause ' + B.gap + ' ms)', B.ok && B.imgs === B.n && B.n >= 3, JSON.stringify(B));
+      ok('F538 PLANTED (the breaths taken away: the bake as one run): the leg sees the longest pause at least twice as long (' + C.gap + ' ms against ' + A.gap + ')', C.ok && C.gap >= 2 * A.gap, JSON.stringify(C)); }
     for (const s of SH) { if (want('F534')) await f534(s); if (want('F528')) await f528(s); if (want('F527') || want('F531')) await f527(s); if (want('F538')) await f538(s); }
+    /* THE FIVE EYES FOUND NEXT (rows 550 to 554) */
+    for (const s of SH) { if (want('F554')) await f554(s); if (want('F550')) { await f550(s, false); await f550(s, true); } if (want('F551') || want('F552') || want('F553')) await f55x(s); }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();
   console.log('THE FOURTEEN EYES FOUND: ' + pass + ' passed, ' + fail + ' failed');

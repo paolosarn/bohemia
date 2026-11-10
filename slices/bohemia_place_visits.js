@@ -224,7 +224,9 @@
     var beast = beastFoe(party.faction), roster = [];
     for (var i = 0; i < party.count; i++) roster.push({ arch: beast ? 'beast' : 'human' });
     FIGHT = { id: p.id, opt: o.id, f: f, who: who, key: key, won: o.once === 'won', at: Date.now() };
-    var msg = { type: 'BOHEMIA_CITY_ENCOUNTER', label: f.label || p.name, faction: null, draft: true,
+    /* FIXES 11/10 (ask row 551, EYES: the Mob Museum's COLLECT A DEBT came home 'THE RAIDERS ARE DOWN'): the place's own name for
+       its enemy ('the men who owe the family') rides with the fight to the end screen, the way a job's leg sends its own (row 530) */
+    var msg = { type: 'BOHEMIA_CITY_ENCOUNTER', label: f.label || p.name, foe: f.label || null, faction: null, draft: true,
       packageId: (typeof LOOP !== 'undefined' && LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
       why: 'place:' + p.id + ':' + o.id, at: { gx: w[0] | 0, gy: w[1] | 0 } };
     PV.lastFight = { id: p.id, opt: o.id, faction: party.faction, n: party.count, beast: beast, label: msg.label };

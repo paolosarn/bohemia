@@ -1237,7 +1237,9 @@
       h += '<div class="hd">THIS GROUND' + (g && g.district ? ' &middot; ' + esc(String(g.district).toUpperCase()) : '') + '</div>';
       if (g) [['water', 'WATER'], ['power', 'POWER'], ['road', 'ROAD'], ['danger', 'DANGER']].forEach(function (m) {
         h += '<div class="mk' + (m[0] === 'danger' ? ' dg' : '') + '"><b>' + m[1] + '</b><s>' + homeMarks(g[m[0]]) + '</s></div>'; });
-      var why = { ground: 'Nothing stands here. Find open ground.', town: 'Somebody already lives here.', boss: 'This is somebody\'s place. Not yours.', water: 'No water in reach. People die here.', road: 'No road comes in. Nothing trades here.', nothing: 'Nothing to stand on.' };
+      var why = { ground: 'Nothing stands here. Find open ground.', on_road: 'This is the road. Nobody builds where the trucks go through.',   /* draft:true, FIXES 11/10 (row 553): the reason true */
+        on_water: 'This is the water. Nothing stands on it.', on_wash: 'A dry wash. The first storm takes whatever stands in it.', on_rock: 'Bare rock and loose scree. Nothing goes up here.',
+        walled: 'Somebody else\'s walls. Not yours.', dump: 'The dump. Nobody lives on it twice.', town: 'Somebody already lives here.', boss: 'This is somebody\'s place. Not yours.', water: 'No water in reach. People die here.', road: 'No road comes in. Nothing trades here.', nothing: 'Nothing to stand on.' };
       if (g && !g.ok) h += '<div class="no">' + esc((W.not_here || 'NOT HERE') + '. ' + (why[g.why] || '')) + '</div>';
       if (hs.better) h += '<div class="ln">BETTER: ' + hs.better.d + ' ' + (hs.better.d === 1 ? 'BLOCK' : 'BLOCKS') + ' ' + esc(hs.better.dir) + '</div><button type="button" data-h="better">GO THERE</button>';
       if (H.homeAsk && g && g.ok) h += '<div class="sure">' + esc(W.plant_sure || 'Are you sure? This is permanent.') + '</div><div class="two"><button type="button" class="go" data-h="yes">' + esc(W.plant_yes || 'PLANT HERE') + '</button><button type="button" data-h="no">' + esc(W.plant_no || 'NOT YET') + '</button></div>';

@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"954220558e04b184",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"b93c11b0a269534d",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/10j - THE CORNERS JOIN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/10k - THE DOOR KEEPS YOUR THUMB</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13806,13 +13806,16 @@ function __loadStart(){
         clearInterval(tick);
         try{ document.getElementById('front').classList.add('ready'); }catch(_e2){}
         if(el.textContent !== 'BEGIN') el.textContent = 'BEGIN';
+        /* __A_THUMB_ON_BEGIN_IS_KEPT__ (FIXES 11/10, row 550): he already pressed it; the door opens now, on its own press */
+        if(window.__BEGIN_HELD){ window.__BEGIN_HELD_WENT = performance.now(); setTimeout(function(){ try{ if(window.__BEGIN_HELD) el.click(); }catch(_e3){} }, 0); }
         return;
       }
       /* *** THE BUTTON SAYS WAIT UNTIL THE GAME IS GENUINELY IN. *** His own words
          on option B. It is dark, it is 48 px so a thumb can find it, and pressing
          it does nothing -- which is rule 18a's "nothing is tappable until it is
          loaded" wearing a face instead of being an invisible refusal. */
-      if(el.textContent !== 'WAIT') el.textContent = 'WAIT';
+      var __w = window.__BEGIN_HELD ? 'GOING IN' : 'WAIT';   /* row 550: a kept thumb is said */
+      if(el.textContent !== __w) el.textContent = __w;
     }catch(_e){}
   }, 500);   /* one beat at 120 BPM: the screen keeps the game's own pulse */
 }
@@ -14020,7 +14023,20 @@ document.getElementById('front').addEventListener('click',(ev)=>{
      first tap started a hundred and thirteen seconds of work and took the screen
      away to do it. Now a tap before BEGIN is simply not a door, and the screen
      says what it is doing instead of pretending to be ready. */
-  if(!window.__LOAD_READY) return;
+  /* __A_THUMB_ON_BEGIN_IS_KEPT__ (FIXES 11/10, ask row 550, FOUND BY EYES 11/10: 'a tap on BEGIN while it reads 5 OF 6 does nothing
+     and says nothing'; upright the first tap 2.5 s after NEW GAME dropped, on its side two). A thumb on the button before the game
+     is in is KEPT: the button says GOING IN, and the door opens itself the beat the last stage lands (the loader's tick below). A tap
+     on anything else of the door after it (he went back to his picks) lets it go. The first sound still plays: that tap already
+     woke the room's audio (unlock, a capture listener on every tap) */
+  if(!window.__LOAD_READY){
+    try{ var __b0 = document.getElementById('fronttap');
+      if(window.__LOAD_STARTED && __b0 && __b0.offsetHeight > 0 && ev && ev.target && (ev.target === __b0 || __b0.contains(ev.target))){
+        window.__BEGIN_HELD = (window.__BEGIN_HELD | 0) + 1; __b0.textContent = 'GOING IN'; }   /* draft:true */
+      else if(window.__BEGIN_HELD && ev && ev.isTrusted){ window.__BEGIN_HELD = 0; if(__b0 && __b0.textContent === 'GOING IN') __b0.textContent = 'WAIT'; }
+    }catch(_e){}
+    return;
+  }
+  window.__BEGIN_HELD = 0;
   /* __ONLY_BEGIN_BEGINS__ (RUN 10/25, EYES round 2 new 11, rule 150): MEASURED on the computer, a mouse drag on the origins' row
      (100 px was enough) or a click on the floor under the picks started the game with whatever was picked. While the new
      company's picks are on the door, only BEGIN begins; a drag, a stray click or the row's label does nothing */

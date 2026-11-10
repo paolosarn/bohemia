@@ -23,6 +23,10 @@
    ========================================================================== */
 (function (root) {
   'use strict';
+  /* WHY THIS GROUND IS NEVER A PLACE (FIXES 11/10, ask row 553, FOUND BY EYES 11/10: an arterial said 'Nothing stands here. Find open
+     ground.', the opposite of why: it IS the road). Each kind of home_base.json never_on says its own reason; the words are the phone's */
+  var NEVER_WHY = { freeway: 'on_road', arterial: 'on_road', rail: 'on_road', water: 'on_water', reservoir: 'on_water', dam: 'on_water', intake: 'on_water',
+    wash: 'on_wash', basin: 'on_wash', mountain: 'on_rock', quarry: 'on_rock', gypsum: 'on_rock', airbase: 'walled', prison: 'walled', landfill: 'dump' };
   var D = null;
   function data() { return D; }
   function setData(d) { D = d || null; return !!D; }
@@ -40,7 +44,7 @@
     var g = { water: mark(n.water, G.water.near), power: mark(n.power, G.power.near), road: mark(n.road, G.road.near),
               danger: mark(n.danger, G.danger.near), district: p && p.district || null, ok: true, why: null };
     if (!p || !p.district) { g.ok = false; g.why = 'nothing'; }
-    else if (G.never_on.indexOf(p.district) >= 0) { g.ok = false; g.why = 'ground'; }
+    else if (G.never_on.indexOf(p.district) >= 0) { g.ok = false; g.why = NEVER_WHY[p.district] || 'ground'; }   /* FIXES 11/10 (ask row 553): the true reason, the road a road */
     else if (p.town) { g.ok = false; g.why = 'town'; }
     else if (p.boss) { g.ok = false; g.why = 'boss'; }
     else if (g.water < G.needs.water) { g.ok = false; g.why = 'water'; }

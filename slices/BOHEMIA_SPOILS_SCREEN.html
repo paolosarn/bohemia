@@ -81,7 +81,7 @@ button{font-family:var(--rom)}
    piece put back, the TOTAL as he leaves, and it is torn off. A tap unrolls it; a second rolls it back. The fight's card is never
    seen first (slices/BOHEMIA_FIGHT.html __ONE_END_SCREEN__). The look itself is at final (rule 404); the merge is now. */
 /* it hangs past the glass's edge inside a box that ends AT the edge, so the glass cuts it and the page is never wider than the glass */
-#tillclip{position:absolute;z-index:4;right:0;top:var(--till-top,60px);width:320px;max-width:100vw;height:82vh;overflow:hidden;pointer-events:none}
+#tillclip{position:absolute;z-index:4;right:0;top:var(--till-top,60px);bottom:0;width:320px;max-width:100vw;max-height:82vh;overflow:hidden;pointer-events:none}   /* FIXES 11/10: from under the bar to the glass's foot, never past it (82vh from 97 px ran 27 px under a sideways glass and the page scrolled) */
 #tillclip:has(#till.open){z-index:7}
 #till{position:absolute;right:-18px;top:0;transform:rotate(2deg);pointer-events:auto;transform-origin:100% 0;cursor:pointer;
   filter:drop-shadow(-3px 5px 4px rgba(0,0,0,.55));-webkit-tap-highlight-color:transparent}
@@ -282,7 +282,10 @@ html.sp-d5 .man:has(.perk) .nm .wait{display:none}
 html.sp-d5 .man .nm span:first-child{font-size:12px;letter-spacing:.5px}
 html.sp-d5 #bar .word.said canvas{width:32px;height:32px;flex-basis:32px}
 html.sp-d5 #bar .word.said q{font-size:13px}
-html.sp-d5 #bar .word.said .swho{display:none}
+/* FIXES 11/10 (ask row 551, EYES: 'the end screen's top line has the face and no name'): the tightest step kept the face and dropped
+   the name (row 525's own step); a mouth with a face says who it is (rule 32a), so the name rides in front of his words on their line */
+html.sp-d5 #bar .word.said .swho{display:inline;font-size:11px;letter-spacing:1px;margin:0 6px 0 0}
+html.sp-d5 #bar .word.said q{display:inline}
 html.sp-d3 .man .state .long{display:none}
 html .man .state .short{display:none}
 html.sp-d3 .man .state .short{display:inline}
@@ -568,6 +571,7 @@ function drawStash(){
     var ob = document.createElement('b'); ob.textContent = '+' + older; ot.appendChild(ob); var os = document.createElement('span'); os.textContent = 'IN THE BAG'; ot.appendChild(os); el.appendChild(ot); }
   document.getElementById('stashn').textContent = S.stash.length + ' / ' + S.cap;
   try{ tillSync(); }catch(e){}   /* __THE_RECEIPT__: what was taken prints as it is counted */
+  try{ spRefit(); }catch(e){}   /* FIXES 11/10: the page fits again after every take and put-back */
 }
 function draw(){ drawCrew(); drawCounts(); drawGround(); drawStash(); spFit(); }
 /* FIXES 11/9 (row 525): the end screen steps down until the page stands whole on the glass (the steps in the style above); a page that
@@ -590,6 +594,21 @@ function spFit(){
   SPFIT = { level: lv, over: over() }; return SPFIT;
 }
 window.addEventListener('resize', function(){ try{ spFit(); }catch(e){} });
+/* FIXES 11/10 (ask row 551, EYES: the end screen's speaker with no name; the screen at its tightest step with half the glass empty).
+   MEASURED in the game (the demo, 390 x 844): the screen stood at step 5 while step 3 fits whole; it was fitted once as it opened,
+   before the game's phone laid its own classes and style on this page, and never again. It fits again whenever the page's dress
+   changes (a class on the page that is not its own step, a style laid in), when its letters have loaded, and whenever the stash or
+   the ground is drawn again (LOOT ALL, a piece taken or put back: MEASURED on 11/9n, LOOT ALL into a stash of 33 ran the page 44 px
+   past the glass and it stayed there, the fit only ran on the whole screen's draw) */
+var SPREFIT = null;
+function spRefit(){ if(SPREFIT) return; SPREFIT = setTimeout(function(){ SPREFIT = null; try{ if(S.fight) spFit(); }catch(e){} }, 120); }   /* once for a burst of changes */
+(function(){
+  var key = '', again = spRefit;
+  try{ new MutationObserver(function(){ var k = document.documentElement.className.replace(/\bsp-d\d\b/g, '').replace(/\s+/g, ' ').trim(); if(k === key) return; key = k; again(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['class'] }); }catch(e){}
+  try{ new MutationObserver(again).observe(document.head, { childList: true }); }catch(e){}
+  try{ if(document.fonts && document.fonts.ready) document.fonts.ready.then(again); }catch(e){}
+})();
 /* one tap: the cheapest pieces he did not choose go back on the ground for the most valuable left (engine/bohemia_spoils.js
    optimize, the shop's own price); the strip says it in pictures: down what it left, up what it took, a battery and by how much */
 function optimize(){

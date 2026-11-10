@@ -2670,7 +2670,7 @@
   function playS() { var t0 = window.HUNT_T0 || VOICE.t0; return t0 ? (performance.now() - t0) / 1000 : -1; }
   /* say: o = { id, line, who {name, look}, tag, red, prio (lower first), ttl (s), once, hold (beats), kind } */
   function say(o) {
-    if (!o || !o.line || !o.who || !o.who.look) return false;
+    if (!o || !o.line || !o.who || !o.who.look || !String(o.who.name || '').trim()) return false;   /* FIXES 11/10 (ask row 552): no line under a blank name tag; a mouth with a face and a name, or nothing */
     if (o.once && VOICE.said[o.id]) return false;
     if (VOICE.q.some(function (x) { return x.id === o.id; }) || (VOICE.on && VOICE.on.id === o.id)) return false;
     o.asked = performance.now(); VOICE.q.push(o); voicePump(); return true;

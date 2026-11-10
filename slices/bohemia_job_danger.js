@@ -31,7 +31,7 @@
    Gate: gates/the_job_tells_the_truth_gate.js. Loaded by BOHEMIA_CITY_WORLD.html. */
 (function (root) {
   'use strict';
-  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, ramp_calm_until: 10, ramp_full_at: 50, ramp_floor: 0.5, ramp_reds_calm: 1, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.2, near_cut: 0.12, runs_more: 32, runs_max: 96 };
+  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, ramp_calm_until: 10, ramp_full_at: 50, ramp_floor: 0.5, ramp_reds_calm: 1, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, budget_ms: 25, stop_from: 12, stop_below: 0.2, near_cut: 0.12, runs_more: 32, runs_max: 96 };
   var BASE = (function () {
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, ''); } catch (e) {}
     try { return new URL('.', document.baseURI).href; } catch (e) {}
@@ -266,6 +266,7 @@
      done now, so the deal gets 'reading' at once (what it got before: a deal posts a job that is reading) and the plans are made a
      few at a time in the frames' gaps, never under a change that is playing (the top window's BohemiaMotion). What he looks at is
      planned at once, as before. A checker's old way: window.__JOB_DANGER_SYNC = true. */
+  var BUDGET = { t: 0, used: 0 };   /* __A_BOARD_PLANS_IN_A_BUDGET__: the board's own plans made at once in one piece of work, in ms */
   var PLANQ = [], PLAYED_CK = {}, PLANT = null, PLANST = { deferred: 0, planned: 0, dropped: 0, slices: 0, sliceMax: 0, planMax: 0, waited: 0 };
   function motionBusy() { try { var T = root.top; return !!(T && T.BohemiaMotion && typeof T.BohemiaMotion.busy === 'function' && T.BohemiaMotion.busy()); } catch (e) { return false; } }
   function planSoon(ms) { if (PLANT != null || !PLANQ.length) return;   /* a gap of frames, then the page's idle time (a slice is one job's plan at most past 6 ms) */
@@ -347,11 +348,21 @@
     var R = READS[rk];
     if (R) { if (R.plan && !later) planOne(R, false); if (READS[rk] !== R) return null; if (R.state !== 'read' && combine(R)) paintAll(R); return R; }
     var base = readKey(o, place);
-    if (later && !o.__fights && !PLAYED_CK[ck] && !root.__JOB_DANGER_SYNC) {   /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__ */
+    /* __A_BOARD_PLANS_IN_A_BUDGET__ (FIXES 11/10, ask row 538, rule 441: 'no step that freezes over half a second'). MEASURED on the
+       demo (a CPU profile of MAKE CAMP after a won road fight, gates F538): the phone's board, the first time it paints after the
+       fight, asked the shelf for every place's jobs, and every job new to the day was planned here at once (fightsFor, the fight's
+       own setup): 322 ms of one 331 ms task on this box, 866 ms on another run, in the very moment MAKE CAMP opens. A crew with
+       plays already took this road (the line above is a NEW crew's). NOW a board's own ask plans at once only inside a budget
+       (budget_ms of one piece of work); past it the rest are planned a few at a time in the gaps, as a new crew's are: the deal
+       gets 'reading' for them, what it got before for a job not read yet */
+    var bnow = performance.now(); if (bnow - BUDGET.t > 50) { BUDGET.t = bnow; BUDGET.used = 0; }
+    if (later && !o.__fights && !root.__JOB_DANGER_SYNC && (!PLAYED_CK[ck] || BUDGET.used >= CFG.budget_ms)) {   /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__ */
+      if (PLAYED_CK[ck]) PLANST.overBudget = (PLANST.overBudget | 0) + 1;
       R = READS[rk] = { key: rk, base: base, prev: LAST[base] || null, id: o.id, place: place || o.from || null, crew: ck, fights: [], state: 'reading', at: Date.now(), els: [], plan: { o: o, place: place, day: dayNow() } };
       trimReads(); PLANQ.push(rk); PLANST.deferred++; planSoon(); return R;
     }
     var fs = null; try { fs = o.__fights ? o.__fights.map(function (f) { return Object.assign({}, f, { band: f.band.slice() }); }) : fightsFor(o, place); } catch (e) { fs = null; }
+    if (later) BUDGET.used += performance.now() - bnow;   /* __A_BOARD_PLANS_IN_A_BUDGET__ */
     if (!fs) return null;
     R = READS[rk] = { key: rk, base: base, prev: LAST[base] || null, id: o.id, place: place || o.from || null, crew: ck, fights: fs, state: 'reading', at: Date.now(), els: [] };
     trimReads();

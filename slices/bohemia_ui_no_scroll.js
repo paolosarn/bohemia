@@ -157,6 +157,11 @@
     + S + ' .acts:has(>.hire)>.hire,' + S + ' .acts:has(>.hire)>.hsort,' + S + ' .acts:has(>.hire)>.gridh,' + S + ' .acts:has(>.hire)>:not(.act){grid-column:1 / -1}'
     + S + ' .acts:has(>.hire)>.act:not(.hire){margin:0!important;flex-wrap:wrap;gap:0 6px;font-size:11px!important}'
     + S + ' .acts:has(>.hire)>.act:not(.hire) span,' + S + ' .acts:has(>.hire)>.act:not(.hire) em{font-size:11px!important;flex:1 1 auto}'
+    /* FIXES 11/10 (ask row 554): a retinue man's effect is never cut at the first step (upright it ran three lines of a 234 px column
+       and was held to two, 'Everything you do gets talked...' with 150 px of glass to spare); the next step holds it to three lines, the
+       short glass's last step to two in a half-row's wider column */
+    + S + ' .retf:not(.open) .rdoes{display:block;-webkit-line-clamp:unset}'
+    + 'html body #sheet.ns-d1.ns-d2 .retf:not(.open) .rdoes{display:-webkit-box;-webkit-line-clamp:3}'
     /* ---- THE SHOPS: the shelf and the bag are thumb-sized cells ---- */
     + S + ' .grid{grid-template-columns:repeat(auto-fill,minmax(44px,1fr))!important;gap:2px!important}'
     + S + ' .slot{aspect-ratio:auto!important;height:44px;min-height:44px!important;padding:1px!important;gap:0}'
@@ -198,6 +203,26 @@
     +   S + '.ns-d3 .hire .hhead canvas.face{width:32px!important;height:32px!important}'
     +   S + '.ns-d3 .hire .ns-hl{display:none!important}'
     +   S + '.ns-d3 .hire .hstats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));row-gap:0!important;padding:0 2px!important}'
+    /* FIXES 11/10 (ask row 554, FOUND BY EYES 11/10: the hall on its side cut the keeper's sentence ('Some of...') and two trades
+       ('BRAW...', 'BUTCH...'), and the retinue rows under an opened man and their TAKE ON stood below the glass, y 356 and 406 on 390).
+       MEASURED 844 x 390 at the last step: the box 16 px over the glass closed, the keeper held to one line, a name and trade held to
+       one line of a third of the glass, and the retinue one man a row at the whole width. NOW, at the same step: the keeper's words in
+       two lines (his face is that tall already), a man's name and trade in two lines when one will not hold them, the retinue two
+       men a row, each his effect in two lines (the grid in sixths: a hire a third, a retinue man a half), and the man opened first of
+       them at two thirds of the row (beside a last hire when there is one), his figure at half its size beside who he was and his own words, so nothing
+       stands under the glass */
+    +   S + '.ns-d3 #sbody>.who .say p{-webkit-line-clamp:2;font-size:12px;line-height:15px}'
+    +   S + '.ns-d3 .hire .nm{white-space:normal;line-height:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-overflow:clip}'
+    +   S + '.ns-d3 .acts:has(>.hire){grid-template-columns:repeat(6,minmax(0,1fr))}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.hire{grid-column:span 2}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf{grid-column:span 3;margin:0!important}' + S + '.ns-d3 .acts:has(>.hire)>.act:not(.hire){grid-column:span 3}'   /* the staff and NOT NOW: half a row each, as they stood */
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf:not(.open) .rdoes{-webkit-line-clamp:2}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf{order:1}' + S + '.ns-d3 .acts:has(>.hire)>.retf~:not(.retf){order:2}' + S + '.ns-d3 .acts:has(>.hire)>.retf.open{order:0}'   /* the man opened stands first of them, right after the hires */
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf.open{grid-column:span 4;grid-template-columns:40px 46px minmax(0,1fr) 80px;grid-template-areas:"face fig nm act" "face fig does act" "face fig more act"}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf.open .rmore{display:contents}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf.open .rfig{grid-area:fig;width:40px!important;height:62px!important;align-self:start}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf.open .rmore>div{grid-area:more;min-width:0}'
+    +   S + '.ns-d3 .acts:has(>.hire)>.retf.open .rmore p{margin:0;line-height:14px}'
     /* a shop on its side: the shelf, the bag and the strip side by side */
     +   S + '.shopping .acts{display:grid!important;grid-template-columns:182px minmax(0,1fr) 172px;column-gap:8px;align-items:start}' + S + '.shopping .ns-shelf .grid{grid-template-columns:repeat(4,44px)!important}'
     +   S + '.shopping .ns-bag{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) auto}' + S + '.shopping .ns-bag>.ns-bagh{grid-column:1;align-self:center}' + S + '.shopping .ns-bag>#selljunk{grid-column:2}' + S + '.shopping .ns-bag>#sortbag{grid-column:3}'
