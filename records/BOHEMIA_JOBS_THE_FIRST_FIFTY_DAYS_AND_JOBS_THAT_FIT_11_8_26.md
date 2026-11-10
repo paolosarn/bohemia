@@ -124,3 +124,17 @@ a contract's budget on each enemy's own cost; we had copied its multiplier and n
 - EYES: walk a NEW CREW to day 20 and take a dire-wolf job; walk the Lone Wolf's day-50 board.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
+
+## GATES (rule 13: the pre-push pass, by name; the full suite is PLUMBER 8's)
+- JOBS THAT FIT THE COMPANY (new, in the suite) 9/0 on the rebased tree: T1 to T3; D1 the new crew 272 of 2,674 dealt jobs lost more than
+  won (10 in 100; day 1 6, day 20 14); D2 1,118 posted, none under the day's floor, none lost on day one, work in all 40 valley-days; D3 the
+  Lone Wolf 17 of 2,674 (1 in 100), wolf and hyena jobs 1 of 136, 28 jobs on every valley's boards; D4 wolf and hyena jobs 19 of 136 (14),
+  hunts 19 of 206 (9), no beast fight past its cost; D5 the old math planted: 18 of 19 wolf and hyena jobs lost (95), caught; D6 nothing
+  threw. JOBS_PLANT=1: T4 4/0 (three planted copies, each caught).
+- EVERY JOB KIND (WORLD's): this tree 29/7, main d97cecd3 28/8 and 31/5 on two runs: the same reds (E4 to E6 the caravan's raid never
+  opening a fight, F5, C4, V4/V5 the hold's waves, Z a drawImage error) are red on main and flicker run to run; H1 (the show's two tigers)
+  went red on this tree's first run and is fixed (a row that names its own animals keeps its own count).
+- THE CARCASS AND THE VULTURES (the packs' hold) 9/0.
+- NOT RUN THIS ROUND, said: THE DANGER RAMPS TO DAY FIFTY, THE JOB TELLS THE TRUTH, MOST JOBS FIT THE COMPANY and the other 30 gates that
+  read the job kinds (each boots the demo for minutes to an hour). Measured on main d97cecd3; rebased onto f2577574 (WORLD 13's zones)
+  without a conflict; the numbers above are d97cecd3's.
