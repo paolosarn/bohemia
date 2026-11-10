@@ -340,5 +340,98 @@
   "seen_tough_why": "Set where the live fight stands after COMBAT 7's rule 366 (the enemy that wants to live breaks and runs) landed in the same hour: SEEN IT's tough job at days 10 and 20 went from 94 to 97 in 100 won and 1.25 to 0.95 men down a fight on main's own numbers; the band was 96 and 1.0. Tightening it back needs the brigand levers WORLD's gate pins (records/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.md s7): TUNING's next round.",
   "big_beasts_why": "TUNING 2 11/3, rule 370(9) (Paolo: 'these big ass animals better fuck you up if they get close to you for real'): the big beasts are deadly up close. O2: each kind's blow at its best takes half an unarmoured man (one_shot.health) and the four heavy ones (through_mail) half a man in mail (one_shot.mail_body) too; the cat's bite stays a cat's (a cougar's teeth do not go through mail; its danger is the ambush and the pin). B5: in fights against them (the curve tool --factions, the three companies at days, every level), at least big_share_at_least in 100 of their landed blows take half a man, and armoured_big_share_at_least in 100 even on the Lone Wolf's company in the shop's armour. MEASURED: 17 and 1 before (the unhold's Sweep, 40-80, held to a tenth of a man by mail), 48 and 15 after (banks/BOHEMIA_TUNING_THE_BIG_BEASTS_BEFORE/AFTER_11_3_26.json); the fights are still won 97 to 100 in 100, because they are shot on the way in.",
   "steps_why": "TUNING 2 11/3, rule 380 (Paolo: 'Battle Brothers from easy to hard just tweaked the numbers tiny, so slightly, to make it harder'): THE LEVELS ARE SMALL STEPS. count_step: no level's crew (difficulty_count_mult) is more than this from its neighbour, and SEEN IT is the math itself (1): Battle Brothers' Expert step as its modders name it, 1.15 (records/BOHEMIA_DIFFICULTY_ROUND_1_THE_CURVE_11_3_26.md s3, 'from 1.15 to 1.5'). aim_step: no level's hit shift (ours.json hit_roll_shift) is more than Battle Brothers' own Beginner step from its neighbour, 5 points each way (bb_all/0828_Game Mechanics.txt). And no easier level is harder than the next on any lever: crews, aim, how soon the late men come (job_bb.dress_ahead) and the tier's days (ours.json enemy_tiers.difficulty_days). records/BOHEMIA_TUNING_DIFFICULTY_FINE_TUNED_11_3_26.md."
+ },
+ "job_contract": {
+  "value": {
+   "beast_cost": {
+    "wolves": 0.45,
+    "hyenas": 0.55
+   },
+   "hunt_scales": true,
+   "pack_flat": 0.8
+  },
+  "source": "JOBS [jobs that fit] 11/8 (VAMILY rule 436(c), asks 102 and 114): Battle Brothers' contract is ONE budget spent on the enemy's own cost (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt: the contract's type base value 'is multiplied by the other variables'; 'The maximum number and type of enemies is limited by the spawn list used'), sized off the roster (levels, never gear: bb_all/0828_Game Mechanics.txt). The numbers are OURS, measured on the live fight by tools/bohemia_jobs_beast_cost.js (a new crew of three at level 2 in its own kit, AUTO both sides, 16 plays a cell, dress day 5): brigands 4 / 5 / 6 at 0.85 / 0.71 / 0.61 of the AUTO count; dire wolves 2 / 3 / 4 at 0.91 / 0.46 / 0.08; hyenas 2 / 3 / 4 at 0.96 / 0.74 / 0.16; war dogs as men (1.11, not costed); coyotes weaker than men (1.62, the fight's own 1.0 stands). TUNING's one table section Y holds every row.",
+  "quote": "Each type of contract has a base value that ranges from 40 to 200. It's multiplied by the other variables. / The maximum number and type of enemies is limited by the spawn list used (the difficulty doesn't scale indefinitely). / From further testing, gear does not appear to have an impact on roster strength.",
+  "ours": [
+   "beast_cost",
+   "hunt_scales",
+   "pack_flat"
+  ],
+  "why": "Rule 436(c) and 192 (Paolo: 'why is the game so in love with throwing overpowered enemies in like 75% of the quests I take... look how Battle Brothers does it'). MEASURED on the demo before (tools/bohemia_jobs_fit_the_company.js, 20 campaign seeds): a contract's count was spent one man for one beast, so a job whose ground dealt dire wolves read 0.1 to 0.2 where the same count of men read 0.7 to 0.9, and a hunt asked a fixed 4, 7 or 10 kills (its row's own 7 for the wolves at the water) whatever the company: a new crew of three met nine dire wolves on a three-skull hunt and lost every one. NOW (slices/bohemia_job_kinds.js __THE_CONTRACT_IS_THE_BUDGET__): beast_cost[kind] is how many of that beast stand for one man of the contract's count (a kind not here stands one for one; the fight's own count_scale for the kinds it already thins is not doubled: no kind is in both, a gate holds it); a hunt's pack is the contract's count at that cost (the flat four fifths for the others); hunt_scales: a hunt's kills grow and shrink with the company the way the contract's count does, in that beast's cost. Draft: TUNING owns the numbers and moves them.",
+  "measured": {
+   "at": "2026-11-08",
+   "tool": "tools/bohemia_jobs_beast_cost.js",
+   "crew": "newcrew (three men, level 2, its own kit)",
+   "plays": 16,
+   "cells": {
+    "brigands": [
+     [
+      4,
+      0.85
+     ],
+     [
+      5,
+      0.71
+     ],
+     [
+      6,
+      0.61
+     ]
+    ],
+    "wolves": [
+     [
+      2,
+      0.91
+     ],
+     [
+      3,
+      0.46
+     ],
+     [
+      4,
+      0.08
+     ]
+    ],
+    "hyenas": [
+     [
+      2,
+      0.96
+     ],
+     [
+      3,
+      0.74
+     ],
+     [
+      4,
+      0.16
+     ]
+    ],
+    "dogs": [
+     [
+      4,
+      0.78
+     ],
+     [
+      5,
+      0.78
+     ],
+     [
+      6,
+      0.34
+     ]
+    ],
+    "coyotes": [
+     [
+      5,
+      1.0
+     ],
+     [
+      6,
+      0.9
+     ]
+    ]
+   }
+  },
+  "pack_flat_why": "the flat four fifths a hunt's pack was before (WORLD's 'a beast fights harder than a man, so a pack is four fifths of a crew job's count'), moved out of the code into this file: a beast the table does not cost keeps it, and a costed beast's kills are asked in its cost over this"
  }
 }

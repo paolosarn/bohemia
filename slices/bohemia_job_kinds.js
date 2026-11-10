@@ -167,12 +167,40 @@
   }
 
   /* ---------- THE FIGHT, THROUGH THE ONE DOOR ---------- */
+  /* ==== __THE_CONTRACT_IS_THE_BUDGET__ (JOBS 11/8, VAMILY rule 436(c), asks 102 and 114; Paolo: most jobs fit the company the way
+     Battle Brothers sizes its contracts, never 75% overpowered, and the stars tell the truth). Battle Brothers sizes a contract ONCE,
+     off the company (its levels, never its gear), and spends that budget on the enemy's own cost (the wiki's Game Guide, bb_all/0827:
+     'Each type of contract has a base value that ranges from 40 to 200. It's multiplied by the other variables'; 'The maximum number
+     and type of enemies is limited by the spawn list used'). MEASURED on the demo before (tools/bohemia_jobs_fit_the_company.js, 20
+     campaign seeds, records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md): (1) a dire wolf or a hyena stood for one
+     man of the contract's count, so a job whose ground dealt wolves read 0.1 to 0.2 on the AUTO count where the same count of men
+     read 0.7 to 0.9; (2) a hunt asked a fixed 4, 7 or 10 kills (or its row's own) whatever the company, so a crew of three met nine
+     dire wolves on a three-skull hunt and lost every one. NOW (records/target/bb/party_math.json job_contract; TUNING's one table,
+     section Y): a beast the contract's count turns into stands at its cost (beast_cost: how many of it stand for one man of the
+     count, measured on the live fight by tools/bohemia_jobs_beast_cost.js; a kind not in the table stands one for one, as before);
+     a hunt's pack is the contract's count at that cost (the old flat four fifths for a kind not in the table); and a hunt's kills
+     grow and shrink with the company the way the contract does (Battle Brothers' multiplier off the roster), never a fixed number.
+     One count everywhere: the fight the job hands over (fight()) and the fights the stars read (fightsOf) cost it the same way. ==== */
+  function contractV() { try { return (typeof partyV === 'function' && partyV('job_contract')) || null; } catch (e) { return null; } }
+  function beastCost(fac) { var C = contractV(), B = C && C.beast_cost; return (B && B[fac] != null && +B[fac] > 0) ? +B[fac] : null; }
+  function costed(n, fac) { var c = beastCost(fac); return c == null ? n : Math.max(1, Math.round(n * c)); }
+  /* the flat four fifths a hunt's pack always was for a beast the table does not cost (job_contract.pack_flat; 0.8 until the file loads) */
+  function packFlat() { var C = contractV(); return (C && C.pack_flat > 0) ? +C.pack_flat : 0.8; }
+  /* the company's contract multiplier for a job of these skulls (the count partyMath deals over the skulls' base): what a hunt's kills scale by */
+  function contractMult(sk) {
+    var C = contractV(); if (!C || !C.hunt_scales) return 1;
+    try { var B = partyV('job_bb'), base = B && B.base_men && B.base_men[String(sk)]; if (!base) return 1;
+      var m = partyMath('job', { skulls: sk }).count / base; return (m > 0 && isFinite(m)) ? m : 1; } catch (e) { return 1; }
+  }
+  root.__THE_CONTRACT_IS_THE_BUDGET__ = { costed: costed, beastCost: beastCost, contractMult: contractMult };
+  /* ==== /__THE_CONTRACT_IS_THE_BUDGET__ ==== */
   function fight(job, what, count, faction, label, extra) {
     if (LOOP.fighting) return false;
     var w = [city.x, city.y]; try { w = roadWhere(); } catch (e) {}
     var party = null; try { party = partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: count, days: 1, difficulty: 1 }; }
     party.count = Math.max(1, count | 0); try { party.word = partyWord(party.count); } catch (e) {}
     party.faction = foeOf(job, faction || 'brigands', w);
+    if (!(extra && extra.pack != null)) { party.count = costed(party.count, party.faction); try { party.word = partyWord(party.count); } catch (e) {} }   /* __THE_CONTRACT_IS_THE_BUDGET__ */
     var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: isBeastFoe(party.faction) ? 'beast' : 'human' });
     job.fight = { what: what, n: party.count, pack: extra && extra.pack != null ? extra.pack : null };
     LOOP.fighting = job.id;
@@ -616,12 +644,18 @@
   MAKE['hunt-kind'] = function (job, k, row, town, R) {
     var sk = clamp(job.skulls, 1, 3);
     job.need = row.need || (k.need_by_skulls || [4, 7, 10])[sk - 1]; job.got = 0;
+    var need0 = job.need;   /* __THE_CONTRACT_IS_THE_BUDGET__: sized below, once the first pack says what the hunt is of */
     job.foe = row.foe || k.foe || 'beasts'; job.what = row.what || 'them';
     job.packSize = row.pack_size || null;   /* __THE_GIANTS_ARE_RARE__: the row says how many stand (the show's two tigers are two) */
     if (giant(job.foe)) { job.need = 1; job.packSize = [1, 1]; }   /* a giant is one animal, never a pack */
     job.packs = []; job.packN = 0; job.ring2 = 0;
     for (var i = 0; i < (row.packs || (giant(job.foe) ? 1 : k.packs) || 3); i++) spawnPack(job, k, town, R);
     if (!job.packs.length) return false;
+    /* __THE_CONTRACT_IS_THE_BUDGET__: the kills are the contract's, in this beast: they grow and shrink with the company the way the
+       contract's count does (Battle Brothers' multiplier off the roster), and a beast that costs more than the flat four fifths
+       (job_contract.beast_cost) is asked for in fewer kills, the same budget spent on a dearer animal. A giant stays one */
+    if (!giant(job.foe)) { var bc0 = beastCost(job.packs[0].faction);
+      job.need = Math.max(1, Math.round(need0 * contractMult(sk) * (bc0 == null ? 1 : bc0 / packFlat()))); }
     backTo(job); job.target = { x: job.packs[0].x, y: job.packs[0].y };
     job.stage = 'hunt';
     job.sayTake = 'Contract from ' + town.name + ': hunt ' + job.what + '. Kill ' + job.need + '; the count is on the job. They roam around ' + town.name + '.';
@@ -634,8 +668,12 @@
     /* SIZED TO HIS CREW (the map's own job math, rule 75b; a beast fights harder than a man, so a pack is four fifths of a
        crew job's count, a fifth of the time one more): measured, packs of 3 to 5 dire wolves beat a new crew of three twice */
     var base = 3; try { base = partyMath('job', { skulls: sk }).count; } catch (e) {}
-    var n = clamp(Math.round(base * 0.8) + (R() < 0.2 ? 1 : 0), ps[0], ps[1] + sk);
+    var one = R() < 0.2 ? 1 : 0;   /* the dice in the old order (the one more first, then the beast), so a hunt's packs and kinds do not move */
     var fac = job.foe && job.foe !== 'beasts' ? job.foe : beastFor(s[0], s[1], R);   /* WORLD 12 (rule 426(e)): the den a left carcass made is gone with the carcass's three ways */
+    /* __THE_CONTRACT_IS_THE_BUDGET__: the pack is the contract's count at the beast's own cost (the flat four fifths for a kind the
+       table does not cost) */
+    var bc = beastCost(fac), lo = bc == null ? ps[0] : 1;
+    var n = clamp(Math.round(base * (bc == null ? packFlat() : bc)) + one, lo, ps[1] + sk);
     /* __THE_GIANTS_ARE_RARE__: the row's own count, an animal's own most (a lion hunts alone), a giant one */
     if (job.packSize) n = clamp(n, job.packSize[0], job.packSize[1]);
     var BLm = DATA && DATA.beast_looks && DATA.beast_looks[fac]; if (BLm && BLm.pack_max) n = Math.min(n, BLm.pack_max);
@@ -2048,7 +2086,8 @@
     opt = opt || {};
     if (!job) return null;
     var k = K(job.plays) || {}, out = [], jm = function () { var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {} return n; };
-    var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, n | 0), faction: foeOf(job, faction || 'brigands', at || job.target), at: at || job.target || null }); };
+    var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) { var fo = foeOf(job, faction || 'brigands', at || job.target);
+      out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, (what === 'pack' ? n : costed(n, fo)) | 0), faction: fo, at: at || job.target || null }); } };   /* __THE_CONTRACT_IS_THE_BUDGET__: one count, the fight's and the stars' */
     var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
     if (k.legs) (job.legs || k.legs).forEach(function (L, i) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? jm() : L.fight.n); add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target); });   /* CONTENT 11/2: LEGS */
     else switch (job.plays) {
