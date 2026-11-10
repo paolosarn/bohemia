@@ -727,6 +727,7 @@
         var f = cw.LOOP && cw.LOOP.frame;
         try { if (f && f === f0 && op0 !== null && !f.__bmHid) { f.__bmHid = 1; f.__bmRest = op0 === '0' ? '' : op0; } } catch (e) {}
         if (r && !was && f && townFrameShown(cw)) hudTownNow(cw, true);
+        if (r && !was && f && townFrameShown(cw) && campHeld()) { try { if (typeof cw.btwFinish === 'function') cw.btwFinish(); } catch (e) {} if (CAMPHOLD.row) CAMPHOLD.row.made = Math.round(performance.now() - CAMPHOLD.row.t0); return r; }   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__: made under the held board, at rest at once (no grow, the moment between landed) */
         if (r && !was && f && townFrameShown(cw)) grow({ id: 'camp', kind: 'mode', el: f, from: from, label: 'CAMP', plate: 'board_plain', holes: holes(), whyNot: function () { try { var pn = f.contentDocument && f.contentDocument.getElementById('pname'); return 'hud ' + hudLaid(cw) + ', ready ' + !!(cw.LOOP && cw.LOOP.ready) + ', name ' + (pn ? JSON.stringify(pn.textContent) : 'none'); } catch (e) { return String(e).slice(0, 60); } }, ready: (function (tr) { return function () { var ok = tr(); try { var L = f.contentWindow.BohemiaCampLook; if (!ok && cw.LOOP && cw.LOOP.ready && L && L.drawn && L.drawn()) ok = true; if (!ok && cw.LOOP && cw.LOOP.ready && hudLaid(cw)) { var pn = f.contentDocument.getElementById('pname'); if (pn && /\bDAY\s+\d/i.test(pn.textContent || '')) ok = true; } if (!ok && hudLaid(cw)) { var BS = f.contentWindow.BohemiaSettlement; if (BS && BS.ready && BS.ready() && BS.state && BS.state.camp) ok = true; } if (!ok) { var on = cw.LOOP && cw.LOOP.open; if (on && on.name && !on.camp && townReady(cw, on.name)()) ok = true; } } catch (e) {} return ok; }; })(townReady(cw, 'YOUR CAMP')) });   /* __CAMP_TWO__: the camp's name is its clock ('DAY 1  14:00', never 'YOUR CAMP'), so the camp is ready when CAMP TWO's camp has drawn a frame; before, every camp waited out READY_MAX behind the plate, the pitch under it. MOTION 3 11/8: MEASURED, BohemiaCampLook.drawn() answers false on the demo now (the camp drawn by CAMP THREE's screen), so the wait was back to the full 2 s: the camp is also ready when its clock is on its name plate (the screen has laid it), or when the settlement screen says it is ready and it is a camp, or (HEAL in a town rests there, CAMP rule 273(b): measured, the plate read 'Cartel' and waited 2 s) when the place that opened is drawn under its own name */
         return r;
       };
@@ -770,14 +771,15 @@
         try { if (tbox) tnode = copyOf(tray); } catch (e) {}
         /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the board's last frame laid on the glass before the fight's page goes */
         var going = false; try { going = !!(W.NF && W.NF.over && W.CITYFIGHT && !(W.SPOILS && W.SPOILS.d && !W.SPOILS.left)); } catch (e) {}
-        var prep = going ? diveUpPrep() : null;
+        var prep = going ? diveUpPrep() : null, held = going && campHeld();   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ */
         barBack();   /* __NO_TOP_BAR_IN_THE_FIGHT__: the map's bar, lifted off at the door, is laid back under the fight before it goes */
         var r = orig.apply(this, arguments);
         if (fightWin()) { if (prep) { try { prep.pic.c.remove(); } catch (e) {} diveEnd(null); } return r; }   /* not home yet (the spoils wait first) */
         /* the map's bar comes back as the map does: out of sight under the covers, then down from the top as the climb starts */
-        var mbar = find('bar'), mbox = mbar ? topBox(mbar) : null, mnode = null; try { if (mbox) mnode = copyOf(mbar); } catch (e) { mnode = null; }
+        if (held && prep) campHoldUp(prep);   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__: the board stays on the glass, no climb */
+        var mbar = find('bar'), mbox = mbar ? topBox(mbar) : null, mnode = null; try { if (mbox && !(held && prep)) mnode = copyOf(mbar); } catch (e) { mnode = null; }
         if (prep && mnode) setOp(mbar, '0');
-        diveUp(prep, function () {
+        if (!(held && prep)) diveUp(prep, function () {
           if (!prep || !mnode || !mbar || !mbar.isConnected) return;
           setOp(mbar, null);
           fly({ id: 'bar', kind: 'piece', from: { x: mbox.x, y: -mbox.h - 12, w: mbox.w, h: mbox.h }, node: mnode, to: mbar, hideTo: true, rivets: false });
@@ -1613,6 +1615,60 @@
   }
 
   /* ---- THE WAY OUT: before the fight's page goes (prep), then after (go) ---- */
+  /* ==== __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (MOTION 3, VAMILY rule 444(a) and 441, ask line 568; Paolo 11/10: 'you watch them set
+     up the camp on the combat map itself, not pull out into the big map and then try to zoom back in, and then once the camp is set
+     up, then time fast forwards'). MAKE CAMP on a won fight's end screen (the shell marks it, __CAMP_HOLD_BOARD): the board's last
+     frame stays on the glass (the dive's own held picture) while the map takes the fight home and the camp is made under it; no climb
+     to the map, no grow back in (AD.camp), the map's moment between landed at once; the picture goes on the frame after the camp's
+     first frame is drawn on the fight's own view (the same camera, slices/bohemia_camp_board.js __THE_CAMP_IS_THE_FIGHTS_BOARD__), so
+     the glass never leaves the board. window.__CAMP_HOLD_OFF = the way it was (the climb, the grow). ==== */
+  var CAMPHOLD = { on: false, rows: [] }, CAMP_HOLD_MAX = 12000, CAMP_HOLD_FRESH = 9000;
+  function campHeld() { var t = W.__CAMP_HOLD_BOARD; return !!t && Date.now() - t < CAMP_HOLD_FRESH && !W.__CAMP_HOLD_OFF; }
+  function campFirst() {   /* the camp's first frame drawn on the glass: on the fight's view, or (no view kept) its first frame at all */
+    try { var cw = cityWin(), f = cw && cw.LOOP && cw.LOOP.frame; if (!f || !townFrameShown(cw) || (f.style.opacity !== '' && +f.style.opacity < 0.99)) return false;
+      var L = f.contentWindow.BohemiaCampLook, st = L && L.state ? L.state() : null; if (!st || !st.open) return false;
+      if (st.firstFv) {   /* and YOU on it: his own walker placed (the held frame never lifts on a camp without him), three beats at most */
+        var BS = f.contentWindow.BohemiaSettlement, ld = BS && BS.lead ? BS.lead() : null; if (ld && ld.x != null) return true;
+        CAMPHOLD.noLead = CAMPHOLD.noLead || performance.now(); return performance.now() - CAMPHOLD.noLead > beatNow() * 6; }
+      var fv = L.fightView ? L.fightView() : null; return !(fv && fv.on) && Object.keys(st.drawnAt || {}).length > 0; } catch (e) { return false; }
+  }
+  /* the tape PAUSED over the held board while the camp is made under it (the camera's own corners, PAUSE blinking on the beat, the world's
+     clock standing still): never a frozen picture with nothing to say; the clock says time is not running (rule 444(a)) */
+  function osdPause(parent, clock) {
+    var Wg = W.innerWidth, Hg = W.innerHeight, fs = Math.max(12, Math.min(17, Math.round(Math.min(Wg, Hg) / 29))), lh = fs + 3, pad = Math.round(fs * 1.1);
+    var o = divEl('osd', 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:' + Hg + 'px;pointer-events:none;opacity:0;will-change:opacity;font-family:"BohemiaROM",ui-monospace,monospace;font-size:' + fs + 'px;line-height:' + lh + 'px;color:' + OSD_INK + ';text-shadow:1px 1px 0 ' + SHADOW + ';letter-spacing:1px', parent);
+    var L = Math.round(fs * 1.3), t = 2, cs = 'position:absolute;width:' + L + 'px;height:' + L + 'px;border:0 solid ' + OSD_INK + ';filter:drop-shadow(1px 1px 0 ' + SHADOW + ')';
+    divEl('', cs + ';left:' + (pad - 6) + 'px;top:' + (pad - 6) + 'px;border-left-width:' + t + 'px;border-top-width:' + t + 'px', o);
+    divEl('', cs + ';right:' + (pad - 6) + 'px;top:' + (pad - 6) + 'px;border-right-width:' + t + 'px;border-top-width:' + t + 'px', o);
+    divEl('', cs + ';left:' + (pad - 6) + 'px;bottom:' + (pad - 6) + 'px;border-left-width:' + t + 'px;border-bottom-width:' + t + 'px', o);
+    divEl('', cs + ';right:' + (pad - 6) + 'px;bottom:' + (pad - 6) + 'px;border-right-width:' + t + 'px;border-bottom-width:' + t + 'px', o);
+    var box = divEl('', 'position:absolute;left:' + (pad + 4) + 'px;top:' + (pad + 2) + 'px;white-space:nowrap', o), two = function (n) { return (n < 10 ? '0' : '') + n; };
+    var l1 = divEl('', '', box), mark = D.createElement('span'); mark.textContent = '\u258C\u258C'; mark.style.cssText = 'display:inline-block;will-change:opacity;margin-right:6px';
+    l1.appendChild(mark); l1.appendChild(D.createTextNode('PAUSE'));   /* draft:true */
+    play(mark, [{ opacity: 1 }, { opacity: 0 }], beatNow() * 2, { easing: 'steps(2)', iter: Infinity });
+    if (clock) divEl('', '', box).appendChild(D.createTextNode('D' + clock.d + ' ' + two(Math.floor(clock.m / 60) % 24) + ':' + two(clock.m % 60)));
+    divEl('', 'margin-top:' + Math.round(lh * 0.4) + 'px', box).appendChild(D.createTextNode('MAKING CAMP'));   /* draft:true */
+    play(o, [{ opacity: 0 }, { opacity: 1 }], 200, { easing: 'steps(3)', fill: 'forwards' });
+    return o;
+  }
+  function campHoldUp(prep) {
+    var r = { kind: 'camp hold', t0: performance.now(), frames: 0, at: Date.now() }; CAMPHOLD.on = true; CAMPHOLD.noLead = 0; CAMPHOLD.row = r; CAMPHOLD.rows.push(r); if (CAMPHOLD.rows.length > 8) CAMPHOLD.rows.shift();
+    DIVE.state = 'hold';
+    var osd = null; try { if (!reduced() && prep.cam) osd = osdPause(prep.cam, worldClock(cityWin())); r.osd = !!osd; } catch (e) { osd = null; }
+    var k = 0, tick = function () {
+      r.frames++;
+      var done = campFirst(), late = performance.now() - r.t0 > CAMP_HOLD_MAX;
+      if (done) k++;
+      if ((done && k >= 2) || late) {
+        r.ms = Math.round(performance.now() - r.t0); r.why = done ? 'the camp drawn' : 'timed out'; CAMPHOLD.on = false; W.__CAMP_HOLD_BOARD = 0;
+        var pc = prep.pic && prep.pic.c; if (pc) play(pc, [{ opacity: 1 }, { opacity: 0 }], 120); if (osd) play(osd, [{ opacity: 1 }, { opacity: 0 }], 120);
+        later(function () { diveEnd(null); }, 160); return;
+      }
+      W.requestAnimationFrame(tick);
+    };
+    W.requestAnimationFrame(tick);
+  }
+  /* ==== end __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ ==== */
   function diveUpPrep() {
     if (DIVE.state !== 'off') diveEnd(DIVE.row);
     DIVE.anims = []; DIVE.timers = [];
@@ -2059,6 +2115,7 @@
     log: LOG, taps: TAPS, adapters: AD,
     /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the shell's nfOpen hands its build to down(d, go); nfHome is wrapped (AD.home) */
     dive: { down: diveDown, state: function () { return DIVE.state; }, log: DIVE.log, at: function () { return DIVE.at; }, clear: diveClear },
+    campHold: { on: function () { return CAMPHOLD.on; }, rows: CAMPHOLD.rows, held: campHeld },   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ */
     budget: { piece: [PIECE_MIN, 2 * PIECE_MIN], mode: [MODE_MIN, MODE_MIN + PIECE_MIN], ceiling: CEILING, fade: 200, wait: WAIT_MAX, ready: READY_MAX },
     clock: function () { var g = beat(); return { src: g.src, beatMs: g.bm, holdMs: g.bm / 6 }; },
     slowly: function (k) { SLOW = Math.max(1, +k || 1); return SLOW; }

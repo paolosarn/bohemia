@@ -9288,6 +9288,16 @@ GATES = [
      "0.5+); every man of his drawn in the camp's first frame where he stood when it ended; by day the fire on a board tile on the glass, "
      "a man at the dead, a man leaning on a house of the fight (a roof tile, the wall at his right hand), nobody in a house; 30+ fps at "
      "rest; P1 the camp that was voted NO (window.__CAMP_NO_FIGHT_VIEW) turns the camera check RED. Solo: it measures frames. About 12 min", True),
+    ('THE CAMP IS SET UP ON THE BOARD', ['node', 'gates/the_camp_is_set_up_on_the_board_gate.js'],
+     "MOTION 3 gate, 11/10, rule 444(a)(b) and 441, ask lines 568 and 569 (Paolo: 'you watch them set up the camp on the combat map "
+     "itself, not pull out into the big map and then try to zoom back in, and then once the camp is set up, then time fast forwards... "
+     "never putting any of our camp shit on top of any buildings'). On the demo upright and on its side, a fight on a suburb, the Strip "
+     "and the freeway, MAKE CAMP on the loot screen, watched every tenth of a second and shot every 150 ms from the tap: the glass holds "
+     "the fight, its held last frame or the camp on the fight's view, never the map, every shot alike to the fight's last frame; the "
+     "map's clock the same until the set-up ends, then the hours run; the set-up plays (the fire lit, the men walk from where they won), "
+     "then a man at the dead and one on watch; every piece's footprint and every man's feet on open ground, never a roof, a wall or "
+     "water; a tap skips it; P1 a tent laid on a roof turns the ground check RED; P2 the order as it was (window.__CAMP_HOLD_OFF, "
+     "__CAMP_CLOCK_DURING_SETUP) turns the glass or the clock check RED. Solo: it watches frames. About 14 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
      "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "

@@ -47051,6 +47051,25 @@ function campWarn(lim){
   return w;
 }
 /* one beat: an hour of the valley */
+/* ==== __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (MOTION 3, VAMILY rule 444(a), ask line 568; Paolo 11/10: 'you start the timer up so
+   time is going forward as it's getting set up, but maybe it should be the other way around... once the camp is set up, then time
+   fast forwards'): no hour of the camp runs before the camp stands: while the camp's screen is not open yet, or its set-up (CAMP TWO's
+   pitch, on the fight's own board after a fight) waits for its ground or plays, the hour is not taken (no clock, no march of the
+   valley's parties); the set-up done or tapped through, the hours run as before. Never longer than CAMP_SETUP_MAX from the camp's
+   first hour; only a camp made off a fight (CAMP.fight: MAKE CAMP on the loot screen); HEAL on the map and a rest in a town as before. window.__CAMP_CLOCK_DURING_SETUP = the way it was. MOTION's marked block. ==== */
+var CAMP_SETUP_MAX = 15000;
+function campSettingUp(){
+  try{
+    if (window.__CAMP_CLOCK_DURING_SETUP || CAMP.town || CAMP.hours > 0 || !CAMP.fight) return false;   /* the camp made off a fight (rule 444(a)); HEAL on the map rests at once as it did */
+    var made = window.__CAMP ? window.__CAMP.made | 0 : 0; if (CAMP.setupFor !== made) { CAMP.setupFor = made; CAMP.setupT0 = Date.now(); CAMP.setupHeld = 0; }
+    if (Date.now() - CAMP.setupT0 > CAMP_SETUP_MAX) return false;
+    var L = null; try{ L = LOOP.frame && LOOP.ready && LOOP.frame.contentWindow && LOOP.frame.contentWindow.BohemiaCampLook; }catch(_e){ L = null; }
+    var on = !L || typeof L.settingUp !== 'function' ? true : !!L.settingUp();
+    if (on) { CAMP.setupHeld = (CAMP.setupHeld | 0) + 1; window.__CAMP_SETUP = { made: made, held: CAMP.setupHeld, t0: CAMP.setupT0, min: T.day * 1440 + T.min }; }
+    return on;
+  }catch(_e){ return false; }
+}
+/* ==== end __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ ==== */
 function campHour(){
   if (!CAMP.on) return;
   if (CAMP.town) {   /* __A_TOWN_IS_SAFE__: resting in a town; leaving it ends the rest */
@@ -47064,6 +47083,7 @@ function campHour(){
     try{ if (LOOP.frame) { LOOP.frame.style.display = 'block'; campPost(); } }catch(_e){}
     window.__CAMP_SHOWN_AGAIN = (window.__CAMP_SHOWN_AGAIN | 0) + 1; return;
   }
+  if (campSettingUp()) return;   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the clock stopped while his men set it up */
   campStale();
   var lim = 2 + (window.BohemiaCamp ? BohemiaCamp.plus('warn') : 0), warn = null;
   try{ warn = campWarn(lim); }catch(_e){}

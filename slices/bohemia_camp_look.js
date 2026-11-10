@@ -107,6 +107,13 @@
        rule 430: the rig's own clip), never the hurt, never the watch, never YOU (he walks to your taps), a quarter of the company at
        most and at least one when there is a wall; when the dead took every free man (a company of three: two of them), the second of
        them leans instead, so the camp shows the dead gone through, a man at the wall and the fire kept. window.__CAMP_NO_LEAN = the old way. */
+    /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a): 'the fire lit, the bedrolls down, one through the dead, one on watch'):
+       on the fight's board one man keeps the watch, a man with an easy job and not hurt (never YOU, never a man at the dead); the lookout
+       may keep it from a house's wall (below) */
+    if (FV && !root.__CAMP_NO_LOOKOUT && A.length >= 2 && !A.some(function (e) { return e.act === 'watch'; })) {
+      var lk = A.filter(function (e) { return !e.main && e.blood >= CL.HURT && (e.act === 'clean' || e.act === 'cook' || e.act === 'rest'); })[0];
+      if (lk) { lk.act = 'watch'; lk.lookout = true; delete lk.body; }
+    }
     try { var WL = !root.__CAMP_NO_LEAN && !(root.parent && root.parent.__CAMP_NO_LEAN) && CB() && boardIn() && CB().walls ? CB().walls(L) : [];
       /* only a wall he can be SEEN at: the picture is wider than an upright phone (measured: a man at a wall at the picture's left edge
          stood half off the glass), and never under the phone (its columns from its top down) */
@@ -124,7 +131,7 @@
           var mine = P[e.i];
           var w = WL.filter(function (q) { return Math.hypot(q.x - L.fire.x, q.y - L.fire.y) > 70 &&   /* clear of the fire by a man's width (a camp of three is one tile: every house it touches is near its fire) */ taken.every(function (t) { return t === mine || Math.hypot(t.x - q.x, t.y - q.y) > 64; }); })[0];
           if (!w) return;
-          e.act = 'lean'; e.wall = w.side; delete e.body; P[e.i] = { x: w.x, y: w.y, face: w.face, act: 'lean', wall: w.side }; taken.push(P[e.i]); });
+          if (e.act === 'watch') e.lookout = true; e.act = 'lean'; e.wall = w.side; delete e.body; P[e.i] = { x: w.x, y: w.y, face: w.face, act: 'lean', wall: w.side }; taken.push(P[e.i]); });
       } } catch (e) {}
     if (FV) { try { P = CB().settle(P, L, A) || P; } catch (e) {} }   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: every man on open ground, never in a house */
     warmLooks(A);
@@ -228,6 +235,12 @@
      the map is told where the camp stands, for the fight that finds it there (rule 406(c)) */
   function boardLanded() {
     if (!K.st) return;
+    /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the other light came in after the camp stood on the first (its plate
+       'F|W+'): its picture laid in the screen's own night slot where it stands, never a re-pick (measured: the re-pick moved the camera
+       a hundred pixels in the middle of the set-up) */
+    try { var P2 = boardPlate(), V2 = root.VAR;
+      if (P2 && V2 && V2.board && /\+$/.test(P2.key) && V2.boardKey + '+' === P2.key && root.PIC) {
+        var vv = CB().variantOf(P2), im = new Image(); im.src = vv.dir + vv.night_src; root.PIC.night = im; V2.night_src = vv.night_src; V2.boardKey = P2.key; K.nightIn = (K.nightIn | 0) + 1; return; } } catch (e) {}
     try { if (K.info) { K.st = build(K.info); K.folkKey = null; } } catch (e) {}   /* rule 406(g): the bodies the board brought, for the men's jobs */
     try { var BS0 = root.BohemiaSettlement; if (K.st && K.st.fv && !K.leadSent && BS0 && BS0.leadAgain) BS0.leadAgain(); } catch (e) {}   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: he stands on the fight's view, where he fought, never where the dark wait put him */
     if (K.pitchDue && boardIn()) { K.pitchDue = false; pitchNow(); if (K.st && K.st.fv && K.pitch) { K.pitch.t0 = null; K.firstAt = null;
@@ -599,6 +612,9 @@
     return plan;
   }
   function tap() { if (K.pitch && K.pitch.on) { K.pitch.on = false; K.pitch.skipped = true; return true; } return false; }
+  /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (MOTION 3, rule 444(a)): the camp is still being set up (its screen not open yet, its pitch
+     waiting for its ground, or playing): the map's clock holds (campHour) until it stands, or he taps it through */
+  function settingUp() { return !K.st || !!K.pitchDue || !!(K.pitch && K.pitch.on); }
 
   /* ---------------------------------------------------------------- THE GHOST TIME-LAPSE (rule 273(c)): while the hours run, the
      places his men stood leave a two-percent trace, a long exposure of the hours passing */
@@ -754,10 +770,10 @@
   function state() {
     return { ready: K.ready, open: !!K.st, tents: K.st ? K.st.layout.tents : null, men: K.st ? K.st.men.length : 0, carrier: K.st ? K.st.layout.carrier.id : null,
       pieces: K.st ? K.st.layout.pieces.map(function (p) { return { key: p.key, kind: p.kind, sprite: p.sprite, x: p.x, y: p.y, follower: p.follower || null }; }) : [],
-      acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
+      acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, lookout: !!e.lookout, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
       hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, drawnBy: K.drawnBy || {}, rose: Object.keys(K.rise || {}), gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
       bodies: K.bodiesNow || [], walls: K.wallsNow || [], drawnAt: K.drawnAt || {}, firstAt: K.firstAt || null, firstFv: K.firstFv || null, spots: K.st ? K.st.acts.map(function (e) { var sp = K.st.spots[e.i]; return sp ? { name: e.main ? 'YOU' : e.name, act: e.act, x: sp.x, y: sp.y, face: sp.face, wall: sp.wall || null } : null; }).filter(Boolean) : [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { fightScale: fightScale, fightView: function () { var C = CB(); return C && C.fvState ? C.fvState() : null; }, glass: function () { return K.st ? glassOf(K.st.layout) : null; }, ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
-    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
+    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, settingUp: settingUp, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);
