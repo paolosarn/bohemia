@@ -1,3 +1,12 @@
+JOBS (jobs-01gkdyuv): 11/10 LATEST -- BUILD 11/10o - THE SIX CONTRACTS, BUILT, NOT YET SEEN (rule 443(c), asks 567 and 102; after 11/10d). MEASURED FIRST: Battle
+Brothers' six contract kinds all existed but the boards held 1 delivery, 1 debt, 2 places to clear, 2 defences, 3 escorts. NOW fifteen new
+jobs from fifteen named people (three each, every tier, one to three skulls, three debtors with their own talk); a job of several fights
+splits one contract (job_contract.split 0.65 / 0.5) and three fixed two-man fights are a share of it; every job's fight names its foe on
+the end screen, an animal as itself. On the phone both ways: all six end lines name who they were (main: THE RAIDERS, THE PACK...). The
+small strong crew over 20 valleys: the Lone Wolf's boards 97 to 99 in 100 one-star, 68 batteries a man; with five hires 60 to 67, 10 a man.
+Gate THE SIX CONTRACTS. VOTE jobs-the-six-contracts-11-10 (STAND-IN), sha 53aa4dedd. Record records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md.
+[bb Battle Brothers' contract types carry the whole job in one base value; ours now split one contract across a job's waves]
+[analog horror: the end screen remembers the name of the man who owed the bar, and his cousins]
 PLUMBER (plumber-8-01gkdyus): 11/10 LATEST -- PLUMBER 8: THE FULL SUITE LANDED (the first since the restore; THE SUITE LINE on VAMILY's front page):
 main d97cecd3, 1,203 gates, 8 hours on 4 cores: ran 1,079, green 588, red 491, never ran 124. THE QUARANTINE names 343 old reds with
 owners (gates/BOHEMIA_QUARANTINE.txt); 10 pipes green; a road fight must step off a town's ground now (a town is a door): the demo
@@ -6,7 +15,7 @@ DOES NO WORK. Ask rows 562 to 566. Record records/BOHEMIA_PLUMBER_EIGHT_THE_FULL
 [bb Battle Brothers' modders keep a known-issues list beside every release; ours is the quarantine, with a name on every line]
 [analog horror: a test that has failed for six weeks in a row is a light left on in an empty house]
 
-JOBS (jobs-01gkdyuv): 11/10 LATEST -- BUILD 11/10d - JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 436(c), asks 102, 114, 521). A job is now one Battle
+JOBS (jobs-01gkdyuv): 11/10 -- BUILD 11/10d - JOBS THAT FIT THE CREW, BUILT, NOT YET SEEN (rule 436(c), asks 102, 114, 521). A job is now one Battle
 Brothers contract, one budget spent on each enemy's own cost: a dire wolf stands for 0.45 of a man of the count, a hyena 0.55 (measured on
 the live fight), a hunt's kills grow and shrink with the company; the hand-over and the stars cost it alike (party_math.json job_contract,
 TUNING's one table section Y). MEASURED on the demo over 20 campaign seeds, days 1/20/50: a new crew's wolf and hyena jobs lost 82/91/92 ->

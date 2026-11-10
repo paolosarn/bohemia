@@ -19,10 +19,12 @@ the coordinator's routine 'JOBS: more contract kinds'). Record: records/BOHEMIA_
 - ASK 102 OVER 20 VALLEYS: the Lone Wolf's boards 97/99 in 100 one-star (days 1/20), 68 batteries a man; with five ordinary hires 67/60,
   65 jobs on his day-20 boards he loses more often than wins, 10 a man.
 GATE THE SIX CONTRACTS (new, in the suite): S1 to S4 the files (JOBS_PLANT=1 plants three copies, each caught), S5 the six on the phone
-both ways, S6 the names planted away in the page (the defence must lose its words), S7 nothing threw. JOBS THAT FIT THE COMPANY re-run.
+both ways, S6 the names planted away in the page (the defence must lose its words), S7 nothing threw: 14/0 on the rebased tree.
+JOBS THAT FIT THE COMPANY re-run after the split, 20 seeds: 9/0 (a new crew 10 in 100 lost more than won, the Lone Wolf 1 in 100).
 NEXT (the jump list):
 1. [the big beasts' cost] bison and bulls stand at the fight's own 0.4 and 0.2 of the count (FACTIONS'); for a crew of three two bison are
    a wall: measure them with tools/bohemia_jobs_beast_cost.js and agree the cost with FACTIONS and TUNING (one count, never two).
+   PLUMBER 8 found the same from the other side (ask row 574, filed for FIXES: at their sized count a new crew beats bison 2 in 10).
 2. [obtain and restore] Battle Brothers' Obtain Item and Restore Location have no kind of ours (restore fits rule 445's settlement seam).
 3. [the survey repeats] (from 11/10d) two boots of one tree read the wolf and hyena jobs 14 and 34 in 100.
 [bb Battle Brothers' contract types carry the whole job in one base value; ours now split one contract across a job's waves]
