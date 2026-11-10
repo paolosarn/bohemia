@@ -31,11 +31,9 @@ const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n + (why ? 
   await d.page.waitForTimeout(12000);
   const idle = await d.page.evaluate(() => ({ old: !!document.getElementById('combatFrame'), file: location.pathname.split('/').pop() }));
   ok('O1 *** IDLE ON THE MAP, THE OLD FIGHT IS NEVER BUILT *** (it warmed a hidden 1.95 MB copy until 10/9)', !idle.old, idle.file + ', combatFrame ' + (idle.old ? 'BUILT' : 'absent'));
-  const st = await d.fr.evaluate(async () => {
-    for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250));
-    try { stepOnce(0); stepOnce(4); } catch (_e) {}
-    return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 });
-  }).catch(e => 'threw ' + e.message);
+  await d.fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); }).catch(() => null);
+  await d.fr.evaluate(drive.offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+  const st = await d.fr.evaluate(() => roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 })).catch(e => 'threw ' + e.message);
   let src = null;
   for (let i = 0; i < 100 && !src; i++) { src = await d.page.evaluate(() => { const f = document.getElementById('fightFrame'); return f ? (f.getAttribute('src') || '') : null; }); if (!src) await d.page.waitForTimeout(200); }
   const old2 = await d.page.evaluate(() => !!document.getElementById('combatFrame'));

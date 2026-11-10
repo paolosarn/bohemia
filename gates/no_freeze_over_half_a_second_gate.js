@@ -146,7 +146,10 @@ const pngs = (o, s) => s ? s.pngs : null;
        (qs ? qs.pngs + ' PNGs, ' + qs.gpuReads + ' GPU read-backs at the old fight\'s start' : 'no fight') + '; ' + qg + ' reads off canvases not made for reading by the fight\'s start; map > town: ' + (qt ? qt.freezes.map(z => z.ms + ' ms').join(', ') || 'no freeze' : 'not walked'));
   }
   /* E1: a page error already on main and routed is named here with its ask row (the debt may only shrink); anything else is red */
-  const KNOWN_ERRS = [{ re: /Failed to execute 'drawImage' on 'CanvasRenderingContext2D': The provided value is not of type[\s\S]*@ (blitMan|meleeDraw|holdDraw|drawMan|drawBody) \(slices\/BOHEMIA_FIGHT\.html/, row: 'ask row 558 (COMBAT TWO, FIXES): a man drawn from a sheet that is not a picture (blitMan, meleeDraw), every fight; on main d97cecd3 too' }];
+  /* EMPTY since 11/10 (PLUMBER 8): the one named here, 'drawImage: not of type' at blitMan / meleeDraw (ask rows 548 and 558), is
+     FIXED (__THE_FIGHT_CANVAS_KNOWS_ITS_SHEETS__, its own gate THE FIGHT CANVAS KNOWS ITS SHEETS); this walk threw it 17 times on
+     main and 0 with the fix, so it may not come back unnamed */
+  const KNOWN_ERRS = [];
   const unknown = o.errs.filter(e => !KNOWN_ERRS.some(k => k.re.test(e))), known = KNOWN_ERRS.map(k => [k, o.errs.filter(e => k.re.test(e)).length]).filter(x => x[1]);
   ok('E1 nothing threw but what is named and routed', unknown.length === 0, (unknown.slice(0, 3).join(' | ') || 'no new error') + (known.length ? '; KNOWN: ' + known.map(x => x[1] + ' x ' + x[0].row).join('; ') : ''));
   console.log('\nNO FREEZE OVER HALF A SECOND: ' + pass + ' passed, ' + fail + ' failed');

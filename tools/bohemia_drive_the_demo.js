@@ -102,6 +102,45 @@ const MS_OPTS = ['boot', 'door', 'runtab', 'settle', 'world'];
 const ALPHA_FILE = 'BOHEMIA_ALPHA_0_9.html';
 const DEMO_FILE = 'BOHEMIA_DEMO.html';
 
+/* __A_ROAD_FIGHT_OFF_THE_TOWN__ (PLUMBER 8, 11/10/26, the full suite). Since A TOWN IS ALWAYS A DOOR (11/6) and A TOWN IS SAFE
+   (CAMP 10/26, rule 273(b)), a road crew met on a town's painted ground, or right outside it, is held at the town's door: no fight
+   starts there. The demo starts him in a town, so a check that steps once and calls roadContactFight met them on the town's ground
+   on some seeds and on the road on others: SCRAP IS TAPE, OPTIMIZE LOOT, THE HEAL BUTTON, ONE FIGHT and THE ONE SONG went red on
+   the seeds that start near a town's edge (measured: the same call true on one boot, false on the next). This is the one way off:
+   pass it to the map frame's evaluate before the road fight; it puts the party on the nearest cell that is no town's ground and
+   no town's safe square (the receipt gate's own walk, 11/9) and says where. Never used to dodge a fight the game should refuse:
+   it only moves the party, the game decides. */
+function offTheTown() {
+  try { stepOnce(0); stepOnce(4); } catch (_e) {}
+  const free = (x, y) => { try { return !townGround(x, y) && !townSafeAt(x, y) && (typeof cityWalkable !== 'function' || cityWalkable(x, y)); } catch (_e) { return true; } };
+  try { TOWN_EXIT = null; } catch (_e) {}
+  if (free(city.x, city.y)) return [city.x, city.y];
+  for (let r = 1; r < 60; r++) for (let a = 0; a < 16; a++) {
+    const x = Math.round(city.x + Math.cos(a * Math.PI / 8) * r), y = Math.round(city.y + Math.sin(a * Math.PI / 8) * r);
+    if (free(x, y)) { city.x = x; city.y = y; return [x, y]; }
+  }
+  return null;
+}
+/* and the fight handed over from there: asked again each second (the map's road parties load after the door on a busy box) until
+   the map hands it over, then the fight frame once its board and men are in. Returns the fight frame, or null. */
+async function roadFightOffTheTown(d, ev, waitMs) {
+  const p = d.page, fr = d.fr; ev = ev || { id: 'toll_crew', name: 'the toll crew', seq: 1 };
+  await fr.evaluate(offTheTown).catch(() => null);
+  let handed = false;
+  for (let i = 0; i < 60 && !handed; i++) {
+    handed = await fr.evaluate((e) => { try { return !!roadContactFight(e); } catch (_e) { return false; } }, ev).catch(() => false);
+    if (!handed) await p.waitForTimeout(1000);
+  }
+  if (!handed) return null;
+  const t0 = Date.now();
+  while (Date.now() - t0 < (waitMs || 90000)) {
+    const h = await p.$('#fightFrame'); const c = h && await h.contentFrame();
+    if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) return c;
+    await p.waitForTimeout(150);
+  }
+  return null;
+}
+
 async function open(opts) {
   opts = opts || {};
   const strange = Object.keys(opts).filter(k => KNOWN_OPTS.indexOf(k) < 0);
@@ -754,7 +793,7 @@ async function open(opts) {
   };
 }
 
-module.exports = { open };
+module.exports = { open, offTheTown, roadFightOffTheTown };
 
 /* run it directly for a look: node tools/bohemia_drive_the_demo.js /tmp/out */
 if (require.main === module) {

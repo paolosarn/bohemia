@@ -234,10 +234,8 @@ function cutFn(src, name) {
       /* his stash is full of cheap loot off earlier fights (the market's own pieces, looted, worn) */
       await p.evaluate(() => { const st = []; for (let i = 0; i < 36; i++) st.push({ id: 'knife', kind: 'weapon', cls: 'dagger', name: 'a beat-up pistol', price: 3, looted: true, cond: 3, condMax: 32 });
         localStorage.setItem('bohemia.bag.v1', JSON.stringify(st)); });
-      await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 21 }); });
-      let f = null;
-      for (let i = 0; i < 200 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();
-        if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await p.waitForTimeout(150); }
+      /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it), the driver's one way */
+      const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: 21 });
       if (!f) { ok('D1 THE DEMO: a road fight through the map\'s own door', false); }
       else {
         await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = Math.round(u.armBMax * 0.9); u.armH = u.armHMax; }); S.over = true; S.result = 'won'; showOver('won'); });

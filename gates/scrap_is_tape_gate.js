@@ -101,10 +101,8 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
       await p.waitForTimeout(2500);
       const sup = () => p.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}).tape);
       const tape0 = await sup(), res0 = await fr.evaluate(() => BohemiaPurse.balance(purseGet(), 'resources'));
-      await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 81 }); });
-      let f = null;
-      for (let i = 0; i < 200 && !f; i++) { const hh = await p.$('#fightFrame'); if (hh) { const c = await hh.contentFrame();
-        if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await p.waitForTimeout(150); }
+      /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it), the driver's one way */
+      const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: 81 });
       if (!f) { ok('T3 ' + name + ': a road fight through the map\'s own door', false); }
       else {
         await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; }); S.over = true; S.result = 'won'; showOver('won'); });

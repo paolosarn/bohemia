@@ -93,7 +93,8 @@ const ARM = `(function(){
       if (!W.door && document.getElementById('fightFrame')) W.door = now;
       if (W.door && !W.took && FIGHTMUS.on && !CITYMUS.on && MUS.playing && (window.SONGFENCE ? SONGFENCE.ok() : (MUS.cur > 0 && MUS.cur < MFACTIONS.length))) { W.took = now; clearInterval(t); }
       if (W.door && now - W.door > 10000) clearInterval(t); }, 20); });
-    await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }); });
+    await fr.evaluate(drive.offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+    await fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }); });
     for (let i = 0; i < 40; i++) { if (await d.page.evaluate(() => !!document.getElementById('fightFrame'))) break; await d.page.waitForTimeout(100); }
     await d.page.waitForTimeout(2000);
     await hold('fight', 12000);
@@ -132,7 +133,8 @@ const ARM = `(function(){
     /* as a fresh boot has it: the old frame's own loop allowed (the RUN tab's click on the way home from the first
        fight muted it, which would hide the bug; measured: forced at the opening it played, about 35 notes in two seconds) */
     await d.page.evaluate(() => { NEW_FIGHT_ON = false; const cf = document.getElementById('combatFrame'); if (cf && cf.contentWindow) cf.contentWindow.postMessage({ bohemiaMusicMute: false }, '*'); });
-    await d.fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 2 }); });
+    await d.fr.evaluate(drive.offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first */
+    await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 2 }); });
     await d.page.waitForTimeout(3000);
     /* COMBAT 10/9 [one fight]: nothing warms the old frame ahead now, so this door builds 1.95 MB cold and the page is
        busy for seconds; the watch is longer so it still gathers more than five samples (the floor below is unchanged) */

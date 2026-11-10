@@ -93,11 +93,9 @@ const lumC = (rgb) => { const m = String(rgb).match(/\d+(\.\d+)?/g).slice(0, 3).
     for (const seq of prof === 'computer' ? [61] : [51, 52]) {
       try {
         /* ROLLED: the second fight on the phone is met somewhere else on the map (the board is cut from the map cell he stands on) */
-        await fr.evaluate((seq) => { if (seq === 52) { try { const bs = ctBases(), k = Object.keys(bs), t = bs[k[3 % k.length]]; city.x = t.x + 4; city.y = t.y + 3; } catch (_e) {} }
-          try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: seq }); }, seq);
-        let f = null;
-        for (let i = 0; i < 200 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();
-          if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await p.waitForTimeout(150); }
+        await fr.evaluate((seq) => { if (seq === 52) { try { const bs = ctBases(), k = Object.keys(bs), t = bs[k[3 % k.length]]; city.x = t.x + 4; city.y = t.y + 3; } catch (_e) {} } }, seq);
+        /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it), the driver's one way */
+        const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: seq });
         if (!f) { ok(name + ' fight ' + seq + ': a road fight through the map\'s own door', false); continue; }
         await p.waitForTimeout(1200);
         /* rolled: the fight decides who of theirs falls where; one of his goes down when he has three (a friend to go to) */
