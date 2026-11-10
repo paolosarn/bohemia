@@ -51,12 +51,14 @@
     "stilt_legged_horse": { "faction": "stilts", "label": "HORSE", "kg": 200, "source": "Haringtonhippus, the size of an Asian wild ass, about 200 kg" },
     "pleistocene_jaguar": { "faction": "jaguars", "label": "JAGUAR", "kg": 135, "source": "Panthera onca augusta, a fifth over a jaguar, 120 to 150 kg" },
     "large_headed_llama": { "faction": "llamas", "label": "LLAMA", "kg": 250, "source": "Hemiauchenia, bigger than a llama, 200 to 300 kg" },
+    "long_horned_bison": { "faction": "longhorns", "label": "BISON", "kg": 1900, "source": "Bison latifrons, about twice a bison, 1,800 to 2,000 kg" },
+    "shrub_ox": { "faction": "shrub_oxen", "label": "SHRUB-OX", "kg": 600, "source": "Euceratherium, about 600 kg" },
     "default": { "faction": "beasts", "label": "BEAST", "kg": 60, "source": "a fall-back for a beast this file does not name yet" }
   },
   "by_faction": {
     "_about": "when the fight could not say which animal died, the map's party names it",
     "prides": "american_lion", "sabres": "sabre_tooth", "lions": "mountain_lion", "bears": "short_faced_bear", "sloths": "ground_sloth",
-    "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "teratorns": "teratorn", "cheetahs": "american_cheetah", "goats": "harringtons_goat", "stilts": "stilt_legged_horse", "jaguars": "pleistocene_jaguar", "llamas": "large_headed_llama", "bulls": "feral_bull", "hogs": "feral_hog",
+    "camels": "camelops", "bison": "ancient_bison", "horses": "ice_age_horse", "teratorns": "teratorn", "longhorns": "long_horned_bison", "shrub_oxen": "shrub_ox", "cheetahs": "american_cheetah", "goats": "harringtons_goat", "stilts": "stilt_legged_horse", "jaguars": "pleistocene_jaguar", "llamas": "large_headed_llama", "bulls": "feral_bull", "hogs": "feral_hog",
     "coyotes": "coyote", "wolves": "direwolf", "hyenas": "hyena", "dogs": "wardog", "beasts": "default"
   }
 }

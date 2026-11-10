@@ -85,6 +85,12 @@
 "fill": 0.326,
 "packedMB": 5.43
 },
+"beast_long_horned_bison.webp": {
+"bytes": 1061536,
+"decodedMB": 49.1,
+"fill": 0.353,
+"packedMB": 19.35
+},
 "beast_mountain_lion.webp": {
 "bytes": 232768,
 "decodedMB": 11.79,
@@ -108,6 +114,12 @@
 "decodedMB": 21.79,
 "fill": 0.314,
 "packedMB": 8.17
+},
+"beast_shrub_ox.webp": {
+"bytes": 562832,
+"decodedMB": 22.39,
+"fill": 0.325,
+"packedMB": 8.02
 },
 "beast_stilt_legged_horse.webp": {
 "bytes": 310102,
@@ -1197,8 +1209,8 @@
 }
 },
 "totals": {
-"decodedMB": 3925.5,
-"packedMB": 752.5,
-"sheets": 199
+"decodedMB": 3997.0,
+"packedMB": 779.9,
+"sheets": 201
 }
 }

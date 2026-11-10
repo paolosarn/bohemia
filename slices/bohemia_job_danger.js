@@ -175,14 +175,14 @@
     sabre_tooth: ['SABRE-TOOTH', 'SABRE-TOOTHS'], american_lion: ['GIANT LION', 'GIANT LIONS'], ancient_bison: ['BISON', 'BISON'], ice_age_horse: ['HORSE', 'HORSES'], teratorn: ['TERATORN', 'TERATORNS'],
     /* BESTIARY 11/9 (rule 440(f)): the lab seven */
     american_cheetah: ['CHEETAH', 'CHEETAHS'], harringtons_goat: ['GOAT', 'GOATS'], stilt_legged_horse: ['STILT HORSE', 'STILT HORSES'],
-    pleistocene_jaguar: ['JAGUAR', 'JAGUARS'], large_headed_llama: ['LLAMA', 'LLAMAS'] };   /* draft:true */
+    pleistocene_jaguar: ['JAGUAR', 'JAGUARS'], large_headed_llama: ['LLAMA', 'LLAMAS'], long_horned_bison: ['LONGHORN', 'LONGHORNS'], shrub_ox: ['SHRUB-OX', 'SHRUB-OXEN'] };   /* draft:true */
   var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['ROBOT', 'ROBOTS'], kids: ['KID', 'KIDS'],
     house: ['HOUSE MAN', 'HOUSE MEN'], watch: ['NEIGHBOR', 'BLOCK WATCH'], keepers: ['KEEPER', 'KEEPERS'], water: ['WATER MAN', 'WATER PEOPLE'],
     wolves: ['DIRE WOLF', 'DIRE WOLVES'], hyenas: ['HYENA', 'HYENAS'], dogs: ['DOG', 'DOGS'], coyotes: ['COYOTE', 'COYOTES'], lions: ['LION', 'LIONS'],
     hogs: ['HOG', 'HOGS'], camels: ['CAMEL', 'CAMELS'], bulls: ['BULL', 'BULLS'], bears: ['BEAR', 'BEARS'], sloths: ['GROUND SLOTH', 'GROUND SLOTHS'],
     sabres: ['SABRE-TOOTH', 'SABRE-TOOTHS'], prides: ['GIANT LION', 'GIANT LIONS'], bison: ['BISON', 'BISON'], horses: ['HORSE', 'HORSES'],
     cheetahs: ['CHEETAH', 'CHEETAHS'], goats: ['GOAT', 'GOATS'], stilts: ['STILT HORSE', 'STILT HORSES'], jaguars: ['JAGUAR', 'JAGUARS'],
-    llamas: ['LLAMA', 'LLAMAS'] };   /* draft:true; FACTIONS 11/3; BEASTS 2 11/3; BESTIARY 11/9 */
+    llamas: ['LLAMA', 'LLAMAS'], longhorns: ['LONGHORN', 'LONGHORNS'], shrub_oxen: ['SHRUB-OX', 'SHRUB-OXEN'] };   /* draft:true; FACTIONS 11/3; BEASTS 2 11/3; BESTIARY 11/9 */
   function kindWord(band, faction) {
     var n = band && band.length || 0; if (!n) return 'MEN';
     var words = band.map(function (id) { return KIND_WORDS[id] || null; });

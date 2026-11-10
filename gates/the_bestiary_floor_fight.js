@@ -1,0 +1,61 @@
+/* the browser half of gates/the_bestiary_floor_gate.py (BESTIARY, 11/10, rule 441(a): 'a ship is done only when it plays end to end
+   ON THE PAGE he plays... on a phone upright and sideways'). On the demo, for each beast BESTIARY added (records/target/bb/lab_beasts.json,
+   added_by BESTIARY), one phone held upright and then sideways: its party comes through the one door every encounter uses (cityHandOver,
+   as the teratorn's check does), the fight opens and fields it on its own sheet with its own words, the win sends him home, the kill lies
+   on the map in its own picture, and one tap puts its meat in the food and a roll of hides in the bag. Prints one JSON line:
+   RESULT {"portrait": {<faction>: {...}}, "landscape": {...}}. */
+'use strict';
+const path = require('path'), fs = require('fs');
+const ROOT = path.dirname(__dirname);
+const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+async function waitFor(fn, ms) { const t = Date.now(); while (Date.now() - t < ms) { try { const v = await fn(); if (v) return v; } catch (e) {} await sleep(250); } return null; }
+const BOOK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/lab_beasts.json'), 'utf8'));
+const MINE = BOOK.beasts.filter(b => String(b.added_by || '').startsWith('BESTIARY'));
+(async () => {
+  const want = process.argv[2] ? process.argv[2].split(',') : ['phone_portrait', 'phone_landscape'];
+  const res = {};
+  for (const profile of want) {
+    const d = await D.open({ profile }); const fr = d.fr, p = d.page, errs = [];
+    p.on('pageerror', e => errs.push(String(e).slice(0, 200)));
+    const runs = {};
+    try {
+      await waitFor(() => fr.evaluate(() => MODE === 'city' && typeof RESTORE_ANSWERED !== 'undefined' && RESTORE_ANSWERED && window.BohemiaCarcass && BohemiaCarcass.ready()), 90000);
+      for (const b of MINE) {
+        const fac = b.faction, out = { fight: false };
+        try {
+          await fr.evaluate(() => { try { if (LOOP.open) loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} BohemiaCarcass.reset(); localStorage.setItem('bohemia.bag.v1', '[]'); });
+          await fr.evaluate((f) => { cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: f, faction: null, draft: true, roster: [{ arch: 'beast' }, { arch: 'beast' }],
+            party: { count: 2, faction: f, days: 1, difficulty: 1 }, street: true, why: 'gate:bestiary', at: { gx: city.x, gy: city.y }, __met: true }); }, fac);
+          const f = await waitFor(async () => { const e = await p.$('#fightFrame'), c = e && await e.contentFrame(); return c && await c.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.board && FIGHT.S.units && FIGHT.S.units.length) ? true : null) ? c : null; }, 60000);
+          if (!f) { runs[fac] = out; continue; }
+          out.fight = true;
+          await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(1200);
+          out.them = await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').map(u => u.kind));
+          out.sheets = await f.evaluate(() => { const L = DB.ours.beast_rig_looks && DB.ours.beast_rig_looks.value; return FIGHT.S.units.filter(u => u.side === 'them').map(u => L && L[u.kind]); });
+          out.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
+          out.drawn = await f.evaluate(async (look) => { const r = await fetch('fight_rig/fight_rig.json', { cache: 'no-cache' }).then(x => x.json()).catch(() => null); const L = r && r.looks && r.looks[look];
+            if (!L) return null; const im = new Image(); im.src = 'fight_rig/' + L.file; await new Promise(res => { im.onload = res; im.onerror = res; }); return im.naturalWidth > 0; }, 'beast_' + b.animal);
+          await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side !== 'them') return; u.hp = 0; u.dead = true; }); });
+          await p.evaluate(() => { const fw = document.getElementById('fightFrame').contentWindow; nfOverIn({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', rounds: 2 }, fw); });
+          const gone = () => p.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on'));
+          await waitFor(async () => { if (await gone()) return true; const e = await p.$('#spoilsdoor iframe'), sf = e && await e.contentFrame(), lb = sf && await sf.$('#leave');
+            if (lb) { await lb.evaluate(x => x.scrollIntoView({ block: 'center' })).catch(() => {}); const bb = await lb.boundingBox(); if (bb && bb.width >= 2) await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(1200); }
+            return (await gone()) || null; }, 90000);
+          out.home = !!(await waitFor(() => fr.evaluate(() => MODE === 'city' && window.__FIGHT_CAME_HOME), 15000)); await sleep(1500);
+          out.kill = await fr.evaluate(() => { const s = BohemiaCarcass.state(), c = s.list[s.list.length - 1]; if (!c) return null; let pic = null; try { const bp = BohemiaJobKinds.beastPic(c.faction); pic = bp && bp.look || (bp && bp.im ? 'yes' : null); } catch (e) {}
+            return { kind: c.kind, faction: c.faction, n: c.n, pic }; });
+          if (out.kill) {
+            const st = await fr.evaluate(() => BohemiaCarcass.state().list.slice(-1)[0].id);
+            out.take = await fr.evaluate((id) => { const f0 = (wagonGet() || {}).food | 0; const ok = BohemiaCarcass.take(id); const bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]');
+              return { ok, food: ((wagonGet() || {}).food | 0) - f0, hides: bag.filter(x => x.trade === 'hides' && x.from === 'a kill').length }; }, st);
+          }
+        } catch (e) { out.err = String(e).slice(0, 300); }
+        runs[fac] = out;
+      }
+    } catch (e) { runs.err = String(e).slice(0, 300); }
+    runs.errs = errs; res[profile.replace('phone_', '')] = runs;
+    try { await d.close(); } catch (e) {}
+  }
+  console.log('RESULT ' + JSON.stringify(res));
+})();

@@ -33,11 +33,14 @@ THE LEGS (every number read from the data the game reads, never typed here):
   F6 BOSSES: 3 or more bosses the fight stages (records/target/bb/boss_act_one.json: each with its board and its crew).
   F7 CHAMPIONS: the fight's parties deal a champion kind (a '_champion' row in a party's mix: ours.json or bohemia_enemies.json).
   F8 THE ROSTER FILE IS FRESH (tools/bohemia_combat_the_roster.py --check).
+  F9 ON THE PAGE (rule 441(a), the browser half gates/the_bestiary_floor_fight.js; --no-browser skips it): on the demo, a phone upright
+     and sideways, each BESTIARY beast's party through the one door: fielded on its own sheet with its own words, the win home, its kill
+     on the map in its own picture, one tap: food and a roll of hides; the page throws nothing.
 PLANTED (--plant, and always run first): ONE BEAST REMOVED (the book's last animal's party taken out of the mix: 16, red); a beast of
 unknown origin (a party in no book: red); a beast with no fossil (red); a new brain with a key nobody has (red); a sheet that copies
 its kin (the stilt-legged horse drawn on the Ice Age horse's sheet: red). Each must turn its own leg red, or the gate fails.
 
-    python3 gates/the_bestiary_floor_gate.py [--plant] [--pairs]
+    python3 gates/the_bestiary_floor_gate.py [--plant] [--pairs] [--no-browser]
 """
 import json, os, re, subprocess, sys, importlib.util
 import numpy as np
@@ -49,9 +52,8 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 47  # MEASURED 11/9 when this gate was written (42 before BESTIARY's five): only ever raised
-LAB_MADE_NOW = 15              # MEASURED 11/9 (10 before BESTIARY's five): only ever raised; the goal is the floor, 17 (the long-horned
-                               # bison and the shrub-ox are built and wait in lab_beasts.json 'waiting' for room under the site's 900 MB cap)
+TYPES_IN_THE_FIGHT_FLOOR = 49  # MEASURED 11/10 (42 before BESTIARY's seven): only ever raised
+LAB_MADE_NOW = 17              # MEASURED 11/10 (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
 passed = failed = 0
 
@@ -253,6 +255,28 @@ def main():
     mixes = list(D['ours']['enemy_tiers']['value']['mix'].values()) + list(D['ne']['mix'].values())
     champ = sorted({k for m in mixes for ph in m.values() for k in ph if k.endswith('_champion')})
     leg(bool(champ), 'F7 CHAMPIONS: the fight\'s parties deal %d champion kinds (%s)' % (len(champ), ', '.join(champ[:6])))
+    # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
+    if '--no-browser' not in sys.argv:
+        mine = [(b['faction'], b['animal'], b['rows']) for b in D['book']['beasts'] if b.get('added_by', '').startswith(BY)]
+        bad = []; res = {}
+        try:
+            r = subprocess.run(['node', os.path.join(ROOT, 'gates/the_bestiary_floor_fight.js')], cwd=ROOT, capture_output=True, text=True, timeout=1800)
+            line = [l for l in r.stdout.splitlines() if l.startswith('RESULT ')]
+            res = json.loads(line[-1][7:]) if line else {}
+        except Exception as e:
+            bad.append('the browser did not answer: ' + str(e)[:120])
+        for prof in ('portrait', 'landscape'):
+            runs = res.get(prof) or {}
+            if not runs: bad.append(prof + ': no run'); continue
+            if runs.get('errs'): bad.append(prof + ': the page threw ' + ' | '.join(e[:200] for e in runs['errs'][:3]))
+            for f, a, rows in mine:
+                o = runs.get(f) or {}
+                ok = (o.get('fight') and o.get('sheets') and all(x == 'beast_' + a for x in o['sheets']) and o.get('says') and o.get('drawn')
+                      and o.get('home') and (o.get('kill') or {}).get('kind') in rows and (o.get('take') or {}).get('ok')
+                      and (o['take'].get('food') or 0) > 0 and (o['take'].get('hides') or 0) >= 1)
+                if not ok: bad.append('%s %s: %s' % (prof, f, json.dumps(o)[:160]))
+        leg(not bad, 'F9 ON THE PAGE, UPRIGHT AND SIDEWAYS (rule 441(a)): each of the %d BESTIARY beasts through the one door on the demo: fielded on its own sheet with its own words, the win home, its kill on the map in its picture, one tap: food and a roll of hides; nothing thrown' % len(mine),
+            '; '.join(bad[:4]))
     # ---------------- F8 ----------------
     r = subprocess.run([sys.executable, 'tools/bohemia_combat_the_roster.py', '--check'], cwd=ROOT, capture_output=True, text=True)
     leg(r.returncode == 0, 'F8 THE ROSTER FILE IS FRESH (tools/bohemia_combat_the_roster.py --check)', r.stdout.strip())

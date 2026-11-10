@@ -8,15 +8,14 @@ without its 1 s freeze (MAKE CAMP's stall measured, next round). ALSO the gate t
 handoffs/FIXES.md.
 [bb Battle Brothers' pre-battle screen names the ground the battle is cut from; ours names the board the fight deals.]
 [analog horror: a card that promised an open road and a board of houses with every upstairs window dark.]
-BESTIARY (bestiary-01gkdyuu): 11/9 LATEST -- BUILD 11/9k - FIVE LAB BEASTS, BUILT, NOT YET SEEN (rule 440(f), ask line 539; the beast law's
-floor). THE COUNT: roster.json's '17 beasts' was Battle Brothers' names; the fight fielded 15 animals, 10 lab-made. THE GATE THE LAW OWED:
-THE BESTIARY FLOOR 10/0 (factions 12, types 157 in the roster but 47 in the fight against his 75, beasts on a lab-made ratchet, bosses 6,
-champions 3; five plants caught). FIVE NEW LAB BEASTS from Nevada's own fossils, fought like the others (existing brains, no new keys): the
-American cheetah (Crypt Cave), Harrington's goat (Smith Creek Cave; climbs), the stilt-legged horse (Gypsum Cave), the Ice Age jaguar, the
-large-headed llama (Tule Springs): 20 animals fielded, 15 lab-made. TWO WAIT: the long-horned bison and the shrub-ox are built, but the site
-is at 899 of its 900 MB cap: PLUMBER owes 3.3 MB of room. VOTE bestiary-five-lab-beasts-11-9. Record records/BOHEMIA_BESTIARY_THE_LAB_SEVEN_11_9_26.md.
-The whole block: handoffs/BESTIARY.md.
-[bb Battle Brothers' 17 beasts count its variants and its ghosts; ours count animals, each on its own sheet, lab-made by the law.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS, BUILT, NOT YET SEEN (routine 'to the floor', rule
+440(f), rule 441). The long-horned bison and the shrub-ox landed once his votes freed room on the site: 22 animals fielded, 17 lab-made,
+the beast law's floor met. All seven new ones (the five got his YES) play end to end on the demo, a phone upright and sideways (fight,
+win, the kill on the map, one tap for food and hides): THE BESTIARY FLOOR with its page leg. FILED: the fight fields 8 of 12 factions
+and 49 of 75 types (FACTIONS: the hired guns, the head takers, the flock, the eye in the sky; COMBAT: the old order's machines). The
+site has 2.3 MB left (PLUMBER 8: the style guide names 12 MB no page loads). VOTE bestiary-the-last-two-11-10. Record
+records/BOHEMIA_BESTIARY_THE_FLOOR_FILED_11_10_26.md. The whole block: handoffs/BESTIARY.md.
+[bb Battle Brothers fields every faction it names; ours names twelve and fights eight.]
 [analog horror: the hi-vis lab plate on a goat's nape, still lit on a roof at dusk.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9j - THE RANCH AND THE LAKE CAMP, BUILT, NOT YET SEEN (rule 440(c), ask
 line 539; after 11/9c THE PLACES TALK and 11/9f SEVEN MORE PLACES TALK). Fourteen of rule 409's missing places now talk when you arrive, two

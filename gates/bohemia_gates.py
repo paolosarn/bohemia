@@ -10716,8 +10716,8 @@ GATES = [
      "giant), the LAB-MADE ones on a ratchet to 17 (each with its species, its fossil, its DNA read or readable, its surrogate mother, its "
      "Mojave reason; the ones BESTIARY adds from Nevada's own fossils), no beast of unknown origin, each new beast reading as its animal "
      "by outline at the fight's size and the map's fifth with its lab plate showing, no special systems, the bosses staged, a champion "
-     "dealt, the roster file fresh. PLANTED: one beast removed, a beast of unknown origin, a beast with no fossil, a new brain with a "
-     "flies key, the stilt-legged horse drawn on the Ice Age horse's sheet: each turns its leg red. About 1 min", True),
+     "dealt, the roster file fresh; ON THE PAGE (rule 441(a)): on the demo, a phone upright and sideways, each new beast's party fielded on its own sheet, the win, its kill on the map, one tap for food and hides. PLANTED: one beast removed, a beast of unknown origin, a beast with no fossil, a new brain with a "
+     "flies key, the stilt-legged horse drawn on the Ice Age horse's sheet: each turns its leg red. About 6 min (the page legs)", True),
     ('THE TERATORN IS ONE MORE BEAST', ['python3', 'gates/the_teratorn_is_one_more_beast_gate.py', '--plant'],
      "WORLD 12 gate, 11/7, rule 431(e)(f), ask lines 516 and 517 (PAOLO 11/7: 'I thought they would be like an enemy type'; 'just another "
      "animal we can fight'): the teratorn's sheet in the fight's index like every beast (8 facings, 18 frames, 0.87 m standing); it reads "

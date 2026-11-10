@@ -3282,6 +3282,92 @@
     ]
    },
    "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
+  },
+  "beast_long_horned_bison": {
+   "file": "beast_long_horned_bison.webp",
+   "w": 294,
+   "h": 304,
+   "foot": [
+    147,
+    214
+   ],
+   "height_m": 2.332,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_long_horned_bison/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
+  },
+  "beast_shrub_ox": {
+   "file": "beast_shrub_ox.webp",
+   "w": 208,
+   "h": 196,
+   "foot": [
+    104,
+    142
+   ],
+   "height_m": 1.427,
+   "kind": "beast",
+   "rig": "records/target/combat/rig/beast_shrub_ox/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "bite": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "hit": [
+     13,
+     14
+    ],
+    "fall": [
+     15,
+     16,
+     17
+    ]
+   },
+   "by": "BESTIARY [the lab seven] 11/9 (rule 440(f)), tools/bohemia_bestiary_the_lab_seven.py"
   }
  },
  "faces": {

@@ -330,53 +330,48 @@
    "mojave": "llamas live in the Atacama, the driest desert there is",
    "added_by": "BESTIARY 11/9",
    "draft": true
-  }
- ],
- "waiting": {
-  "_why": "built and ready, not in the fight yet: the published site sits at its 900 MB cap (gates/pages_publish_gate.js; 895.4 MB on main 83dac485 before this batch) and these animals' sheets are 2.1 MB (the long-horned bison) and 1.1 MB (the shrub-ox); main grew to 896.6 MB the same hour; it goes in the moment there is room (tools/bohemia_bestiary_the_lab_seven.py render/pack long_horned_bison, then its row, party and names back as the record lists). Not counted.",
-  "beasts": [
-   {
-    "animal": "long_horned_bison",
-    "faction": "longhorns",
-    "rows": [
-     "long_horned_bison"
-    ],
-    "species": "Bison latifrons",
-    "fossil": {
-     "site": "Tule Springs, Las Vegas (cf.)",
-     "state": "Nevada",
-     "ref": "the monument's species list: cf. Bison latifrons"
-    },
-    "dna": {
-     "status": "read",
-     "ref": "Froese et al. 2017, PNAS: the Snowmass mitogenome"
-    },
-    "surrogate": "a plains bison",
-    "mojave": "a herd drinks once a day at the shore",
-    "added_by": "BESTIARY 11/9",
-    "draft": true
+  },
+  {
+   "animal": "long_horned_bison",
+   "faction": "longhorns",
+   "rows": [
+    "long_horned_bison"
+   ],
+   "species": "Bison latifrons",
+   "fossil": {
+    "site": "Tule Springs, Las Vegas (cf.)",
+    "state": "Nevada",
+    "ref": "the monument's species list: cf. Bison latifrons"
    },
-   {
-    "animal": "shrub_ox",
-    "faction": "shrub_oxen",
-    "rows": [
-     "shrub_ox"
-    ],
-    "species": "Euceratherium collinum",
-    "fossil": {
-     "site": "the Lake Winnemucca caves; a bovid its size at Tule Springs",
-     "state": "Nevada",
-     "ref": "the Winnemucca basin caves (Orr); Springer et al., GSA 2010"
-    },
-    "dna": {
-     "status": "readable",
-     "ref": "Ice Age (its dung kept in Bechan Cave, Utah; no DNA published yet)"
-    },
-    "surrogate": "a muskox",
-    "mojave": "a browser of the desert shrub at the seeps",
-    "added_by": "BESTIARY 11/9",
-    "draft": true
-   }
-  ]
- }
+   "dna": {
+    "status": "read",
+    "ref": "Froese et al. 2017, PNAS: the Snowmass mitogenome"
+   },
+   "surrogate": "a plains bison",
+   "mojave": "a herd drinks once a day at the shore",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  },
+  {
+   "animal": "shrub_ox",
+   "faction": "shrub_oxen",
+   "rows": [
+    "shrub_ox"
+   ],
+   "species": "Euceratherium collinum",
+   "fossil": {
+    "site": "the Lake Winnemucca caves; a bovid its size at Tule Springs",
+    "state": "Nevada",
+    "ref": "the Winnemucca basin caves (Orr); Springer et al., GSA 2010"
+   },
+   "dna": {
+    "status": "readable",
+    "ref": "Ice Age (its dung kept in Bechan Cave, Utah; no DNA published yet)"
+   },
+   "surrogate": "a muskox",
+   "mojave": "a browser of the desert shrub at the seeps",
+   "added_by": "BESTIARY 11/9",
+   "draft": true
+  }
+ ]
 }

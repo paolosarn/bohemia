@@ -155,5 +155,55 @@
    "z": 0.6973360735014802,
    "tw": 160
   }
+ },
+ "longhorns": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "long_horned_bison",
+    "beast": true,
+    "look": "beast_long_horned_bison",
+    "hp": 700,
+    "name": "LONGHORN"
+   }
+  ],
+  "drawn": [
+   "beast_long_horned_bison"
+  ],
+  "says": "A long-horned bison",
+  "close": {
+   "x": 194.99999527004027,
+   "y": 278.9999896988048,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6813368289198101,
+   "tw": 160
+  }
+ },
+ "shrub_oxen": {
+  "fight": true,
+  "errs": [],
+  "them": [
+   {
+    "kind": "shrub_ox",
+    "beast": true,
+    "look": "beast_shrub_ox",
+    "hp": 300,
+    "name": "SHRUB-OX"
+   }
+  ],
+  "drawn": [
+   "beast_shrub_ox"
+  ],
+  "says": "The shrub-oxen",
+  "close": {
+   "x": 194.99999527004027,
+   "y": 301.2502769389943,
+   "ox": 195,
+   "oy": 279,
+   "z": 0.6813368289198101,
+   "tw": 160
+  }
  }
 }

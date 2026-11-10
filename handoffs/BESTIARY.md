@@ -1,6 +1,23 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (rule 440(f), ask line 539): 11/9 LATEST -- BUILD 11/9k - FIVE LAB BEASTS (77eebb02), BUILT, NOT YET SEEN.
+BESTIARY (routine 'to the floor', rule 440(f), rule 441): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THE_FLOOR_FILED_11_10_26.md. VOTE bestiary-the-last-two-11-10 (stage stand_in).
+- HIS VOTE 11/9: YES on the five (bestiary-five-lab-beasts-11-9). Volume unlocked: the bison and the shrub-ox, LANDED this round.
+- THE LAST TWO: the site fell to 894.49 MB once his votes retired cards; the long-horned bison and the shrub-ox went in (897.7 MB with
+  their card): 22 animals fielded, 17 LAB-MADE, THE LAW'S FLOOR MET. Ratchets LAB_MADE_NOW 17, TYPES_IN_THE_FIGHT_FLOOR 49.
+- ON THE PAGE (rule 441(a)): THE BESTIARY FLOOR gains F9 (gates/the_bestiary_floor_fight.js): the demo, a phone upright and sideways,
+  each of the seven through the one door, own sheet, own words, the win home, the kill on the map, one tap 6 food + a roll of hides.
+  The gate about 8 min with the page legs (--no-browser for the data legs).
+- THE ROOM IS STILL THIN (2.3 MB left under the cap): PLUMBER 8 owns the suite (rule 441(c)); the style guide names 12 MB of
+  DIRECTION reference pictures no page loads.
+- FILED: factions 12 on file, the fight fields 8 (no party: hired guns, head takers, the flock, the eye in the sky) -> FACTIONS. Types
+  49 fielded of 75: FACTIONS 18 from those four parties first, COMBAT the old order's machines (0 of 15) and the rest. COMBAT: champions
+  are dealt but u.champion is always false. COMBAT TWO: ours.lessons rows none of the 28 kinds bohemia_enemies.json folds in, and the
+  AUTO gate's F5 cannot see them.
+[bb Battle Brothers fields every faction it names; ours names twelve and fights eight.]
+[analog horror: the goat's hi-vis plate on the map's dead ground after the fight, the only colour left on it.]
+
+BESTIARY (bestiary-01gkdyuu): 11/9 LATEST -- BUILD 11/9k - FIVE LAB BEASTS (77eebb02), BUILT, NOT YET SEEN (rule 440(f), ask line 539).
 Record: records/BOHEMIA_BESTIARY_THE_LAB_SEVEN_11_9_26.md. VOTE bestiary-five-lab-beasts-11-9 (stage stand_in).
 - THE COUNT, MEASURED: roster.json's 'beasts: 17' counted Battle Brothers' archetype names (13 with no animal in the fight). The fight
   fielded 15 animals, 10 of them lab-made. Now: 20 animals fielded, 15 lab-made (14 from Nevada's own fossils), 5 living animals loose

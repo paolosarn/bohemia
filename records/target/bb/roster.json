@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 157,
-  "types_in_the_fight": 47,
+  "types": 159,
+  "types_in_the_fight": 49,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -329,6 +329,7 @@
     "large_headed_llama",
     "lindwurm",
     "lindwurm_tail",
+    "long_horned_bison",
     "mountain_lion",
     "nachzehrer_large",
     "nachzehrer_medium",
@@ -339,6 +340,7 @@
     "schrat",
     "serpent",
     "short_faced_bear",
+    "shrub_ox",
     "stilt_legged_horse",
     "teratorn",
     "the_ijirok",
@@ -364,8 +366,10 @@
     "jaguars",
     "lions",
     "llamas",
+    "longhorns",
     "prides",
     "sabres",
+    "shrub_oxen",
     "sloths",
     "stilts",
     "teratorns",
@@ -2444,6 +2448,27 @@
    "page": "bb_all/1172_Lindwurm.txt"
   },
   {
+   "type": "long_horned_bison",
+   "bb_name": "Long-Horned Bison",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "long_horned_bison"
+   ],
+   "name": "LONGHORN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "longhorns"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
    "type": "lorekeepers_apparition",
    "bb_name": "Lorekeeper's Apparition",
    "bb_faction": "ancient_dead",
@@ -3243,6 +3268,27 @@
    ],
    "fielded": [
     "bears"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
+  },
+  {
+   "type": "shrub_ox",
+   "bb_name": "Shrub-Ox",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "shrub_ox"
+   ],
+   "name": "SHRUB-OX",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "shrub_oxen"
    ],
    "champion": false,
    "boss": false,
