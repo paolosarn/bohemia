@@ -654,7 +654,7 @@
     /* __THE_CONTRACT_IS_THE_BUDGET__: the kills are the contract's, in this beast: they grow and shrink with the company the way the
        contract's count does (Battle Brothers' multiplier off the roster), and a beast that costs more than the flat four fifths
        (job_contract.beast_cost) is asked for in fewer kills, the same budget spent on a dearer animal. A giant stays one */
-    if (!giant(job.foe)) { var bc0 = beastCost(job.packs[0].faction);
+    if (!giant(job.foe) && !row.pack_size) { var bc0 = beastCost(job.packs[0].faction);   /* a row that names its own animals ('the show's two tigers') keeps its own count */
       job.need = Math.max(1, Math.round(need0 * contractMult(sk) * (bc0 == null ? 1 : bc0 / packFlat()))); }
     backTo(job); job.target = { x: job.packs[0].x, y: job.packs[0].y };
     job.stage = 'hunt';

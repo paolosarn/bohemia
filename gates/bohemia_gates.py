@@ -2814,6 +2814,12 @@ GATES = [
     ('MOST JOBS FIT THE COMPANY', ['node', 'gates/most_jobs_fit_the_company_gate.js'],
      'WORLD [most jobs fit the company], rule 192: Battle Brothers\' contract math on his strength, the win rate per skull held '
      'on the live fight at day 1, 20, 50, 90.', True),
+    ('JOBS THAT FIT THE COMPANY', ['node', 'gates/jobs_fit_the_company_gate.js'],
+     'JOBS [jobs that fit], rule 436(c), asks 102 and 114: Battle Brothers\' contract is one budget spent on the enemy\'s own '
+     'cost (records/target/bb/party_math.json job_contract, TUNING\'s one table section Y, held equal); on the demo over 20 '
+     'campaign seeds, a new crew and the Lone Wolf at days 1 and 20: most jobs fit, a dire wolf or a hyena stands at its cost, '
+     'a hunt is one contract, the small strong crew loses almost nothing; the math before planted must fail '
+     '(records/BOHEMIA_JOBS_THE_FIRST_FIFTY_DAYS_AND_JOBS_THAT_FIT_11_8_26.md).', True),
     ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
      'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
      'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '
