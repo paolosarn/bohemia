@@ -67,6 +67,10 @@ print('    every gate CLAUDE.md promises beside a law is a gate that exists and 
 claude = open('CLAUDE.md', encoding='utf8').read()
 # the law index's own shape: "- SOME LAW -> laws/FILE.md | gate some_gate.js"
 advertised = sorted(set(re.findall(r'\|\s*gate\s+([A-Za-z0-9_]+(?:\.[a-z]+)?)', claude)))
+# "gate OWED" is the law saying out loud that it has no machine yet (CLAUDE.md, A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED): it
+# names no file, so it cannot be a file nobody wrote. Counted and printed, never resolved (PLUMBER 8, 11/10: it read as a missing gate)
+owed = [g for g in advertised if g.upper() == 'OWED']
+advertised = [g for g in advertised if g.upper() != 'OWED']
 
 registry = open('gates/bohemia_gates.py', encoding='utf8').read()
 
@@ -89,6 +93,7 @@ check('every advertised gate exists on disk. A law index that names a file nobod
       'wrote tells every chat the law is enforced and stops anybody looking -- worse '
       'than a law with no gate at all',
       not missing, ', '.join(missing) if missing else '%d resolved' % len(advertised))
+print('  %d law line(s) say "gate OWED": no machine yet, said out loud, never counted as enforced' % sum(1 for _ in re.finditer(r'\|\s*gate\s+OWED', claude)))
 
 # ---- 2. AND THE SUITE RUNS IT -------------------------------------------
 # Existing is not enough: 9/7 proved a gate can exist, pass by hand, and never be

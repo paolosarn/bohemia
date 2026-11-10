@@ -90,7 +90,9 @@ const ROOT = path.dirname(__dirname);
 process.chdir(ROOT);
 
 const SCRATCH = process.env.BOHEMIA_SCRATCH || path.join(require('os').tmpdir(), 'bohemia_derived');
-const WT = path.join(SCRATCH, 'derived_freshness_wt');
+/* one scratch tree per checkout (PLUMBER 8, 11/10): two checkouts of this repo (a worktree for a suite on main beside a lane's own)
+   shared one path here, and the second could neither remove nor make it ('already exists'), a red that was the box's */
+const WT = path.join(SCRATCH, 'derived_freshness_wt_' + require('crypto').createHash('md5').update(ROOT).digest('hex').slice(0, 8));
 const RECORD = 'records/BOHEMIA_DERIVED_FRESHNESS.json';
 
 /* ---------------------------------------------------------------------------
@@ -202,6 +204,8 @@ function mask(rel, text) {
 /* ------------------------------------------------------------------------- */
 function buildWorktree() {
   if (fs.existsSync(WT)) git(['worktree', 'remove', '--force', WT]);
+  if (fs.existsSync(WT)) { try { fs.rmSync(WT, { recursive: true, force: true }); } catch (e) {} }   /* a half-made one a killed run left */
+  git(['worktree', 'prune']);
   fs.mkdirSync(SCRATCH, { recursive: true });
   const add = git(['worktree', 'add', '--detach', WT, 'HEAD']);
   if (add.status !== 0) return { error: (add.stderr || String(add.error)).trim().split('\n').slice(-1)[0] };
