@@ -207,8 +207,10 @@ async function run(prof) {
     /* THE BURN's fire is lit at night (the verb's rule): the checker brings the clock to nine at night (a stranger waits for it) */
     if (vid === 'burn') await fr.evaluate(() => { try { if (!isNight()) T.min = 21 * 60; render(); } catch (e) {} });
     /* A6: where the verb works, the phone shows it; a real tap uses it */
-    const spot = await fr.evaluate((vid) => { const h = [city.x, city.y]; if (BohemiaBosses.applies(vid, h[0], h[1])) return h;
-      let best = null, bd = 1e9; const n = om.n; for (let y = 1; y < n - 1; y++) for (let x = 1; x < n - 1; x++) { const a = BohemiaBosses.applies(vid, x, y); if (!a || a.off) continue;
+    /* THE BURN's fire on a block nothing lights yet (BOSSES 11/10: his own drums light his yard once he falls, the map change of
+       records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md, so his place is no longer dark and the fire's change cannot show there) */
+    const spot = await fr.evaluate((vid) => { const dark = (x, y) => vid !== 'burn' || !BohemiaBosses.lit(x, y); const h = [city.x, city.y]; if (BohemiaBosses.applies(vid, h[0], h[1]) && dark(h[0], h[1])) return h;
+      let best = null, bd = 1e9; const n = om.n; for (let y = 1; y < n - 1; y++) for (let x = 1; x < n - 1; x++) { const a = BohemiaBosses.applies(vid, x, y); if (!a || a.off || !dark(x, y)) continue;
         const dd = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (dd < bd && !loopTownAt(x, y, 1) && cityRoute(h[0], h[1], x, y)) { bd = dd; best = [x, y]; } } return best; }, vid);
     if (spot && (spot[0] !== s.at[0] || spot[1] !== s.at[1])) { await go(spot); await settle(); }
     const before = await fr.evaluate(() => { const C = BohemiaCondition.get(); let hp = 0, w = 0; for (const k in C.men) { hp += C.men[k].lostHp || 0; if (C.men[k].wound && C.men[k].wound.left > 0) w += C.men[k].wound.left; }

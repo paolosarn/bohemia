@@ -136,6 +136,12 @@ his riggers at the hoist (beatOwed; a party is otherwise painted only inside the
 records/target/bosses_vote_climb_11_10/. Phone pictures (webp): records/target/the_next_three_change_the_map/climb/ (2 his riggers and
 their card, 5 they came down).
 
+## THE SIX-BOSS GATE AFTER ALL THREE
+
+gates/bosses_act_one_gate.js on the shipped tree (677a61354): 108/1, the red its own: it lit THE BURN's fire at his yard, which his
+drums now light once he falls (this round's change), so 'dark before' could not hold there; it now lights the fire on a block nothing
+lights yet. Again: 109 passed, 0 failed (lit false -> true, the street beside lit, sight 3 -> 6).
+
 ## [bb] BATTLE BROTHERS FIRST
 
 - Night on the Battle Brothers map shrinks what your company sees and lets things come at you unseen; a fire you make yourself is the
