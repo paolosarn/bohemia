@@ -16,6 +16,7 @@ WHAT WAS MADE (VAMILY rule 446, ask row 572):
   lamp washes him out. Scanlines, grain, vignette. No words on it (a reference frame for the video tool reads better bare).
 - THE PROMPT (below). The video tool does not know the word Crashbox, so the look is described in plain words. No real
   person's likeness or voice. Words go on in his own editor, never by the video tool (it misspells).
+- WHO HE IS (his words, the round after): 'the guy with the white hair which is me has long hair... diamond fangs in his teeth... long white hair and vampire diamond grill fangs'. The prompt says so and gives the fangs their own close-up; the game's sprite still wears the short cap (the picture is unchanged, he called it perfect).
 - The shows: Friday 11/13/26 Las Vegas, Saturday 11/14/26 Los Angeles.
 
 ## THE PROMPT (attach the picture, 9:16, 15 seconds)
@@ -24,23 +25,25 @@ WHAT WAS MADE (VAMILY rule 446, ask row 572):
 
 LOOK: low-resolution 3D figures that look like small clay dolls with big round heads, shrunk down to chunky pixels, seen from a high security-camera angle, looking down at about 45 degrees. Analog horror: it looks like an old CCTV tape somebody found. Scanlines, tape grain, soft tracking wobble, small glitch tears between shots. Night only. Colours are dirt brown, rust, and cold blue-black shadow. The only warm light is orange fire from oil drums. Nothing is clean, new or shiny.
 
-THE STAR (same in every shot): one small doll-like man with a smooth round cap of pure white hair, the brightest thing on screen. Pale skin. All black clothes: black jacket, black trousers, black boots. He never changes.
+THE STAR (same in every shot): one small doll-like man with LONG pure white hair that hangs down past his shoulders, the brightest thing on screen. In the attached picture his hair looks short; in the video it is long. Pale skin. When he grins you see two vampire fangs covered in diamonds, an iced-out diamond grill on his fangs that flashes in the firelight. All black clothes: black jacket, black trousers, black boots. He never changes.
 
-0 to 4 seconds, LAS VEGAS: the attached picture comes alive. A scrap stage on the dirt in a shanty town built from plywood, tarps and rusted sheet metal. Four oil drum fires flicker at the stage corners. A packed crowd of ragged doll-like people in patched coats and worn work clothes stands on every side of the stage and bobs together on a slow heavy beat. The white-haired man in black stands centre stage facing the camera, arms open, then throws one fist up. The camera pushes in slowly.
+0 to 3 seconds, LAS VEGAS: the attached picture comes alive. A scrap stage on the dirt in a shanty town built from plywood, tarps and rusted sheet metal. Four oil drum fires flicker at the stage corners. A packed crowd of ragged doll-like people in patched coats and worn work clothes stands on every side of the stage and bobs together on a slow heavy beat. The white-haired man in black stands centre stage facing the camera, arms open, long white hair moving in the wind. The camera pushes in slowly.
 
-4 to 7 seconds: hard tape glitch. Wide shot of the dead Las Vegas Strip at night. Dark broken casino towers, sand drifted over the boulevard, burnt-out cars, one dying sign that flickers sick yellow with no words on it. The white-haired man walks away from camera down the middle of the road, tiny against the towers.
+3 to 5 seconds: tape glitch. Tight close-up of his face lit by fire. Long white hair frames his pale face. He grins and his two diamond fangs flash bright.
 
-7 to 10 seconds: tape glitch. An empty desert freeway at night under a pale moon. Cracked asphalt, rusted cars on the shoulder, leaning power poles, blowing dust. He walks the centre line toward a faint glow on the horizon. The camera tracks along above him.
+5 to 8 seconds: hard tape glitch. Wide shot of the dead Las Vegas Strip at night. Dark broken casino towers, sand drifted over the boulevard, burnt-out cars, one dying sign that flickers sick yellow with no words on it. The white-haired man walks away from camera down the middle of the road, long hair blowing, tiny against the towers.
+
+8 to 10 seconds: tape glitch. An empty desert freeway at night under a pale moon. Cracked asphalt, rusted cars on the shoulder, leaning power poles, blowing dust. He walks the centre line toward a faint glow on the horizon. The camera tracks along above him.
 
 10 to 15 seconds, LOS ANGELES: tape glitch. A ruined Los Angeles at night. Dead palm trees, a collapsed freeway overpass, a dark downtown skyline in brown smog. Under the overpass a second scrap stage with fire drums and a bigger crowd. He steps to centre stage and the whole crowd throws their hands up at once. Slow pull back and up until the stage is a small warm fire in a huge dark city. Hold the last frame still for one second.
 
 SOUND: low tape hum, wind, a slow heavy kick drum at 120 beats per minute, a distant crowd roar that swells at the end. No singing, no talking.
 
-DO NOT: no words, letters, numbers, logos or watermarks anywhere. No real people, no photo-real faces. No 3D render, no anime, no smooth cartoon. No bright neon, no purple, no rain-city cyberpunk. No zombies, monsters or gore. No daylight.
+DO NOT: no words, letters, numbers, logos or watermarks anywhere. No real people, no photo-real faces. No 3D render, no anime, no smooth cartoon. No bright neon, no purple, no rain-city cyberpunk. No zombies, monsters, blood or gore. No daylight.
 
 ## THE SHORT CUT (if the tool cuts the long one off)
 
-15 second vertical 9:16 video in the exact look of the attached picture: low-res 3D clay-doll figures with big round heads, shrunk to chunky pixels, from a high security-camera angle, analog horror CCTV tape, scanlines and glitch cuts, night, dirt browns and orange oil-drum fire. A small doll-like man with pure white hair and all black clothes plays a scrap stage to a packed ragged crowd in a ruined Las Vegas shanty town, walks the dead Strip, crosses an empty desert freeway, then takes a second fire-lit stage under a collapsed overpass in ruined Los Angeles as the crowd throws its hands up. Slow pull back, hold the last frame. Sound: tape hum, wind, heavy 120 BPM kick, crowd roar, no voices. No text, no logos, no real people, no neon, no purple, no daylight.
+15 second vertical 9:16 video in the exact look of the attached picture: low-res 3D clay-doll figures with big round heads, shrunk to chunky pixels, from a high security-camera angle, analog horror CCTV tape, scanlines and glitch cuts, night, dirt browns and orange oil-drum fire. A small doll-like man with long pure white hair past his shoulders, diamond vampire fangs and all black clothes plays a scrap stage to a packed ragged crowd in a ruined Las Vegas shanty town, walks the dead Strip, grins in a fire-lit close-up so the diamond fangs flash, crosses an empty desert freeway, then takes a second fire-lit stage under a collapsed overpass in ruined Los Angeles as the crowd throws its hands up. Slow pull back, hold the last frame. Sound: tape hum, wind, heavy 120 BPM kick, crowd roar, no voices. No text, no logos, no real people, no neon, no purple, no daylight.
 
 ## THE WORDS HE ADDS HIMSELF, AFTER
 BABY PUNK / FRI · LAS VEGAS / SAT · LOS ANGELES
