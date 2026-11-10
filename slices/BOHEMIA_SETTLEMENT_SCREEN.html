@@ -2195,6 +2195,8 @@ function frameFit(o){
   var s0 = Math.max(cover, (R[2] - R[0])/tw, (R[3] - R[1])/ph), steps = [s0];   /* the town itself fills what the phone leaves; its ground goes on under the phone */
   if(S.camp && ux1 > ux0){ var want = Math.min((o.x1 - o.x0)*.78/(ux1 - ux0), (o.y1 - o.y0)*.78/(uy1 - uy0)); if(want > s0) steps = [Math.min(want, s0*3), s0]; }
   else steps.push(s0*1.05, s0*1.1);
+  var fvS = 0; try{ fvS = S.camp && window.BohemiaCampLook && BohemiaCampLook.fightScale ? BohemiaCampLook.fightScale() : 0; }catch(e){ fvS = 0; }   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__ (MOTION 3, rule 442(a)): a camp made off a fight is seen at the fight's own zoom */
+  if(fvS > 0) steps = [Math.max(cover, fvS)];
   var Rc = S.camp ? [(o.x0 + o.x1)/2, (o.y0 + o.y1)/2] : [(R[0] + R[2])/2, (R[1] + R[3])/2];   /* the camp gathers round the middle of what the phone leaves */
   var inter = function(a, b){ var w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); return w > 0 && h > 0 ? w*h : 0; };
   var BL = (function(){ try{ return walkBlocks() || []; }catch(e){ return []; } })(), prA = pr ? Math.max(1, (pr[2] - pr[0])*(pr[3] - pr[1])) : 1;
@@ -5244,6 +5246,12 @@ open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier
 /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6, rule 418(a)): read only. Is the town's own picture in (the glass is the town, not the brown
    it waits on)? The shell's FIRST PLAY and gates/first_play_is_light_gate.js ask it. */
 try{ window.BohemiaSettlement.picIn = function(){ try{ return picIn(); }catch(e){ return false; } }; }catch(e){}
+/* __THE_CAMP_IS_THE_FIGHTS_BOARD__ (MOTION 3, 11/10, rule 442(a)): a camp made off a fight opens on the fight's own view; its file
+   (slices/bohemia_camp_look.js) reads where this screen's camera stands and which picture is up, and walks him from where he fought to
+   his job (his own walk, leadGo); nothing else of the screen is touched */
+try{ window.BohemiaSettlement.campView = function(){ return {s:view.s, ox:view.ox, oy:view.oy, W:view.W, H:view.H, area:FIT.area ? {x0:FIT.area.x0, x1:FIT.area.x1, y0:FIT.area.y0, y1:FIT.area.y1} : null, boardKey:VAR && VAR.boardKey || null, board:!!(VAR && VAR.board), zoom:FIT.zoom}; };
+  window.BohemiaSettlement.leadAgain = function(){ leadReset(); };
+  window.BohemiaSettlement.leadTo = function(x, y){ leadGo('camp:job', null, {x:x, y:y}); }; }catch(e){}
 requestAnimationFrame(loop);
 })();
 </script>
