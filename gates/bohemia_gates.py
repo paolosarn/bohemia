@@ -9307,6 +9307,16 @@ GATES = [
      "then a man at the dead and one on watch; every piece's footprint and every man's feet on open ground, never a roof, a wall or "
      "water; a tap skips it; P1 a tent laid on a roof turns the ground check RED; P2 the order as it was (window.__CAMP_HOLD_OFF, "
      "__CAMP_CLOCK_DURING_SETUP) turns the glass or the clock check RED. Solo: it watches frames. About 14 min", True),
+    ('THE FIGHT\'S WEIGHT', ['node', 'gates/the_fights_weight_gate.js'],
+     "MOTION 3 gate, 11/10, rule 443(e) and 441 (the coordinator: 'measure on the real page first which of these read and which do "
+     "not: a hit, a block on a shield, a miss, a kill, a man struck down, a shot, a reload; then make each read on the beat... at no "
+     "frame cost on a cheap phone, AUTO at 4x still clear'). MEASURED before (the demo upright, a suburb fight on AUTO, the CPU slowed "
+     "4x): at 4x a hit read 63% (its white 0 drawn frames, the glass never kicked), a miss 0%, a kill 33%; a block on a shield was drawn "
+     "as a sidestep with a miss's whoosh. Now: on AUTO at 4x a hit reads 75%+ (white or knock two drawn frames, the glass answers), a "
+     "miss 60%+; a staged block (the fight's own presenter and event) is held on the shield's own SBlock keys two frames, no sidestep, "
+     "BLOCKED heard, the cover's mark, the glass kicks; a staged shot lights the street round him two frames and the glass answers; the "
+     "frames' middle within 15% of the weight off; P1 and P2 the weight off (window.__FIGHT_WEIGHT_OFF) turn the block and the shot RED. "
+     "Solo: it counts drawn frames. About 8 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
      "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "

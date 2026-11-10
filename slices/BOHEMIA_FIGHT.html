@@ -6665,9 +6665,9 @@ function punchSev(t, e) {
 }
 function punchLand(u, t, e, land, B, ranged) {
   if (!u || !t) return;
-  const P = R('ours.punch'), sev = punchSev(t, e), stop = B * lerp2(P.stop_beats, sev);
+  const P = R('ours.punch'), sev = punchSev(t, e), stop0 = B * lerp2(P.stop_beats, sev), stop = wHeld(stop0, B * .5), white = wHeld(stop0, B * 1.2);   /* __THE_FIGHTS_WEIGHT__: two drawn frames at least (the freeze inside half the beat, the white as long as it takes) */
   let ddx = t.x - u.x, ddy = (t.y - u.y) * UI.th / UI.tw; const L = Math.hypot(ddx, ddy) || 1; ddx /= L; ddy /= L;
-  (UI.punch = UI.punch || {})[t.id] = { at: land, stop: stop, sev: sev, dx: ddx, dy: ddy, B: B, by: u.id, hp: e.hp | 0, armour: e.armour | 0, head: !!e.head };
+  (UI.punch = UI.punch || {})[t.id] = { at: land, stop: stop, white: white, sev: sev, dx: ddx, dy: ddy, B: B, by: u.id, hp: e.hp | 0, armour: e.armour | 0, head: !!e.head };
   if (!ranged && !u.beast) (UI.lunge = UI.lunge || {})[u.id] = { at: land, stop: stop, dx: ddx, dy: ddy, B: B };
   if (t.side === 'you' || FIGHT.shown(t)) (UI.kicks = UI.kicks || []).push({ at: land, amp: lerp2(P.kick_px, sev), dx: ddx, dy: ddy, B: B, steps: P.kick_steps });
   UI.punches = (UI.punches || 0) + 1;
@@ -6680,7 +6680,10 @@ function thudAt(fallAt, B) {
 function kickAt(now) {
   const P = R('ours.punch'); let x = 0, y = 0;
   UI.kicks = (UI.kicks || []).filter(function (q) {
-    const st = q.B * (q.step || P.kick_step_beats), t = now - q.at, i = Math.floor(t / st);
+    if (!q._w) wKick(q, P);   /* __THE_FIGHTS_WEIGHT__: a step a drawn frame at least */
+    let nq = now;   /* __THE_FIGHTS_WEIGHT__: the kick drawn twice at least, its last step held (this kick's own clock) */
+    if (wOn() && now >= q.at) { q.wN = (q.wN | 0) + 1; const st0 = q.B * (q.step || P.kick_step_beats); if (now - q.at >= q.steps.length * st0 && q.wN <= 2 && now - q.at < q.B * 2 + wFrame() * 3) nq = q.at + (q.steps.length - 1) * st0; }
+    const st = q.B * (q.step || P.kick_step_beats), t = nq - q.at, i = Math.floor(t / st);
     if (t < 0) return true; if (i >= q.steps.length) return false;
     x += q.dx * q.amp * q.steps[i]; y += q.dy * q.amp * q.steps[i] * .6; return true;
   });
@@ -6692,10 +6695,11 @@ function stopNow(v, now) {
   for (const id in P) { const q = P[id]; if ((id === v.id || q.by === v.id) && now >= q.at && now < q.at + q.stop) return q.at + 1; }
   return now;
 }
-function whiteOf(v, now) { const q = UI.punch && UI.punch[v.id]; return !!q && now >= q.at && now < q.at + q.stop; }
+function whiteOf(v, now) { const q = UI.punch && UI.punch[v.id]; return !!q && (wOn() ? wTwo(q, now, q.white || q.stop, q.B * 2) : now >= q.at && now < q.at + q.stop); }   /* __THE_FIGHTS_WEIGHT__: two drawn frames at least */
 /* for the freeze he is blown white, a red and a cyan copy of him a few pixels apart under it (the tape losing its lock): every
    way a man is drawn (his clip, his idle, what he holds) lays it over the picture it drew */
 function punchTint(v, now, img, sxp, syp, w, hgt, ox, oy, s, gun) {
+  wFlareTint(v, now, img, sxp, syp, w, hgt, ox, oy, s, gun);   /* __THE_FIGHTS_WEIGHT__: the shot's flare on him */
   if (!whiteOf(v, now)) return;
   const P = R('ours.punch'), sp = Math.max(1, Math.round(P.split_px * s / (1 + 1)));
   tintOver(img, sxp, syp, w, hgt, ox - sp, oy, s, .55, '#ff2a1e', gun);
@@ -6798,10 +6802,99 @@ function drawLash(now) {
 /* A DODGE SHOWS AS A DODGE: he is thrown aside, away from the shot, and back, over ours.outclass.dodge_lean_beats */
 function dodgeLean(v, h, now) {
   const d = UI.dodge && UI.dodge[v.id]; if (!d) return 0;
-  const k = (now - d.t) / (beatMs() * R('ours.outclass').dodge_lean_beats);
+  let k = (now - d.t) / wHeld(beatMs() * R('ours.outclass').dodge_lean_beats, beatMs() * 1.2);   /* __THE_FIGHTS_WEIGHT__: two drawn frames at least */
+  if (k > 1 && wOn() && (d.wN | 0) < 2 && now - d.t < Math.max(beatMs() * 2, wFrame() * 3)) k = .5;   /* __THE_FIGHTS_WEIGHT__: not drawn twice yet: held at its widest */
   if (k < 0 || k > 1) return 0;
   return d.dir * h * .22 * Math.sin(Math.PI * k);
 }
+/* ==== __THE_FIGHTS_WEIGHT__ (MOTION 3, VAMILY rule 443(e) and 441, the coordinator 11/10: 'more love on the fight: its WEIGHT.
+   Measure on the real page first which of these read and which do not: a hit, a block on a shield, a miss, a kill, a man struck
+   down, a shot, a reload; then make each read on the beat (the body's reaction, the camera's small answer, the sound already
+   there), with the rig's existing clips first (rule 430), at no frame cost on a cheap phone, AUTO at 4x still clear. COMBAT TWO
+   owns the fight's rules: touch only how it looks and moves'). MOTION's block, COMBAT's file: nothing here reads or writes a rule.
+   MEASURED FIRST (tools/bohemia_fight_weight.js on the demo at 390 x 844, a suburb fight on AUTO by a real tap, the CPU slowed 4x;
+   records/BOHEMIA_MOTION_THREE_THE_FIGHTS_WEIGHT_11_10_26.md): a hit, a miss, a kill, a shot and a reload each showed on the man
+   and were heard, at 1x; A BLOCK ON A SHIELD NEVER READ AS ONE, and at 4x the punch's freeze, its white and its kick fell between
+   two drawn frames.
+   1. A BLOCK ON A SHIELD IS A BLOCK. A blow that misses a man with a shield on his arm (or behind his wall) is the rules' own block
+      (their tire() names it so); it was drawn as the dodge, the sidestep, with the whoosh of a miss and the dodge's mark. Now he
+      takes it on the shield: the shield arm's own SBlock keys (the shield up before his face; ANIMATION's, rule 430), rocked back
+      a hair behind it, the catalogue's own BLOCKED ('the hit that did not land'), the glass a small knock, the tag the cover's mark
+      (it hit what he holds); never the sidestep.
+   2. THE SHOT FLARES. A shot was his aim key and the bang, and nothing at the gun. Now, on the clip's kick key (a third of a beat
+      in, where the bang is), the street round him is lit for a frame or two in hard bands (the tape blown by the flash; at night
+      it is the only light), his own picture flares with it, he is rocked back a hair off the shot, and the glass answers by a
+      pixel or two along it.
+   3. NOTHING SHORTER THAN TWO DRAWN FRAMES. THE PUNCH's freeze, its white, its kick's steps and the dodge's lean were cut in beats
+      only: at 4x a beat is 125 ms, a kick step 8 ms, the freeze 12 to 30 ms, under one frame of a slowed phone, so they fell
+      between two drawn frames and were never seen. Each is now held for two drawn frames at least (the page's own frame clock,
+      UI.frameMs), never past a beat and a fifth (the freeze that holds both men never past half its beat); at 1x on a good
+      phone nothing changes.
+   No new canvas and no image read: three flat bands and the punch's own tint, for a frame or two a shot.
+   window.__FIGHT_WEIGHT_OFF = true: the fight as it was. ==== */
+function wOn() { return !window.__FIGHT_WEIGHT_OFF; }
+function wFrame() { return Math.max(16.7, UI.frameMs || 16.7); }
+/* a span cut in beats, held for two drawn frames at least, never past cap ms (a span already longer is its own) */
+/* AND COUNTED IN DRAWN FRAMES (measured on the staged hit: the blow's own landing is the page's longest frame, its sounds, its blood,
+   its tag and its line all at once, 160 ms at 1x on the slowed box, so a white cut in time fell inside that one frame and was never
+   drawn): a read stays up past its span until it has been drawn twice (wDrawn, once a drawn frame), never past cap */
+function wTwo(q, now, span, cap) { if (!q || now < q.at) return false; if (now < q.at + span) return true; return wOn() && (q.wN | 0) < 2 && now < q.at + Math.max(cap, wFrame() * 3); }   /* on a slow phone three of its own frames, never only two beats */
+function wDrawn(v, now) {
+  const P = UI.punch && UI.punch[v.id]; if (P && whiteOf(v, now)) P.wN = (P.wN | 0) + 1;
+  const b = UI.block && UI.block[v.id]; if (b && wBlockOf(v, now)) b.wN = (b.wN | 0) + 1;
+  const f = UI.flare && UI.flare[v.id]; if (f && wFlareOf(v, now)) f.wN = (f.wN | 0) + 1;
+  const d = UI.dodge && UI.dodge[v.id]; if (d && Math.abs(dodgeLean(v, manH(), now)) >= 2) d.wN = (d.wN | 0) + 1;   /* the sidestep, counted where it shows */
+}
+function wHeld(ms, cap) { return wOn() ? Math.max(ms, Math.min(wFrame() * 2.1, cap)) : ms; }
+/* THE PUNCH's kick, its steps at a frame at least: as many of its steps as fit in a beat and a fifth */
+function wKick(q, P) {
+  q._w = 1; if (!wOn()) return;
+  const st0 = q.B * (q.step || P.kick_step_beats), f = wFrame(); if (st0 >= f) return;
+  const cap = q.B * 1.2, n = Math.max(1, Math.min(q.steps.length, Math.floor(cap / f)));
+  q.steps = q.steps.slice(0, n); q.step = Math.max(st0, Math.min(f, cap / n)) / q.B;
+}
+function wDir(u, t) { let ddx = t ? t.x - u.x : 1, ddy = t ? (t.y - u.y) * UI.th / UI.tw : 0; const L = Math.hypot(ddx, ddy) || 1; return [ddx / L, ddy / L]; }
+/* 1. the block: the rules' own (a blow, not a shot, that missed a man with a shield up or a wall locked) */
+function wBlocked(u, t, e, ranged) { return wOn() && !!(u && t && e && !e.hit && !ranged && (t.shield || t.walled)); }
+function wBlockLand(u, t, land, B) {
+  const d = wDir(u, t), P = R('ours.punch');
+  (UI.block = UI.block || {})[t.id] = { at: land, len: wHeld(B * .5, B * 1.2), dx: d[0], dy: d[1], B: B, by: u.id };
+  if (t.side === 'you' || FIGHT.shown(t)) (UI.kicks = UI.kicks || []).push({ at: land, amp: P.kick_px[0], dx: d[0], dy: d[1], B: B, steps: P.kick_steps.slice(0, 2) });
+  UI.blocks = (UI.blocks || 0) + 1;
+}
+function wBlockSound(u, t) { sfx('block', Object.assign(SND.blow(u, t), { side: t ? t.side : null })); }
+function wBlockOf(v, now) { const q = UI.block && UI.block[v.id]; if (!q) return null; const t = now - q.at; return wTwo(q, now, q.len, q.B * 2) ? { k: t < q.len * .45 ? 0 : 1, q: q, t: Math.min(t, q.len) } : null; }
+/* 2. the shot: on its kick key */
+function wShot(u, t, at, B) {
+  if (!wOn() || !u || !(u.side === 'you' || FIGHT.shown(u))) return;
+  const d = wDir(u, t), w = u.weapon || {}, kind = DB.rig.guns && DB.rig.guns.by_class ? DB.rig.guns.by_class[(w.of && w.of.class) || w.class] : null, big = kind !== 'pistol';
+  (UI.flare = UI.flare || {})[u.id] = { at: at, len: wHeld(B * .1, B * 1.2), dx: d[0], dy: d[1], B: B, big: big };
+  (UI.kicks = UI.kicks || []).push({ at: at, amp: big ? 3 : 2, dx: -d[0], dy: -d[1], B: B, steps: [1, -.5] });   /* a pixel and more whichever way he fires (the glass's y kick is 0.6 of its x) */
+  UI.flares = (UI.flares || 0) + 1;
+}
+function wFlareOf(v, now) { const q = UI.flare && UI.flare[v.id]; if (!q) return 0; const t = now - q.at; return wTwo(q, now, q.len, q.B * 2) ? 1 - .5 * Math.min(1, t / q.len) : 0; }
+/* the street round him lit in three hard bands, toward the shot (drawn on the ground, under him) */
+function wFlareGround(v, X, Y, h, now) {
+  const k = wFlareOf(v, now); if (!k) return;
+  const q = UI.flare[v.id], a = (FIGHT.S.night ? .3 : .16) * k, r = h * (q.big ? 1.15 : .85), mx = (X + q.dx * h * .3) * DPR, my = (Y + q.dy * h * .18) * DPR;
+  cx.save(); cx.setTransform(1, 0, 0, .42, 0, my * (1 - .42)); cx.globalCompositeOperation = 'lighter';
+  [[1, '#ffb45a'], [.62, '#ffd08a'], [.3, '#fff0c8']].forEach(function (b) { cx.globalAlpha = a; cx.fillStyle = b[1]; cx.beginPath(); cx.arc(Math.round(mx), Math.round(my), Math.round(r * b[0] * DPR), 0, Math.PI * 2); cx.fill(); });
+  cx.restore(); UI.flareDrawn = (UI.flareDrawn || 0) + 1;
+}
+/* his own picture flares with it (laid by THE PUNCH's tint, on every way a man is drawn) */
+function wFlareTint(v, now, img, sxp, syp, w, hgt, ox, oy, s, gun) {
+  const k = wFlareOf(v, now); if (k) tintOver(img, sxp, syp, w, hgt, ox, oy, s, .34 * k, '#ffd890', gun);
+}
+/* rocked back behind his shield, or off his own shot: css px */
+function wPush(v, h, now) {
+  let x = 0, y = 0;
+  const b = wBlockOf(v, now); if (b) { const e = b.t < b.q.len * .4 ? 1 : 1 - (b.t - b.q.len * .4) / (b.q.len * .6); x += b.q.dx * h * .035 * e; y += b.q.dy * h * .035 * .5 * e; }
+  const q = UI.flare && UI.flare[v.id]; if (q) { const t = now - q.at, len = q.len * 2; if (t >= 0 && t < len) { const e = 1 - t / len; x -= q.dx * h * (q.big ? .035 : .02) * e; y -= q.dy * h * .01 * e; } }
+  return { x: Math.round(x * DPR) / DPR, y: Math.round(y * DPR) / DPR };
+}
+/* what the weight shows on him now, for the measure (tools/bohemia_fight_weight.js) and the gate */
+function weightOf(v, now) { return { block: !!wBlockOf(v, now), flare: !!wFlareOf(v, now) }; }
+/* ==== end __THE_FIGHTS_WEIGHT__ ==== */
 const BAND_SAYS = { close: 'Point-blank: your {arm} is clumsy this close, <b>-{n}%</b>.', near: 'Too close for your {arm}: <b>-{n}%</b> at {tiles} tiles.',
   spread: 'At {tiles} tiles the {arm}\'s shot spreads: <b>{pct}%</b> of its damage.', best: ', best at {a} to {b}', bestOne: ', best at {a}' };   /* draft:true (WEAPONS 11/7: 'near' is the scope's, the bow's point-blank is no gun) */
 function aimLines(u, t) {
@@ -7172,8 +7265,9 @@ function startAnimHeard(a) {
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
     const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
     later(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(u); }, B * 0.35);
+    if (ranged && !sling && FIGHT.isGun(u.weapon)) wShot(u, t, a.at + B * 0.35, B);   /* __THE_FIGHTS_WEIGHT__: the shot flares */
     if (sling && e.hit) later(function () { sfx('stone_bite', { side: u.side }); }, B * 0.45);
-    later(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf, u, t) : SND.miss(bf, ranged ? null : u); }, B * 0.45);
+    later(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf, u, t) : wBlocked(u, t, e, ranged) ? wBlockSound(u, t) : SND.miss(bf, ranged ? null : u); }, B * 0.45);   /* __THE_FIGHTS_WEIGHT__: a block is BLOCKED */
     onTime(function () { if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
       /* THE CREW CALLS IT (rule 143(c)): his men's shots, a hit or a miss, the man of theirs who slips it */
       if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, B * 0.45);
@@ -7181,23 +7275,25 @@ function startAnimHeard(a) {
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) later(function () { sfx('dry_fire'); }, B * 0.8); onTime(function () { UI.dryAt = performance.now(); teach('reload'); }, B * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[t.id] = a.at + B * 0.45; goreHit(t, u, e.hp, a.at + B * 0.45); punchLand(u, t, e, a.at + B * 0.45, B, ranged); }
     else if (t && ranged) dustAt(u, t, a.at + B * 0.45, B);
+    else if (wBlocked(u, t, e, ranged)) wBlockLand(u, t, a.at + B * 0.45, B);   /* __THE_FIGHTS_WEIGHT__: taken on the shield */
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
       const ot = FIGHT.byId(o.to); if (!ot) return;
-      later(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf, u, ot) : SND.miss(bf, ranged ? null : u); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, B * (0.45 + 0.25 * (i + 1)));
+      later(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf, u, ot) : wBlocked(u, ot, o, ranged) ? wBlockSound(u, ot) : SND.miss(bf, ranged ? null : u); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, B * (0.45 + 0.25 * (i + 1)));
       if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[ot.id] = a.at + B * (0.45 + 0.25 * (i + 1)); goreHit(ot, u, o.hp, a.at + B * (0.45 + 0.25 * (i + 1))); punchLand(u, ot, o, a.at + B * (0.45 + 0.25 * (i + 1)), B, ranged); }
+      else if (wBlocked(u, ot, o, ranged)) wBlockLand(u, ot, a.at + B * (0.45 + 0.25 * (i + 1)), B);   /* __THE_FIGHTS_WEIGHT__ */
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
     });
     /* A DODGE SHOWS AS A DODGE (rule 143(b)): a shot or blow that misses throws him aside at the landing, the tag carries the sidestep mark, never a word (rule 46f; the block
        when the round went into the piece he stands behind); a man of theirs keeps count of what he dodged for the end's words */
     const into = !e.hit && ranged && bulletLands(e, t) === 'cover';
-    if (!e.hit) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: a.at + B * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 };
+    if (!e.hit) { if (!wBlocked(u, t, e, ranged)) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: a.at + B * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 }; }   /* __THE_FIGHTS_WEIGHT__: a block is no sidestep */
       if (u.side === 'you') t._dodged = (t._dodged || 0) + 1; }
     if (u.side === 'you') t._tried = (t._tried || 0) + 1;
     const dis = e.skill === 'Disarm';   /* ARMORY 2: the whip's DISARM takes no health, it takes his weapon out of play */
     if (!ranged && FIGHT.isWhip(u.weapon)) (UI.lash = UI.lash || []).push({ at: a.at, B: B, u: u.id, t: t.id, arm: (u.weapon.of || u.weapon).id, hit: !!e.hit, dis: dis });   /* the cord to the second tile, on the beat */
-    numTag(t, e.chance + '%', null, a.at - performance.now() + B * 0.45, e.hit ? (dis ? 'DISARM' : '-' + e.hp) : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
+    numTag(t, e.chance + '%', null, a.at - performance.now() + B * 0.45, e.hit ? (dis ? 'DISARM' : '-' + e.hp) : into || wBlocked(u, t, e, ranged) ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     (a.fat || []).forEach(function (f) { windTag(f, a.at - performance.now() + B * 0.45 + (f.id === e.to ? 0 : B * 0.25)); });
     if (dis) pop(t, '', e.hit ? '#e0c06a' : '#8f8678', false, u.name + (e.hit ? ' lashes the weapon out of ' + t.name + "'s hands" : "'s lash misses " + t.name + "'s hands") + ' (' + e.chance + '%)');   /* draft:true */
     else pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
@@ -8651,6 +8747,7 @@ function poseOf(v, now) {
   /* THE PUNCH: he takes the blow when it lands, never before (measured 11/2: the struck man showed his hit key from the swing's
      first frame, 225 ms before the blow, so his reaction came first and the landing changed nothing but a tint) */
   if (UI.hitUntil && UI.hitUntil[v.id] > now && !(UI.hitFrom && UI.hitFrom[v.id] > now)) return { col: clipCol('hit', 1, L), clip: 'hit' };
+  { const bl = wBlockOf(v, now); if (bl) { const by = FIGHT.byId(bl.q.by); if (by) turnTo(v, dirOf(by.x - v.x, by.y - v.y), now); return { col: clipCol('hit', bl.k, L), clip: 'hit' }; } }   /* __THE_FIGHTS_WEIGHT__: the shield up (SBlock) */
   /* standing: he faces the nearest man of theirs he knows of (a man fleeing faces away) */
   const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
     .sort(function (p, q) { return Math.abs(p.x - v.x) + Math.abs(p.y - v.y) - Math.abs(q.x - v.x) - Math.abs(q.y - v.y); })[0];
@@ -9602,8 +9699,8 @@ function layOver(v, X, feet) {
 }
 function drawMan(v, tw, th) {
   const h = manH(), you = v.side === 'you', now = performance.now();
-  const kn = knockOf(v, h, now);   /* THE PUNCH: knocked from the blow, or lunging into his own */
-  const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now) + kn.x, feet = sy((dy(v) + .9) * UI.th) + kn.y;
+  const kn = knockOf(v, h, now), wp = wPush(v, h, now);   /* THE PUNCH: knocked from the blow, or lunging into his own; __THE_FIGHTS_WEIGHT__: behind his shield, off his shot */
+  const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now) + kn.x + wp.x, feet = sy((dy(v) + .9) * UI.th) + kn.y + wp.y;
   const lvl = th * riseAt(v.x, v.y);
   const Y = feet - lvl;
   if (v.champion && !v._seen) pop(v, '', '#e0a040', true, v.name + (v.champTitle ? ', ' + v.champTitle : '') + ', is with them.');   /* __CHAMPIONS_ARE_NAMED_MEN__ (draft:true) */
@@ -9623,7 +9720,9 @@ function drawMan(v, tw, th) {
       mkLine(X - a, Y - b + q[1], X + a, Y + b + q[1], q[0], 2); mkLine(X - a, Y + b + q[1], X + a, Y - b + q[1], q[0], 2); });
   }
   mkOff();
+  if (!past) wFlareGround(v, X, Y, h, now);   /* __THE_FIGHTS_WEIGHT__: the street lit by his shot, under him */
   blitMan(v, X, Y, now, (v.morale === 'Fleeing' ? .7 : 1) * fade);
+  wDrawn(v, now);   /* __THE_FIGHTS_WEIGHT__: what of him was drawn this frame, counted */
   if (v.netted) netOver(X, Y, h);
   layOver(v, X, Y);   /* THE LAYERS (ask line 251): whatever stands south of him covers him where its picture is; his bars stay over it */
   /* WHO IS MINE AT A GLANCE (COMBAT [the PC playtest: the fight's part] (2), rule 164 item 17, Paolo 10/24: 'it's hard to tell

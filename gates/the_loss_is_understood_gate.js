@@ -80,9 +80,12 @@ const OPEN = '__THE_WIPE_RIDES_HOME__';
     });
     /* 4: a missed blow on the thug, through the board's own animation */
     out.dodge = await p.evaluate(async () => {
-      const u = FIGHT.S.units.filter(v => v.side === 'you' && v.main)[0], t = FIGHT.S.units.filter(v => v.side === 'them')[0];
+      /* AMENDED 11/10 (MOTION 3, THE FIGHT'S WEIGHT, rule 443(e), marked): a club blow that misses a man with a shield up is the rules'
+         own block and is now drawn as one (the shield up, BLOCKED, the cover's mark), so the dodge is staged on a man with no shield,
+         or as a shot (a shot he misses is always a dodge) where every man of theirs carries one */
+      const them = FIGHT.S.units.filter(v => v.side === 'them'), u = FIGHT.S.units.filter(v => v.side === 'you' && v.main)[0], t = them.filter(v => !v.shield && !v.walled)[0] || them[0];
       const h = manH(), x0 = dodgeLean(t, h, performance.now());
-      startAnim({ k: 'attack', dur: beatMs(), e: { t: 'attack', id: u.id, to: t.id, hit: false, chance: 40, hp: 0, armour: 0, shot: false } });
+      startAnim({ k: 'attack', dur: beatMs(), e: { t: 'attack', id: u.id, to: t.id, hit: false, chance: 40, hp: 0, armour: 0, shot: !!(t.shield || t.walled) } });
       /* the peak of the sidestep over its window (one sample can land on its tail on a busy box) */
       const t0 = performance.now(); let mid = 0;
       while (performance.now() - t0 < beatMs() * 1.2) { const l = dodgeLean(t, h, performance.now()); if (Math.abs(l) > Math.abs(mid)) mid = l; await new Promise(r => setTimeout(r, 12)); }
