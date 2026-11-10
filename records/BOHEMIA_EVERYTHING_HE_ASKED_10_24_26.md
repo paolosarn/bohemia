@@ -592,3 +592,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 568 | The camp after a fight: stay on the combat map, the clock stopped, watch his men set it up, THEN time fast-forwards; never out to the big map and back | 444(a) | MOTION 3 | IN FLIGHT 11/10 |
 | 569 | Nothing of the camp on top of a building: the camp's pieces on open ground only | 444(b) | MOTION 3 | IN FLIGHT 11/10 |
 | 570 | The scavenge minigame needs more love: the most rhythm-based minigame in the game, the skeleton kept | 444(c) | SCAVENGE 2 | IN FLIGHT 11/10 |
+| 571 | Everything custom to him (the bosses' prizes, what he builds, anything from his impact on the world) lives in his own settlement, built from the ground up, on the settlement system that exists (its camera angles) | 445 | HOME BASE (the seam and the placing), BOSSES (each prize lands there) | IN FLIGHT 11/10 |
