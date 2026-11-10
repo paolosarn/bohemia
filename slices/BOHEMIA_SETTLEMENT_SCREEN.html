@@ -3572,6 +3572,13 @@ function townLetGo(){
 function loop(){
   if(window.frameElement && townHidden()){ if(!TOWN_LET_GO){ TOWN_LET_GO = true; townLetGo(); } setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
   TOWN_LET_GO = false;
+  /* __THE_TOWN_RESTS_UNDER_THE_GAME__ (SCAVENGE 2 11/10, rules 400 and 444(c)): while the scavenge game is on the glass this screen is
+     under its cover (opaque, the whole glass), so nothing it draws is seen, and it was drawing every frame all the same. MEASURED on the
+     demo, a phone, a block played: this page's draw was the biggest thing on the page's thread (its fill 16% of all time, the thread 6%
+     idle) while the game's own work was under 1%; a rhythm game cannot share a frame with that on a cheap phone. Under the game the town
+     draws nothing and looks again eight times a second; the frame the game goes, it draws. Nothing is let go: he is still in the town.
+     Only for the game THIS visit opened (S.scavOpen) with its frame and its cover both on the glass: a leftover frame rests nothing. */
+  if(S.scavOpen && document.getElementById('scavgame') && document.getElementById('scavcover')){ window.__TOWN_RESTED = (window.__TOWN_RESTED | 0) + 1; setTimeout(function(){ requestAnimationFrame(loop); }, 120); return; }
   draw(); try{ crewOverDraw(); }catch(e){} try{ restTrails(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* CAMP's call in the town (RUN THREE) */
 }
 /* ==== __THE_LONG_EXPOSURE__ (FINISHER 11/2; rule 273(c), ask line 210; Paolo 10/26: 'HEAL/CAMP in the settlement screen: time
@@ -3796,6 +3803,20 @@ function pinchEnd(){
 var HOLDK = { t: null };   /* WORDS rule 316: the hold on one of his men */
 (function(){
   var x0 = null, c0 = 0, y0 = 0, cy0 = 0, moved = false;
+  /* __ONE_TAP_ONE_ANSWER__ (SCAVENGE 2 11/10, rules 438 and 444(c); FOUND while proving the scavenge game on the real page). A tap on
+     the town's picture is answered on the finger's LIFT (pointerup, below), which opens a building's sheet at once; a phone then
+     sends the CLICK of that same touch to whatever is under the finger NOW, and that is the sheet that just opened. MEASURED on the
+     demo and the alpha, a phone: one tap on the lot opened its sheet AND pressed 'Search the lot' under the thumb (the game up, four
+     hours spent, nothing chosen) whenever the button landed on the lot's spot (gates/search_the_lot_answers_gate.js: the alpha on its
+     side 7/3 on main 04ead582, every time; upright by the length of YOUR line that visit). It is every sheet's hazard (a stall's first
+     row, a hire). One tap, one answer: the click that follows a tap on the picture, from the same spot within the same breath, is that
+     tap's own and is swallowed here before any button hears it. A second tap is a new touch somewhere on a button: it is never this. */
+  var ONE_TAP = { t: 0, x: 0, y: 0 };
+  document.addEventListener('click', function(e){
+    if(!ONE_TAP.t) return; var dt = performance.now() - ONE_TAP.t; ONE_TAP.t = 0;
+    if(dt < 700 && Math.abs(e.clientX - ONE_TAP.x) < 14 && Math.abs(e.clientY - ONE_TAP.y) < 14 && e.target !== cv){
+      e.stopPropagation(); e.preventDefault(); window.__ONE_TAP_SWALLOWED = (window.__ONE_TAP_SWALLOWED | 0) + 1; }
+  }, true);
   cv.addEventListener('pointerdown', function(e){
     PINCH.pts[e.pointerId] = {x:e.clientX, y:e.clientY};   /* __PINCH_OUT_TO_THE_MAP__ */
     if(pinchN() >= 2){ if(!PINCH.on) pinchStart(); x0 = null; moved = true; view.lit = null; return; }
@@ -3818,6 +3839,7 @@ var HOLDK = { t: null };   /* WORDS rule 316: the hold on one of his men */
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
     if(!S.camp && !picIn()) return;   /* __NOTHING_TAPPABLE_UNDER_THE_PHONE__ (ask line 248): nothing drawn, nothing answers */
+    ONE_TAP.t = performance.now(); ONE_TAP.x = e.clientX; ONE_TAP.y = e.clientY;   /* __ONE_TAP_ONE_ANSWER__: the click this same touch still owes belongs to the picture */
     if(S.camp && window.BohemiaCampLook && BohemiaCampLook.tap()) return;   /* __CAMP_TWO__ (rule 269(c)): a tap skips the pitch */
     var r = cv.getBoundingClientRect(), sk = signAt(e.clientX - r.left, e.clientY - r.top);
     if(sk){ openB(sk); return; }   /* the sign hangs in front of everybody: its door, one tap (TUNING's change 7) */

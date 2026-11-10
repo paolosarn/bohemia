@@ -406,7 +406,7 @@ const srv = http.createServer((rq, rs) => {
   /* scavenge: one thing or nothing, and the lot runs out.
      RE-AIMED BY SCAVENGE 11/7 (rule 426(b), Paolo's YES: 'I want it to be like a fun minigame'): with no dead in the lot, 'Search the
      lot' (the same button, the same four hours, once) opens the minigame on the block's own board (slices/BOHEMIA_SCAVENGE.html; its
-     own gate plays it: gates/scavenge_on_the_dial_gate.js). What it hands back is paid HERE, one thing a find, one off the lot each,
+     own gate plays it: gates/scavenge_is_the_rhythm_gate.js). What it hands back is paid HERE, one thing a find, one off the lot each,
      until the lot is picked clean; the screen comes back and YOU say what came back. */
   await tapB('lot'); await p.waitForTimeout(60);
   { const b0 = await p.$('#sbody .act'); if (b0) await b0.click(); }

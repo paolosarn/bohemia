@@ -1,0 +1,20 @@
+POSTMORTEM: SCAVENGE ON THE DIAL, THE WAY IT PLAYED (built 11/7 by SCAVENGE as BUILD 11/7k, 808fa5f7, rule 426(b); the play
+replaced 11/10 by SCAVENGE 2, rule 444(c). THE SKELETON LIVES: the block's own board, the crew, the six spots, one thing or nothing.)
+
+His words, 11/10: "the scavenge mini game needs a little more love. I feel the skeleton, I appreciate it, but it's not rhythm
+based; out of everything I want that to be the most rhythm based minigame."
+What it was: at each spot the old Dead Shot Dial opened with ONE needle on one of the old fight's patterns, the middle coming
+round on a downbeat every one to two bars. A house: one tap. The detector: one tap, the bands hidden, beeps filling in. The
+siphon: one hold, one let-go. One input a spot, about six seconds, most of it waiting for the needle to come round.
+Why it died: one tap after a wait is a timing test, not rhythm. Nothing in it was a phrase: he never played two beats in a row,
+the crew stood still, the beat was a lamp under the dial, and a needle that swings on its own is a thing he WAITS for. The rule
+it was built to (331: 'some rhythm-based game working in the Dead Shot Dial') was read as 'the dial, on the beat'; he meant
+rhythm first. The gate (here) was green the whole time: it measured that the middle lands on the ONE, never that there was
+anything to play.
+What went: the needle on a pattern (openDial, rollQuick, the quick pool, give-up after sixteen beats), the detector's
+beeps-per-beat ear, the siphon's glide. What stayed: every part of the skeleton, the finds table, the hand-back to the town,
+and THE DIAL ITSELF as the judge: the beats now ride its track and its own three bands grade every tap
+(slices/bohemia_scavenge_game.js judge()). engine/bohemia_dial.js is untouched and still held byte for byte
+(gates/scavenge_is_the_rhythm_gate.js, D1).
+Lesson: when he names a feeling (rhythm), build the thing that IS the feeling (a phrase he plays), not the old part with the
+feeling's name on it. And a gate that only proves the machine is exact says nothing about whether it is a game.

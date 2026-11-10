@@ -5,29 +5,42 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Scavenge</title>
 <!-- ============================================================================
-   BOHEMIA -- SCAVENGE ON THE DIAL, THE PAGE (SCAVENGE 11/7/26; rule 426(b), Paolo 11/7 YES: 'I want it to be like a fun minigame';
-   the design: records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md; the rules: slices/bohemia_scavenge_game.js; the dial:
-   engine/bohemia_dial.js; the gate: gates/scavenge_on_the_dial_gate.js).
-   THE BLOCK'S OWN BOARD: the board is dealt and baked by the fight's own page, in the mode the camp already uses
-   (slices/BOHEMIA_FIGHT.html __THE_CAMP_ON_THE_BOARD__, FIGHT_OPTS.campBoard: the fight's dealer, the fight's bake, nothing of a fight
-   started), on the options a fight on this block is handed (the shell's nfOpts, asked and put back, as slices/bohemia_camp_board.js
-   asks). Nothing in the fight's file is changed. The crew are the men that board deals for the company, drawn from their own sheets
-   (slices/fight_rig/), at the fight's man size: the ground may zoom, the person may not.
-   ONE GAME, THREE WAYS: a lit house, a lit patch of ground, a lit car; tap one, the nearest man walks there on the beat, the old dial
-   opens over him. No noise, nobody comes, no chain, no greed (rule 331). LEAVE any time. Nothing scrolls (rule 402).
+   BOHEMIA -- SCAVENGE, THE BLOCK PLAYS THE SONG: THE PAGE (SCAVENGE 2, 11/10/26, rule 444(c), ask line 570; the skeleton is
+   SCAVENGE's, 11/7, rule 426(b)). PAOLO 11/10: 'the scavenge mini game needs a little more love. I feel the skeleton, I
+   appreciate it, but it's not rhythm based; out of everything I want that to be the most rhythm based minigame'.
+   The rules: slices/bohemia_scavenge_game.js; the dial's bands: engine/bohemia_dial.js; the gate:
+   gates/scavenge_is_the_rhythm_gate.js; the record and its research: records/BOHEMIA_SCAVENGE_TWO_THE_BLOCK_PLAYS_THE_SONG_11_10_26.md.
+   THE SKELETON, KEPT: THE BLOCK'S OWN BOARD, dealt and baked by the fight's own page in the mode the camp already uses
+   (slices/BOHEMIA_FIGHT.html __THE_CAMP_ON_THE_BOARD__, FIGHT_OPTS.campBoard), on the options a fight on this block is handed (the
+   shell's nfOpts, asked and put back). Nothing in the fight's file is changed. The crew are the men that board deals for the
+   company, from their own sheets (slices/fight_rig/), at the fight's man size: the ground may zoom, the person may not. Up to six
+   lit spots, one thing or nothing a spot, LEAVE any time, nothing scrolls (rule 402).
+   THE RHYTHM, NEW: every spot is a short PHRASE of the song the shell is playing (its own beat, window.BOHEMIA_BEAT; its own root
+   and scale, MUS.fac()), four to eight beats at 120 BPM. BEATS COME TO THE MAN: born at the thing, they reach the end of the
+   dial's track and ride it to the middle in two beats; he taps as each crosses (a house: on the beat; the detector: it beeps a
+   bar, he taps the bar back; the siphon: hold and let go on the beat). The dial's own bands judge every tap.
+   THE BEAT IS SEEN AS WELL AS HEARD: the picture is the truth and the judge (the beads, the needle, the lamps, the whole crew
+   stepping on the beat); the sounds are booked AHEAD on the audio clock so they are heard on the picture (the way to the ear
+   taken off: a phone's speaker, a Bluetooth ear where the browser reports it); and THE ALLOWANCE follows the middle of his own
+   taps for the lag nothing reports. Sound off, it plays the same.
+   THE SOUNDS ARE STRUCK THINGS, NEVER NOISE (NO SAND): a hollow door, a boot on dirt, a steel jerrycan (a free bar's own
+   partials), a bubble in a hose (Minnaert), the detector's own oscillator. No voice.
    OPENED BY: the settlement screen's lot ('Search the lot', four hours, once), which pays each find through its own lines.
-   BENCH: BOHEMIA_SCAVENGE.html?bench=suburb (&seed=N, &night=1, &pkg=0..4): a template board of that kind, no map.
-   Hands back: parent.postMessage({type:'BOHEMIA_SCAVENGE_DONE', finds:[{kind, zone, got, outcome, greedMult}], ...}) and
-   window.__SCAV_DONE; window.SCAV.state() for the gate.
+   BENCH: BOHEMIA_SCAVENGE.html?bench=suburb (&seed=N, &night=1, &pkg=0..4, &left=N): a template board of that kind, no map.
+   Hands back: parent.scavDone / postMessage({type:'BOHEMIA_SCAVENGE_DONE', finds:[{kind, zone, got, outcome, greedMult}], ...})
+   and window.__SCAV_DONE; window.SCAV.state() for the gate.
    ============================================================================ -->
 <style>
 @font-face{font-family:BohemiaCasing;src:url(fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:swap}
 :root{--ink:#2a2520;--paper:#ece4d0;--ember:#ff965c;--amber:#e6a84a;--plate:#261e1a;--rim:#7a6a52;--dim:#a89c84}
 html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
-#g{position:fixed;inset:0;width:100%;height:100%;display:block}
+#bg,#mid,#g{position:fixed;inset:0;width:100%;height:100%;display:block}
+#bg,#mid{pointer-events:none}
 #plate{position:fixed;right:max(8px,env(safe-area-inset-right));bottom:max(8px,env(safe-area-inset-bottom));width:132px;background:rgba(38,30,26,.96);
   border:2px solid var(--rim);border-radius:6px;padding:6px;font:13px/1 BohemiaCasing,ui-monospace,monospace;color:var(--paper);box-sizing:border-box}
-#plate .t{background:var(--paper);color:var(--ink);padding:6px 6px 5px;font-size:15px;letter-spacing:1px;border-radius:3px;margin-bottom:5px}
+#plate .t{background:var(--paper);color:var(--ink);padding:6px 6px 5px;font-size:15px;letter-spacing:1px;border-radius:3px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:baseline}
+#plate .t b{font-weight:400;font-size:13px;min-width:1px}
+#plate .t b.hot{color:#b3401c}
 #plate .r{display:flex;justify-content:space-between;padding:4px 5px;margin:2px 0;border-radius:3px;background:rgba(236,228,208,.08)}
 #plate .r.on{background:var(--amber);color:var(--ink)}
 #plate .r.none{opacity:.35}
@@ -42,10 +55,10 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
 </style>
 </head>
 <body>
-<canvas id="g"></canvas>
+<canvas id="bg"></canvas><canvas id="mid"></canvas><canvas id="g"></canvas>
 <div id="wait"><b></b></div>
 <div id="plate" hidden>
-  <div class="t">SCAVENGE</div>
+  <div class="t"><span>SCAVENGE</span><b id="combo"></b></div>
   <div class="r" data-k="house"><span>HOUSE</span><span>x0</span></div>
   <div class="r" data-k="ground"><span>GROUND</span><span>x0</span></div>
   <div class="r" data-k="car"><span>CAR</span><span>x0</span></div>
@@ -58,15 +71,25 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
 (function () {
   'use strict';
   var D = window.BohemiaDial, R = window.BohemiaScavengeGame;
-  var cv = document.getElementById('g'), g = cv.getContext('2d');
-  var BEAT = 500, MAN = 100 / 98;                 /* 120 BPM; the man's sheet px to css px: 98 painted px = a 1.72 m man at ~100 css (the fight's) */
+  /* THREE SHEETS OF GLASS (rule 400: nothing redrawn that did not change): the board, painted once a view; the lit spots and their
+     names, painted when a spot changes, beating by its opacity alone; and the one sheet that is drawn every frame (the crew, the
+     dial, the beats) */
+  var cv = document.getElementById('g'), g = cv.getContext('2d'), cvB = document.getElementById('bg'), cvM = document.getElementById('mid'), gM = cvM.getContext('2d');
+  var MAN = 100 / 98;                             /* the man's sheet px to css px: 98 painted px = a 1.72 m man at ~100 css (the fight's) */
+  var AGAIN = false;
+  var FAR_MS = 120;                               /* an ear this far away (ms, as the phone reports it) is a Bluetooth one */
+  var AHEAD = 170;                                /* ms a sound is booked before it is heard (the look-ahead; a slow frame never moves a note); a far ear
+                                                     needs more: ahead() */
+  var CLK = { t0: performance.now(), bm: R.BEAT_MS, src: 'own' };   /* a bar's ONE on this page's clock, a beat in ms, whose beat it is */
   var GOOD = { medicine: 'MEDS', food: 'FOOD', battery: 'BATTERY', tape: 'TAPE', ammo: 'ROUNDS' };
   var LABEL = { house: 'SEARCH', ground: 'DETECTOR', car: 'SIPHON' };
   var DIRS = 8, CLIP = { stand: [0], walk: [1, 2, 3, 4, 5, 6], swing: [10, 11, 12], carry: [18] };
-  var S = { phase: 'none', o: null, t0: 0, board: null, img: null, tw: 0, th: 0, AR: 364 / 515, view: null, spots: [], men: [], act: null,
-    finds: [], log: [], err: null, done: null, sheets: {}, pkg: 1, audio: null, toneOn: false, bakeMs: 0 };
+  var S = { phase: 'none', o: null, board: null, img: null, tw: 0, th: 0, AR: 364 / 515, view: null, spots: [], men: [], act: null,
+    finds: [], log: [], err: null, done: null, sheets: {}, pkg: 1, bakeMs: 0, seed: 7, song: null, clk: CLK,
+    cels: {}, slow: [], booked: [], gap: 0, combo: 0, best: 0, offs: [], lag: 0, lag0: 0, first: true, lat: 0, heard: 0, nextBeat: 0, tags: [], pop: null, hop: null, fade: null, hold: null,
+    perf: { n: 0, work: 0, worst: 0, over20: 0, over34: 0, gap: 0 } };
   window.SCAV = S;
-  function beatNow() { return (performance.now() - S.t0) / BEAT; }
+  try { var l0 = +localStorage.getItem('boh.scav.lag'); if (l0 === l0) S.lag0 = S.lag = R.lagOf([], l0); } catch (e) {}   /* what his last visit learned of his lag */
 
   /* ------------------------------------------------------------------ the board: the fight's own dealer and bake (its camp mode) */
   function topWin() { try { if (window.top && window.top !== window && window.top.document) return window.top; } catch (e) {} return null; }
@@ -143,7 +166,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
   var W = 0, H = 0, DPR = 1;
   function size() {
     DPR = Math.min(3, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
-    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    [cv, cvB, cvM].forEach(function (c) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }); S.bgFor = null; S.midFor = null; S.cels = {};
   }
   function plateRect() { var p = document.getElementById('plate'); if (p.hidden) return null; var r = p.getBoundingClientRect(); return { l: r.left - 10, t: r.top - 10, r: r.right, b: r.bottom }; }
   function makeView(B) {
@@ -178,21 +201,26 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
       document.getElementById('plate').hidden = false;
       S.view = makeView(S.board);
       var n = o.left == null ? R.MAX_SPOTS : Math.max(0, Math.min(R.MAX_SPOTS, o.left | 0));
-      S.spots = R.spots(S.board, { n: n, seed: (o.seed || opts.deal || opts.seed || 7) >>> 0,
+      S.seed = (o.seed || opts.deal || opts.seed || 7) >>> 0;
+      S.spots = R.spots(S.board, { n: n, seed: S.seed,
         keep: function (s) { return onGlass(s.x, s.y, 24) && onGlass(s.sx, s.sy, 24); } }).map(function (s) { s.state = 'open'; return s; });
       S.men = S.board.crew.filter(function (c) { return onGlass(c.x, c.y, -40); }).map(function (c, i) {
         return { i: i, name: c.name, x: c.x, y: c.y, file: c.file, w: c.w, h: c.h, foot: c.foot, dir: 0, pose: 'stand', busy: false }; });
       if (!S.men.length) S.men = S.board.crew.slice(0, 1).map(function (c, i) { return { i: i, name: c.name, x: c.x, y: c.y, file: c.file, w: c.w, h: c.h, foot: c.foot, dir: 0, pose: 'stand', busy: false }; });
       S.men.forEach(function (m) { sheet(m.file); });
       document.getElementById('wait').style.display = 'none';
-      S.t0 = performance.now(); S.phase = S.spots.length ? 'play' : 'empty';
+      readShell(); S.phase = S.spots.length ? 'play' : 'empty';
       plate();
-      if (!S.spots.length) setTimeout(function () { finish('nothing to search'); }, BEAT * 4);
+      if (!S.spots.length) setTimeout(function () { finish('nothing to search'); }, CLK.bm * 4);
       requestAnimationFrame(frame);
       return S.state();
     }).catch(function (e) { S.err = String(e && e.message || e); S.phase = 'failed'; finish('the board did not come'); return S.state(); });
   };
-  function sheet(file) { if (S.sheets[file]) return S.sheets[file]; var im = new Image(); im.src = 'fight_rig/' + file; S.sheets[file] = im; return im; }
+  /* a man's sheet, and his standing poses cut out the moment it is in (one sheet a task: never a slow frame in the play) */
+  function sheet(file) { if (S.sheets[file]) return S.sheets[file]; var im = new Image();
+    im.onload = function () { try { S.men.forEach(function (m) { if (m.file === file) precut(m, [m.dir], [0, CLIP.walk[0], CLIP.walk[3]]); }); } catch (e) {} };
+    im.src = 'fight_rig/' + file; S.sheets[file] = im; return im; }
+  function precut(m, dirs, cols) { dirs.forEach(function (d) { cols.forEach(function (c) { cel(m, c, d); }); }); }
 
   /* ------------------------------------------------------------------ the plate (the phone's frame says SCAVENGE) */
   function plate() {
@@ -203,16 +231,99 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
     });
     var f = document.getElementById('found'); f.innerHTML = '';
     S.finds.forEach(function (r) { if (!r.got) return; var i = document.createElement('i'); i.textContent = GOOD[r.got] || r.got; if (r.zone === 'kill') i.className = 'kill'; f.appendChild(i); });
+    var c = document.getElementById('combo'); c.textContent = S.combo >= 2 ? 'x' + S.combo : ''; c.className = S.combo >= R.COMBO_STEPS[0] ? 'hot' : '';   /* the combo across spots: felt, never paid */
   }
 
-  /* ------------------------------------------------------------------ sound: a detector's tone is an oscillator, as a real one is */
-  function ac() { if (!S.audio) { try { S.audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { S.audio = null; } } return S.audio; }
-  function blip(hz, ms, vol, type) { var A = ac(); if (!A) return; try { var o = A.createOscillator(), v = A.createGain(), t = A.currentTime;
-    o.type = type || 'sine'; o.frequency.value = hz; v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(vol, t + 0.004); v.gain.exponentialRampToValueAtTime(0.0001, t + ms / 1000);
-    o.connect(v); v.connect(A.destination); o.start(t); o.stop(t + ms / 1000 + 0.02); } catch (e) {} }
-  function tone(on) { var A = ac(); if (!A) return; try {
-    if (on && !S.toneO) { var o = A.createOscillator(), v = A.createGain(); o.frequency.value = 1900; v.gain.value = 0.0001; v.gain.linearRampToValueAtTime(0.09, A.currentTime + 0.02); o.connect(v); v.connect(A.destination); o.start(); S.toneO = o; S.toneV = v; }
-    if (!on && S.toneO) { var O = S.toneO, V = S.toneV; V.gain.linearRampToValueAtTime(0.0001, A.currentTime + 0.03); O.stop(A.currentTime + 0.05); S.toneO = null; S.toneV = null; } } catch (e) {} }
+  /* ------------------------------------------------------------------ THE CLOCK IS THE SONG'S (rule 158: window.BOHEMIA_BEAT, the one
+     beat the shell books as HEARD; alone, this page's own 120). The beat count runs on from the page's first frame; only its phase
+     is the song's. Read between spots, never inside a phrase: a phrase's beats keep the times they were given. */
+  function beatAt(t) { return (t - CLK.t0) / CLK.bm; }
+  function beatNow() { return beatAt(performance.now()); }
+  function msAt(b) { return CLK.t0 + b * CLK.bm; }
+  function readShell() {
+    var T = topWin(); if (!T) return;
+    try { var B = T.BOHEMIA_BEAT, st = B && typeof B.now === 'function' ? B.now() : null;
+      if (st && st.beatMs > 0) { var t0 = performance.now() - (st.beatInBar + st.phase) * st.beatMs, bar = 4 * st.beatMs;
+        CLK.t0 = t0 + Math.round((CLK.t0 - t0) / bar) * bar; CLK.bm = st.beatMs; CLK.src = st.src || 'song'; } } catch (e) {}
+    /* the song that is playing: its root and its scale are the phrase's notes (read, never changed) */
+    try { var f = T.eval('typeof MUS !== "undefined" && MUS && MUS.fac ? (function () { var f = MUS.fac(); return f ? { name: f.n || f.name || null, root: f.root, scale: f.scale } : null; })() : null');
+      if (f && f.scale && f.scale.length && f.root > 0) S.song = { name: f.name, root: f.root | 0, scale: Array.prototype.slice.call(f.scale) }; } catch (e) {}
+  }
+
+  /* ------------------------------------------------------------------ SOUND: struck things, never noise (NO SAND). Each voice is a
+     named object as a bank of its own partials [ratio, loudness, seconds it rings]:
+       DOOR  knuckles and a bar on a hollow-core door (a thin wood panel: its low modes close together, dead in a tenth of a second)
+       BOOT  a boot heel on packed dirt (one low mode that drops as it lands)
+       CAN   a steel jerrycan knocked by the hose: a free steel bar's own partials, 1 : 2.756 : 5.404 : 8.933
+       GLUG  one bubble up the hose (Minnaert: a bubble rings at one pitch that rises as it closes), not a sample
+       BEEP  the detector's own oscillator through its small speaker (a real detector's tone IS an oscillator)
+     One context: the shell's, on its effects bus (his EFFECTS slider and mix hold); alone, this page's own. */
+  var DOOR = [[1, 1, 0.11], [1.58, 0.5, 0.07], [2.24, 0.32, 0.05], [2.92, 0.18, 0.035], [4.1, 0.08, 0.025]];
+  var BOOT = [[1, 1, 0.1], [2.1, 0.3, 0.04]];
+  var CAN = [[1, 1, 0.32], [2.756, 0.45, 0.18], [5.404, 0.22, 0.1], [8.933, 0.1, 0.06]];
+  function out() {
+    if (S.out !== undefined) return S.out;
+    var T = topWin(), o = null; try { o = T && typeof T.__sfxOut === 'function' ? T.__sfxOut() : null; } catch (e) { o = null; }
+    try {
+      if (o && o.AC) S.out = { AC: o.AC, P: T, own: false };
+      else { var A = new (window.AudioContext || window.webkitAudioContext)(); S.out = { AC: A, P: window, own: true }; o = { bus: A.destination }; }
+      S.out.g = S.out.AC.createGain(); S.out.g.gain.value = 0.9; S.out.g.connect(o.bus || S.out.AC.destination);
+    } catch (e) { S.out = null; }
+    return S.out;
+  }
+  function live() { var o = out(); return o && o.AC.state === 'running' ? o : null; }
+  function ahead() { return Math.max(AHEAD, S.lat + 80); }   /* a sound must be booked before it leaves for the ear: further ahead the further the ear */
+  /* the audio clock's time to BOOK a sound so that it is HEARD at this page's ms (the way to the ear taken off: the context's own
+     output stamp, else its reported latency). A sound for now: null. */
+  function heard(pageMs, rel) {   /* rel: a sound that follows his own tap (not one of the grid's), for the gate's count */
+    var o = live(); if (!o) return null; var A = o.AC, ts = null, shift = 0;
+    try { shift = o.P.performance.timeOrigin - performance.timeOrigin; } catch (e) { shift = 0; }
+    try { ts = A.getOutputTimestamp ? A.getOutputTimestamp() : null; } catch (e) { ts = null; }
+    var t = ts && ts.contextTime > 0 && ts.performanceTime > 0 ? ts.contextTime + (pageMs - shift - ts.performanceTime) / 1000
+      : A.currentTime + (pageMs - performance.now()) / 1000 - ((A.outputLatency || 0) + (A.baseLatency || 0));
+    S.lat = Math.round((A.currentTime - (t - (pageMs - performance.now()) / 1000)) * 1000);   /* the way to the ear, ms, as this phone tells it */
+    S.booked.push({ at: pageMs, ctx: t, late: t < A.currentTime, rel: !!rel }); if (S.booked.length > 80) S.booked.shift();
+    return Math.max(A.currentTime + 0.002, t);
+  }
+  function wow() { return 1 + 0.004 * Math.sin(performance.now() / 1000 * 2.83); }   /* a worn tape's slow drift, seven cents (the song engine's own wow) */
+  function strike(bank, hz, at, vol, drop) {
+    var o = live(); if (!o || !(vol > 0)) return; var A = o.AC, t = Math.max(A.currentTime + 0.002, at || 0), f = hz * wow();
+    try { var m = A.createGain(); m.gain.value = vol; m.connect(o.g);
+      bank.forEach(function (p) { var os = A.createOscillator(), v = A.createGain(); os.type = 'sine';
+        if (drop) { os.frequency.setValueAtTime(f * p[0] * drop, t); os.frequency.exponentialRampToValueAtTime(f * p[0], t + 0.03); } else os.frequency.value = f * p[0];
+        v.gain.setValueAtTime(0.0001, t); v.gain.linearRampToValueAtTime(p[1], t + 0.003); v.gain.exponentialRampToValueAtTime(0.0004, t + p[2]);
+        os.connect(v); v.connect(m); os.start(t); os.stop(t + p[2] + 0.03); });
+      S.heard++; } catch (e) {}
+  }
+  function beep(hz, at, ms, vol) {
+    var o = live(); if (!o) return; var A = o.AC, t = Math.max(A.currentTime + 0.002, at || 0);
+    try { var os = A.createOscillator(), lp = A.createBiquadFilter(), v = A.createGain(); os.type = 'square'; os.frequency.value = hz * wow();
+      lp.type = 'bandpass'; lp.frequency.value = 1900; lp.Q.value = 0.9;   /* the detector's two-inch speaker */
+      v.gain.setValueAtTime(0.0001, t); v.gain.linearRampToValueAtTime(vol, t + 0.004); v.gain.setValueAtTime(vol, t + ms / 1000 - 0.012); v.gain.linearRampToValueAtTime(0.0001, t + ms / 1000);
+      os.connect(lp); lp.connect(v); v.connect(o.g); os.start(t); os.stop(t + ms / 1000 + 0.02); S.heard++; } catch (e) {}
+  }
+  function glug(hz, at, vol) {
+    var o = live(); if (!o) return; var A = o.AC, t = Math.max(A.currentTime + 0.002, at || 0);
+    try { var os = A.createOscillator(), v = A.createGain(); os.type = 'sine'; os.frequency.setValueAtTime(hz, t); os.frequency.exponentialRampToValueAtTime(hz * 1.9, t + 0.075);
+      v.gain.setValueAtTime(0.0001, t); v.gain.linearRampToValueAtTime(vol, t + 0.006); v.gain.exponentialRampToValueAtTime(0.0004, t + 0.1);
+      os.connect(v); v.connect(o.g); os.start(t); os.stop(t + 0.13); S.heard++; } catch (e) {}
+  }
+  function buzz(kind) { try { var T = topWin(), h = (typeof window.haptic === 'function' && window.haptic) || (T && typeof T.haptic === 'function' && T.haptic); if (h) h(kind); } catch (e) {} }
+  /* THE CREW KEEPS THE BEAT (the heard half of what is seen): a boot on every beat while a man is out or a combo is alive, the ONE
+     heavier; a combo adds the tin on the 'and', then the can on the ONE, then its fifth. Booked ahead, heard on the picture. */
+  function groove(now) {
+    var on = !!S.act || S.combo >= R.COMBO_STEPS[0];
+    var soon = now + S.lat + 12;   /* the first beat a sound booked now can still be heard on */
+    if (!on || S.phase !== 'play') { S.nextBeat = Math.ceil(beatAt(soon)); return; }
+    if (!(S.nextBeat >= beatAt(soon))) S.nextBeat = Math.ceil(beatAt(soon));
+    while (msAt(S.nextBeat) <= now + ahead()) {
+      var k = S.nextBeat++, at = msAt(k), one = ((k % 4) + 4) % 4 === 0, st = R.comboStep(S.combo), root = 440 * Math.pow(2, ((S.song || R.SONG).root - 69) / 12);
+      strike(BOOT, one ? 54 : 62, heard(at), one ? 0.17 : 0.11, 1.7);
+      if (st >= 1) strike(CAN, 2093, heard(at + CLK.bm / 2), 0.014 + 0.004 * st);
+      if (st >= 2 && one) strike(CAN, root * 2, heard(at), 0.035);
+      if (st >= 3 && ((k % 4) + 4) % 4 === 2) strike(CAN, root * 3, heard(at), 0.028);
+    }
+  }
 
   /* ------------------------------------------------------------------ the play */
   function freeMan(s) {
@@ -222,206 +333,391 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
   function dirOf(dx, dy) { var a = Math.atan2(dy, dx) * 180 / Math.PI; return ((Math.round((90 - a) / 45) % DIRS) + DIRS) % DIRS; }
   function send(s) {
     var m = freeMan(s); if (!m) return false;
+    readShell();
     var b = beatNow(), dist = Math.hypot(s.sx - m.x, s.sy - m.y);
     s.state = 'busy'; m.busy = true; m.dir = dirOf(s.sx - m.x, s.sy - m.y); m.pose = 'walk';
-    S.act = { spot: s, man: m, phase: 'walk', from: { x: m.x, y: m.y }, b0: b, arrive: b + Math.max(0.5, dist), dial: null, hold: null, res: null };
+    /* every pose this spot will ask of him is cut out now, at the tap, never inside the phrase: the walk there, then facing the thing */
+    precut(m, [m.dir], CLIP.walk); precut(m, [dirOf(s.x - s.sx || 0.001, s.y - s.sy)], [0, CLIP.walk[0], CLIP.walk[3]].concat(CLIP.carry, CLIP.swing));
+    S.act = { spot: s, man: m, phase: 'walk', from: { x: m.x, y: m.y }, b0: b, arrive: b + Math.max(0.5, dist / 2), ph: null, geo: null };   /* two tiles a beat */
     S.log.push({ t: 'send', spot: s.id, man: m.name, beat: +b.toFixed(2) });
-    plate(); return true;
+    buzz('tap'); plate(); return true;
   }
-  function openDial(A, b) {
-    var G = D.defaultState(); G.pkgDiff = S.pkg; R.rollQuick(D, G);   /* the package's own patterns, only the quick ones (the middle every two bars at most) */
-    if (A.spot.kind !== 'car') {
-      /* the needle settles where its pattern has it now (never a free middle at the open): half a beat run invisibly */
-      for (var i = 0; i < 30; i++) { G.beatClock = b - 0.5 + i / 60; D.tick(G, 1 / 60); }
-    } else G.angle = -D.K.LIM;
-    A.dial = { G: G, b0: b, armed: b + R.ARM_BEATS, lastBeep: -1, flare: 0 };
-    A.phase = 'dial'; A.man.pose = A.spot.kind === 'house' ? 'swing' : 'carry';
+  function hash(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  /* where the dial sits over this man: the track's middle over his head (under his feet when there is no room above), the beats
+     coming in from the side of the glass with more room */
+  function geoOf(A) {
+    var f = feetOf(A.man.x, A.man.y), Rr = Math.max(84, Math.min(140, W * 0.34, H * 0.3)), cx = f.x, cy = f.y - 62, up = cy - Rr > 44;
+    if (!up) { cy = f.y - 24; if (cy + Rr > H - 12) { up = true; cy = f.y - 62; Rr = Math.max(70, Math.min(Rr, cy - 30)); } }
+    var span = R.span(), fromLeft = cx > W / 2, base = up ? -Math.PI / 2 : Math.PI / 2;
+    var ex = cx + Math.cos(base + (up ? 1 : -1) * (fromLeft ? -1 : 1) * span) * Rr;
+    if (ex < 10 || ex > W - 10) fromLeft = !fromLeft;
+    var th = scr(A.spot.x + 0.5, A.spot.y + 0.5);
+    return { cx: cx, cy: cy, R: Rr, up: up, base: base, s: (up ? 1 : -1) * (fromLeft ? -1 : 1), span: span, thing: th };
+  }
+  function angU(G, u) { return G.base + G.s * (1 - u) * G.span; }
+  /* where the dial would sit for a spot (its middle and the end the beats come in at), for the gate's glass check */
+  S.geoAt = function (id) { var s = null; S.spots.forEach(function (q) { if (q.id === id) s = q; }); if (!s) return null;
+    var G = geoOf({ man: { x: s.sx, y: s.sy }, spot: s }), tr = G.R * 0.97;
+    return { cx: G.cx, cy: G.cy, R: G.R, up: G.up, mid: { x: G.cx + Math.cos(angU(G, 1)) * tr, y: G.cy + Math.sin(angU(G, 1)) * tr }, end: { x: G.cx + Math.cos(angU(G, 0)) * tr, y: G.cy + Math.sin(angU(G, 0)) * tr } }; };   /* u 0 the track's end, 1 the middle, past 1 late */
+  function openPhrase(A, b) {
+    readShell(); b = beatNow();   /* the song's beat read again as the phrase opens: the freshest grid for the beats he plays */
+    var P = R.phrase(A.spot.kind, S.pkg, R.rng((S.seed ^ hash(A.spot.id)) >>> 0), S.song);
+    var room = A.spot.kind === 'ground' ? (ahead() + 40) / CLK.bm : 0.1;   /* the detector's first beep is the lead's first beat: it must be booked before it leaves for the ear */
+    var b0 = Math.ceil((b + P.lead + room) / 2) * 2;   /* the first half-bar line that leaves the lead its time: the phrase starts on the song's own one or three */
+    var notes = P.notes.map(function (n) { var c = Object.assign({}, n); c.at = msAt(b0 + n.b); c.res = null; return c; });
+    A.ph = { P: P, b0: b0, open: b, notes: notes, strays: 0, hold: null, callI: 0, guideI: 0, last: notes[notes.length - 1].at, marks: [], word: null, lit: {}, got: {} };
+    A.geo = geoOf(A); A.phase = 'phrase'; A.man.pose = A.spot.kind === 'house' ? 'swing' : 'carry';
     A.man.dir = dirOf(A.spot.x - A.spot.sx || 0.001, A.spot.y - A.spot.sy);
-    S.log.push({ t: 'dial', spot: A.spot.id, pat: G.pat, pkg: S.pkg, beat: +b.toFixed(2) });
+    S.log.push({ t: 'phrase', spot: A.spot.id, row: P.row, holds: P.holds, pkg: S.pkg, b0: b0, beat: +b.toFixed(2), notes: notes.length });
   }
-  function resolve(A, zone, why) {
-    var r = R.result(A.spot, zone, { why: why || 'press', pat: A.dial ? A.dial.G.pat : null, beat: +beatNow().toFixed(3), angle: A.dial ? +A.dial.G.angle.toFixed(4) : null });
-    A.res = r; A.phase = 'result'; A.until = beatNow() + 2; tone(false);
-    A.man.pose = r.got ? 'carry' : 'stand';
-    S.finds.push(r); S.log.push({ t: 'result', spot: A.spot.id, zone: zone, got: r.got, why: r.why, angle: r.angle });
-    if (r.got) { blip(zone === 'kill' ? 1320 : 990, 140, 0.08); if (zone === 'kill') setTimeout(function () { blip(1760, 180, 0.07); }, 90); }
-    else blip(180, 160, 0.08, 'triangle');
+  function say(A, word, zone, now) { A.ph.word = { text: word, zone: zone, t: now }; }
+  /* a beat is settled: the dial's zone at his touch (or 'miss'), what is seen, heard and felt of it, the combo */
+  function settle(A, n, j, now) {
+    var ph = A.ph, k = A.spot.kind, z = j.zone; n.res = j; S.first = false;
+    ph.marks.push({ u: 1 + j.ms / (R.RIDE_BEATS * CLK.bm), zone: z, t: now });
+    say(A, j.word, z, now);
+    if (z !== 'miss') {
+      S.combo++; if (S.combo > S.best) S.best = S.combo;
+      if (R.COMBO_STEPS.indexOf(S.combo) >= 0) { S.pop = { n: S.combo, t: now }; buzz('paid'); strike(CAN, 1568, null, 0.05); strike(CAN, 2349, heard(now + CLK.bm / 4, 1), 0.04); }
+      A.man.hit = now; S.hop = { t: now, k: z === 'kill' ? 1 : 0.55 };
+      /* his own tap is heard the moment it lands; on an ear that is far away (a Bluetooth one: over 120 ms to the ear, as the phone
+         tells it) a sound made at the tap comes late and drags him, so there the booked ghost carries the phrase and his tap is soft */
+      var far = S.lat > FAR_MS, v = (z === 'kill' ? 1 : z === 'vital' ? 0.8 : 0.5) * (far ? 0.35 : 1), dull = z === 'hit' ? 0.94 : 1;
+      if (k === 'house') { strike(DOOR, n.hz * dull, null, 0.2 * v, 1.25); if (z === 'kill') strike(DOOR, n.hz * 2, null, 0.05); }
+      else if (k === 'ground') { beep(n.hz * dull, null, z === 'hit' ? 45 : 80, 0.085 * v); ph.got[n.step] = z; }
+      else if (n.type === 'down') { glug(170, null, 0.16 * v); strike(CAN, n.hz, null, 0.05 * v); }
+      else { strike(CAN, n.hz * dull, null, 0.11 * v); glug(240, heard(now + 60, 1), 0.1); glug(200, heard(now + 150, 1), 0.08); }
+      buzz(z === 'kill' ? 'dial_shot' : 'tap');
+    } else {
+      S.combo = 0; strike(BOOT, 82, null, 0.09); buzz('deny');
+    }
+    S.log.push({ t: 'note', spot: A.spot.id, i: n.i, type: n.type, zone: z, ms: Math.round(j.ms), raw: j.raw == null ? null : Math.round(j.raw), word: j.word });
     plate();
+    if (ph.notes.every(function (q) { return q.res; })) endPhrase(A, now);
   }
-  function press(kind, px, py) {
-    if (S.phase !== 'play') return;
-    var A = S.act, b = beatNow();
-    if (A && A.phase === 'dial') {
-      if (A.spot.kind === 'car') {
-        if (kind === 'down' && !A.hold) { A.hold = { down: b, start: Math.ceil(b) }; S.log.push({ t: 'hold', beat: +b.toFixed(3) }); }
-        else if (kind === 'up' && A.hold) { var sa = A.dial.G.angle; resolve(A, b < A.hold.start ? 'miss' : D.zoneOf({ angle: sa }), b < A.hold.start ? 'let go before it came' : 'let go'); }
+  function miss(A, n, word, now) { settle(A, n, { zone: 'miss', ms: Math.max(-400, Math.min(400, now - S.lag - n.at)), angle: 0, word: word, raw: null }, now); }
+  /* his thumb: t is when the glass felt it (the event's own stamp, not when the page got round to it) */
+  function touch(A, kind, t) {
+    var ph = A.ph, tt = t - S.lag, car = A.spot.kind === 'car';
+    if (kind === 'down') {
+      var n = R.match(ph.notes, tt, car ? 'down' : 'tap', S.pkg, S.first, CLK.bm);
+      if (car) ph.hold = { i: n ? n.hold : -1, t: t, beat: Math.ceil(beatAt(t) + 0.02) };
+      if (!n) {
+        /* a tap that meets no beat: free while the beats are still on their way (he taps along to the count), a stray from the first beat on */
+        if (tt > ph.notes[0].at - CLK.bm / 2 && tt < ph.last + R.windowsMs(S.pkg, 1, CLK.bm).hit) { ph.strays++; ph.marks.push({ u: null, zone: 'stray', t: t }); S.log.push({ t: 'stray', spot: A.spot.id }); }
         return;
       }
-      if (kind === 'down' && b >= A.dial.armed) {
-        /* the needle where it is at the touch, not where the last frame drew it (a frame is 16 ms; the dead centre is about 50) */
-        var G = A.dial.G, gap = Math.min(0.05, Math.max(0, (performance.now() - (S.lastT || performance.now())) / 1000)); G.beatClock = b; if (gap > 0) D.tick(G, gap);
-        resolve(A, D.zoneOf(G), 'press');
-      }
+      var j = R.judge(tt - n.at, S.pkg, R.slackOf(n, S.first && n.i === 0), CLK.bm); j.raw = t - n.at;
+      S.offs.push(j.raw); S.lag = R.lagOf(S.offs, S.lag0);
+      settle(A, n, j, t);
       return;
     }
+    if (!car || !ph.hold) return;
+    var h = ph.hold; ph.hold = null;
+    var u = R.match(ph.notes, tt, 'up', S.pkg, false, CLK.bm);
+    if (u) { var ju = R.judge(tt - u.at, S.pkg, R.slackOf(u, false), CLK.bm); ju.raw = t - u.at; S.offs.push(ju.raw); S.lag = R.lagOf(S.offs, S.lag0); settle(A, u, ju, t); return; }
+    /* he let go with the slug still on its way: the hose coughs, nothing from that gulp */
+    var mine = null; ph.notes.forEach(function (q) { if (!mine && q.type === 'up' && !q.res && q.hold === h.i) mine = q; });
+    if (mine && tt < mine.at) miss(A, mine, R.TAP_WORD.cough, t);
+  }
+  function endPhrase(A, now) {
+    var ph = A.ph, sc = R.score(ph.notes.map(function (n) { return n.res.zone; }), ph.strays);
+    var r = R.result(A.spot, sc.zone, { why: 'played', row: ph.P.row, share: +sc.share.toFixed(3), points: sc.points, strays: sc.strays, clean: sc.clean, notes: ph.notes.length,
+      zones: ph.notes.map(function (n) { return n.res.zone; }), beat: +beatAt(now).toFixed(3), combo: S.combo });
+    S.finds.push(r); S.log.push({ t: 'result', spot: A.spot.id, zone: r.zone, got: r.got, share: r.share, strays: sc.strays });
+    var f = feetOf(A.man.x, A.man.y);
+    S.tags.push({ x: f.x, y: f.y - 116, text: r.word + (r.got ? ' · ' + GOOD[r.got] : ''), zone: r.zone, got: !!r.got, until: now + CLK.bm * 4 });
+    if (r.got) { strike(CAN, r.zone === 'kill' ? 1320 : r.zone === 'vital' ? 990 : 660, heard(now + CLK.bm / 4, 1), 0.07); if (r.zone === 'kill') strike(CAN, 1980, heard(now + CLK.bm / 2, 1), 0.06); buzz('paid'); }
+    if (sc.clean) S.hop = { t: now, k: 1.6 };
+    A.spot.state = 'done'; A.spot.res = r; A.man.busy = false; A.man.pose = r.got ? 'carry' : 'stand'; S.fade = { A: A, t: now }; S.act = null; plate();
+    if (!S.spots.some(function (s) { return s.state === 'open'; })) { S.phase = 'over'; setTimeout(function () { finish('all searched'); }, CLK.bm * 3); }
+  }
+  function press(kind, px, py, t) {
+    if (S.phase !== 'play') return;
+    var A = S.act;
+    if (A && A.phase === 'phrase') { touch(A, kind, t); return; }
     if (A || kind !== 'down') return;
     /* a lit spot under the finger (its tiles, its stand tile, a tile of slack) */
     var V = S.view, fx = V.x + px / V.T, fy = V.y + py / V.Th, best = null;
     S.spots.forEach(function (s) { if (s.state !== 'open') return;
-      (s.tiles || [[s.x, s.y]]).concat([[s.sx, s.sy]]).forEach(function (t) { var d = Math.hypot(fx - (t[0] + 0.5), fy - (t[1] + 0.5)); if (d < 0.95 && (!best || d < best.d)) best = { s: s, d: d }; }); });
+      (s.tiles || [[s.x, s.y]]).concat([[s.sx, s.sy]]).forEach(function (q) { var d = Math.hypot(fx - (q[0] + 0.5), fy - (q[1] + 0.5)); if (d < 0.95 && (!best || d < best.d)) best = { s: s, d: d }; }); });
     if (best) send(best.s);
   }
-  function step(b, dt) {
+  function step(b, now) {
+    groove(now);
     var A = S.act; if (!A) return;
     if (A.phase === 'walk') {
       var k = Math.min(1, (b - A.b0) / Math.max(0.001, A.arrive - A.b0));
       A.man.x = A.from.x + (A.spot.sx - A.from.x) * k; A.man.y = A.from.y + (A.spot.sy - A.from.y) * k;
-      if (k >= 1) { A.man.x = A.spot.sx; A.man.y = A.spot.sy; openDial(A, b); }
+      if (k >= 1) { A.man.x = A.spot.sx; A.man.y = A.spot.sy; openPhrase(A, b); }
       return;
     }
-    if (A.phase === 'dial') {
-      var G = A.dial.G;
-      if (A.spot.kind === 'car') {
-        if (A.hold && b >= A.hold.start) {
-          var hb = b - A.hold.start; G.angle = R.siphonAngle(hb, S.pkg);
-          var whole = Math.floor(hb); if (whole !== A.dial.lastBeep && whole <= R.siphonBeats(S.pkg)) { A.dial.lastBeep = whole; blip(150 - whole * 8, 110, 0.12, 'sine'); A.dial.flare = 1; }   /* a gulp a beat */
-          if (R.siphonOver(hb, S.pkg)) resolve(A, 'miss', 'a mouthful');
-        } else if (!A.hold && b - A.dial.b0 > R.GIVE_UP_BEATS) resolve(A, 'miss', 'gave up');
-        return;
-      }
-      G.beatClock = b; D.tick(G, dt);
-      if (A.spot.kind === 'ground') {
-        var per = R.beepsPerBeat(G.angle);
-        if (per === Infinity) { if (!S.toneO) { tone(true); A.dial.flare = 1; } }
-        else { if (S.toneO) tone(false); var slot = Math.floor(b * per); if (slot !== A.dial.lastBeep) { A.dial.lastBeep = slot; blip(1650, 45, 0.07); A.dial.flare = 1; } }
-      } else if (Math.floor(b) !== A.dial.lastBeep) { A.dial.lastBeep = Math.floor(b); blip(Math.floor(b) % 4 === 0 ? 330 : 220, 40, 0.035, 'triangle'); }   /* the house: a soft tock a beat, the ONE lower */
-      if (b - A.dial.b0 > R.giveUpBeats(D, G)) resolve(A, 'miss', 'gave up');
-      return;
-    }
-    if (A.phase === 'result' && b >= A.until) {
-      A.spot.state = 'done'; A.spot.res = A.res; A.man.busy = false; A.man.pose = A.res.got ? 'carry' : 'stand'; S.act = null; plate();
-      if (!S.spots.some(function (s) { return s.state === 'open'; })) { S.phase = 'over'; setTimeout(function () { finish('all searched'); }, BEAT * 2); }
-    }
+    if (A.phase !== 'phrase') return;
+    var ph = A.ph, P = ph.P, kind = A.spot.kind;
+    /* what is heard of the phrase, booked ahead: the detector's CALL (a beep a bead); a far ghost of a house's knocks and of a
+       gulp's two ends (the phrase is there for his ear before his thumb plays it) */
+    while (ph.callI < P.call.length && msAt(ph.b0 + P.call[ph.callI].b) <= now + ahead()) { var c = P.call[ph.callI++], ct = msAt(ph.b0 + c.b); beep(c.hz, heard(ct), 80, 0.075); ph.lit[c.step] = ct; }
+    if (kind !== 'ground') while (ph.guideI < ph.notes.length && ph.notes[ph.guideI].at <= now + ahead()) { var gn = ph.notes[ph.guideI++]; strike(kind === 'house' ? DOOR : CAN, gn.hz, heard(gn.at), S.lat > FAR_MS ? 0.11 : 0.022); }
+    /* a held gulp: a bubble up the hose on every beat, higher as the can fills */
+    if (kind === 'car' && ph.hold && ph.hold.i >= 0) { while (msAt(ph.hold.beat) <= now + ahead()) { var hb = ph.hold.beat++; glug(150 + 22 * ((hb - ph.b0) % 8), heard(msAt(hb)), 0.1); } }
+    /* a beat he never met: its band has gone by (after a hitch the touches still waiting are heard first: a frame's grace) */
+    if (S.gap > 80) return;
+    for (var i = 0; i < ph.notes.length && S.act === A; i++) { var n = ph.notes[i]; if (n.res) continue;
+      if (now - S.lag > n.at + R.windowsMs(S.pkg, R.slackOf(n, S.first && n.i === 0), CLK.bm).hit) {
+        var held = n.type === 'up' && ph.hold && ph.hold.i === n.hold; if (held) ph.hold = null;
+        miss(A, n, held ? R.TAP_WORD.mouthful : R.TAP_WORD.miss, now); } }
   }
 
-  /* ------------------------------------------------------------------ drawing */
+  /* ------------------------------------------------------------------ drawing (no shadow blur, no gradient per frame: a cheap phone's 60) */
   function frame(now) {
     if (S.phase === 'closed') return;
     requestAnimationFrame(frame);
-    var b = beatNow(), dt = Math.min(0.05, (now - (S.lastT || now)) / 1000); S.lastT = now;
-    try { step(b, dt); } catch (e) { S.err = String(e && e.message || e); }
-    try { draw(b); } catch (e) { S.err = String(e && e.message || e); }
+    var b = beatAt(now), gap = now - (S.lastT || now); S.lastT = now; S.gap = gap;
+    var w0 = performance.now();
+    try { step(b, now); } catch (e) { S.err = String(e && e.message || e); }
+    try { draw(b, now); } catch (e) { S.err = String(e && e.message || e); }
+    var w = performance.now() - w0, F = S.perf; F.n++; F.work += w; if (w > F.worst) F.worst = w; if (gap > 20) F.over20++; if (gap > 34) F.over34++; if (gap > F.gap) F.gap = gap;
+    if ((w > 25 || gap > 150) && S.slow.length < 40) S.slow.push({ at: Math.round(now), work: Math.round(w), gap: Math.round(gap), in: S.act ? S.act.phase : 'idle', cels: Object.keys(S.cels).length });   /* a slow frame, for whoever measures */
   }
-  function draw(b) {
-    var V = S.view; g.setTransform(DPR, 0, 0, DPR, 0, 0); g.fillStyle = '#2a2219'; g.fillRect(0, 0, W, H);
-    g.imageSmoothingEnabled = true;
+  function backdrop() {   /* the board as the glass shows it, painted once a view */
+    var V = S.view, x = cvB.getContext('2d'); x.setTransform(DPR, 0, 0, DPR, 0, 0); x.fillStyle = '#2a2219'; x.fillRect(0, 0, W, H); x.imageSmoothingEnabled = true;
     var bx0 = Math.max(0, V.x), by0 = Math.max(0, V.y), bx1 = Math.min(S.board.w, V.x + V.cols), by1 = Math.min(S.board.h, V.y + V.rows), d0 = scr(bx0, by0), d1 = scr(bx1, by1);
-    g.drawImage(S.img, bx0 * S.tw, by0 * S.th, (bx1 - bx0) * S.tw, (by1 - by0) * S.th, d0.x, d0.y, d1.x - d0.x, d1.y - d0.y);
-    var pulse = 0.55 + 0.45 * Math.pow(1 - (b % 1), 2);
-    S.spots.forEach(function (s) { if (s.state !== 'open') return; mark(s, pulse); });
-    var men = S.men.slice().sort(function (a, c) { return a.y - c.y; });
-    men.forEach(function (m) { man(m, b); });
-    if (S.act && (S.act.phase === 'dial' || S.act.phase === 'result')) dialDraw(S.act, b);
-    S.spots.forEach(function (s) { if (s.state === 'open') tag(s); });
-    if (S.act && S.act.phase === 'result') resultTag(S.act);
+    x.drawImage(S.img, bx0 * S.tw, by0 * S.th, (bx1 - bx0) * S.tw, (by1 - by0) * S.th, d0.x, d0.y, d1.x - d0.x, d1.y - d0.y);
+    S.bgFor = V;
   }
-  function mark(s, a) {
-    g.save(); g.strokeStyle = 'rgba(255,207,122,' + a.toFixed(3) + ')'; g.lineWidth = 2.5; g.shadowBlur = 10; g.shadowColor = '#ffb050'; g.setLineDash([9, 5]);
-    var V = S.view;
-    if (s.kind === 'ground') { var p = scr(s.x + 0.5, s.y + 0.55); g.beginPath(); g.ellipse(p.x, p.y, V.T * 0.42, V.Th * 0.36, 0, 0, 7); g.stroke(); }
-    else { var ts = s.tiles || [[s.x, s.y]], x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
-      ts.forEach(function (t) { x0 = Math.min(x0, t[0]); y0 = Math.min(y0, t[1]); x1 = Math.max(x1, t[0] + 1); y1 = Math.max(y1, t[1] + 1); });
-      var A0 = scr(x0, y0), A1 = scr(x1, y1), inset = s.kind === 'car' ? 0.12 : 0.04; g.strokeRect(A0.x + V.T * inset, A0.y + V.Th * inset, A1.x - A0.x - 2 * V.T * inset, A1.y - A0.y - 2 * V.Th * inset); }
+  function lit() {   /* the lit spots and their names, painted when one changes */
+    var key = S.spots.map(function (s) { return s.state; }).join(); if (S.midFor === S.view && S.midKey === key) return;
+    S.midFor = S.view; S.midKey = key; var keep = g; g = gM;
+    try { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H); S.spots.forEach(function (s) { if (s.state === 'open') { mark(s); tag(s); } }); } finally { g = keep; }
+  }
+  function draw(b, now) {
+    if (S.bgFor !== S.view) backdrop();
+    lit();
+    g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H);
+    var p = b - Math.floor(b), pulse = Math.round((0.62 + 0.38 * Math.pow(1 - p, 2)) * 25) / 25;
+    if (pulse !== S.pulse) { S.pulse = pulse; cvM.style.opacity = pulse; }   /* the lit spots beat with the song: the compositor's work, nothing repainted */
+    var men = S.men.slice().sort(function (a, c) { return a.y - c.y; });
+    men.forEach(function (m) { man(m, b, p, now); });
+    if (S.fade && now - S.fade.t < CLK.bm) dialDraw(S.fade.A, b, now, 1 - (now - S.fade.t) / CLK.bm);
+    if (S.act && S.act.phase === 'phrase') dialDraw(S.act, b, now, Math.min(1, (b - S.act.ph.open) * 2.5));
+    strip(b, now, p);
+    for (var i = S.tags.length - 1; i >= 0; i--) { var t = S.tags[i]; if (now > t.until) { S.tags.splice(i, 1); continue; }
+      g.globalAlpha = Math.min(1, (t.until - now) / 300);
+      plank(t.text, t.x, t.y, t.zone === 'kill' ? '#ff965c' : t.got ? 'rgba(236,228,208,.96)' : 'rgba(110,106,98,.95)', t.got ? '#2a2520' : '#f2ece1'); g.globalAlpha = 1; }
+    if (S.pop && now - S.pop.t < CLK.bm * 2) { var q = (now - S.pop.t) / (CLK.bm * 2), ax = S.act ? feetOf(S.act.man.x, S.act.man.y) : { x: W / 2, y: H * 0.4 };
+      g.globalAlpha = 1 - q; g.font = Math.round(30 + 10 * (1 - q)) + 'px BohemiaCasing, ui-monospace, monospace'; g.textAlign = 'center';
+      g.lineWidth = 4; g.strokeStyle = '#2a2520'; g.strokeText('x' + S.pop.n, ax.x, ax.y - 128 - 26 * q); g.fillStyle = '#ff965c'; g.fillText('x' + S.pop.n, ax.x, ax.y - 128 - 26 * q); g.globalAlpha = 1; }
+  }
+  /* THE STRIP UNDER THE BOARD (a phone held up; the board fills the glass on its side): the beat SEEN at rest too. Four lamps on
+     the song's beat, the ONE in ember; the phrase he is playing as a row of lamps, two to a beat, the beat walking along it (a
+     drum machine's own picture: what is coming is written down before it comes); the combo. */
+  function stripRect() {
+    if (S.stripFor === S.view) return S.stripR;
+    var bb = scr(0, S.board.h).y, P = plateRect(), x1 = (P ? P.l : W) - 2; S.stripFor = S.view;
+    return (S.stripR = H - bb >= 84 && x1 - 12 >= 170 ? { x: 12, y: bb + 10, w: x1 - 12, h: H - bb - 20 } : null);
+  }
+  function strip(b, now, p) {
+    var Q = stripRect(); if (!Q) return;
+    var cur = ((Math.floor(b) % 4) + 4) % 4, beatP = Math.pow(1 - p, 2), y = Q.y + 16, A = S.act && S.act.phase === 'phrase' ? S.act : null;
+    for (var i = 0; i < 4; i++) { var lit = i === cur, one = i === 0;
+      g.fillStyle = lit ? (one ? '#ff965c' : '#e6a84a') : 'rgba(236,228,208,.1)'; g.strokeStyle = 'rgba(236,228,208,.55)'; g.lineWidth = 1.5;
+      g.beginPath(); g.arc(Q.x + 12 + i * 30, y, 8 + (lit ? 3 * beatP : 0), 0, 7); g.fill(); g.stroke(); }
+    if (S.combo >= 2) { var hot = S.combo >= R.COMBO_STEPS[0], bump = S.hop && now - S.hop.t < 140 ? 1.12 : 1;
+      g.font = Math.round(24 * bump) + 'px BohemiaCasing, ui-monospace, monospace'; g.textAlign = 'right'; g.fillStyle = hot ? '#ff965c' : '#ece4d0'; g.fillText('x' + S.combo, Q.x + Q.w - 6, y + 9); }
+    var y2 = Q.y + 58;
+    if (!A) { if (!S.act && !S.finds.length && S.phase === 'play') { g.font = '13px BohemiaCasing, ui-monospace, monospace'; g.textAlign = 'left'; g.fillStyle = 'rgba(236,228,208,' + (0.55 + 0.35 * beatP).toFixed(2) + ')'; g.fillText('TAP A LIT SPOT', Q.x + 2, y2 + 5); } return; }
+    var ph = A.ph, P = ph.P, n = Math.round(P.beats * 2), cw = Math.min(26, Math.floor((Q.w - 4) / n)), t = b - ph.b0, kind = A.spot.kind;
+    var call = kind === 'ground' && t < 0, head = Math.floor((call ? t + P.beats : t) * 2);   /* the beat's place on the row (the detector's call, then his answer) */
+    var cell = {}; ph.notes.forEach(function (q) { cell[Math.round(q.b * 2)] = q; });
+    if (kind === 'car') P.holds.forEach(function (h, hi) { var dn = ph.notes[hi * 2], up = ph.notes[hi * 2 + 1];   /* a gulp: a bar from the press to the let-go */
+      g.fillStyle = up.res ? ZCOL[up.res.zone] : dn.res ? ZCOL[dn.res.zone] : 'rgba(236,228,208,.45)'; g.fillRect(Q.x + h[0] * 2 * cw + cw / 2, y2 - 4, (h[1] - h[0]) * 2 * cw, 8); });
+    for (var c = 0; c < n; c++) { var q = cell[c], x = Q.x + c * cw, on = c === head && t < P.beats;
+      g.lineWidth = 1.2; g.strokeStyle = on ? '#fff4dc' : 'rgba(236,228,208,.4)';
+      g.fillStyle = q ? (q.res ? ZCOL[q.res.zone] : call ? (ph.lit[q.step] != null && now >= ph.lit[q.step] ? '#fff4dc' : 'rgba(236,228,208,.18)') : '#ece4d0') : 'rgba(30,26,22,.7)';
+      var sz = q ? Math.min(cw - 4, 18) : Math.min(cw - 8, 8), yy = y2 - sz / 2 - (on ? 2 + 2 * beatP : 0);
+      g.fillRect(x + (cw - sz) / 2, yy, sz, sz); g.strokeRect(x + (cw - sz) / 2 + .5, yy + .5, sz - 1, sz - 1); }
+    g.font = '12px BohemiaCasing, ui-monospace, monospace'; g.textAlign = 'left'; g.fillStyle = 'rgba(236,228,208,.8)';
+    g.fillText(kind === 'ground' ? P.cue[call ? 0 : 1] : kind === 'car' ? P.cue[ph.hold ? 1 : 0] : P.cue[0], Q.x + 2, y2 + 30);
+  }
+  function mark(s) {
+    g.save(); g.setLineDash([9, 5]); var V = S.view;
+    var path = function () {
+      if (s.kind === 'ground') { var p = scr(s.x + 0.5, s.y + 0.55); g.beginPath(); g.ellipse(p.x, p.y, V.T * 0.42, V.Th * 0.36, 0, 0, 7); g.stroke(); }
+      else { var ts = s.tiles || [[s.x, s.y]], x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+        ts.forEach(function (t) { x0 = Math.min(x0, t[0]); y0 = Math.min(y0, t[1]); x1 = Math.max(x1, t[0] + 1); y1 = Math.max(y1, t[1] + 1); });
+        var A0 = scr(x0, y0), A1 = scr(x1, y1), inset = s.kind === 'car' ? 0.12 : 0.04; g.strokeRect(A0.x + V.T * inset, A0.y + V.Th * inset, A1.x - A0.x - 2 * V.T * inset, A1.y - A0.y - 2 * V.Th * inset); } };
+    g.strokeStyle = 'rgba(255,176,80,.28)'; g.lineWidth = 7; path();   /* the glow, as a second stroke */
+    g.strokeStyle = 'rgba(255,207,122,1)'; g.lineWidth = 2.5; path();
     g.restore();
   }
   function plank(text, x, y, fill, ink) {
     g.font = '12px BohemiaCasing, ui-monospace, monospace'; var w = g.measureText(text).width + 12;
+    x = Math.max(w / 2 + 3, Math.min(W - w / 2 - 3, x));
     g.fillStyle = fill || 'rgba(236,228,208,.94)'; g.fillRect(Math.round(x - w / 2), Math.round(y - 15), Math.round(w), 18);
     g.strokeStyle = '#2a2520'; g.lineWidth = 1; g.strokeRect(Math.round(x - w / 2) + .5, Math.round(y - 15) + .5, Math.round(w) - 1, 17);
     g.fillStyle = ink || '#2a2520'; g.textAlign = 'center'; g.fillText(text, x, y - 2);
   }
   function tag(s) { var top = s.kind === 'ground' ? s.y + 0.1 : Math.min.apply(null, (s.tiles || [[s.x, s.y]]).map(function (t) { return t[1]; })); var p = scr(s.x + 0.5, top); plank(LABEL[s.kind], p.x, p.y - 2); }
-  function resultTag(A) { var f = feetOf(A.man.x, A.man.y), r = A.res; plank(r.word + (r.got ? ' · ' + GOOD[r.got] : ''), f.x, f.y - 112, r.zone === 'kill' ? '#ff965c' : r.got ? 'rgba(236,228,208,.96)' : 'rgba(110,106,98,.95)', r.got ? '#2a2520' : '#f2ece1'); }
-  function man(m, b) {
-    var im = S.sheets[m.file], f = feetOf(m.x, m.y);
-    g.fillStyle = 'rgba(0,0,0,.32)'; g.beginPath(); g.ellipse(f.x, f.y, 17, 6, 0, 0, 7); g.fill();
-    if (!im || !im.complete || !im.naturalWidth) return;
-    var clip = CLIP[m.pose] || CLIP.stand, col = clip[Math.floor(b * 3) % clip.length], w = m.w || 144, h = m.h || 161, ft = m.foot || [66, 110];
-    if (m.pose === 'carry' || m.pose === 'stand') col = clip[0];
-    g.imageSmoothingEnabled = false;
-    g.drawImage(im, col * w, m.dir * h, w, h, Math.round(f.x - ft[0] * MAN), Math.round(f.y - ft[1] * MAN), Math.round(w * MAN), Math.round(h * MAN));
-    g.imageSmoothingEnabled = true;
+  /* THE WHOLE CREW MOVES TO THE BEAT: every man on the glass drops his weight on the beat and comes back up before the next (a
+     few points, never his size: the person may not zoom), leaning left then right; a hit of his lifts them all, a combo deepens
+     the step. The man at the spot swings on each beat he plays. */
+  /* A MAN'S FEW DRAWINGS ARE CUT OUT ONCE (rule 400): his sheet is one picture of 3600 x 1288 (18 MB once opened) and there are
+     twelve men; drawing from twelve of those every frame makes a phone open them again and again (MEASURED on the bench: 1.4 ms
+     of every frame, 16% of the page's whole time, in the first draw after a man). Each pose he uses is copied once, trimmed to
+     his own pixels, at the glass's own pixel size, and a frame copies that one for one. */
+  function cel(m, col, dir) {
+    var key = m.file + '|' + col + '|' + dir, c = S.cels[key]; if (c !== undefined) return c;
+    var im = S.sheets[m.file]; if (!im || !im.complete || !im.naturalWidth) return null;
+    var w = m.w || 144, h = m.h || 161, t = S.celT || (S.celT = document.createElement('canvas')); t.width = w; t.height = h;
+    var x = t.getContext('2d', { willReadFrequently: true }); x.clearRect(0, 0, w, h); x.drawImage(im, col * w, dir * h, w, h, 0, 0, w, h);
+    var d = x.getImageData(0, 0, w, h).data, x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (var yy = 0; yy < h; yy++) for (var xx = 0; xx < w; xx++) if (d[(yy * w + xx) * 4 + 3] > 8) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (yy < y0) y0 = yy; if (yy > y1) y1 = yy; }
+    if (x1 < x0) return (S.cels[key] = null);
+    var k = MAN * DPR, cc = document.createElement('canvas'); cc.width = Math.max(1, Math.round((x1 - x0 + 1) * k)); cc.height = Math.max(1, Math.round((y1 - y0 + 1) * k));
+    var c2 = cc.getContext('2d'); c2.imageSmoothingEnabled = false; c2.drawImage(t, x0, y0, x1 - x0 + 1, y1 - y0 + 1, 0, 0, cc.width, cc.height);
+    return (S.cels[key] = { cv: cc, dx: x0 * k, dy: y0 * k });
   }
-  /* THE OLD DIAL, as the fight drew it: the wedge, the track, 24 ticks, the blue / amber / ember bands, the centre line, the needle */
-  function dialDraw(A, b) {
-    var f = feetOf(A.man.x, A.man.y), cx = f.x, cy = f.y - 62, Rr = Math.min(96, W * 0.24), up = cy - Rr > 40, base = up ? -Math.PI / 2 : Math.PI / 2;
-    if (!up) cy = f.y - 20;
-    var K = D.K, span = K.LIM * K.ARC_MULT, W0 = D.defaultState().W, hidden = A.spot.kind === 'ground', fade = A.phase === 'result' ? Math.max(0, A.until - beatNow()) / 2 : 1;
-    g.save(); g.globalAlpha = fade;
-    g.fillStyle = 'rgba(12,10,8,.42)'; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, Rr * 1.04, base - span, base + span); g.closePath(); g.fill();
-    g.lineWidth = 3; g.strokeStyle = hidden ? 'rgba(186,170,132,.4)' : 'rgba(120,108,86,.6)'; if (hidden) g.setLineDash([7, 6]);
-    g.beginPath(); g.arc(cx, cy, Rr * 0.97, base - span, base + span); g.stroke(); g.setLineDash([]);
-    for (var i = 0; i <= 24; i++) { var a = base - span + 2 * span * i / 24, maj = i % 6 === 0, tl = maj ? 10 : 5;
-      g.strokeStyle = maj ? 'rgba(186,170,132,.75)' : 'rgba(140,128,100,.5)'; g.lineWidth = maj ? 1.6 : 1;
-      g.beginPath(); g.moveTo(cx + Math.cos(a) * (Rr * 0.97 - tl), cy + Math.sin(a) * (Rr * 0.97 - tl)); g.lineTo(cx + Math.cos(a) * Rr * 0.97, cy + Math.sin(a) * Rr * 0.97); g.stroke(); }
-    var band = function (half, col, w, glow) { g.save(); g.lineWidth = w; g.strokeStyle = col; if (glow) { g.shadowBlur = glow; g.shadowColor = col; } g.beginPath(); g.arc(cx, cy, Rr * 0.97, base - half, base + half); g.stroke(); g.restore(); };
-    if (!hidden) {
-      band(W0.hitZ * K.ARC_MULT, 'rgba(96,150,182,.85)', 4);
-      band(W0.vZ * K.ARC_MULT, 'rgba(230,168,74,.95)', 5);
-      band(W0.hZ * K.ARC_MULT, 'rgba(255,150,92,1)', 7, 10 + 8 * Math.pow(1 - (b % 1), 2));
-      g.strokeStyle = 'rgba(255,242,214,.9)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(cx + Math.cos(base) * Rr * 0.8, cy + Math.sin(base) * Rr * 0.8); g.lineTo(cx + Math.cos(base) * Rr * 1.02, cy + Math.sin(base) * Rr * 1.02); g.stroke();
+  function man(m, b, p, now) {
+    var f = feetOf(m.x, m.y);
+    g.fillStyle = 'rgba(0,0,0,.32)'; g.beginPath(); g.ellipse(f.x, f.y, 17, 6, 0, 0, 7); g.fill();
+    var clip = CLIP[m.pose] || CLIP.stand, col = clip[0], ft = m.foot || [66, 110];
+    var st = R.comboStep(S.combo), amp = (S.act ? 5 : 3) + 1.5 * st, dip = amp * Math.pow(1 - p, 2.4) * Math.min(1, p / 0.07);
+    var side = ((Math.floor(b) + m.i) & 1) ? 1 : -1, sway = side * (1.5 + 0.5 * st) * Math.pow(1 - p, 2) * Math.min(1, p / 0.07), lift = 0;
+    if (S.hop && now - S.hop.t < 260) { var hq = (now - S.hop.t) / 260; lift = S.hop.k * 6 * Math.sin(hq * Math.PI); }
+    if (m.pose === 'walk') { col = clip[Math.floor(b * 6) % clip.length]; dip = 0; sway = 0; }
+    else if (m.pose === 'swing' && m.hit && now - m.hit < 240) col = clip[Math.min(clip.length - 1, 1 + Math.floor((now - m.hit) / 120))];
+    else if (m.pose === 'stand' && p < 0.24 && (S.act || st)) col = CLIP.walk[side > 0 ? 0 : 3];   /* a step in place on the beat, left then right */
+    var c = cel(m, col, m.dir) || cel(m, 0, m.dir); if (!c) return;
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.drawImage(c.cv, Math.round((f.x - ft[0] * MAN + sway) * DPR + c.dx), Math.round((f.y - ft[1] * MAN + dip - lift) * DPR + c.dy));
+    g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  /* THE OLD DIAL, AND THE BEATS ON ITS TRACK: the wedge, the track, the ticks, the blue / amber / ember bands in the middle (as
+     wide as this package judges, so the picture is the rule), the needle on the next beat (a house: his torch), every beat a bead
+     riding in from the track's end, a gulp a slug, and a notch left where each tap of his landed (before the middle: early) */
+  var ZCOL = { kill: '#ff965c', vital: '#e6a84a', hit: '#6096b6', miss: '#8a8478', stray: '#8a8478' };
+  function dialDraw(A, b, now, alpha) {
+    var G = A.geo, ph = A.ph, P = ph.P, K = D.K, W0 = D.defaultState().W, k = R.WINDOW[S.pkg], cx = G.cx, cy = G.cy, Rr = G.R, base = G.base, span = G.span, tr = Rr * 0.97;
+    var t = b - ph.b0, p = b - Math.floor(b), beatP = Math.pow(1 - p, 2), kind = A.spot.kind;
+    g.save(); g.globalAlpha = Math.max(0, Math.min(1, alpha));
+    var pad = 16, sz = Math.ceil((Rr * 1.06 + pad) * 2);
+    if (!G.still) {   /* the wedge, the track, the ticks and the bands do not move: painted once a phrase, copied every frame */
+      var sc = document.createElement('canvas'); sc.width = Math.round(sz * DPR); sc.height = Math.round(sz * DPR); G.still = sc;
+      var keep = g, ox = cx, oy = cy; g = sc.getContext('2d'); g.setTransform(DPR, 0, 0, DPR, 0, 0); cx = sz / 2; cy = sz / 2;
+      try {
+        g.fillStyle = 'rgba(12,10,8,.5)'; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, Rr * 1.06, base - span, base + span); g.closePath(); g.fill();
+        g.lineWidth = 3; g.strokeStyle = 'rgba(150,136,108,.7)'; g.beginPath(); g.arc(cx, cy, tr, base - span, base + span); g.stroke();
+        for (var i = 0; i <= 24; i++) { var a = base - span + 2 * span * i / 24, maj = i % 6 === 0, tl = maj ? 10 : 5;
+          g.strokeStyle = maj ? 'rgba(186,170,132,.75)' : 'rgba(140,128,100,.5)'; g.lineWidth = maj ? 1.6 : 1;
+          g.beginPath(); g.moveTo(cx + Math.cos(a) * (tr - tl), cy + Math.sin(a) * (tr - tl)); g.lineTo(cx + Math.cos(a) * tr, cy + Math.sin(a) * tr); g.stroke(); }
+        var band0 = function (half, col, w) { g.lineWidth = w; g.strokeStyle = col; g.beginPath(); g.arc(cx, cy, tr, base - half, base + half); g.stroke(); };
+        band0(W0.hitZ * K.ARC_MULT * k, 'rgba(96,150,182,.9)', 6);
+        band0(W0.vZ * K.ARC_MULT * k, 'rgba(230,168,74,.97)', 8);
+        band0(W0.hZ * K.ARC_MULT * k, '#ff965c', 10);
+        g.strokeStyle = 'rgba(255,242,214,.95)'; g.lineWidth = 2; g.beginPath(); g.moveTo(cx + Math.cos(base) * Rr * 0.8, cy + Math.sin(base) * Rr * 0.8); g.lineTo(cx + Math.cos(base) * Rr * 1.06, cy + Math.sin(base) * Rr * 1.06); g.stroke();
+      } finally { g = keep; cx = ox; cy = oy; }
     }
-    var na = base + (up ? 1 : -1) * A.dial.G.angle, fl = A.dial.flare; A.dial.flare = Math.max(0, fl - 0.12);
-    if (A.spot.kind === 'house') { var bg = g.createRadialGradient(cx, cy, 4, cx, cy, Rr * 1.5); bg.addColorStop(0, 'rgba(255,236,190,.28)'); bg.addColorStop(1, 'rgba(255,236,190,0)');   /* the needle is his torch */
-      g.fillStyle = bg; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, Rr * 1.5, na - 0.07, na + 0.07); g.closePath(); g.fill(); }
-    g.save(); g.shadowBlur = 6 + fl * 22; g.shadowColor = 'rgba(255,230,180,.95)'; g.strokeStyle = '#fff4dc'; g.lineWidth = 2.6; g.lineCap = 'round';
-    g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(na) * Rr, cy + Math.sin(na) * Rr); g.stroke(); g.restore();
-    if (fl > 0.05) { g.fillStyle = 'rgba(255,214,150,' + fl.toFixed(2) + ')'; g.beginPath(); g.arc(cx + Math.cos(na) * Rr, cy + Math.sin(na) * Rr, 3 + fl * 6, 0, 7); g.fill(); }
-    g.fillStyle = '#fff4dc'; g.beginPath(); g.arc(cx, cy, 3.5, 0, 7); g.fill();
-    /* the bar of four under it: the beat now, the ONE in ember (the siphon counts its gulps from the first) */
-    var by = up ? cy + 16 : cy - Rr - 14, cur = Math.floor(b) % 4, n = 4;
-    if (A.spot.kind === 'car' && A.hold) { n = Math.min(8, R.siphonBeats(S.pkg)); cur = Math.max(-1, Math.floor(b - A.hold.start)); }
-    for (var k = 0; k < n; k++) { var lit = A.spot.kind === 'car' ? (A.hold && k <= cur) : k === cur, one = A.spot.kind === 'car' ? k === n - 1 : k === 0;
+    g.drawImage(G.still, cx - sz / 2, cy - sz / 2, sz, sz);
+    g.lineWidth = 18; g.strokeStyle = 'rgba(255,150,92,' + (0.4 * beatP).toFixed(3) + ')'; g.beginPath(); g.arc(cx, cy, tr, base - W0.hZ * K.ARC_MULT * k, base + W0.hZ * K.ARC_MULT * k); g.stroke();   /* the middle beats with the song */
+    /* the beats */
+    var E = { x: cx + Math.cos(angU(G, 0)) * tr, y: cy + Math.sin(angU(G, 0)) * tr }, next = null, uMax = 1 + R.windowsMs(S.pkg, 1, CLK.bm).hit / (R.RIDE_BEATS * CLK.bm);
+    var at = function (u) { var a2 = angU(G, u); return { x: cx + Math.cos(a2) * tr, y: cy + Math.sin(a2) * tr }; };
+    if (kind === 'car') ph.P.holds.forEach(function (h, hi) {   /* a gulp: a slug from its head to its tail */
+      var dn = ph.notes[hi * 2], up2 = ph.notes[hi * 2 + 1], hu = R.beadAt(dn, t), tu = R.beadAt(up2, t);
+      if (up2.res || hu.stage !== 'ride') return;
+      var holding = ph.hold && ph.hold.i === hi, u1 = Math.min(holding || dn.res ? 1 : uMax, hu.u), u0 = tu.stage === 'ride' ? tu.u : 0; if (u0 >= u1) return;
+      var a0 = angU(G, u0), a1 = angU(G, u1);
+      g.lineCap = 'round'; g.lineWidth = holding ? 15 : 11; g.strokeStyle = holding ? '#ff965c' : dn.res && dn.res.zone === 'miss' ? 'rgba(138,132,120,.8)' : 'rgba(236,228,208,.92)';
+      g.beginPath(); g.arc(cx, cy, tr, Math.min(a0, a1), Math.max(a0, a1)); g.stroke(); g.lineCap = 'butt';
+    });
+    ph.notes.forEach(function (n) {
+      if (n.res) return; var q = R.beadAt(n, t); if (q.stage === 'unborn') return;
+      var pos; if (q.stage === 'drift') { var e = q.k * q.k * (3 - 2 * q.k); pos = { x: G.thing.x + (E.x - G.thing.x) * e, y: G.thing.y + (E.y - G.thing.y) * e - Math.sin(q.k * Math.PI) * 14 }; }
+      else { if (q.u > uMax + 0.04) return; pos = at(q.u); if (!next || Math.abs(q.u - 1) < Math.abs(next.u - 1)) next = { u: q.u, n: n }; }
+      var r = n.type === 'up' ? 6 : 8;
+      g.fillStyle = n.type === 'up' ? '#2a2520' : '#fff4dc'; g.strokeStyle = n.type === 'up' ? '#fff4dc' : '#2a2520'; g.lineWidth = 2;
+      g.beginPath(); g.arc(pos.x, pos.y, r, 0, 7); g.fill(); g.stroke();
+    });
+    /* the thing answers each beat as it is born (the door, the dirt, the tank): a ring that opens */
+    ph.notes.forEach(function (n) { var age = t - n.born; if (age < 0 || age > 0.7) return;
+      g.strokeStyle = 'rgba(255,214,150,' + (0.9 * (1 - age / 0.7)).toFixed(3) + ')'; g.lineWidth = 3; g.beginPath(); g.ellipse(G.thing.x, G.thing.y, 8 + age * 30, (8 + age * 30) * 0.7, 0, 0, 7); g.stroke(); });
+    /* the needle: on the next beat, at rest on the track's end */
+    var nu = next ? Math.min(uMax, next.u) : 0, na = angU(G, next ? nu : (kind === 'car' && ph.hold ? 1 : 0));
+    if (kind === 'house') { g.fillStyle = 'rgba(255,236,190,.16)'; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, Rr * 1.3, na - 0.08, na + 0.08); g.closePath(); g.fill(); }   /* his torch */
+    g.strokeStyle = 'rgba(255,230,180,.28)'; g.lineWidth = 7; g.lineCap = 'round'; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(na) * (tr - 10), cy + Math.sin(na) * (tr - 10)); g.stroke();
+    g.strokeStyle = '#fff4dc'; g.lineWidth = 2.6; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(na) * (tr - 10), cy + Math.sin(na) * (tr - 10)); g.stroke(); g.lineCap = 'butt';
+    g.fillStyle = '#fff4dc'; g.beginPath(); g.arc(cx, cy, 3.5 + 2.5 * beatP, 0, 7); g.fill();
+    /* where his taps landed */
+    for (var mi = ph.marks.length - 1; mi >= 0; mi--) { var mk = ph.marks[mi], age2 = (now - mk.t) / (CLK.bm * 2.5); if (age2 > 1) { ph.marks.splice(mi, 1); continue; } if (mk.u == null) continue;
+      var ma = angU(G, Math.max(0, Math.min(uMax + 0.1, mk.u))); g.globalAlpha = Math.max(0, alpha) * (1 - age2); g.strokeStyle = '#2a2520'; g.lineWidth = 6;
+      g.beginPath(); g.moveTo(cx + Math.cos(ma) * (tr - 13), cy + Math.sin(ma) * (tr - 13)); g.lineTo(cx + Math.cos(ma) * (tr + 13), cy + Math.sin(ma) * (tr + 13)); g.stroke();
+      g.strokeStyle = ZCOL[mk.zone] || '#fff'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(cx + Math.cos(ma) * (tr - 12), cy + Math.sin(ma) * (tr - 12)); g.lineTo(cx + Math.cos(ma) * (tr + 12), cy + Math.sin(ma) * (tr + 12)); g.stroke(); }
+    g.globalAlpha = Math.max(0, Math.min(1, alpha));
+    /* the bar of four: the beat now, the ONE in ember; under it the detector's bar, each beep a lamp, ember as he taps it back */
+    var dy = G.up ? 1 : -1, by = cy + dy * 18, cur = ((Math.floor(b) % 4) + 4) % 4;
+    for (var q4 = 0; q4 < 4; q4++) { var lit = q4 === cur, one = q4 === 0;
       g.fillStyle = lit ? (one ? '#ff965c' : '#e6a84a') : 'rgba(30,26,22,.85)'; g.strokeStyle = '#ece4d0'; g.lineWidth = 1.2;
-      g.beginPath(); g.arc(cx - (n - 1) * 8 + k * 16, by, one ? 5.5 : 4, 0, 7); g.fill(); g.stroke(); }
+      g.beginPath(); g.arc(cx - 24 + q4 * 16, by, (one ? 5.5 : 4) + (lit ? 1.5 * beatP : 0), 0, 7); g.fill(); g.stroke(); }
+    if (kind === 'ground' && P.row) { var n8 = P.row.length, y8 = by + dy * 16;
+      for (var s8 = 0; s8 < n8; s8++) { var isB = P.row.charAt(s8) === 'x', on = ph.lit[s8] != null && now >= ph.lit[s8], gz = ph.got[s8];
+        g.fillStyle = gz ? ZCOL[gz] : on ? '#fff4dc' : isB && t >= 0 ? 'rgba(255,244,220,.35)' : 'rgba(30,26,22,.85)'; g.strokeStyle = 'rgba(236,228,208,.7)'; g.lineWidth = 1;
+        g.fillRect(cx - n8 * 5 + s8 * 10 + 1, y8 - 4, 8, 8); g.strokeRect(cx - n8 * 5 + s8 * 10 + 1.5, y8 - 3.5, 7, 7); } }
+    /* the cue (two words at most) and the word for his last tap */
+    var cue = kind === 'ground' ? P.cue[t < -R.RIDE_BEATS / 2 ? 0 : 1] : kind === 'car' ? P.cue[ph.hold ? 1 : 0] : P.cue[0];
+    plank(cue, cx, G.up ? cy - Rr - 10 : cy + Rr + 24, 'rgba(38,30,26,.92)', '#ece4d0');
+    if (ph.word && now - ph.word.t < CLK.bm * 1.2) { var wq = (now - ph.word.t) / (CLK.bm * 1.2); g.globalAlpha = Math.max(0, alpha) * (1 - wq * wq);
+      plank(ph.word.text, cx, cy + (G.up ? -Rr * 0.55 : Rr * 0.55) - (G.up ? 10 : -10) * wq, ZCOL[ph.word.zone] || '#ece4d0', ph.word.zone === 'miss' ? '#f2ece1' : '#2a2520'); }
     g.restore();
   }
 
   /* ------------------------------------------------------------------ the end: the finds go home through the screen that opened this */
   function finish(why) {
     if (S.done) return S.done;
-    tone(false);
+    try { if (S.offs.length >= R.LAG.FROM) localStorage.setItem('boh.scav.lag', String(Math.round(S.lag))); } catch (e) {}
+    try { if (S.out && S.out.g) { var A0 = S.out.AC, g0 = S.out.g; g0.gain.setTargetAtTime(0.0001, A0.currentTime + 0.5, 0.08); setTimeout(function () { try { g0.disconnect(); } catch (e) {} }, 1500); } } catch (e) {}
     var out = { type: 'BOHEMIA_SCAVENGE_DONE', why: why, finds: S.finds.map(function (r) { return { kind: r.kind, zone: r.zone, got: r.got, outcome: r.outcome, greedMult: r.greedMult, word: r.word }; }),
-      spots: S.spots.length, played: S.finds.length, board: S.board ? S.board.name : null, err: S.err };
+      spots: S.spots.length, played: S.finds.length, board: S.board ? S.board.name : null, err: S.err, combo: S.best };
     S.done = out; window.__SCAV_DONE = out;
     try { if (window.parent && window.parent !== window) { if (typeof window.parent.scavDone === 'function') window.parent.scavDone(out); else window.parent.postMessage(out, '*'); } } catch (e) {}
     setTimeout(function () { S.phase = 'closed'; }, 0);
+    if (AGAIN) setTimeout(function () { var u = new URL(location.href); u.searchParams.set('seed', String((+(u.searchParams.get('seed') || 11) % 97) + 1)); location.replace(u.href); }, 1800);   /* the bench deals another block */
     return out;
   }
   S.finish = finish;
   S.state = function () {
-    var A = S.act;
-    return { phase: S.phase, err: S.err, pkg: S.pkg, beat: +beatNow().toFixed(3), board: S.board ? { name: S.board.name, w: S.board.w, h: S.board.h, laid: S.board.laid, crew: S.board.crew.length } : null,
+    var A = S.act, ph = A && A.ph;
+    return { phase: S.phase, err: S.err, pkg: S.pkg, beat: +beatNow().toFixed(3), now: performance.now(), clock: { t0: CLK.t0, bm: CLK.bm, src: CLK.src }, song: S.song || R.SONG,
+      lag: S.lag, lat: S.lat, heard: S.heard, combo: S.combo, best: S.best, perf: Object.assign({}, S.perf), slow: S.slow.slice(),
+      board: S.board ? { name: S.board.name, w: S.board.w, h: S.board.h, laid: S.board.laid, crew: S.board.crew.length } : null,
       view: S.view, tw: S.tw, bakeMs: S.bakeMs, men: S.men.map(function (m) { return { name: m.name, x: +m.x.toFixed(2), y: +m.y.toFixed(2), busy: m.busy, pose: m.pose }; }),
       spots: S.spots.map(function (s) { var t = S.board.tiles[s.y][s.x], st = S.board.tiles[s.sy][s.sx], p = scr(s.x + 0.5, s.y + 0.5);
         return { id: s.id, kind: s.kind, x: s.x, y: s.y, sx: s.sx, sy: s.sy, state: s.state, tile: t, stand: st, px: Math.round(p.x), py: Math.round(p.y), tiles: s.tiles || null }; }),
-      act: A ? { spot: A.spot.id, kind: A.spot.kind, phase: A.phase, angle: A.dial ? A.dial.G.angle : null, armed: A.dial ? A.dial.armed : null, pat: A.dial ? A.dial.G.pat : null,
-        hold: A.hold ? { start: A.hold.start } : null } : null,
-      finds: S.finds.slice(), log: S.log.slice(-40), done: S.done };
+      act: A ? { spot: A.spot.id, kind: A.spot.kind, phase: A.phase, b0: ph ? ph.b0 : null, open: ph ? ph.open : null, lead: ph ? ph.P.lead : null, beats: ph ? ph.P.beats : null, row: ph ? ph.P.row : null,
+        holds: ph ? ph.P.holds : null, call: ph ? ph.P.call.map(function (c) { return { b: c.b, at: msAt(ph.b0 + c.b), step: c.step }; }) : null, strays: ph ? ph.strays : 0, holding: !!(ph && ph.hold),
+        notes: ph ? ph.notes.map(function (n) { return { i: n.i, b: n.b, type: n.type, at: n.at, born: n.born, hz: n.hz, res: n.res ? { zone: n.res.zone, ms: n.res.ms, word: n.res.word } : null }; }) : null,
+        geo: A.geo ? { cx: A.geo.cx, cy: A.geo.cy, R: A.geo.R, up: A.geo.up, s: A.geo.s } : null } : null,
+      finds: S.finds.slice(), log: S.log.slice(-60), done: S.done };
   };
 
   /* ------------------------------------------------------------------ input: anywhere on the glass */
-  cv.addEventListener('pointerdown', function (e) { e.preventDefault(); ac(); if (S.audio && S.audio.state === 'suspended') try { S.audio.resume(); } catch (_e) {} press('down', e.clientX, e.clientY); });
-  window.addEventListener('pointerup', function (e) { press('up', e.clientX, e.clientY); });
-  window.addEventListener('pointercancel', function (e) { press('up', e.clientX, e.clientY); });
-  document.getElementById('leave').addEventListener('click', function () { if (S.phase === 'baking') return finish('left early'); if (S.act && S.act.phase === 'result') { S.act.spot.state = 'done'; } finish('left'); });
+  /* WHEN THE GLASS FELT IT: the event's own time stamp (a busy page gets round to a touch some ms after it happened; judging on
+     the handler's time would put that wait on his thumb) */
+  function stamp(e) { var now = performance.now(), t = e && e.timeStamp; return t > 0 && t <= now + 4 && now - t < 2000 ? t : now; }   /* (a stamp that is not this clock's, an old browser's, is not used) */
+  cv.addEventListener('pointerdown', function (e) { e.preventDefault(); var t = stamp(e), o = out(); if (o && o.AC.state === 'suspended') try { o.AC.resume(); } catch (_e) {}
+    if (S.act && S.act.phase === 'phrase' && S.act.spot.kind === 'car') { if (S.hold != null) return; S.hold = e.pointerId; }
+    press('down', e.clientX, e.clientY, t); });
+  function lift(e) { if (S.hold == null || e.pointerId !== S.hold) return; S.hold = null; press('up', e.clientX, e.clientY, stamp(e)); }
+  window.addEventListener('pointerup', lift);
+  window.addEventListener('pointercancel', lift);
+  document.getElementById('leave').addEventListener('click', function () { if (S.phase === 'baking') return finish('left early'); finish('left'); });
   /* a board still baking in the top page when this page goes (LEAVE, the town gave up on it) is let go with it, never left running there */
   window.addEventListener('pagehide', function () { var f = S.bakeF; S.bakeF = null; if (!f) return; try { if (f.contentWindow && f.contentWindow.__fightLetGo) f.contentWindow.__fightLetGo(); } catch (e) {} try { f.remove(); } catch (e) {} });
-  window.addEventListener('resize', function () { size(); if (S.board) { var keep = S.view; S.view = makeView(S.board); if (!S.view) S.view = keep; } });
+  window.addEventListener('resize', function () { size(); if (S.board) { var keep = S.view; S.view = makeView(S.board); if (!S.view) S.view = keep;
+    if (S.act && S.act.geo) S.act.geo = geoOf(S.act); S.fade = null; } });   /* a phone turned mid-phrase: the dial goes with the man */
   size();
 
-  /* the bench: a template board of that kind, no map */
-  var q = new URLSearchParams(location.search);
+  /* the bench: a template board of that kind, no map (&again=1: when a block is done or left, another is dealt: the VOTE card) */
+  var q = new URLSearchParams(location.search); AGAIN = !!q.get('bench') && q.get('again') === '1';
   if (q.get('bench')) S.start({ fightOpts: { seed: +(q.get('seed') || 11), kind: q.get('bench'), district: q.get('bench'), night: q.get('night') === '1', deploy: false, odds: false, teach: false, keep: false, resume: false },
     pkg: q.get('pkg') != null ? +q.get('pkg') : 1, seed: +(q.get('seed') || 11), left: q.get('left') != null ? +q.get('left') : null });
 })();

@@ -9393,16 +9393,23 @@ GATES = [
      "against the board the fight deals from the map's plan, tile for tile: H1/H2 every house on the same tile and the same model both ways, T1 trailers, S1/S2 streets 97%, "
      "R1 the ring round the board holds the map's houses, B1 a house blocks or is a roof, P1 AUTO plays two rounds on each district's laid board with no page error, "
      "W1 the demo's own door opens a fight that asks the map itself. Mutations: the plan moved a tile, one model swapped, the old template deal: each caught. About 1.5 min", True),
-    ('SCAVENGE ON THE DIAL', ['node', 'gates/scavenge_on_the_dial_gate.js'],
-     "SCAVENGE gate, 11/7, rule 426(b) (PAOLO 11/7, YES on the design: 'I want it to be like a fun minigame') and rule 331 (his three, ONE "
-     "game on the Dead Shot Dial, picked by the map, nothing he did not approve): D1 the dial module is the alpha's stamped engine byte for "
-     "byte, D2 every pattern of the five packages in the dead centre on its downbeat, D3 the fight's zones, R1 one thing or nothing by spot "
-     "(never a pile, never by district), R2 the detector's ear, R3 the siphon on a beat, R4 no greed, chain or noise, R5 only quick dials (the "
-     "middle at least every two bars); on a phone: B1 the "
-     "page's board is the very board the fight deals, B2 every lit spot its kind (a house's roof, a dead car, dirt never asphalt), B3 real "
-     "taps on the ONE pay dead centre or good and a beat off grades worse, B4 one find a spot back to the screen, B5 nothing scrolls upright, "
-     "on its side and on a laptop, B6 in the demo a town's lot plays it on the block's board through the shell's door and the town pays the "
-     "find out of YOUR mouth; each check run once on a planted wrong thing. About 2 min", True),
+    ('SCAVENGE IS THE RHYTHM', ['node', 'gates/scavenge_is_the_rhythm_gate.js'],
+     "SCAVENGE 2 gate, 11/10, rule 444(c), ask line 570 (PAOLO 11/10: 'the scavenge mini game needs a little more love. I feel the skeleton, "
+     "I appreciate it, but it's not rhythm based; out of everything I want that to be the most rhythm based minigame'). Takes over from "
+     "SCAVENGE ON THE DIAL (graveyard/scavenge_on_the_dial_11_10_26/, its post-mortem beside it) and keeps its legs that are still true. "
+     "D1 the dial module is still the alpha's stamped engine byte for byte; K1 one thing or nothing, what the place holds; K2 the dial's own "
+     "bands judge every tap (48 / 115 / 248 ms at HARD, a package only scales them); K3 every phrase four to eight beats on the 120 grid (a "
+     "house on the beat, the detector answered a bar later note for note, a gulp pressed and let go on the grid, a spot under 8 s); K4 worse "
+     "timing never a better find, a mash pays less; K5 the allowance learns a steady lag and ignores a wild thumb; K6 nothing of rule 331's "
+     "unapproved list, the combo never pays; K7 no noise buffer, no voice. On a phone with real touch events stamped by the glass: B1 the "
+     "fight's own board, B2 every lit spot its kind, P1 a whole block on the beat is all DEAD ON with a combo across spots, P2 a wide thumb "
+     "gets scraps, no thumb nothing, a mash less; P3 a thumb 150 ms late is DEAD ON from its fourth tap; P4 pixels read off the glass: the "
+     "bead on the middle at the beat, the crew's drawing moving inside a beat, and the block played with the audio taken away; P5 every "
+     "booked sound heard on its beat (the context's own output stamp); B5 nothing scrolls and the dial is on the glass upright, sideways "
+     "and on a laptop; F1 the page's own work a frame at 1x and at a phone-shaped CPU, no slow frame inside a phrase; B6 the DEMO and the "
+     "ALPHA, a phone both ways: a town's lot (one tap opens its sheet, never the game), the shell's one beat and the playing song's notes, a "
+     "spot on the beat dead centre, the town resting under the game, the find paid and said by YOU. Sixteen planted fails. green at "
+     "registration, 42/0; the bench legs about 2 min, each real page 2 to 4 more (--no-real skips them)", True),
     ('SEARCH THE LOT ANSWERS', ['node', 'gates/search_the_lot_answers_gate.js'],
      "TOWN FIX gate, 11/9, VAMILY rule 438(b) (ask line 524; PAOLO 11/8: 'I pressed search the lot, it says it'll take four hours, I press it and "
      "nothing happens'). MEASURED BEFORE: 8 of the demo's 14 places had a grey, dead lot from the first second (a park, a school, a prison under the "
