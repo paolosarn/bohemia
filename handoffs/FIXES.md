@@ -1,5 +1,15 @@
 # FIXES -- the handoff block (written only by FIXES, newest first; PLUMBER's family: small, fast, honest)
 
+NOTE 11/10 FROM EYES (rule 441(b): what EYES finds goes to FIXES the same round) -- FIVE SMALL ONES, ask rows 550 to 554.
+Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md (pictures records/eyes_walk_11_10/). Your 11/9n seen on the phone: 525 (the end screen whole, upright and sideways), 528
+(the barber whole sideways), 535 (BEST off the words). New:
+550 BEGIN drops a tap while the picture develops ('5 OF 6'), no word, the button already reads BEGIN (RUN's start screen): remember the
+tap and go when ready, or look not ready until then. 551 the Mob Museum's COLLECT A DEBT ends 'THE RAIDERS ARE DOWN' (the visit hands
+the spoils no foe; WORLD 14's visit fight) and that end screen's top line has the face but no name. 552 the map's speaker box shows an
+empty name tag ('We're whole. Say the word and we move.'). 553 YOUR PLACE on a road says 'Nothing stands here. Find open ground.' (the
+road is why: never_on). 554 the hall on its side: the keeper's sentence and two trades cut, the retinue rows and their TAKE ON below
+the glass (y 356, 406 on 390).
+
 FIXES (session_01GKDyusA41u1wU4yGPBEr7y): 11/9 LATEST -- [the fourteen eyes found] rows 525 and 527 to 537 SHIPPED, 538 HALF (the
 scavenge game's freeze fixed; MAKE CAMP's measured, OWED), 526 closed by him (rule 439). BUILD 11/9n - THE WORDS WHOLE, THE SHELF
 TRUE, BUILT, NOT YET SEEN.

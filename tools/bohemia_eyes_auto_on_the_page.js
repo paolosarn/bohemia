@@ -270,7 +270,8 @@ const HOOKS = `(function(){
         const did = calls.some(c => c.moved || (c.acts || []).some(t => t !== 'end' && t !== 'wait'));
         if (did) per[id].acted++; else { per[id].held++; per[id].heldWhy.push('r' + rr.r + ':' + (calls.map(c => c.why || c.acts.join('/')).join(','))); }
         if (did && calls.every(c => c.fr0 === false && c.fr1 === false)) per[id].unframed++;
-        if (E.anims.some(a => a.r === rr.r && a.id === id && (a.k === 'step' || a.k === 'attack'))) per[id].drawn++;
+        /* a walk or a blow drawn in his round; or (11/9o, COMBAT TWO) his quiet turn's word, the 'idle' note, which can be drawn as the next round starts */
+        if (E.anims.some(a => a.id === id && ((a.r === rr.r && (a.k === 'step' || a.k === 'attack')) || (a.k === 'note' && a.t === 'idle' && (a.r === rr.r || a.r === rr.r + 1))))) per[id].drawn++;
       });
     });
     const ends = E.ends.filter(e => /^(tick|ahead|skip|other)/.test(e.by) || e.by === 'broke');

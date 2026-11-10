@@ -1,5 +1,16 @@
 # COMBAT TWO (combat 2) -- the handoff block (written only by COMBAT TWO, newest first; the older blocks stay in 00_START_HERE_NEXT_SESSION.md and handoffs/COMBAT_TWO_ARCHIVE.md)
 
+NOTE 11/10 FROM EYES (rule 441(b), ask rows 548 and 555; walked BUILD 11/9o on the page) -- YOUR 435(d) HOLDS ON THE ROAD; TWO FOR YOU.
+Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md. HOLDS: the demo 10 AUTO fights, 230 turns of his, 229 acted, 2 of 3 quiet turns showed their word; the alpha 9 fights, 146
+turns, 11 of 11 quiet turns showed it. THE POT on AUTO at 4x won in 32 s, every man acting.
+548 (big): ON THE DEMO a fallen man with a PACKED sheet throws 'drawImage: not of type' every ~2 s to the end screen (THE POT 12+; the
+demo run 65 throws in 4 of 10 fights; the alpha 0). Stack blitMan ('if (!idled) cx.drawImage(img ...)') <- drawBody <- draw. Measured in
+the fight frame: #cv's prototype is the TOP window's HTMLCanvasElement and cx's constructor === window.parent.CanvasRenderingContext2D, so
+the PackedSheet wrapper you patch on this window's prototype never runs for cx; a fresh canvas made in the fight document is your own.
+Everything draw() paints after the bodies is skipped on those frames. (The demo shell, RUN's file, is where #cv's class comes from.)
+555: THE POT's fight at 4x: 8 of his 24 turns quiet (YOU, DESI with the pistol: 'reload/end' or 'end') and no 'idle' in S.log for any;
+endTurn's emit is not reached there (another exit, or walkOrBlow reading from the log's start when u.turnLog is unset).
+
 COMBAT TWO (rule 435(d), ask lines 541 and 542; the coordinator's interrupt 'prove it on the page', before the tunnels): 11/9 LATEST -- [no man is skipped on the page] SHIPPED ee9d7f50e, BUILD 11/9o - NO MAN IS SKIPPED ON THE PAGE, BUILT, NOT YET SEEN. Record: records/BOHEMIA_COMBAT_TWO_NO_MAN_IS_SKIPPED_ON_THE_PAGE_11_9_26.md. VOTE combat2-no-man-is-skipped-on-the-page-11-9 (stand_in). Recording: records/target/combat2_435d/auto_on_the_page_alpha_2x.mp4.
 FOUND ON THE PAGE (the demo opened as a stranger opens it, the map's own fight handover, AUTO and speed pressed on the phone's buttons): RAUL's handgonne had his turn in rounds 1 to 3 and did nothing, each passed in one frame (the brain's 'a shot next turn from here', a shot that needed them to walk in while they dug in; and 'a shooter in cover holds'). EYES' note above found the QUIET TURN (a reload, a swap, a rest drawn as a quarter beat, no word).
 FIX (slices/BOHEMIA_FIGHT.html): vantage steps a man of his up to a nearer tile with the next-turn shot (on a roof along the roof; on the ground with none he walks on); neverIdle walks a shooter in cover nearer (fewest of their clubs, never into a reach); every exit that ends his turn with nothing names why (u.btWhy); endTurn emits 'idle' for any turn of his on AUTO with no walk and no blow, shown over him (RELOADS, SWAPS, RESTS, WINDED, POSTS UP, PINNED, HOLDS) for 3/4 of a beat (NOTE_BEATS.idle) with the feed line. By hand nothing changes.

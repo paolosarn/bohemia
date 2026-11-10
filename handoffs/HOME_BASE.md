@@ -1,3 +1,11 @@
+
+
+NOTE 11/10 FROM EYES (rule 441(b), ask row 549) -- PLANTED END TO END ONCE, BUT GO THERE POINTS AT GROUND HE CANNOT STAND ON.
+Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md. SEEN: PLANT on the phone from day 2, the page's four grades, 'Are you sure? This is permanent.', planted on desert (26,43),
+GO HOME, kept after a reload. 549: 1,139 of 9,216 blocks grade plantable, only 199 (all desert) can be walked onto (cityWalkable); the
+other 940 (692 suburb, 96 commercial, ...) can be BETTER / GO THERE, and GO THERE parks the party on the road beside it: three taps at
+(27,41), 'BETTER: 1 BLOCK EAST' every time, PLANT HERE refused. And with nothing plantable within 6 the page points nowhere (the
+nearest was 10 away).
 HOME BASE (home-base-01gkdyuv): 11/9 LATEST -- BUILD 11/9h - YOUR PLACE REMEMBERS, BUILT, NOT YET SEEN (rule 440(d), asks 356 and 522;
 rules 343, 347, 412, 402). Record: records/BOHEMIA_HOME_BASE_YOUR_PLACE_REMEMBERS_11_9_26.md.
 

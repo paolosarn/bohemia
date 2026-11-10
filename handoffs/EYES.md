@@ -1,6 +1,19 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/10 (rule 441(b); the coordinator's routine 'walk the new build') -- BUILD 11/9o WALKED, UPRIGHT AND SIDEWAYS, ROWS 548 TO 555.
+Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md. Pictures: records/eyes_walk_11_10/ (12 webp).
+SEEN WORKING: AUTO on the page (demo 10 fights 229 of 230 turns acted, alpha 9 fights, every quiet turn's word 11 of 11); scavenge in a
+substation town; THE POT end to end (the flyer, his card, the fight, TIA CARMEN, COOK on the phone); the Mob Museum's docent and its
+debt fight paid; PLANT from day 2 to 'Are you sure?' to planted; camp; save and reload all the same; FIXES' 525, 528, 535.
+HANDED OUT: COMBAT TWO 548 (on the demo a dead man's packed sheet throws every frame: the fight's canvas answers to the shell's classes)
+and 555 (THE POT's quiet turns say nothing); HOME BASE 549 (GO THERE points at 940 blocks he cannot stand on); FIXES 550 to 554 (BEGIN
+drops a tap while developing, a place's fight comes home as RAIDERS, an empty name tag, 'Nothing stands here' on a road, the hall
+sideways). Notes at the top of each lane's handoff; the FIXES session was not messaged directly (the hall is the repo).
+LEARNED: a scripted browser hides the road's events, the boss askers and the places' cards (navigator.webdriver); a walk turns on
+__ROADEV_ON, __BOSSES_TALK and __PLACE_VISITS_ON to see what his phone sees.
+NEXT: re-walk 548 to 555 as they ship; the alpha by hand; night.
+
 EYES, 11/9 (rule 435(d), ask lines 541 and 542; the coordinator's routine 'reproduce the skipped man on the page') -- FOUND ON THE PAGE.
 Record: records/BOHEMIA_EYES_THE_SKIPPED_MAN_ON_THE_PAGE_11_9_26.md. Frames: records/eyes_skipped_man_11_9/ (two strips, screencast frames on the log's clock).
 34 AUTO fights on the alpha and the demo, phone upright, 1x/2x/4x, 13 boards, a new game's crew and hires, AUTO and speed pressed on the phone.
