@@ -36,7 +36,7 @@ const PROBE = `(() => {
 })();`;
 
 (async () => {
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await b.newPage({ viewport: { width: 390, height: 844 } });
   await page.addInitScript(PROBE);
   await page.goto('file://' + path.resolve(process.argv[2]), { waitUntil: 'load', timeout: 180000 });

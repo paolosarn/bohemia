@@ -34,7 +34,7 @@ const SHOTS = [['S', 'idle', 0], ['SE', 'walk', 0.25], ['E', 'idle', 0], ['N', '
     return { label: d + ' ' + c, a: load('before', k), b: load('after', k) };
   });
 
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 1300, height: 900 }, deviceScaleFactor: 2 });
 
   const png = await page.evaluate(async (pairs) => {

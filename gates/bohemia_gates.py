@@ -13,7 +13,7 @@ about: laws enforced by memory are not enforced.
 Run it before any absorption, any wrap, and after any engine edit. Green or it
 does not ship.
 """
-import subprocess, sys, time, os
+import subprocess, sys, time, os, re
 
 # The repo layout (7/17/26): gates live in gates/, engine modules in engine/.
 # Every gate runs with cwd = repo root, so data reads are repo-root-relative.
@@ -10634,6 +10634,15 @@ GATES = [
      "a frame while travelling (the beat's timers ask for the next frame); the men behind cut on the GPU, never read back a man; the "
      "ground slid by whole pixels; the zoom down at 4x from the far stop, its come-down and settle at least the ratchet, the last picture "
      "grown between paints. Solo: it measures time. About 12 min", True),
+    ('NO FREEZE OVER HALF A SECOND', ['node', 'gates/no_freeze_over_half_a_second_gate.js'],
+     "PLUMBER 8 gate, 11/10, rule 441(a)(c) ('no step that freezes over half a second... 60 frames on a cheap phone, the first load "
+     "light'), rule 400: THE FREEZE CENSUS (tools/bohemia_freeze_census.js), the demo on his phone upright with the CPU slowed 4x and "
+     "the canvas on a GPU process, walked the way he plays: the town, the map standing, travelling slow and fast, the pinch, a town, a "
+     "shop and an item, SEARCH THE LOT played, camp, a fight's start, AUTO 1x and 4x, its end and the spoils, a boss's fight, a home base "
+     "planted and opened, a save, the game reopened after the tab died; every gap over 500 ms between frames counted per step with the "
+     "page that ran it; a picture made once a session (a fight's start makes at most 6 PNGs; the materials' set made once), the same "
+     "pixels as the old way, the map's ink line kept per size; every step's freezes under a ratchet that may only come down; what "
+     "had loaded printed; P1 the old ways and a planted 900 ms stall turn it red. Solo: it measures time. About 20 min", True),
     ('THE WHOLE LOOP PLAYS', ['node', 'gates/the_whole_loop_plays_gate.js'],
      "PLUMBER 4 gate, 11/5, rule 408(d) ('one smoke test of the whole loop runs every build'): one stranger's game on the demo at phone "
      "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "
@@ -10967,13 +10976,40 @@ def is_browser_gate(argv):
     hit = _ISBROWSER.get(path)
     if hit is not None:
         return hit
+    hit = _drives_a_browser(path, 0)
+    _ISBROWSER[path] = hit
+    return hit
+
+
+# AND THROUGH THE TOOLS IT LOADS (PLUMBER 8, 11/10/26). The test above read the gate's OWN file for 'playwright' or 'chromium',
+# and the fleet's browser gates mostly open the browser through a shared tool (tools/bohemia_drive_the_demo.js, the census, the
+# motion recorder), never naming either word. MEASURED on main d97cecd3: 308 of the 720 gates this runner counted as browserless
+# drive Chromium, so --pure (the tier every lane can afford every turn) launched hundreds of browser walks, and the full suite ran
+# up to JOBS + BROWSER_JOBS browsers at once (six on this four-core box) where BROWSER_JOBS was the cap: the timing gates went red
+# for load and the run crawled. Now a gate is a browser gate if it, or a tools/ file it names (three deep; 'tools/x.js' or
+# path.join(..., 'tools', 'x.js')), says so.
+_DRIVES = {}
+_TOOLREF = re.compile(r"tools/[A-Za-z0-9_./-]+\.(?:js|py)")
+_TOOLPIECES = re.compile(r"""['"]tools['"]\s*,\s*['"]([A-Za-z0-9_./-]+\.(?:js|py))['"]""")   # path.join(ROOT, 'tools', 'x.js')
+
+
+def _drives_a_browser(path, depth):
+    if path in _DRIVES:
+        return _DRIVES[path]
+    _DRIVES[path] = False
     try:
         with open(path, encoding='utf8', errors='replace') as fh:
             t = fh.read()
-        hit = ('playwright' in t) or ('chromium' in t)
     except Exception:
-        hit = True
-    _ISBROWSER[path] = hit
+        _DRIVES[path] = path.startswith('gates/')   # an unreadable gate is treated as heavy, as before
+        return _DRIVES[path]
+    hit = ('playwright' in t) or ('chromium' in t)
+    if not hit and depth < 3:
+        for ref in set(_TOOLREF.findall(t)) | set('tools/' + x for x in _TOOLPIECES.findall(t)):
+            if ref != path and os.path.exists(ref) and _drives_a_browser(ref, depth + 1):
+                hit = True
+                break
+    _DRIVES[path] = hit
     return hit
 
 
@@ -11045,7 +11081,7 @@ def deps_check():
     install. This changes nothing about pass/fail: a gate that cannot run STILL
     FAILS, because a gate that cannot run has not held anything."""
     missing = []
-    for mod, pkg in (('PIL', 'Pillow'), ('numpy', 'numpy')):
+    for mod, pkg in (('PIL', 'Pillow'), ('numpy', 'numpy'), ('fontTools', 'fonttools')):   # fonttools: CASING FACE reads the face's own character list (PLUMBER 8, 11/10: missing on every fresh container, a red that was the box's)
         try:
             __import__(mod)
         except ImportError:
@@ -11062,6 +11098,41 @@ def deps_check():
 
 
 LOCK = os.path.join(REPO_ROOT, '.bohemia_gates.lock')
+
+
+# ===== THE QUARANTINE (PLUMBER 8, 11/10/26; VAMILY rule 13: "A gate on the QUARANTINE list still runs and never decides a ship";
+# the list was promised on 9/13 and never built, so every red decided every ship, the stale with the real, and a suite with sixty
+# stale reds read the same as one with sixty bugs). gates/BOHEMIA_QUARANTINE.txt, one line a gate:
+#     NAME | OWNER | SINCE | WHY (the ruling that retired what it checks, or the bug row it waits on)
+# A quarantined gate RUNS like any other and its result is PRINTED by name with its owner; a red one never decides the exit code,
+# and a green one is printed as CAN LIFT so the line is struck. A line that names no gate, no owner or no reason is refused, loudly,
+# and that gate is not quarantined. The list only shrinks by fixing: a gate is never put on it to make a ship green. =====
+QUARANTINE_FILE = os.path.join(REPO_ROOT, 'gates', 'BOHEMIA_QUARANTINE.txt')
+
+
+def load_quarantine():
+    q, bad = {}, []
+    try:
+        lines = open(QUARANTINE_FILE, encoding='utf8').read().split('\n')
+    except OSError:
+        return q
+    names = set(r[0] for r in GATES if isinstance(r, tuple) and r)
+    for ln in lines:
+        t = ln.strip()
+        if not t or t.startswith('#'):
+            continue
+        parts = [x.strip() for x in t.split('|')]
+        if len(parts) < 4 or not all(parts[:4]) or parts[0] not in names:
+            bad.append(t[:90])
+            continue
+        q[parts[0]] = {'owner': parts[1], 'since': parts[2], 'why': ' | '.join(parts[3:])}
+    if bad:
+        print('!' * 78)
+        print('  THE QUARANTINE REFUSED %d LINE(S) (no such gate, or no owner, date or reason); those gates decide as usual:' % len(bad))
+        for b in bad:
+            print('    ' + b)
+        print('!' * 78)
+    return q
 
 
 def _alive(pid):
@@ -11514,6 +11585,21 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
     # right to believe a red. This is the discipline this lane was already
     # applying by hand all month -- "run it alone to see if it is load" -- moved
     # into the runner so nobody has to remember it.
+    load_flakes = []
+    # THE QUARANTINE: a quarantined red is named here and never re-checked or counted (it already has its owner and reason)
+    quar = load_quarantine() if not dry else {}
+    q_red = [nm for nm in failed if nm in quar]
+    failed = [nm for nm in failed if nm not in quar]
+    if quar and not dry:
+        ran_names = set(results[k][0] for k in results)
+        q_green = [nm for nm in quar if nm in ran_names and nm not in q_red]
+        print('  ' + '-' * 74, flush=True)
+        print('  QUARANTINE: %d listed, %d ran red (named, they never decide a ship), %d ran green (CAN LIFT)'
+              % (len(quar), len(q_red), len(q_green)), flush=True)
+        for nm in q_red:
+            print('    RED   %-28s %s, since %s: %s' % (nm[:28], quar[nm]['owner'], quar[nm]['since'], quar[nm]['why'][:90]), flush=True)
+        for nm in q_green:
+            print('    GREEN %-28s CAN LIFT: strike its line in gates/BOHEMIA_QUARANTINE.txt' % nm[:28], flush=True)
     if failed and not dry:
         print('  ' + '-' * 74, flush=True)
         print('  CONFIRMING %d RED(S) ALONE -- a gate that failed in the pack may '
@@ -11577,21 +11663,25 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
                   % (len(load_flakes), ', '.join(load_flakes)), flush=True)
         failed = confirmed + unconfirmed
     print('=' * 78)
+    greens = ran - len(failed) - len(q_red)
+    qsay = (' AND %d QUARANTINED RED (named above, never deciding)' % len(q_red)) if q_red else ''
     if failed:
         print('  %d GATE(S) FAILED: %s   (%.0fs)' % (len(failed), ', '.join(failed), time.time() - t0))
+        if q_red:
+            print('  ...' + qsay)
     elif not unrun:
         # AND IT SAYS HOW MANY. "ALL GATES GREEN" after --only ran one gate is
         # the same lie as silence about an unrun one.
         if only:
-            print('  %d of %d GATE(S) GREEN -- filtered by --only %s. THE REST DID '
+            print('  %d of %d GATE(S) GREEN%s -- filtered by --only %s. THE REST DID '
                   'NOT RUN AND HELD NOTHING.   (%.0fs)'
-                  % (ran, total, only, time.time() - t0))
+                  % (greens, total, qsay, only, time.time() - t0))
         elif shard:
             print('  %d of %d GATE(S) GREEN -- SHARD %d OF %d. THE OTHER SHARD(S) '
                   'DID NOT RUN AND HELD NOTHING; run them to cover the table.   (%.0fs)'
-                  % (ran, total, shard[0], shard[1], time.time() - t0))
+                  % (greens, total, shard[0], shard[1], time.time() - t0))
         else:
-            print('  ALL %d GATES GREEN   (%.0fs)' % (ran, time.time() - t0))
+            print('  ALL %d GATES GREEN%s   (%.0fs)' % (greens, qsay, time.time() - t0))
     # AND THE HALF THAT WAS MISSING. An unrun gate has held nothing, so a run
     # with unrun gates is NEVER a pass -- it is an unfinished run, and it says
     # so by name and by count rather than trailing off.
@@ -11624,6 +11714,15 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
             'python3 gates/bohemia_gates.py --shard %d/%d' % (k + 1, want)
             for k in range(min(want, 4))) + ('  ...' if want > 4 else ''))
         print('  Or run one directly: python3 gates/bohemia_gates.py --only <name>')
+    # THE SUITE LINE (VAMILY rule 13(b), PLUMBER [suite line]): one line, the same shape every run, for the front page
+    if not dry:
+        try:
+            sha = subprocess.run(['git', 'rev-parse', '--short=9', 'HEAD'], capture_output=True, text=True, cwd=REPO_ROOT).stdout.strip()
+        except Exception:
+            sha = '?'
+        print('  SUITE LINE: sha %s%s: %d of %d ran, %d green, %d red, %d never ran, %d red in the pack green alone, %d quarantined red'
+              % (sha, (' (--only %s)' % only) if only else (' (shard %d/%d)' % shard if shard else ''), ran, total,
+                 greens, len(failed), len(unrun), len(load_flakes), len(q_red)), flush=True)
     if unrun:
         return 1
     return 1 if (failed and not lenient) else 0

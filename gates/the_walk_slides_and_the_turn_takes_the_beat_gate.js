@@ -52,7 +52,7 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
      (src.match(/\/BEAT\*frames\.length\)\|0/g) || []).length === 0
      && (src.match(/walkFrame\(/g) || []).length >= 2);
 
-  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const pg = await br.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + CITY, { waitUntil: 'load' });
@@ -221,7 +221,7 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
      (src.match(/setFace\(/g) || []).length + ' assignments go through it');
 
   /* ---- 4. THE IDLE HE VOTED UP, UNDER IDLE LAW --------------------------- */
-  const br2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const br2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const p2 = await br2.newPage();
   const errs3 = []; p2.on('pageerror', e => errs3.push(e.message));
   await p2.goto('file://' + ALPHA, { waitUntil: 'load' });

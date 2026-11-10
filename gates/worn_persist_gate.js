@@ -33,7 +33,7 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   /* ONE CONTEXT for the whole run, so localStorage really does carry across the
      reload the way it does on his phone. A fresh context per load would wipe the
      save and this gate would pass by never testing anything. */

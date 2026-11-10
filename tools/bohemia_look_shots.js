@@ -510,7 +510,7 @@ async function restoreShellChrome(shell) {
 
 (async () => {
   ensureDir(OUTDIR);
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   /* deviceScaleFactor 2, not 3. The shot has to live in the repository forever and
      a 3x phone frame is ~1.4 MB of PNG per picture. 2x is still sharp on his
      screen and roughly halves what every future commit carries. */

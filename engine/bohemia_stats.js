@@ -102,7 +102,7 @@
   /* the arrow, seven cells on seven like the kit's star, a pixel of bone round it so it reads on paper, glass and tin */
   var ARROW = ['0001000', '0011100', '0111110', '1111111', '0011100', '0011100', '0011100'];
   function arrowURL(up, ink) {
-    var c = document.createElement('canvas'); c.width = c.height = 27; var g = c.getContext('2d');
+    var c = document.createElement('canvas'); c.width = c.height = 27; var g = c.getContext('2d', { willReadFrequently: true });   /* PLUMBER 8 (rule 441(c)): made to be encoded, so made on the CPU */
     var cell = function (col) { g.fillStyle = col; ARROW.forEach(function (r, y) { for (var x = 0; x < 7; x++) if (r[x] === '1') g.fillRect(3 + x * 3, 3 + (up ? y : 6 - y) * 3, 3, 3); }); };
     g.save(); [[-2, 0], [2, 0], [0, -2], [0, 2], [-1, -1], [1, 1], [-1, 1], [1, -1]].forEach(function (d) { g.setTransform(1, 0, 0, 1, d[0], d[1]); cell('#efe6d0'); }); g.restore();
     g.setTransform(1, 0, 0, 1, 0, 0); cell(ink); return 'url(' + c.toDataURL('image/png') + ')';
@@ -137,7 +137,7 @@
     var s = document.createElement('style'); s.id = 'bst-css'; s.textContent = CSS; (document.head || document.documentElement).appendChild(s);
     var R = document.documentElement.style;
     R.setProperty('--bst-arrow-up', arrowURL(true, '#2e8b22')); R.setProperty('--bst-arrow-dn', arrowURL(false, '#b8261b'));
-    var h = document.createElement('canvas'); h.width = h.height = 4; var hg = h.getContext('2d');   /* a 4 x 4 hatch, two pixels of each stripe */
+    var h = document.createElement('canvas'); h.width = h.height = 4; var hg = h.getContext('2d', { willReadFrequently: true });   /* a 4 x 4 hatch, two pixels of each stripe */
     for (var y = 0; y < 4; y++) for (var x = 0; x < 4; x++) { hg.fillStyle = ((x + y) % 4) < 2 ? 'rgba(184,38,27,.75)' : 'rgba(184,38,27,.3)'; hg.fillRect(x, y, 1, 1); }
     R.setProperty('--bst-hatch-dn', 'url(' + h.toDataURL('image/png') + ')');
     try { if (root.BohemiaMaterials && root.BohemiaMaterials.stars) root.BohemiaMaterials.stars(0); } catch (e) {}   /* the kit's star marks are laid on the root */

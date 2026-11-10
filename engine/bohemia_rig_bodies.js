@@ -110,7 +110,7 @@
       var foot = im.naturalHeight - 1;
       try {   /* the lowest row with paint on it is where his soles meet the ground */
         var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
-        var x = c.getContext('2d'); x.drawImage(im, 0, 0); var d = x.getImageData(0, 0, c.width, c.height).data;
+        var x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(im, 0, 0); var d = x.getImageData(0, 0, c.width, c.height).data;   /* PLUMBER 8 (rule 441(c)): a canvas made to be read is made on the CPU, never a read-back from the GPU (53 of a town's 61 opening) */
         for (foot = c.height - 1; foot > 0; foot--) { var any = false; for (var i = 0; i < c.width; i++) if (d[(foot * c.width + i) * 4 + 3] > 24) { any = true; break; } if (any) break; }
       } catch (er) {}
       e.foot = foot + 1; e.mid = im.naturalWidth / 2; e.im = im;

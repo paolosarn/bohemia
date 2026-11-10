@@ -41,7 +41,7 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
   await SETTLE(page, 2500);

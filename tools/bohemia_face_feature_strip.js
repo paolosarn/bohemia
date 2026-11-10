@@ -26,7 +26,7 @@ const OUT = process.argv[2] || path.join(REPO, 'records/FACE_FEATURE_SCALE_8_11.
 const STEPS = [1, 1.25, 1.5, 1.75, 2];
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 900, height: 700 }, deviceScaleFactor: 2 });
   page.on('pageerror', e => console.log('PAGEERROR: ' + e.message));
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });

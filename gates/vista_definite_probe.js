@@ -6,7 +6,7 @@ const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 (async () => {
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await p.goto('file://' + path.resolve(__dirname, '../slices/BOHEMIA_CITY_WORLD.html'),
     { waitUntil: 'load', timeout: 240000 });

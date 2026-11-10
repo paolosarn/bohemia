@@ -54,7 +54,7 @@ const OUT = path.join(REPO, 'slices/look/border-one-pixel.png');
 const SHOTS = [['S', 'idle', 0], ['SE', 'walk', 0.25], ['E', 'idle', 0]];
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   page.on('pageerror', e => console.log('PAGEERR: ' + e.message.slice(0, 110)));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });

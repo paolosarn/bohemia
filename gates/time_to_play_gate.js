@@ -115,7 +115,7 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   const port = server.address().port;
 
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
   const errs = [];
@@ -270,7 +270,7 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      on the critical path. */
   const CEIL_TAP_TO_WORLD_MS = 12000;
 
-  const b3 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const b3 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const c3 = await b3.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const p3 = await c3.newPage();
   const cdp = await c3.newCDPSession(p3);
@@ -413,7 +413,7 @@ const MB = b => (b / 1048576).toFixed(2) + ' MB';
      Gated because it is invisible. Nothing a player sees depends on it today; it would rot
      silently the first time somebody moved a declaration out of chunk 1, and the next person
      to try progressive loading would find a black screen and no idea why. */
-  const b2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const b2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const c2 = await b2.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const p2 = await c2.newPage();
   const errs2 = [];

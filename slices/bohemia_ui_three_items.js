@@ -294,7 +294,7 @@
   function rnd(seed) { var x = seed >>> 0 || 1; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; }; }
   function frameURL(q) {
     var d = DPR(), S = (PX.ring + PX.wall) * d, N = S * 2 + d * 2, c = document.createElement('canvas'); c.width = c.height = N;
-    var g = c.getContext('2d'), F = FRAME[q] || FRAME.plain, R = rnd(q.length * 977 + 31), ring = PX.ring * d;
+    var g = c.getContext('2d', { willReadFrequently: true }), F = FRAME[q] || FRAME.plain, R = rnd(q.length * 977 + 31), ring = PX.ring * d;   /* PLUMBER 8: made to be encoded, on the CPU */
     var px = function (x, y, rgb, a) { g.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + (a == null ? 1 : a) + ')'; g.fillRect(x, y, 1, 1); };
     for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
       var dEdge = Math.min(x, y, N - 1 - x, N - 1 - y);
@@ -319,7 +319,7 @@
     return { url: c.toDataURL('image/png'), slice: S, w: PX.ring + PX.wall };
   }
   function poolURL() {   /* the lamp over the piece: a soft pool, warm, ordered-dithered in four steps at the glass's pixels */
-    var d = DPR(), S = 34, N = S * d, c = document.createElement('canvas'); c.width = c.height = N; var g = c.getContext('2d');
+    var d = DPR(), S = 34, N = S * d, c = document.createElement('canvas'); c.width = c.height = N; var g = c.getContext('2d', { willReadFrequently: true });   /* PLUMBER 8: made to be encoded, on the CPU */
     var bay = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
     for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
       var dx = (x - N * 0.46) / (N * 0.5), dy = (y - N * 0.44) / (N * 0.46), r = Math.sqrt(dx * dx + dy * dy); if (r >= 1) continue;

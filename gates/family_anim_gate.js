@@ -50,7 +50,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   ok('the cast animates off BAKED STRIPS (famPaintBody calls rebuildFromRig — four ' +
      'rig rebuilds per frame is not a thing that can run)', /function famStrip\(/.test(src));
 
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });
   await SETTLE(page, 2500);

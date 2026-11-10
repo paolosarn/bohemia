@@ -1,5 +1,49 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/10 -- rule 441(c), rule 400, ask lines 543 and 558: THE FULL SUITE AND NO FREEZE OVER HALF A SECOND.
+TWO HALVES. SMOOTH: BUILT, NOT YET SEEN (BUILD 11/10h FEWER FREEZES). THE SUITE: STILL RUNNING on main d97cecd3 in a worktree
+(scratchpad suite_tree, BOHEMIA_SUITE_BUDGET=30000 so every gate runs; ~5 h in at this writing, about a third through; paused 31 min
+once for a quiet before/after, its confirm-alone pass re-checks what that upset). Record: records/BOHEMIA_PLUMBER_EIGHT_NO_FREEZE_OVER_HALF_A_SECOND_11_10_26.md.
+THE TOOL: tools/bohemia_freeze_census.js walks the whole demo the way he plays (town, map, travel slow/fast, pinch, town, shop, item,
+SEARCH THE LOT played, camp, a fight 1x/4x, spoils, a boss fight, a home base, a save, the reload after the tab died) on the phone
+upright with the CPU 4x slower; every gap over 500 ms between frames per step with the page that ran it; every PNG and pixel read and
+whether its canvas was made for reading; every page error with its step and stack. --cpu = this box's software canvas (the gate's);
+default = canvas on a GPU process (SwiftShader: in a town it stops making frames and takes no taps, so the gate walks --cpu).
+BOHEMIA_CENSUS_ROOT=<tree> walks another checkout (the before on main).
+FIXED (each the same pixels, each with an old-way switch): materials' seeded pictures made ONCE A SESSION on the top page and on the
+CPU (__A_PICTURE_IS_MADE_ONCE_A_SESSION__, window.__BM_KEEP_OFF; also the fight's actMarks, hudVars, rootVars, the map bar's edge);
+the map's ink line per size (__A_SIZE_KEEPS_ITS_INK_LINE__, __INK_ONE_SIZE); wear anchors kept a session on the top page
+(__A_PICTURE_IS_READ_ONCE_A_SESSION__, BohemiaWear.keepOff); the fight's groundLums reads a row once, 1,200 read-backs a bake to 30
+(__A_ROW_IS_READ_ONCE__, __GROUND_LUMS_PER_POINT); willReadFrequently on the town's feet (rig_bodies), the map's markers
+(mapArtSprite), the fight's outlineOf, the stat arrows and hatch, the item frames and pool, the start marks.
+MEASURED, quiet box, the same walk, main -> this: freezes over 500 ms 143 -> 119; reads/PNGs off canvases not made for reading
+578 -> 29; a fight's start 35 read-backs -> 0; its end worst 3.8 s -> 0.3 s; a town 70 -> 1; frozen in all 173.7 s -> 124.1 s
+(before the wear and groundLums fixes). VOTE card plumber-8-fewer-freezes-11-10.
+GATE: NO FREEZE OVER HALF A SECOND (registered, solo, ~20 min): W1 walk complete, K1 PNGs at a fight's start <= 14 and the set made a
+few times, K2 same pixels, K3 ink reads, K4 <= 140 reads off canvases not made for reading a walk, K5 the night light by rows equals
+by points, F1 per-step ratchets (the worse of two walks on a shared box + 30%; tighten from a solo run), P1 planted (the old ways +
+a 900 ms stall in loopOpenTown) red, E1 with ask row 558 named as known.
+THE RUNNER (gates/bohemia_gates.py): is_browser_gate() now follows the tools a gate loads ('tools/x.js' and path.join(...,'tools',
+'x.js'), three deep): 308 browser gates were counted browserless on main (six browsers at once on four cores; --pure launched them);
+now 422 of 1,204 are pure. THE QUARANTINE (VAMILY rule 13, never built): gates/BOHEMIA_QUARANTINE.txt, NAME | OWNER | SINCE | WHY;
+quarantined reds run and print, never decide; greens print CAN LIFT. THE SUITE LINE printed at the end of every run.
+TWO MORE PIPES: 56 gates and tools hard-coded /opt/pw-browsers/chromium-1194/... (a build this box no longer has: chromium-1243),
+so they could not launch a browser at all; all now /opt/pw-browsers/chromium (the box's stable link). CASING FACE needs fontTools,
+never listed in gates/requirements.txt (red on every fresh container); listed and checked by deps_check; it then found ask row 559.
+FOUND, NOT FIXED: (1) ask row 558, a fight throws at blitMan every fight (drawImage of a sheet object its wrapper does not know; the
+stack has no wrapper frame): COMBAT TWO, FIXES. (2) THE PUBLISHED SITE 944 MB (PAGES PUBLISH red on main, 901 against its 900 MB cap;
+GitHub stops at 1 GB): mine next; the VOTE tab's card history is most of records/target (character 92, portrait 48, master_rig 43).
+(3) 68 old gates boot BOHEMIA_CITY_WORLD.html alone and wait for the GET UP day card (removed; the walk dead 9/28): they crash before
+testing anything; they go on the quarantine with their owners when the suite lands. (4) the boot and the reload: 20-26 s frozen at
+4x, 3-4 s tasks in the 6.5 MB map page. (5) the fight is a new page every fight (951 KB inline script, 22 data files no-cache): a
+kept fight page is the root of the fight's start. (6) the town at rest 5-7 fps at 4x (PLUMBER 7's item 1).
+NOTES FOR THE OWNERS (each a row on the ask list): FOR COMBAT TWO and FIXES, ask 558 (the fight throws at blitMan and meleeDraw every
+fight: a sheet object reaches the browser's own drawImage). FOR MOTION 3, ask 560 (since 11/10g THE CAMP IS THE FIGHT'S BOARD, leaving
+camp freezes 1.4 s at 4x; the gate holds it at 1.9 s as known debt). FOR UI TWO and FEED, ask 559 (the feed's lowercase handles in the
+caps-only face). FOR PLUMBER, ask 561 (the boot and the reload).
+NEXT: when the suite lands: the SUITE LINE on the front page, the quarantine filled (stale gates with the ruling that retired each),
+ask rows for real bugs with owners, notes in their handoffs; then the site under its cap; then the boot.
+
 PLUMBER 7 (chat 18) 11/7 -- rule 427(d), rules 393 and 418, ask lines 428 and 441: THE MAP'S LIGHTS READ AS LIGHTS, AND EVERY CHANGE
 AT SIXTY. BUILT, NOT YET SEEN (BUILD 11/7zd EMBERS AND LAMPS, NO FREEZES). Record:
 records/BOHEMIA_PLUMBER_THE_MAP_S_LIGHTS_AND_EVERY_CHANGE_AT_SIXTY_11_7_26.md. VOTE card plumber-7-the-map-s-lights-11-7.

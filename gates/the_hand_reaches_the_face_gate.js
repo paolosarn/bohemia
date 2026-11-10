@@ -102,7 +102,7 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
   ok('no hand-to-face clip aims with the GUN target any more',
      !REDO_IS_IN || usesGun.length === 0, usesGun.join(', ') || 'none of the five');
 
-  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const pg = await br.newPage();
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });

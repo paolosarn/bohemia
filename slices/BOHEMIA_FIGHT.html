@@ -5738,12 +5738,19 @@ function moonFor(img, x, y) {
 }
 /* the night ground's light under each tile, once at the bake: the middle of four points on the tile, read off the baked board
    (relative luminance, WCAG's) */
+/* __A_ROW_IS_READ_ONCE__ (PLUMBER 8, 11/10/26; rule 441(c)): this read the four points of every tile one pixel at a time, 4 reads a
+   tile off the 3200-wide baked board: 1,200 read-backs a bake (every fight at night, and every SEARCH THE LOT, whose minigame bakes
+   its board here), and where a GPU draws the board each read is a round trip to it. The four points lie on two rows a tile row, so
+   each row is read once, whole, and the same pixels come out of it (tools/bohemia_freeze_census.js counted 1,201 reads at the lot's
+   open). window.__GROUND_LUMS_PER_POINT = true is the old way. */
 function groundLums(c) {
   const S = FIGHT.S, g = c.getContext('2d'), out = new Float32Array(S.w * S.h);
   const lin = function (v) { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
+  const ROWS = new Map(), one = !!window.__GROUND_LUMS_PER_POINT;
+  const at = function (px, py) { if (one) return g.getImageData(px, py, 1, 1).data; let r = ROWS.get(py); if (!r) { r = g.getImageData(0, py, c.width, 1).data; ROWS.set(py, r); } return r.subarray(px * 4, px * 4 + 4); };
   for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
     const v = [[.08, .2], [.92, .2], [.08, .6], [.92, .6]].map(function (o) {
-      const d = g.getImageData(Math.min(c.width - 1, Math.floor((x + o[0]) * UI.tw)), Math.min(c.height - 1, Math.floor((y + o[1]) * UI.th)), 1, 1).data;
+      const d = at(Math.min(c.width - 1, Math.floor((x + o[0]) * UI.tw)), Math.min(c.height - 1, Math.floor((y + o[1]) * UI.th)));
       return .2126 * lin(d[0]) + .7152 * lin(d[1]) + .0722 * lin(d[2]); }).sort(function (p, q) { return p - q; });
     out[y * S.w + x] = (v[1] + v[2]) / 2;
   }
@@ -9412,7 +9419,7 @@ function outlineOf(im) {
   let pts = null;
   try {
     const w = im.width, h = im.height, c = document.createElement('canvas'); c.width = w; c.height = h;
-    const g = c.getContext('2d'); g.drawImage(im, 0, 0); const a = g.getImageData(0, 0, w, h).data;
+    const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0); const a = g.getImageData(0, 0, w, h).data;   /* PLUMBER 8 (rule 441(c)): a canvas made to be read is made on the CPU, never a GPU read-back */
     const n = Math.min(24, w), top = [], bot = [];
     for (let i = 0; i <= n; i++) {
       const x0 = Math.min(w - 1, Math.floor(i * w / n)), x1 = Math.min(w, Math.max(x0 + 1, Math.floor((i + 1) * w / n)));
@@ -10024,10 +10031,17 @@ const ACT_MARKS = {
     '001110011100', '011100001110', '111000000111', '110000000011'] };
 function actMarks() {
   const be = document.getElementById('bend'), bw = document.getElementById('bwait');
+  /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__ (PLUMBER 8, 11/10/26, rule 441(c)): every fight is a new page, and these three marks were
+     drawn and turned into PNGs at each one's start; where a GPU draws the canvas each PNG waited on everything the GPU had been given
+     (9.4 s of a fight's start on the phone-shaped CPU with the canvas on a GPU process, once the materials' own were made once). Now
+     drawn on the CPU (willReadFrequently) and kept on the top page for the session: the same three pictures. */
+  let KM = null; try { if (!window.__BM_KEEP_OFF && window.top && window.top !== window) KM = window.top.__ACT_MARKS_KEPT || (window.top.__ACT_MARKS_KEPT = new window.top.Object()); } catch (_e) { KM = null; }
   Object.keys(ACT_MARKS).forEach(function (k) {
-    const c = document.createElement('canvas'); c.width = c.height = 36; const g = c.getContext('2d'); g.fillStyle = '#2a221a';
-    ACT_MARKS[k].forEach(function (r, y) { for (let x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
-    const u = 'url(' + c.toDataURL('image/png') + ')'; be.style.setProperty('--mark-' + k, u); bw.style.setProperty('--mark-' + k, u);
+    let u = KM && KM[k];
+    if (!u) { const c = document.createElement('canvas'); c.width = c.height = 36; const g = c.getContext('2d', window.__BM_KEEP_OFF ? undefined : { willReadFrequently: true }); g.fillStyle = '#2a221a';
+      ACT_MARKS[k].forEach(function (r, y) { for (let x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
+      u = 'url(' + c.toDataURL('image/png') + ')'; if (KM) KM[k] = u; }
+    be.style.setProperty('--mark-' + k, u); bw.style.setProperty('--mark-' + k, u);
   });
 }
 /* the hint's place: above the bar on the phone held upright; on a wide glass in the strip beside the faces when the strip

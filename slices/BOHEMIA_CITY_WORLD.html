@@ -49126,7 +49126,7 @@ function mapArtSprite(mask, frame, banner){
   var w = mask.w || mask.body[0].length, h = mask.h || mask.body.length, X = MAP_ART_X;
   /* ONE PIXEL OF RIM, all round (see the end of this function) */
   var c = document.createElement('canvas'); c.width = w * X + 2; c.height = h * X + 2;
-  var cx = c.getContext('2d');
+  var cx = c.getContext('2d', { willReadFrequently: true });   /* PLUMBER 8 (rule 441(c)): baked once and read for its rim, so made on the CPU: 149 read-backs from the GPU at boot before */
   cx.translate(1, 1);
   var ink = function(ch){ if (ch === '.') return null; if (ch === 'b') return banner || MAP_ART.pal.a; return MAP_ART.pal[ch] || null; };
   var put = function(rows, ox2, oy2){
@@ -49874,17 +49874,23 @@ function mapInkTop(im){
   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__ (PLUMBER 7, 11/7/26): his walk hands a NEW picture every frame, so 'once a second a picture'
      was a read every frame, and where a GPU draws the canvas a read of a picture it holds is a wait for the GPU (4.4 s of an 8 s
      reading at the street stop): a picture of the same size as the one read under a second ago carries that one's line */
-  var L0 = mapInkTop.last; if(L0 && now - L0.at < 1000 && L0.w === im.width && L0.h === im.height){ MAP_INK.set(im, { top: L0.top, at: L0.at }); return L0.top; }
+  /* __A_SIZE_KEEPS_ITS_INK_LINE__ (PLUMBER 8, 11/10/26; rule 441(c)): the line was kept for the LAST size only, so him and a man of his
+     at another size took turns to miss it, and every miss where reads wait on the GPU was a read-back: on the phone-shaped CPU with the
+     canvas on a GPU process, 8.8 s of a fight's 34 s start (12.7 s of read-backs in all; tools/bohemia_freeze_census.js). Now every
+     size keeps its own line (a second, as before; ten where a read waits on the GPU: a walk's frames of one size share their head to a
+     pixel at 24 across). window.__INK_ONE_SIZE = true is the old way. */
+  var SZ = mapInkTop.sizes || (mapInkTop.sizes = new Map()), skey = im.width + 'x' + im.height, keepMs = (typeof MAP_DEPTH !== 'undefined' && MAP_DEPTH.readSlow) ? 10000 : 1000;
+  var L0 = window.__INK_ONE_SIZE ? mapInkTop.last : SZ.get(skey); if(L0 && now - L0.at < (window.__INK_ONE_SIZE ? 1000 : keepMs) && L0.w === im.width && L0.h === im.height){ MAP_INK.set(im, { top: L0.top, at: L0.at }); return L0.top; }
   /* and where a read-back waits on the GPU (MAP_DEPTH.readSlow), the read is made off the thread and lands a moment later */
   if(typeof MAP_DEPTH !== 'undefined' && MAP_DEPTH.readSlow && typeof createImageBitmap === 'function'){
-    if(!mapInkTop.busy){ mapInkTop.busy = true; var __w = 24, __h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1)));
+    if(!mapInkTop.busy){ mapInkTop.busy = true; var __k = skey, __w = 24, __h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1)));
       try { createImageBitmap(im, { resizeWidth: __w, resizeHeight: __h }).then(function(bm){ var t2 = 0;
         try { MAP_INK_CV = MAP_INK_CV || document.createElement('canvas'); if(MAP_INK_CV.width !== __w || MAP_INK_CV.height !== __h){ MAP_INK_CV.width = __w; MAP_INK_CV.height = __h; }
           var x2 = MAP_INK_CV.getContext('2d', { willReadFrequently: true }); x2.clearRect(0, 0, __w, __h); x2.drawImage(bm, 0, 0); var d2 = x2.getImageData(0, 0, __w, __h).data;
           for(var y2 = 0; y2 < __h; y2++){ var hit2 = false; for(var i2 = 0; i2 < __w; i2++) if(d2[(y2 * __w + i2) * 4 + 3] > 40){ hit2 = true; break; } if(hit2){ t2 = y2 / __h; break; } } } catch(_e){ t2 = 0; }
-        try { bm.close(); } catch(_e){} var n2 = performance.now(); MAP_INK.set(im, { top: t2, at: n2 }); mapInkTop.last = { w: im.width, h: im.height, top: t2, at: n2 }; mapInkTop.busy = false; },
+        try { bm.close(); } catch(_e){} var n2 = performance.now(); MAP_INK.set(im, { top: t2, at: n2 }); mapInkTop.last = { w: im.width, h: im.height, top: t2, at: n2 }; if(SZ.size > 64) SZ.clear(); SZ.set(__k, mapInkTop.last); mapInkTop.busy = false; mapInkTop.reads = (mapInkTop.reads | 0) + 1; },
         function(){ mapInkTop.busy = false; }); } catch(_e){ mapInkTop.busy = false; } }
-    return L0 ? L0.top : 0;
+    return L0 ? L0.top : (mapInkTop.last ? mapInkTop.last.top : 0);
   }
   var top = 0;
   try{ var w = 24, h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1))); MAP_INK_CV = MAP_INK_CV || document.createElement('canvas');
@@ -49893,7 +49899,7 @@ function mapInkTop(im){
     var d = x.getImageData(0, 0, w, h).data;
     for(var y = 0; y < h; y++){ var hit = false; for(var i = 0; i < w; i++) if(d[(y * w + i) * 4 + 3] > 40){ hit = true; break; } if(hit){ top = y / h; break; } }
   }catch(_e){ top = 0; }
-  MAP_INK.set(im, { top: top, at: now }); mapInkTop.last = { w: im.width, h: im.height, top: top, at: now }; return top;
+  MAP_INK.set(im, { top: top, at: now }); mapInkTop.last = { w: im.width, h: im.height, top: top, at: now }; if(SZ.size > 64) SZ.clear(); SZ.set(skey, mapInkTop.last); mapInkTop.reads = (mapInkTop.reads | 0) + 1; return top;
 }
 function mapHeadBarsQueue(who, x, bottom){
   if(!window.BohemiaCondition || !BohemiaCondition.bars) return;

@@ -45,7 +45,7 @@ const REPO = path.dirname(__dirname);
 const ALPHA = 'file://' + path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   page.on('pageerror', e => console.log('PAGEERR: ' + e.message.slice(0, 110)));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });

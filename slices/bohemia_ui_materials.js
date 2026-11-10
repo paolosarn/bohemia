@@ -10,7 +10,27 @@
   'use strict';
   let seed = 7;
   function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-  function canvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+  /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__ (PLUMBER 8, 11/10/26; rule 441(c), rule 400(a): 'no step that freezes over half a second').
+     MEASURED on the demo, his phone upright, the CPU slowed 4x, the canvas on a GPU process (tools/bohemia_freeze_census.js): every
+     fight is a new page, and its first line here painted these eight seeded pictures again and turned each into a PNG (toDataURL):
+     4.5 s of the fight's start (3.2 s in PNG encodes), with a whole stall of 4.75 s; the spoils, the settlement, the stash and the
+     crew screens paid it again as each one opened. Where a GPU draws a canvas, toDataURL is a read-back (the page waits for the GPU
+     to finish everything it was given) and then an encode on the page's thread. TWO FIXES, the same pixels:
+     (1) a picture made to be ENCODED is made on the CPU (willReadFrequently: Chrome keeps it off the GPU, so the PNG never waits);
+     (2) the seeded pictures are made ONCE A SESSION and kept on the top page (one origin, one tab): every page after the first takes
+     the same PNG strings, and the seed is put back where making them would have left it, so every later picture is the same.
+     window.__BM_KEEP_OFF = true (before the page) is the old way. */
+  function canvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; if (!window.__BM_KEEP_OFF) { try { c.getContext('2d', { willReadFrequently: true }); } catch (e) {} } return c; }
+  const KEPT = (function () { try { const t = window.top; if (t && t !== window && t.document) return t.__BM_KEPT || (t.__BM_KEPT = new t.Object()); } catch (e) {} return window.__BM_KEPT || (window.__BM_KEPT = {}); })();
+  function kept(key, make) {
+    if (window.__BM_KEEP_OFF) return make();
+    const k = key + '|' + KEPT_VER(); if (Object.prototype.hasOwnProperty.call(KEPT, k)) { KEPT.hits = (KEPT.hits | 0) + 1; return KEPT[k]; }
+    const v = make(); KEPT[k] = v; KEPT.made = (KEPT.made | 0) + 1; return v;
+  }
+  /* the version of what makes them: two pages of a session on two copies of this file never share a picture */
+  let KV = null;
+  function KEPT_VER() { if (KV === null) { let h = 0; const src = String(grain) + String(cardboard) + String(tape) + String(receipt) + String(glass) + String(cardedge) + String(mark);
+    for (let i = 0; i < src.length; i++) h = (h * 31 + src.charCodeAt(i)) | 0; KV = (h >>> 0).toString(36); } return KV; }
   function grain(g, w, h, n, a, light) {
     for (let i = 0; i < n; i++) {
       const v = light ? 255 : 0;
@@ -174,9 +194,12 @@
     root = root || document.documentElement;
     if (root.dataset.materials) return;
     seed = 7;
-    const set = function (k, c) { root.style.setProperty(k, 'url(' + c.toDataURL('image/png') + ')'); };
-    set('--mat-cardboard', cardboard()); set('--mat-tape', tape()); set('--mat-receipt', receipt()); set('--mat-glass', glass());
-    set('--mat-cardedge', cardedge()); set('--mark-end', mark('end')); set('--mark-wait', mark('wait')); set('--mark-auto', mark('auto'));
+    /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__: the eight, made once (from seed 7, in this order) and the seed where they left it */
+    const got = kept('apply', function () { const o = {}, put = function (k, c) { o[k] = 'url(' + c.toDataURL('image/png') + ')'; };
+      put('--mat-cardboard', cardboard()); put('--mat-tape', tape()); put('--mat-receipt', receipt()); put('--mat-glass', glass());
+      put('--mat-cardedge', cardedge()); put('--mark-end', mark('end')); put('--mark-wait', mark('wait')); put('--mark-auto', mark('auto'));
+      return { vars: o, seed: seed }; });
+    Object.keys(got.vars).forEach(function (k) { root.style.setProperty(k, got.vars[k]); }); seed = got.seed;
     skin();
     root.dataset.materials = '1';
   }
@@ -207,7 +230,7 @@
           '111100001111', '001100001100', '010110011010', '000111111000', '001001100100', '000001100000']
   };
   function markURL(k, col) {
-    var c = document.createElement('canvas'); c.width = c.height = 36; var g = c.getContext('2d'); g.fillStyle = col;
+    var c = canvas(36, 36); var g = c.getContext('2d'); g.fillStyle = col;   /* made to be encoded: on the CPU (PLUMBER 8) */
     START_MARKS[k].forEach(function (r, y) { for (var x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
     return c.toDataURL('image/png');
   }
@@ -313,8 +336,9 @@
     if (ROOTSET) return; ROOTSET = true;
     var R = document.documentElement.style, u = function (c) { return 'url(' + c.toDataURL('image/png') + ')'; };
     seed = 7;
-    R.setProperty('--bm-cardboard', u(cardboard())); R.setProperty('--bm-tape', u(tape()));
-    R.setProperty('--bm-receipt', u(receipt())); R.setProperty('--bm-glass', u(glass()));
+    var got = kept('rootVars', function () { return { a: u(cardboard()), b: u(tape()), c: u(receipt()), d: u(glass()), seed: seed }; });   /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__ */
+    R.setProperty('--bm-cardboard', got.a); R.setProperty('--bm-tape', got.b);
+    R.setProperty('--bm-receipt', got.c); R.setProperty('--bm-glass', got.d); seed = got.seed;
   }
   function style(id, css) { if (document.getElementById(id)) return; var st = document.createElement('style'); st.id = id; st.textContent = css; (document.head || document.documentElement).appendChild(st); }
   function dressFrontDoor() {
@@ -726,9 +750,11 @@
     if (!document.getElementById('menubar') && !document.getElementById('speedpad')) return false;
     rootVars();
     if (!document.documentElement.style.getPropertyValue('--bm-cardedge-up')) {
-      var e = cardedge(), f = document.createElement('canvas'); f.width = e.width; f.height = e.height; var fg = f.getContext('2d');
-      fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0);   /* the flutes face down, toward the map */
-      document.documentElement.style.setProperty('--bm-cardedge-up', 'url(' + f.toDataURL('image/png') + ')');
+      var up = kept('cardedge-up:' + seed, function () { var s0 = seed, e = cardedge(), f = canvas(e.width, e.height), fg = f.getContext('2d');
+        fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0);   /* the flutes face down, toward the map */
+        return { url: 'url(' + f.toDataURL('image/png') + ')', seed: seed, from: s0 }; });
+      seed = up.seed;   /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__: made from the same seed, the same picture, the seed left where it would be */
+      document.documentElement.style.setProperty('--bm-cardedge-up', up.url);
     }
     style('bm-mapbar', MAPBAR_CSS); style('bm-mode-44', MODE_44_CSS); return true;
   }
@@ -753,9 +779,9 @@
      No gradient, glow, blur or soft shadow (rule 114 D10): the light is in the pixels.
      ====================================================================================================== */
   var TB = { built: false, man: '', gear: '' };
-  function tbDark(c, a) { var d = document.createElement('canvas'); d.width = c.width; d.height = c.height; var g = d.getContext('2d');
+  function tbDark(c, a) { var d = canvas(c.width, c.height); var g = d.getContext('2d');   /* made to be encoded: on the CPU (PLUMBER 8) */
     g.drawImage(c, 0, 0); g.fillStyle = 'rgba(12,8,4,' + a + ')'; g.fillRect(0, 0, d.width, d.height); return d; }
-  function tbDots(P, S, ink) { var cv = document.createElement('canvas'); cv.width = P[0].length * S; cv.height = P.length * S; var g = cv.getContext('2d');
+  function tbDots(P, S, ink) { var cv = canvas(P[0].length * S, P.length * S); var g = cv.getContext('2d');   /* made to be encoded: on the CPU (PLUMBER 8) */
     for (var y = 0; y < P.length; y++) for (var x = 0; x < P[y].length; x++) { var k = P[y][x]; if (ink[k]) { g.fillStyle = ink[k]; g.fillRect(x * S, y * S, S, S); } }
     return cv.toDataURL('image/png'); }
   /* the man (the crew) and the gear, 10 dots at 2 px, in the receipt's ink, lit top-left */
@@ -1063,10 +1089,18 @@
   function hudVars() {
     rootVars();
     var R = document.documentElement.style;
-    if (!R.getPropertyValue('--bm-cardedge-up')) { var e = cardedge(), f = document.createElement('canvas'); f.width = e.width; f.height = e.height; var fg = f.getContext('2d');
-      fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0); R.setProperty('--bm-cardedge-up', 'url(' + f.toDataURL('image/png') + ')'); }
-    if (!R.getPropertyValue('--bm-cardboard-dk')) { R.setProperty('--bm-cardboard-dk', 'url(' + tbDark(cardboard(), 0.5).toDataURL('image/png') + ')');
-      R.setProperty('--bm-glass-dk', 'url(' + tbDark(glass(), 0.45).toDataURL('image/png') + ')'); }
+    /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__ (PLUMBER 8): the same pictures from the same seed, made once a session (see kept()) */
+    var needUp = !R.getPropertyValue('--bm-cardedge-up'), needDk = !R.getPropertyValue('--bm-cardboard-dk');
+    if (needUp || needDk) {
+      var hv = kept('hudVars:' + seed + ':' + (needUp ? 1 : 0) + (needDk ? 1 : 0), function () { var o = {};
+        if (needUp) { var e = cardedge(), f = canvas(e.width, e.height), fg = f.getContext('2d');
+          fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0); o.up = 'url(' + f.toDataURL('image/png') + ')'; }
+        if (needDk) { o.dk = 'url(' + tbDark(cardboard(), 0.5).toDataURL('image/png') + ')'; o.gdk = 'url(' + tbDark(glass(), 0.45).toDataURL('image/png') + ')'; }
+        o.seed = seed; return o; });
+      if (hv.up) R.setProperty('--bm-cardedge-up', hv.up);
+      if (hv.dk) { R.setProperty('--bm-cardboard-dk', hv.dk); R.setProperty('--bm-glass-dk', hv.gdk); }
+      seed = hv.seed;
+    }
     if (!TB.man) { TB.man = tbDots(TB_MAN, 2, { a: '#3a2e20', b: '#1f1710' }); TB.gear = tbDots(TB_GEAR, 2, { a: '#3a2e20', b: '#1f1710' }); }
     style('bm-faces', FACES); style('bm-topbar', TOPBAR_CSS);
   }
@@ -2935,24 +2969,26 @@
   var BARS = { tube: {} };
   function barTube(rgb) {
     var key = rgb.join(','); if (BARS.tube[key]) return BARS.tube[key];
-    var W = 64, H = 16, c = document.createElement('canvas'); c.width = W; c.height = H; var g = c.getContext('2d'), sd = 91;
+    if (!window.__BM_KEEP_OFF && KEPT['tube:' + key]) return (BARS.tube[key] = KEPT['tube:' + key]);   /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__ (its own seed) */
+    var W = 64, H = 16, c = canvas(W, H); var g = c.getContext('2d'), sd = 91;
     var rn = function () { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
     var prof = [1.45, 1.3, 1.16, 1.06, 1.0, 1.0, 0.97, 0.95, 0.92, 0.9, 0.86, 0.82, 0.76, 0.68, 0.58, 0.46];   /* lit along the top, round to its foot */
     for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
       var f = prof[y] * (0.94 + rn() * 0.12) * (x % 16 === 15 ? 0.82 : 1);   /* a seam every 16: a tube of cells, not a smear */
       g.fillStyle = 'rgb(' + Math.min(255, rgb[0] * f | 0) + ',' + Math.min(255, rgb[1] * f | 0) + ',' + Math.min(255, rgb[2] * f | 0) + ')'; g.fillRect(x, y, 1, 1);
     }
-    return (BARS.tube[key] = c.toDataURL('image/png'));
+    return (BARS.tube[key] = KEPT['tube:' + key] = c.toDataURL('image/png'));
   }
   function barWell() {
     if (BARS.well) return BARS.well;
-    var W = 64, H = 16, c = document.createElement('canvas'); c.width = W; c.height = H; var g = c.getContext('2d'), sd = 17;
+    if (!window.__BM_KEEP_OFF && KEPT.well) return (BARS.well = KEPT.well);   /* __A_PICTURE_IS_MADE_ONCE_A_SESSION__ (its own seed) */
+    var W = 64, H = 16, c = canvas(W, H); var g = c.getContext('2d'), sd = 17;
     var rn = function () { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
     for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
       var v = y === 0 ? 6 : y === 1 ? 10 : y === H - 1 ? 92 : y === H - 2 ? 44 : 22 + rn() * 7;   /* sunk: the top lip in shade, the foot lit */
       g.fillStyle = 'rgb(' + (v * 1.08 | 0) + ',' + (v * 0.95 | 0) + ',' + (v * 0.78 | 0) + ')'; g.fillRect(x, y, 1, 1);
     }
-    return (BARS.well = c.toDataURL('image/png'));
+    return (BARS.well = KEPT.well = c.toDataURL('image/png'));
   }
   var FIGHT_BARS_CSS = ''
     + 'html body #stats{gap:4px}'

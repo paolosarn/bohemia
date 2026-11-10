@@ -40,7 +40,7 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  ok   ' + n + (note ? ' 
   ok('only the elder stoops', (src.match(/stoop:\s*[0-9.]+/g) || []).length === 1,
      (src.match(/stoop:\s*[0-9.]+/g) || []).join(', ') || 'no stoop dial at all');
 
-  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const pg = await br.newPage();
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });

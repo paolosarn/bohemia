@@ -87,7 +87,7 @@ const SNAP = () => {
 const isInt = v => Math.abs(v - Math.round(v)) <= 0.005;
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
   await page.goto('file://' + path.resolve(FILE), { waitUntil: 'load', timeout: 180000 });
   await page.waitForTimeout(2500);

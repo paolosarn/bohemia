@@ -42,7 +42,7 @@ const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 const OUT = process.argv[2] || path.join(REPO, 'records/HEAD_VS_RIG_8_11.png');
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 1100, height: 800 }, deviceScaleFactor: 2 });
   page.on('pageerror', e => console.log('PAGEERROR: ' + e.message));
   await page.goto('file://' + ALPHA, { waitUntil: 'load', timeout: 180000 });

@@ -102,6 +102,15 @@
   }
   /* ---- where his head is, read off the cell's own pixels (once a cell; a few new cells a frame) ---- */
   var CACHE = typeof WeakMap === 'function' ? new WeakMap() : null, SCR = null, BUDGET = { t: 0, n: 0 };
+  /* __A_PICTURE_IS_READ_ONCE_A_SESSION__ (PLUMBER 8, 11/10/26; rule 441(c)): every fight is a new page, so this page's CACHE starts
+     empty at every fight's start and every frame of every man's sheet was read again (each read unpacks a 2048-wide sheet the phone
+     does not keep): 5.8 s of a fight's 24 s start on the phone-shaped CPU, the canvas on a GPU process, the worst stall in play.
+     A frame's answer is the sheet's (its file and the frame's box), so it is kept on the top page for the session (one origin, one
+     tab), the same answer, and every page after the first reads it there. root.BohemiaWear.keepOff = true is the old way. */
+  var TOPKEEP = (function () { try { var t = root.top; if (t && t !== root && t.document) return t.__WEAR_ANCHORS_KEPT || (t.__WEAR_ANCHORS_KEPT = new t.Object()); } catch (e) {} return null; })();
+  function topKey(img, key, hw) { var u = img && (img.currentSrc || img.src); return u ? String(u).replace(/^https?:\/\/[^/]+/, '') + '|' + key + '|' + (hw || 0) : null; }
+  function topGet(k) { if (!TOPKEEP || !k || root.BohemiaWear.keepOff || !Object.prototype.hasOwnProperty.call(TOPKEEP, k)) return undefined; var v = TOPKEEP[k]; TOPKEEP.hits = (TOPKEEP.hits | 0) + 1; return v ? JSON.parse(v) : null; }
+  function topPut(k, v) { if (TOPKEEP && k && !root.BohemiaWear.keepOff) { TOPKEEP[k] = v ? JSON.stringify(v) : ''; TOPKEEP.made = (TOPKEEP.made | 0) + 1; } }
   var ASYNC = { on: false, slow: 0, slowMs: 8, asked: 0, landed: 0, wait: typeof WeakMap === 'function' ? new WeakMap() : new Map() };   /* PLUMBER 7: see anchor() */
   function find(d, w, h, hw) {
     var t = -1, b = -1, l = w, r = -1, x, y;
@@ -140,6 +149,7 @@
     var per = CACHE.get(img); if (!per) { per = {}; CACHE.set(img, per); }
     var key = x + ',' + y + ',' + w + ',' + h;
     if (per[key] !== undefined) return per[key];
+    var tk = topKey(img, key, hw), kept = topGet(tk); if (kept !== undefined) { per[key] = kept; return kept; }   /* __A_PICTURE_IS_READ_ONCE_A_SESSION__ */
     var now = typeof performance !== 'undefined' ? performance.now() : Date.now();
     if (now - BUDGET.t > 16) { BUDGET.t = now; BUDGET.n = 0; }
     if (BUDGET.n >= (root.BohemiaWear.BUDGET | 0)) return undefined;   /* the rest next frame: never a stall for reading pictures */
@@ -160,7 +170,7 @@
             var g2 = SCR.getContext('2d', { willReadFrequently: true }); g2.clearRect(0, 0, w, h); g2.drawImage(bm, 0, 0);
             r2 = find(g2.getImageData(0, 0, w, h).data, w, h, hw || HW); } catch (e) { r2 = null; }
           try { bm.close(); } catch (e) {}
-          per[key] = r2; delete wk[key]; ASYNC.landed++;
+          per[key] = r2; topPut(tk, r2); delete wk[key]; ASYNC.landed++;
         }, function () { per[key] = null; delete wk[key]; });
       } catch (e) { per[key] = null; delete wk[key]; }
       return undefined;
@@ -174,7 +184,7 @@
       res = find(g.getImageData(0, 0, w, h).data, w, h, hw || HW);
     } catch (e) { res = null; }
     try { if (typeof performance !== 'undefined' && performance.now() - t0 > ASYNC.slowMs && ++ASYNC.slow >= 2 && !root.BohemiaWear.syncAnchor) ASYNC.on = true; } catch (e) {}
-    per[key] = res;
+    per[key] = res; topPut(tk, res);
     return res;
   }
   function count(where, slot, cls) { var w = seen[where || 'any'] = seen[where || 'any'] || {}; w[slot + ':' + cls] = (w[slot + ':' + cls] || 0) + 1; }

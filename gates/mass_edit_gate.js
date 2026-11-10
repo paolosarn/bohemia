@@ -125,7 +125,7 @@ ok('every archetype is one of the four agents.js defines',
 
 /* ---- E) and F) on the real surface -------------------------------------- */
 (async () => {
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const pg = await b.newPage({ viewport: { width: 390, height: 844 } });
   const errs = []; pg.on('pageerror', e => errs.push(e.message));
   await pg.goto('file://' + path.resolve('slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load', timeout: 300000 });

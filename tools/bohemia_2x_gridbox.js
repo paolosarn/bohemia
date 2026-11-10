@@ -45,7 +45,7 @@ const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 const CLIPS = ['idle', 'walk'];
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   const errs = []; page.on('pageerror', e => errs.push(e.message));
   await page.goto(ALPHA, { waitUntil: 'load', timeout: 180000 });

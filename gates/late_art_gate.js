@@ -86,7 +86,7 @@ const ok = (n, c) => { if (c) pass++; else fails.push(n); };
 
 let PORT = 0;
 async function boot(mode) {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   /* THE SERVICE WORKER FETCHES NAVIGATIONS ITSELF, so page-level interception never fires
      for the city frame unless workers are blocked. That cost a whole probe generation. */
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2,

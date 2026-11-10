@@ -42,7 +42,7 @@ const OUT = path.join(ROOT, 'slices', 'look', 'bone-scale.png');
 const TABLE = path.join(ROOT, 'records', 'BOHEMIA_BONE_SCALE_TABLE.json');
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   page.on('pageerror', e => console.log('PAGEERR', String(e).slice(0, 140)));
 

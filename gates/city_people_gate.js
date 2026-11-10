@@ -38,7 +38,7 @@ let pass = 0; const fails = [];
 const ok = (n, c) => { c ? pass++ : fails.push(n); };
 
 (async () => {
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const p = await b.newPage({ viewport: { width: 390, height: 844 } });
   const errs = [];
   p.on('pageerror', e => errs.push(e.message));
