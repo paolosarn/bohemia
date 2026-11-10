@@ -32,9 +32,12 @@
        Damage row wears damage's picture.
    C8, P2 [a damage icon] (rule 275(b)): the stash's weapon numbers, the said line, the shop's DAMAGE chip and ON A MAN line.
    D   the damage icon is UI's renderer's, byte for byte, and no pair of the nine icons is alike (tools/bohemia_ui_three_damage_icon.py --check).
+   HD  THE HALL AS THE GAME LAYS IT (UI THREE 11/10, ask 145 round three): UI 9's fit planted, a man one dense row; HD1 each of
+       the eight a track the width of its column, the fill and the tick within a pixel; HD2 nothing changes size with UI THREE's
+       dense rules taken out. The phone upright and sideways (rule 441(a)).
    E   nothing thrown.
    --plant (the phone): the order swapped, the fill off the maximum, the tick at the top roll, the change column let grow, the 'X to Y' words put back
-       in the shop: each must turn a leg red.
+       in the shop, the dense hall flattened back, the dense hall's bar growing its cell: each must turn a leg red.
    Run: node gates/stats_are_bars_in_his_order_gate.js [--plant] */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -260,6 +263,70 @@ async function town(b, prof, plant, legs) {
   await ctx.close(); srv.close();
 }
 
+/* HD THE HALL AS THE GAME LAYS IT (UI THREE 11/10, ask 145 round three): UI 9's fit planted the way the shell plants it
+   (bohemia_ui_materials.js, then bohemia_ui_no_scroll.js), so a man is one dense row (#sheet.ns-d1, rule 402). Measured before:
+   each stat's fill a 2 px line under its number alone, no track, no tick, the most possible nowhere.
+   HD1 every card's eight: the track the whole width of the stat's own column, seen (not transparent); the fill his number (his
+       trait on it) over the most possible of THAT width within a pixel, translucent, under the number; the tick at his ceiling
+       within a pixel. HD2 NOTHING CHANGES SIZE (rules 250, 402): every card, every eight's box and every stat's cell keep
+       their rectangle within a pixel with UI THREE's dense rules taken out (UI 9's sizes are the sizes). On the phone upright
+       and the phone sideways (rule 441(a)). */
+const PHONE_SIDEWAYS = { viewport: { width: 844, height: 390 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true };
+async function dense(b, prof, plant, legs) {
+  const srv = await serve(plant), port = srv.address().port;
+  const ctx = await b.newContext(prof.ctx), p = await ctx.newPage(), errs = [];
+  p.on('pageerror', e => errs.push(e.message));
+  try {
+    await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+    await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready() && window.BohemiaRoster, null, { timeout: 30000 });
+    await p.addScriptTag({ url: 'bohemia_ui_materials.js' }); await p.addScriptTag({ url: 'bohemia_ui_no_scroll.js' });
+    await p.evaluate(() => BohemiaSettlement.open({ place: { name: 'BLUE DIAMOND', tier: 'town' }, traits: [], day: 1, batteries: 3000 })); await p.waitForTimeout(500);
+    const hx = await p.evaluate(() => BohemiaSettlement.where('hall'));
+    if (hx) await p.touchscreen.tap(hx.x, hx.y);
+    await p.waitForFunction(() => document.querySelectorAll('#sheet.on .hire .hstats .bst-row').length >= 8 && /\bns-d1\b/.test(document.getElementById('sheet').className), null, { timeout: 20000 }).catch(() => {});
+    await p.waitForTimeout(800);
+    const D = await p.evaluate(() => { const S = BohemiaSettlement, R = S.recruits(), sheet = document.getElementById('sheet');
+      const rect = e => { const q = e.getBoundingClientRect(); return [q.left, q.top, q.width, q.height]; };
+      const cards = [...document.querySelectorAll('#sheet.on .hire')].slice(0, 5);
+      const boxes = () => cards.map(h => [rect(h), rect(h.querySelector('.hstats'))].concat([...h.querySelectorAll('.hstats span.bst-row')].map(rect)));
+      const out = cards.map(h => { const r = R.find(x => x.id === h.dataset.id) || {}, tr = S.traitOf(r), tal = S.talentsOf(r) || [];
+        const st = Object.assign({}, r.stats), mv = {}; (tr && tr.effects || []).forEach(e => { if (e.flat_eight && st[e.stat] != null) { st[e.stat] += e.n; mv[e.stat] = (mv[e.stat] || 0) + e.n; } });
+        const stars = {}; tal.forEach(x => { if (x && x.k) stars[x.k] = x.n; });
+        const rows = [...h.querySelectorAll('.hstats span.bst-row')].map(row => { const rr = row.getBoundingClientRect(), L = rr.left + row.clientLeft;
+          const fill = row.querySelector('.bst-fill'), lit = row.querySelector('.bst-lit'), tick = row.querySelector('.bst-tick'), num = row.querySelector('.bst-n'), a = getComputedStyle(row, '::after');
+          const bg = fill ? getComputedStyle(fill).backgroundColor : '', al = (bg.match(/rgba\([^)]*,\s*([\d.]+)\)/) || [])[1], tb = a.backgroundColor, ta = (tb.match(/rgba\([^)]*,\s*([\d.]+)\)/) || [])[1];
+          return { k: row.dataset.stat, n: num ? +num.textContent : NaN, max: +row.dataset.max, inner: row.clientWidth,
+            fillW: fill ? fill.getBoundingClientRect().width : -1, fillL: fill ? fill.getBoundingClientRect().left - L : null, fillTop: fill ? fill.getBoundingClientRect().top : null,
+            litW: lit ? lit.getBoundingClientRect().width : 0, litUp: lit ? /\bup\b/.test(lit.className) : null, alpha: al != null ? +al : 1,
+            tickX: tick && getComputedStyle(tick).display !== 'none' ? tick.getBoundingClientRect().left - L : null, numBot: num ? num.getBoundingClientRect().bottom : null,
+            track: a.content !== 'none' && a.content !== 'normal' && tb !== 'rgba(0, 0, 0, 0)' && !(ta != null && +ta === 0) ? parseFloat(a.width) : 0 }; });
+        return { name: r.name, level: r.level || 1, st, mv, stars, rows }; });
+      const now = boxes();
+      /* UI THREE's dense rules taken out (the CSSOM), measured, then put back */
+      const cs = document.getElementById('bst-hall-css'), sh = cs && cs.sheet, gone = [];
+      if (sh) for (let i = sh.cssRules.length - 1; i >= 0; i--) if (/#ui3-a/.test(sh.cssRules[i].cssText)) { gone.unshift([i, sh.cssRules[i].cssText]); sh.deleteRule(i); }
+      const without = boxes();
+      gone.forEach(([i, t]) => sh.insertRule(t, i));
+      return { dense: /\bns-d1\b/.test(sheet.className), cls: sheet.className, cards: out, now, without, rules: gone.length }; });
+    const db = [], ds = [];
+    if (!D.dense) db.push('the hall is not dense (' + D.cls + '): UI 9\'s fit did not take');
+    D.cards.forEach(c => { if (c.rows.length !== 8) db.push(c.name + ' ' + c.rows.length + ' stats');
+      c.rows.forEach(r => { const n = c.st[r.k], m = c.mv[r.k] || 0;
+        barOk(r, n, m ? n - m : null, ceilK(r.k, n, c.level, c.stars[r.k])).forEach(x => db.push(c.name + ' ' + x));
+        if (Math.abs(r.track - r.inner) > PX) db.push(c.name + ' ' + r.k + ' track ' + r.track + ' of ' + r.inner);
+        if (r.fillL == null || Math.abs(r.fillL) > PX) db.push(c.name + ' ' + r.k + ' fill starts at ' + r.fillL);
+        if (r.fillTop == null || r.numBot == null || r.fillTop < r.numBot - PX) db.push(c.name + ' ' + r.k + ' the bar not under the number'); }); });
+    D.now.forEach((card, i) => card.forEach((q, j) => { const w = D.without[i] && D.without[i][j];
+      if (!w || q.some((v, x) => Math.abs(v - w[x]) > PX)) ds.push('card ' + i + (j === 0 ? ' card' : j === 1 ? ' its eight' : ' stat ' + (j - 2)) + ' ' + q.map(Math.round) + ' was ' + (w || []).map(Math.round)); }));
+    legs.HD1 = ok(prof.name + ' HD1 THE HALL AS THE GAME LAYS IT (UI 9\'s dense row): each of the eight a track the width of its column, the fill and the tick within a pixel, under the number (' + D.cards.length + ' cards)',
+      D.cards.length > 0 && !db.length, db.slice(0, 4).join('; '));
+    legs.HD2 = ok(prof.name + ' HD2 NOTHING CHANGES SIZE: every card, every eight and every stat\'s cell the same rectangle within a pixel with UI THREE\'s dense rules taken out (' + D.rules + ' rules)',
+      D.cards.length > 0 && D.rules > 0 && !ds.length, ds.slice(0, 3).join('; '));
+  } catch (e) { ok(prof.name + ' the dense hall ran', false, e && e.message); }
+  legs.errsD = errs.filter(e => !/ResizeObserver/.test(e));
+  await ctx.close(); srv.close();
+}
+
 /* THE FIGHT'S CARD (rule 247(a) names it; COMBAT's file, a UI THREE block over drawer) and its weapon card's Damage row */
 const PERKS = J('records/target/bb/perks.json').rows || [];
 async function fight(b, prof, plant, legs) {
@@ -310,7 +377,9 @@ const PLANTS = [
   { name: 'the fight card left in Battle Brothers\' words', want: ['F1'], only: 'fight', plant: { '/slices/BOHEMIA_FIGHT.html': [['drawer = function (v) { base(v); try { if (window.BohemiaStats) fightBars(v); } catch (e) {} };', 'drawer = function (v) { base(v); };']] } },
   { name: 'the damage icon taken off the shop and the fight\'s weapon card', want: ['P2', 'F2'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["c.dataset.stat = 'damage'; c.insertBefore(statImg('damage'), c.firstChild);", "c.dataset.stat = 'damage';"]],
     '/slices/bohemia_ui_materials.js': [["[/^damage/i, ['damage']]];", "];"]] } },
-  { name: 'X to Y put back in the shop', want: ['P1'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["try{ if(box && window.BohemiaStats) shopArrows(box); }catch(e){}", ""]] } }
+  { name: 'X to Y put back in the shop', want: ['P1'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["try{ if(box && window.BohemiaStats) shopArrows(box); }catch(e){}", ""]] } },
+  { name: 'the dense hall flattened back (a 2 px line under the number, no track, no tick)', want: ['HD1'], only: 'dense', plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["var P = 'html body #sheet.ns-d1:not(#ui3-a):not(#ui3-b) .hire .hstats';", "var P = 'html body #sheet.ns-none:not(#ui3-a):not(#ui3-b) .hire .hstats';"]] } },
+  { name: 'the dense hall\'s bar grows its cell', want: ['HD2'], only: 'dense', plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["span.bst-row{position:relative!important;width:100%!important;", "span.bst-row{position:relative!important;height:24px!important;min-height:24px!important;width:100%!important;"]] } }
 ];
 
 (async () => {
@@ -341,12 +410,13 @@ const PLANTS = [
     const legs = {}; await crew(b, prof, null, legs); await town(b, prof, null, legs); await fight(b, prof, null, legs);
     errs.push(...legs.errsC, ...legs.errsT, ...legs.errsF);
   }
+  for (const prof of [PROFILES[0], { name: 'phone sideways', ctx: PHONE_SIDEWAYS }]) { const legs = {}; await dense(b, prof, null, legs); errs.push(...legs.errsD); }
   ok('E nothing thrown', !errs.length, errs.slice(0, 3).join(' | '));
   if (plantMode) {
     for (const pl of PLANTS) {
       const legs = {}, saved = { p: pass, f: fail };
       const log = console.log; console.log = () => {};
-      try { if (!pl.only || pl.only === 'crew') await crew(b, PROFILES[0], pl.plant, legs); if (!pl.only || pl.only === 'town') await town(b, PROFILES[0], pl.plant, legs); if (!pl.only || pl.only === 'fight') await fight(b, PROFILES[0], pl.plant, legs); } finally { console.log = log; }
+      try { if (!pl.only || pl.only === 'crew') await crew(b, PROFILES[0], pl.plant, legs); if (!pl.only || pl.only === 'town') await town(b, PROFILES[0], pl.plant, legs); if (!pl.only || pl.only === 'fight') await fight(b, PROFILES[0], pl.plant, legs); if (pl.only === 'dense') await dense(b, PROFILES[0], pl.plant, legs); } finally { console.log = log; }
       pass = saved.p; fail = saved.f;
       const red = pl.want.filter(k => legs[k] === false);
       ok('PLANT ' + pl.name + ': caught (' + (red.join(', ') || 'nothing went red') + ')', red.length > 0);

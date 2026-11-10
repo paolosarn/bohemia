@@ -4310,7 +4310,23 @@ function hallBars(c, r){
     + 'html body #sheet .hire .hstats.bst-col .bst-bar{height:12px}'
     + 'html body #sheet .hire .hstats.bst-col .bst-bar>i.bst-n{font-size:11px;line-height:10px}'
     + 'html body #sheet .hire .hstats.bst-col b.bst-chg{font-size:11px;justify-content:flex-end}'
-    + 'html body #sheet .hire .htrait em.bst-traitline{display:inline-flex;gap:8px;font-style:normal}html body #sheet .hire .htrait em.bst-traitline b.bst-chg{font-size:13px}';
+    + 'html body #sheet .hire .htrait em.bst-traitline{display:inline-flex;gap:8px;font-style:normal}html body #sheet .hire .htrait em.bst-traitline b.bst-chg{font-size:13px}'
+    /* UI THREE 11/10 [stats are bars and arrows] round three (rule 223, ask 145, Paolo 10/26: 'behind the numbers, like a progress
+       bar, how far it is from the maximum that's even possible'): UI 9's dense hall row (#sheet.ns-d1, rule 402: a man is a row)
+       laid each of his eight as its icon and its number with the fill a 2 px line under the number alone, no track and no
+       tick, so the bar to the most possible was gone from the hall. MEASURED on the demo, phone upright: 8 stats x 5 men, a
+       fill 2 px tall and as wide as the number, the most possible nowhere. NOW, in the SAME cell (its 15 px height and its
+       column, UI 9's sizes): the icon and the number on top, and under them the stat's bar the whole width of its column, a
+       track to the most possible, the fill translucent to his number, the faint tick at his ceiling. Three ids beat UI 9's
+       one; nothing of UI 9's file touched. */
+    + (function(){ var P = 'html body #sheet.ns-d1:not(#ui3-a):not(#ui3-b) .hire .hstats';
+      return P + ' span.bst-row{position:relative!important;width:100%!important;box-sizing:border-box!important;align-items:flex-start!important;padding-bottom:4px!important;justify-self:stretch}'
+        + P + ' span.bst-row[data-stat]::before{width:11px!important;height:11px!important}'
+        + P + ' span.bst-row::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;box-sizing:border-box;background:var(--bst-track,rgba(31,23,16,.07));box-shadow:inset 0 0 0 1px var(--bst-edge,rgba(31,23,16,.42));z-index:0;pointer-events:none}'
+        + P + ' .bst-bar{position:static!important;height:11px!important;min-width:0!important}'
+        + P + ' .bst-bar>i.bst-n{line-height:11px!important}'
+        + P + ' .bst-bar>.bst-fill,' + P + ' .bst-bar>.bst-lit{position:absolute!important;top:auto!important;bottom:0!important;height:4px!important;z-index:1}'
+        + P + ' .bst-bar>.bst-tick{display:block!important;position:absolute!important;top:auto!important;bottom:-1px!important;height:6px!important;z-index:2}'; })();
   (document.head || document.documentElement).appendChild(cs); })();
 /* ==== end __UI_THREE_STATS__ ==== */
 /* what he wears in: his gun in his main hand, his cloth on his back (Battle Brothers' recruits come in their own gear); the rest goes in the bag */
