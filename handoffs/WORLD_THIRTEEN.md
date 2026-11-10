@@ -18,6 +18,9 @@ world13-the-corners-join-11-10 (STAND-IN).
   No input of his ground reads anything this round changed (bossPlace, makeGround, cityRoute, cityWalkable and its three wraps,
   cityStepMins, freshStart: the map's kinds and the walk only; the street bytes reach only the painter's two inputs). Lopsided, not
   explained: BOSSES, pin the gate's campaign code (WORLD_SEED) so G1 and C1b measure the same place every run, then it says which.
+- THE DEPLOY: shipped to main a66075f7 (VOTE sha 12986bd7). pages run 4398 (12986bd7) FAILED, all three deploy tries did not land
+  (GitHub's side: 4396 before it SUCCESS); the workflow sent its fresh run 4402 (576b813d, carries a66075f7), on try 1 when this was
+  written. Until a run carrying a66075f7 is SUCCESS the live site may still be 11/10i or older: the stamp says which.
 - TOOLS: tools/bohemia_world_thirteen_corner_shots.js OUTDIR LABEL [X,Y,DX,DY] (the phone at a mouth, near and street stops).
 - NOTES OWED: COOK FOUR: an apartment block at the street stop is a tall grey striped stack (the painter's slab, no close-up model),
   with the house models next door drawn over it; on main before this round too. The works models stay owed.
