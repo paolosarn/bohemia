@@ -408,6 +408,10 @@ function loadAll() {
     /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 423(d)): the ranches of two and three storeys (tools/bohemia_combat_two_the_storeyed_houses_11_7_26.py) */
     .then(function () { return fetch('fight_ground/street_board/storeys.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
     .then(function (k) { DB.streetStoreys = k; })
+    /* __THE_STREETS_JOIN__ (COMBAT TWO 11/10, rule 442(d)): the street pieces by what is around them and how far in each old block's
+       asphalt starts (tools/bohemia_combat_two_the_street_joins_11_10_26.py); a fight without it paints the join's roads bare */
+    .then(function () { return fetch('fight_ground/kit_street/joins/joins.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (k) { DB.streetJoins = k; })
     /* __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the casino floor's layout and its pieces (tools/bohemia_combat_two_the_casino_floor_11_8_26.py) */
     .then(function () { return Promise.all(['fight_ground/casino/casino_floor.json', 'fight_ground/casino/sizes.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
     .then(function (cf) { const d = cf[0], z = cf[1] || {}, kit = {};   /* the kit's pieces carry the pictures the rig made (sizes.json) */
@@ -1267,14 +1271,14 @@ const FIGHT = (function () {
     if (!PG || !opts.district || opts.boss) return null;
     const row = DB.boardKinds.districts.filter(function (r) { return r.district === opts.district; })[0];
     const list = PG.districts[opts.district] || (row && PG.grounds[row.ground]) || null;
-    const have = (list || []).filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
+    const have = (list || []).filter(function (k) { return Object.keys(lib).some(function (n) { return n.indexOf('|') < 0 && kindOf(n) === k; }); });
     if (!have.length) return null;
     return { kinds: have, shaped: !!row && PG.shaped.indexOf(row.ground) >= 0 && !PG.districts[opts.district], share: PG.lead_share, mirror: PG.mirror };
   }
   function dealPlace(opts, own, lib) {
     const G = DB.ground, bt = G.block_tiles, mix = R('ours.board_mix');
     const lead = own.kinds[0], rest = shuffled(own.kinds.slice(1)).slice(0, rint(mix.kinds_per_board[0], mix.kinds_per_board[1]) - 1);
-    const of = function (k) { const b = Object.keys(lib).filter(function (n) { return kindOf(n) === k; });
+    const of = function (k) { const b = Object.keys(lib).filter(function (n) { return n.indexOf('|') < 0 && kindOf(n) === k; });   /* the library's own blocks: never a mirrored copy libOf kept (a seed deals the same board however many deals came before it) */
       return own.mirror.indexOf(k) >= 0 ? b.concat(b.map(function (n) { return n + '|h'; })) : b; };
     const leadPool = of(lead), restPool = [].concat.apply([], rest.map(of)), pool = leadPool.concat(restPool);
     const cols = S.w / bt, rows = S.h / bt, grid = [];
@@ -1466,7 +1470,7 @@ const FIGHT = (function () {
     try { L = SB.fromTemplate(T, D, K, { W: S.w, H: S.h, ring: STREET_RING, bt: G.block_tiles, tile_px: G.tile_px, tile_metres: G.tile_metres, def: pieceDef,
       seed: cx !== undefined ? (cx * 7919 + cy * 104729 + 1) >>> 0 : SEED, surround: function (bx, by) { return ringName(T, bx, by); }, libOf: libOf,
       solidAt: function (x, y) { return solid[y][x]; }, storeyShare: mix || ST.share, storeyPics: DB.streetStoreys ? DB.streetStoreys.houses : null,
-      roads: opts.roads === false ? null : RN }); }
+      roads: opts.roads === false ? null : RN, joins: opts.joins === false ? null : DB.streetJoins || null }); }
     catch (e) { S.housesErr = String(e && e.message || e); return false; }
     if (!L) return false;
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (oldRoof[y][x]) L.roofs[y][x] = true;   /* the template's own roofs stay roofs */
@@ -1494,13 +1498,13 @@ const FIGHT = (function () {
       const tot = fams.reduce(function (t, f) { return t + mix.weights[f]; }, 0);
       let r = rng() * tot; fam = fams.filter(function (f) { r -= mix.weights[f]; return r < 0; })[0] || fams[0];
     }
-    const have = mix.families[fam].filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
+    const have = mix.families[fam].filter(function (k) { return Object.keys(lib).some(function (n) { return n.indexOf('|') < 0 && kindOf(n) === k; }); });
     /* the kind the loop asks for leads; a name with aliases ('suburb') leads with one of its blocks */
     const leads = opts.kind ? shuffled(((mix.aliases || {})[opts.kind] || [opts.kind]).filter(function (k) { return have.indexOf(k) >= 0; })) : [];
     let kinds = shuffled(have).filter(function (k) { return k !== leads[0]; });
     if (leads.length) kinds.unshift(leads[0]);
     kinds = kinds.slice(0, rint(mix.kinds_per_board[0], mix.kinds_per_board[1]));
-    const pool = Object.keys(lib).filter(function (n) { return kinds.indexOf(kindOf(n)) >= 0; });
+    const pool = Object.keys(lib).filter(function (n) { return n.indexOf('|') < 0 && kinds.indexOf(kindOf(n)) >= 0; });
     const cols = S.w / bt, rows = S.h / bt, grid = [];
     for (let by = 0; by < rows; by++) {
       const row = [];
@@ -1665,6 +1669,24 @@ const FIGHT = (function () {
      65 a man standing on the outcrop */
   const HIDE_KINDS = ['COVER', 'LOW_COVER'];
   function hides(x, y) { return inBoard(x, y) && S.coverCount[y][x] > 0; }
+  /* __THE_BOARD_HANDED_WHOLE__ (COMBAT TWO 11/10, for MOTION 3's camp after a fight, VAMILY rule 442(a): 'This did not look like it was
+     on the combat map'). boardNow(): the board this fight stands on, whole, as plain data (its blocks, terrain, cover, lights, roofs,
+     storeys, and a laid board's every ground picture, its buildings, its mouths and tapers, its ring), the light, and where the
+     camera was; opts.boardDef: a setup that is handed one stands it again, tile for tile, with no deal at all (a board of another size
+     than this setup's is refused, and the deal goes on as before). The same board, never a second deal of it. */
+  function boardNow() {
+    const B = S.boardDef; if (!B || !B.terrain) return null;
+    let d = null; try { d = JSON.parse(JSON.stringify(B, function (k, v) { return v instanceof Uint8Array || v instanceof Int32Array ? Array.from(v) : v; })); } catch (e) { return null; }
+    d.handCols = S.cols ? S.cols.slice() : null;
+    return { boardDef: d, w: S.w, h: S.h, cols: d.handCols, night: !!S.night, power: !!S.power, name: B.name || null, seed: SEED >>> 0 };
+  }
+  function boardHanded(B) {
+    if (!B || !Array.isArray(B.terrain) || !B.terrain.length || !Array.isArray(B.terrain[0])) { S.handErr = 'no board'; return false; }
+    const was = [S.w, S.h, S.cols, S.crop];
+    S.h = B.terrain.length; S.w = B.terrain[0].length; if (B.handCols) S.cols = B.handCols.slice(); S.crop = B.crop || null;   /* the size it was fought at (a grown or cut board too) */
+    try { applyBoard(JSON.parse(JSON.stringify(B))); } catch (e) { S.handErr = String(e && e.message || e); S.w = was[0]; S.h = was[1]; S.cols = was[2]; S.crop = was[3]; return false; }
+    S.handed = true; return true;
+  }
   function applyBoard(B) {
     const G = DB.ground;
     S.terrain = B.terrain; S.boardDef = B;
@@ -1867,7 +1889,7 @@ const FIGHT = (function () {
     opts = opts || {};
     ownEnemies();
     const G = DB.ground;
-    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = startCols(); S.crop = null; S.grown = 0;   /* rule 378: blocks the board grew by to fit */
+    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = startCols(); S.crop = null; S.grown = 0; S.handed = false; S.handErr = null;   /* rule 378: blocks the board grew by to fit */
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
     S.volley = {};   /* THE CROSSBOWS (FACTIONS 11/3): the man their first bolt went at, by side */
     S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
@@ -1886,7 +1908,9 @@ const FIGHT = (function () {
     const dice = SEED, seeded = fromMap && cx !== undefined && cy !== undefined && opts.seed === undefined;
     function dealBoard() {
     if (seeded) SEED = seedOf(cx + ',' + cy + ':' + S.ground.ground);
-    if (opts.board && G.boards[opts.board]) {
+    if (opts.boardDef && boardHanded(opts.boardDef)) {
+      /* __THE_BOARD_HANDED_WHOLE__: the board a fight ended on, stood again as it was (the camp after a fight, MOTION 3's seam) */
+    } else if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else if (isGraveyard(opts)) {
@@ -1973,7 +1997,7 @@ const FIGHT = (function () {
        on screen, enemy and my company... make sure there's no coded cap'): when the open ground behind his front column (his rows
        stand there) or from their front column to the edge (theirs) cannot hold a side's men, the board is dealt again a block
        taller, the same deal and its seed, until both fit: a board of blocks, never a black margin. A named board is what it is. */
-    if (!opts.board && !isGraveyard(opts)) {
+    if (!opts.board && !isGraveyard(opts) && !S.handed) {   /* a board handed whole is what it was */
       const roomFor = function (x0, x1) { let n = 0; for (let x = x0; x <= x1; x++) for (let y = 0; y < S.h; y++) if (passable(x, y) && !(level(x, y) > 0)) n++; return n; };
       for (let g = 0; g < 40 && (roomFor(0, S.cols[0]) < crewUnits.length || roomFor(S.cols[1], S.w - 1) < bandUnits.length); g++) {
         S.h += G.block_tiles; S.grown = (S.grown || 0) + 1; dealBoard(); dealt = S.boardDef;
@@ -1984,7 +2008,7 @@ const FIGHT = (function () {
     const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;
     /* HIS ELEVENTH VOTES (rule 104a re-spec): 'the map has to be big but then it's just zoomed into our purposes': the board
        is no longer cut to the party (rule 79's cut stands down; cropToParty is kept for a test that asks for it) */
-    if (!big && opts.cut) cropToParty(dealt, crewUnits, bandUnits, opts);
+    if (!big && opts.cut && !S.handed) cropToParty(dealt, crewUnits, bandUnits, opts);
     if (S.arena) arenaPit(crewUnits, bandUnits, opts);   /* __THE_ARENA__ (ARENA 2, rule 426(f)): the pit stands on its own board */
     if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
     S.board = S.boardDef.name;
@@ -5176,7 +5200,7 @@ const FIGHT = (function () {
   }
 
   return {
-    S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, farWalk: farWalk, moveTo: moveTo, strike: strike,
+    S: S, setup: setup, boardNow: boardNow, current: current, reach: reach, pathTo: pathTo, farWalk: farWalk, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hides: hides, hitChance: hitChance, coverCut: coverCut, inTheWay: inTheWay, shotLine: shotLine, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
@@ -6004,6 +6028,23 @@ function mipFor(im, w) {
    ax0..ax1, ay0..ay1 of the plan, the ring included) at tw x th with the area's corner at (X, Y), one ground piece a tile, then the
    buildings standing on them in depth order; small on the glass, a piece is drawn from its quarter copy (mipFor). Returns how many
    pictures were missing (a ring with a hole is never kept). onTw: the tile's width on the glass for the copy's choice (null: full) */
+/* __THE_STREETS_JOIN__ THE TAPER (rule 442(d)): a street piece that goes on straight into an old street of another width angles its
+   kerb over the near part of the tile (q.depth) from its own line (q.lo[0], q.hi[0]) to the old street's at the edge (q.lo[1],
+   q.hi[1]): the triangle between is the kit's walk where the old street is narrower, its asphalt where wider, the kerb along it.
+   u runs along the edge (west to east, north to south), v in from it; the same drawing as gates/the_streets_join_pixels.py */
+function taperPaint(g, q, x0, y0, tw, th, pic) {
+  const P = function (u, v) { return q.side === 'N' ? [x0 + u * tw, y0 + v * th] : q.side === 'S' ? [x0 + u * tw, y0 + (1 - v) * th] : q.side === 'W' ? [x0 + v * tw, y0 + u * th] : [x0 + (1 - v) * tw, y0 + u * th]; };
+  const lw = Math.max(1, 3 * tw / 515);
+  [[q.lo[0], q.lo[1], 1, q.dlo || q.depth], [q.hi[0], q.hi[1], -1, q.dhi || q.depth]].forEach(function (e) {
+    const k = e[0], a = e[1], D = e[3], inward = (a - k) * e[2] > 0;   /* the old street narrower at this end: the walk comes in */
+    if (Math.abs(a - k) < 0.005) return;
+    const im = pic(inward ? q.walk : q.asph, tw); if (!im) return;
+    const p1 = P(k, 0), p2 = P(a, 0), p3 = P(k, D);
+    g.save(); g.beginPath(); g.moveTo(p1[0], p1[1]); g.lineTo(p2[0], p2[1]); g.lineTo(p3[0], p3[1]); g.closePath(); g.clip();
+    g.drawImage(im, x0, y0, tw + .35, th + .35); g.restore();
+    g.save(); g.strokeStyle = 'rgb(168,160,148)'; g.lineWidth = lw; g.beginPath(); g.moveTo(p2[0], p2[1]); g.lineTo(p3[0], p3[1]); g.stroke(); g.restore();
+  });
+}
 function laidPaint(g, L, X, Y, tw, th, ax0, ay0, ax1, ay1, onTw, one) {
   const TP = DB.ground.tile_px, k = tw / TP[0], ky = th / TP[1], bt = DB.ground.block_tiles; let holes = 0;
   const pic = function (src, w) { const im = UI.imgs['fight_ground/' + src]; if (!im) { holes++; return null; } return one || onTw == null ? im : mipFor(im, w); };
@@ -6021,6 +6062,21 @@ function laidPaint(g, L, X, Y, tw, th, ax0, ay0, ax1, ay1, onTw, one) {
     const im = pic(src, tw); if (!im) { g.fillStyle = GROUND_UNDER; g.fillRect(X + ax * tw, Y + ay * th, tw + .5, th + .5); continue; }
     g.drawImage(im, X + ax * tw, Y + ay * th, tw + .35, th + .35);   /* a hair over, so two pieces never show the glass between them */
   }
+  /* __THE_STREETS_JOIN__ (rule 442(d)): where a new street meets an old block's street, the old one's edge (its sidewalk, its gravel,
+     as far in as its asphalt starts) is drawn over with the new street's own edge, so the kerb opens and the sidewalks meet */
+  (L.decals || []).forEach(function (q) {
+    if (q.ax < ax0 || q.ax >= ax1 || q.ay < ay0 || q.ay >= ay1) return;
+    if (q.kind === 'taper') { taperPaint(g, q, X + q.ax * tw, Y + q.ay * th, tw, th, pic); return; }
+    const im = pic(q.src, tw); if (!im) return;
+    /* the new street's own edge, mirrored across the edge it shares with the old tile, so the two sides of that edge are the same pixels */
+    const iw = im.width, ih = im.height, d = q.d, x0 = X + q.ax * tw, y0 = Y + q.ay * th;
+    g.save();
+    if (q.side === 'N') { g.translate(x0, y0 + th * d); g.scale(1, -1); g.drawImage(im, 0, ih * (1 - d), iw, ih * d, 0, 0, tw + .35, th * d); }
+    else if (q.side === 'S') { g.translate(x0, y0 + th); g.scale(1, -1); g.drawImage(im, 0, 0, iw, ih * d, 0, 0, tw + .35, th * d + .35); }
+    else if (q.side === 'W') { g.translate(x0 + tw * d, y0); g.scale(-1, 1); g.drawImage(im, iw * (1 - d), 0, iw * d, ih, 0, 0, tw * d, th + .35); }
+    else { g.translate(x0 + tw, y0); g.scale(-1, 1); g.drawImage(im, 0, 0, iw * d, ih, 0, 0, tw * d + .35, th + .35); }
+    g.restore();
+  });
   L.sprites.forEach(function (q) {
     const t = q.tiles; if (t[0] + t[2] < ax0 - 1 || t[0] > ax1 + 1 || t[1] > ay1 + 1 || t[1] + t[3] < ay0 - 2) return;
     const im = pic(q.src, q.w * k); if (!im) return;
@@ -11015,6 +11071,9 @@ function campFromFight() {
   return { opts: o, sig: campBoardSig(), night: !!S.night, w: S.w, h: S.h, dead: dead, board: S.boardDef.name || null };
 }
 window.campFromFight = campFromFight;
+/* __THE_BOARD_HANDED_WHOLE__ (COMBAT TWO 11/10, MOTION 3's seam): the board this fight stands on, whole, and where the camera was;
+   hand it on as FIGHT_OPTS.boardDef and the next page stands this very board, never a second deal of it */
+window.fightBoardNow = function () { const b = FIGHT.boardNow(); if (b) b.camera = { z: UI.zoom, x: UI.cx, y: UI.cy, tw: UI.tw, th: UI.th }; return b; };
 const CAMP_SHEETS = {};
 function campSheet(file) {
   const s = 'fight_rig/' + file;

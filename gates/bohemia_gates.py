@@ -10768,6 +10768,14 @@ GATES = [
      "and it runs off the board (R2); every joined tile is the street kit's own road, never on a casino's floor, every other road tile the board's own asphalt, paved "
      "kind or lane (R3); nothing changed but the tiles painted, against the join off (R4); roads one, two, three and four or more tiles wide (R5); enough boards (R6). "
      "Planted: a house's road taken away; a stub of road apart; a painted tile showing a yard. About 20 s", True),
+    ('THE STREETS JOIN', ['node', 'gates/the_streets_join_gate.js'],
+     "COMBAT TWO gate, 11/10, VAMILY rule 442(d) (ask lines 544 to 547; PAOLO 11/9: 'you really need to make sure intersections, the sidewalk and the streets "
+     "continue looking good like they're supposed to'). The same 600 boards: every painted tile shows the street piece for what is around it, its sidewalk where no "
+     "road is, the sidewalk's corner at every inside corner (J1); where a new street meets an old block's street with a kerb, sidewalk or gravel at that edge, the "
+     "old edge is opened as deep as it goes (J2); in the pictures themselves (gates/the_streets_join_pixels.py) no asphalt against a sidewalk, kerb or yard across "
+     "any edge the join drew (J3); every road run off the board goes on through the ring (J4); a curb cut keeps its sidewalk only across a paved block's sidewalk "
+     "(J5); nothing else moved against the pieces off (J6); enough (J7). Planted: a sidewalk cut at a corner, a mouth taken away (both also in the pictures), a "
+     "run into the ring taken away. About 40 s", True),
     ('THE CASINO FLOOR', ['node', 'gates/the_casino_floor_gate.js'],
      "COMBAT TWO gate, 11/8, VAMILY rule 416 (ask line 468; PAOLO 11/6: 'some fights could be inside too... I still want like this is a block and turf war'). "
      "The first big interior: a fight at a casino with an inside (the casino, the high roller, the Luxor, the resort) is fought on its floor, the Strip's "

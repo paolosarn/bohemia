@@ -40,9 +40,12 @@ try { vm.runInContext(fs.readFileSync(path.join(ROOT, 'slices/bohemia_casino_flo
   const cd = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/casino/casino_floor.json'), 'utf8')), cz = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/casino/sizes.json'), 'utf8')), ck = {};
   Object.keys(cd.kit).forEach(k => { const z = cz[k.replace(/^casino_/, '')]; ck[k] = Object.assign({}, cd.kit[k], z ? { src: z.src } : {}); }); ctx.DB.casino = { data: cd, sizes: cz, kit: ck }; } catch (e) {}
 ctx.DB.streetKit = J('street_board.json'); ctx.DB.streetDress = J('dressing.json'); ctx.DB.streetStoreys = J('storeys.json');
+/* THE STREETS JOIN (rule 442(d)): the street pieces as the live page loads them; a painted tile shows one of them, or, a curb cut, its own sidewalk */
+try { ctx.DB.streetJoins = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/kit_street/joins/joins.json'), 'utf8')); } catch (e) {}
 const F = ctx.FIGHT, P = ctx.DB.ours.place_boards.value.places, RNrow = ctx.DB.ours.road_network, RN = RNrow.value, LIFT = ctx.DB.streetDress.lift;
 const BUILT = {}, PAVED = {}, ASPH = {}; RN.built.forEach(k => BUILT[k] = 1); RN.paved.forEach(k => PAVED[k] = 1); (RN.asphalt || []).forEach(k => ASPH[k] = 1);
 const KIT = {}; Object.keys(ctx.DB.streetKit.streets.pieces).forEach(k => { KIT[ctx.DB.streetKit.streets.dir + ctx.DB.streetKit.streets.pieces[k].src] = k; });
+if (ctx.DB.streetJoins) Object.keys(ctx.DB.streetJoins.pieces).forEach(k => { KIT[ctx.DB.streetJoins.dir + ctx.DB.streetJoins.pieces[k].src] = k; });
 const PAINT = {}, NOP = {}; (RN.paint_on || ['flat', 'rough', 'debris']).forEach(t => PAINT[t] = 1); (RN.no_paint || []).forEach(k => NOP[k] = 1);
 const D4 = [[1, 0], [-1, 0], [0, 1], [0, -1]], isH = t => /^height/.test(t);
 /* the boards: every place at 20 seeds, every other district at 4 (the freeway's own boards aside) */
@@ -89,7 +92,8 @@ function read(S, L) {
   const DK = RN.asphalt_dark || 30, AWr = L.AW, R = L.ring;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const r = L.road[y * W + x]; if (!r) continue;
     const g = L.ground[(y + R) * AWr + x + R] || '';
-    if (r === 3) { if (!KIT[g] || S.terrain[y][x] !== 'flat' || L.tiles[y][x] !== 'street' || NOP[kindAt(x, y)]) out.fake.push('painted@' + x + ',' + y + ' ' + g + ' ' + kindAt(x, y)); continue; }
+    const cutHere = L.streets && (L.streets.cutAt || []).some(c => c[0] === x && c[1] === y) && g.indexOf('#') > 0;   /* a curb cut: its own sidewalk */
+    if (r === 3) { if (!(KIT[g] || cutHere) || S.terrain[y][x] !== 'flat' || L.tiles[y][x] !== 'street' || NOP[kindAt(x, y)]) out.fake.push('painted@' + x + ',' + y + ' ' + g + ' ' + kindAt(x, y)); continue; }
     if (KIT[g]) { out.fake.push('unsaid@' + x + ',' + y); continue; }
     if (r === 2) { if (!PAVED[kindAt(x, y)]) out.fake.push('paved@' + x + ',' + y + ' ' + kindAt(x, y)); continue; }
     const i = g.indexOf('#'), base = String(nameAt(x, y)).split('|')[0], info = LIFT[base];

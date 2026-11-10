@@ -586,12 +586,165 @@
       }
     }
     var lights = (T.lights || []).slice(), RN = o.roads && o.roads.on ? o.roads : null, net = null;
-    if (RN) { net = roadsJoin(); }
+    var decals = [], meet = null;
+    if (RN) { net = roadsJoin(); if (o.joins && o.joins.pieces && RN.streets_join !== false) meet = streetsMeet(net); }
     else for (var y3 = 0; y3 < H; y3++) for (var x3 = 0; x3 < W; x3++) { var a3 = A[(y3 + R) * AW + x3 + R]; if (a3 && !a3.house && a3.dark >= 30 && terrain[y3][x3] === 'flat') tiles[y3][x3] = 'street'; }
     sprites.sort(function (p1, q1) { return p1.line - q1.line || p1.x - q1.x; });
     return { W: W, H: H, ring: R, AW: AW, AH: AH, ground: ground, sprites: sprites, terrain: terrain, roofs: roofs, storeys: storeys, cover: cover, lights: lights,
       tiles: tiles, houses: made, yards: yards, dropped: dropped, template: true, X0: 0, Y0: 0, start: T.start || null, camp: T.camp || null,
-      road: net ? net.road : null, roads: net ? net.say : null };
+      road: net ? net.road : null, roads: net ? net.say : null, decals: decals, streets: meet };
+    /* __THE_STREETS_JOIN__ (COMBAT TWO 11/10, VAMILY rule 442(d), ask lines 544 to 547; Paolo 11/9 on his YES for every building on
+       the road: 'you really need to make sure intersections, the sidewalk and the streets continue looking good like they're
+       supposed to'). MEASURED BEFORE: every tile the join painted was a whole tile of bare asphalt (road_ns, road_ew, junction):
+       no sidewalk, no kerb, a slab beside the yards; where it met the old block's street it stopped dead at that street's kerb or
+       a strip of gravel short of it; at the board's edge it ran into the ring's sand.
+       NOW (o.joins: kit_street/joins/joins.json, tools/bohemia_combat_two_the_street_joins_11_10_26.py):
+         THE PIECE: every painted tile takes the kit's street piece for what is around it: the street goes on where a road is
+           beside it (any road: the old block's own, the paved yard, another painted tile, the ring's), a sidewalk and its kerb
+           where none is; an inside corner (its two sides open, the tile across the corner no road) takes the sidewalk's corner
+           piece, so a sidewalk turns every corner into the cross street's; the centre line runs along a street, never across a
+           junction.
+         THE MOUTH: where it meets an old block's street, the old street's edge on that side (its sidewalk, its gravel, its
+           kerb, as far in as its asphalt starts: joins.reach, read off the block's picture) is drawn over with the new street's
+           own edge (L.decals), so the old kerb opens where the new street comes in and their sidewalks meet.
+         THE CITY: a road the join ran off the board runs on through the ring, straight, to the first street there or the ring's
+           end (a house of the ring in its way is not drawn), the same pieces; so no road stops at the board's edge. */
+    function streetsMeet(net) {
+      var J = o.joins, P = J.pieces, RE = J.reach || {}, D4 = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] }, OPP = { N: 'S', S: 'N', E: 'W', W: 'E' };
+      var ASPH = {}; (RN.asphalt || []).forEach(function (k) { ASPH[k] = 1; }); var DK = RN.asphalt_dark || 30;
+      var road = net.road, say = { pieces: 0, mouths: 0, ring: 0, ringHouses: 0, keys: {}, cuts: 0, cutAt: [], runs: [] };
+      var aIdx = function (ax, ay) { return ay * AW + ax; }, inA = function (ax, ay) { return ax >= 0 && ay >= 0 && ax < AW && ay < AH; };
+      var inBoard = function (ax, ay) { return ax >= R && ay >= R && ax < R + W && ay < R + H; };
+      var ringPaint = {};
+      /* a road the ring draws: the old block's asphalt there, never a house */
+      var ringRoad = function (ax, ay) { var a = inA(ax, ay) ? A[aIdx(ax, ay)] : null; return !!a && !a.house && a.dark >= DK && !!ASPH[a.kind]; };
+      /* what is road at an area tile: 1 the old block's, 2 paved, 3 painted (on the board or in the ring) */
+      var roadA = function (ax, ay) {
+        if (!inA(ax, ay)) return 0;
+        if (inBoard(ax, ay)) return road[(ay - R) * W + ax - R];
+        if (ringPaint[aIdx(ax, ay)]) return 3;
+        return ringRoad(ax, ay) ? 1 : 0;
+      };
+      /* THE CITY: the roads the join ran off the board run on through the ring */
+      (net.say.exits || []).forEach(function (e) {
+        var x = e[0], y = e[1], s = x === 0 ? 'W' : x === W - 1 ? 'E' : y === 0 ? 'N' : y === H - 1 ? 'S' : null; if (!s) return;
+        if ((s === 'W' || s === 'E') && (y === 0 || y === H - 1)) {   /* a corner of the board: out the way the road was going */
+          var ins = (s === 'W' ? road[y * W + x + 1] : road[y * W + x - 1]); if (!ins) s = y === 0 ? 'N' : 'S'; }
+        var ax = x + R, ay = y + R, run = { from: [x, y], side: s, n: 0, end: 'ring' }; say.runs.push(run);
+        for (var k = 1; k <= R; k++) {
+          var bx = ax + D4[s][0] * k, by = ay + D4[s][1] * k; if (!inA(bx, by) || !A[aIdx(bx, by)]) break;
+          if (ringRoad(bx, by) || ringPaint[aIdx(bx, by)]) { run.end = 'street'; break; }
+          ringPaint[aIdx(bx, by)] = 1; say.ring++; run.n++;
+          for (var si = sprites.length - 1; si >= 0; si--) { var q = sprites[si]; if (q.kind === 'house' && q.tiles[0] === bx && q.tiles[1] === by) { sprites.splice(si, 1); say.ringHouses++; } }
+        }
+      });
+      /* THE PIECE, for every painted tile (the board's and the ring's) */
+      /* the old street's edge a piece at (ax, ay) meets on its side s: how far in its asphalt starts (r) and where it lies along the
+         edge ([a0, a1], west to east or north to south), as the old picture was dealt (mirrored) */
+      var WF_NS = J.walk_px ? J.walk_px.W / 515 : 0.124, WF_EW = J.walk_px ? J.walk_px.N / 364 : 0.124;
+      var edgeOf = function (ax, ay, s) {
+        var bx = ax + D4[s][0], by = ay + D4[s][1], a = inA(bx, by) ? A[aIdx(bx, by)] : null; if (!a) return null;
+        var ps = OPP[s]; if (a.fl.indexOf('h') >= 0 && (ps === 'E' || ps === 'W')) ps = OPP[ps]; if (a.fl.indexOf('v') >= 0 && (ps === 'N' || ps === 'S')) ps = OPP[ps];
+        var cell = RE[a.info.src] ? RE[a.info.src][a.sy * 5 + a.sx] : null, i = { N: 0, E: 1, S: 2, W: 3 }[ps];
+        var r = cell ? cell[i] : -1, sp = cell && cell.length > 4 ? cell[4 + i] : -1, a0 = null, a1 = null;
+        if (sp && sp !== -1 && sp.length) { a0 = sp[0]; a1 = sp[1]; if ((s === 'N' || s === 'S') ? a.fl.indexOf('h') >= 0 : a.fl.indexOf('v') >= 0) { var t0 = a0; a0 = 1 - a1; a1 = 1 - t0; } }
+        return { a: a, r: r, a0: a0, a1: a1 };
+      };
+      /* this piece's own asphalt along its side s: from its walk (or its corner piece) at each end, or the edge where it is open */
+      var ends = function (s, op, nub) {
+        var lo = s === 'N' || s === 'S' ? 'W' : 'N', hi = s === 'N' || s === 'S' ? 'E' : 'S', wf = s === 'N' || s === 'S' ? WF_NS : WF_EW;
+        var cn = function (q) { return (s === 'N' || s === 'S') ? s + q : q + s; };
+        return [!op[lo] || nub[cn(lo)] ? wf : 0, !op[hi] || nub[cn(hi)] ? 1 - wf : 1];
+      };
+      /* can the old street on side s take this street straight on? its asphalt at the edge, long enough, reaching every end where this
+         piece is open to the side, and no further off this piece's kerb than a taper can turn */
+      var takes = function (e, k) {
+        if (!e || e.r >= 0.02) return true;   /* its kerb or sidewalk first: the mouth opens it */
+        if (e.a0 === null || e.a1 - e.a0 < 0.25) return false;
+        if (k[0] === 0 ? e.a0 > 0.05 : Math.abs(e.a0 - k[0]) > 0.4) return false;
+        if (k[1] === 1 ? e.a1 < 0.95 : Math.abs(e.a1 - k[1]) > 0.4) return false;
+        return true;
+      };
+      /* THE KEYS, all at once: a side of a piece is open where the tile beside it is road that is drawn as road (a curb cut is a
+         sidewalk) and neither of the two shut that side; a side whose old street cannot take the street (a cul-de-sac's round end met
+         from the side, a path too narrow) is shut and ends in a kerb; an inside corner takes the sidewalk's corner piece unless the
+         two tiles beside it both go on into the tile across the corner (a wide road, a yard of asphalt) */
+      var cutSet = {}, shut = {}, keys = {}, painted = [];
+      for (var cy0 = 0; cy0 < H; cy0++) for (var cx0 = 0; cx0 < W; cx0++) if (road[cy0 * W + cx0] === 3) {
+        var cax = cx0 + R, cay = cy0 + R, ca = A[aIdx(cax, cay)], cw = ['N', 'E', 'S', 'W'].filter(function (s) { return roadA(cax + D4[s][0], cay + D4[s][1]) > 0; });
+        if (ca && ca.info && ca.info.fam === 'paved' && cw.length === 1 && roadA(cax + D4[cw[0]][0], cay + D4[cw[0]][1]) !== 3) cutSet[aIdx(cax, cay)] = 1;
+        else painted.push(aIdx(cax, cay));
+      }
+      Object.keys(ringPaint).forEach(function (i) { painted.push(+i); });
+      var isP = {}; painted.forEach(function (i) { isP[i] = 1; });
+      var drawn = function (ax, ay) { return !inA(ax, ay) || (roadA(ax, ay) > 0 && !cutSet[aIdx(ax, ay)]); };
+      var link = function (ax, ay, s) {   /* is the tile at (ax, ay) joined to its neighbour on side s, as drawn? */
+        var bx = ax + D4[s][0], by = ay + D4[s][1];
+        if (!drawn(ax, ay) || !drawn(bx, by)) return false;
+        if (inA(ax, ay) && shut[aIdx(ax, ay)] && shut[aIdx(ax, ay)][s]) return false;
+        if (inA(bx, by) && shut[aIdx(bx, by)] && shut[aIdx(bx, by)][OPP[s]]) return false;
+        return true;
+      };
+      var shape = function (i) {
+        var ax = i % AW, ay = (i - ax) / AW, op = {};
+        ['N', 'E', 'S', 'W'].forEach(function (s) { op[s] = link(ax, ay, s); });
+        var corner = function (c) { var s1 = c[0], s2 = c[1]; if (!op[s1] || !op[s2]) return false;
+          var n1x = ax + D4[s1][0], n1y = ay + D4[s1][1], n2x = ax + D4[s2][0], n2y = ay + D4[s2][1];
+          return !(link(n1x, n1y, s2) && link(n2x, n2y, s1)); };
+        var nub = { NE: corner('NE'), SE: corner('SE'), SW: corner('SW'), NW: corner('NW') };
+        return { ax: ax, ay: ay, op: op, nub: nub };
+      };
+      for (var pass = 0; pass < 3; pass++) {
+        var changed = false;
+        painted.forEach(function (i) { var f = shape(i);
+          ['N', 'E', 'S', 'W'].forEach(function (s) { var bx = f.ax + D4[s][0], by = f.ay + D4[s][1];
+            if (!f.op[s] || roadA(bx, by) !== 1 || takes(edgeOf(f.ax, f.ay, s), ends(s, f.op, f.nub))) return;
+            (shut[i] = shut[i] || {})[s] = 1; changed = true; say.shut = (say.shut || 0) + 1; }); });
+        if (!changed) break;
+      }
+      painted.forEach(function (i) { var f = shape(i), op = f.op, nub = f.nub, ax = f.ax, ay = f.ay;
+        /* the centre line: along a street with no street coming in from the side here */
+        var ewOk = op.E && op.W && !(op.N && (nub.NE || nub.NW)) && !(op.S && (nub.SE || nub.SW));
+        var nsOk = op.N && op.S && !(op.E && (nub.NE || nub.SE)) && !(op.W && (nub.NW || nub.SW));
+        var run = function (dx, dy) { var n = 1; for (var k = 1; k < 6 && roadA(ax + dx * k, ay + dy * k) > 0; k++) n++; for (var j = 1; j < 6 && roadA(ax - dx * j, ay - dy * j) > 0; j++) n++; return n; };
+        var line = ewOk && nsOk ? (run(1, 0) >= run(0, 1) ? 'e' : 'n') : ewOk ? 'e' : nsOk ? 'n' : 'x';
+        if (ewOk && nsOk && run(1, 0) >= 4 && run(0, 1) >= 4) line = 'x';   /* a yard of asphalt, no lane */
+        keys[i] = 'j_' + ['N', 'E', 'S', 'W'].map(function (s) { return op[s] ? '1' : '0'; }).join('') + '_' + ['NE', 'SE', 'SW', 'NW'].map(function (c) { return nub[c] ? '1' : '0'; }).join('') + '_' + line; });
+      var keyAt = function (ax, ay) { return keys[aIdx(ax, ay)]; };
+      var src = function (key) { return P[key] ? (J.dir || 'kit_street/') + P[key].src : null; };
+      var place = function (ax, ay) {
+        /* A CURB CUT: a single painted tile across a paved block's sidewalk (a drive from an old street to a building, open to that
+           street alone) keeps its own sidewalk: a city's building fronts its sidewalk, and no road is painted over one */
+        var a0 = A[aIdx(ax, ay)];
+        if (cutSet[aIdx(ax, ay)]) { ground[aIdx(ax, ay)] = srcOf(a0.info, a0.sx, a0.sy, a0.fl); say.cuts = (say.cuts || 0) + 1; say.cutAt.push([ax - R, ay - R]); return; }
+        var key = keyAt(ax, ay), sr = src(key); if (!sr) return;
+        ground[aIdx(ax, ay)] = sr; say.pieces++; say.keys[key] = (say.keys[key] || 0) + 1;
+        /* THE MOUTH: an old block's street beside it opens its edge where this one comes in */
+        var op = {}, nub = {}; 'NESW'.split('').forEach(function (q, i) { op[q] = key[2 + i] === '1'; }); ['NE', 'SE', 'SW', 'NW'].forEach(function (c, i) { nub[c] = key[7 + i] === '1'; });
+        ['N', 'E', 'S', 'W'].forEach(function (s) {
+          var bx = ax + D4[s][0], by = ay + D4[s][1]; if (roadA(bx, by) !== 1 || !op[s]) return;   /* an old street on a side this piece is open to */
+          var e = edgeOf(ax, ay, s); if (!e) return;
+          var side = OPP[s], d = e.r < 0 ? 0.5 : Math.min(e.r, 0.6);
+          if (d >= 0.02) { decals.push({ ax: bx, ay: by, side: side, d: Math.round(d * 1000) / 1000, src: sr }); say.mouths++; return; }
+          /* THE TAPER: the old street goes on straight from this edge, its asphalt narrower or wider than this piece's: this piece's
+             kerb angles in (or out) over the near half of the tile to meet the old kerb at the edge, as a real street narrows */
+          var k = ends(s, op, nub), k0 = k[0], k1 = k[1], a0 = e.a0, a1 = e.a1;
+          if (a0 === null) return;
+          if (k0 === 0) a0 = 0; if (k1 === 1) a1 = 1;   /* an end open to the side (a junction's corner) keeps its asphalt */
+          if (k0 > 0) a0 = Math.max(a0, k0 / 2); if (k1 < 1) a1 = Math.min(a1, 1 - (1 - k1) / 2);   /* a closed side keeps its sidewalk to the corner */
+          if (Math.abs(a0 - k0) <= 0.03 && Math.abs(a1 - k1) <= 0.03) return;
+          /* how far in it angles: along a straight kerb (the side closed) the near half of the tile; at a junction's corner piece (the
+             side open, its corner square) only that square, so it never runs across the junction */
+          var lo = s === 'N' || s === 'S' ? 'W' : 'N', hi = s === 'N' || s === 'S' ? 'E' : 'S', sq = s === 'N' || s === 'S' ? WF_EW : WF_NS;
+          decals.push({ kind: 'taper', ax: ax, ay: ay, side: s, lo: [Math.round(k0 * 1000) / 1000, a0], hi: [Math.round(k1 * 1000) / 1000, a1], depth: 0.45,
+            dlo: op[lo] ? Math.round(sq * 1000) / 1000 : 0.45, dhi: op[hi] ? Math.round(sq * 1000) / 1000 : 0.45,
+            walk: (J.dir || 'kit_street/') + 'walk.webp', asph: (J.dir || 'kit_street/') + 'junction.webp' }); say.tapers = (say.tapers || 0) + 1;
+        });
+      };
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) if (road[y * W + x] === 3) place(x + R, y + R);
+      Object.keys(ringPaint).forEach(function (i) { var ii = +i; place(ii % AW, (ii - ii % AW) / AW); });
+      return say;
+    }
     /* __EVERY_BUILDING_ON_THE_ROAD__ (COMBAT TWO 11/8, VAMILY rule 429(h), ask lines 504 and 505; Paolo 11/7: 'every building needs to
        have a road on it, the road can be big, the road can be small, sometimes roads four tiles wide and that's OK, but a building
        needs to be part of whatever road network you want there to be'). The roads of the board, read from its own pictures, then
@@ -615,7 +768,7 @@
       var BUILT = set(RN.built), PAVED = set(RN.paved), ASPH = RN.asphalt ? set(RN.asphalt) : null, DK = RN.asphalt_dark || 30, GAP = RN.wreck_gap || 2, MINP = RN.min_piece || 3;
       var PAINT = set(RN.paint_on || ['flat', 'rough', 'debris']), NOP = set(RN.no_paint), C = RN.cost || {}, D4 = [[0, 1], [0, -1], [1, 0], [-1, 0]];
       var aAt = function (x, y) { return A[(y + R) * AW + x + R]; }, inb = function (x, y) { return x >= 0 && y >= 0 && x < W && y < H; };
-      var road = new Uint8Array(W * H), say = { asphalt: 0, paved: 0, between: 0, wreck: 0, shadow: 0, drives: 0, joins: 0, painted: 0, walled: 0, cut: [] };
+      var road = new Uint8Array(W * H), say = { asphalt: 0, paved: 0, between: 0, wreck: 0, shadow: 0, drives: 0, joins: 0, painted: 0, walled: 0, cut: [], exits: [] };
       var houseAt = function (x, y) { return tiles[y][x] === 'house'; }, roofT = function (x, y) { return isH(terrain[y][x]); };
       /* 1. the surface */
       for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
@@ -703,7 +856,7 @@
       if (hasB && !pieces().list.length) {
         var bigB = blds.reduce(function (p, q) { return q.length > p.length ? q : p; });
         var fb = fronts(bigB), pe = walk(fb.filter(function (f) { return !f[2]; }), edge, true) || walk(fb, edge, true);   /* from its front first */
-        if (pe) { paint(pe); say.edge = (say.edge || 0) + 1; }
+        if (pe) { paint(pe); say.edge = (say.edge || 0) + 1; say.exits.push(pe[0]); }
       }
       /* 5. the drives: a building with no road beside it, its front (south) first */
       blds.forEach(function (c) {
@@ -724,10 +877,10 @@
       /* 6c. a piece that joined nothing and reaches no edge runs on to the nearest edge: never a stub that goes nowhere */
       for (var guard3 = 0; guard3 < 20; guard3++) { var Ps = pieces(), stub = null;
         Ps.list.forEach(function (c) { if (!stub && Ps.list.length > 1 && !touchesEdge(c)) stub = c; });
-        if (!stub) break; var pe3 = walk(around(stub), edge, true); if (!pe3) break; paint(pe3); say.edge = (say.edge || 0) + 1; }
+        if (!stub) break; var pe3 = walk(around(stub), edge, true); if (!pe3) break; paint(pe3); say.edge = (say.edge || 0) + 1; say.exits.push(pe3[0]); }
       /* 6b. the network reaches the city: on a board with buildings, the main piece runs off the board's edge somewhere */
       if (hasB) { var Pm = pieces(); if (Pm.list.length) { var mm = mainOf(Pm);
-        if (!touchesEdge(Pm.list[mm])) { var pe2 = walk(around(Pm.list[mm]), edge, true); if (pe2) { paint(pe2); say.edge = (say.edge || 0) + 1; } } } }
+        if (!touchesEdge(Pm.list[mm])) { var pe2 = walk(around(Pm.list[mm]), edge, true); if (pe2) { paint(pe2); say.edge = (say.edge || 0) + 1; say.exits.push(pe2[0]); } } } }
       var Pf = pieces(); say.pieces = Pf.list.length; say.walled = Math.max(0, Pf.list.length - 1);
       /* 7. the paint: the street kit's own road on every joined tile; flat; a street; what stood on it gone */
       var spc = function (k) { return K.streets && K.streets.pieces[k] ? K.streets.dir + K.streets.pieces[k].src : null; };
@@ -749,6 +902,7 @@
   /* a ground entry 'block_yards_1.webp#3,1h' is a tile of a block's picture (column 3, row 1, mirrored): the picture is the block's */
   function picOf(g) { var i = g.indexOf('#'); return i < 0 ? g : g.slice(0, i); }
   /* every picture a laid board needs, once */
-  function srcs(L) { var s = {}; L.ground.forEach(function (g) { if (g) s[picOf(g)] = 1; }); L.sprites.forEach(function (q) { s[q.src] = 1; }); return Object.keys(s); }
+  function srcs(L) { var s = {}; L.ground.forEach(function (g) { if (g) s[picOf(g)] = 1; }); L.sprites.forEach(function (q) { s[q.src] = 1; });
+    (L.decals || []).forEach(function (q) { ['src', 'walk', 'asph'].forEach(function (k) { if (q[k]) s[q[k]] = 1; }); }); return Object.keys(s); }
   root.BohemiaStreetBoard = { plan: plan, lay: lay, dress: dress, fromTemplate: fromTemplate, HOUSE_KINDS: HOUSE_KINDS, srcs: srcs, picOf: picOf, streetPiece: streetPiece, ready: hostReady, TILE_M: TILE_M };
 })(typeof window !== 'undefined' ? window : this);

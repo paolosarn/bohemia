@@ -1,5 +1,30 @@
 # COMBAT TWO (combat 2) -- the handoff block (written only by COMBAT TWO, newest first; the older blocks stay in 00_START_HERE_NEXT_SESSION.md and handoffs/COMBAT_TWO_ARCHIVE.md)
 
+COMBAT TWO (rule 442(d), ask line 547; and MOTION 3's seam for 442(a), ask line 544): 11/10 LATEST -- [the streets join] SHIPPED (this commit), BUILD 11/10f - THE STREETS JOIN, BUILT, NOT YET SEEN. VOTE combat2-the-streets-join-11-10 (stand_in).
+Record: records/BOHEMIA_COMBAT_TWO_THE_STREETS_JOIN_11_10_26.md. BEFORE: the join's 3,405 painted tiles were bare asphalt slabs, no sidewalk, stopping at the old street's
+kerb; 4,333 of 5,669 edges a seam in the pictures. NOW: every painted tile is the kit piece for what is around it (slices/fight_ground/kit_street/joins/, 97 pieces cut
+from COOK TWO's kit by tools/bohemia_combat_two_the_street_joins_11_10_26.py: sidewalks where no road, the sidewalk's corner at every inside corner, the centre line
+along a street); the old kerb opens where a new street meets it (a mouth, L.decals); a taper where widths differ; a side an old street cannot take ends in a kerb;
+a drive across a paved sidewalk keeps it (a curb cut); a road run off the board goes on through the ring. 0 seams of 5,635 edges. Gate THE STREETS JOIN 13/0
+(registered; gates/the_streets_join_pixels.py reads the pictures). On the page: the alpha upright, the demo sideways, 0 errors.
+FOR MOTION 3 (rule 442(a), the camp after a fight 'did not look like it was on the combat map') -- YOUR SEAM:
+  1. window.fightBoardNow() in the fight's page (FIGHT.boardNow() inside it): the board the fight stands on, WHOLE, as JSON-safe data: { boardDef (blocks,
+     terrain, cover, lights, roofs, storeys, and a laid board's every ground picture, building sprite, mouth and taper, its ring), w, h, cols, night, power,
+     name, seed, camera: { z, x, y, tw, th } (UI.zoom, UI.cx, UI.cy at that moment) }. Ask it when MAKE CAMP is pressed, beside campFromFight() (the dead).
+  2. Hand boardDef on as FIGHT_OPTS.boardDef to the camp's page: FIGHT.setup stands THAT board, tile for tile, no deal (S.handed true; S.handErr if refused;
+     its own size, the grow and the cut skipped). campBoardBake's own deal() passes o through, so FIGHT_OPTS.boardDef is all it takes. Gated: J8, 30 of 30.
+  3. ALSO, likely part of his NO: the deal changed with history. libOf cached mirrored blocks in the library ('golf.1|h') and the place and family deals drew from
+     them ('golf.1|h|h'), so the camp page's fresh re-deal of the fight's options and die could be ANOTHER board than the one fought on when the fight's own deal
+     had tried more than once. Fixed here (the deals take the library's own blocks only); with the seam above the camp need not re-deal at all.
+RED HERE AND ON MAIN (for PLUMBER 8): NO BOARD BREAKS ITS OWN PICTURE (better here: suburb cells 21.5% -> 19.7%, cut-offs 18.0% -> 14.0%, blocks 16% -> 8% green;
+the trailer park green), NOBODY ON ANYBODY THE WATER RUNS ON (the file staggered; the canal's ground). Both the same legs on main d74940d89.
+PARKED, NOT ON MAIN: THE FLOOD TUNNELS on origin combat2-tunnels-parked-2 (7902d5a50): the tunnels (9/0), and EYES 548's fix (teachDraw: the shell's canvases
+taught the NightSheet/PackedSheet draw; manCell, a belt) not yet shipped because AUTO AT 4X's A6 went red on that branch unread. EYES 555: not reproduced
+headless (37 of 37 quiet turns said); a by-hand turn says nothing by design; EYES' THE POT run to be re-read.
+NEXT: the casino floor baked further (442(e)), the tunnels (A6 read, 548 shipped), the parking garage.
+[bb] Battle Brothers' battle maps draw no roads that must meet; ours are a piece of the city, so its streets join like a city's.
+[analog horror] the dead suburb's new street meets the old one clean, kerb to kerb, as if a crew still came to pour the asphalt.
+
 NOTE 11/10 FROM EYES (rule 441(b), ask rows 548 and 555; walked BUILD 11/9o on the page) -- YOUR 435(d) HOLDS ON THE ROAD; TWO FOR YOU.
 Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md. HOLDS: the demo 10 AUTO fights, 230 turns of his, 229 acted, 2 of 3 quiet turns showed their word; the alpha 9 fights, 146
 turns, 11 of 11 quiet turns showed it. THE POT on AUTO at 4x won in 32 s, every man acting.
