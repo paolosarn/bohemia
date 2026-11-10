@@ -63,9 +63,12 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         runs[fac] = out;
       }
       /* THE NEW MEN and A CHAMPION (rule 443(d)): the same door, the faction's own party */
-      const handOver = (f, n, days) => fr.evaluate((o) => { try { if (LOOP.open) loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} window.__FIGHT_CAME_HOME = null;
+      /* the page deals a band once, from a seed on the encounter's name and size (slices/bohemia_job_danger.js roll), and caps a first day's band
+         at his crew plus one: so each try is its own encounter, met on a day its phase is live (the game's clock set there, put back after) */
+      const handOver = (f, n, days, tag) => fr.evaluate((o) => { try { if (LOOP.open) loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} window.__FIGHT_CAME_HOME = null;
+        try { if (typeof DAY !== 'undefined') { if (window.__GATE_DAY0 === undefined) window.__GATE_DAY0 = DAY.day; DAY.day = o.days; } } catch (e) {}
         cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: o.f, faction: null, draft: true, roster: [{ arch: 'bandit' }, { arch: 'bandit' }],
-          party: { count: o.n, faction: o.f, days: o.days, difficulty: 0 }, street: true, why: 'gate:bestiary men', at: { gx: city.x, gy: city.y }, __met: true }); }, { f, n, days });
+          party: { count: o.n, faction: o.f, days: o.days, difficulty: 0 }, street: true, why: 'gate:bestiary men:' + o.tag, at: { gx: city.x, gy: city.y }, __met: true }); }, { f, n, days, tag });
       const openFight = () => waitFor(async () => { const e = await p.$('#fightFrame'), c = e && await e.contentFrame(); return c && await c.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.board && FIGHT.S.units && FIGHT.S.units.length) ? true : null) ? c : null; }, 60000);
       const winHome = async (f) => {
         await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side !== 'them') return; u.hp = 0; u.dead = true; }); });
@@ -85,7 +88,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         const o = { fight: false, tries: 0 };
         try {
           for (let t = 0; t < 6 && !o.fielded; t++) {
-            o.tries = t + 1; await handOver(m.faction, 8, m.days); const f = await openFight(); if (!f) break; o.fight = true;
+            o.tries = t + 1; await handOver(m.faction, 8, m.days, m.id + ':' + t); const f = await openFight(); if (!f) break; o.fight = true;
             await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(800);
             o.fielded = await lookOk(f, m.id); o.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
             if (process.env.SHOTS && o.fielded) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'men_' + m.id + '_' + profile + '.jpg'), quality: 80 }); }
@@ -97,7 +100,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
       const ch = { tries: 0 };
       try {
         for (let t = 0; t < 8 && !ch.named; t++) {
-          ch.tries = t + 1; await handOver('brigands', 8, 70); const f = await openFight(); if (!f) break;
+          ch.tries = t + 1; await handOver('brigands', 8, 70, 'champion:' + t); const f = await openFight(); if (!f) break;
           await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(800);
           const c = await f.evaluate(() => (FIGHT.S.champions || []).map(x => { const u = FIGHT.byId(x.id); return { kind: x.kind, name: x.name, title: x.title, onBoard: !!u && u.name === x.name && u.champion === true, look: u && u.look }; }));
           if (c.length) { ch.named = c; ch.inList = c.every(x => ((CH[x.kind] || {}).names || []).map(n => String(n).toUpperCase()).indexOf(x.name) >= 0 && x.title === (CH[x.kind] || {}).title);
@@ -107,6 +110,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         }
       } catch (e) { ch.err = String(e).slice(0, 300); }
       runs.champion = ch;
+      await fr.evaluate(() => { try { if (window.__GATE_DAY0 !== undefined) { DAY.day = window.__GATE_DAY0; delete window.__GATE_DAY0; } } catch (e) {} });
     } catch (e) { runs.err = String(e).slice(0, 300); }
     runs.errs = errs; res[profile.replace('phone_', '')] = runs;
     try { await d.close(); } catch (e) {}
