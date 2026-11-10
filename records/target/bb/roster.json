@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 159,
-  "types_in_the_fight": 49,
+  "types": 164,
+  "types_in_the_fight": 54,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -53,6 +53,7 @@
     "footman",
     "house_crossbow",
     "house_hook",
+    "house_sergeant",
     "house_shield",
     "knight",
     "man_at_arms",
@@ -103,6 +104,8 @@
     "barbarian_madman",
     "barbarian_reaver",
     "barbarian_thrall",
+    "keeper_drummer",
+    "keeper_reaver",
     "keeper_thrall",
     "warhound"
    ],
@@ -128,7 +131,8 @@
     "nomad_leader",
     "nomad_outlaw",
     "nomad_slinger",
-    "water_cutter"
+    "water_cutter",
+    "water_slinger"
    ],
    "in_the_fight": [
     "water"
@@ -189,6 +193,7 @@
     "militia_marksman",
     "militia_veteran",
     "peasant",
+    "watch_bowman",
     "watch_captain",
     "watch_neighbor"
    ],
@@ -2130,6 +2135,27 @@
    "page": "bb_all/0238_Billman.txt"
   },
   {
+   "type": "house_sergeant",
+   "bb_name": "House Sergeant",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "house_sergeant"
+   ],
+   "name": "SERGEANT",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "house"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1754_Sergeant.txt"
+  },
+  {
    "type": "house_shield",
    "bb_name": "House Shield",
    "bb_faction": "noble_houses",
@@ -2270,6 +2296,27 @@
    "page": "bb_all/1074_Indebted (Enemy).txt"
   },
   {
+   "type": "keeper_drummer",
+   "bb_name": "Caller",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "keeper_drummer"
+   ],
+   "name": "CALLER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "keepers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0182_Barbarian Drummer.txt"
+  },
+  {
    "type": "keeper_feral",
    "bb_name": "Feral",
    "bb_faction": "orcs",
@@ -2289,6 +2336,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/1492_Orc Berserker.txt"
+  },
+  {
+   "type": "keeper_reaver",
+   "bb_name": "Reaver",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "keeper_reaver"
+   ],
+   "name": "REAVER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "keepers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0189_Barbarian Reaver.txt"
   },
   {
    "type": "keeper_thrall",
@@ -3513,6 +3581,27 @@
    "page": "bb_all/2182_Warhound.txt"
   },
   {
+   "type": "watch_bowman",
+   "bb_name": "Bowman",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "watch_bowman"
+   ],
+   "name": "BOWMAN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "watch"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1287_Militia Marksman.txt"
+  },
+  {
    "type": "watch_captain",
    "bb_name": "Block Captain",
    "bb_faction": "civilians",
@@ -3595,6 +3684,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0864_Goblin Ambusher.txt"
+  },
+  {
+   "type": "water_slinger",
+   "bb_name": "Slinger",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "water_slinger"
+   ],
+   "name": "SLINGER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "water"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1453_Nomad Slinger.txt"
   },
   {
    "type": "webknecht",

@@ -33,15 +33,15 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS, BUILT, NOT YET SEEN (routine 'to the floor', rule
-440(f), rule 441). The long-horned bison and the shrub-ox landed once his votes freed room on the site: 22 animals fielded, 17 lab-made,
-the beast law's floor met. All seven new ones (the five got his YES) play end to end on the demo, a phone upright and sideways (fight,
-win, the kill on the map, one tap for food and hides): THE BESTIARY FLOOR with its page leg. FILED: the fight fields 8 of 12 factions
-and 49 of 75 types (FACTIONS: the hired guns, the head takers, the flock, the eye in the sky; COMBAT: the old order's machines). The
-site has 2.3 MB left (PLUMBER 8: the style guide names 12 MB no page loads). VOTE bestiary-the-last-two-11-10. Record
-records/BOHEMIA_BESTIARY_THE_FLOOR_FILED_11_10_26.md. The whole block: handoffs/BESTIARY.md.
-[bb Battle Brothers fields every faction it names; ours names twelve and fights eight.]
-[analog horror: the hi-vis lab plate on a goat's nape, still lit on a roof at dusk.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/10n FIVE NEW MEN, NAMED CHAMPIONS, BUILT, NOT YET SEEN (routine 'enemy types and
+factions', rule 443(d), rule 441). Five new enemy types in their own clothes (CHARACTER's enemy sheets, each pool split) and their own way
+to fight: the watch's bowman, the water people's slinger, the keepers' reaver and caller, the House sergeant: the fight fields 54 of 75
+types. Champions are rare named men now (El Tuerto, Lil Smoke, The Fridge...): one per band, never before the late phase; how often late
+is TUNING's. The flock (the 9th faction) is built and WAITS FOR ITS CLOTHES: every dressed look left is his company's, his followers' or
+a boss crew's; CHARACTER has the list (18 types, the last 4 factions). THE BESTIARY FLOOR holds it all (F7, F10, the phone leg).
+VOTE bestiary-five-new-men-11-10. Record records/BOHEMIA_BESTIARY_THE_MEN_AND_THE_CHAMPIONS_11_10_26.md. The whole block: handoffs/BESTIARY.md.
+[bb Battle Brothers' champions are named men, the band's toughest; ours carry a name and a title from the data.]
+[analog horror: the champion's name comes up once, the way a caption names a man on a tape nobody should have kept.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/9 LATEST -- BUILD 11/9j - THE RANCH AND THE LAKE CAMP, BUILT, NOT YET SEEN (rule 440(c), ask
 line 539; after 11/9c THE PLACES TALK and 11/9f SEVEN MORE PLACES TALK). Fourteen of rule 409's missing places now talk when you arrive, two
 or three choices with real costs: the lab, the bank, the jobs line, the home centres (11/9c); the gas plants, Shark Reef, the shelter, the

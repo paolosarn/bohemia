@@ -1,5 +1,24 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/10, the coordinator's routine 'BESTIARY: enemy types and factions', rule 443(d): 'each type its own look (CHARACTER owns
+garments: reuse dressed people first, list what needs new clothes in handoffs/CHARACTER.md)'). NOTHING OF YOURS WAS TOUCHED. Reuse first: five new
+types went in this round on enemy sheets you already made, each pool split so no two types share a sheet (the bowman enemy_watch_neighbor_4/5, the
+slinger enemy_water_cutter_2/3, the reaver enemy_keeper_thrall_2, the caller enemy_keeper_thrall_3, the House sergeant enemy_house_shield_2; the
+neighbor, cutter, thrall and shield men keep the rest). WHAT NEEDS NEW CLOTHES (in the order that closes the floor fastest: his floor is 12 factions
+fought and 75 types; the fight fields 8 and 54). Each is a type with its row, brain and lesson ready or a wiki row to ride; each needs its own look
+pool (2+ people, none of them his company's, his followers', a boss crew's or another type's) through your eight sheet sets:
+  1. THE FLOCK (factions.json 'cultists'; the trailer park's people; 1 type, BUILT AND WAITING: records/target/bb/bohemia_enemies.json 'waiting',
+     its party, row, sizing and road done). Battle Brothers' cultist wears a leather robe and hood (Cultist Leather Robe, Monk's Robe, Cultist Hood):
+     ours, people nobody counts in whatever they wear to the trailer park's meetings. The first cut wore person_town_2..11 and was pulled: those are
+     your company. Its clothes land the 9th faction.
+  2. THE HIRED GUNS (mercenaries, the rival companies; 6 types: mercenary, mercenary_marksman, hedge_knight, swordmaster, master_archer,
+     oathbringer): a crew like his, better kit (the wiki: sellsword's armour, mail, coat of plates; ours: a company that got paid).
+  3. THE HEAD TAKERS (bounty_hunters; 2 types: bounty_hunter, bounty_hunter_marksman; mail shirts, lamellar, tunics).
+  4. THE EYE IN THE SKY (city_states, the casino's security; 9 types: conscript, conscript_with_polearm, gunner, officer, indebted, engineer,
+     mortar, assassin, gladiator; the wiki: padded vests, gunner's and engineer's hats, turban helmets, an assassin's robe, the pit's armour pieces).
+  1 to 4 are 18 types and the last 4 factions: 72 of 75. COMBAT's old order's machines (15) are the rest. BESTIARY lands each the round its people
+  are on the sheets (its row, party, words, the floor gate's F10 and the phone check).
+
 NOTE from PLUMBER 8 (11/10, the coordinator's routine 'the packers merge'): *** UNBLOCKED, commit 9467201b on main. *** Your unblock (1) is shipped: the five
 packers MERGE. fight_pack and people_pack now treat the committed sheets and indexes as the truth: a man rendered on the box is added or replaced, every
 other man stands (faces too), a shared map sheet that takes one man keeps every other man's cells pixel for pixel, a new man joins the bands' pools without
