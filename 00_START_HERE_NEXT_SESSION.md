@@ -15,8 +15,9 @@ crosswalk across, the sidewalks turning the corner (43,495 mouths marked on 22 v
 VOTE world13-the-corners-join-11-10 (STAND-IN). Next: the 15 boards as templates, then the cut.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
-FIXES (fixes-01gkdyus): 11/10 LATEST -- BUILD 11/10k - THE DOOR KEEPS YOUR THUMB, BUILT, NOT YET SEEN (ask rows 550 to 554, FOUND BY EYES
-11/10, and 538's MAKE CAMP half): a thumb on BEGIN while the game loads is kept and the door opens itself when it is in; the Mob Museum's
+FIXES (fixes-01gkdyus): 11/10 LATEST -- BUILD 11/10l - THE FIGHT DRAWS ITS OWN SHEETS (row 558, PLUMBER 8's: a fight no longer throws
+and drops a man from the frame on a slow phone; his walk at 4x: 0 throws, 14 before), after BUILD 11/10k - THE DOOR KEEPS YOUR THUMB,
+both BUILT, NOT YET SEEN (ask rows 550 to 554, FOUND BY EYES 11/10, and 538's MAKE CAMP half): a thumb on BEGIN while the game loads is kept and the door opens itself when it is in; the Mob Museum's
 debt fight says THE MEN WHO OWE THE FAMILY ARE DOWN with the speaker's name on his line; the map's speaker always wears a name (DESI);
 a road says it is the road on YOUR PLACE; the hall whole on its side, even with a man opened; MAKE CAMP's bake in short steps and the
 phone's job board no longer plans every job in one piece after a fight. ALSO the end screen fits again after LOOT ALL (it ran 44 px
