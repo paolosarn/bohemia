@@ -655,6 +655,20 @@ const FIGHT = (function () {
       const v = dz(x, y) * 1e3 + h + groundSteps(x, y) * 0.1 + f.best[k] * 1e-3; if (v < bv) { bv = v; best = { x: x, y: y }; } });
     return best;
   }
+  /* __THE_WINDED_MAN_ACTS__ (rule 435(e)): the step of a winded man in his own reach of them and in none of theirs: the tile of his walk
+     (no climb, no man's reach on it) the fewest of them can hit next turn, cover and good ground first, a man of theirs still in his
+     reach from it; null when where he stands is the safest */
+  function windedStep(u, away) {   /* away: anywhere safer (a man who cannot fire or swing here), not only within his reach of them */
+    if (u.ap < R('ap.move_cost.flat') || zocOn(u, u.x, u.y).length || u.netted || climbedNow(u)) return null;
+    const f = reach(u); if (!f || !f.best) return null;
+    const keeps = away ? function () { return true; } : function (x, y) { return foes(u).some(function (t) { return onField(t) && dist({ x: x, y: y }, t) <= reachOf(u.weapon); }); };
+    const val = function (x, y) { return dangerAt(u, x, y) * 1e3 - (goodGround(x, y) ? 1 : 0); }, v0 = val(u.x, u.y);
+    let best = null, bv = v0;
+    Object.keys(f.best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w); if (x === u.x && y === u.y) return;
+      if ((f.up && f.up[k]) || zocOn(u, x, y).length || !keeps(x, y)) return;
+      const v = val(x, y) + f.best[k] * 1e-3; if (v < bv) { bv = v; best = { x: x, y: y }; } });
+    return best;
+  }
   function nearFoe(u, x, y) { return foes(u).reduce(function (m, f) { return onField(f) && f.morale !== 'Fleeing' ? Math.min(m, dist({ x: x, y: y }, f)) : m; }, Infinity); }
   function goodGround(x, y) { return !!(storeysAt(x, y) || (S.coverCount[y] && S.coverCount[y][x]) || level(x, y) > 0); }
   function groundSteps(x, y) {
@@ -843,7 +857,19 @@ const FIGHT = (function () {
     u.injuries.forEach(function (j) { if (j.effects && typeof j.effects[key] === 'number') m *= (1 + j.effects[key] / 100); });
     return m;
   }
-  function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u) + bagFat(u)) * injMult(u, 'max_fatigue_pct'))); }
+  function fatMax(u) { const m = rawFatMax(u), fl = breathFloor(u); return Math.max(m, fl); }
+  function rawFatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u) + bagFat(u)) * injMult(u, 'max_fatigue_pct'))); }
+  /* __THE_WINDED_MAN_ACTS__ (COMBAT TWO 11/10, VAMILY rule 435(e), ask line 556; Paolo: 'one of my guys keeps saying he's winded and he
+     doesn't move and he doesn't attack, but I can move him myself'). NEVER A MAN WINDED FOR LIFE: TUNING's breath floor (ours.
+     armour_weight.breath_floor, rule 377(c), 'not read by the fight yet' until now): whatever he wears, a man of his holds at least
+     his own blow this many times from fresh (strikes 2: one blow back with every turn's 15, so his kit never leaves him winded
+     turn after turn); the heaviest kit still tires him (Battle Brothers' cost, kept), and his card says when the floor holds */
+  function breathFloor(u) {
+    if (!u || u.side !== 'you' || !u.weapon || !u.weapon.skills) return 0;
+    const BF = (R('ours.armour_weight') || {}).breath_floor; if (!BF || !(BF.strikes > 0)) return 0;
+    const st = strikeSkill(u.weapon); return st ? Math.ceil(BF.strikes * skillFat(u, st)) : 0;
+  }
+  function kitFloored(u) { return !!u && u.side === 'you' && rawFatMax(u) < breathFloor(u); }
   /* ==== __HEAVY_ARMOUR_COSTS_A_TILE__ (COMBAT 7, rule 377, ask line 406; Paolo 11/3: 'if you're wearing the heaviest... maybe
      it's gonna be like -2... you can only walk one time less... please make sure that this does not make it impossible to do any
      sort of attack or abilities. If you didn't move that turn... there's weights... categories'). ours.armour_weight (TUNING's):
@@ -2350,7 +2376,7 @@ const FIGHT = (function () {
          15% of their max Hitpoints at the start of each turn'): the short-faced bear and the ground sloth, once a round */
       if (u.beast && u.hp > 0 && u.hp < u.hpMax && arche(u).regenerates) { const g = Math.min(u.hpMax - u.hp, Math.round(u.hpMax * NEW('regenerate').share)); u.hp += g; emit({ t: 'skill', id: u.id, skill: 'regenerates', to: u.id, hp: g }); }
     }
-    u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length;
+    u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length; u.btWhy = null; u.windedActs = false;   /* __THE_WINDED_MAN_ACTS__: a turn's why is its own, never the last turn's word */
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
@@ -2398,6 +2424,19 @@ const FIGHT = (function () {
   /* WINDED: his own blow costs more breath than he has left (the RECOVER any man may press, rule 283(b)) */
   function winded(u) { return !!(u && u.weapon && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)); }
   /* HIS KIT LEAVES NO SWING (rule 283(c)): even rested, his own blow costs more breath than his kit leaves him */
+  /* __THE_WINDED_MAN_ACTS__ (rule 435(e)): a rest buys his blow next turn: not a second rest running (he did not rest his last turn),
+     a man of theirs in his reach from here (his blow on him, his breath aside), and the rest's breath back, less what their blows may
+     put on him there, leaves room for the blow */
+  function restBuys(u) {
+    if (!u || u.restedBack || !u.weapon) return false;
+    const st = strikeSkill(u.weapon); if (!st) return false;
+    const f0 = u.fat; u.fat = 0; let on = false; try { on = foes(u).some(function (t) { return onField(t) && canStrike(u, t) && sideSees(u.side, t); }); } finally { u.fat = f0; }
+    const coming = on || dangerAt(u, u.x, u.y) > 0;   /* a man of theirs in his reach, or one who can reach him by his next turn: the fight is at him */
+    if (!coming) return false;   /* nobody near: he walks to the fight (15 back on the way) */
+    const hit = foes(u).some(function (t) { return onField(t) && dist(t, u) <= 1; }) ? R('ours.fatigue_from_them_between_turns') : 0, c = skillFat(u, st), M = fatMax(u);
+    if (u.fat - R('ours.rest_recovery') + hit + c > M) return false;   /* the rest does not buy his blow either */
+    return u.fat - R('fatigue.recovery_per_turn') + hit + c > M;   /* only the rest buys it: acting now would leave him winded when they are on him */
+  }
   function tooHeavy(u) { return !!(u && u.weapon && skillFat(u, strikeSkill(u.weapon)) > fatMax(u)); }
   /* the last man of a side put down as a turn closes (the burning ground, rule 305; the whip's bleeding, ARMORY 2) ends the fight
      the way a blow does (COMBAT 6, measured: the cell vest gate's fights 2 and 5 ran 6,600 rounds with all of his men down) */
@@ -4881,11 +4920,13 @@ const FIGHT = (function () {
       if (o.kind === 'close') return o.value > restV;   /* __AUTO_KNOWS_ITS_MAN__: closing in, only when it beats holding */
       if (o.deal <= 0) return false;
       const w = o.w || u.weapon;
-      return o.kind === 'squeeze' || o.pk >= B.kill_on_offer || u.fat + o.fat - fatBack + fromThem(o.E || here) + skillFat(u, strikeSkill(w)) <= fatMax(u);
+      return o.kind === 'squeeze' || o.pk >= B.kill_on_offer || u.fat + o.fat - fatBack + fromThem(o.E || here) + skillFat(u, strikeSkill(w)) <= fatMax(u)
+        || (u.side === 'you' && u.restedBack && u.fat + o.fat <= fatMax(u));   /* __THE_WINDED_MAN_ACTS__: he rested last turn; the blow his breath carries now is struck, never a second rest */
     });
     const r0 = function (v) { return Math.round(v); };
     if (!fit.length) {
       if (u.side !== 'you') return null;   /* theirs: their own rest (aiFirst's Recover, the winded man's turn) */
+      if (!restBuys(u)) { u.windedActs = true; return null; }   /* __THE_WINDED_MAN_ACTS__: a rest that buys no blow next turn, or a second rest running: he walks on (the line, the fight, a shot) */
       u.btLast = ['rest: ' + opts.filter(function (o) { return o.deal > 0; }).length + ' useful, none his breath carries'];
       u.btSay = 'rests: no blow his breath carries';
       const rc = canUse(u, 'recover') ? skillNums(u, 'recover') : null;
@@ -4934,8 +4975,16 @@ const FIGHT = (function () {
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { u.btWhy = 'fleeing'; endTurn(u); return false; } return true; }
     /* A WINDED MAN OF HIS RESTS (rules 283(d), 285(a)): on AUTO, a man of his too winded for his own blow ends his turn with nothing
        spent, a rest, so the next turn brings ours.rest_recovery and his swing (MEASURED BEFORE: in the heaviest kit AUTO kept him
-       shuffling, 1,670 of 3,624 turns winded, one man 30 turns running) */
-    if (u.side === 'you' && u.ap >= u.apTurn && winded(u)) { u.btWhy = 'winded'; endTurn(u); return false; }
+       shuffling, 1,670 of 3,624 turns winded, one man 30 turns running).
+       __THE_WINDED_MAN_ACTS__ (COMBAT TWO 11/10, rule 435(e), ask line 556; Paolo: 'one of my guys keeps saying he's winded and he
+       doesn't move and he doesn't attack, but I can move him myself. It's insane'). AUTO NEVER REFUSES WHAT THE HAND MAY DO: the rest
+       is taken only when it buys his blow next turn (restBuys: he did not rest his last turn, a man of theirs is in his reach from
+       here, and the rest's breath leaves room for the blow); else this turn he does what his breath allows (a walk costs none: to the
+       fight, to cover, to the tile his next blow is from; a shot or a blow his breath carries), never a rest turn after turn */
+    if (u.side === 'you' && u.ap >= u.apTurn && winded(u)) {
+      if (restBuys(u)) { u.btWhy = 'winded'; endTurn(u); return false; }
+      u.windedActs = true;
+    }
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
@@ -5017,10 +5066,20 @@ const FIGHT = (function () {
     const able = ranged ? shotOK : u.fat + skillFat(u, sk0) <= fatMax(u);
     if (u.side === 'you') {
       const ring = zocOn(u, u.x, u.y).length, near = ring || foes(u).some(function (f3) { return dist(f3, u) <= R('ours.auto_brain').near_tiles; });
-      if ((!able && near) || (ring && (isGun(w) || !ranged))) { u.btWhy = ring ? 'ring' : 'unable_near'; endTurn(u); return false; }
+      /* __THE_WINDED_MAN_ACTS__ (rule 435(e)): a winded man with no rest to buy walks on; and a man who cannot fire or swing here (his breath,
+         his reload's AP or breath: a gunman struck and poisoned each round can never reload where he stands) who held his last turn does
+         not hold again: he steps, as the hand may, to the tile of his walk the fewest of them can hit next turn (measured on the real
+         page: a handgonne held NO SHOT fourteen turns running) */
+      if (!ring && !able && near && u.restedBack && !actedNow(u)) { const ss = windedStep(u, true); if (ss && moveTo(u, ss.x, ss.y)) { u.btWhy = 'falls_back'; return true; } if (!ss) { u.btWhy = 'no_safer'; endTurn(u); return false; } }
+      if ((!able && near && !u.windedActs) || (ring && (isGun(w) || !ranged))) { u.btWhy = ring ? 'ring' : 'unable_near'; endTurn(u); return false; }
     }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
-    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; u.btWhy = 'in_reach_spent'; endTurn(u); return false; }
+    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) {
+      /* __THE_WINDED_MAN_ACTS__ (rule 435(e)): winded, no rest to buy (he rested last turn), no blow his breath carries, and no man's reach
+         on him: he steps, as the hand may, to the tile the fewest of them can hit next turn (cover first) that keeps a man of theirs in
+         his reach; where he stands is already the safest, he holds and says so */
+      if (u.windedActs && !actedNow(u)) { const ws = windedStep(u); if (ws && moveTo(u, ws.x, ws.y)) return true; if (!ws) { u.btWhy = 'safest_here'; endTurn(u); return false; } }
+      if (aiLast(u)) return true; u.btWhy = 'in_reach_spent'; endTurn(u); return false; }
     /* AUTO FINDS A SHOT (COMBAT 4, rule 322): his shooter with no shot where he stands walks to the best tile that gives one (this
        turn first, else next turn), past the line's vetoes below (the line held his rifle back from the one step that gave a shot);
        a shot next turn from where he stands, and he holds */
@@ -5210,7 +5269,7 @@ const FIGHT = (function () {
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
-    canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
+    canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, kitFloored: kitFloored, breathFloor: breathFloor, rawFatMax: rawFatMax, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { neverIdle: neverIdle, reach: reach, nearFoe: nearFoe, actedNow: actedNow, expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
@@ -7153,7 +7212,7 @@ function numTag(t, first, _c, at, then, col) {
 /* THE BREATH THAT CAME BACK (COMBAT [fatigue comes back every turn], rule 285(c), Paolo 10/26: 'there's no calculations for
    stamina regeneration... if I run out of stamina in a match it's over'): as a man of his begins his turn, by hand or on AUTO,
    the wind glyph and what came back over him (+15, +30 after a rest), a beat and a half; his card's bar shows the number */
-const BREATH_SAYS = { heavy: 'TOO HEAVY TO SWING' };   /* draft:true */
+const BREATH_SAYS = { heavy: 'TOO HEAVY TO SWING', floored: 'HEAVY KIT: BREATH HELD AT {n}' };   /* draft:true */
 const BREATH_SVG = '<svg width="12" height="10" viewBox="0 0 12 10"><path d="M1 3h6a2 2 0 1 0-2-2M1 6h8a2 2 0 1 1-2 2M1 9h4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>';
 function breathOnce(v) {
   const k = v.id + ':' + FIGHT.S.round; if (v.side !== 'you' || UI.breathFor === k || !(v.fatBack > 0)) return;
@@ -7187,8 +7246,8 @@ const HELD_SAYS = { tag: 'HELD', you: '{by}\'s free swing lands. You are held he
    skipped: a word over his head for a beat and a half, the ripple on his tile, the line in the feed, three quarters of a beat on
    the clock (the words draft:true) */
 const IDLE_SAYS = { tag: { reload: 'RELOADS', swap: 'SWAPS', swap_reload: 'SWAPS, RELOADS', skill: 'HOLDS', winded: 'WINDED', rest: 'RESTS', recover: 'RESTS', posts_up: 'POSTS UP', climbed_holds: 'POSTS UP', ring: 'PINNED', unable_near: 'NO SHOT',
-    in_reach_spent: 'HOLDS', shot_next_turn_here: 'AIMS', no_tile_nearer: 'HOLDS', hold: 'HOLDS', holds: 'HOLDS' },
-  feed: { reload: '{name} reloads.', swap: '{name} changes weapons.', swap_reload: '{name} changes weapons and reloads.', skill: '{name} holds.', winded: '{name} is winded and catches his breath.', rest: '{name} rests for a bigger swing.', recover: '{name} rests for a bigger swing.',
+    in_reach_spent: 'HOLDS', safest_here: 'WINDED, HOLDS', falls_back: 'FALLS BACK', no_safer: 'HOLDS', shot_next_turn_here: 'AIMS', no_tile_nearer: 'HOLDS', hold: 'HOLDS', holds: 'HOLDS' },
+  feed: { reload: '{name} reloads.', swap: '{name} changes weapons.', swap_reload: '{name} changes weapons and reloads.', skill: '{name} holds.', winded: '{name} is winded and catches his breath.', safest_here: '{name} is winded and holds the safest ground.', falls_back: '{name} falls back to safer ground.', no_safer: '{name} holds: nowhere safer in his walk.', rest: '{name} rests for a bigger swing.', recover: '{name} rests for a bigger swing.',
     posts_up: '{name} holds the roof and waits for a shot.', climbed_holds: '{name} holds the roof and waits for a shot.', ring: '{name} is pinned and cannot fire.',
     unable_near: '{name} has no shot and holds.', in_reach_spent: '{name} holds his ground.', shot_next_turn_here: '{name} aims and waits.',
     no_tile_nearer: '{name} has nowhere nearer to go and holds.', hold: '{name} holds.', holds: '{name} holds.' } };   /* draft:true */
@@ -9860,9 +9919,10 @@ function hud() {
   /* WHAT COMES BACK NEXT TURN (rule 285(c)): a faint +15, +30 when he has not spent an AP this turn (an END TURN now is a rest);
      and a kit that leaves no swing says so on his card (rule 283(c)) */
   const fback = show.side === 'you' && FIGHT.onField(show) ? (show.ap >= show.apTurn ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')) : 0;
-  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), aph = apt + '|' + fback + '|' + (heavy ? 1 : 0);
+  /* __THE_WINDED_MAN_ACTS__ (rule 435(e)): a kit his breath floor holds up says so on his card, the breath it holds him at */
+  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), floored = show.side === 'you' && !heavy && FIGHT.kitFloored(show), aph = apt + '|' + fback + '|' + (heavy ? 1 : 0) + (floored ? 'f' : '');
   if (apn.dataset.h !== aph) { apn.dataset.h = aph; apn.textContent = apt; if (fback) apn.appendChild(windBack(fback));
-    if (heavy) { const hv = document.createElement('span'); hv.className = 'heavy'; hv.textContent = ' ' + BREATH_SAYS.heavy; apn.appendChild(hv); } }
+    if (heavy || floored) { const hv = document.createElement('span'); hv.className = 'heavy'; hv.textContent = ' ' + (heavy ? BREATH_SAYS.heavy : BREATH_SAYS.floored.replace('{n}', FIGHT.fatMax(show))); apn.appendChild(hv); } }
   apn.classList.toggle('low', show === u && crewControlled(u) && !!UI.spent);
   if (UI.drawer) drawer(show);
   /* THE PLATE SAYS WHO HE IS (rule 143(b)): a man of theirs on the bar carries LV, his marks, and OUTCLASSES YOU when he does */

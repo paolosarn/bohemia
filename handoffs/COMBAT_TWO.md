@@ -1,6 +1,26 @@
 # COMBAT TWO (combat 2) -- the handoff block (written only by COMBAT TWO, newest first; the older blocks stay in 00_START_HERE_NEXT_SESSION.md and handoffs/COMBAT_TWO_ARCHIVE.md)
 
-COMBAT TWO (rule 442(d), ask line 547; and MOTION 3's seam for 442(a), ask line 544): 11/10 LATEST -- [the streets join] SHIPPED (this commit), BUILD 11/10f - THE STREETS JOIN, BUILT, NOT YET SEEN. VOTE combat2-the-streets-join-11-10 (stand_in).
+COMBAT TWO (rule 435(e), ask line 556; the coordinator's 'FIRST'): 11/10 LATEST -- [the winded man acts] SHIPPED (this commit), BUILD 11/10i - THE WINDED MAN ACTS, BUILT, NOT YET SEEN. VOTE combat2-the-winded-man-acts-11-10 (stand_in).
+Record: records/BOHEMIA_COMBAT_TWO_THE_WINDED_MAN_ACTS_11_10_26.md. ROOTS: (1) aiStepAuto rested any winded man of his at his turn's start, WINDED over him, though a walk costs no
+breath and the hand could walk him; (2) TUNING's breath floor (ours.armour_weight.breath_floor, 11/3) was never read by the fight: the coat of plates and the full helm with
+a two-handed hammer left 12 breath for a 15 blow, winded every turn, the whole fight; (3) u.btWhy was never cleared, a later quiet turn could still say WINDED.
+BEFORE (40 heavy-kit fights): 593 of 820 of their turns began winded, every one standing still, one man 30 turns running. NOW: a winded man rests only when it buys his blow
+next turn (restBuys: not a second rest running, a man of theirs in his reach, the breath to swing after it); else he walks, shoots, or steps to the tile of his walk the
+fewest of them can hit (windedStep); a gunman who cannot reload where he stands (struck and poisoned each round: the alpha's RAUL, NO SHOT fourteen turns running) falls
+back the same way; the floor read at 2 blows (TUNING's row amended, said why); his card says HEAVY KIT: BREATH HELD AT n. GATE: EVERY MAN ACTS ON AUTO 22/0: M8 (heavy kits),
+M8b (a man winded at every turn's start: never two rests running), M8c (the jammed gunman), M9 (677 men, nobody winded for life), M7w/M7wp (on the page, the heavy man acts;
+the old rule served to the page, caught), plants for each. The real page: the alpha, THE LONE WOLF and THE RAIDERS at 1x/2x/4x, every turn logged, recorded.
+FOR TUNING: ours.armour_weight.breath_floor.strikes is now 2 and read (fatMax's floor for a man of his, his own blow x strikes); yours to tune, the why says what it buys.
+FOR MOTION 3 (your THE CAMP IS THE FIGHT'S BOARD, run after this change): 30/6 here against your 34/1 and main's run; the six are where the fight now ends with
+its camera close in (a man 208, 171, 184 px on the glass; main's same seeds ended at 101, 147, 160): Cn3 the same picture r 0.336 (suburb upright), 0.379 (freeway
+upright) and the freeway on its side, Cn5 the fire found no ground (the freeway both ways), F1 24 fps. The fights end later and closer because his men act on winded
+turns now (the same seeds, other dice); the camp's first frame at the fight's close zoom is the gap, yours. Nothing of the camp's code was touched.
+FOR EYES: walk the alpha with a man in the heaviest kit (the shop's coat of plates and a full helm, a two-hander) on AUTO; WINDED should never show two turns running.
+STILL PARKED: THE FLOOD TUNNELS (origin combat2-tunnels-parked-2, EYES 548's teachDraw inside). NEXT: the casino floor (442(e)), the tunnels, the parking garage.
+[bb] Battle Brothers never rests a brother for you: a winded man just cannot use his dear skills, and still walks and waits; ours walks him too, and rests only when it buys the swing.
+[analog horror] a man in a coat of plates in a dead city, too heavy to lift his own hammer, standing still while the turn strip waits on him.
+
+COMBAT TWO (rule 442(d), ask line 547; and MOTION 3's seam for 442(a), ask line 544): 11/10 -- [the streets join] SHIPPED (this commit), BUILD 11/10f - THE STREETS JOIN, BUILT, NOT YET SEEN. VOTE combat2-the-streets-join-11-10 (stand_in).
 Record: records/BOHEMIA_COMBAT_TWO_THE_STREETS_JOIN_11_10_26.md. BEFORE: the join's 3,405 painted tiles were bare asphalt slabs, no sidewalk, stopping at the old street's
 kerb; 4,333 of 5,669 edges a seam in the pictures. NOW: every painted tile is the kit piece for what is around it (slices/fight_ground/kit_street/joins/, 97 pieces cut
 from COOK TWO's kit by tools/bohemia_combat_two_the_street_joins_11_10_26.py: sidewalks where no road, the sidewalk's corner at every inside corner, the centre line
