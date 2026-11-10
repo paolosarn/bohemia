@@ -1,5 +1,24 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/10): BUILD 11/10c - THE VALLEY HAS ITS ZONES (ship adb18098), BUILT, NOT YET SEEN. Record:
+records/BOHEMIA_WORLD_THIRTEEN_THE_VALLEY_HAS_ITS_ZONES_11_10_26.md. VOTE world13-the-valley-has-its-zones-11-10 (STAND-IN). His vote 11/9 on
+world13-a-street-at-every-house-11-7: YES.
+- (1) ZONES, SHIPPED (429(g)): records/target/bb/land_use.json (twelve zones, shares, rules, streets); landUse() in engine/bohemia_overmap.js
+  after the districts, before the real places: the works along the rail and I-15 and the two parks, no house inside the works, the
+  estate seam, trailer parks on the cheap edge. 22 seeds: industry 2.8-3.4% (was 0.6-0.8), the cheap edge 0.7-1.0% (was 0.2-0.3).
+  Gate gates/the_valley_has_its_zones_gate.js 9/0.
+- (2) THE TABLE, EXTENDED: every map kind its zone (F14). COMBAT TWO's fight already loads engine/bohemia_fight_kinds.js.
+- 429(h) THE MAP'S HALF: every works block a truck drive (houseLanes, LANE_WORKS), a container yard at a dead end, cross streets every
+  third block through back-to-back house rows. The rest of the map's buildings (resorts, downtown packed together) next.
+- TOOLS: tools/bohemia_world_thirteen_inline_generator.py puts the WHOLE generator into the map page (run it after every engine edit;
+  Z5 holds it); tools/bohemia_world_thirteen_land_use_sync.js; tools/bohemia_world_thirteen_zone_map.js (a valley's zones as a picture).
+- NOTES OWED: COMBAT TWO: its lay() still makes six map houses in seven solid walls (one marked line can read BohemiaFightKinds.roofOK,
+  423(c)); its board gate is 193/0 alone and moved to 190/2 once under load (S1 at an industrial spot, K1 blockers at seed 7's Strip):
+  it re-rolls valleys inside the page while the frame loop runs, a likely cause not proven. COOK FOUR: the works blocks up close are
+  the painting's boxes (no models, unlike the houses); with the works now a corridor, a warehouse and a shed model are owed.
+- NEXT, IN THE COORDINATOR'S ORDER: (3) the 15 place boards (fight_ground.json boards place_*) as templates the generator places
+  where that kind of place lands, every asset kept (430), the template format first; then (4) the cut.
+
 WORLD THIRTEEN (11/7, after the ship): THE COORDINATOR'S ROUTINES (rules 430, 429(f)(g)(h)) READ; the round's order is now (1) zones,
 (2) the table (SHIPPED), (3) templates, (4) the cut, with 429(h) (every building on one road network) under (1) and (3), and 430 (every
 asset of the 15 boards kept and used; only layout, placement and rules change).

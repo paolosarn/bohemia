@@ -1,3 +1,10 @@
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/10 LATEST -- BUILD 11/10c - THE VALLEY HAS ITS ZONES, BUILT, NOT YET SEEN (rule 429(g)(h);
+asks 508, 509): a land-use file and pass zone the valley the real way: the works along the rail and I-15 and in two parks (industry 0.6-0.8%
+-> 2.8-3.4%), trailer parks on the cheap edges (0.2-0.3% -> 0.7-1.0%), no house inside the works, no estate by it; every works block a truck
+drive joined to the mile streets (5,420 on 22 seeds), cross streets through the tracts; the table carries each kind's zone. Gate THE
+VALLEY HAS ITS ZONES 9/0. VOTE world13-the-valley-has-its-zones-11-10 (STAND-IN). Next: the 15 boards as templates, then the cut.
+The whole block: handoffs/WORLD_THIRTEEN.md.
+
 FIXES (fixes-01gkdyus): 11/9 LATEST -- BUILD 11/9n - THE WORDS WHOLE, THE SHELF TRUE, BUILT, NOT YET SEEN (ask rows 525 to 538, FOUND BY
 EYES 11/8; 526 closed by him, rule 439): the end screen fits the glass both ways; the fight's phone presses reach past their icons and the
 ability wells are whole (rule 238(b): the phone never grows, so not a 44 px press); the barber whole on its side; the pistol says SHOOT; a
