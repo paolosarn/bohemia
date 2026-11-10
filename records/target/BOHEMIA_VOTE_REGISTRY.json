@@ -18971,7 +18971,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_CASINO_FLOOR_FINISHED_11_10_26.md"
-  }
+  },
+  {"id": "scavenge-two-the-block-plays-the-song-11-10", "kind": "sound", "lane": "scavenge 2", "sha": "accd6811b", "made": "11/10", "draft": true, "title": "SCAVENGE IS A RHYTHM GAME NOW: PLAY A SHORT PIECE OF THE SONG AT EVERY SPOT, YOUR WHOLE CREW ON THE BEAT", "said": "the scavenge mini game needs a little more love. I feel the skeleton, I appreciate it, but it's not rhythm based; out of everything I want that to be the most rhythm based minigame", "why": "Same lot, same board, same six spots, but now beats come to your man around the old dial and you tap each one as it crosses the middle (a house: tap the beat; the detector: it beeps a bar and you tap it back; a car: hold and let go on the beat), your whole crew steps on the beat, and the better your timing the better the find. You see it right here (LOOK AT IT, tap a lit spot, then tap anywhere) and in the RUN tab at any town's junk lot, Search the lot, BUILD 11/10r; vote on how it plays and sounds.", "options": ["A, yes, this is the rhythm", "B, closer, change something (say what)", "C, no, not like this"], "show": {"how": "page", "src": "vote/SCAVENGE_TWO_PLAY_IT.html"}, "before_after": {"before": "BUILD 11/7k: one needle on the old dial, one tap a spot after a wait, the crew standing still", "after": "every spot a phrase of the playing song, four to eight beats, beads riding the dial to your man, the dial's own bands judging each tap, the crew stepping, a combo across spots, sound off and Bluetooth still play", "scale": "the real minigame page on a suburb block, in the card; in the game it opens on that town's own block"}, "record": "records/BOHEMIA_SCAVENGE_TWO_THE_BLOCK_PLAYS_THE_SONG_11_10_26.md"}
  ],
  "verdicts": [
   {

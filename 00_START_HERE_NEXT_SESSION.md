@@ -1,3 +1,19 @@
+SCAVENGE TWO (scavenge-two-01gkdyuw): 11/10 LATEST -- BUILD 11/10r - SCAVENGE IS THE RHYTHM, BUILT (accd6811b), NOT YET SEEN (rule 444(c), his
+11/10: 'out of everything I want that to be the most rhythm based minigame'; ask lines 570, 324, 333). The skeleton kept (the block's
+own board, the crew, six spots, one thing or nothing, the four hours once; the town's screen only rests under the game now). Every spot is now a phrase of
+the PLAYING song (the shell's one beat, the song's own root and scale), four to eight beats: beats ride the old dial's track to the man
+and he taps each as it crosses (a house on the beat; the detector beeps a bar and he taps it back; the siphon held and let go on the
+beat); the dial's own bands judge every tap (60 / 143 / 310 ms at NORMAL); the find is as good as his timing; the whole crew steps on
+the beat; a combo across spots is felt, never paid. Sound off and Bluetooth play: the picture is the judge, sounds are booked ahead to
+be heard on it, an allowance learns his lag from his own taps, a tap is judged on the glass's own time stamp. Sounds are struck things,
+no noise, no voice. FOUND AND FIXED IN THE TOWN (old, on main): one tap on the lot could open its sheet AND press 'Search the lot' under the
+thumb (a phone sends the click of a touch to whatever opened under it): the town swallows that click now (__ONE_TAP_ONE_ANSWER__; SEARCH
+THE LOT ANSWERS 7/3 -> 16/0 on the alpha on its side); and the town draws nothing under the game (frames over 20 ms 85% -> 3.7% on the demo). Gate SCAVENGE IS THE RHYTHM (takes over from SCAVENGE ON THE DIAL, in graveyard/ with a post-mortem). VOTE
+scavenge-two-the-block-plays-the-song-11-10 (a page: he plays it in the tab). Record
+records/BOHEMIA_SCAVENGE_TWO_THE_BLOCK_PLAYS_THE_SONG_11_10_26.md. The whole block: handoffs/SCAVENGE_TWO.md.
+[bb Battle Brothers settles a search by a hidden roll inside an event; here the roll is a phrase of the song under his thumb]
+[analog horror: the phrase is the playing song's own dark scale, every sound a struck dead thing on a worn tape's drift]
+
 COOK FIVE (cook-five-01gkdyus): 11/10 LATEST -- BUILD 11/10q - THE FREEWAY AND THE CASINO FLOOR, FINISHED, BUILT, NOT YET SEEN
 (rule 443(g), ask row 557). The four freeway boards no longer wear stand-ins: every picture FREEWAY marked STAND-IN is remade through the
 master rig (the floor tool's ground, the structure in metres, one sun, 42.9 px a metre): the deck 8.48 m up, one whole tile of drop under
