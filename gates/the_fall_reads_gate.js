@@ -22,7 +22,8 @@ const done = () => { console.log('\nTHE FALL READS GATE: ' + pass + ' passed, ' 
 const src = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html'), 'utf8');
 ok('the clips are in the bank on the grid: fall-down two beats, take-hit one', /'fall-down':2,'take-hit':1/.test(src));
 ok('  the rig routes them to their poses, and the fall is not a loop (the frozen-pose resolver once stood the dead back up)',
-  /if\(clip==='fall-down'\)return fallPose\(d,ph\);if\(clip==='take-hit'\)return hitPose\(d,ph\);/.test(src) && /const TERMINAL=\{[^}]*'fall-down':1/.test(src));
+  /* PLUMBER 8 11/10: each route on its own (the ragdoll's route now sits between them; the fall is still routed and still final) */
+  /if\(clip==='fall-down'\)return fallPose\(d,ph\);/.test(src) && /if\(clip==='take-hit'\)return hitPose\(d,ph\);/.test(src) && /const TERMINAL=\{[^}]*'fall-down':1/.test(src));
 ok('  the fall turns as a picture, before its border is drawn', /if\(PRES\._roll\)rollFrame\(px,grid,CW,CH,PRES\);[^\n]*\n\s*if\(CHAR_OUTLINE\.on && !_noOutline\) applyCharOutline/.test(src));
 
 (async () => {

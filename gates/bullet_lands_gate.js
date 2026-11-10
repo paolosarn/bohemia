@@ -211,10 +211,9 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
     await p.waitForFunction(() => typeof MUS !== 'undefined' && MUS.playing && MUS.AC && MUS.AC.state === 'running' && window.BULLET, null, { timeout: 30000 });
     await p.evaluate(() => { const L = window.__BL = { sfx: {}, before: 0 };
       addEventListener('message', ev => { const m = ev.data; if (!m || m.type !== 'BOHEMIA_SFX') return; L.sfx[m.ev] = (L.sfx[m.ev] || 0) + 1; if (!BULLET.ready()) L.before++; }); });
-    await d.fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 7 }); });
-    let f = null;
-    for (let i = 0; i < 300 && !f; i++) { const h = await p.$('#fightFrame'); if (h) { const c = await h.contentFrame();
-      if (c && await c.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!FIGHT.S.board).catch(() => false)) f = c; } if (!f) await p.waitForTimeout(150); }
+    /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it), the driver's one way */
+    let f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: 7 });
+    for (let i = 0; i < 300 && f && !(await f.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board).catch(() => false)); i++) await p.waitForTimeout(150);
     if (!f) throw new Error('the road fight never came up');
     await p.waitForFunction(() => BULLET.ready(), null, { timeout: 60000 });
     await f.evaluate(() => { FIGHT_UI.auto = true; });

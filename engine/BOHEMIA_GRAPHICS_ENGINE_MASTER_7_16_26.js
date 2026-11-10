@@ -536,7 +536,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 ==============================================================================
 ### FILE: bohemia_engine_graphics_7_14_26.js
-### MD5: 2577b04f64bf7cf507feebb88eb30ae2  | 59.6 KB
+### MD5: 8d353ff4ebb87ac9141cc2799c32e48c  | 63.8 KB
 // BOHEMIA GRAPHICS ENGINE BUNDLE (7/14/26) — one import for the absorption session.
 // Contains: BOH_LIGHT (light philosophy law), BOH_DAYCYCLE, BOH_SLICE (3 clocks,
 // movers, doors, wanderers), BOH_BLOCKGEN (streets/freeway/residential/desert/
@@ -2295,7 +2295,7 @@ if(typeof module!=='undefined')module.exports=BOH_PLOTGEN;
 
 ==============================================================================
 ### FILE: bohemia_powergrid.js
-### MD5: b47b8d713410c6da53802097827c9e5e  | 11.7 KB
+### MD5: a9287e50e4d47f37ad6674001d0f8689  | 15.9 KB
 // BOHEMIA POWER GRID (7/14/26) — CLUSTERED POWER LAW as engine code.
 // Streetlights fail by CIRCUIT (feeder death + copper theft), never
 // alternating. 12% of circuits live (tunable). Every live circuit is
