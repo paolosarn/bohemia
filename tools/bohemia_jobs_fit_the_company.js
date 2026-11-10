@@ -61,7 +61,10 @@ const PAGE = function () {
     if (J.fight[key]) return J.fight[key];
     const t0 = performance.now();
     const E = BohemiaJobDanger.fresh(); let sum = 0, won = 0, dead = 0, down = 0, n = 0;
-    const s0 = seedOf('jobs:' + key.length + ':' + key.slice(-4000));
+    /* COMMON DICE (measured 11/10: seeded off the whole hand-over, the same band met in a before and an after got other dice, and at a
+       few plays a fight that noise, about 0.1 a job, repeated in every valley the fight was cached for): the dice are the fight's own,
+       its band, its kind, its dress day, its ground, the hour and the crew, so a fight the change did not touch plays the same */
+    const s0 = seedOf('jobs:' + BohemiaJobDanger.crewKey() + '|' + f.band.join(',') + '|' + f.faction + '|' + (f.days | 0) + '|' + (at ? district(at) : '') + '|' + (opts.night ? 'n' : 'd') + '|' + (salt || 0));
     for (let r = 0; r < runs; r++) {
       E.seed((s0 + r * 7919) >>> 0); E.F.setup(JSON.parse(JSON.stringify(opts)));
       let g = 0; while (!E.F.S.over && g <= 6000) { const v = E.F.current(); if (!v) break; E.F.aiStep(v); E.F.S.events = []; g++; }

@@ -1,0 +1,162 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_jobs_the_board_on_the_phone.js",
+ "code": "VEGAS7",
+ "day": 50,
+ "origin": "newcrew",
+ "walks": [
+  {
+   "variant": "before",
+   "profile": "phone_portrait",
+   "rows": [
+    {
+     "id": "jk-free-pen",
+     "title": "Get our people out of the pen",
+     "skulls": 2,
+     "state": "read",
+     "stars": 3,
+     "danger": 0.656,
+     "fights": [
+      "5 brigands"
+     ]
+    },
+    {
+     "id": "qd-ap15",
+     "title": "Fetch the pigment for the mural",
+     "skulls": 2,
+     "state": "read",
+     "stars": 3,
+     "danger": 1,
+     "fights": [
+      "5 hyenas"
+     ]
+    },
+    {
+     "id": "qd-s17",
+     "title": "Find the caravan four days late",
+     "skulls": 2,
+     "state": "read",
+     "stars": 1,
+     "danger": 0.139,
+     "fights": []
+    }
+   ],
+   "place": {
+    "n": "Network",
+    "x": 44,
+    "y": 65,
+    "k": 1,
+    "ids": [
+     "jk-free-pen",
+     "qd-ap15",
+     "qd-s17"
+    ]
+   },
+   "errs": [],
+   "contract": false,
+   "png": "records/target/jobs_11_8/board_before_upright.png"
+  },
+  {
+   "variant": "after",
+   "profile": "phone_portrait",
+   "rows": [
+    {
+     "id": "jk-free-pen",
+     "title": "Get our people out of the pen",
+     "skulls": 2,
+     "state": "read",
+     "stars": 3,
+     "danger": 0.809,
+     "fights": [
+      "5 brigands"
+     ]
+    },
+    {
+     "id": "qd-ap15",
+     "title": "Fetch the pigment for the mural",
+     "skulls": 2,
+     "state": "read",
+     "stars": 3,
+     "danger": 0.696,
+     "fights": [
+      "3 hyenas"
+     ]
+    },
+    {
+     "id": "qd-s17",
+     "title": "Find the caravan four days late",
+     "skulls": 2,
+     "state": "read",
+     "stars": 1,
+     "danger": 0.169,
+     "fights": []
+    }
+   ],
+   "place": {
+    "n": "Network",
+    "x": 44,
+    "y": 65,
+    "k": 1,
+    "ids": [
+     "jk-free-pen",
+     "qd-ap15",
+     "qd-s17"
+    ]
+   },
+   "errs": [],
+   "contract": true,
+   "png": "records/target/jobs_11_8/board_after_upright.png"
+  },
+  {
+   "variant": "after",
+   "profile": "phone_landscape",
+   "rows": [
+    {
+     "id": "jk-free-pen",
+     "title": "Get our people out of the pen",
+     "skulls": 2,
+     "state": "read",
+     "stars": 3,
+     "danger": 0.574,
+     "fights": [
+      "5 brigands"
+     ]
+    },
+    {
+     "id": "qd-ap15",
+     "title": "Fetch the pigment for the mural",
+     "skulls": 2,
+     "state": "read",
+     "stars": 3,
+     "danger": 0.706,
+     "fights": [
+      "3 hyenas"
+     ]
+    },
+    {
+     "id": "qd-s17",
+     "title": "Find the caravan four days late",
+     "skulls": 2,
+     "state": "read",
+     "stars": 1,
+     "danger": 0.083,
+     "fights": []
+    }
+   ],
+   "place": {
+    "n": "Network",
+    "x": 44,
+    "y": 65,
+    "k": 1,
+    "ids": [
+     "jk-free-pen",
+     "qd-ap15",
+     "qd-s17"
+    ]
+   },
+   "errs": [],
+   "contract": true,
+   "png": "records/target/jobs_11_8/board_after_sideways.png"
+  }
+ ]
+}

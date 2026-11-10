@@ -52,7 +52,8 @@ function filesLegs(PM, TABLE, KINDS_SRC, OURS, ENEM, tag) {
   const handOver = /party\.faction = foeOf\(job, faction \|\| 'brigands', w\);\s*\n\s*if \(!\(extra && extra\.pack != null\)\) \{ party\.count = costed\(party\.count, party\.faction\)/.test(KINDS_SRC);
   const stars = /n: Math\.max\(1, \(what === 'pack' \? n : costed\(n, fo\)\) \| 0\)/.test(KINDS_SRC);
   const hunt = /job\.need = Math\.max\(1, Math\.round\(need0 \* contractMult\(sk\) \* \(bc0 == null \? 1 : bc0 \/ packFlat\(\)\)\)\)/.test(KINDS_SRC);
-  const typed = Object.values((V && V.beast_cost) || {}).filter(v => new RegExp('[^0-9.]' + String(v).replace('.', '\\.') + '[^0-9]').test(KINDS_SRC.slice(blk, end > 0 ? end : blk + 4000)));
+  const code = KINDS_SRC.slice(KINDS_SRC.indexOf('*/', blk) + 2, end > 0 ? end : blk + 4000).replace(/\/\*[\s\S]*?\*\//g, '');   /* the block's code, its comments out */
+  const typed = Object.values((V && V.beast_cost) || {}).filter(v => new RegExp('[^0-9.]' + String(v).replace('.', '\\.') + '[^0-9]').test(code));
   ok('T3' + tag + ' the code reads the file: the marked block, the hand-over and the stars\' fights cost the count alike, the hunt scales, nothing typed', blk > 0 && end > blk && handOver && stars && hunt && !typed.length,
     'block ' + (blk > 0) + ', hand-over ' + handOver + ', stars ' + stars + ', hunt ' + hunt + ', typed ' + JSON.stringify(typed));
 }
