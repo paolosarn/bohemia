@@ -1,3 +1,37 @@
+HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10u - EVERYTHING HIS LIVES THERE, BUILT, NOT YET SEEN (rule 445, rule 441;
+ask line 571). Record: records/BOHEMIA_HOME_BASE_EVERYTHING_HIS_LIVES_THERE_11_10_26.md.
+- THE SEAM is live: one call hands any custom thing to his settlement; before he plants it waits (the phone says WAITING FOR YOUR
+  PLACE), planting places it; the three bosses' prizes go through it with their own pictures and stand on his back lots as doors; two
+  build gifts stand on free lots; a tap on any of his things opens its sheet (what it is, who gave it, what it gives, BUILD MORE).
+- Gate YOUR PLACE, PLANTED: 123/0 (engine and both phone shapes; E9 and D14 new, planted fails: a prize on a built lot, a prize
+  placed before planting, the things taken off the message).
+- VOTE home-base-everything-his-lives-there-11-10 (STAND-IN for the look).
+- NOTE for every lane testing his place: his things stand on the BUILD corner, so a tap in its middle opens the thing; its sheet's
+  BUILD MORE (#sbody .act[data-home="more"]) is the desk. FOR PLUMBER: PAGES PUBLISH is 907 MB of a 900 MB cap on main.
+- OWED, said plainly: 445(b) "starts bare" is NOT true yet (his place opens on the camp picture with its shops; his things stand in its
+  BUILD corner). Next: his own bare ground, with the cameras' look (waits on his vote).
+
+THE SEAM, FOR EVERY LANE THAT HANDS HIM A THING (BOSSES told; JOBS; WORLD 14's events; the RETINUE). From the map (slices/BOHEMIA_CITY_WORLD.html):
+    BohemiaHomeMap.give({
+      id:    'job:church-roof',        // REQUIRED, unique and stable: the same id twice is one thing (returns {ok:true, again:true})
+      kind:  'prize' | 'trophy' | 'build' | 'person',   // REQUIRED; anything else is refused {ok:false, why:'NOT_A_THING'}
+      name:  'THE BELL',               // what it is, as he reads it (draft:true words are fine; WORDS may overwrite)
+      pic:   'boss_places/hand_x.png', // its picture, a path from slices/ (prize and trophy; a build uses the lot pack's own sprite)
+      gives: { food: 1 },              // what it gives, said on its sheet (only the three boss prizes pay the bill today: bill.prize_pays)
+      from:  'THE CHURCH',             // who gave it: said on its sheet and in the feed
+      says:  'a line about it',        // optional, said on its sheet when it gives nothing
+      build: 'tank',                   // kind 'build' only: a lotbuild id (wall tank shed pump garden solar stall roof); it stands done, free
+      look:  { ... }                   // kind 'person' only: his look, kept with his name
+    })
+  -> { ok, waiting } before he plants (kept, the feed says it waits; planting places it), or { ok, placed, thing: { lot } } after.
+  WHERE IT STANDS (HOME BASE places it, never the caller): a prize or trophy on the back lots, last first (11, 10, 9 ...), never a lot
+  a build holds; a build on the first free lot; a person lives there (residents, eats from the bill, tells the place's story). No lot
+  left: kept as his (lot -1). Every gift goes on the place's record (story 'given').
+  BOSSES: nothing to call; the map reads BohemiaBosses.state().verbs every 2 s and hands each verb's prize itself (data().bosses[].verb.hand
+  name and pic). A spared boss who joins: kind 'person'. JOBS: a reward that is a thing of his is kind 'build' or 'trophy'.
+  WORLD 14: an event's gift, the same. RETINUE: a hire who settles there instead of travelling is kind 'person'.
+
+11/10 ROUND FOUR (BUILD 11/10n, WHAT YOU BUILD PAYS), kept:
 HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10n - WHAT YOU BUILD PAYS, BUILT, NOT YET SEEN (rule 443(f), rules 343, 441;
 EYES row 549 fixed, 553 was FIXES'). Record: records/BOHEMIA_HOME_BASE_WHAT_YOU_BUILD_PAYS_11_10_26.md.
 - Map __WHAT_HE_BUILDS__: homeChoose (plant the block he stands on or beside), homeWalkBeside/homeBetter (GO THERE to the street beside a

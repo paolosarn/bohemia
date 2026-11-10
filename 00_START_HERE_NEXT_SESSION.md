@@ -90,13 +90,15 @@ table. Gate THE PLACES GET THEIR USE 30/0 (demo and alpha). Still open: the bus 
 greenhouse farm need a valley seat (a note for WORLD 13 in handoffs/WORLD_FOURTEEN.md).
 [bb Battle Brothers' locations greet you with a picture, a few lines and Attack! / Leave; ours greet you with the person who stayed.]
 [analog horror: the phone in the Hughes ranch house still rings; the line was cut before the foreman came.]
-HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10n - WHAT YOU BUILD PAYS, BUILT, NOT YET SEEN (rule 443(f); EYES row 549):
-he plants the block beside his street (most plantable ground cannot be stood on) and GO THERE walks him to a street that works; each
-build at his place costs a battery and tape out of the supplies, gives food or tape into the top bar every morning, a resident works it
-for more, a roof brings a family. Gate YOUR PLACE, PLANTED D12, D13. VOTE home-base-what-you-build-pays-11-10 (STAND-IN). Earlier: 11/10e
-ONLY THE PLACE YOU PLANT IS YOURS, 11/9h YOUR PLACE REMEMBERS, 11/9d YOUR PLACE, PLANTED. The whole block: handoffs/HOME_BASE.md.
-[bb Battle Brothers' town buildings cost crowns and sell you things; ours cost tape and give you food, and the people who live there work them.]
-[analog horror: the garden comes up whether anyone eats it; the family under the new roof waters it at night.]
+HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10u - EVERYTHING HIS LIVES THERE, BUILT, NOT YET SEEN (rule 445; ask line 571):
+THE SEAM, one call every lane uses to hand him a thing (a prize, a trophy, a build, a person: BohemiaHomeMap.give, written out in
+handoffs/HOME_BASE.md for BOSSES, JOBS, WORLD 14 and the RETINUE); before he plants it waits and the phone says so, planting places it;
+THE POT's, THE TAP's and THE FILTER's prizes stand on his back lots with their own pictures as doors on his town screen, two build gifts
+stand on free lots, a tap on any of them says what it is and who gave it. Gate YOUR PLACE, PLANTED E9, D14. VOTE
+home-base-everything-his-lives-there-11-10 (STAND-IN). OWED: 'it starts bare' is not true yet (the camp picture's shops). Earlier: 11/10n
+WHAT YOU BUILD PAYS, 11/10e ONLY THE PLACE YOU PLANT IS YOURS, 11/9h YOUR PLACE REMEMBERS, 11/9d YOUR PLACE, PLANTED. The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers keeps what you took on the stash screen, a list; ours stands in the place you planted, a thing you tap.]
+[analog horror: the pot is there before you are. It waited out back the whole time nobody had a place to put it.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

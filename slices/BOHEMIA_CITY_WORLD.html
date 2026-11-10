@@ -94777,6 +94777,7 @@ function homeState(){
            offer: homeOffer(), here: here, better: better, bill: B, prizes: homePrizes(),
            residents: r.residents.map(function(p){ return { name: p.name, look: p.look, why: p.why, day: p.day, says: BohemiaHome.tell(r, p.name, actNow, dayNow) }; }),
            act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
+           things: (r.things || []).slice(), waiting: (r.waiting || []).slice(),
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null };
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
@@ -94788,6 +94789,7 @@ function homePlant(){
   homeSave(); HOME.cache = null; HOME.seatCache = null;
   try { var HB = BohemiaHomeBases, hr = hbRec(); if (HB.heldBy(hr, homeMine(), hr.act) !== HB.YOU) HB.took(hr, { base: homeMine(), to: HB.YOU, day: day, by: 'deal', why: 'planted' }); } catch (_e) {}   /* the ledger: his, from today */
   try { TURF_MAP_KEY = null; } catch (_e) {}   /* his ground drawn again, with his place in it */
+  try { homePlaceWaiting(); } catch (_e) {}   /* rule 445: what waited for his place stands there now */
   try { VBC.checked = 0; } catch (_e) {}   /* the painter looks again now: the towns are in its key */
   try { if (typeof render === 'function') render(); } catch (_e) {}
   try { if (window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thecrew', txt: 'We planted. This block is ours now, for good.', kind: 'mine', draft: true }); } catch (_e) {}
@@ -94918,15 +94920,57 @@ function homeMorning(){
 function homeFamilyFor(L){ var r = homeRec(), F = (HOME.data && HOME.data.builds && HOME.data.builds.families) || [];
   var used = {}; r.residents.forEach(function(p){ used[p.name] = 1; });
   for (var i = 0; i < F.length; i++) if (!used[F[i]]) return F[i]; return null; }
+/* ==== __EVERYTHING_HIS_LIVES_THERE__ (HOME BASE 11/10, rule 445, ask line 571; Paolo: 'anything that's custom to us is gonna be in the
+   settlement system that you created'). THE SEAM, one way in for every lane: BohemiaHomeMap.give(thing), the engine's give() with the
+   map's half: a build gift stands on a free lot already standing (no cost: a gift); a prize or a trophy is placed on the back lots; a
+   person comes to live there. Before he plants it WAITS and the feed says so; planting places everything that waited.
+   THE BOSSES' PRIZES go in through the same seam (homeBossGifts reads BohemiaBosses' own state, never its file): THE POT's pot, THE
+   TAP's wrench, THE FILTER's filter, each with his own picture (boss_places/hand_*.png). How a lane calls it: handoffs/HOME_BASE.md. */
+function homeTakenLots(){ var t = {}; try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) t[parseInt(k, 10) | 0] = 1; } catch (_e) {} return t; }
+function homeStandBuild(x){
+  try { var bk = lotBookFor(homeMine()), LB = BohemiaLotBuild, P = homeRec() && BohemiaHome.plan(), taken = homeTakenLots(), r = homeRec();
+    (r.things || []).forEach(function(y){ if (y.lot != null && y.lot >= 0 && y.kind !== 'build') taken[y.lot] = 1; });
+    for (var i = 0; i < 12; i++) if (!taken[i]) { bk.lots[i + ',0'] = { id: x.build, x: i, y: 0, w: 1, h: 1, started: homeDay(), ready: homeDay(), done: true, gift: x.from || true };
+      x.lot = i; return i; } } catch (_e) {}
+  return null;
+}
+function homeGive(t){
+  var r = homeRec(); if (!r || !HOME.data) return { ok: false, why: 'NOT_READY' };
+  t = Object.assign({ day: homeDay() }, t || {});
+  var res = BohemiaHome.give(r, t, homeTakenLots());
+  if (res.ok && !res.again) {
+    if (res.placed && res.thing.kind === 'build') homeStandBuild(res.thing);
+    var nm = BohemiaHome.nameOf(r), who = t.from ? ' from ' + t.from : '';
+    try { if (window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thecrew', kind: 'mine', draft: true,
+      txt: res.waiting ? (res.thing.name + who + ' is ours. It waits until we have a place to put it.') : (res.thing.name + who + ' stands at ' + nm + ' now.') }); } catch (_e) {}
+    homeSave(); window.__HOME_GIVEN = (window.__HOME_GIVEN || []).concat([{ id: t.id, waiting: !!res.waiting, lot: res.thing.lot }]);
+  }
+  return res;
+}
+function homePlaceWaiting(){ var r = homeRec(); if (!r || !r.planted || !r.waiting || !r.waiting.length) return [];
+  var out = BohemiaHome.placeWaiting(r, homeTakenLots()); out.forEach(function(x){ if (x.kind === 'build') homeStandBuild(x); }); homeSave(); return out; }
+/* the bosses' prizes, through the seam: each verb a kill handed him is a thing of his */
+function homeBossGifts(){
+  var Bs = window.BohemiaBosses, r = homeRec(); if (!Bs || !Bs.state || !r || !HOME.data) return 0;
+  var S = null; try { S = Bs.state(); } catch (_e) {} if (!S || !S.verbs) return 0;
+  var D = null; try { D = Bs.data(); } catch (_e) {} var n = 0;
+  Object.keys(HOME.data.prizes || {}).forEach(function(v){ if (v.charAt(0) === '_' || !S.verbs[v]) return;
+    var row = D && D.bosses ? D.bosses.filter(function(b){ return b.verb && b.verb.id === v; })[0] : null, hand = row && row.verb && row.verb.hand || {};
+    var pp = (HOME.data.bill.prize_pays || {})[v], res = homeGive({ id: 'prize:' + v, kind: 'prize', name: hand.name || HOME.data.prizes[v].name, from: HOME.data.prizes[v].from,
+      pic: hand.pic ? 'boss_places/' + String(hand.pic).replace(/[^\w.]/g, '') : null, gives: pp || null, says: hand.line || null, day: S.verbs[v].day | 0 });
+    if (res.ok && !res.again) n++; });
+  return n;
+}
+setInterval(function(){ try { homeBossGifts(); } catch (_e) {} }, 2000);   /* a kill's prize reaches his place within two seconds, planted or not */
 /* for checkers only (the game plants through plant(), graded): the seed's own seat for his outfit, and planting at a given block */
 function homeRawSeat(){ try { var b = HOME.rawBases(), m = homeMine(); return b && b[m] ? { x: b[m].x | 0, y: b[m].y | 0 } : null; } catch (_e) { return null; } }
 function homePlantAt(x, y){ var cx = city.x, cy = city.y; city.x = x | 0; city.y = y | 0; var r = homeRec(), g = BohemiaHome.grade(homeProbe(x, y));
   if (g && !g.ok) g = null;   /* a checker's block need not pass the grade */
   try { if (!g) { var res = BohemiaHome.plant(r, { x: x | 0, y: y | 0 }, homeDay(), null); if (res.ok) { r.planted.act = homeAct(); homeSave(); HOME.cache = null; HOME.seatCache = null;
       try { var HB = BohemiaHomeBases, hr = hbRec(); if (HB.heldBy(hr, homeMine(), hr.act) !== HB.YOU) HB.took(hr, { base: homeMine(), to: HB.YOU, day: homeDay(), by: 'deal', why: 'planted' }); } catch (_e) {}
-      try { TURF_MAP_KEY = null; VBC.checked = 0; } catch (_e) {} } city.x = cx; city.y = cy; return res; } } catch (_e) {}
+      try { TURF_MAP_KEY = null; VBC.checked = 0; } catch (_e) {} try { homePlaceWaiting(); } catch (_e) {} } city.x = cx; city.y = cy; return res; } } catch (_e) {}
   var out = homePlant(); city.x = cx; city.y = cy; return out; }
-window.BohemiaHomeMap = { state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
+window.BohemiaHomeMap = { give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

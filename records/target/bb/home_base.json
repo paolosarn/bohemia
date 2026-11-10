@@ -170,7 +170,8 @@
       "prize": "That {what} came off {name}. {Who} carried it home on day {day}.",
       "named": "{Who} named this place {WHAT}. Nobody calls it anything else now.",
       "moved_in": "{name} moved in on day {day}. Ask {name} why, not me.",
-      "short": "Night {day} the batteries ran out. We sat in the dark and nobody left."
+      "short": "Night {day} the batteries ran out. We sat in the dark and nobody left.",
+      "given": "{WHAT} came to us from {name} on day {day}. It stands out back."
     }
   },
   "builds": {

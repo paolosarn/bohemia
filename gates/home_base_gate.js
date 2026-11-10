@@ -40,6 +40,11 @@
          out of the company's supplies (the top bar's counts); a build short of its goods is greyed; the morning puts what stands into
          the supplies (planted: the morning hook taken out gives nothing, caught); a resident works one and it gives more; a roof
          finished brings a family to live there
+     D14 EVERYTHING HIS LIVES THERE (rule 445): THE SEAM, BohemiaHomeMap.give(): a boss's prize killed before he plants WAITS and
+         says so (the feed, the phone's page); planting places it; THE POT's, THE TAP's and THE FILTER's prizes stand on his place's
+         back lots, each a door on the town screen with its own picture, a tap says what it is and who gave it; two builds handed
+         through the seam stand on free lots; the same thing given twice is one; planted: the things taken off the message leave no
+         door, red; a thing of no known kind is refused
      D11 ONLY THE PLANTED PLACE IS HIS (rule 442(c), his YES: 'The only place that will be mine on the map is where we decide the custom
          settlement is, that's it'): a fresh game, before planting, has NO place of his (his outfit's camp not on the map, not in the
          ledger, not named on it, no base answers his); a boss's fall handing him the nearest town is refused by the ledger; after
@@ -105,6 +110,17 @@ ok('E8 told from his mouth, in its own act: "' + L1.filter(saysYou)[0] + '"', ac
 ok('E8 one act on: "' + L2.filter(l => /father/i.test(l))[0] + '"', actOk(L2, /your father/i, l => saysYou(l) || /granddad/i.test(l)));
 ok('E8 two acts on: "' + L3.filter(l => /granddad/i.test(l))[0] + '"', actOk(L3, /your granddad/i, l => saysYou(l) || /father/i.test(l)));
 ok('E8 planted: act one\'s lines held to act three\'s rule are caught', !actOk(L1, /your granddad/i, l => saysYou(l) || /father/i.test(l)));
+const rS = H.make('SEAM'), gw = H.give(rS, { id: 'prize:cook', kind: 'prize', name: 'HIS POT', from: 'THE POT' });
+H.plant(rS, { x: 2, y: 2 }, 3, gG); const pw = H.placeWaiting(rS, {}), gb = H.give(rS, { id: 'gift:x', kind: 'nonsense' });
+ok('E9 the seam: a prize before planting waits, planting places it on the back lot (' + (pw[0] && pw[0].lot) + '), a thing of no known kind is refused', gw.waiting && pw.length === 1 && pw[0].lot === 11 && !gb.ok && H.give(rS, { id: 'prize:cook', kind: 'prize' }).again, JSON.stringify({ gw, pw, gb }));
+const rT = H.make('SEAM2'); H.plant(rT, { x: 2, y: 2 }, 3, gG); const gt = H.give(rT, { id: 'trophy:x', kind: 'trophy', name: 'A HORN', from: 'THE RANCH' }, { 11: 1, 10: 1 });
+const offBuilt = (g, taken) => !!g.placed && g.thing.lot >= 0 && !taken[g.thing.lot];
+ok('E9 a trophy never stands on a lot a build holds (the back two built on: it takes lot ' + (gt.thing && gt.thing.lot) + ')', offBuilt(gt, { 11: 1, 10: 1 }));
+ok('E9 planted: a prize put down on a built lot is caught', !offBuilt({ placed: true, thing: { lot: 11 } }, { 11: 1 }));
+const waits = g => !!g.waiting && !g.placed;
+ok('E9 planted: a prize placed at once before he plants (no place yet) is caught', !waits({ ok: true, placed: true, thing: { lot: 11 } }) && waits(gw));
+const gp = H.give(rT, { id: 'person:x', kind: 'person', name: 'GATE OKAFOR', from: 'THE RETINUE', look: { hair: 'gate' } });
+ok('E9 a person handed through the seam lives there (' + rT.residents.map(r => r.name).join(',') + ')', gp.placed && rT.residents.some(r => r.name === 'GATE OKAFOR' && r.look && r.look.hair === 'gate'));
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -149,6 +165,11 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     const h0 = await F.evaluate(HIS);
     ok('D11 a fresh game, before planting: NO place of his (camp on the map ' + h0.onMap + ', ledger ' + h0.ledger.length + ', yours ' + h0.mine.length + ', seat ' + h0.seats + ', named CUSTOM/YOUR CAMP ' + h0.plates.some(t => /CUSTOM|YOUR CAMP/.test(t)) + ')',
        !h0.onMap && !h0.ledger.length && !h0.mine.length && !h0.seats && !h0.plates.some(t => /CUSTOM|YOUR CAMP/.test(t)), JSON.stringify(h0));
+    const w14 = await F.evaluate(async () => { const S = BohemiaBosses.state(); S.verbs.cook = S.verbs.cook || { from: 'THE POT', day: 1, last: null, uses: 0 };
+      for (let i = 0; i < 30 && !(BohemiaHomeMap.state().waiting || []).length; i++) await new Promise(r => setTimeout(r, 200));
+      const st = BohemiaHomeMap.state(), feed = (window.BOHEMIA_FEED && BOHEMIA_FEED.posts ? BOHEMIA_FEED.posts() : []).map(p => p.txt || '').filter(t => /waits/.test(t));
+      return { waiting: (st.waiting || []).map(w => w.name), planted: st.planted, given: window.__HOME_GIVEN || [] }; });
+    ok('D14 THE POT killed before he plants: his pot WAITS for a place (' + w14.waiting.join(',') + ')', !w14.planted && w14.waiting.length === 1 && w14.given.some(g => g.id === 'prize:cook' && g.waiting), JSON.stringify(w14));
     const boss = await F.evaluate(() => { const H = BohemiaHomeBases, bs = ctBases(), n = Object.keys(bs)[0]; const r = H.took(hbRec(), { base: n, to: H.YOU, by: 'boss', why: 'THE TAP', day: 2 }); return { n, r, his: lotIsMine(n) }; });
     ok('D11 a boss\'s fall handing him ' + boss.n + ' is refused by the ledger (' + (boss.r && boss.r.reason) + ')', boss.r && !boss.r.applied && boss.r.reason === 'ONLY_THE_PLANTED_PLACE' && !boss.his, JSON.stringify(boss));
     await F.evaluate(() => { DAY.day = 2; try { render(); } catch (e) {} }); await P.waitForTimeout(1200);
@@ -167,6 +188,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     await F.evaluate(s => { city.x = s[0]; city.y = s[1]; try { render(); } catch (e) {} }, spot.best); await P.waitForTimeout(1500);
     const t3b = await phoneText(P), pb3b = await box(P, '#bohphone .hb button[data-h="plant"]');
     ok('D3 (row 549) on the street beside a block with water ' + spot.best[2] + ' and road ' + spot.best[3] + ': THE BLOCK ' + spot.blk[2] + ', PLANT HERE is on', !!pb3b && !pb3b.dis && pb3b.hit && /THE BLOCK/.test(t3b), t3b.replace(/\n/g, ' '));
+    ok('D14 the YOUR PLACE page says it: WAITING FOR YOUR PLACE: ' + (t3b.match(/WAITING FOR YOUR PLACE: ([^\n]*)/) || [])[1], /WAITING FOR YOUR PLACE: .*POT/.test(t3b), t3b.replace(/\n/g, ' '));
     await P.touchscreen.tap(pb3b.x, pb3b.y); await P.waitForTimeout(800);
     const t4 = await phoneText(P), no = await box(P, '#bohphone .hb button[data-h="no"]');
     ok('D4 it asks: Are you sure? This is permanent.', /Are you sure\? This is permanent\./.test(t4) && !!no, t4.replace(/\n/g, ' '));
@@ -200,6 +222,15 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     /* D7 a boss's prize */
     const p7 = await F.evaluate(() => { const S = BohemiaBosses.state(); if (!S) return null; S.verbs.cook = S.verbs.cook || { from: 'THE POT', day: 2, last: null, uses: 0 }; const s = BohemiaHomeMap.state(); return { prizes: s.prizes.map(p => p.name), back: s.bill.back }; });
     ok('D7 THE POT\'s prize stands at his place and pays back (' + (p7 && p7.prizes.join(',')) + ', back ' + (p7 && p7.back) + ')', !!p7 && p7.prizes.indexOf('YOUR KITCHEN') >= 0 && p7.back >= 1, JSON.stringify(p7));
+    const g14 = await F.evaluate(async () => { const S = BohemiaBosses.state(); S.verbs.open = S.verbs.open || { from: 'THE TAP', day: 3 }; S.verbs.purify = S.verbs.purify || { from: 'THE FILTER', day: 3 };
+      BohemiaHomeMap.bossGifts();
+      const a = BohemiaHomeMap.give({ id: 'gift:church-tank', kind: 'build', build: 'tank', name: 'WATER TANK', from: 'THE CHURCH' });
+      const b = BohemiaHomeMap.give({ id: 'gift:job-garden', kind: 'build', build: 'garden', name: 'GARDEN BED', from: 'A JOB DONE' });
+      const again = BohemiaHomeMap.give({ id: 'gift:job-garden', kind: 'build', build: 'garden', name: 'GARDEN BED', from: 'A JOB DONE' });
+      const st = BohemiaHomeMap.state(), bk = LOT_BOOK[BohemiaBetween.mine()];
+      return { things: st.things.map(t => t.kind + ':' + t.name + '@' + t.lot), waiting: st.waiting.length, lots: Object.keys(bk.lots).map(k => k + ':' + bk.lots[k].id + (bk.lots[k].done ? '' : '?')), again: !!again.again }; });
+    ok('D14 planting placed the pot, and THE TAP\'s and THE FILTER\'s prizes stand on the back lots (' + g14.things.filter(t => /^prize/.test(t)).join(', ') + ')', g14.waiting === 0 && ['@11', '@10', '@9'].every(l => g14.things.some(t => /^prize/.test(t) && t.endsWith(l))), JSON.stringify(g14));
+    ok('D14 two builds handed through the seam stand on free lots, standing already (' + g14.lots.join(', ') + '); the same thing given twice is one', g14.lots.filter(l => /:tank$|:garden$/.test(l)).length >= 2 && g14.again, JSON.stringify(g14));
     /* D8 the desk */
     await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); });
     let fr = null; for (let i = 0; i < 80 && !fr; i++) { await P.waitForTimeout(400); for (const x of P.frames()) if (/SETTLEMENT/.test(x.url()) && await x.evaluate(() => { try { const S = BohemiaSettlement; return S.ready() && S.picIn() && !!window.__HOME_DESK && window.__HOME_DESK.home && window.__HOME_DESK.home.planted; } catch (e) { return false; } }).catch(() => false)) fr = x; }
@@ -209,17 +240,32 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const fb = await (await fr.frameElement()).boundingBox();
       const sg = await fr.evaluate(() => { const w = BohemiaSettlement.where && BohemiaSettlement.where('build'); return w ? [w.x, w.y] : null; });
       ok('D8 his place has its BUILD building on the glass', !!sg);
+      for (let i = 0; i < 20; i++) { if (await fr.evaluate(() => (window.__HOME_DOORS || []).length >= 5).catch(() => false)) break; await P.waitForTimeout(250); }
+      const dr14 = await fr.evaluate(() => window.__HOME_DOORS || []);
+      ok('D14 every thing of his is a door on the town screen (' + dr14.join(',') + ')', ['h11', 'h10', 'h9'].every(k => dr14.indexOf(k) >= 0) && dr14.length >= 5, JSON.stringify(dr14));
+      for (let i = 0; i < 24; i++) { if (await fr.evaluate(() => !document.getElementById('arrive')).catch(() => false)) break; await P.waitForTimeout(250); }   /* the arrival card goes first (a tap on it only clears it, as his thumb's would) */
+      for (let t = 0; t < 3; t++) { const pw14 = await fr.evaluate(() => { const w = BohemiaSettlement.where('h11'); return w ? [w.x, w.y] : null; }); if (!pw14) break;
+        await P.touchscreen.tap(fb.x + pw14[0], fb.y + pw14[1]); let up = false; for (let i = 0; i < 12 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => !!window.__HOME_THING).catch(() => false); } if (up) break; }
+      const th14 = await fr.evaluate(() => window.__HOME_THING || null);
+      ok('D14 a tap on the pot says what it is and who gave it ("' + (th14 && th14.line) + '")', !!th14 && /POT/.test(th14.name) && /THE POT/.test(th14.line) && /lives here, a battery off/.test(th14.line), JSON.stringify(th14));
+      await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); }); await P.waitForTimeout(700);
+      const m14 = await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.things = []; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); return true; });
+      await P.waitForTimeout(800); const dm14 = await fr.evaluate(() => window.__HOME_DOORS || []);
+      ok('D14 planted: the things taken off the message leave the prizes no door (' + dm14.join(',') + ')', m14 && ['h11', 'h10', 'h9'].every(k => dm14.indexOf(k) < 0), JSON.stringify(dm14));
+      await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500);   /* the real message again */
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */
         const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (!w) break;
         await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
-        let up = false; for (let i = 0; i < 24 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => BohemiaSettlement.state.open === 'build' && !!document.querySelector('#sbody .hdesk')).catch(() => false); }
+        let up = false; for (let i = 0; i < 24 && !up; i++) { await P.waitForTimeout(250);
+          await fr.evaluate(() => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } }).catch(() => {});   /* one of his things under the thumb: its BUILD MORE */
+          up = await fr.evaluate(() => BohemiaSettlement.state.open === 'build' && !!document.querySelector('#sbody .hdesk')).catch(() => false); }
         if (up || await fr.evaluate(() => !!BohemiaSettlement.state.open).catch(() => false)) break; }   /* a sheet that opened late is never pressed through */
       await P.waitForTimeout(600);
       const dk = await fr.evaluate(() => { const b = document.getElementById('sbody'), t = b ? b.innerText : '', c = b && b.querySelector('canvas.hplan'), sh = b && b.closest('[id]');
         const press = [].slice.call(b ? b.querySelectorAll('button') : []).filter(x => x.offsetWidth).map(x => { const r = x.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height), r.bottom <= innerHeight + 0.5 && r.top >= -0.5]; });
         return { t, plan: window.__HOME_PLAN || null, canvas: !!c, press, open: BohemiaSettlement.state.open }; });
       ok('D8 the desk: A NIGHT, LIVING HERE, NAME IT', dk.open === 'build' && /A NIGHT/.test(dk.t) && /LIVING HERE/.test(dk.t) && /NAME IT/.test(dk.t), dk.t.slice(0, 200).replace(/\n/g, ' '));
-      ok('D8 the plan: ' + (dk.plan && dk.plan.lots) + ' lots on the road, ' + (dk.plan && dk.plan.open) + ' open, signs: ' + (dk.plan && dk.plan.signs.join(',')), dk.canvas && dk.plan && dk.plan.lots === 12 && dk.plan.open === 4 && dk.plan.signs.indexOf('KITCHEN') >= 0, JSON.stringify(dk.plan));
+      ok('D8 the plan: ' + (dk.plan && dk.plan.lots) + ' lots on the road, ' + (dk.plan && dk.plan.open) + ' open, signs: ' + (dk.plan && dk.plan.signs.join(',')), dk.canvas && dk.plan && dk.plan.lots === 12 && dk.plan.open === 4 && dk.plan.signs.indexOf('POT') >= 0, JSON.stringify(dk.plan));
       const small = dk.press.filter(p => p[1] < 44 || !p[2]);
       ok('D8 every press 44 px tall and on the glass (' + dk.press.length + ' presses)', dk.press.length >= 9 && !small.length, JSON.stringify(small));
       const nm = await fr.evaluate(() => { const b = [].slice.call(document.querySelectorAll('#sbody .hdesk button')).filter(x => /NAME IT/.test(x.textContent))[0]; if (!b) return false; b.click(); return true; });
@@ -258,7 +304,9 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const short13 = await F.evaluate(() => { const w = wagonGet() || {}; w.tape = 0; wagonPut(w); return true; });
       await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); }); await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500);
       for (let t = 0; t < 3; t++) { const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (w) await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
-        let up = false; for (let i = 0; i < 20 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => !!document.querySelector('#sbody .act[data-build]')); } if (up) break; }
+        let up = false; for (let i = 0; i < 20 && !up; i++) { await P.waitForTimeout(250);
+          await fr.evaluate(() => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } }).catch(() => {});   /* one of his things under the thumb: its BUILD MORE (rule 445: his things stand on the BUILD corner) */
+          up = await fr.evaluate(() => !!document.querySelector('#sbody .act[data-build]')); } if (up) break; }
       const offs = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build]')].map(b => [b.dataset.build, b.disabled, b.dataset.short || '']));
       ok('D13 with no tape in the supplies every build that needs tape is greyed (' + offs.filter(o => o[1]).length + ' of ' + offs.length + ')', offs.length >= 8 && offs.every(o => o[1] && /tape/.test(o[2])), JSON.stringify(offs));
       const m13 = await F.evaluate(() => { const w = wagonGet() || {}; w.tape = 20; wagonPut(w); const r = BohemiaHomeMap.rec(), bk = LOT_BOOK[BohemiaBetween.mine()];

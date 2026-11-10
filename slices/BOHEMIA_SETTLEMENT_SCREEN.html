@@ -1812,8 +1812,10 @@ function buildSheet(body, acts, line){
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SETTLEMENT_OPEN'){ S.home = null; S.homePlan = null; return; }   /* a new place is not his until the map says so */
   if(d.type !== 'BOHEMIA_HOME') return;
   S.home = d.home || null; S.homePlan = d.plan || null; window.__HOME_DESK = { home: S.home, at: Date.now() };
+  try{ homeDoors(); }catch(e){}   /* rule 445: every thing of his a door on this screen */
   if(S.open === 'build') openB('build'); });
 function homeDesk(body){
+  try{ homeDoors(); }catch(e){}   /* a build that just went up is a door at once */
   var H = S.home, B = H.bill || {}, d = document.createElement('div'); d.className = 'hdesk';
   var c1 = document.createElement('div'); c1.innerHTML = '<b>A NIGHT</b>-' + (B.due|0) + ' batteries';
   var wk = H.workers || {}, wname = {}; for(var wkk in wk) wname[wk[wkk]] = wkk;
@@ -1835,7 +1837,7 @@ function homePlanCanvas(){
   c.setAttribute('role', 'img'); var g = c.getContext('2d'); g.scale(cs, cs);
   var b = buildState(), LB = window.BohemiaLotBuild, fill = [];
   for(var i = 0; i < 12; i++){ var L = b.site && b.site.lots[i + ',0']; fill[i] = L ? { name: String(L.id).toUpperCase(), done: L.done } : null; }   /* the short name fits its lot */
-  var pz = 11; (H.prizes || []).forEach(function(p){ while(pz >= 0 && fill[pz]) pz--; if(pz >= 0) fill[pz] = { name: p.name.replace(/^YOUR /, ''), done: true, prize: true }; });   /* a prize takes the back lots, never one he builds on */
+  (H.things || []).forEach(function(t){ if((t.kind === 'prize' || t.kind === 'trophy') && t.lot != null && t.lot >= 0 && !fill[t.lot]) fill[t.lot] = { name: String(t.name).replace(/^(YOUR|HIS|HER) /, ''), done: true, prize: true }; });   /* rule 445: the things given him stand where the seam placed them */
   var lot = 0, open = H.lotsOpen || 4, signs = [];
   for(var y = 0; y < Hh; y++) for(var x = 0; x < W; x++){ var ch = rows[y].charAt(x), X = x * tw, Y = y * th;
     if(ch === 'R'){ g.fillStyle = '#4a463f'; g.fillRect(X, Y, tw, th); g.fillStyle = '#6a645a'; if(y === (P.front_row|0)) { g.fillRect(X, Y + th/2 - 0.5, tw*0.5, 1); } }
@@ -1905,6 +1907,59 @@ function homeCostLine(row){ var c = '1 BATTERY' + (row.cost ? ' ' + homeGoodsWor
   return c + '  ' + g; }
 function homeShort(row){ var sp = (S.home && S.home.supplies) || {}, out = null; for(var k in (row.cost || {})) if((sp[k] | 0) < (row.cost[k] | 0)){ out = out || {}; out[k] = row.cost[k]; } return out; }
 function homeNeedLine(need){ return 'It needs ' + homeGoodsWords(need).toLowerCase(); }
+/* ==== __EVERYTHING_HIS_LIVES_THERE__ (HOME BASE 11/10, rule 445): every thing of his stands on its lot of his place as a door on this
+   screen's own system (rule 433: a tap says what it is; 442(b): nothing floats): a build where it went up, a boss's prize on the back
+   lots with its own picture. A tap opens its sheet: what it is, who gave it, what it gives, who works it. ==== */
+var HOME_PICS = {};
+function homeLotBox(i){ var bx = VAR && VAR.boxes.build; if(!bx) return null;
+  var lw = (bx[2]-bx[0]) / BUILD_LOTS, lh = bx[3]-bx[1], col = i % BUILD_LOTS, row = Math.floor(i / BUILD_LOTS);
+  var x0 = bx[0] + lw*col + row*lw*0.18, y1 = bx[3] - row*lh*0.42; return [x0 + lw*.15, y1 - Math.max(lh, lw*.9)*.85, x0 + lw*.85, y1]; }   /* the piece itself, so the BUILD door between them stays a door */
+/* a prize or a trophy stands at half a man's height on its lot's foot (measured 11/10: drawn inside the lot it stood a third of a head
+   high beside the men, a crumb nobody would tap), its door the piece itself */
+function homePieceBox(i){ var bx = VAR && VAR.boxes.build; if(!bx) return null;
+  var lw = (bx[2]-bx[0]) / BUILD_LOTS, lh = bx[3]-bx[1], col = i % BUILD_LOTS, row = Math.floor(i / BUILD_LOTS);
+  var cx0 = bx[0] + lw*col + row*lw*0.18 + lw/2, y1 = bx[3] - row*lh*0.42, D = Math.min(lw*1.1, personH()*.55);
+  var over = (bx[0] + lw*(BUILD_LOTS - .5) + row*lw*0.18 + D/2) - (picW() - 6); if(over > 0) cx0 -= over;   /* the row slides in whole so its last piece stays on the picture (measured 11/10: the pot hung past the glass's edge upright) */
+  return [cx0 - D/2, y1 - D, cx0 + D/2, y1]; }
+function homeThingsHere(){ var out = []; if(!S.home || !S.home.planted) return out;
+  var b = buildState(), LB = window.BohemiaLotBuild;
+  if(b.site) for(var k in b.site.lots){ var L = b.site.lots[k]; out.push({ key: 'h' + (parseInt(k, 10) | 0), lot: parseInt(k, 10) | 0, kind: 'build', id: L.id, done: L.done, gift: L.gift || null,
+    name: ((LB && LB.markerOf(L.id)) || {}).name || String(L.id).toUpperCase() }); }
+  (S.home.things || []).forEach(function(t){ if(t.kind !== 'prize' && t.kind !== 'trophy') return; if(t.lot == null || t.lot < 0) return;
+    out.push({ key: 'h' + t.lot, lot: t.lot, kind: t.kind, name: t.name, pic: t.pic, from: t.from, gives: t.gives, says: t.says }); });
+  return out; }
+function homeDoors(){
+  if(!VAR || !VAR.boxes) return;
+  ORDER = ORDER.filter(function(k){ return !/^h\d+$/.test(k); }); for(var k in VAR.boxes) if(/^h\d+$/.test(k)) delete VAR.boxes[k];
+  if(!S.home || !S.home.planted || !VAR.boxes.build) return;
+  homeThingsHere().forEach(function(t){ var bx = t.kind === 'build' ? homeLotBox(t.lot) : homePieceBox(t.lot); if(!bx) return; VAR.boxes[t.key] = bx; ORDER.push(t.key); B[t.key] = { name: t.name, short: t.kind === 'build' ? 'you built it' : 'from ' + (t.from || 'the road') }; });
+  window.__HOME_DOORS = ORDER.filter(function(k){ return /^h\d+$/.test(k); });
+}
+(function(){ var pv = pickVariant; pickVariant = function(){ var r = pv.apply(this, arguments); try{ homeDoors(); }catch(e){} return r; }; })();
+function homeThingSheet(k){
+  var t = homeThingsHere().filter(function(x){ return x.key === k; })[0]; if(!t) return;
+  var body = document.getElementById('sbody'); body.textContent = '';
+  var row = t.kind === 'build' && S.home.builds ? S.home.builds[t.id] : null, wk = S.home.workers || {}, who = wk[t.lot + ',0'];
+  var gives = t.kind === 'build' ? (row && (row.gives || row.worked) ? '+' + homeGoodsWords(row.gives || {}).toLowerCase() + ' a day' + (row.worked ? (who ? ', ' + String(who) + ' works it for ' + homeGoodsWords(row.worked).toLowerCase() + ' more' : ', more when somebody works it') : '') : (row ? row.line : ''))
+                                 : (t.gives ? 'it ' + (t.gives.water ? 'waters' : 'feeds') + ' one person who lives here, a battery off every night\'s bill' : '');   /* the bill counts a prize as one battery back, and only for the people living there (BohemiaHome.bill: back is never more than they eat) */
+  var line = t.kind === 'build' ? ('The ' + String(t.name).toLowerCase() + (t.gift ? ', a gift from ' + t.gift : ', we put it up') + '. ' + (t.done ? 'It stands.' : 'It goes up tonight.') + (gives ? ' ' + gives.charAt(0).toUpperCase() + gives.slice(1) + '.' : ''))
+                                : (String(t.name) + ', from ' + (t.from || 'the road') + '. ' + (gives ? gives.charAt(0).toUpperCase() + gives.slice(1) + '.' : '') + (t.says && !gives ? ' ' + t.says : ''));   /* three lines on the glass: what the verb does is said where he uses it */
+  line = line.replace(/\+1 food a day/, '+1 food and water a day');   /* rule 209: food and water are one count (the tank's line read 'food') */
+  body.appendChild(speak('build', line));
+  var acts = document.createElement('div'); acts.className = 'acts'; body.appendChild(acts);
+  var t0 = performance.now(), bm = act('BUILD MORE', 'the plan, what goes up', function(){ if(performance.now() - t0 < 450) return; openB('build'); }); bm.dataset.home = 'more'; acts.appendChild(bm);   /* the desk is one tap from any of his things; never the tap that opened this (measured 11/10 sideways: the sheet came up under the thumb and the same tap's click pressed BUILD MORE) */
+  window.__HOME_THING = { key: k, name: t.name, kind: t.kind, line: line };
+  show();
+}
+(function(){ var db = drawBuilt; drawBuilt = function(s){ db.apply(this, arguments); try{ homeDrawThings(s); }catch(e){} }; })();
+function homeDrawThings(s){
+  homeThingsHere().forEach(function(t){ if(t.kind === 'build' || !t.pic) return;
+    var im = HOME_PICS[t.pic]; if(!im){ im = HOME_PICS[t.pic] = new Image(); im.src = t.pic; } if(!im.complete || !im.naturalWidth) return;
+    var b = homePieceBox(t.lot), w = b[2]-b[0], h = b[3]-b[1], k2 = Math.min(w/im.naturalWidth, h/im.naturalHeight), dw = im.naturalWidth*k2, dh = im.naturalHeight*k2;
+    var x = view.ox + (b[0] + (w - dw)/2)*s, y = view.oy + (b[3] - dh)*s;
+    cx.save(); cx.fillStyle = 'rgba(20,14,8,.32)'; cx.beginPath(); cx.ellipse(view.ox + (b[0] + w/2)*s, view.oy + (b[3] - dh*.04)*s, dw*.42*s, dh*.1*s, 0, 0, Math.PI*2); cx.fill();   /* its shadow on the ground (442(b): nothing floats) */
+    cx.imageSmoothingEnabled = false; cx.drawImage(im, Math.round(x), Math.round(y), Math.round(dw*s), Math.round(dh*s)); cx.restore(); });
+}
 /* ==== /__HOME_BASE__ ==== */
 /* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
 function drawBuilt(s){
@@ -2670,7 +2725,7 @@ function folkList(){
 var FOLK_IN = false;
 function folkMake(pm, key){
   var R = rng(seedOf(S.place.name + ':folk')), hand = dealt(), out = [];
-  ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
+  ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build' || /^h\d+$/.test(k)) return;
     var lp = KEEPER_LOOPS[i % KEEPER_LOOPS.length]; R();   /* the die the gang look took: everybody keeps his spot */
     var kx = (b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, ky = b[3] - 2, dr = VAR.pic ? townDoor(k) : null, kg = dr ? groundNear(dr.x, dr.y) : groundNear(kx, ky);   /* __EVERY_TOWN_ITS_OWN__: his own door */
     out.push({k:k, keeper:true, look:hand[i], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
@@ -4705,6 +4760,7 @@ function openB(k, line){
   if(LIT_DOORS.indexOf(k) >= 0 && !litSeen()[k]){ litSeen()[k] = 1; try{ localStorage.setItem(LITKEY, JSON.stringify(litAll())); }catch(e){} }
   if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
+  if(/^h\d+$/.test(k)){ homeThingSheet(k); return; }   /* __EVERYTHING_HIS_LIVES_THERE__ */
   if(S.camp){ campSheet(k); return; }   /* __THE_CAMP__ */
   if(window.BohemiaHeard){ BohemiaHeard.night(view.night); BohemiaHeard.opened(k, view.night ? NIGHT_TRIM : null); }   /* SOUNDS 10/18: the building answers with its recording */
   /* the bar's first line each visit is the free news from down the road (newsFree); here's own trait the elder already said */
