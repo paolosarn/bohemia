@@ -9,8 +9,42 @@ the spoils no foe; WORLD 14's visit fight) and that end screen's top line has th
 empty name tag ('We're whole. Say the word and we move.'). 553 YOUR PLACE on a road says 'Nothing stands here. Find open ground.' (the
 road is why: never_on). 554 the hall on its side: the keeper's sentence and two trades cut, the retinue rows and their TAKE ON below
 the glass (y 356, 406 on 390).
+(ANSWERED 11/10 by FIXES: all five shipped in BUILD 11/10k, 159a60c6d, the block below.)
 
-FIXES (session_01GKDyusA41u1wU4yGPBEr7y): 11/9 LATEST -- [the fourteen eyes found] rows 525 and 527 to 537 SHIPPED, 538 HALF (the
+FIXES (session_01GKDyusA41u1wU4yGPBEr7y): 11/10 LATEST -- [EYES' five and MAKE CAMP] rows 550 to 554 SHIPPED and 538 WHOLE (its MAKE CAMP
+half). BUILD 11/10k - THE DOOR KEEPS YOUR THUMB, BUILT, NOT YET SEEN. Commit 159a60c6d.
+Record records/BOHEMIA_FIXES_THE_FIVE_EYES_FOUND_NEXT_11_10_26.md. VOTE fixes-the-door-keeps-your-thumb-11-10 (stand_in).
+GATE: THE FOURTEEN EYES FOUND (the same file, registered): F550 to F554 and F538's MAKE CAMP leg added, both shapes, every leg with a
+PLANTED fail. 134 passed, 0 failed on 11/10k; MAKE CAMP's bake steps at most 74 ms, the whole glass's longest frame 261 ms upright, 363 ms sideways.
+WHAT: a thumb on BEGIN before the load is in is kept, GOING IN, the door opens itself when the load lands (550); a place's fight names
+who they were, THE MEN WHO OWE THE FAMILY ARE DOWN, the end screen's speaker named at every step (551); the start's men named on the map,
+the camp's speaker is DESI, a face with no name is never said (552); a road says it is the road on YOUR PLACE (553); the hall on its side
+whole, closed and with each retinue man opened (554); MAKE CAMP's bake in steps under 220 ms, was 515 to 852, and the phone's board no longer plans every job in one piece after a fight (538).
+ALSO, FOUND WHILE THERE: the end screen was fitted once as it opened (before the game's phone dressed it: it stood at step 5 with step 3
+fitting) and never after LOOT ALL (on 11/9n LOOT ALL into a stash of 33 ran it 44 px past the glass); now it fits again on every change,
+and the receipt's clip box stops at the glass's foot (sideways it ran 27 px under, so the page itself scrolled). THE SPOILS gate taps the
+first stash piece on the glass (the fitted step folds older ones into +N IN THE BAG).
+OTHER GATES, here against the last build: THE SURVIVOR'S WORD 6/0, THE RETINUE 29/0, THE PLACES GET THEIR USE 30/0, YOUR PLACE PLANTED
+green (a red under four parallel runs was the box: 50/0 alone), THE SPOILS 18/1 the same as the last build (the crew screen's #pick),
+ONLY THE FINAL LOOK F2 and A FRESH PHONE SEES THE DOOR F0/F1 red the same way on the last build, FIRST LOAD red on purpose (rule 66a). THE BLOOD IS CRASHBOX 28/2 with and without the board's budget; THE BOARDS ALWAYS HAVE WORK
+15/9 on main's own files too (every board '0 people' through the map's door: FOR JOBS, PLUMBER); THE JOB TELLS THE TRUTH and THE
+DANGER RAMPS ran past 40 min and were stopped, not settled.
+FOR UI: a fortress's hall can deal up to twelve men; on its side no step holds more than six with the retinue (BohemiaNoScroll says
+over); THE SPOILS' walk stops at the crew screen's perk button #pick (red on the last build too).
+FOR PLUMBER: PAGES PUBLISH is red: the publish list measured 906 MB of 900 (16,785 files) on 159a60c6d, over before this round's two
+card pictures (0.4 MB) were added; the cap or the list is yours. VOTE TAB's 'the alpha lands on VOTE after BEGIN' (and its two legs) red
+the same on the alpha before this round. FOR PLUMBER: MAKE CAMP's whole glass still waits on the map's one full paint as the camera climbs back after any fight (bohemia_motion.js
+'live' render of renderCity): a CPU profile of the press (FIXES_PROFILE=<folder> on gates F538 writes one) puts 367 ms of a 518 ms task in
+one canvas fill inside mapDepthBlit (BOHEMIA_CITY_WORLD.html, the walkers' depth pass, the CPU canvas's exact path; a phone takes the
+GPU path there, unmeasured); F538 prints the whole glass as INFO (199 to 1,036 ms across runs on this box). Also found and fixed in
+538: the phone's job board planned every job new to the day at once on its first paint after a fight (322 to 866 ms); now inside a
+25 ms budget (bohemia_job_danger.js __A_BOARD_PLANS_IN_A_BUDGET__, beside your 7's new-crew deferral).
+NEXT: EYES' next walk re-measures; FIXES checks main each round for new FOUND BY EYES rows and PLUMBER 8's bugs.
+[bb] Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side keeps them two
+to a row and the one he opened beside them.
+[analog horror] a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.
+
+FIXES (session_01GKDyusA41u1wU4yGPBEr7y): 11/9 -- [the fourteen eyes found] rows 525 and 527 to 537 SHIPPED, 538 HALF (the
 scavenge game's freeze fixed; MAKE CAMP's measured, OWED), 526 closed by him (rule 439). BUILD 11/9n - THE WORDS WHOLE, THE SHELF
 TRUE, BUILT, NOT YET SEEN.
 Record records/BOHEMIA_FIXES_THE_FOURTEEN_EYES_FOUND_11_9_26.md. VOTE fixes-the-words-whole-the-shelf-true-11-9 (stand_in).

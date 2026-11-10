@@ -15,16 +15,15 @@ crosswalk across, the sidewalks turning the corner (43,495 mouths marked on 22 v
 VOTE world13-the-corners-join-11-10 (STAND-IN). Next: the 15 boards as templates, then the cut.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
-FIXES (fixes-01gkdyus): 11/9 LATEST -- BUILD 11/9n - THE WORDS WHOLE, THE SHELF TRUE, BUILT, NOT YET SEEN (ask rows 525 to 538, FOUND BY
-EYES 11/8; 526 closed by him, rule 439): the end screen fits the glass both ways; the fight's phone presses reach past their icons and the
-ability wells are whole (rule 238(b): the phone never grows, so not a 44 px press); the barber whole on its side; the pistol says SHOOT; a
-win names who they were; the meet card says the board the fight deals (85 of 85 districts); a melee hire holds his melee arm; job cards,
-the new game and the hall whole; a raised stat reads higher; the smith's shelf by its objects; the scavenge game opens
-without its 1 s freeze (MAKE CAMP's stall measured, next round). ALSO the gate table was malformed since
-11/7 (the suite would not start); fixed. Gate THE FOURTEEN EYES FOUND (a leg a row, each with a planted fail). The whole block:
-handoffs/FIXES.md.
-[bb Battle Brothers' pre-battle screen names the ground the battle is cut from; ours names the board the fight deals.]
-[analog horror: a card that promised an open road and a board of houses with every upstairs window dark.]
+FIXES (fixes-01gkdyus): 11/10 LATEST -- BUILD 11/10k - THE DOOR KEEPS YOUR THUMB, BUILT, NOT YET SEEN (ask rows 550 to 554, FOUND BY EYES
+11/10, and 538's MAKE CAMP half): a thumb on BEGIN while the game loads is kept and the door opens itself when it is in; the Mob Museum's
+debt fight says THE MEN WHO OWE THE FAMILY ARE DOWN with the speaker's name on his line; the map's speaker always wears a name (DESI);
+a road says it is the road on YOUR PLACE; the hall whole on its side, even with a man opened; MAKE CAMP's bake in short steps and the
+phone's job board no longer plans every job in one piece after a fight. ALSO the end screen fits again after LOOT ALL (it ran 44 px
+past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTEEN EYES FOUND (F550 to F554 added, each with a planted
+fail). The whole block: handoffs/FIXES.md.
+[bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
+[analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
 BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS, BUILT, NOT YET SEEN (routine 'to the floor', rule
 440(f), rule 441). The long-horned bison and the shrub-ox landed once his votes freed room on the site: 22 animals fielded, 17 lab-made,
 the beast law's floor met. All seven new ones (the five got his YES) play end to end on the demo, a phone upright and sideways (fight,
