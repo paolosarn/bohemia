@@ -528,7 +528,7 @@
     "thing": {
      "head": "THE MAN AT THE BAR",
      "what": "a man at the bar who drew it on a napkin",
-     "says": "The man at the bar says THE SURVEYOR works out of the old county survey office, the tripod on the roof. He has the only full map of the valley and sells it a piece at a time. I marked it."
+     "says": "The man at the bar says THE SURVEYOR works out of the old county survey office, the tripod on the roof. He has the only full map of the valley and sells it a piece at a time. His chainmen take the street signs down on his side: walk out and you forget it. I marked it."
     }
    },
    "after": {
@@ -540,7 +540,27 @@
     "valley": "The whole map is on the wall for anybody to copy. Every town is on it now, no charge.",
     "take": "TAKE IT"
    },
-   "tip": "GET TO HIS SPOTTERS FIRST"
+   "tip": "GET TO HIS SPOTTERS FIRST",
+   "hole": {
+    "name": "HIS HOLE IN THE MAP",
+    "radius": 5,
+    "posts": 4,
+    "near": 2,
+    "far": 5,
+    "pic": "signpost",
+    "say": "His chainmen took every street sign down on his side. We walk out and the map loses it.",
+    "rise": "THE MAP FORGOT HIS SIDE",
+    "feed_hole": {
+     "who": "@manny_trucks",
+     "txt": "Every sign on {where} is cut off the pole, bro. You walk in, you walk out, and you don't know where you were."
+    },
+    "feed": {
+     "who": "@manny_trucks",
+     "txt": "The street signs are back up on {where}, and his lines go out to all {n} towns. Real lines, no charge."
+    },
+    "card": "HIS SIDE IS BACK ON THE MAP FOR GOOD, AND HIS LINES RUN OUT TO ALL {TOWNS}.",
+    "note": "draft:true. The radius, the posts and every word are first attempts; TUNING owns 5 blocks of his side and 4 posts."
+   }
   },
   {
    "n": "THE CLIMB",

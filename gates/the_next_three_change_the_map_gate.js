@@ -112,7 +112,87 @@ const BURN = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN };
+/* ---------------- THE SURVEYOR: his hole in the map ---------------- */
+const DAYTIME = 12 * 60;
+const holeCount = (fr, n) => fr.evaluate((n) => { const H = BohemiaBosses.hole(n); if (!H || !H.at) return { all: 0, seen: 0 }; let all = 0, sn = 0;
+  for (let dy = -H.radius; dy <= H.radius; dy++) for (let dx = -H.radius; dx <= H.radius; dx++) { const x = H.at[0] + dx, y = H.at[1] + dy; if (!BohemiaBosses.inHole(n, x, y)) continue; all++; if (fogSeen(x, y)) sn++; }
+  return { all, seen: sn }; }, n);
+/* the blocks his lines drew, as the game kept them (measured 11/10: the gate planning each route again got a different route after a
+   reload, 470 of 557), and every town's own door at the end of its line */
+const linesSeen = (fr, n) => fr.evaluate((n) => { const H = BohemiaBosses.hole(n), L = (H && H.lines) || {}, P = L.path || [], D = L.doors || []; let all = 0, sn = 0, doors = 0;
+  for (let i = 0; i + 1 < P.length; i += 2) { all++; if (fogSeen(P[i], P[i + 1])) sn++; }
+  for (let i = 0; i + 1 < D.length; i += 2) if (fogSeen(D[i], D[i + 1])) doors++;
+  return { towns: (L.towns || []).length, drawn: L.drawn | 0, doors, all, seen: sn, frac: all ? sn / all : 0 }; }, n);
+const SURVEYOR = {
+  H2: (q) => !!q && q.nIn >= 8 && q.nOut === 0 && q.maskA >= 200 && q.snow,
+  C1a: (q) => !!q && q.all > 0 && q.seen === q.all,
+  R1: (q, b) => !!q && q.fallen && q.posts === b.posts && q.all === b.all && q.seen === q.all && q.lines.towns === b.towns && q.lines.doors === b.towns && q.lines.frac === 1,
+  async before(c) {
+    const { fr } = c;
+    let H = null; for (let i = 0; i < 20 && !(H && H.posts.length); i++) { H = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.hole(n) || null)), NAME); if (!(H && H.posts.length)) await c.page.waitForTimeout(500); }
+    if (!H) { ok('H1 his cut sign poles', false, 'none'); return false; } c.H = H;
+    c.towns = await fr.evaluate(() => { const bs = ctBases(); return Object.keys(bs).filter(k => bs[k]).length; });
+    const pick = (inside) => fr.evaluate((a) => { const H = a[0], f = a[1], inside = a[2], h = [city.x, city.y]; let best = null, bd = 1e9;
+      const R = inside ? H.radius - 1 : H.radius + 14;
+      for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { const x = H.at[0] + dx, y = H.at[1] + dy, d0 = Math.max(Math.abs(dx), Math.abs(dy));
+        if (x < 1 || y < 1 || x >= om.n - 1 || y >= om.n - 1 || !cityWalkable(x, y) || loopTownAt(x, y, 2)) continue;
+        if (inside ? (Math.max(Math.abs(x - f.x), Math.abs(y - f.y)) < 2 || !BohemiaBosses.inHole(a[3], x, y)) : d0 < H.radius + 9) continue;
+        if (!cityRoute(h[0], h[1], x, y)) continue; const dd = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (dd < bd) { bd = dd; best = [x, y]; } } return best; }, [H, c.f, inside, NAME]);
+    c.tb = await pick(true); c.ob = await pick(false);
+    if (!c.tb || !c.ob) { ok('H2 a block in his side and one well out of it', false, JSON.stringify([c.tb, c.ob])); return false; }
+    await c.day(); await c.goTo(c.tb); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(800);
+    const nIn = (await holeCount(fr, NAME)).seen;
+    await fr.evaluate(() => render()); const snowIn = await fr.evaluate(() => (BohemiaBosses.last().drew || {}).holeSnow | 0);
+    /* painted where the phone shows them: read with the crew among them (THE BURN's drums, measured 11/10: read from the sign, none on the screen) */
+    const drawn = await fr.evaluate(() => ((BohemiaBosses.last().drew || {}).posts || []).filter(q => q.key === 'signpost_before').length);
+    ok('H1 his cut sign poles: at least 2 on street blocks round his office, painted with the blades cut off and his flagging', H.posts.length >= 2 && drawn >= 1,
+      H.posts.map(q => q.x + ',' + q.y).join(' ') + ' round ' + H.at.join(',') + ', his side ' + H.radius + ' blocks, ' + drawn + ' painted on the phone at ' + c.tb);
+    await c.shot('2_in_his_side');
+    const seenIn = await fr.evaluate((n) => { const H = BohemiaBosses.hole(n), out = []; for (let dy = -H.radius; dy <= H.radius; dy++) for (let dx = -H.radius; dx <= H.radius; dx++) { const x = H.at[0] + dx, y = H.at[1] + dy; if (BohemiaBosses.inHole(n, x, y) && fogSeen(x, y)) out.push([x, y]); } return out; }, NAME);
+    await c.goTo(c.ob); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(1200);
+    const q2 = await holeCount(fr, NAME), w = seenIn[0], snowOut = await fr.evaluate(() => (BohemiaBosses.last().drew || {}).holeSnow | 0);
+    const maskA = w ? await fr.evaluate((w) => { const S = FOG.S, K = FOG.K; return FOG.cv.getContext('2d').getImageData((w[0] + K) * S, (w[1] + K) * S, 1, 1).data[3]; }, w) : 0;
+    const told = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_HOLE_TOLD || null)));
+    await c.shot('2b_out_of_his_side');
+    const q = { nIn, nOut: q2.seen, maskA, snow: snowOut > snowIn };
+    ok('H2 the map forgets his side: ' + nIn + ' of his blocks seen inside it, ' + q2.seen + ' left on the map once the crew walks out, the fog\'s own mask back over them, one of yours says it',
+       SURVEYOR.H2(q) && !!told && told.n === NAME, 'inside at ' + c.tb + ': ' + nIn + ' of ' + q2.all + ' seen; out at ' + c.ob + ': ' + q2.seen + ' seen, the mask ' + maskA + '/255 over ' + JSON.stringify(w) + ', the dead signal on ' + snowIn + ' blocks inside, ' + snowOut + ' out; said: ' + JSON.stringify(told));
+    ok('P2 planted: a map that keeps his side (nothing forgotten) turns H2 red', !SURVEYOR.H2(Object.assign({}, q, { nOut: nIn, maskA: 0 })), nIn + ' kept');
+    return true;
+  },
+  card(G, c) { return G.card.replace('{TOWNS}', c.towns + (c.towns === 1 ? ' TOWN' : ' TOWNS')); },
+  async after(c) {
+    const { fr, G } = c;
+    for (let i = 0; i < 80; i++) { const L = await fr.evaluate((n) => { const H = BohemiaBosses.hole(n); return H && H.lines ? [H.lines.done, H.lines.towns.length] : null; }, NAME); if (L && L[0] >= L[1]) break; await c.page.waitForTimeout(500); }
+    await c.goTo(c.ob); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(1000);
+    const q = await holeCount(fr, NAME), ln = await linesSeen(fr, NAME);
+    ok('C1a his side is back on the map for good: all of it seen with the crew well out of it', SURVEYOR.C1a(q), q.seen + ' of ' + q.all);
+    ok('C1b his chain lines run out to every town: the map\'s own route from his door to each, out of the fog, every town\'s door on the map', ln.towns >= 2 && ln.towns === c.towns && ln.drawn === ln.towns && ln.doors === ln.towns && ln.frac === 1, ln.towns + ' towns, ' + ln.drawn + ' lines drawn, ' + ln.doors + ' doors seen, ' + ln.seen + ' of ' + ln.all + ' route blocks seen');
+    await c.goTo(c.tb); await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+    const dr = await fr.evaluate(() => ((BohemiaBosses.last().drew || {}).posts || []).map(q => q.key)), sn = await fr.evaluate(() => (BohemiaBosses.last().drew || {}).holeSnow | 0);
+    ok('C1c his sign poles are painted with the blades back on and a fresh stake, and no dead signal is left on his side', dr.length >= 1 && dr.every(k => k === 'signpost_after') && sn === 0, dr.join(' ') + ', ' + sn + ' blocks of static');
+    await c.shot('5_his_side_after');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who + ' and the radio', posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0) && posts.some(p => p.who === '@valleyradio' && /last real map/.test(p.txt)),
+      posts.filter(p => p.who === G.feed.who || p.who === '@valleyradio').map(p => p.who + ': ' + p.txt.slice(0, 70)).join(' | '));
+    await c.goTo(c.ob);
+    /* P3: his hole forgetting again after the fall (the state un-fallen for one read, the map restored after) */
+    const p3 = await fr.evaluate((n) => { const H = BohemiaBosses.hole(n), Hm = BohemiaHisMap.state(), was = H.fell, f = Hm.boss.fallen[n], snap = FOG.seen.slice(); H.fell = null; delete Hm.boss.fallen[n];
+      BohemiaBosses.forget(); let all = 0, sn = 0; for (let dy = -H.radius; dy <= H.radius; dy++) for (let dx = -H.radius; dx <= H.radius; dx++) { const x = H.at[0] + dx, y = H.at[1] + dy; if (!BohemiaBosses.inHole(n, x, y)) continue; all++; if (fogSeen(x, y)) sn++; }
+      H.fell = was; Hm.boss.fallen[n] = f; for (let i = 0; i < snap.length; i++) if (snap[i] && !FOG.seen[i]) { FOG.seen[i] = 1; fogClear(i % FOG.D - FOG.K, Math.floor(i / FOG.D) - FOG.K, 0.85, false); } fogSave(); return { all, seen: sn }; }, NAME);
+    ok('P3 planted: his side forgotten again after the fall turns C1a red', !SURVEYOR.C1a(p3), JSON.stringify(p3));
+    return { posts: c.H.posts.length, all: q.all, towns: ln.towns };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.ob); await e.page.waitForTimeout(800);
+    const q = await holeCount(e.fr, NAME).catch(x => ({ err: String(x) })), ln = await linesSeen(e.fr, NAME).catch(() => ({ towns: 0, frac: 0 }));
+    const H = await e.fr.evaluate((n) => ({ fallen: !!BohemiaHisMap.state().boss.fallen[n], posts: ((BohemiaBosses.hole(n) || {}).posts || []).length }), NAME).catch(() => ({}));
+    return Object.assign({}, q, H, { lines: ln });
+  }
+};
+
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -155,6 +235,7 @@ async function run(prof, alpha) {
   /* walk to a block and stand on it (a card on the road or a fall-back stops the walk short: walk on) */
   const goTo = async (c) => { if (!c) return false; for (let k = 0; k < 6; k++) { await toMap(fr); await go(c); await settle(); await clearCards(); const at = await fr.evaluate(() => [city.x, city.y]); if (at[0] === c[0] && at[1] === c[1]) return true; await page.waitForTimeout(600); } return false; };
   const night = () => fr.evaluate((t) => { try { T.min = t; } catch (e) {} }, NIGHT);
+  const day = () => fr.evaluate((t) => { try { T.min = t; } catch (e) {} }, DAYTIME);
   const posts = () => fr.evaluate(() => (BOHEMIA_FEED.posts ? BOHEMIA_FEED.posts() : []).map(p => ({ who: p.who, txt: p.txt || '' })));
   const waitSign = async (n) => { let s = null; for (let i = 0; i < 60; i++) { await page.waitForTimeout(500); s = await st(); if ((s.boss.sign && s.boss.sign.n === n && s.rumours[n]) || s.boss.found[n]) break;
       if (i === 14 && !s.boss.sign) { const st2 = await fr.evaluate(() => { const h = [city.x, city.y], n = om.n; let best = null, bd = 1e9;
@@ -204,7 +285,7 @@ async function run(prof, alpha) {
     }
     return { meet, mc, ff: !!ff, him, by };
   };
-  const c = { fr, page, d, shot, tapEl, go, goTo, settle, night, posts, st, pressCard, bossCard };
+  const c = { fr, page, d, shot, tapEl, go, goTo, settle, night, day, posts, st, pressCard, bossCard };
   /* the reopened phone walks the same way */
   c.goOn = async (e, to) => { for (let k = 0; k < 4; k++) { await e.fr.evaluate((c) => { try { if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); travelSpeedSet(4); travelTo(0, 0, c); travelGoes(); } catch (x) {} }, to).catch(() => {});
     for (let i = 0; i < 100; i++) { await e.page.waitForTimeout(500); if (await e.fr.evaluate(() => !TRAVEL || TRAVEL.i >= TRAVEL.path.length).catch(() => true)) break; }

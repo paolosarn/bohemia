@@ -73,6 +73,39 @@ Phone pictures (webp): records/target/the_next_three_change_the_map/burn/ (phone
 the alpha on its side: 0 she asks, 1 the door read out, 2 his dark at night, 3 his card, 4 she says what changed, 5 his drums after,
 6 opened again).
 
+## THE SURVEYOR: HIS HOLE IN THE MAP
+
+Code: slices/bohemia_bosses.js section (12); data: THE SURVEYOR's 'hole' row in records/target/bb/boss_act_one.json (a modder's row:
+radius 5, 4 posts 2 to 5 out, the words); art: tools/bohemia_bosses_the_next_three_11_10_26.py (SIGNPOST). No line in anybody's file:
+the map's own fog is read and written here the way its fogReveal writes it (FOG.seen and its mask, never its generation).
+- HIS SIGN POLES: the moment WORLD TWO stands him somewhere, 4 of his cut sign poles stand on street blocks round his office (the blades
+  cut off, his orange flagging round the stub, an orange X sprayed on the street, a stake pulled up). Britain took its signposts down in
+  1940 so an invader could not find his way; THE SURVEYOR does it so you buy his map. The man at the bar now says it: "His chainmen take
+  the street signs down on his side: walk out and you forget it."
+- WHILE HE STANDS: the map forgets his side (5 blocks round his office, never a town's ground): every block of it the crew cannot see
+  from where it stands goes back under the static, the fog's own bit and its own mask. Walk in and you see it; walk out and it is gone.
+  The first time, once he is known, one of yours says "His chainmen took every street sign down on his side. We walk out and the map
+  loses it.", the number rises (THE MAP FORGOT HIS SIDE) and @manny_trucks posts it.
+- WHEN HE FALLS: his map is copied. On the kill's tape his sign poles get their blades back and his side comes out of the fog for good
+  (when the tape tracks in, so the BEFORE is the hole and the AFTER the map); then his chain lines run out from his door to every town in
+  the valley, the map's own route to each, out of the fog a town at a time (no frame waits on twenty routes). MANNY's card says it under
+  his map: "HIS SIDE IS BACK ON THE MAP FOR GOOD, AND HIS LINES RUN OUT TO ALL N TOWNS."; @manny_trucks posts it beside the radio.
+- KEPT AFTER A RELOAD: his side seen, the lines seen, nothing forgotten again (a reload in the middle of his lines goes on drawing them).
+THE GATE: gates/the_next_three_change_the_map_gate.js "THE SURVEYOR" (registered THE SURVEYOR CHANGES THE MAP), both ways. MEASURED ON
+THE WAY: run 1 the demo upright 18/0 (the bar at 81,60, his office 68,59; 54 of his 121 blocks seen inside his side, 0 once out, the
+fog's mask 248/255 back over them; 13 towns, his lines out of the fog; the reopen held), the alpha on its side 17/1 (H1 read his poles'
+paint from the bar, off the short screen: now read with the crew among them). THE VOTE CARD showed nothing: under the map's own faint
+fog a forgotten block looks like any unseen one, so his forgotten side now carries a dead signal (once he is known, so it never gives
+his place away before the man at the bar); and the map drew once between his fall and the kill's camera, so his side had lifted
+before the camera got there: A FALLEN BOSS'S CHANGE NOW WAITS FOR HIS CAMERA (beatOwed: THE BURN's dark had the same gap). Run 3:
+his lines lit 12 and 11 of the 13 towns' own doors (the route stops beside a door: the line now lights the town at its end) and the
+gate, planning each route again, got a different route after a reload (470 of 557): the game keeps the blocks its lines drew and the
+gate reads exactly those. THE LAST PASS (base 158450da9): THE DEMO UPRIGHT 18 passed, 0 failed (his side 105 blocks, 13 towns, 13
+lines, 13 doors, 531 of 531 drawn blocks on the map after the reopen); THE ALPHA ON ITS SIDE 18 passed, 0 failed (86 blocks, 13 lines,
+493 of 493). Shipped rebased onto 68e7b5889 (HOME BASE's 11/10u and MOTION 3's 11/10t since: the home seam and the camp board, nothing
+of the fog, the bosses file or their data). VOTE: records/target/bosses_vote_surveyor_11_10/ (BOSSES_AWAY=14). Phone pictures (webp):
+records/target/the_next_three_change_the_map/surveyor/ (2 in his side, 2b out of it, 5 his side after).
+
 ## [bb] BATTLE BROTHERS FIRST
 
 - Night on the Battle Brothers map shrinks what your company sees and lets things come at you unseen; a fire you make yourself is the
@@ -82,5 +115,7 @@ the alpha on its side: 0 she asks, 1 the door read out, 2 his dark at night, 3 h
 
 ## ANALOG HORROR
 
+THE SURVEYOR: a pole with no names on it and orange tape moving in the wind, and a map that un-draws behind you; after, a street with its
+name back and white chalk lines running off to every town.
 THE BURN: one fire in a black street and a man beside it who decides who stands near it; after, hands over a drum and a kid's face lit
 orange.

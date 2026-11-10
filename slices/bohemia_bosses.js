@@ -87,7 +87,7 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -98,11 +98,13 @@
     if (!S.pipe) S.pipe = {};
     if (!S.machines) S.machines = {};
     if (!S.dark) S.dark = {};
+    if (!S.hole) S.hole = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
     machinesCatchUp(); /* (10) and his machines */
     darkCatchUp();     /* (11) and his dark */
+    holeCatchUp();     /* (12) and his hole */
     if (SHUT_DIRTY) shutGrid();
     return true;
   }
@@ -209,7 +211,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -944,8 +946,8 @@
       var down = darkDown(k, D), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
       /* at night his side is black, only his drums burning (the blocks round a drum keep the drum's own light) */
       /* the moment he falls the dark lifts on the kill's tape, not before it (the VOTE card's BEFORE showed no dark, measured 11/10) */
-      var lift = 0; if (inBeat && down && BEAT) { var M = BEAT_MS, t = performance.now() - BEAT.t0; lift = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)); }
-      if (nt && (!down || (inBeat && lift < 1))) { gx.save(); gx.fillStyle = 'rgba(3,2,2,' + (0.62 * (1 - lift)).toFixed(3) + ')';
+      var lift = 0, owed = down && beatOwed(k); if (inBeat && down && BEAT) { var M = BEAT_MS, t = performance.now() - BEAT.t0; lift = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)); }
+      if (nt && (!down || owed || (inBeat && lift < 1))) { gx.save(); gx.fillStyle = 'rgba(3,2,2,' + (0.62 * (1 - lift)).toFixed(3) + ')';
         for (var dy = -D.radius; dy <= D.radius; dy++) for (var dx = -D.radius; dx <= D.radius; dx++) { var x = D.at[0] + dx, y = D.at[1] + dy;
           if (nearTown(x, y, 1) || D.drums.some(function (q) { return q.x === x && q.y === y; })) continue; diamond(gx, x, y, ox, oy); gx.fill(); LAST.drew.dark++; }
         gx.restore(); }
@@ -966,6 +968,166 @@
     D.drums.forEach(function (q) { var bb = rectOf(drumKey(r, true), q.x, q.y, ox, oy, 0.95, 0); if (!bb) return; wipe(x, drumKey(r, false), drumKey(r, true), bb, beat, u, alpha); c++; });
     return c;
   }
+
+  /* ---------- (12) HIS HOLE (BOSSES 11/10, rules 443(a), 441; ask lines 167, 522; records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md).
+     THE SURVEYOR's way is HIS HOLE IN THE MAP. His ladder row: he holds 'the last complete map', the lock 'you only know what you have
+     walked'; he sells it a piece at a time, so his chainmen take every street sign down on his side (Britain did it in 1940 so an
+     enemy could not find his way). A boss whose row has 'hole' stands 'posts' of his cut sign poles on street blocks 'near' to 'far'
+     round his door, worked out once off his place and kept. WHILE HE STANDS the map forgets his side ('radius' blocks round his door,
+     never a town's ground): every block of it the crew cannot see from where it stands goes back under the static, the map's own fog
+     (RUN's FOG: its bits and its mask written here the way its fogReveal writes them, never its generation). Walk in and you see it;
+     walk out and it is gone. Not a wall, not a toll, not a fight, not the night: the map itself. WHEN HE FALLS his map is copied: his
+     side comes out of the fog for good, the signs go back up (painted), and his chain lines run out from his door to every town in
+     the valley (the map's own route to each, out of the fog, a town at a time so no frame waits). Kept after a reload. */
+  var HOLE_LAST = null, LINES_T = 0;
+  function holeRow(n) { var r = row(n); return r && r.hole ? r : null; }
+  function holeDown(k, H) { var h = hs(); return H.fell != null || !!(h && h.boss.fallen[k]); }
+  function makeHole(r, at, from) {
+    var G = r.hole, R = Math.max(2, G.radius | 0 || 5);
+    return { at: at.slice(), radius: R, posts: spots(at, Math.max(1, G.near | 0 || 2), Math.max(2, G.far | 0 || R), Math.max(1, G.posts | 0 || 4), from, 0x68e31da4), forgot: 0, fell: null, told: null, lines: null, made: day(), draft: true };
+  }
+  function inHole(H, x, y) { return !!H.at && cheb(H.at[0], H.at[1], x, y) <= H.radius && !nearTown(x, y, 2); }
+  function fogR() { try { return fogRadius(); } catch (e) { return 6; } }
+  /* one block back under the static: its bit and its square of the fog's mask (the mask is what the map's fog draws) */
+  function fogForget(x, y) {
+    var F; try { F = FOG; } catch (e) { return false; }
+    if (!F || !F.on || !F.ready || F.all || !F.seen || !F.cv) return false;
+    var k = -1; try { k = fogIdx(x, y); } catch (e) { return false; } if (k < 0 || !F.seen[k]) return false;
+    F.seen[k] = 0;
+    try { var c = F.cv.getContext('2d'), Sx = F.S; c.save(); c.globalCompositeOperation = 'source-over'; c.fillStyle = 'rgba(12,10,9,0.965)'; c.fillRect((x + F.K) * Sx, (y + F.K) * Sx, Sx, Sx); c.restore(); } catch (e) {}
+    F.dirty = true; return true;
+  }
+  function holeForget(me) {
+    var n = 0, r = fogR() + 1;
+    for (var k in S.hole) { var H = S.hole[k]; if (!H || !H.at || holeDown(k, H)) continue;
+      for (var dy = -H.radius; dy <= H.radius; dy++) for (var dx = -H.radius; dx <= H.radius; dx++) { var x = H.at[0] + dx, y = H.at[1] + dy;
+        if (!inHole(H, x, y)) continue; var ex = x - me[0], ey = y - me[1]; if (ex * ex + ey * ey <= r * r) continue;   /* what the crew sees from here stays */
+        if (fogForget(x, y)) { n++; H.forgot = (H.forgot | 0) + 1; } } }
+    if (n) { save(); try { fogSaveSoon(); } catch (e) {} }
+    return n;
+  }
+  function holeTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.hole) S.hole = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.hole || S.hole[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.hole[r.n] = makeHole(r, [at.x, at.y], sg ? [sg.x, sg.y] : here()); save(); HOLE_LAST = null;
+      LAST.hole = { n: r.n, posts: S.hole[r.n].posts.length, at: Date.now() };
+    });
+    holeLift();
+    var me = here(); if (!me) return;
+    var key = me[0] + ',' + me[1] + ':' + fogR(); if (key === HOLE_LAST) return; HOLE_LAST = key;
+    if (fightUp()) return;
+    var n = holeForget(me);
+    if (!n) return;
+    LAST.forgot = { n: n, at: me.slice(), t: Date.now() }; root.__BOSS_FORGOT = LAST.forgot;
+    var hh = hs();
+    for (var k in S.hole) { var H = S.hole[k], r = holeRow(k); if (!H || !r || H.told != null || holeDown(k, H) || !(hh && hh.boss.found[k]) || cheb(H.at[0], H.at[1], me[0], me[1]) > H.radius + fogR() + 3) continue;   /* said once he is known (the man at the bar first) */
+      H.told = day(); save();
+      if (r.hole.say) say(r.hole.say);
+      if (r.hole.feed_hole) feed(r.hole.feed_hole.who, fill(r.hole.feed_hole.txt, { where: whereWord(H.at[0], H.at[1]) }), 'world');
+      RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: r.hole.rise || 'THE MAP FORGOT HIS SIDE', col: '#e6dcc4' }); tick();
+      LAST.holeTold = { n: k, at: me.slice(), forgot: n, t: Date.now() }; root.__BOSS_HOLE_TOLD = LAST.holeTold;
+    }
+  }
+  /* his side comes out of the fog when the kill's tape tracks in (the wipe), or at once with no beat (a reload, a fall off the map) */
+  function holeLift() {
+    if (!S || !S.hole) return;
+    for (var k in S.hole) { var H = S.hole[k]; if (!H || !H.lift || !H.at) continue;
+      if (beatOwed(k)) continue;   /* the fall's camera has not played yet: his side lifts on its tape */
+      try { if (!FOG.ready) continue; } catch (e) { continue; }
+      H.lift = false;
+      for (var dy = -H.radius; dy <= H.radius; dy++) for (var dx = -H.radius; dx <= H.radius; dx++) { var x = H.at[0] + dx, y = H.at[1] + dy; if (inHole(H, x, y)) { try { fogReveal(x, y, 1.0); } catch (e) {} } }
+      save(); try { fogSave(); } catch (e) {}
+      if (!LINES_T && H.lines && H.lines.towns.length) { var kk = k; LINES_T = setTimeout(function () { try { holeLines(kk); } catch (e) { LINES_T = 0; } }, 400); }
+      LAST.holeLift = { n: k, at: Date.now() };
+    }
+  }
+  /* his chain lines: the map's own route from his door to every town, out of the fog, one town a step (no frame waits on twenty routes) */
+  function holeLines(k) {
+    var H = S.hole && S.hole[k]; if (!H || !H.lines || H.lines.done >= H.lines.towns.length) { LINES_T = 0; return; }
+    var t = H.lines.towns[H.lines.done], d = null; try { d = townDoor(t[1], t[2]); } catch (e) {}
+    var p = null; if (d) { try { p = cityRoute(H.at[0], H.at[1], d[0], d[1]); } catch (e) { p = null; } }
+    var got = 0, path = H.lines.path || (H.lines.path = []);
+    (p || []).forEach(function (q) { var was = seen(q[0], q[1]); try { fogReveal(q[0], q[1], 1.2); } catch (e) {} if (!was && seen(q[0], q[1])) got++; path.push(q[0], q[1]); });
+    if (d) { try { fogReveal(d[0], d[1], 1.6); } catch (e) {} H.lines.doors = (H.lines.doors || []).concat([d[0], d[1]]); }   /* the line ends at the town itself (measured 11/10: the route stops beside a door) */
+    H.lines.done++; H.lines.blocks = (H.lines.blocks | 0) + got; if (p) H.lines.drawn = (H.lines.drawn | 0) + 1;
+    save();
+    if (H.lines.done >= H.lines.towns.length) { try { fogSave(); } catch (e) {} LINES_T = 0; LAST.lines = JSON.parse(JSON.stringify(H.lines)); root.__BOSS_LINES = LAST.lines; try { render(); } catch (e) {} return; }
+    LINES_T = setTimeout(function () { try { holeLines(k); } catch (e) { LAST.err = String(e && e.message || e); LINES_T = 0; } }, 90);
+  }
+  function holeFell(r, h) {
+    var G = r.hole; if (!G || !S) return null;
+    if (!S.hole) S.hole = {};
+    var H = S.hole[r.n]; if (!H) H = S.hole[r.n] = { at: null, radius: G.radius | 0 || 5, posts: [], forgot: 0, fell: null, told: null, lines: null, made: day(), draft: true };
+    if (H.fell != null) return H;
+    H.fell = day();
+    var got = 0;   /* how much of his side comes back (counted now, lifted on the kill's tape: holeLift) */
+    if (H.at) for (var dy = -H.radius; dy <= H.radius; dy++) for (var dx = -H.radius; dx <= H.radius; dx++) { var x = H.at[0] + dx, y = H.at[1] + dy; if (inHole(H, x, y) && !seen(x, y)) got++; }
+    H.lift = true;
+    var bs = bases(), towns = [];
+    for (var tn in bs) { var b = bs[tn]; if (b) towns.push([tn, b.x | 0, b.y | 0]); }
+    if (H.at) towns.sort(function (a, b) { return cheb(a[1], a[2], H.at[0], H.at[1]) - cheb(b[1], b[2], H.at[0], H.at[1]) || (a[0] < b[0] ? -1 : 1); });
+    H.lines = { towns: H.at ? towns : [], done: 0, blocks: 0, drawn: 0 }; H.back = got;
+    var n = H.lines.towns.length, o = { n: n, towns: n + (n === 1 ? ' town' : ' towns'), blocks: got, where: H.at ? whereWord(H.at[0], H.at[1]) : 'that block' };
+    o.TOWNS = o.towns.toUpperCase();
+    if (G.feed && H.at) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    H.said = H.at ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.holeFell = { n: r.n, back: got, towns: n, said: H.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-hole', { detail: { n: r.n, back: got, towns: n } })); } catch (e) {}
+    return H;
+  }
+  function holeCatchUp() {
+    if (!DATA || !S || !S.hole) return; var h = hs(); if (!h) return;
+    for (var k in S.hole) { var H = S.hole[k]; if (!H) continue;
+      if (H.fell == null && h.boss.fallen[k]) { var r = holeRow(k); if (r) { try { if (FOG.ready) holeFell(r, h); } catch (e) {} } }
+      else if (H.fell != null && !H.lift && H.lines && H.lines.done < H.lines.towns.length && !LINES_T) { try { if (FOG.ready) LINES_T = setTimeout(function () { try { holeLines(k); } catch (e) { LINES_T = 0; } }, 400); } catch (e) {} } }   /* a reload in the middle of his lines goes on drawing them */
+  }
+  function postKey(r, down) { return (r.hole.pic || 'signpost') + (down ? '_after' : '_before'); }
+  /* the hole itself, so it reads at a glance (measured 11/10 on the VOTE card: under the map's own faint fog his forgotten side looked
+     like any unseen block): a dead signal over every block of his side the map forgot, while he stands; it lifts with his side */
+  var SNOW = null;
+  function snow(gx) {
+    if (SNOW) return SNOW;
+    var c = document.createElement('canvas'); c.width = c.height = 48; var x = c.getContext('2d'), im = x.createImageData(48, 48), d = im.data, q = 99173;
+    for (var j = 0; j < 48; j++) for (var i = 0; i < 48; i++) { q = (q * 1103515245 + 12345) >>> 0; var v = 70 + ((q >>> 24) & 127) - ((j % 3) ? 0 : 40), k2 = (j * 48 + i) * 4; d[k2] = v; d[k2 + 1] = v; d[k2 + 2] = v - 6; d[k2 + 3] = 255; }
+    x.putImageData(im, 0, 0); SNOW = gx.createPattern(c, 'repeat'); return SNOW;
+  }
+  function holeDraw(gx, ox, oy, beat) {
+    if (!S || !S.hole) return;
+    var h = hs(); LAST.drew.posts = []; LAST.drew.holeSnow = 0;
+    for (var k0 in S.hole) {
+      var H0 = S.hole[k0]; if (!H0 || !H0.at) continue;
+      if (holeDown(k0, H0) && !H0.lift) continue;   /* lifted: gone (it lifts on his camera's tape) */
+      if (!(h && h.boss.found[k0])) continue;   /* only once he is known (the static would give his place away before the man at the bar) */
+      gx.save(); gx.globalAlpha = 0.5 + ((beat | 0) % 2) * 0.06; gx.fillStyle = snow(gx);
+      for (var dy0 = -H0.radius; dy0 <= H0.radius; dy0++) for (var dx0 = -H0.radius; dx0 <= H0.radius; dx0++) { var x0 = H0.at[0] + dx0, y0 = H0.at[1] + dy0;
+        if (!inHole(H0, x0, y0) || seen(x0, y0)) continue; diamond(gx, x0, y0, ox, oy); gx.fill(); LAST.drew.holeSnow++; }
+      gx.restore();
+    }
+    for (var k in S.hole) {
+      var H = S.hole[k], r = holeRow(k); if (!H || !r || !H.at) continue;
+      var down = holeDown(k, H), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      H.posts.forEach(function (q, i) {
+        var vis = seen(q.x, q.y); if (!vis && !known) return;
+        if (inBeat && down) { LAST.drew.posts.push({ n: k, i: i, at: [q.x, q.y], key: 'beat', down: down }); return; }
+        var key = postKey(r, down), b = paint(gx, key, q.x, q.y, ox, oy, beat, 0.9, 0, !vis);
+        if (b) { LAST.drew.posts.push({ n: k, i: i, at: [q.x, q.y], key: key, down: down, w: b.w, dark: !vis }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function holeBeat(x, ox, oy, beat, u, alpha) {
+    var H = S && S.hole && BEAT && S.hole[BEAT.n], r = BEAT && holeRow(BEAT.n); if (!H || !r) return 0;
+    var c = 0;
+    H.posts.forEach(function (q) { var bb = rectOf(postKey(r, true), q.x, q.y, ox, oy, 0.9, 0); if (!bb) return; wipe(x, postKey(r, false), postKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
 
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
@@ -1058,6 +1220,9 @@
     root.__BOSS_BEAT = LAST.beat;
     tick(); return true;
   }
+  /* a fallen boss's change waits for his camera: owed until the tape tracks in (the wipe), or until her card came without one (11/10:
+     the map drew once between the fall and the beat, and his change was gone before the camera got there) */
+  function beatOwed(n) { var L = S && S.lead && S.lead[n]; if (!L || !L.afterDue || L.beatDone) return false; return !(BEAT && BEAT.n === n && (BEAT.phase === 'wipe' || BEAT.phase === 'show')); }
   function beatPhase(t) { var M = BEAT_MS; return t < M.glide ? 'glide' : t < M.glide + M.hold ? 'hold' : t < M.glide + M.hold + M.wipe ? 'wipe' : 'show'; }
   function beatEnd() {
     var B = BEAT; BEAT = null; if (!B) return;
@@ -1117,7 +1282,8 @@
         try { LAST.beat.checkpoints = groundBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }
         try { LAST.beat.pipe = pipeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe rolls over to taps */
         try { LAST.beat.machines = machinesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines drop */
-        try { LAST.beat.drums = darkBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his drums go to the neighbours */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.drums = darkBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his drums go to the neighbours */
+        try { LAST.beat.posts = holeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) the signs go back up */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -1171,6 +1337,7 @@
       try { pipeTick(); pipeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (9) his pipe */
       try { machinesTick(); machinesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (10) his machines */
       try { darkTick(); darkDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his dark and his drums */
+      try { holeTick(); holeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) his hole and his sign poles */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -1207,6 +1374,7 @@
     if (r.pipe) pipeFell(r, h);       /* (9) his pipe: the watchers down, the taps */
     if (r.machines) machinesFell(r, h);   /* (10) his machines drop where they stand */
     if (r.dark) darkFell(r, h);   /* (11) his dark lifts, his drums are yours */
+    if (r.hole) holeFell(r, h);   /* (12) his side back on the map, his lines to every town */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -1238,6 +1406,10 @@
     machineAt: function (x, y) { sync(); return machineAt(x, y); },
     /* BOSSES 11/10 (rule 443(a)): the city's fog asks how far the crew sees in his dark at night (__THE_BURNS_DARK__); 0 where it is not his */
     dark: function (x, y) { try { if (!S) sync(); return night() ? darkAt(x, y) : 0; } catch (e) { return 0; } },
-    darkness: function (n) { sync(); return S && S.dark ? (n ? (S.dark[n] || null) : S.dark) : null; }
+    darkness: function (n) { sync(); return S && S.dark ? (n ? (S.dark[n] || null) : S.dark) : null; },
+    /* and his hole in the map, for the gate: his side, whether a block is in it, and the forgetting run once from where the crew stands */
+    hole: function (n) { sync(); return S && S.hole ? (n ? (S.hole[n] || null) : S.hole) : null; },
+    inHole: function (n, x, y) { sync(); var H = S && S.hole && S.hole[n]; return !!H && inHole(H, x, y); },
+    forget: function () { sync(); var me = here(); return me ? holeForget(me) : 0; }
   };
 })(typeof window !== 'undefined' ? window : this);

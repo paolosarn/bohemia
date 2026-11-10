@@ -8520,6 +8520,15 @@ GATES = [
      "fight (B1), the beat rolls his drums to the neighbours' and ABUELA PAZ says them (B2); at night by his drums the crew sees like in the "
      "day (C1a), every drum a fire of yours (C1b), painted warm, nothing black (C1c), the feed (C1d); the same phone opens the game again and "
      "it holds (R1). Planted: his dark undone, his dark back after the fall, a phone that forgot the save. about 20 min a way", True),
+    ('THE SURVEYOR CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE SURVEYOR'],
+     "BOSSES gate, 11/10, VAMILY rules 443(a) and 441, ask lines 167, 522: the stranger's game on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, "
+     "THE POT, THE TAP, THE FILTER and THE BURN first through the map's own fell(), then THE SURVEYOR end to end: the man at the bar and his "
+     "rumour (T1), MANNY asks and one of yours reads it out (T2); HIS CUT SIGN POLES round his office, painted (H1); walk into his side and "
+     "out: the map forgets it, the fog's own bits and mask back over it, a dead signal painted on it, one of yours says it (H2); his card "
+     "(B0), his fight (B1), the beat puts the blades back and lifts his side, MANNY says his lines (B2); his side back for good (C1a), his "
+     "chain lines out of the fog to every town (C1b), painted after with no static left (C1c), the feed (C1d); the same phone opens the "
+     "game again and it holds (R1). Planted: a map that keeps his side, his side forgotten again after the fall, a phone that forgot the "
+     "save. about 25 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

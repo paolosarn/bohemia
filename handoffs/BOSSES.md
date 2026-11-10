@@ -1,5 +1,26 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES 443, 11/10/26: THE SURVEYOR'S HOLE IN THE MAP, HIS OWN WAY (rules 443(a), 441; ask lines 167, 522), BUILD 11/10v
+Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE SURVEYOR" (THE
+SURVEYOR CHANGES THE MAP, registered; both ways: the demo upright 18/0, the alpha on its side 18/0; three plants). VOTE bosses-the-surveyors-hole-11-10 (stand_in).
+- HIS HOLE (slices/bohemia_bosses.js (12); his 'hole' row: radius 5, 4 posts 2 to 5 out, the words): his ladder lock 'you only know
+  what you have walked' made his. WHILE HE STANDS: his chainmen take the street signs down (4 cut sign poles painted round his office)
+  and the map FORGETS his side: every block of it the crew cannot see goes back under the fog (FOG.seen and its mask, written here the
+  way fogReveal writes them; no line in RUN's file), painted as a dead signal once he is known; one of yours says it, @manny_trucks posts
+  it. WHEN HE FALLS: on the kill's tape the blades go back on and his side lifts out of the fog for good; then his chain lines run from
+  his door to every town (the map's own route, a town each 90 ms so no frame waits); MANNY's card says it. Kept after a reload.
+- A FALLEN BOSS'S CHANGE WAITS FOR HIS CAMERA (beatOwed): measured 11/10, the map drew once between the fall and the beat and his side had
+  already lifted, so the camera found nothing; THE BURN's dark had the same gap (it now holds until the tape too).
+- VOTE picture: BOSSES_AWAY=14 node tools/bohemia_bosses_vote_the_change_11_9_26.js "THE SURVEYOR" (the crew walks off first; the BEFORE
+  is now the beat's hold frame).
+- HIS LINES keep the blocks they drew (H.lines.path, H.lines.doors) and end at each town's door (measured 11/10: the route stops beside
+  a door, and a route planned again after a reload is a different route).
+- NOTES: TUNING, 5 blocks of his side and 4 posts; RUN, the fog's bits are written by this file for his side only (fogForget, a 2 px square
+  of the mask at alpha 0.965 and the bit cleared); WORLD TWO, his row's falls.reveal 'towns' stands (the towns shown), his lines add the
+  roads to them.
+NEXT: THE CLIMB (his riggers hunt you; after, the people he kept up top go to your place through HOME BASE's new BohemiaHomeMap.give,
+kind 'person': it holds them until he plants, so the CLIMB's own waiting goes).
+
 ## BOSSES 443, 11/10/26: THE BURN'S DARK, HIS OWN WAY (rules 443(a), 441; ask lines 167, 522), BUILD 11/10p
 Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE BURN" (THE BURN
 CHANGES THE MAP, registered; both ways: the demo upright 18/0, the alpha on its side 18/0; three plants). VOTE bosses-the-burns-dark-11-10 (stand_in).

@@ -43,6 +43,15 @@ const OUT = process.argv[3] || path.join(ROOT, 'records', 'target', 'bosses_vote
   await page.waitForTimeout(75000);
   await fr.evaluate(() => { window.__BOSSES_TALK = true; });
   /* BOSSES_NIGHT=1 (THE BURN, 11/10): his change is the night's, so the beat is shot at night (his side black before, his drums after) */
+  /* BOSSES_AWAY=n (THE SURVEYOR, 11/10): his change is the map forgetting his side once you walk out, so the crew walks n blocks off
+     his place first, and the camera's glide finds his side under the static */
+  if (process.env.BOSSES_AWAY) { const R = +process.env.BOSSES_AWAY | 0; const far = await fr.evaluate((a) => { const f = BohemiaHisMap.state().boss.found[a[0]], h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -a[1] - 5; dy <= a[1] + 5; dy++) for (let dx = -a[1] - 5; dx <= a[1] + 5; dx++) { const x = f.x + dx, y = f.y + dy; if (Math.max(Math.abs(dx), Math.abs(dy)) < a[1] || x < 1 || y < 1 || x >= om.n - 1 || y >= om.n - 1 || !cityWalkable(x, y) || loopTownAt(x, y, 2)) continue;
+        if (!cityRoute(h[0], h[1], x, y)) continue; const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd) { bd = d; best = [x, y]; } } return best; }, [N, R]);
+    if (far) { await go(far); await settle(); await page.waitForTimeout(1500); }
+    console.log('away', JSON.stringify(far), JSON.stringify(await fr.evaluate((n) => { const H = BohemiaBosses.hole && BohemiaBosses.hole(n); let sn = 0, all = 0;
+      if (H && H.at) for (let dy = -H.radius; dy <= H.radius; dy++) for (let dx = -H.radius; dx <= H.radius; dx++) { if (!BohemiaBosses.inHole(n, H.at[0] + dx, H.at[1] + dy)) continue; all++; if (fogSeen(H.at[0] + dx, H.at[1] + dy)) sn++; }
+      return { at: [city.x, city.y], forgot: H ? H.forgot : null, seen: sn, all, snow: (BohemiaBosses.last().drew || {}).holeSnow }; }, N))); }
   if (process.env.BOSSES_NIGHT === '1') { await fr.evaluate(() => { try { T.min = 22 * 60; render(); } catch (e) {} }); await page.waitForTimeout(800); }
   await fr.evaluate((n) => { BohemiaHisMap.fell(n); }, N);
   const seq = [];
@@ -53,7 +62,8 @@ const OUT = process.argv[3] || path.join(ROOT, 'records', 'target', 'bosses_vote
     seq.push({ f, b, b2 }); if (b2 && b2.n === N && b2.done) break; await page.waitForTimeout(60);
   }
   const mine = seq.filter(q => q.b && q.b.n === N && q.b2 && q.b2.n === N);
-  const pre = mine.filter(q => (q.b.ph === 'hold' || q.b.ph === 'wipe') && (q.b2.u || 0) < 0.75).slice(-1)[0] || mine.filter(q => q.b.ph === 'glide').slice(-1)[0];
+  /* the BEFORE is the beat's hold (11/10: a map change that lifts when the tape starts, THE SURVEYOR's side, was gone in a wipe frame) */
+  const pre = mine.filter(q => q.b.ph === 'hold' && q.b2.ph === 'hold').slice(-1)[0] || mine.filter(q => (q.b.ph === 'hold' || q.b.ph === 'wipe') && (q.b2.u || 0) < 0.3).slice(-1)[0] || mine.filter(q => q.b.ph === 'glide').slice(-1)[0];
   const post = mine.filter(q => q.b.ph === 'show' && q.b2.ph === 'show' && !q.b2.done)[0] || mine.filter(q => q.b.ph === 'show' && !q.b.done)[0];   /* 11/10: a slow frame can land the only 'show' shot as the beat ends */
   if (pre) fs.copyFileSync(pre.f, path.join(OUT, 'before.png'));
   if (post) fs.copyFileSync(post.f, path.join(OUT, 'after.png'));
