@@ -47021,6 +47021,7 @@ function campBreak(why, say){
   try{ saveNow('camp'); }catch(_e){}
   window.__CAMP = { made: window.__CAMP ? window.__CAMP.made : 0, on: false, why: why || 'left', hours: CAMP.hours, day: T.day, min: T.min, town: wasTown };
   try{ campBtnPaint(); }catch(_e){}
+  try{ var __lw = LOOP.frame && LOOP.frame.contentWindow; if (__lw) setTimeout(function(){ try{ if (__lw.BohemiaCampLook && __lw.BohemiaCampLook.away) __lw.BohemiaCampLook.away(); }catch(_e){} }, 0); }catch(_e){}   /* MOTION 3 __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ (ask row 560): the camp broken, its board page let go (never baking behind the map) */
 }
 /* ==== __CAMP_HOLDS__ (CAMP [camp holds until he ends it], rule 267(a), Paolo 10/26: 'when I click the camp button it wants to stop
    having me in camp mode, I hate that, unless an enemy pulls up on me... even when I'm in camp mode it keeps making me go out to the

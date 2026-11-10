@@ -9326,6 +9326,15 @@ GATES = [
      "BLOCKED heard, the cover's mark, the glass kicks; a staged shot lights the street round him two frames and the glass answers; the "
      "frames' middle within 15% of the weight off; P1 and P2 the weight off (window.__FIGHT_WEIGHT_OFF) turn the block and the shot RED. "
      "Solo: it counts drawn frames. About 8 min", True),
+    ('THE CAMP LETS GO WHEN HE LEAVES', ['node', 'gates/the_camp_lets_go_when_he_leaves_gate.js'],
+     "MOTION 3 gate, 11/10, rule 441, ask row 560 (PLUMBER 8's NO FREEZE OVER HALF A SECOND: 'leaving camp freezes 1.4 s on his phone "
+     "with the CPU slowed 4x'). MEASURED before (a CPU profile of the leave, the demo upright, the CPU slowed 4x): the camp's board page "
+     "(a hidden copy of the fight page beside the map) was let go only when a town opened, so a camp broken before its board came in "
+     "left that page baking behind the map for 6 to 8 s in pieces of 150 to 650 ms. Now, a street camp made by the phone's HEAL: left by "
+     "his tap (HEAL again) or the census's way while its board bakes, the board page is gone within two seconds of the break and the fight "
+     "page runs nothing after; no gap between frames over half a second in the 6 s after either leave; a peek (the camp's screen hidden, "
+     "the camp standing) keeps it; a board already in lets its pictures go; P1 the way it was (window.__CAMP_LEAVE_KEEPS_BOARD) turns "
+     "the let-go check RED. Solo: it measures frames. About 6 min", True),
     ('THE HEAP STAYS FLAT', ['node', 'gates/the_heap_stays_flat_gate.js'],
      "PLUMBER 6 gate, 11/6, rule 418(b), ask line 475: PLUMBER 4's THE WHOLE LOOP PLAYS played as it is, the page's JavaScript heap read "
      "after every step (live, and held after a forced collection): under 200 MB at every step, the map within 30 MB of itself across a "

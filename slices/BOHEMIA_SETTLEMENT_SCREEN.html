@@ -3622,6 +3622,7 @@ function townLetGo(){
   LEAD.im = null; LEAD.dusk = null;   /* __THE_WALK_UP__: his sheet too */
   try{ if(window.BohemiaIdles && BohemiaIdles.release) BohemiaIdles.release(); }catch(e){}
   try{ if(window.BohemiaRigBodies && BohemiaRigBodies.release) BohemiaRigBodies.release(); }catch(e){}
+  try{ if(window.BohemiaCampLook && BohemiaCampLook.away) BohemiaCampLook.away(); }catch(e){}   /* MOTION 3 __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ (ask row 560): a broken camp's board page let go, never baking behind the map */
   window.__TOWN_LET_GO = (window.__TOWN_LET_GO | 0) + 1;
 }
 function loop(){

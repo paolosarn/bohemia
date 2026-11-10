@@ -765,6 +765,27 @@
     root.addEventListener('touchend', function () { t0 = null; }, { passive: true });
     root.addEventListener('wheel', function (e) { if (!on()) return; var n = performance.now(); if (n - wt > 600) wheel = 0; wt = n; wheel += e.deltaY; if (wheel > 260) { wheel = 0; peek(); } }, { passive: true });
   })();
+  /* __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ (MOTION 3, ask row 560, found by PLUMBER 8: leaving camp froze 1.4 s on his phone with the
+     CPU slowed 4x). MEASURED (a CPU profile of the leave, the demo upright, the CPU slowed 4x): the camp's board page (a hidden copy of
+     the fight page beside the map) was let go only when a town opened, so a camp broken before its board came in left the page
+     loading and baking behind the map: 650 ms in one piece 3.5 s after the leave (its setup, its deal, its bake), then its landing
+     copied the pictures for a camp that was gone. NOW the map calls this the moment the camp breaks (campBreak, a marked line) and the
+     settlement screen as the map hides it (townLetGo): the camp broken (the map's own __CAMP.on false; a peek at the map keeps it), a
+     board still baking is let go at once (its page never bakes), a board already in lets its pictures go after the map's way back. window.__CAMP_LEAVE_KEEPS_BOARD (here or on the top page) = the way it was. */
+  function away() {
+    var off = false; try { off = !!(root.__CAMP_LEAVE_KEEPS_BOARD || (root.top && root.top.__CAMP_LEAVE_KEEPS_BOARD)); } catch (e) {}
+    if (off) return false;
+    var on = null; try { on = root.parent && root.parent !== root && root.parent.__CAMP ? !!root.parent.__CAMP.on : null; } catch (e) {}
+    if (on !== false) return false;   /* a peek at the map, or no camp made: the camp stands, its board kept */
+    var C = CB(), st = null; try { st = C && C.state ? C.state().state : null; } catch (e) {}
+    clearTimeout(K.awayT); K.awayT = 0;
+    if (st === 'baking') { close(); K.awayN = (K.awayN | 0) + 1; K.awayHow = 'baking'; return 'now'; }
+    if (!K.st && st !== 'in') return false;
+    K.awayT = setTimeout(function () { K.awayT = 0; var on2 = null; try { on2 = root.parent && root.parent.__CAMP ? !!root.parent.__CAMP.on : null; } catch (e) {}
+      if (on2 === false) { close(); K.awayN = (K.awayN | 0) + 1; K.awayHow = 'in'; } }, AWAY_MS);
+    return 'later';
+  }
+  var AWAY_MS = 1600;
   function close() { peekPlate(false); K.leadSent = false; K.pitch = null; K.compass = null; K.ghost = null; K.st = null; K.composed = null; K.pitchDue = false; placePlates(); try { if (CB()) CB().drop(); } catch (e) {} }   /* CAMP THREE: a town opened, the board's pictures let go */
   root.addEventListener('message', function (ev) { var d = ev && ev.data; if (d && d.type === 'BOHEMIA_CAMP_LOOK') { reads(d); if (K.st && K.info) { var was = K.st.key; time(K.info); } } });
   function state() {
@@ -775,5 +796,5 @@
       bodies: K.bodiesNow || [], walls: K.wallsNow || [], drawnAt: K.drawnAt || {}, firstAt: K.firstAt || null, firstFv: K.firstFv || null, spots: K.st ? K.st.acts.map(function (e) { var sp = K.st.spots[e.i]; return sp ? { name: e.main ? 'YOU' : e.name, act: e.act, x: sp.x, y: sp.y, face: sp.face, wall: sp.wall || null } : null; }).filter(Boolean) : [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { fightScale: fightScale, fightView: function () { var C = CB(); return C && C.fvState ? C.fvState() : null; }, glass: function () { return K.st ? glassOf(K.st.layout) : null; }, ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
-    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, settingUp: settingUp, state: state, ZK: ZK };
+    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, away: away, awayN: function () { return { n: K.awayN | 0, how: K.awayHow || null }; }, settingUp: settingUp, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);
