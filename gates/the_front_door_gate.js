@@ -55,7 +55,10 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
     await tap('#newco button[data-v="truck"]');
     await tap('#newco button[data-k="name"]');
     const after = await look();
-    const card = await page.evaluate(() => { const b = document.querySelector('#newco button[data-v="truck"]'); return b ? b.innerText : ''; });
+    /* PLUMBER 8 11/10: re-aimed to __SMALLER_NEVER_PAGES__ (UI 9 11/7, rule 402 amended, slices/bohemia_ui_crashbox.js orgFacts): the plate
+       shows the name only and the picked origin's facts stand in one box under the plates (#cbxorgfacts); read what he sees, the plate and that box */
+    const card = await page.evaluate(() => { const b = document.querySelector('#newco button[data-v="truck"]'), f = document.getElementById('cbxorgfacts');
+      return b ? b.innerText + (f && b.classList.contains('on') && f.getBoundingClientRect().height > 0 ? ' ' + f.innerText : '') : ''; });
     const picks = await page.evaluate(() => BOH_START.picks());
     door = { before, after, n0, card, picks };
   };

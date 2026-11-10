@@ -14,6 +14,7 @@
    him the line. *** */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname), PORT = 8866;
 const LI = require(path.join(ROOT, 'engine/bohemia_long_injury.js'));
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
@@ -56,7 +57,7 @@ const srv = http.createServer((rq, rs) => {
   await p.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 30000 });
   await p.waitForTimeout(600);
   await p.evaluate(n => { const s = BohemiaRosterScreen.state; s.sel = s.crew.findIndex(m => m.name === n); BohemiaRosterScreen.open({}); }, hurt.name);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_HURT_BEFORE_10_10.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_HURT_BEFORE_10_10.png')) });
   await p.evaluate(o => window.postMessage(o, '*'), over); await p.waitForTimeout(400);
   const r = await p.evaluate(n => { const s = BohemiaRosterScreen.state, i = s.crew.findIndex(m => m.name === n), c = document.getElementById('card');
     return { i, inLine: s.front.concat(s.back).indexOf(i) >= 0, strip: !!document.querySelector('#hurt .cell[data-hurt="' + i + '"]'), sel: s.crew[s.sel].name,
@@ -75,7 +76,7 @@ const srv = http.createServer((rq, rs) => {
   ok('*** and the next fight GETS him (the company the fight is handed) ***', r.inCo);
   const ref = await p.evaluate(() => ({ post: (window.__rosterLog || []).filter(x => x.act === 'refused').length, hand: (JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}').bench || []).length }));
   ok('nothing refuses him and nobody waits on a bench', ref.post === 0 && ref.hand === 0, 'refused ' + ref.post + ', bench ' + ref.hand);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_HURT_AFTER_10_10.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_HURT_AFTER_10_10.png')) });
   /* the clock heals him */
   await p.evaluate(() => window.postMessage({ type: 'BOHEMIA_DAY', days: 1 }, '*')); await p.waitForTimeout(200);
   const d1 = await p.evaluate(() => { const c = document.getElementById('card'); return { head: c.querySelector('.hurtbox b').textContent, days: +(((c.querySelector('.hurtbox .injc [data-when="now"] [data-days]') || {}).dataset) || {}).days }; });

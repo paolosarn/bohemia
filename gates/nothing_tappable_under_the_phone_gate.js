@@ -93,7 +93,8 @@ async function run(profile) {
         if (await sf.evaluate(() => { const b = document.getElementById('bmcorner'); if (!b) return false; const r = b.getBoundingClientRect(); return getComputedStyle(b).display !== 'none' && r.width > 0; })) taped.push(w);
         await leaveTown(P);
       }
-      ok('N1 ' + view + ': *** EVERY TOWN DRAWS ITS OWN PICTURE *** (' + (names.length - own.length - missing.length) + ' of ' + names.length + ')', names.length >= 14 && !own.length && !missing.length, own.concat(missing.map(x => x + ' never opened')).slice(0, 4).join('; ') || 'all');
+      /* PLUMBER 8 11/10: re-aimed to rule 442(c) (BUILD 11/10e ONLY THE PLACE YOU PLANT IS YOURS, c9e035c1): before he plants, his outfit's seat is out of ctBases, so a fresh game's map has thirteen towns, every one checked */
+      ok('N1 ' + view + ': *** EVERY TOWN DRAWS ITS OWN PICTURE *** (' + (names.length - own.length - missing.length) + ' of ' + names.length + ')', names.length >= 13 && !own.length && !missing.length, own.concat(missing.map(x => x + ' never opened')).slice(0, 4).join('; ') || 'all');
       ok('N2 ' + view + ': *** NO BUILDING\'S TAP UNDER THE PHONE *** and a finger of every one on the glass', !badDoor.length && !noFinger.length && !missing.length, badDoor.map(x => x + ' under').concat(noFinger.map(x => x + ' no finger on the glass')).slice(0, 6).join(', ') || 'every building in every town');
       ok('N3 ' + view + ': *** NOBODY YOU CAN TAP UNDER THE PHONE *** (keepers, the post, the crowd, your crew)', !badFolk.length && !missing.length, badFolk.slice(0, 6).join(', ') || 'everybody in every town');
       ok('N6 ' + view + ': *** NO TAPE ROUND THE PHONE *** (the empty LEAVE holder and its tape not shown)', !taped.length && !missing.length, taped.slice(0, 6).join(', ') || 'no town');

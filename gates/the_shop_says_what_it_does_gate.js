@@ -149,8 +149,17 @@ function taps(d, sf, mouse) {
     const gun = await sf.evaluate(() => { const P = BohemiaRoster.data.ours.pistol_shot.value, sh = BohemiaSettlement.state.stock.smith || []; return sh.find(i => i.cls === P['class'] && P.by_row[i.id]) || sh[0]; });
     await T.tapItem('smith', gun.id); const c4w = await T.card();
     const wr = row('weapon', gun.id), P = OURS.pistol_shot.value, fr0 = wr['class'] === P['class'] && P.by_row[wr.id] ? row('weapon', P.by_row[wr.id]) : wr;
-    const w4 = c4w.chips.some(c => c.text === 'DAMAGE ' + fr0.damage_min + '-' + fr0.damage_max) && c4w.lines.some(l => l.k === 'damage' && l.after === fr0.damage_min + '-' + fr0.damage_max);
-    ok('C4 an armour card (' + (c4a ? c4a.chips.map(c => c.text).join(' | ') : 'none on the shelf') + ') and a weapon card, the fight\'s own damage (' + c4w.chips.map(c => c.text).join(' | ') + ')', a4 && w4);
+    /* PLUMBER 8 11/10: re-aimed to rule 251(a) (__ONLY_WHAT_CHANGES__: no line for what does not change) with FIXES 11/9n row 529 (every
+       pistol fires its tier's shot row, so two pistols often do the same damage): the card is on the man C3 tapped, and when he already
+       does this damage the strip has no DAMAGE line; then the page's own reading of him must say the same damage before and after */
+    const dmgWant = fr0.damage_min + '-' + fr0.damage_max;
+    const onHim = await sf.evaluate((id) => { try { const S = BohemiaSettlement.state, C = BohemiaRoster, it = (S.stock.smith || []).find(i => i.id === id), m = BohemiaSettlement.shopCrew().find(c => c.name === (S.shopShown || {}).man);
+      const w = C.wearing(m, it), nr = C.fightWeapon(it.id), or = w.was ? C.fightWeapon(w.was) : null;   /* the page's own shopWearOn, read through the same two calls */
+      return { before: or ? or.damage_min + '-' + or.damage_max : null, after: nr ? nr.damage_min + '-' + nr.damage_max : null }; } catch (e) { return null; } }, gun.id);
+    const dmgLine = c4w.lines.some(l => l.k === 'damage' && l.after === dmgWant), dmgSame = !c4w.lines.some(l => l.k === 'damage') && !!onHim && onHim.before === dmgWant && onHim.after === dmgWant;
+    const w4 = c4w.chips.some(c => c.text === 'DAMAGE ' + dmgWant) && (dmgLine || dmgSame);
+    ok('C4 an armour card (' + (c4a ? c4a.chips.map(c => c.text).join(' | ') : 'none on the shelf') + ') and a weapon card, the fight\'s own damage (' + c4w.chips.map(c => c.text).join(' | ') + ')', a4 && w4,
+      'armour ' + a4 + '; on ' + c4w.man + ': damage line ' + dmgLine + ', the same damage on him ' + JSON.stringify(onHim));
     /* W1: buy the shield, put it on him on the crew screen by real taps */
     const target = pair.man;
     await T.openShop('armourer'); await T.tapItem('armourer', pair.item);

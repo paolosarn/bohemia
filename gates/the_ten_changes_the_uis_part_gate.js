@@ -53,7 +53,9 @@ const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fai
 
 /* ---- A: the walk's legs, as predicates over its numbers (so a bent walk can prove each one bites) ---- */
 const LEGS = [
-  ['T1 THE BAR CARRIES TWO NUMBERS', W => { const b = W.U5_bar || {}; return [b.numbers === 2 && b.dashes === 0 && b.figures === 2 && b.bill && b.daysShown === b.bill.daysLeft && b.crewShown === b.bill.crew,
+  /* PLUMBER 8 11/10: re-aimed to rule 200 (Paolo 10/25, LOCKED: every currency on top, next to the battery; BUILD 10/25w THE WAGON AND THE SIX,
+     6ee422f8; food and water one good since rule 209): batteries and the days they feed (= the map's bill) and every count beside them, each a number, no dash */
+  ['T1 THE BAR CARRIES TWO NUMBERS', W => { const b = W.U5_bar || {}, k = b.kinds || []; return [b.dashes === 0 && b.figures >= 2 && b.numbers === b.figures && ['batteries', 'nights', 'food', 'tape', 'meds', 'rounds'].every(f => k.indexOf(f) >= 0) && b.bill && b.daysShown === b.bill.daysLeft && b.crewShown === b.bill.crew,
     '(' + b.figures + ' figures: ' + (b.kinds || []).join(', ') + '; days ' + b.daysShown + ' / bill ' + (b.bill && b.bill.daysLeft) + '; crew ' + b.crewShown + ' / bill ' + (b.bill && b.bill.crew) + ')']; }],
   ['T2 THE PHONE\'S JOB SAYS THE NEXT TOUCH', W => { const p = W.U2_phone || {}; return [p.picked === true && p.saysNextTouch === true && !!p.beats && p.roadDrawn > 0,
     '("' + p.next + '", ' + p.beats + ', road ' + p.roadDrawn + ')']; }],

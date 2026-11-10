@@ -106,7 +106,10 @@ const md5 = s => crypto.createHash('md5').update(s).digest('hex');
   /* 10/20 (SOUNDS, rule 122): with the song fence in, MUS.playStep is the fence's net around his engine's own step
      (SONGFENCE.net over SONGFENCE._ps), so 'his again' means the fence's net is back on top with his step inside it */
   const back = await p.evaluate(() => { const his = f => String(f).indexOf('__THE_BEAT_ARRIVES_LATE__') >= 0;
-    return { dv: /^function drumV\(/.test(String(drumV)), ps: his(MUS.playStep) || (!!window.SONGFENCE && MUS.playStep === SONGFENCE.net && his(SONGFENCE._ps)), on: window.MACHINEPARTY.on }; });
+    /* PLUMBER 8 11/10: re-aimed to __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207): the songs' recordings wrap the step over the fence
+       (SONGBOOK.net over SONGFENCE.net over his engine), so 'his again' is that chain back on top with his step at its core */
+    const fenced = !!window.SONGFENCE && his(SONGFENCE._ps);
+    return { dv: /^function drumV\(/.test(String(drumV)), ps: his(MUS.playStep) || (fenced && MUS.playStep === SONGFENCE.net) || (fenced && !!window.SONGBOOK && MUS.playStep === SONGBOOK.net), on: window.MACHINEPARTY.on }; });
   ok('his engine plays both passes, and MLOOPS is the same length after (pushed and popped)', !plain.err && !withM.err && n0 === n1, (plain.err || withM.err || '') + ' ' + n0 + ' -> ' + n1);
   ok('drumV and MUS.playStep are his again after the machine detaches', back.dv && back.ps && !back.on, JSON.stringify(back));
   ok('THE MACHINE ADDS NO NOTE: with it attached his engine schedules exactly the same notes and drums, at the same times', deq(plain.log, withM.log), plain.log.length + ' vs ' + withM.log.length + ' calls');

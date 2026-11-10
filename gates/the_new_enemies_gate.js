@@ -49,7 +49,9 @@ const one = (kind, n) => setup({ party: [{ kind, count: n || 1 }] });
     (o.looks || []).forEach(l => { if (!fs.existsSync(path.join(ROOT, 'slices/fight_rig', l + '.webp'))) bad.push(o.id + ': no sheet ' + l); });
     if (!o.looks || !o.looks.length) bad.push(o.id + ': no looks');
     (o.gear || []).forEach(g => { if (!wnames.has(g) && !snames.has(g)) bad.push(o.id + ': gear ' + g); }); });
-  Object.keys(N.brains).forEach(k => { const src = N.brains[k].source.split(' ')[0] === 'FACTIONS' ? null : N.brains[k].source; if (src && lib.indexOf(src) < 0) bad.push('brain ' + k + ': page ' + src); });
+  /* PLUMBER 8 11/10: re-aimed to BEASTS 2 11/3 (rule 359, bohemia_enemies.json brains.ambusher): a brain made of two Battle Brothers
+     pieces names both pages, '; ' between them, and each must be in the library */
+  Object.keys(N.brains).forEach(k => { const src = N.brains[k].source.split(' ')[0] === 'FACTIONS' ? null : N.brains[k].source; if (src) src.split('; ').forEach(s => { if (lib.indexOf(s) < 0) bad.push('brain ' + k + ': page ' + s); }); });
   Object.keys(N.numbers).forEach(k => { const src = N.numbers[k].source; if (/^bb_all\//.test(src) && lib.indexOf(src) < 0) bad.push('number ' + k + ': page ' + src); });
   leg(N.rows.length >= 8 && facs.size >= 3 && !bad.length, '*** THE FILE ***: at least 8 new types in at least 3 factions, each on a wiki row with its lesson, brain, name, looks and gear, every page in the library',
     N.rows.length + ' types, ' + facs.size + ' factions' + (bad.length ? '; ' + bad.slice(0, 6).join('; ') : '')); }
@@ -58,7 +60,13 @@ const one = (kind, n) => setup({ party: [{ kind, count: n || 1 }] });
 { setup({ party: [{ kind: 'house_shield', count: 1 }] });
   const B = DB.ours.bestiary.value, PL = DB.ours.people_looks.value.band, T = DB.ours.enemy_tiers.value, RF = DB.ours.road_factions.value;
   const miss = N.rows.filter(o => !DB.enemies.rows.some(r => r.id === o.id) || !DB.ai.kinds[o.id] || !B.names[o.id] || !PL[o.id]).map(o => o.id);
-  const fmiss = Object.keys(N.factions).filter(f => !T.mix[f] || RF.by_act.some(w => !(w[f] > 0)));
+  /* PLUMBER 8 11/10: re-aimed to BEASTS 2 11/3 (rule 345 amended (b), records/BOHEMIA_BEASTS_THE_LAB_BEASTS_NOT_A_COYOTE_11_3_26.md piece 2):
+     the wolves, the hyenas and the dogs are one-animal parties the MAP deals (BOHEMIA_JOB_KINDS.json beasts_by_ground: a hunt's packs,
+     a job that names its animal), not road factions; a faction is folded in when it has its make-up and either a share of the road in
+     all three acts or a weight on a ground the map deals beasts from */
+  const BG = (JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_JOB_KINDS.json'), 'utf8')).beasts_by_ground) || {};
+  const mapDeals = f => !!(N.factions[f] && N.factions[f].beast) && Object.keys(BG).some(g => BG[g] && typeof BG[g] === 'object' && BG[g][f] > 0);
+  const fmiss = Object.keys(N.factions).filter(f => !T.mix[f] || (RF.by_act.some(w => !(w[f] > 0)) && !mapDeals(f)));
   const drift = Object.keys(N.road.holds).filter(f => { const fa = FA.filter(x => x.id === N.road.holds_mirror[f])[0]; return !fa || JSON.stringify(fa.ground.slice().sort()) !== JSON.stringify(N.road.holds[f].slice().sort()); });
   leg(!miss.length && !fmiss.length && !drift.length, '*** THE FOLD ***: every new type dealt has its row, brain, name and looks; every faction its make-up and a share of the road in all three acts; the road\'s grounds are the factions table\'s',
     (miss.length ? 'types missing: ' + miss.join(', ') + '; ' : '') + (fmiss.length ? 'factions missing: ' + fmiss.join(', ') + '; ' : '') + (drift.length ? 'grounds drifted: ' + drift.join(', ') : 'clean')); }
@@ -135,7 +143,10 @@ const one = (kind, n) => setup({ party: [{ kind, count: n || 1 }] });
 { const P = N.numbers.poison.value; let ok = false, why = 'no blood drawn in 40 tries';
   for (let s = 1; s <= 40 && !ok; s++) { const S = setup({ party: [{ kind: 'water_needle', count: 1 }] }, s), u = S.units.filter(x => x.kind === 'water_needle')[0], me = S.units.filter(x => x.side === 'you')[0];
     field(S, [u, me]); put(u, 5, 9); put(me, 5, 5); u.lurking = false; me.hp = 999; turn(S, u); u.loaded = true;
-    F.aiStep(u);
+    /* PLUMBER 8 11/10: re-aimed to rule 428(d) (Paolo 11/7, THE ENEMY KNOWS WHEN IT IS OUTMATCHED): one needle against his crew is the
+       weaker side and falls back to better ground instead of shooting (measured: two steps away, no shot, 40 of 40), so the leg looses
+       the needle's own shot at him; what it holds is the shot's poison */
+    F.strike(u, me);
     if (me.poison === P.turns) { const p0 = me.poison; me.poison = 0; const ini0b = T_.curIni(me); me.poison = p0; const ini1 = T_.curIni(me); turn(S, me); me.ap = me.apTurn; T_.beginTurn(me); const apCut = me.apTurn - me.ap;
       const t0 = me.poison; T_.turnOver(me); const t1 = me.poison;
       ok = apCut === P.ap && Math.round(ini0b - ini1) === P.initiative && t1 === t0 - 1;

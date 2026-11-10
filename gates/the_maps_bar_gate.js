@@ -43,12 +43,17 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
       while ((n = tw.nextNode())) if (n.textContent.trim() && (!best || n.textContent.trim().length > best.textContent.trim().length)) best = n;
       if (!best) return box(el); const rg = document.createRange(); rg.selectNodeContents(best); const r = rg.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
     let counted = []; try { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); counted = ['food', 'water', 'tape', 'meds', 'rounds'].filter(k => w && typeof w[k] === 'number'); } catch (e) {}
-    return { NEW, BILL: !!(window.__BILL && typeof window.__BILL.daysLeft === 'number'), six, counted, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
+    /* PLUMBER 8 11/10: re-aimed to rule 357(a) (COORDINATOR 11/3, 'remove the Notes button from everywhere'): NOTES is gone from the
+       game, so a missing NOTES chip is the rule kept (no receipt to read), and a NOTES chip still there must still be receipt */
+    return { NEW, BILL: !!(window.__BILL && typeof window.__BILL.daysLeft === 'number'), six, counted, mats: { bar: /url\(/.test(bg(document.getElementById('menubar'))), hour: /url\(/.test(bg(hour)), note: !note || /url\(/.test(bg(note)), six: /url\(/.test(bg(sixP)),
         pad: /url\(/.test(bg(pad)), plates: plates.every(p => /url\(/.test(bg(p)) || p.classList.contains('now')), lit: plates.filter(p => p.classList.contains('now')).every(p => /gradient|ui_kit\/tin_amber/.test(bg(p))) },
       radius: pad ? parseFloat(getComputedStyle(pad).borderTopLeftRadius) : null, thumbs: plates.map(p => [Math.round(p.getBoundingClientRect().width), Math.round(p.getBoundingClientRect().height)]),
-      words: [ { k: NEW ? 'the day on receipt' : 'the hour on receipt', box: tbox(hour), col: getComputedStyle(hour).color, side: 'text' },
+      /* PLUMBER 8 11/10: re-aimed to rule 368 (UI 7, __THE_TOP_IS_ONLY_RESOURCES__): the day plate stays in the page off the glass (the
+         phone carries the day), so its word is read only while it is on the glass */
+      dayOn: !!hour && hour.getBoundingClientRect().width > 0,
+      words: [ ...(hour && hour.getBoundingClientRect().width > 0 ? [{ k: NEW ? 'the day on receipt' : 'the hour on receipt', box: tbox(hour), col: getComputedStyle(hour).color, side: 'text' }] : []),
                /* UI TWO (rules 238(a), 286(b)): with the phone up NOTES is the phone's icon, its copy off the bar: no word to read here */
-               ...(note.getBoundingClientRect().width > 0 ? [{ k: 'NOTES on receipt', box: tbox(note), col: getComputedStyle(note).color, side: 'text' }] : []),
+               ...(note && note.getBoundingClientRect().width > 0 ? [{ k: 'NOTES on receipt', box: tbox(note), col: getComputedStyle(note).color, side: 'text' }] : []),
                { k: 'a count on glass', box: box(sixP), col: getComputedStyle(sixP.querySelector('b')).color, side: 'right' } ]
         .concat(plates.filter(p => !p.classList.contains('now')).slice(0, 1).map(p => ({ k: 'a speed on glass', box: tbox(p), col: getComputedStyle(p).color, side: 'text' })))
         .concat(plates.filter(p => p.classList.contains('now')).map(p => ({ k: 'the lit speed', box: tbox(p), col: getComputedStyle(p).color, side: 'text' }))),
@@ -95,7 +100,7 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
       const t = w.col.match(/\d+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor(S.length * (tl > 0.3 ? 0.8 : 0.2))];
       return { k: w.k, plain: +CR(tl, LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2) }; });
   }, { png, words: a.words, off: a.off });
-  ok('EVERY WORD PASSES 4.5 TO 1 ON ITS MATERIAL, AND IN THE SUN', cr.length >= (ph ? 4 : 5) - (a.words.some(w => w.k === 'NOTES on receipt') ? 0 : 1) && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
+  ok('EVERY WORD PASSES 4.5 TO 1 ON ITS MATERIAL, AND IN THE SUN', cr.length >= (ph ? 4 : 5) - (a.words.some(w => w.k === 'NOTES on receipt') ? 0 : 1) - (a.dayOn ? 0 : 1) && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
   ok('no page error', !(d.errs && d.errs.length), (d.errs || []).slice(0, 2).join(' | '));
   await d.close();
   done();

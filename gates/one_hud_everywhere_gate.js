@@ -256,7 +256,8 @@ async function side(profile) {
        the room (TOPH 0). The bar's return on the loot screen and the map, the clouds' door and two rolled fights on three screens
        are gates/no_top_bar_in_the_fight_gate.js; this keeps the one-HUD side: the map's bar the moment before, and the fight's
        presses. */
-    await fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); try { stepOnce(0); stepOnce(4); } catch (_e) {} });
+    await fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); });
+    await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
     await p.waitForTimeout(1200);
     const MB = await fr.evaluate('(' + READ + ')()');
     const st = await fr.evaluate(() => roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }));

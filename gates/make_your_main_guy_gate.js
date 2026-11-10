@@ -117,7 +117,9 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
       if (sf) { await P.evaluate(() => { try { if (window.BohemiaCrewDoor) BohemiaCrewDoor.close(); } catch (e) {} }).catch(() => {});
         await sf.evaluate(() => { try { if (window.BohemiaCrewDoor) BohemiaCrewDoor.close(); } catch (e) {} }).catch(() => {});
         await P.waitForTimeout(400);
-        const lv = await sf.$('#leave'), lb = lv && await lv.boundingBox(); if (lb) await tapAt({ x: lb.x + lb.width / 2, y: lb.y + lb.height / 2 });
+        /* PLUMBER 8 11/10: re-aimed to rules 238(a), 286(b) (UI TWO, THE TOWN'S LEAVE IS ON THE PHONE): with the phone up the town's own
+           #leave is display:none (bohemia_phone.js), so the one LEAVE on screen is asked for (the phone's, else the town's own) */
+        const lp = await require(path.join(ROOT, 'tools', 'bohemia_leave_the_town.js')).leaveAt(P, sf); if (lp) await tapAt({ x: lp.x, y: lp.y });
         for (let i = 0; i < 40; i++) { g.mapLead = await fr.evaluate(() => { try { return (MAP_DREW && MAP_DREW.youLook) || null; } catch (e) { return null; } }).catch(() => null); if (g.mapLead && g.mapLead !== 'body') break; await P.waitForTimeout(250); }
         if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'main_guy_map_' + origin + '.png') }); }
       /* the fight, through the shell's own door, his company as the shell hands it */

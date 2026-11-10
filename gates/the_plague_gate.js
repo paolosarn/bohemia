@@ -145,7 +145,9 @@ function engineFilesWriting(re) {
       return re.test(src);
     });
 }
-var writers = engineFilesWriting(/['"]sick['"]/);
+/* PLUMBER 8 11/10: re-aimed to PORTRAIT [the face shows the wound] 10/26 (rule 234(c), engine/bohemia_wound_faces.js): its ROW_MARK table
+   names every injury row as a KEY ("sick":"tag", the mark it would draw), which reads an injury and writes none; 'sick' as a value is still caught */
+var writers = engineFilesWriting(/['"]sick['"](?!\s*:)/);
 ok("no engine file writes injury id 'sick' on a person", writers.length === 0, writers.join(','));
 var sickFact = engineFilesWriting(/sickFact\s*\(/);
 ok('no engine file builds a sickFact yet (the routed row)', sickFact.length === 0, sickFact.join(','));

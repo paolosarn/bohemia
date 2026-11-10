@@ -233,7 +233,9 @@ async function door() {
     for (let i = 0; i < 60 && !(await p.evaluate(() => !!document.querySelector('.bm-start .b'))); i++) await p.waitForTimeout(500);
     await p.waitForTimeout(2500);
     /* the front screen he loved: the same pixels with the kit on and off (the stamp's clock and the lamps' flicker held still) */
-    const still = async () => { await p.evaluate(() => { const s = document.createElement('style'); s.id = 'gate-still'; s.textContent = '*{animation:none!important;transition:none!important}'; document.head.appendChild(s); }); await p.waitForTimeout(300); };
+    /* PLUMBER 8 11/10: re-aimed to rule 301 (UI round 3 11/2, slices/bohemia_ui_crashbox.js): the title carries the machine's live feed (#cbxfeed,
+       painted every frame by its own loop, not by CSS), so it is held still too, the way the stamp's clock and the lamps are */
+    const still = async () => { await p.evaluate(() => { const s = document.createElement('style'); s.id = 'gate-still'; s.textContent = '*{animation:none!important;transition:none!important}#cbxfeed{visibility:hidden!important}'; document.head.appendChild(s); }); await p.waitForTimeout(300); };
     await still();
     const jtf = await p.evaluate(() => !!document.querySelector('.bm-start.jtf'));
     const a = await p.screenshot(); await p.evaluate(() => document.documentElement.removeAttribute('data-kit')); await p.waitForTimeout(300);

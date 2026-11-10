@@ -152,7 +152,9 @@ head('G. RULE 234: THE DAYS ARE THE FRESH WOUND\'S, NEVER A BENCH');
   ok('*** halfway it is half (a straight line), and on the last day nothing ***', !!wh && wh.effects.ranged_skill_pct === -25 && wh.effects.vision === -1 && wz === null, JSON.stringify(wh && wh.effects));
   ok('a mark the wiki gives no flesh wound (Traumatized) has no fresh part, only the mark', L.freshNow('traumatized', 30, 30) === null);
   var pen = L.penalties(['missing_eye'], { mark: 'missing_eye', left: 34, of: 34 });
-  ok('the penalties list both parts: the mark for life and the wound today, each the wiki\'s key', pen.some(function (p) { return p.from === 'mark' && p.stat === 'ranged_skill' && p.value === -50; })
+  /* PLUMBER 8 11/10: re-aimed to rule 304(b) (Paolo 11/2, NO PERMANENT STAT DEBUFF: the mark for life is a scar on his face, a story
+     with no penalty; engine/bohemia_long_injury.js penalties() says so): the list carries the wound today and nothing from the mark */
+  ok('the penalties list the wound today, the wiki\'s key, and the mark for life takes nothing off him (rule 304(b))', !pen.some(function (p) { return p.from === 'mark'; })
     && pen.some(function (p) { return p.from === 'fresh' && p.stat === 'ranged_skill' && p.value === -50; }) && pen.some(function (p) { return p.stat === 'vision' && p.unit === ''; }));
   var lk = [34, 20, 5, 0].map(function (left) { return L.look(['missing_eye'], left ? { mark: 'missing_eye', left: left, of: 34 } : null).fresh; });
   ok('the face\'s stages: blood while more than half is left, the band-aid until it closes, then the mark alone', JSON.stringify(lk) === JSON.stringify(['blood', 'blood', 'bandage', null]), JSON.stringify(lk));

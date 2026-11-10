@@ -50,6 +50,7 @@ async function run(profile) {
     await d.page.waitForTimeout(2500);
     /* ---- H1 straight after a fight ---- */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(600);
+    await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (the demo starts him in a town; there campMake is the town's own rest, rule 273(b)(d), never the street camp these legs read) */
     const h1a = await d.fr.evaluate(() => { CITY_CONTACT_POSTED = true; const made = BohemiaMapCamp.make(); return { made, min: T.day * 1440 + T.min }; });
     await d.page.waitForTimeout(500 * HOURS + 1500);
     const h1 = await d.fr.evaluate(() => Object.assign(BohemiaMapCamp.state(), { flag: CITY_CONTACT_POSTED, min: T.day * 1440 + T.min, last: window.__CAMP || null }));

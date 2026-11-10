@@ -47,6 +47,10 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
   rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs); });
 const RIFLE = J('records/target/bb/ours.json').weapon_rows.value.rifle, PISTOL = J('records/target/bb/ours.json').weapon_rows.value.pistol;
 const KNIFE = 'knife';
+/* PLUMBER 8 11/10 (row 532): a melee arm is a weapon row of no gun class, no bow and nothing thrown (the settlement's own isMeleeRow) */
+const GUNC = (J('records/target/bb/ours.json').gun_classes || {}).value || ['dagger', 'firearm', 'crossbow'];
+const WROWS = J('records/target/bb/weapons.json').rows;
+const MELEE_ROW = id => { const w = WROWS.find(x => x.id === id); return !!w && GUNC.indexOf(w['class']) < 0 && !/^(bow|throwing|throwable_item)$/.test(w['class']); };
 
 /* what the open hall shows, in the settlement's frame: every card in the page's order, with what the page's own state says of him */
 const HALL = () => { const S = BohemiaSettlement, R = S.recruits(), med = S.hallMed();
@@ -119,9 +123,11 @@ const HALL = () => { const S = BohemiaSettlement, R = S.recruits(), med = S.hall
 
     /* C6 the mix */
     const plain = men.filter(c => !c.rare), gunMen = plain.filter(c => c.kind === 'gun'), melee = plain.filter(c => c.kind === 'melee');
-    const armWrong = plain.filter(c => c.kind === 'gun' ? c.gun !== RIFLE : c.gun !== KNIFE);
+    /* PLUMBER 8 11/10: re-aimed to FIXES 11/9n ask row 532 (764f1571, EYES 11/8: 'a MELEE brawler hired with the pistol in his hands'):
+       a melee man's arm is the melee weapon of his kit (the pipe when his trade brings none), never the pistol, which rides in his bag */
+    const armWrong = plain.filter(c => c.kind === 'gun' ? c.gun !== RIFLE : !MELEE_ROW(c.gun));
     const townTrades = new Set(halls.filter(h => h.tier !== 'camp').map(h => h.cards.filter(c => !c.rare).map(c => c.bg)).flat()), campTrades = new Set(halls.filter(h => h.tier === 'camp').map(h => h.cards.map(c => c.bg)).flat());
-    ok('C6 A REAL MIX (EYES: \'every one a pistol man\'): ' + gunMen.length + ' gun men with the rifle and ' + melee.length + ' melee men with the pistol of ' + plain.length + '; trades at the towns and fortresses ' + townTrades.size + ' of 6, at the camps ' + campTrades.size,
+    ok('C6 A REAL MIX (EYES: \'every one a pistol man\'): ' + gunMen.length + ' gun men with the rifle and ' + melee.length + ' melee men with a melee arm (row 532) of ' + plain.length + '; trades at the towns and fortresses ' + townTrades.size + ' of 6, at the camps ' + campTrades.size,
       gunMen.length >= plain.length / 4 && melee.length >= plain.length / 4 && armWrong.length === 0 && townTrades.size === 6 && campTrades.size >= 4, armWrong.slice(0, 2).map(c => c.bg + ' ' + c.kind + ' ' + c.gun).join(' | '));
     const RARE_CH = 100 * JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')).rare_at_the_post.value.chance_per_slot;
     const rate = await p.evaluate(() => { const S = BohemiaSettlement, out = {};

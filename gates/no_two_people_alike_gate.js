@@ -115,7 +115,8 @@ const srv = http.createServer((rq, rs) => {
   await r.addInitScript(l => { localStorage.setItem('bohemia.hired.v1', JSON.stringify(l)); }, mine.map((l, i) => ({ name: 'MAN ' + i, background: 'farmhand', look: l, jobs: [] })));
   await r.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html', { waitUntil: 'load' });
   await r.waitForTimeout(2500);
-  const cards = await r.evaluate(() => [...document.querySelectorAll('canvas.face')].map(c => ({ look: c.dataset.look, face: c.dataset.face })));
+  /* PLUMBER 8 11/10: re-aimed to the roster as shipped: a man on the line is drawn by headCanvas (faceCanvas, then class 'head'), so read canvas.head too */
+  const cards = await r.evaluate(() => [...document.querySelectorAll('canvas.face, canvas.head')].map(c => ({ look: c.dataset.look, face: c.dataset.face })));
   const rolled = cards.filter(c => /^person_/.test(c.look));
   ok('THE CREW SCREEN: a hired man wears his own face there', rolled.length > 0 && rolled.every(c => c.face === 'fresh'), rolled.length + ' rolled faces of ' + cards.length + ' on the line');
   const lineLooks = cards.map(c => c.look);
@@ -138,7 +139,9 @@ const srv = http.createServer((rq, rs) => {
   const theirs = units.filter(u => u.side === 'them');
   ok('  the band are rolled people of its gangs, drawn from their own sheets, with their gang\'s guns and their own faces', theirs.filter(u => /^person_/.test(u.look)).length >= theirs.length - 3 && units.every(u => u.sheet && u.face) && units.filter(u => /^person_/.test(u.look)).every(u => u.guns),
     theirs.filter(u => /^person_/.test(u.look)).length + ' rolled of ' + theirs.length + ' of them; ' + units.filter(u => !(u.sheet && u.face)).map(u => u.look).join(' '));
-  const loaded = await f.evaluate(() => performance.getEntriesByType('resource').map(r => r.name).filter(u => /fight_rig\/person_[a-z0-9_]+\.webp$/.test(u)).length);
+  /* PLUMBER 8 11/10: re-aimed to the fight's packed sheets (BOHEMIA_FIGHT.html packedIndex, slices/fight_rig/packed/<stem>.json + its atlas): a
+     man's own sheet arrives as fight_rig/person_<id>.webp or as his packed atlas fight_rig/packed/person_<id>.webp; one count a man */
+  const loaded = await f.evaluate(() => new Set(performance.getEntriesByType('resource').map(r => (/fight_rig\/(?:packed\/)?(person_[a-z0-9_]+)\.webp$/.exec(r.name) || [])[1]).filter(Boolean)).size);
   ok('  and the board fetched each rolled man\'s own sheet', loaded >= units.filter(u => /^person_/.test(u.look)).length, loaded + ' sheets');
 
   ok('every file loads', missing.length === 0, missing.slice(0, 3).join(' '));

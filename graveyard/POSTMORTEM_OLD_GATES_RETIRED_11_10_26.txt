@@ -1,0 +1,110 @@
+POST-MORTEM: OLD GATES RETIRED (PLUMBER 8, 11/10/26, the coordinator's routine "clear the red debt"; VAMILY rule 13, rule 441).
+Each was red on main for weeks (the first full run since the restore, main d97cecd3) and guarded a thing a later ruling killed
+outright. Its file is in graveyard/old_gates_retired_11_10_26/, its row is out of gates/bohemia_gates.py, its line off the quarantine.
+One line each: NAME (its file, the owner on the quarantine): the ruling that killed what it guarded.
+
+ZOOM SEAM (gates/zoomseam_gate.js): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4); the zoom range is the map's (rule 109)
+SEE THROUGH (gates/xray_gate.js): walls going glass around him is replaced: buildings cover the party and his outline shows through (rule 196c, 10/25); the walked street is dead (9/28)
+HALF SIZE (gates/half_size_gate.js): the walked city's controls are gone; UI size is now a setting with four sizes (rule 403, 11/4)
+PAD RING (gates/pad_ring_gate.js): the walked pad ring is dead: the eight-button pad is dead outside the fight (third votes 9/27, rule 37b; 38b)
+FIRST TEACHING (gates/teach_gate.js): it teaches the walk pad and DROP IN, both stripped (10/4 cut line, rule 37b); the first minutes are rule 146d/236's intro and town
+CARD IS OBJECT (gates/the_card_is_an_object_gate.js): the day card, GET UP and the wake/night cards are dead (rule 19a 9/20; left with the walk 9/28)
+RICE CLOCK (gates/rice_clock_gate.js): the rice tutorial's pieces died: prices move by town (rules 71, 266), jobs pay for time and risk (rule 323); food lives on as company upkeep (rules 151b, 209)
+VISIBLE CHANGE (gates/visible_change_gate.js): QUESTS is research only (rule 35, 9/27) and the asks as a text stream were cut (10/4 cut line)
+TWO PRICES (gates/two_prices_gate.js): one price in the whole valley is dead: shop prices move by town and situation (rules 71, 266; refugees +25%, rule 342 gate)
+OWN POWER (gates/own_power_gate.js): territory is dead: home bases and roaming parties, not territory (third votes 9/27, rule 37e); the faction's power line it frees you from was territory
+TURF (gates/turf_gate.js): territory is dead: home bases and roaming parties, not territory (third votes 9/27, rule 37e)
+LIGHTS BILL (gates/lights_bill_gate.js): territory is dead: home bases and roaming parties, not territory (third votes 9/27, rule 37e); holding a lit circuit was the walked city's territory
+VISTA BEAT (gates/vista_beat_gate.js): the vista was the walked rim's money shot; the demo is loading, travel, arrival, the fight, the first person (rule 38c, 9/28)
+DEMO SOUND (gates/demo_sound_gate.js): the day card, GET UP and the wake/night cards are dead (rule 19a 9/20; left with the walk 9/28); GET UP's come_up moment is gone
+WALK FEEL (gates/walk_feel_gate.js): the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map
+LATE ART (gates/late_art_gate.js): the old 2-D city world's chunk banks must not load at all (rule 174, 10/25: no 2-D world underneath)
+ONE DOOR PRED (gates/one_door_predicate_gate.js): the walked home's front door: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; the game starts in a town (rule 236)
+DAY ONE DONE (gates/day_one_can_be_finished_gate.js): the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; finishing day one by walking is gone
+SEE-THROUGH MOVE (gates/see_through_while_moving_gate.js): walls fading while he moves is replaced by rule 196c (buildings cover him, his outline shows); the walk is dead (9/28)
+VISTA EXIT (gates/vista_lets_you_leave_gate.js): the vista overlay is gone with the walked rim (rule 38c, 9/28)
+FIRST MORNING (gates/the_first_morning_points_at_the_game_gate.js): the day card, GET UP and the wake/night cards are dead (rule 19a 9/20; left with the walk 9/28); the game now opens on an intro then a town (rule 236)
+ACTION BUTTON (gates/the_action_button_does_actions_gate.js): the movement pad's centre button and camera toggle died with the pad (rule 37b, 9/27; rule 44)
+ANIMALS (gates/the_valley_has_animals_gate.js): life on the block he wakes on: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map
+LOOK NOT TRAVEL (gates/looking_at_the_map_is_not_travelling_gate.js): the walked pad sliding the map marker: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; the pad is dead outside the fight (37b)
+PAD SAYS (gates/the_pad_says_what_it_will_do_gate.js): the pad's two meanings died with the pad (rules 37b, 38b, 44)
+STEP IS ONE CELL (gates/the_step_is_one_cell_gate.js): rule 34's one-cell step: its walk died 9/28 (rule 38b) and its cell-grid fight was reversed the same hour (A COMBAT TILE IS A HOUSE stands)
+SPAWN HOME (gates/spawn_home_gate.js): spawning in the walked city: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; the game starts in a town (rule 236)
+FIRST MINUTE (gates/first_minute_gate.js): the pad-first sixty seconds died with the pad (37b, 10/4 cut line); the first minutes are rule 146d/236's intro and town
+ROAD ON FOOT (gates/road_interrupts_on_foot_gate.js): road moments on foot: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map
+FIRST NIGHT (gates/first_night_gate.js): the first night's beats (cold open, wake, offer card, reckoning, day 2 wake, vista) are all cut (19a, 10/4 cut line, 38c)
+DEMO DAY (gates/demo_day_gate.js): the day card, GET UP and the wake/night cards are dead (rule 19a 9/20; left with the walk 9/28); day one opening on a wake card is dead
+PHONE RINGS (gates/phone_rings_gate.js): the phone shows his jobs only, never offers (rules 148 dead, 232, 10/26)
+DAY LOOP (gates/dayloop_gate.js): the walked day (wake 06:00, cards): the day card, GET UP and the wake/night cards are dead (rule 19a 9/20; left with the walk 9/28); the loop is rule 58's map loop now
+BUILD THE WORLD (gates/build_the_world_gate.py): the 7/31 economy-and-factions freeze is long superseded: batteries are the money (9/4), the six resources (rule 47), the economy and factions lanes run
+VISTA (gates/vista_gate.js): the vista (walked rim overlook) is gone with the walk (rule 38c, 9/28)
+ENDING SOUND (gates/ending_sound_gate.py): the one-day demo ending on the walked city is gone (rule 38c, 9/28); the game's endings are unbuilt (rule 39e)
+MENU MUSIC (gates/menu_music_gate.py): only his chosen songs play; the menu, day, dusk and room songs stay silent (rule 122a 10/20, kept by 237a 10/26)
+FRESH DOORS (gates/doors_fresh_gate.py): the walked doors are gone (9/28) and synth cooks are retired for recorded sound (second votes 9/23 NO SAND; rule 108)
+OFF THE BEAT HEARD (gates/off_the_beat_heard_gate.py): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; actions are now requests on the music's beat (rule 158), not graded presses
+ROOM SONG (gates/room_song_gate.py): only his chosen songs play; the menu, day, dusk and room songs stay silent (rule 122a 10/20, kept by 237a 10/26); 'every song reachable' is the opposite of the fence
+SFX SHUFFLE (gates/sfx_shuffle_gate.py): one VOTE tab is the only judging surface (9/14, rule 15) and no cards for him (rules 123 10/20, 127 10/23); the sound-judging shuffle panel is superseded
+COMBAT LAB (gates/combat_lab_gate.js): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; the beat-tactics lab was the old fight's
+COMBAT ENTRY (gates/combat_entry_gate.js): the walked door into the old fight: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; fights come from parties on the map (rule 68)
+FIRST FIGHT (gates/first_fight_gate.js): no authored first fight (fifth votes, rule 56, 10/1) and the walk out the door is dead (9/28)
+SLIDE AND TURN (gates/the_walk_slides_and_the_turn_takes_the_beat_gate.js): slide was the walk's feel (rule 26) and the walk is dead (9/28); movement glides on the map and in the fight (37h)
+ONE NUMBER BODY (gates/one_number_for_a_body_gate.js): built for THE STEP IS A HOUSE (rule 16), superseded 9/27-9/28, and the 2-D body bake is gone (rule 115)
+YOU KILLED THIS (gates/you_killed_this_gate.js): one VOTE tab is the only judging surface (9/14, rule 15) and no cards for him (rules 123 10/20, 127 10/23); the JUDGE ALL panel's filter is superseded
+CLOTHES 4X (gates/clothes_4x_gate.js): everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25); the 56 pinned 2-D garments
+DRESS (gates/dress_gate.js): everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25); the 2-D wardrobe bank
+FIGHT FLOOR CACHE (gates/fight_floor_cache_gate.js): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; the old fight's floor cache
+THE FLIP (gates/the_flip_gate.js): the three-faces-from-frame-one flip is dead as built (rule 39c, 9/28); the flip unlocks at the first crisis (rule 85)
+THREE NAMES (gates/three_names_gate.js): the name-all-three screen is dead (rule 39c 9/28; rule 67: heirs are made on entering the act)
+FIRST ASK (gates/first_ask_gate.js): the first three walked asks: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; QUESTS is research only (rule 35)
+CURRENT SLICE (gates/current_slice_gate.js): the SLICE tab's old phone is superseded by the phone overhaul (rules 212, 213, 10/26)
+REROLL (gates/reroll_gate.js): the RUN tab's re-roll and the walked home are gone; the seed is set at new game (rule 318)
+POPULATION DIAL (gates/population_dial_gate.js): the walked city's population slider: a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+OPENING (gates/opening_gate.js): the cold open and its banner were cut (10/4 cut line); the intro is the squad close-up (rule 236)
+ENDING (gates/ending_gate.js): the one-day demo ending on the walked city is gone (rule 38c, 9/28)
+WILDLIFE (gates/wildlife_gate.js): wildlife met on a walk: a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+ALIVE (gates/alive_gate.js): ALIVE-1 (walk one block and meet somebody): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+FEEDBACK (gates/feedback_gate.js): the friend-watching instrument is dead (Paolo 9/5, RUN header: 'I don't give a fuck about that')
+THE RUN (gates/run_gate.js): the run slice is legacy since 8/14 and the walked run is dead (9/28)
+CITY TAB (gates/city_tab_gate.js): the CITY tab skeleton: one 3-D map, the old skeleton and 2-D layers retired (rule 142a, 10/24; 8/2 one world tab)
+ZOOM BUILD (gates/zoombuild_gate.py): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4)
+CITY PEOPLE (gates/city_people_gate.js): people on the walk surface: a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+RUN PEOPLE (gates/run_people_gate.js): the street filling and emptying on the walk: a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+CITY TALK (gates/city_talk_gate.js): talking to one NPC on the walked surface: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; talk is the town walk-up (rule 138)
+HUMAN START (gates/human_start_gate.js): starting in human mode on the walk: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; the game starts in a town (rule 236)
+WALKED SURFACE (gates/walked_surface_gate.js): the CITY WORLD as the walked surface (8/14 ruling) died with the walk (9/28)
+DOWN NOT DEAD (gates/down_not_dead_gate.js): superseded: struck down is 20% dead else a long injury, veterans die at 10% (rules 36b, 37g 9/27), the dead stay dead (rule 226a)
+LIFT MOVES (gates/the_lift_moves_him_gate.js): the robotaxi card on foot: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map; road cards as pop-ups are dead (19a, 19e)
+CATS STAY (gates/cats_stay_gate.js): the cats on the walked demo: the exploration walk and tile-to-tile city movement are dead (Paolo 9/28, rule 38b); the city is crossed on the map
+FAMILY CAST (gates/family_cast_gate.js): the cold open is cut (10/4) and its 2-D cast is dead (everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25))
+FAMILY ANIM (gates/family_anim_gate.js): the cold open is cut (10/4) and its 2-D cast is dead (everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25))
+CHIN LAW (gates/chin_law_gate.js): everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25); the painted chin
+HEAD FOLLOWS RIG (gates/head_follows_rig_gate.js): everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25); the painted head on the 2-D egg
+FACE FEAT DIAL (gates/face_feature_scale_gate.js): everything is a 3-D rig model now; painted faces, flat garments and 2-D sprites are dead (rules 115a 10/17, 121e 10/19, 174 10/25); the painted face's feature knob
+NAV CLUSTER (gates/navcluster_gate.js): the walked movement cluster died with the pad (rules 37b, 38b, 44)
+THREE-TILE WALL (gates/wallheight_gate.js): the walk's see-through wall is replaced by rule 196c and the walk is dead (9/28)
+MAP TAB (gates/map_tab_gate.js): the July 2-D valley aerial tab: one 3-D map, old layers retired (rule 142a, 10/24; rule 174)
+ART TAB (gates/art_tab_gate.js): one VOTE tab is the only judging surface (9/14, rule 15) and no cards for him (rules 123 10/20, 127 10/23); the ART tab as a showcase is superseded
+TARGET MATCH (gates/target_match_gate.py): the July frozen CBB target is a placeholder (rule 101, 10/10); the packs and the master rig are the bar (rules 82a, 105, 115)
+WIRED IN A TAB (gates/wired_in_tab_gate.js): one VOTE tab is the only judging surface (9/14, rule 15) and no cards for him (rules 123 10/20, 127 10/23); the ART tab screenshot cards
+EARNED NOT AFFORDED (gates/earned_not_afforded_gate.js): the 7/31 no-upkeep, no-income law is superseded: batteries are the money (9/4) and your settlement costs daily batteries and pays some back (rule 347d)
+BUILDER ON A PHONE (gates/builder_on_a_phone_gate.js): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4)
+BUILDER WHERE HE WALKS (gates/builder_where_he_walks_gate.js): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4)
+WHERE PEOPLE LIVE (gates/where_people_live_gate.js): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+PEOPLE GATHER (gates/people_gather_gate.js): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+HEAR THE CROWD (gates/hear_the_crowd_gate.js): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently; the walked status line
+ON THE WAY (gates/on_the_way_gate.js): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+ENOUGH PEOPLE (gates/enough_people_gate.js): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+A BUTTON THAT CANNOT WORK (gates/a_button_that_cannot_work_gate.js): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4); BUILD and BUILD BIG on desert plots
+NOTHING MOVES UNDER HIS FINGER (gates/nothing_moves_under_his_finger_gate.js): the day card, GET UP and the wake/night cards are dead (rule 19a 9/20; left with the walk 9/28)
+A CROWD TO WALK INTO (gates/a_crowd_to_walk_into_gate.js): a walk meeting people is gone with the walk (9/28, rule 38b); the busy town (rule 131) is the successor, measured differently
+THE TAP PICKS WHAT YOU SEE (gates/tap_picks_gate.js): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4); the tile tap in builder mode
+BUILD DEFAULT (gates/build_default_gate.js): city-builder mode is dead: what you build lives only in your base's settlement screen (rule 86 10/10, rule 43 9/29; 'the builder as a mode' cut 10/4); the 59-type build menu
+BATTLE BROS (gates/battle_brothers_gate.js): the LAB was retired (9/4)
+RF4 TEARDOWN (gates/rf4_teardown_gate.js): the LAB was retired (9/4) and RF4's fight was replaced by Battle Brothers' re-created (rule 63, 10/2)
+DOMINANCE SWEEP (gates/dominance_sweep_gate.js): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; the sweep runs policies over the old fight's verbs
+SKILL GAP (gates/skill_gap_gate.js): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; the fight's closeness is TUNING's measure now (rule 370)
+TOP OF THE DOC (gates/top_of_the_document_gate.js): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; and lane handoffs moved to per-lane files (9/13)
+COMBAT RUNS (gates/combat_runs_smoke.js): the old fight is frozen and its gates stop counting (rule 63, 10/2); the rebuilt fight replaced it; re-aim the 'it parses is not it runs' smoke test at BOHEMIA_FIGHT if wanted
+THE LINE ON A GROUND (gates/the_line_on_a_ground_gate.js): rule 369 (THE CREW SCREEN SEES THE CAMP, UI 7) replaced the backdrop with the live camp; the 10/18 candidate ground was only ever laid by the sheet tool, never in the game (a gate from 10/18, judged by PLUMBER 8 batch C)
+THE COMPANY IS A CAST (gates/the_company_is_a_cast_gate.js): built on THE STEP IS A HOUSE (9/15): a 25-cell press outrunning a follower; superseded by TWO SCALES (9/27) and the walk died 9/28 (OVERWORLD law s12)
+THE ART FENCE (gates/art_fence_gate.py): rule 100 (nothing art enters the game before his FINAL) was killed by rule 123(a) (10/20: the 3D revamp ships straight into the game), rule 127(a) (10/23) and rule 154(c) (10/24: no row waits on his vote)

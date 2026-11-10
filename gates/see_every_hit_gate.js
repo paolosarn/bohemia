@@ -31,6 +31,7 @@
    Run: node gates/see_every_hit_gate.js [--shots] [--before <an old copy of the fight page, served as BOHEMIA_FIGHT.html, for the before pictures>] */
 'use strict';
 const fs = require('fs'), path = require('path');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.resolve(__dirname, '..');
 const G = require(path.join(ROOT, 'tools/bohemia_tuning_the_whole_grid.js'));
 const SHOTS = process.argv.indexOf('--shots') > 0, BI = process.argv.indexOf('--before'), BEFORE = BI > 0 ? process.argv[BI + 1] : null;
@@ -51,7 +52,8 @@ async function headless() {
     w.skills.forEach(s => add(s.name, /^Reload/.test(s.name) ? 'reload' : shaped.has(s.name) ? (s === st ? 'strike with a shape' : 'sweep') : s === st ? 'strike' : 'not in the fight')); });
   const tally = {}; Object.keys(kinds).forEach(n => { const k = [...kinds[n]].sort().join(' / '); tally[k] = (tally[k] || []).concat(n); });
   const active = F.ACTIVE.slice();
-  leg(Object.keys(kinds).length >= 60 && active.length === 7 && [...shaped].every(n => kinds[n]),
+  /* PLUMBER 8 11/10: re-aimed to rule 367 (THE DECOY, 11/3): the cutout is the eighth perk skill he can press, so the census is eight, decoy named */
+  leg(Object.keys(kinds).length >= 60 && active.length === 8 && active.indexOf('decoy') >= 0 && [...shaped].every(n => kinds[n]),
     '*** S1 THE AUDIT: EVERY SKILL IN THE FIGHT\'S DATA SORTED *** (rule 312)',
     Object.keys(tally).map(k => k + ' ' + tally[k].length).join('; ') + '; perk skills ' + active.join(','));
   if (process.argv.indexOf('--table') > 0) console.log(JSON.stringify({ tally: Object.fromEntries(Object.entries(tally).map(([k, v]) => [k, v.sort()])), active }, null, 1));
@@ -118,7 +120,7 @@ async function phone() {
   if (BEFORE) o.serve = { '/slices/BOHEMIA_FIGHT.html': path.resolve(BEFORE) };
   const d = await open(o), p = d.page, tag = BEFORE ? 'before' : 'after';
   if (SHOTS) fs.mkdirSync(PICS, { recursive: true });
-  const shot = async n => { if (SHOTS) await p.screenshot({ path: path.join(PICS, n + '_' + tag + '.png'), scale: 'css' }); };
+  const shot = async n => { if (SHOTS) await p.screenshot({ path: proofShot(path.join(PICS, n + '_' + tag + '.png')), scale: 'css' }); };
   try {
     await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
     await p.evaluate(() => { window.FIGHT_DB_ROW = id => DB.weapons.rows.filter(r => r.id === id)[0]; });

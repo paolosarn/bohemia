@@ -71,7 +71,9 @@ const done = () => { console.log('=== EVERY LEVEL WAITS GATE: ' + pass + ' passe
       ok('W3 ' + name + ': a second fight, one level more: the loot screen says +3 waiting and SPEND YOUR 3 LEVELS', !!b && b.sp.to === a.sp.to + 1 && b.sp.waiting === 3 && b.sp.plus === '+3' && /SPEND YOUR 3 LEVELS/.test(b.sp.btn),
         b ? JSON.stringify(b.sp) : 'no fight');
       /* W4 the crew screen from the map */
-      for (const fx of p.frames()) { const hit = await fx.evaluate(() => { const c = document.querySelector('.crew[role=button]'); if (c && c.getBoundingClientRect().width > 0) { c.click(); return true; } return false; }).catch(() => false); if (hit) break; }
+      /* PLUMBER 8 11/10: re-aimed to rule 368 (UI 7, __THE_TOP_IS_ONLY_RESOURCES__): the bar carries no crew any more; the phone's
+         CREW app is the one door to the crew screen (bohemia_phone.js KEEP), the old bar chip kept as the fallback */
+      for (const fx of p.frames()) { const hit = await fx.evaluate(() => { const c = [...document.querySelectorAll('#bohphone .app[data-app=crew], .crew[role=button]')].find(e => e.getBoundingClientRect().width > 0); if (c && c.getBoundingClientRect().width > 0) { c.click(); return true; } return false; }).catch(() => false); if (hit) break; }
       let R = null; for (let i = 0; i < 80 && !R; i++) { R = p.frames().find(x => /ROSTER_SCREEN/.test(x.url())); if (R && !(await R.evaluate(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready).catch(() => false))) R = null; if (!R) await p.waitForTimeout(250); }
       await p.waitForTimeout(800);
       if (!R) { ok('W4 ' + name + ': the crew screen from the map', false); }

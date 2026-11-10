@@ -57,6 +57,14 @@ function walk(dir) {
   for (const e of ents) { const p = path.join(dir, e.name); if (e.isDirectory()) out.push(...walk(p)); else out.push(p); }
   return out;
 }
+/* the CANON house skins' ids in bank order (a house skin line names its tile by id, not by number) */
+let _hsIds = null;
+function houseSkinIds() {
+  if (_hsIds) return _hsIds;
+  const c = CORPUS.find(x => x.alias === 'house_skins');
+  try { _hsIds = (JSON.parse(fs.readFileSync(path.join(ROOT, c.file), 'utf8'))[c.list] || []).map(t => t && t.id); } catch (e) { _hsIds = []; }
+  return _hsIds;
+}
 /* every manifest piece in a folder tree: { pic (absolute), keys, exception, manifest } */
 function pieces(files) {
   const out = [];
@@ -65,7 +73,10 @@ function pieces(files) {
      manifest per picture, and honest: it names the tiles and the gate checks each one. */
   for (const f of files.filter(x => /PACK_TILES_USED\.txt$/.test(x))) {
     const keys = fs.readFileSync(f, 'utf8').split('\n').slice(1).map(l => l.trim()).filter(Boolean)
-      .map(l => { const m = /^(.*)#(\d+)$/.exec(l); return m ? { pack: m[1], idx: +m[2] } : { line: l }; });
+      .map(l => { const m = /^(.*)#(\d+)$/.exec(l); if (m) return { pack: m[1], idx: +m[2] };
+        /* PLUMBER 8 11/10: re-aimed to tools/bohemia_cook4_settlement_from_packs.py's house skin lines: "house skin#<id>" names a CANON house skin (banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt, all 30 UP 7/21) by its id; read it as that bank's tile, still checked by resolveKey */
+        const hs = /^house skin#(.+)$/.exec(l), at = hs ? houseSkinIds().indexOf(hs[1]) : -1;
+        return at >= 0 ? { bank: 'house_skins', idx: at } : { line: l }; });
     for (const pic of files.filter(x => PIC.test(x) && path.dirname(x) === path.dirname(f)))
       out.push({ pic, keys, exception: null, manifest: f });
   }

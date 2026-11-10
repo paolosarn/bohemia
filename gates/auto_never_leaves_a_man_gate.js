@@ -18,6 +18,7 @@
    Run: node gates/auto_never_leaves_a_man_gate.js [--headless-only] */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.resolve(__dirname, '..');
 const { engine } = require(path.join(ROOT, 'tools/bohemia_fight_headless.js'));
 let pass = 0, fail = 0;
@@ -113,7 +114,7 @@ if (process.argv.indexOf('--headless-only') > 0) { console.log('\n=== AUTO NEVER
       await p.waitForTimeout(2500);
       const still = await p.evaluate(() => FIGHT.S.log.length), moved = await p.evaluate(n => FIGHT.S.log.slice(n).map(e => e.t + ':' + e.id).join(' '), asked.n);
       const shot = path.join(ROOT, 'records/target/combat7_11_3', 'rout_' + prof + '.png');
-      if (prof === 'phone_portrait' && process.env.COMBAT7_SHOTS) { fs.mkdirSync(path.dirname(shot), { recursive: true }); await p.screenshot({ path: shot }); }
+      if (prof === 'phone_portrait' && process.env.COMBAT7_SHOTS) { fs.mkdirSync(path.dirname(shot), { recursive: true }); await p.screenshot({ path: proofShot(shot) }); }
       const bw = await tapOn(p, '#bwait'), bf = await p.evaluate(() => { const r = document.getElementById('bflee').getBoundingClientRect(); return { on: r.right <= innerWidth && r.bottom <= innerHeight && r.width > 2 }; });
       await p.waitForTimeout(400);
       const ran = await p.evaluate(() => ({ runDown: !!FIGHT.S.runDown, say: document.getElementById('say').innerText, over: FIGHT.S.over }));
@@ -146,7 +147,7 @@ if (process.argv.indexOf('--headless-only') > 0) { console.log('\n=== AUTO NEVER
         const sq = await tapOn(p, '#skills button[data-sweep="Round Swing"]');
         await p.waitForTimeout(400);
         const said = await p.evaluate(() => document.getElementById('say').innerText);
-        if (process.env.COMBAT7_SHOTS) await p.screenshot({ path: path.join(ROOT, 'records/target/combat7_11_3', 'swing_words.png') });
+        if (process.env.COMBAT7_SHOTS) await p.screenshot({ path: proofShot(path.join(ROOT, 'records/target/combat7_11_3', 'swing_words.png')) });
         leg(st && !!sq && /three in front/i.test(said) && !/every man of theirs around you/i.test(said),
           '*** N5 THE ROUND SWING SAYS THREE *** ' + tag + ': his finger on ROUND SWING, the line says the three in front', '"' + said.replace(/\s+/g, ' ').slice(0, 110) + '"');
       }

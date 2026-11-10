@@ -67,7 +67,13 @@ def main():
     T = man.get('towns', {}); B = bases()
     # 1
     miss = [b for b in B if b not in T]
-    files_ok = all(os.path.exists(os.path.join(SHIP, t[k])) and Image.open(os.path.join(SHIP, t[k])).size == (2060, 1092) for t in T.values() for k in ('src', 'night_src'))
+    # PLUMBER 8 11/10: re-aimed to rule 383 (RUN FIVE 11/6, records/BOHEMIA_RUN5_THE_TOWN_IS_ONE_PICTURE_11_6_26.md): the wide town is drawn
+    # whole, its own ground opened wide.whole.ext px on both sides (3260 x 1092), the 2060 x 1092 town itself at wide.whole.town
+    def size_ok(t):
+        wh = (t.get('wide') or {}).get('whole') or {}
+        e = int(wh.get('ext') or 0)
+        return (2060 + 2 * e, 1092) if e and wh.get('town') == [e, 0, e + 2060, 1092] else (2060, 1092)
+    files_ok = all(os.path.exists(os.path.join(SHIP, t[k])) and Image.open(os.path.join(SHIP, t[k])).size == size_ok(t) for t in T.values() for k in ('src', 'night_src'))
     # the 10/25 wide keeps the tier's taps to the pixel; the wide re-laid out of the phone's corners (rule 213, the 10/26 composer)
     # carries its own, measured in its scene, every role of the tier
     taps_ok = all((set(t['hotspots']) == set(packs['tiers'][t['tier']]['variants'][0]['hotspots'])) if (t.get('wide') or {}).get('relaid')

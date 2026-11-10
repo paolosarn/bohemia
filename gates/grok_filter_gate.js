@@ -50,7 +50,11 @@ function judge(root) {
   for (const c of cites) {
     const f = path.join(root, c.page);
     if (!fs.existsSync(f)) { bad.push(c.from + ' cites ' + c.page + ', which is not on this branch'); continue; }
-    const second = (fs.readFileSync(f, 'utf8').split('\n')[1] || '').trim();
+    /* PLUMBER 8 11/10: re-aimed to the coordinator's 10/1 stamp on the wiki copy (wiki/CORE_WIKITEXT.md line 2: verbatim wiki text,
+       CC BY-SA) and GROK's 10/24 and 10/25 records ('the wiki copy was never meant to carry a stamp... L1 should skip the wiki/
+       subfolder'): a verbatim wiki page cannot carry a line of ours, so it is judged by the copy's one stamp */
+    const wiki = c.page.startsWith(FOLDER + 'wiki/') ? path.join(root, FOLDER, 'wiki', 'CORE_WIKITEXT.md') : null;
+    const second = ((wiki && fs.existsSync(wiki) ? fs.readFileSync(wiki, 'utf8') : fs.readFileSync(f, 'utf8')).split('\n')[1] || '').trim();
     if (!/^PASSED FILTER\b/.test(second))
       bad.push(c.from + ' cites ' + c.page + ', whose second line is "' + second.slice(0, 60) + '", not PASSED FILTER');
   }

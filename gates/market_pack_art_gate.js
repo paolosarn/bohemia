@@ -5,6 +5,7 @@
    unchanged. Run: node gates/market_pack_art_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname), PORT = 8869;
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
 let pass = 0, fail = 0;
@@ -52,7 +53,7 @@ const srv = http.createServer((rq, rs) => {
     return { n: sl.length, pk: sl.filter(s => { const i = s.querySelector('img.pk'); return i && i.complete && Math.max(i.naturalWidth, i.naturalHeight) > 40; }).length, glyph: sl.filter(s => s.querySelector('i')).map(s => s.getAttribute('aria-label')).join(','), open: BohemiaSettlement.state.open }; });
   ok('the smith\'s shelf: every weapon is a pack tile at its own pixels', sm.open === 'smith' && sm.n > 0 && sm.pk === sm.n, sm.pk + ' of ' + sm.n + ' ' + sm.glyph);
   ok('  and every piece of the valley\'s own wears its own drawn icon, never a pack tile', own.drawn === own.n, own.drawn + ' of ' + own.n);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_MARKET_IN_THE_PACKS_SMITH_10_11.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_MARKET_IN_THE_PACKS_SMITH_10_11.png')) });
   await tap('armourer');
   const ar = await p.evaluate(() => { const sl = [].slice.call(document.querySelectorAll('#sbody .slot.full')); return { n: sl.length, glyph: sl.filter(s => s.querySelector('i')).length }; });
   ok('  armour keeps its glyph: the packs hold no armour (owed to a cook, never faked)', ar.n > 0 && ar.glyph === ar.n, ar.glyph + ' of ' + ar.n);
@@ -61,7 +62,7 @@ const srv = http.createServer((rq, rs) => {
   const st = await p.evaluate(() => { const a = [].slice.call(document.querySelectorAll('#sbody .act.stline')).filter(x => x.dataset.good !== 'tape');
     return { n: a.length, pk: a.filter(x => { const i = x.querySelector('img.pk'); return i && i.complete && Math.max(i.naturalWidth, i.naturalHeight) > 40; }).length, h: a.map(x => x.getBoundingClientRect().height) }; });
   ok('the stall\'s goods: food and water, meds and rounds each show their pack tile', st.n === 3 && st.pk === 3 && st.h.every(h => h >= 44), st.pk + ' of ' + st.n);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_MARKET_IN_THE_PACKS_STALL_10_11.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_MARKET_IN_THE_PACKS_STALL_10_11.png')) });
   const bench = await p.evaluate(() => { const v = BohemiaSettlement._view(); return document.querySelectorAll('canvas').length > 0; });
   const benches = await p.evaluate(() => ['smith', 'armourer'].every(k => { const im = new Image(); im.src = 'market_icons/b_' + k + '.png'; return true; }));
   ok('  the smith\'s and the armourer\'s doors carry the pack\'s workbenches (files load)', benches && missing.length === 0, missing.slice(0, 2).join(' '));

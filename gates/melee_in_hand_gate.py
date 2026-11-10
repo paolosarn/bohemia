@@ -541,9 +541,9 @@ const drive = require(process.argv[2]);
   const d = await drive.open(), errs = [];
   d.page.on('pageerror', e => errs.push(String(e)));
   await d.fr.waitForFunction(() => typeof roadContactFight === 'function' && typeof om !== 'undefined' && !!om, null, { timeout: 120000 });
+  await d.fr.evaluate(async () => { for (let i = 0; i < 40 && typeof FZOOMING !== 'undefined' && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); });
+  await d.fr.evaluate(drive.offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
   const st = await d.fr.evaluate(async () => {
-    for (let i = 0; i < 40 && typeof FZOOMING !== 'undefined' && FZOOMING; i++) await new Promise(r => setTimeout(r, 250));
-    try { stepOnce(0); stepOnce(4); } catch (_e) {}
     return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 });
   });
   let f = null;

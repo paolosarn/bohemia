@@ -18,3 +18,6 @@ numpy
 # CASING FACE (gates/casing_face_gate.js) reads the casing face's own character list with fontTools; without it the gate is
 # red on every fresh container for the box's reason, not the game's (PLUMBER 8, 11/10)
 fonttools
+# THE SQUIGGLE, CREEPIER (gates/the_squiggle_creepier_gate.js, through its Python probe) measures his six families' pitch with Praat through parselmouth;
+# without it the gate hides the import error, reads {} and goes red for the box's reason (PLUMBER 8, 11/10)
+praat-parselmouth

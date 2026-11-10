@@ -47,7 +47,13 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
 
 (async () => {
   /* O1, O11: read */
-  const block = fs.readFileSync(path.join(ROOT, 'tools/bohemia_sounds_one_song_only_block.js'), 'utf8').trim();
+  /* PLUMBER 8 11/10: re-aimed to rule 418 (PLUMBER 6, __FIRST_PLAY_IS_LIGHT__, records/BOHEMIA_PLUMBER_LIGHT_AS_A_FLASH_GAME_11_6_26.md):
+     the pages' fence holds MACHINEPARTY's kit until first play, one line its source in tools/ never took; the fence is checked
+     verbatim from its source WITH that one hold in (the source's own idle line must be there, once, for the hold to go in) */
+  const HOLD_AT = "  if(MP.state==='idle'){ MP.state='waiting';";
+  const HOLD = "  if(MP.state==='idle'){ if(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld()) return null;   /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 6): the kit (six recordings, about 0.9 MB) is armed after first play */\n   MP.state='waiting';";
+  const src0 = fs.readFileSync(path.join(ROOT, 'tools/bohemia_sounds_one_song_only_block.js'), 'utf8').trim();
+  const block = src0.split(HOLD_AT).length === 2 ? src0.replace(HOLD_AT, HOLD) : src0;
   const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
   const demo = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8');
   ok('O1 THE FENCE IS IN THE ALPHA AND THE DEMO, verbatim from its source', alpha.includes(block) && demo.includes(block));

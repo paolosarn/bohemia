@@ -40,7 +40,9 @@ const done = () => { console.log('THE NEAR END IS THE BLOCK: ' + pass + ' passed
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   try {
     await d.page.waitForTimeout(3000);
-    const st = () => d.fr.evaluate(() => ({ cz: CZOOM, zmax: zoomBounds()[1], look: LOOK.on, s: LOOK.s, kind: LOOK.kind, ready: LOOK.ready | 0,
+    /* PLUMBER 8 11/10: re-aimed to WORLD 8 __THE_HOUSES_STAND_UP_CLOSE__ (rules 300, 337): the pinch's own closest stop is the
+       street stop (setZoomAt's ceiling, BohemiaMapHouses.streetTW()/TW0); zoomBounds()[1] is the OLD stop, kept as a number only */
+    const st = () => d.fr.evaluate(() => ({ cz: CZOOM, zmax: (function () { let z = zoomBounds()[1]; try { if (window.BohemiaMapHouses && BohemiaMapHouses.on()) z = Math.max(z, BohemiaMapHouses.streetTW() / TW0); } catch (_e) {} return z; })(), look: LOOK.on, s: LOOK.s, kind: LOOK.kind, ready: LOOK.ready | 0,
       you: LOOK.you, dpr: CV_DPR, mode: MODE }));
     /* N1: squeeze until the map is at its closest; the squeeze that gets there must not also drop in */
     let s1 = await st();

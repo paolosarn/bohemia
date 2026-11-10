@@ -202,7 +202,9 @@ async function side(profile) {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
       const n320 = await fr.evaluate('(' + CHECK.toString() + ')()');
-      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear is a press (NOTES gone, rule 357)', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
+      /* PLUMBER 8 11/10: re-aimed to rule 368 (UI 7 11/3 renamed CHECK's first fact: the phone says the day, the bar never draws DAY):
+         the 320 leg asked for the old fact's name, which CHECK no longer prints, so it read 'missing' and went red */
+      const want = ['the word DAY is never drawn on the bar (rule 368: the phone says the day)', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear is a press (NOTES gone, rule 357)', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
       ok('at 320 wide every fact stays, it fits, nothing overlaps, every press 44', want.every(w => (n320.find(x => x[0] === w) || [0, false])[1]),
         n320.filter(x => want.indexOf(x[0]) >= 0 && !x[1]).map(x => x[0] + ' ' + x[2]).join(' | '));
       await p.setViewportSize(was); await p.waitForTimeout(900);

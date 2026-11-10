@@ -8,6 +8,7 @@
    Run: node gates/settlement_sideways_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname), PORT = 8867;
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
 let pass = 0, fail = 0;
@@ -56,7 +57,10 @@ async function edges(p) {
         /* RE-AIMED 10/26 (RUN TWO [the town fits the screen], rule 218(c), Paolo 10/26: 'I don't like sliding... it should be zoomed out
            perfectly'): the whole town is on the glass at once, nothing cropped, both ways; beside a town narrower than the glass the
            valley goes on (the picture far bigger in dusk), never the page colour */
-        ok(prof.n + ', ' + tier + ': the whole picture is on the glass, nothing cropped, no page colour beside it', cov.l >= -0.5 && cov.r <= cov.W + 0.5 && cov.t >= -0.5 && cov.b <= cov.H + 0.5 && e.left.page < 0.12 && e.right.page < 0.12 && e.left.spread > 5 && e.right.spread > 5,   /* a band is FLAT page colour (spread under 5); the fortress's own dark edge reads 5 percent page colour, the valley beside a fitted town under 9 */
+        /* PLUMBER 8 11/10: re-aimed to rule 383 (RUN FIVE 11/6, __THE_TOWN_IS_ONE_PICTURE__, records/BOHEMIA_RUN5_THE_TOWN_IS_ONE_PICTURE_11_6_26.md):
+           frameFit now covers the whole glass every way (cover = max(W/pw, H/ph)), the picture's own ground past the edges, never a band;
+           the town itself whole in what the phone leaves is THE TOWN IS ONE PICTURE gate's. So: the picture reaches all four edges of the glass */
+        ok(prof.n + ', ' + tier + ': the picture covers the whole glass (rule 383), no page colour beside it', cov.l <= 0.5 && cov.r >= cov.W - 0.5 && cov.t <= 0.5 && cov.b >= cov.H - 0.5 && e.left.page < 0.12 && e.right.page < 0.12 && e.left.spread > 5 && e.right.spread > 5,   /* a band is FLAT page colour (spread under 5); the fortress's own dark edge reads 5 percent page colour, the valley beside a fitted town under 9 */
            'picture ' + Math.round(cov.l) + '..' + Math.round(cov.r) + ' of ' + cov.W + ', page colour ' + e.left.page + '/' + e.right.page + ', spread ' + e.left.spread + '/' + e.right.spread);
         if (tier === 'town' && prof.w > prof.h) shots.after = await p.screenshot();
         const order = await p.evaluate(() => BohemiaSettlement.order()); let landed = 0;
@@ -80,7 +84,7 @@ async function edges(p) {
   await p.setContent('<body style="margin:0;background:#000;color:#fff;font:bold 14px monospace"><div>BEFORE</div><img id=a style="width:844px"><div>AFTER</div><img id=b style="width:844px"></body>');
   await p.evaluate(s => { document.getElementById('a').src = 'data:image/png;base64,' + s.a; document.getElementById('b').src = 'data:image/png;base64,' + s.b; }, { a: shots.before.toString('base64'), b: shots.after.toString('base64') });
   await p.waitForTimeout(400);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_SIDEWAYS_BAND_10_10.png'), fullPage: true });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_SIDEWAYS_BAND_10_10.png')), fullPage: true });
   }
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();

@@ -94,6 +94,10 @@ const COUNT = { food: 'food', meds: 'meds', rounds: 'rounds', tape1: 'tape', tap
     ok('*** T2 ONE TAP LIGHTS IT *** (lit ' + B.lit.join(',') + '; the strip "' + B.strip.slice(0, 70) + '"; meds ' + A.sup.meds + ' -> ' + B.sup.meds + ', moved ' + (moved.join(',') || 'nothing') + ', the keeper the same ' + (A.say === B.say) + ')',
       B.lit.length === 1 && B.lit[0] === 'meds:sell' && /^Sell /.test(B.strip) && B.sup.meds === A.sup.meds && B.bats === A.bats && !moved.length && A.say === B.say);
     /* T3 one of each */
+    /* PLUMBER 8 11/10: re-aimed to ORIGINS (records/target/bb/origins.json supplies, rolled_per_game: tape full 40, thin 20, bare 10):
+       a fresh company may start with 20 rolls or fewer, so after the one roll's sale the stack of twenty is rightly off; the bag is
+       topped to a full start (40) before the sales, so every line has its one sale to make */
+    await sf.evaluate(() => { try { const K = 'bohemia.supplies.v1', s = JSON.parse(localStorage.getItem(K) || '{}') || {}; s.tape = Math.max(s.tape | 0, 40); localStorage.setItem(K, JSON.stringify(s)); } catch (e) {} });
     const t3 = [];
     for (const r of A.rows) {
       const pre = await read(sf), pr = pre.rows.find(x => x.key === r.key), c = COUNT[r.key], per = r.per || 1;

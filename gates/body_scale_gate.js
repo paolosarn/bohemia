@@ -118,11 +118,28 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
   let chromium;
   try { chromium = require('/opt/node22/lib/node_modules/playwright').chromium; }
   catch (e) { ok('playwright is available', false); done(); }
+  /* PLUMBER 8 11/10: re-aimed to the suite as it runs (PLUMBER 10/18's registration line: '15/0 only with the repo served on 8231;
+     the suite serves nothing, so page.goto is refused' and node died on the refusal): the gate serves the repo itself on a free port,
+     the way CLIMBING and the demo driver do; BOHEMIA_PORT still points it at a server somebody already runs */
+  let port = process.env.BOHEMIA_PORT || 0, srv = null;
+  if (!port) {
+    const http = require('http');
+    const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
+      '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ogg': 'audio/ogg', '.wav': 'audio/wav',
+      '.mp3': 'audio/mpeg', '.woff2': 'font/woff2', '.wasm': 'application/wasm', '.glb': 'model/gltf-binary' };
+    srv = http.createServer((rq, rs) => {
+      const f = path.join(REPO, decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, ''));
+      if (!f.startsWith(REPO) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }
+      rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); rs.setHeader('content-length', fs.statSync(f).size);
+      fs.createReadStream(f).pipe(rs);
+    });
+    await new Promise(r => srv.listen(0, '127.0.0.1', r)); port = srv.address().port; srv.unref();
+  }
   const b = await chromium.launch({ args: ['--no-sandbox'] });
   const p = await b.newPage({ viewport: { width: 390, height: 844 },
                               deviceScaleFactor: 3, isMobile: true, hasTouch: true });
   const errs = []; p.on('pageerror', e => errs.push(String(e).slice(0, 140)));
-  await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_DEMO.html');
+  await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_DEMO.html');
   await new Promise(r => setTimeout(r, 7000));
   await p.evaluate(() => { const f = document.getElementById('fronttap') || document.getElementById('front'); if (f) f.click(); });
   await new Promise(r => setTimeout(r, 18000));

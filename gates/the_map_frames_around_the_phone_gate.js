@@ -156,9 +156,12 @@ async function run(profile) {
     const sw = await sweep();
     ok('F11 no button twice on the map: tall and wide, the phone right and left, nothing beside the phone does what a phone app does', sw.length === 4 && sw.every(o => !o.twice.length && !o.same.length),
        sw.map(o => o.at + ': ' + (o.all.join(', ') || 'nothing') + (o.twice.length ? ' TWICE ' + o.twice.join('/') : '')).join('; '));
-    await fr.evaluate(() => { const e = document.getElementById('run-no-button-twice'); if (e) e.disabled = true; });
+    /* PLUMBER 8 11/10: re-aimed to rule 368 (UI 7, __THE_TOP_IS_ONLY_RESOURCES__): the bar's crew chip is hidden for good now, so
+       the line off alone shows nothing; the mutation stands the old chip back up (the case the line is for) and then takes the line off */
+    await fr.evaluate(() => { const e = document.getElementById('run-no-button-twice'); if (e) e.disabled = true;
+      const u = document.createElement('style'); u.id = 'plumber-f12-chip-back'; u.textContent = 'html body #bmtb .r1{display:flex!important}html body #bmtb .t.crew{display:inline-flex!important}'; document.head.appendChild(u); });
     const mu = await sweep();
-    await fr.evaluate(() => { const e = document.getElementById('run-no-button-twice'); if (e) e.disabled = false; });
+    await fr.evaluate(() => { const e = document.getElementById('run-no-button-twice'); if (e) e.disabled = false; const u = document.getElementById('plumber-f12-chip-back'); if (u) u.remove(); });
     ok('F12 MUTATION: the map\'s own no-button-twice line off, F11 goes red (the bar\'s crew door is the phone\'s CREW)', mu.some(o => o.twice.length), mu.map(o => o.at + ': ' + (o.twice.join('/') || 'none')).join('; '));
   } else { ok('F11 no button twice (UI TWO\'s phone is on the page)', false, 'no phone'); }
   /* F9 */

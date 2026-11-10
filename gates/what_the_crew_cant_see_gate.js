@@ -125,9 +125,12 @@ const done = () => { console.log('=== WHAT THE CREW CAN\'T SEE GATE: ' + pass + 
       let down = null, up = null;
       if (hi && lo) { u.x = hi.x; u.y = hi.y; down = T.vision(u, lo); u.x = lo.x; u.y = lo.y; const v = T.vision(u, hi); up = v; }
       Object.assign(u, { traits: keep.traits, headRow: keep.headRow, perks: keep.perks, x: keep.x, y: keep.y }); S.night = keep.night; S.lit = keep.lit;
-      return { base, eagle, short, owlDay, helm, bow, night, owlNight, blind, down, up, per: R('ours.sight').per_level };
+      /* PLUMBER 8 11/10: re-aimed to rule 321 (COMBAT 4, 11/2: storeys; a roof can stand two up): the board's first high tile is not
+         always one storey, and vision() adds per_level a storey of drop, so the leg reads the drop it measured */
+      const drop = hi && lo ? T.level(hi.x, hi.y) - T.level(lo.x, lo.y) : 1;
+      return { base, eagle, short, owlDay, helm, bow, night, owlNight, blind, down, up, drop, per: R('ours.sight').per_level };
     });
-    leg(five.base === 7 && five.eagle === 8 && five.short === 6 && five.owlDay === 7 && five.helm === 6 && five.bow === 8 && five.night === 5 && five.owlNight === 6 && five.blind === 4 && (five.down === null || (five.down === 7 + five.per && five.up === 7)),
+    leg(five.base === 7 && five.eagle === 8 && five.short === 6 && five.owlDay === 7 && five.helm === 6 && five.bow === 8 && five.night === 5 && five.owlNight === 6 && five.blind === 4 && (five.down === null || (five.drop > 0 && five.down === 7 + five.per * five.drop && five.up === 7)),
       '*** SIGHT BY BATTLE BROTHERS\' RULES ***: 7; Eagle Eyes 8, Short Sighted 6; the nasal helmet 6; Bow Mastery 8; the night 5, Night Owl 6 only at night, Night Blind 4; higher ground sees farther down, never up',
       JSON.stringify(five));
   } catch (e) { leg(false, 'the fight\'s page ran', String(e.message).slice(0, 200)); }

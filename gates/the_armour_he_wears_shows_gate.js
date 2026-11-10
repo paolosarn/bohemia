@@ -26,6 +26,7 @@
    node gates/the_armour_he_wears_shows_gate.js [--legs=D,C,F,K,E,M] [--shoot] */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname);
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp', '.mp3': 'audio/mpeg', '.css': 'text/css' };
 let pass = 0, fail = 0;
@@ -109,9 +110,9 @@ async function shootPair(p, name, who, sel, devicePx, box, ev) {
     return { x: Math.max(0, off.x + r.left + a.x / k - box[0] / 2), y: Math.max(0, off.y + r.top + a.y / k - box[1] * 0.28), width: box[0], height: box[1] };
   }, [who, sel, devicePx, box, off]);
   if (!clip) return;
-  await p.screenshot({ path: path.join(SHOTS, 'SCREEN_' + name + '_AFTER.png'), clip });
+  await p.screenshot({ path: proofShot(path.join(SHOTS, 'SCREEN_' + name + '_AFTER.png')), clip });
   await ev.evaluate(() => { BohemiaWear.off = true; try { if (typeof render === 'function') render(); } catch (e) {} }); await sleep(700);   /* the map paints on a change: paint it */
-  await p.screenshot({ path: path.join(SHOTS, 'SCREEN_' + name + '_BEFORE.png'), clip });
+  await p.screenshot({ path: proofShot(path.join(SHOTS, 'SCREEN_' + name + '_BEFORE.png')), clip });
   await ev.evaluate(() => { BohemiaWear.off = false; try { if (typeof render === 'function') render(); } catch (e) {} }); await sleep(300);
 }
 async function crewLegs(b, base, profile, errs) {

@@ -6,6 +6,7 @@
    lands in the stash. Shot: slices/vote/RUN2_THE_STASH_10_10.png. Run: node gates/stash_screen_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname), PORT = 8865;
 const STASH = require(path.join(ROOT, 'engine/bohemia_stash.js'));
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
@@ -36,7 +37,7 @@ const srv = http.createServer((rq, rs) => {
   ok('food and meds spend ECONOMY\'s own day (its engine, the same files)', got.food === want.food && got.meds === want.medicine, 'food ' + got.food + '/' + want.food + ', meds ' + got.meds + '/' + want.medicine);
   const fd = rows.find(r => r.k === 'food'), md = rows.find(r => r.k === 'meds'), bt = rows.find(r => r.k === 'batteries');
   ok('  days left: the stash over the day', +fd.days === Math.floor(50 / want.food) && +md.days === Math.floor(5 / want.medicine) && +bt.days === Math.floor(20 / 8), fd.txt + ', ' + md.txt + ', ' + bt.txt);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_STASH_10_10.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_STASH_10_10.png')) });
   const spent = await p.evaluate(() => BohemiaStashScreen.day());
   const after = await p.evaluate(() => ({ six: BohemiaStashScreen.state.six, food: BohemiaStashScreen.daysLeft('food'), meds: BohemiaStashScreen.daysLeft('meds') }));
   ok('a day on the clock spends exactly that, and the days drop by one', Math.abs(after.six.food - (50 - want.food)) < 1e-6 && after.six.meds === 5 - want.medicine && after.food === Math.floor(50 / want.food) - 1 && after.meds === Math.floor(5 / want.medicine) - 1,

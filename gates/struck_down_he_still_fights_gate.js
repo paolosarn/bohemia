@@ -38,6 +38,7 @@
    node gates/struck_down_he_still_fights_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
 const path = require('path');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.join(__dirname, '..');
 const fs = require('fs');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
@@ -271,7 +272,7 @@ async function run(profile) {
         for (const x of d.page.frames().filter(x => /ROSTER_SCREEN/.test(x.url()))) if (await x.evaluate(() => !!(window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready)).catch(() => false)) { kf = x; break; } }
       if (kf) { await d.page.waitForTimeout(1200);
         await kf.evaluate((K) => { const S = BohemiaRosterScreen.state, i = S.crew.findIndex(m => BohemiaCondition.canon(m.name, m.main) === K); if (i >= 0) BohemiaRosterScreen.open({ select: S.crew[i].name }); const h = document.querySelector('#card .hurtbox'); if (h) h.scrollIntoView({ block: 'center' }); }, K);
-        await d.page.waitForTimeout(700); await d.page.screenshot({ path: path.join(ROOT, 'records/target/injury_card_after_three_knockdowns_phone_11_3.png') }); }
+        await d.page.waitForTimeout(700); await d.page.screenshot({ path: proofShot(path.join(ROOT, 'records/target/injury_card_after_three_knockdowns_phone_11_3.png')) }); }
       try { await d.page.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} }); } catch (_e) {}
       await d.page.waitForTimeout(400);
     }

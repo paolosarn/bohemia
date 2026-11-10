@@ -98,7 +98,10 @@ async function run(profile) {
     /* ---- T5 one step off it and the town is behind him ---- */
     await tapHeal(); await d.page.waitForTimeout(600);   /* the rest ends; he is in the town */
     const left5 = await leaveTown(); await d.page.waitForTimeout(800);
-    const e5 = await d.fr.evaluate(() => { let step = null; for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (cityWalkable(city.x + dx, city.y + dy)) { step = [dx, dy]; break; }
+    /* PLUMBER 8 11/10: re-aimed to A TOWN IS ALWAYS A DOOR (11/6, TOWN_DOOR.ground: no party reaches him within that many blocks of a
+       town's painted ground): one block off the LEAVE tile is still the town's ground, so the step is to the nearest walkable block off it */
+    const e5 = await d.fr.evaluate(() => { let step = null; const off = (x, y) => cityWalkable(x, y) && !(typeof townGround === 'function' && townGround(x, y));
+      for (let r = 1; r < 40 && !step; r++) for (let dx = -r; dx <= r && !step; dx++) for (let dy = -r; dy <= r && !step; dy++) if (Math.max(Math.abs(dx), Math.abs(dy)) === r && off(city.x + dx, city.y + dy)) step = [dx, dy];
       if (!step) return { step: null }; city.x += step[0]; city.y += step[1];   /* one block off the tile his LEAVE put him on */
       const safe = !!townSafeAt(city.x, city.y); HUNTER('hunt:off'); const c0 = window.__HUNT_CAUGHT | 0;
       for (let i = 0; i < 8 && !MEET.up; i++) { try { meetWalk(function () { mapStepWorld(); }); } catch (e) {} }

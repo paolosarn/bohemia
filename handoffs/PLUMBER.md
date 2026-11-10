@@ -1,5 +1,19 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/10, the last of the round -- THE RED DEBT (the coordinator's routine 'clear the red debt'). 383 NAMED, 350 LEFT.
+THE COUNT: every red on main is a line in gates/BOHEMIA_QUARANTINE.txt (owner, verdict); LEFT = not FILED as an ask row; gate THE RED DEBT
+ONLY SHRINKS holds both to gates/BOHEMIA_RED_DEBT_RATCHET.json and to the front page's THE RED DEBT line (4/0, planted). Lower the
+ratchet in the commit that clears a line. DONE: (2) the 343 old reds sorted (103 DEAD, 186 ALIVE STALE, 49 ALIVE REAL, 5 UNSURE); 105
+dead gates retired in all to graveyard/old_gates_retired_11_10_26/ with graveyard/POSTMORTEM_OLD_GATES_RETIRED_11_10_26.txt (one line,
+one ruling each), rows out of the suite, lines off the one-driver baseline; the tool is PLUMBER 8's scratch retire.py (it refuses a gate a
+law cites or another live gate loads). (1) the recent reds judged in five batches (by reading each failing leg against main): 52 gates
+re-aimed to the newer rule with a comment naming it; re-run alone, 28 green so far (the record lists them). Ask rows 572 to 596 filed for
+FIXES worst first (NOTE at FIXES). PIPES: PROOF SHOTS P1 15 -> 0 (ten gates through tools/bohemia_proof_shot.js); parselmouth in
+gates/requirements.txt and the deps check; TWENTY FIGHTS' tool off the town.
+NEXT (in this order, run only what you touch): the 48 UNSURE and 23 LOAD, one run alone each on a quiet box (each line says what the run
+must read); the 186 ALIVE STALE old gates, re-aimed by system, the fight and the map first; 596 (ours.json fetched 8 times a session) and
+561 (the boot) are mine; the runner wants a --names FILE and a sharded full run.
+
 PLUMBER 8 (chat 18) 11/10, later the same round -- THE FULL SUITE LANDED, THE PACKERS MERGE, A ROAD FIGHT OFF THE TOWN, A CLOSED TAB.
 THE SUITE (record records/BOHEMIA_PLUMBER_EIGHT_THE_FULL_SUITE_11_10_26.md; THE SUITE LINE on the front page): main d97cecd3, 1,203 gates,
 8 hours on 4 cores: ran 1,079, green 588, red 491 in the pack, never ran 124 (the clock), flaked 2. THE QUARANTINE (gates/BOHEMIA_QUARANTINE.txt)

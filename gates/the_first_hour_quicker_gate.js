@@ -42,7 +42,9 @@ const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fai
   const d1 = g('W1_door');
   ok('*** Q1 THE EASY END IS THE DOOR\'S DEFAULT *** (' + d1.combat + ' + ' + d1.econ + ', ' + d1.start + ' batteries)', d1.combat === 'new' && d1.econ === 'full');
   const p2 = g('W2_phone');
-  ok('*** Q2 THE PHONE\'S JOB GOES SOMEWHERE *** (road ' + p2.roadDrawn + ' blocks, town lit ' + p2.townLit + ', dead taps ' + p2.deadTaps + ')', p2.tapped && p2.deadTaps === 0 && p2.roadDrawn > 0 && p2.townLit === 1);
+  ok('*** Q2 THE PHONE\'S JOB GOES SOMEWHERE *** (road ' + p2.roadDrawn + ' blocks, town lit ' + p2.townLit + ', dead taps ' + p2.deadTaps + ')', p2.tapped && p2.deadTaps === 0 && p2.townLit === 1);
+  /* PLUMBER 8 11/10: re-aimed to rule 151(f) (RUN 10/24, __NO_ROUTE_LINES__, MAP_PATHS_DRAWN false): no road is drawn on the map any
+     more, the town the job names lights; the road count is printed, never asked for */
   const t3 = g('W3_to_the_town');
   ok('*** Q3 THE TOWN\'S NAME IS THE TOWN *** (' + t3.town + ' opened ' + t3.opened + ' in ' + (t3.taps || []).length + ' touch(es); wrong ' + t3.wrongTaps + ', unplanned fights ' + t3.unplannedFights + ')',
     t3.opened === true && t3.wrongTaps === 0 && t3.unplannedFights === 0 && (t3.taps || []).length === 1);

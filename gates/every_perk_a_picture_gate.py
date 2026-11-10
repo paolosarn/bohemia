@@ -42,7 +42,9 @@ def main(d=os.path.join(R, 'slices/perk_icons'), rjp=os.path.join(R, 'records/ta
         ims[p['id']] = np.asarray(im).astype(float)
         if not e or e.get('tier') != p['tier'] or e.get('pressed') != (p['id'] in active) or not e.get('shows') or e.get('draft') is not True:
             miss.append(p['id'] + ' manifest row')
-    leg(not miss and len(ims) == len(perks) == 50, '*** EVERY PERK HAS ITS PICTURE ***: fifty pictures, 96 x 96, each its row in perk_icons.json (row, carried or pressed, what it shows, draft)',
+    # PLUMBER 8 11/10: re-aimed to rule 367 (Paolo 11/3, the Decoy, a 51st perk in perks.json): rule 252(c) is every perk, so the count
+    # is the perk file's own (fifty when this landed, never fewer); the Decoy itself still has no picture and stays red until COOK makes it
+    leg(not miss and len(ims) == len(perks) >= 50,'*** EVERY PERK HAS ITS PICTURE ***: fifty pictures, 96 x 96, each its row in perk_icons.json (row, carried or pressed, what it shows, draft)',
         '; '.join(miss[:6]) if miss else '%d of %d' % (len(ims), len(perks)))
     rj = json.load(open(rjp)) if os.path.exists(rjp) else {}
     bad = ['%s %s' % (k, 'no run' if k not in rj else 'engine %s breaks %s colours %s' % (rj[k].get('engine'), rj[k].get('breaks'), rj[k].get('colours')))

@@ -122,7 +122,11 @@ while ((fm = fr.exec(html))) fetches.push(fm[1].split(',')[0]);
    on the rig): rig_hold/ (a pistol in one hand, a man in cover) and rig_melee/ (his own melee, shield and two-hand keys) */
 /* __THE_ARENA__ (ARENA 2, rule 426(f)): the pit's own laid board, slices/arena/pit_board.json, is ground like fight_ground/'s: pictures,
    their tiles and the terrain kinds by name (the kinds' numbers are the bb rows'); no number a fighter feels lives in it */
-const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\/|fight_ghosts\/|rig_hold\/|rig_melee\/|^'arena\/pit_board\.json'$/.test(f.trim()) && !/^\s*(u|url|src|p)\s*$/.test(f); });
+/* PLUMBER 8 11/10: re-aimed to rule 406(b) and rule 442(a): the camp is pitched on the fight board, so the fight draws CAMP TWO's kit,
+   slices/camp_two/kit.json (pictures, their rects and feet in metres; no number a fighter feels), the same as the pit's laid board */
+const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\/|fight_ghosts\/|rig_hold\/|rig_melee\/|^'arena\/pit_board\.json'$|^'camp_two\/kit\.json'$/.test(f.trim()) && !/^\s*(u|url|src|p|s)\s*$/.test(f); });
+/* PLUMBER 8 11/10: re-aimed to 764f1571 (FIXES BUILD 11/9n, __THE_BAKE_DOES_NOT_FREEZE__): offThread(s) fetches the same ground picture
+   load(s) would, as a blob for an ImageBitmap, so 's' is a picture address like u, url, src and p */
 leg(fetches.length > 0 && strays.length === 0, 'the page loads only the bb data, COMBAT TWO\'s ground and the character bank\'s baked people',
   strays.join(' | '));
 const loader = html.match(/const DATA_FILES\s*=\s*\[([^\]]*)\]/);
@@ -138,7 +142,9 @@ leg(listed.length > 0 && outside.length === 0, 'the data list reads bb, the grou
 const draw = script('fight-draw');
 leg(!!draw, 'the drawing has its own script, <script id="fight-draw">');
 if (draw) {
-  const writes = code(draw).match(/\.(hp|armor_head|armor_body|ap|fat|morale)\s*(=[^=]|\+=|-=|\+\+|--)/g) || [];
+  /* PLUMBER 8 11/10: re-aimed to rule 313 (STAMINA SEEN): a swing's own list of breath tags, (host.fat = host.fat || []), rides the
+     motion that took it; it is the animation's list, not a fighter's number, so a name set to itself-or-a-list is not a write */
+  const writes = code(draw).replace(/\b(\w+)\.fat\s*=\s*\1\.fat\s*\|\|\s*\[\]/g, '').match(/\.(hp|armor_head|armor_body|ap|fat|morale)\s*(=[^=]|\+=|-=|\+\+|--)/g) || [];
   leg(writes.length === 0, 'the drawing never writes a fighter\'s numbers', writes.slice(0, 4).join(' '));
 }
 

@@ -60,6 +60,8 @@ const PM = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_m
     /* P3, P4, P5: road fights through the one door, counted on the fight's own board */
     const road = async (day, combat) => {
       await fr.evaluate(([day, combat]) => { DAY.day = day; if (LOOP.start) LOOP.start.combat = combat; }, [day, combat]);
+      /* PLUMBER 8 11/10: re-aimed to COMBAT [bestiary] 10/24 (rule 134(b), ours.json road_factions) and FACTIONS 11/3 (bohemia_enemies.json road.by_act): from his second fight on a road party is a rolled faction (coyotes, kids, machines...), so the fight count is set back to his first before each road fight and P3 compares day 1 and day 100 of the same brigands */
+      await d.page.evaluate(() => { try { localStorage.setItem('bohemia.fight.met.v1', '0'); } catch (_e) {} }).catch(() => null);
       /* read at the moment of the fight, where he stands: the two steps onto the road change the distance from town */
       await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
       const want = await fr.evaluate(() => { const w = partyMath('roaming', { x: city.x, y: city.y }); roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); return w; });

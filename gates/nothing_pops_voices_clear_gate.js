@@ -89,12 +89,15 @@ async function side(profile, phoneSide, planted) {
     await fw.evaluate(() => { BohemiaKillTally.card(document, [{ name: 'DESI', was: 'x', look: 'person_town_0' }], { x: innerWidth - 60, y: Math.round(innerHeight * 0.8) }); }); await p.waitForTimeout(800);
     const o3 = await M('(' + OVER + ')()'); ok('N2 the kills card held low by the phone stands clear of it', o3['#bkt-card'] === 0, o3['#bkt-card'] + ' sq pt under it');
     await p.touchscreen.tap(wb.x + 30, wb.y + 120); await p.waitForTimeout(700);
-    await fw.evaluate(() => { try { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); } catch (e) {} }); await p.waitForTimeout(1500);
+    /* PLUMBER 8 11/10: re-aimed to rule 405(a)(c) (RUN FIVE __ONE_END_SCREEN__, 11/4): in the game a won or lost fight's own end card
+       is handed to the game's end screen (#over.handed, never shown first), so the end card that comes in is the spoils screen, read below */
+    const overHanded = await fw.evaluate(() => { try { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); } catch (e) {} const o = document.getElementById('over'); return !!o && o.classList.contains('handed'); }).catch(() => false); await p.waitForTimeout(1500);
     for (let i = 0; i < 30 && !(await M(() => !!document.getElementById('spoilsdoor'))); i++) await p.waitForTimeout(300);
     await p.waitForTimeout(1500);
     const EV = []; for (const f of p.frames()) { try { const r = await f.evaluate(() => window.__PREC ? window.__PREC.ev : []); r.forEach(x => EV.push(x)); } catch (e) {} }
     for (const id of ['weapon card', 'fight over', 'settings', 'kills card', 'spoils']) {
       const o = EV.filter(e => e.id === id && e.ev === 'open'), cl = EV.filter(e => e.id === id && e.ev === 'close');
+      if (id === 'fight over' && overHanded && !o.length) { ok('N3 fight over: handed to the end screen, never shown first (rule 405(a)(c)); the spoils screen opened in its place', EV.some(e => e.id === 'spoils' && e.ev === 'open')); continue; }
       if (!o.length) { ok('N3 ' + id + ': seen opening', false); continue; }
       ok('N3 ' + id + ' comes in over frames (its first drawn frame under 95% there)', o.every(e => e.seq[0] < 0.95), o.map(e => e.seq.slice(0, 5).join(' ')).join(' | '));
       if (cl.length) ok('   and leaves a copy that shrinks (no one-frame vanish)', cl.every(e => e.seq.indexOf('g') >= 0 || e.last < 0.95), cl.map(e => e.last + ' -> ' + e.seq.slice(0, 4).join(' ')).join(' | '));

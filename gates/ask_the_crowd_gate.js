@@ -68,7 +68,7 @@ function fn(src, name) {   /* lift one function's source out of the screen, by b
 }
 
 head('A  the screen is wired');
-var folkSrc = fn(SCREEN, 'folkList'), openSrc = fn(SCREEN, 'openPerson'), askSrc = fn(SCREEN, 'askCrowd'),
+var folkSrc = (fn(SCREEN, 'folkList') || '') + (fn(SCREEN, 'folkMake') || ''), openSrc   /* PLUMBER 8 11/10: re-aimed to the screen as shipped (11/8 tree): folkList now guards re-entry and hands the build to folkMake(pm, key), where the crowd is pushed */ = fn(SCREEN, 'openPerson'), askSrc = fn(SCREEN, 'askCrowd'),
   rollSrc = fn(SCREEN, 'crowdRoll'), keySrc = fn(SCREEN, 'crowdKey'), nameSrc = fn(SCREEN, 'crowdName'), openAll = fn(SCREEN, 'open');
 ok('a crowd person carries their spot in the crowd', !!folkSrc && /out\.push\(\{crowd:true, slot:q,/.test(folkSrc));
 ok('the sheet keys a person by place and spot, never by the draw order', !!keySrc && /S\.place\.name \+ ':' \+ p\.slot/.test(keySrc) &&

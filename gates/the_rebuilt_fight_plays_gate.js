@@ -925,6 +925,10 @@ async function gunsTwo() {
   reach.err = d.errs[0]; await d.close();
   const d2 = await open1(['brigand_marksman']);
   const back = await d2.page.evaluate(() => { window.tick = function () {}; const S = FIGHT.S, u = FIGHT.alive('you')[0], m = FIGHT.alive('them')[0];
+    /* PLUMBER 8 11/10: re-aimed to rule 103 as the fight has it (zocOn: 'a gun in his hands holds no ring') and rule 195: his first man
+       holds the pistol, which casts no free swing, so the rifleman walked off for a better band at no cost; the leg is the rifleman
+       beside a man whose ring is real, so that man holds a blade */
+    u.weapon = DB.weapons.rows.find(w => w.class === 'sword');
     m.weapon = DB.weapons.rows.find(w => w.class === 'crossbow'); m.loaded = true; m.ammo = null; u.x = 5; u.y = 7; m.x = 6; m.y = 7; u.hp = u.hpMax = 999;
     let g = 0; while (FIGHT.current() !== m && g++ < 50) { const c = FIGHT.current(); if (c === u) FIGHT.endTurn(c); else FIGHT.aiStep(c); }
     m.ap = m.apTurn; const n0 = S.log.length; for (let i = 0; i < 8 && FIGHT.current() === m; i++) FIGHT.aiStep(m);

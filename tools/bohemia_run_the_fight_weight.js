@@ -126,6 +126,7 @@ async function main() {
       const t0 = Date.now();
       /* the biggest party the math rolls: day 100 (its cap), the hard end; his walking walks into it, so the card asks first */
       step = 'card'; watch();
+      await fr.evaluate(require('./bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
       const want = await fr.evaluate((fac) => { DAY.day = 100; if (LOOP.start) LOOP.start.combat = 'out'; try { contactClear(); } catch (_e) {} try { CITY_CONTACT_POSTED = false; } catch (_e) {}
         const P = partyMath('roaming', { x: city.x, y: city.y });
         /* the faction for this fight, on the map's own hand-over (the fight reads party.faction) */

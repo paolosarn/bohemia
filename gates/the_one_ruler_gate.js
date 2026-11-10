@@ -248,7 +248,7 @@ const ONE = (() => {
 })();
 const QNAME = { real: 'metres of ground a block', drawn: 'metres drawn a block', cellM: 'metres a fine cell', cells: 'fine cells a block',
   minCell: 'minutes a fine cell', minBlock: 'minutes an open block', secCell: 'seconds a fine cell', mpm: 'drawn metres a minute',
-  bpdRoad: 'road blocks a day', bpdOpen: 'open blocks a day', valleyKm2: 'drawn valley km2', lane: 'cells a lane (a real lane with its line at CELL_M)' };
+  bpdRoad: 'road blocks a day', bpdOpen: 'open blocks a day', valleyKm2: 'drawn valley km2', lane: 'cells a lane (a real lane with its line at CELL_M)', house: 'metres a fight tile (a house)' };
 /* which quantity each declared name can mean; a name with two means two subjects (TILE_M is a block in the
    overmap and a fine tile on the 7/27 lab page), and a value matching either is that subject */
 const QOF = {
@@ -267,7 +267,10 @@ const TOOL_NAMES = ['METRES_PER_BLOCK', 'METERS_PER_BLOCK', 'metresPerBlock', 'm
   'blocks_per_day_road', 'blocks_per_day_open', 'blocksPerDayRoad', 'blocksPerDayOpen'];
 const SWEEP = [['engine', true, null], ['slices', true, null], ['banks', false, null], ['mods', true, null],
                ['reference/art_bank/fight_board', false, null], ['tools', true, TOOL_NAMES]];
-const agreesQ = (q, v) => q === 'lane' ? inR((v + 1) * OM.CELL_M, REAL.lane) : Math.abs(v - ONE[q]) <= 0.01 * Math.abs(ONE[q]);
+/* PLUMBER 8 11/10: re-aimed to 08b983e6 (COMBAT TWO, BUILD 11/8e, rule 429(h)): slices/bohemia_street_board.js names a fight tile
+   TILE_M, a third subject (A COMBAT TILE IS A HOUSE, 9/4), so a carrier may say which quantity its name means there ('house': a real
+   house's long side, REAL.houseL) */
+const agreesQ = (q, v) => q === 'lane' ? inR((v + 1) * OM.CELL_M, REAL.lane) : q === 'house' ? inR(v, REAL.houseL) : Math.abs(v - ONE[q]) <= 0.01 * Math.abs(ONE[q]);
 const agrees = (id, v) => (QOF[id] || []).some(q => agreesQ(q, v));
 const declRe = names => new RegExp('(?:\\b(?:const|let|var)\\s+|[,{.(]\\s*|^[ \\t]*)["\']?(' + names.join('|') +
   ')["\']?\\s*(?::|=(?!=))\\s*(-?\\d+(?:\\.\\d+)?)(?![\\d.])', 'gm');
@@ -294,6 +297,8 @@ const CARRIERS = [
   ['slices/BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html', ['TILE_FINE', 'CELL_M'], 'an old July judge page'],
   ['slices/BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html', ['LANE_W'], 'an old July judge page', 2, 'a lane 1.5 m'],
   ['slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html', ['TILE_M'], 'the retired LAB (TILE_M is a fine tile there)'],
+  /* PLUMBER 8 11/10: re-aimed to 08b983e6: the street board's TILE_M is a fight tile, a house (12 m), not a block or a cell */
+  ['slices/bohemia_street_board.js', ['TILE_M'], 'COMBAT TWO (TILE_M is a fight tile there: a house)', undefined, undefined, 'house'],
   ['engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js', ['LANE_W'], 'the 7/16 engine', 2, 'the root of 230 m; no live page loads it (F4)'],
   ['engine/bohemia_blockgen.js', ['LANE_W'], 'the 7/16 engine', 2, 'no live page loads it (F4)'],
   ['engine/bohemia_engine_graphics_7_14_26.js', ['LANE_W'], 'the 7/14 engine', 2, 'no live page loads it (F4)'],
@@ -304,7 +309,7 @@ const CARRIERS = [
   ['reference/art_bank/fight_board/COMBAT2_CUT_FROM_THE_MAP_10_18.json', ['world_block_m'], 'COMBAT TWO'],
   ['reference/art_bank/fight_board/COMBAT2_CUT_FROM_THE_MAP_10_18.json', ['fine_cell_m'], 'COMBAT TWO', 1.8, 'the board manifest\'s ruler'],
   ['reference/art_bank/fight_board/COMBAT2_CUT_FROM_THE_MAP_10_18.json', ['block_m'], 'COMBAT TWO', 230, 'the board manifest\'s ruler: the large board is 2.4 x 1.8 blocks of drawing, not one block']
-].map(([file, ids, owner, owed, why]) => ({ file, ids, owner, owed, why }));
+].map(([file, ids, owner, owed, why, as]) => ({ file, ids, owner, owed, why, as }));
 /* the VOTE tab items whose words still say a block is 230 m or a cell 1.8 m (owed; a new one is red) */
 const VOTE_OWED = ['combat2-the-board-cut-from-the-map-10-18'];
 /* RUN's twelve hand-placed fallback towns (used only when the region file fails to load): how many sit more than
@@ -355,9 +360,9 @@ function carriersCheck(over) {
     if (!vals.length) { R.fixed.push(c.file + ' ' + id + ': no longer declared'); continue; }
     R.listed++;
     for (const v of vals) {
-      if (agrees(id, v)) { if (c.owed !== undefined) R.fixed.push(c.file + ' ' + id + ' = ' + v + ' now agrees (' + c.owner + '): take it off the owed list'); }
+      if (c.as ? agreesQ(c.as, v) : agrees(id, v)) { if (c.owed !== undefined) R.fixed.push(c.file + ' ' + id + ' = ' + v + ' now agrees (' + c.owner + '): take it off the owed list'); }
       else if (c.owed !== undefined && v === c.owed) R.owedStill.push(c.file + ' ' + id + ' = ' + v + ' (' + c.owner + '; ' + c.why + ')');
-      else red('listed', c.file + ' ' + id + ' = ' + v + ' against the one ' + QOF[id].map(q => QNAME[q] + ' ' + (q === 'lane' ? '4 or 5' : f1(ONE[q]))).join(' or ') + (c.owed !== undefined ? ' (owed at ' + c.owed + ', moved to a third number)' : ' (' + c.owner + ')'));
+      else red('listed', c.file + ' ' + id + ' = ' + v + ' against the one ' + (c.as ? [c.as] : QOF[id]).map(q => QNAME[q] + ' ' + (q === 'lane' ? '4 or 5' : q === 'house' ? REAL.houseL.join(' to ') : f1(ONE[q]))).join(' or ') + (c.owed !== undefined ? ' (owed at ' + c.owed + ', moved to a third number)' : ' (' + c.owner + ')'));
     }
   }
   /* 3. declarations nobody listed */

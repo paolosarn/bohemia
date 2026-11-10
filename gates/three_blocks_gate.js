@@ -115,6 +115,12 @@ NFK.forEach(k => ((MIX.aliases || {})[k] || [k]).forEach(t => reach.add(t)));
    district's row, else its ground's); every kind those lists name is reached, the first of a list leads */
 const PG = (OURS.board_grounds && OURS.board_grounds.value) || null;
 if (PG) [].concat(Object.values(PG.grounds || {}), Object.values(PG.districts || {})).forEach(l => l.forEach(t => reach.add(t)));
+/* PLUMBER 8 11/10: re-aimed to rule 341 (COMBAT MAPS 3, EVERY PLACE ITS OWN BOARD): a place with its own built board deals ONLY
+   its own blocks (BOHEMIA_FIGHT.html placeOwn/dealOwn, ours.place_boards), so its landmark, field, cols and rows are reached too */
+const PB = (OURS.place_boards && (OURS.place_boards.value || OURS.place_boards)) || null;
+if (PB) Object.values(PB.places || {}).filter(p => p && p.built).forEach(p =>
+  [p.landmark_block].concat(p.field || [], [].concat(...Object.values(p.cols || {})), [].concat(...Object.values(p.rows || {})))
+    .forEach(n => n && reach.add(String(n).split('.')[0])));
 const neverAtAll = [...libKinds].filter(k => !famNames.has(k) && !reach.has(k)).sort();
 const neverLead = [...libKinds].filter(k => famNames.has(k) && !reach.has(k)).sort();
 

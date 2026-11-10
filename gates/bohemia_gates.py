@@ -217,11 +217,6 @@ GATES = [
      'with NO door is unchanged so nothing is ever sealed. The no-lockout check runs FIRST on '
      'purpose -- 10 of 14 district types have no door cell at all, so making walls solid '
      'everywhere before doors exist would seal the valley', True),
-    ('ZOOM SEAM',      ['node', 'gates/zoomseam_gate.js'],
-     'Paolo 8/2: "i should be able to ZOOM OUT UNTIL I GET INTO THE CITY BUILDER MODE". '
-     'setHZoom clamped the request on its first line so pinching out at the widest stop was '
-     'silently pinned there. Both directions driven on the real surface, and the ZOOM LEVEL '
-     'LAW still snaps to its four pixel-true stops', True),
     ('INTERIOR WALL',  ['node', 'gates/interior_wall_gate.js'],
      'Paolo 8/2 "MY BIGGEST THING WITH INTERIORS WHY IS THE DOOR TWO TILES AND THE WALLS ARE '
      'ONE TILE": indoors the wall now stands two tiles like the door in it. Measured by '
@@ -241,24 +236,8 @@ GATES = [
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
      'Paolo 7/31: if he bought it, it wins -- his library draws FIRST, painted is the named fallback', False),
-    ('SEE THROUGH',    ['node', 'gates/xray_gate.js'],
-     'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
-    ('HALF SIZE',      ['node', 'gates/half_size_gate.js'],
-     'Board row [half size]: Paolo LOCKED, "for the run right now make all the UI 50%% '
-     'smaller", with one rule surviving -- drawn at half, reach stays 44 -- and the '
-     'coordinator deciding OPTION D off the options sheet (half size, stack spread so a 44 '
-     'thumb fits between buttons). Option D is BUILT and NOT SHIPPED: switched on it halves '
-     'the widths and all twenty controls clear a 44 reach, and it still breaks the presses. '
-     'THREE HARNESSES LIED BEFORE ONE TOLD THE TRUTH -- an in-page hit test said 12 of 12 '
-     'while a driven tap said 2 of 11; a driven tap with per-button listeners said 4 of 10 on '
-     'the UNMODIFIED build; moving the listener to the document changed nothing. What settled '
-     'it asks the GAME rather than the DOM: press PHONE, did the phone open? Without the '
-     'halving it opens; with it, nothing happens. So this gate holds the line that matters -- '
-     'THE SHIPPED GAME\'S CONTROLS STILL WORK and the halving is OFF so the row cannot '
-     'half-ship itself -- reports what the work already achieves, and carries the open defect '
-     'as its own leg so nobody mistakes it for done.', True),
     ('CITY RAIL',      ['node', 'gates/city_rail_gate.js'],
      'Board row [rail collides]. PAOLO 9/8 from his own frame: "what is this part of the UI? '
      'it\'s colliding with each other, what\'s up with that?" -- the day\'s job card sitting on '
@@ -308,22 +287,6 @@ GATES = [
      'show NO currency rather than a zero that means nothing -- and never more than the three '
      'locked currencies, because his 7/26 ban on the "spreadsheet simulator" feel still '
      'stands and a fourth number in that strip is that ban broken by the back door.', True),
-    ('PAD RING',       ['node', 'gates/pad_ring_gate.js'],
-     'Board row [pad broken] THE ACTION BUTTON IS FUCKED UP -- he sent a frame of the walked '
-     'pad with seven arrows out of any ring, two pointing the same way and the FACE shoved '
-     'into the bottom-right corner, then picked option 1 (THE DIAL) off the ring sheet. His '
-     'words: "the action button surrounded by only ONE other circle, and that circle cut into '
-     'how many parts of the directions we need. I don\'t want them to be independent circles." '
-     'So the pad is one svg annulus cut into eight, drawn in a 180 viewBox that scales with '
-     'its box, and the face is centred in PERCENTAGES -- the corner bug was a fixed 50px '
-     'offset inside a box that half size made 90 wide. The gate asks the shipped page, at '
-     'FULL and HALF size, the four things his photograph showed broken: one ring not loose '
-     'pieces, the face dead centre (2px), nothing overlapping, and every one of the eight '
-     'segments actually walks him. THE OVERLAP CHECK CAUGHT ITSELF FIRST: a bounding-box test '
-     'reported eight overlaps on a ring whose wedges do not touch, because the box around a '
-     'pie slice contains its neighbours -- it asks the SHAPES now (isPointInFill over a grid), '
-     'which is the browser\'s own answer about its own geometry. Mutation-proved: push the '
-     'face to left:62%% and both sizes go red by 21.6 and 10.8 px.', True),
     ('READABLE RULER', ['python3', 'gates/readable_ruler_gate.py'],
      'Board row [eyes: faint chips] THE PLAYER CANNOT READ HIS OWN CONTROLS -- an EYES AND '
      'EARS bounce-back on shipped work, and this lane\'s own defect ([phone readable] shipped '
@@ -408,25 +371,6 @@ GATES = [
      'the colour legs are a RATCHET, not a repaint, because STRUCTURE-NOT-COLOR already '
      'answers the colour-blind case and which faction owns which hue is HIS. The numbers '
      'print every run: records/BOHEMIA_COLOUR_BLIND_ON_THE_FACTIONS_9_6_26.md.', True),
-    ('FIRST TEACHING', ['node', 'gates/teach_gate.js'],
-     'Board row [first teaching]: "the pad, the phone, DROP IN; nothing exists; measure with '
-     'the cold hand", and measuring first proved every word of it -- no onboarding of any '
-     'kind in the walked city. WHAT THE COLD HAND MEETS: the splash carries ONE control (TAP '
-     'TO ENTER) and one tap later the screen carries TWENTY, and the RUN lane\'s own '
-     'cold_hand_gate presses the loudest thing forty times, finding the walk pad exactly ONCE '
-     'before a panel GO button takes the next thirty-six presses. The pad was never missing; '
-     'it was one ring among twenty things. So: three nudges, ONE AT A TIME, each a ring on the '
-     'REAL control plus one short line, cleared by DOING THE THING and never seen again. No '
-     'modal, no OK button, nothing to dismiss -- the house style is "a signifier, not a '
-     'tutorial", and the overlay is pointer-events:none end to end so a player who ignores it '
-     'plays the game unchanged. THE WORDS ARE ENGLISH BY RULE, not preference: language_gate '
-     'holds that LANGUAGE NEVER GATES REQUIRED INFORMATION, and how to move is required '
-     'information. Two findings are frozen into legs here because both were invisible to the '
-     'obvious instrument: the pad is a RING with DROP IN sitting in its hole, so asking what '
-     'is under a thumb at the pad\'s centre answers "the mode button" forever; and the city '
-     'runs in a FRAME the shell draws over, so this document cannot see the cold-open card '
-     'lying across the phone chip -- the lesson asks the shell what is topmost, for the '
-     'control AND for its own sentence, and holds rather than rendering a ghost.', True),
     ('SETTINGS',       ['node', 'gates/settings_gate.js'],
      'Board row [settings pause]: "volume, mute, quit, save; nothing exists", and measured '
      'before building it was exactly true -- ZERO settings surfaces in the walked city, no '
@@ -557,25 +501,6 @@ GATES = [
      'measurement is REQUIRED from tools/bohemia_what_actually_paints.js, not copied, so the CLI '
      'and the gate cannot drift. Uses the one driver (rule 14g). Mutation-proved three ways.',
      False),
-    ('CARD IS OBJECT', ['node', 'gates/the_card_is_an_object_gate.js'],
-     'Two entries on the vibe-code law\'s own list are "a grey one-pixel border on every card" '
-     'and "the rounded card as the way to group". After eight rounds the biggest single owner of '
-     'BOTH on the walked city was #daycardIn -- the card he meets in the first five seconds of '
-     'the game, every time. THE FINDING THAT MADE THE ROUND: GET UP was wearing THREE edge '
-     'treatments at once. .dcgo is named in the city\'s own object rule (a bevelled box, border 0, '
-     'radius 0, a clip-path cut corner) and a later rule of the same specificity put '
-     'border-radius:9px and a 1px hairline straight back on top. Measured on the real card before '
-     'a line changed: clip YES, border 1, radius 9. The card\'s own border and radius were the same '
-     'rot in reverse -- cancelled by the skin with !important since round three, so they painted '
-     'nothing for days while still counting as tells and still telling the next reader the wrong '
-     'thing. So this gate asks the RENDERED card, never the stylesheet. It also guards the MEANING: '
-     '.rpend was dashed on purpose (not settled yet), so it was translated into the object language '
-     'as a recess rather than deleted, and the gate holds that a pending row still reads differently '
-     'from a settled one -- a tell removed at the cost of a distinction the player could see is a '
-     'bad trade. One of its own legs was false-green first: it read the first "#daycardIn{" in the '
-     'file, which is a variant selector carrying none of the declarations it was about. '
-     'Mutation-proved five ways.',
-     False),
     ('CASING FACE',    ['node', 'gates/casing_face_gate.js'],
      'The third and last type register. CASING is the words stamped on the machine itself -- '
      'the top strip, the HUD, the chips down the rail, the pad, the phone\'s body -- and it was '
@@ -642,24 +567,6 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
-    ('RICE CLOCK',    ['node', 'gates/rice_clock_gate.js'],
-     'THE-BAG-OF-RICE-IS-THE-TUTORIAL (board row [rice clock], 9/12). THE MANAGER\'S OWN CALL '
-     '(9/5): "everything costs one and a day of work pays one; the one thing you must buy every '
-     'day is the whole economy in miniature. Hunger is the clock: a day without the bag shows on '
-     'the body and the purse, and the first purchase of the game is rice, taught by wanting it, '
-     'not by a text box." THE BUG UNDERNEATH IT WAS THE WHOLE LOOP, measured on the walked '
-     'surface: buy food returned applied:true and took the battery, resources went 0 -> 0, and '
-     'then day:ate was REFUSED as INSUFFICIENT. You bought food, the food did not exist, and '
-     'then you starved -- because buy() read SHOPPING as the hard sink and credited nothing. The '
-     'four-verbs law already says where the sink belongs (each resource is spent by exactly one '
-     'verb, and the verb that spends resources is day:ate), so SHOPPING MOVES VALUE AND EATING '
-     'DESTROYS IT: buy() now goes through the purse\'s own convert(), which had sat there since '
-     '7/31 with zero callers and is atomic, so a battery can never leave without the good '
-     'arriving. AND HUNGER IS COUNTED AND SAID, NEVER SUFFERED: NO DAMAGE BEFORE THE DIAL is '
-     'locked and the day loop wrote the same sentence about this same moment ("the reckoning '
-     'REPORTS; it does not starve you"), so the streak is read back out of the LEDGER rather '
-     'than stored beside it, rises in words, names the thing to buy, and takes nothing off him. '
-     'Red both ways: put the original bug back -> 7 red; make the clock never run -> 3 red.', True),
     ('DEBT CARRIED',  ['node', 'gates/debt_carried_gate.js'],
      'THE-DEBT-NAMES-ITS-LENDER-AND-OUTLIVES-YOU (board row [debt carried], 9/12). From the 9/5 '
      'heir research: "where there is no state, the lender collects from the family. Every debt in '
@@ -1449,28 +1356,6 @@ GATES = [
      'first cut of this gate NEVER TESTED -- a mutation making every block hold left it '
      'at 33/0, so the lopsided blocks are now built here in both directions and a tie is '
      'checked too.', True),
-    ('VISIBLE CHANGE', ['node', 'gates/visible_change_gate.js'],
-     'WHAT-AN-ASK-IS-ALLOWED-TO-MOVE (board row [visible change], 9/21). The rule: a '
-     'generated ask may only move things the player can WATCH move. RULE 12 FIRST AND '
-     'THE ROW WAS STALE -- the list it asks for already exists, shipped by QUESTS 9/6 '
-     'as bohemia_asks.CHANGES, six rows, the same six the row names. So this lane wrote '
-     'no second list; it wrote the checker nobody had. (A) THE LIST STAYS QUESTS\': the '
-     'checker keeps no copy, reaches for the asks module nowhere in its code, and a '
-     'seventh row added tomorrow is REPORTED, never silently skipped. (B) THE WORDS '
-     'MOVE ON THE REAL SURFACE: the walked city is booted, the nightfall card is read, '
-     'one night is run through the game\'s own blockRent and nightPower, and the card is '
-     'read again -- WHO YOU OWE arrives, the cut sentence arrives, the dark count rises. '
-     'Two controls make it mean something: two reads with nothing changed give identical '
-     'words, and dousing a wire OUTSIDE the night moves nothing, which is correct because '
-     'the card is a record of the night and not a readout of the grid. (C) *** A STALE '
-     'REASON IS A BUG WITH A LONG FUSE: debt_moves is marked unwired with the typed '
-     'sentence "belonging models debt as a faction WANT, not a balance with a name on it '
-     'that anybody can clear". That was true on 9/6 and THIS LANE made it false on 9/13 '
-     'with bohemia_lend, and nobody told the list because the reason is a string. *** '
-     'Every unwired row now carries a PROMOTION TEST, a predicate over the live modules, '
-     'driven not read (a named debt is taken and cleared to nothing), and this gate fails '
-     'if a test passes while the list still calls the row unwired. Red two ways: remove '
-     'the promotion test -> 2; claim a watcher that is not on the surface -> 2.', True),
     ('FOLD CARRIES', ['node', 'gates/fold_carries_gate.js'],
      'THE-FOLD-CARRIES-THE-WRONG-THINGS (board row [fold carries], 9/16). MEASURED '
      'FIRST (rule 12) and READ rather than guessed: bohemia_fold carries a CARRY table '
@@ -1541,34 +1426,6 @@ GATES = [
      'THAT LAST ONE PASSED AT FIRST, because nothing had moved yet when the check asked, '
      'so the check now moves cells between holders BEFORE asking -- a check that cannot '
      'tell made from moved is the broken one, and that is the whole claim of the row.', True),
-    ('TWO PRICES', ['node', 'gates/two_prices_gate.js'],
-     'ONE-PRICE-IN-THE-WHOLE-VALLEY (board row [two prices], RE-AIMED by PAOLO 9/15 '
-     'ruling 1). HIS WORDS: "THE SURCHARGE IS DEAD. EVERYTHING COSTS ONE is his pillar '
-     'and it holds everywhere for everyone. The spread lives in ACCESS and DISTANCE... '
-     'never a number above one." This lane built the stranger surcharge on 9/15, it made '
-     'the first bag of rice cost TWO DAYS OF WORK at the market two blocks from the bed, '
-     'and it was taken back out (aa3ca379). What ships instead is ACCESS, from ruling 8 of '
-     'the nine defaults (9/13): "A TRADER WILL REFUSE MONEY AND ASK FOR GOODS: YES, AT A '
-     'CAMP, TO A STRANGER... a camp shelf to a stranger trades goods for goods; a counted '
-     'person pays one." BARTER_ONLY had been in bohemia_payday since it was written and '
-     'HAD NEVER RUN, because PRICE_SOURCE is the hard-coded string economy; this is the '
-     'door it was built for, opened where his ruling says and nowhere else. THE SWAP ITSELF '
-     'IS NOT BUILT, ON PURPOSE, AND THAT IS MEASURED NOT ASSUMED: the first cut really did '
-     'trade through the purse atomic convert() and MOVED NOTHING -- applied:true, goods '
-     'delta 0, battery delta 0 -- because the purse has ONE goods pocket, so one good for '
-     'one good takes a resource and hands a resource straight back. A transaction that '
-     'reports success and changes no balance is rule 14(d) exactly, so the REFUSAL ships and '
-     'the swap waits on goods the purse can tell apart. ON THE REAL MAP, reading the game '
-     'own mktShelf() and mktBuy() at EVERY market in the valley: not one price anywhere is '
-     'above one; the camp (Colorful) refuses a stranger with BARTER_ONLY and moves nothing, '
-     'battery 0 goods 0; belong to them and the same shelf sells at one battery. AND THE '
-     'TUTORIAL TRIPWIRE: the market he wakes beside is the Church seat, a TOWN, and the '
-     'first bag of rice still costs ONE battery -- that check is the guard on the exact '
-     'regression this row shipped and reverted. Red three ways, mutation-tested: let a town '
-     'refuse a stranger too -> 3, INCLUDING the rice check reading battery 0 goods 0; make '
-     'the camp never refuse -> 3; let a price above one onto a shelf -> 6. Nothing is typed: '
-     'the stranger rung is read off his ladder and a behavioural check moves the rung and '
-     'watches the refusal move with it.', True),
     ('EVERY POCKET', ['node', 'gates/every_pocket_gate.js'],
      'THERE-IS-EXACTLY-ONE-PURSE-IN-THE-WHOLE-GAME (board row [every pocket], 9/14). '
      'MEASURED FIRST (rule 12) and the board\'s premise was half wrong in the direction '
@@ -1673,24 +1530,6 @@ GATES = [
      'button\'s own two lines instead of pressing the button, so deleting the credit left '
      'it GREEN -- a gate that re-implements the thing it is testing cannot see it break; it '
      'now stands next to somebody from a lending outfit and clicks.', True),
-    ('OWN POWER',     ['node', 'gates/own_power_gate.js'],
-     'YOUR-OWN-POWER-IS-YOUR-WAY-OUT (board row [own power], 9/12). From the 9/5 '
-     'generator-mafia research: the Lebanese families who built their own rooftop solar were '
-     'buying their way out of the block\'s owner. "A power building you place on your land '
-     'takes you OFF the block\'s line: the monthly cut stops, your batteries are yours, and the '
-     'faction that owned the line notices." BOTH HALVES WERE ALREADY BUILT AND THIS IS THE '
-     'JOIN: [block rent] 9/12 bills a cut per BLOCK of a faction\'s ground you used, and '
-     '[batteries mined] 9/11 makes solar, the battery farm and the substation mint. So this is '
-     'NOT a new charge and NOT a new table -- it is THE SAME BILL with your own blocks taken '
-     'out of it, which is why rentOn() is never touched: it is another lane\'s and it is '
-     'already right. Measured on the walked surface: standing on six blocks of their ground '
-     'bills 5 batteries, generators on his own ground take 3 blocks off the line, and the bill '
-     'goes 5 to 3. THE LINE THIS ROW MUST NOT CROSS: "a standing hit, a visit" is a WEIGHT and '
-     'an ENCOUNTER, bohemia_standing.js ships DEED_WEIGHT empty and says why, and [block rent] '
-     'made the same call one row earlier -- so the noticing is real, named and said out loud, '
-     'and nothing here writes a standing number. The gate asserts that directly. Red both '
-     'ways: let the discount go negative (which would PAY him rent) -> 1 red; count plots '
-     'instead of blocks -> 1 red.', True),
     ('CENTURY STAYED',['node', 'gates/century_stayed_gate.js'],
      'WHO-STAYED-COUNTS (board row [century stayed], 9/12). PAOLO 9/7 RULED IT: "buildings, '
      'and some people depending on how many years passed." The century rule counted BUILDINGS '
@@ -1841,26 +1680,6 @@ GATES = [
      'pacing changed by a movement fix is nobody\'s ruling. Indoors is untouched: a corridor '
      'is not a highway. The card says how far he got, because "412 steps" reads the same on '
      'a highway and across a wash', True),
-    ('TURF',           ['node', 'gates/turf_gate.js'],
-     'BB-TURF. He asked for "different parts of Vegas as different faction holdings" by '
-     'name, and ruled 9/4 that EVERY part of the valley is owned by a faction. The walked '
-     'city has had an ownership map since 7/20 and it is made of electricity -- '
-     'LIGHT=TERRITORY, an owner on every live circuit, and the director\'s seam test '
-     'already reads it -- but the owner was a CATEGORY, not a name. One circuit in five '
-     'came back owned by the generic word "faction", so the game knew somebody held that '
-     'block and could not say who, AND THE SEAM TEST COMPARED THOSE WORDS, which made the '
-     'Mob\'s block and the Cartel\'s block the same block. The name now comes off the '
-     'fourteen seats FACTION-TOWNS put on the map: a faction holds the ground around its '
-     'own town and a FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table that '
-     'already sized a town rather than a new number. Nothing is authored -- HOLDS ships '
-     'empty and an entry in it wins -- and only the `faction` category is renamed, with '
-     '`network` deliberately left alone even though the roster has a faction of that name, '
-     'because treating the two as one is a guess about his canon. MEASURED, and it shaped '
-     'the design: across five seeds every lit-circuit border is a CATEGORY border and two '
-     'NAMED factions are never adjacent, because neighbouring circuits share a catchment. '
-     'So the lit circuits are the TELL and the territory is the catchment, which covers '
-     'all 9,216 cells -- which is what his ruling actually says. The reckoning card tells '
-     'him he crossed one, by name', True),
     ('FACTION TOWNS',  ['node', 'gates/faction_towns_gate.js'],
      'FACTION-TOWNS, Paolo 9/4 LOCKED: "each part of Vegas is owned by a faction and that\'s '
      'where you can do all your trading... the more prominent factions kind of feel like '
@@ -1880,24 +1699,6 @@ GATES = [
      'asked through the SHIPPED module, never a rule retyped in the gate. *** It also holds '
      'the demo clause: the whole valley carried exactly TWO markets and the nearer was 38 '
      'cells from where the game opens; the nearest seat is 9', True),
-    ('LIGHTS BILL',    ['node', 'gates/lights_bill_gate.js'],
-     'BB-THE-NIGHT-EATS-POWER, and the ship test is its own sentence: a held circuit debits '
-     'power at nightfall and an unpaid one goes dark. LIGHT=TERRITORY has been live code '
-     'since 7/20 -- feeder circuits, 12% lit, an owner on every live one, nobody patrolling '
-     'the dark -- AND HOLDING A LIT BLOCK WAS FREE, so territory was a colour. What makes a '
-     'circuit HIS is not a flag anybody minted: it is the buildings he put down himself, '
-     'which is ground he chose and paid a battery for, so no ruling was needed. A building '
-     'sits on the feeder of the STREET IT FRONTS -- the grid only lays circuits along street '
-     'cells, so a version that billed the building\'s own cell would have found zero on a '
-     'valley full of his buildings and called it "he holds nothing" (check 2c is the one '
-     'that catches that). Held circuits are deduped by FEEDER, so four shops on one street '
-     'are one bill and four spread across the valley are four. The darkening lives inside '
-     'the grid because ten places on the walked surface ask POWER.at().live and patching ten '
-     'readers is nine chances to miss one; `status` is private to the closure so at() is the '
-     'ONLY door out. A circuit that was never lit cannot be put out, a light he lost is a '
-     'light he stops being billed for (no debt spiral -- debt would be canon), the doused '
-     'set rides the save on its own key, a seed change throws it away rather than darkening '
-     'a stranger\'s street, and the reckoning names the block that went out', True),
     ('FOUR VERBS',     ['node', 'gates/four_verbs_gate.js'],
      'BB-FOUR-VERBS-THREE-CURRENCIES, on Paolo 9/4 ("battle brothers has 3-4 currencies '
      'too... how they manage it is superb"). What is superb about it is one sentence: YOU '
@@ -1973,19 +1774,6 @@ GATES = [
      'build. It is MUTATION-TESTED by performing the future commit -- bump the version at '
      'runtime, add the migration a lane would add, and prove his old save still arrives -- '
      'because a trap that only springs on a later commit cannot be proved any other way', True),
-    ('VISTA BEAT',     ['node', 'gates/vista_beat_gate.js'],
-     'DEMO BOARD row 11: the vista is built, derived, inlined and ARMED, "BUT NOTHING LEADS '
-     'YOU THERE -- a repo-wide grep finds ZERO game-side callers. The demo money shot is '
-     'currently found by ACCIDENTALLY WALKING ONTO ONE RIM CELL." Eighth row of that exact '
-     'shape this lane has closed: a finished thing with a published seam and no caller. Now '
-     'the phone carries where the overlook is (the same channel that carries the market, so '
-     'it is somewhere to WALK TO), and the day loop plays it ONCE on the day 2 morning -- not '
-     'day 1, which is already the cold open plus his first job. AND THE HALF A GREEN GATE '
-     'MISSED: the first cut opened it ON the wake, which also raises the DAY 2 card, so the '
-     'money shot rendered UNDER a modal -- gate green, shot buried. Found by taking the '
-     'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
-     'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
-     'where the overlook is and never places it', True),
     ('FIRST BYTES',    ['node', 'gates/first_bytes_gate.js'],
      'WHAT A FRIEND DOWNLOADS BEFORE HE CAN MOVE. Demo board DECISION item 3 said the run '
      'slice preload should be dropped once the wiring migrated -- it has, so it is. The board '
@@ -2019,16 +1807,6 @@ GATES = [
      'player would notice in ten seconds: firing is audible, and a man going '
      'down is audible ON THE SHOT THAT DOES IT. Everything else is reported, '
      'because a quiet beat in a fight can be design', True),
-    ('DEMO SOUND',     ['node', 'gates/demo_sound_gate.js'],
-     'WHAT THE DEMO SOUNDS LIKE, beat by beat, on the same walk the WHOLE DEMO '
-     'gate takes. This lane had only ever counted the CATALOGUE -- 102 moments, '
-     '155 approved, which ids have callers -- and a moment that is perfectly '
-     'wired but never REACHED during the demo is, to him, silent. It found the '
-     'first morning and the first night both silent while come_up and '
-     'sleep_sink sat approved in the bank, wired to the run panel nobody opens '
-     'any more; and it caught going to sleep playing the fight-DEFEAT cadence '
-     'because an unfinished job was being scored like a lost fight. Silent '
-     'beats are REPORTED, not failed: the quiet is the design', True),
     ('HUD OVERLAP',    ['node', 'gates/hud_overlap_gate.js'],
      'NO TWO PIECES OF CHROME MAY SIT ON TOP OF EACH OTHER, measured pairwise on the surface '
      'he plays. FOUND: the objective line -- the only sentence in the game telling a player '
@@ -2049,27 +1827,6 @@ GATES = [
      'column ADOPTED THE CHIP BACK before the read. It also holds that the objective says '
      'what to DO, derived from the spec\'s own advance rule so the sentence cannot drift '
      'from the mechanic', True),
-    ('WALK FEEL',      ['node', 'gates/walk_feel_gate.js'],
-     'HOW WALKING FEELS, MEASURED IN THE PIXELS OF THE STAGE CANVAS. The city camera is '
-     'player-centred and the cell changes inside stepOnce, so the body could never move on '
-     'screen and the WHOLE WORLD jumped one cell -- 56px at the walk zoom -- twice a second, '
-     'while the legs cycled perfectly smoothly in place. MEASURED BEFORE AND AFTER, holding '
-     'the pad and sampling the canvas every 40ms: GRID moves 0.0% of a typical frame and then '
-     '61% of it in one, which IS the teleport; SLIDE moves 58.8% of a typical frame. The '
-     'median is the metric on purpose -- a mean is dragged up in GRID by exactly the frames '
-     'the feature exists to delete. SLIDE is Paolo\'s own option 1 from the townwalk pattern '
-     'note, carried over from the run panel nobody opens: "SAME rules, the body just slides '
-     'across the cell over the beat", and the ruling leaves how a spent action is DRAWN to us, '
-     'so no law moves. IT COST NO LOOP: animate() already rAFed for exactly one beat after '
-     'every step and already rendered every frame of it. MUTATION-TESTED TWICE and the second '
-     'one is the reason the pixels are here -- a PERFECT camCell that the renderer ignores '
-     'left every model claim green ("the camera sat between cells for 87.5% of a walked beat" '
-     'was still true) and only the canvas noticed. HYBRID and FREE are NOT carried and are '
-     'named, not hidden. LOAD-SENSITIVE ON PURPOSE, like FIGHT MUSIC and FIRST NIGHT: it '
-     'samples rAF cadence every 40ms, so an oversubscribed box drags the SLIDE median down '
-     'and it goes red in the pack and green alone. That is the box, not the game -- the '
-     'confirm pass is what classifies it, and a red here should be re-run alone before it is '
-     'believed', True),
     # 8/24: NOBODY WAS WATCHING THE ONE NUMBER THAT DECIDES WHETHER A FRIEND PLAYS THE
     # DEMO OR CLOSES THE TAB -- the megabytes their phone pulls before the world appears.
     # 412 gates and not one of them asked. Measured: 40.5 MB total, 32.4 MB of it AFTER the
@@ -2094,11 +1851,6 @@ GATES = [
      'a facility does not multiply when you give it more ground: a district spanning a blob '
      'of cells builds ONE of itself, and its hero structures stop scaling with the number of '
      'cells -- checked against the same district built the old way, cell by cell', True),
-    ('LATE ART',       ['node', 'gates/late_art_gate.js'],
-     'the art that no longer blocks the world still ARRIVES and still gets DRAWN: the '
-     'shipped page renders the same city as one with every chunk blocking, all three late '
-     'banks re-bake and decode, and a no-art control proves the comparison can see a '
-     'difference at all', True),
     ('TIME TO PLAY',   ['node', 'gates/time_to_play_gate.js'],
      'a friend on a phone can actually reach the world: the download before first play is '
      'measured over real HTTP and held to a ceiling that only ever comes down, and any file '
@@ -2121,190 +1873,22 @@ GATES = [
      'SLEEP (ends the day) by name rather than in silence', True),
     # 8/25: found by PLAYING day one and asking the world what was around the spawn,
     # not by reading. The house the game labels HOME reported door:null.
-    ('ONE DOOR PRED',  ['node', 'gates/one_door_predicate_gate.js'],
-     'THERE IS ONE DOOR PREDICATE AND EVERY DOOR QUESTION ASKS IT. The law is not new -- on '
-     '8/2 stepOnce was caught asking a hand-rolled door test while the guard beside it asked '
-     'another ("every house whose door is a doorW/doorE was sealed by its own door"), and '
-     'that repair went into the movement path while NOTHING CHECKED THE REST OF THE FILE. '
-     'homeFind kept the narrow test for three weeks. MEASURED on the demo spawn: 26 '
-     'buildings, 23 of them (88%) with a door only the shared predicate can find, 0 with no '
-     'door, and HIS OWN HOUSE came back door:null -- so "wake up at your own front door" was '
-     'broken for essentially every house in the suburb he starts in. Two halves: the source '
-     'half counts hand-rolled hdoor tests and allows exactly the two that are legitimate '
-     '(the predicate itself and the render pass that draws that art tile), and the measured '
-     'half opens the real game and asks whether HOME has a door, because a source rule can '
-     'be satisfied while the answer is still wrong. Comments are stripped first -- two of '
-     'the file\'s notes QUOTE the old test to explain it, and counting those would make the '
-     'gate punish its own post-mortems. Mutation-tested by restoring the narrow test: 3 red', True),
     # 8/25: the demo's actual question -- CAN SOMEBODY DO THE JOB -- was answered by nobody.
-    ('DAY ONE DONE',   ['node', 'gates/day_one_can_be_finished_gate.js'],
-     'A FRIEND CAN FINISH DAY ONE BY WALKING, and nothing proved it. WHOLE DEMO takes the '
-     'job, walks six steps and GOES TO SLEEP -- it never finishes the work. DAY LOOP '
-     'finishes the quest by sending the message the city would send, from Node, which proves '
-     'the runtime and not the world. So each piece was green and the join between them was a '
-     'guess. This boots the alpha, takes the job off the phone, BFS\'s for the nearest thing '
-     'that actually admits a body (the 8/2 rule: a building with a door is entered through '
-     'it, one without is entered from any wall) and DRIVES THE REAL PAD along that route at '
-     '560ms a press. MEASURED: a way in 15 steps away, walked in 13 presses, stage 10 -> 20, '
-     'and the resolution card up with the quest\'s own three endings. IT HONESTLY DOES NOT '
-     'PROVE HE CAN FIND IT -- the BFS stands in for a player\'s eyes -- and that limit is '
-     'written into the gate rather than smuggled past: what is proved is that the world '
-     'admits a route, the pad walks it, the door opens and the quest hears about it. Measured '
-     'while writing it: a STRAIGHT LINE at the nearest door ran 90 steps and never arrived, '
-     'because a wall stood in the way and a straight line does not turn', True),
     # 8/25, Paolo: "when i am facing walking south i should be behind the walls with an
     # opacity so i can see myself weve talked about this before bro". He had -- 7/27, LOCKED.
-    ('SEE-THROUGH MOVE', ['node', 'gates/see_through_while_moving_gate.js'],
-     'THE SEE-THROUGH HAS TO SURVIVE MOTION. The 7/27 THREE-TILE WALL law fades a wall that '
-     'covers him to 35%, and it was built and right -- until the 8/23 walk glide made the '
-     'body draw at the CAMERA cell while playerBox kept computing from hx,hy, the TRUE cell. '
-     'MEASURED: the test box sat up to 88px (TWO CELLS, because holding the pad starts him '
-     'running) from the drawn body and disagreed on 35 of 45 frames, so the wall that really '
-     'covered him stayed solid and he walked into it and vanished. WHY NOTHING CAUGHT IT: '
-     'wallclass_gate proves the see-through properly, off real pixels, STANDING STILL -- it '
-     'teleports him onto the covered tile and renders one frame, and standing still there is '
-     'no glide and the box was correct. It was never wrong; it never walked. So this one '
-     'moves: it finds a cell with a facade one row south, walks him INTO being covered, and '
-     'records the alpha the renderer actually paints with (230 of 235 facade draws on his '
-     'body faded, 3145 of 3771 elsewhere solid). The arithmetic claim is the one that '
-     'catches the bug -- under mutation the gate and the renderer share the SAME wrong box, '
-     'so only comparing against where the body is DRAWN sees it', True),
     # 8/25, RUN. Found by PLAYING the back half of the demo, which nobody had.
     # Same report as EVERY PANEL, on the one screen the demo exists to show off.
-    ('VISTA EXIT',     ['node', 'gates/vista_lets_you_leave_gate.js'],
-     'THE OVERLOOK HAS TO LET HIM LEAVE. THE VISTA is demo critical-path row 11 and on DAY 2 '
-     'it opens BY ITSELF seconds after GET UP -- and MEASURED, all six ways out did nothing: '
-     'tap the world, Escape, the MODE/DROP IN button, tap the card, WHOLE MAP, walk the pad. '
-     'vistaClose() existed, was correct, and THE ONLY CALLER IN THE REPO WAS A GATE '
-     '(vista_beat_gate.js:127), so nothing a player could touch called it. He reached the best '
-     'moment in the demo and the game kept him there -- his STANDING report again, on the money '
-     'shot. WHY EVERY PANEL MISSED IT: that gate walks the chips in the toolbar, the drawer and '
-     'the bottom-left column, and the vista is not opened by a chip, THE DAY LOOP OPENS IT -- an '
-     'enumerating gate is only ever as complete as its enumeration, which is a permanent property '
-     'of it, not a bug there. So the thing no chip reaches gets its own gate. It also holds the '
-     'card OFF the toolbar (it was top:64px hardcoded into a toolbar at 49..80, printing THE '
-     'VALLEY across the music button, the save button and the day objective) by measuring through '
-     'ONE shared topChromeBottom() the population card also calls -- the source half fails if '
-     'anybody hand-rolls that arithmetic a third time. And it holds the two edges the fix could '
-     'break: a DRAG to look around the valley must NOT throw him out, and a pad direction must '
-     'drop the vista AND leave him walking, because a swallowed press is a dead first step',
-     True),
     # 8/25, RUN. Backlog row P0-MORNING, the demo blocker: "a tester can finish
     # the demo without ever meeting the game."
-    ('FIRST MORNING',  ['node', 'gates/the_first_morning_points_at_the_game_gate.js'],
-     'THE FIRST MORNING HAS TO POINT AT THE GAME. A COLD HAND -- a probe that scores every '
-     'control by what its pixels actually do (fill weighted hardest, then border, text, area), '
-     'refuses anything a thumb could not reach, presses the winner and never reads -- went '
-     'WATCH, GET UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped. Phone opened 0, '
-     'job taken 0, clock 06:00 at the first tap and 06:00 at the twelfth. HE NEVER EVEN REACHED '
-     'SLEEP. And __OFFER_RANG was 1 the whole time: the phone HAD rung, and a ringing phone was a '
-     'dark chip with a hairline and a 14px dot. NORMAN: when you have to put a sign on a door the '
-     'design already failed, so nothing here asserts that a word was added -- it asserts an ORDER '
-     'OF LOUDNESS, computed off real computed styles rather than a list of what I think should be '
-     'bright, so a lane that dims the phone tomorrow turns this red without touching the gate. '
-     'AND THE COLD HAND FOUND A SECOND BUG THE ROW DID NOT KNOW: with the phone open over 378x763 '
-     'of a 390x844 screen, sleepbtn, bikebtn and rungbtn were STILL the topmost element at their '
-     'own centres -- and SLEEP ENDS THE DAY, so the thumb that opens the phone lands on the button '
-     'that finishes day one with the job never taken. That was this lane\'s own 8/24 regression '
-     '(the chip column went to z-index 39 over a panel that had been 30). The punch-through claim '
-     'sweeps EVERY takeover panel, not just the phone, so the next one is caught by the machine. '
-     'Measured after: phone 90 vs mode 33 (was 18 vs 33), 0 buttons through the panel (was 3), '
-     'TAKE IT 90 and loudest on its own screen (was 35, beaten by a post counter at 46), and the '
-     'chain driven end to end takes the job. Mutation-tested four ways, each hitting only its own '
-     'claims: all three patches reverted 10/6, z-index only 15/1, the chip never dressing itself '
-     '13/3, and the shout made permanent 15/1', True),
     # 8/26, Paolo, twice: "I HATE THAT THE ACTION BUTTON IS THE CITY BUTTON" and
     # then "you haven't even done that". PLAYTEST DISPATCH item 6, LOCKED 8/25.
-    ('ACTION BUTTON', ['node', 'gates/the_action_button_does_actions_gate.js'],
-     'THE ACTION BUTTON DOES ACTIONS. His sentence has two halves and only one was built. '
-     'HALF ONE, ZOOM, WAS ALREADY DONE and this gate measures it instead of arguing: a real '
-     'two-finger pinch dispatched as actual touch walks street -> city -> sky and all the way '
-     'back. HALF TWO WAS NEVER BUILT: the biggest control in the game, in the middle of the '
-     'movement pad, wearing HIS CHARACTER\'S FACE, was wired to `transition` and said DROP IN / '
-     'CITY -- so the most reachable thing on screen was a camera toggle and the game had NO '
-     'BUTTON FOR DOING THE THING IN FRONT OF YOU. It is now the ONE CONTEXTUAL VERB (a person '
-     'by their own address, ENTER at a door he is facing, TRADE at a market, LEAVE from inside, '
-     'and SILENT when there is nothing), which is the rule #cttalk already had -- moved onto the '
-     'button his thumb is on. Each verb calls the owner that already existed (inEnter, ctOpen, '
-     'showMarket, stepOnce) rather than a copy of its insides, and the source half fails if that '
-     'stops being true. The camera toggle is NOT deleted -- NO DISTRICT IS A PRISON -- it is a '
-     'chip beside WHOLE MAP. TWO THINGS THIS GATE HAD TO LEARN ABOUT ITSELF: a fight '
-     'legitimately takes the screen when you enter a building (deterministic per footprint), so '
-     'the city measuring 0x0 is CORRECT and an earlier run was one sentence from writing that up '
-     'as "walking into a house destroys the HUD"; and the door it uses is HIS OWN FRONT DOOR, '
-     'because __NOT_YOUR_OWN_HOUSE__ makes no-ambush a LAW rather than luck. Mutation-tested: '
-     'both patches reverted turns 10 claims red and the log reproduces the complaint verbatim '
-     '(facing a door, the button reads "CITY"). One claim went green under that mutation because '
-     'he was never inside, so "he is outside" was trivially true -- it proves the round trip now',
-     True),
     # 8/26, Paolo: "maybe I wanna fuck around and start putting dogs and swarms of
     # flies as low tier biome level one enemies", + dispatch item 5 (the city is dead)
     # and item 8 (bestiary / danger by place).
-    ('ANIMALS',       ['node', 'gates/the_valley_has_animals_gate.js'],
-     'THE VALLEY HAS ANIMALS IN IT. His loudest complaint was that the city is dead, and the '
-     'bestiary research delivered the same day already had the answer nobody built: "the reason '
-     'the city feels dead is not that we lack enemies. It is that we lack ANIMALS ... Tier 1 is '
-     'mostly not an enemy system at all. It is set dressing that moves, and it is the cheapest '
-     'fix on this list for the loudest complaint." Flies, rats and ravens now live on the ground, '
-     'hashed from (seed, cell) so a block holds the same life every time it is walked, moving on '
-     'the 120 BPM clock, denser or thinner BY DISTRICT -- which is the Valheim half of his ruling, '
-     'difficulty living in the GROUND and never in a level number on the player. A fly swarm is a '
-     'READ: something died there. IT IS NOT AN ENEMY SYSTEM and the gate holds that -- no damage, '
-     'no health, nothing that can hurt him (NO DAMAGE BEFORE THE DIAL). THE DOG IS DELIBERATELY '
-     'NOT BUILT: he named it first and the research calls it the headline, but a dog is a BODY and '
-     'a body is character art, so its row sits at 0 and an art request is filed rather than this '
-     'lane inventing creature pixels. Skipped entirely at city zoom and capped per frame, because '
-     'his item 7 is PERFORMANCE and answering "the city is dead" with a stutter answers nothing. '
-     'MEASURED: 18 on the block he wakes on, 480 flies / 51 ravens / 24 rats across 40 screens. '
-     'TWO THINGS THE GATE HAD TO LEARN ABOUT ITSELF: its first movement check counted dark pixels '
-     'over the whole canvas and came back byte-identical (the world drowns eighteen specks), and '
-     'its first version drove animalPass BY HAND -- so removing the renderer\'s call left it green, '
-     'a gate supplying the very call it was checking for. It spies on a real render() now: that '
-     'mutation turns 6 claims red instead of 2', True),
     # 8/27, Paolo: "it wants to keep spawning me outside of my starter Neighbourhood
     # ... it'll just throw me somewhere randomly on the map".
-    ('LOOK NOT TRAVEL', ['node', 'gates/looking_at_the_map_is_not_travelling_gate.js'],
-     'LOOKING AT THE MAP IS NOT TRAVELLING. REPRODUCED with real touch: standing at tile '
-     '6205,6271, pinch out to the map, three taps of the movement pad -- which is still in the '
-     'same corner under the same thumb when he is zoomed out, where a press slides the MARKER a '
-     'whole overmap cell and spends TEN MINUTES -- pinch back in, and he is 194 TILES from where '
-     'he was standing. TWO HALVES: the pad means two different things at two zooms with no '
-     'signal, and swapMode\'s city->human branch opens by throwing away where he was standing '
-     'and centring him in the marker cell, which is right for ARRIVING and wrong for a glance. '
-     'AND THE 8/26 ACTION BUTTON WORK MADE IT LOUD: before that you pressed DROP IN on purpose '
-     'to cross the seam, and making zoom the primary way in and out routed every glance through '
-     'a landing built for arrival -- a change can be correct and still hand a latent bug a huge '
-     'audience. THE RULE WAS ALREADY WRITTEN ELSEWHERE IN THE FILE: the phone\'s GO "moves the '
-     'CITY MARKER to it ... IT NEVER MOVES HIS BODY". The marker is a camera; the zoom seam was '
-     'the one place that disagreed. So the two gestures mean two things now and BOTH are held: '
-     'a PINCH is a LOOK and returns him to the exact tile he left wherever the marker wandered '
-     '(194 tiles -> 0), and the CHIP is a GO and still lands him where the marker is, because '
-     'without that half the marker is scenery and he can never cross the valley (NO DISTRICT IS '
-     'A PRISON). Mutation-tested both ways, each hitting only its own half: everything-a-GO '
-     'reproduces the 194 tiles, everything-a-LOOK deletes travel. It also holds the camera chip '
-     'REACHABLE rather than merely present -- the first version of that claim passed while the '
-     'chip sat unclickable under the bottom-left column at z-index 39, which is the exact bug '
-     'that column exists to prevent, committed one day after this lane fixed it', True),
     # 8/27 -- the OTHER half of the same report. LOOK NOT TRAVEL fixed the
     # consequence; he never said "it moved me", he said IT IS CONFUSING.
-    ('PAD SAYS',       ['node', 'gates/the_pad_says_what_it_will_do_gate.js'],
-     'THE PAD SAYS WHAT IT IS ABOUT TO DO. Yesterday fixed the CONSEQUENCE of his report and '
-     'left the CONFUSION: the same control, in the same corner, under the same thumb, looking '
-     'exactly the same, meant two completely different things. Zoomed in a press is one tile, '
-     'about a metre, free. Zoomed out it is one overmap cell, ninety-six metres, TEN MINUTES of '
-     'his day, and since this turn a road encounter that can eat twenty more. Norman\'s split is '
-     'the one that applies: an AFFORDANCE is what a control can do, a SIGNIFIER is what it tells '
-     'you it will do, and the affordance changed at the seam while the signifier never did. THE '
-     'FIX IS NOT A CAPTION -- a sentence explaining the mismatch is words on his screen, which '
-     'TALK TO HIM LIKE A PERSON prices as a cost, so the CONTROL changes instead. THREE SIGNALS '
-     'AT ONCE because one can be missed: SHAPE (a circle is a thumbstick and a body control, a '
-     'square is a tile and a map control), GLYPH (the arrow doubles because the distance did), '
-     'and WEIGHT (off the warm walking accent onto the map\'s cooler line). Measured through a '
-     'REAL two-finger pinch off computed style, never by setting MODE by hand -- the seam is the '
-     'whole point, and a CSS rule that never applies is how this claim would lie. Driven from '
-     'updHud because all 19 mode changes in the file already call it; hooking the seams by hand '
-     'is how the next seam gets forgotten. Mutation-tested: unhooking padMode turns 4 claims '
-     'red. Holds that it comes BACK too, and that no caption was bolted on', True),
     # 8/27 -- FT-JOURNEY's middle. An APPROVED system that had zero callers.
     ('ROAD INTERRUPTS', ['node', 'gates/the_road_interrupts_gate.js'],
      'THE ROAD INTERRUPTS -- FT-JOURNEY, THE MIDDLE. Paolo 8/24 LOCKED: "Crossing the valley is '
@@ -2877,25 +2461,6 @@ GATES = [
      'the marker walks it on the beat; every block charges exactly its own ground; a short journey '
      'arrives and says so; a second tap stops; a spread never drops him onto a walked street; a fight '
      'ends the journey at the one door. Mutations in the round record.', True),
-    ('STEP IS ONE CELL', ['node', 'gates/the_step_is_one_cell_gate.js'],
-     'VAMILY [two scales], rule 34 (PAOLO 9/27): "your character stays tiny even as you zoom out and YOU '
-     'MOVE ONE GRID AT A TIME, THAT WE HAD ORIGINALLY... one house does not equal one tile, it is all '
-     'fucked up." Rule 34(c) SUPERSEDES BY NAME the two laws this lane built, THE STEP IS A HOUSE (9/15) '
-     'and A COMBAT TILE IS A HOUSE (9/4). MEASURED ON THE GLASS BEFORE THE CHANGE: one cell drew 11 px, '
-     'one press carried 25 cells (275 px), and the body drew 112 px, which is TEN CELLS wide -- a person '
-     'ten cells across taking a twenty-five cell stride, and the stride was this lane own number. NOW: '
-     '16 presses, 16 cells, no press carrying more than one. AND THE MUTATION SHOWED WHY THE OLD STRIDE '
-     'FELT BROKEN: with 25 restored the walk reads 25, then 5, then ZERO for fourteen presses -- he '
-     'crosses a lot, clips something and stops dead, which is his own crashing-into-walls complaint. '
-     'IT ALSO HOLDS THE SEAM HALF OF THE ROW: one squeeze reaches the far scale, one spread comes back, '
-     'and he lands on THE CELL HE LEFT, not near it. THE HARNESS LOSES THE FIRST TOUCH and that looks '
-     'exactly like a broken stride (measured twice: [1,1,0,1,0,2,...] at 320 ms and [0,2,1,1,...] at '
-     '700 ms, the lost press arriving on the next one), so the warm-up PRESSES UNTIL ONE REALLY MOVES '
-     'HIM and only then counts -- the artefact is removed at its source instead of carved out of the '
-     'rule, because a rule with an exception for the ruler bad night cannot fail honestly. NOT IN HERE '
-     'AND WHY: the one-cell BODY is CHARACTER [small body] this same round, and the 32 px cell needs '
-     'WORLD [honest grid] (a house is 13 cells today, so 32 px would draw 416 px on a 378 px screen and '
-     'not fit). MUTATION: put the lot-per-press stride back -> 4 red.', True),
     ('THE FOUR THINGS', ['node', 'gates/the_cut_is_the_four_things_gate.js'],
      'VAMILY [cut now], rule 18g and 18i. PAOLO 9/20: "I am overwhelmed and underwhelmed at the '
      'same time... a lot going on and I see it but this shit is broken right now." PAOLO 9/22: '
@@ -2950,33 +2515,6 @@ GATES = [
      'genuinely cannot reach is reported separately and never counted against the stride. '
      'MUTATION: the pre-fix tree IS the mutant and it scores 9 passed / 10 failed, including '
      'both starred lines.', True),
-    ('SPAWN HOME',     ['node', 'gates/spawn_home_gate.js'],
-     'VAMILY [spawn home]: PAOLO 9/15, after playing the cut -- "it keeps spawning me in the '
-     'middle of some freeway, street shit for no purpose." MEASURED ON THE GLASS: the map said '
-     'SUBURB and he was right anyway -- 4 of the 9 overmap cells around him were ARTERIAL and the '
-     'photograph was a black asphalt band down the whole right of the screen with not one building '
-     'in frame. HIS OWN FRONT DOOR WAS 29 TILES AWAY, homeDoorstep() answered it instantly, and '
-     'NOTHING HAD EVER CALLED homeWake(): it hangs off DAY.on("wake") and day one does not fire a '
-     'wake, because the game boots already awake. THE FIX WAS A CALLER, NOT A FEATURE, so this '
-     'gate guards the caller. It asserts NO coordinate -- where his house is belongs to the map '
-     'and the seed -- only that the day-one wake ran, that he is on his own doorstep, that his '
-     'house is ON SCREEN at phone size, and that it fires ONCE so it is a doorstep and not a '
-     'leash. MUTATION: delete the caller -> 3 red, and it measures the old state exactly, 17 '
-     'tiles from the house with the house 14 tiles out while the screen holds 10.', False),
-    ('FIRST MINUTE',   ['node', 'gates/first_minute_gate.js'],
-     'VAMILY [drop in]: what a stranger who taps the link DOES in their first sixty seconds, IN '
-     'ORDER -- the pad, then something to look at, then somebody who wants something. All three '
-     'held on the SERVED demo. *** IT EXISTS BECAUSE THIS LANE REPORTED THE MIDDLE BEAT MISSING, '
-     'WRONGLY, AND THE BOARD TURNED THAT INTO A ROW TO MOVE THE SPAWN. *** The 9/11 measurement '
-     'said "one step is a quarter tile, the nearest road district is 128 fine tiles away, a '
-     'minute of walking meets nothing". Every part was my own harness: one step moves a FULL '
-     'tile, a held press walks 1.94 tiles a second, and 128 tiles is the distance between CELL '
-     'CENTRES while the player wakes near the EDGE of his cell. MEASURED HOLDING THE DIRECTION '
-     'WITH THE MOST ROOM, which is what a stranger does: the arterial is reached in THREE '
-     'seconds and a road moment fires in FIVE. The first minute already meets something and the '
-     'spawn does not have to move for it. Asserts no number I derived -- it holds the three '
-     'beats a player gets. Mutation: stop the lesson teaching the HOLD -> 1 red; give the street '
-     'no table -> 1 red (nothing in 60s); stop the phone ringing -> 2 red', True),
     ('THIS WEEK',      ['node', 'gates/this_week_gate.js'],
      'BB-THIS-WEEK, day 18: "A GOAL YOU HAVE TO GO FIND IS NOT A GOAL." Day 7 found the DAILY '
      'motor and days 9 and 11 the HUNDRED-HOUR arc; NOBODY EVER ASKED WHAT YOU ARE WORKING ON '
@@ -3055,18 +2593,6 @@ GATES = [
      'remove the nothing-said-nothing-owed guard -> 1 red (and that one PASSED first time, '
      'because it was asked on a save where nobody had standing to lose -- it seeds real '
      'standing with no promise now)', True),
-    ('ROAD ON FOOT',   ['node', 'gates/road_interrupts_on_foot_gate.js'],
-     'VAMILY [street encounters]. THE ROAD INTERRUPTS shipped 8/27 -- twelve approved road '
-     'moments, the director on the clock, 70/20/10 held, the card, the leavings, the choices -- '
-     'AND ALL OF IT FIRED ONLY WHEN YOU WERE LOOKING AT THE MAP. roadInterrupt had one caller '
-     'and it sat inside MODE===city, so the surface he actually walks had never produced one. '
-     'TWO THINGS WERE WRONG AND ONLY ONE WAS THE MISSING CALL: the interrupt also read the '
-     'district and the power grid off city.x/city.y, which only move in city mode, so wired to '
-     'the street unchanged it would have decided what happens to you from wherever the map was '
-     'last left sitting. roadWhere() answers which cell the PLAYER is in, once, per mode. '
-     'Measured first: 39.4% of the valley is a road district and the nearest is ONE cell from '
-     'the spawn. Mutation: remove the foot call -> 4 red; put roadWhere back on the map cursor '
-     '-> the player walks into arterial and the director is told SUBURB ninety-nine times', True),
     ('COLD HAND',      ['node', 'gates/cold_hand_gate.js'],
      'BB-COLD-HAND, promoted from a one-off to a harness. THE TEST IN ONE SENTENCE: A COLD '
      'HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS -- if doing that repeatedly '
@@ -3149,52 +2675,6 @@ GATES = [
      'shot goes red, silence the phone badge and the affordance claim goes red. It does NOT '
      'replace FIRST NIGHT and must not be deduped with it -- that one is the microscope on day '
      'one, this is the SPINE, and a microscope cannot see a seam between two boots', False),
-    ('FIRST NIGHT',    ['node', 'gates/first_night_gate.js'],
-     'THE FIRST NIGHT HAD NEVER BEEN PLAYED AS A SEQUENCE. Nine beats land in the player\'s '
-     'first twenty minutes -- cold open, wake, the job on the phone, the offer, the market, '
-     'the reckoning, the install line, the day 2 wake, the vista -- each built by a different '
-     'turn against its own gate, and every one of those gates was GREEN. The bug was in the '
-     'space between them: measured on the real alpha, the shell\'s cold-open banner covered '
-     'page y 40-127 and the city\'s own toolbar sits at 89-120, so MUSIC, save, the builder '
-     'drawer and PHONE -- unread badge lit -- were ENTIRELY underneath it, on the morning the '
-     'wake card says "Something came in on your phone overnight". THE JOB COMES IN ON THE '
-     'PHONE, so the demo\'s core loop was blocked at minute one by the story hook, and neither '
-     'beat won: the family-at-the-table hook was a thin bar losing to a big gold GET UP button. '
-     'The offset is now REPORTED BY THE CITY and never typed in the shell (which cannot read '
-     'into the iframe on file:// anyway), and the banner STANDS DOWN entirely while a city '
-     'surface is open -- because the first cut only moved it below the toolbar and the phone '
-     'SCREEN then ran 115-844 under a banner at 121-208, which is moving a bug, not fixing it. '
-     'It TAPS the phone through the shell rather than comparing rectangles. Mutation-tested '
-     'both ways: restore the overlap and the tap stops opening the phone; drop the z-index '
-     'clause and the world canvas counts as an overlay, which suppresses the cold open '
-     'permanently -- the regression that hid INSIDE the fix, caught by measuring after. '
-     'IT NOW ALSO HOLDS THE TWO THINGS THE REACHABILITY HALF FOUND. (a) HIS HOUSE WAS 38 '
-     'CELLS FROM HIS FEET on every boot: the shell forwards a cell from the RUN SLICE (a '
-     'different surface with its own player) and homeFind keyed on that marker, so the one '
-     'thing the run is anchored on sat across the valley. (b) THE DAY COULD NOT BE SPENT BY '
-     'PLAYING: bohemia_dayloop tick did `mins = Math.max(0, mins | 0)`, the walk ticks 0.084 '
-     'min per cell, and 0.084|0 is 0 -- every step ever taken was discarded, each call '
-     'truncating independently so the remainder could never accumulate. DAY.step had NO '
-     'CALLER at all, so "N steps" was always 0 too. That is why the reckoning always read '
-     '"0h lived - 16h given back": not a quiet day, a day that could not be spent. It walks '
-     'the real pad with real pointer holds in eight directions (a wall ended the first cut '
-     'after six cells and would have reported the clock broken for the wrong reason) and '
-     'asserts the clock moved, the steps counted and the district ledger recorded it. '
-     'AND THE LAST UNPROVEN STRETCH IS DRIVEN NOW: he TAKES THE JOB by tapping TAKE IT in '
-     'the phone frame (demo_day_gate calls offerAccept() directly, so the cross-frame path '
-     'had never been tapped) and WALKS THROUGH HIS OWN FRONT DOOR. That found the valley '
-     'sealed: 2,334 cells around the spawn belong to enterable buildings and TWO could be '
-     'walked into, because massHasDoor counted FOUR door markers (hdoor, portal+enter, '
-     'doorW, doorE) while the walk admitted through TWO -- so a house whose door is a doorW '
-     'made the guard say "this building HAS a door", flipping the walk to its strict branch, '
-     'which then could not see the marker the guard had just counted. THE GUARD LOCKED THE '
-     'DOOR AND THREW AWAY THE KEY, and his own front door 29 cells away was one of the '
-     'eighteen refused. One predicate now, so the two halves cannot disagree: 20 doors '
-     'reachable, nearest 29 cells. AND WALKING IN STARTED A GUNFIGHT -- the fight roll is '
-     'DETERMINISTIC off the footprint, so his house was not unlucky once, it was a firefight '
-     'FOREVER; the odds are untouched and the house is exempt. The path is a BFS standing in '
-     'for a player\'s eyes but every move is a real pointer hold at a FULL BEAT, because '
-     'movement is beat-quantised and a 220ms press lands nothing', True),
     ('INSTALL CARD',   ['node', 'gates/install_card_gate.js'],
      'DEMO BOARD row 6, THE LAST HALF OF THE HOME-SCREEN WORK ORDER: the manifest, the icon '
      'and the apple metas shipped 8/16 so an install WORKS, but NOTHING EVER TOLD HIM IT '
@@ -3248,23 +2728,6 @@ GATES = [
      'the overview with no way back to his feet. Reroll is skipped DECLARED, not silently, '
      'because replacing the world is its job and reroll_gate.js owns where it lands him. '
      'Mutation-tested: re-break UNDER and it goes red naming it', True),
-    ('DEMO DAY',       ['node', 'gates/demo_day_gate.js'],
-     'THE PEOPLE LANE SHIPPED A demo_gate THE SAME DAY FOR THE SAME ROW AND BOTH ARE WORTH '
-     'KEEPING -- theirs guards the SPINE OF THE OPENING from a phone that has never seen the '
-     'game, this one guards THE DAY ITSELF. Neither is a superset of the other and collapsing '
-     'them would have thrown away real coverage to win a filename. '
-     'DEMO BOARD row 9: seven gates each proved one beat of the demo and NOBODY had ever '
-     'played the whole thing on the surface Paolo taps. This does, by hand, in ONE session, '
-     'touching only what a player can touch: tap the splash and land IN THE GAME rather '
-     'than on the wardrobe workbench (row 7), wake with no objective, the phone rings, take '
-     'the job ON THE PHONE, walk into the building, tap the quest author\'s own option, GET '
-     'PAID, walk to the swap meet the overmap placed, TAP A ROW AND BUY, sleep, day 2 -- '
-     'then RELOAD THE WHOLE ALPHA and assert the day, the purse and the valley\'s stocks '
-     'all came back. It found two real bugs on its first run and both are fixed. It also '
-     'chains the deploy check row 9 asked for: every file the played day actually loaded is '
-     'a path _config.yml publishes, read through the shared resolver, so a demo that works '
-     'on disk and 404s on the real link goes red here. THE FIGHT and CAMP are named as NOT '
-     'ASSERTED out loud, so this row can never read as closed while the game still stops', True),
     ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
      'Paolo 8/12: "we are trying tk create the best funnest deepest videogame ever". Depth '
      'is not more surface, it is yesterday still being true today -- so it was MEASURED '
@@ -3277,17 +2740,6 @@ GATES = [
      'diffed against the .bq -- and the phone SHOWS it, because a ledger nobody can read is '
      'bookkeeping, not depth. Also asserts a runtime with NO shared ledger is unchanged (the '
      'engine\'s written promise) and that the buzz is a sound HE PUT UP on 8/9', True),
-    ('PHONE RINGS',    ['node', 'gates/phone_rings_gate.js'],
-     'The phone was in his pocket and knew where he was, and was still a VIEWER: nothing '
-     'ever arrived on it and nothing he did on it changed the day. engine/bohemia_loop.js '
-     'has modelled the answer since it was written -- "THE FEED OFFERS: the quests you can '
-     'pick up OVER THE PHONE right now" -- and the demo was skipping the channel by handing '
-     'him the day\'s job on the wake card, done deal. Now the day starts with NO objective, '
-     'the job arrives on the phone in the quest\'s OWN words, and taking it THERE is what '
-     'makes it real in the run. And NOT TAKING A JOB IS NOT FAILING IT -- a distinction the '
-     'old auto-start could not express. Driven by tapping the real buttons, both scenarios: '
-     'he takes it and runs out of light (the author\'s own FAIL stage fires), and he never '
-     'takes it (nothing runs, and the reckoning says "never taken")', True),
     ('ONE ZOOM',       ['node', 'gates/onezoom_gate.js'],
      'Paolo 8/12: "you could keep zooming out and zooming out until it showed the moon you '
      'know. that was my original philosophy and i want to stick with that thats my flavor". '
@@ -3311,17 +2763,6 @@ GATES = [
      'Driven by TAPPING THE BUTTONS in a real browser -- calling swapMode() from a harness '
      'measures a half-executed page, because the city has two pre-existing temporal-dead-zone '
      'faults on that path', True),
-    ('DAY LOOP',       ['node', 'gates/dayloop_gate.js'],
-     'Paolo\'s demo row: "close the game day loop end to end (hardcode the demo quests, '
-     'scaffolding is legal)". The city had a TIMER, not a day: minutes accumulated, rolled '
-     'past midnight, and nothing in the world knew a day had happened -- while a finished .bq '
-     'parser, quest runtime and 21 canon quests sat in engine/ and in NEITHER file the player '
-     'loads. Now: wake 06:00, sixteen hours, NIGHTFALL 22:00, a reckoning, day+1 carrying '
-     'everything. Every resolution button is the destination stage\'s own @LOG line VERBATIM '
-     '(the gate diffs each one against quests/bq/*.bq), nightfall on an unresolved quest fires '
-     'THE QUEST AUTHOR\'S OWN FAIL STAGE, and the STAKES table is EMPTY because what a day costs '
-     'to live is Paolo\'s ruling. Played wake-to-nightfall-to-next-wake in a real browser, and '
-     'again through the alpha\'s RUN tab where he actually stands', True),
     ('SAVE IPHONE',    ['node', 'gates/save_iphone_gate.js'],
      'Paolo\'s demo row: "make the save iPhone-proof". CITYSAVE v1 had a ONE-BYTE probe '
      '(so it reported "disk" and then lost every autosave to memory in silence), ONE slot '
@@ -3354,8 +2795,6 @@ GATES = [
      'the factory: shared machine every district extends', False),
     ('FEEDBACK MASTER',['python3', 'gates/feedback_master_gate.py'],
      'Paolo 8/1 "remember all my feedback": every ruling in his own words is indexed where the next session reads it -- the repo is the only memory there is', False),
-    ('BUILD THE WORLD',['python3', 'gates/build_the_world_gate.py'],
-     'Paolo 7/31: quests, factions and the economy are OFF -- the footprint of all three is frozen and may only shrink', False),
     ('PURSE',          ['node', 'gates/purse_gate.js'],
      'the money is auditable and the numbers stay Paolo\'s: balances are a sum of the ledger, never negative, never anonymous, and PAYOUT/PRICES/PRODUCTION ship EMPTY', False),
     ('MATERIALS',      ['node', 'gates/materials_gate.js'],
@@ -3564,11 +3003,6 @@ GATES = [
      "Paolo 8/8 LOCKED: 'just give me pictures and put it in a tab'. Every new thing is "
      "PHOTOGRAPHED off the real screen and shown in the LOOK tab, captioned, naming its own tab -- "
      "because a feature he has to walk 84.9 km2 to find is a feature he never judges", False),
-    ('VISTA',          ['node', 'gates/vista_gate.js'],
-     "DEMO ROW 11, the money shot: the mountain overlook where you see the whole valley. "
-     "The overlook is DERIVED from the seed's own rim (MAP LAW), the camera LOOKS ACROSS the "
-     "basin instead of hovering over the ledge, and it stays a CAMERA MOVE -- the plan's own "
-     "rule is 'not a new renderer', so a bespoke draw loop in the vista block fails here", False),
     ('NO SHOTS IN REPO',['node', 'gates/no_shots_in_repo_gate.js'],
      "a lane flagged it 8/7 and fixed its own tool while two gates kept doing it: every suite "
      "run rewrote ~500 KB of screenshot inside slices/ and records/target/, so whichever lane "
@@ -3667,17 +3101,6 @@ GATES = [
      "further from its nearest existing neighbour than a typical pair of "
      "existing voices sit from each other -- THE RACK SETS ITS OWN BAR, so "
      "nobody picks the number that decides whether their own batch passed", True),
-    ('ENDING SOUND',['python3', 'gates/ending_sound_gate.py'],
-     "THE LAST THING ANYBODY HEARS. PEAK-END says the final moment is half of "
-     "what a person keeps of the demo, and driven on the real surface the day "
-     "the ending shipped it made NO SOUND AT ALL -- not when it landed, and not "
-     "when you pressed the one thing it deliberately will not let you say. A "
-     "refusal with no sound is indistinguishable from a broken button, so the "
-     "designed beat read as a bug. 64 withheld verbs (59 in the quest corpus, 5 "
-     "in the ending) went through a too-narrow matcher, the fifth this month, "
-     "in the function whose own comment warns about the fourth. Holds both "
-     "sounds, one sound per tap, the class contract in the source, and that the "
-     "ordinary controls still behave", True),
     ('INTENSITY WIRED',['python3', 'gates/intensity_wired_gate.py'],
      "Paolo 8/26 LOCKED, all FOUR triggers of his three-level ladder driven on "
      "the real surface: calm, an enemy trying to hurt you, somebody talking to "
@@ -3686,13 +3109,6 @@ GATES = [
      "the trap permanently: __CT.open() READS like a getter and is an ACTION "
      "that opens a conversation, so a watcher polling it would put a dialogue "
      "card in the player's face forever", True),
-    ('MENU MUSIC',     ['python3', 'gates/menu_music_gate.py'],
-     "Paolo 8/26 LOCKED: 'menu music doesnt get impacted by intensity type "
-     "shit' -- he liked THE POWER STILL ON SOMEWHERE calm and it was 'really bad "
-     "on intensity 2'. Measured, it was hitting ALL EIGHT menu songs and the "
-     "worst was sevenfold. Every menu song now renders the same at 0/2/4 while "
-     "ordinary songs still build. Plus part two of the same ruling: intensity is "
-     "THREE levels, two kills not four, and threat and conversation raise it too", True),
     ('DEMO BUILD',     ['node', 'gates/demo_build_gate.js'],
      "Paolo 8/25 LOCKED: 'THE DEMO WILL BE A STANDALONE LINK THAT ISNT THIS "
      "WORKSHOP LINK.' TWO SURFACES. The demo build exists as its own published "
@@ -3852,11 +3268,6 @@ GATES = [
      "gate. NOT a pixel diff, on purpose -- two identical runs of the screenshot pass "
      "disagree on 12 of 27 screens with nothing changed (the character bench by 5.95%), "
      "and a checker that cries wolf gets muted", True),
-    ('FRESH DOORS',    ['python3', 'gates/doors_fresh_gate.py'],
-     "he killed all ten doors on 7/30 (metal 3-12, wood 0-5) and named DOORS in "
-     "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
-     "replacement is a FRESH cook from ash and stone, brighter/shorter/harder "
-     "than every door that died, new ids, and nothing banked until he thumbs", True),
     ('MIX',            ['python3', 'gates/mix_gate.py'],
      "nothing in the game ever moved out of the way of anything else: 105 approved "
      "sounds all arriving at the same weight, and a voice cap that dropped whatever "
@@ -4079,29 +3490,6 @@ GATES = [
      "now tests what the rule says, an integer multiple of mains, and prints the "
      "multiple. Mutation removes the room's start before the door opens, never "
      "after the reading it falsifies", True),
-    ('OFF THE BEAT HEARD',['python3', 'gates/off_the_beat_heard_gate.py'],
-     "PAOLO 9/15: 'I don't even know how to engage in combat and when that shit "
-     "starts.' The row says a swing on the beat must sound different from a swing "
-     "off it, carried by SOUND not words. MEASURED inside the fight, on a real "
-     "encounter, with tone/drumV/sfxAsk all wrapped so only audio the frame really "
-     "asked for can be counted: the fight grades every press into four bands and "
-     "PERFECT rendered 3 notes, GOOD rendered 1, and EARLY AND LATE RENDERED "
-     "NOTHING. Two of four bands were silent, so the one thing the first fight "
-     "exists to teach was the one thing you could not hear -- and the chain-break "
-     "that might have covered it needs groove > 0 (broke(0) false, broke(3) true), "
-     "which a player's first press never is. The row's FIRST claim was already true "
-     "and COMBAT built it: a metronome runs every beat, ~49 drum hits in six live "
-     "seconds, so nothing was rebuilt. This holds the missing branch down and it is "
-     "mostly the ways this lane fools itself: the bands come from a SWEEP of the "
-     "fight's own gradeOf rather than a list typed here, so it cannot go stale when "
-     "COMBAT adds a grade; there is a PHONE FLOOR on the cue's pitch, because the "
-     "first version of the fix put it an octave below the family's root and the "
-     "family's pitch MOVES with the song -- measured live at 82.4 Hz, which is a "
-     "second silence wearing the fix's clothes; and the cue must render at least the "
-     "GOOD cue's energy so it cannot become the new silence, with a stated 5% peak "
-     "margin because the first cut of that claim failed by 0.8% comparing two decay "
-     "shapes, and a tolerance tighter than the instrument's resolution measures the "
-     "instrument. Mutation control removes the branch and the bands go silent again", True),
     ('FIGHT START HEARD',['python3', 'gates/fight_start_heard_gate.py'],
      "PAOLO 9/15: 'I don't even know how to engage in combat and when that shit "
      "starts.' MEASURED on the real alpha with three funnels tapped at once -- "
@@ -4123,20 +3511,6 @@ GATES = [
      "this round peaked 0.9338 into a 0.8 master, two notes on one step summing. "
      "The mutation control deletes the figure at runtime, and it caught this "
      "gate reading the family list before applying its own mutation", True),
-    ('ROOM SONG',['python3', 'gates/room_song_gate.py'],
-     "CAN THIS SONG BE HEARD ANYWHERE? music_reach_gate (8/4) asks whether a "
-     "song HE TAGGED can be heard, and a gate built around his tag table can "
-     "only ever check the rows in it -- so it could not see the 91 songs nobody "
-     "ever tagged. Measured on a real boot by asking the game's own functions: "
-     "128 songs, the street reaches 16, combat 15, the opening 6, and NINETY-ONE "
-     "could be heard NOWHERE, 82 of them thumbed CANON. This asks the "
-     "whole-shelf question instead: every song is reachable by some player or "
-     "buried, no third state, and 'nobody got round to tagging it' is not an "
-     "excuse a build keeps. It walks the body through a REAL DOOR with the "
-     "city's own inEnter and waits for the SWITCH, not for a duration. Three "
-     "probes came before it and TWO BROKE WHAT THEY MEASURED -- one forced the "
-     "street shuffle under the opening and deadlocked it, one posted a FAKE "
-     "inside:true that the city's own truthful heartbeat correctly overwrote", True),
     ('SOUND REACHABLE',['python3', 'gates/every_sound_is_reachable_gate.py'],
      "WHICH OF HIS APPROVED SOUNDS THE GAME ACTUALLY MAKES, measured by playing "
      "it. THE-OTHER-51's brief says '51 of 65 have none' and THAT NUMBER CAME "
@@ -4236,12 +3610,6 @@ GATES = [
      "a coin flip on playing the same track twice in a row; and a phase change "
      "waited out a 64-bar pass, so the clock was inaudible for up to 128s. ZERO "
      "repeats in 200 picks, and the turn lands on an 8-bar phrase line", True),
-    ('SFX SHUFFLE',    ['python3', 'gates/sfx_shuffle_gate.py'],
-     "A VERDICT COSTS ONE TAP. Twenty of twenty-six moments were silent because "
-     "judging cost a couple of hundred interactions per batch, so the batch never "
-     "got judged. Breadth first (so the earliest taps retire the most silence), "
-     "ten per round (listening-test practice), the SAME SJ.V store and .txt "
-     "export, and NOT ONE UI click tone over the sound he is judging", True),
     ('RUN BEAT',       ['python3', 'gates/run_beat_gate.py'],
      "the run is on the SONG'S clock, not its own hardcoded 500ms: the beat crosses "
      "the parent->run vocabulary, the door and the slide read the live tempo, the run "
@@ -4265,8 +3633,6 @@ GATES = [
      "Paolo's songs are byte-locked: no session edits a song quietly, ever", False),
     ('COMBAT POOL',    ['node', 'gates/combat_pool_gate.js'],
      'faction-tagged songs enter the combat pool with their voices', False),
-    ('COMBAT LAB',     ['node', 'gates/combat_lab_gate.js'],
-     'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
     # 10/1 COMBAT: the floor (rule 46f), the house board (rule 39, 46g) and the end condition (rule 57)
     ('NOTHING ON THE GROUND', ['node', 'gates/nothing_on_the_ground_gate.js'],
      'rule 46f: the fight draws at the phone\'s real pixels; no ovals, discs, words, rings or bars on the street; cover is COMBAT 2\'s pieces; a car is one tile', False),
@@ -4288,16 +3654,6 @@ GATES = [
      'COMBAT [formation] (rule 110b, Paolo 10/16: "the team member formation is shit"; Battle Brothers\' deployment): the enemy\'s line drawn while he sets his, a real finger drags a man into his two columns, the line is written down by name and the next fight opens with every man where he left him, AUTO starts on it and walks as a line, a clean start forgets it', True),
     ('ONE FIGHT', ['node', 'gates/one_fight_gate.js'],
      'COMBAT [one fight] (MODS 10/9: two truths for one gun): on the baked demo the sealed old fight is never built (idle, or when the map opens a fight), every fight is slices/BOHEMIA_FIGHT.html, and it reads its guns from records/target/bb/weapons.json', True),
-    ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
-     'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
-    ('COMBAT ENTRY',  ['node', 'gates/combat_entry_gate.js'],
-     'THE DOOR IS THE FIGHT (RF4-C first deliverable, 8/17): demo row 1 said the walked surface has NO COMBAT '
-     'ENTRY POINT -- verified, all five "combat" occurrences in the city world were comments or CSS -- while the '
-     'V66 BOHEMIA_ENCOUNTER bridge had been finished and driven by the run for weeks. The city simply never called '
-     'it. This boots the alpha, opens the walked surface the way his thumb does, WALKS A BODY THROUGH A REAL DOOR '
-     'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
-     'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
-     'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
     ('SAVE BEFORE THE BELL', ['node', 'gates/save_before_the_bell_gate.js'],
      'A SAVE EXISTS AT THE BELL (VAMILY [prefight save] = BB-SAVE-BEFORE-THE-BELL, COMBAT 9/14). The row: '
      '"THE GAME HE NAMED AUTOSAVES BEFORE EVERY BATTLE. OURS IS COVERED BY ACCIDENT" -- in Battle Brothers the '
@@ -4314,24 +3670,6 @@ GATES = [
      '(postMessage is ordered, so what is written is the world as it stood before the fight), it is the SAME '
      'snapshot the debounced path writes rather than a second save format, and every bell saves not just the '
      'first. Mutation-proved two ways: the bell stops saving 4 red, the save lands late 1 red', True),
-    ('FIRST FIGHT', ['node', 'gates/first_fight_gate.js'],
-     'A REAL FIGHT INSIDE THE FIRST FIVE MINUTES (VAMILY [first fight], COMBAT 9/13, rule 14 THE FIVE '
-     'MINUTES). *** PAOLO 9/13: "I have not experienced any combat yet... it says a car is gonna pull up on '
-     'me and then nothing happens." *** THIS IS A STOPWATCH: it opens the alpha, walks out of the door on the '
-     'shipped stepOnce, and counts what a player actually meets. MEASURED BEFORE THE FIX, three walks of five '
-     'minutes: 0 cards, 0 FIGHTS, and the only two things that fired were ghost_robotaxi ("an empty cab pulls '
-     'to the curb ahead and opens its door for nobody") and scavenger_shakedown ("somebody steps out. they '
-     'want something") -- he was describing the game accurately. THE CAUSE: there are TWO directors and only '
-     'one can start a fight. roadInterrupt calls V203\'s roadContactFight and roadCard, and its director reads '
-     'ROAD_TABLE, which has NO ROW for the suburb he wakes in; walkDirector falls back to WALK_TABLE and fires '
-     'correctly, and walkInterrupt\'s entire response was one line of text. Now the card is on the glass at '
-     'step 58 of 600, about 29 seconds, and pressing its fight arm posts a real street encounter. THE '
-     'ENCOUNTER IS FINGERPRINTED (why=road:scavenger_shakedown, street true, room false) because the first cut '
-     'of this gate walked into a garage, pressed, saw a fight open and called it proof -- and it was the '
-     'INTERIOR DOOR\'S fight. Also held: the indoors guard is tested by driving the shipped walkInterrupt '
-     'rather than a copy of its logic (the first cut re-implemented the if/else and the mutation stayed '
-     'green), ambient stays a line, and NO GLOBAL SPAWNS EVER -- a district with no walk row still produces '
-     'nothing. Mutation-proved three ways: no card 5 red, no indoors guard 1 red, the fight never comes 2 red', True),
     ('THE ROUT', ['node', 'gates/the_rout_gate.js'],
      'THEY ARE RUNNING, DO I CHASE? (VAMILY [enemies flee] = BB-THE-ROUT, COMBAT 9/13). The row: "THE MOST '
      'DECISIVE MOMENT IN A REAL BATTLE IS CURRENTLY A DESPAWN." In pre-modern battle the winners rarely lost '
@@ -4473,8 +3811,6 @@ GATES = [
      'PAOLO 9/7, killing eat, drink, smoke, cough and whistle: \'some of the DIRECTIONS look like dog shit: when it is facing north-east the hand was behind the head even though it is supposed to be in front.\' TWO PROBLEMS IN ONE COAT -- the draw-order half was fixed 9/13, and the other half was worse. ALL FIVE AIMED WITH gunT, THE GUN TARGET: the chest point pushed forward along the facing, right for a pistol held out and wrong for a hand at the mouth, and because the push follows the facing it lands somewhere different every time he turns. The head is 18 px crown to neck and the hand never came closer than 12.9. MEASURED IN THE DRAWN FRAME, not the skeleton, and that is the gate: a joint ruler scored the redo 2.9 px from the mouth on north-east, its best cell of forty, while the PICTURE showed an arm past the head with no hand near it -- both right, because facing away a hand at the mouth is behind the skull, the compositor is first-wins, and the reaching hand is never drawn. A DISTANCE BETWEEN TWO JOINTS CANNOT SEE WHAT IS IN FRONT OF WHAT. So it asks buildFrame for the part id under every drawn pixel and measures hand pixels against the face. RATCHET 9 of 40 -> 33 of 40, may only go up. THE REDO IS DELIBERATELY NOT IN THE BUILD and the gate SAYS SO instead of going red over a thing nobody shipped: it costs NECK HOLDS HEAD 15 detached frames -> 22, every new one facing east, because the forearm that reaches the mouth in profile crosses the throat, and raising the hand to clear it made BOTH numbers worse. Both halves want one missing piece: a clip that DECLARES hand-at-the-face so handOrder can order the arm-unit and the neck off a flag, the way a gun clip declares _gun -- constant per clip, so unlike the rules retired 7/26 it cannot flip mid-swing. 2 mutations caught, and the first cut of its control was VACUOUS: it asked whether any cell was away from the face, and a build with the hand welded on still scored 10 away because the back views are occluded whatever the pose does; it asks the rest phase now, 21 of 32 -> 0 of 32', True),
     ('ELDER STOOPS',   ['node', 'gates/the_elder_stoops_gate.js'],
      'PAOLO 9/21, on the ages he had just voted YES to: \'the old person looks like shit.\' CHARACTER measured why (e357361, 5c6aebb): young adult, adult and elder land WITHIN 3%% OF EACH OTHER, three ages one body, because the only dials were HEIGHT and LEG FRACTION and the elder shared its height with the young adult. AND THE RIG\'S OWN NOTE ALREADY SAID WHAT WAS MISSING -- \'old age compresses the spine, it does not narrow the shoulders\' -- while nothing in the rig could compress a spine. A NOTE THAT NAMES A MECHANISM NOBODY BUILT IS A PLAN, NOT A FEATURE. One bend point above the hips, on a squared curve so the back ROUNDS instead of the torso tipping like a plank; arms come with the shoulders. Measured across eight facings: the elder is 11.6%% shorter than the adult (was 2.4%%) and his head hangs 2.4 px out over his own hip (was 0), and the DRAWN crown sits 8 rows lower with all 8 facings drawing differently -- because a skeleton that moved while the art did not would pass every joint claim, which this lane has shipped before. THE LOAD-BEARING CLAIM IS THAT HIS LEGS DO NOT MOVE: the pivot is above the hips, and a stoop that dragged a knee is a body falling over, not an old man. MUTATION TAUGHT THE SHAPE OF ITS OWN GUARD: adding the leg joints to the bend list is a NO-OP, because the clamp makes anything below the pivot score zero travel, so the legs are protected by construction and not by a list somebody has to remember; the mutation that does move them removes the clamp, and the claim goes 0 to 32 joints, worst 10.7 px. 3 mutations caught, with a CONTROL that the young adult is untouched so a global change cannot pass by showing up worst on the elder. 0.20 was LOOKED AT: below 0.12 it reads as bad posture on a young man, above 0.28 his head passes his toes and he reads as bent double', True),
-    ('SLIDE AND TURN',  ['node', 'gates/the_walk_slides_and_the_turn_takes_the_beat_gate.js'],
-     'RULE 26, PAOLO 9/21, four words on the walk item: \'I want slide immedialy.\' The tape skip this lane built over three rounds was the MANAGER\'S default, not his, and it is dead. THE REASON SLIDE WAS NOT ALREADY WHAT HE HAD IS WHAT THIS GUARDS: the glide carried a handwritten FOUR-CELL ceiling written 8/23 when a step was ONE cell (its own comment said so), rule 16 made a step twenty-five, so every full step died on its first drawn frame while the chip and the source both said SLIDE and what he walked was GRID -- the whole world jumping 275 px in one frame, twice a second. A NUMBER TYPED INTO A GUARD EXPIRES SILENTLY, because a guard that refuses everything looks exactly like a feature nobody turned on. Saying the feel is SLIDE means nothing unless something checks the ground slides: measured on the PIXELS THE GAME DRAWS by stubbing performance.now() and calling render() at each of the sixty moments a sixty-frame beat lands on (this box clamps a headless page to twenty), SLIDE moves the world on 31 of 60 frames against GRID\'s 0. AND THE TURN, VOTED UP 9/21: there was no turn at all, the facing was assigned the instant the step ran. It is now set in ONE place and that place starts a turn through the eight drawings the game already ships, the short way round. THE JUMP COUNT IS PRINTED AND DECIDES NOTHING, on purpose: wiring it everywhere took it from 10 skipped points (worst 4) to 4 (worst 2), then the same gate on the same tree read 8 (worst 3), because the walk itself swings -- walls redirect him and no two sweeps turn the same corners. A FLAKY RATCHET IS WORSE THAN NO RATCHET: it fails honest work, gets switched off, and costs the gate everything else it holds. AND THE IDLE, VOTED UP 9/21, under the one law that can break it: the feet NEVER move in idle, 0 of 56 frames across eight facings, measured on the DRAWN frame because the joint ruler lied to this lane twice and the picture caught it both times; with a control that the body is not simply frozen. Two rulers for the turn were built and thrown away first, both measuring the mechanism instead of the result', True),
     ('FOUR AT ONE CELL',['node', 'gates/the_walk_has_four_pictures_at_one_cell_gate.js'],
      'RULE 34, PAOLO 9/27, LOCKED (TWO SCALES ONE GAME): the walked person is ONE CELL, about 28 px, one cell per step; THE STEP IS A HOUSE is dead and the 112 art is the SOURCE, not the product. THE QUESTION THAT HAD TO BE ANSWERED BEFORE ANY OF IT: cut 112 down to 28, is there still an animation in there? Measured at 112, 56 (what ships to the street today) and 28 with the game own nearest-neighbour cut: eight facings stay eight different pictures (0 identical of 28 pairs), the body goes 98 -> 49 -> 24 rows and 2732 -> 680 -> 168 lit pixels, and there are ZERO lonely pixels at 28. THE CUT SURVIVES and nothing had to be redrawn. *** AND IT FOUND A DEFECT THAT WAS THERE AT EVERY SIZE. *** The lateral walk is driven entirely by s = sin(ph*2pi), and sin is ZERO at ph 0 AND at ph 0.5, so those two keys came out BYTE-IDENTICAL on all six side facings: 6 of 48 pairs, THE SAME SIX at 112, at 56 and at 28, so it was never the cut. THE SIDE WALK HAD THREE PICTURES, NOT FOUR, and run had it too. At 112 you might not notice; at 24 rows it reads as a limp. THE FIX IS ANATOMY: a real walk two crossings differ because one leg is passing forward, what tells them apart is the DIRECTION of travel (cos, +1 at ph 0 and -1 at ph 0.5), and the passing foot CLEARS THE GROUND. 6 of 48 -> 0, at 28 AND AT 112, because a fix that only held small would be a fix in the wrong place. Run the same with a bigger clear. AND A HYPOTHESIS MEASURED AND THROWN AWAY THE SAME ROUND: the 28 px sheet read SPECKLED to me, so I wrote an area-average cut with a palette snap. The ruler said ZERO lonely pixels in BOTH; the light marks are his hands and the coat highlights and they are connected. The second cut moved 105 pixels, added a colour and fixed nothing. Deleted. A HYPOTHESIS THAT MEASURES THE SAME IS NOT A FIX. 3 mutations caught (the passing foot removed, the lift driven off abs(cos) so both crossings lift the same, and an EMPTY cut) with a CONTROL that the cut draws a real body and not an empty box, because a cut that drew nothing would score zero duplicates and zero lonely pixels and pass everything by drawing nothing. WHAT IT DOES NOT DO, SAID PLAINLY: the grid is a REBUILD and belongs to the world and the map, not here; CAST_PX is untouched; what this lane owns is that the clips are ready at the new size when it lands', True),
     ('BRACE AND SHADOWBOX', ['node', 'gates/the_brace_and_the_shadowbox_move_gate.js'],
@@ -4521,14 +3857,10 @@ GATES = [
      'PAOLO 9/21, voting down the five hand clips: \'it looks like all of them Northeast and south tweaking.\' The round before proved it is NOT placement -- on those two facings the redone sheets bake BYTE-IDENTICAL to the old ones -- so it is the MOTION, and the defect generalises into a law this repo had already met once and never written down. THE BODY IS POSED ON A GRID OF POSEHOLD.keys KEYS A BAR, TWELVE, AND NOTHING BETWEEN TWO OF THEM IS EVER DRAWN. An envelope written as a smooth continuous curve can still move a joint further between two DRAWN keys than the eye reads as travel, and then the joint does not appear to move, it appears to JUMP, and to jump BACK. Two instances: eat was |sin(ph*2pi)|, TWO bites a bar, the hand crossing 13 px between two drawings and reversing at every hump; cough was max(0,sin(t*3pi))*(t<0.6), which sampled at i/12 is 0,1,0,0,0,0 -- THE WHOLE CONVULSION ONE KEY WIDE, the head moving 10.44 px on north-east and back inside a single drawing, twice a bar. Same family as the tweeze bug the file already carried in a comment, which is exactly why it came back: a note is not a gate. THE RULER IS DIRECTIONAL, not a distance: a step that goes BACK the way the last one came (flipped by more than 120 degrees) between two drawn keys. That is the shape of a jitter and it is invisible to every how-far-did-it-move ruler, which is why five rounds of distance measurements never found this. Measured over the five clips, five joints, his two facings plus east: reversals 26 -> 0 on the two he NAMED and 43 -> 5 overall, worst jump between two drawn keys 10.44 px -> 7.28 on a 98-row body, the cough spanning 2 of 12 keys -> 6. The 5 left are printed and named: four are the cough own duck and return, which is a cough, and the fifth is whistle far hand breathing, identical before and after and never mine to claim. The grid is READ off POSEHOLD and never typed, so a game that draws a different number of keys moves the ruler with it. CONTROL: the exact shape the cough bug had is pushed through the SAME walk and must still score reversals, so one ruler serves both and a gate that goes quietly blind fails its own control -- proved by mutating the reversal test to a threshold that can never fire, which the control catches while every other claim reads green. 3 mutations caught. AND WHEN HIS SECOND VOTES KILLED THESE CLIPS A THIRD TIME MID-ROUND, THE ITEM CLAIM WAS RE-AIMED AT THE RULING ITSELF rather than deleted: I had a vote page on these same five clips built, measured and registered when the graveyard ruling landed, and it was PULLED and its files deleted rather than shown to him a fourth time. This gate now holds the existence of the post-mortem (naming all three of his verdicts) and the fact that NO vote page puts those clips in front of him again -- a ruling with no machine behind it is a note. Both mutation-tested. AND A RULER BUILT AND THROWN AWAY THE SAME ROUND: a connected-component ruler that would have passed the four frames holding the redone poses out was mutation-tested first, and with the neck rule neutered the old ruler goes 15 -> 48 while the island ruler stays 0 -> 0. IT COULD NOT SEE THE DEFECT AT ALL. Deleted, ratchet untouched: A RULER THAT PASSES THE THING YOU WANT TO SHIP IS THE FIRST ONE TO MUTATION-TEST', True),
     ('NECK HOLDS HEAD',['node', 'gates/the_neck_holds_the_head_on_gate.js'],
      'PAOLO 9/7, pointing at his own frame (records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg): on NE the head sits up and to the right of the shoulders with a visible gap, and the same reads on SE and SW while N, E and S look attached. MEASURED over 105 clips x 8 facings x 4 phases = 3,360 frames with the direction-free blob ruler this lane already built for the head snap: 48 frames drew the head DETACHED by 2 to 8 px. AND THE CAUSE WAS NOT THE POSE -- 31 of them drew NO NECK AT ALL and every single one was detached, against 0.7%% of the 1,666 that did draw one; sampling the line from the neck joint to the head joint, the pixels along it were part ids 5 and 6, THE ARMS. The per-facing layerOverride puts the NEAR arm at index 0 on NE, E and SE, nearer than the torso and nearer than the neck at index 4 or 5 -- right for an arm at your side, wrong the moment the pose RAISES it, because the sleeve sweeps across the throat and erases the one part connecting the head to the body. THE RULE: the neck draws in front of the arms. Same family as THE NEAR HAND DRAWS IN FRONT (9/13), except covering the neck destroys the read of the whole figure so the neck wins outright. MONOTONIC AND MEASURED BOTH WAYS: detached 48 -> 23, frames with no neck 31 -> 10, worst gap 8px -> 6px, THIRTY-SIX FRAMES BETTER AND ZERO WORSE, 13%% of frames change a pixel at all. The load-bearing claim ASKS THE LIVE DRAW ORDER on every facing rather than reading a line, and the ceilings are the measurement so the count can only fall. PRINTS the 23 that remain, of which 12 are GUN clips whose cause is the separate GUN-UNIT law, named rather than chased. 4 mutations caught, including the rule dropped from only ONE of handOrder\'s two exits and the rule present but never moving anything', True),
-    ('ONE NUMBER BODY',['node', 'gates/one_number_for_a_body_gate.js'],
-     'RULE 16, THE STEP IS A HOUSE (Paolo 9/15): bodies are drawn LARGER, and the law says the scale lives in ONE constant, NOTHING IS BAKED ONCE, a second copy anywhere is the bug. This lane owns the body pixels and the number lived in SIX places: twice in the bake that ships bodies to the street and in the w/h typed into each of the five senders (city player, city cast, the cast append, the faction cast, the run slice) -- plus a SEVENTH in the bake\'s own name, because a function called bake56 that bakes at a constant is the copy that misleads the next reader. MEASURED FIRST: the rig renders 112x112 with a 98-row standing body and the bake HALVES it to 56 before shipping, keeping 4,691 of 18,739 body pixels (25%) and a 49-row body, while 158 of 160 colours survive -- the loss is RESOLUTION, not palette -- and the city then doubles it back with Scale2x, inventing the pixels just discarded. That was not a mistake but an EXPIRED CONTRACT: 56 was the rig\'s native size when the promise was made, the rig moved to 112, COMBAT got the benefit (bake112 stops upscaling) and the city kept being handed a half-size body. Now one constant, and at 56 it is BYTE-IDENTICAL to what shipped before -- proved, not asserted, 48 baked frames (8 facings x 3 clips x bordered and borderless) compared byte for byte against origin/main, 48 identical 0 different -- so it lands safely before RUN\'s step constant exists, and growing the street\'s bodies becomes ONE edit. The load-bearing claim is BEHAVIOURAL, not a source scan (PLUMBER proved a scan cannot see a typed list once strings are stripped): it intercepts the real postMessage traffic and checks what every sender PROMISES equals what the bake actually SHIPS. The city iframe is LAZY and that nearly made it vacuous -- the first cut caught ZERO senders and scored \'0 of 0 agree\' as a pass -- so the gate installs a target and the sender count is its own claim. CONTROL: combat\'s separate 112 promise is untouched. 5 mutations, and moving the constant to 112 stays GREEN on purpose: the gate forbids a second copy, never the ruling being executed', True),
     ('HEAD SNAPS',     ['node', 'gates/the_head_snaps_back_gate.js'],
      'BEAT ONE of Paolo\'s headshot spec, "head snaps back on impact (0 to 0.08)", which defeated THREE attempts because the reason was invisible. An impulse on headTop at frame zero, the same impulse bigger, and exempting the head from the horizontal speed cap ALL measured 5.1px of head travel against the waist\'s 4.1 -- identical to each other and to no impulse at all. THE PIN, MEASURED: the head has EXACTLY ZERO freedom in the sim. Head angle minus spine angle is 0.0000 degrees on every step of every fall, kicked or not, because the GLUE LAW block in hsStep rewrites headTop off the spine frame every step, so every impulse was overwritten in the step it was applied. The sim\'s lever is the NECK, already kicked at 3.4 px/frame, but the 1.6 horizontal speed cap clips it on the first step while the waist\'s 1.2 passes untouched -- which is the whole of why the head leads instead of snapping. Lifting that cap builds beat one and KILLS beat four (arms close -13.3px against his floor of 12), the same trade the leg window offered and was refused for, so the cap is untouched. Beat one is built at the NECK JOINT, which the sim does not model at all, in hsPose on the rendered skeleton: a pulse inside his window that peaks 30%% in and returns to glued by its end. The sim is never touched, so his other three beats measure IDENTICAL on all eight facings -- verified against the previous build, not assumed -- and the RIGID LIMB LAW below it forces the neck bone back to rest length, which is why the head cannot come off (worst gap 1px, eight facings, out to 0.9 rad). The load-bearing claim is the WHIP: peak head travel inside his window over the travel at the window END, because a head that merely leads moves monotonically and scores exactly 1.00, which is what the build before this scored on all eight. Amplitude 0.45 rad was LOOKED AT, not picked off a table: 0.6 reads long-necked, 0.8 lifts the head off the collar. Prints the one facing whose own fall outruns the whip and names it as BEAT TWO\'s defect. 7 mutations caught', True),
     ('HEAD IN FRAME',  ['node', 'gates/his_head_is_in_the_frame_gate.js'],
      'Paolo 7/2/26 TRACKING CAMERA: "the whole body stays in frame for the entire fall, every knock direction, at STABLE SCALE." FOUR camera blocks -- the tracking pan, the crumple pan, the fixed-frame corpse and the ragdoll centroid -- had 28, 27, 34, 50, 53, 54, 52, 2 and 3 typed out by hand, and every one is a 56-ROW CANVAS. BAKED is 112x112 with RIG_RS 2, and a body just STANDING spans 88 rows (head 14, feet 102), so those cameras centred a 112-space body on the middle of a 56-space frame on every frame of every fall. Measured from a deterministic reset: the headshot sat at -16 to 72 for the whole fall, sixteen rows of head above the top edge, and the drawn sprite was clipped at row 0 in every single frame. HE WAS WATCHING A HEADLESS BODY, on two clips he thumbed down, and MOTION VISIBLE had been red on main on exactly this. One derivation (rigFrame) and four callers; at RIG_RS 1 it reproduces every number that was typed before, so the 56 rig is provably untouched. Carries a code claim that no camera types a 56-space number again, both edges of the frame, and a CONTROL that the camera may not move a body that already fits. 4 mutations caught, and two of them only after the first cut of the control was found VACUOUS (it compared idle, a clip none of these blocks touch)', True),
-    ('YOU KILLED THIS',['node', 'gates/you_killed_this_gate.js'],
-     'Paolo 9/7: "WE GOTTA RE-ANALYZE A LOT OF THESE. IF I KILLED IT I DON\'T WANT IT GONE." He thumbed 47 clips down and named why; three rounds of rig work later the reasons are measured gone, and he has to SEE that or the second verdict is worth no more than the first. JUDGE ALL now carries a ONES YOU KILLED filter and, on those 47 rows and no others, one green line saying what was wrong and what changed -- every line MEASURED from the same probe run on the rig before his three complaints were fixed and on the rig now. THE LIST IS READ FROM HIS OWN PASTE (records/BOHEMIA_CLIP_VERDICTS_9_7_26.txt), not copied into the gate, so the panel cannot drift from what he actually said. Carries the CONTROL that not one of the 56 he KEPT gets a line, and the row-height ceiling the 9/5 record paid for once (a wrapping note took a row to 200px and put four clips on a phone screen). 3 mutations caught', True),
     ('JOINT SNAP',     ['node', 'gates/a_joint_does_not_snap_gate.js'],
      'Paolo 9/7 with his clip thumbs: "we gotta re-analyze a lot of these. IF I KILLED IT I DON\'T WANT IT GONE." MOVING A LOT IS NOT A DEFECT -- jumping-jacks is SUPPOSED to throw the elbow, and a distance ruler calls it the worst clip in the set (218 frames over 6px) while a real 30px joint flip sits below it. The signature of a broken joint is the ELBOW travelling far in one frame while THE HAND IT BELONGS TO barely moves: the limb went nowhere, the joint jumped to the other solution. So this is a RATIO, not a distance. Measured over the 47 he killed, 8 facings, 24 buckets: before the three rig fixes 11 clips snapped at up to 60x (elbow 30px, hand 0px); after them 10 clips at 14x and every pure flip gone. Both ratchets are PINNED AT THE MEASUREMENT because the first cut left slack and a mutation that inverted the elbow side walked through it. Carries two CONTROLS: the fast clips must really throw the elbow, and not one of them may be called a snap. 2 mutations caught (the historical pre-fix rig, and an inverted elbow side)', True),
     ('NEAR HAND',      ['node', 'gates/near_hand_draws_in_front_gate.js'],
@@ -4547,9 +3879,6 @@ GATES = [
      'you wear one garment per slot: no painted layer of his shows through a worn garment of '
      'the same slot, his default painted outfit is untouched, and no garment ever replaces '
      'his face or his body', False),
-    ('CLOTHES 4X',     ['node', 'gates/clothes_4x_gate.js'],
-     'every garment and hairstyle keeps its proportions when the rig doubles, on all 8 facings -- '
-     'and not one pixel of the 56 wardrobe he plays today moved (1,744 pinned hashes)', False),
     ('SHADING SEP',    ['node', 'gates/shading_separation_gate.js'],
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
@@ -4899,8 +4228,6 @@ GATES = [
      'ONE RIG + variation sliders: neutral is byte-identical canon, every dial clean and continuous, the two-rig fork stays dead', False),
     ('LIFE',           ['node', 'gates/life_gate.js'],
      'agents homed+scheduled on the world model, occupancy, day shape', False),
-    ('DRESS',          ['node', 'gates/dress_gate.js'],
-     'agents wear only the canon wardrobe, bank fresh, tables empty', False),
     ('ECONOMY',        ['node', 'gates/economy_gate.js'],
      'conservation, monotone scarcity pricing, grounded needs', False),
     ('POPULATION',     ['node', 'gates/population_gate.js'],
@@ -5101,34 +4428,6 @@ GATES = [
      'Scaled by the same CPU yardstick the speed gate uses. IT FIXES NOTHING AND CANNOT: every '
      'hot path named lives in slices/ content, which this lane may not touch; the record is '
      'the hand-off',
-     True),
-    ('FIGHT FLOOR CACHE', ['node', 'gates/fight_floor_cache_gate.js'],
-     'THE FIGHT DRAWS ITS FLOOR ONCE, 9/6, PLUMBER lane, row [fight headroom]. A fighting beat '
-     'spent 497.5 of its 500 ms and the fight made 2,501 drawImage calls EVERY FRAME, 99.9% of '
-     'them the same 24x24 street tile, repainting a floor that is a pure function of world '
-     'coordinates and cannot change during a fight. It is composed once now and blitted: a '
-     'settled fight went 497.5 ms of the beat to 364/394/393.5 across three samples, and 41.6 '
-     'frames a second to a locked 60. WHAT THIS GATE IS, AND IT IS THE WHOLE POINT: the obvious '
-     'check is a before-and-after picture across two trees, and THAT CHECK CANNOT WORK HERE -- '
-     'this lane fingerprinted the same unchanged fight across three boots and measured the '
-     'distance between them at 44.74, so a fight does not repeat and any difference the cache '
-     'made would be buried under the difference the fight makes by itself. So the comparison '
-     'happens INSIDE ONE FRAME: one boot, one fight, one synchronous block of JavaScript, the '
-     'same camera and the same G, the floor composed BOTH WAYS into two canvases and the two '
-     'compared to each other. Session variance cannot enter, because there is only one session. '
-     'IT GOES RED ON one channel of one pixel differing, a cache hit that is not exactly one '
-     'draw call, a miss that is not the old path plus one blit, any of the five pieces of '
-     'trailing context state differing (code after the floor reads them), or a cached floor '
-     'that is not faster than the floor it replaces. AND IT HOLDS THE ANTI-SILENT-PASS FLOORS '
-     'FIRST -- fewer than 500 tile calls on the uncached arm, a canvas under 40% covered, or '
-     'fewer than a million channels read -- because two blank canvases compare perfectly and '
-     'that is exactly how a picture gate goes green on a broken run. IT ALREADY EARNED ITS '
-     'KEEP: it caught the first cut rebuilding the camera with setTransform(getTransform()), '
-     'which looks exact and is not -- 29,610 channels differed, up to 12 apart, because '
-     'getTransform hands back a float32-rounded matrix while the context rasterises from the '
-     'ops that built it. The cache replays the camera ops now, and the control arm (the '
-     'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
-     'measure against',
      True),
     ('COMPANY IN ASKS', ['node', 'gates/company_in_asks_gate.js'],
      'QUESTS row [company in asks] YOUR-PEOPLE-SHOW-UP-IN-THE-ASKING, 9/13. PAOLO 9/11: "people '
@@ -5787,35 +5086,6 @@ GATES = [
      'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
      'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
      True),
-    ('THE FLIP', ['node', 'gates/the_flip_gate.js'],
-     'DYNASTY row [the flip], 9/24, rule 31 (Paolo 9/23) with his own vote A and rule 32c. THREE FACES ON '
-     'THE CRACKED PHONE IN THE CITY VIEW, AND A REAL FINGER ON ONE CHANGES WHO YOU ARE. Driven with a '
-     'finger on purpose: the strip painted, the handler was bound, elementFromPoint inside the frame '
-     'walked straight to the tile, AND NOTHING FLIPPED, because the shell covers the top of the phone. A '
-     'checker dispatching a synthetic click would have been green through all of it. Legs: three acts; '
-     'every slot NAMED from the first frame (rule 32d, no unnamed descendant); three different people; the '
-     'eras are his canon; the unruled gap is marked draft; reshuffle differs; the same seed twice is the '
-     'same family; the flip moves; a tap on the act he is already in is NOT an event; the ground SAYS it '
-     'does not differ yet rather than pretending; the tile is thumb sized; NOTHING IN THE SHELL COVERS IT; '
-     'and the finger flips it. MUTATION PROVED: put the strip back at the top, under the shell, and it '
-     'goes 19/4 naming the covering DIV and reporting act 1.',
-     # PIPE fixed the missing `slow` field here (2929a370). MEASURED FROM THE OTHER SIDE,
-     # COOK 9/27, so the cost is on the record: every row is (name, argv, what, slow) and
-     # this one shipped with three, the table checks itself FIRST and refuses everything,
-     # so from e7c2b13f onward NO LANE COULD RUN ANY GATE AT ALL -- and 73 commits went to
-     # main in that window. A suite that cannot start is not a gate either.
-     True),
-    ('THREE NAMES', ['node', 'gates/three_names_gate.js'],
-     'DYNASTY row [three names], 9/27, rule 32(d) (Paolo 9/23): "a generated name per slot, reshuffle, '
-     'or type your own; sex the same way." RESHUFFLE CHANGES ONE SLOT AND LEAVES THE OTHER TWO EXACTLY '
-     'WHERE THEY WERE, on the real glass with a real finger. 31 legs: nineteen without a browser (every '
-     'slot named and sexed; a prepared name agrees with its sex where the bank has one; a bad act, an '
-     'empty name and an oversized name are refused and the prior name survives; a typed name survives '
-     'another slot\'s reshuffle and a later sex choice) and twelve on the glass. CORRECTED 9/29: this '
-     'gate shipped 9/27 and was NEVER REGISTERED HERE, although that round\'s record said it was, so the '
-     'suite had never run it. RE-AIMED 9/29 for rule 39c (one face at the start): every leg kept, the '
-     'later acts are unlocked through the game\'s own hook before the glass legs read the strip.',
-     True),
     ('ONE THEN HEIRS', ['node', 'gates/one_then_heirs_gate.js'],
      'DYNASTY row [one then heirs], 9/29, rule 39c (Paolo 9/28): "you start the game you can\'t flip '
      'between the three people... customize just one person, and when you hop into the second generation '
@@ -5973,28 +5243,6 @@ GATES = [
      'in, and it never writes into BohemiaTowns.HOLDS, which is his authored override. Three '
      'mutations bite: reward-who-you-helped -> 2 red, a FAILED job taking ground -> 1 red, dropping '
      'the unknown-name refusal -> 1 red. Runs 31/0',
-     True),
-    ('FIRST ASK', ['node', 'gates/first_ask_gate.js'],
-     'QUESTS row [first ask] THE-FIRST-ASK-A-STRANGER-MEETS, 9/13. The row: with the cold open '
-     'deferred and [wake near] moving the spawn, the first thing a player meets that wants '
-     'something is an ASK from the world, so author the first three that can fire in the first '
-     'ten minutes from what already runs, each checkable by walking somewhere. THE REASON THIS '
-     'GATE IS SHAPED THE WAY IT IS: the generator and its own gate were already 38/0 green while '
-     'the one ask a stranger actually met was {changes:light_comes_back, about:-1} -- a circuit '
-     'numbered MINUS ONE. Two bugs, the same bug twice: POWER.at answers {live:false,id:-1} for '
-     'EVERY coordinate that exists (proved by asking it about NaN and a cell a million away), AND '
-     'the seam was asking in FINE coordinates when the power grid and the turf map are both keyed '
-     'by MAP CELL -- (hx/FN)|0, FN 128, feet 6205,6271, cell 48,48. Asking a 96-wide map about '
-     'cell 6,205 answers nothing forever, which is how I concluded out loud that this valley had '
-     'no circuits after probing 120,801 of them. In the right space it holds 3,494 circuits, '
-     '3,136 dark, one a single cell from the waking block, and the ground underfoot is the Mob. '
-     'THE MEASUREMENT WAS NOT WRONG, THE QUESTION WAS -- a reader that answers nothing everywhere '
-     'is not a quiet world, and \'quiet is a legal answer\' is what lets it hide. So the gate '
-     'walks to every place an ask names and re-opens it against the live world: the circuit id '
-     'must be that id at that cell and still dark, the border cell must be held by that faction '
-     'and a different one from underfoot, the good must be the one the real shelf has least of. '
-     'Three mutations proved it bites: fine coordinates back -> 10 red, the id!=-1 guard removed '
-     '-> 3 red (and the ask is about -1 again), the ask naming your own feet -> 3 red. Runs 50/0',
      True),
     ('ASKS VISIBLE', ['node', 'gates/asks_visible_gate.js'],
      'QUESTS row [asks exist], shipped 9/6 (6d2d765) and NEVER RUN BY THE SUITE until 9/7. Registered by PLUMBER under the 9/7 law "a gate that never runs is not a gate". Runs 38/0. Its own subject: the world does the asking, and an ask that changes nothing visible is not an ask',
@@ -6362,8 +5610,6 @@ GATES = [
      'every canon quest CITES the questbook corpus it was built from, verbatim and machine-checked', False),
     ('QUESTS LIBRARY', ['node', 'gates/quests_library_gate.js'],
      'QUESTS is research only (rule 35): every research page and filed design cites real library ids, shelved by act, indexed', False),
-    ('CURRENT SLICE',  ['node', 'gates/current_slice_gate.js'],
-     'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
     ('ATTEMPT',        ['node', 'gates/attempt_gate.js'],
@@ -6476,18 +5722,6 @@ GATES = [
      'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
      'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
      'fingerprint -- a stale tab is the same failure wearing a green', False),
-    ('REROLL',         ['node', 'gates/reroll_gate.js'],
-     'HIS BUG, REPORTED LIVE 8/15: "I pressed re-roll the seed button on the run tab and now I '
-     'can\'t find the house I\'m supposed to be at." TWO bugs stacked. (1) REROLL replaced the '
-     'world and left everything derived from it standing -- new seed, new neighbourhood, and he '
-     'never moved: his own front door measured 549 TILES AWAY in a cell he was not in, because '
-     'HOME anchors on LANDED and LANDED still pointed into the old valley. (2) And it put him on '
-     'the STRIP, which has no houses -- the handler carried a COPY of the exact line '
-     '__WORKING_DISTRICT__ names as the 8/2 bug and keeps only as a last-resort fallback. Boot '
-     'was fixed on 8/2; reroll kept the dead version because the fix lived in an anonymous IIFE '
-     'nothing could call. A COPIED LINE IS A FIX THAT ONLY HALF-SHIPPED. One resolver now, '
-     'called from both. This presses the button he pressed FIVE times and demands he lands '
-     'somewhere he can live with a house he can find', False),
     ('CITY BARKS',     ['node', 'gates/city_barks_gate.js'],
      'THE WORST REACH FAILURE THIS LANE HAS FOUND: linesFor was called ZERO TIMES in '
      'BOHEMIA_CITY_WORLD.html -- the frame the player looks at when they tap RUN. 244 written '
@@ -6567,21 +5801,6 @@ GATES = [
      'the solo bark still fires when there is nobody to talk to, and THE BUBBLE REACHES '
      'PIXELS -- because `var g = ctx` once threw on the first line of every bark inside a '
      'try/catch that ate it, and everything upstream measured perfect', False),
-    ('POPULATION DIAL', ['node', 'gates/population_dial_gate.js'],
-     'Paolo 8/1: "the slider can go all the way from zero to a maximum." The PLUMBING shipped '
-     'that day -- DIAL, setDial, applyDial, a MIN and a MAX -- and MEASURED 8/16, FIFTEEN DAYS '
-     'LATER, NOTHING ANYWHERE CALLED setDial. There was no control, in any tab, at any zoom. '
-     'HE MUST BE ABLE TO DIRECT IT (8/12) and he could not. This gate holds the handle open, '
-     'and every claim it makes is a bug that was really there: the panel first landed inside '
-     '#topbar, whose CSS strips positioning off every child; the dial multiplied a RATE only '
-     'bohemia_agents.js ever read, while the city walks peopleIn -> homesIn -> headsAt RAW, so '
-     'bodies drawn at dial 0, 1 and 20 measured 1, 1 and 1; PPL_PEOPLE keys on rulesVersion and '
-     'setDial never bumped it, so the surface served pre-dial neighbourhoods forever; an '
-     'authored spawn neighbour stood in the GHOST VALLEY at dial 0, which the module itself '
-     'calls the bottom of the slider being a lie; and a 24-body draw budget made dial 4, 12, 20 '
-     'and 32 THE SAME STREET. It presses the button he presses, walks into a settlement, and '
-     'COUNTS THE BODIES THE FRAME BLITTED -- 0 -> 6 -> 31 -> 88 across the track -- because '
-     'this lane has now shipped five features that measured perfectly and were invisible', False),
     ('DEMO',           ['node', 'gates/demo_gate.js'],
      'DEMO PLAN critical path row 9, the only row with no owner named: "one integration test '
      'that plays the whole day headless + deploy-verified on the real link. THE DEMO IS A '
@@ -6594,18 +5813,6 @@ GATES = [
      'and check tomorrow is a different job. NOTE THE HONEST GAP: this container cannot reach '
      'github.io (the proxy 403s CONNECT), so row 9\'s deploy half stays MANUAL and DEMO GREEN '
      'does NOT mean the live link is good', False),
-    ('OPENING',        ['node', 'gates/opening_gate.js'],
-     'THE DEMO PLAN has two critical-path rows for the cold open (7 THE FIRST FIVE MINUTES, '
-     '10 THE COLD OPEN SCENE) and neither was done: the runtime shipped 8/9, the scene shipped, '
-     'the CUTSCENE tab is gated forty claims deep, and the run booted straight into wakeInBed() '
-     '-- that row\'s own FALLBACK -- with ZERO references to the scene runtime anywhere in it. '
-     'The demo opened on the fallback for ten days while the real opening sat one tab away. This '
-     'boots the alpha, enters through the TAP TO ENTER splash the way a finger does, taps RUN, '
-     'and demands PIXELS: the family on screen, a caption saying something, SKIP reachable, and '
-     'a way into the day from every exit. It also holds the three ways this is worse than not '
-     'shipping (playing over a real save, playing twice, stranding somebody on black) and the '
-     'two lies that got past the first cut -- display:flex inside a display:none parent, and '
-     'the RUN tab routing to p-city rather than p-run', False),
     ('CASTING',        ['node', 'gates/casting_gate.js'],
      'Paolo 8/25, THE PLAYTEST DISPATCH item 2: "THE QUESTS ARE SO BAD AND NOT WIRED TO ANY '
      'LOCATIONS OR PEOPLE IN THE CITY", and his dispatch makes it demand-side: "A QUEST THAT IS '
@@ -6700,176 +5907,6 @@ GATES = [
      'RATHER THAN HIDDEN: no demo day has a second resident on a job block, so "a stranger '
      'standing there gets no row" has nobody to be about, and the mutation for it is '
      'observationally identical to correct behaviour in this world', False),
-    ('ENDING',         ['node', 'gates/ending_gate.js'],
-     'SERVED SINCE 9/6 (RUN), AND THAT IS NOT TIDINESS: this gate opened both surfaces over '
-     'file:// until then, and the demo hides the walked city\'s builder drawer by reaching into '
-     'that frame FROM THE DEMO SIDE, same-origin -- so off disk the hide silently no-ops. '
-     'MUTATION, pointing it back at file://: "THE BUILDER\'S DRAWER IS GONE FROM THE ENDING" -> '
-     'RED, demo 8 SHOWING. On the build this gate was measuring, THE LAST SCREEN OF THE DEMO '
-     'CARRIED THE DEV DRAWER, one tap from REROLL regenerating the world under a stranger\'s own '
-     'session, and twenty-six green claims had nothing to say about it. The shipped demo, '
-     'served, is clean; the instrument was the broken thing. Two claims added that only a '
-     'served build can answer -- the drawer gone from the demo\'s ending AND still there on the '
-     'workshop, because a demo fix that quietly cost the bench its tools would be the worse '
-     'bug. Record: records/BOHEMIA_THE_ENDING_WAS_PROVEN_ON_THE_WRONG_BUILD_9_6_26.md. '
-     'THE LAST THIRTY SECONDS OF THE DEMO, WHICH NOBODY HAD BUILT, AND IT ENDS ON A THING YOU '
-     'ARE NOT ALLOWED TO SAY. The handoff\'s own critical path: "BUILD -> DOOR -> ENDING -> '
-     'INSTRUMENT -> INVITE ... DEMO-END (the last thirty seconds, which nobody has designed and '
-     'which peak-end says is half of what anybody keeps). NOBODY IS HANDED THE DEMO LINK UNTIL '
-     'ALL FOUR EXIST." THE RESEARCH: Kahneman and Fredrickson\'s PEAK-END RULE (what a person '
-     'keeps of an episode is predicted almost entirely by the most intense moment and THE LAST '
-     'ONE), DURATION NEGLECT, and Zukowski from the other side -- an ending is not neutral and '
-     'ending without a reason to come back actively hurts a demo. The coordinator\'s reading of '
-     'his ruled cut: BOTH PEAKS SIT IN THE FIRST FIVE MINUTES AND THE LAST THING THE PLAYER '
-     'FEELS IS GOING TO BED. So: he sleeps, day two does not come, and one message lands from '
-     'the person the day was actually about -- with the reply he wants to send sitting under it, '
-     'greyed and dead. FIVE ENDINGS, one per outcome the quest already classifies (#quiet, '
-     '#notable, #reckless, its author\'s own FAIL branch, and never having picked up), because a '
-     'last moment that is the same whatever you did is half of what a person keeps spent on '
-     'nothing. AND THE HEADER IS THEIR NAME ONLY IF HE ASKED FOR IT: YOU HAVE TO ASK (7/31) '
-     'already governs names, so a player who took the trouble gets a person texting them and one '
-     'who did not gets a job title. Measured: LINEMAN -> LOURDES IBARRA. The words are measured '
-     'against the voice card\'s OWN rulers, read off voice_gate rather than re-typed -- the first '
-     'draft came out at 0.27 rhythm where 0.57 is called flat, and all five were rewritten to '
-     '0.82. AND NOT ONE LINE NAMES A PRONOUN: the cast is procedural, and the first draft said '
-     '"Tell him it was you" under the header LOURDES IBARRA. Mutations: the demo flag ignored 6 '
-     'red, the withheld reply not drawn 1 red, the shell refusing to answer 7 red. AND THE FLAG '
-     'NEVER ARRIVED AT FIRST, WHICH THIS GATE COULD NOT SEE: the shell pushed it on the city '
-     'frame\'s `load` event and that frame\'s readyState is still "interactive" while the '
-     'player walks around in it, while the gate posted the message ITSELF and went green over '
-     'a chain that did not work. A PROBE THAT SENDS THE MESSAGE THE REAL SENDER IS SUPPOSED TO '
-     'SEND IS STILL A SIDE DOOR. The direction is reversed (the city asks, the shell answers) '
-     'and this gate now opens the real demo page, taps the real splash and asks the frame the '
-     'player is looking at', False),
-    ('WILDLIFE',       ['node', 'gates/wildlife_gate.js'],
-     'ALIVE-1\'S OTHER HALF, AND THE HALF A NUMBER COULD NEVER FIX. Measured the same day with '
-     'the population slider at its CEILING: twenty-three walks in thirty-two still meet nobody, '
-     'because the valley is ~151 square kilometres and a step is about a metre. AMBIENCE DOES NOT '
-     'NEED A CENSUS -- a resident has to live somewhere in all of that and be FOUND, a raven is '
-     'placed NEXT TO THE PLAYER -- so the scale that beats the slider does not apply here at all. '
-     'MEASURED ON THE GLASS: something living is on screen in EIGHT STEPS, against a median of 323 '
-     'for a person. His own 8/25 bestiary research said it first: "the reason the city feels dead '
-     'is not that we lack enemies. It is that we lack ANIMALS ... set dressing that moves, and the '
-     'cheapest fix on this list for the loudest complaint on it." THE ROSTER IS SOURCED AND THE '
-     'GATE CHECKS THAT RATHER THAN TRUSTING IT: every species must appear in the Clark County '
-     'research record (raven, grackle, pigeon, rat, coyote), so a roster cannot drift off its '
-     'sources into invention. *** AND THE REACTION IS THE FEATURE. *** Researched 8/28: every '
-     'write-up of why game animals work lands not on the animal but on what it does about YOU, and '
-     'the ethology gives the shape -- ALERT DISTANCE and FLIGHT INITIATION DISTANCE are measured '
-     'separately in urban corvids, so the bird NOTICES you at one range and LEAVES at a shorter '
-     'one. A BIRD THAT SITS THERE IS SCENERY. And a feeding crow "alerted later and escaped at '
-     'shorter distance", which is where the feeding cut comes from and why it is not a preference. '
-     'EXACTLY ONE SPECIES IGNORES YOU, on purpose and by claim: the research wrote that animal down '
-     'already ("a coyote crossing the wash three blocks away and not caring about you") and its '
-     'indifference only reads as indifference because the others flush. Deterministic off seed, '
-     'cell and hour, so the same corner has the same birds on it and nothing shimmers. AND THEY '
-     'STAY GONE once flushed, or the street is a fruit machine. THE 45 DEGREE ART LAW IS HELD IN '
-     'THE SHAPE A CREATURE HAS rather than a prop\'s: this bank is deliberately NOT registered in '
-     'art_45_gate, whose proxies are an ellipse stack at the base and a lit top face over wall '
-     'rows, because A RAVEN HAS NO BASE and running that ruler on a bird is a broken ruler pointed '
-     'at the wrong subject. Instead: you are ABOVE it, the top is sky-lit, three tones minimum so '
-     'it is not a silhouette, and NOT left-right symmetrical because a three-quarter view never is. '
-     'TWO RULERS OF MINE BROKE AND BOTH ARE RECORDED: the lighting check split the CANVAS in half '
-     'and called the rat lit from underneath, when the rat is a LOW animal sitting in rows 7 to 12 '
-     'of a sixteen-row sprite and its own halves are 310 against 185 -- it was measuring where the '
-     'animal sat in the box; and the real-surface check read "far" at twelve cells, which is off '
-     'the top of a 390x844 screen, so it could not tell "it has not noticed me" from "it is not on '
-     'the screen". AND THE ART TOOK THREE PASSES AND ONE REVERSAL: cut one was three bowling pins '
-     'with a yellow eye, cut two a lumpy horizontal mass that swallowed the head and beak, cut '
-     'three let the head, beak and tail LEAVE the silhouette. I then judged them bad on a 7x '
-     'contact sheet and nearly killed them -- ON THE REAL SURFACE AT 1:1 THEY READ AS BIRDS ON A '
-     'WALL, which is VERIFY ON THE REAL SURFACE catching me judging a cook on the wrong surface. '
-     'Mutations: the coyote made to care 1 red, one distance instead of two 1 red, a species out at '
-     'every hour 1 red', False),
-    ('ALIVE',          ['node', 'gates/alive_gate.js'],
-     'ROW ALIVE-1, THE LOUDEST COMPLAINT ON HIS 8/25 PLAYTEST DISPATCH, AND THE SLIDER WAS NEVER '
-     'THE ANSWER. His words: "I THINK I SAW ONE WATCH PERSON ON ACCIDENT ... THE CITY SEEMS DEAD '
-     'ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A SLIDER AND SHIT BUT YEAH MAN." '
-     'THE METRIC IS HIS ROW\'S OWN SENTENCE, never a head count: "he walks one block and sees '
-     'somebody WITHOUT HUNTING FOR IT." So this gate WALKS -- eight starts around the spawn, four '
-     'directions each, up to 800 steps a walk, counting bodies the surface actually blitted and '
-     'EXCLUDING the one authored neighbour pinned to the spawn, who would otherwise answer the '
-     'question before it is asked. MEASURED BEFORE ANYTHING CHANGED: at the shipped default, 0 of '
-     '32 walks met a single stranger -- twenty-five thousand steps and nobody. And the one body he '
-     'did see is id 12:12:900, archetype WATCH; he said he saw one watch person and it is the same '
-     'body. IT WAS NONE OF THE THINGS IT LOOKED LIKE, each checked alone: not the draw path (stand '
-     'two cells from anybody and they are drawn, three at a time), not the census (the dial scales '
-     'it exactly, 1/9/21/29 per block), not the hour (same at 08:00, 13:00 and 18:00), not the draw '
-     'budget (24 per neighbourhood against a census of 1), and NOT PERFORMANCE, which is the reason '
-     'people usually give: 0.5ms to 0.8ms across the whole slider. THE DEFAULT NOW COMES FROM THE '
-     'MODULE\'S OWN LANDMARK TABLE (story = GDD v5\'s ~69,000, about 3% of the real 2.3M) instead '
-     'of a number typed into the file, because his design document said 69,000 while his game '
-     'shipped 4,194 and a live document contradicted by live code is a bug. TWO GATE CLAIMS HAD TO '
-     'BE REPOINTED, not exempted: people_gate E1 and population_dial A1 both asserted "the dial '
-     'still ships at 1, nothing moved until he moves it", which was right on 8/1 and became a gate '
-     'demanding the exact default he complained about on 8/25. A GATE MUST NEVER OUTRANK A RULING. '
-     'AND IT PROVES THE SCHEDULE WAS NEVER THE BUG, so the next session does not go hunting for '
-     'one: 0% of the valley outdoors at 02:00, 67% at 10:00, 5% at 13:00 when the heat rule fires, '
-     '66% at 17:00. AND SECTION E SAYS WHAT IT CANNOT FIX, in print: at the TOP of the slider '
-     '(~96,885 people) 9 of 32 walks meet somebody and 23 still meet nobody, because the valley is '
-     '~151 square km and a step is a metre. What is left is not a count, it is WHERE -- the module '
-     'already sorts people cluster/spread/loner and the demo walks a SPREAD suburb, and the 7/27 '
-     'ambient encounter director is APPROVED, has a coyote in it, and is wired ONLY to overmap '
-     'travel, so it has never once fired for somebody on foot. Mutation: the default put back to '
-     '1 turns six claims red, headline reading "0 of 32 walks, 0 different people"', False),
-    ('FEEDBACK',       ['node', 'gates/feedback_gate.js'],
-     'ROW 0f, THE INSTRUMENT THE FRIENDS ROUND RUNS ON, AND THE ROW\'S OWN SPEC CONTRADICTS THE '
-     'PROTOCOL\'S. The row asks for an END-OF-DAY card; the closed-playtest protocol\'s standing '
-     'rule says "a tester who stops playing is a FINDING, never a failure -- where and why is the '
-     'whole point of the instrument". A CARD AT THE END IS FILLED IN ONLY BY PEOPLE WHO REACHED '
-     'THE END, so the population the protocol calls the whole point is the one population that '
-     'never sees it. MEASURED ON THE REAL DEMO BEFORE ANY OF IT WAS DESIGNED: a session that '
-     'stops leaves four localStorage keys and 1,638 bytes behind, none of it about how the '
-     'session went, and the city did not know which build it was running. SO THE PASTE IS '
-     'WRITTEN WHILE THEY PLAY and the card only adds the words, and there is a door into it that '
-     'is not the ending (the save drawer, which is already where somebody goes to get text out of '
-     'this game). THE RECORDER SAMPLES AND DOES NOT HOOK, for the reason ctSave writes down in '
-     'its own comment: hooking every writer is five chances to miss one. THE QUESTIONS ARE NOT '
-     'THE ROW\'S LITERAL THREE and the gate names the ones it refuses: researched 8/27, PEOPLE '
-     'ARE NICE AND THEY WILL LIE TO YOU and friends are the worst of all, so "did you have fun" '
-     'is the textbook vague question and "would you play again" the textbook polite one. The '
-     'first tap asks about A BEHAVIOUR ONLY PEOPLE WHO LOVE A THING PERFORM -- would you send '
-     'this to somebody -- with three answers because Net Promoter\'s other half is that the '
-     'middle is not a pass. The other two are the fun-versus-work cut and the confusion map, and '
-     'THEIR OPTIONS ARE THE PLAYER\'S OWN SESSION: a tester who stopped at the phone is never '
-     'asked about the ending, which is only possible because the recorder ran while they played. '
-     'The build stamp rides the handshake the ending already proved (the city asks, the shell '
-     'answers) rather than opening a second channel that can rot alone. AND THE ENDING KEEPS ITS '
-     'SILENCE: peak-end is why there is nothing to press on the last card, so the door does not '
-     'exist a second and a half in and arrives only after the message has been allowed to sit. '
-     'THE GATE PLAYS, IT NEVER CALLS mark() -- the ending gate learned one day earlier that a '
-     'probe which sends the message the real sender is supposed to send is still a side door. '
-     'AND THE WORST HOLE ONLY LOOKING FOUND, with 55 claims already green: a screenshot shows '
-     'STANDING, CITY, BIKE and SLEEP drawn straight THROUGH the card, over the send button. '
-     '#daycard is inset:0 with a full scrim and has been z-index 20 since it was built while '
-     'the day-loop chips went to 39 on 8/24, so every card the day loop has ever shown has had '
-     'the chrome over it, INCLUDING THE ENDING THAT SHIPPED THE DAY BEFORE. Same bug RUN fixed '
-     'for the phone two days earlier, and their rule is written 300 lines below it in the same '
-     'file (chrome 6..45, TAKEOVER PANELS 50+); the sweep that does "the general case" runs over '
-     'a list of panel ids TYPED BY HAND that #daycard was never on. #daycard is 51 now (one above '
-     'the panel it can interrupt, because a card is an interruption and has to be answerable) and '
-     'daycard is on that sweep\'s list. AND THIS GATE\'S CLAIM FOR IT WAS GREEN OVER THE LIVE BUG '
-     'TWICE -- first measuring a button that sits below the fold on a freshly opened card, then '
-     'reading its CENTRE, where eight of nine points are the button and the ninth, its bottom '
-     'left corner, is a chip. A CONTROL IS REACHABLE WHEN EVERY PART OF IT IS, NOT WHEN ITS '
-     'MIDDLE HAPPENS TO BE. TWO MORE HOLES: a two second ticker CANNOT SEE A CARD THAT OPENS AND CLOSES '
-     'BETWEEN TWO OF ITS LOOKS, so a fast player got a paste saying he never got out of bed (a '
-     'durable fact can be sampled; a transient one needs a witness, and the witness is an '
-     'observer on the card, still not a hook); and this gate\'s own silence claim read the door '
-     'in the same synchronous block as the ending, which is trivially empty for ANY setTimeout -- '
-     'a claim that passes because of WHEN IT LOOKED, not because of what is true. Mutations: a '
-     'beat that re-stamps 1 red, the taps offering everybody the whole day 2 red, the shell '
-     'refusing to name the build 4 red, the survey arriving the instant the message lands 1 red, '
-     'the card sampled instead of watched 1 red, the card put back under the chrome 1 red. '
-     'AND THE OTHER HALF OF THE INSTRUMENT SHIPS WITH IT: tools/bohemia_read_the_round.py, '
-     'because the protocol already required a digest ("where they quit, what confused, what '
-     'they said") and nothing read anything. A FORMAT IS NOT PROVEN READABLE UNTIL SOMETHING '
-     'READS IT, so this gate\'s test pastes are RENDERED BY THE MODULE THE CARD USES rather '
-     'than typed out here -- it proves the round trip, not that the reader can read my typing. '
-     'Two refusals are built in and both are claims: an unreadable paste is REPORTED never '
-     'dropped (skipping one silently turns eight testers into six), and NOTHING IS AVERAGED '
-     'INTO A SCORE, because five people is five people and a mean of five opinions looks like '
-     'evidence', False),
     ('LANGUAGE',       ['node', 'gates/language_gate.js'],
      'THEY SPEAK SPANGLISH (Paolo 8/25, LOCKED). A Las Vegas with 418,400+ Spanish speakers had '
      'exactly ZERO in the build -- every person spoke flawless monolingual English, including '
@@ -6957,8 +5994,6 @@ GATES = [
      'so its greens are true about a file Paolo never sees. The mismatch is legal and is the RUN '
      "lane's call -- being quiet about it is not. Derives the shown surface from the alpha's own "
      'routing line, so it follows whoever re-points the tab', False),
-    ('THE RUN',        ['node', 'gates/run_gate.js'],
-     'the first connected run plays end to end in a real browser: house -> block -> S01 -> combat handoff -> home -> feed post, loud fork and quiet fork, inside the real alpha', False),
     ('BANKS USED',     ['node', 'gates/banks_used_gate.js'],
      'APPROVED-BUT-UNUSED IS A DEFECT: every approved bank the run loads must actually DRAW pixels, waivers named and ticketed', False),
     ('LOOP CHANNEL',   ['node', 'engine/bohemia_loop_channel_tests.js'],
@@ -6981,38 +6016,22 @@ GATES = [
      'the talk-trigger: talkablesNear/talkTo', False),
     ('LOOP BRIDGES',   ['node', 'engine/bohemia_loop_faction_bridge_tests.js'],
      'quest effects reach the real factions (pacing law held) + quests cast themselves into the real valley', False),
-    ('CITY TAB',       ['node', 'gates/city_tab_gate.js'],
-     'the CITY tab: embedded modules byte-locked to canon, skeleton-as-itself', False),
     ('CITY EDIT',      ['node', 'gates/cityedit_gate.js'],
      'city-builder verbs: skeleton sacred, demolish-to-desert, canon builds only', False),
-    ('ZOOM BUILD',     ['python3', 'gates/zoombuild_gate.py'],
-     'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
     ('RENDER PIXEL',   ['node', 'gates/render_pixel_gate.js'],
      'the render contract MEASURED on the real surface: no fractional upscaling, no half-pixel draws, nothing off its aspect', True),
     ('ZONE MAP',       ['node', 'gates/zone_map_gate.js'],
      "Paolo 7/29: the valley's population IS its food carrying capacity, and it lands as clusters AND no man's lands AND random spread - never a flat rate, and the emptiness is authored", False),
-    ('CITY PEOPLE',    ['node', 'gates/city_people_gate.js'],
-     'the walk surface had ZERO people in it: measured in a real browser on the real tab that a cluster shows people, a no man\'s land shows nobody, and nobody stands where the player cannot walk', True),
     ('PEOPLE',         ['node', 'gates/people_gate.js'],
      "the 28 scheduled bodies on the block are PEOPLE: identity DERIVED (so it survives the sim being thrown away on every save load), his named-cast and dialogue tables shipped EMPTY and kept that way, and the card he actually sees driven in a real browser", True),
     ('MASS EDIT',      ['node', 'gates/mass_edit_gate.js'],
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
-    ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
-     "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
     ('CITY CAST',      ['node', 'gates/city_cast_gate.js'],
      "Paolo 8/3: 'now we have character models just shuffle that character model every time the "
      "game looks and have it not be a copy of me'. Every resident WAS him -- the city drew PLAYER_CV "
      "with a hue shift over it. The alpha had been baking six real townsfolk for the run since 7/26 "
      "and the city never got them. This HASHES THE ACTUAL PIXELS of every baked body and of his, and "
      "requires all of them distinct AND not one of them his", True),
-    ('CITY TALK',      ['node', 'gates/city_talk_gate.js'],
-     "Paolo 8/2 asked for one NPC outside the spawn to test the mechanics on, then said 'I "
-     "couldn't find them'. He was right: the RUN tab shows the CITY panel, #p-run is display:none, "
-     "and every one of this lane's 152 claims was measured on that hidden page. Measured on HIS "
-     "surface: 0 bodies drawn, nearest person 192 tiles away, zero ways to talk. This drives the "
-     "ALPHA and taps the TAB: somebody stands by the spawn, you walk up, the one button names their "
-     "trade, the card says YOU HAVE NOT ASKED, asking names them, the button calls them by it, the "
-     "name is over their head, and it survives a reload", True),
     ('CITY MEMORY',    ['node', 'gates/city_memory_gate.js'],
      "engine/bohemia_memory.js is the witness organ -- minds hold sightings, familiarity slows "
      "forgetting, clarity decays as 0.5^(age/halflife) -- and memory_gate has proved all of it green "
@@ -7056,12 +6075,6 @@ GATES = [
      "heard) COMPUTED BY THE SHIPPED MODULE rather than retyped in the alpha, it crosses the frame the "
      "moment he presses so the city is live on it, it persists, it exports as canon, and he can take "
      "it back. The table still ships EMPTY and the gate asserts every declaration of it is", True),
-    ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
-     "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
-     "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "
-     "with the walked player at hx=0,hy=0, and BOHEMIA_GOTO_CELL flipped it straight back whenever the "
-     "first fix tried. Driven on the ALPHA -- not the run file, which the alpha never shows -- so the "
-     "RUN tab opens in HUMAN MODE, on foot, in the district we are working on, city still one tap away", True),
     ('THE ONE LINK',   ['node', 'gates/front_door_gate.js'],
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
@@ -7120,21 +6133,6 @@ GATES = [
      "measured by asserting the owner map is byte-identical after a posture quest. Every value is "
      "positive because every authored one is; nobody ever writes a faction calmer. Seven planted "
      "mistakes self-tested every run", False),
-    ('WALKED SURFACE', ['node', 'gates/walked_surface_gate.js'],
-     "I SPENT FOUR TURNS WIRING PLAYER-FACING WORK INTO A SURFACE HE NEVER SEES. The coordinator "
-     "ruled 8/14 that the CITY WORLD is the walked surface and the run slice is legacy -- "
-     "preloaded every visit, NEVER DISPLAYED -- and by then this lane had put the sixteen "
-     "introductions, the vouch, the bargain and the act on the run's person card. All real, all "
-     "gated, all dark. Worse, integration_gate let three rows say INTEGRATED while probing that "
-     "file, under a ledger header that had WARNED about exactly this since 8/4: a warning is not a "
-     "gate. So this checks the thing the integration probes structurally cannot -- not IS IT "
-     "WIRED but IS IT WIRED WHERE HE LOOKS. Which surface he sees is MEASURED in a real browser "
-     "rather than read off a document, so if the build flips back the lane is told instead of "
-     "guessing. The migration is not a copy-paste and the gate says why: the city's people are "
-     "SHIMS with no faction, no household and no job site, so all three organs would port over "
-     "inert. The one fact that unlocks them is who somebody runs with, and the bases for it are "
-     "the LOOP'S OWN, baked and gated BYTE-IDENTICAL, because deriving a second set would put the "
-     "Cartel in two places depending which surface you stand on", False),
     ('FAVOUR',         ['node', 'gates/favour_gate.js'],
      "THE LADDER POINTED AT NOTHING. An outfit could COUNT you and lean on you (the claim) and "
      "could never GIVE YOU ANYTHING -- his sixteen `pays` lines were card text, swept and "
@@ -7567,19 +6565,6 @@ GATES = [
      "settled by somebody else's choice), whether they WOULD is derived from what they have actually "
      "seen rather than from a forgiveness dial nobody ruled, and forgiven is not forgotten -- the deed "
      "keeps its record and its reason, it only stops carrying force", False),
-    ('DOWN NOT DEAD',  ['node', 'gates/down_not_dead_gate.js'],
-     "PAOLO 9/11 LOCKED: nobody you keep permanently dies and nothing on them is a permanent debuff, but "
-     "there can be debuffs a lot longer than others. MEASURED FIRST: no company roster, no companion state, "
-     "no downed state, no injury model, nothing that could kill a person you keep -- so the law was true BY "
-     "ACCIDENT, which is the worst way for a law to hold, because the first system that can hurt a "
-     "companion breaks it silently. THE CLAIM THAT MATTERS IS PROVED BY ATTEMPTING THE FORBIDDEN THING "
-     "rather than by reading a comment: a fourth argument, an options object asking for permanence, an "
-     "invented kind -- none of them reach past the longest length he named, and fall() has no slot to "
-     "smuggle one through. 5000 falls across every kind and day, every one heals, none runs forever. The "
-     "lengths are HIS OWN examples (a leg a season, a hand a year) with a week at the bottom so 'a lot "
-     "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
-     "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
-     "the promise out loud", False),
     ('NO CLUMPING',    ['node', 'gates/no_clumping_gate.js'],
      "PEOPLE [no clumping] with [honest crowd] folded in and [name mix], all three straight off HIS "
      "VOTES. *** PAOLO 9/21, TWICE, VOTING DOWN THIS LANE'S OWN PICTURE: 'why are so many people on "
@@ -7811,20 +6796,6 @@ GATES = [
      "TICK ITSELF -- its first cut did, and the negative control proved it worthless: deleting the call "
      "the GAME makes left it green. It drives the game's own path now, and that deletion turns it red ***",
      False),
-    ('LIFT MOVES',     ['node', 'gates/the_lift_moves_him_gate.js'],
-     "PAOLO 9/13, five minutes on a phone: 'it says a car is gonna pull up on me and then nothing "
-     "happens.' Rule 14(d): a card that promises and does nothing is the worst bug in the game. MEASURED "
-     "ON THE REAL DEMO, ON FOOT, AND IT IS HIS SENTENCE EXACTLY: the ghost robotaxi card fired on the "
-     "walked street, offered GET IN -- A LIFT, he pressed it, the card said 'The door shuts. It drives the "
-     "loop it has always driven' -- AND HE DID NOT MOVE ONE CELL. roadChoose's ride only ever moved "
-     "city.x,y, which is the right position in CITY mode and the WRONG one on foot, and the road card has "
-     "fired on foot since __ROAD_INTERRUPTS_ON_FOOT__ -- the whole demo. So the lift was a no-op on the "
-     "surface where it mostly happens, and the card narrated a drive that never took place. NO NEW NUMBER: "
-     "the table already says two of the map's own tiles, and on foot a tile is FN walked cells, FN being "
-     "the game's own constant. Holds: the lift moves him on the demo, on every heading that has road; it "
-     "still stops the moment the road does; a cab that cannot start SAYS SO instead of narrating a drive "
-     "-- the same bug in words; and city mode is untouched. Driven through the LIFE+CITY lane's own demo "
-     "driver rather than a second one of those", False),
     ('OFFER YES',      ['node', 'gates/the_yes_goes_where_the_offer_is_gate.js'],
      "PAOLO 9/13, five minutes on a phone: 'You offer requests just for me to see them, but nothing "
      "happens... one button... I press it, nothing happens.' THE FIVE MINUTES rule 14d: a card that "
@@ -7840,19 +6811,6 @@ GATES = [
      "function and not two, and a withdrawn offer has NO yes so arguing past the warning still costs the "
      "job. Driven on the demo he plays, which loads the walked city in a frame -- so this reaches him "
      "with no re-cut, which is how a held lane ships a five-minute break under rule 14a", False),
-    ('CATS STAY',      ['node', 'gates/cats_stay_gate.js'],
-     "PAOLO 9/13, walking the demo's five minutes: 'I do see cats running around, that's cool.' NOTES ARE "
-     "RULINGS, so that IS the verdict and this is the FREEZE, because a thing frozen without a machine gate "
-     "is not frozen, it is merely unvisited. *** AND WHAT HE SAW ARE NOT CATS, WHICH MATTERS MORE THAN THE "
-     "WORD: measured on the real demo before a line was written, there is no cat anywhere in this repo -- "
-     "every 'cat' in the source is the word CATEGORY. The valley has fly swarms drawn as specks, a RAT drawn "
-     "as a dash that runs the foot of a wall on the beat, and a raven on a roofline. THE ONLY ONE THAT RUNS "
-     "IS THE RAT, and one or two dark dashes on a phone is exactly what reads as a cat. His approval is real "
-     "and lands on these; the noun is his word for a dash at phone size, and nobody adds a cat off a misheard "
-     "one. *** Holds the three kinds with no fourth, every density number he walked through, the DOG AT ZERO "
-     "(left out on purpose: a dog is a body and a body is character art), the per-frame cap, the determinism "
-     "that makes a freeze mean anything, and the animals still DRAWING on the real demo -- a frozen table "
-     "over a dead draw is the loudest false green there is", False),
     ('NEGLECT COSTS',  ['node', 'gates/neglect_costs_gate.js'],
      "THE STAKES TABLE HAD BEEN EMPTY SINCE THE DAY LOOP SHIPPED and its own header said why: what a day "
      "costs to live is Paolo's ruling. That is right about a HUNGER meter, which needs a rate, and wrong "
@@ -7903,20 +6861,6 @@ GATES = [
      'survives a reload. The canvases carry their dark background INLINE, so the failure this catches is a light '
      'panel with every hairstyle still on its own black square -- which reads as fixed in a diff and is useless to him',
      True),
-    ('FAMILY CAST',    ['node', 'gates/family_cast_gate.js'],
-     'the cold open cast on the ONE rig: father, mother, brother, sister all RENDER (painted pixels, not '
-     'element-exists), they are four DIFFERENT people, every garment is already st==canon, every one wears '
-     'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
-     'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
-     True),
-    ('FAMILY ANIM',    ['node', 'gates/family_anim_gate.js'],
-     'Paolo 8/11: "The family is looking good. I fuck with it heavy if I could see them do animations that '
-     'would be awesome." All four cast bodies ANIMATE, counted as distinct RENDERED frames over real '
-     'wall-clock time; the clip picker carries the FULL canon CLIPS list (it shipped with ONE, because CLIPS '
-     'is a const and window.CLIPS is undefined); changing the clip changes what they DRAW, not just what the '
-     'select says; and they ride the render loop that already owns the 120 BPM phase rather than a private '
-     'timer, because two clocks drift. Baked strips, since famPaintBody rebuilds the rig',
-     True),
     ('WORN PERSIST',   ['node', 'gates/worn_persist_gate.js'],
      'THE CLOTHES HE PUTS ON SURVIVE A RELOAD. There are TWO wardrobes on this character and only one was '
      'ever saved: G.equipped (the PD layer slots) was in PERSIST.snapshot() since forever, and G_WORN -- the '
@@ -7926,34 +6870,8 @@ GATES = [
      'G_WORN since 7/31, so the RENDERER knew about that wardrobe for weeks and only the SAVE did not. Driven '
      'through the real button and a real page reload in one browser context',
      True),
-    ('CHIN LAW',       ['node', 'gates/chin_law_gate.js'],
-     'THE CHIN LAW (Paolo 8/11, LOCKED: "make sure we never have this chin issue ever again"). He caught the '
-     'same defect FOUR times from TWO unrelated mechanisms -- the head was the one body part excluded from '
-     'silhouette edging so his painted jawline rendered as cheek, and the throat tone took the lowest TWO rows '
-     'of face, which are his jaw and his chin. Properties, not numbers: there is always head under the mouth, '
-     'the throat never takes more than one row of face, the head has an edge, EVERY painted facing with the '
-     'hair off. And the throat may never claim the LAST face row under the mouth -- a row count tuned per '
-     'facing was corrected three times by eye and was still wrong on E',
-     True),
-    ('HEAD FOLLOWS RIG', ['node', 'gates/head_follows_rig_gate.js'],
-     'Paolo 8/11, chin circled on a screenshot: "this is not how the rig has my head and my neck line... there '
-     'needs to be more head underneath the mouth following how the rig has it." Measured, skin width per row, '
-     'his painted face vs the skin the game paints: rig 6-8-8-8-10-10-8-8-6-4 (an EGG), game 7-9-10-10-10-10-10-'
-     '10-9-5 (a BARREL), worst at y14 the jaw, three pixels too wide -- the flat shelf under the mouth. The '
-     'cause is in the SKINNER so this is a RATCHET, not a pass/fail: the deviation may only SHRINK, the debt is '
-     'visible in the suite instead of somebody memory, and this is the check that proves the fix when it lands',
-     True),
-    ('FACE FEAT DIAL', ['node', 'gates/face_feature_scale_gate.js'],
-     'Paolo 8/11 "maybe all eyes eyebrows and mouths should be twice the size idk": the feature scale is a '
-     'RENDER-TIME KNOB defaulting to 1, and at 1 the face is BYTE-IDENTICAL to no knob at all because PUNK is '
-     'marked do-not-remake -- plus the ANTI-NO-OP half, that every step up the dial changes real pixels and '
-     'changes more of them the further it goes (two "fixes" shipped 8/11 moved the render by 0 and 1 pixels '
-     'with every gate green, because no gate asked whether the pixels moved)',
-     True),
     ('WALL CLASS',     ['node', 'gates/wallclass_gate.js'],
      'WALL TAXONOMY (Paolo 7/17) enforced in the DRAW: the suburb community wall stands 2 tiles from its OWN 13-key pool at its judged 44x44, never a building wall', True),
-    ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],
-     'Paolo 7/27: ONE movement UI everywhere - portrait dead centre, 8 cardinals ringed around it, controls float instead of carving a bar out of the screen', True),
     ('CMU BLOCK',      ['python3', 'gates/cmu_gate.py'],
      'TF-ART-001: the block-wall family that stops a jail, a warehouse and a family home being drawn in the same suburban stucco. Running bond (not stack), the bond dividing the corpus cell exactly, seamless laid 2x2, grey not warm, and act-1 floor/ceiling', False),
     ('HOUSE FACTORY',  ['python3', 'gates/house_factory_gate.py'],
@@ -7969,8 +6887,6 @@ GATES = [
      'the document (killed, not hidden) and the buffet flags pinned off, and whatever '
      'chrome is still in that corner is measured on a real 390px phone: on screen, not '
      'on top of each other, not under the steering ring, still visible', True),
-    ('THREE-TILE WALL',['node', 'gates/wallheight_gate.js'],
-     'Paolo 7/27: a wall carrying a door is 3 tiles tall, a door is 2 of them, and a wall covering the player goes see-through (and only then)', True),
     ('FRONT DOOR',     ['node', 'gates/frontdoor_gate.js'],
      'a door is a fact about the plot, not a dice roll: every front door on its own driveway, no painted doors that cannot open', True),
     ('TOUCH GUARD',    ['node', 'gates/touch_guard_gate.js'],
@@ -7979,8 +6895,6 @@ GATES = [
      'the LAST blit, the one the phone does: canvas box === backing store, walked world nearest, overview left smooth', True),
     ('INTERIORS',      ['node', 'gates/interiors_gate.js'],
      'walk into a building and you are IN it: interior === exterior footprint, one generator, the dossier decides', False),
-    ('MAP TAB',        ['node', 'gates/map_tab_gate.js'],
-     'the MAP tab: THE VALLEY AERIAL live + reachable, every generator module byte-locked to canon', False),
     ('HOUSE ART',      ['python3', 'gates/houseart_gate.py'],
      'house skins CANON (Paolo verdict 7/21): purity, tan 85/15, dead glass, married into the city', False),
     ('ASSET ROUNDUP',  ['python3', 'gates/assetroundup_gate.py'],
@@ -8018,18 +6932,6 @@ GATES = [
      'lawn -- his verdict was right, my reading of it was not), keeps his no-living-trees '
      'ruling, keeps props from ever blocking a cell, and walks out the front door to count '
      'objects that actually reached the canvas', False),
-    ('ART TAB',        ['node', 'gates/art_tab_gate.js'],
-     'Paolo 8/4: "can you put all the work in a different fucking tab like the life tab '
-     '... u want me to hunt all your work down ... i shouldnt have to tell you that". He '
-     'should not have had to. NAME THE TAB has been law since 7/28 -- "a thing he cannot '
-     'reach does not exist to him" -- and the ART lane quoted that law and then handed him '
-     'records/target/ file paths in the same turn. The law was written down and NOTHING IN '
-     'THE MACHINE CARED, which is the 7/16 ruling exactly. Holds the door, the room, every '
-     'picture in it, and the verdict controls (thumbs, note, one bottom comment box, SUN '
-     'MODE, .txt never .json) -- plus the loader bug it exposed, where the alpha promoted '
-     'data-src per-tab BY HAND so a newly added tab came up BLANK, which is worse than no '
-     'tab. And it boots the alpha, dismisses the splash and taps ART the way his thumb '
-     'does, because a tab that throws on open passes every source check ever written', False),
     ('WEBKIT',         ['node', 'gates/webkit_gate.js'],
      'Paolo 8/26: "It looks like the fucking UI page was broken." Paolo 8/27: "you don\'t '
      'have to be so ho about only cooking up on default bro like download whatever you need '
@@ -8162,9 +7064,6 @@ GATES = [
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
      'original art is three-quarter view, never flat', False),
-    ('TARGET MATCH',   ['python3', 'gates/target_match_gate.py'],
-     'the VISUAL CONSTITUTION: the CBB target stays frozen, and every registered art bank '
-     'obeys its palette / value bands / outline / dither / light / seam contracts', False),
     ('TARGET SCREEN',  ['python3', 'gates/target_screen_gate.py'],
      'the target screens exist, are built from approved banks, hold 2-tile doors + human '
      'scale, carry no black keyline, are judgeable from the alpha, and quest asks stay frozen',
@@ -8172,10 +7071,6 @@ GATES = [
     ('NAME THE TAB',   ['python3', 'gates/name_the_tab_gate.py'],
      'Paolo 7/28: every reply names the TAB a thing is in — and a judging surface no tab '
      'links to fails the build, because you cannot name a tab for a thing not in one', False),
-    ('WIRED IN A TAB', ['node', 'gates/wired_in_tab_gate.js'],
-     'Paolo 8/11: "never ever ever again tell me hey check this out by opening the run '
-     'tab" — every wired tile family must be VISIBLE as a screenshot card in the ART tab; '
-     'shipping a wiring without putting it in front of him is the hunt, and it goes red', False),
     ('PIXEL BIBLE',    ['python3', 'gates/pixel_bible_gate.py'],
      'the ART lane\'s master document cannot drift: all 32 laws still in it, the three '
      'honesty clauses intact, the ten-failure record un-rewritten, and the ignorance list '
@@ -8234,8 +7129,6 @@ GATES = [
      'his mobile-camp ruling, machine-locked: tiles not seconds, one pool, small numbers, every unruled value a dial', False),
     ('TRAUMATIC', ['node', 'gates/traumatic_gate.js'],
      "Paolo 7/31 on Crisis Response: 'it doesnt have to be gory but I do want it to be traumatic fr' -- traumatic and gory are two different dials, a hurt body is a CLOCK not a corpse, and gore is never the MECHANISM (swept: no damage scaled by gore, no score keyed to kills)", False),
-    ('EARNED NOT AFFORDED', ['node', 'gates/earned_not_afforded_gate.js'],
-     'Paolo 7/31 named Pocket City 2 on top of the stack, and reading the 7/1 city-builder law found it CONTRADICTING his 7/31 no-economy law: newest wins, upkeep/income/bankruptcy are dead, and buildings are EARNED not AFFORDED - swept so no surface implements the dead mechanic', False),
     ('ANSWERED', ['python3', 'gates/answered_gate.py'],
      "Paolo 7/31: 'IVE ANSWERED THIS LIKE 50 TIMESS' -- no session may ask him a question canon has already ruled; sweeps the handoff, the backlog and records/ for question-shaped text against the settled-questions index", False),
     ('TEN YEARS COLD', ['node', 'gates/ten_years_cold_gate.js'],
@@ -8265,22 +7158,6 @@ GATES = [
      'reproduces 1213 / 53.0% exactly and fires three legs. B3 is stated ORDER-INDEPENDENTLY '
      'because the first version assumed the rooms array came back in rank order -- it does '
      'not, so that leg PASSED the mutation and was decoration until the mutation caught it.', False),
-    ('BUILDER ON A PHONE', ['node', 'gates/builder_on_a_phone_gate.js'],
-     'VAMILY [builder works] / BUILDER-ON-A-PHONE: prove the aerial build panel works by '
-     'TOUCH, or fix it -- the backlog said its touch path crashed once and nobody re-checked. '
-     'The panel is built at tap time and wired with .onclick, sitting inside #stage next to a '
-     'canvas that calls setPointerCapture, so it is exactly the shape where a MOUSE works and '
-     'a FINGER does not -- the 7/18 law, "the wheel worked, which is exactly how a '
-     'desktop-verified feature ships broken to his hand". Runs an iPhone profile (390x844, '
-     'hasTouch, isMobile) and drives page.tap(), real touch events, along the PLAYER path: '
-     'GET UP clears the cold open, the CITY button goes up, tap around until a DESERT plot '
-     'opens the panel, pick a type, TAP BUILD, and count the edit in the model afterwards -- '
-     'never "the panel is visible". MEASURED GREEN: GET UP -> CITY -> a buildable plot in 4 '
-     'taps -> placed an airbase, edits 0 -> 1, then DEMOLISH by thumb, nothing thrown. The '
-     'first version of the entry leg went red on an innocent button because it never tapped '
-     'GET UP -- the CITY button is not on screen until the cold open clears -- so the gate '
-     'walks the game rather than my memory of it. Mutation-tested by making the BUILD button '
-     'ignore pointers: red at 0 -> 0 edits.', False),
     ('PRODUCTION TICK', ['node', 'gates/production_tick_gate.js'],
      'VAMILY [buildings produce] / PRODUCTION-TICK: the buildings he placed make something on '
      'the wake beat. engine/bohemia_purse.js has carried produce() since 7/31 and its ONLY '
@@ -8329,37 +7206,6 @@ GATES = [
      'of a drain (A8 red). Its landing turned two of this lane\'s own gates red -- correctly, '
      'because the game changed under gates that were still true about the old game -- and '
      'both were fixed with a FIXTURE (a battery in the pocket), never a softer assertion.', False),
-    ('BUILDER WHERE HE WALKS', ['node', 'gates/builder_where_he_walks_gate.js'],
-     'VAMILY [builder reachable] / BUILDER-WHERE-HE-WALKS: the build verb reaches the '
-     'street, not just the sky. HALF THE BRIEF WAS ALREADY FALSE AND IT WAS MEASURED '
-     'BEFORE ANYTHING WAS BUILT: driven on the real cut demo through the splash, the '
-     'CITY button is there, the panel opens, BUILD is live -- the builder has reached '
-     'the demo for some time, and the note saying otherwise was grepping '
-     'BOHEMIA_RUN_CURRENT.html for cityTapPlot when the demo does not build from that '
-     'file, it loads BOHEMIA_CITY_WORLD.html in an iframe. A grep over the wrong '
-     'artefact is not a measurement. WHAT WAS REALLY MISSING IS THE OTHER HALF OF THE '
-     'JOB\'S OWN NAME: cityTapPlot was guarded by MODE===city, so a player standing on '
-     'the street could not touch the city he is rebuilding without leaving it and '
-     'looking down at it. A BUILD HERE chip on the walked surface opens THE SAME PANEL '
-     'for the cell under his feet -- same verbs, same skeleton-is-sacred rule, same one '
-     'battery, because it is the same code and a second builder for the street would be '
-     'a second set of rules to keep in step. A2/A3 hold REACHABILITY and not existence '
-     '(the 8/27 lesson: a chip at a hardcoded offset sat under #blstack and a real click '
-     'timed out while a gate reading its TEXT called it fine), A9 holds that it is NOT '
-     'offered in the aerial view where tapping a plot already does this -- one door per '
-     'room. THE LEG THAT EARNED ITS KEEP IS A5/B5: they ask om.at, THE WORLD, not the '
-     'delta, and they caught a real bug this job exposed -- the edit-seam frame cache is '
-     'bumped only by the CITY render, and the walked surface never runs one, so its "one '
-     'frame" lifetime silently became FOREVER the moment a door opened that was not the '
-     'aerial view; demolish landed in the delta while om.at kept answering SUBURB and the '
-     'next BUILD was refused as "build only on empty desert" for a plot that was already '
-     'desert. A new door found an old hole. MEASURED GREEN 16/0 on the walked surface AND '
-     'in the cut demo (rule 7). Mutation-tested three ways: remove the seam-cache bump '
-     '(A5, A6, A7, B5 red), restore the MODE===city guard (7 red), show the chip in every '
-     'mode (A9 red). Its own B section went red twice on innocent controls before it was '
-     'right -- the cold open card, then the #openInvite banner lying across the top of the '
-     'city frame at z-index 39 swallowing every tap in the top band. Both times the button '
-     'was fine and the gate had skipped a step the player cannot skip.', False),
     ('HOUSING', ['node', 'gates/housing_gate.js'],
      'VAMILY [people housed] / HOUSING: somebody lives in what you built, and the food '
      'ceiling still holds. MEASURED FIRST, ON THE REAL SURFACE: build a suburb on empty '
@@ -8483,95 +7329,6 @@ GATES = [
      'default tile -- so deleting the restore changed nothing. It parks the camera '
      'somewhere distinctive first now, and asserts the park really was somewhere the '
      'floor had to move away from, or the leg is grading a claim against itself.', False),
-    ('WHERE PEOPLE LIVE', ['node', 'gates/where_people_live_gate.js'],
-     'VAMILY [more people] / POPULATION-DEFAULT, playtest dispatch item 5: "THE CITY '
-     'SEEMS DEAD ASF AND I DONT LIKE THIS BEING THE DEFAULT I KNOW WE HAVE A SLIDER AND '
-     'SHIT BUT YEAH MAN." MEASURED FIRST ON THE RUNNING DEMO, standing where he wakes, '
-     'bodies actually blitted every hour from 05:00 to 23:00: ONE, all day -- his sentence '
-     'confirmed. And it is NOT the count: 20 people live in that neighbourhood, the nearest '
-     'is 64 cells away (seven screens), and the overmap cell he is standing on carries '
-     '4,188 doorway cells with the NEAREST FRONT DOOR FOURTEEN CELLS AWAY. The suburb was '
-     'full of houses and the game seated its residents on open ground with no relation to '
-     'any of them, because homesIn() scattered evenly over all sixteen overmap cells while '
-     'surveyNeighbourhood() had already worked out which six were suburb and threw the '
-     'answer away -- measured headless, NINETEEN OF TWENTY loner residents were living off '
-     'residential ground. A2 is the leg the job exists for: nobody sleeps on the freeway. '
-     'A3 IS THE LINE THIS LANE MUST NOT CROSS -- the module carries a standing 8/28 warning '
-     'that the next session must not turn the dial and call the job done, so A3 pins the '
-     'dial at LANDMARK.story and the census at the ruled 297: everything here moved WHERE, '
-     'never how many. A5 proves the doorstep pass FALLS BACK, so a district whose art has '
-     'no doors seats exactly as many people as before, and A5b proves two passes are a '
-     'preference and never a second helping. A6 IS A FINDING, NOT A CHECK: summing the '
-     'module\'s own dialled heads gives 5,940 people on the surface he walks against the '
-     '~69,000 its own comment claims for the same setting (that number was read off '
-     'agents.js\'s plot model, a DIFFERENT population model about fourteen times bigger), '
-     'so the default was set to 20 believing it bought the GDD\'s valley and the top of his '
-     'slider is 9,504. Which number the valley is stays [PENDING Paolo]; A6 only stops the '
-     'two drifting again unnoticed. MEASURED GREEN 15/0 on the walked surface and in the '
-     'cut demo. Mutation-tested three ways: scatter over the whole square again (A2 red at '
-     '1/20 and 3/20, B1 and C1 red at 54/61), stop asking for a doorstep (B2 red, 44 of 61 '
-     'at a door falls to 7), and answer the doorstep question with a flat yes (B4 red at '
-     '1,849 yes / 0 no).', False),
-    ('PEOPLE GATHER', ['node', 'gates/people_gather_gate.js'],
-     'VAMILY [more people] / POPULATION-DEFAULT round 2, "A BEARING IS A PLACE". Round 1 '
-     '(AN ADDRESS IS A FRONT DOOR) put residents on residential ground at their own front '
-     'doors and a walk still met nobody. MEASURED on the running demo across the 61 people '
-     'in the nine neighbourhoods around where he wakes: AT HOME nearest neighbour 1 cell '
-     'and 4 share a screen; OUT, at the busiest hour, nearest neighbour 14 cells and 3 '
-     'share a screen. THE DAY IS WHAT EMPTIES THE STREET -- 41 of the 61 DO leave home at '
-     '10:00 (this lane\'s own previous handoff said they never left the doorstep, off a '
-     'stale comment and an out=0 that was only ever counted among the ONE body being '
-     'drawn), and going out FOURTEEN-TIMED the gap between them: sixty-one private rays, '
-     'sixty-one private destinations, none of them near anybody else\'s. The population '
-     'module had already said what to do, on the workDir field: "a bearing and a distance, '
-     'not a district name -- NAMING THE WORKPLACE IS THE SURFACE\'S JOB because only the '
-     'surface knows what is actually there." The surface resolved the bearing to the most '
-     'open cell on the ray, which is a COORDINATE; a place is a thing other people also go '
-     'to. NOTHING HERE IS A NEW NUMBER: how many places a neighbourhood gets is the '
-     'population module\'s own HEADS.cluster, the size it already calls a settlement (A1 '
-     'holds that line); where they are is pplOpenness and pplDoorstep, the two instruments '
-     'the surface already had; and a faction seat beats a street corner because BB-TURF put '
-     'real markets on the map and the walked surface had never asked where they were. A2 '
-     'proves the old ray still answers where there is no place, so ground the art has not '
-     'filled in behaves exactly as before. HEADLINE, same protocol before and after (four '
-     '400-step walks from the wake cell at 06:00, 10:00 and 18:00, counting only people NOT '
-     'already on the glass): 0 of 12 walks met anybody BEFORE, 3 of 12 AFTER, median first '
-     'meeting at step 157. Three of twelve is not "he meets people without trying" and the '
-     'row stays OPEN. AND SENDING EVERYBODY TO A PLACE WAS TOO MUCH, WHICH ANOTHER LANE\'S '
-     'GATE SAID FIRST: alive_gate went red on "it can happen inside a block", its closest '
-     'meeting across 32 walks going from within 60 steps to 198 -- gathering everybody makes '
-     'the ground BETWEEN places emptier, and the lone body you used to bump into is now '
-     'standing in a square somewhere else. WHOSE DAY HAPPENS AT A PLACE IS ALREADY WRITTEN '
-     'in bohemia_agents.js\'s four days and is not a ratio anybody chose: a WORKER goes to '
-     'an off-block site job and a KEEPER runs one daily errand, so their day happens '
-     'somewhere; a SCAV runs a subsistence sweep (two scavengers on one corner are '
-     'competing) and a WATCH stands a post, and both are solitary by definition. The '
-     'FAVOURITE spot stays a place for everybody, because Shadows of Doubt\'s favourite bar '
-     'is a BAR. Measured after: workers and keepers 6 on a screenful and 1 cell apart, '
-     'scavs and lookouts 2 on a screenful and 25 cells apart, the valley at home 4 and 1. '
-     'And on alive_gate\'s own 32 walks -- a bigger, older sample than anything this round '
-     'built -- 2 of 32 met a stranger BEFORE and 9 of 32 AFTER, closest meeting 198 steps '
-     'back down to 58. BETTER THAN EITHER VERSION ON ITS OWN, and it came out of taking '
-     'another lane\'s red seriously instead of arguing with it. MEASURED GREEN 14/0 on the '
-     'walked surface and in the cut demo. Mutation-tested six ways: delete the places (B1 red, 4 share a screen instead of 13, and B4 red), '
-     'delete the spacing rule (B3 red, closest pair anywhere 12 instead of 20), stop '
-     'preferring frontage (B2 red, 0 of 12 places on a door), and ignore the person\'s '
-     'bearing (A3 and B1b red, 8 bearings collapsing to 3 places), send the solitary trades '
-     'to a place too (B1a red, 36 scavs and lookouts 1 cell apart), and send nobody\'s '
-     'working day to a place (B1, B1b and B4 red, peak 3 bodies and only at 18:00). FOUR OF '
-     'THOSE LEGS HAD '
-     'TO BE REWRITTEN BECAUSE THEY WERE ACCIDENTALLY CORRECT: B3 asked the nine '
-     'neighbourhoods round the wake cell (1-2 places each, far apart anyway), then the '
-     'single busiest settlement (still green with the rule off, because the closest pair in '
-     'the valley is not in the biggest settlement), before asking the minimum over all 704 '
-     'places in 133 settlements; and B1b counted distinct CELLS, which cannot fail because '
-     'the OCCUPANCY LAW rings a crowd around its spot, before it counted distinct PLACES. '
-     'A LEG THAT ASKS THE CASE THAT SOUNDS HARDEST IS STILL GUESSING. And B1 itself averaged '
-     'the whole valley and demanded that going out tighten EVERYBODY, so it went red the '
-     'moment the solitary trades were let walk alone -- the change that took alive_gate from '
-     '2 meetings to 9. AN AVERAGE OVER TWO POPULATIONS THAT ARE MEANT TO DIFFER MEASURES '
-     'NEITHER OF THEM; it is two legs now and both directions of the split are '
-     'mutation-proved.', False),
     ('MAP KNOWS PEOPLE', ['node', 'gates/map_knows_people_gate.js'],
      'VAMILY [more people] / POPULATION-DEFAULT round 3. Rounds 1 and 2 put residents at '
      'their front doors and gave a neighbourhood places to gather, and a walk still only '
@@ -8601,91 +7358,6 @@ GATES = [
      'grid at all (B1, B2, B2b, B3, B4 and C1 red). B2b HAD TO BE ADDED AFTER THE FIRST '
      'MUTATION RUN: loosening the mark back to every household went UNCAUGHT by every other '
      'leg, because "is it drawn" and "is it bright" say nothing about WHAT is drawn.', False),
-    ('HEAR THE CROWD', ['node', 'gates/hear_the_crowd_gate.js'],
-     'VAMILY [more people] / POPULATION-DEFAULT round 4. Round 3 put the crowds on the MAP, '
-     'which is a thing he has to think to open; NOTHING HAS EVER TOLD HIM A CROWD IS THERE '
-     'WHILE HE IS WALKING, and the walked status line has been the hard-coded string '
-     '"walking your own block." since it was written. The population module\'s own phrase '
-     'for what this should feel like is "you hear a settlement before you see it". THE '
-     'RANGE IS DERIVED, NOT PICKED (A1), because this lane may not invent numbers about '
-     'people: sound from N sources falls off as 1/d^2, so a crowd of N carries to sqrt(N) '
-     'times the distance one person does, and one person is the repo\'s OWN SEE_RANGE (9 '
-     'cells, BohemiaStanding) -- which makes the phrase literally true, heard further than '
-     'seen. MEASURED BEFORE IT WAS BUILT, because a mechanism that is right and never '
-     'happens is not a deliverable: the biggest crowd standing at one place anywhere is 18 '
-     'people, buying it 38 cells or about four screens; at the cell he wakes on it says '
-     'NOTHING at any hour, correctly, because the nearest place is 97 cells off and holds '
-     'eight; and of four 400-step walks from there at 10:00, two come within earshot, first '
-     'at step 91 and 156. HE HAS TO WALK TOWARD IT, and B4 is the leg that keeps that '
-     'honest: THIS IS NOT A COMPASS. A3 holds that the one you hear is the LOUDEST and not '
-     'the nearest, because a big crowd further off carries over a pair of voices next door. '
-     'B3 holds that the day has a shape in the ear -- quiet at 02:00 and 22:00, heard at '
-     '10:00 and 18:00 -- so the street is a valley and not a spawner. WORDS, NOT AN ARROW, '
-     'which is this repo\'s own ruling from the address gate ("Bohemia is a city whose '
-     'phones do not work, so a compass that always knows where everybody is would be the '
-     'strangest object in it"); the line is an attempt, draft:true. B5 states the cost the '
-     'way this lane\'s own [draw budget] row demands: 0.044 ms when it recomputes, 0.0002 '
-     'ms cached, 0.01% of a 500 ms beat, cached per cell per ten minutes of game time. '
-     'MEASURED GREEN 9/0 in the cut demo. Mutation-tested three ways: make earshot infinite '
-     'so it becomes a compass (A1 and B4 red, it speaks at the wake cell at three hours), '
-     'compute the line and never write it to the glass (A2 and B2 red -- the authored-but-'
-     'unread disease), and hear people where they SLEEP rather than where they are (B1, B2 '
-     'and B3 red, the whole day goes quiet).', False),
-    ('ON THE WAY', ['node', 'gates/on_the_way_gate.js'],
-     'VAMILY [more people] / POPULATION-DEFAULT round 5. Rounds 1-4 put people in the '
-     'houses, gathered their days at places, marked the crowds on the map and made them '
-     'audible. THEY STILL TELEPORTED. Measured on the demo minute by minute through one '
-     'morning, with a jump defined as MOVING FASTER THAN THE WORLD WALKS (MIN_PER_CELL, '
-     'the surface\'s own 0.084 minutes a cell, about twelve cells a minute): 34 journeys '
-     'finished in under a minute, THE BIGGEST 477 CELLS -- half a kilometre in sixty '
-     'seconds -- and NOBODY was ever visibly on the way, at any hour, all day. The '
-     'schedule already has rush hours (16 of 61 change place at 08:00, 14 at 15:00, '
-     'TWENTY-EIGHT at 17:00, 16 at 19:00) and not one of those journeys had ever happened '
-     'on a street. NOTHING HERE IS A NUMBER THIS LANE PICKED (A1, A2): a journey takes '
-     'distance x MIN_PER_CELL, the same cost the PLAYER pays to cross a cell, and when '
-     'they set off is the schedule\'s own block boundary with the block before it saying '
-     'where from. B3 holds that a walker stands on ground a person can stand on -- the '
-     'straight line between two places runs through buildings, a two-cell nudge was not '
-     'enough (68 journeys still snapped), and the fix is to step BACK ALONG THEIR OWN '
-     'ROUTE, which is what anybody going round a building does; a body inside a wall '
-     'would be worse than a body that teleports. *** AND B4 IS THE HONEST HEADLINE: THIS '
-     'DOES NOT MOVE THE SHIP TEST. *** Twelve walks from the wake cell at 08:00, 12:00 '
-     'and 17:00, before and after: THREE OF TWELVE MET SOMEBODY, BOTH TIMES. What changed '
-     'is that seven people are visibly walking at 08:30 where the answer used to be an '
-     'empty list at every hour, and teleports fell from 34 to 26 with the biggest from 477 '
-     'cells to 400. A DEFECT IN THE WORLD\'S HONESTY FIXED, NOT A MEETING RATE IMPROVED, '
-     'and a gate that let those two be confused would be doing the confusing. B5 states '
-     'the cost, because pplAt runs for every drawn body every frame: 0.07 ms to place all '
-     '61 at rush hour, 0.01% of a beat. MEASURED GREEN 8/0 in the cut demo. '
-     'Mutation-tested two ways: remove the commute so they teleport again (B1 red at 34 '
-     'and 477, B2 red at a peak of 0), and let walkers stand inside walls (B3 red, 9 hours '
-     'with a body off walkable ground). AND THE PROBE ITSELF HAD TO BE FIXED FIRST: its '
-     'first cut called anything over TWO cells a minute a teleport, which is six times '
-     'slower than a person walks here, so once people were actually walking it counted '
-     'every honest step as a teleport and reported the number going UP from 59 to 610. A '
-     'THRESHOLD THAT IS NOT THE WORLD\'S OWN NUMBER MEASURES THE PROBE.', False),
-    ('ENOUGH PEOPLE', ['node', 'gates/enough_people_gate.js'],
-     'VAMILY [more people] / POPULATION-DEFAULT round 6, AND IT CHECKS AN ARITHMETIC '
-     'RATHER THAN A MECHANISM. Five rounds of placement -- front doors, gathering places, '
-     'the map, earshot, the commute -- took a walk from 2 meetings in 32 to 9 and then '
-     'stopped: rounds 4 and 5 were both correct, both cheap, both shipped, and both moved '
-     'the meeting rate by nothing. So the question became whether ANY placement rule can '
-     'get further, and it is one division: a 400-step walk sweeps 3,600 cells (400 steps x '
-     'a 9-cell screen) of the 2,359,296 in the nine neighbourhoods around him, which is '
-     '0.153% OF THE GROUND, so ONE meeting per walk needs about 655 people in them and '
-     'there are 61. PLACEMENT MOVES WHERE PEOPLE ARE INSIDE THAT FRACTION; IT CANNOT '
-     'CHANGE THE FRACTION. *** AND B3 IS THE FINDING: THE SHORTFALL (10.7x) AND THE GAP '
-     'BETWEEN HIS GDD AND HIS GAME (11.6x -- 69,000 against the walked valley\'s 5,940) '
-     'ARE THE SAME NUMBER. *** At the GDD\'s population those neighbourhoods hold ~708 '
-     'people and a 400-step walk expects 1.08 meetings: HIS DESIGN DOCUMENT ALREADY '
-     'CONTAINS THE ANSWER TO HIS COMPLAINT, and the decision is still his ([PENDING '
-     'Paolo], standing since round 1). This is a gate so the arithmetic cannot rot and so '
-     'the day anybody changes the population it reports what that bought. PROVED LIVE '
-     'rather than hard-coded by running it at four times the population: people around him '
-     '61 -> 241, shortfall 10.7x -> 2.7x, GDD gap 11.6x -> 2.9x -- the two numbers TRACK '
-     'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
-     'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
-     'GREEN 6/0 in the cut demo.', False),
     ('FROZEN BEFORE IT WAS KNOWN', ['node', 'gates/frozen_before_it_was_known_gate.js'],
      'FACTIONS, THE FIVE MINUTES. THE BUG IT IS MADE OF COST THE GAME ITS WHOLE WAR: the '
      'valley\'s travelling parties are worked out once and kept under a key of seed + the '
@@ -8757,20 +7429,6 @@ GATES = [
      'which ALWAYS answers because it generates a texture when the pool misses, so both mutations '
      'passed. Switched to saTex and they bite -- drop the street key and it reads 735 of 903 and '
      'NAMES the bare kind, empty the street pool and it reads 684 of 903.', False),
-    ('A BUTTON THAT CANNOT WORK', ['node', 'gates/a_button_that_cannot_work_gate.js'],
-     'LIFE + CITY, answering EYES E26 stranger-walk item 2 on this lane\'s own surface: "TWO '
-     'REAL BUTTONS THAT DO NOTHING: BUILD (cbbuild, 69x29) and BUILD BIG 2x2 (cbbig, 112x28). '
-     'Driven tap, no change in words or pixels for 1.2s." DROVE IT BEFORE BELIEVING IT: they '
-     'are NOT dead -- a tap on a DESERT plot (the only kind that gets BUILD; a built cell gets '
-     'DEMOLISH, and my own first attempt tapped one and nearly filed "the button is missing") '
-     'does rewrite the price line. AND THEY WERE RIGHT ANYWAY: the panel ALREADY said it before '
-     'he pressed, so the first press repeats what he had read and every press after changes '
-     'nothing. To a thumb that is a dead button. PAOLO 9/13 rule 14(d): "a card that promises '
-     'something and does nothing is the worst bug in the game: deliver it or remove it", so the '
-     'button now goes visibly off when the purse cannot meet it and carries the reason. '
-     'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
-     'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
-     'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
     ('THE WINDOW IS NOT A WALL', ['node', 'gates/the_window_is_not_a_wall_gate.js'],
      'LIFE + CITY, under PAOLO 9/20 rule 18: a held lane measures its part of WALKING. '
      'AN INSTRUMENT THAT CANNOT SAY "I DO NOT KNOW" WILL SAY "NO". RUN [one camera] closed its '
@@ -8896,25 +7554,6 @@ GATES = [
      'day a change really does seal his block. Legs C are a self-test against a world sealed on '
      'purpose, because an instrument that cannot return "no" is not an instrument and this lane '
      'has shipped one before. Mutation (no road anywhere) reds A1, A2 and A3.', True),
-    ('NOTHING MOVES UNDER HIS FINGER', ['node', 'gates/nothing_moves_under_his_finger_gate.js'],
-     'VAMILY [eyes: shape rows], LIFE + CITY, answering EYES E26 under PAOLO 9/13 rule 14(d). '
-     'EYES called three rows on the day card dead three rounds running, on two independent '
-     'walks each. DRIVEN ROW BY ROW FROM A CLEAN DOOR, ALL THREE WORK ON THE FIRST PRESS: '
-     '"Half of it now, before I go" moves the terms to the upfront shape and the card to "One '
-     'battery, half of it up front"; "I will go first, on something small" to the first shape; '
-     '"I\'LL TAKE IT" takes the job and says so. THE REAL BUG IS THE SECOND PRESS AND IT IS '
-     'WORSE THAN A DEAD ROW: measured at phone size, the finger lands on a shape row at y=473, '
-     'choosing one shape spends all three, the card loses three rows and re-centres, and "Make '
-     'it a favour instead" arrives at y=491 -- 18 px away, inside the same 44 px box. The room '
-     'is TWO asks, so a double tap spends his last one on a deal he never chose and a third tap '
-     'loses the job. It is also why a careful instrument kept reading them dead: EYES fixed this '
-     'shape in round 5 for a panel that CLOSES, and a panel whose CONTENTS MOVE reads the same '
-     'way. FIXED: every row keeps its slot for the life of the card, spent ones drawn dashed and '
-     'dimmed with no data-act, and the two lines that only appear after a press (what was agreed, '
-     'and "You took it") get reserved blank slots so the centred card cannot slide. Leg B3 is the '
-     'one that matters: no pressable row within half a row of the point just pressed. Mutation '
-     '(spent rows not drawn, the old behaviour) reds B4 7->4 rows, B4b 80 px of drift and B5 '
-     '"a second tap spends nothing" at asked 1->2, which is the bug itself reproduced.', True),
     ('WHERE A STEP MAY LAND', ['node', 'gates/lot_lattice_gate.js'],
      'VAMILY [lot lattice], LIFE + CITY, under PAOLO 9/15 rule 16 THE STEP IS A HOUSE: '
      '"however long it takes right now to walk the length of a house, that would be done in '
@@ -8964,31 +7603,6 @@ GATES = [
      'would make "zero false" trivially green and the game worse. Measured: the nearest freeway '
      'is 324 walked cells from the door, 27.2 minutes, so this is a CITY MODE break and city mode '
      'is the only caller of overpassAt in the file.', False),
-    ('A CROWD TO WALK INTO', ['node', 'gates/a_crowd_to_walk_into_gate.js'],
-     'ROUND 8 of VAMILY [more people] POPULATION-DEFAULT: the peaks, after round 7 built the '
-     'floor. Round 7 took the empty standings from 116 of 120 to 65 and made every walk meet '
-     'somebody, but the most he ever saw AT ONCE was 2, because one borrowed body per '
-     'screenful is exactly what that lattice promises. AND THE FIRST MEASUREMENT SAID THE '
-     'CROWDS WERE ALREADY BUILT: standing on residential ground anywhere the peak was 2 (86 '
-     'of 160 standings saw nobody), while standing ON a gathering place it was 17, 14, 11, '
-     '10, 9, 8, 8, 8. Round 2\'s places work -- HE JUST NEVER ENDS UP ON ONE, because a place '
-     'is a single cell in a valley of millions. TWO CUTS THEN FAILED THE SAME WAY AND THE '
-     'WALK CAUGHT BOTH: filling the nearest real place changed nothing (the places are a '
-     'hundred cells off and the walking budget buys fifty-nine), and dropping the budget '
-     'doubled the crowd standing at a place from 17 to 37 while a walk still met 0 crowds in '
-     '16. A MECHANISM THAT IS RIGHT AND NEVER HAPPENS IS NOT A DELIVERABLE, and standing on '
-     'sampled ground is not how anybody plays. WHAT SHIPPED: the crowd forms on the best '
-     'FRONTAGE within TWO SCREENFULS of him -- a screenful being the repo\'s own 2 x '
-     'SEE_RANGE + 1, the same unit the floor lattice uses -- and never inside one SEE_RANGE, '
-     'so nobody forms up inside his own view; how many make a crowd is the module\'s own '
-     'HEADS.cluster, capped at half the borrowed people so the floor survives. AFTER: walks '
-     'that met a crowd 0 of 16 -> 5 of 16, biggest group seen 3 -> 14, walks that met '
-     'anybody still 16 of 16, empty standings unchanged at 65 of 120. MEASURED GREEN 7/0 in '
-     'the cut demo, AND IT WALKS, because two cuts of this round passed a standing test while '
-     'a walk met nothing. Mutation-tested two ways: remove the knot (B1 and B2 red, 0 of 16, '
-     'biggest 3), and let the crowd stand anywhere within the walking budget (A2, B1, B2 red, '
-     'reproducing the failed cut exactly). B4 holds the other end: no crowd stands at three '
-     'in the morning, because it can still only borrow people the schedule already has out.', False),
     ('THE ONE THAT IS YOU', ['node', 'gates/the_one_that_is_you_gate.js'],
      'VAMILY [white rings] / WHAT-ARE-THE-FOUR-WHITE-RINGS, from HIS OWN FRAME 9/8: four '
      'white rings on the city at once and one of them is supposed to be him. THEY WERE THIS '
@@ -9017,34 +7631,6 @@ GATES = [
      'RIGHT NEXT TO THE OTHER MARKS -- round 3 measured its ring against the GROUND, cleared '
      'the floor, and shipped something correct in isolation that broke the one thing on the '
      'screen a player must never lose.', False),
-    ('THE TAP PICKS WHAT YOU SEE', ['node', 'gates/tap_picks_gate.js'],
-     'VAMILY [tap picks] / THE-TAP-PICKS-THE-TILE-BELOW, from PAOLO\'S OWN FRAME 9/8: "when I '
-     'click a tile in city builder mode it\'s not the tile it\'s sitting on, it\'s like below, '
-     'very awkward." THE ROUTING RULING NAMED TWO CAUSES AND BOTH WERE WRONG -- it cited a '
-     'draw-time LIFT of 1.6, which is FORCE_POVERTY_LIFT, an economics constant, and page '
-     'pixels not being scaled to canvas pixels, which toCv() has always done -- so this gate '
-     'measures instead of inheriting. MEASURED WITH DRIVEN TAPS BEFORE THE FIX: tapping a '
-     'tile\'s GROUND CENTRE 25 of 25 exact at every zoom, tapping THE BUILDING YOU CAN SEE 0 '
-     'of 38. The picker inverted the ground plane, which is exact arithmetic, and the eye is '
-     'on the ART, which is painted above its own footprint; the two agree only on flat ground, '
-     'so a road always worked and a tower never did. AND THE PRISM PATH WAS A DEAD END: the '
-     'first cut taught the picker about prism(), the procedural block fallback, and measured '
-     'ZERO PRISM CALLS AT EVERY ZOOM -- the valley is painted with baked hero art, so that fix '
-     'would have gone green on a body the renderer never puts on the glass. THE FIX: the '
-     'renderer records the rectangle it blits and the picker asks the art\'s own pixels, '
-     'taking the tile painted LAST. THE PART THAT TOOK FOUR ATTEMPTS: a ROAD plate is opaque '
-     'well outside its own diamond, so "whose paint did you touch" handed a tap on open tarmac '
-     'to the plot in front (caught by looking at a screenshot, not by a number). Only art that '
-     'STANDS UP may take a tap off the ground, and THE CUT POINT WAS READ OFF THE ART: measured '
-     'at TW=48, ground runs 1.05 to 1.23 tiles of opaque height (desert, wash, rail, water, '
-     'freeway, farm, suburb, arterial) and buildings start at 1.54 (school, strip, commercial, '
-     'chapel, apartment, campus, courthouse, resort), with NOTHING IN THE GAP -- so the number '
-     'inside it changes nothing, which is what separates a measured threshold from a tuned one. '
-     'MEASURED GREEN 6/0 on the alpha at 390x844: buildings 38 of 40 across three zooms, open '
-     'ground 36 of 36. ONLY A DRIVEN TAP COUNTS (the pad: an in-page hit test said 12 of 12 '
-     'while real taps landed 2 of 11). Mutation-tested two ways, each caught by a different '
-     'leg: restore the ground-plane picker (B1 and B3 red, buildings 0 of 40), and drop the '
-     'standing-up rule so flat art steals taps (A2 and B2 red, open ground 0 of 36).', False),
     ('THE STREET IS NEVER EMPTY', ['node', 'gates/never_empty_gate.js'],
      'VAMILY [more people] POPULATION-DEFAULT round 7, and the first round of that row with '
      'a RULING behind it. The coordinator decided 9/7 that the ship test is met by DENSITY, '
@@ -9069,34 +7655,6 @@ GATES = [
      'red, 26 bodies at three in the morning), stop looking at the locals (STAYED GREEN, which '
      'is what deleted that code). B3\'s first cut demanded an EMPTY street at 03:00 and caught '
      'the night watchman -- the world was right and the leg was wrong.', False),
-    ('BUILD DEFAULT', ['node', 'gates/build_default_gate.js'],
-     'VAMILY [build default] / THE-FIRST-BUILDING-A-PLAYER-PLACES-IS-AN-AIRBASE, harvested '
-     'from ECONOMY round 4 by PLAYING the game rather than grepping it: "59 district types '
-     'in ALPHABETICAL ORDER, no default, no grouping, no placeholder, so the browser picks '
-     'the first and BUILD places an airbase. This is the worst first-hour moment in the '
-     'game." MEASURED BEFORE TOUCHING IT on the cut demo: 59 options, ZERO groups, the '
-     'select reads AIRBASE, first three labels AIRBASE / AIRPORT / APARTMENT. Every word '
-     'true. AND THE DEFECT WAS IN FOUR PLACES, NOT ONE: the price line, the affordability '
-     'check and the build itself all fell back to buildableTypes()[0] when the panel was '
-     'shut, and [0] is alphabetical -- the same wrong answer in four separate copies, now '
-     'one cbDefaultType() (A3, B4). WHAT THE REPO ACTUALLY KNOWS ABOUT THESE 59 THINGS IS '
-     'ONE FACT: BohemiaPopulation.RESIDENTIAL names the six that are homes. Nothing says '
-     'what any other district is FOR, and WHICH TYPES MAKE POWER OR CLOUT IS [PENDING '
-     'Paolo] by this lane\'s own state line, so A2 holds the grouping to exactly as deep '
-     'as the repo\'s knowledge -- HOMES and EVERYTHING ELSE, with NO invented POWER group. '
-     'B1b is the leg that had to be added after the first mutation run: grouping ALONE '
-     'already stops the airbase (the first home alphabetically is APARTMENT), so deleting '
-     'the explicit default left every leg green -- which makes SUBURB a DECISION rather '
-     'than a side effect, and the decision is that the sensible first building is the '
-     'ground he wakes standing on. A DECISION NO LEG STATES IS A DECISION THAT DRIFTS. AND '
-     'A FINDING ON THE WAY: every home holds EXACTLY 2.2 -- an apartment houses what a '
-     'trailer houses -- which is HOUSEHOLD_MEAN applied flat, is a [PENDING Paolo] this '
-     'lane raised before, and is why the group label carries the number ONCE instead of '
-     'six identical numbers pretending to be a choice. MEASURED GREEN 9/0 in the cut demo. '
-     'Mutation-tested three ways: remove the explicit default (B1b red, it falls to '
-     'APARTMENT), flatten the two groups back into one alphabetical list (A2, B2 and B3 '
-     'red, first three back to AIRBASE / AIRPORT / APARTMENT), and put the fallback back '
-     'to buildableTypes()[0] (B4 red at "airbase").', False),
     ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
      'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
      'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '
@@ -9142,18 +7700,8 @@ GATES = [
      'nine sessions write canon in parallel across 583 law/record files that cite each other constantly, and NOTHING had ever checked those citations resolve -- a law pointing at a file that does not exist is worse than no citation, because a session follows it, finds nothing, and concludes the thing was never built. Hard-fails extension drift, ratchets pre-existing debt so no lane is blocked by another lane, and SELF-TESTS its own regex first because the first run of this audit was wrong in exactly that way', False),
     ('BOSS LADDER',    ['node', 'gates/boss_ladder_gate.js'],
      'ONE BOSS = ONE LOCK = ONE THING THAT WAS IMPOSSIBLE AND NOW IS NOT, and no two bosses may open the same door. Built 8/7 because Paolo read the ladder and said "THE STRIPPER / THE WRECKER / THE TOLL -- these are the exact same bro" and he was right: three bosses, one verb, sitting there for four days past a 131-check gate that only ever asked whether the list was well-FORMED and never whether two entries were the SAME THING. Holds the locks distinct, forces every lock to be an impossibility rather than a noun somebody owns, keeps the five killed bosses dead, and checks his rulings actually landed. It caught me committing the identical duplicate INSIDE the fix for it on its first run -- and again on the v3 pass, where two bosses shared a verb and eight locks were written as nouns. EXTENDED TWICE MORE on 8/7: he demoted the spare column as slop (so two checks RETIRED with it -- a gate must never outrank a ruling), ruled ACT 3 SLIGHTLY FUTURISTIC / early Night City, and called transport thin (now a seven-boss spine, because the rebuilding research says you cannot have metallurgy without transport networks). 53 candidates, 53 distinct locks, 53 distinct grant verbs, declared a POOL TO CUT FROM. EXTENDED AGAIN 8/7 with PART L, the GDD AUDIT half: I read the ladder against GDD v5 and SEVEN bosses were fighting canon, SIX of them my fault, because I kept inventing locks without checking whether canon had already opened that door. FOUR DIED OF IT, and the headline is that THE VOICE failed approval five passes running because the radio station is already BUILT + LOCKED in the Life-Support Trio, so it was a boss for a capability the valley already has and there was never anything to unlock. THE SPOKE died because the vehicle ladder already STARTS on man-powered bikes; THE RECLAIM because the reclaim plant kept running and is THE survival event of the backstory; THE EXCHANGE because it and THE CREDITOR were the reserved GUARANTOR seat described twice. Four more were REFRAMED rather than killed, and the gate pins the facts canon states into them (2GW at the dam, and water is not the binding constraint because soil and labour are). His two rulings both pass: THE PUMP is act 2 ("this is act 2 fs") and ACT 1 GETS RAIN COLLECTION, so THE CISTERN is boss 17 and its grant is INDEPENDENCE from whoever owns the water rather than thirst, because rooftop rain was illegal in Nevada until 2017 and catching the monsoon is an act of secession. TWO CHECKS ADDED AFTER 85 GREEN CHECKS SHIPPED A FILE WHOSE OWN HEADERS LIED: every act header must spell out a count that matches the rows under it, and no star note may address a boss by ROW NUMBER, because renumbering 56 down to 53 left ten notes pointing at the wrong bosses and the gate had only ever read the tables, never the prose around them. It also holds his lore rulings (3D printed meat is canon so THE VAT has BIOREACTOR CAPACITY as its lock, not animals; plastic pyrolysis is the fuel path and Las Vegas is the oil field; people already come to Vegas so THE MARQUEE only accelerates it) and the TWO KILL-RULES that have now killed thirteen bosses between them: if you cannot name the wall without inventing it there is no boss, and if the grant does not fit on a button it is not a grant. Its act lookup was rewritten 8/7 because it located a boss by its FIRST PROSE MENTION rather than its table row, which silently put two bosses in act 0. He also called bullshit on my shoe research (correctly -- I generalised PU-midsole hydrolysis into every shoe) so THE BOOT died by my own rule, and TWO CHECKS WERE REVERSED on his rulings rather than defended. Earlier ruling kept: BESTING IS NOT KILLING, so every one of the 34 bosses declares a KILL route (you take the thing) and a SPARE route (you gain the person), the gate fails if a spare route is the kill route reworded, and every boss declares one of four grant KINDS because he named gear and customization as the missing ones', False),
-    ('BATTLE BROS',    ['node', 'gates/battle_brothers_gate.js'],
-     "Paolo 8/18: \"fucking look up battle brothers right now right now.\" LAB's charter is one session = one system = ONE NAMED GAME, and he named it. THE HEADLINE, and it is not about combat: BATTLE BROTHERS IS THE GAME BOHEMIA'S STRUCTURE ACTUALLY IS, and Rogue Fable IV is not. RF4 is a one-hour run with a fresh character, which is why the first line of CLAUDE.md has to shout THERE ARE NO RUNS every session to stop that premise leaking in. Battle Brothers has no runs at all: one continuous campaign, one company you keep forever, the dead stay dead, injuries that persist for days and can turn permanent, a daily wage per head that comes due whether you fought or not, and a strategic map over the tactical battles. That is the half of Bohemia -- the dynasty, the compound, the crash economy -- that had no named reference at all. THE CONVERGENCE FINDINGS ARE WORTH MORE THAN EITHER GAME ALONE: BB's two-zone armour, where armour points absorb instead of hitpoints and the piece is DESTROYED when it reaches zero, is RF4's Protection Points arriving from a second studio for a different audience -- and it lands on the `armor` field we measured on all 320 bodies with a 0 in every one of them. BB's FATIGUE is RF4's Speed Points INVERTED (accrue instead of spend, and it costs you your place in the turn order), and the transferable part is its FLOOR: any character can always swing once no matter how fatigued, so the resource takes your options and never your turn -- the same instinct as our own the-game-never-punishes-taking-your-time. And MORALE answers the RF4 teardown's biggest gap from a different angle: it is enemies reading each other with NO AI coordination at all, every one of its triggers is an event our combat already detects, and people in a gunfight in a dead city do break. THE REFUSAL IS THE CHECK THAT MATTERS MOST HERE: Battle Brothers is pure d100 dice with hit chance floored at 5%, and \"perfect play = zero damage at any enemy count\" is LOCKED -- those are arithmetically incompatible, so the study must keep saying DO NOT TAKE IT, and the gate fails if that refusal is ever softened. A reference study that forgets what it refused is how a locked law dies quietly. It also pulls the holes, because a study that only praises is useless: BB's most-named flaw is that it HAS NO ENDGAME GOAL (\"it is all for naught\"), which is precisely what Bohemia already has in the Act 3 gen-3 Angel heir going one-way -- the dynasty is not decoration, it is the fix for this game's biggest failure. Plus the difficulty curve breaking at both ends as a perk-tree warning, and armies materialising against the worldmap's own rules pointed straight at our LIGHT=TERRITORY laws. The three real forks (a morale state, a daily per-head wage, injuries that RE-ROLE a person instead of retiring them) stay [PENDING, Paolo's call], the gate fails if LAB answers them, and it fails if LAB's diff touches any engine module or slice.", False),
-    ('RF4 TEARDOWN',   ['node', 'gates/rf4_teardown_gate.js'],
-     "Paolo 8/17: \"I really need you to re-create rogue fable four holy shit please.\" THE SEAM FILE the 8/16 RECREATE-RF4-FIRST law demands, because he put TWO CHATS ON ONE SYSTEM: LAB owns the numbered spec and WRITES NO COMBAT CODE, COMBAT owns the implementation and the STATUS column, neither edits the other's. 68 numbered items, each SPECED or BUILT or DIFFERS-ON-PURPOSE, every BOHEMIA-TODAY number RE-DERIVED off the running fight so no status rests on a sentence somebody typed. MEASURED: 320 bodies across 40 arenas, and NINE OF RF4's PILLARS ARE ALREADY BUILT -- cover and line of fire, the environment genuinely fighting back (cover chews away under fire, cars cook off, decks, darkness), field readouts, ranges, target selection, the way out, armor 0 on all 320 bodies so there is no stat mitigation, and juice. THE AUTHORITY STACK IS WHY THIS GATE EXISTS: Paolo captured 83 RF4 tutorial screens HIMSELF, and the 8/17 LIFT law says his research REPLACES ours -- LAB does not re-search RF4, it turns his corpus into the spec. An 8/18 search pass ran anyway because that law had not been read first, so the gate now enforces the four-tier sourcing scheme with his CAPTURE on top, keeps the admission that the re-search was the wrong call, and holds both corrections it forced: RF4-15 wrongly said do not import the resource tax when the law had already ruled TAKE IT because SP is UPSIDE-ONLY, and RF4-10's PP regen number is FLAGGED as possibly an SP fact mis-attributed to PP. It carries his ONE SENTENCE -- RF4 is not a damage game, it is a POSITION game with a damage readout, and almost every system exists to make geometry more powerful than statistics -- and his NINE MACHINES as the build order: the free-movement budget on a GLOBAL clock (a global clock tests timing, a per-use cooldown tests only patience), vision as ONE variable gating FIVE enemy systems, movement asymmetry instead of stat inflation, environmental kills that keep a bad-item run solvable, bounded 50-100% damage variance so breakpoints are plannable, and status effects as TURN DENIAL rather than damage. Plus the six contradictions the law resolved, above all C4: RF4 is melee-and-spell and we are guns, so distance is not safety here -- BREAKING LINE OF SIGHT is our kite verb, cover is our corridor. And the fleet-wide A/B/C teaching register: tell them what they cannot derive, hint at what they could, NEVER EXPLAIN SOMETHING THE FLOOR COULD HAVE SHOWN. It does NOT demand RF4's numbers -- eight enemies a fight is not his ruling and neither is 3-6 -- it demands the divergence stay MEASURED AND DECLARED and goes red when COMBAT lands the encounter curve. It also fails if LAB's diff touches any engine module or slice, if any RF4-NN cross-reference dangles, or if a [PENDING Paolo] fork gets answered by LAB.", False),
-    ('DOMINANCE SWEEP', ['node', 'gates/dominance_sweep_gate.js'],
-     "RF4-40 IS THE ANTI-DOMINANT-ABILITY RULE -- abilities 'too effective in many situations' get nerfed or removed, and counter-enemies exist to push the player off a favourite playstyle -- and our diff column called it ABSENT AS A RULE. A rule without a machine is not enforced, so it ships as THE SWEEP rather than as a nerf: a policy behind each verb the fight offers (sprint, walk, grenade, suppress), the same 24 arenas for each, every one inside its own REAL budget. skill_gap sweeps one axis and found the biggest dominant strategy in the build; this sweeps the verbs nobody had put a policy behind at all. WHAT IT FOUND IS THE SKILL CEILING AND IT IS FLAT: V74 makes ON-BEAT MOVEMENT FREE (spendMove takes a pip and GIVES IT BACK on a PERFECT grade), and a headless loop has no rhythm so it lands on the same grade every time -- measured, 40 moves of 40 graded PERFECT with ZERO pips spent. So the sweep is played by somebody who never misses a beat, and for him the sprint is free and beats the walk by four wins while taking a quarter of the damage. That is V74 working exactly as written ('player SKILL matters more than stats') AND the honest caveat on every movement number in this repo: NO HEADLESS ARM HERE HAS EVER MEASURED A PLAYER WHO MISSES. It is recorded, not nerfed -- the sprint's shape is his own ruling (V110) and RF4-40's answer to a dominant ability is a counter, which exists in V168's spotter. It also blocks on the two stable negatives: suppressing every turn wins 0 of 24 and dies in every fight, and the grenade every turn is worse than simply walking. Three harness cheats died making it honest: stamina refilled every turn (an infinite sprint, 22 wins at 6.2 HP), the grenade and suppress topped up the same way, and a sprint counter that incremented on any move rather than on one that SPENT A PIP -- which read 201 sprints in 243 turns and hid the refund entirely.", False),
-    ('SKILL GAP',      ['node', 'gates/skill_gap_gate.js'],
-     "RF4-36 is the THESIS row and the last three-star one: 'highly tactical and REWARD CLEVER DECISION MAKING... of equal importance and opposing this, fast, action packed.' Our own diff says the shooter half is real and THE DECISION LAYER is missing, so the honest first move is the one that worked on RF4-14: MEASURE WHETHER THE FIGHT REWARDS DECISIONS AT ALL, rather than add a mechanic and hope. Six policies, the same 24 arenas, the same seeded dice, every one driven through doMove (the path a tap actually takes) so the only difference between arms is the CHOICE. IT DOES REWARD DECISIONS, HUGELY -- standing still and shooting wins 0 of 24 and bleeds ~95 HP a fight -- AND IT IS THE DOOR AND NOT MOTION, because moving in a random direction while shooting well also wins 0. But the headline is a DEFECT: FIRING YOUR WEAPON IS STRICTLY DOMINATED. Monotonic across six arms -- fewest shots wins most and bleeds least, most shots wins least and bleeds most -- because shooting spends the turn (RF4-49, correctly), the win is reaching the way out (V159, his own ruling), and nothing on the board makes leaving harder, so combat is a tax paid for nothing. Pinned here in the same shape as civ5_gate D4: WRITTEN TO GO RED THE DAY IT IS FIXED and be rewritten then, rather than quietly becoming false. TWO COUNTERS WERE BUILT AND CUT THE SAME DAY (denying the step to anyone who can SEE you froze all six policies at 432 refusals of 432 steps; narrowing it to a HELD BEAD was self-reinforcing, since being pinned stops you repositioning which keeps you pinned) -- a fight with exactly one currency cannot reward a second verb, and what a fight is WORTH is economy, not combat. It also carries the three harness bugs found writing it, each of which flattered a different conclusion: calling worldShift directly walked past the player's own door, walking the straight line put the walker's face against the first rock for the rest of the fight, and 'shoot whenever anything is in the pool' is a strawman rather than clever play.", False),
     ('EXPRESSION LINE', ['node', 'gates/expression_line_gate.js'],
      "laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_8_16_26.md section 5: 'systems are free to recreate, EXPRESSION IS NOT -- never copy a name, a string, an icon, a screen, or the title.' RF4-35 was marked BUILT in the teardown spec on the strength of a sentence in its own diff column and NOTHING IN THE MACHINE HAD EVER CHECKED IT; it was one of four BUILT rows that no gate named, found 8/20 by counting citations. THE HARD HALF IS TELLING A CITATION FROM A NAME: 'Rogue Fable' sits twice inside the shipped combat blob right now and BOTH ARE LEGAL, because they are code comments quoting the source a mechanic came from, which is exactly what the row permits and what the QUEST STUDY LAW asks of every borrowed idea here. A gate that simply grepped would fail the build for honest sourcing, and the obvious fix would be to DELETE THE CITATIONS -- turning sourcing into laundering. So it strips comments first and reads only what a player can actually see (readouts, button labels, visible text), and it proves it can tell the difference ON THE SPOT rather than asserting it: a name planted in a readout is caught, the same name in a comment beside it is not. Paolo 8/1: a checker that cannot tell a mention from a use is the broken one. The forbidden vocabulary is READ OUT of the spec's own citations rather than typed, so the day LAB documents another RF4 name the sweep covers it without anybody remembering.", False),
-    ('TOP OF THE DOC', ['node', 'gates/top_of_the_document_gate.js'],
-     "Paolo 8/20, third rejection of the combat lane in three days: \"bro i gave you a whole document to play like rgue fable 4 this is not even close. how do i shoot a car?\" TWO answers, and the second one is the gate. FIRST: you cannot shoot a car -- carHeat has exactly two callers, a round of THEIRS that the car you hide behind ate, and your own grenade -- so V170 shipped describing a verb the build has never had, and the gate I wrote for it ASSERTED THE SAME FALSE SENTENCE. SECOND, and it binds every lane: the teardown spec ranks its own 68 rows with STARS and I never counted them. TWO of the TEN highest-priority rows are built; EIGHTEEN of the FIFTY lowest are. Six ships in three days -- movement asymmetry, vision, the encounter curve, the spotter, the open book, the smoke -- all but one an unstarred or one-star row, picked by an internal routing number (the 'machine' order) that is not ranked by how much it changes the FEEL, and called forward motion because every one gated green. A GREEN GATE ON A LOW-PRIORITY ROW IS NOT PROGRESS, IT IS MOTION. And the document had already answered his complaint in our own words: RF4-25 (three stars) says 5 real types exist and none of them read each other, 'the actual answer to why the fight feels flat' -- VERIFIED rather than repeated, because every roster loop in every enemy brain is OCCUPANCY, marked one body per spot, so not one enemy's decision depends on what another enemy IS. So this gate demands that when a lane declares what it does NEXT, that item names a TOP row of the document it is drawn from, or the handoff says IN WRITING why not. It deliberately does NOT demand starred-first full stop, because A GATE MUST NEVER OUTRANK A RULING: Paolo can want a small thing, a row can be blocked by law (machine 8 is, by NO DAMAGE BEFORE THE DIAL), a lane can be paying down a defect. What it makes impossible is building the bottom of the list SILENTLY. Its own T6 went red on first run and caught me misquoting the spec in capitals -- a verbatim quote that is not verbatim is the same defect as a number typed beside a constant instead of read from it.", False),
     ('LADDER GRAPH',   ['node', 'gates/ladder_graph_gate.js'],
      "Paolo 8/13 answered \"DO I BUILD THE PREREQ COLUMN?\" with \"Sure\" and specified it in the same breath: the live menu holds 4 to 6, a prerequisite may be a boss OR a quest, and the big one -- NOT EVERY NODE IS A BOSS, because \"the idea is that its something thats ACQUIRED so it doesnt have to maybe not killing or persuading a particular person like its just a quest.\" So the ladder stops being a numbered line. 53 nodes, 38 PHYSICALLY NECESSARY edges, 8 tiers, acyclic, and every edge carries a one-sentence reason readable off the two rows it connects (you cannot catch rain off a roof you cannot reach; you cannot open a pit without something that goes off; canon says soil and LABOR are the binding constraint so farming waits on the crew). 8 tiers is where 3 acts at Civ 5 era-depth predicted, without being aimed there. AND THE HONEST HEADLINE IS A SHORTFALL THE GATE REFUSES TO LET ME HIDE: physical necessity opens TWENTY doors and he asked for four to six. The tempting move was to invent fourteen more edges until the number matched, which would have meant making fourteen decisions about how his game is played and burying them where they look like physics. STOP PRODUCING names that shape exactly, so the quest gates are EMPTY, the routes table is empty except THE POT (the one node he called a boss himself), the gate FAILS if I declare them, and it fails if the shortfall stops being stated out loud. It also holds his narrative triangle as an UNSOLVED problem rather than answering it with a feature: more than Valheim (which gives none and that is the failure he named), never a cutscene (\"we dont want to be bogged down\"), never an MMO quest log (\"which is bullshit\"). And it holds the rename question open instead of quietly retitling a file he has already judged seven times. Three checks exist because of my own errors writing it: D3 was a TAUTOLOGY on its first write (a ternary whose two branches were the same expression), the prose said twenty-one roots when the tool measures twenty (the third hand-typed number I have gotten wrong in two days, so D3 now reads the spelled-out count out of the prose and compares it to the measurement), and civ5_gate D4 had to be REWRITTEN rather than deleted because the finding it guarded went stale the moment he ruled -- which is the check working as designed.", False),
     ('CIV 5 REF',      ['node', 'gates/civ5_gate.js'],
@@ -9615,8 +8163,6 @@ GATES = [
      "DIRECTION gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). Rule 114a: 'the style guide is law... every field is a gate' and A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. This gate holds the file and the rig to. green at registration, 0 s", False),
     ('THE BARBERS DOOR', ['node', 'gates/the_barbers_door_gate.js'],
      "RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). His third votes (37i) and his 9/27 note: 'you can only customize your face and portrait at the barber in the settlement menu.' On his phone's profile,. green at registration, 30 s", True),
-    ('THE COMPANY IS A CAST', ['node', 'gates/the_company_is_a_cast_gate.js'],
-     'PEOPLE gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). BOHEMIA THE COMPANY IS A CAST (9/24/26, PEOPLE lane). VAMILY [bb company], row THE-COMPANY-IS-A-CAST. Rule 33 (THE OVERWORLD IS. RED AT REGISTRATION, named to PEOPLE, never edited to pass: a press is 1 cell against a reach of 9, the leg that says the defect is fixed', True),
     ('THE FAR END AT THE PHONES PIXELS', ['node', 'gates/the_far_end_at_the_phones_pixels_gate.js'],
      'RUN gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). THE FAR END AT THE PHONE\'S PIXELS (RUN, 10/10/26, VAMILY [the far end at two million pixels], rules 60, 65, 88) PAOLO (10/1, 10/2 twice, 10/4): "how m. green at registration, 132 s', True),
     ('THE FIGHT BAR IS STUDIO MADE', ['node', 'gates/the_fight_bar_is_studio_made_gate.js'],
@@ -10105,10 +8651,6 @@ GATES = [
      "UI 6 gate, 11/3, rules 342 and 348 (ask lines 351, 358). PAOLO 11/2 (the second star): 'Why not all 3?... as much of these as possible to really build that lore ambience'; 11/3: 'two versions one vertical one horizontal... Bohemia... post economic apocalypse, new game and continue... not super loud... a random roll'. Ten feeds or more, each a tall 9:16 and a wide 16:9 sheet and its own quiet sound (-30 dB rms or under); the start screen shows four things only; the feed fills the glass upright and sideways; six opens never repeat a feed twice running; turning the phone cross-fades to the wide picture; the monitor cuts to the next camera with its own sound; no feed picture before the first paint. Planted: a missing wide sheet, a 4:3 sheet called tall, a loud sound, SETTINGS back on the title, the same feed twice.", True),
     ('THE LOADING MENU IS FROZEN', ['node', 'gates/the_loading_menu_is_frozen_gate.js'],
      "UI 6 gate, 11/3, rule 358 (ask line 380). PAOLO 11/3: 'I'm in love with the loading menu, I can already see a lot of this being final final final.' The four words, the start screen's type and overlay, and how the feeds roll are held against records/target/ui_the_loading_menu_frozen.json; a change fails unless a commit since the baseline cites a NEW RULING (then --freeze re-records it); no frozen feed may leave the roll; new feeds welcome. Planted: NEW GAME renamed, the cut at 30 s, a size in the look, a feed taken away.", False),
-    ('THE LINE ON A GROUND', ['node', 'gates/the_line_on_a_ground_gate.js'],
-     "UI gate, 10/18, row [the line on a ground] (rule 88, the twin's difference 2): a CANDIDATE laid in the browser only (rule 100), the company screen and the hall on a ground from his packs. Every tile laid is the bank's own bytes and the painting follows each tile's own light (correlation 0.997); re-lit through two hue-shifted ramps, never darkened; one pixel size; no gradient, glow, blur or round corner; every word on the ground 4.5 to 1 plain and in the sun; every cell where it was, hit by the finger, every face unchanged; the contact line or the cardboard per candidate; one light; the hall's floor under every card; six planted defects caught every run on one page with a clean undo. green at registration, 68/0, about 50 s", True),
-    ('THE ART FENCE', ['python3', 'gates/art_fence_gate.py'],
-     "PLUMBER 10/19, row [the art fence] (rule 100, Paolo 10/10: 'they do one little dogshit that I didn't say is final and start implementing it nationwide'; rule 101(c): a placeholder is not edited). Reads every commit after its birth (gates/art_fence.json; a shallow clone reads what it holds dated after it): a commit whose first word names an art lane (COOK, COOK TWO, COOK THREE, COOK FOUR, DIRECTION, CHARACTER, PORTRAIT, COMBAT TWO, UI) that touches slices/ or engine/ outside the VOTE tab's folder and UI's materials (rule 88) is red unless his FINAL covers every file (a finals entry whose card he voted up, titled FINAL?, no 'not final' in his words, after his moodboard: rule 108 round thirteen, not landed, so none counts); an art-lane edit to a file records/BOHEMIA_PLACEHOLDERS.md names is red; RUN and the coordinator carry what he passed (rules 93, 115g). A red leaves only through answered (reverted, or ruled, with its why). Prints the record since 10/10: 28 art-lane commits put files in the game, 4 edited a placeholder. Nine planted cases on a planted repository; on the real history in a throwaway worktree: a planted COOK TWO board file red, a planted edit of the cone red twice, RUN's cut green. green at registration, 14/0, about 8 s", False),
     ('THE PIXEL FLOOR', ['python3', 'gates/pixel_floor_gate.py'],
      "PLUMBER 10/19, row [the pixel floor] (rule 105, Paolo 10/10: 'look at the graphics and art that we downloaded and see how many pixels they are. That is the floor'). Every picture the site publishes (slices/, engine/, records/target/, and the pictures inlined in their pages; 10,799 at birth) has a kind (gates/pixel_floor_kinds.json: * stays in a folder, ** crosses; a folder with rig.json reads its rig_ and fin_ stills, judged by the broadest facing; passes and clip keys are not assets); a judged kind's PAINTED size (the box of its half-opaque pixels, never the canvas, never the zoom) is held to the floor RE-MEASURED from his packs (records/target/BOHEMIA_PIXEL_FLOOR.json: tile 92, building 93, lamp 94 tall, thing and beast 56, vehicle 94, portrait 96 canvas, person 98 painted or the 112 cell, icon and thumb 32, marker 40). Holds: the floor file is the bank measured today; no picture without a kind; nothing new under the floor; no placeholder re-drawn and left under; records/BOHEMIA_PLACEHOLDERS.md lists exactly the baseline (67 at birth: CHARACTER 40, COOK TWO 25, COOK FOUR 2), each routed to a lane. Seven planted cases; mutated five ways on the real tree, each leg red alone. green at registration, 13/0, about 8 s", False),
     ('THE TOOLCHAIN', ['python3', 'gates/toolchain_gate.py'],
@@ -10669,6 +9211,12 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('THE RED DEBT ONLY SHRINKS', ['python3', 'gates/the_red_debt_only_shrinks_gate.py'],
+     "PLUMBER 8 gate, 11/10, the coordinator's routine 'clear the red debt' (VAMILY rule 13, rule 441): the debt is "
+     "gates/BOHEMIA_QUARANTINE.txt, every red on main named with its owner and verdict; NAMED (its lines) and LEFT (those not "
+     "FILED as an ask row) may only come down (gates/BOHEMIA_RED_DEBT_RATCHET.json), and the front page's THE RED DEBT line "
+     "says the same two numbers. D1 the list parses, D2 not above the ratchet, D3 the front page agrees, P1 one more red line "
+     "and an older count turn it red. A second", False),
     ('A CLOSED TAB DOES NO WORK', ['node', 'gates/a_closed_tab_does_no_work_gate.js'],
      "PLUMBER 8 gate, 11/10, rule 441(c) and rule 400 (60 on a phone): a CPU profile of the town at rest on the demo (phone upright, "
      "CPU 4x slower) found the MUSIC tab's readout writing 640 dots' colours five times a second with the tab closed (494 of 9,494 ms, "
@@ -11112,7 +9660,7 @@ def deps_check():
     install. This changes nothing about pass/fail: a gate that cannot run STILL
     FAILS, because a gate that cannot run has not held anything."""
     missing = []
-    for mod, pkg in (('PIL', 'Pillow'), ('numpy', 'numpy'), ('fontTools', 'fonttools')):   # fonttools: CASING FACE reads the face's own character list (PLUMBER 8, 11/10: missing on every fresh container, a red that was the box's)
+    for mod, pkg in (('PIL', 'Pillow'), ('numpy', 'numpy'), ('fontTools', 'fonttools'), ('parselmouth', 'praat-parselmouth')):   # fonttools: CASING FACE reads the face's own character list (PLUMBER 8, 11/10: missing on every fresh container, a red that was the box's)
         try:
             __import__(mod)
         except ImportError:

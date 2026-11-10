@@ -233,7 +233,9 @@ if (cityNames && cityPeople) {
 
 head('C  the surfaces are wired');
 ok('the post\'s fixed list is gone', !/var HIRE_NAMES\b/.test(SETTLE));
-ok('recruitsHere names a recruit after his face, by hireName (10/23: his look dealt by recruitLooks, a rolled man the fight can draw)', /var looks = recruitLooks\(key, n\);[\s\S]{0,200}r\.look = looks\[i\]; r\.name = hireName\(key, i, r\.look\);/.test(SETTLE));
+/* PLUMBER 8 11/10: re-aimed to the post's own later lines (the hire lock's postTaken and __FOURTEEN_RARE_MEN__'s rareSeen sit between the
+   deal and the naming now): the window is the recruitsHere map, not 200 characters; the naming is the same line */
+ok('recruitsHere names a recruit after his face, by hireName (10/23: his look dealt by recruitLooks, a rolled man the fight can draw)', /var looks = recruitLooks\(key, n\);(?:(?!function )[\s\S]){0,1200}r\.look = looks\[i\]; r\.name = hireName\(key, i, r\.look\);/.test(SETTLE));
 ok('hireName rolls at the post\'s key with the face\'s reading', !!hireSrc && /BohemiaNames\.roll\('post:' \+ key \+ ':' \+ i, \{sex: BohemiaNames\.faceReads\(look\)( \|\| \(P && P\.sex\), skin: P \? P\.skin : undefined)?\}\)\.full/.test(hireSrc));
 ok('keeperName rolls at the place and the building, with the face the place drew', !!keeperSrc &&
   /BohemiaNames\.roll\('keeper:' \+ S\.place\.name \+ ':' \+ k, \{sex: look \? BohemiaNames\.faceReads\(look\)( \|\| \(P && P\.sex\))? : null(, skin: P \? P\.skin : undefined)?\}\)/.test(keeperSrc) && /lookOf\(k\)/.test(keeperSrc));

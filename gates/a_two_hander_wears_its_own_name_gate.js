@@ -126,7 +126,8 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
     const man = await rf.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel]; return { name: m.name, main: (m.gear.main || {}).id, mainName: (m.gear.main || {}).name, off: (m.gear.off || {}).id }; });
     if (process.env.BOHEMIA_SHOT_DIR) await P.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'spear_and_door.png') });
     await rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }).catch(() => {}); await P.waitForTimeout(800);
-    await fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); });
+    await fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it) */
+    await fr.evaluate(() => { roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: Date.now() % 1000 }); });
     let f = null; for (let i = 0; i < 150 && !f; i++) { const h = await P.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await P.waitForTimeout(200); }
     const u = f ? await f.evaluate((n) => { const u = FIGHT.S.units.find(x => x.side === 'you' && x.name === n); return u ? { weapon: u.weapon && (u.weapon.id || u.weapon.name), cls: u.weapon && u.weapon['class'], shield: u.shield && u.shield.id, back: !!u.shieldBack } : null; }, man.name) : null;
     ok('*** T3 THE SPEAR AND THE CAR DOOR ON ONE MAN *** (real taps on the crew screen: ' + man.name + ' holds the ' + man.mainName + ' and the car door; in the fight: ' + JSON.stringify(u) + ')',

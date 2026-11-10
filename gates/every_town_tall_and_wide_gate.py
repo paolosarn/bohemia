@@ -71,6 +71,43 @@ def leg(ok, what, why=''):
     print(('  ok   ' if ok else '  FAIL ') + what + ('  [' + str(why) + ']' if why != '' else ''))
 
 
+# PLUMBER 8 11/10: re-aimed to rule 383 (RUN FIVE 11/6, records/BOHEMIA_RUN5_THE_TOWN_IS_ONE_PICTURE_11_6_26.md): the wide town is drawn
+# whole, its own ground opened comp.whole.ext px on both sides (3260 x 1092), the 2060 x 1092 town at comp.whole.town; its taps, boxes,
+# doors, entrance and walk moved by ext, while COOK's glide stays measured on the 2060 frame (the screen's flipPairs adds ext). So: the
+# size is 2060 + 2 ext; the colour likeness reads the town inside its frame (not the continued ground); the glide is re-derived on the
+# 2060 frame (the wide hotspots and boxes moved back by ext).
+def whole_ext(c):
+    wh = (c or {}).get('whole') or {}
+    e = int(wh.get('ext') or 0)
+    return e if e and wh.get('town') == [e, 0, e + SIZE['wide'][0], SIZE['wide'][1]] else 0
+
+
+def size_of(c, comp):
+    e = whole_ext(c) if comp == 'wide' else 0
+    return (SIZE[comp][0] + 2 * e, SIZE[comp][1])
+
+
+def town_frame(w):
+    im = Image.open(os.path.join(SHIP, w['src'])).convert('RGB')
+    e = whole_ext(w)
+    if e: im = im.crop(tuple(w['whole']['town']))
+    return LK.lab(np.asarray(im.resize(LK.SMALL, Image.BILINEAR)))
+
+
+def on_the_2060_frame(towns):
+    out = json.loads(json.dumps(towns))
+    mv = lambda b, d: [b[0] - d, b[1], b[2] - d, b[3]]
+    for n, t in out.items():
+        w = t.get('wide') or {}; e = whole_ext(w)
+        if not e: continue
+        for r, v in (w.get('hotspots') or {}).items():
+            if isinstance(v, dict) and v.get('box'): v['box'] = mv(v['box'], e)
+        for r, v in list((w.get('boxes') or {}).items()):
+            if isinstance(v, dict) and v.get('box'): v['box'] = mv(v['box'], e)
+            elif isinstance(v, list) and len(v) == 4: w['boxes'][r] = mv(v, e)
+    return out
+
+
 def flat_edge(a):
     """a band of one flat colour at an edge: a bar, or a crop's empty side"""
     g = a.mean(-1)
@@ -96,7 +133,7 @@ def main():
             for f in (c['src'], c['night_src']):
                 p = os.path.join(SHIP, f)
                 if not os.path.exists(p): miss.append(n + ' ' + f); continue
-                if Image.open(p).size != SIZE[comp]: miss.append(n + ' ' + f + ' size')
+                if Image.open(p).size != size_of(c, comp): miss.append(n + ' ' + f + ' size')
                 if f not in walk or not walk[f]['blocks']: miss.append(n + ' walk ' + f)
             for r in hr:
                 if r not in c['hotspots']: miss.append(n + ' ' + comp + ' hot ' + r)
@@ -190,7 +227,7 @@ def main():
         for m in names:
             w = (towns.get(m) or {}).get('wide')
             if not w: continue
-            v = float(np.minimum(ht, LK.hist(LK.load(os.path.join(SHIP, w['src'])))).sum())
+            v = float(np.minimum(ht, LK.hist(town_frame(w))).sum())
             if m == n: mine = v
             else: near.append(v)
         rank = 1 + sum(1 for v in near if v > mine)
@@ -229,7 +266,7 @@ def main():
             for comp in ('wide', 'tall'):
                 b = p[comp]['box']; W_, H_ = SIZE[comp]
                 if not (0 <= b[0] < b[2] <= W_ and 0 <= b[1] < b[3] <= H_): gb.append('%s %s %s off its picture' % (n, p['id'], comp))
-        fresh = GL.glide_of(n, towns)
+        fresh = GL.glide_of(n, on_the_2060_frame(towns))
         if json.loads(json.dumps(fresh['pieces'])) != g['pieces'] or json.loads(json.dumps(fresh['taps'])) != g['taps']: gb.append(n + ' stale (re-run the glide tool)')
     leg(not gb, '*** THE GLIDE HAS ITS PAIRS ***: every town\'s flip in one beat (500 ms), every tap and every building both ways one id with both spots, each id once, each spot on its picture, as the scenes give it today',
         '; '.join(gb[:6]) if gb else '%d pieces across fourteen towns' % npc)

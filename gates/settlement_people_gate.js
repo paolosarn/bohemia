@@ -11,6 +11,7 @@
    Shots in slices/vote/. Run: node gates/settlement_people_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname), PORT = 8864;
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
 let pass = 0, fail = 0;
@@ -91,7 +92,7 @@ const srv = http.createServer((rq, rs) => {
     await p.evaluate(ids => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: ids, night: false }), ids);
     await p.waitForTimeout(500);
     tr[ids[0] || 'plain'] = await p.evaluate(() => BohemiaSettlement.crowdCount());
-    if (ids[0] === 'market_day' || !ids.length) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_PEOPLE_' + (ids[0] ? 'MARKET_DAY' : 'TOWN') + '_10_10.png') });
+    if (ids[0] === 'market_day' || !ids.length) await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_PEOPLE_' + (ids[0] ? 'MARKET_DAY' : 'TOWN') + '_10_10.png')) });
   }
   /* RE-AIMED 10/26 (RUN TWO [eyes: the quiet town], rule 131: EYES saw Blues sick with one man in it): the wiki's cards thin the
      recruits, raided by half and sickness by a quarter; the street thins by the same share, never to nobody */
@@ -152,7 +153,7 @@ const srv = http.createServer((rq, rs) => {
       if (r.face && r.line) spoke++;
       if (r.face && r.face !== 'none' && r.px > 1800 && r.cols > 5) faced++; else blank.push((pt.keeper ? pt.k : 'crowd') + ':' + pt.look + ':' + (r.face || 'no sheet') + ':' + (r.cols || 0) + ':' + r.open);
       if (!pt.keeper && r.open !== 'person') console.log('     crowd tap opened ' + r.open + ' at ' + JSON.stringify(pt));
-      if (!pt.keeper && r.open === 'person' && r.line.length > 10) { crowdSaid++; if (crowdSaid === 1) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_PORTRAITS_WHEN_THEY_TALK_10_11.png') }); }
+      if (!pt.keeper && r.open === 'person' && r.line.length > 10) { crowdSaid++; if (crowdSaid === 1) await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_PORTRAITS_WHEN_THEY_TALK_10_11.png')) }); }
     }
     const crowd = await p.evaluate(() => BohemiaSettlement.folk().filter(x => x.crowd).length);
     ok('tap any person in the picture and they speak', spoke === n, spoke + ' of ' + n);

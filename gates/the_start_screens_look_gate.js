@@ -64,7 +64,7 @@ async function look(page) {
     return { dressed: !!document.getElementById('bm-frontdoor'), casing, bare,
       mats: bare ? { cards: rowB.filter(b => !b.classList.contains('on')).every(b => bc(b) === 'rgb(10, 13, 11)' && getComputedStyle(b).borderTopWidth === '1px'), lit: rowB.filter(b => b.classList.contains('on')).every(b => bc(b) === 'rgb(200, 171, 99)'), sheet: !/url\(|gradient/.test(bg(strip)), form: !/url\(|gradient/.test(bg(name)) }
         : { cards: rowB.filter(b => !b.classList.contains('on')).every(b => /url\(/.test(bg(b))), lit: rowB.filter(b => b.classList.contains('on')).every(b => /gradient/.test(bg(b))), sheet: /url\(/.test(bg(strip)), form: /url\(/.test(bg(name)) },
-      ring: on ? getComputedStyle(on).boxShadow : '', fams: { card: F(rowB[0]), org: F(ob), line: F(N.querySelector('.org i')), name: F(name.querySelector('span')) },
+      ring: on ? getComputedStyle(on).boxShadow : '', fams: { card: F(rowB[0]), org: F(ob), line: F(N.querySelector('.org i')), name: F(name.querySelector('span') || name.querySelector('input')) },   /* PLUMBER 8 11/10: re-aimed to RUN TWO 10/26 [the company takes his own name]: the name is a box (#newconame input) now, not a span */
       small: picks.filter(r => r.height < 44).length, n: picks.length,
       cardBox: [ur.x + ur.width - 14, ur.y + 4, 10, ur.height - 8], cardCol: getComputedStyle(un).color,
       sheetBox: [sr.x + 4, sr.y + sr.height - 18, sr.width - 8, 6], orgCol: getComputedStyle(ob).color, lineCol: getComputedStyle(N.querySelector('.org i')).color };

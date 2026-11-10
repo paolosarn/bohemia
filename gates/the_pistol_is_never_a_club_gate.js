@@ -40,11 +40,16 @@ const CLUB_WORDS = /\bbutts?\b|\bwhip|club at|clubs? with|pistol-whip/i;
   const errs = [];
   /* C1: the fight's own text */
   const html = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
-  const code = html.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"\\])\/\/[^\n]*/g, '$1');
-  const machinery = ['clubFor', 'armIn(', 'shotReady', 'whipTap', '.whip', 'u.club', 'a.club', 'v.club', 'data-whip', 'dataset.whip', 'gun_club'].filter(k => code.indexOf(k) >= 0);
+  /* PLUMBER 8 11/10: re-aimed to rule 320 (ARMORY, 11/2): the whip is a real two-tile weapon now, read through R('ours.whip'); that row's
+     name is not the pistol-whip, so it is taken out before the club machinery and the club words are looked for (every other token stands) */
+  const code = html.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"\\])\/\/[^\n]*/g, '$1').replace(/'ours\.whip'/g, "''");
+  /* PLUMBER 8 11/10: re-aimed to rule 320 (the whip is a weapon: a whip's own row, w.whip) and the Manhunters origin's THE WHIP
+     (records/target/bb/origins.json, S.way.whip, a collector's nerve rule): the whip FLAG on a fighter is what 195(a) killed, so the
+     flag is looked for on a fighter (u., a., v.), the same as the club arm */
+  const machinery = ['clubFor', 'armIn(', 'shotReady', 'whipTap', 'u.whip', 'a.whip', 'v.whip', 'u.club', 'a.club', 'v.club', 'data-whip', 'dataset.whip', 'gun_club'].filter(k => code.indexOf(k) >= 0);
   const strs = (code.match(/'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`/g) || []).filter(q => CLUB_WORDS.test(q));
   leg(machinery.length === 0, '*** THE GUN\'S BUTT AND THE WHIP ARE GONE FROM THE FIGHT *** (rule 195(a)): no clubFor, armIn, shotReady, whipTap, whip flag, club arm or WHIP square',
-    machinery.length ? 'still there: ' + machinery.join(', ') : 'none of ' + 11);
+    machinery.length ? 'still there: ' + machinery.join(', ') : 'none of ' + 13);
   leg(strs.length === 0, '*** NO FIGHT STRING CALLS A GUN A CLUB, A BUTT OR A WHIP *** (rule 195(e)): every string the page can show, comments stripped',
     strs.length ? strs.slice(0, 3).join(' | ') : 'none');
   /* C2: the data */
@@ -134,7 +139,9 @@ const CLUB_WORDS = /\bbutts?\b|\bwhip|club at|clubs? with|pistol-whip/i;
         const n0 = await p.evaluate(() => FIGHT.S.log.length);
         await tap(s.x, s.y); await p.waitForTimeout(600);
         const did = await p.evaluate(n => { const u = FIGHT.S.units.filter(v => v.side === 'you' && !!v.weapon.of)[0]; return FIGHT.S.log.slice(n).filter(e => e.t === 'attack' && e.id === u.id).map(e => e.shot); }, n0);
-        const card = await p.evaluate(() => { const u = FIGHT.current(); try { weaponCard(u); } catch (e) { return 'threw ' + e.message; } const el = document.getElementById('drawer'); const t = el ? el.textContent : ''; if (el) el.style.display = 'none'; return t; });
+        const card = await p.evaluate(() => { const u = FIGHT.current(); try { weaponCard(u); } catch (e) { return 'threw ' + e.message; } const el = document.getElementById('drawer'); let t = ''; if (el) { const c = el.cloneNode(true); c.querySelectorAll('.pips.tiles').forEach(q => q.replaceWith(' ' + (q.title || '') + ' ')); t = c.textContent; } if (el) el.style.display = 'none'; return t; });
+        /* PLUMBER 8 11/10: re-aimed to rule 224 (ICONS NOT NUMBERS IN THE FIGHT, 10/26): the weapon card says the reach as tile pips, the exact
+           figure in the pips' title ('1 to 4 tiles'), so the card is read with each pip row as its title */
         leg(/% to hit/.test(a.say) && /SHOOT/.test(a.big) && !a.whip && !CLUB_WORDS.test(a.say + ' ' + a.row + ' ' + a.big) && /Reach\s*1 to 4 tiles/.test(card) && !CLUB_WORDS.test(card) && did.length === 1 && did[0] === true,
           '*** ' + profile.toUpperCase() + ': A PISTOL BESIDE A THUG SHOOTS HIM *** (rule 195): the aim and the rounds, the big button SHOOT, no WHIP square, no club, butt or whip; the card says reach 1 to 4 tiles; the second touch fires, a shot',
           a.say.replace(/\n/g, ' / ').slice(0, 110) + ' | button ' + a.big + ' | card ' + (card.match(/Reach[^A-Z]*tiles?/) || ['no reach'])[0] + ' | did ' + JSON.stringify(did));

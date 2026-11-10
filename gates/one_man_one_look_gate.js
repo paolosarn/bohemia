@@ -39,7 +39,9 @@ const srv = http.createServer((rq, rs) => {
   await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html', { waitUntil: 'load' });
   await p.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.crew.length > 0, null, { timeout: 30000 });
   await p.waitForTimeout(400);
-  const screen = await p.evaluate(() => BohemiaRosterScreen.state.crew.map(m => ({ name: m.name, look: m.look })));
+  /* PLUMBER 8 11/10: re-aimed to rule 203 (engine/bohemia_roster.js __NO_MAN_WEARS_A_WOMANS_NAME__): the crew screen calls TINA, MARISOL,
+     LUPE and NENA by a man's name and keeps the list's as 'was'; the fight left to itself reads the list's, so a man is matched by either */
+  const screen = await p.evaluate(() => BohemiaRosterScreen.state.crew.map(m => ({ name: m.name, was: m.was, look: m.look })));
   const drawn = await p.evaluate(() => Array.from(document.querySelectorAll('canvas[data-face][data-look]')).map(c => c.dataset.look));
   const company = await p.evaluate(() => BohemiaRosterScreen.company());
   /* a man hired at the hall, in the look he had there */
@@ -55,7 +57,8 @@ const srv = http.createServer((rq, rs) => {
     await f.close(); return u;
   };
   const byName = list => { const o = {}; list.forEach(x => { o[x.name] = x.look; }); return o; };
-  const lone = await fight(null), L = byName(lone);
+  const lone = await fight(null), L0 = byName(lone), L = {};
+  screen.forEach(m => { L[m.name] = L0[m.name] !== undefined ? L0[m.name] : (m.was ? L0[m.was] : undefined); });
   const same = screen.filter(m => L[m.name] && L[m.name] === m.look);
   ok('the crew screen and the fight, each left to itself, dress every man alike', screen.length >= 12 && same.length === screen.length,
      same.length + ' of ' + screen.length + (same.length < screen.length ? ': ' + screen.filter(m => L[m.name] !== m.look).slice(0, 3).map(m => m.name + ' ' + m.look + '/' + L[m.name]).join(', ') : ''));

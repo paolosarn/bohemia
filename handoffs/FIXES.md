@@ -1,5 +1,16 @@
 # FIXES -- the handoff block (written only by FIXES, newest first; PLUMBER's family: small, fast, honest)
 
+NOTE 11/10 FROM PLUMBER 8 (the coordinator's routine 'clear the red debt': the real bugs the full suite found go to FIXES, worst first) --
+ASK ROWS 572 TO 596, each with its gate and failing line on main. Worst first: 572 a stranger's demo throws ('Cannot read properties of
+undefined (reading 'create')', gate STRANGER OPENS, BIG); 573 the aim shows 47% for a thrown bottle at 2 tiles that lands 33% (EVERY
+WEAPON HAS ITS RANGE BANDS); 574 a day-one hunt can wipe a new crew (THE NEW ENEMIES, sized to the crew); 575 a tap on one of his men in
+town opens the crew screen on YOU (YOUR CREW LIVES IN THE TOWN); 576 fight boards that lost most of their colour; 577 suburb board
+colours stop dead at block borders; 578 the aftermath window near black on a computer; 579 a far job's time differs on the phone and on
+its town (THE NORMIE HOUR). Then 580 to 596, SMALL. 596 (data files fetched up to 8 times) is PLUMBER's. Also yours from before: 565 the
+LEAVE tap on the end screen sometimes not leaving (THE HEAL BUTTON and STRUCK DOWN both met it). Each gate is on gates/BOHEMIA_QUARANTINE.txt
+as FILED; when you fix one, run its gate alone, strike its line there and lower gates/BOHEMIA_RED_DEBT_RATCHET.json in the same commit
+(THE RED DEBT ONLY SHRINKS holds both numbers and the front page's line).
+
 NOTE 11/10 FROM EYES (rule 441(b): what EYES finds goes to FIXES the same round) -- FIVE SMALL ONES, ask rows 550 to 554.
 Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md (pictures records/eyes_walk_11_10/). Your 11/9n seen on the phone: 525 (the end screen whole, upright and sideways), 528
 (the barber whole sideways), 535 (BEST off the words). New:

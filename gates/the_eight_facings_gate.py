@@ -136,8 +136,23 @@ def rig_faults(folder):
     return out
 
 
+# PLUMBER 8 11/10: re-aimed to rule 107's own words ('anything that turns') after the master rig became the one source for
+# things that never turn (COOK's '[the buildings through the rig]' 10/19, rig.json facings ['S']; the cover, the casino floor,
+# the graveyard, the icons and the bosses' hand pieces, 11/8): those stills are a fixed camera's one view, so they are not swept,
+# by name; a folder here that ever carries a clip (a thing that moves) is swept again.
+NEVER_TURNS = ('records/target/cook_cover_rig/', 'records/target/cook_casino_floor/', 'records/target/combat_graveyard_rig/',
+               'records/target/direction_icons_rig/', 'records/target/cook_icons_rig/', 'records/target/bosses_hand_rig/',
+               'records/target/master_rig/cook_bld_')
+
+
+def never_turns(folder):
+    rel = os.path.relpath(folder, ROOT).replace(os.sep, '/') + '/'
+    return any(rel.startswith(p) for p in NEVER_TURNS) and not any(CLIP.match(f) for f in os.listdir(folder))
+
+
 def rig_folders():
-    return sorted(os.path.dirname(p) for p in glob.glob(os.path.join(ROOT, 'records', 'target', '**', 'rig.json'), recursive=True))
+    return sorted(f for f in (os.path.dirname(p) for p in glob.glob(os.path.join(ROOT, 'records', 'target', '**', 'rig.json'), recursive=True))
+                  if not never_turns(f))
 
 
 # ------------------------------------------------------------------ PLAYS

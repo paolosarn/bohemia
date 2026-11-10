@@ -29,6 +29,7 @@
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));   /* PLUMBER 8 11/10: a gate run changes nothing git tracks (PROOF SHOTS STAY PUT); BOHEMIA_SHOOT=1 or --shoot writes the tracked picture on purpose */
 const ROOT = path.dirname(__dirname);
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
@@ -179,7 +180,7 @@ ok('H4 the chance is TUNING\'s: ours.json rare_at_the_post ' + (ROW && ROW.chanc
         stars: h.querySelectorAll('.hstats .star').length, out: [...h.querySelectorAll('*')].filter(e => e.getBoundingClientRect().right > r.right + 1).length,
         glow: /rgba?\(224, 173, 58/.test(getComputedStyle(h).boxShadow), spot: /radial-gradient/.test(getComputedStyle(fig).backgroundImage),
         name: (h.querySelector('.nm') || {}).textContent || '', dupe: names.length !== new Set(names).size, sw: document.getElementById('sheet').scrollWidth, cw: document.getElementById('sheet').clientWidth }; }, sel);
-    if (process.env.BOHEMIA_SHOT_DIR) { const el = await p.$(sel); if (el) { await el.scrollIntoViewIfNeeded(); await el.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'rare_' + m.kind + '.png') }); } }
+    if (process.env.BOHEMIA_SHOT_DIR) { const el = await p.$(sel); if (el) { await el.scrollIntoViewIfNeeded(); await el.screenshot({ path: proofShot(path.join(process.env.BOHEMIA_SHOT_DIR, 'rare_' + m.kind + '.png')) }); } }
     cards.push({ m, c });
   }
   const off = cards.filter(({ m, c }) => !c || c.look !== m.look || !c.drawn || (isMelee(m) ? (c.arm !== 'melee' || c.armId !== m.kit.main || c.figGun) : c.arm !== 'gun') || !c.badge || !c.edge.startsWith(m.edge.split(':')[0]) || c.perk !== m.perk || c.says.length < 10 || c.stars !== 3 || c.out || c.glow || !c.spot || c.dupe || c.sw > c.cw);
@@ -219,7 +220,7 @@ ok('H4 the chance is TUNING\'s: ours.json rare_at_the_post ' + (ROW && ROW.chanc
     await sf.evaluate((sel) => { const h = document.querySelector(sel); if (h) h.scrollIntoView({ block: 'center' }); }, sel); await P.waitForTimeout(500);
     const seen = await sf.evaluate((sel) => { const h = document.querySelector(sel); if (!h) return null; const f = h.querySelector('canvas.hfig');
       return { look: f.dataset.look, drawn: f.dataset.drawn, edge: (h.querySelector('.hedge') || {}).textContent || '', name: (h.querySelector('.nm') || {}).textContent }; }, sel);
-    if (process.env.BOHEMIA_SHOT_DIR) await P.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'rare_in_the_demo.png') });
+    if (process.env.BOHEMIA_SHOT_DIR) await P.screenshot({ path: proofShot(path.join(process.env.BOHEMIA_SHOT_DIR, 'rare_in_the_demo.png')) });
     ok('*** H6 THE DEMO SHOWS ONE *** (' + town.name + ', the town\'s own door): the ' + kind.replace('_', ' ') + ' on the hall\'s card in his own body', !!seen && seen.look === want && seen.drawn === '1' && seen.edge.length > 20, JSON.stringify(seen));
     await sf.evaluate(() => BohemiaSettlement.showRare(null));
     ok('H7b nothing threw on the demo', d.errs.length === 0, d.errs.slice(0, 2).join(' | '));

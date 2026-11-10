@@ -45,6 +45,9 @@ const mod = fs.readFileSync(path.join(ROOT, 'engine/bohemia_crew_faces.js'), 'ut
 const man = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/portrait/crew/BOHEMIA_CREW_FACES.json'), 'utf8'));
 const MOD = require(path.join(ROOT, 'engine/bohemia_crew_faces.js')).BohemiaCrewFaces;
 const looks = MOD.LOOKS.slice();
+/* PLUMBER 8 11/10: re-aimed to the face module as shipped (engine/bohemia_crew_faces.js read()): a look PORTRAIT's manifest adds with all
+   five keys (the six bosses' faces, boss_*_0) joins LOOKS when the page reads the manifest, so it is read here the same way */
+Object.keys(man.faces).forEach(l => { const f = man.faces[l].files || {}; if (f.rest && f.A && f.E && f.O && f.M && looks.indexOf(l) < 0) looks.push(l); });
 ok('the face module reads only PORTRAIT\'s hand-off folder, and knows every look PORTRAIT\'s manifest names (' + looks.length + ' looks)', /BASE = '\.\.\/records\/target\/portrait\/crew\/'/.test(mod) && looks.length >= 26 && Object.keys(man.faces).every(l => looks.indexOf(l) >= 0));
 const miss = [];
 looks.forEach(l => ['rest', 'A', 'E', 'O', 'M'].forEach(k => [64, 128].forEach(n => { const f = 'records/target/portrait/crew/' + l + '/' + k + '_' + n + '.png'; if (!fs.existsSync(path.join(ROOT, f))) miss.push(f); })));

@@ -92,9 +92,17 @@ const RIFLE = { id: 'light_crossbow', kind: 'weapon', cls: 'crossbow', name: 'so
   const s = await ctx.newPage(); s.on('pageerror', e => errs.push('settlement: ' + e.message));
   await s.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
   await s.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
-  await s.evaluate(() => BohemiaSettlement.open({ place: { tier: 'fortress', name: 'HENDERSON' }, traits: [], night: false, batteries: 999 })); await s.waitForTimeout(1500);
-  const shop = await s.evaluate(() => { const st = BohemiaSettlement.state.stock || {}, all = [].concat(...Object.keys(st).map(k => st[k] || [])).filter(i => i && i.kind === 'weapon');
-    return all.length ? all.map(i => ({ cls: i.cls, two: /2 hands/.test(i.nums), hands: i.hands, name: i.name })) : null; });
+  /* PLUMBER 8 11/10: re-aimed to the shelves as they roll now (records/target/bb/weapons.json grew the armory's rows, rule 302/320, and
+     FIXES 11/9n row 537 draws past a name already on a shelf): HENDERSON's fortress shelf, rolled from its name, carries no long gun any
+     more, so the shop is read at fortresses in turn until one carries a long gun; every long gun read must still say 2 hands */
+  let shop = null;
+  for (const nm of ['HENDERSON', 'BOULDER', 'FREMONT', 'NORTH', 'STRIP', 'MESA', 'SUMMERLIN', 'PARADISE']) {
+    await s.evaluate((nm) => BohemiaSettlement.open({ place: { tier: 'fortress', name: nm }, traits: [], night: false, batteries: 999 }), nm); await s.waitForTimeout(1500);
+    const got = await s.evaluate(() => { const st = BohemiaSettlement.state.stock || {}, all = [].concat(...Object.keys(st).map(k => st[k] || [])).filter(i => i && i.kind === 'weapon');
+      return all.map(i => ({ cls: i.cls, two: /2 hands/.test(i.nums), hands: i.hands, name: i.name })); });
+    if (got.length) shop = (shop || []).concat(got);
+    if (shop && shop.some(i => /^(bow|crossbow|firearm)$/.test(i.cls))) break;
+  }
   ok('T8 the shop says a long gun takes two hands (every bow, rifle and shotgun on the shelves), never a pistol', shop && shop.some(i => /^(bow|crossbow|firearm)$/.test(i.cls)) && shop.filter(i => /^(bow|crossbow|firearm)$/.test(i.cls)).every(i => i.two && i.hands === 2) && shop.filter(i => i.cls === 'dagger' && i.hands === 1).every(i => !i.two),
      shop ? shop.filter(i => i.two).length + ' of ' + shop.length + ' weapons say 2 hands' : 'no shop rows');
   ok('nothing threw', errs.length === 0, errs.slice(0, 3).join(' | '));
