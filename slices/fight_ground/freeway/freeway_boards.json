@@ -235,6 +235,7 @@
     "overpass": {
       "name": "THE OVERPASS",
       "real": "I-15 crossing over Flamingo, Tropicana, Sahara; US-95 over Rancho: the deck 7 m above the street, a ramp down to it at each end",
+      "skin": {"city": "near", "face": "face_st", "broken": "broken_st", "drop_n": "drop_n_st", "face_low_level": 1, "why": "COOK FIVE 11/10 (rule 443(g)): the overpass stands on the street, so its faces and broken ends stand on the street's own ground and the city round it is the fight's own blocks as they lie; the deck and the interchange stand over the city far below"},
       "deck_level": 2,
       "layouts": {
         "standing": [

@@ -9421,6 +9421,14 @@ GATES = [
      "B: 24 valleys through the map's own frame, four freeway spots each (96): BEFORE measured (the old deal, houses on the board), every spot a freeway board "
      "with no house, crossings the overpass or the underpass, interchanges the stack, AUTO plays each, W1 the demo's own door deals a freeway board asking "
      "the map itself. About 2 min (--quick: A and M, under a second)", True),
+    ('THE FREEWAY IS FINISHED', ['node', 'gates/the_freeway_is_finished_gate.js'],
+     "COOK FIVE gate, 11/10, rule 443(g), ask row 557 (rule 441(a): no stand-in art where finished art is owed; 408(b): one golden piece, then its recipe). "
+     "The four freeway boards' pictures, remade through the master rig (tools/bohemia_cook5_the_freeway_finished_11_10_26.py): F1 the kit says finished, no "
+     "piece is a stand-in, every picture it names is on disk and none lies in the folder unnamed; F2 every template, layout, mirror and six seeds (264 "
+     "boards): every ground picture, sheet tile, sprite, cover piece and light is a file; F3 a face under every south edge, the overpass on the street's own "
+     "ground, the deck and the interchange over the far city; F4 a bent every third tile of a face (36 m spans); F5 the burnt patch and the skid marks into the "
+     "wall are on a board once and never in the ring; F6 no wall before a broken end; F7 every tile picture 515 x 364, the folder and each board under a byte "
+     "budget. M: a piece marked stand_in, a picture gone, the overpass's skin off, a once-mark made common: each red. Under 5 s", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "

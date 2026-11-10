@@ -1,0 +1,158 @@
+{
+ "throttle": 4,
+ "runs": [
+  {
+   "which": "now",
+   "kind": "deck",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 37.4,
+   "worst_ms": 83,
+   "over_50ms": 10
+  },
+  {
+   "which": "before",
+   "kind": "deck",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 42.8,
+   "worst_ms": 117,
+   "over_50ms": 9
+  },
+  {
+   "which": "now",
+   "kind": "overpass",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 37.5,
+   "worst_ms": 117,
+   "over_50ms": 10
+  },
+  {
+   "which": "before",
+   "kind": "overpass",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 41.6,
+   "worst_ms": 83,
+   "over_50ms": 10
+  },
+  {
+   "which": "now",
+   "kind": "underpass",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 36.4,
+   "worst_ms": 100,
+   "over_50ms": 10
+  },
+  {
+   "which": "before",
+   "kind": "underpass",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 37.5,
+   "worst_ms": 117,
+   "over_50ms": 11
+  },
+  {
+   "which": "now",
+   "kind": "interchange",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 37.9,
+   "worst_ms": 117,
+   "over_50ms": 12
+  },
+  {
+   "which": "before",
+   "kind": "interchange",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 43.6,
+   "worst_ms": 83,
+   "over_50ms": 10
+  },
+  {
+   "which": "now",
+   "kind": "deck",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 40.4,
+   "worst_ms": 100,
+   "over_50ms": 9
+  },
+  {
+   "which": "before",
+   "kind": "deck",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 40.5,
+   "worst_ms": 117,
+   "over_50ms": 11
+  },
+  {
+   "which": "now",
+   "kind": "overpass",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 40.9,
+   "worst_ms": 83,
+   "over_50ms": 13
+  },
+  {
+   "which": "before",
+   "kind": "overpass",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 36.6,
+   "worst_ms": 400,
+   "over_50ms": 14
+  },
+  {
+   "which": "now",
+   "kind": "underpass",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 36.3,
+   "worst_ms": 100,
+   "over_50ms": 10
+  },
+  {
+   "which": "before",
+   "kind": "underpass",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 35.3,
+   "worst_ms": 100,
+   "over_50ms": 10
+  },
+  {
+   "which": "now",
+   "kind": "interchange",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 34.8,
+   "worst_ms": 117,
+   "over_50ms": 12
+  },
+  {
+   "which": "before",
+   "kind": "interchange",
+   "shape": "sideways",
+   "rep": 0,
+   "fps": 32.4,
+   "worst_ms": 117,
+   "over_50ms": 15
+  }
+ ],
+ "yardstick": {
+  "fps": 60.3,
+  "worst_ms": 17,
+  "over_50ms": 0
+ },
+ "avg": {
+  "now": 37.7,
+  "before": 38.8
+ }
+}

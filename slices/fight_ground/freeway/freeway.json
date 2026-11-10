@@ -1,166 +1,253 @@
 {
- "version": "freeway-kit-11-7",
+ "version": "freeway-kit-11-10-finished",
  "lane": "freeway",
- "rule": "VAMILY 432, 430 (reuse first), 408(c) (every new picture a stand-in)",
- "made_by": "tools/bohemia_freeway_kit_11_7_26.py",
+ "rule": "VAMILY 443(g), ask row 557; 432, 430 (reuse first), 408(b) (the golden piece and its recipe)",
+ "made_by": "tools/bohemia_cook5_the_freeway_finished_11_10_26.py",
  "tile_px": [
   515,
   364
  ],
- "golden_candidate": "freeway/fw_face_col.webp",
  "tiles": {
   "lane": [
-   "kit_street/road_ew.webp"
+   "freeway/fw_lane_0.webp",
+   "freeway/fw_lane_1.webp",
+   "freeway/fw_lane_2.webp",
+   "freeway/fw_lane_3.webp",
+   "freeway/fw_lane_4.webp"
   ],
   "median": [
-   "kit_street/road_ew_median.webp"
+   "freeway/fw_median_0.webp",
+   "freeway/fw_median_1.webp",
+   "freeway/fw_median_2.webp"
   ],
   "lane_n": [
-   "freeway/fw_lane_n.webp"
-  ],
-  "lane_e": [
-   "freeway/fw_lane_e.webp"
-  ],
-  "lane_ne": [
-   "freeway/fw_lane_ne.webp"
+   "freeway/fw_lane_n_0.webp",
+   "freeway/fw_lane_n_1.webp",
+   "freeway/fw_lane_n_2.webp"
   ],
   "lane_s": [
-   "freeway/fw_lane_s.webp"
-  ],
-  "lane_ns": [
-   "freeway/fw_lane_ns.webp"
-  ],
-  "lane_es": [
-   "freeway/fw_lane_es.webp"
-  ],
-  "lane_nes": [
-   "freeway/fw_lane_nes.webp"
+   "freeway/fw_lane_s_0.webp",
+   "freeway/fw_lane_s_1.webp"
   ],
   "lane_w": [
-   "freeway/fw_lane_w.webp"
+   "freeway/fw_lane_w_0.webp",
+   "freeway/fw_lane_w_1.webp"
+  ],
+  "lane_e": [
+   "freeway/fw_lane_e_0.webp",
+   "freeway/fw_lane_e_1.webp"
+  ],
+  "lane_ns": [
+   "freeway/fw_lane_ns_0.webp",
+   "freeway/fw_lane_ns_1.webp"
   ],
   "lane_nw": [
-   "freeway/fw_lane_nw.webp"
+   "freeway/fw_lane_nw_0.webp"
   ],
-  "lane_ew": [
-   "freeway/fw_lane_ew.webp"
-  ],
-  "lane_new": [
-   "freeway/fw_lane_new.webp"
+  "lane_ne": [
+   "freeway/fw_lane_ne_0.webp"
   ],
   "lane_sw": [
-   "freeway/fw_lane_sw.webp"
+   "freeway/fw_lane_sw_0.webp"
+  ],
+  "lane_es": [
+   "freeway/fw_lane_es_0.webp"
   ],
   "lane_nsw": [
-   "freeway/fw_lane_nsw.webp"
+   "freeway/fw_lane_nsw_0.webp"
   ],
-  "lane_esw": [
-   "freeway/fw_lane_esw.webp"
+  "lane_nes": [
+   "freeway/fw_lane_nes_0.webp"
   ],
   "lane_nesw": [
-   "freeway/fw_lane_nesw.webp"
+   "freeway/fw_lane_nesw_0.webp"
   ],
-  "lane_ns_e": [
-   "freeway/fw_lane_ns_e.webp"
+  "lane_ew": [
+   "freeway/fw_lane_ew_0.webp"
   ],
-  "lane_ns_w": [
-   "freeway/fw_lane_ns_w.webp"
+  "lane_new": [
+   "freeway/fw_lane_new_0.webp"
   ],
-  "lane_ns_ew": [
-   "freeway/fw_lane_ns_ew.webp"
+  "lane_esw": [
+   "freeway/fw_lane_esw_0.webp"
   ],
   "slope_e": [
-   "freeway/fw_slope_e.webp"
+   "freeway/fw_slope_e_0.webp",
+   "freeway/fw_slope_e_1.webp"
   ],
   "slope_e_n": [
-   "freeway/fw_slope_e_n.webp"
+   "freeway/fw_slope_e_n_0.webp",
+   "freeway/fw_slope_e_n_1.webp"
   ],
   "slope_e_s": [
-   "freeway/fw_slope_e_s.webp"
+   "freeway/fw_slope_e_s_0.webp",
+   "freeway/fw_slope_e_s_1.webp"
   ],
   "slope_e_ns": [
-   "freeway/fw_slope_e_ns.webp"
+   "freeway/fw_slope_e_ns_0.webp",
+   "freeway/fw_slope_e_ns_1.webp"
   ],
   "slope_w": [
-   "freeway/fw_slope_w.webp"
+   "freeway/fw_slope_w_0.webp",
+   "freeway/fw_slope_w_1.webp"
   ],
   "slope_w_n": [
-   "freeway/fw_slope_w_n.webp"
+   "freeway/fw_slope_w_n_0.webp",
+   "freeway/fw_slope_w_n_1.webp"
   ],
   "slope_w_s": [
-   "freeway/fw_slope_w_s.webp"
+   "freeway/fw_slope_w_s_0.webp",
+   "freeway/fw_slope_w_s_1.webp"
   ],
   "slope_w_ns": [
-   "freeway/fw_slope_w_ns.webp"
+   "freeway/fw_slope_w_ns_0.webp",
+   "freeway/fw_slope_w_ns_1.webp"
   ],
-  "face": [
-   "freeway/fw_face_col.webp",
-   "freeway/fw_face.webp",
-   "freeway/fw_face_b.webp"
+  "lane_ns_ew": [
+   "freeway/fw_lane_ns_ew_0.webp",
+   "freeway/fw_lane_ns_ew_1.webp",
+   "freeway/fw_lane_ns_ew_2.webp",
+   "freeway/fw_lane_ns_ew_3.webp"
+  ],
+  "lane_ns_w": [
+   "freeway/fw_lane_ns_w_0.webp",
+   "freeway/fw_lane_ns_w_1.webp"
+  ],
+  "lane_ns_e": [
+   "freeway/fw_lane_ns_e_0.webp",
+   "freeway/fw_lane_ns_e_1.webp"
   ],
   "below": [
    "freeway/fw_below_0.webp",
    "freeway/fw_below_1.webp"
   ],
-  "below_road_ew": [
-   "freeway/fw_below_road_ew.webp"
+  "drop_n": [
+   "freeway/fw_drop_n_0.webp",
+   "freeway/fw_drop_n_1.webp"
   ],
-  "below_road_ns": [
-   "freeway/fw_below_road_ns.webp"
+  "drop_n_st": [
+   "freeway/fw_drop_n_st_0.webp",
+   "freeway/fw_drop_n_st_1.webp"
   ],
-  "below_junction": [
-   "freeway/fw_below_junction.webp"
+  "face": [
+   "freeway/fw_face_0.webp",
+   "freeway/fw_face_1.webp"
   ],
-  "below_house": [
-   "freeway/fw_below_house_0.webp",
-   "freeway/fw_below_house_1.webp",
-   "freeway/fw_below_house_2.webp"
+  "face_bent": [
+   "freeway/fw_face_bent_0.webp",
+   "freeway/fw_face_bent_1.webp"
   ],
-  "below_fire": [
-   "freeway/fw_below_fire.webp"
+  "face_brk_e": [
+   "freeway/fw_face_brk_e.webp"
+  ],
+  "face_brk_w": [
+   "freeway/fw_face_brk_w.webp"
+  ],
+  "face_st": [
+   "freeway/fw_face_st_0.webp",
+   "freeway/fw_face_st_1.webp"
+  ],
+  "face_st_bent": [
+   "freeway/fw_face_st_bent_0.webp",
+   "freeway/fw_face_st_bent_1.webp"
+  ],
+  "face_st_v": [
+   "freeway/fw_face_st_v.webp"
+  ],
+  "face_st_brk_e": [
+   "freeway/fw_face_st_brk_e.webp"
+  ],
+  "face_st_brk_w": [
+   "freeway/fw_face_st_brk_w.webp"
+  ],
+  "face_st_low": [
+   "freeway/fw_face_st_low.webp"
+  ],
+  "broken_e_n": [
+   "freeway/fw_broken_e_n.webp"
+  ],
+  "broken_e": [
+   "freeway/fw_broken_e.webp"
+  ],
+  "broken_e_s": [
+   "freeway/fw_broken_e_s.webp"
+  ],
+  "broken_e_ns": [
+   "freeway/fw_broken_e_ns.webp"
+  ],
+  "broken_st_e_n": [
+   "freeway/fw_broken_st_e_n.webp"
+  ],
+  "broken_st_e": [
+   "freeway/fw_broken_st_e.webp"
+  ],
+  "broken_st_e_s": [
+   "freeway/fw_broken_st_e_s.webp"
+  ],
+  "broken_st_e_ns": [
+   "freeway/fw_broken_st_e_ns.webp"
+  ],
+  "broken_w_n": [
+   "freeway/fw_broken_w_n.webp"
   ],
   "broken_w": [
    "freeway/fw_broken_w.webp"
   ],
-  "broken_e": [
-   "freeway/fw_broken_e.webp"
+  "broken_w_s": [
+   "freeway/fw_broken_w_s.webp"
+  ],
+  "broken_w_ns": [
+   "freeway/fw_broken_w_ns.webp"
+  ],
+  "broken_st_w_n": [
+   "freeway/fw_broken_st_w_n.webp"
+  ],
+  "broken_st_w": [
+   "freeway/fw_broken_st_w.webp"
+  ],
+  "broken_st_w_s": [
+   "freeway/fw_broken_st_w_s.webp"
+  ],
+  "broken_st_w_ns": [
+   "freeway/fw_broken_st_w_ns.webp"
   ],
   "shade_dirt": [
    "freeway/fw_shade_dirt_0.webp",
    "freeway/fw_shade_dirt_1.webp"
   ],
-  "shade_road_ew": [
-   "freeway/fw_shade_road_ew.webp"
-  ],
-  "shade_road_ns": [
-   "freeway/fw_shade_road_ns.webp"
-  ],
-  "shade_walk": [
-   "freeway/fw_shade_walk.webp"
-  ],
-  "shade_junction": [
-   "freeway/fw_shade_junction.webp"
-  ],
-  "shade_rubble": [
-   "freeway/fw_shade_rubble.webp"
-  ],
   "shade_dirt_lipw": [
    "freeway/fw_shade_dirt_lipw.webp"
   ],
   "shade_dirt_lipe": [
-   "freeway/fw_shade_dirt_lipe.webp"
+   "freeway/fw_shade_dirt_0.webp",
+   "freeway/fw_shade_dirt_1.webp"
   ],
-  "shade_walk_lipw": [
-   "freeway/fw_shade_walk_lipw.webp"
-  ],
-  "shade_walk_lipe": [
-   "freeway/fw_shade_walk_lipe.webp"
+  "shade_road_ew": [
+   "freeway/fw_shade_road_ew_0.webp"
   ],
   "shade_road_ew_lipw": [
    "freeway/fw_shade_road_ew_lipw.webp"
   ],
   "shade_road_ew_lipe": [
-   "freeway/fw_shade_road_ew_lipe.webp"
+   "freeway/fw_shade_road_ew_0.webp"
+  ],
+  "shade_road_ns": [
+   "freeway/fw_shade_road_ns_0.webp"
+  ],
+  "shade_walk": [
+   "freeway/fw_shade_walk_0.webp"
+  ],
+  "shade_walk_lipw": [
+   "freeway/fw_shade_walk_lipw.webp"
+  ],
+  "shade_walk_lipe": [
+   "freeway/fw_shade_walk_0.webp"
+  ],
+  "shade_junction": [
+   "freeway/fw_shade_junction_0.webp"
+  ],
+  "shade_rubble": [
+   "freeway/fw_shade_rubble_0.webp"
   ],
   "dirt": [
    "street_board/ground_dirt_0.webp",
@@ -407,16 +494,16 @@
    115.2
   ],
   "fw_bent": [
-   130,
-   277,
-   65.0,
-   263.1
+   283,
+   340,
+   138.0,
+   303
   ],
   "fw_cab": [
-   191,
-   142,
-   95.5,
-   119.3
+   515,
+   400,
+   258.0,
+   250
   ]
  },
  "srcs": {
@@ -455,7 +542,7 @@
    "blocks_move": true,
    "baked": true,
    "name": "THE DROP",
-   "stage": "stand_in",
+   "stage": "finished",
    "why": "the city 10 m down past the wall: nobody stands here and nothing here stops a shot (a solid piece, never an obstacle tile)"
   },
   "fw_broken": {
@@ -463,14 +550,14 @@
    "blocks_move": true,
    "baked": true,
    "name": "THE BROKEN END",
-   "stage": "stand_in"
+   "stage": "finished"
   },
   "fw_parapet": {
    "kind": "LOW_COVER",
    "h": 0.8,
    "baked": true,
    "name": "THE PARAPET",
-   "stage": "stand_in",
+   "stage": "finished",
    "why": "the deck's edge wall: a man crouched behind it is in cover, the way the median's Jersey barrier is"
   },
   "fw_gantry": {
@@ -478,25 +565,66 @@
    "kind": "COVER",
    "h": 1.4,
    "name": "THE FALLEN SIGN",
-   "stage": "stand_in",
-   "from": "records/target/master_rig/cook_gantry (COOK 10/18)"
+   "stage": "finished",
+   "from": "records/target/master_rig/cook_gantry (COOK 10/18)",
+   "why": "COOK's own render through the rig (10/18): at the bar as it is, rule 430"
   },
   "fw_bent": {
    "src": "freeway/fw_bent.webp",
    "kind": "COVER",
-   "h": 9.0,
+   "h": 6.4,
    "blocks_move": true,
    "name": "A BENT OF THE DECK",
-   "stage": "stand_in",
-   "from": "cover_pillar.webp at 1.7"
+   "stage": "finished",
+   "from": "the rig: a round column and its hammerhead, in the deck's shade"
   },
   "fw_cab": {
    "src": "freeway/fw_cab.webp",
    "kind": "COVER",
-   "h": 1.5,
+   "h": 2.9,
    "name": "THE SEMI'S CAB",
-   "stage": "stand_in",
-   "from": "records/target/master_rig/cook_wreck rig_SE"
+   "stage": "finished",
+   "from": "the rig: a day-cab tractor built in metres"
   }
+ },
+ "golden": "freeway/fw_face_bent_0.webp",
+ "stage": "finished",
+ "deck_height_m": 8.482,
+ "city": {
+  "subs": [
+   "freeway/fw_city_subs_0.webp",
+   "freeway/fw_city_subs_1.webp",
+   "freeway/fw_city_subs_2.webp"
+  ],
+  "cross": [
+   "freeway/fw_city_corner_0.webp",
+   "freeway/fw_city_corner_1.webp"
+  ],
+  "cross_every": 3,
+  "near": {
+   "subs": [
+    "freeway/fw_near_subs_0.webp"
+   ],
+   "cross": []
+  },
+  "fire": {
+   "src": "freeway/fw_city_fire.webp",
+   "w": 220,
+   "h": 160
+  }
+ },
+ "once": {
+  "lane": [
+   "freeway/fw_lane_burn.webp"
+  ],
+  "lane_s": [
+   "freeway/fw_lane_s_skid.webp"
+  ]
+ },
+ "lamp": {
+  "src": "freeway/fw_lamp.webp",
+  "w": 232,
+  "h": 415,
+  "why": "the freeway's own mast in the median (the street's porch lamp stood there as a stand-in)"
  }
 }

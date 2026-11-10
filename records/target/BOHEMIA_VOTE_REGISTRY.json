@@ -18876,7 +18876,102 @@
   {"id": "fixes-the-door-keeps-your-thumb-11-10", "kind": "ui", "lane": "fixes", "sha": "159a60c6d", "made": "11/10", "draft": true, "title": "FIVE MORE THINGS EYES FOUND, FIXED, AND MAKE CAMP WITHOUT THE FREEZE: THE DOOR KEEPS YOUR THUMB, THE DEBT NAMES WHO YOU BEAT, EVERY SPEAKER HAS A NAME, THE ROAD SAYS IT IS A ROAD, THE HALL WHOLE ON ITS SIDE", "said": "FOUND BY EYES 11/10 (their walk of build 11/9o, phone upright and sideways)", "why": "A tap on BEGIN while the game still loads now counts and the game opens itself when ready, the Mob Museum's debt fight says THE MEN WHO OWE THE FAMILY ARE DOWN with the speaker's name on his line, the map's speaker always wears a name, a road says it is a road, the hall fits on its side even with a man opened, and MAKE CAMP after a fight no longer freezes. You see it playing the demo, phone upright and sideways.", "show": {"how": "image", "src": "../records/target/FIXES_THE_FIVE_EYES_FOUND_NEXT_11_10.webp", "first": "../records/target/vote_first/fixes-the-door-keeps-your-thumb-11-10.webp", "firstAt": [0, 0, 1170, 826]}, "before_after": {"before": "EYES 11/10 on build 11/9o: a thumb on BEGIN thrown away; the debt fight 'THE RAIDERS ARE DOWN' under a face with no name; a blank name tag on the map; 'Nothing stands here' on a road; the hall on its side cut and spilling under the glass; MAKE CAMP 1.37 s frozen (its bake's steps 515 to 852 ms)", "after": "every one of those whole and true both ways up; MAKE CAMP's bake in steps of about 150 ms; gate THE FOURTEEN EYES FOUND, a leg a row with a planted fail", "scale": "his phone upright (390 x 844 at 3) and on its side (844 x 390), the demo"}, "stage": "stand_in", "record": "records/BOHEMIA_FIXES_THE_FIVE_EYES_FOUND_NEXT_11_10_26.md"},
   {"id": "home-base-what-you-build-pays-11-10", "kind": "ui", "lane": "home base", "sha": "e1d92bc77", "made": "11/10", "draft": true, "title": "WHAT YOU BUILD AT YOUR PLACE PAYS: TAPE IN, FOOD OUT, YOUR PEOPLE WORKING IT", "said": "the custom settlement... we make it super easy to customize to feel like the player character is actually doing something", "why": "Every build at your place now costs a battery and some tape out of your supplies and gives real food or tape every morning it stands, a person who lives there works it for more, and a finished roof brings a family to live there. You see it in your place's BUILD on the demo: each row says its cost and what it gives, and your top bar's food goes up each morning.", "show": {"how": "image", "src": "../records/target/home_base/vote_what_you_build_pays.webp", "first": "../records/target/vote_first/home-base-what-you-build-pays-11-10.webp", "firstAt": [0, 0, 585, 616]}, "before_after": {"before": "BUILD 11/10e: a build cost one battery, the garden, tank, pump and shed paid a hidden 'resources' a day though their lines said food and tape, nobody worked anything; most plantable ground could not be stood on (EYES row 549)", "after": "each build costs battery and tape, gives food or tape into the top bar's supplies each morning, a resident works it for more, a roof brings a family; he plants the block beside his street", "scale": "the demo on his phone upright (390 x 844 at 3); the top bar after two mornings"}, "stage": "stand_in", "record": "records/BOHEMIA_HOME_BASE_WHAT_YOU_BUILD_PAYS_11_10_26.md"},
   {"id": "jobs-the-six-contracts-11-10", "kind": "ui", "lane": "jobs", "sha": "53aa4dedd", "made": "11/10", "draft": true, "title": "EVERY JOB ENDS WITH WHO THEY WERE, AND FIFTEEN NEW JOBS FROM FIFTEEN NEW PEOPLE", "said": "more content, every angle, more love, make everything better (the whole enchilada); jobs the Battle Brothers way: escort, defend, hunt, deliver, clear a place, collect a debt", "why": "Fifteen new jobs from fifteen named people (three each of escort, defend, deliver, clear a place and collect a debt), each sized for your crew, and every fight's end screen now says who they were: THE ONES WHO CAME FOR THE PUMP HOUSE, TITO'S COUSINS, A HORSE, never just THE RAIDERS. You see it on any town's job board (tap BOARD) and on the end screen after the fight.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_SIX_CONTRACTS.jpg"}, "before_after": {"before": "on the demo, upright, the six kinds ended: THE RAIDERS ARE DOWN, A HOUSE MAN IS DOWN, THE PACK IS DOWN (hyenas), THE HOUSE IS DOWN, THE PACK IS DOWN (coyotes for a crew on a dam), DON BETO'S NEPHEWS ARE DOWN; the boards held 1 delivery, 1 debt, 2 places to clear, 2 defences, 3 escorts", "after": "THE RAIDERS AFTER THE PROPANE TANKS, THE ONES WHO CAME FOR THE PUMP HOUSE, THE HYENAS, A HORSE (or A TERATORN), THE SQUATTERS ON THE CAR LOT, TITO'S COUSINS, upright and sideways; 4 to 6 of each kind on the boards; a defence's waves share one contract: over 20 valleys a new crew's dealt jobs lost 11.6 -> 11.0 in 100, defences on day 20 85 -> 35 of 144", "scale": "left: the demo's end screen on a phone upright (390 x 844 at 3) after the pump house's defence; right: each kind's end line on main (struck) and now, the same walk"}, "record": "records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md", "build": "BUILD 11/10o - THE SIX CONTRACTS"},
-  {"id": "bosses-the-burns-dark-11-10", "kind": "tile", "lane": "bosses", "sha": "c8a70ffd6", "made": "11/10", "draft": true, "title": "KILL THE BURN AND HIS DRUMS LIGHT YOUR NIGHT: WHILE HE STANDS HIS SIDE OF THE MAP IS BLACK AT NIGHT AND YOU SEE ONE BLOCK", "said": "the ladder's next three, each changing the map its own way (he voted YES on the first three)", "why": "Left is THE BURN's side at night while he stands, black with only his stokers' fire drums burning, where your crew sees one block; right is the same night once he falls, his drums burning for you so you see like in the day round each. You see it on the MAP after THE FILTER, when ABUELA PAZ sends you to the door with his name burned in.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_burn_11_10/VOTE.webp"}, "before_after": {"before": "main 0f4592d0f: THE BURN held nothing on the map; his death lit 4 blocks", "after": "at night his side black, 1 block seen, his 4 drums the only light; after him the drums are fires of yours, kept after a reload", "scale": "the MAP on a 390 x 844 phone at night, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md"}
+  {"id": "bosses-the-burns-dark-11-10", "kind": "tile", "lane": "bosses", "sha": "c8a70ffd6", "made": "11/10", "draft": true, "title": "KILL THE BURN AND HIS DRUMS LIGHT YOUR NIGHT: WHILE HE STANDS HIS SIDE OF THE MAP IS BLACK AT NIGHT AND YOU SEE ONE BLOCK", "said": "the ladder's next three, each changing the map its own way (he voted YES on the first three)", "why": "Left is THE BURN's side at night while he stands, black with only his stokers' fire drums burning, where your crew sees one block; right is the same night once he falls, his drums burning for you so you see like in the day round each. You see it on the MAP after THE FILTER, when ABUELA PAZ sends you to the door with his name burned in.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_burn_11_10/VOTE.webp"}, "before_after": {"before": "main 0f4592d0f: THE BURN held nothing on the map; his death lit 4 blocks", "after": "at night his side black, 1 block seen, his 4 drums the only light; after him the drums are fires of yours, kept after a reload", "scale": "the MAP on a 390 x 844 phone at night, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md"},
+  {
+   "id": "cook5-the-freeway-finished-11-10",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/10",
+   "draft": true,
+   "title": "THE FREEWAY FIGHT IN FINISHED ART: THE DECK OVER THE CITY, THE OVERPASS, THE UNDERPASS, THE INTERCHANGE",
+   "said": "why can't it be an underpass or a large overpass towering over the rest of the city, you can't quite hop off it",
+   "why": "The four freeway fights now wear finished art instead of stand-ins: a real viaduct with its wall, its girder and its columns going down a whole tile to the ground, the city far below with a few windows still lit, broken ends with rebar, a real truck cab and the freeway's own lamp. You see it in any fight that starts on a freeway tile of the map, on the fight screen (first picture: the golden piece, then each board on your phone, the stand-in beside the new one).",
+   "options": [
+    "A, yes, this is the freeway: make more places this way",
+    "B, close, change something (say which board and what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_FREEWAY_FINISHED_11_10.webp",
+    "first": "../records/target/vote_first/cook5-the-freeway-finished-11-10.webp",
+    "firstAt": [
+     291,
+     906,
+     285,
+     482
+    ]
+   },
+   "before_after": {
+    "before": "main 81e1187f (BUILD 11/10m): the four boards in stand-in pictures: street lanes with a barrier picture stamped on, a flat strip for the deck's face, dark squares with one pasted house for the city, a car wreck for the truck's cab",
+    "after": "every picture remade through the master rig from the map's own freeway and the fight's own suburb blocks: the deck 8.48 m up (one whole tile of drop under every south edge), bents 36 m apart, broken ends with rebar, the ground under the deck in its real shadow",
+    "scale": "the fight's own camera on his phone upright (390 x 844 at 2) and sideways (844 x 390 at 2), a fresh page a board; the golden piece at one art pixel to one screen pixel"
+   },
+   "stage": "golden",
+   "art_kind": "landmark",
+   "bar": "none:landmark",
+   "nearest": "ground_one_real_street",
+   "real": "DIST-03",
+   "surface": "records/target/COOK5_THE_FREEWAY_FINISHED_11_10_PHONE.webp",
+   "twin": {
+    "src": "fight_ground/block_freeway_0.webp",
+    "diffs": [
+     "THE SAME ROAD: the lanes are the map's own freeway asphalt and paint (the floor tool's materials), one sun, one camera, 42.9 px a metre; new on it: the oil line down each lane, rubber in the wheel paths, a sealed joint every 12 m, the shoulder and its drain.",
+     "WHAT THE MAP'S BLOCK DOES NOT HAVE: height. The deck stands 8.48 m up, which is one whole tile on the screen: the wall, the girder with forty years of water down it, the dark under it, the column and its foot on the ground.",
+     "THE CITY BELOW is the fight's own suburb blocks seen from up there (dimmer, drained, out of focus), never a new drawing."
+    ]
+   },
+   "direction": {
+    "verdict": "PASS",
+    "by": "COOK FIVE holding its own piece to the bar (the coordinator's brief, rules 443(g) and 408(b)); DIRECTION's eye may overturn it",
+    "line": "beside the bar: SAME, because it is made the way his one real street and the map's own freeway are (the floor tool's ground, real metres, the master rig's wear, grime, one sun and camera, 42.9 px a metre) and it does what the bar does not: it stands 8.48 m in the air on a real viaduct's parts (a 34-inch parapet, a box girder, hammerhead bents 36 m apart) with one wrong thing on it (two tyre lines into a wall that is whole). Weaker: a flyover three levels up reads higher only by its ramps and walls; the cab and the lamp are boxes and drums in metres, the rig's look and not a sculpt; the deck's shadow stops at the first tile under it"
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_FREEWAY_FINISHED_11_10_26.md"
+  },
+  {
+   "id": "cook5-the-casino-floor-finished-11-10",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/10",
+   "draft": true,
+   "title": "THE CASINO FLOOR, FINISHED: YOUR CARPET WORN BY FORTY YEARS OF FEET, AND A REAL STAGE",
+   "said": "Work in progress",
+   "why": "The casino floor's carpet is your burgundy-and-gold one, now built as a real surface: worn bare where people walked, stained, burnt, rucked up in low ridges, the ceiling's tiles fallen on it; and the lounge stage is black stage boards instead of a blank beige slab. You see it in any fight at a casino on the map, on the fight screen.",
+   "options": [
+    "A, yes, that's the casino floor",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_CASINO_FLOOR_FINISHED_11_10.webp",
+    "first": "../records/target/vote_first/cook5-the-casino-floor-finished-11-10.webp",
+    "firstAt": [
+     885,
+     1042,
+     285,
+     482
+    ]
+   },
+   "before_after": {
+    "before": "BUILD 11/8f: the flat 10/9 carpet picture (ruler-straight lattice, the same everywhere), the stage a bare beige slab (its carpet dusted grey by the rig)",
+    "after": "the same carpet (field and lattice matched to his, his own diamond) as a surface through the rig, every worn place kept inside its tile so no square shows; the stage in black boards with its taped cable run; the floor's own load 3.80 MB to 2.69 MB",
+    "scale": "the fight's own camera on his phone upright (390 x 844 at 2) and sideways (844 x 390 at 2), dark and with the power paid"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/block_casino_0.webp",
+    "diffs": [
+     "THE SAME CARPET: the burgundy field (88,51,44) and the gold lattice are measured off his 10/9 picture and matched; the diamond is his (square on the ground, 45 degrees to the walls), eleven to a tile so the lines meet at every tile's edge (his 10.6 never did).",
+     "WHAT THE PICTURE DID NOT HAVE: a surface. The pile and its nap, the lattice worn off where people stood, bare jute in the worst of it, spills, burns, low rucks that catch the light, the ceiling's tiles down on it.",
+     "THE STAGE was a bare beige slab (its carpet dusted grey by the rig); now black stage boards with a taped cable run, the front a black skirt under the brass nosing."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_CASINO_FLOOR_FINISHED_11_10_26.md"
+  }
  ],
  "verdicts": [
   {

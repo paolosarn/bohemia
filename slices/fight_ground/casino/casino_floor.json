@@ -62,6 +62,6 @@
   "casino_stage": {"kind": "HEIGHT", "h": 1.0, "name": "THE LOUNGE STAGE", "stage": "stand_in"},
   "casino_stage_steps": {"kind": "HEIGHT", "h": 1.0, "name": "THE STAGE'S FRONT", "stage": "stand_in"}
  },
- "floor": {"carpet": ["block_casino_0.webp", "block_casino_1.webp", "block_casino_2.webp"], "vault": ["block_lab_3.webp#2,2", "block_lab_3.webp#2,0", "block_lab_3.webp#1,2"]},
+ "floor": {"carpet": ["casino/casino_carpet_0.webp"], "vault": ["block_lab_3.webp#2,2", "block_lab_3.webp#2,0", "block_lab_3.webp#1,2"]},
  "lights": {"slot_glow_every": 1, "radius_m": 4, "src": "light_slot_glow.webp"}
 }

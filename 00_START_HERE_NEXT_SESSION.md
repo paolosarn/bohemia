@@ -1,3 +1,16 @@
+COOK FIVE (cook-five-01gkdyus): 11/10 LATEST -- BUILD 11/10q - THE FREEWAY AND THE CASINO FLOOR, FINISHED, BUILT, NOT YET SEEN
+(rule 443(g), ask row 557). The four freeway boards no longer wear stand-ins: every picture FREEWAY marked STAND-IN is remade through the
+master rig (the floor tool's ground, the structure in metres, one sun, 42.9 px a metre): the deck 8.48 m up, one whole tile of drop under
+every south edge, bents 36 m apart, broken ends with rebar, the city below from the fight's own suburb blocks with a few windows lit, the
+ground under the deck in its shadow, a day-cab tractor, the freeway's own lamp. Then the casino floor: HIS carpet (field and lattice
+matched by measure) as a worn surface, the lounge stage in black boards. ON THE PAGE, upright and sideways: all deal, 0 errors, every
+one lighter to load (the deck 2.54 -> 2.27 MB, the casino floor 3.80 -> 2.69); the speed the same as the stand-in's (37 against 38.6
+frames a second on a 4x slowed phone: not 60 before, not 60 now, PLUMBER's row). Gate NEW THE FREEWAY IS FINISHED 11/0 (four planted
+fails); THE FREEWAY FIGHT 22/0; THE CASINO FLOOR 9/0. VOTE cook5-the-freeway-finished-11-10 (GOLDEN) and
+cook5-the-casino-floor-finished-11-10 (MADE FROM the pit). Notes FOR FREEWAY and COMBAT TWO inside. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never ships a grey box where a tree should be: a board is whole or it is not in the game]
+[analog horror: two tyre lines into a wall that is not broken, and far below a few windows lit in a city where nothing moves]
+
 JOBS (jobs-01gkdyuv): 11/10 LATEST -- BUILD 11/10o - THE SIX CONTRACTS, BUILT, NOT YET SEEN (rule 443(c), asks 567 and 102; after 11/10d). MEASURED FIRST: Battle
 Brothers' six contract kinds all existed but the boards held 1 delivery, 1 debt, 2 places to clear, 2 defences, 3 escorts. NOW fifteen new
 jobs from fifteen named people (three each, every tier, one to three skulls, three debtors with their own talk); a job of several fights

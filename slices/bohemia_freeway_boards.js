@@ -133,48 +133,88 @@
     var key = function (x, y) { return y * W + x; };
     /* THE CITY BELOW: the map's own 36 m blocks (three tiles) far down past the wall, a street every second block each way,
        the houses on their lots in the dark, one fire somewhere on the board (ring-inclusive coordinates, so it runs on) */
-    var ox = (seed >>> 3) % 6, oy = (seed >>> 7) % 6, fireAt = -1;
+    /* __THE_FREEWAY_FINISHED__ (COOK FIVE 11/10, rule 443(g), ask row 557): a template may carry a skin (which family of pictures
+       its faces, its broken ends and the ground past its walls wear): the overpass stands on the street, so its drop is the
+       street's own dirt and its faces stand on it; the deck and the interchange stand over the city */
+    var SK = T.skin || {};
+    var ox = (seed >>> 3) % 5, oy = (seed >>> 7) % 5, fireAt = -1;
     var city = function (ax, ay) {
-      var g = K.tiles, sx = (ax + ox) % 6 === 0, sy = (ay + oy) % 6 === 0;
+      var g = K.tiles, C = K.city;
+      if (SK.city === false) return pick(g[SK.below || 'dirt'] || g.dirt, hz(ax, ay, 15));
+      if (SK.city === 'near') C = C && C.near;   /* the overpass stands on the street: the fight's own blocks round it, as they lie */
+      if (C && C.subs && C.subs.length) {   /* the fight's own suburb blocks seen from the deck: a block is five tiles a side, its street runs on east and west, a cross street every few blocks */
+        var gx = ax + ox, gy = ay + oy, scx = Math.floor(gx / 5), scy = Math.floor(gy / 5), cx = gx - scx * 5, cy = gy - scy * 5;
+        var cross = C.cross && C.cross.length && mix(scx + 77, (seed >>> 0) ^ 0x51ed) % (C.cross_every || 3) === 0;
+        return pick(cross ? C.cross : C.subs, mix(mix(scx + 1000, scy + 2000), (seed >>> 0) + 31) / 4294967296) + '#' + cx + ',' + cy;
+      }
+      var sx = (ax + ox) % 6 === 0, sy = (ay + oy) % 6 === 0;
       if (sx && sy) return pick(g.below_junction || g.below, 0);
       if (sx) return pick(g.below_road_ns || g.below, 0);
       if (sy) return pick(g.below_road_ew || g.below, 0);
       if (ay * AW + ax === fireAt) return pick(g.below_fire || g.below, 0);
       return hz(ax, ay, 2) < 0.6 ? pick(g.below_house || g.below, hz(ax, ay, 14)) : pick(g.below, hz(ax, ay, 15));
     };
-    (function () { var c = []; for (var yy = 0; yy < H; yy++) for (var xx = 0; xx < W; xx++) { var q = t[yy][xx], n = at(xx, yy - 1); if (q.is === 'drop' && !(n && (n.is === 'deck' || n.is === 'broken')) && (xx + R + ox) % 6 && (yy + R + oy) % 6) c.push((yy + R) * AW + xx + R); }
+    (function () { var c = []; for (var yy = 0; yy < H; yy++) for (var xx = 0; xx < W; xx++) { var q = t[yy][xx], n = at(xx, yy - 1); if (q.is === 'drop' && !(n && (n.is === 'deck' || n.is === 'broken')) && SK.city !== false) c.push((yy + R) * AW + xx + R); }
       if (c.length) fireAt = c[Math.floor(rnd() * c.length)]; })();
+    /* the face under a deck's south edge: a bent every third tile (36 m spans), the street going under where one does, the low
+       wall of a ramp, the hanging end under a broken span; hx is the tile's place along the whole picture, the ring included */
+    var brokenAt = function (x, y) { var q = at(x, y); return !!q && q.is === 'broken'; };
+    var facePic = function (x, y, n, hx) {
+      var g = K.tiles, fam = SK.face || 'face';
+      if (n.is === 'broken') { var bs = deckAt(x - 1, y - 1) ? 'w' : deckAt(x + 1, y - 1) ? 'e' : ''; if (bs && g[fam + '_brk_' + bs]) return pick(g[fam + '_brk_' + bs], hz(hx, y, 1)); }
+      if (SK.face_low_level != null && n.is === 'deck' && n.level <= SK.face_low_level && g[fam + '_low']) return pick(g[fam + '_low'], hz(hx, y, 1));
+      var s = at(x, y + 1); if (s && s.is === 'ground' && s.pic === 'road_ns' && g[fam + '_v']) return pick(g[fam + '_v'], hz(hx, y, 1));
+      if (hx % 3 === 1 && g[fam + '_bent']) return pick(g[fam + '_bent'], hz(hx, y, 1));
+      return pick(g[fam] || g.face, hz(hx, y, 1));
+    };
     /* --- the ground picture of every board tile --- */
-    var picOf = function (x, y) {
+    var picOf = function (x, y, hx, hy) {
       var q = t[y][x], g = K.tiles;
+      if (hx == null) { hx = x + R; hy = y + R; }
       if (q.is === 'drop') {
         var n = at(x, y - 1);
-        if (n && (n.is === 'deck' || n.is === 'broken')) return pick(g.face, hz(x, y, 1));
-        return city(x + R, y + R);
+        if (n && (n.is === 'deck' || n.is === 'broken')) return facePic(x, y, n, hx);
+        var sdk = deckAt(x, y + 1), dn = g[SK.drop_n || 'drop_n'];   /* north of a deck: the deck's own shadow on the ground behind it */
+        if (sdk && dn) return pick(dn, hz(hx, hy, 16));
+        return city(hx, hy);
       }
-      if (q.is === 'broken') return deckAt(x - 1, y) ? pick(g.broken_w, hz(x, y, 3)) : deckAt(x + 1, y) ? pick(g.broken_e, hz(x, y, 3)) : pick(g.face, hz(x, y, 1));
-      if (q.is === 'pillar') { var pn = at(x - 1, y) && at(x - 1, y).is === 'ground' ? at(x - 1, y) : at(x + 1, y); return pick(g['shade_' + ((pn && pn.pic) || 'dirt')] || g.shade_dirt, hz(x, y, 4)); }
+      if (q.is === 'broken') {   /* the torn end: which side the deck is on, and whether it is the deck's north or south edge row */
+        var bfam = SK.broken || 'broken', bside = deckAt(x - 1, y) ? 'w' : deckAt(x + 1, y) ? 'e' : '';
+        var bn = !(deckAt(x, y - 1) || brokenAt(x, y - 1)), bsth = !(deckAt(x, y + 1) || brokenAt(x, y + 1)), bk = bfam + '_' + bside + (bn || bsth ? '_' + (bn ? 'n' : '') + (bsth ? 's' : '') : '');
+        return bside ? pick(g[bk] || g[bfam + '_' + bside] || g['broken_' + bside] || g.face, hz(hx, hy, 3)) : pick(g.face, hz(hx, hy, 1));
+      }
+      if (q.is === 'pillar') {   /* a bent stands on the verge beside it (the dirt, the walk), on the street only where the street is all there is */
+        var pa = at(x - 1, y), pb = at(x + 1, y), isG = function (n) { return !!n && n.is === 'ground'; }, soft = function (n) { return isG(n) && !/^(road|junction)/.test(n.pic || ''); };
+        var pn = soft(pa) ? pa : soft(pb) ? pb : isG(pa) ? pa : pb;
+        return pick(g['shade_' + ((pn && pn.pic) || 'dirt')] || g.shade_dirt, hz(hx, hy, 4)); }
       if (q.is === 'ground') { var gp = (q.shade ? 'shade_' : '') + (q.pic || 'dirt');
         if (q.shade) { var lw = at(x - 1, y), le = at(x + 1, y), lip = lw && lw.is === 'ground' && !lw.shade ? 'w' : le && le.is === 'ground' && !le.shade ? 'e' : '';
-          if (lip && g[gp + '_lip' + lip]) return pick(g[gp + '_lip' + lip], 0); }   /* the street's light spilling in under the deck's edge */
-        return pick(g[gp] || g.dirt, hz(x, y, 5)); }
-      /* the deck: a wall on every side that faces a drop or a broken end, a slope where its east or west neighbour is a level up */
-      var walls = NESW.filter(function (d) { return holeAt(x + d[0], y + d[1]); }).map(function (d) { return d[2]; }).join('');
+          if (lip && g[gp + '_lip' + lip]) return pick(g[gp + '_lip' + lip], hz(hx, hy, 5)); }   /* the street's light coming in under the deck's edge */
+        return pick(g[gp] || g.dirt, hz(hx, hy, 5)); }
+      /* the deck: a wall on every side that faces a drop (a broken end has none: the lanes run to the tear), a slope where its east or west neighbour is a level up */
+      var walls = NESW.filter(function (d) { return holeAt(x + d[0], y + d[1]) && !brokenAt(x + d[0], y + d[1]); }).map(function (d) { return d[2]; }).join('');
       var e = deckAt(x + 1, y), w = deckAt(x - 1, y), up = e && e.level > q.level ? 'e' : w && w.level > q.level ? 'w' : '';
-      if (up) { var ws = walls.replace(/[ew]/g, ''); return pick(g['slope_' + up + (ws ? '_' + ws : '')] || g['slope_' + up], hz(x, y, 6)); }
-      if (walls === 'ew' || walls === 'e' || walls === 'w') { var nsg = g['lane_ns_' + walls]; if (nsg && !deckAt(x - 1, y) && !deckAt(x + 1, y)) return pick(nsg, hz(x, y, 7)); }
-      if (!walls && q.median) return pick(g.median, hz(x, y, 8));
-      return pick(walls ? g['lane_' + walls] || g.lane : g.lane, hz(x, y, 9));
+      if (up) { var ws = walls.replace(/[ew]/g, ''); return pick(g['slope_' + up + (ws ? '_' + ws : '')] || g['slope_' + up], hz(hx, hy, 6)); }
+      if (walls === 'ew' || walls === 'e' || walls === 'w') { var nsg = g['lane_ns_' + walls]; if (nsg && !deckAt(x - 1, y) && !deckAt(x + 1, y)) return pick(nsg, hz(hx, hy, 7)); }
+      if (!walls && q.median) return pick(g.median, hz(hx, hy, 8));
+      return pick(walls ? g['lane_' + walls] || g.lane : g.lane, hz(hx, hy, 9));
     };
     for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) ground[(y + R) * AW + x + R] = picOf(x, y);
-    /* the ring: the board's edge runs on (the lanes on, the drop on, the street on), a shade darker in the fight's own dim */
+    /* the ring: the board's edge runs on (the lanes on, the face on under them, the street on), each tile its own pick of the
+       pictures; past a drop the city */
     for (var ay = 0; ay < AH; ay++) for (var ax = 0; ax < AW; ax++) {
       if (ax >= R && ay >= R && ax < R + W && ay < R + H) continue;
       var bx = Math.max(0, Math.min(W - 1, ax - R)), by = Math.max(0, Math.min(H - 1, ay - R)), q = t[by][bx];
-      ground[ay * AW + ax] = q.is === 'pillar' ? pick(K.tiles.shade_dirt, hz(ax, ay, 4)) : ground[(by + R) * AW + bx + R];
-      if (q.is === 'drop' && (ay < R || ay >= R + H || ground[ay * AW + ax] === ground[(by + R) * AW + bx + R] && t[Math.max(0, by - 1)][bx].is !== 'deck')) ground[ay * AW + ax] = city(ax, ay);
-      else if (q.is === 'drop') { var nq = by > 0 ? t[by - 1][bx] : null; ground[ay * AW + ax] = nq && (nq.is === 'deck' || nq.is === 'broken') ? ground[(by + R) * AW + bx + R] : city(ax, ay); }
+      if (q.is === 'pillar') { ground[ay * AW + ax] = pick(K.tiles.shade_dirt, hz(ax, ay, 4)); continue; }
+      if (q.is === 'drop') { var nq = by > 0 ? t[by - 1][bx] : null, beside = ay >= R && ay < R + H;
+        var sq2 = by + 1 < H ? t[by + 1][bx] : null, dn2 = K.tiles[SK.drop_n || 'drop_n'];
+        ground[ay * AW + ax] = beside && nq && (nq.is === 'deck' || nq.is === 'broken') ? facePic(bx, by, nq, ax) : beside && sq2 && sq2.is === 'deck' && dn2 ? pick(dn2, hz(ax, ay, 16)) : city(ax, ay); continue; }
+      ground[ay * AW + ax] = picOf(bx, by, ax, ay);
     }
+    /* the marks that are there ONCE (a burnt patch, the skid marks into the wall): one tile of the board wears each, never the ring */
+    if (K.once) Object.keys(K.once).forEach(function (k) { var list = K.tiles[k] || [], c = [];
+      for (var yo = 0; yo < H; yo++) for (var xo = 0; xo < W; xo++) if (list.indexOf(ground[(yo + R) * AW + xo + R]) >= 0) c.push((yo + R) * AW + xo + R);
+      if (c.length) ground[c[Math.floor(hz(c.length, 7, 21) * c.length)]] = pick(K.once[k], hz(c.length, 3, 22)); });
     /* --- the terrain, the drops, the pillars --- */
     for (var y2 = 0; y2 < H; y2++) { var tr = [], rr = []; for (var x2 = 0; x2 < W; x2++) {
       var q2 = t[y2][x2], tt = 'flat';
@@ -248,9 +288,13 @@
     /* THE LAMPS: freeway lights on the median (or the sidewalks below), most of them dead, one or two still burning */
     var every = Dr.lamps_every || 4, liveShare = Dr.lamps_live == null ? 0.3 : Dr.lamps_live, lampRows = [];
     for (var y7 = 0; y7 < H; y7++) { var row7 = t[y7]; if (row7.filter(function (q) { return q.median; }).length > W / 2) lampRows.push(y7); }
+    var mastSrc = lampRows.length && K.lamp && K.lamp.src ? K.lamp.src : 'light_lamp_house_side.webp';   /* on the median the freeway's own mast; on a sidewalk below the street's lamp */
     if (!lampRows.length) for (var y8 = 0; y8 < H; y8++) { var walkN = t[y8].filter(function (q) { return q.is === 'ground' && q.pic === 'walk' && !q.shade; }).length; if (walkN >= 8) lampRows.push(y8); }
     lampRows.forEach(function (ly, li) { for (var lx = (li * 2 + 1) % every; lx < W; lx += every) { var lq = at(lx, ly); if (!lq || !STAND[lq.is] || lq.shade) continue;
-      lights.push({ kind: 'lamp', src: 'light_lamp_house_side.webp', x_m: (lx + 0.5) * tm, y_m: (ly + 0.55) * tm, live: hz(lx, ly, 13) < liveShare, radius_m: 7, circuit: 'grid', from: 'freeway' }); } });
+      lights.push({ kind: 'lamp', src: mastSrc, x_m: (lx + 0.5) * tm, y_m: (ly + 0.55) * tm, live: hz(lx, ly, 13) < liveShare, radius_m: 7, circuit: 'grid', from: 'freeway' }); } });
+    /* the one fire somewhere in the city below (rule 20: a thing burning and nobody at it), laid on its tile */
+    if (fireAt >= 0 && K.city && K.city.fire) { var fa = fireAt % AW, fb = Math.floor(fireAt / AW), fs = K.city.fire;
+      sprites.push({ src: fs.src, x: (fa + 0.5) * TP[0] - fs.w / 2, y: (fb + 0.6) * TP[1] - fs.h / 2, w: fs.w, h: fs.h, line: fb, kind: 'kit', name: 'fw_fire', tiles: [fa, fb, 1, 1] }); }
     sprites.sort(function (a, b) { return a.line - b.line || a.x - b.x; });
     /* what each tile IS, for the gate and the bar */
     var tiles = t.map(function (r) { return r.map(function (q) { return q.is === 'deck' ? 'deck' + q.level : q.is === 'ground' ? (q.street ? 'street' : q.shade ? 'under' : 'below') : q.is; }); });

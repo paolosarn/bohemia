@@ -1,0 +1,122 @@
+{
+ "throttle": 4,
+ "runs": [
+  {
+   "which": "now",
+   "kind": "deck",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 39.6,
+   "worst_ms": 100,
+   "over_50ms": 11
+  },
+  {
+   "which": "before",
+   "kind": "deck",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 35,
+   "worst_ms": 100,
+   "over_50ms": 12
+  },
+  {
+   "which": "now",
+   "kind": "overpass",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 36.6,
+   "worst_ms": 100,
+   "over_50ms": 10
+  },
+  {
+   "which": "before",
+   "kind": "overpass",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 34.4,
+   "worst_ms": 400,
+   "over_50ms": 17
+  },
+  {
+   "which": "now",
+   "kind": "interchange",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 38.6,
+   "worst_ms": 83,
+   "over_50ms": 13
+  },
+  {
+   "which": "before",
+   "kind": "interchange",
+   "shape": "upright",
+   "rep": 0,
+   "fps": 41.4,
+   "worst_ms": 83,
+   "over_50ms": 13
+  },
+  {
+   "which": "before",
+   "kind": "deck",
+   "shape": "upright",
+   "rep": 1,
+   "fps": 40.9,
+   "worst_ms": 83,
+   "over_50ms": 10
+  },
+  {
+   "which": "now",
+   "kind": "deck",
+   "shape": "upright",
+   "rep": 1,
+   "fps": 36.6,
+   "worst_ms": 100,
+   "over_50ms": 13
+  },
+  {
+   "which": "before",
+   "kind": "overpass",
+   "shape": "upright",
+   "rep": 1,
+   "fps": 39.6,
+   "worst_ms": 117,
+   "over_50ms": 11
+  },
+  {
+   "which": "now",
+   "kind": "overpass",
+   "shape": "upright",
+   "rep": 1,
+   "fps": 34.6,
+   "worst_ms": 100,
+   "over_50ms": 11
+  },
+  {
+   "which": "before",
+   "kind": "interchange",
+   "shape": "upright",
+   "rep": 1,
+   "fps": 40,
+   "worst_ms": 100,
+   "over_50ms": 9
+  },
+  {
+   "which": "now",
+   "kind": "interchange",
+   "shape": "upright",
+   "rep": 1,
+   "fps": 35.8,
+   "worst_ms": 133,
+   "over_50ms": 11
+  }
+ ],
+ "yardstick": {
+  "fps": 60.1,
+  "worst_ms": 17,
+  "over_50ms": 0
+ },
+ "avg": {
+  "now": 37,
+  "before": 38.6
+ }
+}
