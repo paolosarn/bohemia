@@ -10662,6 +10662,13 @@ GATES = [
      "page that ran it; a picture made once a session (a fight's start makes at most 6 PNGs; the materials' set made once), the same "
      "pixels as the old way, the map's ink line kept per size; every step's freezes under a ratchet that may only come down; what "
      "had loaded printed; P1 the old ways and a planted 900 ms stall turn it red. Solo: it measures time. About 20 min", True),
+    ('THE PACKERS MERGE', ['python3', 'gates/the_packers_merge_gate.py'],
+     "PLUMBER 8 gate, 11/10, the coordinator's routine 'the packers merge', CHARACTER's block on ask 238: the five sheet packers "
+     "(RUN TWO fight_pack, ANIMATION's everybody_idles people_pack, the towns' activities, what a man holds, melee in hand) run in a "
+     "disposable checkout of HEAD, whose render caches are empty as on every box but the one that rendered: M1 nothing committed is "
+     "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
+     "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
+     "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
     ('THE WHOLE LOOP PLAYS', ['node', 'gates/the_whole_loop_plays_gate.js'],
      "PLUMBER 4 gate, 11/5, rule 408(d) ('one smoke test of the whole loop runs every build'): one stranger's game on the demo at phone "
      "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "

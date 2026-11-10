@@ -341,7 +341,14 @@ def fight_pack():
     want = [n + ('@%d' % k if c != 'Stand' else '') for n, c, ks in FIGHT_COLS for k in range(ks)]
     assert I['cols'] == want, 'COMBAT changed the fight sheet\'s columns: re-read its pack() before packing people'
     RIM = tuple(I['rim'])
-    for k in [k for k, v in I['looks'].items() if v.get('kind') == 'person']: del I['looks'][k]
+    # __THE_PACKERS_MERGE__ (PLUMBER 8, 11/10/26; the coordinator's routine 'the packers merge', CHARACTER's block, ask 238): this
+    # deleted every rolled man and re-added only the men whose fight renders are on THIS box (.gitignore'd caches); measured on a
+    # fresh checkout, a pack with nothing rendered took 69 men and 69 faces out of the game. Now the committed sheets and index are
+    # the truth: a man rendered here is added or replaced, every other entry stands. BOHEMIA_PACK_REBUILD=1 is the old way.
+    REBUILD = os.environ.get('BOHEMIA_PACK_REBUILD') == '1'
+    I0 = json.dumps(I, sort_keys=True)
+    if REBUILD:
+        for k in [k for k, v in I['looks'].items() if v.get('kind') == 'person']: del I['looks'][k]
     made = []
     for p in fight_list():
         tag = 'person_' + p['id'].lower(); fd = os.path.join(ROOT, FIGHT_RENDERS, tag); sd = frames_of(tag)
@@ -374,30 +381,55 @@ def fight_pack():
                                rig=os.path.relpath(os.path.join(fd, 'rig.json'), ROOT))
         made.append((p, tag)); print('PACKED %s in %s\'s cell, %d px outside it, %d KB' % (tag, ref, lost, os.path.getsize(os.path.join(FR, tag + '.webp')) // 1024))
     # THE FACES: the strip the fight's bar and turn row draw from, its own looks as they were and the people after them
+    # (__THE_PACKERS_MERGE__: every face stands where it was, a man packed here replaces his own or joins the end; the strip is
+    # written only when a face changed, never re-encoded for nothing)
     F = I['faces']; strip = Image.open(os.path.join(FR, F['file'])).convert('RGBA'); S = F['size']
-    keep = [l for l in F['order'] if not l.startswith('person_')]
-    tiles = [strip.crop((F['order'].index(l) * S, 0, F['order'].index(l) * S + S, S)) for l in keep]
-    for p, tag in made: tiles.append(Image.open(os.path.join(ROOT, OUT, tag, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX))
-    out = Image.new('RGBA', (S * len(tiles), S), (0, 0, 0, 0))
-    for i, t in enumerate(tiles): out.paste(t, (i * S, 0))
-    out.save(os.path.join(FR, F['file']), 'WEBP', quality=85, alpha_quality=100, method=6)
-    F['order'] = keep + [tag for p, tag in made]
+    keep = [l for l in F['order'] if not l.startswith('person_')] if REBUILD else list(F['order'])
+    newface = {tag: Image.open(os.path.join(ROOT, OUT, tag, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX) for p, tag in made}
+    order, tiles = [], []
+    for l in keep:
+        t = newface.pop(l, None); order.append(l)
+        tiles.append(t if t is not None else strip.crop((F['order'].index(l) * S, 0, F['order'].index(l) * S + S, S)))
+    for p, tag in made:
+        if tag in newface: order.append(tag); tiles.append(newface.pop(tag))
+    if made or REBUILD:
+        out = Image.new('RGBA', (S * len(tiles), S), (0, 0, 0, 0))
+        for i, t in enumerate(tiles): out.paste(t, (i * S, 0))
+        out.save(os.path.join(FR, F['file']), 'WEBP', quality=85, alpha_quality=100, method=6)
+    F['order'] = order
     F['people'] = OUT + '/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)'
     I['people'] = "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them"
-    with open(ip, 'w') as f: f.write(json.dumps(I, indent=1))
+    if REBUILD or json.dumps(I, sort_keys=True) != I0:
+        with open(ip, 'w') as f: f.write(json.dumps(I, indent=1))
+    else:
+        print('fight-pack: nothing rendered on this box changed the fight sheet\'s index; it stands as committed (%d people)' % sum(1 for v in I['looks'].values() if v.get('kind') == 'person'))
     # THE BANDS: each pool keeps its first look and then deals the rolled people of every gang it names
     op_ = os.path.join(ROOT, 'records/target/bb/ours.json'); O = json.load(open(op_)); PL = O['people_looks']['value']
+    bands0 = json.dumps(PL['band'], sort_keys=True)
     by = {}
-    for p, tag in made: by.setdefault(p['gang'].lower(), []).append(tag)
-    for kind, pool in PL['band'].items():
-        base = [l for l in pool if not l.startswith('person_')]
-        gangs = [l.replace('faction_', '') for l in base if l.startswith('faction_')]
-        PL['band'][kind] = base[:1] + [t for g in gangs for t in by.get(g, [])] + [l for l in base[1:] if not by.get(l.replace('faction_', ''))]
+    # __THE_PACKERS_MERGE__: the bands deal every rolled man the fight sheet carries (in the roll's order), not only those packed here
+    dealt = made if REBUILD else [(p, 'person_' + p['id'].lower()) for p in fight_list() if ('person_' + p['id'].lower()) in I['looks']]
+    for p, tag in dealt: by.setdefault(p['gang'].lower(), []).append(tag)
+    if REBUILD:
+        for kind, pool in PL['band'].items():
+            base = [l for l in pool if not l.startswith('person_')]
+            gangs = [l.replace('faction_', '') for l in base if l.startswith('faction_')]
+            PL['band'][kind] = base[:1] + [t for g in gangs for t in by.get(g, [])] + [l for l in base[1:] if not by.get(l.replace('faction_', ''))]
+    else:
+        # __THE_PACKERS_MERGE__: a pool never loses a man (the pools were reshaped after the last pack: their faction_ heads became
+        # COOK THREE's tiers, and dealing them again from the heads emptied 18 of 22); a man packed here who is in no pool yet joins
+        # every pool that already deals his gang's men or names his gang
+        for p, tag in made:
+            if any(tag in pool for pool in PL['band'].values()): continue
+            g = p['gang'].lower()
+            for kind, pool in PL['band'].items():
+                if any(l.startswith('person_' + g + '_') for l in pool) or ('faction_' + g) in pool: pool.append(tag)
     O['people_looks']['why'] = O['people_looks']['why'].split(' (10/23, RUN TWO')[0] + (
         " (10/23, RUN TWO [no two people alike], rule 121(i), his 'SO MANY OF THE SAME HATS... 2 OPTIONS FOR CUSTOMIZATIONS': after "
         "each pool's first look, its gangs' rolled people, each his own mix of CHARACTER's pieces; the fight hands a man the first "
         "look nobody on the board wears)")
-    with open(op_, 'w') as f: f.write(json.dumps(O, indent=1, ensure_ascii=False) + '\n')
+    if REBUILD or json.dumps(PL['band'], sort_keys=True) != bands0:
+        with open(op_, 'w') as f: f.write(json.dumps(O, indent=1, ensure_ascii=False) + '\n')
     print('fight people', len(made), {k: len(v) for k, v in by.items()})
 
 

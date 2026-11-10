@@ -1070,6 +1070,33 @@ def people_pack():
         np.savez(os.path.join(d, 'map_cells.npz'), sheet=np.array(n), keys=np.array(keys, dtype=object), cells=ca)
     mj = dict(what='ANIMATION [everybody idles]: the map\'s rolled people (RUN TWO\'s sheets in slices/rig_mix), ten idles each, '
                    'a sheet per map sheet; a cell [x, y, w, h, dx, dy] sits from that map sheet\'s cell origin', files={}, looks={})
+    # __THE_PACKERS_MERGE__ (PLUMBER 8, 11/10/26; the coordinator's routine 'the packers merge', CHARACTER's block, ask 238): this
+    # was built from the renders on THIS box alone (.gitignore'd caches), so a pack anywhere else took every other man off the map:
+    # measured on a fresh checkout, 18 map sheets, 154 men's map idles and the 54 fight men's idles gone. Now the committed sheets
+    # are the truth: a sheet no man was packed into here stands as committed, whole; a sheet that takes a man packed here keeps
+    # every other man's cells, cut back out of its committed picture by their committed boxes. BOHEMIA_PACK_REBUILD=1 is the old way.
+    REBUILD = os.environ.get('BOHEMIA_PACK_REBUILD') == '1'
+    mpj = os.path.join(ROOT, OUT, 'map_people.json')
+    old_mj = json.load(open(mpj)) if (os.path.exists(mpj) and not REBUILD) else {'files': {}, 'looks': {}}
+    carried = {}
+    for tag, L0 in sorted(old_mj.get('looks', {}).items()):
+        n0, fn0 = L0.get('mix'), L0.get('file')
+        if not n0 or not fn0: continue
+        if n0 in maps and tag in maps[n0][1]: continue   # packed here: his new cells stand
+        if n0 not in maps:   # nobody packed here stands on this sheet: it is carried whole below
+            carried.setdefault(n0, (fn0, {}))[1][tag] = L0; continue
+        rects0 = old_mj['files'].get(fn0) or []
+        try: im0 = np.asarray(Image.open(os.path.join(ROOT, OUT, fn0)).convert('RGBA'))
+        except Exception: continue
+        items, looks = maps[n0]; mp = {}
+        for pose, rows in L0.get('poses', {}).items():
+            out_rows = [None] * len(rows)
+            for r_, ci in enumerate(rows):
+                if ci is None or ci >= len(rects0): continue
+                x0, y0, w0, h0, dx0, dy0 = rects0[ci]
+                out_rows[r_] = len(items); items.append((im0[y0:y0 + h0, x0:x0 + w0].copy(), dx0, dy0))
+            mp[pose] = out_rows
+        looks[tag] = mp; dirty.add(n0)
     for n, (items, looks) in sorted(maps.items()):
         fn = 'map_%s.webp' % n
         if n in dirty or not os.path.exists(os.path.join(ROOT, OUT, fn)):
@@ -1080,14 +1107,19 @@ def people_pack():
         mj['files'][fn] = rects
         for tag, poses in looks.items(): mj['looks'][tag] = dict(mix=n, file=fn, poses=poses)
         print('PACKED map', n, im.size, os.path.getsize(os.path.join(ROOT, OUT, fn)), len(looks), 'people', flush=True)
-    json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))
+    for n0, (fn0, looks0) in sorted(carried.items()):   # __THE_PACKERS_MERGE__: the sheets nobody here touched, as committed
+        mj['files'][fn0] = old_mj['files'].get(fn0, [])
+        for tag, L0 in looks0.items(): mj['looks'][tag] = L0
+    if REBUILD or not os.path.exists(mpj) or json.load(open(mpj)) != mj:
+        json.dump(mj, open(mpj, 'w'), separators=(',', ':'))
     index['map_people'] = dict(json='map_people.json')
     # THE FIGHT'S ROLLED MEN (RUN TWO put 51 on COMBAT's board, each packed into his gang's cell by his ground pixel, his
     # gang's guns in his hands): fight_<tag>.json, his cells in that cell's frame. Bare: the very cells of his street sheet,
     # moved (no second picture). Gun-held: his carry renders, in his fight sheet's colours with its one-pixel rim, and his
     # gang's gun-held idle guns (the same skeleton, poses and cell, as RUN TWO gave him his gang's gun sheet).
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json'))); RIM = tuple(FR['rim'])
-    for k in [k for k in index['looks'] if k.startswith('fight_person_')]: del index['looks'][k]
+    if REBUILD:   # __THE_PACKERS_MERGE__: the old way dropped every fight man and re-added the ones packed here
+        for k in [k for k in index['looks'] if k.startswith('fight_person_')]: del index['looks'][k]
     nf = 0
     for tag, fl in sorted(fight_people().items()):
         sj = os.path.join(ROOT, OUT, tag + '.json'); cd_ = os.path.join(ROOT, RENDERS, tag + '_carry'); ref = fl.get('ref')
@@ -1123,7 +1155,8 @@ def people_pack():
         json.dump(entry, open(fj, 'w'), separators=(',', ':'))
         index['looks']['fight_' + tag] = dict(json='fight_' + tag + '.json'); nf += 1
     print('PACKED fight people', nf, 'of', len(fight_people()), flush=True)
-    json.dump(index, open(ip, 'w'), separators=(',', ':'))
+    if REBUILD or json.load(open(ip)) != index:   # __THE_PACKERS_MERGE__: an index nothing here changed is not written again
+        json.dump(index, open(ip, 'w'), separators=(',', ':'))
     print('PACKED people', n_ok, 'with idles;', len(mj['looks']), 'on the map', flush=True)
 
 
