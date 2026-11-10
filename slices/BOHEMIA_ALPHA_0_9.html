@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/10l - THE FIGHT DRAWS ITS OWN SHEETS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/10m - A CLOSED TAB DOES NO WORK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -20506,8 +20506,14 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
   rd.textContent='BAR 1/64 · A';
   bar.appendChild(rd);
   if(!MUS._readTimer)MUS._readTimer=setInterval(()=>{
+   /* __A_CLOSED_TAB_DOES_NO_WORK__ (PLUMBER 8, 11/10/26, rule 441(c), the town at rest on his phone): this readout wrote 640 dots'
+      colours (160 songs' HERO BEAT, four dots each) five times a second with the MUSIC tab closed: 5% of the page's time in a CPU
+      profile of the town at rest (494 of 9,494 ms), and each write woke the nothing-pops watcher into a layout. Now it works only
+      while the MUSIC panel is shown, and a dot is written only when it changes. window.__MUS_READ_ALWAYS = the old way. */
+   const PM=document.getElementById('p-music'); if(!window.__MUS_READ_ALWAYS && PM && !PM.classList.contains('on'))return;
    const activeKey=(MUS.cur<MFACTIONS.length?MFACTIONS[MUS.cur].n:(MUS.lib()[MUS.cur]||{}).n)+'#'+(MUS.curSlot||1);
    document.querySelectorAll('.hero-live').forEach(el=>{ const on=MUS.playing && el.dataset.slotkey===activeKey; const beat=Math.floor((MUS.uiStep||0)/4);
+     const lit=on?beat:-1; if(!window.__MUS_READ_ALWAYS && el.__lit===lit)return; el.__lit=lit;
      el.querySelectorAll('span').forEach((dot,i)=>{ dot.style.background=(on&&i===beat)?'#e8b04a':'#2a2438'; }); });
    if(!MUS.playing)return; const b=MUS.uiBar||0;
    const el=document.getElementById('mus-read'); if(el)el.textContent='BAR '+(b+1)+'/64 · '+MUS.ARR[Math.floor(b/4)]; },200);   /* guarded: rebuild() re-runs build(), one timer only */

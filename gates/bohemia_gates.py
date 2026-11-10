@@ -10669,6 +10669,11 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('A CLOSED TAB DOES NO WORK', ['node', 'gates/a_closed_tab_does_no_work_gate.js'],
+     "PLUMBER 8 gate, 11/10, rule 441(c) and rule 400 (60 on a phone): a CPU profile of the town at rest on the demo (phone upright, "
+     "CPU 4x slower) found the MUSIC tab's readout writing 640 dots' colours five times a second with the tab closed (494 of 9,494 ms, "
+     "and each write woke the nothing-pops watcher into a layout). C1 the tab closed, the music playing: no dot written in 4 s; C2 the "
+     "tab open: the HERO BEAT dots still move; P1 the old way (window.__MUS_READ_ALWAYS) writes them again. About 1 min", True),
     ('THE WHOLE LOOP PLAYS', ['node', 'gates/the_whole_loop_plays_gate.js'],
      "PLUMBER 4 gate, 11/5, rule 408(d) ('one smoke test of the whole loop runs every build'): one stranger's game on the demo at phone "
      "size, title, NEW GAME, the town and its LEAVE, the map, travel, a road event and a choice, a crew met and ENGAGE, the fight, the "
