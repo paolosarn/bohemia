@@ -73,6 +73,9 @@
           trade, every retinue man's effect whole; every row and its press on the glass; each retinue man opened in turn, all of him
           whole and every row under him on the glass.
           PLANT: the old step (the keeper in one line, a name and trade in one, the retinue a man a row, the man opened in place).
+     F558 THE FIGHT DRAWS ITS OWN SHEETS (FOUND BY PLUMBER 8, ask row 558; the fight's own page): the browser's own drawImage put back
+          under the fight and every man's sheet a copy that is not this page's PackedSheet: the men are drawn, nothing throws.
+          PLANT: the man drawn through the context's own drawImage (the old way): the throw.
 
    node gates/the_fourteen_eyes_found_gate.js [--only F534,F528,...] [--shape phone_portrait|phone_landscape|none]
    ========================================================================== */
@@ -757,6 +760,36 @@ async function f554(shape) {
   await p.context().close();
 }
 
+/* ---------------- F558: the fight draws its own sheets (FOUND BY PLUMBER 8, ask row 558) ----------------
+   On the fight's own page: the men's sheets are the fight's packed sheets; the page's drawImage is set back to the browser's own (what
+   PLUMBER 8's walk found under the men: an unwrapped draw) and every man's sheet swapped for a copy that is not this page's PackedSheet
+   (a sheet from another page of the game, known only by its shape); the fight plays on: nothing throws, the men are drawn.
+   PLANT: the man drawn the old way (through the context's own drawImage): the leg sees the throw. */
+async function f558() {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, serviceWorkers: 'block' });
+  const p = await ctx.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(String(e && e.message || e).slice(0, 160)));
+  await p.addInitScript(() => { window.FIGHT_OPTS = { seed: 5, speed: 1, board: 'desert', night: false }; try { localStorage.clear(); } catch (e) {} });
+  await p.goto(BASE + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load', timeout: 180000 });
+  await p.waitForFunction(() => { try { const U = eval('UI'); return !!eval('FIGHT').S.board && Object.keys(U.imgs).some(k => /fight_rig\/(you|person_)/.test(k) && U.imgs[k] && U.imgs[k].atlas); } catch (e) { return false; } }, null, { timeout: 120000 }).catch(() => {});
+  await p.waitForTimeout(1500);
+  const swap = () => p.evaluate(() => { const U = eval('UI'), P = CanvasRenderingContext2D.prototype; let n = 0;
+    if (P.drawImage.__sheets) P.drawImage = P.drawImage.__d0;   /* the browser's own draw, unwrapped */
+    Object.keys(U.imgs).forEach(k => { const v = U.imgs[k]; if (/fight_rig\//.test(k) && v && v.atlas && v.t) { U.imgs[k] = Object.assign({}, v); n++; } });   /* not this page's PackedSheet: its shape only */
+    window.__F558 = 0; const cxd = window.cxDraw; window.__F558CX = cxd; return n; });
+  const n = await swap(); const e0 = p.__errs.length;
+  const drawn = await p.evaluate(() => new Promise(r => { let k = 0; const d = window.cxDraw, t0 = performance.now(); window.cxDraw = function () { const a = arguments[0]; if (a && a.atlas) k++; return d.apply(this, arguments); };
+    (function wait() { if (k >= 20 || performance.now() - t0 > 8000) { window.cxDraw = d; r(k); } else setTimeout(wait, 200); })(); }));   /* the fight draws a man when something moves: up to 8 s for twenty draws */
+  const thrown = p.__errs.slice(e0);
+  ok('F558 the fight\'s page: with the browser\'s own drawImage under it and ' + n + ' sheets that are not this page\'s PackedSheet, the men are drawn (' + drawn + ' packed draws) and nothing throws',
+    n > 0 && drawn > 0 && thrown.length === 0, thrown.slice(0, 2).join(' | ') || 'whole');
+  /* PLANT: the old call, through the context's own (unwrapped) drawImage */
+  await p.evaluate(() => { window.cxDraw = function () { const c = eval('cx'); return c.drawImage.apply(c, arguments); }; });
+  const e1 = p.__errs.length; await p.waitForTimeout(1500);
+  const pl = p.__errs.slice(e1);
+  ok('F558 PLANTED (the man drawn through the context\'s own drawImage, the old way): the leg sees the throw', pl.some(x => /drawImage/.test(x)), pl.slice(0, 1).join('') || 'BLIND');
+  await ctx.close();
+}
+
 /* ---------------- F551, F552, F553: one game on the demo ---------------- */
 async function f55x(shape) {
   const p = await picks(shape);
@@ -865,6 +898,7 @@ async function f55x(shape) {
       ok('F538 PLANTED (the breaths taken away: the bake as one run): the leg sees the longest pause at least twice as long (' + C.gap + ' ms against ' + A.gap + ')', C.ok && C.gap >= 2 * A.gap, JSON.stringify(C)); }
     for (const s of SH) { if (want('F534')) await f534(s); if (want('F528')) await f528(s); if (want('F527') || want('F531')) await f527(s); if (want('F538')) await f538(s); }
     /* THE FIVE EYES FOUND NEXT (rows 550 to 554) */
+    if (want('F558')) await f558();
     for (const s of SH) { if (want('F554')) await f554(s); if (want('F550')) { await f550(s, false); await f550(s, true); } if (want('F551') || want('F552') || want('F553')) await f55x(s); }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();

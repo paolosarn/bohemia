@@ -5479,13 +5479,35 @@ function packedLoad(s) {
       });
   }).catch(function () { return null; });
 }
-/* the canvas draws a PackedSheet cell by cell: the source rectangle on the whole sheet, read through the table */
+/* the canvas draws a PackedSheet cell by cell: the source rectangle on the whole sheet, read through the table.
+   __THE_FIGHT_DRAWS_ITS_OWN_SHEETS__ (FIXES 11/10, ask row 558, FOUND BY PLUMBER 8: 'Failed to execute drawImage on
+   CanvasRenderingContext2D: The provided value is not of type...' at blitMan, meleeDraw, drawBody, 12 to 17 times a walk on his phone
+   with the CPU slowed 4x). MEASURED with a probe armed in every page (tools/bohemia_freeze_census.js --arm): what reached the browser's
+   own drawImage was this page's PackedSheet (you.webp, person_town_*.webp) straight from blitMan, with this wrapper NOT in the call: the
+   man's context drew through an unwrapped drawImage. The fight no longer trusts the browser's draw to have been wrapped: every draw of
+   a sheet on the fight's glass goes through sheetDraw (cxDraw for the fight's own canvas), and a packed or a night sheet is known by
+   its shape (its atlas and table; its base and lift), so a sheet from another page of the game is drawn as well. The wrapper on the
+   prototype stays for every other context of the page (the night's cells, the machine's chip, the camp's) */
+var SHEET_D0 = null;   /* the browser's own drawImage, taken before the wrapper went on */
+function sheetIsNight(img) { return !!img && typeof img === 'object' && (img instanceof NightSheet || (img.night === true && !!img.base && img.lift !== undefined && !img.atlas && !img.getContext)); }
+function sheetIsPacked(img) { return !!img && typeof img === 'object' && (img instanceof PackedSheet || (!!img.atlas && !!img.t && img.cols > 0 && img.cw > 0)); }
+function sheetNative(ctx) { if (SHEET_D0) return SHEET_D0; const d = Object.getPrototypeOf(ctx).drawImage; return d && d.__sheets ? d.__d0 : d; }
+function sheetDraw(ctx, a) {
+  const img = a[0], d0 = sheetNative(ctx);
+  if (sheetIsNight(img)) return nightDraw(ctx, d0, img, a);   /* __AUTO_AT_4X_NEVER_CRASHES__: the night cell by cell */
+  if (!sheetIsPacked(img)) return d0.apply(ctx, a);
+  return packedDraw(ctx, d0, img, a);
+}
+function cxDraw() { return sheetDraw(cx, arguments); }   /* the fight's own glass */
 (function () {
-  const P = CanvasRenderingContext2D.prototype, d0 = P.drawImage;
-  P.drawImage = function (img) {
-    if (img instanceof NightSheet) return nightDraw(this, d0, img, arguments);   /* __AUTO_AT_4X_NEVER_CRASHES__: the night cell by cell */
-    if (!(img instanceof PackedSheet)) return d0.apply(this, arguments);
-    const a = arguments, n = a.length;
+  const P = CanvasRenderingContext2D.prototype, d0 = P.drawImage && P.drawImage.__sheets ? P.drawImage.__d0 : P.drawImage;
+  SHEET_D0 = d0;
+  const wrap = function (img) { return sheetDraw(this, arguments); };
+  wrap.__sheets = true; wrap.__d0 = d0;
+  P.drawImage = wrap;
+})();
+function packedDraw(ctx, d0, img, a) {
+    const n = a.length;
     let sx = 0, sy = 0, sw = img.width, sh = img.height, dx, dy, dw, dh;
     if (n >= 9) { sx = a[1]; sy = a[2]; sw = a[3]; sh = a[4]; dx = a[5]; dy = a[6]; dw = a[7]; dh = a[8]; }
     else if (n >= 5) { dx = a[1]; dy = a[2]; dw = a[3]; dh = a[4]; }
@@ -5499,10 +5521,9 @@ function packedLoad(s) {
       const X = c * cw + t[i + 2], Y = r * ch + t[i + 3];
       const x0 = Math.max(X, sx), y0 = Math.max(Y, sy), x1 = Math.min(X + tw, sx + sw), y1 = Math.min(Y + th, sy + sh);
       if (x1 <= x0 || y1 <= y0) continue;
-      d0.call(this, img.atlas, t[i] + (x0 - X), t[i + 1] + (y0 - Y), x1 - x0, y1 - y0, dx + (x0 - sx) * kx, dy + (y0 - sy) * ky, (x1 - x0) * kx, (y1 - y0) * ky);
+      d0.call(ctx, img.atlas, t[i] + (x0 - X), t[i + 1] + (y0 - Y), x1 - x0, y1 - y0, dx + (x0 - sx) * kx, dy + (y0 - sy) * ky, (x1 - x0) * kx, (y1 - y0) * ky);
     }
-  };
-})();
+}
 /* ==== /__THE_SHEETS_ARE_PACKED__ ==== */
 /* __NO_PICTURE_DECODED_MID_PLAY__ (PLUMBER 4, 11/5/26, ask line 454, rule 400(a) and (e), his brother: 'when you start a battle it glitches
    out a little'). MEASURED with a trace of the demo's fight start at 390 x 844 (records/BOHEMIA_PLUMBER_THE_BROTHERS_THREE_GLITCHES_11_5_26.md):
@@ -5890,7 +5911,7 @@ function nightCell(N, sx, sy, sw, sh, keep) {
   let e = NIGHT.cells.get(k);
   if (e) { NIGHT.cells.delete(k); NIGHT.cells.set(k, e); return e.c; }   /* the newest at the end: the oldest is let go first */
   const day = document.createElement('canvas'); day.width = W; day.height = H;
-  day.getContext('2d').drawImage(N.base, sx, sy, sw, sh, 0, 0, sw, sh);
+  sheetDraw(day.getContext('2d'), [N.base, sx, sy, sw, sh, 0, 0, sw, sh]);   /* __THE_FIGHT_DRAWS_ITS_OWN_SHEETS__ */
   const c = document.createElement('canvas'); c.width = W; c.height = H;
   const g = c.getContext('2d'); g.drawImage(day, 0, 0);
   nightPass(g, W, H, day, N.lift);
@@ -5997,7 +6018,7 @@ function drawGround() {
     groundOn(g);
     UI.gsheet = c; UI.gkey = key; UI.gboard = UI.board; UI.bkey = null; UI.gdraws = (UI.gdraws || 0) + 1;
   }
-  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cxDraw(UI.gsheet, 0, 0); cx.restore();
 }
 const SURROUND_BLOCKS = 2, SURROUND_DIM = 'rgba(8,6,4,.22)', MIP = 4, RING_K = .5, GROUND_UNDER = '#2a2219';
 /* A DEALT BLOCK'S NAME MAY CARRY ITS MIRROR ('shore.0|h', THE WATER RUNS ON): the picture is the plain block's */
@@ -6238,12 +6259,12 @@ function groundOn(cx) {
   }); });
   (UI.feather || []).forEach(function (f) {   /* THE GROUND RUNS ON, close in too */
     const x = sx(f.x), y = sy(f.y), w = f.w * z, h = f.h * z;
-    if (on(x, y, w, h)) cx.drawImage(f.c, x, y, w, h);
+    if (on(x, y, w, h)) cxDraw(f.c, x, y, w, h);
   });
   (B.cover || []).forEach(function (cv2) {
     const im = UI.imgs[FIGHT.pieceSrc(cv2.piece)]; if (!im) return;
     const x = snap(sx(cv2.x_m * pxm * k)), y = snap(sy(cv2.y_m * pym * k)), w = im.width * k * z, h = im.height * k * z;
-    if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
+    if (on(x, y, w, h)) cxDraw(im, x, y, w, h);
   });
   cx.strokeStyle = 'rgba(0,0,0,.28)'; cx.lineWidth = 1 / DPR;
   for (let x = 0; x <= S.w; x++) { const X = snap(sx(x * UI.tw)) + .5 / DPR; if (X < 0 || X > W) continue; cx.beginPath(); cx.moveTo(X, Math.max(y0, 0)); cx.lineTo(X, Math.min(y0 + bh, H)); cx.stroke(); }
@@ -6251,7 +6272,7 @@ function groundOn(cx) {
   (B.lights || []).forEach(function (l) {
     const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
     const w = im.width * k * z, h = im.height * k * z, x = snap(sx(l.x_m * pxm * k) - w / (1 + 1)), y = snap(sy(l.y_m * pym * k) - h);
-    if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
+    if (on(x, y, w, h)) cxDraw(im, x, y, w, h);
   });
   if (S.night) nightPools(cx, { width: W, height: H }, B.lights || [], k, pxm, pym, true);
   cx.restore();
@@ -8182,7 +8203,7 @@ function draw(now) {
         const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(DPR, 0, 0, DPR, 0, 0);
         two(g); UI.gsheet = c; UI.bkey = bkey; UI.gkey = null;   /* one sheet for both paths: drawGround's key is let go */
       }
-      cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
+      cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cxDraw(UI.gsheet, 0, 0); cx.restore();
     }
     UI.groundMode = 'baked';
   }
@@ -8672,10 +8693,10 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   if (gs) { g = B.gun(look, DB.rig.guns.order[gs.row], c.pose, f); if (!g) return false; }   /* never a man without his gun: the still until it is in */
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
-  cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
+  cxDraw(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
   wearOver(v, c, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER): his helmet and his body armour, under his gun */
   laidDraw(v, 'under', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__ */
-  if (!(gs && ownGunDraw(ownGun(v, L), 'idle', c.pose, 0, f, ox, oy, s, im)) && g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);   /* __THE_SIX_GUNS__ */
+  if (!(gs && ownGunDraw(ownGun(v, L), 'idle', c.pose, 0, f, ox, oy, s, im)) && g && !g.hidden) cxDraw(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);   /* __THE_SIX_GUNS__ */
   UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
   return true;
 }
@@ -8721,7 +8742,7 @@ function crawlDraw(v, p, L, gs, ox, oy, s, now) {
   }
   if (c.pose !== v._crawlPose) { if (CRAWL_DOWN[c.pose]) sfx('cloth_on', { side: v.side, crawl: true }); v._crawlPose = c.pose; }
   const im = dark ? nightSheet(c.img, moonOf(x, y)) : c.img;
-  cx.drawImage(im, c.x, c.y, c.w, c.h, ox + (c.dx + c.sx) * s, oy + (c.dy + c.sy) * s, c.w * s, c.h * s);
+  cxDraw(im, c.x, c.y, c.w, c.h, ox + (c.dx + c.sx) * s, oy + (c.dy + c.sy) * s, c.w * s, c.h * s);
   UI.clipSeen['crawl:' + c.clip] = (UI.clipSeen['crawl:' + c.clip] || 0) + 1;
   UI.crawlAt = UI.crawlAt || {}; UI.crawlAt[v.id] = { key: c.key, pose: c.pose, slide: c.slide, face: face, sx: c.sx, sy: c.sy };   /* for the gate */
   return true;
@@ -8842,10 +8863,10 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   if (!img || (kind && gc !== null && !gimg)) return false;
   const c = d.sheet.cells[ci], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
-  cx.drawImage(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
+  cxDraw(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
   wearOver(v, { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   laidDraw(v, 'under', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__: a shield under his gun on this facing */
-  if (!(kind && ownGunDraw(ownGun(v, L), 'hold', hc[0], hc[1], f, ox, oy, s, im)) && gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }   /* __THE_SIX_GUNS__: his row's own gun first */
+  if (!(kind && ownGunDraw(ownGun(v, L), 'hold', hc[0], hc[1], f, ox, oy, s, im)) && gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cxDraw(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }   /* __THE_SIX_GUNS__: his row's own gun first */
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
   punchTint(v, now, img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s);   /* THE PUNCH, on the held picture */
   UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
@@ -8998,9 +9019,9 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   if (lay.length === 2 && !M.shield_over[DIR8[f]]) lay.reverse();   /* the weapon over the shield where his right side is toward the glass */
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; }, bc = b[1];
-  cx.drawImage(im(b[0]), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
+  cxDraw(im(b[0]), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
   wearOver(v, { img: b[0], x: bc[0], y: bc[1], w: bc[2], h: bc[3], dx: bc[4], dy: bc[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__: under his shield and his weapon */
-  lay.forEach(function (q) { const g = q[1]; cx.drawImage(im(q[0]), g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s); });
+  lay.forEach(function (q) { const g = q[1]; cxDraw(im(q[0]), g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s); });
   const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
   punchTint(v, now, b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s);   /* THE PUNCH, on his idle */
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
@@ -9073,7 +9094,7 @@ function laidDraw(v, which, p, L, gs, ox, oy, s, now) {
   const o = laidOf(v, p, L, gs, now), list = o && o[which]; if (!list || !list.length) return;
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   list.forEach(function (t) { const q = t[0], g = q[1];
-    cx.drawImage(dark ? nightSheet(q[0], moonOf(x, y)) : q[0], g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s);
+    cxDraw(dark ? nightSheet(q[0], moonOf(x, y)) : q[0], g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s);
     UI.clipSeen[(t[2] === 'S' ? 'shield:' : 'prop:') + t[1]] = (UI.clipSeen[(t[2] === 'S' ? 'shield:' : 'prop:') + t[1]] || 0) + 1;
     UI.clipSeen['laid:' + t[2]] = (UI.clipSeen['laid:' + t[2]] || 0) + 1; });
 }
@@ -9114,7 +9135,7 @@ function ownGunDraw(og, sys, clip, key, f, ox, oy, s, im) {
   if (ix === null || ix === undefined) return true;
   const T = og.T, q = sys === 'grid' ? T.g[clip] : sys === 'hold' ? T.h[clip] : T.i, t = (q && q[f]) || T.a;
   const c = og.e.cells[ix], d = [og.ft[0] + t[0], og.ft[1] + t[1]];
-  cx.drawImage(im ? im(og.img) : og.img, c[0], c[1], c[2], c[3], ox + (c[4] + d[0]) * s, oy + (c[5] + d[1]) * s, c[2] * s, c[3] * s);
+  cxDraw(im ? im(og.img) : og.img, c[0], c[1], c[2], c[3], ox + (c[4] + d[0]) * s, oy + (c[5] + d[1]) * s, c[2] * s, c[3] * s);
   return true;
 }
 /* the grid's own gun (blitMan, chipBlit): the fight's clip and key */
@@ -9144,7 +9165,7 @@ function blitMan(v, X, feet, now, alpha) {
   if (v.machine) { chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha); cx.restore(); return; }
   const held = crawlDraw(v, p, L, gs, ox, oy, s, now) || holdDraw(v, p, L, gs, ox, oy, s, now);   /* __THE_CRAWL__ (ANIMATION): struck down, he drags himself away; __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
-  if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
+  if (!idled) cxDraw(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   if (!idled) { const dx_ = Math.round(dx(v)), dy_ = Math.round(dy(v));   /* __THE_ARMOUR_HE_WEARS_SHOWS__: read off his day sheet, the night laid on the piece */
     wearOver(v, { img: UI.imgs['fight_rig/' + L.file] || img, x: p.col * L.w, y: (v._face || 0) * L.h, w: L.w, h: L.h, dx: 0, dy: 0 }, ox, oy, s, FIGHT.S.night && !FIGHT._t.litAt(dx_, dy_), dx_, dy_);
     laidDraw(v, 'under', p, L, gs, ox, oy, s, now); }   /* __WHAT_HE_CARRIES_IS_DRAWN__ */
@@ -9154,7 +9175,7 @@ function blitMan(v, X, feet, now, alpha) {
      is it gone (a gun is never swung, rule 195) */
   let own_ = false;   /* __THE_SIX_GUNS__: his row's own gun in place of the class gun, once its pictures are in */
   if (gs && !idled) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
-    if (gc !== undefined) { own_ = ownGunGrid(v, L, p, ox, oy, s); if (!own_) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); } }
+    if (gc !== undefined) { own_ = ownGunGrid(v, L, p, ox, oy, s); if (!own_) cxDraw(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); } }
   /* rule 145(a): a man hit flashes a faint red, his own picture tinted by opacity */
   const fl = hitFlash(v, now); if (fl > 0 && !idled) tintOver(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, fl, '#d42a1a');
   if (!idled) { const gk = gs && DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
@@ -9195,9 +9216,9 @@ function ghostBlit(v, img, sx0, sy0, sw, sh, ox, oy, s, now, alpha) {
   }
   const px = Math.max(1, Math.round(s)), drop = ghostCoin(slot + 977, seed) < .12;
   cx.globalAlpha = alpha * (drop ? .25 : .45);
-  v._gsplit.forEach(function (c, i) { cx.drawImage(c, ox + GHOST_SPLIT[i][1] * px * 2, oy); });
+  v._gsplit.forEach(function (c, i) { cxDraw(c, ox + GHOST_SPLIT[i][1] * px * 2, oy); });
   cx.globalAlpha = alpha * (drop ? .35 : .8);
-  cx.drawImage(v._gout, ox, oy);
+  cxDraw(v._gout, ox, oy);
   UI.ghostDrawn = (UI.ghostDrawn || 0) + 1;
 }
 /* THE MACHINE'S LOOK (COMBAT [bestiary], THE MECHANIC; rule 20 analog horror, rule 121(e): the rig's man, never a flat sprite):
@@ -9232,11 +9253,11 @@ function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
     const k = (now - v._rebootAt) / beatMs(), band = Math.max(2, Math.round(s * 4));
     cx.globalAlpha = alpha * (.45 + .55 * k);
     for (let y = 0; y < L.h; y += band / s) { const off = ghostCoin(slot * 13 + seed, Math.round(y)) < .5 * (1 - k) ? Math.round((ghostCoin(slot, Math.round(y)) - .5) * 12) * px : 0;
-      cx.drawImage(sh, sx0, sy0 + y, L.w, Math.min(band / s, L.h - y), ox + off, oy + y * s, L.w * s, Math.min(band, (L.h - y) * s)); }
+      cxDraw(sh, sx0, sy0 + y, L.w, Math.min(band / s, L.h - y), ox + off, oy + y * s, L.w * s, Math.min(band, (L.h - y) * s)); }
     cx.globalAlpha = alpha;
-  } else cx.drawImage(sh, sx0, sy0, L.w, L.h, ox + tic, oy, L.w * s, L.h * s);
+  } else cxDraw(sh, sx0, sy0, L.w, L.h, ox + tic, oy, L.w * s, L.h * s);
   if (gs) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
-    if (gc !== undefined && !ownGunGrid(v, L, p, ox + tic, oy, s)) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox + tic, oy, L.w * s, L.h * s); }   /* __THE_SIX_GUNS__ */
+    if (gc !== undefined && !ownGunGrid(v, L, p, ox + tic, oy, s)) cxDraw(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox + tic, oy, L.w * s, L.h * s); }   /* __THE_SIX_GUNS__ */
   /* the diode at the nape: lit on the beat's first half while the chip runs, dark for good when it is gone */
   const lit = !v.headGone && !v.unplugged && v._fallAt === undefined && beatPh(now) < .5;
   const nx = ox + tic + (L.foot[0] + (v._face === 2 ? -3 : v._face === 6 ? 3 : 0)) * s, ny = oy + (L.foot[1] - DB.rig.ruler.px * .84) * s;
@@ -9327,7 +9348,7 @@ function tintOver(img, sxp, syp, w, hgt, ox, oy, s, a, col, gun) {
   const g = T.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, T.width, T.height); g.imageSmoothingEnabled = false;
   g.drawImage(img, sxp, syp, w, hgt, 0, 0, W2, H2); if (gun) g.drawImage(gun[0], gun[1], gun[2], w, hgt, 0, 0, W2, H2);
   g.globalCompositeOperation = 'source-atop'; g.fillStyle = col; g.fillRect(0, 0, W2, H2);
-  const a0 = cx.globalAlpha; cx.globalAlpha = a; cx.drawImage(T, 0, 0, W2, H2, ox, oy, W2, H2); cx.globalAlpha = a0;
+  const a0 = cx.globalAlpha; cx.globalAlpha = a; cxDraw(T, 0, 0, W2, H2, ox, oy, W2, H2); cx.globalAlpha = a0;
 }
 /* the pool: it spreads under a man who is down or dead over ours.gore.pool_beats, a stain with lobes, never an oval */
 function drawPool(v, X, feet, h, now) {
@@ -9560,7 +9581,7 @@ function layOver(v, X, feet) {
     pts.forEach(function (p, i) { if (i) cx.lineTo(p[0], p[1]); else cx.moveTo(p[0], p[1]); }); cx.closePath();
   });
   cx.clip('nonzero');
-  cx.drawImage(Lr.c, x0 - Lr.x, y0 - Lr.y, x1 - x0, y1 - y0, x0, y0, x1 - x0, y1 - y0);
+  cxDraw(Lr.c, x0 - Lr.x, y0 - Lr.y, x1 - x0, y1 - y0, x0, y0, x1 - x0, y1 - y0);
   cx.restore();
   v._layer = { n: hits.length, kinds: hits.map(function (o) { return o.kind; }), at: performance.now() };
   UI.layCount = (UI.layCount || 0) + 1;
@@ -11283,9 +11304,9 @@ function campOnBoard(now) {
   C.pieces.forEach(function (p) {
     const X = sx(p.u * UI.tw), Y = sy(p.v * UI.th);
     if (p.sprite === 'cart' || p.sprite === 'truck') { const im = campRig(p.sprite), g = CAMP_RIG[p.sprite].ground; if (!im) return;
-      cx.drawImage(im, X - g[0] * k, Y - g[1] * k, im.naturalWidth * k, im.naturalHeight * k); return; }
+      cxDraw(im, X - g[0] * k, Y - g[1] * k, im.naturalWidth * k, im.naturalHeight * k); return; }
     const e = kit.pieces[p.sprite === 'fire' ? 'fire_' + key : p.sprite]; if (!e) return; const r = e.rect;
-    cx.drawImage(src, r[0], r[1], r[2], r[3], X - e.foot[0] * k, Y - e.foot[1] * k, r[2] * k, r[3] * k);
+    cxDraw(src, r[0], r[1], r[2], r[3], X - e.foot[0] * k, Y - e.foot[1] * k, r[2] * k, r[3] * k);
   });
   cx.restore();
   CAMPB.drawn++;
