@@ -37,8 +37,19 @@ slices/BOHEMIA_SCAVENGE.html (the play, the sounds, three sheets of glass, each 
 the alpha's and the demo's #buildstamp, records/target/BOHEMIA_VOTE_REGISTRY.json (one card), this file, the START entry.
 BENCH: slices/BOHEMIA_SCAVENGE.html?bench=suburb&seed=11 (&pkg=0..4, &left=N, &night=1, &again=1 deals a new block when one is done).
 
-GATES (rule 13, the pre-push pass by name): see the commit message for the counts of SCAVENGE IS THE RHYTHM (bench legs and the four
-real pages), THE SETTLEMENT SCREEN, SEARCH THE LOT ANSWERS, VOTE TAB, DEMO BUILD, HANDOFF, GATE REGISTRY.
+GATES (rule 13, the pre-push pass by name; all on the final page and the final town file):
+- SCAVENGE IS THE RHYTHM 42/0, twice in full (the bench 38 with sixteen planted fails; B6 the demo upright and on its side, the alpha
+  upright and on its side: the clock 0.0 to 0.1 ms from the shell's beat, the playing song's root and scale, a spot all DEAD ON, the
+  town resting under the game, the find paid and said by YOU).
+- SEARCH THE LOT ANSWERS 16/0 on the alpha on its side (7/3 on main 04ead582 without __ONE_TAP_ONE_ANSWER__) and 16/0 on the demo upright.
+- THE SETTLEMENT SCREEN 75/0. THE FOURTEEN EYES FOUND --only F538 9/0 (the game up: longest frame 100 ms). DEMO BUILD 25/0. HANDOFF 10/0.
+- VOTE TAB 61/5, none mine (two DYNASTY whys, a PLUMBER 8 card's why and stage, a WORLD THIRTEEN why, the three alpha-lands-on-VOTE legs).
+- RED ON MAIN, NOT MINE: GATE REGISTRY 6/1 (older orphans; this gate is registered), PAGES PUBLISH 27/1 (the published surface 907 MB
+  over the 900 cap; it was 906 before this ship, whose picture is 250 KB).
+- After the last two rebases (BOSSES' and COOK FIVE's ships, neither touching a file of this one): DEMO BUILD 25/0, HANDOFF 10/0, the
+  gate's node legs 17/0. The full suite was not run by this lane; THE SUITE LINE is PLUMBER 8's.
+- THE VOTE CARD, PLAYED: the alpha on a phone upright and on its side, the card first in the tab, in colour, LOOK AT IT, two spots all
+  DEAD ON inside the card (my own script; the card's page is slices/vote/SCAVENGE_TWO_PLAY_IT.html).
 MEASURED: the page's own work 0.4 ms a frame at 1x (was 4.07: twelve 18 MB sheets were being re-opened every frame; each man's poses
 are cut out once now, at load and at the tap), 2.2 ms on a CPU slowed four times; with painting off the page's thread (as a phone's GPU)
 12 of 1,693 frames over 20 ms at 4x; IN THE REAL DEMO at 1x 71 of 1,904 frames over 20 ms (781 of 918 before the town rested under the
