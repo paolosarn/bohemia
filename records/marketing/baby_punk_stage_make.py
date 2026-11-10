@@ -12,32 +12,33 @@ sw, sh_ = int(516 * 0.56 * Z), int(407 * 0.56 * Z); st = st.resize((sw, sh_), Im
 sx, sy = P(SC[0], SC[1])[0] - sw // 2, P(SC[0], SC[1])[1] - sh_ // 2
 shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0)); ImageDraw.Draw(shadow).rectangle((sx - 10, sy + 20, sx + sw + 10, sy + sh_ + 26), fill=(0, 0, 0, 150))
 can.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(14))); can.alpha_composite(st, (sx, sy))
-# the crowd: the settlement's own people, turned to the stage
-sheets = [Image.open(f).convert('RGBA') for f in sorted(glob.glob('slices/settlement_people/*.webp'))]
-cols = {c: i for i, c in enumerate(json.load(open('slices/settlement_people/settlement_people.json'))['cols'])}
-zones = [(300, 905, 770, 1000, 22), (265, 935, 330, 1010, 4), (296, 1000, 372, 1300, 11), (698, 1000, 768, 1300, 11), (372, 968, 698, 1004, 9)]
+# the crowd: the town's own 3-D people (slices/rig_town, the same kind of body as YOU), each turned to the stage
+rigs = []
+for f in sorted(glob.glob('slices/rig_town/person_*.json')):
+    j = json.load(open(f)); rigs.append((j, {k: Image.open('slices/rig_town/' + v['file']).convert('RGBA') for k, v in j['sheets'].items() if k in ('talk', 'drink', 'smoke')}))
+zones = [(296, 900, 774, 1000, 34), (262, 930, 330, 1012, 6), (290, 1000, 374, 1300, 16), (696, 1000, 772, 1300, 16), (374, 972, 696, 1006, 10), (372, 1276, 700, 1302, 16)]
 people = []
 for (x0, y0, x1, y1, n) in zones:
     for _ in range(n):
-        for tries in range(30):
+        for tries in range(40):
             x, y = random.uniform(x0, x1), random.uniform(y0, y1)
-            if all(abs(x - a) > 17 or abs(y - b) > 9 for a, b in people): people.append((x, y)); break
+            if all(abs(x - a) > 14 or abs(y - b) > 8 for a, b in people): people.append((x, y)); break
 def tint(im, d):
-    k = max(0.0, 1 - d / 330.0); r, g, b, a = im.split()
-    f = lambda ch, lo, hi: ch.point(lambda v: int(v * (lo + (hi - lo) * k)))
-    return Image.merge('RGBA', (f(r, .50, 1.05), f(g, .48, .92), f(b, .62, .74), a))
+    k = max(0.0, 1 - d / 330.0) * random.uniform(.82, 1.0); r, g, b, a = im.split()
+    f = lambda ch, lo, hi: ch.point(lambda v: min(255, int(v * (lo + (hi - lo) * k))))
+    return Image.merge('RGBA', (f(r, .62, 1.30), f(g, .60, 1.14), f(b, .74, .90), a))
+POSES = [('talk', 'T')] * 2 + [('talk', 'T_nod')] * 2 + [('talk', 'T_point')] * 2 + [('talk', 'T_both')] * 3 + [('talk', 'T_open')] * 2 + [('talk', 'T_laugh'), ('drink', 'D_swig'), ('drink', 'D_up'), ('smoke', 'K_exhale')]
 draws = []
 for (x, y) in people:
-    dx = SC[0] - x; row = 1 if dx > 70 else 2 if dx < -70 else 0
-    clip = random.choice(['idle', 'idle', 'nod', 'nod', 'beckon', 'look-around', 'haggle']); col = cols['%s@%s' % (clip, random.choice(['0.0208', '0.2708', '0.5208', '0.7708']))]
-    s = random.choice(sheets); fr = s.crop((col * 112, row * 112, col * 112 + 112, row * 112 + 112))
-    if fr.getbbox() is None: continue
-    fr = tint(fr, math.hypot(dx, SC[1] - y)).resize((112 * Z, 112 * Z), Image.NEAREST)
-    px, py = P(x, y); draws.append((y, fr, (px - 56 * Z, py - 108 * Z)))
+    dx, dy = SC[0] - x, SC[1] - y; face = int(round(math.atan2(dx, dy) / (math.pi / 4))) % 8
+    j, ims = random.choice(rigs); clip, pose = random.choice(POSES); sh = j['sheets'][clip]
+    cx, cy, cw, ch, ox, oy = sh['cells'][j['poses'][clip][pose][face]]
+    fr = tint(ims[clip].crop((cx, cy, cx + cw, cy + ch)), math.hypot(dx, dy)).resize((cw * Z, ch * Z), Image.NEAREST)
+    px, py = P(x, y); draws.append((y, fr, (int(px + (ox - j['foot'][0]) * Z), int(py + (oy - j['foot'][1]) * Z))))
 # YOU: the white-haired man, on the stage, arms open
 yj = json.load(open('slices/rig_town/you.json')); T = yj['sheets']['talk']; at = Image.open('slices/rig_town/' + T['file']).convert('RGBA')
-i = yj['poses']['talk'][sys.argv[3] if len(sys.argv) > 3 else 'T_both'][2]; cx, cy, cw, ch, ox, oy = T['cells'][i]
-you = at.crop((cx, cy, cx + cw, cy + ch)); YS = 3; you = you.resize((cw * YS, ch * YS), Image.NEAREST)
+i = yj['poses']['talk'][sys.argv[3] if len(sys.argv) > 3 else 'T_both'][int(sys.argv[4]) if len(sys.argv) > 4 else 0]; cx, cy, cw, ch, ox, oy = T['cells'][i]
+you = at.crop((cx, cy, cx + cw, cy + ch)); YS = 2.5; you = you.resize((int(cw * YS), int(ch * YS)), Image.NEAREST)
 you = ImageEnhance.Brightness(you).enhance(1.12)
 fx, fy = P(SC[0], SC[1] + 22); YOU_AT = (fx - you.width // 2, fy - you.height)
 # the fire drums at the stage's corners
@@ -54,7 +55,7 @@ px, py = P(SC[0], SC[1] - 20); g.ellipse((px - 250, py - 190, px + 250, py + 190
 cone = Image.new('RGB', (W, H), (0, 0, 0)); c = ImageDraw.Draw(cone)
 c.polygon([(120, -40), (260, -40), (px + 150, py + 130), (px - 150, py + 130)], fill=(30, 35, 42)); c.polygon([(W - 120, -40), (W - 260, -40), (px - 150, py + 130), (px + 150, py + 130)], fill=(30, 35, 42))
 out = ImageChops.screen(can.convert('RGB'), glow.filter(ImageFilter.GaussianBlur(46))); out = ImageChops.screen(out, cone.filter(ImageFilter.GaussianBlur(26)))
-o2 = out.convert('RGBA'); sh2 = Image.new('RGBA', (W, H), (0, 0, 0, 0)); ImageDraw.Draw(sh2).ellipse((fx - 62, fy - 16, fx + 62, fy + 14), fill=(0, 0, 0, 150))
+o2 = out.convert('RGBA'); sh2 = Image.new('RGBA', (W, H), (0, 0, 0, 0)); ImageDraw.Draw(sh2).ellipse((fx - 52, fy - 14, fx + 52, fy + 12), fill=(0, 0, 0, 150))
 o2.alpha_composite(sh2.filter(ImageFilter.GaussianBlur(6))); o2.alpha_composite(you, YOU_AT); out = o2.convert('RGB')
 # the tape: scanlines, grain, the dark at the edges (Crashbox)
 sl = Image.new('L', (W, H), 255); d = ImageDraw.Draw(sl)

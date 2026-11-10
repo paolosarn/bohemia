@@ -9,8 +9,10 @@ stage and some fucked up settlement with lots of people watching.'
 WHAT WAS MADE (VAMILY rule 446, ask row 572):
 - THE PICTURE: records/marketing/baby_punk_stage_11_10_26.webp, 1080x1920 (9:16). Built ONLY from the game's own art by
   records/marketing/baby_punk_stage_make.py (python3.13, PIL): the anarchists' night town
-  (slices/settlement_ground_towns/anarchists_tall_night.webp), the casino stage slab, four oil-drum fires, 57 townspeople
-  from the settlement cast sheets facing the stage, and YOU (slices/rig_town/you_talk.webp, pose T_open) drawn last so no
+  (slices/settlement_ground_towns/anarchists_tall_night.webp), the casino stage slab, four oil-drum fires, 98 townspeople
+  from the 3-D town bodies (slices/rig_town/person_*, the same kind of body as YOU; HIS CORRECTION the same round: 'instead of
+  the 2d sprites being the crowd can you use the 3D sprites', the flat settlement cast is out), each turned to the stage by
+  its own eight facings, and YOU (slices/rig_town/you_talk.webp, pose T_both, facing the camera) drawn last so no
   lamp washes him out. Scanlines, grain, vignette. No words on it (a reference frame for the video tool reads better bare).
 - THE PROMPT (below). The video tool does not know the word Crashbox, so the look is described in plain words. No real
   person's likeness or voice. Words go on in his own editor, never by the video tool (it misspells).
@@ -20,11 +22,11 @@ WHAT WAS MADE (VAMILY rule 446, ask row 572):
 
 15 second vertical video, 9:16. Start from the attached picture and keep its exact look for the whole video.
 
-LOOK: chunky hand-made pixel art seen from a high security-camera angle, looking down at about 45 degrees. Small pixel people with big heads and blocky bodies. Analog horror: it looks like an old CCTV tape somebody found. Scanlines, tape grain, soft tracking wobble, small glitch tears between shots. Night only. Colours are dirt brown, rust, and cold blue-black shadow. The only warm light is orange fire from oil drums. Nothing is clean, new or shiny.
+LOOK: low-resolution 3D figures that look like small clay dolls with big round heads, shrunk down to chunky pixels, seen from a high security-camera angle, looking down at about 45 degrees. Analog horror: it looks like an old CCTV tape somebody found. Scanlines, tape grain, soft tracking wobble, small glitch tears between shots. Night only. Colours are dirt brown, rust, and cold blue-black shadow. The only warm light is orange fire from oil drums. Nothing is clean, new or shiny.
 
-THE STAR (same in every shot): one small pixel man with a smooth round cap of pure white hair, the brightest thing on screen. Pale skin. All black clothes: black jacket, black trousers, black boots. He never changes.
+THE STAR (same in every shot): one small doll-like man with a smooth round cap of pure white hair, the brightest thing on screen. Pale skin. All black clothes: black jacket, black trousers, black boots. He never changes.
 
-0 to 4 seconds, LAS VEGAS: the attached picture comes alive. A scrap stage on the dirt in a shanty town built from plywood, tarps and rusted sheet metal. Four oil drum fires flicker at the stage corners. A packed crowd of ragged pixel people in patched coats, work suits and helmets bobs together on a slow heavy beat. The white-haired man in black stands centre stage and throws one fist up. The camera pushes in slowly.
+0 to 4 seconds, LAS VEGAS: the attached picture comes alive. A scrap stage on the dirt in a shanty town built from plywood, tarps and rusted sheet metal. Four oil drum fires flicker at the stage corners. A packed crowd of ragged doll-like people in patched coats and worn work clothes stands on every side of the stage and bobs together on a slow heavy beat. The white-haired man in black stands centre stage facing the camera, arms open, then throws one fist up. The camera pushes in slowly.
 
 4 to 7 seconds: hard tape glitch. Wide shot of the dead Las Vegas Strip at night. Dark broken casino towers, sand drifted over the boulevard, burnt-out cars, one dying sign that flickers sick yellow with no words on it. The white-haired man walks away from camera down the middle of the road, tiny against the towers.
 
@@ -38,7 +40,7 @@ DO NOT: no words, letters, numbers, logos or watermarks anywhere. No real people
 
 ## THE SHORT CUT (if the tool cuts the long one off)
 
-15 second vertical 9:16 video in the exact look of the attached picture: chunky pixel art from a high security-camera angle, analog horror CCTV tape, scanlines and glitch cuts, night, dirt browns and orange oil-drum fire. A small pixel man with pure white hair and all black clothes plays a scrap stage to a packed ragged crowd in a ruined Las Vegas shanty town, walks the dead Strip, crosses an empty desert freeway, then takes a second fire-lit stage under a collapsed overpass in ruined Los Angeles as the crowd throws its hands up. Slow pull back, hold the last frame. Sound: tape hum, wind, heavy 120 BPM kick, crowd roar, no voices. No text, no logos, no real people, no neon, no purple, no daylight.
+15 second vertical 9:16 video in the exact look of the attached picture: low-res 3D clay-doll figures with big round heads, shrunk to chunky pixels, from a high security-camera angle, analog horror CCTV tape, scanlines and glitch cuts, night, dirt browns and orange oil-drum fire. A small doll-like man with pure white hair and all black clothes plays a scrap stage to a packed ragged crowd in a ruined Las Vegas shanty town, walks the dead Strip, crosses an empty desert freeway, then takes a second fire-lit stage under a collapsed overpass in ruined Los Angeles as the crowd throws its hands up. Slow pull back, hold the last frame. Sound: tape hum, wind, heavy 120 BPM kick, crowd roar, no voices. No text, no logos, no real people, no neon, no purple, no daylight.
 
 ## THE WORDS HE ADDS HIMSELF, AFTER
 BABY PUNK / FRI · LAS VEGAS / SAT · LOS ANGELES
