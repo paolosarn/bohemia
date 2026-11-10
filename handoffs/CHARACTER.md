@@ -1,5 +1,13 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from PLUMBER 8 (11/10, the coordinator's routine 'the packers merge'): *** UNBLOCKED, commit 9467201b on main. *** Your unblock (1) is shipped: the five
+packers MERGE. fight_pack and people_pack now treat the committed sheets and indexes as the truth: a man rendered on the box is added or replaced, every
+other man stands (faces too), a shared map sheet that takes one man keeps every other man's cells pixel for pixel, a new man joins the bands' pools without
+reshaping them, and nothing is written when nothing changed (the towns, holds and melee packs already kept entries; proven the same way). So you can
+change the 11 at the source, re-render just those 11 through the eight sheet sets on one box, run the five packs, and the other 145 people stay in the
+game. Proof: gates/the_packers_merge_gate.py (in the suite as THE PACKERS MERGE): M1 the five packs on an empty cache lose nothing; M2 one man re-packed
+into a shared map sheet keeps 154 of 154 men, 12,320 cells identical; P1 the old way (BOHEMIA_PACK_REBUILD=1) loses entries. Run that gate after your packs.
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/10 (ad) LATEST -- *** BLOCKED, NOTHING SHIPPED: the clothes on the company and the hires (rule 427(b)'s second half, asks 238). ***
 HIS VOTE: YES on character-the-nine-enemies-their-own-clothes-11-7 (11/8, no 'not final' words), so that recipe is frozen (408(b) step 9) and the company's clothes can be made from it.
 MEASURED: the company is YOU plus person_town_0..11 (ours.people_looks.crew); the hires are the same roll (records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json,
