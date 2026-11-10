@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'to the floor', rule 440(f), rule 441): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS, BUILT, NOT YET SEEN.
+BESTIARY (routine 'to the floor', rule 440(f), rule 441): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS (18815238), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_FLOOR_FILED_11_10_26.md. VOTE bestiary-the-last-two-11-10 (stage stand_in).
 - HIS VOTE 11/9: YES on the five (bestiary-five-lab-beasts-11-9). Volume unlocked: the bison and the shrub-ox, LANDED this round.
 - THE LAST TWO: the site fell to 894.49 MB once his votes retired cards; the long-horned bison and the shrub-ox went in (897.7 MB with
