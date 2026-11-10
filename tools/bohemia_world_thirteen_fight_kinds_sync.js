@@ -18,7 +18,7 @@ const ROOT = path.join(__dirname, '..');
 const FILE = path.join(ROOT, 'records/target/bb/map_fight_kinds.json');
 const ENGINE = path.join(ROOT, 'engine/bohemia_fight_kinds.js');
 const BEGIN = '/* __FIGHT_KINDS__ DATA BEGIN */', END = '/* __FIGHT_KINDS__ DATA END */';
-const KEEP = ['class', 'building', 'storeys', 'man', 'cover', 'open_cover', 'blocks', 'street_front', 'place'];
+const KEEP = ['class', 'zone', 'building', 'storeys', 'man', 'cover', 'open_cover', 'blocks', 'street_front', 'place'];
 
 function rows(obj) {
   const out = {};

@@ -1,0 +1,41 @@
+{
+ "draft": true,
+ "about": "THE LAND-USE LAYER (WORLD THIRTEEN 11/10, VAMILY rule 429(g), ask line 508; Paolo 11/7: 'not all parts of town will be the same... not every part of town is gonna be this suburb shit... where there's more desert landscape, where there's more industrial or building going on... some sort of smart system'). The generator lays the valley's districts, then reads this file to ZONE it the way the real Las Vegas valley is zoned: the Strip on its corridor, downtown at the old core, INDUSTRY ALONG THE RAIL AND I-15 (Industrial Road, Western Avenue, the North Las Vegas yards) and at its two industrial parks, suburbs and apartments between, TRAILER PARKS ON THE CHEAP EDGES (by the freeways, the rail and the yards: Boulder Highway's and Lamb's real pattern), open desert, washes and the quarry on the rim. Each zone has its own street pattern. A modder's file: a zone is a list of district kinds, its share of the valley (a range the gate holds over 22 seeds), and its streets. engine/bohemia_overmap.js carries the numbers the generator uses WORD FOR WORD (tools/bohemia_world_thirteen_land_use_sync.js writes them); gates/the_valley_has_its_zones_gate.js holds every rule. A reading of the real valley's zoning (Clark County and City of Las Vegas zoning maps: industrial along the UP rail and I-15, mobile home parks at the old edges), never a census; the shares are his to correct.",
+ "source": "VAMILY.md rule 429(g)(h); records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md lines 508, 509",
+ "quote": "not all parts of town will be the same... where there's more desert landscape, where there's more industrial or building going on... some sort of smart system (11/7)",
+ "zones": {
+  "strip": {"districts": ["strip", "resort", "casino", "luxor", "sphere", "highroller", "strat", "sign", "convention", "aquarium"], "share": [0.018, 0.032], "streets": "the boulevard: the Strip's four-tile road and the resorts' drives", "is": "the resort corridor down the valley's middle"},
+  "downtown": {"districts": ["downtown", "cityhall", "courthouse", "jail", "bank", "mobmuseum", "medical"], "share": [0.002, 0.008], "streets": "the old grid: a street every block", "is": "the old core: Fremont, the courts, the towers"},
+  "industry": {"districts": ["industrial", "warehouse", "storage", "railyard", "fueldepot", "granary", "robofactory", "reclaim", "substation", "pumpstation", "watertreat", "battery", "arsenal", "datafort", "powerplant", "boneyard", "landfill", "quarry", "gypsum", "shelter"], "share": [0.025, 0.06], "streets": "big lots and yards: a truck drive down every block, sheds either side, loading docks on the drive", "is": "the works by the rail and I-15, and the two industrial parks"},
+  "transport": {"districts": ["freeway", "beltway", "interchange", "rail", "airport", "airbase", "terminal", "truckstop"], "share": [0.10, 0.15], "streets": "the freeways, the rail, the aprons", "is": "what moves through the valley"},
+  "mile_street": {"districts": ["arterial"], "share": [0.22, 0.30], "streets": "the mile grid: three lanes a way, sidewalks", "is": "the valley's mile streets"},
+  "suburb": {"districts": ["suburb", "estate", "gated", "apartment", "town"], "share": [0.24, 0.31], "streets": "a house street down every block, cul-de-sacs where it ends (426(a))", "is": "the tracts between everything"},
+  "cheap_edge": {"districts": ["trailer", "swapmeet", "drivein", "minigp", "speedway"], "share": [0.006, 0.02], "streets": "lanes between the trailer rows (the one place a house has no street in front)", "is": "the trailer parks and swap meets on the cheap land by the freeways, the rail and the yards"},
+  "commercial": {"districts": ["commercial", "mall", "hardware", "jobsoffice", "tvstation", "radio", "chapel"], "share": [0.03, 0.05], "streets": "the mile-street corners: a shop's front on the street, its lot beside it", "is": "the strip malls and the big boxes on the corners, and the seam between houses and works"},
+  "civic": {"districts": ["school", "campus", "library", "firestation", "policestation", "prison", "fort", "natmuseum", "stadium", "ballpark", "cemetery"], "share": [0.003, 0.008], "streets": "a building on its own lot off a street", "is": "the schools, the stations, the prison"},
+  "green": {"districts": ["park", "golf", "farm", "waterpark"], "share": [0.01, 0.025], "streets": "paths, the clubhouse drive", "is": "the parks, the courses, the farms on the valley floor"},
+  "open": {"districts": ["desert", "wash", "basin", "springs", "mountain", "solar", "dam"], "share": [0.16, 0.23], "streets": "almost none: a dirt track out to a pocket of houses", "is": "the open desert, the washes, the rim"},
+  "water": {"districts": ["water", "reservoir", "intake"], "share": [0.006, 0.012], "streets": "none", "is": "the lakes"}
+ },
+ "industry": {
+  "corridor_reach": 3,
+  "corridor_y": [0.16, 0.8],
+  "park_radius": 5.5,
+  "keep": 0.12,
+  "takes": ["suburb", "apartment", "commercial", "desert"],
+  "kinds": {"industrial": 0.5, "warehouse": 0.35, "storage": 0.15},
+  "why": "the corridor is every block within corridor_reach of the rail between the freeway's bends (the real valley's Industrial Road and the UP yards); the two parks are the generator's own industrial zones (ind1, ind2) grown to park_radius; keep is the share of blocks inside left as they were (a diner, a house that would not sell): the blend"
+ },
+ "cheap_edge": {
+  "near": ["industrial", "warehouse", "storage", "railyard", "freeway", "interchange", "rail"],
+  "takes": ["suburb"],
+  "chance": 0.12,
+  "why": "a tract block by the freeway, the rail or the yards turns trailer park at this chance: the cheapest land in the valley"
+ },
+ "rules": {
+  "no_house_inside_industry": "no house block (suburb, estate, gated, apartment) with five or more of its eight neighbours industry: it is taken into the works",
+  "no_estate_by_industry": "an estate or a gated tract never touches industry: the works block beside it becomes shops (the seam)",
+  "industry_clusters": "at least 80 in 100 industry blocks touch another (a zone, never scattered single blocks)",
+  "every_block_on_the_network": "every house block and every works block (industrial, warehouse, storage) has its own street or drive, joined to a mile street"
+ }
+}

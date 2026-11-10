@@ -14,7 +14,8 @@
   "blocks": "what stops a step or a shot: walls (a step and a shot, a man inside shoots out of its windows), fence (a step, never a shot), water (a step), cliff (a step and a shot), rows (a step across the rows, never a shot), barrier (a step, half cover), rail (rough ground, a step slower)",
   "street_front": "true: every building of the kind fronts a street (426(a)); false: the one exception, the trailer park's lanes; absent for open ground",
   "place": "the place board (ours.json place_boards) the kind fights on today; the 15 layouts are written into the map at their places (rule 429(c))",
-  "picture": "a debt on the picture: what the map draws there today when it is not yet what this row says"
+  "picture": "a debt on the picture: what the map draws there today when it is not yet what this row says",
+  "zone": "the land-use zone the kind belongs to (records/target/bb/land_use.json, rule 429(g)): the fight knows if it is in the works, a tract, the Strip or the open desert"
  },
  "storeys_do": {
   "1": "a slight defence bonus, NO range bonus (428(b))",
@@ -41,7 +42,8 @@
    ],
    "street_front": true,
    "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "suburb"
   },
   "estate": {
    "class": "houses",
@@ -60,7 +62,8 @@
    ],
    "street_front": true,
    "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "suburb"
   },
   "gated": {
    "class": "houses",
@@ -79,7 +82,8 @@
    ],
    "street_front": true,
    "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "suburb"
   },
   "trailer": {
    "class": "houses",
@@ -95,7 +99,8 @@
     "walls"
    ],
    "street_front": false,
-   "place": "trailer"
+   "place": "trailer",
+   "zone": "cheap_edge"
   },
   "apartment": {
    "class": "houses",
@@ -111,7 +116,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "suburb"
   },
   "town": {
    "class": "houses",
@@ -129,7 +135,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "suburb"
   },
   "downtown": {
    "class": "tower",
@@ -146,7 +153,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "downtown"
+   "place": "downtown",
+   "zone": "downtown"
   },
   "strat": {
    "class": "tower",
@@ -162,7 +170,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "strip"
+   "place": "strip",
+   "zone": "strip"
   },
   "highroller": {
    "class": "tower",
@@ -177,7 +186,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "strip"
   },
   "sign": {
    "class": "tower",
@@ -190,7 +200,8 @@
    "blocks": [
     "walls"
    ],
-   "place": "strip"
+   "place": "strip",
+   "zone": "strip"
   },
   "stadium": {
    "class": "tower",
@@ -205,7 +216,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "ballpark": {
    "class": "tower",
@@ -221,7 +233,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "medical": {
    "class": "tower",
@@ -239,7 +252,8 @@
     "fence"
    ],
    "street_front": true,
-   "place": "lab"
+   "place": "lab",
+   "zone": "downtown"
   },
   "cityhall": {
    "class": "tower",
@@ -255,7 +269,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "downtown"
   },
   "courthouse": {
    "class": "tower",
@@ -271,7 +286,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "downtown"
   },
   "resort": {
    "class": "casino",
@@ -287,7 +303,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "strip"
   },
   "casino": {
    "class": "casino",
@@ -303,7 +320,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "strip"
   },
   "luxor": {
    "class": "casino",
@@ -318,7 +336,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "strip"
   },
   "sphere": {
    "class": "casino",
@@ -334,7 +353,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "strip"
+   "place": "strip",
+   "zone": "strip"
   },
   "aquarium": {
    "class": "casino",
@@ -350,7 +370,8 @@
     "walls",
     "water"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "strip"
   },
   "park": {
    "class": "green",
@@ -364,7 +385,8 @@
    "open_cover": "half",
    "blocks": [],
    "street_front": true,
-   "place": "golf"
+   "place": "golf",
+   "zone": "green"
   },
   "golf": {
    "class": "green",
@@ -378,7 +400,8 @@
    "open_cover": "half",
    "blocks": [],
    "street_front": true,
-   "place": "golf"
+   "place": "golf",
+   "zone": "green"
   },
   "cemetery": {
    "class": "green",
@@ -393,7 +416,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "farm": {
    "class": "green",
@@ -409,7 +433,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "green"
   },
   "campus": {
    "class": "green",
@@ -426,7 +451,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "water": {
    "class": "water",
@@ -439,7 +465,8 @@
    "blocks": [
     "water"
    ],
-   "place": "marina"
+   "place": "marina",
+   "zone": "water"
   },
   "reservoir": {
    "class": "water",
@@ -452,7 +479,8 @@
    "blocks": [
     "water"
    ],
-   "place": "shore"
+   "place": "shore",
+   "zone": "water"
   },
   "intake": {
    "class": "water",
@@ -468,7 +496,8 @@
     "water",
     "walls"
    ],
-   "place": "marina"
+   "place": "marina",
+   "zone": "water"
   },
   "waterpark": {
    "class": "water",
@@ -484,7 +513,8 @@
    "blocks": [
     "water"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "green"
   },
   "desert": {
    "class": "land",
@@ -495,7 +525,8 @@
    "cover": "none",
    "open_cover": "half",
    "blocks": [],
-   "place": "desert"
+   "place": "desert",
+   "zone": "open"
   },
   "wash": {
    "class": "land",
@@ -508,7 +539,8 @@
    "blocks": [
     "cliff"
    ],
-   "place": "wash"
+   "place": "wash",
+   "zone": "open"
   },
   "basin": {
    "class": "land",
@@ -519,7 +551,8 @@
    "cover": "none",
    "open_cover": "none",
    "blocks": [],
-   "place": "wash"
+   "place": "wash",
+   "zone": "open"
   },
   "quarry": {
    "class": "land",
@@ -531,7 +564,8 @@
    "open_cover": "full",
    "blocks": [
     "cliff"
-   ]
+   ],
+   "zone": "industry"
   },
   "gypsum": {
    "class": "land",
@@ -543,7 +577,8 @@
    "open_cover": "half",
    "blocks": [
     "cliff"
-   ]
+   ],
+   "zone": "industry"
   },
   "landfill": {
    "class": "land",
@@ -554,7 +589,8 @@
    "cover": "none",
    "open_cover": "half",
    "blocks": [],
-   "place": "landfill"
+   "place": "landfill",
+   "zone": "industry"
   },
   "boneyard": {
    "class": "land",
@@ -566,7 +602,8 @@
    "open_cover": "full",
    "blocks": [
     "walls"
-   ]
+   ],
+   "zone": "industry"
   },
   "springs": {
    "class": "land",
@@ -579,7 +616,8 @@
    "blocks": [
     "cliff"
    ],
-   "place": "redrock"
+   "place": "redrock",
+   "zone": "open"
   },
   "mountain": {
    "class": "mountain",
@@ -592,7 +630,8 @@
    "blocks": [
     "cliff"
    ],
-   "place": "pass"
+   "place": "pass",
+   "zone": "open"
   },
   "solar": {
    "class": "solar",
@@ -605,7 +644,8 @@
    "blocks": [
     "rows",
     "fence"
-   ]
+   ],
+   "zone": "open"
   },
   "airport": {
    "class": "field",
@@ -622,7 +662,8 @@
     "fence"
    ],
    "street_front": true,
-   "place": "airport"
+   "place": "airport",
+   "zone": "transport"
   },
   "airbase": {
    "class": "field",
@@ -639,7 +680,8 @@
     "fence"
    ],
    "street_front": true,
-   "place": "airport"
+   "place": "airport",
+   "zone": "transport"
   },
   "speedway": {
    "class": "field",
@@ -655,7 +697,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "cheap_edge"
   },
   "minigp": {
    "class": "field",
@@ -670,7 +713,8 @@
    "blocks": [
     "barrier"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "cheap_edge"
   },
   "drivein": {
    "class": "field",
@@ -685,7 +729,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "cheap_edge"
   },
   "swapmeet": {
    "class": "field",
@@ -698,7 +743,8 @@
    "cover": "half",
    "open_cover": "half",
    "blocks": [],
-   "street_front": true
+   "street_front": true,
+   "zone": "cheap_edge"
   },
   "truckstop": {
    "class": "field",
@@ -711,7 +757,8 @@
    "cover": "full",
    "open_cover": "full",
    "blocks": [],
-   "street_front": true
+   "street_front": true,
+   "zone": "transport"
   },
   "dam": {
    "class": "dam",
@@ -727,7 +774,8 @@
     "cliff",
     "water"
    ],
-   "place": "shore"
+   "place": "shore",
+   "zone": "open"
   },
   "rail": {
    "class": "rail",
@@ -740,7 +788,8 @@
    "blocks": [
     "rail"
    ],
-   "place": "works"
+   "place": "works",
+   "zone": "transport"
   },
   "railyard": {
    "class": "rail",
@@ -756,7 +805,8 @@
     "rail",
     "walls"
    ],
-   "place": "works"
+   "place": "works",
+   "zone": "industry"
   },
   "freeway": {
    "class": "freeway",
@@ -768,7 +818,8 @@
    "open_cover": "half",
    "blocks": [
     "barrier"
-   ]
+   ],
+   "zone": "transport"
   },
   "beltway": {
    "class": "freeway",
@@ -780,7 +831,8 @@
    "open_cover": "half",
    "blocks": [
     "barrier"
-   ]
+   ],
+   "zone": "transport"
   },
   "interchange": {
    "class": "freeway",
@@ -794,7 +846,8 @@
    "open_cover": "half",
    "blocks": [
     "barrier"
-   ]
+   ],
+   "zone": "transport"
   },
   "arterial": {
    "class": "road",
@@ -804,7 +857,8 @@
    "man": "open",
    "cover": "none",
    "open_cover": "half",
-   "blocks": []
+   "blocks": [],
+   "zone": "mile_street"
   },
   "strip": {
    "class": "blvd",
@@ -815,7 +869,8 @@
    "cover": "none",
    "open_cover": "half",
    "blocks": [],
-   "place": "strip"
+   "place": "strip",
+   "zone": "strip"
   },
   "commercial": {
    "class": "roof",
@@ -831,7 +886,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "commercial"
   },
   "mall": {
    "class": "roof",
@@ -847,7 +903,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "commercial"
   },
   "convention": {
    "class": "roof",
@@ -864,7 +921,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "strip"
+   "place": "strip",
+   "zone": "strip"
   },
   "industrial": {
    "class": "roof",
@@ -883,7 +941,8 @@
     "fence"
    ],
    "street_front": true,
-   "place": "works"
+   "place": "works",
+   "zone": "industry"
   },
   "warehouse": {
    "class": "roof",
@@ -900,7 +959,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "works"
+   "place": "works",
+   "zone": "industry"
   },
   "school": {
    "class": "roof",
@@ -918,7 +978,8 @@
     "fence"
    ],
    "street_front": true,
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "civic"
   },
   "prison": {
    "class": "roof",
@@ -935,7 +996,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "jail": {
    "class": "roof",
@@ -951,7 +1013,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "downtown"
   },
   "library": {
    "class": "roof",
@@ -968,7 +1031,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "civic"
   },
   "firestation": {
    "class": "roof",
@@ -984,7 +1048,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "policestation": {
    "class": "roof",
@@ -1001,7 +1066,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "robofactory": {
    "class": "roof",
@@ -1018,7 +1084,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "datafort": {
    "class": "roof",
@@ -1035,7 +1102,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "arsenal": {
    "class": "roof",
@@ -1052,7 +1120,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "fueldepot": {
    "class": "roof",
@@ -1069,7 +1138,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "granary": {
    "class": "roof",
@@ -1085,7 +1155,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "storage": {
    "class": "roof",
@@ -1101,7 +1172,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "works"
+   "place": "works",
+   "zone": "industry"
   },
   "substation": {
    "class": "roof",
@@ -1116,7 +1188,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "pumpstation": {
    "class": "roof",
@@ -1133,7 +1206,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "watertreat": {
    "class": "roof",
@@ -1150,7 +1224,8 @@
     "fence",
     "water"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "radio": {
    "class": "roof",
@@ -1166,7 +1241,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "commercial"
   },
   "battery": {
    "class": "roof",
@@ -1181,7 +1257,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "reclaim": {
    "class": "roof",
@@ -1197,7 +1274,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "terminal": {
    "class": "roof",
@@ -1214,7 +1292,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "airport"
+   "place": "airport",
+   "zone": "transport"
   },
   "chapel": {
    "class": "roof",
@@ -1231,7 +1310,8 @@
     "walls"
    ],
    "street_front": true,
-   "place": "suburb"
+   "place": "suburb",
+   "zone": "commercial"
   },
   "fort": {
    "class": "roof",
@@ -1246,7 +1326,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "bank": {
    "class": "roof",
@@ -1262,7 +1343,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "downtown"
   },
   "jobsoffice": {
    "class": "roof",
@@ -1278,7 +1360,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "commercial"
   },
   "hardware": {
    "class": "roof",
@@ -1294,7 +1377,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "commercial"
   },
   "powerplant": {
    "class": "roof",
@@ -1311,7 +1395,8 @@
     "walls",
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "shelter": {
    "class": "roof",
@@ -1326,7 +1411,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "industry"
   },
   "mobmuseum": {
    "class": "roof",
@@ -1342,7 +1428,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "downtown"
   },
   "natmuseum": {
    "class": "roof",
@@ -1358,7 +1445,8 @@
    "blocks": [
     "walls"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "civic"
   },
   "tvstation": {
    "class": "roof",
@@ -1374,7 +1462,8 @@
    "blocks": [
     "fence"
    ],
-   "street_front": true
+   "street_front": true,
+   "zone": "commercial"
   }
  },
  "town": {

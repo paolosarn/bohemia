@@ -95,11 +95,13 @@ async function readTheMap() {
           const th = c === 1 || c === 2 || c === 3 ? 0 : vbThruOf(cls, bx, by);
           /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7, rule 426(a)): a house block's own street, read off the
              generator's byte (houseLanes), never off the painter: its middle row (an east-west street) or column, and a T's lot */
-          let ln = 0; try { const LV = window.vbLanesValley && vbLanesValley(); ln = LV && c === 4 && !th ? LV[by * N + bx] : 0; } catch (e) { ln = 0; }
+          let ln = 0; try { const LV = window.vbLanesValley && vbLanesValley(); ln = LV && (c === 4 || c === 5) && !th ? LV[by * N + bx] : 0; } catch (e) { ln = 0; }   /* 5: a works block's drive (__THE_VALLEY_HAS_ITS_ZONES__) */
           const ix = (AX0 + ax) - bx * TPB, iy = (AY0 + ay) - by * TPB, mid = TPB >> 1;
           const lane = !!(ln & 3) && ((ln & 3) === 1 ? (iy === mid || (ix === mid && ((iy === 0 && (ln & 16)) || (iy === TPB - 1 && (ln & 64)))))
                                                      : (ix === mid || (iy === mid && ((ix === 0 && (ln & 128)) || (ix === TPB - 1 && (ln & 32))))));
-          street[ay * p.AW + ax] = (c === 1 || c === 2 || c === 3 || th || lane) ? 1 : 0;
+          /* a works drive that ends unjoined ends in its container yard (__THE_VALLEY_HAS_ITS_ZONES__): that end tile is the yard, not street */
+          const yard = c === 5 && lane && ((ln & 3) === 1 ? iy === mid && ((ix === 0 && !(ln & 4)) || (ix === TPB - 1 && !(ln & 8))) : ix === mid && ((iy === 0 && !(ln & 4)) || (iy === TPB - 1 && !(ln & 8))));
+          street[ay * p.AW + ax] = (c === 1 || c === 2 || c === 3 || th || (lane && !yard)) ? 1 : 0;
         }
         let pic = null;
         if (shots) {   /* the map's own block read top down: every texel the painter paints there (its kind and part), 4 a tile, in a plain key */

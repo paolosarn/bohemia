@@ -781,6 +781,62 @@ function proceduralDistrict(x,y,r,L){
 }
 
 function OM_rr(seed){ return (hash2(seed,911,373)%1000)/1000; }
+/* ==== __THE_VALLEY_HAS_ITS_ZONES__ (WORLD THIRTEEN 11/10, VAMILY rule 429(g), ask line 508; Paolo 11/7: 'not every part of town is
+   gonna be this suburb shit... where there's more desert landscape, where there's more industrial or building going on... some sort
+   of smart system'). MEASURED FIRST, 22 seeds (tools/bohemia_world_thirteen_zones_measure.js): every zone was on the map but out of the
+   real valley's balance: industry 0.6 to 0.8 in 100 blocks, scattered singles (2,328 house blocks touched one, 6 sat inside one), the
+   trailer parks and swap meets 0.2 to 0.3 in 100. The districts are laid as before (nothing of the roll moves); THEN this pass zones
+   them the way the real valley is zoned (records/target/bb/land_use.json, its numbers word for word below):
+     1. THE WORKS: every block within corridor_reach of the rail between the freeway's bends (Industrial Road and the UP yards) and
+        every block inside the two industrial parks (the layout's own ind1 and ind2, grown to park_radius) that is a tract, an
+        apartment block, a shop block or a vacant lot becomes industrial, warehouse or storage by its own roll; keep of them stay as
+        they were (the blend: a diner, a house that would not sell).
+     2. THE SEAM: an estate or a gated tract never touches the works: a works block beside one becomes shops.
+     3. NO HOUSE INSIDE THE WORKS: a house block with five or more of its eight neighbours works is taken into them.
+     4. THE CHEAP EDGE: a tract block beside the works, the freeway or the rail turns trailer park at its chance.
+   Fixed blocks (the landmarks, the mile streets, the real places) are never touched. The streets each zone carries are the street
+   pass below (houseLanes: a house street down every house block, a truck drive down every works block, joined to the mile streets).
+   [bb] Battle Brothers' world map has its regions (the north's snow, the south's desert) each with its own settlements; ours zones
+   one valley the way its county did. [analog horror] the works by the tracks, every gate chained, a hundred trailers by the freeway
+   with their lights out. Gate: gates/the_valley_has_its_zones_gate.js. ==== */
+/* __LAND_USE__ DATA BEGIN */
+const LAND_USE={industry:{"corridor_reach":3,"corridor_y":[0.16,0.8],"park_radius":5.5,"keep":0.12,"takes":["suburb","apartment","commercial","desert"],"kinds":{"industrial":0.5,"warehouse":0.35,"storage":0.15}},
+  cheap_edge:{"takes":["suburb"],"near":["industrial","warehouse","storage","railyard","freeway","interchange","rail"],"chance":0.12},
+  works_zone:["industrial","warehouse","storage","railyard","fueldepot","granary","robofactory","reclaim","substation","pumpstation","watertreat","battery","arsenal","datafort","powerplant","boneyard","landfill","quarry","gypsum","shelter"],
+  house_zone:["suburb","estate","gated","apartment","town"]};
+/* __LAND_USE__ DATA END */
+const LU_WORKS={industrial:1,warehouse:1,storage:1};
+const LU_HOUSE={suburb:1,estate:1,gated:1,apartment:1};
+function landUse(tiles,at,L,seed,N){
+  const LI=LAND_USE.industry, LC=LAND_USE.cheap_edge, TAKE=new Set(LI.takes), NEAR=new Set(LC.near), CTAKE=new Set(LC.takes);
+  const hh=(x,y,s)=>hash2((seed^s)>>>0,x,y)/4294967296;
+  const kinds=Object.keys(LI.kinds), wsum=kinds.reduce((a,k)=>a+LI.kinds[k],0);
+  const kindAt=(x,y)=>{ let v=hh(x,y,0x5e1d)*wsum; for(const k of kinds){ v-=LI.kinds[k]; if(v<0)return k; } return kinds[0]; };
+  const WZ=new Set(LAND_USE.works_zone), works=(t)=>!!t&&WZ.has(t.district);   /* the whole industry zone: the works, the yards, the dumps, the plants */
+  const N8=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  let made=0;
+  for(const t of tiles){
+    if(t.fixed||t.real||!TAKE.has(t.district))continue;
+    const corr=Math.abs(t.x-L.railX)<=LI.corridor_reach&&t.x!==L.railX&&t.y>=N*LI.corridor_y[0]&&t.y<=N*LI.corridor_y[1];
+    const park=Math.hypot(t.x-L.ind1.x,t.y-L.ind1.y)<LI.park_radius||Math.hypot(t.x-L.ind2.x,t.y-L.ind2.y)<LI.park_radius;
+    if(!corr&&!park)continue;
+    if(hh(t.x,t.y,0x2b07)<LI.keep)continue;
+    t.district=kindAt(t.x,t.y); t.zoned='works'; made++;
+  }
+  /* no house inside the works (again until none: a house taken in can close the ring round the next) */
+  for(let pass=0,ch=1;ch&&pass<8;pass++){ ch=0;
+    for(const t of tiles){ if(!LU_HOUSE[t.district]||t.fixed||t.real)continue; let w=0;
+      for(const [dx,dy] of N8){ if(works(at(t.x+dx,t.y+dy)))w++; }
+      if(w>=5){ t.district=kindAt(t.x,t.y); t.zoned='works'; ch=1; } } }
+  /* the seam, last of the works' rules: an estate or a gated tract never touches the works */
+  for(const t of tiles){ if(t.district!=='estate'&&t.district!=='gated')continue;
+    for(const [dx,dy] of N8){ const n=at(t.x+dx,t.y+dy); if(n&&LU_WORKS[n.district]&&!n.fixed&&!n.real){ n.district=DISTRICT.COMMERCIAL; n.zoned='seam'; } } }
+  /* the cheap edge */
+  for(const t of tiles){ if(!CTAKE.has(t.district)||t.fixed||t.real)continue;
+    let near=false; for(const [dx,dy] of N8){ const n=at(t.x+dx,t.y+dy); if(n&&NEAR.has(n.district)){ near=true; break; } }
+    if(near&&hh(t.x,t.y,0x7ca1)<LC.chance){ t.district=DISTRICT.TRAILER; t.zoned='edge'; } }
+  return made;
+}
 function buildOvermap(seed){
   seed=seed>>>0||1;
   const L=layoutFromSeed(seed);
@@ -1206,6 +1262,7 @@ function buildOvermap(seed){
       }
     }
   }
+  landUse(tiles, at, L, seed, OVER_N);   /* __THE_VALLEY_HAS_ITS_ZONES__: zoned on the finished districts, before the real places take their seats */
   stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
   { const LN=houseLanes({n:OVER_N,at}); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
@@ -1239,11 +1296,12 @@ function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t
    [analog horror] the same quiet street repeating block after block, each one a dead end you only see once you are in it.
    Gate: gates/a_street_in_front_of_every_house_gate.js. ==== */
 const LANE_HOUSES={suburb:1,estate:1,gated:1,apartment:1};
+const LANE_WORKS={industrial:1,warehouse:1,storage:1};   /* __THE_VALLEY_HAS_ITS_ZONES__ (429(g)(h)): a works block's truck drive, laid and joined the same way */
 const LANE_WALK={arterial:1,strip:1};
 const LANE_LAND={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1};
 function houseLanes(m){
   const N=m.n, LN=new Uint8Array(N*N), AX=new Uint8Array(N*N), D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
-  const isH=(x,y)=>!!LANE_HOUSES[D(x,y)], isW=(x,y)=>!!LANE_WALK[D(x,y)], isL=(x,y)=>!!LANE_LAND[D(x,y)];
+  const isH=(x,y)=>!!(LANE_HOUSES[D(x,y)]||LANE_WORKS[D(x,y)]), isW=(x,y)=>!!LANE_WALK[D(x,y)], isL=(x,y)=>!!LANE_LAND[D(x,y)];
   const k=(x,y)=>y*N+x, hsh=(x,y)=>{ let h=(Math.imul(x,73856093)^Math.imul(y,19349663)^0x5f3a)>>>0; h=Math.imul(h^h>>>16,2246822507); return ((h^h>>>13)>>>0)/4294967296; };
   const run=(x,y,dx,dy)=>{ let n=0; for(let i=1;i<40&&isH(x+dx*i,y+dy*i);i++)n++; return n; };   /* house blocks straight on that way */
   const dq=[]; let head=0;   /* 0-1 breadth first: a straight step goes in at the front, a T at the back */
@@ -1290,6 +1348,14 @@ function houseLanes(m){
   for(const [x,y,sb] of tee){ LN[k(x,y)]|=sb; const d=DIR.find(r=>r[2]===sb), nx=x+d[0], ny=y+d[1], a=AX[k(nx,ny)];
     /* the block the T comes from: its end toward us runs on */
     if(a===1)LN[k(nx,ny)]|=(nx<x?8:4); else LN[k(nx,ny)]|=(ny<y?8:4); }
+  /* CROSS STREETS (WORLD THIRTEEN 11/10, 423(b), 429(h)): two house blocks side by side whose streets run the same way are two rows
+     of houses back to back; every third block along, a short cross street runs from one street to the other through one lot of each
+     row (a T on both), so a tract is a grid you can cross, never a wall of houses between two streets (the real valley's tracts: a
+     cross street every two or three houses' widths of block). Houses only; a works block keeps its yards. */
+  const HO=(x,y)=>!!LANE_HOUSES[D(x,y)];
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!HO(x,y))continue; const a=AX[k(x,y)];
+    if(a===1&&HO(x,y+1)&&AX[k(x,y+1)]===1&&((x+(hsh(0,y)*3|0))%3)===0){ LN[k(x,y)]|=64; LN[k(x,y+1)]|=16; }
+    if(a===2&&HO(x+1,y)&&AX[k(x+1,y)]===2&&((y+(hsh(x,0)*3|0))%3)===0){ LN[k(x,y)]|=32; LN[k(x+1,y)]|=128; } }
   return LN;
 }
 
@@ -1432,7 +1498,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,LANE_HOUSES,LANE_WALK};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);

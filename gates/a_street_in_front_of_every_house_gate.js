@@ -38,7 +38,9 @@ const SEEDS = [1337, 7, 42, 2026, 99, 31337, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 
 /* street to street from every mile street, over the streets' own joins */
 function joined(m, LN) {
   const N = m.n, D = (x, y) => { const t = (x < 0 || y < 0 || x >= N || y >= N) ? null : m.at(x, y); return t ? t.district : null; };
-  const H = (x, y) => !!O.LANE_HOUSES[D(x, y)], W = (x, y) => !!O.LANE_WALK[D(x, y)], k = (x, y) => y * N + x;
+  /* __THE_VALLEY_HAS_ITS_ZONES__ (429(g)(h)): a works block's drive is a street too: a house street can join the mile streets through
+     one; the walk goes through both, the count is the houses' */
+  const H = (x, y) => !!(O.LANE_HOUSES[D(x, y)] || (O.LANE_WORKS && O.LANE_WORKS[D(x, y)])), HO = (x, y) => !!O.LANE_HOUSES[D(x, y)], W = (x, y) => !!O.LANE_WALK[D(x, y)], k = (x, y) => y * N + x;
   const reach = new Uint8Array(N * N), st = [], SIDE = [[0, -1, 16], [1, 0, 32], [0, 1, 64], [-1, 0, 128]];
   const ends = (v) => (v & 3) === 1 ? [[-1, 0, 4], [1, 0, 8]] : [[0, -1, 4], [0, 1, 8]];
   for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!H(x, y)) continue; const v = LN[k(x, y)];
@@ -55,7 +57,7 @@ function joined(m, LN) {
     while (s2.length) { const [cx, cy] = s2.pop(); for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nx = cx + dx, ny = cy + dy; if (W(nx, ny)) r = true; if (H(nx, ny) && comp[k(nx, ny)] < 0) { comp[k(nx, ny)] = id; s2.push([nx, ny]); } } }
     road.push(r); id++; }
   let n = 0, r = 0, lumpMiss = 0, pockets = 0, sealed = 0, noWay = 0;
-  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!H(x, y)) continue; n++; const v = LN[k(x, y)]; if (!(v & 3)) noWay++;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { if (!HO(x, y)) continue; n++; const v = LN[k(x, y)]; if (!(v & 3)) noWay++;
     if (reach[k(x, y)]) r++; else if (road[comp[k(x, y)]]) lumpMiss++; else { pockets++; if (!(v & 12) && !(v & 240)) sealed++; } }
   return { n, r, lumpMiss, pockets, sealed, noWay };
 }

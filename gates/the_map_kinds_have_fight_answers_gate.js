@@ -19,6 +19,7 @@
      F9  every row's class is the painter's own (vbClassOf in slices/BOHEMIA_CITY_WORLD.html), so the table and the map agree
      F10 the engine's rows are the file's, word for word (tools/bohemia_world_thirteen_fight_kinds_sync.js)
      F11 the painter reads it: a house's wall comes from the table's storeys (vbMixStorey), the old one-in-seven roll is gone
+     F14 429(g): every map kind carries its land-use zone
      F13 429(f): over 22 generated valleys every district that lands has its row
      F12 PLANTED FAIL: the same checks over the file with suburb's row taken out, a ladder put in, and a new map kind with no row
          must go red on each, or this gate cannot fail and proves nothing
@@ -119,6 +120,11 @@ function check(J, want) {
     /vbMixStorey\(STO\.house\[sb\]/.test(core) && core.indexOf('hl > 0.86 ? 4 : 2') < 0 && /var VB_STOREYS=' \+ JSON\.stringify\(vbStoreysTable\(\)\)/.test(src)
     && /<script src="\.\.\/engine\/bohemia_fight_kinds\.js"><\/script>/.test(src));
 
+  /* F14 (429(g)): every map kind carries its land-use zone, the zone the land-use file puts it in */
+  const LUF = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/land_use.json'), 'utf8')), ZOF = {};
+  Object.keys(LUF.zones).forEach((z) => LUF.zones[z].districts.forEach((d) => { ZOF[d] = z; }));
+  const badZ = Object.keys(J.districts).filter((d) => J.districts[d].zone !== ZOF[d]);
+  ok('F14 every map kind carries its land-use zone (the land-use file\'s)' + (badZ.length ? ': WRONG ' + badZ.slice(0, 8).join(', ') : ''), badZ.length === 0);
   /* F13 (429(f)): over many generated valleys, every kind that lands on one has its row */
   const OM = require(path.join(ROOT, 'engine/bohemia_overmap.js')), seen = {}, miss13 = {};
   [1337, 7, 42, 2026, 99, 31337, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 2691674296].forEach((sd) => { OM.buildOvermap(sd).tiles.forEach((t) => { seen[t.district] = 1; if (!J.districts[t.district]) miss13[t.district] = 1; }); });
