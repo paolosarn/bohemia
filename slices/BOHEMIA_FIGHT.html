@@ -1081,7 +1081,10 @@ const FIGHT = (function () {
     const head = (T.heads || {})[p.faction || 'brigands'];
     if (head && count > 1 && !out.length) out.push(head);
     while (out.length < count) {
-      const pool = ids.filter(function (k) { return !(/leader/.test(k) && out.filter(function (o) { return o === k; }).length >= T.leaders_max); });
+      /* __CHAMPIONS_ARE_NAMED_MEN__ (BESTIARY 11/10, rule 443(d): 'champions as rare named men'): a band carries one named man at
+         most; once he is dealt, no second champion kind is drawn (bohemia_enemies.json champions.kinds) */
+      const CHK = (DB.newEnemies && DB.newEnemies.champions && DB.newEnemies.champions.kinds) || {}, hasChamp = out.some(function (o) { return CHK[o]; });
+      const pool = ids.filter(function (k) { return !(/leader/.test(k) && out.filter(function (o) { return o === k; }).length >= T.leaders_max) && !(hasChamp && CHK[k]); });
       let r = rng() * pool.reduce(function (t, k) { return t + mix[k]; }, 0);
       out.push(pool.filter(function (k) { r -= mix[k]; return r < 0; })[0] || pool[0]);
     }
@@ -2018,6 +2021,17 @@ const FIGHT = (function () {
         const bs = B.shield ? shieldByName(B.shield) : null; if (bs && u.weapon && u.weapon.hands === 1) u.shield = bs;
         if (bw && u.weapon === bw && bw.hands === 2) u.shield = null;   /* BOSSES 4 11/3: a two-handed boss weapon (THE SURVEYOR's range pole) leaves no hand for the shield his kind rolled */
         S.boss = { name: u.name, id: u.id, kind: B.kind, look: u.look || null, lesson: B.lesson || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }
+    /* __CHAMPIONS_ARE_NAMED_MEN__ (BESTIARY 11/10, rule 443(d); Battle Brothers: a band can carry one named man, its toughest): a
+       champion kind the band was dealt (its party's mix, at its own act weight: rare by the mix) carries a name and a title from the
+       data (records/target/bb/bohemia_enemies.json champions, drafts for WORDS) and is a champion, so his fall is HELD BREATH (CUT_SAYS).
+       His numbers are his champion row's own; nothing new is rolled but his name. */
+    S.champions = [];
+    try { const CH = DB.newEnemies && DB.newEnemies.champions && DB.newEnemies.champions.kinds;
+      if (CH) bandUnits.forEach(function (u) { const c = CH[u.kind]; if (!c || u.boss || !c.names || !c.names.length) return;
+        const used = S.champions.map(function (x) { return x.name; }), left = c.names.map(function (n) { return String(n).toUpperCase(); }).filter(function (n) { return used.indexOf(n) < 0; }), pick = left.length ? left : c.names.map(function (n) { return String(n).toUpperCase(); });   /* two in one band never share a name */
+        u.champion = true; u.name = pick[Math.floor(rng() * pick.length)]; u.champTitle = c.title || null;
+        S.champions.push({ id: u.id, kind: u.kind, name: u.name, title: u.champTitle }); });
+    } catch (e) { S.champErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
     /* THE BOARD GROWS TO FIT (COMBAT 7, rule 378(b), ask line 407; Paolo 11/3: 'make sure there's not a cap on the amount of players
        on screen, enemy and my company... make sure there's no coded cap'): when the open ground behind his front column (his rows
@@ -9592,6 +9606,7 @@ function drawMan(v, tw, th) {
   const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now) + kn.x, feet = sy((dy(v) + .9) * UI.th) + kn.y;
   const lvl = th * riseAt(v.x, v.y);
   const Y = feet - lvl;
+  if (v.champion && !v._seen) pop(v, '', '#e0a040', true, v.name + (v.champTitle ? ', ' + v.champTitle : '') + ', is with them.');   /* __CHAMPIONS_ARE_NAMED_MEN__ (draft:true) */
   v._seen = true;
   const fade = v._outAt !== undefined ? outAlpha(v, now) : 1, past = fade < 1;   /* __YOU_SEE_THEM_RUN__: past the edge, fading; no shadow off the board */
   if (!past) lampShadow(v, X, Y, h);
@@ -10265,6 +10280,7 @@ function weaponCard(v) {
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
   let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(objName(own).toUpperCase()) + ' · ' + esc(v.name) + '</div>'
+    + (v.champion && v.champTitle ? '<div class="wc" style="font-size:10px;font-weight:700;color:#8a2a10;margin-bottom:2px">' + esc(v.champTitle.toUpperCase()) + '</div>' : '')   /* __CHAMPIONS_ARE_NAMED_MEN__: the named man says what he is */
     + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || own.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || own.class) ? ', an ' : ', a ') + esc((L.base || own.class).toLowerCase()))
     + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';

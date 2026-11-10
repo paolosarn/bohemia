@@ -31,14 +31,23 @@ THE LEGS (every number read from the data the game reads, never typed here):
   F5 NO SPECIAL SYSTEMS (rule 431(f), 'just another animal we can fight'): each beast BESTIARY added uses a brain the file already
      has, carries no row key and no beast key the earlier beasts lack, and its attack is a page in beast_attacks.json.
   F6 BOSSES: 3 or more bosses the fight stages (records/target/bb/boss_act_one.json: each with its board and its crew).
-  F7 CHAMPIONS: the fight's parties deal a champion kind (a '_champion' row in a party's mix: ours.json or bohemia_enemies.json).
+  F7 CHAMPIONS ARE RARE NAMED MEN (rule 443(d)): the fight's parties deal champion kinds (a '_champion' row in a party's mix), and
+     every one has a title and three or more names in bohemia_enemies.json's champions (drafts); on the live rules
+     (gates/the_bestiary_floor_men.js) a band dealt one names him from his list with his title, two never share a name, no band
+     carries one before the late phase, and no band carries more than one.
+  F10 THE NEW MEN (rule 443(d): 'each type its own look... and its own way to fight; every Battle Brothers archetype keeps its
+     lesson'): every enemy type BESTIARY added (bohemia_enemies.json rows, added_by BESTIARY) rides a wiki row, names its Battle
+     Brothers lesson and its own, has looks no other enemy pool holds, is dealt by its party, and on the live rules is armed from its
+     own gear and strikes (a volley brain from range more than up close), and a crew of 6 beats its party 6 in 10 or better.
   F8 THE ROSTER FILE IS FRESH (tools/bohemia_combat_the_roster.py --check).
   F9 ON THE PAGE (rule 441(a), the browser half gates/the_bestiary_floor_fight.js; --no-browser skips it): on the demo, a phone upright
      and sideways, each BESTIARY beast's party through the one door: fielded on its own sheet with its own words, the win home, its kill
      on the map in its own picture, one tap: food and a roll of hides; the page throws nothing.
 PLANTED (--plant, and always run first): ONE BEAST REMOVED (the book's last animal's party taken out of the mix: 16, red); a beast of
 unknown origin (a party in no book: red); a beast with no fossil (red); a new brain with a key nobody has (red); a sheet that copies
-its kin (the stilt-legged horse drawn on the Ice Age horse's sheet: red). Each must turn its own leg red, or the gate fails.
+its kin (the stilt-legged horse drawn on the Ice Age horse's sheet: red); a new man in another's clothes (the bowman handed the
+neighbor's looks: red); a new man no party deals (the bowman's place in the watch's mix taken out: red); a champion with no name
+(red). Each must turn its own leg red, or the gate fails.
 
     python3 gates/the_bestiary_floor_gate.py [--plant] [--pairs] [--no-browser]
 """
@@ -52,7 +61,8 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 49  # MEASURED 11/10 (42 before BESTIARY's seven): only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 54  # MEASURED 11/10 (42 before BESTIARY's seven, 49 before its five men): only ever raised
+FACTIONS_FIELDED_NOW = 8       # MEASURED 11/10 (the flock waits for its clothes): the factions the fight fields a party for; only ever raised
 LAB_MADE_NOW = 17              # MEASURED 11/10 (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
 passed = failed = 0
@@ -187,6 +197,35 @@ def f5(D, ne=None):
     return bad
 
 
+def men_data(D):
+    """F10's data half: the faults the files alone can show"""
+    ne = D['ne']; bad = []
+    wiki = {r['id'] for r in J('records/target/bb/enemies.json')['rows']} if isinstance(J('records/target/bb/enemies.json'), dict) else set()
+    pools = {k: set(v) for k, v in D['ours']['people_looks']['value']['band'].items() if isinstance(v, list)}
+    for r in ne['rows']:
+        if r.get('looks') and not r.get('beast'): pools['row:' + r['id']] = set(r['looks'])
+    dealt = set(ne['heads'].values()) | {k for m in ne['mix'].values() for ph in m.values() for k in ph}
+    mine = [r for r in ne['rows'] if str(r.get('added_by', '')).startswith(BY) and not r.get('beast')]
+    for r in mine:
+        if wiki and r.get('from') not in wiki: bad.append(r['id'] + ': rides no wiki row')
+        if not r.get('lesson_bb') or not r.get('lesson') or not r.get('draft'): bad.append(r['id'] + ': no lesson (Battle Brothers and ours, draft)')
+        if r.get('brain') not in ne['brains']: bad.append(r['id'] + ': a brain the file does not have')
+        me = set(r.get('looks') or [])
+        if not me: bad.append(r['id'] + ': no looks')
+        for k, v in pools.items():
+            if k != 'row:' + r['id'] and me & v: bad.append(r['id'] + ': wears what %s wears (%s)' % (k.replace('row:', ''), ', '.join(sorted(me & v))[:60]))
+        if r['id'] not in dealt: bad.append(r['id'] + ': no party deals it')
+    return mine, bad
+
+
+def champs_data(D, ne=None):
+    ne = ne or D['ne']; CH = (ne.get('champions') or {}).get('kinds') or {}
+    mixes = list(D['ours']['enemy_tiers']['value']['mix'].values()) + list(ne['mix'].values())
+    dealt = sorted({k for m in mixes for ph in m.values() for k in ph if k.endswith('_champion')})
+    bad = [k + ': no title or under three names' for k in dealt if not (CH.get(k) or {}).get('title') or len((CH.get(k) or {}).get('names') or []) < 3 or not (CH.get(k) or {}).get('draft')]
+    return dealt, bad
+
+
 def main():
     D = load()
     law = open(os.path.join(ROOT, 'laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md')).read()
@@ -206,6 +245,15 @@ def main():
         if r['id'] == 'american_cheetah': r['brain'] = 'flier'; r['flies'] = True
     P['ne']['brains']['flier'] = {'value': {'advance': True, 'flies': True}}
     plants.append(('a new brain and a flies key', bool(f5(D, P['ne']))))
+    P = json.loads(json.dumps(D))
+    for r in P['ne']['rows']:
+        if r['id'] == 'watch_bowman': r['looks'] = [x for x in D['ne']['rows'] if x['id'] == 'watch_neighbor'][0]['looks'][:1]
+    _, bad = men_data(P); plants.append(('a new man in another\'s clothes', any('watch_bowman: wears' in x for x in bad)))
+    P = json.loads(json.dumps(D))
+    for m in P['ne']['mix'].get('watch', {}).values(): m.pop('watch_bowman', None)
+    _, bad = men_data(P); plants.append(('a new man no party deals', any('watch_bowman: no party' in x for x in bad)))
+    P = json.loads(json.dumps(D)); k0 = sorted(P['ne']['champions']['kinds'])[0]; P['ne']['champions']['kinds'][k0]['names'] = []
+    _, bad = champs_data(D, P['ne']); plants.append(('a champion with no name', any(k0 in x for x in bad)))
     sw = f4(D, swap={'beast_stilt_legged_horse': 'beast_ice_age_horse'})
     plants.append(('the stilt-legged horse drawn on the Ice Age horse\'s sheet', sw.get('beast_stilt_legged_horse', ((1, ''),))[0][0] < FLOOR))
     leg(all(p[1] for p in plants), 'PLANTED: every leg refuses its fault (' + '; '.join(p[0] for p in plants) + ')',
@@ -219,8 +267,9 @@ def main():
     fs = D['factions']['factions']; mirror = D['ne']['road']['holds_mirror']
     fight_f = set(D['ours']['enemy_tiers']['value']['mix']) | set(D['ne']['mix'])
     fought = [f['id'] for f in fs if f['id'] == 'beasts' or any(v == f['id'] and k in fight_f for k, v in mirror.items())]
-    leg(len(fs) >= FL['factions'], 'F1 FACTIONS: %d combat factions in the roster data (floor %d); the fight fields a party for %d of them (%s)'
-        % (len(fs), FL['factions'], len(fought), ', '.join(fought)))
+    leg(len(fs) >= FL['factions'] and len(fought) >= FACTIONS_FIELDED_NOW,
+        'F1 FACTIONS: %d combat factions in the roster data (floor %d); THE FIGHT FIELDS A PARTY FOR %d of them (never below %d): %s; none yet: %s'
+        % (len(fs), FL['factions'], len(fought), FACTIONS_FIELDED_NOW, ', '.join(fought), ', '.join(f['id'] for f in fs if f['id'] not in fought) or 'none'))
     # ---------------- F2 ----------------
     c = D['roster']['count']
     leg(c['types'] >= FL['types'] and c['types_in_the_fight'] >= TYPES_IN_THE_FIGHT_FLOOR,
@@ -252,9 +301,40 @@ def main():
     bs = [b['boss']['name'] for b in D['bosses']['bosses'] if b.get('boss') and b.get('board') and b.get('crew')]
     leg(len(bs) >= FL['bosses'], 'F6 BOSSES: %d bosses the fight stages, each on its board with its crew (floor %d): %s' % (len(bs), FL['bosses'], ', '.join(bs)))
     # ---------------- F7 ----------------
-    mixes = list(D['ours']['enemy_tiers']['value']['mix'].values()) + list(D['ne']['mix'].values())
-    champ = sorted({k for m in mixes for ph in m.values() for k in ph if k.endswith('_champion')})
-    leg(bool(champ), 'F7 CHAMPIONS: the fight\'s parties deal %d champion kinds (%s)' % (len(champ), ', '.join(champ[:6])))
+    champ, bad = champs_data(D)
+    try:
+        r = subprocess.run(['node', os.path.join(ROOT, 'gates/the_bestiary_floor_men.js')], cwd=ROOT, capture_output=True, text=True, timeout=900)
+        HL = json.loads([l for l in r.stdout.splitlines() if l.startswith('RESULT ')][-1][7:])
+    except Exception as e:
+        HL = {}; bad.append('the live rules did not answer: ' + str(e)[:120])
+    for k in champ:
+        c = (HL.get('champions') or {}).get(k) or {}
+        if not (c.get('named') and c.get('unique')): bad.append(k + ': a dealt champion is not named from his list, or two share a name ' + json.dumps(c)[:100])
+    for f, rt in (HL.get('rate') or {}).items():
+        if rt.get('before_late'): bad.append('%s: %d in 100 bands carry a champion before the late phase' % (f, rt['before_late']))
+        if rt.get('most_in_a_band', 0) > 1: bad.append('%s: a band carries %d champions' % (f, rt['most_in_a_band']))
+    if not HL.get('rate'): bad.append('no band rate measured')
+    leg(bool(champ) and not bad, 'F7 CHAMPIONS ARE RARE NAMED MEN: %d champion kinds dealt, each with its title and its names (%s); none before the late phase, never two in a band; late bands of 12 that carry one: %s'
+        % (len(champ), '; '.join('%s: %s' % (k, ', '.join((D['ne']['champions']['kinds'].get(k) or {}).get('names', [])[:3])) for k in champ),
+           ', '.join('%s %d/100' % (f, rt['late']) for f, rt in sorted((HL.get('rate') or {}).items()))), '; '.join(bad[:4]))
+    # ---------------- F10 ----------------
+    mine, bad = men_data(D)
+    for r in mine:
+        o = (HL.get('men') or {}).get(r['id']) or {}
+        a = o.get('acts') or {}
+        if not o.get('dealt'): bad.append(r['id'] + ': its party never deals it on the live rules')
+        if not o.get('fromGear') or not o.get('weapon'): bad.append(r['id'] + ': not armed from its own gear')
+        if (a.get('melee', 0) + a.get('ranged', 0)) == 0: bad.append(r['id'] + ': never strikes in 10 fights')
+        if r.get('brain') == 'volley' and not (o.get('ranged') and a.get('ranged', 0) > a.get('melee', 0)): bad.append(r['id'] + ': a volley brain that does not shoot')
+        if (o.get('won_by_crew_of_6') or 0) < 6: bad.append('%s: a crew of 6 beats its party %s in 10' % (r['id'], o.get('won_by_crew_of_6')))
+    wait = [r['id'] for r in (D['ne'].get('waiting') or {}).get('rows', [])]
+    for r in (D['ne'].get('waiting') or {}).get('rows', []):
+        if r.get('looks'): bad.append(r['id'] + ': a waiting row carries looks (it waits for its own clothes)')
+    leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
+        % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
+                                (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0)) for r in mine),
+           ('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else ''),
+        '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
     if '--no-browser' not in sys.argv:
         mine = [(b['faction'], b['animal'], b['rows']) for b in D['book']['beasts'] if b.get('added_by', '').startswith(BY)]
@@ -275,7 +355,18 @@ def main():
                       and o.get('home') and (o.get('kill') or {}).get('kind') in rows and (o.get('take') or {}).get('ok')
                       and (o['take'].get('food') or 0) > 0 and (o['take'].get('hides') or 0) >= 1)
                 if not ok: bad.append('%s %s: %s' % (prof, f, json.dumps(o)[:160]))
-        leg(not bad, 'F9 ON THE PAGE, UPRIGHT AND SIDEWAYS (rule 441(a)): each of the %d BESTIARY beasts through the one door on the demo: fielded on its own sheet with its own words, the win home, its kill on the map in its picture, one tap: food and a roll of hides; nothing thrown' % len(mine),
+            men, _ = men_data(D)
+            for r in men:
+                o = (runs.get('men') or {}).get(r['id']) or {}
+                fl = o.get('fielded') or []
+                ok = (o.get('fight') and fl and all(x.get('own') and x.get('drawn') and x.get('look') in r['looks'] and x.get('name') == r['board_name'] and x.get('weapon') for x in fl)
+                      and o.get('says') and o.get('home'))
+                if not ok: bad.append('%s %s: %s' % (prof, r['id'], json.dumps(o)[:160]))
+            ch = runs.get('champion') or {}
+            if not (ch.get('named') and ch.get('inList') and all(x.get('onBoard') for x in ch['named']) and ch.get('home')
+                    and any(str(x.get('title') or '').upper() in str(ch.get('hold') or '') for x in ch['named'])):
+                bad.append('%s champion: %s' % (prof, json.dumps(ch)[:200]))
+        leg(not bad, 'F9 ON THE PAGE, UPRIGHT AND SIDEWAYS (rule 441(a)): each of the %d BESTIARY beasts through the one door on the demo: fielded on its own sheet with its own words, the win home, its kill on the map in its picture, one tap: food and a roll of hides; each new man fielded in his own clothes, named and armed, the win home; a late road crew\'s champion named from his list, his title on his card; nothing thrown' % len(mine),
             '; '.join(bad[:4]))
     # ---------------- F8 ----------------
     r = subprocess.run([sys.executable, 'tools/bohemia_combat_the_roster.py', '--check'], cwd=ROOT, capture_output=True, text=True)

@@ -1,5 +1,24 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'enemy types and factions', rule 443(d), rule 441): 11/10 LATEST -- BUILD 11/10s FIVE NEW MEN, NAMED CHAMPIONS (SHA_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THE_MEN_AND_THE_CHAMPIONS_11_10_26.md. VOTE bestiary-five-new-men-11-10 (stage stand_in).
+- FIVE NEW ENEMY TYPES in their own clothes (CHARACTER's enemy sheets, each pool split so no two types share one) and their own way to fight:
+  the watch's BOWMAN (shoots from behind the neighbors), the water people's SLINGER, the keepers' REAVER (two-handed mace, goes for the held
+  man) and CALLER (calls back the wavering), the House SERGEANT (middle and late, rallies the shield wall). Types the fight fields 54 of 75.
+- CHAMPIONS ARE RARE NAMED MEN: the three champion kinds the late mixes dealt now carry a name and a title (bohemia_enemies.json 'champions',
+  drafts), so HELD BREATH can name a champion's fall; one per band at most, none before the late phase. Late bands of 12 carry one 44 to 73 in
+  100: the weights are TUNING's.
+- THE FLOCK (the 9th faction) IS BUILT AND WAITING FOR ITS CLOTHES (bohemia_enemies.json 'waiting'): the first cut wore his company's people
+  (person_town_*); every dressed look left is someone else's. CHARACTER has the list (handoffs/CHARACTER.md: the flock, then the hired guns 6,
+  the head takers 2, the eye in the sky 9 = 72 of 75 and the last 4 factions; COMBAT's old order's machines the rest).
+- THE GATE: THE BESTIARY FLOOR gains F7 champions named (live rules), F10 the new men (gates/the_bestiary_floor_men.js, headless) and the
+  men and a champion on the phone in F9; ratchets TYPES 54, FACTIONS FIELDED 8. Plants: a man in another's clothes, a man no party deals, a
+  champion with no name. 12/0 with the phone legs, upright and sideways (about 25 min; --no-browser for the data legs).
+- ROUTED: TUNING the champion rate and the drafts; COMBAT the gear pick (a volley brain is not 'backline', so wiki gear with a club hands an
+  archer the club: the new rows name their gear) and the machines; WORDS the names and lines.
+[bb Battle Brothers' champions are named men, the band's toughest; ours carry a name and a title from the data.]
+[analog horror: the champion's name comes up once, the way a caption names a man on a tape nobody should have kept.]
+
 BESTIARY (routine 'to the floor', rule 440(f), rule 441): 11/10 LATEST -- BUILD 11/10a SEVENTEEN LAB BEASTS (18815238), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_FLOOR_FILED_11_10_26.md. VOTE bestiary-the-last-two-11-10 (stage stand_in).
 - HIS VOTE 11/9: YES on the five (bestiary-five-lab-beasts-11-9). Volume unlocked: the bison and the shrub-ox, LANDED this round.
