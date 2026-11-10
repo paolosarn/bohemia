@@ -2882,7 +2882,7 @@
   "face_name": "GAUNT",
   "top": "BONE HENLEY",
   "coat": "DUST BROWN TRENCH",
-  "legs": "CHARCOAL CROP TROUSER",
+  "legs": "BRICK CROP TROUSER",
   "feet": "BONE STACK BOOT"
  },
  {
@@ -3005,8 +3005,8 @@
    "face.foreheadW": 26
   },
   "face_name": "FLAT AND LOW",
-  "top": "ARC SHOULDER TEE",
-  "coat": "BARN COAT",
+  "top": "BONE HENLEY",
+  "coat": "RUST WORK COAT",
   "legs": "KHAKI CARGOS",
   "feet": "FIELD BOOTS",
   "kit": ["WIDE WAIST WRAP", "LEATHER GLOVES"]
@@ -3215,9 +3215,10 @@
   "face_name": "HEAVY BROW",
   "facial_hair": "LONG BEARD",
   "new_beard": "long",
-  "top": "SOOT TANK",
-  "legs": "DROP RISE TROUSER",
-  "feet": "BONE STACK BOOT"
+  "top": "RUST TANK",
+  "legs": "LEATHER STACK PANT",
+  "feet": "BONE STACK BOOT",
+  "kit": ["LEATHER BELT", "DUST SCARF", "SHELL BANDOLIER"]
  },
  {
   "id": "town_12",

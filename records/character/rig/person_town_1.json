@@ -4,8 +4,8 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "OLIVE HENLEY",
-  "legs": "CHARCOAL SHORTS",
-  "feet": "SLOUCH BOOT",
+  "legs": "CROPPED WORK TROUSER",
+  "feet": "RUST BOOTS",
   "back": "GOLD SHOULDER MANTLE",
   "neck": "SAGE SCARF",
   "outfit": [
@@ -40,7 +40,7 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_1_shoe": 4316,
+  "person_town_1_shoe": 3716,
   "person_town_1_mantle": 10226,
   "person_town_1_shirt": 67584,
   "person_town_1_collar": 1536,
@@ -48,13 +48,17 @@
   "person_town_1_buttons": 102,
   "person_town_1_cuffs": 2048,
   "person_town_1_hem": 1792,
-  "person_town_1_trouser": 21202,
-  "person_town_1_shorts_hem": 2048,
+  "person_town_1_trouser": 35674,
+  "person_town_1_turn_up": 2048,
+  "person_town_1_turn_up_edge": 2048,
   "person_town_1_sole_1": 242,
   "person_town_1_midsole_1": 242,
   "person_town_1_sole_0": 242,
   "person_town_1_midsole_0": 242,
-  "person_town_1_slouch": 16884,
+  "person_town_1_boot_collar": 2048,
+  "person_town_1_boot_collar_line": 2048,
+  "person_town_1_eyelets_1": 120,
+  "person_town_1_eyelets_0": 120,
   "person_town_1_sage_scarf": 3072,
   "person_town_1_sage_scarf_tail": 162,
   "person_town_1_sage_scarf_fringe": 54,
@@ -74,6 +78,16 @@
    0.8,
    0.8
   ],
+  "person_town_1_boot_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_town_1_boot_collar_line": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
   "person_town_1_buttons": [
    0.1329,
    0.1683,
@@ -88,6 +102,16 @@
    0.0666,
    0.0823,
    0.0262
+  ],
+  "person_town_1_eyelets_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_town_1_eyelets_1": [
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_1_eyes": [
    0.0212,
@@ -160,14 +184,14 @@
    0.8
   ],
   "person_town_1_midsole_0": [
-   0.013,
-   0.013,
-   0.0168
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_1_midsole_1": [
-   0.013,
-   0.013,
-   0.0168
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_1_placket": [
    0.0666,
@@ -195,49 +219,49 @@
    0.0262
   ],
   "person_town_1_shoe": [
-   0.0343,
-   0.0343,
-   0.0452
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_1_shoes": [
-   0.0343,
-   0.0343,
-   0.0452
-  ],
-  "person_town_1_shorts_hem": [
-   0.0152,
-   0.013,
-   0.0152
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_1_skin": [
    0.1441,
    0.0545,
    0.0296
   ],
-  "person_town_1_slouch": [
-   0.0343,
-   0.0343,
-   0.0452
-  ],
   "person_town_1_sole_0": [
-   0.013,
-   0.013,
-   0.016
+   0.0685,
+   0.0273,
+   0.0144
   ],
   "person_town_1_sole_1": [
-   0.013,
-   0.013,
-   0.016
+   0.0685,
+   0.0273,
+   0.0144
   ],
   "person_town_1_trouser": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.0319,
+   0.0437,
+   0.0232
   ],
   "person_town_1_trousers": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_town_1_turn_up": [
+   0.0823,
+   0.0999,
+   0.0561
+  ],
+  "person_town_1_turn_up_edge": [
+   0.011,
+   0.0152,
+   0.0091
   ]
  }
 }

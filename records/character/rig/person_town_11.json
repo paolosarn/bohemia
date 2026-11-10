@@ -1,18 +1,18 @@
 {
  "look": "PERSON_TOWN_11",
- "shape": "person_town_11: a person of the Body, his own skin skin_light 3, SAGE STRIPED HENLEY",
+ "shape": "person_town_11: a person of the Body, his own skin skin_light 3, BONE HENLEY",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "SAGE STRIPED HENLEY",
-  "legs": "BLACK DENIM",
+  "base": "BONE HENLEY",
+  "legs": "LEATHER STACK PANT",
   "feet": "BONE STACK BOOT",
-  "waist": "CHARCOAL BELT",
-  "neck": "CHARCOAL SCARF",
+  "waist": "LEATHER BELT",
+  "neck": "DUST SCARF",
   "gear": "SHELL BANDOLIER",
   "outfit": [
-   "his BLACK TANK over a SAGE STRIPED HENLEY, its sleeves and hem out from under"
+   "his RUST TANK over a BONE HENLEY, its sleeves and hem out from under"
   ],
-  "mid": "BLACK TANK"
+  "mid": "RUST TANK"
  },
  "dials": {
   "height": 0.0,
@@ -50,22 +50,17 @@
   "person_town_11_cuffs": 2048,
   "person_town_11_tail": 2016,
   "person_town_11_trouser": 43706,
-  "person_town_11_rolled_hem": 2048,
-  "person_town_11_fly": 70,
-  "person_town_11_front_pockets": 100,
-  "person_town_11_seat_pockets": 252,
-  "person_town_11_seat_seams": 252,
   "person_town_11_sole_1": 242,
   "person_town_11_midsole_1": 242,
   "person_town_11_sole_0": 242,
   "person_town_11_midsole_0": 242,
   "person_town_11_boot_collar": 2048,
   "person_town_11_boot_collar_line": 2048,
-  "person_town_11_charcoal_belt": 1792,
-  "person_town_11_charcoal_belt_buckle": 34,
-  "person_town_11_charcoal_scarf": 3072,
-  "person_town_11_charcoal_scarf_tail": 162,
-  "person_town_11_charcoal_scarf_fringe": 54,
+  "person_town_11_leather_belt": 1792,
+  "person_town_11_leather_belt_buckle": 34,
+  "person_town_11_dust_scarf": 3072,
+  "person_town_11_dust_scarf_tail": 162,
+  "person_town_11_dust_scarf_fringe": 54,
   "person_town_11_shell_bandolier": 1792,
   "person_town_11_shell_bandolier_shells": 408,
   "person_town_11_shell_bandolier_pouch": 26,
@@ -91,74 +86,59 @@
    0.1046
   ],
   "person_town_11_buttons": [
-   0.1878,
-   0.2623,
-   0.162
-  ],
-  "person_town_11_charcoal_belt": [
-   0.0382,
-   0.0343,
-   0.0382
-  ],
-  "person_town_11_charcoal_belt_buckle": [
-   0.0823,
-   0.0762,
-   0.0823
-  ],
-  "person_town_11_charcoal_scarf": [
-   0.0382,
-   0.0343,
-   0.0382
-  ],
-  "person_town_11_charcoal_scarf_fringe": [
-   0.0152,
-   0.013,
-   0.0152
-  ],
-  "person_town_11_charcoal_scarf_tail": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.5776,
+   0.5271,
+   0.3712
   ],
   "person_town_11_collar": [
-   0.0931,
-   0.1441,
-   0.0823
-  ],
-  "person_town_11_collar_print": [
-   0.8,
-   0.8,
-   0.8
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_11_cuffs": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_11_dust_scarf": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_town_11_dust_scarf_fringe": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_town_11_dust_scarf_tail": [
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_town_11_eyes": [
    0.0212,
    0.0103,
    0.008
   ],
-  "person_town_11_fly": [
-   0.0097,
-   0.0116,
-   0.0176
-  ],
-  "person_town_11_front_pockets": [
-   0.0097,
-   0.0116,
-   0.0176
-  ],
   "person_town_11_hair": [
    0.0194,
    0.0116,
    0.008
   ],
+  "person_town_11_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_11_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
   "person_town_11_mid_shirt": [
-   0.0232,
-   0.0232,
-   0.0356
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_11_midsole_0": [
    0.2122,
@@ -171,29 +151,9 @@
    0.1046
   ],
   "person_town_11_placket": [
-   0.0931,
-   0.1441,
-   0.0823
-  ],
-  "person_town_11_placket_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_town_11_rolled_hem": [
-   0.0529,
-   0.0578,
-   0.0844
-  ],
-  "person_town_11_seat_pockets": [
-   0.0242,
-   0.0273,
-   0.0409
-  ],
-  "person_town_11_seat_seams": [
-   0.0529,
-   0.0578,
-   0.0844
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_11_shell_bandolier": [
    0.1301,
@@ -211,19 +171,9 @@
    0.0612
   ],
   "person_town_11_shirt": [
-   0.0931,
-   0.1441,
-   0.0823
-  ],
-  "person_town_11_shirt_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_town_11_shirt_print.001": [
-   0.8,
-   0.8,
-   0.8
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_11_shoe": [
    0.3763,
@@ -251,24 +201,24 @@
    0.1221
   ],
   "person_town_11_tail": [
-   0.0931,
-   0.1441,
-   0.0823
-  ],
-  "person_town_11_tail_print": [
-   0.8,
-   0.8,
-   0.8
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_11_trouser": [
-   0.0242,
-   0.0273,
-   0.0409
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_11_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_town_11_trousers": [
-   0.0242,
-   0.0273,
-   0.0409
+   0.1301,
+   0.0513,
+   0.016
   ]
  }
 }

@@ -1,12 +1,12 @@
 {
  "look": "PERSON_TOWN_4",
- "shape": "person_town_4: a person of the Body, his own skin skin_deep 3, ARC SHOULDER TEE under BARN COAT",
+ "shape": "person_town_4: a person of the Body, his own skin skin_deep 3, BONE HENLEY under RUST WORK COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "ARC SHOULDER TEE",
+  "base": "BONE HENLEY",
   "legs": "KHAKI CARGOS",
   "feet": "FIELD BOOTS",
-  "outer": "BARN COAT",
+  "outer": "RUST WORK COAT",
   "waist": "WIDE WAIST WRAP",
   "hands": "LEATHER GLOVES",
   "outfit": [
@@ -40,8 +40,11 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_town_4_shoe": 3716,
-  "person_town_4_shirt": 40296,
+  "person_town_4_shirt": 67584,
   "person_town_4_collar": 1536,
+  "person_town_4_placket": 126,
+  "person_town_4_buttons": 102,
+  "person_town_4_cuffs": 2048,
   "person_town_4_hem": 1792,
   "person_town_4_coat": 63632,
   "person_town_4_coat_skirt": 3990,
@@ -87,6 +90,11 @@
    0.0356,
    0.016
   ],
+  "person_town_4_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
   "person_town_4_cargo_flaps": [
    0.1022,
    0.0685,
@@ -98,19 +106,24 @@
    0.0578
   ],
   "person_town_4_coat": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_4_coat_skirt": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_4_collar": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_4_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_eyelets_0": [
    0.0185,
@@ -133,14 +146,14 @@
    0.008
   ],
   "person_town_4_hem": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_lapels": [
-   0.1022,
-   0.0685,
-   0.0242
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_4_leather_gloves": [
    0.1301,
@@ -162,20 +175,25 @@
    0.0356,
    0.016
   ],
+  "person_town_4_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
   "person_town_4_pocket_flaps": [
-   0.1022,
-   0.0685,
-   0.0242
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_4_pockets": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_4_pushed": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_4_rolled_hem": [
    0.3864,
@@ -183,9 +201,9 @@
    0.1119
   ],
   "person_town_4_shirt": [
-   0.0382,
-   0.0343,
-   0.0382
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_shoe": [
    0.0437,
