@@ -1,6 +1,18 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/11 (rule 441(b); the routine 'EYES walk the ships') -- THE 11/10 SHIPS WALKED, ROWS 605 TO 613.
+Record: records/BOHEMIA_EYES_WALK_THE_11_10_SHIPS_11_11_26.md. Pictures: records/eyes_walk_11_11/ (8 webp).
+SEEN: AUTO on the page (demo 156/165 acted, 14/14 quiet words; alpha 118/120, 5/5; 0 page errors); 550, 551, 552, 549, 554, 560, 568,
+569 fixed on the phone; the rhythm scavenge; Don Beto's job; a road event; PLANT beside the road; a garden bed; save and reload.
+HANDED OUT: FIXES 2 605 (row 555's root: a stale turnLog), 606 (a road card over a running camp), 607 (the build sheet off the glass),
+609 ('Custom' in the feed), 610 (a board re-deals; JOBS), 611 (a boss card takes a building's tap), 612 (cut words); SCAVENGE 2 608
+(floating labels, 442(b)); PLUMBER 613 (freezes, read with a second browser running). Notes at the top of handoffs/FIXES.md; no board
+finding for COMBAT THREE this round.
+TOOL: tools/bohemia_eyes_live_session.js EYES_AS_PHONE=1 turns on the road's events, the boss askers and the places' cards from the start.
+NOT WALKED: the bosses' prizes at his place, THE BURN / SURVEYOR / CLIMB, the new art by eye, the five new men, corners, stat bars, zones.
+NEXT: those, the alpha by hand, and 605 to 613 as they ship.
+
 EYES, 11/10 (rule 441(b); the coordinator's routine 'walk the new build') -- BUILD 11/9o WALKED, UPRIGHT AND SIDEWAYS, ROWS 548 TO 555.
 Record: records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md. Pictures: records/eyes_walk_11_10/ (12 webp).
 SEEN WORKING: AUTO on the page (demo 10 fights 229 of 230 turns acted, alpha 9 fights, every quiet turn's word 11 of 11); scavenge in a

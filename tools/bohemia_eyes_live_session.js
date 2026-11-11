@@ -47,6 +47,9 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
   /* EYES 11/8 (rule 437(c): 'every stall, freeze over 1 s'): THE STALL METER, armed in every document before any page script
      (the page and every frame), so a freeze is a measured gap between two drawn frames, never a feeling. A gap over 250 ms is
      kept with the moment it ended; the browser's own long tasks (over 50 ms) are counted beside it. S.stalls(sinceMs) reads them all. */
+  /* EYES 11/11: EYES_AS_PHONE=1 shows what his phone shows: the road's events, the boss askers and the places' own cards switch off for a
+     scripted browser (navigator.webdriver), and a phone never is one; the three flags turn them on in every frame from the first second */
+  if (process.env.EYES_AS_PHONE) await ctx.addInitScript({ content: 'window.__ROADEV_ON = true; window.__BOSSES_TALK = true; window.__PLACE_VISITS_ON = true;' });
   await ctx.addInitScript({ content: `(function(){ try {
     var G = window.__EYES_GAPS = [], L = window.__EYES_LONG = [], last = 0;
     function f(t){ if (last && t - last > 250 && !document.hidden) G.push({ at: Math.round(performance.timeOrigin + t), ms: Math.round(t - last) }); last = t; if (G.length > 400) G.splice(0, 200); requestAnimationFrame(f); }
