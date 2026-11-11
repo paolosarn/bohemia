@@ -1,5 +1,34 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/11, round four, step one): BUILD 11/11a - THE PIECE THAT ANSWERS IT, BUILT, NOT YET SEEN (rule 429(a)(b)(c), 430;
+asks 504, 505, 506; row 586 FIXED). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PIECE_THAT_ANSWERS_IT_11_11_26.md. VOTE
+world13-the-piece-that-answers-it-11-11 (STAND-IN).
+
+*** THE SEAM, FOR COMBAT THREE (the boards' half). Read this, nothing else of mine needed: ***
+- WHERE: engine/bohemia_fight_kinds.js (the fight already loads it, BOHEMIA_FIGHT.html line 33). window.BohemiaFightKinds.
+- CALL: BohemiaFightKinds.piece(district) -> { deal, cut }. district is what cityHandOver already sends (opts.district).
+  deal = { kind, ground, families: [...block families of fight_ground.json, the first leads], lead, place: 'place_<name>' or null,
+  landmark: a block name (place only), field: [block names] (place only), stand_in: bool, wants: words }.
+  cut = { tiles: [the cut's tile kinds], pieces: ['house:<model>' | 'building:<name>' | 'ground:<name>' | 'streets:<piece>' or
+  'streets:*' | 'cover:<name>'], stand_in, wants }. piece('townlot:box'), piece('townmark:tank'), piece('home:kitchen'),
+  piece('model:ranch_porch') the same (their deal is the town district's). BohemiaFightKinds.families(district) the deal list alone.
+- WHAT IT IS TODAY: written from YOUR tables (BOHEMIA_BOARD_KINDS.json, ours.json board_grounds and place_boards) and your cut code
+  (bohemia_street_board.js BUILDING_BY, plan()'s tile kinds), so reading it changes nothing a fight deals: measured on the fight
+  page, all 88 map kinds dealt only from the blocks it names (gate the_map_kinds_have_fight_answers P4, upright and on its side).
+- TO MAKE IT THE ONE SOURCE: dealOnce/placeKinds/placeOwn can read piece(opts.district).deal instead of the three tables (one
+  marked line each), and nfKind's regex in the alpha and the demo can go (cityHandOver sends the district; the fight asks the
+  table). Until you switch, tools/bohemia_world_thirteen_pieces.py re-derives from your tables, and F17 goes red the moment the
+  table and your tables disagree: change yours, run the tool, run tools/bohemia_world_thirteen_fight_kinds_sync.js.
+- STAND-INS WANTED (24 map kinds dealt on a catch-all; the cut's stand-ins): the record's section 2 lists them.
+- STILL OWED FROM 11/7: lay() makes six map houses in seven solid walls; the table says every house is a tile a man can be on
+  (423(c)); BohemiaFightKinds.roofOK(name) answers it.
+
+- ROW 586, FIXED: engine/bohemia_region_news.js PICKED_CLEAN_DAYS 14 (a town a crew took is left alone two weeks; a crew that
+  finds it picked clean takes nothing). THE NEWS DOWN THE ROAD 28/0; the most-raided place APEX 17 a year (was LAKE BOHEMIA 27).
+- TOOLS: tools/bohemia_world_thirteen_pieces.py (writes the pieces; --check), tools/bohemia_world_thirteen_piece_shots.js OUTDIR
+  [kinds] (the fight on a phone for each kind, its dealt blocks in pieces.json).
+- NEXT, IN THE COORDINATOR'S ORDER: (2) the 15 place boards as templates the generator places, held over 22 seeds (430); (3) the cut.
+
 WORLD THIRTEEN (11/10, round three): BUILD 11/10j - THE CORNERS JOIN, BUILT, NOT YET SEEN (rule 442(d), the map's half; ask line 547;
 COMBAT TWO shipped the boards' half as 11/10f). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_CORNERS_JOIN_11_10_26.md. VOTE
 world13-the-corners-join-11-10 (STAND-IN).

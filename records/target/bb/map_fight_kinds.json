@@ -15,7 +15,8 @@
   "street_front": "true: every building of the kind fronts a street (426(a)); false: the one exception, the trailer park's lanes; absent for open ground",
   "place": "the place board (ours.json place_boards) the kind fights on today; the 15 layouts are written into the map at their places (rule 429(c))",
   "picture": "a debt on the picture: what the map draws there today when it is not yet what this row says",
-  "zone": "the land-use zone the kind belongs to (records/target/bb/land_use.json, rule 429(g)): the fight knows if it is in the works, a tract, the Strip or the open desert"
+  "zone": "the land-use zone the kind belongs to (records/target/bb/land_use.json, rule 429(g)): the fight knows if it is in the works, a tract, the Strip or the open desert",
+  "piece": "WORLD THIRTEEN 11/11 (tools/bohemia_world_thirteen_pieces.py writes it, never by hand): the piece of the fight's kit that answers the kind. deal: the board dealt for a cell of it (kind, ground, the block families of fight_ground.json it deals, the lead, the place board place_<name> with its landmark block and field blocks where a built place stands there: the fight deals that first), cut: what the board cut from the map lays (the tile kinds and the kit pieces: house:<model>, building:<name>, ground:<name>, streets:<piece> of street_board.json (streets:* any of them), cover:<name> of fight_ground.json's cover and cover_extra or kit_cover). stand_in true where the kit has nothing of the kind's own yet, with what is wanted. A town's and a home's piece deals the town district's board ('town'); a real place's deals its map kind's."
  },
  "storeys_do": {
   "1": "a slight defence bonus, NO range bonus (428(b))",
@@ -43,7 +44,40 @@
    "street_front": true,
    "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
    "place": "suburb",
-   "zone": "suburb"
+   "zone": "suburb",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "yard"
+     ],
+     "pieces": [
+      "house:ranch_plain",
+      "house:ranch_porch",
+      "house:ranch_wing",
+      "house:ranch_garage",
+      "house:ranch_carport",
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "estate": {
    "class": "houses",
@@ -63,7 +97,38 @@
    "street_front": true,
    "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
    "place": "suburb",
-   "zone": "suburb"
+   "zone": "suburb",
+   "piece": {
+    "deal": {
+     "kind": "culdesac",
+     "ground": "suburb_block",
+     "families": [
+      "culdesac",
+      "suburb_stem",
+      "subs"
+     ],
+     "lead": "culdesac",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "yard"
+     ],
+     "pieces": [
+      "house:ranch_plain",
+      "house:ranch_porch",
+      "house:ranch_wing",
+      "house:ranch_garage",
+      "house:ranch_carport",
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "gated": {
    "class": "houses",
@@ -83,7 +148,38 @@
    "street_front": true,
    "picture": "the map stands its ranch models here (one storey); the two- and three-storey house picture is OWED (COOK FOUR / COMBAT TWO), until then a taller house wears the ranch model",
    "place": "suburb",
-   "zone": "suburb"
+   "zone": "suburb",
+   "piece": {
+    "deal": {
+     "kind": "culdesac",
+     "ground": "suburb_block",
+     "families": [
+      "culdesac",
+      "suburb_stem",
+      "subs"
+     ],
+     "lead": "culdesac",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "yard"
+     ],
+     "pieces": [
+      "house:ranch_plain",
+      "house:ranch_porch",
+      "house:ranch_wing",
+      "house:ranch_garage",
+      "house:ranch_carport",
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "trailer": {
    "class": "houses",
@@ -100,7 +196,34 @@
    ],
    "street_front": false,
    "place": "trailer",
-   "zone": "cheap_edge"
+   "zone": "cheap_edge",
+   "piece": {
+    "deal": {
+     "kind": "culdesac",
+     "ground": "trailer_park",
+     "families": [
+      "trailer",
+      "lots",
+      "scrub"
+     ],
+     "lead": "trailer",
+     "place": "place_trailer",
+     "landmark": "trailer.1",
+     "field": [
+      "trailer.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "yard"
+     ],
+     "pieces": [
+      "cover:trailer",
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "apartment": {
    "class": "houses",
@@ -117,7 +240,36 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "suburb"
+   "zone": "suburb",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "lot_and_bigbox",
+     "families": [
+      "strip",
+      "lots",
+      "main",
+      "works"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "slab",
+      "yard"
+     ],
+     "pieces": [
+      "building:motel",
+      "building:pawn_shop",
+      "building:chapel",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a garden apartment slab of two or three storeys (the cut stands the town's motel, pawn shop or chapel in its place)"
+    }
+   }
   },
   "town": {
    "class": "houses",
@@ -136,7 +288,38 @@
    ],
    "street_front": true,
    "place": "suburb",
-   "zone": "suburb"
+   "zone": "suburb",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "yard"
+     ],
+     "pieces": [
+      "building:motel",
+      "building:pawn_shop",
+      "building:chapel"
+     ]
+    }
+   }
   },
   "downtown": {
    "class": "tower",
@@ -154,7 +337,44 @@
    ],
    "street_front": true,
    "place": "downtown",
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "main",
+      "strip",
+      "ruin"
+     ],
+     "lead": "main",
+     "place": "place_downtown",
+     "landmark": "fremont.12",
+     "field": [
+      "fremont.10",
+      "fremont.11",
+      "fremont.13",
+      "fremont.14",
+      "fremont.15"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "strat": {
    "class": "tower",
@@ -171,7 +391,45 @@
    ],
    "street_front": true,
    "place": "strip",
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": "place_strip",
+     "landmark": "blvd.1",
+     "field": [
+      "blvd.2",
+      "stripe.1",
+      "stripe.2",
+      "stripw.1",
+      "stripw.2",
+      "stripw.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "highroller": {
    "class": "tower",
@@ -187,7 +445,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "casino",
+      "strip"
+     ],
+     "lead": "casino",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "sign": {
    "class": "tower",
@@ -201,7 +487,45 @@
     "walls"
    ],
    "place": "strip",
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": "place_strip",
+     "landmark": "blvd.1",
+     "field": [
+      "blvd.2",
+      "stripe.1",
+      "stripe.2",
+      "stripw.1",
+      "stripw.2",
+      "stripw.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "stadium": {
    "class": "tower",
@@ -217,7 +541,37 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "golf_and_park",
+     "families": [
+      "lots",
+      "golf",
+      "works"
+     ],
+     "lead": "lots",
+     "place": null,
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "ballpark": {
    "class": "tower",
@@ -234,7 +588,37 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "golf_and_park",
+     "families": [
+      "golf",
+      "lots",
+      "works"
+     ],
+     "lead": "golf",
+     "place": null,
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "medical": {
    "class": "tower",
@@ -253,7 +637,42 @@
    ],
    "street_front": true,
    "place": "lab",
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "lab",
+      "ruin",
+      "main"
+     ],
+     "lead": "lab",
+     "place": "place_lab",
+     "landmark": "lab.1",
+     "field": [
+      "lab.2",
+      "lab.3"
+     ],
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "cityhall": {
    "class": "tower",
@@ -270,7 +689,37 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "main",
+      "strip"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "courthouse": {
    "class": "tower",
@@ -287,7 +736,37 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "main",
+      "strip"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "building:school",
+      "ground:plaza",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower the fight can live beside (the cut stands the rig's casino or school, street_board.js says WEAK)"
+    }
+   }
   },
   "resort": {
    "class": "casino",
@@ -304,7 +783,33 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "casino",
+      "strip",
+      "main"
+     ],
+     "lead": "casino",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "ground:plaza",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "casino": {
    "class": "casino",
@@ -321,7 +826,32 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "casino",
+      "strip"
+     ],
+     "lead": "casino",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "ground:plaza",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "luxor": {
    "class": "casino",
@@ -337,7 +867,32 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "casino",
+      "strip"
+     ],
+     "lead": "casino",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "ground:plaza",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "sphere": {
    "class": "casino",
@@ -354,7 +909,42 @@
    ],
    "street_front": true,
    "place": "strip",
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": "place_strip",
+     "landmark": "blvd.1",
+     "field": [
+      "blvd.2",
+      "stripe.1",
+      "stripe.2",
+      "stripw.1",
+      "stripw.2",
+      "stripw.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "ground:plaza",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "aquarium": {
    "class": "casino",
@@ -371,7 +961,33 @@
     "water"
    ],
    "street_front": true,
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "tower",
+      "podium",
+      "plaza"
+     ],
+     "pieces": [
+      "building:casino",
+      "ground:plaza",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "park": {
    "class": "green",
@@ -386,7 +1002,34 @@
    "blocks": [],
    "street_front": true,
    "place": "golf",
-   "zone": "green"
+   "zone": "green",
+   "piece": {
+    "deal": {
+     "kind": "scrub",
+     "ground": "golf_and_park",
+     "families": [
+      "golf",
+      "scrub",
+      "wash"
+     ],
+     "lead": "golf",
+     "place": "place_golf",
+     "landmark": "golf.1",
+     "field": [
+      "golf.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "park",
+      "park_trees"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "golf": {
    "class": "green",
@@ -401,7 +1044,34 @@
    "blocks": [],
    "street_front": true,
    "place": "golf",
-   "zone": "green"
+   "zone": "green",
+   "piece": {
+    "deal": {
+     "kind": "scrub",
+     "ground": "golf_and_park",
+     "families": [
+      "golf",
+      "scrub",
+      "wash"
+     ],
+     "lead": "golf",
+     "place": "place_golf",
+     "landmark": "golf.1",
+     "field": [
+      "golf.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "park",
+      "park_trees"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "cemetery": {
    "class": "green",
@@ -417,7 +1087,30 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "golf_and_park",
+     "families": [
+      "golf",
+      "scrub",
+      "wash"
+     ],
+     "lead": "golf",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "park",
+      "park_trees"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "farm": {
    "class": "green",
@@ -434,7 +1127,30 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "green"
+   "zone": "green",
+   "piece": {
+    "deal": {
+     "kind": "scrub",
+     "ground": "golf_and_park",
+     "families": [
+      "scrub",
+      "golf",
+      "wash"
+     ],
+     "lead": "scrub",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "park",
+      "park_trees"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "campus": {
    "class": "green",
@@ -452,7 +1168,30 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "golf_and_park",
+     "families": [
+      "golf",
+      "main",
+      "strip"
+     ],
+     "lead": "golf",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "park",
+      "park_trees"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "water": {
    "class": "water",
@@ -466,7 +1205,33 @@
     "water"
    ],
    "place": "marina",
-   "zone": "water"
+   "zone": "water",
+   "piece": {
+    "deal": {
+     "kind": "shore",
+     "ground": "wash_and_shore",
+     "families": [
+      "marina",
+      "shore",
+      "wash"
+     ],
+     "lead": "marina",
+     "place": "place_marina",
+     "landmark": "basin.1",
+     "field": [
+      "basin.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "water"
+     ],
+     "pieces": [
+      "ground:water"
+     ]
+    }
+   }
   },
   "reservoir": {
    "class": "water",
@@ -480,7 +1245,34 @@
     "water"
    ],
    "place": "shore",
-   "zone": "water"
+   "zone": "water",
+   "piece": {
+    "deal": {
+     "kind": "shore",
+     "ground": "wash_and_shore",
+     "families": [
+      "shore",
+      "marina",
+      "wash"
+     ],
+     "lead": "shore",
+     "place": "place_shore",
+     "landmark": "lakebed.1",
+     "field": [
+      "lakebed.2",
+      "lakebed.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "water"
+     ],
+     "pieces": [
+      "ground:water"
+     ]
+    }
+   }
   },
   "intake": {
    "class": "water",
@@ -497,7 +1289,33 @@
     "walls"
    ],
    "place": "marina",
-   "zone": "water"
+   "zone": "water",
+   "piece": {
+    "deal": {
+     "kind": "shore",
+     "ground": "wash_and_shore",
+     "families": [
+      "marina",
+      "works",
+      "shore"
+     ],
+     "lead": "marina",
+     "place": "place_marina",
+     "landmark": "basin.1",
+     "field": [
+      "basin.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "water"
+     ],
+     "pieces": [
+      "ground:water"
+     ]
+    }
+   }
   },
   "waterpark": {
    "class": "water",
@@ -514,7 +1332,29 @@
     "water"
    ],
    "street_front": true,
-   "zone": "green"
+   "zone": "green",
+   "piece": {
+    "deal": {
+     "kind": "shore",
+     "ground": "golf_and_park",
+     "families": [
+      "golf",
+      "lots",
+      "shore"
+     ],
+     "lead": "golf",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "water"
+     ],
+     "pieces": [
+      "ground:water"
+     ]
+    }
+   }
   },
   "desert": {
    "class": "land",
@@ -526,7 +1366,36 @@
    "open_cover": "half",
    "blocks": [],
    "place": "desert",
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "scrub",
+     "ground": "open_desert",
+     "families": [
+      "scrub",
+      "pass",
+      "wash",
+      "scrubroad"
+     ],
+     "lead": "scrub",
+     "place": "place_desert",
+     "landmark": "desert.1",
+     "field": [
+      "desert.2",
+      "desert.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "wash": {
    "class": "land",
@@ -540,7 +1409,35 @@
     "cliff"
    ],
    "place": "wash",
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "wash",
+     "ground": "wash_and_shore",
+     "families": [
+      "wash",
+      "scrub",
+      "shore"
+     ],
+     "lead": "wash",
+     "place": "place_wash",
+     "landmark": "wash.2",
+     "field": [
+      "wash.3",
+      "wash.4"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "basin": {
    "class": "land",
@@ -552,7 +1449,35 @@
    "open_cover": "none",
    "blocks": [],
    "place": "wash",
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "wash",
+     "ground": "wash_and_shore",
+     "families": [
+      "wash",
+      "shore",
+      "scrub"
+     ],
+     "lead": "wash",
+     "place": "place_wash",
+     "landmark": "wash.2",
+     "field": [
+      "wash.3",
+      "wash.4"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "quarry": {
    "class": "land",
@@ -565,7 +1490,30 @@
    "blocks": [
     "cliff"
    ],
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "gypsum": {
    "class": "land",
@@ -578,7 +1526,30 @@
    "blocks": [
     "cliff"
    ],
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "open_desert",
+     "families": [
+      "canyon",
+      "landfill",
+      "scrub"
+     ],
+     "lead": "canyon",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "landfill": {
    "class": "land",
@@ -590,7 +1561,34 @@
    "open_cover": "half",
    "blocks": [],
    "place": "landfill",
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "landfill",
+     "families": [
+      "landfill",
+      "scrub",
+      "works"
+     ],
+     "lead": "landfill",
+     "place": "place_landfill",
+     "landmark": "dump.1",
+     "field": [
+      "dump.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "boneyard": {
    "class": "land",
@@ -603,7 +1601,30 @@
    "blocks": [
     "walls"
    ],
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "springs": {
    "class": "land",
@@ -617,7 +1638,34 @@
     "cliff"
    ],
    "place": "redrock",
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "shore",
+     "ground": "open_desert",
+     "families": [
+      "canyon",
+      "wash",
+      "scrub"
+     ],
+     "lead": "canyon",
+     "place": "place_redrock",
+     "landmark": "canyon.1",
+     "field": [
+      "canyon.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "dirt",
+      "rough"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "mountain": {
    "class": "mountain",
@@ -631,7 +1679,36 @@
     "cliff"
    ],
    "place": "pass",
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "scrub",
+     "ground": "hills",
+     "families": [
+      "pass",
+      "canyon",
+      "scrub"
+     ],
+     "lead": "pass",
+     "place": "place_pass",
+     "landmark": "pass.1",
+     "field": [
+      "pass.2",
+      "pass.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "rough",
+      "cliff"
+     ],
+     "pieces": [
+      "ground:dirt",
+      "ground:rubble"
+     ]
+    }
+   }
   },
   "solar": {
    "class": "solar",
@@ -645,7 +1722,29 @@
     "rows",
     "fence"
    ],
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "scrub",
+     "ground": "solar_and_pumps",
+     "families": [
+      "works",
+      "scrubroad",
+      "scrub"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "solar"
+     ],
+     "pieces": [
+      "ground:dirt"
+     ]
+    }
+   }
   },
   "airport": {
    "class": "field",
@@ -663,7 +1762,36 @@
    ],
    "street_front": true,
    "place": "airport",
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "airport",
+     "families": [
+      "apron",
+      "works",
+      "scrubroad"
+     ],
+     "lead": "apron",
+     "place": "place_airport",
+     "landmark": "apron.1",
+     "field": [
+      "apron.2",
+      "apron.3",
+      "apron.4"
+     ],
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "airbase": {
    "class": "field",
@@ -681,7 +1809,36 @@
    ],
    "street_front": true,
    "place": "airport",
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "airport",
+     "families": [
+      "apron",
+      "works",
+      "scrubroad"
+     ],
+     "lead": "apron",
+     "place": "place_airport",
+     "landmark": "apron.1",
+     "field": [
+      "apron.2",
+      "apron.3",
+      "apron.4"
+     ],
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "speedway": {
    "class": "field",
@@ -698,7 +1855,30 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "cheap_edge"
+   "zone": "cheap_edge",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "freeway",
+     "families": [
+      "freeway",
+      "lots",
+      "scrubroad"
+     ],
+     "lead": "freeway",
+     "place": null,
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "minigp": {
    "class": "field",
@@ -714,7 +1894,30 @@
     "barrier"
    ],
    "street_front": true,
-   "zone": "cheap_edge"
+   "zone": "cheap_edge",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "freeway",
+     "families": [
+      "freeway",
+      "lots",
+      "scrubroad"
+     ],
+     "lead": "freeway",
+     "place": null,
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "drivein": {
    "class": "field",
@@ -730,7 +1933,29 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "cheap_edge"
+   "zone": "cheap_edge",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "lot_and_bigbox",
+     "families": [
+      "lots",
+      "strip",
+      "scrubroad"
+     ],
+     "lead": "lots",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "swapmeet": {
    "class": "field",
@@ -744,7 +1969,29 @@
    "open_cover": "half",
    "blocks": [],
    "street_front": true,
-   "zone": "cheap_edge"
+   "zone": "cheap_edge",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "industrial",
+     "families": [
+      "lots",
+      "strip",
+      "works"
+     ],
+     "lead": "lots",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "truckstop": {
    "class": "field",
@@ -758,7 +2005,29 @@
    "open_cover": "full",
    "blocks": [],
    "street_front": true,
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "industrial",
+     "families": [
+      "main",
+      "scrubroad",
+      "works"
+     ],
+     "lead": "main",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "dam": {
    "class": "dam",
@@ -775,7 +2044,34 @@
     "water"
    ],
    "place": "shore",
-   "zone": "open"
+   "zone": "open",
+   "piece": {
+    "deal": {
+     "kind": "shore",
+     "ground": "wash_and_shore",
+     "families": [
+      "marina",
+      "pass",
+      "shore"
+     ],
+     "lead": "marina",
+     "place": "place_shore",
+     "landmark": "lakebed.1",
+     "field": [
+      "lakebed.2",
+      "lakebed.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "apron"
+     ],
+     "pieces": [
+      "ground:apron"
+     ]
+    }
+   }
   },
   "rail": {
    "class": "rail",
@@ -789,7 +2085,33 @@
     "rail"
    ],
    "place": "works",
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": "place_works",
+     "landmark": "rail.1",
+     "field": [
+      "rail.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "rail"
+     ],
+     "pieces": [
+      "ground:rubble"
+     ]
+    }
+   }
   },
   "railyard": {
    "class": "rail",
@@ -806,7 +2128,33 @@
     "walls"
    ],
    "place": "works",
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": "place_works",
+     "landmark": "rail.1",
+     "field": [
+      "rail.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "rail"
+     ],
+     "pieces": [
+      "ground:rubble"
+     ]
+    }
+   }
   },
   "freeway": {
    "class": "freeway",
@@ -819,7 +2167,30 @@
    "blocks": [
     "barrier"
    ],
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "freeway",
+     "ground": "freeway",
+     "families": [
+      "freeway",
+      "freewayo",
+      "scrubroad"
+     ],
+     "lead": "freeway",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "freeway"
+     ],
+     "pieces": [
+      "streets:*",
+      "cover:jersey"
+     ]
+    }
+   }
   },
   "beltway": {
    "class": "freeway",
@@ -832,7 +2203,30 @@
    "blocks": [
     "barrier"
    ],
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "freeway",
+     "ground": "freeway",
+     "families": [
+      "freeway",
+      "freewayo",
+      "scrubroad"
+     ],
+     "lead": "freeway",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "freeway"
+     ],
+     "pieces": [
+      "streets:*",
+      "cover:jersey"
+     ]
+    }
+   }
   },
   "interchange": {
    "class": "freeway",
@@ -847,7 +2241,30 @@
    "blocks": [
     "barrier"
    ],
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "freeway",
+     "ground": "freeway",
+     "families": [
+      "freeway",
+      "freewayo",
+      "scrubroad"
+     ],
+     "lead": "freeway",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "freeway"
+     ],
+     "pieces": [
+      "streets:*",
+      "cover:jersey"
+     ]
+    }
+   }
   },
   "arterial": {
    "class": "road",
@@ -858,7 +2275,30 @@
    "cover": "none",
    "open_cover": "half",
    "blocks": [],
-   "zone": "mile_street"
+   "zone": "mile_street",
+   "piece": {
+    "deal": {
+     "kind": "suburb_stem",
+     "ground": "lot_and_bigbox",
+     "families": [
+      "suburb_stem",
+      "strip",
+      "lots"
+     ],
+     "lead": "suburb_stem",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "road",
+      "walk"
+     ],
+     "pieces": [
+      "streets:*"
+     ]
+    }
+   }
   },
   "strip": {
    "class": "blvd",
@@ -870,7 +2310,39 @@
    "open_cover": "half",
    "blocks": [],
    "place": "strip",
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": "place_strip",
+     "landmark": "blvd.1",
+     "field": [
+      "blvd.2",
+      "stripe.1",
+      "stripe.2",
+      "stripw.1",
+      "stripw.2",
+      "stripw.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "road",
+      "walk"
+     ],
+     "pieces": [
+      "streets:*"
+     ]
+    }
+   }
   },
   "commercial": {
    "class": "roof",
@@ -887,7 +2359,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "lot_and_bigbox",
+     "families": [
+      "strip",
+      "lots",
+      "main",
+      "works"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:pawn_shop",
+      "building:gas_station",
+      "building:motel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "mall": {
    "class": "roof",
@@ -904,7 +2404,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "lot_and_bigbox",
+     "families": [
+      "strip",
+      "lots",
+      "main",
+      "works"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:pawn_shop",
+      "building:gas_station",
+      "building:motel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "convention": {
    "class": "roof",
@@ -922,7 +2450,43 @@
    ],
    "street_front": true,
    "place": "strip",
-   "zone": "strip"
+   "zone": "strip",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": "place_strip",
+     "landmark": "blvd.1",
+     "field": [
+      "blvd.2",
+      "stripe.1",
+      "stripe.2",
+      "stripw.1",
+      "stripw.2",
+      "stripw.3"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:pawn_shop",
+      "building:gas_station",
+      "building:motel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "industrial": {
    "class": "roof",
@@ -942,7 +2506,36 @@
    ],
    "street_front": true,
    "place": "works",
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": "place_works",
+     "landmark": "rail.1",
+     "field": [
+      "rail.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "warehouse": {
    "class": "roof",
@@ -960,7 +2553,36 @@
    ],
    "street_front": true,
    "place": "works",
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": "place_works",
+     "landmark": "rail.1",
+     "field": [
+      "rail.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "school": {
    "class": "roof",
@@ -979,7 +2601,40 @@
    ],
    "street_front": true,
    "place": "suburb",
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "prison": {
    "class": "roof",
@@ -997,7 +2652,35 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "works",
+      "main"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "jail": {
    "class": "roof",
@@ -1014,7 +2697,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "main",
+      "works"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "library": {
    "class": "roof",
@@ -1032,7 +2743,40 @@
    ],
    "street_front": true,
    "place": "suburb",
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "firestation": {
    "class": "roof",
@@ -1049,7 +2793,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "main",
+      "strip"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "policestation": {
    "class": "roof",
@@ -1067,7 +2839,35 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "main",
+      "strip"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "robofactory": {
    "class": "roof",
@@ -1085,7 +2885,32 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "datafort": {
    "class": "roof",
@@ -1103,7 +2928,37 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a compound of its own (the cut stands the civic pieces)"
+    }
+   }
   },
   "arsenal": {
    "class": "roof",
@@ -1121,7 +2976,35 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a compound of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "fueldepot": {
    "class": "roof",
@@ -1139,7 +3022,34 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tank of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "granary": {
    "class": "roof",
@@ -1156,7 +3066,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a silo of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "storage": {
    "class": "roof",
@@ -1173,7 +3111,38 @@
    ],
    "street_front": true,
    "place": "works",
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": "place_works",
+     "landmark": "rail.1",
+     "field": [
+      "rail.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a shed of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "substation": {
    "class": "roof",
@@ -1189,7 +3158,35 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "solar_and_pumps",
+     "families": [
+      "works",
+      "scrubroad",
+      "scrub"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a shed of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "pumpstation": {
    "class": "roof",
@@ -1207,7 +3204,33 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "solar_and_pumps",
+     "families": [
+      "works",
+      "wash",
+      "scrub"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "watertreat": {
    "class": "roof",
@@ -1225,7 +3248,33 @@
     "water"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "wash_and_shore",
+     "families": [
+      "works",
+      "marina",
+      "wash"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "radio": {
    "class": "roof",
@@ -1242,7 +3291,35 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "suburb_block",
+     "families": [
+      "ruin",
+      "works",
+      "scrubroad"
+     ],
+     "lead": "ruin",
+     "place": null,
+     "stand_in": true,
+     "wants": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "battery": {
    "class": "roof",
@@ -1258,7 +3335,35 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "solar_and_pumps",
+     "families": [
+      "works",
+      "scrubroad",
+      "scrub"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a shed of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "reclaim": {
    "class": "roof",
@@ -1275,7 +3380,33 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "solar_and_pumps",
+     "families": [
+      "works",
+      "ruin",
+      "scrub"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "terminal": {
    "class": "roof",
@@ -1293,7 +3424,41 @@
    ],
    "street_front": true,
    "place": "airport",
-   "zone": "transport"
+   "zone": "transport",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "airport",
+     "families": [
+      "apron",
+      "works",
+      "main"
+     ],
+     "lead": "apron",
+     "place": "place_airport",
+     "landmark": "apron.1",
+     "field": [
+      "apron.2",
+      "apron.3",
+      "apron.4"
+     ],
+     "stand_in": true,
+     "wants": "AN APRON: open paved ground, one long shed, a perimeter fence."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:pawn_shop",
+      "building:gas_station",
+      "building:motel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "chapel": {
    "class": "roof",
@@ -1311,7 +3476,40 @@
    ],
    "street_front": true,
    "place": "suburb",
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": "place_suburb",
+     "landmark": "yards.1",
+     "field": [
+      "yards.2"
+     ],
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "fort": {
    "class": "roof",
@@ -1327,7 +3525,37 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "ruin",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": true,
+     "wants": "A COMPOUND: a wall with one gate, tanks and sheds inside it."
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a compound of its own (the cut stands the civic pieces)"
+    }
+   }
   },
   "bank": {
    "class": "roof",
@@ -1344,7 +3572,36 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a tower of its own (the cut stands the civic pieces)"
+    }
+   }
   },
   "jobsoffice": {
    "class": "roof",
@@ -1361,7 +3618,36 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "hardware": {
    "class": "roof",
@@ -1378,7 +3664,35 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "lot_and_bigbox",
+     "families": [
+      "strip",
+      "lots",
+      "main",
+      "works"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:pawn_shop",
+      "building:gas_station",
+      "building:motel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "powerplant": {
    "class": "roof",
@@ -1396,7 +3710,32 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "solar_and_pumps",
+     "families": [
+      "works",
+      "scrubroad",
+      "scrub"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "shelter": {
    "class": "roof",
@@ -1412,7 +3751,34 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "industry"
+   "zone": "industry",
+   "piece": {
+    "deal": {
+     "kind": "landfill",
+     "ground": "industrial",
+     "families": [
+      "works",
+      "landfill",
+      "ruin"
+     ],
+     "lead": "works",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:warehouse",
+      "ground:apron"
+     ],
+     "stand_in": true,
+     "wants": "a shed of its own (the cut stands the works pieces)"
+    }
+   }
   },
   "mobmuseum": {
    "class": "roof",
@@ -1429,7 +3795,34 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "downtown"
+   "zone": "downtown",
+   "piece": {
+    "deal": {
+     "kind": "strip",
+     "ground": "the_strip",
+     "families": [
+      "strip",
+      "casino",
+      "main"
+     ],
+     "lead": "strip",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "natmuseum": {
    "class": "roof",
@@ -1446,7 +3839,36 @@
     "walls"
    ],
    "street_front": true,
-   "zone": "civic"
+   "zone": "civic",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   },
   "tvstation": {
    "class": "roof",
@@ -1463,7 +3885,36 @@
     "fence"
    ],
    "street_front": true,
-   "zone": "commercial"
+   "zone": "commercial",
+   "piece": {
+    "deal": {
+     "kind": "suburb",
+     "ground": "suburb_block",
+     "families": [
+      "subs",
+      "corner",
+      "suburb_stem",
+      "lots",
+      "culdesac"
+     ],
+     "lead": "subs",
+     "place": null,
+     "stand_in": false
+    },
+    "cut": {
+     "tiles": [
+      "building",
+      "lot",
+      "yard"
+     ],
+     "pieces": [
+      "building:school",
+      "building:church",
+      "building:chapel",
+      "ground:apron"
+     ]
+    }
+   }
   }
  },
  "town": {
@@ -1481,7 +3932,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop",
+       "building:gas_station",
+       "building:motel"
+      ]
+     }
+    }
    },
    "gable": {
     "is": "a house or a shed under a gable",
@@ -1495,7 +3959,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "shacks": {
     "is": "lean-tos of tin, rust and plywood, a lane between",
@@ -1508,7 +3987,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop"
+      ],
+      "stand_in": true,
+      "wants": "a shack of scrap"
+     }
+    }
    },
    "trailers": {
     "is": "trailers in rows, a lane between",
@@ -1521,7 +4013,18 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:trailer"
+      ]
+     }
+    }
    },
    "tents": {
     "is": "tents round a fire: a man goes in one, never on it; cloth hides, it stops nothing",
@@ -1532,7 +4035,21 @@
     "man": "in",
     "cover": "none",
     "open_cover": "none",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:pallet",
+       "cover:sandbags"
+      ],
+      "stand_in": true,
+      "wants": "a tent"
+     }
+    }
    },
    "cont": {
     "is": "shipping containers, some stacked two high",
@@ -1546,7 +4063,20 @@
     "open_cover": "full",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:barricade"
+      ],
+      "stand_in": true,
+      "wants": "a shipping container a man stands on"
+     }
+    }
    },
    "yard": {
     "is": "a yard: a fence, junk, a car",
@@ -1557,7 +4087,18 @@
     "open_cover": "half",
     "blocks": [
      "fence"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:dirt"
+      ]
+     }
+    }
    },
    "garden": {
     "is": "beds in rows, the paths between",
@@ -1566,7 +4107,18 @@
     "man": "open",
     "cover": "none",
     "open_cover": "half",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:dirt"
+      ]
+     }
+    }
    },
    "plaza": {
     "is": "a plaza: a fire in a drum, the stalls round it",
@@ -1575,7 +4127,18 @@
     "man": "open",
     "cover": "none",
     "open_cover": "half",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:plaza"
+      ]
+     }
+    }
    },
    "lot": {
     "is": "a lot: parking lines, the cars left in it",
@@ -1584,7 +4147,18 @@
     "man": "open",
     "cover": "none",
     "open_cover": "half",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:apron"
+      ]
+     }
+    }
    },
    "scrap": {
     "is": "scrap: cars on cars",
@@ -1598,7 +4172,21 @@
     "open_cover": "full",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:rubble_0",
+       "cover:tyres"
+      ],
+      "stand_in": true,
+      "wants": "a scrap heap a man climbs"
+     }
+    }
    },
    "watch": {
     "is": "a watch post at the lot's corner",
@@ -1612,7 +4200,21 @@
     "open_cover": "none",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:sandbags",
+       "cover:pole"
+      ],
+      "stand_in": true,
+      "wants": "a watch post on legs"
+     }
+    }
    }
   },
   "marks": {
@@ -1628,7 +4230,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "mast": {
     "is": "the station, the mast, its anchors, the fence",
@@ -1642,7 +4257,20 @@
     "blocks": [
      "walls",
      "fence"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "prison": {
     "is": "three cell blocks, guard towers at the corners, the fence",
@@ -1657,7 +4285,20 @@
     "blocks": [
      "walls",
      "fence"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "casino": {
     "is": "the podium, the tower stepped in, the sign on its pylon",
@@ -1671,7 +4312,18 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:casino"
+      ]
+     }
+    }
    },
    "truckstop": {
     "is": "the canopy over the pumps, the semis in rows, the fuel tank",
@@ -1684,7 +4336,20 @@
     "open_cover": "full",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop",
+       "building:gas_station",
+       "building:motel"
+      ]
+     }
+    }
    },
    "storage": {
     "is": "rows of units, the high wall, the watchtower",
@@ -1697,7 +4362,18 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:shed"
+      ]
+     }
+    }
    },
    "tank": {
     "is": "the tank over the tunnels, its pipes, the tents round it",
@@ -1711,7 +4387,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:barrel"
+      ],
+      "stand_in": true,
+      "wants": "a water or fuel tank a man stands on"
+     }
+    }
    },
    "works": {
     "is": "the sawtooth shop, the crane, the scrap; or a powerhouse and its stacks",
@@ -1726,7 +4415,18 @@
     "open_cover": "full",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:warehouse"
+      ]
+     }
+    }
    },
    "clinic": {
     "is": "the clinic, a cross of two wings, its pad, the tents of the sick",
@@ -1740,7 +4440,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "bank": {
     "is": "the bank's tower on its podium, an annex",
@@ -1754,7 +4467,21 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:casino",
+       "building:school"
+      ],
+      "stand_in": true,
+      "wants": "a tower the fight can live beside"
+     }
+    }
    },
    "garden": {
     "is": "the co-op's hall, two greenhouses, the rain tank, the beds",
@@ -1767,7 +4494,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "stage": {
     "is": "the stage, its truss, the bonfire, the ring of burnt cars",
@@ -1780,7 +4520,21 @@
     "open_cover": "full",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "ground:plaza",
+       "cover:pallet"
+      ],
+      "stand_in": true,
+      "wants": "a stage"
+     }
+    }
    },
    "hall": {
     "is": "the hall, its painted walls, the tents",
@@ -1794,7 +4548,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school"
+      ],
+      "stand_in": true,
+      "wants": "a hall of its own"
+     }
+    }
    },
    "yard": {
     "is": "a customs yard: the shed, the fence, the cars in line",
@@ -1807,7 +4574,18 @@
     "open_cover": "half",
     "blocks": [
      "fence"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:shed"
+      ]
+     }
+    }
    },
    "trailers": {
     "is": "the trailer park's office over its rows",
@@ -1820,7 +4598,18 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:trailer"
+      ]
+     }
+    }
    },
    "lodge": {
     "is": "the lodge on the course, its porch",
@@ -1834,7 +4623,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "bigbox": {
     "is": "a big box store, the lot in front",
@@ -1848,7 +4652,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop",
+       "building:gas_station",
+       "building:motel"
+      ]
+     }
+    }
    },
    "marina": {
     "is": "the marina office, the dry docks, the boats on stands",
@@ -1862,7 +4679,18 @@
     "blocks": [
      "walls",
      "water"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:shed"
+      ]
+     }
+    }
    },
    "hilltown": {
     "is": "houses up a slope, a wall of stone",
@@ -1877,7 +4705,22 @@
     "blocks": [
      "walls",
      "cliff"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "solar": {
     "is": "the control shed in the panel rows",
@@ -1891,7 +4734,18 @@
     "blocks": [
      "rows",
      "fence"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:shed"
+      ]
+     }
+    }
    },
    "scrap": {
     "is": "the scrap yard's crane and its heaps",
@@ -1905,7 +4759,21 @@
     "open_cover": "full",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:rubble_0",
+       "cover:tyres"
+      ],
+      "stand_in": true,
+      "wants": "a scrap heap a man climbs"
+     }
+    }
    },
    "hangars": {
     "is": "the hangars on the apron",
@@ -1918,7 +4786,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:warehouse"
+      ],
+      "stand_in": true,
+      "wants": "a hangar of its own"
+     }
+    }
    },
    "suburbs": {
     "is": "a street of houses taken back",
@@ -1933,7 +4814,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    }
   },
   "works": {
@@ -1948,7 +4844,20 @@
     "open_cover": "none",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:wall",
+       "cover:wall_corner",
+       "streets:walk_wallfoot"
+      ]
+     }
+    }
    },
    "corner_tower": {
     "is": "a corner tower over the wall",
@@ -1961,7 +4870,21 @@
     "open_cover": "none",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:sandbags",
+       "cover:pole"
+      ],
+      "stand_in": true,
+      "wants": "a watch post on legs"
+     }
+    }
    },
    "gate_tower": {
     "is": "a gate tower where a street runs in",
@@ -1974,7 +4897,21 @@
     "open_cover": "none",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:sandbags",
+       "cover:pole"
+      ],
+      "stand_in": true,
+      "wants": "a watch post on legs"
+     }
+    }
    }
   }
  },
@@ -1992,7 +4929,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "house_garage": {
     "is": "the ranch house with a garage",
@@ -2005,7 +4957,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "house_wing": {
     "is": "the ranch house with a wing",
@@ -2018,7 +4985,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "house_carport": {
     "is": "the ranch house with a carport",
@@ -2031,7 +5013,22 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain",
+       "house:ranch_porch",
+       "house:ranch_wing",
+       "house:ranch_garage",
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "kitchen": {
     "is": "the rocket hearth under its tin lean-to",
@@ -2042,7 +5039,20 @@
     "man": "in",
     "cover": "half",
     "open_cover": "half",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop"
+      ],
+      "stand_in": true,
+      "wants": "a shack of scrap"
+     }
+    }
    },
    "main": {
     "is": "the curb-stop box and its riser on a pad",
@@ -2051,7 +5061,18 @@
     "man": "open",
     "cover": "none",
     "open_cover": "none",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:plaza"
+      ]
+     }
+    }
    },
    "purifier": {
     "is": "the drum on blocks over the sand bed",
@@ -2060,7 +5081,18 @@
     "man": "open",
     "cover": "none",
     "open_cover": "half",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:plaza"
+      ]
+     }
+    }
    },
    "garden_bed": {
     "is": "three raised beds, the bean poles",
@@ -2069,7 +5101,18 @@
     "man": "open",
     "cover": "none",
     "open_cover": "half",
-    "blocks": []
+    "blocks": [],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:dirt"
+      ]
+     }
+    }
    },
    "water_tank": {
     "is": "the corrugated tank on its block stand",
@@ -2082,7 +5125,20 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:barrel"
+      ],
+      "stand_in": true,
+      "wants": "a water or fuel tank a man stands on"
+     }
+    }
    },
    "solar_panel": {
     "is": "three panels on a ground rack",
@@ -2093,7 +5149,18 @@
     "open_cover": "half",
     "blocks": [
      "rows"
-    ]
+    ],
+    "piece": {
+     "deal": "town",
+     "cut": {
+      "tiles": [
+       "yard"
+      ],
+      "pieces": [
+       "ground:dirt"
+      ]
+     }
+    }
    }
   }
  },
@@ -2111,7 +5178,17 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_plain"
+      ]
+     }
+    }
    },
    "ranch_porch": {
     "is": "the ranch with a porch",
@@ -2124,7 +5201,17 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_porch"
+      ]
+     }
+    }
    },
    "ranch_wing": {
     "is": "the ranch with a wing",
@@ -2137,7 +5224,17 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_wing"
+      ]
+     }
+    }
    },
    "ranch_garage": {
     "is": "the ranch with a garage",
@@ -2150,7 +5247,17 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_garage"
+      ]
+     }
+    }
    },
    "ranch_carport": {
     "is": "the ranch with a carport",
@@ -2163,7 +5270,17 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "house:ranch_carport"
+      ]
+     }
+    }
    },
    "trailer": {
     "is": "the map's trailer model",
@@ -2176,7 +5293,17 @@
     "open_cover": "half",
     "blocks": [
      "walls"
-    ]
+    ],
+    "piece": {
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:trailer"
+      ]
+     }
+    }
    }
   }
  },
@@ -2202,7 +5329,21 @@
     ],
     "street_front": true,
     "picture": "the region paints it as any fortress (its trade reads 'hilltown': houses behind a wall); a compound of labs and pens is owed, COOK FOUR's golden piece (rule 408)",
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "medical",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "ground:apron"
+      ],
+      "stand_in": true,
+      "wants": "a compound of its own"
+     },
+     "outside": "out on the region, no map kind of its own: the fight deals medical's board"
+    }
    },
    "the_bank": {
     "kind": "bank",
@@ -2221,7 +5362,21 @@
      "walls"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "bank",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:casino",
+       "building:school"
+      ],
+      "stand_in": true,
+      "wants": "a tower the fight can live beside"
+     }
+    }
    },
    "the_unemployment_office": {
     "kind": "jobsoffice",
@@ -2240,7 +5395,20 @@
      "walls"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "jobsoffice",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "the_home_center_east": {
     "kind": "hardware",
@@ -2259,7 +5427,20 @@
      "walls"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "hardware",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop",
+       "building:gas_station",
+       "building:motel"
+      ]
+     }
+    }
    },
    "the_home_center_west": {
     "kind": "hardware",
@@ -2278,7 +5459,20 @@
      "walls"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "hardware",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop",
+       "building:gas_station",
+       "building:motel"
+      ]
+     }
+    }
    },
    "clark_station": {
     "kind": "powerplant",
@@ -2298,7 +5492,18 @@
      "fence"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "powerplant",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:warehouse"
+      ]
+     }
+    }
    },
    "lenzie_station": {
     "kind": null,
@@ -2319,7 +5524,19 @@
     ],
     "street_front": true,
     "picture": "the region paints it as works (its land kind, industrial); the three halls and the stacks are COOK FOUR's golden piece",
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "powerplant",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:warehouse"
+      ]
+     },
+     "outside": "out on the region, no map kind of its own: the fight deals powerplant's board"
+    }
    },
    "shark_reef": {
     "kind": "aquarium",
@@ -2338,7 +5555,18 @@
      "water"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "aquarium",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:casino"
+      ]
+     }
+    }
    },
    "the_animal_shelter": {
     "kind": "shelter",
@@ -2356,7 +5584,18 @@
      "fence"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "shelter",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:shed"
+      ]
+     }
+    }
    },
    "the_mob_museum": {
     "kind": "mobmuseum",
@@ -2375,7 +5614,20 @@
      "walls"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "mobmuseum",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "the_natural_history_museum": {
     "kind": "natmuseum",
@@ -2394,7 +5646,20 @@
      "walls"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "natmuseum",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "the_tv_station": {
     "kind": "tvstation",
@@ -2413,7 +5678,20 @@
      "fence"
     ],
     "street_front": true,
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "tvstation",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
    },
    "spring_mountain_ranch": {
     "kind": null,
@@ -2433,7 +5711,21 @@
     ],
     "street_front": true,
     "picture": "the region paints it with its garden look (fields and a farmhouse); the ranch house, the barn and the corrals are COOK FOUR's golden piece",
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "farm",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "ground:apron"
+      ],
+      "stand_in": true,
+      "wants": "a barn of its own"
+     },
+     "outside": "out on the region, no map kind of its own: the fight deals farm's board"
+    }
    },
    "callville_bay": {
     "kind": null,
@@ -2453,7 +5745,19 @@
     ],
     "street_front": true,
     "picture": "the region paints it with its trailer look; the motorhomes on their loops and the dry marina are COOK FOUR's golden piece",
-    "draft": true
+    "draft": true,
+    "piece": {
+     "deal": "water",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "cover:trailer"
+      ]
+     },
+     "outside": "out on the region, no map kind of its own: the fight deals water's board"
+    }
    }
   }
  }

@@ -19020,7 +19020,11 @@
    "stage": "made_from",
    "golden": "direction-every-icon-through-the-rig-11-2",
    "record": "records/BOHEMIA_COOK_FIVE_THE_DECOY_HAS_ITS_PICTURE_11_11_26.md"
-  }
+  },
+  {"id": "world13-the-piece-that-answers-it-11-11", "kind": "tile", "lane": "world 13", "sha": "THIS BUILD", "made": "11/11", "draft": true, "title": "THE PIECE THAT ANSWERS IT: EVERY KIND OF PLACE ON THE MAP NAMES THE FIGHT BOARD THAT STANDS FOR IT", "said": "for every building that we have on the regular map we need to answer for that in the combat map", "why": "Six spots on the map and the fight the game deals for each, on the phone: a suburb gets the backyards, the works the rail yard, a casino its own floor, a wash the wash, the airport the apron (a stand-in, its own board is still owed), apartments a mix of lots, shops and works. Every one of the map's 88 kinds now names its fight pieces in the one table, and 24 that still fight on a stand-in say what they are waiting for. You see it in any fight in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD13_THE_PIECE_THAT_ANSWERS_IT_11_11.webp",
+    "first": "../records/target/vote_first/world13-the-piece-that-answers-it-11-11.webp",
+    "firstAt": [20, 20, 390, 918]
+   }, "before_after": {"before": "main 11/10zb: the table said what a kind is in a fight (storeys, cover) but not which piece of the fight stands for it; the fight picked from three other tables and a regex in the shell", "after": "88 map kinds, the town's pieces, your lot's and the house models each name their deal and their cut; on the fight page all 88 kinds dealt only from the pieces named, upright and on its side", "scale": "the fight page on a phone upright, 390 x 844 at 2, by day except the casino floor"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_PIECE_THAT_ANSWERS_IT_11_11_26.md", "build": "BUILD 11/11a - THE PIECE THAT ANSWERS IT"}
  ],
  "verdicts": [
   {

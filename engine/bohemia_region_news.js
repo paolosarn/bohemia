@@ -68,6 +68,12 @@ var STEP_MINUTES = 5;            /* MINE: the road is checked every five minutes
                                     parties closing at two blocks a step can never slip past each other */
 var MEET_BLOCKS = 1;             /* two parties on one block or the next, at one moment, meet */
 var SITUATION_DAYS = 7;          /* records/target/bb/arrival_traits.json duration_days: one week */
+var PICKED_CLEAN_DAYS = 14;      /* WORLD THIRTEEN 11/11 (row 586): a town a crew took has nothing worth the walk for two weeks (the
+                                    week it stands raided, then a week to restock): no crew sets out for it and a crew that reaches it
+                                    inside that finds it picked clean and takes nothing (Battle Brothers: a raided village is not worth
+                                    raiding again until it recovers). Measured: LAKE BOHEMIA 27 raids a year once the Callville Bay camp
+                                    stood beside it, a raid every 13 days, the news read like weather */
+function pickedClean(W, nm, t) { var l = W.lastRaid && W.lastRaid[nm]; return l != null && t - l <= PICKED_CLEAN_DAYS; }
 var DEATH_CHANCE = 0.2;          /* his 9/27: 'a 20% chance to die, else a debilitating injury' */
 var PERIOD = 7;                  /* a week: the dice's period (settlement_traits.json roll.period_days) */
 var HILL_MINUTES = 19.354;
@@ -195,7 +201,7 @@ function sendsOfWeek(W, w) {
       /* a town already picked clean is not worth the walk: a crew with nothing to take hunts the road instead,
          out and back like a patrol, for the caravans on it */
       if (agenda === 'crew') {
-        var fresh = pool.filter(function (q) { return !standing(W, q.name, 'raided', t0); });
+        var fresh = pool.filter(function (q) { return !standing(W, q.name, 'raided', t0) && !pickedClean(W, q.name, t0); });
         if (!fresh.length) { hunt = true; pool = A.neighbours.map(function (nm) { return W.byName[nm]; }); } else pool = fresh;
       }
       /* a settlement's patrol holds the border it has: the road toward the nearest hold, when one is in reach */
@@ -283,7 +289,8 @@ function runWeek(W, w) {
     });
     if (p.stoppedAt == null && p.t1 >= ta && p.t1 < tb && !p.home) {
       if (p.agenda === 'caravan') { ev.push({ kind: 'arrived', place: p.to, day: p.t1, agenda: 'caravan', from: p.from, to: p.to, party: p.id }); situation(W, p.to, 'well_supplied', p.t1, p.id, ev); }
-      if (p.agenda === 'crew') {
+      if (p.agenda === 'crew' && !pickedClean(W, p.to, p.t1)) {   /* a crew that finds it picked clean takes nothing */
+        (W.lastRaid = W.lastRaid || {})[p.to] = p.t1;
         ev.push({ kind: 'raid', place: p.to, day: p.t1, agenda: 'crew', from: p.from, to: p.to, party: p.id });
         situation(W, p.to, 'raided', p.t1, p.id, ev);
         if (deathRoll(p.id + '>' + p.to)) ev.push({ kind: 'death', place: p.to, day: p.t1, side: 'town', party: p.id, by: p.id });

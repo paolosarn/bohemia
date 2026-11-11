@@ -21,13 +21,27 @@
      F11 the painter reads it: a house's wall comes from the table's storeys (vbMixStorey), the old one-in-seven roll is gone
      F14 429(g): every map kind carries its land-use zone
      F13 429(f): over 22 generated valleys every district that lands has its row
+     F15 (11/11, 429(a)(b)(c), 430) every row names the piece of the fight's kit that answers it: every map kind what the fight
+         deals for a cell of it (the board kind, the block families, the lead, the place board with its landmark and field blocks)
+         and every row what the board cut from the map lays (tile kinds, kit pieces); stand-ins marked, with what is wanted
+     F16 every name is the kit's own: each family has a block in fight_ground.json, each landmark and field block is one, each place
+         board is one, each deal kind is a board, a family or an alias the fight knows, each cut piece is in street_board.json,
+         fight_ground.json's cover or kit_cover
+     F17 the pieces are the fight's own: re-derived from BOHEMIA_BOARD_KINDS.json, ours.json's board_grounds and place_boards and
+         bohemia_street_board.js (tools/bohemia_world_thirteen_pieces.py --check), and the engine carries them (F10)
      F12 PLANTED FAIL: the same checks over the file with suburb's row taken out, a ladder put in, and a new map kind with no row
-         must go red on each, or this gate cannot fail and proves nothing
+         must go red on each, or this gate cannot fail and proves nothing; from 11/11 also suburb's piece taken out, a family the kit
+         does not have, a cut piece the kit does not have
    PAGE (the demo, phone profile):
      P1  the map page carries the table (window.BohemiaFightKinds) and every district on the live valley has a row
      P2  the houses the map paints: the storeys vbHouseStorey reads for every standing house on the valley, a real mix
          (one storey most, two common, three rare), not one in seven
      P3  the painter stands them that tall: the tallest house on the painting is a three-storey wall
+   PAGE (the fight, BOHEMIA_FIGHT.html on a phone, upright and on its side):
+     P4  the fight page carries the pieces (BohemiaFightKinds.piece) and, dealt a board for every map kind the way a fight on the
+         map asks for one (its district and the table's kind), lays only the blocks the table names for it: the place's landmark
+         and field where a built place stands there, else the kind's families; the boards that are not dealt from blocks (the
+         freeway's, the casino floor) said by name
 
      node gates/the_map_kinds_have_fight_answers_gate.js [--node]
    ============================================================================ */
@@ -99,6 +113,42 @@ function check(J, want) {
   return out;
 }
 
+/* THE KIT (11/11): every name a piece may use */
+function kitNames() {
+  const fg = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/fight_ground.json'), 'utf8'));
+  const sb = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_ground/street_board/street_board.json'), 'utf8'));
+  const ours = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8'));
+  const blocks = new Set(Object.keys(fg.blocks)), fams = new Set();
+  Object.values(fg.boards).forEach((b) => b.blocks.forEach((r) => r.forEach((n) => blocks.add(n.split('|')[0]))));
+  blocks.forEach((n) => fams.add(n.split('.')[0]));
+  const mix = ours.board_mix.value || ours.board_mix, kinds = new Set(Object.keys(fg.boards).concat([...fams], Object.keys(mix.aliases || {})));
+  const cover = new Set(Object.keys(fg.cover).concat(Object.keys(fg.cover_extra), fs.readdirSync(path.join(ROOT, 'slices/fight_ground/kit_cover')).filter((f) => /^cover_.*\.webp$/.test(f)).map((f) => f.slice(6, -5))));
+  return { blocks, fams, boards: new Set(Object.keys(fg.boards)), kinds, cover, houses: new Set(Object.keys(sb.houses)), buildings: new Set(Object.keys(sb.buildings)), ground: new Set(Object.keys(sb.ground)), streets: new Set(Object.keys(sb.streets.pieces)) };
+}
+function pieceCheck(J, K) {
+  const f15 = [], f16 = [];
+  const cutOK = (c, who) => { if (!c || !Array.isArray(c.tiles) || !c.tiles.length || !Array.isArray(c.pieces) || !c.pieces.length) { f15.push(who + ' (no cut)'); return; }
+    if (c.stand_in && !c.wants) f15.push(who + ' (a stand-in that does not say what is wanted)');
+    c.pieces.forEach((pc) => { const i = pc.indexOf(':'), ns = pc.slice(0, i), n = pc.slice(i + 1);
+      const good = ns === 'house' ? K.houses.has(n) : ns === 'building' ? K.buildings.has(n) : ns === 'ground' ? K.ground.has(n) : ns === 'streets' ? (n === '*' || K.streets.has(n)) : ns === 'cover' ? K.cover.has(n) : false;
+      if (!good) f16.push(who + ' cut ' + pc); }); };
+  Object.keys(J.districts).forEach((d) => { const p = J.districts[d].piece, dl = p && p.deal;
+    if (!dl || !dl.kind || !Array.isArray(dl.families) || !dl.families.length || dl.lead !== dl.families[0]) { f15.push(d + ' (no deal)'); }
+    else {
+      if (!K.kinds.has(dl.kind)) f16.push(d + ' kind ' + dl.kind);
+      dl.families.forEach((f) => { if (!K.fams.has(f)) f16.push(d + ' family ' + f); });
+      if (dl.place) { if (!K.boards.has(dl.place)) f16.push(d + ' place ' + dl.place); if (!K.blocks.has(dl.landmark)) f16.push(d + ' landmark ' + dl.landmark); (dl.field || []).forEach((b) => { if (!K.blocks.has(b)) f16.push(d + ' field ' + b); }); if (!(dl.field || []).length) f15.push(d + ' (a place with no field)'); }
+      if (dl.stand_in && !dl.wants) f15.push(d + ' (a stand-in board that does not say what is wanted)');
+    }
+    cutOK(p && p.cut, d); });
+  const other = [['townlot', J.town.lots], ['townmark', J.town.marks], ['townworks', J.town.works], ['home', J.home.pieces], ['model', J.models.houses]];
+  other.forEach(([ns, T]) => Object.keys(T).forEach((k) => { const p = T[k].piece; if (!p) { f15.push(ns + ':' + k + ' (no piece)'); return; }
+    if (ns !== 'model' && !(p.deal === 'town' && J.districts.town)) f15.push(ns + ':' + k + ' (deals no board)'); cutOK(p.cut, ns + ':' + k); }));
+  const rows = (J.places && J.places.rows) || {};
+  Object.keys(rows).forEach((k) => { const p = rows[k].piece; if (!p || !J.districts[p.deal]) f15.push('place:' + k + ' (no piece)'); else cutOK(p.cut, 'place:' + k); });
+  return [['F15', f15], ['F16', f16]];
+}
+
 (async () => {
   const J = JSON.parse(fs.readFileSync(FILE, 'utf8')), src = mapSrc(), tk = townKinds(src);
   const want = { districts: districtsOfGenerator(), lots: tk.lots, marks: tk.marks, home: homeKinds(), models: modelKinds(), classOf: classOf(src) };
@@ -129,6 +179,15 @@ function check(J, want) {
   const OM = require(path.join(ROOT, 'engine/bohemia_overmap.js')), seen = {}, miss13 = {};
   [1337, 7, 42, 2026, 99, 31337, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 2691674296].forEach((sd) => { OM.buildOvermap(sd).tiles.forEach((t) => { seen[t.district] = 1; if (!J.districts[t.district]) miss13[t.district] = 1; }); });
   ok('F13 over 22 generated valleys every kind that lands (' + Object.keys(seen).length + ') has its fight answer' + (Object.keys(miss13).length ? ': MISSING ' + Object.keys(miss13).join(', ') : ''), Object.keys(miss13).length === 0);
+  /* F15 to F17 (11/11): the piece of the fight's kit that answers every kind */
+  const KIT = kitNames(), pc = pieceCheck(J, KIT), nD = Object.keys(J.districts).length;
+  const si = Object.keys(J.districts).filter((d) => J.districts[d].piece && J.districts[d].piece.deal && J.districts[d].piece.deal.stand_in);
+  const pl = Object.keys(J.districts).filter((d) => J.districts[d].piece && J.districts[d].piece.deal && J.districts[d].piece.deal.place);
+  ok('F15 every row names the piece that answers it: ' + nD + ' map kinds what the fight deals (' + pl.length + ' on a place board, ' + si.length + ' on a stand-in, each saying what is wanted), every row what the cut lays' + (pc[0][1].length ? ': MISSING ' + pc[0][1].slice(0, 8).join(', ') : ''), pc[0][1].length === 0);
+  ok('F16 every name is the kit\'s own (' + KIT.fams.size + ' block families, ' + KIT.blocks.size + ' blocks, ' + KIT.boards.size + ' boards, ' + (KIT.houses.size + KIT.buildings.size + KIT.ground.size + KIT.streets.size) + ' street-kit pieces, ' + KIT.cover.size + ' cover pieces)' + (pc[1][1].length ? ': NOT IN THE KIT ' + pc[1][1].slice(0, 8).join(', ') : ''), pc[1][1].length === 0);
+  let inStep = false; try { inStep = /in step/.test(require('child_process').execFileSync('python3', [path.join(ROOT, 'tools/bohemia_world_thirteen_pieces.py'), '--check'], { encoding: 'utf8' })); } catch (e) { inStep = false; }
+  ok('F17 the pieces are the fight\'s own (re-derived from its board kinds, its board grounds and place boards and its cut code: in step) and the engine carries them (piece(\'suburb\') ' + (() => { try { const K = require(path.join(ROOT, 'engine/bohemia_fight_kinds.js')); const p = K.piece('suburb'); return p && p.deal ? p.deal.lead + ', ' + p.deal.place : 'none'; } catch (e) { return 'threw'; } })() + ')',
+    inStep && (() => { try { const K = require(path.join(ROOT, 'engine/bohemia_fight_kinds.js')); return !!(K.piece('suburb') && K.piece('suburb').deal && K.piece('townmark:tank').deal && K.families('casino').length); } catch (e) { return false; } })());
   /* F12: plant the faults; each check must catch its own */
   const P1 = JSON.parse(JSON.stringify(J)); delete P1.districts.suburb;
   const P2 = JSON.parse(JSON.stringify(J)); P2.districts.estate.man = 'ladder';
@@ -136,8 +195,12 @@ function check(J, want) {
   const W4 = Object.assign({}, want, { districts: want.districts.concat(['a_new_map_kind']) });
   const P5 = JSON.parse(JSON.stringify(J)); P5.districts.suburb.street_front = false;
   const red = (r, leg) => r.find((x) => x[0] === leg)[1].length > 0;
-  const planted = [red(check(P1, want), 'F1'), red(check(P2, want), 'F6'), red(check(P3, want), 'F7'), red(check(J, W4), 'F1'), red(check(P5, want), 'F8')];
-  ok('F12 PLANTED FAIL: suburb taken out, a ladder, three storeys common, a new map kind with no row, a house with no street: each goes red (' + planted.filter(Boolean).length + '/5)', planted.every(Boolean));
+  const P6 = JSON.parse(JSON.stringify(J)); delete P6.districts.suburb.piece;
+  const P7 = JSON.parse(JSON.stringify(J)); P7.districts.industrial.piece.deal.families = ['works', 'spaceport'];
+  const P8 = JSON.parse(JSON.stringify(J)); P8.town.marks.chapel.piece.cut.pieces = ['building:cathedral'];
+  const planted = [red(check(P1, want), 'F1'), red(check(P2, want), 'F6'), red(check(P3, want), 'F7'), red(check(J, W4), 'F1'), red(check(P5, want), 'F8'),
+    red(pieceCheck(P6, KIT), 'F15'), red(pieceCheck(P7, KIT), 'F16'), red(pieceCheck(P8, KIT), 'F16')];
+  ok('F12 PLANTED FAIL: suburb taken out, a ladder, three storeys common, a new map kind with no row, a house with no street, suburb\'s piece taken out, a family the kit does not have, a building the kit does not have: each goes red (' + planted.filter(Boolean).length + '/8)', planted.every(Boolean));
 
   if (process.argv.includes('--node')) return done();
 
@@ -165,5 +228,51 @@ function check(J, want) {
     ok('P3 the painter stands them that tall: the tallest house on the painting ' + (P.tall == null ? '?' : P.tall.toFixed(1)) + ' T (a three-storey wall, at least 20 T; the old two-storey top was about 17 T)', P.tall != null && P.tall >= 20);
   } catch (e) { ok('the page legs ran [' + String(e && e.message).slice(0, 160) + ']', false); }
   try { await d.close(); } catch (_e) {}
+
+  /* P4 (11/11): the fight page deals every map kind from the pieces the table names, on a phone upright and on its side */
+  for (const [W, H, how] of [[390, 844, 'upright'], [844, 390, 'on its side']]) {
+    let fx = null;
+    try {
+      fx = await openFight(W, H);
+      const R = await fx.p.evaluate((ks) => {
+        const F = eval('FIGHT'), FK = window.BohemiaFightKinds, out = { has: !!(FK && FK.piece), checked: 0, agree: 0, other: {}, bad: [] };
+        if (!out.has) return out;
+        ks.forEach((d, i) => { const pc = FK.piece(d), dl = pc && pc.deal; if (!dl) { out.bad.push(d + ' no piece'); return; }
+          eval('SEED = ' + (9001 + i)); F.setup({ seed: 9001 + i, speed: 1, kind: dl.kind, district: d, cell: { gx: 40, gy: 40 }, night: false, auto: true, houses: false });
+          const B = F.S.boardDef || {}, names = [].concat.apply([], (B.blocks || []).map((r) => r.slice ? r.slice() : []));
+          if (!names.length) { const k = String(B.family || B.name || 'none'); out.other[k] = (out.other[k] || 0) + 1; return; }
+          out.checked++;
+          const may = dl.place ? new Set([dl.landmark].concat(dl.field || [])) : null, fam = new Set(dl.families);
+          const off = names.map((n) => String(n).split('|')[0]).filter((n) => may ? !may.has(n) : !fam.has(n.split('.')[0]));
+          if (off.length) out.bad.push(d + ': ' + off.slice(0, 3).join(' ')); else out.agree++;
+          /* PLANTED: the same board read against the next kind's pieces (a table that named the wrong piece) must be off */
+          const w = FK.piece(ks[(i + 7) % ks.length]).deal, wm = w.place ? new Set([w.landmark].concat(w.field || [])) : null, wf = new Set(w.families);
+          if (names.some((n) => { const b = String(n).split('|')[0]; return wm ? !wm.has(b) : !wf.has(b.split('.')[0]); })) out.caught = (out.caught | 0) + 1; });
+        return out;
+      }, Object.keys(J.districts));
+      const oth = Object.keys(R.other).map((k) => k + ' ' + R.other[k]).join(', ');
+      ok('P4 ' + how + ' (' + W + ' x ' + H + '): the fight page carries the pieces and deals ' + R.agree + ' of ' + R.checked + ' map kinds only from the blocks the table names'
+        + (oth ? '; boards not dealt from blocks: ' + oth : '') + '; planted, read against the wrong kind\'s pieces: ' + (R.caught | 0) + ' of ' + R.checked + ' off' + (R.bad.length ? ': OFF THE TABLE ' + R.bad.slice(0, 6).join('; ') : ''),
+        R.has && R.checked >= 60 && R.agree === R.checked && (R.caught | 0) >= R.checked * 0.6 && fx.errs.length === 0);
+    } catch (e) { ok('P4 ' + how + ' ran [' + String(e && e.message).slice(0, 160) + ']', false); }
+    try { if (fx) await fx.close(); } catch (_e) {}
+  }
   done();
 })();
+
+const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.css': 'text/css', '.woff2': 'font/woff2' };
+async function openFight(W, H) {
+  const http = require('http'), { chromium } = require('playwright');
+  const srv = http.createServer((q, r) => {
+    const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0]));
+    if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); }
+    r.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r);
+  }).listen(0);
+  const br = await chromium.launch();
+  const ctx = await br.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1, hasTouch: true, isMobile: true });
+  const p = await ctx.newPage(), errs = []; p.on('pageerror', (e) => errs.push(String(e && e.message || e)));
+  await p.addInitScript(() => { window.FIGHT_OPTS = { seed: 5, speed: 1, board: 'desert', night: false }; try { localStorage.clear(); } catch (e) {} });
+  await p.goto('http://localhost:' + srv.address().port + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load' });
+  await p.waitForFunction(() => { try { return !!(eval('FIGHT').S.board) && !!window.BohemiaFightKinds; } catch (e) { return false; } }, null, { timeout: 120000 });
+  return { p, errs, close: async () => { await br.close(); srv.close(); } };
+}

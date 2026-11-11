@@ -64,11 +64,12 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/10 LATEST -- BUILD 11/10j - THE CORNERS JOIN, BUILT, NOT YET SEEN (rule 442(d), the map's
-half; ask line 547): where a house street or a works drive meets a mile street the walk, gutter and kerb open as wide as its roadway, a
-crosswalk across, the sidewalks turning the corner (43,495 mouths marked on 22 valleys; 648 of 648 through and 1,296 of 1,296 corners on
-5 valleys at 3 zooms); every T through; works drives with sidewalks. Gate THE CORNERS JOIN 7/0; the map's other three gates registered.
-VOTE world13-the-corners-join-11-10 (STAND-IN). Next: the 15 boards as templates, then the cut.
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/11 LATEST -- BUILD 11/11a - THE PIECE THAT ANSWERS IT, BUILT, NOT YET SEEN (rule
+429(a)(b)(c), 430; asks 504, 505; row 586 FIXED): every map kind (88), the town's pieces, your lot's and the house models name the
+fight piece that answers them in the one table (the board, the block families, the place board; the cut's kit pieces; 24 kinds on
+a stand-in say what is wanted); on the fight page all 88 kinds dealt only from the pieces named, upright and on its side. THE SEAM
+FOR COMBAT THREE is in the handoff. Row 586: a raided town is left alone two weeks (the news 28/0). Next: the 15 boards as
+templates over 22 seeds, then the cut.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES (fixes-01gkdyus): 11/10 LATEST -- BUILD 11/10l - THE FIGHT DRAWS ITS OWN SHEETS (row 558, PLUMBER 8's: a fight no longer throws
