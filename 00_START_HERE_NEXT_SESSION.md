@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT, NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT (39d02b8cf), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 The parking garage's art is made AHEAD of its board (COMBAT's, not laid yet), on the casino floor's recipe, so the board never wears a stand-in:
 one floor sheet through the master rig (stalls: lines, wheel stops, oil; the aisle: two ways, arrows; every tile joining, stalls against the aisle
 too) and twelve pieces as models in metres (a raised bay 1.42 m with the stalls' or the aisle's floor on top, the ramp east and west, the guard
