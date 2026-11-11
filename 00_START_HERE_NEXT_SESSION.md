@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/10zb - THE DECOY HAS ITS PICTURE, BUILT, NOT YET SEEN (ask row 584, PLUMBER 8's red debt; rules 252(c), 367).
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/10zb - THE DECOY HAS ITS PICTURE, BUILT (31a2a9dcf), NOT YET SEEN (ask row 584, PLUMBER 8's red debt; rules 252(c), 367).
 The 51st perk had no picture: the Decoy is now a cardboard man on his strut with a drawn-on smile, shot twice, made the fifty's way through
 the master rig (COOK's tool, one model added; blue rim, row 3). Gate EVERY PERK A PICTURE 5/0 (51 of 51), its line struck from the
 quarantine: THE RED DEBT 382 NAMED, 350 LEFT (the ratchet and the front page with it). VOTE cook5-the-decoy-has-its-picture-11-11 (MADE FROM
