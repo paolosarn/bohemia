@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/11 LATEST -- [the red debt rows, round one] BUILD 11/11l - HIS LETTERS
-STAY HIS, BUILT, NOT YET SEEN. Commit SHIPSHA. Record records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md.
+STAY HIS, BUILT, NOT YET SEEN. Commit b417580fe. Record records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md.
 VOTE fixes-two-his-letters-stay-his-11-11 (stand_in).
 ROWS CLOSED (ten, each marked on the ask list with its proof): 580, 590, 588, 583, 589 FIXED IN THE GAME; 572, 573, 565, 591 THE
 CHECKER WAS WRONG (measured on the page first, then re-aimed); 575 already right on main. THE RED DEBT 382 to 370 NAMED
