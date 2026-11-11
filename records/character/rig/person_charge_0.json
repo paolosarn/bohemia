@@ -1,0 +1,341 @@
+{
+ "look": "PERSON_CHARGE_0",
+ "shape": "person_charge_0: THE CHARGE: who still has anything that goes off; a field jacket, a slate work cap, a belt of charges round his chest, a dead man's switch in his left fist, the sledge in his right, his own skin skin_light 2, STRIPED TEE under FIELD JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STRIPED TEE",
+  "outer": "FIELD JACKET",
+  "legs": "SOOT CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SCAV KNEEPADS",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "OLIVE DRAB TEE read as one with FIELD JACKET (76 and 76 of 255): the same cut in STRIPED TEE (154)",
+   "FIELD JACKET worn open to the neck"
+  ]
+ },
+ "dials": {
+  "height": 0.25,
+  "belly": 0.35,
+  "shoulders": 0.9,
+  "hips": 0.25
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_charge_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7415,
+ "real_height_for_rig": 1.7476,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_charge_0_shoe": 4484,
+  "person_charge_0_shirt": 39488,
+  "person_charge_0_collar": 1536,
+  "person_charge_0_hem": 1792,
+  "person_charge_0_coat": 67330,
+  "person_charge_0_collar.001": 1098,
+  "person_charge_0_lapels": 396,
+  "person_charge_0_waistband": 1792,
+  "person_charge_0_cuffs": 2048,
+  "person_charge_0_pockets": 252,
+  "person_charge_0_pocket_flaps": 252,
+  "person_charge_0_chest_pockets": 252,
+  "person_charge_0_chest_flaps": 252,
+  "person_charge_0_charge_web": 1792,
+  "person_charge_0_charge_sticks": 200,
+  "person_charge_0_charge_wire": 316,
+  "person_charge_0_charge_receiver": 20,
+  "person_charge_0_charge_switch": 20,
+  "person_charge_0_charge_switch_button": 20,
+  "person_charge_0_charge_switch_wire": 88,
+  "person_charge_0_charge_sledge_handle": 20,
+  "person_charge_0_charge_sledge_head": 8,
+  "person_charge_0_trouser": 43706,
+  "person_charge_0_rolled_hem": 2048,
+  "person_charge_0_cargo_pockets": 252,
+  "person_charge_0_cargo_flaps": 108,
+  "person_charge_0_sole_1": 242,
+  "person_charge_0_midsole_1": 242,
+  "person_charge_0_sole_0": 242,
+  "person_charge_0_midsole_0": 242,
+  "person_charge_0_boot_collar": 2048,
+  "person_charge_0_boot_collar_line": 2048,
+  "person_charge_0_boot_strap": 2048,
+  "person_charge_0_scav_kneepads_1": 3078,
+  "person_charge_0_scav_kneepads_0": 3078,
+  "person_charge_0_scav_kneepads_strap_-6": 2048,
+  "person_charge_0_scav_kneepads_strap_6": 2048,
+  "person_charge_0_leather_gloves_L": 392,
+  "person_charge_0_leather_gloves_R": 392,
+  "person_charge_0_leather_gloves_cuff": 2048,
+  "person_charge_0_hair": 17968,
+  "person_charge_0_hand_L": 392,
+  "person_charge_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_charge_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_charge_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_charge_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_charge_0_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_charge_0_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_charge_0_charge_receiver": [
+   0.016,
+   0.016,
+   0.016
+  ],
+  "person_charge_0_charge_sledge_faces": [
+   0.305,
+   0.2961,
+   0.2623
+  ],
+  "person_charge_0_charge_sledge_handle": [
+   0.305,
+   0.1746,
+   0.0685
+  ],
+  "person_charge_0_charge_sledge_head": [
+   0.0612,
+   0.0612,
+   0.0578
+  ],
+  "person_charge_0_charge_sledge_tape": [
+   0.016,
+   0.016,
+   0.016
+  ],
+  "person_charge_0_charge_sticks": [
+   0.491,
+   0.305,
+   0.1384
+  ],
+  "person_charge_0_charge_sticks_print": [
+   0.2623,
+   0.15,
+   0.0612
+  ],
+  "person_charge_0_charge_switch": [
+   0.016,
+   0.016,
+   0.016
+  ],
+  "person_charge_0_charge_switch_button": [
+   0.3916,
+   0.0212,
+   0.0144
+  ],
+  "person_charge_0_charge_switch_wire": [
+   0.3916,
+   0.0212,
+   0.0144
+  ],
+  "person_charge_0_charge_web": [
+   0.107,
+   0.1022,
+   0.0648
+  ],
+  "person_charge_0_charge_wire": [
+   0.3916,
+   0.0212,
+   0.0144
+  ],
+  "person_charge_0_chest_flaps": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_charge_0_chest_pockets": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_charge_0_coat": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_charge_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_charge_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_charge_0_cuffs": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_charge_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_charge_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_charge_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_charge_0_lapels": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_charge_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_charge_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_charge_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_charge_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_charge_0_pocket_flaps": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_charge_0_pockets": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_charge_0_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_charge_0_scav_kneepads_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_charge_0_scav_kneepads_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_charge_0_scav_kneepads_strap_-6": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_charge_0_scav_kneepads_strap_6": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_charge_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_charge_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_charge_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_charge_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_charge_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_charge_0_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "person_charge_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_charge_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_charge_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_charge_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_charge_0_waistband": [
+   0.0185,
+   0.0356,
+   0.016
+  ]
+ }
+}

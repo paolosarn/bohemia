@@ -328,6 +328,45 @@
     "O": "records/target/portrait/crew/boss_climb_0/O_{64|128}.png",
     "M": "records/target/portrait/crew/boss_climb_0/M_{64|128}.png"
    }
+  },
+  "boss_locksmith_0": {
+   "name": "THE LOCKSMITH",
+   "look": "boss_locksmith_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_locksmith_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_locksmith_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_locksmith_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_locksmith_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_locksmith_0/M_{64|128}.png"
+   }
+  },
+  "boss_charge_0": {
+   "name": "THE CHARGE",
+   "look": "boss_charge_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_charge_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_charge_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_charge_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_charge_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_charge_0/M_{64|128}.png"
+   }
+  },
+  "boss_machinist_0": {
+   "name": "THE MACHINIST",
+   "look": "boss_machinist_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_machinist_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_machinist_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_machinist_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_machinist_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_machinist_0/M_{64|128}.png"
+   }
   }
  },
  "groups": {

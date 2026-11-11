@@ -139,6 +139,12 @@
 "fill": 0.268,
 "packedMB": 5.21
 },
+"boss_charge_0.webp": {
+"bytes": 287012,
+"decodedMB": 17.2,
+"fill": 0.252,
+"packedMB": 5.06
+},
 "boss_climb_0.webp": {
 "bytes": 313582,
 "decodedMB": 17.2,
@@ -150,6 +156,18 @@
 "decodedMB": 18.86,
 "fill": 0.203,
 "packedMB": 4.34
+},
+"boss_locksmith_0.webp": {
+"bytes": 281872,
+"decodedMB": 18.86,
+"fill": 0.227,
+"packedMB": 4.82
+},
+"boss_machinist_0.webp": {
+"bytes": 321734,
+"decodedMB": 18.86,
+"fill": 0.215,
+"packedMB": 4.69
 },
 "boss_pot_0.webp": {
 "bytes": 329100,
@@ -1209,8 +1227,8 @@
 }
 },
 "totals": {
-"decodedMB": 3997.0,
-"packedMB": 780.0,
-"sheets": 201
+"decodedMB": 4051.9,
+"packedMB": 794.6,
+"sheets": 204
 }
 }

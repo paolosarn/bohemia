@@ -8544,6 +8544,15 @@ GATES = [
      "through HOME BASE's seam and moves in the day he plants (C1b); the next moves in at once (C1c); the feed (C1d); the same phone opens the "
      "game again and it holds, nobody moving in twice (R1). Planted: a party that never left the hoist, his riggers back after the fall, a "
      "phone that forgot the save. about 35 min a way", True),
+    ('THE LOCKSMITH CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE LOCKSMITH'],
+     "BOSSES gate, 11/11, the coordinator's round 'the next three from the ladder' (rule 441), ask lines 167, 522: the stranger's game on "
+     "the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the six before him first through the map's own fell(), then THE LOCKSMITH end to end: "
+     "his scratched padlock and rumour (T1), DONA LUPE asks and one of yours reads it (T2); HIS GATES across the streets round his shop, "
+     "open by day and painted (K1); at night every one chained, the walk past one goes the long way round and the crew is never cut off "
+     "from him (K2), said and posted (K3); his card (B0), his fight (B1), the beat cuts his gates on the tape and she says it (B2), his "
+     "picks to your place through HOME BASE's seam (G1); at night the chains stay cut (C1a, C1b), the feed (C1d); the same phone opens the "
+     "game again and it holds (R1). Planted: gates left open at night, chained again after the fall, a phone that forgot the save, a "
+     "prize the seam never got. about 35 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

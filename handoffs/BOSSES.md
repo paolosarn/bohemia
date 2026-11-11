@@ -1,5 +1,27 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/11/26: THE LOCKSMITH'S GATES, HIS OWN WAY (the coordinator's round 'BOSSES next round', rule 441; ask lines 167, 522, 571), BUILD 11/11n
+Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE LOCKSMITH" (THE LOCKSMITH CHANGES
+THE MAP, registered; both ways: the demo upright 21/0, the alpha on its side 21/0; five plants). VOTE bosses-the-locksmiths-gates-11-11 (stand_in).
+- THE NEXT THREE'S ASSETS SHIPPED WITH THIS BUILD (rule 337): the three men through BOSSES 4's pipe (tools/bohemia_bosses_seven_to_nine_11_11_26.py,
+  BOSSES 4's tool imported and never edited; packed own_kit as boss_locksmith_0, boss_charge_0, boss_machinist_0, purple 0.0%); their places,
+  verb marks and map pieces (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py: lockshop, powderyard, pipeshop, cutlock, rubble,
+  weldbench, curfew night/day/after, mine, nails); the three hand things (hand_pick, hand_blow, hand_weld). THE CHARGE and THE MACHINIST
+  have no data row yet, so nothing of theirs shows until their builds.
+- HIS GATES (slices/bohemia_bosses.js (15); his 'curfew' row: 4 gates, 2 to 7 blocks out, each at least 4 blocks of detour): the clock
+  decides the roads. Open by day; chained at night and the map's own walk goes the long way round (cityWalkable's one bosses wrapper:
+  shut, then locked). Never cuts a way: with every gate shut the crew still reaches his shop and every town, no block near his shop is
+  left in a pocket between two gates (measured on the demo: two gates on one street locked the blocks between them till morning; the
+  choice now refuses any pocket, and K2 checks it), and the block the crew stands on is never shut under it. WHEN HE FALLS the chains are
+  cut and the roads stay open all night, kept after a reload.
+- PICK THE LOCK (verb 'pick'): beside a police station, a jail, a shop, a mall, a storage yard; once a door; 8 batteries. HIS PICK SET goes
+  to your place through HOME BASE's seam (section 14, as for THE BURN, THE SURVEYOR, THE CLIMB).
+- WORLD TWO: his sign is your boss_map row 7 (the scratched padlock, falls wall:1); nothing of yours touched. TUNING: 4 gates, 4 blocks
+  of detour, 8 batteries a door, his 1.6 blood are in his row. COMBAT TWO: his board is 'place_downtown', his crew two thugs and a
+  caravan guard, his weapon BB's Bike-Lock Chain. HOME BASE: 'prize:pick' is yours too, the same agreement as the three before.
+- NEXT: THE CHARGE (his mines: spotted by day, they go off at night; BLOW A HOLE) and THE MACHINIST (his nails: three times the minutes,
+  his carts' road after; WELD A PIPE GUN), one build each.
+
 ## BOSSES 445, 11/10/26: WHAT THE BOSSES GIVE STANDS IN HIS SETTLEMENT (rule 445, ask line 571), BUILD 11/10z
 The coordinator's routine 'BOSSES: prizes land in his settlement'. Record: records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md.
 - slices/bohemia_bosses.js (14): every verb his kills handed him that home_base.json's prizes table does NOT list goes through HOME BASE's

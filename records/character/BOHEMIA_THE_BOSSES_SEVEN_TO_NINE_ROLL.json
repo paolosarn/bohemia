@@ -1,0 +1,150 @@
+[
+ {
+  "id": "locksmith_0",
+  "gang": "Locksmith",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 40,
+   "face.craniumH": 14,
+   "face.foreheadW": 22,
+   "face.cheekW": 25,
+   "face.jawW": 20,
+   "face.chinW": 7,
+   "nose.w": 2,
+   "eyes.gap": 4,
+   "face.noseY": -2
+  },
+  "face_name": "BIRD",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "legs": "BLACK DENIM",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "LEATHER BELT",
+   "LEATHER GLOVES"
+  ],
+  "type": "Locksmith",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "LEATHER VEST",
+  "hat": "HAT CHARCOAL WATCH CAP",
+  "pieces": [
+   "lock_ring",
+   "lock_chain",
+   "lock_bikechain"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": -0.25,
+   "shoulders": -0.2,
+   "hips": -0.1
+  },
+  "boss": "THE LOCKSMITH"
+ },
+ {
+  "id": "charge_0",
+  "gang": "Charge",
+  "heritage": "asian",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "facial_hair": "FULL BEARD",
+  "beard": "full",
+  "legs": "SOOT CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SCAV KNEEPADS",
+   "LEATHER GLOVES"
+  ],
+  "type": "Charge",
+  "top": "OLIVE DRAB TEE",
+  "coat": "FIELD JACKET",
+  "hat": "HAT SLATE WORK CAP",
+  "pieces": [
+   "charge_vest",
+   "charge_switch",
+   "charge_sledge"
+  ],
+  "dials": {
+   "height": 0.25,
+   "belly": 0.35,
+   "shoulders": 0.9,
+   "hips": 0.25
+  },
+  "boss": "THE CHARGE"
+ },
+ {
+  "id": "machinist_0",
+  "gang": "Machinist",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 3,
+   "nose.w": 2,
+   "face.noseY": -1,
+   "face.len": 37,
+   "face.chinW": 15,
+   "face.jawW": 24,
+   "face.cheekW": 28
+  },
+  "face_name": "HAWK",
+  "facial_hair": "PENCIL MOUSTACHE",
+  "new_beard": "pencil",
+  "legs": "SOOT CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "SOOT GLOVES",
+   "SHELL BANDOLIER"
+  ],
+  "type": "Machinist",
+  "top": "WORK COVERALLS",
+  "coat": "SMITH'S APRON",
+  "hat": "WELDER UP",
+  "pieces": [
+   "mach_bottles",
+   "mach_pipegun"
+  ],
+  "dials": {
+   "height": 0.0,
+   "belly": 0.2,
+   "shoulders": 0.45,
+   "hips": 0.05
+  },
+  "boss": "THE MACHINIST"
+ }
+]

@@ -4,6 +4,7 @@
  "verbs_order": [
   "open",
   "purify",
+  "pick",
   "climb",
   "survey",
   "burn",
@@ -699,6 +700,118 @@
     },
     "card": "THE PEOPLE HE KEPT UP TOP CAME DOWN: {KEPT} AT THE FOOT OF HIS TOWERS. WALK UP AND THEY COME TO YOUR PLACE.",
     "note": "draft:true. The sight, the leash, the band, the names and every word are first attempts; TUNING owns 6 blocks of sight, 8 of leash, two riggers a fight and a day before the next party."
+   }
+  },
+  {
+   "n": "THE LOCKSMITH",
+   "place": {
+    "name": "THE LOCK SHOP",
+    "art": "lockshop",
+    "seen": "a brick shop with a key sign over the door, its steel shutter chained down",
+    "paint": "lockshop"
+   },
+   "rumour": {
+    "who": "@dona_lupe",
+    "txt": "Every lock in town still works and THE LOCKSMITH has every key. At dark his keymen chain the gates across the streets round his shop, and you walk the long way or you don't walk. Careful, his chain comes over a shield and finds your head."
+   },
+   "boss": {
+    "kind": "assassin",
+    "name": "THE LOCKSMITH",
+    "title": "the man with every key",
+    "hp_x": 1.6,
+    "weapon": "Bike-Lock Chain",
+    "shield": null,
+    "look": "boss_locksmith_0",
+    "says": "Every door is mine. You want in? Knock."
+   },
+   "crew": [
+    "brigand_thug",
+    "brigand_thug",
+    "caravan_guard"
+   ],
+   "crew_word": "THE LOCKSMITH AND HIS KEYMEN",
+   "board": "place_downtown",
+   "lesson": "His chain goes over a shield and hits the head. Helmets on the men in front, and close on him from two sides so he can only swing at one.",
+   "verb": {
+    "id": "pick",
+    "word": "PICK",
+    "button": "PICK THE LOCK",
+    "rule": "on a street beside a locked place (a police station, a jail, a shop, a mall, a storage yard); once a door; what was locked in pays batteries",
+    "lock_districts": [
+     "policestation",
+     "jail",
+     "commercial",
+     "mall",
+     "storage"
+    ],
+    "pay_batteries": 8,
+    "says": "Your men pick a lock nobody opened since the dollar died.",
+    "feed": {
+     "who": "@dona_lupe",
+     "txt": "Somebody opened a door on {where} that was locked since the crash. Whatever was inside is out now."
+    },
+    "tip": "Your men pick a lock nobody opened since the crash. 8 batteries, once a door. Works next to a police station, a jail, a shop, a mall or a storage yard.",
+    "first": {
+     "plate": "PICKED: +{paid} BATTERIES",
+     "feed": "First lock picked, on {where}. Behind it, {paid} batteries nobody had touched since the crash. Every door once.",
+     "rise": "+{paid} BATTERIES BEHIND THE DOOR",
+     "rise_none": "NOTHING BEHIND THIS ONE"
+    },
+    "place_after": "cutlock",
+    "hand": {
+     "name": "HIS PICK SET",
+     "pic": "hand_pick.png",
+     "line": "PICK THE LOCK: next to a locked place (a police station, a jail, a shop, a mall, a storage yard). Your men open it and take 8 batteries. Once a door."
+    }
+   },
+   "fallen_art": "lockshop_open",
+   "lead": {
+    "asker": {
+     "name": "DOÑA LUPE",
+     "look": "faction_church",
+     "from": "a woman with a ring of keys that open nothing, locked out of her own house",
+     "says": "Mijo, wait. My house is right there and I can't get in. THE LOCKSMITH put his lock on it while I was at my sister's, and now it's his. He scratches his name on every padlock. Find one and you find him.",
+     "yes": "I'll find his padlock.",
+     "no": "Can't help you.",
+     "yes_says": "Gracias. His gates go across the streets at dark. Look for one, his name is on the lock.",
+     "no_says": "Okay. His locks aren't going anywhere."
+    },
+    "thing": {
+     "head": "THE PADLOCK",
+     "what": "a padlock on a chained gate with words scratched in it",
+     "says": "It says EVERY LOCK IS THE LOCKSMITH'S, scratched in with a key. At dark his keymen chain the gates across every street round his shop, and you go the long way round. His shop is the one with the key sign. I marked it."
+    }
+   },
+   "after": {
+    "name": "DOÑA LUPE",
+    "look": "faction_church",
+    "from": "at her own door, the lock cut off it",
+    "says": "You did it! His pick set is yours. Next to a locked place, a police station, a jail, a shop, a mall, a storage yard, press PICK THE LOCK. Your men open it and take 8 batteries. Every door once.",
+    "ok": "GOT IT",
+    "valley": "His gates are cut. The streets stay open all night, and my door is mine again.",
+    "take": "TAKE IT"
+   },
+   "tip": "HIS CHAIN GOES OVER SHIELDS: HELMETS ON",
+   "curfew": {
+    "name": "HIS GATES",
+    "gates": 4,
+    "near": 2,
+    "far": 7,
+    "min_detour": 4,
+    "pic": "curfew",
+    "say": "His gates are chained for the night. We go the long way.",
+    "rise": "CHAINED TILL MORNING",
+    "feed_shut": {
+     "who": "@dona_lupe",
+     "txt": "His keymen chained the gates on {where} at dark. Nobody walks those streets till morning."
+    },
+    "feed": {
+     "who": "@dona_lupe",
+     "txt": "The gates on {where} are cut and lying in the street. You can walk there at night again."
+    },
+    "card": "HIS {GATES} ARE CUT: THE STREETS ROUND HIS SHOP STAY OPEN ALL NIGHT.",
+    "card_none": "HIS GATES ARE CUT.",
+    "note": "BOSSES 11/11 (the coordinator's round 'the next three from the ladder', rule 441): THE LOCKSMITH changes the map with the CLOCK. While he stands, 'gates' street blocks 'near'..'far' round his shop (each a street running one way whose shutting makes the walk round it at least 'min_detour' blocks longer, never one that cuts a way) are open by day and shut at night; the map's own walk goes round (slices/bohemia_bosses.js (15) HIS GATES, cityWalkable wrapped). When he falls the chains are cut and they stay open all night. Pictures: slices/boss_places/curfew_night, curfew_day, curfew_after (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py)."
    }
   }
  ]

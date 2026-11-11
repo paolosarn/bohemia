@@ -1,0 +1,297 @@
+{
+ "look": "PERSON_LOCKSMITH_0",
+ "shape": "person_locksmith_0: THE LOCKSMITH: every lock still working; a charcoal turtleneck under a leather vest, a watch cap, a ring of keys, a chain across his chest with a padlock, the bike-lock chain in his fist, his own skin skin_mid 3, BONE TURTLENECK under LEATHER VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TURTLENECK",
+  "outer": "LEATHER VEST",
+  "legs": "BLACK DENIM",
+  "feet": "CHARCOAL BOOTS",
+  "waist": "LEATHER BELT",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "CHARCOAL TURTLENECK read as one with LEATHER VEST (52 and 69 of 255): the same cut in BONE TURTLENECK (154)",
+   "LEATHER VEST worn open to the neck",
+   "the turtleneck's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.35,
+  "belly": -0.25,
+  "shoulders": -0.2,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_locksmith_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7501,
+ "real_height_for_rig": 1.7563,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_locksmith_0_shoe": 3716,
+  "person_locksmith_0_shirt": 79720,
+  "person_locksmith_0_cuffs": 2048,
+  "person_locksmith_0_tail": 2016,
+  "person_locksmith_0_coat": 22538,
+  "person_locksmith_0_lapels": 396,
+  "person_locksmith_0_zip": 324,
+  "person_locksmith_0_lock_ring": 132,
+  "person_locksmith_0_lock_keys": 96,
+  "person_locksmith_0_lock_strap": 150,
+  "person_locksmith_0_lock_chain": 780,
+  "person_locksmith_0_lock_padlock": 8,
+  "person_locksmith_0_lock_shackle": 88,
+  "person_locksmith_0_lock_bikechain": 376,
+  "person_locksmith_0_lock_bikechain_padlock": 8,
+  "person_locksmith_0_lock_bikechain_shackle": 84,
+  "person_locksmith_0_trouser": 43706,
+  "person_locksmith_0_rolled_hem": 2048,
+  "person_locksmith_0_fly": 70,
+  "person_locksmith_0_front_pockets": 100,
+  "person_locksmith_0_seat_pockets": 252,
+  "person_locksmith_0_seat_seams": 252,
+  "person_locksmith_0_sole_1": 242,
+  "person_locksmith_0_midsole_1": 242,
+  "person_locksmith_0_sole_0": 242,
+  "person_locksmith_0_midsole_0": 242,
+  "person_locksmith_0_boot_collar": 2048,
+  "person_locksmith_0_boot_collar_line": 2048,
+  "person_locksmith_0_eyelets_1": 120,
+  "person_locksmith_0_eyelets_0": 120,
+  "person_locksmith_0_leather_belt": 1792,
+  "person_locksmith_0_leather_belt_buckle": 34,
+  "person_locksmith_0_leather_gloves_L": 392,
+  "person_locksmith_0_leather_gloves_R": 392,
+  "person_locksmith_0_leather_gloves_cuff": 2048,
+  "person_locksmith_0_hair": 17968,
+  "person_locksmith_0_hand_L": 392,
+  "person_locksmith_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_locksmith_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_locksmith_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_locksmith_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_locksmith_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_locksmith_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_locksmith_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_locksmith_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_locksmith_0_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_locksmith_0_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_locksmith_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_locksmith_0_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_locksmith_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_locksmith_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_locksmith_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_locksmith_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_locksmith_0_lock_bikechain": [
+   0.013,
+   0.013,
+   0.0144
+  ],
+  "person_locksmith_0_lock_bikechain_links": [
+   0.0685,
+   0.0685,
+   0.0648
+  ],
+  "person_locksmith_0_lock_bikechain_padlock": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_locksmith_0_lock_bikechain_shackle": [
+   0.1559,
+   0.15,
+   0.1384
+  ],
+  "person_locksmith_0_lock_chain": [
+   0.0685,
+   0.0685,
+   0.0648
+  ],
+  "person_locksmith_0_lock_keys": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_locksmith_0_lock_keys_steel": [
+   0.1559,
+   0.15,
+   0.1384
+  ],
+  "person_locksmith_0_lock_padlock": [
+   0.4125,
+   0.2623,
+   0.0513
+  ],
+  "person_locksmith_0_lock_ring": [
+   0.1559,
+   0.15,
+   0.1384
+  ],
+  "person_locksmith_0_lock_shackle": [
+   0.1559,
+   0.15,
+   0.1384
+  ],
+  "person_locksmith_0_lock_strap": [
+   0.0685,
+   0.0685,
+   0.0648
+  ],
+  "person_locksmith_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_locksmith_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_locksmith_0_rolled_hem": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_locksmith_0_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_locksmith_0_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_locksmith_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_locksmith_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_locksmith_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_locksmith_0_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_locksmith_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_locksmith_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_locksmith_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_locksmith_0_trouser": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_locksmith_0_trousers": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_locksmith_0_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

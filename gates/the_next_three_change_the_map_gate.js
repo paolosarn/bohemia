@@ -18,7 +18,8 @@
      T1 his sign is in the world and his rumour on the feed; T2 his asker asks, one of YOUR men reads the sign out, his place is marked
      WHILE HE STANDS, HIS OWN WAY (THE BURN: D1 his drums, D2 at night his side sees one block and is painted black, the rest of the
         valley the night's half; THE SURVEYOR: H1 his signposts, H2 walk into his side and out: the map forgets it; THE CLIMB: K1 his
-        riggers' party, K2 it comes for you on the map and fights)
+        riggers' party, K2 it comes for you on the map and fights; BOSSES 11/11, THE LOCKSMITH: K1 his gates open by day, K2 at night
+        chained, the walk the long way round, never cut off from him and no block between two gates shut off, K3 said and posted)
      B0 his card first; B1 his fight won; B2 the beat plays his change on the tape, the asker's card says the valley's line, hands his
         thing, and the line under it says what changed on the map, with its numbers
      WHEN HE FALLS, HIS OWN WAY (C1a..C1d), then R1 the same phone opens the game again and it holds
@@ -34,7 +35,7 @@ const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
 const NAME = process.argv[2] || 'THE BURN';
-const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB'];
+const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST'];
 const SLUG = NAME.replace(/^THE /, '').toLowerCase();
 const SHOTS = process.env.BOSSES_SHOTS === '0' ? null : path.join(ROOT, 'records', 'target', 'the_next_three_change_the_map', SLUG);
 const NIGHT = 22 * 60;
@@ -293,7 +294,84 @@ const CLIMB = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB };
+/* ---------------- THE LOCKSMITH: his gates, chained at night (BOSSES 11/11) ---------------- */
+const gateWay = (fr, a, b) => fr.evaluate((q) => { const p = cityRoute(q[0][0], q[0][1], q[1][0], q[1][1]); return p ? p.length - 1 : -1; }, [a, b]);
+const LOCK = {
+  K2: (q) => !!q && q.nightShut === q.gates && q.dayShut === 0 && q.nightWay >= q.dayWay + q.min && q.dayWay === 2 && q.toHim && q.pockets === 0,
+  C1a: (q) => !!q && q.shut === 0 && q.way === 2,
+  R1: (q, b) => !!q && q.fallen && q.gates === b.gates && q.shut === 0 && q.way === 2,
+  async before(c) {
+    const { fr, G } = c;
+    let C = null;
+    for (let i = 0; i < 30 && !(C && C.gates && C.gates.length); i++) { C = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.curfew(n) || null)), NAME); if (!(C && C.gates && C.gates.length)) await c.page.waitForTimeout(500); }
+    if (!C || !C.gates.length) { ok('K1 his gates', false, JSON.stringify(C)); return false; }
+    /* the gate the crew walks up to: the nearest one it reaches by day, and the street block beside it on each side */
+    await c.day();
+    const pick = await fr.evaluate((C) => { const h = [city.x, city.y]; let best = null, bd = 1e9;
+      C.gates.forEach(g => { const a1 = g.along === 'x' ? [g.x - 1, g.y] : [g.x, g.y - 1], a2 = g.along === 'x' ? [g.x + 1, g.y] : [g.x, g.y + 1];
+        const p = cityRoute(h[0], h[1], a1[0], a1[1]); if (!p) return; if (p.length < bd) { bd = p.length; best = { g: [g.x, g.y], a1: a1, a2: a2 }; } }); return best; }, C);
+    if (!pick) { ok('K1 a gate the crew reaches', false, 'none'); return false; }
+    c.C = C; c.pick = pick;
+    await c.goTo(pick.a1); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(500);
+    const dayQ = await fr.evaluate((a) => { const C = BohemiaBosses.curfew(a[0]); return { shut: C.gates.filter(g => BohemiaBosses.lockAt(g.x, g.y)).length, walk: C.gates.filter(g => cityWalkable(g.x, g.y)).length,
+      drawn: ((BohemiaBosses.last().drew || {}).gates || []).map(q => q.key), at: [city.x, city.y] }; }, [NAME]);
+    const dayWay = await gateWay(fr, pick.a1, pick.a2);
+    ok('K1 his gates: ' + C.gates.length + ' chain-link gates across the streets round his shop, open by day (the walk goes through), painted on the phone', C.gates.length >= 2 && dayQ.shut === 0 && dayQ.walk === C.gates.length && dayQ.drawn.indexOf('curfew_day') >= 0,
+      C.gates.map(g => g.x + ',' + g.y + ' (' + g.detour + ' longer)').join(' ') + ' round ' + C.at.join(',') + '; by day ' + dayQ.shut + ' shut, the street through ' + dayWay + ' blocks; painted ' + dayQ.drawn.join(' '));
+    await c.shot('2_his_gate_by_day');
+    /* night: every gate chained, the walk the long way round, never cut off from him */
+    await c.night(); await fr.evaluate(() => render()); await c.page.waitForTimeout(700);
+    const nq = await fr.evaluate((a) => { const C = BohemiaBosses.curfew(a[0]), f = BohemiaHisMap.state().boss.found[a[0]], h = [city.x, city.y];
+      return { shut: C.gates.filter(g => BohemiaBosses.lockAt(g.x, g.y)).length, drawn: ((BohemiaBosses.last().drew || {}).gates || []).map(q => q.key), toHim: !!cityRoute(h[0], h[1], f.x, f.y),
+        told: JSON.parse(JSON.stringify(window.__BOSS_CURFEW_TOLD || null)) }; }, [NAME]);
+    const nightWay = await gateWay(fr, pick.a1, pick.a2);
+    /* no pockets: every block within 13 of his door that his door reaches by day (gates aside) it still reaches at night (measured 11/11:
+       two gates on one street shut the blocks between them off till morning) */
+    const pockets = await fr.evaluate((C) => { const B = 13, x0 = C.at[0] - B, y0 = C.at[1] - B, W = 2 * B + 1, gate = {}; C.gates.forEach(g => { gate[g.x + ',' + g.y] = 1; });
+      const reach = (night) => { const was = T.min; T.min = night ? 22 * 60 : 12 * 60; const sn = new Uint8Array(W * W), q = [C.at]; sn[(C.at[1] - y0) * W + C.at[0] - x0] = 1;
+        for (let i = 0; i < q.length; i++) for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const x = q[i][0] + d[0], y = q[i][1] + d[1]; if (x < x0 || y < y0 || x >= x0 + W || y >= y0 + W) continue;
+          const k = (y - y0) * W + x - x0; if (sn[k] || !cityWalkable(x, y)) continue; sn[k] = 1; q.push([x, y]); } T.min = was; return sn; };
+      const dd = reach(false), nn = reach(true); let n = 0; for (let k = 0; k < W * W; k++) if (dd[k] && !nn[k] && !gate[(x0 + k % W) + ',' + (y0 + ((k / W) | 0))]) n++; return n; }, C);
+    await c.shot('2_his_gate_chained_at_night');
+    const q = { gates: C.gates.length, nightShut: nq.shut, dayShut: dayQ.shut, nightWay, dayWay, min: G.min_detour, toHim: nq.toHim, pockets };
+    ok('K2 at night every gate is chained: the walk past his gate goes ' + nightWay + ' blocks round instead of ' + dayWay + ', and the crew is never cut off from him', LOCK.K2(q) && nq.drawn.indexOf('curfew_night') >= 0,
+      JSON.stringify(q) + ', painted ' + nq.drawn.join(' '));
+    ok('K3 one of yours says it and ' + G.feed_shut.who + ' posts it, the first night', !!nq.told && nq.told.n === NAME && (await c.posts()).some(p => p.who === G.feed_shut.who && p.txt.indexOf(G.feed_shut.txt.split('{')[0].trim()) === 0), JSON.stringify(nq.told));
+    ok('P2 planted: his gates left open at night turn K2 red', !LOCK.K2(Object.assign({}, q, { nightShut: 0, nightWay: dayWay })), 'open at night');
+    ok('P2b planted: two blocks shut in between two gates (a crew locked in till morning) turns K2 red', !LOCK.K2(Object.assign({}, q, { pockets: 2 })), '2 blocks in a pocket');
+    await c.day();
+    return true;
+  },
+  card(G, c) { const n = c.C.gates.length; return G.card.replace('{GATES}', n + (n === 1 ? ' GATE' : ' GATES')); },
+  async after(c) {
+    const { fr, G } = c;
+    await c.night(); await c.goTo(c.pick.a1); await c.night(); await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+    const q = await fr.evaluate((n) => { const C = BohemiaBosses.curfew(n); return { shut: C.gates.filter(g => BohemiaBosses.lockAt(g.x, g.y)).length, drawn: ((BohemiaBosses.last().drew || {}).gates || []).map(d => d.key), night: isNight() }; }, NAME);
+    q.way = await gateWay(fr, c.pick.a1, c.pick.a2);
+    ok('C1a at night the chains are cut: no gate shut, the street through his gate is ' + q.way + ' blocks', LOCK.C1a(q) && q.night, JSON.stringify(q));
+    ok('C1b painted cut: a panel down in the street, the chain in two', q.drawn.length >= 1 && q.drawn.every(k => k === 'curfew_after'), q.drawn.join(' '));
+    await c.shot('5_his_gates_cut');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who, posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0), posts.filter(p => p.who === G.feed.who).map(p => p.txt.slice(0, 80)).join(' | '));
+    const p3 = await fr.evaluate((n) => { const C = BohemiaBosses.curfew(n), H = BohemiaHisMap.state(), was = C.fell, f = H.boss.fallen[n]; C.fell = null; delete H.boss.fallen[n]; BohemiaBosses.regate();
+      const o = { shut: C.gates.filter(g => BohemiaBosses.lockAt(g.x, g.y)).length }; C.fell = was; H.boss.fallen[n] = f; BohemiaBosses.regate(); return o; }, NAME);
+    p3.way = 2;
+    ok('P3 planted: his gates chained again after the fall turns C1a red', !LOCK.C1a(p3), JSON.stringify(p3));
+    return { gates: c.C.gates.length };
+  },
+  async reload(e, c) {
+    await e.fr.evaluate((t) => { try { T.min = t; } catch (x) {} }, NIGHT).catch(() => {});
+    await c.goOn(e, c.pick.a1);
+    await e.fr.evaluate((t) => { try { T.min = t; } catch (x) {} render(); }, NIGHT).catch(() => {});
+    await e.page.waitForTimeout(800);
+    const q = await e.fr.evaluate((n) => { const C = BohemiaBosses.curfew(n) || { gates: [] }; return { fallen: !!BohemiaHisMap.state().boss.fallen[n], gates: C.gates.length,
+      shut: C.gates.filter(g => BohemiaBosses.lockAt(g.x, g.y)).length, at: [city.x, city.y] }; }, NAME).catch(x => ({ err: String(x) }));
+    q.way = await gateWay(e.fr, c.pick.a1, c.pick.a2).catch(() => -1);
+    return q;
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -397,7 +475,7 @@ async function run(prof, alpha) {
   for (const n of before) downs.push(n + ' ' + await downBy(n));
   ok('T0 every boss before him first, the ladder\'s order (each one\'s sign read, his fall through the map\'s own fell(), his card answered)', downs.every(x => /true$/.test(x)), downs.join(', '));
   /* ---------- T1, T2 ---------- */
-  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers'].indexOf(k) >= 0)[0], G = row[key];
+  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails'].indexOf(k) >= 0)[0], G = row[key];
   c.G = G; c.row = row; c.light = (row.verb && row.verb.light_blocks) || 2;
   let s = await waitSign(NAME);
   ok('T1 ' + NAME + ': his sign (the ' + ((s.boss.sign || {}).kind || '?') + ') is in the world and his rumour is on the feed', !!(s.boss.sign && s.boss.sign.n === NAME) && !!s.rumours[NAME],
@@ -430,7 +508,7 @@ async function run(prof, alpha) {
   const bt = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_BEAT || null))).catch(() => null);
   if (af) { await page.waitForTimeout(500); await shot('4_she_says_what_changed'); }
   s = await st();
-  const want = okBefore ? L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) : 0;
+  const want = okBefore ? L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) : 0;
   ok('B2 he falls: the beat plays his change on the tape with his place, ' + row.after.name + ' says the valley\'s line, hands his ' + row.verb.hand.name.replace(/^HIS /, '').toLowerCase() + ', and says what changed on the map',
      !!s.boss.fallen[NAME] && !!s.verbs[row.verb.id] && !!bt && bt.n === NAME && onTape >= 1 && !!af && af.text === row.after.valley && !!af.hand && af.hand.name === row.verb.hand.name && af.ground === want,
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));

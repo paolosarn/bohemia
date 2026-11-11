@@ -1,0 +1,284 @@
+{
+ "look": "PERSON_MACHINIST_0",
+ "shape": "person_machinist_0: THE MACHINIST: the pipe, the cap and the nail; coveralls under a smith's apron, the welding mask pushed up, two gas bottles on his back, his pipe gun, his own skin skin_mid 2, WORK COVERALLS under SMITH'S APRON",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WORK COVERALLS",
+  "outer": "SMITH'S APRON",
+  "feet": "FIELD BOOTS",
+  "hands": "SOOT GLOVES",
+  "gear": "SHELL BANDOLIER",
+  "outfit": [
+   "WORK COVERALLS and SMITH'S APRON read as one, and no colour of either cut reads apart"
+  ]
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.2,
+  "shoulders": 0.45,
+  "hips": 0.05
+ },
+ "layers": {
+  "base": {
+   "under": "APRON"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.005
+  }
+ },
+ "model": "records/character/rig/person_machinist_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_machinist_0_trouser": 2568,
+  "person_machinist_0_shoe": 3716,
+  "person_machinist_0_shirt": 71252,
+  "person_machinist_0_collar": 1536,
+  "person_machinist_0_collar_points": 180,
+  "person_machinist_0_placket": 162,
+  "person_machinist_0_cuffs": 2048,
+  "person_machinist_0_pocket": 180,
+  "person_machinist_0_flap": 108,
+  "person_machinist_0_belt": 1792,
+  "person_machinist_0_apron": 3146,
+  "person_machinist_0_apron_ties": 1792,
+  "person_machinist_0_apron_strap": 1536,
+  "person_machinist_0_rivets": 136,
+  "person_machinist_0_mach_oxygen": 100,
+  "person_machinist_0_mach_acetylene": 100,
+  "person_machinist_0_mach_hose": 136,
+  "person_machinist_0_mach_pipe": 24,
+  "person_machinist_0_mach_cap": 12,
+  "person_machinist_0_mach_grip": 8,
+  "person_machinist_0_mach_clamp": 80,
+  "person_machinist_0_sole_1": 242,
+  "person_machinist_0_midsole_1": 242,
+  "person_machinist_0_sole_0": 242,
+  "person_machinist_0_midsole_0": 242,
+  "person_machinist_0_boot_collar": 2048,
+  "person_machinist_0_boot_collar_line": 2048,
+  "person_machinist_0_eyelets_1": 120,
+  "person_machinist_0_eyelets_0": 120,
+  "person_machinist_0_soot_gloves_L": 392,
+  "person_machinist_0_soot_gloves_R": 392,
+  "person_machinist_0_soot_gloves_cuff": 2048,
+  "person_machinist_0_shell_bandolier": 1792,
+  "person_machinist_0_shell_bandolier_shells": 374,
+  "person_machinist_0_shell_bandolier_pouch": 26,
+  "person_machinist_0_hair": 17968,
+  "person_machinist_0_hand_L": 392,
+  "person_machinist_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_machinist_0_apron": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_machinist_0_apron_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_machinist_0_apron_ties": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_machinist_0_belt": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_machinist_0_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_machinist_0_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_machinist_0_collar": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_machinist_0_collar_points": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_machinist_0_cuffs": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_machinist_0_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_machinist_0_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_machinist_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_machinist_0_flap": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_machinist_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_machinist_0_mach_acetylene": [
+   0.2159,
+   0.0212,
+   0.0176
+  ],
+  "person_machinist_0_mach_cap": [
+   0.0612,
+   0.0578,
+   0.0513
+  ],
+  "person_machinist_0_mach_clamp": [
+   0.0395,
+   0.0369,
+   0.0343
+  ],
+  "person_machinist_0_mach_grip": [
+   0.162,
+   0.0685,
+   0.0252
+  ],
+  "person_machinist_0_mach_hose": [
+   0.016,
+   0.016,
+   0.0144
+  ],
+  "person_machinist_0_mach_oxygen": [
+   0.0452,
+   0.107,
+   0.0545
+  ],
+  "person_machinist_0_mach_pipe": [
+   0.1812,
+   0.1746,
+   0.1559
+  ],
+  "person_machinist_0_mach_pipe_weld": [
+   0.0612,
+   0.0578,
+   0.0513
+  ],
+  "person_machinist_0_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_machinist_0_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_machinist_0_placket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_machinist_0_pocket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_machinist_0_rivets": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_machinist_0_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_machinist_0_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_machinist_0_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_machinist_0_shirt": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_machinist_0_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_machinist_0_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_machinist_0_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_machinist_0_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_machinist_0_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_machinist_0_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_machinist_0_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_machinist_0_trouser": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_machinist_0_trousers": [
+   0.0437,
+   0.0561,
+   0.0232
+  ]
+ }
+}

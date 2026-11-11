@@ -29,7 +29,8 @@ import bohemia_direction_every_icon_through_the_rig_11_2_26 as D
 
 OUT = os.path.join(R, 'records/target/bosses_hand_rig')
 THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify',
-          'fuel': 'burn', 'map': 'survey', 'hook': 'climb'}   # the thing -> the verb it is (BOSSES 4 11/3: THE BURN's, THE SURVEYOR's, THE CLIMB's)
+          'fuel': 'burn', 'map': 'survey', 'hook': 'climb',   # the thing -> the verb it is (BOSSES 4 11/3: THE BURN's, THE SURVEYOR's, THE CLIMB's)
+          'picks': 'pick', 'charge': 'blow', 'pipegun': 'weld'}   # BOSSES 11/11: THE LOCKSMITH's, THE CHARGE's, THE MACHINIST's
 
 
 def ship_of(n):
@@ -110,6 +111,40 @@ def build(n, bpy, P, IC):
             bpy.ops.mesh.primitive_torus_add(major_segments=16, minor_segments=8, major_radius=0.03, minor_radius=0.008, location=(0, 0, 0.44 + i * 0.05),
                                              rotation=(math.radians(90), 0, math.radians(90 * (i % 2))))
             o = bpy.context.active_object; o.name = 'link'; o.data.materials.append(dark); o.scale = (1, 1.6, 1)
+    elif n == 'picks':                 # BOSSES 11/11: THE LOCKSMITH's picks: a brass padlock hung open, its shackle up, a tension wrench
+        brass, steel, dark = M('brass', 'clay_mustard', 2), M('steel', 'tape_grey', 3), M('dark', 'rubber', 2)   # and two hook picks in its keyway, a key ring
+        P.box(bpy, 'body', brass, (0.2, 0.08, 0.17), (0, 0, 0.12), bevel=0.02)                 # a 50 mm laminated padlock at four times (it reads at 44 points)
+        for z in (0.06, 0.1, 0.14, 0.18): P.box(bpy, 'lam', dark, (0.204, 0.084, 0.004), (0, 0, z))
+        P.cyl(bpy, 'keyway', dark, 0.018, 0.01, (0, -0.042, 0.1), rot=(math.radians(90), 0, 0), verts=12)
+        pts = [(-0.06, 0, 0.2), (-0.06, 0, 0.32), (-0.03, 0, 0.37), (0.03, 0, 0.37), (0.06, 0, 0.32), (0.06, 0, 0.26)]   # the shackle, popped
+        for a_, b_ in zip(pts, pts[1:]): P.rod(bpy, 'shackle', steel, a_, b_, 0.016, verts=10)
+        P.rod(bpy, 'wrench', steel, (0.0, -0.05, 0.08), (0.0, -0.05, -0.01), 0.005, verts=6)     # the tension wrench, its foot in the keyway
+        P.rod(bpy, 'wrench2', steel, (0.0, -0.05, -0.01), (0.09, -0.05, -0.01), 0.005, verts=6)
+        for k, (x, z) in enumerate(((-0.004, 0.1), (0.006, 0.106))):                           # two hook picks, their handles out to the left
+            P.rod(bpy, 'pick', steel, (x, -0.05, z), (-0.2, -0.06, z + 0.03 + 0.03 * k), 0.004, verts=6)
+            P.box(bpy, 'grip', dark, (0.06, 0.012, 0.016), (-0.21, -0.06, z + 0.034 + 0.03 * k), bevel=0.003)
+        bpy.ops.mesh.primitive_torus_add(major_segments=22, minor_segments=8, major_radius=0.06, minor_radius=0.006, location=(0.14, 0.02, 0.36), rotation=(math.radians(90), 0, math.radians(20)))
+        o = bpy.context.active_object; o.name = 'ring'; o.data.materials.append(steel)
+        for i in range(3): P.box(bpy, 'key', brass, (0.018, 0.006, 0.08), (0.13 + i * 0.025, 0.02, 0.28), rot=(0, math.radians(-12 + 12 * i), 0), bevel=0.002)
+    elif n == 'charge':                # BOSSES 11/11: THE CHARGE's charge: three sticks taped together, the blasting cap in the middle one,
+        tan, tape, red, dark = M('tan', 'clay_bone', 2), M('tape', 'tape_grey', 2), M('red', 'blood', 1), M('dark', 'rubber', 2)   # its wire to a clacker
+        for x in (-0.045, 0.0, 0.045): P.cyl(bpy, 'stick', tan, 0.024, 0.22, (x, 0, 0.13), verts=14)   # three 32 mm sticks, 20 cm long at real size
+        for z in (0.07, 0.19): P.box(bpy, 'band', tape, (0.146, 0.054, 0.028), (0, 0, z), bevel=0.012)   # the tape, wrapped tight round the three
+        P.cyl(bpy, 'cap', dark, 0.006, 0.05, (0, 0, 0.26), verts=8)
+        pts = [(0, 0, 0.28), (0.02, 0, 0.34), (0.1, 0, 0.36), (0.17, 0, 0.3), (0.2, 0, 0.18)]   # the leg wire, red, to the clacker
+        for a_, b_ in zip(pts, pts[1:]): P.rod(bpy, 'wire', red, a_, b_, 0.006, verts=6)
+        P.box(bpy, 'clacker', dark, (0.08, 0.05, 0.12), (0.2, 0, 0.1), bevel=0.01)              # the hand detonator, its red trigger
+        P.box(bpy, 'trigger', red, (0.03, 0.054, 0.04), (0.2, 0, 0.17), bevel=0.006)
+    elif n == 'pipegun':               # BOSSES 11/11: THE MACHINIST's pipe gun: a steel water pipe for a barrel, an end cap breech, a wood grip
+        steel, dark, wood, brass = M('steel', 'tape_grey', 2), M('dark', 'rubber', 2), M('wood', 'clay_rust', 2), M('brass', 'clay_mustard', 2)   # bolted on with a hose clamp, a nail for a striker
+        P.cyl(bpy, 'barrel', steel, 0.021, 0.42, (0.03, 0, 0.24), rot=(0, math.radians(90), 0), verts=16)
+        P.cyl(bpy, 'muzzle', dark, 0.013, 0.01, (0.245, 0, 0.24), rot=(0, math.radians(90), 0), verts=12)
+        P.cyl(bpy, 'cap', steel, 0.03, 0.06, (-0.2, 0, 0.24), rot=(0, math.radians(90), 0), verts=6)   # the hex end cap, the breech
+        P.box(bpy, 'grip', wood, (0.06, 0.035, 0.16), (-0.17, 0, 0.14), rot=(0, math.radians(-14), 0), bevel=0.01)
+        P.cyl(bpy, 'clamp', dark, 0.026, 0.02, (-0.1, 0, 0.24), rot=(0, math.radians(90), 0), verts=16)
+        P.box(bpy, 'trigger', dark, (0.012, 0.012, 0.05), (-0.13, 0, 0.19), bevel=0.002)
+        P.rod(bpy, 'nail', steel, (-0.27, 0, 0.26), (-0.23, 0, 0.245), 0.004, verts=6)           # the striker, a nail on a band of inner tube
+        P.cyl(bpy, 'shell', brass, 0.016, 0.05, (-0.02, 0.06, 0.03), verts=12)                  # one shell lying by it
     else:
         raise KeyError(n)
 
@@ -117,6 +152,7 @@ def build(n, bpy, P, IC):
 D.OUT = OUT
 D.FACE['wrench'] = 'S'   # a flat tool reads side-on (DIRECTION's flat signs' way)
 D.FACE['map'] = 'S'; D.FACE['hook'] = 'S'
+D.FACE['picks'] = 'S'; D.FACE['pipegun'] = 'S'   # BOSSES 11/11: flat things side-on
 D.VENV = os.environ.get('BOHEMIA_BPY') or D.VENV
 D.ship_of = ship_of
 D.build = build
