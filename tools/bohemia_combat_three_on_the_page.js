@@ -12,7 +12,7 @@
      - every turn is logged from the page's own calls (FIGHT.aiStep: who was asked, what he did; the notes drawn: startAnim);
        where his men stand after the first round is read (the scramble off the open floor);
      - page errors are counted, a still is taken at the start, at the round a board's own event comes (the flood), at the end.
-   node tools/bohemia_combat_three_on_the_page.js <alpha|demo> <upright|sideways> <outdir> <tunnels|garage|boss|district:NAME> [fights=4]
+   node tools/bohemia_combat_three_on_the_page.js <alpha|demo> <upright|sideways> <outdir> <tunnels|garage|boss:NAME|district:NAME|cut> [fights=4]
    Writes <outdir>/page.json, <outdir>/shots/*.png, <outdir>/video/*.webm. Served from disk at the real address, service worker off.
    ========================================================================== */
 'use strict';
@@ -89,9 +89,20 @@ const HOOKS = `(function(){
   /* ---- where on the map the fights start ---- */
   const BOSS = /^boss:/.test(WANT) ? WANT.slice(5) : null;
   const DIST = BOSS ? ['strip', 'landfill', 'shore', 'suburb'] : WANT === 'tunnels' ? ['wash', 'basin'] : WANT === 'garage' ? ['mall', 'terminal', 'stadium', 'medical', 'convention', 'sphere', 'strat', 'casino', 'highroller', 'luxor', 'resort'] : /^district:/.test(WANT) ? [WANT.slice(9)] : ['suburb'];
-  const cells = await city().evaluate((want) => { const out = []; const N = om.n; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = om.at(x, y), d = t && t.district; if (d && want.indexOf(d) >= 0) out.push({ d: d, at: [x, y] }); } return out; }, DIST);
+  /* mode 'cut' (rule 429(a), ask rows 504, 506, 507): the cells of the 15 places the map stood on this valley, by the map's own vbTemplateAt;
+     the fight is handed the place and the cell's tiles the way the map's own hand-over does (cityHandOver's __THE_CUT__ line) */
+  const CUT = WANT === 'cut';
+  const cutCells = CUT ? await city().evaluate(() => { const out = []; const N = om.n; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = typeof vbTemplateAt === 'function' ? vbTemplateAt(x, y) : null; if (!t) continue;
+      const m = om.at(x, y); out.push({ d: m && m.district, at: [x, y], tpl: { id: t.id, board: t.board, tx: t.tx, ty: t.ty, flip: !!t.flip, cell: [x, y] } }); } return out; }) : null;
+  const cells = CUT ? cutCells : await city().evaluate((want) => { const out = []; const N = om.n; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = om.at(x, y), d = t && t.district; if (d && want.indexOf(d) >= 0) out.push({ d: d, at: [x, y] }); } return out; }, DIST);
   log('cells of', DIST.join('/'), cells.length);
-  const pick = []; { const step = Math.max(1, Math.floor(cells.length / 40)); for (let i = 0; i < cells.length && pick.length < 40; i += step) pick.push(cells[i]); }
+  const pick = [];
+  if (CUT) {   /* a different place each fight, the cells walked west to east and north to south so every part of a board is stood on */
+    const by = {}; cells.forEach(c => { if (!process.env.C3_CUT_PLACE || c.tpl.id === process.env.C3_CUT_PLACE) (by[c.tpl.id] = by[c.tpl.id] || []).push(c); }); const ids = Object.keys(by).sort(); const SKIP = +(process.env.C3_CUT_SKIP || 0);   /* C3_CUT_PLACE: one place, its cells from corner to corner */
+    for (let i = 0; i < 40 && ids.length; i++) { const L = by[ids[(i + SKIP) % ids.length]], wantTx = [0, 9, 18, 6, 15, 3, 12][(i + SKIP) % 7], wantTy = [0, 12, 6, 3, 9][(i + SKIP) % 5];
+      L.sort((a, b) => (Math.abs(a.tpl.tx - wantTx) + Math.abs(a.tpl.ty - wantTy)) - (Math.abs(b.tpl.tx - wantTx) + Math.abs(b.tpl.ty - wantTy))); if (pick.indexOf(L[0]) < 0) pick.push(L[0]); }
+    log('place cells on this valley', cells.length, 'places', ids.length);
+  } else { const step = Math.max(1, Math.floor(cells.length / 40)); for (let i = 0; i < cells.length && pick.length < 40; i += step) pick.push(cells[i]); }
   const results = [], speeds = [1, 2, 4]; let tried = 0;
   for (const c of pick) {
     if (results.filter(r => r.wanted).length >= FIGHTS || tried >= FIGHTS * 5) break; tried++;
@@ -100,15 +111,26 @@ const HOOKS = `(function(){
         if (!window.BohemiaBosses || !BohemiaBosses.dress(msg, { n: n })) return false; window.top.nfOpen(msg); return true; }, [c, BOSS]);
       if (!ok) { log('the boss could not be dressed:', BOSS); break; }
     } else
-    await page.evaluate((c) => { window.nfOpen({ type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true }); }, c);
+    await page.evaluate((c) => { const m = { type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true }; if (c.tpl) m.template = c.tpl; window.nfOpen(m); }, c);
     if (!(await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!FIGHT.__c3); }, 40000))) { log('no fight came at', c.d, c.at); continue; }
     const f = fightF(); await wait(2500);
     const o = await f.evaluate(() => { const S = FIGHT.S, B = S.boardDef || {}; return { board: B.name, inside: B.interior || null, layout: (B.tunnels && B.tunnels.layout) || (B.garage && B.garage.layout) || null, flood: S.flood ? S.flood.round : null, night: !!S.night, w: S.w, h: S.h,
       mine: S.units.filter(u => u.side === 'you').length, theirs: S.units.filter(u => u.side !== 'you').length, hasKey: !!B.tileKey }; });
     const wanted = WANT === 'tunnels' ? o.inside === 'tunnels' : WANT === 'garage' ? o.inside === 'garage' : BOSS ? !!(await f.evaluate(() => !!(window.FIGHT_OPTS && FIGHT_OPTS.boss))) : true;
     const n = results.length + 1, tag = 'f' + String(n).padStart(2, '0');
+    /* WHERE THE TWO LINES STAND AT THE BELL against the cell the map handed (FIGHT.S.cutStart), and whether his men are on the glass */
+    /* the bell's picture: wait (ten seconds at most) until the board is drawn and the opening camera has every man of his on the glass */
+    if (CUT) { await until(async () => f.evaluate(() => { if (!UI.board || UI.anim.length || UI.glide || !(UI.tw > 0)) return false; const his = FIGHT.S.units.filter(u => u.side === 'you' && FIGHT.onField(u));
+        return his.length > 0 && his.every(u => { const X = sx((u.x + .5 + stagger(u.y)) * UI.tw), Y = sy((u.y + .6) * UI.th); return X > 0 && Y > 0 && X < innerWidth && Y < innerHeight; }); }), 10000); await wait(400); await shot('f' + String(results.length + 1).padStart(2, '0') + '_cut'); }
+    const cut = CUT ? await f.evaluate(() => { const S = FIGHT.S, C = S.cutStart || null, B = S.boardDef || {}, his = S.units.filter(u => u.side === 'you' && FIGHT.onField(u)), th = S.units.filter(u => u.side !== 'you' && FIGHT.onField(u));
+      let d = 99; his.forEach(u => th.forEach(v => { d = Math.min(d, Math.max(Math.abs(u.x - v.x), Math.abs(u.y - v.y))); }));
+      const onGlass = his.filter(u => { const X = sx((u.x + .5 + stagger(u.y)) * UI.tw), Y = sy((u.y + .6) * UI.th); return X > 0 && Y > 0 && X < innerWidth && Y < innerHeight; }).length;
+      return { cut: C, own: B.own || null, tpl: (window.FIGHT_OPTS || {}).template || null, cols: S.cols, rowMid: S.rowMid, his: his.map(u => [u.x, u.y]), theirs: th.map(u => [u.x, u.y]), apart: d, onGlass: onGlass, men: his.length, deploy: !!S.deploy, night: !!S.night, round: S.round, theirsOnGlass: th.filter(u => { const X = sx((u.x + .5 + stagger(u.y)) * UI.tw), Y = sy((u.y + .6) * UI.th); return X > 0 && Y > 0 && X < innerWidth && Y < innerHeight; }).length, them: th.length,
+        nearRow: C ? Math.min.apply(null, his.map(u => Math.abs(u.y - C.mid))) : null, ahead: his.filter(u => u.x > S.cols[0]).length, west: th.filter(v => v.x <= S.cols[0]).length }; }) : null;
+    if (cut) log('   the cut:', cut.own, 'cell tiles', cut.tpl ? cut.tpl.tx + ',' + cut.tpl.ty : 'NONE', '-> front', cut.cut ? cut.cut.front + ' (' + cut.cut.stood + ', asked ' + cut.cut.wanted + ')' : 'NO CELL START', 'row', cut.rowMid, 'nearest man', cut.nearRow, 'rows off; his', JSON.stringify(cut.his), 'theirs nearest', cut.apart, 'on the glass his', cut.onGlass + '/' + cut.men, 'theirs', cut.theirsOnGlass + '/' + cut.them, cut.deploy ? '(he sets his line)' : '(round ' + cut.round + ')', cut.night ? 'night' : 'day');
     log('fight', n, c.d, JSON.stringify(c.at), o.board, o.inside || '-', o.layout || '', 'men', o.mine, 'v', o.theirs, wanted ? '' : '(not the board asked for)');
     const R = { n, cell: c, o, wanted, taps: [], speed: process.env.C3_SPEED ? +process.env.C3_SPEED : speeds[n % 3] };
+    if (cut) R.cut = cut;
     /* THE ARMOUR'S NIGHT PIECE ON THIS GLASS (rows 548, 558): the browser's own drawImage handed a night sheet (what the wear module
        did), and the fight's own draw handed the same sheet (what it is handed now); read once a run */
     if (!results.length) { try { R.wearProbe = await f.evaluate(() => { const k = Object.keys(UI.imgs).find(n => /^fight_rig\//.test(n) && UI.imgs[n] && (UI.imgs[n].width || UI.imgs[n].cw)); if (!k) return null;

@@ -1,6 +1,28 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 435(d), 441(a); ask rows 555 and 605): 11/11 LATEST -- [every turn reads] SHIPPED fbf93f5c1, BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN. VOTE combat3-every-turn-reads-11-11 (stand_in).
+COMBAT THREE (rule 429(a) ONE MAP; ask rows 504, 506, 507; WORLD THIRTEEN's seam): 11/11 LATEST -- [crew on its cell] SHIPPED SHIPSHA, BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN. VOTE combat3-the-crew-starts-on-its-cell-11-11 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_CREW_STARTS_ON_ITS_CELL_11_11_26.md.
+WHAT: a fight the map hands from a cell of one of the 15 places (opts.template, WORLD THIRTEEN's __THE_CUT__) stands his company ON THAT CELL of the place's own board
+(setup, __THE_CREW_STARTS_ON_ITS_CELL__): S.rowMid = the cell's middle row (ty + 1; deployCrew, place and formationNow all count from it); his front = the cell's east
+column (tx + 2) wherever both lines have joined ground (roomAt: the meet map), the usual column west of it (rule 415(b)), the farthest east that leaves their line its
+gap, stepped west where a wall or a pen leaves a line no ground (the Strip, the lab). S.cutStart = { id, cell, tx, ty, wanted, front, mid, onCell, usual, max, stood:
+'cell' | 'usual' | 'east' | 'room' }. THE FIGHT STILL RUNS WEST TO EAST (rule 67).
+ALSO: (a) the kept line (rule 110b) is counted from the row it was stood on, so it comes back on the same tiles on any cell; (b) A PLACE'S CELL WINS OVER AN INSIDE:
+floodTunnels, parkingGarage and casinoFloor yield when opts.template names a place board and no inside was asked (found on the alpha: the wash's own place was dealt the
+tunnels); the insides keep their share on every cell no place stands on, and opts.inside still asks for one by name.
+GATE THE CREW STARTS ON ITS CELL 9/0 (K1 to K8, one plant; 525 hand-overs, 15 places x 35 cells), registered. EVERY MAN ACTS ON AUTO 22/0.
+ON THE PAGE: 20 fights, the alpha and the demo, upright and on its side, a different place each: 20 of 20 on the place's own board with the cell, his rows the cell's
+(0 or 1 row off), his front as cutStart says, every man of both sides on the glass at the bell, all ended, 0 page errors.
+*** FOR WORLD THIRTEEN (your seam, answered; nothing of yours edited): I read FIGHT_OPTS.template { id, board, tx, ty, cell } as you send it; your block in dealOwn stands.
+The crew is on the cell's rows; its front is clamp(tx + 2, 5, 12) stepped west for ground (S.cutStart.stood says which). A cell in the east third of a place cannot be his
+front: their line needs the board east of him. If the map ever knows which way he walked in, send template.from ('w' | 'e' | 'n' | 's') and the fight can face it. flip is
+not read. A place's cell now wins over the tunnels / the garage / the casino floor, so what your painter shows on a place's cells is what is fought. ***
+every_place_no_seams (handed to me by WORLD THIRTEEN, red on main: suburb 19.7% / 14.0% against 4%): NOT STARTED, said plainly. The place boards' ground pictures; next on my list.
+RED, NOT MINE, as before: PAGES PUBLISH's cap, five VOTE tab legs, the gate registry's orphans.
+[bb Battle Brothers deals a fresh tactical map from the world tile the party stands on; ours is the same place's own board, and the company on the very cell it stood on]
+[analog horror: the lab's pens are where the map said they were, and you are standing by the one that is open]
+
+COMBAT THREE (rules 435(d), 441(a); ask rows 555 and 605): 11/11 -- [every turn reads] SHIPPED fbf93f5c1, BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN. VOTE combat3-every-turn-reads-11-11 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_EVERY_TURN_READS_11_11_26.md.
 WHAT: row 555 measured before a line changed: ON AUTO the quiet word already fired (THE POT at 4x on the alpha 7 of 7; headless 5 of 5); the silent turns were the
 ones CLOSED BY HAND (the word's one switch was S.byHand). endTurn (__EVERY_TURN_READS__) now says the word whoever closed the turn: on AUTO the brain's reason as

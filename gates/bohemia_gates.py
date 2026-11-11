@@ -9506,6 +9506,13 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
+    ('THE CREW STARTS ON ITS CELL', ['node', 'gates/the_crew_starts_on_its_cell_gate.js'],
+     "COMBAT THREE gate, 11/11, VAMILY rule 429(a) ONE MAP (ask rows 504, 506, 507; WORLD THIRTEEN's seam: 'start the crew on the cell's tiles'). "
+     "A fight the map hands from a cell of one of the 15 places is dealt that place's own board block for block (K1); a man of his stands as near "
+     "the cell's middle row as the ground allows (K2); his front is the cell's east column wherever both lines have joined ground, the usual column "
+     "west of it, the farthest the board allows east of it, stepped west where a wall or a pen leaves a line no ground (K3); their line faces his "
+     "and the gap holds (K4); a fight plays from the corners and the middle of every place (K5); no cell, no change (K6); a kept line comes back "
+     "on the same tiles (K7). Planted: the cell ignored. About 2 min", True),
     ('EVERY TURN READS', ['node', 'gates/every_turn_reads_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rules 435(d) and 441(a) (ask rows 555 and 605, FOUND BY EYES: 'THE BOSS FIGHT'S QUIET TURNS SAY NOTHING'). "
      "A turn of his that closes with no walk and no blow says what it was whoever closed it: by hand END TURN on a fresh turn leaves the word "

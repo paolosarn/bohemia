@@ -1472,6 +1472,7 @@ const FIGHT = (function () {
   function floodTunnels(opts) {
     const FT = typeof window !== 'undefined' ? window.BohemiaFloodTunnels : null, D = DB.tunnels;
     if (!FT || !D || opts.inside === false || (opts.inside && opts.inside !== 'tunnels') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     const share = D.data.share == null ? 1 : D.data.share, roll = ((SEED >>> 0) % 1000) / 1000;
     if (opts.inside !== 'tunnels' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
     const B = FT.deal(((SEED >>> 0) ^ 0x1b873593) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.tunnelsAsk || {})); if (!B) return false;
@@ -1497,6 +1498,7 @@ const FIGHT = (function () {
   function parkingGarage(opts) {
     const PG = typeof window !== 'undefined' ? window.BohemiaParkingGarage : null, D = DB.garage;
     if (!PG || !D || opts.inside === false || (opts.inside && opts.inside !== 'garage') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     const by = D.data.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (D.data.share == null ? 1 : D.data.share), roll = (((SEED >>> 0) ^ 0x9e3779b9) >>> 0) % 1000 / 1000;
     if (opts.inside !== 'garage' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
     const B = PG.deal(((SEED >>> 0) ^ 0x85ebca6b) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.garageAsk || {})); if (!B) return false;
@@ -1508,6 +1510,7 @@ const FIGHT = (function () {
   function casinoFloor(opts) {
     const CF = typeof window !== 'undefined' ? window.BohemiaCasinoFloor : null, D = DB.casino;
     if (!CF || !D || opts.inside === false || (opts.inside && opts.inside !== 'casino') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     if (opts.inside !== 'casino' && D.data.districts.indexOf(opts.district) < 0) return false;
     const B = CF.deal(((SEED >>> 0) ^ 0x2545f491) >>> 0, D, DB.ground, S.w, S.h, opts.casinoAsk || null); if (!B) return false;
     const was = [S.night, S.power];
@@ -2159,7 +2162,34 @@ const FIGHT = (function () {
        starts): 'wide' puts their line farther off on open ground; 'camp' and 'pincer' start them round the landmark or on both
        flanks (placeOwnStart); else the line as it always was */
     const st = S.boardDef && S.boardDef.start;
-    if (st === 'wide') S.cols = [cols[0], Math.min(S.w - 2, cols[1] + R('ours.place_boards').wide_extra)];
+    /* __THE_CREW_STARTS_ON_ITS_CELL__ (COMBAT THREE 11/11, rule 429(a), ask rows 504, 506, 507; WORLD THIRTEEN's seam, 'OWED, YOURS:
+       start the crew on the cell's tiles (template.tx..tx+2, ty..ty+2) instead of the start rows'). ONE MAP: the place's board is
+       the map's own layout of that place, and his company stands where it stood on the map when the fight began. The cell's three
+       rows are his line's middle (S.rowMid: the formation, kept or dealt, is centred on the cell's middle row, and their line faces
+       it); the cell's east column is his front. THE FIGHT STILL RUNS WEST TO EAST (rule 67: his on the left): a cell so far east
+       that their line would have no board left stands his front as far east as the board allows (their front the wiki's gap
+       beyond it, a column of room behind); a cell west of his usual column keeps the usual column (rule 415(b): room to run).
+       S.cutStart says what was asked and what was stood, for the gate and for WORLD THIRTEEN */
+    S.rowMid = null; S.cutStart = null;
+    { const CT = S.boardDef && S.boardDef.cut;
+      if (CT && CT.tx != null && CT.ty != null && !S.arena && !S.handed) {
+        const gap = R('deployment.min_gap_between_lines_hexes') + 1, d0 = Math.max(gap, cols[1] - cols[0]);
+        const want = (CT.tx | 0) + 2, lo = cols[0], hi = Math.max(lo, S.w - 2 - gap);
+        /* BOTH LINES NEED GROUND (measured: the Strip's joined ground ends at its wall, column 12; a front on a cell east of
+           column 6 left their line no ground and the two lines stood a tile apart): the front steps west from the cell's column
+           until his three columns hold his company and the ground from the gap on holds theirs, on the ground the two can
+           walk to each other on (the meet map, rule 435) */
+        const roomAt = function (f) { S.cols = [f, Math.min(S.w - 2, f + d0)]; const M = meetMap();
+          const open = function (x) { let k = 0; for (let y = 0; y < S.h; y++) if (M[y * S.w + x] && !(level(x, y) > 0)) k++; return k; };
+          let his = 0, theirs = 0; for (let x = f; x >= Math.max(0, f - 2); x--) his += open(x); for (let x = f + gap; x < S.w; x++) theirs += open(x);
+          return his >= crewUnits.length && theirs >= bandUnits.length; };
+        let front = Math.max(lo, Math.min(hi, want)); while (front > lo && !roomAt(front)) front--;
+        S.cols = [front, Math.min(S.w - 2, front + d0)];
+        S.rowMid = Math.max(1, Math.min(S.h - 2, (CT.ty | 0) + 1));
+        S.cutStart = { id: CT.id || null, cell: CT.cell || null, tx: CT.tx | 0, ty: CT.ty | 0, wanted: want, front: front, mid: S.rowMid, onCell: front === want, usual: lo, max: hi,
+          stood: want < lo ? 'usual' : front === want ? 'cell' : want > hi && front === hi ? 'east' : 'room' };
+      } }
+    if (st === 'wide') S.cols = [S.cols[0], Math.min(S.w - 2, S.cols[1] + R('ours.place_boards').wide_extra)];
     sidesMeet(bandUnits.length);
     deployCrew(crewUnits, S.cols[0], -1, kept);
     S.formation = formationNow();
@@ -2263,7 +2293,7 @@ const FIGHT = (function () {
     const behind = function (u) { return isRanged(u.weapon) || u.arche === 'backline'; };
     const front = units.filter(function (u) { return !behind(u); });
     const rear = units.filter(behind);
-    const mid = (S.h - 1) / (1 + 1);
+    const mid = S.rowMid != null ? S.rowMid : (S.h - 1) / (1 + 1);   /* __THE_CREW_STARTS_ON_ITS_CELL__: their line faces his */
     function rowsIn(x) {
       const c = [];
       for (let y = 0; y < S.h; y++) if (passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y)) c.push(y);   /* on the ground at the bell (rule 256); rule 435: where his line can reach */
@@ -2317,7 +2347,7 @@ const FIGHT = (function () {
     return { front: centred(fr), back: centred(bk), more: more };
   }
   function deployCrew(units, col, back, formation) {
-    const n = R('ours.formation').slots_per_row, mid = (S.h - 1) / (1 + 1), midR = Math.round(mid);
+    const n = R('ours.formation').slots_per_row, mid = S.rowMid != null ? S.rowMid : (S.h - 1) / (1 + 1), midR = Math.round(mid);   /* __THE_CREW_STARTS_ON_ITS_CELL__: the cell's middle row */
     /* THE LINE STANDS ON THE GROUND AT THE BELL (rule 256: measured, his line moved nearer his edge put a lone man on a two storey
        roof the beasts could not climb; nobody is dealt onto a roof): a roof only when the board has no ground left for him */
     const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y); };   /* rule 435(c): only on the fight's one piece of ground */
@@ -2387,7 +2417,7 @@ const FIGHT = (function () {
     try { const s = localStorage.getItem(FORMATION_KEY); const f = s ? JSON.parse(s) : null; return f && Array.isArray(f.placed) ? f : null; } catch (_e) { return null; }
   }
   function formationNow() {
-    const zone = zoneCols(), midR = Math.round((S.h - 1) / (1 + 1));
+    const zone = zoneCols(), midR = Math.round(S.rowMid != null ? S.rowMid : (S.h - 1) / (1 + 1));   /* __THE_CREW_STARTS_ON_ITS_CELL__: counted from the row the line was stood on, so the memory is the same line on any cell */
     return { placed: S.units.filter(function (u) { return u.side === 'you' && onField(u) && zone.indexOf(u.x) >= 0; })
       .map(function (u) { return { name: u.name, line: zone.indexOf(u.x), off: u.y - midR }; }) };
   }

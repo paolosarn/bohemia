@@ -1,4 +1,15 @@
-COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN (rules 435(d), 441(a); ask rows 555 and 605).
+COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN (rule 429(a) ONE MAP; ask rows 504, 506, 507).
+The fight's half of WORLD THIRTEEN's cut: a fight that starts on a cell of one of the 15 places (the lab yard, the golf course, the Strip ...) is on that
+place's own board AND his company stands on that cell of it: the cell's rows, the cell's east column where both lines have ground (else the usual column,
+the farthest east the board allows, or a step west off a wall). The kept line comes back on the same tiles on any cell. A place's cell wins over the
+tunnels, the garage and the casino floor (the wash's own place was being dealt the tunnels).
+ON THE PAGE: 20 fights, the alpha and the demo, upright and sideways: 20 of 20 on the cell, every man on the glass at the bell, 0 page errors.
+Gate THE CREW STARTS ON ITS CELL 9/0 (525 hand-overs). VOTE combat3-the-crew-starts-on-its-cell-11-11. Record
+records/BOHEMIA_COMBAT_THREE_THE_CREW_STARTS_ON_ITS_CELL_11_11_26.md. FOR WORLD THIRTEEN: the seam is answered in handoffs/COMBAT_THREE.md.
+NOT STARTED: every_place_no_seams (the place boards' ground pictures), next.
+[bb Battle Brothers deals a fresh tactical map from the world tile the party stands on; ours is the same place's own board, the company on its own cell]
+[analog horror: the lab's pens are where the map said they were, and you are standing by the one that is open]
+COMBAT THREE (combat-three-01gkdyuu): 11/11 -- BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN (rules 435(d), 441(a); ask rows 555 and 605).
 A turn of his that ends with no walk and no blow now says what it was WHOEVER ended it. Measured first: on AUTO the word already fired; the silent turns
 EYES found in THE POT's fight were the ones closed BY HAND. By hand the word is what he did (HOLDS, RELOADS, SWAPS), over the man a beat and a half; the
 turn itself is not slowed. Row 605's stale marker was not reproduced (1,234 turn ends, each with its own start); the word is closed against it anyway.
