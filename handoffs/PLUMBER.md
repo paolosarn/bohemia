@@ -1,5 +1,15 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/11, the next round -- ROW 561 FIRST (the coordinator's routine 'PLUMBER 8 next round'). BUILD 11/11f THE REOPEN SKIPS A HIDDEN LINE.
+MEASURED (scratch probe boot.js: the demo cold, then reopened in the same browser, phone upright, CPU 4x, a CPU profile of each; the box was
+quiet after its restart, still 18-28 s run to run, so judged by the profile's own split and two runs each): the reopen on a save carrying
+the day's quest worked out the whole cast for the quest line (display:none on the map) and every save worked it out again. Fixed: the
+restore 3.2 s -> 0.13 s; ready cold 18.3-23.0 -> 17.2-17.5 s, reopened 21.0-28.1 -> 18.3-19.3 s; frozen 9.3-13.7 -> 7.5-7.6 s cold,
+10.8-16.9 -> 6.4-8.9 s reopened. Gate A HIDDEN LINE IS NOT WORKED OUT 3/0. TRIED AND REVERTED: merging out-of-frame draws while the
+door loads (ONE_RENDER): 14 asks merged, the ground still painted 41 times (the page's own start draws before the wrapper exists, and
+the map's frames draw), no measured gain. LEFT (in row 561): the one 6.4 s task of the map page's start (compile + buildOvermap +
+buildPower + fit + the demo opening on the map, one script) and the ground painted 41-46 times behind the loading picture.
+
 PLUMBER 8 (chat 18) 11/10, the last of the round -- THE RED DEBT (the coordinator's routine 'clear the red debt'). 383 NAMED, 350 LEFT.
 THE COUNT: every red on main is a line in gates/BOHEMIA_QUARANTINE.txt (owner, verdict); LEFT = not FILED as an ask row; gate THE RED DEBT
 ONLY SHRINKS holds both to gates/BOHEMIA_RED_DEBT_RATCHET.json and to the front page's THE RED DEBT line (4/0, planted). Lower the

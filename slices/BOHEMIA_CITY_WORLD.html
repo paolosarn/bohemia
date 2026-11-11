@@ -70273,7 +70273,14 @@ function citySnapshot(){
   return { v:CITY_SAVE_V,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
     riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
     loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
-    daycast:(function(){ try{ return ctDayCast(); }catch(_e){ return null; } })(),  /* __CITY_ADDRESS__ */
+    daycast:(function(){ try{
+      /* __A_HIDDEN_LINE_IS_NOT_WORKED_OUT__ (PLUMBER 8, 11/11, ask row 561): the save keeps the day's cast when it was worked out
+         (the line was drawn) for this quest and day, and never works it out just to keep it: on the map that cost the reopen's first
+         save 1.9 s at 4x for a line nobody sees. window.__QLINE_ALWAYS = the old way. */
+      if (window.__QLINE_ALWAYS) return ctDayCast();
+      var q = String(DQ.spec && DQ.spec.id), day = (T && T.day) || 1;
+      return (CT_DAYCAST && CT_DAYCAST.q === q && CT_DAYCAST.day === day) ? CT_DAYCAST : null;
+    }catch(_e){ return null; } })(),  /* __CITY_ADDRESS__ */
     vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
     installAsked:!!INSTALL_ASKED,   /* __KEEP_THIS_RUN__ -- a prompt that comes back every night is an ad */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
@@ -70845,8 +70852,15 @@ function updQline(){
      convenience, and their directions get shorter to match. This is a bearing, a
      rough distance and what the ground is called. Recomputed every time the line
      is drawn, so it counts down as he walks. */
+  /* __A_HIDDEN_LINE_IS_NOT_WORKED_OUT__ (PLUMBER 8, 11/11/26, ask row 561, rule 441: the boot and the reload freeze). MEASURED (the
+     demo reopened on a save, phone upright, CPU 4x, a CPU profile of the whole reopen): the save's restore drew this line once, and
+     the address in it is the day's whole cast found on the map (ctDayCast: castAddresses over every person near every role, cellAt
+     and realizeCell for thousands of blocks), 1.9 s of a 3.2 s restore, for a line that on the map is display:none (body.onmap
+     #qline, rule 61b: nothing sits over the map). While the line is not drawn its address is not worked out; the first time it is
+     drawn it is. window.__QLINE_ALWAYS = the old way. */
+  var shown = true; try { shown = !!window.__QLINE_ALWAYS || getComputedStyle(el).display !== 'none'; } catch(_e){}
   try {
-    if (s && !(DQ.rt && DQ.rt.state && DQ.rt.state.done)) {
+    if (shown && s && !(DQ.rt && DQ.rt.state && DQ.rt.state.done)) {
       const a = ctAddress();
       if (a) s += ' \u00b7 ' + a;
     }

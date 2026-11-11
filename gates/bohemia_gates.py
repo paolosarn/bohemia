@@ -9248,6 +9248,12 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('A HIDDEN LINE IS NOT WORKED OUT', ['node', 'gates/a_hidden_line_is_not_worked_out_gate.js'],
+     "PLUMBER 8 gate, 11/11, ask row 561 (rule 441, the boot and the reload freeze): a CPU profile of the demo reopened on its save "
+     "(phone, CPU 4x) found the restore working out the day's whole cast (ctDayCast over thousands of blocks) for a quest line that is "
+     "display:none on the map (rule 61b), and every save working it out again to keep it: 1.9 s of a 3.2 s restore. H1 behind the "
+     "door, the line hidden: the cast never worked out, a save does not work it out; H2 the line drawn: its address worked out as "
+     "before; P1 the old way (window.__QLINE_ALWAYS) works it out in a save. About 1 min", True),
     ('THE RED DEBT ONLY SHRINKS', ['python3', 'gates/the_red_debt_only_shrinks_gate.py'],
      "PLUMBER 8 gate, 11/10, the coordinator's routine 'clear the red debt' (VAMILY rule 13, rule 441): the debt is "
      "gates/BOHEMIA_QUARANTINE.txt, every red on main named with its owner and verdict; NAMED (its lines) and LEFT (those not "
