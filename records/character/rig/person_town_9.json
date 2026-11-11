@@ -1,14 +1,15 @@
 {
  "look": "PERSON_TOWN_9",
- "shape": "person_town_9: a person of the Body, his own skin skin_deep 3, ROLLED WORK SHIRT under SPLIT-TAIL WORK COAT",
+ "shape": "person_town_9: a person of the Body, his own skin skin_deep 3, BONE HENLEY under SPLIT-TAIL WORK COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "ROLLED WORK SHIRT",
-  "feet": "ASH COLUMN",
+  "base": "BONE HENLEY",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "FIELD BOOTS",
   "outer": "SPLIT-TAIL WORK COAT",
   "gear": "FIELD LEG WRAPS",
+  "neck": "CHARCOAL SCARF",
   "outfit": [
-   "ROLLED WORK SHIRT and SPLIT-TAIL WORK COAT read as one, and no colour of either cut reads apart",
    "the sleeves pushed up the forearm"
   ]
  },
@@ -38,15 +39,13 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_9_shoe": 3148,
-  "person_town_9_shirt": 61868,
+  "person_town_9_shoe": 3716,
+  "person_town_9_shirt": 67584,
   "person_town_9_collar": 1536,
-  "person_town_9_collar_points": 180,
-  "person_town_9_placket": 162,
-  "person_town_9_buttons": 204,
-  "person_town_9_tail": 2016,
-  "person_town_9_pocket": 180,
-  "person_town_9_flap": 108,
+  "person_town_9_placket": 126,
+  "person_town_9_buttons": 102,
+  "person_town_9_cuffs": 2048,
+  "person_town_9_hem": 1792,
   "person_town_9_coat": 63632,
   "person_town_9_coat_skirt": 3990,
   "person_town_9_collar.001": 1536,
@@ -54,10 +53,21 @@
   "person_town_9_pushed": 2048,
   "person_town_9_pockets": 252,
   "person_town_9_pocket_flaps": 252,
-  "person_town_9_column": 74570,
-  "person_town_9_column_sole_1": 242,
-  "person_town_9_column_sole_0": 242,
+  "person_town_9_trouser": 43706,
+  "person_town_9_rolled_hem": 2048,
+  "person_town_9_crease": 180,
+  "person_town_9_sole_1": 242,
+  "person_town_9_midsole_1": 242,
+  "person_town_9_sole_0": 242,
+  "person_town_9_midsole_0": 242,
+  "person_town_9_boot_collar": 2048,
+  "person_town_9_boot_collar_line": 2048,
+  "person_town_9_eyelets_1": 120,
+  "person_town_9_eyelets_0": 120,
   "person_town_9_field_leg_wraps": 14228,
+  "person_town_9_charcoal_scarf": 3072,
+  "person_town_9_charcoal_scarf_tail": 162,
+  "person_town_9_charcoal_scarf_fringe": 54,
   "person_town_9_hair": 17968,
   "person_town_9_hand_L": 392,
   "person_town_9_hand_R": 392
@@ -68,10 +78,35 @@
    0.8,
    0.8
   ],
+  "person_town_9_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_town_9_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
   "person_town_9_buttons": [
-   0.1329,
-   0.2051,
-   0.305
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_town_9_charcoal_scarf": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_9_charcoal_scarf_fringe": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_town_9_charcoal_scarf_tail": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_9_coat": [
    0.1301,
@@ -84,29 +119,29 @@
    0.016
   ],
   "person_town_9_collar": [
-   0.063,
-   0.1046,
-   0.1651
+   0.3763,
+   0.3231,
+   0.2086
   ],
-  "person_town_9_collar_points": [
-   0.063,
-   0.1046,
-   0.1651
+  "person_town_9_crease": [
+   0.1413,
+   0.0742,
+   0.0273
   ],
-  "person_town_9_column": [
-   0.0612,
-   0.0612,
-   0.0704
+  "person_town_9_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
-  "person_town_9_column_sole_0": [
-   0.0232,
-   0.0232,
-   0.0252
+  "person_town_9_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
   ],
-  "person_town_9_column_sole_1": [
-   0.0232,
-   0.0232,
-   0.0252
+  "person_town_9_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
   ],
   "person_town_9_eyes": [
    0.0212,
@@ -123,30 +158,35 @@
    0.063,
    0.0222
   ],
-  "person_town_9_flap": [
-   0.063,
-   0.1046,
-   0.1651
-  ],
   "person_town_9_hair": [
    0.0194,
    0.0116,
    0.008
+  ],
+  "person_town_9_hem": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_9_lapels": [
    0.0545,
    0.0222,
    0.0075
   ],
-  "person_town_9_placket": [
-   0.063,
-   0.1046,
-   0.1651
+  "person_town_9_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
   ],
-  "person_town_9_pocket": [
-   0.063,
-   0.1046,
-   0.1651
+  "person_town_9_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_9_placket": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_9_pocket_flaps": [
    0.0545,
@@ -163,35 +203,50 @@
    0.0513,
    0.016
   ],
+  "person_town_9_rolled_hem": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
   "person_town_9_shirt": [
-   0.063,
-   0.1046,
-   0.1651
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_9_shoe": [
-   0.0612,
-   0.0612,
-   0.0704
+   0.0437,
+   0.0887,
+   0.0331
   ],
   "person_town_9_shoes": [
-   0.0612,
-   0.0612,
-   0.0704
+   0.0437,
+   0.0887,
+   0.0331
   ],
   "person_town_9_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
-  "person_town_9_tail": [
-   0.063,
-   0.1046,
-   0.1651
+  "person_town_9_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_town_9_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_town_9_trouser": [
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_town_9_trousers": [
-   0.0612,
-   0.0612,
-   0.0704
+   0.1413,
+   0.0742,
+   0.0273
   ]
  }
 }

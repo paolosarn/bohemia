@@ -2881,7 +2881,9 @@
   },
   "face_name": "GAUNT",
   "top": "BONE HENLEY",
-  "coat": "DUST BROWN TRENCH"
+  "coat": "DUST BROWN TRENCH",
+  "legs": "BRICK CROP TROUSER",
+  "feet": "BONE STACK BOOT"
  },
  {
   "id": "town_1",
@@ -2911,7 +2913,9 @@
   "beard": "full",
   "mark_name": "BROKEN NOSE",
   "mark": "broken_nose",
-  "top": "OLIVE HENLEY"
+  "top": "OLIVE HENLEY",
+  "legs": "CROPPED WORK TROUSER",
+  "feet": "RUST BOOTS"
  },
  {
   "id": "town_2",
@@ -2940,7 +2944,10 @@
   "new_beard": "chin_strap",
   "eyewear": "FACE GREY WRAPAROUNDS",
   "top": "DUST PLAID SHIRT",
-  "coat": "SAGE CAR COAT"
+  "coat": "LEATHER JACKET",
+  "legs": "SOOT CARGOS",
+  "feet": "STACKED MID BOOT",
+  "kit": ["LEATHER BELT", "LEATHER GLOVES"]
  },
  {
   "id": "town_3",
@@ -2969,7 +2976,10 @@
   "mark_name": "CHEEK BURN",
   "mark": "cheek_burn",
   "top": "ARC LAYERED SHIRT",
-  "coat": "OLIVE CAR COAT"
+  "coat": "OLIVE CAR COAT",
+  "legs": "DUST TROUSERS",
+  "feet": "COAL MID BOOT",
+  "kit": ["TRAILING SCARF", "SALVAGE SATCHEL"]
  },
  {
   "id": "town_4",
@@ -2995,8 +3005,11 @@
    "face.foreheadW": 26
   },
   "face_name": "FLAT AND LOW",
-  "top": "ASH ARC SHIRT",
-  "coat": "STORM CHORE COAT"
+  "top": "BONE HENLEY",
+  "coat": "RUST WORK COAT",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": ["WIDE WAIST WRAP", "LEATHER GLOVES"]
  },
  {
   "id": "town_5",
@@ -3014,7 +3027,11 @@
   ],
   "face": null,
   "face_name": "THE STARRED FACE",
-  "top": "SLATE SHORT-SLEEVE"
+  "top": "KHAKI BUTTON-UP",
+  "coat": "LEATHER VEST",
+  "legs": "LEATHER STACK PANT",
+  "feet": "LEATHER STACK BOOT",
+  "kit": ["BONE SHOULDER DRAPE", "WORN BRACERS"]
  },
  {
   "id": "town_6",
@@ -3040,8 +3057,11 @@
   "face_name": "LANTERN JAW",
   "facial_hair": "FULL BEARD",
   "beard": "full",
-  "top": "COAL HOODIE",
-  "coat": "FIELD GREEN COAT"
+  "top": "SAND HOODIE",
+  "coat": "FIELD GREEN COAT",
+  "kit": ["OXBLOOD SCARF", "LEATHER BELT"],
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BROWN BOOTS"
  },
  {
   "id": "town_7",
@@ -3069,7 +3089,11 @@
   "face_name": "FLAT AND LOW",
   "mark_name": "BROKEN NOSE",
   "mark": "broken_nose",
-  "top": "VESTMENT GOLD SHIRT"
+  "top": "VESTMENT GOLD SHIRT",
+  "legs": "RUST CARGOS",
+  "feet": "RANCH BOOTS",
+  "kit": ["LEATHER BELT", "HAND WRAPS"],
+  "coat": "OXBLOOD JACKET"
  },
  {
   "id": "town_8",
@@ -3097,7 +3121,9 @@
   "new_beard": "chin_strap",
   "eyewear": "FACE RUST DUST MASK",
   "top": "WORK COVERALLS",
-  "coat": "OLIVE VEST"
+  "coat": "OLIVE VEST",
+  "kit": ["SCAV TOOL BELT", "LEATHER GLOVES"],
+  "feet": "COLUMN PANT-BOOT"
  },
  {
   "id": "town_9",
@@ -3125,8 +3151,11 @@
   "face_name": "HAWK",
   "facial_hair": "GOATEE",
   "beard": "goatee",
-  "top": "ROLLED WORK SHIRT",
-  "coat": "SPLIT-TAIL WORK COAT"
+  "top": "BONE HENLEY",
+  "coat": "SPLIT-TAIL WORK COAT",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "FIELD BOOTS",
+  "kit": ["FIELD LEG WRAPS", "CHARCOAL SCARF"]
  },
  {
   "id": "town_10",
@@ -3155,7 +3184,10 @@
   "mark_name": "LIP SCAR",
   "scar": "lip",
   "top": "RED SHIRT",
-  "coat": "OLIVE ASYM COAT"
+  "coat": "OLIVE ASYM COAT",
+  "legs": "DUST TROUSERS",
+  "feet": "SANDWALKERS",
+  "kit": ["BRICK SHOULDER ROLL", "LEATHER BELT"]
  },
  {
   "id": "town_11",
@@ -3183,7 +3215,10 @@
   "face_name": "HEAVY BROW",
   "facial_hair": "LONG BEARD",
   "new_beard": "long",
-  "top": "BLACK TANK"
+  "top": "RUST TANK",
+  "legs": "LEATHER STACK PANT",
+  "feet": "BONE STACK BOOT",
+  "kit": ["LEATHER BELT", "DUST SCARF", "SHELL BANDOLIER"]
  },
  {
   "id": "town_12",

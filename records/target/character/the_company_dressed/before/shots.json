@@ -1,0 +1,165 @@
+[
+ {
+  "profile": "phone_portrait",
+  "crewAtStart": false,
+  "town": true,
+  "openAtStart": "arena",
+  "townCrew": [
+   "person_town_5",
+   "person_town_4",
+   "person_town_2",
+   "person_town_6",
+   "person_town_7",
+   "person_town_8",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10",
+   "person_town_0",
+   "person_town_1"
+  ],
+  "hall": [
+   "person_town_9",
+   "person_homeless_2",
+   "person_homeless_0",
+   "person_homeless_1",
+   "person_blues_1",
+   "person_blues_0",
+   "person_blues_2",
+   "person_cartel_1"
+  ],
+  "crewScreen": true,
+  "crew": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "mapLeft": true,
+  "mapOpen": {
+   "open": null,
+   "frame": "none"
+  },
+  "mapParty": [
+   null,
+   "DESI",
+   "RAUL",
+   "TITO",
+   "BOOKIE",
+   "OSO",
+   "MARCOS",
+   "CHEWY",
+   "LALO",
+   "GRIZ",
+   "DEUCE",
+   "NENO"
+  ],
+  "fight": true,
+  "fightYou": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "fightCam": {
+   "x": 4.4,
+   "y": 8.1,
+   "zoom": 0.85
+  },
+  "errors": [],
+  "nErrors": 0
+ },
+ {
+  "profile": "phone_landscape",
+  "town": true,
+  "openAtStart": "lot",
+  "townCrew": [
+   "person_town_3",
+   "person_town_5",
+   "person_town_8",
+   "person_town_7",
+   "person_town_6",
+   "person_town_1",
+   "person_town_10",
+   "person_town_4",
+   "person_town_11",
+   "person_town_0",
+   "person_town_2"
+  ],
+  "hall": [
+   "person_town_9",
+   "person_homeless_2"
+  ],
+  "crewScreen": true,
+  "crew": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "mapLeft": true,
+  "mapOpen": {
+   "open": null,
+   "frame": "none"
+  },
+  "mapParty": [
+   null,
+   "DESI",
+   "RAUL",
+   "TITO",
+   "BOOKIE",
+   "OSO",
+   "MARCOS",
+   "CHEWY",
+   "LALO",
+   "GRIZ",
+   "DEUCE",
+   "NENO"
+  ],
+  "fight": true,
+  "fightYou": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10"
+  ],
+  "fightCam": {
+   "x": 4.6,
+   "y": 7.6,
+   "zoom": 0.85
+  },
+  "errors": [],
+  "nErrors": 0
+ }
+]

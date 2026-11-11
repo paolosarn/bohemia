@@ -1,15 +1,18 @@
 {
  "look": "PERSON_TOWN_2",
- "shape": "person_town_2: a person of the Body, his own skin skin_deep 4, DUST PLAID SHIRT under SLATE CAR COAT",
+ "shape": "person_town_2: a person of the Body, his own skin skin_deep 4, DUST PLAID SHIRT under LEATHER JACKET",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "DUST PLAID SHIRT",
-  "legs": "STACKED JERSEY PANT",
+  "legs": "SOOT CARGOS",
   "feet": "STACKED MID BOOT",
-  "outer": "SLATE CAR COAT",
+  "outer": "LEATHER JACKET",
+  "waist": "LEATHER BELT",
+  "hands": "LEATHER GLOVES",
   "outfit": [
-   "DUST PLAID SHIRT read as one with SAGE CAR COAT (111 and 99 of 255) and no colour of that top reads apart: the same coat in SLATE CAR COAT (77)",
-   "the sleeves pushed up the forearm"
+   "LEATHER JACKET worn open to the neck",
+   "the shirt's collar out over the lapels",
+   "the flannel's hem below the jacket"
   ]
  },
  "dials": {
@@ -20,14 +23,20 @@
  },
  "layers": {
   "base": {
-   "under": "CAR COAT",
+   "under": "JACKET",
+   "collar_out": 0.0199,
+   "hem_drop": 0.05,
    "arms_covered": true
   },
   "mid": {},
   "outer": {
    "lift": 0.0039,
-   "sleeve_to": 1.42,
-   "push": true
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.1
   }
  },
  "model": "records/character/rig/person_town_2.glb",
@@ -44,21 +53,27 @@
   "person_town_2_collar_points": 180,
   "person_town_2_placket": 162,
   "person_town_2_buttons": 204,
-  "person_town_2_tail": 2016,
-  "person_town_2_coat": 63632,
-  "person_town_2_coat_skirt": 5670,
-  "person_town_2_collar.001": 1536,
+  "person_town_2_tail": 2912,
+  "person_town_2_coat": 62670,
   "person_town_2_lapels": 396,
-  "person_town_2_pushed": 2048,
-  "person_town_2_pockets": 252,
-  "person_town_2_pocket_flaps": 252,
+  "person_town_2_zip": 324,
+  "person_town_2_waistband": 1792,
+  "person_town_2_cuffs": 2048,
   "person_town_2_trouser": 43706,
+  "person_town_2_rolled_hem": 2048,
+  "person_town_2_cargo_pockets": 252,
+  "person_town_2_cargo_flaps": 108,
   "person_town_2_sole_1": 242,
   "person_town_2_midsole_1": 242,
   "person_town_2_sole_0": 242,
   "person_town_2_midsole_0": 242,
   "person_town_2_boot_collar": 2048,
   "person_town_2_boot_collar_line": 2048,
+  "person_town_2_leather_belt": 1792,
+  "person_town_2_leather_belt_buckle": 34,
+  "person_town_2_leather_gloves_L": 392,
+  "person_town_2_leather_gloves_R": 392,
+  "person_town_2_leather_gloves_cuff": 2048,
   "person_town_2_hair": 17968,
   "person_town_2_hand_L": 392,
   "person_town_2_hand_R": 392
@@ -84,15 +99,20 @@
    0.2831,
    0.1221
   ],
-  "person_town_2_coat": [
-   0.0612,
-   0.0762,
-   0.0999
+  "person_town_2_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
   ],
-  "person_town_2_coat_skirt": [
-   0.0612,
-   0.0762,
-   0.0999
+  "person_town_2_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_2_coat": [
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_town_2_collar": [
    0.2423,
@@ -109,6 +129,11 @@
    0.8,
    0.8
   ],
+  "person_town_2_cuffs": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_town_2_eyes": [
    0.0212,
    0.0103,
@@ -120,9 +145,29 @@
    0.008
   ],
   "person_town_2_lapels": [
-   0.0262,
-   0.0319,
-   0.0437
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_town_2_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_2_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_town_2_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_2_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_town_2_midsole_0": [
    0.0152,
@@ -144,20 +189,10 @@
    0.8,
    0.8
   ],
-  "person_town_2_pocket_flaps": [
-   0.0262,
-   0.0319,
-   0.0437
-  ],
-  "person_town_2_pockets": [
-   0.0612,
+  "person_town_2_rolled_hem": [
+   0.0823,
    0.0762,
-   0.0999
-  ],
-  "person_town_2_pushed": [
-   0.0612,
-   0.0762,
-   0.0999
+   0.0823
   ],
   "person_town_2_shirt": [
    0.2423,
@@ -210,19 +245,24 @@
    0.8
   ],
   "person_town_2_trouser": [
-   0.0296,
-   0.0296,
-   0.0356
-  ],
-  "person_town_2_trouser_folds": [
-   0.0116,
-   0.0116,
-   0.0137
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_town_2_trousers": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_2_waistband": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_town_2_zip": [
+   0.0545,
+   0.0222,
+   0.0075
   ]
  }
 }

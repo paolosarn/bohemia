@@ -4,7 +4,7 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "BONE HENLEY",
-  "legs": "SLATE STACK PANT",
+  "legs": "BRICK CROP TROUSER",
   "feet": "BONE STACK BOOT",
   "outer": "DUST BROWN TRENCH",
   "back": "SHOULDER MANTLE",
@@ -59,7 +59,9 @@
   "person_town_0_cuffs.001": 2048,
   "person_town_0_belt": 1792,
   "person_town_0_buttons.001": 204,
-  "person_town_0_trouser": 43706,
+  "person_town_0_trouser": 35674,
+  "person_town_0_turn_up": 2048,
+  "person_town_0_turn_up_edge": 2048,
   "person_town_0_sole_1": 242,
   "person_town_0_midsole_1": 242,
   "person_town_0_sole_0": 242,
@@ -205,19 +207,24 @@
    0.1221
   ],
   "person_town_0_trouser": [
-   0.0612,
-   0.0762,
-   0.0999
-  ],
-  "person_town_0_trouser_folds": [
-   0.0262,
-   0.0319,
-   0.0437
+   0.2195,
+   0.0369,
+   0.0212
   ],
   "person_town_0_trousers": [
-   0.0612,
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_0_turn_up": [
+   0.3185,
    0.0762,
-   0.0999
+   0.0497
+  ],
+  "person_town_0_turn_up_edge": [
+   0.0931,
+   0.0168,
+   0.011
   ]
  }
 }

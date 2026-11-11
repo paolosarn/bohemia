@@ -1,15 +1,16 @@
 {
  "look": "PERSON_TOWN_4",
- "shape": "person_town_4: a person of the Body, his own skin skin_deep 3, ASH ARC SHIRT under BARN COAT",
+ "shape": "person_town_4: a person of the Body, his own skin skin_deep 3, BONE HENLEY under RUST WORK COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "ASH ARC SHIRT",
-  "feet": "COAL COLUMN",
-  "outer": "BARN COAT",
-  "waist": "LEAD WAIST WRAP",
+  "base": "BONE HENLEY",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "outer": "RUST WORK COAT",
+  "waist": "WIDE WAIST WRAP",
+  "hands": "LEATHER GLOVES",
   "outfit": [
-   "ASH ARC SHIRT read as one with STORM CHORE COAT (70 and 72 of 255) and no colour of that top reads apart: the same coat in BARN COAT (111)",
-   "the sleeve ends short of the cuff under it"
+   "the sleeves pushed up the forearm"
   ]
  },
  "dials": {
@@ -21,13 +22,13 @@
  "layers": {
   "base": {
    "under": "CHORE COAT",
-   "arms_covered": true,
-   "cuff_to": 1.89
+   "arms_covered": true
   },
   "mid": {},
   "outer": {
    "lift": 0.0039,
-   "sleeve_to": 1.7
+   "sleeve_to": 1.42,
+   "push": true
   }
  },
  "model": "records/character/rig/person_town_4.glb",
@@ -38,23 +39,37 @@
  "real_height_for_rig": 1.726,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_town_4_shoe": 3148,
+  "person_town_4_shoe": 3716,
   "person_town_4_shirt": 67584,
   "person_town_4_collar": 1536,
+  "person_town_4_placket": 126,
+  "person_town_4_buttons": 102,
   "person_town_4_cuffs": 2048,
   "person_town_4_hem": 1792,
-  "person_town_4_coat": 66600,
+  "person_town_4_coat": 63632,
   "person_town_4_coat_skirt": 3990,
   "person_town_4_collar.001": 1536,
   "person_town_4_lapels": 396,
-  "person_town_4_cuffs.001": 2048,
+  "person_town_4_pushed": 2048,
   "person_town_4_pockets": 252,
   "person_town_4_pocket_flaps": 252,
-  "person_town_4_column": 74570,
-  "person_town_4_column_sole_1": 242,
-  "person_town_4_column_sole_0": 242,
-  "person_town_4_lead_waist_wrap": 1792,
-  "person_town_4_lead_waist_wrap_edge": 1792,
+  "person_town_4_trouser": 43706,
+  "person_town_4_rolled_hem": 2048,
+  "person_town_4_cargo_pockets": 252,
+  "person_town_4_cargo_flaps": 108,
+  "person_town_4_sole_1": 242,
+  "person_town_4_midsole_1": 242,
+  "person_town_4_sole_0": 242,
+  "person_town_4_midsole_0": 242,
+  "person_town_4_boot_collar": 2048,
+  "person_town_4_boot_collar_line": 2048,
+  "person_town_4_eyelets_1": 120,
+  "person_town_4_eyelets_0": 120,
+  "person_town_4_wide_waist_wrap": 1792,
+  "person_town_4_wide_waist_wrap_edge": 1792,
+  "person_town_4_leather_gloves_L": 392,
+  "person_town_4_leather_gloves_R": 392,
+  "person_town_4_leather_gloves_cuff": 2048,
   "person_town_4_hair": 17968,
   "person_town_4_hand_L": 392,
   "person_town_4_hand_R": 392
@@ -65,40 +80,60 @@
    0.8,
    0.8
   ],
-  "person_town_4_coat": [
+  "person_town_4_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_town_4_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_4_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_town_4_cargo_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_town_4_cargo_pockets": [
    0.2307,
    0.1559,
    0.0578
+  ],
+  "person_town_4_coat": [
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_4_coat_skirt": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.2122,
+   0.0595,
+   0.0185
   ],
   "person_town_4_collar": [
-   0.0612,
-   0.0612,
-   0.0704
-  ],
-  "person_town_4_column": [
-   0.0296,
-   0.0296,
-   0.0356
-  ],
-  "person_town_4_column_sole_0": [
-   0.0116,
-   0.0116,
-   0.013
-  ],
-  "person_town_4_column_sole_1": [
-   0.0116,
-   0.0116,
-   0.013
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_cuffs": [
-   0.0612,
-   0.0612,
-   0.0704
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_town_4_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_4_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
   ],
   "person_town_4_eyes": [
    0.0212,
@@ -111,59 +146,109 @@
    0.008
   ],
   "person_town_4_hem": [
-   0.0612,
-   0.0612,
-   0.0704
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_lapels": [
-   0.1022,
-   0.0685,
-   0.0242
+   0.0865,
+   0.0252,
+   0.0091
   ],
-  "person_town_4_lead_waist_wrap": [
-   0.0612,
-   0.0762,
-   0.0999
+  "person_town_4_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
   ],
-  "person_town_4_lead_waist_wrap_edge": [
-   0.0262,
-   0.0319,
-   0.0437
+  "person_town_4_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_town_4_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_4_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_town_4_placket": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_pocket_flaps": [
-   0.1022,
-   0.0685,
-   0.0242
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_town_4_pockets": [
-   0.2307,
-   0.1559,
-   0.0578
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_town_4_pushed": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_town_4_rolled_hem": [
+   0.3864,
+   0.2664,
+   0.1119
   ],
   "person_town_4_shirt": [
-   0.0612,
-   0.0612,
-   0.0704
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_town_4_shoe": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0437,
+   0.0887,
+   0.0331
   ],
   "person_town_4_shoes": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0437,
+   0.0887,
+   0.0331
   ],
   "person_town_4_skin": [
    0.3419,
    0.1812,
    0.0999
   ],
+  "person_town_4_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_town_4_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_town_4_trouser": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
   "person_town_4_trousers": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_town_4_wide_waist_wrap": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_town_4_wide_waist_wrap_edge": [
+   0.0152,
+   0.013,
+   0.0152
   ]
  }
 }

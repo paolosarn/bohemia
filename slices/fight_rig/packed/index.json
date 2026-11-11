@@ -1034,76 +1034,76 @@
 "packedMB": 4.06
 },
 "person_town_0.webp": {
-"bytes": 307820,
+"bytes": 304464,
 "decodedMB": 17.69,
 "fill": 0.196,
 "packedMB": 4.03
 },
 "person_town_1.webp": {
-"bytes": 260766,
+"bytes": 268644,
 "decodedMB": 17.69,
 "fill": 0.191,
 "packedMB": 3.82
 },
 "person_town_10.webp": {
-"bytes": 271260,
+"bytes": 273802,
 "decodedMB": 17.69,
 "fill": 0.189,
 "packedMB": 3.81
 },
 "person_town_11.webp": {
-"bytes": 269314,
+"bytes": 281264,
 "decodedMB": 17.69,
 "fill": 0.188,
 "packedMB": 3.76
 },
 "person_town_2.webp": {
-"bytes": 278790,
+"bytes": 274540,
 "decodedMB": 17.69,
-"fill": 0.195,
-"packedMB": 4.01
+"fill": 0.194,
+"packedMB": 4.02
 },
 "person_town_3.webp": {
-"bytes": 281548,
-"decodedMB": 17.69,
-"fill": 0.189,
-"packedMB": 3.81
-},
-"person_town_4.webp": {
-"bytes": 274848,
-"decodedMB": 17.69,
-"fill": 0.191,
-"packedMB": 3.84
-},
-"person_town_5.webp": {
-"bytes": 260594,
-"decodedMB": 17.69,
-"fill": 0.186,
-"packedMB": 3.76
-},
-"person_town_6.webp": {
-"bytes": 294952,
-"decodedMB": 17.69,
-"fill": 0.192,
-"packedMB": 3.97
-},
-"person_town_7.webp": {
-"bytes": 266726,
-"decodedMB": 17.69,
-"fill": 0.191,
-"packedMB": 3.94
-},
-"person_town_8.webp": {
-"bytes": 260232,
+"bytes": 281554,
 "decodedMB": 17.69,
 "fill": 0.19,
-"packedMB": 3.81
+"packedMB": 3.92
+},
+"person_town_4.webp": {
+"bytes": 272318,
+"decodedMB": 17.69,
+"fill": 0.191,
+"packedMB": 3.91
+},
+"person_town_5.webp": {
+"bytes": 274406,
+"decodedMB": 17.69,
+"fill": 0.187,
+"packedMB": 3.75
+},
+"person_town_6.webp": {
+"bytes": 303190,
+"decodedMB": 17.69,
+"fill": 0.193,
+"packedMB": 3.95
+},
+"person_town_7.webp": {
+"bytes": 274298,
+"decodedMB": 17.69,
+"fill": 0.19,
+"packedMB": 3.91
+},
+"person_town_8.webp": {
+"bytes": 264054,
+"decodedMB": 17.69,
+"fill": 0.191,
+"packedMB": 3.82
 },
 "person_town_9.webp": {
-"bytes": 266064,
+"bytes": 275032,
 "decodedMB": 17.69,
-"fill": 0.189,
-"packedMB": 3.8
+"fill": 0.188,
+"packedMB": 3.77
 },
 "person_trades_0.webp": {
 "bytes": 329422,
@@ -1210,7 +1210,7 @@
 },
 "totals": {
 "decodedMB": 3997.0,
-"packedMB": 779.9,
+"packedMB": 780.0,
 "sheets": 201
 }
 }

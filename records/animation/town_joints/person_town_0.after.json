@@ -1,6 +1,6 @@
 {
 "what": "every pose's joints in the armature's space, metres of the model (k model units a real metre); f u l = forward, up, his left",
-"k": 0.8884975170342996,
+"k": 0.8885552604226815,
 "joints": [
 "P",
 "C",

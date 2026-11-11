@@ -4,10 +4,11 @@
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "BONE BUTTON-UP",
-  "legs": "SLATE WORK PANTS",
+  "legs": "DUST TROUSERS",
   "feet": "SANDWALKERS",
   "outer": "OLIVE ASYM COAT",
-  "back": "ONE-SHOULDER DRAPE",
+  "gear": "BRICK SHOULDER ROLL",
+  "waist": "LEATHER BELT",
   "outfit": [
    "RED SHIRT read as one with OLIVE ASYM COAT (78 and 76 of 255): the same cut in BONE BUTTON-UP (154)",
    "the sleeves pushed up the forearm"
@@ -54,8 +55,7 @@
   "person_town_10_pushed": 2048,
   "person_town_10_trouser": 43706,
   "person_town_10_rolled_hem": 2048,
-  "person_town_10_double_knee": 252,
-  "person_town_10_hammer_loop": 50,
+  "person_town_10_crease": 180,
   "person_town_10_sole_1": 242,
   "person_town_10_sole_0": 242,
   "person_town_10_strap_1_0": 90,
@@ -63,7 +63,9 @@
   "person_town_10_strap_0_0": 90,
   "person_town_10_strap_0_1": 90,
   "person_town_10_ankle_strap": 2048,
-  "person_town_10_one-shoulder_drape": 24748,
+  "person_town_10_brick_shoulder_roll": 2688,
+  "person_town_10_leather_belt": 1792,
+  "person_town_10_leather_belt_buckle": 34,
   "person_town_10_hair": 17968,
   "person_town_10_hand_L": 392,
   "person_town_10_hand_R": 392
@@ -78,6 +80,16 @@
    0.1356,
    0.0704,
    0.0203
+  ],
+  "person_town_10_brick_shoulder_roll": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_town_10_brick_shoulder_roll_ties": [
+   0.0931,
+   0.0168,
+   0.011
   ],
   "person_town_10_buttons": [
    0.2122,
@@ -104,15 +116,15 @@
    0.3231,
    0.2086
   ],
+  "person_town_10_crease": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
   "person_town_10_cuffs": [
    0.3763,
    0.3231,
    0.2086
-  ],
-  "person_town_10_double_knee": [
-   0.0612,
-   0.0762,
-   0.0999
   ],
   "person_town_10_eyes": [
    0.0212,
@@ -124,20 +136,20 @@
    0.0116,
    0.008
   ],
-  "person_town_10_hammer_loop": [
-   0.0262,
-   0.0319,
-   0.0437
-  ],
   "person_town_10_lapels": [
    0.0262,
    0.0331,
    0.0116
   ],
-  "person_town_10_one-shoulder_drape": [
-   0.0612,
-   0.0612,
-   0.0704
+  "person_town_10_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_town_10_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
   ],
   "person_town_10_placket": [
    0.3763,
@@ -150,9 +162,9 @@
    0.0262
   ],
   "person_town_10_rolled_hem": [
-   0.1248,
-   0.1559,
-   0.2016
+   0.4072,
+   0.2831,
+   0.1221
   ],
   "person_town_10_shirt": [
    0.3763,
@@ -210,14 +222,14 @@
    0.2086
   ],
   "person_town_10_trouser": [
-   0.0612,
-   0.0762,
-   0.0999
+   0.2423,
+   0.1529,
+   0.0561
   ],
   "person_town_10_trousers": [
-   0.0612,
-   0.0762,
-   0.0999
+   0.2423,
+   0.1529,
+   0.0561
   ]
  }
 }
