@@ -352,6 +352,18 @@
     out.push(P + '.slot b,' + P + '.slot em{white-space:nowrap!important;letter-spacing:0!important}');
     out.push(P + ' b.bic-pic{display:inline-block!important;--bic-tw:7px;--bic-rw:4px;font-size:0!important;line-height:0!important;color:transparent!important;text-shadow:none!important;overflow:hidden;flex:0 0 auto;padding:0!important;margin-top:2px;image-rendering:pixelated}'
       + P + ' b.bic-pic.bic-tiles{height:var(--bic-tw)!important}' + P + ' b.bic-pic.bic-rds{height:calc(var(--bic-rw) * 2)!important}');   /* '30-50' on one line in a stash box (it wrapped to two) */
+    /* __EVERY_BOX_A_BAR__: the piece's picture, then its bar in the label's own line (the label's 11 px, its words at no size), the
+       arrow over the bar's right end when the piece beats or loses to what he wears */
+    out.push(P + ' b.bic-val{position:relative!important;display:block!important;box-sizing:border-box!important;width:calc(100% - 6px)!important;max-width:none!important;height:11px!important;'
+      + 'margin:0 auto!important;padding:0!important;font-size:0!important;line-height:0!important;color:transparent!important;text-shadow:none!important;overflow:visible!important;'
+      + 'background-size:100% 5px!important;background-position:0 55%!important;background-repeat:no-repeat!important;background-origin:content-box!important;background-clip:content-box!important}'
+      /* a weapon keeps damage's picture before its bar (rule 275(b)); what holds needs none: its own picture is in the box, and the
+         crew screen's count stays 104 (rule 172(c), budget 105) */
+      + P + ' b.bic-val.bic-dmg{padding-left:12px!important}'
+      + P + ' b.bic-val.bic-dmg::before{content:""!important;position:absolute!important;left:0!important;top:1px!important;width:10px!important;height:10px!important;margin:0!important;display:block!important;'
+      + 'background:url(' + ICON('damage') + ') 0 0/10px 10px no-repeat!important;image-rendering:pixelated}'
+      + P + ' b.bic-val.bic-cmp-up::after,' + P + ' b.bic-val.bic-cmp-dn::after{content:"";position:absolute;right:-1px;bottom:7px;width:9px;height:9px;background:0 0/9px 9px no-repeat;image-rendering:pixelated;filter:drop-shadow(1px 1px 0 rgba(8,5,2,.85))}'
+      + P + ' b.bic-val.bic-cmp-up::after{background-image:var(--bst-arrow-up)}' + P + ' b.bic-val.bic-cmp-dn::after{background-image:var(--bst-arrow-dn)}');
     return out.join('\n');
   }
   /* which piece a box holds: the shop's tile (__it), a data-item, or a kit icon's data-id inside it */
@@ -394,6 +406,41 @@
       /* the words stay the label's own text (every screen and gate that reads it reads '1-4 TILES'), drawn at no size: the
          picture IS the label, one thing on the screen where the words were (the crew screen's count, rule 172(c)) */
       v.dataset.bicText = t; v.title = t; v.setAttribute('aria-label', t);
+    });
+    values(b);
+  }
+  /* __EVERY_BOX_A_BAR__ (UI THREE 11/11, asks 145 and 146 round four; the coordinator's 'the same icons and bars on every screen that
+     still shows bare numbers'). MEASURED (the crew screen, the stranger's six, the phone): his gear's boxes said 40, 50 and 24 (what a
+     hat, a vest and a car door hold) and the stash's said 30, 65, 110, 70, 115, 24, 32 and 30-50, 30-40, 40-60, coloured green or red
+     against what he wears: thirteen bare numbers in thirteen boxes. NOW each is a bar under the piece's own picture (a weapon's led by
+     damage's picture, as before) to the most any piece of its kind has (the item card's own tops: a blow 120, a vest or a hat
+     320, a shield 72; a weapon's low-to-high stretch lit, the low part dim), and a piece that beats or loses to what he wears says so
+     with the green up or the red down arrow beside its bar. The number itself is one tap away (the item card, rule 433). The label
+     keeps its words for the reader and every gate that reads them, drawn at no size; nothing changes size (rule 250). The crew screen,
+     the loot and the stash only: a shop's number is a price */
+  var VAL_ON = /ROSTER_SCREEN|SPOILS_SCREEN|STASH_SCREEN/;
+  function values(b) {
+    if (!VAL_ON.test(location.pathname)) return;
+    var p = pieceOf(b); if (!p || !p.kind) return;
+    [].forEach.call(b.children, function (v) {
+      if (v.tagName !== 'B' || v.classList.contains('arm') || v.classList.contains('bic-pic')) return;
+      var t = (v.dataset.bicVal != null && v.classList.contains('bic-val')) ? v.dataset.bicVal : v.textContent.replace(/\s+/g, ' ').trim();
+      var m = t.match(/^(\d+)-(\d+)$/), n = t.match(/^(\d+)$/), bar = null;
+      if (m && p.kind === 'weapon') bar = { lo: +m[1], hi: +m[2], max: MAX.damage, tint: TINT.damage, icon: 'damage' };
+      else if (n && /^(body|head|shield)$/.test(p.kind)) bar = { lo: null, hi: +n[1], max: MAX[p.kind], tint: TINT.armour, icon: 'armour' };
+      if (!bar) { if (v.classList.contains('bic-val')) { v.classList.remove('bic-val', 'bic-dmg', 'bic-cmp-up', 'bic-cmp-dn'); v.style.backgroundImage = ''; } return; }
+      var key = t + '|' + v.className.replace(/\s*bic-[a-z-]+/g, '');
+      if (v.dataset.bicKey === key) return;
+      var lo = bar.lo != null ? bar.lo : 0, hi = bar.hi, P = function (x) { return pct(x / bar.max); }, c = 'rgba(' + bar.tint + ',';
+      var L = ['linear-gradient(to right,transparent ' + P(lo) + ',' + c + '.9) ' + P(lo) + ',' + c + '.9) ' + P(hi) + ',transparent ' + P(hi) + ')'];
+      if (bar.lo != null) L.push('linear-gradient(to right,' + c + '.32) 0,' + c + '.32) ' + P(lo) + ',transparent ' + P(lo) + ')');
+      L.push('linear-gradient(var(--bic-vtrack,rgba(8,6,4,.62)),var(--bic-vtrack,rgba(8,6,4,.62)))');
+      v.style.backgroundImage = L.join(',');
+      v.classList.add('bic-val'); v.classList.toggle('bic-dmg', bar.icon === 'damage');
+      v.classList.toggle('bic-cmp-up', v.classList.contains('up')); v.classList.toggle('bic-cmp-dn', v.classList.contains('dn'));
+      v.dataset.bicVal = t; v.dataset.lo = lo; v.dataset.hi = hi; v.dataset.max = bar.max; v.dataset.fill = (hi / bar.max).toFixed(5);
+      v.title = t; v.setAttribute('aria-label', (bar.icon === 'damage' ? 'damage ' : 'holds ') + t + (v.classList.contains('up') ? ', better than his' : v.classList.contains('dn') ? ', worse than his' : ''));
+      v.dataset.bicKey = t + '|' + v.className.replace(/\s*bic-[a-z-]+/g, '');
     });
   }
   var pending = false;

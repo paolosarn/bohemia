@@ -77,6 +77,21 @@ function want(kind, id) {   /* what every cell must say */
   return { armour: row.durability, weight: f, initiative: f };
 }
 
+/* ---------------- a PNG's pixels (Chromium's own shots: 8 bits, RGBA), for reading a bar off the glass ---------------- */
+const zlib = require('zlib');
+function pngRGBA(buf) {
+  let o = 8, w = 0, h = 0, ct = 6; const idat = [];
+  while (o < buf.length) { const len = buf.readUInt32BE(o), type = buf.toString('ascii', o + 4, o + 8), d = buf.slice(o + 8, o + 8 + len);
+    if (type === 'IHDR') { w = d.readUInt32BE(0); h = d.readUInt32BE(4); ct = d[9]; } else if (type === 'IDAT') idat.push(d); else if (type === 'IEND') break; o += 12 + len; }
+  const ch = ct === 6 ? 4 : 3, raw = zlib.inflateSync(Buffer.concat(idat)), stride = w * ch, px = Buffer.alloc(w * h * ch), prev = Buffer.alloc(stride), cur = Buffer.alloc(stride); let q = 0;
+  for (let y = 0; y < h; y++) { const f = raw[q++]; raw.copy(cur, 0, q, q + stride); q += stride;
+    for (let i = 0; i < stride; i++) { const a = i >= ch ? cur[i - ch] : 0, bb = prev[i], c = i >= ch ? prev[i - ch] : 0; let v = cur[i];
+      if (f === 1) v += a; else if (f === 2) v += bb; else if (f === 3) v += (a + bb) >> 1; else if (f === 4) { const pp = a + bb - c, pa = Math.abs(pp - a), pb = Math.abs(pp - bb), pc = Math.abs(pp - c); v += (pa <= pb && pa <= pc) ? a : (pb <= pc ? bb : c); }
+      cur[i] = v & 255; }
+    cur.copy(px, y * stride); cur.copy(prev); }
+  return { w, h, ch, at: (x, y) => { const i = (y * w + x) * ch; return [px[i], px[i + 1], px[i + 2]]; } };
+}
+
 /* ---------------- the server, which can plant a defect ---------------- */
 const HOST = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;height:100%;background:#120e0a}</style></head><body>'
   + '<script>window.BOH_START={picks:function(){return window.__PICKS;}};window.__PICKS=null;</script><script src="engine/bohemia_crew_door.js"></script></body></html>';
@@ -303,6 +318,36 @@ async function crewAndLoot(b, prof, plant, legs) {
     const grew = bag.concat(gear).map((x, i) => { const y = bag0.concat(gear0)[i]; return y && x.rect.some((v, j) => Math.abs(v - y.rect[j]) > PX) ? i : -1; }).filter(i => i >= 0);
     const full = bag.filter(x => x.id).length;
     legs.B3 = ok(prof.name + ' B3 THE CREW SCREEN: the stash (' + bag.length + ', ' + full + ' full) and his gear (' + gear.length + ') dressed, every frame its piece\'s quality, none changed size', bag.length > 0 && full >= 5 && !cb.length && !grew.length, cb.concat(grew.length ? [grew.length + ' grew'] : []).slice(0, 4).join('; '));
+    /* V __EVERY_BOX_A_BAR__ (11/11, asks 145 and 146 round four): every number a box on the crew screen said (his gear's 40, 50, 24;
+       the stash's 65, 110, 30-50) is the piece's picture and its bar to the most any piece of its kind has, read OFF THE GLASS: the
+       fill's lit stretch measured in the pixels, within a pixel and a half of the number the files give over the files' own top; the
+       number itself not on the glass; damage's picture on a weapon, the carrier on what holds; the green up or red down arrow exactly
+       where the screen marks the piece better or worse than what he wears */
+    const vals = await fr.evaluate(() => { const out = [], R = getComputedStyle(document.documentElement), U = (R.getPropertyValue('--bst-arrow-up') || document.documentElement.style.getPropertyValue('--bst-arrow-up')).trim(), D = (R.getPropertyValue('--bst-arrow-dn') || document.documentElement.style.getPropertyValue('--bst-arrow-dn')).trim();
+      const norm = x => String(x || '').replace(/^url\(["']?|["']?\)$/g, '');
+      document.querySelectorAll('#bag .slot, .gslot, #picker .slot').forEach(s => { [].forEach.call(s.children, v => { if (v.tagName !== 'B' || v.classList.contains('arm')) return;
+        const t = v.textContent.replace(/\s+/g, ' ').trim(); if (!/^\d+(-\d+)?$/.test(t)) return;
+        const cs = getComputedStyle(v), r = v.getBoundingClientRect(), be = getComputedStyle(v, '::before'), af = getComputedStyle(v, '::after'), ic = s.querySelector('[data-id]');
+        out.push({ id: ic && ic.getAttribute('data-id'), t, up: v.classList.contains('up'), dn: v.classList.contains('dn'), shown: parseFloat(cs.fontSize) > 0 && cs.color !== 'rgba(0, 0, 0, 0)',
+          padL: parseFloat(cs.paddingLeft) + parseFloat(cs.borderLeftWidth || 0), rect: [r.left, r.top, r.width, r.height], pic: be.backgroundImage,
+          arrow: af.content !== 'none' && af.backgroundImage !== 'none' ? (norm(af.backgroundImage) === norm(U) ? 'up' : norm(af.backgroundImage) === norm(D) ? 'dn' : '?') : null }); }); });
+      return out; });
+    const fb = await (await fr.frameElement()).boundingBox(), dpr = prof.ctx.deviceScaleFactor || 1, vb = [];
+    for (const x of vals) {
+      const kind = x.id ? kindOf(x.id) : null; if (!kind) { vb.push(x.t + ' in a box with no piece'); continue; }
+      const w = want(kind, x.id), lohi = kind === 'weapon' ? w.damage : [0, kind === 'shield' ? w.holds : w.armour], max = MAX[kind === 'weapon' ? 'damage' : kind];
+      if (!lohi || x.t !== (kind === 'weapon' ? lohi[0] + '-' + lohi[1] : String(lohi[1]))) { vb.push(x.id + ' says ' + x.t + ', the files ' + (lohi || []).join('-')); continue; }
+      if (x.shown) vb.push(x.id + ' ' + x.t + ' still on the glass as a number');
+      if (kind === 'weapon' ? !/stat_icons\/damage\.png/.test(x.pic) : x.pic && x.pic !== 'none') vb.push(x.id + ' its picture ' + String(x.pic).slice(-30));
+      if ((x.up ? 'up' : x.dn ? 'dn' : null) !== x.arrow) vb.push(x.id + ' arrow ' + x.arrow + ' want ' + (x.up ? 'up' : x.dn ? 'dn' : 'none'));
+      const L = x.rect[0] + x.padL, W2 = x.rect[2] - x.padL, y = x.rect[1] + x.rect[3] * 0.55;
+      const shot = pngRGBA(await p.screenshot({ clip: { x: fb.x + L, y: fb.y + y - 1, width: W2, height: 2 } }));
+      const lit = (c) => kind === 'weapon' ? c[0] - Math.max(c[1], c[2]) > 70 : c[2] - c[0] > 40 && c[2] > 90;
+      let first = -1, last = -1; for (let i = 0; i < shot.w; i++) if (lit(shot.at(i, Math.min(shot.h - 1, Math.round(dpr))))) { if (first < 0) first = i; last = i; }
+      const end = (last + 1) / dpr, start = first / dpr, wantEnd = W2 * lohi[1] / max, wantStart = W2 * lohi[0] / max;
+      if (last < 0 || Math.abs(end - wantEnd) > 1.5 || (kind === 'weapon' && Math.abs(start - wantStart) > 1.5)) vb.push(x.id + ' ' + x.t + ': lit ' + start.toFixed(1) + ' to ' + end.toFixed(1) + ' of ' + W2.toFixed(1) + ' px, want ' + wantStart.toFixed(1) + ' to ' + wantEnd.toFixed(1));
+    }
+    legs.V1 = ok(prof.name + ' V1 EVERY BOX A BAR (the crew screen): ' + vals.length + ' numbers in his gear and the stash, each its picture and its bar to its kind\'s top read off the glass within a pixel and a half, the number off the glass, the arrow where it beats or loses to his', vals.length >= 10 && !vb.length, vb.slice(0, 4).join('; '));
     /* the end of a fight, its sample spoils */
     await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_SPOILS_SCREEN.html', { waitUntil: 'load' });
     await p.waitForFunction(() => window.BohemiaItemCard && document.querySelectorAll('.slot.bib[data-bq]').length > 0, null, { timeout: 20000 }).catch(() => {});
@@ -324,6 +369,8 @@ const PLANTS = [
   { name: 'a quality turned round', want: ['B1'], plant: { '/slices/bohemia_ui_three_items.js': [["return q < 0.34 ? 'worn' : q < 0.67 ? 'solid' : 'good';", "return q < 0.34 ? 'good' : q < 0.67 ? 'solid' : 'worn';"]] } },
   { name: 'a word put back on the strip', want: ['W1'], plant: { '/slices/bohemia_ui_three_items.js': [["s.appendChild(el('i', 'bic-sr', word + ' '));", "s.appendChild(el('i', 'bic-word', word + ' '));"]] } },
   { name: 'the comparison shown at rest (rule 433)', want: ['R1'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["#sheet .slot .upm{visibility:hidden}#sheet .slot.sel .upm{visibility:visible}", ""], ["'#shopstrip .onman.ss-empty{visibility:hidden}'", "''"]] } },
+  { name: 'a box\'s bar to half its top', want: ['V1'], where: 'crew', plant: { '/slices/bohemia_ui_three_items.js': [["bar = { lo: null, hi: +n[1], max: MAX[p.kind], tint", "bar = { lo: null, hi: +n[1], max: MAX[p.kind] / 2, tint"]] } },
+  { name: 'a box\'s number put back on the glass', want: ['V1'], where: 'crew', plant: { '/slices/bohemia_ui_three_items.js': [["font-size:0!important;line-height:0!important;color:transparent!important;text-shadow:none!important;overflow:visible!important;", "font-size:11px!important;line-height:11px!important;color:#fff!important;text-shadow:none!important;overflow:visible!important;"]] } },
   { name: 'a pip short', want: ['W3', 'C1'], plant: { '/slices/bohemia_ui_three_items.js': [["var lit = Math.max(0, Math.min(c.pips.of, c.pips.n | 0))", "var lit = Math.max(0, Math.min(c.pips.of, (c.pips.n | 0) - 1))"]] } }
 ];
 
@@ -340,10 +387,12 @@ const PLANTS = [
     const L = {}; await shop(b, PROFS[k], null, L); await crewAndLoot(b, PROFS[k], null, L);
     ok(k + ' Z nothing thrown', !L.errs.length, L.errs.slice(0, 2).join(' | ') || 'none');
   }
+  /* the phone on its side (rule 441(a)): the crew screen and the loot */
+  if (!ONLY_PLANTS && (!ONLY || ONLY === 'phone')) { console.log('-- phone sideways'); const L = {}; await crewAndLoot(b, { name: 'phone sideways', ctx: { viewport: { width: 844, height: 390 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true } }, null, L); ok('phone sideways Z nothing thrown', !L.errs.length, L.errs.slice(0, 2).join(' | ') || 'none'); }
   if (PLANT || ONLY_PLANTS) {
     console.log('-- the plants (the phone)');
     for (const pl of PLANTS) {
-      const L = {}; QUIET = true; await shop(b, PROFS.phone, pl.plant, L); QUIET = false;
+      const L = {}; QUIET = true; if (pl.where === 'crew') await crewAndLoot(b, PROFS.phone, pl.plant, L); else await shop(b, PROFS.phone, pl.plant, L); QUIET = false;
       const red = pl.want.filter(w => L[w] === false);
       ok('M ' + pl.name + ' turns ' + pl.want.join(' and ') + ' red', red.length === pl.want.length, 'red: ' + red.join(',') + ' of ' + pl.want.join(','));
     }

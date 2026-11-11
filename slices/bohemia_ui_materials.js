@@ -1400,8 +1400,10 @@
     + 'html body #cityfeedclock{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;color:#eadcb4}'
     + 'html body #cityfeedsig{color:#c4b690}'
     + 'html body #cityfeedbatt{--skin-batt:#c4b690}'
-    /* the posts: the handle stamped in CASING, the words printed in ROM, every ink 4.5 to 1 in the sun */
-    + 'html body #cityfeed .fp .who{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;color:#ead08e}'
+    /* the posts: the handle and the words printed in ROM, every ink 4.5 to 1 in the sun. UI THREE 11/11, ask row 559 (PLUMBER 8,
+       THE CASING FACE): the handles ('@waterline', '@marisol_v') are lowercase and CASING is caps only, so on his phone each fell
+       back to another font; the handle now prints in the feed's own ROM, its gold and its size kept. */
+    + 'html body #cityfeed .fp .who{font-family:"BohemiaROM",ui-monospace,monospace;font-size:9px;letter-spacing:.5px;color:#ead08e}'
     + 'html body #cityfeed .fp.mine .who{color:#a8f0e2} html body #cityfeed .fp.world .who{color:#f0c47e}'
     + 'html body #cityfeed .fp .txt{font-family:"BohemiaROM",ui-monospace,monospace;color:#ddd2b6}'
     /* the family: cardboard cards, read from the left, the one you are lit amber, 44 points each */
@@ -1409,7 +1411,9 @@
     + 'html body #actflip .af{min-width:44px;min-height:44px;box-sizing:border-box;border:0;border-radius:2px;padding:3px 2px 4px;'
     +   'background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/128px 128px;'
     +   'box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 1px 0 #000}'
-    + 'html body #actflip .af .afn{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.3px;line-height:1.1;color:#f2e4c6}'
+    /* UI THREE 11/11 (ask row 559, THE CASING FACE): a family card's name ('Cyrus') is mixed case in the caps-only CASING, so its
+       small letters fell back to another font; stamped in capitals like every name on a card (the hall's JAMAL VANCE) */
+    + 'html body #actflip .af .afn{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.3px;line-height:1.1;color:#f2e4c6;text-transform:uppercase}'
     + 'html body #actflip .af .afy{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:7px;letter-spacing:.4px;color:#e0c890;opacity:1}'
     + 'html body #actflip .af.now{background:linear-gradient(#f4cf7c,#d9a650);border:0;box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55),0 1px 0 #000}'
     + 'html body #actflip .af.now .afn{color:#120c06} html body #actflip .af.now .afy{color:#3a2208}'
