@@ -113,7 +113,10 @@ strangers slip into Spanish about 4 lines in 10 (583); a dead block name off the
 THE GAME, measured on the page first: 572 (the gate served the site without its engine folder), 573 (the bottle lands at the chance
 shown: 4,000 throws; the gate's 120 were one fixed deal), 565 (the gates pressed LEAVE a second before the end screen was on the
 glass), 591 (the door's own words are 107 characters; the rest are the new game's picks). 575 was already right. THE RED DEBT 382 to
-370 NAMED. NOT REPRODUCED: 555 / 605 (the boss fight's quiet turn). NEXT: EYES' 606, 611, 607, 612, 609, then the rest of the debt.
+370 NAMED. THEN BUILD 11/11q - THEIR PLACE, NEVER CUSTOM (609, FOUND BY EYES): the feed never prints the file's word for his own
+place ('came into Custom off Rainbow'): his name for it, else 'their place'; no 'new faces in town' about his own home; both ways, a
+planted fail. NOT REPRODUCED: 555 / 605 (the boss fight's quiet turn). NEXT: EYES' 606, 611, 607, 612, then the rest of the debt
+(WORLD 14 took 579, 593, 595).
 The whole block: handoffs/FIXES_TWO.md.
 [bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
 [analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]

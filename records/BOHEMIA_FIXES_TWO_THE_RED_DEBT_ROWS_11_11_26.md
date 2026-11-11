@@ -99,6 +99,21 @@ or ALREADY GREEN ON MAIN.
   with its failing line in gates/BOHEMIA_QUARANTINE.txt; next round, the same order.
 - 606, 607, 609, 611, 612 (FOUND BY EYES 11/11): next round, before the stale checkers.
 
+## ROUND ONE, SECOND SHIP: BUILD 11/11q - THEIR PLACE, NEVER CUSTOM (ask row 609, FOUND BY EYES 11/11)
+- 'came into Custom off Rainbow'. His own place's key in the files is canon's word for his outfit. The map's plate already shows
+  his name for it (homeLabel); the feed's fire() and ctx() passed LOOP.open.name and nearTown() raw, so every post kind with {town}
+  could print the key when he stood at or nearest his own place.
+- THE FIX (slices/BOHEMIA_CITY_WORLD.html __THE_CANON_WORD_IS_NEVER_SHOWN__): every town a post names goes through shownTown: his
+  place by the name he gave it (title case), else 'their place' (the valley talking about his crew; draft:true); 'town.entered'
+  ('new faces in town') is never fired for his own place.
+- PROOF ON THE PAGE, the demo upright and on its side: the key 'Custom' is said as 'their place'; another town stays 'Network';
+  a man hired there is taken (1 post queued); a walk into his own place posts nothing (0), into another town does (1).
+  GATE THE FOURTEEN EYES FOUND, leg F609, 3/0, PLANTED (the mapping taken out of the map's page: 'Custom' printed, the walk-in posted).
+- ALSO: the VOTE card's why cut to two sentences (the VOTE TAB's own rule; its other reds there are older cards' and the alpha's
+  landing leg, as FIXES one's handoff said).
+- MEANWHILE ON MAIN (other lanes took rows of this list, the coordinator's round): 579, 593, 595 FIXED by WORLD 14 (11/11o); 584 by
+  COOK FIVE; 586 by WORLD 13; 587 by BOSSES; 574 PARTLY by BESTIARY.
+
 ## THE PROBES (scratch tools, kept as the method; none ship)
 serve the repo's three published roots at /, a phone context (touch, mobile, the service worker blocked when a request is held),
 every pageerror with its stack, every 4xx. The stranger's walk; setItem wrapped to name who writes a save; focus/input traced on

@@ -882,6 +882,35 @@ async function f55x(shape) {
   await p.context().close();
 }
 
+/* ---------------- F609 (FIXES 2 11/11, ask row 609, FOUND BY EYES 11/11: 'came into Custom off Rainbow') ----------------
+   THE FEED NEVER PRINTS THE CANON WORD FOR HIS OWN PLACE (demo, both shapes): the name the feed prints for his place (the feed's own
+   shownTown, the one every post's {town} goes through) is never the file's key; a post about a man hired there and a job done
+   there is taken (queued) with the shown name; 'new faces in town' is never posted about his own place, and still is about
+   another town.  PLANT: the map's page served with the mapping taken out (the key printed, the walk-in posted). */
+async function f609(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(String(e && e.stack || e).slice(0, 300)));
+  if (plant) await p.route(/BOHEMIA_CITY_WORLD\.html/, async route => { const r = await route.fetch(); const b = (await r.text())
+    .replace("if (tr === 'town.entered' && hisPlace(d.town)) return 0;", '').replace("if (!hisPlace(t)) return t;", 'return t;'); await route.fulfill({ response: r, body: b }); });
+  await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await throughTheTitle(p);
+  for (let i = 0; i < 240; i++) { if (await p.evaluate(() => { const b = document.getElementById('fronttap'); return !!(b && /BEGIN/.test(b.innerText)); }).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1000); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let fr = null; for (let i = 0; i < 240 && !fr; i++) { await p.waitForTimeout(250); const c = p.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url())); if (c && await c.evaluate(() => !!(window.BohemiaFeed && BohemiaFeed.ready() && typeof homeMine === 'function')).catch(() => false)) fr = c; }
+  if (!fr) { ok('F609 ' + shape + (plant ? ' PLANTED' : '') + ': the map and its feed are up', false, 'no feed'); await ctx.close(); return; }
+  const r = await fr.evaluate(() => { const mine = homeMine(), F = BohemiaFeed, sh = F.shownTown ? F.shownTown(mine) : mine;
+    return { mine, shown: sh, other: F.shownTown ? F.shownTown('Network') : 'Network', walkIn: F.fire('town.entered', { town: mine }), walkInOther: F.fire('town.entered', { town: 'Network' }),
+      hired: F.fire('man.hired', { man: 'TESTO', background: 'militia', town: mine, crew: 4 }), read: F.read({}).map(q => String(q.txt || q.text || '')) }; });
+  const word = new RegExp('\\b' + r.mine + '\\b', 'i'), leak = word.test(String(r.shown)) || r.read.some(t => word.test(t));
+  if (!plant) ok('F609 ' + shape + ': the feed never prints the canon word for his own place (its key "' + r.mine + '" is said as "' + r.shown + '"; another town stays "' + r.other + '"; a man hired there is posted (' + r.hired + '), a walk into his own place is not (' + r.walkIn + '), into another town is (' + r.walkInOther + '))',
+    !leak && !!r.shown && r.other === 'Network' && r.walkIn === 0 && r.walkInOther >= 1 && r.hired >= 1 && p.__errs.length === 0, JSON.stringify(r).slice(0, 300) + (p.__errs[0] || ''));
+  else ok('F609 ' + shape + ' PLANTED (the mapping taken out of the map\'s page): the leg sees the key printed ("' + r.shown + '") and the walk-in posted (' + r.walkIn + ')', leak && r.walkIn >= 1, JSON.stringify(r).slice(0, 200));
+  await ctx.close();
+}
+
 (async () => {
   await new Promise(r => srv.listen(0, '127.0.0.1', r)); BASE = 'http://127.0.0.1:' + srv.address().port;
   browser = await chromium.launch();
@@ -900,6 +929,8 @@ async function f55x(shape) {
     /* THE FIVE EYES FOUND NEXT (rows 550 to 554) */
     if (want('F558')) await f558();
     for (const s of SH) { if (want('F554')) await f554(s); if (want('F550')) { await f550(s, false); await f550(s, true); } if (want('F551') || want('F552') || want('F553')) await f55x(s); }
+    /* FOUND BY EYES 11/11 (rows 605 to 612), FIXES 2 */
+    for (const s of SH) { if (want('F609')) { await f609(s, false); if (s === SH[0]) await f609(s, true); } }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();
   console.log('THE FOURTEEN EYES FOUND: ' + pass + ' passed, ' + fail + ' failed');

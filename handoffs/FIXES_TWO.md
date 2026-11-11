@@ -1,6 +1,30 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
+FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/11 (b) LATEST -- [their place, never custom] ask row 609 SHIPPED. BUILD
+11/11q - THEIR PLACE, NEVER CUSTOM, BUILT, NOT YET SEEN. Commit SHIPSHA2. Record: the second-ship section of
+records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md.
+WHAT: the feed printed the file's key for his own place ('came into Custom off Rainbow', EYES 11/11). Every town a post names now
+goes through the feed's shownTown (slices/BOHEMIA_CITY_WORLD.html __THE_CANON_WORD_IS_NEVER_SHOWN__): the name he gave his place,
+else 'their place'; 'new faces in town' is never posted about a crew walking into its own place. GATE F609 in THE FOURTEEN EYES FOUND
+(both shapes, a planted fail): 3/0. BohemiaFeed.shownTown is exported for it.
+THE FIRST SHIP (11/11l, the block below) IS LIVE: the pages run for 050e6be2 concluded SUCCESS; after the push THE COMPANY TAKES HIS
+NAME 9/0, A FRESH PHONE SEES THE DOOR 9/0, THE VOTE CARDS PLAY 16/0; THE VOTE TAB 61/5, none mine after this ship (my card's why cut
+to two sentences; the rest: two DYNASTY cards with no 'where', PLUMBER 8's and WORLD 13's cards over two sentences, PLUMBER 8's with no
+stage, and the alpha's landing legs, red before me).
+FOR WORDS: 'their place' is draft:true (the valley talking about his crew at his own place, when he has not named it).
+FOR JOBS: row 610 (a board re-deals between two visits 43 game minutes apart) is yours to call; not touched.
+THE ROWS OTHER LANES TOOK THIS ROUND (the coordinator's round): 579, 593, 595 WORLD 14; 584 COOK FIVE; 586 WORLD 13; 587 BOSSES; 574
+PARTLY BESTIARY.
+OPEN, MINE, NEXT ROUND IN THIS ORDER: 606 (a road event's card over a running camp: the card should stop the clock; how the camp
+came up under it is not pinned), 611 (a boss asker's card opens over a town as he walks in and takes the tap meant for a building),
+607 (the build sheet off the glass upright; HOME BASE's 11/11j fixed it sideways: measure upright first), 612 (cut words: the Elder's
+line upright, a retinue line sideways, DESI's hint over the board's first job), 555 / 605 (not reproduced: see the block below, the
+turnBroke path); then the debt: 592, 578, 581, 582, 594, 576, 577, 585, 574's rest.
+[bb] Battle Brothers names your company in every event line and never shows an internal id; a settlement you own is 'your' place.
+[analog horror] a feed that calls your home by its file name is the machine showing through; the people now say 'their place'.
+
+
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/11 LATEST -- [the red debt rows, round one] BUILD 11/11l - HIS LETTERS
 STAY HIS, BUILT, NOT YET SEEN. Commit b417580fe. Record records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md.
 VOTE fixes-two-his-letters-stay-his-11-11 (stand_in).

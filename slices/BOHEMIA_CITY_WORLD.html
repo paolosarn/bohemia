@@ -92766,7 +92766,7 @@ window.BOHEMIA_FEED = (function(){
   function ctx(){
     var c = { night_to: 6 };
     var nm = companyName(); if (nm) { c.company = nm; c.companyhandle = nm.toLowerCase().replace(/[^a-z0-9]+/g, ''); }
-    try { c.town = (LOOP.open && LOOP.open.name) || nearTown(); } catch(_e){}
+    try { c.town = shownTown((LOOP.open && LOOP.open.name) || nearTown()); } catch(_e){}
     try { c.night_from = Math.floor(NIGHT_FROM / 60); } catch(_e){}
     var d = districtAt(); if (d) c.district = d;
     var rd = roadAt(d); if (rd) c.road = rd;
@@ -92776,7 +92776,20 @@ window.BOHEMIA_FEED = (function(){
     var mm = minute() || 0; c.minutes = 2 + (Math.abs(mm * 7) % 17);          /* the bus that is always some minutes away */
     return c;
   }
+  /* __THE_CANON_WORD_IS_NEVER_SHOWN__ (FIXES 2 11/11, ask row 609, FOUND BY EYES 11/11: 'came into Custom off Rainbow'; rule 442(c)).
+     His own place's key in the files is canon's word for his outfit; the map's plate already shows his name for it (homeLabel), the
+     feed printed the key. A post about his place says the name he gave it, else 'their place' (the valley talking about his crew);
+     and nobody posts 'new faces in town' about a crew walking into its own home. */
+  function hisPlace(t){ try { return !!t && typeof homeMine === 'function' && mapNorm(t) === mapNorm(homeMine()); } catch(_e){ return false; } }
+  function shownTown(t){
+    if (!hisPlace(t)) return t;
+    try { var L = typeof homeLabel === 'function' ? homeLabel() : null, N = (HOME && HOME.data && HOME.data.names) || {};
+      if (L && L !== N['default'] && L !== N.before && mapNorm(L) !== mapNorm(homeMine())) return String(L).toLowerCase().replace(/(^|[\s'-])([a-z])/g, function(m, a, b){ return a + b.toUpperCase(); });
+    } catch(_e){}
+    return 'their place';   /* draft:true */
+  }
   function fire(tr, d){
+    if (d && d.town != null) { if (tr === 'town.entered' && hisPlace(d.town)) return 0; d.town = shownTown(d.town); }
     if (!E || !booted) { early.push([tr, d]); if (early.length > 60) early.shift(); return 0; }
     try { return E.fire(tr, d || {}); } catch(_e){ return 0; }
   }
@@ -93058,6 +93071,7 @@ window.BOHEMIA_FEED = (function(){
     on: function(fn){ if (typeof fn !== 'function') return function(){}; EARS.push(fn); return function(){ var i = EARS.indexOf(fn); if (i >= 0) EARS.splice(i, 1); }; },
     company: function(q){ q = q || {}; q.account = 'company'; return E ? E.read(q) : []; },
     fire: fire,
+    shownTown: shownTown,   /* the name a post prints for a place (row 609: never the canon key of his own) */
     ready: function(){ return !!(E && booted); },
     stats: function(){ return E ? E.stats() : null; },
     kinds: function(){ return E ? E.kinds() : []; },

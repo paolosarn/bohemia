@@ -19047,7 +19047,7 @@
    "draft": true,
    "title": "HIS LETTERS STAY HIS: THE CREW NAME HE TYPES IS NEVER EATEN, AND A FRESH PHONE KEEPS NO SAVE UNTIL NEW GAME",
    "said": "FOUND BY PLUMBER 8 11/10 (the red debt, ask rows 580 and 590): he types LOS HERMANOS and gets NOS",
-   "why": "On the start screen, type your crew's name: every letter stays, even when the screen redraws itself under your thumbs while the game loads. Left is the build before (LOS HERMANOS typed, NOS kept), right is this one. Also: a phone that has never played keeps no saved game until you press NEW GAME, and the veteran's orange-stripes line in the first fight is short. You see it on the demo's start screen, phone upright and sideways.",
+   "why": "Type your crew's name on the start screen and every letter stays, even when the screen redraws under your thumbs while the game loads (left, the build before: LOS HERMANOS typed, NOS kept; right, this one), and a phone that has never played keeps no saved game until you press NEW GAME. You see it on the demo's start screen, phone upright and sideways.",
    "show": {
     "how": "image",
     "src": "../records/target/FIXES_TWO_HIS_LETTERS_STAY_HIS_11_11.webp",
