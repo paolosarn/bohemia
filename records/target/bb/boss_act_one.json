@@ -6,6 +6,7 @@
   "purify",
   "pick",
   "blow",
+  "weld",
   "climb",
   "survey",
   "burn",
@@ -929,6 +930,133 @@
     "card": "HIS {MINES} ARE DUG UP: HIS STREETS ARE SAFE AT NIGHT.",
     "card_none": "HIS MINES ARE DUG UP.",
     "note": "BOSSES 11/11 (the coordinator's round 'the next three from the ladder', rule 441): THE CHARGE changes the map with a DANGER YOU READ BY DAY. While he stands, 'count' can charges sit in street blocks 'near'..'far' round his yard (the sign's way in first). By day a mine within 'spot' blocks the crew can see is spotted for good (drawn, and the map's own walk goes round it, never where that cuts the crew off from him); at night one never spotted goes off when the walk crosses it: the walk stops, one man (never the main man) takes the injuries table's 'wound' for 'days' days and 'blood' blood (BohemiaCondition), the block a hole. When he falls every one is dug up (slices/bohemia_bosses.js (16) HIS MINES). Pictures: slices/boss_places/mine_before, mine_after (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py)."
+   }
+  },
+  {
+   "n": "THE MACHINIST",
+   "place": {
+    "name": "THE PIPE SHOP",
+    "art": "pipeshop",
+    "seen": "a corrugated steel shop with a pipe rack out front, a weld's blue light under the door",
+    "paint": "pipeshop"
+   },
+   "rumour": {
+    "who": "@la_guera_fix",
+    "txt": "Nobody makes guns any more, you find them or you don't. Except THE MACHINIST: he welds pipe into guns and sells them to whoever pays. He throws nails on every street round his shop so nobody sneaks up. Careful, his pipe gun hits two of you at a time, and the men behind."
+   },
+   "boss": {
+    "kind": "gunner",
+    "name": "THE MACHINIST",
+    "title": "the man who makes guns",
+    "hp_x": 2.0,
+    "weapon": "Handgonne",
+    "shield": null,
+    "look": "boss_machinist_0",
+    "says": "Pipe, a cap, a nail. That's a gun. That's my gun."
+   },
+   "crew": [
+    "brigand_marksman",
+    "lower_brigand_marksman",
+    "brigand_thug"
+   ],
+   "crew_word": "THE MACHINIST AND HIS SHOP BOYS",
+   "board": "place_works",
+   "lesson": "His pipe gun hits from two tiles, through your men and the ones behind them, and it takes him a turn to load. Rush him the turn after he fires.",
+   "verb": {
+    "id": "weld",
+    "word": "WELD",
+    "button": "WELD A PIPE GUN",
+    "rule": "next to scrap (an industrial block, a storage yard, a boneyard, a dump, an arsenal); once a day; a pipe gun into the company's bag",
+    "scrap_districts": [
+     "industrial",
+     "storage",
+     "arsenal",
+     "boneyard",
+     "landfill",
+     "junkyard"
+    ],
+    "cooldown_days": 1,
+    "item": {
+     "id": "handgonne",
+     "kind": "weapon",
+     "cls": "firearm",
+     "name": "PIPE GUN",
+     "was": "Handgonne",
+     "price": 120,
+     "own": true,
+     "hands": 2,
+     "line": "Takes both hands, no shield with it. Welded by your own men from a water pipe and an end cap. Crude. Yours.",
+     "nums": "dmg 35-75  vs armour 90%  reach 2  2 hands"
+    },
+    "says": "Your men weld a pipe gun out of scrap. Crude. Yours.",
+    "feed": {
+     "who": "@la_guera_fix",
+     "txt": "Somebody's welding on {where}. Guns from pipe, like he did. The shop is open now."
+    },
+    "tip": "Your men weld a pipe gun out of scrap, into your bag. Once a day. Works next to scrap: an industrial block, a storage yard, a boneyard, a dump.",
+    "first": {
+     "plate": "WELDED: A PIPE GUN",
+     "feed": "First gun your men ever made, on {where}. A water pipe, an end cap and a nail. It's in your bag.",
+     "rise": "+1 PIPE GUN IN YOUR BAG",
+     "rise_none": "YOUR BAG IS FULL"
+    },
+    "cooling": "THE WELD IS COOLING: TOMORROW",
+    "tip_cooling": "Your men weld one gun a day.",
+    "place_after": "weldbench",
+    "hand": {
+     "name": "HIS PIPE GUN",
+     "pic": "hand_weld.png",
+     "line": "WELD A PIPE GUN: next to scrap (an industrial block, a storage yard, a boneyard, a dump). Your men make a pipe gun for your bag. Once a day."
+    }
+   },
+   "fallen_art": "pipeshop_open",
+   "lead": {
+    "asker": {
+     "name": "LA GÜERA",
+     "look": "faction_anarchists",
+     "from": "a mechanic with burned forearms and a welding glove in her back pocket",
+     "says": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
+     "yes": "I'll ask at the bar.",
+     "no": "Can't help you.",
+     "yes_says": "Órale. Go slow near his shop, the nails eat tyres and boots.",
+     "no_says": "Okay. He's not going anywhere."
+    },
+    "thing": {
+     "head": "THE MAN AT THE BAR",
+     "what": "a man at the bar with a pipe gun on the counter",
+     "says": "A man at the bar says the Machinist welds pipe into guns. He showed me one: a water pipe, an end cap, a nail. His shop is the tin one with the pipe rack, and the streets round it are full of nails. I marked it."
+    }
+   },
+   "after": {
+    "name": "LA GÜERA",
+    "look": "faction_anarchists",
+    "from": "at the pipe shop's door, the rollup up",
+    "says": "You did it! His pipe gun is yours. Next to scrap, an industrial block, a storage yard, a boneyard, a dump, press WELD A PIPE GUN. Your men make one for your bag. Once a day.",
+    "ok": "GOT IT",
+    "valley": "His nails are swept up. His street is a road now, and the pipe shop is open.",
+    "take": "TAKE IT"
+   },
+   "tip": "RUSH HIM THE TURN AFTER HE FIRES",
+   "nails": {
+    "name": "HIS NAILS",
+    "count": 14,
+    "radius": 4,
+    "slow": 3,
+    "fast": 0.6,
+    "pic": "nails",
+    "say": "Nails all over the street. His. Slow going.",
+    "rise": "NAILS: {slow} TIMES SLOWER",
+    "feed_slow": {
+     "who": "@la_guera_fix",
+     "txt": "Nails all over {where} again. He doesn't want anybody walking up on his shop."
+    },
+    "feed": {
+     "who": "@la_guera_fix",
+     "txt": "His nails on {where} are swept up. His carts' road is open, the fastest street round there."
+    },
+    "card": "HIS NAILS ARE SWEPT: {BLOCKS} OF HIS ROAD, {fast}% FASTER THAN THE GROUND ROUND IT.",
+    "card_none": "HIS NAILS ARE SWEPT.",
+    "note": "BOSSES 11/11 (the coordinator's round 'the next three from the ladder', rule 441): THE MACHINIST changes the map with TIME. While he stands, 'count' street blocks within 'radius' of his shop (the sign's way in first) are nailed: each costs the walk 'slow' times the map's own minutes (cityStepMins wrapped), so the walk by minutes goes round where it can. When he falls they are swept and stay his carts' road: 'fast' times the minutes, for good (slices/bohemia_bosses.js (17) HIS NAILS). Pictures: slices/boss_places/nails_before, nails_after (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py)."
    }
   }
  ]

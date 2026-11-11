@@ -94,3 +94,38 @@ the walk crosses two cans (RAUL, 37 blood, on the demo run).
 - VOTE bosses-the-charges-mines-11-11: records/target/bosses_vote_charge_11_11/VOTE.webp (the gate's own phone: a mine spotted by day, one
   gone off at dusk, dug up after, TEO's card).
 
+
+## THE MACHINIST (the ladder's 9th: the pipe, the cap and the nail). BUILD 11/11v
+
+HIS OWN WAY: TIME IS WHAT HE TAKES. While he stands his men throw nails and welded caltrops over 14 street blocks within 4 of his pipe
+shop (the sign's way in first): every one costs the walk 3 times its minutes (the map's own minutes, cityStepMins wrapped the way
+cityWalkable is), so the map's own walk by minutes goes round them where it can and the clock runs when it cannot. Not a wall, not a toll,
+not the dark, not a hunt, not a mine. When he falls his men sweep them up and the same streets are his carts' road, swept and graded:
+0.6 times the minutes, faster than plain ground for good (Battle Brothers: a road is faster than the land round it), kept after a reload;
+and WORLD TWO opens THE PIPE SHOP (its own).
+
+- Found by WORLD TWO's sign: a man at the bar.
+- Asker: LA GÜERA, a mechanic with burned forearms (faction_anarchists' face).
+- Fight: a gunner's numbers at 2.0 blood with HIS PIPE GUN (BB's Handgonne: two tiles, through the men in front, a turn to load), his
+  shop boys (two marksmen and a thug), on the works board. Lesson: rush him the turn after he fires.
+- Verb: WELD A PIPE GUN. Next to scrap (an industrial block, a storage yard, an arsenal, a boneyard, a dump), once a day: a PIPE GUN (the
+  Handgonne's numbers, draft) into the company's bag (bohemia.bag.v1, the stash every screen reads), or YOUR BAG IS FULL.
+- Prize: HIS PIPE GUN, through HOME BASE's seam.
+- Code: slices/bohemia_bosses.js (17) HIS NAILS. Data: boss_act_one.json row THE MACHINIST, 'nails'.
+- Gate: "THE MACHINIST" (N1 three times the minutes, painted; N2 said and posted; N3 the walk by minutes goes round; C1a his road; V1 WELD;
+  R1 the reload with the gun in the bag; planted P2, P3, P4, P5, P6).
+
+RESULTS (BUILD 11/11v): THE MACHINIST CHANGES THE MAP 23/0 on the demo upright and 23/0 on the alpha on its side. Measured: a nailed
+block costs 16.1 minutes against 5.4 plain; his road after him 3.2; the walk to his door 59 minutes instead of 38 (demo) and 86 instead
+of 54 (alpha) across his nails; WELD put one PIPE GUN in the bag and then cooled for the day. On the way: the first N3 asked for a nailed
+block with a plain block each side and found none (his nails are one patch), the second asked the walk by minutes to cross fewer nails
+than the shortest walk and found the streets round his shop are dead ends with no way round, so the honest check is the clock: the walk
+to his door costs more minutes for his nails, and the walk by minutes never crosses more of them than the shortest walk.
+- VOTE bosses-the-machinists-nails-11-11: records/target/bosses_vote_machinist_11_11/VOTE.webp (the gate's own phone: his nails, his road,
+  LA GÜERA's card). The three men's moving cards: records/target/bosses_seven_to_nine/VOTE_BOSS_{LOCKSMITH,CHARGE,MACHINIST}.webp.
+
+## THE ROUND, ALL THREE
+Nine bosses now, each changing the map his own way: THE POT shuts streets, THE TAP's pipe costs blood, THE FILTER's machines fight, THE
+BURN's dark, THE SURVEYOR's forgetting, THE CLIMB's hunt, THE LOCKSMITH's clock (gates at night), THE CHARGE's danger read by day (mines),
+THE MACHINIST's time (nails). Every prize through HOME BASE's seam. Each gate both ways on the real page, fought to the end.
+

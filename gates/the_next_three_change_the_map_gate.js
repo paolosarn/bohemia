@@ -21,7 +21,8 @@
         riggers' party, K2 it comes for you on the map and fights; BOSSES 11/11, THE LOCKSMITH: K1 his gates open by day, K2 at night
         chained, the walk the long way round, never cut off from him and no block between two gates shut off, K3 said and posted; THE CHARGE:
         M1 by day his dug dirt spotted, painted and walked round, M2 at night one nobody spotted goes off and wounds a man; after him V1
-        BLOW A HOLE opens a way through a wall for good)
+        BLOW A HOLE opens a way through a wall for good; THE MACHINIST: N1 his nails cost the walk three times the minutes, N2 said and
+        posted, N3 the walk to his door costs the clock; after him his road faster than plain ground, V1 WELD A PIPE GUN into the bag)
      B0 his card first; B1 his fight won; B2 the beat plays his change on the tape, the asker's card says the valley's line, hands his
         thing, and the line under it says what changed on the map, with its numbers
      WHEN HE FALLS, HIS OWN WAY (C1a..C1d), then R1 the same phone opens the game again and it holds
@@ -481,7 +482,98 @@ const MINE = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE };
+/* ---------------- THE MACHINIST: his nails take your time, his road gives it back (BOSSES 11/11) ---------------- */
+const stepQ = (fr, b) => fr.evaluate((b) => ({ k: BohemiaBosses.nailAt(b[0], b[1]), mins: cityStepMins(b[0], b[1]), raw: BohemiaBosses.rawStep(b[0], b[1]) }), b);
+const bagQ = (fr) => fr.evaluate(() => { try { return (JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []).filter(i => i && i.from === 'weld').length; } catch (e) { return -1; } });
+const NAIL = {
+  N1: (q) => !!q && q.k === 1 && q.raw > 0 && Math.abs(q.mins / q.raw - q.slow) < 1e-6 && q.drawn,
+  C1a: (q) => !!q && q.k === 2 && q.raw > 0 && Math.abs(q.mins / q.raw - q.fast) < 1e-6,
+  V1: (q) => !!q && q.verb === 'weld' && q.bag === q.bag0 + 1 && q.item === 'PIPE GUN' && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.blocks === b.blocks && q.k === 2 && Math.abs(q.mins / q.raw - b.fast) < 1e-6 && q.bag >= 1,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.blocks && Q.blocks.length >= 4); i++) { Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.nails(n) || null)), NAME); if (!(Q && Q.blocks && Q.blocks.length >= 4)) await c.page.waitForTimeout(500); }
+    if (!Q || Q.blocks.length < 4) { ok('N1 his nails', false, JSON.stringify(Q)); return false; }
+    c.Q = Q;
+    await c.day();
+    /* the nailed block the crew reaches first, never his own door */
+    const b = await fr.evaluate((Q) => { const h = [city.x, city.y]; let best = null, bd = 1e9; Q.blocks.forEach(q => { if (q.x === Q.at[0] && q.y === Q.at[1]) return; const p = cityRoute(h[0], h[1], q.x, q.y); if (p && p.length < bd) { bd = p.length; best = [q.x, q.y]; } }); return best; }, Q);
+    if (!b) { ok('N1 a nailed block the crew reaches', false, 'none'); return false; }
+    c.b = b;
+    await c.goTo(b); await fr.evaluate(() => render()); await c.page.waitForTimeout(700);
+    const q = await stepQ(fr, b); q.slow = G.slow;
+    q.drawn = await fr.evaluate((b) => ((BohemiaBosses.last().drew || {}).nails || []).some(d => d.key === 'nails_before' && d.at[0] === b[0] && d.at[1] === b[1]), b);
+    const told = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_NAILS_TOLD || null)));
+    await c.shot('2_his_nails');
+    const posts = await c.posts();
+    ok('N1 his nails: ' + Q.blocks.length + ' street blocks round his shop cost the walk ' + G.slow + ' times the minutes (the map\'s own minutes), painted', NAIL.N1(q), JSON.stringify(q) + ' round ' + Q.at.join(','));
+    ok('N2 one of yours says it the first time and ' + G.feed_slow.who + ' posts it', !!told && told.n === NAME && posts.some(p => p.who === G.feed_slow.who && p.txt.indexOf(G.feed_slow.txt.split('{')[0].trim()) === 0), JSON.stringify(told));
+    /* the walk by minutes goes round his nails where it can: across his patch (plain blocks on two opposite sides of his door, past the
+       nails), the walk by the map's own minutes crosses fewer nailed blocks than the shortest walk by blocks, and never more (measured
+       11/11: a nailed block has nailed blocks round it, so the first check, a plain block each side, found none) */
+    const way = await fr.evaluate((Q) => { const R = 6, out = [], nailed = (p) => p ? p.filter(q => BohemiaBosses.nailAt(q[0], q[1]) === 1).length : -1;
+      const plain = (x, y) => cityWalkable(x, y) && !BohemiaBosses.nailAt(x, y) && !loopTownAt(x, y, 1);
+      const near = (x, y) => { for (let r = 0; r <= 2; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (plain(x + dx, y + dy)) return [x + dx, y + dy]; return null; };
+      for (const d of [[1, 0], [0, 1], [1, 1], [1, -1]]) { const a = near(Q.at[0] - d[0] * R, Q.at[1] - d[1] * R), z = near(Q.at[0] + d[0] * R, Q.at[1] + d[1] * R); if (!a || !z) continue;
+        const pb = cityRoute(a[0], a[1], z[0], z[1]), pm = cityRouteByMinutes(a[0], a[1], z[0], z[1], om.n); if (!pb || !pm) continue;
+        out.push({ a, z, byBlocks: nailed(pb), byMinutes: nailed(pm), len: [pb.length - 1, pm.length - 1] }); }
+      /* and the clock: the walk by minutes from where the crew stands to his door, its minutes with his nails against the same blocks plain
+         (measured 11/11: the streets round his shop are dead ends, so most of the time there is no way round and the clock is what he takes) */
+      const h = [city.x, city.y], pd = cityRouteByMinutes(h[0], h[1], Q.at[0], Q.at[1], om.n); let mins = 0, raw = 0;
+      (pd || []).slice(1).forEach(q => { mins += cityStepMins(q[0], q[1]); raw += BohemiaBosses.rawStep(q[0], q[1]); });
+      return { pairs: out, door: { nailed: nailed(pd), mins: Math.round(mins), raw: Math.round(raw) } }; }, Q);
+    const N3 = (w) => !!w && w.pairs.every(o => o.byMinutes <= o.byBlocks) && w.door.nailed >= 1 && w.door.mins > w.door.raw;
+    ok('N3 the clock: the walk to his door costs ' + (way && way.door.mins) + ' minutes instead of ' + (way && way.door.raw) + ' across his nails, and the walk by minutes never crosses more of them than the shortest walk', N3(way), JSON.stringify(way));
+    ok('P2c planted: a walk to his door that costs no more for his nails turns N3 red', !N3(way ? Object.assign({}, way, { door: Object.assign({}, way.door, { mins: way.door.raw }) }) : null), 'plain minutes to his door');
+    ok('P2 planted: his nails costing nothing turns N1 red', !NAIL.N1(Object.assign({}, q, { mins: q.raw })), 'plain minutes');
+    return true;
+  },
+  card(G, c) { const n = c.Q.blocks.length; return G.card.replace('{BLOCKS}', n + (n === 1 ? ' BLOCK' : ' BLOCKS')).replace('{fast}', String(Math.round((1 - G.fast) * 100))); },
+  async after(c) {
+    const { fr, G } = c;
+    await c.day(); await c.goTo(c.b); await fr.evaluate(() => render()); await c.page.waitForTimeout(700);
+    const q = await stepQ(fr, c.b); q.fast = G.fast;
+    const drawn = await fr.evaluate(() => ((BohemiaBosses.last().drew || {}).nails || []).map(d => d.key));
+    ok('C1a his nails swept: the block is his carts\' road, ' + G.fast + ' times the minutes, faster than plain ground', NAIL.C1a(q), JSON.stringify(q));
+    ok('C1b painted swept: a broom, a bucket of nails, a cart\'s tracks', drawn.length >= 1 && drawn.every(k => k === 'nails_after'), drawn.join(' '));
+    await c.shot('5_his_road');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who, posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0), posts.filter(p => p.who === G.feed.who).map(p => p.txt.slice(0, 80)).join(' | '));
+    const p3 = await fr.evaluate((a) => { const Q = BohemiaBosses.nails(a[0]), H = BohemiaHisMap.state(), was = Q.fell, f = H.boss.fallen[a[0]]; Q.fell = null; delete H.boss.fallen[a[0]]; BohemiaBosses.renail();
+      const o = { k: BohemiaBosses.nailAt(a[1][0], a[1][1]), mins: cityStepMins(a[1][0], a[1][1]), raw: BohemiaBosses.rawStep(a[1][0], a[1][1]) }; Q.fell = was; H.boss.fallen[a[0]] = f; BohemiaBosses.renail(); return o; }, [NAME, c.b]);
+    p3.fast = G.fast;
+    ok('P3 planted: his nails back after the fall turns C1a red', !NAIL.C1a(p3), JSON.stringify(p3));
+    /* WELD A PIPE GUN beside scrap */
+    const at = await fr.evaluate(() => { const h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -16; dy <= 16; dy++) for (let dx = -16; dx <= 16; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y)) continue; const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd) continue;
+        const a = BohemiaBosses.applies('weld', x, y); if (!a || a.off) continue; if (!cityRoute(h[0], h[1], x, y)) continue; bd = d; best = [x, y]; } return best; });
+    let v = { found: !!at };
+    if (at) {
+      await c.goTo(at);
+      const bag0 = await bagQ(fr);
+      const u = await fr.evaluate(() => { const v = BohemiaBosses.verbHere(); const g = BohemiaBosses.use('weld'); return { verb: v && v.id, got: g && typeof g === 'object' ? g : null }; });
+      await c.page.waitForTimeout(2600);
+      v = await fr.evaluate((a) => { const bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || [], it = bag.filter(i => i && i.from === 'weld').slice(-1)[0], ap = BohemiaBosses.applies('weld', city.x, city.y);
+        return { verb: a.verb, item: it ? it.name : null, cooling: !!(ap && ap.off), bagAll: bag.length }; }, u);
+      v.bag0 = bag0; v.bag = await bagQ(fr);
+      await c.shot('5_a_pipe_gun_welded');
+    }
+    ok('V1 WELD A PIPE GUN: beside scrap your men weld one into the company\'s bag, once a day', NAIL.V1(v), JSON.stringify(v));
+    ok('P6 planted: a weld that made nothing turns V1 red', !NAIL.V1(Object.assign({}, v, { bag: v.bag0 })), 'nothing in the bag');
+    return { blocks: c.Q.blocks.length, fast: G.fast };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.b);
+    await e.page.waitForTimeout(800);
+    const q = await e.fr.evaluate((a) => { const Q = BohemiaBosses.nails(a[0]) || { blocks: [] }; return { fallen: !!BohemiaHisMap.state().boss.fallen[a[0]], blocks: Q.blocks.length,
+      k: BohemiaBosses.nailAt(a[1][0], a[1][1]), mins: cityStepMins(a[1][0], a[1][1]), raw: BohemiaBosses.rawStep(a[1][0], a[1][1]) }; }, [NAME, c.b]).catch(x => ({ err: String(x) }));
+    q.bag = await bagQ(e.fr).catch(() => -1);
+    return q;
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');

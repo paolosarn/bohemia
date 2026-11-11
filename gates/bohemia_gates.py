@@ -8569,6 +8569,15 @@ GATES = [
      "streets are safe (C1a, C1b), the feed (C1d); BLOW A HOLE opens a way through a wall for good (V1); the same phone opens the game again "
      "and it holds, the hole too (R1). Planted: a mine that never goes off, a spotted mine walked over, his mines back after the fall, a hole "
      "that did not open, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
+    ('THE MACHINIST CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE MACHINIST'],
+     "BOSSES gate, 11/11, the coordinator's round 'the next three from the ladder' (rule 441), ask lines 167, 522: the stranger's game on "
+     "the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the eight before him first through the map's own fell(), then THE MACHINIST end to end: "
+     "the man at the bar and his rumour (T1), LA GUERA asks and one of yours reads it (T2); HIS NAILS: the streets round his shop cost the "
+     "walk three times the map's own minutes, painted (N1), said and posted (N2), the walk to his door costs the clock (N3); his card (B0), his "
+     "fight (B1), the beat sweeps them on the tape (B2), his pipe gun to your place (G1); his swept road faster than plain ground (C1a, "
+     "C1b), the feed (C1d); WELD A PIPE GUN into the company's bag (V1); the same phone opens the game again and it holds (R1). Planted: "
+     "nails that cost nothing, nails back after the fall, a weld that made nothing, a phone that forgot the save, a prize the seam never "
+     "got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

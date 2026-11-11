@@ -1,5 +1,18 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/11/26: THE MACHINIST'S NAILS, HIS OWN WAY; THE ROUND DONE (the coordinator's round 'BOSSES next round', rule 441; ask lines 167, 522, 571), BUILD 11/11v
+Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE MACHINIST" (THE MACHINIST CHANGES THE
+MAP, registered; the demo upright 23/0, the alpha on its side 23/0; five plants). VOTE bosses-the-machinists-nails-11-11 (stand_in).
+- HIS NAILS (slices/bohemia_bosses.js (17); his 'nails' row: 14 blocks within 4, slow 3, fast 0.6): every nailed block costs the walk 3
+  times the map's own minutes (cityStepMins wrapped, the way cityWalkable is: the walk by minutes and the clock both read it). WHEN HE
+  FALLS they are swept and the same blocks are his carts' road at 0.6 times the minutes for good. WORLD TWO opens THE PIPE SHOP (yours).
+- WELD A PIPE GUN (verb 'weld'): next to scrap (industrial, storage, arsenal, boneyard, landfill, junkyard), once a day: his row's 'item'
+  (PIPE GUN, the Handgonne's numbers, draft) into bohemia.bag.v1, or YOUR BAG IS FULL. HIS PIPE GUN to your place through HOME BASE's seam.
+- JOBS / RUN: cityStepMins now has a bosses wrapper on top of yours (it multiplies only his nailed or swept blocks; BohemiaJobKinds.pace
+  still inside). ECONOMY / TUNING: a free pipe gun a day next to scrap is his row's to tune (cooldown_days, item.price 120).
+- THE ROUND IS DONE: all three of the ladder's 7 to 9 shipped one build each (11/11n, 11/11r, 11/11v), each both ways, each a VOTE card.
+  NEXT on the ladder: 10 to 12 (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md), the same pipe (model tool, places tool, a section, a leg).
+
 ## BOSSES, 11/11/26: THE CHARGE'S MINES, HIS OWN WAY (the coordinator's round 'BOSSES next round', rule 441; ask lines 167, 522, 571), BUILD 11/11r
 Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE CHARGE" (THE CHARGE CHANGES THE MAP,
 registered; the demo upright 22/0, the alpha on its side 22/0; six plants). VOTE bosses-the-charges-mines-11-11 (stand_in).
