@@ -119,3 +119,69 @@ TAPE: scanlines, grain, soft tracking wobble, a short static glitch between scen
 SOUND: tape hum, wind, then a slow heavy kick drum at 120 beats per minute from second 3, a crowd roar at the end. No singing, no talking.
 
 DO NOT: no close-ups, no anime, no cartoon, no smooth clean 3D, no realistic people, no new faces. No words, letters, numbers or logos. No neon, no purple, no blood, no daylight.
+
+# EACH VIDEO ITS OWN ADVENTURE, AND THE MARCH (Paolo 11/11/26, rule 446(h), ask rows 603 and 604)
+
+HIS WORDS: 'make me something fire, very creative, very Bohemia, analog horror, creepy, with the assets, lots of people...
+Las Vegas to LA vibes, what's the most damage we can do... don't forget my character.' THEN, stopping the round: 'Chill, we're
+good, I got what we need. My only thing is with your Grok prompts: take me on a different adventure in the middle. I slide
+two of the flyers, the Vegas and LA flyer, in the middle of the video, so the middle isn't super important, but the very
+beginning and the very end are the most important... different than the first video, both of them, and each one uniquely
+different from each other... what sort of Bohemian cross country adventure... could go to war... get creative, have fun.'
+
+WHAT STANDS:
+- THE MARCH (made before he stopped the round, his to use or not): records/marketing/baby_punk_march_cam_11_11_26.webp (with
+  the camera's frame: REC, CAM 13 · I-15 SOUTH, LAS VEGAS > LOS ANGELES) and ..._clean_11_11_26.webp (bare, for a video
+  tool). 414 of the town's 3-D people stand in dead rows down the freeway between two lines of fire drums, the dead towers
+  of Las Vegas behind them, and he stands alone in front, arms open. Maker: records/marketing/baby_punk_march_make.py (the
+  freeway ground turned and seen through a true perspective camera; every body is slices/rig_town).
+- THE TWO PROMPTS BELOW REPLACE the four-beat prompts for pictures two and three above. The opening (the picture at full
+  blast) and the ending (a held hero frame) carry each video; the middle is an adventure his flyers sit over.
+  Video one (the tour) walks the road. Video two GOES TO WAR. Video three GOES UNDER THE CITY AND MEETS THE BEASTS (mammoth,
+  ground sloth, teratorn: all three are in the game's own roster).
+
+## PICTURE TWO, THE STRIP: THE WAR ROAD
+
+Animate the attached picture into a 15 second vertical 9:16 video with five scenes. Do not change its art style in any scene.
+
+STYLE LOCK (most important, every scene): every person and every animal stays exactly the kind of figure the people are in the picture: a small, grimy, low-resolution pre-rendered 3D sprite, like a late 1990s isometric PC game seen on an old security camera tape. Big round heads, stiff little bodies, rough pixels, dim and dirty. The camera always stays far away: high above for the stage scenes, wide for the road and city scenes. People are always small and full-body in the frame. Never a close-up. Never a face filling the screen. Never anime, never cartoon, never a realistic human, never a new character design.
+
+THE STAR: the man on the stage in the picture. Keep him exactly as he is drawn there in every scene: same small 3D sprite, same all-black clothes. His hair is pure white and stops above his shoulders; it never goes past his shoulders. His eyebrows are black, not white. He wears a diamond grill with two pointed fangs: show it only as a tiny white sparkle at his mouth, never zoom in on it.
+
+TAPE: scanlines, grain, soft tracking wobble, a short static glitch between scenes. Night only. Cold blue-black shadow, dirt and rust, orange fire, the teal glow of the pool.
+
+0 to 3 seconds, THE SHOW (most important): the picture explodes into life with no change to how it looks. Every fire drum roars high. The whole crowd in front of the dead casino jumps together on a heavy beat with their hands up. The white-haired man on the stage throws one fist up. Sparks fly. The pool glows teal at the bottom.
+
+3 to 6 seconds, THE ARMY LEAVES: static glitch. Same kind of small 3D sprites. He walks off down the dead Las Vegas Strip and the whole crowd follows him as an army: hundreds of tiny people carrying torches and pipes past dark broken casino towers and burnt-out cars.
+
+6 to 9 seconds, WAR ON THE OVERPASS: static glitch. Same kind of small 3D sprites, seen from far above. A broken freeway overpass in the black desert. His torch army charges a wall of wrecked cars held by masked raiders. Small gun flashes, dust, torches swinging, the wall catching fire.
+
+9 to 12 seconds, THE WALL FALLS: static glitch. Same far camera. The wall of cars burns. The raiders run off into the dark. He climbs onto the roof of a wrecked car, tiny in the frame, and every torch in the army goes up at once.
+
+12 to 15 seconds, THE RIVER OF FIRE (most important): static glitch. A huge wide view at night. The army pours down the dead freeway like a river of torches toward the dark broken skyline of Los Angeles and its dead palm trees. He walks alone at the very front, his white hair the brightest point. The camera rises slowly. Hold the last frame still for one second.
+
+SOUND: tape hum under a slow heavy kick drum at 120 beats per minute from the first frame, wind in the middle, a crowd roar at the end. No singing, no talking.
+
+DO NOT: no close-ups, no anime, no cartoon, no smooth clean 3D, no realistic people, no new faces. No words, letters, numbers or logos. No bright neon signs, no purple, no blood, no gore, no daylight.
+
+## PICTURE THREE, THE FREEWAY: UNDER THE CITY, AND THE BEASTS
+
+Animate the attached picture into a 15 second vertical 9:16 video with four scenes. Do not change its art style in any scene.
+
+STYLE LOCK (most important, every scene): every person and every animal stays exactly the kind of figure the people are in the picture: a small, grimy, low-resolution pre-rendered 3D sprite, like a late 1990s isometric PC game seen on an old security camera tape. Big round heads, stiff little bodies, rough pixels, dim and dirty. The camera always stays far away: high above for the stage scenes, wide for the road and city scenes. People are always small and full-body in the frame. Never a close-up. Never a face filling the screen. Never anime, never cartoon, never a realistic human, never a new character design.
+
+THE STAR: the man on the stage in the picture. Keep him exactly as he is drawn there in every scene: same small 3D sprite, same all-black clothes. His hair is pure white and stops above his shoulders; it never goes past his shoulders. His eyebrows are black, not white. He wears a diamond grill with two pointed fangs: show it only as a tiny white sparkle at his mouth, never zoom in on it.
+
+TAPE: scanlines, grain, soft tracking wobble, a short static glitch between scenes. Night only. Cold blue-black shadow, cracked grey asphalt, rust, orange fire, a pale moon.
+
+0 to 3 seconds, THE SHOW (most important): the picture explodes into life with no change to how it looks. Every fire drum roars high. The crowd on all four roads of the dead freeway crossing jumps together on a heavy beat with their hands up. The white-haired man on the stage throws one fist up. Sparks fly.
+
+3 to 7 seconds, UNDER THE CITY: static glitch. Same kind of small 3D sprites. He climbs down through a broken storm drain into a long concrete flood tunnel. Black water up to the ankles. He walks down the middle with a single line of torch carriers behind him. Pale eyes shine from the side pipes and blink out as the fire passes.
+
+7 to 11 seconds, THE BEASTS: static glitch. Wide view. They climb out onto a white dry lake bed under a huge pale moon. Giant animals brought back from the Ice Age cross in front of them: a slow herd of mammoths, a ground sloth as tall as a truck, a flock of giant vultures wheeling overhead. The line of tiny torches walks straight between the mammoths' legs. Nobody runs.
+
+11 to 15 seconds, THEY FOLLOWED HIM (most important): static glitch. Back to the same high camera as the picture: the stage where the two dead freeways cross, at night. He is on the stage again and the crowd fills all four roads. Now the mammoths stand at the edge of the crowd in the firelight and the giant vultures circle above. He throws one fist up and the whole crowd throws their hands up at once. The camera pulls up and back until the crowd is a glowing cross of people, with the dark Los Angeles skyline and the dead palm trees behind it. Hold the last frame still for one second.
+
+SOUND: tape hum under a slow heavy kick drum at 120 beats per minute from the first frame, wind in the middle, a crowd roar at the end. No singing, no talking.
+
+DO NOT: no close-ups, no anime, no cartoon, no smooth clean 3D, no realistic people, no new faces. No words, letters, numbers or logos. No bright neon signs, no purple, no blood, no gore, no daylight.
