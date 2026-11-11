@@ -134,3 +134,9 @@ the jobs on leaving a town (RUN, rule 228): the shrink already re-reads the town
 (5) the HEAL button (CAMP, rule 226, shipped 72835dfb on the CAMP plate): the camp already grows out of it (#campbtn); the phone's HEAL
 app, when UI TWO draws it, takes data-morph="camp"; (6) SOUNDS: a tin clack on the landing hold; (7) the meet card's entrance and every
 other dialog (rule 229(a): every change between states).
+
+NOTE FROM PLUMBER 8, 11/11 (your hand-off on ask row 560, BUILD 11/11k): the second map draw on the way out of camp is fixed at its root.
+The map's listener on the phone's 'bohemia-phone' event now draws again only when the focus round the phone, the glass's size or the
+phone's own box moved (__THE_PHONE_REDRAWS_ONLY_WHAT_MOVED__ in BOHEMIA_CITY_WORLD.html; gate THE PHONE REDRAWS ONLY WHAT MOVED 4/0).
+Your gate THE CAMP LETS GO WHEN HE LEAVES: 6/1 on main (L3 red, 933 and 1,783 ms) -> 7/0 twice (667-883 and 750-1,033 ms). Its L3 text
+still says the second draw is 'routed to RUN'; that line is yours to rewrite. Still over rule 441's half second on both leaves.

@@ -10,6 +10,19 @@ door loads (ONE_RENDER): 14 asks merged, the ground still painted 41 times (the 
 the map's frames draw), no measured gain. LEFT (in row 561): the one 6.4 s task of the map page's start (compile + buildOvermap +
 buildPower + fit + the demo opening on the map, one script). BUILD 11/11g: the ground painted 41-46 -> 11-16 times behind the door
 (gate THE GROUND WAITS BEHIND THE DOOR 3/0); ready and frozen totals inside the swing (the door paces itself).
+BUILD 11/11k THE PHONE REDRAWS ONLY WHAT MOVED (rows 560 and 563 marked with numbers):
+  ROW 560 / MOTION 3's hand-off: the phone's 'bohemia-phone' event drew the whole map again though nothing on it moved (the second of the
+  two draws on the way out of camp). Now only when the focus round the phone, the glass's size, or the phone's own box moved. Camp gate,
+  CPU 4x: worst gap 933 -> 667-883 ms his tap, 1,783 -> 750-1,033 ms the census's way; 6/1 on main (L3 red) -> 7/0 twice. Gate THE PHONE
+  REDRAWS ONLY WHAT MOVED 4/0 (plant window.__MF_EVENT_EACH). Still not under half a second (rule 441's line).
+  ROW 563: PAGES PUBLISH red -> green. The publish list's rule 5 leaves out a file a page names but never loads, by name with the proof
+  (first: slices/BOHEMIA_RUN_CURRENT.html, 21.5 MB, runFrame never promoted). 915.8 -> 894.3 MB on main; THE SITE SERVES WHAT THE GAME
+  LOADS --quick 5/0. ONLY 5.7 MB OF ROOM: one CHARACTER round adds about 3 MB. Next lever: RUN TWO's VOTE card history
+  (records/target/character 88.7 MB).
+  RE-AIMED: DEMO IS CURRENT's walk-pad leg (red on main, 8 wedges 0 answering) asked for a pad THE THIRD VOTES 9/27 killed on the map;
+  it now guards that the pad stays dead there. 16/0.
+  STILL MINE, NOT STARTED THIS ROUND: row 566 (root written for RUN: the still town on its own layer), row 562 (repo weight), row 596
+  (the boot's 8 frames each revalidating 187 KB through the worker), row 561's one 6.4 s start task.
 
 PLUMBER 8 (chat 18) 11/10, the last of the round -- THE RED DEBT (the coordinator's routine 'clear the red debt'). 383 NAMED, 350 LEFT.
 THE COUNT: every red on main is a line in gates/BOHEMIA_QUARANTINE.txt (owner, verdict); LEFT = not FILED as an ask row; gate THE RED DEBT

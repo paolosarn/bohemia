@@ -247,10 +247,14 @@ async function worldOf(page, url) {
          worth guarding: the pad is REACHABLE -- eight wedges, each one the topmost
          thing at its own centre, so no overlay is eating the control you walk
          with. Size is thumb_gate's question and his ruling's answer. */
-      ok('and the demo\'s walk pad is all there and reachable ('
-        + demo.safety.pads + ' wedges, ' + demo.safety.reach + ' answering at their '
-        + 'own centre; size is his 9/6 halving, not this gate\'s business)',
-         demo.safety.pads === 8 && demo.safety.reach === 8);
+      /* RE-AIMED (PLUMBER 8, 11/11/26, the red debt's rule: a stale leg is re-aimed citing the ruling). THE THIRD VOTES (Paolo 9/27,
+         laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md): 'on foot survives in TWO places only: THE FIGHT ... and SPECIAL PLACES ...
+         The eight-button pad is dead everywhere else.' The demo opens on the map, so the leg that asked for eight wedges answering on it
+         asked for a dead control (measured on main 11/11: 8 wedges, 0 answering, red). What is guarded now is his ruling: on the map the
+         pad does not come back (no wedge answers at its own centre). */
+      ok('and on the demo\'s map the walk pad stays dead (THE THIRD VOTES 9/27: the pad lives only in the fight and special places; '
+        + demo.safety.pads + ' wedges in the page, ' + demo.safety.reach + ' answering at their own centre)',
+         demo.safety.reach === 0);
     }
     await browser.close();
     srv.close();
