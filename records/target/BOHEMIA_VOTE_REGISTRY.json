@@ -19157,7 +19157,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_PARKING_GARAGE_KIT_11_11_26.md"
-  }
+  },
+  {"id": "bosses-the-charges-mines-11-11", "kind": "tile", "lane": "bosses", "sha": "97e9c1a71", "made": "11/11", "draft": true, "title": "THE CHARGE BURIES CANS IN HIS STREETS: BY DAY YOU CAN SEE THE DUG DIRT, AT NIGHT YOU STEP ON ONE", "said": "the ladder's next three, each changing the map its own way (the coordinator's round after the first six)", "why": "Left is THE CHARGE's powder yard while he stands, the red flag up, his wall of barriers, and his mines in the streets on the ways in: the ones your crew spotted by day show a stake and a red rag and the walk goes round them; walk onto one you never saw at night and it goes off, one of your men takes nails in the legs for 4 days. Right is TEO once he falls: every can dug up, his streets safe at night, and his powder is yours: BLOW A HOLE opens a new way through a wall, for good. You see it on the MAP after THE LOCKSMITH, when TEO sends you to the bang on the radio.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_charge_11_11/VOTE.webp"}, "before_after": {"before": "main be19fd710: seven bosses; no street on the map could hurt you", "after": "THE CHARGE's 5 mines: spotted by day and walked round, at night one you never saw wounds a man (the injuries table's own wound); dug up when he falls, kept after a reload; BLOW A HOLE opens a wall for good", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md"}
  ],
  "verdicts": [
   {
