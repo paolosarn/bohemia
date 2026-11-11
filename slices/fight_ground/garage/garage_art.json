@@ -1,0 +1,207 @@
+{
+ "version": "cook5-garage-art-11-11",
+ "lane": "cook 5",
+ "stage": "finished",
+ "for": "COMBAT's parking garage board (not laid yet; rule 440(a)): a kit on the casino floor's recipe. floor.stalls and floor.aisle are ground lists (any tile of a kind meets any tile of either kind: stalls north and south of an aisle); the pieces are laid by their foot like the casino's (sizes.json).",
+ "floor": {
+  "stalls": [
+   "garage/garage_floor_0.webp#0,0",
+   "garage/garage_floor_0.webp#1,0",
+   "garage/garage_floor_0.webp#2,0",
+   "garage/garage_floor_0.webp#3,0",
+   "garage/garage_floor_0.webp#4,0",
+   "garage/garage_floor_0.webp#0,1",
+   "garage/garage_floor_0.webp#1,1",
+   "garage/garage_floor_0.webp#2,1",
+   "garage/garage_floor_0.webp#3,1",
+   "garage/garage_floor_0.webp#4,1"
+  ],
+  "aisle": [
+   "garage/garage_floor_0.webp#0,2",
+   "garage/garage_floor_0.webp#1,2",
+   "garage/garage_floor_0.webp#2,2",
+   "garage/garage_floor_0.webp#3,2",
+   "garage/garage_floor_0.webp#4,2",
+   "garage/garage_floor_0.webp#0,3",
+   "garage/garage_floor_0.webp#1,3",
+   "garage/garage_floor_0.webp#2,3",
+   "garage/garage_floor_0.webp#3,3",
+   "garage/garage_floor_0.webp#4,3",
+   "garage/garage_floor_0.webp#0,4",
+   "garage/garage_floor_0.webp#1,4",
+   "garage/garage_floor_0.webp#2,4",
+   "garage/garage_floor_0.webp#3,4",
+   "garage/garage_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "garage_level": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "A RAISED BAY",
+   "stage": "finished",
+   "src": "garage/garage_level.webp",
+   "w": 516,
+   "h_px": 427,
+   "foot": [
+    258.2,
+    426
+   ]
+  },
+  "garage_level_aisle": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "A RAISED BAY, THE AISLE",
+   "stage": "finished",
+   "src": "garage/garage_level_aisle.webp",
+   "w": 515,
+   "h_px": 428,
+   "foot": [
+    257.8,
+    427
+   ]
+  },
+  "garage_ramp_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE RAMP UP, EAST",
+   "stage": "finished",
+   "src": "garage/garage_ramp_e.webp",
+   "w": 515,
+   "h_px": 435,
+   "foot": [
+    257.5,
+    434
+   ]
+  },
+  "garage_ramp_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE RAMP UP, WEST",
+   "stage": "finished",
+   "src": "garage/garage_ramp_w.webp",
+   "w": 516,
+   "h_px": 434,
+   "foot": [
+    258.2,
+    433
+   ]
+  },
+  "garage_rail_ew": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "THE GUARD RAIL",
+   "stage": "finished",
+   "src": "garage/garage_rail_ew.webp",
+   "w": 515,
+   "h_px": 44,
+   "foot": [
+    257.8,
+    43
+   ]
+  },
+  "garage_rail_ns": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "THE GUARD RAIL",
+   "stage": "finished",
+   "src": "garage/garage_rail_ns.webp",
+   "w": 77,
+   "h_px": 408,
+   "foot": [
+    22.1,
+    407
+   ]
+  },
+  "garage_wall_ew": {
+   "kind": "LOW_COVER",
+   "h": 1.07,
+   "name": "THE OUTER WALL",
+   "stage": "finished",
+   "src": "garage/garage_wall_ew.webp",
+   "w": 515,
+   "h_px": 55,
+   "foot": [
+    257.8,
+    54
+   ]
+  },
+  "garage_wall_ns": {
+   "kind": "LOW_COVER",
+   "h": 1.07,
+   "name": "THE OUTER WALL",
+   "stage": "finished",
+   "src": "garage/garage_wall_ns.webp",
+   "w": 82,
+   "h_px": 420,
+   "foot": [
+    22.3,
+    419
+   ]
+  },
+  "garage_column": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "A COLUMN",
+   "stage": "finished",
+   "src": "garage/garage_column.webp",
+   "w": 172,
+   "h_px": 166,
+   "foot": [
+    43.2,
+    140
+   ]
+  },
+  "garage_column_b": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "A COLUMN",
+   "stage": "finished",
+   "src": "garage/garage_column_b.webp",
+   "w": 172,
+   "h_px": 167,
+   "foot": [
+    43.2,
+    140
+   ]
+  },
+  "garage_core": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "THE STAIRS AND THE LIFT",
+   "stage": "finished",
+   "src": "garage/garage_core.webp",
+   "w": 386,
+   "h_px": 316,
+   "foot": [
+    154.7,
+    274
+   ]
+  },
+  "garage_booth": {
+   "kind": "COVER",
+   "h": 2.4,
+   "name": "THE WAY OUT: THE PAY BOOTHS",
+   "stage": "finished",
+   "src": "garage/garage_booth.webp",
+   "w": 592,
+   "h_px": 295,
+   "foot": [
+    197.7,
+    250
+   ]
+  }
+ },
+ "how_it_lays": {
+  "a raised bay": "garage_level (its top the stalls) or garage_level_aisle on every tile of the upper half-level, foot at the tile's south edge middle (fx 0.5, fy 1.0), the casino stage's way; it stands 1.42 m (61 px) up the glass",
+  "a ramp": "garage_ramp_e climbs to the east, garage_ramp_w to the west: one tile, between a low aisle tile and a raised aisle bay, same foot",
+  "a rail": "garage_rail_ew along a raised bay's south or north edge, garage_rail_ns along its east or west edge (foot: the middle of the rail's south end)",
+  "the outer wall": "garage_wall_ew / garage_wall_ns, the tunnels' and the casino's way (foot: south base middle / south end middle)",
+  "a column": "garage_column (teal band) or garage_column_b (rust band): one a tile corner or a stall line, foot its base middle",
+  "the core and the booth": "garage_core is 6 m by 4.8 m (half a tile wide): nobody walks through it; garage_booth is the way out, two booths on their islands across one tile, a lane each side of them",
+  "dead cars": "the fight's own cover cars, parked in the stalls (2.4 m apart, nose to the middle line)"
+ },
+ "bytes": {
+  "floor": 152564
+ }
+}

@@ -790,6 +790,11 @@ GAR_AT = dict(level=(10.0, 44.0), level_aisle=(26.0, 44.0), ramp_e=(42.0, 44.0),
               wall_ns=(56.0, 4.0), column=(21.0, 28.0), core=(28.0, 16.0), booth=(40.0, 22.0), column_b=(21.0, 21.0))
 
 
+GAR_FOOT = dict(level=(-6.05, 6.05, -0.05, 12.05), level_aisle=(-6.05, 6.05, -0.05, 12.05), ramp_e=(-6.05, 6.05, -0.05, 12.05), ramp_w=(-6.05, 6.05, -0.05, 12.05),
+                rail_ew=(-6.05, 6.05, -0.1, 0.4), rail_ns=(-0.3, 0.3, -0.05, 12.05), wall_ew=(-6.05, 6.05, -0.05, 0.3), wall_ns=(-0.2, 0.2, -0.05, 12.05),
+                column=(-0.7, 0.7, -0.7, 0.7), column_b=(-0.7, 0.7, -0.7, 0.7), core=(-3.2, 3.2, -1.2, 4.9), booth=(-4.4, 8.0, -1.3, 4.4))
+
+
 def guard_rail_x(P, x0, x1, y, z):
     """a W-beam guard rail along x on a kerb, posts 2 m apart"""
     P.box('conc', x0, x1, y - 0.12, y + 0.12, z, z + 0.16)
@@ -930,7 +935,7 @@ def cut_garage():
     hs = dict(level=LEVEL_H, level_aisle=LEVEL_H, ramp_e=LEVEL_H, ramp_w=LEVEL_H, rail_ew=0.86, rail_ns=0.86, wall_ew=1.07, wall_ns=1.07, column=2.6, column_b=2.6, core=2.6, booth=2.4)
     names = dict(level='A RAISED BAY', level_aisle='A RAISED BAY, THE AISLE', ramp_e='THE RAMP UP, EAST', ramp_w='THE RAMP UP, WEST', rail_ew='THE GUARD RAIL', rail_ns='THE GUARD RAIL',
                  wall_ew='THE OUTER WALL', wall_ns='THE OUTER WALL', column='A COLUMN', column_b='A COLUMN', core='THE STAIRS AND THE LIFT', booth='THE WAY OUT: THE PAY BOOTHS')
-    for k, v in sz.items(): v.update(piece=k, src='garage/garage_%s.webp' % k, facing='S')
+    for k, v in sz.items(): v.update(piece=k, src='garage/garage_%s.webp' % k, facing='S', model='reference/models/bohemia/garage_%s.glb' % k)
     json.dump(sz, open(os.path.join(ship, 'sizes.json'), 'w'), indent=1)
     cells = lambda rows: ['garage/garage_floor_0.webp#%d,%d' % (c, r) for r in rows for c in range(5)]
     art = {
@@ -1008,6 +1013,51 @@ def sheet_tunnels(before_dir, now_dir):
     print('sheet', out.size, os.path.getsize(dst), 'first at', (fx, fy + 26, cw, int(660 * cw / 390)))
 
 
+def sheet_garage(page_dir, _unused=None):
+    """records/target/COOK5_THE_PARKING_GARAGE_KIT_11_11.webp: what the VOTE card shows. The garage's own board is COMBAT's and
+    is not laid yet, so the phone shots are the kit on the real fight page laid on the casino floor's layout (a harness that
+    swaps the casino's data in memory: stalls and aisles in alternate rows, a raised bay for the stage, a column for a pillar,
+    the stairs and the lift for the cage, the way out for the bar); then the kit itself at one art pixel to one screen pixel"""
+    from PIL import ImageDraw, ImageFont
+    font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
+    WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
+    def title(t, sub=None):
+        im = Image.new('RGB', (WID, 64 if sub else 40), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK)
+        if sub: d.text((10, 38), sub, font=font(14), fill=DIM)
+        rows.append(im)
+    N = lambda n: os.path.join(page_dir, 'gar_g_%s.png' % n)
+    title('THE PARKING GARAGE\'S PICTURES ON HIS PHONE', 'its own board is not laid yet (COMBAT\'s): here the kit is laid on the casino floor\'s layout, on the fight\'s own page, 390 x 844')
+    items = (('THE WHOLE FLOOR, FAR', N('far')), ('WHERE THE FIGHT STARTS', N('upright_power')), ('CLOSER', N('mid')), ('NO POWER', N('upright_dark')))
+    cw = (WID - 30) // 4; r = Image.new('RGB', (WID, int(660 * cw / 390) + 26), BG); d = ImageDraw.Draw(r); x = 0
+    for lab, fn in items:
+        n = Image.open(fn).convert('RGB'); n = n.crop((0, 0, n.width, int(n.width * 660 / 390))).resize((cw, int(660 * cw / 390)), Image.LANCZOS)
+        d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
+    rows.append(r); first_row = len(rows) - 1
+    title('SIDEWAYS', '844 x 390')
+    n = Image.open(N('sideways_power')).convert('RGB'); rows.append(n.resize((WID, int(n.height * WID / n.width)), Image.LANCZOS))
+    ship = os.path.join(FG, 'garage'); fl = Image.open(os.path.join(ship, 'garage_floor_0.webp')).convert('RGB')
+    title('THE FLOOR, ONE ART PIXEL TO ONE SCREEN PIXEL', 'a tile of stalls over a tile of the aisle: the clean shapes where cars stood for years, the wheel stops, the oil trail that runs down every aisle')
+    rows.append(fl.crop((TW, TH - 40, TW + WID, TH * 2 + 360)))
+    title('THE PIECES', 'a raised bay (half a storey) and the ramp up to it, the guard rail, the outer wall, two columns, the stairs and the lift, the way out')
+    r = fl.crop((0, TH, WID, TH + 1290)).convert('RGBA'); pc = lambda k: Image.open(os.path.join(ship, 'garage_%s.webp' % k)).convert('RGBA')
+    for k, (x, y) in dict(level=(10, 10), ramp_e=(600, 4), rail_ew=(10, 470), wall_ew=(600, 470), core=(10, 560), booth=(480, 580), column=(10, 930), column_b=(200, 930),
+                          level_aisle=(600, 880)).items():
+        im = pc(k)
+        if k == 'level_aisle': im = im.crop((0, 0, im.width, 400))
+        r.alpha_composite(im, (x, y))
+    rows.append(r.convert('RGB'))
+    out = Image.new('RGB', (WID, sum(q.height + 8 for q in rows)), BG); y = 0; fy = 0
+    for i, q in enumerate(rows):
+        out.paste(q, (0, y))
+        if i == first_row: fy = y
+        y += q.height + 8
+    dst = os.path.join(R, 'records/target/COOK5_THE_PARKING_GARAGE_KIT_11_11.webp'); out.save(dst, 'WEBP', quality=78, method=6)
+    n = Image.open(N('upright_power')).convert('RGB'); n = n.crop((0, 0, n.width, int(n.width * 660 / 390)))
+    os.makedirs(os.path.join(R, 'records/target/vote_first'), exist_ok=True)
+    n.resize((n.width // 2, n.height // 2), Image.LANCZOS).save(os.path.join(R, 'records/target/vote_first/cook5-the-parking-garage-kit-11-11.webp'), 'WEBP', quality=82, method=6)
+    print('sheet', out.size, os.path.getsize(dst), 'first at', (cw + 10, fy + 26, cw, int(660 * cw / 390)))
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == 'render':
@@ -1020,7 +1070,7 @@ if __name__ == '__main__':
     elif a and a[0] == 'cut':
         (cut_tunnels if a[1] == 'tunnels' else cut_garage)()
     elif a and a[0] == 'sheet':
-        (sheet_tunnels if a[1] == 'tunnels' else sheet_garage)(a[2], a[3])
+        (sheet_tunnels if a[1] == 'tunnels' else sheet_garage)(a[2], a[3] if len(a) > 3 else None)
     elif a and a[0] == 'plan':
         ID = ids(); pal = np.random.RandomState(5).randint(40, 220, (64, 3)).astype(np.uint8)
         gid, dark, pale = PLANS[a[1]](ID)

@@ -19114,7 +19114,50 @@
   {"id": "world14-the-bus-yard-and-the-greenhouses-11-11", "kind": "ui", "lane": "world 14", "sha": "521265817", "made": "11/11", "draft": true, "title": "THE BUS YARD AND THE GREENHOUSES, THE LAST TWO PLACES, EACH WITH SOMEBODY WHO TALKS", "said": "More everything pls", "why": "The last two missing places are on the map at their real spots: the city's bus yard at Sunset and Decatur, where you can pull batteries out of a dead electric bus or hire the last mechanic, and the greenhouses on Wynn Road, where you buy greens or hold the doors when hungry people come at night. You see it on the map in the RUN tab, south-west of the Strip.", "show": {"how": "image", "src": "../records/target/WORLD14_THE_BUS_YARD_AND_THE_GREENHOUSES_11_11.webp",
     "first": "../records/target/vote_first/world14-the-bus-yard-and-the-greenhouses-11-11.webp",
     "firstAt": [0, 0, 1170, 826]
-   }, "before_after": {"before": "main 75daeb7b: no bus yard and no greenhouse anywhere on the map", "after": "both seated inside the valley at their real spots on every valley, each one's person talking on arrival with two choices that cost and pay", "scale": "his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3), the alpha's RUN tab, the map's own card"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_BUS_YARD_THE_GREENHOUSES_AND_FOUR_REDS_11_11_26.md"}
+   }, "before_after": {"before": "main 75daeb7b: no bus yard and no greenhouse anywhere on the map", "after": "both seated inside the valley at their real spots on every valley, each one's person talking on arrival with two choices that cost and pay", "scale": "his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3), the alpha's RUN tab, the map's own card"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_BUS_YARD_THE_GREENHOUSES_AND_FOUR_REDS_11_11_26.md"},
+  {
+   "id": "cook5-the-parking-garage-kit-11-11",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/11",
+   "draft": true,
+   "title": "THE PARKING GARAGE'S ART, MADE AHEAD OF ITS BOARD: STALLS, AISLES, RAISED BAYS, RAMPS, COLUMNS, THE WAY OUT",
+   "said": "some fights could be inside too, that's part of this open world vibe",
+   "why": "The parking garage fight is not built yet, so its art is made first: a real parking deck with stall lines and wheel stops, raised bays with ramps and guard rails, columns, the stairs and lift, and the pay booths at the way out. You see it on this card today, and on the fight screen once the garage board lands.",
+   "options": [
+    "A, yes, that's a parking garage",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_PARKING_GARAGE_KIT_11_11.webp",
+    "first": "../records/target/vote_first/cook5-the-parking-garage-kit-11-11.webp",
+    "firstAt": [
+     295,
+     98,
+     285,
+     482
+    ]
+   },
+   "before_after": {
+    "before": "nothing: the garage has no board and no pictures",
+    "after": "one floor sheet through the master rig (stalls and aisle, every tile joining) and twelve pieces as models in metres, with an art file the board reads; shown on the fight's own page laid on the casino floor's layout",
+    "scale": "the fight's own camera on his phone upright (390 x 844 at 2) and sideways (844 x 390 at 2); the floor and the pieces at one art pixel to one screen pixel"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/casino/casino_carpet_0.webp",
+    "diffs": [
+     "THE SAME RECIPE as the casino floor's carpet (an inside's floor as one sheet through the rig, any tile meeting any tile); here two kinds of tile, stalls and aisle, that also meet each other north and south.",
+     "WHAT A GARAGE HAS THAT THE CASINO DID NOT: half-levels. A raised bay is a piece 1.42 m up with the same floor on top, a ramp one tile long climbs to it, a guard rail runs along its edge.",
+     "MADE BEFORE ITS BOARD: every piece carries its kind, height, canvas and foot in one art file, so the board is laid from finished pictures and never wears a stand-in."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_PARKING_GARAGE_KIT_11_11_26.md"
+  }
  ],
  "verdicts": [
   {

@@ -1,0 +1,146 @@
+{
+ "level": {
+  "w": 516,
+  "h": 427,
+  "foot": [
+   258.2,
+   426
+  ],
+  "piece": "level",
+  "src": "garage/garage_level.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_level.glb"
+ },
+ "level_aisle": {
+  "w": 515,
+  "h": 428,
+  "foot": [
+   257.8,
+   427
+  ],
+  "piece": "level_aisle",
+  "src": "garage/garage_level_aisle.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_level_aisle.glb"
+ },
+ "ramp_e": {
+  "w": 515,
+  "h": 435,
+  "foot": [
+   257.5,
+   434
+  ],
+  "piece": "ramp_e",
+  "src": "garage/garage_ramp_e.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_ramp_e.glb"
+ },
+ "ramp_w": {
+  "w": 516,
+  "h": 434,
+  "foot": [
+   258.2,
+   433
+  ],
+  "piece": "ramp_w",
+  "src": "garage/garage_ramp_w.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_ramp_w.glb"
+ },
+ "rail_ew": {
+  "w": 515,
+  "h": 44,
+  "foot": [
+   257.8,
+   43
+  ],
+  "piece": "rail_ew",
+  "src": "garage/garage_rail_ew.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_rail_ew.glb"
+ },
+ "rail_ns": {
+  "w": 77,
+  "h": 408,
+  "foot": [
+   22.1,
+   407
+  ],
+  "piece": "rail_ns",
+  "src": "garage/garage_rail_ns.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_rail_ns.glb"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 55,
+  "foot": [
+   257.8,
+   54
+  ],
+  "piece": "wall_ew",
+  "src": "garage/garage_wall_ew.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_wall_ew.glb"
+ },
+ "wall_ns": {
+  "w": 82,
+  "h": 420,
+  "foot": [
+   22.3,
+   419
+  ],
+  "piece": "wall_ns",
+  "src": "garage/garage_wall_ns.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_wall_ns.glb"
+ },
+ "column": {
+  "w": 172,
+  "h": 166,
+  "foot": [
+   43.2,
+   140
+  ],
+  "piece": "column",
+  "src": "garage/garage_column.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_column.glb"
+ },
+ "column_b": {
+  "w": 172,
+  "h": 167,
+  "foot": [
+   43.2,
+   140
+  ],
+  "piece": "column_b",
+  "src": "garage/garage_column_b.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_column_b.glb"
+ },
+ "core": {
+  "w": 386,
+  "h": 316,
+  "foot": [
+   154.7,
+   274
+  ],
+  "piece": "core",
+  "src": "garage/garage_core.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_core.glb"
+ },
+ "booth": {
+  "w": 592,
+  "h": 295,
+  "foot": [
+   197.7,
+   250
+  ],
+  "piece": "booth",
+  "src": "garage/garage_booth.webp",
+  "facing": "S",
+  "model": "reference/models/bohemia/garage_booth.glb"
+ }
+}

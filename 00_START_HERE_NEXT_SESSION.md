@@ -1,3 +1,15 @@
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT, NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+The parking garage's art is made AHEAD of its board (COMBAT's, not laid yet), on the casino floor's recipe, so the board never wears a stand-in:
+one floor sheet through the master rig (stalls: lines, wheel stops, oil; the aisle: two ways, arrows; every tile joining, stalls against the aisle
+too) and twelve pieces as models in metres (a raised bay 1.42 m with the stalls' or the aisle's floor on top, the ramp east and west, the guard
+rail, the outer wall, two columns, the stairs and the lift, the way out with two pay booths), with garage_art.json (every list, every piece's
+kind, height, canvas, foot and how a split-level garage lays). NOT IN A FIGHT OF ITS OWN YET: proven on the fight's own page laid on the casino
+floor's layout (a harness; nothing on disk swapped): deals, 0 errors, upright and sideways. Gate THE INSIDES WEAR FINISHED ART 14/0 (the garage's
+seven legs added). VOTE cook5-the-parking-garage-kit-11-11 (MADE FROM the pit). Notes FOR COMBAT THREE inside. NEXT: rows 576 and 585.
+The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never fights on two levels indoors: a garage's half-levels are our own high ground]
+[analog horror: every stall keeps the clean shape of a car that is gone, and the lift's doors are bent open from the inside]
+
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11m - THE FLOOD TUNNELS, FINISHED, BUILT (28d4bd1f9), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 COMBAT THREE's tunnels board (on main since 11/11c in stand-in pictures) now wears finished art through the master rig: three sheets (a culvert
 floor with silt and wet, the wet main channel, the dark earth), every tile joining every tile (one shared edge, its own middle); ten pieces as

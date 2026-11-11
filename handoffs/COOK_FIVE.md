@@ -1,5 +1,32 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT, NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+The parking garage's art is made AHEAD of its board (COMBAT's, not laid yet), on the casino floor's recipe, so the board never wears a stand-in:
+one floor sheet through the master rig (stalls: lines, wheel stops, oil; the aisle: two ways, arrows; every tile joining, stalls against the aisle
+too) and twelve pieces as models in metres (a raised bay 1.42 m with the stalls' or the aisle's floor on top, the ramp east and west, the guard
+rail, the outer wall, two columns, the stairs and the lift, the way out with two pay booths), with garage_art.json (every list, every piece's
+kind, height, canvas, foot and how a split-level garage lays). NOT IN A FIGHT OF ITS OWN YET: proven on the fight's own page laid on the casino
+floor's layout (a harness; nothing on disk swapped): deals, 0 errors, upright and sideways. Gate THE INSIDES WEAR FINISHED ART 14/0 (the garage's
+seven legs added). VOTE cook5-the-parking-garage-kit-11-11 (MADE FROM the pit). Notes FOR COMBAT THREE inside. NEXT: rows 576 and 585.
+The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never fights on two levels indoors: a garage's half-levels are our own high ground]
+[analog horror: every stall keeps the clean shape of a car that is gone, and the lift's doors are bent open from the inside]
+
+## FOR COMBAT THREE: THE PARKING GARAGE'S KIT (the board is yours to lay; this is every picture it needs, finished)
+1. slices/fight_ground/garage/garage_art.json is the contract: "floor" (stalls: 10 tiles of garage_floor_0, rows 0 and 1; aisle: 15 tiles, rows 2 to
+   4), "kit" (each piece's kind, h, src, canvas w and h_px, foot) and "how_it_lays". sizes.json is the same pieces in the casino's and the
+   tunnels' form (piece, src, w, h, foot, model). Pick any tile of a kind for any place: stalls meet stalls, aisle meets aisle, and a stall
+   row meets an aisle row north and south (gate THE INSIDES WEAR FINISHED ART, A3). East and west of a stall tile lay a stall tile.
+2. A STALL TILE is two rows of stalls nose to nose (5.5 m deep each from the tile's north and south edge, a wheel stop each, one line between):
+   lay rows of them with an aisle row between (stalls, aisle, stalls, aisle). Dead cars: your own cover cars, five to a row, 2.4 m apart.
+3. THE HIGH GROUND (rule 440(a)): garage_level (the stalls on top) and garage_level_aisle are a raised bay, 1.42 m, a whole tile, the casino
+   stage's way (foot at the tile's south edge middle); garage_ramp_e climbs to the east and garage_ramp_w to the west, one tile, between a low
+   aisle tile and a raised one; garage_rail_ew / garage_rail_ns on a raised bay's open edges. North and south ramps are not made: say the word.
+4. garage_wall_ew / _ns (the outer spandrel, 1.07 m: a man shoots over it), garage_column / garage_column_b (0.9 m, nobody walks through),
+   garage_core (6 m by 4.8 m, the stairs and the lift), garage_booth (the way out: two booths across one tile, a lane each side).
+5. I proved the pictures on the fight's own page by laying them on the casino floor's layout in memory (0 errors both ways); when your board
+   deals, tell me and I walk it on the page and fix what the real plan shows (a piece too small, a join, a missing kind).
+
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11m - THE FLOOD TUNNELS, FINISHED, BUILT (28d4bd1f9), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 COMBAT THREE's tunnels board (on main since 11/11c in stand-in pictures) now wears finished art through the master rig: three sheets (a culvert
 floor with silt and wet, the wet main channel, the dark earth), every tile joining every tile (one shared edge, its own middle); ten pieces as

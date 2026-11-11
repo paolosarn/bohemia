@@ -7,7 +7,7 @@ are made ahead through the master rig (tools/bohemia_cook5_the_tunnels_and_the_g
 slices/fight_ground/<kit>/ with an art file a board reads its lists from. A board picks ANY tile of a sheet for ANY place,
 so the one thing a picture can get wrong without anybody seeing it in the tool is the join: this gate measures it.
 
-  for each kit in KITS (tunnels; garage when its pictures land):
+  for each kit in KITS (the tunnels, the garage):
   A1 the art file says finished, names a board to be for, and every picture it names (sheets and pieces) is a file; no picture
      lies in the folder unnamed
   A2 every sheet is five by five tiles of 515 x 364 (2575 x 1820); every ground list entry names a tile on its sheet
@@ -29,8 +29,9 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FG = os.path.join(ROOT, 'slices', 'fight_ground')
 TW, TH = 515, 364
-KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew', 'wall_ew_b', 'wall_ew_c'),
-                        beside=[])}          # (kind, kind) pairs of ground lists that lie side by side AND must join without a line
+KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew', 'wall_ew_b', 'wall_ew_c'), beside=[]),
+        'garage': dict(art='garage_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'level', 'level_aisle', 'ramp_e', 'ramp_w'),
+                       beside=[('stalls', 'aisle')])}   # (kind, kind): ground lists that lie north and south of each other AND must join without a line
 passed = failed = 0
 
 
