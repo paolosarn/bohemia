@@ -77,7 +77,10 @@ leg(['aim', 'cover', 'reload'].every(k => lines[k]) && !bad.length, '*** THE WOR
   await p.evaluate(() => { document.getElementById('vet').style.display = 'none'; FIGHT_UI.vet = null; });
   await stand(p, 3); await tapThem(p);
   const b = await vet(p);
-  leg(!b.shown, '*** EACH ONCE: a second aim says nothing new ***', b.shown ? b.k + ' again' : 'quiet');
+  /* RE-AIMED 11/11 (FIXES 2, ask row 588): the lessons march in a line now (the fight's own note over TEACH: 'a line that comes
+     while another is up waits its turn, never two at once'), so after the aim's line the WALK's, still owed, takes its turn. That is
+     another lesson said once, not the aim said twice. What must never happen is the aim's own line again. */
+  leg(!b.shown || b.k !== 'aim', '*** EACH ONCE: a second aim never says the aim\'s line again (a lesson still owed may take its turn) ***', b.shown ? 'the ' + b.k + ' lesson took its turn' : 'quiet');
   /* the first empty gun: a pistol with no rounds, a tap that would fire */
   await stand(p, 3, 'u.ammo = 0;'); await tapThem(p); await p.waitForTimeout(300);
   const c = await vet(p);

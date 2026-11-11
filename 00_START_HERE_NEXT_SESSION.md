@@ -81,6 +81,20 @@ PLACES ARE TEMPLATES (all 15 on every valley), 11/11a THE PIECE THAT ANSWERS IT 
 THE SEAM FOR COMBAT THREE is in the handoff. Next: the painter writes the boards' layouts onto the map at their cells.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
+FIXES TWO (fixes-two-01gkdyuv): 11/11 LATEST -- BUILD 11/11l - HIS LETTERS STAY HIS, BUILT, NOT YET SEEN (the red debt rows, round one:
+ten ask rows closed, each proven on the demo upright and on its side or on the fight's own page): the crew's name he types on the
+start screen is never eaten by the screen rebuilding under him (580: LOS HERMANOS typed, NOS kept; main's demo still does it, this one
+does not); a wiped phone keeps no save until he presses NEW GAME (590); the veteran's orange-stripes line is 11 words (588); the map's
+strangers slip into Spanish about 4 lines in 10 (583); a dead block name off the board families (589). FOUR ROWS WERE THE CHECKER, NOT
+THE GAME, measured on the page first: 572 (the gate served the site without its engine folder), 573 (the bottle lands at the chance
+shown: 4,000 throws; the gate's 120 were one fixed deal), 565 (the gates pressed LEAVE a second before the end screen was on the
+glass), 591 (the door's own words are 107 characters; the rest are the new game's picks). 575 was already right. THE RED DEBT 382 to
+370 NAMED. NOT REPRODUCED: 555 / 605 (the boss fight's quiet turn). NEXT: EYES' 606, 611, 607, 612, 609, then the rest of the debt.
+The whole block: handoffs/FIXES_TWO.md.
+[bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
+[analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]
+
+(the FIXES chat was archived 11/11; the lane goes on as FIXES TWO above; its last block stays:)
 FIXES (fixes-01gkdyus): 11/10 LATEST -- BUILD 11/10l - THE FIGHT DRAWS ITS OWN SHEETS (row 558, PLUMBER 8's: a fight no longer throws
 and drops a man from the frame on a slow phone; his walk at 4x: 0 throws, 14 before), after BUILD 11/10k - THE DOOR KEEPS YOUR THUMB,
 both BUILT, NOT YET SEEN (ask rows 550 to 554, FOUND BY EYES 11/10, and 538's MAKE CAMP half): a thumb on BEGIN while the game loads is kept and the door opens itself when it is in; the Mob Museum's

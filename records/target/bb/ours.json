@@ -670,7 +670,6 @@
      "subs",
      "suburb_stem",
      "corner",
-     "cornerw",
      "lots",
      "culdesac",
      "strip",
@@ -698,8 +697,7 @@
     "suburb": [
      "subs",
      "suburb_stem",
-     "corner",
-     "cornerw"
+     "corner"
     ]
    }
   },

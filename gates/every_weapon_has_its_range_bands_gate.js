@@ -194,11 +194,11 @@ function checkCard(ctx) {
 
   /* B5, B6: rolled AUTO fights, with the bands, and with them zeroed */
   const keyOf = (G, w) => w.band || (w.of || w).band || G.jobOfWeapon(w);
-  const play = zero => {
+  const play = (zero, lo, hi) => { lo = lo || 1; hi = hi || 10;
     const c = engine();
     if (zero) { const v = c.DB.ours.range_bands.value; Object.keys(v).forEach(k => { v[k] = { hit_by_tile: {}, damage_by_tile: {} }; }); }
     const G = c.FIGHT, by = {}; let won = 0, fights = 0, est = 0, estBad = [];
-    for (const kind of KINDS) for (let seed = 1; seed <= 10; seed++) {
+    for (const kind of KINDS) for (let seed = lo; seed <= hi; seed++) {
       try {
         c.setSeed(seed); G.setup({ seed, kind, auto: true, formation: null, deploy: false, party: { faction: 'brigands', count: 8, days: 20 } });
         const S2 = G.S; S2.deploy = false; fights++;
@@ -218,11 +218,38 @@ function checkCard(ctx) {
     return { by, won, fights, est, estBad };
   };
   const now = play(false), was = play(true);
-  const off = []; let buckets = 0;
-  Object.keys(now.by).forEach(k => { const q = now.by[k]; if (q.n < 100) return; buckets++; const rate = 100 * q.h / q.n, shown = q.ch / q.n, se = 100 * Math.sqrt(shown / 100 * (1 - shown / 100) / q.n);
-    if (Math.abs(rate - shown) > Math.max(6, 2.6 * se)) off.push(k + ' ' + Math.round(rate) + '% hit, ' + Math.round(shown) + '% shown, n ' + q.n); });
-  leg(buckets >= 6 && off.length === 0, '*** B5 THE HITS LAND AT THE CHANCE THE RULES GAVE *** (rule 187(e)): every band and distance with a hundred shots or more, both sides, within 6 points or 2.6 of the bucket\'s own spread',
-    buckets + ' buckets' + (off.length ? ', off: ' + off.slice(0, 3).join('; ') : ', all within'));
+  /* RE-AIMED 11/11 (FIXES 2, ask row 573: 'you:bottles@2 33% hit, 47% shown, n 120', red on every run). MEASURED: the throw is
+     honest. On the lane (B5b below) 4,000 throws of every thrown row land within a point of the aim (75.7 on 75, 65.2 on 65); over
+     seeds 11 to 60 the same bucket is 629 throws, 41.0% on 42.8% shown, 26 buckets, none off. The red was the SAMPLE: seeds 1 to 10
+     are one fixed deal, so a bucket of 120 that falls three spreads out falls there on every run for ever, and a seeded fluke reads
+     as a rule broken. A bucket that reads off is now dealt again on fights it has not seen (seeds 11 to 20): it is OFF only if it is
+     off the same way on both (a real lean shows on any deal; a fluke does not come twice). B5b asks the question itself, straight. */
+  const offOf = (r, sign) => { const o = {}; let b = 0;
+    Object.keys(r.by).forEach(k => { const q = r.by[k]; if (q.n < 100) return; b++; const rate = 100 * q.h / q.n, shown = q.ch / q.n, se = 100 * Math.sqrt(shown / 100 * (1 - shown / 100) / q.n);
+      if (Math.abs(rate - shown) > Math.max(6, 2.6 * se)) o[k] = { say: k + ' ' + Math.round(rate) + '% hit, ' + Math.round(shown) + '% shown, n ' + q.n, low: rate < shown }; });
+    return { o, b }; };
+  const first = offOf(now), buckets = first.b; let off = [], again = '';
+  if (Object.keys(first.o).length) { const re = play(false, 11, 20), second = { o: {} };
+    Object.keys(first.o).forEach(k => { const q = re.by[k]; if (!q || q.n < 60) { off.push(first.o[k].say + ' (too few on the second deal to clear it: ' + ((q && q.n) || 0) + ')'); return; }
+      const rate = 100 * q.h / q.n, shown = q.ch / q.n, se = 100 * Math.sqrt(shown / 100 * (1 - shown / 100) / q.n);
+      if (Math.abs(rate - shown) > Math.max(6, 2.6 * se) && (rate < shown) === first.o[k].low) off.push(first.o[k].say + '; again on seeds 11 to 20: ' + Math.round(rate) + '% hit, ' + Math.round(shown) + '% shown, n ' + q.n);
+      else again += (again ? '; ' : '') + first.o[k].say + ' -> dealt again ' + Math.round(rate) + '% on ' + Math.round(shown) + '%, n ' + q.n; }); }
+  leg(buckets >= 6 && off.length === 0, '*** B5 THE HITS LAND AT THE CHANCE THE RULES GAVE *** (rule 187(e)): every band and distance with a hundred shots or more, both sides, within 6 points or 2.6 of the bucket\'s own spread (a bucket off on one deal is dealt again on fights it has not seen: off only if off both times, the same way)',
+    buckets + ' buckets' + (off.length ? ', off: ' + off.slice(0, 3).join('; ') : ', all within') + (again ? ' [a fluke of the first deal: ' + again + ']' : ''));
+  /* B5b THE AIM IS THE THROW (row 573's own question): one shooter, one man, a flat open row; every shooting row at every tile it
+     reaches, 1,500 shots each; the share that lands against the chance the aim showed him before each shot */
+  { const L = lane(ctx), bad = []; let pairs = 0;
+    rangedRows(ctx).forEach(w0 => { for (let dd = 1; dd <= 8; dd++) { let n = 0, h = 0, chs = 0;
+        for (let i = 0; i < 1500; i++) { const w = L.arm(w0); L.a.ammo = w.mag || 99; L.t.x = dd; L.t.y = L.row; L.t.hp = L.t.hpMax = 999999; L.S.over = false; L.S.idx = L.S.order.indexOf(L.a.id);
+          if (F.current() !== L.a || !F.canStrike(L.a, L.t)) break;
+          const ch = F.hitChance(L.a, L.t).chance, n0 = L.S.log.length; if (!F.strike(L.a, L.t)) break;
+          const e = L.S.log.slice(n0).find(x => x.t === 'attack' && x.to === L.t.id && !x.astray && !x.sweep); if (!e) break;
+          n++; chs += ch; if (e.hit) h++; if (e.chance !== ch) { bad.push(w0.id + '@' + dd + ' aimed ' + ch + ', rolled on ' + e.chance); break; } }
+        if (n < 1500) continue; pairs++;
+        const rate = 100 * h / n, shown = chs / n, se = 100 * Math.sqrt(shown / 100 * (1 - shown / 100) / n);
+        if (Math.abs(rate - shown) > Math.max(3, 3.3 * se)) bad.push(w0.id + '@' + dd + ' ' + rate.toFixed(1) + '% lands, the aim ' + shown.toFixed(1) + '%'); } });
+    leg(pairs >= 60 && bad.length === 0, '*** B5b THE AIM IS THE THROW *** (ask row 573): every shooting row at every tile it reaches, 1,500 shots on a flat open row: what lands is what the aim showed, within 3 points, and the roll is on the number shown',
+      pairs + ' row and distance pairs' + (bad.length ? ', off: ' + bad.slice(0, 4).join('; ') : ', all within')); }
   const n = (r, k) => (r.by[k] || { n: 0 }).n, tot = (r, s, j) => [1, 2, 3, 4, 5, 6, 7, 8].reduce((m, d) => m + n(r, s + ':' + j + '@' + d), 0);
   const bowNow = n(now, 'them:bow@1') / Math.max(1, tot(now, 'them', 'bow')), bowWas = n(was, 'them:bow@1') / Math.max(1, tot(was, 'them', 'bow'));
   leg(now.est >= 100 && now.estBad.length === 0 && bowNow < bowWas,

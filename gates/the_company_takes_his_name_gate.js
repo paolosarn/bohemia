@@ -76,6 +76,44 @@ const HIS = 'Los Hermanos', HISUP = 'LOS HERMANOS';
     const back = cf ? await cf.evaluate(() => (typeof LOOP !== 'undefined' && LOOP.start) ? LOOP.start.name : null) : null;
     const top2 = await P.evaluate(() => window.BohemiaCompanyName ? BohemiaCompanyName.get() : null);
     ok('N4 after a reload and CONTINUE (' + pressed + '): the map "' + back + '", the phone "' + top2 + '"', pressed && !!cf && top2 === HISUP && (back === HISUP || back === null));
+    /* N6 *** A REBUILD KEEPS HIS LETTERS *** (FIXES 2 11/11, ask row 580: 'he types LOS HERMANOS and gets NOS'). N2 met it only when
+       the origins' file happened to land between two of his letters, so it was red one run and green the next. Here the file is HELD
+       (the service worker off, so the hold is real), he taps ANOTHER, taps the box and types LOS HERMA, the file is let go (the
+       screen rebuilds and UI's dressPicks moves the rows: the box under his thumbs is a new one, moved), and he types NOS.
+       Upright and on its side. PLANT: the put-back's flag ignored (the old door): his letters are eaten, and the leg must say so. */
+    const through = async (shape, plant) => {
+      const ctx = await P.context().browser().newContext({ viewport: shape, hasTouch: true, isMobile: true, deviceScaleFactor: 2, serviceWorkers: 'block' });
+      const pg = await ctx.newPage(); let release = null, hits = 0; const held = new Promise(r => { release = r; });
+      await pg.route('**/origins.json*', async route => { hits++; await held; await route.continue().catch(() => {}); });
+      if (plant) {
+        await pg.route(/BOHEMIA_DEMO\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if(t.__back) return;', ''); await route.fulfill({ response: r, body: b }); });
+        await pg.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('keep.el.__back = true;', ''); await route.fulfill({ response: r, body: b }); });
+      }
+      try {
+        await pg.goto(P.url().split('?')[0], { waitUntil: 'load', timeout: 240000 });
+        await throughTheTitle(pg, 30000);
+        let b = null; for (let i = 0; i < 60 && !b; i++) { b = await boxAt(pg); if (!b) await pg.waitForTimeout(250); }
+        await pg.waitForTimeout(600);
+        const an = await pg.evaluate(() => { const e = document.querySelector('#newco button[data-k="name"]'); if (!e) return null; e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+        if (an) { await pg.touchscreen.tap(an.x, an.y); await pg.waitForTimeout(300); }
+        b = await boxAt(pg); if (b) { await pg.touchscreen.tap(b.x, b.y); await pg.waitForTimeout(300); }
+        await pg.keyboard.type('LOS HERMA', { delay: 60 });
+        const el0 = await pg.evaluateHandle(() => document.getElementById('newconame'));
+        release();
+        let rebuilt = false; for (let i = 0; i < 60 && !rebuilt; i++) { rebuilt = !(await pg.evaluate(e => e === document.getElementById('newconame'), el0)); if (!rebuilt) await pg.waitForTimeout(100); }
+        await pg.waitForTimeout(250);
+        await pg.keyboard.type('NOS', { delay: 60 }); await pg.waitForTimeout(200);
+        const st = await state(pg);
+        return { value: st.value, picks: st.picks, focused: st.focused, rebuilt, hits };
+      } catch (e) { return { err: String(e.message || e).slice(0, 160) }; } finally { await ctx.close(); }
+    };
+    for (const [nm, shape] of [['upright', { width: 390, height: 844 }], ['on its side', { width: 844, height: 390 }]]) {
+      const r = await through(shape, false);
+      ok('*** N6 A REBUILD KEEPS HIS LETTERS *** (' + nm + '): LOS HERMA typed, the screen rebuilt under him (' + r.rebuilt + ', the origins\' file held ' + r.hits + '), NOS typed: the box "' + r.value + '", the picks "' + r.picks + '", the keyboard still his ' + r.focused + (r.err ? ' ' + r.err : ''),
+        r.rebuilt === true && r.value === HISUP && r.picks === HISUP && r.focused === true);
+    }
+    const pl = await through({ width: 390, height: 844 }, true);
+    ok('  N6 PLANTED (the put-back\'s flag ignored, the old door): his letters are eaten and the leg sees it (the box "' + pl.value + '")' + (pl.err ? ' ' + pl.err : ''), pl.rebuilt === true && pl.value !== HISUP);
   } catch (e) { ok('the legs ran [' + String(e.stack || e.message).slice(0, 300) + ']', false); }
   ok('Z nothing threw', d.errs.length === 0, d.errs.slice(0, 2).join(' | '));
   await d.close();

@@ -70,18 +70,11 @@ const fightFrame = async (d) => {
   return { f: null, box: null };
 };
 const press = async (d, x, y) => { if (d.touch) await d.page.touchscreen.tap(x, y); else await d.page.mouse.click(x, y); };
-const leaveEnd = async (d) => {
-  let sf = null;
-  for (let i = 0; i < 120 && !sf; i++) {
-    sf = d.page.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
-    if (sf && !(await sf.evaluate(() => !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened)).catch(() => false))) sf = null;
-    if (!sf) await d.page.waitForTimeout(150);
-  }
-  if (!sf) return false;
-  const box = await (await sf.frameElement()).boundingBox(), b = await sf.evaluate(() => { const r = document.getElementById('leave').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
-  await press(d, box.x + b[0], box.y + b[1]);
-  return true;
-};
+/* RE-AIMED 11/11 (FIXES 2, ask row 565): the end screen says 'opened' 1.0 to 1.7 s before it is on the glass; LEAVE was read and
+   pressed off the glass (550,893 on a 390 x 844 phone) and the fight's page stayed. The press is a thumb's now: LEAVE on the glass,
+   the top thing at its own middle, still; then one press (tools/bohemia_leave_the_end_screen.js). */
+const { leaveTheEndScreen } = require(require('path').join(__dirname, '..', 'tools/bohemia_leave_the_end_screen.js'));
+const leaveEnd = async (d) => { const r = await leaveTheEndScreen(d.page, { mouse: !d.touch, ms: 30000 }); if (!r.pressed) console.log('  [leave] not pressed: ' + r.why); return r.pressed; };
 const home = async (d) => { for (let i = 0; i < 150; i++) { const s = await d.page.evaluate(() => !CITYFIGHT && !document.getElementById('fightFrame')).catch(() => false); if (s) return true; await d.page.waitForTimeout(100); } return false; };
 const units = (f) => f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you').map(u => ({ name: u.name, main: !!u.main, hp: u.hp, hpMax: u.hpMax,
   hpCut: u.hpCut || 0, hpWhole: u.hpWhole || null, injuries: (u.injuries || []).map(j => ({ id: j.id, kind: j.kind, effects: j.effects || null })) })));
@@ -296,8 +289,10 @@ async function run(profile) {
     const d4 = await counts(fr2).catch(e => ({ err: String(e.message).slice(0, 120) }));
     const hk4 = await fr2.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).map(m => m && m.name)).catch(() => []);
     ok(P + 'D4 THE DEAD STAY DEAD after a reload: the map\'s count is the living (the woken man added), the hand-over and the sizing never carry ' + DEAD,
-      !d4.err && d4.crew === wantCrew(d4, [F1.rows, F2.rows]) && !hk4.some(n => n && canon(n) === DK) && !d4.roster.some(n => n && canon(n) === DK),
-      JSON.stringify({ crew: d4.crew, want: d4.err ? null : wantCrew(d4, [F1.rows, F2.rows]), handOver: hk4, origin: d4.origin, hired: d4.hired, taken: d4.taken, walked: d4.walked, dead: d4.dead, err: d4.err }));
+      /* RE-AIMED 11/11 (FIXES 2, ask row 565): this leg was never reached while the LEAVE press missed. Its own words count 'the
+         woken man added' (S9 just above woke OLDBENCH into the company) and its sum did not, so three living men read 'want 2'. */
+      !d4.err && d4.crew === wantCrew(d4, [F1.rows, F2.rows]) + (s9 && s9.inCo ? 1 : 0) && !hk4.some(n => n && canon(n) === DK) && !d4.roster.some(n => n && canon(n) === DK),
+      JSON.stringify({ crew: d4.crew, want: d4.err ? null : wantCrew(d4, [F1.rows, F2.rows]) + (s9 && s9.inCo ? 1 : 0), handOver: hk4, origin: d4.origin, hired: d4.hired, taken: d4.taken, walked: d4.walked, dead: d4.dead, err: d4.err }));
 
     /* ---- S11 ---- */
     ok(P + 'S11 nothing threw', d.errs.length === 0, d.errs.length ? String(d.errs[0]).slice(0, 160) : 'no errors');

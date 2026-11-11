@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"02891db44df585ad",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"fda1edb4dcff56f3",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/11k - THE PHONE REDRAWS ONLY WHAT MOVED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/11l - HIS LETTERS STAY HIS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13210,6 +13210,16 @@ function combatMsgIn(d){
   }
   if(d.bohemiaCityState!==undefined){
     if(window.__BOH_FORGET) return true;   /* __THE_START_SCREEN__: NEW GAME killed the save; the page is reloading, and its last snapshot must not write the old game back */
+    /* __NO_SAVE_BEFORE_NEW_GAME__ (FIXES 2 11/11, ask row 590; rules 66a, 348: nothing before the title, no save before NEW GAME).
+       MEASURED on a wiped phone: 3 s after the page opens, the title still up, the map behind it posts its first snapshot and this
+       line wrote bohemia_city_save.a: a save of a game nobody began, and the next visit offers CONTINUE on it. While the title
+       stands on a phone that held no save when the page opened, the newest snapshot is HELD, and written the moment he presses
+       NEW GAME (the title's own hide) or begins: the door behind the title keeps its valley as before. A phone that came with a
+       save, the door after NEW GAME, and the workshop (no title) are written as before. */
+    if(window.__SAVE_AT_OPEN === undefined){ try{ var __s0 = CITYSAVE.load(); window.__SAVE_AT_OPEN = !!(__s0 && __s0.data); }catch(_e){ window.__SAVE_AT_OPEN = true; } }
+    var __tt = window.BOH_TITLE;
+    if(!window.__SAVE_AT_OPEN && !window.__PLAY_BEGAN && window.__BOHEMIA_DEMO_BUILD && __tt && !__tt.skipped && !__tt.newgames && !__tt.continues){ window.__SAVE_HELD = d.bohemiaCityState; return true; }
+    window.__SAVE_HELD = null;
     CITYSAVE.save(d.bohemiaCityState);
     /* AND THE MUSIC HEARS A PAYDAY (8/20). This snapshot already carries the
        purse ledger, so being paid is visible from here without the city world
@@ -13915,15 +13925,23 @@ var BOH_START = (function(){
        he types replaces it), the phone's keyboard comes up, what he types is the company's (the bar, the feed, the phone, the
        story read picks().name and BohemiaCompanyName); ANOTHER still deals the prepared names; an empty box goes back to the one dealt */
     h += '</div><h4>YOUR CREW\'S NAME</h4><div class="name"><input id="newconame" type="text" maxlength="22" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="your crew\'s name" placeholder="TYPE A NAME" value="'+nameEsc(nameNow())+'"><button data-k="name">ANOTHER</button></div>';
-    var ae = document.activeElement, was = ae && ae.id === 'newconame' ? { s: ae.selectionStart, e: ae.selectionEnd, v: ae.value } : null;   /* a rebuild (the origins' file landing) never takes the box from under his thumbs */
+    var ae = document.activeElement, was = ae && ae.id === 'newconame' ? { s: ae.selectionStart, e: ae.selectionEnd, v: ae.value, w: ae.__was } : null;   /* a rebuild (the origins' file landing) never takes the box from under his thumbs */
     el.innerHTML = h;
-    if(was){ var ni = document.getElementById('newconame'); if(ni){ ni.value = was.v; ni.focus(); try{ ni.setSelectionRange(was.s, was.e); }catch(_e){} } }
+    /* __THE_REBUILD_KEEPS_HIS_LETTERS__ (FIXES 2 11/11, ask row 580): the box put back by a rebuild is not his tap. Its focus()
+       ran the tap's own 'pick the whole name' a tick later, so LOS HERMA, a rebuild, NOS left him NOS. The put-back is flagged
+       on the box itself (__back, so UI's dressPicks, which moves the rows after every rebuild and so drops the focus again, can
+       put it back the same way) and the pick is skipped: his caret stays where it was and the next letter goes after the last. */
+    if(was){ var ni = document.getElementById('newconame'); if(ni){ ni.value = was.v; ni.__was = was.w; ni.__back = true; try{ ni.focus(); }catch(_e){} ni.__back = false; try{ ni.setSelectionRange(was.s, was.e); }catch(_e){} } }
   }
   function nameClean(v){ return String(v || '').replace(/\s+/g, ' ').replace(/^ /, '').toUpperCase().slice(0, 22); }
   function nameNow(){ var t = nameClean(pick.typed).trim(); return t || NAMES[pick.name % NAMES.length]; }
   function nameEsc(v){ return String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
   function nameWire(el){
-    el.addEventListener('focusin', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; t.__was = t.value; setTimeout(function(){ try{ t.select(); }catch(_e){} }, 0); });
+    el.addEventListener('focusin', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; if(t.__back) return;   /* a rebuild's put-back, not his tap (row 580) */
+      /* and the pick waits for nothing he has typed: on a busy page (the valley loading behind the door) the tick can land AFTER
+         his first letter, and picking the whole name then made his second letter replace the first (measured on its side under
+         load: LOS HERMANOS kept as OS HERMANOS). The pick is only for the name as it stood when he tapped. */
+      var v0 = t.value; t.__was = v0; setTimeout(function(){ try{ if(document.activeElement === t && t.value === v0) t.select(); }catch(_e){} }, 0); });
     el.addEventListener('input', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; pick.typed = nameClean(t.value); save(); });
     el.addEventListener('keydown', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; e.stopPropagation();   /* his letters are his, never the game's keys */
       if(e.key === 'Enter'){ e.preventDefault(); t.blur(); }
@@ -14012,7 +14030,7 @@ window.BOH_START = BOH_START;
     el.appendChild(wrap);
     var inp = wrap.querySelector('input');
     wrap.addEventListener('click', function(e){ e.stopPropagation(); var b = e.target.closest && e.target.closest('button'); if (b && b.getAttribute('data-w') === 'another') go(''); });   /* never the BEGIN tap */
-    inp.addEventListener('focusin', function(){ inp.__was = inp.value; setTimeout(function(){ try { inp.select(); } catch (_e) {} }, 0); });
+    inp.addEventListener('focusin', function(){ var v0 = inp.value; inp.__was = v0; setTimeout(function(){ try { if (document.activeElement === inp && inp.value === v0) inp.select(); } catch (_e) {} }, 0); });   /* FIXES 2 (row 580's cousin): never a pick over what he has already typed */
     inp.addEventListener('keydown', function(e){ e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } else if (e.key === 'Escape') { inp.value = inp.__was || show(now()); inp.blur(); } });
     inp.addEventListener('focusout', function(){ var t = norm(inp.value), c2 = now(); if (t && t !== c2) go(t); else inp.value = show(c2); });
   }
@@ -14074,6 +14092,7 @@ document.getElementById('front').addEventListener('click',(ev)=>{
      does not, because the city frame is lazy and is usually not built at BEGIN. */
   try{
     window.__PLAY_BEGAN = true;
+    try{ if(window.__SAVE_HELD && !window.__BOH_FORGET){ CITYSAVE.save(window.__SAVE_HELD); window.__SAVE_HELD = null; } }catch(_e){}   /* __NO_SAVE_BEFORE_NEW_GAME__ (row 590): a snapshot still held is written when he begins */
     try{ window.__stepsFetch && window.__stepsFetch(); }catch(_e){}   /* the recorded steps, in before the first journey (CUE 7.1) */
     var _cf0 = document.getElementById('cityFrame');
     if(_cf0 && _cf0.contentWindow){
@@ -14339,7 +14358,8 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
   }
   /* in through the door's own BEGIN: the one way into the game */
   function enter(){ hide(); try{ $('front').click(); }catch(_e){} }
-  function hide(){ if (T.el) T.el.classList.add('gone'); }
+  function hide(){ if (T.el) T.el.classList.add('gone');
+    try{ if(window.__SAVE_HELD && !window.__BOH_FORGET && typeof CITYSAVE !== 'undefined'){ CITYSAVE.save(window.__SAVE_HELD); window.__SAVE_HELD = null; } }catch(_e){} }   /* __NO_SAVE_BEFORE_NEW_GAME__ (row 590): past the title, the door's valley is kept as before */
   function show(){
     if (!T.el) T.el = build(); if (!T.el) return;
     T.el.classList.remove('gone'); T.shown++; T.pending = null; T.save = (typeof CITYSAVE === 'undefined') ? undefined : saved(); place(); paint();

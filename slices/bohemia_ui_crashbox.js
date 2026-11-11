@@ -524,7 +524,14 @@
       });
       /* the nodes themselves in that order (a stable sort; moved only when they are not already so, so the watcher never loops) */
       var want = kids.slice().sort(function (a, b) { return a.__cbxKey - b.__cbxKey; });
-      if (want.some(function (el, i) { return el !== kids[i]; })) { var sl = $('newcostrip') ? $('newcostrip').scrollLeft : 0; want.forEach(function (el) { nc.appendChild(el); }); if ($('newcostrip')) $('newcostrip').scrollLeft = sl; }
+      if (want.some(function (el, i) { return el !== kids[i]; })) { var sl = $('newcostrip') ? $('newcostrip').scrollLeft : 0;
+        /* FIXES 2 11/11 (ask row 580, 'LOS HERMANOS typed, NOS kept'): moving a row takes the keyboard from the box in it. MEASURED:
+           RUN's rebuild put his caret back, this move dropped it 3 ms later, and RUN's own 'pick the whole name' (a tick after any
+           focus) then picked all he had typed, so his next letters replaced it. The box he is typing in gets its focus and its
+           caret back after the move, flagged __back so RUN's focus handler knows it is not his tap. */
+        var ae = document.activeElement, keep = ae && ae.id === 'newconame' && nc.contains(ae) ? { el: ae, s: ae.selectionStart, e: ae.selectionEnd } : null;
+        want.forEach(function (el) { nc.appendChild(el); }); if ($('newcostrip')) $('newcostrip').scrollLeft = sl;
+        if (keep && keep.el.isConnected && document.activeElement !== keep.el) { keep.el.__back = true; try { keep.el.focus({ preventScroll: true }); } catch (e) {} keep.el.__back = false; try { keep.el.setSelectionRange(keep.s, keep.e); } catch (e) {} } }
       kids = want;
       /* each row's picked plate says what it does in the row's heading (its own small line, RUN's words) */
       kids.forEach(function (el, i) { if (el.tagName !== 'H4') return; var nx = el.nextElementSibling; if (!nx || !nx.classList.contains('row')) return;

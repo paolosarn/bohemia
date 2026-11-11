@@ -79,18 +79,11 @@ const waitHome = async (d, ms, from) => { const t0 = from || Date.now(); let s;
 const HOME_MS = 3000;
 /* THE ONE END SCREEN (RUN TWO, rule 164 item 28): it comes up when the fight is over and stands until a finger is on LEAVE;
    this waits for it, puts a real finger there and says when */
-const leaveEnd = async (d) => {
-  let sf = null;
-  for (let i = 0; i < 100 && !sf; i++) {
-    sf = d.page.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
-    if (sf && !(await sf.evaluate(() => !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened)).catch(() => false))) sf = null;
-    if (!sf) await d.page.waitForTimeout(150);
-  }
-  if (!sf) return { up: false, at: null };
-  const box = await (await sf.frameElement()).boundingBox(), b = await sf.evaluate(() => { const r = document.getElementById('leave').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
-  const at = Date.now(); await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]);
-  return { up: true, at };
-};
+/* RE-AIMED 11/11 (FIXES 2, ask row 565): the end screen says 'opened' 1.0 to 1.7 s before it is on the glass; LEAVE was read and
+   pressed off the glass (550,893 on a 390 x 844 phone) and the fight's page stayed. The press is a thumb's now: LEAVE on the glass,
+   the top thing at its own middle, still; then one press (tools/bohemia_leave_the_end_screen.js). */
+const { leaveTheEndScreen } = require(require('path').join(__dirname, '..', 'tools/bohemia_leave_the_end_screen.js'));
+const leaveEnd = async (d) => { const r = await leaveTheEndScreen(d.page, { ms: 25000 }); if (!r.pressed) console.log('  [leave] not pressed: ' + r.why); return { up: r.pressed, at: r.pressed ? Date.now() : null }; };
 
 (async () => {
   let d;

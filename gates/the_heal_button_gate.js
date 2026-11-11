@@ -61,18 +61,11 @@ const healBtn = (d) => d.page.evaluate(() => { const ph = document.getElementByI
     word: lab && getComputedStyle(lab).display !== 'none' ? lab.textContent : '', label: b.getAttribute('aria-label') || '', mark: !!b.querySelector('img[src*="app_heal"]'), bar: !!cv && getComputedStyle(cv).display !== 'none',
     top: !!e && (e === b || b.contains(e)), at: [r.x + r.width / 2, r.y + r.height / 2], blood: +b.dataset.blood, armour: +b.dataset.armour }; }).catch(() => null);
 const healReady = async (d, where) => { for (let i = 0; i < 60; i++) { const h = await healBtn(d); if (h && h.shown && !h.off && h.screen === where && !isNaN(h.blood)) return h; await d.page.waitForTimeout(250); } return healBtn(d); };
-const leaveEnd = async (d) => {
-  let sf = null;
-  for (let i = 0; i < 120 && !sf; i++) {
-    sf = d.page.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
-    if (sf && !(await sf.evaluate(() => !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened)).catch(() => false))) sf = null;
-    if (!sf) await d.page.waitForTimeout(150);
-  }
-  if (!sf) return false;
-  const box = await (await sf.frameElement()).boundingBox(), b = await sf.evaluate(() => { const r = document.getElementById('leave').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
-  await press(d, box.x + b[0], box.y + b[1]);
-  return true;
-};
+/* RE-AIMED 11/11 (FIXES 2, ask row 565): the end screen says 'opened' 1.0 to 1.7 s before it is on the glass; LEAVE was read and
+   pressed off the glass (550,893 on a 390 x 844 phone) and the fight's page stayed. The press is a thumb's now: LEAVE on the glass,
+   the top thing at its own middle, still; then one press (tools/bohemia_leave_the_end_screen.js). */
+const { leaveTheEndScreen } = require(require('path').join(__dirname, '..', 'tools/bohemia_leave_the_end_screen.js'));
+const leaveEnd = async (d) => { const r = await leaveTheEndScreen(d.page, { mouse: !d.touch, ms: 30000 }); if (!r.pressed) console.log('  [leave] not pressed: ' + r.why); return r.pressed; };
 const home = async (d) => { for (let i = 0; i < 150; i++) { const s = await d.page.evaluate(() => !CITYFIGHT && !document.getElementById('fightFrame')).catch(() => false); if (s) return true; await d.page.waitForTimeout(100); } return false; };
 /* one whole fight: AUTO by a press, played to its end; the fight's own end rows read off it the moment it is over */
 const playFight = async (d, blows) => {
@@ -225,6 +218,12 @@ async function run(profile) {
         return { healed: C.healed, mended: C.mended, spent: C.spent, hours: C.hours, campHours: C.campHours, debt: C.debt, tape: w ? w.tape | 0 : 0, blood: c.blood, armour: c.armour, on: BohemiaMapCamp.on(), why: CAMP.why, camp: CAMP.hours }; });
       if ((after.on || after.why === 'healed') && hb && hb.w > 0) break;   /* rule 278: stopped itself at full is the camp working */
       why.push('camp broke after ' + after.camp + ' hours: ' + after.why);
+      /* RE-AIMED 11/11 (FIXES 2, ask row 565; reached on the computer only once the LEAVE press was a thumb's): a camp that healed
+         every man and stopped itself BEFORE its button was read (6 camp hours, about 3 s) left the next try nothing to heal, and
+         the leg then measured '+0.0 hp' on whole men. The next try starts from hurt men again (the same cut as above). */
+      await d.fr.evaluate(() => { const K = 'bohemia.condition.v1', s = JSON.parse(localStorage.getItem(K) || 'null'); if (!s || !s.men) return;
+        for (const k in s.men) { const m = s.men[k]; if (m && m.hpMax > 0) m.lostHp = Math.max(m.lostHp || 0, m.hpMax * 0.9); }
+        localStorage.setItem(K, JSON.stringify(s)); });
       /* the next try measures from here */
       Object.assign(before, await d.fr.evaluate(() => { const C = BohemiaCondition.get(), w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'), c = BohemiaCondition.company(LOOP.start && LOOP.start.company);
         let lostHp = 0, lostArm = 0, items = 0; for (const k in C.men) { lostHp += C.men[k].lostHp; lostArm += C.men[k].lostH + C.men[k].lostB; items += (C.men[k].lostH > 0) + (C.men[k].lostB > 0); }

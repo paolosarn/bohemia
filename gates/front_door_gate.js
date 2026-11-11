@@ -145,9 +145,25 @@ function requirePlaywright() {
     const LEAK = /<!--|-->|<<<<<<<|>>>>>>>|=======|function |var |px;|style=/;
     ok('A9 the splash carries no merge marker and no leaked source',
       !LEAK.test(splash), JSON.stringify(splash.slice(0, 140)));
-    ok('A9b …and it is SHORT, because it is a door and not a document (' +
-      splash.length + ' chars)', splash.length > 0 && splash.length < 220,
-      JSON.stringify(splash.slice(0, 140)));
+    /* RE-AIMED 11/11 (FIXES 2, ask row 591: 'the start screen carries 710 characters'). MEASURED on the alpha and the demo: the
+       door's OWN words are 112 characters ('CLARK COUNTY POWER AUTHORITY', the load's line, BEGIN, the build stamp). The other 654
+       are the NEW GAME's picks, which later rulings put on this screen on purpose: the fifteen origins by name (rules 184, 427),
+       the crew's name he can type (268), the valley's code, the map's dark. Rule 348's four words are the TITLE's, the screen in
+       front of this one, and its own gate holds them (THE START SCREEN). So the leg that caught seven lines of leaked prose on 8/27
+       still asks the same thing of the same words: the door's own, the picks taken out, SHORT; and the picks are counted and shown,
+       so prose leaking into them still reads as a number that jumped (A9's leak test reads the whole splash, picks and all). */
+    const own = await page.evaluate(() => {
+      const f = document.getElementById('front'); if (!f) return { own: '', picks: 0 };
+      const c = f.cloneNode(true), n = c.querySelector('#newco'); if (n) n.remove();
+      c.style.cssText += ';position:absolute;left:-9999px'; document.body.appendChild(c);
+      const t = c.innerText.replace(/\s+/g, ' ').trim(); c.remove();
+      const pk = document.getElementById('newco');
+      return { own: t, picks: pk ? pk.innerText.replace(/\s+/g, ' ').trim().length : 0, plates: pk ? pk.querySelectorAll('button').length : 0 };
+    });
+    ok('A9b …and it is SHORT, because it is a door and not a document (the door\'s own words ' + own.own.length +
+      ' chars; the new game\'s picks beside them ' + own.picks + ' chars on ' + own.plates + ' buttons)',
+      own.own.length > 0 && own.own.length < 220 && own.picks < 1100 && (own.picks === 0 || own.plates >= 10),
+      JSON.stringify(own.own.slice(0, 140)));
   } finally { await browser.close(); }
 
   console.log('\nFRONT DOOR GATE: ' + pass + ' passed, ' + fail + ' failed');

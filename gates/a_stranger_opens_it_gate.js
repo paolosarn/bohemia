@@ -78,6 +78,8 @@ const fs = require('fs');
 const http = require('http');
 const ROOT = path.join(__dirname, '..');
 const SLICES = path.join(ROOT, 'slices');
+const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js'));
+const PUBLISHED = ['slices', 'engine', path.join('records', 'target')];   /* what the link serves (_config.yml) */
 const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 
 /* *** SERVED, NOT OPENED (fixed 9/5, and it was MY OWN BROKEN RULER). ***
@@ -102,9 +104,16 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 function serve() {
   return new Promise(res => {
     const s = http.createServer((rq, rs) => {
+      /* RE-AIMED 11/11 (FIXES 2, ask row 572): THE SERVER IS THE SITE, NOT THE slices/ FOLDER. This server was rooted at slices/, so
+         every ../engine/ file the demo loads (13 script tags and the engine's data files) answered 404 'no': the game parsed 'no' as
+         its data and threw ("Unexpected token 'o', "no" is not valid JSON", and on d97cecd3 "Cannot read properties of undefined
+         (reading 'create')" from an engine script that never arrived). No stranger meets that: the link serves slices/, engine/ and
+         records/target/ side by side (_config.yml, tools/bohemia_publish_list.js). Measured on the site's own shape: 0 errors, 0 404s.
+         So it serves the repo's three published roots, as the site does, and nothing outside them. */
       const rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '');
-      const f = path.join(SLICES, rel);
-      if (!f.startsWith(SLICES) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) {
+      const f = path.join(ROOT, rel);
+      const pub = PUBLISHED.some(d => f.startsWith(path.join(ROOT, d) + path.sep));
+      if (!pub || !fs.existsSync(f) || fs.statSync(f).isDirectory()) {
         rs.statusCode = 404; return rs.end('no');
       }
       rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream');
@@ -144,7 +153,7 @@ const GROUND_FLOOR = 2000;
   ok('the demo build exists on disk', fs.existsSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html')));
 
   const srv = await serve();
-  const DEMO = 'http://127.0.0.1:' + srv.address().port + '/BOHEMIA_DEMO.html';
+  const DEMO = 'http://127.0.0.1:' + srv.address().port + '/slices/BOHEMIA_DEMO.html';
   const browser = await chromium.launch({ args: ['--no-sandbox'] });
   /* A REAL PHONE, not a small window: touch events, mobile UA, no mouse. */
   const ctx = await browser.newContext({
@@ -248,6 +257,37 @@ const GROUND_FLOOR = 2000;
       if (!n) return 'no-invite';
       n.click(); return 'declined';
     });
+    await SETTLE(page, 1500);
+    /* RE-AIMED 11/11 (FIXES 2, ask row 572): THE BARBER COMES FIRST NOW (rule 263(b)). After BEGIN a stranger meets THE BARBER
+       ('who are you?') over the whole glass, and its GO is the one thing that screen offers; this gate tapped the map THROUGH it
+       ('one tap moved the party 0 blocks') while its 'nothing on top of the map' leg looked inside the map's own frame and saw
+       nothing. So he presses GO with a real thumb, the way he would, and the map legs below ask the OUTER page what is on top. */
+    let barber = 'no barber';
+    for (let i = 0; i < 40; i++) {
+      const g = await page.evaluate(() => { const m = document.getElementById('mainmaker'), b = m && m.querySelector('.go');
+        if (!m || getComputedStyle(m).display === 'none' || !b) return null;
+        const r = b.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2, t: (b.textContent || '').trim() } : null; });
+      if (!g) { if (barber !== 'no barber' || i >= 8) break; await SETTLE(page, 250); continue; }
+      barber = 'pressed ' + JSON.stringify(g.t);
+      await page.touchscreen.tap(g.x, g.y); await SETTLE(page, 700);
+    }
+    /* AND THE GAME OPENS IN A TOWN NOW (the origin starts on its own town's ground; places are settlement screens, the third votes):
+       the town's screen is over the map with LEAVE on the phone. A stranger who wants the map presses LEAVE, the one way out the
+       screen offers; then the map legs below are asked of the map he is really looking at. */
+    let town = 'no town';
+    for (let i = 0; i < 40; i++) {
+      const sf = page.frames().find(x => x.name() === 'settleFrame');
+      const up = city ? await city.evaluate(() => { const f = document.getElementById('settleFrame'); return !!f && getComputedStyle(f).display !== 'none' && f.getBoundingClientRect().width > 4; }).catch(() => false) : false;
+      if (!up) { if (town !== 'no town' || i >= 16) break; await SETTLE(page, 500); continue; }
+      const who = await leaveTown(page, sf, { ms: 6000 });
+      town = who ? 'left by the ' + who + '\'s LEAVE' : 'in a town with no LEAVE on the glass';
+      await SETTLE(page, 2500);
+      if (!who) break;
+    }
+    const townGone = city ? await city.evaluate(() => { const f = document.getElementById('settleFrame'); return !f || getComputedStyle(f).display === 'none' || f.getBoundingClientRect().width < 4; }).catch(() => true) : true;
+    ok('the town he starts in, if he starts in one, lets him out on its own LEAVE (' + town + ')', townGone);
+    const barberGone = await page.evaluate(() => { const m = document.getElementById('mainmaker'); return !m || getComputedStyle(m).display === 'none'; });
+    ok('the barber, if he is there, lets him through on its own GO (' + barber + ')', barberGone);
     await SETTLE(page, 1500);
     ok('the opening cutscene can be declined and the game continues ('
       + declined + ')', declined === 'declined' || declined === 'no-invite');
@@ -363,8 +403,16 @@ const GROUND_FLOOR = 2000;
       const e = document.elementFromPoint(r.x + r.width * 0.5, r.y + r.height * 0.45);
       return e ? (e.id || e.tagName) : null;
     });
-    ok('and NOTHING is sitting on top of the map -- its middle takes the tap (' + mapTop + ')',
-       mapTop === 'cv');
+    /* a screen that is closing may draw its way out over the map for a moment (MOTION's morph); what must not happen is something STAYING there */
+    let outerTop = null;
+    for (let i = 0; i < 24 && outerTop !== 'cityFrame'; i++) {
+      outerTop = await (await city.frameElement()).evaluate(f => {
+        const r = f.getBoundingClientRect(), e = document.elementFromPoint(r.x + r.width * 0.5, r.y + r.height * 0.45);
+        return e === f ? 'cityFrame' : (e ? (e.id || e.className || e.tagName) + ' in ' + ((e.parentElement || {}).id || '') : null); });
+      if (outerTop !== 'cityFrame') await SETTLE(page, 250);
+    }
+    ok('and NOTHING is sitting on top of the map -- its middle takes the tap (' + mapTop + ', the page over it: ' + outerTop + ')',
+       mapTop === 'cv' && outerTop === 'cityFrame');
     /* *** THIS ASKED FOR A FLOOR HIS NEWEST WORD REMOVED. *** It read the walk
        buttons against 44 as proof the served build gets the thumb injection that
        a file:// load cannot. Two things ended that:
