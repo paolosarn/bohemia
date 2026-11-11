@@ -95,6 +95,10 @@ const RAID = { marks: [{ place: 'Mob', trait: 'raided', by: 'Reds', party: 'p1',
     const xy = await p.evaluate(k => BohemiaSettlement.where(k), k); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(200);
     return p.evaluate(() => ({ line: (document.querySelector('#sheet.on .who .say p') || {}).textContent || '', acts: [...document.querySelectorAll('#sheet.on .acts .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim() + (b.dataset.buy ? ' ' + b.dataset.buy + ' batteries' : '')) })); };
   const near = N.nearestTo(places.find(q => q.id === 'Mob')).name;
+  /* WORLD 14 11/11 (row 595): the FIRST town he ever walks into, the elder says where the three things are, once (TUNING's change 7,
+     rule 133: 'Work's on the board, mijo...'), and that welcome comes before any news. This leg is about the refugees, so he has
+     been to a town before (the key the first arrival writes), the way every town after the first is met */
+  await p.evaluate(() => { try { localStorage.setItem('bohemia.firsttown.v1', 'Church'); } catch (e) {} });
   const ref = await arrive(near, 4, RAID, []);
   ok('the Reds raid the Mob: at ' + near + ' (its nearest) on day 4 the arrival reads REFUGEES', /REFUGEES/.test(ref.tag) && ref.ids.indexOf('refugees') >= 0, ref.tag);
   ok('  and the elder names the Mob\'s place and the Reds, under a fresh face', /the Mob's place/.test(ref.elder) && /Reds/.test(ref.elder) && ref.face === 'fresh', ref.elder + ' | ' + ref.face);

@@ -5758,6 +5758,70 @@
      },
      "outside": "out on the region, no map kind of its own: the fight deals water's board"
     }
+   },
+   "the_bus_yard": {
+    "kind": "terminal",
+    "where": "valley",
+    "is": "the RTC's yard: the maintenance hall (two storeys, the bays' roll-up doors), the buses parked in rows across the lot (a man in one or on its roof, its steel half cover), the fuel island's canopy",
+    "class": "roof",
+    "building": "shop",
+    "storeys": {
+     "2": 0.7,
+     "3": 0.3
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true,
+    "piece": {
+     "deal": "terminal",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:pawn_shop",
+       "building:gas_station",
+       "building:motel"
+      ]
+     }
+    }
+   },
+   "the_greenhouses": {
+    "kind": "farm",
+    "where": "valley",
+    "is": "the greenhouses on Wynn Road: long plastic houses (the plastic stops nothing, the towers of greens inside stop a step), the pump shed of block, the warehouses round it",
+    "class": "green",
+    "building": "barn",
+    "storeys": {
+     "1": 0.6,
+     "2": 0.4
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "fence"
+    ],
+    "street_front": true,
+    "draft": true,
+    "piece": {
+     "deal": "farm",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "ground:apron"
+      ],
+      "stand_in": true,
+      "wants": "a barn of its own"
+     }
+    }
    }
   }
  }

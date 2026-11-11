@@ -114,18 +114,23 @@ const READ = () => new Promise(res => {
   const close = async () => { if (await p.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await p.click('#close'); await p.waitForTimeout(220); } };
   const tapBar = async () => { await close(); const xy = await p.evaluate(() => BohemiaSettlement.where('bar')); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(150); return p.evaluate(READ); };
   const visit = async o => { await close(); await p.evaluate(o => BohemiaSettlement.open(o), o); await p.waitForTimeout(300); };
+  /* WORLD 14 11/11 (row 595): WORDS' rule 143a (Paolo 10/24, 'it should be 10 to 15% randomized') rolls every keeper line through
+     BohemiaSpanglish.say: about one line in eight keeps its Spanish, the rest are said in plain English, tags out (measured: the
+     keeper said '...more to buy.' for the data's '...more to buy, ya sabes.', the same news, the right town). The roll counts per
+     speaker, so the said line is the data's line either way it came out: as written, or through the words lane's own plain() */
+  const same = async (line, says) => line === says || line === await p.evaluate(t => window.BohemiaSpanglish ? BohemiaSpanglish.plain(t) : t, says);
   const want = N.list({ here: { name: 'Church' }, day: 4, traits: TR });
   await visit({ place: { name: 'Church', tier: 'town' }, day: 4, traits: [], batteries: 9 });
   const first = await tapBar();
   const posted = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'news').slice(-1)[0] || null);
-  ok('the bar\'s first line this visit is the free news: the nearest town\'s true situation', first.line === want[0].says && first.news === want[0].id, first.line);
+  ok('the bar\'s first line this visit is the free news: the nearest town\'s true situation', await same(first.line, want[0].says) && first.news === want[0].id, first.line);
   ok('  under the keeper\'s FRESH portrait, the mouth moving while it is said', first.face === 'fresh' && first.mouths >= 2, first.face + ', ' + first.mouths + ' mouths');
   ok('  free: nothing spent, and the game hears it (act news, free)', posted && posted.free === true && posted.about === want[0].place && posted.batteries === 9, JSON.stringify(posted && { about: posted.about, batteries: posted.batteries }));
   const second = await tapBar();
   ok('the second time the bar opens it is the round\'s offer, the free one is not said twice', !second.news && /round/i.test(second.line), second.line);
   await p.click('#sheet .acts .act'); await p.waitForTimeout(250);
   const round = await p.evaluate(() => ({ line: (document.querySelector('#sheet.on .who .say p') || {}).textContent, sheet: document.getElementById('sheet').textContent }));
-  ok('a round tells the NEXT town, a different place, before any of the old eleven', round.line === want[1].says && want[1].place !== want[0].place, round.line);
+  ok('a round tells the NEXT town, a different place, before any of the old eleven', await same(round.line, want[1].says) && want[1].place !== want[0].place, round.line);
   ok('  and nothing promises a mark on the map that nobody draws', !/Marked on your map/i.test(round.sheet + first.sheet));
   await visit({ place: { name: 'Church', tier: 'town' }, day: 4, traits: [] });
   const again = await tapBar();

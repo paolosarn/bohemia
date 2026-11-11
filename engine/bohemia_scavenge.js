@@ -125,7 +125,9 @@
   var SEARCHABLE = ['commercial', 'industrial', 'warehouse', 'suburb', 'apartment',
                     'downtown', 'casino', 'strip', 'motel', 'trailer',
                     /* __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, rule 409(c)): every new real place can be searched */
-                    'bank', 'jobsoffice', 'hardware', 'powerplant', 'aquarium', 'shelter', 'mobmuseum', 'natmuseum', 'tvstation'];
+                    'bank', 'jobsoffice', 'hardware', 'powerplant', 'aquarium', 'shelter', 'mobmuseum', 'natmuseum', 'tvstation',
+                    /* WORLD 14 11/11: the bus yard and the greenhouses stand on kinds the map already had, whose finds were written and never searchable */
+                    'terminal', 'farm'];
 
   /* __THE_MISSING_REAL_PLACES__: a real place's OWN finds (records/target/bb/real_places.json 'finds', draft words, each one of
      the six goods). The page hands the file in (slices/bohemia_real_places.js calls useFinds); findsOf(kind or id) answers a

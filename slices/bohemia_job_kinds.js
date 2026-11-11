@@ -2176,6 +2176,18 @@
     return out;
   }
 
+  /* __THE_PLACE_IN_THE_DARK_ON_A_BEAT__ (WORLD 14, 11/11, row 593; gate THE PLACE IN THE DARK D4b/D4c): the dark opened over a job's
+     places only inside the job layer's own draw, and the farthest stop paints the region instead of the valley's layers, so a job that
+     came onto the phone while he looked at the whole map (PRIMM, 117 blocks off) stayed under the fog with no name. Now the same opening
+     runs FIRST in every map draw (before the towns are drawn: from the job layer it opened a town after the towns were drawn, so
+     that frame named it and did not draw it, the gate's 'Remnants NOT DRAWN named'), and on its own beat, once a second, at any
+     zoom, for a board that changed while nothing drew; the map draws again only when something came out of the dark. */
+  function wrapRender() {
+    var R0 = root.render; if (typeof R0 !== 'function' || R0.__litTheDark) return;
+    var R1 = function () { try { if (DATA) lightTheDark(); } catch (e) {} return R0.apply(this, arguments); };
+    R1.__litTheDark = true; root.render = R1;
+  }
+  try { root.setInterval(function () { try { wrapRender(); if (DATA && lightTheDark() && typeof root.render === 'function') root.render(); } catch (e) {} }, 1000); } catch (e) {}
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },

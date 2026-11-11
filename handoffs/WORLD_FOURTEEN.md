@@ -1,5 +1,32 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND FIVE, BATCH ONE (11/11, the coordinator's round: the two unplaced places, rows 579, 593, 595; rule 441).
+BUILD 11/11o - THE BUS YARD AND THE GREENHOUSES. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_BUS_YARD_THE_GREENHOUSES_AND_
+FOUR_REDS_11_11_26.md. VOTE world14-the-bus-yard-and-the-greenhouses-11-11 (ui, STAND-IN).
+- THE LAST TWO OF RULE 409's PLACES, inside the valley, seated as the 11/9 note to WORLD 13 said (no word against it in its block):
+  THE BUS YARD (the RTC's Sunset Maintenance Facility, 5165 W Sunset Rd at Decatur; kind 'terminal'): THE YARD BOSS, PULL THE
+  BATTERIES OUT OF A DEAD BUS (4 h, +6, every 5 days), TAKE ON THE LAST MECHANIC (3 food, a caravan hand joins). THE GREENHOUSES
+  (Urban Seed's, 4770 Wynn Rd; kind 'farm'): THE GROWER, BUY A CRATE OF GREENS (-3, +4 food, every 3 days), HOLD THE DOORS WHEN THE
+  HUNGRY COME TONIGHT (a fight). Rows by tools/bohemia_world14_valley_seats_data.py (new); WORLD TEN's sync wrote only the DATA block.
+- FOR WORLD 13: your generator's DATA block gained the two lines (nothing else); both are kinds you already make, no new kind. FOR
+  COMBAT: 'terminal' left your 'infrastructure' family (it waited there for THE APRON) and fights on the works yard (landfill) for
+  now, engine/bohemia_boardkinds.js and the shell's nfKind; when THE APRON lands, put it back (the note is on the line). FOR SCAVENGE
+  TWO: 'terminal' and 'farm' are in SEARCHABLE now (their finds were written, never searchable): every farm block can be searched.
+  FOR COOK FOUR: the golden pieces, the yard of buses in rows and the long plastic houses with the purple lights.
+- THE FOUR REDS: 579 THE NORMIE HOUR, WORLD 8/0 (the gate read a far town's board at the hour he left, the phone plans from when he
+  arrives: a farm job's wait for dark); 593 THE PLACE IN THE DARK 20/0 (slices/bohemia_job_kinds.js __THE_PLACE_IN_THE_DARK_ON_A_BEAT__:
+  the job's places come out of the dark first in every draw and once a second; the gate leaves a town's screen before it reads the
+  map); 595 THE BAR NAMES THE NEWS 22/0 (WORDS' 143a roll says the news in plain English most times; the gate takes either form) and
+  THE NEIGHBOUR TAKES THE REFUGEES 15/0 (the lot's line says {from}; the elder's leg is past the first town's welcome). Rows marked.
+- GATES: THE MISSING REAL PLACES 16/0, THE PLACES GET THEIR USE 30/0 (16 places, demo and alpha), FIGHT ANSWERS 17/0, BOARD KINDS
+  24/0, EVERY PLACE ITS OWN BOARD PASS, ONE ROOM TABLE 15/0; THREE BLOCKS 21/1 red on clean main too.
+- FOR WORLD 13: my two places rows carry your 'piece' (tools/bohemia_world_thirteen_pieces.py re-run, EVERY MAP KIND HAS ITS FIGHT
+  ANSWER 22/0); my fight-answers tool now keeps any field another lane wrote on a row. SEEN ONCE, NOT AGAIN: THE PLACE IN THE DARK on
+  the computer once could not take its job (loopTakeContract false, D5a/D5b/D6 red), the re-run 10/0; one game in two runs.
+- NEXT ON THIS LANE (batch two of this round): twelve road events that touch his settlement, his bosses and his jobs.
+[bb Battle Brothers' towns sell provisions and wagons; ours grow greens under a roof and park two hundred and fifty buses with no diesel.]
+[analog horror: every bus at the yard still says NOT IN SERVICE, and somebody washes them every night.]
+
 WORLD FOURTEEN, ROUND FOUR (11/10, rule 443(b), ask line 567; rule 441 fully baked). BUILD 11/10x - TWELVE MORE ON THE ROAD. BUILT, NOT
 YET SEEN. Record: records/BOHEMIA_WORLD_14_EVENTS_ON_THE_ROAD_11_10_26.md. VOTE world14-twelve-more-on-the-road-11-10 (ui, STAND-IN).
 - MEASURED FIRST: the road had 45 events (CONTENT 11/2-11/3), every one a stranger met on the road (Battle Brothers' location events);

@@ -131,6 +131,11 @@ async function play(profile) {
     ok(P + ' D4a a job whose words name a real place comes onto the phone', !!real,
       real ? real.title + ' @ ' + real.place + ' -> ' + real.to + ' (day ' + dayAt + ' to ' + dayNow + ', ' + camped + ' camps)' : 'none in ' + camped + ' camps, day ' + dayAt + ' to ' + dayNow);
     if (real) {
+      /* WORLD 14 11/11 (row 593): the camp can end with him inside a town's screen (measured: day 2, 22:00, ANARCHISTS' screen up,
+         the map under it drawing nothing, 0 towns drawn), and a map nobody can see names nothing. He reads the map after he LEAVES
+         the town, the town's own way out (loopClose, its LEAVE) */
+      const left = await fr.evaluate(() => { try { const sf = document.getElementById('settleFrame'); if (sf || (LOOP && LOOP.open)) { const n = (LOOP.open && LOOP.open.name) || 'a town'; loopClose(); return n; } } catch (e) {} return null; });
+      if (left) await page.waitForTimeout(2500);
       const farR = await zoomTo('far'), atFarR = await seenOnMap([real.place, real.to]);
       await shot('d4_far_real');
       const to = atFarR[1];
@@ -138,7 +143,7 @@ async function play(profile) {
         to ? to.n + (to.hidden ? ' HIDDEN' : ' open') + ', ' + to.dist + ' blocks off, dark round it ' + to.darkAround + '/4' : 'not found');
       /* the farthest stop shows the whole region on most screens; where it does not, the name is at the glass's edge (D5) */
       ok(P + ' D4c both are named on the map where they are on the glass', atFarR.filter(x => x.glass).every(x => x.drawn && x.named),
-        'far ' + farR.toFixed(2) + ': ' + atFarR.map(x => x.n + (x.glass ? (x.drawn ? ' drawn' : ' NOT DRAWN') + (x.named ? ' named' : ' NOT NAMED') : ' off the glass')).join(', '));
+        'far ' + farR.toFixed(2) + (left ? ' (left ' + left + ' first)' : '') + ': ' + atFarR.map(x => x.n + (x.glass ? (x.drawn ? ' drawn' : ' NOT DRAWN') + (x.named ? ' named' : ' NOT NAMED') : ' off the glass')).join(', '));
 
       /* ---------------- D5: a touch on that card ---------------- */
       /* RE-AIMED 10/26 BY UI TWO (rules 213, 227; 148 dead): the offers are off the phone, on the town's board; the phone carries

@@ -144,8 +144,11 @@ function nodeChecks() {
   let BK = require(path.join(ROOT, 'engine', 'bohemia_boardkinds.js')); BK = BK.BOH_BOARDKINDS || BK;
   let BT = require(path.join(ROOT, 'engine', 'bohemia_boardterrain.js')); BT = BT.BOH_BOARDTERRAIN || BT;
   const T = { K: require(path.join(ROOT, 'engine', 'bohemia_district_kit.js')), BT, BK, SC: require(path.join(ROOT, 'engine', 'bohemia_scavenge.js')),
-    world: read('engine/bohemia_world.js'), painter: (read('slices/BOHEMIA_CITY_WORLD.html').match(/return VB_CLASS\.(casino|roof);/g) ? read('slices/BOHEMIA_CITY_WORLD.html')
-      .split('\n').filter(l => /return VB_CLASS\.(casino|roof);/.test(l)).join('\n') : ''),
+    /* WORLD 14 11/11: PAINT is an explicit class in vbClassOf, any class (the bus yard's terminal wears roofs, the greenhouses' farm
+       the green fields the map always painted farms with); only the fall-through (VB_CLASS.lot, no name) is no paint. It read only
+       the roof and casino lines, which was every new kind WORLD TEN added, all buildings */
+    world: read('engine/bohemia_world.js'), painter: ((read('slices/BOHEMIA_CITY_WORLD.html').match(/function vbClassOf\(d\)\{[\s\S]*?\n\}/) || [''])[0]
+      .split('\n').filter(l => /\.test\(d\)\) return VB_CLASS\.\w+;|d === '\w+'\) return VB_CLASS\.\w+;/.test(l)).map(l => l.replace(/d === '(\w+)'/, '($1)')).join('\n')),
     alpha: read('slices/BOHEMIA_ALPHA_0_9.html'), demo: read('slices/BOHEMIA_DEMO.html') };
   const kinds = [...new Set(VALLEY.map(p => p.kind))], gaps = [];
   kinds.forEach(k => { const miss = kindKnown(k, T); if (miss.length) gaps.push(k + ': ' + miss.join(',')); });

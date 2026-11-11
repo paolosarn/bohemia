@@ -126,6 +126,15 @@ Row 574 partly: wolves, hyenas, prides sized to a new crew; one bison, longhorn,
 VOTE bestiary-the-next-ten-11-11. Record records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md. Block: handoffs/BESTIARY.md.
 [bb Battle Brothers never sends a new company at an Unhold; the size of a band cannot make one beast smaller.]
 [analog horror: the spearmen stand in the street lights' line and do not move.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/11 LATEST -- BUILD 11/11o - THE BUS YARD AND THE GREENHOUSES, BUILT, NOT YET SEEN
+(the coordinator's round; rules 409(c), 441; rows 579, 593, 595). The last two of rule 409's places are on the map at their real
+spots inside the valley, each talking when you arrive: THE BUS YARD at Sunset and Decatur (the RTC's yard: pull the batteries out of a
+dead electric bus; take on the last mechanic) and THE GREENHOUSES on Wynn Road (buy greens; hold the doors when the hungry come). And
+four red gates green: the job's far town named in the dark at every zoom, a far job's time the same on the phone and the board, the
+bar's news, the refugees' lines. VOTE world14-the-bus-yard-and-the-greenhouses-11-11 (STAND-IN). Next: twelve road events on his
+settlement, bosses and jobs. The whole block: handoffs/WORLD_FOURTEEN.md.
+[bb Battle Brothers' towns sell provisions and wagons; ours grow greens under a roof and park two hundred and fifty buses with no diesel.]
+[analog horror: every bus at the yard still says NOT IN SERVICE, and somebody washes them every night.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/10 LATEST -- BUILD 11/10x - TWELVE MORE ON THE ROAD, BUILT, NOT YET SEEN (rule 443(b), ask
 line 567). The road had 45 events, all strangers; now twelve more of the collapse: six IN THE COMPANY spoken by his own man by name and
 face (the short battery box, the swollen cans, the old job's place under the fog, the last canteen, the word from home, the plasma van)

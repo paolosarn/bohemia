@@ -111,7 +111,8 @@
     { kind: 'freeway',     names: ['freeway', 'beltway', 'interchange'] },
     { kind: 'shore',       names: ['water', 'reservoir', 'intake', 'dam', 'springs', 'waterpark'] },
     { kind: 'landfill',    names: ['landfill', 'quarry', 'gypsum', 'industrial', 'warehouse',
-                                   'robofactory', 'boneyard', 'fueldepot', 'storage', 'rail', 'railyard', 'powerplant', 'shelter'] },
+                                   'robofactory', 'boneyard', 'fueldepot', 'storage', 'rail', 'railyard', 'powerplant', 'shelter',
+                                   'terminal'] },   /* WORLD 14 11/11: the bus yard and the terminal's bays, a works yard (was the catch-all) */
     { kind: 'wash',        names: ['wash', 'basin'] },
     { kind: 'scrub',       names: ['desert', 'mountain', 'solar', 'farm', 'park', 'golf'] },
     { kind: 'culdesac',    names: ['estate', 'gated', 'trailer'] },
@@ -143,7 +144,7 @@
       is: 'a big flat paved expanse with one or two enormous sheds on it and a '
         + 'fence round the lot. Nothing to hide behind for a hundred metres and '
         + 'then a wall.',
-      districts: ['airport', 'airbase', 'speedway', 'minigp', 'stadium', 'ballpark', 'terminal'],
+      districts: ['airport', 'airbase', 'speedway', 'minigp', 'stadium', 'ballpark'],   /* WORLD 14 11/11: 'terminal' (the bus yard, a real place) fights on the works yard (landfill) until THE APRON lands, then it comes back here */
       wantsABlock: 'AN APRON: open paved ground, one long shed, a perimeter fence.'
     },
     plant: {

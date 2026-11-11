@@ -90,9 +90,22 @@ def build(J):
         **{'class': 'houses', 'building': 'trailer', 'storeys': {'1': 1}, 'man': 'in_or_roof', 'cover': 'half', 'open_cover': 'half',
            'blocks': ['walls', 'water'], 'street_front': True,
            'picture': "the region paints it with its trailer look; the motorhomes on their loops and the dry marina are COOK FOUR's golden piece"}),
+      # ---- 11/11: the last two, inside the valley, on kinds the map already has ----
+      'the_bus_yard': row('terminal', 'valley',
+        "the RTC's yard: the maintenance hall (two storeys, the bays' roll-up doors), the buses parked in rows across the lot (a man in one "
+        "or on its roof, its steel half cover), the fuel island's canopy", D.get('terminal')),
+      'the_greenhouses': row('farm', 'valley',
+        "the greenhouses on Wynn Road: long plastic houses (the plastic stops nothing, the towers of greens inside stop a step), the pump "
+        "shed of block, the warehouses round it", D.get('farm')),
     }
     for k in P: P[k]['draft'] = True
-    J['places'] = {'about': ABOUT, 'rows': P}
+    # WORLD 14 11/11: keep what other lanes wrote on a row (WORLD 13's 'piece', 11/11a THE PIECE THAT ANSWERS IT): this tool owns
+    # only the fields it writes, so a re-run never drops theirs
+    old = ((J.get('places') or {}).get('rows') or {})
+    for k in P:
+        for f, v in (old.get(k) or {}).items():
+            if f not in P[k]: P[k][f] = v
+    J['places'] = dict(J.get('places') or {}, about=ABOUT, rows=P)
     return J
 
 if __name__ == '__main__':

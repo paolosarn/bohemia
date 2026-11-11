@@ -146,7 +146,11 @@ const done = () => { console.log('\nTHE NORMIE HOUR, WORLD: ' + pass + ' passed,
           const away = BohemiaJobKinds.trip(o, n);
           /* WORLD 4: he stands where the phone's walk to the town ends (the town's own tap, townDoorWalk), the board he will read */
           travelStop(); const w = townDoorWalk({ name: n, x: b.x, y: b.y, tier: mapTierOf(n) }), g = (w && w.door) || townDoor(b.x, b.y); city.x = g[0]; city.y = g[1];
-          const here = BohemiaJobKinds.trip(o, n);
+          /* WORLD 14 11/11 (row 579): he reads that board WHEN HE GETS THERE, so the clock is his arrival's (the phone already plans
+             from it: a farm job's wait for dark is counted from the hour he arrives). Read at the hour he left, a job that waits for
+             dark showed its whole wait on the board and none on the phone: 319 against 593 min, the same job, two clocks. */
+          const m0 = T.min; if (away && away.toTown) T.min = m0 + away.toTown.mins;
+          let here = null; try { here = BohemiaJobKinds.trip(o, n); } finally { T.min = m0; }
           city.x = sx; city.y = sy;
           /* WORLD 4: a range is its high end; the phone plans for the day he gets there, so a walk across nightfall is a different day's job (not this leg's question) */
           const tt = T => T && T.job ? (T.job.exact ? (T.job.total != null ? T.job.total : T.job.mins) : (T.job.totalHi != null ? T.job.totalHi : T.job.minsHi)) : null;

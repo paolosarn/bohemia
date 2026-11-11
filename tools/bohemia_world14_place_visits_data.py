@@ -255,6 +255,35 @@ VISITS = {
        'fx': {'food': -2, 'man': {'n': 1, 'name': 'SITE 31', 'bg': 'fisherman', 'look': 'cast_poncho'},
               'say': "Eleven years on site 31. I know every road to every water there is. Two nights of food and I'm yours, sí."}},
       {'id': 'in', 't': 'Walk in.', 'in': True}]},
+  # ---- 11/11 (the coordinator's round): the last two, inside the valley (tools/bohemia_world14_valley_seats_data.py) ----
+  'the_bus_yard': {
+    'head': 'THE BUS YARD · SUNSET AND DECATUR',
+    'who': {'name': 'THE YARD BOSS', 'look': 'cast_apron', 'from': 'under the maintenance roof at THE BUS YARD'},
+    'says': ("Two hundred and fifty buses, jefe, and not one drop of diesel. The mechanics stayed because the roof holds and the wash bay "
+             "still gives water. Every faction wants a bus: a bus is a wagon for twenty men. The new ones were electric, mira, and their "
+             "battery banks are still in them. Every one of the signs up front still says NOT IN SERVICE. Somebody keeps washing them."),
+    'opts': [
+      {'id': 'banks', 't': 'Pull the batteries out of a dead bus.', 'every_days': 5,
+       'fx': {'mins': 240, 'bats': 6, 'say': "Four hours under an electric bus with the yard boss's wrench. Six cells still hold a charge. The bus sits a little higher on its springs when you are done."}},
+      {'id': 'mechanic', 't': 'Take on the last mechanic.', 'need': {'food': 3}, 'once': True,
+       'fx': {'food': -3, 'man': {'n': 1, 'name': 'THE MECHANIC', 'bg': 'caravan_hand', 'look': 'cast_apron'},
+              'say': "Nineteen years on the RTC's buses. Three nights of food and I go where the wagon goes, sí. I can keep anything with wheels rolling."}},
+      {'id': 'in', 't': 'Walk in.', 'in': True}]},
+  'the_greenhouses': {
+    'head': 'THE GREENHOUSES · WYNN ROAD',
+    'who': {'name': 'THE GROWER', 'look': 'cast_pack', 'from': 'between the towers of greens at THE GREENHOUSES'},
+    'says': ("Lettuce, kale, basil, in towers, under a roof, on a cup of water a plant. That was the whole idea, before. Now it is the only "
+             "food in the valley that grows under a roof, hermano, and it grows only while the fans and the pumps run. Every battery you "
+             "bring me is a week of greens. At night the purple lights show from the freeway, and people come."),
+    'opts': [
+      {'id': 'greens', 't': 'Buy a crate of greens.', 'need': {'bats': 3}, 'every_days': 3,
+       'fx': {'bats': -3, 'food': 4, 'say': "A crate of greens, cut this morning: four nights for the company. Three batteries go straight onto the pump's rack."}},
+      {'id': 'doors', 't': 'Hold the doors when the hungry come tonight.', 'once': 'won',
+       'fx': {'fight': {'foe': 'brigands', 'n': 'party', 'skulls': 1, 'label': 'the hungry from the freeway',
+                        'win': {'food': 6, 'mood': {'act': 'favor', 'place': 'near'}, 'flag': 'greenhouse_doors',
+                                'say': "They broke on the doors and ran. The grower fills your wagon with greens and turns the purple lights down."},
+                        'lose': {'food': -2, 'say': "They were through the plastic before you were up. Two towers are gone, and two nights of your own food."}}}},
+      {'id': 'in', 't': 'Walk in.', 'in': True}]},
 }
 
 ABOUT = ("THE VISIT (WORLD 14 11/8, VAMILY rule 436(b), ask line 521): Battle Brothers' way of entering a location, a picture, a few "
