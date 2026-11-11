@@ -1,5 +1,15 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/10zb - THE DECOY HAS ITS PICTURE, BUILT, NOT YET SEEN (ask row 584, PLUMBER 8's red debt; rules 252(c), 367).
+The 51st perk had no picture: the Decoy is now a cardboard man on his strut with a drawn-on smile, shot twice, made the fifty's way through
+the master rig (COOK's tool, one model added; blue rim, row 3). Gate EVERY PERK A PICTURE 5/0 (51 of 51), its line struck from the
+quarantine: THE RED DEBT 382 NAMED, 350 LEFT (the ratchet and the front page with it). VOTE cook5-the-decoy-has-its-picture-11-11 (MADE FROM
+the rig icons). Record records/BOHEMIA_COOK_FIVE_THE_DECOY_HAS_ITS_PICTURE_11_11_26.md. Row 557 marked SHIPPED (11/10q).
+NEXT, in the coordinator's order: the art for THE FLOOD TUNNELS and THE PARKING GARAGE (so they do not ship as stand-ins), then rows 576 and
+585 (30 fight boards under half their colour; a lit tile on the Strip at night 2.77 to 1). The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never ships a perk with a blank frame]
+[analog horror: a cardboard man who keeps smiling at whoever is shooting him]
+
 COOK FIVE (cook-five-01gkdyus): 11/10 LATEST -- [freeway finished] SHIPPED and [casino finished] SHIPPED (rule 443(g), ask row 557).
 BUILD 11/10q - THE FREEWAY AND THE CASINO FLOOR, FINISHED, BUILT, NOT YET SEEN (sha 9f0b36b27). Records: records/BOHEMIA_COOK_FIVE_THE_FREEWAY_FINISHED_11_10_26.md and
 records/BOHEMIA_COOK_FIVE_THE_CASINO_FLOOR_FINISHED_11_10_26.md. VOTE cook5-the-freeway-finished-11-10 (GOLDEN, a landmark) and

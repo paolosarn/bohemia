@@ -18992,7 +18992,35 @@
     "first": "../records/target/vote_first/world14-twelve-more-on-the-road-11-10.webp",
     "firstAt": [0, 0, 1170, 826]
    }, "before_after": {"before": "main 0f4592d0: 45 road events, every one a stranger; none could wound a man, send one away or open a place; sideways the last choice was cut off", "after": "57: six spoken by his own men, six more of the road; a wound, a man leaving and a place opened are real consequences; the card fits both ways", "scale": "his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3), the alpha's RUN tab, the road's own card"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_EVENTS_ON_THE_ROAD_11_10_26.md"},
-  {"id": "bosses-the-climbs-riggers-11-10", "kind": "tile", "lane": "bosses", "sha": "d7f974300", "made": "11/10", "draft": true, "title": "KILL THE CLIMB AND THE PEOPLE HE KEPT UP TOP COME DOWN TO YOUR PLACE: WHILE HE STANDS HIS RIGGERS COME DOWN THE STREET FOR YOU", "said": "the ladder's next three, each changing the map its own way (he voted YES on the first three)", "why": "Left is THE CLIMB's tower while he stands, his riggers at the foot of his hoist, the party that walks down the street at you the moment you get close; right is the same tower once he falls, its top floors lit and the people he kept up there standing at its foot, and each one you reach moves into your place. You see it on the MAP after THE SURVEYOR, when NENA sends you to his flyer by the casinos.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_climb_11_10/VOTE.webp"}, "before_after": {"before": "main 0f4592d0f: THE CLIMB held nothing on the map; his death lit 4 blocks", "after": "his riggers hunt you inside his sight while he stands; after him three people he kept come down and live at your place, kept after a reload", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md"}
+  {"id": "bosses-the-climbs-riggers-11-10", "kind": "tile", "lane": "bosses", "sha": "d7f974300", "made": "11/10", "draft": true, "title": "KILL THE CLIMB AND THE PEOPLE HE KEPT UP TOP COME DOWN TO YOUR PLACE: WHILE HE STANDS HIS RIGGERS COME DOWN THE STREET FOR YOU", "said": "the ladder's next three, each changing the map its own way (he voted YES on the first three)", "why": "Left is THE CLIMB's tower while he stands, his riggers at the foot of his hoist, the party that walks down the street at you the moment you get close; right is the same tower once he falls, its top floors lit and the people he kept up there standing at its foot, and each one you reach moves into your place. You see it on the MAP after THE SURVEYOR, when NENA sends you to his flyer by the casinos.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_climb_11_10/VOTE.webp"}, "before_after": {"before": "main 0f4592d0f: THE CLIMB held nothing on the map; his death lit 4 blocks", "after": "his riggers hunt you inside his sight while he stands; after him three people he kept come down and live at your place, kept after a reload", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_THE_NEXT_THREE_CHANGE_THE_MAP_11_10_26.md"},
+  {
+   "id": "cook5-the-decoy-has-its-picture-11-11",
+   "kind": "ui",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/11",
+   "draft": true,
+   "title": "THE DECOY PERK HAS ITS PICTURE: A CARDBOARD MAN, SMILING, SHOT TWICE",
+   "said": "Did you seriously just walk around with a cardboard cutout?",
+   "why": "The Decoy was the one perk with no picture; now it has one, made like the other fifty: a cardboard man with a drawn-on smile and two bullet holes. You see it in the perk row of a fighter's card on the fight screen.",
+   "options": [
+    "A, yes, that's the Decoy",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_DECOY_HAS_ITS_PICTURE_11_11.webp"
+   },
+   "before_after": {
+    "before": "BUILD 11/10za: fifty perks with a picture and the Decoy with an empty slot",
+    "after": "51 of 51: the Decoy a model through the master rig on the same worn tag (blue rim: he presses it; three dots: row 3)",
+    "scale": "the picture at 7 times its 96 px, then beside its four nearest at 128, at the crew card's 32 px doubled, and at 32"
+   },
+   "stage": "made_from",
+   "golden": "direction-every-icon-through-the-rig-11-2",
+   "record": "records/BOHEMIA_COOK_FIVE_THE_DECOY_HAS_ITS_PICTURE_11_11_26.md"
+  }
  ],
  "verdicts": [
   {

@@ -107,6 +107,13 @@
    "shows": "a knife, quicker",
    "draft": true
   },
+  "decoy": {
+   "src": "decoy.png",
+   "tier": 3,
+   "pressed": true,
+   "shows": "a cardboard man with a drawn-on smile, shot twice",
+   "draft": true
+  },
   "dodge": {
    "src": "dodge.png",
    "tier": 2,

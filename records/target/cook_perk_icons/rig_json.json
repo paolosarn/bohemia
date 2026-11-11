@@ -1948,5 +1948,44 @@
    "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/underdog/rig_S.png"
   },
   "breaks": []
+ },
+ "decoy": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.034,
+   0.366,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   69,
+   60,
+   144,
+   169
+  ],
+  "colours": 3445,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 109",
+    "OUT  colours >= 2330: 1323",
+    "OK   top 8 carry <= 11%: 6.0",
+    "OUT  value span >= 118: 104",
+    "OK   saturation <= 0.81: 0.41",
+    "OK   light: top minus bottom >= -2.5: 15.0",
+    "OK   edge between -35 and +7: -13.4",
+    "OK   grain <= 2.22 px a run: 2.0"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 225.0"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/bohemia_cook_perk_rig/rig/decoy/rig_S.png"
+  },
+  "breaks": []
  }
 }

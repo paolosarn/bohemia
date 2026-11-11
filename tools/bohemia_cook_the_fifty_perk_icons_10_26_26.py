@@ -41,7 +41,7 @@ OUT = os.path.join(R, 'slices/perk_icons')
 WORK = os.environ.get('COOK_PERK_WORK', '/tmp/bohemia_cook_perk_rig')
 PROOF = os.path.join(R, 'records/target/cook_perk_icons')
 PERKS = json.load(open(os.path.join(R, 'records/target/bb/perks.json')))['rows']
-ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable']   # the fight's own list (FIGHT.ACTIVE)
+ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable', 'decoy']   # the fight's own list (FIGHT.ACTIVE; the decoy since rule 367)
 SIZE = 96
 SPAN = 1.40                                      # every model this wide or tall, metres: 80 px at the rig's 57
 
@@ -58,6 +58,8 @@ MAT.update({
 # the reds an icon's meaning rides on (a heart, blood, the target's rings) a step deeper than a prop's: the paint pass chalks them
 MAT.update({'heart': {'rgb': (0.66, 0.06, 0.06)}, 'red': {'rgb': (0.68, 0.08, 0.06)}, 'blood': {'rgb': (0.44, 0.03, 0.03)},
             'blood_l': {'rgb': (0.58, 0.05, 0.04)}, 'stripe_b': {'rgb': (0.66, 0.14, 0.09)}})
+# COOK FIVE 11/11 (ask row 584): the Decoy's cardboard, its shadowed strut, a marker's black
+MAT.update({'card': {'rgb': (0.66, 0.50, 0.30)}, 'card_d': {'rgb': (0.44, 0.32, 0.19)}, 'marker': {'rgb': (0.05, 0.05, 0.06)}})
 
 
 # ----------------------------------------------------------------------------- the shapes: x right, z up, -y toward him
@@ -608,6 +610,23 @@ def p_indomitable(m):
     bar(m, 'steel', (-0.62, 0.30), (0.66, 0.30), 0.02, 0.40, -0.0)
 
 
+def p_decoy(m):
+    """COOK FIVE 11/11 (ask row 584; rule 367, Paolo 11/3: 'did you seriously just walk around with a cardboard cutout?'): the 51st
+    perk. A cardboard man on his strut: flat, a marker's smile drawn too wide, his head taped back on, two holes through the chest
+    (a decoy is the one that gets shot)."""
+    prism(m, 'card_d', [(0.08, -0.72), (0.66, -0.72), (0.08, 0.16)], 0.05, 0.26)                       # the easel strut behind him
+    prism(m, 'card_d', [(-0.50, -0.78), (0.50, -0.78), (0.50, -0.68), (-0.50, -0.68)], 0.40, 0.06)      # the folded foot
+    prism(m, 'card', [(-0.25, -0.70), (0.25, -0.70), (0.27, -0.06), (0.50, -0.10), (0.54, 0.28), (0.26, 0.40), (0.11, 0.43),
+                      (-0.11, 0.43), (-0.26, 0.40), (-0.54, 0.28), (-0.50, -0.10), (-0.27, -0.06)], 0.06, 0.0)
+    bar(m, 'card_d', (0.0, -0.70), (0.0, -0.20), 0.025, 0.02, -0.04)                                    # the cut between the legs, drawn not cut
+    disc(m, 'card', (0.02, 0.63), 0.215, 0.06, 0.0, 28)                                                 # the head: a flat disc, a little off the neck
+    tape(m, (-0.20, 0.42), (0.22, 0.47), 0.085, -0.045)                                                 # taped back on
+    for sx in (-1, 1): disc(m, 'marker', (0.02 + sx * 0.085, 0.69), 0.034, 0.02, -0.04, 12)             # the eyes, dots
+    ring(m, 'marker', (0.02, 0.66), 0.150, 0.118, 0.02, -0.04, math.pi * 1.10, math.pi * 1.90, 18)      # the smile, wider than the face wants
+    for (hx, hz) in ((-0.10, 0.16), (0.14, -0.02)):                                                     # shot through, the paper torn pale round each
+        disc(m, 'paper', (hx, hz), 0.075, 0.02, -0.04, 9); disc(m, 'marker', (hx, hz), 0.045, 0.02, -0.055, 9)
+
+
 BUILD = {k[2:]: v for k, v in globals().items() if k.startswith('p_')}
 SHOWS = {   # what each icon shows, a line for the shared module's alt text and the words one tap away (draft:true)
     'fast_adaptation': 'a target with two misses and three steps up', 'crippling_strikes': 'a snapped bone', 'colossus': 'a big heart and a plus',
@@ -626,7 +645,8 @@ SHOWS = {   # what each icon shows, a line for the shared module's alt text and 
     'underdog': 'a small dog between two big shadows', 'footwork': 'footsteps sliding out', 'berserk': 'a skull with burning eyes',
     'head_hunter': 'a head in the crosshairs', 'nimble': 'a feather', 'battle_forged': 'a riveted chest plate',
     'fearsome': 'a gas mask', 'duelist': 'one blade, one hand free', 'killing_frenzy': 'a skull in a blood splash',
-    'indomitable': 'a fist on an anvil'}
+    'indomitable': 'a fist on an anvil',
+    'decoy': 'a cardboard man with a drawn-on smile, shot twice'}
 
 
 # the long weapons each their own way across the tag, so no two read alike at the crew card's size: the pipe mirrored, the spear
@@ -733,6 +753,8 @@ def main():
                'size': SIZE, 'icons': {k: man[k] for k in sorted(man)}}, open(mp, 'w'), indent=1)
     if len(man) == len(PERKS): sheet(man)
     rj = {}                                                        # each icon's rig run, for the gate (the runs live outside the repo)
+    pj = os.path.join(PROOF, 'rig_json.json')                      # COOK FIVE 11/11: a later run of a few keeps the others' runs (a run of one wiped fifty)
+    if os.path.exists(pj): rj = json.load(open(pj))
     for pid in sorted(man):
         f = os.path.join(WORK, 'rig', pid, 'rig.json')
         if os.path.exists(f):

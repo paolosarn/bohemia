@@ -92,7 +92,6 @@ EVERY FIGHT HANDS HIM BACK | RUN | 11/10 | UNSURE: road patched; alone F5 3.4 s 
 EVERY ITEM HAS A MODEL | COOK | 11/10 | REAL: six origin starting vests in armor.json are not in the model items; the model cook needs a re-run; nothing shows yet SMALL
 EVERY JOB KIND | WORLD | 11/10 | LOAD: eight jobs end to end with AUTO fights past the 600 s cap in a pack (36/1 alone on 11/6)
 EVERY ORIGIN STARTS LIKE ITSELF | RUN TWO | 11/10 | UNSURE: W4 the crew screen as a god; the run's detail decides
-EVERY PERK A PICTURE | COOK | 11/10 | FILED ask row 584: REAL: rule 367 added the Decoy, a 51st perk, with no icon: he meets a perk with no picture SMALL (re-aimed: gates/every_perk_a_picture_gate.py, not yet run alone)
 EVERY POCKET | WORLD | 11/10 | ALIVE REAL (an old gate, before 10/1): the one purse (economy data): two payments still skip the one handoff; first failing line on d97cecd3: FAIL and every payment goes through the one handoff (2)
 EVERY ROW DOES SOMETHING | QUESTS | 11/10 | ALIVE STALE (an old gate, before 10/1): deliver it or remove it (rule 14d) on the job board; the day card rows it drives are dead; first failing line on d97cecd3: FAIL 3b *** it refuses to DRAW an ask once the job is taken ***
 EVERY RUNNING LANE HAS A JOB | COORDINATOR | 11/10 | REAL: MOTION is a running lane with 0 OPEN rows while rule 436(a) hands MOTION 3 asks 151, 257, 278; board paperwork SMALL
