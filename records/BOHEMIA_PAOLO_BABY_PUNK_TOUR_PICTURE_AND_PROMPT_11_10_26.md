@@ -6,7 +6,7 @@ Saturday. Friday is in Las Vegas, Saturday is in Los Angeles... the person with 
 Crashbox art style... post-apocalyptic city vibe... a simple portrait picture of my character with the white hair on a
 stage and some fucked up settlement with lots of people watching.'
 
-WHAT WAS MADE (VAMILY rule 446, ask row 572):
+WHAT WAS MADE (VAMILY rule 446, ask rows 597 to 601):
 - THE PICTURE: records/marketing/baby_punk_stage_11_10_26.webp, 1080x1920 (9:16). Built ONLY from the game's own art by
   records/marketing/baby_punk_stage_make.py (python3.13, PIL): the anarchists' night town
   (slices/settlement_ground_towns/anarchists_tall_night.webp), the casino stage slab, four oil-drum fires, 98 townspeople
