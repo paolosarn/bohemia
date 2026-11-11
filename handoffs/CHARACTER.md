@@ -1,5 +1,33 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/11 (af) LATEST -- *** [the clothes look real] rule 427(b) 'then the hires' SHIPPED BUILD 11/11y: THE HIRES DRESSED, 6 MEN. ***
+TAB: the hall (their faces), and hired, the crew screen and every fight; the road gangs you fight wear all six; VOTE
+(character-the-hires-dressed-11-11, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_HIRES_DRESSED_11_11_26.md.
+WHAT: the six hireable men at two layers (anarchists_2, colorful_0, homeless_0, reds_0, reds_1, remnants_0; the hall's pool is the 39
+gang men with a fight sheet and town_9) re-dressed at the source (six entries in RUN TWO's roll, by text) and re-made through every
+sheet set each is in (the same one-man script), then packed on main's tip (the packers merge kept the three bosses BOSSES added under
+it). Every one 2 -> 4 layers, leather on four, 0 in 100 blue pixels (reds_0's denim shorts were 4.7, anarchists_2's storm tee and
+coal pant-boots 0.2). colorful_0 was made twice: his first pass (a satchel and bracers) was too thin to read; a leather vest now.
+PROOF: every index count the same on main 578669a2a and after (fight people 69, the three new bosses kept, faces 154, idles 256,
+holds 100, melee 62, the map's mix 156 men, walk 134, packed 204); only the six's files and entries moved; THE PACKERS MERGE 4/0, WHAT A
+MAN HOLDS 17/0, THE THING IN HIS HAND 29/0, NO TWO PEOPLE ALIKE 23/0, THE SHEETS ARE PACKED 4/0, DEMO BUILD 25/0, TRENCHCOAT 12/0, THE
+HIRE SHOWS THE WHOLE MAN 10/0, THE TOWN'S ACTIVITIES 22/0; EVERYBODY IDLES --quick 35/3 and THE FACE IS HIS OWN FACE 17/1 carry clean
+main's reds, none a hire; on the phone upright and on its side (THE BLOCK WATCH, code HRS2DR, REDS): the hall, the week's hall, reds_0
+hired, the crew screen, the map, a road fight with him in it; 0 page errors, before and after.
+SEEN ON THE PHONE (the honest part): the hall's card shows a man's FACE only (its whole-man figure is hidden by UI 9's dense row, rule 402; NOTE to UI), so the
+company's 'whole in the hall' was wrong and is corrected in its record, card and START line; a hire's clothes read hired, on the crew
+screen (picked, his body in the camp) and in the fight, around the armour his trade brings, and in the road gangs (ours.json bands).
+NEXT (in order): (1) the thirteen hall men at three layers (anarchists_0, anarchists_1, blues_2, caravans_1, cartel_0, cartel_1,
+colorful_1, network_1, network_2, reds_2, remnants_2, trades_1, volunteers_2), the same way, about 45 minutes a man, three at a time.
+(2) BESTIARY's list below (the Flock first). (3) The nine enemies' idles and held clips (ANIMATION's).
+THE PHONE TOOL: tools/bohemia_character_the_hires_dressed_shots.js pins the valley with its own code (SEED=HRS2DR; run the before and the
+after on one base: the start town moves when the valley's places move) so both land in the same town; it hires with the card's HIRE and finds him on the crew screen and in
+the fight. Never clear bohemia.hired.v1 in an arm script: it runs on every frame's load and empties the hire before the crew screen reads it.
+TRAP 3 FOR WHOEVER RE-MAKES A MAN: a packed file newer than his renders is skipped (idles against made.txt plus map_cells.npz, holds against
+his newest frame); git checkout stamps files NOW, so carrying packs between branches hides a re-make: touch his renders first.
+[bb Battle Brothers' recruits read by their background's clothes before you pay; ours read by the face at the post, whole once hired.]
+[analog horror: the men waiting for work are dressed better than the work.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/10 (ae) LATEST -- *** [the clothes look real] rule 427(b) SHIPPED BUILD 11/11i: THE COMPANY DRESSED, 12 MEN. ***
 TAB: the crew screen off his phone, the town, the hall (town_9 is its first man), the map's party and every fight with his company; VOTE
 (character-the-company-dressed-11-10, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_COMPANY_DRESSED_11_10_26.md.
@@ -20,7 +48,7 @@ on this box (town, after, camp, pitch): render one set alone and his other acts 
 the script now runs every set a man is in, and the march for a man the map walks beside YOU.
 SEEN ON THE PHONE (the honest part): every origin starts his men in body armour, and the crew screen's camp, the town, the map and the
 fight draw it over the chest (the watch's blue-grey padded vest, the default start's olive plate and steel helmet); the new layers read
-around it (trousers, boots, sleeves, satchels, scarves, belts) and whole in the hall. Battle Brothers works the same way (the armour is the
+around it (trousers, boots, sleeves, satchels, scarves, belts); the hall shows a face only (corrected 11/11). Battle Brothers works the same way (the armour is the
 look), so the armour pictures are now most of how his company reads: COOK has a NOTE (the vest renders blue, rule 159).
 NEXT (in order): (1) THE HIRES, batch 1, written and dry-run in the record: the six hireable men at 2 layers (anarchists_2, colorful_0,
 homeless_0, reds_0, reds_1, remnants_0; two of them the start town's first faces), then the twelve at 3; about 70 minutes a man, three at

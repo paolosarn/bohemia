@@ -1,0 +1,230 @@
+[
+ {
+  "profile": "phone_portrait",
+  "crewAtStart": true,
+  "town": true,
+  "place": "Reds",
+  "hall": [
+   "person_town_9",
+   "person_trades_1",
+   "person_trades_0",
+   "person_trades_2"
+  ],
+  "hallSix": [],
+  "week": {
+   "week": 4,
+   "n": 1,
+   "looks": [
+    "person_town_9",
+    "person_trades_1",
+    "person_trades_0",
+    "person_reds_0"
+   ]
+  },
+  "hire": "person_reds_0",
+  "hired": [
+   "person_reds_0"
+  ],
+  "crewScreen": true,
+  "crew": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10",
+   "person_reds_0"
+  ],
+  "crewWhy": {
+   "hired": [
+    [
+     "NOLAN AGUILAR",
+     "person_reds_0"
+    ]
+   ],
+   "walked": null,
+   "names": [
+    "YOU",
+    "DESI",
+    "RAUL",
+    "TITO",
+    "BOOKIE",
+    "OSO",
+    "MARCOS",
+    "CHEWY",
+    "LALO",
+    "GRIZ",
+    "DEUCE",
+    "NENO",
+    "NOLAN AGUILAR"
+   ],
+   "cap": 25
+  },
+  "crewPicked": 12,
+  "mapLeft": true,
+  "mapParty": [
+   null,
+   "DESI",
+   "RAUL",
+   "TITO",
+   "BOOKIE",
+   "OSO",
+   "MARCOS",
+   "CHEWY",
+   "LALO",
+   "GRIZ",
+   "DEUCE",
+   "NENO"
+  ],
+  "fight": true,
+  "fightYou": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10",
+   "person_reds_0"
+  ],
+  "fightThem": [
+   "person_homeless_0",
+   "person_homeless_1",
+   "person_homeless_2",
+   "person_anarchists_0"
+  ],
+  "fightCam": {
+   "on": "person_reds_0",
+   "x": 4,
+   "y": 10,
+   "zoom": 1
+  },
+  "errors": [],
+  "nErrors": 0
+ },
+ {
+  "profile": "phone_landscape",
+  "crewAtStart": false,
+  "town": true,
+  "place": "Reds",
+  "hall": [
+   "person_town_9",
+   "person_trades_1",
+   "person_trades_0",
+   "person_trades_2"
+  ],
+  "hallSix": [],
+  "week": {
+   "week": 4,
+   "n": 1,
+   "looks": [
+    "person_town_9",
+    "person_trades_1",
+    "person_trades_0",
+    "person_reds_0"
+   ]
+  },
+  "hire": "person_reds_0",
+  "hired": [
+   "person_reds_0"
+  ],
+  "crewScreen": true,
+  "crew": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10",
+   "person_reds_0"
+  ],
+  "crewWhy": {
+   "hired": [
+    [
+     "NOLAN AGUILAR",
+     "person_reds_0"
+    ]
+   ],
+   "walked": null,
+   "names": [
+    "YOU",
+    "DESI",
+    "RAUL",
+    "TITO",
+    "BOOKIE",
+    "OSO",
+    "MARCOS",
+    "CHEWY",
+    "LALO",
+    "GRIZ",
+    "DEUCE",
+    "NENO",
+    "NOLAN AGUILAR"
+   ],
+   "cap": 25
+  },
+  "crewPicked": 12,
+  "mapLeft": true,
+  "mapParty": [
+   null,
+   "DESI",
+   "RAUL",
+   "TITO",
+   "BOOKIE",
+   "OSO",
+   "MARCOS",
+   "CHEWY",
+   "LALO",
+   "GRIZ",
+   "DEUCE",
+   "NENO"
+  ],
+  "fight": true,
+  "fightYou": [
+   "you",
+   "person_town_0",
+   "person_town_1",
+   "person_town_5",
+   "person_town_2",
+   "person_town_6",
+   "person_town_4",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
+   "person_town_3",
+   "person_town_10",
+   "person_reds_0"
+  ],
+  "fightThem": [
+   "tier_thug",
+   "person_homeless_0",
+   "person_homeless_1",
+   "person_homeless_2"
+  ],
+  "fightCam": {
+   "on": "person_reds_0",
+   "x": 4,
+   "y": 10,
+   "zoom": 1
+  },
+  "errors": [],
+  "nErrors": 0
+ }
+]

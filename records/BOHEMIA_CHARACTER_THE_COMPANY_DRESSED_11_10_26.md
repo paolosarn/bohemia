@@ -66,7 +66,7 @@ Every origin starts his men in body armour, and the crew screen's camp, the town
 armour's own picture (engine/bohemia_wear.js, rule 272, COOK's art for the class): THE BLOCK WATCH's twelve in a blue-grey padded vest and
 a coral head wrap (BODY 35), the default start's three (newcrew: YOU, town_0, town_1) in an olive plate vest and a steel helmet (BODY 90),
 shot on this build upright. So in play the new layers read around the armour (the trousers, boots, sleeves, satchels, scarves and belts),
-and the whole outfit reads in the hall (town_9 and every hire) and on a man whose armour comes off. That is Battle Brothers' own rule
+and the whole outfit reads on a man whose armour comes off (CORRECTED 11/11 by the hires' ship: the hall's card shows a man's face only, its whole-man figure is display:none, so "whole in the hall" was wrong). That is Battle Brothers' own rule
 (a hired man's look is his armour and helmet; his background clothes show when he is stripped), so the armour pictures are now most of
 how his company reads: the blue-grey vest renders blue under the same cool fill (rule 159), a NOTE to COOK in VAMILY; the armour classes
 in the same layered, leather, warm recipe are the next step that makes this ship show on every screen.

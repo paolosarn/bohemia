@@ -92,7 +92,7 @@ def register(sha):
         why=('Your eleven men wore two or three layers each and eleven of the twelve pictured here had something that showed up blue '
              '(slate coats, ash pant-boots, a black tank); now every one wears four or more that read apart, leather on ten of them '
              '(a leather jacket open over a plaid, an oxblood jacket over a gold shirt, a leather vest over khaki), in warm colours, '
-             'with the armour they start in still drawn over their chests. You see it whole on this card and in the hall, and around '
+             'with the armour they start in still drawn over their chests. You see it whole on this card, and around '
              'the armour (trousers, boots, sleeves, satchels, scarves) on the crew screen, in town, on the map and in every fight.'),
         options=['A, yes, dress the hires this way too', 'B, close, change something (say which man and what)', 'C, no, not like this'],
         show=dict(how='image', src='../records/target/character/the_company_dressed/CHARACTER_THE_COMPANY_DRESSED.png',

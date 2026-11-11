@@ -98,8 +98,7 @@ def register(sha):
         show=dict(how='image', src='../records/target/character/the_hires_dressed/CHARACTER_THE_HIRES_DRESSED.png',
                   first='../records/target/character/the_hires_dressed/CHARACTER_THE_HIRES_DRESSED_FIRST.png', firstAt=box),
         twin=dict(src='records/target/character/the_hires_dressed/before/phone_landscape_crew.jpg', diffs=[
-            'THE LAYERS: before, every one of the six wore two layers on the body; now every one wears four, the new piece over the old one (a coat or a vest over the shirt, gloves, bracers, a sash, a bandolier, a pauldron).',
-            'LEATHER: a leather wrap coat (anarchists_2), a leather vest over oxblood bracers (colorful_0), leather gloves and oxblood boots (reds_0), a leather apron with leather gloves (reds_1): four of the six; the other two in a work jacket and a quilted vest.',
+            'THE LAYERS AND THE LEATHER: before, every one of the six wore two layers on the body; now every one wears four, the new piece over the old one (a coat or a vest over the shirt, gloves, bracers, a sash, a bandolier, a pauldron), leather on four (a wrap coat, a vest, an apron, gloves and boots).',
             'NO BLUE: reds_0\'s cutoff denim shorts (4.7 in 100 of his pixels read blue) are soot cargos now, and anarchists_2\'s storm grey tee and coal pant-boots a bone tank and column pant-boots; 0 in 100 on all six.',
             'THE SAME MEN: the same faces, haircuts, builds and heights; only the clothes moved, and nobody else in the valley changed.']),
         before_after=dict(before='each man\'s street still before (BEFORE), and the five screens on the phone on main without this change',
