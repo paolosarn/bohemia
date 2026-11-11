@@ -30,11 +30,12 @@ for (const r of MINE) {
   const u = setup({ party: [{ kind: r.id, count: 1 }] }).units.filter(v => v.side === 'them')[0];
   o.name = u.name; o.look = u.look; o.weapon = u.weapon && u.weapon.name; o.ranged = !!(u.weapon && F.isRanged(u.weapon));
   o.fromGear = (r.gear || null) ? (r.gear.indexOf(o.weapon) >= 0) : true;
-  const acts = { melee: 0, ranged: 0 }; let won = 0;
+  const acts = { melee: 0, ranged: 0, kick: 0, charge: 0 }; let won = 0;
   if (ph) for (let s = 1; s <= 10; s++) {
     ctx.setSeed(s); F.setup({ auto: true, formation: null, kind: ['ruin', 'suburb', 'strip'][s % 3], deploy: false, company: crew(6), party: { faction: r.faction, count: 6, days: ph.from_day + 1, difficulty: 0 } });
     let g = 0; while (!F.S.over && g < 200000) { const c = F.current(); if (!c) break; F.aiStep(c);
-      (F.S.events || []).forEach(e => { if (e.t !== 'attack') return; const a = F.byId(e.id), t = F.byId(e.to); if (!a || a.kind !== r.id || !t) return;
+      (F.S.events || []).forEach(e => { if (e.t === 'skill' && (e.skill === 'kick' || e.skill === 'charge')) { const a = F.byId(e.id); if (a && a.kind === r.id) acts[e.skill] = (acts[e.skill] || 0) + 1; return; }
+        if (e.t !== 'attack') return; const a = F.byId(e.id), t = F.byId(e.to); if (!a || a.kind !== r.id || !t) return;
         if (Math.max(Math.abs(a.x - t.x), Math.abs(a.y - t.y)) > 1) acts.ranged++; else acts.melee++; });
       F.S.events = []; g++; }
     if (F.S.result === 'won') won++;

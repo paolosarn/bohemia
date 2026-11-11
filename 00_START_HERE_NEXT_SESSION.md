@@ -91,16 +91,15 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/10s FIVE NEW MEN, NAMED CHAMPIONS, BUILT, NOT YET SEEN (routine 'enemy types and
-factions', rule 443(d), rule 441). Five new enemy types in their own clothes (CHARACTER's enemy sheets from the card he passed, each pool
-split) and their own way to fight: the watch's bowman, the water people's slinger, the keepers' reaver and caller, the House sergeant: the
-fight fields 54 of 75 types. Champions are rare named men now (Mama Loca, Little Saint, The Fridge...): one per band, never before the late
-phase; how often late is TUNING's. The flock (the 9th faction) is built and WAITS FOR ITS CLOTHES: every dressed look left is his company's,
-his followers' or a boss crew's; CHARACTER has the list (18 types, the last 4 factions). THE BESTIARY FLOOR 12/0 holds it all, the phone
-legs upright and sideways. VOTE bestiary-five-new-men-11-10. Record records/BOHEMIA_BESTIARY_THE_MEN_AND_THE_CHAMPIONS_11_10_26.md. The
-whole block: handoffs/BESTIARY.md.
-[bb Battle Brothers' champions are named men, the band's toughest; ours carry a name and a title from the data.]
-[analog horror: the champion's name comes up once, the way a caption names a man on a tape nobody should have kept.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/11e THREE MORE MEN, BUILT, NOT YET SEEN (routine 'BESTIARY next round', rules
+443(d), 441). THE FLOOR IN ONE TABLE: factions 12 on file, 8 fought; types 57 fought of 75; beasts 17 lab-made; bosses 6; champions named.
+Three more men, each a way no man had: the House TWO-HANDER (one swing hits every man beside him), the water OUTLAW (runs straight in,
+knocks a man flat), the watch SPEARMEN (hold the line until you close). Played on the alpha and the demo, a phone both ways (THE BESTIARY
+FLOOR 12/0). The next seven wait for CHARACTER's clothes; CHARACTER has the stand-in list (the road crews wear the city's own gangs).
+Row 574 partly: wolves, hyenas, prides sized to a new crew; one bison, longhorn, bear or sloth still beats a crew of 3 (TUNING, WORLD).
+VOTE bestiary-the-next-ten-11-11. Record records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md. Block: handoffs/BESTIARY.md.
+[bb Battle Brothers never sends a new company at an Unhold; the size of a band cannot make one beast smaller.]
+[analog horror: the spearmen stand in the street lights' line and do not move.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/10 LATEST -- BUILD 11/10x - TWELVE MORE ON THE ROAD, BUILT, NOT YET SEEN (rule 443(b), ask
 line 567). The road had 45 events, all strangers; now twelve more of the collapse: six IN THE COMPANY spoken by his own man by name and
 face (the short battery box, the swollen cans, the old job's place under the fog, the last canteen, the word from home, the plasma van)

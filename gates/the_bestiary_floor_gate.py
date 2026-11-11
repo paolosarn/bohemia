@@ -61,7 +61,7 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 54  # MEASURED 11/10 (42 before BESTIARY's seven, 49 before its five men): only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 57  # MEASURED 11/11 (42 before BESTIARY's seven, 49 before its five men, 54 before its three): only ever raised
 FACTIONS_FIELDED_NOW = 8       # MEASURED 11/10 (the flock waits for its clothes): the factions the fight fields a party for; only ever raised
 LAB_MADE_NOW = 17              # MEASURED 11/10 (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
@@ -326,13 +326,17 @@ def main():
         if not o.get('fromGear') or not o.get('weapon'): bad.append(r['id'] + ': not armed from its own gear')
         if (a.get('melee', 0) + a.get('ranged', 0)) == 0: bad.append(r['id'] + ': never strikes in 10 fights')
         if r.get('brain') == 'volley' and not (o.get('ranged') and a.get('ranged', 0) > a.get('melee', 0)): bad.append(r['id'] + ': a volley brain that does not shoot')
+        bv = (D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}
+        if bv.get('kicks') and not a.get('kick'): bad.append(r['id'] + ': a great swing that never swings round')
+        if bv.get('charges') and not a.get('charge'): bad.append(r['id'] + ': a charge that never runs in')
         if (o.get('won_by_crew_of_6') or 0) < 6: bad.append('%s: a crew of 6 beats its party %s in 10' % (r['id'], o.get('won_by_crew_of_6')))
     wait = [r['id'] for r in (D['ne'].get('waiting') or {}).get('rows', [])]
     for r in (D['ne'].get('waiting') or {}).get('rows', []):
         if r.get('looks'): bad.append(r['id'] + ': a waiting row carries looks (it waits for its own clothes)')
     leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
-        % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
-                                (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0)) for r in mine),
+        % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far%s' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
+                                (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0),
+                                ''.join(', %d %ss' % (v, k) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge') and v)) for r in mine),
            ('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else ''),
         '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
@@ -340,16 +344,16 @@ def main():
         mine = [(b['faction'], b['animal'], b['rows']) for b in D['book']['beasts'] if b.get('added_by', '').startswith(BY)]
         bad = []; res = {}
         try:
-            r = subprocess.run(['node', os.path.join(ROOT, 'gates/the_bestiary_floor_fight.js')], cwd=ROOT, capture_output=True, text=True, timeout=1800)
+            r = subprocess.run(['node', os.path.join(ROOT, 'gates/the_bestiary_floor_fight.js')], cwd=ROOT, capture_output=True, text=True, timeout=4200)
             line = [l for l in r.stdout.splitlines() if l.startswith('RESULT ')]
             res = json.loads(line[-1][7:]) if line else {}
         except Exception as e:
             bad.append('the browser did not answer: ' + str(e)[:120])
-        for prof in ('portrait', 'landscape'):
+        for prof in ('portrait', 'landscape', 'alpha_portrait', 'alpha_landscape'):
             runs = res.get(prof) or {}
             if not runs: bad.append(prof + ': no run'); continue
             if runs.get('errs'): bad.append(prof + ': the page threw ' + ' | '.join(e[:200] for e in runs['errs'][:3]))
-            for f, a, rows in mine:
+            for f, a, rows in ([] if prof.startswith('alpha_') else mine):
                 o = runs.get(f) or {}
                 ok = (o.get('fight') and o.get('sheets') and all(x == 'beast_' + a for x in o['sheets']) and o.get('says') and o.get('drawn')
                       and o.get('home') and (o.get('kill') or {}).get('kind') in rows and (o.get('take') or {}).get('ok')
@@ -366,7 +370,7 @@ def main():
             if not (ch.get('named') and ch.get('inList') and all(x.get('onBoard') for x in ch['named']) and ch.get('home')
                     and any(str(x.get('title') or '').upper() in str(ch.get('hold') or '') for x in ch['named'])):
                 bad.append('%s champion: %s' % (prof, json.dumps(ch)[:200]))
-        leg(not bad, 'F9 ON THE PAGE, UPRIGHT AND SIDEWAYS (rule 441(a)): each of the %d BESTIARY beasts through the one door on the demo: fielded on its own sheet with its own words, the win home, its kill on the map in its picture, one tap: food and a roll of hides; each new man fielded in his own clothes, named and armed, the win home; a late road crew\'s champion named from his list, his title on his card; nothing thrown' % len(mine),
+        leg(not bad, 'F9 ON THE PAGE, UPRIGHT AND SIDEWAYS (rule 441(a)), THE DEMO AND THE ALPHA: each of the %d BESTIARY beasts through the one door on the demo: fielded on its own sheet with its own words, the win home, its kill on the map in its picture, one tap: food and a roll of hides; each new man fielded in his own clothes, named and armed, the win home, and a late road crew\'s champion named from his list with his title on his card, on the demo and the alpha; nothing thrown' % len(mine),
             '; '.join(bad[:4]))
     # ---------------- F8 ----------------
     r = subprocess.run([sys.executable, 'tools/bohemia_combat_the_roster.py', '--check'], cwd=ROOT, capture_output=True, text=True)

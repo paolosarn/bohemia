@@ -23,14 +23,31 @@ const MEN = NE.rows.filter(r => String(r.added_by || '').startsWith('BESTIARY') 
 const CH = (NE.champions && NE.champions.kinds) || {};
 (async () => {
   const want = process.argv[2] ? process.argv[2].split(',') : ['phone_portrait', 'phone_landscape'];
+  /* rule 441 (the routine 'BESTIARY next round': 'alpha and demo, phone both ways'): the demo plays the beasts and the men; the alpha,
+     where every lane ships, plays the men and a champion */
+  const runsOn = []; want.forEach(pr => runsOn.push({ profile: pr, alpha: false })); if (process.env.NO_ALPHA !== '1') want.forEach(pr => runsOn.push({ profile: pr, alpha: true })); if (process.env.ONLY_ALPHA === '1') runsOn.splice(0, want.length);
   const res = {};
-  for (const profile of want) {
-    const d = await D.open({ profile }); const fr = d.fr, p = d.page, errs = [];
+  for (const ro of runsOn) {
+    const profile = ro.profile;
+    const d = await D.open({ profile, alpha: ro.alpha }); const fr = d.fr, p = d.page, errs = [];
     p.on('pageerror', e => errs.push(String(e).slice(0, 200)));
     const runs = {};
     try {
+      /* THE ALPHA STARTS HIM IN THE TOWN, in the close view (the bosses' gate measured it 11/10: MODE 'human'): he taps LEAVE, as a
+         player does, and pinches out to the map (the game's own swapMode()) */
+      if (ro.alpha) {
+        const tapEl = async (h) => { const bb = h && await h.boundingBox(); if (!bb) return false; await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); return true; };
+        const inTown = () => fr.evaluate(() => { const sf = document.getElementById('settleFrame'); return !!sf && sf.style.display === 'block'; }).catch(() => false);
+        await waitFor(() => fr.evaluate(() => typeof MODE !== 'undefined' && typeof RESTORE_ANSWERED !== 'undefined' && RESTORE_ANSWERED), 120000);
+        for (let i = 0; i < 40; i++) { const t = await fr.evaluate(() => ({ on: !!window.__START_IN_TOWN, opened: !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened) })).catch(() => ({})); if (t.opened || (i > 12 && !t.on)) break; await sleep(500); }
+        for (let k = 0; k < 3 && await inTown(); k++) { await sleep(900);
+          if (!await tapEl(await p.$('#bohphone .bpctx.town .lv'))) { const sfr = p.frames().find(f => /SETTLEMENT/.test(f.url())); if (sfr) await tapEl(await sfr.$('#leave')); } await sleep(1300); }
+        for (let k = 0; k < 5; k++) { const sw = await fr.evaluate(() => { try { if (MODE === 'human' && !INSIDE && !(document.getElementById('settleFrame') && document.getElementById('settleFrame').style.display === 'block')) { swapMode(); return true; } } catch (e) {} return MODE === 'city'; }).catch(() => false);
+          if (sw) { await sleep(1500); if (await fr.evaluate(() => MODE === 'city').catch(() => false)) break; } else await sleep(1000); }
+        runs.toMap = await fr.evaluate(() => MODE).catch(() => null);
+      }
       await waitFor(() => fr.evaluate(() => MODE === 'city' && typeof RESTORE_ANSWERED !== 'undefined' && RESTORE_ANSWERED && window.BohemiaCarcass && BohemiaCarcass.ready()), 90000);
-      for (const b of (process.env.ONLY_MEN ? [] : MINE)) {   /* ONLY_MEN: a quick run of the men's half alone (the gate runs both) */
+      for (const b of (process.env.ONLY_MEN || ro.alpha ? [] : MINE)) {   /* ONLY_MEN: a quick run of the men's half alone (the gate runs both) */
         const fac = b.faction, out = { fight: false };
         try {
           await fr.evaluate(() => { try { if (LOOP.open) loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} BohemiaCarcass.reset(); localStorage.setItem('bohemia.bag.v1', '[]'); window.__FIGHT_CAME_HOME = null; });
@@ -101,7 +118,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
             o.tries = t + 1; await handOver(m.faction, 8, m.days, m.id + ':' + o.dealt.first); const f = await openFight(); if (!f) break; o.fight = true;
             await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(800);
             o.fielded = await lookOk(f, m.id); o.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
-            if (process.env.SHOTS && o.fielded) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'men_' + m.id + '_' + profile + '.jpg'), quality: 80 }); }
+            if (process.env.SHOTS && o.fielded) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'men_' + m.id + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }
             o.home = await winHome(f); await sleep(800);
           }
         } catch (e) { o.err = String(e).slice(0, 300); }
@@ -116,14 +133,14 @@ const CH = (NE.champions && NE.champions.kinds) || {};
           const c = await f.evaluate(() => (FIGHT.S.champions || []).map(x => { const u = FIGHT.byId(x.id); return { kind: x.kind, name: x.name, title: x.title, onBoard: !!u && u.name === x.name && u.champion === true, look: u && u.look }; }));
           if (c.length) { ch.named = c; ch.inList = c.every(x => ((CH[x.kind] || {}).names || []).map(n => String(n).toUpperCase()).indexOf(x.name) >= 0 && x.title === (CH[x.kind] || {}).title);
             ch.hold = await f.evaluate((id) => { try { weaponCard(FIGHT.byId(id)); const d = document.getElementById('drawer'); const t = d && d.innerText; return t ? t.slice(0, 160) : null; } catch (e) { return 'ERR ' + String(e).slice(0, 100); } }, (await f.evaluate(() => FIGHT.S.champions[0].id)));
-            if (process.env.SHOTS) { await f.evaluate(() => { try { document.getElementById('drawer').style.display = 'block'; } catch (e) {} }); await sleep(600); await p.screenshot({ path: path.join(process.env.SHOTS, 'champion_' + profile + '.jpg'), quality: 80 }); } }
+            if (process.env.SHOTS) { await f.evaluate(() => { try { document.getElementById('drawer').style.display = 'block'; } catch (e) {} }); await sleep(600); await p.screenshot({ path: path.join(process.env.SHOTS, 'champion_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); } }
           ch.home = await winHome(f); await sleep(800);
         }
       } catch (e) { ch.err = String(e).slice(0, 300); }
       runs.champion = ch;
       await fr.evaluate(() => { try { if (window.__GATE_DAY0 !== undefined) { DAY.day = window.__GATE_DAY0; delete window.__GATE_DAY0; } } catch (e) {} });
     } catch (e) { runs.err = String(e).slice(0, 300); }
-    runs.errs = errs; res[profile.replace('phone_', '')] = runs;
+    runs.errs = errs; res[(ro.alpha ? 'alpha_' : '') + profile.replace('phone_', '')] = runs;
     try { await d.close(); } catch (e) {}
   }
   console.log('RESULT ' + JSON.stringify(res));

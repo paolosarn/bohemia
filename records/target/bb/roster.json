@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 164,
-  "types_in_the_fight": 54,
+  "types": 167,
+  "types_in_the_fight": 57,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -52,6 +52,7 @@
     "billman",
     "footman",
     "house_crossbow",
+    "house_greatsword",
     "house_hook",
     "house_sergeant",
     "house_shield",
@@ -132,6 +133,7 @@
     "nomad_outlaw",
     "nomad_slinger",
     "water_cutter",
+    "water_outlaw",
     "water_slinger"
    ],
    "in_the_fight": [
@@ -195,7 +197,8 @@
     "peasant",
     "watch_bowman",
     "watch_captain",
-    "watch_neighbor"
+    "watch_neighbor",
+    "watch_spearman"
    ],
    "in_the_fight": [
     "watch"
@@ -2114,6 +2117,27 @@
    "page": "bb_all/0128_Arbalester.txt"
   },
   {
+   "type": "house_greatsword",
+   "bb_name": "Two-Hander",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "house_greatsword"
+   ],
+   "name": "TWO-HANDER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "house"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2250_Zweihander.txt"
+  },
+  {
    "type": "house_hook",
    "bb_name": "House Hook",
    "bb_faction": "noble_houses",
@@ -3644,6 +3668,27 @@
    "page": "bb_all/0136_Armed Peasant.txt"
   },
   {
+   "type": "watch_spearman",
+   "bb_name": "Spearman",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "watch_spearman"
+   ],
+   "name": "SPEARMAN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "watch"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1284_Militia.txt"
+  },
+  {
    "type": "water_cutter",
    "bb_name": "Cutter",
    "bb_faction": "nomads",
@@ -3684,6 +3729,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0864_Goblin Ambusher.txt"
+  },
+  {
+   "type": "water_outlaw",
+   "bb_name": "Outlaw",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "water_outlaw"
+   ],
+   "name": "OUTLAW",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "water"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1449_Nomad Outlaw.txt"
   },
   {
    "type": "water_slinger",

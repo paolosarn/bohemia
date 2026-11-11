@@ -1,5 +1,20 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/11, the routine 'BESTIARY next round': 'CHARACTER is building the clothes; give it the list of who still wears a
+stand-in'). NOTHING OF YOURS WAS TOUCHED. WHO STILL WEARS A STAND-IN (fielded today, measured from ours.people_looks, ours.bestiary.look_pools
+and bohemia_enemies.json): the roaming crews wear the CITY'S OWN GANGS, so a road crew looks like a faction he deals with in town:
+  brigand_thug (tier_thug + person_homeless_*, person_anarchists_*), brigand_raider AND orc_young (the same person_mob_*, person_cartel_*: two
+  types, one set of clothes), brigand_marauder (person_remnants_*, person_blues_*), brigand_marksman (person_network_*, person_colorful_*),
+  brigand_poacher (tier_poacher + person_volunteers_*, person_caravans_*), brigand_leader (person_church_*), and the road crew's CHAMPION and
+  the geist on the default pool (faction_remnants, person_remnants_*, person_network_*). The machines: wiederganger and armored_wiederganger
+  share the ONE robot sheet. Shared but finished (your enemy sheets, one pool for several types): the runner pool (kids' skirmisher,
+  wolfrider, the kids' champion), the heavy pool (orc_warrior, the heavies' champion).
+STILL OWED NEW CLOTHES before they can fight (from the 11/10 note, unchanged): the flock (1 type, built and waiting), the hired guns (6), the
+head takers (2), the eye in the sky (9). This round BESTIARY split three more of your enemy pools for three new types (the House's
+two-hander enemy_house_hook_2, the water people's outlaw enemy_water_needle_2, the watch's spearman enemy_watch_neighbor_3): the hook men,
+needles and neighbors keep two, two and three. Six of BESTIARY's eight new types wear ONE sheet (the reaver, caller, sergeant, two-hander,
+outlaw, spearman; the bowman and slinger have two): a second sheet each gives a band of them more than one face.
+
 NOTE from BESTIARY (11/10, the coordinator's routine 'BESTIARY: enemy types and factions', rule 443(d): 'each type its own look (CHARACTER owns
 garments: reuse dressed people first, list what needs new clothes in handoffs/CHARACTER.md)'). NOTHING OF YOURS WAS TOUCHED. Reuse first: five new
 types went in this round on enemy sheets you already made, each pool split so no two types share a sheet (the bowman enemy_watch_neighbor_4/5, the
