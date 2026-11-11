@@ -1,3 +1,15 @@
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11m - THE FLOOD TUNNELS, FINISHED, BUILT, NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+COMBAT THREE's tunnels board (on main since 11/11c in stand-in pictures) now wears finished art through the master rig: three sheets (a culvert
+floor with silt and wet, the wet main channel, the dark earth), every tile joining every tile (one shared edge, its own middle); ten pieces as
+models in metres (the wall three ways, the rack whole and pried open, the rungs; the camp, the lean-to and the jam each a tile wide: at true size
+they were a 27 px speck on his phone). PICTURES ONLY: in tunnels.json the three ground lists and the seven stage marks; sizes.json is the pieces'.
+ON THE PAGE upright and sideways: deals, 0 missing, 0 errors; the load lighter (2.54 -> 2.37 MB); the speed the same (46 to 55 frames a second at
+4x slow, 43 to 50 before: not 60 either way, PLUMBER's row). Gate NEW THE INSIDES WEAR FINISHED ART 7/0 (ANY TILE MEETS ANY TILE, three planted
+fails); THE FLOOD TUNNELS (COMBAT's) 14/0. VOTE cook5-the-flood-tunnels-finished-11-11 (MADE FROM the pit). Notes FOR COMBAT THREE inside.
+NEXT: THE PARKING GARAGE's kit (its sheet and pieces are rendering), then rows 576 and 585. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never goes under the ground: an inside is our own, and its floor has to carry the place]
+[analog horror: a candle still burning on a table a mile into the dark, and on the wall the marks of how high the water came]
+
 COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11c - THE FLOOD TUNNELS, BUILT, NOT YET SEEN (rules 440(a), 441, 443(h); ask row 539).
 COMBAT TWO's parked tunnels are on main: a fight at a wash goes under the city about half the time (the main channel, the drains, camps on the
 walls, the day through the grates, the flash flood). NEW: every tile kind has its cost and its effect in one table (tunnels.json 'tiles') and says

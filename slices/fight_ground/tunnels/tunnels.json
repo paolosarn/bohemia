@@ -102,16 +102,16 @@
   }
  },
  "kit": {
-  "tunnel_camp_a": {"kind": "LOW_COVER", "h": 1.0, "name": "A CAMP ON THE WALL", "stage": "stand_in"},
-  "tunnel_camp_b": {"kind": "LOW_COVER", "h": 1.2, "name": "A LEAN-TO", "stage": "stand_in"},
-  "tunnel_jam": {"kind": "COVER", "h": 1.4, "name": "THE FLOOD'S JAM", "stage": "stand_in"},
-  "tunnel_wall_ew": {"kind": "WALL", "h": 1.8, "name": "A CULVERT WALL", "stage": "stand_in"},
-  "tunnel_wall_ns": {"kind": "WALL", "h": 1.8, "name": "A CULVERT WALL", "stage": "stand_in"},
-  "tunnel_mouth": {"kind": "LOW_COVER", "h": 1.8, "name": "THE TRASH RACK, PRIED OPEN", "stage": "stand_in"},
-  "tunnel_rack": {"kind": "COVER", "h": 1.8, "name": "THE TRASH RACK", "stage": "stand_in"}
+  "tunnel_camp_a": {"kind": "LOW_COVER", "h": 1.0, "name": "A CAMP ON THE WALL", "stage": "finished"},
+  "tunnel_camp_b": {"kind": "LOW_COVER", "h": 1.2, "name": "A LEAN-TO", "stage": "finished"},
+  "tunnel_jam": {"kind": "COVER", "h": 1.4, "name": "THE FLOOD'S JAM", "stage": "finished"},
+  "tunnel_wall_ew": {"kind": "WALL", "h": 1.8, "name": "A CULVERT WALL", "stage": "finished"},
+  "tunnel_wall_ns": {"kind": "WALL", "h": 1.8, "name": "A CULVERT WALL", "stage": "finished"},
+  "tunnel_mouth": {"kind": "LOW_COVER", "h": 1.8, "name": "THE TRASH RACK, PRIED OPEN", "stage": "finished"},
+  "tunnel_rack": {"kind": "COVER", "h": 1.8, "name": "THE TRASH RACK", "stage": "finished"}
  },
- "floor": {"floor": ["block_wash_3.webp#1,0", "block_wash_3.webp#1,2", "block_wash_3.webp#3,1", "block_wash_3.webp#3,4", "block_wash_3.webp#1,4"],
-           "channel": ["block_wash_3.webp#2,0", "block_wash_3.webp#2,1", "block_wash_3.webp#2,3"],
-           "fill": ["block_landfill_0.webp#0,0", "block_landfill_0.webp#1,0", "block_landfill_0.webp#0,1", "block_landfill_0.webp#1,2", "block_landfill_0.webp#0,2"]},
+ "floor": {"floor": ["tunnels/tunnel_floor_0.webp#0,0", "tunnels/tunnel_floor_0.webp#1,0", "tunnels/tunnel_floor_0.webp#2,0", "tunnels/tunnel_floor_0.webp#3,0", "tunnels/tunnel_floor_0.webp#4,0", "tunnels/tunnel_floor_0.webp#0,1", "tunnels/tunnel_floor_0.webp#1,1", "tunnels/tunnel_floor_0.webp#2,1", "tunnels/tunnel_floor_0.webp#3,1", "tunnels/tunnel_floor_0.webp#4,1", "tunnels/tunnel_floor_0.webp#0,2", "tunnels/tunnel_floor_0.webp#1,2", "tunnels/tunnel_floor_0.webp#2,2", "tunnels/tunnel_floor_0.webp#3,2", "tunnels/tunnel_floor_0.webp#4,2", "tunnels/tunnel_floor_0.webp#0,3", "tunnels/tunnel_floor_0.webp#1,3", "tunnels/tunnel_floor_0.webp#2,3", "tunnels/tunnel_floor_0.webp#3,3", "tunnels/tunnel_floor_0.webp#4,3", "tunnels/tunnel_floor_0.webp#0,4", "tunnels/tunnel_floor_0.webp#1,4", "tunnels/tunnel_floor_0.webp#2,4", "tunnels/tunnel_floor_0.webp#3,4", "tunnels/tunnel_floor_0.webp#4,4"],
+           "channel": ["tunnels/tunnel_channel_0.webp#0,0", "tunnels/tunnel_channel_0.webp#1,0", "tunnels/tunnel_channel_0.webp#2,0", "tunnels/tunnel_channel_0.webp#3,0", "tunnels/tunnel_channel_0.webp#4,0", "tunnels/tunnel_channel_0.webp#0,1", "tunnels/tunnel_channel_0.webp#1,1", "tunnels/tunnel_channel_0.webp#2,1", "tunnels/tunnel_channel_0.webp#3,1", "tunnels/tunnel_channel_0.webp#4,1", "tunnels/tunnel_channel_0.webp#0,2", "tunnels/tunnel_channel_0.webp#1,2", "tunnels/tunnel_channel_0.webp#2,2", "tunnels/tunnel_channel_0.webp#3,2", "tunnels/tunnel_channel_0.webp#4,2", "tunnels/tunnel_channel_0.webp#0,3", "tunnels/tunnel_channel_0.webp#1,3", "tunnels/tunnel_channel_0.webp#2,3", "tunnels/tunnel_channel_0.webp#3,3", "tunnels/tunnel_channel_0.webp#4,3", "tunnels/tunnel_channel_0.webp#0,4", "tunnels/tunnel_channel_0.webp#1,4", "tunnels/tunnel_channel_0.webp#2,4", "tunnels/tunnel_channel_0.webp#3,4", "tunnels/tunnel_channel_0.webp#4,4"],
+           "fill": ["tunnels/tunnel_fill_0.webp#0,0", "tunnels/tunnel_fill_0.webp#1,0", "tunnels/tunnel_fill_0.webp#2,0", "tunnels/tunnel_fill_0.webp#3,0", "tunnels/tunnel_fill_0.webp#4,0", "tunnels/tunnel_fill_0.webp#0,1", "tunnels/tunnel_fill_0.webp#1,1", "tunnels/tunnel_fill_0.webp#2,1", "tunnels/tunnel_fill_0.webp#3,1", "tunnels/tunnel_fill_0.webp#4,1", "tunnels/tunnel_fill_0.webp#0,2", "tunnels/tunnel_fill_0.webp#1,2", "tunnels/tunnel_fill_0.webp#2,2", "tunnels/tunnel_fill_0.webp#3,2", "tunnels/tunnel_fill_0.webp#4,2", "tunnels/tunnel_fill_0.webp#0,3", "tunnels/tunnel_fill_0.webp#1,3", "tunnels/tunnel_fill_0.webp#2,3", "tunnels/tunnel_fill_0.webp#3,3", "tunnels/tunnel_fill_0.webp#4,3", "tunnels/tunnel_fill_0.webp#0,4", "tunnels/tunnel_fill_0.webp#1,4", "tunnels/tunnel_fill_0.webp#2,4", "tunnels/tunnel_fill_0.webp#3,4", "tunnels/tunnel_fill_0.webp#4,4"]},
  "lights": {"grate": {"src": "tunnels/tunnel_ladder.webp", "radius_m": 9, "day": true}, "mouth": {"src": null, "radius_m": 14, "day": true}, "fire": {"src": "light_oil_drum.webp", "radius_m": 6, "day": false}}
 }

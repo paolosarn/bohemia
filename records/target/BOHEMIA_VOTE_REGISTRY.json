@@ -19066,6 +19066,49 @@
    },
    "stage": "stand_in",
    "record": "records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md"
+  },
+  {
+   "id": "cook5-the-flood-tunnels-finished-11-11",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/11",
+   "draft": true,
+   "title": "THE FLOOD TUNNELS IN FINISHED ART: A REAL CULVERT FLOOR, THE WET CHANNEL, DARK EARTH, AND WHOLE CAMPS",
+   "said": "some fights could be inside too, that's part of this open world vibe",
+   "why": "The flood tunnels fight now wears finished art: a culvert floor with silt and wet patches, the wet main channel, dark earth round it, concrete walls, and whole camps where people lived. You see it in a fight at a wash that goes under the ground, on the fight screen.",
+   "options": [
+    "A, yes, that's the tunnels",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_FLOOD_TUNNELS_FINISHED_11_11.webp",
+    "first": "../records/target/vote_first/cook5-the-flood-tunnels-finished-11-11.webp",
+    "firstAt": [
+     885,
+     98,
+     285,
+     482
+    ]
+   },
+   "before_after": {
+    "before": "BUILD 11/11c (COMBAT THREE's board on main): the floor and the channel were tiles of the wash block, the earth tiles of the landfill, the pieces eight small models (a camp 4 m across, a speck on his phone)",
+    "after": "three sheets through the master rig (floor, channel, earth), every tile joining every tile; ten pieces as models in metres, the camps and the jam a tile wide; the board's load 2.54 MB to 2.37 MB",
+    "scale": "the fight's own camera on his phone upright (390 x 844 at 2) and sideways (844 x 390 at 2), the same board and seed; the pictures themselves at one art pixel to one screen pixel"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/block_wash_3.webp",
+    "diffs": [
+     "THE SAME CONCRETE: the map's own wash channel is the twin (the floor tool's ground, one sun, one camera, 42.9 px a metre); the tunnels' floor is that concrete under the street: slab joints every 4 m, silt in drifts, wet where it dips.",
+     "WHAT THE WASH BLOCK DID NOT HAVE: any tile joins any tile (the board picks them at random): every tile wears the same edge and its own middle, so nothing stops at a tile's edge and no square shows.",
+     "THE PIECES are whole places now: a camp is three beds, a rug, carts, a couch, a washing line and a lit candle, a tile wide; it was a mattress and a cart."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_FLOOD_TUNNELS_FINISHED_11_11_26.md"
   }
  ],
  "verdicts": [

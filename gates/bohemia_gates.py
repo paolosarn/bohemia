@@ -9520,6 +9520,13 @@ GATES = [
      "ground, the deck and the interchange over the far city; F4 a bent every third tile of a face (36 m spans); F5 the burnt patch and the skid marks into the "
      "wall are on a board once and never in the ring; F6 no wall before a broken end; F7 every tile picture 515 x 364, the folder and each board under a byte "
      "budget. M: a piece marked stand_in, a picture gone, the overpass's skin off, a once-mark made common: each red. Under 5 s", False),
+    ('THE INSIDES WEAR FINISHED ART', ['python3', 'gates/the_insides_wear_finished_art_gate.py'],
+     "COOK FIVE gate, 11/11, rules 443(g), 441, 440(a), 416 (the coordinator's next round: the art for the flood tunnels and the parking garage, so they do not "
+     "wear stand-ins). The tunnels' pictures through the master rig (tools/bohemia_cook5_the_tunnels_and_the_garage_finished_11_11_26.py): A1 the art file says "
+     "finished and every picture it names is a file, none unnamed in the folder; A2 every sheet five by five tiles of 515 x 364; A3 ANY TILE MEETS ANY TILE (the "
+     "board picks any tile of a sheet for any place: the step in tone across every pair's join no more than the ground's own inside a tile); A4 every piece its "
+     "file's size, its foot on its canvas, a wall one tile long; A5 the kit under its byte budget; A6 no purple. P1 planted: a tile an eighth darker, a piece with "
+     "no file, a foot off its canvas: each red. About 5 s", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "

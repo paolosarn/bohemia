@@ -1,5 +1,37 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11m - THE FLOOD TUNNELS, FINISHED, BUILT, NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+COMBAT THREE's tunnels board (on main since 11/11c in stand-in pictures) now wears finished art through the master rig: three sheets (a culvert
+floor with silt and wet, the wet main channel, the dark earth), every tile joining every tile (one shared edge, its own middle); ten pieces as
+models in metres (the wall three ways, the rack whole and pried open, the rungs; the camp, the lean-to and the jam each a tile wide: at true size
+they were a 27 px speck on his phone). PICTURES ONLY: in tunnels.json the three ground lists and the seven stage marks; sizes.json is the pieces'.
+ON THE PAGE upright and sideways: deals, 0 missing, 0 errors; the load lighter (2.54 -> 2.37 MB); the speed the same (46 to 55 frames a second at
+4x slow, 43 to 50 before: not 60 either way, PLUMBER's row). Gate NEW THE INSIDES WEAR FINISHED ART 7/0 (ANY TILE MEETS ANY TILE, three planted
+fails); THE FLOOD TUNNELS (COMBAT's) 14/0. VOTE cook5-the-flood-tunnels-finished-11-11 (MADE FROM the pit). Notes FOR COMBAT THREE inside.
+NEXT: THE PARKING GARAGE's kit (its sheet and pieces are rendering), then rows 576 and 585. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never goes under the ground: an inside is our own, and its floor has to carry the place]
+[analog horror: a candle still burning on a table a mile into the dark, and on the wall the marks of how high the water came]
+
+## FOR COMBAT THREE (and COMBAT TWO): THE FLOOD TUNNELS (you own its rules and layouts; I touched pictures only)
+1. slices/fight_ground/tunnels/tunnels.json: "floor" now names three sheets of this folder (tunnel_floor_0, tunnel_channel_0, tunnel_fill_0,
+   all 25 tiles of each; it named tiles of block_wash_3 and block_landfill_0), and the seven kit rows say "stage": "finished". Nothing else in
+   the file is touched. Your pic() picks any tile of a list, as before: every tile of a sheet meets every other (gate THE INSIDES WEAR FINISHED ART, A3).
+2. sizes.json is rewritten: the same piece names, each laid by the same kind of foot, NEW canvases. The camps and the jam are a tile wide now
+   (camp_a 515 x 261, camp_b 532 x 286, jam 515 x 194 px: 12 m; at 4 m they could not be seen on his phone). They still stand on their one tile
+   by your put(piece, x, y, 0.5, 0.6); a man can still stand there (LOW_COVER and COVER as you set them). If a rule wants a camp to take less of
+   its tile, say so and I cut it down.
+3. THE WALL: your dealer lays tunnel_wall_ew on every tile, so that picture is the wall alone. tunnel_wall_ew_b (painted) and tunnel_wall_ew_c
+   (the water's marks) are the same canvas and foot, with their rows in sizes.json: one line in your dealer picks them (one in five or so by
+   the tile's own dice, never two alike side by side) and two rows in your kit. Your call; nothing breaks if you never do.
+4. THE MODELS: reference/models/bohemia/tunnel_*.glb are these pieces' own models now (your T5 reads them; tunnel_wall_ew_b and _c are new).
+   records/target/cook_flood_tunnels/*/rig.json still describe COMBAT TWO's old models: yours to keep or drop.
+5. tools/bohemia_combat_two_the_flood_tunnels_11_9_26.py 'all' would write the old pieces over these: do not re-run it for pictures; a new piece
+   is a few lines in my tool's tunnel_parts() (say the word).
+6. SEEN, NOT WALKED BY HAND: with the camera pushed in by script past about twice the default zoom the board's cover pieces were not drawn
+   (walls and camps gone at 2.2 times, there at 1.5). If that is a rule of the fight, fine; if not, it is yours or FIXES'.
+7. THE PARKING GARAGE: its kit lands next in slices/fight_ground/garage/ with garage_art.json (the floor lists by kind, every piece's kind,
+   height, canvas and foot, and how a split-level garage lays from it), on the casino floor's recipe, before your board.
+
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/10zb - THE DECOY HAS ITS PICTURE, BUILT (31a2a9dcf), NOT YET SEEN (ask row 584, PLUMBER 8's red debt; rules 252(c), 367).
 The 51st perk had no picture: the Decoy is now a cardboard man on his strut with a drawn-on smile, shot twice, made the fifty's way through
 the master rig (COOK's tool, one model added; blue rim, row 3). Gate EVERY PERK A PICTURE 5/0 (51 of 51), its line struck from the

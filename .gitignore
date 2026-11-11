@@ -39,3 +39,8 @@ records/target/character/the_nine_enemies/look/
 # what ships is slices/fight_ground/freeway/ and slices/fight_ground/casino/, and the carpet's calibration json is kept
 records/target/cook5_freeway/render/
 records/target/cook5_casino/render/
+# COOK FIVE 11/11: the rig's full renders of the tunnels' and the garage's sheets and pieces (~40 MB) and the plans' previews, rebuilt by
+# tools/bohemia_cook5_the_tunnels_and_the_garage_finished_11_11_26.py render <scene> / plan <name>; the calibration json is kept
+records/target/cook5_inside/render/
+records/target/cook5_inside/plan_*.png
+records/target/cook5_colour/try/

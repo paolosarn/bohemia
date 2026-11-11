@@ -1,0 +1,188 @@
+{
+ "version": "cook5-tunnels-art-11-11",
+ "lane": "cook 5",
+ "stage": "finished",
+ "for": "COMBAT's flood tunnels board (slices/bohemia_flood_tunnels.js, tunnels.json; on main since BUILD 11/11c): its tunnels.json names these three lists as its \"floor\" (they replaced the wash block's and the landfill's tiles) and sizes.json here is the pieces' (the same names, each laid by the same foot)",
+ "floor": {
+  "floor": [
+   "tunnels/tunnel_floor_0.webp#0,0",
+   "tunnels/tunnel_floor_0.webp#1,0",
+   "tunnels/tunnel_floor_0.webp#2,0",
+   "tunnels/tunnel_floor_0.webp#3,0",
+   "tunnels/tunnel_floor_0.webp#4,0",
+   "tunnels/tunnel_floor_0.webp#0,1",
+   "tunnels/tunnel_floor_0.webp#1,1",
+   "tunnels/tunnel_floor_0.webp#2,1",
+   "tunnels/tunnel_floor_0.webp#3,1",
+   "tunnels/tunnel_floor_0.webp#4,1",
+   "tunnels/tunnel_floor_0.webp#0,2",
+   "tunnels/tunnel_floor_0.webp#1,2",
+   "tunnels/tunnel_floor_0.webp#2,2",
+   "tunnels/tunnel_floor_0.webp#3,2",
+   "tunnels/tunnel_floor_0.webp#4,2",
+   "tunnels/tunnel_floor_0.webp#0,3",
+   "tunnels/tunnel_floor_0.webp#1,3",
+   "tunnels/tunnel_floor_0.webp#2,3",
+   "tunnels/tunnel_floor_0.webp#3,3",
+   "tunnels/tunnel_floor_0.webp#4,3",
+   "tunnels/tunnel_floor_0.webp#0,4",
+   "tunnels/tunnel_floor_0.webp#1,4",
+   "tunnels/tunnel_floor_0.webp#2,4",
+   "tunnels/tunnel_floor_0.webp#3,4",
+   "tunnels/tunnel_floor_0.webp#4,4"
+  ],
+  "channel": [
+   "tunnels/tunnel_channel_0.webp#0,0",
+   "tunnels/tunnel_channel_0.webp#1,0",
+   "tunnels/tunnel_channel_0.webp#2,0",
+   "tunnels/tunnel_channel_0.webp#3,0",
+   "tunnels/tunnel_channel_0.webp#4,0",
+   "tunnels/tunnel_channel_0.webp#0,1",
+   "tunnels/tunnel_channel_0.webp#1,1",
+   "tunnels/tunnel_channel_0.webp#2,1",
+   "tunnels/tunnel_channel_0.webp#3,1",
+   "tunnels/tunnel_channel_0.webp#4,1",
+   "tunnels/tunnel_channel_0.webp#0,2",
+   "tunnels/tunnel_channel_0.webp#1,2",
+   "tunnels/tunnel_channel_0.webp#2,2",
+   "tunnels/tunnel_channel_0.webp#3,2",
+   "tunnels/tunnel_channel_0.webp#4,2",
+   "tunnels/tunnel_channel_0.webp#0,3",
+   "tunnels/tunnel_channel_0.webp#1,3",
+   "tunnels/tunnel_channel_0.webp#2,3",
+   "tunnels/tunnel_channel_0.webp#3,3",
+   "tunnels/tunnel_channel_0.webp#4,3",
+   "tunnels/tunnel_channel_0.webp#0,4",
+   "tunnels/tunnel_channel_0.webp#1,4",
+   "tunnels/tunnel_channel_0.webp#2,4",
+   "tunnels/tunnel_channel_0.webp#3,4",
+   "tunnels/tunnel_channel_0.webp#4,4"
+  ],
+  "fill": [
+   "tunnels/tunnel_fill_0.webp#0,0",
+   "tunnels/tunnel_fill_0.webp#1,0",
+   "tunnels/tunnel_fill_0.webp#2,0",
+   "tunnels/tunnel_fill_0.webp#3,0",
+   "tunnels/tunnel_fill_0.webp#4,0",
+   "tunnels/tunnel_fill_0.webp#0,1",
+   "tunnels/tunnel_fill_0.webp#1,1",
+   "tunnels/tunnel_fill_0.webp#2,1",
+   "tunnels/tunnel_fill_0.webp#3,1",
+   "tunnels/tunnel_fill_0.webp#4,1",
+   "tunnels/tunnel_fill_0.webp#0,2",
+   "tunnels/tunnel_fill_0.webp#1,2",
+   "tunnels/tunnel_fill_0.webp#2,2",
+   "tunnels/tunnel_fill_0.webp#3,2",
+   "tunnels/tunnel_fill_0.webp#4,2",
+   "tunnels/tunnel_fill_0.webp#0,3",
+   "tunnels/tunnel_fill_0.webp#1,3",
+   "tunnels/tunnel_fill_0.webp#2,3",
+   "tunnels/tunnel_fill_0.webp#3,3",
+   "tunnels/tunnel_fill_0.webp#4,3",
+   "tunnels/tunnel_fill_0.webp#0,4",
+   "tunnels/tunnel_fill_0.webp#1,4",
+   "tunnels/tunnel_fill_0.webp#2,4",
+   "tunnels/tunnel_fill_0.webp#3,4",
+   "tunnels/tunnel_fill_0.webp#4,4"
+  ]
+ },
+ "pieces": {
+  "wall_ew": {
+   "src": "tunnels/tunnel_wall_ew.webp",
+   "w": 515,
+   "h": 89,
+   "foot": [
+    258.0,
+    88
+   ]
+  },
+  "wall_ew_b": {
+   "src": "tunnels/tunnel_wall_ew_b.webp",
+   "w": 515,
+   "h": 89,
+   "foot": [
+    258.0,
+    88
+   ]
+  },
+  "wall_ew_c": {
+   "src": "tunnels/tunnel_wall_ew_c.webp",
+   "w": 515,
+   "h": 89,
+   "foot": [
+    258.0,
+    88
+   ]
+  },
+  "wall_ns": {
+   "src": "tunnels/tunnel_wall_ns.webp",
+   "w": 95,
+   "h": 463,
+   "foot": [
+    26.5,
+    462
+   ]
+  },
+  "rack": {
+   "src": "tunnels/tunnel_rack.webp",
+   "w": 107,
+   "h": 463,
+   "foot": [
+    34.8,
+    462
+   ]
+  },
+  "mouth": {
+   "src": "tunnels/tunnel_mouth.webp",
+   "w": 129,
+   "h": 473,
+   "foot": [
+    35.2,
+    462
+   ]
+  },
+  "camp_a": {
+   "src": "tunnels/tunnel_camp_a.webp",
+   "w": 515,
+   "h": 261,
+   "foot": [
+    241.2,
+    188
+   ]
+  },
+  "camp_b": {
+   "src": "tunnels/tunnel_camp_b.webp",
+   "w": 532,
+   "h": 286,
+   "foot": [
+    249.2,
+    189
+   ]
+  },
+  "jam": {
+   "src": "tunnels/tunnel_jam.webp",
+   "w": 515,
+   "h": 194,
+   "foot": [
+    241.2,
+    140
+   ]
+  },
+  "ladder": {
+   "src": "tunnels/tunnel_ladder.webp",
+   "w": 95,
+   "h": 151,
+   "foot": [
+    35.2,
+    140
+   ]
+  }
+ },
+ "wall_variants": "tunnel_wall_ew is the wall alone (the board lays it on every tile); tunnel_wall_ew_b (painted) and tunnel_wall_ew_c (the water's marks) are the same canvas and foot: lay one in five or so by the tile's own dice, never two alike side by side",
+ "how_it_joins": "the board picks any tile of a sheet for any place: the slab joints (4 m) fall on every tile edge and everything bigger than a hand fades out before it; a floor tile beside a channel tile is the drain's dry lip over the wet channel",
+ "bytes": {
+  "floor": 128626,
+  "channel": 134498,
+  "fill": 92692
+ }
+}
