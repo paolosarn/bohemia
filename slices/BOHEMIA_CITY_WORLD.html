@@ -94893,7 +94893,8 @@ function homeState(){
            residents: r.residents.map(function(p){ return { name: p.name, look: p.look, why: p.why, day: p.day, says: BohemiaHome.tell(r, p.name, actNow, dayNow) }; }),
            act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
            things: (r.things || []).slice(), waiting: (r.waiting || []).slice(),
-           standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null };
+           standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null,
+           opens: D.opens || null };   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
 function homePlant(){

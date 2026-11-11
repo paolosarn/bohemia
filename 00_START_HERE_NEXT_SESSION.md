@@ -110,15 +110,14 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10u - EVERYTHING HIS LIVES THERE, BUILT, NOT YET SEEN (rule 445; ask line 571):
-THE SEAM, one call every lane uses to hand him a thing (a prize, a trophy, a build, a person: BohemiaHomeMap.give, written out in
-handoffs/HOME_BASE.md for BOSSES, JOBS, WORLD 14 and the RETINUE); before he plants it waits and the phone says so, planting places it;
-THE POT's, THE TAP's and THE FILTER's prizes stand on his back lots with their own pictures as doors on his town screen, two build gifts
-stand on free lots, a tap on any of them says what it is and who gave it. Gate YOUR PLACE, PLANTED E9, D14. VOTE
-home-base-everything-his-lives-there-11-10 (STAND-IN). OWED: 'it starts bare' is not true yet (the camp picture's shops). Earlier: 11/10n
-WHAT YOU BUILD PAYS, 11/10e ONLY THE PLACE YOU PLANT IS YOURS, 11/9h YOUR PLACE REMEMBERS, 11/9d YOUR PLACE, PLANTED. The whole block: handoffs/HOME_BASE.md.
-[bb Battle Brothers keeps what you took on the stash screen, a list; ours stands in the place you planted, a thing you tap.]
-[analog horror: the pot is there before you are. It waited out back the whole time nobody had a place to put it.]
+HOME BASE (home-base-01gkdyuv): 11/11 LATEST -- BUILD 11/11j - WHAT YOU BUILD OPENS A DOOR, BUILT, NOT YET SEEN (rule 445(b); ask line 571):
+at his place the stall, GUNS AND PLATE and the clinic are shut until a vendor stall, a shed and a roof stand; a tap says what opens it
+(BUILD IT to the desk), built the same tap trades, mends, heals; the desk says YOUR PLACE CAN TRADE / MEND / HEAL. Sideways all eight
+builds fit the glass. Gate YOUR PLACE, PLANTED D15. VOTE home-base-what-you-build-opens-a-door-11-11 (STAND-IN). OWED: the camp picture
+still draws the shops; STORE and TRAIN have no building. Earlier: 11/10u EVERYTHING HIS LIVES THERE (the seam), 11/10n WHAT YOU BUILD
+PAYS, 11/10e ONLY THE PLACE YOU PLANT IS YOURS, 11/9h YOUR PLACE REMEMBERS, 11/9d YOUR PLACE, PLANTED. The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers' towns come with their buildings; ours: your place has none of them until you put them up.]
+[analog horror: the stall stands in the picture with nobody behind it. It says nobody trades here yet, in your own voice.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

@@ -1,3 +1,17 @@
+HOME BASE (home-base-01gkdyuv): 11/11 LATEST -- BUILD 11/11j - WHAT YOU BUILD OPENS A DOOR, BUILT, NOT YET SEEN (rule 445(b), rules
+343, 438, 441; ask line 571). Record: records/BOHEMIA_HOME_BASE_WHAT_YOU_BUILD_OPENS_A_DOOR_11_11_26.md.
+- home_base.json opens{}: at his place THE STALL is shut until a VENDOR STALL stands (TRADE), GUNS AND PLATE until a SHED (MEND), THE
+  CLINIC until a ROOF (HEAL); a tap says what opens it and BUILD IT goes to the desk; built, the same tap opens the town's own sheet.
+  The desk says YOUR PLACE CAN TRADE / MEND / HEAL, lit or dashed, beside the plan. Every other town untouched.
+- Sideways the desk's eight builds fit the glass (minmax columns, a long line ends in ...); D8's press check reads all four sides.
+- Gate YOUR PLACE, PLANTED: upright 81/0, sideways 79/0 (D15 new, planted: the rows off the message open the clinic for free). The
+  alpha probed the same way both shapes. VOTE home-base-what-you-build-opens-a-door-11-11 (STAND-IN).
+- Row 575 measured on main: its tap leg is green; K3 and K5 (crew activities, frame cost) are RUN TWO's, not HOME BASE's files.
+- NEXT: (2) his impact at his place through the seam (jobs done, people saved), STORE and TRAIN (need a rule and a piece), his own
+  bare ground (the camp picture still draws the stall and the tent).
+- FOR ANY LANE ADDING A DOOR AT HIS PLACE: one row in home_base.json opens{} ({by: a lotbuild id, can: the verb, shut: the line}).
+
+11/10 ROUND FIVE (BUILD 11/10u, EVERYTHING HIS LIVES THERE), kept:
 HOME BASE (home-base-01gkdyuv): 11/10 LATEST -- BUILD 11/10u - EVERYTHING HIS LIVES THERE, BUILT, NOT YET SEEN (rule 445, rule 441;
 ask line 571). Record: records/BOHEMIA_HOME_BASE_EVERYTHING_HIS_LIVES_THERE_11_10_26.md.
 - THE SEAM is live: one call hands any custom thing to his settlement; before he plants it waits (the phone says WAITING FOR YOUR

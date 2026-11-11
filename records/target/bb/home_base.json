@@ -206,7 +206,8 @@
       "worked": {
         "tape": 1
       },
-      "line": "what you drag home, mended"
+      "line": "what you drag home, mended",
+      "_opens": "GUNS AND PLATE at his place (opens.arms): the bench is where gear is fitted and mended"
     },
     "pump": {
       "cost": {
@@ -251,7 +252,7 @@
       "worked": {
         "food": 1
       },
-      "line": "people know your name",
+      "line": "people come to trade",
       "_note": "its clout is lotbuild's; a hand at it trades for food"
     },
     "roof": {
@@ -261,7 +262,7 @@
       "gives": null,
       "worked": null,
       "family": true,
-      "line": "a family moves in",
+      "line": "a family, a bed",
       "_note": "a roof finished brings a family to live there (a resident), who works the next build"
     },
     "families": [
@@ -274,5 +275,23 @@
       "THE OKAFORS",
       "THE LUNAS"
     ]
+  },
+  "opens": {
+    "_about": "WHAT YOU BUILD OPENS A DOOR (HOME BASE 11/11, rule 445(b) it starts bare and grows by what he does, rule 343): at his planted place a door that does something stays SHUT until the build that houses it stands, and its sheet says what opens it (rule 438: no door does nothing in silence). Every other town's door is untouched. Words draft:true (WORDS overwrites); the player does not speak Spanglish.",
+    "stall": {
+      "by": "stall",
+      "can": "TRADE",
+      "shut": "Nobody trades here yet. Put up a vendor stall and people come to buy and sell."
+    },
+    "arms": {
+      "by": "shed",
+      "can": "MEND",
+      "shut": "No bench here yet. Put up a shed and your gear gets fitted and mended here."
+    },
+    "clinic": {
+      "by": "roof",
+      "can": "HEAL",
+      "shut": "No bed under a roof yet. Roof a house and your wounded heal here."
+    }
   }
 }

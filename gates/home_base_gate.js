@@ -40,6 +40,9 @@
          out of the company's supplies (the top bar's counts); a build short of its goods is greyed; the morning puts what stands into
          the supplies (planted: the morning hook taken out gives nothing, caught); a resident works one and it gives more; a roof
          finished brings a family to live there
+     D15 WHAT YOU BUILD OPENS A DOOR (rule 445(b)): with no vendor stall his place's STALL is shut and says what opens it, the CLINIC
+         shut until a roof; a vendor stall standing, the same real tap trades; the desk says YOUR PLACE CAN TRADE, MEND (shut), HEAL (shut).
+         PLANTED: the rows taken off the message, the clinic opens for free and the leg is red.
      D14 EVERYTHING HIS LIVES THERE (rule 445): THE SEAM, BohemiaHomeMap.give(): a boss's prize killed before he plants WAITS and
          says so (the feed, the phone's page); planting places it; THE POT's, THE TAP's and THE FILTER's prizes stand on his place's
          back lots, each a door on the town screen with its own picture, a tap says what it is and who gave it; two builds handed
@@ -253,6 +256,37 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await P.waitForTimeout(800); const dm14 = await fr.evaluate(() => window.__HOME_DOORS || []);
       ok('D14 planted: the things taken off the message leave the prizes no door (' + dm14.join(',') + ')', m14 && ['h11', 'h10', 'h9'].every(k => dm14.indexOf(k) < 0), JSON.stringify(dm14));
       await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500);   /* the real message again */
+      /* D15 WHAT YOU BUILD OPENS A DOOR (rule 445(b)): at his place the stall, GUNS AND PLATE and the clinic are shut until their build stands */
+      const gone15 = async () => { for (let i = 0; i < 24; i++) { if (await fr.evaluate(() => !document.getElementById('arrive') && !!(window.__HOME_DESK && window.__HOME_DESK.home && window.__HOME_DESK.home.planted)).catch(() => false)) break; await P.waitForTimeout(250); } };
+      const tap15 = async (k, done) => { for (let t = 0; t < 3; t++) { const w = await fr.evaluate(k => { const x = BohemiaSettlement.where(k); return x ? [x.x, x.y] : null; }, k); if (!w) return false;
+        await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]); for (let i = 0; i < 12; i++) { await P.waitForTimeout(250); if (await fr.evaluate(done).catch(() => false)) return true; } } return false; };
+      const shut15 = r => !!r.shut && !r.real && r.btn;
+      const close15 = async () => { await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); window.__HOME_SHUT = null; }); await P.waitForTimeout(600); };
+      await gone15(); await close15();
+      const s15 = await tap15('stall', () => !!window.__HOME_SHUT || !!document.getElementById('stallstrip'));
+      const r15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: !!document.getElementById('stallstrip'), btn: !!document.querySelector('#sbody .act[data-opens="stall"]') }));
+      ok('D15 no vendor stall at his place: a real tap on THE STALL says it is shut and what opens it ("' + (r15.shut && r15.shut.line) + '"), no trading, BUILD IT one tap', s15 && shut15(r15) && r15.shut.by === 'stall', JSON.stringify(r15));
+      await close15();
+      const c15 = await tap15('clinic', () => !!window.__HOME_SHUT || /^clinic$/.test(BohemiaSettlement.state.open || ''));
+      const rc15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: BohemiaSettlement.state.open === 'clinic' && !window.__HOME_SHUT, btn: !!document.querySelector('#sbody .act[data-opens="roof"]') }));
+      ok('D15 no roof: THE CLINIC is shut until a roof stands ("' + (rc15.shut && rc15.shut.line) + '")', c15 && shut15(rc15) && rc15.shut.by === 'roof', JSON.stringify(rc15));
+      await close15();
+      await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.opens = null; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(700);
+      await tap15('clinic', () => !!window.__HOME_SHUT || /^clinic$/.test(BohemiaSettlement.state.open || ''));
+      const m15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: BohemiaSettlement.state.open === 'clinic' && !window.__HOME_SHUT, btn: !!document.querySelector('#sbody .act[data-opens="roof"]') }));
+      ok('D15 planted: the build-to-door rows taken off the message, the clinic opens for free and the leg goes red', !shut15(m15), JSON.stringify(m15));
+      await close15();
+      await F.evaluate(() => BohemiaHomeMap.give({ id: 'gift:gate-stall', kind: 'build', build: 'stall', name: 'VENDOR STALL', from: 'THE GATE' }));
+      await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
+      const o15 = await tap15('stall', () => !!document.getElementById('stallstrip') || !!window.__HOME_SHUT);
+      const ro15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: !!document.getElementById('stallstrip') }));
+      ok('D15 a vendor stall standing: the same tap on THE STALL trades (its own sheet)', o15 && ro15.real && !ro15.shut, JSON.stringify(ro15));
+      await close15();
+      const d15 = await tap15('build', () => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } return !!document.querySelector('#sbody .hcan'); });
+      const can15 = await fr.evaluate(() => window.__HOME_CAN || []);
+      ok('D15 the desk says what his place can do: ' + can15.join(', '), d15 && can15.indexOf('TRADE') >= 0 && can15.indexOf('MEND (shut)') >= 0 && can15.indexOf('HEAL (shut)') >= 0, JSON.stringify(can15));
+      await close15();
+      await F.evaluate(() => { const bk = LOT_BOOK[BohemiaBetween.mine()]; for (const k in bk.lots) if (bk.lots[k].id === 'stall') delete bk.lots[k]; });   /* the gate's stall comes down so the legs after build where they always did */
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */
         const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (!w) break;
         await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
@@ -262,7 +296,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
         if (up || await fr.evaluate(() => !!BohemiaSettlement.state.open).catch(() => false)) break; }   /* a sheet that opened late is never pressed through */
       await P.waitForTimeout(600);
       const dk = await fr.evaluate(() => { const b = document.getElementById('sbody'), t = b ? b.innerText : '', c = b && b.querySelector('canvas.hplan'), sh = b && b.closest('[id]');
-        const press = [].slice.call(b ? b.querySelectorAll('button') : []).filter(x => x.offsetWidth).map(x => { const r = x.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height), r.bottom <= innerHeight + 0.5 && r.top >= -0.5]; });
+        const press = [].slice.call(b ? b.querySelectorAll('button') : []).filter(x => x.offsetWidth).map(x => { const r = x.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height), r.bottom <= innerHeight + 0.5 && r.top >= -0.5 && r.right <= innerWidth + 0.5 && r.left >= -0.5, x.textContent.slice(0, 14)]; });   /* 11/11: its sides too (a long line pushed the fourth column of builds off the glass sideways) */
         return { t, plan: window.__HOME_PLAN || null, canvas: !!c, press, open: BohemiaSettlement.state.open }; });
       ok('D8 the desk: A NIGHT, LIVING HERE, NAME IT', dk.open === 'build' && /A NIGHT/.test(dk.t) && /LIVING HERE/.test(dk.t) && /NAME IT/.test(dk.t), dk.t.slice(0, 200).replace(/\n/g, ' '));
       ok('D8 the plan: ' + (dk.plan && dk.plan.lots) + ' lots on the road, ' + (dk.plan && dk.plan.open) + ' open, signs: ' + (dk.plan && dk.plan.signs.join(',')), dk.canvas && dk.plan && dk.plan.lots === 12 && dk.plan.open === 4 && dk.plan.signs.indexOf('POT') >= 0, JSON.stringify(dk.plan));
