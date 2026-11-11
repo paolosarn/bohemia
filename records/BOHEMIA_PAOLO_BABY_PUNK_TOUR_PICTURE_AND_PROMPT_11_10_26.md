@@ -53,3 +53,69 @@ Animate the attached picture into a 15 second vertical 9:16 video. One single sh
 
 ## THE WORDS HE ADDS HIMSELF, AFTER
 BABY PUNK / FRI · LAS VEGAS / SAT · LOS ANGELES
+
+# PICTURES TWO AND THREE, AND THE CAMPAIGN'S SHAPE (Paolo 11/11/26, rule 446(g), ask row 602)
+
+HIS WORDS: 'I need two more of the tall screen portrait that you made... this is me performing, some show vibes, big Bohemian
+vibes. So if you had to direct a campaign with problem, benefit, solution, call to action in mind, don't worry about the
+words, I got them... just showing off some cool ass shit with your art assets right off the bat... create two scenes and
+give me a Grok prompt similar to how you gave it to me, understanding the things I asked you and I didn't like.'
+
+THE DIRECTION (the coordinator's, his to correct): three pictures, three videos, one campaign.
+1. THE TOUR (the first picture, the shanty town): the road from Las Vegas to Los Angeles.
+2. FRIDAY, LAS VEGAS: THE STRIP. records/marketing/baby_punk_strip_11_11_26.webp. The dead casino's front, the stage on the
+   boulevard, 150 of the town's 3-D people, burned cars, fire drums, the pool glowing teal at the bottom.
+3. SATURDAY, LOS ANGELES: THE FREEWAY. records/marketing/baby_punk_freeway_11_11_26.webp. The stage where two dead freeways
+   cross, 170 people down all four roads, rusted cars, fire drums.
+Maker: records/marketing/baby_punk_show_scenes_make.py (python3.13; `strip` or `freeway`); the day ground
+(slices/fight_ground/block_strip_0, block_freewayo_0) is graded to night in the maker; every body is slices/rig_town.
+EACH VIDEO RUNS THE SAME FOUR BEATS, so his words land on them: PROBLEM 0 to 3 (the picture held cold and waiting),
+SOLUTION 3 to 6 (he lifts his arms, the fires roar, the crowd wakes), BENEFIT 6 to 11 (the wide view: the one warm light
+in a dead city, people walking in from the dark), CALL TO ACTION 11 to 15 (the hands go up, the camera rises, the last
+frame holds for his words). The picture is the peak, so the video opens on the cool thing 'right off the bat'.
+Everything he corrected is kept: no close-up, the same grimy 3-D sprite in every scene, white hair above the shoulders,
+black eyebrows, the fangs a sparkle, the places and the city view stay in, no words drawn by the tool.
+
+## THE PROMPT FOR PICTURE TWO, THE STRIP (attach the Strip picture, 9:16, 15 seconds)
+
+Animate the attached picture into a 15 second vertical 9:16 video with four scenes. Do not change its art style in any scene.
+
+STYLE LOCK (most important, every scene): every person stays exactly the kind of figure they are in the picture: a small, grimy, low-resolution pre-rendered 3D sprite, like a late 1990s isometric PC game seen on an old security camera tape. Big round heads, stiff little bodies, rough pixels, dim and dirty. The camera always stays far away: high above for the stage scenes, wide for the city scene. People are always small and full-body in the frame. Never a close-up. Never a face filling the screen. Never anime, never cartoon, never a realistic human, never a new character design.
+
+THE STAR: the man on the stage in the picture. Keep him exactly as he is drawn there in every scene: same small 3D sprite, same all-black clothes. His hair is pure white and stops above his shoulders; it never goes past his shoulders. His eyebrows are black, not white. He wears a diamond grill with two pointed fangs: show it only as a tiny white sparkle at his mouth, never zoom in on it.
+
+TAPE: scanlines, grain, soft tracking wobble, a short static glitch between scenes. Night only. Cold blue-black shadow, dirt and rust, orange fire, and the teal glow of the pool at the bottom.
+
+0 to 3 seconds, WAITING: the picture holds almost still. Cold wind. The fire drums burn low. The crowd in front of the dead casino stands and waits, barely moving. The pool glows faintly.
+
+3 to 6 seconds, HE STARTS: the white-haired man on the stage lifts both arms. Every fire drum roars up at once and warm orange light floods the boulevard. The whole crowd wakes and starts bobbing on a slow heavy beat.
+
+6 to 11 seconds, THE ONLY LIGHT IN VEGAS: static glitch. Same kind of small 3D sprites. A huge wide view of the dead Las Vegas Strip at night: dark broken casino towers, sand drifted over the road, burnt-out cars, no signs lit. In the middle of it this one block glows warm orange and teal like a campfire. Lines of tiny people walk in from the dark streets toward the light.
+
+11 to 15 seconds, HANDS UP: static glitch. Back to the same high camera as the picture. He throws one fist up and the whole crowd throws their hands up at once. Sparks rise from the fire drums. The camera rises slowly, the pool glowing teal at the bottom. Hold the last frame still for one second.
+
+SOUND: tape hum, wind, then a slow heavy kick drum at 120 beats per minute from second 3, a crowd roar at the end. No singing, no talking.
+
+DO NOT: no close-ups, no anime, no cartoon, no smooth clean 3D, no realistic people, no new faces. No words, letters, numbers or logos. No bright neon signs, no purple, no blood, no daylight.
+
+## THE PROMPT FOR PICTURE THREE, THE FREEWAY (attach the freeway picture, 9:16, 15 seconds)
+
+Animate the attached picture into a 15 second vertical 9:16 video with four scenes. Do not change its art style in any scene.
+
+STYLE LOCK (most important, every scene): every person stays exactly the kind of figure they are in the picture: a small, grimy, low-resolution pre-rendered 3D sprite, like a late 1990s isometric PC game seen on an old security camera tape. Big round heads, stiff little bodies, rough pixels, dim and dirty. The camera always stays far away: high above for the stage scenes, wide for the city scene. People are always small and full-body in the frame. Never a close-up. Never a face filling the screen. Never anime, never cartoon, never a realistic human, never a new character design.
+
+THE STAR: the man on the stage in the picture. Keep him exactly as he is drawn there in every scene: same small 3D sprite, same all-black clothes. His hair is pure white and stops above his shoulders; it never goes past his shoulders. His eyebrows are black, not white. He wears a diamond grill with two pointed fangs: show it only as a tiny white sparkle at his mouth, never zoom in on it.
+
+TAPE: scanlines, grain, soft tracking wobble, a short static glitch between scenes. Night only. Cold blue-black shadow, cracked grey asphalt, rust, orange fire.
+
+0 to 3 seconds, WAITING: the picture holds almost still. Cold wind and blowing dust. The fire drums burn low. The crowd stands on the dead freeway crossing and waits, barely moving, between the rusted cars.
+
+3 to 6 seconds, HE STARTS: the white-haired man on the stage lifts both arms. Every fire drum roars up at once and warm orange light floods the asphalt. The whole crowd wakes and starts bobbing on a slow heavy beat.
+
+6 to 11 seconds, THE ONLY LIGHT IN LOS ANGELES: static glitch. Same kind of small 3D sprites. A huge wide view of ruined Los Angeles at night: a dark downtown skyline of broken towers in brown smog, rows of dead palm trees, collapsed overpasses. Two dead freeways cross in the middle of it, and where they cross there is one warm orange glow. Lines of tiny people carrying small fires walk in along all four roads toward it.
+
+11 to 15 seconds, HANDS UP: static glitch. Back to the same high camera as the picture. He throws one fist up and the whole crowd throws their hands up at once. Sparks rise from the fire drums. The camera pulls up and back until the crowd is a glowing cross of people on the two roads, with the dark Los Angeles skyline and the dead palm trees behind it. Hold the last frame still for one second.
+
+SOUND: tape hum, wind, then a slow heavy kick drum at 120 beats per minute from second 3, a crowd roar at the end. No singing, no talking.
+
+DO NOT: no close-ups, no anime, no cartoon, no smooth clean 3D, no realistic people, no new faces. No words, letters, numbers or logos. No neon, no purple, no blood, no daylight.
