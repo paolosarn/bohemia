@@ -1,6 +1,6 @@
 # THE FLOOD TUNNELS (COMBAT TWO, 11/9/26; on main 11/11 by COMBAT THREE)
 
-*** 11/11: this board reached main in BUILD 11/11c - THE FLOOD TUNNELS (COMBAT THREE). The VOTE card is combat3-the-flood-tunnels-11-11; the parked card and its two pictures (combat2-the-flood-tunnels-11-10) were never on main and are not carried. The 548 fix named below (teachDraw, manCell) is not carried either: FIXES' row 558 on main does that job. The tile table, the scramble and the page proof of the build that shipped: records/BOHEMIA_COMBAT_THREE_THE_FLOOD_TUNNELS_ON_MAIN_11_11_26.md. ***
+*** 11/11: this board reached main in BUILD 11/11c - THE FLOOD TUNNELS (COMBAT THREE, 753a6b628). The VOTE card is combat3-the-flood-tunnels-11-11; the parked card and its two pictures (combat2-the-flood-tunnels-11-10) were never on main and are not carried. The 548 fix named below (teachDraw, manCell) is not carried either: FIXES' row 558 on main does that job. The tile table, the scramble and the page proof of the build that shipped: records/BOHEMIA_COMBAT_THREE_THE_FLOOD_TUNNELS_ON_MAIN_11_11_26.md. ***
 
 VAMILY rule 440(a), rule 416's list (the second big interior), ask line 539. Paolo 11/9: "More everything pls." The coordinator:
 "a long chain of house-sized culvert tiles, camps on the walls, the street's light through the grates, dark unless lit, the flash

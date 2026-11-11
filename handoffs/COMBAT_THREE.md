@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rule 440(a), 441, 443(h), ask row 539): 11/11 LATEST -- [flood tunnels] SHIPPED (this commit), BUILD 11/11c - THE FLOOD TUNNELS, BUILT, NOT YET SEEN. VOTE combat3-the-flood-tunnels-11-11 (stand_in).
+COMBAT THREE (rule 440(a), 441, 443(h), ask row 539): 11/11 LATEST -- [flood tunnels] SHIPPED 753a6b628, BUILD 11/11c - THE FLOOD TUNNELS, BUILT, NOT YET SEEN. VOTE combat3-the-flood-tunnels-11-11 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_FLOOD_TUNNELS_ON_MAIN_11_11_26.md (COMBAT TWO's board record stands: records/BOHEMIA_COMBAT_TWO_THE_FLOOD_TUNNELS_11_9_26.md).
 WHAT: COMBAT TWO's parked tunnels (origin combat2-tunnels-parked-2) landed on main, its own 548 fix dropped (FIXES' row 558 is on main and kept whole). ADDED: (1) EVERY TILE
 ITS COST AND ITS EFFECT: tunnels.json 'tiles' (one row a tile kind: its ground row in the ONE ground table, its AP, open floor or not, cover, the line he reads); the fight
