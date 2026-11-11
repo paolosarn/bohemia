@@ -1,32 +1,7 @@
 [
  {
   "profile": "phone_portrait",
-  "crewAtStart": false,
-  "town": true,
-  "openAtStart": "person",
-  "townCrew": [
-   "person_town_0",
-   "person_town_1",
-   "person_town_4",
-   "person_town_5",
-   "person_town_8",
-   "person_town_2",
-   "person_town_11",
-   "person_town_10",
-   "person_town_3",
-   "person_town_6",
-   "person_town_7"
-  ],
-  "hall": [
-   "person_town_9",
-   "person_remnants_1",
-   "person_remnants_0",
-   "person_remnants_2",
-   "person_cartel_0",
-   "person_cartel_1",
-   "person_cartel_2",
-   "person_woman_1"
-  ],
+  "crewAtStart": true,
   "crewScreen": true,
   "crew": [
    "you",
@@ -41,6 +16,27 @@
    "person_town_11",
    "person_town_3",
    "person_town_10"
+  ],
+  "town": true,
+  "openAtStart": null,
+  "townCrew": [
+   "person_town_2",
+   "person_town_0",
+   "person_town_1",
+   "person_town_6",
+   "person_town_4",
+   "person_town_7",
+   "person_town_8",
+   "person_town_11",
+   "person_town_3",
+   "person_town_5",
+   "person_town_10"
+  ],
+  "hall": [
+   "person_town_9",
+   "person_trades_2",
+   "person_trades_1",
+   "person_woman_1"
   ],
   "mapLeft": true,
   "mapOpen": {
@@ -78,7 +74,7 @@
   ],
   "fightCam": {
    "x": 4.5,
-   "y": 7.3,
+   "y": 7.4,
    "zoom": 0.85
   },
   "errors": [],
@@ -88,24 +84,27 @@
   "profile": "phone_landscape",
   "crewAtStart": false,
   "town": true,
-  "openAtStart": "person",
+  "openAtStart": "bar",
   "townCrew": [
    "person_town_3",
-   "person_town_0",
    "person_town_1",
-   "person_town_11",
-   "person_town_8",
    "person_town_4",
-   "person_town_7",
+   "person_town_6",
    "person_town_10",
+   "person_town_8",
+   "person_town_7",
+   "person_town_11",
    "person_town_5",
-   "person_town_2",
-   "person_town_6"
+   "person_town_0",
+   "person_town_2"
   ],
   "hall": [
    "person_town_9",
-   "person_remnants_1",
-   "person_remnants_0"
+   "person_church_0",
+   "person_church_1",
+   "person_church_2",
+   "person_mob_2",
+   "person_mob_1"
   ],
   "crewScreen": true,
   "crew": [
@@ -157,8 +156,8 @@
    "person_town_10"
   ],
   "fightCam": {
-   "x": 4,
-   "y": 8.5,
+   "x": 4.6,
+   "y": 7.6,
    "zoom": 0.85
   },
   "errors": [],

@@ -152,6 +152,13 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/10 (ae) LATEST -- BUILD 11/11i THE COMPANY DRESSED (rule 427(b), ask 238): his company's eleven and the hall's
+first man re-dressed at the source (RUN TWO's roll) and re-made through every sheet set each is in (the packers merge): every man 4+ layers
+(the eleven were 2.8), leather on ten, no blue cloth (rule 159); every index count the same, nobody dropped; on the phone both ways (the town,
+the hall, the crew screen, the map, a road fight); the armour each start gives is drawn over the chest everywhere but the hall, so the new layers read around
+it (NOTE to COOK). VOTE character-the-company-dressed-11-10 (MADE FROM his passed nine enemies). NEXT: the
+hires, six written and dry-run. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/10 LATEST -- BLOCKED, NOTHING SHIPPED: the clothes on the company and the hires (427(b)). Every rolled man is
 drawn from eight sheet sets made by RUN TWO's and ANIMATION's tools, whose packers rebuild from render caches only their boxes hold; a re-dress
 from one box is half baked or drops 68 fight men. Unblock: the five packers merge, or one coordinated round. The 11 company men's new layers

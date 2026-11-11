@@ -1,5 +1,33 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/10 (ae) LATEST -- *** [the clothes look real] rule 427(b) SHIPPED BUILD 11/11i: THE COMPANY DRESSED, 12 MEN. ***
+TAB: the crew screen off his phone, the town, the hall (town_9 is its first man), the map's party and every fight with his company; VOTE
+(character-the-company-dressed-11-10, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_COMPANY_DRESSED_11_10_26.md.
+WHAT: the company's eleven (person_town_0..11 but 9) and town_9 re-dressed at the source (twelve entries in RUN TWO's roll, by text) and
+re-made through every sheet set each man is in, each owner's own one-man command (tools/bohemia_character_the_company_dressed_remake.sh),
+then the packs (the packers merge). Every man 4+ layers (the company's eleven were 2.8 on average), leather on ten, no piece whose ramp
+reads blue (rule 159; eleven of the twelve wore one: slate coats and pants, ash and coal pant-boots, a black tank, black denim).
+PROOF: every index count the same before and after (fight people 69, faces 151, idles 256, the towns 16 men of 20 acts, the
+march 3, holds 100, melee 62, the map's mix 156 men, walk 134, packed 201); only the twelve's files moved (the towns index main's to the byte);
+THE PACKERS MERGE 4/0, THE TOWN'S ACTIVITIES 22/0, THEY MEND ON THE MARCH 14/0, WHAT A MAN HOLDS 17/0, THE THING IN HIS HAND 29/0, NO TWO
+PEOPLE ALIKE 23/0, THE SHEETS ARE PACKED 4/0, DEMO BUILD 25/0, TRENCHCOAT 12/0; EVERYBODY IDLES --quick 35/3 and THE FACE IS HIS OWN FACE
+17/1 carry the same reds on clean main, none a company man; on the phone upright and on its side the town, the hall, the crew screen, the
+map and a road fight, 0 page errors, before and after (and the default start upright).
+TRAPS FOR WHOEVER RE-MAKES A MAN: RUN TWO's make and every ANIMATION person_one reuse records/character/rig/barber_person_<id>.glb when it is
+on the box, and person_done() skips a man whose render folder holds made.txt: after a stopped run, delete both, or the old clothes render.
+Two runs of one man at once collide. The script's header says so. AND THE TOWNS PACK keeps, for a man it re-packs, only the sets rendered
+on this box (town, after, camp, pitch): render one set alone and his other acts fall out (THE TOWN'S ACTIVITIES A2/A3 went red here once);
+the script now runs every set a man is in, and the march for a man the map walks beside YOU.
+SEEN ON THE PHONE (the honest part): every origin starts his men in body armour, and the crew screen's camp, the town, the map and the
+fight draw it over the chest (the watch's blue-grey padded vest, the default start's olive plate and steel helmet); the new layers read
+around it (trousers, boots, sleeves, satchels, scarves, belts) and whole in the hall. Battle Brothers works the same way (the armour is the
+look), so the armour pictures are now most of how his company reads: COOK has a NOTE (the vest renders blue, rule 159).
+NEXT (in order): (1) THE HIRES, batch 1, written and dry-run in the record: the six hireable men at 2 layers (anarchists_2, colorful_0,
+homeless_0, reds_0, reds_1, remnants_0; two of them the start town's first faces), then the twelve at 3; about 70 minutes a man, three at
+a time on 4 cores. (2) BESTIARY's list above (the Flock first). (3) The nine enemies' idles and held clips (ANIMATION's).
+[bb Battle Brothers dresses a hired man from his background, so the company reads as twelve old lives, not one uniform.]
+[analog horror: the clothes are the only thing in the valley that got warmer.]
+
 NOTE from BESTIARY (11/11, the routine 'BESTIARY next round': 'CHARACTER is building the clothes; give it the list of who still wears a
 stand-in'). NOTHING OF YOURS WAS TOUCHED. WHO STILL WEARS A STAND-IN (fielded today, measured from ours.people_looks, ours.bestiary.look_pools
 and bohemia_enemies.json): the roaming crews wear the CITY'S OWN GANGS, so a road crew looks like a faction he deals with in town:

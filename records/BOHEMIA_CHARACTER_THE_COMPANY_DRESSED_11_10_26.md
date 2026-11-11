@@ -84,10 +84,12 @@ in the same layered, leather, warm recipe are the next step that makes this ship
   THEY MEND ON THE MARCH 14/0, WHAT A MAN HOLDS 17/0, THE THING IN HIS HAND 29/0, NO TWO PEOPLE ALIKE 23/0, THE SHEETS ARE PACKED 4/0, DEMO
   BUILD 25/0, TRENCHCOAT 12/0. EVERYBODY IDLES --quick 35/3 and THE FACE IS HIS OWN FACE 17/1 carry the same reds on clean main (enemies,
   bosses and beasts with no idles yet; three beasts' colours; two caravans men and an anarchist a few pixels off their map stills; a trades
-  man at the Nellis board), none of them a company man.
+  man at the Nellis board), none of them a company man. VOTE TAB 61/5, HANDOFF 10/0, ATTEMPT 15/0 on the ship's tree; the vote tab's
+  five reds (other lanes' cards' whys and stage, the alpha's landing on VOTE, the gear's VOTE) are the same on clean main (2d0ece0cb).
+  The gates and the phone shots were run once more on the final tree after main moved under it (BUILD 11/11i).
 - ON HIS PHONE (tools/bohemia_character_the_company_dressed_shots.js: the demo started his way with THE BLOCK WATCH, upright 390 x 844 and
   on its side 844 x 390, before on main and after on this build): upright and on its side alike, the town with 11 of his men in it, the hall
-  (8 hires upright, 3 at a time on its side, town_9 first both ways), the crew screen (12), the map (his party of 12, the town left by the
+  (its hires, town_9 first both ways; the list depends on the town the start deals), the crew screen (12), the map (his party of 12, the town left by the
   phone's LEAVE), a road fight off the town (YOU and all eleven on his side, the camera on them); 0 page errors, before and after, both
   ways (records/target/character/the_company_dressed/before/ and after/, shots.json; the sheet CHARACTER_THE_COMPANY_DRESSED_PHONE.jpg).
   The default start (newcrew) upright on this build: the crew screen (3), the fight (YOU, town_0, town_1), 0 page errors. Upright, the
