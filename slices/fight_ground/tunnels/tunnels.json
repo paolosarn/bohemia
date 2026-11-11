@@ -1,0 +1,117 @@
+{
+ "version": "flood-tunnels-11-11",
+ "lane": "combat 2",
+ "rule": "VAMILY rule 440(a) (Paolo 11/9, 'More everything pls'), rule 416's list: THE FLOOD TUNNELS, the second big interior",
+ "facts": "The valley has 600 to 700 miles of flood channels, about 200 of them underground drains, and between 300 and 1,500 people living in them (Fox5 2023, 8 News Now 2023, the Washington Times 2010, HELP of Southern Nevada 2019); 31 flood deaths counted since 1960 (records/BOHEMIA_PAOLO_THE_BIG_INTERIORS_11_6_26.md).",
+ "how_to_mod": "Three layouts (one channel and its drains; a channel that jogs through a junction box; two barrels side by side joined by cross passages). A layout is 15 strings of 20 characters, north at the top, each a house-sized tile read in the legend. Both lines must have room on the drains joined to the main channel: his at columns 3 to 5, theirs from column 11. The main channel's tiles ('=') are the ones the flash flood fills. A layout may be mirrored east to west and north to south by the dice.",
+ "districts": ["wash", "basin"],
+ "share": 0.5,
+ "flood": {"round_min": 3, "round_max": 6, "warn": 1, "lasts": 2, "say_warn": "A roar in the dark, upstream. The water is coming.", "say_flood": "The flash flood comes down the main channel.", "say_gone": "The water drops as fast as it came; the silt stays."},
+ "board": {
+  "templates": {
+   "drains": {
+    "name": "THE FLOOD TUNNELS",
+    "flip": {"cols": true, "rows": true},
+    "layouts": {
+     "the_main_and_its_drains": [
+      "####################",
+      "#..ct.....G....t...#",
+      "#..................#",
+      "###.############.###",
+      "###.############.###",
+      "##...####..####...##",
+      "===k==y===w===k==y==",
+      "M===y==j==G=k==r===M",
+      "==y====k==y====k==y=",
+      "##...####..####...##",
+      "###.############.###",
+      "###.############.###",
+      "#..t.....G.....c...#",
+      "#.....f........f...#",
+      "####################"
+     ],
+     "the_jog_and_the_box": [
+      "####################",
+      "#c....t..G...f...t##",
+      "####.##########.####",
+      "####G##########.####",
+      "###...#########G####",
+      "===k==y==w==###.####",
+      "M===y==j==k=###.####",
+      "=y====k===g=##...###",
+      "####...##==r===k==y=",
+      "#####.###=k===j====M",
+      "#####.###===k===y===",
+      "#####G########...###",
+      "##.##.#########.#.##",
+      "##.t....f..G....c.##",
+      "####################"
+     ],
+     "the_two_barrels": [
+      "####################",
+      "#.t....G..c...f...t#",
+      "###.############.###",
+      "M===k====j==y==w====",
+      "==y===y===k======k=M",
+      "#####c..####...#####",
+      "#####.G.####.f.#####",
+      "#####...####..t#####",
+      "=k==r====y====k====M",
+      "M=====y====j====y===",
+      "###.############.###",
+      "###.############.###",
+      "###.############.#.#",
+      "#..G..c...f..t...G.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {"is": "fill", "say": "the gravel the culverts are buried in"},
+   ".": {"is": "floor", "say": "a culvert's concrete floor, silt in the corners"},
+   "=": {"is": "channel", "say": "the main channel: the flash flood comes down it"},
+   "G": {"is": "floor", "tile": "grate", "light": "grate", "say": "under a street grate: the day falls through it"},
+   "g": {"is": "channel", "tile": "grate_channel", "light": "grate", "say": "the main channel under a street grate: the day falls through it, and the flood comes down it too"},
+   "M": {"is": "channel", "tile": "mouth", "light": "mouth", "say": "the drain's mouth, its trash rack pried open: the wash's light (a channel tile on the board's edge wears the rack, this one the open rack)"},
+   "c": {"is": "floor", "tile": "camp", "piece": "tunnel_camp_a", "say": "a camp on the wall: a mattress, a cart of bags, a candle"},
+   "t": {"is": "floor", "tile": "camp", "piece": "tunnel_camp_b", "say": "a lean-to: a tarp on a cord, a chair, water jugs"},
+   "j": {"is": "channel", "tile": "jam", "piece": "tunnel_jam", "say": "what the last flood left: a cart, branches, a tyre, a mattress"},
+   "w": {"is": "channel", "tile": "jam", "piece": "sb_rolled_S", "say": "a car the flood rolled down the channel and left on its roof (the street board's own piece, reused)"},
+   "r": {"is": "channel", "tile": "jam", "piece": "sb_wreck_S", "say": "a car the flood carried in off the street (the street board's own piece, reused)"},
+   "k": {"is": "channel", "tile": "drift", "piece": "sb_cart_S", "say": "shopping carts the flood left in the silt (reused)"},
+   "y": {"is": "channel", "tile": "drift", "piece": "sb_tyres_S", "say": "tyres the flood left (reused)"},
+   "f": {"is": "floor", "tile": "fire", "light": "fire", "say": "a fire in a drum somebody keeps"}
+  }
+ },
+ "tiles_how": "EVERY TILE, ITS COST AND ITS EFFECT (COMBAT THREE 11/11, ask row 539; rule 59, Paolo 10/1). One row per kind of tile a layout can hold (a legend entry's 'tile', else its 'is'). 'row' is the tile's row in the fight's one ground table (records/target/bb/ours.json ground_rows; never a second list of grounds), 'ap' what a step onto it costs there (the gate reads the fight's own price against it), 'open' true is OPEN FLOOR: AUTO, his men and theirs, gets off it in the first rounds and counts it the worst place to end a turn (the open street's rule, 428(c)); 'cover' the cover a piece on it gives; 'effect' the plain rule; 'say' the line he reads on the first tap (draft:true; a tile that changes nothing says nothing), 'say_lit' the line when the tile is lit. 'terrain' is the ground the row is true for: once the flood has changed a tile, the 'flood' rows answer instead.",
+ "tiles": {
+  "fill": {"row": "obstacles", "terrain": "blocked", "ap": null, "open": false, "effect": "The gravel the culverts are buried in: no way through, no sight through.", "say": ""},
+  "floor": {"row": "flat", "terrain": "flat", "ap": 2, "open": false, "good": true, "effect": "A drain or a chamber. The flood never reaches it. Dark unless a grate or a fire lights it: a man in the dark is not seen from far.", "say": ""},
+  "channel": {"row": "flat", "terrain": "flat", "ap": 2, "open": true, "effect": "The main channel: open floor, nothing to hide behind; on AUTO nobody stays on it. The flash flood fills it.", "say": "The main channel: open floor, nothing to hide behind. The flood comes down it."},
+  "grate": {"row": "flat", "terrain": "flat", "ap": 2, "open": false, "effect": "Under a street grate. By day the street's light falls through it: a man here is seen and shot at as by day. At night it is as dark as the rest.", "say": "", "say_lit": "Under a street grate: the day falls on you, and they see you."},
+  "grate_channel": {"row": "flat", "terrain": "flat", "ap": 2, "open": true, "effect": "The main channel under a street grate: open floor, lit by day, and the flood fills it.", "say": "The main channel: open floor, nothing to hide behind. The flood comes down it.", "say_lit": "The main channel under a grate: lit, open, and the flood comes down it."},
+  "mouth": {"row": "flat", "terrain": "flat", "ap": 2, "open": true, "effect": "The drain's mouth, its trash rack pried open (low cover). By day the wash's light reaches in: a man here is seen. The flood fills it.", "cover": "LOW_COVER", "say": "The drain's mouth: the rack is low cover. The flood comes in here.", "say_lit": "The drain's mouth: the wash's light is on you. The rack is low cover; the flood comes in here."},
+  "camp": {"row": "flat", "terrain": "flat", "ap": 2, "open": false, "effect": "Somebody's camp on the wall: low cover (harder to hit, more against shots). Dry in the flood.", "cover": "LOW_COVER", "say": "A camp on the wall: low cover, and dry when the flood comes."},
+  "jam": {"row": "flat", "terrain": "flat", "ap": 2, "open": false, "effect": "What the last flood left in the channel: cover. It is still the channel: the flood fills it.", "cover": "COVER", "say": "The flood's jam: cover, but the water still comes."},
+  "drift": {"row": "flat", "terrain": "flat", "ap": 2, "open": false, "effect": "Carts and tyres the flood left in the channel: low cover. It is still the channel: the flood fills it.", "cover": "LOW_COVER", "say": "What the flood left: low cover, but the water still comes."},
+  "fire": {"row": "flat", "terrain": "flat", "ap": 2, "open": false, "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.", "say": "", "say_lit": "A drum fire: you stand in its light, and they see you."},
+  "flood": {
+   "water": {"row": "swamp", "terrain": "water", "ap": 4, "effect": "The flash flood, for the rounds it lasts: every tile of the main channel. A step costs double; a man in it fights and defends at three quarters.", "say": "Flood water: you fight worse, and it drags at you."},
+   "silt": {"row": "rough", "terrain": "rough", "ap": 3, "effect": "What the flood leaves on the main channel for the rest of the fight: slow going, nothing else.", "say": "The flood's silt: slow going."}
+  }
+ },
+ "kit": {
+  "tunnel_camp_a": {"kind": "LOW_COVER", "h": 1.0, "name": "A CAMP ON THE WALL", "stage": "stand_in"},
+  "tunnel_camp_b": {"kind": "LOW_COVER", "h": 1.2, "name": "A LEAN-TO", "stage": "stand_in"},
+  "tunnel_jam": {"kind": "COVER", "h": 1.4, "name": "THE FLOOD'S JAM", "stage": "stand_in"},
+  "tunnel_wall_ew": {"kind": "WALL", "h": 1.8, "name": "A CULVERT WALL", "stage": "stand_in"},
+  "tunnel_wall_ns": {"kind": "WALL", "h": 1.8, "name": "A CULVERT WALL", "stage": "stand_in"},
+  "tunnel_mouth": {"kind": "LOW_COVER", "h": 1.8, "name": "THE TRASH RACK, PRIED OPEN", "stage": "stand_in"},
+  "tunnel_rack": {"kind": "COVER", "h": 1.8, "name": "THE TRASH RACK", "stage": "stand_in"}
+ },
+ "floor": {"floor": ["block_wash_3.webp#1,0", "block_wash_3.webp#1,2", "block_wash_3.webp#3,1", "block_wash_3.webp#3,4", "block_wash_3.webp#1,4"],
+           "channel": ["block_wash_3.webp#2,0", "block_wash_3.webp#2,1", "block_wash_3.webp#2,3"],
+           "fill": ["block_landfill_0.webp#0,0", "block_landfill_0.webp#1,0", "block_landfill_0.webp#0,1", "block_landfill_0.webp#1,2", "block_landfill_0.webp#0,2"]},
+ "lights": {"grate": {"src": "tunnels/tunnel_ladder.webp", "radius_m": 9, "day": true}, "mouth": {"src": null, "radius_m": 14, "day": true}, "fire": {"src": "light_oil_drum.webp", "radius_m": 6, "day": false}}
+}

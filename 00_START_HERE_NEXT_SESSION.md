@@ -1,3 +1,13 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11c - THE FLOOD TUNNELS, BUILT, NOT YET SEEN (rules 440(a), 441, 443(h); ask row 539).
+COMBAT TWO's parked tunnels are on main: a fight at a wash goes under the city about half the time (the main channel, the drains, camps on the
+walls, the day through the grates, the flash flood). NEW: every tile kind has its cost and its effect in one table (tunnels.json 'tiles') and says
+its line on the first tap; the main channel is open floor AUTO gets off (30% on it after round one against 55%), with the flood's debris as cover
+(the street board's own pieces). ON THE PAGE: 19 fights, the alpha and the demo, upright and sideways, 1x/2x/4x: all ended, 270 of 278 turns of
+his acted, 8 of 8 quiet turns said, 21 of 21 tile taps said their line. One demo-upright fight threw row 558's draw error 27 times (FOR FIXES,
+in the block). Gate THE FLOOD TUNNELS 14/0. VOTE combat3-the-flood-tunnels-11-11. Record
+records/BOHEMIA_COMBAT_THREE_THE_FLOOD_TUNNELS_ON_MAIN_11_11_26.md. The whole block: handoffs/COMBAT_THREE.md.
+[bb Battle Brothers prices every tile and says so on it; ours does it under the city and the ground changes mid-fight]
+[analog horror: the one lit square under the street grate is the worst place to stand in a hundred metres of dark]
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/10zb - THE DECOY HAS ITS PICTURE, BUILT (31a2a9dcf), NOT YET SEEN (ask row 584, PLUMBER 8's red debt; rules 252(c), 367).
 The 51st perk had no picture: the Decoy is now a cardboard man on his strut with a drawn-on smile, shot twice, made the fifty's way through
 the master rig (COOK's tool, one model added; blue rim, row 3). Gate EVERY PERK A PICTURE 5/0 (51 of 51), its line struck from the
