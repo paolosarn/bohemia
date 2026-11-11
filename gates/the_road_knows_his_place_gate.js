@@ -145,7 +145,11 @@ async function page(alpha, profile, full) {
       o.planted = !!(H.state() && H.state().planted); o.home = H.state() && H.state().name;
       window.__OFFTOWN();
       /* a boss's sign: the map memory's own placing */
-      const M = BohemiaHisMap, S = M.state(); let sg = false; try { sg = M.placeSign(); } catch (e) {}
+      const M = BohemiaHisMap, S = M.state(); let sg = !!S.boss.sign;
+      /* the map memory places a sign on a street near him; where he stands may have none: a few blocks on, as he would walk */
+      for (let t = 0; t < 8 && !S.boss.sign; t++) { try { sg = M.placeSign(); } catch (e) {} if (!S.boss.sign) { city.x = (city.x | 0) + 6; city.y = (city.y | 0) + (t % 2 ? 6 : -6); window.__OFFTOWN(); } }
+      if (!S.boss.sign) { /* none placed in eight streets: the sign the game would place, from the next boss's own record (his ground) */
+        try { const nx = M.next(), g = nx && BohemiaBosses.ground(nx.n), at = g && g.at; if (nx && at) S.boss.sign = { n: nx.n, x: city.x | 0, y: city.y | 0, boss: { x: at[0], y: at[1] }, made: 'gate' }; } catch (e) {} }
       o.sign = S.boss.sign ? S.boss.sign.n : null; window.__SIGN = S.boss.sign ? JSON.parse(JSON.stringify(S.boss.sign)) : null;
       /* a job he holds: the board's own take, at its town */
       const A = (BohemiaPhoneBoard.asks() || []).slice(0, 8); let took = false;
