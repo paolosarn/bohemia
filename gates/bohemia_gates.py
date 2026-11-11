@@ -9506,6 +9506,12 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
+    ('EVERY TURN READS', ['node', 'gates/every_turn_reads_gate.js'],
+     "COMBAT THREE gate, 11/11, VAMILY rules 435(d) and 441(a) (ask rows 555 and 605, FOUND BY EYES: 'THE BOSS FIGHT'S QUIET TURNS SAY NOTHING'). "
+     "A turn of his that closes with no walk and no blow says what it was whoever closed it: by hand END TURN on a fresh turn leaves the word "
+     "(holds), a reload and END TURN leaves RELOADS, both marked hand (R1, R2); a turn he walked in says no quiet word (R3); on AUTO every quiet "
+     "turn says the brain's own reason as before, never marked hand (R4); whole fights with his turns closed by hand leave a word every turn "
+     "(R5); a turn whose marker was left at his last turn's still says its word (R6, row 605). Planted: the hand's word taken out. About 10 s", True),
     ('THE PARKING GARAGE', ['node', 'gates/the_parking_garage_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 440(a) (ask row 539; PAOLO 11/9: 'More everything pls'; rule 416's list, the third big interior). "
      "A fight at a place with a parking structure is fought on one deck of it for the data's share of the fights there, by the cell's own dice, never "

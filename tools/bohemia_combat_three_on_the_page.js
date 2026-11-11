@@ -120,7 +120,33 @@ const HOOKS = `(function(){
           try { g.drawImage(ns, 0, 0, 2, 2, 0, 0, 2, 2); out.shellRaw = 'drew'; } catch (e) { out.shellRaw = 'THREW: ' + String(e.message).slice(0, 44); }
           try { sheetDraw(g, [ns, 0, 0, 2, 2, 0, 0, 2, 2]); out.shellFight = 'drew'; } catch (e) { out.shellFight = 'THREW: ' + String(e.message).slice(0, 44); } } catch (e) { out.shell = String(e).slice(0, 60); }
         return out; }); log('   the armour\'s night piece on this glass:', JSON.stringify(R.wearProbe)); } catch (e) { log('   probe failed', String(e).slice(0, 100)); } }
-    await shot(tag + '_start');
+    const tag0 = tag; await shot(tag + '_start');
+    /* TURNS HE CLOSES HIMSELF (ask row 555): AUTO on for C3_BYHAND_AFTER rounds (guns get fired), then off; for C3_BYHAND of his turns a
+       finger presses RELOAD when the gun is empty and then the phone's big button while it reads END TURN; what the fight's log holds
+       for that turn and the word shown over the man are read */
+    if (wanted && process.env.C3_BYHAND) { try {
+      const afterR = +(process.env.C3_BYHAND_AFTER || 0); R.byHand = [];
+      if (!(await f.evaluate(() => UI.auto))) await press('auto');
+      if (afterR) await until(async () => f.evaluate((r) => FIGHT.S.over || FIGHT.S.round > r, afterR), 90000); else await wait(900);
+      if (await f.evaluate(() => UI.auto)) await press('auto');
+      for (let k = 0; k < +process.env.C3_BYHAND; k++) {
+        const up = await until(async () => f.evaluate(() => { const u = FIGHT.current(); return FIGHT.S.over || (!!u && u.side === 'you' && !UI.anim.length && !UI.cut && !UI.auto && u.morale !== 'Fleeing'); }), 40000);
+        if (!up || await f.evaluate(() => FIGHT.S.over)) break;
+        const b0 = await f.evaluate(() => { const u = FIGHT.current(), L = FIGHT.S.log; let t0 = L.length; for (let i = L.length - 1; i >= 0; i--) if (L[i].id === u.id && (L[i].t === 'turn' || L[i].t === 'end')) { t0 = i; break; }
+          /* a turn AUTO had already walked or struck in before the finger took over says no quiet word, rightly */
+          return { id: u.id, name: u.name, n0: L.length, r: FIGHT.S.round, canReload: FIGHT.canReload(u), w: u.weapon && u.weapon.name, before: L.slice(t0).filter(e => e.id === u.id && /^(attack|step|move|sweep|throw|net|hook|shot)$/.test(e.t)).length > 0 }; });
+        if (b0.canReload) { await anyFrameTap('button', '^RELOAD'); await wait(700); }
+        const lab = await (async () => { for (const fr of page.frames()) { try { const t = await fr.evaluate(() => { const e = document.querySelector('button[data-c="go"]'); return e && e.getBoundingClientRect().width > 3 ? (e.textContent || '').trim() : null; }); if (t) return t; } catch (e) {} } return null; })();
+        if (!/END TURN/i.test(lab || '')) { R.byHand.push({ name: b0.name, r: b0.r, skipped: 'the big button reads ' + lab }); await f.evaluate(() => { UI.pend = null; }); await wait(300); }
+        await press('go'); await wait(120);
+        const tag = await f.evaluate((id) => { const e = [...document.querySelectorAll('#winds .wind.held')].find(x => x.dataset.id === id && x.dataset.why === 'idle'); return e ? e.textContent : null; }, b0.id);
+        if (tag && !R.byHandShot) { R.byHandShot = true; await shot(tag0 + '_by_hand'); }   /* the word while it is on the glass */
+        await wait(500);
+        const got = await f.evaluate((b) => { const L = FIGHT.S.log.slice(b.n0).filter(e => e.id === b.id); const i = L.find(e => e.t === 'idle'); return { acts: L.map(e => e.t).join('/'), why: i ? i.why : null, hand: i ? !!i.hand : null, shown: (UI.idles || []).some(q => q.id === b.id && q.round === b.r) }; }, b0);
+        R.byHand.push({ name: b0.name, w: b0.w, r: b0.r, reloaded: b0.canReload, acts: got.acts, why: got.why, hand: got.hand, tag: tag, shown: got.shown, before: b0.before });
+        }
+      log('   by hand', R.byHand.filter(q => !q.skipped).map(q => q.name + ' [' + q.acts + '] ' + (q.why || '-') + (q.tag ? ' "' + q.tag + '"' : q.shown ? ' (shown)' : q.before ? ' (AUTO had walked or struck in this turn already: no quiet word, rightly)' : ' NOT SHOWN')).join(' | '));
+    } catch (e) { log('   by hand failed', String(e).slice(0, 120)); } }
     /* his finger on a tile of every kind in his reach, AUTO off: the line on the glass against the fight's own word */
     if (wanted && o.hasKey) {
       await press('auto'); await wait(900); await press('auto');   /* the deploy over (AUTO), then his hand again */

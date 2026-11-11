@@ -2564,15 +2564,27 @@ const FIGHT = (function () {
     /* EVERY TURN OF HIS IS SEEN (rule 435(d), ask line 541; Paolo 11/9: 'one of the guys, it skips him'): on the real page a turn of
        his on AUTO that ended with nothing done passed in one frame, the strip jumping over him. It now says so, an event the page
        shows over him for half a beat with its reason (u.btWhy: winded, rests, posts up on a roof, pinned, ...) */
-    if (u.side === 'you' && !S.byHand && onField(u) && !u.fled && u.morale !== 'Fleeing' && !walkOrBlow(u)) emit({ t: 'idle', id: u.id, why: quietWhy(u), x: u.x, y: u.y });
+    /* __EVERY_TURN_READS__ (COMBAT THREE 11/11, ask row 555, FOUND BY EYES 11/10: THE POT's fight, 8 of his 24 turns with 'reload/end'
+       or 'end' only and no word; measured: every one a turn ENDED BY HIS OWN FINGER, the word's switch was AUTO alone). A turn of his
+       that closes with no walk and no blow says what it was whoever closed it: by hand too (the reload, the swap, else HOLDS), marked
+       hand so the page gives it a quarter of a beat and never a reason AUTO would give (the brain's why is AUTO's alone) */
+    if (u.side === 'you' && onField(u) && !u.fled && u.morale !== 'Fleeing' && !walkOrBlow(u)) emit(S.byHand ? { t: 'idle', id: u.id, why: handWhy(u), x: u.x, y: u.y, hand: true } : { t: 'idle', id: u.id, why: quietWhy(u), x: u.x, y: u.y });
     turnOver(u); u.begun = false; S.idx++; emit({ t: 'end', id: u.id }); if (closedOut(u)) return true; settle(); return true;
   }
   /* EYES 11/9 (ask line 542): the QUIET TURN looked skipped too: a turn that was only a reload, a swap and a reload, or a rest has no
      walk and no blow, and the page drew it as a quarter-beat note with no word (a swap, nothing). So a turn of his on AUTO with no walk
      and no blow says what it was (the reload, the swap, else the brain's reason), and the page shows it over him for three quarters
      of a beat. A walk or a blow is seen on its own. */
-  function walkOrBlow(u) { return !!(u.turnFrom && (u.x !== u.turnFrom.x || u.y !== u.turnFrom.y)) || S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && /^(attack|step|move|sweep|throw|net|hook|shot)$/.test(e.t); }); }
-  function quietWhy(u) { const L = S.log.slice(u.turnLog || 0).filter(function (e) { return e.id === u.id; }), has = function (t) { return L.some(function (e) { return e.t === t; }); };
+  /* __THE_TURN_IS_ITS_OWN__ (COMBAT THREE 11/11, ask row 605, FOUND BY EYES 11/11: DESI on a roof ended two rounds with 'end' and no
+     word, her turn's marker reading the same number both rounds, so an older step of hers called the turn acted). Whatever left the
+     marker behind, a turn of his never reaches back past his own last 'end': the turn is read from there, and a marker that is
+     behind is never asked where he stood */
+  function turnStart(u) { const t = u.turnLog || 0; for (let i = S.log.length - 1; i >= t; i--) { const e = S.log[i]; if (e.t === 'end' && e.id === u.id) return i + 1; } return t; }
+  function walkOrBlow(u) { const from = turnStart(u), stale = from > (u.turnLog || 0);
+    return (!stale && !!(u.turnFrom && (u.x !== u.turnFrom.x || u.y !== u.turnFrom.y))) || S.log.slice(from).some(function (e) { return e.id === u.id && /^(attack|step|move|sweep|throw|net|hook|shot)$/.test(e.t); }); }
+  function handWhy(u) { const L = S.log.slice(turnStart(u)).filter(function (e) { return e.id === u.id; }), has = function (t) { return L.some(function (e) { return e.t === t; }); };
+    return has('reload') ? (has('swap') ? 'swap_reload' : 'reload') : has('swap') ? 'swap' : 'holds'; }
+  function quietWhy(u) { const L = S.log.slice(turnStart(u)).filter(function (e) { return e.id === u.id; }), has = function (t) { return L.some(function (e) { return e.t === t; }); };
     return has('reload') ? (has('swap') ? 'swap_reload' : 'reload') : has('swap') ? 'swap' : has('skill') || has('wall') || has('rally') ? 'skill' : (u.btWhy || 'holds'); }
   function wait(u) {
     if (S.over || current() !== u || u.waited) return false;
@@ -6603,7 +6615,7 @@ function take() {
     else if (e.t === 'attack') { swing = { k: 'attack', e: e, dur: beatMs() }; UI.anim.push(swing); }
     /* STAMINA SEEN (rule 313): the breath a blow, a dodge or a shove took rides the motion that took it, said as it lands */
     else if (e.t === 'fat') { const host = swing || UI.anim[UI.anim.length - 1]; if (host) (host.fat = host.fat || []).push(e); else windTag(e, 0); }
-    else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* his machines drop a sixteenth apart */
+    else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged || e.hand ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* __EVERY_TURN_READS__: a turn he closed himself holds the glass a sixteenth, no more */   /* his machines drop a sixteenth apart */
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
   /* when each motion was chosen (rule 274(c): a choice that comes after its grid point takes the next one) */

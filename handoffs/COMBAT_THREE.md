@@ -1,6 +1,26 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rule 440(a), 441, 443(h), ask row 539; and the root of ask rows 548 and 558): 11/11 LATEST -- [parking garage] SHIPPED c6bf2b21e, BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN. VOTE combat3-the-parking-garage-11-11 (stand_in).
+COMBAT THREE (rules 435(d), 441(a); ask rows 555 and 605): 11/11 LATEST -- [every turn reads] SHIPPED SHIPSHA, BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN. VOTE combat3-every-turn-reads-11-11 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_EVERY_TURN_READS_11_11_26.md.
+WHAT: row 555 measured before a line changed: ON AUTO the quiet word already fired (THE POT at 4x on the alpha 7 of 7; headless 5 of 5); the silent turns were the
+ones CLOSED BY HAND (the word's one switch was S.byHand). endTurn (__EVERY_TURN_READS__) now says the word whoever closed the turn: on AUTO the brain's reason as
+before; by hand what he did (handWhy: reload, swap_reload, swap, else holds), the event marked hand: the page holds the turn a sixteenth of a bar (play by hand is
+not slowed), the word stands over the man a beat and a half as every quiet word does.
+ROW 605 (EYES: a stale u.turnLog), FOR FIXES 2 AND EYES: NOT REPRODUCED (1,234 turn ends of his over 80 AUTO fights, eight districts: each had its own 'turn' before
+it; 18 quiet, 18 said). beginTurn is the one place that sets the marker; endTurn, advance and wait all let the next turn begin. A marker read the same in two
+rounds from outside can be a man's OLD object: keptRead's thaw makes new men (S.units replaced), so a probe holding the old DESI reads her old numbers. The word is
+closed against it all the same (__THE_TURN_IS_ITS_OWN__, turnStart: a turn is never read from before his own last 'end'; gate leg R6). If EYES sees it again, read
+FIGHT.S.units fresh at the 'end' and send the log from his last 'turn'.
+GATE EVERY TURN READS 7/0 (R1 to R6, one plant), registered. EVERY MAN ACTS ON AUTO 22/0; its mute plant now takes the word out of the log (the rule says it for
+every hand).
+ON THE PAGE (this build): THE POT's fight, AUTO two rounds then a finger on RELOAD and END TURN: the demo upright 8 of 8 turns showed their word, the demo on its
+side 8 of 8, the alpha upright 7 of 7 (one press did not land), the alpha on its side 7 of 7 (one press did not land); on AUTO at 4x on the alpha on its side 6 of 6 quiet turns
+said, the demo upright at 2x 1 of 1; 0 page errors in six runs. Driver: C3_BYHAND=8 C3_BYHAND_AFTER=2 node tools/bohemia_combat_three_on_the_page.js demo upright OUT "boss:THE POT" 1.
+KNOWN, SMALL: right after AUTO is switched off the first hand-closed turn can still carry AUTO's reason (S.byHand is set by the page's own tick); it says a word either way.
+[bb Battle Brothers writes every turn into its combat log, the skipped ones too; ours puts the word over the man]
+[analog horror: the word sits a beat and a half over a man who did nothing, then is gone, like a caption on a tape nobody is watching]
+
+COMBAT THREE (rule 440(a), 441, 443(h), ask row 539; and the root of ask rows 548 and 558): 11/11 -- [parking garage] SHIPPED c6bf2b21e, BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN. VOTE combat3-the-parking-garage-11-11 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_PARKING_GARAGE_11_11_26.md.
 WHAT: the third big interior. slices/bohemia_parking_garage.js (deal, check), slices/fight_ground/garage/garage.json (two layouts of 15 x 20 characters, the legend,
 'tiles': 15 kinds each with its ground row, AP, open floor, cover, the line he reads; the districts and shares; the gallery start; 'rules' and the cars' 'sizes').

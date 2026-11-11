@@ -1,3 +1,12 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN (rules 435(d), 441(a); ask rows 555 and 605).
+A turn of his that ends with no walk and no blow now says what it was WHOEVER ended it. Measured first: on AUTO the word already fired; the silent turns
+EYES found in THE POT's fight were the ones closed BY HAND. By hand the word is what he did (HOLDS, RELOADS, SWAPS), over the man a beat and a half; the
+turn itself is not slowed. Row 605's stale marker was not reproduced (1,234 turn ends, each with its own start); the word is closed against it anyway.
+ON THE PAGE: the alpha and the demo, upright and sideways: every turn closed by a finger showed its word; on AUTO at 4x 6 of 6 quiet turns said; 0 page
+errors. Gate EVERY TURN READS 7/0. VOTE combat3-every-turn-reads-11-11. Record records/BOHEMIA_COMBAT_THREE_EVERY_TURN_READS_11_11_26.md. The whole
+block: handoffs/COMBAT_THREE.md. NEXT, MINE: the crew starts on the map cell the fight was cut at (rows 504, 506, 507; WORLD THIRTEEN's seam).
+[bb Battle Brothers writes every turn into its combat log, the skipped ones too; ours puts the word over the man]
+[analog horror: the word sits a beat and a half over a man who did nothing, then is gone]
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11w - THE FIGHT KEEPS ITS COLOUR, BUILT (30324691e), NOT YET SEEN (ask rows 576 and 585, PLUMBER 8's red debt; rules 167(b), 336, 73).
 Thirty fight pictures had lost over half their colour when the sand was taken out on 11/2 (the landfill and main street a fifth: grey). Each keeps
 its lightness and its own hue and gets more of the colour it has (CIELAB, the gate's own measure, no sand brought back, no purple): 26 of the 30
@@ -10,7 +19,7 @@ GARAGE on this lane's kit (11/11u). Notes FOR COMBAT, SOUNDS and PLUMBER inside.
 [bb Battle Brothers never lets a biome go grey: the colour is how you know where you are]
 [analog horror: the dust is the only thing still moving, and everything left outside is going its colour]
 
-COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN (rules 440(a), 441, 443(h); ask row 539).
+COMBAT THREE (combat-three-01gkdyuu): 11/11 -- BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN (rules 440(a), 441, 443(h); ask row 539).
 The third big interior: a fight at a casino (a third of them), the mall, the stadium, the Sphere, the Strat, the hospital, the convention centre or the
 airport's terminal (four in ten) starts on one deck of its parking garage: dead cars in their stalls (cover), the drive aisles (open floor AUTO gets
 off: 6% on it after round one against 25%), a high bay the band holds at the bell, the ramps the only ways up, dark but for the open sides and the drum

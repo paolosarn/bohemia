@@ -171,7 +171,7 @@ function eng(patch) {
       while (!S.over && S.round <= 30 && g < 80000) { const u = F.current(); if (!u) break;
         if (u !== cur) { close(); cur = u.side === 'you' ? u : null; snap = cur ? { x: u.x, y: u.y, n: S.log.length, able: F.onField(u) && u.morale !== 'Fleeing' } : null; if (cur && F.onField(u) && u.morale !== 'Fleeing') able[u.id] = (able[u.id] || 0) + 1; }
         if (snap && u === cur && u.morale === 'Fleeing') snap.fled = true;
-        if (victim && u === victim) { if (mute) S.byHand = true; F.endTurn(u); S.byHand = false; g++; continue; }   /* planted: his AUTO brain answers 'hold' every turn (mute: and says nothing) */
+        if (victim && u === victim) { const n0 = S.log.length; F.endTurn(u); if (mute) for (let j = S.log.length - 1; j >= n0; j--) if (S.log[j].t === 'idle') S.log.splice(j, 1); g++; continue; }   /* planted: his AUTO brain answers 'hold' every turn (mute: and says nothing; COMBAT THREE 11/11, row 555: a turn closed by hand says its word now too, so the mute plant takes the word out of the log itself) */
         F.aiStep(u); g++; }
       close();
       mine.forEach((u, i) => { r.men++; const k = company[i] ? company[i].kind : 'base'; r.kinds[k] = 1;
