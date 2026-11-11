@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY next round', rules 443(d), 441): 11/11 LATEST -- BUILD 11/11e THREE MORE MEN (SHA_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY next round', rules 443(d), 441): 11/11 LATEST -- BUILD 11/11e THREE MORE MEN (a06b38cc), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md (the floor in one table). VOTE bestiary-the-next-ten-11-11.
 - THE FLOOR: factions 12 on file, 8 fought; types 57 fought of 75 (18 short); beasts 17 lab-made; bosses 6; champions named.
 - THREE NEW MEN, each a way no man had: the House TWO-HANDER (the great swing: hits every man beside him, knocks them back), the water
