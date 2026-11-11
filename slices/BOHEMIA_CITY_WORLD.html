@@ -50915,6 +50915,23 @@ function mapGroundBegin(ox,oy,night,G){
   var key=TW+'|'+TH+'|'+CVW+'|'+CVH+'|'+CV_DPR+'|'+(night?1:0)+'|'
     +(typeof activeF!=='undefined'&&activeF.size?Array.from(activeF).join(','):'');
   var now=performance.now(), dx=ox-MG.ox, dy=oy-MG.oy;
+  /* __THE_GROUND_IS_NOT_REPAINTED_BEHIND_THE_DOOR__ (PLUMBER 8, 11/11/26, ask row 561, rule 441: the boot and the reload freeze).
+     MEASURED (the demo, phone upright, CPU 4x, MAP_GROUND.why read at the door): before the door's load was in, the whole ground was
+     painted 41 to 46 times, 25 to 33 of them 'still' (the same size, the same place, the map standing still), each a whole paint under
+     the loading picture that covers it (the ground's blit alone 1.7 to 2.3 s of the boot). While the door's load is not in (the
+     shell's __LOAD_READY is false) a ground already painted at this size and place is laid again instead of painted; the first
+     ground drawn after it is in is painted fresh (MG.bootStale), so the first map he sees is the exact one. window.__BOOT_GROUND_EACH
+     = true paints each one (the old way). */
+  var __boot = false; try { var __P = window.parent; __boot = !window.__BOOT_GROUND_EACH && !!__P && __P !== window && __P.__LOAD_READY === false; } catch(_e){}
+  if(__boot && MG.cv && MG.key===key && Math.abs(dx)<=MG.M && Math.abs(dy)<=MG.M){
+    MG.bootStale = true; MG.bootReuses = (MG.bootReuses|0) + 1;
+    mapGroundBlit(dx,dy);
+    MG.cb.forEach(function(v,k){ var r=Object.assign({},v); r.sx+=dx; r.sy+=dy;
+      if(r.dx!==undefined){ r.dx+=dx; r.dy+=dy; } CB_DREW.set(k,r); });
+    window.__LAMPQ = MG.lamps ? MG.lamps.map(function(q){ return {sx:q.sx+dx, sy:q.sy+dy}; }) : null;
+    return { reused:true, M:MG.M };
+  }
+  if(!__boot && MG.bootStale){ MG.bootStale = false; MG.key = ''; }   /* the door is in: the next ground is painted fresh */
   if(MG.cv && MG.key===key && mapGroundMoving(G) && now-MG.t<MAP_GROUND_FRESH_MS
      && Math.abs(dx)<=MG.M && Math.abs(dy)<=MG.M){
     mapGroundBlit(dx,dy);

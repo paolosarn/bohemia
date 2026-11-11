@@ -8,7 +8,8 @@ restore 3.2 s -> 0.13 s; ready cold 18.3-23.0 -> 17.2-17.5 s, reopened 21.0-28.1
 10.8-16.9 -> 6.4-8.9 s reopened. Gate A HIDDEN LINE IS NOT WORKED OUT 3/0. TRIED AND REVERTED: merging out-of-frame draws while the
 door loads (ONE_RENDER): 14 asks merged, the ground still painted 41 times (the page's own start draws before the wrapper exists, and
 the map's frames draw), no measured gain. LEFT (in row 561): the one 6.4 s task of the map page's start (compile + buildOvermap +
-buildPower + fit + the demo opening on the map, one script) and the ground painted 41-46 times behind the loading picture.
+buildPower + fit + the demo opening on the map, one script). BUILD 11/11g: the ground painted 41-46 -> 11-16 times behind the door
+(gate THE GROUND WAITS BEHIND THE DOOR 3/0); ready and frozen totals inside the swing (the door paces itself).
 
 PLUMBER 8 (chat 18) 11/10, the last of the round -- THE RED DEBT (the coordinator's routine 'clear the red debt'). 383 NAMED, 350 LEFT.
 THE COUNT: every red on main is a line in gates/BOHEMIA_QUARANTINE.txt (owner, verdict); LEFT = not FILED as an ask row; gate THE RED DEBT

@@ -9248,6 +9248,11 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('THE GROUND WAITS BEHIND THE DOOR', ['node', 'gates/the_ground_is_not_repainted_behind_the_door_gate.js'],
+     "PLUMBER 8 gate, 11/11, ask row 561 (rule 441, the boot): before the door's load was in the map painted its whole ground 41 to 46 "
+     "times, most of them the same picture at the same place under the loading picture. G1 behind the door the ground is laid again, "
+     "painted at most 20 times; G2 after the door the first ground is painted fresh; P1 the old way (window.__BOOT_GROUND_EACH armed "
+     "before the page) paints it every time. About 2 min", True),
     ('A HIDDEN LINE IS NOT WORKED OUT', ['node', 'gates/a_hidden_line_is_not_worked_out_gate.js'],
      "PLUMBER 8 gate, 11/11, ask row 561 (rule 441, the boot and the reload freeze): a CPU profile of the demo reopened on its save "
      "(phone, CPU 4x) found the restore working out the day's whole cast (ctDayCast over thousands of blocks) for a quest line that is "
