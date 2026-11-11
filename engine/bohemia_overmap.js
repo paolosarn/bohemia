@@ -837,6 +837,62 @@ function landUse(tiles,at,L,seed,N){
     if(near&&hh(t.x,t.y,0x7ca1)<LC.chance){ t.district=DISTRICT.TRAILER; t.zoned='edge'; } }
   return made;
 }
+/* ==== __THE_PLACES_ARE_TEMPLATES__ (WORLD THIRTEEN 11/11, VAMILY rules 429(a)(c)(f), 430; ask lines 504, 506, 507). The coordinator:
+   'the templates and the 20+ seeds, so it holds on a generated world'. The 15 place boards (fight_ground.json boards place_*, their
+   layouts kept whole) are templates the generator places wherever that kind of place lands: a board is 20 x 15 fight tiles, a map
+   block 3 x 3 of them, so a template stands on 7 x 5 blocks and every block of its kinds under it is a cell of it (the fight there is
+   that board, the cell's own tiles under the spot it starts). Rarest place first, each footprint scored by the blocks of its kinds it
+   covers, the best that keeps its spacing stands, up to per_valley; ties by the valley's own hash. A pure function of the finished
+   valley (m.n, m.at, m.seed): no roll moves, and the page re-asks it when a block's kind changes. The numbers are
+   records/target/bb/place_templates.json's, word for word (tools/bohemia_world_thirteen_place_templates_sync.js).
+   [bb] Battle Brothers places its locations on the world map by type and terrain; ours stands each hand-made place board where
+   its kind of place is. [analog horror] the same trailer park, the same backyards, met again in another valley, as if remembered.
+   Gate: gates/the_places_are_templates_gate.js. ==== */
+/* __PLACE_TEMPLATES__ DATA BEGIN */
+const PLACE_TEMPLATES={tiles_per_block:3,footprint:[7,5],order:["lab","redrock","landfill","shore","airport","downtown","strip","marina","golf","wash","trailer","pass","works","desert","suburb"],
+  templates:{
+    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":true},
+    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":true},
+    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":true},
+    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":true},
+    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":true},
+    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":true},
+    strip:{"board":"place_strip","kinds":["strip","sign","sphere","strat","convention"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"slack":4},
+    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":true},
+    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":true},
+    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":true},
+    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":true},
+    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":true},
+    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":true},
+    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":true},
+    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":true}}};
+/* __PLACE_TEMPLATES__ DATA END */
+function placeTemplates(m){
+  const N=m.n, PT=PLACE_TEMPLATES, FW=PT.footprint[0], FH=PT.footprint[1], TPB=PT.tiles_per_block, W=N+1;
+  const D=(x,y)=>{ const t=m.at(x,y); return t?t.district:null; }, own=new Int16Array(N*N), list=[], seed=(m.seed>>>0)||1;
+  const dist=new Array(N*N); for(let y=0;y<N;y++)for(let x=0;x<N;x++)dist[y*N+x]=D(x,y);
+  PT.order.forEach((id,ti)=>{ const T=PT.templates[id]; if(!T)return; const K={}; T.kinds.forEach(k=>{K[k]=1;});
+    const S=new Int32Array(W*W);
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++) S[(y+1)*W+x+1]=(K[dist[y*N+x]]&&!own[y*N+x]?1:0)+S[y*W+x+1]+S[(y+1)*W+x]-S[y*W+x];
+    const cand=[];
+    for(let y0=0;y0+FH<=N;y0++)for(let x0=0;x0+FW<=N;x0++){ const c=S[(y0+FH)*W+x0+FW]-S[y0*W+x0+FW]-S[(y0+FH)*W+x0]+S[y0*W+x0];
+      if(c>=T.min_cells) cand.push([c,hash2(seed+ti*7919,x0,y0),x0,y0]); }
+    cand.sort((a,b)=>b[0]-a[0]||a[1]-b[1]);
+    if(T.slack&&cand.length){ const top=cand[0][0]-T.slack; cand.sort((a,b)=>((b[0]>=top)-(a[0]>=top))||(a[0]>=top&&b[0]>=top?a[1]-b[1]:b[0]-a[0]||a[1]-b[1])); }   /* slack: near the best is as good, the hash picks (a narrow place uses every part of its board over many valleys) */
+    const mine=[];
+    for(const [c,h,x0,y0] of cand){ if(mine.length>=T.per_valley)break;
+      if(mine.some(q=>Math.max(Math.abs(q.x0-x0),Math.abs(q.y0-y0))<Math.max(T.spacing,Math.max(FW,FH))))continue;
+      const cells=[];
+      for(let dy=0;dy<FH;dy++)for(let dx=0;dx<FW;dx++){ const x=x0+dx,y=y0+dy,i=y*N+x; if(K[dist[i]]&&!own[i])cells.push([x,y,dx*TPB,dy*TPB]); }
+      if(cells.length<T.min_cells)continue;
+      const I={id,board:T.board,x0,y0,w:FW,h:FH,flip:!!T.mirror&&(h&1)===1,cells};
+      list.push(I); mine.push(I); cells.forEach(([x,y])=>{own[y*N+x]=list.length;});
+    } });
+  return {list,own,n:N,tpb:TPB};
+}
+/* the template cell at a block: the board, where on it (its top-left tile of the block's three by three), mirrored or not */
+function templateAt(TP,x,y){ if(!TP||x<0||y<0||x>=TP.n||y>=TP.n)return null; const k=TP.own[y*TP.n+x]; if(!k)return null; const I=TP.list[k-1];
+  return {id:I.id,board:I.board,tx:(x-I.x0)*TP.tpb,ty:(y-I.y0)*TP.tpb,flip:I.flip,x0:I.x0,y0:I.y0}; }
 function buildOvermap(seed){
   seed=seed>>>0||1;
   const L=layoutFromSeed(seed);
@@ -1265,7 +1321,8 @@ function buildOvermap(seed){
   landUse(tiles, at, L, seed, OVER_N);   /* __THE_VALLEY_HAS_ITS_ZONES__: zoned on the finished districts, before the real places take their seats */
   stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
   { const LN=houseLanes({n:OVER_N,at}); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
-  return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
+  let TP=null; const tpOf=()=>TP||(TP=placeTemplates({n:OVER_N,at,seed}));   /* __THE_PLACES_ARE_TEMPLATES__: on the finished valley, asked for, never at a boot that does not */
+  return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,get templates(){return tpOf().list;},templateAt(x,y){return templateAt(tpOf(),x,y);},
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
 }
 function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
@@ -1513,7 +1570,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE,placeTemplates,templateAt,PLACE_TEMPLATES};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);

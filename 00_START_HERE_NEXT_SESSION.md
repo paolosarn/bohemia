@@ -64,12 +64,11 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/11 LATEST -- BUILD 11/11a - THE PIECE THAT ANSWERS IT, BUILT, NOT YET SEEN (rule
-429(a)(b)(c), 430; asks 504, 505; row 586 FIXED): every map kind (88), the town's pieces, your lot's and the house models name the
-fight piece that answers them in the one table (the board, the block families, the place board; the cut's kit pieces; 24 kinds on
-a stand-in say what is wanted); on the fight page all 88 kinds dealt only from the pieces named, upright and on its side. THE SEAM
-FOR COMBAT THREE is in the handoff. Row 586: a raided town is left alone two weeks (the news 28/0). Next: the 15 boards as
-templates over 22 seeds, then the cut.
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/11 LATEST -- BUILD 11/11b - THE PLACES ARE TEMPLATES, BUILT, NOT YET SEEN (rules
+429(a)(c)(f), 430; asks 504, 506, 507): the 15 place boards are templates the generator stands where their kinds of place land
+(records/target/bb/place_templates.json, placeTemplates in the generator): all 15 on every one of 22 valleys, every block of every
+board used, none under a home base; the map page answers the place under any block (vbTemplateAt). 11/11a before it: every map kind
+names its fight piece (THE SEAM FOR COMBAT THREE in the handoff); row 586 fixed. Next: the cut.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES (fixes-01gkdyus): 11/10 LATEST -- BUILD 11/10l - THE FIGHT DRAWS ITS OWN SHEETS (row 558, PLUMBER 8's: a fight no longer throws

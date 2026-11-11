@@ -1,5 +1,20 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/11, round four, step two): BUILD 11/11b - THE PLACES ARE TEMPLATES, BUILT, NOT YET SEEN (rules 429(a)(c)(f), 430;
+asks 504, 506, 507). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_TEMPLATES_11_11_26.md. VOTE
+world13-the-places-are-templates-11-11 (STAND-IN).
+- records/target/bb/place_templates.json (the 15 place boards: kinds = the fight's place_boards districts, per_valley, min_cells,
+  spacing, mirror, the Strip's slack); placeTemplates/templateAt in engine/bohemia_overmap.js (synced by
+  tools/bohemia_world_thirteen_place_templates_sync.js, then re-inline the generator); m.templates, m.templateAt(x, y) lazy.
+- The map page: vbTemplatesValley(), vbTemplateAt(x, y) -> { id, board: 'place_<name>', tx, ty (the block's top-left tile on the
+  board), flip, x0, y0 } or null; no cell under a home base's square.
+- Gate gates/the_places_are_templates_gate.js 11/0 (22 valleys; the page upright and on its side), in the suite.
+- THE SEAM FOR COMBAT THREE, STEP THREE (next build): cityHandOver will send msg.template = vbTemplateAt(cell) with the fight; the
+  fight, when it has one, stands G.boards[msg.template.board] (mirrored if flip) and starts the crew on the template's tiles
+  (tx..tx+2, ty..ty+2) of it. Your board path for it is the one opts.board already takes (BOHEMIA_FIGHT.html setup: 'else if
+  (opts.board && G.boards[opts.board])'): passing board: msg.template.board is enough to stand it whole.
+- NEXT: (3) the cut.
+
 WORLD THIRTEEN (11/11, round four, step one): BUILD 11/11a - THE PIECE THAT ANSWERS IT, BUILT, NOT YET SEEN (rule 429(a)(b)(c), 430;
 asks 504, 505, 506; row 586 FIXED). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PIECE_THAT_ANSWERS_IT_11_11_26.md. VOTE
 world13-the-piece-that-answers-it-11-11 (STAND-IN).

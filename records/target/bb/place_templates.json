@@ -1,0 +1,226 @@
+{
+ "draft": true,
+ "about": "THE PLACES ARE TEMPLATES (WORLD THIRTEEN 11/11, VAMILY rules 429(a)(c)(f), 430; ask lines 504, 506, 507). The 15 place boards (slices/fight_ground/fight_ground.json boards place_*, their layouts kept whole: every block, its terrain, its cover, its lights) are templates the map's generator places wherever that kind of place lands on a valley. A board is 20 x 15 fight tiles of 12 m; a map block is 3 x 3 of them (36 m), so a template stands on 7 x 5 map blocks, and every block of its kinds under it is a cell of it: the fight there is fought on that board, the cell's own three by three tiles under the spot it starts. Nothing of a board is thrown away or redrawn; only where it stands is new (rule 430).",
+ "source": "records/target/bb/ours.json place_boards (each place's kinds, its landmark and field: the fight's); this file adds where and how many",
+ "fields": {
+  "board": "the fight_ground.json board the template is",
+  "name": "the place's name (place_boards)",
+  "kinds": "the map kinds it stands on: the fight's own place_boards districts, word for word (the gate holds them together)",
+  "per_valley": "the most of it on one valley",
+  "min_cells": "the fewest blocks of its kinds under a footprint for it to stand there (a rare place, one block is enough)",
+  "spacing": "the least distance in blocks between two of it on one valley (0: one only)",
+  "mirror": "the board may stand mirrored east to west (place_boards' mirror)",
+  "slack": "how many blocks short of the best footprint still count as as good (the valley's hash picks among them): a narrow place, the Strip, then stands at a different part of its board on different valleys, so every part of the board is used (rule 430)"
+ },
+ "tiles_per_block": 3,
+ "footprint": [
+  7,
+  5
+ ],
+ "how": "For each template, rarest first (the order below): every footprint on the valley is scored by how many blocks of its kinds it covers; the best stands, then the next best that overlaps no template already standing and keeps its spacing, until per_valley or min_cells. Ties go to the valley's own hash, so the same valley always stands the same places. Pure: no roll of the valley moves.",
+ "order": [
+  "lab",
+  "redrock",
+  "landfill",
+  "shore",
+  "airport",
+  "downtown",
+  "strip",
+  "marina",
+  "golf",
+  "wash",
+  "trailer",
+  "pass",
+  "works",
+  "desert",
+  "suburb"
+ ],
+ "templates": {
+  "lab": {
+   "board": "place_lab",
+   "name": "THE LAB YARD",
+   "kinds": [
+    "medical"
+   ],
+   "per_valley": 1,
+   "min_cells": 1,
+   "spacing": 0,
+   "mirror": true
+  },
+  "redrock": {
+   "board": "place_redrock",
+   "name": "RED ROCK",
+   "kinds": [
+    "springs"
+   ],
+   "per_valley": 1,
+   "min_cells": 1,
+   "spacing": 0,
+   "mirror": true
+  },
+  "landfill": {
+   "board": "place_landfill",
+   "name": "THE LANDFILL",
+   "kinds": [
+    "landfill"
+   ],
+   "per_valley": 1,
+   "min_cells": 2,
+   "spacing": 0,
+   "mirror": true
+  },
+  "shore": {
+   "board": "place_shore",
+   "name": "THE SHORE",
+   "kinds": [
+    "reservoir",
+    "dam"
+   ],
+   "per_valley": 1,
+   "min_cells": 3,
+   "spacing": 0,
+   "mirror": true
+  },
+  "airport": {
+   "board": "place_airport",
+   "name": "THE AIRPORT",
+   "kinds": [
+    "airport",
+    "airbase",
+    "terminal"
+   ],
+   "per_valley": 1,
+   "min_cells": 12,
+   "spacing": 0,
+   "mirror": true
+  },
+  "downtown": {
+   "board": "place_downtown",
+   "name": "DOWNTOWN",
+   "kinds": [
+    "downtown"
+   ],
+   "per_valley": 1,
+   "min_cells": 5,
+   "spacing": 0,
+   "mirror": true
+  },
+  "strip": {
+   "board": "place_strip",
+   "name": "THE STRIP",
+   "kinds": [
+    "strip",
+    "sign",
+    "sphere",
+    "strat",
+    "convention"
+   ],
+   "per_valley": 1,
+   "min_cells": 12,
+   "spacing": 0,
+   "mirror": false,
+   "slack": 4
+  },
+  "marina": {
+   "board": "place_marina",
+   "name": "THE MARINA",
+   "kinds": [
+    "water",
+    "intake"
+   ],
+   "per_valley": 1,
+   "min_cells": 10,
+   "spacing": 0,
+   "mirror": true
+  },
+  "golf": {
+   "board": "place_golf",
+   "name": "THE GOLF COURSE",
+   "kinds": [
+    "golf",
+    "park"
+   ],
+   "per_valley": 2,
+   "min_cells": 2,
+   "spacing": 20,
+   "mirror": true
+  },
+  "wash": {
+   "board": "place_wash",
+   "name": "THE WASH",
+   "kinds": [
+    "wash",
+    "basin"
+   ],
+   "per_valley": 2,
+   "min_cells": 5,
+   "spacing": 20,
+   "mirror": true
+  },
+  "trailer": {
+   "board": "place_trailer",
+   "name": "THE TRAILER PARK",
+   "kinds": [
+    "trailer"
+   ],
+   "per_valley": 3,
+   "min_cells": 3,
+   "spacing": 16,
+   "mirror": true
+  },
+  "pass": {
+   "board": "place_pass",
+   "name": "THE PASS",
+   "kinds": [
+    "mountain"
+   ],
+   "per_valley": 2,
+   "min_cells": 20,
+   "spacing": 24,
+   "mirror": true
+  },
+  "works": {
+   "board": "place_works",
+   "name": "THE WORKS",
+   "kinds": [
+    "industrial",
+    "rail",
+    "railyard",
+    "warehouse",
+    "storage"
+   ],
+   "per_valley": 3,
+   "min_cells": 18,
+   "spacing": 16,
+   "mirror": true
+  },
+  "desert": {
+   "board": "place_desert",
+   "name": "THE DESERT",
+   "kinds": [
+    "desert"
+   ],
+   "per_valley": 3,
+   "min_cells": 12,
+   "spacing": 20,
+   "mirror": true
+  },
+  "suburb": {
+   "board": "place_suburb",
+   "name": "THE SUBURBS",
+   "kinds": [
+    "suburb",
+    "estate",
+    "gated",
+    "town",
+    "school",
+    "chapel",
+    "library"
+   ],
+   "per_valley": 4,
+   "min_cells": 20,
+   "spacing": 16,
+   "mirror": true
+  }
+ }
+}
