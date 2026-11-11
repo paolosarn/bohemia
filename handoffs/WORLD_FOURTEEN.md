@@ -1,5 +1,21 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND FIVE, BATCH TWO (11/11, the coordinator's round: twelve road events on his settlement, bosses and jobs; rule 441).
+BUILD 11/11t - THE ROAD KNOWS HIS PLACE. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_ROAD_KNOWS_HIS_PLACE_11_11_26.md.
+VOTE world14-the-road-knows-his-place-11-11 (ui, STAND-IN).
+- TWELVE ROWS (lane WORLD 14, 24 now): his place (a family to take in, a rooftop panel, a roof tank, the seed library's garden: gifts
+  through HOME BASE's own seam), the bosses (a runaway cook and a map seller show him the boss whose sign is up; the boss's roadblock
+  once found; a fallen boss's last man), his jobs (the client's runner, a rival crew, an ambush at the underpass, a letter for the
+  client's town). Every choice costs something. Plain English, draft:true.
+- THE SEAM: slices/bohemia_road_more.js needs.home/boss/job, fx.home (BohemiaHomeMap.give), fx.boss {find}; the road module's marked
+  lines take the three needs and the two effects; slices/bohemia_his_map.js exports readSign (marked __THE_ROAD_MORE__).
+- FOR HOME BASE: the road hands gifts through your seam (ids 'road:<event>:<name>:<day>', kinds person and build); FOR WORLD TWO: one
+  export added to your his_map (readSign, the sign's own reading); FOR CONTENT: needs.home/boss/job and fx.home/boss are open to your
+  rows too (the words are in the data file's more_about); FOR JOBS: the road's moods name the client's town ('faction:{job_from}').
+- GATES: THE ROAD KNOWS HIS PLACE 12/0 demo, 12/0 alpha; TWELVE MORE ON THE ROAD pinned to its first twelve, 14/0; LANGUAGE 107/0.
+[bb Battle Brothers' events read the contract you hold and the town that knows you; ours read his place, the boss whose sign is up, and the job in his pocket.]
+[analog horror: the assessor's map has every parcel in the valley and a red circle that nobody drew twice.]
+
 WORLD FOURTEEN, ROUND FIVE, BATCH ONE (11/11, the coordinator's round: the two unplaced places, rows 579, 593, 595; rule 441).
 BUILD 11/11o - THE BUS YARD AND THE GREENHOUSES. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_BUS_YARD_THE_GREENHOUSES_AND_
 FOUR_REDS_11_11_26.md. VOTE world14-the-bus-yard-and-the-greenhouses-11-11 (ui, STAND-IN).

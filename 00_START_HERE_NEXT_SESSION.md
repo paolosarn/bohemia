@@ -151,6 +151,14 @@ Row 574 partly: wolves, hyenas, prides sized to a new crew; one bison, longhorn,
 VOTE bestiary-the-next-ten-11-11. Record records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md. Block: handoffs/BESTIARY.md.
 [bb Battle Brothers never sends a new company at an Unhold; the size of a band cannot make one beast smaller.]
 [analog horror: the spearmen stand in the street lights' line and do not move.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/11 LATEST (batch two) -- BUILD 11/11t - THE ROAD KNOWS HIS PLACE, BUILT, NOT YET SEEN
+(the coordinator's round; rule 441). Twelve more road stops that touch his own place (a family to take in, a rooftop panel, a roof
+tank, a seed garden), the bosses (a runaway cook or a map seller shows him the boss whose sign is up; the boss's roadblock; a fallen
+boss's last man) and the job he holds (the client's runner, a rival crew, an ambush, a letter). Every choice costs something; a gift
+lands at his place. Gate THE ROAD KNOWS HIS PLACE 12/0 demo and alpha. VOTE world14-the-road-knows-his-place-11-11 (STAND-IN).
+The whole block: handoffs/WORLD_FOURTEEN.md.
+[bb Battle Brothers' events read the contract you hold and the town that knows you; ours read his place, the boss whose sign is up, and the job in his pocket.]
+[analog horror: the assessor's map has every parcel in the valley and a red circle that nobody drew twice.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/11 LATEST -- BUILD 11/11o - THE BUS YARD AND THE GREENHOUSES, BUILT, NOT YET SEEN
 (the coordinator's round; rules 409(c), 441; rows 579, 593, 595). The last two of rule 409's places are on the map at their real
 spots inside the valley, each talking when you arrive: THE BUS YARD at Sunset and Decatur (the RTC's yard: pull the batteries out of a

@@ -734,6 +734,9 @@
     size: function () { return FAINT.cv ? { w: FAINT.cv.width, h: FAINT.cv.height, bytes: FAINT.cv.width * FAINT.cv.height * 4 + 4 * 128 * 128 * 4 } : null; },
     drop: drop, lift: lift, pins: function () { return S ? S.pins.slice() : []; }, crosses: function () { return S ? S.crosses.slice() : []; },
     fell: fell, next: nextRow, placeSign: placeSign, deadCheck: deadCheck, menu: menu, close: close,
+    /* __THE_ROAD_MORE__ (WORLD 14, 11/11): somebody on the road tells him where the boss is: the sign read the sign's own way (found,
+       his place out of the dark, kept); null when no sign is up */
+    readSign: function () { if (!S || !S.boss || !S.boss.sign) return null; var sg = S.boss.sign, b = sg.boss || {}; readSign(); return { n: sg.n, x: b.x, y: b.y }; },
     reload: load, KEY: KEY,
     /* (5) where it sells best: the stash calls sellMarks(id) and sellMarks(null); the feed calls priceHeard */
     sellMarks: sellMarks, sellRank: sellRank, priceHeard: priceHeard, pricesSeen: pricesSeen, knownPrice: function (p, g) { return S ? knownPrice(p, g) : null; }

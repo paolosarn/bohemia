@@ -100,7 +100,7 @@
     if (n.boss_sign) { var b = bossSign(n.boss_sign); if (!b) return null; Object.keys(b).forEach(function (k) { c[k] = b[k]; }); }
     /* __THE_ROAD_MORE__ (WORLD 14, 11/10, rule 443(b)): an event spoken by one of HIS men ({man}, {man2}, by trade) or one that opens a
        place ({place}) asks slices/bohemia_road_more.js; with nobody to speak or nothing to open it is not a candidate */
-    if (n.crew || n.place) { var X = null; try { X = root.BohemiaRoadMore && root.BohemiaRoadMore.ctx ? root.BohemiaRoadMore.ctx(n) : null; } catch (e) { X = null; }
+    if (n.crew || n.place || n.home || n.boss || n.job) { var X = null; try { X = root.BohemiaRoadMore && root.BohemiaRoadMore.ctx ? root.BohemiaRoadMore.ctx(n) : null; } catch (e) { X = null; }
       if (!X) return null; Object.keys(X).forEach(function (k) { c[k] = X[k]; }); }
     return c;
   }
@@ -214,7 +214,7 @@
     if (fx.unflag) delete s.flags[fx.unflag];
     put(s);
     if (fx.quest) out.quest = fx.quest;
-    if ((fx.wound || fx.leaves || fx.open) && root.BohemiaRoadMore && root.BohemiaRoadMore.apply) {   /* __THE_ROAD_MORE__ */
+    if ((fx.wound || fx.leaves || fx.open || fx.home || fx.boss) && root.BohemiaRoadMore && root.BohemiaRoadMore.apply) {   /* __THE_ROAD_MORE__ */
       try { root.BohemiaRoadMore.apply(fx, ctx, out); } catch (e) { root.__ROADEV_ERR = String(e && e.message || e); } }
     if (fx.fight) out.fight = fightFor(fx.fight, ctx);
     bar(); save('road:' + id);
@@ -227,7 +227,7 @@
     if (fx.chance) return (fx.mins ? (fx.mins >= 60 ? Math.round(fx.mins / 60) + ' H' : fx.mins + ' MIN') + ' · ' : '') + 'A CHANCE';   /* __THE_ROAD_MORE__: the hours beside a chance show */
     if (fx.man && fx.man.n > 0) return '+1 MAN';
     var t = [];
-    if (fx.leaves) t.push('HE LEAVES'); if (fx.wound) t.push('A WOUND'); if (fx.open) t.push('A PLACE');   /* __THE_ROAD_MORE__ */
+    if (fx.leaves) t.push('HE LEAVES'); if (fx.wound) t.push('A WOUND'); if (fx.open || (fx.boss && fx.boss.find)) t.push('A PLACE'); if (fx.home) t.push('FOR YOUR PLACE');   /* __THE_ROAD_MORE__ */
     if (fx.bats) t.push((fx.bats > 0 ? '+' : '') + fx.bats + ' BAT');
     if (fx.food) t.push((fx.food > 0 ? '+' : '') + fx.food + ' FOOD');
     if (fx.gear && fx.gear !== -1) t.push('+GEAR');
@@ -367,7 +367,7 @@
       if (n.men && men() < n.men) return false; if (n.bats && bats() < n.bats) return false;
       if (s.seen[e.id] != null) { if (e.once) return false; if (dn - s.seen[e.id] < rep) return false; }
       if (e.on) return false;   /* CONTENT 2: met another way (on: 'scavenge', after a search in a town's lot), never by the director */
-      if ((n.party || n.raided || n.boss_sign || n.crew || n.place) && !ctxOf(n, s)) return false;   /* __THE_ROAD_MORE__ */
+      if ((n.party || n.raided || n.boss_sign || n.crew || n.place || n.home || n.boss || n.job) && !ctxOf(n, s)) return false;   /* __THE_ROAD_MORE__ */
       return true;
     };
     ((EV && EV.events) || []).forEach(function (e) { if (ok(e)) out.push(e); });

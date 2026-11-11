@@ -18,6 +18,14 @@
                                             (engine/bohemia_condition.js: the HEAL bar's numbers; the clock and the camp mend it)
      fx.leaves   {name}                     the man leaves the company, the one way a man goes (BohemiaHireLock.dismiss)
      fx.open     {id}                       the place's fog lifts (its block and the blocks round it) and it is named on the map
+   11/11 (the coordinator's round, batch two): events that touch HIS PLACE, THE BOSSES and HIS JOBS
+     needs.home  {planted: true} or {}      his place (HOME BASE): {home} (its name; YOUR CAMP before he plants), {home_blocks}
+     needs.boss  {sign | found | fallen}    the next boss whose sign is up / a boss found and standing / a boss he put down:
+                                            {boss}, {boss_place}, {boss_blocks}
+     needs.job   {held: true}               a job he holds: {job} (its words), {job_from} (the client's town), {job_pay}
+     fx.home     {kind, name, build|look|gives|says}   a gift to his place through HOME BASE's own seam (BohemiaHomeMap.give; before
+                                            he plants it waits, the phone says so)
+     fx.boss     {find: true}               the boss's sign read the sign's own way (BohemiaHisMap.readSign): found, his place out of the dark
    Loaded by BOHEMIA_CITY_WORLD.html after bohemia_road_events.js.
      BohemiaRoadMore.ctx(needs)        the words a row asks for, or null (then the row is not a candidate)
      BohemiaRoadMore.apply(fx, ctx, out)  the three new consequences
@@ -84,8 +92,34 @@
       if (want >= 2) { var b = pick(all.filter(function (m) { return m.name !== a.name; })); if (!b) return null; c.other = b.name; c.other_look = b.look || 'person_town_1'; }
     }
     if (n.place) { var h = hiddenPlaces(); if (!h.length) return null; var p = h[0]; c.place = p.name; c.place_id = p.id; c.blocks = String(Math.max(1, p.d)); }
+    if (n.home) { var H = homeNow(); if (!H || (n.home.planted && !H.planted)) return null; c.home = H.name; c.home_blocks = String(H.blocks || 0); }
+    if (n.boss) { var B = bossNow(n.boss); if (!B) return null; c.boss = B.name; c.boss_place = B.place; c.boss_blocks = String(B.blocks || 1); }
+    if (n.job) { var J = jobNow(); if (!J) return null; c.job = J.title; c.job_from = J.from; c.job_pay = String(J.pay || 0); }
     return c;
   };
+  /* ---- HIS PLACE (HOME BASE's state), THE BOSSES (the map's memory, the bosses' rows), HIS JOBS (the ones he holds) ---- */
+  function homeNow() {
+    var S = null; try { S = root.BohemiaHomeMap && root.BohemiaHomeMap.state ? root.BohemiaHomeMap.state() : null; } catch (e) { S = null; }
+    if (!S) return null; var w = at();
+    return { name: String(S.name || 'YOUR CAMP'), planted: !!S.planted, blocks: S.at ? Math.max(Math.abs(S.at[0] - w[0]), Math.abs(S.at[1] - w[1])) : null };
+  }
+  function bossRow(n) { try { var D = root.BohemiaBosses && root.BohemiaBosses.data ? root.BohemiaBosses.data() : null; return ((D && D.bosses) || []).filter(function (b) { return b && b.boss && b.boss.name === n; })[0] || null; } catch (e) { return null; } }
+  function bossNow(want) {
+    var h = null; try { h = root.BohemiaHisMap && root.BohemiaHisMap.state ? root.BohemiaHisMap.state() : null; } catch (e) { h = null; }
+    if (!h || !h.boss) return null; var w = at(), n = null, x = null, y = null;
+    var fallen = h.boss.fallen || {}, found = h.boss.found || {};
+    if (want.sign) { var sg = h.boss.sign; if (!sg || fallen[sg.n] || found[sg.n]) return null; n = sg.n; x = sg.boss && sg.boss.x; y = sg.boss && sg.boss.y; }
+    else if (want.found) { Object.keys(found).some(function (k) { if (fallen[k] || !found[k]) return false; n = k; x = found[k].x; y = found[k].y; return true; }); }
+    else if (want.fallen) { Object.keys(fallen).some(function (k) { if (!fallen[k]) return false; n = k; var f = found[k] || {}; x = f.x; y = f.y; return true; }); }
+    if (!n) return null; var r = bossRow(n);
+    return { name: String(n), place: r && r.place && r.place.name ? String(r.place.name) : 'his place', blocks: x != null ? Math.max(1, Math.max(Math.abs(x - w[0]), Math.abs(y - w[1]))) : 1 };
+  }
+  function jobNow() {
+    var L = []; try { L = (root.LOOP && root.LOOP.held) || []; } catch (e) { L = []; }
+    var own = function (j) { try { return root.BohemiaJobKinds && root.BohemiaJobKinds.owns ? root.BohemiaJobKinds.owns(j) : true; } catch (e) { return true; } };
+    var j = L.filter(function (q) { return q && q.title && q.from && own(q); })[0] || null;
+    return j ? { title: String(j.title).replace(/\.$/, ''), from: String(j.from), pay: j.pay | 0, id: j.id } : null;
+  }
 
   /* ---- THE THREE CONSEQUENCES ---- */
   function wound(name, hp) {
@@ -119,13 +153,32 @@
     RM.opened.push({ id: p.id, name: p.name, x: p.x, y: p.y, day: day() });
     return p;
   }
-  RM.wound = wound; RM.leaves = leaves; RM.open = open;
+  function gift(g, ctx) {
+    var M = root.BohemiaHomeMap; if (!M || !M.give || !g || !g.kind || !g.name) return null;
+    var o = { id: 'road:' + (ctx && ctx.id || 'road') + ':' + String(g.name).toLowerCase().replace(/[^a-z0-9]+/g, '_') + ':' + day(), kind: g.kind, name: String(g.name),
+      from: String(g.from || (ctx && ctx.name) || 'THE ROAD') };
+    ['build', 'look', 'gives', 'says', 'pic'].forEach(function (k) { if (g[k] != null) o[k] = g[k]; });
+    var r = null; try { r = M.give(o); } catch (e) { RM.err = String(e && e.message || e); return null; }
+    if (!r || !r.ok) return null;
+    RM.gifts.push({ id: o.id, kind: o.kind, name: o.name, waiting: !!r.waiting, again: !!r.again, day: day() });
+    if (r.again) return null;   /* the same gift twice is one thing (HOME BASE's rule): nothing new to say */
+    return { name: o.name, waiting: !!r.waiting };
+  }
+  function find() {
+    var H = root.BohemiaHisMap; if (!H || !H.readSign) return null;
+    var r = null; try { r = H.readSign(); } catch (e) { RM.err = String(e && e.message || e); return null; }
+    if (!r) return null; try { if (typeof render === 'function') render(); } catch (e) {}
+    RM.found.push({ n: r.n, x: r.x, y: r.y, day: day() }); return r;
+  }
+  RM.wound = wound; RM.leaves = leaves; RM.open = open; RM.gift = gift; RM.find = find; RM.gifts = []; RM.found = [];
   RM.apply = function (fx, ctx, out) {
     out = out || { got: [] }; out.got = out.got || [];
     if (fx.wound && fx.wound.name) { var h = wound(fx.wound.name, fx.wound.hp | 0); if (h > 0) out.got.push(String(fx.wound.name).toUpperCase() + ' -' + h + ' HP'); }
     if (fx.leaves && fx.leaves.name) { if (leaves(fx.leaves.name)) out.got.push(String(fx.leaves.name).toUpperCase() + ' LEFT'); }
     if (fx.open && fx.open.id) { var p = open(fx.open.id); if (p) out.got.push(String(p.name).toUpperCase() + ' ON THE MAP'); }
+    if (fx.home && fx.home.kind) { var g = gift(fx.home, ctx); if (g) out.got.push(String(g.name).toUpperCase() + (g.waiting ? ' WAITS FOR YOUR PLACE' : ' AT YOUR PLACE')); }
+    if (fx.boss && fx.boss.find) { var b = find(); if (b) out.got.push(String(b.n).toUpperCase() + ' ON THE MAP'); }
     return out;
   };
-  RM.status = function () { return { men: men().map(function (m) { return m.name + ':' + (m.bg || '-'); }), hidden: hiddenPlaces().length, wounded: RM.wounded.slice(-10), left: RM.left.slice(-10), opened: RM.opened.slice(-10), err: RM.err }; };
+  RM.status = function () { return { men: men().map(function (m) { return m.name + ':' + (m.bg || '-'); }), hidden: hiddenPlaces().length, wounded: RM.wounded.slice(-10), left: RM.left.slice(-10), opened: RM.opened.slice(-10), gifts: RM.gifts.slice(-10), found: RM.found.slice(-10), err: RM.err }; };
 })(window);

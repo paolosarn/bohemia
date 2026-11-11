@@ -124,6 +124,111 @@ EVENTS = [
      where=('paved',), when='any'),
 ]
 
+# ---- 11/11 (the coordinator's round, batch two): twelve that touch HIS PLACE, THE BOSSES and HIS JOBS; every choice costs something ----
+HOME = 'FOR YOUR PLACE'
+EVENTS += [
+  ev('ev_the_family_at_the_door', 'location', {'name': 'A WOMAN WITH TWO KIDS', 'look': 'cast_skirt', 'from': 'on the road out of {home}'},
+     "We lost the house in the first year of the crash and the car in the second. People say you have walls at {home}. I can cook for "
+     "twenty and keep a ledger. The kids carry water. We do not need much, only a door that locks.",
+     [{'t': 'Take them in at {home}.', 'fx': {'food': -2, 'home': {'kind': 'person', 'name': 'THE WIDOW AND HER TWO', 'look': 'cast_skirt',
+        'says': 'She keeps the ledger. The kids carry the water up before anybody else is awake.'},
+        'say': "Two nights of food for the walk, and a door at {home}. She asks where the ledger is before she asks where she sleeps."}},
+      {'t': 'Give them two nights of food and point them to the shelter.', 'fx': {'food': -2, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "She counts the food twice and thanks you once. The kids are already walking."}}],
+     needs={'home': {'planted': True}}, once=True, head=HOME),
+  ev('ev_the_solar_cart', 'location', {'name': 'A MAN WITH A SHOPPING CART', 'look': 'cast_bedroll', 'from': 'pushing a solar panel down the middle of the road'},
+     "Pulled it off a foreclosed roof in Summerlin, the bank's notice still taped to the door. A panel lasts thirty years and this one "
+     "has twenty left in it. I will walk it all the way to {home} myself.",
+     [{'t': 'Pay him ten batteries for the panel.', 'fx': {'bats': -10, 'home': {'kind': 'build', 'build': 'solar', 'name': 'A ROOFTOP PANEL'},
+        'say': "He pushes the cart toward {home} without being asked twice. The bank's notice is still stuck to the back of the panel."}},
+      {'t': 'Trade him four nights of food for it.', 'fx': {'food': -4, 'home': {'kind': 'build', 'build': 'solar', 'name': 'A ROOFTOP PANEL'},
+        'say': "Food, not batteries: he eats the first can before he lets go of the cart."}}],
+     needs={'home': {}}, once=True, head=HOME, where=('paved',)),
+  ev('ev_the_water_tank', 'location', {'name': 'A WATER HAULER', 'look': 'cast_barearms', 'from': 'with a tank on a trailer and no truck'},
+     "The water district lost its pressure above the second floor everywhere west of Rainbow. A tank on a roof is water for a month. I "
+     "pulled this one four miles by hand and I cannot pull it one more block.",
+     [{'t': 'Buy the tank for {home}.', 'fx': {'bats': -6, 'home': {'kind': 'build', 'build': 'tank', 'name': 'A ROOF TANK'},
+        'say': "Six batteries and a handshake. He shows you how to bleed the air out of the line before he goes."}},
+      {'t': 'Help him pull it to the next town for a share.', 'fx': {'mins': 180, 'bats': 3, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "Three hours of pulling. He sells the water by the bucket at {town} and pays you three batteries out of the first bucket."}}],
+     needs={'home': {}}, once=True, head=HOME),
+  ev('ev_the_seed_library', 'location', {'name': 'A LIBRARIAN', 'look': 'cast_shortcoat', 'from': 'with a card catalogue drawer full of seed packets'},
+     "The library lent seeds before it stopped lending books. Squash, tepary beans, chiles, the ones that take the heat. The rule was "
+     "you bring back seeds from what you grow. Nobody has brought any back.",
+     [{'t': 'Take a drawer of seeds for a garden at {home}.', 'fx': {'bats': -3, 'home': {'kind': 'build', 'build': 'garden', 'name': 'THE SEED LIBRARY GARDEN'},
+        'say': "Three batteries for the library, she says, and writes your name on the card in pencil. Due back next year."}},
+      {'t': 'Carry the catalogue to the next town for her.', 'fx': {'mins': 120, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "Two hours with a drawer under each arm. At {town} she sets the catalogue on a table and opens for business."}}],
+     needs={'home': {}}, once=True, head=HOME),
+  ev('ev_the_runaway_cook', 'location', {'name': 'A MAN WHO RAN FROM {boss}', 'look': 'cast_apron', 'from': 'hiding in a drainage ditch'},
+     "I worked for {boss} at {boss_place}. Everybody does, or they leave the valley. I know the way in and where the men sleep. I want "
+     "food and to be far from here before anybody knows I talked.",
+     [{'t': 'Give him two nights of food for the way in.', 'fx': {'food': -2, 'boss': {'find': True},
+        'say': "He draws it in the dirt with a stick: the gate, the yard, the room where {boss} sleeps. Then he is gone up the wash."}},
+      {'t': 'Give him five batteries to get out of the valley.', 'fx': {'bats': -5, 'boss': {'find': True}, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "Five batteries buys a seat on a cart to Barstow. He tells you everything about {boss_place} on the way to the cart."}},
+      {'t': 'Hand him back to the men of {boss} for the reward.', 'fx': {'bats': 4, 'mood': {'act': 'minor_offensive_action', 'place': 'near'},
+        'say': "Four batteries. Nobody in {town} will look at you the same way, and the man does not look at you at all."}}],
+     needs={'boss': {'sign': True}}, head='ABOUT {boss}'),
+  ev('ev_the_assessors_map', 'location', {'name': 'A MAN SELLING MAPS', 'look': 'cast_satchel', 'from': 'with a roll of county maps under his arm'},
+     "The county assessor's maps, every parcel in the valley, printed the week before the servers went dark. I marked where {boss} sits. "
+     "It is about {boss_blocks} blocks from here. Paper does not need a signal.",
+     [{'t': 'Buy the map for four batteries.', 'fx': {'bats': -4, 'boss': {'find': True},
+        'say': "Parcel numbers, lot lines, and a red circle around {boss_place} in ballpoint."}},
+      {'t': 'Trade him two hours of carrying for it.', 'fx': {'mins': 120, 'boss': {'find': True},
+        'say': "Two hours hauling his rolls of paper to {town}. He pays with the map that has the red circle on it."}}],
+     needs={'boss': {'sign': True}}, head='ABOUT {boss}', where=('paved',)),
+  ev('ev_the_roadblock', 'location', {'name': 'THE MEN OF {boss}', 'look': 'cast_cape', 'from': 'at a roadblock of shopping carts and tires'},
+     "This road belongs to {boss} from here to {boss_place}. Everybody pays to use it. Four batteries for the lot of you, or turn around "
+     "and go the long way.",
+     [{'t': 'Pay the toll.', 'fx': {'bats': -4, 'say': "They roll one cart out of the way and roll it back behind you."}},
+      {'t': 'Go the long way around.', 'fx': {'mins': 150, 'say': "Two and a half hours around through the washes. Their fire is still burning when you look back."}},
+      {'t': 'Break the roadblock.', 'fx': {'fight': {'foe': 'brigands', 'n': 3, 'label': 'the roadblock of {boss}',
+        'win': {'bats': 6, 'mood': {'act': 'favor', 'place': 'near'}, 'say': "The carts go into the ditch and the tolls in their can go into your wagon."},
+        'lose': {'bats': -4, 'say': "They take the toll anyway, and more for the trouble."}}}}],
+     needs={'boss': {'found': True}}, head='ABOUT {boss}', where=('paved',)),
+  ev('ev_the_leaderless', 'location', {'name': 'A MAN WHO FOUGHT FOR {boss}', 'look': 'cast_cape', 'from': 'on the curb with his rifle across his knees'},
+     "{boss} is dead and the rest of us have nobody to pay us. I can shoot and I know every room of {boss_place}. Feed me and I will "
+     "shoot for you instead.",
+     [{'t': 'Take him on.', 'fx': {'food': -3, 'man': {'n': 1, 'name': 'THE LAST MAN OF {boss}', 'bg': 'retired_soldier', 'look': 'cast_cape'},
+        'say': "Three nights of food up front. He hands you the rifle to hold while he eats, and asks for it back after."}},
+      {'t': 'Pay him to take the rest of them out of the valley.', 'fx': {'bats': -6, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "Six batteries. By morning eleven men are walking north on the 95 with their rifles slung, and the street is quiet."}}],
+     needs={'boss': {'fallen': True}}, once=True, head='ABOUT {boss}'),
+  ev('ev_the_clients_runner', 'location', {'name': 'A RUNNER FROM {job_from}', 'look': 'cast_pack', 'from': 'out of breath on the shoulder'},
+     "{job_from} sent me about your job: {job}. They need it sooner than you said. If you push, they will remember it. If you do not, they "
+     "will remember that too.",
+     [{'t': 'Push on through the night.', 'fx': {'food': -2, 'mood': {'act': 'favor', 'place': 'faction:{job_from}'},
+        'say': "Extra rations to keep the men on their feet. The runner goes back to {job_from} with the word that you are coming."}},
+      {'t': 'Tell them it takes what it takes.', 'fx': {'mood': {'act': 'negotiation_fail', 'place': 'faction:{job_from}'},
+        'say': "The runner writes it down word for word. {job_from} will read it out loud, he says."}}],
+     needs={'job': {'held': True}}, head='ABOUT YOUR JOB'),
+  ev('ev_the_rival_crew', 'location', {'name': 'A CREW BOSS ON A MOTORBIKE', 'look': 'cast_shortcoat', 'from': 'idling across the road'},
+     "Heard {job_from} gave you their job: {job}. They gave it to us first, before you came along. Walk away and nobody gets hurt. Or pay "
+     "us to walk away. Your call.",
+     [{'t': 'Pay them to leave it.', 'fx': {'bats': -4, 'say': "Four batteries in his saddlebag. The motorbike goes the other way, and so does his crew."}},
+      {'t': 'Run them off.', 'fx': {'fight': {'foe': 'brigands', 'n': 2, 'label': 'the rival crew',
+        'win': {'bats': 3, 'mood': {'act': 'favor', 'place': 'faction:{job_from}'}, 'say': "They leave the motorbike's battery behind. {job_from} hears who kept their job."},
+        'lose': {'bats': -4, 'say': "They take four batteries and laugh about it. The job is still yours, if you can still do it."}}}}],
+     needs={'job': {'held': True}}, head='ABOUT YOUR JOB', where=('paved',)),
+  ev('ev_the_underpass', 'location', {'name': 'A KID ON A ROOF', 'look': 'cast_bedroll', 'from': 'waving from a carport'},
+     "There are men waiting at the underpass for whoever comes through on business for {job_from}. They have been there since morning. "
+     "Two batteries and I show you the long way around.",
+     [{'t': 'Pay the kid and go the long way.', 'fx': {'bats': -2, 'mins': 120, 'say': "Two hours of back yards and broken fences. You never see the underpass."}},
+      {'t': 'Go through the underpass anyway.', 'fx': {'chance': {'p': 0.5,
+        'yes': {'say': "Nobody at the underpass but a burned-out car. The kid was lying, or they got bored."},
+        'no': {'wound': {'name': '{man}', 'hp': 14}, 'say': "A shot from the dark at the far end. {man} is hit in the arm before you are through."}}}}],
+     needs={'job': {'held': True}, 'crew': {'n': 1}}, head='ABOUT YOUR JOB'),
+  ev('ev_the_letter_for_the_client', 'location', {'name': 'AN OLD MAN AT A BUS STOP', 'look': 'cast_shortcoat', 'from': 'at a bus stop with no buses'},
+     "You are working for {job_from}? My daughter lives there. I have not heard from her since the phones went. Take this letter to her. "
+     "Her name is on it.",
+     [{'t': 'Carry the letter.', 'fx': {'mins': 30, 'mood': {'act': 'favor', 'place': 'faction:{job_from}'},
+        'say': "Half an hour while he writes one more line at the bottom. {job_from} will know who brought it."}},
+      {'t': 'Tell him you cannot.', 'fx': {'mood': {'act': 'negotiation_fail', 'place': 'near'},
+        'say': "He puts the letter back in his coat and keeps waiting for the bus."}}],
+     needs={'job': {'held': True}}, head='ABOUT YOUR JOB', where=('paved',)),
+]
+
 MORE_ABOUT = ("WORLD 14 (11/10, VAMILY rule 443(b)): twelve more rows, each with 'lane' WORLD 14 and its Battle Brothers 'kind' (company: his own "
               "men; location: the road). New words a row may use, read by slices/bohemia_road_more.js through the seam in "
               "slices/bohemia_road_events.js: needs.crew {n: 1 or 2, bg: [trades]} (one or two of HIS men, never YOU: {man}, {man_look}, {man_bg}, "
@@ -131,7 +236,11 @@ MORE_ABOUT = ("WORLD 14 (11/10, VAMILY rule 443(b)): twelve more rows, each with
               "records/target/bb/real_places.json still under the fog: {place}, {place_id}, {blocks}); fx.wound {name, hp} (that man loses the "
               "hitpoints, kept by the company's condition record, mended by the clock and the camp); fx.leaves {name} (he leaves the company); "
               "fx.open {id} (the place's fog lifts and it is named on the map); 'head' the card's top line. Written by "
-              "tools/bohemia_world14_road_events_data.py; gate gates/twelve_more_on_the_road_gate.js.")
+              "tools/bohemia_world14_road_events_data.py; gate gates/twelve_more_on_the_road_gate.js. 11/11, twelve more (his place, the bosses, "
+              "his jobs): needs.home {planted: true} or {} ({home}, {home_blocks}); needs.boss {sign | found | fallen} ({boss}, {boss_place}, "
+              "{boss_blocks}); needs.job {held: true} ({job}, {job_from}, {job_pay}); fx.home {kind, name, build | look | gives | says} (a gift to "
+              "his place through HOME BASE's own seam; it waits until he plants); fx.boss {find: true} (the boss's sign read: found, his place "
+              "out of the dark). Gate gates/the_road_knows_his_place_gate.js.")
 
 def build(t):
     k = t.find('\n    {"id": "' + FIRST + '"')
@@ -141,8 +250,11 @@ def build(t):
     end = t.rindex('\n  ]')
     rows = ''.join(',\n    ' + json.dumps(e, ensure_ascii=False) for e in EVENTS)
     t = t[:end] + rows + t[end:]
+    import re as _re
     if '"more_about"' not in t:
         t = t.replace('\n  "events": [', '\n  "more_about": ' + json.dumps(MORE_ABOUT, ensure_ascii=False) + ',\n  "events": [', 1)
+    else:   # 11/11: the words a row may use grew; the line is rewritten in place
+        t = _re.sub(r'\n  "more_about": "(?:[^"\\]|\\.)*",', lambda m: '\n  "more_about": ' + json.dumps(MORE_ABOUT, ensure_ascii=False) + ',', t, count=1)
     return t
 
 if __name__ == '__main__':

@@ -44,7 +44,10 @@ const EVD = JSON.parse(read('records/target/BOHEMIA_ROAD_EVENTS.json'));
 const EN = JSON.parse(read('records/target/bb/bohemia_enemies.json'));
 const SPANISH = /\b(jefe|mira|oye|verdad|v[aá]monos|hermano|te lo juro|gracias|s[ií]|mano|pues|[aá]ndale|chingado|claro|bueno|nada|mijo|compa|amigo|sabes|por favor|qu[eé]|se[ñn]or|se[ñn]ora|mija|cabr[oó]n|pinche|ay|dios|ahora|vamos|mismo|aqu[ií]|bien|gente|carnal|g[üu]ey)\b/i;
 const FOES = new Set(Object.keys(EN.factions || {}).concat(['brigands', 'beasts']));
-const MINE = () => (EVD.events || []).filter(e => e.lane === 'WORLD 14');
+/* the first twelve (11/10); the next twelve (11/11: his place, the bosses, his jobs) are gates/the_road_knows_his_place_gate.js's */
+const FIRST12 = ['ev_the_short_box', 'ev_the_swollen_cans', 'ev_the_old_job', 'ev_the_last_canteen', 'ev_the_word_from_home', 'ev_the_plasma_van',
+  'ev_the_rent_crew', 'ev_the_green_pool', 'ev_the_copper_men', 'ev_the_timeshare_man', 'ev_the_picket_line', 'ev_the_dead_atm'];
+const MINE = () => (EVD.events || []).filter(e => e.lane === 'WORLD 14' && FIRST12.indexOf(e.id) >= 0);
 
 function realFx(x) { return !!x && !!(x.bats || x.food || x.gear || (x.man && x.man.n) || x.mood || x.mins > 0 || x.fight || x.chance || x.wound || x.leaves || x.open || x.quest); }
 function words(o, acc) { if (o == null) return acc; if (typeof o === 'string') acc.push(o); else if (Array.isArray(o)) o.forEach(v => words(v, acc)); else if (typeof o === 'object') Object.keys(o).forEach(k => { if (k !== 'look' && k !== 'place' && k !== 'act' && k !== 'foe' && k !== 'id' && k !== 'name') words(o[k], acc); else if (k === 'name' && typeof o[k] === 'string' && !/^\{/.test(o[k])) acc.push(o[k]); }); return acc; }
@@ -104,8 +107,8 @@ function nodeChecks() {   /* returns the first-minute check's promise */
   const all = EVD.events || [], ids = all.map(e => e.id), dup = ids.filter((x, i) => ids.indexOf(x) !== i);
   ok('E3 the rest of the road stands: ' + (all.length - mine.length) + ' other rows, every id once', all.length - mine.length >= 45 && !dup.length, dup.join(',') || 'none twice');
   const src = read('slices/bohemia_road_events.js');
-  const seam = [/n\.crew \|\| n\.place\) \{ var X = null; try \{ X = root\.BohemiaRoadMore/, /n\.boss_sign \|\| n\.crew \|\| n\.place\) && !ctxOf\(n, s\)\) return false;/,
-    /look: fill\(who\.look, cx\)/, /look: fill\(\(e\.who \|\| \{\}\)\.look, cx\)/, /\(fx\.wound \|\| fx\.leaves \|\| fx\.open\) && root\.BohemiaRoadMore && root\.BohemiaRoadMore\.apply/,
+  const seam = [/n\.crew \|\| n\.place[^)]*\) \{ var X = null; try \{ X = root\.BohemiaRoadMore/, /n\.boss_sign \|\| n\.crew \|\| n\.place[^)]*\) && !ctxOf\(n, s\)\) return false;/,
+    /look: fill\(who\.look, cx\)/, /look: fill\(\(e\.who \|\| \{\}\)\.look, cx\)/, /\(fx\.wound \|\| fx\.leaves \|\| fx\.open[^)]*\) && root\.BohemiaRoadMore && root\.BohemiaRoadMore\.apply/,
     /if \(fx\.leaves\) t\.push\('HE LEAVES'\)/, /__THE_CARD_SIDEWAYS__/, /BOH_PHONE_RECT \? root\.BOH_PHONE_RECT\(\)/];
   const miss = seam.filter(r => !r.test(src)).map(String);
   const city = read('slices/BOHEMIA_CITY_WORLD.html');
