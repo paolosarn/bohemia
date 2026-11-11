@@ -4,7 +4,12 @@
 # re-dressed is the same man in the same screens, nothing more.
 #   BOHEMIA_RIG_THREADS=2 tools/bohemia_character_the_company_dressed_remake.sh town_4 town_8 ...
 # Before a re-run after a roll edit: delete his cached models (records/character/rig/barber_person_<id>.glb and
-# person_<id>.glb) and his .gitignore'd renders, or the make and the animation tools reuse the old build.
+# person_<id>.glb) and his .gitignore'd renders (EVERY folder named for him: records/target/animation/idles/person_<id>_carry and
+# _work keep their own carry.txt and work.txt, so deleting made.txt alone re-renders his idles and leaves his carry and work in the
+# old clothes, measured 11/11 on colorful_0), or the make and the animation tools reuse the old build.
+# After the re-make, the packs skip a man whose packed file is newer than his renders (the idles against made.txt with a
+# map_cells.npz cache, the held clips against his newest frame): packed files carried from another branch by git checkout are
+# stamped NOW, so touch his renders (and drop map_cells.npz) before packing, or his old clothes stay on those sheets (11/11).
 cd "$(dirname "$0")/.."
 export BOHEMIA_BPY=${BOHEMIA_BPY:-/tmp/v/bin/python}
 B=$BOHEMIA_BPY

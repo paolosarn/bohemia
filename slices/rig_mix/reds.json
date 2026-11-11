@@ -44,16 +44,18 @@
    "face": null,
    "beard": "PENCIL MOUSTACHE",
    "mark": null,
-   "top": "MOSS GREEN SHIRT",
-   "coat": "RUST VEST",
+   "top": "SIGNAL RED SHIRT",
+   "coat": "BONE VEST",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": "m",
    "wears": {
-    "base": "MOSS GREEN SHIRT",
-    "outer": "RUST VEST",
-    "legs": "CUTOFF DENIM SHORTS",
-    "feet": "TALL MOTO BOOTS"
+    "base": "SIGNAL RED SHIRT",
+    "outer": "BONE VEST",
+    "legs": "SOOT CARGOS",
+    "feet": "OXBLOOD BOOTS",
+    "hands": "LEATHER GLOVES",
+    "gear": "SHELL BANDOLIER"
    }
   },
   {
@@ -73,7 +75,9 @@
     "base": "STRIPED TEE",
     "outer": "LEATHER HALF APRON",
     "legs": "BRICK CROP TROUSER",
-    "feet": "LEATHER STACK BOOT"
+    "feet": "LEATHER STACK BOOT",
+    "gear": "OXBLOOD BRACERS",
+    "hands": "LEATHER GLOVES"
    }
   },
   {

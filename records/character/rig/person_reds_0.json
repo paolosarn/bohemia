@@ -1,15 +1,17 @@
 {
  "look": "PERSON_REDS_0",
- "shape": "person_reds_0: a person of the Reds, his own skin skin_deep 3, MOSS GREEN SHIRT under RUST VEST",
+ "shape": "person_reds_0: a person of the Reds, his own skin skin_deep 3, SIGNAL RED SHIRT under BONE VEST",
  "worn": {
   "hair": "DRY TAPER",
-  "base": "MOSS GREEN SHIRT",
-  "outer": "RUST VEST",
-  "legs": "CUTOFF DENIM SHORTS",
-  "feet": "TALL MOTO BOOTS",
+  "base": "SIGNAL RED SHIRT",
+  "outer": "BONE VEST",
+  "legs": "SOOT CARGOS",
+  "feet": "OXBLOOD BOOTS",
+  "hands": "LEATHER GLOVES",
+  "gear": "SHELL BANDOLIER",
   "outfit": [
-   "SIGNAL RED SHIRT read as one with RUST VEST (81 and 79 of 255): the same cut in MOSS GREEN SHIRT (160)",
-   "RUST VEST worn open to the neck",
+   "SIGNAL RED SHIRT read as one with LEATHER VEST (81 and 69 of 255) and no colour of that top reads apart: the same coat in BONE VEST (154)",
+   "BONE VEST worn open to the neck",
    "the longsleeve's hem below the vest"
   ]
  },
@@ -41,25 +43,31 @@
  "real_height_for_rig": 1.7908,
  "meshes": {
   "Cesium_Man": 3273,
-  "person_reds_0_shoe": 4484,
+  "person_reds_0_shoe": 3716,
   "person_reds_0_shirt": 67536,
   "person_reds_0_collar": 1536,
   "person_reds_0_cuffs": 2048,
   "person_reds_0_tail": 2016,
   "person_reds_0_coat": 22402,
   "person_reds_0_lapels": 396,
-  "person_reds_0_trouser": 21202,
-  "person_reds_0_fly": 70,
-  "person_reds_0_front_pockets": 100,
-  "person_reds_0_seat_pockets": 252,
-  "person_reds_0_seat_seams": 252,
+  "person_reds_0_trouser": 43706,
+  "person_reds_0_rolled_hem": 2048,
+  "person_reds_0_cargo_pockets": 252,
+  "person_reds_0_cargo_flaps": 108,
   "person_reds_0_sole_1": 242,
   "person_reds_0_midsole_1": 242,
   "person_reds_0_sole_0": 242,
   "person_reds_0_midsole_0": 242,
   "person_reds_0_boot_collar": 2048,
   "person_reds_0_boot_collar_line": 2048,
-  "person_reds_0_boot_strap": 2048,
+  "person_reds_0_eyelets_1": 120,
+  "person_reds_0_eyelets_0": 120,
+  "person_reds_0_leather_gloves_L": 392,
+  "person_reds_0_leather_gloves_R": 392,
+  "person_reds_0_leather_gloves_cuff": 2048,
+  "person_reds_0_shell_bandolier": 1792,
+  "person_reds_0_shell_bandolier_shells": 374,
+  "person_reds_0_shell_bandolier_pouch": 26,
   "person_reds_0_hair": 17968,
   "person_reds_0_hand_L": 392,
   "person_reds_0_hand_R": 392
@@ -71,49 +79,54 @@
    0.8
   ],
   "person_reds_0_boot_collar": [
-   0.0685,
-   0.0685,
-   0.0844
+   0.2623,
+   0.0612,
+   0.0395
   ],
   "person_reds_0_boot_collar_line": [
-   0.0116,
-   0.0116,
-   0.0137
+   0.0545,
+   0.013,
+   0.011
   ],
-  "person_reds_0_boot_strap": [
-   0.0116,
-   0.0116,
-   0.0137
+  "person_reds_0_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_reds_0_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_reds_0_coat": [
-   0.2122,
-   0.0595,
-   0.0185
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_reds_0_collar": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_reds_0_cuffs": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
+  ],
+  "person_reds_0_eyelets_0": [
+   0.0545,
+   0.013,
+   0.011
+  ],
+  "person_reds_0_eyelets_1": [
+   0.0545,
+   0.013,
+   0.011
   ],
   "person_reds_0_eyes": [
    0.0212,
    0.0103,
    0.008
-  ],
-  "person_reds_0_fly": [
-   0.0176,
-   0.0319,
-   0.0823
-  ],
-  "person_reds_0_front_pockets": [
-   0.0176,
-   0.0319,
-   0.0823
   ],
   "person_reds_0_hair": [
    0.0194,
@@ -121,44 +134,64 @@
    0.008
   ],
   "person_reds_0_lapels": [
-   0.0865,
-   0.0252,
-   0.0091
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_reds_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_reds_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_reds_0_midsole_0": [
-   0.0116,
-   0.0116,
-   0.0137
+   0.0545,
+   0.013,
+   0.011
   ],
   "person_reds_0_midsole_1": [
-   0.0116,
-   0.0116,
-   0.0137
+   0.0545,
+   0.013,
+   0.011
   ],
-  "person_reds_0_seat_pockets": [
-   0.0423,
-   0.0802,
-   0.1946
+  "person_reds_0_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
   ],
-  "person_reds_0_seat_seams": [
-   0.1248,
-   0.2122,
-   0.4233
+  "person_reds_0_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_reds_0_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_reds_0_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
   ],
   "person_reds_0_shirt": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_reds_0_shoe": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.1413,
+   0.0307,
+   0.0212
   ],
   "person_reds_0_shoes": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.1413,
+   0.0307,
+   0.0212
   ],
   "person_reds_0_skin": [
    0.3419,
@@ -166,29 +199,29 @@
    0.0999
   ],
   "person_reds_0_sole_0": [
-   0.0116,
-   0.0116,
-   0.013
+   0.016,
+   0.007,
+   0.006
   ],
   "person_reds_0_sole_1": [
-   0.0116,
-   0.0116,
-   0.013
+   0.016,
+   0.007,
+   0.006
   ],
   "person_reds_0_tail": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_reds_0_trouser": [
-   0.0423,
-   0.0802,
-   0.1946
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_reds_0_trousers": [
-   0.0423,
-   0.0802,
-   0.1946
+   0.0382,
+   0.0343,
+   0.0382
   ]
  }
 }

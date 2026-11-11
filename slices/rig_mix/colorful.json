@@ -44,17 +44,19 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "OLIVE TANK",
-   "coat": null,
+   "top": "BONE TANK",
+   "coat": "LEATHER VEST",
    "heritage": "hispanic",
    "skin": "tan",
    "sex": null,
    "wears": {
-    "base": "OLIVE TANK",
+    "base": "BONE TANK",
+    "outer": "LEATHER VEST",
     "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
     "feet": "OLIVE BOOTS",
-    "mid": "PATINA PLAID FLANNEL"
+    "back": "SALVAGE SATCHEL",
+    "gear": "OXBLOOD BRACERS"
    }
   },
   {

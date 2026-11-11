@@ -1,17 +1,20 @@
 {
  "look": "PERSON_COLORFUL_0",
- "shape": "person_colorful_0: a person of the Colorful, his own skin skin_mid 2, OLIVE TANK",
+ "shape": "person_colorful_0: a person of the Colorful, his own skin skin_mid 2, BONE TANK under LEATHER VEST",
  "worn": {
   "hair": "SHAG",
-  "base": "OLIVE TANK",
+  "base": "BONE TANK",
+  "outer": "LEATHER VEST",
   "head": "ROSE KNIT CAP",
   "legs": "GRASS DROP TROUSER",
   "feet": "OLIVE BOOTS",
+  "back": "SALVAGE SATCHEL",
+  "gear": "OXBLOOD BRACERS",
   "outfit": [
-   "an open PATINA PLAID FLANNEL over the OLIVE TANK",
-   "its sleeves rolled"
-  ],
-  "mid": "PATINA PLAID FLANNEL"
+   "OLIVE TANK read as one with LEATHER VEST (76 and 69 of 255): the same cut in BONE TANK (154)",
+   "LEATHER VEST worn open to the neck",
+   "the tank's hem below the vest"
+  ]
  },
  "dials": {
   "height": -0.6,
@@ -21,17 +24,17 @@
  },
  "layers": {
   "base": {
-   "under": "mid",
-   "arms_covered": true
+   "under": "VEST",
+   "hem_drop": 0.04
   },
-  "mid": {
-   "role": "mid",
-   "lift": 0.01,
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
    "open": true,
-   "ohw": 0.05,
-   "sleeves": "rolled"
-  },
-  "outer": {}
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_colorful_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -43,6 +46,10 @@
   "Cesium_Man": 3273,
   "person_colorful_0_shoe": 3716,
   "person_colorful_0_shirt": 21064,
+  "person_colorful_0_tail": 2016,
+  "person_colorful_0_coat": 21902,
+  "person_colorful_0_lapels": 396,
+  "person_colorful_0_zip": 324,
   "person_colorful_0_trouser": 43706,
   "person_colorful_0_drop_yoke": 5600,
   "person_colorful_0_ankle": 2048,
@@ -54,12 +61,13 @@
   "person_colorful_0_boot_collar_line": 2048,
   "person_colorful_0_eyelets_1": 120,
   "person_colorful_0_eyelets_0": 120,
-  "person_colorful_0_mid_shirt": 57180,
-  "person_colorful_0_mid_collar": 1536,
-  "person_colorful_0_mid_collar_points": 180,
-  "person_colorful_0_mid_front_edge": 396,
-  "person_colorful_0_mid_roll": 2048,
-  "person_colorful_0_mid_tail": 1818,
+  "person_colorful_0_salvage_satchel_bag": 98,
+  "person_colorful_0_salvage_satchel_flap": 26,
+  "person_colorful_0_salvage_satchel_strap": 1792,
+  "person_colorful_0_oxblood_bracers": 8932,
+  "person_colorful_0_oxblood_bracers_lace": 2048,
+  "person_colorful_0_oxblood_bracers_lace.001": 2048,
+  "person_colorful_0_oxblood_bracers_lace.002": 2048,
   "person_colorful_0_hair": 30198,
   "person_colorful_0_hair_fall": 2254,
   "person_colorful_0_hat": 4548,
@@ -87,6 +95,11 @@
    0.0262,
    0.0331,
    0.0116
+  ],
+  "person_colorful_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_colorful_0_drop_yoke": [
    0.2016,
@@ -128,50 +141,10 @@
    0.0612,
    0.0887
   ],
-  "person_colorful_0_mid_collar": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_colorful_0_mid_collar_points": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_colorful_0_mid_collar_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_colorful_0_mid_front_edge": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_colorful_0_mid_roll": [
-   0.1329,
-   0.3005,
-   0.2016
-  ],
-  "person_colorful_0_mid_shirt": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_colorful_0_mid_shirt_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_colorful_0_mid_tail": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_colorful_0_mid_tail_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_colorful_0_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_colorful_0_midsole_0": [
    0.0262,
@@ -183,10 +156,35 @@
    0.0331,
    0.0116
   ],
+  "person_colorful_0_oxblood_bracers": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_colorful_0_oxblood_bracers_lace": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_colorful_0_salvage_satchel_bag": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_colorful_0_salvage_satchel_flap": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_colorful_0_salvage_satchel_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_colorful_0_shirt": [
-   0.0666,
-   0.0823,
-   0.0262
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_colorful_0_shoe": [
    0.0666,
@@ -213,6 +211,11 @@
    0.0319,
    0.016
   ],
+  "person_colorful_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
   "person_colorful_0_trouser": [
    0.2016,
    0.4508,
@@ -227,6 +230,11 @@
    0.0545,
    0.1878,
    0.013
+  ],
+  "person_colorful_0_zip": [
+   0.0545,
+   0.0222,
+   0.0075
   ]
  }
 }

@@ -76,7 +76,10 @@
   },
   "face_name": "HAWK",
   "hat": "HAT BRICK WATCH CAP",
-  "top": "STORM GREY TEE"
+  "top": "SOOT TANK",
+  "coat": "LEATHER WRAP COAT",
+  "feet": "COLUMN PANT-BOOT",
+  "kit": ["SOOT HAND WRAPS", "HIP SASH"]
  },
  {
   "id": "anarchists_3",
@@ -1124,7 +1127,11 @@
    "face.cheekW": 31
   },
   "face_name": "HIGH DOME",
-  "top": "OLIVE TANK"
+  "top": "OLIVE TANK",
+  "coat": "LEATHER VEST",
+  "legs": "GRASS DROP TROUSER",
+  "feet": "OLIVE BOOTS",
+  "kit": ["SALVAGE SATCHEL", "OXBLOOD BRACERS"]
  },
  {
   "id": "colorful_1",
@@ -1348,7 +1355,11 @@
    "mouth.w": 7
   },
   "face_name": "GAUNT",
-  "top": "SAGE STRIPED HENLEY"
+  "top": "SAGE STRIPED HENLEY",
+  "coat": "WORK JACKET",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "BONE STACK BOOT",
+  "kit": ["SHOULDER MANTLE", "SOOT HAND WRAPS"]
  },
  {
   "id": "homeless_1",
@@ -1996,7 +2007,10 @@
   "facial_hair": "PENCIL MOUSTACHE",
   "new_beard": "pencil",
   "top": "SIGNAL RED SHIRT",
-  "coat": "RUST VEST"
+  "coat": "LEATHER VEST",
+  "legs": "SOOT CARGOS",
+  "feet": "OXBLOOD BOOTS",
+  "kit": ["LEATHER GLOVES", "SHELL BANDOLIER"]
  },
  {
   "id": "reds_1",
@@ -2024,8 +2038,11 @@
   "facial_hair": "HORSESHOE MOUSTACHE",
   "new_beard": "horseshoe",
   "hat": "HAT CHARCOAL WATCH CAP",
-  "top": "BRICK TEE",
-  "coat": "LEATHER HALF APRON"
+  "top": "STRIPED TEE",
+  "coat": "LEATHER HALF APRON",
+  "legs": "BRICK CROP TROUSER",
+  "feet": "LEATHER STACK BOOT",
+  "kit": ["OXBLOOD BRACERS", "LEATHER GLOVES"]
  },
  {
   "id": "reds_2",
@@ -2228,7 +2245,11 @@
   "face_name": "GAUNT",
   "facial_hair": "STUBBLE",
   "stubble": true,
-  "top": "WORK COVERALLS"
+  "top": "WORK COVERALLS",
+  "coat": "QUILTED VEST",
+  "legs": "OLIVE WIDE TROUSER",
+  "feet": "OLIVE STACK BOOT",
+  "kit": ["BONE SCARF", "SCRAP PAULDRON"]
  },
  {
   "id": "remnants_1",

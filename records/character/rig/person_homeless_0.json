@@ -1,13 +1,20 @@
 {
  "look": "PERSON_HOMELESS_0",
- "shape": "person_homeless_0: a person of the Homeless, his own skin skin_light 3, SAGE STRIPED HENLEY",
+ "shape": "person_homeless_0: a person of the Homeless, his own skin skin_light 3, BONE HENLEY under WORK JACKET",
  "worn": {
   "hair": "LAYERED FALL",
-  "base": "SAGE STRIPED HENLEY",
+  "base": "BONE HENLEY",
   "back": "SHOULDER MANTLE",
   "legs": "DUST BROWN TROUSERS",
   "feet": "BONE STACK BOOT",
-  "outfit": []
+  "outer": "WORK JACKET",
+  "hands": "SOOT HAND WRAPS",
+  "outfit": [
+   "SAGE STRIPED HENLEY read as one with WORK JACKET (99 and 80 of 255): the same cut in BONE HENLEY (154)",
+   "WORK JACKET worn open to the neck",
+   "the henley's hem below the jacket",
+   "the sleeve ends short of the cuff under it"
+  ]
  },
  "dials": {
   "height": -0.6,
@@ -16,9 +23,21 @@
   "hips": 0.25
  },
  "layers": {
-  "base": {},
+  "base": {
+   "under": "JACKET",
+   "hem_drop": 0.05,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
   "mid": {},
-  "outer": {}
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.05,
+   "collar_z": 1.12,
+   "fo_add": 0.25,
+   "sleeve_to": 1.7
+  }
  },
  "model": "records/character/rig/person_homeless_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -35,7 +54,14 @@
   "person_homeless_0_placket": 126,
   "person_homeless_0_buttons": 102,
   "person_homeless_0_cuffs": 2048,
-  "person_homeless_0_hem": 1792,
+  "person_homeless_0_tail": 2464,
+  "person_homeless_0_coat": 60346,
+  "person_homeless_0_collar.001": 1098,
+  "person_homeless_0_lapels": 396,
+  "person_homeless_0_waistband": 1792,
+  "person_homeless_0_cuffs.001": 2048,
+  "person_homeless_0_pockets": 252,
+  "person_homeless_0_pocket_flaps": 252,
   "person_homeless_0_trouser": 43706,
   "person_homeless_0_rolled_hem": 2048,
   "person_homeless_0_crease": 180,
@@ -45,6 +71,11 @@
   "person_homeless_0_midsole_0": 242,
   "person_homeless_0_boot_collar": 2048,
   "person_homeless_0_boot_collar_line": 2048,
+  "person_homeless_0_soot_hand_wraps_L": 392,
+  "person_homeless_0_soot_hand_wraps_R": 392,
+  "person_homeless_0_soot_hand_wraps_wrap_0": 2048,
+  "person_homeless_0_soot_hand_wraps_wrap_1": 2048,
+  "person_homeless_0_soot_hand_wraps_wrap_2": 2048,
   "person_homeless_0_hair": 30198,
   "person_homeless_0_hair_fall": 2646,
   "person_homeless_0_hand_L": 392,
@@ -67,19 +98,19 @@
    0.1046
   ],
   "person_homeless_0_buttons": [
-   0.1878,
-   0.2623,
-   0.162
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_homeless_0_coat": [
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_homeless_0_collar": [
-   0.0931,
-   0.1441,
-   0.0823
-  ],
-  "person_homeless_0_collar_print": [
-   0.8,
-   0.8,
-   0.8
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_homeless_0_crease": [
    0.1413,
@@ -87,9 +118,9 @@
    0.0273
   ],
   "person_homeless_0_cuffs": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_homeless_0_eyes": [
    0.0212,
@@ -106,10 +137,10 @@
    0.1878,
    0.0802
   ],
-  "person_homeless_0_hem": [
-   0.0931,
-   0.1441,
-   0.0823
+  "person_homeless_0_lapels": [
+   0.0595,
+   0.0307,
+   0.013
   ],
   "person_homeless_0_mantle": [
    0.305,
@@ -127,14 +158,19 @@
    0.1046
   ],
   "person_homeless_0_placket": [
-   0.0931,
-   0.1441,
-   0.0823
+   0.3763,
+   0.3231,
+   0.2086
   ],
-  "person_homeless_0_placket_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_homeless_0_pocket_flaps": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_homeless_0_pockets": [
+   0.1413,
+   0.0742,
+   0.0273
   ],
   "person_homeless_0_rolled_hem": [
    0.2664,
@@ -142,19 +178,9 @@
    0.0529
   ],
   "person_homeless_0_shirt": [
-   0.0931,
-   0.1441,
-   0.0823
-  ],
-  "person_homeless_0_shirt_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_homeless_0_shirt_print.001": [
-   0.8,
-   0.8,
-   0.8
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_homeless_0_shoe": [
    0.3763,
@@ -181,6 +207,31 @@
    0.1746,
    0.1221
   ],
+  "person_homeless_0_soot_hand_wraps": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_homeless_0_soot_hand_wraps_wrap_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_homeless_0_soot_hand_wraps_wrap_1": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_homeless_0_soot_hand_wraps_wrap_2": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_homeless_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
   "person_homeless_0_trouser": [
    0.1413,
    0.0742,
@@ -190,6 +241,11 @@
    0.1413,
    0.0742,
    0.0273
+  ],
+  "person_homeless_0_waistband": [
+   0.0595,
+   0.0307,
+   0.013
   ]
  }
 }

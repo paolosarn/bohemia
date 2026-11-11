@@ -1,14 +1,18 @@
 {
  "look": "PERSON_REMNANTS_0",
- "shape": "person_remnants_0: a person of the Remnants, his own skin skin_light 3, WORK COVERALLS",
+ "shape": "person_remnants_0: a person of the Remnants, his own skin skin_light 3, WORK COVERALLS under QUILTED VEST",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "WORK COVERALLS",
+  "outer": "QUILTED VEST",
   "head": "STORM KNIT CAP",
   "legs": "OLIVE WIDE TROUSER",
   "feet": "OLIVE STACK BOOT",
   "neck": "BONE SCARF",
-  "outfit": []
+  "gear": "SCRAP PAULDRON",
+  "outfit": [
+   "QUILTED VEST worn open to the neck"
+  ]
  },
  "dials": {
   "height": -0.18,
@@ -17,9 +21,17 @@
   "hips": 0.3
  },
  "layers": {
-  "base": {},
+  "base": {
+   "under": "VEST"
+  },
   "mid": {},
-  "outer": {}
+  "outer": {
+   "lift": 0.005,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
  },
  "model": "records/character/rig/person_remnants_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -39,6 +51,8 @@
   "person_remnants_0_pocket": 180,
   "person_remnants_0_flap": 108,
   "person_remnants_0_belt": 1792,
+  "person_remnants_0_coat": 20978,
+  "person_remnants_0_lapels": 396,
   "person_remnants_0_sole_1": 242,
   "person_remnants_0_midsole_1": 242,
   "person_remnants_0_sole_0": 242,
@@ -48,6 +62,8 @@
   "person_remnants_0_bone_scarf": 3072,
   "person_remnants_0_bone_scarf_tail": 162,
   "person_remnants_0_bone_scarf_fringe": 54,
+  "person_remnants_0_scrap_pauldron": 8930,
+  "person_remnants_0_scrap_pauldron_strap": 1792,
   "person_remnants_0_hair": 17968,
   "person_remnants_0_hat": 4548,
   "person_remnants_0_hat_brim": 2362,
@@ -90,6 +106,11 @@
    0.0331,
    0.0116
   ],
+  "person_remnants_0_coat": [
+   0.2307,
+   0.1812,
+   0.0953
+  ],
   "person_remnants_0_collar": [
    0.0437,
    0.0561,
@@ -130,6 +151,11 @@
    0.0648,
    0.0762
   ],
+  "person_remnants_0_lapels": [
+   0.1144,
+   0.0887,
+   0.0437
+  ],
   "person_remnants_0_midsole_0": [
    0.0262,
    0.0331,
@@ -149,6 +175,21 @@
    0.0185,
    0.0242,
    0.0123
+  ],
+  "person_remnants_0_scrap_pauldron": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_remnants_0_scrap_pauldron_rim": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_remnants_0_scrap_pauldron_strap": [
+   0.0865,
+   0.0252,
+   0.0091
   ],
   "person_remnants_0_shirt": [
    0.0437,

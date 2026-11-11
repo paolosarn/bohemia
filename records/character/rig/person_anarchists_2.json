@@ -1,16 +1,17 @@
 {
  "look": "PERSON_ANARCHISTS_2",
- "shape": "person_anarchists_2: a person of the Anarchists, his own skin skin_deep 2, STORM GREY TEE",
+ "shape": "person_anarchists_2: a person of the Anarchists, his own skin skin_deep 2, BONE TANK under LEATHER WRAP COAT",
  "worn": {
   "hair": "LAYERED FALL",
-  "base": "STORM GREY TEE",
+  "base": "BONE TANK",
+  "outer": "LEATHER WRAP COAT",
   "head": "CHARCOAL WATCH CAP",
-  "feet": "COAL COLUMN",
+  "feet": "COLUMN PANT-BOOT",
+  "hands": "SOOT HAND WRAPS",
+  "waist": "HIP SASH",
   "outfit": [
-   "an open PATINA PLAID FLANNEL over the STORM GREY TEE",
-   "its sleeves rolled"
-  ],
-  "mid": "PATINA PLAID FLANNEL"
+   "SOOT TANK read as one with LEATHER WRAP COAT (52 and 69 of 255): the same cut in BONE TANK (154)"
+  ]
  },
  "dials": {
   "height": 0.45,
@@ -20,17 +21,13 @@
  },
  "layers": {
   "base": {
-   "under": "mid",
+   "under": "WRAP COAT",
    "arms_covered": true
   },
-  "mid": {
-   "role": "mid",
-   "lift": 0.012,
-   "open": true,
-   "ohw": 0.05,
-   "sleeves": "rolled"
-  },
-  "outer": {}
+  "mid": {},
+  "outer": {
+   "lift": 0.0028
+  }
  },
  "model": "records/character/rig/person_anarchists_2.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -41,18 +38,24 @@
  "meshes": {
   "Cesium_Man": 3273,
   "person_anarchists_2_shoe": 3148,
-  "person_anarchists_2_shirt": 40088,
+  "person_anarchists_2_shirt": 21164,
+  "person_anarchists_2_coat": 76012,
+  "person_anarchists_2_coat_skirt": 6048,
   "person_anarchists_2_collar": 1536,
-  "person_anarchists_2_hem": 1792,
+  "person_anarchists_2_belt": 1792,
+  "person_anarchists_2_wrap_edge": 198,
+  "person_anarchists_2_knot": 68,
   "person_anarchists_2_column": 74570,
   "person_anarchists_2_column_sole_1": 242,
   "person_anarchists_2_column_sole_0": 242,
-  "person_anarchists_2_mid_shirt": 56948,
-  "person_anarchists_2_mid_collar": 1536,
-  "person_anarchists_2_mid_collar_points": 180,
-  "person_anarchists_2_mid_front_edge": 396,
-  "person_anarchists_2_mid_roll": 2048,
-  "person_anarchists_2_mid_tail": 1818,
+  "person_anarchists_2_soot_hand_wraps_L": 392,
+  "person_anarchists_2_soot_hand_wraps_R": 392,
+  "person_anarchists_2_soot_hand_wraps_wrap_0": 2048,
+  "person_anarchists_2_soot_hand_wraps_wrap_1": 2048,
+  "person_anarchists_2_soot_hand_wraps_wrap_2": 2048,
+  "person_anarchists_2_hip_sash": 1792,
+  "person_anarchists_2_hip_sash_knot": 34,
+  "person_anarchists_2_hip_sash_tail": 98,
   "person_anarchists_2_hair": 30198,
   "person_anarchists_2_hair_fall": 2646,
   "person_anarchists_2_hat": 3444,
@@ -66,25 +69,40 @@
    0.8,
    0.8
   ],
+  "person_anarchists_2_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_anarchists_2_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_anarchists_2_coat_skirt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
   "person_anarchists_2_collar": [
-   0.0595,
-   0.0648,
-   0.0802
+   0.1301,
+   0.0513,
+   0.016
   ],
   "person_anarchists_2_column": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_anarchists_2_column_sole_0": [
-   0.0116,
-   0.0116,
-   0.013
+   0.007,
+   0.006,
+   0.007
   ],
   "person_anarchists_2_column_sole_1": [
-   0.0116,
-   0.0116,
-   0.013
+   0.007,
+   0.006,
+   0.007
   ],
   "person_anarchists_2_eyes": [
    0.0212,
@@ -111,80 +129,75 @@
    0.0343,
    0.0369
   ],
-  "person_anarchists_2_hem": [
-   0.0595,
-   0.0648,
-   0.0802
+  "person_anarchists_2_hip_sash": [
+   0.1441,
+   0.0252,
+   0.0176
   ],
-  "person_anarchists_2_mid_collar": [
-   0.063,
-   0.1651,
-   0.1095
+  "person_anarchists_2_hip_sash_knot": [
+   0.0482,
+   0.0103,
+   0.0086
   ],
-  "person_anarchists_2_mid_collar_points": [
-   0.063,
-   0.1651,
-   0.1095
+  "person_anarchists_2_hip_sash_tail": [
+   0.1441,
+   0.0252,
+   0.0176
   ],
-  "person_anarchists_2_mid_collar_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_anarchists_2_mid_front_edge": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_anarchists_2_mid_roll": [
-   0.1329,
-   0.3005,
-   0.2016
-  ],
-  "person_anarchists_2_mid_shirt": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_anarchists_2_mid_shirt_print": [
-   0.8,
-   0.8,
-   0.8
-  ],
-  "person_anarchists_2_mid_tail": [
-   0.063,
-   0.1651,
-   0.1095
-  ],
-  "person_anarchists_2_mid_tail_print": [
-   0.8,
-   0.8,
-   0.8
+  "person_anarchists_2_knot": [
+   0.0545,
+   0.0222,
+   0.0075
   ],
   "person_anarchists_2_shirt": [
-   0.0595,
-   0.0648,
-   0.0802
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_anarchists_2_shoe": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_anarchists_2_shoes": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0382,
+   0.0343,
+   0.0382
   ],
   "person_anarchists_2_skin": [
    0.1441,
    0.0545,
    0.0296
   ],
+  "person_anarchists_2_soot_hand_wraps": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_2_soot_hand_wraps_wrap_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_anarchists_2_soot_hand_wraps_wrap_1": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_anarchists_2_soot_hand_wraps_wrap_2": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
   "person_anarchists_2_trousers": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_anarchists_2_wrap_edge": [
+   0.0545,
+   0.0222,
+   0.0075
   ]
  }
 }

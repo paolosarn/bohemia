@@ -782,10 +782,10 @@
 "packedMB": 3.75
 },
 "person_anarchists_2.webp": {
-"bytes": 258924,
+"bytes": 280808,
 "decodedMB": 17.07,
-"fill": 0.197,
-"packedMB": 3.8
+"fill": 0.198,
+"packedMB": 3.79
 },
 "person_blues_0.webp": {
 "bytes": 262656,
@@ -860,10 +860,10 @@
 "packedMB": 4.0
 },
 "person_colorful_0.webp": {
-"bytes": 253576,
+"bytes": 264958,
 "decodedMB": 17.07,
-"fill": 0.199,
-"packedMB": 3.86
+"fill": 0.2,
+"packedMB": 3.85
 },
 "person_colorful_1.webp": {
 "bytes": 257004,
@@ -878,10 +878,10 @@
 "packedMB": 4.04
 },
 "person_homeless_0.webp": {
-"bytes": 252054,
+"bytes": 267552,
 "decodedMB": 16.83,
-"fill": 0.199,
-"packedMB": 3.8
+"fill": 0.2,
+"packedMB": 3.79
 },
 "person_homeless_1.webp": {
 "bytes": 312522,
@@ -1016,16 +1016,16 @@
 "packedMB": 3.95
 },
 "person_reds_0.webp": {
-"bytes": 255256,
+"bytes": 280534,
 "decodedMB": 18.17,
 "fill": 0.193,
-"packedMB": 4.04
+"packedMB": 4.07
 },
 "person_reds_1.webp": {
-"bytes": 265058,
+"bytes": 268912,
 "decodedMB": 18.17,
-"fill": 0.184,
-"packedMB": 3.74
+"fill": 0.186,
+"packedMB": 3.82
 },
 "person_reds_2.webp": {
 "bytes": 258388,
@@ -1034,10 +1034,10 @@
 "packedMB": 3.83
 },
 "person_remnants_0.webp": {
-"bytes": 275426,
+"bytes": 277452,
 "decodedMB": 17.32,
-"fill": 0.196,
-"packedMB": 3.8
+"fill": 0.197,
+"packedMB": 3.81
 },
 "person_remnants_1.webp": {
 "bytes": 259536,
@@ -1228,7 +1228,7 @@
 },
 "totals": {
 "decodedMB": 4051.9,
-"packedMB": 794.6,
+"packedMB": 794.7,
 "sheets": 204
 }
 }

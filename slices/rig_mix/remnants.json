@@ -45,16 +45,18 @@
    "beard": "STUBBLE",
    "mark": null,
    "top": "WORK COVERALLS",
-   "coat": null,
+   "coat": "QUILTED VEST",
    "heritage": "white",
    "skin": "very light",
    "sex": "m",
    "wears": {
     "base": "WORK COVERALLS",
+    "outer": "QUILTED VEST",
     "head": "STORM KNIT CAP",
     "legs": "OLIVE WIDE TROUSER",
     "feet": "OLIVE STACK BOOT",
-    "neck": "BONE SCARF"
+    "neck": "BONE SCARF",
+    "gear": "SCRAP PAULDRON"
    }
   },
   {

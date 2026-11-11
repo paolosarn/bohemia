@@ -7,9 +7,9 @@
   "outer": "LEATHER HALF APRON",
   "legs": "BRICK CROP TROUSER",
   "feet": "LEATHER STACK BOOT",
-  "outfit": [
-   "BRICK TEE read as one with LEATHER HALF APRON (68 and 69 of 255): the same cut in STRIPED TEE (154)"
-  ]
+  "gear": "OXBLOOD BRACERS",
+  "hands": "LEATHER GLOVES",
+  "outfit": []
  },
  "dials": {
   "height": 0.75,
@@ -50,6 +50,13 @@
   "person_reds_1_midsole_0": 242,
   "person_reds_1_boot_collar": 2048,
   "person_reds_1_boot_collar_line": 2048,
+  "person_reds_1_oxblood_bracers": 8916,
+  "person_reds_1_oxblood_bracers_lace": 2048,
+  "person_reds_1_oxblood_bracers_lace.001": 2048,
+  "person_reds_1_oxblood_bracers_lace.002": 2048,
+  "person_reds_1_leather_gloves_L": 392,
+  "person_reds_1_leather_gloves_R": 392,
+  "person_reds_1_leather_gloves_cuff": 2048,
   "person_reds_1_hair": 17968,
   "person_reds_1_hand_L": 392,
   "person_reds_1_hand_R": 392
@@ -105,6 +112,16 @@
    0.3231,
    0.2086
   ],
+  "person_reds_1_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_reds_1_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
   "person_reds_1_midsole_0": [
    0.0545,
    0.0222,
@@ -114,6 +131,16 @@
    0.0545,
    0.0222,
    0.0075
+  ],
+  "person_reds_1_oxblood_bracers": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_reds_1_oxblood_bracers_lace": [
+   0.0482,
+   0.0103,
+   0.0086
   ],
   "person_reds_1_shirt": [
    0.3763,

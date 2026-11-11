@@ -44,16 +44,18 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "SAGE STRIPED HENLEY",
-   "coat": null,
+   "top": "BONE HENLEY",
+   "coat": "WORK JACKET",
    "heritage": "white",
    "skin": "very light",
    "sex": null,
    "wears": {
-    "base": "SAGE STRIPED HENLEY",
+    "base": "BONE HENLEY",
     "back": "SHOULDER MANTLE",
     "legs": "DUST BROWN TROUSERS",
-    "feet": "BONE STACK BOOT"
+    "feet": "BONE STACK BOOT",
+    "outer": "WORK JACKET",
+    "hands": "SOOT HAND WRAPS"
    }
   },
   {
