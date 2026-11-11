@@ -54,6 +54,14 @@ const REGISTRY = 'records/target/BOHEMIA_VOTE_REGISTRY.json';
 const TRIAGE = 'records/target/BOHEMIA_VOTE_TRIAGE.json';
 const TEXT = /\.(html?|m?js|json|css|txt|svg|webmanifest)$/i;
 const NEVER_WHOLE = new Set(['slices', 'engine', 'records', 'records/target']);
+/* rule 5 (PLUMBER 8, 11/11/26, ask row 563: PAGES PUBLISH red on main, the list at 912.7 MB over its 900 cap):
+   A FILE A PAGE NAMES BUT NEVER LOADS IS NOT PUBLISHED, and only by name here, each with the code that proves it.
+   slices/BOHEMIA_RUN_CURRENT.html (21.5 MB): the alpha names it as runFrame's data-src, and nothing ever promotes it:
+   the RUN tab routes to the city panel (the shell's '(t.dataset.p==='run') ? 'city'') and the tab loader reads the
+   panel it SHOWS (__THE_RUN_SLICE_IS_NOT_DOWNLOADED__), and no line sets runFrame.src. Measured on the demo, after
+   the door and after the RUN tab: runFrame src null, 0 loads. The serve-only gate (the_site_serves_what_the_game_
+   loads_gate.js L2) presses every tab on a server that answers only this list, so the day a tab loads it, that is red. */
+const NOT_LOADED = new Set(['slices/BOHEMIA_RUN_CURRENT.html']);
 const TOKEN = /[A-Za-z0-9_\-.\/%~]{3,}/g;
 /* rule 3 reads CODE only: names are built in a page or a script. A data file that names a folder is almost always
    saying where a thing came from ("src": "records/target/master_rig/..."), and measured, one such line in the style
@@ -99,6 +107,7 @@ function compute() {
      strong one names later turns strong and is read again. */
   const keep = new Set(), why = new Map(), whole = new Map(), taken = new Set(), weak = new Set(), queue = [];
   const add = (f, from, isWeak) => {
+    if (NOT_LOADED.has(f)) return;
     if (keep.has(f)) { if (!isWeak && weak.has(f)) { weak.delete(f); why.set(f, from); if (TEXT.test(f)) queue.push(f); } return; }
     keep.add(f); why.set(f, from); if (isWeak) weak.add(f); if (TEXT.test(f)) queue.push(f);
   };
@@ -167,7 +176,7 @@ function compute() {
   return { files, size, why, whole: [...whole.keys()].sort(), weak, folders, total: all.length };
 }
 
-module.exports = { ROOTS, ENTRIES, REGISTRY, compute, shownCards };
+module.exports = { ROOTS, ENTRIES, REGISTRY, NOT_LOADED, compute, shownCards };
 
 if (require.main === module) {
   const a = process.argv.slice(2);

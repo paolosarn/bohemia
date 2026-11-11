@@ -9249,6 +9249,11 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('THE PHONE REDRAWS ONLY WHAT MOVED', ['node', 'gates/the_phone_redraws_only_what_moved_gate.js'],
+     "PLUMBER 8 gate, 11/11, ask row 560 and MOTION 3's hand-off (rule 441: the way out of camp drew the whole map twice, the second "
+     "time on the phone's event though nothing on the map had moved; at 4x the worst gap after the leave 933 -> 667 ms by his tap, "
+     "1,783 -> 1,033 ms the census's way). K1 the phone's event five times with nothing moved: not drawn again; K2 the phone's margin "
+     "moved: drawn; K3 the phone's box changed: drawn; P1 the old way (window.__MF_EVENT_EACH) draws on every event. About 1 min", True),
     ('THE GROUND WAITS BEHIND THE DOOR', ['node', 'gates/the_ground_is_not_repainted_behind_the_door_gate.js'],
      "PLUMBER 8 gate, 11/11, ask row 561 (rule 441, the boot): before the door's load was in the map painted its whole ground 41 to 46 "
      "times, most of them the same picture at the same place under the loading picture. G1 behind the door the ground is laid again, "

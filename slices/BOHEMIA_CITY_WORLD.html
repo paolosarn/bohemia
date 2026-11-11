@@ -47866,7 +47866,16 @@ function mapFocus(){ var F = mapFocusRead(false); return { x: CVW / 2 + F.fo.x, 
 function mapOpenArea(){ var F = mapFocusRead(false), p = F.pad; return { x0: p.left, y0: p.top, x1: CVW - p.right, y1: CVH - p.bottom, cx: CVW / 2 + F.fo.x, cy: CVH / 2 + F.fo.y }; }
 try { window.MAP_FOCUS = MAP_FOCUS; window.mapFocus = mapFocus; window.mapOpenArea = mapOpenArea;
   var __mfNow = function(){ try { mapFocusRead(true); if (typeof MODE !== 'undefined' && MODE === 'city') renderSoon(); } catch (_e) {} };
-  window.addEventListener('bohemia-phone', __mfNow); window.addEventListener('resize', function(){ setTimeout(__mfNow, 30); });
+  /* __THE_PHONE_REDRAWS_ONLY_WHAT_MOVED__ (PLUMBER 8, 11/11/26, ask row 560 and MOTION 3's hand-off, rule 441: 'the map is drawn twice in
+     the first second' of the way out of camp: the leave's own render() inside loopClose, then this redraw on the phone's 'bohemia-phone'
+     event, 200 to 400 ms each at 4x). The phone's event re-frames the map round the phone; when the frame did not move (the focus
+     signature the same, as the half-second look below already asks) and the phone's own box the same (the land's names step aside from
+     it, mapNamesBegin) there is nothing new to draw. window.__MF_EVENT_EACH = the old way. */
+  var __mfBox = function(){ try { var R = window.BOH_PHONE_RECT ? BOH_PHONE_RECT() : null; return R ? [R.on !== false, Math.round(R.left), Math.round(R.top), Math.round(R.width), Math.round(R.height)].join(',') : ''; } catch (_e) { return '?'; } };
+  var __mfPhone = function(){ try { if (window.__MF_EVENT_EACH) return __mfNow(); var was = MAP_FOCUS.sig, box = __mfBox(); mapFocusRead(true);
+    if ((MAP_FOCUS.sig !== was || box !== MAP_FOCUS.phoneBox) && typeof MODE !== 'undefined' && MODE === 'city') { MAP_FOCUS.phoneBox = box; renderSoon(); }
+    else { MAP_FOCUS.phoneBox = box; MAP_FOCUS.phoneKept = (MAP_FOCUS.phoneKept | 0) + 1; } } catch (_e) {} };
+  window.addEventListener('bohemia-phone', __mfPhone); window.addEventListener('resize', function(){ setTimeout(__mfNow, 30); });
   window.addEventListener('orientationchange', function(){ setTimeout(__mfNow, 120); });
   /* the 10/24 phone comes and goes with no event (the door, a town, a fight): looked at twice a second, a re-draw only on a change */
   setInterval(function(){ try { if (typeof MODE === 'undefined' || MODE !== 'city') return; var was = MAP_FOCUS.sig; mapFocusRead(true); if (MAP_FOCUS.sig !== was) renderSoon(); } catch (_e) {} }, 500); } catch (_e) {}
