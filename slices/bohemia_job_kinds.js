@@ -213,6 +213,49 @@
       .replace(/\{place\}/g, job.placeName || job.what || 'the camp').replace(/\{from\}/g, job.from || 'the town').replace(/\{dest\}/g, (job.dest && job.dest.name) || 'the town').replace(/\{label\}/g, label || 'them');
   }
   root.__EVERY_JOB_NAMES_ITS_FOE__ = foeSays;
+  /* ==== __A_JOB_SAYS_WHAT_IT_ASKS__ (JOBS 11/11, rule 425; the coordinator: 'the job board shows what a job really asks before he
+     takes it'). Battle Brothers' contract screen says the objectives before you sign (bb_all/0441: 'Destroy objective A and B, then
+     return'); ours said the pay, the walk and the stars. NOW the offer says every stop in order and each fight there: how many and who,
+     read off the danger reader's own roll for the job the yes would make (BohemiaJobDanger.fightsFor: 'the band read is the band met',
+     so two bison are said as two bison); a fight that only might come is a maybe with its odds; and what the job pays in name (CLOUT,
+     renown.json's gains: the job done, each man beaten, each place put down). The road's own chance is the trip line's 'if nobody stops
+     you'. draft:true ==== */
+  function cloutOf(key) { var R = root.BohemiaRenown, g = null; try { g = R && R.data ? (R.data().gains || {})[key] : null; } catch (e) {} return typeof g === 'number' ? g : 0; }
+  var ASK_WORD = { wave: 'wave', raid: 'raiders on the way', pack: 'a pack', camp: 'the camp', thief: 'thieves after it', lair: 'their lair', guards: 'the ones holding them', band: 'a crew on the road', gate: 'a crew at the gate', ambush: 'an ambush', crew: 'the crew', guard: 'its guards' };
+  function asks(c, placeName) {
+    if (!c || !DATA) return null;
+    var t = null; towns().forEach(function (q) { if (q.name === placeName) t = q; }); if (!t) return null;
+    var job = plan(c, t); if (!job || !job.plays) return null;
+    var fs = null; try { fs = root.BohemiaJobDanger && BohemiaJobDanger.fightsFor ? BohemiaJobDanger.fightsFor(c, placeName) : null; } catch (e) { fs = null; }
+    if (!fs) fs = (fightsOf(job, { offer: c, place: placeName }) || []).map(function (f) { return { what: f.what, n: f.n, p: f.p, band: null, faction: f.faction, road: f.road }; });
+    fs = fs.filter(function (f) { return !f.road; });
+    var who = function (f) { var n = f.band ? f.band.length : f.n, w = null; try { w = f.band && root.BohemiaJobDanger ? BohemiaJobDanger.kindWord(f.band, f.faction) : null; } catch (e) {}
+      return n + ' ' + (w ? String(w).toLowerCase() : (n === 1 ? 'man' : 'men')); };
+    var odds = function (p) { return p >= 0.999 ? '' : ' (maybe: about ' + (p >= 0.5 ? Math.round(p * 10) + ' in 10' : '1 in ' + Math.max(2, Math.round(1 / Math.max(0.01, p)))) + ')'; };
+    var stops = [], men = 0, places = 0, sure = 0, maybe = 0, choose = 0;   /* choose: a fight a talk can come to, his to choose */
+    var count = function (f) { if (f.p >= 0.999) { sure++; men += f.band ? f.band.length : f.n; } else { maybe++; men += (f.band ? f.band.length : f.n) * f.p; } };
+    if (job.legs) {
+      job.legs.forEach(function (L, i) { if (L.done) return;
+        if (L.go === 'client') { stops.push(i === job.legs.length - 1 ? 'back to ' + job.from + ' to be paid' : 'back to ' + job.from + ': ' + String(L.act || 'go').toLowerCase()); return; }
+        var f = fs.filter(function (x) { return x.what === 'leg' + i; })[0], w = String(L.name || L.townName || 'the place').toUpperCase() + ': ' + String(L.act || job.word || 'go').toLowerCase();
+        if (L.talk) w += ', a word with ' + String(L.talk.name || 'them') + (f ? ', and it can come to a fight with ' + who(f) : '');
+        else if (f) w += ', a fight with ' + who(f) + odds(f.p);
+        if (L.clout && cloutOf(L.clout)) { places += cloutOf(L.clout); w += ' (+' + cloutOf(L.clout) + ' ' + ((root.BohemiaRenown && BohemiaRenown.WORD) || 'CLOUT') + ')'; }
+        if (f && L.talk) { choose++; men += f.band ? f.band.length : f.n; } else if (f) count(f);
+        stops.push(w); });
+    } else {
+      var lead = String(job.sayTake || '').replace(/^Contract from [^:]*: /, '').split('. ')[0];
+      if (lead) stops.push(lead.charAt(0).toLowerCase() + lead.slice(1));
+      var k = 0;
+      fs.forEach(function (f) { var wd = ASK_WORD[f.what] || f.what; if (f.what === 'wave') wd = 'wave ' + (++k);
+        stops.push(wd + ': ' + who(f) + odds(f.p)); count(f); });
+      if (BACK[job.plays]) stops.push('back to ' + job.from + ' to be paid');
+    }
+    var cl = cloutOf('civilian_contract_done') + Math.round(men * cloutOf('fight_won_per_enemy')) + places, CW = (root.BohemiaRenown && BohemiaRenown.WORD) || 'CLOUT';
+    var words = 'What it asks: ' + stops.map(function (x, i) { return (i ? 'then ' : '') + x; }).join('; ') + '. ' +
+      (sure ? sure + (sure === 1 ? ' fight' : ' fights') : 'No sure fight') + (choose ? ', ' + choose + ' if it comes to that' : '') + (maybe ? ', ' + maybe + ' maybe' : '') + '. Your name: about +' + cl + ' ' + CW + '.';
+    return { words: words, stops: stops, sure: sure, maybe: maybe, choose: choose, clout: cl, plays: job.plays };   /* draft:true */
+  }
   /* the company's contract multiplier for a job of these skulls (the count partyMath deals over the skulls' base): what a hunt's kills scale by */
   function contractMult(sk) {
     var C = contractV(); if (!C || !C.hunt_scales) return 1;
@@ -1084,7 +1127,9 @@
     var legs = ((row && Array.isArray(row.legs) && row.legs.length) ? row.legs : k.legs).map(function (L) { return JSON.parse(JSON.stringify(L)); });   /* WORLD 9: a board row may carry its own legs (a named giant's hunt is big game with its own animal) */
     if (k.twist && k.twist.leg && R() < (+k.twist.rate || 0)) { legs.splice(clamp(k.twist.at | 0, 0, legs.length - 1), 0, JSON.parse(JSON.stringify(k.twist.leg))); job.twist = k.twist.id || 'twist'; }
     var prev = { x: town.x, y: town.y };
-    for (var i = 0; i < legs.length; i++) { var L = legs[i], p = legSpot(L, town, prev, R); if (!p) return false;
+    for (var i = 0; i < legs.length; i++) { var L = legs[i], A = L.go === 'again' ? legs[clamp(L.at | 0, 0, i - 1)] : null,   /* JOBS 11/11: 'again' is a leg before it (Restore Location's walk back with the workers); 'round' is out from the client's own town (Break Siege) */
+        p = A ? { x: A.x, y: A.y, town: A.town, name: A.townName } : legSpot(L, town, L.round ? { x: town.x, y: town.y } : prev, R); if (!p) return false;
+      if (A && !L.name) L.name = A.name;
       L.x = p.x; L.y = p.y; L.town = !!p.town; L.townName = p.name || null; if (!L.name && p.name) L.name = p.name;
       if (L.fight) { var n = L.fight.n; if (n === 'party' || !n) { try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) { n = 3; } n = legShare(n, L.fight); } L.fight.left = Math.max(1, n | 0); }   /* JOBS 11/10: a leg's share */
       if (!p.town) prev = { x: p.x, y: p.y }; }
@@ -1098,7 +1143,8 @@
   function legsFx(job, fx, name) { var RE = root.BohemiaRoadEvents; if (!fx || !RE) return null; try { return RE.apply(fx, { id: job.id, name: name || job.title, why: 'contract: ' + job.title }); } catch (e) { return null; } }
   function legsPaid(job, line) { var n = Math.round(job.pay * (job.payMult == null ? 1 : job.payMult)); paid(job, n, (line ? line + ' ' : '') + 'Paid ' + n + ' batteries.'); }   /* draft:true */
   function legDone(job, line) {
-    var L = legNow(job); if (L) { L.done = true; var r = legsFx(job, L.fx); if (r && r.got && r.got.length) line = (line ? line + ' ' : '') + '(' + r.got.join(', ') + ')'; }
+    var L = legNow(job); if (L) { L.done = true; var r = legsFx(job, L.fx); if (r && r.got && r.got.length) line = (line ? line + ' ' : '') + '(' + r.got.join(', ') + ')';
+      if (L.clout) { var cg = cloutOf(L.clout); if (cg && root.BohemiaRenown) { try { BohemiaRenown.add(cg, String(L.clout), 'job:' + job.id + ':leg' + (job.li | 0)); line = (line ? line + ' ' : '') + '(+' + cg + ' ' + BohemiaRenown.WORD + ')'; } catch (e) {} } } }   /* JOBS 11/11: a place put down, Battle Brothers' 'Destroying a Location' (renown.json gains) */
     job.li = (job.li | 0) + 1; root.__JOB_LEGS = (root.__JOB_LEGS || []).concat([{ id: job.id, leg: job.li, kind: job.plays }]).slice(-40);
     var N = legNow(job);
     if (!N) return legsPaid(job, line);
@@ -2191,7 +2237,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, asks: asks, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap,
     letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the kill on the map (slices/bohemia_carcass.js, WORLD 12) */
   load();

@@ -1,6 +1,38 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/10 LATEST -- BUILD 11/10o - THE SIX CONTRACTS, BUILT, NOT YET SEEN (rule 443(c), asks 567 and 102;
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/11 LATEST -- BUILD 11/11s - THE NEW KINDS, BUILT, NOT YET SEEN (rules 425, 441; asks 41, 107, 491,
+and EYES' 610; the coordinator's routine 'JOBS next round'). Record: records/BOHEMIA_JOBS_THE_NEW_KINDS_11_11_26.md.
+- MEASURED FIRST: escort, defend, hunt, deliver and find a person were ours (find a person on 2 offers); Battle Brothers' Root Out,
+  Break Siege, Obtain Item and Restore Location had no kind of ours (0 offers each).
+- FOUR NEW KINDS as legs rows of WORLD's engine (records/target/BOHEMIA_JOB_KINDS.json kinds root-out, siege, obtain, restore; two
+  marked lines in slices/bohemia_job_kinds.js makeLegs: 'again' = a leg before it, 'round' = out from the client's town): root out two
+  places (split 2, +10 CLOUT each), break the ring (three fights round the client's town, split 3, the camp +10), get it (a talk:
+  stand and fight, run with 0.6 of the pay, put it back and lose it), restore in two parts (the ruin; back for the workers; the ruin
+  again; back to be paid; one in three a fight on the walk, half a contract). TUNING's section Y rows; renown.json place_destroyed 10
+  (Battle Brothers' renown table, bb_all/1679, which IS in the repo: its Contract Completed is +25, ours 100, routed to TUNING).
+- FIFTEEN JOBS (board_people jb-root-*, jb-ring-*, jb-get-*, jb-restore-*, jb-find-*): three of each plus three to find a person, one
+  to three skulls, each from a named person of ONE town in its look; slices/bohemia_board_shelf.js posts a row with 'towns' at those
+  towns only, and the town's own person asks first. Pay: ECONOMY's bake.
+- THE CARD SAYS WHAT IT ASKS (asks() in slices/bohemia_job_kinds.js, __A_JOB_SAYS_WHAT_IT_ASKS__; the line in the settlement screen's
+  offerSpeak): every stop, every fight, how many and who (BohemiaJobDanger.fightsFor's own roll: 'the band read is the band met'), a
+  maybe with its odds, a talk's fight as his choice, about how much CLOUT.
+- EYES 610 FIXED (__A_POSTED_JOB_STAYS_POSTED__ in the shelf): measured in node on main's shelf, the day turning inside a board's window
+  while the towns' news changes (a market day, a sickness) re-dealt 19 of 27 posted jobs away; now 0 (localStorage
+  bohemia.board.posted.v1, by campaign and window; a raided place deals again; the day's floor still takes off what it now keeps back).
+GATE THE NEW KINDS (new, in the suite): N1 to N6 the files and the re-deal (JOBS_PLANT=1 plants four copies, N6 its own plant), P1 the
+demo both ways, P2 the alpha both ways (each kind found on its own town's board with a finger, read, Take it, played to the pay), P3
+the card's fights are the fights met, P4 asks() planted away, P5 nothing threw: 24/0 rebased on 11/11q. JOBS THAT FIT 9/0,
+THE SIX CONTRACTS 14/0, THE BOARDS ALWAYS HAVE WORK 19/5 (main's same five reds).
+NEXT (the jump list):
+1. [the CLOUT a man beaten] the card counts 5 CLOUT a man beaten; the phone walk's forced ends counted fewer (+130 where the card said
+   about +140): read BohemiaRenown.fightWon's count on a real AUTO fight before calling the card's number exact.
+2. [a siege for a big crew] break the ring's fights are 1 or 2 men for a new crew of three (split 3): right by the contract, small to
+   look at; a siege could carry a fourth fight past day 20 (Battle Brothers: 2-3 parties and 1-2 camps).
+3. (from 11/10) the big beasts' cost (ask row 574); obtain and restore now have kinds; the survey repeats.
+[bb Battle Brothers says a contract's objectives before you sign; ours now says them with the real fights, who and how many]
+[analog horror: the card already knows it will be two coyotes on the garden road, and tells you, in the client's own handwriting]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/10 -- BUILD 11/10o - THE SIX CONTRACTS, BUILT, NOT YET SEEN (rule 443(c), asks 567 and 102;
 the coordinator's routine 'JOBS: more contract kinds'). Record: records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md.
 - MEASURED FIRST: Battle Brothers' six contract kinds all existed (WORLD's job kinds) but the boards held 1 delivery, 1 debt, 2 places to
   clear, 2 defences, 3 escorts among 46 ordinary offers; three fights were a fixed two men; a defence's waves, a caravan's raids and a

@@ -27,8 +27,8 @@
     "source": "the scores are the wiki's Renown levels (same table as the slots); the words are ours, draft:true (EYES [eyes: the BB names]: never the wiki's word on a screen)"
   },
   "gains": {
-    "value": { "civilian_contract_done": 100, "civilian_contract_poor": 50, "fail_civilian_contract": -75, "cancel_contract": -100, "fight_won_per_enemy": 5, "ambition": 100 },
-    "source": "cancel -100 and fail -75: the wiki's Renown page as WORLD cites it (slices/bohemia_job_kinds.js, bb_all/1679_Renown); ambition 100: the wiki's Ambitions page ('All ambitions give at least 100 renown'); a contract done 100, done in part 50 and a won fight 5 a man beaten: RECALL, unverified, the wiki copy in this repo prints no number; TUNING sets them"
+    "value": { "civilian_contract_done": 100, "civilian_contract_poor": 50, "fail_civilian_contract": -75, "cancel_contract": -100, "fight_won_per_enemy": 5, "ambition": 100, "place_destroyed": 10 },
+    "source": "cancel -100 and fail -75: the wiki's Renown page as WORLD cites it (slices/bohemia_job_kinds.js, bb_all/1679_Renown); ambition 100: the wiki's Ambitions page ('All ambitions give at least 100 renown'); a contract done 100, done in part 50 and a won fight 5 a man beaten: RECALL, unverified, the wiki copy in this repo prints no number; TUNING sets them. place_destroyed 10: JOBS 11/11 (rule 425, a job's place put down), the wiki's Renown page IS in this repo (bb_all/1679_Renown in reference/library/grok/wiki/PAGES_ALL.tar.gz) and its table says 'Destroying a Location +10'; the same table says 'Contract Completed +25', 'Winning a Fight +5', 'Contract Poorly Completed -25', 'Retreat from Combat -15', so the 100 and the 50 above are ours, not the wiki's (TUNING's to weigh)"
   },
   "pay_mult": {
     "value": { "from": 1, "to": 4.5, "at": 4000 },

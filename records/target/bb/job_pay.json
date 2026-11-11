@@ -240,6 +240,66 @@
       "fights": 1,
       "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
     },
+    "jb-find-clerk": {
+      "pay": 22,
+      "before": 0,
+      "violent": false,
+      "kind": "find-person",
+      "skulls": 2,
+      "hours": 4.1,
+      "fights": 0.25,
+      "why": "no killing: 4.1 h x 2.06 + 0.25 fights (the chance) x 26 x 2"
+    },
+    "jb-find-dealers": {
+      "pay": 30,
+      "before": 0,
+      "violent": false,
+      "kind": "find-person",
+      "skulls": 3,
+      "hours": 4.1,
+      "fights": 0.25,
+      "why": "no killing: 4.1 h x 2.06 + 0.25 fights (the chance) x 26 x 3, the quiet floor 30"
+    },
+    "jb-find-singer": {
+      "pay": 15,
+      "before": 0,
+      "violent": false,
+      "kind": "find-person",
+      "skulls": 1,
+      "hours": 4.1,
+      "fights": 0.25,
+      "why": "no killing: 4.1 h x 2.06 + 0.25 fights (the chance) x 26 x 1"
+    },
+    "jb-get-die": {
+      "pay": 35,
+      "before": 0,
+      "violent": true,
+      "kind": "obtain",
+      "skulls": 1,
+      "hours": 3.3,
+      "fights": 1,
+      "why": "killing work: 3.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "jb-get-drive": {
+      "pay": 61,
+      "before": 0,
+      "violent": true,
+      "kind": "obtain",
+      "skulls": 2,
+      "hours": 3.3,
+      "fights": 1,
+      "why": "killing work: 3.3 h x 2.75 + 1 fight x 26 x 2"
+    },
+    "jb-get-reels": {
+      "pay": 90,
+      "before": 0,
+      "violent": true,
+      "kind": "obtain",
+      "skulls": 3,
+      "hours": 3.3,
+      "fights": 1,
+      "why": "killing work: 3.3 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
     "jb-hold-market": {
       "pay": 121,
       "before": 80,
@@ -269,6 +329,96 @@
       "hours": 6,
       "fights": 3,
       "why": "killing work: 6 h x 2.75 + 3 fights x 26 x 3"
+    },
+    "jb-restore-chapel": {
+      "pay": 84,
+      "before": 0,
+      "violent": true,
+      "kind": "restore",
+      "skulls": 2,
+      "hours": 5.3,
+      "fights": 1.33,
+      "why": "killing work: 5.3 h x 2.75 + 1.33 fights x 26 x 2"
+    },
+    "jb-restore-pumps": {
+      "pay": 119,
+      "before": 0,
+      "violent": true,
+      "kind": "restore",
+      "skulls": 3,
+      "hours": 5.3,
+      "fights": 1.33,
+      "why": "killing work: 5.3 h x 2.75 + 1.33 fights x 26 x 3"
+    },
+    "jb-restore-school": {
+      "pay": 50,
+      "before": 0,
+      "violent": true,
+      "kind": "restore",
+      "skulls": 1,
+      "hours": 5.3,
+      "fights": 1.33,
+      "why": "killing work: 5.3 h x 2.75 + 1.33 fights x 26 x 1"
+    },
+    "jb-ring-gardens": {
+      "pay": 84,
+      "before": 0,
+      "violent": true,
+      "kind": "siege",
+      "skulls": 1,
+      "hours": 1.9,
+      "fights": 3,
+      "why": "killing work: 1.9 h x 2.75 + 3 fights x 26 x 1"
+    },
+    "jb-ring-solar": {
+      "pay": 240,
+      "before": 0,
+      "violent": true,
+      "kind": "siege",
+      "skulls": 3,
+      "hours": 1.9,
+      "fights": 3,
+      "why": "killing work: 1.9 h x 2.75 + 3 fights x 26 x 3"
+    },
+    "jb-ring-trucks": {
+      "pay": 162,
+      "before": 0,
+      "violent": true,
+      "kind": "siege",
+      "skulls": 2,
+      "hours": 1.9,
+      "fights": 3,
+      "why": "killing work: 1.9 h x 2.75 + 3 fights x 26 x 2"
+    },
+    "jb-root-pures": {
+      "pay": 114,
+      "before": 0,
+      "violent": true,
+      "kind": "root-out",
+      "skulls": 2,
+      "hours": 3.5,
+      "fights": 2,
+      "why": "killing work: 3.5 h x 2.75 + 2 fights x 26 x 2"
+    },
+    "jb-root-skims": {
+      "pay": 166,
+      "before": 0,
+      "violent": true,
+      "kind": "root-out",
+      "skulls": 3,
+      "hours": 3.5,
+      "fights": 2,
+      "why": "killing work: 3.5 h x 2.75 + 2 fights x 26 x 3"
+    },
+    "jb-root-stash": {
+      "pay": 62,
+      "before": 0,
+      "violent": true,
+      "kind": "root-out",
+      "skulls": 1,
+      "hours": 3.5,
+      "fights": 2,
+      "why": "killing work: 3.5 h x 2.75 + 2 fights x 26 x 1"
     },
     "jk-ambush-cut": {
       "pay": 76,

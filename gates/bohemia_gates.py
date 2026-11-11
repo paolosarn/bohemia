@@ -2409,6 +2409,13 @@ GATES = [
      'each four or more offers from a person with a face, sized by one contract (job_contract.split, the legs\' shares, TUNING\'s '
      'section Y), every job\'s fight naming its foe; on the phone both ways each end screen says who they were, and with the '
      'names planted away the defence\'s does not (records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md).', True),
+    ('THE NEW KINDS', ['node', 'gates/the_new_kinds_gate.js'],
+     'JOBS [the months of jobs], rules 425, 441: Battle Brothers\' Root Out, Break Siege, Obtain Item and Restore Location as job kinds '
+     'of ours (legs rows), fifteen jobs from fifteen people of one town each, posted at that town and first; each paying batteries '
+     'and CLOUT (a place put down +10, Battle Brothers\' renown table); the offer card says what the job asks (every stop, every '
+     'fight, who and how many, the reader\'s own roll); on the phone, the demo and the alpha both ways, each kind found on its town\'s '
+     'board, read, taken by Take it and played to the pay, the card\'s fights the fights met; the plants each caught '
+     '(records/BOHEMIA_JOBS_THE_NEW_KINDS_11_11_26.md).', True),
     ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
      'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
      'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '

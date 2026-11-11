@@ -86,6 +86,7 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .say .nm{color:var(--gold);font-size:12px;letter-spacing:1px}
 .say p{margin:4px 0 0}
 .say .trip{margin:7px 0 0;color:var(--gold);font-size:11px;letter-spacing:.6px;line-height:1.4}   /* WORLD [a job says how far] */
+.say .trip.asks{color:var(--ink,#e8dcc4);opacity:.92;letter-spacing:.3px}   /* JOBS 11/11: what the job asks, under the trip */
 .acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): his own place's desk in BUILD: two columns so the sheet stays under half the glass (402) */
 .acts.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin-top:4px}.acts.two .act{min-width:0;min-height:44px;padding:2px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
@@ -4720,6 +4721,8 @@ function offerSpeak(o){
      to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null;
     if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; if(JK.payMarkHTML) tp.insertAdjacentHTML('afterbegin', JK.payMarkHTML(o)); sy.appendChild(tp); S.trip = TR; } }catch(e){}   /* WORLD 4: the mark first (rule 308) */
+  try{ var JA = window.parent && window.parent.BohemiaJobKinds, AK = (JA && JA.asks) ? JA.asks(o, S.place.name) : null;   /* __A_JOB_SAYS_WHAT_IT_ASKS__ (JOBS 11/11, rule 425): every stop and every fight, who and how many (the reader's own roll), the CLOUT, before the yes */
+    if(AK && AK.words){ var ak = document.createElement('div'); ak.className = 'trip asks'; ak.textContent = AK.words; sy.appendChild(ak); S.asks = AK; } }catch(e){}
   try{ var VW = window.BohemiaJobPay ? BohemiaJobPay.violenceWord(o.id) : ''; if(VW){ var vw = document.createElement('div'); vw.className = 'trip blood'; vw.textContent = VW; sy.appendChild(vw); } }catch(e){}   /* ECONOMY 2 (rule 323 amended, ask line 321): killing work or walking pay, said */
   try{ var ST = standHere(); if(ST.word){ var sw = document.createElement('div'); sw.className = 'trip stand'; sw.textContent = ST.word; sy.appendChild(sw); } }catch(e){}   /* ECONOMY 2: the standing, said on the offer */
   w.appendChild(sy); body.appendChild(w);

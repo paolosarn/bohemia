@@ -56,6 +56,17 @@
      takes its first job before any takes a second, and a job one place posts no other place posts. Only a place the shelf
      has nothing left for gets one job somebody else also shows (a board is never empty), and the phone shows a job once. */
   var DEAL = { key: null, map: null };
+  /* __A_POSTED_JOB_STAYS_POSTED__ (JOBS 11/11, EYES ask row 610: 'A BOARD RE-DEALS BETWEEN TWO VISITS 43 GAME MINUTES APART: the sloth
+     and substation jobs gone, two new ones; a job he read and left to prepare for vanishes'). The deal is keyed by the day's floor,
+     which reads his crew and the day (a hire, a wound, a level, the day turning at 22:00, a town's trait), and every new key drew a
+     new board from the window's shuffle. Battle Brothers keeps a contract on a settlement's board until it runs out. NOW what a place
+     posted stays posted for its window (refresh_days) while nobody has taken it, in this campaign: a new deal keeps it first and
+     fills the rest; a place raided since deals again (the raid is news); and the day's floor still stands (rule 255): a job it now
+     keeps back for this crew comes off, said by the floor's own rule, never by a re-shuffle. */
+  var POSTKEY = 'bohemia.board.posted.v1';
+  function postedGet() { try { var m = JSON.parse(root.localStorage.getItem(POSTKEY) || '{}'); return m && typeof m === 'object' ? m : {}; } catch (e) { return {}; } }
+  function postedPut(m) { try { root.localStorage.setItem(POSTKEY, JSON.stringify(m)); } catch (e) {} }
+  function campaign() { try { var w = root.WORLD_SEED; if (w == null && root.parent && root.parent !== root) w = root.parent.WORLD_SEED; return String(w || ''); } catch (e) { return ''; } }
   function dealt(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
     var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
@@ -63,12 +74,20 @@
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};
     order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : Math.min(C[p.tier || 'camp'] || 1, C.max || 4); });
+    var MEMO = postedGet(), camp = campaign(), byId = {}, held = opt.held || [], done = opt.done || [];   /* __A_POSTED_JOB_STAYS_POSTED__ */
+    SHELF.offers.forEach(function (o) { byId[o.id] = o; });
+    order.forEach(function (p) { var m = MEMO[p.name]; if (!m || m.win !== win || m.camp !== camp || (p.traits || []).indexOf('raided') >= 0) return;
+      (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || held.indexOf(id) >= 0 || done.indexOf(id) >= 0 || map[p.name].length >= want[p.name] || o.when) return;
+        if (o.towns && o.towns.indexOf(p.name) < 0) return;
+        if (FW && FW.fits(o, p.name, day, map[p.name], want[p.name]) === false) return;   /* rule 255 stands: what the day's floor now keeps back comes off */
+        taken[id] = p.name; map[p.name].push(said(o, p.crew || opt.crew)); }); });
     for (var round = 0; round < (C.max || 4); round++) order.forEach(function (p) {
       if (map[p.name].length > round || map[p.name].length >= want[p.name]) return;
       var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, taken, map[p.name].length + 1, map[p.name]);
       got.forEach(function (o) { taken[o.id] = p.name; }); map[p.name] = got;
     });
     order.forEach(function (p) { if (!map[p.name].length) map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, {}, 1, [], true); });   /* the last pass: never empty (rule 335) */
+    order.forEach(function (p) { MEMO[p.name] = { win: win, camp: camp, ids: map[p.name].map(function (o) { return o.id; }) }; }); postedPut(MEMO);   /* __A_POSTED_JOB_STAYS_POSTED__ */
     DEAL = { key: key, map: map };
     return map;
   }
@@ -97,7 +116,8 @@
         if (FW && FW.fits(o, place.name, day, out, size) === false) { kept.push(o); return; }   /* under the day's floor: kept back, not lost (rule 335) */
         seen[o.id] = 1; out.push(said(o, opt.crew)); });
     }
-    var ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0; });
+    var ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0 && (!o.towns || o.towns.indexOf(String(place.name)) >= 0); }),
+      own = ordinary.filter(function (o) { return !!o.towns; });   /* JOBS 11/11 (rule 425): a job that fits its town is posted there only, and the town's own person asks first, one of them */
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
       var raid = all.filter(function (o) { return o.when === 'raided'; });
       take(raid, C.raided || 1);
@@ -110,6 +130,7 @@
     ['sickness', 'market_day'].forEach(function (t) {   /* what is happening here asks first */
       if (traits.indexOf(t) >= 0) take(all.filter(function (o) { return o.when === t; }), Math.min(n, out.length + 1));
     });
+    if (own.length) take(own, Math.min(n, out.length + 1));
     take(ordinary, n);
     return never(out, kept, ordinary);
     /* *** THE BOARDS ALWAYS HAVE WORK (PLUMBER 3, rule 335, Paolo 11/2: 'no one has any jobs anymore... make sure it doesn't

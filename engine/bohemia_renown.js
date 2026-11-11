@@ -26,7 +26,7 @@
     bands: [[0, 'NOBODY'], [250, 'SEEN AROUND'], [500, 'GOOD FOR IT'], [750, 'GETS IT DONE'], [1050, 'PROFESSIONALS'], [1400, 'PEOPLE ASK FOR YOU'],
       [1800, 'A NAME IN THE VALLEY'], [2250, 'THE CREW EVERYBODY KNOWS'], [2750, 'THEY TELL STORIES'], [3350, 'STREET LEGEND'], [4000, 'THE LEGEND'],
       [8000, 'NOBODY TOUCHES YOU'], [14000, 'FOREVER']],
-    gains: { civilian_contract_done: 100, civilian_contract_poor: 50, fail_civilian_contract: -75, cancel_contract: -100, fight_won_per_enemy: 5, ambition: 100 },
+    gains: { civilian_contract_done: 100, civilian_contract_poor: 50, fail_civilian_contract: -75, cancel_contract: -100, fight_won_per_enemy: 5, ambition: 100, place_destroyed: 10 },
     pay: { from: 1, to: 4.5, at: 4000 }
   };
   try {

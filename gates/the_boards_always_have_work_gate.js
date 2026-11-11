@@ -36,6 +36,10 @@
    node gates/the_boards_always_have_work_gate.js
    ========================================================================== */
 'use strict';
+/* RE-AIMED BY JOBS 11/11 (rule 425: 'each fitting the town that offers it'): a row with 'towns' is posted at those towns only, so a
+   place's own pool here is its tier's work that fits it (slices/bohemia_board_shelf.js, the same filter) */
+function fitsTown(o, n) { return !o.towns || o.towns.indexOf(n) >= 0; }
+
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..');
 let pass = 0, fail = 0;
@@ -101,7 +105,7 @@ function deal(SH, day, traitsOf, held, doneIds) {
     const got = b[n] || [], tr = TRAITS.mixed(i), raided = tr.indexOf('raided') >= 0;
     if (!got.length) return bad.push(n + ' empty');
     /* the one finished longest ago its pool carries (the raid jobs and the ordinary ones for a raided place) */
-    const pool = shelfDoc().offers.filter(o => raided ? (o.when === 'raided' || (!o.when && (o.tiers || []).indexOf(tier) >= 0)) : (!o.when && (o.tiers || []).indexOf(tier) >= 0)).map(o => o.id);
+    const pool = shelfDoc().offers.filter(o => raided ? (o.when === 'raided' || (!o.when && (o.tiers || []).indexOf(tier) >= 0 && fitsTown(o, n))) : (!o.when && (o.tiers || []).indexOf(tier) >= 0 && fitsTown(o, n))).map(o => o.id);
     if (pool.indexOf(got[0].id) < 0) bad.push(n + ' posted ' + got[0].id + ', not its own kind of work');
     /* a place on its own (the deal hands each job to one place, so only the first in the deal's order gets the oldest) */
     const own = SH.pick({ name: n, tier }, 7, { traits: tr, done: doneIds }) || [], first = doneIds.filter(id => pool.indexOf(id) >= 0)[0];
@@ -113,7 +117,7 @@ function deal(SH, day, traitsOf, held, doneIds) {
   const SH = loadShelf(SRC, FLOORS.every_job_kept_back), bad = [];
   PLACES.forEach(([n, tier]) => {
     const got = SH.pick({ name: n, tier }, 3, { traits: [] }) || [];
-    const pool = shelfDoc().offers.filter(o => !o.when && (o.tiers || []).indexOf(tier) >= 0);
+    const pool = shelfDoc().offers.filter(o => !o.when && (o.tiers || []).indexOf(tier) >= 0 && fitsTown(o, n));
     const best = Math.max.apply(null, pool.map(o => cleanOf(o.id, n)));
     if (got.length !== 1 || cleanOf(got[0].id, n) !== best) bad.push(n + ': ' + (got[0] ? got[0].id + ' ' + cleanOf(got[0].id, n) : 'none') + ' vs best ' + best);
   });
@@ -125,7 +129,7 @@ function deal(SH, day, traitsOf, held, doneIds) {
   for (const tk in TRAITS) for (const day of [1, 10, 30]) {
     const b = deal(SH, day, TRAITS[tk], [], []);
     PLACES.forEach(([n, tier], i) => { const tr = TRAITS[tk](i), raided = tr.indexOf('raided') >= 0;
-      const pool = shelfDoc().offers.filter(o => (raided && o.when === 'raided') || (!o.when && (o.tiers || []).indexOf(tier) >= 0) || (o.when && tr.indexOf(o.when) >= 0));
+      const pool = shelfDoc().offers.filter(o => (raided && o.when === 'raided') || (!o.when && (o.tiers || []).indexOf(tier) >= 0 && fitsTown(o, n)) || (o.when && tr.indexOf(o.when) >= 0));
       if (pool.some(o => cleanOf(o.id, n) >= 0.5) && (b[n] || []).some(o => cleanOf(o.id, n) < 0.5)) bad.push(tk + '/day ' + day + ': ' + n + ' posted ' + b[n].filter(o => cleanOf(o.id, n) < 0.5).map(o => o.id).join(',')); });
   }
   ok('W6 the floor still stands: while a place has a job the floor lets through, nothing under the floor is posted there', bad.length === 0, bad.slice(0, 3).join(' | '));

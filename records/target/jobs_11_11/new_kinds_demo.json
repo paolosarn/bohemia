@@ -1,0 +1,419 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_jobs_the_new_kinds_on_the_phone.js",
+ "tag": "gate_demo",
+ "alpha": false,
+ "walks": [
+  {
+   "shape": "phone_portrait",
+   "alpha": false,
+   "rows": [
+    {
+     "kind": "root-out",
+     "word": "ROOT OUT",
+     "id": "jb-root-stash",
+     "town": "Remnants",
+     "dealt": true,
+     "asks": "What it asks: THE FIRST STASH HOUSE: root out, a fight with 2 men (+10 CLOUT); then THE SECOND STASH HOUSE: root out, a fight with 2 men (+10 CLOUT); then back to Remnants to be paid. 2 fights. Your name: about +140 CLOUT.",
+     "fights": [
+      {
+       "head": "THE CARTEL'S MEN AT THE FIRST STASH HOUSE ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "brigand_thug"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "THE CARTEL'S MEN AT THE SECOND STASH HOUSE ARE DOWN",
+       "n": 3,
+       "kinds": [
+        "watch_captain",
+        "watch_neighbor"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [],
+     "paid": {
+      "id": "jb-root-stash",
+      "kind": "root-out",
+      "paid": 93,
+      "of": 93
+     },
+     "clout": 130,
+     "steps": [
+      "leg 0 ROOT OUT",
+      "leg 1 ROOT OUT",
+      "leg 2 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_upright_root-out_card.webp",
+     "done": true
+    },
+    {
+     "kind": "siege",
+     "word": "BREAK THE RING",
+     "id": "jb-ring-gardens",
+     "town": "Blues",
+     "dealt": true,
+     "asks": "What it asks: THE GARDEN ROAD: break, a fight with 2 coyotes; then THE BACK ROAD: break, a fight with 1 hog; then THEIR CAMP BY THE WATER: break, a fight with 1 kid (+10 CLOUT); then back to Blues to be paid. 3 fights. Your name: about +130 CLOUT.",
+     "fights": [
+      {
+       "head": "THE COYOTES ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "coyote"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "A HOG IS DOWN",
+       "n": 1,
+       "kinds": [
+        "feral_hog"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "THE ONES CAMPED BY THE CO-OP'S WATER ARE DOWN",
+       "n": 1,
+       "kinds": [
+        "lower_goblin_skirmisher"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [],
+     "paid": {
+      "id": "jb-ring-gardens",
+      "kind": "siege",
+      "paid": 140,
+      "of": 140
+     },
+     "clout": 110,
+     "steps": [
+      "leg 0 BREAK",
+      "leg 1 BREAK",
+      "leg 2 BREAK",
+      "leg 3 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_upright_siege_card.webp",
+     "done": true
+    },
+    {
+     "kind": "obtain",
+     "word": "GET IT",
+     "id": "jb-get-drive",
+     "town": "Network",
+     "dealt": true,
+     "asks": "What it asks: THE DATA CENTER: get it, a word with ODELL, and it can come to a fight with 2 water people; then back to Network to be paid. No sure fight, 1 if it comes to that. Your name: about +110 CLOUT.",
+     "fights": [
+      {
+       "head": "THE SQUATTERS IN THE DATA CENTER ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "water_needle",
+        "water_cutter"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [
+      "Stand and fight for it.A FIGHT"
+     ],
+     "paid": {
+      "id": "jb-get-drive",
+      "kind": "obtain",
+      "paid": 111,
+      "of": 111
+     },
+     "clout": 100,
+     "steps": [
+      "leg 0 GET IT",
+      "leg 1 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_upright_obtain_card.webp",
+     "done": true
+    },
+    {
+     "kind": "restore",
+     "word": "RESTORE",
+     "id": "jb-restore-school",
+     "town": "Volunteers",
+     "dealt": true,
+     "asks": "What it asks: THE OLD SCHOOL: clear, a fight with 1 longhorn; then back to Volunteers: fetch the workers; then ON THE WAY: guard them, a fight with 2 men; then THE OLD SCHOOL: walk them there; then back to Volunteers to be paid. 2 fights. Your name: about +115 CLOUT.",
+     "fights": [
+      {
+       "head": "A LONGHORN IS DOWN",
+       "n": 1,
+       "kinds": [
+        "long_horned_bison"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "THE ONES AFTER THE WORKERS' TOOLS ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "brigand_thug"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [],
+     "paid": {
+      "id": "jb-restore-school",
+      "kind": "restore",
+      "paid": 98,
+      "of": 98
+     },
+     "clout": 100,
+     "steps": [
+      "leg 0 CLEAR",
+      "leg 1 FETCH THE WORKERS",
+      "leg 2 GUARD THEM",
+      "leg 3 WALK THEM THERE",
+      "leg 4 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_upright_restore_card.webp",
+     "done": true
+    },
+    {
+     "kind": "find-person",
+     "word": "FIND A PERSON",
+     "id": "jb-find-singer",
+     "town": "Anarchists",
+     "dealt": true,
+     "asks": "What it asks: find the singer, THE DRY WASH; then back to Anarchists to be paid. No sure fight. Your name: about +100 CLOUT.",
+     "fights": [],
+     "talks": [],
+     "paid": {
+      "id": "jb-find-singer",
+      "kind": "find-person",
+      "paid": 31,
+      "of": 31
+     },
+     "clout": 100,
+     "steps": [
+      "look",
+      "home"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_upright_find-person_card.webp",
+     "done": true
+    }
+   ],
+   "errs": []
+  },
+  {
+   "shape": "phone_landscape",
+   "alpha": false,
+   "rows": [
+    {
+     "kind": "root-out",
+     "word": "ROOT OUT",
+     "id": "jb-root-stash",
+     "town": "Remnants",
+     "dealt": true,
+     "asks": "What it asks: THE FIRST STASH HOUSE: root out, a fight with 2 men (+10 CLOUT); then THE SECOND STASH HOUSE: root out, a fight with 2 men (+10 CLOUT); then back to Remnants to be paid. 2 fights. Your name: about +140 CLOUT.",
+     "fights": [
+      {
+       "head": "THE CARTEL'S MEN AT THE FIRST STASH HOUSE ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "brigand_thug"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "THE CARTEL'S MEN AT THE SECOND STASH HOUSE ARE DOWN",
+       "n": 3,
+       "kinds": [
+        "watch_captain",
+        "watch_neighbor"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [],
+     "paid": {
+      "id": "jb-root-stash",
+      "kind": "root-out",
+      "paid": 93,
+      "of": 93
+     },
+     "clout": 130,
+     "steps": [
+      "leg 0 ROOT OUT",
+      "leg 1 ROOT OUT",
+      "leg 2 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_sideways_root-out_card.webp",
+     "done": true
+    },
+    {
+     "kind": "siege",
+     "word": "BREAK THE RING",
+     "id": "jb-ring-gardens",
+     "town": "Blues",
+     "dealt": true,
+     "asks": "What it asks: THE GARDEN ROAD: break, a fight with 2 coyotes; then THE BACK ROAD: break, a fight with 1 hog; then THEIR CAMP BY THE WATER: break, a fight with 1 kid (+10 CLOUT); then back to Blues to be paid. 3 fights. Your name: about +130 CLOUT.",
+     "fights": [
+      {
+       "head": "THE COYOTES ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "coyote"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "A HOG IS DOWN",
+       "n": 1,
+       "kinds": [
+        "feral_hog"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "THE ONES CAMPED BY THE CO-OP'S WATER ARE DOWN",
+       "n": 1,
+       "kinds": [
+        "lower_goblin_skirmisher"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [],
+     "paid": {
+      "id": "jb-ring-gardens",
+      "kind": "siege",
+      "paid": 140,
+      "of": 140
+     },
+     "clout": 110,
+     "steps": [
+      "leg 0 BREAK",
+      "leg 1 BREAK",
+      "leg 2 BREAK",
+      "leg 3 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_sideways_siege_card.webp",
+     "done": true
+    },
+    {
+     "kind": "obtain",
+     "word": "GET IT",
+     "id": "jb-get-drive",
+     "town": "Network",
+     "dealt": true,
+     "asks": "What it asks: THE DATA CENTER: get it, a word with ODELL, and it can come to a fight with 2 water people; then back to Network to be paid. No sure fight, 1 if it comes to that. Your name: about +110 CLOUT.",
+     "fights": [
+      {
+       "head": "THE SQUATTERS IN THE DATA CENTER ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "water_needle",
+        "water_cutter"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [
+      "Stand and fight for it.A FIGHT"
+     ],
+     "paid": {
+      "id": "jb-get-drive",
+      "kind": "obtain",
+      "paid": 111,
+      "of": 111
+     },
+     "clout": 100,
+     "steps": [
+      "leg 0 GET IT",
+      "leg 1 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_sideways_obtain_card.webp",
+     "done": true
+    },
+    {
+     "kind": "restore",
+     "word": "RESTORE",
+     "id": "jb-restore-school",
+     "town": "Volunteers",
+     "dealt": true,
+     "asks": "What it asks: THE OLD SCHOOL: clear, a fight with 1 longhorn; then back to Volunteers: fetch the workers; then ON THE WAY: guard them, a fight with 2 men; then THE OLD SCHOOL: walk them there; then back to Volunteers to be paid. 2 fights. Your name: about +115 CLOUT.",
+     "fights": [
+      {
+       "head": "A LONGHORN IS DOWN",
+       "n": 1,
+       "kinds": [
+        "long_horned_bison"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      },
+      {
+       "head": "THE ONES AFTER THE WORKERS' TOOLS ARE DOWN",
+       "n": 2,
+       "kinds": [
+        "brigand_thug"
+       ],
+       "png": "(the fight photo is the gate run's, not kept)"
+      }
+     ],
+     "talks": [],
+     "paid": {
+      "id": "jb-restore-school",
+      "kind": "restore",
+      "paid": 98,
+      "of": 98
+     },
+     "clout": 100,
+     "steps": [
+      "leg 0 CLEAR",
+      "leg 1 FETCH THE WORKERS",
+      "leg 2 GUARD THEM",
+      "leg 3 WALK THEM THERE",
+      "leg 4 client"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_sideways_restore_card.webp",
+     "done": true
+    },
+    {
+     "kind": "find-person",
+     "word": "FIND A PERSON",
+     "id": "jb-find-singer",
+     "town": "Anarchists",
+     "dealt": true,
+     "asks": "What it asks: find the singer, THE DRY WASH; then back to Anarchists to be paid. No sure fight. Your name: about +100 CLOUT.",
+     "fights": [],
+     "talks": [],
+     "paid": {
+      "id": "jb-find-singer",
+      "kind": "find-person",
+      "paid": 31,
+      "of": 31
+     },
+     "clout": 100,
+     "steps": [
+      "look",
+      "home"
+     ],
+     "day": 1,
+     "card": "records/target/jobs_11_11/demo_sideways_find-person_card.webp",
+     "done": true
+    }
+   ],
+   "errs": []
+  }
+ ],
+ "note": "the gate THE NEW KINDS run of 11/11 (its demo and alpha walks), copied: the cards as webp, the fights' photos not kept"
+}
