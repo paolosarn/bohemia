@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11m - THE FLOOD TUNNELS, FINISHED, BUILT, NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11m - THE FLOOD TUNNELS, FINISHED, BUILT (28d4bd1f9), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 COMBAT THREE's tunnels board (on main since 11/11c in stand-in pictures) now wears finished art through the master rig: three sheets (a culvert
 floor with silt and wet, the wet main channel, the dark earth), every tile joining every tile (one shared edge, its own middle); ten pieces as
 models in metres (the wall three ways, the rack whole and pried open, the rungs; the camp, the lean-to and the jam each a tile wide: at true size
