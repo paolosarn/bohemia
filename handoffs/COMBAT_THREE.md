@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 435(d), 441(a); ask rows 555 and 605): 11/11 LATEST -- [every turn reads] SHIPPED SHIPSHA, BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN. VOTE combat3-every-turn-reads-11-11 (stand_in).
+COMBAT THREE (rules 435(d), 441(a); ask rows 555 and 605): 11/11 LATEST -- [every turn reads] SHIPPED fbf93f5c1, BUILD 11/11x - EVERY TURN READS, BUILT, NOT YET SEEN. VOTE combat3-every-turn-reads-11-11 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_EVERY_TURN_READS_11_11_26.md.
 WHAT: row 555 measured before a line changed: ON AUTO the quiet word already fired (THE POT at 4x on the alpha 7 of 7; headless 5 of 5); the silent turns were the
 ones CLOSED BY HAND (the word's one switch was S.byHand). endTurn (__EVERY_TURN_READS__) now says the word whoever closed the turn: on AUTO the brain's reason as
