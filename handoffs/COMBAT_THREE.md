@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rule 440(a), 441, 443(h), ask row 539; and the root of ask rows 548 and 558): 11/11 LATEST -- [parking garage] SHIPPED (this commit), BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN. VOTE combat3-the-parking-garage-11-11 (stand_in).
+COMBAT THREE (rule 440(a), 441, 443(h), ask row 539; and the root of ask rows 548 and 558): 11/11 LATEST -- [parking garage] SHIPPED c6bf2b21e, BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN. VOTE combat3-the-parking-garage-11-11 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_PARKING_GARAGE_11_11_26.md.
 WHAT: the third big interior. slices/bohemia_parking_garage.js (deal, check), slices/fight_ground/garage/garage.json (two layouts of 15 x 20 characters, the legend,
 'tiles': 15 kinds each with its ground row, AP, open floor, cover, the line he reads; the districts and shares; the gallery start; 'rules' and the cars' 'sizes').
