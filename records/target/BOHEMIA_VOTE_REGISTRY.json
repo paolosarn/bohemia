@@ -19109,7 +19109,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_FLOOD_TUNNELS_FINISHED_11_11_26.md"
-  }
+  },
+  {"id": "bosses-the-locksmiths-gates-11-11", "kind": "tile", "lane": "bosses", "sha": "536436d85", "made": "11/11", "draft": true, "title": "AT NIGHT THE LOCKSMITH CHAINS THE GATES ACROSS HIS STREETS: KILL HIM AND THE CHAINS ARE CUT FOR GOOD", "said": "the ladder's next three, each changing the map its own way (the coordinator's round after the first six)", "why": "Left is THE LOCKSMITH's lock shop at night, its shutter chained down and his keymen's chain-link gates shut across the streets round it, so your crew walks the long way round (17 to 26 blocks instead of 2). By day the same gates stand open. Right is DOÑA LUPE once he falls: the chains cut, the streets open all night, and his pick set is yours. You see it on the MAP after THE CLIMB, when DOÑA LUPE sends you to his scratched padlock.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_locksmith_11_11/VOTE.webp"}, "before_after": {"before": "main a96de3ca2: six bosses; nothing on the map changed with the clock", "after": "THE LOCKSMITH's 4 gates open by day and chained at night (the walk goes round, never locked in), cut for good when he falls, kept after a reload; PICK THE LOCK his verb", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md"}
  ],
  "verdicts": [
   {
