@@ -30,7 +30,7 @@
 <!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
-<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <script src="bohemia_parking_garage.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -421,7 +421,14 @@ function loadAll() {
     .then(function () { return Promise.all(['fight_ground/tunnels/tunnels.json', 'fight_ground/tunnels/sizes.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
     .then(function (tf) { const d = tf[0], z = tf[1] || {}, kit = {};
       if (d && d.board && d.kit) Object.keys(d.kit).forEach(function (k) { const q = z[k.replace(/^tunnel_/, '')]; kit[k] = Object.assign({}, d.kit[k], q ? { src: q.src } : {}); });
-      DB.tunnels = d && d.board && d.kit ? { data: d, sizes: z, kit: kit } : null; });
+      DB.tunnels = d && d.board && d.kit ? { data: d, sizes: z, kit: kit } : null; })
+    /* __THE_PARKING_GARAGE__ (COMBAT THREE 11/11, rule 440(a)): the garage's layouts, its tiles' table and its pieces (tools/bohemia_combat_three_the_parking_garage_11_11_26.py) */
+    .then(function () { return Promise.all(['fight_ground/garage/garage.json', 'fight_ground/garage/garage_art.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })); })
+    .then(function (gf) { const d = gf[0], art = gf[1], kit = {};   /* the pictures are COOK FIVE's kit (garage_art.json); the cars and the rules are COMBAT's (garage.json) */
+      if (d && d.board && d.kit && art && art.kit) {
+        Object.keys(art.kit).forEach(function (k) { kit[k] = Object.assign({}, art.kit[k], (d.rules || {})[k] || {}); });
+        Object.keys(d.kit).forEach(function (k) { const q = (d.sizes || {})[d.kit[k].like || k.replace(/^garage_/, '')]; kit[k] = Object.assign({}, q ? { src: q.src } : {}, d.kit[k]); }); }
+      DB.garage = d && d.board && d.kit && art && art.floor ? { data: d, art: art, sizes: d.sizes || {}, kit: kit } : null; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -1464,7 +1471,7 @@ const FIGHT = (function () {
      fires burn without the grid. THE FLASH FLOOD: the round the dice picked fills the main channel (floodTick, newRound). */
   function floodTunnels(opts) {
     const FT = typeof window !== 'undefined' ? window.BohemiaFloodTunnels : null, D = DB.tunnels;
-    if (!FT || !D || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (!FT || !D || opts.inside === false || (opts.inside && opts.inside !== 'tunnels') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     const share = D.data.share == null ? 1 : D.data.share, roll = ((SEED >>> 0) % 1000) / 1000;
     if (opts.inside !== 'tunnels' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
     const B = FT.deal(((SEED >>> 0) ^ 0x1b873593) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.tunnelsAsk || {})); if (!B) return false;
@@ -1481,9 +1488,26 @@ const FIGHT = (function () {
     if (r === f.round && !f.on) { f.on = true; f.tiles.forEach(function (q) { if (S.terrain[q[1]][q[0]] !== 'blocked') S.terrain[q[1]][q[0]] = 'water'; }); emit({ t: 'flood', say: D.say_flood || 'The water comes.', tiles: f.tiles.length }); }
     if (f.on && r === f.round + f.lasts) { f.on = false; f.gone = true; f.tiles.forEach(function (q) { if (S.terrain[q[1]][q[0]] === 'water') S.terrain[q[1]][q[0]] = 'rough'; }); emit({ t: 'flood_gone', say: D.say_gone || 'The water drops.' }); }
   }
+  /* ---------------- __THE_PARKING_GARAGE__ (COMBAT THREE 11/11, rule 440(a), ask row 539; rule 416's list). A fight at a place with
+     a parking structure (garage.json districts, the share of them by the cell's own dice so the same spot is always the same
+     board; opts.inside 'garage' anywhere; opts.inside false never) is fought on one deck of it (slices/bohemia_parking_garage.js):
+     the low bay's drive aisles (open floor) between rows of dead cars (cover), the high bay half a storey up (high ground), the
+     ramps the only ways up. Under the decks above it is night; the day comes in the open sides and at the way in, the drum
+     fires burn without the grid. Every tile's cost and effect is the board's tileKey (garage.json 'tiles'). */
+  function parkingGarage(opts) {
+    const PG = typeof window !== 'undefined' ? window.BohemiaParkingGarage : null, D = DB.garage;
+    if (!PG || !D || opts.inside === false || (opts.inside && opts.inside !== 'garage') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    const by = D.data.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (D.data.share == null ? 1 : D.data.share), roll = (((SEED >>> 0) ^ 0x9e3779b9) >>> 0) % 1000 / 1000;
+    if (opts.inside !== 'garage' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
+    const B = PG.deal(((SEED >>> 0) ^ 0x85ebca6b) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.garageAsk || {})); if (!B) return false;
+    const was = [S.night, S.power];
+    S.night = true; S.power = true;   /* under the decks above it is night; the open sides' day and the drums' fire need no grid */
+    applyBoard(B); if (!connected()) { S.garageErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
+    S.garage = B.garage; return true;
+  }
   function casinoFloor(opts) {
     const CF = typeof window !== 'undefined' ? window.BohemiaCasinoFloor : null, D = DB.casino;
-    if (!CF || !D || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (!CF || !D || opts.inside === false || (opts.inside && opts.inside !== 'casino') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     if (opts.inside !== 'casino' && D.data.districts.indexOf(opts.district) < 0) return false;
     const B = CF.deal(((SEED >>> 0) ^ 0x2545f491) >>> 0, D, DB.ground, S.w, S.h, opts.casinoAsk || null); if (!B) return false;
     const was = [S.night, S.power];
@@ -1668,8 +1692,8 @@ const FIGHT = (function () {
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
-  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit, PG = DB.garage && DB.garage.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || (PG && PG[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit, PG = DB.garage && DB.garage.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || (PG && PG[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -1941,6 +1965,24 @@ const FIGHT = (function () {
     });
     if (left.length) place(left, S.cols[1], 1);
   }
+  function galleryStart(units) {
+    const G = (S.boardDef && S.boardDef.gallery) || {}, share = G.share == null ? 0.5 : G.share, minX = S.cols[0] + R('deployment.min_gap_between_lines_hexes') + 1;
+    const men = units.filter(function (u) { return !u.beast && !u.machine; }), back = function (u) { return isRanged(u.weapon) || u.arche === 'backline'; };
+    const want = Math.min(Math.floor(units.length * share), Math.max(men.filter(back).length, Math.ceil(units.length * (G.least == null ? 0.34 : G.least))));
+    const up = men.filter(back).concat(men.filter(function (u) { return !back(u); })).slice(0, want);   /* the shooters first; then men enough to hold the ramps' heads */
+    const taken = {};
+    up.forEach(function (u) {
+      let best = null, bd = Infinity;
+      for (let y = 0; y < S.h; y++) for (let x = minX; x < S.w; x++) {
+        if (!(level(x, y) > 0) || !passable(x, y) || unitAt(x, y) || taken[y * S.w + x] || (S.boardDef.laid && S.boardDef.laid.tiles[y][x] === 'ramp')) continue;
+        let edge = 9; for (let k = 1; k <= 3; k++) if (inBoard(x, y + k) && !(level(x, y + k) > 0)) { edge = k; break; }   /* how far the bay's edge is to the south: the gallery's front */
+        const d = edge * 3 + (S.coverCount[y][x] ? 0 : 2) + Math.abs(x - S.cols[1]) * 0.5;
+        if (d < bd) { bd = d; best = { x: x, y: y }; }
+      }
+      if (best) { u.x = best.x; u.y = best.y; taken[best.y * S.w + best.x] = 1; u.gallery = true; }
+    });
+    S.gallery = up.filter(function (u) { return u.gallery; }).length;
+  }
   function placeBack(units) {
     const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat')), front = S.cols[1];
     /* __ROOM_TO_RUN__ (rule 415(b)): his front column now needs more than one turn to reach his edge, and a fast one gains his
@@ -1994,6 +2036,8 @@ const FIGHT = (function () {
       for (let tries = 0; tries < 100; tries++) { applyBoard(layGraveyard(graveyardDeal())); if (connected()) break; }
     } else if (floodTunnels(opts)) {
       /* __THE_FLOOD_TUNNELS__: a fight at a wash or a drain's mouth may go under the city (rule 440(a)) */
+    } else if (parkingGarage(opts)) {
+      /* __THE_PARKING_GARAGE__: a fight at a place with a parking structure may be fought on one deck of it (rule 440(a)) */
     } else if (casinoFloor(opts)) {
       /* __THE_CASINO_FLOOR__: a fight at a casino with an inside is fought on its floor (rule 416) */
     } else if (freewayBoard(opts)) {
@@ -2015,6 +2059,7 @@ const FIGHT = (function () {
     dealBoard();
     let dealt = S.boardDef;
     if (!(S.boardDef && S.boardDef.interior === 'tunnels')) { S.flood = null; S.tunnels = null; }
+    if (!(S.boardDef && S.boardDef.interior === 'garage')) S.garage = null;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own way, the fight keys of its rule (records/target/bb/origins.json
        personal.rule.does; the shell hands them as opts.originWay, engine/bohemia_origin_ways.js fight()): first_round, never_confident,
@@ -2120,6 +2165,12 @@ const FIGHT = (function () {
     S.formation = formationNow();
     if ((st === 'camp' || st === 'pincer') && S.boardDef.camp) { placeOwnStart(bandUnits, st, S.boardDef.camp); placeBack(bandUnits); }   /* __ROOM_TO_RUN__: the camp and the pincer keep the head start too (measured: 145 of 753 dire wolves in 200 beast fights stood on the gap's line, columns 11 and 12) */
     else { place(bandUnits, S.cols[1], 1); placeBack(bandUnits); }   /* rule 256(a): the fast ones start back by their extra run */
+    /* __THE_PARKING_GARAGE__: THEY HOLD THE GALLERY (COMBAT THREE 11/11; measured: with both lines on the low bay nobody of either
+       side stood on the high bay in the first three rounds of 12 AUTO fights, half the board unused). A board whose start is
+       'gallery' is somebody's ground: the band's shooters and its back line, and men enough to make a third of the band (the
+       board's gallery.least; never more than gallery.share of it, never a beast or a machine), start up on the high bay, on the
+       cover nearest the rail over their own side; the rest hold the low bay as any line. His line starts where it always does: the ramps are his way up */
+    if (st === 'gallery') galleryStart(bandUnits);
     S.meet = null;   /* rule 435: the meet map is the start's only */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
@@ -8838,8 +8889,16 @@ const IDLE_FIGHT_BARE = ['look', 'roll', 'scratch', 'strap', 'smoke'];
 function wearOver(v, c, ox, oy, s, dark, x, y) {
   const W = window.BohemiaWear; if (!W || !c || !c.img || v.machine || v.ghost || v.beast) return false;
   const wr = W.of(v); if (!wr || (!wr.head && !wr.body)) return false;
-  return W.on(cx, c, ox, oy, s, v._face || 0, wr, { who: v.id, where: 'fight', tint: dark ? function (i) { return nightSheet(i, moonOf(x, y)); } : null });
+  return W.on(WEAR_GLASS, c, ox, oy, s, v._face || 0, wr, { who: v.id, where: 'fight', tint: dark ? function (i) { return nightSheet(i, moonOf(x, y)); } : null });
 }
+/* __THE_ARMOUR_DRAWS_THROUGH_THE_FIGHT__ (COMBAT THREE 11/11, the root of ask rows 548 and 558's 'drawImage ... not of type' every
+   two seconds, CAUGHT WITH ITS STACK on the demo on its side, the parking garage, BUILD 11/11j: put <- BohemiaWear.on <- wearOver <-
+   blitMan / meleeDraw / holdDraw). At night the armour's piece is cut from a NIGHT sheet (the tint above), and the wear module
+   handed that sheet to the glass's own drawImage: on the alpha the fight's wrapper is on that glass, in the demo's shell the glass
+   answers to the SHELL's classes and the browser got a sheet it cannot draw; everything after the bodies was skipped that frame.
+   Any man in armour on any night board on the demo; the tunnels and the garage are always night. The module is handed the fight's
+   own draw (FIXES' cxDraw, row 558): a sheet is known by its shape and drawn cell by cell, whatever page the glass came from */
+const WEAR_GLASS = { drawImage: cxDraw };
 /* the faces are painted once a turn: when the helmets' portrait sheet lands after them, the bar and the strip are painted again */
 function wearFacesAgain() { UI.faceKey = null; const o = document.getElementById('order'); if (o) o.dataset.key = ''; }
 /* ==== end __THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
@@ -11049,7 +11108,7 @@ function walkPreview(u, p, f, path) {
   UI.pend = { tile: p, path: path, cost: f.best[f.key(p.x, p.y)], swings: swings, heldAt: heldAt };
   /* what standing there does (rule 59; rule 117b: only where the ground changes something) and what the walk costs in swings;
      the AP and 'tap again' are no longer sentences: the tag on the tile and the big button say WALK and its AP */
-  const gs = FIGHT.level(p.x, p.y) ? heightSay(p.x, p.y) : FIGHT.groundSay(p.x, p.y);
+  const tk_ = FIGHT.tileKeyAt(p.x, p.y), gs = FIGHT.level(p.x, p.y) ? (tk_ && tk_.say_before ? tk_.say_before + ' ' : '') + heightSay(p.x, p.y) : FIGHT.groundSay(p.x, p.y);   /* __EVERY_TILE_ITS_COST_AND_EFFECT__: high ground keeps its own long line; what stands on the tile is said before it */
   /* WHAT THE WALK LEAVES (EYES [eyes: the reason is AP], 10/24: 'the chalk shows before the walk what a walk will leave'): when the
      AP left after it will not pay for his blow or shot, the line says so before he commits */
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });

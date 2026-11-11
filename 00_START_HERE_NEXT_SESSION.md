@@ -1,3 +1,16 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN (rules 440(a), 441, 443(h); ask row 539).
+The third big interior: a fight at a casino (a third of them), the mall, the stadium, the Sphere, the Strat, the hospital, the convention centre or the
+airport's terminal (four in ten) starts on one deck of its parking garage: dead cars in their stalls (cover), the drive aisles (open floor AUTO gets
+off: 6% on it after round one against 25%), a high bay the band holds at the bell, the ramps the only ways up, dark but for the open sides and the drum
+fires. Every tile kind has its cost and effect in one table and says its line. It wears COOK FIVE's finished garage kit (11/11p); the parked cars are
+COMBAT's own (stand-ins). The bay is the fight's roof: up a ramp is a walk, over the rail a climb.
+ON THE PAGE: 14 fights, the alpha and the demo, upright and sideways: all ended, 0 page errors, 46 of 46 tile taps said their line.
+THE ROOT OF ROWS 548 AND 558 (the draw error every two seconds) FOUND WITH ITS STACK AND FIXED: the armour's night piece drawn past the fight's own draw
+(FOR FIXES, PLUMBER 8, EYES, CHARACTER in the block). Gate THE PARKING GARAGE 16/0. VOTE combat3-the-parking-garage-11-11. Record
+records/BOHEMIA_COMBAT_THREE_THE_PARKING_GARAGE_11_11_26.md. The whole block: handoffs/COMBAT_THREE.md.
+[bb Battle Brothers' hills are +10% down and a tile of range; the high bay is that row indoors, the ramps its only passes]
+[analog horror: one car in the dark deck with towels in its windows, a chair beside it, the next stall swept clean]
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11u - THE PARKING GARAGE'S KIT, BUILT (39d02b8cf), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 JOBS (jobs-01gkdyuv): 11/11 LATEST -- BUILD 11/11s - THE NEW KINDS, BUILT, NOT YET SEEN (rules 425, 441; asks 41, 107, 491, EYES' 610). MEASURED FIRST: escort, defend,
 hunt, deliver and find a person were ours; Battle Brothers' Root Out, Break Siege, Obtain Item and Restore Location had 0 offers. NOW four
 new kinds as legs rows (root out two places, break the ring round the client's town, get it with stand/run/put back, restore in two
@@ -8,7 +21,7 @@ EYES 610 fixed: a posted job stays posted for its window (the day turning with t
 Gate THE NEW KINDS. VOTE jobs-the-new-kinds-11-11 (STAND-IN), sha bd5a4911e. Record records/BOHEMIA_JOBS_THE_NEW_KINDS_11_11_26.md.
 [bb Battle Brothers says a contract's objectives before you sign; ours now says them with the real fights, who and how many]
 [analog horror: the card already knows it will be two coyotes on the garden road, and tells you, in the client's own handwriting]
-COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT (39d02b8cf), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11u - THE PARKING GARAGE'S KIT, BUILT (39d02b8cf), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 The parking garage's art is made AHEAD of its board (COMBAT's, not laid yet), on the casino floor's recipe, so the board never wears a stand-in:
 one floor sheet through the master rig (stalls: lines, wheel stops, oil; the aisle: two ways, arrows; every tile joining, stalls against the aisle
 too) and twelve pieces as models in metres (a raised bay 1.42 m with the stalls' or the aisle's floor on top, the ramp east and west, the guard

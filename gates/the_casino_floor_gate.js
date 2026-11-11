@@ -7,6 +7,9 @@
    'casino') was bare carpet with slot banks and no wall, cage, bar or sportsbook, and no fight from the map ever dealt it.
    THE LEGS (the live fight's own deal, headless; the four casino districts x 6 seeds, the Strip's own district for the control):
      C1  a fight at a casino with an inside is fought on its floor (the four districts), a fight on the Strip's boulevard is not
+         (COMBAT THREE 11/11: in the game a third of the fights at a casino now start in its PARKING GARAGE, by the cell's own dice;
+         this gate deals with no garage loaded and reads the floor alone; THE PARKING GARAGE's G1 reads that every casino fight
+         not in the garage is still on this floor)
      C2  THE FLOOR IS JOINED: every open tile reached from every other (doors, never through a wall); both lines on open floor
                                                                                    planted: a wall run across the floor, red
      C3  THE STRONG ROOM: the cage's room behind its counter and bars has exactly one way in (its door)

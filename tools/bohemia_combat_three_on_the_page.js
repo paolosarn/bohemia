@@ -87,22 +87,39 @@ const HOOKS = `(function(){
   try { await anyFrameTap('button.lv', 'LEAVE'); await until(async () => city().evaluate(() => !LOOP.open), 8000); await wait(1500); } catch (e) {}
 
   /* ---- where on the map the fights start ---- */
-  const DIST = WANT === 'tunnels' ? ['wash', 'basin'] : WANT === 'garage' ? ['garage', 'casino', 'downtown', 'resort', 'airport', 'apron'] : /^district:/.test(WANT) ? [WANT.slice(9)] : ['suburb'];
+  const BOSS = /^boss:/.test(WANT) ? WANT.slice(5) : null;
+  const DIST = BOSS ? ['strip', 'landfill', 'shore', 'suburb'] : WANT === 'tunnels' ? ['wash', 'basin'] : WANT === 'garage' ? ['mall', 'terminal', 'stadium', 'medical', 'convention', 'sphere', 'strat', 'casino', 'highroller', 'luxor', 'resort'] : /^district:/.test(WANT) ? [WANT.slice(9)] : ['suburb'];
   const cells = await city().evaluate((want) => { const out = []; const N = om.n; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = om.at(x, y), d = t && t.district; if (d && want.indexOf(d) >= 0) out.push({ d: d, at: [x, y] }); } return out; }, DIST);
   log('cells of', DIST.join('/'), cells.length);
   const pick = []; { const step = Math.max(1, Math.floor(cells.length / 40)); for (let i = 0; i < cells.length && pick.length < 40; i += step) pick.push(cells[i]); }
   const results = [], speeds = [1, 2, 4]; let tried = 0;
   for (const c of pick) {
     if (results.filter(r => r.wanted).length >= FIGHTS || tried >= FIGHTS * 5) break; tried++;
+    if (BOSS) {   /* the boss's own fight, dressed by the bosses' own seam (BohemiaBosses.dress: his band, his board), through the same door */
+      const ok = await city().evaluate(([c, n]) => { const msg = { type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true };
+        if (!window.BohemiaBosses || !BohemiaBosses.dress(msg, { n: n })) return false; window.top.nfOpen(msg); return true; }, [c, BOSS]);
+      if (!ok) { log('the boss could not be dressed:', BOSS); break; }
+    } else
     await page.evaluate((c) => { window.nfOpen({ type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true }); }, c);
     if (!(await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!FIGHT.__c3); }, 40000))) { log('no fight came at', c.d, c.at); continue; }
     const f = fightF(); await wait(2500);
     const o = await f.evaluate(() => { const S = FIGHT.S, B = S.boardDef || {}; return { board: B.name, inside: B.interior || null, layout: (B.tunnels && B.tunnels.layout) || (B.garage && B.garage.layout) || null, flood: S.flood ? S.flood.round : null, night: !!S.night, w: S.w, h: S.h,
       mine: S.units.filter(u => u.side === 'you').length, theirs: S.units.filter(u => u.side !== 'you').length, hasKey: !!B.tileKey }; });
-    const wanted = WANT === 'tunnels' ? o.inside === 'tunnels' : WANT === 'garage' ? o.inside === 'garage' : true;
+    const wanted = WANT === 'tunnels' ? o.inside === 'tunnels' : WANT === 'garage' ? o.inside === 'garage' : BOSS ? !!(await f.evaluate(() => !!(window.FIGHT_OPTS && FIGHT_OPTS.boss))) : true;
     const n = results.length + 1, tag = 'f' + String(n).padStart(2, '0');
     log('fight', n, c.d, JSON.stringify(c.at), o.board, o.inside || '-', o.layout || '', 'men', o.mine, 'v', o.theirs, wanted ? '' : '(not the board asked for)');
-    const R = { n, cell: c, o, wanted, taps: [], speed: speeds[n % 3] };
+    const R = { n, cell: c, o, wanted, taps: [], speed: process.env.C3_SPEED ? +process.env.C3_SPEED : speeds[n % 3] };
+    /* THE ARMOUR'S NIGHT PIECE ON THIS GLASS (rows 548, 558): the browser's own drawImage handed a night sheet (what the wear module
+       did), and the fight's own draw handed the same sheet (what it is handed now); read once a run */
+    if (!results.length) { try { R.wearProbe = await f.evaluate(() => { const k = Object.keys(UI.imgs).find(n => /^fight_rig\//.test(n) && UI.imgs[n] && (UI.imgs[n].width || UI.imgs[n].cw)); if (!k) return null;
+        const ns = nightSheet(UI.imgs[k], 0), out = { sheet: k, night: !!ns && typeof ns === 'object' && !(ns instanceof HTMLImageElement) && !(ns instanceof HTMLCanvasElement), glassIsShells: Object.getPrototypeOf(cx) !== CanvasRenderingContext2D.prototype };
+        try { cx.drawImage(ns, 0, 0, 2, 2, -9, -9, 2, 2); out.raw = 'drew'; } catch (e) { out.raw = 'THREW: ' + String(e.message).slice(0, 60); }
+        try { WEAR_GLASS.drawImage(ns, 0, 0, 2, 2, -9, -9, 2, 2); out.fight = 'drew'; } catch (e) { out.fight = 'THREW: ' + String(e.message).slice(0, 60); }
+        /* the state the error was caught in: a glass that answers to the SHELL's classes (a canvas of the top window's own document) */
+        try { const sc = window.top.document.createElement('canvas'); sc.width = 4; sc.height = 4; const g = sc.getContext('2d'); out.shellGlass = Object.getPrototypeOf(g) !== CanvasRenderingContext2D.prototype;
+          try { g.drawImage(ns, 0, 0, 2, 2, 0, 0, 2, 2); out.shellRaw = 'drew'; } catch (e) { out.shellRaw = 'THREW: ' + String(e.message).slice(0, 44); }
+          try { sheetDraw(g, [ns, 0, 0, 2, 2, 0, 0, 2, 2]); out.shellFight = 'drew'; } catch (e) { out.shellFight = 'THREW: ' + String(e.message).slice(0, 44); } } catch (e) { out.shell = String(e).slice(0, 60); }
+        return out; }); log('   the armour\'s night piece on this glass:', JSON.stringify(R.wearProbe)); } catch (e) { log('   probe failed', String(e).slice(0, 100)); } }
     await shot(tag + '_start');
     /* his finger on a tile of every kind in his reach, AUTO off: the line on the glass against the fight's own word */
     if (wanted && o.hasKey) {
@@ -118,14 +135,29 @@ const HOOKS = `(function(){
             seen[k] = 1; out.push({ k: k, x: x, y: y, X: X, Y: Y, cost: c, word: FIGHT.groundSay(x, y), key: (B.tileKey[k] || {}).ap }); }
           return out; });
         const fb = await box(f);
-        for (const t of tiles) { await tap(fb.x + t.X, fb.y + t.Y); await wait(450);
+        for (const t of tiles) {
+          /* where the tile is on the glass NOW (a tap may slide the camera): read, then tap at once */
+          const at = await f.evaluate(([x, y]) => { if (UI.anim.length || !FIGHT.current() || FIGHT.current().side !== 'you') return null; const X = sx((x + .5 + stagger(y)) * UI.tw), Y = sy((y + .6) * UI.th);
+            if (X < 20 || Y < 60 || X > innerWidth - 20 || Y > innerHeight - 20) return null; const el = document.elementFromPoint(X, Y); if (!el || el.id !== 'cv') return null;
+            const p = tileAt(X, Y); return p.x === x && p.y === y ? { X: X, Y: Y, word: FIGHT.level(x, y) ? heightSay(x, y) : FIGHT.groundSay(x, y), before: (FIGHT.tileKeyAt(x, y) || {}).say_before || '' } : null; }, [t.x, t.y]);
+          if (!at) continue;
+          await tap(fb.x + at.X, fb.y + at.Y); await wait(500);
           const got = await f.evaluate(() => ({ say: document.getElementById('say').textContent || '', pend: UI.pend ? { x: UI.pend.tile && UI.pend.tile.x, y: UI.pend.tile && UI.pend.tile.y, cost: UI.pend.cost, far: !!UI.pend.far } : null }));
-          const ok = !!got.pend && got.pend.x === t.x && got.pend.y === t.y && (t.word ? got.say.indexOf(t.word) >= 0 : true);
-          R.taps.push({ k: t.k, at: [t.x, t.y], word: t.word, said: got.say, walkAP: got.pend && got.pend.cost, ok }); }
+          const ok = !!got.pend && got.pend.x === t.x && got.pend.y === t.y && (at.word ? got.say.indexOf(at.word) >= 0 : true) && (at.before ? got.say.indexOf(at.before) >= 0 : true);
+          R.taps.push({ k: t.k, at: [t.x, t.y], word: (at.before ? at.before + ' ' : '') + at.word, said: got.say, walkAP: got.pend && got.pend.cost, ok }); await wait(250); }
         if (R.taps.length) await shot(tag + '_tile_tap');
         log('   taps', R.taps.map(t => t.k + (t.ok ? ' ok' : ' NO') + (t.word ? ' "' + t.said.slice(0, 40) + '"' : '')).join(' | '));
       } else log('   never his turn by hand');
     }
+    /* the near stop, for the card: the page's own wheel zoom (a pinch's twin) onto the middle of the glass, a still, then back out */
+    if (wanted && process.env.C3_NEAR) { try {
+      const at = await f.evaluate((want) => { const S = FIGHT.S, LT = S.boardDef.laid && S.boardDef.laid.tiles; let best = null, bd = 1e9;
+        if (LT && want) for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (LT[y][x] === want) { const X = sx((x + .5) * UI.tw), Y = sy((y + .5) * UI.th), d = Math.hypot(X - innerWidth / 2, Y - innerHeight * 0.36); if (d < bd) { bd = d; best = [X, Y]; } }
+        return best || [innerWidth / 2, innerHeight * 0.36]; }, process.env.C3_NEAR_TILE || null);
+      const near = async (dy, n) => f.evaluate(([dy, n, at]) => { const cv = document.getElementById('cv'); for (let i = 0; i < n; i++) cv.dispatchEvent(new WheelEvent('wheel', { deltaY: dy, clientX: at[0], clientY: at[1], bubbles: true, cancelable: true })); return UI.zoom; }, [dy, n, at]);
+      const z0 = await f.evaluate(() => UI.zoom); await near(-400, +process.env.C3_NEAR); await wait(900); await shot(tag + '_near'); R.near = await f.evaluate(() => UI.zoom);
+      for (let i = 0; i < 12 && (await f.evaluate(() => UI.zoom)) > z0 * 1.02; i++) await near(400, 1); await wait(300);
+    } catch (e) { log('   near failed', String(e).slice(0, 80)); } }
     /* AUTO and the speed, with a finger */
     for (let i = 0; i < 4; i++) { const h = await f.evaluate(() => UI.hand); if (h === R.speed) break; if (!(await press('speed'))) break; }
     if (!(await f.evaluate(() => UI.auto))) await press('auto');
@@ -146,7 +178,8 @@ const HOOKS = `(function(){
     const byTurn = {}; E.calls.filter(c => c.side === 'you').forEach(c => { const k = c.id + '@' + c.r; (byTurn[k] = byTurn[k] || []).push(c); });
     Object.keys(byTurn).forEach(k => { const cs = byTurn[k], id = cs[0].id, p = per[id]; if (!p) return; p.turns++;
       const did = cs.some(c => c.moved || c.acts.some(t => /^(attack|step|move|skill|shot|throw|sweep|hook|net)$/.test(t))); if (did) { p.acted++; return; }
-      p.quiet++; if (cs.some(c => c.acts.indexOf('idle') >= 0) || E.idles.some(i => i.id === id && (i.r === cs[0].r || i.r === cs[0].r + 1))) p.quietSaid++; });
+      p.quiet++; const saidIt = cs.some(c => c.acts.indexOf('idle') >= 0) || E.idles.some(i => i.id === id && (i.r === cs[0].r || i.r === cs[0].r + 1)); if (saidIt) p.quietSaid++;
+      (R.quietTurns = R.quietTurns || []).push({ id, name: p.name, r: cs[0].r, said: saidIt, acts: cs.map(c => c.acts.join('/')).join(' , '), why: cs.map(c => c.why).filter(Boolean).join(','), byHand: cs.map(c => c.byHand), auto: cs.map(c => c.auto), calls: cs.length }); });
     R.over = over; R.rounds = E.round; R.afterRoundOne = r1; R.notes = E.log.filter(e => /^flood/.test(e.t)).map(e => e.t); E.notes = R.notes.map(t => ({ t: t })); R.per = per; R.misses = E.misses;
     R.turns = Object.values(per).reduce((a, p) => a + p.turns, 0); R.acted = Object.values(per).reduce((a, p) => a + p.acted, 0); R.quiet = Object.values(per).reduce((a, p) => a + p.quiet, 0); R.quietSaid = Object.values(per).reduce((a, p) => a + p.quietSaid, 0);
     R.stood = Object.values(per).filter(p => p.turns >= 2 && p.acted === 0).map(p => p.name);

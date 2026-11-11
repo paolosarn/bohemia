@@ -53,6 +53,12 @@ function eng(patch) {
   try { vm.runInContext(fs.readFileSync(path.join(ROOT, 'slices/bohemia_flood_tunnels.js'), 'utf8'), ctx);
     const td = J('tunnels.json', 'slices/fight_ground/tunnels'), tz = J('sizes.json', 'slices/fight_ground/tunnels') || {}, tk = {};
     Object.keys(td.kit).forEach(k => { const z = tz[k.replace(/^tunnel_/, '')]; tk[k] = Object.assign({}, td.kit[k], z ? { src: z.src } : {}); }); ctx.DB.tunnels = { data: td, sizes: tz, kit: tk }; } catch (e) {}
+  /* rule 440(a): the parking garage, as the page loads it (COMBAT THREE 11/11) */
+  try { vm.runInContext(fs.readFileSync(path.join(ROOT, 'slices/bohemia_parking_garage.js'), 'utf8'), ctx);
+    const gd = J('garage.json', 'slices/fight_ground/garage'), ga = J('garage_art.json', 'slices/fight_ground/garage'), gk = {};
+    Object.keys(ga.kit).forEach(k => { gk[k] = Object.assign({}, ga.kit[k], (gd.rules || {})[k] || {}); });
+    Object.keys(gd.kit).forEach(k => { const q = (gd.sizes || {})[gd.kit[k].like || k.replace(/^garage_/, '')]; gk[k] = Object.assign({}, q ? { src: q.src } : {}, gd.kit[k]); });
+    ctx.DB.garage = { data: gd, art: ga, sizes: gd.sizes || {}, kit: gk }; } catch (e) {}
   ctx.DB.arenaPit = J('pit_board.json', 'slices/arena');
   return ctx;
 }
@@ -117,7 +123,7 @@ function eng(patch) {
   /* M4 / M5 (rule 435(c), ask line 540; Paolo 11/9: 'one of my guys is still not doing anything on auto combat'): the WHOLE FIGHT.
      Crews of every kind he can have (two-handers, a one-hander and a shield, the pistol, the javelin, the bow, the crossbow, the
      gun, the throwables, the sling, the new one-handers; a man wounded; a man with a second weapon in his bag; the Lone Wolf alone)
-     on every board kind (the place boards, the towns, the casino floor, the flood tunnels, the freeway, the graveyard, the pool pit), both sides on
+     on every board kind (the place boards, the towns, the casino floor, the flood tunnels, the parking garage, the freeway, the graveyard, the pool pit), both sides on
      AUTO up to 30 rounds. M4: no man of his who is on the field two of his turns or more stands the whole fight without moving or
      striking; no excuse (out of reach is a failure now: M5 makes it impossible). M5: every man of either side starts with a walk on
      foot to a man of the other (the root of 435(c): a man dealt north of Fremont's canopy or into a lab pen never had one). */
@@ -131,7 +137,7 @@ function eng(patch) {
     const PL = ctx.DB.ours.place_boards.value.places, BD = [];
     Object.keys(PL).forEach(p => BD.push({ tag: p, o: { district: PL[p].districts[0] } }));
     ['town', 'arterial'].forEach(d => BD.push({ tag: d, o: { district: d } }));
-    BD.push({ tag: 'casino', o: { district: 'casino' } }, { tag: 'tunnels', o: { district: 'wash', inside: 'tunnels' } }, { tag: 'freeway', o: { district: 'freeway' } }, { tag: 'graveyard', o: { district: 'cemetery' } });
+    BD.push({ tag: 'casino', o: { district: 'casino', inside: 'casino' } }, { tag: 'tunnels', o: { district: 'wash', inside: 'tunnels' } }, { tag: 'garage', o: { district: 'mall', inside: 'garage' } }, { tag: 'freeway', o: { district: 'freeway' } }, { tag: 'graveyard', o: { district: 'cemetery' } });
     if (ctx.DB.arenaPit) BD.push({ tag: 'pit', o: { district: 'strip', arena: { pool: 3 } } });
     return { KIT, SH, BGS, KN, BD };
   })();

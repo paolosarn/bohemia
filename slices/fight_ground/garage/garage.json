@@ -1,0 +1,465 @@
+{
+ "version": "parking-garage-11-11b",
+ "lane": "combat 3",
+ "rule": "VAMILY rule 440(a) (Paolo 11/9, 'More everything pls'), rule 416's list: THE PARKING GARAGE, the third big interior; ask row 539",
+ "facts": "A Strip casino's parking structure is one of the biggest buildings in the valley and the only deep shade in it: cast decks on an 18.3 m parking module (5.5 m stalls either side of a 7.3 m two-way aisle), stalls 2.7 m wide, columns on the stall lines, split levels half a storey apart joined by short ramps, sides open above a 1.07 m wall, a stair core, a booth and gate arms at the way in. When the dollar died the cars stayed where they were parked.",
+ "how_to_mod": "A layout is 15 strings of 20 characters, north at the top, each a house-sized tile read in the legend. THE HIGH BAY ('H' its aisle, 'c' and 'n' its stalls) is a raised bay half a storey up, COOK FIVE's finished kit (garage_art.json): a ramp ('>' climbs east, '<' climbs west) stands in the bay's aisle row between a low aisle tile and a raised one and is the WALK up; anywhere else the bay's edge is a CLIMB over the rail (the fight's roof rule: a man who climbs makes no attack that turn; a beast cannot). Both lines start on the low bay: his at columns 3 to 5, theirs from column 11. A tile's rules are its row in 'tiles'. A layout may be mirrored east to west by the dice (the ramps swap).",
+ "districts": [
+  "casino",
+  "highroller",
+  "luxor",
+  "resort",
+  "mall",
+  "convention",
+  "stadium",
+  "sphere",
+  "strat",
+  "medical",
+  "terminal"
+ ],
+ "share": 0.4,
+ "share_by_district": {
+  "casino": 0.34,
+  "highroller": 0.34,
+  "luxor": 0.34,
+  "resort": 0.34
+ },
+ "board": {
+  "templates": {
+   "deck": {
+    "name": "THE PARKING GARAGE",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_split_deck": [
+      "#########S##########",
+      "#p.cncncnccncncnc.p#",
+      "#=>HHHHWHHHHHWHHH<=#",
+      "#.pncOcnccncOcnccp.#",
+      "#==================#",
+      "#pp.pp.pp.pp.pp.pp.#",
+      "#====w=======w=====#",
+      "#p.opp.pfp.pp.ppo.p#",
+      "#==================#",
+      "#.pp.pp.p.pp.pp.p.p#",
+      "#=======w==========#",
+      "#pp.pop.pp.pp.opp.p#",
+      "#==================#",
+      "#pp.p.pp.bb.pp.pp.p#",
+      "#########EE#########"
+     ],
+     "the_long_gallery": [
+      "####S###############",
+      "#p.cncncnccncncnccn#",
+      "#=>HHHHHWHHHHHWHHHH#",
+      "#.pncOcnccncnOcncnc#",
+      "#==================#",
+      "#.pp.pp.pp.p.pp.pp.#",
+      "#===w=========w====#",
+      "#pp.opp.pfp.ppo.pp.#",
+      "#==================#",
+      "#.pp.p.ppwpp.p.pp.p#",
+      "#==================#",
+      "#p.pop.pp.pp.pp.op.#",
+      "#=======w==========#",
+      "#p.pp.pp.bb.pp.pp.p#",
+      "#########EE#########"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall",
+    "piece": "garage_wall",
+    "say": "the deck's outer wall, a metre of concrete, the side open above it"
+   },
+   "=": {
+    "is": "aisle",
+    "say": "the two-way drive aisle of the low bay: open floor"
+   },
+   ".": {
+    "is": "stall",
+    "say": "empty stalls"
+   },
+   "p": {
+    "is": "stall",
+    "tile": "cars",
+    "cars": true,
+    "say": "dead cars in their stalls: cover"
+   },
+   "o": {
+    "is": "stall",
+    "tile": "column",
+    "piece": "garage_column",
+    "say": "a column: nobody walks through it"
+   },
+   "w": {
+    "is": "aisle",
+    "tile": "wreck",
+    "wreck": true,
+    "say": "a wreck left in the aisle: cover"
+   },
+   "f": {
+    "is": "stall",
+    "tile": "fire",
+    "light": "fire",
+    "say": "a fire in a drum somebody keeps"
+   },
+   "b": {
+    "is": "aisle",
+    "tile": "booth",
+    "piece": "garage_booth",
+    "say": "the way out: two pay booths on their islands, a lane each side: cover"
+   },
+   "E": {
+    "is": "aisle",
+    "tile": "gate",
+    "light": "gate",
+    "say": "the way in off the street: the day falls in here"
+   },
+   "H": {
+    "is": "high",
+    "say": "the high bay's aisle: half a storey up, high ground"
+   },
+   "c": {
+    "is": "high",
+    "tile": "high_cars",
+    "cars": true,
+    "say": "dead cars on the high bay: cover on high ground"
+   },
+   "n": {
+    "is": "high",
+    "tile": "high_stall",
+    "say": "empty stalls on the high bay"
+   },
+   "O": {
+    "is": "high",
+    "tile": "column",
+    "piece": "garage_column",
+    "say": "a column: nobody walks through it"
+   },
+   "W": {
+    "is": "high",
+    "tile": "high_wreck",
+    "wreck": true,
+    "say": "a wreck in the high bay's aisle: cover on high ground"
+   },
+   "F": {
+    "is": "high",
+    "tile": "high_fire",
+    "light": "fire",
+    "say": "a fire in a drum on the high bay"
+   },
+   "S": {
+    "is": "wall",
+    "tile": "stair",
+    "piece": "garage_core",
+    "say": "the stairs and the lift: a concrete core, no way through"
+   },
+   ">": {
+    "is": "ramp",
+    "say": "the ramp up, climbing east: the walk up to the high bay"
+   },
+   "<": {
+    "is": "ramp",
+    "say": "the ramp up, climbing west: the walk up to the high bay"
+   }
+  }
+ },
+ "tiles_how": "EVERY TILE, ITS COST AND ITS EFFECT (COMBAT THREE 11/11, ask row 539; rule 59, Paolo 10/1). One row per kind of tile a layout can hold (a legend entry's 'tile', else its 'is'). 'row' is the tile's row in the fight's one ground table (records/target/bb/ours.json ground_rows; never a second list of grounds), 'ap' what a step onto it costs from a tile at its own height (a step UP half a storey costs one more, the table's height_change_extra), 'open' true is OPEN FLOOR: AUTO, his men and theirs, gets off it in the first rounds and counts it the worst place to end a turn (the open street's rule, 428(c)); 'cover' the cover the pieces on it give; 'blocks' true: nobody stands on it; 'effect' the plain rule; 'say' the line he reads on the first tap (draft:true; a tile that changes nothing says nothing), 'say_lit' the line when the tile is lit. 'say_before' is said before the fight's own high-ground line on a tile that is high ground (the page says the height's numbers itself). 'roof' true: the tile is the raised bay (the fight's roof rule: stepping up onto it from lower ground that is not a ramp is a climb).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The deck's outer wall: no way through.",
+   "say": ""
+  },
+  "stair": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The stairs and the lift: a concrete core, no way through, no sight through.",
+   "say": ""
+  },
+  "aisle": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The low bay's drive aisle: open floor between the rows of cars, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The drive aisle: open floor, nothing to hide behind."
+  },
+  "stall": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "Empty stalls: plain floor, no cover.",
+   "say": ""
+  },
+  "cars": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Dead cars in their stalls: cover (harder to hit, more against shots), one piece for each car.",
+   "say": "Dead cars in their stalls: cover."
+  },
+  "wreck": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "A wreck left across the aisle: cover in the open floor.",
+   "say": "A wreck in the aisle: cover."
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A column: nobody stands on its tile.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you."
+  },
+  "booth": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "The way out: two pay booths on their islands across the tile, a lane each side: cover.",
+   "say": "The pay booths: cover.",
+   "open": false
+  },
+  "gate": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The way in off the street: open floor, and by day the light falls in: a man here is seen.",
+   "say": "The way in: open floor.",
+   "say_lit": "The way in: open floor, and the day is on you."
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "A ramp: the WALK up to the high bay. A step onto it from the low bay costs one more (half a storey up); from its top the high bay is level. A man who walks up it can still strike this turn.",
+   "say": "",
+   "say_before": "The ramp: the walk up, and you can still strike."
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The high bay's aisle, half a storey up: high ground. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the ramp it is a walk; over its rail from the low bay it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The high bay: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": ""
+  },
+  "high_stall": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "Empty stalls on the high bay: high ground, no cover.",
+   "say": "The high bay: you hit down easier, and a gun reaches a tile more.",
+   "roof": true
+  },
+  "high_cars": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Dead cars on the high bay: cover, on high ground. The best ground in the garage.",
+   "say": "Dead cars on the high bay: cover, and high ground.",
+   "say_before": "Dead cars: cover.",
+   "roof": true
+  },
+  "high_wreck": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "A wreck in the high bay's aisle: cover, on high ground.",
+   "say": "A wreck on the high bay: cover, and high ground.",
+   "say_before": "A wreck: cover.",
+   "roof": true
+  },
+  "high_fire": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "A fire in a drum on the high bay: high ground, and a man in its light is seen.",
+   "say": "The high bay: you hit down easier, and a gun reaches a tile more.",
+   "say_lit": "A drum fire on the high bay: high ground, but they see you.",
+   "say_before": "A drum fire: they see you.",
+   "roof": true
+  }
+ },
+ "kit": {
+  "garage_cars_a": {
+   "kind": "COVER",
+   "h": 1.45,
+   "name": "DEAD CARS IN THEIR STALLS",
+   "stage": "stand_in"
+  },
+  "garage_cars_b": {
+   "kind": "COVER",
+   "h": 1.45,
+   "name": "A CAR ON BLOCKS, AND A SHELL",
+   "stage": "stand_in"
+  },
+  "garage_cars_c": {
+   "kind": "COVER",
+   "h": 1.45,
+   "name": "A CAR SOMEBODY LIVES IN",
+   "stage": "stand_in"
+  },
+  "garage_parked_a": {
+   "kind": "DRESS",
+   "like": "cars_a",
+   "src": "garage_cars/garage_cars_a.webp",
+   "h": 1.45,
+   "name": "DEAD CARS IN THEIR STALLS",
+   "stage": "stand_in",
+   "why": "the same picture as garage_cars_a, in the stalls beside it: a row of parked cars reads as a row; only one group a row is counted as cover (two pieces a tile), so a tile of cars is never more cover than the fight's cap"
+  },
+  "garage_parked_b": {
+   "kind": "DRESS",
+   "like": "cars_b",
+   "src": "garage_cars/garage_cars_b.webp",
+   "h": 1.45,
+   "name": "A CAR ON BLOCKS, AND A SHELL",
+   "stage": "stand_in"
+  }
+ },
+ "cars": {
+  "stalls": [
+   "garage_cars_a",
+   "garage_cars_b",
+   "garage_cars_a",
+   "garage_cars_c",
+   "garage_cars_b"
+  ],
+  "lived_in_share": 0.08,
+  "wrecks": [
+   "sb_wreck_S",
+   "sb_patrol_S",
+   "sb_rolled_S"
+  ],
+  "parked": [
+   "garage_parked_a",
+   "garage_parked_b",
+   "garage_parked_a"
+  ],
+  "parked_share": 0.8
+ },
+ "floor": {
+  "from": "garage_art.json floor (COOK FIVE): 'stalls' under stalls and the raised bay's stalls, 'aisle' under everything else"
+ },
+ "lights": {
+  "side": {
+   "src": null,
+   "radius_m": 17,
+   "day": true,
+   "every": 3
+  },
+  "gate": {
+   "src": null,
+   "radius_m": 14,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [
+  "n",
+  "s"
+ ],
+ "say": {
+  "height": "The high bay: you hit down easier, and a gun reaches a tile more."
+ },
+ "districts_why": "Where the valley has parking structures: the Strip's casinos (a third of the fights there start in the garage, the rest on the casino floor), the mall, the convention centre, the stadium, the Sphere, the Strat, the hospital, the airport's terminal (four in ten). The airport and downtown keep their own place boards (rule 428(a)).",
+ "start": "gallery",
+ "gallery": {
+  "share": 0.5,
+  "least": 0.34,
+  "why": "THEY HOLD THE GALLERY: a garage is somebody's ground. The band's shooters and its back line, and men enough to make 'least' of the band (never more than 'share' of it, never a beast or a machine), start up on the high bay, on the cover nearest the rail over their own side; the rest hold the low bay. His line starts on the low bay as always: the ramps are his way up. Measured before: both lines below, nobody of either side on the high bay in the first three rounds of 12 AUTO fights."
+ },
+ "kit_how": "THE PICTURES ARE COOK FIVE'S (slices/fight_ground/garage/garage_art.json and sizes.json: the floor's two lists, the raised bay, the ramps, the rails, the outer wall, the columns, the core, the booths, all finished through the master rig). This file holds COMBAT's own: the parked cars (five pictures of three models, tools/bohemia_combat_three_the_parking_garage_11_11_26.py; their sizes in 'sizes' here) and 'rules', what the fight needs of a COOK FIVE piece that its art file does not say (a column and the core let nobody stand; the rail and the outer wall are drawn, never cover: the tile they edge is what a man stands on).",
+ "rules": {
+  "garage_column": {
+   "blocks_move": true
+  },
+  "garage_column_b": {
+   "blocks_move": true
+  },
+  "garage_core": {
+   "blocks_move": true
+  },
+  "garage_rail_ew": {
+   "kind": "RAIL"
+  },
+  "garage_rail_ns": {
+   "kind": "RAIL"
+  },
+  "garage_wall_ew": {
+   "kind": "WALL"
+  },
+  "garage_wall_ns": {
+   "kind": "WALL"
+  }
+ },
+ "sizes": {
+  "cars_a": {
+   "piece": "cars_a",
+   "src": "garage_cars/garage_cars_a.webp",
+   "w": 236,
+   "h": 209,
+   "facing": "S",
+   "foot": [
+    116.0,
+    178
+   ],
+   "model": "reference/models/bohemia/garage_cars_a.glb"
+  },
+  "cars_b": {
+   "piece": "cars_b",
+   "src": "garage_cars/garage_cars_b.webp",
+   "w": 249,
+   "h": 172,
+   "facing": "S",
+   "foot": [
+    135.5,
+    144
+   ],
+   "model": "reference/models/bohemia/garage_cars_b.glb"
+  },
+  "cars_c": {
+   "piece": "cars_c",
+   "src": "garage_cars/garage_cars_c.webp",
+   "w": 288,
+   "h": 237,
+   "facing": "S",
+   "foot": [
+    150.5,
+    216
+   ],
+   "model": "reference/models/bohemia/garage_cars_c.glb"
+  }
+ },
+ "bay_m": 1.42
+}

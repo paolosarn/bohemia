@@ -9497,6 +9497,17 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
+    ('THE PARKING GARAGE', ['node', 'gates/the_parking_garage_gate.js'],
+     "COMBAT THREE gate, 11/11, VAMILY rule 440(a) (ask row 539; PAOLO 11/9: 'More everything pls'; rule 416's list, the third big interior). "
+     "A fight at a place with a parking structure is fought on one deck of it for the data's share of the fights there, by the cell's own dice, never "
+     "where there is none; a casino fight not in the garage is still on the casino floor (G1); the deck is joined, both lines with a walk to each "
+     "other, both layouts dealt and mirrored (G2); the ramp is the walk up to the raised bay and the rail is the fight's climb: every bay tile walked "
+     "to by a ramp, none with the ramps shut, the bay a level 1 roof, a ramp never a roof (G3); night under the decks, the open sides and the way in "
+     "by day, the drums always, the middle dark (G4); every piece has its picture (COOK FIVE's finished kit, COMBAT's parked cars with their models), "
+     "cars and wrecks are cover, the columns let nobody stand (G5); a fight on AUTO ends inside 30 rounds and no man of his stands a whole fight (G6); "
+     "every tile kind has its row in the data's 'tiles' and the fight charges that AP and says that line (G7, rule 59); AUTO gets off the open drive "
+     "aisle after the first round (G8); the band holds the gallery at the bell (G9). Planted: a wall across the deck, a bay tile read as plain floor, "
+     "the sides live at night, a tile kind with no row, a wrong AP, the rule off, the start off. About 90 s", True),
     ('THE OLD LAYOUT, THE NEW HOUSES', ['node', 'gates/the_old_layout_the_new_houses_gate.js'],
      "COMBAT TWO gate, 11/7, VAMILY rule 423 (ask lines 484 to 488; PAOLO 11/7: 'each house should be connected by road or mini road... every house should be a tile that I can be on... one story... a defense boost, but not a range offense boost... there's no ladder system... no one wants to be right in the middle of the street... use the layout of before and just swap the house assets'): 44 spots, the template's layout with the new houses (A1), every house touches a way and every floor tile joins his line (B1 B2), every house tile enterable at its storeys (C1), storeys 1 to 3 most two or three, one storey no reach (D1 D2), no climb into a house and no ladder drawn (D3), AUTO's open street cost and its moves (E1 E2); a planted fail for each. About 25 s", True),
     ('THE BOARD IS THE CITY AT THAT SPOT', ['node', 'gates/the_board_is_the_city_at_that_spot_gate.js'],

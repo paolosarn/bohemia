@@ -1,0 +1,4 @@
+# COMBAT THREE 11/11 [the parking garage]: the rig renders regenerate from tools/bohemia_combat_three_the_parking_garage_11_11_26.py
+orig/
+render/
+*/*.png
