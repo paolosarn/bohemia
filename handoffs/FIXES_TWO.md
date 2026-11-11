@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/11 (b) LATEST -- [their place, never custom] ask row 609 SHIPPED. BUILD
-11/11q - THEIR PLACE, NEVER CUSTOM, BUILT, NOT YET SEEN. Commit SHIPSHA2. Record: the second-ship section of
+11/11q - THEIR PLACE, NEVER CUSTOM, BUILT, NOT YET SEEN. Commit bd77a807f. Record: the second-ship section of
 records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md.
 WHAT: the feed printed the file's key for his own place ('came into Custom off Rainbow', EYES 11/11). Every town a post names now
 goes through the feed's shownTown (slices/BOHEMIA_CITY_WORLD.html __THE_CANON_WORD_IS_NEVER_SHOWN__): the name he gave his place,
