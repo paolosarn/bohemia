@@ -344,7 +344,7 @@ def main():
         mine = [(b['faction'], b['animal'], b['rows']) for b in D['book']['beasts'] if b.get('added_by', '').startswith(BY)]
         bad = []; res = {}
         try:
-            r = subprocess.run(['node', os.path.join(ROOT, 'gates/the_bestiary_floor_fight.js')], cwd=ROOT, capture_output=True, text=True, timeout=1800)
+            r = subprocess.run(['node', os.path.join(ROOT, 'gates/the_bestiary_floor_fight.js')], cwd=ROOT, capture_output=True, text=True, timeout=4200)
             line = [l for l in r.stdout.splitlines() if l.startswith('RESULT ')]
             res = json.loads(line[-1][7:]) if line else {}
         except Exception as e:

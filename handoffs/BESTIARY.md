@@ -1,5 +1,18 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY next round', rules 443(d), 441): 11/11 LATEST -- BUILD STAMP_HERE THREE MORE MEN (SHA_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md (the floor in one table). VOTE bestiary-the-next-ten-11-11.
+- THE FLOOR: factions 12 on file, 8 fought; types 57 fought of 75 (18 short); beasts 17 lab-made; bosses 6; champions named.
+- THREE NEW MEN, each a way no man had: the House TWO-HANDER (the great swing: hits every man beside him, knocks them back), the water
+  OUTLAW (runs straight in, knocks a man flat), the watch SPEARMAN (holds the line until you close). Each on a split CHARACTER sheet.
+- THE NEXT SEVEN wait for clothes (CHARACTER has the list and the STAND-IN list: the roaming crews wear the city's own gangs; every machine
+  wears the one robot sheet): the faithful, the preacher, the mercenary, the bounty hunter, the gunner, the conscript, the legionary.
+- ROW 574 PARTLY: wolves, hyenas, prides sized to a new crew (0.35); the bison, longhorn, bear and sloth cannot be sized (one animal beats
+  a crew of 3): TUNING / WORLD+JOBS / FACTIONS, measured in the record.
+- THE GATE: THE BESTIARY FLOOR F9 plays the men and a champion on the ALPHA too (phone both ways), F10 checks each man's own way, ratchet 57.
+[bb Battle Brothers never sends a new company at an Unhold; the size of a band cannot make one beast smaller.]
+[analog horror: the spearmen stand in the street lights' line and do not move.]
+
 BESTIARY (routine 'enemy types and factions', rule 443(d), rule 441): 11/10 LATEST -- BUILD 11/10s FIVE NEW MEN, NAMED CHAMPIONS (edbb8581), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_MEN_AND_THE_CHAMPIONS_11_10_26.md. VOTE bestiary-five-new-men-11-10 (stage stand_in).
 - FIVE NEW ENEMY TYPES in their own clothes (CHARACTER's enemy sheets, each pool split so no two types share one) and their own way to fight:
