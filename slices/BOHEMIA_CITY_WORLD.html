@@ -2816,21 +2816,21 @@ function landUse(tiles,at,L,seed,N){
 /* __PLACE_TEMPLATES__ DATA BEGIN */
 const PLACE_TEMPLATES={tiles_per_block:3,footprint:[7,5],order:["lab","redrock","landfill","shore","airport","downtown","strip","marina","golf","wash","trailer","pass","works","desert","suburb"],
   templates:{
-    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":true},
-    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":true},
-    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":true},
-    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":true},
-    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":true},
-    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":true},
+    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false},
+    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false},
+    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":false},
+    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":false},
+    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false},
+    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":false},
     strip:{"board":"place_strip","kinds":["strip","sign","sphere","strat","convention"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"slack":4},
-    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":true},
-    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":true},
-    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":true},
-    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":true},
-    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":true},
-    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":true},
-    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":true},
-    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":true}}};
+    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":false},
+    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":false},
+    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":false},
+    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":false},
+    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":false},
+    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":false},
+    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":false},
+    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":false}}};
 /* __PLACE_TEMPLATES__ DATA END */
 function placeTemplates(m){
   const N=m.n, PT=PLACE_TEMPLATES, FW=PT.footprint[0], FH=PT.footprint[1], TPB=PT.tiles_per_block, W=N+1;
@@ -69563,6 +69563,11 @@ function cityHandOver(msg, skin){
   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ (RUN 10/2): and the kind of block it starts on, which picks the
      rebuilt fight's board (COMBAT TWO cut its boards from the city's own block kinds) */
   try{ if(msg && !msg.district){ var _fa=(msg.at&&msg.at.length===2)?msg.at:[city.x,city.y], _ft=om.at(_fa[0]|0,_fa[1]|0); msg.district=_ft?_ft.district:null; } }catch(_e){}
+  /* __THE_CUT__ (WORLD THIRTEEN 11/11, rules 429(a)(c), 430; ask line 504): a fight that starts on a cell of one of the 15 places
+     (vbTemplateAt: the place boards the generator stood on this valley) carries that place with it: its board, the cell's own
+     tiles of it under the spot it starts (the shell's nfOpts hands it to the fight as o.template; a boss's own board first). */
+  try{ if(msg && !msg.template && !msg.boss && typeof vbTemplateAt === 'function'){ var _ca=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _tc=vbTemplateAt(_ca[0]|0,_ca[1]|0);
+    if(_tc) msg.template={ id:_tc.id, board:_tc.board, tx:_tc.tx, ty:_tc.ty, flip:!!_tc.flip, cell:[_ca[0]|0,_ca[1]|0] }; } }catch(_e){}
   try{ if(msg && window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7): a burned block deals a burned board; the block's state and its power go with the fight */
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23): which day it is and how many he has, on the one door, so the shell can
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */

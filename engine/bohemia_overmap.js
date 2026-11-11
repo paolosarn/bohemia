@@ -851,21 +851,21 @@ function landUse(tiles,at,L,seed,N){
 /* __PLACE_TEMPLATES__ DATA BEGIN */
 const PLACE_TEMPLATES={tiles_per_block:3,footprint:[7,5],order:["lab","redrock","landfill","shore","airport","downtown","strip","marina","golf","wash","trailer","pass","works","desert","suburb"],
   templates:{
-    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":true},
-    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":true},
-    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":true},
-    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":true},
-    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":true},
-    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":true},
+    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false},
+    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false},
+    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":false},
+    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":false},
+    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false},
+    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":false},
     strip:{"board":"place_strip","kinds":["strip","sign","sphere","strat","convention"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"slack":4},
-    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":true},
-    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":true},
-    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":true},
-    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":true},
-    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":true},
-    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":true},
-    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":true},
-    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":true}}};
+    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":false},
+    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":false},
+    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":false},
+    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":false},
+    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":false},
+    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":false},
+    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":false},
+    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":false}}};
 /* __PLACE_TEMPLATES__ DATA END */
 function placeTemplates(m){
   const N=m.n, PT=PLACE_TEMPLATES, FW=PT.footprint[0], FH=PT.footprint[1], TPB=PT.tiles_per_block, W=N+1;

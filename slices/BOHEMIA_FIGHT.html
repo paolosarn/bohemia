@@ -1357,6 +1357,17 @@ const FIGHT = (function () {
   function pickW(w) { const ks = Object.keys(w); let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0); return ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0]; }
   function dealOwn(opts, p) {
     const bt = DB.ground.block_tiles, cols = S.w / bt, rows = S.h / bt, lr = +pickW(p.landmark_rows), grid = [];
+    /* __THE_CUT__ (WORLD THIRTEEN 11/11, rules 429(a)(c), 430; ask line 504; COMBAT THREE's from here, the seam in
+       handoffs/WORLD_THIRTEEN.md): a fight the map hands from a cell of one of the 15 places it stood (opts.template, the map's
+       vbTemplateAt) is dealt THAT place's own board as it stands on the map, block for block (fight_ground.json boards
+       place_<id>), not a shuffle of its field round its landmark; the new houses go in after as before (rule 423(a)) */
+    const TB = opts.template && opts.template.board === 'place_' + p.id ? DB.ground.boards[opts.template.board] : null;
+    if (TB && TB.blocks && TB.blocks.length === rows && TB.blocks[0] && TB.blocks[0].length === cols) {
+      let tr = lr, tc = p.landmark_col;
+      TB.blocks.forEach(function (r, by) { grid.push(r.slice()); r.forEach(function (n, bx) { if (String(n).split('|')[0] === p.landmark_block) { tr = by; tc = bx; } }); });
+      return { grid: grid, fam: 'place', leads: [kindOf(p.landmark_block)], place: opts.district, own: p.id, start: pickW(p.starts), lm: p.landmark_block, cut: opts.template,
+        camp: { x: tc * bt + p.camp_tile[0], y: tr * bt + p.camp_tile[1] } };
+    }
     const mir = function (l) { return l.concat(p.mirror ? l.map(function (n) { return n + '|h'; }) : []); };
     /* a place may pin its own blocks to a column (the wash's channel runs down between the lines) or a row (the pass's high
        side on top, the drop below); else any of its field blocks */
@@ -1605,7 +1616,7 @@ const FIGHT = (function () {
     const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
     if (asked && d.place) used.push(opts.kind);   /* a place's board is named by its own blocks; the door's kind is answered, last */
     return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null, shape: shaped.shape, place: d.place || null,
-      own: d.own || null, start: d.start || null, camp: d.camp || null, lm: d.lm || null };
+      own: d.own || null, start: d.start || null, camp: d.camp || null, lm: d.lm || null, cut: d.cut || null };   /* cut: __THE_CUT__, the map's place cell it was dealt from */
   }
   /* ---------------- THE BOARD HAS A SHAPE (COMBAT [way more fight maps], ask line 252, Paolo 10/27: 'more maps... it got pretty
      boring... we need way more maps, way more combat maps'; CLAUDE.md, Paolo 9/29: 'no two combat boards are the same') ----------

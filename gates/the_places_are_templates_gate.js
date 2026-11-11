@@ -21,6 +21,8 @@
      P1 the map page stands the 15 places on the live valley, none under a home base's square, and answers the cell at a block
         (vbTemplateAt) with its board and its tiles
      P2 nothing threw
+     P3 THE CUT (11/11): a fight the map hands over itself (cityHandOver) on a cell of the suburbs' place is dealt that place's own
+        board block for block as it stands on the map (opts.template; the fight's dealOwn), the new houses in it
 
      node gates/the_places_are_templates_gate.js [--node]
    ============================================================================ */
@@ -123,6 +125,17 @@ function usedBlocks(all) {
       ok('P1 ' + prof + ': the map page stands ' + (R.places || 0) + ' of the 15 places on the live valley (' + (R.n || 0) + ' in all, ' + R.ms + ' ms), ' + (R.under | 0) + ' cells under the ' + (R.towns | 0) + ' home bases\' squares, and answers ' + (R.answered | 0) + ' of ' + (R.asked | 0) + ' cells with their board and tiles',
         !R.none && R.places === 15 && R.under === 0 && R.asked > 100 && R.answered === R.asked);
     } catch (e) { ok('the page legs ran, ' + prof + ' [' + String(e && e.message).slice(0, 160) + ']', false); }
+      /* P3 THE CUT: a fight handed over by the map itself (cityHandOver) on a cell of the suburbs' place is dealt that place's board,
+         block for block as it stands on the map, the new houses in it */
+      const cell = await d.fr.evaluate(() => { const tp = vbTemplatesValley(), I = tp && tp.list.find((q) => q.id === 'suburb'); return I ? I.cells[Math.floor(I.cells.length / 2)].slice(0, 2) : null; });
+      await d.fr.evaluate((c) => { cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'gate: the cut', draft: true, why: 'gate:cut', at: { gx: c[0], gy: c[1] } }); }, cell);
+      let F = null;
+      for (let i = 0; i < 180 && !F; i++) { await d.page.waitForTimeout(500);
+        F = await d.page.evaluate(() => { try { const f = document.getElementById('fightFrame'), w = f && f.contentWindow, FI = w && w.eval('FIGHT'), B = FI && FI.S && FI.S.boardDef;
+          if (!B || !FI.S.board || !B.blocks) return null; const want = w.eval('DB').ground.boards['place_suburb'].blocks;
+          return { own: B.own, cut: B.cut, same: JSON.stringify(B.blocks.map((r) => r.map((n) => String(n).split('|')[0]))) === JSON.stringify(want.map((r) => r.map((n) => String(n).split('|')[0]))), houses: (B.laid && B.laid.houses) || (FI.S.boardDef.houses ? FI.S.boardDef.houses.length : 0), opt: w.FIGHT_OPTS && w.FIGHT_OPTS.template }; } catch (e) { return null; } }); }
+      ok('P3 ' + prof + ': THE CUT: a fight the map hands over on the suburbs\' place (block ' + JSON.stringify(cell) + ') is dealt that place\'s own board block for block (' + (F ? 'own ' + F.own + ', the same layout ' + F.same + ', the cell ' + JSON.stringify(F.cut && F.cut.cell) + ', new houses ' + F.houses : 'no fight') + ')',
+        !!F && F.own === 'suburb' && F.same && F.cut && F.cut.cell && F.cut.cell[0] === cell[0] && F.cut.cell[1] === cell[1]);
     ok('P2 ' + prof + ': nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
     try { await d.close(); } catch (_e) {}
   }

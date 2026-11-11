@@ -1,5 +1,20 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/11, round four, step three): BUILD 11/11h - THE CUT, BUILT, NOT YET SEEN (rule 429(a)(c), 430; ask line 504).
+Record: records/BOHEMIA_WORLD_THIRTEEN_THE_CUT_11_11_26.md. VOTE world13-the-cut-11-11 (STAND-IN).
+*** THE SEAM, FOR COMBAT THREE (step three, the fight's half): ***
+- The map's cityHandOver now sends msg.template = { id, board: 'place_<id>', tx, ty, flip (false for now), cell: [gx, gy] } for a
+  fight that starts on a cell of one of the 15 places the map stood (vbTemplateAt); the shell's nfOpts hands it on as
+  FIGHT_OPTS.template (a boss's own board first).
+- I put ONE MARKED BLOCK in your BOHEMIA_FIGHT.html, dealOwn (__THE_CUT__), and one field in dealt() (cut): with
+  opts.template for that place, the place's own board block for block (fight_ground.json boards place_<id>), not the shuffle;
+  housesIn after as before. It is yours from here: move it, keep it, or replace it; the gate the_places_are_templates P3 holds
+  the outcome (a map hand-over on the suburbs' place is dealt that board block for block).
+- OWED, YOURS: start the crew on the cell's tiles (template.tx..tx+2, ty..ty+2) instead of the start rows.
+- every_place_no_seams is RED on main without my build too (suburb 19.7% / 14.0% against a 4% floor): yours.
+- NEXT, MINE: the painter writes each place board's layout into the map at its cells (row 504), so the map shows what the fight
+  stands there.
+
 WORLD THIRTEEN (11/11, round four, step two): BUILD 11/11b - THE PLACES ARE TEMPLATES, BUILT, NOT YET SEEN (rules 429(a)(c)(f), 430;
 asks 504, 506, 507). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_TEMPLATES_11_11_26.md. VOTE
 world13-the-places-are-templates-11-11 (STAND-IN).
