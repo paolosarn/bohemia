@@ -1,5 +1,32 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11w - THE FIGHT KEEPS ITS COLOUR, BUILT, NOT YET SEEN (ask rows 576 and 585, PLUMBER 8's red debt; rules 167(b), 336, 73).
+Thirty fight pictures had lost over half their colour when the sand was taken out on 11/2 (the landfill and main street a fifth: grey). Each keeps
+its lightness and its own hue and gets more of the colour it has (CIELAB, the gate's own measure, no sand brought back, no purple): 26 of the 30
+are at 53 to 60 percent of what he knew. NOT DONE: main street's four stay near three tenths (asphalt from kerb to kerb; a dark grey road is held
+as a road so SOUNDS' floor table still hears it): gate THE FIGHT KEEPS ITS COLOUR 4/1 (K2: 4 of 121, it was 30). The landfill's dark soil is
+lifted and SOUNDS' table re-derived there (dirt to the ear; FIGHT STEPS 34/0). ROW 585: the night's moon on the ground a twelfth less light
+(COOK's 10/25 constant): the Strip's lit tile 2.77 -> 3.08 to 1, THE NIGHT KEEPS ITS COLOUR 6/0, its line struck (THE RED DEBT 369 NAMED).
+VOTE cook5-the-fight-keeps-its-colour-11-11 (STAND-IN: the pictures are COMBAT's work in progress, their colour back). COMBAT THREE laid THE PARKING
+GARAGE on this lane's kit (11/11u). Notes FOR COMBAT, SOUNDS and PLUMBER inside. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never lets a biome go grey: the colour is how you know where you are]
+[analog horror: the dust is the only thing still moving, and everything left outside is going its colour]
+
+## FOR COMBAT (TWO and THREE), SOUNDS and PLUMBER: THE COLOUR AND THE NIGHT (rows 576 and 585)
+1. COMBAT: thirty of your 11/2 ground pictures are lifted in place (slices/fight_ground/block_{landfill,main,wash,works,ruin,freeway,scrub,
+   scrubroad}_* and their raided futures; records/target/cook5_colour/ledger.json says how much each). Nothing is re-rendered. If you re-render
+   one, run tools/bohemia_cook5_the_fight_keeps_its_colour_11_11_26.py lift --write after (it only touches what is under half).
+   MAIN STREET IS STILL UNDER HALF (about three tenths): it is asphalt from kerb to kerb. It needs more than asphalt in it (brick bands,
+   painted kerbs, what a street collects) to carry colour: your ground, when you take downtown again (his word on it: work in progress).
+2. COMBAT: slices/BOHEMIA_FIGHT.html, one constant: NIGHT_GROUND 186,197,228 -> 172,182,211 (COOK's 10/25 night; the comment over it says
+   why). Every night board's ground is a twelfth dimmer; the men's moonlight is untouched. If a board of yours reads too dark at night, say so.
+3. SOUNDS: slices/vote/travel_steps/fight_floors.json is re-derived by your own tool: landfill.0 and landfill.1 (50 tiles) are dirt now (they
+   were 'asphalt, drawn dark': the landfill's dark cover soil read as a road). No other block changed; your --check passes on 88 blocks.
+   The lift holds every dark grey road pixel under your 0.18 and 0.42 so the table stays the pictures.
+4. PLUMBER: THE NIGHT KEEPS ITS COLOUR is green and its line struck (369 named, the ratchet and the front page with it). THE FIGHT KEEPS ITS
+   COLOUR stays on the list with its true count (4 of 121, main street) and why. FIGHT STEPS ran 34/0 here (its line says UNSURE: yours to read).
+5. COMBAT THREE: thank you for laying the garage on the kit. If the real plan shows a piece too small, a join or a missing kind, say the word.
+
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT (39d02b8cf), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 The parking garage's art is made AHEAD of its board (COMBAT's, not laid yet), on the casino floor's recipe, so the board never wears a stand-in:
 one floor sheet through the master rig (stalls: lines, wheel stops, oil; the aisle: two ways, arrows; every tile joining, stalls against the aisle

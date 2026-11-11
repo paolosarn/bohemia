@@ -1,3 +1,15 @@
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11w - THE FIGHT KEEPS ITS COLOUR, BUILT, NOT YET SEEN (ask rows 576 and 585, PLUMBER 8's red debt; rules 167(b), 336, 73).
+Thirty fight pictures had lost over half their colour when the sand was taken out on 11/2 (the landfill and main street a fifth: grey). Each keeps
+its lightness and its own hue and gets more of the colour it has (CIELAB, the gate's own measure, no sand brought back, no purple): 26 of the 30
+are at 53 to 60 percent of what he knew. NOT DONE: main street's four stay near three tenths (asphalt from kerb to kerb; a dark grey road is held
+as a road so SOUNDS' floor table still hears it): gate THE FIGHT KEEPS ITS COLOUR 4/1 (K2: 4 of 121, it was 30). The landfill's dark soil is
+lifted and SOUNDS' table re-derived there (dirt to the ear; FIGHT STEPS 34/0). ROW 585: the night's moon on the ground a twelfth less light
+(COOK's 10/25 constant): the Strip's lit tile 2.77 -> 3.08 to 1, THE NIGHT KEEPS ITS COLOUR 6/0, its line struck (THE RED DEBT 369 NAMED).
+VOTE cook5-the-fight-keeps-its-colour-11-11 (STAND-IN: the pictures are COMBAT's work in progress, their colour back). COMBAT THREE laid THE PARKING
+GARAGE on this lane's kit (11/11u). Notes FOR COMBAT, SOUNDS and PLUMBER inside. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never lets a biome go grey: the colour is how you know where you are]
+[analog horror: the dust is the only thing still moving, and everything left outside is going its colour]
+
 COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11u - THE PARKING GARAGE, BUILT, NOT YET SEEN (rules 440(a), 441, 443(h); ask row 539).
 The third big interior: a fight at a casino (a third of them), the mall, the stadium, the Sphere, the Strat, the hospital, the convention centre or the
 airport's terminal (four in ten) starts on one deck of its parking garage: dead cars in their stalls (cover), the drive aisles (open floor AUTO gets
