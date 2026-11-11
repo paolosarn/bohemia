@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11w - THE FIGHT KEEPS ITS COLOUR, BUILT, NOT YET SEEN (ask rows 576 and 585, PLUMBER 8's red debt; rules 167(b), 336, 73).
+COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11w - THE FIGHT KEEPS ITS COLOUR, BUILT (30324691e), NOT YET SEEN (ask rows 576 and 585, PLUMBER 8's red debt; rules 167(b), 336, 73).
 Thirty fight pictures had lost over half their colour when the sand was taken out on 11/2 (the landfill and main street a fifth: grey). Each keeps
 its lightness and its own hue and gets more of the colour it has (CIELAB, the gate's own measure, no sand brought back, no purple): 26 of the 30
 are at 53 to 60 percent of what he knew. NOT DONE: main street's four stay near three tenths (asphalt from kerb to kerb; a dark grey road is held
