@@ -8553,6 +8553,15 @@ GATES = [
      "picks to your place through HOME BASE's seam (G1); at night the chains stay cut (C1a, C1b), the feed (C1d); the same phone opens the "
      "game again and it holds (R1). Planted: gates left open at night, chained again after the fall, a phone that forgot the save, a "
      "prize the seam never got. about 35 min a way", True),
+    ('THE CHARGE CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE CHARGE'],
+     "BOSSES gate, 11/11, the coordinator's round 'the next three from the ladder' (rule 441), ask lines 167, 522: the stranger's game on "
+     "the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the seven before him first through the map's own fell(), then THE CHARGE end to end: "
+     "the radio's bang and his rumour (T1), TEO asks and one of yours reads it (T2); HIS MINES: by day the crew spots his dug dirt, painted "
+     "and walked round (M1); at night one nobody spotted goes off under the walk, it stops, a man takes the injuries table's wound and the "
+     "radio posts it (M2); his card (B0), his fight (B1), the beat digs them up on the tape (B2), his powder to your place (G1); at night his "
+     "streets are safe (C1a, C1b), the feed (C1d); BLOW A HOLE opens a way through a wall for good (V1); the same phone opens the game again "
+     "and it holds, the hole too (R1). Planted: a mine that never goes off, a spotted mine walked over, his mines back after the fall, a hole "
+     "that did not open, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

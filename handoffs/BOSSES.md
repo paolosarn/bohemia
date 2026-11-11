@@ -1,5 +1,21 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/11/26: THE CHARGE'S MINES, HIS OWN WAY (the coordinator's round 'BOSSES next round', rule 441; ask lines 167, 522, 571), BUILD 11/11r
+Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE CHARGE" (THE CHARGE CHANGES THE MAP,
+registered; the demo upright 22/0, the alpha on its side 22/0; six plants). VOTE bosses-the-charges-mines-11-11 (stand_in).
+- HIS MINES (slices/bohemia_bosses.js (16); his 'mines' row: 5 cans 2 to 5 out, the sign's way in first, spotted within 3, Pierced Leg
+  Muscles 4 days 20 blood): by day a mine beside the crew or down the street in sight is spotted for good, drawn, and the map's own walk
+  goes round it (never where that cuts the crew off from him); at night one nobody spotted goes off under the walk: the walk stops, one man
+  (never the main man; the man who walks with you if nobody is on the books yet) takes the wound through BohemiaCondition, the radio posts
+  it. WHEN HE FALLS every can is dug up, kept after a reload.
+- BLOW A HOLE (verb 'blow'): beside a wall between two streets where the walk through is at least 3 blocks shorter, once a day: the block
+  is walked for good (cityWalkable's bosses wrapper: shut, locked, a spotted mine, then a hole you blew). The phone shows one verb, the
+  order's first: beside a shop PICK THE LOCK takes the button (UI: if the band ever shows two, BLOW is ready for it).
+- COMBAT TWO: his board 'canyon', BB's Two-Handed Hammer, a raider, a thug, a marksman. TUNING: the counts are his row's. CHARACTER /
+  COMBAT: a mine writes one man's wound into BohemiaCondition the way a fight's end does (lostHp, wound {mark, left, of, day}).
+- THE GATE'S NIGHT FOR A WALK (any lane): T.min alone lasts one step; set the day's clock (DAY.min = 18*60+10; daySync()) for a walk
+  taken at night.
+
 ## BOSSES, 11/11/26: THE LOCKSMITH'S GATES, HIS OWN WAY (the coordinator's round 'BOSSES next round', rule 441; ask lines 167, 522, 571), BUILD 11/11n
 Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE LOCKSMITH" (THE LOCKSMITH CHANGES
 THE MAP, registered; both ways: the demo upright 21/0, the alpha on its side 21/0; five plants). VOTE bosses-the-locksmiths-gates-11-11 (stand_in).

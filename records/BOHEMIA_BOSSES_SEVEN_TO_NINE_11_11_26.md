@@ -57,3 +57,40 @@ a96de3ca2, his fight won by AUTO with his own body and face both ways). Measured
   the published surface over 900 MB, two image libraries missing in this box).
 - VOTE bosses-the-locksmiths-gates-11-11: records/target/bosses_vote_locksmith_11_11/VOTE.webp (his shop at night, the gates chained,
   then DOÑA LUPE's card); his moving card records/target/bosses_seven_to_nine/VOTE_BOSS_LOCKSMITH.webp.
+
+## THE CHARGE (the ladder's 8th: who still has anything that goes off). BUILD 11/11r
+
+HIS OWN WAY: THE STREET ITSELF IS THE DANGER, AND DAYLIGHT IS HOW YOU READ IT. While he stands his powder men have buried can charges in
+5 street blocks 2 to 5 out from his yard (the sign's way in first). By day the dug dirt shows: a mine next to the crew or down the street
+in sight (the map's own sight, which sees along a street and never round a corner) is spotted for good, drawn with a stake and a rag,
+and the map's own walk goes round it (never where that would cut the crew off from him). At night nobody sees dug dirt: walk onto one you
+never spotted and it goes off: the walk stops, one of your men (never the main man) takes the injuries table's Pierced Leg Muscles for 4
+days and 20 blood (BohemiaCondition, the crew screen's own wounds), and the block is a hole. Not a wall, not a toll, not the dark, not a
+hunt: Battle Brothers' lesson that scouting decides the road. When he falls his men dig every one up, kept after a reload (and WORLD
+TWO's wall comes down where his yard was, its own).
+
+- Found by WORLD TWO's sign: the radio, then a bang.
+- Asker: TEO, a quarry man whose brother found one of the cans (faction_trades' face).
+- Fight: an engineer's numbers at 2.2 blood with THE SLEDGE (BB's Two-Handed Hammer: three men at once, knocks them down), his powder men
+  (a raider, a thug, a marksman), on the canyon board. Lesson: spread out, hit him from the sides.
+- Verb: BLOW A HOLE. Beside a wall between two streets where the walk through is at least 3 blocks shorter than the way round, once a
+  day: the block becomes a way through for good (cityWalkable's bosses wrapper: a hole you blew is walked; the rubble lies in it).
+  Measured: the phone shows one verb, the order's first, so beside a shop PICK THE LOCK takes the button and BLOW waits for the next block.
+- Prize: HIS POWDER, through HOME BASE's seam.
+- Code: slices/bohemia_bosses.js (16) HIS MINES. Data: boss_act_one.json row THE CHARGE, 'mines'.
+- Gate: "THE CHARGE" (M1 spotted by day, painted, walked round; M2 at night one nobody spotted goes off and wounds a man; C1a/C1b dug up;
+  V1 BLOW A HOLE; R1 the reload with the hole; planted P2, P2b, P3, P4, P5, P6).
+
+Measured on the way: the first runs had M1 and M2 red. The map sees along a street and never round a corner, so a mine two blocks off on
+the diagonal was never spotted (the gate stands beside it or down the street now); and the night walk to the far mine went by his yard,
+so his own card stopped the walk before the mine (the gate walks a way that keeps off his yard). Standing on one at night, it went off and
+RAUL took the wound (the probe, before the fix).
+
+RESULTS (BUILD 11/11r): THE CHARGE CHANGES THE MAP 22/0 on the demo upright and 22/0 on the alpha on its side. On the way: the gate's
+night lasted one step (the map's T.min alone; the walk syncs it back from the day's own clock), so the gate now sets the day's clock to
+dusk (18:10: the map's night starts at 18:00, the day ends at 22:00) for a walk taken at night; one alpha run lost TEO's card in its
+first 140 seconds and cascaded red, the next alpha run was 22/0 (earlier alpha runs had her card too). A man takes the wound twice if
+the walk crosses two cans (RAUL, 37 blood, on the demo run).
+- VOTE bosses-the-charges-mines-11-11: records/target/bosses_vote_charge_11_11/VOTE.webp (the gate's own phone: a mine spotted by day, one
+  gone off at dusk, dug up after, TEO's card).
+

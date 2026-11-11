@@ -5,6 +5,7 @@
   "open",
   "purify",
   "pick",
+  "blow",
   "climb",
   "survey",
   "burn",
@@ -812,6 +813,122 @@
     "card": "HIS {GATES} ARE CUT: THE STREETS ROUND HIS SHOP STAY OPEN ALL NIGHT.",
     "card_none": "HIS GATES ARE CUT.",
     "note": "BOSSES 11/11 (the coordinator's round 'the next three from the ladder', rule 441): THE LOCKSMITH changes the map with the CLOCK. While he stands, 'gates' street blocks 'near'..'far' round his shop (each a street running one way whose shutting makes the walk round it at least 'min_detour' blocks longer, never one that cuts a way) are open by day and shut at night; the map's own walk goes round (slices/bohemia_bosses.js (15) HIS GATES, cityWalkable wrapped). When he falls the chains are cut and they stay open all night. Pictures: slices/boss_places/curfew_night, curfew_day, curfew_after (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py)."
+   }
+  },
+  {
+   "n": "THE CHARGE",
+   "place": {
+    "name": "THE POWDER YARD",
+    "art": "powderyard",
+    "seen": "a quarry magazine behind a wall of concrete barriers, a red flag up on the pole",
+    "paint": "powderyard"
+   },
+   "rumour": {
+    "who": "@teo_cantera",
+    "txt": "THE CHARGE has the last powder in the valley, and he sells holes: a hole in a wall, a hole in a man. He buries cans in the streets round his yard. By day you can see where they dug. At night you can't. Careful, his sledge hits three of you at once."
+   },
+   "boss": {
+    "kind": "engineer",
+    "name": "THE CHARGE",
+    "title": "the man with the last powder",
+    "hp_x": 2.2,
+    "weapon": "Two-Handed Hammer",
+    "shield": null,
+    "look": "boss_charge_0",
+    "says": "You want a door? I make doors."
+   },
+   "crew": [
+    "lower_brigand_raider",
+    "brigand_thug",
+    "brigand_marksman"
+   ],
+   "crew_word": "THE CHARGE AND HIS POWDER MEN",
+   "board": "canyon",
+   "lesson": "His sledge hits up to three men beside each other and knocks them off their feet. Don't bunch up round him: spread out and hit him from the sides.",
+   "verb": {
+    "id": "blow",
+    "word": "BLOW",
+    "button": "BLOW A HOLE",
+    "rule": "beside a wall between two streets (a building, a fence, a block nobody walks); a hole for good where the walk through is at least 'min_saved' blocks shorter than the way round; once a day",
+    "min_saved": 3,
+    "cooldown_days": 1,
+    "says": "Your men blow a hole in the wall. A new way through, for good.",
+    "feed": {
+     "who": "@teo_cantera",
+     "txt": "A bang on {where}, then dust. There is a hole in the wall there now, and people are walking through it."
+    },
+    "tip": "Your men blow a hole in the wall beside you: a new way through, for good. Once a day. Works next to a wall between two streets.",
+    "first": {
+     "plate": "A NEW WAY: {blocks} BLOCKS SHORTER",
+     "feed": "First hole, on {where}. The walk through it is {blocks} blocks shorter than the way round, for good.",
+     "rise": "A NEW WAY: {blocks} BLOCKS SHORTER"
+    },
+    "cooling": "CHARGES DRYING: TOMORROW",
+    "tip_cooling": "Your men need a day to make the next charge.",
+    "place_after": "rubble",
+    "hand": {
+     "name": "HIS POWDER",
+     "pic": "hand_blow.png",
+     "line": "BLOW A HOLE: next to a wall between two streets. Your men blow a way through it, for good, and the walk gets shorter. Once a day."
+    }
+   },
+   "fallen_art": "powderyard_open",
+   "lead": {
+    "asker": {
+     "name": "TEO",
+     "look": "faction_trades",
+     "from": "a quarry man, one boot laced, the other leg wrapped to the knee",
+     "says": "Ey. Don't walk down there at night. THE CHARGE buries cans in the street, and my brother found one with his foot. He sells holes, that man. Holes in walls, holes in people. You hear a bang on the radio, that's him.",
+     "yes": "I'll find him.",
+     "no": "Can't help you.",
+     "yes_says": "Go by day, you can see where they dug. Listen to the radio, he can't shut up.",
+     "no_says": "Okay. Walk by day, at least."
+    },
+    "thing": {
+     "head": "THE RADIO",
+     "what": "a radio crackling, then a bang",
+     "says": "The radio, then a bang, then him laughing: THE CHARGE is selling holes in walls. He talks from his powder yard, the one with the red flag on the wall. He buries cans in the streets on the ways in. By day you can see the dug dirt. I marked it."
+    }
+   },
+   "after": {
+    "name": "TEO",
+    "look": "faction_trades",
+    "from": "at the hole in the powder yard's wall",
+    "says": "You did it! His powder is yours. Next to a wall between two streets, press BLOW A HOLE. Your men blow a way through it for good. Once a day, the charges need to dry.",
+    "ok": "GOT IT",
+    "valley": "His mines are dug up. You can walk his streets at night again.",
+    "take": "TAKE IT"
+   },
+   "tip": "SPREAD OUT: HIS SLEDGE HITS THREE",
+   "mines": {
+    "name": "HIS MINES",
+    "count": 5,
+    "near": 2,
+    "far": 5,
+    "spot": 3,
+    "pic": "mine",
+    "wound": "pierced_leg_muscles",
+    "days": 4,
+    "blood": 20,
+    "say_seen": "Dug dirt in the street. His. We go round.",
+    "rise_seen": "HIS MINE: WE GO ROUND",
+    "feed_seen": {
+     "who": "@teo_cantera",
+     "txt": "Somebody spotted one of his cans on {where}. Walk round it."
+    },
+    "say_bang": "BANG. {name} stepped on one of his cans. Nails in the legs. We carry him.",
+    "rise_bang": "BANG: {NAME} HURT, {days} DAYS",
+    "feed_bang": {
+     "who": "@teo_cantera",
+     "txt": "A bang on {where} in the night. One of his cans got somebody."
+    },
+    "feed": {
+     "who": "@teo_cantera",
+     "txt": "His mines on {where} are dug up, every one. You can walk there at night again."
+    },
+    "card": "HIS {MINES} ARE DUG UP: HIS STREETS ARE SAFE AT NIGHT.",
+    "card_none": "HIS MINES ARE DUG UP.",
+    "note": "BOSSES 11/11 (the coordinator's round 'the next three from the ladder', rule 441): THE CHARGE changes the map with a DANGER YOU READ BY DAY. While he stands, 'count' can charges sit in street blocks 'near'..'far' round his yard (the sign's way in first). By day a mine within 'spot' blocks the crew can see is spotted for good (drawn, and the map's own walk goes round it, never where that cuts the crew off from him); at night one never spotted goes off when the walk crosses it: the walk stops, one man (never the main man) takes the injuries table's 'wound' for 'days' days and 'blood' blood (BohemiaCondition), the block a hole. When he falls every one is dug up (slices/bohemia_bosses.js (16) HIS MINES). Pictures: slices/boss_places/mine_before, mine_after (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py)."
    }
   }
  ]

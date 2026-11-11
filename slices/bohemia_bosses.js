@@ -87,7 +87,7 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {}, riggers: {}, curfew: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {}, riggers: {}, curfew: {}, mines: {}, blown: [] }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -101,6 +101,8 @@
     if (!S.hole) S.hole = {};
     if (!S.riggers) S.riggers = {};
     if (!S.curfew) { S.curfew = {}; LOCK_DIRTY = true; }
+    if (!S.mines) { S.mines = {}; MINE_DIRTY = true; }
+    if (!S.blown) S.blown = [];
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
@@ -109,6 +111,8 @@
     holeCatchUp();     /* (12) and his hole */
     riggersCatchUp();  /* (13) and his riggers */
     curfewCatchUp();   /* (15) and his gates */
+    minesCatchUp();    /* (16) and his mines */
+    if (MINE_DIRTY) mineGrid();
     if (LOCK_DIRTY) lockGrid();
     if (SHUT_DIRTY) shutGrid();
     return true;
@@ -218,7 +222,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -386,6 +390,12 @@
     if (id === 'climb') return (!climbed(x, y) && (hisPlace('climb', x, y) || !!nearKind(x, y, V.tower_districts || []))) ? { id: id } : null;
     /* BOSSES 11/11: THE LOCKSMITH's picks (beside a locked place, once a door) */
     if (id === 'pick') return (!picked(x, y) && (hisPlace('pick', x, y) || !!nearKind(x, y, V.lock_districts || []))) ? { id: id } : null;
+    /* THE CHARGE's powder (beside a wall between two streets, a hole for good, once a day) */
+    if (id === 'blow') {
+      if (!wallBeside(x, y)) return null;
+      var lw = S.verbs.blow.last; if (lw != null && day() - lw < (V.cooldown_days || 1)) return { id: id, off: true, why: 'drying' };
+      return { id: id };
+    }
     return null;
   }
   /* the phone's band: the verb that works where he stands (the order the file says), a cooling one only when nothing else does;
@@ -444,24 +454,27 @@
     if (id === 'burn') { got = { lit: true, blocks: (V.light_blocks || 2) }; S.verbs.burn.last = nightOf(); }
     if (id === 'survey') { got = mapAround(h[0], h[1], V.radius || 10); S.verbs.survey.last = day(); }
     if (id === 'climb') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'the top floors on ' + w, 'boss-verb:climb:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
+    if (id === 'blow') { var wb = wallBeside(h[0], h[1]); if (!S.blown) S.blown = []; if (wb) { S.blown.push({ x: wb.x, y: wb.y, day: day(), from: [h[0], h[1]], saved: wb.saved }); BLOWN = null; WALL_CACHE.k = null; }
+      got = { blocks: wb ? wb.saved : 0, at: wb ? [wb.x, wb.y] : null }; S.verbs.blow.last = day(); }
     if (id === 'pick') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'a locked door on ' + w, 'boss-verb:pick:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
     var nums = { where: w, healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0 };
     nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
-    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
     var mk = { k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() };
     if (id === 'climb') { var tw = towerOf(h[0], h[1]); if (tw) { mk.tx = tw[0]; mk.ty = tw[1]; } }
     if (id === 'pick') { var dr = doorOf(h[0], h[1]); if (dr) { mk.tx = dr[0]; mk.ty = dr[1]; } }
+    if (id === 'blow' && got && got.at) { mk.x = got.at[0]; mk.y = got.at[1]; mk.from = [h[0], h[1]]; }   /* the rubble lies in the hole */
     S.marks.push(mk);
     S.verbs[id].uses = (S.verbs[id].uses | 0) + 1;
     save();
     var said = first && (F.feed || F.feed_none) ? fill((none && F.feed_none) || F.feed, nums)
       : V.says + (id === 'cook' && got ? (got.men ? ' ' + got.healed + ' blood back across ' + got.men + (got.men === 1 ? ' man.' : ' men.') : ' Nobody was hurt; they eat anyway.')
       : id === 'open' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'purify' && got ? (got.men ? ' ' + got.men + (got.men === 1 ? ' wound' : ' wounds') + ' closing sooner.' : ' Nobody is wounded right now.')
-      : id === 'survey' && got ? ' ' + got.blocks + (got.blocks === 1 ? ' block' : ' blocks') + ' out of the fog.' : (id === 'climb' || id === 'pick') && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : '');
+      : id === 'survey' && got ? ' ' + got.blocks + (got.blocks === 1 ? ' block' : ' blocks') + ' out of the fog.' : (id === 'climb' || id === 'pick') && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'blow' && got ? (got.blocks ? ' ' + got.blocks + ' blocks shorter.' : '') : '');
     feed('@yourcompany', said, 'mine');   /* draft:true: the company's own post, on the phone */
     if (V.feed) feed(V.feed.who, fill(V.feed.txt, nums), 'world');
     var rise = fill((none && F.rise_none) || F.rise || '', nums);   /* (7) the change plays where he stands, the number rises off his men */
-    if (rise) useBeat(id, h, rise);
+    if (rise) useBeat(id, id === 'blow' && got && got.at ? got.at : h, rise);
     LAST.used.push({ id: id, x: h[0], y: h[1], got: got, first: first, said: said, rise: rise, t: Date.now() });
     root.__BOSS_VERB_USED = LAST.used.slice(-6);
     try { root.dispatchEvent(new CustomEvent('bohemia:verb-used', { detail: { id: id, at: h, got: got, first: first } })); } catch (e) {}
@@ -1442,6 +1455,162 @@
     for (var a = -1; a <= 1; a++) for (var b = -1; b <= 1; b++) { var d = dist(x + a, y + b); if (d && K.indexOf(d) >= 0) return [x + a, y + b]; } return null; }
   function picked(x, y) { if (!S) return false; var t = doorOf(x, y); return S.marks.some(function (m) { return m.k === 'pick' && ((m.x === x && m.y === y) || (t && m.tx === t[0] && m.ty === t[1])); }); }
 
+  /* ---------- (16) HIS MINES (BOSSES 11/11, the coordinator's round 'the next three from the ladder', rule 441; ask lines 167, 522;
+     records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md). THE CHARGE, the ladder's 8th (who still has anything that goes off). WHILE HE STANDS
+     his powder men have buried can charges in the streets on the ways into his yard ('count' of them, 'near'..'far' blocks out, the
+     sign's way in first). BY DAY THE DUG DIRT SHOWS: a mine the crew can see (the map's own sight, in daylight) is spotted for good, drawn
+     with a stake and a rag, and the map's own walk goes round it (never where that would cut the crew off from him). AT NIGHT NOBODY SEES
+     DUG DIRT: walk onto one you never spotted and it goes off: the walk stops, one of your men (never the main man) takes the can's nails in
+     the legs (the injuries table's own wound, its days, its blood: BohemiaCondition), and the block is a hole. Not a wall, not a toll,
+     not the dark, not a hunt: the street itself is the danger and daylight is how you read it (Battle Brothers: scouting decides the
+     road). WHEN HE FALLS his men dig every one up (the cans lie by their holes, nothing goes off again). Kept after a reload. */
+  var MINE_SEEN = null, MINE_PATH = null, MINE_I = 0, MINE_N = 0, MINE_GRID = null, MINE_DIRTY = true;
+  function minesRow(n) { var r = row(n); return r && r.mines ? r : null; }
+  function minesDown(k, M) { var h = hs(); return M.fell != null || !!(h && h.boss.fallen[k]); }
+  function makeMines(r, at, from) {
+    var G = r.mines, cnt = Math.max(1, G.count | 0 || 5), near = Math.max(1, G.near | 0 || 2), far = Math.max(near + 1, G.far | 0 || 5);
+    var list = [], ok = function (x, y) { return walk(x, y) && !nearTown(x, y, 2) && !shutAt(x, y) && !onPipe(x, y) && !machineAt(x, y) && !gateAt(x, y) && !(from && cheb(x, y, from[0], from[1]) <= 1) && !list.some(function (q) { return cheb(q.x, q.y, x, y) < 2; }); };
+    var p = null; try { p = from ? cityRoute(from[0], from[1], at[0], at[1]) : null; } catch (e) { p = null; }
+    (p || []).forEach(function (q) { var d = cheb(q[0], q[1], at[0], at[1]); if (d >= near && d <= far && list.length < Math.ceil(cnt / 2) && ok(q[0], q[1])) list.push({ x: q[0], y: q[1] }); });   /* the sign's way in first */
+    spots(at, near, far, cnt * 3, from, 0x3c6ef372).forEach(function (q) { if (list.length < cnt && ok(q.x, q.y)) list.push({ x: q.x, y: q.y }); });
+    return { at: at.slice(), from: from ? from.slice() : null, mines: list.map(function (q) { return { x: q.x, y: q.y, seen: null, went: null, open: false }; }), fell: null, told: null, made: day(), draft: true };
+  }
+  function mineGrid() {
+    MINE_DIRTY = false; var n = N(); MINE_GRID = null; MINE_N = n; if (!S || !S.mines || !n || bench()) return;
+    for (var k in S.mines) { var M = S.mines[k]; if (!M || minesDown(k, M)) continue;
+      M.mines.forEach(function (m) { if (m.seen != null && m.went == null && !m.open && m.x >= 0 && m.y >= 0 && m.x < n && m.y < n) { MINE_GRID = MINE_GRID || new Uint8Array(n * n); MINE_GRID[m.y * n + m.x] = 1; } }); }
+  }
+  /* a mine the crew spotted: the walk goes round it (never the block the crew stands on) */
+  function mineShut(x, y) { if (!MINE_GRID || x < 0 || y < 0 || x >= MINE_N || y >= MINE_N || MINE_GRID[y * MINE_N + x] !== 1) return false; var me = here(); return !(me && me[0] === x && me[1] === y); }
+  function liveMine(x, y) { if (!S || !S.mines) return null; for (var k in S.mines) { var M = S.mines[k]; if (!M || minesDown(k, M)) continue;
+      for (var i = 0; i < M.mines.length; i++) { var m = M.mines[i]; if (m.x === x && m.y === y && m.went == null) return { n: k, M: M, m: m }; } } return null; }
+  /* the man who stepped on it: one of yours, never the main man, the one with the most blood left (he was in front) */
+  function hurtOne(G) {
+    var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return null;
+    var s = C.get(), best = null, bk = null;
+    for (var k in s.men) { var m = s.men[k]; if (!m || m.main || m.dead || !(m.hpMax > 0)) continue; var left = m.hpMax - (m.lostHp || 0); if (left <= 1) continue; if (!best || left > best.hpMax - (best.lostHp || 0)) { best = m; bk = k; } }
+    if (!best) {   /* nobody on the books yet (no fight since the game began): the man who walks with you, at a fresh man's blood */
+      var w = mate(); if (!w || w.name === 'ONE OF YOURS') return null; bk = C.canon ? C.canon(w.name) : String(w.name).toUpperCase(); if (!bk || bk === 'YOU') return null;
+      best = s.men[bk] = s.men[bk] || { hpMax: +G.hp || 60, lostHp: 0, shown: w.name };
+    }
+    var days = +G.days || 4, blood = +G.blood || 20;
+    best.lostHp = Math.min(best.hpMax - 1, (best.lostHp || 0) + blood);
+    if (!best.wound || !(best.wound.left > days)) best.wound = { mark: G.wound || 'pierced_leg_muscles', left: days, of: days, day: day() };
+    try { root.localStorage.setItem(C.KEY, JSON.stringify(s)); } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mine: true } })); } catch (e) {}
+    return { name: best.shown || bk, key: bk, blood: blood, days: days, mark: best.wound.mark };
+  }
+  function minesTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.mines) S.mines = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.mines || S.mines[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.mines[r.n] = makeMines(r, [at.x, at.y], sg ? [sg.x, sg.y] : here()); save(); MINE_DIRTY = true;
+      LAST.mines = { n: r.n, mines: S.mines[r.n].mines.length, at: Date.now() };
+    });
+    if (MINE_DIRTY) mineGrid();
+    if (inTown() || fightUp()) return;
+    var me = here(); if (!me) return;
+    var nt = night();
+    /* by day, the dug dirt the crew can see is spotted for good (the walk goes round it, never where that cuts it off from him) */
+    if (!nt) for (var k in S.mines) { var M = S.mines[k], r = minesRow(k); if (!M || !r || minesDown(k, M)) continue;
+      M.mines.forEach(function (m) {
+        if (m.seen != null || m.went != null || !sees(m.x, m.y) || cheb(m.x, m.y, me[0], me[1]) > (r.mines.spot || 3)) return;
+        m.seen = day(); MINE_DIRTY = true; mineGrid();
+        var f = h.boss.found[k] || (h.boss.sign && h.boss.sign.n === k ? h.boss.sign.boss : null), p = null;
+        try { p = f ? cityRoute(me[0], me[1], f.x, f.y) : null; } catch (e) { p = null; }
+        if (f && !p) { m.open = true; MINE_DIRTY = true; mineGrid(); }   /* it sits on the only way: the crew steps round it on the block */
+        save();
+        RISES.push({ x: m.x, y: m.y, t0: performance.now(), txt: r.mines.rise_seen || 'HIS MINE', col: '#e6dcc4' }); tick();
+        if (M.told == null) { M.told = day(); if (r.mines.say_seen) say(r.mines.say_seen); if (r.mines.feed_seen) feed(r.mines.feed_seen.who, fill(r.mines.feed_seen.txt, { where: whereWord(m.x, m.y) }), 'world'); }
+        LAST.mineSeen = { n: k, at: [m.x, m.y], open: m.open, t: Date.now() }; root.__BOSS_MINE_SEEN = LAST.mineSeen;
+        try { if (TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length && TRAVEL.path.slice(TRAVEL.i).some(function (q) { return q[0] === m.x && q[1] === m.y; }) && !m.open) { var to = TRAVEL.to || TRAVEL.path[TRAVEL.path.length - 1]; travelStop(); travelTo(0, 0, to); try { travelGoes(); } catch (e2) {} } } catch (e) {}   /* the walk goes round it from here */
+      }); }
+    /* every block the walk crossed since the last look (a fast walk can cross two between frames) */
+    var crossed = [me];
+    try { if (TRAVEL && TRAVEL.path) { if (MINE_PATH === TRAVEL.path) for (var j = Math.max(0, MINE_I); j <= Math.min(TRAVEL.i, TRAVEL.path.length - 1); j++) crossed.push(TRAVEL.path[j]); MINE_PATH = TRAVEL.path; MINE_I = TRAVEL.i; } } catch (e) {}
+    for (var c = 0; c < crossed.length; c++) {
+      var L = liveMine(crossed[c][0], crossed[c][1]); if (!L) continue;
+      var m = L.m, r = minesRow(L.n); if (!r || m.seen != null) continue;
+      if (!nt) { m.seen = day(); MINE_DIRTY = true; save(); continue; }   /* by day you see it before your foot does */
+      m.went = day(); MINE_DIRTY = true; mineGrid();
+      try { travelStop(); } catch (e) {}
+      var hurt = hurtOne(r.mines), o = { name: hurt ? hurt.name : 'one of us', NAME: (hurt ? hurt.name : 'ONE OF US').toUpperCase(), days: hurt ? hurt.days : (r.mines.days || 4), where: whereWord(m.x, m.y) };
+      save();
+      if (r.mines.say_bang) say(fill(r.mines.say_bang, o));
+      if (r.mines.feed_bang) feed(r.mines.feed_bang.who, fill(r.mines.feed_bang.txt, o), 'world');
+      RISES.push({ x: m.x, y: m.y, t0: performance.now(), txt: fill(r.mines.rise_bang || 'BANG', o), col: '#e0705a' }); tick();
+      try { if (root.parent && root.parent !== root) root.parent.postMessage({ type: 'BOHEMIA_SFX', ev: 'boss_found' }, '*'); } catch (e) {}
+      LAST.mineWent = { n: L.n, at: [m.x, m.y], hurt: hurt, t: Date.now() }; root.__BOSS_MINE_WENT = LAST.mineWent;
+      break;
+    }
+  }
+  function minesFell(r, h) {
+    var G = r.mines; if (!G || !S) return null;
+    if (!S.mines) S.mines = {};
+    var M = S.mines[r.n]; if (!M) M = S.mines[r.n] = { at: null, from: null, mines: [], fell: null, told: null, made: day(), draft: true };
+    if (M.fell != null) return M;
+    M.fell = day();
+    var n = M.mines.filter(function (m) { return m.went == null; }).length, o = { n: n, mines: n + (n === 1 ? ' mine' : ' mines'), where: M.at ? whereWord(M.at[0], M.at[1]) : 'that block' };
+    o.MINES = o.mines.toUpperCase();
+    if (G.feed && n) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    M.said = n ? fill(G.card, o) : (G.card_none || null);
+    save(); MINE_DIRTY = true; mineGrid();
+    LAST.minesFell = { n: r.n, dug: n, said: M.said, at: Date.now() };
+    try { root.dispatchEvent(new CustomEvent('bohemia:boss-mines', { detail: { n: r.n, dug: n } })); } catch (e) {}
+    return M;
+  }
+  function minesCatchUp() {
+    if (!DATA || !S || !S.mines) return; var h = hs(); if (!h) return;
+    for (var k in S.mines) { var M = S.mines[k]; if (M && M.fell == null && h.boss.fallen[k]) { var r = minesRow(k); if (r) minesFell(r, h); } }
+  }
+  function mineKey(r, after) { return (r.mines.pic || 'mine') + (after ? '_after' : '_before'); }
+  function minesDraw(gx, ox, oy, beat) {
+    if (!S || !S.mines) return;
+    var h = hs(); LAST.drew.mines = [];
+    for (var k in S.mines) {
+      var M = S.mines[k], r = minesRow(k); if (!M || !r) continue;
+      var fell = minesDown(k, M), down = fell && !beatOwed(k), inBeat = !!(BEAT && BEAT.n === k);
+      M.mines.forEach(function (m, i) {
+        var vis = seen(m.x, m.y);
+        if (!fell && m.went == null && m.seen == null) return;   /* a mine nobody spotted is not on the map: that is the danger */
+        if (fell && !vis && m.seen == null && m.went == null) return;
+        if (inBeat && fell) { LAST.drew.mines.push({ n: k, i: i, at: [m.x, m.y], key: 'beat' }); return; }
+        var key = mineKey(r, down || m.went != null), b = paint(gx, key, m.x, m.y, ox, oy, beat, 0.95, 0, !vis);
+        if (b) { LAST.drew.mines.push({ n: k, i: i, at: [m.x, m.y], key: key, went: m.went != null }); LAST.drew.painted++; }
+      });
+    }
+  }
+  function minesBeat(x, ox, oy, beat, u, alpha) {
+    var M = S && S.mines && BEAT && S.mines[BEAT.n], r = BEAT && minesRow(BEAT.n); if (!M || !r) return 0;
+    var c = 0;
+    M.mines.forEach(function (m) { if (m.went != null) return; var bb = rectOf(mineKey(r, true), m.x, m.y, ox, oy, 0.95, 0); if (!bb) return; wipe(x, m.seen != null ? mineKey(r, false) : null, mineKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+  /* (BLOW) a hole for good: a wall block between where he stands and a street on its far side, never a town's, never water, the
+     freeway or a mountain, only where the walk through it is at least 'min_saved' blocks shorter than the way round */
+  var BLOWN = null, WALL_CACHE = { k: null, v: null };
+  function blownAt(x, y) { if (!S || !S.blown || !S.blown.length) return false; if (!BLOWN || BLOWN._s !== S || BLOWN._n !== S.blown.length) { BLOWN = { _s: S, _n: S.blown.length }; S.blown.forEach(function (b) { BLOWN[b.y * 4096 + b.x] = 1; }); } return !!BLOWN[y * 4096 + x]; }
+  function rawWalk(x, y) { try { return RAW_WALK ? !!RAW_WALK(x, y) : walk(x, y); } catch (e) { return false; } }
+  function wallBeside(x, y) {
+    var V = verbRow('blow'), n = N(); if (!V || !n) return null;
+    var key = x + ',' + y + ',' + ((S && S.blown) || []).length + ',' + day(); if (WALL_CACHE.k === key) return WALL_CACHE.v;
+    var best = null, minS = (V.verb.min_saved | 0) || 3;
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (d) {
+      var wx = x + d[0], wy = y + d[1], fx = x + 2 * d[0], fy = y + 2 * d[1];
+      if (wx < 1 || wy < 1 || wx >= n - 1 || wy >= n - 1 || rawWalk(wx, wy) || blownAt(wx, wy) || !walk(fx, fy) || nearTown(wx, wy, 2)) return;
+      var dk = dist(wx, wy); if (!dk || /lake|water|reservoir|basin|freeway|interchange|exits|mountain|dam/.test(dk)) return;
+      var p = null; try { p = cityRoute(x, y, fx, fy); } catch (e) { p = null; }
+      var saved = (p ? p.length - 1 : 60) - 2; if (saved < minS) return;
+      if (!best || saved > best.saved) best = { x: wx, y: wy, saved: saved, far: [fx, fy] };
+    });
+    WALL_CACHE = { k: key, v: best }; return best;
+  }
+
   /* ---------- (14) WHAT HE GIVES STANDS IN YOUR SETTLEMENT (BOSSES 11/10, VAMILY rule 445, ask line 571; Paolo: 'what the bosses give us
      after they die... everything will be in our own custom settlement that we build from the ground up'). The boss still changes the map
      his own way; the thing he hands you (his verb's hand: his fuel, his map, his hook) goes to the place you planted through HOME BASE's
@@ -1472,7 +1641,7 @@
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
-    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y)) return false; return RAW_WALK(x, y); };   /* (15) and his gates at night */
+    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
   }
 
   /* ---------- (1) drawing: his place painted, what changed, the blocks you used a verb on ---------- */
@@ -1625,7 +1794,8 @@
         try { LAST.beat.drums = darkBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (11) his drums go to the neighbours */
         try { LAST.beat.posts = holeBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) the signs go back up */
         try { LAST.beat.riggers = riggersBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }
-        try { LAST.beat.gates = curfewBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (15) his gates cut */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.gates = curfewBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (15) his gates cut */
+        try { LAST.beat.mines = minesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (16) his mines dug up */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -1640,7 +1810,7 @@
       x.save(); x.globalAlpha = a; x.font = '400 ' + Math.round(12 * k) + 'px ' + f; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.lineJoin = 'round';
       var ty = Math.round(p.sy - TH * 0.6 - 18 * k - e * 34 * k);
       x.lineWidth = Math.round(4 * k); x.strokeStyle = 'rgba(10,8,6,0.9)'; x.strokeText(UB.rise, Math.round(p.sx), ty);
-      x.fillStyle = UB.id === 'cook' ? '#9fd08a' : (UB.id === 'open' || UB.id === 'climb' || UB.id === 'pick') ? '#f2c56a' : UB.id === 'burn' ? '#f2a46a' : UB.id === 'survey' ? '#e6dcc4' : '#bfeae2'; x.fillText(UB.rise, Math.round(p.sx), ty); x.restore();
+      x.fillStyle = UB.id === 'cook' ? '#9fd08a' : (UB.id === 'open' || UB.id === 'climb' || UB.id === 'pick') ? '#f2c56a' : UB.id === 'blow' ? '#e6c46a' : UB.id === 'burn' ? '#f2a46a' : UB.id === 'survey' ? '#e6dcc4' : '#bfeae2'; x.fillText(UB.rise, Math.round(p.sx), ty); x.restore();
       LAST.useBeat.drawn = { rise: UB.rise, at: [Math.round(p.sx), ty], mark: bm ? [bm.x, bm.y, bm.w, bm.h] : null };
     }
   }
@@ -1682,6 +1852,7 @@
       try { holeTick(); holeDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (12) his hole and his sign poles */
       try { riggersTick(); riggersDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (13) his riggers, then the people he kept */
       try { curfewTick(); curfewDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (15) his gates, chained at night */
+      try { minesTick(); minesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (16) his mines, the ones you spotted */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -1721,6 +1892,7 @@
     if (r.hole) holeFell(r, h);   /* (12) his side back on the map, his lines to every town */
     if (r.riggers) riggersFell(r, h);   /* (13) his riggers gone, the people he kept come down */
     if (r.curfew) curfewFell(r, h);   /* (15) his gates cut */
+    if (r.mines) minesFell(r, h);   /* (16) his mines dug up */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -1765,6 +1937,12 @@
     curfew: function (n) { sync(); return S && S.curfew ? (n ? (S.curfew[n] || null) : S.curfew) : null; },
     lockAt: function (x, y) { sync(); if (LOCK_DIRTY) lockGrid(); return lockAt(x, y); },
     regate: function () { LOCK_DIRTY = true; lockGrid(); return !!LOCK; },
+    /* and his mines: where they are, which a crew spotted or set off, and whether a block is a hole you blew */
+    mines: function (n) { sync(); return S && S.mines ? (n ? (S.mines[n] || null) : S.mines) : null; },
+    mineShut: function (x, y) { sync(); if (MINE_DIRTY) mineGrid(); return mineShut(x, y); },
+    remine: function () { MINE_DIRTY = true; mineGrid(); return !!MINE_GRID; },
+    blown: function () { sync(); return (S && S.blown) ? S.blown.slice() : []; }, blownAt: function (x, y) { sync(); return blownAt(x, y); },
+    wallBeside: function (x, y) { sync(); return wallBeside(x, y); },
     prizes: function () { sync(); return prizes(); }, prizeWhere: function (id) { return prizeWhere(id); },
     partyUp: function (n) { sync(); var Q = S && S.riggers && S.riggers[n]; return !!Q && !riggersDown(n, Q) && !!Q.party && Q.party.down == null; }
   };

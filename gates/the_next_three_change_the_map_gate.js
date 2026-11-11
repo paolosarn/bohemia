@@ -19,7 +19,9 @@
      WHILE HE STANDS, HIS OWN WAY (THE BURN: D1 his drums, D2 at night his side sees one block and is painted black, the rest of the
         valley the night's half; THE SURVEYOR: H1 his signposts, H2 walk into his side and out: the map forgets it; THE CLIMB: K1 his
         riggers' party, K2 it comes for you on the map and fights; BOSSES 11/11, THE LOCKSMITH: K1 his gates open by day, K2 at night
-        chained, the walk the long way round, never cut off from him and no block between two gates shut off, K3 said and posted)
+        chained, the walk the long way round, never cut off from him and no block between two gates shut off, K3 said and posted; THE CHARGE:
+        M1 by day his dug dirt spotted, painted and walked round, M2 at night one nobody spotted goes off and wounds a man; after him V1
+        BLOW A HOLE opens a way through a wall for good)
      B0 his card first; B1 his fight won; B2 the beat plays his change on the tape, the asker's card says the valley's line, hands his
         thing, and the line under it says what changed on the map, with its numbers
      WHEN HE FALLS, HIS OWN WAY (C1a..C1d), then R1 the same phone opens the game again and it holds
@@ -371,7 +373,115 @@ const LOCK = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK };
+/* ---------------- THE CHARGE: his mines, read by day, deadly at night (BOSSES 11/11) ---------------- */
+/* a night the walk keeps (measured 11/11: setting the map's T.min alone lasts one step, the walk syncs it back from the day's own clock;
+   the day runs 06:00 to 22:00 and the map's night starts at 18:00, so dusk on the day's clock is a night a walk can be taken in) */
+const dusk = (fr) => fr.evaluate(() => { try { DAY.min = 18 * 60 + 10; daySync(); } catch (e) { try { T.min = 18 * 60 + 10; } catch (e2) {} } try { render(); } catch (e) {} });
+const mineQ = (fr, n) => fr.evaluate((n) => { const M = BohemiaBosses.mines(n); return M ? JSON.parse(JSON.stringify(M)) : null; }, n);
+const MINE = {
+  M1: (q) => !!q && q.seen && (q.shut || q.open) && q.drawn,
+  M2: (q) => !!q && q.went >= 1 && !!q.hurt && q.wound === q.want && q.blood >= q.wantBlood,
+  C1a: (q) => !!q && q.live === 0 && q.shut === 0 && q.newBang === 0,
+  V1: (q) => !!q && q.blown && q.walk && q.wayAfter === 2 && q.wayBefore >= 5,
+  R1: (q, b) => !!q && q.fallen && q.mines === b.mines && q.live === 0 && q.shut === 0 && q.hole === true,
+  async before(c) {
+    const { fr, G } = c;
+    let M = null;
+    for (let i = 0; i < 30 && !(M && M.mines && M.mines.length >= 2); i++) { M = await mineQ(fr, NAME); if (!(M && M.mines && M.mines.length >= 2)) await c.page.waitForTimeout(500); }
+    if (!M || M.mines.length < 2) { ok('M1 his mines', false, JSON.stringify(M)); return false; }
+    c.M0 = M;
+    /* BY DAY: the nearest unspotted mine, and a block two or three from it the crew reaches without stepping on any */
+    await c.day();
+    const plan = await fr.evaluate((M) => { const h = [city.x, city.y], on = {}; M.mines.forEach(m => { on[m.x + ',' + m.y] = 1; });
+      const live = M.mines.filter(m => m.seen == null && m.went == null).sort((a, b) => Math.max(Math.abs(a.x - h[0]), Math.abs(a.y - h[1])) - Math.max(Math.abs(b.x - h[0]), Math.abs(b.y - h[1])));
+      for (const m of live) { let best = null, bd = 1e9;
+        for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d < 1 || (d > 1 && dx !== 0 && dy !== 0)) continue; const x = m.x + dx, y = m.y + dy;   /* beside it, or straight down the street (the map sees along a street, never round a corner: measured 11/11) */
+          if (on[x + ',' + y] || !cityWalkable(x, y)) continue; const p = cityRoute(h[0], h[1], x, y); if (!p || p.some(q => on[q[0] + ',' + q[1]])) continue; if (p.length < bd) { bd = p.length; best = [x, y]; } }
+        if (best) { const far = live.filter(o => o !== m).sort((a, b) => Math.max(Math.abs(b.x - m.x), Math.abs(b.y - m.y)) - Math.max(Math.abs(a.x - m.x), Math.abs(a.y - m.y)))[0]; return { m1: [m.x, m.y], near: best, m2: far ? [far.x, far.y] : null }; } }
+      return null; }, M);
+    if (!plan || !plan.m2) { ok('M1 a mine the crew can walk up to by day', false, JSON.stringify(plan)); return false; }
+    c.plan = plan;
+    await c.goTo(plan.near); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(700);
+    const q1 = await fr.evaluate((a) => { const M = BohemiaBosses.mines(a[0]), m = M.mines.filter(m => m.x === a[1][0] && m.y === a[1][1])[0];
+      return { at: [city.x, city.y], seen: m.seen != null, open: !!m.open, shut: BohemiaBosses.mineShut(m.x, m.y) && !cityWalkable(m.x, m.y), drawn: ((BohemiaBosses.last().drew || {}).mines || []).some(d => d.key === 'mine_before' && d.at[0] === m.x && d.at[1] === m.y),
+        told: JSON.parse(JSON.stringify(window.__BOSS_MINE_SEEN || null)) }; }, [NAME, plan.m1]);
+    await c.shot('2_his_mine_spotted_by_day');
+    ok('M1 by day the crew sees his dug dirt (beside it or down the street, up to ' + G.spot + ' blocks): the mine is spotted for good, painted with a stake and a rag, and the walk goes round it', MINE.M1(q1) && !!q1.told && q1.told.n === NAME,
+      JSON.stringify(q1) + ', ' + M.mines.length + ' mines round ' + M.at.join(','));
+    /* AT NIGHT: walk onto one nobody spotted (the far one) */
+    await dusk(fr);
+    /* the one nobody spotted (the day's walk may have spotted more than the first): the farthest from it the crew can reach */
+    const m2 = await fr.evaluate((a) => { const M = BohemiaBosses.mines(a[0]), h = [city.x, city.y];
+      const f = BohemiaHisMap.state().boss.found[a[0]], off = (p) => !!p && !p.some(q => Math.max(Math.abs(q[0] - f.x), Math.abs(q[1] - f.y)) <= 2);   /* his card stops a walk that goes by his yard (measured 11/11) */
+      const c2 = M.mines.filter(m => m.seen == null && m.went == null && off(cityRoute(h[0], h[1], m.x, m.y))).sort((p, q) => Math.max(Math.abs(q.x - a[1][0]), Math.abs(q.y - a[1][1])) - Math.max(Math.abs(p.x - a[1][0]), Math.abs(p.y - a[1][1])));
+      return c2[0] ? [c2[0].x, c2[0].y] : null; }, [NAME, plan.m1]);
+    if (m2) plan.m2 = m2;
+    const m2seen = !m2;
+    const went0 = await fr.evaluate((n) => BohemiaBosses.mines(n).mines.filter(m => m.went != null).length, NAME);
+    await c.goTo(plan.m2); await fr.evaluate(() => render()); await c.page.waitForTimeout(700);
+    const q2 = await fr.evaluate((a) => { const M = BohemiaBosses.mines(a[0]), W = window.__BOSS_MINE_WENT || null, C = BohemiaCondition.get(), man = W && W.hurt ? C.men[W.hurt.key] : null;
+      return { went: M.mines.filter(m => m.went != null).length - a[1], at: W && W.at, night: isNight(), crew: [city.x, city.y], hurt: W && W.hurt ? W.hurt.name : null, wound: man && man.wound ? man.wound.mark : null, blood: man ? Math.round(man.lostHp || 0) : 0, n: W && W.n }; }, [NAME, went0]);
+    q2.want = G.wound; q2.wantBlood = G.blood;
+    await c.shot('2_his_mine_went_off_at_night');
+    const posts = await c.posts();
+    ok('M2 at night one nobody spotted goes off under the walk: it stops, ' + (q2.hurt || 'one of yours') + ' takes ' + G.wound + ' (' + G.days + ' days, ' + G.blood + ' blood), the radio posts it',
+      MINE.M2(q2) && !m2seen && q2.n === NAME && q2.night && posts.some(p => p.who === G.feed_bang.who && p.txt.indexOf(G.feed_bang.txt.split('{')[0].trim()) === 0), JSON.stringify(q2));
+    ok('P2 planted: a mine that never goes off at night turns M2 red', !MINE.M2(Object.assign({}, q2, { went: 0 })), 'no bang');
+    ok('P2b planted: a spotted mine the walk still goes over turns M1 red', !MINE.M1(Object.assign({}, q1, { shut: false, open: false })), 'walkable');
+    await c.day();
+    return true;
+  },
+  async card(G, c) { const n = await c.fr.evaluate((n) => BohemiaBosses.mines(n).mines.filter(m => m.went == null).length, NAME); return G.card.replace('{MINES}', n + (n === 1 ? ' MINE' : ' MINES')); },
+  async after(c) {
+    const { fr, G } = c;
+    await dusk(fr);
+    const went0 = await fr.evaluate((n) => BohemiaBosses.mines(n).mines.filter(m => m.went != null).length, NAME);
+    await c.goTo(c.plan.m1); await fr.evaluate(() => render()); await c.page.waitForTimeout(700);
+    const q = await fr.evaluate((a) => { const M = BohemiaBosses.mines(a[0]); return { at: [city.x, city.y], live: M.fell != null ? 0 : M.mines.filter(m => m.went == null).length,
+      shut: M.mines.filter(m => BohemiaBosses.mineShut(m.x, m.y)).length, newBang: M.mines.filter(m => m.went != null).length - a[1], drawn: ((BohemiaBosses.last().drew || {}).mines || []).map(d => d.key), night: isNight() }; }, [NAME, went0]);
+    ok('C1a at night his streets are safe: no mine left, none shut, the crew walks onto the one it spotted and nothing goes off', MINE.C1a(q) && q.night && q.at[0] === c.plan.m1[0] && q.at[1] === c.plan.m1[1], JSON.stringify(q));
+    ok('C1b painted dug up: the can by its hole, the stake thrown down', q.drawn.length >= 1 && q.drawn.every(k => k === 'mine_after'), q.drawn.join(' '));
+    await c.shot('5_his_mines_dug_up');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who, posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0), posts.filter(p => p.who === G.feed.who).map(p => p.txt.slice(0, 80)).join(' | '));
+    const p3 = await fr.evaluate((n) => { const M = BohemiaBosses.mines(n), H = BohemiaHisMap.state(), was = M.fell, f = H.boss.fallen[n]; M.fell = null; delete H.boss.fallen[n]; BohemiaBosses.remine();
+      const o = { live: M.mines.filter(m => m.went == null).length, shut: M.mines.filter(m => BohemiaBosses.mineShut(m.x, m.y)).length, newBang: 0 }; M.fell = was; H.boss.fallen[n] = f; BohemiaBosses.remine(); return o; }, NAME);
+    ok('P3 planted: his mines back after the fall turns C1a red', !MINE.C1a(p3), JSON.stringify(p3));
+    /* HIS POWDER: BLOW A HOLE where a wall stands between the crew and a street on its far side */
+    await c.day();
+    const wb = await fr.evaluate(() => { const h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -12; dy <= 12; dy++) for (let dx = -12; dx <= 12; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue;
+        const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd) continue; const w = BohemiaBosses.wallBeside(x, y); if (!w) continue;
+        if (['open', 'purify', 'pick'].some(id => { const a = BohemiaBosses.applies(id, x, y); return a && !a.off; })) continue;   /* the phone shows one verb, the order's first (measured 11/11: PICK took a block beside a shop) */
+        if (!cityRoute(h[0], h[1], x, y)) continue; bd = d; best = { at: [x, y], w }; } return best; });
+    let v = { found: !!wb };
+    if (wb) {
+      await c.goTo(wb.at);
+      const before = await fr.evaluate((w) => { const p = cityRoute(city.x, city.y, w.far[0], w.far[1]); return p ? p.length - 1 : 99; }, wb.w);
+      const used = await fr.evaluate(() => { const v = BohemiaBosses.verbHere(); const g = BohemiaBosses.use('blow'); return { verb: v && v.id, got: g && typeof g === 'object' ? g : null }; });
+      await fr.evaluate(() => render()); await c.page.waitForTimeout(2600);
+      v = await fr.evaluate((a) => { const w = a[0], hole = BohemiaBosses.blown().slice(-1)[0]; const p = hole ? cityRoute(city.x, city.y, w.far[0], w.far[1]) : null;
+        return { verb: a[1].verb, hole: hole ? [hole.x, hole.y] : null, blown: !!hole && BohemiaBosses.blownAt(hole.x, hole.y), walk: !!hole && cityWalkable(hole.x, hole.y), wayAfter: p ? p.length - 1 : -1,
+          rubble: (BohemiaBosses.state().marks || []).some(m => m.k === 'blow' && hole && m.x === hole.x && m.y === hole.y) }; }, [wb.w, used]);
+      v.wayBefore = before; c.hole = v.hole;
+      await c.shot('5_a_hole_you_blew');
+    }
+    ok('V1 BLOW A HOLE: beside a wall between two streets your men blow a way through for good (the walk ' + v.wayBefore + ' blocks before, ' + v.wayAfter + ' through the hole)', MINE.V1(v) && v.verb === 'blow' && v.rubble, JSON.stringify(v));
+    ok('P6 planted: a hole that did not open turns V1 red', !MINE.V1(Object.assign({}, v, { walk: false, wayAfter: v.wayBefore })), 'the wall still there');
+    return { mines: c.M0.mines.length };
+  },
+  async reload(e, c) {
+    await e.fr.evaluate((t) => { try { T.min = t; } catch (x) {} }, NIGHT).catch(() => {});
+    await c.goOn(e, c.plan.m1);
+    await e.fr.evaluate((t) => { try { T.min = t; } catch (x) {} render(); }, NIGHT).catch(() => {});
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((a) => { const M = BohemiaBosses.mines(a[0]) || { mines: [] }, hole = a[1]; return { fallen: !!BohemiaHisMap.state().boss.fallen[a[0]], mines: M.mines.length,
+      live: M.fell != null ? 0 : M.mines.filter(m => m.went == null).length, shut: M.mines.filter(m => BohemiaBosses.mineShut(m.x, m.y)).length, at: [city.x, city.y],
+      hole: !!hole && BohemiaBosses.blownAt(hole[0], hole[1]) && cityWalkable(hole[0], hole[1]) }; }, [NAME, c.hole || null]).catch(x => ({ err: String(x) }));
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -508,7 +618,7 @@ async function run(prof, alpha) {
   const bt = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_BEAT || null))).catch(() => null);
   if (af) { await page.waitForTimeout(500); await shot('4_she_says_what_changed'); }
   s = await st();
-  const want = okBefore ? L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) : 0;
+  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) : 0;
   ok('B2 he falls: the beat plays his change on the tape with his place, ' + row.after.name + ' says the valley\'s line, hands his ' + row.verb.hand.name.replace(/^HIS /, '').toLowerCase() + ', and says what changed on the map',
      !!s.boss.fallen[NAME] && !!s.verbs[row.verb.id] && !!bt && bt.n === NAME && onTape >= 1 && !!af && af.text === row.after.valley && !!af.hand && af.hand.name === row.verb.hand.name && af.ground === want,
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));
