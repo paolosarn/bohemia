@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/picks.glb",
+ "ppm": 393.70582589220794,
+ "files": [
+  "records/target/bosses_hand_rig/picks/rig_S.png",
+  "records/target/bosses_hand_rig/picks/rig_SE.png",
+  "records/target/bosses_hand_rig/picks/rig_SW.png"
+ ],
+ "box": null
+}

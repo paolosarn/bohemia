@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/charge.glb",
+ "ppm": 518.2508650436231,
+ "files": [
+  "records/target/bosses_hand_rig/charge/rig_S.png",
+  "records/target/bosses_hand_rig/charge/rig_SE.png",
+  "records/target/bosses_hand_rig/charge/rig_SW.png"
+ ],
+ "box": null
+}

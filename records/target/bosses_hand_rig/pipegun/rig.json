@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/pipegun.glb",
+ "ppm": 503.8615050889602,
+ "files": [
+  "records/target/bosses_hand_rig/pipegun/rig_S.png",
+  "records/target/bosses_hand_rig/pipegun/rig_SE.png",
+  "records/target/bosses_hand_rig/pipegun/rig_SW.png"
+ ],
+ "box": null
+}
