@@ -16,9 +16,13 @@ FOR WORDS: 'their place' is draft:true (the valley talking about his crew at his
 FOR JOBS: row 610 (a board re-deals between two visits 43 game minutes apart) is yours to call; not touched.
 THE ROWS OTHER LANES TOOK THIS ROUND (the coordinator's round): 579, 593, 595 WORLD 14; 584 COOK FIVE; 586 WORLD 13; 587 BOSSES; 574
 PARTLY BESTIARY.
+BOTH SHIPS ARE LIVE: the pages runs for 050e6be2 (11/11l) and b80cc712 (11/11q) concluded SUCCESS.
+607 MEASURED, HALF DONE BY HOME BASE: upright, the desk's right column is on the glass now (HOME BASE's 11/11j; YOUR PLACE, PLANTED
+81/0 upright on 11/11q, D8: nine presses inside the glass on all four sides); its other half, the cut words and YOU's line, is not
+measured by that leg and is still mine.
 OPEN, MINE, NEXT ROUND IN THIS ORDER: 606 (a road event's card over a running camp: the card should stop the clock; how the camp
 came up under it is not pinned), 611 (a boss asker's card opens over a town as he walks in and takes the tap meant for a building),
-607 (the build sheet off the glass upright; HOME BASE's 11/11j fixed it sideways: measure upright first), 612 (cut words: the Elder's
+607's words (the cut words and YOU's line on the build sheet upright), 612 (cut words: the Elder's
 line upright, a retinue line sideways, DESI's hint over the board's first job), 555 / 605 (not reproduced: see the block below, the
 turnBroke path); then the debt: 592, 578, 581, 582, 594, 576, 577, 585, 574's rest.
 [bb] Battle Brothers names your company in every event line and never shows an internal id; a settlement you own is 'your' place.
