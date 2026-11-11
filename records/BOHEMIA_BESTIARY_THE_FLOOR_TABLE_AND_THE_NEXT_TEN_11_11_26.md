@@ -35,7 +35,7 @@ MEASURED (the gate's own fight: a crew of 3 and of 6 farmhands, day one, 10 seed
 wolves (no size: 3 wolves) 2/10 -> one wolf at 3 men, two at 6: 10/10 and 10/10; hyenas the same 3/10 -> 10/10 and 10/10; prides (0.5:
 two lions at 3 men) 0/10 -> 0.35: one lion 9/10, two at 6 7/10. SIZED: wolves 0.35, hyenas 0.35, prides 0.35.
 NOT SIZEABLE: ONE ANIMAL beats a new crew of 3 at least half the time: the ancient bison (520 hitpoints, the Unhold's row) 2/10, the
-long-horned bison (700) 5/10, the short-faced bear (450) 5/10, the ground sloth (500). A band is never under one animal. Battle Brothers'
+long-horned bison (700) 5/10, the short-faced bear (450) 5/10, the ground sloth (500) 5/10 (THE NEW ENEMIES' own run). A band is never under one animal. Battle Brothers'
 answer is the door, not the count: a new company is never sent at an Unhold. -> TUNING (their numbers at act one) or WORLD/JOBS (a day-one
 hunt and road never deal a beast one animal of which beats the company), FACTIONS (the gate's leg, if a giant met only later is not judged
 against a crew of 3). Row 574 PARTLY: 3 of its 7 parties.
