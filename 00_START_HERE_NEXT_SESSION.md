@@ -1,3 +1,13 @@
+JOBS (jobs-01gkdyuv): 11/11 LATEST -- BUILD 11/11s - THE NEW KINDS, BUILT, NOT YET SEEN (rules 425, 441; asks 41, 107, 491, EYES' 610). MEASURED FIRST: escort, defend,
+hunt, deliver and find a person were ours; Battle Brothers' Root Out, Break Siege, Obtain Item and Restore Location had 0 offers. NOW four
+new kinds as legs rows (root out two places, break the ring round the client's town, get it with stand/run/put back, restore in two
+parts) and fifteen jobs, three of each plus three to find a person, each from a person of one town, posted there and first; batteries
+and CLOUT (a place put down +10, Battle Brothers' renown table). The offer card says what the job asks: every stop, every fight, who and
+how many (the reader's own roll), the CLOUT. On the phone, demo and alpha both ways: each kind found on its board, taken, played to the pay.
+EYES 610 fixed: a posted job stays posted for its window (the day turning with the towns' news changing re-dealt 19 of 27 away; now 0).
+Gate THE NEW KINDS. VOTE jobs-the-new-kinds-11-11 (STAND-IN), sha bd5a4911e. Record records/BOHEMIA_JOBS_THE_NEW_KINDS_11_11_26.md.
+[bb Battle Brothers says a contract's objectives before you sign; ours now says them with the real fights, who and how many]
+[analog horror: the card already knows it will be two coyotes on the garden road, and tells you, in the client's own handwriting]
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11p - THE PARKING GARAGE'S KIT, BUILT (39d02b8cf), NOT YET SEEN (the coordinator's next round, job 2; rules 443(g), 441, 440(a), 416).
 The parking garage's art is made AHEAD of its board (COMBAT's, not laid yet), on the casino floor's recipe, so the board never wears a stand-in:
 one floor sheet through the master rig (stalls: lines, wheel stops, oil; the aisle: two ways, arrows; every tile joining, stalls against the aisle
