@@ -7373,8 +7373,8 @@ function startAnimHeard(a) {
     /* THE NEW ACT-ONE ENEMIES (FACTIONS 11/3; words draft:true) */
     else if (e.t === 'skill' && e.skill === 'shieldwall') { sfx('block', { side: u.side }); pop(u, 'WALL', '#9cc3e8', false, u.name + ' locks his shield.'); }
     /* FIVE MORE BEASTS (FACTIONS 11/3; words draft:true) */
-    else if (e.t === 'skill' && e.skill === 'kick') { sfx('body_land', { side: u.side }); pop(u, 'KICK', '#e8c39c', false, u.name + ' kicks out on every side' + (e.n > 1 ? ' and catches ' + e.n + ' of them.' : '.')); }
-    else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + ' puts its head down and runs at ' + nameOf(e.to) + '.'); }
+    else if (e.t === 'skill' && e.skill === 'kick') { sfx('body_land', { side: u.side }); pop(u, u.beast ? 'KICK' : 'SWING', '#e8c39c', false, u.name + (u.beast ? ' kicks out on every side' : ' swings round at every man beside him') + (e.n > 1 ? ' and catches ' + e.n + ' of them.' : '.')); }   /* BESTIARY 11/11: a man swings (the House greatsword), a beast kicks; draft:true */
+    else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + (u.beast ? ' puts its head down and runs at ' : ' runs straight at ') + nameOf(e.to) + '.'); }   /* BESTIARY 11/11: a man runs straight in (the water outlaw); draft:true */
     else if (e.t === 'skill' && e.skill === 'feeds') { pop(u, 'FEEDS', '#c06050', false, u.name + ' eats from ' + nameOf(e.to) + ' and gets back up.'); }
     else if (e.t === 'skill' && e.skill === 'hook') { sfx('swing_air'); pop(u, e.hit ? 'HOOK' : '', '#e8c39c', false, u.name + (e.hit ? ' hooks ' + nameOf(e.to) + ' into the wall.' : ' swings the hook at ' + nameOf(e.to) + ' and misses.')); }
     else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
