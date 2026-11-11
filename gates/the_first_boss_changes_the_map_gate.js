@@ -12,14 +12,14 @@
    THE STRANGER'S GAME on the live demo at phone size, through the one driver, a new game, THE POT:
      F1 his sign (a flyer) is in the world and his rumour is on the phone's feed
      F2 the one who lost her kitchen asks; at the flyer one of YOUR men reads it out (it says his crew shut the streets); his place is marked
-     G1 BEFORE he falls his crew holds his ground: at least 2 streets into it are shut, the map's own walk refuses every one, a way across
-        his ground goes round it, his front (the way the sign points) is open, and every town is still reachable
+     G1 BEFORE he falls his crew holds his ground: at least 2 streets into it are shut, the map's own walk refuses every one, the way in
+        from a shut street goes round to his front (row 587), his front (the way the sign points) is open, and every town is still reachable
      G2 the checkpoints are PAINTED on their blocks (the closed picture), and the map's walk agrees with the picture block for block
      B0 at his place his card comes first (Battle Brothers shows who holds a place before you fight): his face, title, tip, ENGAGE or FALL BACK
      B1 his fight stands with the man himself and is won (AUTO, the player's own button; the checker ends it if AUTO stalls and SAYS SO)
      B2 he falls: COOK is yours, the camera goes to his place and the checkpoints roll open on the tape with it, then she says the
         valley's line, hands you his pot, and the line under it says the streets that opened and what his till paid
-     C1 THE CHANGE IS REAL: every shut street walks now, the way across his ground is shorter, the checkpoints are painted shoved to the
+     C1 THE CHANGE IS REAL: every shut street walks now, the way in his crew shut is shorter, the checkpoints are painted shoved to the
         kerb, his till paid once (the purse's own ledger), the strip's post and the radio's post are on the feed
      R1 THE SAME PHONE OPENS THE GAME AGAIN (CONTINUE): he is still down, COOK is still yours, every street still walks, the kerb
         pictures and his kitchen after still drawn, the till not paid twice
@@ -83,12 +83,15 @@ async function run(prof) {
     const G = BohemiaBosses.ground(n); if (!G) return null;
     const at = G.at, Rr = 3, NN = om.n;
     const walkShut = G.shut.map(q => !!cityWalkable(q.x, q.y));
-    /* a way across his ground: from outside one shut street to outside the shut street farthest from it (fixed once, kept on the game's
-       window so the after and the reload measure the same two ends) */
+    /* THE WAY IN HIS CREW SHUT (PLUMBER 8, ask row 587, 11/10: a way ACROSS his ground, between two shut streets, was often never his to
+       shut: on most random spots the city's own blocks made it long either way, '14 blocks then, 14 now'). What his checkpoints do is
+       hold his ways in, so a stranger comes round to his front: from just outside each shut street to his door, the one his crew makes
+       the longest detour of (fixed once, kept on the game's window so the after and the reload measure the same two ends) */
     let ends = window.__GROUND_ENDS || null;
-    if (!ends && G.shut.length >= 2) {
+    if (!ends && G.shut.length >= 1) {
       const out = (q) => { const dx = Math.sign(q.x - at[0]), dy = Math.sign(q.y - at[1]); for (let k = 1; k <= 3; k++) { const x = q.x + dx * k, y = q.y + dy * k; if (x > 0 && y > 0 && x < NN - 1 && y < NN - 1 && cityWalkable(x, y)) return [x, y]; } return null; };
-      let best = null; for (const a of G.shut) for (const b of G.shut) { const oa = out(a), ob = out(b); if (!oa || !ob) continue; const dd = Math.max(Math.abs(oa[0] - ob[0]), Math.abs(oa[1] - ob[1])); if (!best || dd > best.d) best = { d: dd, a: oa, b: ob }; }
+      let best = null; for (const a of G.shut) { const oa = out(a); if (!oa) continue; const rr = cityRoute(oa[0], oa[1], at[0], at[1]); if (!rr) continue;
+        const dd = Math.max(Math.abs(oa[0] - at[0]), Math.abs(oa[1] - at[1])), detour = (rr.length - 1) - dd; if (!best || detour > best.detour) best = { detour, d: dd, a: oa, b: [at[0], at[1]] }; }
       if (best) ends = window.__GROUND_ENDS = { a: best.a, b: best.b, straight: best.d };
     }
     const r = ends ? cityRoute(ends.a[0], ends.a[1], ends.b[0], ends.b[1]) : null;
@@ -107,7 +110,7 @@ async function run(prof) {
   /* G1 is measured the moment his place exists (his crew held the ground before you ever came) */
   let m0 = null; for (let i = 0; i < 30 && !(m0 && m0.shut); i++) { m0 = await measure(fr); if (!(m0 && m0.shut)) await page.waitForTimeout(500); }
   if (m0) m0.cross.before = m0.cross.len;
-  ok('G1 before he falls his crew holds his ground: streets into it shut, the walk refuses each, a way across goes round, his front open, every town reachable', G1(m0),
+  ok('G1 before he falls his crew holds his ground: streets into it shut, the walk refuses each, the way in from a shut street goes round to his front, his front open, every town reachable', G1(m0),
      m0 ? m0.shut + ' of ' + m0.ring + ' streets in shut (walk: ' + m0.walkShut.join(',') + '), across ' + (m0.cross.ends ? m0.cross.ends.a.join(',') + ' > ' + m0.cross.ends.b.join(',') : '-') + ': ' + m0.cross.before + ' blocks round against ' + m0.cross.straight + ' straight, front ' + m0.front.join(' ') + ' open ' + m0.frontOpen + ', towns ' + m0.towns.filter(t => t.ok).length + '/' + m0.towns.length : 'no ground');
   /* P2: a ground that shut nothing must be red */
   if (m0) { const p2 = JSON.parse(JSON.stringify(m0)); p2.shut = 0; p2.walkShut = []; p2.cross.before = p2.cross.straight; ok('P2 planted: a ground that shut nothing turns G1 red', !G1(p2)); }
@@ -189,7 +192,7 @@ async function run(prof) {
   const posts = await fr.evaluate(() => (BOHEMIA_FEED.posts ? BOHEMIA_FEED.posts() : []).map(p => ({ who: p.who, txt: p.txt || p.text || '' })));
   if (m1) m1.posts = posts;
   ok('C1a the roads his crew closed are open: every shut street walks now', C1walk(m1), m1 ? 'walk: ' + m1.walkShut.join(',') : 'no ground');
-  ok('C1b the way across his ground is shorter than while his crew held it', C1cross(m1), m1 ? m1.cross.before + ' blocks then, ' + m1.cross.after + ' now (' + m1.cross.straight + ' straight)' : '-');
+  ok('C1b the way in his crew shut is shorter now: from outside that street to his door', C1cross(m1), m1 ? m1.cross.before + ' blocks then, ' + m1.cross.after + ' now (' + m1.cross.straight + ' straight)' : '-');
   const kerb = m1 ? m1.drew.filter(c => c.open && /^checkpoint_[xy]_after$/.test(c.key)) : [];
   ok('C1c the checkpoints are painted shoved to the kerb (the after picture), never the closed one', kerb.length >= 1 && m1.drew.every(c => c.open), kerb.length + ' after on the glass: ' + kerb.slice(0, 4).map(c => c.at.join(',')).join(' '));
   ok('C1d his till paid once (+' + row.ground.till + ', the purse\'s own ledger)', pay.entries === 1 && pay.amt === row.ground.till,
