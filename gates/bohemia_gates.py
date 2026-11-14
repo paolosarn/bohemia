@@ -8612,6 +8612,14 @@ GATES = [
      "his forceps to your place (G1); the tax paid back and the gates free (C1a, C1b), the feed (C1d); FIX A TOOTH closes the worst wound "
      "(V1); the reload holds (R1). Planted: a gate that takes nothing, a gate that still takes after the fall, a fix that closed nothing, "
      "a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
+    ('THE LENS CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE LENS'],
+     "BOSSES gate, 11/14, the coordinator's round 'BOSSES turn up' (rules 441, 447), ask lines 167, 522: the stranger's game on the DEMO "
+     "UPRIGHT and the ALPHA ON ITS SIDE, the eleven before him first, then THE LENS end to end: his sprayed eye chart and rumour (T1), EL "
+     "CIEGO asks and one of yours reads it (T2); HIS HAZE: by day on his side the crew sees 2 blocks (the map's own fog asks), painted over, "
+     "the day's sight outside (L1), said and posted (L2); his card (B0), his fight (B1), the beat (B2), his spyglass to your place (G1); the "
+     "haze gone by day (C1a), his charts clean (C1b), the feed (C1d); LOOK FAR lifts the fog down the streets (V1); the reload holds (R1). "
+     "Planted: a haze that takes no sight, the haze back after the fall, a look that saw nothing, a phone that forgot the save, a prize the "
+     "seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

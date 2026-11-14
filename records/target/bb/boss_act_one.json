@@ -12,6 +12,7 @@
   "climb",
   "survey",
   "burn",
+  "look",
   "cook"
  ],
  "bosses": [
@@ -1292,6 +1293,112 @@
     "card_free": "HIS COLLECTORS ARE GONE FROM {TOWNS}: NOBODY PAYS AT THE GATE.",
     "card_none": "HIS COLLECTORS ARE GONE.",
     "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE TOOTH changes the map's TOWNS. While he stands his collectors sit at the gates of the 'towns' nearest his chair within 'radius' and take 'tax' batteries the first time each day the crew comes out of one (a beat after the town's screen closes: a debit while it is up is undone by the town handing the map back its purse, measured 11/14) (the purse's own debit, never more than it holds). When he falls they are gone and what they took off you is paid back once (slices/bohemia_bosses.js (19) HIS COLLECTORS). Pictures: slices/boss_places/collector_before, collector_after."
+   }
+  },
+  {
+   "n": "THE LENS",
+   "place": {
+    "name": "THE OPTICIAN",
+    "art": "optician",
+    "seen": "a glasses shop with a big eye on its sign, its windows sprayed over",
+    "paint": "optician"
+   },
+   "rumour": {
+    "who": "@el_ciego",
+    "txt": "I lost my glasses in the crash and I've been walking into walls since. THE LENS has the last ground glass. By day his side of town is a blur, he burns something that hangs in the air, you can't see two blocks. Careful, his crossbow sees you before you see him."
+   },
+   "boss": {
+    "kind": "arbalester",
+    "name": "THE LENS",
+    "title": "the man with the last ground glass",
+    "hp_x": 1.8,
+    "weapon": "Light Crossbow",
+    "shield": null,
+    "look": "boss_lens_0",
+    "says": "I see you. You don't see me."
+   },
+   "crew": [
+    "brigand_marksman",
+    "lower_brigand_marksman",
+    "bounty_hunter_marksman"
+   ],
+   "crew_word": "THE LENS AND HIS SPOTTERS",
+   "board": "strip",
+   "lesson": "His bolt reaches six tiles and he sees you first: close in from cover, two at once, before he reloads.",
+   "verb": {
+    "id": "look",
+    "word": "LOOK",
+    "button": "LOOK FAR",
+    "rule": "on any street off a town, once a day: down the four streets 'reach' blocks the fog lifts",
+    "reach": 12,
+    "cooldown_days": 1,
+    "says": "Your men put his spyglass to their eye and look down the streets.",
+    "feed": {
+     "who": "@el_ciego",
+     "txt": "Somebody on {where} is looking down the streets with a spyglass. Clear as day."
+    },
+    "tip": "Your men look down the four streets from where you stand: 12 blocks each way come out of the fog. Once a day.",
+    "first": {
+     "plate": "LOOKED: {blocks} BLOCKS",
+     "feed": "First look through his spyglass, on {where}: {blocks} blocks out of the fog down the streets.",
+     "rise": "{blocks} BLOCKS SEEN DOWN THE STREETS",
+     "rise_none": "NOTHING NEW DOWN THE STREETS"
+    },
+    "cooling": "THE GLASS IS FOGGED: TOMORROW",
+    "tip_cooling": "One look a day.",
+    "place_after": "spyglass",
+    "hand": {
+     "name": "HIS SPYGLASS",
+     "pic": "hand_look.png",
+     "line": "LOOK FAR: from any street off a town, your men look down the four streets and 12 blocks each way come out of the fog. Once a day."
+    }
+   },
+   "fallen_art": "optician_open",
+   "lead": {
+    "asker": {
+     "name": "EL CIEGO",
+     "look": "faction_remnants",
+     "from": "a man squinting, one lens of his glasses gone",
+     "says": "Who's that? Come closer. THE LENS has the last good glass in the valley and he sells it to whoever he likes. He sprays his mark over the eye charts. Find one and you find him.",
+     "yes": "I'll find his mark.",
+     "no": "Can't help you.",
+     "yes_says": "Gracias. Go at night if you can, by day his side is a blur.",
+     "no_says": "Okay. Mind the wall."
+    },
+    "thing": {
+     "head": "THE EYE CHART",
+     "what": "an eye chart sprayed over",
+     "says": "Sprayed over an eye chart: THE LENS SEES YOU. His shop is the one with the big eye on the roof. By day his side of the map is a blur, you see two blocks. I marked it."
+    }
+   },
+   "after": {
+    "name": "EL CIEGO",
+    "look": "faction_remnants",
+    "from": "outside the optician, new glasses on",
+    "says": "You did it! His spyglass is yours. On any street off a town, press LOOK FAR. Your men look down the four streets and 12 blocks each way come out of the fog. Once a day.",
+    "ok": "GOT IT",
+    "valley": "His haze is gone. You can see his side of the map by day again.",
+    "take": "TAKE IT"
+   },
+   "tip": "CLOSE IN FROM COVER, TWO AT ONCE",
+   "lens": {
+    "name": "HIS HAZE",
+    "radius": 5,
+    "sight": 2,
+    "pic": "haze",
+    "say": "Everything is a blur round here. Two blocks and that is it.",
+    "rise": "HIS HAZE: 2 BLOCKS",
+    "feed_blur": {
+     "who": "@el_ciego",
+     "txt": "His haze is over {where} again. You cannot see the end of your arm."
+    },
+    "feed": {
+     "who": "@el_ciego",
+     "txt": "His haze over {where} is gone. I can read a sign from across the street."
+    },
+    "card": "HIS HAZE IS GONE: YOU SEE HIS SIDE BY DAY AGAIN.",
+    "card_none": "HIS HAZE IS GONE.",
+    "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE LENS changes the map's DAY. While he stands, by day, within 'radius' of his shop the crew sees 'sight' blocks (the map's own fog asks BohemiaBosses.dark(), THE BURN's door at night) and his side is painted with his haze; his sprayed eye charts stand near his door. When he falls the haze lifts for good (slices/bohemia_bosses.js (20) HIS BLUR). Pictures: slices/boss_places/haze_before, haze_after."
    }
   }
  ]

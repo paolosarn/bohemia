@@ -783,19 +783,27 @@ const LENS = {
       const o = { r: fogRadius(), blur: BohemiaBosses.blurAt(city.x, city.y), haze: 0 }; Q.fell = was; H.boss.fallen[n] = f; return o; }, NAME);
     p3.sight = G.sight;
     ok('P3 planted: his haze back after the fall turns C1a red', !LENSQ.C1a(p3), JSON.stringify(p3));
-    /* LOOK FAR from a street with fog down it */
-    const at = await fr.evaluate(() => { const h = [city.x, city.y]; let best = null, bd = 1e9;
-      for (let dy = -15; dy <= 15; dy++) for (let dx = -15; dx <= 15; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue; const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd) continue;
+    /* LOOK FAR from a street with fog down it, where its button is the phone's (FIX goes first while a man is hurting: he fixes first) */
+    const noon = () => fr.evaluate(() => { try { DAY.min = 12 * 60; daySync(); render(); } catch (e) {} });   /* the day's own clock (a walk syncs T from it): noon, so THE BURN's fire is not the button */
+    await noon();
+    await fr.evaluate(() => { const a = BohemiaBosses.applies('fix', city.x, city.y); if (a && !a.off) BohemiaBosses.use('fix'); });
+    /* what his spyglass sees from x,y: down each street until two blocks in a row are not a street, a block each side; how many are fog */
+    const fogIn = (x, y) => { let n = 0; for (const e of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { let miss = 0; for (let k = 1; k <= 12; k++) { const px = x + e[0] * k, py = y + e[1] * k; if (!cityWalkable(px, py)) { if (++miss > 1) break; continue; } miss = 0;
+        for (let a = -1; a <= 1; a++) if (!fogSeen(px + (e[1] ? a : 0), py + (e[0] ? a : 0))) n++; } } return n; };
+    const cands = await fr.evaluate((src) => { const fogIn = eval(src), h = [city.x, city.y], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf('look')), out = [];
+      for (let dy = -15; dy <= 15; dy++) for (let dx = -15; dx <= 15; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue;
         if (!BohemiaBosses.applies('look', x, y)) continue;
-        if (['open', 'purify', 'pick', 'blow', 'weld', 'press', 'climb', 'survey', 'burn', 'cook', 'fix'].some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; })) continue;
-        let fog = false; for (const e of [[1, 0], [-1, 0], [0, 1], [0, -1]]) for (let k = 2; k <= 12 && !fog; k++) if (!fogSeen(x + e[0] * k, y + e[1] * k) && cityWalkable(x + e[0] * k, y + e[1] * k)) fog = true;
-        if (!fog || !cityRoute(h[0], h[1], x, y)) continue; bd = d; best = [x, y]; } return best; });
-    let v = { found: !!at };
-    if (at) {
-      await c.goTo(at);
+        if (before.some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; })) continue;
+        const f = fogIn(x, y); if (f < 4) continue; out.push({ at: [x, y], d: Math.max(Math.abs(dx), Math.abs(dy)), f }); }
+      out.sort((p, q) => p.d - q.d || q.f - p.f); return out.filter(o => cityRoute(h[0], h[1], o.at[0], o.at[1])).slice(0, 5).map(o => o.at); }, '(' + fogIn.toString() + ')');
+    let v = { found: cands.length };
+    for (const at of cands) {   /* the walk there lifts fog too: if he arrives with none left down his streets, the next street */
+      await c.goTo(at); await noon();
+      const left = await fr.evaluate((src) => eval(src)(city.x, city.y), '(' + fogIn.toString() + ')');
+      if (!left) { v.tried = (v.tried | 0) + 1; continue; }
       v = await fr.evaluate(() => { const vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('look'), ap = BohemiaBosses.applies('look', city.x, city.y);
         return { verb: vh && vh.id, blocks: g && typeof g === 'object' ? g.blocks | 0 : 0, cooling: !!(ap && ap.off) }; });
-      await c.page.waitForTimeout(2400); await c.shot('5_he_looks_far');
+      v.left = left; await c.page.waitForTimeout(2400); await c.shot('5_he_looks_far'); break;
     }
     ok('V1 LOOK FAR: from a street, down the four streets the fog lifts (' + (v.blocks | 0) + ' blocks), once a day', LENSQ.V1(v), JSON.stringify(v));
     ok('P6 planted: a look that saw nothing turns V1 red', !LENSQ.V1(Object.assign({}, v, { blocks: 0 })), 'nothing seen');
