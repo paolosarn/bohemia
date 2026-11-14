@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14b - MAIN STREET KEEPS ITS COLOUR, BUILT, NOT YET SEEN (the turn-up round, rule 447, job 1; ask row 576).
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14b - MAIN STREET KEEPS ITS COLOUR, BUILT (02a00baa3), NOT YET SEEN (the turn-up round, rule 447, job 1; ask row 576).
 The last four of the thirty grey fight boards: main street's two blocks and their raided futures, left at three tenths on 11/11, are at six
 tenths of the colour he knew. SOUNDS' table hears its car parks as asphalt off the picture and needs three tenths dark grey, not all: four
 tenths of each such tile stays bare in swept bands along the street, the dust lies on the rest; a tile heard by COMBAT's plan is not held.
