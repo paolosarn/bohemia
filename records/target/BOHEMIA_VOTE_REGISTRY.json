@@ -19172,12 +19172,12 @@
    "id": "cook5-the-fight-keeps-its-colour-11-11",
    "kind": "tile",
    "lane": "cook 5",
-   "sha": "30324691e",
+   "sha": "SHIPSHA",
    "made": "11/11",
    "draft": true,
    "title": "THE FIGHT BOARDS THAT WENT GREY HAVE THEIR COLOUR BACK (AND THE STRIP'S LAMPS READ AT NIGHT)",
    "said": "the combat map like went completely like almost like black and white",
-   "why": "Thirty fight boards had gone nearly grey when the sand was taken out; 26 of them have their own colour back (rust, brick, dried mud), with no sand brought back, and main street is still short. You see it in fights at the landfill, the ruin, the works, the wash and the scrub, on the fight screen.",
+   "why": "Thirty fight boards had gone nearly grey when the sand was taken out; all thirty have their own colour back now (rust, brick, dried mud, dust on the asphalt), with no sand brought back. You see it in fights on main street, at the landfill, the ruin, the works, the wash and the scrub, on the fight screen.",
    "show": {
     "how": "image",
     "src": "../records/target/COOK5_THE_FIGHT_KEEPS_ITS_COLOUR_11_11.webp",
@@ -19191,7 +19191,7 @@
    },
    "before_after": {
     "before": "BUILD 11/11v: 30 of 121 fight pictures under half the colour he knew (the landfill and main street a fifth); at night on the Strip a lit tile 2.77 to 1 over the dark",
-    "after": "26 of the 30 at 53 to 60 percent, each picture's own hue and lightness kept; main street's four near three tenths (asphalt); the Strip's lit tile 3.08 to 1",
+    "after": "all 30 at 53 to 61 percent, each picture's own hue and lightness kept; main street's four the last (BUILD 11/14b: dust on its car parks between bare swept bands); the Strip's lit tile 3.08 to 1",
     "scale": "the fight's own camera on his phone upright (390 x 844 at 2), the same seed; each block a quarter size, as it stood beside now"
    },
    "stage": "stand_in",

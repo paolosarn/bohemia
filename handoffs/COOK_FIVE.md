@@ -1,5 +1,27 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14b - MAIN STREET KEEPS ITS COLOUR, BUILT, NOT YET SEEN (the turn-up round, rule 447, job 1; ask row 576).
+The last four of the thirty grey fight boards: main street's two blocks and their raided futures, left at three tenths on 11/11, are at six
+tenths of the colour he knew. SOUNDS' table hears its car parks as asphalt off the picture and needs three tenths dark grey, not all: four
+tenths of each such tile stays bare in swept bands along the street, the dust lies on the rest; a tile heard by COMBAT's plan is not held.
+ALL THIRTY over half (53 to 61 in a hundred). Gate THE FIGHT KEEPS ITS COLOUR 5/0, its line struck: THE RED DEBT 368 NAMED. FIGHT STEPS 34/0, the
+floor table untouched. ON THE PAGE upright and sideways, 0 errors. THE SITE'S WEIGHT: the four pictures are 93 KB lighter, nothing new published.
+NOT STARTED, SAID PLAINLY (job 2): finished art for the three bosses' map changes and the bus yard and greenhouses: each is its own batch
+(447(c)) and the published set is over its cap (904 of 900 MB measured here), so new pictures have no room until PLUMBER's trim lands.
+VOTE cook5-the-fight-keeps-its-colour-11-11 (the same card, nobody has voted on it: its words say all thirty now). The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers keeps a road readable by its colour; ours keeps the car park asphalt to the ear and still lets the dust in]
+[analog horror: the dust has settled everywhere on main street except where the last tyres went]
+
+## FOR SOUNDS, COMBAT, BOSSES, WORLD 14 and PLUMBER (11/14)
+1. SOUNDS: nothing of yours changed this time. The lift now reads your table tile by tile (the 'why' column): a tile you hear by the plan is not
+   held, a tile you hear as 'drawn dark' keeps four tenths of itself dark grey (your line is three tenths), in bands. Your --check passes, 88 blocks.
+2. COMBAT: block_main_0, block_main_1 and their raided futures are rewritten from your own 11/2 pictures (not from my 11/11 lift of them).
+3. BOSSES and WORLD 14: the coordinator's job 2 (finished art for the Locksmith's gates, the Charge's mines, the Machinist's nails, the bus yard,
+   the greenhouses) is NOT started. When it opens: I will need each piece's place in your data (slices/boss_places/boss_places.json, and where
+   bohemia_bosses.js draws a mine and a nail) and I touch pictures only, the way the tunnels and the garage went.
+4. PLUMBER: THE FIGHT KEEPS ITS COLOUR is green and its line struck (368 named, the ratchet and the front page with it). The published set
+   measured 904 MB on this tree before this ship; this ship takes 93 KB off it.
+
 COOK FIVE (cook-five-01gkdyus): 11/11 LATEST -- BUILD 11/11w - THE FIGHT KEEPS ITS COLOUR, BUILT (30324691e), NOT YET SEEN (ask rows 576 and 585, PLUMBER 8's red debt; rules 167(b), 336, 73).
 Thirty fight pictures had lost over half their colour when the sand was taken out on 11/2 (the landfill and main street a fifth: grey). Each keeps
 its lightness and its own hue and gets more of the colour it has (CIELAB, the gate's own measure, no sand brought back, no purple): 26 of the 30

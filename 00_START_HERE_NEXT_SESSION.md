@@ -1,3 +1,15 @@
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14b - MAIN STREET KEEPS ITS COLOUR, BUILT, NOT YET SEEN (the turn-up round, rule 447, job 1; ask row 576).
+The last four of the thirty grey fight boards: main street's two blocks and their raided futures, left at three tenths on 11/11, are at six
+tenths of the colour he knew. SOUNDS' table hears its car parks as asphalt off the picture and needs three tenths dark grey, not all: four
+tenths of each such tile stays bare in swept bands along the street, the dust lies on the rest; a tile heard by COMBAT's plan is not held.
+ALL THIRTY over half (53 to 61 in a hundred). Gate THE FIGHT KEEPS ITS COLOUR 5/0, its line struck: THE RED DEBT 368 NAMED. FIGHT STEPS 34/0, the
+floor table untouched. ON THE PAGE upright and sideways, 0 errors. THE SITE'S WEIGHT: the four pictures are 93 KB lighter, nothing new published.
+NOT STARTED, SAID PLAINLY (job 2): finished art for the three bosses' map changes and the bus yard and greenhouses: each is its own batch
+(447(c)) and the published set is over its cap (904 of 900 MB measured here), so new pictures have no room until PLUMBER's trim lands.
+VOTE cook5-the-fight-keeps-its-colour-11-11 (the same card, nobody has voted on it: its words say all thirty now). The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers keeps a road readable by its colour; ours keeps the car park asphalt to the ear and still lets the dust in]
+[analog horror: the dust has settled everywhere on main street except where the last tyres went]
+
 COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN (rule 429(a) ONE MAP; ask rows 504, 506, 507).
 The fight's half of WORLD THIRTEEN's cut: a fight that starts on a cell of one of the 15 places (the lab yard, the golf course, the Strip ...) is on that
 place's own board AND his company stands on that cell of it: the cell's rows, the cell's east column where both lines have ground (else the usual column,

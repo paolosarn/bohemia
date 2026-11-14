@@ -23,9 +23,10 @@ ruled out), and A DARK GREY ROAD STAYS A DARK GREY ROAD: SOUNDS' floor table (to
 as asphalt when three tenths of its picture is dark grey, so those pixels are held (ROAD_SAT, ROAD_VAL), and a tile it hears
 as a road by a hair is held whole. The landfill's dark is cover soil, not asphalt: it is lifted, and the table is re-derived
 there (its 50 tiles are dirt to the ear now, nothing else changes).
-WHAT IT COULD NOT DO, SAID PLAINLY: main street (main_0, main_1 and their raided futures) is asphalt from kerb to kerb; held
-as a road it reaches about three tenths of the 10/25 number, which was a sand street's. Twenty-six of the thirty are back
-over half; those four stay under, and the gate stays red on them.
+MAIN STREET, 11/14 (it was left red on 11/11 at three tenths): its car parks are 13 tiles SOUNDS hears as asphalt off the picture.
+A tile drawn dark needs three tenths of itself dark grey, not all of it (held_mask): in each, four tenths stays bare in bands
+lying along the street (what the last tyres and the wind keep clean) and the dust lies on the rest; a tile heard by COMBAT's
+plan is not read off the picture and is not held. All thirty are over half now; the floor table is the pictures, unchanged.
 
   python3 tools/bohemia_cook5_the_fight_keeps_its_colour_11_11_26.py list            (what is under half, by the gate's own measure)
   python3 tools/bohemia_cook5_the_fight_keeps_its_colour_11_11_26.py lift [--write]   (without --write: to records/target/cook5_colour/try/)
@@ -82,7 +83,7 @@ def to_rgb(lab):
     return np.clip(np.where(lin <= 0.0031308, lin * 12.92, 1.055 * lin ** (1 / 2.4) - 0.055) * 255 + 0.5, 0, 255).astype(np.uint8)
 
 
-def lifted(im, k, blur=2.2, dust=0.0, hold_road=True, edge=None):
+def lifted(im, k, blur=2.2, dust=0.0, hold_road=True, edge=None, held=None):
     """the picture with k times its own colour (its lightness and hue kept, its grain not coloured, a strong colour held);
     dust: what is nearly grey (bare asphalt, concrete) takes the valley's dust, a warm cast of this much chroma, and what
     already has a colour takes none"""
@@ -91,6 +92,8 @@ def lifted(im, k, blur=2.2, dust=0.0, hold_road=True, edge=None):
     ab = lab[..., 1:] + (k - 1.0) * labs[..., 1:]
     if dust:
         cs = np.hypot(labs[..., 1], labs[..., 2]); wgt = np.exp(-(cs / DUST_ONLY_UNDER) ** 2) * np.clip(lab[..., 0] / 22.0, 0, 1)   # not in the black of a shadow or a window
+        if held is not None:                                       # the dust thins out toward a swept band, it does not stop at a line
+            wgt = wgt * (1.0 - np.asarray(Image.fromarray((held * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(blur * 2.5)), np.float64) / 255.0)
         ab = ab + dust * wgt[..., None] * DUST
     c = np.hypot(ab[..., 0], ab[..., 1]); c0 = np.hypot(lab[..., 1], lab[..., 2])
     lim = np.maximum(c0, CEIL * np.tanh(c / CEIL))                # never less colour than it had, never a neon
@@ -102,7 +105,8 @@ def lifted(im, k, blur=2.2, dust=0.0, hold_road=True, edge=None):
     # roads of main street, the ruin and the landfill to dirt for the ear, and no other threshold gives the table back
     src = rgba[..., :3].astype(np.float64); mx0, mn0 = src.max(-1), src.min(-1)
     road = ((mx0 - mn0) / (mx0 + 1e-6) < 0.18) & (mx0 / 255.0 < 0.42) & bool(hold_road)
-    if edge is not None and hold_road:                             # a tile the ear reads as a road by a hair (its dark grey share just over three tenths): what is nearly dark grey there goes with the road, so the packing cannot tip the tile
+    if held is not None: road = held                               # (the caller says which pixels the ear needs: held_mask)
+    elif edge is not None and hold_road:                             # a tile the ear reads as a road by a hair (its dark grey share just over three tenths): what is nearly dark grey there goes with the road, so the packing cannot tip the tile
         road |= edge & ((mx0 - mn0) / (mx0 + 1e-6) < 0.26) & (mx0 / 255.0 < 0.47)
     for _ in range(3):
         mx, mn = out.max(-1), out.min(-1); sat = (mx - mn) / (mx + 1e-6)
@@ -136,6 +140,39 @@ def edge_tiles(name, size):
     return m if m.any() else None
 
 
+SWEPT = 0.40        # of a tile the ear reads off the picture stays bare dark grey (the table's line is three tenths; the rest is for the packing)
+
+
+def held_mask(name, im, seed=7):
+    """WHERE THE EAR READS THE PICTURE, AND ONLY THERE (COOK FIVE 11/14, the main street left red on 11/11). SOUNDS' table hears
+    a tile as asphalt for one of two reasons: COMBAT's plan lays a road piece on it (then the picture is not read at all), or
+    three tenths of its picture is dark grey ('drawn dark'). Holding EVERY dark grey pixel kept main street at three tenths of
+    its colour, because its car parks are 13 tiles drawn dark. A tile drawn dark needs three tenths, not all of itself: so in
+    each such tile SWEPT of it stays bare (the bands the last tyres and the wind keep clean, lying along the street), and the
+    dust lies on the rest; a tile only just over the line is held whole, with what is nearly dark grey; a tile heard by the
+    plan, and a tile heard as dirt, is not held. Returns the pixels to hold, or None when the table does not know the block."""
+    t = json.load(open(os.path.join(R, 'slices', 'vote', 'travel_steps', 'fight_floors.json')))['blocks']
+    key = name.replace('block_', '').replace('_raided', ''); i = key.rfind('_'); b = t.get(key[:i] + '.' + key[i + 1:])
+    if not b: return None
+    src = np.asarray(im.convert('RGB')).astype(np.float64); mx, mn = src.max(-1), src.min(-1); sat = (mx - mn) / (mx + 1e-6); val = mx / 255.0
+    road = (sat < 0.18) & (val < 0.42); near = (sat < 0.26) & (val < 0.47)
+    H_, W_ = road.shape; bt = len(b['floor']); held = np.zeros((H_, W_), bool)
+    rng = np.random.RandomState(seed + sum(map(ord, key)))            # the bands: long along the street (east-west), a couple of metres across
+    lat = rng.rand(max(2, H_ // 70) + 2, max(2, W_ // 420) + 2).astype(np.float32)
+    pat = np.asarray(Image.fromarray((lat * 255).astype(np.uint8)).resize((W_ + 2 * 420, H_ + 2 * 70), Image.BICUBIC), np.float32)[70:70 + H_, 420:420 + W_]
+    fine = rng.rand(H_ // 6 + 2, W_ // 6 + 2).astype(np.float32)
+    pat = pat + 18.0 * np.asarray(Image.fromarray((fine * 255).astype(np.uint8)).resize((W_, H_), Image.BICUBIC), np.float32) / 255.0
+    for ty in range(bt):
+        for tx in range(bt):
+            if b['why'][ty][tx] != 'drawn dark': continue
+            sl = (slice(int(ty * H_ / bt), int((ty + 1) * H_ / bt)), slice(int(tx * W_ / bt), int((tx + 1) * W_ / bt)))
+            share = float(road[sl].mean())
+            if share < SWEPT + 0.1: held[sl] = near[sl]                # only just a road to the ear: all of it, and what is nearly dark grey
+            else:
+                thr = np.quantile(pat[sl][road[sl]], SWEPT / share); held[sl] = road[sl] & (pat[sl] <= thr)
+    return held
+
+
 def low():
     mem = json.load(open(G.MEM))['chroma']; pics = G.pictures(); out = []
     for n, c0 in mem.items():
@@ -159,10 +196,11 @@ def lift(write=False):
         src = os.path.join(FG, n + '.webp'); im = Image.open(src).convert('RGBA'); ll = is_lossless(src); size0 = os.path.getsize(src)
         bq = os.path.join(OUT, 'before', n + '.jpg')
         if not os.path.exists(bq): im.convert('RGB').reduce(4).save(bq, quality=86)           # the twin: itself as it stood
-        hold = not any(n.startswith('block_' + f + '_') for f in NOT_A_ROAD); edge = edge_tiles(n, im.size) if hold else None
+        hold = not any(n.startswith('block_' + f + '_') for f in NOT_A_ROAD); edge = None
+        held = held_mask(n, im) if hold else None
         want = ASK * c0; small = im.reduce(4) if min(im.size) > 400 else im
-        es = None if edge is None else np.asarray(Image.fromarray(edge).resize(small.size, Image.NEAREST))
-        read = lambda k_, d_: G.chroma_of(np.asarray(lifted(small, k_, 0.55, d_, hold, es)))
+        hs = None if held is None else np.asarray(Image.fromarray(held).resize(small.size, Image.NEAREST))
+        read = lambda k_, d_: G.chroma_of(np.asarray(lifted(small, k_, 0.55, d_, hold, None, hs)))
         k, dust = KMAX, 0.0
         if read(KMAX, 0.0) >= want:                                 # its own colour is enough: the least lift that reads ASK of what he knew (the gate's own measure, its own quarter size)
             lo, hi = 1.0, KMAX
@@ -178,16 +216,18 @@ def lift(write=False):
                 if read(k, dust) < want: lo = dust
                 else: hi = dust
             dust = hi
-        tmp = os.path.join(dst, n + '.webp'); got = measure(packed(lifted(im, k, 2.2, dust, hold, edge), ll, tmp))
+        tmp = os.path.join(dst, n + '.webp'); got = measure(packed(lifted(im, k, 2.2, dust, hold, edge, held), ll, tmp))
         if got < G.HALF * c0 * 1.06 and not dust:                   # the packing took some back: a little more
-            k *= 1.06; got = measure(packed(lifted(im, k, 2.2, dust, hold, edge), ll, tmp))
+            k *= 1.06; got = measure(packed(lifted(im, k, 2.2, dust, hold, edge, held), ll, tmp))
         for _ in range(3):                                          # (and where the dust carries it: a little more dust, never past DUST_MAX)
             if got >= G.HALF * c0 * 1.06 or not dust or dust >= DUST_MAX: break
-            dust = min(DUST_MAX, dust * 1.5 + 0.5); got = measure(packed(lifted(im, k, 2.2, dust, hold, edge), ll, tmp))
+            dust = min(DUST_MAX, dust * 1.5 + 0.5); got = measure(packed(lifted(im, k, 2.2, dust, hold, edge, held), ll, tmp))
         ledger[n] = dict(remembered=c0, was=round(c, 2), now=round(got, 2), share=round(got / c0, 3), k=round(k, 3), dust=round(dust, 2), road_held=hold, bytes_was=size0, bytes_now=os.path.getsize(tmp), lossless=ll)
         print('%-30s %5.1f -> %5.1f of %5.1f (%2.0f%%)  k %.2f dust %.1f  %8d -> %8d bytes' % (n, c, got, c0, 100 * got / c0, k, dust, size0, os.path.getsize(tmp)), flush=True)
+    lp = os.path.join(OUT, 'ledger.json' if write else 'ledger_try.json')
+    if os.path.exists(lp): ledger = dict(json.load(open(lp)).get('pictures', {}), **ledger)   # a later run of a few keeps the others' lines
     json.dump(dict(why='ask row 576, rule 167(b): each picture\'s own colour lifted to a little over half of what he knew (the gate\'s own measure); lightness and hue kept', ask=ASK, pictures=ledger),
-              open(os.path.join(OUT, 'ledger.json' if write else 'ledger_try.json'), 'w'), indent=1)
+              open(lp, 'w'), indent=1)
     print(len(rows), 'pictures', 'written into the game' if write else 'tried in ' + dst)
 
 
