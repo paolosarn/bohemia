@@ -58,3 +58,25 @@ he falls they are gone, and what they took off you is paid back once (the purse'
 - VOTE bosses-the-tooths-collectors-11-14: records/target/bosses_vote_tooth_11_14/VOTE.webp (the gate's own phone: his collector at the
   gate, the gate free, DOÑA REMEDIOS's card); his moving card records/target/bosses_ten_to_twelve/VOTE_BOSS_TOOTH.webp.
 
+## THE LENS (the ladder's 12th: the last ground glass). BUILD 11/14u
+
+HIS OWN WAY: THE DAY IS TAKEN FROM YOU. While he stands, BY DAY, within 5 blocks of his shop the crew sees 2 blocks (the map's own fog
+asks, through the same door THE BURN's dark uses at night; never inside a town), the map is painted over with his haze, and his sprayed eye
+charts stand on the corners. THE BURN takes the night; THE LENS takes the day. When he falls the haze lifts for good, the charts are
+painted clean, kept after a reload.
+- Found by a sign: an eye chart sprayed over, THE LENS SEES YOU. Asker: EL CIEGO, one lens of his glasses gone (faction_remnants' face).
+- Fight: an arbalester's numbers at 1.8 blood with BB's Light Crossbow, his spotters (three marksmen), on the strip board. Lesson: his
+  bolt reaches six tiles and he sees you first; close in from cover, two at once, before he reloads.
+- Verb: LOOK FAR. On any street off a town, once a day: down the four streets 12 blocks each way come out of the fog (it stops where two
+  blocks in a row are not a street), a block each side. It sits after BURN in the order (BURN is night only, LOOK FAR works by day).
+- Prize: HIS SPYGLASS through HOME BASE's seam. Code: slices/bohemia_bosses.js (20) HIS BLUR. Data: row THE LENS, 'lens'.
+- MEASURED: the first LOOK FAR check stood where BURN held the button: the walk to the street carried the game's own clock into the evening
+  (a walk syncs the map's clock from the day's), so the check now sets the day's clock to noon on arrival. And the walk itself lifts fog,
+  so a street picked from home could have none left by the time the crew stood on it (0 blocks): the check now walks to the nearest street
+  with fog down it, and if the walk cleared it, the next one.
+  On the merged build the alpha's check once picked 5 streets and the walk to each cleared its fog (0 blocks): it now picks streets
+  with fog PAST the crew's own sight (the map's own fogRadius + 2), and picks again from where the crew stands.
+- RESULTS: THE LENS CHANGES THE MAP 21/0 on the demo upright and 21/0 on the alpha on its side (LOOK FAR: 18 blocks out of the fog
+  on both, 21 and 22 on the merged build; by day on his side the crew sees 2 blocks while he stands, 6 after); the same gate re-run on the merged build before the push.
+- VOTE bosses-the-lenss-haze-11-14: records/target/bosses_vote_lens_11_14/VOTE.webp (the gate's own phone: his haze by day, the haze gone,
+  EL CIEGO's card); his moving card records/target/bosses_ten_to_twelve/VOTE_BOSS_LENS.webp.

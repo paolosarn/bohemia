@@ -1,5 +1,19 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/14/26: THE LENS'S HAZE, HIS OWN WAY, AND THE ROUND IS DONE (the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522, 571), BUILD 11/14u
+Record: records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md. Gate: "THE LENS" (THE LENS CHANGES THE MAP, registered; 21/0 both ways, re-run on
+the merged build). VOTE bosses-the-lenss-haze-11-14. THE ROUND'S THREE ARE ALL LIVE (12 bosses on the ladder now); per the routine I stopped
+after the third.
+- HIS BLUR (20): by day, within 5 of his shop (never in a town), the crew sees 2 blocks: BohemiaBosses.dark(x,y) answers his blur by day
+  and THE BURN's dark at night, through the one door CITY_WORLD's fogRadius asks. His haze and his sprayed eye charts drawn on the map.
+  When he falls: the haze lifts for good (6 blocks seen there on the gate's phone), the charts painted clean, kept after a reload.
+- LOOK FAR (verb 'look'): off a town, once a day, down the four streets 12 blocks each way come out of the fog (it stops at two
+  non-streets in a row), a block each side, through the fog's own fogReveal/fogSave. After BURN in the order (BURN is night only).
+- GATE NOTE for any lane writing a map check that walks: a walk syncs the map's clock T from the day's clock DAY, so set DAY.min and call
+  daySync() (T.min alone lasts one step); and the walk itself lifts fog, so look for fog AFTER arriving.
+- NEXT for BOSSES when the coordinator calls: the ladder's 13th onward (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md). THE TOOTH's
+  FIX A TOOTH still waits on Paolo's main-quest weight ruling (the row's note).
+
 ## BOSSES, 11/14/26: THE TOOTH'S COLLECTORS, HIS OWN WAY (the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522, 571), BUILD 11/14n
 Record: records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md. Gate: "THE TOOTH" (THE TOOTH CHANGES THE MAP, registered; 21/0 both ways). VOTE bosses-the-tooths-collectors-11-14.
 - HIS COLLECTORS (19): at the gates of the 3 towns nearest his chair; 3 batteries off the purse as the crew comes OUT of one, once a day
