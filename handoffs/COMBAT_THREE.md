@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rule 451(a)(b), his vote sheet of 11/14; ask rows 623 and 624): 11/14 LATEST -- [the ceiling, the tunnels] SHIPPED SHIPSHA, BUILD 11/14p - THE CEILING OVER YOUR HEAD, BUILT, NOT YET SEEN. VOTE combat3-the-ceiling-over-your-head-11-14 (stand_in).
+COMBAT THREE (rule 451(a)(b), his vote sheet of 11/14; ask rows 623 and 624): 11/14 LATEST -- [the ceiling, the tunnels] SHIPPED c15ab305a, BUILD 11/14p - THE CEILING OVER YOUR HEAD, BUILT, NOT YET SEEN. VOTE combat3-the-ceiling-over-your-head-11-14 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CEILING_OVER_YOUR_HEAD_11_14_26.md.
 (a) AN INSIDE SHOWS ITS CEILING (FIGHT.html __AN_INSIDE_SHOWS_ITS_CEILING__: ceilingOf, ceilingSheet, drawCeiling after drawLash): the garage, the casino floor and the
 tunnels carry S.boardDef.ceiling from their data file's 'ceiling' { kind, alpha 0.10, src, have, tile }; one sheet over the whole board and the men at that alpha, capped at
@@ -18,6 +18,7 @@ slices/bohemia_flood_tunnels.js deals by it. Gate THE FLOOD TUNNELS 16/0 (T9: 15
 ON THE PAGE: the alpha and the demo, upright and on its side: the garage 4 fights, the casino floor 1, the tunnels 9 (3 single runs on this build's stamp); every ceiling
 on the glass; all ended; 36 of 36 tile taps; 0 page errors. PARKING GARAGE 16/0, CASINO FLOOR 9/0, THE INSIDES WEAR FINISHED ART 14/0.
 NOT DONE: the_long_run not seen by eye on the page (dealt by the gate); the ceilings are stand-ins.
+MY MISTAKE, FIXED IN THE NEXT COMMIT: c15ab305a went to main with the ask ledger (rows 623 to 625) carrying an unresolved merge: my rebase helper does not know that file and I added it unread; the HANDOFF gate said so and the push had already run. Rows 623 and 624 mine, 625 HOME BASE's, resolved by hand; the helper now refuses to go on while any file carries a marker.
 [bb Battle Brothers has no insides: every fight is under the sky. Ours has three, and now you can tell]
 [analog horror: the tube lights over the deck, most of them dead, so faint you only notice when one is over your man]
 
