@@ -4941,7 +4941,8 @@ function openB(k, line){
     body.appendChild(speak(k, line || (full ? 'You carry ' + (SLOTS === 1 ? 'a job' : 'two jobs') + '. Drop one here, or take a new one and I will tear up the old.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
     S.held.map(heldRow).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top; __TWO_JOBS_AT_ONCE__: both, from the tap */
     setTimeout(function(){ heldFill(0); }, 150);
-    boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
+    var bh = boardHere(); bh.forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
+    try{ if(window.BohemiaBoardShelf && BohemiaBoardShelf.seen && bh.length) BohemiaBoardShelf.seen(S.place.name, bh.map(function(o){ return o.id; }), buildDay()); }catch(e){}   /* __A_READ_BOARD_STAYS_READ__ (JOBS 11/14, row 610): what he reads here is the board until its time is up */
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */
     body.appendChild(acts); body.appendChild(sl); return show();

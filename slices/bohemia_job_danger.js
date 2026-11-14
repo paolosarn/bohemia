@@ -209,8 +209,9 @@
     msg.party.what = kindWord(r.band, r.faction);
     /* __EVERY_JOB_NAMES_ITS_FOE__ (JOBS 11/10, a marked line in WORLD's file): the job's own name for its enemy ('the thieves after the
        cold box') stands while the roll kept people; the ground can turn a road's brigands into animals (FACTIONS 11/3), and then they
-       are named as themselves (measured on the phone: the thieves came as one wild horse and the end screen said THE THIEVES) */
-    if (msg.foe && asked && r.faction !== asked && r.band.every(function (id) { return !!KIND_WORDS[id]; })) msg.foe = (r.band.length === 1 ? 'a ' : 'the ') + String(msg.party.what).toLowerCase();
+       are named as themselves (measured on the phone: the thieves came as one wild horse and the end screen said THE THIEVES); JOBS 11/14: and a
+       job that asked for 'beasts' names the animal it met (the tunnel watch said WHATEVER CAME UP THE TUNNEL ARE DOWN for one hyena) */
+    if (msg.foe && asked && (r.faction !== asked || asked === 'beasts') && r.band.every(function (id) { return !!KIND_WORDS[id]; })) msg.foe = (r.band.length === 1 ? 'a ' : 'the ') + String(msg.party.what).toLowerCase();
     try { msg.party.word = partyWord(r.band.length); } catch (e) {}
     var beast = r.faction === 'beasts' || r.band.every(function (id) { return !!KIND_WORDS[id]; });
     msg.roster = r.band.map(function () { return { arch: beast ? 'beast' : 'human' }; });

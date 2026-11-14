@@ -66,6 +66,9 @@
   var POSTKEY = 'bohemia.board.posted.v1';
   function postedGet() { try { var m = JSON.parse(root.localStorage.getItem(POSTKEY) || '{}'); return m && typeof m === 'object' ? m : {}; } catch (e) { return {}; } }
   function postedPut(m) { try { root.localStorage.setItem(POSTKEY, JSON.stringify(m)); } catch (e) {} }
+  var READKEY = 'bohemia.board.read.v1';   /* __A_READ_BOARD_STAYS_READ__: what he read, by town, its own record (a deal for another day never writes it) */
+  function readGet() { try { var m = JSON.parse(root.localStorage.getItem(READKEY) || '{}'); return m && typeof m === 'object' ? m : {}; } catch (e) { return {}; } }
+  function readPut(m) { try { root.localStorage.setItem(READKEY, JSON.stringify(m)); } catch (e) {} }
   function campaign() { try { var w = root.WORLD_SEED; if (w == null && root.parent && root.parent !== root) w = root.parent.WORLD_SEED; return String(w || ''); } catch (e) { return ''; } }
   function dealt(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
@@ -74,15 +77,24 @@
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};
     order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : Math.min(C[p.tier || 'camp'] || 1, C.max || 4); });
-    var MEMO = postedGet(), camp = campaign(), byId = {}, held = opt.held || [], done = opt.done || [];   /* __A_POSTED_JOB_STAYS_POSTED__ */
+    var MEMO = postedGet(), camp = campaign(), byId = {}, held = opt.held || [], done = opt.done || [], frozen = {};   /* __A_POSTED_JOB_STAYS_POSTED__ */
     SHELF.offers.forEach(function (o) { byId[o.id] = o; });
-    order.forEach(function (p) { var m = MEMO[p.name]; if (!m || m.win !== win || m.camp !== camp || (p.traits || []).indexOf('raided') >= 0) return;
-      (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || held.indexOf(id) >= 0 || done.indexOf(id) >= 0 || map[p.name].length >= want[p.name] || o.when) return;
+    var READ = readGet(), wasRead = function (n) { var r = READ[n]; return !!(r && r.win === win && r.camp === camp); };
+    var readFirst = order.slice().sort(function (a, b) { return (wasRead(b.name) ? 1 : 0) - (wasRead(a.name) ? 1 : 0); });   /* a board he read keeps its people before any other place's memory claims one */
+    readFirst.forEach(function (p) { var m = wasRead(p.name) ? { win: win, camp: camp, ids: READ[p.name].ids, seen: true } : MEMO[p.name]; if (!m || m.win !== win || m.camp !== camp) return;
+      if (m.seen) {   /* __A_READ_BOARD_STAYS_READ__ (JOBS 11/14, rule 447(b), row 610 again: 'a board he has read stays what he read until its
+         time is up'): once his eyes were on it, the board is what he read until its window ends: no floor, no news, no new face; only a
+         job he took or finished leaves it */
+        (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || held.indexOf(id) >= 0 || done.indexOf(id) >= 0 || (o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0))) return;
+          taken[id] = p.name; map[p.name].push(said(o, p.crew || opt.crew)); });
+        if (map[p.name].length) { want[p.name] = map[p.name].length; frozen[p.name] = 1; return; } }
+      if ((p.traits || []).indexOf('raided') >= 0) return;
+      (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || held.indexOf(id) >= 0 || done.indexOf(id) >= 0 || map[p.name].length >= want[p.name] || o.when || (o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0))) return;
         if (o.towns && o.towns.indexOf(p.name) < 0) return;
         if (FW && FW.fits(o, p.name, day, map[p.name], want[p.name]) === false) return;   /* rule 255 stands: what the day's floor now keeps back comes off */
         taken[id] = p.name; map[p.name].push(said(o, p.crew || opt.crew)); }); });
     for (var round = 0; round < (C.max || 4); round++) order.forEach(function (p) {
-      if (map[p.name].length > round || map[p.name].length >= want[p.name]) return;
+      if (frozen[p.name] || map[p.name].length > round || map[p.name].length >= want[p.name]) return;
       var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, taken, map[p.name].length + 1, map[p.name]);
       got.forEach(function (o) { taken[o.id] = p.name; }); map[p.name] = got;
     });
@@ -90,6 +102,13 @@
     order.forEach(function (p) { MEMO[p.name] = { win: win, camp: camp, ids: map[p.name].map(function (o) { return o.id; }) }; }); postedPut(MEMO);   /* __A_POSTED_JOB_STAYS_POSTED__ */
     DEAL = { key: key, map: map };
     return map;
+  }
+  /* __A_READ_BOARD_STAYS_READ__: the town's screen says when his eyes are on a board (BohemiaSettlement's boardHere); the ids are what
+     he read, kept for the window */
+  function seen(name, ids, day) {
+    if (!SHELF || !name) return; var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), M = readGet(), m = M[name], camp = campaign();
+    if (m && m.win === win && m.camp === camp) return;   /* the first look is what he read */
+    M[name] = { win: win, camp: camp, ids: (ids || []).slice() }; readPut(M); DEAL.key = null;
   }
   function pick(place, day, opt) {
     if (!SHELF || !place) return null;
@@ -109,7 +128,7 @@
     var all = SHELF.offers, out = (have || []).slice(), seen = {}, kept = [];
     out.forEach(function (o) { seen[o.id] = 1; });
     var FW = fitter(), size = Math.min(C[tier] || 1, C.max || 4);   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ */
-    function free(o) { return !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && done.indexOf(o.id) < 0; }
+    function free(o) { return !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && done.indexOf(o.id) < 0 && !(o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0)); }   /* JOBS 11/14: a job two towns bid on is gone from both once he takes either */
     function take(pool, n) {
       if (upto != null) n = Math.min(n, upto);
       shuffled(pool, R).forEach(function (o) { if (out.length >= n || !free(o)) return;
@@ -164,6 +183,6 @@
         out.push({ name: name, tier: tier, traits: tr }); });
       return out.length ? out : null; } catch (e) { return null; }
   }
-  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces,
+  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces, seen: seen,
     shelf: function () { return SHELF; } };
 })(typeof window !== 'undefined' ? window : this);

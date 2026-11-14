@@ -107,7 +107,8 @@ function redeal(src, memo) {
   let lost = 0, kept = 0;
   /* a job the new crew's floor now keeps back comes off by rule 255 (said, never a re-shuffle): only the ones the floor still lets through count */
   const under = (id) => !W.BohemiaJobDanger.fits({ id: id });
-  let off = 0; names.forEach(n => b1[n].forEach(id => { if (id === took) return; if (under(id)) { off++; return; } if (b2[n].indexOf(id) >= 0 && b3[n].indexOf(id) >= 0) kept++; else lost++; }));
+  const rivalOf = {}; doc.offers.forEach(o => { if (o.rival) rivalOf[o.id] = o.rival; });   /* JOBS 11/14: a job two towns bid on leaves the other board when he takes one side */
+  let off = 0; names.forEach(n => b1[n].forEach(id => { if (id === took || rivalOf[id] === took) return; if (under(id)) { off++; return; } if (b2[n].indexOf(id) >= 0 && b3[n].indexOf(id) >= 0) kept++; else lost++; }));
   /* the day turns inside the window and the towns' news changes (a market day here, a sickness there): EYES 610's two visits */
   crew = 'A'; const mk = (tr) => names.map((n, i) => ({ name: n, tier: tiers[i % 3], traits: tr(i) }));
   const dealOn = (pl, day) => { const m = {}; pl.forEach(p => m[p.name] = (W.BohemiaBoardShelf.pick(p, day, { places: pl }) || []).map(o => o.id)); return m; };

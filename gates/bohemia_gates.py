@@ -2418,6 +2418,12 @@ GATES = [
      'fight, who and how many, the reader\'s own roll); on the phone, the demo and the alpha both ways, each kind found on its town\'s '
      'board, read, taken by Take it and played to the pay, the card\'s fights the fights met; the plants each caught '
      '(records/BOHEMIA_JOBS_THE_NEW_KINDS_11_11_26.md).', True),
+    ('THE NIGHT, THE TURN AND THE BID', ['node', 'gates/the_night_the_turn_and_the_bid_gate.js'],
+     'JOBS 11/14, rules 447, 441, row 610: a board he has read stays what he read until its window ends (node: through the day turning, '
+     'the news and a floor against everything; planted off it changes); three kinds as legs rows (a night watch, a job that turns '
+     'halfway, a job two towns bid on) and fifteen jobs, four paying into his own place; on the phone, the demo and the alpha both ways, '
+     'one of each found on its town\'s board, taken and played to the pay, the bid\'s other side gone, a read board the same '
+     '(records/BOHEMIA_JOBS_THE_NIGHT_THE_TURN_AND_THE_BID_11_14_26.md).', True),
     ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
      'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
      'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '

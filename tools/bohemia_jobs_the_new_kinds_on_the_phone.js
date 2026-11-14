@@ -26,12 +26,19 @@ const NEW = [
   { kind: 'siege', word: 'BREAK THE RING', ids: ['jb-ring-gardens', 'jb-ring-trucks', 'jb-ring-solar'] },
   { kind: 'obtain', word: 'GET IT', ids: ['jb-get-die', 'jb-get-drive', 'jb-get-reels'] },
   { kind: 'restore', word: 'RESTORE', ids: ['jb-restore-school', 'jb-restore-chapel', 'jb-restore-pumps'] },
-  { kind: 'find-person', word: 'FIND A PERSON', ids: ['jb-find-singer', 'jb-find-clerk', 'jb-find-dealers'] }].filter(k => !ONLY || ONLY.split(',').indexOf(k.kind) >= 0);
+  { kind: 'find-person', word: 'FIND A PERSON', ids: ['jb-find-singer', 'jb-find-clerk', 'jb-find-dealers'] }];
+/* --set r4 (JOBS 11/14, rule 447): escort a caravan, defend a place through a night, a job that changes halfway, a job two towns bid on */
+const NEW4 = [
+  { kind: 'haul-caravan', word: 'ESCORT', ids: ['jb-escort-water', 'jb-escort-trunks', 'jb-escort-strongbox'] },
+  { kind: 'night-watch', word: 'WATCH', ids: ['jb-watch-clinic', 'jb-watch-tunnel', 'jb-watch-depot'] },
+  { kind: 'turn', word: 'CHANGES HALFWAY', ids: ['jb-turn-speakers', 'jb-turn-panels', 'jb-turn-courier'] },
+  { kind: 'bid', word: 'TWO TOWNS BID', ids: ['jb-bid-water-blues', 'jb-bid-water-reds', 'jb-bid-tv-network', 'jb-bid-tv-anarchists', 'jb-bid-hall-church', 'jb-bid-hall-mob'] }];
+const R4 = arg('--set', '') === 'r4', SET = (R4 ? NEW4 : NEW).filter(k => !ONLY || ONLY.split(',').indexOf(k.kind) >= 0);
 
 async function walk(shape) {
   const d = await drive.open({ profile: shape, alpha: ALPHA, fog: false, keepCards: true, engage: true,
     arm: "try { var s = JSON.parse(localStorage.getItem('bohemia.start') || '{}'); s.origin = 'newcrew'; localStorage.setItem('bohemia.start', JSON.stringify(s)); localStorage.setItem('bohemia.world.next.v1', '" + CODE + "'); } catch (e) {}" });
-  const fr = d.fr, page = d.page, errs = [], out = [];
+  const fr = d.fr, page = d.page, errs = [], out = []; let board = null;
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn().catch(() => false)) return true; await page.waitForTimeout(300); } return false; };
   const fightUp = () => page.evaluate(() => !!CITYFIGHT);
@@ -59,49 +66,51 @@ async function walk(shape) {
     await fr.waitForFunction(() => window.BohemiaJobKinds && BohemiaJobKinds.ready() && BohemiaJobKinds.asks && window.BohemiaBoardShelf && BohemiaBoardShelf.ready() && window.BohemiaJobDanger && window.LOOP && LOOP.start && PARTY_MATH.loaded && window.BohemiaRenown, null, { timeout: 180000 });
     await page.waitForTimeout(2500);
     if (PLANT === 'noasks') await fr.evaluate(() => { BohemiaJobKinds.asks = null; });
-    for (const K of NEW) {
+    for (const K of SET) {
       const row = { kind: K.kind, word: K.word, id: null, town: null, dealt: null, asks: null, fights: [], talks: [], paid: null, clout: null, steps: [] };
       try {
         await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; try { loopClose(); } catch (e) {} });
         /* the first board that posts one of the kind's jobs: today's, else the next board's (a board turns every refresh_days; the day's
            floor holds a job back from a new crew while it would lose it more often than win, rule 255) */
-        const t = await fr.evaluate((ids) => { const all = BohemiaBoardShelf.shelf().offers, bs = ctBases() || {}, d0 = loopDay() || 1, step = BohemiaBoardShelf.shelf().refresh_days || 3;
-          for (let d = d0; d <= d0 + 4 * step; d += (d === d0 ? step - ((d0 - 1) % step) : step)) { DAY.day = d; const P = BohemiaBoardShelf.mapPlaces(d) || [];
-          for (const id of ids) { const o = all.filter(x => x.id === id)[0]; if (!o) continue; const n = (o.towns || [])[0], p = P.filter(q => q.name === n)[0], b = bs[n]; if (!p || !b) continue;
+        const cands = await fr.evaluate((ids) => { const all = BohemiaBoardShelf.shelf().offers, bs = ctBases() || {}, d0 = 1, step = BohemiaBoardShelf.shelf().refresh_days || 3, out = [];   /* each kind on its own run, from day 1 */
+          for (const id of ids) { for (let d = d0; d <= d0 + 8 * step && out.length < 6; d += (d === d0 ? step - ((d0 - 1) % step) : step)) { DAY.day = d; const P = BohemiaBoardShelf.mapPlaces(d) || [];   /* every job of the list on every day it is posted */ const o = all.filter(x => x.id === id)[0]; if (!o) continue; const n = (o.towns || [])[0], p = P.filter(q => q.name === n)[0], b = bs[n]; if (!p || !b) continue;
             const L = BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, d, { traits: p.traits || [], held: [], places: P }) || [];
-            if (L.some(x => x.id === id)) return { id, n, x: b.x, y: b.y, day: d }; } }
-          DAY.day = d0;
-          const o = all.filter(x => x.id === ids[0])[0], n = o && (o.towns || [])[0], b = n && bs[n]; return b ? { id: ids[0], n, x: b.x, y: b.y, notDealt: true } : null; }, K.ids);
-        if (!t) throw new Error('no offer or no town for ' + K.ids[0]);
-        K.id = row.id = t.id; row.day = t.day || null;
-        row.town = t.n;
-        const before = await fr.evaluate(() => ({ clout: BohemiaRenown.score(), paid: (window.__JOB_PAID || []).length }));
-        /* the town, its BOARD, the client, the card */
+            if (L.some(x => x.id === id)) out.push({ id, n, x: b.x, y: b.y, day: d }); } }
+          return out; }, K.ids);
+        if (!cands.length) throw new Error('none of ' + K.ids.join(', ') + ' is posted on its own board in nine windows');
         const settleOpen = () => fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block' && LOOP.ready));
-        for (let k = 0; k < 4 && !(await settleOpen()); k++) { await fr.evaluate((t) => { travelStop(); city.x = t.x; city.y = t.y; townTap({ name: t.n, x: t.x, y: t.y }); }, t); await waitFor(settleOpen, 60000);
-          if (await fr.evaluate(() => !!(window.MEET && MEET.up))) await fr.evaluate(() => { const b = document.querySelector('#meetcard [data-meet="back"]'); if (b) b.click(); }); }
-        if (!(await settleOpen())) throw new Error('the town did not open');
-        const sfH = await fr.$('#settleFrame'), sf = await sfH.contentFrame();
-        for (let k = 0; k < 4; k++) {
-          const xy = await sf.evaluate(() => BohemiaSettlement.where('board')), hb = await sfH.boundingBox();
-          if (xy) await page.touchscreen.tap(hb.x + xy.x, hb.y + xy.y);
-          if (await waitFor(() => sf.evaluate(() => document.getElementById('sheet').classList.contains('on') && document.querySelectorAll('#sheet button.act.client').length > 0), 8000)) break;
-        }
-        /* a finger on a button in the town's sheet: scrolled into view, the sheet let settle, tapped only where the button itself is under
-           the finger (the sheet slides up and its list scrolls, so a tap computed early lands on a neighbour) */
-        const finger = async (sel) => { for (let k = 0; k < 8; k++) {
+        let sfH = null, sf = null, t = null; row.misses = [];
+        const finger = async (sel) => { for (let k = 0; k < 30; k++) {   /* up to ~10 s: a hint that lies over the board's first person for a few seconds (EYES row 612) goes, as he would wait */
             const c = await sf.evaluate((q) => { const b = document.querySelector(q); if (!b) return null; b.scrollIntoView({ block: 'center', behavior: 'instant' }); const r = b.getBoundingClientRect(), x = r.x + r.width / 2, y = r.y + r.height / 2, e = document.elementFromPoint(x, y);
-              return { x, y, on: !!e && (e === b || b.contains(e)) }; }, sel);
-            if (!c) return false;
+              return { x, y, on: !!e && (e === b || b.contains(e)), cover: e && !(e === b || b.contains(e)) ? ((e.id ? '#' + e.id : '') + (e.className && typeof e.className === 'string' ? '.' + e.className.split(' ')[0] : '') + ' ' + String(e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40)) : null }; }, sel);
+            if (!c) return false; if (c.cover) fingerCover = c.cover;
             if (c.on) { await page.waitForTimeout(250); const c2 = await sf.evaluate((q) => { const r = document.querySelector(q).getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, sel);
               if (Math.abs(c2[0] - c.x) < 1 && Math.abs(c2[1] - c.y) < 1) { const hb = await sfH.boundingBox(); await page.touchscreen.tap(hb.x + c.x, hb.y + c.y); return true; } }
             await page.waitForTimeout(300); } return false; };
+        let before = null, fingerCover = null;
+        for (const cand of cands) {   /* the town on that day, its BOARD with a finger: is the job there, as the deal said */
+          t = cand; K.id = row.id = t.id; row.day = t.day; row.town = t.n;
+          await fr.evaluate((d) => { try { loopClose(); } catch (e) {} DAY.day = d; }, t.day); await page.waitForTimeout(500);
+          before = await fr.evaluate(() => ({ clout: BohemiaRenown.score(), paid: (window.__JOB_PAID || []).length, gifts: ((window.BohemiaRoadMore && BohemiaRoadMore.status && BohemiaRoadMore.status().gifts) || []).length }));
+          for (let k = 0; k < 4 && !(await settleOpen()); k++) { await fr.evaluate((t) => { travelStop(); city.x = t.x; city.y = t.y; townTap({ name: t.n, x: t.x, y: t.y }); }, t); await waitFor(settleOpen, 60000);
+            if (await fr.evaluate(() => !!(window.MEET && MEET.up))) await fr.evaluate(() => { const b = document.querySelector('#meetcard [data-meet="back"]'); if (b) b.click(); }); }
+          if (!(await settleOpen())) throw new Error('the town did not open');
+          sfH = await fr.$('#settleFrame'); sf = await sfH.contentFrame();
+          await waitFor(() => sf.evaluate((n) => !!(BohemiaSettlement.state.place && BohemiaSettlement.state.place.name === n), t.n), 20000);
+          for (let k = 0; k < 4; k++) {
+            const xy = await sf.evaluate(() => BohemiaSettlement.where('board')), hb = await sfH.boundingBox();
+            if (xy) await page.touchscreen.tap(hb.x + xy.x, hb.y + xy.y);
+            if (await waitFor(() => sf.evaluate((n) => BohemiaSettlement.state.open === 'board' && BohemiaSettlement.state.place && BohemiaSettlement.state.place.name === n && document.getElementById('sheet').classList.contains('on') && document.querySelectorAll('#sheet button.act.client').length > 0, t.n), 8000)) break;   /* this town's board, not the last town's sheet */
+          }
+          row.dealt = await sf.evaluate((q) => !!document.querySelector(q), '#sheet button.act.client[data-id="' + t.id + '"]');
+          if (row.dealt) { fingerCover = null; if (await finger('#sheet button.act.client[data-id="' + t.id + '"]')) { row.tapped = true; break; }
+            row.misses.push(t.id + '@' + t.n + ' day ' + t.day + ': on the board, but no finger could reach it (under the finger: ' + (fingerCover || 'it kept moving') + ')'); row.dealt = false; continue; }
+          row.misses.push(t.id + '@' + t.n + ' day ' + t.day + ' (the board: ' + (await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => b.dataset.id).join(','))) + ', its day ' + (await sf.evaluate(() => { try { return buildDay(); } catch (e) { return '?'; } })) + ')');
+        }
         const sel = '#sheet button.act.client[data-id="' + K.id + '"]';
-        row.dealt = await sf.evaluate((q) => !!document.querySelector(q), sel);
         const clientName = await fr.evaluate((id) => { const o = BohemiaBoardShelf.shelf().offers.filter(x => x.id === id)[0]; return o && o.client ? String(o.client.name).toUpperCase() : null; }, K.id);
         const cardIs = () => sf.evaluate((nm) => { const e = document.querySelector('#sheet .say .nm'); return !!e && (e.textContent || '').indexOf(nm) >= 0 && !!document.querySelector('#sheet .say .trip.asks'); }, clientName);
-        if (!row.dealt) throw new Error('not on ' + t.n + "'s board today");
-        if (!(await finger(sel))) throw new Error('no finger could reach ' + clientName);
+        if (!row.dealt) throw new Error('not on its own board when opened: ' + row.misses.join(' | '));
         if (!(await waitFor(cardIs, 15000))) throw new Error('the card is not ' + clientName + "'s, or says nothing of what it asks");
         await sf.evaluate(() => { const e = document.querySelector('#sheet .say .trip.asks'); if (e) e.scrollIntoView({ block: 'center', behavior: 'instant' }); });
         await page.waitForTimeout(700);
@@ -111,12 +120,22 @@ async function walk(shape) {
         if (!(await finger('#sheet button[data-yes="1"]'))) throw new Error('no Take it on the card');
         if (!(await waitFor(() => fr.evaluate((id) => LOOP.held.some(h => h.id === id), K.id), 10000))) throw new Error('Take it made no job');
         await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(800);
+        /* a job two towns bid on: the other town's board, dealt now, no longer has its side */
+        row.rival = await fr.evaluate((id) => { const o = BohemiaBoardShelf.shelf().offers.filter(x => x.id === id)[0]; if (!o || !o.rival) return null; const r = BohemiaBoardShelf.shelf().offers.filter(x => x.id === o.rival)[0], tn = r && (r.towns || [])[0];
+          const P = BohemiaBoardShelf.mapPlaces(loopDay()) || [], p = P.filter(q => q.name === tn)[0]; if (!p) return { id: o.rival, town: tn, err: 'no town' };
+          const L = BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, loopDay(), { traits: p.traits || [], held: LOOP.held.map(h => h.id), places: P }) || [];
+          return { id: o.rival, town: tn, gone: !L.some(x => x.id === o.rival) }; }, K.id);
         /* the job, played to the end */
         for (let s = 0; s < 16; s++) {
           const st = await fr.evaluate((id) => {
             const j = LOOP.held.filter(h => h.id === id)[0]; if (!j) return { gone: true };
             const at = (x, y) => { travelStop(); city.x = x; city.y = y; };
             let x, y, what;
+            if (j.plays === 'haul-caravan' && !j.__raided) { j.__raided = 1;   /* the raid where the road meets it: he walks the carts a block at a time toward the gate (the raid comes AHEAD on his road) */
+              const D = j.dest && !j.dest.made ? null : j.dest, tx = (D && D.x != null) ? D.x : j.target.x, ty = (D && D.y != null) ? D.y : j.target.y;
+              for (let k = 0; k < 40 && !LOOP.fighting; k++) { const sx = Math.sign(tx - city.x), sy = Math.sign(ty - city.y); if (!sx && !sy) break; at(city.x + sx, city.y + sy); BohemiaJobKinds.step();
+                if (j.raid) { for (let q = 0; q < 12 && !LOOP.fighting && j.raid; q++) { at(city.x + Math.sign(j.raid.x - city.x), city.y + Math.sign(j.raid.y - city.y)); BohemiaJobKinds.step(); } } }
+              return { what: 'raid on the road', fight: !!LOOP.fighting }; }
             if (j.legs) { const L = j.legs[j.li | 0]; if (!L) return { stuck: 'no leg' }; x = L.x; y = L.y; what = 'leg ' + (j.li | 0) + ' ' + (L.act || L.go) + (L.twistLeg ? ' (twist)' : ''); }
             else if (j.plays === 'find-person' && j.stage === 'look') { x = j.spot.x; y = j.spot.y; what = 'look'; }
             else { x = j.target.x; y = j.target.y; what = j.stage; }
@@ -128,20 +147,45 @@ async function walk(shape) {
           row.steps.push(st.what);
           await page.waitForTimeout(1200);
           /* a talk card: a finger on its first choice */
-          const tb = await fr.evaluate(() => { const b = [...document.querySelectorAll('button')].filter(x => /Stand and fight|Take all of it/i.test(x.textContent || '') && x.getBoundingClientRect().width > 0)[0]; if (!b) return null; const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2, (b.textContent || '').trim()]; });
+          const tb = await fr.evaluate(() => { const b = [...document.querySelectorAll('button')].filter(x => /Stand and fight|Take all of it|Finish the job/i.test(x.textContent || '') && x.getBoundingClientRect().width > 0)[0]; if (!b) return null; const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2, (b.textContent || '').trim()]; });
           if (tb) { row.talks.push(tb[2]); await tapIn('#cityFrame', tb); await page.waitForTimeout(1000); }
           if (await waitFor(fightUp, tb || st.fight ? 20000 : 2500)) await fightOut(row, '_' + row.fights.length);
         }
-        const after = await fr.evaluate((id) => ({ clout: BohemiaRenown.score(), paid: (window.__JOB_PAID || []).filter(p => p.id === id).slice(-1)[0] || null, held: LOOP.held.some(h => h.id === id) }), K.id);
-        row.paid = after.paid; row.clout = after.clout - before.clout; row.done = !after.held && !!after.paid;
+        const after = await fr.evaluate((id) => ({ clout: BohemiaRenown.score(), paid: (window.__JOB_PAID || []).filter(p => p.id === id).slice(-1)[0] || null, held: LOOP.held.some(h => h.id === id), gifts: ((window.BohemiaRoadMore && BohemiaRoadMore.status && BohemiaRoadMore.status().gifts) || []).slice(-3).map(g => g.name + (g.waiting ? ' (waits for his place)' : '')) }), K.id);
+        row.paid = after.paid; row.clout = after.clout - before.clout; row.done = !after.held && !!after.paid; row.home = after.gifts.slice(Math.max(0, after.gifts.length - 3));
+        row.homeNew = await fr.evaluate(() => ((window.BohemiaRoadMore && BohemiaRoadMore.status && BohemiaRoadMore.status().gifts) || []).length) - before.gifts;
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
-      console.log('  ' + TAG + ' ' + shape + ' ' + K.word.padEnd(15) + ' ' + K.id + ' at ' + row.town + ' day ' + row.day + (row.dealt ? ' (dealt)' : ' (opened)') + ': ' + (row.err ? 'ERR ' + row.err : (row.done ? 'PAID ' + row.paid.paid + ' of ' + row.paid.of : 'NOT PAID') + ', +' + row.clout + ' CLOUT, fights: ' + row.fights.map(f => f.head).join(' | ') + (row.talks.length ? ', talk: ' + row.talks.join('/') : '')));
-      console.log('      asks: ' + row.asks);
+      console.log('  ' + TAG + ' ' + shape + ' ' + K.word.padEnd(15) + ' ' + K.id + ' at ' + row.town + ' day ' + row.day + (row.dealt ? ' (dealt)' : ' (opened)') + ': ' + (row.err ? 'ERR ' + row.err : (row.done ? 'PAID ' + row.paid.paid + ' of ' + row.paid.of : 'NOT PAID') + ', +' + row.clout + ' CLOUT, fights: ' + row.fights.map(f => f.head).join(' | ') + (row.talks.length ? ', talk: ' + row.talks.join('/') : '') + (row.rival ? ', rival ' + row.rival.id + ' at ' + row.rival.town + (row.rival.gone ? ' GONE' : ' STILL POSTED') : '') + (row.homeNew > 0 ? ', to his place: ' + row.home.join('; ') : '')));
+      console.log('      asks: ' + row.asks + '\n      steps: ' + (row.steps || []).join(' > ') + (row.misses && row.misses.length ? '\n      misses: ' + row.misses.join(' | ') : ''));
     }
+    /* --set r4, row 610: a board he has read stays what he read until its time is up. Read a town's board with a finger, let the day
+       turn inside the board's window (the deal's key moves: the day, the towns' news, the floor), open it again: the same people */
+    if (R4) { board = { town: null };
+      try { const step = await fr.evaluate(() => BohemiaBoardShelf.shelf().refresh_days || 3);
+        const tn = await fr.evaluate(() => { const P = BohemiaBoardShelf.mapPlaces(loopDay()) || []; const q = P.filter(p => p.tier !== 'camp')[0] || P[0]; return q && q.name; });
+        board.town = tn;
+        const d0 = await fr.evaluate((st) => { let d = loopDay() || 1; if (Math.floor((d + 1) / st) !== Math.floor(d / st)) d++; DAY.day = d; return d; }, step);
+        const readBoard = async () => { await fr.evaluate((n) => { try { loopClose(); } catch (e) {} const b = ctBases()[n]; travelStop(); city.x = b.x; city.y = b.y; townTap({ name: n, x: b.x, y: b.y }); }, tn);
+          await waitFor(() => fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block' && LOOP.ready)), 60000);
+          if (await fr.evaluate(() => !!(window.MEET && MEET.up))) await fr.evaluate(() => { const b = document.querySelector('#meetcard [data-meet="back"]'); if (b) b.click(); });
+          const sfH = await fr.$('#settleFrame'), sf = await sfH.contentFrame();
+          await waitFor(() => sf.evaluate((n) => !!(BohemiaSettlement.state.place && BohemiaSettlement.state.place.name === n), tn), 20000);
+          for (let k = 0; k < 4; k++) { const xy = await sf.evaluate(() => BohemiaSettlement.where('board')), hb = await sfH.boundingBox(); if (xy) await page.touchscreen.tap(hb.x + xy.x, hb.y + xy.y);
+            if (await waitFor(() => sf.evaluate((n) => BohemiaSettlement.state.open === 'board' && BohemiaSettlement.state.place && BohemiaSettlement.state.place.name === n && document.querySelectorAll('#sheet button.act.client').length > 0, tn), 8000)) break; }
+          await page.waitForTimeout(1500);
+          const ids = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => b.dataset.id));
+          board.log = (board.log || []).concat([await sf.evaluate((n) => JSON.stringify({ read: JSON.parse(localStorage.getItem('bohemia.board.read.v1') || '{}')[n], place: BohemiaSettlement.state.place && BohemiaSettlement.state.place.name, pick: (function () { try { var S2 = BohemiaSettlement.state; return (BohemiaBoardShelf.pick(S2.place, S2.mapDay, { traits: (S2.traits || []).map(function (x) { return x.id; }), held: S2.held.slice(), done: (S2.done || []).slice(), places: S2.places }) || []).map(function (o) { return o.id; }); } catch (e) { return 'ERR ' + e.message; } })(), errs: (window.__SETTLE_ERRS || []).slice(-3), shelfReady: !!(window.BohemiaBoardShelf && BohemiaBoardShelf.ready()), places: (BohemiaSettlement.state.places || []).length, mapDay: (window.BohemiaSettlement && BohemiaSettlement.state && BohemiaSettlement.state.mapDay), held: BohemiaSettlement.state.held, done: BohemiaSettlement.state.done }), tn)]);
+          await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(600); return ids; };
+        board.before = await readBoard(); board.day0 = d0;
+        board.day1 = await fr.evaluate(() => { DAY.day = DAY.day + 1; return DAY.day; });
+        board.after = await readBoard();
+        board.same = board.before.length > 0 && board.before.join(',') === board.after.join(',');
+      } catch (e) { board.err = String(e && e.message || e).slice(0, 200); }
+      console.log('  ' + TAG + ' ' + shape + ' THE READ BOARD at ' + board.town + ', day ' + board.day0 + ' then ' + board.day1 + ': ' + (board.err ? 'ERR ' + board.err : (board.same ? 'THE SAME ' : 'CHANGED ') + JSON.stringify(board.before) + ' / ' + JSON.stringify(board.after) + ' ' + (board.log || []).join(' ; '))); }
   } catch (e) { out.push({ err: String(e && e.message || e).slice(0, 300) }); console.log('  ' + TAG + ' ' + shape + ' ERR ' + String(e && e.message || e).slice(0, 300)); }
   await d.close().catch(() => {});
-  return { shape, alpha: ALPHA, rows: out, errs };
+  return { shape, alpha: ALPHA, rows: out, errs, board };
 }
 (async () => {
   const res = [];

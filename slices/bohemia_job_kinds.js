@@ -239,6 +239,7 @@
         if (L.go === 'client') { stops.push(i === job.legs.length - 1 ? 'back to ' + job.from + ' to be paid' : 'back to ' + job.from + ': ' + String(L.act || 'go').toLowerCase()); return; }
         var f = fs.filter(function (x) { return x.what === 'leg' + i; })[0], w = String(L.name || L.townName || 'the place').toUpperCase() + ': ' + String(L.act || job.word || 'go').toLowerCase();
         if (L.talk) w += ', a word with ' + String(L.talk.name || 'them') + (f ? ', and it can come to a fight with ' + who(f) : '');
+        else if (f && (L.dark || (L.wait && i > 0 && job.legs[0].dark))) w += ', a fight with about ' + (f.band ? f.band.length : f.n) + ' of whoever comes in the dark';   /* JOBS 11/14: after nightfall the day has turned, and who comes is the night's (measured: the card said 2 men, a bull came) */
         else if (f) w += ', a fight with ' + who(f) + odds(f.p);
         if (L.clout && cloutOf(L.clout)) { places += cloutOf(L.clout); w += ' (+' + cloutOf(L.clout) + ' ' + ((root.BohemiaRenown && BohemiaRenown.WORD) || 'CLOUT') + ')'; }
         if (f && L.talk) { choose++; men += f.band ? f.band.length : f.n; } else if (f) count(f);
@@ -1164,6 +1165,7 @@
         var said = (r && r.say) ? T.name + ': ' + r.say : '';
         if (o.go === 'fight') { if (!(L.fight && L.fight.left > 0)) L.fight = { left: 2, foe: 'brigands', label: T.name }; if (said) sayLine(said); legFight(job, L); return; }
         if (o.go === 'lost') { lost(job, said || null); return; }
+        if (o.go === 'paid') { if (L.fight) L.fight.left = 0; L.done = true; legsPaid(job, said || o.say || null); return; }   /* JOBS 11/14 (rule 447): the job turns halfway and ends where he stands, paid by the side he chose (payMult from the choice) */
         if (L.fight) L.fight.left = 0;   /* talked past the fight */
         legDone(job, said || o.say || null);
       } }; }) });

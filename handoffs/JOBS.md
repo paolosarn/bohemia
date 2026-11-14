@@ -1,5 +1,29 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/14 LATEST -- BUILD 11/14s - THE NIGHT, THE TURN AND THE BID, BUILT, NOT YET SEEN (rules 447, 441;
+rows 610, 614, 491; the coordinator's routine 'JOBS turn up'). Record: records/BOHEMIA_JOBS_THE_NIGHT_THE_TURN_AND_THE_BID_11_14_26.md.
+- ROW 610 AS HE MEANT IT (__A_READ_BOARD_STAYS_READ__ in slices/bohemia_board_shelf.js; the town screen's openB('board') calls seen()):
+  a board he has opened is what he read until its window ends; no floor, no news, no new face; only what he took or finished leaves.
+  Node (gate R5): four read boards the same through the day turning, the news changing and a floor against everything; planted off, 4 of 4
+  change. Phone: a town's board read, the day turned inside the window, read again: the same.
+- THREE KINDS as legs rows: night-watch (WATCH: dark, two fights at one place 150 minutes apart, split 2), turn (CARRY: halfway a talk;
+  finish and fight, give it back paid there by the choice's part ('paid', one marked line in legTalk), walk away), bid (TAKE A SIDE: one
+  place, two towns' rows that are each other's 'rival'; the shelf drops the other side once he holds one; the last leg tells the other town).
+- FIFTEEN JOBS: three escorts (Caravans, Colorful, Reds), three watches (Volunteers' clinic, Homeless' tunnel, Remnants' depot), three
+  turns (Anarchists' stolen speakers, Trades' school panels, Network's courier), three bids (the water plant Blues/Reds, the TV station
+  Network/Anarchists, the market hall Church/Mob); four pay into his own place through HOME BASE's seam (fx.home).
+- The card says a night's fights as 'about N of whoever comes in the dark' (the day turns at nightfall, so the reader's roll of today can
+  name the wrong animal: the card said 2 men, a bull came); a job that asked for beasts names the animal it met (the danger reader's
+  marked naming line).
+GATE THE NIGHT, THE TURN AND THE BID (new, in the suite): R1 to R7 the files, the read board and the bid in node (JOBS_PLANT=1: a red in
+each planted copy), P1 the demo both ways, P2 the alpha both ways, P3 nothing threw: 19/0 rebased on 11/14m. THE NEW KINDS' file legs 19/0, the boards' node legs green.
+NEXT (the jump list):
+1. [a night's roll] a night watch's fights come after the day turns: roll the card's bands on the fight's own day so the card can name them.
+2. [the escort's raid on a straight teleport] the raid comes ahead on his road; a crew put at the gate with no road walked meets none.
+3. (from 11/11) the CLOUT a man beaten; a siege for a big crew; the big beasts' cost (ask row 574).
+[bb Battle Brothers' Return Item turns on the road with a shady man's offer; ours turns halfway with the truth, and he picks the side]
+[analog horror: the board you read last night is the board you get, the same faces, even after the one who hired you stopped answering]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/11 LATEST -- BUILD 11/11s - THE NEW KINDS, BUILT, NOT YET SEEN (rules 425, 441; asks 41, 107, 491,
 and EYES' 610; the coordinator's routine 'JOBS next round'). Record: records/BOHEMIA_JOBS_THE_NEW_KINDS_11_11_26.md.
 - MEASURED FIRST: escort, defend, hunt, deliver and find a person were ours (find a person on 2 offers); Battle Brothers' Root Out,

@@ -120,6 +120,66 @@
     "why": "RULE 323 AMENDED THE SAME ROUND (ask line 321, Paolo 11/2: 'quests that don't have any combat, you shouldn't be getting as much batteries... every time we had to pay for someone to get killed... imagine you order something today but you gotta pay an extra 5000 to have someone protect and kill for you'). A job is KILLING WORK when the fights it is for come to half a fight or more (min_fights; a twist's chance does not count): it pays every fight at per_fight times the skulls, the violence premium, and never under its old pay. A job with NO KILLING EXPECTED (a find, a carry, a scout, a walk with nobody guarding) pays its hours at the bar and the chance its twist turns into a fight at the fight's price times that chance, over only the quiet floor of 10 a skull, a third of a killing job's 30: so it pays clearly less, still over what the crew burns an hour. A long walk's hours still pay (a day on the road to the lodge is a day). The offer says which (the settlement's board, under the trip). THE TWO PARTS, APART (the coordinator's brief 11/2): the PEACEFUL BASE is the hours alone, at the crew's cost times one and a half (quiet_margin 0.5: 2.06 a map hour, still over the crew's 1.375); the VIOLENCE PREMIUM is per_fight x the skulls for every expected fight (a hunt per head), and killing work's hours carry the full margin (2.75 a map hour)"
   },
   "pays": {
+    "jb-bid-hall-church": {
+      "pay": 90,
+      "before": 0,
+      "violent": true,
+      "kind": "bid",
+      "skulls": 3,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
+    "jb-bid-hall-mob": {
+      "pay": 90,
+      "before": 0,
+      "violent": true,
+      "kind": "bid",
+      "skulls": 3,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
+    "jb-bid-tv-anarchists": {
+      "pay": 60,
+      "before": 0,
+      "violent": true,
+      "kind": "bid",
+      "skulls": 2,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "jb-bid-tv-network": {
+      "pay": 60,
+      "before": 0,
+      "violent": true,
+      "kind": "bid",
+      "skulls": 2,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "jb-bid-water-blues": {
+      "pay": 34,
+      "before": 0,
+      "violent": true,
+      "kind": "bid",
+      "skulls": 1,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "jb-bid-water-reds": {
+      "pay": 34,
+      "before": 0,
+      "violent": true,
+      "kind": "bid",
+      "skulls": 1,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 1"
+    },
     "jb-carry-deed": {
       "pay": 20,
       "before": 60,
@@ -230,6 +290,16 @@
       "fights": 1,
       "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 2, the floor 80"
     },
+    "jb-escort-strongbox": {
+      "pay": 168,
+      "before": 0,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 3,
+      "hours": 4.3,
+      "fights": 2,
+      "why": "killing work: 4.3 h x 2.75 + 2 fights x 26 x 3"
+    },
     "jb-escort-tanks": {
       "pay": 40,
       "before": 40,
@@ -239,6 +309,26 @@
       "hours": 4.3,
       "fights": 1,
       "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
+    },
+    "jb-escort-trunks": {
+      "pay": 64,
+      "before": 0,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 2,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 2"
+    },
+    "jb-escort-water": {
+      "pay": 38,
+      "before": 0,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1"
     },
     "jb-find-clerk": {
       "pay": 22,
@@ -419,6 +509,66 @@
       "hours": 3.5,
       "fights": 2,
       "why": "killing work: 3.5 h x 2.75 + 2 fights x 26 x 1"
+    },
+    "jb-turn-courier": {
+      "pay": 90,
+      "before": 0,
+      "violent": true,
+      "kind": "turn",
+      "skulls": 3,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
+    "jb-turn-panels": {
+      "pay": 60,
+      "before": 0,
+      "violent": true,
+      "kind": "turn",
+      "skulls": 2,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "jb-turn-speakers": {
+      "pay": 34,
+      "before": 0,
+      "violent": true,
+      "kind": "turn",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "jb-watch-clinic": {
+      "pay": 85,
+      "before": 0,
+      "violent": true,
+      "kind": "night-watch",
+      "skulls": 1,
+      "hours": 11.9,
+      "fights": 2,
+      "why": "killing work: 11.9 h x 2.75 + 2 fights x 26 x 1"
+    },
+    "jb-watch-depot": {
+      "pay": 189,
+      "before": 0,
+      "violent": true,
+      "kind": "night-watch",
+      "skulls": 3,
+      "hours": 11.9,
+      "fights": 2,
+      "why": "killing work: 11.9 h x 2.75 + 2 fights x 26 x 3"
+    },
+    "jb-watch-tunnel": {
+      "pay": 137,
+      "before": 0,
+      "violent": true,
+      "kind": "night-watch",
+      "skulls": 2,
+      "hours": 11.9,
+      "fights": 2,
+      "why": "killing work: 11.9 h x 2.75 + 2 fights x 26 x 2"
     },
     "jk-ambush-cut": {
       "pay": 76,
