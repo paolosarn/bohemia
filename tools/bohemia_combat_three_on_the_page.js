@@ -130,7 +130,25 @@ const HOOKS = `(function(){
     if (cut) log('   the cut:', cut.own, 'cell tiles', cut.tpl ? cut.tpl.tx + ',' + cut.tpl.ty : 'NONE', '-> front', cut.cut ? cut.cut.front + ' (' + cut.cut.stood + ', asked ' + cut.cut.wanted + ')' : 'NO CELL START', 'row', cut.rowMid, 'nearest man', cut.nearRow, 'rows off; his', JSON.stringify(cut.his), 'theirs nearest', cut.apart, 'on the glass his', cut.onGlass + '/' + cut.men, 'theirs', cut.theirsOnGlass + '/' + cut.them, cut.deploy ? '(he sets his line)' : '(round ' + cut.round + ')', cut.night ? 'night' : 'day');
     const own = await f.evaluate(() => ({ own: FIGHT.S.boardDef.own || null, blocks: [].concat.apply([], FIGHT.S.boardDef.blocks || []).map(n => String(n).split('|')[0]).filter((n, i, a) => a.indexOf(n) === i).join(' ') }));
     log('fight', n, c.d, JSON.stringify(c.at), o.board, o.inside || '-', o.layout || '', 'men', o.mine, 'v', o.theirs, wanted ? '' : '(not the board asked for)', own.own ? 'THE PLACE\'S OWN BOARD ' + own.own : 'blocks: ' + own.blocks);
+    /* THE CEILING OF AN INSIDE (rule 451(a)): the same frame read off the glass with the ceiling and without it (UI.noCeiling, the
+       test's switch): how much any pixel moves (never so strong it hides a man, a tile or a range band) and two frames with it on
+       for the glass's own noise; a still of each */
+    let ceil = null;
+    if (process.env.C3_CEILING) { try {
+      await until(async () => f.evaluate(() => !!UI.board && !UI.anim.length && !UI.glide && UI.tw > 0), 10000); await wait(600);
+      ceil = await f.evaluate(async () => { const C = FIGHT.S.boardDef.ceiling; if (!C) return null;
+        const cv = document.getElementById('cv') || document.querySelector('canvas'), g = cv.getContext('2d');
+        const grab = () => g.getImageData(0, 0, cv.width, cv.height).data, raf = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+        const diff = (A, B) => { let sum = 0, n = 0, over = 0; const D = new Float32Array(Math.ceil(A.length / 28)); for (let i = 0; i < A.length; i += 28) { const d = (Math.abs(A[i] - B[i]) + Math.abs(A[i + 1] - B[i + 1]) + Math.abs(A[i + 2] - B[i + 2])) / 3; sum += d; D[n++] = d; if (d > 40) over++; } const Q = D.slice(0, n).sort();
+          /* max: 99 in a hundred pixels move this much or less (a drum's flame or a man's breath between two frames is the rest) */
+          return { mean: +(sum / n).toFixed(2), max: +Q[Math.floor(n * .99)].toFixed(1), over40: +(over / n * 100).toFixed(2) }; };
+        UI.noCeiling = false; await raf(); const A1 = grab(); await raf(); const A2 = grab(); const on = UI.ceilOn; UI.noCeiling = true; await raf(); const B0 = grab(); UI.noCeiling = false; await raf();
+        return { kind: C.kind, alpha: C.alpha, name: C.name, on: on, noise: diff(A1, A2), moved: diff(A1, B0) }; });
+      if (ceil) { await wait(1800); await f.evaluate(() => { UI.noCeiling = true; }); await wait(300); await shot('f' + String(results.length + 1).padStart(2, '0') + '_no_ceiling_first'); await f.evaluate(() => { UI.noCeiling = false; }); await wait(300); await shot('f' + String(results.length + 1).padStart(2, '0') + '_ceiling'); await f.evaluate(() => { UI.noCeiling = true; }); await wait(250); await shot('f' + String(results.length + 1).padStart(2, '0') + '_no_ceiling'); await f.evaluate(() => { UI.noCeiling = false; }); }
+      log('   the ceiling:', ceil ? ceil.kind + ' at ' + ceil.alpha + (ceil.on && ceil.on.picture ? ' (COOK FIVE\'s picture)' : ' (the stand-in)') + '; a pixel moves ' + ceil.moved.mean + ' of 255 on average, ' + ceil.moved.max + ' or less on 99 pixels in 100, over 40 on ' + ceil.moved.over40 + '% (the glass\'s own noise ' + ceil.noise.mean + ' / ' + ceil.noise.max + ')' : 'NONE ON THIS BOARD');
+    } catch (e) { log('   ceiling read failed', String(e).slice(0, 140)); } }
     const R = { n, cell: c, o, wanted, taps: [], speed: process.env.C3_SPEED ? +process.env.C3_SPEED : speeds[n % 3] };
+    if (ceil) R.ceiling = ceil;
     R.own = own;
     if (cut) R.cut = cut;
     /* THE ARMOUR'S NIGHT PIECE ON THIS GLASS (rows 548, 558): the browser's own drawImage handed a night sheet (what the wear module

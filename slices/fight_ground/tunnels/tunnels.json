@@ -12,7 +12,42 @@
    "drains": {
     "name": "THE FLOOD TUNNELS",
     "flip": {"cols": true, "rows": true},
+    "crossings": {"share": 0.25, "layouts": ["the_main_and_its_drains", "the_jog_and_the_box", "the_two_barrels"], "how": "VAMILY rule 451(b), his vote 11/14: 'maybe a rarer amount the horizontal tunnels combine with vertical tunnel, not as often'. The layouts named here are the crossings (a long tunnel with cross tunnels and chambers off it): dealt for this share of the fights under the city. Every other layout is a single run (one long tunnel, its ledges and the camps in its walls) and is the usual board."},
     "layouts": {
+     "the_long_run": [
+       "####################",
+       "####################",
+       "####################",
+       "####################",
+       "##tc####.f.####.t.##",
+       "#..G......G.....G..#",
+       "====k====y===w===k==",
+       "M==y===j====g==r===M",
+       "==k====y==k====y==k=",
+       "#....f.....G....c..#",
+       "##.t.####c..####.f##",
+       "####################",
+       "####################",
+       "####################",
+       "####################"
+     ],
+     "the_double_box": [
+       "####################",
+       "####################",
+       "####################",
+       "####################",
+       "#.t...G....c....G.f#",
+       "====k===y====k==y===",
+       "M==y====k==g===j===M",
+       "###..####..####..###",
+       "M===j===g====y==k==M",
+       "==y===k====r===y====",
+       "#f..G....t....G..c.#",
+       "####################",
+       "####################",
+       "####################",
+       "####################"
+     ],
      "the_main_and_its_drains": [
       "####################",
       "#..ct.....G....t...#",
@@ -113,5 +148,6 @@
  "floor": {"floor": ["tunnels/tunnel_floor_0.webp#0,0", "tunnels/tunnel_floor_0.webp#1,0", "tunnels/tunnel_floor_0.webp#2,0", "tunnels/tunnel_floor_0.webp#3,0", "tunnels/tunnel_floor_0.webp#4,0", "tunnels/tunnel_floor_0.webp#0,1", "tunnels/tunnel_floor_0.webp#1,1", "tunnels/tunnel_floor_0.webp#2,1", "tunnels/tunnel_floor_0.webp#3,1", "tunnels/tunnel_floor_0.webp#4,1", "tunnels/tunnel_floor_0.webp#0,2", "tunnels/tunnel_floor_0.webp#1,2", "tunnels/tunnel_floor_0.webp#2,2", "tunnels/tunnel_floor_0.webp#3,2", "tunnels/tunnel_floor_0.webp#4,2", "tunnels/tunnel_floor_0.webp#0,3", "tunnels/tunnel_floor_0.webp#1,3", "tunnels/tunnel_floor_0.webp#2,3", "tunnels/tunnel_floor_0.webp#3,3", "tunnels/tunnel_floor_0.webp#4,3", "tunnels/tunnel_floor_0.webp#0,4", "tunnels/tunnel_floor_0.webp#1,4", "tunnels/tunnel_floor_0.webp#2,4", "tunnels/tunnel_floor_0.webp#3,4", "tunnels/tunnel_floor_0.webp#4,4"],
            "channel": ["tunnels/tunnel_channel_0.webp#0,0", "tunnels/tunnel_channel_0.webp#1,0", "tunnels/tunnel_channel_0.webp#2,0", "tunnels/tunnel_channel_0.webp#3,0", "tunnels/tunnel_channel_0.webp#4,0", "tunnels/tunnel_channel_0.webp#0,1", "tunnels/tunnel_channel_0.webp#1,1", "tunnels/tunnel_channel_0.webp#2,1", "tunnels/tunnel_channel_0.webp#3,1", "tunnels/tunnel_channel_0.webp#4,1", "tunnels/tunnel_channel_0.webp#0,2", "tunnels/tunnel_channel_0.webp#1,2", "tunnels/tunnel_channel_0.webp#2,2", "tunnels/tunnel_channel_0.webp#3,2", "tunnels/tunnel_channel_0.webp#4,2", "tunnels/tunnel_channel_0.webp#0,3", "tunnels/tunnel_channel_0.webp#1,3", "tunnels/tunnel_channel_0.webp#2,3", "tunnels/tunnel_channel_0.webp#3,3", "tunnels/tunnel_channel_0.webp#4,3", "tunnels/tunnel_channel_0.webp#0,4", "tunnels/tunnel_channel_0.webp#1,4", "tunnels/tunnel_channel_0.webp#2,4", "tunnels/tunnel_channel_0.webp#3,4", "tunnels/tunnel_channel_0.webp#4,4"],
            "fill": ["tunnels/tunnel_fill_0.webp#0,0", "tunnels/tunnel_fill_0.webp#1,0", "tunnels/tunnel_fill_0.webp#2,0", "tunnels/tunnel_fill_0.webp#3,0", "tunnels/tunnel_fill_0.webp#4,0", "tunnels/tunnel_fill_0.webp#0,1", "tunnels/tunnel_fill_0.webp#1,1", "tunnels/tunnel_fill_0.webp#2,1", "tunnels/tunnel_fill_0.webp#3,1", "tunnels/tunnel_fill_0.webp#4,1", "tunnels/tunnel_fill_0.webp#0,2", "tunnels/tunnel_fill_0.webp#1,2", "tunnels/tunnel_fill_0.webp#2,2", "tunnels/tunnel_fill_0.webp#3,2", "tunnels/tunnel_fill_0.webp#4,2", "tunnels/tunnel_fill_0.webp#0,3", "tunnels/tunnel_fill_0.webp#1,3", "tunnels/tunnel_fill_0.webp#2,3", "tunnels/tunnel_fill_0.webp#3,3", "tunnels/tunnel_fill_0.webp#4,3", "tunnels/tunnel_fill_0.webp#0,4", "tunnels/tunnel_fill_0.webp#1,4", "tunnels/tunnel_fill_0.webp#2,4", "tunnels/tunnel_fill_0.webp#3,4", "tunnels/tunnel_fill_0.webp#4,4"]},
- "lights": {"grate": {"src": "tunnels/tunnel_ladder.webp", "radius_m": 9, "day": true}, "mouth": {"src": null, "radius_m": 14, "day": true}, "fire": {"src": "light_oil_drum.webp", "radius_m": 6, "day": false}}
+ "lights": {"grate": {"src": "tunnels/tunnel_ladder.webp", "radius_m": 9, "day": true}, "mouth": {"src": null, "radius_m": 14, "day": true}, "fire": {"src": "light_oil_drum.webp", "radius_m": 6, "day": false}},
+  "ceiling": {"kind": "vault", "alpha": 0.1, "src": "tunnels/tunnel_ceiling.webp", "have": false, "tile": [4, 3], "how": "VAMILY rule 451(a): the culvert's roof over the run at this alpha; the picture is COOK FIVE's (see garage.json's ceiling), the kind a stand-in until it is in."}
 }

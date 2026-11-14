@@ -33,6 +33,12 @@
     if (!D || !D.data || !D.data.board || !G) return null;
     var B0 = D.data.board, T = B0.templates.drains; if (!T) return null;
     var rnd = rngOf((seed >>> 0) ^ 0x7f4a7c15), names = Object.keys(T.layouts);
+    /* THE TUNNELS CROSS LESS OFTEN (COMBAT THREE 11/14, VAMILY rule 451(b), ask row 624; his vote: 'maybe a rarer amount the horizontal
+       tunnels combine with vertical tunnel, not as often'): the layouts the data names as crossings are dealt for its share of the
+       fights (a quarter); every other layout is a single run, the usual board */
+    var X = T.crossings || null, isX = function (n) { return !!(X && X.layouts && X.layouts.indexOf(n) >= 0); };
+    if (X && X.layouts) { var xs = names.filter(isX), runs = names.filter(function (n) { return !isX(n); }), cross = rnd() < (X.share == null ? 0.25 : +X.share);
+      if (xs.length && runs.length) names = cross ? xs : runs; }
     var lname = opt && opt.layout && T.layouts[opt.layout] ? opt.layout : names[Math.floor(rnd() * names.length)];
     var rows = T.layouts[lname]; if (!rows || rows.length !== H || rows[0].length !== W) return null;
     var fc = !!(T.flip && T.flip.cols) && rnd() < 0.5, fr = !!(T.flip && T.flip.rows) && rnd() < 0.5;

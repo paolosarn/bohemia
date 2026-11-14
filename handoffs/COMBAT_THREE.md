@@ -1,6 +1,27 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 447, 442(d), 429(a)(c)(g); ask rows 547, 577, 504, 507, 610): 11/14 LATEST -- [not the same suburb twice] SHIPPED 1d197f42d, BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN. VOTE combat3-not-the-same-suburb-twice-11-14 (stand_in).
+COMBAT THREE (rule 451(a)(b), his vote sheet of 11/14; ask rows 623 and 624): 11/14 LATEST -- [the ceiling, the tunnels] SHIPPED SHIPSHA, BUILD 11/14p - THE CEILING OVER YOUR HEAD, BUILT, NOT YET SEEN. VOTE combat3-the-ceiling-over-your-head-11-14 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_CEILING_OVER_YOUR_HEAD_11_14_26.md.
+(a) AN INSIDE SHOWS ITS CEILING (FIGHT.html __AN_INSIDE_SHOWS_ITS_CEILING__: ceilingOf, ceilingSheet, drawCeiling after drawLash): the garage, the casino floor and the
+tunnels carry S.boardDef.ceiling from their data file's 'ceiling' { kind, alpha 0.10, src, have, tile }; one sheet over the whole board and the men at that alpha, capped at
+0.14. On the page 99 pixels in 100 move 13 of 255 or less. Gate AN INSIDE SHOWS ITS CEILING 6/0, registered.
+*** FOR COOK FIVE (the file names, agreed here as the coordinator asked): the three ceilings on the glass today are STAND-INS the fight draws itself. Yours replace them
+with no code: put ONE picture per inside in its folder and set 'have': true in that data file's 'ceiling' (the one line of mine you may edit):
+  slices/fight_ground/garage/garage_ceiling.webp    garage.json ceiling.tile [5, 5]   (one bay of the deck over his head, from below)
+  slices/fight_ground/casino/casino_ceiling.webp    casino_floor.json ceiling.tile [4, 4]
+  slices/fight_ground/tunnels/tunnel_ceiling.webp   tunnels.json ceiling.tile [4, 3]
+Each is the ceiling seen from below at the fight's camera, repeating edge to edge, covering 'tile' fight tiles (change 'tile' to what you paint). It is drawn at 10%, so
+strong shapes and a rhythm that is NOT the tile grid read best, fine texture is lost; keep it small (the site's cap). Your gate A1 will want the file named in garage_art's
+way: say in your handoff if you need another name and I will take yours. ***
+(b) THE TUNNELS CROSS LESS OFTEN: tunnels.json has two single runs (the_long_run, the_double_box) and names the three old layouts as crossings { share 0.25 };
+slices/bohemia_flood_tunnels.js deals by it. Gate THE FLOOD TUNNELS 16/0 (T9: 152 of 600 a crossing; planted).
+ON THE PAGE: the alpha and the demo, upright and on its side: the garage 4 fights, the casino floor 1, the tunnels 9 (3 single runs on this build's stamp); every ceiling
+on the glass; all ended; 36 of 36 tile taps; 0 page errors. PARKING GARAGE 16/0, CASINO FLOOR 9/0, THE INSIDES WEAR FINISHED ART 14/0.
+NOT DONE: the_long_run not seen by eye on the page (dealt by the gate); the ceilings are stand-ins.
+[bb Battle Brothers has no insides: every fight is under the sky. Ours has three, and now you can tell]
+[analog horror: the tube lights over the deck, most of them dead, so faint you only notice when one is over your man]
+
+COMBAT THREE (rules 447, 442(d), 429(a)(c)(g); ask rows 547, 577, 504, 507, 610): 11/14 -- [not the same suburb twice] SHIPPED 1d197f42d, BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN. VOTE combat3-not-the-same-suburb-twice-11-14 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_NOT_THE_SAME_SUBURB_TWICE_11_14_26.md. The coordinator's round, one tight batch, three jobs:
 (1) THE SEAM CHECK IS GREEN, 15 of 15 (gate NO BOARD BREAKS ITS OWN PICTURE; it was red on the suburbs, 19.7%). Measured: 97 of the 98 lines it saw were the new streets'
 own kerbs against a yard (ground against ground 0 of 279; street against street 1 of 89, a roof). The reader (tools/bohemia_combat_maps_seams_read_11_3_26.py) now takes

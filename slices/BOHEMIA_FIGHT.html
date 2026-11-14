@@ -1493,6 +1493,17 @@ const FIGHT = (function () {
      false never) is fought in the flood tunnels under the city (slices/bohemia_flood_tunnels.js): the main channel, the drains, the
      camps on the walls, the day through the grates, the fires in drums. Under the ground it is night; the day's light and the
      fires burn without the grid. THE FLASH FLOOD: the round the dice picked fills the main channel (floodTick, newRound). */
+  /* __AN_INSIDE_SHOWS_ITS_CEILING__ (COMBAT THREE 11/14, VAMILY rule 451(a), ask row 623; PAOLO's vote on the parking garage: 'let's
+     just start off with a 10% opacity for real, like I still need to see the parking garage ceiling, an exterior that I am in the
+     interior of... the opacity is gonna be really low'). A board that is the inside of a building carries that building's ceiling
+     (its data file's 'ceiling': a kind the fight can draw, the picture's name, how faint); the page draws it over the whole board,
+     over the men, under his marks' top pass, at that alpha and never past CEILING_MOST. The picture is COOK FIVE's (the name in the
+     data file is the contract; 'have' true the day it is in the folder); until then the fight draws the kind itself (a stand-in) */
+  const CEILING_MOST = 0.14;
+  function ceilingOf(data) {
+    const c = data && data.ceiling; if (!c || !(+c.alpha > 0)) return null;
+    return { kind: c.kind || 'slab', alpha: Math.min(CEILING_MOST, +c.alpha), src: c.have && c.src ? c.src : null, name: c.src || null, tile: c.tile || [5, 5], bay: c.bay || 5 };
+  }
   function floodTunnels(opts) {
     const FT = typeof window !== 'undefined' ? window.BohemiaFloodTunnels : null, D = DB.tunnels;
     if (!FT || !D || opts.inside === false || (opts.inside && opts.inside !== 'tunnels') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
@@ -1503,7 +1514,7 @@ const FIGHT = (function () {
     const was = [S.night, S.power];
     S.night = true; S.power = true;   /* under the ground it is night; the grates' day and the drums' fire need no grid */
     applyBoard(B); if (!connected()) { S.tunnelsErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
-    S.tunnels = B.tunnels; S.flood = B.tunnels.flood; return true;
+    S.tunnels = B.tunnels; S.flood = B.tunnels.flood; S.boardDef.ceiling = ceilingOf(D.data); return true;
   }
   /* THE FLASH FLOOD, at the top of each round: the roar the round before, the main channel water for 'lasts' rounds, then the silt */
   function floodTick() {
@@ -1529,7 +1540,7 @@ const FIGHT = (function () {
     const was = [S.night, S.power];
     S.night = true; S.power = true;   /* under the decks above it is night; the open sides' day and the drums' fire need no grid */
     applyBoard(B); if (!connected()) { S.garageErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
-    S.garage = B.garage; return true;
+    S.garage = B.garage; S.boardDef.ceiling = ceilingOf(D.data); return true;
   }
   function casinoFloor(opts) {
     const CF = typeof window !== 'undefined' ? window.BohemiaCasinoFloor : null, D = DB.casino;
@@ -1541,7 +1552,7 @@ const FIGHT = (function () {
     S.night = true;                                                                  /* no sun under a roof */
     S.power = opts.casinoPower === true || (D.data.power_default === true && opts.power !== false);   /* dark unless somebody pays */
     applyBoard(B); if (!connected()) { S.casinoErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
-    S.casino = B.casino; return true;
+    S.casino = B.casino; S.boardDef.ceiling = ceilingOf(D.data); return true;
   }
   /* ---------------- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432, ask lines 513 and 514; Paolo 11/7: 'when combat starts on
      [the freeway] it just puts me on a suburb house... why can't it be an underpass or a large overpass towering over the rest of
@@ -5772,6 +5783,7 @@ function bakeBoard() {
   const all = (LAID ? BohemiaStreetBoard.srcs(LAID).map(function (s) { return 'fight_ground/' + s; }) : names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; }))
     .concat(covers.map(function (p) { return FIGHT.pieceSrc(p); }).filter(Boolean));
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
+  if (B.ceiling && B.ceiling.src && all.indexOf('fight_ground/' + B.ceiling.src) < 0) all.push('fight_ground/' + B.ceiling.src);   /* __AN_INSIDE_SHOWS_ITS_CEILING__: COOK FIVE's picture, once it is in */
   (B.lights || []).forEach(function (l) { if (l.src && all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });   /* a light with no fixture (the tunnels' mouth: the wash's day) has no picture */
   all.push('fight_rig/' + DB.rig.faces.file);
   /* __THE_SECOND_FACE_STRIP__ (CHARACTER 11/7, rule 427(b)): the one strip is 121 faces of 128 px, 15,488 px wide, and a WebP
@@ -8864,6 +8876,7 @@ function draw(now) {
   drawDust(now);   /* THE PUNCH: a shot that misses kicks dust off the ground past him */
   drawSmoke(now, tw, th);   /* THE CELL VEST (rule 305): the smoke, the vest on the man, the white frame on the beat */
   drawLash(now);   /* ARMORY 2: the whip's cord out to the second tile, on the beat */
+  drawCeiling();   /* __AN_INSIDE_SHOWS_ITS_CEILING__ (rule 451(a)): the building he is inside of, faint, over the men */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26 && !UI.cut) {
     const Y = sy((dy(u) + .9) * UI.th) - th * riseAt(u.x, u.y);
@@ -11098,6 +11111,45 @@ function vestIcon(css, cells) {
 }
 /* __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): the flash flood in the main channel: brown water in cells over every flooded
    tile, the current's streaks moving downstream on the keys (three a beat), the silt it leaves a darker wash after */
+/* __AN_INSIDE_SHOWS_ITS_CEILING__ (rule 451(a)): the ceiling as one sheet the size of the board (CEIL_PX a tile), made once a board.
+   COOK FIVE's picture repeats over it when it is in (its 'tile': how many fight tiles one picture covers); else the kind is drawn
+   here, a stand-in: 'deck' the parking deck over his head (the slab, a girder on every bay line, the tee stems between, the tube
+   lights); 'coffer' a casino's coffered ceiling (its dark grid, the warm panels, the dead can lights); 'vault' a box culvert's roof
+   (the form-work seams across the run, the stain down its crown). UI.noCeiling: the page test's switch, never the game's */
+const CEIL_PX = 40;
+function ceilingSheet() {
+  const S = FIGHT.S, B = S.boardDef, C = B && B.ceiling; if (!C) return null;
+  if (UI.ceil && UI.ceilFor === B) return UI.ceil;
+  const c = document.createElement('canvas'), tw = CEIL_PX, th = Math.round(CEIL_PX * UI.th / UI.tw) || 28; c.width = S.w * tw; c.height = S.h * th;
+  const g = c.getContext('2d'), W2 = c.width, H2 = c.height, im = C.src ? UI.imgs['fight_ground/' + C.src] : null;
+  const hash = function (i) { const v = Math.sin(i * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+  if (im && (im.width || im.naturalWidth)) { const pw = C.tile[0] * tw, ph = C.tile[1] * th; for (let y = 0; y < H2; y += ph) for (let x = 0; x < W2; x += pw) g.drawImage(im, x, y, pw, ph); }
+  else if (C.kind === 'coffer') {   /* coffers two and a half tiles across: a ceiling's own rhythm, never the tiles' (it must not read as his grid) */
+    g.fillStyle = '#17110e'; g.fillRect(0, 0, W2, H2); const pw = tw * 2.5, ph = th * 2.5;
+    for (let y = -ph / 2; y < H2; y += ph) for (let x = -pw / 3; x < W2; x += pw) { const k = Math.round(x * 3 + y * 7);
+      g.fillStyle = hash(k) < .5 ? '#7a5a34' : '#6b4d2c'; g.fillRect(x + 7, y + 6, pw - 14, ph - 12);
+      g.fillStyle = '#2a1e16'; g.fillRect(x + 16, y + 13, pw - 32, ph - 26);
+      g.fillStyle = hash(k + 5) < .55 ? '#4a4034' : '#e2d3a6'; g.beginPath(); g.arc(x + pw / 2, y + ph / 2, 4, 0, Math.PI * 2); g.fill(); }   /* the can lights, most of them dead */
+  } else if (C.kind === 'vault') {
+    g.fillStyle = '#8b877d'; g.fillRect(0, 0, W2, H2);
+    for (let x = 0; x < W2; x += tw * .7) { g.fillStyle = hash(x) < .5 ? '#5f5b53' : '#6c685f'; g.fillRect(x, 0, 2, H2); }   /* the form-work seams across the run */
+    for (let y = 0; y < S.h; y++) { g.fillStyle = 'rgba(40,36,30,.55)'; g.fillRect(0, y * th + th * .62 - 2, W2, 4); for (let k = 0; k < 5; k++) { const x = hash(y * 13 + k) * W2; g.fillStyle = 'rgba(30,26,22,.5)'; g.fillRect(x, y * th + th * .62, 3, th * (.3 + hash(x) * .6)); } }   /* the crown's stain, and what runs down from it */
+  } else {   /* 'deck' */
+    g.fillStyle = '#9a968c'; g.fillRect(0, 0, W2, H2);
+    for (let x = 0; x < W2; x += tw * .37) { g.fillStyle = '#6f6b62'; g.fillRect(x, 0, 3, H2); }   /* the double tees' stems */
+    for (let x = 0; x <= S.w; x += C.bay) { g.fillStyle = '#34312c'; g.fillRect(x * tw - 5, 0, 10, H2); }   /* a girder on every bay line (the columns' lines) */
+    for (let y = 0; y <= S.h; y += C.bay) { g.fillStyle = '#3d3a34'; g.fillRect(0, y * th - 4, W2, 8); }
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x += 2) { const dead = hash(x * 7 + y * 3) < .6; g.fillStyle = dead ? '#55524b' : '#efe9c8'; g.fillRect(x * tw + tw * .7, y * th + th * .45, tw * .9, 3); }   /* the tube lights, most of them dead */
+    for (let k = 0; k < S.w * S.h / 6; k++) { g.fillStyle = 'rgba(60,50,38,.35)'; g.beginPath(); g.ellipse(hash(k) * W2, hash(k + 99) * H2, 8 + hash(k + 7) * 22, 5 + hash(k + 3) * 12, 0, 0, Math.PI * 2); g.fill(); }   /* the water stains */
+  }
+  UI.ceil = c; UI.ceilFor = B; return c;
+}
+function drawCeiling() {
+  const S = FIGHT.S, C = S.boardDef && S.boardDef.ceiling; UI.ceilOn = null; if (!C || UI.noCeiling || UI.cut) return;
+  const sh = ceilingSheet(); if (!sh) return;
+  cx.save(); cx.globalAlpha = C.alpha; cx.imageSmoothingEnabled = true; cxDraw(sh, 0, 0, sh.width, sh.height, sx(0), sy(0), S.w * UI.tw * UI.zoom, S.h * UI.th * UI.zoom); cx.restore();
+  UI.ceilOn = { kind: C.kind, alpha: C.alpha, picture: !!(C.src && UI.imgs['fight_ground/' + C.src]) };
+}
 function drawFlood(now) {
   const S = FIGHT.S, f = S.flood; if (!f || !f.tiles || !(f.on || f.gone)) return;
   const key = Math.floor(now / (beatMs() / 3));

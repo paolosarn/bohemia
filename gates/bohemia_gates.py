@@ -9534,6 +9534,12 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
+    ('AN INSIDE SHOWS ITS CEILING', ['node', 'gates/an_inside_shows_its_ceiling_gate.js'],
+     "COMBAT THREE gate, 11/14, VAMILY rule 451(a) (ask row 623; PAOLO's vote on the parking garage: 'a 10% opacity for real... I still need to "
+     "see the parking garage ceiling'). Each inside's data file names its ceiling: an alpha from 0.05 to 0.12, a kind the fight draws, COOK "
+     "FIVE's picture by name (C1); a fight dealt inside the garage, the casino floor or the tunnels carries it (C2); a fight outdoors none "
+     "(C3); a file that asks for 90% is dealt the fight's most, 0.14 (C4); 'have' false asks for no picture, true for the named file (C5). "
+     "Planted: a data file with no ceiling. How it reads on the glass is measured on the real page. About 2 s", True),
     ('A PLAIN CELL IS NOT THE PLACE', ['node', 'gates/a_plain_cell_is_not_the_place_gate.js'],
      "COMBAT THREE gate, 11/14, VAMILY rules 429(a)(c)(g) and 447 (ask rows 504, 507 and 610; the coordinator's round: 'a board cut from that "
      "cell's ground and zone, never the same suburb for everything'). A place's board is fought where the place stands; a cell the map hands "

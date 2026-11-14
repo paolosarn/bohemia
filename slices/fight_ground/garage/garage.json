@@ -461,5 +461,6 @@
    "model": "reference/models/bohemia/garage_cars_c.glb"
   }
  },
- "bay_m": 1.42
+ "bay_m": 1.42,
+  "ceiling": {"kind": "deck", "alpha": 0.1, "src": "garage/garage_ceiling.webp", "have": false, "tile": [5, 5], "bay": 5, "how": "VAMILY rule 451(a), his vote 11/14: the deck over his head, drawn over the whole board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (one bay of the ceiling seen from below at the fight's camera, repeating edge to edge, 'tile' fight tiles wide and tall); set 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."}
 }

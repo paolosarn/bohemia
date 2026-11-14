@@ -1,3 +1,12 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/14 LATEST -- BUILD 11/14p - THE CEILING OVER YOUR HEAD, BUILT, NOT YET SEEN (rule 451(a)(b), his votes of 11/14; ask rows 623 and 624).
+(a) Inside the parking garage, the casino and the flood tunnels the building's ceiling is drawn over the fight at 10% (his number): the deck's girders and
+dead tube lights, the casino's coffers, the culvert's roof. Measured on the real page: 99 pixels in 100 move 13 of 255 or less, nothing is hidden. The three
+are stand-ins the fight draws; COOK FIVE's pictures drop in by file name (the names are in handoffs/COMBAT_THREE.md). (b) Three tunnel fights in four are now
+ONE LONG RUN (two new single-run boards); the crossing kind is one in four. ON THE PAGE: the alpha and the demo, both ways, 14 fights inside, 0 page errors.
+Gates AN INSIDE SHOWS ITS CEILING 6/0, THE FLOOD TUNNELS 16/0. VOTE combat3-the-ceiling-over-your-head-11-14. Record
+records/BOHEMIA_COMBAT_THREE_THE_CEILING_OVER_YOUR_HEAD_11_14_26.md.
+[bb Battle Brothers has no insides; ours has three, and now you can tell]
+[analog horror: the tube lights over the deck, most of them dead]
 FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- THE TEARDOWN OF THE CARDS FILED, a record, nothing in the game changed (rules 449(b), 450(a); ask rows 616, 621).
 records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md, measured on the demo upright and sideways (tools/bohemia_fight_screen_teardown.js; stills and
 numbers in records/fight_screen_teardown_11_14/): five things act as 'the card' in four materials; the phone's man card prints its numbers at 5 points, cuts its
@@ -34,7 +43,7 @@ tab's landing legs, the gate registry's 45 orphans, PAGES PUBLISH's cap (904 of 
 NEXT: JOB TWO, the whole fight screen rebuilt (ask row 616): the teardown first, NOT STARTED.
 [bb Battle Brothers' tactical screen opens silent; ours says why at the bell, from the mouth it belongs to]
 [analog horror: a neighbor with a pitchfork who only says 'we live here']
-COMBAT THREE (combat-three-01gkdyuu): 11/14 LATEST -- BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN (rules 447, 442(d), 429; ask rows 547, 577, 504, 507, 610).
+COMBAT THREE (combat-three-01gkdyuu): 11/14 -- BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN (rules 447, 442(d), 429; ask rows 547, 577, 504, 507, 610).
 The round's three, one batch. (1) THE SEAM CHECK IS GREEN on all 15 places: its red on the suburbs was the new streets' own kerbs counted as seams (97 of
 98 lines); it now reads a street's edge as a kerb that must be there, planted every run; no picture changed. (2) A PLACE'S BOARD IS FOUGHT WHERE THE PLACE
 STANDS; every other cell deals from its own ground and zone: 30 plain suburb cells are 30 different boards (they were one yards board). (3) Row 610 is not

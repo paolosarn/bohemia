@@ -21,6 +21,8 @@
      T5  THE PIECES ARE REAL: every piece has its picture and its model (the master rig); the camps are low cover on the walls, the
          jam is cover in the channel, a cut-away wall on every edge a culvert shares with the fill, the trash rack across the
          channel's end at both mouths
+     T9  THE TUNNELS CROSS LESS OFTEN (rule 451(b), his vote 11/14): the crossings the data names are a quarter of the boards; a
+         single run (one long tunnel, its ledges and niches) is the usual board
      T6  A FIGHT PLAYS: both sides on AUTO, every fight under the city ends inside 30 rounds, and no able man of his stands a whole
          fight (rule 435(c))
      T7  EVERY TILE HAS ITS COST AND ITS EFFECT (COMBAT THREE 11/11, ask row 539; rule 59): every kind of tile a layout holds has
@@ -187,6 +189,19 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
     check(!(pz <= pz - 0.06), 'T8p', 'planted: the channel not open floor (the rule off) reads as no scramble (' + Math.round(pz * 100) + '% against itself)'); }
   check(ended === n && idle === 0, 'T6', 'A FIGHT PLAYS: ' + ended + ' of ' + n + ' fights under the city ended on AUTO inside 30 rounds (' + (n ? (rounds / n).toFixed(1) : 0) + ' rounds a fight); ' + idle + ' of ' + men + ' men of his stood a whole fight' + bad6.slice(0, 3).map(s => '; ' + s).join(''));
   if (OUT) fs.writeFileSync(OUT, JSON.stringify(R, null, 1));
+  /* T9 THE TUNNELS CROSS LESS OFTEN (COMBAT THREE 11/14, VAMILY rule 451(b), ask row 624; his vote: 'maybe a rarer amount the horizontal
+     tunnels combine with vertical tunnel, not as often'): the module's own deal over many seeds: the crossings the data names are
+     its share of the boards (a quarter, within seven points); a single run has no cross tunnel (its open tiles lie in a band of
+     seven rows at most, one long tunnel with its ledges and niches; every crossing spans twelve rows or more); planted: the share
+     set to all, every board a crossing again */
+  { const DR = data.board.templates.drains, X = DR.crossings || {}, names = Object.keys(DR.layouts), span = n => { const rows = DR.layouts[n].map((r, y) => /[^#]/.test(r) ? y : -1).filter(y => y >= 0); return rows[rows.length - 1] - rows[0] + 1; };
+    const runs = names.filter(n => (X.layouts || []).indexOf(n) < 0), xs = names.filter(n => (X.layouts || []).indexOf(n) >= 0);
+    const count = D2 => { let x = 0; const seen = {}; for (let i = 0; i < 600; i++) { const B = FT.deal(9100 + i * 7919, D2, G, 20, 15, null); if (!B) continue; seen[B.tunnels.layout] = 1; if (xs.indexOf(B.tunnels.layout) >= 0) x++; } return { x, seen: Object.keys(seen).length }; };
+    const A = count(ctx.DB.tunnels), share = A.x / 600;
+    const P = count(Object.assign({}, ctx.DB.tunnels, { data: Object.assign({}, data, { board: Object.assign({}, data.board, { templates: { drains: Object.assign({}, DR, { crossings: Object.assign({}, X, { share: 1 }) }) } }) }) }));
+    check(runs.length >= 2 && xs.length >= 1 && Math.abs(share - X.share) <= 0.07 && X.share <= 0.3 && A.seen === names.length && runs.every(n => span(n) <= 7) && xs.every(n => span(n) >= 12), 'T9',
+      'THE TUNNELS CROSS LESS OFTEN: ' + A.x + ' of 600 boards a crossing (' + (share * 100).toFixed(0) + '%, the data\'s share ' + X.share + '); ' + runs.length + ' single runs (' + runs.map(n => n + ' ' + span(n) + ' rows').join(', ') + '), ' + xs.length + ' crossings (' + xs.map(n => span(n) + ' rows').join(', ') + '); all ' + names.length + ' layouts dealt');
+    check(P.x === 600, 'T9p', 'planted: the share set to all, ' + P.x + ' of 600 boards are a crossing again'); }
   console.log('\nTHE FLOOD TUNNELS: ' + pass + ' passed, ' + fail + ' failed (' + Math.round((Date.now() - t0) / 1000) + ' s)');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(2); });
