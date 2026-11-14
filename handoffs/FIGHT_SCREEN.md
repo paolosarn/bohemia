@@ -5,7 +5,46 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [man's sheet] SHIPPED 49ac82edf, BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). VOTE fight-screen-the-mans-sheet-11-14 (stand_in; before and after, upright and sideways).
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- [opening card] SHIPPED PENDINGSHA, BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT, NOT YET SEEN (rule 450(a); ask row 621, two of three cards). VOTE fight-screen-the-card-that-opens-a-fight-11-14 (stand_in; before and after, upright and sideways).
+THIS CHAT IS FIGHT SCREEN TWO (the first chat is archived at a full context; its blocks are below and are this lane's).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_CARD_THAT_OPENS_A_FIGHT_11_14_26.md.
+THE BLOCKER BELOW WAS A PREMISE (rule 12, measured on the demo's page): the map already carries the fight's own engine (slices/bohemia_job_danger.js fresh(), doorOpts())
+and the fight deals a band's looks by place, not by dice (but for the two looks whose model carries a weapon). So the card ASKS THE FIGHT: six deals, one a tick,
+and it shows clearly only a face that stood on the board in every deal; a face that moved is a photograph not yet developed (dark). Nothing is handed over.
+WHAT: the card where he chooses ENGAGE or FALL BACK is rebuilt whole, one look with the man's sheet: their leader's face pinned on the dark board, the crew's name,
+the ONE why sentence from his mouth (for beasts one of HIS men says it, gold edge), their men against his as two rows of faces of one size (beasts as the fight's
+beast head), the ground in a well, the map's own two buttons 48 points tall; nothing under 11 points; upright 374 wide, on its side 640 in two columns, three
+tightening steps. The shell's lesson (#cbxsay) is asked to wait while the card stands. AT THE BELL the man wearing the card's face says the card's sentence once
+more, small (#why.said: a 40 point face, 12 point words, four beats).
+WHERE: slices/bohemia_fight_opener.js (read: the fight asked; dress: the card; photo, style, fit; BohemiaFightOpener.last for gates and EYES); ONE MARKED LINE in
+meetShow and two script tags in slices/BOHEMIA_CITY_WORLD.html (RUN's file; the map's own nodes are moved, never rebuilt); slices/BOHEMIA_FIGHT.html __THE_WHY_LINE__
+(whyNote, the kept face and line in whyOpen, WHY_SAID_BEATS, #why.said; UI.whySaid.card = { line, face, look } or null); slices/bohemia_fight_why.js exports fits.
+THE NOTE: localStorage bohemia.fight.opener.v1 { at, why, band, rule, key, i, side, line, how, who, reason, look, name }, read once, ten minutes at most, only for
+the same word and the same band in the same order.
+GATE THE CARD THAT OPENS A FIGHT 8/0 (C1 to C6, one plant; a browser; 240 real deals, 0 broken promises), registered. THE WHY LINE 15/0, THE MAN'S SHEET 7/0,
+NOTHING POPS, VOICES CLEAR 38/0, DEMO BUILD 25/0.
+ON THE PAGE: RESULT, four surfaces on the final build line: twelve cards of twelve dressed, each inside the glass with nothing off it or cut, no type under 11 points, both buttons a thumb (169 x 48 upright, 302 x 48 on its side) with nothing lying on them, their row and his row drawn, the speaker's face a drawn portrait: the demo upright 374 x 343; the demo on its side 640 x 242 to 257; the alpha upright 374 x 343 to 361; the alpha on its side 640 x 257. A led crew of six shows 5 faces and 1 not yet developed; four thugs 3 and 1; a pack of three is three beast heads and DESI says why. FOUR BELLS OF FOUR KEPT THE CARD'S WORD (the leader twice, a thug once, DESI once): the same face, the same sentence, small. 0 page errors. The fight answered in about half a second with the page still busy, one deal a tick.
+NAMED, NOT MINE (each run once WITHOUT this lane's file, the same reds): MEET BEFORE YOU FIGHT 9/6 (M6, M9, M11, M13, M14, M15); THE MOMENTS BETWEEN 2/2 (B3, 'the run':
+no card comes at the camp). Still named from before: HUD OVERLAP's phonebtn, SETTINGS' two legs, THE FIGHT BY HAND, QUICKER 18/2, the VOTE tab's landing legs, the
+registry's orphans, PAGES PUBLISH's cap.
+THE SEAMS: RUN: one marked line in meetShow and two script tags, nothing of yours rebuilt; the old row of bodies (.mcmen) is hidden once the fight has answered and
+stands if it cannot be asked. WORLD: your engine reader is asked through fresh() and doorOpts(), on this lane's own copy, never your read in flight; the two ends
+of a carried look are dealt on a shallow copy of ours on that copy only. UI THREE / FIXES: #cbxsay is asked to wait from the map's frame (visibility, data-mco);
+its cleaner home is your covered(). COMBAT THREE: nothing of the hand-over, the boards or AUTO is edited; the map's party men are still not the fight's men (yours and RUN's).
+FOR THE TOOL: tools/bohemia_fight_screen_the_opening_card.js <alpha|demo> <upright|sideways> <outdir> [led|thugs|beasts]; BEFORE=1 leaves this lane's file out.
+On the alpha the tool opens the map with the game's own swap (its RUN tab leaves a town onto the old street, where there is no card).
+
+NEXT, in order (rule 450(a), ask row 621): ONE CARD LEFT.
+ (1) THE MAN'S CARD ON THE PHONE (the one he sees every turn: 5 point numbers, a cut status line, buttons of 25 by 27 points). It is slices/bohemia_phone.js .fight
+     (UI's file) and the phone's fight page is 108 points wide: measure first whether a readable card fits there at all (rule 12), then build it as a marked block
+     or hand UI THREE the design: nothing under 11 points, nothing cut, every button a thumb, RETREAT away from WAIT and AUTO, the sheet's board.
+ (2) THE LIBRARY PAGE on Rogue Fable 4's screen and card (the library has none): owed before any card is called final.
+ (3) THE TURN ORDER back on the glass in the game; one material for the speaking cards (#vet is still pale paper).
+ (4) The card's men as BODIES: the fight's own sheets of the dealt looks (slices/fight_rig), which the fight needs a moment later anyway.
+[bb Battle Brothers tells you who is on you in words before a fight and never why; ours shows their faces against yours and has their leader say why]
+[analog horror: a wall of ID photographs, one of them not yet developed, and the one that is talking is looking at you]
+
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 -- [man's sheet] SHIPPED 49ac82edf, BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). VOTE fight-screen-the-mans-sheet-11-14 (stand_in; before and after, upright and sideways).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_MANS_SHEET_11_14_26.md. The teardown it answers: records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md (one line of it corrected
 against rule 224: the meet card's count as drawn men is his ruling).
 WHAT: the sheet a finger on a man's face opens is rebuilt whole: his face pinned on the house's dark board (gold his, red theirs), name, level, trade, a man of theirs' one thing to

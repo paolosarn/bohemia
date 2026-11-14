@@ -198,6 +198,7 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
   padding:5px 12px 6px 5px;color:#efe3cc;background:rgba(14,11,8,.9);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));
   transform-origin:26px 50%;animation:whyin .16s steps(4,end) both}
 #why.them{border-left-color:#ff5a40}#why.them b{color:#ff8a6a}
+#why.said canvas{width:40px;height:40px}#why.said span{font-size:12px}   /* __THE_CARD_THAT_OPENS_A_FIGHT__: he read it on the card; once more, small */
 #why canvas{flex:0 0 auto;width:52px;height:52px;border-radius:2px;background:#0d0b09}
 #why b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:10px;letter-spacing:.5px;color:var(--gold)}
 #why span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:14px;font-weight:700;line-height:1.25;min-height:1.25em}
@@ -7434,7 +7435,15 @@ function shotBarrel(v, X, Y, h, now) {
    beats at any fight speed so it can be read, and goes; taps pass through it. While it is up the veteran's lesson and the
    crew's commentary wait (never two at once). The same reason is never worded the same way twice in a row (WHY_KEY keeps the
    wording each rule used last). What was said is kept on UI.whySaid for the gate and for EYES. */
-const WHY_KEY = 'bohemia.fight.why.v1', WHY_HOLD_BEATS = 8, WHY_QUIET_MS = 1000;
+const WHY_KEY = 'bohemia.fight.why.v1', WHY_HOLD_BEATS = 8, WHY_QUIET_MS = 1000, WHY_NOTE_KEY = 'bohemia.fight.opener.v1', WHY_NOTE_MS = 600000, WHY_SAID_BEATS = 4;
+/* the opening card's note: read once, and only for the fight it was written for (the same word from the map, the same band in the same order, minutes old) */
+function whyNote(why, them) {
+  let N = null; try { N = JSON.parse(localStorage.getItem(WHY_NOTE_KEY) || 'null'); localStorage.removeItem(WHY_NOTE_KEY); } catch (_e) { N = null; }
+  if (!N || !N.line || !N.look || Date.now() - (N.at || 0) > WHY_NOTE_MS) return null;
+  if (String(N.why || '') !== String(why || '')) return null;
+  const band = FIGHT.S.units.filter(function (v) { return v.side === 'them'; }).map(function (v) { return v.kind; }).join(',');
+  return N.band === band ? N : null;
+}
 function whyHandOver() {
   const o = window.FIGHT_OPTS || {};
   if (o.why !== undefined && o.why !== null) return String(typeof o.why === 'object' ? (o.why.why || '') : o.why);
@@ -7472,14 +7481,28 @@ function whyOpen(now) {
     factions: BohemiaFightWhy.factions({ tiers: DB.ours && DB.ours.enemy_tiers && DB.ours.enemy_tiers.value, own: DB.newEnemies }),   /* a new kind in a known faction is somebody the day it is added */
     facts: whyFacts(them), last: last, alone: !!(mine && mine.main) }, DB.why);
   if (!P) { UI.whySaid = { none: 'no rule', why: why }; return; }
-  const v = P.side === 'them' ? whyLeader(them) : mine;
+  /* __THE_CARD_THAT_OPENS_A_FIGHT__ (FIGHT SCREEN TWO 11/14, rule 450(a)): the card he chose on already said why, from a face the
+     fight was asked for (slices/bohemia_fight_opener.js leaves a note). The bell keeps the card's word: the man wearing that face
+     says the same sentence once more, smaller and shorter, and goes. What the bell found is kept (UI.whySaid.card): a promise the
+     card could not keep (the face is not on the board, the sentence no longer holds) falls back to the bell's own and is counted. */
+  const N = whyNote(why, them), kept = N ? { line: false, face: false, look: N.look } : null;
+  let v = null;
+  if (N && N.side === P.side) {
+    const rule = DB.why.rules.filter(function (r) { return r.id === N.rule; })[0];
+    if (N.rule === P.rule || (rule && BohemiaFightWhy.fits && BohemiaFightWhy.fits(rule, P.via || P.how, { id: P.who, cls: P.cls }, whyFacts(them)))) {
+      P.rule = N.rule; P.key = N.key; P.i = N.i; P.line = N.line; P.reason = N.reason || P.reason; kept.line = true; }
+    v = P.side === 'them' ? them.filter(function (u) { return whyTalks(u) && u.look === N.look; })[0] || null : (mine && mine.look === N.look && mine.name === N.name ? mine : null);
+    kept.face = !!v;
+  }
+  if (!v) v = P.side === 'them' ? whyLeader(them) : mine;
   if (!v) { UI.whySaid = { none: 'no face', why: why, rule: P.rule }; return; }
   last[P.key] = P.i; try { localStorage.setItem(WHY_KEY, JSON.stringify(last)); } catch (_e) {}
-  UI.why = { who: v.id, line: P.line, t: now, side: P.side };
-  UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, draft: true };
+  const said = !!(kept && kept.line && kept.face);   /* he has read it on the card: once more, small */
+  UI.why = { who: v.id, line: P.line, t: now, side: P.side, said: said };
+  UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, byLook: v.look, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, card: kept, draft: true };
   const cv = document.getElementById('whyface'); drawPortrait(cv.getContext('2d'), v, cv.width, true);
   document.getElementById('whyname').textContent = v.name; document.getElementById('whyline').textContent = '';
-  const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
+  const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
   feed(v.name + ': ' + P.line, P.side === 'them' ? '#ff8a6a' : undefined);
   try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: P.line }, '*'); } catch (_e) {}
 }
@@ -7494,7 +7517,7 @@ function tickWhy(now) {
   const typing = n < Y.line.length;
   document.getElementById('whyface').style.transform = typing && slot % 2 ? 'translateY(-2px)' : '';   /* his mouth works on the slots */
   if (!typing && !Y.done) Y.done = now;
-  if ((Y.done && now - Y.done > beat * WHY_HOLD_BEATS) || FIGHT.S.over) whyHide();
+  if ((Y.done && now - Y.done > beat * (Y.said ? WHY_SAID_BEATS : WHY_HOLD_BEATS)) || FIGHT.S.over) whyHide();
 }
 /* ---------------- /__THE_WHY_LINE__ ---------------- */
 /* ---------------- THE CREW'S COMMENTARY (COMBAT [the crew's commentary], rule 143(c), Paolo 10/24: 'I like how our team members

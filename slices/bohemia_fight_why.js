@@ -119,7 +119,7 @@
     return out;
   }
 
-  var api = { how: how, who: who, groupOf: groupOf, factions: factions, pick: pick, lines: lines, say: say };
+  var api = { how: how, who: who, groupOf: groupOf, factions: factions, pick: pick, lines: lines, say: say, fits: fits };   /* fits: the bell asks whether the sentence the opening card said still holds (__THE_CARD_THAT_OPENS_A_FIGHT__) */
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (root) root.BohemiaFightWhy = api;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

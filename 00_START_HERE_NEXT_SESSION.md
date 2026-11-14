@@ -1,3 +1,16 @@
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT (PENDINGSHA), NOT YET SEEN (rule 450(a); ask row 621, two of three cards). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN TWO. The card where he chooses ENGAGE or FALL BACK is rebuilt whole, one look with the man's sheet: their leader's face pinned on the dark board,
+the crew's name, the ONE why sentence from his mouth (for beasts one of his own men says it), their men against his as two rows of faces, the ground in a well; nothing
+under 11 points; 374 wide upright, 640 on its side. THE NAMED BLOCKER WAS A PREMISE (rule 12): the map already carries the fight's own engine, so the card asks the fight
+which faces will stand (six deals, one a tick) and shows clearly only those; nothing is handed over, no hand-over, board or AUTO edited. At the bell the man wearing the
+card's face says the card's sentence once more, small. slices/bohemia_fight_opener.js; one marked line in meetShow; __THE_WHY_LINE__ reads the card's note.
+ON THE PAGE: four surfaces (demo and alpha, upright and sideways): twelve cards of twelve inside the glass, no type under 11 points, both buttons clear; four bells of four kept the card's face and sentence; 0 page errors.
+Gate THE CARD THAT OPENS A FIGHT 8/0 (240 real deals, 0 broken promises), registered. VOTE fight-screen-the-card-that-opens-a-fight-11-14 (before and after, both ways). Record records/BOHEMIA_FIGHT_SCREEN_THE_CARD_THAT_OPENS_A_FIGHT_11_14_26.md.
+PRE-PUSH PASS (rule 13): THE CARD THAT OPENS A FIGHT 8/0, THE WHY LINE 15/0, THE MAN'S SHEET 7/0, NOTHING POPS, VOICES CLEAR 38/0, DEMO BUILD 25/0, HANDOFF 10/0, PAGES PUBLISH 30/0.
+NAMED, NOT MINE (the same reds with this lane's file left out): MEET BEFORE YOU FIGHT 9/6; THE MOMENTS BETWEEN 2/2; the VOTE tab's landing legs and four other lanes' sheets (this lane's four sheets were cut to two sentences, rule 22f); the registry's orphans.
+NEXT: the man's card on the phone (UI's file; measure first whether a readable card fits its 108 points).
+[bb Battle Brothers tells you who is on you in words before a fight and never why; ours shows their faces against yours and has their leader say why]
+[analog horror: a wall of ID photographs, one of them not yet developed, and the one that is talking is looking at you]
 COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (ce86b73b8), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
 The three bosses' map pieces that still said STAND-IN, redrawn as finished art, PICTURES ONLY (the same seven pictures, names, frame and rig as BOSSES'
 first ones; none of BOSSES' code touched): THE LOCKSMITH'S GATE (framed chain-link panels, razor wire, a padlock, his key on a board, a red lamp lit only

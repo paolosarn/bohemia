@@ -9594,6 +9594,15 @@ GATES = [
      "bars each with its word clear of the bar, the numbers the man's own (M4); the weapon's name and line, its damage a lit bar with no "
      "digits, 14 numbers at most on the sheet (M5, rule 224(c)); every skill on it, a finger on one reads it and the sheet stays, a finger "
      "elsewhere puts it away (M6). Planted: the fitting taken out. About 40 s", True),
+    ('THE CARD THAT OPENS A FIGHT', ['node', 'gates/the_card_that_opens_a_fight_gate.js'],
+     "FIGHT SCREEN TWO gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY "
+     "TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card where he chooses ENGAGE or FALL BACK shows their leader's face, the one WHY "
+     "sentence and their men against his as faces, and every clear face on it is a man who stands in the fight: the seam with the map is one "
+     "marked line and this lane's file writes no hand-over (C1); nothing under 11 points in the card's stylesheet (C2); six bands asked the "
+     "card's way and then dealt for real forty times each: no sure face is ever missing from the board (C3); the leader says it for men, one "
+     "of HIS men for beasts, a lone man whose pool holds a carried look is never promised (C4); at the bell the man wearing the card's face "
+     "says the card's sentence, once more and small (C5); a note for another band is not read and a note is read once (C6). Planted: a note "
+     "whose face is not on the board. About a minute", True),
     ('EVERY SHOT IS FELT', ['node', 'gates/every_shot_is_felt_gate.js'],
      "FIGHT SCREEN gate, 11/14, VAMILY rule 450(b)(c)(d) (ask row 622; PAOLO 11/14: 'anytime anyone fires a shot I want a muzzle flash on the "
      "screen, some quick shit, like it goes all white... I want people to feel this shot for real'). The numbers (records/target/bb/"
