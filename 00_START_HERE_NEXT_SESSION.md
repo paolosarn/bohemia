@@ -209,15 +209,14 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/11e THREE MORE MEN, BUILT, NOT YET SEEN (routine 'BESTIARY next round', rules
-443(d), 441). THE FLOOR IN ONE TABLE: factions 12 on file, 8 fought; types 57 fought of 75; beasts 17 lab-made; bosses 6; champions named.
-Three more men, each a way no man had: the House TWO-HANDER (one swing hits every man beside him), the water OUTLAW (runs straight in,
-knocks a man flat), the watch SPEARMEN (hold the line until you close). Played on the alpha and the demo, a phone both ways (THE BESTIARY
-FLOOR 12/0). The next seven wait for CHARACTER's clothes; CHARACTER has the stand-in list (the road crews wear the city's own gangs).
-Row 574 partly: wolves, hyenas, prides sized to a new crew; one bison, longhorn, bear or sloth still beats a crew of 3 (TUNING, WORLD).
-VOTE bestiary-the-next-ten-11-11. Record records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md. Block: handoffs/BESTIARY.md.
-[bb Battle Brothers never sends a new company at an Unhold; the size of a band cannot make one beast smaller.]
-[analog horror: the spearmen stand in the street lights' line and do not move.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/14i THE HORN AND THE BRUISER, BUILT, NOT YET SEEN (routine 'BESTIARY turn up', rule
+447, rule 441). THE FLOOR: factions 8 of 12 fought (4 have no clothes), types 59 of about 75, beasts 17 lab-made, bosses 10, champions named
+(the one table: handoffs/BESTIARY.md). Two more men on the last spare enemy sheets, each a way no man had: the kids' HORN (an air horn: the
+scream only the ghost had) and the heavies' BRUISER (throws a man behind him: the bear's fling). Every BESTIARY man and a champion on the
+demo and the alpha, a phone both ways. STOPPED (rule 447): no spare sheet is left; the rest waits for CHARACTER's clothes.
+VOTE bestiary-the-horn-and-the-bruiser-11-14. Record records/BOHEMIA_BESTIARY_TURN_UP_THE_HORN_AND_THE_BRUISER_11_14_26.md.
+[bb Battle Brothers' goblin shaman fights with fear from the back of the line; ours with an air horn.]
+[analog horror: the horn's blast comes from a block away and nobody can see the kid who blew it.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/11 LATEST (batch two) -- BUILD 11/11t - THE ROAD KNOWS HIS PLACE, BUILT, NOT YET SEEN
 (the coordinator's round; rule 441). Twelve more road stops that touch his own place (a family to take in, a rooftop panel, a roof
 tank, a seed garden), the bosses (a runaway cook or a map seller shows him the boss whose sign is up; the boss's roadblock; a fallen

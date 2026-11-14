@@ -102,6 +102,7 @@
     }
   },
   "by_enemy": {
+    "kids_horn": ["horrific_scream"],
     "geist": [
       "horrific_scream",
       "incorporeal",

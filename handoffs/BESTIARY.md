@@ -1,5 +1,24 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY turn up', rule 447, rule 441): 11/14 LATEST -- BUILD 11/14i THE HORN AND THE BRUISER (SHA_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_TURN_UP_THE_HORN_AND_THE_BRUISER_11_14_26.md. VOTE bestiary-the-horn-and-the-bruiser-11-14.
+WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):
+| floor | his | the fight fields | short |
+|---|---|---|---|
+| factions | 12 | 8 | 4 (hired guns, head takers, flock, eye in the sky: no clothes exist) |
+| enemy types | about 75 | 59 | 16 |
+| beasts | 17 | 17 lab-made (22 fielded) | 0 |
+| bosses | 3 | 10 | 0 |
+| champions | some | 3 kinds, named | 0 |
+- THIS BATCH, two types on the last spare finished sheets (no new sheet: the site at 894 MB): the kids' HORN (an air horn: the scream only
+  the geist had) and the heavies' BRUISER (throws a man behind him: the fling only the bear and sloth had). Met in the kids' and heavies'
+  middle and late bands on the map and in jobs. THE BESTIARY FLOOR on the demo and the alpha, a phone both ways.
+- STOPPED HERE (rule 447, the budget): no spare enemy sheet is left. The rest of the floor (16 types, 4 factions) waits for CHARACTER's
+  clothes (the list in handoffs/CHARACTER.md) and robot art for the old order's machines.
+- TUNING: the kids' middle band beats a new crew of 6 seven times in 10 without the horn; the bison, longhorn, bear, sloth (row 574).
+[bb Battle Brothers' goblin shaman fights with fear from the back of the line; ours with an air horn.]
+[analog horror: the horn's blast comes from a block away and nobody can see the kid who blew it.]
+
 BESTIARY (routine 'BESTIARY next round', rules 443(d), 441): 11/11 LATEST -- BUILD 11/11e THREE MORE MEN (a06b38cc), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_FLOOR_TABLE_AND_THE_NEXT_TEN_11_11_26.md (the floor in one table). VOTE bestiary-the-next-ten-11-11.
 - THE FLOOR: factions 12 on file, 8 fought; types 57 fought of 75 (18 short); beasts 17 lab-made; bosses 6; champions named.

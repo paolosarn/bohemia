@@ -1,5 +1,9 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TOUCHED but two pools' spares: the kids' runner pool gave
+enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
+0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/11 (af) LATEST -- *** [the clothes look real] rule 427(b) 'then the hires' SHIPPED BUILD 11/11y: THE HIRES DRESSED, 6 MEN. ***
 TAB: the hall (their faces), and hired, the crew screen and every fight; the road gangs you fight wear all six; VOTE
 (character-the-hires-dressed-11-11, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_HIRES_DRESSED_11_11_26.md.

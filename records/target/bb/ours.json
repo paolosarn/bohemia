@@ -928,17 +928,13 @@
      "enemy_runner_2",
      "enemy_runner_3",
      "enemy_runner_4",
-     "enemy_runner_5",
-     "enemy_runner_6",
-     "enemy_runner_7"
+     "enemy_runner_5"
     ],
     "heavy": [
      "enemy_heavy_0",
      "enemy_heavy_1",
      "enemy_heavy_2",
-     "enemy_heavy_3",
-     "enemy_heavy_4",
-     "enemy_heavy_5"
+     "enemy_heavy_3"
     ]
    }
   },
@@ -1084,12 +1080,14 @@
      },
      "middle": {
       "goblin_skirmisher": 3,
-      "goblin_wolfrider": 1
+      "goblin_wolfrider": 1,
+      "kids_horn": 1
      },
      "late": {
       "goblin_skirmisher": 2,
       "goblin_wolfrider": 1,
-      "goblin_skirmisher_champion": 0.6
+      "goblin_skirmisher_champion": 0.6,
+      "kids_horn": 1
      }
     },
     "heavies": {
@@ -1103,12 +1101,14 @@
      },
      "middle": {
       "orc_warrior": 3,
-      "orc_young": 2
+      "orc_young": 2,
+      "heavy_bruiser": 1
      },
      "late": {
       "orc_warrior": 3,
       "orc_young": 1,
-      "orc_warrior_champion": 0.8
+      "orc_warrior_champion": 0.8,
+      "heavy_bruiser": 1
      }
     }
    },
