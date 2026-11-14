@@ -23,7 +23,11 @@
    "face.cheekW": 28
   },
   "face_name": "HAWK",
-  "top": "BLACK TANK"
+  "top": "SAND HOODIE",
+  "coat": "LEATHER JACKET",
+  "legs": "SOOT CARGOS",
+  "feet": "LEATHER STACK BOOT",
+  "kit": ["OXBLOOD SCARF", "HAND WRAPS", "SALVAGE SATCHEL"]
  },
  {
   "id": "anarchists_1",
@@ -49,7 +53,11 @@
    "mouth.w": 7
   },
   "face_name": "GAUNT",
-  "top": "ARC SHOULDER TEE"
+  "top": "ARC SHOULDER TEE",
+  "coat": "OXBLOOD PONCHO",
+  "legs": "SOOT CARGOS",
+  "feet": "RUST BOOTS",
+  "kit": ["LEATHER GLOVES", "DUST BROWN BANDOLIER"]
  },
  {
   "id": "anarchists_2",
@@ -696,7 +704,10 @@
   "face_name": "HEART",
   "facial_hair": "HORSESHOE MOUSTACHE",
   "new_beard": "horseshoe",
-  "top": "LONGLINE JERSEY"
+  "top": "RUST HENLEY",
+  "legs": "DUST TROUSERS",
+  "feet": "OXBLOOD BOOTS",
+  "kit": ["CHARCOAL ROAD CAPE", "LEATHER GLOVES", "LEATHER BELT"]
  },
  {
   "id": "cartel_1",
@@ -714,7 +725,11 @@
   ],
   "face": null,
   "face_name": "THE STARRED FACE",
-  "top": "STORM GREY TEE"
+  "top": "OLIVE HENLEY",
+  "coat": "KHAKI JACKET",
+  "legs": "LEATHER STACK PANT",
+  "feet": "OXBLOOD BOOTS",
+  "kit": ["SALVAGE SATCHEL", "LEATHER BELT", "WORN BRACERS"]
  },
  {
   "id": "cartel_2",
@@ -743,7 +758,10 @@
   "facial_hair": "MOUSTACHE",
   "beard": "moustache",
   "eyewear": "FACE RUST DUST MASK",
-  "top": "ASH HOODIE"
+  "top": "OLIVE HOODIE",
+  "legs": "KHAKI CARGOS",
+  "feet": "RANCH BOOTS",
+  "kit": ["CHARCOAL ROAD CAPE", "LEATHER GLOVES"]
  },
  {
   "id": "cartel_3",
@@ -1573,7 +1591,11 @@
    "brows.len": 5
   },
   "face_name": "SMALL FEATURES",
-  "top": "CHARCOAL STRIPED TEE"
+  "top": "CHARCOAL STRIPED TEE",
+  "coat": "OXBLOOD JACKET",
+  "legs": "RUST CARGOS",
+  "feet": "RED CLAY BOOTS",
+  "kit": ["LEATHER GLOVES"]
  },
  {
   "id": "mob_1",

@@ -788,16 +788,16 @@
 "packedMB": 0.81
 },
 "person_anarchists_0.webp": {
-"bytes": 278302,
+"bytes": 293844,
 "decodedMB": 17.07,
-"fill": 0.201,
-"packedMB": 3.99
+"fill": 0.204,
+"packedMB": 4.04
 },
 "person_anarchists_1.webp": {
-"bytes": 262004,
+"bytes": 304894,
 "decodedMB": 17.07,
-"fill": 0.192,
-"packedMB": 3.75
+"fill": 0.231,
+"packedMB": 4.51
 },
 "person_anarchists_2.webp": {
 "bytes": 280808,
@@ -842,22 +842,22 @@
 "packedMB": 4.05
 },
 "person_cartel_0.webp": {
-"bytes": 280728,
+"bytes": 269194,
 "decodedMB": 17.57,
 "fill": 0.193,
-"packedMB": 3.86
+"packedMB": 3.85
 },
 "person_cartel_1.webp": {
-"bytes": 267788,
+"bytes": 269996,
 "decodedMB": 17.57,
 "fill": 0.191,
-"packedMB": 3.81
+"packedMB": 3.82
 },
 "person_cartel_2.webp": {
-"bytes": 282588,
+"bytes": 278916,
 "decodedMB": 17.57,
 "fill": 0.191,
-"packedMB": 3.81
+"packedMB": 3.8
 },
 "person_church_0.webp": {
 "bytes": 276972,
@@ -914,10 +914,10 @@
 "packedMB": 3.99
 },
 "person_mob_0.webp": {
-"bytes": 282744,
+"bytes": 289538,
 "decodedMB": 17.2,
-"fill": 0.198,
-"packedMB": 4.0
+"fill": 0.2,
+"packedMB": 3.97
 },
 "person_mob_1.webp": {
 "bytes": 283556,
@@ -1246,7 +1246,7 @@
 },
 "totals": {
 "decodedMB": 4106.8,
-"packedMB": 808.6,
+"packedMB": 809.4,
 "sheets": 207
 }
 }

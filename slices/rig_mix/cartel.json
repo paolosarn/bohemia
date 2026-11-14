@@ -44,18 +44,20 @@
    "face": null,
    "beard": "HORSESHOE MOUSTACHE",
    "mark": null,
-   "top": "LONGLINE JERSEY",
+   "top": "RUST HENLEY",
    "coat": null,
    "heritage": "black",
    "skin": "dark",
    "sex": "m",
    "wears": {
-    "base": "LONGLINE JERSEY",
-    "back": "STEEL ROAD CAPE",
+    "base": "RUST HENLEY",
+    "back": "CHARCOAL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "BLACK DENIM",
-    "feet": "SLOUCH BOOT",
-    "mid": "SAGE FLANNEL"
+    "legs": "DUST TROUSERS",
+    "feet": "OXBLOOD BOOTS",
+    "hands": "LEATHER GLOVES",
+    "waist": "LEATHER BELT",
+    "mid": "DUST PLAID SHIRT"
    }
   },
   {
@@ -66,18 +68,20 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "STORM GREY TEE",
-   "coat": null,
+   "top": "BONE HENLEY",
+   "coat": "KHAKI JACKET",
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
-    "base": "STORM GREY TEE",
+    "base": "BONE HENLEY",
     "back": "SALVAGE SATCHEL",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "SLATE STACK PANT",
-    "feet": "SLOUCH BOOT",
-    "mid": "SAGE FLANNEL"
+    "legs": "LEATHER STACK PANT",
+    "feet": "OXBLOOD BOOTS",
+    "outer": "KHAKI JACKET",
+    "waist": "LEATHER BELT",
+    "gear": "WORN BRACERS"
    }
   },
   {
@@ -95,12 +99,12 @@
    "sex": "m",
    "wears": {
     "base": "WHITE TEE",
-    "back": "STEEL ROAD CAPE",
+    "back": "CHARCOAL ROAD CAPE",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "CROPPED BLACK DENIM",
-    "feet": "TALL MOTO BOOTS",
-    "waist": "WIDE WAIST WRAP",
-    "mid": "ASH HOODIE"
+    "legs": "KHAKI CARGOS",
+    "feet": "RANCH BOOTS",
+    "hands": "LEATHER GLOVES",
+    "mid": "OLIVE HOODIE"
    }
   },
   {

@@ -44,18 +44,20 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "BLACK TANK",
-   "coat": null,
+   "top": "SAND HOODIE",
+   "coat": "LEATHER JACKET",
    "heritage": "black",
    "skin": "dark",
    "sex": null,
    "wears": {
-    "base": "BLACK TANK",
+    "base": "SAND HOODIE",
+    "outer": "LEATHER JACKET",
     "head": "CHARCOAL WATCH CAP",
-    "legs": "STORM GREY SWEATS",
-    "feet": "CHARCOAL BOOTS",
-    "back": "ONE-SHOULDER DRAPE",
-    "mid": "DUST PLAID SHIRT"
+    "legs": "SOOT CARGOS",
+    "feet": "LEATHER STACK BOOT",
+    "neck": "OXBLOOD SCARF",
+    "hands": "HAND WRAPS",
+    "back": "SALVAGE SATCHEL"
    }
   },
   {
@@ -67,17 +69,18 @@
    "beard": null,
    "mark": null,
    "top": "ARC SHOULDER TEE",
-   "coat": null,
+   "coat": "OXBLOOD PONCHO",
    "heritage": "white",
    "skin": "very light",
    "sex": null,
    "wears": {
     "base": "ARC SHOULDER TEE",
+    "outer": "OXBLOOD PONCHO",
     "head": "CHARCOAL WATCH CAP",
     "legs": "SOOT CARGOS",
-    "feet": "SLOUCH BOOT",
-    "waist": "CHARCOAL BELT",
-    "mid": "DUST PLAID SHIRT"
+    "feet": "RUST BOOTS",
+    "hands": "LEATHER GLOVES",
+    "gear": "DUST BROWN BANDOLIER"
    }
   },
   {

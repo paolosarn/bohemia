@@ -44,19 +44,19 @@
    "face": null,
    "beard": null,
    "mark": null,
-   "top": "SLATE HENLEY",
-   "coat": null,
+   "top": "SAGE TEE",
+   "coat": "OXBLOOD JACKET",
    "heritage": "hispanic",
    "skin": "intermediate",
    "sex": null,
    "wears": {
-    "base": "SLATE HENLEY",
+    "base": "SAGE TEE",
     "back": "CHARCOAL SHOULDER MANTLE",
-    "legs": "SLATE WORK PANTS",
+    "legs": "RUST CARGOS",
     "feet": "RED CLAY BOOTS",
     "waist": "LEATHER BELT",
-    "neck": "DUST SCARF",
-    "mid": "CHARCOAL STRIPED TEE"
+    "outer": "OXBLOOD JACKET",
+    "hands": "LEATHER GLOVES"
    }
   },
   {

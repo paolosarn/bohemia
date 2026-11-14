@@ -16,7 +16,10 @@ const { open, roadFightOffTheTown } = require(path.join(ROOT, 'tools/bohemia_dri
 const OUT = path.resolve(process.argv[2] || path.join(ROOT, 'records/target/character/the_hires_dressed/phone'));
 const WANT = (process.argv[3] || 'phone_portrait,phone_landscape').split(',');
 const SEED = process.env.SEED || 'HRS2DR';
-const SIX = ['anarchists_2', 'colorful_0', 'homeless_0', 'reds_0', 'reds_1', 'remnants_0'].map(x => 'person_' + x);
+const SIX = (process.env.MEN ? process.env.MEN.split(',') : ['anarchists_2', 'colorful_0', 'homeless_0', 'reds_0', 'reds_1', 'remnants_0']).map(x => 'person_' + x);
+/* MEN=a,b,c: the men this proof is about (default the hires' six); THEM=1: the fight's camera goes to the first of them across the
+   board (a road gang wearing them), else to the man he hired (CHARACTER [the road crews dressed], 11/14) */
+const THEM = process.env.THEM === '1';
 const frameOf = (P, re) => P.frames().find(f => re.test(f.url()));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -143,14 +146,15 @@ async function shot(P, name) {
         await sleep(3000);
         g.fightYou = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you').map(u => u.look)).catch(() => null);
         g.fightThem = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side !== 'you').map(u => u.look)).catch(() => null);
-        g.fightCam = await ff.evaluate((look) => { try {
-          const M = FIGHT.S.units.filter(u => u.side === 'you'), h = M.find(u => u.look === look), A = h ? [h] : M; if (!A.length) return null;
+        g.fightCam = await ff.evaluate(([look, six, them]) => { try {
+          const M = FIGHT.S.units.filter(u => u.side === 'you'), T = FIGHT.S.units.filter(u => u.side !== 'you' && six.includes(u.look));
+          const h = them && T.length ? T[0] : M.find(u => u.look === look), A = h ? [h] : M; if (!A.length) return null; look = h ? h.look : look;
           const x = A.reduce((s, u) => s + u.x, 0) / A.length, y = A.reduce((s, u) => s + u.y, 0) / A.length;
           FIGHT_UI.glide = null; FIGHT_UI.pinched = true; FIGHT_UI.openUntil = 1e12;
           FIGHT_UI.zoom = (FIGHT_UI.near || FIGHT_UI.zoom) * (h ? 1 : 0.85); FIGHT_UI.cx = (x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (y + .5) * FIGHT_UI.th;
           if (typeof clampCam === 'function') clampCam(); if (typeof hud === 'function') hud();
           return { on: h ? look : 'his side', x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10, zoom: FIGHT_UI.zoom };
-        } catch (e) { return String(e); } }, g.hire).catch(e => String(e));
+        } catch (e) { return String(e); } }, [g.hire, SIX, THEM]).catch(e => String(e));
         await sleep(6000);
         await shot(P, profile + '_fight');
       }
