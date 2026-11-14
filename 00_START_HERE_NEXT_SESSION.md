@@ -1,4 +1,4 @@
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT (PENDINGSHA), NOT YET SEEN (rule 450(a); ask row 621, two of three cards). Its block is handoffs/FIGHT_SCREEN.md.
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT (2f8ca51fc), NOT YET SEEN (rule 450(a); ask row 621, two of three cards). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. The card where he chooses ENGAGE or FALL BACK is rebuilt whole, one look with the man's sheet: their leader's face pinned on the dark board,
 the crew's name, the ONE why sentence from his mouth (for beasts one of his own men says it), their men against his as two rows of faces, the ground in a well; nothing
 under 11 points; 374 wide upright, 640 on its side. THE NAMED BLOCKER WAS A PREMISE (rule 12): the map already carries the fight's own engine, so the card asks the fight

@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- [opening card] SHIPPED PENDINGSHA, BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT, NOT YET SEEN (rule 450(a); ask row 621, two of three cards). VOTE fight-screen-the-card-that-opens-a-fight-11-14 (stand_in; before and after, upright and sideways).
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- [opening card] SHIPPED 2f8ca51fc, BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT, NOT YET SEEN (rule 450(a); ask row 621, two of three cards). VOTE fight-screen-the-card-that-opens-a-fight-11-14 (stand_in; before and after, upright and sideways).
 THIS CHAT IS FIGHT SCREEN TWO (the first chat is archived at a full context; its blocks are below and are this lane's).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_CARD_THAT_OPENS_A_FIGHT_11_14_26.md.
 THE BLOCKER BELOW WAS A PREMISE (rule 12, measured on the demo's page): the map already carries the fight's own engine (slices/bohemia_job_danger.js fresh(), doorOpts())
