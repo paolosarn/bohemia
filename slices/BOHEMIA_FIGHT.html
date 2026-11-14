@@ -240,6 +240,53 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #drawer{position:fixed;left:10px;right:10px;display:none;z-index:5;color:var(--paper-ink);
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 4px 10px rgba(0,0,0,.6);padding:12px 12px 14px;font-size:11px;transform:rotate(-.4deg)}
 #drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed rgba(42,34,26,.3)}
+/* __THE_MANS_SHEET__ (FIGHT SCREEN 11/14, rule 450(a)): the house's dark board, a receipt slip for the bars, a well for the weapon; the
+   board's and the well's rendered pieces are laid by sheetLook() (the kit); these are the sizes and the inks. Nothing under 11 points. */
+#drawer.sheet{left:8px;right:8px;padding:16px 12px 12px;box-sizing:border-box;overflow:hidden;transform:none;color:#f2e4c6;background:#2a2016;border-left:3px solid var(--gold);
+  box-shadow:none;filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6));font-size:11px;display:none;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "slip" "w" "perks" "read";gap:8px}
+#drawer.sheet.theirs{border-left-color:#ff5a40}
+#drawer.sheet.wide{grid-template-columns:minmax(0,.95fr) minmax(0,1.5fr) minmax(0,.95fr);grid-template-areas:"head head perks" "w slip perks" "read slip perks";grid-template-rows:auto auto 1fr;column-gap:10px}
+#drawer.sheet.wide.t1{grid-template-columns:minmax(0,.8fr) minmax(0,1.9fr) minmax(0,.7fr)}
+#drawer.sheet.wide.t1 .sh-slip{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:14px}
+#drawer.sheet.wide.t1 .sh-slip .bst-block.bst-fight{grid-column:1 / -1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:14px}
+#drawer.sheet.wide.t1 .sh-slip .bst-fight .bst-row{grid-template-columns:116px 23px minmax(0,1fr) 2px}
+#drawer.sheet.wide.t1 .sh-slip .bst-fight .bst-row>.bst-ic{width:116px}
+#drawer.sheet.wide.t1 .sh-slip i.cbar{width:84px}#drawer.sheet.wide.t1 .sh-slip .r{white-space:nowrap}
+#drawer.sheet .sh-head{grid-area:head;display:flex;gap:10px;align-items:flex-start;min-width:0}
+#drawer.sheet .sh-face{flex:0 0 auto;width:64px;height:64px;background:#0d0b09;box-shadow:0 0 0 1px #0d0a07,0 0 0 3px #d8ceb6,0 0 0 4px #0d0a07,3px 4px 0 rgba(0,0,0,.55);transform:rotate(-1.2deg);margin:3px 4px 4px 4px}
+#drawer.sheet .sh-who{min-width:0;display:flex;flex-direction:column;gap:3px;padding-top:2px}
+#drawer.sheet .sh-name{font:400 15px/1.15 var(--face-casing,ui-monospace,monospace);letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;overflow-wrap:anywhere}
+#drawer.sheet.theirs .sh-name{color:#ff8a6a}
+#drawer.sheet .sh-sub{font:400 11px/1.2 var(--face-casing,ui-monospace,monospace);letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000}
+#drawer.sheet .sh-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#drawer.sheet .sh-tell{font:700 12px/1.3 var(--face-rom,ui-monospace,monospace);color:#efe3cc}
+#drawer.sheet .sh-slip{grid-area:slip;align-self:start;padding:8px 10px 9px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover}
+#drawer.sheet .sh-slip .bst-block.bst-fight{margin:0 0 4px}
+#drawer.sheet .sh-slip .bst-fight .bst-row{grid-template-columns:124px 23px minmax(0,1fr) 2px}
+#drawer.sheet .sh-slip .bst-fight .bst-row>.bst-ic{width:124px;background-position:left center;background-size:20px 20px}
+#drawer.sheet .sh-slip .bst-fight .bst-row>.bst-ic::after{content:attr(aria-label);display:block;margin-left:26px;white-space:nowrap;font:400 11px/20px var(--face-casing,ui-monospace,monospace);letter-spacing:.3px;text-transform:uppercase;color:var(--paper-ink)}
+#drawer.sheet .sh-w{grid-area:w;align-self:start;padding:9px 10px 10px;background:rgba(0,0,0,.3)}
+#drawer.sheet .sh-w b{display:block;font:400 12px/1.2 var(--face-casing,ui-monospace,monospace);letter-spacing:1px;color:#e2b45a;text-shadow:0 1px 0 #000}
+#drawer.sheet .sh-w>span{display:block;margin-top:2px;font:700 12px/1.3 var(--face-rom,ui-monospace,monospace);color:#efe3cc}
+#drawer.sheet .sh-w .r{margin-top:4px;padding:0;border-bottom:0;align-items:center;color:#cdb98e;font:400 11px/1.3 var(--face-rom,ui-monospace,monospace)}
+#drawer.sheet .sh-w i.cbar.dmg{flex:0 0 auto;display:block;width:130px;height:11px;background:rgba(255,236,200,.1);box-shadow:inset 0 1px 0 rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5)}
+#drawer.sheet .sh-w i.cbar.dmg>i{left:auto;background:#c8563a;box-shadow:inset 0 2px 0 #e98a6a,inset 0 -2px 0 #8a3320}
+#drawer.sheet .sh-perks{grid-area:perks;align-self:start;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}
+#drawer.sheet .sh-perks.few,#drawer.sheet.wide .sh-perks{grid-template-columns:minmax(0,1fr)}
+#drawer.sheet .sh-perks .p{margin:0;min-height:20px;gap:6px;align-items:flex-start;font-weight:400;color:#f2e4c6}
+#drawer.sheet .sh-perks .p canvas{flex:0 0 auto}
+#drawer.sheet .sh-perks .p>div{min-width:0}
+#drawer.sheet .sh-perks .p span{display:block;font:400 11px/1.25 var(--face-casing,ui-monospace,monospace);letter-spacing:.5px;text-shadow:0 1px 0 #000}
+#drawer.sheet .sh-perks .p em{display:block;font:400 11px/1.3 var(--face-rom,ui-monospace,monospace);font-style:normal;color:#cdb98e}
+#drawer.sheet .sh-perks .p.on span{color:#e2b45a}
+#drawer.sheet .sh-read{grid-area:read;display:block;align-self:end;min-height:29px;padding:5px 8px;background:rgba(0,0,0,.3);font:400 11px/1.3 var(--face-rom,ui-monospace,monospace);color:#cdb98e}
+#drawer.sheet .sh-read b{font:400 11px var(--face-casing,ui-monospace,monospace);letter-spacing:.5px;color:#e2b45a}
+/* the steps: the skills' lines fold into the reading line; a smaller face; the skills as icons */
+#drawer.sheet.t1 .sh-perks.few{grid-template-columns:repeat(2,minmax(0,1fr))}
+#drawer.sheet.t2{gap:5px}#drawer.sheet.t2 .sh-face{width:44px;height:44px}#drawer.sheet.t2 .sh-tell{font-size:11px}#drawer.sheet.t2 .sh-perks{gap:3px 10px}#drawer.sheet.t2 .sh-slip{padding:5px 10px 6px}#drawer.sheet.t2 .sh-w{padding:6px 10px 7px}
+#drawer.sheet.t3 .sh-perks,#drawer.sheet.t3.wide .sh-perks{grid-template-columns:repeat(auto-fill,26px);gap:4px}#drawer.sheet.t3 .sh-perks .p>div{display:none}#drawer.sheet.t3 .sh-perks .p{min-height:22px;justify-content:center}
+#drawer.sheet.t3 .sh-perks .p.on{outline:1px solid #e2b45a}
+#drawer.sheet.t3{gap:4px}#drawer.sheet.t3 .sh-face{width:40px;height:40px;margin-top:1px;margin-bottom:2px}#drawer.sheet.t3 .sh-who{gap:1px;padding-top:0}#drawer.sheet.t3 .sh-slip{padding:3px 10px 4px}
 #drawer .p{display:flex;gap:6px;align-items:center;margin-top:4px;font-weight:700}
 #wipe{position:fixed;inset:0;display:none;z-index:7;pointer-events:none;flex-direction:column;align-items:center;justify-content:center;
   background:linear-gradient(rgba(6,4,3,0) 0,rgba(6,4,3,.82) 26%,rgba(6,4,3,.9) 50%,rgba(6,4,3,.82) 74%,rgba(6,4,3,0) 100%)}
@@ -10681,19 +10728,96 @@ function tilePips(lo, hi) { if (hi > 12) return lo + ' to ' + hi + ' tiles';
   return h + '</i>'; }
 function markHTML(k, d) { const B = window.BohemiaStats; return B && B.mark ? B.mark(k, d).outerHTML : (d > 0 ? '+' : '') + d; }
 /* THE NUMBERS IN THE BACKGROUND (rule 67): a tap on his name opens them, a tap anywhere closes them */
+/* ==== __THE_MANS_SHEET__ (FIGHT SCREEN 11/14/26; VAMILY rule 450(a), ask row 621; rule 449: the fight's unit card is this lane's) ====
+   PAOLO 11/14: 'The card bro, the combat card is UGLY AS SHIT, TRY TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT.'
+   MEASURED FIRST (records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md): the sheet was a flat pale page with no face,
+   eight bare numbers beside eight icons, perk names with no word on what they do, the brightest thing on a dark screen; on its
+   side it was 640 points tall on a 390 point screen, its title and every bar off the top of the glass.
+   WHAT A MAN'S SHEET IS FOR: one glance says WHO this is (his face, his name, whose man), HOW HE IS (the eight bars, each with its
+   word, his armour, his nerve), WHAT HE HITS WITH (his weapon and its one plain line) and WHAT HE CAN DO (his skills, each telling
+   what it does). Nothing else is on it.
+   THE LOOK: the house's own rendered materials (slices/bohemia_ui_materials.js kit: the dark board, a receipt slip for the bars, a
+   well for the weapon), the meet card's look, dark first, his face a photograph pinned on it; a gold edge when he is his, red when
+   he is theirs. IT ALWAYS FITS: upright one column, on its side three; when a man's skills are many the sheet tightens in steps
+   (the skills' lines fold into one reading line a tap fills, then a smaller face, then the skills as icons) until nothing is off the
+   glass and nothing is cut. UI THREE's eight bars (__UI_THREE_STATS__) are kept as they are and stood in the slip. */
+function sheetEsc(t) { return String(t === undefined || t === null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function perkLine(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r && r.skin ? String(r.skin) : ''; }
+/* the one thing to know about a man of theirs: the boss's lesson, his kind's lesson in the act-one file, a champion's title */
+function sheetTell(v) {
+  if (v.side === 'you') return '';
+  try { if (v.boss && FIGHT.S.boss && FIGHT.S.boss.lesson) return String(FIGHT.S.boss.lesson); } catch (_e) {}
+  try { const r = DB.newEnemies && DB.newEnemies.rows.filter(function (x) { return x.id === v.kind; })[0]; if (r && r.lesson) return String(r.lesson); } catch (_e) {}
+  return v.champion && v.champTitle ? String(v.champTitle) : '';
+}
+/* his weapon's damage as a bar, never two more numbers (rule 224(c), Paolo 10/26: 'tired of it just being numbers... more icons'): the
+   stretch from its least to its most is lit, against the most any weapon in the table carries (weapons.json); the numbers are its label */
+function sheetDamage(w) {
+  const most = DB.weapons.rows.reduce(function (m, x) { return Math.max(m, x.damage_max || 0); }, 1), lo = Math.max(0, Math.min(100, w.damage_min / most * 100)), hi = Math.max(lo + 2, Math.min(100, w.damage_max / most * 100));
+  return '<i class="cbar dmg" role="img" data-lo="' + w.damage_min + '" data-hi="' + w.damage_max + '" data-of="' + most + '" aria-label="damage ' + w.damage_min + ' to ' + w.damage_max + '"><i style="left:' + lo.toFixed(1) + '%;width:' + (hi - lo).toFixed(1) + '%"></i></i>';
+}
 function drawer(v) {
-  const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v);
+  const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v), yours = v.side === 'you';
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
-  d.innerHTML = '<div style="color:#d9a85a;font-weight:700;margin-bottom:4px">' + v.name + ' · LEVEL ' + (v.level || 1) + ' · ' + v.job.toUpperCase().replace('_', ' ') + '</div>'
+  const w = v.weapon, own = w ? (w.of || w) : null, L = own ? (DB.wlines.rows[own.class] || {}) : {}, tell = sheetTell(v), many = v.perks.length > 4;
+  let wname = ''; try { wname = own ? objName(own).toUpperCase() : ''; } catch (_e) { wname = w ? String(w.name || '').toUpperCase() : ''; }
+  d.className = 'sheet ' + (yours ? 'yours' : 'theirs') + (innerWidth > innerHeight ? ' wide' : '');
+  d.innerHTML = '<div class="sh-head"><canvas class="sh-face" width="144" height="144"></canvas><div class="sh-who"><b class="sh-name">' + sheetEsc(v.name) + '</b>'
+      + '<span class="sh-sub"><i class="sh-sr"> · </i>LEVEL ' + (v.level || 1) + ' · ' + sheetEsc(v.job.toUpperCase().replace('_', ' ')) + '</span>'
+      + (tell ? '<span class="sh-tell">' + sheetEsc(tell) + '</span>' : '') + '</div></div>'
+    + '<div class="sh-slip">'
     + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', cbar(v.armH, v.armHMax)) + r('Armour, body', cbar(v.armB, v.armBMax))
     + r('Fatigue', Math.round(v.fat) + ' / ' + fm) + r('Nerve', v.morale) + r('Melee skill / defence', v.mskill + ' / ' + v.mdef)
     + r('Ranged skill / defence', v.rskill + ' / ' + v.rdef) + r('Initiative', v.initiative) + r('Resolve', v.resolve === null ? '-' : v.resolve)
     + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', pips(v.ammo, v.weapon.mag || v.ammo)) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
-    + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
-  v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(perkArt(id, 18));
-    const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
-  d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block';
+    + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '')
+    + '</div>'
+    + (w ? '<div class="sh-w"><b>' + sheetEsc(wname) + '</b>' + (L.line ? '<span>' + sheetEsc(L.line) + '</span>' : '')
+      + (w.damage_min !== null && w.damage_min !== undefined && w.damage_max !== null ? r('Damage', sheetDamage(w)) : '') + '</div>' : '')
+    + '<div class="sh-perks' + (many ? '' : ' few') + '"></div>'
+    + (v.perks.length ? '<div class="sh-read"></div>' : '');
+  const box = d.querySelector('.sh-perks');
+  v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.dataset.perk = id; p.appendChild(perkArt(id, 18));
+    const q = document.createElement('div'), t = document.createElement('span'); t.textContent = perkName(id); q.appendChild(t);
+    const ln = perkLine(id);   /* what it does is read on the reading line under a finger: its line carries numbers, and the sheet keeps few (rule 224(c)) */
+    p.appendChild(q); p.setAttribute('aria-label', perkName(id) + (ln ? ': ' + ln : ''));
+    /* a finger on a skill reads it (the sheet stays up); pointerdown, because the sheet is redrawn as the fight moves */
+    p.addEventListener('pointerdown', function (e) { UI.sheetPerk = id; UI.sheetHold = performance.now(); UI.sheetSig = null; try { e.stopPropagation(); } catch (_e) {} sheetRead(v); });
+    box.appendChild(p); });
+  const cv = d.querySelector('.sh-face'); try { drawPortrait(cv.getContext('2d'), v, cv.width, yours || FIGHT.shown(v)); } catch (_e) {}
+  sheetLook();
+  d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'grid';
 }
+/* the board and the well are the kit's rendered pieces (light and form, never a flat fill); laid once */
+function sheetLook() {
+  if (document.getElementById('sheet-look')) return;
+  const M = window.BohemiaMaterials, st = document.createElement('style'); st.id = 'sheet-look';
+  /* the kit dresses #drawer as a receipt under html[data-kit] body (slices/bohemia_ui_materials.js KIT_RULES); the sheet's board outranks it by its class */
+  try { if (M && M.kit) st.textContent = 'html[data-kit] body #drawer.sheet{' + M.kit('board', 1) + 'background-color:#2a2016;padding:16px 12px 12px;transform:none;color:#f2e4c6;box-shadow:none;filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))}'
+    + 'html[data-kit] body #drawer.sheet.t2{padding-top:13px;padding-bottom:9px}html[data-kit] body #drawer.sheet.t3{padding-top:11px;padding-bottom:7px}'
+    + 'html[data-kit] body #drawer.sheet .sh-w,html[data-kit] body #drawer.sheet .sh-read{' + M.kit('well', 1) + '}'; } catch (_e) {}
+  (document.head || document.documentElement).appendChild(st);
+}
+/* the reading line: the skill under his finger, or (before he has touched one) how to read one; draft:true */
+function sheetRead(v) {
+  const d = document.getElementById('drawer'), e = d && d.querySelector('.sh-read'); if (!e) return;
+  const id = UI.sheetPerk && v.perks.indexOf(UI.sheetPerk) >= 0 ? UI.sheetPerk : null;
+  [].slice.call(d.querySelectorAll('.sh-perks .p')).forEach(function (p) { p.classList.toggle('on', p.dataset.perk === id); });
+  e.innerHTML = id ? '<b>' + sheetEsc(perkName(id)) + '</b> ' + sheetEsc(perkLine(id) || '') : 'Tap a skill to read what it does.';
+}
+/* stood in the slip, fitted to the glass: the sheet tightens a step at a time until nothing is off the glass */
+function sheetLayout(v) {
+  const d = document.getElementById('drawer'); if (!d || !d.classList.contains('sheet')) return;
+  const bars = d.querySelector('.bst-fight'), slip = d.querySelector('.sh-slip'); if (bars && slip && bars.parentNode !== slip) slip.insertBefore(bars, slip.firstChild);
+  sheetRead(v);
+  /* the room it has: from where it really stands (in the game the phone's layout lifts it clear of the phone) to the top of the glass */
+  const bot = parseFloat(getComputedStyle(d).bottom), avail = Math.max(160, innerHeight - (isFinite(bot) ? bot : BOTH + 10) - 8), steps = ['t1', 't2', 't3']; let step = 0;
+  d.classList.remove('t1', 't2', 't3'); d.style.maxHeight = avail + 'px';
+  while (d.scrollHeight > avail + 1 && step < steps.length) d.classList.add(steps[step++]);
+  const b = d.getBoundingClientRect();
+  UI.sheetFit = { id: v.id, step: step, avail: avail, need: d.scrollHeight, fits: d.scrollHeight <= avail + 1 && b.top >= -1 && b.bottom <= innerHeight + 1, box: [Math.round(b.left), Math.round(b.top), Math.round(b.width), Math.round(b.height)], wide: d.classList.contains('wide'), perks: v.perks.length };
+}
+/* ==== /__THE_MANS_SHEET__ (the builder; its wrapper is below UI THREE's bars) ==== */
 /* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(a), 247(a)(c)(d), Paolo 10/26: 'HP,
    fatigue, ranged attack, melee attack, ranged defence, melee defence, morale and initiative, across the board... behind the
    numbers, like a progress bar, how far it is from the maximum that's even possible'). COMBAT's card is drawn as it was; this block
@@ -10736,6 +10860,16 @@ function fightBars(v) {
     + '#drawer .bst-fight .bst-bar{height:14px}#drawer .bst-fight .bst-bar>i.bst-n{line-height:12px}';
   (document.head || document.documentElement).appendChild(st); })();
 /* ==== end __UI_THREE_STATS__ ==== */
+/* ==== __THE_MANS_SHEET__, THE WRAPPER (FIGHT SCREEN 11/14, rule 450(a)): the sheet is built (the builder above, then UI THREE's bars),
+   then stood and fitted; it is rebuilt only when something on it changed, so a finger on a skill meets the same piece twice */
+(function () { const built = drawer;
+  drawer = function (v) { const d = document.getElementById('drawer');
+    const sig = [v.id, v.hp, v.armH, v.armB, Math.round(v.fat), v.morale, v.ammo, v.loaded, v.perks.join(','), v.injuries.length, v.weapon && v.weapon.id, innerWidth, innerHeight, BOTH, UI.sheetPerk || ''].join('|');
+    if (UI.sheetSig === sig && d.style.display !== 'none' && d.querySelector('.sh-head')) return;
+    built(v); try { sheetLayout(v); } catch (e) { UI.sheetErr = String(e && e.message || e); } UI.sheetSig = sig; };
+  const wcard = weaponCard; weaponCard = function (v) { const d = document.getElementById('drawer'); d.className = ''; d.style.maxHeight = ''; UI.sheetSig = null; return wcard(v); };
+})();
+/* ==== /__THE_MANS_SHEET__, THE WRAPPER ==== */
 /* THE WEAPON SAYS WHAT IT DOES (rule 75e; records/target/bb/weapon_lines.json): hold a finger on the strike square
    or on any man and his weapon's card comes up on the receipt: its name here, its Battle Brothers base in small print,
    its one plain line, and its numbers from weapons.json. A tap anywhere puts it away. */
@@ -10784,7 +10918,8 @@ function manAt(px, py) {
   bs.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 });
 document.getElementById('card').onclick = function () { UI.drawer = !UI.drawer; if (!UI.drawer) document.getElementById('drawer').style.display = 'none'; else hud(); };
-document.getElementById('drawer').onclick = function () { UI.drawer = false; UI.wcard = null; this.style.display = 'none'; };
+document.getElementById('drawer').onclick = function () { if (performance.now() - (UI.sheetHold || 0) < 600) return;   /* __THE_MANS_SHEET__: a finger on a skill reads it, it does not put the sheet away */
+  UI.drawer = false; UI.wcard = null; UI.sheetSig = null; UI.sheetPerk = null; this.style.display = 'none'; };
 /* our draft name for a Battle Brothers perk (records/target/bb/perk_translation.json) */
 function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
 /* ---------------- THE WIPE IS AN EVENT (COMBAT [the loss is understood], rule 143(e), Paolo 10/24: 'when I die it was very hard

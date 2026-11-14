@@ -5,7 +5,33 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [shot flash] SHIPPED aa809c1d5, BUILD 11/14l - EVERY SHOT IS FELT, BUILT, NOT YET SEEN (rule 450(b)(c)(d); ask row 622). VOTE fight-screen-every-shot-is-felt-11-14 (stand_in; the card PLAYS it).
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [man's sheet] SHIPPED @@SHA@@, BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). VOTE fight-screen-the-mans-sheet-11-14 (stand_in; before and after, upright and sideways).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_MANS_SHEET_11_14_26.md. The teardown it answers: records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md (one line of it corrected
+against rule 224: the meet card's count as drawn men is his ruling).
+WHAT: the sheet a finger on a man's face opens is rebuilt whole: his face pinned on the house's dark board (gold his, red theirs), name, level, trade, a man of theirs' one thing to
+know; UI THREE's eight bars each with its word; armour, nerve; the weapon and its line in a well, damage a bar; every skill, a finger on one reads it; nothing under 11 points; it
+always fits both ways (steps t1 t2 t3).
+WHERE: slices/BOHEMIA_FIGHT.html __THE_MANS_SHEET__ (sheetTell, sheetDamage, drawer, sheetLook, sheetRead, sheetLayout; the wrapper after __UI_THREE_STATS__ redraws only on a
+changed signature and gives the weapon's hold card its paper back); css #drawer.sheet; UI.sheetFit is its own account. The kit dresses #drawer as a receipt under html[data-kit]
+body: sheetLook's injected rule outranks it by the class.
+GATE THE MAN'S SHEET 7/0 (M1 to M6, one plant; a browser), registered. STATS ARE BARS 38/0, ICONS NOT NUMBERS 8/0, EVERY PANEL CLOSES 14/0, THE WHY LINE 15/0, EVERY SHOT IS FELT 7/0.
+ON THE PAGE: RESULT, four surfaces, each inside the glass with nothing off it, no type under 11 points, a face, eight bars with words, a finger on a skill read and the sheet stayed: the demo upright 374 x 491 of 542 points of room (a MARKSMAN, 5 skills); the demo on its side 708 x 218 of 372 (a RAIDER, 17 skills, shown as pictures); the alpha upright 374 x 453 of 500 (a RAIDER, 17 skills); the alpha on its side 708 x 285 of 330 (a MARKSMAN, 5 skills). 0 page errors. The room is less than the screen because the phone's layout lifts the sheet clear of the phone.
+THE SEAM WITH UI THREE (rule 448, the coordinator's word): your eight bars are kept as they are inside my slip; the sheet, the speaking cards and the shot's white are mine; THE
+MAN'S CARD ON THE PHONE is in your file (slices/bohemia_phone.js .fight) and rule 450 names it mine: I hand you the design (nothing under 11 points, nothing cut, every button a
+thumb, RETREAT away from WAIT and AUTO, the sheet's board) or the coordinator says I edit a marked block; the sheet grows from his face (448(a)), a grow-in is yours or mine on your word.
+NAMED, NOT MINE: HUD OVERLAP 14/1 ('MISSING: phonebtn', the city file); SETTINGS 2 legs; THE FIGHT BY HAND, QUICKER 18/2; the VOTE tab's landing legs; the registry's orphans; PAGES PUBLISH's cap.
+
+NEXT, in order (rule 450(a), ask row 621): TWO CARDS LEFT.
+ (1) THE MAN'S CARD ON THE PHONE (the one he sees every turn: 5 point numbers, a cut status line, buttons of 25 by 27 points). Blocked on the seam above (UI's file).
+ (2) THE CARD THAT OPENS A FIGHT, with the why sentence from the leader's face. BLOCKED, AND THE BLOCKER IS NAMED: the meet card's men are the MAP's models and the fight deals its
+     own, so a face on the card would not be the man in the fight (ONE ID, ONE WHOLE PERSON). The band's looks must be handed from the map to the fight first (COMBAT THREE's
+     hand-over; the card is RUN's #meetcard). slices/bohemia_fight_why.js can already be asked before the fight (how, who, pick).
+ (3) THE TURN ORDER back on the glass in the game; one material for the speaking cards (#vet is still pale paper).
+ (4) THE LIBRARY PAGE on Rogue Fable 4's screen and card (the library has none): owed before any card is called final.
+[bb Battle Brothers' man's page is a portrait, stats, perks and a paper doll; ours was a list of numbers and is now a face, eight words and what he can do]
+[analog horror: an ID photograph pinned to a dark board, and under it one sentence on how to stop him]
+
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 -- [shot flash] SHIPPED aa809c1d5, BUILD 11/14l - EVERY SHOT IS FELT, BUILT, NOT YET SEEN (rule 450(b)(c)(d); ask row 622). VOTE fight-screen-every-shot-is-felt-11-14 (stand_in; the card PLAYS it).
 Record: records/BOHEMIA_FIGHT_SCREEN_EVERY_SHOT_IS_FELT_11_14_26.md.
 WHAT: every gun fired by anyone throws a flash at its barrel and a quick white hit across the whole glass, bigger for a bigger gun, never a strobe
 (a volley is one flash, three a second at most), soft by SETTINGS' new FLASH switch (boh.flash), MOTION: LESS or the phone's reduce-motion.
@@ -20,23 +46,7 @@ HAND, QUICKER 18/2; the VOTE tab's landing legs; the gate registry's orphans; PA
 FOR FEEL: nothing of __THE_FIGHTS_WEIGHT__ was edited; shotFelt is called on the line after wShot. FOR UI: one marked row (FLASH) in your settings file.
 FOR TUNING: fight_shot.json's felt numbers are yours to move. FOR SOUNDS: the flash's moment is the shot's (a.at + 0.35 of the beat).
 
-NEXT, in order (rule 450(a), ask row 621; rule 449(b), ask row 616): THE CARD, his answer to 'which part do you hate most'.
-*** 11/14 STEP (1) FILED: records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md (tools/bohemia_fight_screen_teardown.js; the stills and both
-measurement files in records/fight_screen_teardown_11_14/). MEASURED: five things act as 'the card' in four materials; the phone's man card prints its
-numbers at 5 points, cuts its status line and has buttons of 25 by 27 points; his sheet has no face and sideways is 640 points tall on a 390 point screen;
-the meet card has no leader, 'MEN · SOME' for a count and no why; the turn order is not in the game; a lesson card can lie over ENGAGE (for FIXES 2 / RUN).
-THE LIBRARY HAS NO PAGE ON ROGUE FABLE 4'S SCREEN: that page is the rebuild's first step. THE REBUILD ITSELF IS NOT STARTED; its order is the record's
-section 4. A FORK FOR THE COORDINATOR: the opening card is RUN's #meetcard and the resident man card is UI's phone file; whose hands. ***
- (1) THE TEARDOWN, a record: stills of the fight on a phone both ways (the two proofs' shots are a start), every piece on the glass named and measured
-     against the laws (light and form; analog horror at the source; the same HUD as the map; rule 448's phone spot; 442(b)) and the world's best
-     (Battle Brothers' and Rogue Fable 4's own cards, from reference/library). In the game the glass is: the speaking cards (#why #vet #call, top
-     left), the paper strip #say, the bars over the men, the chalk line, and THE PHONE (slices/bohemia_phone.js .fight: the man's card with three bars
-     and AP pips, FIGHT / END TURN, wait, back, auto, speed, RELOAD, STRIKE, two app buttons). The fight page alone also has #top (round, turn
-     order) and #bot. FIRST FINDING TO MEASURE: in the game the turn order is not on the glass at all.
- (2) THE OPENING CARD FIRST (it carries the why line): who is on him, how many, and the one WHY sentence from a face, as a FINISHED piece opening out
-     of the phone's spot (448); today the why line is the fight's present speaking card and the map's MEET card is RUN's.
- (3) THE MAN'S CARD inside the fight, finished, one look with the rest of the glass, readable in one glance upright and sideways.
- Each compared to the world's best before it is called done; each proven on the real page both ways; its VOTE card the before and the after.
+(its NEXT and the teardown's note are carried by the newest block.)
 [bb Battle Brothers' handgonne smokes and its screen never flinches; ours flinches on every shot, and never strobes]
 [analog horror: the white is a tape's overexposed frame: the picture gone for two frames, and back]
 

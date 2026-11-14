@@ -15,7 +15,7 @@ from the page itself: records/fight_screen_teardown_11_14/measured_upright.json 
 There is no one card. There are FIVE different things that each act as 'the card', in FOUR different materials, and none of them shows a
 face and a reason together. The one he looks at most (the man's card on the phone) prints its numbers at 5 points, which nobody can
 read. The big one (his sheet) is a list of eight bare numbers on pale paper with no face, and sideways most of it is off the screen.
-The card that opens the fight names the crew and draws four small men, but has no leader, no count he can read, and no why.
+The card that opens the fight names the crew and draws its men (his own ruling, rule 224), but has no leader and no why.
 
 ## 1. THE FIVE THINGS THAT ACT AS 'THE CARD' (measured)
 | # | piece | where it lives | size upright | size sideways | material |
@@ -54,7 +54,10 @@ HIS SHEET (#drawer):
   it is the brightest thing on a dark screen (the analog horror law: thought about at the source, never a white sheet).
 THE MEET CARD (the card that opens a fight; rule 450(a) names it: 'who is on him, how many, and the one WHY sentence from a face'):
 - NO LEADER AND NO FACE. Four small men in a row (306 x 84), nobody in front, nobody named.
-- 'MEN · SOME' IS THE COUNT. A word where a number belongs; the stars beside it are their danger.
+- THE COUNT IS THEIR MEN, DRAWN, AND THAT IS HIS RULING (rule 224, Paolo 10/26: 'tired of it just being numbers... more icons': no lone
+  count, their number is their men drawn, his a tally). CORRECTED THE SAME ROUND: this line first called 'MEN · SOME' a word where a
+  number belongs; that was this lane reading the card without its law. What is wrong is smaller: the men are 0.62 size in a row with
+  nobody in front, so four men and seven read alike at a glance.
 - NO WHY. The reason arrives only after ENGAGE, inside the fight (11/14k). So he decides to fight or fall back BEFORE he is told why
   they are on him. That is the wrong order: the why belongs on the card where he chooses.
 - A LESSON CAN LIE ON ITS BUTTONS. On the upright still the map's own teaching card (DESI: 'Tap a building to go in...') lies over
@@ -89,8 +92,8 @@ THE WHOLE GLASS:
 
 ## 4. THE ORDER OF THE REBUILD (the next round; rule 450(a): the opening card first, it carries the why line)
 1. THE LIBRARY PAGE on Rogue Fable 4's screen and card (above). Small; it gates 'done', not the start.
-2. THE OPENING CARD, FINISHED: one card where he chooses: their LEADER'S FACE, the crew's name, HOW MANY as a number with their men
-   drawn, the ONE WHY SENTENCE from that face (the chooser and the table are built: slices/bohemia_fight_why.js can be asked before
+2. THE OPENING CARD, FINISHED: one card where he chooses: their LEADER'S FACE, the crew's name, HOW MANY as their men drawn (rule 224,
+   never a lone number), the ONE WHY SENTENCE from that face (the chooser and the table are built: slices/bohemia_fight_why.js can be asked before
    the fight as well as at the bell), the ground in one line, ENGAGE and FALL BACK at 44 points and never under another card; opening
    out of the crew he met (448(a)). The meet card is RUN's file: this needs a marked block there or RUN's word; the coordinator decides
    whose hands. At the bell the same face says the same sentence once more, small, and goes.
@@ -115,5 +118,10 @@ LOOK like is the rebuild's work and his thumb.
 
 [bb Battle Brothers' fight HUD is a frame and its one floating card is summoned; ours floats five cards in four materials and frames nothing]
 [analog horror: the brightest thing on the fight's glass is a blank sheet of paper with eight numbers on it]
+
+*** 11/14, LATER THE SAME ROUND: HIS SHEET (piece 5) IS REBUILT, records/BOHEMIA_FIGHT_SCREEN_THE_MANS_SHEET_11_14_26.md. AND THE OPENING CARD'S
+BLOCKER IS NAMED THERE: the men drawn on the meet card are the map's models and the men in the fight are dealt by the fight, so a leader's face
+on the card would not be the man who stands in the fight (ONE ID, ONE WHOLE PERSON); the band's looks must be handed from the map to the fight
+first, and that hand-over is COMBAT THREE's. ***
 
 *FIGHT SCREEN, 11/14/26. A record; the stills and both measurement files are in records/fight_screen_teardown_11_14/.*

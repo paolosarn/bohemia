@@ -1,3 +1,17 @@
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). Its block is handoffs/FIGHT_SCREEN.md.
+The sheet a finger on a man's face opens is rebuilt whole: his face pinned on the house's dark board (gold his, red theirs), his name, level and trade, the one thing
+to know about a man of theirs, UI THREE's eight bars each with its word, his armour and nerve, his weapon and its line in a well (damage a bar, no digits), every skill
+(a finger on one reads what it does). Nothing under 11 points; it always fits, upright and on its side (it was 640 points tall on a 390 point screen). slices/BOHEMIA_FIGHT.html
+__THE_MANS_SHEET__. No rule, board, hand-over or AUTO edited.
+ON THE PAGE: RESULT, four surfaces, each inside the glass with nothing off it, no type under 11 points, a face, eight bars with words, a finger on a skill read and the sheet stayed: the demo upright 374 x 491 of 542 points of room (a MARKSMAN, 5 skills); the demo on its side 708 x 218 of 372 (a RAIDER, 17 skills, shown as pictures); the alpha upright 374 x 453 of 500 (a RAIDER, 17 skills); the alpha on its side 708 x 285 of 330 (a MARKSMAN, 5 skills). 0 page errors. The room is less than the screen because the phone's layout lifts the sheet clear of the phone.
+Gate THE MAN'S SHEET 7/0, registered. VOTE fight-screen-the-mans-sheet-11-14 (before and after, both ways). Record records/BOHEMIA_FIGHT_SCREEN_THE_MANS_SHEET_11_14_26.md.
+PRE-PUSH PASS (rule 13): THE MAN'S SHEET 7/0, STATS ARE BARS 38/0, ICONS NOT NUMBERS 8/0, EVERY PANEL CLOSES 14/0, THE WHY LINE 15/0, EVERY SHOT IS FELT 7/0, DEMO BUILD 25/0,
+HANDOFF 10/0. RED, NOT MINE: HUD OVERLAP 14/1 (phonebtn, the city file), SETTINGS 2 legs, THE FIGHT BY HAND, QUICKER 18/2, the VOTE tab's landing legs, the registry's
+orphans, PAGES PUBLISH's cap. Full suite unmeasured since d97cecd3.
+NEXT, TWO CARDS LEFT, BOTH NEED ANOTHER LANE'S WORD: the man's card on the phone (UI's file; the seam is in my handoff) and the card that opens a fight (the band's looks must
+be handed from the map to the fight first, so the face on the card is the man in the fight: COMBAT THREE's hand-over, RUN's card).
+[bb Battle Brothers' man's page is where the story lives; ours was a list of numbers and is now a face, eight words and what he can do]
+[analog horror: an ID photograph pinned to a dark board, and under it one sentence on how to stop him]
 COMBAT THREE (combat-three-01gkdyuu): 11/14 LATEST -- BUILD 11/14p - THE CEILING OVER YOUR HEAD, BUILT, NOT YET SEEN (rule 451(a)(b), his votes of 11/14; ask rows 623 and 624).
 (a) Inside the parking garage, the casino and the flood tunnels the building's ceiling is drawn over the fight at 10% (his number): the deck's girders and
 dead tube lights, the casino's coffers, the culvert's roof. Measured on the real page: 99 pixels in 100 move 13 of 255 or less, nothing is hidden. The three
