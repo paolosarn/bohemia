@@ -200,7 +200,7 @@ function words(T) {
   let planted = false;
   const srv = http.createServer((q, r) => { const rel = decodeURIComponent(q.url.split('?')[0]), f = path.join(ROOT, rel);
     if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); }
-    let body = fs.readFileSync(f); if (planted && /BOHEMIA_FIGHT\.html$/.test(rel)) body = Buffer.from(String(body).replace('placePick(); tickWhy(now); tickVet(now);', 'placePick(); tickVet(now);'));
+    let body = fs.readFileSync(f); if (planted && /BOHEMIA_FIGHT\.html$/.test(rel)) body = Buffer.from(String(body).replace('tickWhy(now); tickVet(now);', 'tickVet(now);'));
     r.writeHead(200, { 'Content-Type': MIME[path.extname(f).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-store' }); r.end(body); });
   await new Promise(res => srv.listen(0, '127.0.0.1', res)); const port = srv.address().port;
   const b = await chromium.launch(); const errs = [];

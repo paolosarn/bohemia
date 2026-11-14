@@ -1,0 +1,64 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — Every Shot Is Felt</title>
+<!-- FIGHT SCREEN [the shot flash], VAMILY rule 450(b)(c)(d), ask row 622 (Paolo 11/14: 'anytime anyone fires a shot I want a muzzle
+     flash on the screen, some quick shit, like it goes all white or something, I want people to feel this shot for real').
+     THIS CARD PLAYS IT: the fight's own page (slices/BOHEMIA_FIGHT.html) below, a crew with a pistol, a shotgun and a rifle against a
+     road crew with rifles, on AUTO, dealt again when it ends. Nothing here is a recording: it is the game's own flash, its own numbers
+     (records/target/bb/fight_shot.json). FULL and SOFT below change this card only (the fight is told which), never his own setting.
+     It never strobes: a volley is one flash and no second begins more than three. Words draft:true. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 10px;color:#a49a86;max-width:62ch}
+  .bar{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+  button{min-height:44px;min-width:88px;padding:0 14px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:3px;font:inherit;letter-spacing:1.5px}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  .glass{position:relative;width:100%;max-width:430px;height:min(74vh,760px);border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#0d0b09}
+  .glass iframe{position:absolute;left:0;top:0;width:100%;height:100%;border:0}
+  .note{color:#6f6862}
+</style>
+<h1>EVERY SHOT IS FELT</h1>
+<p>Any time anyone fires a gun, yours or theirs, the barrel flashes and the whole screen goes white for a blink. A pistol is a light hit, a rifle is harder, a shotgun whites the street out. It can never strobe: shots fired together are one flash, and never more than three in a second. Watch the fight below play itself.</p>
+<div class="bar"><button id="full" class="on">FULL</button><button id="soft">SOFT</button><button id="again">DEAL AGAIN</button></div>
+<div class="glass"><iframe id="f" title="a fight, played by the game" allow="autoplay"></iframe></div>
+<p class="note" id="count">&nbsp;</p>
+<p class="note">On your phone: any fight where somebody has a gun. SETTINGS has a FLASH switch (FULL or SOFT) for eyes that cannot take flashing; MOTION: LESS makes it soft too.</p>
+<script>
+(function () {
+  'use strict';
+  var OPTS = { why: 'road:rifles', auto: true, deploy: false, teach: false, met: 3, district: 'suburb', cell: { gx: 40, gy: 40 }, keep: false, resume: false,
+    party: { count: 5, days: 40, difficulty: 1, faction: 'brigands', rolled: true, band: ['brigand_marksman', 'brigand_thug', 'brigand_marksman', 'brigand_thug', 'brigand_marksman'] },
+    company: [{ background: 'militia', level: 3, gear: { main: 'snub_revolver' } }, { name: 'DESI', background: 'militia', level: 3, gear: { main: 'handgonne' } },
+      { name: 'RAUL', background: 'militia', level: 3, gear: { main: 'zip_gun' } }, { name: 'LUPE', background: 'militia', level: 3, gear: { main: 'crossbow' } }] };
+  var f = document.getElementById('f'), soft = false, n = 0;
+  function win() { try { return f.contentWindow; } catch (e) { return null; } }
+  function tell() { var w = win(); if (w) { try { w.__SHOT_SOFT = soft; } catch (e) {} } }
+  function deal() {
+    n++; f.src = 'about:blank';
+    setTimeout(function () {
+      var iv = setInterval(function () { var w = win(); try { if (w && /BOHEMIA_FIGHT/.test(w.location.href)) { if (!w.FIGHT_OPTS) w.FIGHT_OPTS = Object.assign({}, OPTS, { cell: { gx: 40 + n * 3, gy: 40 + n } }); w.__SHOT_SOFT = soft; } } catch (e) {} }, 4);
+      f.addEventListener('load', function once() { f.removeEventListener('load', once); setTimeout(function () { clearInterval(iv); }, 3000); tell(); });
+      f.src = '../BOHEMIA_FIGHT.html';
+    }, 60);
+  }
+  function pick(s) { soft = s; document.getElementById('full').classList.toggle('on', !s); document.getElementById('soft').classList.toggle('on', s); tell(); }
+  document.getElementById('full').addEventListener('click', function () { pick(false); });
+  document.getElementById('soft').addEventListener('click', function () { pick(true); });
+  document.getElementById('again').addEventListener('click', deal);
+  /* the count under the glass is the fight's own (UI.shotSeen); a fight that has ended is dealt again after a breath */
+  var overAt = 0;
+  setInterval(function () {
+    var w = win(); if (!w) return;
+    try {
+      var s = new w.Function('return typeof UI !== "undefined" && typeof FIGHT !== "undefined" && FIGHT.S ? { seen: UI.shotSeen, over: !!FIGHT.S.over } : null')(); if (!s) return;
+      var q = s.seen || { fired: 0, white: 0, volley: 0, held: 0 };
+      document.getElementById('count').textContent = 'THIS FIGHT: ' + q.fired + ' SHOTS · ' + q.white + ' FLASHES' + (q.volley ? ' · ' + q.volley + ' JOINED A VOLLEY' : '') + (q.held ? ' · ' + q.held + ' HELD BACK' : '') + (soft ? ' · SOFT' : ' · FULL');
+      if (s.over) { if (!overAt) overAt = Date.now(); else if (Date.now() - overAt > 2500) { overAt = 0; deal(); } } else overAt = 0;
+    } catch (e) {}
+  }, 400);
+  deal();
+})();
+</script>

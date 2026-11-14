@@ -9557,6 +9557,15 @@ GATES = [
      "(W8); on the fight's page on a phone the sentence comes after the first second from the right mouth with a drawn face, the fight moves "
      "under it, it goes by itself (W9, a browser). Planted: a how with no rules, a kind in no group, a line of two sentences, the page's tick "
      "taken out. About 40 s", True),
+    ('EVERY SHOT IS FELT', ['node', 'gates/every_shot_is_felt_gate.js'],
+     "FIGHT SCREEN gate, 11/14, VAMILY rule 450(b)(c)(d) (ask row 622; PAOLO 11/14: 'anytime anyone fires a shot I want a muzzle flash on the "
+     "screen, some quick shit, like it goes all white... I want people to feel this shot for real'). The numbers (records/target/bb/"
+     "fight_shot.json) read: a bigger gun a bigger white, quick, three a second at most, soft under 0.4 (S1); the page asks for the flash on "
+     "the gun's own line for anyone's gun, ticks it every frame, taps pass through, no css drives it, FLASH is in settings (S2); in a fight "
+     "on the fight's page every gun shot, his and theirs, whites the screen to its gun's peak and is gone inside a quarter second, the barrel "
+     "is drawn, no second begins more than three, a bow throws none (S3, a browser); eight shots in a tenth of a second are one flash and "
+     "twelve a fifth apart never begin more than three in a second (S4); FLASH: SOFT and MOTION: LESS soften it, FLASH: FULL wins (S5). "
+     "Planted: the three-a-second line taken out, the gun's line taken out. About 50 s", True),
     ('THE PARKING GARAGE', ['node', 'gates/the_parking_garage_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 440(a) (ask row 539; PAOLO 11/9: 'More everything pls'; rule 416's list, the third big interior). "
      "A fight at a place with a parking structure is fought on one deck of it for the data's share of the fights there, by the cell's own dice, never "

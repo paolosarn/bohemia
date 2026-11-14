@@ -190,6 +190,9 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #call{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:7px;max-width:min(calc(100vw - 16px),380px);
   padding:4px 10px 5px 4px;color:#efe3cc;background:rgba(14,11,8,.86);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}
 #call canvas{flex:0 0 auto;width:34px;height:34px;border-radius:2px;background:#0d0b09}
+/* __EVERY_SHOT_IS_FELT__ (FIGHT SCREEN 11/14, rule 450(b)): the white hit across the whole glass, over the board and under the cards; its
+   strength is set a frame at a time by tickShot, never by a css animation (a volley is one flash, never more than three a second) */
+#shotflash{position:fixed;left:0;top:0;right:0;bottom:0;z-index:3;pointer-events:none;background:#fff;opacity:0}
 /* __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a)): the one sentence at the bell, from a face; it grows out of its own face (rule 448(a)) */
 #why{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:9px;max-width:min(calc(100vw - 16px),440px);
   padding:5px 12px 6px 5px;color:#efe3cc;background:rgba(14,11,8,.9);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));
@@ -341,6 +344,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="winds"></div>
 <div id="hurts"></div>
 <div id="pick"></div>
+<div id="shotflash"></div>
 <div id="why"><canvas id="whyface" width="156" height="156"></canvas><div><b id="whyname"></b><span id="whyline"></span></div></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
 <div id="call"><canvas id="callface" width="102" height="102"></canvas><div><b id="callname"></b><span id="callline"></span></div></div>
@@ -444,7 +448,11 @@ function loadAll() {
     /* __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a), ask row 617): why this group is on him, one file a modder edits (how a fight began,
        who they are, the sentences); a fight without it plays as before and says nothing (gates/the_why_line_gate.js holds the file) */
     .then(function () { return fetch('../records/target/bb/fight_reasons.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
-    .then(function (k) { DB.why = k && Array.isArray(k.rules) ? k : null; });
+    .then(function (k) { DB.why = k && Array.isArray(k.rules) ? k : null; })
+    /* __EVERY_SHOT_IS_FELT__ (FIGHT SCREEN 11/14, rule 450(b)(c), ask row 622): the flash's own numbers, one file a modder edits; a fight
+       without it plays as before with no flash (gates/every_shot_is_felt_gate.js holds the file) */
+    .then(function () { return fetch('../records/target/bb/fight_shot.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (k) { DB.shot = k && k.white && k.barrel ? k : null; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -7276,6 +7284,73 @@ function tickVet(now) {
   if (!typing && !V.done) V.done = now;
   if ((V.done && now - V.done > beat * TEACH_HOLD_BEATS) || FIGHT.S.over) { document.getElementById('vet').style.display = 'none'; UI.vet = null; }
 }
+/* ---------------- __EVERY_SHOT_IS_FELT__ (FIGHT SCREEN 11/14/26; VAMILY rule 450(b)(c), ask row 622) ----------------
+   PAOLO 11/14: 'anytime anyone fires a shot I want a muzzle flash on the screen, some quick shit, like it goes all white or
+   something, I want people to feel this shot for real.'
+   EVERY GUN FIRED BY ANYONE, his men's or theirs, throws (1) a flash at its barrel, two drawn frames in hard pixels, and (2) a
+   quick white hit across the whole glass, on the shot's own moment: the kick key where its sound lands (the same moment
+   __THE_FIGHTS_WEIGHT__ lights the street; this adds to it and changes none of it). BIGGER FOR A BIGGER GUN (pistol, rifle,
+   shotgun: the rig's own three). IT NEVER STROBES (450(c)): shots inside one volley are ONE flash, the biggest gun's, and no
+   more than three flashes start in any second; the rest are still seen at the barrel and heard. SOFT for eyes that cannot take
+   flashing: SETTINGS' FLASH switch (boh.flash), MOTION: LESS, or the phone's own reduce-motion. A shot out of the dark whites
+   the screen and is heard but draws no barrel flash (it would give the shooter away, rule 157(c)). Every number is in
+   records/target/bb/fight_shot.json. What happened is counted on UI.shotSeen for the gate and for EYES. */
+const SHOT_SOFT_KEY = 'boh.flash';
+let SHOT_EL = null;
+function shotSoft() {
+  if (window.__SHOT_SOFT !== undefined) return !!window.__SHOT_SOFT;   /* a page that shows the flash both ways (its VOTE card) says which; his own setting is not touched */
+  try { const v = localStorage.getItem(SHOT_SOFT_KEY); if (v === 'soft') return true; if (v === 'full') return false; } catch (_e) {}
+  try { const j = JSON.parse(localStorage.getItem('BOH_SETTINGS') || 'null'); if (j && typeof j.lessmo === 'boolean') return j.lessmo; } catch (_e) {}
+  try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (_e) { return false; }
+}
+function shotKind(u) { const w = (u && u.weapon) || {}, k = DB.rig.guns && DB.rig.guns.by_class ? DB.rig.guns.by_class[(w.of && w.of.class) || w.class] : null; return DB.shot && DB.shot.white[k] !== undefined ? k : 'pistol'; }
+function shotFelt(u, t, at, B) {
+  const D = DB.shot; if (!D || !u) return;
+  const kind = shotKind(u), soft = shotSoft(), L = (UI.shots = UI.shots || []), N = (UI.shotSeen = UI.shotSeen || { fired: 0, white: 0, volley: 0, held: 0, barrel: 0, drawn: 0, peak: 0 });
+  N.fired++;
+  if (u.side === 'you' || FIGHT.shown(u)) { (UI.muzzle = UI.muzzle || {})[u.id] = { at: at, kind: kind, d: wDir(u, t), n: 0, soft: soft }; N.barrel++; }
+  /* a volley is one flash: a shot that lands inside the last flash's window joins it (and makes it the bigger gun's) */
+  for (let i = L.length - 1; i >= 0 && i >= L.length - 4; i--) if (Math.abs(at - L[i].at) <= D.volley_ms) { if (D.white[kind] > D.white[L[i].kind] && !L[i].n0) L[i].kind = kind; L[i].shots++; N.volley++; return; }
+  /* never more than three in a second: the flashes that begin inside the second before this one and the second after */
+  if (L.filter(function (q) { return Math.abs(at - q.at) < 1000; }).length >= D.max_per_second) { N.held++; return; }
+  L.push({ at: at, kind: kind, shots: 1, soft: soft, n0: 0 }); if (L.length > 40) L.shift(); N.white++;
+}
+function tickShot(now) {
+  const D = DB.shot, L = UI.shots; if (!D || !L || !L.length) { if (SHOT_EL && SHOT_EL._a) { SHOT_EL.style.opacity = '0'; SHOT_EL._a = 0; } return; }
+  let a = 0;
+  for (let i = L.length - 1; i >= 0 && i >= L.length - 4; i--) {
+    const q = L[i], t = now - q.at; if (t < 0) continue;
+    const peak = D.white[q.kind] * (q.soft ? D.soft.white_x : 1), hold = q.soft ? D.soft.hold_ms : D.hold_ms, fade = D.fade_ms[q.kind] * (q.soft ? D.soft.fade_x : 1);
+    /* its peak is drawn once whatever the phone's frame took (a shot is never missed), then held, then it falls */
+    const k = !q.n0 ? 1 : t < hold ? 1 : t < hold + fade ? 1 - (t - hold) / fade : 0;
+    if (k > 0) { q.n0 = (q.n0 | 0) + 1; a = Math.max(a, peak * k); }
+  }
+  if (!SHOT_EL) SHOT_EL = document.getElementById('shotflash');
+  a = Math.round(a * 100) / 100;
+  if (SHOT_EL && SHOT_EL._a !== a) { SHOT_EL.style.opacity = String(a); SHOT_EL._a = a; if (a > 0 && UI.shotSeen) { UI.shotSeen.drawn++; UI.shotSeen.peak = Math.max(UI.shotSeen.peak, a); (UI.shotLog = UI.shotLog || []).push([Math.round(now), a]); if (UI.shotLog.length > 400) UI.shotLog.shift(); } }
+}
+/* the flash at the barrel: over the man, where his gun ends (forward along his aim, up from his feet), a white core and two
+   hot inks, square pixels of the man's own size, two drawn frames */
+function shotBarrel(v, X, Y, h, now) {
+  const q = UI.muzzle && UI.muzzle[v.id], D = DB.shot; if (!q || !D) return;
+  const t = now - q.at; if (t < 0) return;
+  const B = D.barrel, hold = window.__SHOT_HOLD_MS || 0;
+  if (q.n >= B.frames && !(t < hold)) { delete UI.muzzle[v.id]; return; }
+  q.n++;
+  const px = Math.max(1, Math.round(h / 50 * DPR)), R0 = h * B.size[q.kind] * (q.soft ? D.soft.barrel_x : 1) * DPR * (q.n > 1 ? .7 : 1);
+  const mx = Math.round((X + q.d[0] * h * B.forward[q.kind]) * DPR / px) * px, my = Math.round((Y - h * B.up[q.kind] + q.d[1] * h * B.forward[q.kind] * .5) * DPR / px) * px;
+  const ux = q.d[0], uy = q.d[1], box = function (cxp, cyp, half) { const s = Math.max(px, Math.round(half * 2 / px) * px); cx.fillRect(Math.round((cxp - s / 2) / px) * px, Math.round((cyp - s / 2) / px) * px, s, s); };
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalCompositeOperation = 'source-over'; cx.globalAlpha = 1;
+  /* the tongue along the aim, the cross against it, the core */
+  cx.fillStyle = B.ink[2]; for (let i = 0; i <= 4; i++) box(mx + ux * R0 * (.5 + i * .42), my + uy * R0 * (.5 + i * .42), R0 * (.5 - i * .09));
+  cx.fillStyle = B.ink[1]; for (let i = -2; i <= 2; i++) if (i) box(mx + ux * R0 * .35 - uy * R0 * i * .42, my + uy * R0 * .35 + ux * R0 * i * .42, R0 * (.34 - Math.abs(i) * .09));
+  for (let i = 0; i <= 2; i++) box(mx + ux * R0 * (.4 + i * .4), my + uy * R0 * (.4 + i * .4), R0 * (.36 - i * .08));
+  cx.fillStyle = B.ink[0]; box(mx + ux * R0 * .3, my + uy * R0 * .3, R0 * .34); box(mx + ux * R0 * .75, my + uy * R0 * .75, R0 * .2);
+  cx.restore();
+  if (UI.shotSeen) UI.shotSeen.barrelDrawn = (UI.shotSeen.barrelDrawn | 0) + 1;
+  UI.shotAt = { id: v.id, x: mx / DPR, y: my / DPR, r: R0 / DPR, kind: q.kind, n: q.n };
+}
+/* ---------------- /__EVERY_SHOT_IS_FELT__ ---------------- */
 /* ---------------- __THE_WHY_LINE__ (FIGHT SCREEN 11/14/26; VAMILY rule 449(a), ask row 617) ----------------
    PAOLO 11/14: 'It doesn't explain why people are trying to attack you... I want there to be a sentence, just one sentence...
    why the fuck the enemies are attacking you or why the fuck the animals are attacking you.'
@@ -7524,6 +7599,7 @@ function startAnimHeard(a) {
     const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
     later(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(u); }, B * 0.35);
     if (ranged && !sling && FIGHT.isGun(u.weapon)) wShot(u, t, a.at + B * 0.35, B);   /* __THE_FIGHTS_WEIGHT__: the shot flares */
+    if (ranged && !sling && FIGHT.isGun(u.weapon)) shotFelt(u, t, a.at + B * 0.35, B);   /* __EVERY_SHOT_IS_FELT__ (rule 450(b)): the barrel's flash and the white hit, anyone's gun */
     if (sling && e.hit) later(function () { sfx('stone_bite', { side: u.side }); }, B * 0.45);
     later(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf, u, t) : wBlocked(u, t, e, ranged) ? wBlockSound(u, t) : SND.miss(bf, ranged ? null : u); }, B * 0.45);   /* __THE_FIGHTS_WEIGHT__: a block is BLOCKED */
     onTime(function () { if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
@@ -9990,6 +10066,7 @@ function drawMan(v, tw, th) {
   mkOff();
   if (!past) wFlareGround(v, X, Y, h, now);   /* __THE_FIGHTS_WEIGHT__: the street lit by his shot, under him */
   blitMan(v, X, Y, now, (v.morale === 'Fleeing' ? .7 : 1) * fade);
+  if (!past) shotBarrel(v, X, Y, h, now);   /* __EVERY_SHOT_IS_FELT__: the flash at his barrel, over him */
   wDrawn(v, now);   /* __THE_FIGHTS_WEIGHT__: what of him was drawn this frame, counted */
   if (v.netted) netOver(X, Y, h);
   layOver(v, X, Y);   /* THE LAYERS (ask line 251): whatever stands south of him covers him where its picture is; his bars stay over it */
@@ -11455,7 +11532,7 @@ function frame(now) {
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
-  try { draw(now); if (UI.cut) cutAfter(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickWhy(now); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
+  try { draw(now); if (UI.cut) cutAfter(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickShot(now); tickWhy(now); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
   catch (e) { frameErr(e, now); }
 }
 function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
@@ -11485,6 +11562,7 @@ function start() {
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = []; clearTimeout(UI.beatT); UI.beatFor = null; UI.onBeat = []; SONG.read = -1e9;
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.why = null; UI.whyDone = false; UI.whySaid = null; document.getElementById('why').style.display = 'none';   /* __THE_WHY_LINE__ */
+  UI.shots = []; UI.muzzle = {}; UI.shotSeen = null; UI.shotLog = []; document.getElementById('shotflash').style.opacity = '0';   /* __EVERY_SHOT_IS_FELT__ */
   UI.spentKey = null; hideSpent();
   /* a fight started again (AGAIN, a new kind) is dealt behind the loading screen like the first: the last board is gone, so the
      glass never answers a tap on a fight it has not shown yet (rule 164 item 12: its AUTO colour is read first) */

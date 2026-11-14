@@ -1,3 +1,16 @@
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- BUILD 11/14l - EVERY SHOT IS FELT, BUILT, NOT YET SEEN (rule 450(b)(c)(d); ask row 622). Its block is handoffs/FIGHT_SCREEN.md.
+Every gun fired by anyone, his men's or theirs, now throws a flash at its barrel and a quick white hit across the whole screen, bigger for a bigger gun
+(pistol, rifle, shotgun). It can never strobe: shots fired together are one flash and no second begins more than three. SETTINGS has a new FLASH switch
+(FULL or SOFT) for eyes that cannot take flashing; MOTION: LESS softens it too. Every number is in records/target/bb/fight_shot.json; the fight's block is
+__EVERY_SHOT_IS_FELT__ in slices/BOHEMIA_FIGHT.html; FEEL's weight (the lit street, the kick) is untouched. No rule, board, hand-over or AUTO edited.
+ON THE PAGE: RESULT: 12 fights on the page, 71 gun shots counted by the glass, 71 whites, each at its gun's peak: the alpha upright 3 of 3 whole, the alpha sideways 3 of 3, the demo sideways 3 of 3, the demo upright 2 of 3 whole (its third fight had ONE shot, a rifle out of the dark: the screen whited at 0.58 and no barrel was drawn, as it is meant to; too few shots for the run's own count, said plainly). The FLASH switch pressed by a finger on all four: SOFT then FULL, and the next fight's flashes followed it every time. 0 page errors.
+Gate EVERY SHOT IS FELT 7/0, registered. VOTE fight-screen-every-shot-is-felt-11-14 (the card plays it). Record records/BOHEMIA_FIGHT_SCREEN_EVERY_SHOT_IS_FELT_11_14_26.md.
+PRE-PUSH PASS (rule 13): EVERY SHOT IS FELT 7/0, THE WHY LINE 15/0, DEMO BUILD 25/0, HANDOFF 10/0, EVERY TURN READS 7/0, SETTINGS IN OUR MATERIALS 15/0.
+RED ON CLEAN MAIN TOO, NOT MINE: SETTINGS 2 legs (controls 36 points tall; QUIT), THE FIGHT BY HAND, QUICKER 18/2, the VOTE tab's landing legs, the
+gate registry's orphans, PAGES PUBLISH's cap. Full suite unmeasured since d97cecd3.
+NEXT: THE CARD (rule 450(a), ask row 621): the teardown first, then the opening card with the why line, then the man's card. NOT STARTED.
+[bb Battle Brothers' screen never flinches at a shot; ours does, and never strobes]
+[analog horror: the white is a tape's overexposed frame, gone in two]
 FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- BUILD 11/14k - EVERY FIGHT SAYS WHY, BUILT, NOT YET SEEN (rule 449(a); ask row 617). A fresh lane; its block is handoffs/FIGHT_SCREEN.md.
 Every fight now opens with ONE sentence that says why this group is on him, from a face: their leader for men, one of his own men for beasts, the dead and
 machines alone. It is true to how the fight began (the map's own word: a job, a road stop, a party that hunted him, one he chased, a raid, the pit, a boss,

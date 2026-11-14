@@ -94,6 +94,52 @@ const CASES = [
   log(WHICH, WAY, 'in the first town', await city().evaluate(() => LOOP.open && LOOP.open.name), BEFORE ? '(THE OLD FIGHT PAGE)' : '');
   try { await anyFrameTap('button.lv', 'LEAVE'); await until(async () => city().evaluate(() => !LOOP.open), 8000); await wait(1500); } catch (e) {}
 
+  /* ==== MODE shots (WHY_MODE=shots; rule 450(b)(c)(d), ask row 622): EVERY SHOT IS FELT, on the page he plays ====
+     Three fights against a band with rifles, through the map's own door, AUTO pressed with a finger: the glass's own count of the
+     shots (UI.shotSeen) and its own log of the white (UI.shotLog) are read; before the second fight a finger opens SETTINGS and
+     presses FLASH (SOFT), before the third it presses it back (FULL). */
+  if (process.env.WHY_MODE === 'shots') {
+    const out = [], flashes = (log) => { const o = []; let c = null, prev = 0; log.forEach(([t, a]) => { if (!c || t - c.end > 320 || a > prev + 0.015) { c = { start: t, end: t, peak: a }; o.push(c); } else { c.end = t; c.peak = Math.max(c.peak, a); } prev = a; }); return o; };
+    const worst = (st) => st.reduce((m, t) => Math.max(m, st.filter(x => x >= t && x < t + 1000).length), 0);
+    const flashSwitch = async () => { await page.evaluate(() => { if (window.BohemiaSettings && BohemiaSettings.open) BohemiaSettings.open(); }); await wait(900);
+      const b = await page.evaluate(() => { const e = document.getElementById('setflash'); if (!e) return null; e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: r.width, h: r.height, vis: r.width > 3 && r.bottom <= innerHeight + 1 && r.top >= -1 }; });
+      if (!b) return { found: false }; await tap(b.x, b.y); await wait(400);
+      const st = await page.evaluate(() => ({ text: (document.getElementById('setflash') || {}).textContent, key: localStorage.getItem('boh.flash') })); await shot('settings_flash_' + st.text);
+      /* the card is put away the way the shell does it (its 'on' class); only the switch is under test here */
+      if (!(await anyFrameTap('#setcard .setbtn', '^(RESUME|BACK|DONE|CLOSE)$'))) await page.evaluate(() => { const w = document.getElementById('setwrap'); if (w) { w.classList.remove('on'); w.setAttribute('aria-hidden', 'true'); } }); await wait(500);
+      const shut = await page.evaluate(() => { const w = document.getElementById('setwrap'); return !w || getComputedStyle(w).display === 'none'; });
+      return Object.assign({ found: true, onGlass: b.vis, box: [Math.round(b.w), Math.round(b.h)], shut }, st); };
+    for (let n = 0; n < 3; n++) {
+      const R = { n: n + 1 }; out.push(R);
+      if (n === 1) R.switch = await flashSwitch(); if (n === 2) R.switch = await flashSwitch();
+      await city().evaluate(offTheTown).catch(() => null);
+      const handed = await city().evaluate(() => { const w = (function () { try { return roadWhere(); } catch (e) { return [city.x, city.y]; } })(), band = ['brigand_marksman', 'brigand_thug', 'brigand_marksman', 'brigand_thug', 'brigand_marksman'];
+        return !!cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'the rifles on the road', faction: null, draft: true, packageId: 1, roster: band.map(() => ({ arch: 'human' })), party: { count: band.length, days: 40, difficulty: 1, faction: 'brigands', band: band, rolled: true }, street: true, why: 'road:rifles', at: { gx: w[0] | 0, gy: w[1] | 0 }, __met: true }); }).catch(() => false);
+      if (!handed || !(await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!UI.board && !!UI.t0); }, 60000))) { R.fail = 'no fight'; log('shots', n + 1, 'NO FIGHT'); continue; }
+      const f = fightF(); await wait(1500);
+      if (await f.evaluate(() => !!FIGHT.S.deploy)) await press('go'); await wait(300); if (!(await f.evaluate(() => !!UI.auto))) await press('auto');
+      await until(async () => f.evaluate(() => !!FIGHT.S.over || (UI.shotSeen && UI.shotSeen.fired >= 6)).catch(() => true), 70000, 300); await wait(600);
+      Object.assign(R, await f.evaluate(() => ({ seen: UI.shotSeen, log: UI.shotLog || [], soft: shotSoft(), white: DB.shot.white, softX: DB.shot.soft.white_x, guns: FIGHT.S.units.filter(u => FIGHT.isGun(u.weapon)).map(u => u.side[0] + ':' + shotKind(u)), el: (function () { const e = document.getElementById('shotflash'), r = e.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height), innerWidth, innerHeight]; })() })));
+      const F = flashes(R.log), N = R.seen || {}, peaks = Object.keys(R.white).map(k => +(R.white[k] * (R.soft ? R.softX : 1)).toFixed(2));
+      R.flashes = F.length; R.worst = worst(F.map(x => x.start)); R.longest = F.reduce((m, x) => Math.max(m, x.end - x.start), 0); R.peaks = F.map(x => x.peak);
+      R.ok = (N.fired | 0) >= 2 && F.length === N.white && F.every(x => peaks.some(p => Math.abs(p - x.peak) < 0.03)) && R.worst <= 3 && R.longest <= (R.soft ? 420 : 260) && (N.barrelDrawn | 0) > 0 && R.el[0] === R.el[2] && R.el[1] === R.el[3]
+        && (n === 0 ? !R.soft : n === 1 ? (R.soft && R.switch && R.switch.text === 'SOFT' && R.switch.key === 'soft' && R.switch.onGlass) : (!R.soft && R.switch && R.switch.text === 'FULL'));
+      log('shots', n + 1, R.ok ? 'OK' : 'MISS', '| guns', R.guns.join(' '), '| fired', N.fired, 'white', N.white, 'volley', N.volley, 'held', N.held, 'barrel frames', N.barrelDrawn | 0, '| flashes', F.length, 'peaks', R.peaks.join(','), 'longest', R.longest, 'ms, worst second', R.worst, '|', R.soft ? 'SOFT' : 'FULL', R.switch ? JSON.stringify(R.switch) : '');
+      /* out: pulled out of, the end screen's LEAVE, the map again */
+      if (await f.evaluate(() => !!UI.auto).catch(() => false)) await press('auto'); await wait(400);
+      for (let i = 0; i < 40; i++) { const st = await f.evaluate(() => ({ over: !!FIGHT.S.over, mine: (function () { const u = FIGHT.current(); return !!u && u.side === 'you' && !UI.anim.length; })() })).catch(() => ({ over: true })); if (st.over) break; if (st.mine) { await press('flee'); await wait(350); await press('flee'); await wait(700); } else await wait(400); }
+      if (!(await until(async () => f.evaluate(() => !!FIGHT.S.over).catch(() => true), 60000, 400))) { if (!(await f.evaluate(() => !!UI.auto).catch(() => true))) await press('auto'); await until(async () => f.evaluate(() => !!FIGHT.S.over).catch(() => true), 240000, 500); }
+      await until(async () => !!frame(/SPOILS_SCREEN/) || !fightF(), 20000); await wait(1500);
+      for (let i = 0; i < 14; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; await tapText(sp, 'button', '^LEAVE$'); await wait(3000); }
+      await until(async () => !fightF() && !frame(/SPOILS_SCREEN/) && await city().evaluate(() => !LOOP.fighting), 40000);
+      try { if (await city().evaluate(() => !!LOOP.open)) { await anyFrameTap('button.lv', 'LEAVE'); await wait(1500); } } catch (e) {}
+      await wait(1200);
+    }
+    fs.writeFileSync(path.join(OUT, 'shots.json'), JSON.stringify({ which: WHICH, way: WAY, viewport: VP, errs, out }, null, 1));
+    log('DONE shots', WHICH, WAY + ':', out.filter(r => r.ok).length, 'of', out.length, 'fights whole; page errors', errs.length);
+    await page.close(); await ctx.close(); await browser.close(); process.exit(0);
+  }
+  /* ==== /MODE shots ==== */
   const results = [];
   const save = () => fs.writeFileSync(path.join(OUT, 'page.json'), JSON.stringify({ which: WHICH, way: WAY, viewport: VP, before: !!BEFORE, errs, results }, null, 1));
   for (const C of CASES.slice(0, FIGHTS)) {

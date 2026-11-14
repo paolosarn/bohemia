@@ -90,7 +90,26 @@
     });
     set('setbright', step());
     var cv = document.querySelector('#setcalib canvas'); if (cv) calib(cv, step());
+    var fb = el('setflash'); if (fb) { var soft = flashSoft(); fb.textContent = soft ? 'SOFT' : 'FULL'; fb.setAttribute('aria-pressed', soft ? 'true' : 'false'); }
   }
+  /* ==== __EVERY_SHOT_IS_FELT__, THE SWITCH (FIGHT SCREEN 11/14/26, VAMILY rule 450(c); a marked row in UI's card) ====
+     Every shot in a fight throws a white hit across the screen (slices/BOHEMIA_FIGHT.html). FLASH: SOFT makes it under a third as
+     bright and slower, for eyes that cannot take flashing. Kept in boh.flash ('soft' | 'full'); until he picks, it follows MOTION
+     (LESS is soft) and the phone's own reduce-motion setting. The fight reads the key at every shot, so it holds from the next one. */
+  var FLASH_KEY = 'boh.flash';
+  function flashSoft() {
+    try { var v = ls().getItem(FLASH_KEY); if (v === 'soft') return true; if (v === 'full') return false; } catch (e) {}
+    try { var j = JSON.parse(ls().getItem('BOH_SETTINGS') || 'null'); if (j && typeof j.lessmo === 'boolean') return j.lessmo; } catch (e) {}
+    try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { return false; }
+  }
+  function flashBtn() {
+    var b = document.createElement('div'); b.id = 'setflash'; b.className = 'setbtn'; b.setAttribute('role', 'button'); b.tabIndex = 0;
+    b.setAttribute('aria-label', 'the flash of a shot: full or soft');
+    var flip = function () { try { ls().setItem(FLASH_KEY, flashSoft() ? 'full' : 'soft'); } catch (e) {} paint(); };
+    b.addEventListener('click', flip); b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+    return b;
+  }
+  /* ==== /__EVERY_SHOT_IS_FELT__, THE SWITCH ==== */
   function rows() {
     var card = el('setcard'); if (!card || el('setbright')) return !!card;
     var anchor = el('settext') ? el('settext').parentNode : null;
@@ -105,6 +124,7 @@
     else { card.appendChild(mus); card.appendChild(amb); card.appendChild(sfx); }
     if (anchor && anchor.nextSibling) { card.insertBefore(bri, anchor.nextSibling); card.insertBefore(cal, bri.nextSibling); }
     else { card.appendChild(bri); card.appendChild(cal); }
+    var fla = row('FLASH', flashBtn()); if (cal.nextSibling) card.insertBefore(fla, cal.nextSibling); else card.appendChild(fla);   /* __EVERY_SHOT_IS_FELT__ (rule 450(c)) */
     var lab = vol && vol.querySelector('.setlab'); if (lab && lab.textContent === 'SOUND') lab.textContent = 'ALL';
     paint(); return true;
   }
@@ -176,6 +196,6 @@
     /* a frame that loads later (the city, the fight, the settlement) is told the brightness too */
     document.addEventListener('load', function (e) { if (e.target && e.target.tagName === 'IFRAME') publish(); }, true);
   }
-  window.BohemiaSettings = { open: open, publish: publish, brightness: step, lift: lift, calib: calib };
+  window.BohemiaSettings = { open: open, publish: publish, brightness: step, lift: lift, calib: calib, flashSoft: flashSoft };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

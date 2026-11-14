@@ -1,0 +1,23 @@
+{
+  "_about": "EVERY SHOT IS FELT (FIGHT SCREEN 11/14/26; VAMILY rule 450(b)(c), ask row 622; Paolo 11/14: 'anytime anyone fires a shot I want a muzzle flash on the screen, some quick shit, like it goes all white or something, I want people to feel this shot for real'). Every gun fired by anyone throws a flash at its barrel and a quick white hit across the whole screen, on the shot's own moment (the kick key, where its sound lands), bigger for a bigger gun. It must never strobe: shots inside volley_ms are ONE flash (the biggest gun's), and never more than max_per_second in any second (the web's own line for flashing, WCAG 2.3.1: three). SETTINGS' FLASH switch (boh.flash), MOTION: LESS and the phone's own reduce-motion setting all make it soft. One file a modder edits; read by slices/BOHEMIA_FIGHT.html (__EVERY_SHOT_IS_FELT__), held by gates/every_shot_is_felt_gate.js.",
+  "draft": true,
+  "tuned": false,
+  "source": "VAMILY rule 450; W3C WCAG 2.2 success criterion 2.3.1 (Three Flashes or Below Threshold); the gun kinds are slices/fight_rig/fight_rig.json guns.by_class (pistol, rifle, shotgun)",
+  "white": { "pistol": 0.42, "rifle": 0.58, "shotgun": 0.74 },
+  "white_why": "the white's peak over the whole screen by gun: a pistol is felt, a shotgun whites the street out; OUR DEFAULT, TUNING may move it",
+  "hold_ms": 34,
+  "fade_ms": { "pistol": 60, "rifle": 85, "shotgun": 120 },
+  "frames_why": "'a frame or two': the peak stands hold_ms (two frames at 60 a second) and is always drawn once even on a slow phone, then falls to nothing in fade_ms",
+  "volley_ms": 150,
+  "max_per_second": 3,
+  "soft": { "white_x": 0.3, "hold_ms": 34, "fade_x": 2.2, "barrel_x": 0.7 },
+  "soft_why": "for eyes that cannot take flashing: the white at under a third, a slower fall, the barrel flash smaller; the shot is still seen",
+  "barrel": {
+    "frames": 2,
+    "forward": { "pistol": 0.3, "rifle": 0.44, "shotgun": 0.42 },
+    "up": { "pistol": 0.6, "rifle": 0.58, "shotgun": 0.56 },
+    "size": { "pistol": 0.16, "rifle": 0.21, "shotgun": 0.28 },
+    "ink": ["#fff8e0", "#ffd24a", "#ff8a1e"]
+  },
+  "barrel_why": "where the barrel's end is, in parts of the man's height: forward along his aim and up from his feet; the flash's size the same way; three inks from the white core out. Drawn two frames, in hard pixels, only on a man he can see (a shot out of the dark still whites the screen and is heard, but does not give the shooter away)"
+}
