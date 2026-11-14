@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/14 LATEST -- [what he can feel] rule 447, one tight batch: rows 608,
-606, 611 and a hole in my own 580 SHIPPED (607 measured; HOME BASE fixed it the same hour, 11/14g). BUILD 11/14j - THE SPOT SAYS IT BY ITSELF, BUILT, NOT YET SEEN. Commit SHIPSHA3.
+606, 611 and a hole in my own 580 SHIPPED (607 measured; HOME BASE fixed it the same hour, 11/14g). BUILD 11/14j - THE SPOT SAYS IT BY ITSELF, BUILT, NOT YET SEEN. Commit ce93b36b7.
 Record: the ROUND TWO section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b): the site's weight).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 608 the scavenge board (a town's junk lot, 'Search the lot'): no SEARCH / SIPHON / DETECTOR words hang over the houses, cars and
