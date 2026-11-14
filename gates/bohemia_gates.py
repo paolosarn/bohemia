@@ -8551,6 +8551,11 @@ GATES = [
      "through HOME BASE's seam and moves in the day he plants (C1b); the next moves in at once (C1c); the feed (C1d); the same phone opens the "
      "game again and it holds, nobody moving in twice (R1). Planted: a party that never left the hoist, his riggers back after the fall, a "
      "phone that forgot the save. about 35 min a way", True),
+    ('THE CARD WAITS ITS TURN', ['node', 'gates/the_card_waits_its_turn_gate.js'],
+     "BOSSES gate, 11/14, ask row 611 (FOUND BY EYES 11/11: Tia Carmen's card opened over Network as the crew walked in and took the tap "
+     "meant for a building), rule 441, on the demo upright and the alpha on its side: a boss card does not open while the walk goes into a "
+     "town, in the gap before its screen shows, over it, or in the 4 s after it closes (W1-W5); a card takes no press in its first beat "
+     "(F1). Planted: a card that opens on arrival, a card that takes the first press. about 1 min a way", True),
     ('THE LOCKSMITH CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE LOCKSMITH'],
      "BOSSES gate, 11/11, the coordinator's round 'the next three from the ladder' (rule 441), ask lines 167, 522: the stranger's game on "
      "the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the six before him first through the map's own fell(), then THE LOCKSMITH end to end: "

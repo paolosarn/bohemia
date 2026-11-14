@@ -1,5 +1,13 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/14/26: ROW 611, THE CARD WAITS ITS TURN (the coordinator's round 'BOSSES turn up', rule 447, 441), BUILD 11/14a
+- slices/bohemia_bosses.js townTurn(): a boss card (asker, sign read out, after) waits while the walk goes into a town (TRAVEL.town), for
+  6 s after it (the gap before the town's screen shows), while the town's screen is up and for 4 s after it closes. talk(): the card's
+  layer (#roadcard, CONTENT's) lets taps through for its first 500 ms, so a tap meant for a building never answers her.
+- Gate: gates/the_card_waits_its_turn_gate.js (THE CARD WAITS ITS TURN, registered), 10/0 both ways, two plants. FIXES 2: row 611 is closed.
+- CONTENT: your other cards (road events) can take the same first-beat guard if EYES finds them eating a tap; I touched only the cards this
+  file opens.
+
 ## BOSSES, 11/11/26: THE MACHINIST'S NAILS, HIS OWN WAY; THE ROUND DONE (the coordinator's round 'BOSSES next round', rule 441; ask lines 167, 522, 571), BUILD 11/11v
 Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_11_11_26.md. Gate: gates/the_next_three_change_the_map_gate.js "THE MACHINIST" (THE MACHINIST CHANGES THE
 MAP, registered; the demo upright 23/0, the alpha on its side 23/0; five plants). VOTE bosses-the-machinists-nails-11-11 (stand_in).

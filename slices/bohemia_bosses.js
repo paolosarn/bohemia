@@ -131,11 +131,21 @@
     try { var hh = hs(); if (hh && hh.fighting) return true; } catch (e) {}
     return false;
   }
+  /* ROW 611 (FOUND BY EYES 11/11, rule 441): TIA CARMEN's card opened over Network just after the crew walked in and took the tap meant
+     for a building. A card WAITS ITS TURN: never while the walk is going into a town, never in the gap between arriving and the town's
+     screen showing, never in the first seconds after a town's screen opens or closes; and a card takes no press in its first beat */
+  var TOWN_T = 0, TOWN_WAIT_MS = 4000, ARRIVE_T = 0, ARRIVE_WAIT_MS = 6000, FIRST_BEAT_MS = 500;
+  function townTurn() {
+    var now = Date.now();
+    if (inTown()) { TOWN_T = now; return true; }
+    try { if (TRAVEL && TRAVEL.town) { ARRIVE_T = now; return true; } } catch (e) {}
+    return now - TOWN_T < TOWN_WAIT_MS || now - ARRIVE_T < ARRIVE_WAIT_MS;
+  }
   function canTalk() {
     var RE = card(); if (!RE || bench()) return false;
     try { if (RE.up && RE.up()) return false; } catch (e) {}
     try { if (MEET && MEET.up) return false; } catch (e) {}
-    if (inTown() || fightUp()) return false;
+    if (townTurn() || fightUp()) { LAST.waitedForTown = Date.now(); return false; }
     /* a scripted browser meets these only when it asks (CONTENT's rule for the road): other lanes' map walks are not stopped by a
        card they cannot answer; this lane's gate asks (window.__BOSSES_TALK) */
     try { if (root.navigator && root.navigator.webdriver && !root.__BOSSES_TALK) return false; } catch (e) {}
@@ -169,6 +179,9 @@
   function talk(kind, n, o) {
     var RE = card(); if (!RE) return false;
     RE.card(o); fitCard();
+    /* row 611: no press in the card's first beat (a tap meant for what was under it lands on nothing) */
+    try { var el0 = document.getElementById('roadcard'); if (el0) { el0.style.pointerEvents = 'none'; el0.setAttribute('data-first-beat', '1');
+      setTimeout(function () { try { el0.style.pointerEvents = ''; el0.removeAttribute('data-first-beat'); } catch (e) {} }, FIRST_BEAT_MS); } } catch (e) {}
     var c = { kind: kind, n: n, name: o.name, look: o.look, head: o.head || null, text: o.text, opts: (o.opts || []).map(function (x) { return x.t; }), at: Date.now(), draft: true };
     root.__BOSS_CARD = c; LAST.cards.push(c); if (LAST.cards.length > 24) LAST.cards.shift();
     return true;
@@ -2071,6 +2084,8 @@
     nailAt: function (x, y) { sync(); if (NAIL_DIRTY) nailGrid(); return nailAt(x, y); },
     renail: function () { NAIL_DIRTY = true; nailGrid(); return !!NAIL; },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },
+    /* row 611, for the gate: whether a card may open now, and a card opened through this file's own door */
+    canTalk: function () { return canTalk(); }, talkTest: function (o) { return talk('test', 'TEST', o); },
     prizes: function () { sync(); return prizes(); }, prizeWhere: function (id) { return prizeWhere(id); },
     partyUp: function (n) { sync(); var Q = S && S.riggers && S.riggers[n]; return !!Q && !riggersDown(n, Q) && !!Q.party && Q.party.down == null; }
   };
