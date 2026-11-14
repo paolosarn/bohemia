@@ -31,6 +31,7 @@
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <script src="bohemia_parking_garage.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_fight_why.js"></script>  <!-- __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a)): the chooser of the fight's one opening sentence; its table is records/target/bb/fight_reasons.json -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -189,6 +190,16 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #call{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:7px;max-width:min(calc(100vw - 16px),380px);
   padding:4px 10px 5px 4px;color:#efe3cc;background:rgba(14,11,8,.86);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}
 #call canvas{flex:0 0 auto;width:34px;height:34px;border-radius:2px;background:#0d0b09}
+/* __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a)): the one sentence at the bell, from a face; it grows out of its own face (rule 448(a)) */
+#why{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:9px;max-width:min(calc(100vw - 16px),440px);
+  padding:5px 12px 6px 5px;color:#efe3cc;background:rgba(14,11,8,.9);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));
+  transform-origin:26px 50%;animation:whyin .16s steps(4,end) both}
+#why.them{border-left-color:#ff5a40}#why.them b{color:#ff8a6a}
+#why canvas{flex:0 0 auto;width:52px;height:52px;border-radius:2px;background:#0d0b09}
+#why b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:10px;letter-spacing:.5px;color:var(--gold)}
+#why span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:14px;font-weight:700;line-height:1.25;min-height:1.25em}
+@keyframes whyin{from{transform:scale(.2,.6);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){#why{animation:none}}
 #call b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:10px;letter-spacing:.5px;color:var(--gold)}
 #call span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:13px;font-weight:700;line-height:1.25}
 #call.hot{border-left-color:#ff5a40}#call.hot b{color:#ff8a6a}
@@ -330,6 +341,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="winds"></div>
 <div id="hurts"></div>
 <div id="pick"></div>
+<div id="why"><canvas id="whyface" width="156" height="156"></canvas><div><b id="whyname"></b><span id="whyline"></span></div></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
 <div id="call"><canvas id="callface" width="102" height="102"></canvas><div><b id="callname"></b><span id="callline"></span></div></div>
 <div id="wipe"><div class="osd">&#9632; STOP</div><h2 id="wh"></h2><div id="wb"></div></div>
@@ -428,7 +440,11 @@ function loadAll() {
       if (d && d.board && d.kit && art && art.kit) {
         Object.keys(art.kit).forEach(function (k) { kit[k] = Object.assign({}, art.kit[k], (d.rules || {})[k] || {}); });
         Object.keys(d.kit).forEach(function (k) { const q = (d.sizes || {})[d.kit[k].like || k.replace(/^garage_/, '')]; kit[k] = Object.assign({}, q ? { src: q.src } : {}, d.kit[k]); }); }
-      DB.garage = d && d.board && d.kit && art && art.floor ? { data: d, art: art, sizes: d.sizes || {}, kit: kit } : null; });
+      DB.garage = d && d.board && d.kit && art && art.floor ? { data: d, art: art, sizes: d.sizes || {}, kit: kit } : null; })
+    /* __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a), ask row 617): why this group is on him, one file a modder edits (how a fight began,
+       who they are, the sentences); a fight without it plays as before and says nothing (gates/the_why_line_gate.js holds the file) */
+    .then(function () { return fetch('../records/target/bb/fight_reasons.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (k) { DB.why = k && Array.isArray(k.rules) ? k : null; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -7229,7 +7245,7 @@ function veteran() {
 }
 function teach(k) {
   const o = window.FIGHT_OPTS || {};
-  if (o.teach === false || UI.auto || UI.vet || !TEACH[k] || FIGHT.S.over) return false;
+  if (o.teach === false || UI.auto || UI.vet || UI.why || !UI.whyDone || !TEACH[k] || FIGHT.S.over) return false;   /* __THE_WHY_LINE__: the fight's one sentence first */
   if (performance.now() - UI.t0 < Math.max(TEACH_QUIET_MS, UI.openUntil - UI.t0)) return false;   /* never in the first second */
   const T = taughtNow(); if (T[k]) return false;
   const v = veteran(); if (!v) return false;
@@ -7260,6 +7276,85 @@ function tickVet(now) {
   if (!typing && !V.done) V.done = now;
   if ((V.done && now - V.done > beat * TEACH_HOLD_BEATS) || FIGHT.S.over) { document.getElementById('vet').style.display = 'none'; UI.vet = null; }
 }
+/* ---------------- __THE_WHY_LINE__ (FIGHT SCREEN 11/14/26; VAMILY rule 449(a), ask row 617) ----------------
+   PAOLO 11/14: 'It doesn't explain why people are trying to attack you... I want there to be a sentence, just one sentence...
+   why the fuck the enemies are attacking you or why the fuck the animals are attacking you.'
+   EVERY FIGHT OPENS WITH ONE SENTENCE THAT SAYS WHY THIS GROUP IS ON HIM, true to what started it: the map's own word for how
+   the fight began (the job he took, the road, a party that hunted him down, a raid on his place, the pit, a boss, a camp found
+   by its fire; the shell keeps it as __FIGHT_NOW.why, a test may hand FIGHT_OPTS.why) joined to who is really standing on the
+   board (their kinds, after the road has rolled its faction) and what is true this minute (they hold this ground, the animal
+   lives on it, there is food in his cart, his name is known). The table is one data file a modder edits
+   (records/target/bb/fight_reasons.json); slices/bohemia_fight_why.js chooses from it.
+   FROM A FACE: their leader's when they are men (the boss, else a leader kind, else their toughest man); for beasts, the dead
+   and machines with no man among them one of HIS men says it (his veteran; alone, he says it himself): a beast does not talk.
+   PLAIN ENGLISH (never through the Spanglish dial), an attempt, draft:true. IT NEVER STOPS THE FIGHT AND NEVER WAITS FOR A
+   TAP: it types in on the song's own beat after the open's stillness (nothing happens in the first second), stands eight
+   beats at any fight speed so it can be read, and goes; taps pass through it. While it is up the veteran's lesson and the
+   crew's commentary wait (never two at once). The same reason is never worded the same way twice in a row (WHY_KEY keeps the
+   wording each rule used last). What was said is kept on UI.whySaid for the gate and for EYES. */
+const WHY_KEY = 'bohemia.fight.why.v1', WHY_HOLD_BEATS = 8, WHY_QUIET_MS = 1000;
+function whyHandOver() {
+  const o = window.FIGHT_OPTS || {};
+  if (o.why !== undefined && o.why !== null) return String(typeof o.why === 'object' ? (o.why.why || '') : o.why);
+  try { const p = window.parent; if (p && p !== window && p.__FIGHT_NOW && p.__FIGHT_NOW.why) return String(p.__FIGHT_NOW.why); } catch (_e) {}
+  return '';
+}
+function whyFacts(them) {
+  const S = FIGHT.S, f = { holds_ground: [], lives_here: false, has_food: false, known: false, night: !!S.night }, ground = S.ground && S.ground.ground;
+  try { const RD = DB.newEnemies && DB.newEnemies.road; if (RD && RD.holds && ground) f.holds_ground = Object.keys(RD.holds).filter(function (k) { return RD.holds[k].indexOf(ground) >= 0; }); } catch (_e) {}
+  try { if (ground && DB.newEnemies) f.lives_here = them.some(function (v) { const r = DB.newEnemies.rows.filter(function (x) { return x.id === v.kind; })[0]; return !!(r && r.habitat && r.habitat.indexOf(ground) >= 0); }); } catch (_e) {}
+  try { const s = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); f.has_food = !!(s && (s.food | 0) > 0); } catch (_e) {}
+  try { const r = JSON.parse(localStorage.getItem('bohemia.renown.v1') || 'null'); f.known = !!(r && DB.why && (r.score | 0) >= (DB.why.known_from_clout || 1e9)); } catch (_e) {}
+  return f;
+}
+function whyTalks(v) { return !!v && !v.beast && !v.ghost && !v.machine; }
+function whyLeader(them) {
+  const S = FIGHT.S, men = them.filter(whyTalks); if (!men.length) return null;
+  const boss = S.boss && men.filter(function (v) { return v.id === S.boss.id; })[0]; if (boss) return boss;
+  const L = (DB.why && DB.why.leaders) || [], lead = men.filter(function (v) { return L.some(function (w) { return String(v.kind || '').indexOf(w) >= 0; }); })[0]; if (lead) return lead;
+  return men.slice().sort(function (a, b) { return (b.hpMax || b.hp || 0) - (a.hpMax || a.hp || 0); })[0];
+}
+function whyOpen(now) {
+  if (UI.whyDone || UI.why || !UI.board || !UI.t0) return;
+  const S = FIGHT.S, o = window.FIGHT_OPTS || {};
+  if (o.campBoard || S.over) { UI.whyDone = true; return; }
+  if (performance.now() - UI.t0 < Math.max(WHY_QUIET_MS, UI.openUntil - UI.t0)) return;   /* nothing happens in the first second (the lesson's own clock, so the sentence is first) */
+  UI.whyDone = true; now = performance.now();
+  if (UI.resumed || !DB.why || !window.BohemiaFightWhy) { UI.whySaid = { none: UI.resumed ? 'resumed' : !DB.why ? 'no table' : 'no chooser' }; return; }
+  const them = S.units.filter(function (v) { return v.side === 'them' && FIGHT.onField(v); }); if (!them.length) { UI.whySaid = { none: 'nobody' }; return; }
+  const mine = veteran() || S.units.filter(function (v) { return v.side === 'you' && v.main && FIGHT.onField(v); })[0] || null;
+  let last = {}; try { last = JSON.parse(localStorage.getItem(WHY_KEY) || '{}') || {}; } catch (_e) {}
+  const why = whyHandOver();
+  const P = BohemiaFightWhy.pick({ why: why, opts: { arena: !!S.arena, camp: !!o.camp, campBoard: !!o.campBoard, boss: !!S.boss },
+    them: them.map(function (v) { return { kind: v.kind, beast: !!v.beast, ghost: !!v.ghost, machine: !!v.machine }; }),
+    factions: BohemiaFightWhy.factions({ tiers: DB.ours && DB.ours.enemy_tiers && DB.ours.enemy_tiers.value, own: DB.newEnemies }),   /* a new kind in a known faction is somebody the day it is added */
+    facts: whyFacts(them), last: last, alone: !!(mine && mine.main) }, DB.why);
+  if (!P) { UI.whySaid = { none: 'no rule', why: why }; return; }
+  const v = P.side === 'them' ? whyLeader(them) : mine;
+  if (!v) { UI.whySaid = { none: 'no face', why: why, rule: P.rule }; return; }
+  last[P.key] = P.i; try { localStorage.setItem(WHY_KEY, JSON.stringify(last)); } catch (_e) {}
+  UI.why = { who: v.id, line: P.line, t: now, side: P.side };
+  UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, draft: true };
+  const cv = document.getElementById('whyface'); drawPortrait(cv.getContext('2d'), v, cv.width, true);
+  document.getElementById('whyname').textContent = v.name; document.getElementById('whyline').textContent = '';
+  const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
+  feed(v.name + ': ' + P.line, P.side === 'them' ? '#ff8a6a' : undefined);
+  try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: P.line }, '*'); } catch (_e) {}
+}
+function whyHide() { if (!UI.why) return; document.getElementById('why').style.display = 'none'; UI.why = null; }
+function tickWhy(now) {
+  whyOpen(now);
+  const Y = UI.why; if (!Y) return;
+  const sp = FIGHT.byId(Y.who); if (!sp || !FIGHT.onField(sp)) { voiceStop(sp); whyHide(); return; }   /* the down do not talk (143(d)) */
+  /* the song's own beat, never the fight's speed: at 4x the sentence is still up long enough to read */
+  const beat = songBeat(), slot = Math.max(0, Math.floor((now - Y.t) / (beat / 6))), n = Math.min(Y.line.length, slot * TYPE_PER_BEAT / 6);
+  const ln = document.getElementById('whyline'); if (ln.textContent.length !== n) ln.textContent = Y.line.slice(0, n);
+  const typing = n < Y.line.length;
+  document.getElementById('whyface').style.transform = typing && slot % 2 ? 'translateY(-2px)' : '';   /* his mouth works on the slots */
+  if (!typing && !Y.done) Y.done = now;
+  if ((Y.done && now - Y.done > beat * WHY_HOLD_BEATS) || FIGHT.S.over) whyHide();
+}
+/* ---------------- /__THE_WHY_LINE__ ---------------- */
 /* ---------------- THE CREW'S COMMENTARY (COMBAT [the crew's commentary], rule 143(c), Paolo 10/24: 'I like how our team members
    are speaking... everyone gets assigned a personality, lots of different personality types... depending on the enemy or how
    many enemies, like how UFC the video game does its commentary, people can read it reacting to shit, if someone dies, oh
@@ -7366,7 +7461,7 @@ function tickCall(now) {
     if (b) callSoon('superior', b); }
   const q = UI.callQ; if (!q) return;
   if (now > q.until) { UI.callQ = null; return; }
-  if (UI.vet) return;   /* the veteran's lesson keeps the floor */
+  if (UI.vet || UI.why || !UI.whyDone) return;   /* the veteran's lesson keeps the floor; __THE_WHY_LINE__: so does the fight's one sentence */
   if (UI.call && !(q.prio >= 4 && UI.call.prio < q.prio)) return;
   if (!UI.call && UI.callLastAt && now - UI.callLastAt < beat * P.gap_beats && q.prio < 4) return;
   if (UI.call) callHide(false);
@@ -9968,8 +10063,8 @@ function roundsMark(v, X, top, now) {
 }
 /* A FACE for the bar and the turn strip: PORTRAIT's fresh portrait of the same model (rule 115(h): the head modelled on the
    body's own model, rendered with its own camera; never a crop of the body), one sheet, 128 px a face */
-function drawPortrait(g, v, S) {
-  const you = v.side === 'you', unseen = !FIGHT.shown(v);
+function drawPortrait(g, v, S, lit) {
+  const you = v.side === 'you', unseen = !lit && !FIGHT.shown(v);   /* __THE_WHY_LINE__: lit = the man is talking to him, his face is drawn */
   g.clearRect(0, 0, S, S);
   g.fillStyle = you ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S);
   const F = DB.rig.faces, fk = lookOf(v) === DB.rig.looks[v.look] ? v.look : F.order[0];
@@ -11360,7 +11455,7 @@ function frame(now) {
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
-  try { draw(now); if (UI.cut) cutAfter(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
+  try { draw(now); if (UI.cut) cutAfter(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickWhy(now); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
   catch (e) { frameErr(e, now); }
 }
 function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
@@ -11389,6 +11484,7 @@ function start() {
   UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; UI.callLast = false; UI.callCrewMax = 0; UI.callFallSeen = -1; UI.fallN = 0; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = []; clearTimeout(UI.beatT); UI.beatFor = null; UI.onBeat = []; SONG.read = -1e9;
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
+  UI.why = null; UI.whyDone = false; UI.whySaid = null; document.getElementById('why').style.display = 'none';   /* __THE_WHY_LINE__ */
   UI.spentKey = null; hideSpent();
   /* a fight started again (AGAIN, a new kind) is dealt behind the loading screen like the first: the last board is gone, so the
      glass never answers a tap on a fight it has not shown yet (rule 164 item 12: its AUTO colour is read first) */

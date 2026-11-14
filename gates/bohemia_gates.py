@@ -9546,6 +9546,17 @@ GATES = [
      "(holds), a reload and END TURN leaves RELOADS, both marked hand (R1, R2); a turn he walked in says no quiet word (R3); on AUTO every quiet "
      "turn says the brain's own reason as before, never marked hand (R4); whole fights with his turns closed by hand leave a word every turn "
      "(R5); a turn whose marker was left at his last turn's still says its word (R6, row 605). Planted: the hand's word taken out. About 10 s", True),
+    ('THE WHY LINE', ['node', 'gates/the_why_line_gate.js'],
+     "FIGHT SCREEN gate, 11/14, VAMILY rule 449(a) (ask row 617; PAOLO 11/14: 'It doesn't explain why people are trying to attack you... I want "
+     "there to be a sentence, just one sentence... why the enemies are attacking you or why the animals are attacking you'). NO FIGHT STARTS "
+     "WITHOUT A TRUE REASON: the table (records/target/bb/fight_reasons.json) reads (W1); every 'why' word the map's hand-overs carry has a how "
+     "(W2); every enemy kind in the fight's tables, the bosses' crews and the pit is in a named group (W3); every way a fight starts x every "
+     "group x every fact gives one sentence, men who can talk say it themselves, beasts and the dead never (W4); every sentence is one plain "
+     "English sentence of 16 words at most (W5); never the same wording twice in a row (W6); every faction dealt by the fight's own rules is "
+     "somebody with a sentence for every start (W7); the page loads it, ticks it first, the lesson and the commentary wait, taps pass through "
+     "(W8); on the fight's page on a phone the sentence comes after the first second from the right mouth with a drawn face, the fight moves "
+     "under it, it goes by itself (W9, a browser). Planted: a how with no rules, a kind in no group, a line of two sentences, the page's tick "
+     "taken out. About 40 s", True),
     ('THE PARKING GARAGE', ['node', 'gates/the_parking_garage_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 440(a) (ask row 539; PAOLO 11/9: 'More everything pls'; rule 416's list, the third big interior). "
      "A fight at a place with a parking structure is fought on one deck of it for the data's share of the fights there, by the cell's own dice, never "

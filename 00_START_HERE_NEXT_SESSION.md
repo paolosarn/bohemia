@@ -1,3 +1,17 @@
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- BUILD 11/14k - EVERY FIGHT SAYS WHY, BUILT, NOT YET SEEN (rule 449(a); ask row 617). A fresh lane; its block is handoffs/FIGHT_SCREEN.md.
+Every fight now opens with ONE sentence that says why this group is on him, from a face: their leader for men, one of his own men for beasts, the dead and
+machines alone. It is true to how the fight began (the map's own word: a job, a road stop, a party that hunted him, one he chased, a raid, the pit, a boss,
+a place, a camp found) and to who stands on the board. Plain English, draft:true, it never stops the fight or waits for a tap, never the same wording twice
+in a row. The table is one file a modder edits: records/target/bb/fight_reasons.json (13 ways, 18 groups, 163 sentences); slices/bohemia_fight_why.js
+chooses; slices/BOHEMIA_FIGHT.html __THE_WHY_LINE__ shows it. Nothing of COMBAT THREE's (boards, hand-over, AUTO) or RUN's shell was edited.
+ON THE PAGE: 36 of 36 fights on the alpha and the demo, upright and sideways, each through the map's own door; 12 of 12 again on the merged builds; 0 page errors.
+Gate THE WHY LINE 15/0. VOTE fight-screen-the-why-line-11-14 (before and after side by side). Record records/BOHEMIA_FIGHT_SCREEN_THE_WHY_LINE_11_14_26.md.
+PRE-PUSH PASS (rule 13): THE WHY LINE 15/0, DEMO BUILD 25/0, EVERY TURN READS 7/0, EVERY MAN ACTS ON AUTO 22/0, HANDOFF 10/0, ATTEMPT 15/0, THE CREW'S
+COMMENTARY 10/0, LANGUAGE 107/0. RED ON CLEAN MAIN TOO, NOT MINE: THE FIGHT BY HAND, QUICKER 18/2 (no BACK after a free swing; the skip lesson), the VOTE
+tab's landing legs, the gate registry's 45 orphans, PAGES PUBLISH's cap (904 of 900 MB before this ship; it adds 0.3 MB). Full suite unmeasured since d97cecd3.
+NEXT: JOB TWO, the whole fight screen rebuilt (ask row 616): the teardown first, NOT STARTED.
+[bb Battle Brothers' tactical screen opens silent; ours says why at the bell, from the mouth it belongs to]
+[analog horror: a neighbor with a pitchfork who only says 'we live here']
 COMBAT THREE (combat-three-01gkdyuu): 11/14 LATEST -- BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN (rules 447, 442(d), 429; ask rows 547, 577, 504, 507, 610).
 The round's three, one batch. (1) THE SEAM CHECK IS GREEN on all 15 places: its red on the suburbs was the new streets' own kerbs counted as seams (97 of
 98 lines); it now reads a street's edge as a kerb that must be there, planted every run; no picture changed. (2) A PLACE'S BOARD IS FOUGHT WHERE THE PLACE
