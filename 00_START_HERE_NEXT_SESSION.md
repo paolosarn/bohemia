@@ -287,13 +287,13 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14g - EVERY WORD ON THE DESK, BUILT, NOT YET SEEN (ask row 607): each build on his
-place's desk says its cost and what it gives on two lines, nothing cut on a phone upright, the desk under half the glass; gate YOUR
-PLACE, PLANTED D8. VOTE home-base-every-word-on-the-desk-11-14 (STAND-IN). Earlier: 11/11j WHAT YOU BUILD OPENS A DOOR (the stall, the
-gun shop and the clinic shut until built), 11/10u EVERYTHING HIS LIVES THERE (the seam), 11/10n, 11/10e, 11/9h, 11/9d. NEXT: train,
-craft, a wall in a defence fight; a job done and people saved at his place. The whole block: handoffs/HOME_BASE.md.
-[bb Battle Brothers' building list never cuts a word; ours now says it whole on a phone.]
-[analog horror: the price on two lines, typed like a receipt; nothing trails off.]
+HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14o - YOUR PLACE ON CAMERA, BUILT, NOT YET SEEN (rule 451(c), row 625): his place
+opens on three cameras (CAM 1 THE YARD, CAM 2 THE LOTS with his builds and prizes, CAM 3 THE PEOPLE), REC and the camera in the corner,
+switched by a tap; every door still answers. Gate YOUR PLACE, PLANTED D16. VOTE home-base-his-place-through-its-cameras-11-14
+(STAND-IN). OWED: the cameras' own footage (rule 354), his bare ground, train/craft/wall, a job done at his place. Earlier: 11/14g EVERY
+WORD ON THE DESK, 11/11j WHAT YOU BUILD OPENS A DOOR, 11/10u EVERYTHING HIS LIVES THERE. The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers never shows you your own place; ours is watched by three cameras, and you switch them.]
+[analog horror: REC blinks on the beat over a yard nobody is watching; the cut between cameras is two holds of black.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

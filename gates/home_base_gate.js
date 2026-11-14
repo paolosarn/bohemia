@@ -40,6 +40,9 @@
          out of the company's supplies (the top bar's counts); a build short of its goods is greyed; the morning puts what stands into
          the supplies (planted: the morning hook taken out gives nothing, caught); a resident works one and it gives more; a roof
          finished brings a family to live there
+     D16 HIS PLACE THROUGH ITS CAMERAS (rule 451(c), row 625): his place opens on CAM 1 (REC, the camera, his place); a real tap on
+         CAM 2 frames THE LOTS closer and the pot there still answers a tap; CAM 3 has the ones who live there in the shot; CAM 1 the
+         whole yard again. PLANTED: the message says not planted, no camera.
      D15 WHAT YOU BUILD OPENS A DOOR (rule 445(b)): with no vendor stall his place's STALL is shut and says what opens it, the CLINIC
          shut until a roof; a vendor stall standing, the same real tap trades; the desk says YOUR PLACE CAN TRADE, MEND (shut), HEAL (shut).
          PLANTED: the rows taken off the message, the clinic opens for free and the leg is red.
@@ -287,6 +290,30 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       ok('D15 the desk says what his place can do: ' + can15.join(', '), d15 && can15.indexOf('TRADE') >= 0 && can15.indexOf('MEND (shut)') >= 0 && can15.indexOf('HEAL (shut)') >= 0, JSON.stringify(can15));
       await close15();
       await F.evaluate(() => { const bk = LOT_BOOK[BohemiaBetween.mine()]; for (const k in bk.lots) if (bk.lots[k].id === 'stall') delete bk.lots[k]; });   /* the gate's stall comes down so the legs after build where they always did */
+      /* D16 HIS PLACE THROUGH ITS CAMERAS (rule 451(c), ask row 625): three fixed cameras on his place, a real tap switches them */
+      await close15();
+      const camTap16 = async i => { const b = await fr.evaluate(i => { const e = document.querySelector('#hcamb button[data-cam="' + i + '"]'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2, r.width, r.height, r.right <= innerWidth && r.left >= 0 && r.top >= 0]; }, i);
+        if (b) { await P.touchscreen.tap(fb.x + b[0], fb.y + b[1]); await P.waitForTimeout(900); } return b; };
+      const c16 = await fr.evaluate(() => ({ cam: window.__HOME_CAM, txt: (document.getElementById('hcam') || {}).textContent || '', btns: document.querySelectorAll('#hcamb button').length }));
+      ok('D16 his place opens on its cameras: "' + c16.txt + '", three to switch', !!c16.cam && c16.cam.n === 0 && /REC/.test(c16.txt) && /CAM 1/.test(c16.txt) && c16.btns === 3, JSON.stringify(c16));
+      const b16 = await camTap16(1);
+      const c16b = await fr.evaluate(() => ({ cam: window.__HOME_CAM, txt: (document.getElementById('hcam') || {}).textContent || '' }));
+      ok('D16 a real tap on CAM 2: THE LOTS, closer (zoom ' + (c16b.cam && c16b.cam.zoom) + '), the button 44 px on the glass', !!b16 && b16[3] >= 44 && b16[4] && c16b.cam && c16b.cam.n === 1 && c16b.cam.zoom > 1 && /THE LOTS/.test(c16b.txt), JSON.stringify({ b16, c16b }));
+      await fr.evaluate(() => { window.__HOME_THING = null; });
+      for (let t = 0; t < 3; t++) { const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('h11'); return x ? [x.x, x.y] : null; }); if (!w) break; await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]); let up = false; for (let i = 0; i < 12 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => !!window.__HOME_THING); } if (up) break; }
+      const t16 = await fr.evaluate(() => ({ th: window.__HOME_THING && window.__HOME_THING.name, cam: window.__HOME_CAM && window.__HOME_CAM.n }));
+      ok('D16 at CAM 2 the pot is seen and a tap on it still says what it is (' + t16.th + ')', /POT/.test(t16.th || '') && t16.cam === 1, JSON.stringify(t16));
+      await close15();
+      await camTap16(2);
+      const c16c = await fr.evaluate(() => { const v = BohemiaSettlement.fit(), L = BohemiaSettlement.folk().filter(p => p.resident).map(p => { const q = BohemiaSettlement.toScreen(p.x, p.y); return [p.name, q.x >= 0 && q.x <= v.W && q.y >= 0 && q.y <= v.H]; }); return { cam: window.__HOME_CAM, L }; });
+      ok('D16 CAM 3: THE PEOPLE, the ones who live there in the shot (' + c16c.L.filter(x => x[1]).map(x => x[0]).join(', ') + ')', c16c.cam && c16c.cam.n === 2 && c16c.L.some(x => x[1]), JSON.stringify(c16c));
+      await camTap16(0);
+      const c16d = await fr.evaluate(() => window.__HOME_CAM);
+      ok('D16 CAM 1 brings the whole yard back (zoom ' + (c16d && c16d.zoom) + ')', c16d && c16d.n === 0 && c16d.zoom === 1, JSON.stringify(c16d));
+      await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.planted = false; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(700);
+      const m16 = await fr.evaluate(() => ({ el: !!document.getElementById('hcam'), cam: window.__HOME_CAM }));
+      ok('D16 planted: a place that is not his planted place has no cameras (the leg above reads red)', !m16.el && !m16.cam, JSON.stringify(m16));
+      await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */
         const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (!w) break;
         await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);

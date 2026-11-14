@@ -1,3 +1,12 @@
+HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14o - YOUR PLACE ON CAMERA, BUILT, NOT YET SEEN (rule 451(c), ask row 625;
+rules 354, 445). Record: records/BOHEMIA_HOME_BASE_HIS_PLACE_THROUGH_ITS_CAMERAS_11_14_26.md.
+- His place (only his) opens on three cameras on its own picture and the screen's own zoom: CAM 1 THE YARD, CAM 2 THE LOTS (his builds
+  and the prizes, closer), CAM 3 THE PEOPLE; the readout (REC, CAM, his place, the day), the switch clear of the phone, a black cut.
+  Every door answers at every camera. Gate YOUR PLACE, PLANTED D16: upright 89/0, sideways 87/0; the alpha probed both ways.
+- OWED: the cameras' own PS1-era footage (rule 354; the 11/3 look waits on his vote); his own bare ground; train, craft, the wall;
+  a job done and people saved at his place.
+
+11/14 ROUND SEVEN (BUILD 11/14g, EVERY WORD ON THE DESK), kept:
 HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14g - EVERY WORD ON THE DESK, BUILT, NOT YET SEEN (ask row 607 with FIXES 2;
 rules 441, 447). Record: records/BOHEMIA_HOME_BASE_EVERY_WORD_ON_THE_DESK_11_14_26.md.
 - Each build on his place's desk: its cost on one line, what it gives on the next, nothing cut upright; the row 44 px, the desk under

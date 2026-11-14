@@ -92,6 +92,7 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .acts.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin-top:4px}.acts.two .act{min-width:0;min-height:44px;padding:2px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
 .acts.two .act em{font-size:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis}.acts.two .act em.hcost{overflow:visible;margin:0;padding:0}.acts.two .act:has(em.hcost){line-height:1.05;padding-top:1px;padding-bottom:1px}.acts.two .act em.hcost span{display:block;line-height:1.02;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}   /* HOME BASE 11/11: measured sideways, a long line held its column wide and pushed the fourth column off the glass; it ends in ... inside its own column now */
 .hdesk{display:flex;gap:6px;align-items:stretch;margin-top:1px;font-size:11px;letter-spacing:.5px}.hdesk>div{flex:1;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:5px;padding:4px 6px;line-height:1.3}
+#hcam{position:absolute;left:8px;top:8px;z-index:5;pointer-events:none;font:11px/1.35 ui-monospace,Menlo,monospace;letter-spacing:1px;color:#e8e2d0;text-shadow:0 1px 0 #000,0 0 3px #000}#hcam .rec{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0302a;margin-right:6px;vertical-align:0;animation:hrec 1s steps(1) infinite}@keyframes hrec{50%{opacity:0}}#hcamb{position:absolute;right:8px;top:8px;z-index:5;display:flex;gap:4px}#hcamb button{min-width:48px;min-height:44px;padding:0 6px;font:11px ui-monospace,Menlo,monospace;letter-spacing:1px;background:rgba(10,8,6,.72);color:#cfc6b0;border:1px solid rgba(232,226,208,.35);border-radius:3px}#hcamb button.on{color:#e2b052;border-color:#e2b052}#hcamcut{position:absolute;inset:0;background:#000;z-index:4;pointer-events:none;opacity:0}   /* __HIS_PLACE_THROUGH_ITS_CAMERAS__: the camera's readout, its switch, the switcher's cut */
 .hplanrow{position:relative}.hcan{position:absolute;right:0;top:4px;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:2px;font-size:10px;letter-spacing:1px;pointer-events:none}.hcan b{display:none;font-weight:normal;margin-right:4px}.hcan span{text-align:center;padding:0 4px;border:1px dashed rgba(239,228,204,.35);border-radius:3px;opacity:.5}.hcan span.on{opacity:1;border:1px solid #e2b052;color:#e2b052}
 @media (orientation:landscape){.hcan{flex-direction:row;align-items:center;gap:6px}.hcan b{display:inline}}   /* __WHAT_YOU_BUILD_OPENS_A_DOOR__: lit what his place can do, dashed and dim what is still shut */
 .hdesk b{display:block;color:var(--gold);font-weight:400;font-size:10px;letter-spacing:1px}.hdesk button{min-height:44px;font:inherit;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:0 8px}
@@ -1985,9 +1986,10 @@ function homeThingsHere(){ var out = []; if(!S.home || !S.home.planted) return o
 function homeDoors(){
   if(!VAR || !VAR.boxes) return;
   ORDER = ORDER.filter(function(k){ return !/^h\d+$/.test(k); }); for(var k in VAR.boxes) if(/^h\d+$/.test(k)) delete VAR.boxes[k];
-  if(!S.home || !S.home.planted || !VAR.boxes.build) return;
+  if(!S.home || !S.home.planted || !VAR.boxes.build){ try{ homeCamUi(); }catch(e){} return; }
   homeThingsHere().forEach(function(t){ var bx = t.kind === 'build' ? homeLotBox(t.lot) : homePieceBox(t.lot); if(!bx) return; VAR.boxes[t.key] = bx; ORDER.push(t.key); B[t.key] = { name: t.name, short: t.kind === 'build' ? 'you built it' : 'from ' + (t.from || 'the road') }; });
   window.__HOME_DOORS = ORDER.filter(function(k){ return /^h\d+$/.test(k); });
+  try{ homeCamUi(); }catch(e){}   /* __HIS_PLACE_THROUGH_ITS_CAMERAS__ */
 }
 (function(){ var pv = pickVariant; pickVariant = function(){ var r = pv.apply(this, arguments); try{ homeDoors(); }catch(e){} return r; }; })();
 function homeThingSheet(k){
@@ -2039,6 +2041,61 @@ function homeCanLine(){ var H = S.home; if(!H || !H.opens) return null; var d = 
     sp.textContent = o.can; sp.className = on ? 'on' : ''; sp.dataset.can = o.can; d.appendChild(sp); out.push(o.can + (on ? '' : ' (shut)')); });
   window.__HOME_CAN = out; return d; }
 /* ==== /__WHAT_YOU_BUILD_OPENS_A_DOOR__ ==== */
+/* ==== __HIS_PLACE_THROUGH_ITS_CAMERAS__ (HOME BASE 11/14, VAMILY rule 451(c), ask row 625; rule 354 (11/3: 'your settlement, and only
+   yours, is seen through fixed security cameras... switched like a monitor'); his vote on WHAT YOU BUILD OPENS A DOOR: 'Bro if its my
+   place i want the camera angels the security cam shit!!??'). MEASURED: his place opened on the plain town screen, its one framing,
+   no camera, nothing to switch. NOW his place (only his) is watched by three fixed cameras on this screen's own picture and its own
+   zoom (the pinch's FIT.zoom, pan, panY: nothing new drawn): CAM 1 THE YARD (the whole place at the fit), CAM 2 THE LOTS (what he
+   built and the bosses' prizes standing, at the place's own closest zoom), CAM 3 THE PEOPLE (the ones who live there, at their work).
+   The camera's readout in its corner (REC on the beat, the camera, his place's name, the day), the switch in the other corner, a cut
+   of black between cameras like a monitor's switcher. Every door still answers at every camera (the BUILD desk, his things, the
+   shops). The look of real camera footage (rule 354's PS1 cameras, records/BOHEMIA_PAOLO_YOUR_SETTLEMENT_THROUGH_ITS_OWN_CAMERAS_11_3_26.md)
+   is the cameras' own renders, owed: this is the switching, on the picture his place already has. ==== */
+var HCAM = { n: 0, el: null, btns: null, cut: null, place: null };
+var HCAM_VIEWS = [ { name: 'THE YARD' }, { name: 'THE LOTS', aim: 'lots' }, { name: 'THE PEOPLE', aim: 'people' } ];   /* draft:true */
+function homeCamOn(){ return !!(S.home && S.home.planted && VAR && !S.camp && S.place); }
+function homeCamAim(a){
+  var bx = VAR.boxes.build; if(a === 'lots'){ if(!bx) return null; var x0 = bx[0], y0 = bx[1], x1 = bx[2], y1 = bx[3];
+    (window.__HOME_DOORS || []).forEach(function(k){ var b = VAR.boxes[k]; if(!b) return; x0 = Math.min(x0, b[0]); y0 = Math.min(y0, b[1]); x1 = Math.max(x1, b[2]); y1 = Math.max(y1, b[3]); });
+    return [(x0 + x1)/2, (y0 + y1)/2]; }
+  var L = []; try{ L = folkList().filter(function(p){ return p.resident; }); }catch(e){}
+  if(L.length){ var sx = 0, sy = 0; L.forEach(function(p){ sx += p.x; sy += p.y; }); return [sx/L.length, sy/L.length - personH()*.4]; }
+  var hb = VAR.boxes.hall || bx; return hb ? [(hb[0] + hb[2])/2, (hb[1] + hb[3])/2] : null; }
+function homeCamText(){ if(!HCAM.el) return; var v = HCAM_VIEWS[HCAM.n];
+  HCAM.el.textContent = ''; var r = document.createElement('i'); r.className = 'rec'; HCAM.el.appendChild(r);
+  HCAM.el.appendChild(document.createTextNode('REC  CAM ' + (HCAM.n + 1) + ' · ' + v.name)); HCAM.el.appendChild(document.createElement('br'));
+  HCAM.el.appendChild(document.createTextNode(String(S.home.name || '').toUpperCase() + '  DAY ' + buildDay()));
+  if(HCAM.btns) [].forEach.call(HCAM.btns.children, function(b, i){ b.classList.toggle('on', i === HCAM.n); });
+  window.__HOME_CAM = { n: HCAM.n, name: v.name, zoom: FIT.zoom, place: S.home.name }; }
+function homeCam(i){ if(!homeCamOn()) return; HCAM.n = i; var v = HCAM_VIEWS[i];
+  if(HCAM.cut){ HCAM.cut.style.opacity = '1'; setTimeout(function(){ if(HCAM.cut) HCAM.cut.style.opacity = '0'; }, 140); }   /* the switcher's cut: two holds of black */
+  if(!v.aim){ FIT.zoom = 1; view.s = FIT.fit; panY(FIT.frame ? FIT.frame.cy : picH()/2); pan(FIT.frame ? FIT.frame.cx : picW()/2); }
+  else { var c = homeCamAim(v.aim); if(c){ FIT.zoom = Math.max(1.01, zoomMax()); view.s = FIT.fit * FIT.zoom; panY(c[1]); pan(c[0]); } }
+  homeCamText(); try{ draw(); }catch(e){} }
+function homeCamUi(){ var sc = document.getElementById('scene'); if(!sc) return;
+  if(!homeCamOn()){ ['el', 'btns', 'cut'].forEach(function(k){ if(HCAM[k]){ HCAM[k].remove(); HCAM[k] = null; } }); window.__HOME_CAM = null; HCAM.place = null; return; }
+  if(!HCAM.cut){ HCAM.cut = document.createElement('div'); HCAM.cut.id = 'hcamcut'; sc.appendChild(HCAM.cut); }
+  if(!HCAM.el){ HCAM.el = document.createElement('div'); HCAM.el.id = 'hcam'; sc.appendChild(HCAM.el); }
+  if(!HCAM.btns){ HCAM.btns = document.createElement('div'); HCAM.btns.id = 'hcamb';
+    HCAM_VIEWS.forEach(function(v, i){ var b = document.createElement('button'); b.type = 'button'; b.textContent = 'CAM ' + (i + 1); b.dataset.cam = String(i);
+      b.setAttribute('aria-label', 'camera ' + (i + 1) + ', ' + v.name.toLowerCase());
+      b.addEventListener('pointerdown', function(ev){ ev.stopPropagation(); }); b.addEventListener('click', function(ev){ ev.stopPropagation(); homeCam(i); }); HCAM.btns.appendChild(b); });
+    sc.appendChild(HCAM.btns); }
+  if(HCAM.place !== S.place.name){ HCAM.place = S.place.name; HCAM.n = 0; }   /* his place opens on CAM 1 */
+  homeCamText(); try{ homeCamPlace(); }catch(e){} }
+/* the readout and the switch stand where the phone is not (measured 11/14 on the alpha on its side: the town 288 px tall and the phone
+   over the top right corner, CAM 2 under it): each tries its corner, then the other top corner, then under the readout */
+function homeCamPlace(){ if(!HCAM.btns || !HCAM.el) return; var P = FIT.phone, sc = document.getElementById('scene').getBoundingClientRect();
+  var over = function(e){ if(!P) return false; var b = e.getBoundingClientRect(); return b.left < P.left + P.width && b.right > P.left && b.top < P.top + P.height && b.bottom > P.top; };
+  var meet = function(a, c){ var x = a.getBoundingClientRect(), y = c.getBoundingClientRect(); return x.left < y.right && x.right > y.left && x.top < y.bottom && x.bottom > y.top; };
+  var put = function(e, side, top){ e.style.left = side === 'left' ? '8px' : 'auto'; e.style.right = side === 'right' ? '8px' : 'auto'; e.style.top = Math.round(top) + 'px'; e.style.textAlign = side; };
+  put(HCAM.el, 'left', 8); if(over(HCAM.el)) put(HCAM.el, 'right', 8);
+  var eb = function(){ return HCAM.el.getBoundingClientRect().bottom - sc.top + 6; };
+  var tries = [['right', 8], ['left', 8], ['left', eb()], ['right', eb()]];
+  for(var i = 0; i < tries.length; i++){ put(HCAM.btns, tries[i][0], typeof tries[i][1] === 'number' ? tries[i][1] : 8); if(!over(HCAM.btns) && !meet(HCAM.btns, HCAM.el)) break; }
+  window.__HOME_CAM_AT = { el: HCAM.el.style.textAlign, btns: HCAM.btns.style.left === '8px' ? 'left' : 'right', top: HCAM.btns.style.top }; }
+(function(){ var lo = layout; layout = function(){ var r = lo.apply(this, arguments); try{ homeCamPlace(); }catch(e){} return r; }; })();
+/* ==== /__HIS_PLACE_THROUGH_ITS_CAMERAS__ ==== */
 /* ==== /__HOME_BASE__ ==== */
 /* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
 function drawBuilt(s){
