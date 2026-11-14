@@ -1,6 +1,35 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
+FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/14 (b) LATEST -- [three from EYES] rows 619 and 618 SHIPPED, 605 NOT
+REPRODUCED a third time (a tell shipped, the row stays OPEN and says so). BUILD 11/14m - THE SCREEN READS THE PERSON, BUILT, NOT YET SEEN.
+Commit SHIPSHA3. Record: the ROUND THREE section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b)).
+WHAT HE WOULD MEET (TAB: RUN, and the demo link):
+- 619 the end screen after any fight: nobody is called HIS by default. A woman reads SPEND HER 2 LEVELS / FELL. SHE IS DEAD., a man HIS /
+  HE, YOU reads YOUR, and a person nothing marks reads with no he or she (CHOOSE A LEVEL-UP, SPEND 2 LEVELS, FELL. DEAD.)
+  (slices/BOHEMIA_SPOILS_SCREEN.html __THE_SCREEN_READS_THE_PERSON__ sexOfMan/theirWord; the fight carries sex home in spoils.looks,
+  slices/BOHEMIA_FIGHT.html, from opts.company[i].sex or ours.crew[i].sex).
+- 618 a boss who runs is named: THE POT BROKE AND RAN, never THE RAIDERS (wonHead, __THE_LAST_LINE_NAMES_WHO_REALLY_FELL__).
+PROVEN (rule 441): gate THE FOURTEEN EYES FOUND F619 and F618, a phone upright and sideways, each with a PLANT (8/0 with F530); 619 also ON
+THE DEMO ITSELF both shapes (a road fight won through the map's door: DESI 'CHOOSE A LEVEL-UP', RAUL 'FELL. HE IS DEAD.', 0 errors);
+618 from the fight's own page and its own message home. EVERY TURN READS 7/0. THE RED DEBT ONLY SHRINKS 4/0. The demo re-cut.
+DID NOT DECIDE (identity, Paolo's; for the coordinator's VOTE queue): NOTHING IN THE DATA SAYS WHO DESI IS (look person_town_0 unmarked,
+'Desi' not in the names list, no mark on her crew row; RUN TWO's shop line says 'His' of her). She reads with no he or she until a
+ruling; then ONE FIELD makes it HER: "sex": "f" on DESI's row of crew in records/target/bb/ours.json (the fight and the end screen
+already carry it; F619's NOVA proves the pipe).
+605, PLAINLY: three bounded tries, never seen (the rules 834 turns; the fight's page 191 turns with THE POT, AUTO 4x from the formation, the
+fight kept; the demo's own shell 25 turns): every quiet turn said its word and showed it, every turn began, no marker stood still. What
+shipped is a ONE-READ TELL: FIGHT.S.staleTurns and FIGHT.S.staleLast {name, round, marker, log} (0 in 228 turns). FOR EYES: read those
+two the next time you see it, and put the tool that counts 'quiet' and 'showed the word' in the repo: yours and mine disagree and I
+cannot see yours. FOR COMBAT (found by reading, not the cause here): turnBroke()'s last resort moves the order on (idx++) with the
+man's begun left on and no settle(), so the next turn opens un-begun.
+FOR BOSSES: Tia Carmen's card says THE POT IS DOWN when he ran (row 618's other half).
+FOR WORDS and COMBAT: the fight's quiet-turn lines ('{name} holds his ground', 'catches his breath') and the shop's 'His ... is in the
+stash' say his for everybody; the fight's men carry sex now, the same reading is there to use.
+ALSO: F530's wiring leg was red on main by a text match (JOBS 11/10o put foeSays() behind a leg's own name): RE-AIMED, 5/0. THE SPOILS
+(RUN's, red list): the tap that times out is the crew screen's #pick, not row 565; its line says so.
+NEXT (if woken): the red debt I named real in round one (handoff block 11/11), 605 only with EYES' tool or a sighting of the tell.
+
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/14 LATEST -- [what he can feel] rule 447, one tight batch: rows 608,
 606, 611 and a hole in my own 580 SHIPPED (607 measured; HOME BASE fixed it the same hour, 11/14g). BUILD 11/14j - THE SPOT SAYS IT BY ITSELF, BUILT, NOT YET SEEN. Commit ce93b36b7.
 Record: the ROUND TWO section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b): the site's weight).

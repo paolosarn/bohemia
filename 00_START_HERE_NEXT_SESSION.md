@@ -234,6 +234,9 @@ THEN (rule 447, what he can feel) BUILD 11/14j - THE SPOT SAYS IT BY ITSELF: the
 waits stops the camp's clock (606); no card answers a press in its first beat (611); his
 crew's name survives a fast thumb on a busy phone (580 again: 'THE NIGHT SHIFTLOS HER', 6 of 6 before); the last round's five
 re-proven both ways. NEXT: 618, 619, 605, then the debt.
+11/14 (b) BUILD 11/14m - THE SCREEN READS THE PERSON: the end screen calls nobody HIS by default (619: HER, HIS, YOUR, or no word when
+nothing marks the person; DESI is unmarked in the data, DID NOT DECIDE); a boss who runs is named, THE POT BROKE AND RAN (618); 605 not
+reproduced a third time, a one-read tell shipped (FIGHT.S.staleTurns), the row stays OPEN.
 The whole block: handoffs/FIXES_TWO.md.
 [bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
 [analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]

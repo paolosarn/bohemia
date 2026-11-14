@@ -331,6 +331,7 @@ html.sp-d3 .man .state .short{display:inline}
 <script src="../engine/bohemia_spoils.js"></script>
 <script src="../engine/bohemia_camp.js"></script>  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
 <script src="../engine/bohemia_people_mix.js"></script>
+<script src="../engine/bohemia_names.js"></script>  <!-- FIXES 2 (ask row 619): the one names engine, so the screen reads a she or a he off the person, never a hard-coded HIS -->
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_crew_door.js"></script>
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS: the one dial, for the survivor's word -->
@@ -409,7 +410,7 @@ function drawCrew(){
     }
     /* what he did in it (kills, blood drawn, blood taken) is printed on the receipt (__THE_RECEIPT__), one line a man, never twice */
     var st = null;
-    if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; st.textContent = 'FELL. HE IS DEAD.'; }
+    if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; var sx0 = sexOfMan(m); st.textContent = sx0 === 'f' ? 'FELL. SHE IS DEAD.' : sx0 === 'm' ? 'FELL. HE IS DEAD.' : 'FELL. DEAD.'; st.dataset.sex = sx0 || ''; }   /* draft:true */
     else if(m.down && m.main){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'WENT DOWN. UP AGAIN AFTER.'; }
     else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt';
       /* FIXES 11/9 (row 525): the whole line, and its short form for a tight glass (the injury's name always on it) */
@@ -418,7 +419,8 @@ function drawCrew(){
     if(st) w.appendChild(st);
     if((m.up || m.waiting > 0) && !m.dead){ if(m.up) ups++;
       var b = document.createElement('button'); b.className = 'perk'; b.type = 'button'; b.dataset.perk = m.name;
-      b.textContent = (m.waiting > 1 ? (m.main ? 'SPEND YOUR ' : 'SPEND HIS ') + m.waiting + ' LEVELS' : (m.main ? 'CHOOSE YOUR LEVEL-UP' : 'CHOOSE HIS LEVEL-UP'));
+      var pw = m.main ? 'YOUR' : theirWord(m);   /* __THE_SCREEN_READS_THE_PERSON__ (row 619): YOUR, HER, HIS, or no word at all */
+      b.textContent = (m.waiting > 1 ? 'SPEND ' + (pw ? pw + ' ' : '') + m.waiting + ' LEVELS' : (pw ? 'CHOOSE ' + pw + ' LEVEL-UP' : 'CHOOSE A LEVEL-UP')); b.dataset.sex = m.main ? 'you' : (sexOfMan(m) || '');   /* draft:true */
       b.addEventListener('click', function(){ openCrew(m.name); }); w.appendChild(b); }
     d.appendChild(w); el.appendChild(d);
     /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): no hold card of his kills on the end screen */
@@ -794,6 +796,12 @@ function wonHead(sp){
   var one = b.length === 1, who = theyWere(sp, one), name = who.name;
   var ran = b.filter(function(x){ return x.fled; }).length, down = b.filter(function(x){ return x.dead; }).length;
   var boss = b.filter(function(x){ return x.boss && x.dead; })[0]; if(boss && boss.name) return String(boss.name).toUpperCase() + ' IS DOWN';   /* WORDS rule 315: a boss fell, the head names him */
+  /* __THE_LAST_LINE_NAMES_WHO_REALLY_FELL__ (FIXES 2 11/14, ask row 618, FOUND BY EYES 11/14: THE POT's fight closed on 'THE RAIDERS
+     BROKE AND RAN'). MEASURED in the rules, 24 of his fights: 22 end with him dead (THE POT IS DOWN, the line above), 2 with his
+     line dead and HIM RUNNING; that end fell through to the road's table, and a boss's band is dressed as the road crew. A boss
+     who is not dead is named for what he did: he ran. Never the raiders in a boss's fight. draft:true */
+  var bossUp = b.filter(function(x){ return x.boss && !x.dead && x.name; })[0];
+  if(bossUp) return String(bossUp.name).toUpperCase() + (bossUp.fled ? (down ? ' BROKE AND RAN' : ' RAN') : (down ? ' IS BEATEN' : ' GAVE WAY'));
   if(ran && !down) return name + ' RAN';
   if(ran) return name + ' BROKE AND RAN';
   return name + (who.are ? ' ARE DOWN' : ' IS DOWN');
@@ -825,6 +833,24 @@ function survivorWord(f, kind){
   S.said = r; window.__SURVIVOR = r;
   return r;
 }
+/* __THE_SCREEN_READS_THE_PERSON__ (FIXES 2 11/14, ask row 619, FOUND BY EYES 11/14: 'SPEND HIS 2 LEVELS' under DESI; 'FELL. HE IS
+   DEAD.'). The screen said HIS and HE for everybody. It reads the person now, from what the game already knows of them, in this
+   order: a she or he the fight hands with the man (m.sex, or with his look), his look as the names engine reads a face
+   (BohemiaNames.faceReads) or as the people's roll marks it (BOHEMIA_PEOPLE_MIX), his given name as the names engine reads it
+   (BohemiaNames.sexOf). When none of them says, NO PRONOUN is printed (SPEND 2 LEVELS, CHOOSE A LEVEL-UP, FELL. DEAD.): a guess is
+   how DESI became 'his'. draft:true */
+function sexOfMan(m){
+  try{
+    var s = m && (m.sex || (S.sexes && S.sexes[m.name])); if(s === 'f' || s === 'm') return s;
+    var lk = (m && m.look) || S.looks[m.name] || null, N = window.BohemiaNames, M = window.BOHEMIA_PEOPLE_MIX;
+    if(lk && N && N.faceReads){ s = N.faceReads(lk); if(s === 'f' || s === 'm') return s; }
+    if(lk && M && M.people){ for(var i = 0; i < M.people.length; i++) if(M.people[i].look === lk){ s = M.people[i].sex; break; } if(s === 'f' || s === 'm') return s; }
+    var g = String((m && m.name) || '').trim().split(/\s+/)[0]; g = g.charAt(0).toUpperCase() + g.slice(1).toLowerCase();
+    if(g && N && N.sexOf){ s = N.sexOf(g); if(s === 'f' || s === 'm') return s; }
+  }catch(e){}
+  return null;
+}
+function theirWord(m){ var s = sexOfMan(m); return s === 'f' ? 'HER' : s === 'm' ? 'HIS' : ''; }
 function head(f){
   var rc = S.rc || {}, kind = f.wipe ? 'wipe' : f.retreat ? 'ran' : f.result === 'won' ? 'won' : 'lost';
   var bar = document.getElementById('bar'); bar.className = kind === 'won' ? 'won' : 'lost';
@@ -897,7 +923,7 @@ function open(o){
   var f = o.fight || {};
   S.fight = f; S.seq = o.seq || Date.now();
   S.stash = (readJ(BAGKEY, []) || []).slice(0, S.cap);
-  S.looks = {}; ((f.spoils && f.spoils.looks) || []).forEach(function(l){ if(l && l.name) S.looks[l.name] = l.look; });
+  S.looks = {}; S.sexes = {}; ((f.spoils && f.spoils.looks) || []).forEach(function(l){ if(l && l.name){ S.looks[l.name] = l.look; if(l.sex) S.sexes[l.name] = l.sex; } });
   S.men = climbs(Array.isArray(f.crew) ? f.crew : []);
   S.rc = f.spoils && f.spoils.recap || null; S.nums = {};
   ((S.rc && S.rc.men) || []).forEach(function(n){ if(n && n.name) S.nums[n.name] = n; });

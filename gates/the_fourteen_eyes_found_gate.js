@@ -435,7 +435,7 @@ async function f530() {
   ok('F530 a job\'s leg that names its enemy names them ("' + job[0] + '"), and the next fight is not named by the last job ("' + job[1] + '")', job[0] === "THE YARD'S WATCHMEN ARE DOWN" && job[1] === 'THE RAIDERS ARE DOWN', job.join(' / '));
   /* the wiring: the fight sends its own name, the shell keeps the job's for every fight, the job kinds hand it over */
   const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8'), demo = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8'), jk = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_kinds.js'), 'utf8');
-  const wired = { fight: /theyAre: \(nf && nf\.name\) \|\| THEY_ARE\[fac\]/.test(fight), alpha: /window\.__FIGHT_NOW = \{[^}]*foe: \(d && d\.foe\)/.test(alpha), demo: /window\.__FIGHT_NOW = \{[^}]*foe: \(d && d\.foe\)/.test(demo), jobs: /foe: \(extra && extra\.foe\) \|\| null/.test(jk) && /\{ foe: L\.fight\.label \|\| null \}/.test(jk) };
+  const wired = { fight: /theyAre: \(nf && nf\.name\) \|\| THEY_ARE\[fac\]/.test(fight), alpha: /window\.__FIGHT_NOW = \{[^}]*foe: \(d && d\.foe\)/.test(alpha), demo: /window\.__FIGHT_NOW = \{[^}]*foe: \(d && d\.foe\)/.test(demo), jobs: /foe: \(extra && extra\.foe\) \|\| (foeSays\([^\n;]*\) \|\| )?null/.test(jk) /* RE-AIMED FIXES 2 11/14: JOBS (11/10o, __EVERY_JOB_NAMES_ITS_FOE__) put every other fight's name behind the leg's own; the leg's own still leads */ && /\{ foe: L\.fight\.label \|\| null \}/.test(jk) };
   ok('F530 the wiring: the fight sends its name for them, the shell (alpha and demo) keeps the job\'s fresh each fight, the job kinds hand a leg\'s label over', Object.values(wired).every(Boolean), JSON.stringify(wired));
   /* PLANT: the old table (no name from the fight, no entries for the valley's factions) */
   const planted = await p.evaluate(([list]) => list.filter(f => /house|watch|keepers|water/.test(f)).map(f => BohemiaSpoilsScreen.wonHead({ faction: 'brigands_old_' + f, bodies: [{ dead: true }, { dead: true }] })), [list]);
@@ -1004,6 +1004,69 @@ async function f60x(shape, plant) {
   await ctx.close();
 }
 
+/* ---------------- F619, F618 (FIXES 2 11/14, FOUND BY EYES 11/14): the end screen on its own page, both shapes ----------------
+   F619 THE SCREEN READS THE PERSON: a woman of his with levels to spend reads SPEND HER n LEVELS, a man HIS, the player YOUR, a
+        person nobody has marked gets no word at all (never HIS by default); the dead read SHE IS DEAD, HE IS DEAD, or DEAD; a
+        person the fight marks (sex on her look's row) is read from that mark first; every button is whole on the glass.
+        PLANT: the reading taken out (everybody a man, the old hard-coded word).
+   F618 THE LAST LINE NAMES WHO REALLY FELL: the fight's own page with THE POT's hand-over; his line dead and HE RUNS, the fight's
+        own message home opens the end screen: the head names THE POT, never THE RAIDERS; the same fight with him dead reads THE
+        POT IS DOWN.  PLANT: the boss's own line taken out of the head (the old fall-through to the road's table). */
+async function f619(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/BOHEMIA_SPOILS_SCREEN\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('function sexOfMan(m){', "function sexOfMan(m){ return 'm';"); await route.fulfill({ response: r, body: b }); });
+  await p.goto(BASE + '/slices/BOHEMIA_SPOILS_SCREEN.html', { waitUntil: 'load', timeout: 120000 });
+  await p.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state && BohemiaSpoilsScreen.state.ready, null, { timeout: 60000 });
+  const r = await p.evaluate(() => { const SS = BohemiaSpoilsScreen, f = JSON.parse(JSON.stringify(SS.SAMPLE));
+    const man = (name, x) => Object.assign({ name: name, level: 1, xpGained: 1400, dead: false, down: false, perks: [] }, x || {});
+    f.crew = [man('YOU', { main: true }), man('TERESA'), man('RAUL'), man('DESI'), man('NOVA'), man('MARISOL', { dead: true, xpGained: 0 }), man('BETO', { dead: true, xpGained: 0 }), man('ZED', { dead: true, xpGained: 0 })];
+    f.spoils.looks = [{ name: 'YOU', look: 'you' }, { name: 'TERESA', look: 'cast_skirt' }, { name: 'RAUL', look: 'person_town_1' }, { name: 'DESI', look: 'person_town_0' }, { name: 'NOVA', look: 'person_town_0', sex: 'f' },
+      { name: 'MARISOL', look: 'person_town_0' }, { name: 'BETO', look: 'person_town_1' }, { name: 'ZED', look: 'person_town_0' }];
+    f.spoils.recap.men = []; f.spoils.recap.call = null;
+    SS.open({ fight: f, seed: 7 });
+    const out = { W: innerWidth, H: innerHeight, rows: {}, cut: [] };
+    [...document.querySelectorAll('.man')].forEach(m => { const nm = m.querySelector('.nm'); const tx = (nm ? nm.textContent : m.textContent).trim(), who = f.crew.map(c => c.name).sort((x, y) => y.length - x.length).filter(n => tx.indexOf(n) === 0)[0] || tx.slice(0, 12);
+      const b = m.querySelector('.perk'), st = m.querySelector('.state.gone'); out.rows[who] = { btn: b ? b.textContent.trim() : null, gone: st ? st.textContent.trim() : null };
+      if (b) { b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect(); if (q.left < -0.5 || q.right > innerWidth + 0.5 || q.width < 40 || q.height < 30 || b.scrollWidth > b.clientWidth + 1) out.cut.push(who + ' ' + Math.round(q.left) + '..' + Math.round(q.right) + ' ' + b.scrollWidth + '/' + b.clientWidth); } });
+    return out; }).catch(e => ({ err: String(e.message).slice(0, 200) }));
+  const R = r.rows || {}, b = k => (R[k] && R[k].btn) || '', g = k => (R[k] && R[k].gone) || '';
+  if (plant) { ok('F619 ' + shape + ' PLANTED (the reading taken out, everybody a man): the leg sees a woman called HIS (' + b('TERESA') + ' / ' + g('MARISOL') + ')', /\bHIS\b/.test(b('TERESA')) && /\bHE IS DEAD/.test(g('MARISOL')), JSON.stringify(r)); await ctx.close(); return; }
+  ok('F619 ' + shape + ': the end screen reads the person: YOU "' + b('YOU') + '", a woman by her look "' + b('TERESA') + '", a man "' + b('RAUL') + '", a woman the fight marks "' + b('NOVA') + '", nobody\'s mark "' + b('DESI')
+    + '" (no HIS by default); the dead: "' + g('MARISOL') + '", "' + g('BETO') + '", "' + g('ZED') + '"; every button whole on the glass',
+    /^SPEND YOUR \d+ LEVELS$/.test(b('YOU')) && /^SPEND HER \d+ LEVELS$/.test(b('TERESA')) && /^SPEND HIS \d+ LEVELS$/.test(b('RAUL')) && /^SPEND HER \d+ LEVELS$/.test(b('NOVA')) && /^SPEND \d+ LEVELS$/.test(b('DESI'))
+    && g('MARISOL') === 'FELL. SHE IS DEAD.' && g('BETO') === 'FELL. HE IS DEAD.' && g('ZED') === 'FELL. DEAD.' && (r.cut || []).length === 0 && errs.length === 0, JSON.stringify(r) + (errs[0] || ''));
+  await ctx.close();
+}
+const POT_OPTS = { seed: 5, speed: 4, kind: 'strip', deploy: false, formation: null, teach: false, keep: false,
+  company: [{ background: 'companion_1hand', name: 'YOU' }, { background: 'companion_ranged', name: 'DESI' }, { background: 'companion_1hand', name: 'RAUL' }],
+  boss: { kind: 'militia_captain', name: 'THE POT', title: 'keeper of the last good pot', hp_x: 2.0, weapon: "Butcher's Cleaver", shield: 'Wooden Shield', look: 'boss_pot_0' },
+  band: ['militia_captain', 'militia', 'militia', 'militia'], party: { band: ['militia_captain', 'militia', 'militia', 'militia'], count: 4, rolled: true, boss: true, faction: 'brigands', what: 'THE POT AND HIS LINE COOKS', days: 1, difficulty: 1 } };
+async function f618(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const fp = await ctx.newPage(); await fp.addInitScript('window.FIGHT_OPTS=' + JSON.stringify(POT_OPTS) + ';');
+  await fp.goto(BASE + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load', timeout: 180000 });
+  await fp.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 90000 });
+  /* the fight's own message home for two ends of his fight: his line dead and HE RUNS; his line run and HE IS DEAD */
+  const msgs = await fp.evaluate(() => { const them = FIGHT.S.units.filter(u => u.side === 'them'), boss = them.filter(u => u.boss)[0]; if (!boss) return { err: 'no boss on the board: ' + them.map(u => u.name).join(',') };
+    const end = (bossDead) => { them.forEach(u => { u.dead = false; u.fled = false; if (u === boss) { u.dead = bossDead; u.fled = !bossDead; } else { u.dead = !bossDead; u.fled = bossDead; } }); FIGHT.S.over = true; FIGHT.S.result = 'won'; return JSON.parse(JSON.stringify(homeMessage('won'))); };
+    return { boss: boss.name, ran: end(false), fell: end(true) }; }).catch(e => ({ err: String(e.message).slice(0, 200) }));
+  if (msgs.err) { ok('F618 ' + shape + ': THE POT stands on the fight\'s board', false, msgs.err); await ctx.close(); return; }
+  await fp.close();
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/BOHEMIA_SPOILS_SCREEN\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if(bossUp) return String(bossUp.name)', 'if(0) return String(bossUp.name)'); await route.fulfill({ response: r, body: b }); });
+  await p.goto(BASE + '/slices/BOHEMIA_SPOILS_SCREEN.html', { waitUntil: 'load', timeout: 120000 });
+  await p.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state && BohemiaSpoilsScreen.state.ready, null, { timeout: 60000 });
+  const read = async m => p.evaluate(m => { BohemiaSpoilsScreen.open({ fight: m, seed: 3 }); const h = document.getElementById('head'), q = h.getBoundingClientRect(); const all = document.getElementById('bar').innerText + ' ' + document.body.innerText;
+    return { head: h.textContent.trim(), whole: q.width > 0 && q.left >= -0.5 && q.right <= innerWidth + 0.5 && h.scrollWidth <= h.clientWidth + 1, raiders: /RAIDERS/.test(all), fac: m.spoils.faction, they: m.spoils.theyAre,
+      bodies: m.spoils.bodies.map(b => b.name + (b.boss ? '*' : '') + (b.dead ? ' dead' : b.fled ? ' ran' : '')).join(', ') }; }, m);
+  const A = await read(msgs.ran), B = await read(msgs.fell);
+  if (plant) { ok('F618 ' + shape + ' PLANTED (the boss\'s own line out of the head): the leg sees the raiders\' line over his fight ("' + A.head + '")', /RAIDERS/.test(A.head) || A.raiders, JSON.stringify(A)); await ctx.close(); return; }
+  ok('F618 ' + shape + ': THE POT\'s fight, the fight\'s own message home: his line dead and he runs, the end screen\'s head reads "' + A.head + '"; him dead, "' + B.head + '"; never THE RAIDERS, the head whole on the glass',
+    A.head === 'THE POT BROKE AND RAN' && B.head === 'THE POT IS DOWN' && !A.raiders && !B.raiders && A.whole && B.whole && errs.length === 0, JSON.stringify([A, B]) + (errs[0] || ''));
+  await ctx.close();
+}
+
 (async () => {
   await new Promise(r => srv.listen(0, '127.0.0.1', r)); BASE = 'http://127.0.0.1:' + srv.address().port;
   browser = await chromium.launch();
@@ -1026,6 +1089,9 @@ async function f60x(shape, plant) {
     for (const s of SH) { if (want('F609')) { await f609(s, false); if (s === SH[0]) await f609(s, true); } }
     for (const s of SH) { if (want('F608')) { await f608(s, false); if (s === SH[0]) await f608(s, true); } }
     for (const s of SH) { if (want('F606') || want('F611')) { await f60x(s, false); if (s === SH[0]) await f60x(s, true); } }
+    /* FOUND BY EYES 11/14 (rows 618, 619), FIXES 2 */
+    for (const s of SH) { if (want('F619')) { await f619(s, false); if (s === SH[0]) await f619(s, true); } }
+    for (const s of SH) { if (want('F618')) { await f618(s, false); if (s === SH[0]) await f618(s, true); } }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();
   console.log('THE FOURTEEN EYES FOUND: ' + pass + ' passed, ' + fail + ' failed');

@@ -1049,7 +1049,7 @@ const FIGHT = (function () {
     /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d)): a man the company hands with his look
        (engine/bohemia_roster.js company()) fights in it, so a death or a new order never moves him into another body;
        else the place in this list, as before */
-    return dressSpark(c, condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return dressSpark(c, condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, sex: (c.sex === 'f' || c.sex === 'm') ? c.sex : null /* __THE_SCREEN_READS_THE_PERSON__ (FIXES 2, ask row 619): who she is, when her row says; never a guess */, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve') + ((c.arenaRank && c.arenaRank.resolve) | 0), arenaSurvive: (c.arenaRank && c.arenaRank.struck_down_survive) || 0 /* __THE_ARENA__: his pit rank, the shell's from records/target/bb/arena.json (bb_all/0132, 0134) */, initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagKit: !bagHanded(c), bagState: [],
@@ -2102,7 +2102,7 @@ const FIGHT = (function () {
     let dealt = S.boardDef;
     if (!(S.boardDef && S.boardDef.interior === 'tunnels')) { S.flood = null; S.tunnels = null; }
     if (!(S.boardDef && S.boardDef.interior === 'garage')) S.garage = null;
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
+    S.units = []; S.events = []; S.log = []; S.staleTurns = 0; S.staleLast = null; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own way, the fight keys of its rule (records/target/bb/origins.json
        personal.rule.does; the shell hands them as opts.originWay, engine/bohemia_origin_ways.js fight()): first_round, never_confident,
        never_flees, standard, whip. Read in roundStart's order, check()'s nerve and setup's bearer; nothing handed = as before */
@@ -2120,6 +2120,8 @@ const FIGHT = (function () {
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
+          /* __THE_SCREEN_READS_THE_PERSON__ (FIXES 2, ask row 619): her own mark when the game hands one; a row's mark never rides onto another name */
+          t.sex = (m.sex === 'f' || m.sex === 'm') ? m.sex : (m.name && i > 0 && m.name !== t.name ? null : t.sex || null);
           if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (m.arenaRank) t.arenaRank = m.arenaRank; /* __THE_ARENA__: his pit rank */ if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && (i > 0 || (MADE && m.name === MADE))) t.name = m.name;   /* RUN THREE [make your main guy] (rule 263(b)): YOU first, by the name he gave him (bohemia.main.v1); any other first man keeps the place's name, as before */ if (m.cond) t.cond = m.cond; if (Array.isArray(m.fresh)) t.fresh = m.fresh; return t; })
       : base);
     /* NO CAP ON HOW MANY FIGHT (COMBAT 7, rule 378(a), ask line 407): no code caps how many stand on the board; AMENDED 11/3 (below):
@@ -2637,6 +2639,12 @@ const FIGHT = (function () {
        or 'end' only and no word; measured: every one a turn ENDED BY HIS OWN FINGER, the word's switch was AUTO alone). A turn of his
        that closes with no walk and no blow says what it was whoever closed it: by hand too (the reload, the swap, else HOLDS), marked
        hand so the page gives it a quarter of a beat and never a reason AUTO would give (the brain's why is AUTO's alone) */
+    /* __THE_STALE_TURN_TELL__ (FIXES 2 11/14, ask row 605, FOUND BY EYES twice: a man's turn marker reading the same number in several
+       rounds, the quiet word missing). NOT REPRODUCED in three bounded tries (the rules 834 turns, this page 191, the demo's own shell
+       25: every quiet turn said its word, every turn began). A turn that begins writes its 'turn' at its own marker, so a marker that
+       does not point at his own 'turn' is a turn that never began here: counted and named, one read (FIGHT.S.staleTurns, staleLast),
+       so the next sighting names its turn. It changes nothing a player meets. */
+    if (u.side === 'you') { const e0 = S.log[u.turnLog]; if (!(e0 && e0.t === 'turn' && e0.id === u.id)) { S.staleTurns = (S.staleTurns | 0) + 1; S.staleLast = { id: u.id, name: u.name, round: S.round, marker: u.turnLog, log: S.log.length }; } }
     if (u.side === 'you' && onField(u) && !u.fled && u.morale !== 'Fleeing' && !walkOrBlow(u)) emit(S.byHand ? { t: 'idle', id: u.id, why: handWhy(u), x: u.x, y: u.y, hand: true } : { t: 'idle', id: u.id, why: quietWhy(u), x: u.x, y: u.y });
     turnOver(u); u.begun = false; S.idx++; emit({ t: 'end', id: u.id }); if (closedOut(u)) return true; settle(); return true;
   }
@@ -10935,7 +10943,7 @@ function spoilsOf() {
         body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
     /* WHAT EACH HAND HOLDS WHEN IT ENDS (COMBAT, rule 164 item 15, RUN TWO's note 10/25): a swap in the fight is kept, so the crew
        screen can put back main, off and the bag as they ended (item ids; the car door on his back counts as the off hand) */
-    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null,
+    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null, sex: v.sex || null,   /* ask row 619: the end screen reads the person, the fight hands her over */
       held: { main: v.weapon ? v.weapon.id : null, off: (v.shield || v.shieldBack) ? (v.shield || v.shieldBack).id : null, bag: v.bagKit ? null : (v.bag || []).map(function (w) { return w ? w.id : null; }) } }; }),   /* the kit's stand-ins were never his: no bag */
     recap: recapOf() };
 }

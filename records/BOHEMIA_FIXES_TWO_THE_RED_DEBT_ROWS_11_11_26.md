@@ -170,6 +170,65 @@ page's own file, a phone upright (390 x 844) and on its side (844 x 390), touch;
   word against it). The debt's 577, 578, 581, 582, 592, 594: untouched this round.
 - NO VOTE CARD THIS ROUND: rule 447(b), the site at 894 of 900 MB, nothing more ships until it is trimmed; a card needs two pictures.
 
+## ROUND THREE, THREE FROM EYES (rows 619, 618, 605): BUILD 11/14m - THE SCREEN READS THE PERSON
+
+The coordinator's order: 'Row 619: the end screen calls DESI HIS... no screen hard-codes a pronoun, it reads the person. Row 618: a boss
+fight closes on THE RAIDERS BROKE AND RAN when THE POT is down: the fight's last line names who really fell. Row 605: the quiet word still
+fails on a fresh read when a man's turn log is stale. One tight batch, proven on a phone both ways (rule 441), shipped, rows marked, then
+stop.' No VOTE card (rule 447(b), the site's weight; nothing here is a picture).
+
+### 619 THE SCREEN READS THE PERSON (FIXED; TAB: RUN, the end screen after any fight)
+- BEFORE: slices/BOHEMIA_SPOILS_SCREEN.html printed 'CHOOSE HIS LEVEL-UP', 'SPEND HIS n LEVELS' and 'FELL. HE IS DEAD.' for everybody
+  but YOU. The fight handed home a name and a look, no he or she.
+- NOW (__THE_SCREEN_READS_THE_PERSON__): sexOfMan(m) reads, in order: a mark the fight hands over (spoils.looks[i].sex, or sex on the
+  crew row), her look as the names engine reads faces (BohemiaNames.faceReads), the people's roll (BOHEMIA_PEOPLE_MIX), her given name
+  (BohemiaNames.sexOf). YOU reads YOUR. NOTHING SAYS = NO PRONOUN: 'CHOOSE A LEVEL-UP', 'SPEND 2 LEVELS', 'FELL. DEAD.'. Never HIS by
+  default. The page loads engine/bohemia_names.js for it.
+- THE FIGHT HANDS HER OVER: slices/BOHEMIA_FIGHT.html carries sex ('f' or 'm') from the game's hand-over (opts.company[i].sex) or the
+  crew's own row (ours.crew[i].sex) onto the man and home in spoils.looks; a row's mark never rides onto another name.
+- MEASURED: DESI's look is person_town_0, unmarked in the people's roll (sex null); 'Desi' is not in the names list; the crew's row in
+  records/target/bb/ours.json has no mark; RUN TWO's shop line (10/26) says 'His ... vest' of her. NOTHING IN THE DATA SAYS WHO DESI IS.
+  So on the demo she reads with no he or she: 'CHOOSE A LEVEL-UP'. DID NOT DECIDE (identity, Paolo's): one field makes it HER
+  ("sex": "f" on DESI's crew row, or on the company the game hands the fight).
+- PROOF: gate THE FOURTEEN EYES FOUND F619, the end screen's page, 390 x 844 and 844 x 390: SPEND YOUR 3 LEVELS (YOU), SPEND HER 3
+  LEVELS (a woman by her look cast_skirt; a woman the fight marks), SPEND HIS 3 LEVELS (person_town_1), SPEND 3 LEVELS (DESI, unmarked);
+  FELL. SHE IS DEAD. (MARISOL, by her name), FELL. HE IS DEAD. (BETO, by his look), FELL. DEAD. (ZED); every button whole on the glass.
+  PLANT: the reading taken out (everybody a man): the leg sees 'SPEND HIS 3 LEVELS' under a woman. ON THE DEMO ITSELF, both shapes, a
+  road fight through the map's own door, won, RAUL dead and DESI given a level: DESI 'CHOOSE A LEVEL-UP' (122 x 44 upright, 88 x 44
+  on its side, 11 px), RAUL 'FELL. HE IS DEAD.', 0 page errors (probe p619demo.js).
+- FOR WORDS and COMBAT (found, not mine this round): the fight's quiet-turn lines say his for everybody ('{name} holds his ground',
+  'is winded and catches his breath', 'nowhere safer in his walk'); the shop's 'His ... is in the stash'. The fight's men carry sex now.
+
+### 618 THE LAST LINE NAMES WHO REALLY FELL (FIXED; TAB: RUN, the end screen after a boss's fight)
+- MEASURED in the rules, 24 of THE POT's fights (tools/bohemia_fight_headless.js, BOSSES' own hand-over): 22 end with him dead (the
+  head already read THE POT IS DOWN), 2 with his line dead and HIM RUNNING. That end fell through wonHead() to the road crew's table:
+  a boss's band is dressed as faction 'brigands', so it read 'THE RAIDERS BROKE AND RAN', EYES' exact words.
+- NOW (__THE_LAST_LINE_NAMES_WHO_REALLY_FELL__): a boss who is not dead is named for what he did: 'THE POT BROKE AND RAN' (men of his
+  down), 'THE POT RAN' (nobody down); a boss still standing when his line gave way, 'THE POT IS BEATEN' / 'GAVE WAY'. draft:true.
+- PROOF: gate F618, both shapes: the FIGHT'S OWN PAGE with THE POT's hand-over, the two ends set on its own men, the fight's own message
+  home (homeMessage) opened on the end screen: 'THE POT BROKE AND RAN' and 'THE POT IS DOWN', never RAIDERS anywhere on the screen,
+  the head whole on the glass. PLANT: the boss's line out of the head: 'THE RAIDERS BROKE AND RAN'.
+- FOR BOSSES: Tia Carmen's card after it says 'THE POT IS DOWN' when he ran. Yours.
+
+### 605 THE QUIET WORD (NOT REPRODUCED A THIRD TIME; a tell shipped; stays OPEN)
+- Bounded tries this round: the fight's page, THE POT's hand-over, five of his, the page's own defaults (the formation first, the fight
+  kept every round), AUTO at 4x by its own button: 76 turns, 3 quiet, 3 said, 3 shown (UI.idles), no marker the same in two rounds, every
+  turn began (p605e.js). The DEMO'S OWN SHELL, three road fights through the map's door, AUTO at 4x, 2x, 1x: 25 turns, 0 quiet, nothing
+  stale, nothing broke (p605demo.js). With last round's: the rules 834 turns (47 quiet, 47 said), the page 191 turns (9 quiet, 9 said).
+- READ: the marker has one writer (beginTurn) and it writes the log's length; the log is only cut by a take-back by hand and reset by a
+  kept fight read back; the odds and the chase play a second copy in a worker. Nothing on a live AUTO fight can hold a marker still.
+- ONE HOLE FOUND BY READING, NOT THE CAUSE HERE: turnBroke()'s last resort (the turn's own end threw) does FIGHT.S.idx++ with the
+  man's begun left on and no settle(); the next man's turn opens un-begun. It needs a page error; EYES' walk had 0. FOR COMBAT.
+- SHIPPED: __THE_STALE_TURN_TELL__ in endTurn: a turn of his whose marker does not point at its own 'turn' event is counted and named
+  (FIGHT.S.staleTurns, FIGHT.S.staleLast {id, name, round, marker, log}); 0 in 228 turns of 12 fights in the rules. It changes nothing
+  a player meets. EYES: read those two the next time, and say how your tool counts a quiet turn and a shown word (it is not in the repo).
+
+### ALSO
+- gates/the_fourteen_eyes_found_gate.js F530's wiring leg was red on main (a text match): JOBS (11/10o) put every other fight's name
+  behind a leg's own ('foe: (extra && extra.foe) || foeSays(...) || null'); the leg's own still leads. RE-AIMED with a note; 5/0.
+- THE SPOILS gate (RUN's, on the red list as UNSURE): MEASURED, the tap that times out is the crew screen's #pick inside the end
+  screen's crew door (after the end screen's own level button opened it): not LOOT ALL, not LEAVE, not row 565. Its line says so now.
+
 ## THE PROBES (scratch tools, kept as the method; none ship)
 serve the repo's three published roots at /, a phone context (touch, mobile, the service worker blocked when a request is held),
 every pageerror with its stack, every 4xx. The stranger's walk; setItem wrapped to name who writes a save; focus/input traced on
