@@ -35,9 +35,16 @@ FOR THE TOOL: tools/bohemia_fight_screen_the_opening_card.js <alpha|demo> <uprig
 On the alpha the tool opens the map with the game's own swap (its RUN tab leaves a town onto the old street, where there is no card).
 
 NEXT, in order (rule 450(a), ask row 621): ONE CARD LEFT.
- (1) THE MAN'S CARD ON THE PHONE (the one he sees every turn: 5 point numbers, a cut status line, buttons of 25 by 27 points). It is slices/bohemia_phone.js .fight
-     (UI's file) and the phone's fight page is 108 points wide: measure first whether a readable card fits there at all (rule 12), then build it as a marked block
-     or hand UI THREE the design: nothing under 11 points, nothing cut, every button a thumb, RETREAT away from WAIT and AUTO, the sheet's board.
+ (1) THE MAN'S CARD ON THE PHONE (the one he sees every turn: 5 point numbers, a cut status line, buttons of 25 by 27 points). NOT BUILT, AND MEASURED (rule 12; the
+     teardown's own boxes, records/fight_screen_teardown_11_14/measured_upright.json): the phone's fight page is 108 x 235 points upright (97 x 212 on its side). A
+     finished page needs 278: his card 48 (a 36 point pinned face, his name at 11 points, three bars with no numbers, his AP as pips), FIGHT 44, WAIT / AUTO / speed /
+     RETREAT as two rows of two thumbs 92, STRIKE 50, the two apps 44, before one row of skills. IT DOES NOT FIT, SO THE PHONE GROWS IN A FIGHT (about 124 x 330 of
+     page upright, out of its own spot, rule 448(a)) or rows leave it. That is the phone's size and place, UI THREE's layout (slices/bohemia_phone.js: BW, BH, .fight,
+     .reach) and it changes how much of the board he sees, so it is one whole build of its own, never a patch of the header alone (a readable card over buttons no
+     thumb can press is half a card, rule 441). THE DESIGN TO BUILD: the sheet's board and pinned face (gold his, red theirs); the name at 11 points, wrapping, never
+     cut; three lit bars, the numbers left to the sheet a tap on his face opens (rule 224(c)); a man of theirs' plate as marks, never 5 point words (his level as the
+     board's own chevrons, OUTCLASSES YOU as one red mark); every control 44 points; RETREAT alone at the foot, away from WAIT and AUTO. The fight's side of it
+     (BohemiaPhone.P.man, the plate's words: classLine) is this lane's; the phone's side is UI's file, a marked block by the coordinator's word.
  (2) THE LIBRARY PAGE on Rogue Fable 4's screen and card (the library has none): owed before any card is called final.
  (3) THE TURN ORDER back on the glass in the game; one material for the speaking cards (#vet is still pale paper).
  (4) The card's men as BODIES: the fight's own sheets of the dealt looks (slices/fight_rig), which the fight needs a moment later anyway.
