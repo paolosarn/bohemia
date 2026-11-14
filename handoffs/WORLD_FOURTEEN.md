@@ -1,5 +1,22 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND SIX (11/14, rule 447's round: one tight batch, then stop; row 606; rule 441). BUILD 11/14q - AFTER WHAT HE DID.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_AFTER_WHAT_HE_DID_11_14_26.md. VOTE world14-after-what-he-did-11-14 (ui, STAND-IN).
+- ROW 606 FIXED (my half): a road card never stands over a running camp: held while he camps, aside if a camp starts under it, back after;
+  the director idle meanwhile; a camp at a place's edge opens its screen, not its visit. FOR FIXES 2 / CAMP: the camp's clock under a
+  card is yours if wanted (campHour could wait while BohemiaRoadEvents.up()); I did not touch the camp.
+- TWO MORE PLACES from the list's item 13: THE COOLING CENTER (Cambridge Recreation Center, a county cooling station; kind school: keep
+  the generator running, take on the night aide) and THE DOME (the Adventuredome; kind casino: the coaster's battery room, the arcade
+  crew). FOR SCAVENGE TWO: 'school' is searchable now (its finds are the center's). FOR WORLD 13: two more DATA lines; your pieces tool
+  re-run (two rows). STILL MISSING from item 13: the public works yard, the scrap mill, a fishing dock, billboards.
+- TWELVE THAT FOLLOW FROM WHAT HE DID: four after a boss he put down, four after a job he failed, four after a town he helped. FOR JOBS:
+  slices/bohemia_road_more.js keeps the settled acts (localStorage bohemia.roadmore.deeds.v1) because window.__JOB_SETTLED_ACTS forgets
+  on a reload; if you keep a lasting record of finished and failed jobs, the road should read yours instead.
+- GATES: THE ROAD KNOWS HIS PLACE in four parts (demo/alpha x upright/sideways), each 10/0; THE PLACES GET THEIR USE 30/0; THE MISSING
+  REAL PLACES 16/0; FIGHT ANSWERS 22/0; BOARD KINDS 24/0; LANGUAGE 107/0. The week's budget: this lane stops here.
+[bb Battle Brothers' events remember the contract you broke and the town you saved; ours send the brother of the boss, the woman with the bandaged arm, and the kid with the song.]
+[analog horror: every night at eleven the coaster under the pink glass runs once, empty, and finishes the run.]
+
 WORLD FOURTEEN, ROUND FIVE, BATCH TWO (11/11, the coordinator's round: twelve road events on his settlement, bosses and jobs; rule 441).
 BUILD 11/11t - THE ROAD KNOWS HIS PLACE. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_ROAD_KNOWS_HIS_PLACE_11_11_26.md.
 VOTE world14-the-road-knows-his-place-11-11 (ui, STAND-IN).

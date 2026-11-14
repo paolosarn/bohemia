@@ -77,7 +77,9 @@ const REAL_PLACES=[
   {id:"the_natural_history_museum",kind:"natmuseum",seat:{x:{from:"cashman",east:3},y:{from:"cashman",south:0}}},
   {id:"the_tv_station",kind:"tvstation",seat:{x:{from:"strip",east:5},y:{of:0.46}}},
   {id:"the_bus_yard",kind:"terminal",seat:{x:{from:"strip",east:-9},y:{of:0.76}}},
-  {id:"the_greenhouses",kind:"farm",seat:{x:{from:"strip",east:-5},y:{of:0.63}}}
+  {id:"the_greenhouses",kind:"farm",seat:{x:{from:"strip",east:-5},y:{of:0.63}}},
+  {id:"the_cooling_center",kind:"school",seat:{x:{from:"strip",east:7},y:{of:0.54}}},
+  {id:"the_dome",kind:"casino",seat:{x:{from:"strip",east:1},y:{of:0.44}}}
 ];
 /* __THE_MISSING_REAL_PLACES__ DATA END */
 function seatRealPlaces(A, clearOf){

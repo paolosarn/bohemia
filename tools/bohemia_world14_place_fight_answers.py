@@ -97,6 +97,13 @@ def build(J):
       'the_greenhouses': row('farm', 'valley',
         "the greenhouses on Wynn Road: long plastic houses (the plastic stops nothing, the towers of greens inside stop a step), the pump "
         "shed of block, the warehouses round it", D.get('farm')),
+      # ---- 11/14: two more, kinds the map already has ----
+      'the_cooling_center': row('school', 'valley',
+        "the rec center's gym full of cots (a cot is a step, never cover), the block walls and the bleachers, the generator in its cage by "
+        "the back door; one storey, the gym's high roof", D.get('school')),
+      'the_dome': row('casino', 'valley',
+        "the rides under the pink glass dome: the coaster's track and its lift hill overhead, the carousel and the arcade's machines half "
+        "cover, the glass roof a storey nobody stands on", D.get('casino')),
     }
     for k in P: P[k]['draft'] = True
     # WORLD 14 11/11: keep what other lanes wrote on a row (WORLD 13's 'piece', 11/11a THE PIECE THAT ANSWERS IT): this tool owns

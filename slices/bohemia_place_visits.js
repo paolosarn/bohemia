@@ -261,7 +261,8 @@
 
   /* ---- arriving: the card first when a choice is left, the place's screen otherwise ---- */
   loopOpenTown = function (t) {
-    try { if (due(t) && show(t)) return null; } catch (e) { PV.err = String(e && e.message || e); }
+    var camping = false; try { camping = !!(root.CAMP && root.CAMP.on); } catch (e) {}   /* a camp at a place's edge opens its screen: the camp's, never the visit (row 606, the card waits for the camp) */
+    try { if (!camping && due(t) && show(t)) return null; } catch (e) { PV.err = String(e && e.message || e); }
     return _open.apply(this, arguments);
   };
   PV.open = function (t) { return _open(t); };

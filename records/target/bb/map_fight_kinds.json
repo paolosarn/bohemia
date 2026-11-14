@@ -5822,6 +5822,69 @@
       "wants": "a barn of its own"
      }
     }
+   },
+   "the_cooling_center": {
+    "kind": "school",
+    "where": "valley",
+    "is": "the rec center's gym full of cots (a cot is a step, never cover), the block walls and the bleachers, the generator in its cage by the back door; one storey, the gym's high roof",
+    "class": "roof",
+    "building": "civic",
+    "storeys": {
+     "1": 0.5,
+     "2": 0.5
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls",
+     "fence"
+    ],
+    "street_front": true,
+    "draft": true,
+    "piece": {
+     "deal": "school",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:school",
+       "building:church",
+       "building:chapel"
+      ]
+     }
+    }
+   },
+   "the_dome": {
+    "kind": "casino",
+    "where": "valley",
+    "is": "the rides under the pink glass dome: the coaster's track and its lift hill overhead, the carousel and the arcade's machines half cover, the glass roof a storey nobody stands on",
+    "class": "casino",
+    "building": "casino",
+    "storeys": {
+     "2": 0.7,
+     "3": 0.3
+    },
+    "man": "in_or_roof",
+    "cover": "full",
+    "open_cover": "half",
+    "blocks": [
+     "walls"
+    ],
+    "street_front": true,
+    "draft": true,
+    "piece": {
+     "deal": "casino",
+     "cut": {
+      "tiles": [
+       "building"
+      ],
+      "pieces": [
+       "building:casino"
+      ]
+     }
+    }
    }
   }
  }

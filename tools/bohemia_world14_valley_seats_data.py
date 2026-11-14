@@ -67,6 +67,47 @@ ROWS = [
    "licence": "a real company's farm: its name stays off the map's art; the game calls it THE GREENHOUSES"},
 ]
 
+# ---- 11/14 (rule 447's round): two more of the list's smaller ones, kinds the map already has ----
+ROWS += [
+  {"id": "the_cooling_center", "kind": "school", "name": "THE COOLING CENTER", "where": "valley",
+   "pocket_city": "community center (the list's rec center: the real cooling stations)",
+   "lat": 36.1162, "lon": -115.1392,
+   "latlon_from": "Cambridge Recreation Center, 3930 Cambridge St, east of Maryland Pkwy between Flamingo and Twain (to a block)",
+   "real": ("Clark County's Cambridge Recreation Center on Cambridge Street, one of the county's named cooling stations when an extreme "
+            "heat warning is up: water, chairs, the gym's air conditioning. In the collapse it is the only cold room for a mile, on a "
+            "generator that runs on whatever anybody brings it, and in August people sleep on the gym floor in rows"),
+   "sources": ["https://www.fox5vegas.com/2026/07/03/clark-county-activates-cooling-stations-las-vegas-area-extreme-heat-risk-rises/"],
+   "seat": {"x": {"from": "strip", "east": 7}, "y": {"of": 0.54}},
+   "seat_why": "about 3 km east of the Strip near Maryland Parkway between Flamingo and Twain",
+   "like": "school", "category": "civic", "ground": "suburb_block", "tier": "camp",
+   "use": {"screen": "a settlement screen on arrival: the night aide, the gym of cots, the generator",
+           "heat": "the summer's cold room: batteries keep the generator going, and the town hears who kept it",
+           "scavenge": "the finds below"},
+   "finds": [{"says": "A case of bottled water under the bleachers, the plastic gone soft in the heat. Still sealed.", "good": "food"},
+             {"says": "The scoreboard's backup battery, behind a panel nobody opened in years.", "good": "battery"}],
+   "feed": {"who": "@cambridgecots", "txt": "cambridge rec has cold air again tonight. bring a battery or bring a chair. no dogs. ok some dogs",
+            "kind": "world", "draft": True},
+   "licence": "a public building: the county's name is a real public body's, no mark of theirs is drawn"},
+  {"id": "the_dome", "kind": "casino", "name": "THE DOME", "where": "valley",
+   "pocket_city": "indoor amusement park",
+   "lat": 36.1376, "lon": -115.1650,
+   "latlon_from": "behind Circus Circus, 2880 Las Vegas Blvd S (to a block)",
+   "real": ("The Adventuredome behind Circus Circus on the north Strip: opened in 1993, five acres of rides under a pink glass dome, "
+            "the indoor amusement park of the list. In the collapse the glass still keeps the sun off, the coaster has its own battery "
+            "room so a run could finish in a blackout, and the arcade's prize counter is full of tokens nobody can spend"),
+   "sources": ["https://en.wikipedia.org/wiki/Adventuredome"],
+   "seat": {"x": {"from": "strip", "east": 1}, "y": {"of": 0.44}},
+   "seat_why": "behind Circus Circus on the north Strip, between the Strip and the I-15",
+   "like": "casino", "category": "gaming_resort", "ground": "the_strip", "tier": "camp",
+   "use": {"screen": "a settlement screen on arrival: the ride mechanic who stayed, the rides under the pink glass",
+           "batteries": "the coaster's battery room, once", "scavenge": "the finds below"},
+   "finds": [{"says": "A slot machine's backup battery behind a panel with a cartoon clown on it.", "good": "battery"},
+             {"says": "A roll of tape from the arcade's prize counter, and a bucket of tokens nobody can spend.", "good": "tape"}],
+   "feed": {"who": "@pinkdome", "txt": "the coaster under the pink dome ran again at 11. nobody on it. it always finishes the run",
+            "kind": "world", "draft": True},
+   "licence": "a real casino's park: the game calls it THE DOME; Circus Circus and Adventuredome names stay off the art"},
+]
+
 def row_text(r):
     t = json.dumps(r, indent=2, ensure_ascii=False)
     return '\n'.join('    ' + l for l in t.split('\n'))

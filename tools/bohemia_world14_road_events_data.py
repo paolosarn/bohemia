@@ -229,6 +229,100 @@ EVENTS += [
      needs={'job': {'held': True}}, head='ABOUT YOUR JOB', where=('paved',)),
 ]
 
+# ---- 11/14 (rule 447's round): twelve that FOLLOW FROM WHAT HE DID: a boss he put down, a job he failed, a town he helped ----
+EVENTS += [
+  ev('ev_the_freed_cooks', 'location', {'name': 'THE PEOPLE {boss} KEPT', 'look': 'cast_apron', 'from': 'walking out of {boss_place} with nothing'},
+     "We cooked for {boss} for two years at {boss_place}, for nothing, because the door was locked from his side. Now it is open and we "
+     "do not know where to go. Somebody said you have a place.",
+     [{'t': 'Feed them and send them to your place.', 'fx': {'food': -3, 'home': {'kind': 'person', 'name': 'THE COOKS OF {boss_place}', 'look': 'cast_apron',
+        'says': 'They cook for everybody now, and nobody locks the door.'}, 'say': "Three nights of food for the walk. They go toward your place singing something from before."}},
+      {'t': 'Give them two nights of food for the road.', 'fx': {'food': -2, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "They split it six ways and thank you six times. By tonight {town} knows who opened the door."}}],
+     needs={'boss': {'fallen': True}}, once=True, head='AFTER {boss}'),
+  ev('ev_the_brother_of_the_boss', 'location', {'name': 'THE BROTHER OF {boss}', 'look': 'cast_cape', 'from': 'waiting in the middle of the road'},
+     "You put {boss} down. He was a bad man and he was my brother. I am not here to forgive it. Pay what his life was worth to his "
+     "mother, or we settle it here.",
+     [{'t': 'Pay his mother six batteries.', 'fx': {'bats': -6, 'say': "He counts them twice and walks away without a word. The road is quiet after."}},
+      {'t': 'Settle it here.', 'fx': {'fight': {'foe': 'brigands', 'n': 2, 'label': 'the brother of {boss}',
+        'win': {'bats': 2, 'say': "It is over. His rifle had two batteries taped to the stock."},
+        'lose': {'bats': -6, 'say': "He takes the six batteries anyway, and leaves you lying in the road."}}}}],
+     needs={'boss': {'fallen': True}}, once=True, head='AFTER {boss}'),
+  ev('ev_the_tribute_box', 'location', {'name': 'A MAN WITH A STRONGBOX', 'look': 'cast_satchel', 'from': 'sitting on a strongbox at the roadside'},
+     "This is what {boss} took from every stall in {town}, every week, for years. I carried it out of {boss_place} after he fell. It is "
+     "not mine. It is not yours either. Tell me what to do with it.",
+     [{'t': 'Carry it back to the stalls.', 'fx': {'mins': 90, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "An hour and a half, stall by stall, back to who it came from. Nobody in {town} will forget it."}},
+      {'t': 'Keep it.', 'fx': {'bats': 6, 'mood': {'act': 'minor_offensive_action', 'place': 'near'},
+        'say': "Six batteries in the box. The man walks off. In {town} they say you took over where {boss} stopped."}}],
+     needs={'boss': {'fallen': True}}, once=True, head='AFTER {boss}'),
+  ev('ev_the_empty_place', 'location', {'name': 'A SQUATTER', 'look': 'cast_bedroll', 'from': 'on the steps of {boss_place}'},
+     "{boss_place} is empty since you put {boss} down. People are already fighting over who moves in. Whoever has the sign off the door "
+     "is the one people listen to. That could be you.",
+     [{'t': 'Take the sign off the door for your place.', 'fx': {'mins': 120, 'home': {'kind': 'trophy', 'name': 'THE SIGN OF {boss_place}',
+        'says': 'It hung over the door of {boss_place} until {boss} fell.'}, 'say': "Two hours with a crowbar. The sign goes on the cart to your place, and the squatters stop arguing."}},
+      {'t': 'Burn it so nobody takes his place.', 'fx': {'mins': 60, 'mood': {'act': 'favor', 'place': 'near'},
+        'say': "An hour to get it burning. The smoke from {boss_place} shows from {town}, and people come out to watch it go."}}],
+     needs={'boss': {'fallen': True}}, once=True, head='AFTER {boss}'),
+  ev('ev_the_deposit', 'location', {'name': 'A MAN FROM {deed_town}', 'look': 'cast_shortcoat', 'from': 'on the shoulder with his arms crossed'},
+     "You took our job in {deed_town} and you did not finish it. We gave food up front to the crew we trusted, and we went hungry for "
+     "it. People there say your name now the way they say a curse.",
+     [{'t': 'Pay back five batteries.', 'fx': {'bats': -5, 'mood': {'act': 'favor', 'place': 'faction:{deed_town}'},
+        'say': "He takes them to {deed_town}. It does not make it right, he says, but it is something they will remember."}},
+      {'t': 'Tell him it did not work out.', 'fx': {'mood': {'act': 'negotiation_fail', 'place': 'faction:{deed_town}'},
+        'say': "He spits on the road and walks back toward {deed_town}."}}],
+     needs={'deed': {'failed': True}}, head='AFTER THE JOB'),
+  ev('ev_the_hurt_one', 'location', {'name': 'A WOMAN WITH A BANDAGED ARM', 'look': 'cast_skirt', 'from': 'by a fire on the road out of {deed_town}'},
+     "Nobody came to {deed_town} when you said you would. The men you were paid to stop came instead. My husband is in the ground and "
+     "my arm will not close. I am not asking you for anything. I wanted you to see it.",
+     [{'t': 'Give her three nights of food.', 'fx': {'food': -3, 'say': "She takes it without looking at you. It is the only thing you can do here."}},
+      {'t': 'Walk on.', 'fx': {'mood': {'act': 'negotiation_fail', 'place': 'faction:{deed_town}'},
+        'say': "She watches you go. Someone from {deed_town} is watching too."}}],
+     needs={'deed': {'failed': True}}, once=True, head='AFTER THE JOB'),
+  ev('ev_the_second_chance', 'location', {'name': 'THE ELDER OF {deed_town}', 'look': 'cast_barearms', 'from': 'on a mule at the crossroads'},
+     "The job in {deed_town} went bad. It happens to everybody once. There is a smaller one: the pump on the east side needs a crew to "
+     "sit on it for four hours tonight. Do it, and we will talk to you again.",
+     [{'t': 'Sit on the pump for four hours.', 'fx': {'mins': 240, 'bats': 3, 'mood': {'act': 'favor', 'place': 'faction:{deed_town}'},
+        'say': "Four quiet hours on the pump. Three batteries and a nod from the elder. {deed_town} will talk to you again."}},
+      {'t': 'Say no.', 'fx': {'mood': {'act': 'negotiation_fail', 'place': 'faction:{deed_town}'}, 'say': "The elder turns the mule around without a word."}}],
+     needs={'deed': {'failed': True}}, once=True, head='AFTER THE JOB'),
+  ev('ev_the_song', 'location', {'name': 'A KID WITH A GUITAR', 'look': 'cast_pack', 'from': 'on a bus bench, singing'},
+     "There is a song in {deed_town} about the crew that took the job and never came. Everybody knows the words. I can sing it for you. "
+     "Or you can pay me not to sing it anywhere else.",
+     [{'t': 'Pay him two batteries to stop.', 'fx': {'bats': -2, 'say': "He pockets the batteries and starts another song, about something else."}},
+      {'t': 'Let him sing it.', 'fx': {'mood': {'act': 'negotiation_fail', 'place': 'near'},
+        'say': "He sings it all the way through. It is a good song. {town} will be singing it by tonight."}}],
+     needs={'deed': {'failed': True}}, once=True, head='AFTER THE JOB'),
+  ev('ev_the_basket', 'location', {'name': 'A WOMAN FROM {deed_town}', 'look': 'cast_skirt', 'from': 'walking out to meet the cart'},
+     "You did right by {deed_town}. People there will not say it to your face, so I came out to say it. And I brought this: bread from "
+     "the oven behind the church, and peppers.",
+     [{'t': 'Take the basket.', 'fx': {'food': 4, 'say': "Four nights of bread and peppers. She waves the whole way back to {deed_town}."}},
+      {'t': 'Tell her to give it to the shelter.', 'fx': {'mood': {'act': 'favor', 'place': 'faction:{deed_town}'},
+        'say': "She looks at you a long time and nods. {deed_town} will hear that too."}}],
+     needs={'deed': {'helped': True}}, once=True, head='AFTER THE JOB'),
+  ev('ev_the_volunteer', 'location', {'name': 'A YOUNG MAN FROM {deed_town}', 'look': 'cast_shortcoat', 'from': 'with a rifle and a bedroll'},
+     "I saw what your crew did for {deed_town}. I want to do that. I can shoot, I can carry, and I do not complain. My mother says I am "
+     "too young. She is wrong.",
+     [{'t': 'Take him on.', 'fx': {'food': -2, 'man': {'n': 1, 'name': 'THE BOY FROM {deed_town}', 'bg': 'militia', 'look': 'cast_shortcoat'},
+        'say': "Two nights of food up front. He shakes everybody's hand, twice."}},
+      {'t': 'Send him back to guard his town.', 'fx': {'mood': {'act': 'favor', 'place': 'faction:{deed_town}'},
+        'say': "He argues, then goes. His mother will hear who sent him home."}}],
+     needs={'deed': {'helped': True}}, once=True, head='AFTER THE JOB'),
+  ev('ev_the_warning', 'location', {'name': 'A RUNNER FROM {deed_town}', 'look': 'cast_pack', 'from': 'out of breath in the road'},
+     "{deed_town} sent me after you. There are men at the next overpass waiting for whoever comes this way. We owe you, so we are "
+     "telling you.",
+     [{'t': 'Go around.', 'fx': {'mins': 90, 'say': "An hour and a half the long way. From the hill you see them under the overpass, still waiting."}},
+      {'t': 'Go through ready.', 'fx': {'chance': {'p': 0.5,
+        'yes': {'say': "They see you coming ready and let you pass. Nobody wants that fight."},
+        'no': {'wound': {'name': '{man}', 'hp': 12}, 'say': "A shot from under the overpass. {man} takes it in the shoulder, and then they run."}}}}],
+     needs={'deed': {'helped': True}, 'crew': {'n': 1}}, head='AFTER THE JOB'),
+  ev('ev_the_good_price', 'location', {'name': 'A TRADER WHO HEARD', 'look': 'cast_satchel', 'from': 'with a mule loaded with sacks'},
+     "Word from {deed_town} is that you keep your word. That is worth something to me. I will sell you food cheap today, or buy yours "
+     "at a fair price. Most people I would cheat.",
+     [{'t': 'Buy five nights of food for three batteries.', 'fx': {'bats': -3, 'food': 5, 'say': "Five nights of beans and rice off the mule, for three batteries."}},
+      {'t': 'Sell him four nights of food for four batteries.', 'fx': {'food': -4, 'bats': 4, 'say': "Four batteries, counted out on the mule's back."}}],
+     needs={'deed': {'helped': True}}, head='AFTER THE JOB'),
+]
+
 MORE_ABOUT = ("WORLD 14 (11/10, VAMILY rule 443(b)): twelve more rows, each with 'lane' WORLD 14 and its Battle Brothers 'kind' (company: his own "
               "men; location: the road). New words a row may use, read by slices/bohemia_road_more.js through the seam in "
               "slices/bohemia_road_events.js: needs.crew {n: 1 or 2, bg: [trades]} (one or two of HIS men, never YOU: {man}, {man_look}, {man_bg}, "
@@ -240,7 +334,9 @@ MORE_ABOUT = ("WORLD 14 (11/10, VAMILY rule 443(b)): twelve more rows, each with
               "his jobs): needs.home {planted: true} or {} ({home}, {home_blocks}); needs.boss {sign | found | fallen} ({boss}, {boss_place}, "
               "{boss_blocks}); needs.job {held: true} ({job}, {job_from}, {job_pay}); fx.home {kind, name, build | look | gives | says} (a gift to "
               "his place through HOME BASE's own seam; it waits until he plants); fx.boss {find: true} (the boss's sign read: found, his place "
-              "out of the dark). Gate gates/the_road_knows_his_place_gate.js.")
+              "out of the dark). Gate gates/the_road_knows_his_place_gate.js. 11/14, twelve that follow from what he did: needs.boss {fallen} after "
+              "a boss he put down; needs.deed {failed} or {helped} ({deed_town}: a town where he failed a job, or finished one or did it a "
+              "favour, within 14 days, kept by slices/bohemia_road_more.js from the jobs' own settled acts).")
 
 def build(t):
     k = t.find('\n    {"id": "' + FIRST + '"')

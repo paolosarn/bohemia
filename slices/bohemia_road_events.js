@@ -100,7 +100,7 @@
     if (n.boss_sign) { var b = bossSign(n.boss_sign); if (!b) return null; Object.keys(b).forEach(function (k) { c[k] = b[k]; }); }
     /* __THE_ROAD_MORE__ (WORLD 14, 11/10, rule 443(b)): an event spoken by one of HIS men ({man}, {man2}, by trade) or one that opens a
        place ({place}) asks slices/bohemia_road_more.js; with nobody to speak or nothing to open it is not a candidate */
-    if (n.crew || n.place || n.home || n.boss || n.job) { var X = null; try { X = root.BohemiaRoadMore && root.BohemiaRoadMore.ctx ? root.BohemiaRoadMore.ctx(n) : null; } catch (e) { X = null; }
+    if (n.crew || n.place || n.home || n.boss || n.job || n.deed) { var X = null; try { X = root.BohemiaRoadMore && root.BohemiaRoadMore.ctx ? root.BohemiaRoadMore.ctx(n) : null; } catch (e) { X = null; }
       if (!X) return null; Object.keys(X).forEach(function (k) { c[k] = X[k]; }); }
     return c;
   }
@@ -298,8 +298,25 @@
     try { render(); } catch (e) {}
     return null;
   }
+  /* __THE_CARD_WAITS_FOR_THE_CAMP__ (WORLD 14, 11/14, row 606, FOUND BY EYES 11/11: under a road card the camp ran four days and
+     fourteen nights of food while the question waited; the phone's camp stays in reach while a card is up, so a camp could start
+     under it). A road card never stands over a running camp: one asked for while he camps is HELD and comes up when he breaks camp;
+     one already up when a camp starts steps aside and comes back after. The director does not pick while either is so (busy). */
+  var HELD = null, CAMP_T = null;
+  function campOn() { try { return !!(root.CAMP && root.CAMP.on); } catch (e) { return false; } }
+  function campWatch() {
+    if (CAMP_T || typeof setInterval !== 'function') return;   /* a sandbox with no timers (a checker's) has no camp either */
+    CAMP_T = setInterval(function () {
+      var on = campOn();
+      if (on && UP && UP.el && UP.el.style.display !== 'none') { UP.el.style.display = 'none'; UP.aside = true; root.__ROADCARD_ASIDE = (root.__ROADCARD_ASIDE | 0) + 1; }
+      if (!on && UP && UP.aside) { UP.aside = false; UP.el.style.display = ''; try { if (typeof travelInterrupt === 'function') travelInterrupt('event'); } catch (e) {} }
+      if (!on && HELD) { var h = HELD; HELD = null; card(h); }
+      if (!HELD && !UP) { clearInterval(CAMP_T); CAMP_T = null; }
+    }, 400);
+  }
   function card(o) {
     if (QUIET.on && o && o.quiet && (o.opts || []).length <= 1) return quiet(o);   /* __A_QUIET_EVENT_IS_A_POST__ */
+    if (campOn()) { HELD = o; root.__ROADCARD_HELD = (root.__ROADCARD_HELD | 0) + 1; campWatch(); return; }   /* __THE_CARD_WAITS_FOR_THE_CAMP__ */
     if (UP) close(false);
     try { if (typeof travelInterrupt === 'function') travelInterrupt('event'); } catch (e) {}
     var M = root.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (e) { return ''; } };
@@ -352,7 +369,7 @@
     var key = function (ev) { if (now0() - born < GUARD_MS) return; var k = String(ev.key || ''); var n = parseInt(k, 10); if (n >= 1 && n <= (o.opts || []).length) { ev.preventDefault(); ev.stopPropagation(); var op = o.opts[n - 1]; if (!op.off) { try { op.fn(); } catch (e) { close(); } } }
       else if (k === 'Enter' && (o.opts || []).length === 1) { ev.preventDefault(); ev.stopPropagation(); try { o.opts[0].fn(); } catch (e) { close(); } } };
     document.addEventListener('keydown', key, true);
-    UP = { el: el, key: key, o: o };
+    UP = { el: el, key: key, o: o }; campWatch();   /* __THE_CARD_WAITS_FOR_THE_CAMP__ */
     /* the face says it: PORTRAIT's head, the mouth on the beat, the game's one voice */
     var F = root.BohemiaCrewFaces, cv = el.querySelector('.rcface'), line = String(o.text || '').split('\n')[0].slice(0, 220);
     var face = function () { try { var FF = root.BohemiaCrewFaces; if (!FF || !o.look || !FF.has(o.look)) return; if (!FF.talk(cv, o.look, line)) FF.draw(cv.getContext('2d'), o.look, 128); } catch (e) {} };
@@ -375,7 +392,7 @@
       if (n.men && men() < n.men) return false; if (n.bats && bats() < n.bats) return false;
       if (s.seen[e.id] != null) { if (e.once) return false; if (dn - s.seen[e.id] < rep) return false; }
       if (e.on) return false;   /* CONTENT 2: met another way (on: 'scavenge', after a search in a town's lot), never by the director */
-      if ((n.party || n.raided || n.boss_sign || n.crew || n.place || n.home || n.boss || n.job) && !ctxOf(n, s)) return false;   /* __THE_ROAD_MORE__ */
+      if ((n.party || n.raided || n.boss_sign || n.crew || n.place || n.home || n.boss || n.job || n.deed) && !ctxOf(n, s)) return false;   /* __THE_ROAD_MORE__ */
       return true;
     };
     ((EV && EV.events) || []).forEach(function (e) { if (ok(e)) out.push(e); });
@@ -390,7 +407,7 @@
     return list[list.length - 1] || null;
   }
   function busy() {
-    if (UP || FIGHT) return true;
+    if (UP || FIGHT || HELD || campOn()) return true;   /* __THE_CARD_WAITS_FOR_THE_CAMP__: no pick while he camps or a card waits for him */
     try { if (LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block')) return true; } catch (e) {}
     try { if (document.getElementById('meetcard')) return true; } catch (e) {}
     try { if (root.BohemiaMapCamp && root.BohemiaMapCamp.on && root.BohemiaMapCamp.on()) return true; } catch (e) {}   /* FIXES 2 11/14 (ask row 606): the road never talks over a standing camp, shown or not */
@@ -570,6 +587,6 @@
   }
   root.BohemiaRoadEvents = { QUIET: QUIET, load: load, ready: function () { return !!EV && !!SQ; }, step: step, fire: fire, card: card, close: close, apply: apply, tagOf: tagOf,
     places: places, here: here, arrived: arrived, status: status, questBegin: questBegin, data: function () { return { events: EV, quests: SQ }; }, up: function () { return !!UP; },
-    fighting: function () { return !!FIGHT; } };
+    fighting: function () { return !!FIGHT; }, held: function () { return { held: !!HELD, aside: !!(UP && UP.aside) }; } };
   load();
 })(typeof window !== 'undefined' ? window : this);

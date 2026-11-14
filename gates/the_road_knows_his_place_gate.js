@@ -37,8 +37,13 @@ const SPANISH = /\b(jefe|mira|oye|verdad|v[aá]monos|hermano|te lo juro|gracias|
 const FOES = new Set(Object.keys(EN.factions || {}).concat(['brigands', 'beasts']));
 const NEXT12 = ['ev_the_family_at_the_door', 'ev_the_solar_cart', 'ev_the_water_tank', 'ev_the_seed_library', 'ev_the_runaway_cook', 'ev_the_assessors_map',
   'ev_the_roadblock', 'ev_the_leaderless', 'ev_the_clients_runner', 'ev_the_rival_crew', 'ev_the_underpass', 'ev_the_letter_for_the_client'];
-const MINE = () => (EVD.events || []).filter(e => e.lane === 'WORLD 14' && NEXT12.indexOf(e.id) >= 0);
+/* 11/14 (rule 447's round): twelve that FOLLOW FROM WHAT HE DID (a boss he put down, a job he failed, a town he helped) */
+const DEED12 = ['ev_the_freed_cooks', 'ev_the_brother_of_the_boss', 'ev_the_tribute_box', 'ev_the_empty_place', 'ev_the_deposit', 'ev_the_hurt_one',
+  'ev_the_second_chance', 'ev_the_song', 'ev_the_basket', 'ev_the_volunteer', 'ev_the_warning', 'ev_the_good_price'];
+const ALL24 = NEXT12.concat(DEED12);
+const MINE = () => (EVD.events || []).filter(e => e.lane === 'WORLD 14' && ALL24.indexOf(e.id) >= 0);
 const BAD_MOOD = { negotiation_fail: 1, minor_offensive_action: 1, offensive_action: 1, attack_them: 1 };
+function realFx(x) { return !!x && !!(x.bats || x.food || (x.man && x.man.n) || x.mood || x.mins > 0 || x.fight || x.chance || x.wound || x.home || x.boss); }
 function costs(x) { return !!x && ((x.bats | 0) < 0 || (x.food | 0) < 0 || (x.mins | 0) > 0 || !!x.fight || !!x.chance || !!x.wound || !!(x.mood && BAD_MOOD[x.mood.act])); }
 function words(o, acc) { if (o == null) return acc; if (typeof o === 'string') acc.push(o); else if (Array.isArray(o)) o.forEach(v => words(v, acc)); else if (typeof o === 'object') Object.keys(o).forEach(k => { if (k !== 'look' && k !== 'place' && k !== 'act' && k !== 'foe' && k !== 'id' && k !== 'build' && k !== 'kind') words(o[k], acc); }); return acc; }
 function rowsBad(list) {
@@ -56,11 +61,12 @@ function rowsBad(list) {
       else if (/^home(_blocks)?$/.test(k) && !n.home) why.push(p + ' with no home need');
       else if (/^boss(_place|_blocks)?$/.test(k) && !n.boss) why.push(p + ' with no boss need');
       else if (/^job(_from|_pay)?$/.test(k) && !n.job) why.push(p + ' with no job need');
+      else if (k === 'deed_town' && !n.deed) why.push(p + ' with no deed need');
       else if (/^man(_look|_bg)?$/.test(k) && !n.crew) why.push(p + ' with no crew need');
-      else if (!/^(home|home_blocks|boss|boss_place|boss_blocks|job|job_from|job_pay|man|man_look|man_bg|town)$/.test(k)) why.push(p + ' nobody fills'); });
+      else if (!/^(home|home_blocks|boss|boss_place|boss_blocks|job|job_from|job_pay|deed_town|man|man_look|man_bg|town)$/.test(k)) why.push(p + ' nobody fills'); });
     opts.forEach((o, i) => {
       const fx = o.fx || {};
-      if (!costs(fx)) why.push('choice ' + (i + 1) + ' costs nothing');
+      if (NEXT12.indexOf(e.id) >= 0 ? !costs(fx) : !realFx(fx)) why.push('choice ' + (i + 1) + (NEXT12.indexOf(e.id) >= 0 ? ' costs nothing' : ' does nothing'));
       const walk = (x) => { if (!x) return;
         if (x.fight) { if (!FOES.has(x.fight.foe)) why.push('foe ' + x.fight.foe); walk(x.fight.win); walk(x.fight.lose); }
         if (x.chance) { walk(x.chance.yes); walk(x.chance.no); }
@@ -80,17 +86,19 @@ function rowsBad(list) {
 function nodeChecks() {
   console.log('-- the rows and the seam --');
   const mine = MINE(), b1 = rowsBad(mine);
-  ok('K1 the twelve are whole: a person, a line, two or three choices, plain English, every {word} filled by its needs, every choice costs something', mine.length === 12 && !b1.length, b1.join('; ') || mine.length + ' rows');
+  ok('K1 the twenty-four are whole: a person, a line, two or three choices, plain English, every {word} filled by its needs; the 11/11 twelve every choice costs something, the 11/14 twelve every choice does something', mine.length === 24 && !b1.length, b1.join('; ') || mine.length + ' rows');
   const any = (e, f) => (e.opts || []).some(o => { let hit = false; (function z(x) { if (!x || typeof x !== 'object' || hit) return; if (f(x)) { hit = true; return; } Object.values(x).forEach(z); })(o.fx); return hit; });
-  const home = mine.filter(e => e.needs && e.needs.home && any(e, x => !!x.home)), boss = mine.filter(e => e.needs && e.needs.boss),
-    job = mine.filter(e => e.needs && e.needs.job && any(e, x => !!(x.mood && /\{job_from\}/.test(x.mood.place || ''))));
+  const deeds = mine.filter(e => DEED12.indexOf(e.id) >= 0), dk = { fallen: deeds.filter(e => e.needs && e.needs.boss && e.needs.boss.fallen).length, failed: deeds.filter(e => e.needs && e.needs.deed && e.needs.deed.failed).length, helped: deeds.filter(e => e.needs && e.needs.deed && e.needs.deed.helped).length };
+  ok('K2b what he did: after a boss he put down ' + dk.fallen + ', after a job he failed ' + dk.failed + ', after a town he helped ' + dk.helped, dk.fallen >= 4 && dk.failed >= 4 && dk.helped >= 4);
+  const mine2 = mine.filter(e => NEXT12.indexOf(e.id) >= 0), home = mine2.filter(e => e.needs && e.needs.home && any(e, x => !!x.home)), boss = mine2.filter(e => e.needs && e.needs.boss),
+    job = mine2.filter(e => e.needs && e.needs.job && any(e, x => !!(x.mood && /\{job_from\}/.test(x.mood.place || ''))));
   const bs = { sign: boss.filter(e => e.needs.boss.sign && any(e, x => !!(x.boss && x.boss.find))).length, found: boss.filter(e => e.needs.boss.found).length, fallen: boss.filter(e => e.needs.boss.fallen).length };
   ok('K2 the three subjects: his place ' + home.length + ' (a gift in a choice), the bosses ' + boss.length + ' (a sign read ' + bs.sign + ', a found boss ' + bs.found + ', a fallen one ' + bs.fallen + '), his jobs ' + job.length + ' (the client\'s town hears)',
-     home.length >= 4 && boss.length >= 4 && bs.sign >= 1 && bs.found >= 1 && bs.fallen >= 1 && job.length >= 3 && mine.filter(e => e.needs && e.needs.job).length >= 4);
+     home.length >= 4 && boss.length >= 4 && bs.sign >= 1 && bs.found >= 1 && bs.fallen >= 1 && job.length >= 3 && mine2.filter(e => e.needs && e.needs.job).length >= 4);
   const ev = read('slices/bohemia_road_events.js'), rm = read('slices/bohemia_road_more.js'), hm = read('slices/bohemia_his_map.js');
-  const seam = [[ev, /n\.crew \|\| n\.place \|\| n\.home \|\| n\.boss \|\| n\.job\) \{ var X = null;/], [ev, /n\.place \|\| n\.home \|\| n\.boss \|\| n\.job\) && !ctxOf\(n, s\)\) return false;/],
+  const seam = [[ev, /n\.crew \|\| n\.place \|\| n\.home \|\| n\.boss \|\| n\.job( \|\| n\.deed)?\) \{ var X = null;/], [ev, /n\.place \|\| n\.home \|\| n\.boss \|\| n\.job( \|\| n\.deed)?\) && !ctxOf\(n, s\)\) return false;/],
     [ev, /fx\.home \|\| fx\.boss\) && root\.BohemiaRoadMore && root\.BohemiaRoadMore\.apply/], [ev, /if \(fx\.home\) t\.push\('FOR YOUR PLACE'\)/],
-    [rm, /M\.give\(o\)/], [rm, /H\.readSign\(\)/], [rm, /function homeNow\(\)/], [rm, /function bossNow\(want\)/], [rm, /function jobNow\(\)/],
+    [rm, /M\.give\(o\)/], [rm, /H\.readSign\(\)/], [rm, /function homeNow\(\)/], [rm, /function bossNow\(want\)/], [rm, /function jobNow\(\)/], [rm, /function deedNow\(want\)/], [rm, /__JOB_SETTLED_ACTS/],
     [hm, /__THE_ROAD_MORE__[\s\S]{0,300}readSign: function \(\) \{ if \(!S \|\| !S\.boss \|\| !S\.boss\.sign\) return null;/]];
   const miss = seam.filter(([s, r]) => !r.test(s)).map(([, r]) => String(r).slice(0, 60));
   ok('K3 the seam: the needs, the two new consequences (a gift through HOME BASE\'s seam, a sign read the map memory\'s own way), the chip', !miss.length, miss.join(' | ') || 'all ' + seam.length);
@@ -134,7 +142,7 @@ async function page(alpha, profile, full) {
     /* a forced fire() shows any card whatever its needs (the gate's own hand); the director asks the needs through the seam (K3), and
        the needs are this module's: BohemiaRoadMore.ctx says no while the state is false and yes once it is true */
     const cand = () => fr.evaluate((rows) => { const out = {}; rows.forEach(r => { let c = null; try { c = BohemiaRoadMore.ctx(r.needs || {}); } catch (e) {} out[r.id] = !!c; }); return out; }, MINE().map(e => ({ id: e.id, needs: e.needs })));
-    const was = await fr.evaluate(() => { const S = BohemiaHisMap.state(), H = BohemiaHomeMap.state(); return { sign: !!(S.boss && S.boss.sign), found: Object.keys((S.boss && S.boss.found) || {}).length > 0, fallen: Object.keys((S.boss && S.boss.fallen) || {}).length > 0, job: (LOOP.held || []).length > 0, planted: !!(H && H.planted) }; });
+    const was = await fr.evaluate(() => { const S = BohemiaHisMap.state(), H = BohemiaHomeMap.state(); return { deed: (BohemiaRoadMore.deeds() || []).length > 0, sign: !!(S.boss && S.boss.sign), found: Object.keys((S.boss && S.boss.found) || {}).length > 0, fallen: Object.keys((S.boss && S.boss.fallen) || {}).length > 0, job: (LOOP.held || []).length > 0, planted: !!(H && H.planted) }; });
     const before = await cand();
     const setUp = await fr.evaluate(async () => {
       const o = {};
@@ -155,15 +163,23 @@ async function page(alpha, profile, full) {
       const A = (BohemiaPhoneBoard.asks() || []).slice(0, 8); let took = false;
       for (const a of A) { if (took) break; try { LOOP.open = { name: a.place, x: a.x, y: a.y, tier: a.tier }; took = !!loopTakeContract({ id: a.id, title: a.title, pay: a.pay, skulls: a.skulls }); } catch (e) {} LOOP.open = null; }
       o.job = (LOOP.held || []).map(j => j.title + ' @ ' + j.from)[0] || null;
+      /* what he did: a job failed at one town, one finished at another, the jobs' own settled acts (the list the job kinds keep) */
+      const tn = Object.keys(ctBases() || {}).filter(n => n !== 'Custom');
+      o.failedAt = tn[0]; o.helpedAt = tn[1];
+      window.__JOB_SETTLED_ACTS = (window.__JOB_SETTLED_ACTS || []).concat([{ id: 'gate-failed', place: tn[0], act: 'fail_civilian_contract', delta: -20 }, { id: 'gate-done', place: tn[1], act: 'civilian_contract_done', delta: 10 }]);
+      o.deeds = BohemiaRoadMore.deeds().length;
+      /* a man of his to be spoken of (the underpass, the overpass): a new game's company can be only YOU after the opening's walk-outs */
+      if (BohemiaRoadMore.men().length < 1) { BohemiaRoadEvents.apply({ man: { n: 1, name: 'GATE HAND P1', bg: 'militia', look: 'person_town_3' } }, { id: 'gate' }); await new Promise(z => setTimeout(z, 400)); }
+      o.men = BohemiaRoadMore.men().length;
       window.__OFFTOWN();
       return o; });
     /* the sign up as placed (the game may read it itself the moment the crew stands on it: then the boss is found, as it should be) */
     await fr.evaluate(() => { const S = BohemiaHisMap.state(), sg = window.__SIGN; if (!sg) return; delete (S.boss.found || {})[sg.n]; S.boss.sign = JSON.parse(JSON.stringify(sg)); });
     const after = await cand();
     const subj = id => MINE().find(e => e.id === id).needs;
-    const wrongBefore = NEXT12.filter(id => { const n = subj(id); if (!before[id]) return false;
-      return (n.job && !was.job) || (n.home && n.home.planted && !was.planted) || (n.boss && ((n.boss.sign && !was.sign) || (n.boss.found && !was.found) || (n.boss.fallen && !was.fallen))); });
-    const shouldNow = NEXT12.filter(id => { const n = subj(id); return !(n.boss && (n.boss.found || n.boss.fallen)); });
+    const wrongBefore = ALL24.filter(id => { const n = subj(id); if (!before[id]) return false;
+      return (n.deed && !was.deed) || (n.job && !was.job) || (n.home && n.home.planted && !was.planted) || (n.boss && ((n.boss.sign && !was.sign) || (n.boss.found && !was.found) || (n.boss.fallen && !was.fallen))); });
+    const shouldNow = ALL24.filter(id => { const n = subj(id); return !(n.boss && (n.boss.found || n.boss.fallen)); });
     const missNow = shouldNow.filter(id => !after[id]);
     ok(W + ' P1 an event is a candidate only when its state is true: before (' + JSON.stringify(was) + ') ' + wrongBefore.length + ' fired that should not; after the place planted, a sign up and a job taken, ' + (shouldNow.length - missNow.length) + '/' + shouldNow.length + ' fire',
        !wrongBefore.length && !missNow.length && setUp.planted && setUp.sign && setUp.job, JSON.stringify(setUp) + (wrongBefore.length ? ' WRONG ' + wrongBefore.join(',') : '') + (missNow.length ? ' MISSING ' + missNow.join(',') : ''));
@@ -201,7 +217,7 @@ async function page(alpha, profile, full) {
       await fr.evaluate(() => { try { BohemiaRoadEvents.close(false); } catch (e) {} });
     }
     const badC = cards.filter(c => !(c.card && c.btns >= 2 && c.btns <= 3 && c.ink > 20 && !c.cut && !c.under && !c.out && !c.left && c.name && !/\{/.test(c.name)));
-    ok(W + ' P2 every card of the twelve: a face drawn, words whole, two or three choices, inside the glass, none under the phone', cards.length === 12 && !badC.length, badC.map(c => JSON.stringify(c)).join('; ') || cards.length + ' cards');
+    ok(W + ' P2 every card of the twenty-four: a face drawn, words whole, two or three choices, inside the glass, none under the phone', cards.length === 24 && !badC.length, badC.map(c => JSON.stringify(c)).join('; ') || cards.length + ' cards');
     if (full) {
       /* P3: every choice, both ends of every chance */
       const bad = [], seen = [];
@@ -210,10 +226,10 @@ async function page(alpha, profile, full) {
           const o = e.opts[oi], fx = o.fx || {}, ends = fx.chance ? [0.001, 0.999] : [0.5];
           for (const r of ends) {
             await topUp(); if (e.needs.boss) await bossState(stateFor(e.needs));
-            const res = await fr.evaluate(async ([id, oi, r]) => {
+            const tap = () => fr.evaluate(async ([id, oi, r]) => {
               const RE = BohemiaRoadEvents, RM = BohemiaRoadMore, C = BohemiaCondition, HM = BohemiaHomeMap, S = BohemiaHisMap.state();
               try { RE.close(false); } catch (e) {}
-              const hs0 = HM.state(), sg = S.boss.sign;
+              const hs0 = HM.state(), sg = S.boss.sign, ev = BohemiaRoadEvents.data().events.events.find(q => q.id === id), dt = ev && ev.needs && ev.needs.deed ? (RM.ctx(ev.needs) || {}).deed_town : null, d0 = loopDay();
               const b4 = { bats: loopBats(), food: (wagonGet() || {}).food | 0, men: RM.men().map(m => m.name), mins: loopDay() * 1440 + (DAY.min | 0), fights: window.__ROADEV_FIGHTS | 0,
                 lost: JSON.stringify((C.get() || {}).men || {}), things: (hs0.things || []).length + (hs0.waiting || []).length + (hs0.residents || []).length, moods: window.__MOODS.length,
                 found: Object.keys(S.boss.found || {}).length, hid: sg && sg.boss ? fogHides(sg.boss.x, sg.boss.y) : null };
@@ -230,13 +246,16 @@ async function page(alpha, profile, full) {
                 wounds: Object.keys(L1).filter(k => (+L1[k].lostHp || 0) > (+((L0[k] || {}).lostHp) || 0)),
                 gifts: (hs1.things || []).length + (hs1.waiting || []).length + (hs1.residents || []).length - b4.things,
                 found: Object.keys(S.boss.found || {}).length - b4.found, out: sg && sg.boss ? !fogHides(sg.boss.x, sg.boss.y) : null, again: !!((RM.gifts || []).slice(-1)[0] || {}).again,
-                moods: window.__MOODS.slice(b4.moods) };
+                moods: window.__MOODS.slice(b4.moods), dt, crossed: loopDay() !== d0 };
               try { RE.close(false); } catch (e) {} try { loopClose(); } catch (e) {}
               return res;
             }, [e.id, oi, r]);
+            let res = await tap();
+            if (res.crossed) { await topUp(); if (e.needs.boss) await bossState(stateFor(e.needs)); res = await tap(); }   /* midnight: his place's bill is paid then; the same tap again, in the new day */
             const b = fx.chance ? (r < 0.5 ? fx.chance.yes : fx.chance.no) || {} : {};
             const want = { bats: (fx.bats || 0) + (b.bats || 0), food: (fx.food || 0) + (b.food || 0), mins: (fx.mins || 0) + (b.mins || 0), gift: !!(fx.home || b.home), find: !!((fx.boss && fx.boss.find) || (b.boss && b.boss.find)),
-              man: !!(fx.man || b.man), wound: !!(fx.wound || b.wound), fight: !!fx.fight, jobMood: !!(fx.mood && /job_from/.test((MINE().find(q => q.id === e.id).opts[oi].fx.mood || {}).place || '')) };
+              man: !!(fx.man || b.man), wound: !!(fx.wound || b.wound), fight: !!fx.fight, jobMood: !!(fx.mood && /job_from/.test((MINE().find(q => q.id === e.id).opts[oi].fx.mood || {}).place || '')),
+              deedMood: !!(fx.mood && /deed_town/.test((MINE().find(q => q.id === e.id).opts[oi].fx.mood || {}).place || '')) };
             const why = [];
             if (!res.tapped) why.push('no tap');
             if (!want.fight && res.dBats !== want.bats) why.push('bats ' + res.dBats + ' want ' + want.bats);
@@ -249,12 +268,13 @@ async function page(alpha, profile, full) {
             if (want.wound !== (res.wounds.length >= 1)) why.push('wounds ' + res.wounds.join(','));
             if (want.fight && !(res.fought && res.won && res.won.bats === (fx.fight.win.bats || 0))) why.push('fight ' + JSON.stringify(res.won));
             if (want.jobMood && !res.moods.some(m => m && m.from && setUp.job && setUp.job.indexOf(' @ ' + m.from) >= 0)) why.push('the job town did not hear ' + JSON.stringify(res.moods));
+            if (want.deedMood && !(res.dt && res.moods.some(m => m && m.from === res.dt))) why.push('the town of the deed (' + res.dt + ') did not hear ' + JSON.stringify(res.moods));
             seen.push(e.id + '#' + oi + (fx.chance ? (r < 0.5 ? 'y' : 'n') : '') + ':' + JSON.stringify(res.got || []));
             if (why.length) bad.push(e.id + '#' + oi + (fx.chance ? (r < 0.5 ? ' yes' : ' no') : '') + ' ' + why.join(', '));
           }
         }
       }
-      ok(W + ' P3 every choice of the twelve does what it says (' + seen.length + ' taps): batteries, food, hours; a gift at his place; the boss found and out of the dark; the client\'s town hears; a man joins; a wound; a fight paid when won',
+      ok(W + ' P3 every choice of the twenty-four does what it says (' + seen.length + ' taps): batteries, food, hours; a gift at his place; the boss found and out of the dark; the client\'s town hears; a man joins; a wound; a fight paid when won',
          seen.length === mine.reduce((a, e) => a + e.opts.reduce((b, o) => b + (o.fx && o.fx.chance ? 2 : 1), 0), 0) && !bad.length, bad.join('; ') || seen.filter(s => /PLACE|ON THE MAP|MAN/.test(s)).slice(0, 6).join(' | '));
     } else {
       /* P4: a real finger, sideways */
@@ -272,6 +292,30 @@ async function page(alpha, profile, full) {
       }
       ok(W + ' P4 a real finger: a touch on each card\'s first choice is taken', !miss.length, miss.join(', ') || mine.length + ' taps');
     }
+    /* P6 (row 606, FOUND BY EYES 11/11): a road card never stands over a running camp. Asked for while he camps it is held and comes
+       up when he breaks camp; up when a camp starts, it steps aside and comes back after. The camp the game's own way (campMake, campBreak) */
+    try { await d.toMap(); } catch (e) {}
+    const c6 = await fr.evaluate(async () => {
+      const RE = BohemiaRoadEvents, vis = () => { const e = document.getElementById('roadcard'); return !!e && e.style.display !== 'none'; }, o = { over: 0, samples: 0, tries: 0 };
+      /* every 50 ms: a card seen while the camp runs is the defect; a camp that ends by itself (an enemy's contact, everybody mended)
+         lets the card up, as it should */
+      const watch = (ms) => new Promise(z => { const t0 = performance.now(), iv = setInterval(() => { o.samples++; if (CAMP.on && vis()) o.over++; if (performance.now() - t0 > ms) { clearInterval(iv); z(); } }, 50); });
+      const whole = () => { try { const C = BohemiaCondition, st = C.get(); Object.keys(st.men || {}).forEach(k => { const m = st.men[k]; m.lostHp = 0; m.lostH = 0; m.lostB = 0; }); localStorage.setItem(C.KEY, JSON.stringify(st)); } catch (e) {} };
+      const camp = async () => { for (let t = 0; t < 4; t++) { o.tries++; try { loopClose(); } catch (e) {} window.__OFFTOWN(); whole(); await new Promise(z => setTimeout(z, 400)); if (campMake()) { await new Promise(z => setTimeout(z, 300)); if (CAMP.on) return true; } city.x = (city.x | 0) + 8; } return false; };
+      try { RE.close(false); } catch (e) {}
+      /* (a) asked for while he camps */
+      o.camped = await camp();
+      RE.fire('ev_the_good_price'); o.heldAtOnce = CAMP.on ? RE.held().held : null;
+      try { window.__ROADEV_CHANCE = 1; o.stepPicked = !!RE.step(); } catch (e) { o.stepPicked = 'threw'; } window.__ROADEV_CHANCE = null;
+      await watch(900);
+      try { if (CAMP.on) campBreak('left'); } catch (e) {} await new Promise(z => setTimeout(z, 1300)); o.after = vis();
+      /* (b) up when a camp starts */
+      o.camped2 = await camp(); await watch(900); o.asideNow = CAMP.on ? RE.held().aside : null;
+      try { if (CAMP.on) campBreak('left'); } catch (e) {} await new Promise(z => setTimeout(z, 1300)); o.back = vis();
+      try { RE.close(false); } catch (e) {} try { loopClose(); } catch (e) {}
+      return o; });
+    ok(W + ' P6 a road card never stands over a running camp (row 606): never seen while the camp runs (' + c6.samples + ' looks), held when asked for in camp and the director picks nothing, up when he breaks camp; up when a camp starts it steps aside and comes back',
+       c6.camped && c6.camped2 && c6.over === 0 && c6.heldAtOnce !== false && c6.stepPicked === false && c6.after && c6.asideNow !== false && c6.back, JSON.stringify(c6));
     ok(W + ' P5 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   } finally { await d.close(); }
 }
@@ -281,7 +325,9 @@ async function page(alpha, profile, full) {
   if (process.argv[2] !== 'node') {
     const only = process.argv[2];
     for (const [alpha, prof, full] of [[false, 'phone_portrait', true], [false, 'phone_landscape', false], [true, 'phone_portrait', true], [true, 'phone_landscape', false]]) {
-      if ((only === 'demo' && alpha) || (only === 'alpha' && !alpha)) continue;
+      const side = prof === 'phone_landscape';   /* 'demo' 'alpha' a page each; 'demo-up' 'demo-side' 'alpha-up' 'alpha-side' one phone each (a run under ten minutes) */
+      if (/^(demo|alpha)/.test(only || '') && (only.indexOf('alpha') === 0) !== alpha) continue;
+      if (/-up$/.test(only || '') && side) continue; if (/-side$/.test(only || '') && !side) continue;
       try { await page(alpha, prof, full); } catch (e) { ok((alpha ? 'the alpha ' : 'the demo ') + prof + ' ran', false, String(e.stack || e.message).slice(0, 300)); }
     }
   }

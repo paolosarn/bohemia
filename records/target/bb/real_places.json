@@ -1257,6 +1257,225 @@
       }
     },
     {
+      "id": "the_cooling_center",
+      "kind": "school",
+      "name": "THE COOLING CENTER",
+      "where": "valley",
+      "pocket_city": "community center (the list's rec center: the real cooling stations)",
+      "lat": 36.1162,
+      "lon": -115.1392,
+      "latlon_from": "Cambridge Recreation Center, 3930 Cambridge St, east of Maryland Pkwy between Flamingo and Twain (to a block)",
+      "real": "Clark County's Cambridge Recreation Center on Cambridge Street, one of the county's named cooling stations when an extreme heat warning is up: water, chairs, the gym's air conditioning. In the collapse it is the only cold room for a mile, on a generator that runs on whatever anybody brings it, and in August people sleep on the gym floor in rows",
+      "sources": [
+        "https://www.fox5vegas.com/2026/07/03/clark-county-activates-cooling-stations-las-vegas-area-extreme-heat-risk-rises/"
+      ],
+      "seat": {
+        "x": {
+          "from": "strip",
+          "east": 7
+        },
+        "y": {
+          "of": 0.54
+        }
+      },
+      "seat_why": "about 3 km east of the Strip near Maryland Parkway between Flamingo and Twain",
+      "like": "school",
+      "category": "civic",
+      "ground": "suburb_block",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the night aide, the gym of cots, the generator",
+        "heat": "the summer's cold room: batteries keep the generator going, and the town hears who kept it",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        {
+          "says": "A case of bottled water under the bleachers, the plastic gone soft in the heat. Still sealed.",
+          "good": "food"
+        },
+        {
+          "says": "The scoreboard's backup battery, behind a panel nobody opened in years.",
+          "good": "battery"
+        }
+      ],
+      "feed": {
+        "who": "@cambridgecots",
+        "txt": "cambridge rec has cold air again tonight. bring a battery or bring a chair. no dogs. ok some dogs",
+        "kind": "world",
+        "draft": true
+      },
+      "licence": "a public building: the county's name is a real public body's, no mark of theirs is drawn",
+      "visit": {
+        "head": "THE COOLING CENTER · CAMBRIDGE STREET",
+        "who": {
+          "name": "THE NIGHT AIDE",
+          "look": "cast_skirt",
+          "from": "between the cots in the gym of THE COOLING CENTER"
+        },
+        "says": "The county opened this gym as a cooling station every summer: water, chairs, the air conditioning. Now it is the only cold room for a mile, on a generator that runs on whatever anybody brings it. Mira, in August people sleep here in rows, and the old ones do not wake up if the power goes. Every battery is a night of cold air for forty people.",
+        "opts": [
+          {
+            "id": "generator",
+            "t": "Keep the generator running a week.",
+            "need": {
+              "bats": 5
+            },
+            "every_days": 7,
+            "fx": {
+              "bats": -5,
+              "mood": {
+                "act": "favor",
+                "place": "near"
+              },
+              "say": "Five batteries on the generator's rack. Forty people sleep cold tonight, and the street knows whose batteries they are.",
+              "post": {
+                "who": "@cambridgecots",
+                "txt": "somebody put five batteries on the cambridge generator. cold air all week. we wrote the name on the wall"
+              }
+            }
+          },
+          {
+            "id": "aide",
+            "t": "Take on the night aide.",
+            "need": {
+              "food": 2
+            },
+            "once": true,
+            "fx": {
+              "food": -2,
+              "man": {
+                "n": 1,
+                "name": "THE NIGHT AIDE",
+                "bg": "monk",
+                "look": "cast_skirt"
+              },
+              "say": "Two nights of food and she comes. She has kept men alive in the heat for six summers, she says, and she counts your water before your batteries."
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
+    },
+    {
+      "id": "the_dome",
+      "kind": "casino",
+      "name": "THE DOME",
+      "where": "valley",
+      "pocket_city": "indoor amusement park",
+      "lat": 36.1376,
+      "lon": -115.165,
+      "latlon_from": "behind Circus Circus, 2880 Las Vegas Blvd S (to a block)",
+      "real": "The Adventuredome behind Circus Circus on the north Strip: opened in 1993, five acres of rides under a pink glass dome, the indoor amusement park of the list. In the collapse the glass still keeps the sun off, the coaster has its own battery room so a run could finish in a blackout, and the arcade's prize counter is full of tokens nobody can spend",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Adventuredome"
+      ],
+      "seat": {
+        "x": {
+          "from": "strip",
+          "east": 1
+        },
+        "y": {
+          "of": 0.44
+        }
+      },
+      "seat_why": "behind Circus Circus on the north Strip, between the Strip and the I-15",
+      "like": "casino",
+      "category": "gaming_resort",
+      "ground": "the_strip",
+      "tier": "camp",
+      "use": {
+        "screen": "a settlement screen on arrival: the ride mechanic who stayed, the rides under the pink glass",
+        "batteries": "the coaster's battery room, once",
+        "scavenge": "the finds below"
+      },
+      "finds": [
+        {
+          "says": "A slot machine's backup battery behind a panel with a cartoon clown on it.",
+          "good": "battery"
+        },
+        {
+          "says": "A roll of tape from the arcade's prize counter, and a bucket of tokens nobody can spend.",
+          "good": "tape"
+        }
+      ],
+      "feed": {
+        "who": "@pinkdome",
+        "txt": "the coaster under the pink dome ran again at 11. nobody on it. it always finishes the run",
+        "kind": "world",
+        "draft": true
+      },
+      "licence": "a real casino's park: the game calls it THE DOME; Circus Circus and Adventuredome names stay off the art",
+      "visit": {
+        "head": "THE DOME · THE NORTH STRIP",
+        "who": {
+          "name": "THE RIDE MECHANIC",
+          "look": "cast_cape",
+          "from": "under the pink glass of THE DOME"
+        },
+        "says": "Five acres of rides under a pink glass roof, mano. The glass still keeps the sun off, that is why people live in here. The coaster has its own battery room so a run could finish in a blackout. Every night at eleven it runs once, empty, and nobody here starts it. A crew took the arcade and they charge us to walk past it.",
+        "opts": [
+          {
+            "id": "battery_room",
+            "t": "Strip the coaster's battery room.",
+            "once": true,
+            "fx": {
+              "mins": 240,
+              "flag": "dome_battery_room",
+              "chance": {
+                "p": 0.6,
+                "yes": {
+                  "bats": 8,
+                  "say": "Four hours in the battery room under the lift hill. Eight cells still hold. At eleven the coaster does not run."
+                },
+                "no": {
+                  "bats": 3,
+                  "say": "Three cells. The rest are swollen and hot to the touch. At eleven the coaster runs anyway."
+                }
+              }
+            }
+          },
+          {
+            "id": "arcade",
+            "t": "Clear the crew out of the arcade.",
+            "once": "won",
+            "fx": {
+              "fight": {
+                "foe": "brigands",
+                "n": "party",
+                "skulls": 1,
+                "label": "the arcade crew",
+                "win": {
+                  "bats": 6,
+                  "food": 2,
+                  "mood": {
+                    "act": "favor",
+                    "place": "near"
+                  },
+                  "flag": "dome_arcade",
+                  "say": "The crew runs out past the carousel. The people under the dome walk past the arcade for free again."
+                },
+                "lose": {
+                  "bats": -3,
+                  "say": "They charge you for the trouble, and for walking past."
+                }
+              }
+            }
+          },
+          {
+            "id": "in",
+            "t": "Walk in.",
+            "in": true
+          }
+        ],
+        "draft": true
+      }
+    },
+    {
       "id": "spring_mountain_ranch",
       "kind": "ranch",
       "name": "SPRING MOUNTAIN RANCH",

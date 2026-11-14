@@ -284,6 +284,39 @@ VISITS = {
                                 'say': "They broke on the doors and ran. The grower fills your wagon with greens and turns the purple lights down."},
                         'lose': {'food': -2, 'say': "They were through the plastic before you were up. Two towers are gone, and two nights of your own food."}}}},
       {'id': 'in', 't': 'Walk in.', 'in': True}]},
+  # ---- 11/14 (rule 447's round): two more of the list's smaller ones ----
+  'the_cooling_center': {
+    'head': 'THE COOLING CENTER · CAMBRIDGE STREET',
+    'who': {'name': 'THE NIGHT AIDE', 'look': 'cast_skirt', 'from': 'between the cots in the gym of THE COOLING CENTER'},
+    'says': ("The county opened this gym as a cooling station every summer: water, chairs, the air conditioning. Now it is the only cold "
+             "room for a mile, on a generator that runs on whatever anybody brings it. Mira, in August people sleep here in rows, and the "
+             "old ones do not wake up if the power goes. Every battery is a night of cold air for forty people."),
+    'opts': [
+      {'id': 'generator', 't': 'Keep the generator running a week.', 'need': {'bats': 5}, 'every_days': 7,
+       'fx': {'bats': -5, 'mood': {'act': 'favor', 'place': 'near'}, 'say': "Five batteries on the generator's rack. Forty people sleep cold tonight, and the street knows whose batteries they are.",
+              'post': {'who': '@cambridgecots', 'txt': "somebody put five batteries on the cambridge generator. cold air all week. we wrote the name on the wall"}}},
+      {'id': 'aide', 't': 'Take on the night aide.', 'need': {'food': 2}, 'once': True,
+       'fx': {'food': -2, 'man': {'n': 1, 'name': 'THE NIGHT AIDE', 'bg': 'monk', 'look': 'cast_skirt'},
+              'say': "Two nights of food and she comes. She has kept men alive in the heat for six summers, she says, and she counts your water before your batteries."}},
+      {'id': 'in', 't': 'Walk in.', 'in': True}]},
+  'the_dome': {
+    'head': 'THE DOME · THE NORTH STRIP',
+    'who': {'name': 'THE RIDE MECHANIC', 'look': 'cast_cape', 'from': 'under the pink glass of THE DOME'},
+    'says': ("Five acres of rides under a pink glass roof, mano. The glass still keeps the sun off, that is why people live in here. The "
+             "coaster has its own battery room so a run could finish in a blackout. Every night at eleven it runs once, empty, and nobody "
+             "here starts it. A crew took the arcade and they charge us to walk past it."),
+    'opts': [
+      {'id': 'battery_room', 't': "Strip the coaster's battery room.", 'once': True,
+       'fx': {'mins': 240, 'flag': 'dome_battery_room',
+              'chance': {'p': 0.6,
+                         'yes': {'bats': 8, 'say': "Four hours in the battery room under the lift hill. Eight cells still hold. At eleven the coaster does not run."},
+                         'no': {'bats': 3, 'say': "Three cells. The rest are swollen and hot to the touch. At eleven the coaster runs anyway."}}}},
+      {'id': 'arcade', 't': 'Clear the crew out of the arcade.', 'once': 'won',
+       'fx': {'fight': {'foe': 'brigands', 'n': 'party', 'skulls': 1, 'label': 'the arcade crew',
+                        'win': {'bats': 6, 'food': 2, 'mood': {'act': 'favor', 'place': 'near'}, 'flag': 'dome_arcade',
+                                'say': "The crew runs out past the carousel. The people under the dome walk past the arcade for free again."},
+                        'lose': {'bats': -3, 'say': "They charge you for the trouble, and for walking past."}}}},
+      {'id': 'in', 't': 'Walk in.', 'in': True}]},
 }
 
 ABOUT = ("THE VISIT (WORLD 14 11/8, VAMILY rule 436(b), ask line 521): Battle Brothers' way of entering a location, a picture, a few "

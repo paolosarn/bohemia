@@ -26,6 +26,10 @@
      fx.home     {kind, name, build|look|gives|says}   a gift to his place through HOME BASE's own seam (BohemiaHomeMap.give; before
                                             he plants it waits, the phone says so)
      fx.boss     {find: true}               the boss's sign read the sign's own way (BohemiaHisMap.readSign): found, his place out of the dark
+   11/14 (rule 447's round): events that FOLLOW FROM WHAT HE DID
+     needs.deed  {failed: true} | {helped: true}   a town where he failed a job / finished one or did it a favour, the newest
+                                            first, within 14 days: {deed_town}; kept by this file from the jobs' own settled acts
+                                            (window.__JOB_SETTLED_ACTS, which a reload forgets) in localStorage bohemia.roadmore.deeds.v1
    Loaded by BOHEMIA_CITY_WORLD.html after bohemia_road_events.js.
      BohemiaRoadMore.ctx(needs)        the words a row asks for, or null (then the row is not a candidate)
      BohemiaRoadMore.apply(fx, ctx, out)  the three new consequences
@@ -95,8 +99,31 @@
     if (n.home) { var H = homeNow(); if (!H || (n.home.planted && !H.planted)) return null; c.home = H.name; c.home_blocks = String(H.blocks || 0); }
     if (n.boss) { var B = bossNow(n.boss); if (!B) return null; c.boss = B.name; c.boss_place = B.place; c.boss_blocks = String(B.blocks || 1); }
     if (n.job) { var J = jobNow(); if (!J) return null; c.job = J.title; c.job_from = J.from; c.job_pay = String(J.pay || 0); }
+    if (n.deed) { var Dd = deedNow(n.deed); if (!Dd) return null; c.deed_town = Dd.town; }
     return c;
   };
+  /* ---- WHAT HE DID: the jobs' settled acts kept (finished, done poorly, failed, dropped; the road's own favours) ---- */
+  var DEEDS_KEY = 'bohemia.roadmore.deeds.v1';
+  function deedsSync() {
+    var have = json(DEEDS_KEY, []) || [], seen = {}, A = []; try { A = root.__JOB_SETTLED_ACTS || []; } catch (e) { A = []; }
+    have.forEach(function (d) { seen[d.id + '|' + d.act] = 1; });
+    var added = 0;
+    A.forEach(function (a) { if (!a || !a.place || !a.act) return; var k = a.id + '|' + a.act; if (seen[k]) return; seen[k] = 1;
+      have.push({ id: String(a.id), town: String(a.place), act: String(a.act), day: day() }); added++; });
+    if (added) { try { localStorage.setItem(DEEDS_KEY, JSON.stringify(have.slice(-60))); } catch (e) {} }
+    return have;
+  }
+  function deedNow(want) {
+    var all = deedsSync(), dn = day();
+    var ok = function (d) { if (dn - (d.day | 0) > 14) return false;
+      if (want.failed) return d.act === 'fail_civilian_contract' && !/^road:/.test(d.id);
+      if (want.helped) return d.act === 'civilian_contract_done' || (d.act === 'favor' && /^road:/.test(d.id));
+      return false; };
+    for (var i = all.length - 1; i >= 0; i--) if (ok(all[i])) return { town: all[i].town, act: all[i].act };
+    return null;
+  }
+  RM.deeds = function () { return deedsSync().slice(-20); };
+  try { setInterval(deedsSync, 3000); } catch (e) {}
   /* ---- HIS PLACE (HOME BASE's state), THE BOSSES (the map's memory, the bosses' rows), HIS JOBS (the ones he holds) ---- */
   function homeNow() {
     var S = null; try { S = root.BohemiaHomeMap && root.BohemiaHomeMap.state ? root.BohemiaHomeMap.state() : null; } catch (e) { S = null; }

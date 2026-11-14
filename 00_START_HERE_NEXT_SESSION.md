@@ -269,6 +269,14 @@ demo and the alpha, a phone both ways. STOPPED (rule 447): no spare sheet is lef
 VOTE bestiary-the-horn-and-the-bruiser-11-14. Record records/BOHEMIA_BESTIARY_TURN_UP_THE_HORN_AND_THE_BRUISER_11_14_26.md.
 [bb Battle Brothers' goblin shaman fights with fear from the back of the line; ours with an air horn.]
 [analog horror: the horn's blast comes from a block away and nobody can see the kid who blew it.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/14 LATEST -- BUILD 11/14q - AFTER WHAT HE DID, BUILT, NOT YET SEEN (rule 447's round;
+row 606; rule 441). A road card never stands over a running camp now: it waits and comes up when he breaks camp. Two more places from
+the list: THE COOLING CENTER (a county cooling station: keep its generator running, take on the night aide) and THE DOME (the indoor
+amusement park under the pink glass: the coaster's battery room, the arcade crew). Twelve road stops that follow from what he did: after
+a boss he put down, a job he failed, a town he helped. Gate THE ROAD KNOWS HIS PLACE 10/0 in all four parts. VOTE
+world14-after-what-he-did-11-14 (STAND-IN). The whole block: handoffs/WORLD_FOURTEEN.md. This lane stops here for the week.
+[bb Battle Brothers' events remember the contract you broke and the town you saved; ours send the brother of the boss, the woman with the bandaged arm, and the kid with the song.]
+[analog horror: every night at eleven the coaster under the pink glass runs once, empty, and finishes the run.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/11 LATEST (batch two) -- BUILD 11/11t - THE ROAD KNOWS HIS PLACE, BUILT, NOT YET SEEN
 (the coordinator's round; rule 441). Twelve more road stops that touch his own place (a family to take in, a rooftop panel, a roof
 tank, a seed garden), the bosses (a runaway cook or a map seller shows him the boss whose sign is up; the boss's roadblock; a fallen
