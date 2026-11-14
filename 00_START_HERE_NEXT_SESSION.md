@@ -1,3 +1,12 @@
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- THE TEARDOWN OF THE CARDS FILED, a record, nothing in the game changed (rules 449(b), 450(a); ask rows 616, 621).
+records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md, measured on the demo upright and sideways (tools/bohemia_fight_screen_teardown.js; stills and
+numbers in records/fight_screen_teardown_11_14/): five things act as 'the card' in four materials; the phone's man card prints its numbers at 5 points, cuts its
+status line, and its small buttons are 25 by 27 points; his sheet has no face and sideways is 640 points tall on a 390 point screen; the meet card has no leader,
+'MEN · SOME' for a count and no why; the turn order is not in the game. FOUND FOR FIXES 2 / RUN: a lesson card can lie over the meet card's ENGAGE.
+THE LIBRARY HAS NO PAGE ON ROGUE FABLE 4'S SCREEN (the rebuild's first step). THE REBUILD IS NOT STARTED. A FORK FOR THE COORDINATOR: the opening card is RUN's
+#meetcard and the resident man card is UI's phone file: whose hands. This round's two ships stand below (11/14l EVERY SHOT IS FELT, 11/14k EVERY FIGHT SAYS WHY).
+[bb Battle Brothers' fight HUD is a frame and its one floating card is summoned; ours floats five cards and frames nothing]
+[analog horror: the brightest thing on the fight's glass is a blank sheet of paper with eight numbers on it]
 FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- BUILD 11/14l - EVERY SHOT IS FELT, BUILT, NOT YET SEEN (rule 450(b)(c)(d); ask row 622). Its block is handoffs/FIGHT_SCREEN.md.
 Every gun fired by anyone, his men's or theirs, now throws a flash at its barrel and a quick white hit across the whole screen, bigger for a bigger gun
 (pistol, rifle, shotgun). It can never strobe: shots fired together are one flash and no second begins more than three. SETTINGS has a new FLASH switch

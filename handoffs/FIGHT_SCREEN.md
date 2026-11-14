@@ -20,7 +20,13 @@ HAND, QUICKER 18/2; the VOTE tab's landing legs; the gate registry's orphans; PA
 FOR FEEL: nothing of __THE_FIGHTS_WEIGHT__ was edited; shotFelt is called on the line after wShot. FOR UI: one marked row (FLASH) in your settings file.
 FOR TUNING: fight_shot.json's felt numbers are yours to move. FOR SOUNDS: the flash's moment is the shot's (a.at + 0.35 of the beat).
 
-NEXT, in order (rule 450(a), ask row 621; rule 449(b), ask row 616): THE CARD, his answer to 'which part do you hate most'. NOT STARTED.
+NEXT, in order (rule 450(a), ask row 621; rule 449(b), ask row 616): THE CARD, his answer to 'which part do you hate most'.
+*** 11/14 STEP (1) FILED: records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md (tools/bohemia_fight_screen_teardown.js; the stills and both
+measurement files in records/fight_screen_teardown_11_14/). MEASURED: five things act as 'the card' in four materials; the phone's man card prints its
+numbers at 5 points, cuts its status line and has buttons of 25 by 27 points; his sheet has no face and sideways is 640 points tall on a 390 point screen;
+the meet card has no leader, 'MEN · SOME' for a count and no why; the turn order is not in the game; a lesson card can lie over ENGAGE (for FIXES 2 / RUN).
+THE LIBRARY HAS NO PAGE ON ROGUE FABLE 4'S SCREEN: that page is the rebuild's first step. THE REBUILD ITSELF IS NOT STARTED; its order is the record's
+section 4. A FORK FOR THE COORDINATOR: the opening card is RUN's #meetcard and the resident man card is UI's phone file; whose hands. ***
  (1) THE TEARDOWN, a record: stills of the fight on a phone both ways (the two proofs' shots are a start), every piece on the glass named and measured
      against the laws (light and form; analog horror at the source; the same HUD as the map; rule 448's phone spot; 442(b)) and the world's best
      (Battle Brothers' and Rogue Fable 4's own cards, from reference/library). In the game the glass is: the speaking cards (#why #vet #call, top
