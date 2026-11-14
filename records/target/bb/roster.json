@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 167,
-  "types_in_the_fight": 57,
+  "types": 169,
+  "types_in_the_fight": 59,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -221,6 +221,7 @@
     "goblin_wolf",
     "goblin_wolfrider",
     "greenskin_catapult",
+    "kids_horn",
     "water_needle"
    ],
    "in_the_fight": [
@@ -237,6 +238,7 @@
    "skin": "THE HEAVY: exo-suit men, crash-bar shields, they push you off the tile",
    "lesson": "They shove you off your tile: put your back to a wall and shoot before they reach the line.",
    "types": [
+    "heavy_bruiser",
     "keeper_feral",
     "orc_berserker",
     "orc_warlord",
@@ -2057,6 +2059,27 @@
    "page": "bb_all/2071_Unhold.txt"
   },
   {
+   "type": "heavy_bruiser",
+   "bb_name": "Bruiser",
+   "bb_faction": "orcs",
+   "family": "the_heavies",
+   "rows": [
+    "heavy_bruiser"
+   ],
+   "name": "BRUISER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "heavies"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1492_Orc Berserker.txt"
+  },
+  {
    "type": "hedge_knight",
    "bb_name": "Hedge Knight",
    "bb_faction": "mercenaries",
@@ -2402,6 +2425,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0193_Barbarian Thrall.txt"
+  },
+  {
+   "type": "kids_horn",
+   "bb_name": "Horn",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "kids_horn"
+   ],
+   "name": "HORN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "kids"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0870_Goblin Shaman.txt"
   },
   {
    "type": "knight",

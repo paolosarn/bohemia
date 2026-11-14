@@ -38,7 +38,7 @@ THE LEGS (every number read from the data the game reads, never typed here):
   F10 THE NEW MEN (rule 443(d): 'each type its own look... and its own way to fight; every Battle Brothers archetype keeps its
      lesson'): every enemy type BESTIARY added (bohemia_enemies.json rows, added_by BESTIARY) rides a wiki row, names its Battle
      Brothers lesson and its own, has looks no other enemy pool holds, is dealt by its party, and on the live rules is armed from its
-     own gear and strikes (a volley brain from range more than up close), and a crew of 6 beats its party 6 in 10 or better.
+     own gear and strikes (a volley brain from range more than up close), and a crew of 6 beats its party 6 in 10 or better, or he makes his band no harder than it was without him (within one in ten).
   F8 THE ROSTER FILE IS FRESH (tools/bohemia_combat_the_roster.py --check).
   F9 ON THE PAGE (rule 441(a), the browser half gates/the_bestiary_floor_fight.js; --no-browser skips it): on the demo, a phone upright
      and sideways, each BESTIARY beast's party through the one door: fielded on its own sheet with its own words, the win home, its kill
@@ -61,7 +61,7 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 57  # MEASURED 11/11 (42 before BESTIARY's seven, 49 before its five men, 54 before its three): only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 59  # MEASURED 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
 FACTIONS_FIELDED_NOW = 8       # MEASURED 11/10 (the flock waits for its clothes): the factions the fight fields a party for; only ever raised
 LAB_MADE_NOW = 17              # MEASURED 11/10 (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
@@ -204,7 +204,8 @@ def men_data(D):
     pools = {k: set(v) for k, v in D['ours']['people_looks']['value']['band'].items() if isinstance(v, list)}
     for r in ne['rows']:
         if r.get('looks') and not r.get('beast'): pools['row:' + r['id']] = set(r['looks'])
-    dealt = set(ne['heads'].values()) | {k for m in ne['mix'].values() for ph in m.values() for k in ph}
+    T = D['ours']['enemy_tiers']['value']
+    dealt = set(ne['heads'].values()) | set((T.get('heads') or {}).values()) | {k for m in list(ne['mix'].values()) + list(T['mix'].values()) for ph in m.values() for k, w in ph.items() if w}
     mine = [r for r in ne['rows'] if str(r.get('added_by', '')).startswith(BY) and not r.get('beast')]
     for r in mine:
         if wiki and r.get('from') not in wiki: bad.append(r['id'] + ': rides no wiki row')
@@ -329,14 +330,17 @@ def main():
         bv = (D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}
         if bv.get('kicks') and not a.get('kick'): bad.append(r['id'] + ': a great swing that never swings round')
         if bv.get('charges') and not a.get('charge'): bad.append(r['id'] + ': a charge that never runs in')
-        if (o.get('won_by_crew_of_6') or 0) < 6: bad.append('%s: a crew of 6 beats its party %s in 10' % (r['id'], o.get('won_by_crew_of_6')))
+        if bv.get('flings') and not a.get('flings'): bad.append(r['id'] + ': a thrower who never throws')
+        if bv.get('screams') and not a.get('horrific_scream'): bad.append(r['id'] + ': a horn that never sounds')
+        w6, w0 = (o.get('won_by_crew_of_6') or 0), o.get('won_without_him')
+        if w6 < 6 and not (w0 is not None and w6 >= w0 - 1): bad.append('%s: a crew of 6 beats its party %s in 10 (%s without him)' % (r['id'], w6, w0))
     wait = [r['id'] for r in (D['ne'].get('waiting') or {}).get('rows', [])]
     for r in (D['ne'].get('waiting') or {}).get('rows', []):
         if r.get('looks'): bad.append(r['id'] + ': a waiting row carries looks (it waits for its own clothes)')
     leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
         % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far%s' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
                                 (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0),
-                                ''.join(', %d %ss' % (v, k) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge') and v)) for r in mine),
+                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream') and v)) for r in mine),
            ('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else ''),
         '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
