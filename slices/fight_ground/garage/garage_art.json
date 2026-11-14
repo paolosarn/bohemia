@@ -203,5 +203,22 @@
  },
  "bytes": {
   "floor": 152564
+ },
+ "ceiling": {
+  "sheet": "garage/garage_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the slab from below: a girder on every bay's line and the joists between, the sprinkler main and its branches, the conduit, the dead strip lights (one still on, one hanging straight down), the leaks' stains, a clearance bar, the soot of a burned car",
+  "contract": "garage.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))"
  }
 }

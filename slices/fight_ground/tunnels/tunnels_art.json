@@ -184,5 +184,22 @@
   "floor": 128626,
   "channel": 134498,
   "fill": 92692
+ },
+ "ceiling": {
+  "sheet": "tunnels/tunnel_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the culvert's lid: a joint every 4 m and the lime under it, a water main on its straps, two conduits, soot over the old fires, what the flood left stuck to the roof, a manhole's lid with two pricks of day",
+  "contract": "tunnels.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))"
  }
 }

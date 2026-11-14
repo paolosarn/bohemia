@@ -1,5 +1,41 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (SHIPSHA), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
+His vote of 11/14 passed all six of this lane's cards (the freeway, the casino floor, the tunnels, the garage kit, the decoy, the boards' colour), and his
+YES on the garage kit carried an order that went first: 'let's just start off with a 10% opacity for real, like I still need to see the parking garage
+ceiling, an exterior that I am in the interior of... the opacity is gonna be really low.'
+COMBAT THREE shipped the DRAW first (11/14p, stand-ins the fight draws) and named the files in its handoff. THIS SHIP IS THE PICTURES, under those names:
+  slices/fight_ground/garage/garage_ceiling.webp    33,718 bytes   the slab from below: a girder on every bay's line, joists, the sprinkler main, dead strip lights
+  slices/fight_ground/casino/casino_ceiling.webp    54,260 bytes   a coffer over every bay: lay-in tiles and their holes, a medallion and chandelier, camera domes
+  slices/fight_ground/tunnels/tunnel_ceiling.webp   34,812 bytes   the culvert's lid: joints and lime, a water main, soot, a manhole
+Each 645 x 455, five bays by five, any bay meets any bay (it repeats edge to edge), through the master rig as a REFLECTED ceiling (the slab is the page,
+what hangs under it stands toward the camera).
+THROWN OUT ON THE WAY, each measured on the page (the record has all four): only the members with no slab (invisible at 10% and 20%); a bay one tile wide
+(reads as his grid, not a ceiling); a pale casino ceiling (a haze, 6.5 steps of lift; dim now, 5.0); the tunnels' lime as strips (black faces, edges that
+did not meet).
+PROOF: tools/bohemia_the_ceilings_on_the_page_harness_11_14_26.js shoots the GAME'S OWN draw (off, 10%, 20% to compare) on THE PARKING GARAGE, THE CASINO
+FLOOR and THE FLOOD TUNNELS, upright and sideways: the picture draws (not the stand-in), 0 errors; 96.6, 95.6 and 98.2 in 100 pixels move 13 of 255 or less.
+Gate THE INSIDES WEAR FINISHED ART 20/0 (was 14/0): C1 to C5 and P2 read the three data files' 'ceiling' entries. AN INSIDE SHOWS ITS CEILING 6/0.
+The published set: 835 MB of 900 before, about 0.4 MB added.
+VOTE cook5-the-ceilings-11-14 (MADE FROM arena2-the-pit-is-a-pit-11-7): off, his 10%, and 20% to compare, on the garage; the casino and the tunnels at 10%.
+Record: records/BOHEMIA_COOK_FIVE_THE_CEILINGS_11_14_26.md.
+[bb Battle Brothers never fights under a roof; its grid is the player's alone, so the ceiling keeps its own rhythm, a bay two tiles]
+[analog horror: one strip light in the garage is still on, and every camera in the casino's ceiling still looks down]
+
+## FOR COMBAT THREE (11/14): YOUR NAMES TAKEN AS THEY ARE, AND WHAT I TOUCHED OF YOURS (rule 451(a), row 623)
+1. YOUR THREE NAMES STAND (garage/garage_ceiling.webp, casino/casino_ceiling.webp, tunnels/tunnel_ceiling.webp). No code of yours changed.
+2. IN YOUR DATA FILES, the 'ceiling' entry only, the two things you left me: 'have' false -> true, and 'tile' -> [10, 10] in all three (it was [5, 5],
+   [4, 4], [4, 3]). Each picture is FIVE BAYS BY FIVE, so a bay is two tiles. I looked at a bay of one, two and two and a half tiles on the page: you
+   were right that a bay a tile reads as his grid. If you want another rhythm, 'tile' is yours to turn: any number works, the picture repeats edge to edge.
+3. MY GATE (THE INSIDES WEAR FINISHED ART, C1 to C5) now READS your three data files' 'ceiling' entries: 'have' must be true and the file there. If you
+   ever go back to a stand-in, that leg goes red on purpose: tell me first.
+4. garage_art.json and tunnels_art.json name their ceiling under 'ceiling' (my A1: no picture in the folder unnamed). The casino has no art file of mine.
+5. TWO THINGS YOUR DRAW COULD DO FOR THE PICTURES, yours to weigh, neither blocks anything:
+   (a) THE TUNNELS: the roof lies on the earth between the culverts too (one sheet over the board). On the culverts' tiles only (terrain not 'blocked')
+       it would read as a roof and the earth as earth. I shot it that way in an earlier harness and it read better.
+   (b) CEIL_PX is 40 a tile: pinched in close the ceiling is soft. The pictures carry 64 pixels a tile at [10, 10]; 64 would use all of it.
+6. The page shooter is yours to run against any change: node tools/bohemia_the_ceilings_on_the_page_harness_11_14_26.js <outdir> garage|casino|tunnels.
+
 COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14b - MAIN STREET KEEPS ITS COLOUR, BUILT (02a00baa3), NOT YET SEEN (the turn-up round, rule 447, job 1; ask row 576).
 The last four of the thirty grey fight boards: main street's two blocks and their raided futures, left at three tenths on 11/11, are at six
 tenths of the colour he knew. SOUNDS' table hears its car parks as asphalt off the picture and needs three tenths dark grey, not all: four

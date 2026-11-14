@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (SHIPSHA), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
+His vote of 11/14 passed all six of this lane's cards, and his YES on the garage kit carried an order: 'start off with a 10% opacity... I still need to
+see the parking garage ceiling'. COMBAT THREE shipped the draw with stand-ins (11/14p) and named the files; THIS SHIP IS THE PICTURES, under its names, no
+code of its changed: garage/garage_ceiling.webp (the slab from below: girders, joists, the sprinkler main, dead strip lights), casino/casino_ceiling.webp
+(coffers, lay-in tiles, a chandelier's medallion, the eye in the sky), tunnels/tunnel_ceiling.webp (the lid's joints and lime, a main, soot). Through the
+rig, five bays by five, any bay meets any bay, 122,790 bytes together. In each data file's 'ceiling': 'have' true, 'tile' [10, 10] (A BAY IS TWO TILES: a bay
+a tile read as his grid a little darker). ON THE PAGE, the game's own draw, upright and sideways: the picture draws, 0 errors, 95.6 to 98.2 in 100 pixels
+move 13 of 255 or less. Gate THE INSIDES WEAR FINISHED ART 20/0 (six new legs); AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook5-the-ceilings-11-14 (MADE FROM). NOT STARTED still: the bosses' map art, the bus yard, the greenhouses. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers never fights under a roof; its grid is the player's alone, so the ceiling keeps its own rhythm, a bay two tiles]
+[analog horror: one strip light in the garage is still on, and every camera in the casino's ceiling still looks down]
 JOBS (jobs-01gkdyuv): 11/14 LATEST -- BUILD 11/14s - THE NIGHT, THE TURN AND THE BID, BUILT, NOT YET SEEN (rules 447, 441; rows 610, 614, 491). ROW 610 AS HE MEANT IT: a
 board he has opened is what he read until its window ends (the town's screen marks it read; no floor, no news, no new face; only a job
 he took or finished leaves). Three new kinds as legs rows: WATCH a place through a night, a job that turns HALFWAY (finish and fight,

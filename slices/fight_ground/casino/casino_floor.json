@@ -64,5 +64,5 @@
  },
  "floor": {"carpet": ["casino/casino_carpet_0.webp"], "vault": ["block_lab_3.webp#2,2", "block_lab_3.webp#2,0", "block_lab_3.webp#1,2"]},
  "lights": {"slot_glow_every": 1, "radius_m": 4, "src": "light_slot_glow.webp"},
-  "ceiling": {"kind": "coffer", "alpha": 0.1, "src": "casino/casino_ceiling.webp", "have": false, "tile": [4, 4], "how": "VAMILY rule 451(a): the casino's coffered ceiling over the floor at this alpha; the picture is COOK FIVE's (see garage.json's ceiling), the kind a stand-in until it is in."}
+  "ceiling": {"kind": "coffer", "alpha": 0.1, "src": "casino/casino_ceiling.webp", "have": true, "tile": [10, 10], "how": "VAMILY rule 451(a): the casino's coffered ceiling over the floor at this alpha; the picture is COOK FIVE's (see garage.json's ceiling), the kind a stand-in until it is in."}
 }

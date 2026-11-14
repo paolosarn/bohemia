@@ -23,6 +23,7 @@ THE PARKING GARAGE (slices/fight_ground/garage/): see GARAGE below (its own sect
 
   <venv>/bin/python tools/bohemia_cook5_the_tunnels_and_the_garage_finished_11_11_26.py render <scene> [--quick]
       scenes: cal | tun_floor | tun_channel | tun_fill | tun_pieces | gar_floor | gar_pieces   (7 to 10 min each; the pieces 3)
+              ceil_garage | ceil_casino | ceil_tunnels   (the ceilings, rule 451(a): then cut ceilings)
   python3 ... calibrate          (after render cal --quick: each new ground's multiplier, by measure)
   <venv>/bin/python ... models tunnels|garage   (each piece's model as a .glb, its foot at the origin: reference/models/bohemia/)
   python3 ... cut tunnels|garage  (the sheets, the pieces, sizes.json, the kit's own art file)
@@ -667,6 +668,7 @@ def cut_tunnels():
         'how_it_joins': 'the board picks any tile of a sheet for any place: the slab joints (4 m) fall on every tile edge and everything bigger than a hand fades out before it; a floor tile beside a channel tile is the drain\'s dry lip over the wet channel',
         'bytes': out,
     }
+    keep_ceiling(art, os.path.join(ship, 'tunnels_art.json'))
     json.dump(art, open(os.path.join(ship, 'tunnels_art.json'), 'w'), indent=1)
     # THE BOARD'S OWN DATA FILE (COMBAT's, on main since BUILD 11/11c): the three ground lists name these sheets, and the seven
     # pieces this tool remade say so. Nothing else in it is touched (its layouts, legend, tiles, flood, lights, dress are COMBAT's)
@@ -954,18 +956,270 @@ def cut_garage():
         },
         'bytes': bytes_,
     }
+    keep_ceiling(art, os.path.join(ship, 'garage_art.json'))
     json.dump(art, open(os.path.join(ship, 'garage_art.json'), 'w'), indent=1)
     print('garage: sheet', bytes_, 'pieces', {k: (v['w'], v['h'], v['foot']) for k, v in sz.items()})
 
 
 SCENES = {'cal': scene_cal, 'tun_floor': lambda q=False: scene_ground('tun_floor', q), 'tun_channel': lambda q=False: scene_ground('tun_channel', q),
           'tun_fill': lambda q=False: scene_ground('tun_fill', q), 'tun_pieces': lambda q=False: scene_pieces('tun_pieces', q),
-          'gar_floor': lambda q=False: scene_ground('gar_floor', q), 'gar_pieces': lambda q=False: scene_pieces('gar_pieces', q)}
+          'gar_floor': lambda q=False: scene_ground('gar_floor', q), 'gar_pieces': lambda q=False: scene_pieces('gar_pieces', q),
+          'ceil_garage': lambda q=False: scene_ceiling('garage', q), 'ceil_casino': lambda q=False: scene_ceiling('casino', q), 'ceil_tunnels': lambda q=False: scene_ceiling('tunnels', q)}
 
 
-def sheet_tunnels(before_dir, now_dir):
-    """records/target/COOK5_THE_FLOOD_TUNNELS_FINISHED_11_11.webp: what the VOTE card shows: the fight's own page on his phone
-    (COMBAT's parked board laid on today's fight page), the stand-in pictures beside these, the same seed and camera"""
+# ======================================================================================================================
+# THE CEILINGS (COOK FIVE 11/14; VAMILY rule 451(a), ask row 623, his vote on the garage kit: 'let's just start off with a 10%
+# opacity for real, like I still need to see the parking garage ceiling, an exterior that I am in the interior of... the
+# opacity is gonna be really low'). A fight inside a building draws that building's ceiling OVER the board, faint, so he reads
+# he is inside a thing and still sees every man and tile. COMBAT THREE's fight draws it (BUILD 11/14p, FIGHT.html
+# __AN_INSIDE_SHOWS_ITS_CEILING__: one picture per inside, repeated over the board, at its data file's alpha); the names are
+# COMBAT THREE's, agreed in handoffs/COMBAT_THREE.md, and these are the pictures that replace its stand-ins:
+#   slices/fight_ground/garage/garage_ceiling.webp    the slab from below: a girder on every bay's line, the joists between,
+#                                                     the sprinkler main and its branches, the conduit, the dead strip lights
+#   slices/fight_ground/casino/casino_ceiling.webp    the hung ceiling: a coffer over every bay, the lay-in tiles and the
+#                                                     holes where they fell, a chandelier's medallion, the eye in the sky
+#   slices/fight_ground/tunnels/tunnel_ceiling.webp   the culvert's lid: its joints and the lime under them, a main on its
+#                                                     straps, soot over the old fires, what the flood left stuck to the roof
+# each FIVE BAYS BY FIVE (any bay meets any bay, so the picture repeats edge to edge: the structure is the same in every bay,
+# what differs stays inside one), WHOLE (no holes in it: it is drawn at a tenth, the strength is the data file's one number),
+# 645 x 455 (a bay 129 x 91): the fight bakes a ceiling at 40 pixels a tile, and the site is near its cap.
+# THE CONTRACT is the 'ceiling' entry of COMBAT THREE's data file (garage.json, casino_floor.json, tunnels.json): cut ceilings
+# sets 'have' true and 'tile' to what was painted, the two things that entry leaves to this lane.
+# A BAY IS TWO TILES ('tile' [10, 10]). Looked at on the real page three ways (a bay one tile, two, two and a half): with a
+# bay a tile the girders fall on every tile line and read as his grid a little darker, not as a thing over his head (COMBAT
+# THREE's note: 'a rhythm that is NOT the tile grid reads best'); with two, the bays read as panels of a deck and no girder
+# ever cuts a tile's middle.
+# HOW IT IS DRAWN: a ceiling seen from the fight's own camera is its top, which is nothing. So it is built the way a builder
+# draws one, the REFLECTED ceiling: the slab is the page, and everything that hangs under it stands off the page toward the
+# camera (a girder 0.9 m deep stands 0.9 m proud), lit and shadowed by the rig like every other thing. THE FIRST TRY (11/14,
+# measured on the page: only the members, the slab left out, a stem every 1.5 m) could not be seen at a tenth on a phone,
+# where a tile is 30 points wide: so the members are few and thick and the slab is in. THE CASINO'S TILES ARE DIM (a hung
+# ceiling nobody has lit in years): the first, pale, lifted the dark carpet 6 steps at a tenth, a haze over his men.
+# ANALOG HORROR (rule 20): in the garage one strip light is still on and one hangs straight down as if something pulled it,
+# and the soot of a burned car blooms on the slab; in the casino every camera of the eye in the sky still looks down and the
+# cables hang out of the holes; in the tunnels the flood's rags are stuck to the roof and two pricks of day come through a lid.
+# REFERENCE CHECK: a cast-in-place parking deck from below (girders on the column lines, joists at 3 m, a sprinkler main
+# with branches every 3 m, 2.4 m strip lights down the aisle, a clearance bar); a casino's coffered lay-in ceiling (0.6 m
+# tiles, a soffit on the column lines, a medallion and a ring chandelier in the coffer, PTZ domes around it); a box
+# culvert's lid (sections with a joint every 4 m, efflorescence under the joints, a water main on strap hangers).
+# ======================================================================================================================
+def keep_ceiling(art, path):
+    """a kit cut again keeps the ceiling its art file names (rule 451(a): cut ceilings writes it)"""
+    if os.path.exists(path):
+        old = json.load(open(path))
+        if old.get('ceiling'): art['ceiling'] = old['ceiling']
+
+
+CEIL_PX = (645, 455)                                               # the picture as it ships: five bays by five, a bay 129 x 91
+CEIL_COVERS = 10                                                   # the fight tiles one picture covers each way: a bay is two tiles
+CEIL_DATA = dict(garage='garage/garage.json', casino='casino/casino_floor.json', tunnels='tunnels/tunnels.json')   # COMBAT THREE's
+LEAN = 1.41421                                                     # a thing h proud of the page shows h * LEAN north of where it stands
+
+
+def at(c, r, lx, ly, z=0.0):
+    """where a thing z proud of the ceiling must stand to SHOW lx east and ly south of screen tile (c, r)'s corner"""
+    return c * TM + lx, SIDE - (r * TM + ly) - LEAN * z
+
+
+def band_y(r, ly, w, h):
+    """the footprint (y0, y1) of an east-west member w wide and h proud, so that what shows of it (its face and the side the
+    camera sees) is centred ly south of screen row r's north line"""
+    yc = SIDE - (r * TM + ly); y0 = yc - (w + LEAN * h) / 2
+    return y0, y0 + w
+
+
+def lime(P, x, y, L, w, ns, rng):
+    """the lime that wept out of a joint: a run of flat discs along it"""
+    n = max(4, int(L / 0.07))                                      # many small crusts, each its own height (two faces at one height render black)
+    for i in range(n):
+        t = rng.uniform(-0.5, 0.5) * L; d = rng.normal(0, w * 0.22); rr = rng.uniform(0.04, 0.13) * (1.0 - 0.6 * abs(t) / (L / 2 + 1e-6))
+        P.drum('chalk', x + (d if ns else t), y + (t if ns else d), 0.004, 0.005 + 0.004 * rng.rand(), rr + 0.03, 8)
+
+
+def bloom(P, mat, x, y, R, rng, n=9):
+    """a stain that spread: flat discs on the page"""
+    for _ in range(n):
+        a, d = rng.uniform(0, 6.283), R * 0.6 * rng.rand()
+        P.drum(mat, x + d * math.cos(a), y + d * math.sin(a), 0.0, 0.004 + 0.002 * rng.rand(), R * rng.uniform(0.3, 0.62), 12)
+
+
+def ceil_garage(P, rng):
+    P.box('slab', -3.0, 63.0, -3.0, 63.0, -0.3, 0.0)
+    for r in range(-1, 7):                                         # a girder on every bay's line, east to west
+        y0, y1 = band_y(r, 0.0, 0.8, 0.9); P.box('beam', -3.0, 63.0, y0, y1, 0.0, 0.9)
+    for c in range(6):                                             # and north to south, and the joists every 3 m between
+        P.box('beam', c * TM - 0.35, c * TM + 0.35, -3.0, 63.0, 0.0, 0.85)
+        for k in (1, 2, 3): P.box('slab', c * TM + 3.0 * k - 0.18, c * TM + 3.0 * k + 0.18, -3.0, 63.0, 0.0, 0.55)
+    for r in range(-1, 6):
+        _, y = at(0, r, 0, 7.2, 1.05); P.tube_x('rustp', -3.0, 63.0, y, 1.05, 0.1)                       # the sprinkler main, hung under it all
+        _, yc = at(0, r, 0, 4.0, 0.6); P.box('steel', -3.0, 63.0, yc - 0.035, yc + 0.035, 0.57, 0.63)    # the conduit the lights hang on
+        for c in range(5):
+            for k in range(4):                                     # a branch every 3 m, a head at each end
+                x = c * TM + 1.5 + 3.0 * k
+                P.bar('rustp', (x, y - 2.5, 1.05), (x, y + 2.5, 1.05), 0.04)
+                for dy in (-2.5, 2.5): P.drum('steel', x, y + dy, 1.05, 1.2, 0.07, 8)
+    for r in range(5):
+        for c in range(5):
+            for lx in (4.5, 10.5):                                 # the strip lights down the aisle, dead: most hang, some by one end, some are gone
+                x, y = at(c, r, lx, 4.0, 0.7); u = rng.rand()
+                if (c, r, lx) == (2, 2, 4.5): P.box('lit', x - 1.2, x + 1.2, y - 0.2, y + 0.2, 0.64, 0.76)          # rule 20: one is still on
+                elif (c, r, lx) == (3, 1, 10.5): P.bar('white', (x - 1.0, y, 0.7), (x - 0.9, y, 3.0), 0.2)          # rule 20: one hangs straight down
+                elif u < 0.6: P.box('white', x - 1.2, x + 1.2, y - 0.2, y + 0.2, 0.64, 0.76)
+                elif u < 0.82: P.bar('white', (x - 1.15, y, 0.7), (x + 1.0, y + rng.uniform(-0.3, 0.3), 1.5 + 0.5 * rng.rand()), 0.2)
+            for _ in range(rng.randint(2, 5)):                     # where the deck above leaks: the stain, and the lime under it
+                lx, ly = rng.uniform(1.6, 10.4), rng.uniform(1.8, 10.6); x, y = at(c, r, lx, ly)
+                bloom(P, 'stain', x, y, rng.uniform(0.4, 1.0), rng, 5)
+                for _ in range(rng.randint(2, 6)): P.bar('chalk', (x + rng.uniform(-0.3, 0.3), y + rng.uniform(-0.3, 0.3), 0.0), (x, y, rng.uniform(0.08, 0.3)), 0.02)
+            if rng.rand() < 0.3:                                   # a cable down out of the conduit
+                x, y = at(c, r, rng.uniform(1.5, 10.5), 4.0, 0.6)
+                P.bar('black', (x, y, 0.6), (x + rng.uniform(-0.3, 0.3), y, 1.4 + 0.8 * rng.rand()), 0.025)
+            if (c + 2 * r) % 5 == 1:                               # the clearance bar on its two chains, yellow and black
+                x, y = at(c, r, 6.0, 10.0, 1.3)
+                for i in range(8): P.box('must' if i % 2 else 'black', x - 2.4 + i * 0.6, x - 1.8 + i * 0.6, y - 0.09, y + 0.09, 1.21, 1.39)
+                for sx_ in (-2.3, 2.3): P.bar('black', (x + sx_, y, 1.3), (x + sx_, y, 0.0), 0.012)
+            if (c, r) in ((1, 3), (4, 0), (0, 1)):                 # rule 20: the soot of a car that burned under it
+                x, y = at(c, r, rng.uniform(4.0, 8.0), rng.uniform(6.5, 9.0)); bloom(P, 'black', x, y, 2.3, rng, 16)
+
+
+def ceil_casino(P, rng):
+    P.box('tile', -3.0, 63.0, -3.0, 63.0, -0.3, 0.0)
+    for k in range(101): P.box('steel', k * 0.6 - 0.02, k * 0.6 + 0.02, -3.0, 63.0, 0.0, 0.012)          # the lay-in grid
+    for j in range(-4, 106): P.box('steel', -3.0, 63.0, SIDE - j * 0.6 - 0.02, SIDE - j * 0.6 + 0.02, 0.0, 0.012)
+    for r in range(-1, 7):                                         # the coffer: a dark soffit on every bay's line, a brass bead on its edges
+        y0, y1 = band_y(r, 0.0, 1.2, 0.45); P.box('soffit', -3.0, 63.0, y0, y1, 0.0, 0.45)
+        for yy in (y0 + 0.1, y1 - 0.2): P.box('brass', -3.0, 63.0, yy, yy + 0.1, 0.45, 0.48)
+    for c in range(6):
+        P.box('soffit', c * TM - 0.6, c * TM + 0.6, -3.0, 63.0, 0.0, 0.45)
+        for xx in (c * TM - 0.5, c * TM + 0.4): P.box('brass', xx, xx + 0.1, -3.0, 63.0, 0.45, 0.48)
+    for r in range(5):
+        for c in range(5):
+            hole = (rng.randint(3, 16), rng.randint(3, 16)) if rng.rand() < 0.7 else None      # where a run of tiles came down together
+            for i in range(2, 18):
+                for j in range(2, 18):
+                    if (i - 9.5) ** 2 + (j - 9.5) ** 2 < 4.6 ** 2: continue                    # the medallion's
+                    near = hole and abs(i - hole[0]) + abs(j - hole[1]) <= 2
+                    u = rng.rand(); x, y = at(c, r, i * 0.6, j * 0.6)
+                    if u < (0.75 if near else 0.07): P.box('black', x + 0.03, x + 0.57, y - 0.57, y - 0.03, 0.0, 0.006)     # a tile gone: the dark over it
+                    elif u < (0.85 if near else 0.16): P.box('stain', x + 0.03, x + 0.57, y - 0.57, y - 0.03, 0.0, 0.006)   # a tile the roof leaked on
+            if hole:                                               # rule 20: the cables hang out of the hole
+                for _ in range(rng.randint(2, 4)):
+                    x, y = at(c, r, (hole[0] + rng.uniform(-1, 1)) * 0.6, (hole[1] + rng.uniform(-1, 1)) * 0.6)
+                    P.bar('black', (x, y, 0.0), (x + rng.uniform(-0.4, 0.4), y, rng.uniform(0.6, 1.5)), 0.03)
+            x, y = at(c, r, 6.0, 6.0)                              # the medallion, and the ring chandelier under it: most hang, one in six by two chains, some are down
+            P.drum('brass', x, y, 0.0, 0.04, 2.5, 28); P.drum('plaster', x, y, 0.0, 0.07, 2.3, 28); P.drum('brass', x, y, 0.07, 0.12, 0.35, 12)
+            u = rng.rand()
+            if u < 0.72:
+                tilt = 0.0 if u < 0.56 else 0.55
+                for k in range(20):
+                    a = 6.2832 * k / 20; px_, py_ = x + 1.45 * math.cos(a), y + 1.45 * math.sin(a); dz = tilt * math.cos(a)
+                    P.box('brass', px_ - 0.24, px_ + 0.24, py_ - 0.24, py_ + 0.24, 0.85 + dz, 1.02 + dz)
+                    P.box('glassbit', px_ - 0.07, px_ + 0.07, py_ - 0.07, py_ + 0.07, 1.02 + dz, 1.4 + dz)
+                for k in range(4):
+                    a = 6.2832 * k / 4 + 0.785
+                    if tilt == 0.0 or k < 2: P.bar('brass', (x + 1.45 * math.cos(a), y + 1.45 * math.sin(a), 0.9 + tilt * math.cos(a)), (x + 0.2 * math.cos(a), y + 0.2 * math.sin(a), 0.1), 0.02)
+            else: P.bar('brass', (x, y, 0.1), (x + rng.uniform(-0.2, 0.2), y, rng.uniform(0.5, 1.1)), 0.02)       # the chain it hung on
+            for lx in (1.5, 4.5, 7.5, 10.5):                       # rule 20: the eye in the sky, twelve domes round every coffer, every one still looking down
+                for ly in (1.5, 4.5, 7.5, 10.5):
+                    if lx in (4.5, 7.5) and ly in (4.5, 7.5): continue
+                    x, y = at(c, r, lx, ly)
+                    P.box('white', x - 0.4, x + 0.4, y - 0.4, y + 0.4, 0.0, 0.03); P.drum('black', x, y, 0.03, 0.3, 0.27, 12)
+            for lx, ly in ((3.0, 9.0), (9.0, 3.0)):                # an air grille
+                x, y = at(c, r, lx - 0.3, ly + 0.3); P.box('steel', x - 0.29, x + 0.29, y - 0.29, y + 0.29, 0.0, 0.03); P.box('black', x - 0.2, x + 0.2, y - 0.2, y + 0.2, 0.03, 0.034)
+
+
+def ceil_tunnels(P, rng):
+    P.box('lid', -3.0, 63.0, -3.0, 63.0, -0.3, 0.0)
+    for k in range(16): P.box('black', k * 4.0 - 0.13, k * 4.0 + 0.13, -3.0, 63.0, 0.0, 0.004)           # the lid's joints, a section every 4 m
+    for j in range(-1, 17): P.box('black', -3.0, 63.0, SIDE - j * 4.0 - 0.13, SIDE - j * 4.0 + 0.13, 0.0, 0.004)
+    r0 = np.random.RandomState(451)                                # the lime under the joints ON a tile's line: the same in every tile
+    edge = [(r0.uniform(0.4, 11.6), r0.uniform(0.2, 0.55), r0.uniform(0.3, 1.5), r0.rand() < 0.5) for _ in range(14)]
+    for r in range(-1, 6):
+        _, y = at(0, r, 0, 2.4, 0.45); P.tube_x('rustp', -3.0, 63.0, y, 0.45, 0.16)                       # a water main on its straps
+        for k in range(22): P.box('steel', k * 3.0 - 0.05, k * 3.0 + 0.05, y - 0.2, y + 0.2, 0.0, 0.63)
+    for c in range(6):
+        x = c * TM + 9.5                                           # two conduits the other way
+        for dx in (-0.08, 0.08): P.bar('steel', (x + dx, -3.0, 0.08), (x + dx, 63.0, 0.08), 0.035)
+    for r in range(6):                                             # (every line of the sheet, its last ones too: a tile's east edge is another's west)
+        for c in range(6):
+            for (t, w_, L, ns) in edge:
+                x, y = at(c, r, 0.0, t) if ns else at(c, r, t, 0.0); lime(P, x, y, L, w_, ns, np.random.RandomState(int(t * 1000)))
+    for r in range(5):
+        for c in range(5):
+            for _ in range(rng.randint(10, 18)):                   # and under the joints inside it, each tile its own
+                t, w_, L = rng.uniform(1.1, 10.9), rng.uniform(0.2, 0.6), rng.uniform(0.3, 1.6); j = rng.choice([4.0, 8.0])
+                ns = rng.rand() < 0.5; x, y = at(c, r, j, t) if ns else at(c, r, t, j); lime(P, x, y, L, w_, ns, rng)
+                for _ in range(rng.randint(0, 3)): P.bar('chalk', (x + rng.uniform(-0.2, 0.2), y, 0.0), (x, y, rng.uniform(0.1, 0.4)), 0.02)
+            for _ in range(rng.randint(6, 11)):                    # rule 20: what the flood left stuck to the roof: rags, bags, a branch wedged in a joint
+                lx, ly = rng.uniform(1.0, 11.0), rng.uniform(1.6, 11.0); x, y = at(c, r, lx, ly); col = rng.choice(['white', 'white', 'blue', 'cloth_r', 'cloth', 'tan'])
+                a_, b_ = rng.uniform(0.3, 0.85), rng.uniform(0.14, 0.4)
+                if rng.rand() < 0.5: a_, b_ = b_, a_
+                P.box(col, x - a_ / 2, x + a_ / 2, y - b_ / 2, y + b_ / 2, 0.0, 0.02 + 0.02 * rng.rand())       # plastered flat to the lid by the water
+                if rng.rand() < 0.45: P.box(col, x - 0.06, x + 0.06, y - b_ / 2 - 0.02, y - b_ / 2 + 0.02, 0.0, rng.uniform(0.25, 0.6))   # and a tail of it hangs
+            for _ in range(rng.randint(2, 4)):
+                lx, ly = rng.uniform(1.2, 10.8), rng.uniform(1.5, 10.5); x, y = at(c, r, lx, ly); L = rng.uniform(0.8, 2.0)
+                P.bar('wood_d', (x - L / 2, y, 0.03), (x + L / 2, y + rng.uniform(-0.3, 0.3), rng.uniform(0.05, 0.4)), 0.035)
+            if (c + r) % 3 == 0:                                   # the soot over where a camp's fire burned
+                x, y = at(c, r, rng.uniform(3.5, 8.5), rng.uniform(5.0, 9.0)); bloom(P, 'black', x, y, 1.7, rng, 12)
+            if (c * 3 + r * 2) % 7 == 0:                           # rule 20: a manhole's lid, and two pricks of day through its pick holes
+                x, y = at(c, r, rng.uniform(3.0, 9.0), rng.uniform(4.5, 9.5))
+                P.drum('steel', x, y, 0.0, 0.05, 0.55, 18); P.drum('black', x, y, 0.05, 0.06, 0.44, 16)
+                for dx in (-0.22, 0.22): P.box('lit', x + dx - 0.05, x + dx + 0.05, y - 0.05, y + 0.05, 0.06, 0.07)
+
+
+CEILINGS = dict(garage=(ceil_garage, 'garage/garage_ceiling.webp', 'the slab from below: a girder on every bay\'s line and the joists between, the sprinkler main and its branches, the conduit, the dead strip lights (one still on, one hanging straight down), the leaks\' stains, a clearance bar, the soot of a burned car'),
+                casino=(ceil_casino, 'casino/casino_ceiling.webp', 'the hung ceiling: a dark coffer with a brass bead over every bay, the lay-in tiles and the holes where they fell (cables hang out of them), a medallion and its ring chandelier (some down, some by two chains), and the eye in the sky: twelve camera domes round every coffer, every one still looking down'),
+                tunnels=(ceil_tunnels, 'tunnels/tunnel_ceiling.webp', 'the culvert\'s lid: a joint every 4 m and the lime under it, a water main on its straps, two conduits, soot over the old fires, what the flood left stuck to the roof, a manhole\'s lid with two pricks of day'))
+
+
+def scene_ceiling(which, quick=False):
+    import bpy
+    NF, F, RIG = rig()
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    M = piece_mats(bpy, NF, F, 'tun_pieces'); rng = np.random.RandomState(1451 + len(which))
+    M.update(slab=NF.material(bpy, 'in_ceil_slab', 'tape_grey', 3, 0.82), lid=NF.material(bpy, 'in_ceil_lid', 'tape_grey', 1, 0.8),
+             tile=NF.material(bpy, 'in_ceil_tile', 'clay_bone', 4, 0.66), plaster=NF.material(bpy, 'in_ceil_plaster', 'clay_bone', 4, 0.8), brass=NF.material(bpy, 'in_brass', 'clay_mustard', 2, 0.9),
+             beam=NF.material(bpy, 'in_ceil_beam', 'tape_grey', 1, 0.55), soffit=NF.material(bpy, 'in_ceil_soffit', 'clay_rust', 0, 0.5))
+    P = FW.Parts(); CEILINGS[which][0](P, rng)
+    things = P.build(bpy, 'ceil_' + which, M)
+    RIG.G['wear_by_material'] = dict(RIG.G['wear_by_material'], in_cloth=0.3, in_tarp=0.3, in_paint=0.35, in_chalk=0.2, in_black=0.3, in_lit=0.0, in_glass=0.2, in_ceil=0.55, in_brass=0.4, in_stain=0.3)
+    RIG.source_pass(things, float(RIG.G['wear']), 1.0, 9)
+    zs = 1.0 / math.cos(math.radians(float(RIG.G['tilt_deg'])))
+    for o in things: o.scale = (1, 1, zs)
+    NF.grime_pass(bpy, [], 9)
+    for m in bpy.data.materials:
+        if m.use_nodes:
+            for n in m.node_tree.nodes:
+                if n.type in ('AMBIENT_OCCLUSION', 'BEVEL'): n.samples = 1
+    FW.REND = REND
+    return FW.shoot(bpy, F, RIG, 'ceil_' + which, quick, samples=40, transparent=True)
+
+
+def cut_ceilings():
+    """the three renders as the pictures the fight asks for by name (whole, no alpha: the strength is the data file's), and
+    the two things COMBAT THREE's 'ceiling' entry leaves to this lane: 'have' true, and 'tile' what was painted"""
+    import re
+    out = {}
+    for which, (_, src, what) in CEILINGS.items():
+        im = Image.open(os.path.join(REND, 'ceil_%s.png' % which)).convert('RGBA')
+        bg = Image.new('RGBA', im.size, tuple(int(v) for v in np.asarray(im)[..., :3].reshape(-1, 3).mean(0)) + (255,)); bg.alpha_composite(im)
+        fn = os.path.join(FG, src); bg.convert('RGB').resize(CEIL_PX, Image.LANCZOS).save(fn, 'WEBP', quality=70, method=6)
+        out[which] = os.path.getsize(fn)
+        p = os.path.join(FG, CEIL_DATA[which]); s = open(p).read(); i = s.index('"ceiling"'); j = s.index('}', i); e = s[i:j]
+        assert '"src": "%s"' % src in e, (which, 'the data file names another picture')
+        e = re.sub(r'"have":\s*(false|true)', '"have": true', e); e = re.sub(r'"tile":\s*\[[^\]]*\]', '"tile": [%d, %d]' % (CEIL_COVERS, CEIL_COVERS), e)
+        open(p, 'w').write(s[:i] + e + s[j:])
+    for kit in ('tunnels', 'garage'):                              # the kit's own art file names its ceiling (gate A1: no picture unnamed)
+        p = os.path.join(FG, kit, kit + '_art.json'); art = json.load(open(p))
+        art['ceiling'] = dict(sheet=CEILINGS[kit][1], bays=[5, 5], bay_px=[CEIL_PX[0] // 5, CEIL_PX[1] // 5], covers=[CEIL_COVERS, CEIL_COVERS], what=CEILINGS[kit][2],
+                              contract="%s 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))" % os.path.basename(CEIL_DATA[kit]))
+        json.dump(art, open(p, 'w'), indent=1)
+    print('ceilings', out)
+
+
+def sheet_ceilings(page_dir, _unused=None):
+    """records/target/COOK5_THE_CEILINGS_11_14.webp: what the VOTE card shows. The phone shots are the GAME'S OWN draw (COMBAT
+    THREE's), shot by tools/bohemia_the_ceilings_on_the_page_harness_11_14_26.js: the same fight with the ceiling off, at his
+    10%, and at 20% to compare (the strength turned in memory for the shot). Then the three ceilings at full strength."""
     from PIL import ImageDraw, ImageFont
     font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
     WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
@@ -973,89 +1227,40 @@ def sheet_tunnels(before_dir, now_dir):
         im = Image.new('RGB', (WID, 64 if sub else 40), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK)
         if sub: d.text((10, 38), sub, font=font(14), fill=DIM)
         rows.append(im)
-    def strip(items, hk=660):
-        cw = (WID - 10 * (len(items) - 1)) // len(items); r = Image.new('RGB', (WID, int(hk * cw / 390) + 26), BG); d = ImageDraw.Draw(r); x = 0; at = {}
-        for lab, fn in items:
-            n = Image.open(fn).convert('RGB'); n = n.crop((0, 0, n.width, int(n.width * hk / 390))).resize((cw, int(hk * cw / 390)), Image.LANCZOS)
-            d.text((x + 4, 4), lab, font=font(14), fill=DIM if 'STAND-IN' in lab else INK); r.paste(n, (x, 26)); at[lab] = (x, 26, cw, n.height); x += cw + 10
-        rows.append(r); return at
-    B = lambda n: os.path.join(before_dir, 'tun_b_%s.png' % n); N = lambda n: os.path.join(now_dir, 'tun_n_%s.png' % n)
-    title('THE FLOOD TUNNELS ON HIS PHONE: THE STAND-IN, AND NOW', 'the fight\'s own page, 390 x 844, the same board and seed. the whole board far out, then where the fight starts')
-    strip((('THE STAND-IN, FAR', B('far')), ('NOW, FAR', N('far')), ('THE STAND-IN', B('upright')), ('NOW', N('upright'))))
+    N = lambda k, v, a: os.path.join(page_dir, '%s_%s_a%s.png' % (k, v, a))
+    def strip(items, cw, ch):
+        r = Image.new('RGB', (WID, ch + 26), BG); d = ImageDraw.Draw(r); x = 0
+        for lab, fn, box in items:
+            n = Image.open(fn).convert('RGB'); n = n.crop(box(n)).resize((cw, ch), Image.LANCZOS)
+            d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
+        rows.append(r)
+    up = lambda n: (0, int(n.width * 150 / 390), n.width, int(n.width * 720 / 390))            # the board, under the top card and over the buttons
+    title('THE PARKING GARAGE\'S CEILING OVER THE FIGHT', 'on his phone, 390 x 844, the game\'s own draw: off, at his 10%, and at 20% to compare')
+    cw = (WID - 20) // 3; ch = int(570 * cw / 390)
+    strip((('OFF', N('garage', 'upright', '0'), up), ('10%: HIS NUMBER, IN THE GAME NOW', N('garage', 'upright', '01'), up), ('20%: TO COMPARE', N('garage', 'upright', '02'), up)), cw, ch)
     first_row = len(rows) - 1
-    title('UP CLOSE: THE STAND-IN OVER, NOW UNDER', 'the camp on the wall, the lean-to, the flood\'s jam in the main channel, the drain\'s mouth with its rack pried open')
-    strip((('THE STAND-IN: THE CAMP', B('camp')), ('THE LEAN-TO', B('leanto')), ('THE JAM', B('jam')), ('THE MOUTH', B('mouth'))), 520)
-    strip((('NOW: THE CAMP', N('camp')), ('THE LEAN-TO', N('leanto')), ('THE JAM', N('jam')), ('THE MOUTH', N('mouth'))), 520)
-    title('SIDEWAYS, NOW', '844 x 390')
-    n = Image.open(N('sideways')).convert('RGB'); rows.append(n.resize((WID, int(n.height * WID / n.width)), Image.LANCZOS))
-    title('THE PICTURES THEMSELVES, ONE ART PIXEL TO ONE SCREEN PIXEL', 'a tile of the culvert floor and a tile of the main channel; then every piece (the wall three ways, the rack whole and pried open, the camp, the lean-to, the jam, the rungs)')
-    ship = os.path.join(FG, 'tunnels'); r = Image.new('RGB', (WID, TH), BG)
-    r.paste(Image.open(os.path.join(ship, 'tunnel_floor_0.webp')).convert('RGB').crop((0, 0, 580, TH)), (0, 0))
-    r.paste(Image.open(os.path.join(ship, 'tunnel_channel_0.webp')).convert('RGB').crop((TW, TH, TW + 580, TH * 2)), (590, 0)); rows.append(r)
-    sz = json.load(open(os.path.join(ship, 'sizes.json')))
-    r = Image.open(os.path.join(ship, 'tunnel_floor_0.webp')).convert('RGB').crop((TW * 2, TH * 2, TW * 2 + WID, TH * 2 + 990)).convert('RGBA')
-    pc = lambda k: Image.open(os.path.join(ship, 'tunnel_%s.webp' % k)).convert('RGBA')
-    for k, (x, y) in dict(wall_ew=(10, 14), wall_ew_b=(600, 14), wall_ew_c=(10, 122), jam=(600, 122), camp_a=(10, 336), camp_b=(600, 326)).items(): r.alpha_composite(pc(k), (x, y))
-    x = 60
-    for k in ('ladder', 'wall_ns', 'rack', 'mouth'):
-        im = pc(k); im = im.crop((0, max(0, im.height - 350), im.width, im.height)); r.alpha_composite(im, (x, 980 - im.height)); x += im.width + 150
-    rows.append(r.convert('RGB'))
+    title('THE CASINO\'S CEILING AND THE TUNNELS\' ROOF', 'off, and at his 10%')
+    cw4 = (WID - 30) // 4; ch4 = int(570 * cw4 / 390)
+    strip((('THE CASINO, OFF', N('casino', 'upright', '0'), up), ('THE CASINO, 10%', N('casino', 'upright', '01'), up),
+           ('THE TUNNELS, OFF', N('tunnels', 'upright', '0'), up), ('THE TUNNELS, 10%', N('tunnels', 'upright', '01'), up)), cw4, ch4)
+    title('SIDEWAYS, THE GARAGE AT 10%', '844 x 390')
+    n = Image.open(N('garage', 'sideways', '01')).convert('RGB'); rows.append(n.resize((WID, int(n.height * WID / n.width)), Image.LANCZOS))
+    title('THE THREE CEILINGS AT FULL STRENGTH', 'what is drawn at a tenth, two bays by two: the garage\'s slab, the casino\'s coffers and its eye in the sky, the culvert\'s lid')
+    full = Image.open(os.path.join(REND, 'ceil_garage.png')).size; tw, th = full[0] // 5, full[1] // 5; cw = (WID - 20) // 3; r = Image.new('RGB', (WID, int(th * 2 * cw / (tw * 2))), BG); x = 0
+    for which in ('garage', 'casino', 'tunnels'):
+        im = Image.open(os.path.join(REND, 'ceil_%s.png' % which)).convert('RGB').crop((tw, th, tw * 3, th * 3))
+        r.paste(im.resize((cw, r.height), Image.LANCZOS), (x, 0)); x += cw + 10
+    rows.append(r)
     out = Image.new('RGB', (WID, sum(q.height + 8 for q in rows)), BG); y = 0; fy = 0
     for i, q in enumerate(rows):
         out.paste(q, (0, y))
         if i == first_row: fy = y
         y += q.height + 8
-    dst = os.path.join(R, 'records/target/COOK5_THE_FLOOD_TUNNELS_FINISHED_11_11.webp'); out.save(dst, 'WEBP', quality=78, method=6)
-    cw = (WID - 30) // 4; fx = 3 * (cw + 10)
-    n = Image.open(N('upright')).convert('RGB'); n = n.crop((0, 0, n.width, int(n.width * 660 / 390)))
-    os.makedirs(os.path.join(R, 'records/target/vote_first'), exist_ok=True)
-    n.resize((n.width // 2, n.height // 2), Image.LANCZOS).save(os.path.join(R, 'records/target/vote_first/cook5-the-flood-tunnels-finished-11-11.webp'), 'WEBP', quality=82, method=6)
-    print('sheet', out.size, os.path.getsize(dst), 'first at', (fx, fy + 26, cw, int(660 * cw / 390)))
-
-
-def sheet_garage(page_dir, _unused=None):
-    """records/target/COOK5_THE_PARKING_GARAGE_KIT_11_11.webp: what the VOTE card shows. The garage's own board is COMBAT's and
-    is not laid yet, so the phone shots are the kit on the real fight page laid on the casino floor's layout (a harness that
-    swaps the casino's data in memory: stalls and aisles in alternate rows, a raised bay for the stage, a column for a pillar,
-    the stairs and the lift for the cage, the way out for the bar); then the kit itself at one art pixel to one screen pixel"""
-    from PIL import ImageDraw, ImageFont
-    font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
-    WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
-    def title(t, sub=None):
-        im = Image.new('RGB', (WID, 64 if sub else 40), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK)
-        if sub: d.text((10, 38), sub, font=font(14), fill=DIM)
-        rows.append(im)
-    N = lambda n: os.path.join(page_dir, 'gar_g_%s.png' % n)
-    title('THE PARKING GARAGE\'S PICTURES ON HIS PHONE', 'its own board is not laid yet (COMBAT\'s): here the kit is laid on the casino floor\'s layout, on the fight\'s own page, 390 x 844')
-    items = (('THE WHOLE FLOOR, FAR', N('far')), ('WHERE THE FIGHT STARTS', N('upright_power')), ('CLOSER', N('mid')), ('NO POWER', N('upright_dark')))
-    cw = (WID - 30) // 4; r = Image.new('RGB', (WID, int(660 * cw / 390) + 26), BG); d = ImageDraw.Draw(r); x = 0
-    for lab, fn in items:
-        n = Image.open(fn).convert('RGB'); n = n.crop((0, 0, n.width, int(n.width * 660 / 390))).resize((cw, int(660 * cw / 390)), Image.LANCZOS)
-        d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
-    rows.append(r); first_row = len(rows) - 1
-    title('SIDEWAYS', '844 x 390')
-    n = Image.open(N('sideways_power')).convert('RGB'); rows.append(n.resize((WID, int(n.height * WID / n.width)), Image.LANCZOS))
-    ship = os.path.join(FG, 'garage'); fl = Image.open(os.path.join(ship, 'garage_floor_0.webp')).convert('RGB')
-    title('THE FLOOR, ONE ART PIXEL TO ONE SCREEN PIXEL', 'a tile of stalls over a tile of the aisle: the clean shapes where cars stood for years, the wheel stops, the oil trail that runs down every aisle')
-    rows.append(fl.crop((TW, TH - 40, TW + WID, TH * 2 + 360)))
-    title('THE PIECES', 'a raised bay (half a storey) and the ramp up to it, the guard rail, the outer wall, two columns, the stairs and the lift, the way out')
-    r = fl.crop((0, TH, WID, TH + 1290)).convert('RGBA'); pc = lambda k: Image.open(os.path.join(ship, 'garage_%s.webp' % k)).convert('RGBA')
-    for k, (x, y) in dict(level=(10, 10), ramp_e=(600, 4), rail_ew=(10, 470), wall_ew=(600, 470), core=(10, 560), booth=(480, 580), column=(10, 930), column_b=(200, 930),
-                          level_aisle=(600, 880)).items():
-        im = pc(k)
-        if k == 'level_aisle': im = im.crop((0, 0, im.width, 400))
-        r.alpha_composite(im, (x, y))
-    rows.append(r.convert('RGB'))
-    out = Image.new('RGB', (WID, sum(q.height + 8 for q in rows)), BG); y = 0; fy = 0
-    for i, q in enumerate(rows):
-        out.paste(q, (0, y))
-        if i == first_row: fy = y
-        y += q.height + 8
-    dst = os.path.join(R, 'records/target/COOK5_THE_PARKING_GARAGE_KIT_11_11.webp'); out.save(dst, 'WEBP', quality=78, method=6)
-    n = Image.open(N('upright_power')).convert('RGB'); n = n.crop((0, 0, n.width, int(n.width * 660 / 390)))
-    os.makedirs(os.path.join(R, 'records/target/vote_first'), exist_ok=True)
-    n.resize((n.width // 2, n.height // 2), Image.LANCZOS).save(os.path.join(R, 'records/target/vote_first/cook5-the-parking-garage-kit-11-11.webp'), 'WEBP', quality=82, method=6)
-    print('sheet', out.size, os.path.getsize(dst), 'first at', (cw + 10, fy + 26, cw, int(660 * cw / 390)))
+    dst = os.path.join(R, 'records/target/COOK5_THE_CEILINGS_11_14.webp'); out.save(dst, 'WEBP', quality=70, method=6)
+    n = Image.open(N('garage', 'upright', '01')).convert('RGB'); n = n.crop(up(n))
+    n.resize((n.width // 2, n.height // 2), Image.LANCZOS).save(os.path.join(R, 'records/target/vote_first/cook5-the-ceilings-11-14.webp'), 'WEBP', quality=80, method=6)
+    cw = (WID - 20) // 3
+    print('sheet', out.size, os.path.getsize(dst), 'first at', (cw + 10, fy + 26, cw, ch))
 
 
 if __name__ == '__main__':
@@ -1068,9 +1273,9 @@ if __name__ == '__main__':
     elif a and a[0] == 'models':
         models(a[1])
     elif a and a[0] == 'cut':
-        (cut_tunnels if a[1] == 'tunnels' else cut_garage)()
+        (cut_tunnels if a[1] == 'tunnels' else cut_ceilings if a[1] == 'ceilings' else cut_garage)()
     elif a and a[0] == 'sheet':
-        (sheet_tunnels if a[1] == 'tunnels' else sheet_garage)(a[2], a[3] if len(a) > 3 else None)
+        (sheet_tunnels if a[1] == 'tunnels' else sheet_ceilings if a[1] == 'ceilings' else sheet_garage)(a[2], a[3] if len(a) > 3 else None)
     elif a and a[0] == 'plan':
         ID = ids(); pal = np.random.RandomState(5).randint(40, 220, (64, 3)).astype(np.uint8)
         gid, dark, pale = PLANS[a[1]](ID)

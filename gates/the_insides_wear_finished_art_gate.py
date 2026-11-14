@@ -20,7 +20,28 @@ so the one thing a picture can get wrong without anybody seeing it in the tool i
   A6 PURPLE RESERVATION: not one purple pixel in a sheet or a piece (the purity gate's own test)
   P1 PLANTED (in memory): one tile of a sheet darkened by an eighth turns A3 red; a piece named with no file turns A1 red;
      a foot off its canvas turns A4 red
-python3 gates/the_insides_wear_finished_art_gate.py   (about 5 s)
+
+THE CEILINGS (COOK FIVE 11/14; VAMILY rule 451(a), ask row 623, his vote on the garage kit: 'let's just start off with a 10%
+opacity for real, like I still need to see the parking garage ceiling, an exterior that I am in the interior of... the opacity
+is gonna be really low'). COMBAT THREE's fight draws an inside's ceiling over the board at a tenth (FIGHT.html
+__AN_INSIDE_SHOWS_ITS_CEILING__; its gate AN INSIDE SHOWS ITS CEILING holds the data and the deal). The contract is the
+'ceiling' entry of each inside's own data file (garage/garage.json, casino/casino_floor.json, tunnels/tunnels.json): the
+picture's name, 'have' true the day it is in the folder, 'tile' how many fight tiles one picture covers. The PICTURE is this
+lane's: five bays by five, repeating edge to edge. A picture drawn at a tenth can fail three ways nobody sees in the tool: it
+is too flat to be read at a tenth, its bays do not meet, or it is heavy for what it is.
+  C1 each of the three insides has its picture IN (have true, the file there, whole: no holes in it), five bays by five, drawn
+     really low (no more than 0.15), covering a count of tiles; the garage's and the tunnels' art files name theirs
+  C2 *** ANY BAY MEETS ANY BAY *** on every ceiling (so the picture repeats edge to edge). A ceiling's lines lie ON its bays'
+     edges (a girder on every bay's line), so a bay's edge is a step in tone by design and A3's allowance would pass anything:
+     here the step where a bay meets ANOTHER is held to the step where it meets ITSELF (the bay repeating, which is what was
+     drawn), plus 8 steps
+  C3 IT CAN BE READ AT A TENTH: between a picture's dark twentieth and its pale twentieth there are at least 60 steps of tone
+     (so a girder against its slab is 6 steps on his screen at 0.10), and a bay's lines are there (a tenth of it or more is
+     25 steps darker than the picture's middle tone)
+  C4 LIGHT: a ceiling no heavier than 80,000 bytes (the site is near its cap; the kits' own budgets, A5, count them too)
+  C5 PURPLE RESERVATION: not one purple pixel
+  P2 PLANTED (in memory): a flat picture turns C3 red, a strength of 0.5 turns C1 red, a bay an eighth darker turns C2 red
+python3 gates/the_insides_wear_finished_art_gate.py   (about 8 s)
 """
 import json, os, sys
 import numpy as np
@@ -42,13 +63,13 @@ def ok(name, cond, detail=''):
     print(('  ok   ' if cond else '  FAIL ') + name + ('  [' + str(detail) + ']' if detail != '' else ''), flush=True)
 
 
-def tiles_of(folder, entry, cache):
+def tiles_of(folder, entry, cache, tw=TW, th=TH):
     """'tunnels/tunnel_floor_0.webp#2,3' -> that tile's luma (364 x 515 float)"""
     src, at = entry.split('#'); c, r = map(int, at.split(','))
     if src not in cache:
         cache[src] = np.asarray(Image.open(os.path.join(FG, src)).convert('L'), np.float32)
     a = cache[src]
-    return a[r * TH:(r + 1) * TH, c * TW:(c + 1) * TW]
+    return a[r * th:(r + 1) * th, c * tw:(c + 1) * tw]
 
 
 def smooth(v, n=9):
@@ -66,9 +87,9 @@ def step_ns(a, b):
 
 def inside(a):
     """the same measure between two strips six pixels apart inside a tile (what the ground's own texture does)"""
-    out = []
-    for x in (100, 200, 300, 400): out.append(float(np.mean(np.abs(smooth(a[:, x - 6:x].mean(1)) - smooth(a[:, x:x + 6].mean(1))))))
-    for y in (80, 160, 240, 300): out.append(float(np.mean(np.abs(smooth(a[y - 6:y, :].mean(0)) - smooth(a[y:y + 6, :].mean(0))))))
+    out = []; h, w = a.shape
+    for x in (int(w * f) for f in (0.194, 0.388, 0.583, 0.777)): out.append(float(np.mean(np.abs(smooth(a[:, x - 6:x].mean(1)) - smooth(a[:, x:x + 6].mean(1))))))
+    for y in (int(h * f) for f in (0.22, 0.44, 0.66, 0.824)): out.append(float(np.mean(np.abs(smooth(a[y - 6:y, :].mean(0)) - smooth(a[y:y + 6, :].mean(0))))))
     return out
 
 
@@ -101,6 +122,7 @@ def read(kit, K):
 def a1(kit, K, art, sizes, exists=os.path.exists):
     folder = os.path.join(FG, kit); named = set()
     for lst in art.get('floor', {}).values(): named |= {e.split('#')[0] for e in lst}
+    if art.get('ceiling'): named.add(art['ceiling']['sheet'])                                  # rule 451(a): the kit's ceiling is one of its pictures
     named |= {v['src'] for v in sizes.values()}
     gone = sorted(n for n in named if not exists(os.path.join(FG, n)))
     on_disk = {kit + '/' + f for f in os.listdir(folder) if f.endswith(('.webp', '.png'))}
@@ -117,6 +139,73 @@ def a4(kit, K, sizes):
         if not (0 <= v['foot'][0] <= w and 0 <= v['foot'][1] <= h + 1): bad.append('%s foot %s off its %dx%d canvas' % (k, v['foot'], w, h))
         if k in K['walls'] and abs(w - TW) > 2: bad.append('%s is %d px long, a tile is %d' % (k, w, TW))
     return bad
+
+
+CEIL_ALPHA_MAX, CEIL_BYTES, CEIL_SPREAD, CEIL_LINES, CEIL_MEET = 0.15, 80000, 60.0, (25.0, 0.10), 8.0
+CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
+
+
+def c1(C, exists=os.path.exists):
+    bad = []
+    for k in CEIL_DATA:
+        c = C.get(k)
+        if not c: bad.append('the %s data names no ceiling' % k); continue
+        al = c.get('alpha')
+        if not (isinstance(al, (int, float)) and 0 < al <= CEIL_ALPHA_MAX): bad.append('%s strength %s (his word: really low, no more than %s)' % (k, al, CEIL_ALPHA_MAX))
+        if c.get('have') is not True: bad.append(k + ' still wears the stand-in (have is not true)'); continue
+        p = os.path.join(FG, c.get('src') or '?')
+        if not exists(p): bad.append(k + ' has no file'); continue
+        im = Image.open(p)
+        if im.size[0] % 5 or im.size[1] % 5: bad.append('%s is %dx%d, not five bays by five' % (k, im.size[0], im.size[1]))
+        if im.mode in ('RGBA', 'LA') and np.asarray(im.convert('RGBA'))[..., 3].min() < 250: bad.append(k + ' has holes in it')
+        t = c.get('tile')
+        if not (isinstance(t, list) and len(t) == 2 and all(isinstance(v, (int, float)) and v > 0 for v in t)): bad.append(k + ' does not say how many tiles it covers')
+    for kit, K in KITS.items():
+        art = json.load(open(os.path.join(FG, kit, K['art'])))
+        if (art.get('ceiling') or {}).get('sheet') != (C.get(kit) or {}).get('src'): bad.append('the %s kit\'s art file does not name its ceiling' % kit)
+    return bad
+
+
+def meets(tiles):
+    """the worst a join between two different bays is OVER those bays' joins with themselves, east-west and north-south"""
+    own_e = [step_ew(t, t) for t in tiles]; own_n = [step_ns(t, t) for t in tiles]; worst = 0.0; mids = []
+    for i, a in enumerate(tiles):
+        for j, b in enumerate(tiles):
+            if i == j: continue
+            d = max(step_ew(a, b) - (own_e[i] + own_e[j]) / 2, step_ns(a, b) - (own_n[i] + own_n[j]) / 2)
+            worst = max(worst, d); mids.append(d)
+    return worst, float(np.median(mids)), CEIL_MEET
+
+
+def c3(a):
+    """(the steps of tone between the dark twentieth and the pale twentieth, the share of the picture 25 steps under its middle)"""
+    lo, mid, hi = np.percentile(a, [5, 50, 95])
+    return float(hi - lo), float((a < mid - CEIL_LINES[0]).mean())
+
+
+def ceilings():
+    C = {k: json.load(open(os.path.join(FG, f))).get('ceiling') for k, f in CEIL_DATA.items()}; b1 = c1(C)
+    ok('C1 the ceilings: each inside has its picture in (five bays by five, whole), drawn really low (no more than %s), and its kit names it' % CEIL_ALPHA_MAX, not b1,
+       '; '.join(b1[:4]) if b1 else ', '.join('%s %s at %s over %sx%s tiles' % (k, os.path.basename(c['src']), c['alpha'], c['tile'][0], c['tile'][1]) for k, c in C.items()))
+    if b1: return
+    cache = {}; res = {}; read = {}; tiles = {}
+    for k, c in C.items():
+        w, h = Image.open(os.path.join(FG, c['src'])).size; tw, th = w // 5, h // 5
+        tiles[k] = [tiles_of(None, '%s#%d,%d' % (c['src'], x, y), cache, tw, th) for y in range(5) for x in range(5)]
+        res[k] = meets(tiles[k]); read[k] = c3(cache[c['src']])
+    bad = {k: v for k, v in res.items() if v[0] > v[2]}
+    ok('*** C2 the ceilings: ANY BAY MEETS ANY BAY *** (the picture repeats edge to edge)', not bad, '; '.join('%s worst %.1f over itself, middle %.1f, allowed %.1f' % (k, v[0], v[1], v[2]) for k, v in res.items()))
+    flat = {k: v for k, v in read.items() if v[0] < CEIL_SPREAD or v[1] < CEIL_LINES[1]}
+    ok('C3 the ceilings: EACH CAN BE READ AT A TENTH (60 steps of tone or more between its dark and its pale, a tenth of it or more its lines)', not flat,
+       '; '.join('%s %.0f steps, %.0f%% lines' % (k, v[0], v[1] * 100) for k, v in read.items()))
+    sizes = {k: os.path.getsize(os.path.join(FG, c['src'])) for k, c in C.items()}
+    ok('C4 the ceilings: LIGHT, none heavier than %s bytes' % format(CEIL_BYTES, ','), all(z <= CEIL_BYTES for z in sizes.values()), ', '.join('%s %s' % (k, format(z, ',')) for k, z in sizes.items()))
+    pur = {k: purple(os.path.join(FG, c['src'])) for k, c in C.items()}
+    ok('C5 the ceilings: PURPLE RESERVATION, not one purple pixel', not any(pur.values()), ', '.join('%s %d' % kv for kv in pur.items() if kv[1]) or '3 pictures')
+    flat0 = c3(np.full((455, 645), 120.0, np.float32)); p3 = flat0[0] < CEIL_SPREAD
+    C2 = json.loads(json.dumps(C)); C2['garage']['alpha'] = 0.5; p1 = bool(c1(C2))
+    t2 = [t.copy() for t in tiles['garage']]; t2[3] = t2[3] * 0.875; j2 = meets(t2); p2 = j2[0] > j2[2]
+    ok('P2 the ceilings PLANTED: a flat picture turns C3 red, a strength of 0.5 C1, a bay an eighth darker C2', p3 and p1 and p2, 'C3 %s, C1 %s, C2 %s' % (p3, p1, p2))
 
 
 def main():
@@ -147,6 +236,7 @@ def main():
         s2 = json.loads(json.dumps(sizes)); kk = sorted(s2)[0]; s2[kk]['src'] = kit + '/not_there.webp'; p1 = not a1(kit, K, art, s2)[0]
         s3 = json.loads(json.dumps(sizes)); s3[kk]['foot'] = [s3[kk]['w'] + 40, 5]; p4 = bool(a4(kit, K, s3))
         ok('P1 %s PLANTED: a tile an eighth darker turns A3 red, a piece with no file A1, a foot off its canvas A4' % kit, p3 and p1 and p4, 'A3 %s, A1 %s, A4 %s' % (p3, p1, p4))
+    ceilings()
     print('\nTHE INSIDES WEAR FINISHED ART: %d passed, %d failed' % (passed, failed))
     return 1 if failed else 0
 
