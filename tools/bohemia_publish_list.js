@@ -62,6 +62,27 @@ const NEVER_WHOLE = new Set(['slices', 'engine', 'records', 'records/target']);
    the door and after the RUN tab: runFrame src null, 0 loads. The serve-only gate (the_site_serves_what_the_game_
    loads_gate.js L2) presses every tab on a server that answers only this list, so the day a tab loads it, that is red. */
 const NOT_LOADED = new Set(['slices/BOHEMIA_RUN_CURRENT.html']);
+/* rule 6 (PLUMBER 8, 11/14/26, the coordinator's rule 447 round: 'get the published set well under the cap, aim under 800'):
+   INSIDE A FOLDER TAKEN WHOLE (rule 3), A KIND OF FILE NO CODE BUILDS A NAME FOR IS NOT PUBLISHED. Each kind is listed here with
+   every loader that builds names in its folder, and a TELL: the text that would appear in a published code file the day one starts
+   building that kind. gates/pages_publish_gate.js reads every published code file for each tell, and a hit is red (so a loader
+   that starts asking for one of these files cannot ship a 404). A file a published text names EXACTLY is still published (rule 2). */
+const DEAD_KINDS = [
+  { dir: 'records/target/character/barber', kind: /\/(rig|portrait)\.json$/, tell: /(^|[^\w.])(rig|portrait)\.json/,
+    why: "the build's sidecars: its four loaders build only <look>/face/<key>_<64|128>.png (engine/bohemia_crew_faces.js), <look>/rig_<turn>.png (engine/bohemia_rig_bodies.js) and <look>/rig_portrait_S.png (engine/bohemia_main_man.js); engine/bohemia_people_mix.js names the folder in a src note" },
+  { dir: 'records/target/character/barber', kind: /\/rig_portrait_S[EW]\.png$/, tell: /rig_portrait_(S[EW]|['"`]\s*\+|\$\{)/,
+    why: "the side portraits: the one loader of a barber portrait (engine/bohemia_main_man.js) asks for rig_portrait_S.png by its whole name" },
+  { dir: 'records/target/portrait/rig/crew', kind: /\/(rig|portrait)\.json$/, tell: /(^|[^\w.])(rig|portrait)\.json/,
+    why: "PORTRAIT's sidecars for the crew's renders: the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png and reads no sidecar" },
+  { dir: 'records/target/portrait/rig/crew', kind: /\/(raw|rig)_portrait_[^/]*\.png$/, tell: /raw_portrait|portrait\/rig\/crew[^\n]*rig_portrait/,
+    why: "PORTRAIT's renders of the crew's faces: the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png, the turns S SE E NE N NW W SW" },
+];
+/* and rule 3 does not take a folder whole that the code names only in prose (a path in a comment broken at the line's end) */
+const NOT_WHOLE = new Map([
+  ['records/target/animation', "named only in comments that say where a sheet's numbers came from (slices/BOHEMIA_ROSTER_SCREEN.html 'MEASURED FIRST ... records/target/animation/', engine/bohemia_idles.js 'the source records/target/animation/'): ANIMATION's measurement shots and sources"],
+  ['slices/settlement_people', "named only in slices/BOHEMIA_SETTLEMENT_SCREEN.html's comment 'ANIMATION's flat sheets (slices/settlement_people) are not drawn here any more'"],
+]);
+const deadKind = (f) => DEAD_KINDS.some(k => f.startsWith(k.dir + '/') && k.kind.test(f));
 const TOKEN = /[A-Za-z0-9_\-.\/%~]{3,}/g;
 /* rule 3 reads CODE only: names are built in a page or a script. A data file that names a folder is almost always
    saying where a thing came from ("src": "records/target/master_rig/..."), and measured, one such line in the style
@@ -108,6 +129,7 @@ function compute() {
   const keep = new Set(), why = new Map(), whole = new Map(), taken = new Set(), weak = new Set(), queue = [];
   const add = (f, from, isWeak) => {
     if (NOT_LOADED.has(f)) return;
+    if (isWeak && deadKind(f)) return;   /* rule 6 */
     if (keep.has(f)) { if (!isWeak && weak.has(f)) { weak.delete(f); why.set(f, from); if (TEXT.test(f)) queue.push(f); } return; }
     keep.add(f); why.set(f, from); if (isWeak) weak.add(f); if (TEXT.test(f)) queue.push(f);
   };
@@ -130,7 +152,7 @@ function compute() {
         if (!/^[A-Za-z0-9_\-.\/%~]+$/.test(val) || !val.includes('/')) continue;
         for (const b of bases) {
           const p = path.posix.normalize(path.posix.join(b, val.replace(/^\.\//, '').replace(/\/+$/, '')));
-          if (!p.startsWith('..') && DIR.has(p) && !NEVER_WHOLE.has(p) && !whole.has(p)) whole.set(p, f);
+          if (!p.startsWith('..') && DIR.has(p) && !NEVER_WHOLE.has(p) && !NOT_WHOLE.has(p) && !whole.has(p)) whole.set(p, f);
         }
       }
     }
@@ -152,7 +174,7 @@ function compute() {
              BOHEMIA_RIG_CAST.json and .png; found by the serve-only gate, 11/6) */
           for (const x of EXT) if (FILE.has(p + x)) add(p + x, f + '  (the bare name ' + bare + ', ' + x + ' added)', isWeak);
         }
-        if (!FILE.has(p) && !isWeak && CODE.test(f) && DIR.has(p) && t.includes('/') && !NEVER_WHOLE.has(p)) { if (!whole.has(p)) whole.set(p, f); }
+        if (!FILE.has(p) && !isWeak && CODE.test(f) && DIR.has(p) && t.includes('/') && !NEVER_WHOLE.has(p) && !NOT_WHOLE.has(p)) { if (!whole.has(p)) whole.set(p, f); }
       }
     }
     /* rule 3 runs each time the queue drains; a text file inside a whole folder is then read as WEAK */
@@ -176,7 +198,7 @@ function compute() {
   return { files, size, why, whole: [...whole.keys()].sort(), weak, folders, total: all.length };
 }
 
-module.exports = { ROOTS, ENTRIES, REGISTRY, NOT_LOADED, compute, shownCards };
+module.exports = { ROOTS, ENTRIES, REGISTRY, NOT_LOADED, DEAD_KINDS, NOT_WHOLE, compute, shownCards };
 
 if (require.main === module) {
   const a = process.argv.slice(2);

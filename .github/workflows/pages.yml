@@ -163,7 +163,22 @@ jobs:
           # 11/6 (rule 418(e)): the commit this site was built from, so the live check (and anyone) can read WHICH build is live,
           # not only that a page answers 200. Never in the repo; written here, at the site's root.
           echo "$GITHUB_SHA" > _site/BOHEMIA_SITE_SHA.txt
-          echo "published $(du -sh _site | cut -f1) in $(find _site -type f | wc -l) files, out of a $(du -sh --exclude=.git . | cut -f1) tree"
+          echo "copied $(du -sh _site | cut -f1) in $(find _site -type f | wc -l) files, out of a $(du -sh --exclude=.git . | cut -f1) tree"
+
+      # 11/14 (PLUMBER 8, the coordinator's rule 447 round): the PNGs in the site squeezed LOSSLESSLY (the same pixels, measured on
+      # every one of 400; 11 to 15% smaller), never in the repo. A cache by content means only what changed is squeezed again.
+      # tools/bohemia_squeeze_site.py never fails a deploy: no oxipng, a bad file or its time budget spent, and that file ships as copied.
+      - name: the squeeze's cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.bohemia_squeeze
+          key: bohemia-squeeze-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: bohemia-squeeze-
+      - name: squeeze the site's PNGs (lossless, never the repo)
+        run: |
+          pip install -q pyoxipng || echo "no oxipng: the site ships as copied"
+          python3 tools/bohemia_squeeze_site.py _site --cache ~/.bohemia_squeeze --budget 300 || true
+          echo "published $(du -sh _site | cut -f1) in $(find _site -type f | wc -l) files"
 
       - id: pages
         uses: actions/configure-pages@v5

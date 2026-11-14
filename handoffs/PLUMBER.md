@@ -1,5 +1,26 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/14, the coordinator's routine 'PLUMBER 8 turn up' (rule 447). BUILD 11/14a THE SITE LANDS LIGHT. Ask row 563 marked.
+THE SITE'S WEIGHT: main 843a15e1 was back over the cap (903.6 MB). Now the list is 847.2 MB (rule 6: the kinds of file no code builds, in
+folders taken whole, and two folders named only in comments) and the site as deployed 821.4 MB (the PNGs squeezed losslessly at deploy,
+tools/bohemia_squeeze_site.py, a step in pages.yml with a cache). PAGES PUBLISH 30/0 (rule 6's tells and five plants). LEFT to 800: 21 MB,
+the levers named in row 563.
+*** WHAT A LANE MUST DO SO ITS ART LANDS LIGHT (every lane that ships art; the cap is 900 MB on the list, the aim under 800) ***
+  1. A FOLDER THE GAME LOADS FROM HOLDS ONLY WHAT THE GAME LOADS. When code builds names in a folder ('rig_idles/' + id), EVERY file in it
+     ships. Renders, raw shots, calibration shapes, sidecar notes (rig.json, portrait.json), before/after shots, contact sheets: put them in
+     records/<your lane>/, never in slices/ or records/target/. A kind that is already there and nothing loads goes in DEAD_KINDS
+     (tools/bohemia_publish_list.js) with its proof and a tell, never deleted.
+  2. A SHEET IS WEBP: pixel art lossless (PIL save(..., 'WEBP', lossless=True, method=6, exact=True)), a painted board lossy at about 80.
+     A PNG still ships, squeezed at deploy, but measured it is 11 to 15% off, where lossless WebP is far more.
+  3. ONE SIZE: never ship four sizes of a picture the code draws at one; a size the code never asks for is weight.
+  4. A REPLACED PICTURE IS NOT NAMED ANY MORE: stop naming the old one (in code AND in data: a 'src' string in a JSON publishes the file it
+     names) and it falls off the site by itself; never delete it from the repo.
+  5. BEFORE YOU PUSH ART: node tools/bohemia_publish_list.js (the number, and --why <file> for why a file ships) and
+     node gates/pages_publish_gate.js. Over 900 is red, and it is yours to make room in the same push.
+PROOF THE TRIMMED SITE PLAYS: THE SITE SERVES WHAT THE GAME LOADS --quick 5/0 (61 pages, 1,138 files asked) and --loop 3/0 (title to the
+reload, 11/0, 913 files asked, none off the list). Run the --loop alone: beside a CPU-heavy job its road event timed out once.
+NOT DONE THIS ROUND (the week's budget): row 613 (freezes over 1 s entering a fight and making camp) and row 561's one 6.4 s start task.
+
 PLUMBER 8 (chat 18) 11/11, the next round -- ROW 561 FIRST (the coordinator's routine 'PLUMBER 8 next round'). BUILD 11/11f THE REOPEN SKIPS A HIDDEN LINE.
 MEASURED (scratch probe boot.js: the demo cold, then reopened in the same browser, phone upright, CPU 4x, a CPU profile of each; the box was
 quiet after its restart, still 18-28 s run to run, so judged by the profile's own split and two runs each): the reopen on a save carrying

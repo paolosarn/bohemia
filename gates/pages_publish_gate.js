@@ -151,7 +151,8 @@ ok('every outward reference from a slice EXISTS on disk' +
    10-minute timeout. Publishing the list, measured on ce14b189: 831 MB, 16,198 files. 260 MB is not reachable without
    cutting what the game loads: the fight's boards (92 MB), its sheets (79), the idles (77), the barber's people (88),
    the faces (46), the holds (40), the towns (30) are the game. Lossless shrinking was measured and is not worth it:
-   the boards are already lossy WebP, a lossless re-encode of the sheets saves 0 to 4%, the PNGs 2%.
+   the boards are already lossy WebP, a lossless re-encode of the sheets saves 0 to 4%, the PNGs 2% (PIL). AMENDED 11/14 (PLUMBER 8):
+   oxipng takes the PNGs 11 to 15% off with the same pixels, and the deploy now does it (tools/bohemia_squeeze_site.py), never the repo.
    THE CAP IS 900 MB: under GitHub Pages' documented 1 GB limit with room to spare, about 8% over today. A lane whose
    art takes the list past it finds out here, the moment it does, and makes room (a stand-in out, an old tab's picture
    out of what a page names), rather than the deploy finding out at minute ten. */
@@ -167,6 +168,24 @@ ok('the VOTE tab\'s registry and sort are published', shipped('records/target/BO
     if (!v || /^(https?:|data:)/.test(v) || !/\.[A-Za-z0-9]+$/.test(v)) continue;
     const rel = path.posix.normalize(path.posix.join('slices', v)); if (fs.existsSync(rel) && !shipped(rel)) off.push(it.id + ' -> ' + rel); }
   ok('every card the VOTE tab can draw (' + shown.length + ') has what it shows on the list' + (off.length ? ' — ' + off.slice(0, 4).join(', ') : ''), off.length === 0);
+}
+{ /* RULE 6 AND ITS TELLS (PLUMBER 8, 11/14/26, the coordinator's rule 447 round; tools/bohemia_publish_list.js DEAD_KINDS, NOT_WHOLE):
+     the list leaves out, inside a folder taken whole, a kind of file no code builds, and does not take whole a folder the code names
+     only in prose. Measured on main 843a15e1: 903.6 -> 847.5 MB. The day a published page or script starts building one of those names
+     (its tell), that is red here, before a deploy can 404 it on his phone. */
+  const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const wholeTell = (dir) => new RegExp('(^|[^\\w])' + esc(dir.startsWith('slices/') ? dir.slice(7) : dir.replace(/^records\//, '')) + "/?['\"`]");
+  const CODE_FILES = LIST.files.filter(f => /\.(html?|m?js)$/i.test(f)).map(f => { let t = ''; try { t = fs.readFileSync(path.join(ROOT, f), 'utf8'); } catch (e) {} return [f, t]; });
+  const hitsOf = (re, files) => files.filter(([, t]) => re.test(t)).map(([f]) => f);
+  const dk = (PL && PL.DEAD_KINDS) || [], nw = [...((PL && PL.NOT_WHOLE) || new Map()).keys()];
+  const bad = [];
+  for (const k of dk) for (const f of hitsOf(k.tell, CODE_FILES)) bad.push(k.dir + ' ' + k.kind + ' <- ' + f);
+  for (const d of nw) for (const f of hitsOf(wholeTell(d), CODE_FILES)) bad.push(d + ' (whole) <- ' + f);
+  ok('rule 6: no published code builds a kind of file the list leaves out (' + dk.length + ' kinds, ' + nw.length + ' folders not whole, ' + CODE_FILES.length + ' code files read)' + (bad.length ? ' — ' + bad.slice(0, 3).join(' | ') : ''), dk.length > 0 && bad.length === 0);
+  const PLANT = [['p.js', "img.src = BARBER + look + '/rig_portrait_' + turn + '.png';"], ['q.js', "fetch(dir + '/rig.json')"], ['r.js', "u = BASE + look + '/raw_portrait_S.png'"],
+    ['s.js', "im.src = '../records/target/animation/' + k + '.webp'"], ['t.html', "f.src = 'settlement_people/' + id + '.webp'"]];
+  const caught = PLANT.filter(([, t]) => dk.some(k => k.tell.test(t)) || nw.some(d => wholeTell(d).test(t))).length;
+  ok('rule 6 PLANTED: five pages that build those names (a side portrait, a sidecar, a raw portrait, an animation shot, a flat sheet) are each caught (' + caught + ' of 5)', caught === 5);
 }
 
 // ---- 4: the ONE-LINK LAW's own page is in the published set ------------------------
