@@ -1,3 +1,11 @@
+JOBS (jobs-01gkdyuv): 11/14 LATEST -- BUILD 11/14s - THE NIGHT, THE TURN AND THE BID, BUILT, NOT YET SEEN (rules 447, 441; rows 610, 614, 491). ROW 610 AS HE MEANT IT: a
+board he has opened is what he read until its window ends (the town's screen marks it read; no floor, no news, no new face; only a job
+he took or finished leaves). Three new kinds as legs rows: WATCH a place through a night, a job that turns HALFWAY (finish and fight,
+give it back paid there, walk away), TAKE A SIDE (two towns bid on one place). Fifteen jobs: three escorts, three watches, three turns,
+three bids of two rows; four pay into his own place (HOME BASE's seam). On the phone, demo and alpha both ways: one of each played to the
+pay; a read board the same through the day turning. Gate THE NIGHT, THE TURN AND THE BID. VOTE jobs-the-night-the-turn-and-the-bid-11-14 (STAND-IN), sha 1ed2a5209. Record records/BOHEMIA_JOBS_THE_NIGHT_THE_TURN_AND_THE_BID_11_14_26.md.
+[bb Battle Brothers' Return Item turns on the road with a shady man's offer; ours turns halfway with the truth, and he picks the side]
+[analog horror: the board you read last night is the board you get, the same faces, even after the one who hired you stopped answering]
 FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). Its block is handoffs/FIGHT_SCREEN.md.
 The sheet a finger on a man's face opens is rebuilt whole: his face pinned on the house's dark board (gold his, red theirs), his name, level and trade, the one thing
 to know about a man of theirs, UI THREE's eight bars each with its word, his armour and nerve, his weapon and its line in a well (damage a bar, no digits), every skill
