@@ -110,8 +110,9 @@ gates/the_item_card_and_the_item_box_gate.js (new); marked blocks in slices/BOHE
 (__UI_THREE_ITEMS__ and one script tag), slices/BOHEMIA_ROSTER_SCREEN.html and slices/BOHEMIA_SPOILS_SCREEN.html (one script
 tag each), slices/bohemia_ui_weapon_card.js (one marked line in show()). Nothing of UI 9's files touched
 (bohemia_ui_no_scroll.js, bohemia_ui_crashbox.js); the loading menu untouched (rule 358).
-Pictures: records/target/ui3_item_card_and_box_11_7/ (before_and_now.webp, the_boxes_and_the_strip_up_close.webp,
-the_loot_now.webp).
+Pictures: records/target/ui3_item_card_and_box_11_7/before_and_now.webp (the card's own). The two close-ups
+(the_boxes_and_the_strip_up_close.webp, the_loot_now.webp) left the published site 11/14 for its 900 MB cap (rule 447(b)); they are in
+git at 831744b7.
 
 [bb Battle Brothers' item tooltip puts a small picture beside every number of a weapon; its stash is a grid of dark recessed
 slots. Ours drops the words and lays each number on its bar to the game's own top.]

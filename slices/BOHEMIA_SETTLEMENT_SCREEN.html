@@ -1109,6 +1109,55 @@ function shopArrows(box){
   });
 })();
 /* ==== end __NOTHING_SHOWS_UNTIL_HE_TAPS__ ==== */
+/* ==== __NO_LINE_CUT_WHILE_THERE_IS_GLASS__ (UI THREE 11/14, ask row 612, EYES 11/11 'CUT WORDS LEFT: the Elder's line on the board
+   upright; a retinue line sideways'; rule 447(b): what he can feel first). MEASURED (UI 9's fit planted as the shell plants it,
+   BLUE DIAMOND): upright, the board's Elder speaks four lines and UI 9's density held him to three ('...the pay i'), the sheet's top
+   at 590 of 844 with the town picture empty above it; sideways, the hall's three retinue lines need three and four lines and were
+   held to two ('...a camp is wa'), the sheet's top at 136 of 390. UI 9's density lines (bohemia_ui_no_scroll.js, untouched) are how
+   a crowded sheet fits; this lets a line it cut show WHOLE when the sheet still fits with it (the measure UI 9 itself uses: nothing
+   runs past its box), one line at a time, and leaves the cut where it does not (the fullest hall, a crowded board). Before UI 9
+   measures again (its pieces change, the glass turns) every line goes back to UI 9's own rule, so its fit always sees its own
+   sheet; after it settles, this runs again. A cut line that stays cut still opens on a tap where its row does (.retf.open). */
+(function(){
+  var st = document.createElement('style');
+  st.textContent = 'html body #sheet .ui3-whole:not(#ui3-w){-webkit-line-clamp:unset!important;line-clamp:unset!important;display:block!important;overflow:visible!important;max-height:none!important}';
+  (document.head || document.documentElement).appendChild(st);
+  var LOG = window.__UI3_612 = { whole: 0, kept: 0, runs: 0, last: [] }, T = 0;
+  function sheet(){ return document.getElementById('sheet'); }
+  function over(e){ return !!e && e.scrollHeight > e.clientHeight + 1 && /(auto|scroll|hidden)/.test(getComputedStyle(e).overflowY); }
+  /* UI 9's own measure (nothing runs past its box); the sheet's own most height (72% of the glass) keeps it on the glass, and its
+     place is not read here because it slides in */
+  function fits(sh){ return !over(sh) && !over(document.getElementById('sbody')); }
+  function strip(){ var sh = sheet(); if (!sh) return; [].forEach.call(sh.querySelectorAll('.ui3-whole'), function(e){ e.classList.remove('ui3-whole'); }); }
+  function whole(){
+    T = 0; var sh = sheet(); if (!sh || !sh.classList.contains('on') || !/\bns-d\d/.test(sh.className)) return;
+    LOG.runs++; LOG.last = [];
+    if (!fits(sh)) return;   /* UI 9's own fit is not met: nothing more is asked of the glass */
+    [].forEach.call(sh.querySelectorAll('#sbody p, #sbody .rdoes'), function(e){
+      if (e.classList.contains('ui3-whole')) return;
+      var cs = getComputedStyle(e), cl = cs.webkitLineClamp; if (!cl || cl === 'none' || e.scrollHeight <= e.clientHeight + 1 || e.getBoundingClientRect().width < 2) return;
+      e.classList.add('ui3-whole');
+      if (fits(sh)) { LOG.whole++; LOG.last.push('whole: ' + e.textContent.trim().slice(0, 40)); }
+      else { e.classList.remove('ui3-whole'); LOG.kept++; LOG.last.push('kept cut: ' + e.textContent.trim().slice(0, 40)); }
+    });
+  }
+  function later(){ if (T) clearTimeout(T); T = setTimeout(whole, 120); }
+  function watch(){
+    var sh = sheet(); if (!sh) return setTimeout(watch, 300);
+    /* UI 9 sets its density on #sheet once it has measured: then, a beat later, the lines that fit come whole */
+    new MutationObserver(later).observe(sh, { attributes: true, attributeFilter: ['class'] });
+    /* its pieces change: back to UI 9's lines at once, before its next measure (it measures on the next frame) */
+    /* (UI 9 measures again only when the count of its pieces changes, its own signature; a word that redraws in place is not a
+       new shape, so nothing here is undone for it) */
+    var n0 = -1;
+    new MutationObserver(function(){ var n = sh.querySelectorAll('*').length; if (n === n0) return; n0 = n; strip(); later(); }).observe(sh, { childList: true, subtree: true });
+    addEventListener('resize', function(){ strip(); later(); });
+    later();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch); else watch();
+  window.BohemiaWholeLines = { run: whole, strip: strip, log: function(){ return LOG; } };
+})();
+/* ==== end __NO_LINE_CUT_WHILE_THERE_IS_GLASS__ ==== */
 /* ---------- SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18; Paolo 10/24 on his PC: 'every time selling shit was so
    painful, one of the things I hated most about Battle Brothers'; the row: 'selling my dog shit inventory for some batteries'):
    Battle Brothers sells one piece a click. Here the junk goes in ONE tap, the button says how many pieces and what they
