@@ -377,6 +377,12 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/14 (ag) LATEST -- BUILD 11/14x THE ROAD CREWS DRESSED (rule 447, ask 614; ask 238's next batch): six hall
+men the road gangs wear (the thugs: anarchists_0, anarchists_1; the raiders: cartel_0, cartel_1, cartel_2, mob_0) re-dressed in place
+out of the old blue, no new person and no new sheet (the site was over its cap at the start): 4 or 5 layers, leather on all six, no blue
+cloth; every index count the same; on the phone both ways. VOTE character-the-road-crews-dressed-11-14. NEXT: nine hall men at three
+layers, then BESTIARY's stand-ins once the site has room. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/11 (af) LATEST -- BUILD 11/11y THE HIRES DRESSED (rule 427(b)'s 'then the hires', ask 238): the six men
 at the hall who wore two layers (anarchists_2, colorful_0, homeless_0, reds_0, reds_1, remnants_0) re-dressed at the source and re-made
 through every sheet set each is in: 2 -> 4 layers, leather on four, no blue cloth; every index count the same, nobody dropped (the three

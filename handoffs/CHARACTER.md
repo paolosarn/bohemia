@@ -4,6 +4,29 @@ NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TO
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/14): 11/14 (ag) LATEST -- *** rule 447 (one tight batch, then stop) SHIPPED BUILD 11/14x: THE ROAD CREWS DRESSED, 6 MEN. ***
+TAB: the road fights (the toll crew's thugs, the raiders), the hall (their faces), and hired, the crew screen and every fight; VOTE
+(character-the-road-crews-dressed-11-14, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_ROAD_CREWS_DRESSED_11_14_26.md.
+WHY THESE: the site was 903.6 MB of 900 at the start (rule 447(b): no new people until it is trimmed; PLUMBER 8 trimmed it to 847.2 the
+same round), so no new person and no new sheet: six hall men the road gangs wear (anarchists_0, anarchists_1: the thugs; cartel_0,
+cartel_1, cartel_2, mob_0: the raiders and young raiders) re-dressed in place out of the old blue (steel capes, ash hoodies, black denim,
+slate pants, storm sweats, slouch boots). Every one 4 or 5 layers, leather on all six, strict blue 0 in 100, cool 1.7 to 8.5 (was 9.9 to
+34.5); the Cartel keeps its cape in charcoal, the Mob its mantle; the card is lossless WebP (225 KB; the last two were 600 to 900 KB PNG).
+PROOF: every index count the same as main (the bosses kept); only the six's files and entries moved; the publish list 837.0 MB against
+main's 836.5 (three melee 'b' sheets), the card in WebP; THE PACKERS MERGE 4/0, WHAT A MAN HOLDS 17/0, THE THING IN HIS HAND 29/0, NO TWO
+PEOPLE ALIKE 23/0, THE SHEETS ARE PACKED 4/0, DEMO BUILD 25/0, TRENCHCOAT 12/0, THE HIRE SHOWS THE WHOLE MAN 10/0, THE TOWN'S ACTIVITIES
+22/0; EVERYBODY IDLES --quick 35/3 and THE FACE IS HIS OWN FACE 17/1 are clean main's reds, none of the six; on the phone upright and on
+its side (REDS, code HRS2DR): the hall, the week's hall, anarchists_0 hired, the crew screen, the map, the toll crew's fight with
+anarchists_1 across; 0 page errors before and after.
+TRAP 4 (ANIMATION's, NOTE on its board): the idles packer lays a render on the still by integer ground pixels; a man whose ground sits on
+.5 is laid one row off and reads NO MATCH (0.945 against 0.999 unshifted), keeps his old map cells and loses his work. mob_0 was moved off
+the edge with his own red-clay boots. Read the pack log for NO MATCH after every pack.
+NEXT (in order): (1) the nine hall men still at three layers (blues_2, caravans_1, colorful_1, network_1, network_2, reds_2, remnants_2,
+trades_1, volunteers_2), homeless_1 and mob_2 (blue pieces); (2) BESTIARY's stand-in types as new people once the site has room, every
+sheet lossless WebP (PLUMBER 8's rules); (3) the nine enemies' idles and held clips (ANIMATION's).
+[bb Battle Brothers' brigands are dressed by what they took off their last victims: leather and plain cloth, nothing uniform.]
+[analog horror: the men on the road wear what the valley's dead wore, and none of it is blue any more.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/10): 11/11 (af) LATEST -- *** [the clothes look real] rule 427(b) 'then the hires' SHIPPED BUILD 11/11y: THE HIRES DRESSED, 6 MEN. ***
 TAB: the hall (their faces), and hired, the crew screen and every fight; the road gangs you fight wear all six; VOTE
 (character-the-hires-dressed-11-11, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_HIRES_DRESSED_11_11_26.md.
