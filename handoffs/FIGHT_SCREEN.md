@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [why line] SHIPPED @@SHA@@, BUILD 11/14k - EVERY FIGHT SAYS WHY, BUILT, NOT YET SEEN (rule 449(a); ask row 617). VOTE fight-screen-the-why-line-11-14 (stand_in).
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [why line] SHIPPED 4a3eaf088, BUILD 11/14k - EVERY FIGHT SAYS WHY, BUILT, NOT YET SEEN (rule 449(a); ask row 617). VOTE fight-screen-the-why-line-11-14 (stand_in).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_WHY_LINE_11_14_26.md.
 WHAT: every fight opens with ONE sentence saying why this group is on him, from a face. The table is records/target/bb/fight_reasons.json
 (13 hows, 18 whos, 17 reasons, 67 rules, 163 sentences, draft:true; a modder edits it, MODDING.md says how); the chooser is
