@@ -706,6 +706,17 @@ function dearFirst(list, priceOf, worthOf){
     .sort(function(a, b){ return (b.p - a.p) || (b.w - a.w) || (a.i - b.i); }).map(function(o){ return o.x; });
 }
 window.BohemiaDearestFirst = dearFirst;
+/* the order as it stood when he walked in, kept for the visit (rule 250: nothing moves while he browses): the stall's prices move with
+   every sale (its supply sets them), and a list sorted again at every sale put a row under his second tap that was not the one he
+   lit. A line that is new this visit goes in at its price's place */
+function dearVisit(key, list, idOf, priceOf, worthOf){
+  var V = S.dearVisit; if(!V || V.visit !== S.visit) V = S.dearVisit = {visit:S.visit, o:{}};
+  var o = V.o[key];
+  if(!o) o = V.o[key] = dearFirst(list, priceOf, worthOf).map(idOf);
+  else list.forEach(function(x){ var id = idOf(x); if(o.indexOf(id) >= 0) return; var p = +(priceOf(x) || 0), j = 0;
+    while(j < o.length){ var y = list.filter(function(z){ return idOf(z) === o[j]; })[0]; if(y && +(priceOf(y) || 0) < p) break; j++; } o.splice(j, 0, id); });
+  return list.slice().sort(function(a, b){ return o.indexOf(idOf(a)) - o.indexOf(idOf(b)); });
+}
 /* ==== end __DEAREST_FIRST__ ==== */
 /* the shelf as it stood when he walked in: a piece he buys leaves its place empty for the visit, so nothing slides into it */
 function shelfView(k){
@@ -1503,7 +1514,7 @@ function stallSheet(k, body, acts, line){
   var said = short ? short[seedOf(S.place.name + ':' + stallWeek()) % short.length].text.replace(/\{sell\}/g, moneyWord(sh.p.p)).replace(/\{n\}/g, sh.p.needLeft) : null;   /* ECONOMY's words (draft:true): the town short of a thing says so first */
   body.appendChild(speak(k, line || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
   if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
-  dearFirst(rows, function(r){ return stallPrice(r).buy; }, function(r){ return r.units; }).forEach(function(r){ acts.appendChild(stallLine(r)); });   /* __DEAREST_FIRST__ */
+  dearVisit('stall', rows, function(r){ return r.key; }, function(r){ return stallPrice(r).buy; }, function(r){ return r.units; }).forEach(function(r){ acts.appendChild(stallLine(r)); });   /* __DEAREST_FIRST__, kept for the visit */
   if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
   try{ acts.appendChild(tradeLines()); }catch(e){}   /* __TRADE_GOODS_CARRIED__ (rule 266(a)): the goods, made here and carried */
   try{ acts.appendChild(stallGearLines()); }catch(e){}   /* FINISHER 11/2 __EVERY_STALL_BUYS__ (rule 265(b)): his gear too */
@@ -1524,7 +1535,7 @@ function stallGearPays(it){ var f = 1;
 function stallGearList(){ return (S.stash || []).map(function(it, i){ return {it:it, i:i}; }).filter(function(x){ return x.it && x.it.id && !x.it.trade && (x.it.base || x.it.price); }); }   /* __TRADE_GOODS_CARRIED__: a good has its own line */
 function stallGearLines(){
   var w = document.createElement('div'); w.className = 'stgear'; w.id = 'stallgear';
-  var L = dearFirst(stallGearList(), function(x){ return stallGearPays(x.it); }, function(x){ return dearWorth(x.it); }), h = document.createElement('div'); h.className = 'slots';   /* __DEAREST_FIRST__ */
+  var L = dearVisit('gear', stallGearList(), function(x){ return x.it; }, function(x){ return stallGearPays(x.it); }, function(x){ return dearWorth(x.it); }), h = document.createElement('div'); h.className = 'slots';   /* __DEAREST_FIRST__, kept for the visit */
   h.textContent = L.length ? 'YOUR GEAR: THEY TAKE ANY OF IT' + (S.place.tier === 'fortress' ? '' : ', A SMALL PLACE PAYS LESS') : 'YOUR GEAR: NOTHING IN THE STASH';   /* draft:true */
   w.appendChild(h);
   L.forEach(function(x){
@@ -1622,7 +1633,7 @@ function tradeLine(row){
 function tradeLines(){
   var w = document.createElement('div'); w.className = 'stgoods'; w.id = 'stallgoods'; var R = tradeRows(); if(!R.length) return w;
   var h = document.createElement('div'); h.className = 'slots'; h.textContent = 'TRADE GOODS: BUY WHERE IT IS MADE, SELL WHERE IT IS NOT'; w.appendChild(h);   /* draft:true */
-  dearFirst(R, function(r){ var x = tradeSides(r); return x.buy && x.buy.p != null ? x.buy.p : x.sell && x.sell.p; }, function(){ return 0; }).forEach(function(r){ w.appendChild(tradeLine(r)); });   /* __DEAREST_FIRST__ */
+  dearVisit('trade', R, function(r){ return r.key; }, function(r){ var x = tradeSides(r); return x.buy && x.buy.p != null ? x.buy.p : x.sell && x.sell.p; }, function(){ return 0; }).forEach(function(r){ w.appendChild(tradeLine(r)); });   /* __DEAREST_FIRST__, kept for the visit */
   return w;
 }
 function tradeTap(key, side, now1){
