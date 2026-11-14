@@ -1,3 +1,12 @@
+HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14g - EVERY WORD ON THE DESK, BUILT, NOT YET SEEN (ask row 607 with FIXES 2;
+rules 441, 447). Record: records/BOHEMIA_HOME_BASE_EVERY_WORD_ON_THE_DESK_11_14_26.md.
+- Each build on his place's desk: its cost on one line, what it gives on the next, nothing cut upright; the row 44 px, the desk under
+  half the glass. YOU's line measured whole. Gate YOUR PLACE, PLANTED D8 (no word cut; planted: a squeezed line caught): upright 83/0,
+  sideways 81/0; the alpha probed. VOTE home-base-every-word-on-the-desk-11-14 (STAND-IN).
+- NEXT (rule 445): a place to train, a place to craft, a wall that changes a defence fight at his place; a job done and people saved
+  leaving a thing at his place through the seam (BohemiaHomeMap.give).
+
+11/11 ROUND SIX (BUILD 11/11j, WHAT YOU BUILD OPENS A DOOR), kept:
 HOME BASE (home-base-01gkdyuv): 11/11 LATEST -- BUILD 11/11j - WHAT YOU BUILD OPENS A DOOR, BUILT, NOT YET SEEN (rule 445(b), rules
 343, 438, 441; ask line 571). Record: records/BOHEMIA_HOME_BASE_WHAT_YOU_BUILD_OPENS_A_DOOR_11_11_26.md.
 - home_base.json opens{}: at his place THE STALL is shut until a VENDOR STALL stands (TRADE), GUNS AND PLATE until a SHED (MEND), THE

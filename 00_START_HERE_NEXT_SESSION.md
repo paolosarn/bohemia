@@ -245,14 +245,13 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/11 LATEST -- BUILD 11/11j - WHAT YOU BUILD OPENS A DOOR, BUILT, NOT YET SEEN (rule 445(b); ask line 571):
-at his place the stall, GUNS AND PLATE and the clinic are shut until a vendor stall, a shed and a roof stand; a tap says what opens it
-(BUILD IT to the desk), built the same tap trades, mends, heals; the desk says YOUR PLACE CAN TRADE / MEND / HEAL. Sideways all eight
-builds fit the glass. Gate YOUR PLACE, PLANTED D15. VOTE home-base-what-you-build-opens-a-door-11-11 (STAND-IN). OWED: the camp picture
-still draws the shops; STORE and TRAIN have no building. Earlier: 11/10u EVERYTHING HIS LIVES THERE (the seam), 11/10n WHAT YOU BUILD
-PAYS, 11/10e ONLY THE PLACE YOU PLANT IS YOURS, 11/9h YOUR PLACE REMEMBERS, 11/9d YOUR PLACE, PLANTED. The whole block: handoffs/HOME_BASE.md.
-[bb Battle Brothers' towns come with their buildings; ours: your place has none of them until you put them up.]
-[analog horror: the stall stands in the picture with nobody behind it. It says nobody trades here yet, in your own voice.]
+HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14g - EVERY WORD ON THE DESK, BUILT, NOT YET SEEN (ask row 607): each build on his
+place's desk says its cost and what it gives on two lines, nothing cut on a phone upright, the desk under half the glass; gate YOUR
+PLACE, PLANTED D8. VOTE home-base-every-word-on-the-desk-11-14 (STAND-IN). Earlier: 11/11j WHAT YOU BUILD OPENS A DOOR (the stall, the
+gun shop and the clinic shut until built), 11/10u EVERYTHING HIS LIVES THERE (the seam), 11/10n, 11/10e, 11/9h, 11/9d. NEXT: train,
+craft, a wall in a defence fight; a job done and people saved at his place. The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers' building list never cuts a word; ours now says it whole on a phone.]
+[analog horror: the price on two lines, typed like a receipt; nothing trails off.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

@@ -300,6 +300,13 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
         return { t, plan: window.__HOME_PLAN || null, canvas: !!c, press, open: BohemiaSettlement.state.open }; });
       ok('D8 the desk: A NIGHT, LIVING HERE, NAME IT', dk.open === 'build' && /A NIGHT/.test(dk.t) && /LIVING HERE/.test(dk.t) && /NAME IT/.test(dk.t), dk.t.slice(0, 200).replace(/\n/g, ' '));
       ok('D8 the plan: ' + (dk.plan && dk.plan.lots) + ' lots on the road, ' + (dk.plan && dk.plan.open) + ' open, signs: ' + (dk.plan && dk.plan.signs.join(',')), dk.canvas && dk.plan && dk.plan.lots === 12 && dk.plan.open === 4 && dk.plan.signs.indexOf('POT') >= 0, JSON.stringify(dk.plan));
+      const cutOf = () => fr.evaluate(() => { const out = []; document.querySelectorAll('#sbody .act[data-build] em span, #sbody .act[data-build] > span, #sbody .say p').forEach(e => { if (e.scrollWidth > e.clientWidth + 1 || e.scrollHeight > e.clientHeight + 1) out.push(e.textContent.slice(0, 30)); }); return out; });
+      const cut8 = await cutOf();
+      ok('D8 row 607: no word on the desk is cut (each build\'s cost and what it gives, YOU\'s line)', dk.open === 'build' && !cut8.length, JSON.stringify(cut8));
+      await fr.evaluate(() => { const e = document.querySelector('#sbody .act[data-build="solar"] em span:last-child'); if (e) { e.dataset.w = e.style.width; e.style.width = '24px'; } });
+      const cut8p = await cutOf();
+      await fr.evaluate(() => { const e = document.querySelector('#sbody .act[data-build="solar"] em span:last-child'); if (e) e.style.width = e.dataset.w || ''; });
+      ok('D8 planted: one build\'s line squeezed, the cut is caught (' + cut8p.join(',') + ')', cut8p.length >= 1, JSON.stringify(cut8p));
       const small = dk.press.filter(p => p[1] < 44 || !p[2]);
       ok('D8 every press 44 px tall and on the glass (' + dk.press.length + ' presses)', dk.press.length >= 9 && !small.length, JSON.stringify(small));
       const nm = await fr.evaluate(() => { const b = [].slice.call(document.querySelectorAll('#sbody .hdesk button')).filter(x => /NAME IT/.test(x.textContent))[0]; if (!b) return false; b.click(); return true; });
