@@ -644,3 +644,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 620 | FOUND BY EYES 11/14: FREEZES OVER 1 S IN A BOSS FIGHT (a second browser running): 1.52 s and 1.27 s during THE POT (records/BOHEMIA_EYES_WALK_THE_11_11_SHIPS_11_14_26.md) | 441(c), 447 | PLUMBER (with row 613) | OPEN |
 | 621 | The combat card is ugly: make it awesome, big brain, FINAL (his answer to which part of the fight screen he hates most: the card) | 450(a) | FIGHT SCREEN | SENT 11/14: the card that opens a fight and the man's card inside it, rebuilt as finished pieces, the opening card first (it carries the why line) |
 | 622 | Any time anyone fires a shot: a muzzle flash on the screen, quick, the screen goes white, so the shot is felt | 450(b) | FIGHT SCREEN | SENT 11/14 |
+| 623 | (vote 11/14) Inside a building the ceiling shows over the fight at about 10%, really low, so he reads he is inside: the parking garage first | 451(a) | COMBAT THREE, COOK FIVE | SENT 11/14 |
+| 624 | (vote 11/14) The flood tunnels: the horizontal and vertical tunnels cross less often | 451(b) | COMBAT THREE | SENT 11/14 |
+| 625 | (vote 11/14) His own place has the camera angles, the security cam feeds, like every settlement | 451(c), 445 | HOME BASE | SENT 11/14 |
+| 626 | Every shop lists its items from the most expensive down | 452 | UI THREE | SENT 11/14 |
