@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY turn up', rule 447, rule 441): 11/14 LATEST -- BUILD 11/14i THE HORN AND THE BRUISER (SHA_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY turn up', rule 447, rule 441): 11/14 LATEST -- BUILD 11/14i THE HORN AND THE BRUISER (5d289bf3), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_TURN_UP_THE_HORN_AND_THE_BRUISER_11_14_26.md. VOTE bestiary-the-horn-and-the-bruiser-11-14.
 WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):
 | floor | his | the fight fields | short |
