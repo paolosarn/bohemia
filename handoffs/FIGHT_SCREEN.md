@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [man's sheet] SHIPPED @@SHA@@, BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). VOTE fight-screen-the-mans-sheet-11-14 (stand_in; before and after, upright and sideways).
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [man's sheet] SHIPPED 49ac82edf, BUILD 11/14r - THE MAN'S SHEET, BUILT, NOT YET SEEN (rule 450(a); ask row 621, one of three cards). VOTE fight-screen-the-mans-sheet-11-14 (stand_in; before and after, upright and sideways).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_MANS_SHEET_11_14_26.md. The teardown it answers: records/BOHEMIA_FIGHT_SCREEN_THE_TEARDOWN_OF_THE_CARDS_11_14_26.md (one line of it corrected
 against rule 224: the meet card's count as drawn men is his ruling).
 WHAT: the sheet a finger on a man's face opens is rebuilt whole: his face pinned on the house's dark board (gold his, red theirs), name, level, trade, a man of theirs' one thing to
