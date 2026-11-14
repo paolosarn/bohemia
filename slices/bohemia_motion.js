@@ -1910,7 +1910,9 @@
     var big = coverOf(b, glass);
     var oo = {}; for (var kk in o) oo[kk] = o[kk]; if (big > 0.1 && !o.small) oo.kind = 'mode';
     var m = begin(oo, 'real'); m.dir = dir; m.row.dir = dir; m.el = el; m.glass = glass; m.big = big > 0.25; m.row.cover = +big.toFixed(2);
-    var f = toDoc(doc, topBox(m.dir === 'out' ? o.to : o.from));
+    var tb0 = topBox(m.dir === 'out' ? o.to : o.from), f = toDoc(doc, tb0);
+    /* UI THREE 11/14 (rule 448, the gate THE PHONE IS THE DOOR): the record says where it came from or went back to, in the top glass */
+    if (tb0 && tb0.w > 0) m.row.at = [Math.round(tb0.x + tb0.w / 2), Math.round(tb0.y + tb0.h / 2)];
     if (!f || !(f.w > 0)) f = { x: b.x + b.w / 2 - 24, y: b.y + b.h / 2 - 16, w: 48, h: 32 };
     m.base = b; m.a = m.dir === 'out' ? b : f; m.end = m.dir === 'out' ? f : b;
     if (o.ready) { var ok = false; try { ok = !!o.ready(); } catch (e) { ok = true; } if (!ok) { m.waitReady = true; m.waitFrom = m.t0; realMine(el, 'opacity', '0'); } }
