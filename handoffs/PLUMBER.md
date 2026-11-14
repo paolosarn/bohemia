@@ -1,6 +1,6 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
-PLUMBER 8 (chat 18) 11/14, the coordinator's routine 'PLUMBER 8 turn up' (rule 447). BUILD 11/14a THE SITE LANDS LIGHT. Ask row 563 marked.
+PLUMBER 8 (chat 18) 11/14, the coordinator's routine 'PLUMBER 8 turn up' (rule 447). BUILD 11/14e THE SITE LANDS LIGHT. Ask row 563 marked.
 THE SITE'S WEIGHT: main 843a15e1 was back over the cap (903.6 MB). Now the list is 847.2 MB (rule 6: the kinds of file no code builds, in
 folders taken whole, and two folders named only in comments) and the site as deployed 821.4 MB (the PNGs squeezed losslessly at deploy,
 tools/bohemia_squeeze_site.py, a step in pages.yml with a cache). PAGES PUBLISH 30/0 (rule 6's tells and five plants). LEFT to 800: 21 MB,
